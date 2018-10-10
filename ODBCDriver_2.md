@@ -71,37 +71,7 @@ Altibase® Application Development
 >
 > \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
-------------------------------------------
 
-목 차
-
-[[서문]{.underline} 5](#_Toc323562051)
-
-[[이 매뉴얼에 대하여]{.underline} 6](#_Toc100055410)
-
-[[1.]{.underline} [개요]{.underline} 9](#개요)
-
-[[소개]{.underline} 10](#_WWID10000204)
-
-[[데이터 타입]{.underline} 11](#_WWID10000677)
-
-[[ODBC API]{.underline} 12](#_Toc392581394)
-
-[[2.]{.underline} [설치 및 설정]{.underline} 15](#설치-및-설정)
-
-[[설치]{.underline} 16](#_Toc392168336)
-
-[[설정]{.underline} 17](#_Toc392581400)
-
-[[3.]{.underline} [ODBC 프로그래밍]{.underline} 19](#_Toc487102120)
-
-[[연결 문자열 (Connection String)]{.underline} 20](#_WWID10000752)
-
-[[기본 프로그래밍 예제]{.underline} 21](#_Toc392581405)
-
-[[LOB 사용 예제]{.underline} 25](#_Toc392581409)
-
-[[찾아보기]{.underline} 27](#_Toc323731591)
 
 ### 이 매뉴얼에 대하여
 
@@ -159,7 +129,7 @@ Altibase® Application Development
 | 기울임꼴    | 구문요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 지정자, 강조 또는  책 제목 |
 | 고정폭 글꼴 | 단락 또는 예제 코드 내에 있는 명령어                         |
 
- 
+
 #### 온라인 매뉴얼
 
 Altibase 고객서비스포털([[http://support.altibase.com]{.underline}](http://support.altibase.com/))에서
@@ -829,10 +799,3 @@ fs.Close();
 
 }
 
-------
-
-찾아보기
-
-ＣConformance Level 12Connection String 20ＤDSN 추가 17ＩiODBC Driver
-Manager 17ＬLOB 25ＵunixODBC Driver Manager 17ㅅ설정 17설치 16소개
-10ㅇ연결 문자열 20ㅈ적합성 레벨 12
