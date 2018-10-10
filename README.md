@@ -1,1 +1,1 @@
-Altibase manuals will be placed here.
+Altibase manuals and technical documents will be placed here.
