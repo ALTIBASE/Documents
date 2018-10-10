@@ -1,12 +1,15 @@
-### Tip: v$repreceiver의 insert_success_count가 증가하는지 확인
+이하는 network 문제 의심 상황에서 확인방법들을 기술합니다.
+
+### v$repreceiver의 insert_success_count가 증가하는지 확인
 * 특정건 이후로 복제가 안되는 시점에서 standby 쪽의 v$repreceiver의 insert_success_count가 증가하는지 확인. 
-* (증가하지 않을 것으로 예상됨 - sync Insert도 insert_success_count 증가함 )
+* 특정건 이후로 복제가 안되는 시점에서는 이 값이 증가하지 않음.
+* 정상적인 상황이라면, replication sync시에도 insert_success_count 값이 증가함.
 
-2. 재현된 상황에서 pstack을 통해서 양쪽 sender/receiver의 상태 확인
- 2.1 receiver는 network 에서 대기하고 있을 것으로 보임 - recvXlog... select
- 2.2 sender도 network 에서 대기하고 있을 것으로 보임 - sendCmBlock... write - sender socket buffer 64k
+### pstack을 통해서 양쪽 sender/receiver의 상태 확인
+* receiver가 network 대기시의 콜스택 패턴 확인 : recvXlog... select
+* sender가 network 대기시의 콜스택 패턴 확인 : sendCmBlock... write - sender socket buffer 64k
 
-3. 재현된 상황에서 netstat을 통해서 네트워크 상황 확인 
+### netstat을 통해서 네트워크 상황 확인 
  3.1 sendq 및 recvq 확인 
  3.2 tcp retransmit 상황확인 (netstat 통계 확인 - 네트워크 중간에서 짤리고 있다면 retransmit이 지속적으로 발생할 것으로 예상됨)
 
