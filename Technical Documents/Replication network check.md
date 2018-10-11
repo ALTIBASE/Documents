@@ -40,4 +40,4 @@ tcpdump -i XXX(해당 interface) -vv -w  YYY(저장할 파일명..)
 * 11:31:20에 "TCP Previous segment not captured" 라고 찍혀 있는데 현재 시퀀스 번호가 다음 예상 시퀀스 번호보다 클 때 표시 됩니다. 이것은 패킷이 손실되어 발생하는것이라고 볼 수 있습니다.
 * standby에서 active로 31277078번 ack 의 "TCP Dup ACK"를 계속 보내는데 이것은 Standby에서 active로 31277078번 시퀀스의 패킷을 못받았으니까 다시 보내 달라고 보내는 패킷입니다. 그러나 active에서는 "TCP Dup ACK" 패킷을 받지 못하였는지 다른 패킷만 계속 보내고 있습니다.
 * 정리하면 replication sync 중간에 active에서 보낸 패킷이 하나 누락되었고 standby에서 패킷을 다시 요청하였는데 active에서 보내주지 않아 중단된 상황 입니다.
-
+![](Images/tcpdump_sample1.png)
