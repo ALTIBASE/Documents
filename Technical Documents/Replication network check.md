@@ -1,4 +1,4 @@
-이하는 network 문제 의심 상황에서 확인방법들을 기술합니다.
+이하는 replication 관련하여 network 문제 의심 상황에서 확인방법들을 기술합니다.
 
 ### v$repreceiver의 insert_success_count가 증가하는지 확인
 * 특정건 이후로 복제가 안되는 시점에서 standby 쪽의 v$repreceiver의 insert_success_count가 증가하는지 확인. 
