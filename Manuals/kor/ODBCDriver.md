@@ -104,7 +104,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
-개요
+1.개요
 ----
 
 이 장은 Altibase ODBC 드라이버를 소개한다.
@@ -213,7 +213,7 @@ Altibase ODBC 드라이버는 ODBC 3.51 스펙을 준수한다. 아래 표는 �
 | SQLTablePrivileges  | Level2 | O        |          |                                               |
 | SQLTables           | Core   | O        |          |                                               |
 
-설치 및 설정
+2.설치 및 설정
 ------------
 
 이 장은 Altibase ODBC 드라이버를 설치하고 설정하는 방법을 설명한다.
@@ -299,7 +299,7 @@ ODBC 애플리케이션에서 접근하려는 데이터베이스에 대한 DSN�
 \"OK\"를 누른 후 DSN 탭에서 방금 입력한 이름으로 데이터 원본이 추가된
 것을 확인할 수 있다.
 
-ODBC 프로그래밍
+3.ODBC 프로그래밍
 ---------------
 
 이 장은 Altibase ODBC 드라이버를 사용해서 ODBC 애플리케이션을 작성하는
@@ -527,7 +527,6 @@ SQL_C_SLONG, SQL_NUMERIC, 0, 0,
     SQLFreeConnect(hdbc);
     SQLFreeEnv(henv);
 }
-
 ```
 
 **실행결과**
@@ -549,11 +548,15 @@ Altibase의 LOB Locator 특성상 세션의 자동커밋을 해제한
 또한 다음과 같이 연결 문자열에서 LongDataCompat 속성을 ON으로 설정해야
 한다.
 
-\"DSN=ALTIBASE;LongDataCompat=ON\"
+```
+"DSN=ALTIBASE;LongDataCompat=ON"
+```
 
 또는
 
-\"DRIVER=ALTIBASE\_HDB\_ODBC\_64bit;User=SYS;Password=xxx;Server=127.0.0.1;PORT=20300;NLS\_USE=US7ASCII;LongDataCompat=ON\"
+```
+"DRIVER=ALTIBASE_HDB_ODBC_64bit;User=SYS;Password=xxx;Server=127.0.0.1;PORT=20300;NLS_USE=US7ASCII;LongDataCompat=ON"
+```
 
 아래는 C\#에서 BLOB 데이터를 테이블에 삽입하고 조회하는 예제이다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

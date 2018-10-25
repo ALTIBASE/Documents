@@ -118,9 +118,9 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
 | { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; ENAME ------------------------ SWNO HJNO HSCHOI . . . 20 rows selected. |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; <br/>ENAME<br/> ------------------------<br/> SWNO<br/> HJNO<br/> HSCHOI<br/> .<br/> .<br/> . <br/>20 rows selected. |
 | 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
-| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;    |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*;<br/> CONNECT *userID*/*password*; |
 | 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
 | 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
@@ -341,16 +341,16 @@ C/C++ 함수를 작성할 수 있다.
 대응하는 사용자 함수를 각각 작성해 보겠다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 procedure str_uppercase_proc( a1 in char(30), a2 out char(30) )
-
 function str_uppercase_func_int( a1 in char(30), a2 out char(30) ) return int
-
 function str_uppercase_func_char( a1 in char(30), a2 out char(30) ) return
 char(30)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 str_uppercase_proc에 대응하는 str_uppercase라는 사용자 정의 C/C++ 함수는 3개의
 인자를 필요로 하며, 함수 프로토타입은 아래와 같다.
 
+```
 extern "C" void str_uppercase( char\* str1, long long str1_len, char\* str2 );
+```
 
 여기에서 두 번째 인자는 첫 번째 인자에 입력될 문자열의 길이를 사용자 함수로
 전달하기 위해 사용된다.
@@ -360,7 +360,6 @@ str_uppercase_func_int 및 str_uppercase_func_char에 대응하는 사용자 정
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 extern "C" int str_uppercase_count( char* str1, long long str1_len, char* str2 );
 extern "C" char* str_uppercase_return( char* str1, long long str1_len, char* str2 );
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 아래는 사용자 정의 함수의 코드 예제이다.
 
@@ -477,11 +476,13 @@ void entryfunction(char* func_name, int arg_count, void ** args, void ** returnA
     변수(진입 함수의 마지막 인자)의 NULL 여부를 검사하는 코드가 함수 반환 타입에
     따라 다른 점을 주의해서 살펴보기 바란다.
 
+```
 if( \*returnArg != NULL ) // int 타입을 반환하는 경우
 
 ...
 
 if( returnArg != NULL ) // char\* 타입을 반환하는 경우
+```
 
 ##### 반환값의 타입 캐스팅
 
@@ -505,7 +506,9 @@ Altibase 서버가 동적 라이브러리 파일을 식별할 수 있도록 데�
 라이브러리 파일을 사용하고자 하는 경우, 데이터베이스에 아래와 같이 외부
 라이브러리 객체를 생성할 수 있다.
 
+```
 CREATE OR REPLACE LIBRARY lib1 AS 'shlib.so';
+```
 
 이제 Altibase는 shlib.so 동적 라이브러리 파일을 lib1이라는 외부 라이브러리
 객체로 식별한다.
@@ -579,22 +582,28 @@ parameters( a1, a1 LENGTH, a2 )
 아래 예제는 유닉스 계열에서 소스 파일을 컴파일 해서 동적 라이브러리를 만드는
 것을 보여준다.
 
-\$ g++ -g -fPIC -shared -o shlib.so extproc.cpp
+```
+$ g++ -g -fPIC -shared -o shlib.so extproc.cpp
+```
 
 사용자 정의 함수들과 진입 함수가 여러 파일로 이루어져 있다면, 아래와 같이 각
 소스 파일을 컴파일 한 후 링크하면 된다.
 
-\$ g++ -fPIC -c extproc.cpp
+```
+$ g++ -fPIC -c extproc.cpp
 
-\$ g++ -fPIC -c entry.cpp
+$ g++ -fPIC -c entry.cpp
 
-\$ g++ -shared -o shlib.so entry.o extproc.o
+$ g++ -shared -o shlib.so entry.o extproc.o
+```
 
 생성된 동적 라이브러리 파일은 Altibase 서버가 인식할 수 있는 위치로 이동해야
 한다. 그 위치는 \$ALTIBASE_HOME/lib이며, 이 위치는 사용자가 임의로 변경할 수
 없다.
 
-\$ mv shlib.so \$ALTIBASE_HOME/lib/
+```
+$ mv shlib.so $ALTIBASE_HOME/lib/
+```
 
 #### 외부 프로시저 호출
 
@@ -907,7 +916,9 @@ PARAMETERS( a1, a1 LENGTH, a2 );
 위 프로시저에서 PARAMETER 절의 인자들로 보아, str_uppercase 함수의 프로토타입은
 아래와 같을 것이다.
 
-extern "C" void str_uppercase( char\* str1, long long str1_len, char\* str2 );
+```
+extern "C" void str_uppercase( char* str1, long long str1_len, char* str2 );
+```
 
 #### 예제
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
