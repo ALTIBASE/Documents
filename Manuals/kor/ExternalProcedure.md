@@ -477,11 +477,9 @@ void entryfunction(char* func_name, int arg_count, void ** args, void ** returnA
     따라 다른 점을 주의해서 살펴보기 바란다.
 
 ```
-if( \*returnArg != NULL ) // int 타입을 반환하는 경우
-
+if( *returnArg != NULL ) // int 타입을 반환하는 경우
 ...
-
-if( returnArg != NULL ) // char\* 타입을 반환하는 경우
+if( returnArg != NULL ) // char* 타입을 반환하는 경우
 ```
 
 ##### 반환값의 타입 캐스팅

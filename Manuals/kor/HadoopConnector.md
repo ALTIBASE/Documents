@@ -243,7 +243,7 @@ Altibase 사용시
     \$SQOOP_HOME/lib 폴더에 복사한다.
 
 ```
-% cp \$ALTIBASE_HOME/lib/Altibase.jar \$SQOOP_HOME/lib
+% cp $ALTIBASE_HOME/lib/Altibase.jar $SQOOP_HOME/lib
 ```
 
 ### Altibase 하둡 커넥터 설치
