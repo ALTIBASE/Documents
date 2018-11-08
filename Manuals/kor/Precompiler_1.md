@@ -1631,8 +1631,7 @@ VALUES (:s_gno,
 		<th colspan="2">출력 지시자 변수</th>	
     </tr>
     <tr>
-    	<td background="https://github.com/ALTIBASE/Documents/blob/master/Manuals/kor/media/Precompiler/diagonal.png?raw=true" width="160px" height="125px">
-        </td>
+    	<td><img src="media/Precompiler/diagonal.png" width="150px" height="100px"/></td>
     	<td>-1</td>
     	<td>-1 이외의 값</td>
     	<td>-1</td>
@@ -1688,6 +1687,7 @@ VALUES (:s_gno,
 입력 지시자 변수에서 그 값이 –1이 아니어도 내부적으로 참조해서 사용하는 경우가
 있다. 따라서 입력 지시자 변수를 사용할 경우 NULL이 아닌 경우도 그 값을 정확히
 지정해야 한다.
+
 
 입력 지시자 변수값이 –1이 아닌 경우, 호스트 변수 타입이 이나 이진 타입이면
 데이터베이스 서버에서는 지시자 변수값을 입력값의 길이로 인식하고 그 길이만큼
