@@ -1757,5 +1757,5 @@ ALTIBASE의 디스크 I/O는 기본적으로 리두 로그 파일과 데이터 �
 
 AIX에서 Altibase를 사용할 경우 메모리가 증가하는 현상(heapmin library bug)이
 발생한다. 이를 방지하기 위해서는 [IBM Support
-Potal]( http://www-01.ibm.com/support/docview.wss?uid=swg21110831 )(http://www-01.ibm.com/support/docview.wss?uid=swg21110831)에서
+Potal]( http://www-01.ibm.com/support/docview.wss?uid=swg21110831 )( http://www-01.ibm.com/support/docview.wss?uid=swg21110831 )에서
 해당 버전의 C/C++ compilers를 패치해야 한다.
