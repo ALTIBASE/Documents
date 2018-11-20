@@ -279,7 +279,7 @@ Altibase를 설치하고 운영하기 위해서 필요한 시스템 요구사항
 이 장에서 언급되는 요구사항과 권장사항은 일반적인 용도의 데이터베이스를 가정한
 것이다. 따라서 사용자의 데이터베이스 시스템이나 용도에 따라서 달라질 수
 있으므로, 시스템 요구사항에 대한 자세한 사항은 Altibase
-고객서비스포털([http://support.altibase.com](http://support.altibase.com/))로
+고객서비스포털([http://support.altibase.com](http://support.altibase.com/)로
 문의한다.
 
 #### 메모리
@@ -1757,5 +1757,5 @@ ALTIBASE의 디스크 I/O는 기본적으로 리두 로그 파일과 데이터 �
 
 AIX에서 Altibase를 사용할 경우 메모리가 증가하는 현상(heapmin library bug)이
 발생한다. 이를 방지하기 위해서는 [IBM Support
-Potal](http://www-01.ibm.com/support/docview.wss?uid=swg21110831)(http://www-01.ibm.com/support/docview.wss?uid=swg21110831)에서
+Potal]( http://www-01.ibm.com/support/docview.wss?uid=swg21110831 )(http://www-01.ibm.com/support/docview.wss?uid=swg21110831)에서
 해당 버전의 C/C++ compilers를 패치해야 한다.
