@@ -123,7 +123,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은 다음
 버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래 내용과 함께
-고객서비스포털(http://support.altibase.com/kr/)로 보내주시기 바랍니다.
+고객서비스포털( http://support.altibase.com/kr/ )로 보내주시기 바랍니다.
 
 -   사용 중인 매뉴얼의 이름과 버전
 
@@ -309,7 +309,7 @@ OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면,Alti
 
 서버에 OpenSSL이 설치되었다는 것을 확인하고, 허트블리드 버그에 감염되지 않았는지
 확인한다. 필요할 경우 OS에서 제공하는 패키지 매니저(e.g., RPM, Red Hat Linux)로
-설치하거나 http://www.openssl.org/source에서 직접 다운로드받아서 컴파일한다.
+설치하거나 http://www.openssl.org/source 에서 직접 다운로드받아서 컴파일한다.
 
 설치가 끝나면, 아래와 같이 설치된 OpenSSL 버전을 확인한다.
 
@@ -337,7 +337,7 @@ Altibase에서 SSL로 접속하여 사용하려면 다음의 프로퍼티를 설
     : 이 값은 서버와 클라이언트가 협의하고 사용할 수 있는 암호 알고리즘의 이름
     목록이다. 사용자의 보안 정책에 따라 한 개 이상의 암호를 사용할 수 있으며,
     암호는 콜론 (:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은
-    OpenSSL(http://www.openssl.org/)에서 확인하거나 아래처럼 명령어를 사용하여
+    OpenSSL( http://www.openssl.org/ )에서 확인하거나 아래처럼 명령어를 사용하여
     확인할 수 있다.
 
 ```
@@ -524,7 +524,7 @@ Altibase는 SSL을 사용하기 위해 SSL 연결을 위한 JDBC를 제공한다
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------|
 | ssl_enable       | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 true일 경우 SSL 커넥션을 생성하고, false일 경우 TCP 커넥션을 생성한다.                                                                                                                                                                             | [true \| false ] | false                                                                                                                     |
 | port             | 접속을 시도할 대상 서버의 포트번호를 지정한다. SSL 포트 번호가 적용되는 우선순위는 아래와 같다. ssl_enable이 true일 경우 port 값이 지정되었다면 우선 적용되고, 지정되지 않은 경우 ALTIBASE_SSL_PORT_NO 환경 변수의 값을 따른다. 하지만 ALTIBASE_SSL_PORT_NO의 값도 지정되지 않은 경우, 기본값 20300이 적용된다. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443                                                                          |
-| ciphersuite_list | 사용할 암호 알고리즘 목록이다. 암호명은 콜론(:)으로 구분된다. *SSL_RSA_WITH_RC4_128_MD5:SSL_RSA_WITH_RC4_128_SHA.*  만약 JRE가 이 알고리즘을 지원하지 않는다면, IllegalArgumentException이 나타난다.                                                                                                            | String           | [JRE가 지원하는 모든 cipher suite list](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
+| ciphersuite_list | 사용할 암호 알고리즘 목록이다. 암호명은 콜론(:)으로 구분된다. *SSL_RSA_WITH_RC4_128_MD5:SSL_RSA_WITH_RC4_128_SHA.*  만약 JRE가 이 알고리즘을 지원하지 않는다면, IllegalArgumentException이 나타난다.                                                                                                            | String           | [JRE가 지원하는 모든 cipher suite list]( http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html ) |
 
 ###### 인증을 위한 JDBC 프로퍼티
 
@@ -624,7 +624,7 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 | SSL_CERT   | 클라이언트의 인증서 파일 경로를 지정한다. 예) SSL_CERT=/cert/client-cert.pem                                                                                                                                                                                                                                                                                                                                                  | 없음         | NULL    |
 | SSL_KEY    | 클라이언트의 개인 키(private key)가 저장된 파일 경로를 지정한다. 예) SSL_KEY=/cert/client-key.pem                                                                                                                                                                                                                                                                                                                             | 없음         | NULL    |
 | SSL_VERIFY | Altibase 서버의 인증서를 검증할지 여부를 설정한다. 만약 검증에 실패하면 SSL Handshake 는 실패하고, SSL 통신은 더 이상 진행되지 않는다. 0(OFF): 서버의 인증서를 검증하지 않는다. 1(ON): 서버의 인증서를 검증한다. 예) SSL_VERIFY=0                                                                                                                                                                                             | 0: OFF 1: ON | 0 (off) |
-| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL(http://www.openssl.org/)에서 확인하거나 다음과 같이 명령어를 사용하여 확인할 수 있다. \$ openssl ciphers 예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA | 없음         | NULL    |
+| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나 다음과 같이 명령어를 사용하여 확인할 수 있다. \$ openssl ciphers 예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA | 없음         | NULL    |
 
 다음은 서버의 SSL 프로퍼티와 ODBC/CLI용 프로퍼티를 비교한 표이다.
 
