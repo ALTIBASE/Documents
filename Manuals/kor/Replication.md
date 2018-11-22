@@ -110,13 +110,13 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 | 규칙         | 의미                                                         | 예제                                                         |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
 | { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee;<br/> ENAME<br/>  -----------------------<br/> SWNO<br/>  HJNO<br/>  HSCHOI  <br/>.<br/> . <br/>. <br/>20 rows selected. |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; <br/>ENAME<br/> ------------------------<br/> SWNO<br/> HJNO<br/> HSCHOI<br/> .<br/> .<br/> . <br/>20 rows selected. |
 | 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
-| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; <br/>CONNECT *userID*/*password*; |
-| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 컬럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*;<br/> CONNECT *userID*/*password*; |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
 | 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### 관련 자료
@@ -1199,52 +1199,52 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
 있다. 사용자가 세션에 이중화 모드를 지정하지 않은 경우 이중화 기본 모드로 동작할
 것이다. 기본 모드를 지정하지 않으면 이중화는 LAZY 모드로 동작할 것이다.
 
--   ***replication_name***  
-    생성될 이중화 객체의 이름을 명시한다. 지역 서버와 원격 서버에 동일한 이름을
-    설정해야 한다.
+- ***replication_name***  
+  생성될 이중화 객체의 이름을 명시한다. 지역 서버와 원격 서버에 동일한 이름을
+  설정해야 한다.
 
--   ***FOR ANALYSIS \| FOR ANALYSIS PROPAGATION***  
-    XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*을
-    참고한다.
+- ***FOR ANALYSIS \| FOR ANALYSIS PROPAGATION***  
+  XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*을
+  참고한다.
 
--   ***FOR PROPAGABLE LOGGING \| FOR PROPAGATION***  
-    이중화 수신자가 전송받은 로그를 복제하기 위해 FOR PROPAGABLE LOGGING을
-    사용하여 로그를 기록한 후, 복제된 로그가 다른 원격 서버로 전송하기 위해 FOR
-    PROPAGATION을 사용한다. 이 기능을 사용할 때 recovery option과 함께 사용할 수
-    없다.
+- ***FOR PROPAGABLE LOGGING \| FOR PROPAGATION***  
+  이중화 수신자가 전송받은 로그를 복제하기 위해 FOR PROPAGABLE LOGGING을
+  사용하여 로그를 기록한 후, 복제된 로그가 다른 원격 서버로 전송하기 위해 FOR
+  PROPAGATION을 사용한다. 이 기능을 사용할 때 recovery option과 함께 사용할 수
+  없다.
 
--   ***as master 또는 as slave***  
-    해당 서버가 Master 인지 Slave 인지를 지정한다. 만약 아무것도 지정하지 않으면
-    기존의 REPLICATION_INSERT_REPLACE 또는 REPLICATION_UPDATE_REPLACE 프로퍼티를
-    사용하는 방식과 동일하다. Handshaking시 다음의 조합일 경우에만 성공한다: 0과
-    0, 1과 2, 또는 2와 1. 다른 조합은 실패할 것이다. (0: 지정하지 않은 경우, 1:
-    Master, 2: Slave)
+- ***as master 또는 as slave***  
+  해당 서버가 Master 인지 Slave 인지를 지정한다. 만약 아무것도 지정하지 않으면
+  기존의 REPLICATION_INSERT_REPLACE 또는 REPLICATION_UPDATE_REPLACE 프로퍼티를
+  사용하는 방식과 동일하다. Handshaking시 다음의 조합일 경우에만 성공한다: 0과
+  0, 1과 2, 또는 2와 1. 다른 조합은 실패할 것이다. (0: 지정하지 않은 경우, 1:
+  Master, 2: Slave)
 
--   ***remote_host_ip***  
-    원격 서버의 IP 주소값
+- ***remote_host_ip***  
+  원격 서버의 IP 주소값
 
--   ***remote_host_port_no*** 
-    원격 서버 수신 쓰레드의 포트 번호. 즉, 원격 서버의 Altibase 프로퍼티의
-    REPLICATION_PORT_NO에 해당하는 값이다.
+- ***remote_host_port_no***  
+  원격 서버 수신 쓰레드의 포트 번호. 즉, 원격 서버의 Altibase 프로퍼티의
+  REPLICATION_PORT_NO에 해당하는 값이다.
 
--   ***conn_type***  
-    원격 서버와의 통신 방법(TCP/ InfiniBand)이며, 기본값은 TCP이다.
+- ***conn_type***  
+  원격 서버와의 통신 방법(TCP/ InfiniBand)이며, 기본값은 TCP이다.
 
--   ***ib_latency***  
-    rsocket의 RDMA_LATENCY 옵션값. conn_type이 IB인 경우에만 입력 가능하다.
+- ***ib_latency***  
+  rsocket의 RDMA_LATENCY 옵션값. conn_type이 IB인 경우에만 입력 가능하다.
 
--   ***user_name***  
-    이중화할 테이블의 소유자 이름
+- ***user_name***  
+  이중화할 테이블의 소유자 이름
 
--   ***table_name***  
-    이중화할 테이블 이름
+- ***table_name***  
+  이중화할 테이블 이름
 
--   ***partition_name***  
-    이중화할 파티션 이름
+- ***partition_name***  
+  이중화할 파티션 이름
 
--   ***option_name***  
-    이중화 객체에 대한 부가 기능 이름. 지원하는 부가 기능에 대한 자세한 설명은
-    [이중화 부가 기능](#sql-반영-모드)에서 설명한다.
+- ***option_name***  
+  이중화 객체에 대한 부가 기능 이름. 지원하는 부가 기능에 대한 자세한 설명은
+  [이중화 부가 기능](#sql-반영-모드)에서 설명한다.
 
 #### 에러코드
 
