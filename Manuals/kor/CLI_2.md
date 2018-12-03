@@ -4834,7 +4834,9 @@ SQL_HANDLE_STMT인 S6 상태에서 함수가 불리우면 항상 SQL_ERROR와 SQ
       <td>S1*</td>
    </tr>
 </table>
-> \* *HandleType*이 SQL_HANDLE_STMT인 경우
+
+
+>  \* *HandleType*이 SQL_HANDLE_STMT인 경우
 >
 
 **SQLBindCol**
@@ -4851,6 +4853,7 @@ SQL_HANDLE_STMT인 S6 상태에서 함수가 불리우면 항상 SQL_ERROR와 SQ
 
 **SQLColumns, SQLGetTypeInfo, SQLPrimaryKeys, SQLProcedureColumns,
 SQLProcedures, SQLStatistics, SQLTables**
+
 <table>
    <tr>
       <th>S0 Unallocated</th>
@@ -4868,6 +4871,8 @@ SQLProcedures, SQLStatistics, SQLTables**
       <td>S => S6 </td>
    </tr>
 </table>
+
+
 **SQLConnect**
 
 | S0 Unallocated | S1 Allocated | S2 Prepared | S6 Infetch |
@@ -4910,6 +4915,8 @@ SQLConnect 참고
       <td> E => S1 </td>
    </tr>
 </table>
+
+
 **SQLExecute**
 
 <table>
@@ -4955,6 +4962,8 @@ if P => S2)
 </td>
    </tr>
 </table>
+
+
 **SQLFreeHandle**
 
 | S0 Unallocated | S1 Allocated | S2 Prepared | S6 Infetch |
@@ -4990,7 +4999,7 @@ if P => S2)
       <td>S0</td>
    </tr>
 </table>
-(1) 첫 번째 행은 *fOption*이 SQL_CLOSE인 경우
+(1) 첫 번째 행은  *fOption*이 SQL_CLOSE인 경우
 
 (2) 두 번째 행은 *fOption*이 SQL_DROP인 경우
 
