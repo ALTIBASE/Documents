@@ -1,3 +1,43 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Spatial SQL Reference](#spatial-sql-reference)
+    - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.공간 데이터의 개요](#1%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EA%B0%9C%EC%9A%94)
+    - [Spatial의 개념](#spatial%EC%9D%98-%EA%B0%9C%EB%85%90)
+    - [공간 데이터의 특징](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%ED%8A%B9%EC%A7%95)
+    - [공간 데이터 활용 용어](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9-%EC%9A%A9%EC%96%B4)
+  - [2.공간 질의어](#2%EA%B3%B5%EA%B0%84-%EC%A7%88%EC%9D%98%EC%96%B4)
+    - [GEOMETRY 데이터 타입](#geometry-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [GEOMETRY 표현 형식](#geometry-%ED%91%9C%ED%98%84-%ED%98%95%EC%8B%9D)
+    - [데이터 정의어](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%9D%98%EC%96%B4)
+    - [공간 함수](#%EA%B3%B5%EA%B0%84-%ED%95%A8%EC%88%98)
+    - [기본 함수](#%EA%B8%B0%EB%B3%B8-%ED%95%A8%EC%88%98)
+    - [공간 분석 함수](#%EA%B3%B5%EA%B0%84-%EB%B6%84%EC%84%9D-%ED%95%A8%EC%88%98)
+    - [공간 객체 생성 함수](#%EA%B3%B5%EA%B0%84-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%95%A8%EC%88%98)
+    - [Dimensionally Extended Nine Intersection Model(DE－9IM)](#dimensionally-extended-nine-intersection-modelde9im)
+    - [Altibase 공간 관계 연산자](#altibase-%EA%B3%B5%EA%B0%84-%EA%B4%80%EA%B3%84-%EC%97%B0%EC%82%B0%EC%9E%90)
+    - [예약어](#%EC%98%88%EC%95%BD%EC%96%B4)
+  - [3.응용 프로그램 개발](#3%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C)
+    - [API 사용 방법](#api-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+    - [응용 프로그램 작성 예](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%98%88)
+    - [Spatial API용 데이터 타입과 함수](#spatial-api%EC%9A%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EA%B3%BC-%ED%95%A8%EC%88%98)
+    - [핸들 및 에러 관리 함수](#%ED%95%B8%EB%93%A4-%EB%B0%8F-%EC%97%90%EB%9F%AC-%EA%B4%80%EB%A6%AC-%ED%95%A8%EC%88%98)
+    - [객체 생성 함수](#%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%95%A8%EC%88%98)
+    - [객체 검색 함수](#%EA%B0%9D%EC%B2%B4-%EA%B2%80%EC%83%89-%ED%95%A8%EC%88%98)
+    - [Endian 함수](#endian-%ED%95%A8%EC%88%98)
+  - [A.부록: Spatial 칼럼의 제약사항](#a%EB%B6%80%EB%A1%9D-spatial-%EC%B9%BC%EB%9F%BC%EC%9D%98-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+    - [GEOMETRY 칼럼에 대한 제약 사항](#geometry-%EC%B9%BC%EB%9F%BC%EC%97%90-%EB%8C%80%ED%95%9C-%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
+  - [B.부록: 스키마](#b%EB%B6%80%EB%A1%9D-%EC%8A%A4%ED%82%A4%EB%A7%88)
+    - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
+    - [샘플 데이터](#%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%84%B0)
+  - [C.부록: Geometry 참조 테이블](#c%EB%B6%80%EB%A1%9D-geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
+    - [Geometry 참조 테이블](#geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
+    - [관련 저장 프로시저](#%EA%B4%80%EB%A0%A8-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase® Application Development
 
 # Spatial SQL Reference

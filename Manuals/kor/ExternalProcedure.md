@@ -1,3 +1,29 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [C/C++ External Procedures Manual](#cc-external-procedures-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.C/C++ 외부 프로시저 소개](#1cc-%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%86%8C%EA%B0%9C)
+    - [C/C++ 외부 프로시저란?](#cc-%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EB%9E%80)
+  - [2.외부 프로시저 사용법](#2%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%82%AC%EC%9A%A9%EB%B2%95)
+    - [자료형과 데이터베이스 객체](#%EC%9E%90%EB%A3%8C%ED%98%95%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4)
+    - [기본 사용법](#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
+    - [관련 메타 테이블과 성능 뷰](#%EA%B4%80%EB%A0%A8-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+    - [관련 프로퍼티](#%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+  - [3.외부 프로시저용 SQL문](#3%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9A%A9-sql%EB%AC%B8)
+    - [CREATE LIBRARY statement](#create-library-statement)
+    - [ALTER LIBRARY statement](#alter-library-statement)
+    - [DROP LIBRARY statement](#drop-library-statement)
+    - [CREATE PROCEDURE statement](#create-procedure-statement)
+    - [DROP PROCEDURE statement](#drop-procedure-statement)
+    - [CREATE FUNCTION](#create-function)
+    - [DROP FUNCTION](#drop-function)
+    - [EXECUTE](#execute)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase® Application Development
 
 # C/C++ External Procedures Manual

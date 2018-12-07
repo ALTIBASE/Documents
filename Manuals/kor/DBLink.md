@@ -1,3 +1,39 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Database Link User’s Manual](#database-link-users-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.데이터베이스 링크 소개](#1%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EC%86%8C%EA%B0%9C)
+    - [관련 전문 용어](#%EA%B4%80%EB%A0%A8-%EC%A0%84%EB%AC%B8-%EC%9A%A9%EC%96%B4)
+    - [데이터베이스 링크 정의](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EC%A0%95%EC%9D%98)
+    - [Altibase 데이터베이스 링크 구성 요소](#altibase-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C)
+  - [2.지원되는 객체, SQL문 및 데이터 타입](#2%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-%EA%B0%9D%EC%B2%B4-sql%EB%AC%B8-%EB%B0%8F-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [데이터베이스 링크와 SQL문](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC%EC%99%80-sql%EB%AC%B8)
+    - [접근 가능한 원격 스키마 객체](#%EC%A0%91%EA%B7%BC-%EA%B0%80%EB%8A%A5%ED%95%9C-%EC%9B%90%EA%B2%A9-%EC%8A%A4%ED%82%A4%EB%A7%88-%EA%B0%9D%EC%B2%B4)
+    - [DB Link 지원 데이터 타입](#db-link-%EC%A7%80%EC%9B%90-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [3.데이터베이스 링크 환경 설정](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+    - [DB Link 동작 방식](#db-link-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D)
+    - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+  - [4.데이터베이스 링크 사용법](#4%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EC%82%AC%EC%9A%A9%EB%B2%95)
+    - [CREATE DATABASE LINK](#create-database-link)
+    - [DROP DATABASE LINK](#drop-database-link)
+    - [ALTER DATABASE LINKER](#alter-database-linker)
+    - [ALTER SESSION](#alter-session)
+    - [SELECT](#select)
+    - [REMOTE_EXECUTE_IMMEDIATE](#remote_execute_immediate)
+    - [바인딩 지원 REMOTE 함수](#%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%A7%80%EC%9B%90-remote-%ED%95%A8%EC%88%98)
+    - [일괄처리(Batch) 지원 REMOTE 함수](#%EC%9D%BC%EA%B4%84%EC%B2%98%EB%A6%ACbatch-%EC%A7%80%EC%9B%90-remote-%ED%95%A8%EC%88%98)
+    - [COMMIT FORCE DATABASE LINK](#commit-force-database-link)
+    - [ROLLBACK FORCE DATABASE LINK](#rollback-force-database-link)
+  - [A.부록: 프로퍼티 및 데이터 딕셔너리](#a%EB%B6%80%EB%A1%9D-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EB%B0%8F-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
+    - [DB Link 관련 데이터 딕셔너리](#db-link-%EA%B4%80%EB%A0%A8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
+    - [프로퍼티 파일](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%ED%8C%8C%EC%9D%BC)
+    - [AltiLinker 프로퍼티](#altilinker-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase® Application Development
 
 Database Link User’s Manual

@@ -1,3 +1,53 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Precompiler User’s Manual](#precompiler-users-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.C/C++ 전처리기 소개](#1cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0-%EC%86%8C%EA%B0%9C)
+    - [C/C++ 전처리기](#cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0)
+    - [명령행 옵션](#%EB%AA%85%EB%A0%B9%ED%96%89-%EC%98%B5%EC%85%98)
+    - [내장 SQL문을 이용한 프로그램 작성 순서 및 방법](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%88%9C%EC%84%9C-%EB%B0%8F-%EB%B0%A9%EB%B2%95)
+  - [2.호스트 변수와 지시자 변수](#2%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98)
+    - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
+    - [호스트 변수 분류](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%B6%84%EB%A5%98)
+    - [지시자 변수](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98)
+    - [지시자 변수 분류](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98-%EB%B6%84%EB%A5%98)
+    - [지시자 변수값의 의미](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98%EA%B0%92%EC%9D%98-%EC%9D%98%EB%AF%B8)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [3.호스트 변수 선언부](#3%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EB%B6%80)
+    - [호스트 변수 선언부](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EB%B6%80)
+    - [자료형 정의](#%EC%9E%90%EB%A3%8C%ED%98%95-%EC%A0%95%EC%9D%98)
+    - [함수 인자 선언부](#%ED%95%A8%EC%88%98-%EC%9D%B8%EC%9E%90-%EC%84%A0%EC%96%B8%EB%B6%80)
+  - [4.C Preprocessor](#4c-preprocessor)
+    - [C Preprocessor 개요](#c-preprocessor-%EA%B0%9C%EC%9A%94)
+    - [C Preprocessor 구문](#c-preprocessor-%EA%B5%AC%EB%AC%B8)
+    - [Preprocessor 제약사항](#preprocessor-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+    - [Preprocessor 예제](#preprocessor-%EC%98%88%EC%A0%9C)
+    - [ALTIBASE_APRE 매크로](#altibase_apre-%EB%A7%A4%ED%81%AC%EB%A1%9C)
+    - [주의 사항](#%EC%A3%BC%EC%9D%98-%EC%82%AC%ED%95%AD)
+  - [5.호스트 변수 데이터 타입](#5%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [일반 데이터 타입](#%EC%9D%BC%EB%B0%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [확장된 데이터 타입](#%ED%99%95%EC%9E%A5%EB%90%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [칼럼 타입과 호스트 변수 타입](#%EC%B9%BC%EB%9F%BC-%ED%83%80%EC%9E%85%EA%B3%BC-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85)
+  - [6.내장 SQL문](#6%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+    - [개요](#%EA%B0%9C%EC%9A%94-1)
+    - [연결 관련 SQL문](#%EC%97%B0%EA%B2%B0-%EA%B4%80%EB%A0%A8-sql%EB%AC%B8)
+    - [기본 내장 SQL문](#%EA%B8%B0%EB%B3%B8-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+    - [기타 내장 SQL문](#%EA%B8%B0%ED%83%80-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+    - [OPTION문](#option%EB%AC%B8)
+  - [7.실행 시간 에러 처리](#7%EC%8B%A4%ED%96%89-%EC%8B%9C%EA%B0%84-%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC)
+    - [개요](#%EA%B0%9C%EC%9A%94-2)
+    - [sqlca](#sqlca)
+    - [SQLCODE](#sqlcode)
+    - [SQLSTATE](#sqlstate)
+    - [WHENEVER문](#whenever%EB%AC%B8)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-1)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase® Application Development
 
 Precompiler User’s Manual

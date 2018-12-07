@@ -1,3 +1,92 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Altibase C Interface Manual](#altibase-c-interface-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.Altibase C 인터페이스 소개](#1altibase-c-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%86%8C%EA%B0%9C)
+    - [Altibase C 인터페이스란?](#altibase-c-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%9E%80)
+    - [ACI 사용 방법](#aci-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+    - [클라이언트 응용 프로그램 빌드](#%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B9%8C%EB%93%9C)
+  - [2.데이터 타입](#2%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [ACI 자료 구조](#aci-%EC%9E%90%EB%A3%8C-%EA%B5%AC%EC%A1%B0)
+  - [3.ACI 함수](#3aci-%ED%95%A8%EC%88%98)
+    - [altibase_affected_rows()](#altibase_affected_rows)
+    - [altibase_client_version()](#altibase_client_version)
+    - [altibase_client_verstr()](#altibase_client_verstr)
+    - [altibase_close()](#altibase_close)
+    - [altibase_commit()](#altibase_commit)
+    - [altibase_connect()](#altibase_connect)
+    - [altibase_data_seek()](#altibase_data_seek)
+    - [altibase_errno()](#altibase_errno)
+    - [altibase_error()](#altibase_error)
+    - [altibase_fetch_lengths()](#altibase_fetch_lengths)
+    - [altibase_fetch_row()](#altibase_fetch_row)
+    - [altibase_field()](#altibase_field)
+    - [altibase_field_count()](#altibase_field_count)
+    - [altibase_free_result()](#altibase_free_result)
+    - [altibase_get_charset()](#altibase_get_charset)
+    - [altibase_get_charset_info()](#altibase_get_charset_info)
+    - [altibase_host_info()](#altibase_host_info)
+    - [altibase_init()](#altibase_init)
+    - [altibase_list_fields()](#altibase_list_fields)
+    - [altibase_list_tables()](#altibase_list_tables)
+    - [altibase_next_result()](#altibase_next_result)
+    - [altibase_num_fields()](#altibase_num_fields)
+    - [altibase_num_rows()](#altibase_num_rows)
+    - [altibase_proto_version()](#altibase_proto_version)
+    - [altibase_proto_verstr()](#altibase_proto_verstr)
+    - [altibase_query()](#altibase_query)
+    - [altibase_rollback()](#altibase_rollback)
+    - [altibase_server_version()](#altibase_server_version)
+    - [altibase_server_verstr()](#altibase_server_verstr)
+    - [altibase_set_charset()](#altibase_set_charset)
+    - [altibase_set_autocommit()](#altibase_set_autocommit)
+    - [altibase_set_failover_callback()](#altibase_set_failover_callback)
+    - [altibase_set_option()](#altibase_set_option)
+    - [altibase_sqlstate()](#altibase_sqlstate)
+    - [altibase_store_result()](#altibase_store_result)
+    - [altibase_use_result()](#altibase_use_result)
+  - [4.Prepared Statement 관련 ACI 함수](#4prepared-statement-%EA%B4%80%EB%A0%A8-aci-%ED%95%A8%EC%88%98)
+    - [altibase_stmt_affected_rows()](#altibase_stmt_affected_rows)
+    - [altibase_stmt_bind_param()](#altibase_stmt_bind_param)
+    - [altibase_stmt_bind_result()](#altibase_stmt_bind_result)
+    - [altibase_stmt_close()](#altibase_stmt_close)
+    - [altibase_stmt_data_seek()](#altibase_stmt_data_seek)
+    - [altibase_stmt_errno()](#altibase_stmt_errno)
+    - [altibase_stmt_error()](#altibase_stmt_error)
+    - [altibase_stmt_execute()](#altibase_stmt_execute)
+    - [altibase_stmt_fetch()](#altibase_stmt_fetch)
+    - [altibase_stmt_fetch_column()](#altibase_stmt_fetch_column)
+    - [altibase_stmt_fetched()](#altibase_stmt_fetched)
+    - [altibase_stmt_field_count()](#altibase_stmt_field_count)
+    - [altibase_stmt_free_result()](#altibase_stmt_free_result)
+    - [altibase_stmt_get_attr()](#altibase_stmt_get_attr)
+    - [altibase_stmt_init()](#altibase_stmt_init)
+    - [altibase_stmt_num_rows()](#altibase_stmt_num_rows)
+    - [altibase_stmt_param_count()](#altibase_stmt_param_count)
+    - [altibase_stmt_prepare()](#altibase_stmt_prepare)
+    - [altibase_stmt_processed()](#altibase_stmt_processed)
+    - [altibase_stmt_reset()](#altibase_stmt_reset)
+    - [altibase_stmt_result_metadata()](#altibase_stmt_result_metadata)
+    - [altibase_stmt_send_long_data()](#altibase_stmt_send_long_data)
+    - [altibase_stmt_set_array_bind()](#altibase_stmt_set_array_bind)
+    - [altibase_stmt_set_array_fetch()](#altibase_stmt_set_array_fetch)
+    - [altibase_stmt_set_attr()](#altibase_stmt_set_attr)
+    - [altibase_stmt_sqlstate()](#altibase_stmt_sqlstate)
+    - [altibase_stmt_status()](#altibase_stmt_status)
+    - [altibase_stmt_store_result()](#altibase_stmt_store_result)
+  - [5.Array Binding과 Array Fetch](#5array-binding%EA%B3%BC-array-fetch)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [Array Binding](#array-binding)
+    - [Array Fetch](#array-fetch)
+  - [6.Fail-Over](#6fail-over)
+    - [개요](#%EA%B0%9C%EC%9A%94-1)
+    - [사용법](#%EC%82%AC%EC%9A%A9%EB%B2%95)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase® Application Development
 
 Altibase C Interface Manual
@@ -2672,7 +2761,7 @@ Reference*를 참고한다.
 altibase_stmt_errno()가 반환하는 값은 Altibase 자체 정의 오류 코드로 ODBC표준
 명세에 정의된 SQLSTATE과는 다르다. SQLSTATE를 얻으려면
 altibase_stmt_sqlstate()를 사용해야 한다. 일반적으로 altibase_errno()의 반환값을
-확인해서 에러 처리 루틴을 작성하는 것을 권장하지 않는다.
+확인해서 에러 처리 루틴을 작성하는 것을 권장하지 않는다
 
 #### 예제
 

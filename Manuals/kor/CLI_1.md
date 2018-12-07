@@ -1,3 +1,55 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [CLI User's Manaul](#cli-users-manaul)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.Altibase CLI 소개](#1altibase-cli-%EC%86%8C%EA%B0%9C)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [기본 사용법](#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
+    - [기본 프로그래밍 순서](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%88%9C%EC%84%9C)
+    - [Altibase CLI 애플리케이션 빌드](#altibase-cli-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B9%8C%EB%93%9C)
+  - [2.Altibase CLI 함수](#2altibase-cli-%ED%95%A8%EC%88%98)
+    - [Altibase CLI API](#altibase-cli-api)
+    - [SQLAllocConnect](#sqlallocconnect)
+    - [SQLAllocEnv](#sqlallocenv)
+    - [SQLAllocHandle](#sqlallochandle)
+    - [SQLAllocStmt](#sqlallocstmt)
+    - [SQLBindCol](#sqlbindcol)
+    - [SQLBindParameter](#sqlbindparameter)
+    - [SQLBulkOperations](#sqlbulkoperations)
+    - [SQLCancel](#sqlcancel)
+    - [SQLCloseCursor](#sqlclosecursor)
+    - [SQLColAttribute](#sqlcolattribute)
+    - [SQLColumns](#sqlcolumns)
+    - [SQLConnect](#sqlconnect)
+    - [SQLDescribeCol](#sqldescribecol)
+    - [SQLDescribeParam](#sqldescribeparam)
+    - [SQLDisconnect](#sqldisconnect)
+    - [SQLDriverConnect](#sqldriverconnect)
+    - [SQLEndTran](#sqlendtran)
+    - [SQLError](#sqlerror)
+    - [SQLExecDirect](#sqlexecdirect)
+    - [SQLExecute](#sqlexecute)
+    - [SQLFetch](#sqlfetch)
+    - [SQLFetchScroll](#sqlfetchscroll)
+    - [SQLForeignKeys](#sqlforeignkeys)
+    - [SQLFreeConnect](#sqlfreeconnect)
+    - [SQLFreeEnv](#sqlfreeenv)
+    - [SQLFreeHandle](#sqlfreehandle)
+    - [SQLFreeStmt](#sqlfreestmt)
+    - [SQLGetConnectAttr](#sqlgetconnectattr)
+    - [SQLGetData](#sqlgetdata)
+    - [SQLGetDescField](#sqlgetdescfield)
+    - [SQLGetDescRec](#sqlgetdescrec)
+    - [SQLGetDiagField](#sqlgetdiagfield)
+    - [SQLGetDiagRec](#sqlgetdiagrec)
+    - [SQLGetEnvAttr](#sqlgetenvattr)
+    - [SQLGetFunctions](#sqlgetfunctions)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase® Application Development
 
 # CLI User's Manaul
@@ -3535,7 +3587,7 @@ SQL_CURSOR_FORWARD_ONLY일때에는 SQL_FETCH_NEXT만 사용가능하다.
 
 Cursor의 위치는 다음과 같이 지정할 수 있다.
 
-SQL_FETCH_NEXT
+**SQL_FETCH_NEXT**
 
 현재의 Cursor를 기준으로 다음 Row set을 반환한다. 즉 다음의 Cursor위치로
 이동한다. 이때는 위치 이동값인 fOffset을 무시한다.
@@ -3543,29 +3595,29 @@ SQL_FETCH_NEXT
 현재의 Cursor를 기준으로 다음 Row set을 반환한다. 즉 다음의 Cursor위치로
 이동한다. 이때는 위치 이동값인 fOffset을 무시한다.
 
-SQL_FETCH_PRIOR
+**SQL_FETCH_PRIOR**
 
 현재의 Cursor를 기준으로 이전 Rowset을 반환한다. 즉 이전의 Cursor위치로
 이동한다. 이때는 위치 이동값인 fOffset을 무시한다.
 
-SQL_FETCH_RELATIVE
+**SQL_FETCH_RELATIVE**
 
 현재 Rowset의 위치에서 시작하여 상대적으로 fOffset만큼 Cursor를 이동하여
 Rowset을 반환한다. fOffset은 이동값이 된다.
 
-SQL_FETCH_ABSOLUTE
+**SQL_FETCH_ABSOLUTE**
 
 현재의 위치와 상관없이 특정위치 즉 , fOffset번째의 Rowset을 반환한다.
 
-SQL_FETCH_FIRST
+**SQL_FETCH_FIRST**
 
 첫번째 Rowset을 반환한다.
 
-SQL_FETCH_LAST
+**SQL_FETCH_LAST**
 
 마지막 rowset을 반환한다.
 
-SQL_FETCH_BOOKMARK
+**SQL_FETCH_BOOKMARK**
 
 SQL_ATTR_FETCH_BOOKMARK_PTR 명령문 속성으로 지정한 북마크에서 fOffset만큼 커서를
 이동하여 행집합을 반환한다.
