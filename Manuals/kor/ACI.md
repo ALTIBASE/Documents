@@ -2672,7 +2672,7 @@ Reference*를 참고한다.
 altibase_stmt_errno()가 반환하는 값은 Altibase 자체 정의 오류 코드로 ODBC표준
 명세에 정의된 SQLSTATE과는 다르다. SQLSTATE를 얻으려면
 altibase_stmt_sqlstate()를 사용해야 한다. 일반적으로 altibase_errno()의 반환값을
-확인해서 에러 처리 루틴을 작성하는 것을 권장하지 않는다
+확인해서 에러 처리 루틴을 작성하는 것을 권장하지 않는다.
 
 #### 예제
 
