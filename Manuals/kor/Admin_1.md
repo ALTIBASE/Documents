@@ -59,7 +59,7 @@ Altibase Administration Administrator’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~ Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
 
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
 없이 무단으로 복제 또는 전용할 수 없습니다.
@@ -1552,8 +1552,8 @@ SHUTDOWN [NORMAL | IMMEDIATE | ABORT];
 SHUTDOWN NORMAL과 SHUTDOWN IMMEDIATE는 Altibase가 SERVICE 상태일 때만 수행
 가능하며, SHUTDOWN ABORT는 어떤 상태에서도 수행 가능하다.
 
-Note: SHUTDOWN 명령어는 Altibase (isql 포함)를 설치한 유닉스 계정으로만 수행이
-가능하다.
+> Note: SHUTDOWN 명령어는 Altibase (isql 포함)를 설치한 유닉스 계정으로만 수행이
+> 가능하다.
 
 ##### SHUTDOWN NORMAL
 
@@ -3686,7 +3686,7 @@ TRCLEVEL 2의 FLAG를 확인하도록 한다.
 iSQL> SELECT * from V$TRACELOG 
 WHERE MODULE_NAME='QP' AND DESCRIPTION!='---';
 MODULE_NAME  TRCLEVEL    FLAG      POWLEVEL             DESCRIPTION
-------------------------------------------------------------------
+----------------------------------------------------------------------------------
 QP        1           X         1                    PSM Error Line Trace Log
 QP        2           O         2                    DDL Trace Log
 QP        99          SUM       2                    Total Sum of Trace Log Values
@@ -4200,7 +4200,7 @@ Altibase 데이터베이스 생성시 4종류의 시스템 테이블스페이스
 테이블스페이스는 데이터 특성에 따라 디스크 또는 메모리에 선택적으로 생성할 수
 있다.
 
-[그림 5-1]은 데이터베이스와 테이블스페이스의 관계를 보여준다.
+[그림 6-1]은 데이터베이스와 테이블스페이스의 관계를 보여준다.
 
 ![](media/Admin/6-1.png)
 
@@ -4992,13 +4992,12 @@ CREATE [DISK/MEMORY/VOLATILE] [DATA/TEMPORARY] TABLESPACE
 데이터 파일 속성은 디스크 데이터 테이블스페이스에만 적용되며, 다음과 같은 구문을
 갖는다.
 
+```
 DATAFILE [①데이터 파일절
-
-AUTOEXTEND [②자동확장절
-
-MAXSIZE [③최대크기절] ] ]
-
+AUTOEXTEND [②자동확장절 
+MAXSIZE [③최대크기절] ] ] 
 EXTENTSIZE [④익스텐트사이즈절]
+```
 
 각 데이터 파일은 다음과 같은 속성을 가질 수 있다.
 
@@ -5055,13 +5054,12 @@ EXTENTSIZE {{integer [K/M/G]}/{UNLIMITED}}
 임시 파일 속성은 디스크 임시 테이블스페이스에만 적용되며, 다음과 같은 구문을
 갖는다.
 
+```
 TEMPFILE {①임시 파일절}
-
 AUTOEXTED [②자동확장절
-
 MAXSIZE [③최대크기절] ]
-
 EXTENDSIZE [④익스텐트사이즈절]
+```
 
 각 임시 파일은 다음과 같은 속성을 가질 수 있다.
 
@@ -5115,13 +5113,12 @@ EXTENTSIZE integer [K/M/G]
 속성과 유사하지만, 추가적으로 체크포인트 이미지 경로를 포함한다. 구문은 다음과
 같다.
 
-SIZE {①초기 크기절}
-
-AUTOEXTED [②자동확장절
-
+```
+SIZE {①초기 크기절} 
+AUTOEXTED [②자동확장절 
 MAXSIZE [③최대크기절] ]
-
 CHECKPOINT PATH [④체크포인트 이미지 경로절]
+```
 
 메모리 테이블스페이스는 다음과 같은 속성을 가질 수 있다.
 
@@ -5195,11 +5192,11 @@ SPLIT EACH integer [K/M/G]
 휘발성 테이블스페이스에 적용되는 속성은 체크포인트 이미지 경로를 제외하고는
 메모리 테이블스페이스의 속성과 유사하다.
 
-SIZE {①초기 크기절}
-
-AUTOEXTED [②자동확장절
-
+```
+SIZE {①초기 크기절} 
+AUTOEXTED [②자동확장절 
 MAXSIZE [③최대크기절] ]
+```
 
 휘발성 테이블스페이스는 다음과 같은 속성을 가질 수 있다.
 
@@ -6324,12 +6321,13 @@ Altibase는 애플리케이션 개발 환경에서 언두 테이블스페이스�
 위한 패딩(padding) 등에 기반해서 예측이 가능하다. 수학 공식으로 표현하면 다음과
 같다:
 
-데이터 크기 = [ (각 칼럼의 추정 크기의 합 + 각 칼럼을 위한 패딩 크기의 합) \*
-데이터 레코드 개수]
+```
+
+```
 
 데이터 타입 별 추정 크기는 다음 표에서 보여준다.
 
-P = Precision, V = Value length)
+(P = Precision, V = Value length)
 
 | 자료형   | 예측 칼럼 크기                     |
 |----------|------------------------------------|
@@ -6366,9 +6364,10 @@ VARBIT같은 가변 길이 칼럼은 점유하는 공간이 데이터 길이에 
 타입에 상관없이 포인터 크기와 테이블에 현재 저장된 레코드의 개수에 기반하여
 추정할 수 있다.
 
-인덱스 크기 = (데이터 레코드의 개수) \* p
-
+```
+인덱스 크기 = (데이터 레코드의 개수) * p
 ( p = 포인터 크기 )
+```
 
 위 공식에서 p는 포인터 크기, 즉 한 포인터를 저장하는데 필요한 크기이다. 32-bit
 시스템에서는 이 크기가 4바이트이고, 64-bit 시스템에서는 이 크기가 8바이트이다.
