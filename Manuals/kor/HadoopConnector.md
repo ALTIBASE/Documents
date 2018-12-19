@@ -105,25 +105,25 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 #### 문서화 규칙
 
 이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이
-매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
+매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다. 
 
-여기서 설명하는 규칙은 다음과 같다.
+여기서 설명하는규칙은 다음과 같다.
 
--   샘플 코드 규칙
+- 샘플 코드 규칙
 
-샘플 코드 규칙
+##### 샘플 코드 규칙
 
-코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어
+코드 예제는 SQL, Stored Procedure, iSQL, 또는 다른 명령 라인 구문들을 예를 들어
 설명한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
 | 규칙         | 의미                                                         | 예제                                                         |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
 | { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee;<br/> ENAME<br/>  -----------------------<br/> SWNO<br/>  HJNO<br/>  HSCHOI<br/>  . <br/>. <br/>. <br/>20 rows selected. |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; <br/>ENAME<br/> ------------------------<br/> SWNO<br/> HJNO<br/> HSCHOI<br/> .<br/> .<br/> . <br/>20 rows selected. |
 | 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
 | 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*;<br/> CONNECT *userID*/*password*; |
 | 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
@@ -262,7 +262,7 @@ JDBC 드라이버를 스쿱 환경에 설치한다.
 하둡과 스쿱을 모두 설치했다면, 아래의 지침을 따라 JDBC 드라이버를 설치하도록
 한다.
 
-Altibase 사용시
+##### Altibase 사용시
 
 1.  Altibase용 JDBC 드라이버 파일(\$ALTIBASE_HOME/lib/Altibase.jar)을
     \$SQOOP_HOME/lib 폴더에 복사한다.
@@ -342,7 +342,7 @@ sqoop <command> --connect <url>
 
 여기에 기술한 커맨드와 옵션 외에 다른 커맨드 또는 import 제어 옵션, export 제어
 옵션 등에 대해서는 스쿱 문서
-(<http://sqoop.apache.org/docs/1.4.4/SqoopUserGuide.html>)를 참고하기 바란다.
+( <http://sqoop.apache.org/docs/1.4.4/SqoopUserGuide.html> )를 참고하기 바란다.
 
 ### Import
 
@@ -369,14 +369,14 @@ Altibase에 존재하는 특정 테이블의 데이터를 HDFS의 지정된 디�
 종료 문자, 라인 종료 문자 같은 구분자들을 지정할 수 있다. 만약 사용자가 이
 중에서 하나라도 지정하지 않으면 기본값이 사용된다.
 
-| 옵션                      | 설명                                                                                                                         | 기본값 |
-|---------------------------|------------------------------------------------------------------------------------------------------------------------------|--------|
-| \--enclosed-by            | 필드를 감싸는 문자로 필수 옵션이다.                                                                                          | \\"    |
-| \--escaped-by             | 이스케이프 문자                                                                                                              |        |
-| \--fields-terminated-by   | 필드 구분 문자                                                                                                               | ,      |
-| \--lines-terminated-by    | 라인 종료 문자                                                                                                               | \\n    |
-| \--mysql-delimiters       | MySQL의 기본 구분자로 아래와 같다. fields-terminated-by: , lines-terminated-by: \\n escaped-by: \\ optionally-enclosed-by: ‘ |        |
-| \--optionally-enclosed-by | 필드를 감싸는 문자로 선택 옵션이다.                                                                                          |        |
+| 옵션                      | 설명                                                         | 기본값 |
+| ------------------------- | ------------------------------------------------------------ | ------ |
+| \--enclosed-by            | 필드를 감싸는 문자로 필수 옵션이다.                          | \\"    |
+| \--escaped-by             | 이스케이프 문자                                              |        |
+| \--fields-terminated-by   | 필드 구분 문자                                               | ,      |
+| \--lines-terminated-by    | 라인 종료 문자                                               | \\n    |
+| \--mysql-delimiters       | MySQL의 기본 구분자로 아래와 같다.<br/> fields-terminated-by: ,<br/> lines-terminated-by: \\n <br/>escaped-by: \\<br/> optionally-enclosed-by: ‘ |        |
+| \--optionally-enclosed-by | 필드를 감싸는 문자로 선택 옵션이다.                          |        |
 
 > 주의: 필드 내에 라인 구분자, 필드 구분자가 포함되어 있는 경우, 큰 따옴표(")
 > 같은 묶음 문자로 필드를 감싸 주어야 한다. 필드 내에 묶음 문자로 쓰이는 큰

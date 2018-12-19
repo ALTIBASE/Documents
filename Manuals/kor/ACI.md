@@ -374,19 +374,20 @@ ALTIBASE_INVALID_HANDLE이 아닌 경우에만 진단 메시지를 조회할 수
 문자는 클래스를 가리키며, 뒤의 세 문자는 하위 클래스를 가리킨다. ACI 진단
 메시지는 X/Open SQL CAE 명세를 준수한다.
 
-#### 주의사항
-
--   멀티 쓰레드 프로그램을 작성할 때, 쓰레드별로 환경 핸들, 연결 핸들을 각각
-    할당해야 한다.
-
--   Altibase 클라이언트 라이브러리는 신호 처리를 하지 않는다. 따라서 외부 원인에
-    의해 네트워크 접속이 종료된 경우, SIGPIPE 신호를 받아 진행중인 응용
-    프로그램이 강제로 종료될 수 있다.  
-    이러한 강제 종료를 막기 위해서는 SIGPIPE 신호를 사용자 응용 프로그램에서
-    처리해야 한다. SIGPIPE 신호 처리를 처리하는 함수 내에서 Altibase 클라이언트
-    라이브러리 함수를 호출하면 프로그램이 멈출 수도 있으므로, 신호 처리 함수
-    작성에 주의해야 한다. 하지만 신호 처리가 끝난 후에는 Altibase 클라이언트
-    라이브러리 함수를 호출하는 것이 가능하다.
+> #### 주의사항
+>
+> -   멀티 쓰레드 프로그램을 작성할 때, 쓰레드별로 환경 핸들, 연결 핸들을 각각
+>     할당해야 한다.
+>
+> -   Altibase 클라이언트 라이브러리는 신호 처리를 하지 않는다. 따라서 외부 원인에
+>     의해 네트워크 접속이 종료된 경우, SIGPIPE 신호를 받아 진행중인 응용
+>     프로그램이 강제로 종료될 수 있다.  
+>     이러한 강제 종료를 막기 위해서는 SIGPIPE 신호를 사용자 응용 프로그램에서
+>     처리해야 한다. SIGPIPE 신호 처리를 처리하는 함수 내에서 Altibase 클라이언트
+>     라이브러리 함수를 호출하면 프로그램이 멈출 수도 있으므로, 신호 처리 함수
+>     작성에 주의해야 한다. 하지만 신호 처리가 끝난 후에는 Altibase 클라이언트
+>     라이브러리 함수를 호출하는 것이 가능하다.
+>
 
 ### 클라이언트 응용 프로그램 빌드
 
@@ -952,7 +953,7 @@ altibase_set_autocommit()의 예제를 참고하라.
 ```
 int  altibase_connect (
     ALTIBASE      altibase,
-    const char*  connstr );
+    const char*   connstr );
 ```
 
 #### 인자
@@ -1835,7 +1836,7 @@ x.x.0.0.x이며 순서대로 주버전, 부버전, 패치를 의미한다.
 
 ```
 int  altibase_query (
-    ALTIBASE       altibase,
+    ALTIBASE      altibase,
     const char *  qstr );
 ```
 
@@ -2007,7 +2008,7 @@ x.x.x.x.x이며 순서대로 주버전, 부버전, 텀, 패치 셋, 패치를 �
 ```
 int  altibase_set_charset (
     ALTIBASE       altibase,
-    const char *  charset );
+    const char *   charset );
 ```
 
 #### 인자
@@ -2057,7 +2058,7 @@ rc = altibase_connect(altibase, CONNSTR);
 
 ```
 int  altibase_set_autocommit (
-    ALTIBASE  altibase,
+    ALTIBASE    altibase,
     int         mode );
 ```
 
@@ -2107,8 +2108,8 @@ Failover를 위한 콜백 함수를 등록하는 함수이다.
 ```
 int  altibase_set_failover_callback (
     ALTIBASE                         altibase,
-    ALTIBASE_FAILOVER_CALLBACK  callback,
-    void *                            app_context );
+    ALTIBASE_FAILOVER_CALLBACK       callback,
+    void *                           app_context );
 ```
 
 #### 인자
@@ -2147,8 +2148,8 @@ Failover 콜백 함수의 등록은 altibase_connect()가 성공한 후에 수�
 ```
 int  altibase_set_option (
     ALTIBASE           altibase,
-    ALTIBASE_OPTION  option,
-    const void *      arg );
+    ALTIBASE_OPTION    option,
+    const void *       arg );
 ```
 
 #### 인자
@@ -2513,8 +2514,9 @@ rc = altibase_stmt_execute(stmt);
 
 ```
 int  altibase_stmt_bind_result (
-    ALTIBASE_STMT    stmt,
+    ALTIBASE_STMT   stmt,
     ALTIBASE_BIND * bind );
+
 ```
 
 #### 인자
@@ -2901,8 +2903,8 @@ altibase_stmt_bind_result()의 예제를 참고하라.
 ```
 int  altibase_stmt_bind_result (
     ALTIBASE_STMT    stmt,
-    ALTIBASE_BIND *  bind,
-    int                 column,
+    ALTIBASE_BIND    *  bind,
+    int              column,
     ALTIBASE_LONG    offset );
 ```
 
@@ -2933,10 +2935,10 @@ int  altibase_stmt_bind_result (
 이전에 altibase_stmt_store_result()를 호출했는지 여부에 따라서 이 함수의
 사용법이 약간 달라진다.
 
-| altibase_stmt_store_result() 호출 여부                     | *bind* 인자                                                                      | *offset* 인자                                                   |
-|------------------------------------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| Yes (즉, 결과 집합을 모두 클라이어언트에 가져와 있는 상태) | 버퍼의 타입이 altibase_stmt_bind_result()에서 사용했던 버퍼의 타입과 동일해야 함 | 임의의 값 사용 가능                                             |
-| No                                                         | 임의의 버퍼 타입 사용 가능                                                       | ALTIBASE_FETCH_COUNT를 사용해서 데이터를 순차적으로 가져와야 함 |
+| altibase_stmt_store_result() 호출 여부                     | bind 인자                                                    | offset 인자                                                  |
+| ---------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Yes (즉, 결과 집합을 모두 클라이어언트에 가져와 있는 상태) | 버퍼의 타입이 altibase_stmt_bind_result()에서 사용했던 버퍼의 타입과 동일해야 함 | 임의의 값 사용 가능                                          |
+| No                                                         | 임의의 버퍼 타입 사용 가능                                   | ALTIBASE_FETCH_COUNT를 사용해서 데이터를 순차적으로 가져와야 함 |
 
 위 표에서 기술한 *bind* 인자와 *offset* 인자의 제약 조건을 만족하지 않을 경우
 에러가 반환될 것이다.
@@ -3103,8 +3105,8 @@ altibase_stmt_bind_result()과 altibase_stmt_data_seek()의 예제를 참고하�
 ```
 int  altibase_stmt_get_attr (
     ALTIBASE_STMT               stmt,
-    ALTIBASE_STMT_ATTR_TYPE  option,
-    void *                        arg );
+    ALTIBASE_STMT_ATTR_TYPE     option,
+    void *                      arg );
 ```
 
 #### 인자
@@ -3433,7 +3435,7 @@ array binding을 하고자 할 경우, 배열의 크기를 설정하는 함수�
 
 ```
 int  altibase_stmt_set_array_bind (
-    ALTIBASE_ STMT  stmt,
+    ALTIBASE_ STMT     stmt,
     int                array_size );
 ```
 
@@ -3472,7 +3474,7 @@ array fetch를 하고자 할 경우, 배열의 크기를 설정하는 함수이�
 
 ```
 int  altibase_stmt_set_array_fetch (
-    ALTIBASE_ STMT  stmt,
+    ALTIBASE_ STMT     stmt,
     int                array_size );
 ```
 
@@ -3512,8 +3514,8 @@ altibase_stmt_close()가 호출되기 전까지 유효하다.
 ```
 int  altibase_stmt_bind_result (
     ALTIBASE_STMT               stmt,
-    ALTIBASE_STMT_ATTR_TYPE  option,
-    void *                        arg );
+    ALTIBASE_STMT_ATTR_TYPE     option,
+    void *                      arg );
 ```
 
 #### 인자
@@ -4029,8 +4031,8 @@ Failover 이벤트를 담고 있는 열거형이다. 사용자가 Failover 콜�
 typedef ALTIBASE_FAILOVER_EVENT (*altibase_failover_callback_func)
 (
     ALTIBASE                     altibase,
-    void                           *app_context,
-    ALTIBASE_FAILOVER_EVENT    event
+    void                         *app_context,
+    ALTIBASE_FAILOVER_EVENT      event
 );
 ```
 

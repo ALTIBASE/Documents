@@ -1259,13 +1259,14 @@ CREATE TABLE table_name (
 
 CREATE TABLE 구문에 대한 자세한 설명은 *SQL Reference* 을 참조하기 바란다.
 
-##### 주의 사항
-
-GEOMETRY Column은 다음의 제약 사항을 갖는다.
-
--   PRIMARY KEY로 사용할 수 없다
-
--   UNIQUE constraint를 지정할 수 없다.
+> ##### 주의 사항
+>
+> GEOMETRY Column은 다음의 제약 사항을 갖는다.
+>
+> -   PRIMARY KEY로 사용할 수 없다
+>
+> -   UNIQUE constraint를 지정할 수 없다.
+>
 
 ##### 예제
 
@@ -1299,15 +1300,16 @@ BTREE를 명시하면, 에러가 발생한다.
 
 CREATE INDEX 구문에 대한 자세한 설명은 *SQL Reference* 을 참조하기 바란다.
 
-##### 주의 사항
-
--   GEOMETRY Column을 인덱스 키로 지정할 경우 다음의 제약 사항을 갖는다.
-
--   UNIQUE Option은 사용할 수 없다.
-
--   GEOMETRY 칼럼을 포함한 복합키의 생성은 지원하지 않는다.
-
--   RTREE 인덱스는 GEOMETRY 칼럼에만 생성된다.
+> ##### 주의 사항
+>
+> -   GEOMETRY Column을 인덱스 키로 지정할 경우 다음의 제약 사항을 갖는다.
+>
+> -   UNIQUE Option은 사용할 수 없다.
+>
+> -   GEOMETRY 칼럼을 포함한 복합키의 생성은 지원하지 않는다.
+>
+> -   RTREE 인덱스는 GEOMETRY 칼럼에만 생성된다.
+>
 
 ##### 예제
 
@@ -1901,12 +1903,13 @@ MINX( GEOMETRY )
 최소경계다각형의 최소 X 좌표값을 반환한다. GEOMETRY객체가 포인트(POINT) 타입인
 경우, 그 포인트의 X 좌표값을 반환한다.
 
-참고) MINX, MINY, MAXX, MAXY 함수와 MIN, MAX 함수를 이용하여 질의 결과값의
-최소경계다각형의 좌표값을 얻을 수 있다.
-
-```
-SELECT MIN(MINX(F2)), MIN(MINY(F2)), MAX(MAXX(F2)), MAX(MAXY(F2) FROM TB1;
-```
+> 참고) MINX, MINY, MAXX, MAXY 함수와 MIN, MAX 함수를 이용하여 질의 결과값의
+> 최소경계다각형의 좌표값을 얻을 수 있다.
+>
+> ```
+> SELECT MIN(MINX(F2)), MIN(MINY(F2)), MAX(MAXX(F2)), MAX(MAXY(F2) FROM TB1;
+> ```
+>
 
 ##### 반환 타입
 
@@ -3644,7 +3647,8 @@ F 교차가 존재하지 않아야 한다.
 dim = -1
 ```
 
-\* 교차의 존재 유무는 중요하지 않다.
+> \* 교차의 존재 유무는 중요하지 않다.
+>
 
 ```
 dim ∈ (-1, 0, 1, 2)
@@ -4599,7 +4603,7 @@ Spatial API 함수 호출이 실패했을 때 관련 에러정보를 가져온�
 ##### 구문
 
 ```
-ACSRETURN ACSError( ACSHENV         aHandle,
+ACSRETURN ACSError(     ACSHENV       aHandle,
                         SQLUINTEGER   * aErrorCode, 
                         SQLSCHAR      ** aErrorMessage,
                         SQLSMALLINT   * aErrorMessageLength );
@@ -4667,11 +4671,11 @@ sGeoBufferSize,
 
 ```
 ACSRETURN ACSCreatePoint2D(      ACSHENV          aHandle,
-                                 stdGeometryType * aBuffer,
-                                 SQLLEN            aBufferSize,
-                                 stdPoint2D        * aPoint,
+                                 stdGeometryType  * aBuffer,
+                                 SQLLEN           aBufferSize,
+                                 stdPoint2D       * aPoint,
                                  SQLINTEGER       aSRID,
-                                 SQLLEN          * aObjLength );
+                                 SQLLEN           * aObjLength );
 ```
 
 ##### 인자
@@ -4722,13 +4726,13 @@ aBuffer가 NULL일 경우는 생성될 공간객체의 크기만 aObjLength에 �
 ##### 구문
 
 ```
- ACSRETURN ACSCreateLineString2D( ACSHENV         aHandle,
+ ACSRETURN ACSCreateLineString2D( ACSHENV            aHandle,
                                   stdGeometryType    * aBuffer,
-                                  SQLLEN           aBufferSize,
-                                  SQLUINTEGER     aNumPoints,
-                                  stdPoint2D           * aPoints,
-                                  SQLINTEGER          aSRID,
-                                  SQLLEN           * ObjLength);
+                                  SQLLEN             aBufferSize,
+                                  SQLUINTEGER        aNumPoints,
+                                  stdPoint2D         * aPoints,
+                                  SQLINTEGER         aSRID,
+                                  SQLLEN             * ObjLength);
 ```
 
 ##### 인자
@@ -4780,12 +4784,12 @@ aBuffer가 NULL일 경우는 생성될 공간객체의 크기만 aObjLength에 �
 ##### 구문
 
 ```
- ACSRETURN ACSCreateLinearRing2D(    ACSHENV         aHandle,
+ ACSRETURN ACSCreateLinearRing2D(    ACSHENV          aHandle,
                                      stdLinearRing2D  * aBuffer,
-                                     SQLLEN          aBufferSize,
-                                     SQLUINTEGER    NumPoints,
+                                     SQLLEN           aBufferSize,
+                                     SQLUINTEGER      NumPoints,
                                      stdPoint2D       * aPoints,
-                                     SQLLEN       * aObjLength);
+                                     SQLLEN           * aObjLength);
 ```
 
 ##### 인자
@@ -4844,12 +4848,12 @@ ACSCreatePolygon2D
 
 ```
 ACSRETURN ACSCreatePolygon2D(      ACSHENV           aHandle,
-                                   stdGeometryType  * aBuffer,
+                                   stdGeometryType   * aBuffer,
                                    SQLLEN            aBufferSize,
-                                   SQLUINTEGER     aNumRings,
-                                   stdLinearRing2D  ** aRings,
-                                   SQLINTEGER       aSRID,
-                                   SQLLEN        * aObjLength);
+                                   SQLUINTEGER       aNumRings,
+                                   stdLinearRing2D   ** aRings,
+                                   SQLINTEGER        aSRID,
+                                   SQLLEN            * aObjLength);
 ```
 
 ##### 인자
@@ -4909,10 +4913,10 @@ ACSCreateLinearRing2D
 ```
 ACSRETURN ACSCreateMultiPoint2D(    ACSHENV          aHandle,
                                     stdGeometryType  * aBuffer,
-                                    SQLLEN          aBufferSize,
-                                    SQLUINTEGER    aNumPoints,
+                                    SQLLEN           aBufferSize,
+                                    SQLUINTEGER      aNumPoints,
                                     stdPoint2DType   ** aPoints,
-                                    SQLLEN        * aObjLength);
+                                    SQLLEN           * aObjLength);
 ```
 
 ##### 인자
@@ -4970,12 +4974,12 @@ ACSCreatePoint2D
 
 ```
 ACSRETURN ACSCreateMultiLineString2D(
-                         ACSHENV      aHandle,
+                         ACSHENV             aHandle,
                          stdGeometryType     * aBuffer,
                          SQLLEN              aBufferSize,
-                         SQLUINTEGER     aNumLineStrings,
+                         SQLUINTEGER         aNumLineStrings,
                          stdLineString2DType ** aLineStrings,
-                         SQLLEN            * aObjLength );
+                         SQLLEN              * aObjLength );
 ```
 
 ##### 인 자
@@ -5032,12 +5036,12 @@ ACSCreateLineString2D
 ##### 구문
 
 ```
-ACSRETURN ACSCreateMultiPolygon2D( ACSHENV      aHandle,
+ACSRETURN ACSCreateMultiPolygon2D( ACSHENV            aHandle,
                                    stdGeometryType    * aBuffer,
-                                   SQLLEN               aBufferSize,
-                                   SQLUINTEGER     aNumPolygons,
-                                   stdPolygon2DType  ** aPolygons,
-                                   SQLLEN          * aObjLength );
+                                   SQLLEN             aBufferSize,
+                                   SQLUINTEGER        aNumPolygons,
+                                   stdPolygon2DType   ** aPolygons,
+                                   SQLLEN             * aObjLength );
 ```
 
 ##### 인자
@@ -5094,12 +5098,12 @@ ACSCreatePolygon2D
 ##### 구문
 
 ```
-ACSRETURN ACSCreateGeomCollection2D( ACSHENV  aHandle,
+ACSRETURN ACSCreateGeomCollection2D( ACSHENV              aHandle,
                                      stdGeometryType      * aBuffer,
-                                     SQLLEN                 aBufferSize,
-                                     SQLUINTEGER       aNumGeometries,
-                                     stdGeometryType     ** aGeometries,
-                                     SQLLEN              * aObjLength);
+                                     SQLLEN               aBufferSize,
+                                     SQLUINTEGER          aNumGeometries,
+                                     stdGeometryType      ** aGeometries,
+                                     SQLLEN               * aObjLength);
 ```
 
 ##### 인자
@@ -5163,8 +5167,8 @@ ACSCreateMultiPolygon2D
 #####  구 문
 
 ```
-ACSRETURN ACSGetGeometryType(   ACSHENV           aHandle,
-                                stdGeometryType   * aGeometry,
+ACSRETURN ACSGetGeometryType(   ACSHENV            aHandle,
+                                stdGeometryType    * aGeometry,
                                 stdGeoTypes        * aGeoType );
 ```
 
@@ -5228,8 +5232,8 @@ typedef enum stdGeoTypes
 
 ```
 ACSRETURN ACSGetGeometrySize(   ACSHENV            aHandle,
-                                stdGeometryType   * aGeometry,
-                                SQLLEN          * aGeomSize );
+                                stdGeometryType    * aGeometry,
+                                SQLLEN             * aGeomSize );
 ```
 
 ##### 인 자
@@ -5291,9 +5295,9 @@ else
 ```
 ACSRETURN ACSGetGeometrySizeFromWKB(
                               ACSHENV             aHandle,
-                              SQLCHAR           * aWKB,
+                              SQLCHAR             * aWKB,
                               SQLUINTEGER         aWKBLength,
-                              SQLLEN            * aSize );
+                              SQLLEN              * aSize );
 ```
 
 ##### 인 자
@@ -5355,8 +5359,8 @@ GeometryCollection과 같은 공간객체에서 자식 요소(공간객체)의 �
 
 ```
 ACSRETURN ACSGetNumGeometries( ACSHENV          aHandle,
-                              stdGeometryType * aGeometry,
-                              SQLUINTEGER   *aNumGeometries);
+                              stdGeometryType   * aGeometry,
+                              SQLUINTEGER       *aNumGeometries);
 ```
 
 ##### 인자
@@ -5525,9 +5529,9 @@ Polygon객체내의 내부링(InteriorRing)의 갯수를 구한다..
 ##### 구문
 
 ```
-ACSRETURN ACSGetNumInteriorRing2D( ACSHENV     aHandle,
+ACSRETURN ACSGetNumInteriorRing2D( ACSHENV          aHandle,
                                    stdPolygon2DType * aPolygon,
-                                   SQLUINTEGER    * aNumInterinor );
+                                   SQLUINTEGER      * aNumInterinor );
 ```
 
 ##### 인자
@@ -5584,7 +5588,7 @@ Polygon객체내의 N번째 내부링(InteriorRing)을 구한다.
 
 ```
 ACSRETURN ACSGetInteriorRingNPolygon2D(
-                         ACSHENV  aHandle,
+                         ACSHENV            aHandle,
                          stdPolygon2DType   * aPolygon,
                          SQLUINTEGER        aNth,
                          stdLinearRing2D    ** aLinearRing );
@@ -5646,9 +5650,9 @@ LineString객체를 구성하는 Point의 개수를 구한다.
 
 ```
 ACSRETURN ACSGetNumPointsLineString2D(
-                          ACSHENV    aHandle,
+                          ACSHENV               aHandle,
                           stdLineString2DType   * aLineString,
-                          SQLUINTEGER        * aNumPoints );
+                          SQLUINTEGER           * aNumPoints );
 ```
 
 ##### 인자
@@ -5702,10 +5706,10 @@ LineString객체를 구성하는 Point중 N번째 것을 얻어온다.
 
 ```
 ACSRETURN ACSGetPointNLineString2D(
-                          ACSHENV        aHandle,
+                          ACSHENV               aHandle,
                           stdLineString2DType   * aLineString,
-                          SQLUINTEGER          aNth, 
-                          stdPoint2D             * aPoint );
+                          SQLUINTEGER           aNth, 
+                          stdPoint2D            * aPoint );
 ```
 
 ##### 인자
@@ -5759,7 +5763,7 @@ LineString객체를 구성하는 Points배열을 얻어온다.
 ##### 구문
 
 ```
-ACSRETURN ACSGetPointsLineString2D( ACSHENV      aHandle,
+ACSRETURN ACSGetPointsLineString2D( ACSHENV               aHandle,
                                     stdLineString2DType   * aLineString,
                                     stdPoint2D            ** aPoints );
 ```
@@ -5814,9 +5818,9 @@ LinearRing객체를 구성하는 Point의 개수를 구한다.
 
 ```
 ACSRETURN ACSGetNumPointsLinearRing2D(
-                          ACSHENV   aHandle,
+                          ACSHENV               aHandle,
                           stdLinearRing2DType   * aLinearRing,
-                          SQLUINTEGER        * aNumPoints );
+                          SQLUINTEGER           * aNumPoints );
 ```
 
 ##### 인자
@@ -5869,10 +5873,10 @@ LinearRing객체를 구성하는 Point중 N번째 것을 얻어온다.
 ##### 구문
 
 ```
-ACSRETURN ACSGetPointNLinearRing2D( ACSHENV      aHandle,
+ACSRETURN ACSGetPointNLinearRing2D( ACSHENV               aHandle,
                                     stdLinearRing2DType   * aLinearRing,
                                     SQLUINTEGER           aNth, 
-                                    stdPoint2D              * aPoint );
+                                    stdPoint2D            * aPoint );
 ```
 
 ##### 인자
@@ -5926,7 +5930,7 @@ LineString객체를 구성하는 Points배열을 얻어온다.
 ##### 구문
 
 ```
-ACSRETURN ACSGetPointsLineString2D( ACSHENV      aHandle,
+ACSRETURN ACSGetPointsLineString2D( ACSHENV               aHandle,
                                     stdLineString2DType   * aLineString,
                                     stdPoint2D            ** aPoints );
 ```
@@ -5983,7 +5987,7 @@ ACSGetPointNLineString2D
 
 ```
 ACSRETURN ACSEndian(     ACSHENV               aHandle,
-                         stdGeomeryType       * aGeometry );
+                         stdGeomeryType        * aGeometry );
 ```
 
 ##### 인자
@@ -6028,7 +6032,7 @@ ACSAdjustBytOrder
 ##### 구문
 
 ```
-ACSRETURN ACSAdjustByteOrder( ACSHENV         aHandle,
+ACSRETURN ACSAdjustByteOrder( ACSHENV              aHandle,
                               stdGeomeryType       * aGeometry );
 ```
 

@@ -261,10 +261,11 @@ MIB는 IANA(Internet Assigned Number Authority)라는 단체에서 관리하며 
 알티베이스는 IANA에 enterprises(1)<sup>1</sup>에 altibase(17180)라는 OID를 등록하여
 사용하고 있다.
 
-[<sup>1</sup>]MIB는 계층적 구조를 가짐으로 필요에 따라서 확장하여 사용할 수 있다. 회사내에서만 사용 가능하거나 제한된 네트워크 영역의 네트워크 상황을 관제하는 제품을
+[<sup>1</sup>]MIB는 계층적 구조를 가짐으로 필요에 따라서 확장하여 사용할 수 있다. 회사내에서만 사용 
 
-위한 MIB를 추가하여야 할 경우가 생길 수 있다. 이런 경우에는 사설로 MIB를
-만들어서, private(4)의 enterprises(1)에 정의하여 사용할 수 있다.
+가능하거나 제한된 네트워크 영역의 네트워크 상황을 관제하는 제품을 위한 MIB를 추가하여야 할 경우가 
+
+생길 수 있다. 이런 경우에는 사설로 MIB를 만들어서, private(4)의 enterprises(1)에 정의하여 사용할 수 있다.
 
 ![](media/SNMP/altibase_mib.jpg)
 
@@ -360,7 +361,7 @@ snmpd와 snmpmanager, snmptrapd간에는 표준 프로토콜인 SNMP를 사용�
 -   기설치된 환경에서 NET-SNMP에 설정하기
 
 Altibase SNMP Agent는 오픈소스 net-snmp를 준수한다. NET-SNMP 바이너리 및 환경
-파일의 설정 방법은 net-snmp 홈페이지(<http://www.net-snmp.org/>)를 참조한다.
+파일의 설정 방법은 net-snmp 홈페이지( <http://www.net-snmp.org/> )를 참조한다.
 
 #### 패키지 다운로드
 
@@ -443,8 +444,8 @@ SNMP 기능과 관련된 프로퍼티는 다음과 같다. 각 프로퍼티에 �
 이 절에서는 알티베이스에서 패키징한 NET-SNMP를 설정하고, 실행하기 위한 방법을
 설명한다.
 
-참고 : 포트 번호는 시스템에 구동중인 snmp와 충돌이 일어나지 않도록 기본포트
-번호에 1000을 더하도록 설정한다.
+> 참고 : 포트 번호는 시스템에 구동중인 snmp와 충돌이 일어나지 않도록 기본포트
+> 번호에 1000을 더하도록 설정한다.
 
 #### 환경변수 설정
 

@@ -2724,16 +2724,17 @@ iSQL(sysdba)> ALTER DATABASE BEGIN SNAPSHOT;
 iSQL(sysdba)> ALTER DATABASE END SNAPSHOT; 
 ```
 
-##### 주의사항
-
-- SNAPSHOT SCN을 지정하면, 해당 SCN 이후의 데이터는 삭제되지 않기 때문에 DML이
-  빈번하지 않은 경우에 사용해야 한다.
-- 스냅샷 이후 데이터 증가로 메모리 또는 디스크 언두 테이블스페이스의 공간이
-  부족할 수 있다. 프로퍼티 SNAPSHOT_MEM_THRESHOLD,
-  SNAPSHOT_DISK_UNDO_THRESHOLD에 설정된 임계치를 초과하면 스냅샷은 중단된다.
-- 대량의 테이블 업데이트 또는 이중화를 진행중에 수신자(receiver)에서 데이터를
-  수신중에는 스냅샷의 기준 시점이 상이할 수 있다.
-- iLoader 유틸리티로 데이터를 export 중에는 SNAPSHOT을 지정할 수 없다.
+> ##### 주의사항
+>
+> - SNAPSHOT SCN을 지정하면, 해당 SCN 이후의 데이터는 삭제되지 않기 때문에 DML이
+>   빈번하지 않은 경우에 사용해야 한다.
+> - 스냅샷 이후 데이터 증가로 메모리 또는 디스크 언두 테이블스페이스의 공간이
+>   부족할 수 있다. 프로퍼티 SNAPSHOT_MEM_THRESHOLD,
+>   SNAPSHOT_DISK_UNDO_THRESHOLD에 설정된 임계치를 초과하면 스냅샷은 중단된다.
+> - 대량의 테이블 업데이트 또는 이중화를 진행중에 수신자(receiver)에서 데이터를
+>   수신중에는 스냅샷의 기준 시점이 상이할 수 있다.
+> - iLoader 유틸리티로 데이터를 export 중에는 SNAPSHOT을 지정할 수 없다.
+>
 
 #### 온라인 백업 마무리
 
@@ -3389,16 +3390,17 @@ iSQL(sysdba)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 
 changeTracking 파일은 \$ALTIBASE_HOME/dbs 디렉토리에 위치한다.
 
-주의:
-
-- changeTracking파일이 소실되거나 유효하지 않다면 SYS 사용자가 sysdba 권한으로
-  changeTracking을 활성화하는 SQL구문을 실행하여 다시 생성해야 한다.
-  changeTracking파일이 재생성 되면 그동안 추적하여 변경된 페이지 정보가
-  사라진다. 따라서 레벨 0 백업을 먼저 수행한 후 레벨 1 백업을 수행할 수 있게
-  된다.
-- 추적 기능을 활성화하면 Altibase 서버의 성능이 하락할 수 있다. 이 경우 추적
-  기능을 비활성화하면 서버의 성능은 회복할 수 있지만, 증분 백업 기능은 사용할
-  수 없다.
+> 주의:
+>
+> - changeTracking파일이 소실되거나 유효하지 않다면 SYS 사용자가 sysdba 권한으로
+>   changeTracking을 활성화하는 SQL구문을 실행하여 다시 생성해야 한다.
+>   changeTracking파일이 재생성 되면 그동안 추적하여 변경된 페이지 정보가
+>   사라진다. 따라서 레벨 0 백업을 먼저 수행한 후 레벨 1 백업을 수행할 수 있게
+>   된다.
+> - 추적 기능을 활성화하면 Altibase 서버의 성능이 하락할 수 있다. 이 경우 추적
+>   기능을 비활성화하면 서버의 성능은 회복할 수 있지만, 증분 백업 기능은 사용할
+>   수 없다.
+>
 
 ##### backupInfo 파일
 
@@ -4445,18 +4447,19 @@ CREATE TABLE 문으로 칼럼 생성시 암호 칼럼으로 지정하여 생성�
 CREATE TABLE table_name (column_name datatype [ENCRYPT USING ‘policy_name’]);
 ```
 
-##### 주의사항
-
-암호화된 칼럼의 데이타 타입을 변경할 수 없다.
+> ##### 주의사항
+>
+> 암호화된 칼럼의 데이타 타입을 변경할 수 없다.
+>
 
 ##### 예제
 
 질의 1\> 테이블 생성시에 empID1, ssn1칼럼을 암호 칼럼으로 지정한다.
 
 ```
-CREATE TABLE t1 (name1 varchar(5), 
-	       empID1 varchar(10) ENCRYPT USING ‘policy_id’,
-	       ssn1 char(12) ENCRYPT USING ‘policy_ssn’);
+CREATE TABLE t1 (name1  varchar(5), 
+	             empID1 varchar(10) ENCRYPT USING ‘policy_id’,
+	             ssn1   char(12) ENCRYPT USING ‘policy_ssn’);
 ```
 
 질의 2\> 테이블에 암호 칼럼이 있는지 확인한다.
@@ -4481,10 +4484,11 @@ SSN               CHAR(12) ENCRYPT FIXED
 ALTER TABLE table_name MODIFY (column_name [ENCRYPT USING ‘policy_name’]); 
 ```
 
-##### 주의사항
-
-- 암호 칼럼을 다시 암호화할 수 없다.
-- 암호화된 칼럼의 데이타 타입을 변경할 수 없다.
+> ##### 주의사항
+>
+> - 암호 칼럼을 다시 암호화할 수 없다.
+> - 암호화된 칼럼의 데이타 타입을 변경할 수 없다.
+>
 
 ##### 예제
 
@@ -4693,18 +4697,18 @@ iSQL> SELECT * from SYSTEM_.SYS_AUDIT_OPTS_;
 No rows selected.
 ```
 
-#### 주의 사항
-
-감사를 시작하기 전에 아래의 구문을 사용해서 SQL Plan Cache를 초기화할 것을
-권장한다.
-
-```
-ALTER SYSTEM RESET SQL_PLAN_CACHE;
-```
-
-Altibase 서버가 SQL Plan Cache를 사용한다면 감사 로그가 기록되지 않을 수 있다.
-감사를 시작하기 전에 캐시에 저장된 SQL 실행 계획이 감사 후에 재사용되는 경우,
-관련 정보가 감사 로그로 기록되지 않기 때문이다.
+> #### 주의 사항
+>
+> 감사를 시작하기 전에 아래의 구문을 사용해서 SQL Plan Cache를 초기화할 것을
+> 권장한다.
+>
+> ```
+> ALTER SYSTEM RESET SQL_PLAN_CACHE;
+> ```
+>
+> Altibase 서버가 SQL Plan Cache를 사용한다면 감사 로그가 기록되지 않을 수 있다.
+> 감사를 시작하기 전에 캐시에 저장된 SQL 실행 계획이 감사 후에 재사용되는 경우,
+> 관련 정보가 감사 로그로 기록되지 않기 때문이다.
 
 ### 감사 조건 구문
 
@@ -5368,10 +5372,10 @@ DDL_OP : -/-
 1 row selected.
 ```
 
-#### 주의 사항
-
-구문 감사는 SQL문의 수행(EXECUTE)에 대한 성공 또는 실패를 감사한다. 즉, SQL문의
-준비(PREPARE) 단계에서의 성공이나 실패는 감사 대상이 아니다.
+> #### 주의 사항
+>
+> 구문 감사는 SQL문의 수행(EXECUTE)에 대한 성공 또는 실패를 감사한다. 즉, SQL문의
+> 준비(PREPARE) 단계에서의 성공이나 실패는 감사 대상이 아니다.
 
 ### 감사 결과 확인하기
 

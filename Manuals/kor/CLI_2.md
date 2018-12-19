@@ -71,11 +71,11 @@ Unicode SQLGetInfoW() 동작은 SQLGetInfo()와 동일하다.
 
 ```
 SQLRETURN SQLGetInfo(
-	SQLHANDLE ConnectionHandle,
+	SQLHANDLE    ConnectionHandle,
 	SQLUSMALLINT InfoType,
-	SQLPOINTER InfoValuePtr,
-	SQLSMALLINT BufferLength,
-	SQLSMALLINT *StringLengthPtr );
+	SQLPOINTER   InfoValuePtr,
+	SQLSMALLINT  BufferLength,
+	SQLSMALLINT  *StringLengthPtr );
 ```
 
 #### 인 자
@@ -122,7 +122,7 @@ SQLGetInfo()는 DBMS의 일반적인 정보를 얻기 위해 사용한다. 이 �
 
 ```
 SQLRETURN SQLGetPlan (
-    SQLHSTMT		stmt,
+    SQLHSTMT	stmt,
     SQLCHAR**	aPlan);
 ```
 
@@ -178,8 +178,8 @@ SQLRETURN  SQLGetStmtAttr (
 	SQLHSTMT 		stmt,
 	SQLINTEGER		Attribute,
 	SQLPOINTER		param,
-	SQLINTEGER  		StringLength
-	SQLINTEGER *		StringLengthPtr );
+	SQLINTEGER  	StringLength
+	SQLINTEGER *	StringLengthPtr );
 ```
 
 #### 인 자
@@ -447,7 +447,7 @@ SQL 문에서의 매개변수의 개수를 반환한다.
 
 ```
 SQLRETURN  SQLNumParams (
-	SQLHSTMT 		stmt,
+	SQLHSTMT 		    stmt,
 	SQLSMALLINT * 		parameterCounterPtr );
 ```
 
@@ -537,7 +537,7 @@ if (NumParams) {
 
 ```
 SQLRETURN  SQLNumResultCols (
-	SQLHSTMT 		stmt,
+	SQLHSTMT 		    stmt,
 	SQLSMALLINT * 		col );
 ```
 
@@ -615,7 +615,7 @@ SQLNumResultCols(stmt, &columnCount);
 
 ```
 SQLRETURN SQLParamData (
-		SQLHSTMT stmt,
+		SQLHSTMT   stmt,
 		SQLPOINTER *value);
 ```
 
@@ -887,7 +887,7 @@ SQLRETURN  SQLProcedureColumns (
 	SQLCHAR *		pName,
 	SQLSMALLINT 	pNameLength,
 	SQLCHAR * 		colName,
-	SQLSMALLINT	colNameLength );
+	SQLSMALLINT	    colNameLength );
 ```
 
 #### 인 자
@@ -1046,9 +1046,9 @@ SQLProcedures()는 요구된 범위 내에서 모든 프로시저의 목록을 �
 SQLProcedures()는 PROCEDURE_CAT, PROCEDURE_SCHEM, 그리고 PROCEDURE_NAME에 의해
 순서화된 표준 결과 집합 형태로 결과들을 반환한다.
 
-Note: SQLProcedures()는 모든 프로시저들을 반환하지 않을 수도 있다.
-애플리케이션은 프로시저가 SQLProcedures()에 의해 반환 여부와 상관없이 유효한
-프로시저를 사용할 수 있다. SQLProcedures()에 의해 반환되는 열은 [표 2-4]와 같다.
+> Note: SQLProcedures()는 모든 프로시저들을 반환하지 않을 수도 있다.
+> 애플리케이션은 프로시저가 SQLProcedures()에 의해 반환 여부와 상관없이 유효한
+> 프로시저를 사용할 수 있다. SQLProcedures()에 의해 반환되는 열은 [표 2-4]와 같다.
 
 | 열 이름           | 열번호 | 자료 유형          | 설명                                                                                                                                                                                                                     |
 |-------------------|--------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1105,7 +1105,7 @@ if (SQLProcedures(stmt,
 SQLRETURN SQLPutData (
 		SQLHSTMT 	stmt,
 		SQLPOINTER 	data,
-		SQLLEN 	strLength);
+		SQLLEN 	    strLength);
 ```
 
 #### 인 자
@@ -1394,7 +1394,7 @@ SQL_ERROR
 SQLSetEnvAttr()을 호출할 수 있다. 애플리케이션에서 성공적으로 설정된 모든 환경
 속성들은 현재 환경에서 SQLFreeHandle()이 호출될 때까지 보존된다.
 
-환경 속성
+#### 환경 속성
 
 | Attribute             | 내용                                               |
 |-----------------------|----------------------------------------------------|
@@ -1471,7 +1471,7 @@ SQLSetPos 함수의 *operation* 인자에는 아래의 옵션이 지원된다:
 | SQL_UPDATE   | 드라이버는 *rowNumber*로 지정한 행에 커서를 두고, 행집합 버퍼 내의 그 행의 데이터로 데이터베이스의 데이터를 갱신한다. 만약 *rowNumber*에 0을 지정하면, 행집합 내의 모든 데이터로 데이터베이스를 갱신한다. SQLBindCol의 length/indicator 인자에 SQL_COLUMN_IGNORE를 지정하면 그 칼럼은 갱신되지 않는다. SQL_ATTR_ROW_OPERATION_PTR 명령문 속성에 의해 설정된 행 작업 배열에 SQL_ROW_IGNORE로 설정한 행이 있다면, 그 행은 무시하고 다음 행을 갱신한다. |
 | SQL_DELETE   | 드라이버는 *rowNumber*로 지정한 행에 커서를 두고, 그 행을 삭제한다. 만약 *rowNumber*에 0을 지정하면, 행집합 내의 모든 행을 삭제한다. SQL_ATTR_ROW_OPERATION_PTR 명령문 속성에 의해 설정된 행 작업 배열에 SQL_ROW_IGNORE로 설정한 행이 있다면, 그 행은 무시하고 다음 행을 삭제한다.                                                                                                                                                                   |
 
-SQLSetPos 사용하기
+##### SQLSetPos 사용하기
 
 애플리케이션에서 SQLSetPos을 호출하려면, 아래의 단계대로 프로그램을 작성하라:
 
@@ -1710,11 +1710,11 @@ SQLRETURN  SQLSpecialColumns (
 	SQLCHAR *		szTableQual,
 	SQLSMALLINT		cbTableQual,
 	SQLCHAR *		szTableOwner,
-	SQLSMALLINT 		cbTableOwner,
+	SQLSMALLINT     cbTableOwner,
 	SQLCHAR *		szTableName,
 	SQLSMALLINT		cbTableName,
 	SQLSMALLINT		fScope,
-	SQLSMALLINT 		fNullable );
+	SQLSMALLINT 	fNullable );
 ```
 
 #### 인 자
@@ -1825,11 +1825,11 @@ SQLRETURN  SQLStatistics (
 	SQLCHAR *		cName,
 	SQLSMALLINT		cNameLength,
 	SQLCHAR *		sName,
-	SQLSMALLINT 		sNameLength,
+	SQLSMALLINT 	sNameLength,
 	SQLCHAR *		tName,
 	SQLSMALLINT		tNameLength,
 	SQLSMALLINT		unique,
-	SQLSMALLINT 		reserved );
+	SQLSMALLINT 	reserved );
 ```
 
 #### 인 자
@@ -2190,7 +2190,7 @@ SQLTransact()는 SQLEndTran()으로 대체될 수 있다.
 SQLRETURN  SQLTransact (
 	SQLHENV 		env,
 	SQLHDBC 		dbc,
-	SQLSMALLINT 		type );
+	SQLSMALLINT 	type );
 ```
 
 #### 인 자
@@ -2566,12 +2566,12 @@ SQL 문에서 LOB 데이터 타입을 위해 사용된 매개변수 마커 ‘?�
 ```
 SQLRETURN SQLBindFileToParam(
     SQLHSTMT         stmt,
-    SQLSMALLINT     par,
-    SQLSMALLINT     sqlType,
+    SQLSMALLINT      par,
+    SQLSMALLINT      sqlType,
     SQLCHAR *        fileName,
     SQLLEN *         fileNameLength,
-    SQLUINTEGER *   fileOptions,
-    SQLLEN            maxFileNameLength,
+    SQLUINTEGER *    fileOptions,
+    SQLLEN           maxFileNameLength,
     SQLLEN *         ind);
 ```
 
@@ -2787,8 +2787,8 @@ if (SQLExecute(stmt) != SQL_SUCCESS)
 SQLRETURN SQLGetLobLength(
     SQLHSTMT         stmt,
     SQLUBIGINT       locator,
-    SQLSMALLINT     locatorCType,
-    SQLUINTEGER *   valueLength);
+    SQLSMALLINT      locatorCType,
+    SQLUINTEGER *    valueLength);
 ```
 
 #### 인 자
@@ -2921,8 +2921,8 @@ SQLRETURN SQLGetLob(
     SQLHSTMT        stmt,
     SQLSMALLINT     locatorCType,
     SQLUBIGINT      sourceLocator,
-    SQLUINTEGER    fromPosition,
-    SQLUINTEGER    forLength,
+    SQLUINTEGER     fromPosition,
+    SQLUINTEGER     forLength,
     SQLSMALLINT     targetCType,
     SQLPOINTER      value,
     SQLUINTEGER     bufferSize,
@@ -3311,9 +3311,9 @@ LOB Locator가 가리키는 LOB 값의 지정한 위치 뒤쪽 부분을 삭제�
 
 ```
 SQLRETURN SQLTrimLob(
-    SQLHSTMT        stmt,
-    SQLSMALLINT     locatorCType,
-    SQLUBIGINT      targetLocator,
+    SQLHSTMT         stmt,
+    SQLSMALLINT      locatorCType,
+    SQLUBIGINT       targetLocator,
     SQLLEN           fromPosition);
 ```
 
@@ -4830,25 +4830,26 @@ Altibase CLI 명령문들은 다음과 같은 상태를 갖는다.
 
 -   (24000) :
 
-Note)
-
--   S : Success. 이 경우 함수는 다음 값들 중 하나를 반환한다:
-    SQL_SUCCESS_WITH_INFO 또는 SQL_SUCCESS.
-
--   E : Error. 이 경우 함수는 SQL_ERROR를 반환한다:
-
--   R : Results. 명령문을 수행했을 때 결과 집합이 있슴. (결과 집합은 empty set
-    일 가능성이 있다.)
-
--   NR : No Results. 명령문을 수행했을 때 결과 집합이 없슴.
-
--   NF : No Data Found. 함수는 SQL_NO_DATA를 반환한다.
-
--   RD : Receive Done
-
--   P : Prepared. The statement was prepared.
-
--   NP : Not Prepared. The statement was not prepared.
+> Note)
+>
+> -   S : Success. 이 경우 함수는 다음 값들 중 하나를 반환한다:
+>     SQL_SUCCESS_WITH_INFO 또는 SQL_SUCCESS.
+>
+> -   E : Error. 이 경우 함수는 SQL_ERROR를 반환한다:
+>
+> -   R : Results. 명령문을 수행했을 때 결과 집합이 있슴. (결과 집합은 empty set
+>     일 가능성이 있다.)
+>
+> -   NR : No Results. 명령문을 수행했을 때 결과 집합이 없슴.
+>
+> -   NF : No Data Found. 함수는 SQL_NO_DATA를 반환한다.
+>
+> -   RD : Receive Done
+>
+> -   P : Prepared. The statement was prepared.
+>
+> -   NP : Not Prepared. The statement was not prepared.
+>
 
 예를 들어 다음은 SQLPrepare 함수에 대한 statement state transition table을 보는
 방법이다.
@@ -5882,7 +5883,7 @@ SQL_TYPE_DATE, SQL_TYPE_TIME, SQL_TYPE_TIMESTAMP를 사용하기를 권장한다
 
 #### LOB
 
-**데이터 타입**
+##### 데이터 타입
 
 Altibase 4에서 LOB 타입은 길이가 페이지 크기로 제한되었으나, Altibase 5에서는
 최대 2GB까지 지원하는 BLOB, CLOB으로 구성된다.

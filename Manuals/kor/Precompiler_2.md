@@ -75,14 +75,14 @@ RELEASE문이 있다.
    커서 FETCH문을 반복 수행해야 한다.
 4. 커서 CLOSE문 또는 커서 CLOSE RELEASE문
 
-#### 주의 사항
-
-선언되지 않은 커서 이름으로 커서 OPEN문, 커서 FETCH문, 커서 CLOSE문, 커서 CLOSE
-RELEASE문을 수행할 경우 “The cursor does not exist.” 오류가 발생한다.
-
-한 프로그램 내에서 같은 커서 이름을 하나 이상 선언할 수 있다. 이 경우 실행
-시간에 가장 최근에 선언한 커서만이 유효하다. 즉, OPEN, FETCH, CLOSE, CLOSE
-RELEASE문은 가장 최근에 선언한 커서를 적용한다는 뜻이다.
+> #### 주의 사항
+>
+> 선언되지 않은 커서 이름으로 커서 OPEN문, 커서 FETCH문, 커서 CLOSE문, 커서 CLOSE
+> RELEASE문을 수행할 경우 “The cursor does not exist.” 오류가 발생한다.
+>
+> 한 프로그램 내에서 같은 커서 이름을 하나 이상 선언할 수 있다. 이 경우 실행
+> 시간에 가장 최근에 선언한 커서만이 유효하다. 즉, OPEN, FETCH, CLOSE, CLOSE
+> RELEASE문은 가장 최근에 선언한 커서를 적용한다는 뜻이다.
 
 ### 커서 관련 내장 SQL문
 
@@ -883,9 +883,10 @@ EXEC SQL FOR <:host_var | constant> { INSERT … | UPDATE … | DELETE …| FETC
 
 \<*constant*\>: 처리할 배열 요소 개수를 상수로 지정한다.
 
-##### 주의 사항
-
-FOR절에서 지정하는 개수는 1 이상이어야 한다.
+> ##### 주의 사항
+>
+> FOR절에서 지정하는 개수는 1 이상이어야 한다.
+>
 
 ```
 예) EXEC SQL BEGIN DECLARE SECTION;
@@ -1049,17 +1050,17 @@ EXEC SQL ATOMIC FOR <:host_var | constant> {INSERT … }
 
 \<*constant*\>: 처리할 배열 요소 개수를 상수로 지정한다.
 
-##### 주의 사항
-
-ATOMIC FOR 절은 INSERT 문에서만 사용할 수 있으며, 다른 DML구문에서는 사용할 수
-없다.
-
-LOB 칼럼에 대해 Atomic Array Insert를 수행할 수 있으나, LOB 데이터를 전송할 때
-오류가 발생하면 롤백이 되지 않는다. 따라서 이 경우 사용자가 직접 세이브포인트를
-이용하여 롤백을 수행해야 한다.
-
-이 외에도 ATOMIC FOR 절을 사용할 때의 몇 가지 제약사항을 다음과 같이 표로
-정리한다.
+> ##### 주의 사항
+>
+> ATOMIC FOR 절은 INSERT 문에서만 사용할 수 있으며, 다른 DML구문에서는 사용할 수
+> 없다.
+>
+> LOB 칼럼에 대해 Atomic Array Insert를 수행할 수 있으나, LOB 데이터를 전송할 때
+> 오류가 발생하면 롤백이 되지 않는다. 따라서 이 경우 사용자가 직접 세이브포인트를
+> 이용하여 롤백을 수행해야 한다.
+>
+> 이 외에도 ATOMIC FOR 절을 사용할 때의 몇 가지 제약사항을 다음과 같이 표로
+> 정리한다.
 
 | 구분                            | Array Insert                             | Atomic Array Insert               |
 | ------------------------------- | ---------------------------------------- | --------------------------------- |
@@ -1111,12 +1112,13 @@ FOR <:cnt | constant> {INSERT | UPDATE | DELETE}
 
 \<*constant*\>: 처리할 배열 요소 개수를 상수로 지정한다.
 
-##### 주의 사항
-
-- ONERR 절에 사용되는 호스트 변수의 배열 크기는 SQL 구문에서 사용되는 배열의
-  크기보다 작으면 안된다.
-- ONERR 절에 사용되는 호스트 변수의 배열 크기가 FOR 절과 함께 사용되는 경우
-  FOR 절의 DML 구문에서 지정한 크기보다 작으면 안된다.
+> ##### 주의 사항
+>
+> - ONERR 절에 사용되는 호스트 변수의 배열 크기는 SQL 구문에서 사용되는 배열의
+>   크기보다 작으면 안된다.
+> - ONERR 절에 사용되는 호스트 변수의 배열 크기가 FOR 절과 함께 사용되는 경우
+>   FOR 절의 DML 구문에서 지정한 크기보다 작으면 안된다.
+>
 
 ##### 예제
 
@@ -1207,17 +1209,18 @@ Atomic Array Insert를 수행한 경우에는 성공시 1, 실패할 경우 0을
 실패했다면 sqlca.sqlerrd[3]에는 2가 저장된다. 그리고 0번째 조건에 맞는 레코드가
 3개, 1번째 조건에 맞는 레코드가 2개였다면 sqlca.sqlerrd[2]에는 5가 저장된다.
 
-#### 주의 사항
-
-- sqlca.sqlerrd 변수값은 sqlca.sqlcode가 SQL_SUCCESS가 아니라면 무의미(garbage
-  value)하다. 따라서 sqlca.sqlcode가 SQL_SUCCESS일 경우 sqlca.sqlerrd 변수값을
-  참조하여야 한다.
-- AUTOCOMMIT 모드의 경우 배열 타입의 호스트 변수를 사용할 경우 배열 전체가
-  하나의 트랜잭션이 아니고 배열 요소 각각이 하나의 트랜잭션이다. 따라서 배열
-  요소 중 일부는 성공하고 일부는 실패한다면 성공한 트랜잭션의 변경 사항은
-  데이터베이스 서버에 영구히 저장된다.  
-  예를 들어 배열 크기 3의 호스트 변수를 사용하여 INSERT를 수행하는데 0번째와
-  1번째는 성공하고 2번째 실패하였다면 앞의 2건은 테이블에 삽입된다.
+> #### 주의 사항
+>
+> - sqlca.sqlerrd 변수값은 sqlca.sqlcode가 SQL_SUCCESS가 아니라면 무의미(garbage
+>   value)하다. 따라서 sqlca.sqlcode가 SQL_SUCCESS일 경우 sqlca.sqlerrd 변수값을
+>   참조하여야 한다.
+> - AUTOCOMMIT 모드의 경우 배열 타입의 호스트 변수를 사용할 경우 배열 전체가
+>   하나의 트랜잭션이 아니고 배열 요소 각각이 하나의 트랜잭션이다. 따라서 배열
+>   요소 중 일부는 성공하고 일부는 실패한다면 성공한 트랜잭션의 변경 사항은
+>   데이터베이스 서버에 영구히 저장된다.  
+>   예를 들어 배열 크기 3의 호스트 변수를 사용하여 INSERT를 수행하는데 0번째와
+>   1번째는 성공하고 2번째 실패하였다면 앞의 2건은 테이블에 삽입된다.
+>
 
 ### 제한 사항
 
@@ -1773,7 +1776,7 @@ SELECT문 실행에는 사용할 수 없다.
 > \*Note: PREPARE 문 전에 DECLARE STATEMENT문을 수행해도 무방하다.
 >
 
-###### PREPARE
+##### PREPARE
 
 ##### 구문
 
@@ -1787,8 +1790,7 @@ EXEC SQL PREPARE <statement_name> FROM
 - \<*statement_name*\>: SQL문 식별자. 알파벳(a\~z, A\~Z), 밑줄("_"), 또는 달러
   기호("\$")로 시작하여야 하며, 그 길이는 최대 50 bytes로 제한된다.
 - \<:*host_var*\>: SQL문 전체 문자열을 포함하는 문자형 타입의 변수
-
-\<*string_literal*\>: 고정된 SQL문 전체 문자열
+- \<*string_literal*\>: 고정된 SQL문 전체 문자열
 
 ##### 설명
 
@@ -1826,7 +1828,7 @@ else
 EXEC SQL PREPARE S FROM :query;
 ```
 
-###### EXECUTE
+##### EXECUTE
 
 ##### 구문
 
@@ -1885,7 +1887,7 @@ EXEC SQL EXECUTE S USING :s_eno, :s_ename;
 PREPARE문보다 DECLARE CURSOR문을 먼저 사용할 때는, DECLARE STATEMENT문을 DELCARE
 CURSOR문 이전에 수행해야 한다.
 
-###### DECLARE STATEMENT
+##### DECLARE STATEMENT
 
 ##### 구문
 
@@ -1917,7 +1919,7 @@ EXEC SQL DECLARE emp_cursor CURSOR FOR sql_stmt;
 EXEC SQL PREPARE sql_stmt FROM :dyn_string;
 ```
 
-###### PREPARE
+##### PREPARE
 
 ##### 구문
 
@@ -1930,8 +1932,7 @@ EXEC SQL PREPARE <statement_name> FROM
 
 - \<*statement_name*\>: SQL문 식별자. 최대 50자까지 허용
 - \<:*host_var*\>: SQL문 전체 문자열을 포함하는 변수
-
-\<*string_literal*\>: 고정된 SQL문 전체 문자열
+- \<*string_literal*\>: 고정된 SQL문 전체 문자열
 
 ##### 설명
 
@@ -1973,7 +1974,7 @@ case 3:
 EXEC SQL PREPARE S FROM :query;
 ```
 
-###### DECLARE CURSOR
+##### DECLARE CURSOR
 
 ##### 구문
 
@@ -2011,7 +2012,7 @@ PREPARE문, CLOSE문, CLOSE RELEASE문 후에 수행가능하다. 정의되지 �
 EXEC SQL DECLARE CUR CURSOR FOR S;
 ```
 
-###### OPEN
+##### OPEN
 
 ##### 구문
 
@@ -2054,7 +2055,7 @@ SELECT문의 제한 사항이 그대로 적용된다.
 EXEC SQL OPEN CUR;
 ```
 
-###### FETCH
+##### FETCH
 
 ##### 구문
 
@@ -2142,7 +2143,7 @@ SQLCODE, sqlca.sqlerrm.sqlerrmc);
 }
 ```
 
-###### CLOSE
+##### CLOSE
 
 ##### 구문
 
@@ -2176,7 +2177,7 @@ FETCH를 끝까지 하지 않은 상태에서 커서 CLOSE문 실행시, 서버�
 EXEC SQL CLOSE CUR;
 ```
 
-###### CLOSE RELEASE
+##### CLOSE RELEASE
 
 ##### 구문
 
@@ -2697,13 +2698,13 @@ VALUES
 
 ##### 구문
 
-저장 프로시저
+###### 저장 프로시저
 
 ```
 EXEC SQL ALTER PROCEDURE <procedure_name> COMPILE; 
 ```
 
-저장 함수
+###### 저장 함수
 
 ```
 EXEC SQL ALTER FUNCTION <function_name> COMPILE; 
@@ -2741,13 +2742,13 @@ EXEC SQL ALTER FUNCTION ORDER_FUNC COMPILE;
 
 ##### 구문
 
-저장 프로시저
+###### 저장 프로시저
 
 ```
 EXEC SQL DROP PROCEDURE <procedure_name>; 
 ```
 
-저장 함수
+###### 저장 함수
 
 ```
 EXEC SQL DROP FUNCTION <function_name>; 
@@ -2785,7 +2786,7 @@ EXEC SQL DROP FUNCTION ORDER_FUNC;
 
 ##### 구문
 
-저장 프로시저
+###### 저장 프로시저
 
 ```
 EXEC SQL EXECUTE BEGIN 
@@ -2795,7 +2796,7 @@ END;
 END-EXEC;
 ```
 
-저장 함수
+###### 저장 함수
 
 ```
 EXEC SQL EXECUTE BEGIN 
@@ -3114,15 +3115,16 @@ CONNECT <:user> IDENTIFIED BY <:passwd>
 연결 이름은 프로그램 내에서 유일한 이름이어야 한다. 이후 내장 SQL문에서도 AT절을
 이용하여 사용할 연결 이름을 명시하여야 한다.
 
-##### 주의 사항
-
-- 다중 연결 프로그램에서 연결 이름을 가지지 않는 연결은 하나만 허용하며, 이후
-  AT절을 사용하지 않은 내장 SQL문은 이 연결을 이용하여 처리된다.
-- CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행한다면 “The connection
-  already exists.” 오류가 발생한다. 따라서 CONNECT 후 같은 연결 이름으로 다시
-  CONNECT를 수행하려면 먼저 FREE 또는 DISCONNECT를 수행하여야 한다. 이 때,
-  데이터베이스 서버가 running 상태라면 DISCONNECT를, running 상태가 아니라면
-  FREE를 수행하여야 한다.
+> ##### 주의 사항
+>
+> - 다중 연결 프로그램에서 연결 이름을 가지지 않는 연결은 하나만 허용하며, 이후
+>   AT절을 사용하지 않은 내장 SQL문은 이 연결을 이용하여 처리된다.
+> - CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행한다면 “The connection
+>   already exists.” 오류가 발생한다. 따라서 CONNECT 후 같은 연결 이름으로 다시
+>   CONNECT를 수행하려면 먼저 FREE 또는 DISCONNECT를 수행하여야 한다. 이 때,
+>   데이터베이스 서버가 running 상태라면 DISCONNECT를, running 상태가 아니라면
+>   FREE를 수행하여야 한다.
+>
 
 ##### 예제
 
@@ -3187,12 +3189,12 @@ DISCONNECT;
 - \<*conn_name*\>: 문자열 리터럴 형태의 연결 이름
 - \<:*conn_name*\>: conn_name호스트 변수에 저장된 연결 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
-
-다중 연결 프로그램에서는 연결된 모든 connection에 대해서 각각 연결 이름을
-이용하여 연결 해제를 해주어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
+> 다중 연결 프로그램에서는 연결된 모든 connection에 대해서 각각 연결 이름을
+> 이용하여 연결 해제를 해주어야 한다.
 
 ##### 예제
 
@@ -3237,9 +3239,10 @@ EXEC SQL [ AT <conn_name | :conn_name> ]
 - \<*conn_name*\>: 문자열 리터럴 형태의 연결 이름
 - \<:*conn_name*\>: conn_name호스트 변수에 저장된 연결 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
 
 #### 커서 처리 SQL문
 
@@ -3258,9 +3261,10 @@ EXEC SQL [ AT <conn_name | :conn_name> ]
 - \<:*conn_name*\>: conn_name호스트 변수에 저장된 연결 이름
 - \<cursor_name\>: 커서 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
 
 #### 동적SQL문
 
@@ -3297,9 +3301,10 @@ EXEC SQL [ AT <conn_name | :conn_name> ] CLOSE …
 - \<*conn_name*\>: 문자열 리터럴 형태의 연결 이름
 - \<:*conn_name*\>: conn_name호스트 변수에 저장된 연결 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
 
 #### 기타 내장 SQL문
 
@@ -3328,9 +3333,10 @@ BATCH;
 - \<:*conn_name*\>: conn_name호스트 변수에 저장된 연결 이름
 - \<savepoint_name\>: 저장점 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
 
 #### 예외 사항
 
@@ -3374,9 +3380,10 @@ END-EXEC;
 
 \<*function_name*\>: 저장 함수의 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
 
 #### ALTER
 
@@ -3397,9 +3404,10 @@ ALTER PROCEDURE
 - \<*procedure_name*\>: 저장 프로시저의 이름
 - \<*function_name*\>: 저장 함수의 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
 
 #### DROP
 
@@ -3419,9 +3427,10 @@ DROP PROCEDURE <procedure_name | function_name>;
 - \<*procedure_name*\>: 저장 프로시저의 이름
 - \<*function_name*\>: 저장 함수의 이름
 
-##### 주의 사항
-
-연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 즉, 이미 연결된 이름이어야 한다.
+>
 
 #### EXECUTE
 
@@ -3445,9 +3454,10 @@ END-EXEC;
 - \<*function_name*\>: 저장 함수의 이름
 - /\* Stored procedure block here \*/: *Stored Procedures Manual* 참조
 
-##### 주의 사항
-
-연결 이름은 유효한 것으로, 이미 연결된 이름이어야 한다.
+> ##### 주의 사항
+>
+> 연결 이름은 유효한 것으로, 이미 연결된 이름이어야 한다.
+>
 
 ### 예제 프로그램
 
@@ -3632,10 +3642,10 @@ EXEC SQL OPTION (THREADS = TRUE);
 - 내장 SQL문에서도 사용할 연결 이름을 명시하여야 한다. 연결 이름을 사용하는
   방법은 12장을 참조하기 바란다.
 
-\* 참고: APRE 의 이전 버전 (즉, SESC 버전 3.5.5 이전)에는 내장 SQL문을 사용하는
-모든 함수에서 EXEC SQL THREADS; 문장을 선언하여야 한다. 그러나 이후 버전에서는
-명시하지 않아도 되며, 기존의 프로그램에 EXEC SQL THREADS 구문을 사용한 것과
-호환된다.
+> \* 참고: APRE 의 이전 버전 (즉, SESC 버전 3.5.5 이전)에는 내장 SQL문을 사용하는
+> 모든 함수에서 EXEC SQL THREADS; 문장을 선언하여야 한다. 그러나 이후 버전에서는
+> 명시하지 않아도 되며, 기존의 프로그램에 EXEC SQL THREADS 구문을 사용한 것과
+> 호환된다.
 
 ### 예제 프로그램
 
@@ -3887,7 +3897,7 @@ CLOB_FILE <:host_variable> OPTION <:file_type> INDICATOR <:indicator>
   에러가 발생한다.
 
 \<:indicator\>: 반환된 값의 NULL여부를 검사하는 데 사용하거나, 파일에 저장된
-데이터의 길이를 구하는 데 사용하는 지시자 변수
+데이터의 길이를 구하는 데 사용하는 지시자 변수.
 
 #### 예제
 
@@ -4148,15 +4158,15 @@ Variables)를 비교하고 차이점을 설명한다.
 
 <table>
 	<tr>
-		<td colspan="2">오라클</td>
-		<td colspan="2">Altibase</td>
-		<td rowspan="2">비  고</td>
+		<th colspan="2">오라클</th>
+		<th colspan="2">Altibase</th>
+		<th rowspan="2">비  고</th>
 	</tr>
 	<tr>
-		<td>Database Column type</td>
-		<td>Host Variable C type</td>
-		<td>Database Column type</td>
-		<td>Host Variable C type</td>
+		<th>Database Column type</th>
+		<th>Host Variable C type</th>
+		<th>Database Column type</th>
+		<th>Host Variable C type</th>
 	</tr>
 	<tr>
 		<td>CHAR</td>
@@ -4224,6 +4234,7 @@ varchar[n]
 		<td>n >= 20</td>
 	</tr>
 </table>
+
 
 #### 호스트 변수 선언부
 
@@ -4994,11 +5005,11 @@ SQLDA구조체는 동적SQL의 메소드4에서 사용된다. 이 구조체에�
 struct SQLDA
 {
 int       N;      /* 명령을 실행할 column의 개수 */
-char    **V;      /* 데이터 주소 */
-int      *L;      /* 각 데이터 buffer 길이 */
-short    *T;      /* 각 데이터 type */ 
-short   **I;      /* indicator 주소 */
-int        F;     /* 분석된 column 개수 */
+char      **V;      /* 데이터 주소 */
+int       *L;      /* 각 데이터 buffer 길이 */
+short     *T;      /* 각 데이터 type */ 
+short     **I;      /* indicator 주소 */
+int       F;     /* 분석된 column 개수 */
 }
 ```
 
@@ -5152,9 +5163,10 @@ $ ./delete
 7 rows deleted
 ```
 
-##### 주의사항
-
-sample에서 제공하는 makefile은
+> ##### 주의사항
+>
+> sample에서 제공하는 makefile은
+>
 
 ### 예제 프로그램의 테이블 정보
 

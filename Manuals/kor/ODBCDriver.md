@@ -108,8 +108,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은
 다음 버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래
-내용과 함께
-고객서비스포털( http://support.altibase.com/kr/ )로
+내용과 함께 고객서비스포털( http://support.altibase.com/kr/ )로
 보내주시기 바랍니다.
 
 -   사용 중인 매뉴얼의 이름과 버전
@@ -267,7 +266,9 @@ unixODBC가 버전과 컴파일 옵션에 따라 SQLLEN의 크기를 32bit 또�
 32비트 패키지를 설치하면 아래의 파일이 \$ALTIBASE\_HOME/lib에 위치하게
 된다.
 
-libaltibase\_odbc.so
+```
+libaltibase_odbc.so
+```
 
 HP 운영 체제의 경우 위와 동일한 파일 이름에 확장자만 sl이다.
 
@@ -351,7 +352,7 @@ Altibase ODBC를 사용하여 ODBC 애플리케이션을 작성할 때 DSN을 �
 ODBC애플리케이션에서 Altibase 서버에 접속하고 종료하는 예제 코드과
 애플리케이션 수행결과는 다음과 같다.
 
-예제
+##### 예제
 
 ```
 /* test_odbc.cpp */

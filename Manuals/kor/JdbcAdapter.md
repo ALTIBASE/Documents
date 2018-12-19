@@ -272,7 +272,7 @@ jdbcAdapter를 설치하고 실행하기 위해서는 다음의 시스템 요구
 또한 jdbcAdpater가 올바르게 작동하려면 몇가지 시스템 환경 설정도 필요하다.
 
 시스템 요구사항에 대해 보다 자세히 알고 싶으면, Altibase
-고객서비스포털(<http://support.altibase.com/kr/>)로 연락 바란다.
+고객서비스포털( <http://support.altibase.com/kr/> )로 연락 바란다.
 
 #### 운영체제
 
@@ -739,7 +739,7 @@ OTHER_DATABASE_ERROR_RETRY_TIME 간격으로 재시도하였는데도 실패하�
 
 Altibase에서 실행된 INSERT 구문을 데이터를 보낼 대상이 되는 Other DB에도
 실행할지 여부를 결정하는 프로퍼티이다. 이 프로퍼티를 1로 지정하면 Altibase에서
-실행된 INSERT 구문이 Other DB에는 실행되지 않는다
+실행된 INSERT 구문이 Other DB에는 실행되지 않는다.
 
 -   기본 값: 0
 
@@ -873,9 +873,7 @@ jdbcAdapter가 구동된 후에 어떤 환경 변수 또는 프로퍼티가 변�
    번호로 설정되었는지 확인한다. 이 프로퍼티 설정을 바꿀 필요가 있다면,
    Altibase를 재구동해야 한다.
 
-   [<sup>1</sup>] REPLICATION_PORT_NO는 이중화 연결을 위해서 지역 서버에서 사용하는이중화 포트 번호를 명시한다. 이 프로퍼티에 대한 설명은 Starting Guide를
-
-   참고하기 바란다.
+   [<sup>1</sup>] REPLICATION_PORT_NO는 이중화 연결을 위해서 지역 서버에서 사용하는이중화 포트 번호를 명시한다. 이 프로퍼티에 대한 설명은 Starting Guide를 참고하기 바란다.
 
 2. jdbcAdapter를 시작하기 전에, Altibase Log Analyzer (ALA)가 사용될 수 있도록
    XLog 송신자를 구성해야 한다. XLog 송신자는 Altibase로부터 XLog와 메타 정보를

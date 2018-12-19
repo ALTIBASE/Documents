@@ -260,9 +260,9 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
     세션은 링커 제어 세션(Linker Control Session)과 링커 데이터 세션(Linker Data
     Session)으로 구분된다.
 
--   위치 표시자(\@) (Location Descriptor)  
+-   위치 표시자(@) (Location Descriptor)  
     SQL 구문에 데이터베이스 링크를 표현하기 위해 사용되는 기호이다. 객체명과
-    데이터베이스 링크 이름 사이에 '\@' 기호로 위치 표시자를 쓸 수 있다.
+    데이터베이스 링크 이름 사이에 '@' 기호로 위치 표시자를 쓸 수 있다.
 
 -   글로벌 트랜잭션 (Global Transaction)  
     지역 서버에서 수행되는 SQL 구문과 원격 노드에서 수행되는 SQL 구문으로
@@ -648,13 +648,14 @@ AltiLinker 프로세스의 역할을 간략히 정리하면 아래와 같다.
 
 -   원격 노드에서 수행한 쿼리의 결과를 Altibase 서버로 전달
 
-##### 주의사항
-
--   AltiLinker 프로세스는 JDBC 인터페이스를 사용하여 원격 서버의 데이터베이스에
-    접근하므로 해당 데이터베이스 벤더가 제공하는 JDBC 드라이버가 반드시
-    필요하다.
-
--   AltiLinker 프로세스는 지역 서버와 동일한 장비에서만 동작한다.
+> ##### 주의사항
+>
+> -   AltiLinker 프로세스는 JDBC 인터페이스를 사용하여 원격 서버의 데이터베이스에
+>     접근하므로 해당 데이터베이스 벤더가 제공하는 JDBC 드라이버가 반드시
+>     필요하다.
+>
+> -   AltiLinker 프로세스는 지역 서버와 동일한 장비에서만 동작한다.
+>
 
 2.지원되는 객체, SQL문 및 데이터 타입
 -----------------------------------
@@ -668,7 +669,7 @@ AltiLinker 프로세스의 역할을 간략히 정리하면 아래와 같다.
 이 절은 데이터베이스 링크와 함께 사용할 수 있는 SQL구문에 대해 설명한다.
 
 Altibase 데이터베이스 링크는 원격 스키마 객체 접근을 위해 크게 두 종류의 방식을
-제공한다. 하나는 이전까지의 버전처럼 위치 표시자(\@)를 사용해서 원격 서버의
+제공한다. 하나는 이전까지의 버전처럼 위치 표시자(@)를 사용해서 원격 서버의
 테이블이나 뷰에 접근하는 방식이고, 다른 하나는 SQL문 전체를 원격 서버로 직접
 전송하는 pass-through 방식(style)이다.
 
@@ -683,12 +684,12 @@ REMOTE 함수들은 SQL문 내의 파라미터 마커에 값을 바인딩할 수
 아래는 SQL 구문 종류 별로 RETMOTE_TABLE 키워드와 REMOTE 함수들의 사용 가능
 여부를 표로 나타낸 것이다.
 
-|                                 | REMOTE_TABLE 키워드 | REMOTE_EXECUTE_IMMEDIATE | 바인딩 지원 REMOTE 함수들 |
-|---------------------------------|---------------------|--------------------------|---------------------------|
-| DDL 문                          | X                   | O                        | O                         |
-| DCL 문                          | X                   | O                        | O                         |
-| DML 문 (INSERT, UPDATE, DELETE) | X                   | O                        | O                         |
-| SELECT 문                       | O                   | X                        | O                         |
+|                                     | REMOTE_TABLE 키워드 | REMOTE_EXECUTE_IMMEDIATE | 바인딩 지원 REMOTE 함수들 |
+| ----------------------------------- | ------------------- | ------------------------ | ------------------------- |
+| **DDL 문**                          | X                   | O                        | O                         |
+| **DCL 문**                          | X                   | O                        | O                         |
+| **DML 문 (INSERT, UPDATE, DELETE)** | X                   | O                        | O                         |
+| **SELECT 문**                       | O                   | X                        | O                         |
 
 #### REMOTE_TABLE
 
@@ -764,31 +765,31 @@ REMOTE 함수를 호출하는 순서이다.
 
 이 절에서는 데이터베이스 링크로 접근할 수 있는 원격 스키마 객체들을 설명한다.
 
-| 원격 스키마 객체 | 위치 표시자 \@로 접근 가능한가? | REMOTE 함수로 접근 가능한가? |
-|------------------|---------------------------------|------------------------------|
-| 테이블           | O                               | O                            |
-| 인덱스           | X                               | O                            |
-| 뷰               | O                               | O                            |
-| 저장 프로시저    | X                               | O                            |
-| 시퀀스           | X                               | O                            |
-| 큐               | X                               | O                            |
-| 트리거           | X                               | O                            |
-| 시노님           | X                               | O                            |
-| 제약조건         | X                               | O                            |
+| 원격 스키마 객체 | 위치 표시자 @로 접근 가능한가? | REMOTE 함수로 접근 가능한가? |
+| ---------------- | ------------------------------ | ---------------------------- |
+| 테이블           | O                              | O                            |
+| 인덱스           | X                              | O                            |
+| 뷰               | O                              | O                            |
+| 저장 프로시저    | X                              | O                            |
+| 시퀀스           | X                              | O                            |
+| 큐               | X                              | O                            |
+| 트리거           | X                              | O                            |
+| 시노님           | X                              | O                            |
+| 제약조건         | X                              | O                            |
 
 [표 2‑1] 데이터베이스 링크로 접근가능한 원격 스키마 객체
 
-위의 표에서 보듯이 데이터베이스 링크를 위치 표시자(\@)와 함께 사용해서 원격
+위의 표에서 보듯이 데이터베이스 링크를 위치 표시자(@)와 함께 사용해서 원격
 서버에서 접근할 수 있는 객체는 테이블과 뷰 뿐이다. 그러나, pass-through 방식의
 REMOTE 함수를 사용하면 원격 노드의 거의 모든 스키마 객체에 접근이 가능하다.
 
-> 주의: 위치 표시자(\@)는 이전 버전과의 호환성을 위해 지원되며, 위치 표시자(\@)를
+> 주의: 위치 표시자(@)는 이전 버전과의 호환성을 위해 지원되며, 위치 표시자(@)를
 > 사용해서는 이전 버전에서와 마찬가지로 원격 서버에서 SELECT 구문만 수행할 수
 > 있다. 또한, 위치 표시자가 포함된 질의는 서버에서 쿼리 최적화가 수행되지 않기
 > 때문에, REMOTE 함수를 사용하는 것이 질의 처리 속도가 더 빠르다.
->
-> 아래의 절에서는 REMOTE 함수를 사용해서 원격 스키마 객체에 접근하는 방법과 SQL문
-> 예제를 보여준다.
+
+아래의 절에서는 REMOTE 함수를 사용해서 원격 스키마 객체에 접근하는 방법과 SQL문
+예제를 보여준다.
 
 #### 테이블
 
@@ -811,8 +812,7 @@ SELECT * FROM REMOTE_TABLE( link1, 'select * from t1' );
 SELECT * FROM t1 WHERE t1.c1 = ( SELECT * FROM REMOTE_TABLE( link1, 'select c2 from t2' ) );
 ```
 
-원격 서버에 DML 또는 DDL문을 수행하려면 아래 예제와 같이
-REMOTE_EXECUTE_IMMEDIATE 프로시저를 사용하면 된다.
+원격 서버에 DML 또는 DDL문을 수행하려면 아래 예제와 같이 REMOTE_EXECUTE_IMMEDIATE 프로시저를 사용하면 된다.
 
 ```
 REMOTE_EXECUTE_IMMEDIATE( 'link1', 'insert into t1 values(1)' );
@@ -840,7 +840,7 @@ RETURN row_count;
 END;
 ```
 
-아래는 위치 표시자 '\@'를 사용해서 원격 서버의 테이블을 조회하는 예제이다. 위치
+아래는 위치 표시자 '@'를 사용해서 원격 서버의 테이블을 조회하는 예제이다. 위치
 표시자 사용 방식은 기존 버전과의 호환성을 유지하기 위해 지원된다.
 
 ```
@@ -872,7 +872,7 @@ SELECT * FROM REMOTE_TABLE( link1, 'select * from v1' );
 REMOTE_EXECUTE_IMMEDIATE( 'link1', 'create view v1 as select c1, c2, c3 from t1' );
 ```
 
-아래는 위치 표시자 '\@'를 사용해서 원격 서버의 뷰를 조회하는 예제이다.
+아래는 위치 표시자 '@'를 사용해서 원격 서버의 뷰를 조회하는 예제이다.
 
 ```
 SELECT * FROM v1@link1;
@@ -917,9 +917,9 @@ REMOTE_EXECUTE_IMMEDIATE( 'link1', 'execute proc1' );
 지역 서버의 저장 프로시저 내에서 원격 서버의 테이블에 기반한 ROWTYPE 변수 선언과
 커서 선언은 할 수 없다.
 
-위치 표시자 '\@'를 사용하는 경우 이전 버전과 동일한 제약사항을 가진다. 다시 말해
-위치 표시자 '\@'를 사용해서 원격 서버에 존재하는 저장 프로시저에 대한 접근은
-불가능하나, 지역 서버의 저장 프로시저 내에서 위치 표시자 '\@'를 사용해서 원격
+위치 표시자 '@'를 사용하는 경우 이전 버전과 동일한 제약사항을 가진다. 다시 말해
+위치 표시자 '@'를 사용해서 원격 서버에 존재하는 저장 프로시저에 대한 접근은
+불가능하나, 지역 서버의 저장 프로시저 내에서 위치 표시자 '@'를 사용해서 원격
 서버의 테이블 또는 뷰에 접근하는 것은 가능하다.
 
 #### 시퀀스
@@ -1324,16 +1324,16 @@ SYS 사용자이거나 DROP DATABASE LINK 시스템 권한을 가진 사용자�
 
 데이터베이스 링크 객체를 삭제한다.
 
-dblink_name
+##### dblink_name
 
 제거할 데이터베이스 링크 객체의 이름을 명시한다.
 
-#### 주의사항
-
-제거하고자 하는 데이터베이스 링크 객체가 사용 중이라면, 제거할 수 없다. 제거할
-데이터베이스 링크 객체로 수행중인 질의가 없는 상태에서만 데이터베이스 링크 객체
-제거가 가능하다. 데이터베이스 링크 객체에 대해 질의 수행 중인 경우에는 오류가
-발생할 것이다.
+> #### 주의사항
+>
+> 제거하고자 하는 데이터베이스 링크 객체가 사용 중이라면, 제거할 수 없다. 제거할
+> 데이터베이스 링크 객체로 수행중인 질의가 없는 상태에서만 데이터베이스 링크 객체
+> 제거가 가능하다. 데이터베이스 링크 객체에 대해 질의 수행 중인 경우에는 오류가
+> 발생할 것이다.
 
 #### 예제
 
@@ -1436,11 +1436,11 @@ ALTER SESSION CLOSE DATABASE LINK link1;
 ### SELECT
 
 Altibase 데이터베이스 링크를 사용해서 원격 데이터베이스의 객체를
-조회(SELECT)하는 방법은 위치 표시자(‘\@’)를 사용하거나 pass-through 방식을
+조회(SELECT)하는 방법은 위치 표시자(‘@’)를 사용하거나 pass-through 방식을
 사용하는 두 가지가 있다.
 
 Altibase 데이터베이스 링크는 pass-through 스타일의 REMOTE_TABLE 키워드를 사용할
-것을 권장하고 있으며, 위치 표시자(‘\@’)는 이전 버전과의 호환성을 위해 지원한다.
+것을 권장하고 있으며, 위치 표시자(‘@’)는 이전 버전과의 호환성을 위해 지원한다.
 
 두 방식 모두 FROM 절에서만 데이터베이스 링크를 사용할 수 있다.
 
@@ -1449,10 +1449,10 @@ SELECT절에서 사용하는 문자열 표기법에 대한 자세한 설명은 G
 
 #### 위치 표시자
 
-위치 표시자 '\@'를 사용하는 구문은 이전 버전과의 호환성을 유지하기 위해
+위치 표시자 '@'를 사용하는 구문은 이전 버전과의 호환성을 유지하기 위해
 지원된다.
 
-위치 표시자를 사용하는 방법은 아래의 예제와 같이 ‘\@’ 기호를 사용하여 해당
+위치 표시자를 사용하는 방법은 아래의 예제와 같이 ‘@’ 기호를 사용하여 해당
 객체가 원격 서버에 존재하는 객체임을 표시하는 것이다.
 
 ```
@@ -1528,7 +1528,7 @@ REMOTE_TABLE 키워드를 사용하는 문법은 아래와 같다.
 ```
 REMOTE_TABLE (
     dblink_name     IN VARCHAR,
-    statement_text IN VARCHAR )
+    statement_text  IN VARCHAR )
 ```
 
 dblink_name: 데이터베이스 링크 객체의 이름
@@ -1676,7 +1676,7 @@ REMOTE_EXECUTE_IMMEDIATE 프로시저는 입력한 SQL문을 데이터베이스 
 ```
 REMOTE_EXECUTE_IMMEDIATE (
     dblink_name     IN VARCHAR,
-    statement_text IN VARCHAR );
+    statement_text  IN VARCHAR );
 ```
 
 #### 파라미터
@@ -1717,7 +1717,7 @@ exec REMOTE_EXECUTE_IMMEDIATE( 'link1', 'drop table remote_t' );
 ```
 BIGINT REMOTE_ALLOC_STATEMENT (
     dblink_name     IN VARCHAR,
-    statement_text IN VARCHAR );
+    statement_text  IN VARCHAR );
 ```
 
 ##### 파라미터
@@ -1777,8 +1777,8 @@ SQL 구문의 파라미터 마커에 값을 바인딩한다. 이 함수는 저�
 INTEGER REMOTE_BIND_VARIABLE (
     dblink_name        IN VARCHAR,
     statement_id       IN BIGINT,
-    parameter_number  IN VARCHAR,
-    value                IN VARCHAR );
+    parameter_number   IN VARCHAR,
+    value              IN VARCHAR );
 ```
 
 ##### 파라미터
@@ -1868,7 +1868,7 @@ CHAR(char_size) REMOTE_GET_COLUMN_CHAR (
     dblink_name        IN VARCHAR,
     statement_id       IN BIGINT,
     column_number      IN INTEGER,
-    char_size           IN INTEGER );
+    char_size          IN INTEGER );
 ```
 
 ##### 파라미터
@@ -1926,7 +1926,7 @@ FLOAT(precision) REMOTE_GET_COLUMN_FLOAT (
     dblink_name       IN VARCHAR,
     statement_id      IN BIGINT,
     column_number     IN INTEGER,
-    precision          IN INTEGER );
+    precision         IN INTEGER );
 ```
 
 ##### 파라미터
@@ -2137,8 +2137,6 @@ INTEGER REMOTE_NEXT_ROW (
 
 REMOTE_ALLOC_STATEMENT의 예제를 참고하라.
 
-**REMOTE 함수” 다음에 추가**
-
 ### 일괄처리(Batch) 지원 REMOTE 함수
 
 이 절은 알티베이스 데이터베이스 링크가 일괄처리(Batch)할 수 있는 Remote함수와
@@ -2314,7 +2312,7 @@ IS_ARRAY_BOUND 의 예제를 참고하라.
 ```
 BIGINT REMOTE_ALLOC_STATEMENT_BATCH (
     dblink_name        IN VARCHAR,
-    statement_text       IN VARCHAR);
+    statement_text     IN VARCHAR);
 ```
 
 ##### 파라미터
@@ -2342,7 +2340,7 @@ IS_ARRAY_BOUND 의 예제를 참고하라.
 INTEGER REMOTE_BIND_VARIABLE_BATCH (
     dblink_name              IN VARCHAR,
     statement_id             IN BIGINT,
-    parameter_number       IN VARCHAR,
+    parameter_number         IN VARCHAR,
     value                    IN VARCHAR);
 ```
 
@@ -2457,7 +2455,7 @@ REMOTE_EXECUTE_BATCH 함수를 수행한 후에 일괄처리로 수행된 SQL구
 INTEGER REMOTE_GET_RESULT_BATCH (
     dblink_name              IN VARCHAR,
     statement_id             IN BIGINT,
-    index                     IN INTEGER);
+    index                    IN INTEGER);
 ```
 
 ##### 파라미터

@@ -650,7 +650,7 @@ if( ABIFinalize( ) != 0 )
 
 ```
 int ABISetProperty (
-    ABIPropType          aPropType,
+    ABIPropType         aPropType,
     const char          *aPropValue );
 ```
 
@@ -720,7 +720,7 @@ else
 ```
 int ABIGetVSession (
     ABIVSession          **aHandle,
-    unsigned int           aExecutingOnly );
+    unsigned int         aExecutingOnly );
 ```
 
 #### 인자
@@ -764,7 +764,7 @@ sRowCountActiveOnly = ABIGetVSession( &sVSessionActiveOnly, 1 );
 ```
 int ABIGetVSessionBySID (
     ABIVSession          **aHandle,
-    int                       aSessionID );
+    int                  aSessionID );
 ```
 
 #### 인자
@@ -839,7 +839,7 @@ sRowCount = ABIGetVSysstat( &sVSysstat );
 ```
 int ABIGetVSesstat (
     ABIVSesstat          **aHandle,
-    unsigned int           aExecutingOnly );
+    unsigned int         aExecutingOnly );
 ```
 
 #### 인자
@@ -877,7 +877,7 @@ sRowCount = ABIGetVSesstat( &sVSesstat );
 ```
 int ABIGetVSesstatBySID (
     ABIVSesstat          **aHandle,
-    int                       aSessionID );
+    int                  aSessionID );
 ```
 
 #### 인자
@@ -1027,7 +1027,7 @@ sRowCount = ABIGetVSessionEvent( &sVSessionEvent);
 ```
 int ABIGetVSessionEventBySID (
     ABIVSessionEvent         **aHandle,
-    int                            aSessionID );
+    int                      aSessionID );
 ```
 
 #### 인자
@@ -1139,7 +1139,7 @@ sRowCount = ABIGetVSessionWait( &sVSessionWait);
 ```
 int ABIGetVSessionWaitBySID (
     ABIVSessionWait          **aHandle,
-    int                            aSessionID );
+    int                      aSessionID );
 ```
 
 #### 인자
@@ -1178,7 +1178,7 @@ sRowCount = ABIGetVSessionWaitBySID( &sVSessionWait, 1);
 ```
 int ABIGetSqlText (
     ABISqlText          **aHandle,
-    int                      astmtID );
+    int                 astmtID );
 ```
 
 #### 인자
@@ -1487,7 +1487,7 @@ sRowCount = ABIRepSentLogCount( &sRepSentLogCount );
 
 ```
 void ABIGetErrorMessage (
-    int                    aErrCode,
+    int                 aErrCode,
     const char          *aErrMsg );
 ```
 

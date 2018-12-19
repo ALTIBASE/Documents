@@ -626,8 +626,7 @@ Altibase Sharding의 클라이언트측 샤딩의 특징은 다음과 같다.
     수행할 데이터 노드가 선택된다. 사용자는 데이터 노드를 구분할 필요가 없다.
 
 -   하이브리드 샤딩  
-    쿼리에 따라 클라이언트측이나 서버측으로 수행경로를 변경하여 성능을
-    최대화한다.
+    쿼리에 따라 클라이언트측이나 서버측으로 수행경로를 변경하여 성능을 최대화한다.
 
 #### 쉬운 SQL 작성
 
@@ -738,10 +737,10 @@ Q3-2) select sum(c) total_count from temp;
 샤드 트랜잭션은 분산 트랜잭션의 일관성을 보장하기 위하여 2단계 커밋(2-Phase
 Commit)을 이용한 글로벌 트랜잭션을 지원한다.
 
-##### 주의 사항
-
-복제(clone) 분할 방식을 사용하면 데이터가 서버에 중복하여 저장되기 때문에,
-글로벌 트랜잭션을 이용하더라도 데이터의 일관성이 보장되지 않을 수 있다.
+> ##### 주의 사항
+>
+> 복제(clone) 분할 방식을 사용하면 데이터가 서버에 중복하여 저장되기 때문에,
+> 글로벌 트랜잭션을 이용하더라도 데이터의 일관성이 보장되지 않을 수 있다.
 
 #### 다양한 샤드 쿼리와 함수 지원
 
@@ -1546,16 +1545,17 @@ iSQL> EXEC DBMS_SHARD.SET_NODE(‘node2’,‘192.168.1.11’,20300, ‘192.168.
 iSQL> SELECT * FROM sys_shard.nodes_;
 ```
 
-##### 주의 사항
-
-이미 운영중인 샤드 키 분산 테이블에서 신규 데이터 노드를 증설하고 추가적으로
-분산 키를 신규 데이터 노드로 매핑할 경우, 현재 세션에서 신규 데이터 노드를
-인식할 수 있도록 다음 과정을 수행해야 한다.
-
-```
-iSQL> EXEC DBMS_SHARD.SET_NODE(‘node3’,‘192.168.1.12’,20300);
-iSQL> ALTER SESSION SET shard linker = on;
-```
+> ##### 주의 사항
+>
+> 이미 운영중인 샤드 키 분산 테이블에서 신규 데이터 노드를 증설하고 추가적으로
+> 분산 키를 신규 데이터 노드로 매핑할 경우, 현재 세션에서 신규 데이터 노드를
+> 인식할 수 있도록 다음 과정을 수행해야 한다.
+>
+> ```
+> iSQL> EXEC DBMS_SHARD.SET_NODE(‘node3’,‘192.168.1.12’,20300);
+> iSQL> ALTER SESSION SET shard linker = on;
+> ```
+>
 
 #### 샤드 링커 활성화
 
@@ -1573,10 +1573,10 @@ ALTER SESSION SET SHARD LINKER = ON
 이전에 캐시에 등록된 실행계획을 사용하지 않으므로, 현재 세션에서 데이터 노드
 연결 정보를 제거하고 다시 얻는다.
 
-##### 주의사항
-
-현재 세션에서 데이터 노드 연결 정보를 제거하므로, 데이터 노드에 수행한 작업이
-있으면 미리 커밋 또는 롤백해야 한다.
+> ##### 주의사항
+>
+> 현재 세션에서 데이터 노드 연결 정보를 제거하므로, 데이터 노드에 수행한 작업이
+> 있으면 미리 커밋 또는 롤백해야 한다.
 
 #### 데이터 노드 삭제
 
@@ -2000,7 +2000,7 @@ Altibase Sharding에서 트랜잭션을 시작할 때 단일 노드 트랜잭션
 
 ```
 SQLSetConnectAttr (
-	SQLHDBC 		dbc,
+	SQLHDBC 	dbc,
 	SQLINTEGER 	Attribute,
 	SQLPOINTER	ValuePtr,
 	SQLINTEGER 	StringLength );
@@ -2037,7 +2037,7 @@ Altibase Sharding에서 트랜잭션을 시작할 때 다중 노드 트랜잭션
 
 ```
 SQLSetConnectAttr (
-	SQLHDBC 		dbc,
+	SQLHDBC 	dbc,
 	SQLINTEGER 	Attribute,
 	SQLPOINTER	ValuePtr,
 	SQLINTEGER 	StringLength );
@@ -2065,7 +2065,7 @@ Altibase Sharding에서 ACID를 보장하면서 여러 데이터 노드에 대�
 
 ```
 SQLSetConnectAttr (
-	SQLHDBC 		dbc,
+	SQLHDBC 	dbc,
 	SQLINTEGER 	Attribute,
 	SQLPOINTER	ValuePtr,
 	SQLINTEGER 	StringLength );
@@ -2238,9 +2238,10 @@ SELECT * FROM s1 WHERE k1=1;
 iSQL> SELECT * FROM s1 WHERE k1=1;
 ```
 
-##### 주의 사항
+> ##### 주의 사항
+>
+> Select문은 사용 유형이 다양한 만큼 그 수행 여부에 영향을 줄 수 있는 요소가 많다.
 
-Select문은 사용 유형이 다양한 만큼 그 수행 여부에 영향을 줄 수 있는 요소가 많다.
 Altibase Sharding은 샤드 테이블에 대해 다음과 같은 유형을 지원한다.
 
 -   Join
@@ -2623,10 +2624,10 @@ iSQL> NODE[META] SELECT count(*) FROM t1;
 iSQL> SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
 ```
 
-##### 주의 사항
-
-샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로
-결과의 정합성을 보장하기 어렵다. 따라서 사용에 각별한 주의가 필요하다.
+> ##### 주의 사항
+>
+> 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로
+> 결과의 정합성을 보장하기 어렵다. 따라서 사용에 각별한 주의가 필요하다.
 
 ### 샤드 함수
 
@@ -3034,9 +3035,10 @@ iSQL> EXEC dbms_shard.create_meta();
 Execute success.
 ```
 
-##### 주의 사항
-
--   메타 테이블을 삭제하면 샤딩을 사용할 수 없으므로 주의해야 한다.
+> ##### 주의 사항
+>
+> -   메타 테이블을 삭제하면 샤딩을 사용할 수 없으므로 주의해야 한다.
+>
 
 #### EXECUTE_IMMEDIATE
 
@@ -3044,7 +3046,7 @@ Execute success.
 
 ```
 EXECUTE_IMMEDIATE(
- query in varchar(65534),
+ query     in varchar(65534),
  node_name in varchar(40) default NULL)
 ```
 
@@ -3073,9 +3075,9 @@ Execute success.
 
 ```
 SET_NODE(
- node_name in varchar(40),
- host_ip in varchar(16),
- port_no in integer,
+ node_name         in varchar(40),
+ host_ip           in varchar(16),
+ port_no           in integer,
  alternate_host_ip in varchar(16) default NULL,
  alternate_port_no in integer default NULL)
 ```
@@ -3114,8 +3116,8 @@ Execute success.
 
 ```
 RESET_ALTERNATE_NODE(node_name in varchar(40),
-                           host_ip in varchar(16),
-                           port_no in integer)
+                     host_ip   in varchar(16),
+                     port_no   in integer)
 ```
 
 ##### 파라미터
@@ -3145,8 +3147,8 @@ Execute success.
 
 ```
 RESET_NODE(node_name in varchar(40),
-              host_ip in varchar(16),
-              port_no in integer)
+           host_ip   in varchar(16),
+           port_no   in integer)
 ```
 
 ##### 파라미터
@@ -3174,10 +3176,10 @@ Execute success.
 
 ```
 SET_SHARD_TABLE(
- user_name in varchar(128),
- table_name in varchar(128),
- split_method in varchar(1),
- key_column_name in varchar(128) default NULL,
+ user_name         in varchar(128),
+ table_name        in varchar(128),
+ split_method      in varchar(1),
+ key_column_name   in varchar(128) default NULL,
  default_node_name in varchar(40) default NULL)
 ```
 
@@ -3215,12 +3217,13 @@ iSQL> EXEC dbms_shard.set_shard_table('sys','t5','S');
 Execute success.
 ```
 
-##### 주의사항
-
--   샤드 테이블을 설정하기 위해서는 반드시 메타 노드와 데이터 노드에 동일한
-    테이블 스키마가 생성되어야 한다.
-
--   테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
+> ##### 주의사항
+>
+> -   샤드 테이블을 설정하기 위해서는 반드시 메타 노드와 데이터 노드에 동일한
+>     테이블 스키마가 생성되어야 한다.
+>
+> -   테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
+>
 
 #### SET_SHARD_TABLE_COMPOSITE
 
@@ -3228,7 +3231,7 @@ Execute success.
 
 ```
 SET_SHARD_TABLE_COMPOSITE(
- user_name in varchar(128),
+ user_name  in varchar(128),
  table_name in varchar(128),
  split_method in varchar(1),
  key_column_name in varchar(128),
@@ -3260,12 +3263,13 @@ iSQL> EXEC dbms_shard.set_shard_table_composite(‘sys’,’t6’,’L’,’i1
 Execute success.
 ```
 
-##### 주의사항
-
--   복합 샤드키를 적용한 샤드 테이블 역시 메타 노드와 데이터 노드에 동일한
-    테이블 스키마가 생성되어야 한다.
-
--   테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
+> ##### 주의사항
+>
+> -   복합 샤드키를 적용한 샤드 테이블 역시 메타 노드와 데이터 노드에 동일한
+>     테이블 스키마가 생성되어야 한다.
+>
+> -   테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
+>
 
 #### SET_SHARD_PROCEDURE
 
@@ -3312,12 +3316,13 @@ iSQL> EXEC dbms_shard.set_shard_procdure('SYS','proc5','S');
 Execute success.
 ```
 
-##### 주의사항
-
--   샤드 프로시저를 설정하기 위해서는 반드시 메타 노드와 데이터 노드에 동일한
-    프로시저가 생성되어야 한다.
-
--   프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
+> ##### 주의사항
+>
+> -   샤드 프로시저를 설정하기 위해서는 반드시 메타 노드와 데이터 노드에 동일한
+>     프로시저가 생성되어야 한다.
+>
+> -   프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
+>
 
 #### SET_SHARD_PROCEDURE_COMPOSITE
 
@@ -3359,12 +3364,13 @@ iSQL> EXEC dbms_shard.set_shard_procdure_composite('sys','proc6','L','p1', 'L','
 Execute success.
 ```
 
-##### 주의사항
-
--   복합 샤드 키 프로시저를 설정하기 위해서는 반드시 메타 노드와 데이터 노드에
-    동일한 프로시저가 생성되어야 한다.
-
--   프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
+> ##### 주의사항
+>
+> -   복합 샤드 키 프로시저를 설정하기 위해서는 반드시 메타 노드와 데이터 노드에
+>     동일한 프로시저가 생성되어야 한다.
+>
+> -   프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
+>
 
 #### SET_SHARD_HASH
 
@@ -3416,10 +3422,10 @@ Execute success.
 ##### 구문
 
 ```
-SET_SHARD_RANGE(     user_name  in  varchar(128),
+SET_SHARD_RANGE(     user_name    in  varchar(128),
                      object_name  in  varchar(128),
-                     value_max   in  varchar(100),
-                     node_name  in  varchar(40))
+                     value_max    in  varchar(100),
+                     node_name    in  varchar(40))
 ```
 
 ##### 파라미터
@@ -3449,10 +3455,10 @@ Execute success.
 ##### 구문
 
 ```
-SET_SHARD_LIST(    user_name  in  varchar(128),
+SET_SHARD_LIST(    user_name    in  varchar(128),
                    object_name  in  varchar(128),
-                   value       in  varchar(100),
-                   node_name  in  varchar(40))
+                   value        in  varchar(100),
+                   node_name    in  varchar(40))
 ```
 
 ##### 파라미터
@@ -3485,11 +3491,11 @@ Execute success.
 
 ```
 SET_SHARD_COMPOSITE(
- user_name   in  varchar(128),
- object_name in  varchar(128),
+ user_name    in  varchar(128),
+ object_name  in  varchar(128),
  value        in  varchar(100),
- sub_value   in  varchar(100),
- node_name   in  varchar(40))
+ sub_value    in  varchar(100),
+ node_name    in  varchar(40))
 ```
 
 ##### 파라미터
@@ -3529,9 +3535,9 @@ Execute success
 ##### 구문
 
 ```
-SET_SHARD_CLONE(    user_name  in  varchar(128),
+SET_SHARD_CLONE(    user_name    in  varchar(128),
                     object_name  in  varchar(128),
-                    node_name  in  varchar(40))
+                    node_name    in  varchar(40))
 ```
 
 ##### 파라미터
@@ -3561,9 +3567,9 @@ iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node3');
 ##### 구문
 
 ```
-SET_SHARD_SOLO(    user_name  in  varchar(128),
+SET_SHARD_SOLO(    user_name    in  varchar(128),
                    object_name  in  varchar(128),
-                   node_name  in  varchar(40))
+                   node_name    in  varchar(40))
 ```
 
 ##### 파라미터
@@ -3592,8 +3598,8 @@ Execute success.
 ##### 구문
 
 ```
-CHECK_DATA(user_name   in  varchar(128),
-           table_name  in  varchar(128),
+CHECK_DATA(user_name            in  varchar(128),
+           table_name           in  varchar(128),
            additional_node_list in varchar(1000) default null)
 ```
 
@@ -3641,18 +3647,19 @@ total_incorrect_count:200
 Execute success.
 ```
 
-##### 주의사항
-
-복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
+> ##### 주의사항
+>
+> 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
+>
 
 #### REBUILD_DATA
 
 ##### 구문
 
 ```
-REBUILD_DATA(user_name   in  varchar(128),
-             table_name  in  varchar(128),
-             batch_count  in bigint default 0,
+REBUILD_DATA(user_name            in  varchar(128),
+             table_name           in  varchar(128),
+             batch_count          in bigint default 0,
              additional_node_list in varchar(1000) default null)
 ```
 
@@ -3739,23 +3746,24 @@ iSQL> EXEC dbms_shard.rebuild_data('sys','t1',1000,'node3');
 Execute success.
 ```
 
-##### 주의사항
-
--   복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
-
--   기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
-    프로시저를 수행해야 한다.
-
--   Global transaction , Non-autocommit 모드에서 수행하여야 정합성이 보장된다.
+> ##### 주의사항
+>
+> -   복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
+>
+> -   기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
+>     프로시저를 수행해야 한다.
+>
+> -   Global transaction , Non-autocommit 모드에서 수행하여야 정합성이 보장된다.
+>
 
 #### REBUILD_DATA_NODE
 
 ##### 구문
 
 ```
-REBUILD_DATA_NODE(user_name   in  varchar(128),
-                 table_name in varchar(128),
-                 node_name  in varchar(40),
+REBUILD_DATA_NODE(user_name  in  varchar(128),
+                 table_name  in varchar(128),
+                 node_name   in varchar(40),
                  batch_count in bigint default 0)
 ```
 
@@ -3846,7 +3854,7 @@ Execute success.
 ##### 구문
 
 ```
-UNSET_SHARD_TABLE(     user_name in varchar(128),
+UNSET_SHARD_TABLE(     user_name  in varchar(128),
                        table_name in varchar(128))
 ```
 
@@ -3907,7 +3915,7 @@ Execute success.
 
 ```
 UNSET_SHARD_PROCEDURE(
-	user_name in varchar(128),
+  user_name in varchar(128),
   proc_name in varchar(128))
 ```
 

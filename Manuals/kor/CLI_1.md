@@ -874,7 +874,7 @@ SQLAllocConnect()는 SQLAllocHandle()로 대체될 수 있다.
 
 ```
 SQLRETURN  SQLAllocConnect (
-	SQLHENV	env,
+	SQLHENV	    env,
 	SQLHDBC *	dbc );
 ```
 
@@ -1009,7 +1009,7 @@ if (SQLAllocEnv (&env) != SQL_SUCCESS)
 
 ```
 SQLRETURN  SQLAllocHandle (
-	SQLSMALLINT	HandleType,
+	SQLSMALLINT	    HandleType,
 	SQLHANDLE		InputHandle,
 	SQLHANDLE *		OutputHandlePtr );
 ```
@@ -1136,7 +1136,7 @@ SQLAllocStmt()는 SQLAllocHandle()로 대체될 수 있다.
 
 ```
 SQLRETURN  SQLAllocStmt (
-	SQLHDBC	dbc,
+	SQLHDBC	    dbc,
 	SQLHSTMT *	stmt );
 ```
 
@@ -1757,7 +1757,7 @@ if (SQLExecute(stmt) != SQL_SUCCESS)
 
 ```
 SQLRETURN  SQLBulkOperations (
-	SQLHSTMT 	stmt,
+	SQLHSTMT 	    stmt,
 	SQLUSMALLINT 	operation);
 ```
 
@@ -2424,7 +2424,7 @@ Unicode SQLConnectW() 동작은 SQLConnect()와 동일하다.
 
 ```
 SQLRETURN  SQLConnect (
-	SQLHDBC		dbc,
+	SQLHDBC		    dbc,
 	SQLCHAR * 		db,
 	SQLSMALLINT		dbLength,
 	SQLCHAR * 		usr,
@@ -2797,14 +2797,14 @@ Unicode SQLDriverConnectW() 동작은 SQLDriverConnect()와 동일하다.
 
 ```
 SQLRETURN  SQLDriverConnect (
-	SQLHDBC		dbc,
+	SQLHDBC		    dbc,
 	SQLPOINTER		windowHandle,
 	SQLCHAR *		InConnectionString,
 	SQLSMALLINT		length1,
 	SQLCHAR * 		OutConnectionString,
-	SQLSMALLINT 		bufferLength,
-	SQLSMALLINT *		strLength2Ptr,
-	SQLSMALLINT 		DriverCompletion );
+	SQLSMALLINT 	bufferLength,
+	SQLSMALLINT *	strLength2Ptr,
+	SQLSMALLINT 	DriverCompletion );
 ```
 
 #### 인 자
@@ -2906,28 +2906,32 @@ DSN=192.168.1.11;UID=SYS;PWD=MANAGER;CONNTYPE=1;NLS_USE=KO16KSC5601;PORT_NO=2020
     무시되거나 에러를 발생시킬 수 있다 (Linux OS 인 경우, 'net.core.rmem_max'
     TCP kernel parameter에 해당된다).
 
-#### 주의사항
-
--   원격에서 sysdba 권한으로 접속할 수 있으나, DBMS를 구동할 수 없다.
--   프로퍼티 REMOTE_SYSDBA_ENABLE에서 원격 접속을 불허한 상태에서 지역 서버의
-    IP로 접속할 때 원격 접속으로 간주해 허용하지 않을 수 있다. 즉 TCP를 이용해
-    sysdba 권한으로 지역 서버에 접속하여도, 지역 서버를 의미하는
-    루프백(127.0.0.1)으로 지정하지 않으면 원격 접속으로 인식해 연결을 허용하지
-    않는다.
-
-```
-$ isql -u sys -p manager -s 192.168.3.91 -port 11515 –sysdba ISQL_CONNECTION = TCP, SERVER = 192.168.3.91, PORT_NO = 11515
-[ERR-410C8 : remote access as SYSDBA not allowed]
-```
-
--   연결 스트링에 PORT_NO와 NLS_USE 값을 명시하지 않은 경우 프로퍼티 파일에
-    설정된 값과 동일한 값으로 다음 환경변수를 이용하여 반드시 설정해야 한다.
-    그리고, 내셔널 캐릭터 타입의 상수 문자열을 사용하기 위해
-    ALTIBASE_NLS_NCHAR_LITERAL_REPLACE를 1로 설정하는 경우, 추가적으로 파싱이
-    발생한다.  
-    export ALTIBASE_PORT_NO=20300  
-    export ALTIBASE_NLS_USE=US7ASCII  
-    export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE=0
+> #### 주의사항
+>
+> -   원격에서 sysdba 권한으로 접속할 수 있으나, DBMS를 구동할 수 없다.
+> -   프로퍼티 REMOTE_SYSDBA_ENABLE에서 원격 접속을 불허한 상태에서 지역 서버의
+>     IP로 접속할 때 원격 접속으로 간주해 허용하지 않을 수 있다. 즉 TCP를 이용해
+>     sysdba 권한으로 지역 서버에 접속하여도, 지역 서버를 의미하는
+>     루프백(127.0.0.1)으로 지정하지 않으면 원격 접속으로 인식해 연결을 허용하지
+>     않는다.
+>
+> ```
+> $ isql -u sys -p manager -s 192.168.3.91 -port 11515 –sysdba ISQL_CONNECTION = TCP, SERVER = 192.168.3.91, PORT_NO = 11515
+> [ERR-410C8 : remote access as SYSDBA not allowed]
+> ```
+>
+> - 연결 스트링에 PORT_NO와 NLS_USE 값을 명시하지 않은 경우 프로퍼티 파일에
+>   설정된 값과 동일한 값으로 다음 환경변수를 이용하여 반드시 설정해야 한다.
+>   그리고, 내셔널 캐릭터 타입의 상수 문자열을 사용하기 위해
+>   ALTIBASE_NLS_NCHAR_LITERAL_REPLACE를 1로 설정하는 경우, 추가적으로 파싱이
+>   발생한다.  
+>
+>   ```
+>   export ALTIBASE_PORT_NO=20300  
+>   export ALTIBASE_NLS_USE=US7ASCII  
+>   export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE=0
+>   ```
+>
 
 #### Deferred prepare 주의사항
 
@@ -3142,11 +3146,11 @@ Unicode SQLErrorW() 동작은 SQLError()와 동일하다.
 
 ```
 SQLRETURN  SQLError (
-	SQLHENV 		env,
-	SQLHDBC		dbc,
-	SQLHSTMT 		stmt,
-	SQLCHAR *		state,
-	SQLINTEGER *		err,
+	SQLHENV 	    env,
+	SQLHDBC		    dbc,
+	SQLHSTMT 	    stmt,
+	SQLCHAR *	    state,
+	SQLINTEGER *    err,
 	SQLCHAR *		msg,
 	SQLSMALLINT 	msgMax,
 	SQLSMALLINT * 	msgLength );
@@ -3556,9 +3560,9 @@ SQLBindCol() 예제 참조
 #### 구문
 
 ```
-SQLRETURN SQLFetchScroll(SQLHSTMT stmt,
-                                 SQLSMALLINT fOrient,
-                                 SQLINTEGER fOffset)
+SQLRETURN SQLFetchScroll(SQLHSTMT    stmt,
+                         SQLSMALLINT fOrient,
+                         SQLINTEGER  fOffset)
 ```
 
 #### 인자
@@ -3913,7 +3917,7 @@ SQLFreeConnect() 예제 참조
 ```
 SQLRETURN  SQLFreeHandle (
 	SQLSMALLINT	handleType,
-	SQLHANDLE 		handle );
+	SQLHANDLE 	handle );
 ```
 
 
@@ -4001,7 +4005,7 @@ if ( env != NULL )
 
 ```
 SQLRETURN  SQLFreeStmt (
-	SQLHSTMT		stmt,
+	SQLHSTMT	stmt,
 	SQLSMALLINT	fOption );
 ```
 
@@ -4071,7 +4075,7 @@ Unicode SQLGetConnectAttrW() 동작은 SQLGetConnectAttr()와 동일하다.
 
 ```
 SQLRETURN SQLGetConnectAttr (
-       SQLHDBC		dbc,
+       SQLHDBC		    dbc,
        SQLINTEGER		Attribute,
        SQLPOINTER		ValuePtr,
        SQLINTEGER		BufferLength,
@@ -4283,7 +4287,7 @@ Unicode SQLGetDescFieldW() 동작은 SQLGetDescField()와 동일하다.
 
 ```
 SQLRETURN SQLGetDescField (
-	SQLHDESC desc,
+	SQLHDESC    desc,
 	SQLSMALLINT recNumber,
 	SQLSMALLINT fieldIdentifier,
 	SQLPOINTER ValuePtr,
@@ -4344,14 +4348,14 @@ Unicode SQLGetDescRecW() 동작은 SQLGetDescRec()와 동일하다.
 
 ```
 SQLRETURN SQLGetDescRec (
-		SQLHDESC desc,
+		SQLHDESC    desc,
 		SQLSMALLINT recNumber,
-		SQLCHAR *name,
+		SQLCHAR     *name,
 		SQLSMALLINT bufferLength,
 		SQLSMALLINT *stringLength,
 		SQLSMALLINT *type,
 		SQLSMALLINT *subType,
-		SQLLEN *lengthPtr,
+		SQLLEN      *lengthPtr,
 		SQLSMALLINT *precision,
 		SQLSMALLINT *scale,
 		SQLSMALLINT *nullable);
@@ -4420,7 +4424,7 @@ SQLRETURN SQLGetDiagField(SQLSMALLINT  HandleType,
                           SQLSMALLINT  DiagIdentifier,
                           SQLPOINTER   DiagInfoPtr,
                           SQLSMALLINT  BufferLength,
-                          SQLSMALLINT *StringLengthPtr)
+                          SQLSMALLINT  *StringLengthPtr)
 ```
 
 #### 인자
@@ -4452,11 +4456,11 @@ Altibase CLI의 어떤 함수들도 실행 후에 이 함수를 호출하여 진
 
 현재는 다음과 같은 핸들 타입에 대해서만 작동한다.
 
+```
 SQL_HANDLE_ENV
-
 SQL_HANDLE_DBC
-
 SQL_HANDLE_STMT
+```
 
 입력 인자중 입력 HandleType이 SQL_HANDLE_ENV이면 InputHandle은
 SQL_NULL_HANDLE이고, SQL_HANDLE_DBC이면 환경 핸들이어야 하고 SQL_HANDLE_STMT이면
@@ -4479,11 +4483,11 @@ Unicode SQLGetDiagRecW() 동작은 SQLGetDiagRec()와 동일하다.
 ```
 SQLRETURN SQLGetDiagRec (
 		SQLSMALLINT handleType,
-		SQLHANDLE handle,
+		SQLHANDLE   handle,
 		SQLSMALLINT recNumber,
-		SQLCHAR *sqlstatus,
-		SQLINTEGER *nativeError,
-		SQLCHAR *messageText,
+		SQLCHAR     *sqlstatus,
+		SQLINTEGER  *nativeError,
+		SQLCHAR     *messageText,
 		SQLSMALLINT bufferLength,
 		SQLSMALLINT *stringLength);
 ```
@@ -4528,7 +4532,7 @@ SQLGetDiagField
 
 ```
 SQLRETURN SQLGetEnvAttr (
-		SQLHENV env,
+		SQLHENV    env,
 		SQLINTEGER attribute,
 		SQLPOINTER value,
 		SQLINTEGER bufferLength,
@@ -4583,7 +4587,7 @@ Altibase CLI 드라이버가 지원하는 함수 목록을 가져온다.
 
 ```
 SQLRETURN SQLGetFunctions (
-		SQLHDBC dbc,
+		SQLHDBC      dbc,
 		SQLUSMALLINT functionId,
 		SQLUSMALLINT *supported);
 ```

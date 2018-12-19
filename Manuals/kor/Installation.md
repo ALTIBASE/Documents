@@ -310,7 +310,7 @@ Altibase를 설치하고 운영하기 위해서 필요한 시스템 요구사항
 이 장에서 언급되는 요구사항과 권장사항은 일반적인 용도의 데이터베이스를 가정한
 것이다. 따라서 사용자의 데이터베이스 시스템이나 용도에 따라서 달라질 수
 있으므로, 시스템 요구사항에 대한 자세한 사항은 Altibase
-고객서비스포털([http://support.altibase.com](http://support.altibase.com/)로
+고객서비스포털( [http://support.altibase.com](http://support.altibase.com/) )로
 문의한다.
 
 #### 메모리
@@ -365,7 +365,7 @@ Altibase 제품 설치하려면, 다음 단계대로 수행한다. 각 과정에
 
 #### 패키지 인스톨러 다운로드
 
-Altibase 고객지원서비스 포털 (<http://support.altibase.com/>)을 방문하여 본인의
+Altibase 고객지원서비스 포털 ( <http://support.altibase.com/> )을 방문하여 본인의
 운영 체제에 적합한 인스톨러를 다운로드 받는다.
 
 Altibase 패키지 인스톨러의 이름은 아래 예에서 보여주는 규칙을 따른다.
@@ -458,7 +458,7 @@ Altibase 패키지 인스톨러가 확인한 정보와 일치하지 않으면, �
 #### 패키지 인스톨러 다운로드 
 
 Altibase 패키지 인스톨러는 Altibase 고객지원서비스 포털
-(<http://support.altibase.com/>)을 방문하여 본인의 운영 체제에 적합한 인스톨러를
+( <http://support.altibase.com/> )을 방문하여 본인의 운영 체제에 적합한 인스톨러를
 다운로드 받는다.
 
 Altibase가 제공하는 운영 체제별 인스톨러는 "[패키지 인스톨러
@@ -1051,7 +1051,7 @@ Altibase 제품을 설치하는 방법을 다음의 절에서 설명한다.
 #### Altibase 패키지 인스톨러 다운로드
 
 Altibase 패키지 인스톨러는 Altibase 고객지원서비스
-포털(<http://support.altibase.com/>)을 방문하여 본인의 운영 체제에 적합한
+포털( <http://support.altibase.com/> )을 방문하여 본인의 운영 체제에 적합한
 인스톨러를 다운로드 받는다.
 
 Altibase가 제공하는 운영 체제별 인스톨러는 "[패키지 인스톨러
@@ -1280,20 +1280,20 @@ Startup Failed....
 [ERR-91015 : Communication failure.]
 ```
 
-###### 주의사항
-
-메타 다운그레이드가 실패한 경우 \$ALTIBASE_HOME/trc 디렉터리의
-altibase_boot.log, altibase_qp.log에서 실패 원인을 확인할 수 있다.
+> ###### 주의사항
+>
+> 메타 다운그레이드가 실패한 경우 \$ALTIBASE_HOME/trc 디렉터리의
+> altibase_boot.log, altibase_qp.log에서 실패 원인을 확인할 수 있다.
 
 ##### 패치 삭제
 
 패치 언인스톨러를 실행하여 패치를 삭제한다.
 
-###### 주의사항
-
-서버 다운그레이드를 수행한 후 패치를 삭제해야 한다. 만약 삭제를 하지 않고 서버를
-구동하면, 메타 버전이 이전 버전으로 수정된 상태이기 때문에 메타 업그레이드가
-발생한다.
+> ###### 주의사항
+>
+> 서버 다운그레이드를 수행한 후 패치를 삭제해야 한다. 만약 삭제를 하지 않고 서버를
+> 구동하면, 메타 버전이 이전 버전으로 수정된 상태이기 때문에 메타 업그레이드가
+> 발생한다.
 
 4.패키지 인스톨러를 이용한 제품 패치
 ----------------------------------
@@ -1359,7 +1359,7 @@ Altibase는 제품 패치를 위한 설치 파일이 따로 존재하지 않는�
 때 설치 형태를 풀(full) 패키지 또는 패치로 선택할 수 있다.
 
 Altibase 고객지원서비스 포털
-([http://support.altibase.com/](http://support.altibase.com/)))을 방문하여
+( [http://support.altibase.com/](http://support.altibase.com/) )을 방문하여
 본인의 운영 체제에 적합한 인스톨러를 다운로드 받는다.
 
 #### 설치 모드 설정
@@ -1438,7 +1438,7 @@ $./altibase-server-7.1.0.0.1-LINUX-X86-64bit-release.run
 Altibase는 제품 패치를 위한 설치 파일이 따로 존재하지 않는다. 인스톨러를 시작할
 때 설치 형태를 풀 패키지 또는 패치로 선택할 수 있다.
 
-Altibase 고객지원서비스 포털(<http://support.altibase.com/>)을 방문하여 본인의
+Altibase 고객지원서비스 포털( <http://support.altibase.com/> )을 방문하여 본인의
 운영 체제에 적합한 인스톨러를 다운로드 받는다.
 
 #### 설치 모드 설정
