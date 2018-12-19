@@ -305,7 +305,7 @@ sales_date에 의해서 정렬되어 있고, 각 인덱스를 어떠한 인덱�
 
 지금까지 설명한 인덱스의 종류를 정리하면 아래 그림과 같다.
 
-![](D:/manual/media/Admin/cdba9650f1626e7cc409038702eb8b1d.png)
+![](media/Admin/cdba9650f1626e7cc409038702eb8b1d.png)
 
 [그림 7‑9] 인덱스의 종류
 
@@ -868,7 +868,7 @@ PARTITION’을 사용한다. 파티션 레코드를 삭제(파티션에 저장�
 병합하면 part_4가 삭제되고 3개의 파티션(part_1, part_2, part_3)을 갖는 파티션드
 객체로 줄어든다. 아래 그림은 이러한 파티션 병합 과정을 설명하고 있다.
 
-![](D:/manual/media/Admin/2d03ced8c924a0befe76d21cbd694438.png)
+![](media/Admin/2d03ced8c924a0befe76d21cbd694438.png)
 
 [그림 7‑27] 해시 파티션드 객체의 파티션 병합
 
