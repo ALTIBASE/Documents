@@ -198,7 +198,6 @@ length*3 + 2(UTF8)
 </td>
     </tr>
     </table>
-
 NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩된 문자열의 최대
 길이는 UTF8로 인코딩된 문자열의 최대 길이와 다르다.
 
@@ -311,33 +310,42 @@ long long
     </tr> 
 </table>
 
-###### 예제
+###### 예제 
 
-**고정 소수점 숫자**
+예제1. 고정 소수점 숫자 크기 계산 : ( 3 + ( ( p ) + 2 ) / 2 )
 
-크기 계산: ( 3 + ( ( p ) + 2 ) / 2 )
-
-- 예) NUMERIC  
+```
+- NUMERIC  
   NUMERIC(38, 0): 크기 = 3 + 40/2 = 23 bytes
-- 예) NUMERIC(p) / NUMERIC(p, 0)  
+
+- NUMERIC(p) / NUMERIC(p, 0)  
   NUMERIC(10): 크기 = 3 + 12/2 = 9 bytes
-- Ex) NUMERIC(p, s)  
+
+- NUMERIC(p, s)  
   NUMERIC(10, 9): 크기 = 3 + 12/2 = 9 bytes
+  
 - DECIMAL: NUMERIC과 동일
+
 - DECIMAL(p): NUMERIC(p)과 동일
+
 - DECIMAL(p,s): NUMERIC(p,s)과 동일
+
 - NUMBER(p): NUMERIC(p)과 동일
+
 - NUMBER(p,s): NUMERIC(p,s)과 동일
+```
 
-**부동 소수점 숫자**
+예제2. 부동 소수점 숫자 크기 계산: ( 3 + ( ( p ) + 2 ) / 2 )
 
-크기 계산: ( 3 + ( ( p ) + 2 ) / 2 )
-
-- Ex) FLOAT  
+```
+- FLOAT  
   FLOAT(38): 크기 = 3 + 40/2 = 23 bytes
-- Ex) FLOAT(p)  
+  
+- FLOAT(p)  
   FLOAT(20): 크기 = 3 + 22/2 = 14 bytes
-- \- NUMBER: FLOAT과 동일
+  
+- NUMBER: FLOAT과 동일
+```
 
 **날짜 데이타형**
 
@@ -449,7 +457,7 @@ NVL() 함수, IS NULL 조건, IS NOT NULL 조건을 제외한 수식 연산에 �
 | varbit        |      | o        |       |          |      |         |          |         |       |          |         |          |      |           |      |      |      |         |        | o    | o      |          |
 | geometry      |      |          |       |          |      |         |          |         |       |          |         |          |      |           |      |      |      |         |        |      |        | o        |
 
-###### 묵시적 데이터 타입 변환 규칙
+##### 묵시적 데이터 타입 변환 규칙
 
 테이블 t10 테이블에 bit 타입의 '1000'을 입력하면 integer '1000'으로 변환은
 성공하지만, 데이터 타입의 속성이 달라지기 때문에 묵시적인 데이터 타입 변환이라고
