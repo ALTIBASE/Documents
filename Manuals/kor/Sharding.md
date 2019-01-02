@@ -2536,8 +2536,6 @@ Altibase Sharding은 사용자의 요구사항을 처리하기 위해 메타 또
 
 ![](media/Sharding/79bcb8f6b5cb10cc7a7b816363aa709f.jpg)
 
-[shard_keyword_clause ::=](#for_update_clause)
-
 **shard_keyword_clause::=**
 
 ![](media/Sharding/d15e35752ab4fd66496232e1d1e055a1.jpg)

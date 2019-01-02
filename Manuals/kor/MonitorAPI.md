@@ -2543,7 +2543,7 @@ void errorHandling( int aErrCode )
 ### sample_8.c
 
 ABIGetVSessionWait, ABIGetVSessionWaitBySID 함수를 사용해서 Altibase 서버에
-접속중인 세션들의 대기 이벤트 정보를 조회하는 예제 프로그램이다.
+접속중인 세션들의 대기 이벤트 정보를 조회하는 예제 프로그램이다. 
 
 ```
 #include <stdio.h>

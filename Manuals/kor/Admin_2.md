@@ -1,56 +1,87 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [7.파티션드 객체](#7%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
-  - [파티셔닝 정의](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EC%A0%95%EC%9D%98)
-  - [파티션드 객체](#%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
-  - [파티션 조건](#%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%A1%B0%EA%B1%B4)
-  - [파티셔닝 방법](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EB%B0%A9%EB%B2%95)
-- [8.트랜잭션 관리](#8%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B4%80%EB%A6%AC)
-  - [트랜잭션](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
-  - [잠금(Lock)](#%EC%9E%A0%EA%B8%88lock)
-  - [다중 버전 동시성 제어 기법](#%EB%8B%A4%EC%A4%91-%EB%B2%84%EC%A0%84-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4-%EA%B8%B0%EB%B2%95)
-  - [트랜잭션의 영속성](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%EC%98%81%EC%86%8D%EC%84%B1)
-  - [체크포인트](#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8)
-- [9.버퍼 관리자](#9%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90)
-  - [버퍼 관리자의 구조](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90%EC%9D%98-%EA%B5%AC%EC%A1%B0)
-  - [버퍼 관리](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC)
-  - [버퍼 관련 프로퍼티](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [버퍼 관리자 통계 정보](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90-%ED%86%B5%EA%B3%84-%EC%A0%95%EB%B3%B4)
-- [10.백업 및 복구](#10%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
-  - [데이터베이스 백업](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B0%B1%EC%97%85)
-  - [데이터베이스 복구](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B3%B5%EA%B5%AC)
-  - [백업 및 복구 사례들](#%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC-%EC%82%AC%EB%A1%80%EB%93%A4)
-- [11.증분 백업과 복구](#11%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC)
-  - [증분 백업 (Incremental Backup)](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85-incremental-backup)
-  - [증분 백업의 종류](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%9D%98-%EC%A2%85%EB%A5%98)
-  - [증분 백업에 대한 매체 복구](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%97%90-%EB%8C%80%ED%95%9C-%EB%A7%A4%EC%B2%B4-%EB%B3%B5%EA%B5%AC)
-  - [백업 파일 관리](#%EB%B0%B1%EC%97%85-%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
-- [12.서버/클라이언트 통신](#12%EC%84%9C%EB%B2%84%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%86%B5%EC%8B%A0)
-  - [통신 방법](#%ED%86%B5%EC%8B%A0-%EB%B0%A9%EB%B2%95)
-- [13.Altibase의 보안](#13altibase%EC%9D%98-%EB%B3%B4%EC%95%88)
-  - [보안의 개요](#%EB%B3%B4%EC%95%88%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [보안 기능의 구성](#%EB%B3%B4%EC%95%88-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EA%B5%AC%EC%84%B1)
-  - [보안 모듈 연동 방법](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EC%97%B0%EB%8F%99-%EB%B0%A9%EB%B2%95)
-  - [보안 모듈 구동과 데이터 암호화](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EA%B5%AC%EB%8F%99%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%95%94%ED%98%B8%ED%99%94)
-- [14.데이터베이스 감사 (Database Auditing)](#14%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%90%EC%82%AC-database-auditing)
-  - [소개](#%EC%86%8C%EA%B0%9C)
-  - [관련 메타 테이블과 프로퍼티](#%EA%B4%80%EB%A0%A8-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [감사 제어 구문](#%EA%B0%90%EC%82%AC-%EC%A0%9C%EC%96%B4-%EA%B5%AC%EB%AC%B8)
-  - [감사 조건 구문](#%EA%B0%90%EC%82%AC-%EC%A1%B0%EA%B1%B4-%EA%B5%AC%EB%AC%B8)
-  - [감사 결과 확인하기](#%EA%B0%90%EC%82%AC-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0)
-- [15.Altibase 튜닝](#15altibase-%ED%8A%9C%EB%8B%9D)
-  - [로그 파일 그룹](#%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EA%B7%B8%EB%A3%B9)
-  - [그룹 커밋](#%EA%B7%B8%EB%A3%B9-%EC%BB%A4%EB%B0%8B)
-- [Altibase 진단 모니터링](#altibase-%EC%A7%84%EB%8B%A8-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
-  - [Altibase 모니터링](#altibase-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
-  - [Altibase 문제상황 분석](#altibase-%EB%AC%B8%EC%A0%9C%EC%83%81%ED%99%A9-%EB%B6%84%EC%84%9D)
-- [A.부록: Trace Log](#a%EB%B6%80%EB%A1%9D-trace-log)
-  - [Trace Log](#trace-log)
-- [B.부록: Altibase 최대치](#b%EB%B6%80%EB%A1%9D-altibase-%EC%B5%9C%EB%8C%80%EC%B9%98)
-  - [Altibase 객체들의 최대값](#altibase-%EA%B0%9D%EC%B2%B4%EB%93%A4%EC%9D%98-%EC%B5%9C%EB%8C%80%EA%B0%92)
+
+- [Administrator’s Manual](#administrators-manual)
+  - [7.파티션드 객체](#7%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
+    - [파티셔닝 정의](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EC%A0%95%EC%9D%98)
+    - [파티션드 객체](#%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
+    - [파티션 조건](#%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%A1%B0%EA%B1%B4)
+    - [파티셔닝 방법](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EB%B0%A9%EB%B2%95)
+  - [8.트랜잭션 관리](#8%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B4%80%EB%A6%AC)
+    - [트랜잭션](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
+    - [잠금(Lock)](#%EC%9E%A0%EA%B8%88lock)
+    - [다중 버전 동시성 제어 기법](#%EB%8B%A4%EC%A4%91-%EB%B2%84%EC%A0%84-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4-%EA%B8%B0%EB%B2%95)
+    - [트랜잭션의 영속성](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%EC%98%81%EC%86%8D%EC%84%B1)
+    - [체크포인트](#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8)
+  - [9.버퍼 관리자](#9%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90)
+    - [버퍼 관리자의 구조](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90%EC%9D%98-%EA%B5%AC%EC%A1%B0)
+    - [버퍼 관리](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC)
+    - [버퍼 관련 프로퍼티](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [버퍼 관리자 통계 정보](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90-%ED%86%B5%EA%B3%84-%EC%A0%95%EB%B3%B4)
+  - [10.백업 및 복구](#10%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
+    - [데이터베이스 백업](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B0%B1%EC%97%85)
+    - [데이터베이스 복구](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B3%B5%EA%B5%AC)
+    - [백업 및 복구 사례들](#%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC-%EC%82%AC%EB%A1%80%EB%93%A4)
+  - [11.증분 백업과 복구](#11%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC)
+    - [증분 백업 (Incremental Backup)](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85-incremental-backup)
+    - [증분 백업의 종류](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%9D%98-%EC%A2%85%EB%A5%98)
+    - [증분 백업에 대한 매체 복구](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%97%90-%EB%8C%80%ED%95%9C-%EB%A7%A4%EC%B2%B4-%EB%B3%B5%EA%B5%AC)
+    - [백업 파일 관리](#%EB%B0%B1%EC%97%85-%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
+  - [12.서버/클라이언트 통신](#12%EC%84%9C%EB%B2%84%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%86%B5%EC%8B%A0)
+    - [통신 방법](#%ED%86%B5%EC%8B%A0-%EB%B0%A9%EB%B2%95)
+  - [13.Altibase의 보안](#13altibase%EC%9D%98-%EB%B3%B4%EC%95%88)
+    - [보안의 개요](#%EB%B3%B4%EC%95%88%EC%9D%98-%EA%B0%9C%EC%9A%94)
+    - [보안 기능의 구성](#%EB%B3%B4%EC%95%88-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EA%B5%AC%EC%84%B1)
+    - [보안 모듈 연동 방법](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EC%97%B0%EB%8F%99-%EB%B0%A9%EB%B2%95)
+    - [보안 모듈 구동과 데이터 암호화](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EA%B5%AC%EB%8F%99%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%95%94%ED%98%B8%ED%99%94)
+  - [14.데이터베이스 감사 (Database Auditing)](#14%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%90%EC%82%AC-database-auditing)
+    - [소개](#%EC%86%8C%EA%B0%9C)
+    - [관련 메타 테이블과 프로퍼티](#%EA%B4%80%EB%A0%A8-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [감사 제어 구문](#%EA%B0%90%EC%82%AC-%EC%A0%9C%EC%96%B4-%EA%B5%AC%EB%AC%B8)
+    - [감사 조건 구문](#%EA%B0%90%EC%82%AC-%EC%A1%B0%EA%B1%B4-%EA%B5%AC%EB%AC%B8)
+    - [감사 결과 확인하기](#%EA%B0%90%EC%82%AC-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0)
+  - [15.Altibase 튜닝](#15altibase-%ED%8A%9C%EB%8B%9D)
+    - [로그 파일 그룹](#%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EA%B7%B8%EB%A3%B9)
+    - [그룹 커밋](#%EA%B7%B8%EB%A3%B9-%EC%BB%A4%EB%B0%8B)
+  - [Altibase 진단 모니터링](#altibase-%EC%A7%84%EB%8B%A8-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
+    - [Altibase 모니터링](#altibase-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
+    - [Altibase 문제상황 분석](#altibase-%EB%AC%B8%EC%A0%9C%EC%83%81%ED%99%A9-%EB%B6%84%EC%84%9D)
+  - [A.부록: Trace Log](#a%EB%B6%80%EB%A1%9D-trace-log)
+    - [Trace Log](#trace-log)
+  - [B.부록: Altibase 최대치](#b%EB%B6%80%EB%A1%9D-altibase-%EC%B5%9C%EB%8C%80%EC%B9%98)
+    - [Altibase 객체들의 최대값](#altibase-%EA%B0%9D%EC%B2%B4%EB%93%A4%EC%9D%98-%EC%B5%9C%EB%8C%80%EA%B0%92)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+Altibase® Administration
+
+# Administrator’s Manual
+
+![](media/Admin/e5cfb3761673686d093a3b00c062fe7a.png)
+
+
+
+Altibase Administration Administrator’s Manual
+
+Release 7.1
+
+Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
+
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
+없이 무단으로 복제 또는 전용할 수 없습니다.
+
+**㈜알티베이스**
+
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+
+전화: 02-2082-1114 팩스: 02-2082-1099
+
+고객서비스포털: <http://support.altibase.com>
+
+homepage: [http://www.altibase.com](http://www.altibase.com/)
+
+
 
 ## 7.파티션드 객체
 
@@ -1709,7 +1740,7 @@ List”라고도 한다. 접근 빈도가 높은 버퍼들은 hot 영역에 넣�
 
 ![](media/Admin/9-2.png)
 
-그림 9‑2 hot-cold LRU list
+[그림 9‑2] hot-cold LRU list
 
 검색하는 도중에 접근 빈도가 높은 버퍼는 hot 영역인 LRU hot first로 옮겨진다.
 또한 페이지가 갱신되었지만 디스크에 플러시되지 않은 dirty 버퍼는 Flush 리스트로
@@ -1757,7 +1788,7 @@ dirty 버퍼 즉 갱신된 버퍼들은 체크포인트 리스트에 존재하�
 
 ![](media/Admin/9-3.png)
 
-그림 9‑3 버퍼 풀(Buffer Pool)
+[그림 9‑3] 버퍼 풀(Buffer Pool)
 
 ##### List 다중화
 
@@ -2763,7 +2794,8 @@ Database-Level Backup Completed [SUCCESS]
 
 \$ALTIBASE_HOME/dbs/abc.dbf가 유실되었다.
 
-참고) 메모리 테이블스페이스의 데이터 파일은 이와 같은 방법으로 복구될 수 없다.
+> 참고) 메모리 테이블스페이스의 데이터 파일은 이와 같은 방법으로 복구될 수 없다.
+>
 
 ##### 복구 절차
 

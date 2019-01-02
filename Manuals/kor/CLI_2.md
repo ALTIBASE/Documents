@@ -1,65 +1,95 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-  - [SQLGetInfo](#sqlgetinfo)
-  - [SQLGetPlan](#sqlgetplan)
-  - [SQLGetStmtAttr](#sqlgetstmtattr)
-  - [SQLGetTypeInfo](#sqlgettypeinfo)
-  - [SQLMoreResults](#sqlmoreresults)
-  - [SQLNativeSql](#sqlnativesql)
-  - [SQLNumParams](#sqlnumparams)
-  - [SQLNumResultCols](#sqlnumresultcols)
-  - [SQLParamData](#sqlparamdata)
-  - [SQLPrepare](#sqlprepare)
-  - [SQLPrimaryKeys](#sqlprimarykeys)
-  - [SQLProcedureColumns](#sqlprocedurecolumns)
-  - [SQLProcedures](#sqlprocedures)
-  - [SQLPutData](#sqlputdata)
-  - [SQLRowCount](#sqlrowcount)
-  - [SQLSetConnectAttr](#sqlsetconnectattr)
-  - [SQLSetDescField](#sqlsetdescfield)
-  - [SQLSetEnvAttr](#sqlsetenvattr)
-  - [SQLSetPos](#sqlsetpos)
-  - [SQLSetStmtAttr](#sqlsetstmtattr)
-  - [SQLSpecialColumns](#sqlspecialcolumns)
-  - [SQLStatistics](#sqlstatistics)
-  - [SQLTablePrivileges](#sqltableprivileges)
-  - [SQLTables](#sqltables)
-  - [SQLTransact](#sqltransact)
-- [3.LOB 인터페이스](#3lob-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-  - [LOB data types](#lob-data-types)
-  - [LOB Function Overview](#lob-function-overview)
-  - [SQLBindFileToCol](#sqlbindfiletocol)
-  - [SQLindFileToParam](#sqlindfiletoparam)
-  - [SQLGetLobLength](#sqlgetloblength)
-  - [SQLGetLob](#sqlgetlob)
-  - [SQLPutLob](#sqlputlob)
-  - [SQLTrimLob](#sqltrimlob)
-  - [SQLFreeLob](#sqlfreelob)
-- [4.커서 사용](#4%EC%BB%A4%EC%84%9C-%EC%82%AC%EC%9A%A9)
-  - [커서 특성](#%EC%BB%A4%EC%84%9C-%ED%8A%B9%EC%84%B1)
-  - [암시적 커서 변환](#%EC%95%94%EC%8B%9C%EC%A0%81-%EC%BB%A4%EC%84%9C-%EB%B3%80%ED%99%98)
-  - [행 스크롤 및 Fetch](#%ED%96%89-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EB%B0%8F-fetch)
-  - [제약 사항](#%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
-- [A.부록: Sample Code](#a%EB%B6%80%EB%A1%9D-sample-code)
-  - [프로그래밍 시 각 단계에서 주의할 점](#%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%8B%9C-%EA%B0%81-%EB%8B%A8%EA%B3%84%EC%97%90%EC%84%9C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90)
-  - [Altibase CLI 프로그램 기본 예제](#altibase-cli-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%A0%9C)
-  - [메타 정보 검색 프로그램 예제](#%EB%A9%94%ED%83%80-%EC%A0%95%EB%B3%B4-%EA%B2%80%EC%83%89-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
-  - [프로시저 테스트 프로그램 예제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
-- [B.부록: 데이터형](#b%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
-  - [SQL 데이터형](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
-  - [C 데이터형](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
-  - [SQL 데이터형을 C 데이터형으로 변환하기](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
-  - [C 데이터형을 SQL 데이터형으로 변환하기](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
-- [C.부록: 오류 코드](#c%EB%B6%80%EB%A1%9D-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C)
-  - [SQLSTATE](#sqlstate)
-  - [명령문 상태 전이](#%EB%AA%85%EB%A0%B9%EB%AC%B8-%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4)
-  - [상태 전이 테이블](#%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4-%ED%85%8C%EC%9D%B4%EB%B8%94)
-- [D.부록: 업그레이드](#d%EB%B6%80%EB%A1%9D-%EC%97%85%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
-  - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-  - [기타 변경사항](#%EA%B8%B0%ED%83%80-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
+
+- [CLI User's Manaul](#cli-users-manaul)
+  - [2.Altibase CLI 함수](#2altibase-cli-%ED%95%A8%EC%88%98)
+    - [SQLGetInfo](#sqlgetinfo)
+    - [SQLGetPlan](#sqlgetplan)
+    - [SQLGetStmtAttr](#sqlgetstmtattr)
+    - [SQLGetTypeInfo](#sqlgettypeinfo)
+    - [SQLMoreResults](#sqlmoreresults)
+    - [SQLNativeSql](#sqlnativesql)
+    - [SQLNumParams](#sqlnumparams)
+    - [SQLNumResultCols](#sqlnumresultcols)
+    - [SQLParamData](#sqlparamdata)
+    - [SQLPrepare](#sqlprepare)
+    - [SQLPrimaryKeys](#sqlprimarykeys)
+    - [SQLProcedureColumns](#sqlprocedurecolumns)
+    - [SQLProcedures](#sqlprocedures)
+    - [SQLPutData](#sqlputdata)
+    - [SQLRowCount](#sqlrowcount)
+    - [SQLSetConnectAttr](#sqlsetconnectattr)
+    - [SQLSetDescField](#sqlsetdescfield)
+    - [SQLSetEnvAttr](#sqlsetenvattr)
+    - [SQLSetPos](#sqlsetpos)
+    - [SQLSetStmtAttr](#sqlsetstmtattr)
+    - [SQLSpecialColumns](#sqlspecialcolumns)
+    - [SQLStatistics](#sqlstatistics)
+    - [SQLTablePrivileges](#sqltableprivileges)
+    - [SQLTables](#sqltables)
+    - [SQLTransact](#sqltransact)
+  - [3.LOB 인터페이스](#3lob-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
+    - [LOB data types](#lob-data-types)
+    - [LOB Function Overview](#lob-function-overview)
+    - [SQLBindFileToCol](#sqlbindfiletocol)
+    - [SQLindFileToParam](#sqlindfiletoparam)
+    - [SQLGetLobLength](#sqlgetloblength)
+    - [SQLGetLob](#sqlgetlob)
+    - [SQLPutLob](#sqlputlob)
+    - [SQLTrimLob](#sqltrimlob)
+    - [SQLFreeLob](#sqlfreelob)
+  - [4.커서 사용](#4%EC%BB%A4%EC%84%9C-%EC%82%AC%EC%9A%A9)
+    - [커서 특성](#%EC%BB%A4%EC%84%9C-%ED%8A%B9%EC%84%B1)
+    - [암시적 커서 변환](#%EC%95%94%EC%8B%9C%EC%A0%81-%EC%BB%A4%EC%84%9C-%EB%B3%80%ED%99%98)
+    - [행 스크롤 및 Fetch](#%ED%96%89-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EB%B0%8F-fetch)
+    - [제약 사항](#%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
+  - [A.부록: Sample Code](#a%EB%B6%80%EB%A1%9D-sample-code)
+    - [프로그래밍 시 각 단계에서 주의할 점](#%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%8B%9C-%EA%B0%81-%EB%8B%A8%EA%B3%84%EC%97%90%EC%84%9C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90)
+    - [Altibase CLI 프로그램 기본 예제](#altibase-cli-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%A0%9C)
+    - [메타 정보 검색 프로그램 예제](#%EB%A9%94%ED%83%80-%EC%A0%95%EB%B3%B4-%EA%B2%80%EC%83%89-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
+    - [프로시저 테스트 프로그램 예제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
+  - [B.부록: 데이터형](#b%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
+    - [SQL 데이터형](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
+    - [C 데이터형](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
+    - [SQL 데이터형을 C 데이터형으로 변환하기](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
+    - [C 데이터형을 SQL 데이터형으로 변환하기](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
+  - [C.부록: 오류 코드](#c%EB%B6%80%EB%A1%9D-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C)
+    - [SQLSTATE](#sqlstate)
+    - [명령문 상태 전이](#%EB%AA%85%EB%A0%B9%EB%AC%B8-%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4)
+    - [상태 전이 테이블](#%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4-%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [D.부록: 업그레이드](#d%EB%B6%80%EB%A1%9D-%EC%97%85%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
+    - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [기타 변경사항](#%EA%B8%B0%ED%83%80-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+Altibase® Application Development
+
+# CLI User's Manaul
+
+![](/media/CLI/e5cfb3761673686d093a3b00c062fe7a.png)
+
+Altibase Application Development Altibase CLI User's Manaul
+
+Release 7.1
+
+Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
+
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
+없이 무단으로 복제 또는 전용할 수 없습니다.
+
+**㈜알티베이스**
+
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+
+전화: 02-2082-1114 팩스: 02-2082-1099
+
+고객서비스포털: <http://support.altibase.com>
+
+homepage: [http://www.altibase.com](http://www.altibase.com/)
+
+## 2.Altibase CLI 함수
 
 ### SQLGetInfo
 

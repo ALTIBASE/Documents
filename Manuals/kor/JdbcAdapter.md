@@ -215,7 +215,7 @@ Manual*을 참고하기 바란다.
 
 ![](media/JdbcAdapter/393be36ba2993e10814984902a9f57c2.png)
 
-그림 1 Adapter for JDBC의 구조
+[그림 1] Adapter for JDBC의 구조
 
 1.  사용자가 데이터를 삽입하거나 수정할 때, Altibase 서버 내의 XLog 송신자는
     XLog와 메타 정보를 생성하여 XLog 콜렉터에게 전송한다. 메타 정보는

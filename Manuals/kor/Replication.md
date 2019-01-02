@@ -3070,7 +3070,7 @@ SQLUINTEGER aFailOverEvent)
             break;
         case ALTIBASE_FO_END:
             sRetCode = SQLAllocStmt( aDBC,&sStmt);
-if(sRetCode != SQ_SUCCESS)
+            if(sRetCode != SQ_SUCCESS)
             {
                  printf("FailOver-Callback SQLAllocStmt Error ");
                  return ALTIBASE_FO_QUIT;
