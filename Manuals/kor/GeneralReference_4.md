@@ -100,7 +100,7 @@ Altibase® Administration
 
 # General Reference
 
-![](/media/GeneralReference/e5cfb3761673686d093a3b00c062fe7a.png)
+![](media/GeneralReference/e5cfb3761673686d093a3b00c062fe7a.png)
 
 Altibase Administration General Reference
 
