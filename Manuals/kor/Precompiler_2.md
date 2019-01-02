@@ -59,7 +59,7 @@ Altibase® Application Development
 
 # Precompiler User’s Manual
 
-![](/media/Precompiler/e5cfb3761673686d093a3b00c062fe7a.png)
+![](media/Precompiler/e5cfb3761673686d093a3b00c062fe7a.png)
 
 Altibase Application Development Precompiler User’s Manual
 
