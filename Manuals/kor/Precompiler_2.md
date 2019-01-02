@@ -2,57 +2,83 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [8.커서 처리 SQL문](#8%EC%BB%A4%EC%84%9C-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-  - [개요](#%EA%B0%9C%EC%9A%94)
-  - [커서 관련 내장 SQL문](#%EC%BB%A4%EC%84%9C-%EA%B4%80%EB%A0%A8-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
-  - [동일한 커서 이름 재사용 방법](#%EB%8F%99%EC%9D%BC%ED%95%9C-%EC%BB%A4%EC%84%9C-%EC%9D%B4%EB%A6%84-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-- [9.배열 처리 SQL문](#9%EB%B0%B0%EC%97%B4-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-  - [배열 호스트 변수의 개요](#%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [내장 SQL문에서 배열 호스트 변수 사용](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%97%90%EC%84%9C-%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
-  - [sqlca.sqlerrd](#sqlcasqlerrd)
-  - [제한 사항](#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD)
-  - [구조체와 배열](#%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%99%80-%EB%B0%B0%EC%97%B4)
-  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-1)
-- [10.동적 SQL문](#10%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
-  - [정적 SQL문과 동적 SQL문](#%EC%A0%95%EC%A0%81-sql%EB%AC%B8%EA%B3%BC-%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
-  - [동적 SQL문의 종류](#%EB%8F%99%EC%A0%81-sql%EB%AC%B8%EC%9D%98-%EC%A2%85%EB%A5%98)
-  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-2)
-- [11.저장 프로시저 처리 SQL문](#11%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-  - [저장 프로시저 처리 SQL문](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-  - [배열 타입의 호스트 변수 사용](#%EB%B0%B0%EC%97%B4-%ED%83%80%EC%9E%85%EC%9D%98-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
-  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-3)
-- [12.다중 연결 프로그램](#12%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [개요](#%EA%B0%9C%EC%9A%94-1)
-  - [다중 연결 프로그램에서 내장 SQL문 사용 방법](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [다중 연결 프로그램에서의 저장 프로시저 처리 SQL문](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-4)
-- [13.멀티쓰레드 프로그램](#13%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [멀티쓰레드 프로그램](#%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-5)
-- [14.전처리 오류 코드/메시지](#14%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C%EB%A9%94%EC%8B%9C%EC%A7%80)
-  - [전처리 오류](#%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98)
-- [A. 부록: LOB데이터와 파일](#a-%EB%B6%80%EB%A1%9D-lob%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80-%ED%8C%8C%EC%9D%BC)
-  - [출력 호스트 변수와 파일](#%EC%B6%9C%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
-  - [입력 호스트 변수와 파일](#%EC%9E%85%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
-- [B. 부록: Proc\*C에서 APRE로 변환](#b-%EB%B6%80%EB%A1%9D-proc%5Cc%EC%97%90%EC%84%9C-apre%EB%A1%9C-%EB%B3%80%ED%99%98)
-  - [데이터 타입 비교](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B9%84%EA%B5%90)
-  - [내장 함수 비교](#%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98-%EB%B9%84%EA%B5%90)
-  - [데이터베이스 연결/해제](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%97%B0%EA%B2%B0%ED%95%B4%EC%A0%9C)
-  - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
-  - [내장 SQL문](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
-  - [수행 결과 및 상태 코드](#%EC%88%98%ED%96%89-%EA%B2%B0%EA%B3%BC-%EB%B0%8F-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C)
-  - [기타 차이점](#%EA%B8%B0%ED%83%80-%EC%B0%A8%EC%9D%B4%EC%A0%90)
-  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-6)
-- [C. 부록: 동적 SQL의 메소드4 사용](#c-%EB%B6%80%EB%A1%9D-%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C4-%EC%82%AC%EC%9A%A9)
-  - [SQLDA구조체의 데이터 타입](#sqlda%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-- [D. 부록: 샘플 코드](#d-%EB%B6%80%EB%A1%9D-%EC%83%98%ED%94%8C-%EC%BD%94%EB%93%9C)
-  - [예제 프로그램 수행](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%88%98%ED%96%89)
-  - [예제 프로그램의 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
-- [E. 부록: FAQ](#e-%EB%B6%80%EB%A1%9D-faq)
-  - [Precompiler FAQ](#precompiler-faq)
+- [Precompiler User’s Manual](#precompiler-users-manual)
+  - [8.커서 처리 SQL문](#8%EC%BB%A4%EC%84%9C-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [커서 관련 내장 SQL문](#%EC%BB%A4%EC%84%9C-%EA%B4%80%EB%A0%A8-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+    - [동일한 커서 이름 재사용 방법](#%EB%8F%99%EC%9D%BC%ED%95%9C-%EC%BB%A4%EC%84%9C-%EC%9D%B4%EB%A6%84-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [9.배열 처리 SQL문](#9%EB%B0%B0%EC%97%B4-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+    - [배열 호스트 변수의 개요](#%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%9D%98-%EA%B0%9C%EC%9A%94)
+    - [내장 SQL문에서 배열 호스트 변수 사용](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%97%90%EC%84%9C-%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
+    - [sqlca.sqlerrd](#sqlcasqlerrd)
+    - [제한 사항](#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD)
+    - [구조체와 배열](#%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%99%80-%EB%B0%B0%EC%97%B4)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-1)
+  - [10.동적 SQL문](#10%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
+    - [정적 SQL문과 동적 SQL문](#%EC%A0%95%EC%A0%81-sql%EB%AC%B8%EA%B3%BC-%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
+    - [동적 SQL문의 종류](#%EB%8F%99%EC%A0%81-sql%EB%AC%B8%EC%9D%98-%EC%A2%85%EB%A5%98)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-2)
+  - [11.저장 프로시저 처리 SQL문](#11%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+    - [저장 프로시저 처리 SQL문](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+    - [배열 타입의 호스트 변수 사용](#%EB%B0%B0%EC%97%B4-%ED%83%80%EC%9E%85%EC%9D%98-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-3)
+  - [12.다중 연결 프로그램](#12%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+    - [개요](#%EA%B0%9C%EC%9A%94-1)
+    - [다중 연결 프로그램에서 내장 SQL문 사용 방법](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+    - [다중 연결 프로그램에서의 저장 프로시저 처리 SQL문](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-4)
+  - [13.멀티쓰레드 프로그램](#13%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+    - [멀티쓰레드 프로그램](#%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-5)
+  - [14.전처리 오류 코드/메시지](#14%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C%EB%A9%94%EC%8B%9C%EC%A7%80)
+    - [전처리 오류](#%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98)
+  - [A. 부록: LOB데이터와 파일](#a-%EB%B6%80%EB%A1%9D-lob%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80-%ED%8C%8C%EC%9D%BC)
+    - [출력 호스트 변수와 파일](#%EC%B6%9C%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
+    - [입력 호스트 변수와 파일](#%EC%9E%85%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
+  - [B. 부록: Proc\*C에서 APRE로 변환](#b-%EB%B6%80%EB%A1%9D-proc%5Cc%EC%97%90%EC%84%9C-apre%EB%A1%9C-%EB%B3%80%ED%99%98)
+    - [데이터 타입 비교](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B9%84%EA%B5%90)
+    - [내장 함수 비교](#%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98-%EB%B9%84%EA%B5%90)
+    - [데이터베이스 연결/해제](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%97%B0%EA%B2%B0%ED%95%B4%EC%A0%9C)
+    - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
+    - [내장 SQL문](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+    - [수행 결과 및 상태 코드](#%EC%88%98%ED%96%89-%EA%B2%B0%EA%B3%BC-%EB%B0%8F-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C)
+    - [기타 차이점](#%EA%B8%B0%ED%83%80-%EC%B0%A8%EC%9D%B4%EC%A0%90)
+    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-6)
+  - [C. 부록: 동적 SQL의 메소드4 사용](#c-%EB%B6%80%EB%A1%9D-%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C4-%EC%82%AC%EC%9A%A9)
+    - [SQLDA구조체의 데이터 타입](#sqlda%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [D. 부록: 샘플 코드](#d-%EB%B6%80%EB%A1%9D-%EC%83%98%ED%94%8C-%EC%BD%94%EB%93%9C)
+    - [예제 프로그램 수행](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%88%98%ED%96%89)
+    - [예제 프로그램의 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
+  - [E. 부록: FAQ](#e-%EB%B6%80%EB%A1%9D-faq)
+    - [Precompiler FAQ](#precompiler-faq)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+Altibase® Application Development
+
+# Precompiler User’s Manual
+
+![](/media/Precompiler/e5cfb3761673686d093a3b00c062fe7a.png)
+
+Altibase Application Development Precompiler User’s Manual
+
+Release 7.1
+
+Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
+
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
+무단으로 복제 또는 전용할 수 없습니다.
+
+㈜알티베이스
+
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+
+전화: 02-2082-1114 팩스: 02-2082-1099
+
+고객서비스포털: <http://support.altibase.com>
+
+homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ## 8.커서 처리 SQL문
 
@@ -2250,13 +2276,11 @@ int        F;     /* 분석된 column 개수 */
 - 다음의 그림은 각각 Bind Variables함수와 Select List함수 사용에 대한
   SQLDA구조체의 변화를 설명하고 있다.
 
-  ![](media\Precompiler\edcc97fcbd6f426eb299efde4390f87d.png)
+  ![](media/Precompiler/edcc97fcbd6f426eb299efde4390f87d.png)
 
 
 
-![](media\Precompiler\selectlist.gif)
-
-
+![](media/Precompiler/selectlist.gif)
 
 ##### 동작 순서
 
@@ -2286,24 +2310,24 @@ int        F;     /* 분석된 column 개수 */
 
 ###### ARRAY SIZE SET
 
-##### 구문
+*구문*
 
 ```
 EXEC SQL FOR <statement_name> <:host_var>;
 ```
 
-##### 인자
+*인자*
 
 - \<statement_name\> : SQL문 식별자. 알파벳(a\~z, A\~Z), 밑줄("_"), 또는 달러
   기호("\$")로 시작하여야 하며, 그 길이는 최대 50 bytes로 제한된다.
 - \<:host_var\> : 한번에 처리 할 배열의 크기
 
-##### 설명
+*설명*
 
 한번에 처리할 행의 개수를 지정한다. INSERT문, UPDATE문, DELETE문 실행을 위한
 배열 크기이다.
 
-##### 예제
+*예제*
 
 ```
 #define ARRAY_SIZE 3
@@ -2316,23 +2340,23 @@ EXEC SQL FOR INSERT_STMT :arrSize;
 
 ###### BIND VARIABLES
 
-##### 구문
+*구문*
 
 ```
 EXEC SQL DESCRIBE BIND VARIABLES FOR <statement_name> INTO <:sqlda_var>;
 ```
 
-##### 인자
+*인자*
 
 - \<statement_name\>: SQL문 식별자. 알파벳(a\~z, A\~Z), 밑줄("_"), 또는 달러
   기호("\$")로 시작하여야 하며, 그 길이는 최대 50 bytes로 제한된다.
 - \<:sqlda_var \> : SQLDA구조체 변수의 이름이며 \<:host_var\>와 같은 타입이다.
 
-##### 설명
+*설명*
 
 PREPARE문 수행에서 사용된 SQL문의 파라마터 마커 정보를 얻어온다.
 
-##### 예제
+*예제*
 
 ```
 /* bind variables initialization */ 
@@ -2343,22 +2367,22 @@ EXEC SQL DESCRIBE BIND VARIABLES FOR S INTO :bindInfo;
 
 ###### CURSOR OPEN
 
-##### 구문
+*구문*
 
 ```
 EXEC SQL OPEN <cursor_name> USING DESCRIPTOR <:sqlda_var>;
 ```
 
-##### 인자
+*인자*
 
 - \<cursor_name\>: 커서 이름
 - \<:sqlda_var \> : SQLDA구조체 변수의 이름이며 \<:host_var\>와 같은 타입이다.
 
-##### 설명
+*설명*
 
 커서를 연다.
 
-##### 예제
+*예제*
 
 ```
 EXEC SQL OPEN CUR USING DESCRIPTOR :bindInfo;
@@ -2371,25 +2395,25 @@ printf("Error : [%d] %s\n\n", SQLCODE, sqlca.sqlerrm.sqlerrmc);
 
 ###### EXECUTE
 
-##### 구문
+*구문*
 
 ```
 EXEC SQL EXECUTE <statement_name> USING DESCRIPTOR <:sqlda_var>;
 ```
 
-##### 인자
+*인자*
 
 - \<statement_name\>: SQL문 식별자. 알파벳(a\~z, A\~Z), 밑줄("_"), 또는 달러
   기호("\$")로 시작하여야 하며, 그 길이는 최대 50 bytes로 제한된다.
 - \<:sqlda_var \> : SQLDA구조체 변수의 이름이며 \<:host_var\>와 같은 타입이다.
 
-##### 설명
+*설명*
 
 SQL문을 실행한다. PREPARE문 후에 수행 가능하며, SQL문을 입력하지 않고 수행할
 경우에는 "The statement does not exist." 오류가 발생한다. :sqlda_var에는
 파라미터 마커에 해당하는 값이 설정되어 있어야 한다.
 
-##### 예제
+*예제*
 
 ```
 EXEC SQL EXECUTE S USING DESCRIPTOR :bindInfo;
@@ -2406,24 +2430,24 @@ printf("Error : [%d] %s\n\n", SQLCODE, sqlca.sqlerrm.sqlerrmc);
 
 ###### FETCH
 
-##### 구문
+*구문*
 
 ```
 EXEC SQL FETCH <cursor_name> USING DESCRIPTOR <:sqlda_var>;
 ```
 
-##### 인자
+*인자*
 
 - \<cursor_name\>: 커서 이름
 - \<:sqlda_var \> : SQLDA구조체 변수의 이름이며 \<:host_var\>와 같은 타입이다.
 
-##### 설명
+*설명*
 
 커서를 이동하여 결과값을 얻어온다. 커서를 열고 난 후에 수행할 수 있으며 결과
 값을 저장할: sqlda_var변수를 지정한다. 열지 않은 커서를 FETCH할 경우 "Function
 sequence error" 오류가 발생한다.
 
-##### 예제
+*예제*
 
 ```
 while(1)
@@ -4234,8 +4258,6 @@ varchar[n]
 		<td>n >= 20</td>
 	</tr>
 </table>
-
-
 #### 호스트 변수 선언부
 
 선언부의 구문은 오라클과 Altibase가 같은 형식이다.
