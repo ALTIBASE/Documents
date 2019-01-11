@@ -412,15 +412,15 @@ extension=pdo_altibase.so
 
 - PDO::lastInsertId
 - PDO::getAttribute, PDO::setAttribute
-- PDO::ATTR_CONNECTION_STATUS
-- PDO::ATTR_ORACLE_NULLS
-- PDO::ATTR_PERSISTENT
-- PDO::ATTR_SERVER_INFO
-- PDO::ATTR_STRINGIFY_FETCHES
-- PDO::ATTR_EMULATE_PREPARES
-- PDO::MYSQL_ATTR_USE_BUFFERED_QUERY
+  - PDO::ATTR_CONNECTION_STATUS
+  - PDO::ATTR_ORACLE_NULLS
+  - PDO::ATTR_PERSISTENT
+  - PDO::ATTR_SERVER_INFO
+  - PDO::ATTR_STRINGIFY_FETCHES
+  - PDO::ATTR_EMULATE_PREPARES
+  - PDO::MYSQL_ATTR_USE_BUFFERED_QUERY
 - PDOStatement::getAttribute, PDOStatement::setAttribute
-- PDO::ATTR_CURSOR_NAME
+  - PDO::ATTR_CURSOR_NAME
 - PDOStatement::getColumnMeta
 
 3. 기타 제약사항은 “파라미터 바인딩”을 참고한다.
@@ -432,6 +432,7 @@ extension=pdo_altibase.so
     커밋모드는 기본값인 autocommit이다.
 2.  pdo 객체를 닫을 때, commit, rollback을 명시적으로 지정하지 않으면 해당
     작업은 rollback된다.
+3.  empty string('')을 알티베이스 DB의 숫자형데이터 타입들에 bind시에, native타입(double, real, bigint, integer, smallint)은 0으로 입력이 되고, non-native타입(numeric, decimal, number, float)은 NULL로 입력된다.
 
 
 
