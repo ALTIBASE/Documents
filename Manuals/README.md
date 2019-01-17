@@ -1,1 +1,1 @@
-This directory is for Altibase manuals.
+This directories is for Altibase manuals.
