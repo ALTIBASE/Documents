@@ -4,7 +4,7 @@
 
 - [General Reference](#general-reference)
    - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
-    - [V$LATCH](#v$latch)
+    - [V\$LATCH](#v\$latch)
     - [V\$LFG](#v\$lfg)
     - [V\$LOCK](#v\$lock)
     - [V\$LOCK_STATEMENT](#v\$lock_statement)
@@ -123,7 +123,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ## 3.데이터 딕셔너리
 
-### V$LATCH
+### V\$LATCH
 
 버퍼 풀의 BCB 래치 정보를 보여준다. 래치 정보에는 읽기 혹은 쓰기가 시도된
 페이지에 대하여 래치 시도 횟수와 바로 래치를 잡는 횟수, 잡지 못한 횟수 등이
