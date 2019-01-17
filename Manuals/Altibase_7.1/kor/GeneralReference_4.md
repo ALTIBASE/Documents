@@ -4,7 +4,7 @@
 
 - [General Reference](#general-reference)
    - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
-    - [V\$LATCH](#v\$latch)
+    - [V\$LATCH](#V\$LATCH)
     - [V\$LFG](#v\$lfg)
     - [V\$LOCK](#v\$lock)
     - [V\$LOCK_STATEMENT](#v\$lock_statement)
