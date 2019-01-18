@@ -22,7 +22,7 @@
     - [SYS_SHARD.RANGES\_](#sys_shardranges_)
     - [SYS_SHARD.CLONES\_](#sys_shardclones_)
     - [SYS_SHARD.SOLOS\_](#sys_shardsolos_)
-    - [V\$SHARD_CONNECTION_INFO](#v$shard_connection_info)
+    - [V\$SHARD_CONNECTION_INFO](#vshard_connection_info)
   - [4.Altibase Sharding 사용방법](#4altibase-sharding-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
     - [Altibase Sharding 제약사항](#altibase-sharding-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
     - [데이터 노드](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%85%B8%EB%93%9C)
@@ -1399,7 +1399,7 @@ VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 �
 
 데이터가 독립 저장되는 데이터 노드 번호를 나타낸다.
 
-### V\$SHARD_CONNECTION_INFO
+### <a name="vshard_connection_info"><a/>V\$SHARD_CONNECTION_INFO
 
 샤드 코디네이터로써 현재 세션에서의 메타 노드와 데이터 노드의 연결 상태에 대한
 정보를 보여주는 메타 테이블이다.
