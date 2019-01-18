@@ -1,1 +1,1 @@
-Altibase technical documents will be placed here.
+This directories is for Altibase manuals.
