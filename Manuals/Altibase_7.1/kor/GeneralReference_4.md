@@ -6,90 +6,90 @@
    - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [V\$LATCH](#vlatch)
     - [V\$LFG](#vlfg)
-    - [V\$LOCK](#v\$lock)
-    - [V\$LOCK_STATEMENT](#v\$lock_statement)
-    - [V\$LOG](#v\$log)
-    - [V\$LOCK_WAIT](#v\$lock_wait)
-    - [V\$MEMGC](#v\$memgc)
-    - [V\$MEMSTAT](#v\$memstat)
-    - [V\$MEMTBL_INFO](#v\$memtbl_info)
-    - [V\$MEM_BTREE_HEADER](#v\$mem_btree_header)
-    - [V\$MEM_BTREE_NODEPOOL](#v\$mem_btree_nodepool)
-    - [V\$MEM_RTREE_HEADER](#v\$mem_rtree_header)
-    - [V\$MEM_RTREE_NODEPOOL](#v\$mem_rtree_nodepool)
-    - [V\$MEM_TABLESPACES](#v\$mem_tablespaces)
-    - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#v\$mem_tablespace_checkpoint_paths)
-    - [V\$MEM_TABLESPACE_STATUS_DESC](#v\$mem_tablespace_status_desc)
-    - [V\$MUTEX](#v\$mutex)
-    - [V\$NLS_PARAMETERS](#v\$nls_parameters)
-    - [V\$NLS_TERRITORY](#v\$nls_territory)
-    - [V\$OBSOLETE_BACKUP_INFO](#v\$obsolete_backup_info)
-    - [V\$PKGTEXT](#v\$pkgtext)
-    - [V\$PLANTEXT](#v\$plantext)
-    - [V\$PROCTEXT](#v\$proctext)
-    - [V\$PROPERTY](#v\$property)
-    - [V\$REPEXEC](#v\$repexec)
-    - [V\$REPGAP](#v\$repgap)
-    - [V\$REPGAP_PARALLEL](#v\$repgap_parallel)
-    - [V\$REPLOGBUFFER](#v\$replogbuffer)
-    - [V\$REPOFFLINE_STATUS](#v\$repoffline_status)
-    - [V\$REPRECEIVER](#v\$repreceiver)
-    - [V\$REPRECEIVER_COLUMN](#v\$repreceiver_column)
-    - [V\$REPRECEIVER_PARALLEL](#v\$repreceiver_parallel)
-    - [V\$REPRECEIVER_PARALLEL_APPLY](#v\$repreceiver_parallel_apply)
-    - [V\$REPRECEIVER_STATISTICS](#v\$repreceiver_statistics)
-    - [V\$REPRECEIVER_TRANSTBL](#v\$repreceiver_transtbl)
-    - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#v\$repreceiver_transtbl_parallel)
-    - [V\$REPRECOVERY](#v\$reprecovery)
-    - [V\$REPSENDER](#v\$repsender)
-    - [V\$REPSENDER_PARALLEL](#v\$repsender_parallel)
-    - [V\$REPSENDER_SENT_LOG_COUNT](#v\$repsender_sent_log_count)
-    - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#v\$repsender_sent_log_count_parallel)
-    - [V\$REPSENDER_STATISTICS](#v\$repsender_statistics)
-    - [V\$REPSENDER_TRANSTBL](#v\$repsender_transtbl)
-    - [V\$REPSENDER_TRANSTBL_PARALLEL](#v\$repsender_transtbl_parallel)
-    - [V\$REPSYNC](#v\$repsync)
-    - [V\$RESERVED_WORDS](#v\$reserved_words)
-    - [V\$SBUFFER_STAT](#v\$sbuffer_stat)
-    - [V\$SEGMENT](#v\$segment)
-    - [V\$SEQ](#v\$seq)
-    - [V\$SERVICE_THREAD](#v\$service_thread)
-    - [V\$SERVICE_THREAD_MGR](#v\$service_thread_mgr)
-    - [V\$SESSION](#v\$session)
-    - [V\$SESSION_EVENT](#v\$session_event)
-    - [V\$SESSION_WAIT](#v\$session_wait)
-    - [V\$SESSION_WAIT_CLASS](#v\$session_wait_class)
-    - [V\$SESSIONMGR](#v\$sessionmgr)
-    - [V\$SESSTAT](#v\$sesstat)
-    - [V\$SFLUSHER](#v\$sflusher)
-    - [V\$SFLUSHINFO](#v\$sflushinfo)
-    - [V\$SNAPSHOT](#v\$snapshot)
-    - [V\$SQLTEXT](#v\$sqltext)
-    - [V\$SQL_PLAN_CACHE](#v\$sql_plan_cache)
-    - [V\$SQL_PLAN_CACHE_PCO](#v\$sql_plan_cache_pco)
-    - [V\$SQL_PLAN_CACHE_SQLTEXT](#v\$sql_plan_cache_sqltext)
-    - [V\$STABLE_MEM_DATAFILES](#v\$stable_mem_datafiles)
-    - [V\$STATEMENT](#v\$statement)
-    - [V\$STATNAME](#v\$statname)
-    - [V\$SYSSTAT](#v\$sysstat)
-    - [V\$SYSTEM_CONFLICT_PAGE](#v\$system_conflict_page)
-    - [V\$SYSTEM_EVENT](#v\$system_event)
-    - [V\$SYSTEM_WAIT_CLASS](#v\$system_wait_class)
-    - [V\$TABLE](#v\$table)
-    - [V\$TABLESPACES](#v\$tablespaces)
-    - [V\$TIME_ZONE_NAMES](#v\$time_zone_names)
-    - [V\$TRACELOG](#v\$tracelog)
-    - [V\$TRANSACTION](#v\$transaction)
-    - [V\$TRANSACTION_MGR](#v\$transaction_mgr)
-    - [V\$TSSEGS](#v\$tssegs)
-    - [V\$TXSEGS](#v\$txsegs)
-    - [V\$UDSEGS](#v\$udsegs)
-    - [V\$UNDO_BUFF_STAT](#v\$undo_buff_stat)
-    - [V\$USAGE](#v\$usage)
-    - [V\$VERSION](#v\$version)
-    - [V\$VOL_TABLESPACES](#v\$vol_tablespaces)
-    - [V\$WAIT_CLASS_NAME](#v\$wait_class_name)
-    - [V\$XID](#v\$xid)
+    - [V\$LOCK](#vlock)
+    - [V\$LOCK_STATEMENT](#vlock_statement)
+    - [V\$LOG](#vlog)
+    - [V\$LOCK_WAIT](#vlock_wait)
+    - [V\$MEMGC](#vmemgc)
+    - [V\$MEMSTAT](#vmemstat)
+    - [V\$MEMTBL_INFO](#vmemtbl_info)
+    - [V\$MEM_BTREE_HEADER](#vmem_btree_header)
+    - [V\$MEM_BTREE_NODEPOOL](#vmem_btree_nodepool)
+    - [V\$MEM_RTREE_HEADER](#vmem_rtree_header)
+    - [V\$MEM_RTREE_NODEPOOL](#vmem_rtree_nodepool)
+    - [V\$MEM_TABLESPACES](#vmem_tablespaces)
+    - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#vmem_tablespace_checkpoint_paths)
+    - [V\$MEM_TABLESPACE_STATUS_DESC](#vmem_tablespace_status_desc)
+    - [V\$MUTEX](#vmutex)
+    - [V\$NLS_PARAMETERS](#vnls_parameters)
+    - [V\$NLS_TERRITORY](#vnls_territory)
+    - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
+    - [V\$PKGTEXT](#vpkgtext)
+    - [V\$PLANTEXT](#vplantext)
+    - [V\$PROCTEXT](#vproctext)
+    - [V\$PROPERTY](#vproperty)
+    - [V\$REPEXEC](#vrepexec)
+    - [V\$REPGAP](#vrepgap)
+    - [V\$REPGAP_PARALLEL](#vrepgap_parallel)
+    - [V\$REPLOGBUFFER](#vreplogbuffer)
+    - [V\$REPOFFLINE_STATUS](#vrepoffline_status)
+    - [V\$REPRECEIVER](#vrepreceiver)
+    - [V\$REPRECEIVER_COLUMN](#vrepreceiver_column)
+    - [V\$REPRECEIVER_PARALLEL](#vrepreceiver_parallel)
+    - [V\$REPRECEIVER_PARALLEL_APPLY](#vrepreceiver_parallel_apply)
+    - [V\$REPRECEIVER_STATISTICS](#vrepreceiver_statistics)
+    - [V\$REPRECEIVER_TRANSTBL](#vrepreceiver_transtbl)
+    - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#vrepreceiver_transtbl_parallel)
+    - [V\$REPRECOVERY](#vreprecovery)
+    - [V\$REPSENDER](#vrepsender)
+    - [V\$REPSENDER_PARALLEL](#vrepsender_parallel)
+    - [V\$REPSENDER_SENT_LOG_COUNT](#vrepsender_sent_log_count)
+    - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#vrepsender_sent_log_count_parallel)
+    - [V\$REPSENDER_STATISTICS](#vrepsender_statistics)
+    - [V\$REPSENDER_TRANSTBL](#vrepsender_transtbl)
+    - [V\$REPSENDER_TRANSTBL_PARALLEL](#vrepsender_transtbl_parallel)
+    - [V\$REPSYNC](#vrepsync)
+    - [V\$RESERVED_WORDS](#vreserved_words)
+    - [V\$SBUFFER_STAT](#vsbuffer_stat)
+    - [V\$SEGMENT](#vsegment)
+    - [V\$SEQ](#vseq)
+    - [V\$SERVICE_THREAD](#vservice_thread)
+    - [V\$SERVICE_THREAD_MGR](#vservice_thread_mgr)
+    - [V\$SESSION](#vsession)
+    - [V\$SESSION_EVENT](#vsession_event)
+    - [V\$SESSION_WAIT](#vsession_wait)
+    - [V\$SESSION_WAIT_CLASS](#vsession_wait_class)
+    - [V\$SESSIONMGR](#vsessionmgr)
+    - [V\$SESSTAT](#vsesstat)
+    - [V\$SFLUSHER](#vsflusher)
+    - [V\$SFLUSHINFO](#vsflushinfo)
+    - [V\$SNAPSHOT](#vsnapshot)
+    - [V\$SQLTEXT](#vsqltext)
+    - [V\$SQL_PLAN_CACHE](#vsql_plan_cache)
+    - [V\$SQL_PLAN_CACHE_PCO](#vsql_plan_cache_pco)
+    - [V\$SQL_PLAN_CACHE_SQLTEXT](#vsql_plan_cache_sqltext)
+    - [V\$STABLE_MEM_DATAFILES](#vstable_mem_datafiles)
+    - [V\$STATEMENT](#vstatement)
+    - [V\$STATNAME](#vstatname)
+    - [V\$SYSSTAT](#vsysstat)
+    - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
+    - [V\$SYSTEM_EVENT](#vsystem_event)
+    - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
+    - [V\$TABLE](#vtable)
+    - [V\$TABLESPACES](#vtablespaces)
+    - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
+    - [V\$TRACELOG](#vtracelog)
+    - [V\$TRANSACTION](#vtransaction)
+    - [V\$TRANSACTION_MGR](#vtransaction_mgr)
+    - [V\$TSSEGS](#vtssegs)
+    - [V\$TXSEGS](#vtxsegs)
+    - [V\$UDSEGS](#vudsegs)
+    - [V\$UNDO_BUFF_STAT](#vundo_buff_stat)
+    - [V\$USAGE](#vusage)
+    - [V\$VERSION](#vversion)
+    - [V\$VOL_TABLESPACES](#vvol_tablespaces)
+    - [V\$WAIT_CLASS_NAME](#vwait_class_name)
+    - [V\$XID](#vxid)
   - [4.샘플 스키마](#4%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
     - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
     - [E-R 다이어그램과 샘플 데이타](#e-r-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8%EA%B3%BC-%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%83%80)
@@ -260,7 +260,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 그룹커밋 도중 이 LFG에 속한 트랜잭션들이 실제로 디스크 I/O를 수행한 횟수를
 나타낸다.
 
-### V\$LOCK
+### <a name="vlock"><a/>V\$LOCK
 
 현재 시점에서 데이터베이스의 모든 테이블에 대한 잠금(lock) 노드 정보를 보여준다.
 
@@ -289,7 +289,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 | DBF     | 데이터베이스 파일      |
 | UNKNOWN | 객체 유형을 알 수 없음 |
 
-### V\$LOCK_STATEMENT
+### <a name="vlock_statement"><a/>V\$LOCK_STATEMENT
 
 잠금 (lock)을 잡고 있는 구문 (statement)과 잠금을 획득하기를 대기하고 있는 구문
 (statement) 정보를 보여준다.
@@ -310,7 +310,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 | LOCK_CNT       | INTEGER        | 해당 잠금 노드의 잠금 개수                                   |
 | IS_GRANT       | BIGINT         | 해당 테이블에 대하여 잠금을 잡고 있는지 대기하고 있는지 여부 |
 
-### V\$LOG
+### <a name="vlog"><a/>V\$LOG
 
 로그 앵커 정보를 보여준다.
 
@@ -348,7 +348,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 
 -   NOARCHIVE: 이 모드에서는 불필요한 로그 파일이 삭제된다.
 
-### V\$LOCK_WAIT
+### <a name="vlock_wait"><a/>V\$LOCK_WAIT
 
 시스템에서 수행되는 트랜잭션 간의 대기 정보를 나타낸다.
 
@@ -380,7 +380,7 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 위에 예제에서, 트랜잭션 2208에 대해서 트랜잭션 1216과 트랜잭션 5344가 현재
 대기하고 있다.
 
-### V\$MEMGC
+### <a name="vmemgc"><a/>V\$MEMGC
 
 메모리 공간 회수 즉, 가비지 콜렉션 (memory garbage collection) 정보를 보여준다.
 
@@ -423,7 +423,7 @@ AGING_PROCESSED_OID_CNT는 OID 단위로 계산하기 때문에 10 증가한다.
 
 공간 회수(garbage collection, aging) 쓰레드 개수를 나타낸다.
 
-### V\$MEMSTAT
+### <a name="vmemstat"><a/>V\$MEMSTAT
 
 Altibase 프로세스가 사용하는 메모리의 통계 정보를 보여준다.
 
@@ -574,7 +574,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 
 해당 모듈이 보유했던 최대 메모리 크기를 나타낸다.
 
-### V\$MEMTBL_INFO
+### <a name="vmemtbl_info"><a/>V\$MEMTBL_INFO
 
 메모리 테이블의 상태를 보여준다.
 
@@ -652,7 +652,7 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 
 삭제가 재시도될 때 이 값이 증가된다
 
-### V\$MEM_BTREE_HEADER
+###  <a name="vmem_btree_header"><a/>V\$MEM_BTREE_HEADER
 
 메모리 BTREE의 헤더 정보를 보여준다.
 
@@ -710,7 +710,7 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 인덱스 생성 시 키 값을 사용했는지 레코드 포인터를 사용했는지를 나타낸다. 키
 값으로 생성되었을 경우 'V'를 갖고, 레코드 포인터로 생성되었을 경우 'P'를 갖는다.
 
-### V\$MEM_BTREE_NODEPOOL
+### <a name="vmem_btree_nodepool"><a/>V\$MEM_BTREE_NODEPOOL
 
 메모리 BTREE 인덱스를 위한 노드 풀 정보를 보여준다. 해당 노드 풀은 모든 메모리
 BTREE 인덱스의 노드 할당과 반환을 관리한다.
@@ -763,7 +763,7 @@ BTREE 인덱스에 할당되지 않고 노드 풀에 남아 있는 노드 수를
 
 삭제 대기중인 BTREE 인덱스에 사용되었던 노드 수를 나타낸다.
 
-### V\$MEM_RTREE_HEADER
+### <a name="vmem_rtree_header"><a/>V\$MEM_RTREE_HEADER
 
 메모리 RTREE 인덱스의 헤더 정보를 보여준다.
 
@@ -818,7 +818,7 @@ BTREE 인덱스에 할당되지 않고 노드 풀에 남아 있는 노드 수를
 
 노드 할당에 따른 시스템 부하를 고려하여 미리 할당받은 노드의 개수를 의미한다.
 
-### V\$MEM_RTREE_NODEPOOL
+### <a name="vmem_rtree_nodepool"><a/>V\$MEM_RTREE_NODEPOOL
 
 메모리 RTREE 인덱스를 위한 노드 풀 정보를 보여준다. 해당 노드 풀은 모든 메모리
 RTREE 인덱스의 노드 할당과 반환을 관리한다.
@@ -871,7 +871,7 @@ RTREE 인덱스에 할당된 노드의 총 수를 나타낸다.
 
 RTREE 인덱스에서 사용되었던 노드가 삭제 대기중인 노드 수를 나타낸다.
 
-### V\$MEM_TABLESPACES
+### <a name="vmem_tablespaces"><a/>V\$MEM_TABLESPACES
 
 메모리에 생성된 테이블스페이스 정보를 보여준다.
 
@@ -983,7 +983,7 @@ Altibase는 데이터베이스 확장 시 디스크에서 파일이 바로 확�
 체크포인트 시에 확장되기 때문에 메모리에 존재하는 데이터베이스 페이지 개수와
 디스크에 존재하는 페이지 개수가 다를 수 있다.
 
-### V\$MEM_TABLESPACE_CHECKPOINT_PATHS 
+### <a name="vmem_tablespace_checkpoint_paths"><a/>V\$MEM_TABLESPACE_CHECKPOINT_PATHS 
 
 특정 테이블스페이스에 대해서 체크포인트 발생 시 변경된 페이지 (Dirty Page)가
 반영되는 데이터베이스 이미지 파일의 위치 즉 디렉터리 경로를 보여준다.
@@ -993,7 +993,7 @@ Altibase는 데이터베이스 확장 시 디스크에서 파일이 바로 확�
 | SPACE_ID        | INTEGER      | 테이블스페이스 식별자                             |
 | CHECKPOINT_PATH | VARCHAR(512) | 데이터베이스 이미지 파일들이 위치한 디렉터리 경로 |
 
-### V\$MEM_TABLESPACE_STATUS_DESC 
+### <a name="vmem_tablespace_status_desc"><a/>V\$MEM_TABLESPACE_STATUS_DESC 
 
 메모리 테이블스페이스의 상태를 나타내는 값과 그에 대한 설명을 보여준다. 이 값은
 V\$MEM_TABLESPACES성능 뷰의 SPACE_STATUS칼럼이 가질 수 있는 값이다.
@@ -1029,7 +1029,7 @@ V\$MEM_TABLESPACES성능 뷰의 SPACE_STATUS칼럼이 가질 수 있는 값이�
 | SWITCHING_TO_ONLINE  | 테이블스페이스가 온라인 상태로 바뀌고 있다.                                                                         |
 | BLOCK_BACKUP         | 테이블스페이스에 대해서 백업할 수 없다. 현재 다른 연산을 수행하는 중이므로 백업은 이 연산이 완료된 후에 할 수 있다. |
 
-### V\$MUTEX
+### <a name="vmutex"><a/>V\$MUTEX
 
 Altibase 프로세스에서 사용되고 있는 동시성 제어와 관련된 뮤텍스 통계 정보를
 보여준다.
@@ -1045,7 +1045,7 @@ Altibase 프로세스에서 사용되고 있는 동시성 제어와 관련된 �
 | MAX_LOCK_TIME_US   | BIGINT      | 잠금을 잡고 있던 시간 중 최대 시간 (microseconds) |
 | THREAD_ID          | VARCHAR(64) | 현재 잠금을 잡고 있는 쓰레드 ID                   |
 
-### V\$NLS_PARAMETERS
+### <a name="vnls_parameters"><a/>V\$NLS_PARAMETERS
 
 서버 및 클라이언트의 NLS (National Language Support) 관련 정보를 세션 단위로
 보여준다.
@@ -1114,7 +1114,7 @@ TRUE 또는 FALSE가 나올 수 있다. TURE일 경우에는 클라이언트가 
 집합으로 변환하고, FALSE일 경우에는 검사하지 않고 SQL문 전체를 데이터베이스 문자
 집합으로 변환한다.
 
-### V\$NLS_TERRITORY
+### <a name="vnls_territory"><a/>V\$NLS_TERRITORY
 
 데이터베이스 또는 현재 세션에 설정 가능한 지역의 이름이 저장되어 있는 성능
 뷰이다.
@@ -1123,7 +1123,7 @@ TRUE 또는 FALSE가 나올 수 있다. TURE일 경우에는 클라이언트가 
 |-------------|-------------|-------------------------|
 | NAME        | VARCHAR(40) | 설정 가능한 지역의 이름 |
 
-### V\$OBSOLETE_BACKUP_INFO
+### <a name="vobsolete_backup_info"><a/>V\$OBSOLETE_BACKUP_INFO
 
 더 이상 유지할 필요가 없는 백업에 대한 정보를 보여준다.
 
@@ -1143,7 +1143,7 @@ V\$BACKUP_INFO 성능 뷰의 칼럼 정보를 참고하도록 한다.
 | BACKUP_TAG                     | CHAR(128) | 백업 태그 이름              |
 | BACKUP_FILE                    | CHAR(512) | 백업 파일                   |
 
-### V\$PKGTEXT
+### <a name="vpkgtext"><a/>V\$PKGTEXT
 
 시스템에서 수행되는 패키지의 문자열 정보를 나타낸다.
 
@@ -1168,7 +1168,7 @@ V\$BACKUP_INFO 성능 뷰의 칼럼 정보를 참고하도록 한다.
 
 패키지 텍스트의 일부분인 64바이트 텍스트 조각의 내용을 나타낸다.
 
-### V\$PLANTEXT
+### <a name="vplantext"><a/>V\$PLANTEXT
 
 서버에서 수행되는 SQL의 실행계획 (execution plan) 정보를 나타낸다.
 
@@ -1198,7 +1198,7 @@ statement 식별자를 나타낸다.
 
 실행계획 전체 텍스트의 일부분인 64바이트 텍스트 조각의 내용이다.
 
-### V\$PROCTEXT
+###  <a name="vproctext"><a/>V\$PROCTEXT
 
 시스템에서 수행되는 저장 프로시저의 문자열 정보를 나타낸다.
 
@@ -1223,7 +1223,7 @@ statement 식별자를 나타낸다.
 
 저장 프로시저 텍스트의 일부분인 64바이트 텍스트 조각의 내용을 나타낸다.
 
-### V\$PROPERTY
+### <a name="vproperty"><a/>V\$PROPERTY
 
 Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
@@ -1270,7 +1270,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 실제 설정된 프로퍼티의 값을 나타낸다.
 
-### V\$REPEXEC
+### <a name="vrepexec"><a/>V\$REPEXEC
 
 이중화 관리자 정보를 보여준다.
 
@@ -1294,7 +1294,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 지역서버에서 생성 가능한 이중화 수신 쓰레드의 최대 개수이다.
 
-### V\$REPGAP
+### <a name="vrepgap"><a/>V\$REPGAP
 
 이중화 송신자의 작업 로그 레코드와 가장 최근 생성된 로그 레코드간의 차이를
 보여준다. 단, 이중화 송신 쓰레드가 동작 중일때만 정보를 보여준다.
@@ -1363,7 +1363,7 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 
 로그 파일 내에서 현재 읽고 있는 위치를 나타낸다.
 
-### V\$REPGAP_PARALLEL
+### <a name="vrepgap_parallel"><a/>V\$REPGAP_PARALLEL
 
 병렬 동작중인 이중화 송신 쓰레드의 작업 로그 레코드와 가장 최근 생성된 로그
 레코드간의 차이를 보여준다. 단, 이 정보는 여러 이중화 송신 쓰레드가 병렬 동작
@@ -1443,7 +1443,7 @@ REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다. 즉 �
 
 한 송신자를 위해 병렬 동작중인 여러 쓰레드 중 하나의 식별자이다.
 
-### V\$REPLOGBUFFER
+### <a name="vreplogbuffer"><a/>V\$REPLOGBUFFER
 
 이중화 송신 쓰레드가 동작 중일 때 이중화 송신자 전용 로그 버퍼의 상태 정보를
 보여준다.
@@ -1474,7 +1474,7 @@ REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다. 즉 �
 
 이중화 전용 로그 버퍼에 저장된 로그 레코드의 식별 번호중 최대값이다.
 
-### V\$REPOFFLINE_STATUS
+### <a name="vrepoffline_status"><a/>V\$REPOFFLINE_STATUS
 
 오프라인 이중화의 수행 상태를 표시한다.
 
@@ -1508,7 +1508,7 @@ REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다. 즉 �
 표시한다. 이중화가 성공적으로 시작되어 종료되었을 경우 종료된 시각이 설정되고,
 그 외는 0으로 설정된다.
 
-### V\$REPRECEIVER
+### <a name="vrepreceiver"><a/>V\$REPRECEIVER
 
 이중화 수신자의 정보를 보여준다.
 
@@ -1618,7 +1618,7 @@ SQL 반영 모드로 동작하는 테이블의 개수이다.
 병렬 적용자(Parallel Applier) 옵션으로 이중화를 사용할 때, 적용자 쓰레드에
 할당된 XLog의 메모리 총 사용량을 나타낸다. 단위는 byte이다.
 
-### V\$REPRECEIVER_COLUMN
+### <a name="vrepreceiver_column"><a/>V\$REPRECEIVER_COLUMN
 
 이중화 수신자의 이중화 대상 칼럼 정보를 보여준다.
 
@@ -1663,7 +1663,7 @@ TABLE_NAME 값과 일치한다.
 
 -   1: SQL 모드
 
-### V\$REPRECEIVER_PARALLEL
+### <a name="vrepreceiver_parallel"><a/>V\$REPRECEIVER_PARALLEL
 
 병렬 동작중인 이중화 수신 쓰레드의 정보를 보여준다.
 
@@ -1759,7 +1759,7 @@ COMMIT 또는 ROLLBACK과 무관하게 계산된다. 즉 ROLLBACK을 수행해�
 
 동일 이중화 객체에 해당하는 여러 이중화 수신자 중 하나의 식별자이다.
 
-### V\$REPRECEIVER_PARALLEL_APPLY 
+### <a name="vrepreceiver_parallel_apply"><a/>V\$REPRECEIVER_PARALLEL_APPLY 
 
 이중화 수신자의 정보를 보여준다.
 
@@ -1779,7 +1779,7 @@ COMMIT 또는 ROLLBACK과 무관하게 계산된다. 즉 ROLLBACK을 수행해�
 
 칼럼 정보에 대한 자세한 내용은 V\$REPRECEIVER를 참조한다.
 
-### V\$REPRECEIVER_STATISTICS
+### <a name="vrepreceiver_statistics"><a/>V\$REPRECEIVER_STATISTICS
 
 이중화 수신 쓰레드의 작업 별 수행시간에 대해 통계 정보를 보여준다.
 TIMED_STATISTICS 프로퍼티의 값이 1로 설정되어 있을 때만 통계정보가 이 뷰에
@@ -1891,7 +1891,7 @@ LOB 연산 작업 중 FINISH CLOSE LOB CURSOR작업 시간의 누적 값이다.
 
 Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
-### V\$REPRECEIVER_TRANSTBL
+### <a name="vrepreceiver_transtbl"><a/>V\$REPRECEIVER_TRANSTBL
 
 이중화 수신자의 트랜잭션 테이블의 정보를 보여준다.
 
@@ -1919,7 +1919,7 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 원격서버에서 실행중인 트랜잭션의 식별자이다. 이미 실행이 끝났을 수도 있다.
 
-### V\$REPRECEIVER_TRANSTBL_PARALLEL
+### <a name="vrepreceiver_transtbl_parallel"><a/>V\$REPRECEIVER_TRANSTBL_PARALLEL
 
 병렬 동작중인 다중 이중화 수신 쓰레드들의 트랜잭션 테이블 정보를 보여준다.
 
@@ -1950,7 +1950,7 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 병렬 동작중인 여러 이중화 수신 쓰레드들 중 하나의 식별자이다.
 
-### V\$REPRECOVERY
+### <a name="vreprecovery"><a/>V\$REPRECOVERY
 
 이중화를 이용한 복구 정보를 보여준다.
 
@@ -2011,7 +2011,7 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 원격 서버의 복구를 위한 수신 쓰레드가 사용하는 포트번호이다.
 
-### V\$REPSENDER
+### <a name="vrepsender"><a/>V\$REPSENDER
 
 이중화 송신자의 정보를 보여준다.
 
@@ -2137,7 +2137,7 @@ EAGER이다. 이중화 모드에 대한 자세한 설명은 *Replication Manual*
 
 이 외의 경우에는 REPL_MODE의 값과 동일하다.
 
-### V\$REPSENDER_PARALLEL
+### <a name="vrepsender_parallel"><a/>V\$REPSENDER_PARALLEL
 
 병렬 동작중인 이중화 송신 쓰레드들의 정보를 보여준다.
 
@@ -2240,7 +2240,7 @@ EAGER이다. 이중화 모드에 대한 자세한 설명은 *Replication Manual*
 
 병렬 동작중인 여러 이중화 송신 쓰레드들 중 하나의 식별자이다.
 
-### V\$REPSENDER_SENT_LOG_COUNT
+### <a name="vrepsender_sent_log_count"><a/>V\$REPSENDER_SENT_LOG_COUNT
 
 이중화 송신자가 전송한 로그를 DML 타입 별로 분류하여 개수를 보여준다. 이중화
 로그는 이중화 송신자가 시작하면 실시간으로 전송되며, 전송할 때마다 이 성능 뷰의
@@ -2270,7 +2270,7 @@ Eager 모드의 병렬 이중화의 경우, Parent Sender에 대한 정보만 �
 
 V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바란다.
 
-### V\$REPSENDER_SENT_LOG_COUNT_PARALLEL
+### <a name="vrepsender_sent_log_count_parallel"><a/>V\$REPSENDER_SENT_LOG_COUNT_PARALLEL
 
 Eager 모드의 병렬 이중화의 각 이중화 송신 쓰레드가 전송한 로그를 DML 타입 별로
 분류하여 개수를 보여준다. 이중화 로그는 이중화 송신자가 시작하면 실시간으로
@@ -2305,7 +2305,7 @@ V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바�
 
 한 송신자를 위해 병렬 동작중인 여러 쓰레드 중 하나의 식별자이다.
 
-### V\$REPSENDER_STATISTICS
+### <a name="vrepsender_statistics"><a/>V\$REPSENDER_STATISTICS
 
 이중화 송신 쓰레드의 작업 별 수행시간에 대해 통계 정보를 보여준다.
 TIMED_STATISTICS 프로퍼티의 값이 1로 설정되어 있을 때만 통계정보가 이 뷰에
@@ -2373,7 +2373,7 @@ XLog를 수신 쓰레드에 전송하는 데 걸린 시간의 누적 값이다.
 
 수신 쓰레드로부터 받은 ACK값을 분석하는데 걸린 시간의 누적 값이다.
 
-### V\$REPSENDER_TRANSTBL
+### <a name="vrepsender_transtbl"><a/>V\$REPSENDER_TRANSTBL
 
 이중화 송신자의 트랜잭션 테이블의 정보를 보여준다.
 
@@ -2404,7 +2404,7 @@ V\$REPSENDER 성능 뷰의 START_FLAG 칼럼의 설명을 참고한다.
 
 원격서버에서 실행되는 트랜잭션의 식별자이다.
 
-### V\$REPSENDER_TRANSTBL_PARALLEL
+### <a name="vrepsender_transtbl_parallel"><a/>V\$REPSENDER_TRANSTBL_PARALLEL
 
 병렬 동작중인 이중화 송신 쓰레드의 트랜잭션 테이블의 정보를 보여준다.
 
@@ -2440,7 +2440,7 @@ V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바�
 
 병렬 동작중인 여러 이중화 송신 쓰레드들 중 하나의 식별자이다.
 
-### V\$REPSYNC
+### <a name="vrepsync"><a/>V\$REPSYNC
 
 이중화를 사용해서 동기화 중인 테이블의 정보를 보여준다.
 
@@ -2475,7 +2475,7 @@ REPLICATION_SYNC_TUPLE_COUNT 프로퍼티에 설정한 레코드 개수 단위�
 이 칼럼은 이는 동기화 진행 중에는 동기화 된 레코드의 개수를 보여주며, 동기화가
 완료되면 -1을 보여준다.
 
-### V\$RESERVED_WORDS
+### <a name="vreserved_words"><a/>V\$RESERVED_WORDS
 
 SQL에서 사용되는 모든 키워드를 보여준다.
 
@@ -2503,7 +2503,7 @@ SQL에서 사용 되는 키워드의 이름이다.
 
 -   1: 테이블의 칼럼 이름으로 사용할 수 있다.
 
-### V\$SBUFFER_STAT
+### <a name="vsbuffer_stat"><a/>V\$SBUFFER_STAT
 
 보조 버퍼(Secondary Buffer)에 대한 통계 정보를 보여준다.
 
@@ -2604,7 +2604,7 @@ micro-seconds)
 "full 스캔" 수행을 위해 보조 버퍼에서 여러 데이터 페이지들을 동시에 읽을 때의
 초당 읽은 평균 바이트 수이다. (단위: kB/sec)
 
-### V\$SEGMENT
+###  <a name="vsegment"><a/>V\$SEGMENT
 
 디스크 테이블과 디스크 인덱스를 구성하는 세그먼트의 상태, 종류 및 할당된
 익스텐트의 개수를 보여준다.
@@ -2646,7 +2646,7 @@ micro-seconds)
 
 세그먼트에 할당된 익스텐트의 총 개수이다.
 
-### V\$SEQ
+### <a name="vseq"><a/>V\$SEQ
 
 시퀀스 관련 정보를 보여준다.
 
@@ -2699,7 +2699,7 @@ TABLE_OID 칼럼 값과 일치한다.
 -   NO: 순환 하지 않는다. 만약 시퀀스가 최대값에 도달할 경우 다음 시퀀스 값을
     요청하면, 에러가 발생한다.
 
-### V\$SERVICE_THREAD
+### <a name="vservice_thread"><a/>V\$SERVICE_THREAD
 
 서비스 쓰레드 정보를 보여준다.
 
@@ -2801,7 +2801,7 @@ SHARED 모드에서 DEDICATED 모드로만 전환할 수 있다.
 서비스 쓰레드가 자신의 요청을 처리해 주기를 대기하고 있는 세션의 개수를
 나타낸다.
 
-### V\$SERVICE_THREAD_MGR
+### <a name="vservice_thread_mgr"><a/>V\$SERVICE_THREAD_MGR
 
 서비스 쓰레드가 생성되거나 삭제된 횟수를 누적해서 보여준다.
 
@@ -2824,7 +2824,7 @@ Altibase는 필요에 따라 동적으로 서비스 쓰레드를 추가하거나
 
 서비스 쓰레드가 동적으로 삭제된 횟수의 누적값이다.
 
-### V\$SESSION
+### <a name="vsession"><a/>V\$SESSION
 
 Altibase 내부에 생성된 클라이언트 세션에 대한 정보를 보여준다.
 
@@ -3210,7 +3210,7 @@ MAX_STATEMENTS_PER_SESSION 프로퍼티의 값을 기본값으로 한다.
 수행중인 프로시저의 모듈이름에 관한 정보이다.SET_MODULE() 내장 프로시저를
 사용하여 설정한다.
 
-### V\$SESSION_EVENT
+### <a name="vsession_event"><a/>V\$SESSION_EVENT
 
 현재 Altibase에 접속중인 세션별로 모든 대기 이벤트들에 대한 통계 정보(누적치)를
 보여준다.
@@ -3276,7 +3276,7 @@ MAX_STATEMENTS_PER_SESSION 프로퍼티의 값을 기본값으로 한다.
 
 세션에 대기하고 있는 이벤트를 그룹화한 클래스의 이름을 나타낸다.
 
-### V\$SESSION_WAIT
+### <a name="vsession_wait"><a/>V\$SESSION_WAIT
 
 현재 접속된 모든 세션의 대기 이벤트 정보를 보여준다. 그러나 이전에 접속했던
 세션과 관련된 대기 이벤트들의 정보는 제공되지 않는다.
@@ -3324,7 +3324,7 @@ MAX_STATEMENTS_PER_SESSION 프로퍼티의 값을 기본값으로 한다.
 
 해당 이벤트가 대기하고 있는 시간을 나타낸다. (단위: 초)
 
-### V\$SESSION_WAIT_CLASS
+### <a name="vsession_wait_class"><a/>V\$SESSION_WAIT_CLASS
 
 현재 접속된 모든 세션의 대기 이벤트를 분류하여 대기 정보의 누적된 통계치를
 보여준다. 그러나 이전에 접속했던 세션과 관련된 대기 이벤트들의 정보는 제공되지
@@ -3377,7 +3377,7 @@ group by sid, serial, wait_class_id
 order by total_waits desc;
 ```
 
-### V\$SESSIONMGR
+### <a name="vsessionmgr"><a/>V\$SESSIONMGR
 
 세션 통계 정보를 보여준다.
 
@@ -3433,7 +3433,7 @@ Altibase가 구동된 이후에 발생한 갱신(Update) 트랜잭션의 시간 
 Altibase가 구동된 이후에 sysdba에 의해 강제로 연결이 끊긴 세션의 개수를
 나타낸다.
 
-### V\$SESSTAT
+###  <a name="vsesstat"><a/>V\$SESSTAT
 
 현재 접속된 모든 세션의 통계치를 나타낸다.
 
@@ -3464,7 +3464,7 @@ Altibase가 구동된 이후에 sysdba에 의해 강제로 연결이 끊긴 세�
 
 통계치로 반환된 값을 64비트 정수로 나타낸다.
 
-### V\$SFLUSHER 
+### <a name="vsflusher"><a/>V\$SFLUSHER 
 
 보조 버퍼(Secondary Buffer)의 페이지를 디스크에 플러시 하는 작업에 대한 정보를
 보여준다.
@@ -3631,7 +3631,7 @@ KB/Sec이다.
 임시 페이지를 임시 파일에 쓸 때 초당 기록된 bytes 수의 평균값으로 단위는
 KB/Sec이다.
 
-### V\$SFLUSHINFO
+### <a name="vsflushinfo"><a/>V\$SFLUSHINFO
 
 보조 버퍼(Secondary Buffer)의 플러시 정보를 보여준다.
 
@@ -3683,7 +3683,7 @@ KB/Sec이다.
 
 체크포인트 대상 페이지 중 가장 빠른 recovery LSN을 가진 페이지의 ID를 나타낸다.
 
-### V\$SNAPSHOT
+### <a name="vsnapshot"><a/>V\$SNAPSHOT
 
 스냅샷(SNAPSHOT)의 설정 상태와 메모리, 디스크 언두 테이블스페이스의 사용량을
 보여준다
@@ -3730,7 +3730,7 @@ BEGIN SNAPSHOT 구문이 실행될 때의 디스크 언두 테이블스페이스
 
 현재 디스크 언두 테이블스페이스의 사용량을 백분율로 나타낸다.
 
-### V\$SQLTEXT
+### <a name="vsqltext"><a/>V\$SQLTEXT
 
 서버에서 현재 수행되는 SQL 텍스트 정보를 나타낸다.
 
@@ -3760,7 +3760,7 @@ SQL 텍스트가 실행된 세션의 고유 번호를 나타낸다.
 
 전체 SQL 문의 일부분인 64바이트 단위의 문자열 조각이다.
 
-### V\$SQL_PLAN_CACHE
+### <a name="vsql_plan_cache"><a/>V\$SQL_PLAN_CACHE
 
 SQL Plan Cache의 현재 상태 및 통계 정보를 나타낸다.
 
@@ -3830,7 +3830,7 @@ SQL Plan Cache에 추가된 plan cache 객체의 개수를 의미한다.
 SQL Plan Cache에 저장되지 않는 구문이 발생한 횟수이다. 그 구문은 DDL과
 DCL구문이다.
 
-### V\$SQL_PLAN_CACHE_PCO
+### <a name="vsql_plan_cache_pco"><a/>V\$SQL_PLAN_CACHE_PCO
 
 SQL Plan Cache에 등록된 Plan cache 객체에 대한 정보를 나타낸다.
 
@@ -3899,7 +3899,7 @@ Plan cache 객체의 plan 상태를 나타내며, 다음과 같은 값을 가질
 Plan cache 객체가 LRU 리스트에서 어느 영역에 속해 있는지를 나타낸다. 이 칼럼의
 값은 HOT_REGION 또는 COLD_REGION일 수 있다.
 
-### V\$SQL_PLAN_CACHE_SQLTEXT
+###  <a name="vsql_plan_cache_sqltext"><a/>V\$SQL_PLAN_CACHE_SQLTEXT
 
 SQL Plan Cache에 등록된 SQL 문에 대한 정보를 보여준다.
 
@@ -3937,7 +3937,7 @@ Plan 객체내에 Child Plan Cache 객체가 생성되는 경우는 다음의 2�
 -   기존 Plan Cache 객체가 참조하는 객체의 변경 또는 객체의 통계 정보의 변경
     폭이 한계치를 넘는 경우 새로운 Plan Cache 객체를 생성한다.
 
-### V\$STABLE_MEM_DATAFILES
+### <a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES
 
 데이터베이스에 존재하는 데이터 파일의 전체 경로를 보여준다.
 
@@ -3951,7 +3951,7 @@ Plan 객체내에 Child Plan Cache 객체가 생성되는 경우는 다음의 2�
 
 데이터베이스에 존재하는 데이터 파일의 전체 경로이다.
 
-### V\$STATEMENT
+### <a name="vstatement"><a/>V\$STATEMENT
 
 현재 연결된 세션 별로 가장 최근 실행된 구문 (statement)에 대한 정보를 보여준다.
 
@@ -4253,7 +4253,7 @@ SQL Cache Text 객체에서 공유 plan cache 객체의 식별자를 나타낸�
 
 대기 시간 (단위: 초)이다.
 
-### V\$STATNAME
+### <a name="vstatname"><a/>V\$STATNAME
 
 이 테이블은 시스템 전체의 통계 정보를 보여주는 V\$SYSSTAT와 각 세션의 통계
 정보를 보여주는 V\$SESSTAT의 통계 정보 일련번호와 이름을 보여준다.
@@ -4413,7 +4413,7 @@ V\$SYSSTATE과 V\$SESSTAT 성능 뷰에서 64비트 정수로 표현된다.
 
 [<sup>15</sup>] elapsed time 단위 : microsecond
 
-### V\$SYSSTAT
+###  <a name="vsysstat"><a/>V\$SYSSTAT
 
 시스템 상태를 보여준다. 그러나 상태값은 모든 세션의 정보에 기반하여 3초마다
 갱신되기 때문에, 보여지는 값들은 시간이 지난 값일 수 있다.
@@ -4440,7 +4440,7 @@ V\$SYSSTATE과 V\$SESSTAT 성능 뷰에서 64비트 정수로 표현된다.
 
 통계치 일련 번호에 해당하는 현재 시스템의 값을 64비트 정수로 표현한다.
 
-### V\$SYSTEM_CONFLICT_PAGE
+### <a name="vsystem_conflict_page"><a/>V\$SYSTEM_CONFLICT_PAGE
 
 디스크 버퍼 공간 상에서 페이지간 래치(Latch) 경합에 의한 병목 구간을 분석할 수
 있도록 페이지 타입별로 경합 정보를 보여준다.
@@ -4467,7 +4467,7 @@ TIMED_STATISTICS 프로퍼티가 1로 설정된 경우에만 정보를 수집한
 
 버퍼 페이지의 래치 획득 실패로 인한 대기 시간 (단위: 마이크로 초)을 나타낸다.
 
-### V\$SYSTEM_EVENT
+### <a name="vsystem_event"><a/>V\$SYSTEM_EVENT
 
 Altibase 구동 후부터 현재까지 대기 이벤트별로 누적된 대기 통계 정보를 보여준다.
 
@@ -4522,7 +4522,7 @@ Altibase 구동 후부터 현재까지 대기 이벤트별로 누적된 대기 �
 
 이벤트를 그룹화한 대기 클래스의 이름이다.
 
-### V\$SYSTEM_WAIT_CLASS
+### <a name="vsystem_wait_class"><a/>V\$SYSTEM_WAIT_CLASS
 
 Altibase 구동 후부터 현재까지의 대기 클래스별로 분류해서 누적된 대기 통계 정보를
 보여준다.
@@ -4584,7 +4584,7 @@ from
 order by 5 desc;
 ```
 
-### V\$TABLE
+### <a name="vtable"><a/>V\$TABLE
 
 성능 뷰 리스트를 보여준다.
 
@@ -4608,7 +4608,7 @@ order by 5 desc;
 
 해당 성능 뷰가 가진 칼럼의 개수이다.
 
-### V\$TABLESPACES
+### <a name="vtablespaces"><a/>V\$TABLESPACES
 
 테이블스페이스의 정보를 보여준다.
 
@@ -4734,7 +4734,7 @@ CREATE TABLESPACE 구문에 정의된 테이블스페이스의 이름이다.
 
 -   1: LOG COMPRESS 수행한다.
 
-### V\$TIME_ZONE_NAMES
+### <a name="vtime_zone_names"><a/>V\$TIME_ZONE_NAMES
 
 TIME_ZONE 프로퍼티에 설정할 수 있는 지역 이름과 약어 및 UTC 오프셋 값의 목록을
 보여주는 성능 뷰이다.
@@ -4755,7 +4755,7 @@ Asia/Seoul 또는 KST와 같은 타임 존 설정을 위한 지역 이름의 문
 타임 존의 UTC(협정 세계시)로부터의 오프셋 값이다. 예를 들어, Asia/Seoul의 경우
 UTC 오프셋이 +09:00이다.
 
-### V\$TRACELOG
+### <a name="vtracelog"><a/>V\$TRACELOG
 
 데이터베이스 내부 모듈의 수행 내역을 남기는 메시지 로깅 관련 정보를 보여준다.
 
@@ -4908,7 +4908,7 @@ alter system set rp_conflict_msglog_flag=4
 alter system set dr_msglog_flag=2
 ```
 
-### V\$TRANSACTION
+### <a name="vtransaction"><a/>V\$TRANSACTION
 
 트랜잭션 객체의 정보를 보여준다.
 
@@ -5101,7 +5101,7 @@ SCN을 가진다. 이 항목은 현재 해당 트랜잭션에서 메모리 테�
 
 -   2: SERIALIZABLE
 
-### V\$TRANSACTION_MGR
+### <a name="vtransaction_mgr"><a/>V\$TRANSACTION_MGR
 
 Altibase 트랜잭션 관리자의 정보를 보여준다.
 
@@ -5141,7 +5141,7 @@ Altibase는 시스템 시작시에 프로퍼티에 지정된 개수의 트랜잭
 
 트랜잭션 중에서 가장 작은 디스크 뷰 SCN이다.
 
-### V\$TSSEGS
+### <a name="vtssegs"><a/>V\$TSSEGS
 
 언두 테이블스페이스에 존재하는 모든 TSS 세그먼트의 목록을 출력한다.
 
@@ -5190,7 +5190,7 @@ TSS 세그먼트의 총 익스텐트 디렉터리의 개수이다.
 
 하나의 익스텐트의 총 페이지의 개수이다.
 
-### V\$TXSEGS
+### <a name="vtxsegs"><a/>V\$TXSEGS
 
 트랜잭션에 바인딩되어 온라인 상태로 있는 세그먼트의 목록을 출력한다.
 
@@ -5266,7 +5266,7 @@ TSS를 할당한 TSS 세그먼트의 익스텐트 RID룰 나타낸다.
 해당 트랜잭션이 갱신때 기록했던 마지막 언두 레코드의 페이지 내에서의 슬롯 번호를
 나타낸다.
 
-### V\$UDSEGS
+### <a name="vudsegs"><a/>V\$UDSEGS
 
 언두 테이블스페이스에 존재하는 모든 언두(UNDO) 세그먼트의 목록을 출력한다.
 
@@ -5315,7 +5315,7 @@ TSS를 할당한 TSS 세그먼트의 익스텐트 RID룰 나타낸다.
 
 하나의 익스텐트의 총 페이지 개수를 나타낸다.
 
-### V\$UNDO_BUFF_STAT
+### <a name="vundo_buff_stat"><a/>V\$UNDO_BUFF_STAT
 
 언두 테이블스페이스의 버퍼 풀 관련 통계 정보를 보여준다.
 
@@ -5350,7 +5350,7 @@ TSS를 할당한 TSS 세그먼트의 익스텐트 RID룰 나타낸다.
 나타낸다. 이 요청에 대해 버퍼 매니저는 버퍼에서 빈 BCB를 확보한 후 페이지를
 초기화 하여 리턴한다. 디스크 I/O는 이 연산에서 발생하지 않는다.
 
-### V\$USAGE
+### <a name="vusage"><a/>V\$USAGE
 
 이 뷰는 데이터베이스에 존재하는 테이블과 인덱스가 사용하는 공간의 양을 보여준다.
 이 뷰로부터 올바른 정보를 읽고 싶다면, 먼저 DBMS Stat 내장 프로시저를 실행해서
@@ -5442,7 +5442,7 @@ T  89648                848                  2128                 0             
 10 rows selected.
 ```
 
-### V\$VERSION
+### <a name="vversion"><a/>V\$VERSION
 
 데이터베이스 버전 관련 정보를 보여준다.
 
@@ -5486,7 +5486,7 @@ Altibase 제품의 버전 정보를 나타낸다.
 
 이중화를 위한 프로토콜 버전을 나타낸다.
 
-### V\$VOL_TABLESPACES
+### <a name="vvol_tablespaces"><a/>V\$VOL_TABLESPACES
 
 메모리에 생성된 휘발성 테이블스페이스 정보를 보여준다.
 
@@ -5535,7 +5535,7 @@ Altibase 제품의 버전 정보를 나타낸다.
 
 테이블스페이스의 빈 (free) 페이지 개수를 나타낸다.
 
-### V\$WAIT_CLASS_NAME
+### <a name="vwait_class_name"><a/>V\$WAIT_CLASS_NAME
 
 Altibase 서버상의 대기 이벤트들을 그룹화하기 위한 정보를 보여준다. 다양한 대기
 이벤트들을 분류하기 위해 상위 개념인 대기 클래스를 사용하며 이 성능뷰를 통하여
@@ -5569,7 +5569,7 @@ Altibase 서버상의 대기 이벤트들을 그룹화하기 위한 정보를 �
 | 7             | System I/O     | 시스템 I/O 관련 대기 이벤트를 포함한다.                                         |
 | 8             | Replication    | 이중화에서 사용하는 대기 이벤트를 포함하는 클래스이다.                          |
 
-### V\$XID
+### <a name="vxid"><a/>V\$XID
 
 DBMS내 분산 트랜잭션의 식별자인 XID의 목록을 보여준다. XA에서 분산 트랜잭션
 식별자는 분산 트랜잭션이 시작될 때 TM (Transaction Manager) 내부에서 생성되며,
