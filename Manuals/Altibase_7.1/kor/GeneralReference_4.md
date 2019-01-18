@@ -141,7 +141,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | WRITE_MISS         | BIGINT  | 쓰기 래치를 바로 잡지 못한 횟수 |
 | SLEEPS_CNT         | BIGINT  | 래치를 잡기 위하여 sleep한 횟수 |
 
-<a name="vlfg"><a/>### V\$LFG
+### <a name="vlfg"><a/>V\$LFG
 
 이 뷰는 데이터베이스 관리자가 그룹 커밋의 동작을 모니터링 할 수 있는 통계 정보를
 제공한다. 각 칼럼에 대한 보다 상세한 정보는 이 매뉴얼의 그룹 커밋 부분을
