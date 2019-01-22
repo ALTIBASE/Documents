@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [General Reference](#general-reference)
@@ -94,7 +93,7 @@
     - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
     - [E-R 다이어그램과 샘플 데이타](#e-r-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8%EA%B3%BC-%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%83%80)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Administration
 
@@ -1299,16 +1298,17 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 이중화 송신자의 작업 로그 레코드와 가장 최근 생성된 로그 레코드간의 차이를
 보여준다. 단, 이중화 송신 쓰레드가 동작 중일때만 정보를 보여준다.
 
-| Column name  | Type        | Description                                     |
-|--------------|-------------|-------------------------------------------------|
-| REP_NAME     | VARCHAR(40) | 이중화 객체의 이름                              |
-| START_FLAG   | BIGINT      | 시작 옵션                                       |
-| REP_LAST_SN  | BIGINT      | 마지막 로그 레코드의 식별 번호                  |
-| REP_SN       | BIGINT      | 현재 전송중인 로그 레코드의 식별 번호           |
-| REP_GAP      | BIGINT      | REP_LAST_SN과 REP_SN의 차이                     |
-| READ_LFG_ID  | INTEGER     | 현재 읽고 있는 로그 파일 그룹(사용하지 않음, 0) |
-| READ_FILE_NO | INTEGER     | 현재 읽고 있는 로그 파일 번호                   |
-| READ_OFFSET  | INTEGER     | 현재 읽고 있는 위치                             |
+| Column name  | Type        | Description                                        |
+| ------------ | ----------- | -------------------------------------------------- |
+| REP_NAME     | VARCHAR(40) | 이중화 객체의 이름                                 |
+| START_FLAG   | BIGINT      | 시작 옵션                                          |
+| REP_LAST_SN  | BIGINT      | 마지막 로그 레코드의 식별 번호                     |
+| REP_SN       | BIGINT      | 현재 전송중인 로그 레코드의 식별 번호              |
+| REP_GAP      | BIGINT      | REP_LAST_SN과 REP_SN의 차이<br />(단위:메가바이트) |
+| REP_GAP_SIZE | BIGINT      | REP_LAST_SN과 REP_SN의 차이<br />(단위:바이트)     |
+| READ_LFG_ID  | INTEGER     | 현재 읽고 있는 로그 파일 그룹(사용하지 않음, 0)    |
+| READ_FILE_NO | INTEGER     | 현재 읽고 있는 로그 파일 번호                      |
+| READ_OFFSET  | INTEGER     | 현재 읽고 있는 위치                                |
 
 #### 칼럼 정보
 
@@ -1348,9 +1348,15 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 ##### REP_GAP
 
-REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다. 즉 지역서버 트랜잭션에
+REP_GAP_SIZE의 값을 메가바이트 단위로 보여준다 (단위:메가바이트).
+
+##### REP_GAP_SIZE
+
+REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다 (단위:바이트). 
+
+즉 지역서버 트랜잭션에
 의해 가장 최근에 로깅된 로그 레코드와 이중화 송신 쓰레드가 현재 송신중인 로그
-레코드의 간격이다.
+레코드의 간격이다. 
 
 ##### READ_FILE_NO
 
