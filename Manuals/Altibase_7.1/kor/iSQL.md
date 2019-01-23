@@ -295,18 +295,18 @@ iSQL을 실행하기 위해서는 반드시 Altibase 서버를 먼저 구동 시
 대문자 또는 소문자 모두 사용할 수 있다.
 
 ```
-isql 
+isql
 [-H]
-[-S server_name] 
-[-PORT port_no] 
+[-S server_name]
+[-PORT port_no]
 [-U user_id] [-P password] [/NOLOG]
 [-SYSDBA]
-[-UNIXDOMAIN-FILEPATH filepath] 
-[-IPC-FILEPATH filepath] 
+[-UNIXDOMAIN-FILEPATH filepath]
+[-IPC-FILEPATH filepath]
 [-SILENT]
 [-F infile_name [param1 [param2]...]] [-O outfile_name] [-NLS_USE nls_name]
 [-NLS_NCHAR_LITERAL_REPLACE 0|1]
-[-prefer_ipv6] [-TIME_ZONE timezone] 
+[-prefer_ipv6] [-TIME_ZONE timezone]
 [-ssl_ca CA_file_path | -ssl_capath CA_dir_path]
 [-ssl_cert certificate_file_path]
 [-ssl_key key_file_path]
@@ -316,23 +316,23 @@ isql
 
 
 
-- -S *server_name* 
+- -S *server_name*
   Altibase 서버가 구동되어 있는 컴퓨터 서버의 이름(또는 IP 주소)을 명시한다.
-  만약 ISQL_CONNECTION 환경 변수가 IPC 또는 UNIX로 설정되어 있을 때, 이 옵션에 원격 서버를 명시해서 접속을 시도하면, iSQL은 ISQL_CONNECTION의 설정을 무시하고 TCP로 원격 서버에 접속할 것이다. 이 때, ISQL_CONNECTION 설정이 무시되었다는 경고 메시지가 출력된다. 
+  만약 ISQL_CONNECTION 환경 변수가 IPC 또는 UNIX로 설정되어 있을 때, 이 옵션에 원격 서버를 명시해서 접속을 시도하면, iSQL은 ISQL_CONNECTION의 설정을 무시하고 TCP로 원격 서버에 접속할 것이다. 이 때, ISQL_CONNECTION 설정이 무시되었다는 경고 메시지가 출력된다.
   IPv4 주소 또는 IPv6 주소를 사용할 수 있다. IPv6 주소는 “[“과 “]”로 에워싸여야 한다.
   예를 들어, localhost 를 명시하고자 할 때, 가능한 값은 다음과 같다.
   localhost (호스트 이름), 127.0.0.1 (IPv4주소), [::1] (IPv6주소)
   IPv6 주소 표기법에 대한 자세한 내용은 Administrator’s Manual을 참고하기 바란다.
 - -PORT *port_no*
-  TCP, IPC 또는 IPCDA로 접속할 때 해당 포트 번호를 명시한다. 단 유닉스 환경에서 IPC로 접속시 이 옵션은 명시하지 않아야 한다. 만약 명시하면 경고 메시지가 출력된 후, 서버에 접속한다. 
+  TCP, IPC 또는 IPCDA로 접속할 때 해당 포트 번호를 명시한다. 단 유닉스 환경에서 IPC로 접속시 이 옵션은 명시하지 않아야 한다. 만약 명시하면 경고 메시지가 출력된 후, 서버에 접속한다.
   TCP로 접속하려면 먼저 클라이언트에서 환경 변수 ‘ISQL_CONNECTION=TCP’를 설정하고, 옵션에 PORT_NO를 입력한다. ISQL_CONNECTION 환경 변수의 값이 IPC가 아니고 –PORT 옵션을 생략한다면, ALTIBASE_PORT_NO와 PORT_NO 프로퍼티를 차례로 참조하고 모두 설정되어 있지 않다면, 포트 번호 입력 프롬프트가 출력된다.
-- -U *user_id* 
+- -U *user_id*
   데이터베이스에 등록된 사용자 ID를 명시한다.
-- -P *password* 
+- -P *password*
   사용자 ID와 일치하는 암호를 명시한다.
-- /NOLOG 
+- /NOLOG
   데이터베이스에 접속하지 않고 iSQL을 실행한다.
-- -SYSDBA 
+- -SYSDBA
   SYS 사용자가 관리자 모드로 iSQL 유틸리티를 사용하기 위해서 -SYSDBA
   옵션을 사용할 수 있다. 서버가 구동되어 있지 않다면, iSQL은 idle 인스턴스로
   접속할 것이며, 그 상태에서 서버를 구동할 수 있다.
@@ -360,13 +360,13 @@ isql
   예) -F \\" file name\\"  
   스크립트 파일의 치환 변수에 대입할 값을 파라미터로 지정할 수 있다. 치환
   변수에 대한 설명은 'START 명령에 파라미터 전달'을 참조하기 바란다.
-- -O *outfile_name* 
+- -O *outfile_name*
   iSQL 실행 후 실행한 명령들에 대한 결과들을 저장할 파일을
   명시한다. 이 파일은 현재 디렉터리에 생성된다. 파일이 기존에 존재할 경우,
   기존 내용 위에 겹쳐 쓴다.  
   파일 이름에 특수 문자 또는 공백이 포함된 경우 큰따옴표를 사용해야 한다.  
   예) -O \\" file name\\"
-- -H 
+- -H
   iSQL의 실행 방법을 보여준다.
 - -SILENT s
   ilent 모드를 켜는 옵션이다. silent 모드를 켜면 Copyright 등의
@@ -388,7 +388,7 @@ isql
   변환한다.  
   1 : “N” 문자가 붙어있는 NCHAR 리터럴은 데이터베이스 문자 셋으로 변환하지
   않는다.
-- -prefer_ipv6 
+- -prefer_ipv6
   -S 옵션으로 호스트 이름을 입력했을 때, 접속할 IP 주소의 버전을
   결정하는 옵션이다.  
   이 옵션을 명시하면, 호스트 이름을 IPv6 주소로 바꾸어 접속한다.  
@@ -416,7 +416,7 @@ isql
   클라이언트 인증서 파일의 위치를 지정한다.
 - -ssl_key *key_file_path*  
   클라이언트 개인키 파일의 위치를 지정한다.
-- -ssl_verify 
+- -ssl_verify
   이 옵션을 지정하면 클라이언트가 서버로부터 전달받은 인증서를
   검증한다.
 - -ssl_cipher *cipher_list*  
@@ -475,7 +475,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
      </TR>
      <TR>
          <TD>시퀀스 정보 보기</TD><TD>SELECT * FROM SEQ;</TD><TD>SYS 계정으로 서버에 접속한 경우 모든 시퀀스 들의 정보를 보여준다.
-일반 사용자로 서버에 접속한 경우는 그 사용자가 생성한 시퀀스들에 대한 정보만 보여준다. 
+일반 사용자로 서버에 접속한 경우는 그 사용자가 생성한 시퀀스들에 대한 정보만 보여준다.
 이 명령어는 iSQL에서만 사용 가능하다.</TD>
      </TR>
      <TR>
@@ -562,10 +562,10 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>파티션 정보 출력의 유무</TD><TD>SET PARTITIONS ON;<BR>SET PARTITIONS OFF;</TD><TD>테이블 구조(DESC)를 볼 때 파티션 정보 포함 출력 여부 설정.<BR>기본값: OFF</TD>
      </TR>
      <TR>
-         <TD>스크립트 실행 결과의 출력 유무</TD><TD>SET TERM ON;<BR>SET TERM OFF;</TD><TD>스크립트 파일 실행의 결과를 화면상에 보여줄지를 결정한다.<BR>기본값: ON</TD>
+         <TD>스크립트 실행 결과의 출력 유무</TD><TD>SET TERM ON;<BR>SET TERM OFF;</TD><TD>스크립트 파일 실행의 결과 및 명령어를 화면상에 보여줄지를 결정한다.<BR>기본값: ON</TD>
      </TR>
      <TR>
-         <TD>스크립트 명령어 출력 유무</TD><TD>SET ECHO ON;<BR>SET ECHO OFF;</TD><TD>스크립트 실행 결과를 출력하지 않을 때(SET TERM OFF), @으로 실행된 스크립트 파일 내의 명령어들의 출력 여부를 설정한다.<BR>기본값 : OFF </TD>
+         <TD>스크립트 명령어 출력 유무</TD><TD>SET ECHO ON;<BR>SET ECHO OFF;</TD><TD>@으로 실행된 스크립트 파일 내의 명령어들의 출력 여부를 설정한다.<BR>기본값 : ON </TD>
      </TR>
      <TR>
          <TD>치환 변수 대체 여부</TD><TD>SET DEFINE ON;<BR>SET DEFINE OFF;</TD><TD>치환 변수가 있는 스크립트 파일 수행 시, 사용자가 입력한 파라미터 값으로 치환 변수를 대체할지 여부를 지정한다.<BR>기본값: OFF</TD>
@@ -635,13 +635,13 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
      </TR>
      <TR>
          <TD>SHOW ALL</TD><TD>현재 세션의 화면 설정 값을 보여준다.</TD>
-     </TR> 
+     </TR>
      <TR>
          <TD ROWSPAN="7">변수 및 Prepared SQL문</TD><TD ROWSPAN="2">변수 선언</TD><TD>VAR p1 INTEGER;</TD><TD>INTEGER 타입의 변수 p1을 선언한다.</TD>
      </TR>    
      <TR>
          <TD>VARIABLE p2 CHAR(10);</TD><TD>CHAR 타입의 변수 p2를 선언한다. </TD>
-     </TR> 
+     </TR>
      <TR>
          <TD ROWSPAN="2">변수에 값 할당</TD><TD>EXECUTE :p1 := 100;</TD><TD>변수 p1에 100을 할당한다.</TD>
      </TR>
@@ -889,7 +889,7 @@ AUTOCOMMIT ON
 SET HEADING OFF
 SELECT sysdate FROM dual;
 
-$ vi login.sql 
+$ vi login.sql
 AUTOCOMMIT OFF;
 SET HEADING ON
 DROP TABLE savept;
@@ -909,9 +909,9 @@ $ isql
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
-Write Server Name (default:127.0.0.1) : 
+Write Server Name (default:127.0.0.1) :
 Write UserID : user1
-Write Password : 
+Write Password :
 ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 Set autocommit on success.	-> 먼저 glogin.sql을 실행
 
@@ -998,7 +998,7 @@ iSQL 사용 중 발생하는 에러에 대한 자세한 정보는 Error Message 
 참조하기 바란다.
 
 ```
-$ isql -U sys -P manager [-SYSDBA] 
+$ isql -U sys -P manager [-SYSDBA]
 ```
 
 ```
@@ -1009,7 +1009,7 @@ $ isql [-sysdba]
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
-Write Server Name (default:127.0.0.1) : 
+Write Server Name (default:127.0.0.1) :
 Write UserID : sys
 Write Password : manager             -> 화면에는 암호가 나타나지 않는다.
 ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
@@ -1134,9 +1134,9 @@ $ isql
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
-Write Server Name (default:127.0.0.1) : 
+Write Server Name (default:127.0.0.1) :
 Write UserID : SYS
-Write Password : 
+Write Password :
 ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 iSQL> SHOW USER;
 User : SYS
@@ -1180,7 +1180,7 @@ SYS		SYSTBL		TABLE
 
 
 
-> ##### 주의사항 
+> ##### 주의사항
 >
 > 사용자 이름에 소문자, 특수 문자 또는 공백이 포함된 경우 큰따옴표를 사용해야
 > 한다.
@@ -1202,7 +1202,7 @@ SYS		SYSTBL		TABLE
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ isql -s localhost -u sys -p MANAGER 
+$ isql -s localhost -u sys -p MANAGER
 or
 $ isql -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 ```
@@ -1219,7 +1219,7 @@ $ isql -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 서버의 공개키가 포함된 CA 인증서 파일의 위치를 지정해야 한다.
 
 ```
-$ export ISQL_CONNECTION=SSL 
+$ export ISQL_CONNECTION=SSL
 $ isql -s localhost -u sys -p MANAGER \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
@@ -1341,7 +1341,7 @@ iSQL> DESC department; 	->table_name: 테이블 정보(구조)를 알고 싶은 
 [ TABLESPACE : SYS_TBS_MEM_DATA ]
 [ ATTRIBUTE ]
 -----------------------------------------------------------
-NAME                  TYPE                        IS NULL 
+NAME                  TYPE                        IS NULL
 -----------------------------------------------------------
 DNO                   SMALLINT        FIXED       NOT NULL
 DNAME                 CHAR(30)        FIXED       NOT NULL
@@ -1458,7 +1458,7 @@ autocommit off (non-autocommit) 모드에서 explain plan이 on (또는 only) �
 때, desc, select \* from tab; 또는 select \* from seq; 등과 같은 명령어를
 수행했을 때 자동으로 commit 할지를 결정하는 기능이다. 기본값은 OFF 이다.
 
-> 참고: 기본값이 OFF 이므로 autocommit off 세션에서 explain plan이 on (또는 only) 조건일 때 Altibase는 위의 명령어(desc, select \* from tab; 또는 select * from seq;)를 자동 commit 하지 않고 오류 메시지를 발생한다. 
+> 참고: 기본값이 OFF 이므로 autocommit off 세션에서 explain plan이 on (또는 only) 조건일 때 Altibase는 위의 명령어(desc, select \* from tab; 또는 select * from seq;)를 자동 commit 하지 않고 오류 메시지를 발생한다.
 >
 > 이 값이 ON이면, iSQL은 이런 명령어들을 실행한 후 commit을 수행해서 에러가 발생하지 않도록 한다.
 
@@ -1475,8 +1475,8 @@ spool 명령을 이용하면 지정한 book.txt 파일에 작업한 결과가 �
 
 ```
 iSQL> SPOOL book.txt	 
-Spool start. [book.txt]	-> 이후의 모든 명령과 그 결과들이 book.txt 파일에  저장된다. 이 파일은 현재 디렉터리에 생성된다. 
-iSQL> SPOOL OFF 
+Spool start. [book.txt]	-> 이후의 모든 명령과 그 결과들이 book.txt 파일에  저장된다. 이 파일은 현재 디렉터리에 생성된다.
+iSQL> SPOOL OFF
 Spool Stop		-> 더 이상 명령과 그 결과들을 파일에 저장하지 않는다.
 ```
 
@@ -1528,7 +1528,7 @@ iSQL> @?/sample/schema.sql
 
 edit, save, load, spool, start
 
-> 스크립트 파일 내에서 주석의 사용은 -- 또는 /\* \*/으로 가능하다. 
+> 스크립트 파일 내에서 주석의 사용은 -- 또는 /\* \*/으로 가능하다.
 >
 > --는 이 표시 다음부터 그 라인의 끝까지를 주석으로 처리하고 여러 라인을 주석으로 처리할 때는 주석부분을 /\*와 \*/ 사이에 넣으면 된다.
 
@@ -1571,7 +1571,7 @@ edit, save, load, spool, start
 iSQL> @sample/APRE/schema/a.sql
 
 $ cat a.sql
-@@schema.sql 
+@@schema.sql
 ```
 
 > 참고: 이 후의 예제는 위의 스크립트를 실행해서 생성된 테이블들을 (부록 Schema 참고) 가지고 iSQL 환경에서 질의에 따른 결과를 편집한 것이다.
@@ -1614,7 +1614,7 @@ old   2: WHERE EMP_JOB = '&1'
 new   2: WHERE EMP_JOB = 'programmer'
 old   3: AND SALARY > &2;
 new   3: AND SALARY > 2000;
-  
+
 ENO         E_LASTNAME
 -------------------------------------
 10          Bae
@@ -1659,7 +1659,7 @@ new   1: SELECT E_LASTNAME FROM EMPLOYEES WHERE ENO='20';
 기본값은 OFF로 사용자가 입력한 파라미터 값으로 치환 변수를 대체하지 않는다. 즉,
 치환 변수가 포함된 스크립트 파일 수행 시에는 반드시 ON으로 지정해야 한다.
 
-##### SET VERIFY {ON\|OFF} 
+##### SET VERIFY {ON\|OFF}
 
 치환 변수가 포함된 스크립트 파일을 START, @ 또는 @@ 명령어로 수행 시,
 파라미터 값으로 교체되기 전후의 SQL문을 출력할지 여부를 지정한다.
@@ -1743,7 +1743,7 @@ iSQL> UPDATE  T1 SET I1 = 2;
 iSQL> SELECT * FROM T1;
 I1  
 --------------
-2 
+2
 1 row selected.
 iSQL> DELETE FROM T1;
 1 row deleted.
@@ -1793,7 +1793,7 @@ SELECT sysdate FROM dual;
 
 ```
 iSQL> ed myquery.sql
-"myquery.sql" 
+"myquery.sql"
 INSERT INTO employee(ENO, E_FIRSTNAME, E_LASTNAME, SEX) VALUES(21, 'MSJUNG', 'F');
 INSERT INTO employee(ENO, E_FIRSTNAME, E_LASTNAME, SEX, JOIN_DATE)
 VALUES(22, 'Joshua', 'Baldwin', 'M', TO_DATE('2001-11-19 00:00:00', 'YYYY-MM-DD HH:MI:SS'));
@@ -1932,7 +1932,7 @@ INSERT INTO C1 VALUES(2, 'A1234');
 INSERT INTO C1 VALUES(3, 'A12345');
 INSERT INTO C1 VALUES(4, 'A1234567890123');
 
-iSQL> autocommit off; 
+iSQL> autocommit off;
 Set autocommit off success.
 iSQL> set loboffset 4; 	-> CLOB 칼럼의 데이터를 select 문으로 조회할 때 화면에 나타나는 데이터의 시작 위치를 설정한다.
 iSQL> select * from c1;
@@ -2082,7 +2082,7 @@ SELECT 문 결과 출력시 디스플레이되는 CHAR, VARCHAR 타입 칼럼의
 ```
 iSQL> CREATE TABLE LOCATION(
 ID      INTEGER,
-NAME    CHAR(20), 
+NAME    CHAR(20),
 ADDRESS VARCHAR(500),
 PHONE   CHAR(20));
 Create success.
@@ -2131,7 +2131,7 @@ c_float FLOAT(38)
 );
 Create success.
 iSQL> INSERT INTO t1 VALUES(12345678901234567890, 12345678901234567890, 12345678901234567890, 12345678901234567890);
-1 row inserted. 
+1 row inserted.
 iSQL> SET NUMWIDTH 30
 iSQL> SELECT c_numeric, c_decimal, c_number, c_float FROM t1;
 C_NUMERIC C_DECIMAL
@@ -2352,7 +2352,7 @@ iSQL> DESC employees;
 [ TABLESPACE : SYS_TBS_MEM_DATA ]
 [ ATTRIBUTE ]                                                         
 ------------------------------------------------------------------------------
-NAME                                     TYPE                        IS NULL 
+NAME                                     TYPE                        IS NULL
 ------------------------------------------------------------------------------
 ENO                                      INTEGER         FIXED       NOT NULL
 E_LASTNAME                               CHAR(20)        FIXED       NOT NULL
@@ -2382,7 +2382,7 @@ iSQL> SET FOREIGNKEYS OFF; 	-> 외래 키에 대한 정보를 출력하지 않�
 iSQL> DESC employees;
 [ ATTRIBUTE ]                                                         
 ------------------------------------------------------------------------------
-NAME                                     TYPE                        IS NULL 
+NAME                                     TYPE                        IS NULL
 ------------------------------------------------------------------------------
 ENO                                      INTEGER         FIXED       NOT NULL
 E_LASTNAME                               CHAR(20)        FIXED       NOT NULL
@@ -2506,7 +2506,7 @@ C2                 INTEGER
 C3                 VARCHAR(4)                               
 T1_RANGE has no index                                     
 T1_RANGE has no primary key                              
-[ PARTITIONS ] 
+[ PARTITIONS ]
 ----------------------------------------------------
 Method: Range                                               
 Key column(s)                                                
@@ -2547,16 +2547,17 @@ T1_RANGE has no primary key
 #### 스크립트 파일 실행결과 및 명령어 출력
 
 SET TERM과 SET ECHO 명령어는 스크립트 파일 실행의 결과 및 명령어를 화면상에
-보여줄지를 결정한다.
+보여줄지를 결정한다. 그러나 iSQL 프롬프트 상에서 질의를 직접 입력하는 경우
+(예: iSQL> select * from t1;)에는 TERM과 ECHO 설정이 출력에 영향을 미치지 않는다.
 
-스크립트 파일의 실행 결과는 출력(TERM ON)을 기본으로 한다. TERM 옵션을 OFF로
-설정하면 iSQL 상에서 스크립트 파일이 실행될 때 스크립트 파일 내의 명령어와 실행
-결과가 화면에 출력되지 않는다. 그러나, TERM 옵션이 OFF로 설정되어 있어도 질의를
-직접 입력하는 경우(예: iSQL\> select \* from t1;) 질의 결과는 화면에 출력되며,
-스크립트 명령을 이용하는 경우에만(예: iSQL\> @t.sql ) 화면에 출력되지 않는다.
+스크립트 파일의 실행 결과는 출력(TERM ON)을 기본으로 한다. SET TERM 명령어를
+사용해서 TERM 값을 변경하면 ECHO 값도 자동으로 TERM 값과 동일하게 변경된다.
+예를 들어,TERM 값을 OFF로 설정하면 iSQL 상에서 스크립트 파일이 실행될 때 스크립트
+파일 내의 명령어와 실행 결과가 화면에 출력되지 않는다.
 
-만약 TERM OFF로 설정했더라도 ECHO 명령어를 ON으로 설정하면 스크립트 내의 실행된
-명령어를 출력할 수 있다.
+TERM ON 상태에서 ECHO를 OFF로 설정하면 명령어는 출력되지 않고 실행 결과만 화면에
+출력된다. 그리고 TERM을 OFF로 설정했더라도 ECHO를 ON으로 설정하면 스크립트 내의
+실행된 명령어를 출력할 수 있다.
 
 다음은 스크립트 파일 실행 결과를 출력하는 예제이다.
 
@@ -2583,7 +2584,7 @@ elapsed time : 0.00	  -> 결과 끝
 내의 명령어를 출력하는 예제이다.
 
 ```
-iSQL> SET TERM OFF;          -> 스크립트 실행 결과를 출력하지 않는다. 
+iSQL> SET TERM OFF;          -> 스크립트 실행 결과를 출력하지 않는다.
 iSQL> @schema.sql
 iSQL> SELECT eno, e_firstname, e_lastname FROM employees;
 	-> 질의를 직접 입력하는 경우 결과는 출력된다.
@@ -2763,7 +2764,7 @@ NumWidth : 11
 iSQL> SHOW PAGESIZE
 Pagesize : 0
 iSQL> SHOW TIMESCALE
-TimeScale : Second 
+TimeScale : Second
 iSQL> SHOW HEADING
 Heading : On
 iSQL> SHOW TIMING
@@ -2811,7 +2812,7 @@ Define : Off
 
 
 
-### 호스트 변수 
+### 호스트 변수
 
 호스트 변수를 선언하여 사용할 수 있다. 호스트 변수는 프로시저나 함수 실행 시
 유용하다.
@@ -2908,7 +2909,7 @@ P1                   INTEGER              100
 P2                   CHAR(10)             abc
 V_REAL               REAL                
 V_DOUBLE             DOUBLE
-iSQL> PRINT p2 	-> 변수 p2에 관한 정보만 출력한다.	
+iSQL> PRINT p2 	-> 변수 p2에 관한 정보만 출력한다.
 NAME                TYPE                   VALUE
 -------------------------------------------
 P2                  CHAR ( 10 )            abc
@@ -2954,7 +2955,7 @@ PREPARE SQL_statement;
 iSQL> VAR t1 INTEGER;
 iSQL> EXEC :t1 := 1;
 Execute success.
-iSQL> PREPARE SELECT eno, e_firstname, e_lastname, sex 
+iSQL> PREPARE SELECT eno, e_firstname, e_lastname, sex
 FROM employees WHERE eno=:t1;
 ENO         E_FIRSTNAME           E_LASTNAME            SEX
 ------------------------------------------------------------------
@@ -2991,8 +2992,8 @@ END;
 iSQL> CREATE OR REPLACE PROCEDURE emp_proc(p1 IN INTEGER, p2 IN CHAR(20), p3 IN CHAR(20), p4 IN CHAR(1))
  AS
  BEGIN
- INSERT INTO employees(eno, e_firstname, e_lastname, sex) 
- VALUES(p1, p2, p3, p4); 
+ INSERT INTO employees(eno, e_firstname, e_lastname, sex)
+ VALUES(p1, p2, p3, p4);
  END;
  /
 Create success.
@@ -3018,7 +3019,7 @@ EMP_PROC                                  0           0
 아래는 emp_proc를 실행하는 예를 보여준다.
 
 ```
-iSQL> VAR eno INTEGER 
+iSQL> VAR eno INTEGER
 iSQL> VAR first_name CHAR(20)
 iSQL> VAR last_name CHAR(20)
 iSQL> VAR sex CHAR(1)
@@ -3035,7 +3036,7 @@ Execute success.
 iSQL> SELECT eno, e_firstname, e_lastname, sex FROM employees WHERE eno = 21;
 ENO         E_FIRSTNAME           E_LASTNAME            SEX  
 -----------------------------------------------------------------
-21          Joel                  Johnson               M 
+21          Joel                  Johnson               M
 1 row selected.
 ```
 
@@ -3141,7 +3142,7 @@ iSQL> /
 iSQL> /
 1 row inserted.
 iSQL> SELECT * FROM inoutTbl;
-INOUTTBL.I1 
+INOUTTBL.I1
 --------------
 1           
 1           
@@ -3154,7 +3155,7 @@ BEGIN
 END;
 /
 Create success.
-iSQL> VAR t3 INTEGER 
+iSQL> VAR t3 INTEGER
 iSQL> EXEC :t3 := 1;
 Execute success.
 iSQL> EXEC inoutProc(:t3);
@@ -3238,7 +3239,7 @@ END;
 
 ```
 iSQL> CREATE OR REPLACE FUNCTION emp_func(f1 IN INTEGER)
-RETURN NUMBER 
+RETURN NUMBER
 AS
  f2 NUMBER;
 BEGIN
@@ -3252,11 +3253,11 @@ Create success.
 iSQL> SELECT * FROM system_.sys_procedures_;
 USER_ID     PROC_OID             PROC_NAME                                 
 -------------------------------------------------------------------------------
-OBJECT_TYPE STATUS      PARA_NUM    RETURN_DATA_TYPE RETURN_LANG_ID 
+OBJECT_TYPE STATUS      PARA_NUM    RETURN_DATA_TYPE RETURN_LANG_ID
 --------------------------------------------------------------------------
 RETURN_SIZE RETURN_PRECISION RETURN_SCALE PARSE_NO    PARSE_LEN   
 ------------------------------------------------------------------------
-CREATED      LAST_DDL_TIME 
+CREATED      LAST_DDL_TIME
 ------------------------------
 .
 .
@@ -3446,14 +3447,13 @@ NCHAR 및 NVARCHAR 타입의 내셔널 캐릭터 상수 문자를 사용하기 �
   “N”을 붙여 사용한다.
 
   ```
-  iSQL> create table t1 (c1 nvarchar(10)); 
-  Create success. 
-  iSQL> insert into t1 values (N'AB가나'); 
-  1 row inserted. 
-  iSQL> select * from t1; 
-  C1 
-  ------------------------ 
-  AB가나 
+  iSQL> create table t1 (c1 nvarchar(10));
+  Create success.
+  iSQL> insert into t1 values (N'AB가나');
+  1 row inserted.
+  iSQL> select * from t1;
+  C1
+  ------------------------
+  AB가나
   1 row selected.
   ```
-
