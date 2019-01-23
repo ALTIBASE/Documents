@@ -1350,11 +1350,15 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 REP_GAP_SIZE의 값을 메가바이트 단위로 보여준다 (단위:메가바이트).
 
+즉 지역서버 트랜잭션에 의해 가장 최근에 로깅된 로그 레코드와 이중화 송신 쓰레드가 현재 송신중인 로그 레코드의 간격이다. 
+
+REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이다. 나머지가 생기면 올림한다.
+
 ##### REP_GAP_SIZE
 
-REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다 (단위:바이트). 
+REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다 (단위:바이트).  
 
-즉 지역서버 트랜잭션에 의해 가장 최근에 로깅된 로그 레코드와 이중화 송신 쓰레드가 현재 송신중인 로그 레코드의 간격이다. 
+즉 REP_GAP의 값을 바이트 단위로 보여준다.
 
 ##### READ_FILE_NO
 
@@ -1373,17 +1377,18 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 레코드간의 차이를 보여준다. 단, 이 정보는 여러 이중화 송신 쓰레드가 병렬 동작
 중일때만 보여준다.
 
-| Column name  | Type        | Description                                     |
-|--------------|-------------|-------------------------------------------------|
-| REP_NAME     | VARCHAR(40) | 이중화 객체의 이름                              |
-| CURRENT_TYPE | VARCHAR(9)  | 이중화 송신 쓰레드의 유형                       |
-| REP_LAST_SN  | BIGINT      | 마지막 로그 레코드의 식별 번호                  |
-| REP_SN       | BIGINT      | 현재 전송중인 로그 레코드의 식별 번호           |
-| REP_GAP      | BIGINT      | REP_LAST_SN과 REP_SN의 차이                     |
-| READ_LFG_ID  | INTEGER     | 현재 읽고 있는 로그 파일 그룹(사용하지 않음, 0) |
-| READ_FILE_NO | INTEGER     | 현재 읽고 있는 로그 파일 번호                   |
-| READ_OFFSET  | INTEGER     | 현재 읽고 있는 위치                             |
-| PARALLEL_ID  | INTEGER     | 병렬 동작중인 다중 쓰레드를 구분하는 식별자     |
+| Column name  | Type        | Description                                        |
+| ------------ | ----------- | -------------------------------------------------- |
+| REP_NAME     | VARCHAR(40) | 이중화 객체의 이름                                 |
+| CURRENT_TYPE | VARCHAR(9)  | 이중화 송신 쓰레드의 유형                          |
+| REP_LAST_SN  | BIGINT      | 마지막 로그 레코드의 식별 번호                     |
+| REP_SN       | BIGINT      | 현재 전송중인 로그 레코드의 식별 번호              |
+| REP_GAP      | BIGINT      | REP_LAST_SN과 REP_SN의 차이<br />(단위:메가바이트) |
+| REP_GAP_SIZE | BIGINT      | REP_LAST_SN과 REP_SN의 차이<br />(단위:바이트)     |
+| READ_LFG_ID  | INTEGER     | 현재 읽고 있는 로그 파일 그룹(사용하지 않음, 0)    |
+| READ_FILE_NO | INTEGER     | 현재 읽고 있는 로그 파일 번호                      |
+| READ_OFFSET  | INTEGER     | 현재 읽고 있는 위치                                |
+| PARALLEL_ID  | INTEGER     | 병렬 동작중인 다중 쓰레드를 구분하는 식별자        |
 
 #### 칼럼 정보
 
@@ -1431,9 +1436,17 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 
 ##### REP_GAP
 
-REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다. 즉 지역서버 트랜잭션에
-의해 가장 최근에 로깅된 로그 레코드와 이중화 송신 쓰레드가 가장 최근 송신한 로그
-레코드 사이의 간격이다.
+REP_GAP_SIZE의 값을 메가바이트 단위로 보여준다 (단위:메가바이트).
+
+즉 지역서버 트랜잭션에 의해 가장 최근에 로깅된 로그 레코드와 이중화 송신 쓰레드가 현재 송신중인 로그 레코드의 간격이다. 
+
+REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이다. 나머지가 생기면 올림한다.
+
+##### REP_GAP_SIZE
+
+REP_LAST_SN과 REP_SN간의 로그 일련번호의 간격을 나타낸다 (단위:바이트).  
+
+즉 REP_GAP의 값을 바이트 단위로 보여준다.
 
 ##### READ_FILE_NO
 
