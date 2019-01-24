@@ -1348,7 +1348,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 ##### REP_GAP
 
-이중화 갭의 로그파일 사이즈를 프로퍼티 REPLICATION_GAP_UNIT에 설정된 단위로 보여준다. 프로퍼티 REPLICATION_GAP_UNIT을 통해 단위를 수정 할 수있으며, 기본값은 메가바이트이다. 즉, REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이며, 나머지가 생기면 올림한다.
+이중화 갭의 로그파일 사이즈를 프로퍼티 [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/GeneralReference_2.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)에 설정된 단위로 보여준다. 프로퍼티 REPLICATION_GAP_UNIT을 통해 단위를 수정 할 수있으며, 기본값은 메가바이트이다. 즉, REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이며, 나머지가 생기면 올림한다.
 
 ##### REP_GAP_SIZE
 
