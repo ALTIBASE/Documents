@@ -1305,7 +1305,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 | REP_LAST_SN  | BIGINT      | 마지막 로그 레코드의 식별 번호                     |
 | REP_SN       | BIGINT      | 현재 전송중인 로그 레코드의 식별 번호              |
 | REP_GAP      | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(단위: 프로퍼티 REPLICATION_GAP_UNIT에 설정된 단위) |
-| REP_GAP_SIZE | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(단위:바이트)     |
+| REP_GAP_SIZE | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(bytes)     |
 | READ_LFG_ID  | INTEGER     | 현재 읽고 있는 로그 파일 그룹(사용하지 않음, 0)    |
 | READ_FILE_NO | INTEGER     | 현재 읽고 있는 로그 파일 번호                      |
 | READ_OFFSET  | INTEGER     | 현재 읽고 있는 위치                                |
