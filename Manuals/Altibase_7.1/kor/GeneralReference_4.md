@@ -1304,7 +1304,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 | START_FLAG   | BIGINT      | 시작 옵션                                          |
 | REP_LAST_SN  | BIGINT      | 마지막 로그 레코드의 식별 번호                     |
 | REP_SN       | BIGINT      | 현재 전송중인 로그 레코드의 식별 번호              |
-| REP_GAP      | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(단위: 프로퍼티 REPLICATION_GAP_UNIT에 설정된 단위) |
+| REP_GAP      | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(단위: 프로퍼티 [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_2.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)에 설정된 단위) |
 | REP_GAP_SIZE | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(bytes)     |
 | READ_LFG_ID  | INTEGER     | 현재 읽고 있는 로그 파일 그룹(사용하지 않음, 0)    |
 | READ_FILE_NO | INTEGER     | 현재 읽고 있는 로그 파일 번호                      |
@@ -1348,7 +1348,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 ##### REP_GAP
 
-이중화 갭의 로그파일 사이즈를 프로퍼티 REPLICATION_GAP_UNIT에 설정된 단위로 보여준다.
+이중화 갭의 로그파일 사이즈를 프로퍼티 [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_2.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)에 설정된 단위로 보여준다.
 프로퍼티 REPLICATION_GAP_UNIT을 통해 단위를 수정 할 수있으며, 기본값은 메가바이트이다.
 즉, REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이며, 나머지가 생기면 올림한다.
 
@@ -1379,7 +1379,7 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 | CURRENT_TYPE | VARCHAR(9)  | 이중화 송신 쓰레드의 유형                          |
 | REP_LAST_SN  | BIGINT      | 마지막 로그 레코드의 식별 번호                     |
 | REP_SN       | BIGINT      | 현재 전송중인 로그 레코드의 식별 번호              |
-| REP_GAP      | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(단위: 프로퍼티 REPLICATION_GAP_UNIT에 설정된 단위) |
+| REP_GAP      | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(단위: 프로퍼티 [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_2.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)에 설정된 단위) |
 | REP_GAP_SIZE | BIGINT      | 이중화 갭에 해당하는 로그파일의 실제 사이즈<br />(bytes)     |
 | READ_LFG_ID  | INTEGER     | 현재 읽고 있는 로그 파일 그룹(사용하지 않음, 0)    |
 | READ_FILE_NO | INTEGER     | 현재 읽고 있는 로그 파일 번호                      |
@@ -1432,7 +1432,7 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 
 ##### REP_GAP
 
-이중화 갭의 로그파일 사이즈를 프로퍼티 REPLICATION_GAP_UNIT에 설정된 단위로 보여준다.
+이중화 갭의 로그파일 사이즈를 프로퍼티 [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_2.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)에 설정된 단위로 보여준다.
 프로퍼티 REPLICATION_GAP_UNIT을 통해 단위를 수정 할 수있으며, 기본값은 메가바이트이다.
 즉, REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이며, 나머지가 생기면 올림한다.
 
