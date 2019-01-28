@@ -36,6 +36,7 @@
   - [C.부록: 데이터 타입 맵핑](#c%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
     - [데이터 타입 맵핑 조작](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%EC%A1%B0%EC%9E%91)
     - [기본 데이터 타입 맵핑 테이블](#%EA%B8%B0%EB%B3%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)
+    - [크기 보정](#%ED%81%AC%EA%B8%B0-%EB%B3%B4%EC%A0%95)
   - [D.부록: 기본값 맵핑](#d%EB%B6%80%EB%A1%9D-%EA%B8%B0%EB%B3%B8%EA%B0%92-%EB%A7%B5%ED%95%91)
     - [기본값 맵핑 테이블](#%EA%B8%B0%EB%B3%B8%EA%B0%92-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)
   - [E.부록: PSM 변환기 규칙 목록](#e%EB%B6%80%EB%A1%9D-psm-%EB%B3%80%ED%99%98%EA%B8%B0-%EA%B7%9C%EC%B9%99-%EB%AA%A9%EB%A1%9D)
@@ -1832,27 +1833,155 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 
 #### Tibero to Altibase
 
-| 인덱스 | 소스          | 대상            | 특이사항                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-|--------|---------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1      | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 변환을 위해 한 문자당 바이트 개수를 지정하는 인터페이스가 제공된다. Tibero에 문자 길이로 정의한 컬럼이 있다면 데이터베이스 문자 집합에 맞춰서 바이트 개수를 지정한다. 지정하지 않으면 기본값은 1이다. 예) Tibero에 C1 CHAR (10 CHAR)를 정의한 컬럼이 있고 문자당 바이트 개수를 2로 지정했다면, Altibase로 마이그레이션한 C1 컬럼의 타입은 CHAR(20)이 된다.             |
-| 2      | NCHAR         | NCHAR           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 3      | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 변환을 위해 한 문자당 바이트 개수를 지정하는 인터페이스가 제공된다. Tibero에 문자 길이로 정의한 컬럼이 있다면 데이터베이스 문자 집합에 맞춰서 바이트 개수를 지정한다. 지정하지 않으면 기본값은 1이다. 예) Tibero에 C1 VARCHAR (10 VARCHAR)를 정의한 컬럼이 있고 문자당 바이트 개수를 2로 지정했다면, Altibase로 마이그레이션한 C1 컬럼의 타입은 VARCHAR(20)이 된다. |
-| 4      | NVARCHAR      | NVARCHAR        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 5      | LONG          | CLOB            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 6      | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다.                                                                                                                                                                                             |
-| 7      | BINARY FLOAT  | FLOAT           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 8      | BINARY DOUBLE | VARCHAR(310)    | Altibase에는 티베로의 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다.                                                                                                                                                                                                                                                                                                                                                     |
-| 9      | DATE          | DATE            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 10     | TIME          | DATE            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 11     | TIMESTAMP     | DATE            | Scale의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 티베로에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, , Altibase에서는 타임스탬프 값의 scale이 마이크로초(6자리 수)이다.                                                                                                                                                                                                                                                                                |
-| 12     | RAW           | BLOB            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 13     | LONG RAW      | BLOB            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 14     | BLOB          | BLOB            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 15     | CLOB          | CLOB            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| 16     | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다.                                                                                                                                                                                                                                          |
-| 17     | ROWID         | VARCHAR(18)     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| 인덱스 | 소스          | 대상            | 특이사항                                                     |
+| ------ | ------------- | --------------- | ------------------------------------------------------------ |
+| 1      | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
+| 2      | NCHAR         | NCHAR           |                                                              |
+| 3      | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
+| 4      | NVARCHAR      | NVARCHAR        |                                                              |
+| 5      | LONG          | CLOB            |                                                              |
+| 6      | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
+| 7      | BINARY FLOAT  | FLOAT           |                                                              |
+| 8      | BINARY DOUBLE | VARCHAR(310)    | Altibase에는 티베로의 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다. |
+| 9      | DATE          | DATE            |                                                              |
+| 10     | TIME          | DATE            |                                                              |
+| 11     | TIMESTAMP     | DATE            | Scale의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 티베로에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, , Altibase에서는 타임스탬프 값의 scale이 마이크로초(6자리 수)이다. |
+| 12     | RAW           | BLOB            |                                                              |
+| 13     | LONG RAW      | BLOB            |                                                              |
+| 14     | BLOB          | BLOB            |                                                              |
+| 15     | CLOB          | CLOB            |                                                              |
+| 16     | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
+| 17     | ROWID         | VARCHAR(18)     |                                                              |
 
+### 크기 보정
 
+마이그레이션시 원본(Source)과 대상(Destination) 데이터베이스의 문자 집합(character set)이 서로 다른 경우, 문자형 데이터 타입 (CHAR, VARCHAR)은 길이 변환이 필요하다.
+예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
+
+Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 크기 보정식은 아래와 같다.
+
+```
+Dest. Size = Ceil(Correction Factor * Src. Size)
+Correction Factor = Dest. MaxBytes / Src. MaxBytes
+* MaxBytes = The maximum number of bytes required to store one character
+```
+
+단, 원본의 MaxBytes가 1이거나 보정 계수가 1보다 작은 경우에는 길이 변환을 하지 않는다.
+
+원본과 대상 데이터베이스의 MaxBytes와 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
+
+#### 유의 사항
+
+대용량 테이블의 경우 크기 보정이 되면서 마이그레이션이 된다면 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 길이를 변환하지 않아도 데이터가 잘리지 않는다는 보장이 있다면 조정(Reconcile) 단계에서 수동으로 길이를 지정할 수 있다.
+
+#### 데이터베이스별 지원 문자 집합
+
+아래 표에 없는 문자 집합의 경우에는 MaxLen을 1로 간주하여 Migration Center가 크기 보정을 하지 않는다.
+
+##### Altibase
+
+| Character Set | Max. Bytes Per Character |
+| ------------- | ------------------------ |
+| KO16KSC5601   | 2                        |
+| MS949         | 2                        |
+| BIG5          | 2                        |
+| GB231280      | 2                        |
+| MS936         | 2                        |
+| UTF8          | 3                        |
+| SHIFTJIS      | 2                        |
+| MS932         | 2                        |
+| EUCJP         | 3                        |
+
+##### Cubrid
+
+| Character Set | Max. Bytes Per Character |
+| ------------- | ------------------------ |
+| utf8          | 3                        |
+| euckr         | 2                        |
+
+##### Informix
+
+| Character Set      | Max. Bytes Per Character |
+| ------------------ | ------------------------ |
+| zh_cn.GB18030_2000 | 4                        |
+| zh_tw.big5         | 2                        |
+| zh_tw.euctw        | 4                        |
+| zh_cn.gb           | 2                        |
+| zh_tw.sbig5        | 2                        |
+| zh_tw.ccdc         | 2                        |
+| ja_jp.sjis-s       | 2                        |
+| ja_jp.ujis         | 3                        |
+| ja_up.sjis         | 2                        |
+| ko_kr.cp949        | 2                        |
+| ko_kr.ksc          | 2                        |
+
+##### MySQL
+
+아래 쿼리의 결과 집합을 참조하기 바란다.
+
+```
+SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
+```
+
+##### SQL Server
+
+| Code Page | Max. Bytes Per Character |
+| --------- | ------------------------ |
+| 932       | 2                        |
+| 936       | 2                        |
+| 949       | 2                        |
+| 950       | 2                        |
+
+##### Oracle
+
+| Character Set | Max. Bytes Per Character |
+| ------------- | ------------------------ |
+| AL32UTF8      | 4                        |
+| JA16EUC       | 3                        |
+| JA16EUCTILDE  | 3                        |
+| JA16SJIS      | 2                        |
+| JA16SJISTILDE | 2                        |
+| KO16MSWIN949  | 2                        |
+| UTF8          | 3                        |
+| ZHS16GBK      | 2                        |
+| ZHT16HKSCS    | 2                        |
+| ZHT16MSWIN950 | 2                        |
+| ZHT32EUC      | 4                        |
+
+##### Tibero
+
+| Character Set | Max. Bytes Per Character |
+| ------------- | ------------------------ |
+| UTF8          | 3                        |
+| EUCKR         | 2                        |
+| MSWIN949      | 2                        |
+| SJIS          | 2                        |
+| JA16SJIS      | 2                        |
+| JA16SJISTILDE | 2                        |
+| JA16EUC       | 3                        |
+| JA16EUCTILDE  | 3                        |
+| GBK           | 2                        |
+| ZHT16HKSCS    | 2                        |
+
+##### TimesTen
+
+| Character Set  | Max. Bytes Per Character |
+| -------------- | ------------------------ |
+| AL16UTF16      | 4                        |
+| AL32UTF8       | 4                        |
+| JA16EUC        | 3                        |
+| JA16EUCTILDE   | 3                        |
+| JA16SJIS       | 2                        |
+| JA16SJISTILDE  | 2                        |
+| KO16KSC5601    | 2                        |
+| KO16MSWIN949   | 2                        |
+| ZHS16CGB231280 | 2                        |
+| ZHS16GBK       | 2                        |
+| ZHS32GB18030   | 4                        |
+| ZHT16BIG5      | 2                        |
+| ZHT16HKSCS     | 2                        |
+| ZHT16MSWIN950  | 2                        |
+| ZHT32EUC       | 4                        |
 
 
 
