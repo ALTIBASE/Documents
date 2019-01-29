@@ -32,6 +32,8 @@
 
 - ### [SNMP Agent Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SNMP.md)
 
+- ### [DB Link User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DBLink.md)
+
 - ### [Altibase Sharding Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md)
 
 
@@ -74,9 +76,8 @@
 
 - ### [Log Analyzer User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/LogAnalyzer.md)
 
-- ### [DB Link User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DBLink.md)
-
 - ### [Monitoring API Developer's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/MonitorAPI.md)
+
 
 ## Tools
 
