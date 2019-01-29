@@ -750,20 +750,32 @@ NULL인 LOB 데이터를 LOB 파일에 저장할 때, 데이터 파일의 해당
 
 ### 성능 옵션
 
-iLoader를 수행할 때 다음의 옵션들을 사용해 성능을 높일 수 있다.
+#### IN
+
+iLoader로 IN 작업을 수행할 때 다음의 옵션들을 사용해 성능을 높일 수 있다.
 
 | 인 자                                           | 설 명                                                        |
 | ----------------------------------------------- | ------------------------------------------------------------ |
-| \-array *array_size*                            | 데이터 로딩 (in) 시 속도 증가를 위해서 파일에서 읽은 데이터를 배열로 구성하여 서버로 전송한다. 이렇게 하면 서버와의 통신 횟수를 줄여서 성능 향상을 가져올 수 있다.  <br />그러나 이 값을 너무 크게 할 경우에는 오히려 역효과를 가져올 수도 있다. LOB 칼럼이 존재할 경우 이 옵션은 무시한다. 데이터 다운로드(out) 시 한 번에 fetch할 행의 개수를 지정한다. -parallel 옵션과 함께 사용하면 성능 향상을 가져올 수 있다. |
-| \-commit *commit_unit*                          | 업로드 시에 몇 건 단위로 삽입한 다음 커밋할 것인가를 나타내는 단위 옵션이다. 기본값은 1000건을 삽입한 후 커밋한다. <br />*commit_unit* 0은 NON-AUTOCOMMIT 모드로 동작하며, 모든 데이터를 삽입한 후에 커밋한다. <br />*commit_unit* 1은 AUTOCOMMIT 모드로 동작하여 데이터 삽입 시 건별로 커밋한다.<br />array 옵션과 함께 사용할 시에는 *array_size*\* *commit_unit*의 수만큼 삽입 후 커밋한다. |
-| \-atomic                                        | Atomic Array INSERT를 수행하도록 설정한다. Atomic Array INSERT는 배열 크기만큼 Insert문을 하나의 트랜잭션으로 처리하기 때문에 Array Insert보다 빠른 성능을 발휘한다. 이 옵션은 반드시 -array 옵션과 함께 사용해야 하며, LOB 칼럼이 있는 테이블은 이 옵션으로 수행할 수 없다.  또한 이 옵션은 데이터를 업로드할 때에만 유효하다. |
-| \-direct [log\|nolog] (Direct-Path INSERT 참고) | 디스크 테이블에 업로드 할 때 Direct-Path INSERT 방식을 사용하는 옵션이다. log, nolog를 명시하지 않으면 log 방식으로 수행된다. <br />만약 nolog 방식을 사용할 때에는 반드시 해당 테이블에 대하여 백업을 해야 한다. nolog 모드로 수행중에 실패할 경우 정상적인 복구가 불가능할 수도 있기 때문이다.  <br />만약 제약조건 (Direct-Path INSERT 참고)에 해당하는 테이블을 로딩할 경우에는 atomic 옵션으로 자동 변환되어 수행된다. <br />-array 옵션을 설정하지 않을 경우에는 array 크기는 최대값 (65535)으로 자동으로 설정된다.  <br />-commit 옵션을 생략할 경우에 그 값은 1이 된다. |
-| \-parallel *count*                              | 병렬로 처리할 쓰레드의 개수를 지정한다. 최대 32개까지 가능하며, 지정한 값만큼 쓰레드가 생성되어 병렬 처리한다. 다운로드 할 때에는 설정된 값만큼 파일이 생성되어 데이터가 저장된다. -parallel 옵션을 단독으로 사용하여 다운로드 할 경우, bind와 fetch가 반복적으로 이뤄져 성능 저하를 가져온다. 따라서 다운로드 할 때에는 -parallel과 -array 옵션을 함께 사용해야 한다. LOB 칼럼이 존재할 경우 이 옵션은 무시한다. <br />-parallel 옵션을 사용해서 업로드 할 때, iLoader는 *count* + 1 개의 연결을 생성하고, 다운로드 할 때는 항상 2개의 연결만 생성한다. 그러므로 IPC접속을 통해서 이 옵션으로 다운로드 또는 업로드를 할 때, IPC_CHANNEL_COUNT 프로퍼티의 값은 생성되는 연결의 수 이상으로 설정되어 있어야 한다. |
-| \-readsize *integer*                            | in 모드의 옵션으로 사용할 수 있다. 파일을 한 번에 읽어올 수 있는 크기를 지정하는 옵션이다. 크기는 0을 초과해야 하며, 기본값은 1048576byte이다. |
-| \-prefetch_rows                                 | out 명령어와 함께 사용하는 옵션이다. select쿼리 수행 시, 데이터베이스에서 한번에 가져오는 레코드 개수를 지정할 수 있다. 설정 가능한 값의 범위는 0부터 214783647이며, 기본값은 0이다. 0은 네트워크 패킷에 담을 수 있는 최대 크기를 의미한다. |
-| \-async prefetch                                | out 명령어와 함께 사용하는 옵션이다. fetch 성능을 향상하기 위해 비동기 prefetch 기능을 설정할 수 있다. 이 옵션에 설정 가능한 값은 아래와 같다. <br />off: 비동기 prefetch를 하지 않는다. (기본값) <br />on: 비동기 prefetch를 한다. <br />auto: 비동기 prefetch를 위해 auto tuning을 한다 (리눅스만 지원). <br />비동기 prefetch 에 대한 자세한 설명은 CLI User's Manual에서 prefetch 관련 속성 및 환경 변수인 ALTIBASE_PREFETCH_ASYNC, ALTIBASE_PREFETCH_AUTO_TUNING, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO을 참고하기 바란다. |
+| \-array *array_size*                            | 데이터 로딩 (in) 시 속도 증가를 위해서 파일에서 읽은 데이터를 배열로 구성하여 서버로 전송한다. 이렇게 하면 서버와의 통신 횟수를 줄여서 성능 향상을 가져올 수 있다.  <br />그러나 이 값을 너무 크게 할 경우에는 오히려 역효과를 가져올 수도 있다.<br />기본값: 1 |
+| \-commit *commit_unit*                          | 업로드 시에 몇 건 단위로 삽입한 다음 커밋할 것인가를 나타내는 단위 옵션이다. <br />*commit_unit* 0은 NON-AUTOCOMMIT 모드로 동작하며, 모든 데이터를 삽입한 후에 커밋한다. <br />*commit_unit* 1은 AUTOCOMMIT 모드로 동작하여 데이터 삽입 시 건별로 커밋한다.<br />단, array 옵션과 함께 사용할 시에는 *array_size*\* *commit_unit*의 수만큼 삽입 후 커밋한다.<br />기본값: 1000 |
+| \-atomic                                        | Atomic Array INSERT를 수행하도록 설정한다. Atomic Array INSERT는 배열 크기만큼 Insert문을 하나의 구문으로 처리하기 때문에 Array Insert보다 빠른 성능을 발휘한다.<br />이 옵션은 반드시 -array 옵션과 함께 지정해야 한다. |
+| \-direct [log\|nolog] (Direct-Path INSERT 참고) | 디스크 테이블에 업로드 할 때 Direct-Path INSERT 방식을 사용하는 옵션으로써 로깅 여부도 함께 지정할 수 있다. log 또는 nolog를 명시하지 않으면 log 로 동작한다. <br />만약 nolog 방식을 사용할 때에는 반드시 해당 테이블에 대하여 백업을 해야 한다. nolog 모드로 수행중에 실패할 경우 정상적인 복구가 불가능할 수도 있기 때문이다.  <br />이 옵션을 지정하면 -atomic 옵션이 내부적으로 설정된다. -atomic 옵션은 -array 옵션과 함께 지정해야만 동작하므로 -array 옵션을 설정하지 않을 경우에는 array 크기는 최대값 (65535)으로 자동으로 설정된다. |
+| \-parallel *count*                              | 동시에 작업할 쓰레드의 개수를 지정하는 옵션이다. 지정한 개수만큼 쓰레드가 생성되어 병렬 처리한다. <br />이 옵션을 지정하면 iLoader는 *count* + 1 개의 연결을 생성하므로, 접속 유형이 IPC인 경우 IPC_CHANNEL_COUNT 프로퍼티의 값은 연결의 수 이상으로 설정해야 한다.<br />기본값: 1, 최대값: 32 |
+| \-readsize *n*                                  | 파일에서 한 번에 읽어올 수 있는 크기를 지정하는 옵션이다. (단위: bytes)<br />0보다 큰 값을 지정해야 한다.<br />기본값: 1048576 |
 
-#### Atomic Array INSERT
+##### LOB 컬럼 제약
+
+업로드 대상 테이블에 LOB 컬럼이 있는 경우 다음 옵션에 대해서는 사용자가 지정한 값이 무시되고 내부적으로 아래 표와 같이 설정된다.
+
+| 옵션      | 설정값 |
+| --------- | ------ |
+| -array    | 1      |
+| -atomic   | 무시됨 |
+| -commit   | 1      |
+| -direct   | 무시됨 |
+| -parallel | 1      |
+
+##### Atomic Array INSERT
 
 \-atomic 옵션은 Atomic Array INSERT를 수행하는 옵션으로 데이터를 업로드 할
 때에만 유용하다. Atomic Array INSERT는 array 크기만큼의 Insert 문을 하나의
@@ -774,7 +786,7 @@ iLoader를 수행할 때 다음의 옵션들을 사용해 성능을 높일 수 �
 결과와 동일하며, 성능은 훨씬 빠르다. 이런 이유로 Atomic Array INSERT를
 사용하기를 권한다.
 
-##### Atomic Array INSERT와 Array INSERT 비교
+###### Atomic Array INSERT와 Array INSERT 비교
 
 Atomic Array INSERT와 Array INSERT를 비교하면 다음과 같다.
 
@@ -795,7 +807,7 @@ Array INSERT가 실행하려는 구문의 숫자만큼 실행하는 반면, Atom
 
 [표 2‑1] Array INSERT와 Atomic Array INSERT의 차이
 
-##### 제약사항
+###### 제약사항
 
 Atomic Array Insert를 사용할 때 아래의 표와 같이 몇 가지 제약사항이 있다.
 
@@ -816,12 +828,7 @@ Atomic Array Insert를 사용할 때 아래의 표와 같이 몇 가지 제약�
 
 [표 2‑2] Atomic Array Insert의 제약사항 (N=array 요소의 개수)
 
-##### 주의사항
-
-이 옵션은 반드시 **[**-array **array_size]**와 함께 사용해야 하며, LOB 칼럼이
-있는 테이블은 사용할 수 없다. 또한 데이터를 업로드 할 때에만 유효하다.
-
-#### Direct-Path INSERT
+##### Direct-Path INSERT
 
 디스크 테이블로 데이터를 업로드할 때, Direct-Path INSERT를 사용하여 로딩하는
 것을 제공한다. Direct-Path INSERT란 데이터가 입력될 때 버퍼 매니저를 거치지 않고
@@ -833,11 +840,11 @@ Atomic Array Insert를 사용할 때 아래의 표와 같이 몇 가지 제약�
 V\$DIRECT_PATH_INSERT 성능 뷰를 조회해서 Direct-Path INSERT 와 관련된 통계를
 확인할 수 있다.
 
-##### 제약조건
+###### 제약조건
 
 Direct-Path INSERT (-direct 옵션)를 사용해서 데이터를 업로드할 때 아래와 같은
-몇가지 제약조건이 있다. 만약 이 조건에 해당하는 사항이 포함된다면, Direct-Path
-INSERT 방식 대신 Atomic Array INSERT 방식으로 자동 변환되어 동작한다.
+몇가지 제약조건이 있다. 대상 테이블이 아래의 조건을 만족하지 않으면 -direct 옵션은 
+무시되고 -atomic만 적용된다.
 
 -   대상 테이블은 인덱스(Primary Key 포함)를 포함할 수 없다.
 
@@ -853,10 +860,10 @@ INSERT 방식 대신 Atomic Array INSERT 방식으로 자동 변환되어 동작
 
 -   대상 테이블은 디스크 테이블스페이스에 존재해야 한다.
 
-##### 주의사항
+###### 주의사항
 
 Direct-Path INSERT (-direct 옵션)를 사용해서 데이터를 처리할 때 다음과 같은
-사항에 유의해서 사용한다.
+사항에 유의해서 사용해야 한다.
 
 -   노로깅(NoLogging) 모드 (“-direct nolog”)로 Direct-Path INSERT를 실행 중에
     로딩이 실패할 경우 복구를 정상적으로 못할 수 있다. 따라서 노로깅 모드를
@@ -865,32 +872,52 @@ Direct-Path INSERT (-direct 옵션)를 사용해서 데이터를 처리할 때 �
 -   Direct-Path INSERT 방식은 대용량 데이터를 업로딩할 때 좋은 성능을 보여준다.
     그러나 대용량 데이터가 아닐 경우에는 성능 향상을 기대하기 어려울 수 있다.
 
--   해당 테이블이 디스크 테이블스페이스에 존재하는 경우에만 Direct-Path INSERT를
-    사용할 수 있다. 따라서 디스크 테이블스페이스를 제외한 다른 테이블스페이스를
-    이 방식으로 로딩할 경우에는 -atomic 옵션을 사용하는 것과 마찬가지의 결과로
-    동작된다.
 
 ##### 예제
 
 Array 최대값과 로깅(Logging) 모드로 Direct-Path 로딩을 수행한다.
 
 ```
-il in t1.form -d t1.dat -direct [log]
+iLoader> in -f t1.form -d t1.dat -direct [log]
 ```
 
 Array 최대값, 노로깅(Nologging) 모드로 Direct-Path 로딩을 실행한다.
 
 ```
-il in t1.form -d t1.dat -direct nolog
+iLoader> in -f t1.form -d t1.dat -direct nolog
 ```
 
 지정한 Array 값, 로깅(Logging) 모드로 Direct-Path 로딩을 실행한다.
 
 ```
-il in t1.form -d t1.dat -array 1000 -direct
+iLoader> in -f t1.form -d t1.dat -array 1000 -direct
 ```
+#### OUT
 
+iLoader로 OUT 작업을 수행할 때 다음의 옵션들을 사용해 성능을 높일 수 있다.
 
+| 인 자                             | 설 명                                                        |
+| --------------------------------- | ------------------------------------------------------------ |
+| \-array *array_size*              | 한 번에 fetch할 행의 개수를 지정하는 옵션이다.<br />기본값: 1 |
+| \-parallel *count*                | 동시에 작업할 쓰레드의 개수를 지정하는 옵션이다. 지정한 개수만큼 쓰레드가 생성되어 병렬 처리하며 스레드 개수만큼의 데이터 파일이 생성된다. <br />-parallel 옵션을 단독으로 사용하여 다운로드 할 경우, bind와 fetch가 반복적으로 이뤄져 성능 저하를 가져온다. 따라서 -array 옵션을 함께 사용해야 한다.<br />IN의 경우와 달리 서버로의 연결 수는 항상 2개이다.<br />기본값: 1, 최대값: 32 |
+| \-prefetch_rows *n*               | select쿼리 수행 시, 데이터베이스에서 한번에 가져오는 레코드 개수를 지정할 수 있다. 설정 가능한 값의 범위는 0부터 214783647이다. 0은 네트워크 패킷에 담을 수 있는 최대 크기를 의미한다.<br />기본값: 0 |
+| -async prefetch *[on\|off\|auto]* | fetch 성능을 향상하기 위해 비동기 prefetch 기능을 설정할 수 있다. 이 옵션에 설정 가능한 값은 아래와 같다.<br />- off: 비동기 prefetch를 하지 않는다. (기본값)<br />- on: 비동기 prefetch를 한다.<br />- auto: 비동기 prefetch를 위해 auto tuning을 한다. (리눅스만 지원)<br /><br />비동기 prefetch 에 대한 자세한 설명은 CLI User's Manual에서 prefetch 관련 속성 및 환경 변수인 ALTIBASE_PREFETCH_ASYNC, ALTIBASE_PREFETCH_AUTO_TUNING, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO을 참고하기 바란다. |
+##### LOB 컬럼 제약
+
+다운로드 대상 테이블에 LOB 컬럼이 있는 경우, 다음 옵션에 대해서는 사용자가 지정한 값이 무시되고 내부적으로 아래와 같이 설정된다.
+
+| 옵션      | 설정값 |
+| --------- | ------ |
+| -array    | 1      |
+| -parallel | 1      |
+
+##### 예제
+
+Array 1000으로 다운로드를 수행한다.
+
+```
+iLoader> out -f t1.form -d t1.dat -array 1000
+```
 
 ### 일괄식 모드 
 
