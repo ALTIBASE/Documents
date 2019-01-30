@@ -4761,6 +4761,33 @@ SYSTIMESTAMP
 ```
 
 
+#### SYSDATETIME
+
+##### 구문
+
+```
+SYSDATETIME
+```
+
+
+
+##### 설명
+
+이 함수는 Altibase가 운영중인 시스템의 현재 날짜와 시간을 출력한다. 이 함수는
+SYSDATE 함수의 alias이며 시간대(time zone)은 지원하지 않는다.
+
+##### 예제
+
+\<질의\> 시스템 날짜(현재 날짜)를 출력하라.
+
+```
+iSQL> SELECT SYSDATETIME  FROM dual;
+SYSTIMESTAMP
+-----------------------
+2005/01/20 09:49:33  
+1 row selected.
+```
+
 
 #### TRUNC (date) 
 
