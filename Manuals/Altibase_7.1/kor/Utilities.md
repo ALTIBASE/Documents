@@ -109,9 +109,9 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
--   제 1장 AEXPORT  
+-   제 1장 aexport  
     이 장은 Altibase 데이터베이스 간 자동화된 데이터 마이그레이션(migration)을
-    지원하기 위한 도구인 AEXPORT에 대해서 설명한다.
+    지원하기 위한 도구인 aexport에 대해서 설명한다.
 
 -   제 2장 altiComp  
     이 장은 altiComp 유틸리티의 기능을 소개하고, 불일치하는 데이터를 비교하고
@@ -121,12 +121,8 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
     Altibase 데이터베이스에서 이기종 데이터베이스로 데이터를 복제할 때 데이터의
     정합성 확인과 불일치 해소 기능을 제공하는 dataCompJ를 설명한다.
 
--   제 4장 SquirreL SQL 클라이언트  
-    이 장은 SquirreL SQL 클라이언트를 설치하고 Altibase JDBC를 통해 Altibase와
-    연동하는 방법을 설명한다.
-
--   제 5장 기타 Utilities  
-    이 장은 AEXPORT, altiComp 등을 제외한 나머지 유틸리티에 대해서 설명한다.
+-   제 4장 기타 Utilities  
+    이 장은 aexport, altiComp, dataCompJ 등을 제외한 나머지 유틸리티에 대해서 설명한다.
 
 #### 문서화 규칙
 
