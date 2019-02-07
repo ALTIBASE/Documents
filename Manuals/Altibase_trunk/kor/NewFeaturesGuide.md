@@ -1315,8 +1315,6 @@ Github](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_P
 
 -   https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md
 
--   JDBC \> 3. 고급 기능\>Hibernate
-
 ##### JRE 1.5 지원
 
 JDK, JRE1.5 이상을 지원한다.
