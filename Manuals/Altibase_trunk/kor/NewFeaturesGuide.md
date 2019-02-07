@@ -241,7 +241,7 @@ Altibase와 연동하여 사용할 수 있다.
 
 자세한 정보는 아래의 매뉴얼을 참조하기 바란다.
 
--   Utilities Manual\> 4장. SquirreL SQL 클라이언트
+-   Altibase 3rd Party Connector Guide
 
 #### UTL_SMTP 패키지 지원
 
