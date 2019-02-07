@@ -95,11 +95,12 @@
 
 - ### [Replication Manager User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/ReplicationManager.md)
 
-- ### [Hadoop Connector User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/HadoopConnector.md)	
-
 - ### [Altibase SSL/TLS User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SSL.md)	
 
 - ### [Altibase Heartbeat User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Heartbeat.md)	
+
+- ### [Altibase 3rd Party Connector Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/3rdPartyConnector.md)	
+
 
 ## Message
 
