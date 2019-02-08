@@ -7380,7 +7380,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 1]
+[0, 2]
 
 ##### 설명
 
@@ -7392,7 +7392,9 @@ Unsigned Integer
 
 0: SIMPLE QUERY PLAN을 사용하지 않는다.
 
-1: SIMPLE QUERY PLAN을 사용한다.
+1: SIMPLE QUERY PLAN을 MEMORY TABLE에 사용한다.
+
+2: SIMPLE QUERY PLAN을 MEMORY PARTITION TABLE에 사용한다.
 
 #### FAST_START_IO_TARGET (단위: 페이지 개수)
 
