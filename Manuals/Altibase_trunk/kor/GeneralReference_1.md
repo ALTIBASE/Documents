@@ -7556,7 +7556,7 @@ Unsigned Integer
 해쉬 조인(Hash Join)에 사용되는 메모리 해쉬 임시 테이블의 필요한 버킷(Bucket)
 개수를 설정한다.
 
-0 : 해쉬 테이블에 삽입된 실제 레코드 개수
+0 : 해쉬 테이블에 삽입된 실제 레코드 개수 ( DISTINCT 해싱방식에 의해 처리 되는 경우 /*+ HASH BUCKET COUNT () */ HINT로 HSDS 노드의 해시 버킷 수 지정 가능)
 
 1 : 쿼리 옵티마이저가 예측한 버킷 개수 또는 힌트 /\*+ HASH BUCKET COUNT () \*/로
 지정된 버킷 개수
