@@ -5356,7 +5356,7 @@ DBMS_LOCK.SLEEP2(seconds IN INTEGER, microseconds IN INTEGER);
 | 이름     | 입출력 | 데이터 타입 | 설명                                |
 |----------|--------|-------------|-------------------------------------|
 | *second* | IN     | INTEGER     | 세션의 쉬는 시간(초) 최댓값은 없다. |
-| *microseconds* | IN | INTEGER | 세션이 쉬는 시간(마이크로초) 초대값은 999999 |
+| *microseconds* | IN | INTEGER | 세션이 쉬는 시간(마이크로초) 최대값은 999999 |
 
 ##### 결과값
 
