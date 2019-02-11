@@ -5,7 +5,7 @@
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
   - [1.Replication Manager 소개](#1replication-manager-%EC%86%8C%EA%B0%9C)
     - [Replication Manager 개요](#replication-manager-%EA%B0%9C%EC%9A%94)
-    - [Replication Manager 설치와 업데이트](#replication-manager-%EC%84%A4%EC%B9%98%EC%99%80-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8)
+    - [Replication Manager 설치](#replication-manager-%EC%84%A4%EC%B9%98)
   - [2.Replication Manager 사용하기](#2replication-manager-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
     - [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)
     - [시작하기](#%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
@@ -188,11 +188,10 @@ Replication Manager에 대한 자세한 설명은 툴에 내장 도움말로 제
 
 
 
-### Replication Manager 설치와 업데이트
+### Replication Manager 설치
 
 이 장에서는 Replication Manager 설치를 위한 필수 선행 요건과 시스템 최소 사양에
-대해 설명한다. 또한 Replication Manager 설치와 삭제, 그리고 업데이트 방법에
-대해서도 설명한다.
+대해 설명한다. 또한 Replication Manager 설치와 삭제 방법에 대해서도 설명한다.
 
 -   시스템 최소 사양
 -   설치 미디어
