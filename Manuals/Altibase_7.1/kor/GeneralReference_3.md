@@ -266,22 +266,9 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_VIEW_PARSE\_             | 뷰 구문을 저장하는 메타 테이블                               |
 | SYS_VIEW_RELATED\_           | 뷰가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블      |
 | SYS_XA_HEURISTIC_TRANS\_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
-
-사용하지 않는 메타 테이블
-
-Altibase는 GIS와 관련한 메타 테이블을 다음과 같이 제공한다. 이들 테이블은 STO_로
-시작하며, 현재 사용하지 않는다.
-
-- STO_COLUMNS\_
-- STO_DATUMS\_
-- STO_ELLIPSOIDS\_
-- STO_GEOCCS\_
-- STO_GEOGCS\_
-- STO_PRIMEMS\_
-- STO_PROJCS\_
-- STO_PROJECTIONS\_
-- STO_SRS\_
-- STO_USER_COLUMNS\_
+| SYS_GEOMETRIES\_             | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
+| SYS_GEOMETRY_COLUMNS\_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음  |
+| USER_SRS                     | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음  |
 
 ### SYS_AUDIT\_
 
