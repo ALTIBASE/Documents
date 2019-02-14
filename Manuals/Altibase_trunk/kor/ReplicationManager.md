@@ -5,7 +5,7 @@
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
   - [1.Replication Manager 소개](#1replication-manager-%EC%86%8C%EA%B0%9C)
     - [Replication Manager 개요](#replication-manager-%EA%B0%9C%EC%9A%94)
-    - [Replication Manager 설치와 업데이트](#replication-manager-%EC%84%A4%EC%B9%98%EC%99%80-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8)
+    - [Replication Manager 설치](#replication-manager-%EC%84%A4%EC%B9%98)
   - [2.Replication Manager 사용하기](#2replication-manager-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
     - [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)
     - [시작하기](#%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
@@ -188,16 +188,14 @@ Replication Manager에 대한 자세한 설명은 툴에 내장 도움말로 제
 
 
 
-### Replication Manager 설치와 업데이트
+### Replication Manager 설치
 
 이 장에서는 Replication Manager 설치를 위한 필수 선행 요건과 시스템 최소 사양에
-대해 설명한다. 또한 Replication Manager 설치와 삭제, 그리고 업데이트 방법에
-대해서도 설명한다.
+대해 설명한다. 또한 Replication Manager 설치와 삭제 방법에 대해서도 설명한다.
 
 -   시스템 최소 사양
 -   설치 미디어
 -   Replication Manager 설치와 삭제
--   온라인 업데이트
 
 #### 시스템 최소 사양
 
@@ -254,37 +252,6 @@ Replication Manager는 Alitbase의 여러 다른 버전과 함께 동시에 실�
 "Altibase_4.3.9.100.jar"와 "Altibase_5.3.3.33.jar 같이 서로 다른 새 이름을
 부여해야 한다. Replication Manager의 삭제 또한 아주 쉽다. 간단하게 Replication
 Manager가 설치되어 있는 디렉토리를 삭제하면 된다.
-
-
-
-#### 온라인 업데이트
-
-Replication Manager의 한 가지 이점은 인터넷 연결이 가능하다면 온라인 상으로
-업데이트할 수 있다는 것이다. 온라인 업데이트 기능을 통해 최신 정보를 확인할 수
-있고 마우스 몇 번의 클릭만으로 Replication Manager의 최신 버전을 얻을 수 있다.
-
-![](media/ReplicationManager/07e48c76f8aa10e195700839e789583e.png)
-
-
-
-Replication Manager를 최신 버전으로 업데이트하는 절차는 다음과 같다.
-
-1.  Replication Manager 메뉴에서 "Help"를 선택한 다음 "Update..."를 선택한다.
-    Replication Manager에 업데이트 사항이 있다면, 업데이트 대화 상자가 표시된다.
-    업데이트 사항이 없다면, 업데이트할 정보가 없음을 알려주는 간단한 메시지
-    상자가 표시된다.
-2.  "Altibase" 안에 있는 "Replication Manager"를 선택한 다음 "Next" 버튼을
-    클릭하여 계속한다.
-3.  Replication Manager의 사용자 사용권 계약 동의에 대한 상자가 표시된다. 사용권
-    계약을 검토하고 동의한 다음 "Next" 버튼을 클릭하여 계속한다.
-4.  설치 대화 상자의 설치 페이지가 표시된다. 이제 업데이트를 다운로드할 준비가
-    되었다. "Finish" 버튼을 클릭하여 계속한다.
-5.  업데이트하는 동안 이 파일에 디지털 서명이 없다는 것을 알려주는 확인 대화
-    상자가 표시된다. 이 메세지는 무시한다. 설치를 완료하기 위해 "Install All"
-    버튼을 클릭한다.
-6.  Replication Manager를 제대로 설치하기 위해 Replication Manager를 다시
-    시작한다. 업데이트를 완료하기 위해 "Yes" 버튼을 클릭한다. 이제 Replication
-    Manager의 최신 버전을 실행할 준비가 되었다.
 
 
 
@@ -380,18 +347,13 @@ Replication Manager를 종료하려면, 상위 메뉴에서 "File"을 선택한 
 Alitbase와 함께 Replication Manager를 실행할 때의 작업 흐름은 보통 다음과 같다.
 
 1.  Alitbase에 연결할 때 사용될 JDBC 드라이버 파일을 불러온다.
-
 2.  데이터베이스 연결을 추가한다.
-
 3.  데이터베이스에 접속한다.
-
 4.  필요한 대로 이중화 관리 작업을 처리한다.
-
 5.  데이터베이스 연결을 해제한다.
-
 6.  데이터베이스 연결 정보를 편집한다.
-
-7.  더 이상 필요하지 않으면 데이터베이스를 삭제한다.
+7.  Extra Host IP를 관리한다.
+8.  더 이상 필요하지 않으면 데이터베이스를 삭제한다.
 
 각 절차는 아래와 같이 수행된다.
 
@@ -492,7 +454,7 @@ Alitbase를 설치하고 앞선 두 가지 작업을 마침으로써 데이터�
 ##### 데이터베이스 연결 정보 편집하기
 
 가끔 데이터베이스 연결 정보를 편집할 필요가 있다. 예를 들어, 데이터베이스를
-연결하기 위해 사용된 계정을 변경할 필요가 있을 수 있다. 이는 변경하고자 하는
+연결하기 위해 사용된 계정을 변경할 필요가 있을 수 있다. 이 메뉴는 변경하고자 하는
 데이터베이스에 연결되지 않았을 때만 가능하다. 데이터베이스 연결 정보를 편집하기
 위해서는 여섯 가지 절차가 있다.
 
@@ -505,6 +467,16 @@ Alitbase를 설치하고 앞선 두 가지 작업을 마침으로써 데이터�
 3.  연결 테스트가 성공적이면 대화 상자가 표시된다. "OK" 버튼을 클릭한다.
 
 4.  마지막으로 편집 대화 상자에서 "Save" 버튼을 클릭한다.
+
+##### Extrap Host IP 관리하기
+
+Altibase가 여러 개의 IP 주소를 가진 장비에 설치되어 있고, 다른 Altibase에서 이중화 
+객체를 생성할 때 이 주소 중의 하나를 Remote Host IP로 사용했다면, 그 IP는 등록된 
+데이터베이스 연결의 DB Address 또는 Extra Host IP중 하나여야 한다. 그렇지 않으면 
+데이터베이스와 이중화 객체간의 관계가 Map 창에 제대로 표시되지 않을 수 있다. 
+이 메뉴는 데이터베이스에 연결되어 있거나 연결되지 않았을 경우 모두 가능하다.
+Extra Host IP를 등록하거나 삭제하고 싶은 데이터베이스를 선택한다. 데이터베이스에 
+오른쪽 클릭하여 콘텍스트 메뉴을 연 다음 "Manage Extra Host IP" 항목을 선택한다.
 
 ##### 데이터베이스 연결 삭제하기
 

@@ -2823,12 +2823,12 @@ SQLRETURN SQLGetLobLength(
 
 #### 인 자
 
-| 자료유형       | 인자         | 사용 | 설명                                                                                                                                      |
-|----------------|--------------|------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| SQLHSTMT       | stmt         | 입력 | 검색된 결과들에 대한 명령문 핸들                                                                                                          |
-| SQLUBIGINT     | locator      | 입력 | LOB Locator                                                                                                                               |
-| SQLSMALLINT    | locatorCType | 입력 | LOB Locator 의 C 데이터타입 식별자로 다음의 값을 가질 수 있다. SQL_C_BLOB_LOCATOR SQL_C_CLOB_LOCATOR                                      |
-| SQLUINTEGER \* | valueLength  | 출력 | LOB 의 길이를 저장하거나, LOB 이 NULL 임을 나타내기 위해 사용한다. 포인터가 가리키는 버퍼는 다음 값을 반환한다. 데이터 길이 SQL_NULL_DATA |
+| 자료유형       | 인자         | 사용 | 설명                                                         |
+| -------------- | ------------ | ---- | ------------------------------------------------------------ |
+| SQLHSTMT       | stmt         | 입력 | 검색된 결과들에 대한 명령문 핸들                             |
+| SQLUBIGINT     | locator      | 입력 | LOB Locator                                                  |
+| SQLSMALLINT    | locatorCType | 입력 | LOB Locator 의 C 데이터타입 식별자로 다음의 값을 가질 수 있다. SQL_C_BLOB_LOCATOR SQL_C_CLOB_LOCATOR |
+| SQLUINTEGER \* | valueLength  | 출력 | LOB 의 길이를 저장하기 위해 사용한다.<br />포인터가 가리키는 버퍼는 데이터 길이를 반환한다. |
 
 #### 결과값
 
@@ -2862,9 +2862,7 @@ SQLBindParameter() 의 output parameter 를 통해 얻을 수 있다.
 않은 LOB locator를 인자로 사용할 경우, 본 함수는 SQL_ERROR 를 리턴하며,
 valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
 
-valueLength 인자를 통해 LOB의 길이가 리턴된다. 단, LOB locator가 NULL인 LOB을
-가리킬 경우, valueLength 인자가 가리키는 버퍼에는 SQL_NULL_DATA가 리턴된다. LOB
-locator가 NULL인 LOB을 가리키더라도 본 함수는 오류를 리턴하지 않는다.
+valueLength 인자를 통해 LOB의 길이가 리턴된다.
 
 #### 진 단
 
@@ -2895,7 +2893,7 @@ CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 BLOB);
 ##### LOB 데이터를 검색하여 길이 조회
 
 ```
-DQLINTEGER valueLength;
+SQLINTEGER valueLength;
 SQLUBIGINT lobLoc;
 .
 .

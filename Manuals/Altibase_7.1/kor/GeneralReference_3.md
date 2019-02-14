@@ -269,20 +269,20 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 
 사용하지 않는 메타 테이블
 
-Altibase는 GIS와 관련한 메타 테이블을 다음과 같이 제공한다. 이들 테이블은 STO_로
-시작하며, 현재 사용하지 않는다.
+Altibase는 GIS와 관련한 메타 테이블을 다음과 같이 제공한다. 이들 테이블은 STO_로		
+시작하며, 현재 사용하지 않는다.		
 
-- STO_COLUMNS\_
-- STO_DATUMS\_
-- STO_ELLIPSOIDS\_
-- STO_GEOCCS\_
-- STO_GEOGCS\_
-- STO_PRIMEMS\_
-- STO_PROJCS\_
-- STO_PROJECTIONS\_
-- STO_SRS\_
-- STO_USER_COLUMNS\_
-
+ STO_COLUMNS\_		
+ STO_DATUMS\_		
+ STO_ELLIPSOIDS\_		
+ STO_GEOCCS\_		
+ STO_GEOGCS\_		
+ STO_PRIMEMS\_		
+ STO_PROJCS\_		
+ STO_PROJECTIONS\_		
+ STO_SRS\_		
+ STO_USER_COLUMNS\_
+ 
 ### SYS_AUDIT\_
 
 감사(Auditing)의 동작 상태가 기록되는 메타 테이블이다.
