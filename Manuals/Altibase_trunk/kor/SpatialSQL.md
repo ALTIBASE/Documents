@@ -6640,7 +6640,7 @@ SPATIAL_REF_SYS_BASE 테이블에 Spatial Reference System 메타데이터를 �
 ##### 파라미터
 
 | 이름          | 입출력     | 데이터 타입  | 설명                    |
-|---------------|-------------|---------------------------|
+|---------------|-------------|-------------------|--------|
 | SRID      | IN | INTEGER      | Spatial Reference System의 데이터베이스 내에서의 ID |
 | AUTH_NAME  | IN| VARCHAR(256) | Spatial Reference System에서 사용된 표준의 이름 |
 | AUTH_SRID | IN | INTEGER    | 표준에 의해 정의된 Spatial Reference System의 ID |
@@ -6672,7 +6672,7 @@ GEOMETRY_COLUMNS_BASE 테이블에 등록한 Geometry Column의 메타데이터�
 ##### 파라미터
 
 | 이름          | 입출력     | 데이터 타입  | 설명                    |
-|---------------|-------------|---------------------------|
+|---------------|-------------|-------------------|--------|
 | SRID      | IN | INTEGER      | Spatial Reference System의 데이터베이스 내에서의 ID |
 | AUTH_NAME  | IN| VARCHAR(256) | Spatial Reference System에서 사용된 표준의 이름 |
 
