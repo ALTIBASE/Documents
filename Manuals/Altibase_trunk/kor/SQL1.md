@@ -3370,7 +3370,7 @@ iSQL> ALTER SEQUENCE seq1 ENABLE SYNC TABLE;
 
 **modify_column_spec::=**
 
-![image71_modify_column_spec](media/SQL/image71_modify_column_spec.gif)
+![image71_modify_column_spec](media/SQL/modify_column_spec.gif)
 
 **drop_column_clause::=**
 
@@ -3639,6 +3639,8 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 
 기존 칼럼의 자료형(data type)을 변경한다.
 
+기존 칼럼의 자료형(data type)을 변경한다. SRID는 4바이트 범위 내의 정수를 사용할 수 있다. 만약 SRID의 값을 변경할 경우 테이블에 입력된 값과 일치하는 값만 선택할 수 있다.
+
 다음의 표는 특정 자료형이 다른 자료형으로 변경이 가능한지 여부를 나타낸다. △로
 표시한 부분은 자료형을 변경했을 때, 테이블의 데이터가 NULL이 아닌 경우 자료
 손실(data loss)이 발생할 수 있음을 나타낸다. 만일 이러한 자료 손실을
@@ -3888,6 +3890,7 @@ SCN(System Commit Number)을 증가시켜 옵티마이저가 테이블이 변경
   시간 값이 입력된다. 따라서 ALTIER TABLE SET/DROP DEFAULT 문을 이용하여 DEFAULT를
   변경 또는 삭제할 수 없다. 자세한 설명은 CREATE TABLE 문을
   참고한다.
+- GEOMETRY 칼럼의 SRID를 변경할 때, 테이블에 입력된 값과 일치하는 값만 선택할 수 있다. 예를 들어 테이블 안에 100, 101, 102를 SRID로 갖는 값이 입력된 경우 어떤 값으로도 변경할 수 없다. 
 
 #### 예제
 
