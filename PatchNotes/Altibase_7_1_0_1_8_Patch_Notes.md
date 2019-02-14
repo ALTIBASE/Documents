@@ -573,7 +573,7 @@
 | :--------------: | :---------------------: | :----------: | :-----------------: | :--------------------------: | :--------------: |
 |    7.1.0.1.8     |          6.5.1          |    8.7.1     |        7.1.6        |            7.4.4             |      2.1.0       |
 
-> Altibase 7.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/jina-altibase/Documents/blob/master/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+> Altibase 7.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
 
 ### 호환성
 
