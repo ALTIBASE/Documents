@@ -722,7 +722,7 @@ Altibase에서 실행된 DML 구문들을 데이터를 보낼 대상이 되는 O
 
 -   0: 간격을 두지 않고 즉시 재시도한다.
 
-##### OTHER_DATABASE_ERROR_SKIP 
+##### OTHER_DATABASE_SKIP_ERROR 
 
 레코드를 반영할 때 오류가 발생하여 OTHER_DATABASE_ERROR_RETRY_COUNT 만큼
 OTHER_DATABASE_ERROR_RETRY_TIME 간격으로 재시도하였는데도 실패하면, 해당
