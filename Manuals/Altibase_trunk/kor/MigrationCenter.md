@@ -36,7 +36,7 @@
   - [C.부록: 데이터 타입 맵핑](#c%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
     - [데이터 타입 맵핑 조작](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%EC%A1%B0%EC%9E%91)
     - [기본 데이터 타입 맵핑 테이블](#%EA%B8%B0%EB%B3%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [크기 보정](#%ED%81%AC%EA%B8%B0-%EB%B3%B4%EC%A0%95)
+    - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#%EC%9D%B4%EC%A2%85-%EB%AC%B8%EC%9E%90-%EC%A7%91%ED%95%A9%EC%9D%84-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EB%AC%B8%EC%9E%90%ED%98%95-%EC%BB%AC%EB%9F%BC-%EA%B8%B8%EC%9D%B4-%EC%9E%90%EB%8F%99-%EB%B3%B4%EC%A0%95)
   - [D.부록: 기본값 맵핑](#d%EB%B6%80%EB%A1%9D-%EA%B8%B0%EB%B3%B8%EA%B0%92-%EB%A7%B5%ED%95%91)
     - [기본값 맵핑 테이블](#%EA%B8%B0%EB%B3%B8%EA%B0%92-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)
   - [E.부록: PSM 변환기 규칙 목록](#e%EB%B6%80%EB%A1%9D-psm-%EB%B3%80%ED%99%98%EA%B8%B0-%EA%B7%9C%EC%B9%99-%EB%AA%A9%EB%A1%9D)
@@ -1858,7 +1858,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 마이그레이션시 원본(Source)과 대상(Destination) 데이터베이스의 문자 집합(character set)이 서로 다른 경우, 문자형 데이터 타입 (CHAR, VARCHAR)은 길이 변환이 필요하다.
 예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
 
-Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 크기 보정식은 아래와 같다.
+Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 길이 보정식은 아래와 같다.
 
 ```
 Dest. Size = Ceil(Correction Factor * Src. Size)
@@ -1866,7 +1866,7 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 * MaxBytes = The maximum number of bytes required to store one character
 ```
 
-단, 원본의 MaxBytes가 1이거나 보정 계수가 1보다 작은 경우에는 길이 변환을 하지 않는다.
+단, 원본의 MaxBytes가 1이거나 보정 계수 (Correction Factor)가 1보다 작은 경우에는 길이 변환을 하지 않는다.
 
 원본과 대상 데이터베이스의 MaxBytes와 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
 
