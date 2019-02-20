@@ -1853,12 +1853,12 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 | 16     | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
 | 17     | ROWID         | VARCHAR(18)     |                                                              |
 
-### 크기 보정
+### 이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정
 
 마이그레이션시 원본(Source)과 대상(Destination) 데이터베이스의 문자 집합(character set)이 서로 다른 경우, 문자형 데이터 타입 (CHAR, VARCHAR)은 길이 변환이 필요하다.
 예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
 
-Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 크기 보정식은 아래와 같다.
+Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 길이 보정식은 아래와 같다.
 
 ```
 Dest. Size = Ceil(Correction Factor * Src. Size)
@@ -1866,17 +1866,17 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 * MaxBytes = The maximum number of bytes required to store one character
 ```
 
-단, 원본의 MaxBytes가 1이거나 보정 계수가 1보다 작은 경우에는 길이 변환을 하지 않는다.
+단, 원본의 MaxBytes가 1이거나 보정 계수 (Correction Factor)가 1보다 작은 경우에는 길이 변환을 하지 않는다.
 
 원본과 대상 데이터베이스의 MaxBytes와 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
 
-#### 유의 사항
+#### 주의 사항
 
-대용량 테이블의 경우 크기 보정이 되면서 마이그레이션이 된다면 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 길이를 변환하지 않아도 데이터가 잘리지 않는다는 보장이 있다면 조정(Reconcile) 단계에서 수동으로 길이를 지정할 수 있다.
+대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 길이를 변환하지 않아도 데이터가 잘리지 않는다는 보장이 있다면 조정(Reconcile) 단계에서 수동으로 길이를 지정할 수 있다.
 
 #### 데이터베이스별 지원 문자 집합
 
-아래 표에 없는 문자 집합의 경우에는 MaxLen을 1로 간주하여 Migration Center가 크기 보정을 하지 않는다.
+아래 표에 없는 문자 집합의 경우에는 Migration Center가 길이 보정을 하지 않는다.
 
 ##### Altibase
 
