@@ -1,2 +1,1 @@
-Altibase manuals and technical documents will be placed here.
-made by QC team
+This repository includes Altibase manuals, release notes, patch notes, and technical documents.
