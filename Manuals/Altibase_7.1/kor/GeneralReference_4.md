@@ -3843,15 +3843,18 @@ DCL구문이다.
 
 SQL Plan Cache에 등록된 Plan cache 객체에 대한 정보를 나타낸다.
 
-| Column name   | Type        | Description                                     |
-|---------------|-------------|-------------------------------------------------|
-| SQL_TEXT_ID   | VARCHAR(64) | Plan 객체가 속한 SQL Text 객체 식별자           |
-| PCO_ID        | INTEGER     | SQL Text 객체 내에서 Plan cache 객체 식별자     |
-| CREATE_REASON | VARCHAR(28) | Plan cache 객체를 생성한 이유                   |
-| HIT_COUNT     | INTEGER     | Plan cache 객체 참조 횟수                       |
-| REBUILD_COUNT | INTEGER     | Plan cache 객체가 rebuild된 횟수                |
-| PLAN_STATE    | VARCHAR(17) | Plan cache 객체의 plan 상태                     |
-| LRU_REGION    | VARCHAR(11) | LRU 리스트에서 Plan cache 객체가 속해 있는 영역 |
+| Column name     | Type        | Description                                     |
+| --------------- | ----------- | ----------------------------------------------- |
+| SQL_TEXT_ID     | VARCHAR(64) | Plan 객체가 속한 SQL Text 객체 식별자           |
+| PCO_ID          | INTEGER     | SQL Text 객체 내에서 Plan cache 객체 식별자     |
+| CREATE_REASON   | VARCHAR(28) | Plan cache 객체를 생성한 이유                   |
+| HIT_COUNT       | INTEGER     | Plan cache 객체 참조 횟수                       |
+| REBUILD_COUNT   | INTEGER     | Plan cache 객체가 rebuild된 횟수                |
+| PLAN_STATE      | VARCHAR(17) | Plan cache 객체의 plan 상태                     |
+| LRU_REGION      | VARCHAR(11) | LRU 리스트에서 Plan cache 객체가 속해 있는 영역 |
+| PLAN_SIZE       | INTEGER     | Plan cache 객체의 plan 크기                     |
+| FIX_COUNT       | INTEGER     | Plan cache 객체를 참조 중인 Statement 수        |
+| PLAN_CACHE_KEEP | VARCHAR(6)  | Plan cache 객체의 Keep 상태                     |
 
 #### 칼럼 정보
 
@@ -3908,16 +3911,34 @@ Plan cache 객체의 plan 상태를 나타내며, 다음과 같은 값을 가질
 Plan cache 객체가 LRU 리스트에서 어느 영역에 속해 있는지를 나타낸다. 이 칼럼의
 값은 HOT_REGION 또는 COLD_REGION일 수 있다.
 
+##### PLAN_SIZE
+
+Plan cache 객체의 plan 크기를 나타낸다.
+
+##### FIX_COUNT
+
+Plan cache 객체를 참조 중인 statement 수를 나타낸다.  FIX_COUNT가 1 이상이면 victim에 선정되지 않는다.
+
+##### PLAN_CACHE_KEEP
+
+Plan cache 객체의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
+
+- KEEP
+  Plan이 keep 되어 있는 상태로 victim에 선정되지 않는다.
+- UNKEEP
+  PLAN이 unkeep 되어 있는 상태로 victim에 선정될 수 있다.
+
 ###  <a name="vsql_plan_cache_sqltext"><a/>V\$SQL_PLAN_CACHE_SQLTEXT
 
 SQL Plan Cache에 등록된 SQL 문에 대한 정보를 보여준다.
 
-| Column name            | Type           | Description                            |
-|------------------------|----------------|----------------------------------------|
-| SQL_TEXT_ID            | VARCHAR(64)    | SQL Plan Cache내에서 SQL 문장의 식별자 |
-| SQL_TEXT               | VARCHAR(16384) | SQL 문장                               |
-| CHILD_PCO_COUNT        | INTEGER        | Child Plan Cache 객체의 수             |
-| CHILD_PCO_CREATE_COUNT | INTEGER        | 생성된 Child Plan Cache 객체의 개수    |
+| Column name            | Type           | Description                                        |
+| ---------------------- | -------------- | -------------------------------------------------- |
+| SQL_TEXT_ID            | VARCHAR(64)    | SQL Plan Cache내에서 SQL 문장의 식별자             |
+| SQL_TEXT               | VARCHAR(16384) | SQL 문장                                           |
+| CHILD_PCO_COUNT        | INTEGER        | Child Plan Cache 객체의 수                         |
+| CHILD_PCO_CREATE_COUNT | INTEGER        | 생성된 Child Plan Cache 객체의 개수                |
+| PLAN_CACHE_KEEP        | VARCHAR(6)     | SQL_TEXT_ID에 해당하는 Plan Cache 객체의 Keep 상태 |
 
 #### 칼럼 정보
 
@@ -3945,6 +3966,15 @@ Plan 객체내에 Child Plan Cache 객체가 생성되는 경우는 다음의 2�
 
 -   기존 Plan Cache 객체가 참조하는 객체의 변경 또는 객체의 통계 정보의 변경
     폭이 한계치를 넘는 경우 새로운 Plan Cache 객체를 생성한다.
+
+##### PLAN_CACHE_KEEP
+
+SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
+
+- KEEP
+  PLAN이 keep 되어 있는 상태로 victim에 선정되지 않는다.
+- UNKEEP
+  PLAN이 unkeep 되어 있는 상태로 victim에 선정될 수 있다.
 
 ### <a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES
 

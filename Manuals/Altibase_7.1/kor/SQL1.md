@@ -1710,7 +1710,7 @@ PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 34, COST: 1.68 )
 | 중복 제거 처리 방법                  | [DISTINCT_HASH](#distinct_hash) [DISTINCT_SORT](#datafile_spec) |
 | 뷰 최적화 방법                       | [NO_PUSH_SELECT_VIEW](#no_push_select_view) [PUSH_SELECT_VIEW](#push_select_view) [PUSH_PRED](#push_pred) |
 | 단순 쿼리                            | [EXEC_FAST](#exec_fast) [NO_EXEC_FAST](#no_exec_fast)        |
-| 그 외                                | [APPEND](#append) [DELAY](#delay) HIGH_PRECISION [KEEP_PLAN](#keep_plan) [NO DELAY](#no-delay) <br />[NO_PLAN_CACHE](#no_plan_cache) RESULT_CACHE TOP_RESULT_CACHE |
+| 그 외                                | [APPEND](#append) [DELAY](#delay) HIGH_PRECISION [KEEP_PLAN](#keep_plan) [NO DELAY](#no-delay) <br />[NO_PLAN_CACHE](#no_plan_cache) RESULT_CACHE TOP_RESULT_CACHE<br />[PLAN_CACHE_KEEP](#PLAN_CACHE_KEEP) |
 
 #### APPEND
 
@@ -2041,6 +2041,14 @@ SORT를 제외한 힌트 중에 조인방법이 선택된다
 - PARALLEL integer: integer에 명시된 개수만큼의 쓰레드가 병렬로 처리한다.
 
 ![parallel](media/SQL/parallel.gif)
+
+#### PLAN_CACHE_KEEP
+
+Plan을 victim 선정 과정에서 제외시켜 Plan Cache내에 유지하도록 지시하는 힌트이다.
+해당 힌트는 hardprepare 과정에서 적용된다. 그래서 사용자가 해당 plan을 unkeep으로 전환했을 때
+softprepare가 발생해도 다시 keep 상태로 전환되지 않는다.
+
+![plan_cache_keep](/media/SQL/plan_cache_keep.gif)
 
 #### ORDERED
 
