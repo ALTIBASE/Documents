@@ -2048,7 +2048,7 @@ Plan을 victim 선정 과정에서 제외시켜 Plan Cache내에 유지하도록
 해당 힌트는 hardprepare 과정에서 적용된다. 그래서 사용자가 해당 plan을 unkeep으로 전환했을 때
 softprepare가 발생해도 다시 keep 상태로 전환되지 않는다.
 
-![plan_cache_keep](/media/SQL/plan_cache_keep.gif)
+![plan_cache_keep](media/SQL/plan_cache_keep.gif)
 
 #### ORDERED
 
