@@ -586,7 +586,7 @@ $ apre -keyword
 
 :: Keywords for C code ::
 :: Keywords for C code ::
-ALTIBASE_APRE APRE_BINARY APRE_BIT APRE_BLOB APRE_BLOB_LOCATOR APRE_BYTES APRE_CLOB APRE_CLOB_LOCATOR APRE_DUPKEY_ERR APRE_INTEGER APRE_NIBBLE APRE_NUMERIC APRE_VARBYTES MAX_CHAR_PTR SESC_DECLARE SESC_INCLUDE SES_BINARY SES_BIT SES_BLOB SES_BLOB_LOCATOR SES_BYTES SES_CLOB SES_CLOB_LOCATOR SES_DUPKEY_ERR SES_INTEGER SES_NIBBLE SES_NUMERIC SES_VARBYTES SQLFailOverCallback SQLLEN SQL_DATE_STRUCT SQL_TIMESTAMP_STRUCT SQL_TIME_STRUCT VARCHAR
+ALTIBASE_APRE APRE_BINARY APRE_BINARY2 APRE_BIT APRE_BLOB APRE_BLOB_LOCATOR APRE_BYTES APRE_CLOB APRE_CLOB_LOCATOR APRE_DUPKEY_ERR APRE_INTEGER APRE_NIBBLE APRE_NUMERIC APRE_VARBYTES MAX_CHAR_PTR SESC_DECLARE SESC_INCLUDE SES_BINARY SES_BIT SES_BLOB SES_BLOB_LOCATOR SES_BYTES SES_CLOB SES_CLOB_LOCATOR SES_DUPKEY_ERR SES_INTEGER SES_NIBBLE SES_NUMERIC SES_VARBYTES SQLFailOverCallback SQLLEN SQL_DATE_STRUCT SQL_TIMESTAMP_STRUCT SQL_TIME_STRUCT VARCHAR
 
 :: Keywords for Embedded SQL statement ::
 ABSOLUTE ADD AFTER AGER ALL ALLOCATE ALTER AND ANY ARCHIVE ARCHIVELOG AS ASC ASENSITIVE AT AUTOCOMMIT BACKUP BATCH BEFORE BEGIN BETWEEN BLOB_FILE BREAK BY CASCADE CASE CAST CLEAR_RECPTRS CLOB_FILE CLOSE COALESCE COLUMN COMMIT COMPILE CONNECT CONSTANT CONSTRAINT CONSTRAINTS CONTINUE CREATE CUBE CURSOR CYCLE DATABASE DEALLOCATE DECLARE DEFAULT DELETE DEQUEUE DESC DESCRIPTOR DIRECTORY DISABLE DISABLE_RECPTR DISCONNECT DISTINCT DO DROP EACH ELSE ELSEIF ELSIF ENABLE ENABLEALL_RECPTRS ENABLE_RECPTR END ENQUEUE ESCAPE EXCEPTION EXEC EXECUTE EXISTS EXIT EXTENTSIZE FALSE FETCH FIFO FIRST FIXED FLUSH FOR FOREIGN FOUND FREE FROM FULL FUNCTION GOTO GRANT GROUP GROUPING HAVING HOLD IDENTIFIED IF IMMEDIATE IN INDEX INDICATOR INNER INSENSITIVE INSERT INTERSECT INTO IS ISOLATION JOIN KEY LAST LEFT LESS LEVEL LIFO LIKE LIMIT LOB LOCAL LOCK LOGANCHOR LOOP MAXROWS MERGE MINUS MODE MOVE MOVEMENT NEW NEXT NOARCHIVELOG NOCYCLE NOPARALLEL NOT NULL OF OFF OFFLINE OLD ON ONERR ONLINE ONLY OPEN OPTION OR ORDER OTHERS OUT OUTER PARALLEL PARTITION PARTITIONS PREPARE PRIMARY PRIOR PRIVILEGES PROCEDURE PUBLIC QUEUE RAISE READ REBUILD RECOVER REFERENCES REFERENCING RELATIVE RELEASE RENAME REPLACE REPLICATION RESTRICT RETURN REVERSE REVOKE RIGHT ROLLBACK ROLLUP ROW ROWCOUNT ROWTYPE SAVEPOINT SCROLL SELECT SENSITIVE SEQUENCE SESSION SET SETS SOME SPLIT SQLCODE SQLERRM SQLERROR SQLLEN START STATEMENT STEP STORE SYNONYM TABLE TABLESPACE TEMPORARY THAN THEN THREADS TO TRIGGER TRUE TRUNCATE TYPE TYPESET UNION UNIQUE UNTIL UPDATE USER USING VALUES VARCHAR VARIABLE VIEW VOLATILE WAIT WAKEUP_RECPTR WHEN WHENEVER WHERE WHILE WITH WORK WRITE
@@ -1402,14 +1402,14 @@ C/C++ 전처리에서는 NULL값 처리를 위해 지시자 변수(Indicator Var
     지시자 변수를 지정하지 않았는데 SELECT 또는 FETCH 한 칼럼값이 NULL인 경우,
     내장 SQL문의 수행 결과(sqlca.sqlcode)는 SQL_SUCCESS_WITH_INFO가 된다.
 
--   APRE_BINARY, APRE_BLOB, APRE_BYTES 타입을 입출력 호스트 변수로 사용하는
-    경우.  
+-   APRE_BINARY, APRE_BINARY2, APRE_BLOB, APRE_BYTES 타입을 입출력 호스트 변수로
+    사용하는 경우.  
     이진 타입의 경우 데이터가 널문자로 끝나지 않을 수 있기 때문에 데이터베이스
     서버에 입력값의 길이를 알려줄 방법이 필요하다. 따라서 지시자 변수에 입력값의
     길이를 지정해준다. 마찬가지로 출력 호스트 변수로 사용할 경우 데이터베이스
     서버는 반환되는 칼럼값의 길이를 지시자 변수에 저장한다. APRE_BINARY 타입과
-    APRE_BLOB , APRE_BYTES, APRE_VARBYTES 타입에 대한 자세한 설명은 5장을
-    참조하기 바란다.
+    APRE_BINARY2, APRE_BLOB , APRE_BYTES, APRE_VARBYTES 타입에 대한 자세한 설명은
+    5장을 참조하기 바란다.
 
 -   APRE_NIBBLE 타입을 출력 호스트 변수로 사용하는 경우.  
     NIBBLE 타입 컬럽에 NULL값을 입력하거나, NIBBLE 타입 칼럼으로부터 NULL값을
@@ -1709,6 +1709,11 @@ VALUES (:s_gno,
     </tr>
     <tr>
     	<td>APRE_BINARY</td>
+    	<td>입력값의 길이(bytes)를 지정해야 함.</td>
+    	<td>반환된 값의 길이(bytes)가 저장되어 있음.</td>
+    </tr>
+    <tr>
+    	<td>APRE_BINARY2</td>
     	<td>입력값의 길이(bytes)를 지정해야 함.</td>
     	<td>반환된 값의 길이(bytes)가 저장되어 있음.</td>
     </tr>
@@ -2691,8 +2696,8 @@ MAX_CHAR_PTR 매크로를 정의한 후에, 정의된 크기만큼 char\*의 호
 구문과 함께 사용하거나, 2차원 배열을 가리키는 포인터를 호스트 변수로 사용할 때
 원하지 않는 결과를 초래하게 된다.
 
-char, varchar, APRE_BINARY, APRE_BYTES, APRE_NIBBLE, APRE_NUMERIC, APRE_BLOB,
-APRE_CLOB, APRE_BIT, APRE_VARBYTES
+char, varchar, APRE_BINARY, APRE_BINARY2, APRE_BYTES, APRE_NIBBLE,
+APRE_NUMERIC, APRE_BLOB, APRE_CLOB, APRE_BIT, APRE_VARBYTES
 
 아래는 int타입의 배열과 포인터 변수를 INSERT 내장 문에서 입력 호스트 변수로
 사용하는 예제이다.
@@ -3208,6 +3213,7 @@ WHERE ENO = 5;
 typedef char APRE_CLOB;
 typedef char APRE_BLOB;
 typedef char APRE_BINARY;
+typedef char APRE_BINARY2;
 typedef char APRE_BYTES;
 typedef char APRE_NIBBLE;
 typedef char APRE_VARBYTES;
@@ -3334,6 +3340,43 @@ EXEC SQL INSERT INTO T_BLOB
 VALUES (:ins_blob :ins_blob_ind);
 
 EXEC SQL SELECT * 
+INTO :sel_blob :sel_blob_ind 
+FROM T_BLOB;
+```
+
+##### APRE_BINARY2
+
+APRE_BLOB, APRE_BINARY 와 동일한 특성을 가진다. 다만 입력 호스트 변수의 데이터 사이즈가
+128KB 이하일 때 성능향상이 있으며, 최대 데이터 사이즈가 100MB라는 제한이 있다.
+데이터 사이즈가 128KB를 초과할 때는 성능 향상 및 메모리 절약을 위해 APRE_BLOB, APRE_BINARY 타입
+사용을 추천한다.
+
+##### 예제
+
+다음은 APRE_BINARY2 타입의 사용 예를 보여준다.
+
+입력 호스트 변수로 ins_blob을, 입력 지시자 변수로 ins_blob_ind를 사용한다.
+ins_blob_ind에는 ins_blob의 길이가 저장된다. 출력 호스트 변수로 sel_blob을, 출력
+지시자 변수로 sel_blob_ind를 사용한다. SELECT문 수행 후 sel_blob_ind에는
+sel_blob값이 NULL이면 –1이, 그렇지 않으면 sel_blob의 길이가 저장된다.
+
+\< 예제 프로그램 : binary.sc \>
+
+```
+EXEC SQL BEGIN DECLARE SECTION;
+APRE_BINARY2 ins_blob[10+1];
+APRE_BINARY2 sel_blob[10+1];
+int ins_blob_ind;
+int sel_blob_ind;
+EXEC SQL END DECLARE SECTION;
+
+memset(ins_blob, 0x21, 10);
+ins_blob_ind = 10; /* set length of ins_blob value to indicator variable */
+
+EXEC SQL INSERT INTO T_BLOB
+VALUES (:ins_blob :ins_blob_ind);
+
+EXEC SQL SELECT *
 INTO :sel_blob :sel_blob_ind 
 FROM T_BLOB;
 ```
@@ -3623,7 +3666,6 @@ double, float,
 SQL_DATE_STRUCT,
 SQL_TIME_STRUCT,
 SQL_TIMESTAMP_STRUCT,
-APRE_BINARY
 </td>
 		<td>char, varchar</td>
 	</tr>
@@ -3635,7 +3677,6 @@ double, float,
 SQL_DATE_STRUCT,
 SQL_TIME_STRUCT,
 SQL_TIMESTAMP_STRUCT,
-APRE_BINARY
 </td>
 		<td>char, varchar</td>
 	</tr>
@@ -3725,25 +3766,24 @@ SQL_TIMESTAMP_STRUCT
     </tr>
     <tr>
     	<td>BLOB</td>
-    	<td>APRE_BLOB</td>
-    	<td>APRE_BLOB</td>
+    	<td>APRE_BLOB,
+APRE_BINARY,
+APRE_BINARY2</td>
+    	<td>APRE_BLOB,
+APRE_BINARY,
+APRE_BINARY2</td>
     </tr>
-     <tr>
-    	<td>BINARY</td>
-    	<td>APRE_BINARY</td>
-    	<td>APRE_BINARY</td>
-    </tr>
-     <tr>
+    <tr>
     	<td>BYTE</td>
     	<td>APRE_BYTES, APRE_VARBYTES</td>
     	<td>APRE_BYTES, APRE_VARBYTES</td>
     </tr>
-     <tr>
+    <tr>
     	<td>NIBBLE</td>
     	<td>APRE_NIBFBLE</td>
     	<td>APRE_NIBBLE</td>
     </tr>
-     <tr>
+    <tr>
     	<td>VARBYTE</td>
     	<td>APRE_BYTES, APRE_VARBYTES</td>
     	<td>APRE_BYTES, APRE_VARBYTES</td>
@@ -3769,14 +3809,14 @@ SQL_TIMESTAMP_STRUCT
 		<td rowspan="2">문자형 타입</td>
 		<td>CHAR</td>
 		<td>char, varchar, 
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
 		<td>char, varchar</td>
 	</tr>
 	<tr>
 		<td>VARCHAR</td>
 		<td>char, varchar, 
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
 		<td>char, varchar</td>
 	</tr>
@@ -3786,7 +3826,7 @@ APRE_BINARY
 		<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
 		<td>short</td>
 	</tr>
@@ -3795,7 +3835,7 @@ APRE_BINARY
 		<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
 		<td>int</td>
 	</tr>
@@ -3804,7 +3844,7 @@ APRE_BINARY
 		<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
 		<td>long, long long</td>		
 	</tr>
@@ -3817,7 +3857,7 @@ DECIMAL
 		<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
 		<td>char,
 long, long long,
@@ -3829,7 +3869,7 @@ float, double
     	<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
     	<td>float</td>
     </tr>
@@ -3838,7 +3878,7 @@ APRE_BINARY
     	<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
     	<td>double</td>
     </tr>
@@ -3847,7 +3887,7 @@ APRE_BINARY
     	<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
     	<td>double</td>
     </tr>
@@ -3858,7 +3898,7 @@ APRE_BINARY
 SQL_DATE_STRUCT,
 SQL_TIME_STRUCT,
 SQL_TIMESTAMP_STRUCT,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
     	<td>char, 
 SQL_DATE_STRUCT,
@@ -3874,42 +3914,41 @@ SQL_TIMESTAMP_STRUCT
     </tr>
     <tr>
     	<td>BLOB</td>
-    	<td>APRE_BLOB</td>
-    	<td>APRE_BLOB</td>
-    </tr>
-     <tr>
-    	<td>BINARY</td>
-    	<td>APRE_BINARY</td>
-    	<td>APRE_BINARY</td>
+    	<td>APRE_BLOB,
+APRE_BINARY,
+APRE_BINARY2</td>
+    	<td>APRE_BLOB,
+APRE_BINARY,
+APRE_BINARY2</td>
     </tr>
      <tr>
     	<td>BYTE</td>
     	<td>APRE_BYTES, APRE_VARBYTES,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
     	<td>APRE_BYTES, APRE_VARBYTES</td>
     </tr>
      <tr>
     	<td>NIBBLE</td>
     	<td>APRE_NIBBLE,
-APRE_BINARY
+APRE_BINARY, APRE_BINARY2
 </td>
     	<td>APRE_NIBBLE</td>
     </tr>
      <tr>
     	<td>VARBYTE</td>
-    	<td>APRE_BYTES, APRE_VARBYTES, APRE_BINARY</td>
+    	<td>APRE_BYTES, APRE_VARBYTES, APRE_BINARY, APRE_BINARY2</td>
     	<td>APRE_BYTES, APRE_VARBYTES</td>
     </tr>
 </table>
 
-출력 호스트 변수의 경우 모든 칼럼 타입에 대해 APRE_BINARY 타입을 호스트 변수로
-사용할 수 있다. APRE_BINARY 타입은 칼럼값을 해당 타입에 맞게 변환해서 호스트
+출력 호스트 변수의 경우 모든 칼럼 타입에 대해 APRE_BINARY, APRE_BINARY2 타입을 호스트 변수로
+사용할 수 있다. APRE_BINARY,  APRE_BINARY2 타입은 칼럼값을 해당 타입에 맞게 변환해서 호스트
 변수에 저장하는게 아니라 메모리 내용 그대로 호스트 변수에 저장(memcpy)한다.
-따라서, APRE_BINARY 타입을 호스트 변수로 사용하려면 각 칼럼 타입별로 내부적으로
+따라서, APRE_BINARY, APRE_BINARY2 타입을 호스트 변수로 사용하려면 각 칼럼 타입별로 내부적으로
 어떻게 메모리에 저장되는지 저장방식을 알아야 하고, 이를 해석할 줄 알아야 한다.
-이처럼 APRE_BINARY 타입을 호스트 변수로 사용할 경우 타입 변환 비용이 없어 성능은
-좋을지 모르나 개발자 관점에서 사용하기 복잡하여 일반적으로 APRE_BINARY 타입은
+이처럼 APRE_BINARY, APRE_BINARY2 타입을 호스트 변수로 사용할 경우 타입 변환 비용이 없어 성능은
+좋을지 모르나 개발자 관점에서 사용하기 복잡하여 일반적으로 APRE_BINARY, APRE_BINARY2 타입은
 BLOB 타입(칼럼 타입)을 제외하고는 사용을 추천하지 않는다.
 
 6.내장 SQL문
