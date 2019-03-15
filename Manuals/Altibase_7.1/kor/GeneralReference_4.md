@@ -496,6 +496,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Query_DML                              | DML 구문 실행을 위해 사용되는 메모리                                                          |
 | Query_Execute                          | 쿼리 실행시 사용되는 메모리                                                                   |
 | Query_Execute_Cache                    | Deterministic 함수 결과의 캐시를 위해 사용되는 메모리                                         |
+| Query_Result_Cache                             | Result 결과의 캐시를 위해 사용되는 메모리                          |
 | Query_Meta                             | 서버 동작 중에 사용되는 캐시된 메타 정보 관리를 위해 사용되는 메모리                          |
 | Query_Prepare                          | 실행을 위해 쿼리를 prepare하는데 사용되는 메모리                                              |
 | Query_PSM_Concurrent_Execute           | DBMS_CONCURRENT_EXEC 패키지를 실행하기 위해 사용되는 메모리                                   |
