@@ -729,11 +729,16 @@ OTHER_DATABASE_ERROR_RETRY_TIME 간격으로 재시도하였는데도 실패하�
 레코드의 반영을 포기할 것인지 여부를 지정한다.
 
 -   기본 값: 1
-
 -   0: Adapter를 종료하면서 에러메시지를 출력한다. (해당 레코드 반영을 포기하지
     않는다.)
-
+    단, dbms_skip_error_include.list에 포함된 에러가 발생한 레코드는 반영을 포기하고
+    다음 레코드부터 반영한다. 
 -   1: 다음 레코드부터 반영한다. (해당 레코드 반영을 포기한다.)
+    단, dbms_skip_error_exclude.list에 포함된 에러가 발생한 레코드는 Adpater를
+    종료한다.
+
+dbms_skip_error_include.list와  dbms_skip_error_exclude.list에 포함되는 에러값은
+SQLSTATE 표준의 에러값이다.
 
 ##### OTHER_DATABASE_SKIP_INSERT
 

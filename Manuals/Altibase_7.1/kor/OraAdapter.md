@@ -810,13 +810,17 @@ oraAdapter가 레코드 반영에 오류가 발생한 이후부터 ORACLE_ERROR_
 못했을 때, 해당 레코드의 반영 여부를 지정할 수 있다.
 
 -   기본값: 1
-
 -   범위: 0, 1
-
 -   0: oraAdapter를 종료하면서 에러 메세지를 출력한다. (해당 레코드는 포기하지
     않는 것을 의미)
-
+    단, dbms_skip_error_include.list에 포함된 에러가 발생한 레코드는 반영을 포기하고
+    다음 레코드부터 반영한다. 
 -   1: 오류가 난 이후의 레코드부터 반영을 진행한다.
+    단, dbms_skip_error_exclude.list에 포함된 에러가 발생한 레코드는 oraAdapter를
+    종료한다.
+
+dbms_skip_error_include.list와 dbms_skip_error_exclude.list에 포함되는 에러값은
+OCI Error Message에서 prefix(ORA-)를 제외한 숫자값이다.
 
 ##### ORACLE_SKIP_INSERT
 
