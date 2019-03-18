@@ -4896,8 +4896,6 @@ Altibase는 6개의 모듈 SERVER, SM, QP, RP, RP_CONFLICT, DR에 대하여 메�
 
 -   RP_CONFLICT_MSGLOG_FLAG: 이중화 충돌 관련 메시지
 
--   DR_MSGLOG_FLAG: 재해 복구 관련 메시지
-
 -   LB_MSGLOG_FLAG: 서비스 쓰레드 동작 관련 메시지
 
 각 프로퍼티는 32개의 비트로 설정할 수 있는데, 각 비트에 대한 메시지 종류 및
@@ -4935,13 +4933,6 @@ alter system set qp_msglog_flag=3
 
 ```
 alter system set rp_conflict_msglog_flag=4
-```
-
--   재해 복구 관련 메시지 중 Standby Server Warning(두 번째 비트)을 출력하고자
-    할 때
-
-```
-alter system set dr_msglog_flag=2
 ```
 
 ### <a name="vtransaction"><a/>V\$TRANSACTION

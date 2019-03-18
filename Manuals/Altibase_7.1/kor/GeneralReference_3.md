@@ -97,10 +97,6 @@
     - [V\$DISK_TEMP_INFO](#vdisk_temp_info)
     - [V\$DISK_TEMP_STAT](#vdisk_temp_stat)
     - [V\$DISK_UNDO_USAGE](#vdisk_undo_usage)
-    - [V\$DR_CONNECTION_INFO](#vdr_connection_info)
-    - [V\$DR_GAP](#vdr_gap)
-    - [V\$DR_SERVERS](#vdr_servers)
-    - [V\$DR_STATUS](#vdr_status)
     - [V\$EVENT_NAME](#vevent_name)
     - [V\$EXTPROC_AGENT](#vextproc_agent)
     - [V\$FILESTAT](#vfilestat)
@@ -282,7 +278,7 @@ Altibase는 GIS와 관련한 메타 테이블을 다음과 같이 제공한다. 
  STO_PROJECTIONS\_		
  STO_SRS\_		
  STO_USER_COLUMNS\_
- 
+
 ### SYS_AUDIT\_
 
 감사(Auditing)의 동작 상태가 기록되는 메타 테이블이다.
@@ -4174,10 +4170,6 @@ iSQL> SELECT * FROM V$TAB;
 | V\$DISK_TEMP_INFO                     | 전체 디스크 임시 테이블의 메모리 사용 정보                   |
 | V\$DISK_TEMP_STAT                     | 현재 사용중인 각각의 디스크 임시 테이블 정보                 |
 | V\$DISK_UNDO_USAGE                    | 디스크상에서 현재 사용중인 언두 테이블스페이스의 양에 대한 정보 |
-| V\$DR_CONNECTION_INFO                 | DR 환경에 현재 참여하고 있는 서버들의 정보                   |
-| V\$DR_GAP                             | DR 환경에 현재 참여하고 있는 서버들 간의 동기화 격차 정보    |
-| V\$DR_SERVERS                         | DR 환경을 구성하는 서버들의 정보                             |
-| V\$DR_STATUS                          | DR 환경에 참여하고 있는 서버들의 현재 상태 정보              |
 | V\$EVENT_NAME                         | Altibase 서버의 대기 이벤트 정보                             |
 | V\$EXTPROC_AGENT                      | 외부 프로시저 실행을 위해 생성된 에이전트 프로세스(agent process)의 정보 |
 | V\$FILESTAT                           | 디스크의 데이터 파일별 I/O 통계 정보                         |
