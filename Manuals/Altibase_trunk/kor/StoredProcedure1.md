@@ -1,3 +1,66 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Stored Procedures Manual](#stored-procedures-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.저장 프로시저](#1%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
+    - [저장 프로시저의 개요](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9D%98-%EA%B0%9C%EC%9A%94)
+    - [저장 프로시저의 구조](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9D%98-%EA%B5%AC%EC%A1%B0)
+    - [저장 프로시저 사용시 주의 사항](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98-%EC%82%AC%ED%95%AD)
+  - [2.저장 프로시저 SQL문](#2%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-sql%EB%AC%B8)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [CREATE PROCEDURE](#create-procedure)
+    - [ALTER PROCEDURE](#alter-procedure)
+    - [DROP PROCEDURE](#drop-procedure)
+    - [EXECUTE](#execute)
+    - [CREATE FUNCTION](#create-function)
+    - [ALTER FUNCTION](#alter-function)
+    - [DROP FUNCTION](#drop-function)
+  - [3.저장 프로시저 블록](#3%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B8%94%EB%A1%9D)
+    - [저장 프로시저 블록](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B8%94%EB%A1%9D)
+    - [지역 변수 선언](#%EC%A7%80%EC%97%AD-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8)
+    - [SELECT INTO](#select-into)
+    - [RETURNING INTO 절](#returning-into-%EC%A0%88)
+    - [할당문](#%ED%95%A0%EB%8B%B9%EB%AC%B8)
+    - [LABEL](#label)
+    - [PRINT](#print)
+    - [RETURN](#return)
+    - [INSERT 확장](#insert-%ED%99%95%EC%9E%A5)
+    - [UPDATE 확장](#update-%ED%99%95%EC%9E%A5)
+  - [4.흐름 제어](#4%ED%9D%90%EB%A6%84-%EC%A0%9C%EC%96%B4)
+    - [개요](#%EA%B0%9C%EC%9A%94-1)
+    - [IF](#if)
+    - [CASE](#case)
+    - [LOOP](#loop)
+    - [WHILE LOOP](#while-loop)
+    - [FOR LOOP](#for-loop)
+    - [EXIT](#exit)
+    - [CONTINUE](#continue)
+    - [GOTO](#goto)
+    - [NULL](#null)
+  - [5.커서](#5%EC%BB%A4%EC%84%9C)
+    - [커서의 개요](#%EC%BB%A4%EC%84%9C%EC%9D%98-%EA%B0%9C%EC%9A%94)
+    - [CURSOR](#cursor)
+    - [OPEN](#open)
+    - [FETCH](#fetch)
+    - [CLOSE](#close)
+    - [Cursor FOR LOOP](#cursor-for-loop)
+    - [커서 속성](#%EC%BB%A4%EC%84%9C-%EC%86%8D%EC%84%B1)
+  - [6.사용자 정의 타입](#6%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85)
+    - [개요](#%EA%B0%9C%EC%9A%94-2)
+    - [사용자 정의 타입의 정의](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85%EC%9D%98-%EC%A0%95%EC%9D%98)
+    - [Associative Array 관련 함수](#associative-array-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
+    - [RECORD 타입 변수 및 Associative Array변수의 사용](#record-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98-%EB%B0%8F-associative-array%EB%B3%80%EC%88%98%EC%9D%98-%EC%82%AC%EC%9A%A9)
+    - [REF CURSOR](#ref-cursor)
+  - [7.타입 세트](#7%ED%83%80%EC%9E%85-%EC%84%B8%ED%8A%B8)
+    - [개요](#%EA%B0%9C%EC%9A%94-3)
+    - [CREATE TYPESET](#create-typeset)
+    - [DROP TYPESET](#drop-typeset)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 - [Stored Procedures Manual](#stored-procedures-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
@@ -3211,6 +3274,184 @@ FUNC_PLUS_10(I1)
 ```
 
 
+
+### INSERT 확장
+
+#### 구문
+
+![insert_PSM](media/StoredProcedure/insert_PSM.gif)
+
+#### 기능
+
+INSERT 구문의 저장 프로시저 확장 기능이다.
+
+저장 프로시저 내에서 테이블 또는 특정 파티션에 새로운 레코드를 삽입할 때 레코드 타입 변수의 값을 삽입하는 구문이다.
+
+[SQL Reference INSERT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL3.md#insert)에서 single_table_insert절과 values_clause 절을 위에 정의한 구문으로 대체하여 확장기능을 실행할 수 있다.
+
+##### single_table_insert
+
+single_table_insert 절은 한 개의 레코드를 한 개의 테이블에 삽입하기 위해 사용된다.
+
+INSERT 확장 기능은 삽입할 칼럼 이름을 명시할 수 없으므로 주의해야 한다.
+
+##### record_name
+
+명시한 테이블에 삽입할 레코드 변수의 이름이다. RECORD 타입과 ROWTYPE 타입의 변수를 명시한다.
+
+레코드 변수의 칼럼의 개수와 테이블의 칼럼의 개수가 동일해야 한다. 또한 레코드 타입 내부에 정의한 칼럼은 명시한 테이블 칼럼의 타입과 순서대로 정확히 일치하거나 호환이 가능해야 한다. 만약 테이블의 칼럼에 NOT NULL 제약조건이 있으면 대응되는 레코드의 칼럼에 NULL 값을 사용할 수 없다.
+
+#### 예제
+
+##### 예제1
+
+프로시저에서 레코드 타입 변수 r1을 테이블 t1에 삽입하는 예제이다.
+
+```
+CREATE TABLE t1(
+    i1 INTEGER,
+    i2 INTEGER,
+    i3 INTEGER );
+
+CREATE OR REPLACE PROCEDURE proc1
+AS
+    r1 t1%ROWTYPE;
+BEGIN
+    FOR i IN 1 .. 5 LOOP
+        r1.i1 := i+10;
+        r1.i2 := i+20;
+        r1.i3 := i+30;
+        INSERT INTO t1 VALUES r1;
+    END LOOP;
+END;
+/
+
+iSQL> EXEC proc1();
+Execute success.
+iSQL> SELECT * FROM t1;
+I1          I2          I3          
+----------------------------------------
+11          21          31         
+12          22          32         
+13          23          33         
+14          24          34         
+15          25          35 
+5 rows selected.
+
+```
+
+##### 예제2
+
+ORDER 테이블의 행을 삭제할 때, 트리거 내부에서 OLD ROW 레코드 타입 변수의 값을  log_tbl 테이블에 삽입하는 예제이다.
+
+```
+CREATE TABLE log_tbl (
+  ONO            BIGINT,
+  ORDER_DATE     DATE, 
+  ENO            INTEGER,
+  CNO            BIGINT,
+  GNO            CHAR(10),
+  QTY            INTEGER,
+  ARRIVAL_DATE   DATE, 
+  PROCESSING     CHAR(1) );
+ 
+CREATE TRIGGER del_trigger
+AFTER DELETE ON orders
+REFERENCING OLD ROW old_row
+FOR EACH ROW
+AS BEGIN 
+INSERT INTO log_tbl VALUES old_row;
+END;
+/
+ 
+iSQL> DELETE FROM orders WHERE processing = 'D';
+2 rows deleted.
+ 
+iSQL> SELECT * FROM log_tbl;
+ONO                  ORDER_DATE   ENO         CNO                  
+------------------------------------------------------------------------
+GNO         QTY         ARRIVAL_DATE PROCESSING  
+------------------------------------------------------ 
+11290011             29-NOV-2011  12          17                  
+E111100001  1000        05-DEC-2011  D  
+11290100             29-NOV-2011  19          11                 
+E111100001  500         07-DEC-2011  D  
+2 rows selected.
+
+```
+
+
+
+### UPDATE 확장
+
+#### 구문
+
+![update_PSM](media/StoredProcedure/update_PSM.gif)
+
+#### 기능
+
+UPDATE 구문의 저장 프로시저 확장 기능이다.
+
+저장 프로시저 내에서 테이블 또는 특정 파티션의 레코드를 레코드 타입 변수의 값으로 변경하는 구문이다.
+
+[SQL Reference UPDATE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL3.md#update)에서 set_cluase_list 절을 위에 정의한 구문으로 대체하여 확장기능을 실행할 수 있다.
+
+##### record_name
+
+변경할 레코드 변수의 이름이다. RECORD 타입과 ROWTYPE 타입의 변수를 명시한다.
+
+레코드 변수의 칼럼의 개수와 명시한 테이블의 칼럼의 개수가 동일해야 한다. 또한 레코드 타입 내부에 정의한 칼럼은 명시한 테이블 칼럼의 타입과 순서대로 정확히 일치하거나 호환이 가능해야 한다. 만약 테이블의 칼럼에 NOT NULL 제약조건이 있으면 대응되는 레코드의 칼럼에 NULL 값을 사용할 수 없다.
+
+#### 예제
+
+##### 예제1
+
+programmer 직업을 가진 직원의 월급을 갱신하라. 프로시저 내부에서 레코드 타입 변수의 값을 삽입하는 예제이다.
+
+```
+CREATE OR REPLACE PROCEDURE proc1 as
+    TYPE TYPE_REC IS RECORD( eno INTEGER, SALARY NUMBER(10,2) );
+    TYPE TYPE_ARR IS TABLE OF TYPE_REC INDEX BY INTEGER;
+    emps TYPE_ARR;
+    idx  INTEGER;
+BEGIN
+    SELECT ENO, SALARY BULK COLLECT INTO emps FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
+ 
+    FOR idx IN emps.FIRST() .. emps.LAST() LOOP
+        emps[idx].SALARY := emps[idx].SALARY * 1.02;
+ 
+        UPDATE (SELECT ENO, SALARY FROM EMPLOYEES)
+            SET ROW = emps[idx]
+            WHERE ENO = emps[idx].eno;
+    END LOOP;
+END;
+/
+
+iSQL> SELECT * FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
+ENO         E_LASTNAME            E_FIRSTNAME           EMP_JOB          
+------------------------------------------------------------------------------
+EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS  
+-----------------------------------------------------------------------------------
+6           Momoi                 Ryu                   programmer       
+0197853222       1002        1700        M  790822  09-SEP-2010  H  
+10          Bae                   Elizabeth             programmer       
+0167452000       1003        4000        F  710213  05-JAN-2010  H  
+2 rows selected.
+iSQL> EXEC PROC1();
+Execute success.
+ 
+iSQL> SELECT * FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
+ENO         E_LASTNAME            E_FIRSTNAME           EMP_JOB          
+------------------------------------------------------------------------------
+EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS  
+-----------------------------------------------------------------------------------
+6           Momoi                 Ryu                   programmer       
+0197853222       1002        1734        M  790822  09-SEP-2010  H  
+10          Bae                   Elizabeth             programmer       
+0167452000       1003        4080        F  710213  05-JAN-2010  H  
+2 rows selected.
+
+```
 
 
 
