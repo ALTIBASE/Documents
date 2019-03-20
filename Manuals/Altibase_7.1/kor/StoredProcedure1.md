@@ -3212,6 +3212,181 @@ FUNC_PLUS_10(I1)
 
 
 
+### INSERT 확장
+
+#### 구문
+
+![insert_PSM](media/StoredProcedure/insert_PSM.gif)
+
+#### 기능
+
+INSERT 구문의 저장 프로시저 확장 기능이다.
+
+저장 프로시저 내에서 테이블 또는 특정 파티션에 새로운 레코드를 삽입할 때 레코드 타입 변수의 값을 삽입하는 구문이다.
+
+[SQL Reference INSERT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL3.md#insert)에서 single_table_insert절과 values_clause 절을 위에 정의한 구문으로 대체하여 확장기능을 실행할 수 있다.
+
+##### single_table_insert
+
+single_table_insert 절은 한개의 레코드를 삽입할 한개의 테이블에 삽입하기 위해 사용된다.
+
+INSERT 확장 기능은 삽입할 칼럼 이름을 명시할 수 없으므로 주의해야 한다.
+
+##### record_name
+
+명시한 테이블에 삽입할 레코드 변수의 이름이다. RECORD 타입과 ROWTYPE 타입의 변수를 명시한다.
+
+레코드 변수의 칼럼의 개수와 테이블의 칼럼의 개수가 동일해야 한다. 또한 레코드 타입 내부에 정의한 칼럼은 명시한 테이블 칼럼의 타입과 순서대로 정확히 일치하거나 호환이 가능해야 한다. 만약 테이블의 칼럼에 NOT NULL 제약조건이 있으면 대응되는 레코드의 칼럼에 NULL 값을 사용할 수 없습니다.
+
+#### 예제
+
+##### 예제1
+
+프로시저에서 레코드 타입 변수 r1을 테이블 t1에 삽입하는 예제이다.
+
+```
+CREATE TABLE t1(
+    i1 INTEGER,
+    i2 INTEGER,
+    i3 INTEGER );
+
+CREATE OR REPLACE PROCEDURE proc1
+AS
+    r1 t1%ROWTYPE;
+BEGIN
+    FOR i IN 1 .. 5 LOOP
+        r1.i1 := i+10;
+        r1.i2 := i+20;
+        r1.i3 := i+30;
+        INSERT INTO t1 VALUES r1;
+    END LOOP;
+END;
+/
+
+iSQL> EXEC proc1();
+Execute success.
+iSQL> SELECT * FROM t1;
+I1          I2          I3          
+----------------------------------------
+11          21          31         
+12          22          32         
+13          23          33         
+14          24          34         
+15          25          35 
+5 rows selected.
+```
+
+##### 예제2
+
+ORDER 테이블의 행을 삭제할 때, 트리거 내부에서 OLD ROW 레코드 타입 변수의 값을  log_tbl 테이블에 삽입하는 예제이다.
+
+```
+CREATE TABLE log_tbl (
+  ONO            BIGINT,
+  ORDER_DATE     DATE, 
+  ENO            INTEGER,
+  CNO            BIGINT,
+  GNO            CHAR(10),
+  QTY            INTEGER,
+  ARRIVAL_DATE   DATE, 
+  PROCESSING     CHAR(1) );
+ 
+CREATE TRIGGER del_trigger
+AFTER DELETE ON orders
+REFERENCING OLD ROW old_row
+FOR EACH ROW
+AS BEGIN 
+INSERT INTO log_tbl VALUES old_row;
+END;
+/
+ 
+iSQL> DELETE FROM orders WHERE processing = 'D';
+2 rows deleted.
+ 
+iSQL> SELECT * FROM log_tbl;
+ONO                  ORDER_DATE   ENO         CNO                  
+------------------------------------------------------------------------
+GNO         QTY         ARRIVAL_DATE PROCESSING  
+------------------------------------------------------ 
+11290011             29-NOV-2011  12          17                  
+E111100001  1000        05-DEC-2011  D  
+11290100             29-NOV-2011  19          11                 
+E111100001  500         07-DEC-2011  D  
+2 rows selected.
+```
+
+
+
+### UPDATE 확장
+
+#### 구문
+
+![update_PSM](media/StoredProcedure/update_PSM.gif)
+
+#### 기능
+
+UPDATE 구문의 저장 프로시저 확장 기능이다.
+
+저장 프로시저 내에서 테이블 또는 특정 파티션의 레코드를 레코드 타입 변수의 값으로 변경하는 구문이다.
+
+[SQL Reference UPDATE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL3.md#update)에서 set_cluase_list 절을 위에 정의한 구문으로 대체하여 확장기능을 실행할 수 있다.
+
+##### record_name
+
+변경할 레코드 변수의 이름이다. RECORD 타입과 ROWTYPE 타입의 변수를 명시한다.
+
+레코드 변수의 칼럼의 개수와 명시한 테이블의 칼럼의 개수가 동일해야 한다. 또한 레코드 타입 내부에 정의한 칼럼은 명시한 테이블 칼럼의 타입과 순서대로 정확히 일치하거나 호환이 가능해야 한다. 만약 테이블의 칼럼에 NOT NULL 제약조건이 있으면 대응되는 레코드의 칼럼에 NULL 값을 사용할 수 없습니다.
+
+#### 예제
+
+##### 예제1
+
+programmer 직업을 가진 직원의 월급을 갱신하라. 프로시저 내부에서 레코드 타입 변수의 값을 삽입하는 예제이다.
+
+```
+CREATE OR REPLACE PROCEDURE proc1 as
+    TYPE TYPE_REC IS RECORD( eno INTEGER, SALARY NUMBER(10,2) );
+    TYPE TYPE_ARR IS TABLE OF TYPE_REC INDEX BY INTEGER;
+    emps TYPE_ARR;
+    idx  INTEGER;
+BEGIN
+    SELECT ENO, SALARY BULK COLLECT INTO emps FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
+ 
+    FOR idx IN emps.FIRST() .. emps.LAST() LOOP
+        emps[idx].SALARY := emps[idx].SALARY * 1.02;
+ 
+        UPDATE (SELECT ENO, SALARY FROM EMPLOYEES)
+            SET ROW = emps[idx]
+            WHERE ENO = emps[idx].eno;
+    END LOOP;
+END;
+/
+
+iSQL> SELECT * FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
+ENO         E_LASTNAME            E_FIRSTNAME           EMP_JOB          
+------------------------------------------------------------------------------
+EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS  
+-----------------------------------------------------------------------------------
+6           Momoi                 Ryu                   programmer       
+0197853222       1002        1700        M  790822  09-SEP-2010  H  
+10          Bae                   Elizabeth             programmer       
+0167452000       1003        4000        F  710213  05-JAN-2010  H  
+2 rows selected.
+iSQL> EXEC PROC1();
+Execute success.
+ 
+iSQL> SELECT * FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
+ENO         E_LASTNAME            E_FIRSTNAME           EMP_JOB          
+------------------------------------------------------------------------------
+EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS  
+-----------------------------------------------------------------------------------
+6           Momoi                 Ryu                   programmer       
+0197853222       1002        1734        M  790822  09-SEP-2010  H  
+10          Bae                   Elizabeth             programmer       
+0167452000       1003        4080        F  710213  05-JAN-2010  H  
+2 rows selected.
+```
+
 
 
 4.흐름 제어
