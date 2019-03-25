@@ -1710,6 +1710,7 @@ PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 34, COST: 1.68 )
 | 중복 제거 처리 방법                  | [DISTINCT_HASH](#distinct_hash) [DISTINCT_SORT](#datafile_spec) |
 | 뷰 최적화 방법                       | [NO_PUSH_SELECT_VIEW](#no_push_select_view) [PUSH_SELECT_VIEW](#push_select_view) [PUSH_PRED](#push_pred) |
 | 단순 쿼리                            | [EXEC_FAST](#exec_fast) [NO_EXEC_FAST](#no_exec_fast)        |
+| 단순 필터                            | [SERIAL_FILTER](#serial_filter) [NO_SERIAL_FILTER](#no_serial_filter)        |
 | 그 외                                | [APPEND](#append) [DELAY](#delay) HIGH_PRECISION [KEEP_PLAN](#keep_plan) [NO DELAY](#no-delay) <br />[NO_PLAN_CACHE](#no_plan_cache) RESULT_CACHE TOP_RESULT_CACHE<br />[PLAN_CACHE_KEEP](#PLAN_CACHE_KEEP) |
 
 #### APPEND
@@ -1996,6 +1997,13 @@ NO_PLAN_CACHE는 생성된 플랜을 플랜 캐시에 저장하지 않도록 지
 
 ![no_push_select_view](media/SQL/no_push_select_view.gif)
 
+#### NO_SERIAL_FILTER
+
+SERIAL_EXECUTE_MODE 프로퍼티가 활성화된 상태에서 힌트가 명시되면,
+Serial Execute Mode 로 동작되지 않는다.
+
+![no_serial_filter](media/SQL/no_serial_filter.gif)
+
 #### NO_TRANSITIVE_PRED
 
 조건절 이행을 배제하는 힌트이다. 조건절 이행에 대해서는 "Performance Tuning
@@ -2086,6 +2094,13 @@ FROM절에 나열된 순서대로 조인하도록 지시하는 힌트이다.
 SET-INTERECT와 SET-DIFFERENCE 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
 ![set_bucket_count](media/SQL/set_bucket_count.gif)
+
+#### SERIAL_FILTER
+
+SERIAL_EXECUTE_MODE 프로퍼티가 비활성화된 상태에서 힌트가 명시되면,
+Serial Execute Mode 로 동작한다.
+
+![serial_filter](media/SQL/serial_filter.gif)
 
 #### SORT_AJ
 
