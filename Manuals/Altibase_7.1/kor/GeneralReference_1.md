@@ -4398,6 +4398,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>VARCHAR_DEFAULT_PRECISION</td>
           <td></td>
       </tr>
+      <tr>
+      	<td>SERIAL_EXECUTE_MODE</td>
+          <td></td>
+      </tr>
   </table>
 
 이 장에서는 각 프로퍼티를 다음과 같은 형식으로 설명하고 있다.
@@ -9511,3 +9515,29 @@ Unsigned Integer
 트랜잭션을 갱신할 때 발생하는 로그를 무한대로 사용할 수 있다. Altibase 운영 중
 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수
 있다.
+
+#### SERIAL_EXECUTE_MODE
+
+##### 데이타 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+이 프로퍼티는 SCAN PLAN내 FILTER를 최적하화여 FILTER 수행 성능을 향상시킨다. 이때 단순한 FILTER에 한하여 최적화하며, 최적화 여부는 PLAN TREE에서 확인할 수 있다.
+
+0: 최적화지 않음
+
+1: 최적화함
