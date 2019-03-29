@@ -52,7 +52,7 @@ SQL 함수는 크게 다음의 표처럼 분류된다.
 | ------------------------------- | :----------------------------------------------------------- |
 | 집계 함수 (Aggregate functions) | 질의의 결과를 그룹별로 하나의 결과를 반환하는 함수이다. 이 함수는 select_list, ORDER BY, HAVING 절에 올 수 있다. <br /><br />**집계 함수** AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, CUME_DIST, FIRST, GROUP_CONCAT, LAST, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, PERCENT_RANK, RANK, STATS_ONE_WAY_ANOVA, STDDEV, STDDEV_POP, STDDEV_SAMP, SUM, VARIANCE, VAR_POP, VAR_SAMP |
 | 윈도우 함수 (Window functions)  | 그룹을 기반으로 하여 집계 값을 계산한다. 그룹은 OVER 절 아래의 PARTITION BY 및 ROWS/RANGE 하위 절에 의해 정의된다. <br /><br />**집계(Aggregate) 윈도우 함수** AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, RATIO_TO_REPORT, STDDEV, SUM, VARIANCE, GROUP_CONCAT <br /><br />**순위(Ranking) 윈도우 함수** RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD,NTILE, FIRST, LAST <br /><br />**행 순서 관련 윈도우 함수** FIRST_VALUE, LAST_VALUE, NTH_VALUE |
-| 숫자 함수                       | 숫자 입력 값에 대한 작업을 수행하고 숫자 값을 반환한다. <br />ABS, ACOS, ASIN, ATAN, ATAN2, CEIL, COS, COSH, EXP, FLOOR, ISNUMERIC, LN, LOG, MOD, POWER, RAND, RANDOM, ROUND, SIGN, SIN, SINH, SQRT, TAN, TANH, TRUNC, BITAND, BITOR, BITXOR, BITNOT |
+| 숫자 함수                       | 숫자 입력 값에 대한 작업을 수행하고 숫자 값을 반환한다. <br />ABS, ACOS, ASIN, ATAN, ATAN2, CEIL, COS, COSH, EXP, FLOOR, ISNUMERIC, LN, LOG, MOD, NUMAND, NUMOR, NUMSHIFT, NUMXOR, POWER, RAND, RANDOM, ROUND, SIGN, SIN, SINH, SQRT, TAN, TANH, TRUNC, BITAND, BITOR, BITXOR, BITNOT |
 | 문자 함수                       | 문자열 입력 값에 대한 작업을 수행하고 문자열이나 숫자 값을 반환한다. <br /><br />**문자열 반환 함수** CHR, CHOSUNG, CONCAT, DIGITS, INITCAP, LOWER, LPAD, LTRIM, NCHR, PKCS7PAD16, PKCS7UNPAD16, RANDOM_STRING, REGEXP_COUNT, REGEXP_REPLACE, REPLICATE, REPLACE2, REVERSE_STR, RPAD, RTRIM, STUFF, SUBSTRB(SUBSTRING), TRANSLATE, TRIM, UPPER <br /><br />**숫자 값 반환 함수** ASCII, CHAR_LENGTH(CHARACTER_LENGTH,LENGTH), DIGEST,INSTR(POSITION, INSTRB), OCTET_LENGTH(LENGTHB), REGEXP_INSTR, REGEXP_SUBSTR, SIZEOF |
 | 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE |
 | 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, 날짜/시간, 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, TO_RAW, UNIX_TO_DATE |
@@ -2277,6 +2277,118 @@ iSQL> SELECT MOD(SUM(salary), MIN(salary)) Remainder FROM employees;
 REMAINDER   
 --------------
 223000      
+1 row selected.
+```
+
+
+
+#### NUMAND
+
+##### 구문
+
+```
+NUMAND (bigint_a, bigint_b)
+```
+
+
+
+##### 설명
+
+BIGINT 타입인 bigint_a와 bigint_a의 비트 AND 연산의 결과를 BIGINT 타입의 결과값으로 반환하는 함수이다.
+
+##### 예제
+
+\<질의\>
+
+```
+iSQL> SELECT NUMAND( 3, 5 ) FROM DUAL;
+NUMAND( 3, 5 )       
+-----------------------
+1                    
+1 row selected.
+```
+
+
+
+#### NUMOR
+
+##### 구문
+
+```
+NUMOR (bigint_a, bigint_b)
+```
+
+
+
+##### 설명
+
+BIGINT 타입인 bigint_a와 bigint_a의 비트 OR 연산의 결과를 BIGINT 타입의 결과값으로 반환하는 함수이다.
+
+##### 예제
+
+\<질의\>
+
+```
+iSQL> SELECT NUMOR( 3, 5 ) FROM DUAL;
+NUMOR( 3, 5 )       
+-----------------------
+7                    
+1 row selected.
+```
+
+
+
+#### NUMSHIFT
+
+##### 구문
+
+```
+NUMSHIFT (bigint, n)
+```
+
+
+
+##### 설명
+
+BIGINT 타입인 bigint에  비트 n 개 만큼 SHIFT한 결과를 BIGINT 타입의 결과값으로 반환하는 함수이다.
+
+##### 예제
+
+\<질의\>
+
+```
+iSQL> SELECT NUMSHIFT( 3, -5 ) FROM DUAL;
+NUMSHIFT( 3, -5 )       
+-----------------------
+96                    
+1 row selected.
+```
+
+
+
+#### NUMXOR
+
+##### 구문
+
+```
+NUMXOR (bigint_a, bigint_b)
+```
+
+
+
+##### 설명
+
+BIGINT 타입인 bigint_a와 bigint_a의 비트 XOR 연산의 결과를 BIGINT 타입의 결과값으로 반환하는 함수이다.
+
+##### 예제
+
+\<질의\>
+
+```
+iSQL> SELECT NUMXOR( 3, 5 ) FROM DUAL;
+NUMXOR( 3, 5 )       
+-----------------------
+6                    
 1 row selected.
 ```
 
