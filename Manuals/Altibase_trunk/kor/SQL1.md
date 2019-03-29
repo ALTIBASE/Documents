@@ -2912,7 +2912,7 @@ Alter success.
 
 **alter_queue ::=**
 
-![](media/SQL/eca0685373cfb5b742ff68bd70cbe8f3.png)
+![](media/SQL/alter_queue.gif)
 
 #### 설명
 
@@ -2922,6 +2922,10 @@ Alter success.
 
 큐가 위치하는 테이블스페이스에 데이터가 없는 빈 페이지들을 반환한다. 이 때,
 데이터가 실제로 옮겨지지는 않는다.
+
+*MSGID RESET*
+
+큐의 MSGID를 초기화한다.
 
 ### ALTER REPLICATION 
 
