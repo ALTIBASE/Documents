@@ -6975,7 +6975,7 @@ Altibase 프로퍼티 파일 내에 있는 몇 개의 프로퍼티를 사용 목
 -   RESULT_CACHE_ENABLE  
     Result Cache 기능을 사용 가능하도록 설정
 
--   RESULT_CACHE_MEMORY_MAXIUM  
+-   RESULT_CACHE_MEMORY_MAXIMUM  
     Result Cache나 Top Result Cache 기능에 의해 저장되는 메모리의 최대 크기
 
 -   TOP_RESULT_CACHE_MODE  
