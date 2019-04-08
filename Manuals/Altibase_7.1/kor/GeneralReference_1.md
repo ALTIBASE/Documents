@@ -3347,7 +3347,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>BOTH</td>
       </tr>
       <tr>
-      	<td>RESULT_CACHE_MEMORY_MAXIUM</td>
+      	<td>RESULT_CACHE_MEMORY_MAXIMUM</td>
           <td>SYSTEM</td>
       </tr>
       <tr>
