@@ -2802,12 +2802,10 @@ Database-Level Backup Completed [SUCCESS]
 완전 복구에 필요한 아카이브 로그 파일을 확인한다.
 
 ```
-iSQL(sysdba)> SELECT NAME, CREATE_LSN_LFGID,
-              CREATE_LSN_FILENO FROM V$DATAFILES;
+iSQL(sysdba)> SELECT NAME,  CREATE_LSN_LFGID,  CREATE_LSN_FILENO FROM V$DATAFILES;
 ---------------------------------------------------------
 …
-/altibase_home/dbs/abc.dbf
-0            18320
+/altibase_home/dbs/abc.dbf  0            18320
 ```
 
 가장 최근 삭제된 로그 파일을 확인하기 위해서는 유틸리티 ‘dumpla’를 이용하여
@@ -2923,7 +2921,7 @@ USER_DISK_TBS의 데이터 파일들을 백업하였다.
 
 ```
 iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE user_disk_tbs TO '/backup_dir’;
-iSQL(sysdba)>ALTER SYSTEM SWITCH LOGFILE;
+iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
 
 $ ls  /backup_dir
 USER_DISK_TBS01.dbf USER_DISK_TBS02.dbf 
@@ -2943,21 +2941,15 @@ CONTROL 구동 단계에서 USER_DISK_TBS 테이블스페이스의 데이터 파
 변경한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
-'/disk1/dbs/USER_DISK_TBS01.dbf' TO 
-'/disk2/dbs/USER_DISK_TBS01.dbf';
-iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
-'/disk1/dbs/USER_DISK_TBS02.dbf' TO 
-'/disk2/dbs/USER_DISK_TBS02.dbf';
+iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE  '/disk1/dbs/USER_DISK_TBS01.dbf' TO '/disk2/dbs/USER_DISK_TBS01.dbf';
+iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE  '/disk1/dbs/USER_DISK_TBS02.dbf' TO '/disk2/dbs/USER_DISK_TBS02.dbf';
 ```
 
 > Note: 이 작업 수행을 위해서 alter tablespace 명령을 사용할 수도 있다.
 >
 
 ```
-iSQL(sysdba)> ALTER TABLESPACE user_disk_tbs RENAME DATAFILE 
-'/disk1/dbs/USER_DISK_TBS02.dbf' TO 
-'/disk2/dbs/USER_DISK_TBS02.dbf';
+iSQL(sysdba)> ALTER TABLESPACE user_disk_tbs RENAME DATAFILE '/disk1/dbs/USER_DISK_TBS02.dbf' TO '/disk2/dbs/USER_DISK_TBS02.dbf';
 ```
 
 데이터 파일 경로가 정확히 변경되었는지 v\$datafile성능 뷰를 확인한다.
@@ -3063,8 +3055,7 @@ iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf'
 9. 불완전 매체 복구를 다음과 같이 수행한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE 
-UNTIL TIME ‘2007-09-18:14:30:00';
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME ‘2007-09-18:14:30:00';
 ```
 
 10. 불완전 매체 복구를 수행하였기 때문에 meta 구동 단계로 가면서 resetlogs옵션을
@@ -3236,6 +3227,7 @@ iSQL(sysdba)> ALTER DATABASE dbname SERVICE;
 
 ```
 iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
 ```
 
 ##### 복구 절차
@@ -3266,8 +3258,7 @@ iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ‘temp001.dbf’
 불완전 미디어 복구를 수행한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE 
-UNTIL TIME '2007-04-06:22:20:00';
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME '2007-04-06:22:20:00';
 ```
 
 불완전 미디어 복구를 수행하였기 때문에 meta 구동 단계로 가면서 resetlogs 옵션을
