@@ -4919,6 +4919,8 @@ dumptrc [-h |[-p file_path][-c [-s]]
 
 -   MISC : altibase_misc.log
 
+-   SD : altibase_sd.log
+
 만약 \$ALTIBASE_HOME/trc가 아닌 다른 경로에 있는 트레이스 로그 파일을 출력할
 때에는 '-p'를 사용하여 경로를 변경할 수 있다.
 
