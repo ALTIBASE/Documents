@@ -3037,7 +3037,8 @@ $ cp /backup_dir/loganchor* $ALTIBASE_HOME/logs
 5. 불완전 복구에 필요한 아카이브 로그 파일을 아래와 같이 확인한다.
 
 ```
-iSQL(sysdba)> select last_deleted_logfile from v$lfg; LAST_DELETED_LOGFILE 
+iSQL(sysdba)> select last_deleted_logfile from v$lfg; 
+LAST_DELETED_LOGFILE 
 -------------------------------------------------------------------------------        
 15021
 ```
