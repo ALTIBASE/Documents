@@ -3037,25 +3037,22 @@ $ cp /backup_dir/loganchor* $ALTIBASE_HOME/logs
 5. 불완전 복구에 필요한 아카이브 로그 파일을 아래와 같이 확인한다.
 
 ```
-iSQL(sysdba)> select last_deleted_logfile from v$lfg; LAST_DELETED_LOGFILE 
+iSQL(sysdba)> select last_deleted_logfile from v$lfg; 
+LAST_DELETED_LOGFILE 
 -------------------------------------------------------------------------------        
 15021
 ```
 
-6. \$ALTIBASE_HOME/trc 디렉토리에 생성되는 altibase_sm.log 파일에서 백업 완료
-   시 강제로 아카이브 처리된 파일을 확인한다.
+6. $ALTIBASE_HOME$/logs 에 있는 파일을 확인한다. 
 
 ```
-[2007/09/18 13:59:59] [Thread-6] [Level-9]
-Waiting logfile15341 to archive
+logfile15361  logfile15362  logfile15363  logfile15364  logfile15365
 ```
 
-7. 위 결과에 의해 logfile15021 다음 파일인 logfile15022부터 백업 완료
-   마무리 시 기록해 두었던 마지막 아카이브 로그파일인 logfile 15341까지
+7. 위 결과에 의해 logfile15021 다음 파일인 logfile15022부터 logs에 없는 logfile15360번 까지 
    모두 ARCHIVE_DIR 프로퍼티에 지정된 디렉토리 (혹은 백업 장치)로부터 LOG_DIR
    프로퍼티에 지정된 디렉토리에 복사한다. 불완전 매체 복구는 완전 복구와 달리
    로그 파일 중복이 불가피하게 허용된다.
-
 8. SYS_TBS_DISK_TEMP는 백업되지 않기 때문에 해당 파일을 만들어 준다.
 
 ```
