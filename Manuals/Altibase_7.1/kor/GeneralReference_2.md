@@ -3297,6 +3297,12 @@ Unsigned long
 병렬 동기화시 송신 쓰레드가 한번에 읽어서 처리할 수 있는 레코드의 최대 개수를
 지정한다.
 
+--> review-12580 내용을 보면 6.5.1부터 해당 프로퍼티는 sender에서는 페이지 단위로 처리되기 때문에, sender에서는 별 의미가 없고 receiver에서만 의미가 있는 것처럼 보입니다.
+그래서, 해당 설명의 내용이 변경된 기능에 적합하도록 수정되어야 할 것 같습니다.
+
+
+
+
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
 #### REPLICATION_TIMESTAMP_RESOLUTION
