@@ -1520,6 +1520,9 @@ OS 명령어인 “ulimit”으로 사용자 계정에 설정된 리소스 한�
 -   Open files (descriptor)  
     프로세스가 동시에 접근 가능한 파일 및 소켓의 최대 개수
 
+-   Stack size
+    최대 스택 사이즈
+
 -   Virtual memory  
     프로세스가 사용 가능한 가상 메모리의 최대 크기
 
@@ -1527,6 +1530,7 @@ OS 명령어인 “ulimit”으로 사용자 계정에 설정된 리소스 한�
 권장한다. 이 때 core file size는 unlimited로 설정하지 않도록 한다. 만일 Altibase
 서버가 비정상 종료하여 코어를 덤프할 경우 메모리 데이터베이스를 모두 core 파일로
 저장하기 때문에 unlimited로 설정하면 디스크 부족이 발생할 수 있다.
+Altibase 클라이언트 제품은 Stack size가 최소 70KB 이상이어야 한다.
 
 ### OS별 커널 파라미터 설정
 
