@@ -2853,7 +2853,7 @@ SQL_ERROR
 -   PWD  
     사용자 ID의 암호
 -   CONNTYPE  
-    연결 방법 (1 : TCP/IP, 2 : UNIX DOMAIN, 3 : IPC)
+    연결 방법 (1 : TCP/IP, 2 : UNIX DOMAIN, 3 : IPC, 6 : SSL, 7 : IPCDA, 8 : IB)
 -   PRIVILEGE  
     이 속성을 SYSDBA로 설정하면 sys 계정이 SYSDBA의 권한으로 Altibase 서버에
     접속이 가능하다. 연결방법(TCP/IP, UNIX DOMAIN 또는 IPC)에 상관 없이 SYSDBA
