@@ -19164,9 +19164,10 @@ call error.
 
 **0x71004 ( 462852) cmERR_ABORT_INVALID_OPERATION Invalid operation**
 
-**Cause:** Internal error.
+**Cause:** Client version is higher than Server version or internal error occurs while interpreting protocol.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Make sure Client version is same or lower than Server version or contact Altibase's Support Center
+               (http://support.altibase.com).
 
 **0x71005 ( 462853) cmERR_ABORT_INVALID_LINK_TYPE Invalid link type**
 
