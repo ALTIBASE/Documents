@@ -769,15 +769,8 @@ altibase.properties 파일 내의 프로퍼티 순이며 설정되지 않았을 
 
 Altibase를 클라이언트-서버 구조로 운영할 때, 사용자는 응용 시스템의 구성에
 적합한 클라이언트-서버 프로토콜을 선택하여 환경 변수를 설정할 수 있다.
-Altibase는 TCP/IP, IPC, IPCDA와 UNIX DOMAIN 소켓, SSL/TLS 프로토콜, 인피니밴드(Infiniband)를 제공한다.
+Altibase는 TCP/IP, IPC, IPCDA와 UNIX DOMAIN 소켓, SSL/TLS 프로토콜을 제공한다.
 Altibase 서버와 통신하기 위한 기본값은 TCP/IP 프로토콜이다.
-
-- TCP
-- UNIX
-- IPC
-- IPCDA
-- SSL
-- IB
 
 단, IPC 또는 IPCDA 프로토콜을 이용할 경우엔 Altibase 프로퍼티들 중에서 IPC
 채널과 관련된 프로퍼티들의 값(IPC_CHANNEL_COUNT 또는 IPCDA_CHANNEL_COUNT)도 함께

@@ -6574,11 +6574,6 @@ SELECT * FROM T1 WHERE EXISTS ( SELECT /*+HASH_SJ*/ * FROM T2  WHERE T2.a1 = T1.
     힌트는 쿼리의 direct/execute 수행뿐 아니라 prepare/execute 수행시에도 사용
     가능하다.
 
--   PLAN_CACHE_KEEP: Plan을 victim 선정 과정에서 제외시켜 Plan Cache내에
-    유지하도록 지시하는 힌트이다. 해당 힌트는 hardprepare 과정에서 적용된다.
-    그래서 사용자가 해당 plan을 unkeep으로 전환했을 때 softprepare가 발생해도
-    다시 keep 상태로 전환되지 않는다.
-
 -   RESULT_CACHE: 중간 결과를 캐시하기 위해 사용한다.
 
 -   TOP_RESULT_CACHE: 최종 결과를 캐시하기 위해 사용한다.
