@@ -3711,7 +3711,66 @@ Altibase Sharding 유틸리티의*Shard Manager*절을 참조한다.
 
 ## 4.Altibase Sharding 딕셔너리
 
-Altibase Sharding의 객체 및 시스템 정보를 제공하는 딕셔너리에 대해 설명한다.
+Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타와 단일
+샤드 노드의 샤딩 관련 시스템 프로세스 정보를 보여주는 성능 뷰(Performance View),
+그리고 전체 샤딩 시스템의 실시간 정보를 보여주는 샤드 성능 뷰(Shard Performance
+View)로 나뉘어진다.
+
+본 장은 샤드 데이터베이스 객체 정보 및 Altibase Sharding시스템 정보를 제공하는
+데이터 딕셔너리에 대해 설명한다.
+
+### 샤드 메타
+
+샤드 메타란 Altibase Sharding을 사용하는 전체 분산 데이터베이스에 생성된 객체에
+대한 모든 정보를 저장하고 있는 SYS_SHARD사용자의 시스템 정의 테이블이다.
+
+#### 구조 및 기능
+
+샤드 메타 테이블은 분산 데이터베이스 객체를 관리하기 위해 시스템에 의해 정의된
+테이블이다.
+
+Altibase Sharding은 분산 데이터베이스 질의를 처리하기 위해 샤드 객체 정보를
+조회하며 샤드 객체 및 노드 정보를 저장 및 변경할 때 샤드 메타 테이블을 사용한다.
+
+샤드 메타 테이블의 소유자는 일반 메타 테이블과는 달리 SYS_SHARD 사용자이며, 샤드
+메타에 대한 변경은 DBMS\_ SHARD 패키지를 이용해야 한다.
+
+#### 샤드 메타 테이블 조회
+
+DBMS_SHARD패키지를 이용하여 분산 데이터베이스 관련 정보를 등록, 삭제 및 변경 시
+샤드 메타 테이블의 레코드가 시스템에 의해 생성, 삭제 또는 변경된다.
+
+변경된 데이터베이스 객체 정보는 샤드 메타 테이블을 조회함으로써 확인할 수 있다.
+샤드 메타 테이블의 레코드는 일반 테이블과 같이 SELECT 문으로 조회가 가능하다.
+
+#### 샤드 메타 테이블 데이터 변경
+
+Altibase Sharding 시스템 사용자가 DBMS_SHARD 패키지 이외의 방법으로 샤드 메타 를
+변경하면 샤딩 시스템 구동이 실패하거나, 분산 데이터베이스 관련 정보를 상실하여
+시스템에 치명적인 손상이 발생할 수 있다.
+
+#### 샤드 메타 테이블 스키마 변경
+
+Altibase Sharding에 새로운 기능이 제공되거나 기존 구문의 기능 변경 시 샤드 메타
+테이블 스키마가 변경될 수 있다. 샤드 메타 테이블 스키마의 변경이 발생하면
+데이터베이스 마이그레이션이 필요하다.
+
+Altibase Sharding하위 버전에서 상위 버전으로 업그레이드 시 이를 고려해야 한다.
+
+#### 샤드 메타 테이블 종류
+
+다음 표는 샤드 메타 테이블의 목록이다.
+
+| **샤드 메타 테이블 이름** | **설명**                                                  |
+| ------------------------- | --------------------------------------------------------- |
+| **VERSION\_**             | Altibase Sharding의 버전을 기록하는 샤드 메타 테이블      |
+| **LOCAL_META_INFO\_**     | 지역 데이터베이스의 샤드 정보를 기록하는 샤드 메타 테이블 |
+| **GLOBAL_META_INFO\_**    | 샤드 메타 제어 정보를 기록하는 샤드 메타 테이블           |
+| **NODES\_**               | 샤드 노드 정보를 기록하는 샤드 메타 테이블                |
+| **OBJECTS\_**             | 샤드 객체 정보를 기록하는 샤드 메타 테이블                |
+| **RANGES\_**              | 샤드 키 분산 테이블 정보를 기록하는 샤드 메타 테이블      |
+| **CLONES\_**              | 복제 분산 테이블 정보를 기록하는 샤드 메타 테이블         |
+| **SOLOS\_**               | 독립 분산 테이블 정보를 기록하는 샤드 메타 테이블         |
 
 ### SYS_SHARD.VERSION\_
 
@@ -3737,44 +3796,118 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 
 패치 버전을 나타낸다.
 
+### SYS_SHARD.LOCAL_META_INFO\_
+
+지역 데이터베이스의 샤드 정보를 기록하는 메타 테이블이다.
+
+| Column name  | Type    | Description      |
+| ------------ | ------- | ---------------- |
+| META_NODE_ID | INTEGER | 샤드 메타 식별자 |
+
+#### 칼럼 정보
+
+##### META_NODE_ID
+
+지역 데이터베이스의 샤드 메타 식별자로 전체 샤딩 시스템에서 유일해야 한다.
+
+CREATE_META 프로시저를 통해 최초로 샤드 메타를 생성시에 입력해야하며
+RESET_META_NODE_ID로 변경 가능하다.
+
+### SYS_SHARD. GLOBAL_META_INFO\_
+
+샤드 메타 정보에 대한 내용을 기록하는 메타 테이블이다.
+
+| Column name | Type    | Description                                        |
+| ----------- | ------- | -------------------------------------------------- |
+| ID          | INTEGER | 이중화를 위한 주 키                                |
+| SMN         | BIGINT  | 샤드 메타가 가지고 있는 가장 최신의 샤드 메타 번호 |
+
+#### 칼럼 정보
+
+##### ID
+
+시스템 내부적으로 복제를 위해 사용되는 키 값
+
+##### SMN
+
+데이터베이스의 샤드 메타에서 유지하는 메타 정보중 가장 최신 메타에 대한 샤드
+메타 번호(Shard Meta Number)를 나타낸다.
+
 ### SYS_SHARD.NODES\_
 
-Altibase Sharding의 데이터 노드 정보를 기록하는 메타 테이블이다.
+Altibase Sharding의 샤드 노드 정보를 기록하는 메타 테이블이다.
 
-| Column name       | Type        | Description                          |
-| ----------------- | ----------- | ------------------------------------ |
-| NODE_ID           | INTEGER     | 데이터 노드 식별자                   |
-| NODE_NAME         | VARCHAR(40) | 데이터 노드 이름                     |
-| HOST_IP           | VARCHAR(64) | 데이터 노드 ip address               |
-| PORT_NO           | INTEGER     | 데이터 노드 port 번호                |
-| ALTERNATE_HOST_IP | VARCHAR(64) | 데이터 노드의 alternative ip address |
-| ALTERNATE_PORT_NO | INTEGER     | 데이터 노드의 alternative port 번호  |
+| Column name                | Type        | Description                                 |
+| -------------------------- | ----------- | ------------------------------------------- |
+| NODE_ID                    | INTEGER     | 샤드 노드의 지역 식별자                     |
+| NODE_NAME                  | VARCHAR(40) | 샤드 노드 이름                              |
+| HOST_IP                    | VARCHAR(64) | 샤드 노드 external ip address               |
+| PORT_NO                    | INTEGER     | 샤드 노드 external port 번호                |
+| ALTERNATE_HOST_IP          | VARCHAR(64) | 샤드 노드의 external alternative ip address |
+| ALTERNATE_PORT_NO          | INTEGER     | 샤드 노드의 external alternative port 번호  |
+| INTERNAL_HOST_IP           | VARCHAR(64) | 샤드 노드의 internal ip address             |
+| INTERNAL_PORT_NO           | INTEGER     | 샤드 노드의 internal port 번호              |
+| INTERNAL_ALTERNATE_HOST_IP | VARCHAR(64) | 샤드 노드의 internal alternative ip address |
+| INTERNAL_ALTERNATE_PORT_NO | INTEGER     | 샤드 노드의 internal alternative port 번호  |
+| INTERNAL_CONN_TYPE         | INTEGER     | 샤드 노드의 internal 연결 방식              |
+| SMN                        | BIGINT      | 샤드 메타 번호                              |
 
 #### 칼럼 정보
 
 ##### NODE_ID
 
-데이터 노드의 번호를 나타낸다.
+샤드 노드의 지역 식별자를 나타낸다.
 
 ##### NODE_NAME
 
-데이터 노드의 이름을 나타내며 데이터 노드의 이름은 유일해야 한다.
+샤드 노드의 이름을 나타내며 샤드 노드의 이름은 유일해야 한다.
 
 ##### HOST_IP
 
-데이터 노드의 ip address를 나타낸다.
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 ip address를
+나타낸다.
 
-##### PORT_IP
+##### PORT_NO
 
-데이터 노드의 port 번호를 나타낸다.
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를
+나타낸다.
 
 ##### ALTERNATE_HOST_IP
 
-데이터 노드의 alternate 서버 ip address를 나타낸다.
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버 ip
+address를 나타낸다.
 
 ##### ALTERNATE_PORT_IP
 
-데이터 노드의 alternate 서버 port 번호를 나타낸다.
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버
+port 번호를 나타낸다.
+
+##### INTERNAL_HOST_IP
+
+코디네이터가 연결할 샤드 노드의 ip address를 나타낸다.
+
+##### INTERNAL_PORT_NO
+
+코디네이터가 연결할 샤드 노드의 port 번호를 나타낸다.
+
+##### INTERNAL_ALTERNATE_HOST_IP
+
+코디네이터가 연결할 샤드 노드의 alternate 서버 ip address를 나타낸다.
+
+##### INTERNAL_ALTERNATE_PORT_NO
+
+코디네이터가 연결할 샤드 노드의 alternate 서버 port 번호를 나타낸다.
+
+##### INTERNAL_CONN_TYPE
+
+코디네이터가 연결할 샤드 노드의 연결 방식을 나타낸다.
+
+1: TCP  
+8: IB (Infiniband)
+
+##### SMN
+
+샤드 메타에 대한 버전 관리 번호를 나타낸다.
 
 ### SYS_SHARD.OBJECTS\_
 
@@ -3790,7 +3923,8 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 | KEY_COLUMN_NAME     | VARCHAR(128) | 샤드 키 이름                                                 |
 | SUB_SPLIT_METHOD    | CHAR(1)      | 서브 샤드 키 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) |
 | SUB_KEY_COLUMN_NAME | VARCHAR(128) | 서브 샤드 키 칼럼 이름                                       |
-| DEFAULT_NODE_ID     | INTEGER      | 기본 데이터 노드 번호                                        |
+| DEFAULT_NODE_ID     | INTEGER      | 기본 샤드 노드 번호                                          |
+| SMN                 | BIGINT       | 샤드 메타 번호                                               |
 
 #### 칼럼 정보
 
@@ -3828,19 +3962,25 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 
 ##### DEFAULT_NODE_ID
 
-샤드 객체의 기본 데이터 노드를 나타낸다. 분산 설정이 완전하지 않을 경우 설정
-기준 이외의 데이터가 저장되는 데이터 노드이다.
+샤드 객체의 기본 샤드 노드를 나타낸다. 분산 설정이 완전하지 않을 경우 설정 기준
+이외의 데이터가 저장되는 샤드 노드이다.
 
-### SYS_SHARD.RANGES\_ 
+##### SMN
 
-샤드 객체(HASH, RANGE, LIST, COMPOSITE)의 분산 정보를 기록하는 메타 테이블이다.
+샤드 메타에 대한 버전 관리 번호를 나타낸다.
+
+### SYS_SHARD.RANGES\_
+
+샤드 키 분산 테이블(HASH, RANGE, LIST, COMPOSITE)의 분산 정보를 기록하는 메타
+테이블이다.
 
 | Column name | Type         | Description      |
 | ----------- | ------------ | ---------------- |
 | SHARD_ID    | INTEGER      | 샤드 객체 식별자 |
 | VALUE       | VARCHAR(100) | 샤드 키 값       |
 | SUB_VALUE   | VARCHAR(100) | 서브 샤드 키 값  |
-| NODE_ID     | INTEGER      | 데이터 노드 번호 |
+| NODE_ID     | INTEGER      | 샤드 노드 번호   |
+| SMN         | BIGINT       | 샤드 메타 번호   |
 
 #### 칼럼 정보
 
@@ -3860,14 +4000,19 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 
 VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 나타낸다.
 
+##### SMN
+
+샤드 메타에 대한 버전 관리 번호를 나타낸다.
+
 ### SYS_SHARD.CLONES\_
 
 샤드 객체에 복제 분산 방식이 적용된 분산 정보를 기록하는 메타 테이블이다.
 
-| Column name | Type    | Description      |
-| ----------- | ------- | ---------------- |
-| SHARD_ID    | INTEGER | 샤드 객체 식별자 |
-| NODE_ID     | INTEGER | 데이터 노드 번호 |
+| Column name | Type    | Description             |
+| ----------- | ------- | ----------------------- |
+| SHARD_ID    | INTEGER | 샤드 객체 식별자        |
+| NODE_ID     | INTEGER | 샤드 노드의 지역 식별자 |
+| SMN         | BIGINT  | 샤드 메타 번호          |
 
 #### 칼럼 정보
 
@@ -3877,16 +4022,21 @@ VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 �
 
 ##### NODE_ID
 
-데이터가 복제 저장되는 데이터 노드 번호를 나타낸다.
+데이터가 복제 저장되는 샤드 노드의 지역 식별자 번호를 나타낸다.
+
+##### SMN
+
+샤드 메타에 대한 버전 관리 번호를 나타낸다.
 
 ### SYS_SHARD.SOLOS\_
 
-독립 분산 방식이 적용된 샤드 객체의 분산 정보를 기록하는 메타 테이블이다.
+샤드 객체에 독립 분산 방식이 적용된 샤드 테이블 정보를 기록하는 메타 테이블이다.
 
-| Column name | Type    | Description      |
-| ----------- | ------- | ---------------- |
-| SHARD_ID    | INTEGER | 샤드 객체 식별자 |
-| NODE_ID     | INTEGER | 데이터 노드 번호 |
+| Column name | Type    | Description             |
+| ----------- | ------- | ----------------------- |
+| SHARD_ID    | INTEGER | 샤드 객체 식별자        |
+| NODE_ID     | INTEGER | 샤드 노드의 지역 식별자 |
+| SMN         | BIGINT  | 샤드 메타 번호          |
 
 #### 칼럼 정보
 
@@ -3896,48 +4046,467 @@ VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 �
 
 ##### NODE_ID
 
-데이터가 독립 저장되는 데이터 노드 번호를 나타낸다.
+데이터가 독립 저장되는 샤드 노드의 지역 식별자 번호를 나타낸다.
+
+##### SMN
+
+샤드 메타에 대한 버전 관리 번호를 나타낸다.
+
+### 성능 뷰 (Performance View)
+
+성능 뷰 (performance view)란 메모리에 존재하는 구조이지만 일반 테이블 형태로
+제공되어 시스템 메모리, 프로세스 상태, 세션, 버퍼, 쓰레드 등에 대한 Altibase
+시스템 내부 정보를 사용자에게 제공하는 뷰이다.
+
+사용자가 테이블에 저장된 데이터를 검색하기 위하여 SQL을 사용하는 것처럼,
+Altibase 운용 시 사용되는 메모리 객체 (예. 세션 정보, 로그 정보)에 관한 정보를
+SQL문을 이용하여 성능 뷰로부터 쉽게 검색할 수 있다.
+
+이 절에서는 Altibase Sharding과 연관된 성능 뷰의 종류, 구조 및 기능, 그리고 각
+뷰에서 제공하는 정보에 대해 설명한다.
+
+#### 구조 및 기능
+
+Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 프로세스에 대한
+정보를 의미하며 현재 접속된 시스템에 대한 정보를 보여준다.
+
+Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다양한 실행 정보를 얻을
+수 있다. 자세한 내용은 *General Reference*를 참고한다.
+
+기존의 성능 뷰 이외에 Altibase Sharding만을 위한 성능 뷰가 제공되고 있으며 해당
+성능 뷰는 샤딩 시스템으로 운영 중에만 의미가 있다.
+
+#### 성능 뷰의 종류
+
+샤딩 시스템에서 제공하는 성능 뷰의 이름은 Altibase와 동일하게 V\$로 시작한다.
+아래 표는 샤딩 시스템 관련 성능 뷰의 목록이다.
+
+| **이름**                 | **설명**                                              |
+| ------------------------ | ----------------------------------------------------- |
+| V\$SHARD_CONNECTION_INFO | 현재 세션에서의 코디네이터 연결 접속 상태에 대한 정보 |
 
 ### V\$SHARD_CONNECTION_INFO
 
-샤드 코디네이터로써 현재 세션에서의 메타 노드와 데이터 노드의 연결 상태에 대한
-정보를 보여주는 메타 테이블이다.
+샤드 코디네이터로써 현재 세션에서의 코디네이터 연결 접속 상태에 대한 정보를
+보여주는 성능 뷰 이다.
 
 | Column name     | Type        | Description                                        |
 | --------------- | ----------- | -------------------------------------------------- |
-| NODE_ID         | INTEGER     | 데이터 노드 식별자                                 |
-| NODE_NAME       | VARCHAR(40) | 데이터 노드 이름                                   |
+| NODE_ID         | INTEGER     | 샤드 노드의 지역 식별자                            |
+| NODE_NAME       | VARCHAR(40) | 샤드 노드 이름                                     |
 | COMM_NAME       | VARCHAR(64) | 접속 정보                                          |
 | AUTOCOMMIT_FLAG | INTEGER     | autocommit 플래그 0: non-autocommit 1: auto commit |
 | TOUCH_COUNT     | INTEGER     | 현재 트랜잭션의 DML 발생 횟수                      |
-| LINK_FAILURE    | INTEGER     | 데이터 노드의 연결 상태 0: 정상 1: 실패            |
+| LINK_FAILURE    | INTEGER     | 샤드 노드의 연결 상태 0: 정상 1: 실패              |
 
 #### 칼럼 정보
 
 ##### NODE_ID
 
-데이터 노드의 고유 번호를 나타낸다.
+연결된 샤드 노드의 지역 식별자를 나타낸다.
 
 ##### NODE_NAME
 
-데이터 노드의 이름을 나타낸다.
+연결된 샤드 노드의 이름을 나타낸다.
 
 ##### COMM_NAME
 
-메타 노드와 데이터 노드간의 현재 접속 상태를 나타낸다.
+샤드 노드와의 현재 접속 상태를 나타낸다.
 
 ##### AUTOCOMMIT_FLAG
 
-메타 노드와 데이터 노드간의 연결된 세션에서 autocommit 여부를 나타낸다.
+샤드 노드와 연결된 세션에서 autocommit 여부를 나타낸다.
 
 ##### TOUCH_COUNT
 
-메타 노드와 데이터 노드간의 연결된 세션 중 현재 트랜잭션에서 발생한 DML 횟수를
-나타낸다.
+샤드 노드와의 연결된 세션 중 현재 트랜잭션에서 발생한 DML 횟수를 나타낸다.
 
 ##### LINK_FAILURE
 
-조회 시점의 메타 노드와 데이터 노드간의 연결 상태를 나타낸다.
+조회 시점의 샤드 노드와의 연결 상태를 나타낸다.
+
+### 샤드 성능 뷰 (Shard Performance View)
+
+Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한
+내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
+
+이 절에서는 Altibase Sharding이 지원하는 샤드 성능 뷰의 구조 및 기능, 종류, 조회
+방법, 그리고 각 뷰에서 제공하는 정보에 대해 설명한다.
+
+#### 구조 및 기능
+
+기존의 성능 뷰와 다르게 샤드 성능 뷰는 전체 샤딩 시스템과 연관된 정보를 한눈에
+볼 수 있도록 제공한다.
+
+예를들어, 사용자는 전체 샤딩 시스템의 프로퍼티 설정을 보기 위해서 각 노드에 접속
+후 해당 노드의 성능 뷰를 모두 검색해 볼 수 있다. 그러나, 이와 같은 방법으로 전체
+샤딩 시스템의 프로퍼티를 검색하는 것은 샤드 노드가 늘어남에 따라 사용자의 불편을
+증가시킨다.
+
+그러므로, 전체 샤드 시스템의 프로퍼티를 검색하기 위해서 특정 샤드 노드에
+접속해서 샤드 성능 뷰를 통해 서비스 중인 샤드 노드의 프로퍼티를 검색할 수 있다.
+
+이와 같이 사용자는 샤드 성능 뷰를 통해 편리하게 전체 시스템을 모니터링 할 수
+있다.
+
+#### 샤드 성능 뷰의 조회 방법
+
+샤드 성능 뷰의 전체 목록은 iSQL에서 다음과 같이 조회할 수 있다.
+
+iSQL\> SELECT \* FROM S\$TAB;
+
+샤드 성능 뷰의 스키마는 일반 테이블과 마찬가지로 iSQL 에서 DESC 명령어를 통해
+확인할 수 있고, 데이터는 일반 테이블과 동일하게 SELECT문을 이용하여 검색할 수
+있다.
+
+#### 샤드 성능 뷰의 종류
+
+샤드 성능 뷰의 이름은 S\$로 시작한다. 아래 표는 전체 샤드 성능 뷰의 목록이다.
+
+| **이름**           | **설명**                                                     |
+| ------------------ | ------------------------------------------------------------ |
+| S\$CONNECTION_INFO | 현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보 |
+| S\$PROPERTY        | 샤딩 시스템의 모든 샤드 노드에 설정된 시스템 프로퍼티 정보   |
+| S\$SESSION         | 현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션 정보    |
+| S\$STATEMENT       | 현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보 |
+
+### S\$SHARD_CONNECTION_INFO
+
+현재 세션에서 코디네이터가 연결한 접속 상태에 대한 정보를 보여주는 성능 뷰 이다.
+
+| Column name     | Type        | Description                                        |
+| --------------- | ----------- | -------------------------------------------------- |
+| NODE_ID         | INTEGER     | 샤드 노드의 지역 식별자                            |
+| NODE_NAME       | VARCHAR(40) | 샤드 노드 이름                                     |
+| COMM_NAME       | VARCHAR(64) | 접속 정보                                          |
+| AUTOCOMMIT_FLAG | INTEGER     | autocommit 플래그 0: non-autocommit 1: auto commit |
+| TOUCH_COUNT     | INTEGER     | 현재 트랜잭션의 DML 발생 횟수                      |
+| LINK_FAILURE    | INTEGER     | 샤드 노드의 연결 상태 0: 정상 1: 실패              |
+
+#### 칼럼 정보
+
+##### NODE_ID
+
+연결된 샤드 노드의 지역 식별자를 나타낸다.
+
+##### NODE_NAME
+
+연결된 샤드 노드의 이름을 나타낸다.
+
+##### COMM_NAME
+
+샤드 노드와의 현재 접속 상태를 나타낸다.
+
+##### AUTOCOMMIT_FLAG
+
+샤드 노드와 연결된 세션에서 autocommit 여부를 나타낸다.
+
+##### TOUCH_COUNT
+
+샤드 노드와의 연결된 세션 중 현재 트랜잭션에서 발생한 DML 횟수를 나타낸다.
+
+##### LINK_FAILURE
+
+조회 시점의 샤드 노드와의 연결 상태를 나타낸다.
+
+### S\$PROPERTY
+
+샤딩 시스템의 각 노드에 설정된 시스템 프로퍼티의 정보를 보여준다.
+
+| Column name   | Type         | Description                                |
+| ------------- | ------------ | ------------------------------------------ |
+| NAME          | VARCHAR(256) | 프로퍼티의 이름                            |
+| STOREDCOUNT   | INTEGER      | 현재 접속한 노드의 V\$PROPERTY.STOREDCOUNT |
+| ATTR          | BIGINT       | 현재 접속한 노드의 V\$PROPERTY.ATTR        |
+| MIN           | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.MIN         |
+| MAX           | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.MAX         |
+| VALUE1        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE1      |
+| VALUE2        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE2      |
+| VALUE3        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE3      |
+| VALUE4        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE4      |
+| VALUE5        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE5      |
+| VALUE6        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE6      |
+| VALUE7        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE7      |
+| VALUE8        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE8      |
+| NODE_NAME     | VARCHAR(40)  | 샤드 노드의 이름                           |
+| D_STOREDCOUNT | INTEGER      | 샤드 노드의 V\$PROPERTY.STOREDCOUNT        |
+| D_ATTR        | BIGINT       | 샤드 노드의 V\$PROPERTY.ATTR               |
+| D_MIN         | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.MIN                |
+| D_MAX         | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.MAX                |
+| D_VALUE1      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE1             |
+| D_VALUE2      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE2             |
+| D_VALUE3      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE3             |
+| D_VALUE4      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE4             |
+| D_VALUE5      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE5             |
+| D_VALUE6      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE6             |
+| D_VALUE7      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE7             |
+| D_VALUE8      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE8             |
+
+#### 칼럼 정보
+
+##### NAME
+
+해당 프로퍼티의 이름을 나타낸다.
+
+##### NODE_NAME
+
+노드의 이름을 나타낸다.
+
+##### 그 외 컬럼
+
+위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$PROPERTY 의 칼럼 정보를
+참고한다.
+
+### S\$SESSION
+
+현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션에 대한 정보를 보여준다.
+
+| Column name                          | Type         | Description                                                  |
+| ------------------------------------ | ------------ | ------------------------------------------------------------ |
+| ID                                   | VARCHAR(20)  | 샤드 세션 식별자                                             |
+| SESSION_ID                           | BIGINT       | 현재 접속 노드의 V\$SESSION.ID                               |
+| SHARD_CLIENT                         | VARCHAR(1)   | 현재 접속 노드의 세션에 대한 샤드 클라이언트 라이브러리 사용 유무 |
+| TRANS_ID                             | BIGINT       | 현재 접속 노드의 V\$SESSION.TRANS_ID                         |
+| TASK_STATE                           | VARCHAR(11)  | 현재 접속 노드의 V\$SESSION.TASK_STATE                       |
+| COMM_NAME                            | VARCHAR(64)  | 현재 접속 노드의 V\$SESSION.COMM_NAME                        |
+| XA_SESSION_FLAG                      | INTEGER      | 현재 접속 노드의 V\$SESSION.XA_SESSION_FLAG                  |
+| XA_ASSOCIATE_FLAG                    | INTEGER      | 현재 접속 노드의 V\$SESSION.XA_ASSOCIATE_FLAG                |
+| QUERY_TIME_LIMIT                     | BIGINT       | 현재 접속 노드의 V\$SESSION.QUERY_TIME_LIMIT                 |
+| DDL_TIME_LIMIT                       | BIGINT       | 현재 접속 노드의 V\$SESSION.DDL_TIME_LIMIT                   |
+| FETCH_TIME_LIMIT                     | BIGINT       | 현재 접속 노드의 V\$SESSION.FETCH_TIME_LIMIT                 |
+| UTRANS_TIME_LIMIT                    | BIGINT       | 현재 접속 노드의 V\$SESSION.UTRANS_TIME_LIMIT                |
+| IDLE_TIME_LIMIT                      | BIGINT       | 현재 접속 노드의 V\$SESSION.IDLE_TIME_LIMIT                  |
+| IDLE_START_TIME                      | INTEGER      | 현재 접속 노드의 V\$SESSION.IDLE_START_TIME                  |
+| ACTIVE_FLAG                          | INTEGER      | 현재 접속 노드의 V\$SESSION.ACTIVE_FLAG                      |
+| OPENED_STMT_COUNT                    | INTEGER      | 현재 접속 노드의 V\$SESSION.OPENED_STMT_COUNT                |
+| CLIENT_PACKAGE_VERSION               | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_PACKAGE_VERSION           |
+| CLIENT_PROTOCOL_VERSION              | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_PROTOCOL_VERSION          |
+| CLIENT_PID                           | BIGINT       | 현재 접속 노드의 V\$SESSION.CLIENT_PID                       |
+| CLIENT_TYPE                          | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_TYPE                      |
+| CLIENT_APP_INFO                      | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.CLIENT_APP_INFO                  |
+| CLIENT_NLS                           | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_NLS                       |
+| DB_USERNAME                          | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.DB_USERNAME                      |
+| DB_USERID                            | INTEGER      | 현재 접속 노드의 V\$SESSION.DB_USERID                        |
+| DEFAULT_TBSID                        | BIGINT       | 현재 접속 노드의 V\$SESSION.DEFAULT_TBSID                    |
+| DEFAULT_TEMP_TBSID                   | BIGINT       | 현재 접속 노드의 V\$SESSION.DEFAULT_TEMP_TBSID               |
+| SYSDBA_FLAG                          | INTEGER      | 현재 접속 노드의 V\$SESSION.SYSDBA_FLAG                      |
+| AUTOCOMMIT_FLAG                      | INTEGER      | 현재 접속 노드의 V\$SESSION.AUTOCOMMIT_FLAG                  |
+| SESSION_STATE                        | VARCHAR(13)  | 현재 접속 노드의 V\$SESSION.SESSION_STATE                    |
+| ISOLATION_LEVEL                      | INTEGER      | 현재 접속 노드의 V\$SESSION.ISOLATION_LEVEL                  |
+| REPLICATION_MODE                     | INTEGER      | 현재 접속 노드의 V\$SESSION.REPLICATION_MODE                 |
+| TRANSACTION_MODE                     | INTEGER      | 현재 접속 노드의 V\$SESSION.TRANSACTION_MODE                 |
+| COMMIT_WRITE_WAIT_MODE               | INTEGER      | 현재 접속 노드의 V\$SESSION.COMMIT_WRITE_WAIT_MODE           |
+| OPTIMIZER_MODE                       | INTEGER      | 현재 접속 노드의 V\$SESSION.OPTIMIZER_MODE                   |
+| HEADER_DISPLAY_MODE                  | INTEGER      | 현재 접속 노드의 V\$SESSION.HEADER_DISPLAY_MODE              |
+| CURRENT_STMT_ID                      | INTEGER      | 현재 접속 노드의 V\$SESSION.CURRENT_STMT_ID                  |
+| STACK_SIZE                           | INTEGER      | 현재 접속 노드의 V\$SESSION.STACK_SIZE                       |
+| DEFAULT_DATE_FORMAT                  | VARCHAR(64)  | 현재 접속 노드의 V\$SESSION.DEFAULT_DATE_FORMAT              |
+| TRX_UPDATE_MAX_LOGSIZE               | BIGINT       | 현재 접속 노드의 V\$SESSION.TRX_UPDATE_MAX_LOGSIZE           |
+| PARALLEL_DML_MODE                    | INTEGER      | 현재 접속 노드의 V\$SESSION.PARALLEL_DML_MODE                |
+| LOGIN_TIME                           | INTEGER      | 현재 접속 노드의 V\$SESSION.LOGIN_TIME                       |
+| FAILOVER_SOURCE                      | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.FAILOVER_SOURCE                  |
+| NLS_TERRITORY                        | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.NLS_TERRITORY                    |
+| NLS_ISO_CURRENCY                     | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.NLS_ISO_CURRENCY                 |
+| NLS_CURRENCY                         | VARCHAR(10)  | 현재 접속 노드의 V\$SESSION.NLS_CURRENCY                     |
+| NLS_NUMERIC_CHARACTERS               | VARCHAR(2)   | 현재 접속 노드의 V\$SESSION.NLS_NUMERIC_CHARACTERS           |
+| TIME_ZONE                            | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.TIME_ZONE                        |
+| LOB_CACHE_THRESHOLD                  | INTEGER      | 현재 접속 노드의 V\$SESSION.LOB_CACHE_THRESHOLD              |
+| QUERY_REWRITE_ENABLE                 | VARCHAR(7)   | 현재 접속 노드의 V\$SESSION.QUERY_REWRITE_ENABLE             |
+| DBLINK_GLOBAL_TRANSACTION_LEVEL      | INTEGER      | 현재 접속 노드의 V\$SESSION.DBLINK_GLOBAL_TRANSACTION_LEVEL  |
+| DBLINK_REMOTE_STATEMENT_AUTOCOMMIT   | INTEGER      | 현재 접속 노드의 V\$SESSION.DBLINK_REMOTE_STATEMENT_AUTOCOMMIT |
+| MAX_STATEMENTS_PER_SESSION           | INTEGER      | 현재 접속 노드의 V\$SESSION.MAX_STATEMENTS_PER_SESSION       |
+| SSL_CIPHER                           | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.SSL_CIPHER                       |
+| SSL_CERTIFICATE_SUBJECT              | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.SSL_CERTIFICATE_SUBJECT          |
+| SSL_CERTIFICATE_ISSUER               | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.SSL_CERTIFICATE_ISSUER           |
+| MODULE                               | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.MODULE                           |
+| ACTION                               | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.ACTION                           |
+| REPLICATION_DDL_SYNC                 | INTEGER      | 현재 접속 노드의 V\$SESSION.REPLICATION_DDL_SYNC             |
+| REPLICATION_DDL_SYNC_TIMELIMIT       | BIGINT       | 현재 접속 노드의 V\$SESSION.REPLICATION_DDL_SYNC_TIMELIMIT   |
+| NODE_NAME                            | VARCHAR(40)  | 샤드 노드의 이름                                             |
+| D_SESSION_ID                         | BIGINT       | 샤드 노드의 V\$SESSION.ID                                    |
+| D_SHARD_CLIENT                       | VARCHAR(1)   | 샤드 노드의 세션에 대한 샤드 클라이언트 라이브러리 사용 유무 |
+| D_SESSION_TYPE                       | VARCHAR(1)   | 샤드 노드의 세션에 대한 샤드 커넥션 타입                     |
+| D_TRANS_ID                           | BIGINT       | 샤드 노드의 V\$SESSION.TRANS_ID                              |
+| D_TASK_STATE                         | VARCHAR(11)  | 샤드 노드의 V\$SESSION.TASK_STATE                            |
+| D_COMM_NAME                          | VARCHAR(64)  | 샤드 노드의 V\$SESSION.COMM_NAME                             |
+| D_XA_SESSION_FLAG                    | INTEGER      | 샤드 노드의 V\$SESSION.XA_SESSION_FLAG                       |
+| D_XA_ASSOCIATE_FLAG                  | INTEGER      | 샤드 노드의 V\$SESSION.XA_ASSOCIATE_FLAG                     |
+| D_QUERY_TIME_LIMIT                   | BIGINT       | 샤드 노드의 V\$SESSION.QUERY_TIME_LIMIT                      |
+| D_DDL_TIME_LIMIT                     | BIGINT       | 샤드 노드의 V\$SESSION.DDL_TIME_LIMIT                        |
+| D_FETCH_TIME_LIMIT                   | BIGINT       | 샤드 노드의 V\$SESSION.FETCH_TIME_LIMIT                      |
+| D_UTRANS_TIME_LIMIT                  | BIGINT       | 샤드 노드의 V\$SESSION.UTRANS_TIME_LIMIT                     |
+| D_IDLE_TIME_LIMIT                    | BIGINT       | 샤드 노드의 V\$SESSION.IDLE_TIME_LIMIT                       |
+| D_IDLE_START_TIME                    | INTEGER      | 샤드 노드의 V\$SESSION.IDLE_START_TIME                       |
+| D_ACTIVE_FLAG                        | INTEGER      | 샤드 노드의 V\$SESSION.ACTIVE_FLAG                           |
+| D_OPENED_STMT_COUNT                  | INTEGER      | 샤드 노드의 V\$SESSION.OPENED_STMT_COUNT                     |
+| D_CLIENT_PACKAGE_VERSION             | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_PACKAGE_VERSION                |
+| D_CLIENT_PROTOCOL_VERSION            | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_PROTOCOL_VERSION               |
+| D_CLIENT_PID                         | BIGINT       | 샤드 노드의 V\$SESSION.CLIENT_PID                            |
+| D_CLIENT_TYPE                        | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_TYPE                           |
+| D_CLIENT_APP_INFO                    | VARCHAR(128) | 샤드 노드의 V\$SESSION.CLIENT_APP_INFO                       |
+| D_CLIENT_NLS                         | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_NLS                            |
+| D_DB_USERNAME                        | VARCHAR(128) | 샤드 노드의 V\$SESSION.DB_USERNAME                           |
+| D_DB_USERID                          | INTEGER      | 샤드 노드의 V\$SESSION.DB_USERID                             |
+| D_DEFAULT_TBSID                      | BIGINT       | 샤드 노드의 V\$SESSION.DEFAULT_TBSID                         |
+| D_DEFAULT_TEMP_TBSID                 | BIGINT       | 샤드 노드의 V\$SESSION.DEFAULT_TEMP_TBSID                    |
+| D_SYSDBA_FLAG                        | INTEGER      | 샤드 노드의 V\$SESSION.SYSDBA_FLAG                           |
+| D_AUTOCOMMIT_FLAG                    | INTEGER      | 샤드 노드의 V\$SESSION.AUTOCOMMIT_FLAG                       |
+| D_SESSION_STATE                      | VARCHAR(13)  | 샤드 노드의 V\$SESSION.SESSION_STATE                         |
+| D_ISOLATION_LEVEL                    | INTEGER      | 샤드 노드의 V\$SESSION.ISOLATION_LEVEL                       |
+| D_REPLICATION_MODE                   | INTEGER      | 샤드 노드의 V\$SESSION.REPLICATION_MODE                      |
+| D_TRANSACTION_MODE                   | INTEGER      | 샤드 노드의 V\$SESSION.TRANSACTION_MODE                      |
+| D_COMMIT_WRITE_WAIT_MODE             | INTEGER      | 샤드 노드의 V\$SESSION.COMMIT_WRITE_WAIT_MODE                |
+| D_OPTIMIZER_MODE                     | INTEGER      | 샤드 노드의 V\$SESSION.OPTIMIZER_MODE                        |
+| D_HEADER_DISPLAY_MODE                | INTEGER      | 샤드 노드의 V\$SESSION.HEADER_DISPLAY_MODE                   |
+| D_CURRENT_STMT_ID                    | INTEGER      | 샤드 노드의 V\$SESSION.CURRENT_STMT_ID                       |
+| D_STACK_SIZE                         | INTEGER      | 샤드 노드의 V\$SESSION.STACK_SIZE                            |
+| D_DEFAULT_DATE_FORMAT                | VARCHAR(64)  | 샤드 노드의 V\$SESSION.DEFAULT_DATE_FORMAT                   |
+| D_TRX_UPDATE_MAX_LOGSIZE             | BIGINT       | 샤드 노드의 V\$SESSION.TRX_UPDATE_MAX_LOGSIZE                |
+| D_PARALLEL_DML_MODE                  | INTEGER      | 샤드 노드의 V\$SESSION.PARALLEL_DML_MODE                     |
+| D_LOGIN_TIME                         | INTEGER      | 샤드 노드의 V\$SESSION.LOGIN_TIME                            |
+| D_FAILOVER_SOURCE                    | VARCHAR(256) | 샤드 노드의 V\$SESSION.FAILOVER_SOURCE                       |
+| D_NLS_TERRITORY                      | VARCHAR(40)  | 샤드 노드의 V\$SESSION.NLS_TERRITORY                         |
+| D_NLS_ISO_CURRENCY                   | VARCHAR(40)  | 샤드 노드의 V\$SESSION.NLS_ISO_CURRENCY                      |
+| D_NLS_CURRENCY                       | VARCHAR(10)  | 샤드 노드의 V\$SESSION.NLS_CURRENCY                          |
+| D_NLS_NUMERIC_CHARACTERS             | VARCHAR(2)   | 샤드 노드의 V\$SESSION.NLS_NUMERIC_CHARACTERS                |
+| D_TIME_ZONE                          | VARCHAR(40)  | 샤드 노드의 V\$SESSION.TIME_ZONE                             |
+| D_LOB_CACHE_THRESHOLD                | INTEGER      | 샤드 노드의 V\$SESSION.LOB_CACHE_THRESHOLD                   |
+| D_QUERY_REWRITE_ENABLE               | VARCHAR(7)   | 샤드 노드의 V\$SESSION.QUERY_REWRITE_ENABLE                  |
+| D_DBLINK_GLOBAL_TRANSACTION_LEVEL    | INTEGER      | 샤드 노드의 V\$SESSION.DBLINK_GLOBAL_TRANSACTION_LEVEL       |
+| D_DBLINK_REMOTE_STATEMENT_AUTOCOMMIT | INTEGER      | 샤드 노드의 V\$SESSION.DBLINK_REMOTE_STATEMENT_AUTOCOMMIT    |
+| D_MAX_STATEMENTS_PER_SESSION         | INTEGER      | 샤드 노드의 V\$SESSION.MAX_STATEMENTS_PER_SESSION            |
+| D_SSL_CIPHER                         | VARCHAR(256) | 샤드 노드의 V\$SESSION.SSL_CIPHER                            |
+| D_SSL_CERTIFICATE_SUBJECT            | VARCHAR(256) | 샤드 노드의 V\$SESSION.SSL_CERTIFICATE_SUBJECT               |
+| D_SSL_CERTIFICATE_ISSUER             | VARCHAR(256) | 샤드 노드의 V\$SESSION.SSL_CERTIFICATE_ISSUER                |
+| D_MODULE                             | VARCHAR(128) | 샤드 노드의 V\$SESSION.MODULE                                |
+| D_ACTION                             | VARCHAR(128) | 샤드 노드의 V\$SESSION.ACTION                                |
+| D_REPLICATION_DDL_SYNC               | INTEGER      | 샤드 노드의 V\$SESSION.REPLICATION_DDL_SYNC                  |
+| D_REPLICATION_DDL_SYNC_TIMELIMIT     | BIGINT       | 샤드 노드의 V\$SESSION.REPLICATION_DDL_SYNC_TIMELIMIT        |
+
+#### 칼럼 정보
+
+##### ID
+
+샤드 세션을 구별하는 고유 식별자이다.
+
+##### SHARD_CLIENT
+
+현재 접속 노드의 세션에 대한 샤드 클라이언트 라이브러리의 사용 여부이다.
+
+##### NODE_NAME
+
+노드의 이름을 나타낸다.
+
+##### D_SHARD_CLIENT
+
+샤드 노드의 세션에 대한 샤드 클라이언트 라이브러리의 사용 여부이다.
+
+##### D_SESSION_TYPE
+
+샤드 노드의 세션에 대한 샤드 커넥션 유형이다.
+
+- 외부 커넥션일 경우 'E' (external connection)
+- 내부 커넥션일 경우 'I' (internal connection)
+
+##### 그 외 컬럼
+
+위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$SESSION 의 칼럼 정보를
+참고한다.
+
+### S\$STATEMENT
+
+현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션 별로 가장 최근 실행된
+구문에 대한 정보를 보여준다.
+
+| Column name               | Type           | Description                                        |
+| ------------------------- | -------------- | -------------------------------------------------- |
+| SHARD_SESSION_ID          | VARCHAR(20)    | 샤드 세션 식별자                                   |
+| NODE_NAME                 | VARCHAR(40)    | 샤드 노드의 이름                                   |
+| SESSION_ID                | INTEGER        | 샤드 노드의 V\$STATEMENT.SESSION_ID                |
+| SHARD_SESSION_TYPE        | VARCHAR(1)     | 샤드 노드의 세션에 대한 샤드 커넥션 타입           |
+| STATEMENT_ID              | INTEGER        | 샤드 노드의 V\$STATEMENT.ID                        |
+| QUERY_TYPE                | VARCHAR(1)     | 사용자 쿼리에 대한 샤드 쿼리 타입                  |
+| PARENT_ID                 | INTEGER        | 샤드 노드의 V\$STATEMENT.PARENT_ID                 |
+| CURSOR_TYPE               | INTEGER        | 샤드 노드의 V\$STATEMENT.CURSOR_TYPE               |
+| TX_ID                     | BIGINT         | 샤드 노드의 V\$STATEMENT.TX_ID                     |
+| QUERY                     | VARCHAR(12684) | 샤드 노드의 V\$STATEMENT.QUERY                     |
+| LAST_QUERY_START_TIME     | INTEGER        | 샤드 노드의 V\$STATEMENT.LAST_QUERY_START_TIME     |
+| QUERY_START_TIME          | INTEGER        | 샤드 노드의 V\$STATEMENT.QUERY_START_TIME          |
+| FETCH_START_TIME          | INTEGER        | 샤드 노드의 V\$STATEMENT.FETCH_START_TIME          |
+| EXECUTE_STATE             | VARCHAR(8)     | 샤드 노드의 V\$STATEMENT.EXECUTE_STATE             |
+| FETCH_STATE               | VARCHAR(12)    | 샤드 노드의 V\$STATEMENT.FETCH_STATE               |
+| ARRAY_FLAG                | INTEGER        | 노드의 V\$STATEMENT.ARRAY_FLAG                     |
+| ROW_NUMBER                | INTEGER        | 샤드 노드의 V\$STATEMENT.ROW_NUMBER                |
+| EXECUTE_FLAG              | INTEGER        | 샤드 노드의 V\$STATEMENT.EXECUTE_FLAG              |
+| BEGIN_FLAG                | INTEGER        | 샤드 노드의 V\$STATEMENT.BEGIN_FLAG                |
+| TOTAL_TIME                | BIGINT         | 샤드 노드의 V\$STATEMENT.TOTAL_TIME                |
+| PARSE_TIME                | BIGINT         | 샤드 노드의 V\$STATEMENT.PARSE_TIME                |
+| VALIDATE_TIME             | BIGINT         | 샤드 노드의 V\$STATEMENT.VALIDATE_TIME             |
+| OPTIMIZE_TIME             | BIGINT         | 샤드 노드의 V\$STATEMENT.OPTIMIZE_TIME             |
+| EXECUTE_TIME              | BIGINT         | 샤드 노드의 V\$STATEMENT.EXECUTE_TIME              |
+| FETCH_TIME                | BIGINT         | 샤드 노드의 V\$STATEMENT.FETCH_TIME                |
+| SOFT_PREPARE_TIME         | BIGINT         | 샤드 노드의 V\$STATEMENT.SOFT_PREPARE_TIME         |
+| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | 샤드 노드의 V\$STATEMENT.SQL_CACHE_TEXT_ID         |
+| SQL_CACHE_PCO_ID          | INTEGER        | 샤드 노드의 V\$STATEMENT.SQL_CACHE_PCO_ID          |
+| OPTIMIZER                 | BIGINT         | 샤드 노드의 V\$STATEMENT.OPTIMIZER                 |
+| COST                      | BIGINT         | 샤드 노드의 V\$STATEMENT.COST                      |
+| USED_MEMORY               | BIGINT         | 샤드 노드의 V\$STATEMENT.USED_MEMORY               |
+| READ_PAGE                 | BIGINT         | 샤드 노드의 V\$STATEMENT.READ_PAGE                 |
+| WRITE_PAGE                | BIGINT         | 샤드 노드의 V\$STATEMENT.WRITE_PAGE                |
+| GET_PAGE                  | BIGINT         | 샤드 노드의 V\$STATEMENT.GET_PAGE                  |
+| CREATE_PAGE               | BIGINT         | 샤드 노드의 V\$STATEMENT.CREATE_PAGE               |
+| UNDO_READ_PAGE            | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_READ_PAGE            |
+| UNDO_WRITE_PAGE           | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_WRITE_PAGE           |
+| UNDO_GET_PAGE             | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_GET_PAGE             |
+| UNDO_CREATE_PAGE          | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_CREATE_PAGE          |
+| MEM_CURSOR_FULL_SCAN      | BIGINT         | 샤드 노드의 V\$STATEMENT.MEM_CURSOR_FULL_SCAN      |
+| MEM_CURSOR_INDEX_SCAN     | BIGINT         | 샤드 노드의 V\$STATEMENT.MEM_CURSOR_INDEX_SCAN     |
+| DISK_CURSOR_FULL_SCAN     | BIGINT         | 샤드 노드의 V\$STATEMENT.DISK_CURSOR_FULL_SCAN     |
+| DISK_CURSOR_INDEX_SCAN    | BIGINT         | 샤드 노드의 V\$STATEMENT.DISK_CURSOR_INDEX_SCAN    |
+| EXECUTE_SUCCESS           | BIGINT         | 샤드 노드의 V\$STATEMENT.EXECUTE_SUCCESS           |
+| EXECUTE_FAILURE           | BIGINT         | 샤드 노드의 V\$STATEMENT.EXECUTE_FAILURE           |
+| FETCH_SUCCESS             | BIGINT         | 샤드 노드의 V\$STATEMENT.FETCH_SUCCESS             |
+| FETCH_FAILURE             | BIGINT         | 샤드 노드의 V\$STATEMENT.FETCH_FAILURE             |
+| PROCESS_ROW               | BIGINT         | 샤드 노드의 V\$STATEMENT.PROCESS_ROW               |
+| MEMORY_TABLE_ACCESS_COUNT | BIGINT         | 샤드 노드의 V\$STATEMENT.MEMORY_TABLE_ACCESS_COUNT |
+| SEQNUM                    | INTEGER        | 샤드 노드의 V\$STATEMENT.SEQNUM                    |
+| EVENT                     | VARCHAR(128)   | 샤드 노드의 V\$STATEMENT.EVENT                     |
+| P1                        | BIGINT         | 샤드 노드의 V\$STATEMENT.P1                        |
+| P2                        | BIGINT         | 샤드 노드의 V\$STATEMENT.P2                        |
+| P3                        | BIGINT         | 샤드 노드의 V\$STATEMENT.P3                        |
+| WAIT_TIME                 | BIGINT         | 샤드 노드의 V\$STATEMENT.WAIT_TIME                 |
+| SECOND_IN_TIME            | BIGINT         | 샤드 노드의 V\$STATEMENT.SECOND_IN_TIME            |
+| SIMPLE_QUERY              | INTEGER        | 샤드 노드의 V\$STATEMENT.SIMPLE_QUERY              |
+
+#### 칼럼 정보
+
+##### SHARD_SESSION_ID
+
+해당 구문이 속한 세션의 샤드 세션 식별자이다.
+
+##### NODE_NAME
+
+샤드 노드의 이름을 나타낸다.
+
+##### SHARD_SESSION_TYPE
+
+해당 구문이 속한 노드의 세션에 대한 샤드 커넥션 유형이다.
+
+##### QUERY_TYPE
+
+Altibase Sharding 관점으로 분류한 사용자 쿼리의 유형이다.
+
+- 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우 'S' (shard query)
+- 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우 'N' (non-shard
+  query)
+
+단, 데이터 노드에서 내부 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로
+'-' 로 표시된다..
+
+##### 그 외 컬럼
+
+위 항목을 제외한 모든 칼럼은 *General Reference*의 V\$STATEMENT의 칼럼 정보를
+참고한다.
 
 5.Altibase Sharding 패키지
 ------------------------
@@ -3950,58 +4519,100 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 
 아래의 표와 같이 DBMS_SHARD 패키지를 구성하는 프로시저와 함수를 제공한다.
 
-| 프로시저 및 함수              | 설명                                                                   |
-|-------------------------------|------------------------------------------------------------------------|
-| CREATE_META                   | 메타 노드에서 샤드 메타 테이블을 생성한다.                             |
-| EXECUTE_IMMEDIATE             | 데이터 노드로 ad-hoc 쿼리를 수행한다.                                  |
-| SET_NODE                      | 데이터 노드를 등록한다.                                                |
-| RESET_NODE                    | 데이터 노드 정보를 변경한다.                                           |
-| RESET_ALTERNATE_NODE          | 데이터 노드의 alternate 정보를 변경한다.                               |
-| SET_SHARD_TABLE               | 샤드 테이블을 등록한다.                                                |
-| SET_SHARD_TABLE_COMPOSITE     | 복합 샤드 키를 갖는 샤드 테이블을 등록한다.                            |
-| SET_SHARD_PROCEDURE           | 샤드 프로시저를 등록한다.                                              |
-| SET_SHARD_PROCEDURE_COMPOSITE | 복합 샤드 키를 갖는 샤드 프로시저를 등록한다.                          |
-| SET_SHARD_HASH                | HASH 방식의 분산정보를 등록한다.                                       |
-| SET_SHARD_RANGE               | RANGE 방식의 분산정보를 등록한다.                                      |
-| SET_SHARD_LIST                | LIST 방식의 분산정보를 등록한다.                                       |
-| SET_SHARD_CLONE               | CLONE 방식의 분산정보를 등록한다.                                      |
-| SET_SHARD_SOLO                | SOLO 방식의 분산정보를 등록한다.                                       |
-| SET_SHARD_COMPOSITE           | 복합 샤드 키 방식의 분산정보를 등록한다.                               |
-| CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                                  |
-| REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 데이터 노드의 데이터를 재분배한다. |
-| REBUILD_DATA_NODE             | 변경된 샤드 키 분산방식에 따라 특정 데이터 노드의 데이터를 재분배한다. |
-| UNSET_NODE                    | 데이터 노드를 해제한다.                                                |
-| UNSET_SHARD_TABLE             | 샤드 테이블을 해제한다.                                                |
-| UNSET_SHARD_TABLE_BY_ID       | shard_id로 샤드 테이블을 해제한다.                                     |
-| UNSET_SHARD_PROCEDURE         | 샤드 프로시저를 해제한다.                                              |
-| UNSET_SHARD_PROCEDURE_BY_ID   | shard_id로 샤드 프로시저를 해제한다.                                   |
+| 프로시저 및 함수              | 설명                                                         |
+| ----------------------------- | ------------------------------------------------------------ |
+| CREATE_META                   | 샤드 노드에서 샤드 메타 테이블을 생성한다.                   |
+| RESET_META_NODE_ID            | 현재 접속 노드 식별자를 변경한다.                            |
+| EXECUTE_IMMEDIATE             | 샤드 노드로 ad-hoc 쿼리를 수행한다.                          |
+| SET_NODE                      | 샤드 노드를 등록한다.                                        |
+| RESET_NODE_EXTERNAL           | 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드 접속 정보를 변경한다. |
+| RESET_NODE_INTERNAL           | 코디네이터가 연결할 샤드 노드 접속 정보를 변경한다.          |
+| SET_SHARD_TABLE               | 샤드 테이블을 등록한다.                                      |
+| SET_SHARD_TABLE_COMPOSITE     | 복합 샤드 키를 갖는 샤드 테이블을 등록한다.                  |
+| SET_SHARD_PROCEDURE           | 샤드 프로시저를 등록한다.                                    |
+| SET_SHARD_PROCEDURE_COMPOSITE | 복합 샤드 키를 갖는 샤드 프로시저를 등록한다.                |
+| SET_SHARD_HASH                | HASH 방식의 분산정보를 등록한다.                             |
+| SET_SHARD_RANGE               | RANGE 방식의 분산정보를 등록한다.                            |
+| SET_SHARD_LIST                | LIST 방식의 분산정보를 등록한다.                             |
+| SET_SHARD_CLONE               | CLONE 방식의 분산정보를 등록한다.                            |
+| SET_SHARD_SOLO                | SOLO 방식의 분산정보를 등록한다.                             |
+| SET_SHARD_COMPOSITE           | 복합 샤드 키 방식의 분산정보를 등록한다.                     |
+| CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                        |
+| REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 샤드 노드의 데이터를 재분배한다. |
+| REBUILD_DATA_NODE             | 변경된 샤드 키 분산방식에 따라 특정 샤드 노드의 데이터를 재분배한다. |
+| UNSET_NODE                    | 샤드 노드를 해제한다.                                        |
+| UNSET_SHARD_TABLE             | 샤드 테이블을 해제한다.                                      |
+| UNSET_SHARD_TABLE_BY_ID       | shard_id로 샤드 테이블을 해제한다.                           |
+| UNSET_SHARD_PROCEDURE         | 샤드 프로시저를 해제한다.                                    |
+| UNSET_SHARD_PROCEDURE_BY_ID   | shard_id로 샤드 프로시저를 해제한다.                         |
 
 #### CREATE_META
 
 ##### 구문
 
 ```
-CREATE_META()
+CREATE_META(meta_node_id in integer)
 ```
+
+##### 파라미터
+
+| 이름         | 입출력 | 데이터 타입 | 설명             |
+| ------------ | ------ | ----------- | ---------------- |
+| meta_node_id | IN     | INTEGER     | 샤드 메타 식별자 |
 
 ##### 설명
 
-메타 노드에서 샤드 메타 테이블을 생성한다.
+현재 접속 노드에서 샤드 메타 테이블을 생성한다.
 
-create_meta()를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과
+create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과
 인덱스, 시퀀스가 생성된다. 이후부터 Altibase Sharding 기능을 사용할 수 있다.
+
+meta_node_id 파라미터는 샤드 메타 식별자이며 DBMS_SHARD.RESET_META_NODE_ID 를
+통해서 변경 가능하다.
+
+meta_node_id는 전체 샤딩 시스템에서 유일한 값이어야 한다.
 
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.create_meta();
+iSQL> EXEC dbms_shard.create_meta(1);
 Execute success.
 ```
 
 > ##### 주의 사항
 >
-> -   메타 테이블을 삭제하면 샤딩을 사용할 수 없으므로 주의해야 한다.
+> - 메타 테이블을 삭제하면 샤딩을 사용할 수 없으므로 주의해야 한다.
+> - meta_node_id 값 범위: 0\~65535
+
+#### RESET_META_NODE_ID
+
+##### 구문
+
+```
+RESET_META_NODE_ID(meta_node_id in integer)
+```
+
+##### 파라미터
+
+| 이름         | 입출력 | 데이터 타입 | 설명             |
+| ------------ | ------ | ----------- | ---------------- |
+| meta_node_id | IN     | INTEGER     | 샤드 메타 식별자 |
+
+##### 설명
+
+샤드 메타 식별자를 변경한다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.reset_meta_node_id(1);
+Execute success.
+```
+
+> ##### 주의 사항
 >
+> - meta_node_id는 Altibase Sharding 시스템 내에서 구별 가능한 유일값이어야 한다.
+> - meta_node_id 값 범위: 0\~65535
 
 #### EXECUTE_IMMEDIATE
 
@@ -4015,15 +4626,15 @@ EXECUTE_IMMEDIATE(
 
 ##### 파라미터
 
-| 이름      | 입출력 | 데이터 타입    | 설명        |
-|-----------|--------|----------------|-------------|
-| query     | IN     | VARCHAR(65534) | 샤드 쿼리   |
-| node_name | IN     | VARCHAR(40)    | 데이터 노드 |
+| 이름      | 입출력 | 데이터 타입    | 설명      |
+| --------- | ------ | -------------- | --------- |
+| query     | IN     | VARCHAR(65534) | 샤드 쿼리 |
+| node_name | IN     | VARCHAR(40)    | 샤드 노드 |
 
 ##### 설명
 
-메타 노드에서 임의의 데이터 노드에 특정(ad-hoc) 쿼리를 수행한다. node_name을
-지정하지 않으면, 모든 데이터 노드에 수행한다.
+샤드 노드에서 임의의 샤드 노드에 특정(ad-hoc) 쿼리를 수행한다. node_name을
+지정하지 않으면, 모든 샤드 노드에 수행한다.
 
 ##### 예제
 
@@ -4047,17 +4658,18 @@ SET_NODE(
 
 ##### 파라미터
 
-| 이름              | 입출력 | 데이터 타입 | 설명                              |
-|-------------------|--------|-------------|-----------------------------------|
-| node_name         | IN     | VARCHAR(40) | 데이터 노드 이름                  |
-| host_ip           | IN     | VARCHAR(16) | 데이터 노드의 IP                  |
-| port_no           | IN     | INTEGER     | 데이터 노드의 PORT 번호           |
-| alternate_host_ip | IN     | VARCHAR(16) | 데이터 노드의 Alternate IP        |
-| alternate_port_no | IN     | INTEGER     | 데이터 노드의 Alternate PORT 번호 |
+| 이름              | 입출력 | 데이터 타입 | 설명                                                         |
+| ----------------- | ------ | ----------- | ------------------------------------------------------------ |
+| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                                               |
+| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                               |
+| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
+| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
+| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                              |
+| onn_type          | IN     | INTEGER     | 내부적으로 사용되는 코디네이터 연결 방식 1: TCP (기본값) 8: IB (Infiniband) |
 
 ##### 설명
 
-메타 노드에서 데이터 노드의 이름과 IP 및 PORT 정보와 Alternate IP 및 Alternate
+샤드 노드에서 샤드 노드의 이름과 IP 및 PORT 정보와 Alternate IP 및 Alternate
 Port를 설정한다.
 
 ##### 예제
@@ -4071,65 +4683,88 @@ iSQL> EXEC dbms_shard.set_node('node3','192.168.1.13',20300);
 Execute success.
 iSQL> EXEC dbms_shard.set_node('NODE3','192.168.1.23',11094,'192.168.1.24',11094);
 Execute success.
+iSQL> EXEC dbms_shard.set_node('node4', '192.168.1.30', 20300, '192.168.1.31',
+20400, 1);
+Execute success.
 ```
 
-#### RESET_ALTERNATE_NODE
+#### RESET_NODE_EXTERNAL
 
 ##### 구문
 
 ```
-RESET_ALTERNATE_NODE(node_name in varchar(40),
-                     host_ip   in varchar(16),
-                     port_no   in integer)
+RESET_NODE_EXTERNAL(node_name in varchar(40),
+                    host_ip   in varchar(16),
+                    port_no   in integer,
+                    alternate_host_ip in varchar(16),
+                    alternate_port_no in integer)
 ```
 
 ##### 파라미터
 
-| 이름      | 입출력 | 데이터 타입 | 설명                       |
-|-----------|--------|-------------|----------------------------|
-| node_name | IN     | VARCHAR(40) | 데이터 노드 이름           |
-| host_ip   | IN     | VARCHAR(16) | 데이터 노드의 Alternate IP |
-| port_no   | IN     | INTEGER     | 데이터 노드의 PORT 번호    |
+| 이름              | 입출력 | 데이터 타입 | 설명                            |
+| ----------------- | ------ | ----------- | ------------------------------- |
+| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                  |
+| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP        |
+| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호           |
+| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP        |
+| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호 |
 
 ##### 설명
 
-메타 노드에서 데이터 노드의 Alternate IP와 PORT정보를 변경하거나 삭제한다
+샤드 메타에 설정한 외부(샤드 라이브러리 연결) 연결 접속 정보를 변경한다.
+
+RESET_NODE_EXTERNAL 프로시저를 이용하여 샤드라이브러리와 샤드 노드 간 접속
+정보를 변경 할 수 있으며,  
+내부적으로 사용되는 코디네이터연결 접속 정보 변경을 위해서는 RESET_NODE_INTERNAL
+프로시저를 사용해야 한다.
 
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.reset_alternate_node('node3','192.168.1.24',11094);
-Execute success.
-iSQL> EXEC dbms_shard.reset_alternate_node('node3',NULL,NULL);
+iSQL> EXEC dbms_shard.reset_node_external('node1', '192.168.100.1', 20300,
+'192.168.100.2', 20300 );
 Execute success.
 ```
 
-#### RESET_NODE
+#### RESET_NODE_INTERNAL
 
 ##### 구문
 
 ```
-RESET_NODE(node_name in varchar(40),
-           host_ip   in varchar(16),
-           port_no   in integer)
+RESET_NODE_INTERNAL(node_name in varchar(40),
+                    host_ip   in varchar(16),
+                    port_no   in integer,
+                    alternate_host_ip in varchar(16),
+                    alternate_port_no in integer,
+                    conn_type in integer)
 ```
 
 ##### 파라미터
 
-| 이름      | 입출력 | 데이터 타입 | 설명                    |
-|-----------|--------|-------------|-------------------------|
-| node_name | IN     | VARCHAR(40) | 데이터 노드 이름        |
-| host_ip   | IN     | VARCHAR(16) | 데이터 노드의 IP        |
-| port_no   | IN     | INTEGER     | 데이터 노드의 PORT 번호 |
+| 이름              | 입출력 | 데이터 타입 | 설명                                                    |
+| ----------------- | ------ | ----------- | ------------------------------------------------------- |
+| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                                          |
+| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                          |
+| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                   |
+| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                |
+| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                         |
+| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식 1: TCP (기본값) 8: IB (Infiniband) |
 
 ##### 설명
 
-메타 노드에서 이전에 설정한 데이터 노드의 IP와 PORT 정보를 변경한다.
+샤드 메타에 설정한 내부(코디네이터 연결) 연결 접속 정보를 변경한다..
+
+RESET_NODE_INTERNAL 프로시저를 이용하여 코디네이터와 샤드 노드 간 접속 정보를
+변경 할 수 있으며,  
+샤드라이브러리에서 사용하는 외부 응용프로그램과 샤드 노드 간 접속 정보 변경을
+위해서는 RESET_NODE_EXTERNAL 프로시저를 사용해야 한다.
 
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.reset_node('node1','192.168.1.111', 20300);
+iSQL> EXEC dbms_shard.reset_node_external ('node1', '192.168.100.1', 20300,
+'192.168.100.2', 20300, 1);
 Execute success.
 ```
 
@@ -4148,20 +4783,20 @@ SET_SHARD_TABLE(
 
 ##### 파라미터
 
-| 이름              | 입출력 | 데이터 타입  | 설명                                                                                                  |
-|-------------------|--------|--------------|-------------------------------------------------------------------------------------------------------|
-| user_name         | IN     | VARCHAR(128) | 테이블 소유자의 이름                                                                                  |
-| table_name        | IN     | VARCHAR(128) | 테이블 이름                                                                                           |
+| 이름              | 입출력 | 데이터 타입  | 설명                                                         |
+| ----------------- | ------ | ------------ | ------------------------------------------------------------ |
+| user_name         | IN     | VARCHAR(128) | 테이블 소유자의 이름                                         |
+| table_name        | IN     | VARCHAR(128) | 테이블 이름                                                  |
 | split_method      | IN     | VARCHAR(1)   | 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 C: 복제 분산 방식 S: 독립 분산 방식 |
-| key_column_name   | IN     | VARCHAR(128) | 샤드 키 컬럼 이름                                                                                     |
-| default_node_name | IN     | VARCHAR(40)  | 기본 데이터 노드                                                                                      |
+| key_column_name   | IN     | VARCHAR(128) | 샤드 키 컬럼 이름                                            |
+| default_node_name | IN     | VARCHAR(40)  | 기본 샤드 노드                                               |
 
 **설명**
 
-메타 노드에 샤드 테이블 정보를 설정한다.
+샤드 노드에 샤드 테이블 정보를 설정한다.
 
-기본 데이터 노드란 샤드 키 분산 객체에 한해 분산 정보가 정의되지 않은 경우에
-선택되는 데이터 노드를 의미하며, 지정하지 않을 수도 있다. 기본 데이터 노드를
+기본 샤드 노드란 샤드 키 분산 객체에 한해 분산 정보가 정의되지 않은 경우에
+선택되는 샤드 노드를 의미하며, 지정하지 않을 수도 있다. 기본 샤드 노드를
 지정하지 않을 경우, 샤드 키 분산 정보에 맞지 않는 샤드 키 값이 입력되면, 처리할
 수 없으므로 에러가 발생한다.
 
@@ -4182,11 +4817,9 @@ Execute success.
 
 > ##### 주의사항
 >
-> -   샤드 테이블을 설정하기 위해서는 반드시 메타 노드와 데이터 노드에 동일한
->     테이블 스키마가 생성되어야 한다.
->
-> -   테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
->
+> - 샤드 테이블을 설정하기 위해서는 반드시 샤드 노드에 동일한 테이블 스키마가
+>   생성되어야 한다.
+> - 테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
 
 #### SET_SHARD_TABLE_COMPOSITE
 
@@ -4205,19 +4838,19 @@ SET_SHARD_TABLE_COMPOSITE(
 
 ##### 파라미터
 
-| 이름                | 입출력 | 데이터 타입  | 설명                                                                           |
-|---------------------|--------|--------------|--------------------------------------------------------------------------------|
-| user_name           | IN     | VARCHAR(128) | 테이블 소유자의 이름                                                           |
-| table_name          | IN     | VARCHAR(128) | 테이블 이름                                                                    |
-| split_method        | IN     | VARCHAR(1)   | 샤드 키 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식      |
-| key_column_name     | IN     | VARCHAR(128) | 샤드 키 컬럼 이름                                                              |
+| 이름                | 입출력 | 데이터 타입  | 설명                                                         |
+| ------------------- | ------ | ------------ | ------------------------------------------------------------ |
+| user_name           | IN     | VARCHAR(128) | 테이블 소유자의 이름                                         |
+| table_name          | IN     | VARCHAR(128) | 테이블 이름                                                  |
+| split_method        | IN     | VARCHAR(1)   | 샤드 키 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 |
+| key_column_name     | IN     | VARCHAR(128) | 샤드 키 컬럼 이름                                            |
 | sub_split_method    | IN     | VARCHAR(1)   | 서브 샤드 키 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 |
-| sub_key_column_name | IN     | VARCHAR(128) | 서브 샤드 키 컬럼 이름                                                         |
-| default_node_name   | IN     | VARCHAR(40)  | 기본 데이터 노드(default node)                                                 |
+| sub_key_column_name | IN     | VARCHAR(128) | 서브 샤드 키 컬럼 이름                                       |
+| default_node_name   | IN     | VARCHAR(40)  | 기본 샤드 노드(default node)                                 |
 
 **설명**
 
-메타 노드에서 복합 샤드 키를 적용하는 샤드 테이블의 정보를 설정한다.
+샤드 노드에서 복합 샤드 키를 적용하는 샤드 테이블의 정보를 설정한다.
 
 ##### 예제
 
@@ -4228,11 +4861,9 @@ Execute success.
 
 > ##### 주의사항
 >
-> -   복합 샤드키를 적용한 샤드 테이블 역시 메타 노드와 데이터 노드에 동일한
->     테이블 스키마가 생성되어야 한다.
->
-> -   테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
->
+> - 복합 샤드키를 적용한 샤드 테이블 역시 샤드 노드에 동일한 테이블 스키마가
+>   생성되어야 한다.
+> - 테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
 
 #### SET_SHARD_PROCEDURE
 
@@ -4250,17 +4881,17 @@ SET_SHARD_PROCEDURE(
 
 ##### 파라미터
 
-| 이름              | 입출력 | 데이터 타입  | 설명                                                                                                  |
-|-------------------|--------|--------------|-------------------------------------------------------------------------------------------------------|
-| user_name         | IN     | VARCHAR(128) | 프로시저 소유자의 이름                                                                                |
-| proc_name         | IN     | VARCHAR(128) | 프로시저 이름                                                                                         |
+| 이름              | 입출력 | 데이터 타입  | 설명                                                         |
+| ----------------- | ------ | ------------ | ------------------------------------------------------------ |
+| user_name         | IN     | VARCHAR(128) | 프로시저 소유자의 이름                                       |
+| proc_name         | IN     | VARCHAR(128) | 프로시저 이름                                                |
 | split_method      | IN     | VARCHAR(1)   | 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 C: 복제 분산 방식 S: 독립 분산 방식 |
-| key_param_name    | IN     | VARCHAR(128) | 샤드 키 파라미터 이름                                                                                 |
-| default_node_name | IN     | VARCHAR(40)  | 기본 데이터 노드                                                                                      |
+| key_param_name    | IN     | VARCHAR(128) | 샤드 키 파라미터 이름                                        |
+| default_node_name | IN     | VARCHAR(40)  | 기본 샤드 노드                                               |
 
 ##### 설명
 
-메타 노드에 샤드 프로시저의 정보를 설정한다.
+샤드 노드에 샤드 프로시저의 정보를 설정한다.
 
 Altibase Sharding 에서 지원하는 분산 방법의 종류는 샤드 테이블과 동일하다.
 
@@ -4281,11 +4912,9 @@ Execute success.
 
 > ##### 주의사항
 >
-> -   샤드 프로시저를 설정하기 위해서는 반드시 메타 노드와 데이터 노드에 동일한
->     프로시저가 생성되어야 한다.
->
-> -   프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
->
+> - 샤드 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한 프로시저가
+>   생성되어야 한다.
+> - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
 
 #### SET_SHARD_PROCEDURE_COMPOSITE
 
@@ -4304,19 +4933,19 @@ SET_SHARD_PROCEDURE_COMPOSITE(
 
 ##### 파라미터
 
-| 이름               | 입출력 | 데이터 타입  | 설명                                                                                    |
-|--------------------|--------|--------------|-----------------------------------------------------------------------------------------|
-| user_name          | IN     | VARCHAR(128) | 프로시저 소유자의 이름                                                                  |
-| proc_name          | IN     | VARCHAR(128) | 프로시저 이름                                                                           |
-| split_method       | IN     | VARCHAR(1)   | 샤드 키 파라미터 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식      |
-| key_param_name     | IN     | VARCHAR(128) | 샤드 키 파라미터 이름                                                                   |
+| 이름               | 입출력 | 데이터 타입  | 설명                                                         |
+| ------------------ | ------ | ------------ | ------------------------------------------------------------ |
+| user_name          | IN     | VARCHAR(128) | 프로시저 소유자의 이름                                       |
+| proc_name          | IN     | VARCHAR(128) | 프로시저 이름                                                |
+| split_method       | IN     | VARCHAR(1)   | 샤드 키 파라미터 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 |
+| key_param_name     | IN     | VARCHAR(128) | 샤드 키 파라미터 이름                                        |
 | sub_split_method   | IN     | VARCHAR(1)   | 서브 샤드 키 파라미터 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 |
-| sub_key_param_name | IN     | VARCHAR(128) | 서브 샤드 키 파라미터 이름                                                              |
-| default_node_name  | IN     | VARCHAR(40)  | 기본 데이터 노드(default node)                                                          |
+| sub_key_param_name | IN     | VARCHAR(128) | 서브 샤드 키 파라미터 이름                                   |
+| default_node_name  | IN     | VARCHAR(40)  | 기본 샤드 노드(default node)                                 |
 
 ##### 설명
 
-메타 노드에 복합 샤드 키를 적용하는 샤드 프로시저의 정보를 설정한다.
+샤드 노드에 복합 샤드 키를 적용하는 샤드 프로시저의 정보를 설정한다.
 
 Altibase Sharding에서 지원하는 분산 방법의 종류는 샤드 테이블과 동일하다.
 
@@ -4329,11 +4958,9 @@ Execute success.
 
 > ##### 주의사항
 >
-> -   복합 샤드 키 프로시저를 설정하기 위해서는 반드시 메타 노드와 데이터 노드에
->     동일한 프로시저가 생성되어야 한다.
->
-> -   프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
->
+> - 복합 샤드 키 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한
+>   프로시저가 생성되어야 한다.
+> - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
 
 #### SET_SHARD_HASH
 
@@ -4348,36 +4975,38 @@ SET_SHARD_HASH(    user_name in varchar(128),
 
 ##### 파라미터
 
-| 이름        | 입출력 | 데이터 타입  | 설명                         |
-|-------------|--------|--------------|------------------------------|
-| user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름           |
-| object_name | IN     | VARCHAR(128) | 객체 이름                    |
-| hash_max    | IN     | INTEGER      | 해시 분산의 샤드 키의 최대값 |
-| node_name   | IN     | VARCHAR(40)  | 기본 데이터 노드             |
+| 이름        | 입출력 | 데이터 타입  | 설명                                        |
+| ----------- | ------ | ------------ | ------------------------------------------- |
+| user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름                          |
+| object_name | IN     | VARCHAR(128) | 객체 이름                                   |
+| hash_max    | IN     | INTEGER      | 해시 분산의 상한값 [1-1000] (non-inclusive) |
+| node_name   | IN     | VARCHAR(40)  | 기본 샤드노드                               |
 
 ##### 설명
 
-메타 노드에 해시 방식으로 분산되는 샤드 객체의 정보를 설정한다. 해시 값은 [ 1 \~
-1000 ]으로 정의한다.
+샤드 노드에 해시 방식으로 분산되는 샤드 객체의 정보를 설정한다. 지정 가능한 해시
+상한값은 [ 1 \~ 1000 ]으로 정의한다.
 
-구간별로 데이터 노드를 적절하게 지정해야 하며, 만약 지정하지 않을 경우 기본
-데이터 노드로 데이터가 분산된다.
+실제 샤드 키에 대한 해시 값은 [ 0 \~ 999 ]이다.
+
+구간별로 샤드 노드를 적절하게 지정해야 하며, 만약 지정하지 않을 경우 기본 샤드
+노드로 데이터가 분산된다.
 
 ##### 예제
 
 \<질의\> sys.t1 테이블에 샤드 키의 hash 값에 따라 데이터가 다음과 같이 분산된다.
 
--   1\~300은 node1으로 분산
-
--   301 \~ 600은 node2로 분산
-
--   나머지 hash 값은 기본 데이터 노드로 분산
+- 0 \~ 499는 node1으로 분산
+- 500 \~ 799는 node2로 분산
+- 나머지 hash 값(800 \~ 999)은 기본 샤드 노드로 분산
 
 ```
+iSQL> EXEC dbms_shard.set_shard_table('sys','t1','H','i1','node3');
+Execute success.
 iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',500,'node1');
 Execute success.
-iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',1000,'node2');
-Execute success.
+iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',800,'node2');
+Execute success
 ```
 
 #### SET_SHARD_RANGE
@@ -4393,20 +5022,28 @@ SET_SHARD_RANGE(     user_name    in  varchar(128),
 
 ##### 파라미터
 
-| 이름        | 입출력 | 데이터 타입  | 설명                         |
-|-------------|--------|--------------|------------------------------|
-| user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름           |
-| object_name | IN     | VARCHAR(128) | 객체 이름                    |
-| value_max   | IN     | VARCHAR(100) | 범위 분산의 샤드 키의 최대값 |
-| node_name   | IN     | VARCHAR(40)  | 기본 데이터 노드             |
+| 이름        | 입출력 | 데이터 타입  | 설명                                      |
+| ----------- | ------ | ------------ | ----------------------------------------- |
+| user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름                        |
+| object_name | IN     | VARCHAR(128) | 객체 이름                                 |
+| value_max   | IN     | VARCHAR(100) | 범위 분산 샤드 키의 상한값(non-inclusive) |
+| node_name   | IN     | VARCHAR(40)  | 기본 샤드 노드                            |
 
 ##### 설명
 
-메타 노드에 범위 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
+샤드 노드에 범위 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
 
 ##### 예제
 
+\<질의\> sys.t2 테이블에 샤드 키 값에 따라 데이터가 다음과 같이 분산된다.
+
+- 0 \~ 299는 node1으로 분산
+- 300 \~ 599는 node2로 분산
+- 나머지 값은 기본 샤드 노드로 분산
+
 ```
+iSQL> EXEC dbms_shard.set_shard_table('sys','t2','R','i1','node3');
+Execute success.
 iSQL> EXEC dbms_shard.set_shard_range('sys','t2',300,'node1');
 Execute success.
 iSQL> EXEC dbms_shard.set_shard_range('sys','t2',600,'node2');
@@ -4427,15 +5064,15 @@ SET_SHARD_LIST(    user_name    in  varchar(128),
 ##### 파라미터
 
 | 이름        | 입출력 | 데이터 타입  | 설명                           |
-|-------------|--------|--------------|--------------------------------|
+| ----------- | ------ | ------------ | ------------------------------ |
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름             |
 | object_name | IN     | VARCHAR(128) | 객체 이름                      |
 | value       | IN     | VARCHAR(100) | 리스트 분산의 샤드 키의 최대값 |
-| node_name   | IN     | VARCHAR(40)  | 기본 데이터 노드               |
+| node_name   | IN     | VARCHAR(40)  | 기본 샤드 노드                 |
 
 ##### 설명
 
-메타 노드에 리스트 분산 방식의 샤드 객체에 대한 분산 정보를 설정한다.
+샤드 노드에 리스트 분산 방식의 샤드 객체에 대한 분산 정보를 설정한다.
 
 ##### 예제
 
@@ -4464,16 +5101,16 @@ SET_SHARD_COMPOSITE(
 ##### 파라미터
 
 | 이름        | 입출력 | 데이터 타입  | 설명                  |
-|-------------|--------|--------------|-----------------------|
+| ----------- | ------ | ------------ | --------------------- |
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름    |
 | object_name | IN     | VARCHAR(128) | 객체 이름             |
 | value       | IN     | VARCHAR(100) | 샤드 키의 최대값      |
 | sub_value   | IN     | VARCHAR(100) | 서브 샤드 키의 최대값 |
-| node_name   | IN     | VARCHAR(40)  | 기본 데이터 노드      |
+| node_name   | IN     | VARCHAR(40)  | 기본 샤드 노드        |
 
 ##### 설명
 
-메타 노드에 복합 샤드 키를 적용한 샤드 객체의 분산 정보를 설정한다.
+샤드 노드에 복합 샤드 키를 적용한 샤드 객체의 분산 정보를 설정한다.
 
 ##### 예제
 
@@ -4506,14 +5143,14 @@ SET_SHARD_CLONE(    user_name    in  varchar(128),
 ##### 파라미터
 
 | 이름        | 입출력 | 데이터 타입  | 설명               |
-|-------------|--------|--------------|--------------------|
+| ----------- | ------ | ------------ | ------------------ |
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름 |
 | object_name | IN     | VARCHAR(128) | 객체 이름          |
-| node_name   | IN     | VARCHAR(40)  | 데이터 노드        |
+| node_name   | IN     | VARCHAR(40)  | 샤드 노드          |
 
 ##### 설명
 
-메타 노드에 복제 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
+샤드 노드에 복제 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
 
 ##### 예제
 
@@ -4538,14 +5175,14 @@ SET_SHARD_SOLO(    user_name    in  varchar(128),
 ##### 파라미터
 
 | 이름        | 입출력 | 데이터 타입  | 설명               |
-|-------------|--------|--------------|--------------------|
+| ----------- | ------ | ------------ | ------------------ |
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름 |
 | object_name | IN     | VARCHAR(128) | 객체 이름          |
-| node_name   | IN     | VARCHAR(40)  | 데이터 노드        |
+| node_name   | IN     | VARCHAR(40)  | 샤드 노드          |
 
 ##### 설명
 
-메타 노드에 독립 분산 방식의 샤드 객체의 분산 정보를 설정한다.
+샤드 노드에 독립 분산 방식의 샤드 객체의 분산 정보를 설정한다.
 
 ##### 예제
 
@@ -4568,18 +5205,18 @@ CHECK_DATA(user_name            in  varchar(128),
 
 ##### 파라미터
 
-| 이름                 | 입출력 | 데이터 타입   | 설명                               |
-|----------------------|--------|---------------|------------------------------------|
-| user_name            | IN     | VARCHAR(128)  | 테이블 소유자의 이름               |
-| table_name           | IN     | VARCHAR(128)  | 테이블 이름                        |
-| additional_node_list | IN     | VARCHAR(1000) | 데이터 노드의 이름 (기본값 : null) |
+| 이름                 | 입출력 | 데이터 타입   | 설명                             |
+| -------------------- | ------ | ------------- | -------------------------------- |
+| user_name            | IN     | VARCHAR(128)  | 테이블 소유자의 이름             |
+| table_name           | IN     | VARCHAR(128)  | 테이블 이름                      |
+| additional_node_list | IN     | VARCHAR(1000) | 샤드 노드의 이름 (기본값 : null) |
 
 ##### 설명
 
 샤드 테이블의 샤드 키와 데이터의 유효성을 확인한다.
 
-additional_node_list는 테이블의 분산 정의에 등록되지 않은 데이터 노드의 정보를
-확인한다. 데이터 노드의 이름은 쉼표(,)로 구분하여 나열한다.
+additional_node_list는 테이블의 분산 정의에 등록되지 않은 샤드 노드의 정보를
+확인한다. 샤드 노드의 이름은 쉼표(,)로 구분하여 나열한다.
 
 ##### 예제
 
@@ -4612,8 +5249,7 @@ Execute success.
 
 > ##### 주의사항
 >
-> 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
->
+> 복합 샤드 키를 포함한 샤드 키 분산 테이블에 한해 적용된다.
 
 #### REBUILD_DATA
 
@@ -4629,18 +5265,18 @@ REBUILD_DATA(user_name            in  varchar(128),
 ##### 파라미터
 
 | 이름                 | 입출력 | 데이터 타입   | 설명                                   |
-|----------------------|--------|---------------|----------------------------------------|
+| -------------------- | ------ | ------------- | -------------------------------------- |
 | user_name            | IN     | VARCHAR(128)  | 테이블 소유자의 이름                   |
 | table_name           | IN     | VARCHAR(128)  | 테이블 이름                            |
 | batch_count          | IN     | BIGINT        | 일괄 처리 행의 단위 (기본값 : 전체 행) |
-| additional_node_list | IN     | VARCHAR(1000) | 데이터 노드의 이름 (기본값 : null)     |
+| additional_node_list | IN     | VARCHAR(1000) | 샤드 노드의 이름 (기본값 : null)       |
 
 ##### 설명
 
-모든 데이터 노드의 데이터를 변경된 샤드 키 분산 방식으로 재분배한다.
+모든 샤드 노드의 데이터를 변경된 샤드 키 분산 방식으로 재분배한다.
 
-additional_node_list는 테이블의 분산 정의에 등록되지 않은 데이터 노드를 포함하여
-데이터를 재분배한다. 데이터 노드의 이름은 쉼표(,)로 구분하여 나열한다.
+additional_node_list는 테이블의 분산 정의에 등록되지 않은 샤드 노드를 포함하여
+데이터를 재분배한다. 샤드 노드의 이름은 쉼표(,)로 구분하여 나열한다.
 
 ##### 예제
 
@@ -4711,13 +5347,10 @@ Execute success.
 
 > ##### 주의사항
 >
-> -   복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
->
-> -   기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
->     프로시저를 수행해야 한다.
->
-> -   Global transaction , Non-autocommit 모드에서 수행하여야 정합성이 보장된다.
->
+> - 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
+> - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
+>    프로시저를 수행해야 한다.
+> - Global transaction , Non-autocommit 모드에서 수행하여야 정합성이 보장된다.
 
 #### REBUILD_DATA_NODE
 
@@ -4733,10 +5366,10 @@ REBUILD_DATA_NODE(user_name  in  varchar(128),
 ##### 파라미터
 
 | 이름        | 입출력 | 데이터 타입  | 설명                             |
-|-------------|--------|--------------|----------------------------------|
+| ----------- | ------ | ------------ | -------------------------------- |
 | user_name   | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
 | table_name  | IN     | VARCHAR(128) | 테이블 이름                      |
-| node_name   | IN     | VARCHAR(40)  | 데이터 노드 이름                 |
+| node_name   | IN     | VARCHAR(40)  | 샤드 노드 이름                   |
 | batch_count | IN     | BIGINT       | 일괄 처리 행의 단위 (기본값 : 0) |
 
 ##### 설명
@@ -4784,8 +5417,12 @@ iSQL> COMMIT;
 
 > ##### 주의사항
 >
-> REBUILD_DATA 와 동일하다.
+> REBUILD_DATA 와 동일한 다음의 주의사항을 가지고 있다.
 >
+> - 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
+> - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
+>   프로시저를 수행해야 한다.
+> - Global transaction , Non-autocommit 모드에서 수행하여야 정합성이 보장된다.
 
 #### UNSET_NODE
 
@@ -4797,13 +5434,13 @@ UNSET_NODE(node_name in varchar(40))
 
 ##### 파라미터
 
-| 이름      | 입출력 | 데이터 타입 | 설명        |
-|-----------|--------|-------------|-------------|
-| node_name | IN     | VARCHAR(40) | 데이터 노드 |
+| 이름      | 입출력 | 데이터 타입 | 설명      |
+| --------- | ------ | ----------- | --------- |
+| node_name | IN     | VARCHAR(40) | 샤드 노드 |
 
 ##### 설명
 
-메타 노드에서 이전에 설정한 데이터 노드 정보를 삭제한다.
+샤드 노드에서 이전에 설정한 샤드 노드 정보를 삭제한다.
 
 ##### 예제
 
@@ -4824,13 +5461,13 @@ UNSET_SHARD_TABLE(     user_name  in varchar(128),
 ##### 파라미터
 
 | 이름       | 입출력 | 데이터 타입  | 설명                 |
-|------------|--------|--------------|----------------------|
+| ---------- | ------ | ------------ | -------------------- |
 | user_name  | IN     | VARCHAR(128) | 테이블 소유자의 이름 |
 | table_name | IN     | VARCHAR(128) | 테이블 이름          |
 
 ##### 설명
 
-메타 노드에서 샤드 테이블의 정보를 삭제한다.
+샤드 노드에서 샤드 테이블의 정보를 삭제한다.
 
 UNSET_SHARD_TABLE() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산 정보도
 모두 삭제된다.
@@ -4853,7 +5490,7 @@ UNSET_SHARD_TABLE_BY_ID(shard_id in integer)
 ##### 파라미터
 
 | 이름     | 입출력 | 데이터 타입 | 설명           |
-|----------|--------|-------------|----------------|
+| -------- | ------ | ----------- | -------------- |
 | shard_id | IN     | INTEGER     | 샤드 객체 번호 |
 
 ##### 설명
@@ -4885,13 +5522,13 @@ UNSET_SHARD_PROCEDURE(
 ##### 파라미터
 
 | 이름      | 입출력 | 데이터 타입  | 설명                   |
-|-----------|--------|--------------|------------------------|
+| --------- | ------ | ------------ | ---------------------- |
 | user_name | IN     | VARCHAR(128) | 프로시저 소유자의 이름 |
 | proc_name | IN     | VARCHAR(128) | 프로시저 이름          |
 
 ##### 설명
 
-메타 노드에서 샤드 프로시저의 정보를 삭제한다.
+샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
 
 UNSET_SHARD_PROCEDURE() 함수를 사용하여 샤드 프로시저 정보를 삭제하면, 분산
 정보도 모두 삭제된다.
@@ -4915,12 +5552,12 @@ UNSET_SHARD_PROCEDURE_BY_ID(
 ##### 파라미터
 
 | 이름     | 입출력 | 데이터 타입 | 설명           |
-|----------|--------|-------------|----------------|
+| -------- | ------ | ----------- | -------------- |
 | shard_id | IN     | INTEGER     | 샤드 객체 번호 |
 
 ##### 설명
 
-메타 노드에서 샤드 프로시저의 정보를 삭제한다.
+샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
 
 UNSET_SHARD_PROCEDURE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 각
 분산 방식 때 정의했던 분산 정보도 모두 삭제된다.
@@ -4934,8 +5571,7 @@ iSQL> EXEC dbms_shard.unset_shard_procedure_by_id(123);
 Execute success. 
 ```
 
-6.Altibase Sharding 유틸리티
---------------------------
+## 6.Altibase Sharding 유틸리티
 
 이 장에서는 Altibase Sharding에서 지원하는 유틸리티를 설명한다.
 
