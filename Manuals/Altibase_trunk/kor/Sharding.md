@@ -367,11 +367,11 @@ Altibase Sharding에서 제공하는 분산 방식에 따라 설정된 테이블
 샤드 테이블은 다음과 같이 분류된다.
 
 * 샤드 키 분산 테이블  
-* 단일 샤드 키 분산 테이블 ( HASH, RANGE, LIST )
+  * 단일 샤드 키 분산 테이블 ( HASH, RANGE, LIST )
 
--	복합 샤드 키 분산 테이블 ( COMPOSITE )
-	-	복제 분산 테이블 ( CLONE )
-	-	독립 분산 테이블 ( SOLO )
+  * 복합 샤드 키 분산 테이블 ( COMPOSITE )
+* 복제 분산 테이블 ( CLONE )
+* 독립 분산 테이블 ( SOLO )
 
 ##### 샤드 쿼리(shard query)
 
