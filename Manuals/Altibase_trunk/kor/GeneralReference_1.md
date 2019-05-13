@@ -3411,10 +3411,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>BOTH</td>
       </tr>
       <tr>
-      	<td>TEMP_MAX_PAGE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
       	<td>TEMP_STATS_WATCH_TIME</td>
           <td>SYSTEM</td>
       </tr>
@@ -3443,6 +3439,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
        <tr>
       	<td>TOTAL_WA_SIZE</td>
+          <td>SYSTEM</td>
+      </tr>
+     <tr>
+      	<td>INIT_TOTAL_WA_SIZE</td>
           <td>SYSTEM</td>
       </tr>
        <tr>
@@ -6475,8 +6475,6 @@ Unsigned Integer
 프레임의 개수와 같아진다. 이 값이 2이면 버킷의 개수는 프레임 개수의 절반인 50이
 된다.
 
-임시 테이블에 대한 설명은 TEMP_MAX_PAGE_COUNT 프로퍼티를 참고하기 바란다.
-
 #### TEMP_PAGE_CHUNK_COUNT 
 
 ##### 데이터 타입
@@ -7528,7 +7526,7 @@ Unsigned Long
 
 ##### 값의 범위
 
-[512K, 2<sup>64</sup>-1]
+[3M, 2<sup>64</sup>-1]
 
 ##### 설명
 
@@ -9161,38 +9159,6 @@ Unsigned Integer
 Altibase 운영 중 ALTER SYSTEM 또는 ALTER SESSION문을 이용하여 이 프로퍼티의 값을
 변경할 수 있다. 단, 활성화된 트랜잭션이 없을 경우에만 변경할 수 있다.
 
-#### TEMP_MAX_PAGE_COUNT
-
-##### 데이터 타입
-
-Unsigned Int
-
-##### 기본값
-
-524288
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[1024, 2<sup>32</sup>-1]
-
-##### 설명
-
-하나의 임시 테이블<sup>8</sup>이 사용할 수 있는 최대 페이지 개수를 지정한다. 임시
-테이블에 할당된 페이지에 대한 정보는 TOTAL_WA_SIZE 프로퍼티로 지정한 영역 내에서
-관리되기 때문에, 이 프로퍼티의 값이 클수록 서버가 정렬(sorting) 또는
-해싱(hashing) 작업을 위해 사용할 수 있는 영역이 줄어든다.
-
-[<sup>8</sup>] 임시 테이블: 서버가 질의를 처리하는 과정에서 중간 결과를 저장하기 위해
-
-디스크 상의 임시 테이블스페이스에 내부적으로 생성하는 테이블로써, 사용자 임시
-테이블과는 다르다.
-
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
 #### TEMP_STATS_WATCH_TIME
 
 ##### 데이터 타입
@@ -9214,8 +9180,7 @@ Unsigned Int
 ##### 설명
 
 통계 정보에 등록되는 기준 시간을 지정한다. 임시 테이블을 사용하는 연산 중 이
-프로퍼티의 설정된 시간보다 오래 걸리는 연산은 통계정보로 등록된다. 임시 테이블에
-대한 설명은 TEMP_MAX_PAGE_COUNT 프로퍼티 설명을 참고하도록 한다.
+프로퍼티의 설정된 시간보다 오래 걸리는 연산은 통계정보로 등록된다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
@@ -9430,9 +9395,32 @@ Unsigned Long
 정렬 또는 해싱 작업을 위해 할당할 수 있는 메모리의 최대 크기를 지정한다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-단, 변경 요청에 대한 응답은 바로 반환되지만, 변경된 값이 실제로 서버에 적용 되는
-시점은 사용 중인 임시 테이블이 없을 때까지 지연된다. 임시 테이블에 대한 설명은
-TEMP_MAX_PAGE_COUNT 프로퍼티 설명을 참고하도록 한다.
+
+#### INIT_TOTAL_WA_SIZE (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Long
+
+##### 기본값
+
+128MB
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[512K, 2<sup>64</sup>-1]
+
+##### 설명
+
+정렬 또는 해싱 작업을 위해 미리 할당 할 메모리의 크기를 지정한다.
+
+TOTAL_WA_SIZE  보다 더 클 경우  TOTAL_WA_SIZE 까지만 생성한다.
+
+Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
 #### TOUCH_TIME_INTERVAL (단위: 초)
 
