@@ -2,7 +2,7 @@
 
 - [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
   - [동적 SQL의 개요](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [EXECUTE IMmedia/StoredProcedureTE](#execute-immediastoredprocedurete)
+  - [EXECUTE IMMEDIATE](#execute-immediate)
   - [OPEN FOR](#open-for)
 - [9.예외 처리](#9%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
   - [개요](#%EA%B0%9C%EC%9A%94)
@@ -113,7 +113,7 @@ Plan Cache에 저장되고, 반복 호출 시 Plan Cache에서 실행계획을 �
 비교해서 낮은 성능을 보일 수 있다. 동적 SQL문의 사용은 응용프로그램 구조를
 유연하게 하는 반면 성능을 저하시킬 수 있다.
 
-### EXECUTE IMmedia/StoredProcedureTE
+### EXECUTE IMMEDIATE
 
 동적으로 DDL, DCL, DML 및 단일 레코드를 결과로 반환하는 SELECT 질의를 실행하기
 위해 사용한다.
