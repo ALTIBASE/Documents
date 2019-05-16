@@ -5767,6 +5767,10 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 쿼리 뷰는 사용자가 입력한 쿼리를 샤드 노드를 구성하는 Primary, Alternate DB를 대상으로 수행하는 뷰이다.
 
+쿼리 뷰에서 사용가능한 쿼리 종류는 데이터 정의 언어(Data Definition Language, DDL)과 데이터 제어 언어(Data Control Language, DCL)이다. 
+
+쿼리 뷰는 (Data Manipulation Language, DML: SELECT, INSERT, DELETE, UPDATE) 를 지원하지 않는다. 쿼리 뷰에서 입력한 DML은 사용자가 선택한 DB에서 모두 수행되기 때문에, 예상하지 못한 결과를 가져올 수 있다. 
+
 샤드 데이터베이스를 연결할 때 자동으로 뷰가 나타나며, 대상 데이터베이스의 이름이 뷰의 제목으로 사용된다. 사용자가 쿼리 뷰를 열 때에는 샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼을 누르거나 선택 후, Database 메뉴를 열어 'Open Query View'를 선택하면 생성된다. 기본 전체 화면 오른쪽 상단에 위치한다.
 																											  
 ![](media/Sharding/shm_query_tool.jpg)
