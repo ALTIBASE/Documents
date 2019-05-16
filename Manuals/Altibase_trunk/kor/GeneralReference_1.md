@@ -4396,13 +4396,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>SYSTEM</td>
       </tr>
       <tr>
-      	<td>VARCHAR_DEFAULT_PRECISION</td>
-          <td></td>
+      	<td>SERIAL_EXECUTE_MODE</td>
+          <td>BOTH</td>
       </tr>
       <tr>
-      	<td>SERIAL_EXECUTE_MODE</td>
-          <td></td>
-      </tr>
   </table>
 
 이 장에서는 각 프로퍼티를 다음과 같은 형식으로 설명하고 있다.
