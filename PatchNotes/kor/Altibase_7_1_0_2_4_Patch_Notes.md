@@ -66,6 +66,8 @@ New Features
 
       **MATHEMATICS_TEMP_MEMORY** BIGINT
 
+      분석함수에서 사용하는 MATHEMATICS TEMP 메모리 사용량를 보여준다.
+
   - Property
     -   추가
         -   MATHEMATICS\_TEMP\_MEMORY\_MAXIMUM 
