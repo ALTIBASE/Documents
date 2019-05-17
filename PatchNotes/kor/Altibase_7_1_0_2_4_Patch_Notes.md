@@ -69,12 +69,11 @@ New Features
   - Property
     -   추가
         -   MATHEMATICS\_TEMP\_MEMORY\_MAXIMUM 
-            -   데이터타입:
+            -   데이터타입: Unsigned Long
             -   기본값: 0
-            -   속성:
+            -   속성: 변경가능, 단일 값
             -   값의 범위: [0, 2^64 -1]
-            -   설명: 분석함수에서 사용하는MATHEMATICS TEMP 메모리
-                용량을 제어한다.
+            -   설명: 분석함수에서 사용하는MATHEMATICS TEMP 메모리 용량을 제어한다.
 
   - Compile Option
 
