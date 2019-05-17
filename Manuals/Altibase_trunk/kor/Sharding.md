@@ -5920,7 +5920,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 3. 'Test' 버튼을 클릭하여 입력한 연결정보로 접속이 정상적으로 이루어지는지 확인한다.
 4. 'OK' 버튼을 클릭하여 Alternate DB를 추가한다.
    1. Primary DB에 생성되어 있는 샤드 객체가 Alternate DB의 DB 메타에 미리 생성되어 있지 않으면, 이를 알려주고 Alternate DB 추가가 실패한다.
-   2. Primary DB에 생성되어 있는 샤드 테이블이 Alternate DB의 DB 메타에 미리 생성되어 있으면, 샤드 테이블을 이중화 하기 위한 이중화 객체가 Primary DB와 Alternate DB간에 자동으로 생성된다.
+   2. Primary DB에 샤드 테이블이 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 샤드 매니저가 이중화 객체를 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
 5. 정상적으로 alternate DB가 추가되었다면 샤드 데이터베이스 뷰 내 대상 샤드 노드의 트리 하위 노드로 Alternate DB정보가 추가된다.
 
 ##### Alternate DB 삭제
