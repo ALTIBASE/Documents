@@ -451,14 +451,23 @@ Statement ID로 SQL문 텍스트, 쿼리 시작 시간, 쿼리의 수행 여부�
 
 이 구조체는 아래 표와 같은 멤버를 가진다.
 
-| 멤버            | 타입    | 설명                                    |
-|-----------------|---------|-----------------------------------------|
-| mSessID         | int     | 세션 ID                                 |
-| mStmtID         | int     | Statement ID                            |
-| mSqlText        | char \* | SQL문 텍스트                            |
-| mTextLength     | int     | mSqlText에 저장된 문자열의 길이         |
-| mQueryStartTime | int     | 쿼리 시작 시간                          |
-| mExecuteFlag    | int     | 쿼리의 수행 여부 0 : 수행됨 1: 수행안됨 |
+| 멤버                | 타입    | 설명                                             |
+| ------------------- | ------- | ------------------------------------------------ |
+| mSessID             | int     | 세션 ID                                          |
+| mStmtID             | int     | Statement ID                                     |
+| mSqlText            | char \* | SQL문 텍스트                                     |
+| mTextLength         | int     | mSqlText에 저장된 문자열의 길이                  |
+| mQueryStartTime     | int     | 쿼리 시작 시간                                   |
+| mExecuteFlag        | int     | 쿼리의 수행 여부 0 : 수행됨 1: 수행안됨          |
+| mParseTime          | long    | 파싱 소요 시간                                   |
+| mSoftPrepareTime    | long    | Prepare 과정중 SQL Plan Cache에서 plan 탐색 시간 |
+| mLastQueryStartTime | int     | 가장 최근의 쿼리 시작 시간                       |
+| mExecuteTime        | long    | 실행 소요 시간                                   |
+| mFetchTime          | long    | Fetch 소요 시간                                  |
+| mFetchStartTime     | int     | 현재 Fetch 시작 시간                             |
+| mTotalTime          | long    | 총 경과 시간                                     |
+| mValidateTime       | long    | 정당성 검사 소요 시간                            |
+| mOptimizeTime       | long    | 최적화 소요 시간                                 |
 
 #### ABILockPair
 
@@ -1183,10 +1192,10 @@ int ABIGetSqlText (
 
 #### 인자
 
-| 자료유형        | 인자    | 입/출력 | 설명                                                |
-| --------------- | ------- | ------- | --------------------------------------------------- |
-| ABISqlText \*\* | aHandle | 출력    | SQL문이 저장된 구조체의 메모리 주소를 받아올 포인터 |
-| int             | astmtID | 입력    | 조회할 statement의 ID                               |
+| 자료유형        | 인자    | 입/출력 | 설명                                                         |
+| --------------- | ------- | ------- | ------------------------------------------------------------ |
+| ABISqlText \*\* | aHandle | 출력    | SQL문이 저장된 구조체의 메모리 주소를 받아올 포인터          |
+| int             | astmtID | 입력    | 조회할 statement의 ID<br />aStmtID가 0일경우 현재 Active상태인 statement의 정보를 모두 반환한다. |
 
 #### 반환값
 
@@ -2288,6 +2297,15 @@ void printSqlText( ABISqlText *aSqlText )
     printf( "TEXT LENGTH : %d\n\n\n", aSqlText->mTextLength );
     printf( "QUERY START TIME : %d\n\n\n", aSqlText->mQueryStartTime );
     printf( "EXECUTE FLAG : %d\n\n\n", aSqlText->mExecuteFlag );
+    printf( "PARSE TIME : %lld\n\n\n", aSqlText->mParseTime);
+    printf( "SOFT PREPARE TIME : %lld\n\n\n", aSqlText->mSoftPrepareTime);
+    printf( "LAST QUERY START TIME : %d\n\n\n", aSqlText->mLastQueryStartTime);
+    printf( "EXECUTE TIME : %lld\n\n\n", aSqlText->mExecuteTime);
+    printf( "FETCH TIME : %lld\n\n\n", aSqlText->mFetchTime);
+    printf( "FETCH START TIME : %d\n\n\n", aSqlText->mFetchStartTime);
+    printf( "TOTAL TIME : %lld\n\n\n", aSqlText->mTotalTime);
+    printf( "VALIDATE TIME : %lld\n\n\n", aSqlText->mValidateTime);
+    printf( "OPTIMIZE TIME : %lld\n\n\n", aSqlText->mOptimizeTime);
 }
 
 void printLockPairBetweenSessions( ABILockPair *aLockPair, int aRowCount )

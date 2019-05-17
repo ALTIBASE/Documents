@@ -416,6 +416,7 @@ Usage  :  apre [<options>] <filename>
                    the Altibase national character set.
 -nchar_utf16     : Set client nchar encoding to UTF-16.
 -lines           : Add #line directives to the generated code.
+-silent          : No display Copyright.
 ================================================
 ```
 
@@ -662,6 +663,10 @@ $ apre -nchar_utf16 -t cpp sample.sc
 Altibase가 지원하는 내셔널 캐릭터 타입의 데이터를 전처리기에서 처리하기 위해서
 사용하는 옵션이다. 변수명과 변수명 사이에는 공백을 허용하지 않으며, 구조체 안의
 멤버 변수는 여기에 지정할 수 없다.
+
+#### -silent
+
+silent 모드를 켜는 옵션이다. silent 모드를 켜면 Copyright 등의 부가적인 설명들을 보여주지 않는다.
 
 ### 내장 SQL문을 이용한 프로그램 작성 순서 및 방법
 

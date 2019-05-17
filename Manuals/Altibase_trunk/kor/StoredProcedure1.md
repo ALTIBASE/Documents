@@ -486,9 +486,7 @@ ROLLBACK된다. 즉, 위의 두 INSERT문과 EXECUTE문은 하나의 트랜잭�
 
 #### 제약 사항
 
-커서가 OPEN된 상태에서 COMMIT 또는 ROLLBACK을 실행할 수 있다. 단, 커서가 OPEN된
-상태에서 COMMIT을 한번도 하지 않고 ROLLBACK을 실행하면 커서가 닫히므로 주의해야
-한다.
+커서가 OPEN된 상태에서 COMMIT 또는 ROLLBACK을 실행할 수 있다.
 
 SELECT문 내에서 호출되는 저장 함수의 경우 저장 함수 내에 INSERT, UPDATE,
 DELETE문은 사용할 수 없으며, 트랜잭션 제어문도 수행할 수 없다.
