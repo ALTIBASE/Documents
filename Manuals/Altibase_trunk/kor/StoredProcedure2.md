@@ -2,7 +2,7 @@
 
 - [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
   - [동적 SQL의 개요](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [EXECUTE IMmedia/StoredProcedureTE](#execute-immediastoredprocedurete)
+  - [EXECUTE IMMEDIATE](#execute-immediate)
   - [OPEN FOR](#open-for)
 - [9.예외 처리](#9%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
   - [개요](#%EA%B0%9C%EC%9A%94)
@@ -81,7 +81,7 @@
 [그림 8‑1] 정적 SQL과 동적 SQL의 실행 과정 비교
 
 [그림 8- 1]의 왼쪽 저장 프로시저는 ‘DELETE FROM T1’ 문을 정적으로 처리한 것이고,
-오른쪽 저장 프로시저는 동일한 DELETE 문을 EXECUTE IMmedia/StoredProcedureTE를 사용하여 동적으로
+오른쪽 저장 프로시저는 동일한 DELETE 문을 EXECUTE IMMEDIATE를 사용하여 동적으로
 처리한 것이다.
 
 전자는 프로시저가 최초로 실행되는 시점에 DELETE문에 대한 실행계획이 만들어져
@@ -113,7 +113,7 @@ Plan Cache에 저장되고, 반복 호출 시 Plan Cache에서 실행계획을 �
 비교해서 낮은 성능을 보일 수 있다. 동적 SQL문의 사용은 응용프로그램 구조를
 유연하게 하는 반면 성능을 저하시킬 수 있다.
 
-### EXECUTE IMmedia/StoredProcedureTE
+### EXECUTE IMMEDIATE
 
 동적으로 DDL, DCL, DML 및 단일 레코드를 결과로 반환하는 SELECT 질의를 실행하기
 위해 사용한다.
@@ -181,9 +181,9 @@ END;
 /
 ```
 
-EXECUTE IMmedia/StoredProcedureTE dynamic_string 구문은 해당 질의문을 Direct-Execute 방식으로
+EXECUTE IMMEDIATE dynamic_string 구문은 해당 질의문을 Direct-Execute 방식으로
 실행한다. USING 뒤에 나오는 변수는 바인드할 인자이다. DDL 및 DCL의 경우도 DML과
-마찬가지로 EXECUTE IMmedia/StoredProcedureTE를 사용하여 실행할 수 있다.
+마찬가지로 EXECUTE IMMEDIATE를 사용하여 실행할 수 있다.
 
 #### 제약사항
 
