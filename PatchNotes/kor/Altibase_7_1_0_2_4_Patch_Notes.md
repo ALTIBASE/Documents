@@ -276,17 +276,15 @@ Fixed Bugs
         line 1: parse error
         BEGIN SELECT 1 INTO ? FROM DUAL; END;
                             ^
-
-
-    ​    
+        
+        
         java.sql.SQLException: SQL syntax error
         
         line 1: parse error
         BEGIN SELECT 1 INTO? FROM DUAL; END;
                            ^
-
-
-    ​    
+        
+        
                 at Altibase.jdbc.driver.ex.Error.processServerError(Error.java:369)
                 at Altibase.jdbc.driver.AltibasePreparedStatement.(AltibasePreparedStatement.java:125)
                 at Altibase.jdbc.driver.AltibaseCallableStatement.(AltibaseCallableStatement.java:46)
