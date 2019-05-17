@@ -5,14 +5,15 @@
 - [Altibase 7.1.0.2.1 Patch Notes](#altibase-71021-patch-notes)
   - [New Features](#new-features)
     - [BUG-46702 with rollup 구문 지원](#bug-46702with-rollup-%EA%B5%AC%EB%AC%B8-%EC%A7%80%EC%9B%90)
+    - [BUG-46806 INSERT 구문에 alias 지원](#bug-46806insert-%EA%B5%AC%EB%AC%B8%EC%97%90-alias-%EC%A7%80%EC%9B%90)
     - [BUG-46703 limit clause에 simple expression 지원.](#bug-46703limit-clause%EC%97%90-simple-expression-%EC%A7%80%EC%9B%90)
     - [BUG-46719 SYSDATETIME 지원](#bug-46719sysdatetime-%EC%A7%80%EC%9B%90)
     - [BUG-46727 ISO 표준 기준 년 IYYY format 지원](#bug-46727iso-%ED%91%9C%EC%A4%80-%EA%B8%B0%EC%A4%80-%EB%85%84-iyyy-format-%EC%A7%80%EC%9B%90)
     - [BUG-46755 호스트 네임으로 발급된 라이선스 적용](#bug-46755%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%84%A4%EC%9E%84%EC%9C%BC%EB%A1%9C-%EB%B0%9C%EA%B8%89%EB%90%9C-%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EC%A0%81%EC%9A%A9)
+    - [BUG-46826 DDL PVO 안정성 개선](#bug-46826ddl-pvo-%EC%95%88%EC%A0%95%EC%84%B1-%EA%B0%9C%EC%84%A0)
     - [BUG-46781 이중화 DDL 안전성 개선](#bug-46781%EC%9D%B4%EC%A4%91%ED%99%94-ddl-%EC%95%88%EC%A0%84%EC%84%B1-%EA%B0%9C%EC%84%A0)
     - [BUG-46825 OTHER\_DATABASE\_SKIP\_ERROR 와 ORACLE\_SKIP\_ERROR 정책변경](#bug-46825other%5C_database%5C_skip%5C_error-%EC%99%80-oracle%5C_skip%5C_error-%EC%A0%95%EC%B1%85%EB%B3%80%EA%B2%BD)
     - [BUG-46832 memory partition table 의 simple query 최적화](#bug-46832memory-partition-table-%EC%9D%98-simple-query-%EC%B5%9C%EC%A0%81%ED%99%94)
-    - [BUG-46806 INSERT 구문에 alias 지원](#bug-46806insert-%EA%B5%AC%EB%AC%B8%EC%97%90-alias-%EC%A7%80%EC%9B%90)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-46208 REPLICATION\_SENDER\_AUTO\_START 값이 설정되어 있는 상태에서 서버 시작를 못할수 있습니다.](#bug-46208replication%5C_sender%5C_auto%5C_start-%EA%B0%92%EC%9D%B4-%EC%84%A4%EC%A0%95%EB%90%98%EC%96%B4-%EC%9E%88%EB%8A%94-%EC%83%81%ED%83%9C%EC%97%90%EC%84%9C-%EC%84%9C%EB%B2%84-%EC%8B%9C%EC%9E%91%EB%A5%BC-%EB%AA%BB%ED%95%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-46670 temp flusher에서 이미 free된 temp table header에 접근 할 수 있습니다.](#bug-46670temp-flusher%EC%97%90%EC%84%9C-%EC%9D%B4%EB%AF%B8-free%EB%90%9C-temp-table-header%EC%97%90-%EC%A0%91%EA%B7%BC-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
@@ -28,7 +29,6 @@
     - [BUG-46800 ANTI JOIN시 INVERSE HASH로 PLAN생성 시 CONSTANT FILTER 처리](#bug-46800anti-join%EC%8B%9C-inverse-hash%EB%A1%9C-plan%EC%83%9D%EC%84%B1-%EC%8B%9C-constant-filter-%EC%B2%98%EB%A6%AC)
     - [BUG-46805 target에 index를 타는 subquery 2개가 where문을 제외한 다른 부분이 같을 경우 결과 오류](#bug-46805target%EC%97%90-index%EB%A5%BC-%ED%83%80%EB%8A%94-subquery-2%EA%B0%9C%EA%B0%80-where%EB%AC%B8%EC%9D%84-%EC%A0%9C%EC%99%B8%ED%95%9C-%EB%8B%A4%EB%A5%B8-%EB%B6%80%EB%B6%84%EC%9D%B4-%EA%B0%99%EC%9D%84-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98)
     - [BUG-46816 table name과 username이 128자 이상일 경우 메모리 침범이 발생합니다.](#bug-46816table-name%EA%B3%BC-username%EC%9D%B4-128%EC%9E%90-%EC%9D%B4%EC%83%81%EC%9D%BC-%EA%B2%BD%EC%9A%B0-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%B9%A8%EB%B2%94%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46826 DDL PVO 안정성 개선](#bug-46826ddl-pvo-%EC%95%88%EC%A0%95%EC%84%B1-%EA%B0%9C%EC%84%A0)
     - [BUG-46836 simple query 최적화를 사용하는 환경에서 select for update 시에 nowait option 적용되지 않는 문제가 있습니다.](#bug-46836simple-query-%EC%B5%9C%EC%A0%81%ED%99%94%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-select-for-update-%EC%8B%9C%EC%97%90-nowait-option-%EC%A0%81%EC%9A%A9%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
@@ -118,6 +118,47 @@ New Features
   -   Property
   -   Compile Option
   -   Error Code
+
+### BUG-46806 INSERT 구문에 alias 지원
+
+- **module** : qp-dml-execute
+
+- **Category** : Other
+
+- **재현 빈도** : Always
+
+- **증상** : INSERT 구문에 alias를 사용할 수 있도록 수정하였습니다.
+
+- **재현 방법**
+
+  - **재현 절차**
+
+    ```
+    iSQL> insert into t1 a (a.i1) values (1);
+    [ERR-31001 : SQL syntax error
+    line 1: parse error
+    insert into T1 A (A.I1) values (1)
+                                   ^
+    ]
+    ```
+
+  - **수행 결과**
+
+  - **예상 결과**
+
+    ```
+    iSQL> insert into t1 a (a.i1) values (1);
+    1 row inserted.
+    ```
+
+- **Workaround**
+
+- **변경사항**
+
+  - Performance view
+  - Property
+  - Compile Option
+  - Error Code
 
 ### BUG-46703 limit clause에 simple expression 지원.
 
@@ -273,35 +314,53 @@ New Features
 
 ### BUG-46755 호스트 네임으로 발급된 라이선스 적용
 
--   **module** : id
+- **module** : id
 
--   **Category** : Other
+- **Category** : Other
 
--   **재현 빈도** : Always
+- **재현 빈도** : Always
 
--   **증상** : 라이선스정책 변경(hostname으로도 License 발급가능)으로
-    변경된 라이선스가 적용되도록 수정하였습니다. 기존에 MAC Address 를
-    기반으로 발급하였는데,
+- **증상** : 라이선스정책 변경(hostname으로도 License 발급가능)으로
+  변경된 라이선스가 적용되도록 수정하였습니다. 기존에 MAC Address 를
+  기반으로 발급하였는데,
 
-    MAC Address 또는 HOST Name 을 이용해서 라이선스를 발급할 수 있도록
-    변경되었습니다.
+  MAC Address 또는 HOST Name 을 이용해서 라이선스를 발급할 수 있도록
+  변경되었습니다.
 
--   **재현 방법**
+- **재현 방법**
 
-    -   **재현 절차**
+  -   **재현 절차**
 
-    -   **수행 결과**
+  -   **수행 결과**
 
-    -   **예상 결과**
+  -   **예상 결과**
 
--   **Workaround**
+- **Workaround**
 
--   **변경사항**
+- **변경사항**
 
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
+  -   Performance view
+  -   Property
+  -   Compile Option
+  -   Error Code
+
+### BUG-46826 DDL PVO 안정성 개선
+
+- **module** : qp-ddl-dcl-pvo
+- **Category** : Functionality
+- **재현 빈도** : Always
+- **증상** : DDL PVO 수행 중 내부적인 요인에 의한 FATAL이 발생는 경우,
+  비정상종료하지 않도록 개선되었습니다.
+- **재현 방법**
+  - **재현 절차**
+  - **수행 결과**
+  - **예상 결과**
+- **Workaround**
+- **변경사항**
+  - Performance view
+  - Property
+  - Compile Option
+  - Error Code
 
 ### BUG-46781 이중화 DDL 안전성 개선
 
@@ -397,47 +456,6 @@ New Features
   -   Property
   -   Compile Option
   -   Error Code
-
-### BUG-46806 INSERT 구문에 alias 지원
-
-- **module** : qp-dml-execute
-
-- **Category** : Other
-
-- **재현 빈도** : Always
-
-- **증상** : INSERT 구문에 alias를 사용할 수 있도록 수정하였습니다.
-
-- **재현 방법**
-
-  - **재현 절차**
-
-    ```
-    iSQL> insert into t1 a (a.i1) values (1);
-    [ERR-31001 : SQL syntax error
-    line 1: parse error
-    insert into T1 A (A.I1) values (1)
-                                   ^
-    ]
-    ```
-
-  - **수행 결과**
-
-  - **예상 결과**
-
-    ```
-    iSQL> insert into t1 a (a.i1) values (1);
-    1 row inserted.
-    ```
-
-- **Workaround**
-
-- **변경사항**
-
-  - Performance view
-  - Property
-  - Compile Option
-  - Error Code
 
 Fixed Bugs
 ----------
@@ -1018,34 +1036,6 @@ Fixed Bugs
   -   Property
   -   Compile Option
   -   Error Code
-
-### BUG-46826 DDL PVO 안정성 개선
-
--   **module** : qp-ddl-dcl-pvo
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **증상** : DDL PVO 수행 중 내부적인 요인에 의한 FATAL이 발생는 경우,
-    비정상종료하지 않도록 개선되었습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-46836 simple query 최적화를 사용하는 환경에서 select for update 시에 nowait option 적용되지 않는 문제가 있습니다.
 
