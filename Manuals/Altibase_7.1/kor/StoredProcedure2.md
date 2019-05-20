@@ -1,3 +1,59 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
+  - [동적 SQL의 개요](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [EXECUTE IMMEDIATE](#execute-immediate)
+  - [OPEN FOR](#open-for)
+- [9.예외 처리](#9%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
+  - [개요](#%EA%B0%9C%EC%9A%94)
+  - [EXCEPTION](#exception)
+  - [RAISE](#raise)
+  - [RAISE_APPLICATION_ERROR](#raise_application_error)
+  - [사용자 정의 예외](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%98%88%EC%99%B8)
+  - [SQLCODE와 SQLERRM](#sqlcode%EC%99%80-sqlerrm)
+  - [Exception Handler](#exception-handler)
+- [10.프라그마(Pragma)](#10%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88pragma)
+  - [개요](#%EA%B0%9C%EC%9A%94-1)
+  - [자율 트랜잭션 프라그마(Autonomous_Transaction Pragma)](#%EC%9E%90%EC%9C%A8-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88autonomous_transaction-pragma)
+  - [예외 초기화 프라그마(Exception_Init Pragma)](#%EC%98%88%EC%99%B8-%EC%B4%88%EA%B8%B0%ED%99%94-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88exception_init-pragma)
+- [11.저장 패키지](#11%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [개요](#%EA%B0%9C%EC%9A%94-2)
+  - [CREATE PACKAGE](#create-package)
+  - [CREATE PACKAGE BODY](#create-package-body)
+  - [ALTER PACKAGE](#alter-package)
+  - [DROP PACKAGE](#drop-package)
+  - [EXECUTE](#execute)
+- [12.Altibase 저장 프로시저와 내장 함수](#12altibase-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%99%80-%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98)
+  - [파일 제어](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4)
+  - [TCP 접속 제어](#tcp-%EC%A0%91%EC%86%8D-%EC%A0%9C%EC%96%B4)
+  - [DBMS Stats](#dbms-stats)
+  - [그 외 함수들](#%EA%B7%B8-%EC%99%B8-%ED%95%A8%EC%88%98%EB%93%A4)
+- [13.Altibase 저장 패키지](#13altibase-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [시스템 정의 저장 패키지](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%A0%95%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [DBMS_APPLICATION_INFO](#dbms_application_info)
+  - [DBMS_ALERT](#dbms_alert)
+  - [DBMS_CONCURRENT_EXEC 패키지](#dbms_concurrent_exec-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [DBMS_LOCK](#dbms_lock)
+  - [DBMS_METADATA](#dbms_metadata)
+  - [DBMS_OUTPUT](#dbms_output)
+  - [DBMS_RANDOM](#dbms_random)
+  - [DBMS_RECYCLEBIN 패키지](#dbms_recyclebin-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [DBMS_SQL](#dbms_sql)
+  - [DBMS_STATS](#dbms_stats)
+  - [DBMS_UTILITY](#dbms_utility)
+  - [STANDARD](#standard)
+  - [UTL_COPYSWAP](#utl_copyswap)
+  - [UTL_FILE](#utl_file)
+  - [UTL_RAW](#utl_raw)
+  - [UTL_TCP](#utl_tcp)
+- [A.부록: 예제](#a%EB%B6%80%EB%A1%9D-%EC%98%88%EC%A0%9C)
+  - [저장 프로시저 예제](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%98%88%EC%A0%9C)
+  - [파일 제어 예제](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4-%EC%98%88%EC%A0%9C)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 [Stored Procedures Manual](#stored-procedures-manual)
 
 - [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
@@ -4146,23 +4202,24 @@ SLEEP (seconds IN INTEGER);
 
 Altibase에서 제공하는 패키지는 아래와 같다.
 
-| 패키지                                               | 설명                                                                                |
-|------------------------------------------------------|-------------------------------------------------------------------------------------|
-| [DBMS_APPLICATION_INFO](#dbms_application_info)      | 클라이언트의 애플리케이션 정보를 관리하기 위해 성능 뷰의 값을 설정한다.             |
-| [DBMS_ALERT](#dbms_alert)                            | 데이터베이스에 발생하는 이벤트를 다른 사용자에게 알린다.                            |
-| [DBMS_CONCURRENT_EXEC](#dbms_concurrent_exec-패키지) | 프로시저를 동시에 실행한다.                                                         |
-| [DBMS_LOCK](#dbms_lock)                              | 사용자가 잠금(Lock)을 요청하거나 해제한다.                                          |
-| [DBMS_OUPUT](#dbms_output)                           | 버퍼에 저장된 문자열을 사용자가 클라이언트에게 출력한다.                            |
-| [DBMS_RANDOM](#dbms_random)                          | 임의의 숫자를 생성한다.                                                             |
+| 패키지                                               | 설명                                                         |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| [DBMS_APPLICATION_INFO](#dbms_application_info)      | 클라이언트의 애플리케이션 정보를 관리하기 위해 성능 뷰의 값을 설정한다. |
+| [DBMS_ALERT](#dbms_alert)                            | 데이터베이스에 발생하는 이벤트를 다른 사용자에게 알린다.     |
+| [DBMS_CONCURRENT_EXEC](#dbms_concurrent_exec-패키지) | 프로시저를 동시에 실행한다.                                  |
+| [DBMS_LOCK](#dbms_lock)                              | 사용자가 잠금(Lock)을 요청하거나 해제한다.                   |
+| [DBMS_METADATA](#dbms_metadata)                      | 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다. |
+| [DBMS_OUPUT](#dbms_output)                           | 버퍼에 저장된 문자열을 사용자가 클라이언트에게 출력한다.     |
+| [DBMS_RANDOM](#dbms_random)                          | 임의의 숫자를 생성한다.                                      |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | 삭제(Drop)되어 휴지통에서 관리되고 있는 테이블을 시스템에서 완전히 삭제(Purge)한다. |
-| [DBMS_SQL](#dbms_sql)                                | 동적 SQL을 사용한다.                                                                |
-| [DBMS_STATS](#dbms_stats)                            | 통계 정보를 조회 및 변경한다.                                                       |
-| [DBMS_UTILITY](#dbms_utility)                        | 다양한 유틸리티 서브프로그램을 제공한다.                                            |
-| [STANDARD](#standard)                                | 기본 데이터 타입 외에 PSM내에서 별도의 선언없이 사용할 수 있는 타입을 정의한다.     |
-| [UTL_COPYSWAP](#utl_copyswap)                        | Copy & Swap 방식으로 Online DDL을 지원한다.                                         |
-| [UTL_FILE](#standard)                                | 운영 체제에서 관리하는 텍스트 파일을 읽고(Read) 쓴다(Write).                        |
-| [UTL_RAW](#utl_raw)                                  | RAW(VARBYTE) 타입의 데이터를 다른 데이터 타입으로 변환한다.                         |
-| [UTL_TCP](#utl_tcp)                                  | 저장 프로시저에서 TCP 접속을 제어한다.                                              |
+| [DBMS_SQL](#dbms_sql)                                | 동적 SQL을 사용한다.                                         |
+| [DBMS_STATS](#dbms_stats)                            | 통계 정보를 조회 및 변경한다.                                |
+| [DBMS_UTILITY](#dbms_utility)                        | 다양한 유틸리티 서브프로그램을 제공한다.                     |
+| [STANDARD](#standard)                                | 기본 데이터 타입 외에 PSM내에서 별도의 선언없이 사용할 수 있는 타입을 정의한다. |
+| [UTL_COPYSWAP](#utl_copyswap)                        | Copy & Swap 방식으로 Online DDL을 지원한다.                  |
+| [UTL_FILE](#standard)                                | 운영 체제에서 관리하는 텍스트 파일을 읽고(Read) 쓴다(Write). |
+| [UTL_RAW](#utl_raw)                                  | RAW(VARBYTE) 타입의 데이터를 다른 데이터 타입으로 변환한다.  |
+| [UTL_TCP](#utl_tcp)                                  | 저장 프로시저에서 TCP 접속을 제어한다.                       |
 
 ### DBMS_APPLICATION_INFO 
 
@@ -5366,6 +5423,260 @@ DBMS_LOCK.SLEEP(seconds IN INTEGER, microseconds IN INTEGER);
 
 예외를 발생시키지 않는다.
 
+### DBMS_METADATA
+
+DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을
+추출하는 기능을 제공한다. 아래는 DBMS_METADATA 패키지를 구성하는 프로시저와 함수를 정리한 표이다. 
+
+| 프로시저 및 함수      | 설명                                                   |
+| --------------------- | ------------------------------------------------------ |
+| GET_DDL               | 지정한 객체에 대한 DDL 구문 반환                       |
+| GET_DEPENDENT_DDL     | 지정한 객체에 종속된 객체들의 DDL 구문 반환            |
+| GET_GRANTED_DDL       | 지정한 사용자에게 부여된 권한들에 대한 GRANT 구문 반환 |
+| SET_TRANSFORM_PARAM   | 반환되는 DDL 문 내의 특정 항목들의 포함 여부 설정      |
+| SHOW_TRANSFORM_PARAMS | 현재 설정된 transform parameter 값 출력                |
+
+#### GET_DDL
+
+지정한 객체에 대한 생성 DDL 구문을 반환한다.
+
+##### 구문
+
+```
+DBMS_METADATA.GET_DDL (
+   object_type     IN VARCHAR(20),
+   object_name     IN VARCHAR(128),
+   schema          IN VARCHAR(128) DEFAULT NULL)
+RETURN CLOB;
+```
+
+##### 파라미터
+
+| 이름          | 입출력 | 데이터 타입  | 설명                                                         |
+| ------------- | ------ | ------------ | ------------------------------------------------------------ |
+| *object_type* | IN     | VARCHAR(20)  | 객체 종류                                                    |
+| *object_name* | IN     | VARCHAR(128) | 객체 이름 (대소문자 구분)                                    |
+| *schema*      | IN     | VARCHAR(128) | 객체 소유자 (대소문자 구분).<br />object_type이 스키마 객체이면 기본값은 현재 접속한 사용자이고, 비스키마 객체이면 기본값은 NULL이다. |
+
+###### object_type
+
+스키마 객체
+
+- CONSTRAINT
+- DB_LINK
+- FUNCTION
+- INDEX
+- LIBRARY
+- MATERIALIZED_VIEW
+- PACKAGE
+- PACKAGE_SPEC
+- PACKAGE_BODY
+- PROCEDURE
+- QUEUE
+- REF_CONSTRAINT
+- SEQUENCE
+- SYNONYM
+- TABLE
+- TRIGGER
+- TYPESET
+- VIEW
+
+비스키마 객체
+
+- DIRECTORY
+- JOB
+- REPLICATION
+- ROLE
+- TABLESPACE: 메모리 시스템 테이블스페이스는 DDL문이 반환되지 않고,
+  디스크 시스템 테이블스페이스는 ALTER 구문이 반환된다.
+- USER
+
+##### 결과값
+
+DDL 구문
+
+##### 예외
+
+invalid_argval
+not_supported_obj_type
+schema_not_found
+object_not_found
+not_supported_ddl
+
+##### 예제
+
+접속 사용자가 소유한 모든 테이블의 생성 DDL 구문을 구하는 예제이다.
+
+```
+set vertical on;
+SELECT TO_CHAR(dbms_metadata.get_ddl('TABLE', table_name, null)) as ddl
+FROM system_.sys_tables_
+WHERE table_type = 'T' AND user_id = user_id()
+ORDER BY table_name;
+```
+
+#### GET_DEPENDENT_DDL
+
+지정한 객체에 종속된 객체들의 생성 DDL 구문을 반환한다.
+
+##### 구문
+
+```
+DBMS_METADATA.GET_DEPENDENT_DDL (
+   object_type          IN VARCHAR(20),
+   base_object_name     IN VARCHAR(128),
+   base_object_schema   IN VARCHAR(128) DEFAULT NULL)
+RETURN CLOB;
+```
+
+##### 파라미터
+
+| 이름                 | 입출력 | 데이터 타입  | 설명                                                         |
+| -------------------- | ------ | ------------ | ------------------------------------------------------------ |
+| *object_type*        | IN     | VARCHAR(20)  | 객체 종류                                                    |
+| *base_object_name*   | IN     | VARCHAR(128) | 베이스 객체 이름 (대소문자 구분)                             |
+| *base_object_schema* | IN     | VARCHAR(128) | 베이스 객체 소유자 (대소문자 구분).<br />기본값은 현재 접속한 사용자이다. |
+
+###### object_type
+
+- COMMENT
+- CONSTRAINT
+- INDEX
+- OBJECT_GRANT
+- REF_CONSTRAINT
+- TRIGGER
+
+##### 결과값
+
+DDL 구문
+
+##### 예외
+
+invalid_argval
+not_supported_obj_type
+schema_not_found
+object_not_found
+
+##### 예제
+
+접속 사용자의 T1 테이블에 대한 모든 객체 권한을 구하는 예제이다.
+
+```
+set vertical on;
+SELECT TO_CHAR(dbms_metadata.get_dependent_ddl('OBJECT_GRANT', 'T1')) as ddl
+FROM dual;
+```
+
+#### GET_GRANTED_DDL
+
+지정한 사용자에게 부여된 권한들의 생성 DDL 구문을 반환한다.
+
+##### 구문
+
+```
+DBMS_METADATA.GET_GRANTED_DDL (
+   object_type          IN VARCHAR(20),
+   grantee              IN VARCHAR(128) DEFAULT NULL)
+RETURN CLOB;
+```
+
+##### 파라미터
+
+| 이름          | 입출력 | 데이터 타입  | 설명                                                         |
+| ------------- | ------ | ------------ | ------------------------------------------------------------ |
+| *object_type* | IN     | VARCHAR(20)  | 객체 종류                                                    |
+| *grantee*     | IN     | VARCHAR(128) | grantee (대소문자 구분).<br />기본값은 현재 접속한 사용자이다. |
+
+###### object_type
+
+- OBJECT_GRANT
+- ROLE_GRANT
+- SYSTEM_GRANT
+
+##### 결과값
+
+DDL 구문
+
+##### 예외
+
+invalid_argval
+not_supported_obj_type
+grantee_not_found
+object_not_found
+
+##### 예제
+
+USER1 사용자에 부여된 모든 시스템 권한을 구하는 예제이다.
+
+```
+set vertical on;
+SELECT TO_CHAR(dbms_metadata.get_granted_ddl('SYSTEM_GRANT', 'USER1')) as ddl
+FROM dual;
+```
+
+#### SET_TRANSFORM_PARAM
+
+반환되는 DDL 문 내의 특정 항목들의 포함 여부를 설정한다. 파라미터 설정은 같은 세션 내에서만 적용된다.
+
+##### 구문
+
+```
+DBMS_METADATA.SET_TRANSFORM_PARAM (
+   name          IN VARCHAR(40),
+   value         IN CHAR(1));
+```
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입 | 설명          |
+| ------- | ------ | ----------- | ------------- |
+| *name*  | IN     | VARCHAR(40) | 파라미터 이름 |
+| *value* | IN     | CHAR(1)     | 값            |
+
+###### 객체 종류별 적용되는 파라미터
+
+| Object Type                    | Name               | Description                                                  | Default |
+| ------------------------------ | ------------------ | ------------------------------------------------------------ | ------- |
+| 모든 객체                      | SQLTERMINATOR      | DDL 문에 SQL 종결자(terminator)를 덧붙일지 여부를 지정한다.<br />T: SQL 종결자를 덧붙임<br/>F: SQL 종결자를 덧붙이지 않음 | F       |
+| TABLE<br/>INDEX<br/>CONSTRAINT | SEGMENT_ATTRIBUTES | segment attributes (physical attributes, storage clause, tablespace, logging) 포함 여부를 지정한다.<br />T: 포함<br/>F: 미포함 | T       |
+|                                | STORAGE            | storage clause 포함 여부를 지정한다.<br />T: 포함<br/>F: 미포함 | T       |
+|                                | TABLESPACE         | tablespace 포함 여부를 지정한다.<br/>T: 포함<br/>F: 미포함   | T       |
+| TABLE                          | CONSTRAINTS        | foreign key를 제외한 constraint(primary key, unique, check)의 포함 여부를 지정한다.<br/>T: 포함<br/>F: 미포함 | T       |
+|                                | REF_CONSTRAINTS    | foreign key 포함 여부를 지정한다.<br/>T: 포함<br/>F: 미포함  |         |
+
+##### 결과값
+
+없음
+
+##### 예외
+
+invalid_argval
+
+##### 예제
+
+반환되는 DDL문에 SQL 종결자를 덧붙이도록 설정하는 예제이다.
+
+```
+exec dbms_metadata.set_transform_param('SQLTERMINATOR', 'T');
+```
+
+#### SHOW_TRANSFORM_PARAMS
+
+현재 설정된 transform parameter 값을 출력한다. 
+
+##### 구문
+
+```
+DBMS_METADATA.SHOW_TRANSFORM_PARAMS;
+```
+
+##### 결과값
+
+없음
+
+##### 예외
+
+예외를 발생시키지 않는다.
 
 ### DBMS_OUTPUT
 
