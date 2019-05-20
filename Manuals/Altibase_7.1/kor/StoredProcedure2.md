@@ -1,7 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+[Stored Procedures Manual](#stored-procedures-manual)
 - [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
   - [동적 SQL의 개요](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EA%B0%9C%EC%9A%94)
   - [EXECUTE IMMEDIATE](#execute-immediate)
@@ -54,56 +54,37 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-[Stored Procedures Manual](#stored-procedures-manual)
 
-- [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
-  - [동적 SQL의 개요](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [EXECUTE IMMEDIATE](#execute-immediate)
-  - [OPEN FOR](#open-for)
-- [9.예외 처리](#9%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
-  - [개요](#%EA%B0%9C%EC%9A%94)
-  - [EXCEPTION](#exception)
-  - [RAISE](#raise)
-  - [RAISE_APPLICATION_ERROR](#raise_application_error)
-  - [사용자 정의 예외](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%98%88%EC%99%B8)
-  - [SQLCODE와 SQLERRM](#sqlcode%EC%99%80-sqlerrm)
-  - [Exception Handler](#exception-handler)
-- [10.프라그마(Pragma)](#10%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88pragma)
-  - [개요](#%EA%B0%9C%EC%9A%94-1)
-  - [자율 트랜잭션 프라그마(Autonomous_Transaction Pragma)](#%EC%9E%90%EC%9C%A8-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88autonomous_transaction-pragma)
-  - [예외 초기화 프라그마(Exception_Init Pragma)](#%EC%98%88%EC%99%B8-%EC%B4%88%EA%B8%B0%ED%99%94-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88exception_init-pragma)
-- [11.저장 패키지](#11%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
-  - [개요](#%EA%B0%9C%EC%9A%94-2)
-  - [CREATE PACKAGE](#create-package)
-  - [CREATE PACKAGE BODY](#create-package-body)
-  - [ALTER PACKAGE](#alter-package)
-  - [DROP PACKAGE](#drop-package)
-  - [EXECUTE](#execute)
-- [12.Altibase 저장 프로시저와 내장 함수](#12altibase-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%99%80-%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98)
-  - [파일 제어](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4)
-  - [TCP 접속 제어](#tcp-%EC%A0%91%EC%86%8D-%EC%A0%9C%EC%96%B4)
-  - [DBMS Stats](#dbms-stats)
-  - [그 외 함수들](#%EA%B7%B8-%EC%99%B8-%ED%95%A8%EC%88%98%EB%93%A4)
-- [13.Altibase 저장 패키지](#13altibase-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
-  - [시스템 정의 저장 패키지](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%A0%95%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
-  - [DBMS_APPLICATION_INFO](#dbms_application_info)
-  - [DBMS_ALERT](#dbms_alert)
-  - [DBMS_CONCURRENT_EXEC 패키지](#dbms_concurrent_exec-%ED%8C%A8%ED%82%A4%EC%A7%80)
-  - [DBMS_LOCK](#dbms_lock)
-  - [DBMS_OUTPUT](#dbms_output)
-  - [DBMS_RANDOM](#dbms_random)
-  - [DBMS_RECYCLEBIN 패키지](#dbms_recyclebin-%ED%8C%A8%ED%82%A4%EC%A7%80)
-  - [DBMS_SQL](#dbms_sql)
-  - [DBMS_STATS](#dbms_stats)
-  - [DBMS_UTILITY](#dbms_utility)
-  - [STANDARD](#standard)
-  - [UTL_COPYSWAP](#utl_copyswap)
-  - [UTL_FILE](#utl_file)
-  - [UTL_RAW](#utl_raw)
-  - [UTL_TCP](#utl_tcp)
-- [A.부록: 예제](#a%EB%B6%80%EB%A1%9D-%EC%98%88%EC%A0%9C)
-  - [저장 프로시저 예제](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%98%88%EC%A0%9C)
-  - [파일 제어 예제](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4-%EC%98%88%EC%A0%9C)
+
+
+Altibase® Application Development
+
+Stored Procedures Manual 
+========================
+
+![](media/StoredProcedure/e5cfb3761673686d093a3b00c062fe7a.png)
+
+
+
+Altibase Application Development Stored Procedures Manual
+
+Release 7.1
+
+Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
+무단으로 복제 또는 전용할 수 없습니다.
+
+**㈜알티베이스**
+
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+
+전화: 02-2082-1114 팩스: 02-2082-1099
+
+고객서비스포털: <http://support.altibase.com>
+
+homepage: [http://www.altibase.com](http://www.altibase.com/)
+
 
 
 
