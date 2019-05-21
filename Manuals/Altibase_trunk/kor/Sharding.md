@@ -4699,7 +4699,7 @@ SET_NODE(
  port_no            in integer,
  alternate_host_ip  in varchar(16) default NULL,
  alternate_port_no  in integer default NULL,
- conn_type          in integer)
+ conn_type          in integer default NULL)
 ```
 
 ##### 파라미터
