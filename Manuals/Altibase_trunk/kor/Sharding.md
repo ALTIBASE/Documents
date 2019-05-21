@@ -19,6 +19,7 @@
     - [디렉토리](#%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC)
   - [3.Altibase Sharding 사용방법](#3altibase-sharding-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
     - [Altibase Sharding 제약사항](#altibase-sharding-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+    - [Altibase Sharding 통신 방법](#altibase-sharding-%ED%86%B5%EC%8B%A0-%EB%B0%A9%EB%B2%95)
     - [샤드 노드](#%EC%83%A4%EB%93%9C-%EB%85%B8%EB%93%9C)
     - [샤드 객체](#%EC%83%A4%EB%93%9C-%EA%B0%9D%EC%B2%B4)
     - [분산 정보 설정](#%EB%B6%84%EC%82%B0-%EC%A0%95%EB%B3%B4-%EC%84%A4%EC%A0%95)
