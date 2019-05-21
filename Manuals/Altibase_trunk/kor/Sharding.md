@@ -1609,11 +1609,11 @@ $ALTIBASE_HOME/bin/altibase -v
 샤딩에서 사용하는 커넥션에 따라 지원하는 통신 방법은 다음과 같다.
 
 #### 사용자 커넥션(User Connection)
-사용자 커넥션의 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
+사용자 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
 자세한 내용은 *Administrator manual*의 서버/클라이언트 통신 장을 참고한다.
 
 #### 샤드 라이브러리 커넥션(Shard Library Connection)
-샤드 라이브러리 커넥션의 통신 방법으로 사용자 커넥션의 커넥션 스트링의 SHARD_CONNTYPE 속성에 해당하며 다음의 통신 타입을 지원한다.
+샤드 라이브러리 커넥션의 통신 방법으로 사용자 커넥션 스트링의 SHARD_CONNTYPE 속성에 해당하며 다음의 통신 타입을 지원한다.
 SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
 - 1: TCP (기본값)
 - 6: SSL
