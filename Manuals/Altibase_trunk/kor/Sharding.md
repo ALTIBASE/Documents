@@ -1604,25 +1604,37 @@ Sharding을 사용할 수 없다.
 ```
 $ALTIBASE_HOME/bin/altibase -v
 ```
+### Altibase Sharding 통신 방법
+샤딩에서 사용하는 커넥션에 따라 지원하는 통신 방법은 다음과 같다.
+
+#### 사용자 커넥션(User Connection)
+사용자 커넥션의 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
+자세한 내용은 *Administrator manual*의 서버/클라이언트 통신 장을 참고한다.
+
+#### 샤드 라이브러리 커넥션(Shard Library Connection)
+샤드 라이브러리 커넥션의 통신 방법으로 사용자 커넥션의 커넥션 스트링의 SHARD_CONNTYPE 속성에 해당하며 다음의 통신 타입을 지원한다.
+SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
+- 1: TCP (기본값)
+- 6: SSL
+- 8: IB (InfiniBand)
+
+#### 코디네이터 커넥션(Coordinator Connection)
+코디네이터와 샤드노드의 내부 커넥션 통신 방법으로 노드 설정시 지정 가능하며 다음의 통신 타입을 지원한다.
+노드 설정의 인자로 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
+- 1: TCP (기본값)
+- 8: IB (InfiniBand)
 
 ### 샤드 노드
 
-Altibase Sharding을 사용하기 위하여 각 샤드 노드에 샤딩 관련 정보를 설정해야
-한다.
+Altibase Sharding을 사용하기 위하여 각 샤드 노드에 샤딩 관련 정보를 설정해야 한다.
 
-샤딩 관련 메타 정보는 샤드 메타 식별자(META_NODE_ID) 를 제외하고는 모두 동일하게
-유지해야 한다.
+샤딩 관련 메타 정보는 샤드 메타 식별자(META_NODE_ID) 를 제외하고는 모두 동일하게 유지해야 한다.
 
-샤딩 시스템을 최초로 구성하거나 노드를 추가하기 위해서는 모든 노드에 동일한
-순서로 샤드 노드 설정 과정을 거치거나 aexport 등을 이용해 복제하여, 샤드 메타
-정보를 동일하도록 유지해야 한다.
+샤딩 시스템을 최초로 구성하거나 노드를 추가하기 위해서는 모든 노드에 동일한 순서로 샤드 노드 설정 과정을 거치거나 aexport 등을 이용해 복제하여, 샤드 메타 정보를 동일하도록 유지해야 한다.
 
-샤드 노드 설정을 전역적으로 적용하기 위해서 샤드 매니저를 사용하는 것을
-권장한다.
+샤드 노드 설정을 전역적으로 적용하기 위해서 샤드 매니저를 사용하는 것을 권장한다.
 
-수동으로 설정 하는 경우 가용 노드를 포함한 모든 샤드 노드에서 동일한 설정 작업을
-수행하고 작업의 완료를 알리기 위해서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD
-SHARD META NUMBER LOCAL)을 수행해야 한다.
+수동으로 설정 하는 경우 가용 노드를 포함한 모든 샤드 노드에서 동일한 설정 작업을 수행하고 작업의 완료를 알리기 위해서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL)을 수행해야 한다.
 
 ```
 iSQL> AUTOCOMMIT OFF;
@@ -3207,15 +3219,13 @@ Altibase Sharding의 Fail-Over기능은 특정 샤드 노드에 장애가 발생
 노드의 가용(Alternate) 서버로 자동 전환되는 기능이며 샤드 노드 설정 및 응용
 프로그램 설정을 통해서 사용 가능하다.
 
-Altibase Sharding의 Fail-Over를 이해하기 위해서는 Sharding에서 사용하는 커넥션에
-대한 이해가 필요하다.
-
-Altibase Sharding에서 사용하는 커넥션은 다음과 같이 세 가지의 커넥션이 존재하며
-각각의 연결 장애 시에 따라 Fail-Over가 발생할 수 있다.
-
+Altibase Sharding의 Fail-Over를 이해하기 위해서는 Sharding에서 사용하는 각 커넥션에
+대한 이해가 선행되어야 한다.
 - 사용자 커넥션(User Connection)
 - 샤드 라이브러리 커넥션(Shard Library Connection)
 - 코디네이터 커넥션(Coordinator Connection)
+
+Altibase Sharding 에서는 각 커넥션의 연결 장애 시 Fail-Over가 발생할 수 있다.
 
 각 커넥션에 대한 Fail-Over는 장애를 인식하는 시점에 따라 CTF (Connection Time
 Fail-Over)와 STF (Service Time Fail-Over)로 분류할 수 있으며, 커넥션 마다
@@ -3238,17 +3248,15 @@ Replication Manual*을 참고한다.
 
 #### 샤드 라이브러리 커넥션
 
-샤드 라이브러리 커넥션은 사용자 커넥션 연결 시에 샤드 라이브러리에서 내부적으로
+샤드 라이브러리 커넥션은 사용자 커넥션 연결 시에 샤드 라이브러리에서 자동으로
 샤드 노드에 접속하는 것을 말한다.
 
-샤드 라이브러리 커넥션의 통신 방법은 샤드 노드 설정 시 관리자가 입력한 통신
-방법을 기본으로 사용하며, Fail-Over는 시스템 관리자가 등록한 샤드 노드의 외부
-커넥션 IP,PORT로 시도한다.
+Fail-Over는 시스템 관리자가 등록한 샤드 노드의 외부 커넥션 IP,PORT로 시도한다.
 
 예를들어, 관리자가 NODE1을 다음과 같은 프로시저를 통해서 설정할 수 있다.
 
 ```
-iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400, 1);
+iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400);
 Execute success.
 ```
 
@@ -3260,17 +3268,13 @@ Execute success.
 
 ```
 iSQL> EXEC dbms_shard.reset_node_external('node1', '192.168.100.1', 20300,
-'192.168.100.2', 20300 );
+'192.168.100.2', 20300);
 Execute success.
 ```
 
 만약, 샤드 라이브러리 커넥션의 통신 방법을 커넥션 별로 변경하고 싶은 경우 사용자
-커넥션의 커넥션 스트링에 SHARD_CONNTYPE 속성으로 지정 가능하며 다음의 통신
-타입을 지원한다
-
-- 1: TCP
-- 6: SSL
-- 8: IB
+커넥션의 커넥션 스트링에 SHARD_CONNTYPE 속성으로 지정 가능하다.
+지원 타입은 *Altibase Sharding 통신 방법*의 샤드 라이브러리 커넥션을 참고한다.
 
 ##### 제약 사항
 
@@ -3286,7 +3290,7 @@ Execute success.
 예를들어, 관리자가 NODE1을 다음과 같은 프로시저를 통해서 설정할 수 있다.
 
 ```
-iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400, 1);
+iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400);
 Execute success.
 ```
 
@@ -3943,10 +3947,7 @@ port 번호를 나타낸다.
 
 ##### INTERNAL_CONN_TYPE
 
-코디네이터가 연결할 샤드 노드의 연결 방식을 나타낸다.
-
-1: TCP  
-8: IB (Infiniband)
+코디네이터가 연결할 샤드 노드의 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
 
 ##### SMN
 
@@ -4692,11 +4693,12 @@ Execute success.
 
 ```
 SET_NODE(
- node_name         in varchar(40),
- host_ip           in varchar(16),
- port_no           in integer,
- alternate_host_ip in varchar(16) default NULL,
- alternate_port_no in integer default NULL)
+ node_name          in varchar(40),
+ host_ip            in varchar(16),
+ port_no            in integer,
+ alternate_host_ip  in varchar(16) default NULL,
+ alternate_port_no  in integer default NULL,
+ conn_type          in integer)
 ```
 
 ##### 파라미터
@@ -4708,7 +4710,7 @@ SET_NODE(
 | port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
 | alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
 | alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                              |
-| onn_type          | IN     | INTEGER     | 내부적으로 사용되는 코디네이터 연결 방식 1: TCP (기본값) 8: IB (Infiniband) |
+| conn_type         | IN     | INTEGER     | 내부적으로 사용되는 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다. |                 
 
 ##### 설명
 
@@ -4775,12 +4777,12 @@ Execute success.
 ##### 구문
 
 ```
-RESET_NODE_INTERNAL(node_name in varchar(40),
-                    host_ip   in varchar(16),
-                    port_no   in integer,
-                    alternate_host_ip in varchar(16),
-                    alternate_port_no in integer,
-                    conn_type in integer)
+RESET_NODE_INTERNAL(node_name          in varchar(40),
+                    host_ip            in varchar(16),
+                    port_no            in integer,
+                    alternate_host_ip  in varchar(16),
+                    alternate_port_no  in integer,
+                    conn_type          in integer)
 ```
 
 ##### 파라미터
@@ -4792,7 +4794,7 @@ RESET_NODE_INTERNAL(node_name in varchar(40),
 | port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                   |
 | alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                |
 | alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                         |
-| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식 1: TCP (기본값) 8: IB (Infiniband) |
+| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.|
 
 ##### 설명
 
