@@ -8217,6 +8217,22 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 2�
 2.  JVM 내 permanent generation space의 최대 크기를 정하는 옵션
     '-XX:MaxPermSize'의 값을 기존 값보다 높게 설정한다.
 
+###### \<Metaspace\>
+
+사용중인 JVM의 버전이 Java 8 이상인 경우, metaspace의 공간 부족이 원인일 수 있다. metaspace는 Java 8부터 구현된 permenant generation space의 대체제이다.
+
+- 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
+- JVM 내 permanent generation space의 최대 크기를 정하는 옵션 '-XX:MaxPermSize'를
+  metaspace의 최대 크기를 정하는 옵션으로 변경한 뒤, 기존 값보다 높게 수정한다.
+  - 변경 전: -XX:MaxPermSize=128m
+  - 변경 후: -XX:MaxMetaspaceSize=256 m
+
+참고
+
+- <https://dzone.com/articles/java-8-permgen-metaspace>
+
+- <https://www.infoq.com/articles/Java-PERMGEN-Removed>
+
 #### 데이터 타입이 LOB인 테이블 컬럼의 NOT NULL 제약조건이 이관되지 않는다.
 
 ##### 원인
@@ -8299,6 +8315,38 @@ Windows 환경에서 마이그레이션 센터를 실행할 때 발생할 수 �
 최신 버전의 JRE를 설치하고 migcenter.bat 파일 내의 JAVA_HOME 경로를 수정한 뒤,
 마이그레이션 센터를 재실행한다.
 
+#### CLI 모드로 실행 시, UnsatisfiedLinkError: /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libawt_xawt.so: libXrender.so.1: cannot open shared object file: No such file or directory 발생
+
+JVM에서 libXrender.so 파일을 찾았으나, OS에 해당 패키지가 설치되지 않았을 때 발생하는 오류이다. 해당 패키지는 AWT나 Swing을 포함한 어플리케이션을 실행할 때 필요하다.
+
+##### 원인
+
+주로 64비트 장비에  32비트 JRE를 설치한 뒤, 이를 사용하여 자바 프로그램을 실행하려 할 때 발생한다.
+
+##### 해결방법
+
+장비의 비트 값에 맞는 JRE를 새로 설치한 뒤, JAVA_HOME을 해당 위치로 변경한다.
+아래와 같은 명령어를 실행하여 패키지를 설치한다.
+
+```
+sudo apt-get install libXrender1
+```
+
+##### 참고
+
+- http://www.jmeter-archive.org/Bug-in-running-Jmeter-on-Ubuntu-12-04-td5722692.html
+- https://www.spigotmc.org/threads/bungeecord-not-starting-up-on-java-8.24652/ 
+
+#### 마이그레이션 실행시 "Could not create the java virtual machine" 메세지를 출력하고 시작 실패한다. 
+
+##### 원인
+
+bat, sh에서 설정된 -Xmx보다 시스템에서 할당 가능한 메모리가 부족한 경우 발생 가능한 오류이다. 특히 Windows O/S 32bit에서 자주 리포팅되는 오류이다. 
+
+##### 해결방법
+
+bat, sh에서 -Xms -Xmx 값을 사용자 환경에 맞춰 변경한 뒤, Migration Center를 재실행한다.
+
 
 
 ### Oracle
@@ -8360,6 +8408,47 @@ Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접
 
 대상 데이터베이스인 Altibase에 휘발성 테이블스페이스를 생성하고 접근 권한을
 부여한 뒤, 다시 reconcile 단계를 수행한다.
+
+#### 데이터 이관 중에 OutOfMemoryError가 발생한 이후에 여러 다양한 SQLException 들이 발생할 수 있다.
+
+대량의 데이터 이관 중에 오라클에서 fetch 또는 bind 관련 SQLException이 발생하였다. 테이블 모드에서 해당 테이블만 이관해서 성공하면 OOM으로 인한 오류를 의심해 볼 수 있다.
+
+예) 
+
+Caused by: java.sql.SQLException: Fail to convert to internal representation
+at oracle.jdbc.driver.CharCommonAccessor.getBigDecimal(CharCommonAccessor.java:414)
+
+Invalid column type: getCLOB not implemented for class oracle.jdbc.driver.T4CVarcharAccessor
+
+##### 원인
+
+Oracle JDBC driver 내부적으로 OOM 발생 이후 오동작 
+
+##### 해결방법
+
+Common 절의 OutOfMemoryError 항목 참조.
+
+#### 빌드 단계에서 NullPointerException 이 발생할 수 있다.
+
+원본 데이터베이스가 Oracle 9i, 10인 경우 JDBC 드라이버 오류로 인해 build 단계에서 아래와 같은 NullPointerException이 발생할 수 있다.
+
+Fail to retrieve Source DDL: java.lang.NullPointerException
+at oracle.jdbc.driver.T4C8Oall.getNumRows(T4C8Oall.java:1046)
+at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:1047)
+at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1207)
+at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3608)
+at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3652)
+at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1207)
+at com.altibase.migLib.meta.SrcDbMeta_Oracle_9_0_0_0.getSrcDdlDbmsMetaData(SrcDbMeta_Oracle_9_0_0_0.java:2251)
+
+##### 원인
+
+Oracle JDBC 드라이버 문제
+
+##### 해결방법
+
+MigrationCenter의 Oracle용 JDBC 드라이버 파일을 사용중인 Oracle 에 포함된 JDBC 드라이버 파일로 교체한다.
 
 
 
@@ -8469,6 +8558,59 @@ Run 단계 수행 후 생성된 리포트의 Missing 탭에서 이관에 실패�
 ##### 해결방법
 
 Altibase 사용자에게 해당 테이블스페이스에 대한 접근 권한을 부여한다.
+
+#### 버전 4.5.1.0 이하의 알티베이스를 이관할 때, 데이터타입이 BLOB, byte, nibble인 컬럼의 정보를 가져오는데 실패한다.
+
+##### 원인
+
+해당 버전의 알티베이스 JDBC driver가 BLOB, byte, nibble 데이터타입을 UNKOWN으로 리턴하여 컬럼의 데이터타입을 알 수 없다. 
+
+##### 해결방법
+
+BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 사용하여 이관한다.
+
+#### Altibase 611 이하 버전으로부터 이관된 데이터타입 bit, varbit, nibble의 일부 데이터가 원본 데이터베이스와 일치하지 않는다.
+
+##### 원인
+
+해당 버전의 알티베이스 JDBC driver가 batch execution으로 데이터를 삽입할 때, 일부 데이터를 정상적으로 이관하는데 실패한다.
+
+##### 해결방법
+
+프로젝트를 열고 메뉴 Migration - Migration Option을 클릭하여 Batch Execution을 'No'로 선택한 뒤, 데이터 이관을 수행한다.
+
+
+
+### Informix
+
+#### 데이터 이관 중에 Informix JDBC Driver에서 java.sql.SQLException: Encoding or code set not supported. 발생
+
+데이터 이관 중에 Informix에서 fetch 중에 아래와 같은 SQLException이 발생하였다. Informix DB에 Multi-byte 문자의 바이트가 잘린 채로 입력된 경우 이 값을 조회할 때 발생하는 exception이다.
+
+예) 
+
+java.sql.SQLException: Encoding or code set not supported.
+at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:412)
+at com.informix.jdbc.IfxChar.fromIfx(IfxChar.java:235)
+at com.informix.jdbc.IfxRowColumn.a(IfxRowColumn.java:380)
+at com.informix.jdbc.IfxRowColumn.a(IfxRowColumn.java:282)
+at com.informix.jdbc.IfxSqli.a(IfxSqli.java:4657)
+at com.informix.jdbc.IfxResultSet.a(IfxResultSet.java:666)
+at com.informix.jdbc.IfxResultSet.b(IfxResultSet.java:638)
+at com.informix.jdbc.IfxResultSet.getString(IfxResultSet.java:724)
+at com.altibase.migLib.run.databinder.DataBinder.getValuesFromSrc(DataBinder.java:445)
+
+##### 원인
+
+Informix DB에 Multi-byte 문자의 바이트가 잘린 채로 입력된 경우 이 값을 조회할 때 해당 exception이 발생한다.
+
+##### 해결방법
+
+Informix 연결 속성에 IFX_USE_STRENC=true 추가한다.
+
+##### 참조
+
+https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
 
 
 

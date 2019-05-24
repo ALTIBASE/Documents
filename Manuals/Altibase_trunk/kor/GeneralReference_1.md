@@ -3256,6 +3256,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>SYSTEM</td>
       </tr>
       <tr>
+      	<td>MATHEMATICS_TEMP_MEMORY_MAXIMUM</td>
+          <td>SYSTEM</td>
+      </tr>
+      <tr>
       	<td>MAX_FLUSHER_WAIT_SEC</td>
           <td>SYSTEM</td>
       </tr>
@@ -4396,13 +4400,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>SYSTEM</td>
       </tr>
       <tr>
-      	<td>VARCHAR_DEFAULT_PRECISION</td>
-          <td></td>
+      	<td>SERIAL_EXECUTE_MODE</td>
+          <td>BOTH</td>
       </tr>
       <tr>
-      	<td>SERIAL_EXECUTE_MODE</td>
-          <td></td>
-      </tr>
   </table>
 
 이 장에서는 각 프로퍼티를 다음과 같은 형식으로 설명하고 있다.
@@ -7999,6 +8000,28 @@ Unsigned Integer
 플러셔가 대기에서 깨어났을 때 Prepare 리스트의 길이가 전체 버퍼에서 명시한 값
 이하가 되면 교체 플러시를 수행한다. 이 때 해당 플러시 리스트의 모든 갱신
 버퍼들은 플러시한다.
+
+#### MATHEMATICS_TEMP_MEMORY_MAXIMUM (단위 : 바이트)
+
+##### 데이터 타입
+
+Unsigned Long
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>64</sup>-1]
+
+##### 설명
+
+시스템 전체에서 분석 함수가 사용하는 MATHEMATICS TEMP의 메모리 양을 제한한다. ( 분석 함수 : listagg, percentile_cont, percentile_disc, ... ) 사용한 메모리 양이 MATHEMATICS_TEMP_MEMORY_MAXIMUM과 같거나 크다면 에러가 발생한다. 속성 값이 0 인 경우에 메모리 사용량을 검사하지 않는다.
 
 #### MAX_FLUSHER_WAIT_SEC (단위: 초)
 
