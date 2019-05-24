@@ -492,7 +492,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Query_Binding                          | 호스트 변수 바인딩에 사용되는 메모리                                                          |
 | Query_Common                           | 기타 다른 목적으로 사용되는 메모리                                                            |
 | Query_Common_Remote_Call               | 현재 사용되지 않음                                                                            |
-| Query_Conversion                       | 호스트 변수 바인딩 시 변환 수행에 사용되는 메모리                                             |
+| Query_Conversion                       | 현재 사용되지 않음                                                                         |
 | Query_DML                              | DML 구문 실행을 위해 사용되는 메모리                                                          |
 | Query_Execute                          | 쿼리 실행시 사용되는 메모리                                                                   |
 | Query_Execute_Cache                    | Deterministic 함수 결과의 캐시를 위해 사용되는 메모리                                         |
