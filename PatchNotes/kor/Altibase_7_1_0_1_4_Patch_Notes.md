@@ -54,7 +54,7 @@
     - [BUG-46265  Create Disk Temp Table 에서 Key column list가 순환 할 수도 있는지 검증합니다.](#bug-46265-create-disk-temp-table-%EC%97%90%EC%84%9C-key-column-list%EA%B0%80-%EC%88%9C%ED%99%98-%ED%95%A0-%EC%88%98%EB%8F%84-%EC%9E%88%EB%8A%94%EC%A7%80-%EA%B2%80%EC%A6%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-46274  Partition swap 후 update 수행 시 column not found 에러가 발생됩니다.](#bug-46274-partition-swap-%ED%9B%84-update-%EC%88%98%ED%96%89-%EC%8B%9C-column-not-found-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%EB%90%A9%EB%8B%88%EB%8B%A4)
     - [BUG-46279  Disk temp 사용 시 grouping 데이터의 정렬이 subquery를 참조하는 경우 결과 값 오류가 발생합니다.](#bug-46279-disk-temp-%EC%82%AC%EC%9A%A9-%EC%8B%9C-grouping-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EC%A0%95%EB%A0%AC%EC%9D%B4-subquery%EB%A5%BC-%EC%B0%B8%EC%A1%B0%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EA%B0%92-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46286  insert \~ select 구문에서 테이블 이름 없이 parallel 힌트를 사용하면 에러가 발생합니다](#bug-46286-insert-%5C-select-%EA%B5%AC%EB%AC%B8%EC%97%90%EC%84%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%9D%B4%EB%A6%84-%EC%97%86%EC%9D%B4-parallel-%ED%9E%8C%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%A9%B4-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46286  insert \~ select 구문에서 테이블 이름 없이 parallel 힌트를 사용하면 에러가 발생합니다](#bug-46286-insert--select-구문에서-테이블-이름-없이-parallel-힌트를-사용하면-에러가-발생합니다)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
