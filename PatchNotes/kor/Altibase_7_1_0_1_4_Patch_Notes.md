@@ -85,18 +85,18 @@ New Features
   - Property
   - Compile Option
   - Error Code
-    - 121, HY000, ulpERR_ABORT_Not_Supported_Host_Var_Type = Currently not supported host variable type.
-      \# *Cause: Currently not supported host variable type.
-      \# *Action: Refer to the Precompiler user's manual for available host variables.
-    - 122, HY000, ulpERR_ABORT_Column_Value_Is_Null = The fetched result contains a NULL value. or Fetch column value is NULL.
-      \# *Cause: The fetched result contains a NULL value. or Fetch column value is NULL.
-      \# *Action: Verify that the stored procedure contains NULL.(Revise the cursor definition so that no columns possibly containing NULL values are retrieved.)
-    - 123, HY000, ulpERR_ABORT_Invalid_PSM_Array_Version = Invalid psm array meta version.
-      \# *Cause: Invalid psm array meta version.
-      \# *Action: Contact Altibase's Support Center (http://support.altibase.com).
-    - 124, 07006, ulpERR_ABORT_Invalid_PSM_Array_Type = The apre type and psm array type do not match.
-      \# *Cause: The apre host variable type and psm array type do not match.
-      \# *Action: Change the apre host variable types to the data types that are supported by psm array.
+    - 121, HY000, ulpERR_ABORT_Not_Supported_Host_Var_Type = Currently not supported host variable type.</br>
+      \# *Cause: Currently not supported host variable type.</br>
+      \# *Action: Refer to the Precompiler user's manual for available host variables.</br>
+    - 122, HY000, ulpERR_ABORT_Column_Value_Is_Null = The fetched result contains a NULL value. or Fetch column value is NULL.</br>
+      \# *Cause: The fetched result contains a NULL value. or Fetch column value is NULL.</br>
+      \# *Action: Verify that the stored procedure contains NULL.(Revise the cursor definition so that no columns possibly containing NULL values are retrieved.)</br>
+    - 123, HY000, ulpERR_ABORT_Invalid_PSM_Array_Version = Invalid psm array meta version.</br>
+      \# *Cause: Invalid psm array meta version.</br>
+      \# *Action: Contact Altibase's Support Center (http://support.altibase.com).</br>
+    - 124, 07006, ulpERR_ABORT_Invalid_PSM_Array_Type = The apre type and psm array type do not match.</br>
+      \# *Cause: The apre host variable type and psm array type do not match.</br>
+      \# *Action: Change the apre host variable types to the data types that are supported by psm array.</br>
 
 ### BUG-45701  PSM associative array parameter binding
 
