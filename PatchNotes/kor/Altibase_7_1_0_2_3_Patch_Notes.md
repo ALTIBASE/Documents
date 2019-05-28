@@ -1,11 +1,12 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Altibase 7.1.0.2.3 Patch Notes](#altibase-71023-patch-notes)
   - [New Features](#new-features)
     - [BUG-46837  Replication이 Drop된 receiver 에 Sender가 접속을 시도하면 출력되는 에러메시지 개선](#bug-46837-replication%EC%9D%B4-drop%EB%90%9C-receiver-%EC%97%90-sender%EA%B0%80-%EC%A0%91%EC%86%8D%EC%9D%84-%EC%8B%9C%EB%8F%84%ED%95%98%EB%A9%B4-%EC%B6%9C%EB%A0%A5%EB%90%98%EB%8A%94-%EC%97%90%EB%9F%AC%EB%A9%94%EC%8B%9C%EC%A7%80-%EA%B0%9C%EC%84%A0)
-    - [BUG-46866 쿼리 수행 성능 개선을 위한 기능 추가](#bug-46866%EC%BF%BC%EB%A6%AC-%EC%88%98%ED%96%89-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
-    - [BUG-46882 QUEUE생성 시 tablespace를 지정할 수 있어야합니다.](#bug-46882queue%EC%83%9D%EC%84%B1-%EC%8B%9C-tablespace%EB%A5%BC-%EC%A7%80%EC%A0%95%ED%95%A0-%EC%88%98-%EC%9E%88%EC%96%B4%EC%95%BC%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46866  쿼리 수행 성능 개선을 위한 기능 추가](#bug-46866-%EC%BF%BC%EB%A6%AC-%EC%88%98%ED%96%89-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
+    - [BUG-46882  QUEUE생성 시 tablespace를 지정할 수 있어야합니다.](#bug-46882-queue%EC%83%9D%EC%84%B1-%EC%8B%9C-tablespace%EB%A5%BC-%EC%A7%80%EC%A0%95%ED%95%A0-%EC%88%98-%EC%9E%88%EC%96%B4%EC%95%BC%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-46883 anonymous block 지원](#bug-46883anonymous-block-%EC%A7%80%EC%9B%90)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-46529 REPLICATION\_DDL\_ENABLE 옵션에 따라 REPLICATION\_DDL\_ENABLE\_LEVEL 관련 에러 메세지가 틀리게 출력됩니다.](#bug-46529replication%5C_ddl%5C_enable-%EC%98%B5%EC%85%98%EC%97%90-%EB%94%B0%EB%9D%BC-replication%5C_ddl%5C_enable%5C_level-%EA%B4%80%EB%A0%A8-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%84%B8%EC%A7%80%EA%B0%80-%ED%8B%80%EB%A6%AC%EA%B2%8C-%EC%B6%9C%EB%A0%A5%EB%90%A9%EB%8B%88%EB%8B%A4)
@@ -64,7 +65,7 @@ New Features
   -   Compile Option
   -   Error Code
 
-### BUG-46866 쿼리 수행 성능 개선을 위한 기능 추가
+### BUG-46866  쿼리 수행 성능 개선을 위한 기능 추가
 
 - **module** : qp-select-execute
 
@@ -136,7 +137,7 @@ New Features
 
   - Error Code
 
-### BUG-46882 QUEUE생성 시 tablespace를 지정할 수 있어야합니다.
+### BUG-46882  QUEUE생성 시 tablespace를 지정할 수 있어야합니다.
 
 -   **module** : qp
 
