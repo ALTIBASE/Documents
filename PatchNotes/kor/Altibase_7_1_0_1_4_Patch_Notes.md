@@ -32,7 +32,7 @@
     - [BUG-45643  암호화컬럼의 경우, 이중화 환경에서 DDL 수행시 Replication HandShake 가 실패하는 문제가 있어 수정하였습니다.](#bug-45643-%EC%95%94%ED%98%B8%ED%99%94%EC%BB%AC%EB%9F%BC%EC%9D%98-%EA%B2%BD%EC%9A%B0-%EC%9D%B4%EC%A4%91%ED%99%94-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-ddl-%EC%88%98%ED%96%89%EC%8B%9C-replication-handshake-%EA%B0%80-%EC%8B%A4%ED%8C%A8%ED%95%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%96%B4-%EC%88%98%EC%A0%95%ED%95%98%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-45652  이중화에서 Active Server와 Standby Server의 List Partition 테이블의 범위 조건이 다른경우에 Handshake 가 성공되는 문제가 있어, 이를 수정하였습니다.](#bug-45652-%EC%9D%B4%EC%A4%91%ED%99%94%EC%97%90%EC%84%9C-active-server%EC%99%80-standby-server%EC%9D%98-list-partition-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%EB%B2%94%EC%9C%84-%EC%A1%B0%EA%B1%B4%EC%9D%B4-%EB%8B%A4%EB%A5%B8%EA%B2%BD%EC%9A%B0%EC%97%90-handshake-%EA%B0%80-%EC%84%B1%EA%B3%B5%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%96%B4-%EC%9D%B4%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%98%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-45898  Fetch시 예외상황으로 인해 Hang이나 프로토콜이 잘못 해석되는 것을 예방해야 합니다.](#bug-45898-fetch%EC%8B%9C-%EC%98%88%EC%99%B8%EC%83%81%ED%99%A9%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-hang%EC%9D%B4%EB%82%98-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C%EC%9D%B4-%EC%9E%98%EB%AA%BB-%ED%95%B4%EC%84%9D%EB%90%98%EB%8A%94-%EA%B2%83%EC%9D%84-%EC%98%88%EB%B0%A9%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-45948  클라이언트 시작 후 서버로 DDL 복제(sync)를 수행하면 비정상 종료할수 있습니다.](#bug-45948-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%8B%9C%EC%9E%91-%ED%9B%84-%EC%84%9C%EB%B2%84%EB%A1%9C-ddl-%EB%B3%B5%EC%A0%9Csync%EB%A5%BC-%EC%88%98%ED%96%89%ED%95%98%EB%A9%B4-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-45948  클라이언트 시작 후 서버로 DDL 동기화(sync)를 수행하면 비정상 종료할수 있습니다.](#bug-45948-클라이언트-시작-후-서버로-ddl-동기화sync를-수행하면-비정상-종료할수-있습니다)
     - [BUG-45961  fetch across rollback 기능의 cursor 재사용 조건 확인 개선](#bug-45961-fetch-across-rollback-%EA%B8%B0%EB%8A%A5%EC%9D%98-cursor-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EC%A1%B0%EA%B1%B4-%ED%99%95%EC%9D%B8-%EA%B0%9C%EC%84%A0)
     - [BUG-46010  HBT에서 Connection 진행중에 event가 발생하는 경우, 에러로 처리 하지 않도록 수정하였습니다.](#bug-46010-hbt%EC%97%90%EC%84%9C-connection-%EC%A7%84%ED%96%89%EC%A4%91%EC%97%90-event%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EC%97%90%EB%9F%AC%EB%A1%9C-%EC%B2%98%EB%A6%AC-%ED%95%98%EC%A7%80-%EC%95%8A%EB%8F%84%EB%A1%9D-%EC%88%98%EC%A0%95%ED%95%98%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-46023  select union all을 사용하고 view force 옵션으로 없는 컬럼의 table을 view로 생성시 비정상 종료가능성이 있습니다.](#bug-46023-select-union-all%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B3%A0-view-force-%EC%98%B5%EC%85%98%EC%9C%BC%EB%A1%9C-%EC%97%86%EB%8A%94-%EC%BB%AC%EB%9F%BC%EC%9D%98-table%EC%9D%84-view%EB%A1%9C-%EC%83%9D%EC%84%B1%EC%8B%9C-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%EA%B0%80%EB%8A%A5%EC%84%B1%EC%9D%B4-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
@@ -54,7 +54,7 @@
     - [BUG-46265  Create Disk Temp Table 에서 Key column list가 순환 할 수도 있는지 검증합니다.](#bug-46265-create-disk-temp-table-%EC%97%90%EC%84%9C-key-column-list%EA%B0%80-%EC%88%9C%ED%99%98-%ED%95%A0-%EC%88%98%EB%8F%84-%EC%9E%88%EB%8A%94%EC%A7%80-%EA%B2%80%EC%A6%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-46274  Partition swap 후 update 수행 시 column not found 에러가 발생됩니다.](#bug-46274-partition-swap-%ED%9B%84-update-%EC%88%98%ED%96%89-%EC%8B%9C-column-not-found-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%EB%90%A9%EB%8B%88%EB%8B%A4)
     - [BUG-46279  Disk temp 사용 시 grouping 데이터의 정렬이 subquery를 참조하는 경우 결과 값 오류가 발생합니다.](#bug-46279-disk-temp-%EC%82%AC%EC%9A%A9-%EC%8B%9C-grouping-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EC%A0%95%EB%A0%AC%EC%9D%B4-subquery%EB%A5%BC-%EC%B0%B8%EC%A1%B0%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EA%B0%92-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46286  insert \~ select 구문에서 테이블 이름 없이 parallel 힌트를 사용하면 에러가 발생합니다](#bug-46286-insert-%5C-select-%EA%B5%AC%EB%AC%B8%EC%97%90%EC%84%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%9D%B4%EB%A6%84-%EC%97%86%EC%9D%B4-parallel-%ED%9E%8C%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%A9%B4-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46286  insert \~ select 구문에서 테이블 이름 없이 parallel 힌트를 사용하면 에러가 발생합니다](#bug-46286-insert--select-구문에서-테이블-이름-없이-parallel-힌트를-사용하면-에러가-발생합니다)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -1251,7 +1251,7 @@ Fixed Bugs
   -   Compile Option
   -   Error Code
 
-### BUG-45948  클라이언트 시작 후 서버로 DDL 복제(sync)를 수행하면 비정상 종료할수 있습니다.
+### BUG-45948  클라이언트 시작 후 서버로 DDL 동기화(sync)를 수행하면 비정상 종료할수 있습니다.
 
 -   **module** : rp
 
@@ -1259,7 +1259,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** : 클라이언트를 시작후 바로 서버로 DDL 복제를 수행하면, 잘못된 DDL 복제 정보를 가져와서 서버가 비정상 종료하는 문제가 있어 수정하였습니다.
+-   **증상** : 클라이언트를 시작후 바로 서버로 DDL 동기화를 수행하면, 잘못된 DDL 동기화 정보를 가져와서 서버가 비정상 종료하는 문제가 있어 수정하였습니다.
 
 -   **재현 방법**
 
