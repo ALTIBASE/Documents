@@ -4,13 +4,13 @@
 
 - [Altibase 7.1.0.2.0 Patch Notes](#altibase-71020-patch-notes)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-46502 IPCDA PowerPC 안정성 개선](#bug-46502ipcda-powerpc-안정성-개선)
-    - [BUG-46594 이중화 핸드쉐이크 과정에서 불필요한 lock 이 잡힐 수 있습니다.](#bug-46594이중화-핸드쉐이크-과정에서-불필요한-lock-이-잡힐-수-있습니다.)
-    - [BUG-46644 XA에서 메모리 릭이 발생할 수 있습니다.](#bug-46644xa에서-메모리-릭이-발생할-수-있습니다)
-    - [BUG-46666 LOB 업데이트시 메모리 테이블 사이즈가 계속 증가합니다.](#bug-46666lob-업데이트시-메모리-테이블-사이즈가-계속-증가합니다)
-    - [BUG-46678 Return의 Precision을 명시하지 않은 function에서 return 값을 저장하는 buffer의 크기를 잘못 계산할 수 있습니다.](#bug-46678return의-precision을-명시하지-않은-function에서-return-값을-저장하는-buffer의-크기를-잘못-계산할-수-있습니다)
-    - [BUG-46679 disk table 에서 특정 계층쿼리 수행시 [ERR-311A4 : Loop in hierarchical query detected.]](#bug-46679disk-table-에서-특정-계층쿼리-수행시-err-311a4--loop-in-hierarchical-query-detected)
-    - [BUG-46709 AIX에서 server stop시 비정상적으로 종료되는 문제 수정](#bug-46709aix에서-server-stop시-비정상적으로-종료되는-문제-수정)
+    - [BUG-46502 IPCDA PowerPC 안정성 개선](#bug-46502-ipcda-powerpc-안정성-개선)
+    - [BUG-46594 이중화 핸드쉐이크 과정에서 불필요한 lock 이 잡힐 수 있습니다.](#bug-46594-이중화-핸드쉐이크-과정에서-불필요한-lock-이-잡힐-수-있습니다.)
+    - [BUG-46644 XA에서 메모리 릭이 발생할 수 있습니다.](#bug-46644-xa에서-메모리-릭이-발생할-수-있습니다)
+    - [BUG-46666 LOB 업데이트시 메모리 테이블 사이즈가 계속 증가합니다.](#bug-46666-lob-업데이트시-메모리-테이블-사이즈가-계속-증가합니다)
+    - [BUG-46678 Return의 Precision을 명시하지 않은 function에서 return 값을 저장하는 buffer의 크기를 잘못 계산할 수 있습니다.](#bug-46678-return의-precision을-명시하지-않은-function에서-return-값을-저장하는-buffer의-크기를-잘못-계산할-수-있습니다)
+    - [BUG-46679 disk table 에서 특정 계층쿼리 수행시 [ERR-311A4 : Loop in hierarchical query detected.]](#bug-4667-9disk-table-에서-특정-계층쿼리-수행시-err-311a4--loop-in-hierarchical-query-detected)
+    - [BUG-46709 AIX에서 server stop시 비정상적으로 종료되는 문제 수정](#bug-46709-aix에서-server-stop시-비정상적으로-종료되는-문제-수정)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -143,7 +143,7 @@ Fixed Bugs
             update test set c1 = CASE WHEN c1 = 'aaa' then lpad('b', 5000) else 'aaa' end;
             update test set c1 = CASE WHEN c1 = 'aaa' then lpad('b', 5000) else 'aaa' end;
             exec sleep(4);
-            
+
             select mem_page_cnt, mem_var_page_cnt  from system_.sys_tables_ a, v$memtbl_info b where a.table_oid = b.table_oid and a.table_name = 'TEST';
 
     -   **수행 결과**
@@ -219,7 +219,7 @@ Fixed Bugs
             IS
                 V_HDQR_NM VARCHAR2(100) := NULL;  --오류시 NULL을 반환한다.
             BEGIN
-                SELECT OPCP_HDQR_NM INTO V_HDQR_NM FROM T_TCCJ124_M01 
+                SELECT OPCP_HDQR_NM INTO V_HDQR_NM FROM T_TCCJ124_M01
                 WHERE OPCP_HDQR_ID = P_HDQR_ID;
                 RETURN V_HDQR_NM;
             EXCEPTION
@@ -270,7 +270,7 @@ Fixed Bugs
             IS
                 V_HDQR_NM VARCHAR2(100) := NULL;  --오류시 NULL을 반환한다.
             BEGIN
-                SELECT OPCP_HDQR_NM INTO V_HDQR_NM FROM T_TCCJ124_M01 
+                SELECT OPCP_HDQR_NM INTO V_HDQR_NM FROM T_TCCJ124_M01
                 WHERE OPCP_HDQR_ID = P_HDQR_ID;
                 RETURN V_HDQR_NM;
             EXCEPTION
@@ -291,7 +291,7 @@ Fixed Bugs
         IS
             V_HDQR_NM VARCHAR2(100) := NULL;  --오류시 NULL을 반환한다.
         BEGIN
-            SELECT OPCP_HDQR_NM INTO V_HDQR_NM FROM T_TCCJ124_M01 
+            SELECT OPCP_HDQR_NM INTO V_HDQR_NM FROM T_TCCJ124_M01
             WHERE OPCP_HDQR_ID = P_HDQR_ID;
             RETURN V_HDQR_NM;
         EXCEPTION
@@ -441,7 +441,7 @@ Replication 프로토콜 버전은 변경되지 않았다.
 샤딩 버전이 2.1.0 에서 2.2.1로 변경되었다.
 
 > 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다.
+> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다. *샤딩 설정은 [Altibase Sharding 설치와 설정](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#2altibase-sharding-%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95>)을 참고한다.*
 
 ### 프로퍼티
 
