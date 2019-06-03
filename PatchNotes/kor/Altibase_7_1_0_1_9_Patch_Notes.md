@@ -27,7 +27,7 @@ Altibase 7.1.0.1.9 Patch Notes
 Fixed Bugs
 ----------
 
-### BUG-45623 HBT에서 연결확인작업시 허용된 갯수 이상의 소켓을 사용하는 문제로 인해 에러가 발생합니다.(HP-UX)
+### BUG-45623  HBT에서 연결확인작업시 허용된 갯수 이상의 소켓을 사용하는 문제로 인해 에러가 발생합니다.(HP-UX)
 
 -   **module** : pd
 
@@ -56,7 +56,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46296 OTHER\_DATABASE\_SKIP\_ERROR 가 1일때 connection error가 발생하면 skip하지 않도록 수정
+### BUG-46296  OTHER\_DATABASE\_SKIP\_ERROR 가 1일때 connection error가 발생하면 skip하지 않도록 수정
 
 -   **module** : rp-jdbcAdapter
 
