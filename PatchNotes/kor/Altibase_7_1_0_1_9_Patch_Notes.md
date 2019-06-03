@@ -98,7 +98,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46453 STF(Service Time Failover) 수행시 AlternateServers가 설정되어 있지 않으면 ASSERT 에러가 발생합니다.
+### BUG-46453  STF(Service Time Failover) 수행시 AlternateServers가 설정되어 있지 않으면 ASSERT 에러가 발생합니다.
 
 -   **module** : ul-odbc
 
@@ -127,7 +127,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46593 PSM 호출시 host variable의 array size의 동일 여부를 확인하는 로직 추가
+### BUG-46593  PSM 호출시 host variable의 array size의 동일 여부를 확인하는 로직 추가
 
 -   **module** : mm-apre
 
@@ -185,7 +185,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46607 지원하지 않는 OS 에서 altiMon을 구동하려는 경우, PICL(platform information collection library) library file does not exist. 오류 발생
+### BUG-46607  지원하지 않는 OS 에서 altiMon을 구동하려는 경우, PICL(platform information collection library) library file does not exist. 오류 발생
 
 -   **module** : ux-altiMon
 
@@ -215,7 +215,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46608 이중화 중 HBT error가 발생한 후 receiver쪽에Invalid protocol sequence error 가 발생합니다.
+### BUG-46608  이중화 중 HBT error가 발생한 후 receiver쪽에Invalid protocol sequence error 가 발생합니다.
 
 -   **module** : rp
 
@@ -244,7 +244,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46620 AIX 7에서 altiMon 지원
+### BUG-46620  AIX 7에서 altiMon 지원
 
 -   **module** : ux-altiMon
 
@@ -271,7 +271,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46625 IPCDA에서 host 변수에 matching 되는 컬럼이 없을 경우 비정상 종료하는 문제 수정
+### BUG-46625  IPCDA에서 host 변수에 matching 되는 컬럼이 없을 경우 비정상 종료하는 문제 수정
 
 -   **module** : qp
 
