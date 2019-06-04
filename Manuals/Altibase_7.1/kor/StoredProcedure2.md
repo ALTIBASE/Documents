@@ -5384,7 +5384,7 @@ DBMS_LOCK.SLEEP(seconds IN INTEGER);
 ##### 구문
 
 ```
-DBMS_LOCK.SLEEP(seconds IN INTEGER, microseconds IN INTEGER);
+DBMS_LOCK.SLEEP2(seconds IN INTEGER, microseconds IN INTEGER);
 ```
 
 

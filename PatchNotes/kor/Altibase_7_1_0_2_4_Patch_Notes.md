@@ -1,14 +1,15 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Altibase 7.1.0.2.4 Patch Notes](#altibase-71024-patch-notes)
   - [New Features](#new-features)
-    - [BUG-46892 Mathematics 사용 메모리 제한 기능과 Mathematics Temp 사용 모니터링 기능 추가](#bug-46892mathematics-%EC%82%AC%EC%9A%A9-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%A0%9C%ED%95%9C-%EA%B8%B0%EB%8A%A5%EA%B3%BC-mathematics-temp-%EC%82%AC%EC%9A%A9-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
+    - [BUG-46892  Mathematics 사용 메모리 제한 기능과 Mathematics Temp 사용 모니터링 기능 추가](#bug-46892-mathematics-%EC%82%AC%EC%9A%A9-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%A0%9C%ED%95%9C-%EA%B8%B0%EB%8A%A5%EA%B3%BC-mathematics-temp-%EC%82%AC%EC%9A%A9-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-46940 이중화 start후 XLOG가 receiver로 전송하지 않는 문제가 있습니다.](#bug-46940%EC%9D%B4%EC%A4%91%ED%99%94-start%ED%9B%84-xlog%EA%B0%80-receiver%EB%A1%9C-%EC%A0%84%EC%86%A1%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-46942 target에 NVL등의 함수를 alias로 선언하고 JOIN이 존재하며 order by에 해당 alias를 연산하는 경우 비정상 종료](#bug-46942target%EC%97%90-nvl%EB%93%B1%EC%9D%98-%ED%95%A8%EC%88%98%EB%A5%BC-alias%EB%A1%9C-%EC%84%A0%EC%96%B8%ED%95%98%EA%B3%A0-join%EC%9D%B4-%EC%A1%B4%EC%9E%AC%ED%95%98%EB%A9%B0-order-by%EC%97%90-%ED%95%B4%EB%8B%B9-alias%EB%A5%BC-%EC%97%B0%EC%82%B0%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C)
-    - [BUG-46955 메모리 인덱스 POINTER BASE BOTTOM-UP 빌드 속도 향상](#bug-46955%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4-pointer-base-bottom-up-%EB%B9%8C%EB%93%9C-%EC%86%8D%EB%8F%84-%ED%96%A5%EC%83%81)
-    - [BUG-46977 Anonymous block의 select into 구문에서 ?로도 bind가 가능해야 합니다.](#bug-46977anonymous-block%EC%9D%98-select-into-%EA%B5%AC%EB%AC%B8%EC%97%90%EC%84%9C-%EB%A1%9C%EB%8F%84-bind%EA%B0%80-%EA%B0%80%EB%8A%A5%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46940  이중화 start후 XLOG가 receiver로 전송하지 않는 문제가 있습니다.](#bug-46940-%EC%9D%B4%EC%A4%91%ED%99%94-start%ED%9B%84-xlog%EA%B0%80-receiver%EB%A1%9C-%EC%A0%84%EC%86%A1%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-46942  target에 NVL등의 함수를 alias로 선언하고 JOIN이 존재하며 order by에 해당 alias를 연산하는 경우 비정상 종료](#bug-46942-target%EC%97%90-nvl%EB%93%B1%EC%9D%98-%ED%95%A8%EC%88%98%EB%A5%BC-alias%EB%A1%9C-%EC%84%A0%EC%96%B8%ED%95%98%EA%B3%A0-join%EC%9D%B4-%EC%A1%B4%EC%9E%AC%ED%95%98%EB%A9%B0-order-by%EC%97%90-%ED%95%B4%EB%8B%B9-alias%EB%A5%BC-%EC%97%B0%EC%82%B0%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C)
+    - [BUG-46955  메모리 인덱스 POINTER BASE BOTTOM-UP 빌드 속도 향상](#bug-46955-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4-pointer-base-bottom-up-%EB%B9%8C%EB%93%9C-%EC%86%8D%EB%8F%84-%ED%96%A5%EC%83%81)
+    - [BUG-46977  Anonymous block의 select into 구문에서 ?로도 bind가 가능해야 합니다.](#bug-46977-anonymous-block%EC%9D%98-select-into-%EA%B5%AC%EB%AC%B8%EC%97%90%EC%84%9C-%EB%A1%9C%EB%8F%84-bind%EA%B0%80-%EA%B0%80%EB%8A%A5%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -23,7 +24,7 @@ Altibase 7.1.0.2.4 Patch Notes
 New Features
 ------------
 
-### BUG-46892 Mathematics 사용 메모리 제한 기능과 Mathematics Temp 사용 모니터링 기능 추가
+### BUG-46892  Mathematics 사용 메모리 제한 기능과 Mathematics Temp 사용 모니터링 기능 추가
 
 - **module** : mt-function
 
@@ -31,20 +32,15 @@ New Features
 
 - **재현 빈도** : Always
 
-- **증상** : Mathematics 사용 메모리 제한 기능과 Mathematics Temp 사용
-  모니터링 기능을 추가합니다.
+- **증상** : Mathematics 사용 메모리 제한 기능과 Mathematics Temp 사용 모니터링 기능을 추가합니다.
 
-  Mathematics은 일반적인 연산 함수나 Listagg와 같은 분석 함수에서
-  사용하는 메모리를 합해서 보여줍니다.
+  Mathematics은 일반적인 연산 함수나 Listagg와 같은 분석 함수에서 사용하는 메모리를 합해서 보여줍니다.
 
-  특히 분석 함수는 데이터 분포에 따라 메모리를 많이 사용할 수
-  있습니다.
+  특히 분석 함수는 데이터 분포에 따라 메모리를 많이 사용할 수 있습니다.
 
-  따라서 모니터링을 위해, v\$statement에 MATHEMATICS\_TEMP\_MEMORY
-  정보를 추가하였습니다.
+  따라서 모니터링을 위해, v\$statement에 MATHEMATICS\_TEMP\_MEMORY 정보를 추가하였습니다.
 
-  또한 Mathematics Temp의 메모리 사용 제한을 위해서 프로퍼티를
-  제공합니다. 
+  또한 Mathematics Temp의 메모리 사용 제한을 위해서 프로퍼티를 제공합니다. 
 
 - **재현 방법**
 
@@ -84,7 +80,7 @@ New Features
 Fixed Bugs
 ----------
 
-### BUG-46940 이중화 start후 XLOG가 receiver로 전송하지 않는 문제가 있습니다.
+### BUG-46940  이중화 start후 XLOG가 receiver로 전송하지 않는 문제가 있습니다.
 
 - **module** : dm
 
@@ -94,14 +90,11 @@ Fixed Bugs
 
 - **증상** : 원인
 
-  이중화 구성 후 sender가 receiver로 Xlog를 보내서 receiver에
-  restartXSN 값이 증가된 상태에서
+  이중화 구성 후 sender가 receiver로 Xlog를 보내서 receiver에 restartXSN 값이 증가된 상태에서
 
-  Sender 쪽에 db를 재구성하게 되면 XSN값이 초기화되어 다시 처음부터
-  시작 하게 됩니다.
+  Sender 쪽에 db를 재구성하게 되면 XSN값이 초기화되어 다시 처음부터 시작 하게 됩니다.
 
-  그러나 receiver 쪽에서는 이중화를 drop 시키지 않아 이전 Meta 정보를
-  가지고 있어, 이전의 restartXSN값을 Sender로 보내게 되고
+  그러나 receiver 쪽에서는 이중화를 drop 시키지 않아 이전 Meta 정보를 가지고 있어, 이전의 restartXSN값을 Sender로 보내게 되고 
 
   Sender에서는 현재 XSN 값이 restartXSN보다 작으므로 이전에 보낸것으로
   판단하여 skip하게 되어 Xlog를 전송하지 않아 문제가 발생합니다.
@@ -133,7 +126,7 @@ Fixed Bugs
   -   Compile Option
   -   Error Code
 
-### BUG-46942 target에 NVL등의 함수를 alias로 선언하고 JOIN이 존재하며 order by에 해당 alias를 연산하는 경우 비정상 종료
+### BUG-46942  target에 NVL등의 함수를 alias로 선언하고 JOIN이 존재하며 order by에 해당 alias를 연산하는 경우 비정상 종료
 
 -   **module** : qp-dml-execute
 
@@ -141,8 +134,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** : target에 NVL등의 함수를 alias로 선언하고 JOIN이 존재하며
-    order by에 해당 alias를 연산하는 경우 비정상 종료 수정
+- **증상** : target에 NVL등의 함수를 alias로 선언하고 JOIN이 존재하며 order by에 해당 alias를 연산하는 경우 비정상 종료되는 문제를 수정하였습니다.
 
 -   **재현 방법**
 
@@ -221,7 +213,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46955 메모리 인덱스 POINTER BASE BOTTOM-UP 빌드 속도 향상
+### BUG-46955  메모리 인덱스 POINTER BASE BOTTOM-UP 빌드 속도 향상
 
 -   **module** : sm-mem-index
 
@@ -248,15 +240,15 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46977 Anonymous block의 select into 구문에서 ?로도 bind가 가능해야 합니다.
+### BUG-46977  Anonymous block의 select into 구문에서 ?로도 bind가 가능해야 합니다.
 
--   **module** : qp-psm-trigger-pvo
+- **module** : qp-psm-trigger-pvo
 
--   **Category** : Functional Error
+- **Category** : Functional Error
 
--   **재현 빈도** : Always
+- **재현 빈도** : Always
 
--   **증상** :
+- **증상** : Annoymous block의 select into 구문에서 ?로 bind 가능하도록 수정하였습니다.
 
 - **재현 방법**
 
@@ -276,33 +268,32 @@ Fixed Bugs
         line 1: parse error
         BEGIN SELECT 1 INTO ? FROM DUAL; END;
                             ^
-        
-        
+    
         java.sql.SQLException: SQL syntax error
         
         line 1: parse error
         BEGIN SELECT 1 INTO? FROM DUAL; END;
                            ^
-        
-        
+    
                 at Altibase.jdbc.driver.ex.Error.processServerError(Error.java:369)
                 at Altibase.jdbc.driver.AltibasePreparedStatement.(AltibasePreparedStatement.java:125)
                 at Altibase.jdbc.driver.AltibaseCallableStatement.(AltibaseCallableStatement.java:46)
                 at Altibase.jdbc.driver.AltibaseConnection.prepareCall(AltibaseConnection.java:1183)
-                at SimpleSQL.main(SimpleSQL.java:45)
+                at SimpleSQL.main(SimpleSQL.java:45)                  
 
-  -   **예상 결과**
+  - **예상 결과**
 
-          $ java SimpleSQL1
+        $ java SimpleSQL
+        1
 
--   **Workaround**
+- **Workaround**
 
--   **변경사항**
+- **변경사항**
 
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
+  -   Performance view
+  -   Property
+  -   Compile Option
+  -   Error Code
 
 Changes
 -------
@@ -348,7 +339,7 @@ Changes
 샤딩 버전은 변경 되지 않았다.
 
 > 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다.
+> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다. 샤딩 설정은 [Altibase Sharding 설치와 설정](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#2altibase-sharding-%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95>)을 참고한다.
 
 ### 프로퍼티
 
