@@ -1276,6 +1276,7 @@ Altibase Sharding
 | 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
 | 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_SHARD_DETAIL                                          | Yes                | SYSTEM, SESSION |
+| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT SD_MSGLOG_FILE SD_MSGLOG_FLAG SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 
 #### SHARD_ENABLE
@@ -1421,6 +1422,48 @@ log를 사용하기 위해 1을 설정한다.
 
 Altibas Sharding 운영 중 ALTER SESSION, ALTER SYSTEM 문을 이용하여 이 프로퍼티의
 값을 변경할 수 있다.
+
+#### SHARD_AGGREGATION_TRANSFORM_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+다음 집합 함수를 사용한 쿼리를 내부적으로 변환한다.
+
+- SUM
+- MIN
+- MAX
+- COUNT
+- AVG
+
+예를 들어 다음 쿼리는 내부적으로 아래와 같이 변환하여 수행한다.
+
+```
+SELECT count(*) FROM t1;
+->
+SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
+```
+
+> 주의 사항
+>
+> - AVG의 경우 SUM(SUM()) / SUM(COUNT()) 로 변환되어서 부동소숫점 타입의 결과가 상이할 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
 #### SD_MSGLOG_COUNT
 
