@@ -1277,7 +1277,7 @@ Altibase Sharding
 | 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_SHARD_DETAIL                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
-| 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT SD_MSGLOG_FILE SD_MSGLOG_FLAG SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
+| 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT<br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 
 #### SHARD_ENABLE
 
@@ -1443,7 +1443,7 @@ Unsigned Integer
 
 ##### 설명
 
-다음 집합 함수를 사용한 쿼리를 내부적으로 변환한다.
+Altibase Sharding 환경에서 AGGREGATION 분산 수행을 최적화하기 위해 다음 집계 함수를 사용한 쿼리를 내부적으로 변환한다.
 
 - SUM
 - MIN
@@ -1451,12 +1451,15 @@ Unsigned Integer
 - COUNT
 - AVG
 
-예를 들어 다음 쿼리는 내부적으로 아래와 같이 변환하여 수행한다.
+예를 들어 다음 구문은 SHARD_AGGREGATION_TRANSFORM_ENABLE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT count(*) FROM t1;
 
 ```
-SELECT count(*) FROM t1;
-->
-SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 0
+-> SELECT count(*) FROM shard(SELECT * FROM t1)
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
+-> SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
 ```
 
 > 주의 사항
