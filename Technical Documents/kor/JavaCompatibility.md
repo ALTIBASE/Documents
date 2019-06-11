@@ -1,2 +1,2 @@
-Java Compatability
+Java Compatbility
 ![](Images/JavaCompatibility.JPG)
