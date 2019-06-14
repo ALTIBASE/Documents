@@ -5929,8 +5929,8 @@ FREE_NODE_HEAD는 인덱스 내 FREE NODE들의 첫번째 페이지를 나타낸
 | WRITE_COUNT      | BIGINT  | 데이터를 저장하는 IO가 발생한 횟수        |
 | WRITE_PAGE_COUNT | BIGINT  | 페이지가 디스크로 저장된 총 개수          |
 | ALLOC_WAIT_COUNT | BIGINT  | 메모리 공간 할당을 위해 대기한 총 횟수    |
-| WRITE_WAIT_COUNT | BIGINT  | 디스크로 저장하기 위해 대기한 총 횟수     |
-| QUEUE_WAIT_COUNT | BIGINT  | 큐에 입력되기를 기다리는 횟수             |
+| WRITE_WAIT_COUNT | BIGINT  | 현재 사용되지 않음                        |
+| QUEUE_WAIT_COUNT | BIGINT  | 현재 사용되지 않음                        |
 | WORK_AREA_SIZE   | BIGINT  | 디스크 임시 테이블이 사용하는 메모리 크기 |
 | DISK_USAGE       | BIGINT  | 디스크에 저장된 데이터 공간의 크기        |
 

@@ -19,6 +19,7 @@
     - [디렉토리](#%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC)
   - [3.Altibase Sharding 사용방법](#3altibase-sharding-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
     - [Altibase Sharding 제약사항](#altibase-sharding-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+    - [Altibase Sharding 통신 방법](#altibase-sharding-%ED%86%B5%EC%8B%A0-%EB%B0%A9%EB%B2%95)
     - [샤드 노드](#%EC%83%A4%EB%93%9C-%EB%85%B8%EB%93%9C)
     - [샤드 객체](#%EC%83%A4%EB%93%9C-%EA%B0%9D%EC%B2%B4)
     - [분산 정보 설정](#%EB%B6%84%EC%82%B0-%EC%A0%95%EB%B3%B4-%EC%84%A4%EC%A0%95)
@@ -51,9 +52,18 @@
     - [S\$STATEMENT](#s%5Cstatement)
   - [5.Altibase Sharding 패키지](#5altibase-sharding-%ED%8C%A8%ED%82%A4%EC%A7%80)
     - [DBMS_SHARD](#dbms_shard)
-  - [6.Altibase Sharding 유틸리티](#6altibase-sharding-%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0)
-    - [shardLoader](#shardloader)
-    - [Shard Manager](#shard-manager)
+  - [6. shardLoader](#6-shardloader)
+    - [설치 방법](#%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95)
+    - [shardLoader 설정](#shardloader-%EC%84%A4%EC%A0%95)
+    - [명령행 옵션](#%EB%AA%85%EB%A0%B9%ED%96%89-%EC%98%B5%EC%85%98)
+  - [7. Shard Manager](#7-shard-manager)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [특징](#%ED%8A%B9%EC%A7%95)
+    - [설치](#%EC%84%A4%EC%B9%98)
+    - [사용자 인터페이스](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
+    - [샤드 데이터베이스 관리](#%EC%83%A4%EB%93%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B4%80%EB%A6%AC)
+    - [샤드 객체 관리](#%EC%83%A4%EB%93%9C-%EA%B0%9D%EC%B2%B4-%EA%B4%80%EB%A6%AC)
+    - [SQL 실행](#sql-%EC%8B%A4%ED%96%89)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -1266,7 +1276,8 @@ Altibase Sharding
 | 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
 | 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_SHARD_DETAIL                                          | Yes                | SYSTEM, SESSION |
-| 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT SD_MSGLOG_FILE SD_MSGLOG_FLAG SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
+| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
+| 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT<br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 
 #### SHARD_ENABLE
 
@@ -1411,6 +1422,51 @@ log를 사용하기 위해 1을 설정한다.
 
 Altibas Sharding 운영 중 ALTER SESSION, ALTER SYSTEM 문을 이용하여 이 프로퍼티의
 값을 변경할 수 있다.
+
+#### SHARD_AGGREGATION_TRANSFORM_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Altibase Sharding 환경에서 AGGREGATION 분산 수행을 최적화하기 위해 다음 집계 함수를 사용한 쿼리를 내부적으로 변환한다.
+
+- SUM
+- MIN
+- MAX
+- COUNT
+- AVG
+
+예를 들어 다음 구문은 SHARD_AGGREGATION_TRANSFORM_ENABLE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT count(*) FROM t1;
+
+```
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 0
+-> SELECT count(*) FROM shard(SELECT * FROM t1)
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
+-> SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
+```
+
+> 주의 사항
+>
+> - AVG의 경우 SUM(SUM()) / SUM(COUNT()) 로 변환되어서 부동소숫점 타입의 결과가 상이할 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
 #### SD_MSGLOG_COUNT
 
@@ -1596,30 +1652,47 @@ Sharding을 사용할 수 없다.
 $ALTIBASE_HOME/bin/altibase -v
 ```
 
+### Altibase Sharding 통신 방법
+
+샤딩에서 사용하는 커넥션에 따라 지원하는 통신 방법은 다음과 같다.
+
+#### 사용자 커넥션(User Connection)
+
+사용자 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다. 자세한 내용은 *Administrator manual*의 서버/클라이언트 통신 장을 참고한다.
+
+#### 샤드 라이브러리 커넥션(Shard Library Connection)
+
+샤드 라이브러리 커넥션의 통신 방법으로 사용자 커넥션 스트링의 SHARD_CONNTYPE 속성에 해당하며 다음의 통신 타입을 지원한다. SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
+
+- 1: TCP (기본값)
+- 6: SSL
+- 8: IB (InfiniBand)
+
+#### 코디네이터 커넥션(Coordinator Connection)
+
+코디네이터와 샤드 노드의 내부 커넥션 통신 방법으로 노드 설정시 지정 가능하며 다음의 통신 타입을 지원한다. 노드 설정의 인자로 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
+
+- 1: TCP (기본값)
+- 8: IB (InfiniBand)
+
+
+
 ### 샤드 노드
 
-Altibase Sharding을 사용하기 위하여 각 샤드 노드에 샤딩 관련 정보를 설정해야
-한다.
+Altibase Sharding을 사용하기 위하여 각 샤드 노드에 샤딩 관련 정보를 설정해야 한다.
 
-샤딩 관련 메타 정보는 샤드 메타 식별자(META_NODE_ID) 를 제외하고는 모두 동일하게
-유지해야 한다.
+샤딩 관련 메타 정보는 샤드 메타 식별자(META_NODE_ID) 를 제외하고는 모두 동일하게 유지해야 한다.
 
-샤딩 시스템을 최초로 구성하거나 노드를 추가하기 위해서는 모든 노드에 동일한
-순서로 샤드 노드 설정 과정을 거치거나 aexport 등을 이용해 복제하여, 샤드 메타
-정보를 동일하도록 유지해야 한다.
+샤딩 시스템을 최초로 구성하거나 노드를 추가하기 위해서는 모든 노드에 동일한 순서로 샤드 노드 설정 과정을 거치거나 aexport 등을 이용해 복제하여, 샤드 메타 정보를 동일하도록 유지해야 한다.
 
-샤드 노드 설정을 전역적으로 적용하기 위해서 샤드 매니저를 사용하는 것을
-권장한다.
+샤드 노드 설정을 전역적으로 적용하기 위해서 샤드 매니저를 사용하는 것을 권장한다.
 
-수동으로 설정 하는 경우 가용 노드를 포함한 모든 샤드 노드에서 동일한 설정 작업을
-수행하고 작업의 완료를 알리기 위해서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD
-SHARD META NUMBER LOCAL)을 수행해야 한다.
+수동으로 설정 하는 경우 가용 노드를 포함한 모든 샤드 노드에서 동일한 설정 작업을 수행하고 작업의 완료를 알리기 위해서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL)을 수행해야 한다.
 
 ```
 iSQL> AUTOCOMMIT OFF;
 iSQL> EXEC DBMS_SHARD.SET_NODE(‘node1’,‘192.168.1.10’,20300);
-iSQL> EXEC DBMS_SHARD.SET_NODE(‘node2’,‘192.168.1.11’,20300,
-‘192.168.1.101’,20300);
+iSQL> EXEC DBMS_SHARD.SET_NODE(‘node2’,‘192.168.1.11’,20300,‘192.168.1.101’,20300);
 iSQL> COMMIT;
 iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 ```
@@ -3194,19 +3267,15 @@ NODE[DATA(‘node1’)] SELECT shard_node_name(), sum(execute_success) from v$st
 
 ### Fail-Over
 
-Altibase Sharding의 Fail-Over기능은 특정 샤드 노드에 장애가 발생 하였을 때, 해당
-노드의 가용(Alternate) 서버로 자동 전환되는 기능이며 샤드 노드 설정 및 응용
-프로그램 설정을 통해서 사용 가능하다.
+Altibase Sharding의 Fail-Over기능은 특정 샤드 노드에 장애가 발생 하였을 때, 해당 노드의 가용(Alternate) 서버로 자동 전환되는 기능이며 샤드 노드 설정 및 응용 프로그램 설정을 통해서 사용 가능하다.
 
-Altibase Sharding의 Fail-Over를 이해하기 위해서는 Sharding에서 사용하는 커넥션에
-대한 이해가 필요하다.
-
-Altibase Sharding에서 사용하는 커넥션은 다음과 같이 세 가지의 커넥션이 존재하며
-각각의 연결 장애 시에 따라 Fail-Over가 발생할 수 있다.
+Altibase Sharding의 Fail-Over를 이해하기 위해서는 Sharding에서 사용하는 각 커넥션에 대한 이해가 선행되어야 한다.
 
 - 사용자 커넥션(User Connection)
 - 샤드 라이브러리 커넥션(Shard Library Connection)
 - 코디네이터 커넥션(Coordinator Connection)
+
+Altibase Sharding에서는 각 커넥션의 연결 장애 시 Fail-Over가 발생할 수 있다.
 
 각 커넥션에 대한 Fail-Over는 장애를 인식하는 시점에 따라 CTF (Connection Time
 Fail-Over)와 STF (Service Time Fail-Over)로 분류할 수 있으며, 커넥션 마다
@@ -3229,17 +3298,15 @@ Replication Manual*을 참고한다.
 
 #### 샤드 라이브러리 커넥션
 
-샤드 라이브러리 커넥션은 사용자 커넥션 연결 시에 샤드 라이브러리에서 내부적으로
+샤드 라이브러리 커넥션은 사용자 커넥션 연결 시에 샤드 라이브러리에서 자동으로
 샤드 노드에 접속하는 것을 말한다.
 
-샤드 라이브러리 커넥션의 통신 방법은 샤드 노드 설정 시 관리자가 입력한 통신
-방법을 기본으로 사용하며, Fail-Over는 시스템 관리자가 등록한 샤드 노드의 외부
-커넥션 IP,PORT로 시도한다.
+Fail-Over는 시스템 관리자가 등록한 샤드 노드의 외부 커넥션 IP,PORT로 시도한다.
 
 예를들어, 관리자가 NODE1을 다음과 같은 프로시저를 통해서 설정할 수 있다.
 
 ```
-iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400, 1);
+iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400);
 Execute success.
 ```
 
@@ -3250,18 +3317,11 @@ Execute success.
 프로시저를 통해서 변경 가능하다.
 
 ```
-iSQL> EXEC dbms_shard.reset_node_external('node1', '192.168.100.1', 20300,
-'192.168.100.2', 20300 );
+iSQL> EXEC dbms_shard.reset_node_external('node1', '192.168.100.1', 20300, '192.168.100.2', 20300);
 Execute success.
 ```
 
-만약, 샤드 라이브러리 커넥션의 통신 방법을 커넥션 별로 변경하고 싶은 경우 사용자
-커넥션의 커넥션 스트링에 SHARD_CONN_TYPE 속성으로 지정 가능하며 다음의 통신
-타입을 지원한다
-
-- 1: TCP
-- 6: SSL
-- 8: IB
+만약, 샤드 라이브러리 커넥션의 통신 방법을 커넥션 별로 변경하고 싶은 경우 사용자 커넥션의 커넥션 스트링에 SHARD_CONNTYPE 속성으로 지정 가능하다. 지원 타입은 *Altibase Sharding 통신 방법*의 샤드 라이브러리 커넥션을 참고한다.
 
 ##### 제약 사항
 
@@ -3277,7 +3337,7 @@ Execute success.
 예를들어, 관리자가 NODE1을 다음과 같은 프로시저를 통해서 설정할 수 있다.
 
 ```
-iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400, 1);
+iSQL> EXEC dbms_shard.set_node('node1', '192.168.1.30', 20300, '192.168.1.31', 20400);
 Execute success.
 ```
 
@@ -3289,7 +3349,7 @@ Execute success.
 
 ```
 iSQL> EXEC dbms_shard.reset_node_internal('node1', '192.168.100.11', 20300,
-'192.168.100.12', 20300 );
+'192.168.100.12', 20300);
 Execute success.
 ```
 
@@ -3934,10 +3994,7 @@ port 번호를 나타낸다.
 
 ##### INTERNAL_CONN_TYPE
 
-코디네이터가 연결할 샤드 노드의 연결 방식을 나타낸다.
-
-1: TCP  
-8: IB (Infiniband)
+코디네이터가 연결할 샤드 노드의 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법* 의 코디네이터 커넥션을 참고한다.
 
 ##### SMN
 
@@ -4687,7 +4744,8 @@ SET_NODE(
  host_ip           in varchar(16),
  port_no           in integer,
  alternate_host_ip in varchar(16) default NULL,
- alternate_port_no in integer default NULL)
+ alternate_port_no in integer default NULL
+ conn_type         in integer default NULL)
 ```
 
 ##### 파라미터
@@ -4699,12 +4757,11 @@ SET_NODE(
 | port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
 | alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
 | alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                              |
-| onn_type          | IN     | INTEGER     | 내부적으로 사용되는 코디네이터 연결 방식 1: TCP (기본값) 8: IB (Infiniband) |
+| conn_type         | IN     | INTEGER     | 내부적으로 사용되는 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법* 의 코디네이터 커넥션을 참고한다. |
 
 ##### 설명
 
-샤드 노드에서 샤드 노드의 이름과 IP 및 PORT 정보와 Alternate IP 및 Alternate
-Port를 설정한다.
+샤드 노드에서 샤드 노드의 이름과 IP 및 PORT 정보와 Alternate IP 및 Alternate Port를 설정한다.
 
 ##### 예제
 
@@ -4717,8 +4774,7 @@ iSQL> EXEC dbms_shard.set_node('node3','192.168.1.13',20300);
 Execute success.
 iSQL> EXEC dbms_shard.set_node('NODE3','192.168.1.23',11094,'192.168.1.24',11094);
 Execute success.
-iSQL> EXEC dbms_shard.set_node('node4', '192.168.1.30', 20300, '192.168.1.31',
-20400, 1);
+iSQL> EXEC dbms_shard.set_node('node4', '192.168.1.30', 20300, '192.168.1.31', 20400, 1);
 Execute success.
 ```
 
@@ -4766,28 +4822,28 @@ Execute success.
 ##### 구문
 
 ```
-RESET_NODE_INTERNAL(node_name in varchar(40),
-                    host_ip   in varchar(16),
-                    port_no   in integer,
+RESET_NODE_INTERNAL(node_name         in varchar(40),
+                    host_ip           in varchar(16),
+                    port_no           in integer,
                     alternate_host_ip in varchar(16),
                     alternate_port_no in integer,
-                    conn_type in integer)
+                    conn_type         in integer)
 ```
 
 ##### 파라미터
 
-| 이름              | 입출력 | 데이터 타입 | 설명                                                    |
-| ----------------- | ------ | ----------- | ------------------------------------------------------- |
-| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                                          |
-| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                          |
-| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                   |
-| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                |
-| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                         |
-| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식 1: TCP (기본값) 8: IB (Infiniband) |
+| 이름              | 입출력 | 데이터 타입 | 설명                                                         |
+| ----------------- | ------ | ----------- | ------------------------------------------------------------ |
+| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                                               |
+| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                               |
+| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
+| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
+| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                              |
+| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법* 의 코디네이터 커넥션을 참고한다. |
 
 ##### 설명
 
-샤드 메타에 설정한 내부(코디네이터 연결) 연결 접속 정보를 변경한다..
+샤드 메타에 설정한 내부(코디네이터 연결) 연결 접속 정보를 변경한다.
 
 RESET_NODE_INTERNAL 프로시저를 이용하여 코디네이터와 샤드 노드 간 접속 정보를
 변경 할 수 있으며,  
@@ -5605,21 +5661,11 @@ iSQL> EXEC dbms_shard.unset_shard_procedure_by_id(123);
 Execute success. 
 ```
 
-## 6.Altibase Sharding 유틸리티
-
-이 장에서는 Altibase Sharding에서 지원하는 유틸리티를 설명한다.
-
-Altibase Sharding에서 지원하는 유틸리티는 다음과 같다.
-
--   shardLoader
-
--   Shard Manager
-
-### shardLoader
+## 6. shardLoader
 
 shardLoader는 iloader와 기능이 동일하다. 샤드 노드에 직접 접속하여 데이터를 처리하므로 빠른 데이터 적재가 가능하다. shardLoader는 데이터 마이그레이션과 데이터 재분배에 사용할 수 있다.
 
-#### 설치 방법
+### 설치 방법
 
 shardLoader는 Altibase 패키지를 설치할 때 자동으로 설치된다. 실행 파일의 위치는 다음과 같다.
 
@@ -5627,11 +5673,11 @@ shardLoader는 Altibase 패키지를 설치할 때 자동으로 설치된다. �
 $ALTIBASE_HOME/bin
 ```
 
-#### shardLoader 설정
+### shardLoader 설정
 
 iLoader와 동일하다. 사용방법은 “*iLoader User's Manual \> 1. iLoader 개요 \> iLoader의 소개 \> iLoader 설정”*을 참조한다.
 
-#### 명령행 옵션
+### 명령행 옵션
 
 iLoader와 동일하다. 사용방법은 *iLoader User's Manual \> 2. iLoader 사용 방법 \>명령행 옵션”*을 참조한다.
 
@@ -5639,15 +5685,15 @@ iLoader와 동일하다. 사용방법은 *iLoader User's Manual \> 2. iLoader �
 >
 > shardLoader는 lob 컬럼, array 등 몇 가지 옵션을 제공하지 않는다. 해당 기능을 사용하기 위해서는 각 샤드 노드 별로 iLoader를 사용해야 한다.
 
-### Shard Manager
+## 7. Shard Manager
 
-#### 개요
+### 개요
 
 Shard Manager는 Altibase Sharding의 샤드 노드와 샤드 객체에 대한 구성 및 관리를 돕는 도구이다.
 
 Altibase Sharding은 다수의 데이터베이스로 구성되기 때문에, 각 데이터베이스와 객체를 관리하는 비용이 많이 들 수 있다. 이러한 환경에서 관리자는 Shard Manager를 사용함으로써 여러 데이터베이스에서 수행해야 하는 반복 작업을 단순화하여 업무 효율성을 향상시키고, 샤드 노드와 샤드 객체를 시각화하여 구성에 대한 이해도를 증진시킬 수 있다.
 
-#### 특징
+### 특징
 
 Shard Manager의 특징은 다음과 같다.
 
@@ -5656,7 +5702,7 @@ Shard Manager의 특징은 다음과 같다.
 -   여러 노드에 걸쳐 존재하는 분산 객체의 개별 정보 및 분산 정보를 하나의 창에서 확인할 수 있다.
 -   여러 샤드 노드들에 대해, SQL을 Primary DB/Alternate DB 단위로 한 번에 수행할 수 있다.
 
-#### 설치
+### 설치
 
 이 절에서는 Shard Manager를 설치할 때 필요한 환경과 선행 조건, 그리고 설치 및 제거 방법을 안내한다.
 
@@ -5677,7 +5723,7 @@ Linux용 Shard Manager는 JRE를 포함하지 않는다. 따라서 사용자가 
 | 화면 해상도                   | 1024 \* 786 pixels               |
 | CPU                           | Pentium III 800MHz               |
 
-##### 호환가능 데이터베이스
+#### 호환가능 데이터베이스
 
 Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
@@ -5692,11 +5738,11 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 샤드 메타 생성에 대한 자세한 내용은 '*샤드 메타 생성'*을 참조한다.
 
-##### 설치와 제거
+#### 설치와 제거
 
 제공된 압축(zip) 파일을 원하는 위치에 해제하면 Shard Manager 설치가 완료된다. Shard Manager를 제거하기 위해서는 설치 시 생성한 Shard Manager 디렉토리를 삭제하면 제거가 완료된다.
 
-#### 사용자 인터페이스
+### 사용자 인터페이스
 
 아래는 Shard Manager를 최초로 실행한 화면이다.
 
@@ -5704,7 +5750,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 ![](media/Sharding/2adbdfe24edb1745d768c92b0b9813d2.jpg)
 
-##### 샤드 데이터베이스 뷰
+#### 샤드 데이터베이스 뷰
 
 샤드 데이터베이스 뷰는 샤드 노드를 하나의 그룹으로 표현하는 샤드 데이터베이스를 중심으로 샤드 정보를 보여준다. 기본 전체 화면의 왼쪽 상단에 위치한다.
 
@@ -5727,7 +5773,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 -   샤드 데이터베이스: 샤드 노드에 성공적으로 접속하면 아이콘 오른쪽 하단에 초록색 화살표를 표시한다.
 -   샤드 노드의 연결정보: 원형 아이콘은 접속 성공 시 초록색, 실패 시 빨간색으로 표시된다. 해당 연결 정보가 샤드 노드의 alternate DB는 아이콘 오른쪽 하단에 'A' 문자를 표시한다.
 
-##### 샤드 객체 뷰
+#### 샤드 객체 뷰
 
 샤드 객체 뷰는 샤드 데이터베이스 뷰에서 선택된 샤드 데이터베이스에 속한 샤드 객체를 보여준다. 기본 전체화면의 왼쪽 하단에 위치한다.
 																			 
@@ -5763,7 +5809,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 -   Resharding(![](media/Sharding/58646a62a61346f627ee5b1a1e1cd20a.png)): 샤드 테이블의 리샤딩을 수행한다.
 
 
-##### 쿼리 뷰
+#### 쿼리 뷰
 
 쿼리 뷰는 사용자가 입력한 쿼리를 샤드 노드를 구성하는 Primary, Alternate DB를 대상으로 수행하는 뷰이다.
 
@@ -5775,7 +5821,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 																											  
 ![](media/Sharding/shm_query_tool.jpg)
 
-##### 쿼리 뷰 툴바
+#### 쿼리 뷰 툴바
 
 -   Execute Statement (![](media/Sharding/de1f28e5e2b6fb8d2d6484ef3772e3e9.png)): 커서로 선택한 문자 블록 또는 해당 커서가 위치한 라인이 수행된다.
 -   Execute Script (![](media/Sharding/436ca8084a13745802c439308c90c757.png)): 쿼리 뷰에 입력한 모든 SQL문이 수행된다.
@@ -5784,8 +5830,8 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 쿼리 뷰에 여러 SQL문을 입력할 수 있으며, 일부 또는 전체 SQL문을 선택하여 수행할 수 있다. SQL문은 입력한 순서대로 수행된다.
 
-##### 상세 뷰
-																												   
+#### 상세 뷰
+
 상세 뷰는 특정 객체에 대해 각 노드에 저장된 해당 객체의 상세 정보와 샤드 메타에 등록된 분산 정보를 보여준다. 
 
 대상 객체의 사용자 이름과 객체 이름이 개별 뷰의 제목으로 쓰인다. 샤드 객체 뷰에서 객체를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Shard Object 메뉴를 열어 'Show Detail'을 선택하면 생성되며, 기본 전체화면의 오른쪽 상단에 위치한다.
@@ -5804,7 +5850,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 ![](media/Sharding/shm_detail_view2.jpg)
 
-##### 메모리 테이블스페이스 사용률 뷰
+#### 메모리 테이블스페이스 사용률 뷰
 
 메모리 테이블스페이스 사용률 뷰는 샤드 노드를 구성하는 DB의 메모리 테이블스페이스 사용률을 보여준다. 
 
@@ -5821,7 +5867,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 -   Used(MB): 'Alloc(MB)'의 값 중, 실제 사용하는 메모리 크기
 -   Usage(%): 메모리 테이블스페이스 사용률 (= Alloc(MB) / Max(MB) \* 100)
 
-##### 레코드 카운트 뷰
+#### 레코드 카운트 뷰
 
 샤드 테이블의 레코드는 여러 샤드 노드에 분산되어 저장된다. 레코드 카운트 뷰는 각 샤드 노드에 저장된 레코드 개수를 표시한다. 기본적으로 Primary DB에 저장된 테이블 레코드 갯수를 보여준다.
 
@@ -5837,7 +5883,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 -   Address: 샤드 노드의 연결정보로 노드에 Alternate DB가 있으면 연결정보를 선택할 수 있다. (Label Expression: 'IP 주소 : 포트 번호')
 -   Record Count: Shard Node와 Address 컬럼에서 선택된 데이터베이스에 저장된 테이블의 레코드 개수
 
-##### 콘솔 뷰
+#### 콘솔 뷰
 
 프로그램 수행 중 사용자에게 전달할 정보가 기록되는 뷰이다. 
 
@@ -5845,11 +5891,11 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 ![](media/Sharding/6bbda1671fc279b120c6c0736e63eb5f.jpg)
 
-#### 샤드 데이터베이스 관리
+### 샤드 데이터베이스 관리
 
 이 절에서는 Shard Manager의 기능과 사용 방법에 대해 기술한다.
 
-##### 샤드 데이터베이스 등록
+#### 샤드 데이터베이스 등록
 
 1.  툴바 또는 Database 메뉴에 위치한 'Add New Shard Database'를 클릭한다.
 2.  샤드 데이터베이스 이름과 최초 접속 노드의 연결정보를 입력한다. 샤드 데이터베이스 이름은 사용자가 임의로 설정하는 이름이다. 최초 접속 노드 연결정보는 샤드 노드와 샤드 객체 정보를 가지고 오기 위해서 필요하다. 
@@ -5859,7 +5905,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 6.  'Finish' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
 7.  정상적으로 샤드 데이터베이스가 생성되었다면 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에 나타난다.
 
-##### 샤드 데이터베이스 편집
+#### 샤드 데이터베이스 편집
 
 1.  샤드 데이터베이스 뷰에서 수정할 샤드 데이터베이스를 클릭한다.
 2.  샤드 데이터베이스 뷰 위에서 마우스 오른쪽 버튼을 누르거나, Database 메뉴를 열어 'Edit Shard Database'를 클릭한다.
@@ -5868,7 +5914,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 5.  각 샤드 노드 접속에 필요한 JDBC 드라이버 파일의 변경이 필요하면, Driver Path 열에서 해당하는 칸에 위치한 연필 아이콘을 클릭하여 파일을 변경한다.
 6.  'Finish' 버튼을 클릭하여 수정된 샤드 데이터베이스를 저장한다.
 
-##### 샤드 데이터베이스 연결
+#### 샤드 데이터베이스 연결
 
 샤드 데이터베이스에 연결한다.
 
@@ -5876,20 +5922,20 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 2. 연결이 정상적으로 수행되면 아이콘 오른쪽 하단에 초록색 화살표를 표시하고, 트리
    하위 노드로 샤드 메타에 등록된 샤드 노드를 표시한다.
 
-##### 샤드 데이터베이스 연결 해제
+#### 샤드 데이터베이스 연결 해제
 
 샤드 데이터베이스 연결을 해제한다.
 
 1. 샤드 데이터베이스 뷰에서 연결 해제할 샤드 데이터베이스를 더블클릭하거나, 마우스 오른쪽 버튼을 눌러 'Disconnect'를 클릭한다. 
 2. 연결이 정상적으로 해제되었다면 아이콘 오른쪽 하단에 있는 초록색 화살표가 사라지고, 트리 하위 노드들이 사라진다.
 
-##### 샤드 데이터베이스 제거
+#### 샤드 데이터베이스 제거
 
 1. 샤드 데이터베이스 뷰에서 삭제할 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Remove Shard Database'를 클릭한다.
 2. 삭제 여부를 묻는 팝업 창에서 삭제할 샤드 데이터베이스가 맞는지 확인한 뒤,'Yes' 버튼을 클릭한다.
 3. 정상적으로 샤드 데이터베이스가 삭제되었다면, 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에서 사라진다.
 
-##### 샤드 노드 추가
+#### 샤드 노드 추가
 
 샤드 노드를 추가한다.
 
@@ -5902,7 +5948,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
     2.  추가되는 샤드 노드에 Alternate DB 연결정보가 입력되어 있으면, 샤드 매니저가 샤드 테이블을 이중화하기 위한 이중화 객체를 Primary DB와 Alternate DB간에 자동으로 생성한다.
 6.  정상적으로 수행되었으면, 샤드 데이터베이스에 등록한 샤드 노드가 추가된다.
 
-##### 샤드 노드 삭제
+#### 샤드 노드 삭제
 
  샤드 노드를 삭제한다.
 
@@ -5911,7 +5957,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
     DB와 Alternate DB간 샤드 매니저가 생성한 이중화 객체가 있으면, 이를 감지해서 이중화 객체를 중지하고 삭제할 것인지 물어본다. 
 3.  정상적으로 샤드 노드가 삭제되었다면 샤드 데이터베이스 뷰 내 대상 노드가 사라진다.
 
-##### Alternate DB 추가
+#### Alternate DB 추가
 
 샤드 메타에 Alternate DB 정보를 추가한다. 노드에서 Alternate DB가 추가된다.
 
@@ -5920,10 +5966,10 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 3. 'Test' 버튼을 클릭하여 입력한 연결정보로 접속이 정상적으로 이루어지는지 확인한다.
 4. 'OK' 버튼을 클릭하여 Alternate DB를 추가한다.
    1. Primary DB에 생성되어 있는 샤드 객체가 Alternate DB의 DB 메타에 미리 생성되어 있지 않으면, 이를 알려주고 Alternate DB 추가가 실패한다.
-   2. Primary DB에 생성되어 있는 샤드 테이블이 Alternate DB의 DB 메타에 미리 생성되어 있으면, 샤드 테이블을 이중화 하기 위한 이중화 객체가 Primary DB와 Alternate DB간에 자동으로 생성된다.
+   2. Primary DB에 샤드 테이블이 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 샤드 매니저가 이중화 객체를 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
 5. 정상적으로 alternate DB가 추가되었다면 샤드 데이터베이스 뷰 내 대상 샤드 노드의 트리 하위 노드로 Alternate DB정보가 추가된다.
 
-##### Alternate DB 삭제
+#### Alternate DB 삭제
 
 샤드 메타에서 Alternate DB 정보를 삭제한다. 노드에서 Alternate DB가 제거된다.
 
@@ -5931,14 +5977,14 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 2.  삭제 여부를 묻는 팝업 창에서 삭제할 Alternate DB를 확인한 뒤 'Yes' 버튼을 클릭한다.
 3.  정상적으로 alternate DB가 삭제되었다면 샤드 데이터베이스 뷰 내 대상 샤드 노드의 트리 하위 노드인 Alternate DB 정보가 사라진다.
 
-##### 메모리 테이블스페이스 사용률 확인
+#### 메모리 테이블스페이스 사용률 확인
 
 1.  샤드 데이터베이스 뷰에서 메모리 테이블스페이스의 사용률을 확인하려는 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Show Memory Tablespace Usage'를 클릭한다.
 2.  확인하고자 하는 데이터베이스의 행에서 Tablespace Name 열에 해당하는 칸을 클릭하여 원하는 메모리 테이블스페이스를 선택한다.
 
-#### 샤드 객체 관리
+### 샤드 객체 관리
 
-##### 샤드 객체 설정
+#### 샤드 객체 설정
 
 일반 DB 객체를 샤드 객체로 설정한다. 샤드 메타에 샤드 객체 정보가 저장된다.
 
@@ -5950,7 +5996,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 5. 'Submit' 버튼을 클릭하여 샤드 객체 설정을 샤드 노드에 요청한다.
 6. 샤드 객체 설정이 완료되면, 해당 객체는 샤드 객체 뷰에 표시된다. 지정한 분산 방식은 'Split Method'에 표시되고, 샤드 키와 서브 샤드 키는 객체의 하위 노드로 표시된다.
 
-##### 샤드 객체 해제
+#### 샤드 객체 해제
 
 샤드 메타에서 샤드 객체 정보를 삭제하여, 일반 DB 객체로 변경한다.
 
@@ -5958,7 +6004,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 2.  샤드 객체 해제를 완료하면, 샤드 객체 뷰에서 해당하는 샤드 객체가 제거된다. 
     
 
-##### 샤드 객체 삭제
+#### 샤드 객체 삭제
 
 샤드 객체를 해제한 후, 샤드 메타에서 삭제한다. 그리고, 샤드 데이터베이스에 등록된 모든 DB에서 해당 객체를 삭제한다.
 
@@ -5966,16 +6012,16 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 2.  삭제 여부를 묻는 팝업 창에서 삭제할 객체를 확인한 뒤, 'Yes' 버튼을 클릭한다.
 3.  정상적으로 객체가 삭제되었다면 샤드 객체 뷰 내 해당 객체가 사라진다.
 
-##### 샤드 객체 정보 확인
+#### 샤드 객체 정보 확인
 
 샤드 객체 뷰에서 원하는 객체를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Object 메뉴를 열어 'Show Detail'을 클릭한다.
 
-##### 테이블 레코드 카운트 확인
+#### 테이블 레코드 카운트 확인
 
 1.  샤드 객체 뷰에서 원하는 테이블을 마우스 오른쪽 버튼으로 누르거나 클릭 후 Shard Object 메뉴를 열어, 'Show Record Count'를 클릭한다.
 2.  확인하고자 하는 샤드 노드의 행에서 Address 열에 해당하는 칸을 클릭하여 원하는 연결정보를 선택한다.
 
-##### Resharding
+#### Resharding
 
 샤드 노드간 샤드 테이블의 데이터 재분배를 손쉽게 수행한다.
 
@@ -5986,13 +6032,13 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 5.  'OK' 버튼을 누르면 작업 대상 파티션 노드 변경사항이 차례로 수행된다.
 6.  '테이블 레코드 카운트 확인'을 수행하여 Resharding으로 레코드 재분배 결과를 확인할 수 있다.
 
-#### SQL 실행
+### SQL 실행
 
-##### 쿼리 뷰 열기
+#### 쿼리 뷰 열기
 
 샤드 데이터베이스 뷰에서 원하는 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Show Query View'를 클릭한다.
 
-##### SQL 실행
+#### SQL 실행
 
 선택한 노드 종류에 해당하는 데이터베이스에서 입력한 SQL문이 실행된다.
 

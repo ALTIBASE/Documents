@@ -1788,6 +1788,9 @@ ALTIBASE의 디스크 I/O는 기본적으로 리두 로그 파일과 데이터 �
 
 ### OS Patch
 
+#### Linux
+glibc에서 malloc/free 등이 race condition으로 인해 deadlock이 발생할수 있는 버그가 있어, 해당 버그가 반영된 패치 이상으로 패치해야 한다.
+따라서, glibc-2.12-1.166.el6_7.1 이상으로 glibc 패치를 권고한다. (참고: https://bugzilla.redhat.com/show_bug.cgi?id=1244002)
 #### AIX
 
 AIX에서 Altibase를 사용할 경우 메모리가 증가하는 현상(heapmin library bug)이
