@@ -2115,8 +2115,10 @@ Unsigned Integer
 
 DDL 복제 여부를 나타낸다.
 
-0 : DDL 복제를 허용하지 않음.  DDL 수행시 Local 노드에서만 수행된다.
-1 : DDL 복제를 허용함.  DDL 수행시 이중화가 걸린 모든 노드에 DDL 이 복제된다.
+0 : DDL 복제를 허용하지 않음.  DDL 수행시 Local 노드에서만 수행된다.   
+
+1 : DDL 복제를 허용함.  DDL 수행시 이중화가 걸린 모든 노드에 DDL 이 복제된다.   
+
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
 #### REPLICATION_EAGER_PARALLEL_FACTOR
