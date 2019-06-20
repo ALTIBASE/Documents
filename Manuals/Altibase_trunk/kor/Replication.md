@@ -1767,6 +1767,160 @@ iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 ```
 
+### 이중화 대상 테이블에 DDL 복제 실행
+
+Altibase가 이중화 대상인 테이블에 대하여 복제를 지원하는 DDL 은 다음과 같다.
+REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값에 따라 복제를 지원하는 DDL 문이 다르다.
+
+다음은 REPLICATION_DDL_ENABLE_LEVEL의 값이 0일 때 복제를 지원하는 DDL 문이다.
+
+```
+ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE);
+
+ALTER TABLE table_name DROP COLUMN column_name;
+
+ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;
+
+ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
+
+ALTER TABLE table_name ALTER TABLESPACE;
+
+ALTER TABLE table_name TRUNCATE PARTITION TRUNCATE TABLE table_name;
+
+ALTER TABLE table_name SPLIT PARTITION partition_name(condition) INTO
+( PARTITION partition_name
+   PARTITION partition_name);
+
+ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
+
+ALTER TABLE table_name DROP PARTITION partiton_name; 
+
+TRUNCATE TABLE table_name;
+
+CREATE INDEX index_name ON table_name (column_name);
+
+DROP INDEX index_name;
+```
+
+REPLICATION_DDL_ENABLE_LEVEL의 값이 1일 때 복제를 지원하는 DDL 문은 아래와 같다.
+
+```
+ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE NOT NULL);
+
+ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE UNIQUE);
+
+ALTER TABLE table_name ALTER COLUMN (column_name NOT NULL);
+
+ALTER TABLE table_name ALTER COLUMN (column_name NULL);
+
+ALTER TABLE table_name MODIFY COLUMN (column_name DATA_TYPE);
+
+ALTER TABLE table_name MODIFY COLUMN (column_name NULL);
+
+ALTER TABLE table_name MODIFY COLUMN (column_name NOT NULL);
+
+ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능) 
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name) LOCAL;
+
+ALTER TABLE table_name DROP CONSTRAINT constraint_name; 
+ ( Unique, Local Unique가 있는 것도 삭제 가능 )
+
+CREATE UNIQUE INDEX index_name ON table_name (column_name);
+
+CREATE INDEX index_name ON table_name (expression);
+
+DROP INDEX index_name; ( unique, function-base 인덱스가 있는 것도 삭제 가능 )
+```
+
+#### 설명
+
+Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하다. 그러나 DDL 복제를 
+하기 위해서는 우선 프로퍼티를 다음과 같이 설정해야 한다.
+
+-   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
+
+-   DDL 을 수행하는 Local 노드와 DDL 을 전송받는 Remote 노드의 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 값을 동일하게 설정한다.
+
+-   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를
+    NONE 이외의 값으로 설정한다.
+
+-   DDL 을 수행하는 Local 노드 Session 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+
+-   DDL 을 전송받는 Remote 노드 System 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+
+
+#### 제약사항
+
+이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
+또한, 이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
+
+지원하는 DDL에 따라 제약사항이 다음과 같다.
+
+-   ALTER TABLE table_name ADD COLUMN  
+    외래 키를 추가할 수 없다.  
+    압축 컬럼을 추가할 수 없다.
+
+-   ALTER TABLE table_name DROP COLUMN  
+    프라이머리 키를 삭제할 수 없다.  
+    압축 컬럼을 삭제할 수 없다.
+
+-   TRUNCATE TABLE  
+    압축 컬럼을 가지지 않는 테이블에 한해서 지원된다.
+    
+    
+
+#### 예제
+
+이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 문
+실행을 아래와 같이 사용한다.
+
+-   TRUNCATE TABLE을 실행한다.
+
+```
+(SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+Alter success.
+(Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+Alter success.
+iSQL> TRUNCATE TABLE t1;
+Truncate success.
+(SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+Alter success.
+```
+
+파티션 P2에 있는 테이블 T1을 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+
+```
+iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER REPLICATION REP1 FLUSH ALL;
+iSQL> ALTER REPLICATION REP1 STOP;
+iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
+       INTO (PARTITION P3, PARTITION P4 ); 
+```
+
+파티션 P2, P3에 있는 테이블 T1을 파티션 P23으로 합쳐서 생성한다 (MERGE TABLE).
+
+```
+iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER REPLICATION REP1 FLUSH ALL;
+iSQL> ALTER REPLICATION REP1 STOP;
+iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
+```
+
+파티션 P1을 제거한다 (DROP TABLE).
+
+```
+iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER REPLICATION REP1 FLUSH ALL;
+iSQL> ALTER REPLICATION REP1 STOP;
+iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
+```
+
 ### SQL 반영 모드
 
 지역(local) 서버와 원격(remote) 서버의 메타 정보가 다를 때 원격 서버에 XLog를
