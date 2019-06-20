@@ -2093,6 +2093,32 @@ CREATE INDEX index_name ON table_name ( expression );
 
 DROP INDEX index_name; ( unique, function-base 인덱스도 삭제 가능 )
 
+#### REPLICATION_DDL_SYNC
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+DDL 복제 여부를 나타낸다.
+
+0 : DDL 복제를 허용하지 않음.  DDL 수행시 Local 노드에서만 수행된다.
+1 : DDL 복제를 허용함.  DDL 수행시 이중화가 걸린 모든 노드에 DDL 이 복제된다.
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+
 #### REPLICATION_EAGER_PARALLEL_FACTOR
 
 ##### 데이터 타입
