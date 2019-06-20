@@ -217,7 +217,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 -   파티션드 테이블의 이중화
 
--   이중화와 DDL(Data Definition Language)
+-   이중화와 DDL(Data Definition Language) 복제
 
 -   이중화를 이용한 데이터 복구
 
@@ -502,7 +502,7 @@ Eager 모드로 이중화를 사용하기 전에 'Eager 모드 이중화 제약�
 
 [그림 1‑2] 파티션드 테이블 이중화 구조
 
-#### 이중화와 DDL(Data Definition Language)
+#### 이중화와 DDL(Data Definition Language) 복제
 
 Altibase 이중화는 복제 대상이 되는 테이블의 컬럼 이름을 기준으로 복제를 수행하므로 테이블 스키마가 다른 테이블에 대해서도 복제가 가능하다. 이러한 이유로 테이블이 이중화 대상인 경우에도 스키마를 변경하는 일부 DDL을 수행할 수 있도록 허용한다. 
 
@@ -1854,8 +1854,19 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 #### 제약사항
 
-이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
-또한, 이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
+모든 DDL 복제에 대해 제약사항은 다음과 같다.
+
+-   이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
+
+-   이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
+
+-   DDL 복제를 수행하는 테이블명과 유저명이 Local, Remote 모두 동일해야 한다.
+
+-   DDL 복제를 수행하는 Local, Remote 모두 이중화가 시작되어 있어야 한다.
+
+-   Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
+
+-   Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
 
 지원하는 DDL에 따라 제약사항이 다음과 같다.
 
