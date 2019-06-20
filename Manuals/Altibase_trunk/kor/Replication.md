@@ -1800,6 +1800,13 @@ TRUNCATE TABLE table_name;
 CREATE INDEX index_name ON table_name (column_name);
 
 DROP INDEX index_name;
+
+ - Aging
+  - Compact
+  - Drop Default
+  - Rename Constranint
+  - SetDefualt
+  
 ```
 
 REPLICATION_DDL_ENABLE_LEVEL의 값이 1일 때 복제를 지원하는 DDL 문은 아래와 같다.
@@ -1860,7 +1867,7 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 -   이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
 
--   DDL 복제를 수행하는 테이블명과 유저명이 Local, Remote 모두 동일해야 한다.
+-   DDL 복제를 수행하는 테이블(파티션)명과 유저명이 Local, Remote 모두 동일해야 한다.
 
 -   DDL 복제를 수행하는 Local, Remote 모두 이중화가 시작되어 있어야 한다.
 
@@ -1885,7 +1892,7 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 #### 예제
 
-이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 문
+이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 복제
 실행을 아래와 같이 사용한다.
 
 -   TRUNCATE TABLE을 실행한다.
