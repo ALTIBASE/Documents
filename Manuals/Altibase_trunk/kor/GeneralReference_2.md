@@ -743,7 +743,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
-#### REPLICATION_DDL_SYNC_TIMELIMIT
+#### REPLICATION_DDL_SYNC_TIMEOUT
 
 ##### 데이터 타입
 
