@@ -223,7 +223,7 @@ Unsigned Integer
 
 ##### 설명
 
-DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 Local, Reamote 모두 취소된다.\
+DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 Local, Reamote 모두 취소된다.
 DDL 복제를 수행하는 Active 를 기준으로 Timeout 값이 측정된다.
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
