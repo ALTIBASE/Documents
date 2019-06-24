@@ -175,6 +175,58 @@ DBMS_CONCURRENT_EXEC 패키지에서 요청한 프로시저가 정상적으로 �
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### REPLICATION_DDL_SYNC
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0,1]
+
+##### 설명
+
+이중화시 DDL 복제 여부를 나타낸다.
+
+0 : DDL 복제를 허용하지 않음.  DDL 수행시 Local 노드에서만 수행된다.   
+
+1 : DDL 복제를 허용함.  DDL 수행시 이중화가 걸린 모든 노드에 DDL 이 복제된다.   
+
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+
+#### REPLICATION_DDL_SYNC_TIMELIMIT ( 단위 : 초 )
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+7200
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup>-1]
+
+##### 설명
+
+DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 Local, Reamote 모두 취소된다.\
+DDL 복제를 수행하는 Active 를 기준으로 Timeout 값이 측정된다.
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+
 #### DEFAULT_THREAD_STACK_SIZE(단위 : 바이트)
 
 ##### 데이터 타입
@@ -743,7 +795,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
-#### REPLICATION_DDL_SYNC_TIMEOUT
+#### REPLICATION_DDL_SYNC_TIMEOUT ( 단위 : 초 )
 
 ##### 데이터 타입
 
@@ -1203,7 +1255,7 @@ Unsigned Integer
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의
 값을 변경할 수 있다.
 
-#### REPLICATION_DDL_SYNC_TIMELIMIT
+#### REPLICATION_DDL_SYNC_TIMEOUT ( 단위 : 초 )
 
 ##### 데이터 타입
 

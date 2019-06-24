@@ -20,7 +20,6 @@
     - [이중화 시작, 종료와 변경 (ALTER REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8B%9C%EC%9E%91-%EC%A2%85%EB%A3%8C%EC%99%80-%EB%B3%80%EA%B2%BD-alter-replication)
     - [이중화 삭제 (DROP REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AD%EC%A0%9C-drop-replication)
     - [이중화 대상 테이블에 DDL 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89)
-    - [이중화 대상 테이블에 DDL 복제 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89)
     - [SQL 반영 모드](#sql-%EB%B0%98%EC%98%81-%EB%AA%A8%EB%93%9C)
     - [이중화 부가기능](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5)
     - [다중 IP 네트워크 환경에서의 이중화](#%EB%8B%A4%EC%A4%91-ip-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94)
@@ -1800,14 +1799,7 @@ TRUNCATE TABLE table_name;
 
 CREATE INDEX index_name ON table_name (column_name);
 
-DROP INDEX index_name;
-
- - Aging
-  - Compact
-  - Drop Default
-  - Rename Constranint
-  - SetDefualt
-  
+DROP INDEX index_name;  
 ```
 
 REPLICATION_DDL_ENABLE_LEVEL의 값이 1일 때 복제를 지원하는 DDL 문은 아래와 같다.
@@ -1843,6 +1835,20 @@ CREATE INDEX index_name ON table_name (expression);
 DROP INDEX index_name; ( unique, function-base 인덱스가 있는 것도 삭제 가능 )
 ```
 
+ REPLICATION_DDL_ENABLE_LEVEL의 값에 상관없이 복제를 지원하는 DDL 문이다.
+
+```
+ALTER INDEX index_name AGING;
+
+ALTER TABLE table_name COMPACT;
+
+ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );
+
+ALTER TABLE table_name RENAME CONSTRAINT contraint_name TO constraint_name;
+  
+ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );  
+```
+
 #### 설명
 
 Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하다. 그러나 DDL 복제를 
@@ -1865,16 +1871,15 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 모든 DDL 복제에 대해 제약사항은 다음과 같다.
 
 -   이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
-
 -   이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
-
 -   DDL 복제를 수행하는 테이블(파티션)명과 유저명이 Local, Remote 모두 동일해야 한다.
-
 -   DDL 복제를 수행하는 Local, Remote 모두 이중화가 시작되어 있어야 한다.
-
 -   Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
-
 -   Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
+-   Patch 버전까지 동일해야 DDL 복제가 가능하다.
+-   하나의 이중화로 동시에 두개 이상의 DDL 복제는 할 수 없다.
+-   서로 다른 노드에서 하나의 노드로 동일한 테이블에 대해 DDL 복제는 할 수 없다.
+-   DDL 복제를 수행하는 이중화에 포함된 테이블에 다른 DDL 복제를 수행할 수 없다.
 
 지원하는 DDL에 따라 제약사항이 다음과 같다.
 
@@ -2538,89 +2543,49 @@ REP1                                      1
 *General Reference*를 참조한다.
 
 -   REPLICATION_ACK_XLOG_COUNT
-
 -   REPLICATION_BEFORE_IMAGE_LOG_ENABLE
-
 -   REPLICATION_COMMIT_WRITE_WAIT_MODE
-
 -   REPLICATION_CONNECT_RECEIVE_TIMEOUT
-
 -   REPLICATION_CONNECT_TIMEOUT
-
 -   REPLICATION_DDL_ENABLE
-
+-   REPLICATION_DDL_SYNC
+-   REPLICATION_DDL_SYNC_TIMEOUT
 -   REPLICATION_EAGER_PARALLEL_FACTOR
-
 -   REPLICATION_EAGER_RECEIVER_MAX_ERROR_COUNT
-
 -   REPLICATION_FAILBACK_INCREMENTAL_SYNC
-
 -   REPLICATION_GAPLESS_ALLOW_TIME
-
 -   REPLICATION_GAPLESS_MAX_WAIT_TIME
-
 -   REPLICATION_GROUPING_TRANSACTION_MAX_COUNT
-
 -   REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE
-
 -   REPLICATION_HBT_DETECT_HIGHWATER_MARK
-
 -   REPLICATION_HBT_DETECT_TIME
-
 -   REPLICATION_INSERT_REPLACE
-
 -   REPLICATION_KEEP_ALIVE_CNT
-
 -   REPLICATION_LOCK_TIMEOUT
-
 -   REPLICATION_LOG_BUFFER_SIZE
-
 -   REPLICATION_MAX_COUNT
-
 -   REPLICATION_MAX_LISTEN
-
 -   REPLICATION_MAX_LOGFILE
-
 -   REPLICATION_POOL_ELEMENT_COUNT
-
 -   REPLICATION_POOL_ELEMENT_SIZE
-
 -   REPLICATION_PORT_NO
-
 -   REPLICATION_PREFETCH_LOGFILE_COUNT
-
 -   REPLICATION_RECEIVE_TIMEOUT
-
 -   REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE
-
 -   REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE
-
 -   REPLICATION_RECOVERY_MAX_LOGFILE
-
 -   REPLICATION_RECOVERY_MAX_TIME
-
 -   REPLICATION_SENDER_AUTO_START
-
 -   REPLICATION_SENDER_COMPRESS_XLOG
-
 -   REPLICATION_SENDER_SLEEP_TIME
-
 -   REPLICATION_SENDER_SLEEP_TIMEOUT
-
 -   REPLICATION_SENDER_START_AFTER_GIVING_UP
-
 -   REPLICATION_SERVER_FAILBACK_MAX_TIME
-
 -   REPLICATION_SYNC_LOCK_TIMEOUT
-
 -   REPLICATION_SYNC_LOG
-
 -   REPLICATION_SYNC_TUPLE_COUNT
-
 -   REPLICATION_TIMESTAMP_RESOLUTION
-
 -   REPLICATION_TRANSACTION_POOL_SIZE
-
 -   REPLICATION_UPDATE_REPLACE
 
 4.Fail-Over
