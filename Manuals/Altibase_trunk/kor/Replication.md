@@ -1904,25 +1904,39 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 -   TRUNCATE TABLE을 실행한다.
 
 ```
-(SYS User)
+(Local SYS User)
 iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
 Alter success.
-(Table Owner)
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+Alter success.
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+Alter success.
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+Alter success.
+(Remote Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+Alter success.
+(Local Table Owner)
 iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
 Alter success.
 iSQL> TRUNCATE TABLE t1;
 Truncate success.
-(SYS User)
+(Local SYS User)
 iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+Alter success.
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+Alter success.
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+Alter success.
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
 Alter success.
 ```
 
 파티션 P2에 있는 테이블 T1을 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
 
 ```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
        INTO (PARTITION P3, PARTITION P4 ); 
 ```
@@ -1930,18 +1944,12 @@ iSQL> ALTER TABLE T1 SPLIT PARTITION P2
 파티션 P2, P3에 있는 테이블 T1을 파티션 P23으로 합쳐서 생성한다 (MERGE TABLE).
 
 ```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
 ```
 
 파티션 P1을 제거한다 (DROP TABLE).
 
 ```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 ```
 
