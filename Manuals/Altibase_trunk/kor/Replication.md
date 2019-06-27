@@ -1769,73 +1769,11 @@ iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 
 ### 이중화 대상 테이블에 DDL 복제 실행
 
-Altibase가 이중화 대상인 테이블에 대하여 복제를 지원하는 DDL 은 다음과 같다.
-REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값에 따라 복제를 지원하는 DDL 문이 다르다.
+Altibase가 이중화 대상인 테이블에 대하여 지원하는 DDL을 이중화 원격 서버로 복제할 수 있다.
 
-다음은 REPLICATION_DDL_ENABLE_LEVEL의 값이 0일 때 복제를 지원하는 DDL 문이다.
+기존 Altibase 가 이중화 대상 테이블에 지원하는 DDL 모두 동일하게 이중화 원격 서버로 복제를 지원한다.
 
-```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE);
-
-ALTER TABLE table_name DROP COLUMN column_name;
-
-ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;
-
-ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
-
-ALTER TABLE table_name ALTER TABLESPACE;
-
-ALTER TABLE table_name TRUNCATE PARTITION TRUNCATE TABLE table_name;
-
-ALTER TABLE table_name SPLIT PARTITION partition_name(condition) INTO
-( PARTITION partition_name
-   PARTITION partition_name);
-
-ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
-
-ALTER TABLE table_name DROP PARTITION partiton_name; 
-
-TRUNCATE TABLE table_name;
-
-CREATE INDEX index_name ON table_name (column_name);
-
-DROP INDEX index_name;  
-```
-
-REPLICATION_DDL_ENABLE_LEVEL의 값이 1일 때 복제를 지원하는 DDL 문은 아래와 같다.
-
-```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE NOT NULL);
-
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE UNIQUE);
-
-ALTER TABLE table_name ALTER COLUMN (column_name NOT NULL);
-
-ALTER TABLE table_name ALTER COLUMN (column_name NULL);
-
-ALTER TABLE table_name MODIFY COLUMN (column_name DATA_TYPE);
-
-ALTER TABLE table_name MODIFY COLUMN (column_name NULL);
-
-ALTER TABLE table_name MODIFY COLUMN (column_name NOT NULL);
-
-ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능) 
-
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
-
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name) LOCAL;
-
-ALTER TABLE table_name DROP CONSTRAINT constraint_name; 
- ( Unique, Local Unique가 있는 것도 삭제 가능 )
-
-CREATE UNIQUE INDEX index_name ON table_name (column_name);
-
-CREATE INDEX index_name ON table_name (expression);
-
-DROP INDEX index_name; ( unique, function-base 인덱스가 있는 것도 삭제 가능 )
-```
-
- REPLICATION_DDL_ENABLE_LEVEL의 값에 상관없이 복제를 지원하는 DDL 문이다.
+기존 이중화 대상일 테이블에 지원하는 DDL 에 추가적으로 REPLICATION_DDL_ENABLE_LEVEL의 값에 상관없이 복제를 지원하는 DDL 문이다.
 
 ```
 ALTER INDEX index_name AGING;
@@ -1856,14 +1794,14 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 -   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
 
--   DDL 을 수행하는 Local 노드와 DDL 을 전송받는 Remote 노드의 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 값을 동일하게 설정한다.
+-   DDL 을 수행하는 이중화 지역 서버와 DDL 을 전송받는 이중화 원격 서버의 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 값을 동일하게 설정한다.
 
 -   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를
     NONE 이외의 값으로 설정한다.
 
--   DDL 을 수행하는 Local 노드 Session 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+-   DDL 을 수행하는 이중화 지역 서버 Session 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
 
--   DDL 을 전송받는 Remote 노드 System 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+-   DDL 을 전송받는 이중화 원격 서버 System 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
 
 
 #### 제약사항
@@ -1873,7 +1811,7 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 -   이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
 -   이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
 -   DDL 복제를 수행하는 테이블(파티션)명과 유저명이 Local, Remote 모두 동일해야 한다.
--   DDL 복제를 수행하는 Local, Remote 모두 이중화가 시작되어 있어야 한다.
+-   DDL 복제를 수행하는 이중화 지역, 원격 서버 모두 이중화가 시작되어 있어야 한다.
 -   Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
 -   Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
 -   Patch 버전까지 동일해야 DDL 복제가 가능하다.
@@ -1893,8 +1831,6 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 -   TRUNCATE TABLE  
     압축 컬럼을 가지지 않는 테이블에 한해서 지원된다.
-    
-    
 
 #### 예제
 
