@@ -3077,7 +3077,7 @@ AND CUS_JOB = :s_cus_job;
 
 3가지의 날짜형 타입이 제공되므로 개발자는 용도에 맞게 사용하면 된다.
 
-##### SQL_DATE_SURUCT 
+##### SQL_DATE_STRUCT 
 
 이 타입은 년, 월, 일로 구성 되어 있다. 이 타입의 구조는 다음과 같다.
 
@@ -3205,6 +3205,85 @@ s_timestamp.fraction = 100000;
 EXEC SQL UPDATE EMPLOYEES 
 SET JOIN_DATE = :s_timestamp 
 WHERE ENO = 5;    
+```
+
+##### SQL_NUMERIC_STRUCT 
+
+이 타입 사용 시 좀더 정확한 NUMERIC 데이터를 전달할 수 있다. 
+
+이 타입의 구조는 다음과 같다. 
+
+```
+typedef struct tagSQL_NUMERIC_STRUCT
+{
+	SQLCHAR		precision;
+	SQLSCHAR	scale;
+	SQLCHAR		sign;	/* 1=pos 0=neg */
+	SQLCHAR		val[SQL_MAX_NUMERIC_LEN];
+} SQL_NUMERIC_STRUCT;
+```
+
+##### 예제
+
+다음은 SQL_NUMERIC_STRUCT 타입의 사용 예를 보여준다.
+
+s_price를 입력 또는 출력 호스트 변수로 사용하는 예이다.
+
+\< 예제 프로그램 : date.sc \>
+
+```
+/* declare host variables */
+EXEC SQL BEGIN DECLARE SECTION;
+char                 s_gno[10+1];
+char                 s_gname[20+1];
+char                 s_goods_location[9+1];
+int                  s_stock;
+SQL_NUMERIC_STRUCT   s_price;
+EXEC SQL END DECLARE SECTION;
+
+int s_price_val = 0;
+
+/* use scalar host variables */
+strcpy(s_gno, "F111100002");
+strcpy(s_gname, "XX-101");
+strcpy(s_goods_location, "FD0003");
+s_stock = 5000;
+
+/* set value 123.4 on SQL_NUMERIC_STRUCT */
+memset(&s_price, 0, sizeof(s_price));
+s_price.precision = 4;
+s_price.scale = 1;
+s_price.sign = 1;
+s_price_val = 1234;
+memcpy(&s_price.val, &s_price_val, sizeof(int));
+
+printf("------------------------------------------------------------------\n");
+printf("[SQL_NUMERIC_STRUCT Insert]\n");
+printf("------------------------------------------------------------------\n");
+
+EXEC SQL INSERT INTO GOODS VALUES (:s_gno, :s_gname, :s_goods_location, :s_stock, :s_price);
+
+memset(s_gname, 0, sizeof(s_gname));
+memset(s_goods_location, 0, sizeof(s_goods_location));
+s_stock = 0;
+memset(&s_price, 0, sizeof(s_price));
+
+printf("------------------------------------------------------------------\n");
+printf("[SQL_NUMERIC_STRUCT Select]\n");
+printf("------------------------------------------------------------------\n");
+
+EXEC SQL SELECT GNAME, GOODS_LOCATION, STOCK, PRICE INTO :s_gname, :s_goods_location, :s_stock, :s_price FROM GOODS WHERE GNO = :s_gno;
+/* check sqlca.sqlcode */
+if (sqlca.sqlcode == SQL_SUCCESS)
+{
+    /* sqlca.sqlerrd[2] holds the rows-processed(inserted) count */
+    printf("%d rows select s_gno=%s, s_gname=%s, s_goods_location=%s, s_stock=%d, s_price=%.15G \n\n", 
+            sqlca.sqlerrd[2], s_gno, s_gname, s_goods_location, s_stock, APRE_NUMERIC_TO_DOUBLE(s_price));
+}
+else
+{
+    printf("Error : [%d] %s\n\n", SQLCODE, sqlca.sqlerrm.sqlerrmc);
+}   
 ```
 
 #### 이진 타입
