@@ -2834,64 +2834,65 @@ Altibase는 필요에 따라 동적으로 서비스 쓰레드를 추가하거나
 
 Altibase 내부에 생성된 클라이언트 세션에 대한 정보를 보여준다.
 
-| Column name                        | Type         | Description                                                                                                                                            |
-|------------------------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ID                                 | BIGINT       | 세션 식별자                                                                                                                                            |
-| TRANS_ID                           | BIGINT       | 세션에서 현재 수행중인 트랜잭션의 식별자                                                                                                               |
-| TASK_STATE                         | VARCHAR(11)  | 태스크 상태                                                                                                                                            |
-| COMM_NAME                          | VARCHAR(64)  | 접속 정보                                                                                                                                              |
-| XA_SESSION_FLAG                    | INTEGER      | XA 세션 플래그                                                                                                                                         |
-| XA_ASSOCIATE_FLAG                  | INTEGER      | XA associate 플래그                                                                                                                                    |
-| QUERY_TIME_LIMIT                   | BIGINT       | 아래 참조                                                                                                                                              |
-| DDL_TIME_LIMIT                     | BIGINT       | 아래 참조                                                                                                                                              |
-| FETCH_TIME_LIMIT                   | BIGINT       | 아래 참조                                                                                                                                              |
-| UTRANS_TIME_LIMIT                  | BIGINT       | 아래 참조                                                                                                                                              |
-| IDLE_TIME_LIMIT                    | BIGINT       | 아래 참조                                                                                                                                              |
-| IDLE_START_TIME                    | INTEGER      | 아래 참조                                                                                                                                              |
-| ACTIVE_FLAG                        | INTEGER      | 트랜잭션 활성 플래그                                                                                                                                   |
-| OPENED_STMT_COUNT                  | INTEGER      | 사용 중인 구문 개수                                                                                                                                    |
-| CLIENT_PACKAGE_VERSION             | VARCHAR(40)  | 클라이언트 패키지 버젼                                                                                                                                 |
-| CLIENT_PROTOCOL_VERSION            | VARCHAR(40)  | 클라이언트의 통신 프로토콜 버전                                                                                                                        |
-| CLIENT_PID                         | BIGINT       | 클라이언트 프로세스 아이디                                                                                                                             |
-| CLIENT_TYPE                        | VARCHAR(40)  | 접속한 클라이언트의 타입                                                                                                                               |
-| CLIENT_APP_INFO                    | VARCHAR(128) | 접속한 애플리케이션의 타입                                                                                                                             |
-| CLIENT_NLS                         | VARCHAR(40)  | 클라이언트 문자 집합                                                                                                                                   |
-| DB_USERNAME                        | VARCHAR(128) | 데이터베이스 사용자 이름                                                                                                                               |
-| DB_USERID                          | INTEGER      | 데이터베이스 사용자 식별자                                                                                                                             |
-| DEFAULT_TBSID                      | BIGINT       | 사용자의 디폴트 테이블스페이스 식별자                                                                                                                  |
-| DEFAULT_TEMP_TBSID                 | BIGINT       | 사용자의 디폴트 임시(temp) 테이블스페이스 식별자                                                                                                       |
-| SYSDBA_FLAG                        | INTEGER      | Sysdba 로 접속했는지 여부                                                                                                                              |
-| AUTOCOMMIT_FLAG                    | INTEGER      | Autocommit 플래그                                                                                                                                      |
-| SESSION_STATE                      | VARCHAR(13)  | 세션의 상태                                                                                                                                            |
-| ISOLATION_LEVEL                    | INTEGER      | 고립도 (isolation level)                                                                                                                               |
-| REPLICATION_MODE                   | INTEGER      | 이중화 모드                                                                                                                                            |
-| TRANSACTION_MODE                   | INTEGER      | 트랜잭션 모드                                                                                                                                          |
-| COMMIT_WRITE_WAIT_MODE             | INTEGER      | 아래 참조                                                                                                                                              |
-| OPTIMIZER_MODE                     | INTEGER      | 최적화 모드                                                                                                                                            |
+| Column name                        | Type         | Description                                                  |
+| ---------------------------------- | ------------ | ------------------------------------------------------------ |
+| ID                                 | BIGINT       | 세션 식별자                                                  |
+| TRANS_ID                           | BIGINT       | 세션에서 현재 수행중인 트랜잭션의 식별자                     |
+| TASK_STATE                         | VARCHAR(11)  | 태스크 상태                                                  |
+| COMM_NAME                          | VARCHAR(64)  | 접속 정보                                                    |
+| XA_SESSION_FLAG                    | INTEGER      | XA 세션 플래그                                               |
+| XA_ASSOCIATE_FLAG                  | INTEGER      | XA associate 플래그                                          |
+| QUERY_TIME_LIMIT                   | BIGINT       | 아래 참조                                                    |
+| DDL_TIME_LIMIT                     | BIGINT       | 아래 참조                                                    |
+| FETCH_TIME_LIMIT                   | BIGINT       | 아래 참조                                                    |
+| UTRANS_TIME_LIMIT                  | BIGINT       | 아래 참조                                                    |
+| IDLE_TIME_LIMIT                    | BIGINT       | 아래 참조                                                    |
+| IDLE_START_TIME                    | INTEGER      | 아래 참조                                                    |
+| ACTIVE_FLAG                        | INTEGER      | 트랜잭션 활성 플래그                                         |
+| OPENED_STMT_COUNT                  | INTEGER      | 사용 중인 구문 개수                                          |
+| CLIENT_PACKAGE_VERSION             | VARCHAR(40)  | 클라이언트 패키지 버젼                                       |
+| CLIENT_PROTOCOL_VERSION            | VARCHAR(40)  | 클라이언트의 통신 프로토콜 버전                              |
+| CLIENT_PID                         | BIGINT       | 클라이언트 프로세스 아이디                                   |
+| CLIENT_TYPE                        | VARCHAR(40)  | 접속한 클라이언트의 타입                                     |
+| CLIENT_APP_INFO                    | VARCHAR(128) | 접속한 애플리케이션의 타입                                   |
+| CLIENT_NLS                         | VARCHAR(40)  | 클라이언트 문자 집합                                         |
+| DB_USERNAME                        | VARCHAR(128) | 데이터베이스 사용자 이름                                     |
+| DB_USERID                          | INTEGER      | 데이터베이스 사용자 식별자                                   |
+| DEFAULT_TBSID                      | BIGINT       | 사용자의 디폴트 테이블스페이스 식별자                        |
+| DEFAULT_TEMP_TBSID                 | BIGINT       | 사용자의 디폴트 임시(temp) 테이블스페이스 식별자             |
+| SYSDBA_FLAG                        | INTEGER      | Sysdba 로 접속했는지 여부                                    |
+| AUTOCOMMIT_FLAG                    | INTEGER      | Autocommit 플래그                                            |
+| SESSION_STATE                      | VARCHAR(13)  | 세션의 상태                                                  |
+| ISOLATION_LEVEL                    | INTEGER      | 고립도 (isolation level)                                     |
+| REPLICATION_MODE                   | INTEGER      | 이중화 모드                                                  |
+| TRANSACTION_MODE                   | INTEGER      | 트랜잭션 모드                                                |
+| COMMIT_WRITE_WAIT_MODE             | INTEGER      | 아래 참조                                                    |
+| OPTIMIZER_MODE                     | INTEGER      | 최적화 모드                                                  |
 | HEADER_DISPLAY_MODE                | INTEGER      | SELECT 질의의 결과 출력시, 칼럼 이름만 출력할 것인지 테이블 이름도 함께 출력할 것인지 여부. 0: 칼럼 이름과 함께 테이블 이름도 출력 1: 칼럼 이름만 출력 |
-| CURRENT_STMT_ID                    | INTEGER      | 사용 중인 statement 식별자                                                                                                                             |
-| STACK_SIZE                         | INTEGER      | 스택 크기(단위: bytes)                                                                                                                                 |
-| DEFAULT_DATE_FORMAT                | VARCHAR(64)  | 디폴트 날짜 형식 예) DD-MON-RRRR                                                                                                                       |
-| TRX_UPDATE_MAX_LOGSIZE             | BIGINT       | DML 로그의 최대 크기(단위: bytes)                                                                                                                      |
-| PARALLE_DML_MODE                   | INTEGER      | Deprecated                                                                                                                                             |
-| LOGIN_TIME                         | INTEGER      | 클라이언트 접속 시간                                                                                                                                   |
-| FAILOVER_SOURCE                    | VARCHAR(256) | FailOver가 일어났을 때의 접속 정보                                                                                                                     |
-| NLS_TERRITORY                      | VARCHAR(40)  | 세션의 지역 이름                                                                                                                                       |
-| NLS_ISO_CURRENCY                   | VARCHAR(40)  | 세션의 ISO 통화 기호                                                                                                                                   |
-| NLS_CURRENCY                       | VARCHAR(10)  | 세션의 지역 통화 기호                                                                                                                                  |
-| NLS_NUMERIC_CHARACTERS             | VARCHAR(2)   | 세션의 소수점 문자와 그룹 구분자                                                                                                                       |
-| TIME_ZONE                          | VARCHAR(40)  | 세션에 설정된 타임 존의 지역 이름, 약어 또는 UTC_OFFSET                                                                                                |
-| LOB_CACHE_THRESHOLD                | INTEGER      | LOB_CACHE_THRESHOLD 프로퍼티에 설정된 값                                                                                                               |
-| QUERY_REWRITE_ENABLE               | VARCHAR(7)   | QUERY_REWRITE_ENABLE 프로퍼티에 설정된 값                                                                                                              |
-| DBLINK_GLOBAL_TRANSACTION_LEVEL    | INTEGER      | DBLINK_GLOBAL_TRANSACTION_LEVEL 프로퍼티에 설정된 값                                                                                                   |
-| DBLINK_REMOTE_STATEMENT_AUTOCOMMIT | INTEGER      | DBLINK_REMOTE_STATEMENT_AUTOCOMMIT 프로퍼티에 설정된 값                                                                                                |
-| MAX_STATEMENTS_PER_SESSION         | INTEGER      | 세션에 허용된 STATEMENT 최대 개수                                                                                                                      |
-| SSL_CIPHER                         | VARCHAR(256) | 현재 사용하는 암호화 알고리즘                                                                                                                          |
-| SSL_CERTIFICATE_SUBJECT            | VARCHAR(256) | 클라이언트 인증서 정보                                                                                                                                 |
-| SSL_CERTIFICATE_ISSUER             | VARCHAR(256) | 클라이언트 인증서 발행기관                                                                                                                             |
-| CLIENT_INFO                        | VARCHAR(128) | 접속한 애플리케이션 타입                                                                                                                               |
-| MODULE                             | VARCHAR(128) | 수행 중인 프로시저 모듈이름                                                                                                                            |
-| ACTION                             | VARCHAR(128) | 수행 중인 프로시저 동작상태                                                                                                                            |
+| CURRENT_STMT_ID                    | INTEGER      | 사용 중인 statement 식별자                                   |
+| STACK_SIZE                         | INTEGER      | 스택 크기(단위: bytes)                                       |
+| DEFAULT_DATE_FORMAT                | VARCHAR(64)  | 디폴트 날짜 형식 예) DD-MON-RRRR                             |
+| TRX_UPDATE_MAX_LOGSIZE             | BIGINT       | DML 로그의 최대 크기(단위: bytes)                            |
+| PARALLE_DML_MODE                   | INTEGER      | Deprecated                                                   |
+| LOGIN_TIME                         | INTEGER      | 클라이언트 접속 시간                                         |
+| FAILOVER_SOURCE                    | VARCHAR(256) | FailOver가 일어났을 때의 접속 정보                           |
+| NLS_TERRITORY                      | VARCHAR(40)  | 세션의 지역 이름                                             |
+| NLS_ISO_CURRENCY                   | VARCHAR(40)  | 세션의 ISO 통화 기호                                         |
+| NLS_CURRENCY                       | VARCHAR(10)  | 세션의 지역 통화 기호                                        |
+| NLS_NUMERIC_CHARACTERS             | VARCHAR(2)   | 세션의 소수점 문자와 그룹 구분자                             |
+| TIME_ZONE                          | VARCHAR(40)  | 세션에 설정된 타임 존의 지역 이름, 약어 또는 UTC_OFFSET      |
+| LOB_CACHE_THRESHOLD                | INTEGER      | LOB_CACHE_THRESHOLD 프로퍼티에 설정된 값                     |
+| QUERY_REWRITE_ENABLE               | VARCHAR(7)   | QUERY_REWRITE_ENABLE 프로퍼티에 설정된 값                    |
+| DBLINK_GLOBAL_TRANSACTION_LEVEL    | INTEGER      | DBLINK_GLOBAL_TRANSACTION_LEVEL 프로퍼티에 설정된 값         |
+| DBLINK_REMOTE_STATEMENT_AUTOCOMMIT | INTEGER      | DBLINK_REMOTE_STATEMENT_AUTOCOMMIT 프로퍼티에 설정된 값      |
+| MAX_STATEMENTS_PER_SESSION         | INTEGER      | 세션에 허용된 STATEMENT 최대 개수                            |
+| SSL_CIPHER                         | VARCHAR(256) | 현재 사용하는 암호화 알고리즘                                |
+| SSL_CERTIFICATE_SUBJECT            | VARCHAR(256) | 클라이언트 인증서 정보                                       |
+| SSL_CERTIFICATE_ISSUER             | VARCHAR(256) | 클라이언트 인증서 발행기관                                   |
+| CLIENT_INFO                        | VARCHAR(128) | 접속한 애플리케이션 타입                                     |
+| MODULE                             | VARCHAR(128) | 수행 중인 프로시저 모듈이름                                  |
+| ACTION                             | VARCHAR(128) | 수행 중인 프로시저 동작상태                                  |
+| MESSAGE_CALLBACK                   | VARCHAR(7)   | 클라이언트 메시지콜백 등록상태                               |
 
 #### 칼럼 정보
 
@@ -3215,6 +3216,25 @@ MAX_STATEMENTS_PER_SESSION 프로퍼티의 값을 기본값으로 한다.
 
 수행중인 프로시저의 모듈이름에 관한 정보이다.SET_MODULE() 내장 프로시저를
 사용하여 설정한다.
+
+##### MESSAGE_CALLBACK
+
+접속된 클라이언트의 메시지 콜백 등록 상태를 나타낸다. 메시지 콜백 등록 상태에 따라
+서버는 메시지 전송 여부를 결정한다.
+
+- REG
+
+  클라이언트는 메시지콜백을 등록하였으며, 서버는 메시지를 클라이언트로 전송한다.
+
+- UNREG
+
+  클라이언트는 메시지콜백을 등록하지 않았으며, 서버는 메시지를 클라이언트로 전송하지 않는다.
+
+- UNKNOWN
+
+  클라이언트의 메시지콜백 등록 여부를 알 수 없으며, 서버는 메시지를 클라이언트로 전송한다.
+
+  해당기능이 없는 구버전 클라이언트가 접속한 경우 UNKNOWN 상태를 가진다.
 
 ### <a name="vsession_event"><a/>V\$SESSION_EVENT
 
