@@ -2093,6 +2093,58 @@ CREATE INDEX index_name ON table_name ( expression );
 
 DROP INDEX index_name; ( unique, function-base 인덱스도 삭제 가능 )
 
+#### REPLICATION_DDL_SYNC
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+이중화중 DDL 복제 여부를 나타낸다.
+
+0 : 이중화중 DDL 복제를 허용하지 않음.  DDL 수행 시 이중화 지역 서버 ( Local Server ) 에서만 수행된다.   
+
+1 : 이중화중 DDL 복제를 허용함.  DDL 수행 시 이중화 원격 서버 ( Remote Server )에 DDL 이 복제된다.   
+
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+
+#### REPLICATION_DDL_SYNC_TIMEOUT ( 단위 : 초 )
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+7200
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup>-1]
+
+##### 설명
+
+DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 이중화 지역, 원격 서버 모두 취소된다.
+DDL 복제를 수행하는 이중화 지역서버를 기준으로 Timeout 값이 측정된다.
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+
 #### REPLICATION_EAGER_PARALLEL_FACTOR
 
 ##### 데이터 타입
