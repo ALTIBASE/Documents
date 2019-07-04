@@ -1654,7 +1654,7 @@ SQL 반영 모드로 동작하는 테이블의 개수이다.
 
 ##### TABLE_NAME
 
-지역 서버의 이중화 대상 테이블의 이름으로 SYS_TABLES\_ 메타 테이블의 한ㅇ
+지역 서버의 이중화 대상 테이블의 이름으로 SYS_TABLES\_ 메타 테이블의 한
 TABLE_NAME 값과 일치한다.
 
 ##### PARTITION_NAME
