@@ -1772,7 +1772,6 @@ ALTER INDEX index_name AGING;
 ALTER TABLE table_name COMPACT;
 ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );
 ALTER TABLE table_name RENAME CONSTRAINT contraint_name TO constraint_name;
-  
 ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );  
 ```
 
