@@ -1137,6 +1137,8 @@ cli 응용프로그램 빌드 시 기존의 odbccli 라이브러리를 shardcli 
 
 shardcli 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
 
+jdbc 같은 경우에는 기존과 같이 Altibase.jar를 클래스패스에 추가하고 jdbc 접속 url에 sharding prefix를 붙여주면 된다. 이때 ip와 port는 shardcli와 마찬가지로 메타 노드의 ip와 port가 되어야 한다.
+
 ### 샤드 메타 설정
 
 Altibase Sharding을 사용하기 위해서는 샤드 메타를 생성해야 한다. 각 샤드 노드는 Altibase Sharding에 필요한 모든 메타 정보를 샤드 메타에 영구적으로 저장한다.
@@ -1630,7 +1632,9 @@ Sharding을 사용할 수 없다.
     일부 데이터베이스 시스템의 장애로 볼 것인지는 응용프로그램마다 다를 수
 있으나, Altibase Sharding은 장애 노드를 접근하지 않는 작업은 정상 동작한다.
 -   Altibase Sharding은 응용프로그램에서 데이터베이스로 커넥션을 생성할 때, 일부
-    샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.
+    샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.  
+    (jdbc같은 경우 응용프로그램에서 데이터베이스로 커넥션을 생성할 때 META와의 접속까지만 
+    이루어지기 때문에 노드 장애여부와 상관없이 META만 정상적이라면 커넥션이 생성된다.)
 -   만약 커넥션 생성 후, 사용자 쿼리가 prepare, bind, execute를 수행시에는 일부
     샤드 노드에 장애가 발생하더라도 장애가 발생하지 않는 샤드 노드로 서비스를
     계속 수행할 수 있다.
@@ -2252,12 +2256,19 @@ SQLSetConnectAttr (
 다중 노드 트랜잭션을 설정한다. 다중 노드 트랜잭션으로 설정할 때에는
 *StringLength* 인자 값에 ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION을 입력한다.
 SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI
-함수”*를 참조한다.
+함수”*를 참조한다.  
+jdbc같은 경우 CLI의 SQLSetConnectAttr이 없기 때문에 연결속성의 형태로 지원한다.
 
 ##### 예제
+###### ShardCLI
 
 ```
 SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION);
+```
+###### ShardJDBC
+
+```
+DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard_transaction_level=1");
 ```
 
 #### 글로벌 트랜잭션
@@ -2282,10 +2293,15 @@ SQLSetConnectAttr (
 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
 
 ##### 예제
-
+###### ShardCLI
 ```
 SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_GLOBAL_TRANSACTION);
 ```
+###### ShardJDBC
+```
+DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard_transaction_level=2");
+```
+
 
 ### 샤드 쿼리
 
