@@ -1771,9 +1771,7 @@ iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 
 Altibase가 이중화 대상인 테이블에 대하여 지원하는 DDL을 이중화 원격 서버로 복제할 수 있다.
 
-기존 Altibase 가 이중화 대상 테이블에 지원하는 DDL 모두 동일하게 이중화 원격 서버로 복제를 지원한다.
-
-기존 이중화 대상일 테이블에 지원하는 DDL 에 추가적으로 REPLICATION_DDL_ENABLE_LEVEL의 값에 상관없이 복제를 지원하는 DDL 문이다.
+설정된 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티에 따라 지원하는 모든 DDL 구문들이 원격 서버로 복제를 지원하며,  다음은 REPLICATION_DDL_ENABLE_LEVEL의 값에 상관없이 복제를 지원하는 DDL 문이다.
 
 ```
 ALTER INDEX index_name AGING;
@@ -1789,8 +1787,7 @@ ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );
 
 #### 설명
 
-Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하다. 그러나 DDL 복제를 
-하기 위해서는 우선 프로퍼티를 다음과 같이 설정해야 한다.
+Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하다. 그러나 DDL 복제를 하기 위해서는 우선 프로퍼티를 다음과 같이 설정해야 한다.
 
 -   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
 
@@ -1810,7 +1807,7 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 -   이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
 -   이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
--   DDL 복제를 수행하는 테이블(파티션)명과 유저명이 Local, Remote 모두 동일해야 한다.
+-   DDL 복제를 수행하는 테이블(파티션)명과 유저명이 이중화 지역서버, 원격서버 모두 동일해야 한다.
 -   DDL 복제를 수행하는 이중화 지역, 원격 서버 모두 이중화가 시작되어 있어야 한다.
 -   Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
 -   Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
