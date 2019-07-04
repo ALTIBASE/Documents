@@ -1793,9 +1793,8 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 -   DDL 을 수행하는 이중화 지역 서버와 DDL 을 전송받는 이중화 원격 서버의 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 값을 동일하게 설정한다.
 
--   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를
-    NONE 이외의 값으로 설정한다.
-
+-   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를 NONE 이외의 값으로 설정한다.
+    
 -   DDL 을 수행하는 이중화 지역 서버 Session 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
 
 -   DDL 을 전송받는 이중화 원격 서버 System 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
@@ -1831,8 +1830,7 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 #### 예제
 
-이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 복제
-실행을 아래와 같이 사용한다.
+이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 복제 실행을 아래와 같이 사용한다.
 
 -   TRUNCATE TABLE을 실행한다.
 
