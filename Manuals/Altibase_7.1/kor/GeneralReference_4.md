@@ -3224,16 +3224,16 @@ MAX_STATEMENTS_PER_SESSION 프로퍼티의 값을 기본값으로 한다.
 
 ##### REPLICATION_DDL_SYNC
 
- 이중화 중 DDL 복제 허용 여부를 나타낸다.
+이중화 중 DDL 복제 허용 여부를 나타낸다.
 
- - 0: 이중화 중 DDL 복제를 지원하지 않는다.
+- 0: 이중화 중 DDL 복제를 지원하지 않는다.
 - 1: 이중화 중 DDL 복제를 지원한다.
 
- ##### REPLICATION_DDL_TIMEOUT
+##### REPLICATION_DDL_TIMEOUT
 
- 현재 세션의 이중화를 통한 DDL 복제 수행 시간 초과(timeout) 값을 나타낸다.
+현재 세션의 이중화를 통한 DDL 복제 수행 시간 초과(timeout) 값을 나타낸다.
 
- DDL 복제를 수행하는 지역 서버를 기준으로 초과값 측정된다.
+DDL 복제를 수행하는 지역 서버를 기준으로 초과값 측정된다.
 
 ### <a name="vsession_event"><a/>V\$SESSION_EVENT
 
