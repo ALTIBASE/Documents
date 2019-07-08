@@ -2382,34 +2382,6 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_HBT_CONNECT_WAIT_TIME(단위 : 마이크로초)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-100000
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 2<sup>32</sup>-1]
-
-##### 설명
-
-REPLICATION_HBT_DETECT_HIGHWATER_MARK 프로퍼티의 횟수만큼 HeartBeat
-쓰레드<sup>11</sup>가 상대 호스트를 검사할 때마다, 호스트에 접속을 시도한 후 응답을
-대기하는 시간이다.
-
-[<sup>11</sup>] REPLICATION_HBT_DETECT_TIME 프로퍼티 각주 참조
-
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
 #### REPLICATION_HBT_DETECT_HIGHWATER_MARK
 
 ##### 데이터 타입
