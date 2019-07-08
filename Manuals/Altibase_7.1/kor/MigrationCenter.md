@@ -1191,6 +1191,13 @@ Mapping" 메뉴 항목을 사용해서 변경할 수 있다.
 등의 편집이 가능하며, 편집한 SELECT문을 바로 확인할 수 있다. 수정한 것을
 취소하고 싶다면 Restore 버튼을 누르면 된다.
 
+##### "Unacceptable Name" 단계
+
+"Unacceptable Name" 단계는 대상 데이터베이스의 인용 부호 없는 객체 이름 규칙에 
+어긋나는 객체를 보여준다. 이름에 특수 문자나 공백이 포함된 객체가 이에 해당하며, 
+run 단계에서 생성에 실패한다. "Use Double-quoted Identifier" 체크 박스를 선택하면 
+문제 이름들만 큰 따옴표로 감싸 객체 생성 실패를 방지할 수 있다. 
+
 ##### "SQL Editing" 단계
 
 "SQL Editing" 단계는 사용자에게 스키마 마이그레이션에 사용될 DDL 문장을 확인하고
@@ -4488,7 +4495,9 @@ Altibase버전에 적용됨을 의미한다.
 
 -   타입: CONVERTED
 
--   설명: 큰 따옴표가 제거되었다.
+- 설명: 큰 따옴표가 제거되었다. 단, reconcile "Unacceptable Name" 단계에서 
+  이름에 큰 따옴표가 필요한 객체에 대해 "Use Double-quoted Identifier" 옵션을 선택하면, 
+  해당 이름의 따옴표는 제거되지 않는다. 
 
 - 원본 SQL 문장:
 
