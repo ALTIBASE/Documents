@@ -5986,7 +5986,7 @@ String
 
 ### Altibase Sharding 관련 프로퍼티
 
-#### SHARD_META_ENABLE 
+#### SHARD_ENABLE 
 
 ##### 데이터 타입
 
@@ -6006,11 +6006,13 @@ Unsigned Integer
 
 ##### 설명
 
-Altibase Sharding의 메타 노드로 설정한다.
+Altibase Sharding의 샤드 노드로 설정한다.
 
 0: Disabled
 
 1: Enabled
+
+그외 Sharding 관련 프로퍼티는 [Sharding 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)을 참조한다.
 
 ### 기타 프로퍼티 
 
