@@ -1191,6 +1191,13 @@ Mapping" 메뉴 항목을 사용해서 변경할 수 있다.
 등의 편집이 가능하며, 편집한 SELECT문을 바로 확인할 수 있다. 수정한 것을
 취소하고 싶다면 Restore 버튼을 누르면 된다.
 
+##### "Unacceptable Name" 단계
+
+"Unacceptable Name" 단계는 대상 데이터베이스의 인용 부호 없는 객체 이름 규칙에 
+어긋나는 객체를 보여준다. 이름에 특수 문자나 공백이 포함된 객체가 이에 해당하며, 
+run 단계에서 생성에 실패한다. "Use Double-quoted Identifier" 체크 박스를 선택하면 
+문제 이름들만 큰 따옴표로 감싸 객체 생성 실패를 방지할 수 있다. 
+
 ##### "SQL Editing" 단계
 
 "SQL Editing" 단계는 사용자에게 스키마 마이그레이션에 사용될 DDL 문장을 확인하고
@@ -4488,7 +4495,9 @@ Altibase버전에 적용됨을 의미한다.
 
 -   타입: CONVERTED
 
--   설명: 큰 따옴표가 제거되었다.
+- 설명: 큰 따옴표가 제거되었다. 단, reconcile "Unacceptable Name" 단계에서 
+  이름에 큰 따옴표가 필요한 객체에 대해 "Use Double-quoted Identifier" 옵션을 선택하면, 
+  해당 이름의 따옴표는 제거되지 않는다. 
 
 - 원본 SQL 문장:
 
@@ -8219,7 +8228,7 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 2�
 
 ###### \<Metaspace\>
 
-사용중인 JVM의 버전이 Java 8 이상인 경우, metaspace의 공간 부족이 원인일 수 있다. metaspace는 Java 8부터 구현된 permenant generation space의 대체제이다.
+사용중인 JVM의 버전이 Java 8 이상인 경우, Metaspace의 공간 부족이 원인일 수 있다. Java 8부터 구현된 Metaspace는 PermGen (permanent generation space)의 대체제이다.
 
 - 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
 - JVM 내 permanent generation space의 최대 크기를 정하는 옵션 '-XX:MaxPermSize'를
@@ -8317,7 +8326,7 @@ Windows 환경에서 마이그레이션 센터를 실행할 때 발생할 수 �
 
 #### CLI 모드로 실행 시, UnsatisfiedLinkError: /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libawt_xawt.so: libXrender.so.1: cannot open shared object file: No such file or directory 발생
 
-JVM에서 libXrender.so 파일을 찾았으나, OS에 해당 패키지가 설치되지 않았을 때 발생하는 오류이다. 해당 패키지는 AWT나 Swing을 포함한 어플리케이션을 실행할 때 필요하다.
+JVM에서 64-bit libXrender.so 파일을 요청했지만, OS에 해당 패키지가 설치되지 않았을 때 발생하는 오류이다. 해당 패키지는 AWT나 Swing을 포함한 64-bit 어플리케이션을 실행할 때 필요하다.
 
 ##### 원인
 
@@ -8326,7 +8335,7 @@ JVM에서 libXrender.so 파일을 찾았으나, OS에 해당 패키지가 설치
 ##### 해결방법
 
 장비의 비트 값에 맞는 JRE를 새로 설치한 뒤, JAVA_HOME을 해당 위치로 변경한다.
-아래와 같은 명령어를 실행하여 패키지를 설치한다.
+데비안 계열의 리눅스는 아래와 같은 명령어를 실행하여 패키지를 설치한다.
 
 ```
 sudo apt-get install libXrender1
@@ -8337,11 +8346,11 @@ sudo apt-get install libXrender1
 - http://www.jmeter-archive.org/Bug-in-running-Jmeter-on-Ubuntu-12-04-td5722692.html
 - https://www.spigotmc.org/threads/bungeecord-not-starting-up-on-java-8.24652/ 
 
-#### 마이그레이션 실행시 "Could not create the java virtual machine" 메세지를 출력하고 시작 실패한다. 
+#### 마이그레이션 센터 실행시 "Could not create the java virtual machine" 메세지를 출력하고 시작 실패한다. 
 
 ##### 원인
 
-bat, sh에서 설정된 -Xmx보다 시스템에서 할당 가능한 메모리가 부족한 경우 발생 가능한 오류이다. 특히 Windows O/S 32bit에서 자주 리포팅되는 오류이다. 
+bat, sh에서 설정된 최대 메모리 할당값(-Xmx) 자바 옵션이 시스템에서 할당 가능한 메모리보다 더 큰 경우 발생 가능한 오류이다. 특히 Windows O/S 32bit에서 자주 리포팅되는 오류이다. 
 
 ##### 해결방법
 
@@ -8411,7 +8420,7 @@ Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접
 
 #### 데이터 이관 중에 OutOfMemoryError가 발생한 이후에 여러 다양한 SQLException 들이 발생할 수 있다.
 
-대량의 데이터 이관 중에 오라클에서 fetch 또는 bind 관련 SQLException이 발생하였다. 테이블 모드에서 해당 테이블만 이관해서 성공하면 OOM으로 인한 오류를 의심해 볼 수 있다.
+대량의 데이터 이관 중에 오라클에서 fetch 또는 bind 관련 SQLException이 여러 건 발생하는 경우가 있다. 이런 경우, 테이블 모드에서 해당 테이블 한 개만 이관해서 성공한다면, OOM으로 인한 오류를 의심해 볼 수 있다.
 
 예) 
 
@@ -8422,7 +8431,7 @@ Invalid column type: getCLOB not implemented for class oracle.jdbc.driver.T4CVar
 
 ##### 원인
 
-Oracle JDBC driver 내부적으로 OOM 발생 이후 오동작 
+Oracle JDBC driver 내부적으로 OOM 발생 이후 다양한 오동작이 가능하다. 
 
 ##### 해결방법
 
@@ -8430,7 +8439,7 @@ Common 절의 OutOfMemoryError 항목 참조.
 
 #### 빌드 단계에서 NullPointerException 이 발생할 수 있다.
 
-원본 데이터베이스가 Oracle 9i, 10인 경우 JDBC 드라이버 오류로 인해 build 단계에서 아래와 같은 NullPointerException이 발생할 수 있다.
+원본 데이터베이스가 Oracle 9i, 10인 경우 Oracle JDBC 드라이버 호환성 오류로 인해 build 단계에서 아래와 같은 NullPointerException이 발생할 수 있다.
 
 Fail to retrieve Source DDL: java.lang.NullPointerException
 at oracle.jdbc.driver.T4C8Oall.getNumRows(T4C8Oall.java:1046)
@@ -8444,11 +8453,11 @@ at com.altibase.migLib.meta.SrcDbMeta_Oracle_9_0_0_0.getSrcDdlDbmsMetaData(SrcDb
 
 ##### 원인
 
-Oracle JDBC 드라이버 문제
+Oracle JDBC 드라이버 호환성 문제
 
 ##### 해결방법
 
-MigrationCenter의 Oracle용 JDBC 드라이버 파일을 사용중인 Oracle 에 포함된 JDBC 드라이버 파일로 교체한다.
+MigrationCenter의 Oracle용 JDBC 드라이버 파일을 사용중인 Oracle DBMS의 JDBC 드라이버 파일로 교체한다.
 
 
 
@@ -8569,11 +8578,11 @@ Altibase 사용자에게 해당 테이블스페이스에 대한 접근 권한을
 
 BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 사용하여 이관한다.
 
-#### Altibase 611 이하 버전으로부터 이관된 데이터타입 bit, varbit, nibble의 일부 데이터가 원본 데이터베이스와 일치하지 않는다.
+#### Altibase 6.1.1 이하 버전으로부터 이관된 데이터타입 bit, varbit, nibble의 일부 데이터가 원본 데이터베이스와 일치하지 않는다.
 
 ##### 원인
 
-해당 버전의 알티베이스 JDBC driver가 batch execution으로 데이터를 삽입할 때, 일부 데이터를 정상적으로 이관하는데 실패한다.
+알티베이스 6.1.1 이하 버전의 JDBC driver가 batch execution으로 bit, varbit, 또는 nibble 타입 데이터를 삽입할 때, 일부 데이터를 정상적으로 이관하는데 실패한다.
 
 ##### 해결방법
 
