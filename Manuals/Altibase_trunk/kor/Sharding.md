@@ -122,8 +122,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 7.1 또는 그 이상의 버전을 사용한다는
-가정 하에 작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 7.1 또는 그 이상의 버전을 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 
@@ -483,21 +482,18 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 
 ##### 샤드 키워드(shard keyword)
 
-Altibase Sharding에서 지원하는 키워드로 논샤드 쿼리를 샤드 쿼리로 수행하게
-하거나, 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는
-다음과 같다.
+Altibase Sharding에서 지원하는 키워드로 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
 
 -   SHARD
 
 -   NODE
 
-샤드 지원 구문(SELECT, INSERT, UPDATE, DELETE)의 앞이나 SELECT문의 샤드 뷰 앞에
-사용하면 해당 쿼리를 샤드 쿼리로 수행하여 결과를 반환한다.
+샤드 지원 구문의 앞이나 SELECT문의 샤드 뷰 앞에 사용하면 해당 쿼리를 샤드 쿼리로 수행하여 결과를 반환한다.
 
 ```
 SHARD SELECT shard_node_name(),count(*) FROM s1;
 NODE[DATA] SELECT shard_node_name(),count(*) FROM v$session;
-NODE[DATA(‘node1’)] DELETE FROM s1;
+NODE[DATA(‘node1’)] SELECT * FROM s1;
 ```
 
 ##### 샤드 프로시저(shard procedure)
@@ -2496,9 +2492,10 @@ Join 구문 역시 쿼리 최적화를 통해 수행되기 때문에 샤드 키�
 지정하는 독립 분산 테이블(so1)의 특성상 필터의 유무와 무관하게 샤드 라이브러리 커넥션으로
 동작한다.
 
--   SELECT \~ FROM *c1, so1* WHERE *c1.i1 = so1.i1*
+- SELECT \~ FROM *c1, so1* WHERE *c1.i1 = so1.i1*
 
--   =\> 샤드 라이브러리 커넥션으로 특정 노드로 직접 수행
+  =\> 샤드 라이브러리 커넥션으로 특정 노드로 직접 수행
+
 
 ###### Outer join
 
@@ -2526,25 +2523,22 @@ Join 구문 역시 쿼리 최적화를 통해 수행되기 때문에 샤드 키�
 Outer join이 inner join으로 변환될 경우를 지원한다. 다음 쿼리는 쿼리 변환기를
 거쳐 inner join으로 변환되어 수행한다.
 
--   SELECT \~ FROM *s1* RIGHT OUTER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 =
-    1*
-
--   =\> SELECT \~ FROM *s1* INNER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
+-   SELECT \~ FROM *s1* RIGHT OUTER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
+    
+=\> SELECT \~ FROM *s1* INNER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
+    
 
 ###### Semi- join
 
 동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 semi-join을 지원한다.
 
--   SELECT \~ FROM *s1* WHERE *EXISTS* (SELECT \~ FROM *s2* WHERE *s1.k1 =
-    s2.k1* AND \~) AND \~
+-   SELECT \~ FROM *s1* WHERE *EXISTS* (SELECT \~ FROM *s2* WHERE *s1.k1 = s2.k1* AND \~) AND \~
 
 복제 분산 테이블(c1)의 경우 모든 샤드 테이블에 대해 semi-join을 지원한다.
 
--   SELECT \~ FROM c1 WHERE *EXISTS* (SELECT \~ FROM *s1* WHERE *c1.i1 = s1.i1*
-    AND \~) AND \~
-
--   SELECT \~ FROM s1 WHERE *EXISTS* (SELECT \~ FROM *c1* WHERE *c1.i1 = so1.i1*
-    AND \~) AND \~
+-   SELECT \~ FROM c1 WHERE *EXISTS* (SELECT \~ FROM *s1* WHERE *c1.i1 = s1.i1* AND \~) AND \~
+    
+-   SELECT \~ FROM s1 WHERE *EXISTS* (SELECT \~ FROM *c1* WHERE *c1.i1 = so1.i1* AND \~) AND \~
 
 ##### Aggregate function
 
@@ -2678,8 +2672,7 @@ subquery join식을 지원한다.
 
 -   SELECT \* FROM *so1* WHERE i1 = (SELECT i1 FROM *c1* WHERE i1 = so1.i1)
 
--   SELECT \* FROM *c1 a* WHERE a.i1 = (SELECT min(i1) FROM *c1* WHERE i1 =
-    a.i1)
+-   SELECT \* FROM *c1 a* WHERE a.i1 = (SELECT min(i1) FROM *c1* WHERE i1 = a.i1)
 
 ###### 제약 사항
 
@@ -2706,28 +2699,22 @@ Unnesting, view merge 등의 서브 쿼리에 대한 변환이 수행될 경우 
 
 ### 샤드 키워드
 
-사용자는 특정 노드의 현재 데이터 상태를 확인하거나 특정 노드의 데이터를 취합하는
-것을 원할 수 있다.
+사용자는 특정 노드의 현재 데이터 상태를 확인하거나 특정 노드의 데이터를 취합하는 것을 원할 수 있다.
 
-Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메타, 코디네이터 또는
-샤드 데이터(저장소) 역할로 특정 샤드 노드에 쿼리를 전송하고 그 수행 결과를
-취합할 수 있는 샤드 키워드를 제공한다.
-
--   SHARD
-
--   NODE[META \| DATA \| DATA() \| DATA('*node1_name'*, '*node2_name'*...)]
+Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메타, 코디네이터 또는 샤드 데이터(저장소) 역할로 특정 샤드 노드에 쿼리를 전송하고 그 수행 결과를 취합할 수 있는 샤드 키워드를 제공하며 iSQL 을 통해 사용 가능하다.
 
 #### 구문
 
 샤드 키워드는 다음 구문에 한해 제공하며 구문식은 다음과 같다.
 
--   INSERT
-
--   UPDATE
-
--   DELETE
-
--   SELECT
+-   SHARD
+    - INSERT, UPDATE, DELETE
+    - SELECT
+-   NODE[META]
+    - INSERT, UPDATE, DELETE
+    - SELECT
+-   NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)]
+    - SELECT
 
 ![](media/Sharding/79bcb8f6b5cb10cc7a7b816363aa709f.jpg)
 
@@ -2737,16 +2724,13 @@ Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메
 
 #### SHARD
 
-SHARD 키워드를 사용하면 샤드 쿼리 분석기를 통해 쿼리에 존재하는 샤드 객체 분산
-정보가 존재하는 모든 샤드 노드에 쿼리를 전송하고 수행하여 취합한다.
+SHARD 키워드를 사용하면 샤드 쿼리 분석기를 통해 쿼리에 존재하는 샤드 객체 분산 정보가 존재하는 모든 샤드 노드에 쿼리를 전송하고 수행하여 취합한다.
 
-각 노드의 데이터를 취합한 결과가 논리적으로 동일할 수 없는 즉, 샤드 쿼리가 아닌
-다음의 사례를 살펴보자.
+각 노드의 데이터를 취합한 결과가 논리적으로 동일할 수 없는 즉, 샤드 쿼리가 아닌 다음의 사례를 살펴보자.
 
 -   SELECT count(\*) FROM *s1;*
 
-일반 쿼리에 SHARD 키워드를 적용하면 분산 정보가 존재하는 모든 노드를 대상으로
-쿼리를 수행하고 그 결과를 얻어온다.
+일반 쿼리에 SHARD 키워드를 적용하면 분산 정보가 존재하는 모든 노드를 대상으로 쿼리를 수행하고 그 결과를 얻어온다.
 
 -   SHARD SELECT count(\*) FROM *s1;*
 
@@ -2777,19 +2761,15 @@ iSQL> SELECT sum(cn) FROM SHARD(SELECT count(*) cn FROM s1);
 
 #### NODE
 
-NODE 키워드는 인자로 명시한 노드에 쿼리를 전송하고 그 수행 결과를 취합한다. 샤드
-쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다.
+NODE 키워드는 인자로 명시한 노드에 쿼리를 전송하고 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다.
 
 사용 가능한 NODE 유형은 다음과 같다.
 
 -   NODE[META] : 코디네이팅 샤드 노드에 대한 쿼리 수행
--   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이
-    수행
--   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리
-    분석 및 변환없이 수행
+-   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이 수행
+-   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리 분석 및 변환없이 수행
 
-노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일
-수 있다.
+노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다.
 
 ##### 구문
 
@@ -2809,8 +2789,7 @@ iSQL> EXEC dbms_shard.set_shard_hash('sys','t2',1000,'node1');
 iSQL> NODE[META] SELECT count(*) FROM t1;
 ```
 
-\<질의\> 'node2' 에 존재하는 s1 샤드 테이블에 대해 샤드키가 아닌 i1
-컬럼의 group별 합을 수행하라.
+\<질의\> 'node2' 에 존재하는 s1 샤드 테이블에 대해 샤드키가 아닌 i1 컬럼의 group별 합을 수행하라.
 
 ```
 iSQL> SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
@@ -2818,8 +2797,9 @@ iSQL> SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
 
 > ##### 주의 사항
 >
-> 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로
-> 결과의 정합성을 보장하지 않는다. 따라서 사용에 각별한 주의가 필요하다.
+> 샤드 키워드는 iSQL 을 통한 관리 목적으로 사용해야 한다.
+>
+> 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 따라서 사용에 각별한 주의가 필요하다.
 
 ### 샤드 함수
 
@@ -2859,8 +2839,7 @@ shard_key(key_column, value)
 
 ##### 예제
 
-\<질의\> s1테이블의 k1이 1에 해당하는 샤드 노드에서 s1테이블의 레코드 개수를
-구하라.
+\<질의\> s1테이블의 k1이 1에 해당하는 샤드 노드에서 s1테이블의 레코드 개수를 구하라.
 
 ```
 iSQL> SELECT count(*) FROM s1 WHERE shard_key(k1,1); 
