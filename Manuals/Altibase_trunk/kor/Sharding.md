@@ -1272,7 +1272,7 @@ Altibase Sharding
 | ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
 | 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
 | 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
-| 쿼리 분석 관련 프로퍼티   | TRCLOG_SHARD_DETAIL                                          | Yes                | SYSTEM, SESSION |
+| 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 
