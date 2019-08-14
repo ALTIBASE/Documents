@@ -5923,7 +5923,7 @@ FREE_NODE_HEAD는 인덱스 내 FREE NODE들의 첫번째 페이지를 나타낸
 | Column name      | Type    | Description                               |
 | ---------------- | ------- | ----------------------------------------- |
 | TBS_ID           | INTEGER | 테이블스페이스 식별자                     |
-| TRANSACTION_ID   | INTEGER | 트랜잭션 식별자                           |
+| TRANSACTION_ID   | BIGINT  | 트랜잭션 식별자                           |
 | CONSUME_TIME     | INTEGER | 디스크 임시 테이블의 수행 시간            |
 | READ_COUNT       | BIGINT  | 데이터를 읽어오는 IO가 발생한 횟수        |
 | WRITE_COUNT      | BIGINT  | 데이터를 저장하는 IO가 발생한 횟수        |

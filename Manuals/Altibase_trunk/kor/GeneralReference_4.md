@@ -388,7 +388,7 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 | GC_NAME                 | VARCHAR(128) | 가비지 콜렉터의 이름 MEM_LOGICAL_AGER: 구버전 인덱스 키 슬롯 해제 쓰레드 MEM_DELTHR: 삭제된 레코드를 해제하고 DROP TABLE 등 지연(pending) 연산을 하는 쓰레드 |
 | CURRSYSTEMVIEWSCN       | VARCHAR(29)  | 현재 시스템 view SCN                                                                                                                                         |
 | MINMEMSCNINTXS          | VARCHAR(29)  | 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN                                                                                                             |
-| OLDESTTX                | INTEGER      | 가장 오랜된 트랜잭션 식별자(MINMEMSCNINTXS를 소유한 트랜잭션의 식별자)                                                                                       |
+| OLDESTTX                | BIGINT       | 가장 오랜된 트랜잭션 식별자(MINMEMSCNINTXS를 소유한 트랜잭션의 식별자)                                                                                       |
 | SCNOFTAIL               | VARCHAR(29)  | 공간 회수 OID 리스트의 tail의 commit SCN                                                                                                                     |
 | IS_EMPTY_OIDLIST        | BIGINT       | 공간 회수 OID 리스트가 비어 있는지 여부 0: 비어 있음 1: 비어 있지 않음                                                                                       |
 | ADD_OID_CNT             | BIGINT       | 공간 회수 처리를 위하여 OID 추가를 발생시킨 트랜잭션의 개수                                                                                                  |
@@ -5637,7 +5637,7 @@ DBMS내 분산 트랜잭션의 식별자인 XID의 목록을 보여준다. XA에
 |------------------|--------------|----------------------------------------------------|
 | XID_VALUE        | VARCHAR(256) | XID 값을 문자열로 반환                             |
 | ASSOC_SESSION_ID | INTEGER      | XID 객체와 연계된 세션의 식별자                    |
-| TRANS_ID         | INTEGER      | XID 객체에 있는 분산 트랜잭션 식별자               |
+| TRANS_ID         | BIGINT       | XID 객체에 있는 분산 트랜잭션 식별자               |
 | STATE            | VARCHAR(24)  | XID 객체의 상태                                    |
 | STATE_START_TIME | INTEGER      | XID 객체의 상태가 설정된 시간                      |
 | STATE_DURATION   | BIGINT       | XID 객체의 상태가 설정된 이후 경과된 시간          |
