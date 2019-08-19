@@ -6350,8 +6350,8 @@ Altibase는 애플리케이션 개발 환경에서 언두 테이블스페이스�
 | DOUBLE   | 8                                  |
 | CHAR     | 2 + P                              |
 | VARCHAR  | 22 + V                             |
-| NCHAR    | 2+(P \* 2)-UTF8 2+(P \* 3)-UTF16   |
-| NVARCHAR | 22+(V \* 2)-UTF8 22+(V \* 3)-UTF16 |
+| NCHAR    | 2+(P \* 2)-UTF8 </br>2+(P \* 3)-UTF16   |
+| NVARCHAR | 22+(V \* 2)-UTF8 </br>22+(V \* 3)-UTF16 |
 | BIT      | 4 + (P/8)                          |
 | VARBIT   | 22 + (P/8)                         |
 | FLOAT    | 3 + (P+2)/2                        |
