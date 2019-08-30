@@ -1276,7 +1276,7 @@ Altibase Sharding
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT<br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
-| 트랜잭션 관련 프로터피 | GLOBAL_TRANSACTION_LEVEL | YES | SYSTEM, SESSION |
+| 트랜잭션 관련 프로퍼티 | GLOBAL_TRANSACTION_LEVEL | YES | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -1589,7 +1589,7 @@ Unsigned Integer
 
 2 : 글로벌 트랜잭션 (global transaction)
 
-샤딩에서의 글로벌 트랜잭션 수행 레빌은 샤드 트랜잭션 항목을 참조한다.
+샤딩에서의 글로벌 트랜잭션 수행 레벨은 샤드 트랜잭션 항목을 참조한다.
 
 ### 디렉토리
 

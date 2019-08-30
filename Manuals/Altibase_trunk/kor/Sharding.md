@@ -1275,7 +1275,7 @@ Altibase Sharding
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
-| 트랜잭션 관련 프로터피 | GLOBAL_TRANSACTION_LEVEL | YES | SYSTEM, SESSION |
+| 트랜잭션 관련 프로퍼티 | GLOBAL_TRANSACTION_LEVEL | YES | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -1588,7 +1588,7 @@ Unsigned Integer
 
 2 : 글로벌 트랜잭션 (global transaction)
 
-샤딩에서의 글로벌 트랜잭션 수행 레빌은 샤드 트랜잭션 항목을 참조한다.
+샤딩에서의 글로벌 트랜잭션 수행 레벨은 샤드 트랜잭션 항목을 참조한다.
 
 ### 디렉토리
 
@@ -2279,7 +2279,7 @@ SQLSetConnectAttr (
 ##### 설명
 
 다중 노드 트랜잭션을 설정한다. 다중 노드 트랜잭션으로 설정할 때에는
-Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL으로 ValuePtr에는 ALTIBASE_MULTIPLE_NODE_TRANSACTION을 입력한다.
+Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL을 ValuePtr에는 ALTIBASE_MULTIPLE_NODE_TRANSACTION을 입력한다.
 SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI
 함수”*를 참조한다.  
 jdbc같은 경우 CLI의 SQLSetConnectAttr이 없기 때문에 연결속성의 형태로 지원한다.
@@ -2314,7 +2314,7 @@ SQLSetConnectAttr (
 ##### 설명
 
 글로벌 트랜잭션을 설정한다. 글로벌 트랜잭션으로 설정할 때에는 
-Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL으로 ValuePtr에는  ALTIBASE_GLOBAL_TRANSACTION을 입력한다.
+Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL을 ValuePtr에는 ALTIBASE_GLOBAL_TRANSACTION을 입력한다.
 SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
 
 ##### 예제
