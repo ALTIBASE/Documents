@@ -1276,6 +1276,7 @@ Altibase Sharding
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT<br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
+| 트랜잭션 관련 프로터피 | GLOBAL_TRANSACTION_LEVEL | YES | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -1561,6 +1562,34 @@ Unsigned Integer
 ##### 설명
 
 샤드 관련 메시지 파일의 최대 크기를 지정한다.
+
+#### GLOBAL_TRANSACTION_LEVEL
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 2]
+
+##### 설명
+
+글로벌 트랜잭션 수행 레벨을 지정한다. 
+
+1 : 다중 노드 트랜잭션 (multiple node transaction)
+
+2 : 글로벌 트랜잭션 (global transaction)
+
+샤딩에서의 글로벌 트랜잭션 수행 레빌은 샤드 트랜잭션 항목을 참조한다.
 
 ### 디렉토리
 
@@ -2256,7 +2285,7 @@ SQLSetConnectAttr (
 ##### 설명
 
 다중 노드 트랜잭션을 설정한다. 다중 노드 트랜잭션으로 설정할 때에는
-*StringLength* 인자 값에 ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION을 입력한다.
+Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL으로 ValuePtr에는 ALTIBASE_MULTIPLE_NODE_TRANSACTION을 입력한다.
 SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI
 함수”*를 참조한다.  
 jdbc같은 경우 CLI의 SQLSetConnectAttr이 없기 때문에 연결속성의 형태로 지원한다.
@@ -2265,7 +2294,7 @@ jdbc같은 경우 CLI의 SQLSetConnectAttr이 없기 때문에 연결속성의 �
 ###### ShardCLI
 
 ```
-SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION);
+SQLSetConnectAttr(dbc, ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_MULTIPLE_NODE_TRANSACTION, 0);
 ```
 ###### ShardJDBC
 
@@ -2290,14 +2319,14 @@ SQLSetConnectAttr (
 
 ##### 설명
 
-글로벌 트랜잭션을 설정한다. 글로벌 트랜잭션으로 설정할 때에는 *StringLength*
-인자 값에 ALTIBASE_SHARD_GLOBAL_TRANSACTION을 입력한다. SQLSetConnectAttr에 대한
-자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
+글로벌 트랜잭션을 설정한다. 글로벌 트랜잭션으로 설정할 때에는
+Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL으로 ValuePtr에는  ALTIBASE_GLOBAL_TRANSACTION을 입력한다.
+SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
 
 ##### 예제
 ###### ShardCLI
 ```
-SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_GLOBAL_TRANSACTION);
+SQLSetConnectAttr(dbc,  ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_GLOBAL_TRANSACTION, 0);
 ```
 ###### ShardJDBC
 ```
@@ -3555,7 +3584,7 @@ DBMS_SHARD.REBUILD_DATA_NODE
 
 ```
 iSQL> ALTER SESSION SET autocommit = false;
-iSQL> ALTER SESSION SET dblink_global_transaction_level = 2;
+iSQL> ALTER SESSION SET global_transaction_level = 2;
 
 iSQL> EXEC dbms_shard.rebuild_data('u1','s1',100);
 [11:34:47] target node(1/3): "NODE1"
@@ -5006,7 +5035,7 @@ total_record_count   :1000
 total_incorrect_count:641
 Execute success.
 
-iSQL> ALTER SESSION SET dblink_global_transaction_level = 2;
+iSQL> ALTER SESSION SET global_transaction_level = 2;
 iSQL> ALTER SESSION SET autocommit = false;
 
 iSQL> EXEC dbms_shard.rebuild_data('sys','t1',100);
@@ -5105,7 +5134,7 @@ total_record_count   :1000
 total_incorrect_count:160
 Execute success.
 
-iSQL> ALTER SESSION SET dblink_global_transaction_level = 2;
+iSQL> ALTER SESSION SET global_transaction_level = 2;
 iSQL> ALTER SESSION SET autocommit = false;
 
 iSQL> EXEC dbms_shard.rebuild_data_node('sys','t1','node2',100);
