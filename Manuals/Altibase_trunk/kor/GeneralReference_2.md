@@ -3260,9 +3260,6 @@ Unsigned Integer
 - 0: Normal Insert
 - 1: Direct-Path Insert
 
-Direct-Path Insert 방식은 데이터 동기화 후 index 를 생성하기 때문에
-동기화 중 실패하면 index inconsistent 가 발생할 수 있다.
-
 Direct-Path Insert에 대한 자세한 설명은 *Administrator’s Manual*을 참조하기
 바란다. Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수
 있다.
