@@ -430,7 +430,8 @@ extension=pdo_altibase.so
     커밋모드는 기본값인 autocommit이다.
 2.  pdo 객체를 닫을 때, commit, rollback을 명시적으로 지정하지 않으면 해당
     작업은 rollback된다.
-3.  empty string('')을 알티베이스 DB의 숫자형데이터 타입들에 bind시에, native타입(double, real, bigint, integer, smallint)은 0으로 입력이 되고, non-native타입(numeric, decimal, number, float)은 NULL로 입력된다.
+3.  empty string('')을 알티베이스 DB의 숫자형데이터 타입들에 bind시에, native 타입(double, real, bigint, integer, smallint)과 non-native타입(numeric, decimal, number, float) 모두에 대하여 NULL로 입력된다.
+4.  쿼리내에 "날짜타입값 - ?" 형태를 포함하고, "?"에 숫자값을 bind하여 사용시에는 "ERR-21038 : Literals in the input do not match the format string." 에러가 발생합니다. 이때, 날짜타입값이라함은 날짜타입컬럼 및 날짜타입반환함수를 포함합니다. 이러한 에러가 발생하는 이유는 pdo_altibase가 숫자값 bind시에 내부적으로 문자열로 처리하는데, Altibase 쿼리처리기가 날짜타입값에 대한 문자열 빼기연산을 하는 경우에 문자열을 날짜타입으로 변환하려고 하기 때문입니다. 이 경우에는 "?"을 "to_number(?)" 등으로 "?"을 문자열이 아닌 다른 의도하는 데이타타입을 갖도록 명시적으로 변경하여 사용하면 됩니다.
 
 
 
