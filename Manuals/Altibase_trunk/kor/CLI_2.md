@@ -1298,7 +1298,7 @@ SQL_ERROR
 | ALTIBASE_CONN_ATTR_IPC_FILEPATH   | 유닉스 환경에서 서버와 클라이언트가 IPC로 접속할 때 ALTIBASE_HOME이 서로 다른 경우, 유닉스 도메인의 소켓 경로가 일치하지 않아 접속할 수 없다. 이 때 ALTIBASE_HOME/trc/cm-ipc 파일을 이용하면, 유닉스 도메인 통신이 가능해져 공유 메모리의 정보를 가져올 수 있다.                                                                                                                                   |
 | ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO  | 소켓 수신 버퍼의 크기를 32K 단위로 설정한다. 만약 이 속성의 값이 2로 설정되었다면 소켓 수신 버퍼의 크기는 64K가 된다. 기본값은 0이다. TCP kernel parameter 중 최대 소켓 수신 버퍼 크기가 이 속성값에 의해 설정된 소켓 수신 버퍼 크기 미만으로 설정되어 있을 경우, 이 속성 은 OS에 따라 무시되거나 에러를 발생시킬 수 있다. (Linux OS 인 경우, 'net.core.rmem_max' TCP kernel parameter에 해당된다) |
 | ALTIBASE_MESSAGE_CALLBACK         | 서버로부터 전달되는 메시지를 수신하기 위해 콜백 함수를 등록한다. 사용자는 수신된 메시지를 콜백 함수로 핸들할 수 있으며, 자세한 사용법은 아래 샘플을 참고한다.<$ALTIBASE_HOME/sample/SQLCLI/demo_message.cpp> |
-| ALTIBASE_GLOBAL_TRANSACTION_LEVEL | Sharding 사용시 동작할 트랜잭션 레빌을 지정할수 있다. 트랜잭션 레벨에 대한 자세한 내용은 Sharding 매뉴얼의 샤드 트랜잭션 항목을 참조한다. |
+| ALTIBASE_GLOBAL_TRANSACTION_LEVEL | Sharding 사용시 동작할 트랜잭션 레벨을 지정할수 있다. 트랜잭션 레벨에 대한 자세한 내용은 Sharding 매뉴얼의 샤드 트랜잭션 항목을 참조한다. |
 
 #### 진 단
 
