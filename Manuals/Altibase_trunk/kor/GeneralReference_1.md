@@ -710,7 +710,7 @@ CHAR [(size)] [ FIXED | VARIABLE [IN ROW size] ]
 
 CHAR 칼럼의 기본 크기는 1 바이트이며 최대 길이는 32000바이트이다.
 
-FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 ""과 ""을 참고한다.
+FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VARIABLE 옵션"과 "IN ROW 절"을 참고한다.
 
 #### VARCHAR
 
@@ -736,7 +736,7 @@ VARCHAR는 가변 길이 데이터 타입이다. 즉, 입력 데이터의 길이
 채워진다. 예를 들어, CHAR(10)으로 정의된 칼럼에 단어 "magic"이 입력되면, 이
 데이터는 "magic_____"으로 저장될 것이다. 여기서 "_"은 공백을 나타낸다.
 
-FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 ""과 ""을 참고한다.
+FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VARIABLE 옵션"과 "IN ROW 절"을 참고한다.
 
 #### NCHAR
 
@@ -2721,11 +2721,11 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
 - 감사(Auditing) 관련 프로퍼티
 - C/C++ 외부 프로시저용 에이전트 관련 프로퍼티
 - 사용자 계정 보안 관련 프로퍼티
-- Altibase Sharding 관련 프로퍼티
 - 기타 프로퍼티
 
-다음의 표는 위 분류기준에 의해서 Altibase 프로퍼티를 정리한 표이다. 참고로 표의
-각 분류는 다음과 같은 의미를 지닌다.
+이 외 Altibase Sharding 관련 프로퍼티는 *Altibase Sharding Guide manual*의 프로퍼티 장을 참고한다.
+
+다음의 표는 위 분류기준에 의해서 Altibase 프로퍼티를 정리한 표이다. 참고로 표의 각 분류는 다음과 같은 의미를 지닌다.
 
 - D: 데이터베이스 초기화
 - P: 성능
@@ -2739,7 +2739,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
 - U: 감사(Auditing)
 - A: 에이전트(Agent)
 - AS: 사용자 계정 보안(Account Security)
-- SD: Altibase Sharding
 - E: 기타
 
 "변경 레벨" 열은 다음의 의미를 지닌다.
@@ -4298,12 +4297,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>PASSWORD_VERIFY_FUNCTION</td>
       </tr>
       <tr>
-      	<td>SD</td>
-          <td></td>
-          <td>SHARD_META_ENABLE</td>
-          <td></td>
-      </tr>
-      <tr>
           <td rowspan="27">E</td>
           <td rowspan="27"></td>
           <td>ACCESS_LIST</td>
@@ -5454,7 +5447,7 @@ Unsigned Long
 
 ##### 기본값
 
-32768
+131072
 
 ##### 속성
 

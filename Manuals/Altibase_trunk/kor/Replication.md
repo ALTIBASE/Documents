@@ -217,6 +217,8 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 -   파티션드 테이블의 이중화
 
+-   이중화와 DDL(Data Definition Language) 복제
+
 -   이중화를 이용한 데이터 복구
 
 #### 이중화 개념
@@ -499,6 +501,18 @@ Eager 모드로 이중화를 사용하기 전에 'Eager 모드 이중화 제약�
 ![](media/Replication/image11.gif)
 
 [그림 1‑2] 파티션드 테이블 이중화 구조
+
+#### 이중화와 DDL(Data Definition Language) 복제
+
+Altibase 이중화는 복제 대상이 되는 테이블의 컬럼 이름을 기준으로 복제를 수행하므로 테이블 스키마가 다른 테이블에 대해서도 복제가 가능하다. 이러한 이유로 테이블이 이중화 대상인 경우에도 스키마를 변경하는 일부 DDL을 수행할 수 있도록 허용한다. 
+
+DDL을 수행하여 테이블 스키마가 달라진 경우에는 두 노드에 동일한 이름으로 존재하는 컬럼의 데이터만 복제되며, 다른 이름 혹은 한쪽에만 존재하는 컬럼은 복제되지 않는다.
+
+테이블 스키마가 다른 상태에서 복제가 이뤄지는 경우에는 성능저하가 발생할 수 있으므로 DDL을 수행하여 테이블 스키마가 달라진 경우 양쪽 노드에서 동일한 스키마를 갖도록 동일한 DDL을 수행해 주는 것이 복제 성능에 유리하다.
+
+이중화에 포함된 테이블에 대한 DDL 작업은 사용자의 선택에 따라 단일 노드에서 수행되거나 복제 될 수 있으며, DDL을 복제하는 경우 이중화 데이터를 모두 동기화 한 후 DDL이 복제된다.
+
+DDL을 복제하는 경우 이중화 데이터를 동기화 하는 동안에는 Select를 제외한 DML은 수행될 수 없으므로 이중화가 밀려있는 경우 주의해서 사용해야한다.
 
 #### 이중화 부가 기능
 
@@ -1753,6 +1767,123 @@ iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 ```
 
+### 이중화 대상 테이블에 DDL 복제 실행
+
+Altibase가 이중화 대상인 테이블에 대하여 지원하는 DDL을 이중화 원격 서버로 복제할 수 있다.
+
+설정된 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티에 따라 지원하는 모든 DDL 구문들이 원격 서버로 복제를 지원하며,  다음은 REPLICATION_DDL_ENABLE_LEVEL의 값에 상관없이 복제를 지원하는 DDL 문이다.
+
+```
+ALTER INDEX index_name AGING;
+
+ALTER TABLE table_name COMPACT;
+
+ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );
+
+ALTER TABLE table_name RENAME CONSTRAINT contraint_name TO constraint_name;
+  
+ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );  
+```
+
+#### 설명
+
+Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하다. 그러나 DDL 복제를 하기 위해서는 우선 프로퍼티를 다음과 같이 설정해야 한다.
+
+-   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
+
+-   DDL 을 수행하는 이중화 지역 서버와 DDL 을 전송받는 이중화 원격 서버의 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 값을 동일하게 설정한다.
+
+-   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를 NONE 이외의 값으로 설정한다.
+    
+-   DDL 을 수행하는 이중화 지역 서버 Session 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+
+-   DDL 을 전송받는 이중화 원격 서버 System 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+
+
+#### 제약사항
+
+모든 DDL 복제에 대해 제약사항은 다음과 같다.
+
+-   이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
+-   이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
+-   DDL 복제를 수행하는 테이블(파티션)명과 유저명이 이중화 지역서버, 원격서버 모두 동일해야 한다.
+-   DDL 복제를 수행하는 이중화 지역, 원격 서버 모두 이중화가 시작되어 있어야 한다.
+-   Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
+-   Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
+-   Patch 버전까지 동일해야 DDL 복제가 가능하다.
+-   하나의 이중화로 동시에 두개 이상의 DDL 복제는 할 수 없다.
+-   서로 다른 노드에서 하나의 노드로 동일한 테이블에 대해 DDL 복제는 할 수 없다.
+-   DDL 복제를 수행하는 이중화에 포함된 테이블에 다른 DDL 복제를 수행할 수 없다.
+
+지원하는 DDL에 따라 제약사항이 다음과 같다.
+
+-   ALTER TABLE table_name ADD COLUMN  
+    외래 키를 추가할 수 없다.  
+    압축 컬럼을 추가할 수 없다.
+
+-   ALTER TABLE table_name DROP COLUMN  
+    프라이머리 키를 삭제할 수 없다.  
+    압축 컬럼을 삭제할 수 없다.
+
+-   TRUNCATE TABLE  
+    압축 컬럼을 가지지 않는 테이블에 한해서 지원된다.
+
+#### 예제
+
+이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 복제 실행을 아래와 같이 사용한다.
+
+-   TRUNCATE TABLE을 실행한다.
+
+```
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+Alter success.
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+Alter success.
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+Alter success.
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+Alter success.
+(Remote Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+Alter success.
+(Local Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+Alter success.
+iSQL> TRUNCATE TABLE t1;
+Truncate success.
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+Alter success.
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+Alter success.
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+Alter success.
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+Alter success.
+```
+
+파티션 P2에 있는 테이블 T1을 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+
+```
+iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
+       INTO (PARTITION P3, PARTITION P4 ); 
+```
+
+파티션 P2, P3에 있는 테이블 T1을 파티션 P23으로 합쳐서 생성한다 (MERGE TABLE).
+
+```
+iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
+```
+
+파티션 P1을 제거한다 (DROP TABLE).
+
+```
+iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
+```
+
 ### SQL 반영 모드
 
 지역(local) 서버와 원격(remote) 서버의 메타 정보가 다를 때 원격 서버에 XLog를
@@ -2351,89 +2482,49 @@ REP1                                      1
 *General Reference*를 참조한다.
 
 -   REPLICATION_ACK_XLOG_COUNT
-
 -   REPLICATION_BEFORE_IMAGE_LOG_ENABLE
-
 -   REPLICATION_COMMIT_WRITE_WAIT_MODE
-
 -   REPLICATION_CONNECT_RECEIVE_TIMEOUT
-
 -   REPLICATION_CONNECT_TIMEOUT
-
 -   REPLICATION_DDL_ENABLE
-
+-   REPLICATION_DDL_SYNC
+-   REPLICATION_DDL_SYNC_TIMEOUT
 -   REPLICATION_EAGER_PARALLEL_FACTOR
-
 -   REPLICATION_EAGER_RECEIVER_MAX_ERROR_COUNT
-
 -   REPLICATION_FAILBACK_INCREMENTAL_SYNC
-
 -   REPLICATION_GAPLESS_ALLOW_TIME
-
 -   REPLICATION_GAPLESS_MAX_WAIT_TIME
-
 -   REPLICATION_GROUPING_TRANSACTION_MAX_COUNT
-
 -   REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE
-
 -   REPLICATION_HBT_DETECT_HIGHWATER_MARK
-
 -   REPLICATION_HBT_DETECT_TIME
-
 -   REPLICATION_INSERT_REPLACE
-
 -   REPLICATION_KEEP_ALIVE_CNT
-
 -   REPLICATION_LOCK_TIMEOUT
-
 -   REPLICATION_LOG_BUFFER_SIZE
-
 -   REPLICATION_MAX_COUNT
-
 -   REPLICATION_MAX_LISTEN
-
 -   REPLICATION_MAX_LOGFILE
-
 -   REPLICATION_POOL_ELEMENT_COUNT
-
 -   REPLICATION_POOL_ELEMENT_SIZE
-
 -   REPLICATION_PORT_NO
-
 -   REPLICATION_PREFETCH_LOGFILE_COUNT
-
 -   REPLICATION_RECEIVE_TIMEOUT
-
 -   REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE
-
 -   REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE
-
 -   REPLICATION_RECOVERY_MAX_LOGFILE
-
 -   REPLICATION_RECOVERY_MAX_TIME
-
 -   REPLICATION_SENDER_AUTO_START
-
 -   REPLICATION_SENDER_COMPRESS_XLOG
-
 -   REPLICATION_SENDER_SLEEP_TIME
-
 -   REPLICATION_SENDER_SLEEP_TIMEOUT
-
 -   REPLICATION_SENDER_START_AFTER_GIVING_UP
-
 -   REPLICATION_SERVER_FAILBACK_MAX_TIME
-
 -   REPLICATION_SYNC_LOCK_TIMEOUT
-
 -   REPLICATION_SYNC_LOG
-
 -   REPLICATION_SYNC_TUPLE_COUNT
-
 -   REPLICATION_TIMESTAMP_RESOLUTION
-
 -   REPLICATION_TRANSACTION_POOL_SIZE
-
 -   REPLICATION_UPDATE_REPLACE
 
 4.Fail-Over

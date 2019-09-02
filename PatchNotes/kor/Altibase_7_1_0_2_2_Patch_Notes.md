@@ -3,7 +3,7 @@
 
 - [Altibase 7.1.0.2.2 Patch Notes](#altibase-71022-patch-notes)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-46602 Replication GAP이 4G(unsigned int max) 이상 인경우 v\$repgap에 REP\_GAP 값이 부정확 할 수 있습니다.](#bug-46602replication-gap%EC%9D%B4-4gunsigned-int-max-%EC%9D%B4%EC%83%81-%EC%9D%B8%EA%B2%BD%EC%9A%B0-v%5Crepgap%EC%97%90-rep%5C_gap-%EA%B0%92%EC%9D%B4-%EB%B6%80%EC%A0%95%ED%99%95-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-46602  Replication GAP이 4G(unsigned int max) 이상 인경우 v$repgap에 REP_GAP 값이 부정확 할 수 있습니다.](#bug-46602-replication-gap%EC%9D%B4-4gunsigned-int-max-%EC%9D%B4%EC%83%81-%EC%9D%B8%EA%B2%BD%EC%9A%B0-vrepgap%EC%97%90-rep_gap-%EA%B0%92%EC%9D%B4-%EB%B6%80%EC%A0%95%ED%99%95-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -18,7 +18,7 @@ Altibase 7.1.0.2.2 Patch Notes
 Fixed Bugs
 ----------
 
-### BUG-46602 Replication GAP이 4G(unsigned int max) 이상 인경우 v\$repgap에 REP\_GAP 값이 부정확 할 수 있습니다.
+### BUG-46602  Replication GAP이 4G(unsigned int max) 이상 인경우 v$repgap에 REP_GAP 값이 부정확 할 수 있습니다.
 
 -   **module** : rp
 
@@ -26,9 +26,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** : Replication GAP이 4G(unsigned int max) 이상인
-    경우 v\$repgap의 REP\_GAP 값이 부정확한 문제가 있어, 이를
-    수정하였습니다.
+-   **증상** : Replication GAP이 4G(unsigned int max) 이상인 경우 v$repgap의 REP_GAP 값이 부정확한 문제가 있어, 이를 수정하였습니다.
 
 -   **재현 방법**
 
@@ -91,7 +89,7 @@ Replication 프로토콜 버전은 변경되지 않았다..
 샤딩 버전은 변경 되지 않았다.
 
 > 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다.
+> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다. 샤딩 설정은 [Altibase Sharding 설치와 설정](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#2altibase-sharding-%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95>)을 참고한다.
 
 ### 프로퍼티
 

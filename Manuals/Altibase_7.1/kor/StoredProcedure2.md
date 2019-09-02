@@ -5384,7 +5384,7 @@ DBMS_LOCK.SLEEP(seconds IN INTEGER);
 ##### 구문
 
 ```
-DBMS_LOCK.SLEEP(seconds IN INTEGER, microseconds IN INTEGER);
+DBMS_LOCK.SLEEP2(seconds IN INTEGER, microseconds IN INTEGER);
 ```
 
 
@@ -5428,7 +5428,7 @@ DBMS_METADATA.GET_DDL (
    object_type     IN VARCHAR(20),
    object_name     IN VARCHAR(128),
    schema          IN VARCHAR(128) DEFAULT NULL)
-RETURN CLOB;
+RETURN VARCHAR(65534);
 ```
 
 ##### 파라미터
@@ -5507,7 +5507,7 @@ DBMS_METADATA.GET_DEPENDENT_DDL (
    object_type          IN VARCHAR(20),
    base_object_name     IN VARCHAR(128),
    base_object_schema   IN VARCHAR(128) DEFAULT NULL)
-RETURN CLOB;
+RETURN VARCHAR(65534);
 ```
 
 ##### 파라미터
@@ -5558,7 +5558,7 @@ FROM dual;
 DBMS_METADATA.GET_GRANTED_DDL (
    object_type          IN VARCHAR(20),
    grantee              IN VARCHAR(128) DEFAULT NULL)
-RETURN CLOB;
+RETURN VARCHAR(65534);
 ```
 
 ##### 파라미터
