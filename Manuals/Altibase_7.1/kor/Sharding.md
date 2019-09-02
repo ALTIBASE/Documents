@@ -1579,7 +1579,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 2]
+[1, 2]
 
 ##### 설명
 
@@ -4171,6 +4171,7 @@ iSQL\> SELECT \* FROM S\$TAB;
 | SHARD_CLIENT       | VARCHAR(1)  | 샤드 클라이언트 라이브러리 사용 유무 |
 | SHARD_SESSION_TYPE | VARCHAR(1)  | 샤드 세션 유형                       |
 | SESSION_ID         | BIGINT      | 샤드 노드의 V\$SESSION.ID            |
+| GLOBAL_TRANSACTION_LEVEL | INTEGER | 글로벌 트랜잭션 레벨 
 | 그 외 컬럼         |             | 샤드 노드의 V$SESSION 과 동일        |
 
 #### 칼럼 정보
@@ -4205,6 +4206,16 @@ iSQL\> SELECT \* FROM S\$TAB;
 ##### SESSION_ID
 
 샤드 노드의 세션 식별자로 샤드 노드의 V$SESSION.ID 와 동일한 값이다.
+
+##### GLOBAL_TRANSACTION_LEVEL
+
+세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.
+
+1 : 다중 노드 트랜잭션 (multiple node transaction)
+
+2 : 글로벌 트랜잭션 (global transaction)
+
+샤딩 메뉴얼의 샤드 트랜잭션 항목을 참조한다
 
 ##### 그 외 컬럼
 
