@@ -550,7 +550,7 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO
 
 **lock_table ::=**
 
-![](media/SQL/e99f48f993166dcd8201c1ef39f47f4d.png)
+![](media/SQL/lock_table_partition.png)
 
 #### 전제 조건
 
@@ -571,6 +571,20 @@ lock_mode에 명시한 잠금 모드로 특정한 모드 내에서 테이블 잠
 *tbl_name*
 
 잠금이 걸릴 테이블의 이름을 명시한다.
+
+*partition_name*
+
+잠금이 걸릴 파티션의 이름을 명시한다.
+파티션의 이름을 명시하면, 파티션에 잠금 모드를 적용하고 테이블에는 ROW SHARE 또는 ROW EXCLUSIVE를 적용한다.
+
+|      잠금 모드      |     파티션 적용     |  테이블 적용  |
+| :-----------------: | :-----------------: | :-----------: |
+|      ROW SHARE      |      ROW SHARE      |   ROW SHARE   |
+|    SHARE UPDATE     |    SHARE UPDATE     |   ROW SHARE   |
+|    ROW EXCLUSIVE    |    ROW EXCLUSIVE    | ROW EXCLUSIVE |
+| SHARE ROW EXCLUSIVE | SHARE ROW EXCLUSIVE | ROW EXCLUSIVE |
+|        SHARE        |        SHARE        |   ROW SHARE   |
+|      EXCLUSIVE      |      EXCLUSIVE      | ROW EXCLUSIVE |
 
 *lock_mode*
 

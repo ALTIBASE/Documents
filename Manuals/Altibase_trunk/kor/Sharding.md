@@ -44,9 +44,8 @@
     - [SYS_SHARD.CLONES\_](#sys_shardclones%5C_)
     - [SYS_SHARD.SOLOS\_](#sys_shardsolos%5C_)
     - [성능 뷰 (Performance View)](#%EC%84%B1%EB%8A%A5-%EB%B7%B0-performance-view)
-    - [V\$SHARD_CONNECTION_INFO](#v%5Cshard_connection_info)
     - [샤드 성능 뷰 (Shard Performance View)](#%EC%83%A4%EB%93%9C-%EC%84%B1%EB%8A%A5-%EB%B7%B0-shard-performance-view)
-    - [S\$SHARD_CONNECTION_INFO](#s%5Cshard_connection_info)
+    - [S\$CONNECTION_INFO](#s%5Cconnection_info)
     - [S\$PROPERTY](#s%5Cproperty)
     - [S\$SESSION](#s%5Csession)
     - [S\$STATEMENT](#s%5Cstatement)
@@ -123,8 +122,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 7.1 또는 그 이상의 버전을 사용한다는
-가정 하에 작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 7.1 또는 그 이상의 버전을 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 
@@ -484,21 +482,18 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 
 ##### 샤드 키워드(shard keyword)
 
-Altibase Sharding에서 지원하는 키워드로 논샤드 쿼리를 샤드 쿼리로 수행하게
-하거나, 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는
-다음과 같다.
+Altibase Sharding에서 지원하는 키워드로 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
 
 -   SHARD
 
 -   NODE
 
-샤드 지원 구문(SELECT, INSERT, UPDATE, DELETE)의 앞이나 SELECT문의 샤드 뷰 앞에
-사용하면 해당 쿼리를 샤드 쿼리로 수행하여 결과를 반환한다.
+샤드 지원 구문의 앞이나 SELECT문의 샤드 뷰 앞에 사용하면 해당 쿼리를 샤드 쿼리로 수행하여 결과를 반환한다.
 
 ```
 SHARD SELECT shard_node_name(),count(*) FROM s1;
 NODE[DATA] SELECT shard_node_name(),count(*) FROM v$session;
-NODE[DATA(‘node1’)] DELETE FROM s1;
+NODE[DATA(‘node1’)] SELECT * FROM s1;
 ```
 
 ##### 샤드 프로시저(shard procedure)
@@ -1138,6 +1133,8 @@ cli 응용프로그램 빌드 시 기존의 odbccli 라이브러리를 shardcli 
 
 shardcli 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
 
+jdbc 같은 경우에는 기존과 같이 Altibase.jar를 클래스패스에 추가하고 jdbc 접속 url에 sharding prefix를 붙여주면 된다. 이때 ip와 port는 shardcli와 마찬가지로 메타 노드의 ip와 port가 되어야 한다.
+
 ### 샤드 메타 설정
 
 Altibase Sharding을 사용하기 위해서는 샤드 메타를 생성해야 한다. 각 샤드 노드는 Altibase Sharding에 필요한 모든 메타 정보를 샤드 메타에 영구적으로 저장한다.
@@ -1275,7 +1272,7 @@ Altibase Sharding
 | ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
 | 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
 | 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
-| 쿼리 분석 관련 프로퍼티   | TRCLOG_SHARD_DETAIL                                          | Yes                | SYSTEM, SESSION |
+| 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 
@@ -1631,7 +1628,9 @@ Sharding을 사용할 수 없다.
     일부 데이터베이스 시스템의 장애로 볼 것인지는 응용프로그램마다 다를 수
 있으나, Altibase Sharding은 장애 노드를 접근하지 않는 작업은 정상 동작한다.
 -   Altibase Sharding은 응용프로그램에서 데이터베이스로 커넥션을 생성할 때, 일부
-    샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.
+    샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.  
+    (jdbc같은 경우 응용프로그램에서 데이터베이스로 커넥션을 생성할 때 META와의 접속까지만 
+    이루어지기 때문에 노드 장애여부와 상관없이 META만 정상적이라면 커넥션이 생성된다.)
 -   만약 커넥션 생성 후, 사용자 쿼리가 prepare, bind, execute를 수행시에는 일부
     샤드 노드에 장애가 발생하더라도 장애가 발생하지 않는 샤드 노드로 서비스를
     계속 수행할 수 있다.
@@ -2253,12 +2252,19 @@ SQLSetConnectAttr (
 다중 노드 트랜잭션을 설정한다. 다중 노드 트랜잭션으로 설정할 때에는
 *StringLength* 인자 값에 ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION을 입력한다.
 SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI
-함수”*를 참조한다.
+함수”*를 참조한다.  
+jdbc같은 경우 CLI의 SQLSetConnectAttr이 없기 때문에 연결속성의 형태로 지원한다.
 
 ##### 예제
+###### ShardCLI
 
 ```
 SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION);
+```
+###### ShardJDBC
+
+```
+DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard_transaction_level=1");
 ```
 
 #### 글로벌 트랜잭션
@@ -2283,10 +2289,15 @@ SQLSetConnectAttr (
 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
 
 ##### 예제
-
+###### ShardCLI
 ```
 SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_GLOBAL_TRANSACTION);
 ```
+###### ShardJDBC
+```
+DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard_transaction_level=2");
+```
+
 
 ### 샤드 쿼리
 
@@ -2497,9 +2508,10 @@ Join 구문 역시 쿼리 최적화를 통해 수행되기 때문에 샤드 키�
 지정하는 독립 분산 테이블(so1)의 특성상 필터의 유무와 무관하게 샤드 라이브러리 커넥션으로
 동작한다.
 
--   SELECT \~ FROM *c1, so1* WHERE *c1.i1 = so1.i1*
+- SELECT \~ FROM *c1, so1* WHERE *c1.i1 = so1.i1*
 
--   =\> 샤드 라이브러리 커넥션으로 특정 노드로 직접 수행
+  =\> 샤드 라이브러리 커넥션으로 특정 노드로 직접 수행
+
 
 ###### Outer join
 
@@ -2527,25 +2539,23 @@ Join 구문 역시 쿼리 최적화를 통해 수행되기 때문에 샤드 키�
 Outer join이 inner join으로 변환될 경우를 지원한다. 다음 쿼리는 쿼리 변환기를
 거쳐 inner join으로 변환되어 수행한다.
 
--   SELECT \~ FROM *s1* RIGHT OUTER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 =
-    1*
+-   SELECT \~ FROM *s1* RIGHT OUTER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
+    
 
--   =\> SELECT \~ FROM *s1* INNER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
+=\> SELECT \~ FROM *s1* INNER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
+    
 
 ###### Semi- join
 
 동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 semi-join을 지원한다.
 
--   SELECT \~ FROM *s1* WHERE *EXISTS* (SELECT \~ FROM *s2* WHERE *s1.k1 =
-    s2.k1* AND \~) AND \~
+-   SELECT \~ FROM *s1* WHERE *EXISTS* (SELECT \~ FROM *s2* WHERE *s1.k1 = s2.k1* AND \~) AND \~
 
 복제 분산 테이블(c1)의 경우 모든 샤드 테이블에 대해 semi-join을 지원한다.
 
--   SELECT \~ FROM c1 WHERE *EXISTS* (SELECT \~ FROM *s1* WHERE *c1.i1 = s1.i1*
-    AND \~) AND \~
-
--   SELECT \~ FROM s1 WHERE *EXISTS* (SELECT \~ FROM *c1* WHERE *c1.i1 = so1.i1*
-    AND \~) AND \~
+-   SELECT \~ FROM c1 WHERE *EXISTS* (SELECT \~ FROM *s1* WHERE *c1.i1 = s1.i1* AND \~) AND \~
+    
+-   SELECT \~ FROM s1 WHERE *EXISTS* (SELECT \~ FROM *c1* WHERE *c1.i1 = so1.i1* AND \~) AND \~
 
 ##### Aggregate function
 
@@ -2679,8 +2689,7 @@ subquery join식을 지원한다.
 
 -   SELECT \* FROM *so1* WHERE i1 = (SELECT i1 FROM *c1* WHERE i1 = so1.i1)
 
--   SELECT \* FROM *c1 a* WHERE a.i1 = (SELECT min(i1) FROM *c1* WHERE i1 =
-    a.i1)
+-   SELECT \* FROM *c1 a* WHERE a.i1 = (SELECT min(i1) FROM *c1* WHERE i1 = a.i1)
 
 ###### 제약 사항
 
@@ -2707,28 +2716,22 @@ Unnesting, view merge 등의 서브 쿼리에 대한 변환이 수행될 경우 
 
 ### 샤드 키워드
 
-사용자는 특정 노드의 현재 데이터 상태를 확인하거나 특정 노드의 데이터를 취합하는
-것을 원할 수 있다.
+사용자는 특정 노드의 현재 데이터 상태를 확인하거나 특정 노드의 데이터를 취합하는 것을 원할 수 있다.
 
-Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메타, 코디네이터 또는
-샤드 데이터(저장소) 역할로 특정 샤드 노드에 쿼리를 전송하고 그 수행 결과를
-취합할 수 있는 샤드 키워드를 제공한다.
-
--   SHARD
-
--   NODE[META \| DATA \| DATA() \| DATA('*node1_name'*, '*node2_name'*...)]
+Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메타, 코디네이터 또는 샤드 데이터(저장소) 역할로 특정 샤드 노드에 쿼리를 전송하고 그 수행 결과를 취합할 수 있는 샤드 키워드를 제공하며 iSQL 을 통해 사용 가능하다.
 
 #### 구문
 
 샤드 키워드는 다음 구문에 한해 제공하며 구문식은 다음과 같다.
 
--   INSERT
-
--   UPDATE
-
--   DELETE
-
--   SELECT
+-   SHARD
+    - INSERT, UPDATE, DELETE
+    - SELECT
+-   NODE[META]
+    - INSERT, UPDATE, DELETE
+    - SELECT
+-   NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)]
+    - SELECT
 
 ![](media/Sharding/79bcb8f6b5cb10cc7a7b816363aa709f.jpg)
 
@@ -2738,16 +2741,13 @@ Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메
 
 #### SHARD
 
-SHARD 키워드를 사용하면 샤드 쿼리 분석기를 통해 쿼리에 존재하는 샤드 객체 분산
-정보가 존재하는 모든 샤드 노드에 쿼리를 전송하고 수행하여 취합한다.
+SHARD 키워드를 사용하면 샤드 쿼리 분석기를 통해 쿼리에 존재하는 샤드 객체 분산 정보가 존재하는 모든 샤드 노드에 쿼리를 전송하고 수행하여 취합한다.
 
-각 노드의 데이터를 취합한 결과가 논리적으로 동일할 수 없는 즉, 샤드 쿼리가 아닌
-다음의 사례를 살펴보자.
+각 노드의 데이터를 취합한 결과가 논리적으로 동일할 수 없는 즉, 샤드 쿼리가 아닌 다음의 사례를 살펴보자.
 
 -   SELECT count(\*) FROM *s1;*
 
-일반 쿼리에 SHARD 키워드를 적용하면 분산 정보가 존재하는 모든 노드를 대상으로
-쿼리를 수행하고 그 결과를 얻어온다.
+일반 쿼리에 SHARD 키워드를 적용하면 분산 정보가 존재하는 모든 노드를 대상으로 쿼리를 수행하고 그 결과를 얻어온다.
 
 -   SHARD SELECT count(\*) FROM *s1;*
 
@@ -2778,19 +2778,15 @@ iSQL> SELECT sum(cn) FROM SHARD(SELECT count(*) cn FROM s1);
 
 #### NODE
 
-NODE 키워드는 인자로 명시한 노드에 쿼리를 전송하고 그 수행 결과를 취합한다. 샤드
-쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다.
+NODE 키워드는 인자로 명시한 노드에 쿼리를 전송하고 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다.
 
 사용 가능한 NODE 유형은 다음과 같다.
 
 -   NODE[META] : 코디네이팅 샤드 노드에 대한 쿼리 수행
--   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이
-    수행
--   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리
-    분석 및 변환없이 수행
+-   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이 수행
+-   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리 분석 및 변환없이 수행
 
-노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일
-수 있다.
+노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다.
 
 ##### 구문
 
@@ -2810,8 +2806,7 @@ iSQL> EXEC dbms_shard.set_shard_hash('sys','t2',1000,'node1');
 iSQL> NODE[META] SELECT count(*) FROM t1;
 ```
 
-\<질의\> 'node2' 에 존재하는 s1 샤드 테이블에 대해 샤드키가 아닌 i1
-컬럼의 group별 합을 수행하라.
+\<질의\> 'node2' 에 존재하는 s1 샤드 테이블에 대해 샤드키가 아닌 i1 컬럼의 group별 합을 수행하라.
 
 ```
 iSQL> SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
@@ -2819,8 +2814,9 @@ iSQL> SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
 
 > ##### 주의 사항
 >
-> 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로
-> 결과의 정합성을 보장하지 않는다. 따라서 사용에 각별한 주의가 필요하다.
+> 샤드 키워드는 iSQL 을 통한 관리 목적으로 사용해야 한다.
+>
+> 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 따라서 사용에 각별한 주의가 필요하다.
 
 ### 샤드 함수
 
@@ -2860,8 +2856,7 @@ shard_key(key_column, value)
 
 ##### 예제
 
-\<질의\> s1테이블의 k1이 1에 해당하는 샤드 노드에서 s1테이블의 레코드 개수를
-구하라.
+\<질의\> s1테이블의 k1이 1에 해당하는 샤드 노드에서 s1테이블의 레코드 개수를 구하라.
 
 ```
 iSQL> SELECT count(*) FROM s1 WHERE shard_key(k1,1); 
@@ -3090,175 +3085,69 @@ SELECT * FROM SHARD(SELECT * FROM T1 WHERE I2>3) t1, t2 WHERE t1.i1=t2.i1;
 
 ### 모니터링 
 
-Altibase Sharding 사용자는 샤딩 시스템에서 제공하는 샤드 성능 뷰를 이용하여 모든
-샤드 노드의 수행 상태를 확인할 수 있다.
+Altibase Sharding 사용자는 샤딩 시스템에서 제공하는 샤드 성능 뷰를 이용하여 모든 샤드 노드의 수행 상태를 확인할 수 있다.
 
-샤드 성능 뷰 이외의 내용을 확인하고 싶은 경우 NODE 키워드를 이용하여 전체 샤드
-노드를 모니터링 할 수 있다. NODE 키워드는 샤드 객체로 등록하지 않았더라도 쿼리를
-수행할 수 있도록 해준다.
+모든 샤드 노드에 대해 쿼리를 동시에 수행하므로 샤딩 시스템의 모든 샤드 노드를 한번에 관찰하기에 유용하다.
 
-NODE 키워드는 모든 샤드 노드에 대해 쿼리를 전송하므로 노드의 상태에 따라 쿼리가
-실패할 수 있다.
-
-NODE 키워드는 모든 샤드 노드에 대해 쿼리를 동시에 수행하므로 모든 샤드 노드를
-한번에 관찰하기에 유용하다.
+샤드 성능 뷰는 내부적으로 NODE 키워드를 이용하여 모든 샤드 노드의 성능 뷰 정보와 그 외 추가적인 정보를 취합하여 생성된다. 따라서 노드의 상태에 따라 쿼리가 실패할 수도 있다.
 
 #### Property 조회
 
-S\$PROPERTY를 이용하여 샤딩 시스템에서 사용되는 모든 노드의 시스템 프로퍼티를
-확인할 수 있다.
+S\$PROPERTY를 이용하여 샤딩 시스템에서 사용되는 모든 노드의 시스템 프로퍼티를 확인할 수 있다.
 
-예를 들어 샤딩 시스템에서 시스템 프로퍼티가 다르게 설정된 프로퍼티를 검출하는
-방법은 다음과 같다.
+예를 들어 모든 샤드 노드의 PORT_NO 를 확인하는 방법은 다음과 같다.
 
 ```
-iSQL> SELECT DISTINCT name FROM s$property
-WHERE D_STOREDCOUNT != STOREDCOUNT
-OR D_MIN != MIN
-OR D_MAX != MAX
-OR D_VALUE1 != VALUE1
-OR D_VALUE2 != VALUE2
-OR D_VALUE3 != VALUE3
-OR D_VALUE4 != VALUE4
-OR D_VALUE5 != VALUE5
-OR D_VALUE6 != VALUE6
-OR D_VALUE7 != VALUE7
-OR D_VALUE8 != VALUE8
-ORDER BY 1;
-NAME
---------------------------------------------------------------------------------------------------------------------
-ARCHIVE_DIR
-AUDIT_LOG_DIR
-DEFAULT_DISK_DB_DIR
-DOUBLE_WRITE_DIRECTORY
-EXTPROC_AGENT_SOCKET_FILEPATH
-IPCDA_FILEPATH
-IPC_FILEPATH
-LOGANCHOR_DIR
-LOG_DIR
-MEM_DB_DIR
-MIN_LOG_RECORD_SIZE_FOR_COMPRESS
-PORT_NO
-QUERY_PROF_LOG_DIR
-RP_CONFLICT_MSGLOG_DIR
-SERVER_MSGLOG_DIR
-SHARD_META_ENABLE
-SID
-UNIXDOMAIN_FILEPATH
-18 rows selected.
-```
-
-
-
-#### Session 조회
-
-S\$SESSION을 이용하여 현재 접속한 샤드 노드와 관련된 모든 노드의 세션을
-확인할 수 있다.
-
-다음은 현재 접속한 샤드 노드와 관련한 모든 세션을 확인하는 방법이다.
-
-```
-iSQL> SET vertical on;
-iSQL> SELECT id, session_id, shard_client, client_app_info, node_name,
-d_session_id, d_shard_client, d_client_app_info, d_session_type FROM s$session;
-ID : 1-0-1503915253
-SESSION_ID : 1
-SHARD_CLIENT : N
-CLIENT_APP_INFO : isql
-NODE_NAME : NODE1
-D_SESSION_ID : 1
-D_SHARD_CLIENT : N
-D_CLIENT_APP_INFO : shard_meta
-D_SESSION_TYPE : I
-ID : 1-0-1503915253
-SESSION_ID : 1
-SHARD_CLIENT : N
-CLIENT_APP_INFO : isql
-NODE_NAME : NODE2
-D_SESSION_ID : 1
-D_SHARD_CLIENT : N
-D_CLIENT_APP_INFO : shard_meta
-D_SESSION_TYPE : I
-ID : 1-0-1503915253
-SESSION_ID : 1
-SHARD_CLIENT : N
-CLIENT_APP_INFO : isql
-NODE_NAME : NODE3
-D_SESSION_ID : 1
-D_SHARD_CLIENT : N
-D_CLIENT_APP_INFO : shard_meta
-D_SESSION_TYPE : I
+iSQL> SELECT node_name, value1 from s$property WHERE name = 'PORT_NO';
+NODE_NAME             VALUE1
+-----------------------------------------------
+NODE1                 20030
+NODE2                 21030
+NODE3                 22030
 3 rows selected.
 ```
 
-위의 방법 이외에도 NODE 키워드를 이용하여 각 샤드 노드의 V\$SESSION을 한번에
-조회할 수 있다.
+#### Session 조회
+
+S\$SESSION을 이용하여 모든 샤드 노드의 모든 샤드 세션을 확인할 수 있다.
+
+다음은 모든 샤드 세션을 확인하는 방법이다.
 
 ```
-NODE[DATA] SELECT shard_node_name(), count(*) total_session, sum(decode(trans_id,0,0,1)) running_session from v$session;
-```
-
-뿐만 아니라, 특정 샤드 노드에 대해서도 수행이 가능하다.
-
-```
-NODE[DATA(‘node1’)] SELECT shard_node_name(), count(*) total_session, sum(decode(trans_id,0,0,1)) running_session from v$session;
+iSQL> SELECT id, node_name, session_id, shard_client, shard_session_type FROM s$session;
+ID                    NODE_NAME     SESSION_ID     SHARD_CLIENT   SHARD_SESSION_TYPE
+----------------------------------------------------------------------------------------------
+1-1-1701180354        NODE1         2              N              U
+1-1-1701180354        NODE1         1              N              C
+1-1-1701180354        NODE2         1              N              C
+1-1-1701180354        NODE3         1              N              C
+4 rows selected.
 ```
 
 #### Statement 조회
 
-S\$STATEMENT를 이용하여 현재 접속한 샤드 노드와 관련된 모든 노드의 세션에서
-실행되는(또는 가장 최근 실행된) 구문을 확인할 수 있다.
+S\$STATEMENT를 이용하여 모든 샤드 세션에서 실행되는(또는 가장 최근 실행된) 구문을 확인할 수 있다.
 
-다음은 현재 접속한 샤드 노드와 관련한 모든 세션에서 수행되는 모든 구문을
-확인하는 방법이다.
+다음은 모든 샤드 세션에서 수행되는 모든 구문을 확인하는 방법이다.
 
 ```
-iSQL> SET vertical on;
-iSQL> SELECT shard_session_id, shard_session_type, node_name, session_id,
-statement_id, query_type, substr(query, 1, 6) FROM s$statement;
-SHARD_SESSION_ID : 1-0-907178928
-SHARD_SESSION_TYPE : E
-NODE_NAME : META
-SESSION_ID : 1
-STATEMENT_ID : 65538
-QUERY_TYPE : N
-SUBSTR(QUERY, 1, 50) : SELECT
-SHARD_SESSION_ID : 1-0-907178928
-SHARD_SESSION_TYPE : I
-NODE_NAME : NODE1
-SESSION_ID : 3
-STATEMENT_ID : 196608
-QUERY_TYPE : -
-SUBSTR(QUERY, 1, 50) : SELECT
-SHARD_SESSION_ID : 1-0-907178928
-SHARD_SESSION_TYPE : I
-NODE_NAME : NODE2
-SESSION_ID : 1
-STATEMENT_ID : 65537
-QUERY_TYPE : -
-SUBSTR(QUERY, 1, 50) : SELECT
-SHARD_SESSION_ID : 1-0-907178928
-SHARD_SESSION_TYPE : I
-NODE_NAME : NODE3
-SESSION_ID : 1
-STATEMENT_ID : 65537
-QUERY_TYPE : -
-SUBSTR(QUERY, 1, 50) : SELECT
+iSQL> SELECT shard_session_id, node_name, shard_session_type, session_id, id, query_type, substr(query, 1, 6) FROM s$statement;
+SHARD_SESSION_ID    NODE_NAME    SHARD_SESSION_TYPE  SESSION_ID  ID          QUERY_TYPE    SUBSTR(QUERY, 1, 6)
+------------------------------------------------------------------------------------------------------------------------
+1-1-1701180354      NODE1        C                   1           65538       -             SELECT
+1-1-1701180354      NODE1        U                   2           131072      N             SELECT
+1-1-1701180354      NODE2        C                   1           65538       -             SELECT
+1-1-1701180354      NODE3        C                   1           65538       -             SELECT
 4 rows selected.
 ```
 
-위의 방법 이외에도 NODE 키워드를 이용하여 샤드 노드의 v\$statement을 한번에
-조회할 수 있다.
-
-```
-NODE[DATA] SELECT shard_node_name(), sum(execute_success) from v$statement
-```
-
-뿐만 아니라, 특정 샤드 노드에 대해서도 수행이 가능하다.
-
-```
-NODE[DATA(‘node1’)] SELECT shard_node_name(), sum(execute_success) from v$statement
-```
+> #### 주의사항
+>
+> 특정 노드의 장애로 인해 샤드 성능 뷰로 조회가 불가능할 경우 NODE 키워드를 이용하여 다른 노드의 상태를 확인할 수 있다.
+>
+> ```
+> NODE[DATA(‘node1’)] SELECT shard_node_name(), QUERY_TIME_LIMIT FROM v$session;
+> ```
 
 ### Fail-Over
 
@@ -4145,100 +4034,29 @@ VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 �
 
 ### 성능 뷰 (Performance View)
 
-성능 뷰 (performance view)란 메모리에 존재하는 구조이지만 일반 테이블 형태로
-제공되어 시스템 메모리, 프로세스 상태, 세션, 버퍼, 쓰레드 등에 대한 Altibase
-시스템 내부 정보를 사용자에게 제공하는 뷰이다.
+성능 뷰 (performance view)란 메모리에 존재하는 구조이지만 일반 테이블 형태로 제공되어 시스템 메모리, 프로세스 상태, 세션, 버퍼, 쓰레드 등에 대한 Altibase 시스템 내부 정보를 사용자에게 제공하는 뷰이다.
 
-사용자가 테이블에 저장된 데이터를 검색하기 위하여 SQL을 사용하는 것처럼,
-Altibase 운용 시 사용되는 메모리 객체 (예. 세션 정보, 로그 정보)에 관한 정보를
-SQL문을 이용하여 성능 뷰로부터 쉽게 검색할 수 있다.
+사용자가 테이블에 저장된 데이터를 검색하기 위하여 SQL을 사용하는 것처럼, Altibase 운용 시 사용되는 메모리 객체 (예. 세션 정보, 로그 정보)에 관한 정보를 SQL문을 이용하여 성능 뷰로부터 쉽게 검색할 수 있다.
 
-이 절에서는 Altibase Sharding과 연관된 성능 뷰의 종류, 구조 및 기능, 그리고 각
-뷰에서 제공하는 정보에 대해 설명한다.
+Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 프로세스에 대한 정보를 의미하며 현재 접속된 시스템에 대한 정보를 보여준다.
 
-#### 구조 및 기능
-
-Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 프로세스에 대한
-정보를 의미하며 현재 접속된 시스템에 대한 정보를 보여준다.
-
-Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다양한 실행 정보를 얻을
-수 있다. 자세한 내용은 *General Reference*를 참고한다.
-
-기존의 성능 뷰 이외에 Altibase Sharding만을 위한 성능 뷰가 제공되고 있으며 해당
-성능 뷰는 샤딩 시스템으로 운영 중에만 의미가 있다.
-
-#### 성능 뷰의 종류
-
-샤딩 시스템에서 제공하는 성능 뷰의 이름은 Altibase와 동일하게 V\$로 시작한다.
-아래 표는 샤딩 시스템 관련 성능 뷰의 목록이다.
-
-| **이름**                 | **설명**                                              |
-| ------------------------ | ----------------------------------------------------- |
-| V\$SHARD_CONNECTION_INFO | 현재 세션에서의 코디네이터 연결 접속 상태에 대한 정보 |
-
-### V\$SHARD_CONNECTION_INFO
-
-샤드 코디네이터로써 현재 세션에서의 코디네이터 연결 접속 상태에 대한 정보를
-보여주는 성능 뷰 이다.
-
-| Column name     | Type        | Description                                        |
-| --------------- | ----------- | -------------------------------------------------- |
-| NODE_ID         | INTEGER     | 샤드 노드의 지역 식별자                            |
-| NODE_NAME       | VARCHAR(40) | 샤드 노드 이름                                     |
-| COMM_NAME       | VARCHAR(64) | 접속 정보                                          |
-| AUTOCOMMIT_FLAG | INTEGER     | autocommit 플래그 0: non-autocommit 1: auto commit |
-| TOUCH_COUNT     | INTEGER     | 현재 트랜잭션의 DML 발생 횟수                      |
-| LINK_FAILURE    | INTEGER     | 샤드 노드의 연결 상태 0: 정상 1: 실패              |
-
-#### 칼럼 정보
-
-##### NODE_ID
-
-연결된 샤드 노드의 지역 식별자를 나타낸다.
-
-##### NODE_NAME
-
-연결된 샤드 노드의 이름을 나타낸다.
-
-##### COMM_NAME
-
-샤드 노드와의 현재 접속 상태를 나타낸다.
-
-##### AUTOCOMMIT_FLAG
-
-샤드 노드와 연결된 세션에서 autocommit 여부를 나타낸다.
-
-##### TOUCH_COUNT
-
-샤드 노드와의 연결된 세션 중 현재 트랜잭션에서 발생한 DML 횟수를 나타낸다.
-
-##### LINK_FAILURE
-
-조회 시점의 샤드 노드와의 연결 상태를 나타낸다.
+Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다양한 실행 정보를 얻을수 있으며 자세한 내용은 *General Reference* 의 성능 뷰를 참고한다.
 
 ### 샤드 성능 뷰 (Shard Performance View)
 
-Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한
-내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
+Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한 내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
 
-이 절에서는 Altibase Sharding이 지원하는 샤드 성능 뷰의 구조 및 기능, 종류, 조회
-방법, 그리고 각 뷰에서 제공하는 정보에 대해 설명한다.
+이 절에서는 Altibase Sharding이 지원하는 샤드 성능 뷰의 구조 및 기능, 종류, 조회 방법, 그리고 각 뷰에서 제공하는 정보에 대해 설명한다.
 
 #### 구조 및 기능
 
-기존의 성능 뷰와 다르게 샤드 성능 뷰는 전체 샤딩 시스템과 연관된 정보를 한눈에
-볼 수 있도록 제공한다.
+기존의 성능 뷰와 다르게 샤드 성능 뷰는 전체 샤딩 시스템과 연관된 정보를 한눈에 볼 수 있도록 제공한다.
 
-예를들어, 사용자는 전체 샤딩 시스템의 프로퍼티 설정을 보기 위해서 각 노드에 접속
-후 해당 노드의 성능 뷰를 모두 검색해 볼 수 있다. 그러나, 이와 같은 방법으로 전체
-샤딩 시스템의 프로퍼티를 검색하는 것은 샤드 노드가 늘어남에 따라 사용자의 불편을
-증가시킨다.
+예를들어, 사용자는 전체 샤딩 시스템의 프로퍼티 설정을 보기 위해서 각 노드에 접속 후 해당 노드의 성능 뷰를 모두 검색해 볼 수 있다. 그러나, 이와 같은 방법으로 전체 샤딩 시스템의 프로퍼티를 검색하는 것은 샤드 노드가 늘 어남에 따라 사용자의 불편을 증가시킨다.
 
-그러므로, 전체 샤드 시스템의 프로퍼티를 검색하기 위해서 특정 샤드 노드에
-접속해서 샤드 성능 뷰를 통해 서비스 중인 샤드 노드의 프로퍼티를 검색할 수 있다.
+그러므로, 전체 샤드 시스템의 프로퍼티를 검색하기 위해서 특정 샤드 노드에 접속해서 샤드 성능 뷰를 통해 서비스 중인 샤드 노드의 프로퍼티를 검색할 수 있다.
 
-이와 같이 사용자는 샤드 성능 뷰를 통해 편리하게 전체 시스템을 모니터링 할 수
-있다.
+이와 같이 사용자는 샤드 성능 뷰를 통해 편리하게 전체 시스템을 모니터링 할 수 있다.
 
 #### 샤드 성능 뷰의 조회 방법
 
@@ -4246,9 +4064,7 @@ Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤�
 
 iSQL\> SELECT \* FROM S\$TAB;
 
-샤드 성능 뷰의 스키마는 일반 테이블과 마찬가지로 iSQL 에서 DESC 명령어를 통해
-확인할 수 있고, 데이터는 일반 테이블과 동일하게 SELECT문을 이용하여 검색할 수
-있다.
+샤드 성능 뷰의 스키마는 일반 테이블과 마찬가지로 iSQL 에서 DESC 명령어를 통해 확인할 수 있고, 데이터는 일반 테이블과 동일하게 SELECT문을 이용하여 검색할 수 있다.
 
 #### 샤드 성능 뷰의 종류
 
@@ -4257,22 +4073,21 @@ iSQL\> SELECT \* FROM S\$TAB;
 | **이름**           | **설명**                                                     |
 | ------------------ | ------------------------------------------------------------ |
 | S\$CONNECTION_INFO | 현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보 |
-| S\$PROPERTY        | 샤딩 시스템의 모든 샤드 노드에 설정된 시스템 프로퍼티 정보   |
-| S\$SESSION         | 현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션 정보    |
-| S\$STATEMENT       | 현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보 |
+| S\$PROPERTY        | 모든 샤드 노드의 시스템 프로퍼티 정보                        |
+| S\$SESSION         | 모든 샤드 노드의 샤드 세션에 대한 세션 정보                  |
+| S\$STATEMENT       | 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보            |
 
-### S\$SHARD_CONNECTION_INFO
+### S\$CONNECTION_INFO
 
 현재 세션에서 코디네이터가 연결한 접속 상태에 대한 정보를 보여주는 성능 뷰 이다.
 
-| Column name     | Type        | Description                                        |
-| --------------- | ----------- | -------------------------------------------------- |
-| NODE_ID         | INTEGER     | 샤드 노드의 지역 식별자                            |
-| NODE_NAME       | VARCHAR(40) | 샤드 노드 이름                                     |
-| COMM_NAME       | VARCHAR(64) | 접속 정보                                          |
-| AUTOCOMMIT_FLAG | INTEGER     | autocommit 플래그 0: non-autocommit 1: auto commit |
-| TOUCH_COUNT     | INTEGER     | 현재 트랜잭션의 DML 발생 횟수                      |
-| LINK_FAILURE    | INTEGER     | 샤드 노드의 연결 상태 0: 정상 1: 실패              |
+| Column name  | Type        | Description                           |
+| ------------ | ----------- | ------------------------------------- |
+| NODE_ID      | INTEGER     | 샤드 노드의 지역 식별자               |
+| NODE_NAME    | VARCHAR(40) | 샤드 노드 이름                        |
+| COMM_NAME    | VARCHAR(64) | 접속 정보                             |
+| TOUCH_COUNT  | INTEGER     | 현재 트랜잭션의 DML 발생 횟수         |
+| LINK_FAILURE | INTEGER     | 샤드 노드의 연결 상태 0: 정상 1: 실패 |
 
 #### 칼럼 정보
 
@@ -4287,10 +4102,6 @@ iSQL\> SELECT \* FROM S\$TAB;
 ##### COMM_NAME
 
 샤드 노드와의 현재 접속 상태를 나타낸다.
-
-##### AUTOCOMMIT_FLAG
-
-샤드 노드와 연결된 세션에서 autocommit 여부를 나타낸다.
 
 ##### TOUCH_COUNT
 
@@ -4304,40 +4115,12 @@ iSQL\> SELECT \* FROM S\$TAB;
 
 샤딩 시스템의 각 노드에 설정된 시스템 프로퍼티의 정보를 보여준다.
 
-| Column name   | Type         | Description                                |
-| ------------- | ------------ | ------------------------------------------ |
-| NAME          | VARCHAR(256) | 프로퍼티의 이름                            |
-| STOREDCOUNT   | INTEGER      | 현재 접속한 노드의 V\$PROPERTY.STOREDCOUNT |
-| ATTR          | BIGINT       | 현재 접속한 노드의 V\$PROPERTY.ATTR        |
-| MIN           | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.MIN         |
-| MAX           | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.MAX         |
-| VALUE1        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE1      |
-| VALUE2        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE2      |
-| VALUE3        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE3      |
-| VALUE4        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE4      |
-| VALUE5        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE5      |
-| VALUE6        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE6      |
-| VALUE7        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE7      |
-| VALUE8        | VARCHAR(256) | 현재 접속한 노드의 V\$PROPERTY.VALUE8      |
-| NODE_NAME     | VARCHAR(40)  | 샤드 노드의 이름                           |
-| D_STOREDCOUNT | INTEGER      | 샤드 노드의 V\$PROPERTY.STOREDCOUNT        |
-| D_ATTR        | BIGINT       | 샤드 노드의 V\$PROPERTY.ATTR               |
-| D_MIN         | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.MIN                |
-| D_MAX         | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.MAX                |
-| D_VALUE1      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE1             |
-| D_VALUE2      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE2             |
-| D_VALUE3      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE3             |
-| D_VALUE4      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE4             |
-| D_VALUE5      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE5             |
-| D_VALUE6      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE6             |
-| D_VALUE7      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE7             |
-| D_VALUE8      | VARCHAR(256) | 샤드 노드의 V\$PROPERTY.VALUE8             |
+| Column name | Type         | Description                    |
+| ----------- | ------------ | ------------------------------ |
+| NODE_NAME   | VARCHAR(256) | 샤드 노드 이름                 |
+| 그 외 컬럼  |              | 샤드 노드의 V$PROPERTY 와 동일 |
 
 #### 칼럼 정보
-
-##### NAME
-
-해당 프로퍼티의 이름을 나타낸다.
 
 ##### NODE_NAME
 
@@ -4345,134 +4128,21 @@ iSQL\> SELECT \* FROM S\$TAB;
 
 ##### 그 외 컬럼
 
-위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$PROPERTY 의 칼럼 정보를
-참고한다.
+위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$PROPERTY 의 칼럼 정보를 참고한다.
 
 ### S\$SESSION
 
-현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션에 대한 정보를 보여준다.
+샤드 세션과 관련한 모든 샤드 노드의 세션에 대한 정보를 보여준다.
 
-| Column name                          | Type         | Description                                                  |
-| ------------------------------------ | ------------ | ------------------------------------------------------------ |
-| ID                                   | VARCHAR(20)  | 샤드 세션 식별자                                             |
-| SESSION_ID                           | BIGINT       | 현재 접속 노드의 V\$SESSION.ID                               |
-| SHARD_CLIENT                         | VARCHAR(1)   | 현재 접속 노드의 세션에 대한 샤드 클라이언트 라이브러리 사용 유무 |
-| TRANS_ID                             | BIGINT       | 현재 접속 노드의 V\$SESSION.TRANS_ID                         |
-| TASK_STATE                           | VARCHAR(11)  | 현재 접속 노드의 V\$SESSION.TASK_STATE                       |
-| COMM_NAME                            | VARCHAR(64)  | 현재 접속 노드의 V\$SESSION.COMM_NAME                        |
-| XA_SESSION_FLAG                      | INTEGER      | 현재 접속 노드의 V\$SESSION.XA_SESSION_FLAG                  |
-| XA_ASSOCIATE_FLAG                    | INTEGER      | 현재 접속 노드의 V\$SESSION.XA_ASSOCIATE_FLAG                |
-| QUERY_TIME_LIMIT                     | BIGINT       | 현재 접속 노드의 V\$SESSION.QUERY_TIME_LIMIT                 |
-| DDL_TIME_LIMIT                       | BIGINT       | 현재 접속 노드의 V\$SESSION.DDL_TIME_LIMIT                   |
-| FETCH_TIME_LIMIT                     | BIGINT       | 현재 접속 노드의 V\$SESSION.FETCH_TIME_LIMIT                 |
-| UTRANS_TIME_LIMIT                    | BIGINT       | 현재 접속 노드의 V\$SESSION.UTRANS_TIME_LIMIT                |
-| IDLE_TIME_LIMIT                      | BIGINT       | 현재 접속 노드의 V\$SESSION.IDLE_TIME_LIMIT                  |
-| IDLE_START_TIME                      | INTEGER      | 현재 접속 노드의 V\$SESSION.IDLE_START_TIME                  |
-| ACTIVE_FLAG                          | INTEGER      | 현재 접속 노드의 V\$SESSION.ACTIVE_FLAG                      |
-| OPENED_STMT_COUNT                    | INTEGER      | 현재 접속 노드의 V\$SESSION.OPENED_STMT_COUNT                |
-| CLIENT_PACKAGE_VERSION               | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_PACKAGE_VERSION           |
-| CLIENT_PROTOCOL_VERSION              | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_PROTOCOL_VERSION          |
-| CLIENT_PID                           | BIGINT       | 현재 접속 노드의 V\$SESSION.CLIENT_PID                       |
-| CLIENT_TYPE                          | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_TYPE                      |
-| CLIENT_APP_INFO                      | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.CLIENT_APP_INFO                  |
-| CLIENT_NLS                           | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.CLIENT_NLS                       |
-| DB_USERNAME                          | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.DB_USERNAME                      |
-| DB_USERID                            | INTEGER      | 현재 접속 노드의 V\$SESSION.DB_USERID                        |
-| DEFAULT_TBSID                        | BIGINT       | 현재 접속 노드의 V\$SESSION.DEFAULT_TBSID                    |
-| DEFAULT_TEMP_TBSID                   | BIGINT       | 현재 접속 노드의 V\$SESSION.DEFAULT_TEMP_TBSID               |
-| SYSDBA_FLAG                          | INTEGER      | 현재 접속 노드의 V\$SESSION.SYSDBA_FLAG                      |
-| AUTOCOMMIT_FLAG                      | INTEGER      | 현재 접속 노드의 V\$SESSION.AUTOCOMMIT_FLAG                  |
-| SESSION_STATE                        | VARCHAR(13)  | 현재 접속 노드의 V\$SESSION.SESSION_STATE                    |
-| ISOLATION_LEVEL                      | INTEGER      | 현재 접속 노드의 V\$SESSION.ISOLATION_LEVEL                  |
-| REPLICATION_MODE                     | INTEGER      | 현재 접속 노드의 V\$SESSION.REPLICATION_MODE                 |
-| TRANSACTION_MODE                     | INTEGER      | 현재 접속 노드의 V\$SESSION.TRANSACTION_MODE                 |
-| COMMIT_WRITE_WAIT_MODE               | INTEGER      | 현재 접속 노드의 V\$SESSION.COMMIT_WRITE_WAIT_MODE           |
-| OPTIMIZER_MODE                       | INTEGER      | 현재 접속 노드의 V\$SESSION.OPTIMIZER_MODE                   |
-| HEADER_DISPLAY_MODE                  | INTEGER      | 현재 접속 노드의 V\$SESSION.HEADER_DISPLAY_MODE              |
-| CURRENT_STMT_ID                      | INTEGER      | 현재 접속 노드의 V\$SESSION.CURRENT_STMT_ID                  |
-| STACK_SIZE                           | INTEGER      | 현재 접속 노드의 V\$SESSION.STACK_SIZE                       |
-| DEFAULT_DATE_FORMAT                  | VARCHAR(64)  | 현재 접속 노드의 V\$SESSION.DEFAULT_DATE_FORMAT              |
-| TRX_UPDATE_MAX_LOGSIZE               | BIGINT       | 현재 접속 노드의 V\$SESSION.TRX_UPDATE_MAX_LOGSIZE           |
-| PARALLEL_DML_MODE                    | INTEGER      | 현재 접속 노드의 V\$SESSION.PARALLEL_DML_MODE                |
-| LOGIN_TIME                           | INTEGER      | 현재 접속 노드의 V\$SESSION.LOGIN_TIME                       |
-| FAILOVER_SOURCE                      | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.FAILOVER_SOURCE                  |
-| NLS_TERRITORY                        | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.NLS_TERRITORY                    |
-| NLS_ISO_CURRENCY                     | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.NLS_ISO_CURRENCY                 |
-| NLS_CURRENCY                         | VARCHAR(10)  | 현재 접속 노드의 V\$SESSION.NLS_CURRENCY                     |
-| NLS_NUMERIC_CHARACTERS               | VARCHAR(2)   | 현재 접속 노드의 V\$SESSION.NLS_NUMERIC_CHARACTERS           |
-| TIME_ZONE                            | VARCHAR(40)  | 현재 접속 노드의 V\$SESSION.TIME_ZONE                        |
-| LOB_CACHE_THRESHOLD                  | INTEGER      | 현재 접속 노드의 V\$SESSION.LOB_CACHE_THRESHOLD              |
-| QUERY_REWRITE_ENABLE                 | VARCHAR(7)   | 현재 접속 노드의 V\$SESSION.QUERY_REWRITE_ENABLE             |
-| DBLINK_GLOBAL_TRANSACTION_LEVEL      | INTEGER      | 현재 접속 노드의 V\$SESSION.DBLINK_GLOBAL_TRANSACTION_LEVEL  |
-| DBLINK_REMOTE_STATEMENT_AUTOCOMMIT   | INTEGER      | 현재 접속 노드의 V\$SESSION.DBLINK_REMOTE_STATEMENT_AUTOCOMMIT |
-| MAX_STATEMENTS_PER_SESSION           | INTEGER      | 현재 접속 노드의 V\$SESSION.MAX_STATEMENTS_PER_SESSION       |
-| SSL_CIPHER                           | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.SSL_CIPHER                       |
-| SSL_CERTIFICATE_SUBJECT              | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.SSL_CERTIFICATE_SUBJECT          |
-| SSL_CERTIFICATE_ISSUER               | VARCHAR(256) | 현재 접속 노드의 V\$SESSION.SSL_CERTIFICATE_ISSUER           |
-| MODULE                               | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.MODULE                           |
-| ACTION                               | VARCHAR(128) | 현재 접속 노드의 V\$SESSION.ACTION                           |
-| REPLICATION_DDL_SYNC                 | INTEGER      | 현재 접속 노드의 V\$SESSION.REPLICATION_DDL_SYNC             |
-| REPLICATION_DDL_SYNC_TIMELIMIT       | BIGINT       | 현재 접속 노드의 V\$SESSION.REPLICATION_DDL_SYNC_TIMELIMIT   |
-| NODE_NAME                            | VARCHAR(40)  | 샤드 노드의 이름                                             |
-| D_SESSION_ID                         | BIGINT       | 샤드 노드의 V\$SESSION.ID                                    |
-| D_SHARD_CLIENT                       | VARCHAR(1)   | 샤드 노드의 세션에 대한 샤드 클라이언트 라이브러리 사용 유무 |
-| D_SESSION_TYPE                       | VARCHAR(1)   | 샤드 노드의 세션에 대한 샤드 커넥션 타입                     |
-| D_TRANS_ID                           | BIGINT       | 샤드 노드의 V\$SESSION.TRANS_ID                              |
-| D_TASK_STATE                         | VARCHAR(11)  | 샤드 노드의 V\$SESSION.TASK_STATE                            |
-| D_COMM_NAME                          | VARCHAR(64)  | 샤드 노드의 V\$SESSION.COMM_NAME                             |
-| D_XA_SESSION_FLAG                    | INTEGER      | 샤드 노드의 V\$SESSION.XA_SESSION_FLAG                       |
-| D_XA_ASSOCIATE_FLAG                  | INTEGER      | 샤드 노드의 V\$SESSION.XA_ASSOCIATE_FLAG                     |
-| D_QUERY_TIME_LIMIT                   | BIGINT       | 샤드 노드의 V\$SESSION.QUERY_TIME_LIMIT                      |
-| D_DDL_TIME_LIMIT                     | BIGINT       | 샤드 노드의 V\$SESSION.DDL_TIME_LIMIT                        |
-| D_FETCH_TIME_LIMIT                   | BIGINT       | 샤드 노드의 V\$SESSION.FETCH_TIME_LIMIT                      |
-| D_UTRANS_TIME_LIMIT                  | BIGINT       | 샤드 노드의 V\$SESSION.UTRANS_TIME_LIMIT                     |
-| D_IDLE_TIME_LIMIT                    | BIGINT       | 샤드 노드의 V\$SESSION.IDLE_TIME_LIMIT                       |
-| D_IDLE_START_TIME                    | INTEGER      | 샤드 노드의 V\$SESSION.IDLE_START_TIME                       |
-| D_ACTIVE_FLAG                        | INTEGER      | 샤드 노드의 V\$SESSION.ACTIVE_FLAG                           |
-| D_OPENED_STMT_COUNT                  | INTEGER      | 샤드 노드의 V\$SESSION.OPENED_STMT_COUNT                     |
-| D_CLIENT_PACKAGE_VERSION             | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_PACKAGE_VERSION                |
-| D_CLIENT_PROTOCOL_VERSION            | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_PROTOCOL_VERSION               |
-| D_CLIENT_PID                         | BIGINT       | 샤드 노드의 V\$SESSION.CLIENT_PID                            |
-| D_CLIENT_TYPE                        | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_TYPE                           |
-| D_CLIENT_APP_INFO                    | VARCHAR(128) | 샤드 노드의 V\$SESSION.CLIENT_APP_INFO                       |
-| D_CLIENT_NLS                         | VARCHAR(40)  | 샤드 노드의 V\$SESSION.CLIENT_NLS                            |
-| D_DB_USERNAME                        | VARCHAR(128) | 샤드 노드의 V\$SESSION.DB_USERNAME                           |
-| D_DB_USERID                          | INTEGER      | 샤드 노드의 V\$SESSION.DB_USERID                             |
-| D_DEFAULT_TBSID                      | BIGINT       | 샤드 노드의 V\$SESSION.DEFAULT_TBSID                         |
-| D_DEFAULT_TEMP_TBSID                 | BIGINT       | 샤드 노드의 V\$SESSION.DEFAULT_TEMP_TBSID                    |
-| D_SYSDBA_FLAG                        | INTEGER      | 샤드 노드의 V\$SESSION.SYSDBA_FLAG                           |
-| D_AUTOCOMMIT_FLAG                    | INTEGER      | 샤드 노드의 V\$SESSION.AUTOCOMMIT_FLAG                       |
-| D_SESSION_STATE                      | VARCHAR(13)  | 샤드 노드의 V\$SESSION.SESSION_STATE                         |
-| D_ISOLATION_LEVEL                    | INTEGER      | 샤드 노드의 V\$SESSION.ISOLATION_LEVEL                       |
-| D_REPLICATION_MODE                   | INTEGER      | 샤드 노드의 V\$SESSION.REPLICATION_MODE                      |
-| D_TRANSACTION_MODE                   | INTEGER      | 샤드 노드의 V\$SESSION.TRANSACTION_MODE                      |
-| D_COMMIT_WRITE_WAIT_MODE             | INTEGER      | 샤드 노드의 V\$SESSION.COMMIT_WRITE_WAIT_MODE                |
-| D_OPTIMIZER_MODE                     | INTEGER      | 샤드 노드의 V\$SESSION.OPTIMIZER_MODE                        |
-| D_HEADER_DISPLAY_MODE                | INTEGER      | 샤드 노드의 V\$SESSION.HEADER_DISPLAY_MODE                   |
-| D_CURRENT_STMT_ID                    | INTEGER      | 샤드 노드의 V\$SESSION.CURRENT_STMT_ID                       |
-| D_STACK_SIZE                         | INTEGER      | 샤드 노드의 V\$SESSION.STACK_SIZE                            |
-| D_DEFAULT_DATE_FORMAT                | VARCHAR(64)  | 샤드 노드의 V\$SESSION.DEFAULT_DATE_FORMAT                   |
-| D_TRX_UPDATE_MAX_LOGSIZE             | BIGINT       | 샤드 노드의 V\$SESSION.TRX_UPDATE_MAX_LOGSIZE                |
-| D_PARALLEL_DML_MODE                  | INTEGER      | 샤드 노드의 V\$SESSION.PARALLEL_DML_MODE                     |
-| D_LOGIN_TIME                         | INTEGER      | 샤드 노드의 V\$SESSION.LOGIN_TIME                            |
-| D_FAILOVER_SOURCE                    | VARCHAR(256) | 샤드 노드의 V\$SESSION.FAILOVER_SOURCE                       |
-| D_NLS_TERRITORY                      | VARCHAR(40)  | 샤드 노드의 V\$SESSION.NLS_TERRITORY                         |
-| D_NLS_ISO_CURRENCY                   | VARCHAR(40)  | 샤드 노드의 V\$SESSION.NLS_ISO_CURRENCY                      |
-| D_NLS_CURRENCY                       | VARCHAR(10)  | 샤드 노드의 V\$SESSION.NLS_CURRENCY                          |
-| D_NLS_NUMERIC_CHARACTERS             | VARCHAR(2)   | 샤드 노드의 V\$SESSION.NLS_NUMERIC_CHARACTERS                |
-| D_TIME_ZONE                          | VARCHAR(40)  | 샤드 노드의 V\$SESSION.TIME_ZONE                             |
-| D_LOB_CACHE_THRESHOLD                | INTEGER      | 샤드 노드의 V\$SESSION.LOB_CACHE_THRESHOLD                   |
-| D_QUERY_REWRITE_ENABLE               | VARCHAR(7)   | 샤드 노드의 V\$SESSION.QUERY_REWRITE_ENABLE                  |
-| D_DBLINK_GLOBAL_TRANSACTION_LEVEL    | INTEGER      | 샤드 노드의 V\$SESSION.DBLINK_GLOBAL_TRANSACTION_LEVEL       |
-| D_DBLINK_REMOTE_STATEMENT_AUTOCOMMIT | INTEGER      | 샤드 노드의 V\$SESSION.DBLINK_REMOTE_STATEMENT_AUTOCOMMIT    |
-| D_MAX_STATEMENTS_PER_SESSION         | INTEGER      | 샤드 노드의 V\$SESSION.MAX_STATEMENTS_PER_SESSION            |
-| D_SSL_CIPHER                         | VARCHAR(256) | 샤드 노드의 V\$SESSION.SSL_CIPHER                            |
-| D_SSL_CERTIFICATE_SUBJECT            | VARCHAR(256) | 샤드 노드의 V\$SESSION.SSL_CERTIFICATE_SUBJECT               |
-| D_SSL_CERTIFICATE_ISSUER             | VARCHAR(256) | 샤드 노드의 V\$SESSION.SSL_CERTIFICATE_ISSUER                |
-| D_MODULE                             | VARCHAR(128) | 샤드 노드의 V\$SESSION.MODULE                                |
-| D_ACTION                             | VARCHAR(128) | 샤드 노드의 V\$SESSION.ACTION                                |
-| D_REPLICATION_DDL_SYNC               | INTEGER      | 샤드 노드의 V\$SESSION.REPLICATION_DDL_SYNC                  |
-| D_REPLICATION_DDL_SYNC_TIMELIMIT     | BIGINT       | 샤드 노드의 V\$SESSION.REPLICATION_DDL_SYNC_TIMELIMIT        |
+| Column name        | Type        | Description                          |
+| ------------------ | ----------- | ------------------------------------ |
+| ID                 | VARCHAR(20) | 샤드 세션 식별자                     |
+| SHARD_META_NUMBER  | BIGINT      | 세션이 인식하고 있는 SMN             |
+| NODE_NAME          | BIGINT      | 샤드 노드 이름                       |
+| SHARD_CLIENT       | VARCHAR(1)  | 샤드 클라이언트 라이브러리 사용 유무 |
+| SHARD_SESSION_TYPE | VARCHAR(1)  | 샤드 세션 유형                       |
+| SESSION_ID         | BIGINT      | 샤드 노드의 V\$SESSION.ID            |
+| 그 외 컬럼         |             | 샤드 노드의 V$SESSION 과 동일        |
 
 #### 칼럼 정보
 
@@ -4480,124 +4150,75 @@ iSQL\> SELECT \* FROM S\$TAB;
 
 샤드 세션을 구별하는 고유 식별자이다.
 
-##### SHARD_CLIENT
+##### SHARD_META_NUMBER
 
-현재 접속 노드의 세션에 대한 샤드 클라이언트 라이브러리의 사용 여부이다.
+세션이 인식하고 있는 SMN 으로 자세한 내용은 샤드 메타 설정의 Session SMN 을 참고한다.
 
 ##### NODE_NAME
 
-노드의 이름을 나타낸다.
+샤드 노드 이름을 나타낸다.
 
-##### D_SHARD_CLIENT
+##### SHARD_CLIENT
 
-샤드 노드의 세션에 대한 샤드 클라이언트 라이브러리의 사용 여부이다.
+세션의 샤드 클라이언트 라이브러리의 사용 여부이다.
 
-##### D_SESSION_TYPE
+- Y : 샤드 클라이언트 라이브러리 사용
+- N : 샤드 클라이언트 라이브러리 미사용
 
-샤드 노드의 세션에 대한 샤드 커넥션 유형이다.
+##### SHARD_SESSION_TYPE
 
-- 외부 커넥션일 경우 'E' (external connection)
-- 내부 커넥션일 경우 'I' (internal connection)
+세션의 샤드 세션 타입이다.
+
+- U : 사용자와 코디네이터간의 사용자(User) 세션
+- C : 코디네이터와 샤드 데이터간의 코디네이터(Coordinator) 세션
+- L : 사용자와 샤드 데이터간의 샤드 라이브러리(Library) 세션
+
+##### SESSION_ID
+
+샤드 노드의 세션 식별자로 샤드 노드의 V$SESSION.ID 와 동일한 값이다.
 
 ##### 그 외 컬럼
 
-위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$SESSION 의 칼럼 정보를
-참고한다.
+위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$SESSION 의 칼럼 정보를 참고한다.
 
 ### S\$STATEMENT
 
-현재 접속한 샤드 노드와 관련된 모든 샤드 노드의 세션 별로 가장 최근 실행된
-구문에 대한 정보를 보여준다.
+모든 샤드 노드의 세션 별로 실행중이거나 가장 최근 실행된 구문에 대한 정보를 보여준다.
 
-| Column name               | Type           | Description                                        |
-| ------------------------- | -------------- | -------------------------------------------------- |
-| SHARD_SESSION_ID          | VARCHAR(20)    | 샤드 세션 식별자                                   |
-| NODE_NAME                 | VARCHAR(40)    | 샤드 노드의 이름                                   |
-| SESSION_ID                | INTEGER        | 샤드 노드의 V\$STATEMENT.SESSION_ID                |
-| SHARD_SESSION_TYPE        | VARCHAR(1)     | 샤드 노드의 세션에 대한 샤드 커넥션 타입           |
-| STATEMENT_ID              | INTEGER        | 샤드 노드의 V\$STATEMENT.ID                        |
-| QUERY_TYPE                | VARCHAR(1)     | 사용자 쿼리에 대한 샤드 쿼리 타입                  |
-| PARENT_ID                 | INTEGER        | 샤드 노드의 V\$STATEMENT.PARENT_ID                 |
-| CURSOR_TYPE               | INTEGER        | 샤드 노드의 V\$STATEMENT.CURSOR_TYPE               |
-| TX_ID                     | BIGINT         | 샤드 노드의 V\$STATEMENT.TX_ID                     |
-| QUERY                     | VARCHAR(12684) | 샤드 노드의 V\$STATEMENT.QUERY                     |
-| LAST_QUERY_START_TIME     | INTEGER        | 샤드 노드의 V\$STATEMENT.LAST_QUERY_START_TIME     |
-| QUERY_START_TIME          | INTEGER        | 샤드 노드의 V\$STATEMENT.QUERY_START_TIME          |
-| FETCH_START_TIME          | INTEGER        | 샤드 노드의 V\$STATEMENT.FETCH_START_TIME          |
-| EXECUTE_STATE             | VARCHAR(8)     | 샤드 노드의 V\$STATEMENT.EXECUTE_STATE             |
-| FETCH_STATE               | VARCHAR(12)    | 샤드 노드의 V\$STATEMENT.FETCH_STATE               |
-| ARRAY_FLAG                | INTEGER        | 노드의 V\$STATEMENT.ARRAY_FLAG                     |
-| ROW_NUMBER                | INTEGER        | 샤드 노드의 V\$STATEMENT.ROW_NUMBER                |
-| EXECUTE_FLAG              | INTEGER        | 샤드 노드의 V\$STATEMENT.EXECUTE_FLAG              |
-| BEGIN_FLAG                | INTEGER        | 샤드 노드의 V\$STATEMENT.BEGIN_FLAG                |
-| TOTAL_TIME                | BIGINT         | 샤드 노드의 V\$STATEMENT.TOTAL_TIME                |
-| PARSE_TIME                | BIGINT         | 샤드 노드의 V\$STATEMENT.PARSE_TIME                |
-| VALIDATE_TIME             | BIGINT         | 샤드 노드의 V\$STATEMENT.VALIDATE_TIME             |
-| OPTIMIZE_TIME             | BIGINT         | 샤드 노드의 V\$STATEMENT.OPTIMIZE_TIME             |
-| EXECUTE_TIME              | BIGINT         | 샤드 노드의 V\$STATEMENT.EXECUTE_TIME              |
-| FETCH_TIME                | BIGINT         | 샤드 노드의 V\$STATEMENT.FETCH_TIME                |
-| SOFT_PREPARE_TIME         | BIGINT         | 샤드 노드의 V\$STATEMENT.SOFT_PREPARE_TIME         |
-| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | 샤드 노드의 V\$STATEMENT.SQL_CACHE_TEXT_ID         |
-| SQL_CACHE_PCO_ID          | INTEGER        | 샤드 노드의 V\$STATEMENT.SQL_CACHE_PCO_ID          |
-| OPTIMIZER                 | BIGINT         | 샤드 노드의 V\$STATEMENT.OPTIMIZER                 |
-| COST                      | BIGINT         | 샤드 노드의 V\$STATEMENT.COST                      |
-| USED_MEMORY               | BIGINT         | 샤드 노드의 V\$STATEMENT.USED_MEMORY               |
-| READ_PAGE                 | BIGINT         | 샤드 노드의 V\$STATEMENT.READ_PAGE                 |
-| WRITE_PAGE                | BIGINT         | 샤드 노드의 V\$STATEMENT.WRITE_PAGE                |
-| GET_PAGE                  | BIGINT         | 샤드 노드의 V\$STATEMENT.GET_PAGE                  |
-| CREATE_PAGE               | BIGINT         | 샤드 노드의 V\$STATEMENT.CREATE_PAGE               |
-| UNDO_READ_PAGE            | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_READ_PAGE            |
-| UNDO_WRITE_PAGE           | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_WRITE_PAGE           |
-| UNDO_GET_PAGE             | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_GET_PAGE             |
-| UNDO_CREATE_PAGE          | BIGINT         | 샤드 노드의 V\$STATEMENT.UNDO_CREATE_PAGE          |
-| MEM_CURSOR_FULL_SCAN      | BIGINT         | 샤드 노드의 V\$STATEMENT.MEM_CURSOR_FULL_SCAN      |
-| MEM_CURSOR_INDEX_SCAN     | BIGINT         | 샤드 노드의 V\$STATEMENT.MEM_CURSOR_INDEX_SCAN     |
-| DISK_CURSOR_FULL_SCAN     | BIGINT         | 샤드 노드의 V\$STATEMENT.DISK_CURSOR_FULL_SCAN     |
-| DISK_CURSOR_INDEX_SCAN    | BIGINT         | 샤드 노드의 V\$STATEMENT.DISK_CURSOR_INDEX_SCAN    |
-| EXECUTE_SUCCESS           | BIGINT         | 샤드 노드의 V\$STATEMENT.EXECUTE_SUCCESS           |
-| EXECUTE_FAILURE           | BIGINT         | 샤드 노드의 V\$STATEMENT.EXECUTE_FAILURE           |
-| FETCH_SUCCESS             | BIGINT         | 샤드 노드의 V\$STATEMENT.FETCH_SUCCESS             |
-| FETCH_FAILURE             | BIGINT         | 샤드 노드의 V\$STATEMENT.FETCH_FAILURE             |
-| PROCESS_ROW               | BIGINT         | 샤드 노드의 V\$STATEMENT.PROCESS_ROW               |
-| MEMORY_TABLE_ACCESS_COUNT | BIGINT         | 샤드 노드의 V\$STATEMENT.MEMORY_TABLE_ACCESS_COUNT |
-| SEQNUM                    | INTEGER        | 샤드 노드의 V\$STATEMENT.SEQNUM                    |
-| EVENT                     | VARCHAR(128)   | 샤드 노드의 V\$STATEMENT.EVENT                     |
-| P1                        | BIGINT         | 샤드 노드의 V\$STATEMENT.P1                        |
-| P2                        | BIGINT         | 샤드 노드의 V\$STATEMENT.P2                        |
-| P3                        | BIGINT         | 샤드 노드의 V\$STATEMENT.P3                        |
-| WAIT_TIME                 | BIGINT         | 샤드 노드의 V\$STATEMENT.WAIT_TIME                 |
-| SECOND_IN_TIME            | BIGINT         | 샤드 노드의 V\$STATEMENT.SECOND_IN_TIME            |
-| SIMPLE_QUERY              | INTEGER        | 샤드 노드의 V\$STATEMENT.SIMPLE_QUERY              |
+| Column name        | Type        | Description                       |
+| ------------------ | ----------- | --------------------------------- |
+| SHARD_SESSION_ID   | VARCHAR(20) | 샤드 세션 식별자                  |
+| NODE_NAME          | VARCHAR(40) | 샤드 노드 이름                    |
+| SHARD_SESSION_TYPE | VARCHAR(1)  | 세션의 샤드 세션 유형             |
+| QUERY_TYPE         | VARCHAR(1)  | 사용자 쿼리에 대한 샤드 쿼리 타입 |
+| 그 외 컬럼         |             | 샤드 노드의 V$STATEMENT 와 동일   |
 
 #### 칼럼 정보
 
 ##### SHARD_SESSION_ID
 
-해당 구문이 속한 세션의 샤드 세션 식별자이다.
+구문이 수행되는 세션의 샤드 세션 식별자이다.
 
 ##### NODE_NAME
 
-샤드 노드의 이름을 나타낸다.
+구문이 수행되는 샤드 노드 이름이다.
 
 ##### SHARD_SESSION_TYPE
 
-해당 구문이 속한 노드의 세션에 대한 샤드 커넥션 유형이다.
+구문이 수행되는 세션의 샤드 세션 유형으로 S$SESSION.SHARD_SESSION_TYPE 과 동일하다.
 
 ##### QUERY_TYPE
 
-Altibase Sharding 관점으로 분류한 사용자 쿼리의 유형이다.
+Altibase Sharding 관점으로 분류한 사용자 쿼리 유형이다.
 
-- 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우 'S' (shard query)
-- 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우 'N' (non-shard
-  query)
+- S (Shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우
+- N (Non-shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우
 
-단, 샤드 노드에서 내부 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로
-'-' 로 표시된다.
+단, 코디네이터 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로 '-' 로 표시된다.
 
 ##### 그 외 컬럼
 
-위 항목을 제외한 모든 칼럼은 *General Reference*의 V\$STATEMENT의 칼럼 정보를
-참고한다.
+위 항목을 제외한 모든 칼럼은 *General Reference*의 V\$STATEMENT의 칼럼 정보를 참고한다.
 
 5.Altibase Sharding 패키지
 ------------------------
