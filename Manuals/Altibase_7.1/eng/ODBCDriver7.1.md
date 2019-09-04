@@ -23,7 +23,7 @@ Altibase® Application Development
 
 # ODBC User\'s Manual
 
-Manuals/Altibase_7.1/eng/media/ODBCDriver/image1.png
+!Manuals/Altibase_7.1/eng/media/ODBCDriver/image1.png
 
 
 Altibase Application Development ODBC User\'s Manual
