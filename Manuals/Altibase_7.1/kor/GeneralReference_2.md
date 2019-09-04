@@ -3232,6 +3232,10 @@ Unsigned Integer
 - 0: Normal Insert
 - 1: Direct-Path Insert
 
+이중화 SYNC 과정에서 Direct-Path Insert 방식을 이용할 경우, 
+데이터 동기화 이후 Index를 재생성한다. 따라서, 이중화 SYNC 과정이 도중에 실패할 경우, 
+Index inconsistent 가 발생할 수 있다.
+
 Direct-Path Insert에 대한 자세한 설명은 *Administrator’s Manual*을 참조하기
 바란다. Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수
 있다.

@@ -1276,6 +1276,7 @@ Altibase Sharding
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT<br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
+| 트랜잭션 관련 프로퍼티 | GLOBAL_TRANSACTION_LEVEL | YES | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -1561,6 +1562,34 @@ Unsigned Integer
 ##### 설명
 
 샤드 관련 메시지 파일의 최대 크기를 지정한다.
+
+#### GLOBAL_TRANSACTION_LEVEL
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[1, 2]
+
+##### 설명
+
+글로벌 트랜잭션 수행 레벨을 지정한다. 
+
+1 : 다중 노드 트랜잭션 (multiple node transaction)
+
+2 : 글로벌 트랜잭션 (global transaction)
+
+자세한 내용은 샤드 트랜잭션 항목을 참조한다.
 
 ### 디렉토리
 
@@ -2256,7 +2285,7 @@ SQLSetConnectAttr (
 ##### 설명
 
 다중 노드 트랜잭션을 설정한다. 다중 노드 트랜잭션으로 설정할 때에는
-*StringLength* 인자 값에 ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION을 입력한다.
+Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL으로 ValuePtr에는 ALTIBASE_MULTIPLE_NODE_TRANSACTION을 입력한다.
 SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI
 함수”*를 참조한다.  
 jdbc같은 경우 CLI의 SQLSetConnectAttr이 없기 때문에 연결속성의 형태로 지원한다.
@@ -2265,7 +2294,7 @@ jdbc같은 경우 CLI의 SQLSetConnectAttr이 없기 때문에 연결속성의 �
 ###### ShardCLI
 
 ```
-SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_MULTIPLE_NODE_TRANSACTION);
+SQLSetConnectAttr(dbc, ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_MULTIPLE_NODE_TRANSACTION, 0);
 ```
 ###### ShardJDBC
 
@@ -2290,14 +2319,14 @@ SQLSetConnectAttr (
 
 ##### 설명
 
-글로벌 트랜잭션을 설정한다. 글로벌 트랜잭션으로 설정할 때에는 *StringLength*
-인자 값에 ALTIBASE_SHARD_GLOBAL_TRANSACTION을 입력한다. SQLSetConnectAttr에 대한
-자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
+글로벌 트랜잭션을 설정한다. 글로벌 트랜잭션으로 설정할 때에는
+Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL으로 ValuePtr에는  ALTIBASE_GLOBAL_TRANSACTION을 입력한다.
+SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
 
 ##### 예제
 ###### ShardCLI
 ```
-SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (void*)SQL_AUTOCOMMIT_OFF, ALTIBASE_SHARD_GLOBAL_TRANSACTION);
+SQLSetConnectAttr(dbc,  ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_GLOBAL_TRANSACTION, 0);
 ```
 ###### ShardJDBC
 ```
@@ -3555,7 +3584,7 @@ DBMS_SHARD.REBUILD_DATA_NODE
 
 ```
 iSQL> ALTER SESSION SET autocommit = false;
-iSQL> ALTER SESSION SET dblink_global_transaction_level = 2;
+iSQL> ALTER SESSION SET global_transaction_level = 2;
 
 iSQL> EXEC dbms_shard.rebuild_data('u1','s1',100);
 [11:34:47] target node(1/3): "NODE1"
@@ -4142,6 +4171,7 @@ iSQL\> SELECT \* FROM S\$TAB;
 | SHARD_CLIENT       | VARCHAR(1)  | 샤드 클라이언트 라이브러리 사용 유무 |
 | SHARD_SESSION_TYPE | VARCHAR(1)  | 샤드 세션 유형                       |
 | SESSION_ID         | BIGINT      | 샤드 노드의 V\$SESSION.ID            |
+| GLOBAL_TRANSACTION_LEVEL | INTEGER | 글로벌 트랜잭션 레벨 
 | 그 외 컬럼         |             | 샤드 노드의 V$SESSION 과 동일        |
 
 #### 칼럼 정보
@@ -4176,6 +4206,16 @@ iSQL\> SELECT \* FROM S\$TAB;
 ##### SESSION_ID
 
 샤드 노드의 세션 식별자로 샤드 노드의 V$SESSION.ID 와 동일한 값이다.
+
+##### GLOBAL_TRANSACTION_LEVEL
+
+세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.
+
+1 : 다중 노드 트랜잭션 (multiple node transaction)
+
+2 : 글로벌 트랜잭션 (global transaction)
+
+샤딩 메뉴얼의 샤드 트랜잭션 항목을 참조한다
 
 ##### 그 외 컬럼
 
@@ -5006,7 +5046,7 @@ total_record_count   :1000
 total_incorrect_count:641
 Execute success.
 
-iSQL> ALTER SESSION SET dblink_global_transaction_level = 2;
+iSQL> ALTER SESSION SET global_transaction_level = 2;
 iSQL> ALTER SESSION SET autocommit = false;
 
 iSQL> EXEC dbms_shard.rebuild_data('sys','t1',100);
@@ -5105,7 +5145,7 @@ total_record_count   :1000
 total_incorrect_count:160
 Execute success.
 
-iSQL> ALTER SESSION SET dblink_global_transaction_level = 2;
+iSQL> ALTER SESSION SET global_transaction_level = 2;
 iSQL> ALTER SESSION SET autocommit = false;
 
 iSQL> EXEC dbms_shard.rebuild_data_node('sys','t1','node2',100);
@@ -5322,16 +5362,17 @@ Shard Manager의 특징은 다음과 같다.
 -   DB 객체를 샤드 객체로 손쉽게 등록/해제할 수 있다.
 -   여러 노드에 걸쳐 존재하는 분산 객체의 개별 정보 및 분산 정보를 하나의 창에서 확인할 수 있다.
 -   여러 샤드 노드들에 대해, SQL을 Primary DB/Alternate DB 단위로 한 번에 수행할 수 있다.
+-   샤드 노드 구성, 샤드 객체 분포 및 DDL, 그리고 데이터 분포를 HTML 형태의 레포트로 확인할 수 있다.
 
 ### 설치
 
 이 절에서는 Shard Manager를 설치할 때 필요한 환경과 선행 조건, 그리고 설치 및 제거 방법을 안내한다.
 
-##### 시스템 요구사항
+#### 시스템 요구사항
 
 Shard Manager는 아래와 같은 환경에서 설치 및 실행이 가능하다.
 
-Linux용 Shard Manager는 JRE를 포함하지 않는다. 따라서 사용자가 실행 환경에 적합한 버전의 JRE를 설치해야 한다.
+Windows용 Shard Manager는 Java 6 64bit JRE를 포함해서 패키징된다. Windows OS 32bit 사용자는 ShardManCli.bat 파일에서 JAVA_HOME 환경변수를 사용자가 설치한 Java 위치로 변경 후 수행해야 한다. Linux용 Shard Manager는 JRE를 포함하지 않는다. 따라서 사용자가 실행 환경에 적합한 버전의 JRE를 설치해야 한다.
 
 운영체제별 자세한 지원 사항은 다음의 링크된 페이지에서 확인할 수 있다( [http://www.eclipse.org/projects/project-plan.php?projectid=eclipse\#target_environments](http://www.eclipse.org/projects/project-plan.php?projectid=eclipse%23target_environments) ).
 
@@ -5339,7 +5380,7 @@ Linux용 Shard Manager는 JRE를 포함하지 않는다. 따라서 사용자가 
 | ----------------------------- | -------------------------------- |
 | OS                            | Windows 32 bit 또는 Linux 64 bit |
 | 메모리                        | 512 MB                           |
-| Java Runtime Environment(JRE) | JRE Version 5                    |
+| Java Runtime Environment(JRE) | JRE Version 6                    |
 | 디스크 공간                   | 90 MB                            |
 | 화면 해상도                   | 1024 \* 786 pixels               |
 | CPU                           | Pentium III 800MHz               |
@@ -5348,16 +5389,13 @@ Linux용 Shard Manager는 JRE를 포함하지 않는다. 따라서 사용자가 
 
 Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
--   샤드 패키지가 설치되어 있어야 한다. 
--   샤드 메타가 생성되어있어야 한다.
+-   알티베이스 데이터베이스에 샤드 환경 변수가 설정되어있어야 한다.
+-   알티베이스 데이터베이스에 필요한 패키지가 설치되어 있어야 한다. 
 
 설치할 패키지는 $ALTIBASE_HOME/packages에 포함되어 있으며 설치 대상 목록은 다음과 같다.
 
 - dbms_shard.sql, dbms_shard.plb
-- dbms_lock.sql, dbms_lock.plb
-- utl_shard_online_rebuild.sql, utl_shard_online_rebuild.plb
-
-샤드 메타 생성에 대한 자세한 내용은 '*샤드 메타 생성'*을 참조한다.
+- dbms_metadata.sql, dbms_metadata.plb
 
 #### 설치와 제거
 
@@ -5369,7 +5407,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 화면에서 빈 공간은 샤드 데이터베이스 뷰, 샤드 객체 뷰에 따라 다른 뷰(쿼리 뷰, 상세 뷰, 레코드 카운트 뷰, 메모리 테이블스페이스 사용률 뷰)를 보여준다.
 
-![](media/Sharding/2adbdfe24edb1745d768c92b0b9813d2.jpg)
+![](media/Sharding/shm_first.png)
 
 #### 샤드 데이터베이스 뷰
 
@@ -5378,16 +5416,16 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 샤드 데이터베이스 뷰에서 표현하는 정보는 3가지이다.
 
 1. 샤드 데이터베이스: 사용자가 등록한 샤드 노드를 하나의 그룹으로 나타낸다. 특정 샤드 노드로 접속을 성공하면, 샤드 데이터베이스는현재 접속 노드로부터 샤드 노드들의 정보를 가져와 트리 구조의 하위 노드로 표현한다.
-2. 샤드 노드: 샤드 메타에 등록된 샤드 노드이다. 하위 노드로 Primary/Alternate DB의 연결 정보를 보여준다.
+2. 샤드 노드: 샤드 메타에 등록된 샤드 노드이다. 하위 개체로 Primary/Alternate DB의 연결 정보를 보여준다.
 3. DB의 연결정보: 샤드 노드를 구성하는 Primary/Alternate DB 연결 정보이다.
 
-![](media/Sharding/83b991eb082ed678de6996afa963d0dd.png)
+![](media/Sharding/shm_shard_database_view.png)
 
 **Label Expression**
 
 -   샤드 데이터베이스: 샤드 데이터베이스 추가 시 사용자가 부여한 이름
 -   샤드 노드: 샤드 메타에 등록된 샤드 노드 이름
--   샤드 노드의 연결정보: IP 주소 : 포트 번호
+-   샤드 노드의 연결정보: IP 주소 : 포트 번호 (SMN)
 
 **Icon Expression**
 
@@ -5405,7 +5443,7 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 -   테이블: 샤드 메타에 등록된 샤드 테이블이다.
 -   테이블 컬럼: 샤드 테이블에서 샤드 키 또는 서브 샤드 키로 사용되는 컬럼 정보
 
-![](media/Sharding/02d3bc710e2980772cbf5db795c0394c.jpg)
+![](media/Sharding/shm_shard_objects.png)
 
 **Label Expression**
 
@@ -5426,8 +5464,12 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 **샤드 객체 뷰 툴바**
 
--   Add New Shard Object(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)): 샤드 객체를 추가한다.
--   Resharding(![](media/Sharding/58646a62a61346f627ee5b1a1e1cd20a.png)): 샤드 테이블의 리샤딩을 수행한다.
+-   Set Shard Object(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)): 샤드 객체를 추가한다.
+-   Create Shard Hash Table (![](media/Sharding/table_add.png)): 새로운 테이블 생성과 Set Shard Hash Table을 동시에 수행한다.
+-   Resharding for Shard Key Distributed table(![](media/Sharding/reshard_shard.png)): Shard Key Distributed table (Hash, Range, List) 리샤딩을 수행한다.
+-   Resharding for Clone table(![](media/Sharding/reshard_clone.png)): Clone table 리샤딩을 수행한다.
+-   Resharding for Solo table(![](media/Sharding/reshard_solo.png)): Solo table 리샤딩을 수행한다.
+-   Refresh (![](media/Sharding/action_refresh.gif)): 샤드 객체 뷰를 업데이트 한다.
 
 
 #### 쿼리 뷰
@@ -5438,9 +5480,9 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 쿼리 뷰는 (Data Manipulation Language, DML: SELECT, INSERT, DELETE, UPDATE) 를 지원하지 않는다. 쿼리 뷰에서 입력한 DML은 사용자가 선택한 DB에서 모두 수행되기 때문에, 예상하지 못한 결과를 가져올 수 있다. 
 
-샤드 데이터베이스를 연결할 때 자동으로 뷰가 나타나며, 대상 데이터베이스의 이름이 뷰의 제목으로 사용된다. 사용자가 쿼리 뷰를 열 때에는 샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼을 누르거나 선택 후, Database 메뉴를 열어 'Open Query View'를 선택하면 생성된다. 기본 전체 화면 오른쪽 상단에 위치한다.
+샤드 데이터베이스를 연결할 때 자동으로 뷰가 나타나며, 대상 데이터베이스의 이름이 뷰의 제목으로 사용된다. 사용자가 쿼리 뷰를 직접 열 때에는 샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼을 누르거나 선택 후, Shard Database 메뉴를 열어 'Open Query View'를 선택하면 생성된다. 기본 전체 화면 오른쪽 상단에 위치한다.
 																											  
-![](media/Sharding/shm_query_tool.jpg)
+![](media/Sharding/shm_query_view.png)
 
 #### 쿼리 뷰 툴바
 
@@ -5453,31 +5495,31 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 #### 상세 뷰
 
-상세 뷰는 특정 객체에 대해 각 노드에 저장된 해당 객체의 상세 정보와 샤드 메타에 등록된 분산 정보를 보여준다. 
+상세 뷰는 특정 객체에 대해 샤드 메타에 등록된 분산 정보와 각 노드에 저장된 해당 객체의 상세 정보를 보여준다. 
 
 대상 객체의 사용자 이름과 객체 이름이 개별 뷰의 제목으로 쓰인다. 샤드 객체 뷰에서 객체를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Shard Object 메뉴를 열어 'Show Detail'을 선택하면 생성되며, 기본 전체화면의 오른쪽 상단에 위치한다.
 
-상세 뷰는 샤드 객체 정보를 'Detail'과 'Shard Info'라는 탭으로 분류하여 보여준다.
+상세 뷰는 샤드 객체 정보를 'Shard Info'와  'Detail'라는 탭으로 분류하여 보여준다.
 
--   Detail: 각 노드에 저장된 객체의 상세 정보를 보여준다.
-    -   Owner Databases: 샤드 객체 뷰에서 선택된 객체와 동일한 스키마 이름과 객체 이름을 가진 객체가 저장되어 있는 데이터베이스 리스트를 보여준다. (Label Expression: '샤드 노드 이름 (IP 주소 : 포트 번호)' )
-    -   Owner Databases에서 선택된 데이터베이스에 존재하는 분산 객체의 정보는 오른쪽 화면에 탭 형식으로 분류하여 나타낸다. 샤드 테이블의 경우 'Properties', 'Columns', 'Constraints'로 분류하고, 샤드 프로시저의 경우 'Properties', 'Parameters', 'Code'로 분류한다.
+-   Shard Info: 대상 객체가 샤드 객체인 경우, 샤드 메타에 등록된 분산 정보를 보여준다.
+    - Split Information: 샤드 키, 분산 방식, 기본 노드를 보여준다.
+    - Key Values: 선택한 샤드 객체가 분산된 샤드 노드의 이름과 샤드 키 값, 서브 샤드 키의 값을 보여준다.
 
-![](media/Sharding/shm_detail_view1.jpg)
+![](media/Sharding/shm_detail_view1.png)
 
-- Shard Info: 대상 객체가 샤드 객체인 경우, 샤드 메타에 등록된 분산 정보를 보여준다.
-  - Split Information: 분산 방식과 샤드 키, 서브 샤드 키, 기본 노드를 보여준다.
-  - Key Values: 선택한 샤드 객체가 분산된 샤드 노드의 이름과 샤드 키 값, 서브 샤드 키의 값을 보여준다.
+- Detail: 각 노드에 저장된 객체의 상세 정보를 보여준다.
+  - Owner Databases: 샤드 객체 뷰에서 선택된 객체와 동일한 스키마 이름과 객체 이름을 가진 객체가 저장되어 있는 데이터베이스 리스트를 보여준다. (Label Expression: '샤드 노드 이름 (IP 주소 : 포트 번호)' )
+  - Owner Databases에서 선택된 데이터베이스에 존재하는 분산 객체의 정보는 오른쪽 화면에 탭 형식으로 분류하여 나타낸다. 샤드 테이블의 경우 'Properties', 'Columns', 'Constraints'로 분류하고, 샤드 프로시저의 경우 'Properties', 'Parameters', 'Code'로 분류한다.
 
-![](media/Sharding/shm_detail_view2.jpg)
+![](media/Sharding/shm_detail_view2.png)
 
 #### 메모리 테이블스페이스 사용률 뷰
 
-메모리 테이블스페이스 사용률 뷰는 샤드 노드를 구성하는 DB의 메모리 테이블스페이스 사용률을 보여준다. 
+메모리 테이블스페이스 사용률 뷰는 샤드 데이터베이스를 구성하는 DB의 메모리 테이블스페이스 사용률을 보여준다. 
 
-접속한 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Database 메뉴를 열어 'Show Memory Tablespace Usage'를 클릭하면 생성된다. 생성 시 기본 전체화면 오른쪽 상단에 위치한다.
+접속한 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Shard Database 메뉴를 열어 'Show Memory Tablespace Usage'를 클릭하면 생성된다. 생성 시 기본 전체화면 오른쪽 상단에 위치한다.
 
-![](media/Sharding/shm_mem_usage.jpg)
+![](media/Sharding/shm_mem_usage.png)
 
 **칼럼 설명**
 
@@ -5494,9 +5536,9 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 샤드 객체 뷰에서 테이블을 마우스 오른쪽 버튼으로 누르거나, 선택 후 'Shard Object' 메뉴에서 'Show Record Count'를 클릭하면 생성된다. 기본 전체화면의 오른쪽 상단에 위치한다.
 
-![](media/Sharding/shm_record_count1.jpg)
+![](media/Sharding/shm_record_count1.png)
 
-![](media/Sharding/shm_record_count2.jpg)
+![](media/Sharding/shm_record_count2.png)
 
 **칼럼 설명**
 
@@ -5516,20 +5558,36 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 이 절에서는 Shard Manager의 기능과 사용 방법에 대해 기술한다.
 
-#### 샤드 데이터베이스 등록
+#### 새로운 샤드 데이터베이스 추가
 
-1.  툴바 또는 Database 메뉴에 위치한 'Add New Shard Database'를 클릭한다.
-2.  샤드 데이터베이스 이름과 최초 접속 노드의 연결정보를 입력한다. 샤드 데이터베이스 이름은 사용자가 임의로 설정하는 이름이다. 최초 접속 노드 연결정보는 샤드 노드와 샤드 객체 정보를 가지고 오기 위해서 필요하다. 
-3.  'Test' 버튼을 클릭하여 입력한 연결정보를 통해 최초 접속 노드에 접속이 정상적으로 이루어지는지 확인한다.
-4.  'Next' 버튼을 클릭하여 다음 페이지에서 최초 접속 노드로부터 가져온 샤드 노드 이름, 연결정보, 그리고 접속하는데 사용될 JDBC 드라이버 파일을 확인한다.
-5.  각 샤드 노드 접속에 필요한 JDBC 드라이버 파일이 최초 접속 노드에서 사용한 파일과 다르면, Driver Path 열에서 해당하는 칸에 위치한 연필 아이콘을 클릭하여 드라이버 파일을 변경한다.
-6.  'Finish' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
+새로운 샤드 데이터베이스를 만든다. 샤드 데이터베이스를 구성하는 모든 데이터베이스들은 샤드 메타값이 초기화 되어 있어야 하며, 샤드 객체는 없어야 한다. 새로 설치된 데이터베이스들에 샤드 데이터베이스 프로퍼티가 설정되어 있고, 필수 패키지만 설치된 상태를 권장한다.
+
+1.  툴바 또는 Database 메뉴에 위치한 'Create New Shard Database'를 클릭한다.
+2.  샤드 데이터베이스 이름과 샤드 노드,  그리고 DB 공통 연결정보를 입력한다. 샤드 데이터베이스 이름은 사용자가 임의로 설정하는 이름이다. 샤드 노드 연결정보는 노드 이름 및 노드를 구성하는 데이터베이스 접속 정보를 입력한다. Replication IP는 데이터베이스의 IP와 다른 값을 사용한Alternate DB가 없으면 Alternate 컬럼에 값을 입력하지 않는다. Common Database Properties는 DB 접속에 필요한 공통 정보를 입력한다.
+3.  'Test' 버튼을 클릭하여 입력한 연결정보를 통해 노드에 접속이 정상적으로 이루어지는지 확인한다.
+4.  'OK' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
 7.  정상적으로 샤드 데이터베이스가 생성되었다면 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에 나타난다.
+
+#### 샤드 데이터베이스 읽어 오기
+
+미리 구성되어 있는 Altibase Sharding에 접속해 샤드 데이터베이스를 등록하는 메뉴이다.  
+
+주의할 점은 여러 개의 샤드 매니저가 동일한 Altibase Sharding을 대상으로 동시에 작업을 하면 예상하지 못한 결과를 초래할 수 있다. 반드시 하나의 샤드 매니저로 하나의 Altibase Sharding에만 작업해야 한다.
+
+1. 툴바 또는 Database 메뉴에 위치한 'Load from Running Shard Database'를 클릭한다.
+2. 샤드 데이터베이스 이름과 최초 접속 노드의 연결정보를 입력한다. 샤드 데이터베이스 이름은 사용자가 임의로 설정하는 이름이다. 최초 접속 노드 연결정보는 샤드 노드와 샤드 객체 정보를 가지고 오기 위해서 필요하다. 
+3. 'Test' 버튼을 클릭하여 입력한 연결정보를 통해 최초 접속 노드에 접속이 정상적으로 이루어지는지 확인한다.
+4. 'Next' 버튼을 클릭하여 다음 페이지에서 최초 접속 노드로부터 가져온 샤드 노드 이름, 연결정보, 그리고 접속하는데 사용될 JDBC 드라이버 파일을 확인한다.
+5. 각 샤드 노드 접속에 필요한 JDBC 드라이버 파일이 최초 접속 노드에서 사용한 파일과 다르면, Driver Path 열에서 해당하는 칸에 위치한 연필 아이콘을 클릭하여 드라이버 파일을 변경한다.
+6. 'Finish' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
+7. 정상적으로 샤드 데이터베이스가 생성되었다면 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에 나타난다.
 
 #### 샤드 데이터베이스 편집
 
+샤드 데이터베이스가 가장 먼저 접속할 데이터베이스의 접속 정보를 수정하기 위한 메뉴이다.
+
 1.  샤드 데이터베이스 뷰에서 수정할 샤드 데이터베이스를 클릭한다.
-2.  샤드 데이터베이스 뷰 위에서 마우스 오른쪽 버튼을 누르거나, Database 메뉴를 열어 'Edit Shard Database'를 클릭한다.
+2.  샤드 데이터베이스 뷰 위에서 마우스 오른쪽 버튼을 누르거나, Shard Database 메뉴를 열어 'Edit Shard Database'를 클릭한다.
 3.  최초 접속 노드 연결정보를 수정한 뒤, 'Test'버튼을 클릭하여 접속 여부를 확인한다.
 4.  'Next' 버튼을 클릭하여 다음 페이지에서 수정된 최초 접속 노드로부터 가져온 데이터 노드 리스트를 확인한다.
 5.  각 샤드 노드 접속에 필요한 JDBC 드라이버 파일의 변경이 필요하면, Driver Path 열에서 해당하는 칸에 위치한 연필 아이콘을 클릭하여 파일을 변경한다.
@@ -5557,21 +5615,22 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 3. 정상적으로 샤드 데이터베이스가 삭제되었다면, 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에서 사라진다.
 
 #### 샤드 노드 추가
+샤드 노드를 추가한다. 노드를 추가할때, 새 노드의 Primary/Alternate DB에 샤드 메타를 복제하고 샤드 객체를 생성한다. 또한 새 노드의 Primary/Alternate DB간에 이중화 객체도 필요시 자동 생성한다.
 
-샤드 노드를 추가한다.
+추가되는 노드의 Primary/Alternate DB에는 DB 객체들이 없어야 한다. 샤드 데이터베이스 프로퍼티가 설정되어 있고, 필수 패키지만 설치된 초기화된 데이터베이스를 권장한다. 
 
 1.  샤드 데이터베이스에 새로운 샤드 노드를 추가한다.
 2.  샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Add Data Node'를 클릭한다.
-3.  노드 이름과 Primary DB 연결정보를 반드시 입력하며, 선택적으로 alternate DB의 연결정보까지 입력할 수 있다.
+3.  노드 이름과 Primary DB 연결정보를 반드시 입력하며, 선택적으로 Alternate DB의 연결정보까지 입력할 수 있다.
 4.  'Test' 버튼을 클릭하여 입력한 연결정보에 접속이 정상적으로 이루어지는지 확인한다.
 5.  'OK' 버튼을 클릭하여 샤드 노드를 추가한다. 
-    1.  샤드 노드의 DB 메타(Primary/Alternate)에 다른 샤드 노드에 등록된 샤드 객체가 미리 생성되어 있지 않으면, 샤드 노드 등록에 실패한다.
-    2.  추가되는 샤드 노드에 Alternate DB 연결정보가 입력되어 있으면, 샤드 매니저가 샤드 테이블을 이중화하기 위한 이중화 객체를 Primary DB와 Alternate DB간에 자동으로 생성한다.
+    1.  추가할 샤드 노드의 Primary/Alternate DB에 기존 샤드 노드에 등록된 샤드 객체를 자동으로 생성 시도한다. 이때 DB 객체 생성이 하나라도 실패하면 생성에 성공한 DB 객체들도 다시 삭제 후, 샤드 노드 추가를 취소한다. 
+    2.  추가되는 샤드 노드에 Alternate DB 연결정보가 입력되어 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 이중화 객체를 자동으로 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
 6.  정상적으로 수행되었으면, 샤드 데이터베이스에 등록한 샤드 노드가 추가된다.
 
 #### 샤드 노드 삭제
 
- 샤드 노드를 삭제한다.
+ 샤드 노드를 삭제한다. 
 
 1.  샤드 데이터베이스 뷰에서 삭제할 샤드 노드를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Remove Shard Node'를 클릭한다.
 2.  삭제 여부를 묻는 팝업 창에서 삭제할 샤드 노드에 대한 정보를 확인한 뒤, 'Yes' 버튼을 클릭한다. Primary
@@ -5580,14 +5639,16 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 #### Alternate DB 추가
 
-샤드 메타에 Alternate DB 정보를 추가한다. 노드에서 Alternate DB가 추가된다.
+대상 노드에 Alternate DB를 추가한다. 새 Alternate DB에 샤드 메타를 복제하고 샤드 객체를 생성한다. 또한 Primary/Alternate DB간에 이중화 객체도 필요시 자동 생성한다.
+
+추가되는 Alternate DB는 DB  객체들이 없어야 한다. 샤드 데이터베이스 프로퍼티가 설정되어 있고, 필수 패키지만 설치된 초기화된 데이터베이스를 권장한다. 
 
 1. 샤드 데이터베이스 뷰에서 alternate DB를 추가할 샤드 노드 연결정보의 트리 상위 노드인 샤드 노드를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Add Alternate DB'를 클릭한다.
 2. 추가할 alternate DB 접속 정보를 입력한다.																						   
 3. 'Test' 버튼을 클릭하여 입력한 연결정보로 접속이 정상적으로 이루어지는지 확인한다.
 4. 'OK' 버튼을 클릭하여 Alternate DB를 추가한다.
-   1. Primary DB에 생성되어 있는 샤드 객체가 Alternate DB의 DB 메타에 미리 생성되어 있지 않으면, 이를 알려주고 Alternate DB 추가가 실패한다.
-   2. Primary DB에 샤드 테이블이 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 샤드 매니저가 이중화 객체를 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
+   1. Primary DB에 생성되어 있는 샤드 객체가 Alternate DB의 DB 메타에 미리 생성되어 있지 않으면, 자동으로 생성 시도한다. 이때 DB 객체 생성이 하나라도 실패하면 생성에 성공한 DB 객체들도 다시 삭제 후,  Alternate DB 추가가 실패한다.
+   2. Primary DB에 샤드 테이블이 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 이중화 객체를 자동으로 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
 5. 정상적으로 alternate DB가 추가되었다면 샤드 데이터베이스 뷰 내 대상 샤드 노드의 트리 하위 노드로 Alternate DB정보가 추가된다.
 
 #### Alternate DB 삭제
@@ -5603,6 +5664,15 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 1.  샤드 데이터베이스 뷰에서 메모리 테이블스페이스의 사용률을 확인하려는 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Show Memory Tablespace Usage'를 클릭한다.
 2.  확인하고자 하는 데이터베이스의 행에서 Tablespace Name 열에 해당하는 칸을 클릭하여 원하는 메모리 테이블스페이스를 선택한다.
 
+#### 샤드 데이터베이스 레포트
+
+샤드 데이터베이스의 현황을 요약한 HTML 포멧의 Shard Confinguration, Record Count 레포트를 제공한다. 
+
+Shard Confinguration 레포트는 샤드 노드 구성과 샤드 객체 구성 및 DDL을 보여준다. Record Count 레포트는 샤드 테이블 레코드의 노드(DB)별 분포를 보여준다. 이때 DB별 레코드 반환 시점의 차이로 인해 레코드 갯수 차이가 있을 수 있다.
+
+1. 샤드 데이터베이스 뷰에서 대상 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 메뉴바에서 Shard Database 메뉴를 열어 'Generate Report'를 클릭한다.
+2. 레포트 생성 완료 시 콘솔뷰에 파일 경로가  나타난다. 샤드 매니저가 설치된 경로의 report 디렉토리에 레포트 파일이 생성된다.  파일 이름은 수행 시작 시간을 기준으로 yyyyMMdd_HHmmss_[ShardConf | ShardRecord].html 형식으로 만들어진다.
+
 ### 샤드 객체 관리
 
 #### 샤드 객체 설정
@@ -5610,8 +5680,8 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 일반 DB 객체를 샤드 객체로 설정한다. 샤드 메타에 샤드 객체 정보가 저장된다.
 
 1. 샤드 객체 뷰의 툴바에 위치한 'Set Shard Object' 버튼(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)) 또는 메뉴에서 'Shard Object' - 'Set Shard Object' 항목을 클릭한다.
-2. 'Available Database Object' 테이블에서 샤드 객체로 지정할 항목의 체크박스를 클릭하여 선택한다.
-![](media/Sharding/shm_set_shard_object.jpg)
+2. 'Available Database Object' 테이블에서 샤드 객체로 지정할 항목의 체크박스를 클릭하여 선택한다. 이때 Shard Key도 함께 지정해야 한다.
+![](media/Sharding/shm_set_shard_object.png)
 3. 'Composite'을 제외한 샤드 키 분산 테이블이면, 선택한 샤드 객체의 샤드 키와 서브 샤드 키를 지정한 뒤, 샤드 키 분산 방식, 서브 샤드 키 분산 방식, 기본 노드를 선택한다.
 4. 'Key Values' 테이블에서 분산 정보에 등록할 노드와 샤드 키 값, 서브 샤드 키 값을 작성한다.
 5. 'Submit' 버튼을 클릭하여 샤드 객체 설정을 샤드 노드에 요청한다.
@@ -5644,14 +5714,30 @@ Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
 
 #### Resharding
 
-샤드 노드간 샤드 테이블의 데이터 재분배를 손쉽게 수행한다.
+샤드 노드간 샤드 테이블의 데이터 재분배를 손쉽게 수행한다. 리샤딩 대상 테이블 종류에 따라 Resharding for Shard Key Distributed table (Hash, Range, List), Resharding for Clone table, Resharding for Solo table를 선택 가능하다. 
 
-1.  샤드 객체 뷰의 툴바에 위치한 'Resharding'(![](media/Sharding/58646a62a61346f627ee5b1a1e1cd20a.png)) 또는 메뉴에서 'Shard Object' - 'Resharding' 항목을 클릭한다.
-2.  'Shard Tables' 리스트에서 대상 샤드 테이블을 클릭하여 선택한다.
+##### Resharding for Shard Key Distributed table
+
+1.  샤드 객체 뷰의 툴바에 위치한 'Resharding for Shard Key Distributed table' 아이콘 또는 메뉴에서 'Shard Object' -> 'Resharding' -> 'Resharding for Shard Key Distributed table'을 클릭한다.
+2.  'Shard Tables' 리스트에서 리샤딩 대상 샤드 테이블을 클릭하여 선택한다.
 3.  샤드 테이블을 선택하면 'Partitions' 테이블에 파티션의 목록이 표시된다. 'Distribution' 테이블에는 노드별 레코드 갯수가 표시된다.
 4.  'Partitions' 테이블에서 ToNode 컬럼값을 클릭하여 이동할 노드를 선택한다. 'Shard Tables'에서 다른 테이블을 선택하여 여러 테이블을 resharding한번으로 작업할 수 있다. 작업 대상 파티션 노드 변경사항은 'Resharding candidates'에 표시된다.
 5.  'OK' 버튼을 누르면 작업 대상 파티션 노드 변경사항이 차례로 수행된다.
 6.  '테이블 레코드 카운트 확인'을 수행하여 Resharding으로 레코드 재분배 결과를 확인할 수 있다.
+
+##### Resharding for Clone table
+
+1. 샤드 객체 뷰의 툴바에 위치한 'Resharding for Clone table' 아이콘 또는 메뉴에서 'Shard Object' -> 'Resharding' -> 'Resharding for Clone table'을 클릭한다.
+2. 'Clone Tables' 리스트에서 리샤딩 대상 샤드 테이블을 클릭하여 선택한다.
+3. 'Nodes' 테이블의 'New' 항목을 선택하여 복사 또는 이동할 노드를 선택한다. Clone table은 최소한 한개 이상의 노드에 있어야 한다.
+4. 'Shard Object' 뷰에서 리샤딩 한 테이블의 'Show Detail'을 수행하여 리샤딩 결과를 확인할 수 있다.
+
+##### Resharding for Solo table
+
+1. 샤드 객체 뷰의 툴바에 위치한 'Resharding for Solo table' 아이콘 또는 메뉴에서 'Shard Object' -> 'Resharding' -> 'Resharding for Solo table'을 클릭한다.
+2. 'Solo Tables' 리스트에서 리샤딩 대상 샤드 테이블을 클릭하여 선택한다.
+3. 'Nodes' 테이블의 'New' 항목을 선택하여 이동할 노드를 선택한다. Solo table은 하나의 노드에만 존재할 수 있다.
+4. 'Shard Object' 뷰에서 리샤딩 한 테이블의 'Show Detail'을 수행하여 리샤딩 결과를 확인할 수 있다.
 
 ### SQL 실행
 
