@@ -49,7 +49,7 @@ Homepage: http://www.altibase.com
 
 This manual describes how to install and configure the Altibase ODBC Driver.
 
-#### Audience
+#### Types of Users
 
 This manual has been prepared for the following Altibase users:
 
