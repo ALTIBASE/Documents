@@ -4673,8 +4673,8 @@ SQLGetTypeInfo()를 호출함으로서 알 수 있다.
 | SQL_REAL           | REAL                 | C의 FLOAT과 동일한 데이터 타입                               |
 | SQL_FLOAT          | FLOAT(p)             | \-1E+120에서 1E+120까지의 부동 소수점 숫자 데이터 (1\<=p\<=38) |
 | SQL_DOUBLE         | DOUBLE               | C의 DOUBLE과 동일한 데이터 타입                              |
-| SQL_BLOB           | BLOB                 | 최대 4 Giga Bytes 길이를 가지는 가변길이 이진 데이터 타입    |
-| SQL_CLOB           | CLOB                 | 최대 4 Giga Bytes 길이를 가지는 가변길이 문자 데이터 타입    |
+| SQL_BLOB           | BLOB                 | 최대 4GB-1Byte 길이를 가지는 가변길이 이진 데이터 타입    |
+| SQL_CLOB           | CLOB                 | 최대 4GB-1Byte 길이를 가지는 가변길이 문자 데이터 타입    |
 | SQL_TYPE_DATE      | DATE                 | 날짜를 표현하는 데이터 타입                                  |
 | SQL_TYPE_TIME      | DATE                 | 날짜를 표현하는 데이터 타입                                  |
 | SQL_TYPE_TIMESTAMP | DATE                 | 날짜를 표현하는 데이터 타입                                  |
