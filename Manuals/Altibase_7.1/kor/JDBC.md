@@ -2475,7 +2475,15 @@ sPstmt.executeQuery();
 #### 전제 조건
 
 -   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 4GB-1byte의
-    최대 크기를 가질 수 있다.
+    최대 크기를 가질 수 있다. 단, JDK 1.6 이상에서만 가능하다.
+    > 주의 : JDK 1.5에서 setBinaryStream()을 이용하는 경우 4GB - 1 크기의 파일을 Insert 할 수 없다. JDK 1.5에서는 setBinaryStream에 길이 인자가 int 타입이기 때문이다. 이 경우 어플리케이션을 JDK 1.6 이상으로 컴파일 하거나, Altibase.jdbc.driver.AltibasePreparedStatement를 import 한 다음 아래와 같이 캐스팅해서 사용하면 된다.
+    ```
+    import Altibase.jdbc.driver.AltibasePreparedStatement;
+    ...
+    ((AltibasePreparedStatement)sPreStmt).setBinaryStream( 2,                                  
+                                                           sFInStream,                         
+                                                           sFile.length() );  
+    ```                
 
 LOB 데이터를 정상적으로 다루기 위해서는 세션의 autocommit 모드가 아래의 조건 중
 하나를 만족해야 한다.
