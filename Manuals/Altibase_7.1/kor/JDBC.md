@@ -2474,7 +2474,7 @@ sPstmt.executeQuery();
 
 #### 전제 조건
 
--   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 2Gbytes의
+-   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 4GB-1byte의
     최대 크기를 가질 수 있다.
 
 LOB 데이터를 정상적으로 다루기 위해서는 세션의 autocommit 모드가 아래의 조건 중
