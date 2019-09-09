@@ -5916,7 +5916,7 @@ SQL_TYPE_DATE, SQL_TYPE_TIME, SQL_TYPE_TIMESTAMP를 사용하기를 권장한다
 ##### 데이터 타입
 
 Altibase 4에서 LOB 타입은 길이가 페이지 크기로 제한되었으나, Altibase 5에서는
-최대 2GB까지 지원하는 BLOB, CLOB으로 구성된다.
+최대 4GB-1byte 까지 지원하는 BLOB, CLOB으로 구성된다.
 
 ###### Altibase 4 DDL
 
