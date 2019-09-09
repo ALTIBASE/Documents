@@ -2528,7 +2528,7 @@ iSQL> INSERT INTO T1 VALUES ( VARBIT'1', VARBIT'1234' );
 #### 개요
 
 LOB(Large Object) 데이터 타입은 대용량 데이타를 저장할 수 있는 데이타 타입이다.
-하나의 LOB칼럼에 저장 가능한 데이타의 크기는 최대 2G이다. 테이블을 생성할 때
+하나의 LOB칼럼에 저장 가능한 데이타의 크기는 최대 4GB-1byte이다. 테이블을 생성할 때
 다른 타입들과 달리 사용자가 LOB 칼럼의 크기를 명시할 필요가 없다. 그리고 하나의
 테이블에 하나 이상의 LOB 타입 칼럼을 정의할 수 있다.
 
@@ -2589,7 +2589,7 @@ BLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 2GB 크기까지
+BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 4GB-1byte 크기까지
 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
@@ -2609,7 +2609,7 @@ CLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 2GB 크기
+CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 4GB-1byte 크기
 크기까지 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
