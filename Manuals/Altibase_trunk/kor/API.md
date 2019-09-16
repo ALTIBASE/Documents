@@ -10,21 +10,19 @@
     - [제약 및 주의사항](#%EC%A0%9C%EC%95%BD-%EB%B0%8F-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
     - [사용 방법](#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
     - [사용 예제](#%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
-  - [3.PERL DBD DBI](#3perl-dbd-dbi)
-    - [Perl DBD와 DBI 개요](#perl-dbd%EC%99%80-dbi-%EA%B0%9C%EC%9A%94)
-  - [4.XA Interface](#4xa-interface)
+  - [3.XA Interface](#3xa-interface)
     - [XA 개요](#xa-%EA%B0%9C%EC%9A%94)
     - [XA 인터페이스](#xa-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
     - [XA 사용](#xa-%EC%82%AC%EC%9A%A9)
     - [XA 사용시 제약사항](#xa-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
     - [JDBC 분산 트랜잭션](#jdbc-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
     - [XA를 사용한 애플리케이션의 문제 해결](#xa%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0)
-  - [5.iLoader API](#5iloader-api)
+  - [4.iLoader API](#4iloader-api)
     - [iLoader API 개요](#iloader-api-%EA%B0%9C%EC%9A%94)
     - [iLoader API 사용](#iloader-api-%EC%82%AC%EC%9A%A9)
     - [iLoader API 데이타 구조체](#iloader-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
     - [iLoader API](#iloader-api)
-  - [6.CheckServer API](#6checkserver-api)
+  - [5.CheckServer API](#5checkserver-api)
     - [CheckServer API 개요](#checkserver-api-%EA%B0%9C%EC%9A%94)
     - [CheckServer API 사용](#checkserver-api-%EC%82%AC%EC%9A%A9)
     - [CheckServer API 데이타 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
@@ -618,29 +616,7 @@ $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 ```
 
 
-
-
-
-3.PERL DBD DBI
-------------
-
-이 장에서는 PerL DBD (Database Driver)와 DBI (Database Interface)가 무엇인지
-살펴보고, 이를 사용하여 Altibase에 접속하는 방법에 대해 설명한다.
-
-
-
-### Perl DBD와 DBI 개요
-
-Perl DBI(Database Interface)는 Perl을 위한 표준 데이타베이스 인터페이스 모듈이다. 이는 일련의 메소드(methods)와 속성 (attributes)을 정의한 것으로, 실제 사용하는 데이타베이스에 독립적인 일관된 인터페이스를 제공한다.
-DBI는 애플리케이션에서 동일한 인터페이스를 사용하여 여러 다른 데이타베이스에서 제공하는 DBD 에 접근하는 것을 가능하게 한다. 실제로 데이타베이스와 통신을 하는 것은 DBD이다. 
-Altibase에 접속하기 위해서는 DBD:ODBC 와 Altibase ODBC driver를 이용해야 한다.
-Altibase ODBC driver를 이용하는 방법은 ODBC User's Manual을 참고한다.
-
-
-
-
-
-4.XA Interface
+3.XA Interface
 ------------
 
 이 장은 XA 표준을 소개하고, 분산 트랜잭션의 기본 개념과 XA 인터페이스를
@@ -2117,7 +2093,7 @@ FAEDFAED
 
 
 
-5.iLoader API
+4.iLoader API
 -----------
 
 
@@ -3081,7 +3057,7 @@ altibase_iloader_datain(&handle,
 
 
 
-6.CheckServer API
+5.CheckServer API
 ---------------
 
 
