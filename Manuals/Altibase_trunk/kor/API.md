@@ -111,22 +111,17 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
     이 장은 Altibase PDO 드라이버를 설치하고 이를 사용하여 Altibase와 연동하는
     방법을 설명한다.
 
--   제 3 장 PERL DBD DBI  
-    이 장은 PerL DBD (Database Driver)와 DBI (Database Interface)가 무엇인지
-    살펴보고, 이를 사용하기 위해 Perl 패키지 설치 및 Altibase DBD 설치를 어떻게
-    하는지, Altibase DBD 검증 등은 어떻게 이뤄지는지에 대해 설명한다.
-
--   제 4 장 XA Interface  
+-   제 3 장 XA Interface  
     이 장은 XA 표준을 소개하고, 분산 트랜잭션의 기본 개념과 XA 인터페이스를
     설명한다. 그리고 ODBC, Embedded SQL, JDBC 프로그램에서 글로벌 트랜잭션을
     사용하여 Altibase에 접근하는 방법에 대해 설명한다.
 
--   제 5 장 iLoader API  
+-   제 4 장 iLoader API  
     이 장은 Altibase 서버로부터 데이타를 다운로드 또는 서버로 데이타를
     업로드하는 응용프로그램을 작성할 수 있는 인터페이스인 Altibase iLoader API를
     소개한다.
 
--   제 6 장 CheckServer API  
+-   제 5 장 CheckServer API  
     이 장은 Altibase 서버가 비정상 종료했는지를 감시하는 응용프로그램을 작성하기
     위해 사용하는 인터페이스인 Altibase CheckServer API를 소개한다.
 
