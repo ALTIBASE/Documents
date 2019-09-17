@@ -1,7 +1,36 @@
 Altibase 7.1.0.2.6 Patch Notes
 ==============================
 
-[TOC]
+<!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+		- [BUG-46824 APRE에 anonymous block을 지원해야 합니다.](#bug-46824-apre-anonymous-block-)
+		- [BUG-46887 dbms\_metadata.get\_ddl 패키지 지원](#bug-46887-dbmsmetadatagetddl-)
+		- [BUG-47159 dbms\_metadata.get\_ddl 패키지를 aexport 에 적용](#bug-47159-dbmsmetadatagetddl-aexport-)
+		- [BUG-46922 Percentile\_Cont , Percentile\_Disc 함수의 메모리 재사용 기능 향상](#bug-46922-percentilecont-percentiledisc-)
+		- [BUG-47082 메모리 인덱스 VALUE BASE BOTTOM-UP 빌드 성능 향상](#bug-47082-value-base-bottom-up-)
+		- [BUG-46409 Alter replication set 구문 중 meta 초기화가 안된 구문이 있습니다.](#bug-46409-alter-replication-set-meta-)
+		- [BUG-46783 이중화 중 DDL 수행 시 receiver 가 종료할 경우 이미 free 된 이중화 이름을 복사 할 수 있습니다.](#bug-46783-ddl-receiver-free-)
+		- [BUG-46879 openjdk11 에서 jdbcAdapter 구동 실패 수정](#bug-46879-openjdk11-jdbcadapter-)
+		- [BUG-47090 AIX, HP 장비에서 sysdba로 remote 접속을 막는 기능이 제대로 동작하지 않습니다.](#bug-47090-aix-hp-sysdba-remote-)
+		- [BUG-47095 partition simple query 수행 시, 메모리 초기화 누락](#bug-47095-partition-simple-query-)
+		- [BUG-47105 cpu 정보를 가져올 때 on-line 인지 off-line 인지 체크하지 않아, 서버가 boot 과정에서 실패할 수 있습니다.](#bug-47105-cpu-on-line-off-line-boot-)
+		- [BUG-47115 OpenJDK11 환경에서 jdbcAdapter 테스트 수행시, StackOverflowError가 발생하는 문제 수정](#bug-47115-openjdk11-jdbcadapter-stackoverflowerror-)
+		- [BUG-47119 이중화 접속시 sendHandshakeAck 를 보낼 때 패킷 계산이 잘못되어 메모리를 긁을 수 있습니다.](#bug-47119-sendhandshakeack-)
+		- [BUG-47121 jdbcAdapter conf 파일에 OTHER\_DATABASE\_JDBC\_MAX\_HEAP\_SIZE 가 설정이 되지 않는 문제가 있습니다.](#bug-47121-jdbcadapter-conf-otherdatabasejdbcmaxheapsize-)
+		- [BUG-47126 호스트 변수에 길이가 긴 값을 할당하면 segment fault 발생합니다](#bug-47126-segment-fault-)
+		- [BUG-47128 Query rebuild시 query\_binding memory가 지속적으로 증가할 수 있습니다.](#bug-47128-query-rebuild-querybinding-memory-)
+		- [BUG-47135 openjdk에서 실행시 jvm 생성이 안 됩니다](#bug-47135-openjdk-jvm-)
+		- [BUG-47136  alter tablespace swap시, 테이블 스페이스 사용량를 계산하는 로직 오류 수정](#bug-47136-alter-tablespace-swap-)
+		- [BUG-47140 하위버전과 이중화시 해시 파티션드 테이블의 파티션 개수가 같은 경우에도 이중화 실패가 발생할수 있습니다.](#bug-47140-)
+		- [BUG-47142 BLOB컬럼과 DECIMAL 컬럼을 포함한 테이블에서 첫번째 컬럼의 타입이 BLOB 이고, HASH 조인을 할 경우 에러가 발생합니다.](#bug-47142-blob-decimal-blob-hash-)
+		- [BUG-47173 host variable precision이 컬럼 size보다 큰 경우 simple query 수행 시 에러처리 되는 것을 개선해야합니다.](#bug-47173-host-variable-precision-size-simple-query-)
+		- [BUG-47195 PARTITION SWAP 후 비정상종료시 재구동 실패.](#bug-47195-partition-swap-)
+		- [Version Info](#version-info)
+		- [호환성](#)
+		- [프로퍼티](#)
+		- [성능 뷰](#-)
+
+<!-- /TOC -->
 
 New Features
 ------------
@@ -130,7 +159,7 @@ New Features
   -   Performance view
   -   Property
       -   변경
-          -   [MEMORY_INDEX_BUILD_RUN_SIZE](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_1.md#memory_index_build_run_size-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8>)의 디폴트값을 변경합니다. 
+          -   [MEMORY_INDEX_BUILD_RUN_SIZE](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_1.md#memory_index_build_run_size-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8>)의 디폴트값을 변경합니다.
               -   32768 -> 131072
 
   -   Compile Option
@@ -201,7 +230,7 @@ Fixed Bugs
 
 - **재현 빈도** : Always
 
-- **증상** : openjdk 11에서 jdbcAdapter 구동이 되지 않는 문제를 수정하였습니다. 
+- **증상** : openjdk 11에서 jdbcAdapter 구동이 되지 않는 문제를 수정하였습니다.
 
   또한, jdbcAdapter 실행시 jvm생성시 stderr가 발생하면 ALA socket으로 error가 전송되는 문제가 있었는데, $ALTIBASE_HOME/trc/stderr.log에 쓰도록 로그파일이 추가되었습니다.
 
@@ -324,7 +353,7 @@ Fixed Bugs
 
 -   **Workaround**
 
-        use JRE 1.7 
+        use JRE 1.7
 
 -   **변경사항**
 
@@ -504,7 +533,7 @@ Fixed Bugs
   -   Compile Option
   -   Error Code
 
-### BUG-47136  alter tablespace swap시, 테이블 스페이스 사용량를 계산하는 로직 오류 수정 
+### BUG-47136  alter tablespace swap시, 테이블 스페이스 사용량를 계산하는 로직 오류 수정
 
 -   **module** : qp
 
