@@ -1690,7 +1690,6 @@ $ALTIBASE_HOME/bin/altibase -v
 샤드 라이브러리 커넥션의 통신 방법으로 사용자 커넥션 스트링의 SHARD_CONNTYPE 속성에 해당하며 다음의 통신 타입을 지원한다.
 SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
 - 1: TCP (기본값)
-- 6: SSL
 - 8: IB (InfiniBand)
 
 #### 코디네이터 커넥션(Coordinator Connection)
