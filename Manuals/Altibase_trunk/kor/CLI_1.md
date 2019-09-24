@@ -2867,7 +2867,7 @@ SQL_ERROR
     SQL 구문을 매번 분석해 NCHAR 문자 존재 검사  
     (0: 분석안함, 1: 분석함. 성능이 저하됨)
 -   LOGIN_TIMEOUT (TIMEOUT)  
-    서버 연결 시도시 기다리는 시간. 기본값은 3초이다.
+    서버 연결 시도시 기다리는 시간. 기본값은 60초이다.
 -   CONNECTION_TIMEOUT  
     네트워크 불안정 시 select() 또는 poll() 에서 발생할 수 있는 blocking을
     방지하기 위한 속성이다. 기본값은 0초(무한대기)이다.
