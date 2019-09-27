@@ -2793,7 +2793,7 @@ SQLDriverConnect()는 SQLConnect()를 대체할 수 있다. 이 함수는 SQLCon
 SQLDriverConnect()는 다음과 같은 연결 속성을 제공한다.
 
 호스트 IP 또는 호스트 이름, 하나 이상의 사용자 ID, 하나 이상의 암호, 연결 방법,
-포트 번호, NLS_USE, TIMEOUT 설정 등의 연결 스트링을 사용하여 연결을 설정한다.
+포트 번호, NLS_USE, LOGIN_TIMEOUT(TIMEOUT) 설정 등의 연결 스트링을 사용하여 연결을 설정한다.
 
 Unicode SQLDriverConnectW() 동작은 SQLDriverConnect()와 동일하다.
 
@@ -2866,11 +2866,11 @@ SQL_ERROR
 -   NLS_NCHAR_LITERAL_REPLACE  
     SQL 구문을 매번 분석해 NCHAR 문자 존재 검사  
     (0: 분석안함, 1: 분석함. 성능이 저하됨)
--   TIMEOUT  
-    서버 연결 시도시 기다리는 시간. 기본값은 3초이다.
+-   LOGIN_TIMEOUT (TIMEOUT)  
+    서버 연결 시도시 기다리는 시간. 기본값은 60초이다.
 -   CONNECTION_TIMEOUT  
     네트워크 불안정 시 select() 또는 poll() 에서 발생할 수 있는 blocking을
-    방지하기 위한 속성이다.
+    방지하기 위한 속성이다. 기본값은 0초(무한대기)이다.
 -   DATE_FORMAT  
     날짜 형식. 기본 날짜 형식은 YYYY/MM/DD HH:MI:SS이다.
 -   IpcFilePath  

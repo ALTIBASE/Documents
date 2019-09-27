@@ -2475,7 +2475,7 @@ sPstmt.executeQuery();
 #### 전제 조건
 
 -   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 4GB-1byte의
-    최대 크기를 가질 수 있다. 단, JDK 1.6 이상에서만 가능하다.
+    최대 크기를 가질 수 있다.
 
 LOB 데이터를 정상적으로 다루기 위해서는 세션의 autocommit 모드가 아래의 조건 중
 하나를 만족해야 한다.
@@ -2514,7 +2514,7 @@ sPstmt.execute();
 ...
 ```
 
-JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 타입으로 캐스팅 하면 long 타입의 길이 변수로 정의된 setBinaryStream() 메소드를 호출할 수 있다.
+JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 객체로 캐스팅 하면 long 타입의 길이 변수로 정의된 setBinaryStream() 메소드를 호출할 수 있다.
 
 ```
 import Altibase.jdbc.driver.AltibasePreparedStatement;
@@ -2624,6 +2624,15 @@ while(sRs.next())
     sRs.updateRow();
     ...
 }
+...
+```
+
+JDK 1.5에서는 sRs를 AltibaseResultSet 객체로 캐스팅 하면 long 타입의 길이 변수로 정의된 updateBinaryStream() 메소드를 호출할 수 있다.
+
+```
+import Altibase.jdbc.driver.AltibaseResultSet;
+...
+    ((AltibaseResultSet)sRs).updateBinaryStream(1, sInputStream, sLength);
 ...
 ```
 
@@ -2843,7 +2852,7 @@ sPstmt.execute();
 ...
 ```
 
-JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 타입으로 캐스팅 하면 long 타입의 길이 변수로 정의된 setCharacterStream() 메소드를 호출할 수 있다.
+JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 객체로 캐스팅 하면 long 타입의 길이 변수로 정의된 setCharacterStream() 메소드를 호출할 수 있다.
 
 ```
 import Altibase.jdbc.driver.AltibasePreparedStatement;
@@ -2961,6 +2970,15 @@ while(sRs.next())
     ...
 }
  
+...
+```
+
+JDK 1.5에서는 sRs를 AltibaseResultSet 객체로 캐스팅 하면 long 타입의 길이 변수로 정의된 updateCharacterStream() 메소드를 호출할 수 있다.
+
+```
+import Altibase.jdbc.driver.AltibaseResultSet;
+...
+    ((AltibaseResultSet)sRs).updateCharacterStream(1, sReader, sLength);
 ...
 ```
 
