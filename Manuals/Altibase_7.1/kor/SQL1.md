@@ -1891,9 +1891,12 @@ KEEP_PLAN는 한 번 생성된 플랜이 참조하는 테이블의 통계 정보
 
 #### LEADING
 
-힌트에 사용된 테이블들을 먼저 조인되도록 한다.
+힌트에 사용된 테이블들을 먼저 조인되도록 한다. 두 개 이상의 LEADING 힌트를 사용한
+경우에는 처음 LEADING 힌트만 효과가 있다. ORDERED 힌트와 함께 사용된 경우에는 
+ORDERED 힌트가 무시된다. 힌트에 사용된 테이블에 Lateral View를 명시한 경우에는 
+효과가 없다.
 
-![](media/SQL/d7925f2e0025071a87646b15d2fee986.png)
+![](media/SQL/leading.gif)
 
 #### MERGE_AJ
 
