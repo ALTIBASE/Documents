@@ -3355,7 +3355,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 | \<NLS\>                                                 | 필수      | NLS_USE                                                      |
 | \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                               |
 | \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                 |
-| \<ConnectionProperties\>                                  | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
+| <ConnectionProperties>                                  | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br /><ConnectionProperties><br />login_timeout=3;fetch_timeout=60<br /></ConnectionProperties> |
 
 ##### Metrics.xml
 
