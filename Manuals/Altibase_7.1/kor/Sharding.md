@@ -4288,6 +4288,7 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 | SET_SHARD_CLONE               | CLONE 방식의 분산정보를 등록한다.                            |
 | SET_SHARD_SOLO                | SOLO 방식의 분산정보를 등록한다.                             |
 | SET_SHARD_COMPOSITE           | 복합 샤드 키 방식의 분산정보를 등록한다.                     |
+| RESET_SHARD_RESIDENT_NODE     | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
 | CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                        |
 | REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 샤드 노드의 데이터를 재분배한다. |
 | REBUILD_DATA_NODE             | 변경된 샤드 키 분산방식에 따라 특정 샤드 노드의 데이터를 재분배한다. |
@@ -4940,6 +4941,47 @@ SET_SHARD_SOLO(    user_name    in  varchar(128),
 iSQL> EXEC dbms_shard.set_shard_solo('sys','t5','node1');
 Execute success.
 iSQL> EXEC dbms_shard.set_shard_solo('sys','proc5','node1');
+Execute success.
+```
+
+#### RESET_SHARD_RESIDENT_NODE
+
+##### 구문
+
+```
+RESET_SHARD_RESIDENT_NODE( user_name     in varchar(128),
+                           object_name   in varchar(128),
+                           old_node_name in varchar(40),
+                           new_node_name in varchar(40),
+                           value         in varchar(100) default NULL,
+                           sub_value     in varchar(100) default NULL )
+```
+
+##### 파라미터
+
+| 이름          | 입출력 | 데이터 타입  | 설명                  |
+| ------------- | ------ | ------------ | --------------------- |
+| user_name     | IN     | VARCHAR(128) | 객체 소유자의 이름    |
+| object_name   | IN     | VARCHAR(128) | 객체 이름             |
+| old_node_name | IN     | VARCHAR(40)  | 현재 노드 이름        |
+| new_node_name | IN     | VARCHAR(40)  | 변경할 노드 이름      |
+| value         | IN     | VARCHAR(100) | 샤드 키의 최대값      |
+| sub_value     | IN     | VARCHAR(100) | 서브 샤드 키의 최대값 |
+
+##### 설명
+
+등록된 분산 정보의 샤드 노드를 변경한다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.set_shard_table('sys','t1','H','i1');
+Execute success.
+iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',500,'node1');
+Execute success.
+iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',1000,'node3');
+Execute success.
+iSQL> EXEC dbms_shard.reset_shard_resident_node('sys','t1','node3','node2',1000);
 Execute success.
 ```
 
