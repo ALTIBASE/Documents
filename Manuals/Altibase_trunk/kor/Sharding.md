@@ -513,8 +513,6 @@ NODE[DATA(‘node1’)] SELECT * FROM s1;
 
 -   다중 노드 트랜잭션(multiple node transaction)  
     분산 트랜잭션을 허용하지만, 샤드 트랜잭션의 일관성을 보장하지 않는다.
--   글로벌 트랜잭션(global transaction)  
-    분산 트랜잭션을 허용하고, 샤드 트랜잭션의 일관성을 보장한다.
 
 ##### 샤드 메타 번호(Shard Meta Number )
 
@@ -768,16 +766,6 @@ Q3) select sum(c) total_count from (select count(*) c from t1);
 Q3-1) select count(*) c from t1;
 Q3-2) select sum(c) total_count from temp;
 ```
-
-#### 글로벌 트랜잭션
-
-샤드 트랜잭션은 분산 트랜잭션의 일관성을 보장하기 위하여 2단계 커밋(2-Phase
-Commit)을 이용한 글로벌 트랜잭션을 지원한다.
-
-> ##### 주의 사항
->
-> 복제(clone) 분할 방식을 사용하면 데이터가 서버에 중복하여 저장되기 때문에,
-> 글로벌 트랜잭션을 이용하더라도 데이터의 일관성이 보장되지 않을 수 있다.
 
 #### 다양한 샤드 쿼리와 함수 지원
 
@@ -1275,7 +1263,6 @@ Altibase Sharding
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
-| 트랜잭션 관련 프로퍼티 | GLOBAL_TRANSACTION_LEVEL | YES | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -1561,34 +1548,6 @@ Unsigned Integer
 ##### 설명
 
 샤드 관련 메시지 파일의 최대 크기를 지정한다.
-
-#### GLOBAL_TRANSACTION_LEVEL
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[1, 2]
-
-##### 설명
-
-글로벌 트랜잭션 수행 레벨을 지정한다. 
-
-1 : 다중 노드 트랜잭션 (multiple node transaction)
-
-2 : 글로벌 트랜잭션 (global transaction)
-
-자세한 내용은 샤드 트랜잭션 항목을 참조한다.
 
 ### 디렉토리
 
@@ -2251,8 +2210,6 @@ Altibase Sharding은 분산된 여러 데이터베이스를 다루게 되므로 
 
 -   다중 노드 트랜잭션 (multiple node transaction)
 
--   글로벌 트랜잭션 (global transaction)
-
 #### 다중 노드 트랜잭션
 
 Altibase Sharding에서 ACID는 보장하지는 않지만, 여러 샤드 노드에 대한
@@ -2294,38 +2251,6 @@ SQLSetConnectAttr(dbc, ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_MULTIP
 ```
 DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard_transaction_level=1");
 ```
-
-#### 글로벌 트랜잭션
-
-Altibase Sharding에서 ACID를 보장하면서 여러 샤드 노드에 대한 트랜잭션
-일관성을 보장하는 트랜잭션을 말한다.
-
-##### 구문
-
-```
-SQLSetConnectAttr (
-	SQLHDBC 	dbc,
-	SQLINTEGER 	Attribute,
-	SQLPOINTER	ValuePtr,
-	SQLINTEGER 	StringLength );
-```
-
-##### 설명
-
-글로벌 트랜잭션을 설정한다. 글로벌 트랜잭션으로 설정할 때에는 
-Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL을 ValuePtr에는 ALTIBASE_GLOBAL_TRANSACTION을 입력한다.
-SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
-
-##### 예제
-###### ShardCLI
-```
-SQLSetConnectAttr(dbc,  ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_GLOBAL_TRANSACTION, 0);
-```
-###### ShardJDBC
-```
-DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard_transaction_level=2");
-```
-
 
 ### 샤드 쿼리
 
@@ -3544,11 +3469,7 @@ Altibase Sharding은 샤드 테이블의 분산 정보를 변경한 후, 기존�
 성능을 고려하여, 데이터 재구축은 변경된 분산 기준에 맞지 않는
 데이터(incorrect data)만 이동(move)시키는 방식으로 수행되며 여러 세션에서
 동시에 수행 가능하다. 단, 내부적으로 데이터의 이동이 수반되기 때문에
-데이터의 정합성 보장을 위해서 다음과 같은 환경으로 수행하길 권장한다.
-
--   Non-autocommit
-
--   Global Transaction
+데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
 데이터 재구축은 샤드 키 분산(hash, range, list, composite) 방식을 적용한
 샤드 테이블에 한해 지원하며, 복제 분산 방식과 독립 분산 방식은 지원하지
@@ -4211,8 +4132,6 @@ iSQL\> SELECT \* FROM S\$TAB;
 세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.
 
 1 : 다중 노드 트랜잭션 (multiple node transaction)
-
-2 : 글로벌 트랜잭션 (global transaction)
 
 샤딩 메뉴얼의 샤드 트랜잭션 항목을 참조한다
 
@@ -5102,7 +5021,7 @@ Execute success.
 > - 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
 > - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
 >    프로시저를 수행해야 한다.
-> - Global transaction , Non-autocommit 모드에서 수행하여야 정합성이 보장된다.
+> - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
 #### REBUILD_DATA_NODE
 
@@ -5174,7 +5093,7 @@ iSQL> COMMIT;
 > - 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
 > - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
 >   프로시저를 수행해야 한다.
-> - Global transaction , Non-autocommit 모드에서 수행하여야 정합성이 보장된다.
+> - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
 #### UNSET_NODE
 
