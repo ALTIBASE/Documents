@@ -3509,10 +3509,10 @@ jdbc sharding 기능을 위해 다음 속성들이 추가되었다.
 ##### shard_transaction_level
 | 기본값    | 1                                                             |
 |----------|---------------------------------------------------------------|
-| 값의 범위 | [0 \| 1 \| 2]                                                 |
+| 값의 범위 | [0 \| 1 ]                                                 |
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
-| 설명     | 샤드트랜잭션 레벨을 설정한다. <br>0 : single node transaction<br>1 : multiple node transaction<br>2 : global transaction      |
+| 설명     | 샤드트랜잭션 레벨을 설정한다. <br>0 : single node transaction<br>1 : multiple node transaction |
 
 ##### shard_conn_type
 | 기본값    | TCP                                                           |
