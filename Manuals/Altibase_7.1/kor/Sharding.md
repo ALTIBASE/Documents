@@ -1580,7 +1580,10 @@ Sharding을 사용할 수 없다.
 
 -   샤딩은 하나의 데이터베이스를 여러 데이터베이스로 나누어 저장하는 기술이다.
     따라서 각 데이터베이스는 서로 독립적으로 운영되고 관리되어야 한다.
+-   샤드 메타 설정은 반드시 DBMS_SHARD 패키지를 사용해야 한다.
 -   전체 샤딩 시스템에서 동작하는 샤드 노드들은 샤드 메타 및 샤드 관련 테이블 스키마 정보가 동일해야 한다.
+-   날짜 함수등의 결과가 일부 달라져서 에러가 발생하거나 할 수 있으므로 모든 노드의 프로퍼티나 서버 설정등의 구성(DB 구성포함)은 동일해야한다.
+-   ALTERNATE 노드는 하나만 설정가능. 2이상의 ALTERNATE 노드 지원하지 않는다.
 
 #### 데이터 제약조건
 
@@ -1610,6 +1613,7 @@ Sharding을 사용할 수 없다.
     - 다수의 응용프로그램이 한 트랜잭션으로 다수의 노드에 접근하는 경우 다른 응용 프로그램이 COMMIT을 한 데이터중 일부만 보일수 있다.
     - 다수의 응용프로그램이 한 트랜잭션에서 여러 테이블에 접근시 데드락이 발생할 수 있다.
     - 다수의 응용프로그램에서 CLONE TABLE에 대해 갱신 수행시 데드락이 발생할 할 수 있다.
+-   샤드 프로시져 내부에서 동작하는 구문은 분산 처리 되지 않는다.
 -   이 외의 쿼리에 대한 제약사항은 샤드 쿼리 절을 참고한다.
 
 #### 연결 제약조건
@@ -1656,13 +1660,14 @@ $ALTIBASE_HOME/bin/altibase -v
 아래 나열된 기능들은 지원하지 않거나 정상적으로 동작하지 않는다.
 
 - SSL
-- TRIGGER/VIEW/QUEUE
+- TRIGGER, VIEW, QUEUE
 - JOB SCHEDULER
 - GLOBAL SEQUENCE
+- PACKAGE, FUNCTION
 - 다중 변환값(PROCEDURE OUT PARAMETER)
 - 샤드 프로시져에 KEY 타입으로 IN/OUT
 - 샤드 프로시져의 파라미터에 커서
-- FOREIGN KEY, PRIMARY KEY, UNIQUE KEY(UNIQUE INDEX)
+- FOREIGN KEY,PRIMARY KEY, UNIQUE KEY(UNIQUE INDEX)
 - LOB/GEOMETRY
 - 보안컬럼
 - MOVE, MERGE
