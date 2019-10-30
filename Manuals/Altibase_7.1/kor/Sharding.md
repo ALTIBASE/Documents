@@ -1603,8 +1603,15 @@ Sharding을 사용할 수 없다.
     - 각 파티션의 경계는 분산 경계를 포함해야 한다.
 -   샤드 객체의 스키마가 상이한 경우 올바른 수행 결과를 보장하지 않는다.
 -   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
--   샤드 테이블에 트리거(Trigger)를 사용할 수 없다.
 -   패키지는 샤드 객체로 지원하지 않는다.
+- AUTOCOMMIT ON에서 데이터 정합성 문제가 발생할수 있다.
+- 다수 노드를 갱신한 트랜잭션의 COMMIT과 CLIENT-SIDE로 다수 노드를 검색하는 트랜잭션이 동시에 수행되는 경우 트랜잭션 정합성이 깨질 수 있다.
+- APPLICATION에서 DCL(COMMIT/ROLLBACK,SAVEPOINT), DDL에 대해서 DIRECT EXECUTE(직접) 수행 시 정합성 깨질수 있다.
+- 다수 노드를 갱신하는 트랜잭션의 경우 데이터 정합성을 보장하지 않는다.
+- 다수의 응용프로그램이 한 트랜잭션으로 다수의 노드에 접근하는 경우 다른 응용프로그램이 COMMIT을 한 데이터중 일부만 보일수 있다.
+- 다수의 노드를 갱신한 트랜잭션이 COMMIT 중에 장애가 발생하면 장애가 발생한 노드에 데이터는 복구가 불가능하다.
+- 다수의 응용프로그램이 한 트랜잭션에서 여러 테이블에 접근시 데드락이 발생할 수 있다.
+- CLONE TABLE은 여러 응용프로그램에서 I/U/D가 자주 잘생시 데드락이 발생할 h수 있다.
 -   이 외의 쿼리에 대한 제약사항은 샤드 쿼리 절을 참고한다.
 
 #### 연결 제약조건
@@ -1632,6 +1639,8 @@ Sharding을 사용할 수 없다.
 -   Altibase Sharding은 샤드 구성 전에 사용하던 기존의 응용프로그램을 그대로
     사용할 경우, 에러 처리는 일부 샤드 노드의 장애를 전체 데이터베이스의 장애로
     판단한다.
+- CLONE TABLE에 대한 장애처리는 사용자가 직접 수행해야 한다.
+- 노드가 장애가 발생시 는 장애가 발생한 노드에 직접적으로 접근을 하지 않으면 FAILOVER 가 발생하지 않는다. 이로 인해 장애난 노드 복구후 FAILOVER 로직에 따라 복구된 노드에 접속되어 있는 클라이언트들이 존재하여 일부는 ALTERNATE NODE에 접속하여 있고 일부는 PRIMARY NODE에 접속하여 있는 경우가 발생한다.
 
 #### 하위 호환성
 
@@ -1642,6 +1651,37 @@ Sharding을 사용할 수 없다.
 ```
 $ALTIBASE_HOME/bin/altibase -v
 ```
+
+#### 지원하지 않는 기능 
+
+아래 나열한 기능들은 지원하지 않거나 정상적으로 동작하지 않습니다. 
+
+- FOREIGN KEY, PRIMARY KEY, UNIQUE KEY(UNIQUE INDEX)
+- SAVEPOINT
+- LOB/jGEOMETRY
+- SSL
+- 보안컬럼
+- TRIGGER/VIEW/QUEUE
+- JOB SCHEDULER
+- GLOBAL SEQUENCE
+- 다중 변환값(PROCEDURE OUT PARAMETER)
+- FAILOVER CALLBACK
+- FETCH ACROSS COMMIT/ROLLBACK
+- MOVE, MERGE
+- 샤드 프로시져에 KEY 타입으로 IN/OUT
+- 샤드 프로시져의 파라미터에 커서
+
+#### 동시 사용 불가
+
+아래 나열된 기능들은 샤딩과 동시에 사용할수 없다.
+
+- DBLINK
+- XA
+
+#### 리샤딩
+
+- COMPOSITE SHARD KEY를 사용시 리샤딩이 지원되지 않는다.
+- NODE/SHARD등의 PREFIX를 사용시 리샤딩이 지원되지 않는다
 
 ### Altibase Sharding 통신 방법
 
