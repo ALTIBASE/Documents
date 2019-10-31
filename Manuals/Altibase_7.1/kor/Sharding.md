@@ -1573,7 +1573,7 @@ altibase_sd.log
 
 ### Altibase Sharding 제약사항
 
-Altibase Sharding의 아래와 같은 제약 조건을 갖는다.
+Altibase Sharding은 아래와 같은 제약 조건을 갖는다.
 
 #### 선행 조건
 
@@ -1581,7 +1581,7 @@ Altibase Sharding의 아래와 같은 제약 조건을 갖는다.
     따라서 각 데이터베이스는 서로 독립적으로 운영되고 관리되어야 한다.
 -   샤드 메타 설정은 반드시 DBMS_SHARD 패키지를 사용해야 한다.
 -   전체 샤딩 시스템에서 동작하는 샤드 노드들은 샤드 메타 및 샤드 관련 테이블 스키마 정보가 동일해야 한다.
--   날짜 함수등의 결과가 일부 달라져서 에러가 발생하거나 할 수 있으므로 모든 노드의 프로퍼티나 서버 설정등의 구성(DB 구성포함)은 동일해야한다.
+-   날짜 함수등의 결과가 일부 달라져서 에러가 발생할 수 있으므로 모든 노드의 프로퍼티나 서버 설정등의 구성(DB 구성포함)은 동일해야한다.
 -   ALTERNATE 노드는 하나만 설정 가능하다. 2개 이상의 ALTERNATE 노드를 지원하지 않는다.
 
 #### 데이터 제약조건
@@ -1591,8 +1591,7 @@ Altibase Sharding의 아래와 같은 제약 조건을 갖는다.
     그렇지 않은 경우 샤딩 시스템 전역에서 유니크 속성에 대한 정합성을 보장하지 않는다.
 -   단일 샤드 키 테이블의 생성시 해당 샤드 테이블 분산 방식에 대응되는 파티션드 테이블로 생성해야 하며 파티션 키와 샤드 키는 동일해야한다.
     - 각 파티션의 경계는 분산 경계를 포함해야 한다.
--   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
--   응용 프로그램에서 AUTOCOMMIT OFF로 수행해야만 한다.
+-   응용 프로그램은 AUTOCOMMIT OFF로 수행해야만 한다.
 -   응용 프로그램에서 DCL(COMMIT/ROLLBACK,SAVEPOINT), DDL에 대해서 DIRECT EXECUTE(직접) 수행 시 정합성 깨질수 있다.
 -   다수 노드를 갱신하는 트랜잭션의 경우 데이터 정합성을 보장하지 않는다.
     - 다수의 응용프로그램이 한 트랜잭션으로 다수의 노드에 접근하는 경우 다른 응용 프로그램이 COMMIT을 수행한 데이터중 일부만 보일수 있다.
@@ -1623,13 +1622,14 @@ Altibase Sharding의 아래와 같은 제약 조건을 갖는다.
 아래 나열된 기능들은 지원하지 않거나 정상적으로 동작하지 않는다.
 
 - SSL
-- TRIGGER, VIEW, QUEUE
+- TRIGGER, VIEW, UPDATABLE VIEW, QUEUE
 - JOB SCHEDULER
 - GLOBAL SEQUENCE
 - PACKAGE, FUNCTION
 - 다중 변환값(PROCEDURE OUT PARAMETER)
-- 샤드 프로시져에 KEY 타입으로 IN/OUT
-- 샤드 프로시져의 파라미터에 커서
+- 샤드 프로시져에 KEY 타입
+  - IN OUT, IN
+  - 샤드에서 지원하지 않는 데이터 타입 유형
 - FOREIGN KEY, PRIMARY KEY, UNIQUE KEY(UNIQUE INDEX)
 - LOB/GEOMETRY
 - 보안컬럼
