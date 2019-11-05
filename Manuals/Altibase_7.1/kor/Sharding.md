@@ -4603,15 +4603,15 @@ Altibase Sharding 에서 지원하는 분산 방법의 종류는 샤드 테이�
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.set_shard_procdure('sys','proc1','H','p1','node3');
+iSQL> EXEC dbms_shard.set_shard_procedure('sys','proc1','H','p1','node3');
 Execute success.
-iSQL> EXEC dbms_shard.set_shard_procdure('sys','proc2','R','p1','node3');
+iSQL> EXEC dbms_shard.set_shard_procedure('sys','proc2','R','p1','node3');
 Execute success.
-iSQL> EXEC dbms_shard.set_shard_procdure('sys','proc3','L','p1','node3');
+iSQL> EXEC dbms_shard.set_shard_procedure('sys','proc3','L','p1','node3');
 Execute success.
-iSQL> EXEC dbms_shard.set_shard_procdure('SYS','proc4','C');
+iSQL> EXEC dbms_shard.set_shard_procedure('SYS','proc4','C');
 Execute success.
-iSQL> EXEC dbms_shard.set_shard_procdure('SYS','proc5','S');
+iSQL> EXEC dbms_shard.set_shard_procedure('SYS','proc5','S');
 Execute success.
 ```
 
@@ -4657,7 +4657,7 @@ Altibase Sharding에서 지원하는 분산 방법의 종류는 샤드 테이블
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.set_shard_procdure_composite('sys','proc6','L','p1', 'L','p2','node3');
+iSQL> EXEC dbms_shard.set_shard_procedure_composite('sys','proc6','L','p1', 'L','p2','node3');
 Execute success.
 ```
 
