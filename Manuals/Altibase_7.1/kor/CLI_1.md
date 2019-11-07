@@ -4143,7 +4143,7 @@ col의 값 보다 크거나 같아야만 한다; 즉, 데이터는 열 번호가
 2.  만약 데이터가 NULL이면 \**pcbValue*에 SQL_NULL_DATA를 설정한다. 만약 그 열에
     대한 데이터가 NULL이 아니면, SQLGetData()는 다음 단계로 진행한다.
 
-3.  만약 데이터가 이나 과 같은 가변 길이 데이터 타입으로 변환됐다면,
+3.  만약 데이터가 문자형이나 이진형과 같은 가변 길이 데이터 타입으로 변환됐다면,
     SQLGetData()는 데이터 길이가 *ValueMax*를 초과했는가를 검사한다. 만약
     null-termination 문자를 포함해 문자 데이터의 길이가 *ValueMax*를 초과했다면,
     SQLGetData()는 null-termination 문자 길이를 뺀 *ValueMax* 길이에 맞춰
