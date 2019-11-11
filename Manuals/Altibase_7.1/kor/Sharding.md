@@ -1571,7 +1571,7 @@ altibase_sd.log
 이 장에서는 Altibase Sharding 사용 방법을 자세히 설명한다. 앞에서 설명한 샤드 노드
 설정과 샤드 패키지 생성 과정 이후의 사용 방법을 기술한다.
 
-### Altibase Sharding 제약사항 & 대처방안
+### Altibase Sharding 제약사항
 
 Altibase Sharding은 아래와 같은 제약 조건을 갖는다.
 
@@ -1600,6 +1600,7 @@ Altibase Sharding은 아래와 같은 제약 조건을 갖는다.
     - 단일 응용프로그램에서 갱신을 수행하면 정합성이 깨지지 않는다.
 
 #### 데드락 
+
 - 다수의 응용프로그램이 한 트랜잭션에서 여러 테이블에 접근시 데드락이 발생할 수 있다.
 - 다수의 응용프로그램에서 CLONE TABLE에 대해 갱신 수행시 데드락이 발생할 수 있다.
 
@@ -1623,7 +1624,7 @@ Altibase Sharding은 아래와 같은 제약 조건을 갖는다.
 
 #### 지원하지 않는 기능 
 
-아래 나열된 기능들은 지원하지 않거나 분산처리 되지 않는다.
+아래 나열된 기능들은 분산 객체로 지원하지 않거나 분산처리 되지 않는다.
 
 - SSL
 - TRIGGER, VIEW, UPDATABLE VIEW, QUEUE
@@ -2301,7 +2302,7 @@ SQLSetConnectAttr (
 
 글로벌 트랜잭션을 설정한다. 글로벌 트랜잭션으로 설정할 때에는
 Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL으로 ValuePtr에는  ALTIBASE_GLOBAL_TRANSACTION을 입력한다.
-SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.w
+SQLSetConnectAttr에 대한 자세한 설명은 “*CLI User's Manual \> 2. Altibase CLI 함수”*를 참조한다.
 
 ##### 예제
 ###### ShardCLI
