@@ -1630,7 +1630,7 @@ Altibase Sharding은 아래와 같은 제약 조건을 갖는다.
 - TRIGGER, VIEW, UPDATABLE VIEW, QUEUE
 - JOB SCHEDULER
 - GLOBAL SEQUENCE
-- PACKAGE, FUNCTION
+- PACKAGE, 일부 집계 함수를 제외한 모든 FUNCTION
 - 다중 반환값(PROCEDURE OUT PARAMETER)
   - 여러 노드의 반환값을 모든 어플리케이션에서 알아야 하는 경우에는 Clone Procedure 내에서 해당 정보들을 테이블에 입력한 이후에 별도의 조회 쿼리를 수행하여 알수 있다.
 - 샤드 프로시져에 KEY 타입
