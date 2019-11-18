@@ -1956,7 +1956,7 @@ CNF힌트와 같은 동작을 한다.
 명시된 인덱스를 사용해서 해당 테이블에 대한 인덱스 스캔을 수행하지 않도록
 지시하는 힌트이다.
 
-![no index](media/SQL/no index.gif)
+![no index](media/SQL/no%20index.gif)
 
 #### NO_INDEX
 
