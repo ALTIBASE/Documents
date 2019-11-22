@@ -3501,7 +3501,7 @@ Hibernate 가 공식적으로 제공하는 라이브러리는 AltibaseDialect.cl
 AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가
 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은
 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md)을 참고한다.
+(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
 ### Sharding
 #### Properties
