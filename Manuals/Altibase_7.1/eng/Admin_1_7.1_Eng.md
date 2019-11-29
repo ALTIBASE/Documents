@@ -1138,7 +1138,8 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 iSQL(sysdba)>
 ```
 
-> Note: STARTUP 명령어는 Altibase (isql 포함)를 설치한 계정으로만 수행이 가능하다.
+> Note: The Altibase startup command can only be executed using the account with which Altibase (including iSQL)
+was installed.
 >
 
 During the startup procedure, the status of the Altibase progress in sequence through the following phases:
@@ -3442,7 +3443,7 @@ In addition, the user can create user-defined tablespaces (disk, memory, or vola
 
 [Figure 6-1] shows the relationship between a database and tablespaces.
 
-![](media/Admin/6-1.png)
+![](media/Admin/6-1_Eng.png)
 
 Figure 6-1 The Relationship between a database and tablespaces
 
@@ -3456,7 +3457,7 @@ Disk tablespaces are closely related to data files and segments. [Figure 6-2] sh
 
 Disk tablespaces, data files, and segments have the following characteristics: A disk tablespace consists of one or more data files, which exist in the form of files supported by the operating system. A segment is stored in a tablespace logically and in a data file physically. A segment is wholly contained within a particular disk tablespace, but segments can refer to segments that are stored in other disk tablespaces.
 
-![](media/Admin/6-2.png)
+![](media/Admin/6-2_Eng.png)
 
 Figure 6-2 The Relationships between Disk Tablespaces, Data Files and Segments
 
@@ -3501,7 +3502,7 @@ The basic structure of pages, as well as how to store data in them, are describe
 
 A page has a header for storing basic information about the page, free slots (this is the only instance of the term “Free slot” in this document), and the like. Records are stored in the remaining space. A page is internally divided into 5 areas, as shown below: 
 
-![](media/Admin/6-4.png)
+![](media/Admin/6-4_Eng.png)
 
 Figure 6-4 The Structure of a Page in Disk Tablespace
 
@@ -3529,7 +3530,7 @@ The records in a page are stored in free space, starting from the end of the pag
 
 The logical header of the page is saved extending toward the end of the page. Its size is variable.
 
-![](media/Admin/6-5.png)
+![](media/Admin/6-5_Eng.png)
 
 [Figure 6-5] How Records are Stored in a Page
 
@@ -3541,7 +3542,7 @@ A memory tablespace is a tablespace in which all data are stored in memory. The 
 
 Memory tablespaces are closely related to checkpoint image files. [Figure 6-6] shows the relationship between a memory table space, tables, and checkpoint image files. 
 
-![](media/Admin/9f54062201ab7863c89bdd61a5cf0860.png)
+![](media/Admin/6-6_Eng.png)
 
 [Figure 6-6] The Relationship between a Memory Tablespace , Tables and Checkpoint Image Files
 
@@ -3700,7 +3701,7 @@ In Altibase, the smallest unit of database storage space management is the page.
 
 A data page is one of several kinds of pages, and stores row data. Row data are stored in free space, starting from the end of the page. If there is not enough free space, it is advisable to create larger regions of free space using compaction to turn fragmented space into contiguous space.
 
-![](media/Admin/6-8.png)
+![](media/Admin/6-8_Eng.png)
 
 [Figure 6-8] The Structure of a Data Page in Disk Tablespace
 
@@ -3737,7 +3738,7 @@ PCTFREE is the minimum amount of free space, expressed as a percentage, that is 
 
 For example, if PCTFREE is set to 20, data can be inserted into the page until it is 80% full, and the remaining 20% of the page will be set aside for use in updating existing rows.
 
-![](media/Admin/6-9.png)
+![](media/Admin/6-9_Eng.png)
 
 [Figure 6-9] PCTFREE and Page Structure
 
@@ -3747,7 +3748,7 @@ PCTUSED is the threshold percentage below which the amount of used space in a pa
 
 If the amount of free space falls below the limit specified in PCTFREE, it becomes impossible to insert new records into the page, and free space in the page can only be used to update existing rows. This state persists until the percentage of used space falls below the threshold specified by PCTUSED.
 
-![](media/Admin/6-10.png)
+![](media/Admin/6-10_Eng.png)
 
 [Figure 6-10] PCTUSED and Page Structure
 
@@ -3757,7 +3758,7 @@ Rows can be divided into one or more pieces. If it is possible to store an entir
 
 These row pieces are "chained", that is, they are associated with each other via a common ROWID value.
 
-![](media/Admin/6-11.png)
+![](media/Admin/6-11_Eng.png)
 
 [Figure 6-11] The Structure of a Row Piece
 
@@ -3869,7 +3870,7 @@ Therefore, Altibase maintains undo records pertaining to committed transactions 
 
 If there are no active transactions accessing the space containing the undo data for transactions that have been committed, the so-called "undo space" is said to have expired. Conversely, if active transactions that might need to access the undo space still exist, space is considered valid, or unexpired. Expired undo space can be reused by other transactions, whereas unexpired space cannot. 
 
-![](media/Admin/6-12.png)
+![](media/Admin/6-12_Eng.png)
 
 [Figure 6-12] Reusing Undo Spaces in an Undo Segment
 
@@ -3877,7 +3878,7 @@ In the above figure, it shows how the cyclical structure of undo segments allows
 
 Undo spaces are used sequentially starting with undo space #0, until undo space #5 that is currently being used. Then, if undo space #0, which is the next undo space to be used, is confirmed to have expired, then when all of undo space #5 has been used up, undo space #0 is reused without requiring expansion of the undo segment.
 
-![](media/Admin/6-13.png)
+![](media/Admin/6-13_Eng.png)
 
 [Figure 6-13] Undo Segment Expansion
 
@@ -4445,7 +4446,7 @@ The term "tablespace online backup" refers to backup that is conducted while the
 
 [Figure 6-14] The Concepts of Media Recovery
 
-![](media/Admin/6-14.jpg)
+![](media/Admin/6-14_Eng.jpg)
 
 -   If data file xyz, which exists in a disk tablespace, is damaged, it can be restored using a data file that was previously created during a hot backup. A memory tablespace can be recovered using a checkpoint image file that was previously created during a hot backup. 
 -   On the basis of the final checkpoint SCN (140) and recovery LSN (32:010), which are written in the header of the data file that was created during the backup, the file can be restored to the current final checkpoint SCN (200). 
