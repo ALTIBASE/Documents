@@ -190,7 +190,7 @@ This manual describes command syntax using diagrams composed of the following el
 | ![image2](media/GettingStarted/image2.gif) | Indicates that the command continues to the next line. if a syntactic element ends with this symbol, it is not a complete command. |
 | ![image3](media/GettingStarted/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | ![image4](media/GettingStarted/image4.gif) | Indicates the end of a statement.                            |
-| ![](media/Admin/image012.gif)              | 필수 항목                                                    |
+| ![](media/Admin/image012.gif)              | Indicates a mandatory element.                                                    |
 | ![image6](media/GettingStarted/image6.gif) | Indicates an optional element.                               |
 | ![image7](media/GettingStarted/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | ![image8](media/GettingStarted/image8.gif) | Indicates an optional element comprised of options           |
