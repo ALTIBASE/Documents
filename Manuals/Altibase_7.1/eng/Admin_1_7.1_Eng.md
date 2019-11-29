@@ -3,7 +3,7 @@
 
 - [Administrator’s Manual](#administrators-manual)
   - [Preface](#%EC%84%9C%EB%AC%B8)
-    - [AboutThis Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+    - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
   - [1. Introduction](#1altibase-%EC%86%8C%EA%B0%9C)
     - [Hybrid DBMS Concept](#hybrid-dbms%EA%B0%9C%EB%85%90)
     - [Altibase Features](#altibase-%ED%8A%B9%EC%A7%95)
