@@ -925,7 +925,7 @@ This is explained in detail in the *Getting Started Guide*.
 
 After installing Altibase, the database administrator must create and manage the database by estimating the amount of user data generated. This chapter describes the main points to be aware of when creating a database.
 
-### 데이터베이스 생성
+### Creating a Database
 
 An Altibase database consists of one or more logical storage units called tablespaces, which collectively store all of the database's data. Altibase stores data logically in tablespaces and physically in data files, which are associated with corresponding tablespaces. Before the database server can be started, it is first necessary to create a database manually using the CREATE DATABASE command.
 
