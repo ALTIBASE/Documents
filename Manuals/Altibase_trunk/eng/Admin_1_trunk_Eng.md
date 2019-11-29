@@ -3,7 +3,7 @@
 
 - [Administrator’s Manual](#administrators-manual)
   - [Preface](#%EC%84%9C%EB%AC%B8)
-    - [AboutThis Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+    - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
   - [1. Introduction](#1altibase-%EC%86%8C%EA%B0%9C)
     - [Hybrid DBMS Concept](#hybrid-dbms%EA%B0%9C%EB%85%90)
     - [Altibase Features](#altibase-%ED%8A%B9%EC%A7%95)
@@ -12,7 +12,8 @@
     - [Altibase Directories](#altibase-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC)
     - [Executable Binaries](#%EC%8B%A4%ED%96%89-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC)
     - [Altibase Libraries](#altibase-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
-  - [3. Creating a Database](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
+  - [3. 
+  ](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
     - [Creating a Database](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
   - [4. Altibase Startup and Shutdown](#4altibase-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
     - [Startup Procedure](#altibase-%EA%B5%AC%EB%8F%99)
@@ -190,7 +191,7 @@ This manual describes command syntax using diagrams composed of the following el
 | ![image2](media/GettingStarted/image2.gif) | Indicates that the command continues to the next line. if a syntactic element ends with this symbol, it is not a complete command. |
 | ![image3](media/GettingStarted/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | ![image4](media/GettingStarted/image4.gif) | Indicates the end of a statement.                            |
-| ![](media/Admin/image012.gif)              | 필수 항목                                                    |
+| ![](media/Admin/image012.gif)              | Indicates a mandatory element.                                                   |
 | ![image6](media/GettingStarted/image6.gif) | Indicates an optional element.                               |
 | ![image7](media/GettingStarted/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | ![image8](media/GettingStarted/image8.gif) | Indicates an optional element comprised of options           |
@@ -925,7 +926,7 @@ This is explained in detail in the *Getting Started Guide*.
 
 After installing Altibase, the database administrator must create and manage the database by estimating the amount of user data generated. This chapter describes the main points to be aware of when creating a database.
 
-### 데이터베이스 생성
+### Creating a Database
 
 An Altibase database consists of one or more logical storage units called tablespaces, which collectively store all of the database's data. Altibase stores data logically in tablespaces and physically in data files, which are associated with corresponding tablespaces. Before the database server can be started, it is first necessary to create a database manually using the CREATE DATABASE command.
 
@@ -1138,7 +1139,8 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 iSQL(sysdba)>
 ```
 
-> Note: STARTUP 명령어는 Altibase (isql 포함)를 설치한 계정으로만 수행이 가능하다.
+> Note: The Altibase startup command can only be executed using the account with which Altibase (including iSQL)
+was installed.
 >
 
 During the startup procedure, the status of the Altibase progress in sequence through the following phases:
@@ -3442,7 +3444,7 @@ In addition, the user can create user-defined tablespaces (disk, memory, or vola
 
 [Figure 6-1] shows the relationship between a database and tablespaces.
 
-![](media/Admin/6-1.png)
+![](media/Admin/6-1_Eng.png)
 
 Figure 6-1 The Relationship between a database and tablespaces
 
@@ -3456,7 +3458,7 @@ Disk tablespaces are closely related to data files and segments. [Figure 6-2] sh
 
 Disk tablespaces, data files, and segments have the following characteristics: A disk tablespace consists of one or more data files, which exist in the form of files supported by the operating system. A segment is stored in a tablespace logically and in a data file physically. A segment is wholly contained within a particular disk tablespace, but segments can refer to segments that are stored in other disk tablespaces.
 
-![](media/Admin/6-2.png)
+![](media/Admin/6-2_Eng.png)
 
 Figure 6-2 The Relationships between Disk Tablespaces, Data Files and Segments
 
@@ -3501,7 +3503,7 @@ The basic structure of pages, as well as how to store data in them, are describe
 
 A page has a header for storing basic information about the page, free slots (this is the only instance of the term “Free slot” in this document), and the like. Records are stored in the remaining space. A page is internally divided into 5 areas, as shown below: 
 
-![](media/Admin/6-4.png)
+![](media/Admin/6-4_Eng.png)
 
 Figure 6-4 The Structure of a Page in Disk Tablespace
 
@@ -3529,7 +3531,7 @@ The records in a page are stored in free space, starting from the end of the pag
 
 The logical header of the page is saved extending toward the end of the page. Its size is variable.
 
-![](media/Admin/6-5.png)
+![](media/Admin/6-5_Eng.png)
 
 [Figure 6-5] How Records are Stored in a Page
 
@@ -3541,7 +3543,7 @@ A memory tablespace is a tablespace in which all data are stored in memory. The 
 
 Memory tablespaces are closely related to checkpoint image files. [Figure 6-6] shows the relationship between a memory table space, tables, and checkpoint image files. 
 
-![](media/Admin/9f54062201ab7863c89bdd61a5cf0860.png)
+![](6-5_Eng.png)
 
 [Figure 6-6] The Relationship between a Memory Tablespace , Tables and Checkpoint Image Files
 
@@ -3700,7 +3702,7 @@ In Altibase, the smallest unit of database storage space management is the page.
 
 A data page is one of several kinds of pages, and stores row data. Row data are stored in free space, starting from the end of the page. If there is not enough free space, it is advisable to create larger regions of free space using compaction to turn fragmented space into contiguous space.
 
-![](media/Admin/6-8.png)
+![](media/Admin/6-8_Eng.png)
 
 [Figure 6-8] The Structure of a Data Page in Disk Tablespace
 
@@ -3737,7 +3739,7 @@ PCTFREE is the minimum amount of free space, expressed as a percentage, that is 
 
 For example, if PCTFREE is set to 20, data can be inserted into the page until it is 80% full, and the remaining 20% of the page will be set aside for use in updating existing rows.
 
-![](media/Admin/6-9.png)
+![](media/Admin/6-9_Eng.png)
 
 [Figure 6-9] PCTFREE and Page Structure
 
@@ -3747,7 +3749,7 @@ PCTUSED is the threshold percentage below which the amount of used space in a pa
 
 If the amount of free space falls below the limit specified in PCTFREE, it becomes impossible to insert new records into the page, and free space in the page can only be used to update existing rows. This state persists until the percentage of used space falls below the threshold specified by PCTUSED.
 
-![](media/Admin/6-10.png)
+![](media/Admin/6-10_Eng.png)
 
 [Figure 6-10] PCTUSED and Page Structure
 
@@ -3757,7 +3759,7 @@ Rows can be divided into one or more pieces. If it is possible to store an entir
 
 These row pieces are "chained", that is, they are associated with each other via a common ROWID value.
 
-![](media/Admin/6-11.png)
+![](media/Admin/6-11_Eng.png)
 
 [Figure 6-11] The Structure of a Row Piece
 
@@ -3869,7 +3871,7 @@ Therefore, Altibase maintains undo records pertaining to committed transactions 
 
 If there are no active transactions accessing the space containing the undo data for transactions that have been committed, the so-called "undo space" is said to have expired. Conversely, if active transactions that might need to access the undo space still exist, space is considered valid, or unexpired. Expired undo space can be reused by other transactions, whereas unexpired space cannot. 
 
-![](media/Admin/6-12.png)
+![](media/Admin/6-12_Eng.png)
 
 [Figure 6-12] Reusing Undo Spaces in an Undo Segment
 
@@ -3877,7 +3879,7 @@ In the above figure, it shows how the cyclical structure of undo segments allows
 
 Undo spaces are used sequentially starting with undo space #0, until undo space #5 that is currently being used. Then, if undo space #0, which is the next undo space to be used, is confirmed to have expired, then when all of undo space #5 has been used up, undo space #0 is reused without requiring expansion of the undo segment.
 
-![](media/Admin/6-13.png)
+![](media/Admin/6-13_Eng.png)
 
 [Figure 6-13] Undo Segment Expansion
 
@@ -4445,7 +4447,7 @@ The term "tablespace online backup" refers to backup that is conducted while the
 
 [Figure 6-14] The Concepts of Media Recovery
 
-![](media/Admin/6-14.jpg)
+![](media/Admin/6-14_Eng.jpg)
 
 -   If data file xyz, which exists in a disk tablespace, is damaged, it can be restored using a data file that was previously created during a hot backup. A memory tablespace can be recovered using a checkpoint image file that was previously created during a hot backup. 
 -   On the basis of the final checkpoint SCN (140) and recovery LSN (32:010), which are written in the header of the data file that was created during the backup, the file can be restored to the current final checkpoint SCN (200). 
