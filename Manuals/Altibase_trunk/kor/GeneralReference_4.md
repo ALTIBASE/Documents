@@ -140,6 +140,20 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | WRITE_MISS         | BIGINT  | 쓰기 래치를 바로 잡지 못한 횟수 |
 | SLEEPS_CNT         | BIGINT  | 래치를 잡기 위하여 sleep한 횟수 |
 
+### <a name="vlibrary"><a/>V\$LIBRARY
+	
+C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보를 보여준다.
+라이브러리 정보를 통해서 원하는 라이브러리를 제대로 로드했는지 확인할 수 있다.
+
+| Column name        | Type        | Description                                        |
+|--------------------|-------------|----------------------------------------------------|
+| FILE_SPEC          | CHAR(4000)  | 동적 라이브러리 파일의 경로                          |
+| REFERENCE_COUNT    | INTEGER     | 동적 라이브러리를 참조하는 Internal procedure의 개수 |
+| FILE_SIZE          | INTEGER     | 동적 라이브러리의 파일 크기 (Bytes)                  |
+| CREATE_TIME        | VARCHAR(48) | 동적 라이브러리가 생성된 시간                        |
+| OPEN_TIME          | VARCHAR(48) | 동적 라이브러리를 로드한 시간                        |
+
+
 ### <a name="vlfg"><a/>V\$LFG
 
 이 뷰는 데이터베이스 관리자가 그룹 커밋의 동작을 모니터링 할 수 있는 통계 정보를
