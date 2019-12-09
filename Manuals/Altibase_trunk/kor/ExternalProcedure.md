@@ -874,7 +874,7 @@ DROP LIBRARY lib1;
 
 **call_spec ::=**
 
-![](media/ExternalProcedure/image036.gif)
+![](media/ExternalProcedure/callSpec.gif)
 
 **parameter_list ::=**
 
