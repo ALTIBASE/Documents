@@ -153,6 +153,24 @@ C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보�
 | CREATE_TIME        | VARCHAR(48) | 동적 라이브러리가 생성된 시간                        |
 | OPEN_TIME          | VARCHAR(48) | 동적 라이브러리를 로드한 시간                        |
 
+#### 칼럼 정보
+
+##### FILE_SPEC
+
+라이브러리 객체가 가리키는 동적 라이브러리 파일의 경로를 나타낸다. 라이브러리 파일이 위치하는 기본 경로 ($ALTIBASE_HOME/lib)에 대한 상대 경로로 표시된다.
+
+##### REFERENCE_COUNT
+
+동적 라이브러리를 참조하는 Internal 저장 프로시저 또는 저장 함수의 개수를 나타낸다.
+
+##### FILE_SIZE
+동적 라이브러리 파일의 크기를 나타낸다. (단위 : Bytes)
+
+##### CREATE_TIME
+동적 라이브러리를 생성한 일시를 나타낸다. 파일 정보에서 얻어서 저장한다.
+
+##### OPEN_TIME
+동적 라이브러리를 로드한 일시를 나타낸다.
 
 ### <a name="vlfg"><a/>V\$LFG
 
@@ -1211,6 +1229,19 @@ statement 식별자를 나타낸다.
 ##### TEXT
 
 실행계획 전체 텍스트의 일부분인 64바이트 텍스트 조각의 내용이다.
+
+### <a name="vprocinfo"><a/>V\$PROCINFO
+| Column name  | Type        | Description                      |
+|--------------|-------------|----------------------------------|
+| PROC_OID     | BIGINT      | 저장 프로시저의 객체 식별자      |
+| MODIFY_COUNT | INTEGER      | 저장 프로시저가 재 생성 또는 재 컴파일 된 횟수
+      |
+| STATUS       | VARCHAR(7)	      | 객체의 상태를 나타낸다. INVALID이면 실행 불가능 상태이다.
+     |
+| SESSION_ID   | INTEGER      | 저장 프로시저의 STATUS를 변경한 세션의 ID를 나타낸다.
+      |
+| PROC_TYPE    | VARCHAR(10)	      | 저장 프로시저의 타입을 나타낸다. NORMAL : 일반 프로시저, EXTERNAL C, INTERNAL C
+      |
 
 ###  <a name="vproctext"><a/>V\$PROCTEXT
 
