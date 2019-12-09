@@ -1027,7 +1027,7 @@ DROP PROCEDURE proc1;
 
 **call_spec ::=**
 
-![](media/ExternalProcedure/image047.gif)
+![](media/ExternalProcedure/callSpec.gif)
 
 **parameter_list ::=**
 
