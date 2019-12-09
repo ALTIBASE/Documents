@@ -1269,7 +1269,7 @@ statement 식별자를 나타낸다.
 
 - INTERNAL C : C/C++ Internal Procedure
 
-- UNKNOWN : 서버 시작시에 저장 프로시저 컴파일에 실패한 경우에 내부 프로시저 타입을 알 수 없어서 UNKNOWN으로 표시할 수 있다. 나중에 제대로 컴파일이 되어 VALID 상태가 되면 원래의 타입이 설정된다.
+- UNKNOWN : 서버를 구동할 때 저장 프로시저 컴파일에 실패하면 내부 프로시저 타입을 알 수 없어서 UNKNOWN으로 표시한다. 이후 컴파일이 되어 VALID 상태가 되면 정확한 타입이 설정된다.
 
 ###  <a name="vproctext"><a/>V\$PROCTEXT
 
