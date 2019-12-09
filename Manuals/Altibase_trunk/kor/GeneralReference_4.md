@@ -4,6 +4,7 @@
 - [General Reference](#general-reference)
    - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [V\$LATCH](#vlatch)
+    - [V\$LIBRARY](#vlibrary)
     - [V\$LFG](#vlfg)
     - [V\$LOCK](#vlock)
     - [V\$LOCK_STATEMENT](#vlock_statement)
@@ -25,6 +26,7 @@
     - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
     - [V\$PKGTEXT](#vpkgtext)
     - [V\$PLANTEXT](#vplantext)
+    - [V\$PROCINFO](#vprocinfo)
     - [V\$PROCTEXT](#vproctext)
     - [V\$PROPERTY](#vproperty)
     - [V\$REPEXEC](#vrepexec)
@@ -1233,15 +1235,41 @@ statement 식별자를 나타낸다.
 ### <a name="vprocinfo"><a/>V\$PROCINFO
 | Column name  | Type        | Description                      |
 |--------------|-------------|----------------------------------|
-| PROC_OID     | BIGINT      | 저장 프로시저의 객체 식별자      |
-| MODIFY_COUNT | INTEGER      | 저장 프로시저가 재 생성 또는 재 컴파일 된 횟수
-      |
-| STATUS       | VARCHAR(7)	      | 객체의 상태를 나타낸다. INVALID이면 실행 불가능 상태이다.
-     |
-| SESSION_ID   | INTEGER      | 저장 프로시저의 STATUS를 변경한 세션의 ID를 나타낸다.
-      |
-| PROC_TYPE    | VARCHAR(10)	      | 저장 프로시저의 타입을 나타낸다. NORMAL : 일반 프로시저, EXTERNAL C, INTERNAL C
-      |
+| PROC_OID     | BIGINT      | 저장 프로시저의 객체 식별자        |
+| MODIFY_COUNT | INTEGER     | 저장 프로시저가 재 생성 또는 재 컴파일 된 횟수 |
+| STATUS       | VARCHAR(7)  | 객체의 상태를 나타낸다. INVALID이면 실행 불가능 상태이다. |
+| SESSION_ID   | INTEGER     | 저장 프로시저의 STATUS를 변경한 세션의 ID를 나타낸다. |
+| PROC_TYPE    | VARCHAR(10) | 저장 프로시저의 타입을 나타낸다. |
+
+#### 칼럼 정보
+
+##### PROC_OID
+
+저장 프로시저 또는 저장 함수의 식별자로, SYS_PROCEDURES_ 메타 테이블의 한 PROC_OID 값과 동일하다.
+
+##### MODIFY_COUNT
+
+저장 프로시저 또는 함수가 재 생성 또는 재 컴파일 할 때마다 1씩 증가한다. 초기값은 0이다.
+
+##### STATUS
+
+저장 프로시저 또는 함수의 실행 가능 여부를 나타내는 값이다. VALID는 실행가능함을 나타낸다. SYS_PROCEDURES_ 메타 테이블의 STATUS  칼럼 설명을 참조한다.
+
+##### SESSION_ID
+
+저장 프로시저 또는 함수의 상태를 INVALID로 변경한 세션의 ID를 나타낸다. 상태가 변경된 적이 없으면 이 값이 0 또는 -1이다.
+
+##### PROC_TYPE
+
+저장 프로시저의 타입을 나타낸다. 가능한 값은 다음과 같다.
+
+- NORMAL : 일반 프로시저
+
+- EXTERNAL C : C/C++ External Procedure
+
+- INTERNAL C : C/C++ Internal Procedure
+
+- UNKNOWN : 서버 시작시에 저장 프로시저 컴파일에 실패한 경우에 내부 프로시저 타입을 알 수 없어서 UNKNOWN으로 표시할 수 있다. 나중에 제대로 컴파일이 되어 VALID 상태가 되면 원래의 타입이 설정된다.
 
 ###  <a name="vproctext"><a/>V\$PROCTEXT
 
