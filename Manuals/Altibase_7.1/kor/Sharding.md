@@ -61,8 +61,10 @@
     - [설치](#%EC%84%A4%EC%B9%98)
     - [사용자 인터페이스](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
     - [샤드 데이터베이스 관리](#%EC%83%A4%EB%93%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B4%80%EB%A6%AC)
+    - [샤드 데이터베이스 레포트](#%EC%83%A4%EB%93%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A0%88%ED%8F%AC%ED%8A%B8)
+    - [샤드 노드 관리](#%EC%83%A4%EB%93%9C-%EB%85%B8%EB%93%9C-%EA%B4%80%EB%A6%AC)
     - [샤드 객체 관리](#%EC%83%A4%EB%93%9C-%EA%B0%9D%EC%B2%B4-%EA%B4%80%EB%A6%AC)
-    - [SQL 실행](#sql-%EC%8B%A4%ED%96%89)
+    - [SQL 실행: DDL](#sql-%EC%8B%A4%ED%96%89-ddl)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
