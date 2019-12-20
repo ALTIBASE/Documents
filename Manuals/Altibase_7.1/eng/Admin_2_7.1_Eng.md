@@ -110,7 +110,7 @@ A partitioned object internally consists of multiple partitions. Each partition 
 
 A partitioned object causes partitions distributed across multiple tablespaces to appear as a single object. [Figure 7-2] shows the internal structure of a partitioned object.
 
-![](media/Admin/7-2.png)
+![](media/Admin/Admin_eng.1.41.2.jpg)
 
 [Figure 7-2] The Internal Structure of a Partitioned Object
 
