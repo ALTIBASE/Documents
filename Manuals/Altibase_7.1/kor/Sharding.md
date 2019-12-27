@@ -5600,7 +5600,7 @@ CLI 모드는 GUI를 수행할 수 없는 환경 또는 shell script를 이용�
 작업 수행 형식은 수행할 작업 option과 그에 따라 필요한 값을 입력한다. 
 
 ```bash
-$ ./ShardManCli.sh -option [XML file path | shardb_name]
+$ ./ShardManCli.sh -option [XML file path | shard_db_name]
 ```
 
 지원하는 작업 option은 다음과 같이 확인할 수 있다.
