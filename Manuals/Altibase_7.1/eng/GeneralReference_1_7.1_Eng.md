@@ -26,7 +26,8 @@ Altibase® Administration
 
 ![](media/GeneralReference/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Altibase Administration General Reference
+Altibase Administration General Reference참조 테이블
+
 
 Release 7.1
 
@@ -462,7 +463,7 @@ I1
 1 row selected.
 ```
 
-Thereforee, implicit data type conversion follows the rules below:
+Therefore, implicit data type conversion follows the rules below:
 
 - When comparing numeric or character data types or arithmetic operations, the character data types are converted to numeric data types.
 - When comparing the date data type with the character data type, the character data type is converted to the date data type and the comparison opertion is performed.
