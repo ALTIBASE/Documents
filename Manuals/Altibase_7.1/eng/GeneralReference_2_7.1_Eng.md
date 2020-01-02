@@ -188,7 +188,7 @@ Unsigned Integer
 
 ##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
 ##### Range
 
@@ -360,8 +360,8 @@ Read-Only, Single Value
 
 ##### Description
 
-클라이언트 서버간의 TCP/IP통신을 위해서 서버 측에 소켓을 생성할 때 사용하는
-인터넷 프로토콜 스택을 지정한다.
+This property specifies the Internet Protocol Stack to be used when creating sockets on the
+server side for communication between the client and the server via TCP/IP.
 
 0: An Internet Protocol Stack supporting only IPv4 will be used.
 
