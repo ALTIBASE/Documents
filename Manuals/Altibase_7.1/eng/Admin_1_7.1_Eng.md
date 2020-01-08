@@ -72,7 +72,7 @@ Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
 Customer Service Portal: <http://support.altibase.com/en/>
 
-Homepage: [http://www.altibase.com]http://www.altibase.com/)
+Homepage: [http://www.altibase.com]
 
 
 
