@@ -72,7 +72,7 @@ Homepage: [http://www.altibase.com]
 Preface
 ----
 
-### About This Manual
+## About This Manual
 
 This manual explains the concepts, components, and basic use of Altibase
 
