@@ -217,7 +217,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedback and suggestions.
 
-## 1. Altibase Installation
+# 1. Altibase Installation
 
 -------------
 
