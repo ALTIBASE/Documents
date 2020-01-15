@@ -552,7 +552,7 @@ For more detailed information on the concepts and functionality of queue tables,
 
 A constraint is a condition that is imposed to maintain data consistency when inserting or changing data in a table.
 
-You can distinguish between column constraints and table constraints depending on the constraints. Altibas supports the following constraints:
+You can distinguish between column constraints and table constraints depending on the constraints. Altibase supports the following constraints:
 
 -   NOT NULL / NULL Constraints
 
