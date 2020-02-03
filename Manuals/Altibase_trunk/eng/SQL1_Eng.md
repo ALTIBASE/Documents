@@ -5217,7 +5217,7 @@ Table columns, constants, SQL functions and user-defined functions can be includ
 - User-defined functions included in expressions must be marked DETERMINISTIC. 
 - Subqueries cannot be included in expressions. 
 - Sequences cannot be included in expressions. 
-- Pseudo columns of all sorts cannot be included in expressions
+- Pseudo columns of all sorts cannot be included in expressions.
 - The PRIOR operator cannot be included in expressions. 
 - LOB data cannot be included in expressions. 
 - A function-based index can be selected during query optimization only if the QUERY_REWRITE_ENABLE property is set to 1.
@@ -5764,8 +5764,9 @@ This sets the start time and the end time at which the JOB starts to run and end
 
 *interval_clause*
 
-JOB이 처음 실행된 이후에 다음에 반복적으로 실행할 주기를 명시한다. 시간 단위는
-number 다음에 명시되는 YEAR, MONTH, DAY, HOUR, MINUTE에 따라 결정된다.
+This specifies the interval after which the JOB is to run repeatedly after it has run for the first time.
+The unit of time is determined by the YEAR, MONTH, DAY, HOUR, MINUTE which is specified.
+after the number.
 
 *ENABLE/DISABLE*
 
