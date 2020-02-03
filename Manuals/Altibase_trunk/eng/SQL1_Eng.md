@@ -1310,7 +1310,7 @@ The following words are reserved words in Altibase, and cannot be used as databa
 </tr>
 </tbody>
 </table>
-[표 2-1] 예약어 목록
+[Table 2-1] Reserved Words List
 
 ### HINT
 
@@ -1322,7 +1322,7 @@ hints ::=
 
 #### Prerequisites
 
-The hint can be speicifed in the following:
+The hint can be specifed in the following:
 
 - Simple SELECT, UPDATE, DELETE, and INSERT statements 
 - The main query or subquery of a compound statement 
