@@ -417,9 +417,7 @@ ENO INTEGER PRIMARY KEY,
   NAME CHAR(10), 
   FOREIGN KEY(DNO) REFERENCES 
   departments (DNO) ON DELETE CASCADE ); 
-  
   ```
-
 - ON DELETE SET NULL
 
   This option specifies for every foreign key column value in the child table referencing a row in the parent table to be set to NULL, if the given row is deleted.
@@ -436,7 +434,6 @@ CREATE TABLE employees (
   CONSTRAINT dno_fk FOREIGN KEY (dno) REFERENCES 
   departments (dno) ON DELETE SET NULL ); 
   ```
-
 *MAXROWS*
 
 This is used to specify the maximum number of records that can be entered into a table. If an attempt is made to insert records such that the total number of records would be more than that specified using MAXROWS, the insert attempt will fail and an error will be returned. The MAXROWS clause cannot be specified with the table_partitioning_clause clause.
