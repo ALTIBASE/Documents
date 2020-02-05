@@ -91,7 +91,7 @@ This specifies the view from which a record is to be deleted as a subquery.
 
 *returning_clause*
 
-returning 절은 DML 문에 의해 영향을 받은 레코드를 조회한다.
+This retrieves records affected by DML statements. 
 
 *expr*
 
