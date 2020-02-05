@@ -1845,7 +1845,7 @@ ID          PARENT      LEVEL
 11 rows selected.
 ```
 
-![hier_kor](media/SQL/hier_end.png)
+![hier_eng](media/SQL/hier_eng.png)
 
 [Figure 4‑1] Hierarchically Structured Data
 
