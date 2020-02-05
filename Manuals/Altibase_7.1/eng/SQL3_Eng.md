@@ -528,7 +528,7 @@ The SYS user, the owner of the schema containing the table, and users having the
 
 #### Description
 
-lThis statement is used to lock a table in a lock_mode. Once a table is locked, the locked table remains until the associated transaction is committed or rolled back.
+This statement is used to lock a table in a lock_mode. Once a table is locked, the locked table remains until the associated transaction is committed or rolled back.
 
 *user_name*
 
