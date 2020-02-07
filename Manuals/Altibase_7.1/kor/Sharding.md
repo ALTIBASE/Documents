@@ -3463,135 +3463,41 @@ Manager* 를 참고하며 DBMS_SHARD 패키지의 UNSET_NODE에 대한 자세한
 
 #### 유효성 검사
 
-샤드 테이블의 샤드 키 분산 방식 변경으로 인해 샤드 키와 데이터의 불일치가
-발생할 수 있다. 분산 정보가 재설정 된 경우 기존의 분산 데이터는 샤드 키에
-유효한(correct) 데이터와 유효하지 않은(incorrect) 데이터로 구분된다.
+샤드 테이블의 샤드 키 분산 방식 변경으로 인해 샤드 키와 데이터의 불일치가 발생할 수 있다. 분산 정보가 재설정 된 경우 기존의 분산 데이터는 샤드 키에 유효한(correct) 데이터와 유효하지 않은(incorrect) 데이터로 구분된다.
 
-Altibase Sharding 은 샤드 키 분산 정보와 분산 데이터의 유효성을 검사하는
-방법을 제공한다.
-
-##### 구문
+Altibase Sharding 은 샤드 키 분산 정보와 분산 데이터의 유효성을 검사하는 방법으로 아래와 같은 패키지 프로시저를 제공한다.
 
 ```
 DBMS_SHARD.CHECK_DATA
 ```
 
-##### 설명
-
-분산 테이블의 샤드 키 분산 정보와 샤드 노드별 유효 또는 유효하지 않은 데이터
-행 수를 반환한다.
-
-##### 예제
-
-U1 사용자의 s1 테이블에 대한 샤드 키 k1의 분산방식을 다음과 같이 변경할 경우
-변경 전 후의 데이터 유효성을 검사한다.
-
-- hash( 500:NODE1,1000:NODE2)
-- =\> range(330:NODE1,660:NODE2,default:NODE3)
-
-```
-iSQL> EXEC dbms_shard.check_data('u1','s1');
-shard_key_column:K1
-shard_information:{"SplitMethod":"H","RangeInfo":[{"Value":"500","Node":"NODE1"},{"Value":"1000","Node":"NODE2"}]}
-node_name:NODE1, record_count:491, correct_count:491, incorrect_count:0
-node_name:NODE2, record_count:509, correct_count:509, incorrect_count:0
-total_record_count   :1000
-total_incorrect_count:0
-Execute success.
-
-iSQL> EXEC dbms_shard.unset_shard_table('u1','s1');
-iSQL> EXEC dbms_shard.set_shard_table('u1','s1','r','k1','node3');
-iSQL> EXEC dbms_shard.set_shard_range('u1','s1',330,'node1');
-iSQL> EXEC dbms_shard.set_shard_range('u1','s1',660,'node2');
-
-iSQL> EXEC dbms_shard.check_data('u1','s1');
-shard_key_column:K1
-shard_information:{"SplitMethod":"R","DefaultNode":"NODE3",  "RangeInfo":[{"Value":"330","Node":"NODE1"},{"Value":"660","Node":"NODE2"}]}
-node_name:NODE1, record_count:491, correct_count:178, incorrect_count:313
-node_name:NODE2, record_count:509, correct_count:181, incorrect_count:328
-node_name:NODE3, record_count:0, correct_count:0, incorrect_count:0
-total_record_count   :1000
-total_incorrect_count:641
-Execute success.
-```
+사용 방법은 Altibase Sharding 패키지의 CHECK_DATA 를 참고한다.
 
 #### 데이터 재구축
 
-Altibase Sharding은 샤드 테이블의 분산 정보를 변경한 후, 기존의 데이터를
-재구축하거나 특정 샤드 노드를 지정하여 데이터를 이동시키는 방법을 제공한다.
+Altibase Sharding은 샤드 테이블의 분산 정보를 변경한 후, 기존의 데이터를 재구축하거나 특정 샤드 노드를 지정하여 데이터를 이동시키는 방법을 제공한다.
 
-데이터 재구축을 위해서는 기존 분산 테이블을 해제(unset)한 후, 새로운 분산
-방식으로 분산 테이블을 재설정(set)하는 과정을 선행해야 한다. 그러므로
-진행중인 관련 테이블을 사용 중인 응용 프로그램을 종료 시킨 후 수행하여야
-한다.
+데이터 재구축을 위해서는 기존 분산 테이블을 해제(unset)한 후, 새로운 분산 방식으로 분산 테이블을 재설정(set)하는 과정을 선행해야 한다. 그러므로 진행중인 관련 테이블을 사용 중인 응용 프로그램을 종료 시킨 후 수행하여야 한다.
 
-성능을 고려하여, 데이터 재구축은 변경된 분산 기준에 맞지 않는
-데이터(incorrect data)만 이동(move)시키는 방식으로 수행되며 여러 세션에서
-동시에 수행 가능하다. 단, 내부적으로 데이터의 이동이 수반되기 때문에
-데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
+성능을 고려하여, 데이터 재구축은 변경된 분산 기준에 맞지 않는 데이터(incorrect data)만 이동(move)시키는 방식으로 수행되며 여러 세션에서 동시에 수행 가능하다. 단, 내부적으로 데이터의 이동이 수반되기 때문에 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
-데이터 재구축은 샤드 키 분산(hash, range, list, composite) 방식을 적용한
-샤드 테이블에 한해 지원하며, 복제 분산 방식과 독립 분산 방식은 지원하지
-않는다.
+데이터 재구축은 샤드 키 분산(hash, range, list, composite) 방식을 적용한 샤드 테이블에 한해 지원하며, 복제 분산 방식과 독립 분산 방식은 지원하지 않는다.
 
--   hash(500,1000) \<-\> hash(300,600,1000) (O)
+- hash(500,1000) \<-\> hash(300,600,1000) (O)
+- hash \<-\> range (O)
+- hash \<-\> list,hash (O)
+- range \<-\> clone (X)
+- solo \<-\> hash (X)
+- clone \<-\> solo (X)
 
--   hash \<-\> range (O)
-
--   hash \<-\> list,hash (O)
-
--   range \<-\> clone (X)
-
--   solo \<-\> hash (X)
-
--   clone \<-\> solo (X)
-
-##### 구문
+Altibase Sharding 은 데이터 재구축 방법으로 아래와 같은 패키지 프로시저를 제공한다.
 
 ```
 DBMS_SHARD.REBUILD_DATA
 DBMS_SHARD.REBUILD_DATA_NODE
 ```
 
-##### 설명
-
-샤드 키 분산 방식에 따라 데이터를 재분배한다.
-
-##### 예제
-
-새로운 샤드 키 분산 방식으로 분산 테이블을 재설정하였다고 가정한다.
-
-```
-iSQL> ALTER SESSION SET autocommit = false;
-iSQL> ALTER SESSION SET global_transaction_level = 2;
-
-iSQL> EXEC dbms_shard.rebuild_data('u1','s1',100);
-[11:34:47] target node(1/3): "NODE1"
-[11:34:47] 100 moved
-[11:34:47] 200 moved
-[11:34:47] 300 moved
-[11:34:47] 313 moved
-[11:34:47] target node(2/3): "NODE2"
-[11:34:47] 100 moved
-[11:34:47] 200 moved
-[11:34:47] 300 moved
-[11:34:47] 328 moved
-[11:34:47] target node(3/3): "NODE3"
-[11:34:48] done.
-Execute success.
-
-iSQL> EXEC dbms_shard.check_data('u1','s1');
-shard_key_column:K1
-shard_information:{"SplitMethod":"R","DefaultNode":"NODE3","RangeInfo":[{"Value":"330","Node":"NODE1"},{"Value":"660","Node":"NODE2"}]}
-node_name:NODE1, record_count:330, correct_count:330, incorrect_count:0
-node_name:NODE2, record_count:330, correct_count:330, incorrect_count:0
-node_name:NODE3, record_count:340, correct_count:340, incorrect_count:0
-total_record_count   :1000
-total_incorrect_count:0
-Execute success.
-
-iSQL> COMMIT;
-```
+사용 방법은 Altibase Sharding 패키지의 REBUILD_DATA, REBUILD_DATA_NODE 를 참고한다.
 
 #### 리샤딩
 
@@ -4864,9 +4770,9 @@ Execute success
 ##### 구문
 
 ```
-SET_SHARD_CLONE(    user_name    in  varchar(128),
-                    object_name  in  varchar(128),
-                    node_name    in  varchar(40))
+SET_SHARD_CLONE(user_name    in  varchar(128),
+                object_name  in  varchar(128),
+                node_name    in  varchar(40))
 ```
 
 ##### 파라미터
@@ -4896,9 +4802,9 @@ iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node3');
 ##### 구문
 
 ```
-SET_SHARD_SOLO(    user_name    in  varchar(128),
-                   object_name  in  varchar(128),
-                   node_name    in  varchar(40))
+SET_SHARD_SOLO(user_name    in  varchar(128),
+               object_name  in  varchar(128),
+               node_name    in  varchar(40))
 ```
 
 ##### 파라미터
@@ -4985,8 +4891,7 @@ CHECK_DATA(user_name            in  varchar(128),
 
 샤드 테이블의 샤드 키와 데이터의 유효성을 확인한다.
 
-additional_node_list는 테이블의 분산 정의에 등록되지 않은 샤드 노드의 정보를
-확인한다. 샤드 노드의 이름은 쉼표(,)로 구분하여 나열한다.
+additional_node_list는 테이블의 분산 정의에 등록되지 않은 샤드 노드의 정보를 확인한다. 샤드 노드의 이름은 쉼표(,)로 구분하여 나열한다.
 
 ##### 예제
 
@@ -5001,8 +4906,7 @@ total_incorrect_count:0
 Execute success.
 ```
 
-node1\~node4로 분산한 t1 테이블을 노드 node1\~node2로 재설정한 후 node3, node4를
-포함한 정보까지 확인할 수 있는 예제이다.
+node1\~node4로 분산한 t1 테이블을 노드 node1\~node2로 재설정한 후 node3, node4를 포함한 정보까지 확인할 수 있는 예제이다.
 
 ```
 iSQL> EXEC dbms_shard.check_data('sys','t1','node3, node4');
@@ -5045,92 +4949,74 @@ REBUILD_DATA(user_name            in  varchar(128),
 
 모든 샤드 노드의 데이터를 변경된 샤드 키 분산 방식으로 재분배한다.
 
-additional_node_list는 테이블의 분산 정의에 등록되지 않은 샤드 노드를 포함하여
-데이터를 재분배한다. 샤드 노드의 이름은 쉼표(,)로 구분하여 나열한다.
+additional_node_list는 테이블의 분산 정의에 등록되지 않은 샤드 노드를 포함하여 데이터를 재분배한다. 샤드 노드의 이름은 쉼표(,)로 구분하여 나열한다.
 
 ##### 예제
 
+샤드 키 i1 으로 분산된 t1 테이블의 분산 정보를 재설정 한다고 가정한다.
+
+- hash (333:NODE1, 666:NODE2, 1000:NODE3) -> hash( 500:NODE1, 1000:NODE2)
+
+기존 NODE3 에 분산되어 있는 데이터를 추가적으로 적용해야 하므로 additional_node_list 로 NODE3 를 포함하여 수행한다.
+
 ```
+iSQL> EXEC dbms_shard.check_data('sys','t1');
+shard_key_column:I1
+shard_information:{"SplitMethod":"H","DefaultNode":"NODE1","RangeInfo":[{"Value":"1000","Node":"NODE3"},{"Value":"333","Node":"NODE1"},{"Value":"666","Node":"NODE2"}]}
+
+node_name:NODE1, record_count:3314, correct_count:3314, incorrect_count:0
+node_name:NODE2, record_count:3312, correct_count:3312, incorrect_count:0
+node_name:NODE3, record_count:3373, correct_count:3373, incorrect_count:0
+
+iSQL> AUTOCOMMIT OFF;
 iSQL> EXEC dbms_shard.unset_shard_table('sys','t1');
-iSQL> EXEC dbms_shard.set_shard_table('sys','t1','R','i1','node3');
-iSQL> EXEC dbms_shard.set_shard_range('sys','t1',330,'node1');
-iSQL> EXEC dbms_shard.set_shard_range('sys','t1',660,'node2');
-iSQL> EXEC dbms_shard.check_data('sys','t1');
-shard_key_column:I1
-shard_information:{"SplitMethod":"R", "DefaultNode":"NODE3", "RangeInfo":[{"Value":"330","Node":"NODE1"}, {"Value":"660","Node":"NODE2"}]}
-node_name:NODE1, record_count:491, correct_count:178, incorrect_count:313
-node_name:NODE2, record_count:509, correct_count:181, incorrect_count:328
-node_name:NODE3, record_count:0, correct_count:0, incorrect_count:0
-total_record_count   :1000
-total_incorrect_count:641
-Execute success.
-
-iSQL> ALTER SESSION SET global_transaction_level = 2;
-iSQL> ALTER SESSION SET autocommit = false;
-
-iSQL> EXEC dbms_shard.rebuild_data('sys','t1',100);
-[11:34:47] target node(1/3): "NODE1"
-[11:34:47] 100 moved
-[11:34:47] 200 moved
-[11:34:47] 300 moved
-[11:34:47] 313 moved
-[11:34:47] target node(2/3): "NODE2"
-[11:34:47] 100 moved
-[11:34:47] 200 moved
-[11:34:47] 300 moved
-[11:34:47] 328 moved
-[11:34:47] target node(3/3): "NODE3"
-[11:34:48] done.
-Execute success.
-
-iSQL> EXEC dbms_shard.check_data('sys','t1');
-shard_key_column:I1
-shard_information:{"SplitMethod":"R","DefaultNode":"NODE3","RangeInfo":[{"Value":"330","Node":"NODE1"},{"Value":"660","Node":"NODE2"}]}
-node_name:NODE1, record_count:330, correct_count:330, incorrect_count:0
-node_name:NODE2, record_count:330, correct_count:330, incorrect_count:0
-node_name:NODE3, record_count:340, correct_count:340, incorrect_count:0
-total_record_count   :1000
-total_incorrect_count:0
-Execute success.
-iSQL> COMMIT; 
+iSQL> EXEC dbms_shard.set_shard_table('sys','t1','h','i1','node1');
+iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',500,'node1');
+iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',1000,'node2');
+iSQL> COMMIT;
+iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 
 iSQL> EXEC dbms_shard.rebuild_data('sys','t1',1000,'node3');
-[17:33:02] target node(1/3): "NODE1"
-[17:33:02] target node(2/3): "NODE2"
-[17:33:02] 1000 moved
-[17:33:02] 2000 moved
-[17:33:02] 3000 moved
-...
-[17:33:02] 16000 moved
-[17:33:02] 16617 moved
-[17:33:02] target node(3/3): "NODE3"
-[17:33:02] 1000 moved
-[17:33:03] 2000 moved
-[17:33:03] 3000 moved
-[17:33:03] 4000 moved
-...
-[17:33:04] 33000 moved
-[17:33:04] 33381 moved
-[17:33:04] done.
+[12:09:16] target node(1/3): "NODE1"
+[12:09:16] target node(2/3): "NODE2"
+[12:09:16] 1000 moved
+[12:09:16] 1663 moved
+[12:09:16] target node(3/3): "NODE3"
+[12:09:16] 1000 moved
+[12:09:16] 2000 moved
+[12:09:16] 3000 moved
+[12:09:16] 3373 moved
+[12:09:16] done.
 Execute success.
+
+iSQL> EXEC dbms_shard.check_data('sys','t1');
+shard_key_column:I1
+shard_information:{"SplitMethod":"H","DefaultNode":"NODE1","RangeInfo":[{"Value":"1000","Node":"NODE2"},{"Value":"500","Node":"NODE1"}]}
+
+node_name:NODE1, record_count:4977, correct_count:4977, incorrect_count:0
+node_name:NODE2, record_count:5022, correct_count:5022, incorrect_count:0
+
+total_record_count   :9999
+total_incorrect_count:0
+Execute success.
+iSQL> COMMIT;
 ```
 
 > ##### 주의사항
 >
 > - 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
-> - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
->    프로시저를 수행해야 한다.
-> - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
+> - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이 프로시저를 수행해야 한다.
+>    - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
 #### REBUILD_DATA_NODE
 
 ##### 구문
 
 ```
-REBUILD_DATA_NODE(user_name  in  varchar(128),
-                 table_name  in varchar(128),
-                 node_name   in varchar(40),
-                 batch_count in bigint default 0)
+REBUILD_DATA_NODE(user_name   in  varchar(128),
+                  table_name  in varchar(128),
+                  node_name   in varchar(40),
+                  batch_count in bigint default 0)
 ```
 
 ##### 파라미터
@@ -5149,10 +5035,13 @@ REBUILD_DATA_NODE(user_name  in  varchar(128),
 ##### 예제
 
 ```
+iSQL> AUTOCOMMIT OFF;
 iSQL> EXEC dbms_shard.unset_shard_table('sys', 't1');
 iSQL> EXEC dbms_shard.set_shard_table('sys','t1','R','i1','node3');
 iSQL> EXEC dbms_shard.set_shard_range('sys','t1',330,'node1');
 iSQL> EXEC dbms_shard.set_shard_range('sys','t1',500,'node2');
+iSQL> COMMIT;
+iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 
 iSQL> EXEC dbms_shard.check_data('sys','t1');
 shard_key_column:I1
@@ -5163,9 +5052,6 @@ node_name:NODE3, record_count:340, correct_count:340, incorrect_count:0
 total_record_count   :1000
 total_incorrect_count:160
 Execute success.
-
-iSQL> ALTER SESSION SET global_transaction_level = 2;
-iSQL> ALTER SESSION SET autocommit = false;
 
 iSQL> EXEC dbms_shard.rebuild_data_node('sys','t1','node2',100);
 [14:12:25] 100 moved
@@ -5181,7 +5067,6 @@ node_name:NODE3, record_count:500, correct_count:500, incorrect_count:0
 total_record_count   :1000
 total_incorrect_count:0
 Execute success.
-
 iSQL> COMMIT;
 ```
 
@@ -5190,9 +5075,8 @@ iSQL> COMMIT;
 > REBUILD_DATA 와 동일한 다음의 주의사항을 가지고 있다.
 >
 > - 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
-> - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이
->   프로시저를 수행해야 한다.
-> - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
+> - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이 프로시저를 수행해야 한다.
+>   - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
 #### UNSET_NODE
 
