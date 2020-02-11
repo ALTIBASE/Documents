@@ -83,7 +83,7 @@ This manual has been prepared for the following Altibase users
 - Database administrators
 - Performance administrators
 - Database users
-- Applicaiton developers
+- Application developers
 - Technical Supporters
 
 It is recommended for those reading this manual possess the following background knowledge:
