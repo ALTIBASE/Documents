@@ -131,9 +131,9 @@ The following example deletes records that meet the join condition from the tabl
 
 Limitations of the multiple delete clause:
 
--limit_clause and returning_clause cannot be used.
--dictionary table cannot be used.
--full outer join canno be used.
+- limit_clause and returning_clause cannot be used.
+- dictionary table cannot be used.
+- full outer join canno be used.
 
 #### HINTS Options
 
