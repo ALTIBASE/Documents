@@ -3776,11 +3776,11 @@ FailoverSample.java의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER)
 
 ### SQL Plan
 
-SQL 실행 계획을 문자열로 가져오는 기능으로 AltibaseStatement에 비표준 API로 작성되어 있다. 실행 계획은 Altibase가 명령문을 실행하기 위해 수행하는 작업의 순서를 나타낸다. Option에는 ON, OFF, 또는 ONLY가 올 수 있으며 기본 설정값은 OFF이다.
+SQL 실행 계획을 문자열로 가져오는 기능을 비표준 API로 제공한다. 실행 계획은 Altibase가 명령문을 실행하기 위해 수행하는 작업의 순서를 나타낸다. Option에는 ON, OFF, 또는 ONLY가 올 수 있으며 기본 설정값은 OFF이다.
 
 #### 사용법
 
-실행 계획을 가져오기 위해서는 먼저 AltibaseConnection 객체에 setExplainPlan(byte aExplainPlanMode)을 설정 후 getExplainPlan()을 통하여 실행 계획을 얻는다.
+실행 계획을 가져오기 위해서는 SQL 문을 수행하기 전에 AltibaseConnection 객체의 setExplainPlan(byte aExplainPlanMode) 메소드를 호출해, 어떤 내용의 실행 계획을 가져올지 지정해야 한다. 지정 가능한 aExplainPlanMode 옵션은 아래 표에 기술되어 있다. AltibaseStatement 객체에 SQL 문을 입력 후, getExplainPlan() 메서드를 호출하여 문자열 행태의 실행 계획을 반환 받을 수 있다.
 
 #### 인자
 
