@@ -3773,6 +3773,7 @@ FailoverSample.java의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER)
       * getXAConnection()
       * getXAConnection(String user, String password)
 
+---------------------
 4.Tips & Recommendation
 ---------------------
 

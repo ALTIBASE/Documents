@@ -61,6 +61,12 @@ This chapter explains each of the Data Manipulation Language (DML) statements th
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
+**multiple_delete ::=**
+
+![multipledelete_clause](media/SQL_multiple_delete.png)
+
+tbl_ref ::=
+
 #### Prerequisites
 
 The SYS user, the owner of the schema containing the table, users having the DELETE ANY TABLE system privilege, and users having the DELETE privilege for the specified table can delete rows from tables using this statement.
@@ -118,6 +124,16 @@ Limitations of the returning clause:
 - Sequences are not allowed in expr.
 
 > Note: Multiple rows can be simultaneously returned as collection variables using the BULK COLLECT clause within PSM. For further information, refer to the Stored Procedures Manual.
+
+*multiple_delete*
+
+The following example deletes records that meet the join condition from the table specified in tbl_name.
+
+Limitations of the multiple delete clause:
+
+- limit_clause and returning_clause cannot be used.
+- dictionary table cannot be used.
+- full outer join canno be used.
 
 #### HINTS Options
 
