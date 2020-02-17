@@ -1657,7 +1657,7 @@ do{
             }
         }
     }
-}while(stmt.getMoreResults());
+}while(sCallStmt.getMoreResults());
 sCallStmt.close();
 ```
 
