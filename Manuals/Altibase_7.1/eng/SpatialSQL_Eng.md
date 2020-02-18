@@ -3238,7 +3238,7 @@ If the input WKB information describes a GEOMETRY subtype other than a GEOMETRYC
 GEOMETRY
 ```
 
-####RECTFROMTEXT
+#### RECTFROMTEXT
 
 ##### Syntax
 
