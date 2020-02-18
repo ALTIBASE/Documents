@@ -60,6 +60,12 @@
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
+**multiple_delete ::=**
+
+![multiple_delete](media/SQL/multiple_delete.gif)
+
+[tbl_ref ::=](#tbl_ref)
+
 #### 전제 조건
 
 SYS 사용자, 테이블 소유자, DELETE ANY TABLE 시스템 권한을 가진 사용자 및
@@ -128,6 +134,16 @@ Returning 절의 제약 사항:
 
 > 참고: PSM 내에서 BULK COLLECT 절을 사용해서 한꺼번에 여러 행을 collection 변수로
 > 반환할 수 있다. 이에 대한 자세한 내용은 *Stored Procedures Manual*을 참고하라.
+
+*multiple_delete*
+
+join 조건을 만족하는 레코드가 tbl_name에 지정된 테이블에서 삭제하는 구문이다.
+
+multiple delete 제약 사항:
+
+- limit_clause 와 returning_clause 를 사용할 수 없다.
+- dictionary table 을 사용할 수 없다.
+- full outer join 을 사용할 수 없다.
 
 #### HINTS 옵션
 
@@ -212,7 +228,20 @@ COUNT
 1 row selected.
 ```
 
+##### Multiple table 데이터 삭제
 
+\<질의\> employees와 departments 테이블의 'MARKETING DEPT' 부서에 속한 사원을 삭제한다.
+
+```
+iSQL> DELETE e, d FROM employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+4 rows deleted.
+
+iSQL> select count(*) from  employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+COUNT
+-----------------------
+0
+1 row selected.
+```
 
 ##### Returing 절을 사용한 삭제
 
@@ -550,7 +579,7 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO
 
 **lock_table ::=**
 
-![](media/SQL/e99f48f993166dcd8201c1ef39f47f4d.png)
+![](media/SQL/lock_table_partition.png)
 
 #### 전제 조건
 
@@ -571,6 +600,20 @@ lock_mode에 명시한 잠금 모드로 특정한 모드 내에서 테이블 잠
 *tbl_name*
 
 잠금이 걸릴 테이블의 이름을 명시한다.
+
+*partition_name*
+
+잠금이 걸릴 파티션의 이름을 명시한다.
+파티션의 이름을 명시하면, 파티션에 잠금 모드를 적용하고 테이블에는 ROW SHARE 또는 ROW EXCLUSIVE를 적용한다.
+
+|      잠금 모드      |     파티션 적용     |  테이블 적용  |
+| :-----------------: | :-----------------: | :-----------: |
+|      ROW SHARE      |      ROW SHARE      |   ROW SHARE   |
+|    SHARE UPDATE     |    SHARE UPDATE     |   ROW SHARE   |
+|    ROW EXCLUSIVE    |    ROW EXCLUSIVE    | ROW EXCLUSIVE |
+| SHARE ROW EXCLUSIVE | SHARE ROW EXCLUSIVE | ROW EXCLUSIVE |
+|        SHARE        |        SHARE        |   ROW SHARE   |
+|      EXCLUSIVE      |      EXCLUSIVE      | ROW EXCLUSIVE |
 
 *lock_mode*
 
@@ -3130,6 +3173,22 @@ C1          C2
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
+**multiple_update ::=**
+
+![multiple_update](media/SQL/multiple_update.gif)
+
+**tbl_ref ::=**
+
+![multiple_update2](media/SQL/tbl_ref.gif)
+
+**one_table ::=**
+
+![multiple_update3](media/SQL/one_table.gif)
+
+**join_table ::=**
+
+![multiple_update4](media/SQL/join_table.gif)
+
 #### 전제 조건
 
 SYS 사용자, 테이블 소유자, UPDATE ANY TABLE 시스템 권한을 가진 사용자 및
@@ -3186,6 +3245,28 @@ DEFAULT키워드를 사용하는 것이다.
 *returning_clause*
 
 DELETE 구문의 returning_clause를 참고하라.
+
+*multiple_update*
+
+join 조건을 만족하는 레코드를 찾아 명시한 컬럼들의 값을 변경하는 구문이다.
+
+multiple update 제약 사항:
+
+- limit_clause 와 returning_clause 를 사용할 수 없다.
+- dictionary table 을 사용할 수 없다.
+- full outer join 을 사용할 수 없다.
+
+*tbl_ref*
+
+multiple update 를 하기 위한 table 을 명시한다.
+
+*one_table*
+
+한 개의 table이거나 혹은 view 를 명시한다.
+
+*join_table*
+
+table 사이의 join 조건을 명시한다.
 
 #### HINTS 옵션
 
@@ -3418,6 +3499,14 @@ iSQL> UPDATE simple_emp SET salary=3000 WHERE dname='RESEARCH DEVELOPMENT DEPT 1
 2 rows updated.
 ```
 
+##### Multiple table 갱신
+
+\<질의\> employees와 departments 테이블을 join 후 칼럼 salary를 갱신한다.
+
+```
+UPDATE employees e, departments d SET salary=4000 WHERE e.dno = d.dno and d.dname='BUSINESS DEPT';
+4 rows updated.
+```
 
 
 ### MOVE 
@@ -3535,82 +3624,108 @@ iSQL> MOVE INTO T1 FROM T2(I1, I2, I3);
 
 #### 전제 조건
 
-MERGE 구문을 사용하기 위해서 사용자는 대상 테이블에 대한 INSERT 및 UPDATE 객체
-권한과 원본 테이블에 대한 SELECT 객체 권한을 가져야 한다.
+데이터베이스 유저는 MERGE 구문을 사용하기 위해서 조회 테이블에 대한 SELECT 권한과 변경 테이블에 대한 INSERT 및 UPDATE 권한을 가져야 한다.
 
 #### 설명
 
-MERGE 구문은 원본 테이블에서 데이터를 조회(SELECT)하여 대상 테이블에
-갱신(UPDATE) 또는 삽입(INSERT)하기 위한 구문이다. INTO 절에 명시한 테이블이 대상
-테이블이며, USING 절에 명시한 테이블 또는 뷰가 원본 테이블이다. ON 절에는 대상
-테이블에 갱신 또는 삽입할 것인지를 결정할 조건을 명시할 수 있다.
-
-INSERST, UPDATE 등의 DML 구문이 여러 번 수행되어야 하는 것을 하나의 MERGE
-구문으로 대체할 수 있다.
+MERGE 구문은 ON절에 명시한 조건에 해당하는 데이터가 있는 경우에 원하는 값으로 변경하고, 없는 경우에 새로운 데이터를 삽입하는 작업을 수행한다. 예시로 SELECT 구문으로 데이터를 조회해서 데이터가 있는 경우 UPDATE 구문을 수행하고, 없는 경우 INSERT 구문을 수행하는 작업을 하나의 MERGE 구문으로 대체할 수 있다.
 
 *hints*
 
-여기에 명시한 힌트는 적용 가능한 경우 INSERT, UPDATE 작업에 적용될 것이다.
-
-- 고려 사항:
-  - 뷰는 대상 테이블로 사용할 수 없다.
-  - 힌트는 MERGE 키워드 다음에만 올 수 있다.
-  - ON 절에 복수의 조건들이 있을 때, 동일한 행에 대하여 각 조건마다 여러 번
-    일치할 때에는 해당 행이 반복하여 갱신 또는 삭제될 수 있다.
+힌트는 MERGE 키워드 다음에만 명시할 수 있다. 명시한 힌트는 INSERT 문이나 UPDATE 문에 적용된다.
 
 *INTO 절*
 
-갱신 또는 삽입할 대상 테이블을 지정하는 절이다. INTO 절에는 뷰는 올 수 없고
-테이블만 올 수 있다.
+데이터를 변경하거나 삽입할 테이블을 지정한다. INTO 절에 뷰는 사용할 수 없다.
 
 *USING 절*
 
-원본 데이터를 가져올 테이블 또는 뷰를 지정하는 절이다.
+INTO 절 테이블과 비교할 데이터를 지정한다. 테이블 이름이나 SELECT 구문 또는 뷰를 사용할 수 있다.
 
 *ON 절*
 
-ON 절에는 MERGE 작업으로 갱신 또는 삽입할 조건들이 명시된다. 조건 뒤에는 조건
-만족 여부에 따라 수행되어야 할 merge 작업이 지정된다. 아래의 세 절을 사용해서
-수행될 merge 작업을 지정할 수 있으며, 각 절은 최대 한 번씩만 명시할 수 있고,
-순서는 상관 없다.
+INTO 절 테이블에 변경하거나 삽입하려는 데이터의 조건을 명시한다. ON 절의 조건에 의해서 동일한 레코드에 여러 번 반복하여 변경되거나 동일한 레코드가 여러 번 반복하여 삽입될 수 있다. ON 절 다음에 matched_update_clause, not_matched_insert_clause, no_rows_insert_clause 세 가지 절을 사용할 수 있다. 각 절은 한 번씩 명시할 수 있으며 순서는 상관없다.
 
 *matched_update_clause*
 
-이 절은 대상 테이블에서 갱신될 칼럼 값을 명시한다. ON 절의 조건을 만족하는 행이
-원본과 대상 테이블에 있을 경우, 이 절의 갱신이 수행된다.
+ON 절의 조건을 만족하는 데이터가 있는 경우에 해당 레코드를 변경하는 UPDATE 구문을 작성한다. 변경할 테이블은 INTO 절에서 명시하였으므로 생략한다.
 
 - 제약 사항:
   - ON 조건 절에서 참조되는 칼럼은 갱신이 불가능하다.
 
 *not_matched_insert_clause*
 
-이 절은 ON 절의 조건을 만족하는 행이 대상 테이블에 없는 경우, 대상 테이블의
-칼럼에 삽입할 값을 명시한다. INSERT 키워드 다음에 칼럼 리스트를 생략하려면,
-VALUES 절에 오는 값의 개수는 대상 테이블의 칼럼 수와 일치해야 한다.
-
-이 절은 단독으로 또는 *merge_update_specification*과 함께 명시할 수 있으며, 둘
-모두 명시하는 경우에 순서는 상관 없다.
+ON 절의 조건을 만족하는 데이터가 없는 경우에 새로운 레코드를 삽입하는 INSERT 구문을 작성한다. 삽입할 테이블은 INTO 절에서 명시하였으므로 생략한다. INSERT 키워드 다음에 칼럼 리스트를 생략하려면, VALUES 절에 오는 값의 개수는 INTO 절 테이블의 칼럼 수와 일치해야 한다.
 
 *no_rows_insert_clause*
 
-이 절은 ON 절의 조건을 만족하는 행이 원본 테이블에 없는 경우, 대상 테이블의
-칼럼에 삽입할 값을 명시한다. INSERT 키워드 다음에 칼럼 리스트를 생략하려면,
-VALUES 절에 오는 값의 개수는 대상 테이블의 칼럼 수와 일치해야 한다.
+USING 절에 명시한 테이블이나 SELECT 구문 또는 뷰 결과에 데이터가 없는 경우에 새로운 레코드를 삽입하는 INSERT 구문을 작성한다. 삽입할 테이블은 INTO 절에서 명시하였으므로 생략한다. INSERT 키워드 다음에 칼럼 리스트를 생략하려면, VALUES 절에 오는 값의 개수는 대상 테이블의 칼럼 수와 일치해야 한다.
 
 #### 예제
 
-\<질의\>test_merge 테이블에 존재하는 empno의 경우 USING 절에 명시한 값으로
-갱신되고, 존재하지 않는 경우에는 삽입되는 것을 보여준다.
+\<질의\> 조건에 따라 TEST_MERGE 테이블에 데이터를 삽입하거나 변경하는 예제이다.
+
+TEST_MERGE 테이블에 ON 절의 조건을 만족하는 레코드는 USING 절에 데이터로 변경되고, 만족하지 않는 경우에 새로운 레코드가 삽입되는 것을 보여준다. ON 절의 조건과 같이, INTO 절의 TEST_MERGE 테이블과 USING 절의 데이터를 비교하여 EMPNO 칼럼 값이 같은 레코드가 있다면, INTO 절 TEST_MERGE 테이블에서 해당 레코드의 LASTNAME 칼럼 값을 변경한다. EMPNO 칼럼 값이 같은 레코드가 없다면, INTO 절 TEST_MERGE 테이블에 USING 절의 데이터를 새로운 레코드로 삽입한다.
 
 ```
-CREATE TABLE test_merge (empno int, lastname CHAR(20));
-INSERT INTO test_merge values(1, 'KIM');
-INSERT INTO test_merge values(2, 'LEE');
-INSERT INTO test_merge values(5, 'PARK');
-INSERT INTO test_merge values(4, 'CHOI');
-INSERT INTO test_merge values(7, 'YUN');
+DROP TABLE TEST_MERGE;
+CREATE TABLE TEST_MERGE (EMPNO INT, LASTNAME CHAR(20));
+INSERT INTO TEST_MERGE VALUES(1, 'KIM');
+INSERT INTO TEST_MERGE VALUES(2, 'LEE');
+INSERT INTO TEST_MERGE VALUES(5, 'PARK');
+INSERT INTO TEST_MERGE VALUES(4, 'CHOI');
+INSERT INTO TEST_MERGE VALUES(7, 'YUN');
 
-iSQL> SELECT * FROM test_merge;
+iSQL> SELECT * FROM TEST_MERGE WHERE EMPNO IN (1, 7, 9);
+EMPNO       LASTNAME                        
+-----------------------------------------------
+1           KIM                             
+7           YUN                             
+2 rows selected.
+
+iSQL> MERGE INTO TEST_MERGE OLD_T
+USING
+     (
+      SELECT 1 EMPNO, 'KANG' LASTNAME FROM DUAL UNION ALL
+      SELECT 7 EMPNO, 'SON' LASTNAME FROM DUAL UNION ALL
+      SELECT 9 EMPNO, 'CHEON' LASTNAME FROM DUAL
+     ) NEW_T
+  ON OLD_T.EMPNO = NEW_T.EMPNO
+ WHEN MATCHED THEN
+      UPDATE SET OLD_T.LASTNAME = NEW_T.LASTNAME
+ WHEN NOT MATCHED THEN
+      INSERT (OLD_T.EMPNO, OLD_T.LASTNAME) VALUES(NEW_T.EMPNO, NEW_T.LASTNAME);
+3 rows merged.
+  
+iSQL> SELECT * FROM TEST_MERGE WHERE EMPNO IN (1, 7, 9);
+EMPNO       LASTNAME                        
+-----------------------------------------------
+1           KANG                            
+7           SON                             
+9           CHEON                           
+3 rows selected.
+```
+
+TEST_MERGE 테이블에 EMPNO = 1 과 EMPNO = 7 인 레코드는 LASTNAME = 'KANG' 과 LASTNAME = 'SON' 으로 변경되었고, EMPNO = 9, LASTNAME = 'CHEON' 이 새로운 레코드로 삽입되었다.
+
+\<질의\> ON 절 오사용으로 인한 동일한 레코드의 반복 변경되는 예제이다.
+
+```
+DROP TABLE TEST_MERGE;
+CREATE TABLE TEST_MERGE (EMPNO INT, LASTNAME CHAR(20));
+INSERT INTO TEST_MERGE VALUES(1, 'KIM');
+INSERT INTO TEST_MERGE VALUES(2, 'LEE');
+INSERT INTO TEST_MERGE VALUES(5, 'PARK');
+INSERT INTO TEST_MERGE VALUES(4, 'CHOI');
+INSERT INTO TEST_MERGE VALUES(7, 'YUN');
+
+DROP TABLE TEST_MERGE2;
+CREATE TABLE TEST_MERGE2 (EMPNO INT, LASTNAME CHAR(20));
+INSERT INTO TEST_MERGE2 VALUES(8, 'JANG');
+INSERT INTO TEST_MERGE2 VALUES(1, 'KIM');
+INSERT INTO TEST_MERGE2 VALUES(7, 'YUN');
+
+iSQL> SELECT * FROM TEST_MERGE;
 EMPNO       LASTNAME
 -------------------------------------
 1           KIM
@@ -3620,30 +3735,84 @@ EMPNO       LASTNAME
 7           YUN
 5 rows selected.
 
-iSQL> MERGE INTO test_merge old_t
-USING
-     (
-      SELECT 1 empno, 'KANG' lastname FROM dual UNION ALL
-      SELECT 7 empno, 'SON' lastname FROM dual UNION ALL
-      SELECT 9 empno, 'CHEON' lastname FROM dual
-     ) new_t
-  ON old_t.empno = new_t.empno
+iSQL> SELECT * FROM TEST_MERGE2;
+EMPNO       LASTNAME
+-------------------------------------
+8           JANG
+1           KIM
+7           YUN
+3 rows selected.
+
+iSQL> MERGE INTO TEST_MERGE OLD_T
+USING TEST_MERGE2 NEW_T
+  ON OLD_T.EMPNO = NEW_T.EMPNO OR OLD_T.EMPNO = 8
  WHEN MATCHED THEN
-      UPDATE SET old_t.lastname = new_t.lastname
+      UPDATE SET LASTNAME = 'MATCHED'
  WHEN NOT MATCHED THEN
-      INSERT (old_t.empno, old_t.lastname) VALUES(new_t.empno, new_t.lastname);
-3 rows merged.
-  
-iSQL> SELECT * FROM test_merge;
+      INSERT VALUES( EMPNO, 'NOTMATCHED' )
+ WHEN NO ROWS THEN
+      INSERT VALUES( 10, 'NO ROWS' );
+5 rows merged.
+
+iSQL> SELECT * FROM TEST_MERGE;
 EMPNO       LASTNAME
 -------------------------------------
 2           LEE
 5           PARK
 4           CHOI
-1           KANG
-7           SON
-9           CHEON
+1           MATCHED
+7           MATCHED
+8           MATCHED
 6 rows selected.
+```
+
+ON 절의 OLD_T.EMPNO = NEW_T.EMPNO 조건을 만족하지 않아서 TEST_MERGE 테이블에 EMPNO = 8, LASTNAME = 'NOTMATCHED' 인 새로운 레코드로 삽입되었고, 이후에 ON 절의 OLD_T.EMPNO = 8 조건을 만족하여 EMPNO = 8 인 레코드가 LASTNAME = 'MATCHED' 으로 3회 반복하여 변경되었다.
+
+\<질의\> WHEN NO ROWS THEN 절이 수행되는 예제이다.
+
+```
+DROP TABLE TEST_MERGE;
+CREATE TABLE TEST_MERGE (EMPNO INT, LASTNAME CHAR(20));
+INSERT INTO TEST_MERGE VALUES(1, 'KIM');
+INSERT INTO TEST_MERGE VALUES(2, 'LEE');
+INSERT INTO TEST_MERGE VALUES(5, 'PARK');
+INSERT INTO TEST_MERGE VALUES(4, 'CHOI');
+INSERT INTO TEST_MERGE VALUES(7, 'YUN');
+
+DROP TABLE TEST_MERGE2;
+CREATE TABLE TEST_MERGE2 (EMPNO INT, LASTNAME CHAR(20));
+
+iSQL> SELECT * FROM TEST_MERGE;
+EMPNO       LASTNAME
+-------------------------------------
+1           KIM
+2           LEE
+5           PARK
+4           CHOI
+7           YUN
+5 rows selected.
+
+MERGE INTO TEST_MERGE OLD_T
+USING TEST_MERGE2 NEW_T
+ON NEW_T.EMPNO = OLD_T.EMPNO AND NEW_T.EMPNO = 10
+WHEN MATCHED THEN
+    UPDATE SET LASTNAME = 'MATCHED'
+WHEN NOT MATCHED THEN
+    INSERT VALUES( 10, 'NOTMATCHED' )
+WHEN NO ROWS THEN
+    INSERT VALUES( 10, 'NO ROWS' ) ;
+1 row merged.
+
+iSQL> SELECT * FROM TEST_MERGE;
+EMPNO       LASTNAME                        
+-----------------------------------------------
+1           KIM                             
+2           LEE                             
+5           PARK                            
+4           CHOI                            
+7           YUN                             
+10          NO ROWS                         
+6 rows selected
 ```
 
 

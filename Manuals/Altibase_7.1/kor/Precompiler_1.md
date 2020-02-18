@@ -587,7 +587,7 @@ $ apre -keyword
 
 :: Keywords for C code ::
 :: Keywords for C code ::
-ALTIBASE_APRE APRE_BINARY APRE_BINARY2 APRE_BIT APRE_BLOB APRE_BLOB_LOCATOR APRE_BYTES APRE_CLOB APRE_CLOB_LOCATOR APRE_DUPKEY_ERR APRE_INTEGER APRE_NIBBLE APRE_NUMERIC APRE_VARBYTES MAX_CHAR_PTR SESC_DECLARE SESC_INCLUDE SES_BINARY SES_BIT SES_BLOB SES_BLOB_LOCATOR SES_BYTES SES_CLOB SES_CLOB_LOCATOR SES_DUPKEY_ERR SES_INTEGER SES_NIBBLE SES_NUMERIC SES_VARBYTES SQLFailOverCallback SQLLEN SQL_DATE_STRUCT SQL_TIMESTAMP_STRUCT SQL_TIME_STRUCT VARCHAR
+ALTIBASE_APRE APRE_BINARY APRE_BINARY2 APRE_BIT APRE_BLOB APRE_BLOB_LOCATOR APRE_BYTES APRE_CLOB APRE_CLOB_LOCATOR APRE_DUPKEY_ERR APRE_INTEGER APRE_NIBBLE APRE_NUMERIC APRE_VARBYTES MAX_CHAR_PTR SESC_DECLARE SESC_INCLUDE SES_BINARY SES_BIT SES_BLOB SES_BLOB_LOCATOR SES_BYTES SES_CLOB SES_CLOB_LOCATOR SES_DUPKEY_ERR SES_INTEGER SES_NIBBLE SES_NUMERIC SES_VARBYTES SQLFailOverCallback SQLLEN SQL_DATE_STRUCT SQL_TIMESTAMP_STRUCT SQL_TIME_STRUCT SQL_NUMERIC_STRUCT VARCHAR
 
 :: Keywords for Embedded SQL statement ::
 ABSOLUTE ADD AFTER AGER ALL ALLOCATE ALTER AND ANY ARCHIVE ARCHIVELOG AS ASC ASENSITIVE AT AUTOCOMMIT BACKUP BATCH BEFORE BEGIN BETWEEN BLOB_FILE BREAK BY CASCADE CASE CAST CLEAR_RECPTRS CLOB_FILE CLOSE COALESCE COLUMN COMMIT COMPILE CONNECT CONSTANT CONSTRAINT CONSTRAINTS CONTINUE CREATE CUBE CURSOR CYCLE DATABASE DEALLOCATE DECLARE DEFAULT DELETE DEQUEUE DESC DESCRIPTOR DIRECTORY DISABLE DISABLE_RECPTR DISCONNECT DISTINCT DO DROP EACH ELSE ELSEIF ELSIF ENABLE ENABLEALL_RECPTRS ENABLE_RECPTR END ENQUEUE ESCAPE EXCEPTION EXEC EXECUTE EXISTS EXIT EXTENTSIZE FALSE FETCH FIFO FIRST FIXED FLUSH FOR FOREIGN FOUND FREE FROM FULL FUNCTION GOTO GRANT GROUP GROUPING HAVING HOLD IDENTIFIED IF IMMEDIATE IN INDEX INDICATOR INNER INSENSITIVE INSERT INTERSECT INTO IS ISOLATION JOIN KEY LAST LEFT LESS LEVEL LIFO LIKE LIMIT LOB LOCAL LOCK LOGANCHOR LOOP MAXROWS MERGE MINUS MODE MOVE MOVEMENT NEW NEXT NOARCHIVELOG NOCYCLE NOPARALLEL NOT NULL OF OFF OFFLINE OLD ON ONERR ONLINE ONLY OPEN OPTION OR ORDER OTHERS OUT OUTER PARALLEL PARTITION PARTITIONS PREPARE PRIMARY PRIOR PRIVILEGES PROCEDURE PUBLIC QUEUE RAISE READ REBUILD RECOVER REFERENCES REFERENCING RELATIVE RELEASE RENAME REPLACE REPLICATION RESTRICT RETURN REVERSE REVOKE RIGHT ROLLBACK ROLLUP ROW ROWCOUNT ROWTYPE SAVEPOINT SCROLL SELECT SENSITIVE SEQUENCE SESSION SET SETS SOME SPLIT SQLCODE SQLERRM SQLERROR SQLLEN START STATEMENT STEP STORE SYNONYM TABLE TABLESPACE TEMPORARY THAN THEN THREADS TO TRIGGER TRUE TRUNCATE TYPE TYPESET UNION UNIQUE UNTIL UPDATE USER USING VALUES VARCHAR VARIABLE VIEW VOLATILE WAIT WAKEUP_RECPTR WHEN WHENEVER WHERE WHILE WITH WORK WRITE
@@ -3077,7 +3077,7 @@ AND CUS_JOB = :s_cus_job;
 
 3가지의 날짜형 타입이 제공되므로 개발자는 용도에 맞게 사용하면 된다.
 
-##### SQL_DATE_SURUCT 
+##### SQL_DATE_STRUCT 
 
 이 타입은 년, 월, 일로 구성 되어 있다. 이 타입의 구조는 다음과 같다.
 
@@ -3205,6 +3205,85 @@ s_timestamp.fraction = 100000;
 EXEC SQL UPDATE EMPLOYEES 
 SET JOIN_DATE = :s_timestamp 
 WHERE ENO = 5;    
+```
+
+##### SQL_NUMERIC_STRUCT 
+
+이 타입 사용 시 NUMERIC 데이터를 전달할 수 있다. 
+
+이 타입의 구조는 다음과 같다. 
+
+```
+typedef struct tagSQL_NUMERIC_STRUCT
+{
+	SQLCHAR		precision;
+	SQLSCHAR	scale;
+	SQLCHAR		sign;	/* 1=pos 0=neg */
+	SQLCHAR		val[SQL_MAX_NUMERIC_LEN];
+} SQL_NUMERIC_STRUCT;
+```
+
+##### 예제
+
+다음은 SQL_NUMERIC_STRUCT 타입의 사용 예를 보여준다.
+
+s_price를 입력 또는 출력 호스트 변수로 사용하는 예이다.
+
+\< 예제 프로그램 : date.sc \>
+
+```
+/* declare host variables */
+EXEC SQL BEGIN DECLARE SECTION;
+char                 s_gno[10+1];
+char                 s_gname[20+1];
+char                 s_goods_location[9+1];
+int                  s_stock;
+SQL_NUMERIC_STRUCT   s_price;
+EXEC SQL END DECLARE SECTION;
+
+int s_price_val = 0;
+
+/* use scalar host variables */
+strcpy(s_gno, "F111100002");
+strcpy(s_gname, "XX-101");
+strcpy(s_goods_location, "FD0003");
+s_stock = 5000;
+
+/* set value 123.4 on SQL_NUMERIC_STRUCT */
+memset(&s_price, 0, sizeof(s_price));
+s_price.precision = 4;
+s_price.scale = 1;
+s_price.sign = 1;
+s_price_val = 1234;
+memcpy(&s_price.val, &s_price_val, sizeof(int));
+
+printf("------------------------------------------------------------------\n");
+printf("[SQL_NUMERIC_STRUCT Insert]\n");
+printf("------------------------------------------------------------------\n");
+
+EXEC SQL INSERT INTO GOODS VALUES (:s_gno, :s_gname, :s_goods_location, :s_stock, :s_price);
+
+memset(s_gname, 0, sizeof(s_gname));
+memset(s_goods_location, 0, sizeof(s_goods_location));
+s_stock = 0;
+memset(&s_price, 0, sizeof(s_price));
+
+printf("------------------------------------------------------------------\n");
+printf("[SQL_NUMERIC_STRUCT Select]\n");
+printf("------------------------------------------------------------------\n");
+
+EXEC SQL SELECT GNAME, GOODS_LOCATION, STOCK, PRICE INTO :s_gname, :s_goods_location, :s_stock, :s_price FROM GOODS WHERE GNO = :s_gno;
+/* check sqlca.sqlcode */
+if (sqlca.sqlcode == SQL_SUCCESS)
+{
+    /* sqlca.sqlerrd[2] holds the rows-processed(inserted) count */
+    printf("%d rows select s_gno=%s, s_gname=%s, s_goods_location=%s, s_stock=%d, s_price=%.15G \n\n", 
+            sqlca.sqlerrd[2], s_gno, s_gname, s_goods_location, s_stock, APRE_NUMERIC_TO_DOUBLE(s_price));
+}
+else
+{
+    printf("Error : [%d] %s\n\n", SQLCODE, sqlca.sqlerrm.sqlerrmc);
+}   
 ```
 
 #### 이진 타입
@@ -3718,7 +3797,7 @@ DECIMAL
 </td>
 		<td>char, varchar, 
 short, int, long, long long,
-double, float
+double, float, SQL_NUMERIC_STRUCT
 </td>
 		<td>char,
 long, long long,
@@ -3862,7 +3941,7 @@ DECIMAL
 		<td>char, varchar, 
 short, int, long, long long,
 double, float,
-APRE_BINARY, APRE_BINARY2
+APRE_BINARY, APRE_BINARY2, SQL_NUMERIC_STRUCT
 </td>
 		<td>char,
 long, long long,

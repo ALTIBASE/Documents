@@ -27,6 +27,9 @@
     - [Autocommit 제어](#autocommit-%EC%A0%9C%EC%96%B4)
     - [BIT, VARBIT](#bit-varbit)
     - [JDBC 로깅](#jdbc-%EB%A1%9C%EA%B9%85)
+    - [Hibernate](#hibernate)
+    - [Sharding](#sharding)
+    - [SQL Plan](#sql-plan)
   - [4.Tips & Recommendation](#4tips--recommendation)
     - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
   - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
@@ -1654,7 +1657,7 @@ do{
             }
         }
     }
-}while(stmt.getMoreResults());
+}while(sCallStmt.getMoreResults());
 sCallStmt.close();
 ```
 
@@ -2472,8 +2475,8 @@ sPstmt.executeQuery();
 
 #### 전제 조건
 
--   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 2Gbytes의
-    최대 크기를 가질 수 있다.
+-   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 4GB-1byte의
+    최대 크기를 가질 수 있다. 단, JDK 1.6 이상에서만 가능하다.
 
 LOB 데이터를 정상적으로 다루기 위해서는 세션의 autocommit 모드가 아래의 조건 중
 하나를 만족해야 한다.
@@ -2509,6 +2512,15 @@ PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
 sPstmt.setBinaryStream(1, sInputStream, sLength);
 ...
 sPstmt.execute();
+...
+```
+
+JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 타입으로 캐스팅 하면 long 타입의 길이 변수로 정의된 setBinaryStream() 메소드를 호출할 수 있다.
+
+```
+import Altibase.jdbc.driver.AltibasePreparedStatement;
+...
+((AltibasePreparedStatement)sPstmt).setBinaryStream(1, sInputStream, sLength);
 ...
 ```
 
@@ -2829,6 +2841,15 @@ VALUES (?)");
 sPstmt.setCharacterStream(1, sReader, sLength);
 ...
 sPstmt.execute();
+...
+```
+
+JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 타입으로 캐스팅 하면 long 타입의 길이 변수로 정의된 setCharacterStream() 메소드를 호출할 수 있다.
+
+```
+import Altibase.jdbc.driver.AltibasePreparedStatement;
+...
+((AltibasePreparedStatement)sPstmt).setCharacterStream(1, sReader, sLength);
 ...
 ```
 
@@ -3471,8 +3492,321 @@ Altibase.jdbc.driver.logging.MultipleFileHandler.formatter = java.util.logging.X
 --> MultipleFileHandler를 설정하는 부분으로 pattern에 jdbc_net_%s.log를 사용해 세션의 아이디별로 파일이 생성되도록 설정했다. 또한 formatter로 XMLFormatter를 사용해 XML형태의 파일에 로그가 생성되도록 설정했다.
 
 ```
+### Hibernate
+Altibase 는 비표준 SQL 을 제공하며, Hibernate 는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
+Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설정하고, Hibernate 의 configuration 에
+AltibaseDialect.class 를 지정해야 한다.
 
+#### AltibaseDialect
+Hibernate 가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class 를 포함하지 않기 때문에
+AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가
+제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은
+Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
+(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
+### Sharding
+#### Properties
+jdbc sharding 기능을 위해 다음 속성들이 추가되었다.
+##### shard_transaction_level
+| 기본값    | 1                                                             |
+|----------|---------------------------------------------------------------|
+| 값의 범위 | [0 \| 1 ]                                                 |
+| 필수 여부 | No                                                            |
+| 설정 범위 | 세션                                                           |
+| 설명     | 샤드트랜잭션 레벨을 설정한다. <br>0 : single node transaction<br>1 : multiple node transaction |
+
+##### shard_conn_type
+| 기본값    | TCP                                                           |
+|----------|---------------------------------------------------------------|
+| 값의 범위 | [TCP \| SSL \| IB]<br>[1 \| 6 \| 8]                           |
+| 필수 여부 | No                                                            |
+| 설정 범위 | 세션                                                           |
+| 설명     | 클라이언트와 데이터 노드의 네트워크 연결 방식을 결정한다.<br>TCP(1) : tcp<br>SSL(6) : ssl<br>IB(8) : infiniband(JNI라이브러리 필요)   |
+
+##### shard_lazy_connect
+| 기본값    | true                                                           |
+|----------|---------------------------------------------------------------|
+| 값의 범위 | [true \| false]                                               |
+| 필수 여부 | No                                                            |
+| 설정 범위 | 세션                                                           |
+| 설명     | 데이터노드와의 연결을 수립할 때 지연된 연결을 사용할지 여부를 결정한다.<br>false : meta접속 후 바로 데이터노드들로 접속하고 prepare시에도 각 노드들로 prepare요청을 한꺼번에 보낸다.<br>true : execute시 필요한 노드에 대해 연결하고 prepare요청을 보낸다.   |
+
+##### reshard_enable
+| 기본값    | false                                                           |
+|----------|---------------------------------------------------------------|
+| 값의 범위 | [true \| false]                                               |
+| 필수 여부 | No                                                            |
+| 설정 범위 | 세션                                                           |
+| 설명     | 온라인 리샤딩 사용 여부를 결정한다.                                 |
+
+#### 버전 확인
+Altibase.jar 파일 하나에 sharding 기능이 통합되어 있으며, 다음과 같이 java -jar 를 해보면 sharding을 지원하는지 확인할 수 있다.
+```
+$ java -jar Altibase.jar
+Altibase 7.2.0.0.0 with CMP 7.1.7 for JDBC 3.0 compiled with JDK 5(sharding included)
+```
+#### 연결 설정
+##### DriverManager
+기존 jdbc url에 sharding prefix를 추가한다.
+```
+String sUrl = "jdbc:sharding:Altibase://127.0.0.1:20300/mydb"
+Connection sCon = DriverManager.getConnection( sUrl, sProps);
+...
+```
+##### DataSource
+javax.sql.DataSource를 구현하고 있는 AltibaseShardingDataSource를 사용하면 된다.
+```
+String sUrl = "jdbc:sharding:Altibase://127.0.0.1:20300/mydb";
+AltibaseShardingDataSource sDataSource = new AltibaseShardingDataSource();
+sDataSource.setURL(sUrl);
+sDataSource.setUser("sys");
+sDataSource.setPassword("manager");
+Connection sCon = sDataSource.getConnection();
+...
+```
+#### Connection Pool 설정
+Meta서버와의 접속에 커넥션풀링 기능을 사용할 수 있다. 커넥션풀로는 DBCP와 같은 오픈소스 커넥션풀이나 
+AltibaseShardingConnnectionPoolDataSource를 사용할 수 있으며 데이터 노드와의 접속은 드라이버 
+자체적으로 캐싱을 하고 있기 때문에 pooling이 되지 않는다.
+
+##### DBCP
+dbcp는 다음과 같이 DriverClassName을 이용해 connection pool을 생성할 수 있다.
+###### Simple JDBC
+```
+public DataSource createDataSourceNode(String aUrl)
+{
+    BasicDataSource sResult = new BasicDataSource();  // Apache DBCP Connection Pool DataSource
+    sResult.setDriverClassName(Altibase.jdbc.driver.AltibaseDriver.class.getName());
+    sResult.setUrl(aUrl);  // with shard prefix (ex : jdbc:sharding:Altibase://127.0.0.1:20300/mydb)
+    sResult.setUsername("sys");
+    sResult.setPassword("manager");
+    return sResult;
+}
+```
+###### Spring
+```
+<bean id="shardDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="Altibase.jdbc.driver.AltibaseDriver" />
+    <property name="url" value="jdbc:sharding:Altibase://127.0.0.1:20300/mydb" />
+    <property name="username" value="sys" />
+    <property name="password" value="manager" />
+    <property name="initialSize" value="3" />
+    <property name="maxActive" value="10" />
+</bean>
+```
+##### ConnectionPoolDataSource
+shardjdbc는 javax.sql.ConnectionPoolDataSource를 구현하고 있는 AltibaseShardingConnectionPoolDataSource를
+제공한다. 사용법은 기존 AltibaseConnectionPoolDataSource와 같으며 오픈소스 커넥션풀을 사용할 수 없는 환경에서 
+이용할 수 있다.
+
+```
+private Connection getConnection() throws SQLException
+{
+    String sURL = "jdbc:sharding:Altibase://127.0.0.1/mydb";
+    AltibaseShardingConnectionPoolDataSource sDataSource = new AltibaseShardingConnectionPoolDataSource();
+    sDataSource.setURL(sURL);
+    PooledConnection sPooledConn = sDataSource.getPooledConnection("SYS", "MANAGER");
+    return sPooledConn.getConnection();
+}
+```
+#### 환경변수
+병렬로 shard sql을 실행할때 사용할 쓰레드풀의 설정을 환경변수로부터 읽어들일 수 있다.
+
+| Name                      | Description                                  |   Default   |
+|---------------------------|----------------------------------------------|-------------|
+| SHARD_JDBC_POOL_CORE_SIZE | pool에 유지할 쓰레드의 갯수(idle포함)            |  CPU코어수    |
+| SHARD_JDBC_POOL_MAX_SIZE  | pool에서 허용 할 수 있는 최대 스레드 수            |   128        |
+| SHARD_JDBC_IDLE_TIMEOUT   | 현재 풀에 core size 수보다 많은 thread가 있는 경우, 초과한 만큼의 thread는 IDLE 상태가 되어 있는 기간이 idle_timeout 를 넘으면 종료한다. |   10(분)           |
+
+#### 로깅
+로깅과 관련된 셋팅도 환경변수로 가능하다. 기본적으로 SHARD_JDBC_TRCLOG_LEVEL 환경변수를 
+INFO나 SEVERE로 설정하면 로그를 남길 수 있다.
+
+| Name                            | Description                                  |   Default   |
+|---------------------------------|----------------------------------------------|-------------|
+| SHARD_JDBC_TRCLOG_LEVEL         | shardjdbc 로그 레벨                           |  OFF        |
+| SHARD_JDBC_TRCLOG_PRINT_STDERR  | 부모로거에 넘길지 여부.<br>TRUE로 설정하면 보통 콘솔에도 로그가 남는다.  |  FALSE      |
+##### 로그 레벨
+원래 JDK Logging은 SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST 순으로 레벨셋팅이 
+가능하지만 shardjdbc는 이중 SEVERE와 INFO레벨 둘만 사용한다
+
+| Name         | Description                                   |
+|--------------|-----------------------------------------------|
+| INFO         | sharding과 관련된 객체들의 정보가 로깅에 포함된다.   |
+| SEVERE       | 정상적인 상황에서는 로그가 남지않고 exception이 올라왔을때 해당 exception의 정보가 로그로 남는다. |
+##### 로그 파일 경로
+| 환경변수여부                       | 경로                                     |
+|----------------------------------|-----------------------------------------|
+| 환경변수에 ALTIBASE_HOME이 있을 때  | ${ALTIBASE_HOME}/trc/shardjdbc.trc      |
+| 환경변수에 ALTIBASE_HOME이 없을 때  | 클라이언트 실행 경로                       |
+##### 로그 파일 Rotate
+기본 로그파일 하나당 사이즈는 약 15메가 이고 크기를 넘어가면 5개까지 rotate된다.
+
+#### Failover
+##### 응용프로그램 가이드
+Altibase Sharding 환경에서는 여러 샤드 노드에서 수행중인 트랜잭션 및 커넥션이
+있으며, 이들은 최적화 과정을 거쳐서 샤드 라이브러리 혹은 서버에서 내부적으로
+처리된다. 그러므로 특정 노드의 장애나 접속 에러 시에도 일부 커넥션이 남아 있거나
+트랜잭션이 완전히 철회되지 않을 수 있다.
+
+이러한 분산 환경에서 응용 프로그램이 트랜잭션 처리를 일관되게 하기 위해서는
+NON-AUTOCOMMIT을 사용하여 다음의 가이드에 따라 작성되어야 Fail-Over가 정상적으로
+처리될 수 있다.
+
+다만, 응용 프로그램이 다수의 샤드 노드를 접근하지 않도록 설계된 경우에는
+AUTOCOMMIT 모드를 사용할 수 있으나 이 경우에도 AUTOCOMMIT에 대한 가이드에 따라
+처리되어야 Fail-Over 이후에 서비스가 정상적으로 처리될 수 있다.
+
+##### CTF(Connection Time Failover)
+
+CTF의 경우에는 데이터 베이스 연결이 되는지에 따라 성공 여부를 바로 알 수 있다.
+
+단, ShardJDBC같은 경우 lazy 방식이 기본이기 때문에 트랜잭션이 이미 시작된 경우 execute 시점에 
+노드의 에러로 장애가 발생하더라도 CTF가 발생하지 않고 STF가 올라오게 된다. 
+AUTOCOMMIT 상황이라면 이런 경우 CTF가 발생하게 되며, shard_lazy_connect 속성이 false일 때는
+ShardCLI와 동일하게 동작하게 된다.
+
+따라서 최초 사용자 커넥션 생성이 실패했을 때 전체 연결을 끊을 필요는 없으며 사용자 커넥션 접속만 
+재시도하면 된다. 
+
+##### STF(Service Time Failover)
+
+ShardJDBC 경우는 prepare, execute, fetch등에서 ShardFailOverSuccessException 예외가 
+발생하면 STF가 성공한 것으로 판단할 수 있다.
+
+- NON-AUTOCOMMIT 트랜잭션
+
+ShardJDBC에서 예외가 발생하였을 때 다음의 순서로 에러로직을 처리한다.
+
+1. STF가 성공한 경우(ShardFailOverSuccessException) Rollback을 수행하며 Rollback이
+   성공하면 트랜잭션 재시작 위치로 되돌아 가서 응용 프로그램 로직을 수행한다.
+   1. 트랜잭션 재시작 위치는 prepare를 사용하는 경우 최초 prepare 이전, execute시는
+      execute 이전으로 하면 된다. 또한 이때 Bind는 다시 하지 않아도 된다.
+   2. direct execute를 사용하는 경우에는 direct execute 이전으로 돌아가면 된다.
+   3. STF 성공 후 Rollback을 하는 중에 다시 Fail-Over가 발생할 수 있으므로 이
+      경우에는 Rollback을 한번 더 수행한다. 
+2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는
+   경우(ShardFailoverIsNotAvailableException) 전체 노드에 대한 연결을
+   명시적으로 끊고 최초 연결부터 재시도 한다.
+   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로
+      Connection.close()를 호출해야 모든 노드에 연결이 끊긴다
+3. 그 외의 에러에 대해서는 응용 프로그램 에러 처리 로직을 수행한다.
+
+- AUTOCOMMIT 트랜잭션
+
+  ShardJDBC에서 예외가 발생하였을 때 다음의 순서로 에러 로직을 처리한다.
+
+1. STF가 성공한 경우(ShardFailOverSuccessException) 트랜잭션 재시작 위치로 되돌아
+   가서 응용 프로그램 로직을 수행한다.
+   1. 트랜잭션 재시작 위치는 prepare를 사용하는 경우 최초 prepare 이전, execute시는
+      execute 이전으로 하면 된다. 또한 이때 Bind는 다시 하지 않아도 된다.
+   2. direct execute를 사용하는 경우에는 direct execute 이전으로 돌아가면 된다.
+2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는 경우
+   (ShardFailoverIsNotAvailableException) 전체 노드에 대한 연결을 명시적으로 끊고 
+   최초 연결부터 재시도 한다.
+   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로
+      Connection.close()를 호출해야 모든 노드에 연결이 끊긴다.
+
+##### ShardJDBC Failover Sample Code
+
+Altibase Sharding의 failover를 포함하는 ShardJDBC sample 코드는
+\$ALTIBASE_HOME/sample/SHARD/Fail-Over/FailoverSample.java에 있으며, 해당
+프로그램은 ShardJDBC를 이용하여 작성한 fail-over를 고려한 응용 프로그램 예제이다.
+
+FailoverSample.java의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER);”의
+구문으로 T1 테이블을 생성한 후 T1 테이블을 샤드 테이블로 등록하였다고 가정한다.
+
+해당 프로그램은 최초 접속할 샤드 노드의 port와 alternate port를 순차적으로
+입력받아 연결하고 응용 프로그램 로직을 수행하여 Direct-Execute 방식으로 데이터를
+한 건 입력하고 Prepare-Execute 방식으로 질의를 수행한 후 검색된 데이터를
+출력하는 프로그램이다.
+
+예제 프로그램을 수행중에 특정 노드에 장애가 있는 경우 최초 접속시에는 에러가 발생하지 않지만
+실행 중에는 STF를 통해 fail-over 된다.
+
+주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기
+위해서 Connection.close()를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는
+다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLException.getNextException()통해 모든
+노드의 에러를 점검해야 한다.
+
+에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드
+노드에 남아 있는 트랜잭션을 정리하기 위해서 Connection.rollback()을 호출해 준 후
+다시 prepare 혹은 execute 로직으로 돌아가서 수행 한다.
+
+자세한 코드 내용은 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/FailoverSample.java를
+참고한다.
+
+#### 제약사항
+일반 Altibase jdbc 드라이버는 지원하는데 sharding jdbc 드라이버에서 지원하지 않는 기능은 다음과 같다.
+##### Savepoint 
+* Savepoint 관련 기능은 지원하지 않는다.
+  * java.sql.Connection
+    * rollback(Savepoint aSavepoint)
+    * setSavepoint()
+    * setSavepoint(String aName)
+    * releaseSavepoint(Savepoint aSavepoint)
+##### Scrollable Statement
+* Sharding의 특성상 ResultSetType은 FORWARD_ONLY만 지원한다.
+  * java.sql.Connection  
+    * createStatement(int aResultSetType, int aResultSetConcurrency, int aResultSetHoldability)
+    * prepareStatement(String aSql, int aResultSetType, int aResultSetConcurrency)
+##### Lob  
+* Multiple node lob 데이터 처리
+  * java.sql.PreparedStatement
+      * 다수의 노드에 대해 lob데이터를 insert 또는 update 하는 기능
+        * setXXX 호출 후 execute할때 NOT SUPPORTED 에러가 발생한다.
+          * setCharacterStream(int aParameterIndex, Reader aReader, int aLength)
+          * setBinaryStream(int aParameterIndex, InputStream aValue, int aLength)
+          * setAsciiStream(int aParameterIndex, InputStream aValue, int aLength)
+          * setBlob(int aIndex, Blob aValue)
+          * setClob(int aIndex, Clob aValue)
+* 서버사이드 lob 데이터 처리
+  * 서버에서 lob을 지원하지 않는다.      
+##### Statement Batch
+* Statement가 실행될때마다 노드를 결정해야 하기때문에 batch기능은 PreparedStatement 에서만 지원
+  * java.sql.Statement
+    * addBatch(String aSql)
+    * clearBatch()
+    * executeBatch()
+##### XADataSource
+* XA관련 인터페이스는 지원하지 않는다.
+  * javax.sql.XADataSource
+      * getXAConnection()
+      * getXAConnection(String user, String password)
+
+### SQL Plan
+
+SQL 실행 계획을 문자열로 가져오는 기능을 비표준 API로 제공한다. 실행 계획은 Altibase가 명령문을 실행하기 위해 수행하는 작업의 순서를 나타낸다. Option에는 ON, OFF, 또는 ONLY가 올 수 있으며 기본 설정값은 OFF이다.
+
+#### 사용법
+
+실행 계획을 가져오기 위해서는 SQL 문을 수행하기 전에 AltibaseConnection 객체의 setExplainPlan(byte aExplainPlanMode) 메소드를 호출해, 어떤 내용의 실행 계획을 가져올지 지정해야 한다. 지정 가능한 aExplainPlanMode 옵션은 아래 표에 기술되어 있다. AltibaseStatement 객체에 SQL 문을 입력 후, getExplainPlan() 메서드를 호출하여 문자열 행태의 실행 계획을 반환 받을 수 있다.
+
+#### 인자
+
+|                 속성                 | 속성값 |                             내용                             |
+| :----------------------------------: | :----: | :----------------------------------------------------------: |
+| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | SELECT 문 실행 후 Plan Tree 정보는 보여주지 않고 결과 레코드만 보여준다. |
+|  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | SELECT 문 실행 후 결과 레코드와 함께 Plan Tree의 정보를 보여준다. Plan tree에는 레코드 접근 횟수 및 튜플이 점유한 메모리 양, 비용 등이 출력된다. |
+| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | SELECT 문 실행 후 결과 레코드와 함께 Plan Tree의 정보를 보여준다. EXPLAN PLAN = ONLY인 경우 질의 실행 없이 실행 계획만 생성하므로, ACCESS 항목과 같이 실제 실행 후 그 값이 결정되는 항목들은 물음표(“??”)로 표시된다. |
+
+#### 코드 예제
+
+```
+AltibaseConnection sConn = (AltibaseConnection)DriverManager.getConnection(sURL, sProps);
+sConn.setExplainPlan(AltibaseConnection.EXPLAIN_PLAN_ONLY);
+AltibaseStatement  sStmt = (AltibaseStatement)sConn.prepareStatement("SELECT sysdate FROM dual");
+System.out.println(sStmt.getExplainPlan());
+```
+
+#### 코드 결과
+
+```
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
+ SCAN ( TABLE: DUAL, FULL SCAN, ACCESS: ??, COST: 0.01 )
+------------------------------------------------------------
+```
 
 4.Tips & Recommendation
 ---------------------

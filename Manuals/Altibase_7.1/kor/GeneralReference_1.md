@@ -390,7 +390,7 @@ long long
     <tr>
     	<td>BLOB/CLOB</td>
         <td></td>
-        <td>1~2147483647</td>
+        <td>1~4294967295</td>
     </tr>
     <tr>
     	<td>BYTE</td>
@@ -710,7 +710,7 @@ CHAR [(size)] [ FIXED | VARIABLE [IN ROW size] ]
 
 CHAR 칼럼의 기본 크기는 1 바이트이며 최대 길이는 32000바이트이다.
 
-FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 ""과 ""을 참고한다.
+FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한  "FIXED/VARIABLE 옵션"과 "IN ROW 절"을 참고한다.
 
 #### VARCHAR
 
@@ -736,7 +736,7 @@ VARCHAR는 가변 길이 데이터 타입이다. 즉, 입력 데이터의 길이
 채워진다. 예를 들어, CHAR(10)으로 정의된 칼럼에 단어 "magic"이 입력되면, 이
 데이터는 "magic_____"으로 저장될 것이다. 여기서 "_"은 공백을 나타낸다.
 
-FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 ""과 ""을 참고한다.
+FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VARIABLE 옵션"과 "IN ROW 절"을 참고한다.
 
 #### NCHAR
 
@@ -2588,7 +2588,7 @@ BLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 2GB 크기까지
+BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 4GB-1bye 크기까지
 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
@@ -2608,7 +2608,7 @@ CLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 2GB 크기
+CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 4GB-1bye 크기
 크기까지 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
@@ -2720,11 +2720,11 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
 - 감사(Auditing) 관련 프로퍼티
 - C/C++ 외부 프로시저용 에이전트 관련 프로퍼티
 - 사용자 계정 보안 관련 프로퍼티
-- Altibase Sharding 관련 프로퍼티
 - 기타 프로퍼티
 
-다음의 표는 위 분류기준에 의해서 Altibase 프로퍼티를 정리한 표이다. 참고로 표의
-각 분류는 다음과 같은 의미를 지닌다.
+이 외 Altibase Sharding 관련 프로퍼티는 *Altibase Sharding Guide manual*의 프로퍼티 장을 참고한다.
+
+다음의 표는 위 분류기준에 의해서 Altibase 프로퍼티를 정리한 표이다. 참고로 표의 각 분류는 다음과 같은 의미를 지닌다.
 
 - D: 데이터베이스 초기화
 - P: 성능
@@ -2738,7 +2738,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
 - U: 감사(Auditing)
 - A: 에이전트(Agent)
 - AS: 사용자 계정 보안(Account Security)
-- SD: Altibase Sharding
 - E: 기타
 
 "변경 레벨" 열은 다음의 의미를 지닌다.
@@ -3252,6 +3251,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>LOW_PREPARE_PCT</td>
+          <td>SYSTEM</td>
+      </tr>
+      <tr>
+      	<td>MATHEMATICS_TEMP_MEMORY_MAXIMUM</td>
           <td>SYSTEM</td>
       </tr>
       <tr>
@@ -4293,12 +4296,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>PASSWORD_VERIFY_FUNCTION</td>
       </tr>
       <tr>
-      	<td>SD</td>
-          <td></td>
-          <td>SHARD_META_ENABLE</td>
-          <td></td>
-      </tr>
-      <tr>
           <td rowspan="27">E</td>
           <td rowspan="27"></td>
           <td>ACCESS_LIST</td>
@@ -5167,6 +5164,8 @@ Unsigned Integer
 
 Spin 모드에서 데드락을 검출하는 간격을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_MAX_SLEEP (단위 : 마이크로 초)
 
 데이터 타입
@@ -5189,6 +5188,8 @@ Unsigned Integer
 
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 최대 시간을 명시한다.
+
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
 
 #### LOCK_MGR_MIN_SLEEP (단위 : 마이크로 초)
 
@@ -5213,6 +5214,8 @@ Unsigned Integer
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 시간을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_SPIN_COUNT (단위: 회수)
 
 ##### 데이터 타입
@@ -5234,6 +5237,8 @@ Unsigned Integer
 ##### 설명
 
 Spin 모드에서 Lock 획득에 실패했을 경우 재시도 회수를 명시한다.
+
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
 
 #### LOCK_MGR_TYPE 
 
@@ -5259,7 +5264,9 @@ Unsigned Integer
 
 0: Mutex 모드
 
-1: Spin lock 모드
+1: Spin lock 모드 (deprecated, 7.1.0.3.2)
+
+2: light Mutex (added, 7.1.0.3.2)
 
 #### LOCK_NODE_CACHE_COUNT (단위 : 개수)
 
@@ -5448,7 +5455,7 @@ Unsigned Long
 
 ##### 기본값
 
-32768
+131072
 
 ##### 속성
 
@@ -7996,6 +8003,28 @@ Unsigned Integer
 플러셔가 대기에서 깨어났을 때 Prepare 리스트의 길이가 전체 버퍼에서 명시한 값
 이하가 되면 교체 플러시를 수행한다. 이 때 해당 플러시 리스트의 모든 갱신
 버퍼들은 플러시한다.
+
+#### MATHEMATICS_TEMP_MEMORY_MAXIMUM (단위 : 바이트)
+
+##### 데이터 타입
+
+Unsigned Long
+	
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>64</sup>-1]
+
+##### 설명
+
+시스템 전체에서 분석 함수가 사용하는 MATHEMATICS TEMP의 메모리 양을 제한한다. ( 분석 함수 : listagg, percentile_cont, percentile_disc, ... ) 사용한 메모리 양이 MATHEMATICS_TEMP_MEMORY_MAXIMUM과 같거나 크다면 에러가 발생한다. 속성 값이 0 인 경우에 메모리 사용량을 검사하지 않는다.
 
 #### MAX_FLUSHER_WAIT_SEC (단위: 초)
 

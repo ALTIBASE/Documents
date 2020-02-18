@@ -2893,6 +2893,75 @@ END;
 END-EXEC;
 ```
 
+#### ANONYMOUS BLOCK
+
+저장 프로시저를 생성하지 않고 바로 실행할 수 있는 SQL문이다.
+
+```
+EXEC SQL EXECUTE 
+<<LABEL_NAME_OPTION>>
+[DECLARE]
+[ <declaration_section> ] 
+BEGIN 
+<statement> 
+[ EXCEPTION <exception_handler> ] 
+END 
+[ <label_name> ] ; 
+END-EXEC;
+```
+
+##### 예제
+
+anonymous block을 사용하는 예제를 보여준다.
+
+< 예제 프로그램 : anon.sc \>
+
+```
+/* declare host variables */
+EXEC SQL BEGIN DECLARE SECTION;
+char usr[64];
+char pwd[64];
+char conn_opt[1024];
+
+long long s_ono;
+EXEC SQL END DECLARE SECTION;
+
+s_ono = 999999;
+/* execute anonymous block */
+EXEC SQL EXECUTE
+    <<LABEL1>>
+    DECLARE
+        p_order_date date;
+        p_eno        integer;
+        p_cno        bigint;
+        p_gno        char(10);
+        p_qty        integer;
+    BEGIN
+        SELECT ORDER_DATE, ENO, CNO, GNO, QTY
+        INTO p_order_date, p_eno, p_cno, p_gno, p_qty
+        FROM ORDERS
+        WHERE ONO = :s_ono;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            p_order_date := SYSDATE;
+            p_eno        := 13;
+            p_cno        := BIGINT'7610011000001';
+            p_gno        := 'E111100013';
+            p_qty        := 4580;
+            INSERT INTO ORDERS (ONO, ORDER_DATE, ENO, CNO, GNO, QTY)
+                   VALUES (:s_ono, p_order_date, p_eno, p_cno, p_gno, p_qty);
+        WHEN OTHERS THEN
+            UPDATE ORDERS
+            SET ORDER_DATE = p_order_date,
+                ENO        = p_eno,
+                CNO        = p_cno,
+                GNO        = p_gno,
+                QTY        = p_qty
+            WHERE ONO = :s_ono;
+    END;
+END-EXEC;
+```
+
 ### 배열 타입의 호스트 변수 사용
 
 EXECUTE문에서 배열 호스트 변수를 사용할 수 있다. 배열 호스트 변수를 사용함으로써

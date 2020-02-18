@@ -2950,86 +2950,6 @@ prepare 수행의 결과가 반드시 필요한 함수는 다음과 같다: SQLE
 SQLColAttribute, SQLDescribeCol, SQLDescribeParam, SQLNumParams,
 SQLNumResultCols
 
-Deferred prepare 기능을 사용하기 위해서는 애플리케이션 내에서 한 statement
-핸들에 대한 SQLPrepare 함수와 SQLExeucte 함수 호출 사이에 다른 statement 핸들로
-SQLPrepare를 호출해서는 안 된다.
-
-\<Deferred prepare 기능이 사용되지 못 하는 예제\>
-
-1.  SQLPrepare가 반복적으로 호출되는 경우
-
-```
-for ( i = 0; i < MAX_STMT; i++ )
-{
-    rc = SQLPrepare( stmt[i], (SQLCHAR *)"SELECT I1 FROM T1 WHERE I2 = ?", SQL_NTS);
-    if ( rc == SQL_SUCCESS )
-    {
-          /*  .......... */
-    }
- 
-    rc = SQLBindParameter( stmt[i], 1, SQL_PARAM_INPUT, SQL_C_SLONG,
-                           SQL_INTEGER, 0, 0, & sIntData, sizeof(sIntData),
-                           & sIntLength );
-    if ( rc == SQL_SUCCESS )
-    {
-         /* ............. */
-    }
- 
-    rc = SQLBindCol( stmt[i], 1, SQL_C_CHAR, sCharData, sizeof(sCharData),
-                     & sCharLength );
-    if ( rc == SQL_SUCCESS )
-    {
-        /* ................*/
-    }
-}   
- 
-for ( i = 0; i < MAX_STMT; i++ )
-{
-    sIntData = 3;
- 
-    if ( SQLExecute(stmt[i]) == SQL_SUCCESS )
-    {
-          /* ................. */
-    }
- 
-    sFetchCount = 0;
-    while ( SQLFetch(stmt[i]) == SQL_SUCCESS )
-    {
-        sFetchCount++;
-    }
-    if ( sFetchCount == 1 )
-    {
-        // SUCCESS;
-    }
-    else
-    {
-        // FAILURE;
-        break;
-    }
-}
-
-```
-
-2. 여러 개의 statement 핸들이 번갈아 사용되는 경우
-
-```
-SQLPrepare( stmt1, (SQLCHAR *)"SELECT I001 FROM T_SQLCLI", SQL_NTS );
-
-SQLPrepare( stmt2, (SQLCHAR *)"SELECT I001, I002, I003 FROM T_SQLCLI", SQL_NTS );
-
-SQLPrepare( stmt3, (SQLCHAR *)"SELECT I001, I002, I003, I004, I005, I006, I007, I008, I009 FROM T_SQLCLI", SQL_NTS );
-
-SQLPrepare( stmt4, (SQLCHAR *)"SELECT I001, I002, I003, I004, I005, I006, I007, I008, I009, I010 FROM T_SQLCLI", SQL_NTS );   
-
-SQLPrepare( stmt5, (SQLCHAR *)"SELECT * FROM T_SQLCLI", SQL_NTS );
-
-rc = SQLNumResultCols( stmt1, &sNumResultCols[0] );
-if ( rc == SQL_SUCCESS)
-{   
-    printf("\t NumResultCols : %d\n", sNumResultCols[0]); 
-}
-
-```
 
 #### 진 단
 
@@ -4223,7 +4143,7 @@ col의 값 보다 크거나 같아야만 한다; 즉, 데이터는 열 번호가
 2.  만약 데이터가 NULL이면 \**pcbValue*에 SQL_NULL_DATA를 설정한다. 만약 그 열에
     대한 데이터가 NULL이 아니면, SQLGetData()는 다음 단계로 진행한다.
 
-3.  만약 데이터가 이나 과 같은 가변 길이 데이터 타입으로 변환됐다면,
+3.  만약 데이터가 문자형이나 이진형과 같은 가변 길이 데이터 타입으로 변환됐다면,
     SQLGetData()는 데이터 길이가 *ValueMax*를 초과했는가를 검사한다. 만약
     null-termination 문자를 포함해 문자 데이터의 길이가 *ValueMax*를 초과했다면,
     SQLGetData()는 null-termination 문자 길이를 뺀 *ValueMax* 길이에 맞춰

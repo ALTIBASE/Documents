@@ -1,24 +1,25 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Altibase 7.1.0.2.3 Patch Notes](#altibase-71023-patch-notes)
   - [New Features](#new-features)
     - [BUG-46837  Replication이 Drop된 receiver 에 Sender가 접속을 시도하면 출력되는 에러메시지 개선](#bug-46837-replication%EC%9D%B4-drop%EB%90%9C-receiver-%EC%97%90-sender%EA%B0%80-%EC%A0%91%EC%86%8D%EC%9D%84-%EC%8B%9C%EB%8F%84%ED%95%98%EB%A9%B4-%EC%B6%9C%EB%A0%A5%EB%90%98%EB%8A%94-%EC%97%90%EB%9F%AC%EB%A9%94%EC%8B%9C%EC%A7%80-%EA%B0%9C%EC%84%A0)
-    - [BUG-46866 쿼리 수행 성능 개선을 위한 기능 추가](#bug-46866%EC%BF%BC%EB%A6%AC-%EC%88%98%ED%96%89-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
-    - [BUG-46882 QUEUE생성 시 tablespace를 지정할 수 있어야합니다.](#bug-46882queue%EC%83%9D%EC%84%B1-%EC%8B%9C-tablespace%EB%A5%BC-%EC%A7%80%EC%A0%95%ED%95%A0-%EC%88%98-%EC%9E%88%EC%96%B4%EC%95%BC%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46883 anonymous block 지원](#bug-46883anonymous-block-%EC%A7%80%EC%9B%90)
+    - [BUG-46866  쿼리 수행 성능 개선을 위한 기능 추가](#bug-46866-%EC%BF%BC%EB%A6%AC-%EC%88%98%ED%96%89-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
+    - [BUG-46882  QUEUE생성 시 tablespace를 지정할 수 있어야합니다.](#bug-46882-queue%EC%83%9D%EC%84%B1-%EC%8B%9C-tablespace%EB%A5%BC-%EC%A7%80%EC%A0%95%ED%95%A0-%EC%88%98-%EC%9E%88%EC%96%B4%EC%95%BC%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46883  anonymous block 지원](#bug-46883-anonymous-block-%EC%A7%80%EC%9B%90)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-46529 REPLICATION\_DDL\_ENABLE 옵션에 따라 REPLICATION\_DDL\_ENABLE\_LEVEL 관련 에러 메세지가 틀리게 출력됩니다.](#bug-46529replication%5C_ddl%5C_enable-%EC%98%B5%EC%85%98%EC%97%90-%EB%94%B0%EB%9D%BC-replication%5C_ddl%5C_enable%5C_level-%EA%B4%80%EB%A0%A8-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%84%B8%EC%A7%80%EA%B0%80-%ED%8B%80%EB%A6%AC%EA%B2%8C-%EC%B6%9C%EB%A0%A5%EB%90%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46661 이중화 걸린 테이블에 Online DDL 수행 시 간헐적으로 Receiver data conflict 발생](#bug-46661%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B1%B8%EB%A6%B0-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-online-ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EA%B0%84%ED%97%90%EC%A0%81%EC%9C%BC%EB%A1%9C-receiver-data-conflict-%EB%B0%9C%EC%83%9D)
-    - [BUG-46803 Hostname 으로 발급된 라이센스 사용 시 간헐적 서버 시작 실패](#bug-46803hostname-%EC%9C%BC%EB%A1%9C-%EB%B0%9C%EA%B8%89%EB%90%9C-%EB%9D%BC%EC%9D%B4%EC%84%BC%EC%8A%A4-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B0%84%ED%97%90%EC%A0%81-%EC%84%9C%EB%B2%84-%EC%8B%9C%EC%9E%91-%EC%8B%A4%ED%8C%A8)
-    - [BUG-46804 IPCDA simple query가 실행될 때 execute success 통계정보가 카운트 되지 않습니다.](#bug-46804ipcda-simple-query%EA%B0%80-%EC%8B%A4%ED%96%89%EB%90%A0-%EB%95%8C-execute-success-%ED%86%B5%EA%B3%84%EC%A0%95%EB%B3%B4%EA%B0%80-%EC%B9%B4%EC%9A%B4%ED%8A%B8-%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-46885 CLI 함수에 NULL handle이 전달되었을 때 Segmentation fault가 발생합니다.](#bug-46885cli-%ED%95%A8%EC%88%98%EC%97%90-null-handle%EC%9D%B4-%EC%A0%84%EB%8B%AC%EB%90%98%EC%97%88%EC%9D%84-%EB%95%8C-segmentation-fault%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46889 SQLFetch() 전에 LOB 함수를 호출하면 Segmentation fault가 발생합니다.](#bug-46889sqlfetch-%EC%A0%84%EC%97%90-lob-%ED%95%A8%EC%88%98%EB%A5%BC-%ED%98%B8%EC%B6%9C%ED%95%98%EB%A9%B4-segmentation-fault%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46890 legacy statement 생성 실패로 인한 assert 발생시 추가적인 정보를 남겨야 합니다](#bug-46890legacy-statement-%EC%83%9D%EC%84%B1-%EC%8B%A4%ED%8C%A8%EB%A1%9C-%EC%9D%B8%ED%95%9C-assert-%EB%B0%9C%EC%83%9D%EC%8B%9C-%EC%B6%94%EA%B0%80%EC%A0%81%EC%9D%B8-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EB%82%A8%EA%B2%A8%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46891 replication sync중 conflict 발생으로 데이터가 불일치하는 경우에도 Success로 처리되는 문제가 있습니다.](#bug-46891replication-sync%EC%A4%91-conflict-%EB%B0%9C%EC%83%9D%EC%9C%BC%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EB%B6%88%EC%9D%BC%EC%B9%98%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0%EC%97%90%EB%8F%84-success%EB%A1%9C-%EC%B2%98%EB%A6%AC%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-46893 aix용 PICL에서 SWAP\_FREE의 값이 kB 단위여야 합니다](#bug-46893aix%EC%9A%A9-picl%EC%97%90%EC%84%9C-swap%5C_free%EC%9D%98-%EA%B0%92%EC%9D%B4-kb-%EB%8B%A8%EC%9C%84%EC%97%AC%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-46903 Administrator 매뉴얼 "매체복구 사례 4" 복구 절차 수정](#bug-46903administrator-%EB%A7%A4%EB%89%B4%EC%96%BC-%EB%A7%A4%EC%B2%B4%EB%B3%B5%EA%B5%AC-%EC%82%AC%EB%A1%80-4-%EB%B3%B5%EA%B5%AC-%EC%A0%88%EC%B0%A8-%EC%88%98%EC%A0%95)
-    - [BUG-46910 replication Sync중 데이타가 추가되거나 삭제될 경우, 실제로는 Sync 성공하였는데도 실패로 처리되는 문제가 있습니다.](#bug-46910replication-sync%EC%A4%91-%EB%8D%B0%EC%9D%B4%ED%83%80%EA%B0%80-%EC%B6%94%EA%B0%80%EB%90%98%EA%B1%B0%EB%82%98-%EC%82%AD%EC%A0%9C%EB%90%A0-%EA%B2%BD%EC%9A%B0-%EC%8B%A4%EC%A0%9C%EB%A1%9C%EB%8A%94-sync-%EC%84%B1%EA%B3%B5%ED%95%98%EC%98%80%EB%8A%94%EB%8D%B0%EB%8F%84-%EC%8B%A4%ED%8C%A8%EB%A1%9C-%EC%B2%98%EB%A6%AC%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-46529  REPLICATION\_DDL\_ENABLE 옵션에 따라 REPLICATION\_DDL\_ENABLE\_LEVEL 관련 에러 메세지가 틀리게 출력됩니다.](#bug-46529-replication_ddl_enable-%EC%98%B5%EC%85%98%EC%97%90-%EB%94%B0%EB%9D%BC-replication_ddl_enable_level-%EA%B4%80%EB%A0%A8-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%84%B8%EC%A7%80%EA%B0%80-%ED%8B%80%EB%A6%AC%EA%B2%8C-%EC%B6%9C%EB%A0%A5%EB%90%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46661  이중화 걸린 테이블에 Online DDL 수행 시 간헐적으로 Receiver data conflict 발생](#bug-46661-%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B1%B8%EB%A6%B0-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-online-ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EA%B0%84%ED%97%90%EC%A0%81%EC%9C%BC%EB%A1%9C-receiver-data-conflict-%EB%B0%9C%EC%83%9D)
+    - [BUG-46803  Hostname 으로 발급된 라이센스 사용 시 간헐적 서버 시작 실패](#bug-46803-hostname-%EC%9C%BC%EB%A1%9C-%EB%B0%9C%EA%B8%89%EB%90%9C-%EB%9D%BC%EC%9D%B4%EC%84%BC%EC%8A%A4-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B0%84%ED%97%90%EC%A0%81-%EC%84%9C%EB%B2%84-%EC%8B%9C%EC%9E%91-%EC%8B%A4%ED%8C%A8)
+    - [BUG-46804  IPCDA simple query가 실행될 때 execute success 통계정보가 카운트 되지 않습니다.](#bug-46804-ipcda-simple-query%EA%B0%80-%EC%8B%A4%ED%96%89%EB%90%A0-%EB%95%8C-execute-success-%ED%86%B5%EA%B3%84%EC%A0%95%EB%B3%B4%EA%B0%80-%EC%B9%B4%EC%9A%B4%ED%8A%B8-%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-46885  CLI 함수에 NULL handle이 전달되었을 때 Segmentation fault가 발생합니다.](#bug-46885-cli-%ED%95%A8%EC%88%98%EC%97%90-null-handle%EC%9D%B4-%EC%A0%84%EB%8B%AC%EB%90%98%EC%97%88%EC%9D%84-%EB%95%8C-segmentation-fault%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46889  SQLFetch() 전에 LOB 함수를 호출하면 Segmentation fault가 발생합니다.](#bug-46889-sqlfetch-%EC%A0%84%EC%97%90-lob-%ED%95%A8%EC%88%98%EB%A5%BC-%ED%98%B8%EC%B6%9C%ED%95%98%EB%A9%B4-segmentation-fault%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46890  legacy statement 생성 실패로 인한 assert 발생시 추가적인 정보를 남겨야 합니다](#bug-46890-legacy-statement-%EC%83%9D%EC%84%B1-%EC%8B%A4%ED%8C%A8%EB%A1%9C-%EC%9D%B8%ED%95%9C-assert-%EB%B0%9C%EC%83%9D%EC%8B%9C-%EC%B6%94%EA%B0%80%EC%A0%81%EC%9D%B8-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EB%82%A8%EA%B2%A8%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46891  replication sync중 conflict 발생으로 데이터가 불일치하는 경우에도 Success로 처리되는 문제가 있습니다.](#bug-46891-replication-sync%EC%A4%91-conflict-%EB%B0%9C%EC%83%9D%EC%9C%BC%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EB%B6%88%EC%9D%BC%EC%B9%98%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0%EC%97%90%EB%8F%84-success%EB%A1%9C-%EC%B2%98%EB%A6%AC%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-46893  aix용 PICL에서 SWAP\_FREE의 값이 KB 단위여야 합니다](#bug-46893-aix%EC%9A%A9-picl%EC%97%90%EC%84%9C-swap%5C_free%EC%9D%98-%EA%B0%92%EC%9D%B4-kb-%EB%8B%A8%EC%9C%84%EC%97%AC%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46903  Administrator 매뉴얼 "매체복구 사례 4" 복구 절차 수정](#bug-46903-administrator-%EB%A7%A4%EB%89%B4%EC%96%BC-%EB%A7%A4%EC%B2%B4%EB%B3%B5%EA%B5%AC-%EC%82%AC%EB%A1%80-4-%EB%B3%B5%EA%B5%AC-%EC%A0%88%EC%B0%A8-%EC%88%98%EC%A0%95)
+    - [BUG-46910  replication Sync중 데이타가 추가되거나 삭제될 경우, 실제로는 Sync 성공하였는데도 실패로 처리되는 문제가 있습니다.](#bug-46910-replication-sync%EC%A4%91-%EB%8D%B0%EC%9D%B4%ED%83%80%EA%B0%80-%EC%B6%94%EA%B0%80%EB%90%98%EA%B1%B0%EB%82%98-%EC%82%AD%EC%A0%9C%EB%90%A0-%EA%B2%BD%EC%9A%B0-%EC%8B%A4%EC%A0%9C%EB%A1%9C%EB%8A%94-sync-%EC%84%B1%EA%B3%B5%ED%95%98%EC%98%80%EB%8A%94%EB%8D%B0%EB%8F%84-%EC%8B%A4%ED%8C%A8%EB%A1%9C-%EC%B2%98%EB%A6%AC%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -64,7 +65,7 @@ New Features
   -   Compile Option
   -   Error Code
 
-### BUG-46866 쿼리 수행 성능 개선을 위한 기능 추가
+### BUG-46866  쿼리 수행 성능 개선을 위한 기능 추가
 
 - **module** : qp-select-execute
 
@@ -136,7 +137,7 @@ New Features
 
   - Error Code
 
-### BUG-46882 QUEUE생성 시 tablespace를 지정할 수 있어야합니다.
+### BUG-46882  QUEUE생성 시 tablespace를 지정할 수 있어야합니다.
 
 -   **module** : qp
 
@@ -175,7 +176,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-46883 anonymous block 지원
+### BUG-46883  anonymous block 지원
 
 -   **module** : qp-psm-trigger-execute
 
@@ -205,7 +206,7 @@ New Features
 Fixed Bugs
 ----------
 
-### BUG-46529 REPLICATION\_DDL\_ENABLE 옵션에 따라 REPLICATION\_DDL\_ENABLE\_LEVEL 관련 에러 메세지가 틀리게 출력됩니다.
+### BUG-46529  REPLICATION_DDL_ENABLE 옵션에 따라 REPLICATION_DDL_ENABLE_LEVEL 관련 에러 메세지가 틀리게 출력됩니다.
 
 - **module** : dm
 
@@ -213,7 +214,7 @@ Fixed Bugs
 
 - **재현 빈도** : Always
 
-- **증상** : REPLICATION\_DDL\_ENABLE\_LEVEL 관련 에러메세지에 설정된
+- **증상** : REPLICATION_DDL_ENABLE_LEVEL 관련 에러메세지에 설정된
   프로퍼티값이 올바르게 출력되도록 수정하였습니다.
 
 - **재현 방법**
@@ -251,7 +252,7 @@ Fixed Bugs
   -   Compile Option
   -   Error Code
 
-### BUG-46661 이중화 걸린 테이블에 Online DDL 수행 시 간헐적으로 Receiver data conflict 발생
+### BUG-46661  이중화 걸린 테이블에 Online DDL 수행 시 간헐적으로 Receiver data conflict 발생
 
 -   **module** : dm
 
@@ -302,7 +303,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46803 Hostname 으로 발급된 라이센스 사용 시 간헐적 서버 시작 실패
+### BUG-46803  Hostname 으로 발급된 라이센스 사용 시 간헐적 서버 시작 실패
 
 -   **module** : id
 
@@ -330,7 +331,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46804 IPCDA simple query가 실행될 때 execute success 통계정보가 카운트 되지 않습니다.
+### BUG-46804  IPCDA simple query가 실행될 때 execute success 통계정보가 카운트 되지 않습니다.
 
 -   **module** : mm-statement
 
@@ -356,7 +357,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46885 CLI 함수에 NULL handle이 전달되었을 때 Segmentation fault가 발생합니다.
+### BUG-46885  CLI 함수에 NULL handle이 전달되었을 때 Segmentation fault가 발생합니다.
 
 - **module** : mm-cli
 
@@ -403,7 +404,7 @@ Fixed Bugs
   -   Compile Option
   -   Error Code
 
-### BUG-46889 SQLFetch() 전에 LOB 함수를 호출하면 Segmentation fault가 발생합니다.
+### BUG-46889  SQLFetch() 전에 LOB 함수를 호출하면 Segmentation fault가 발생합니다.
 
 -   **module** : mm-cli
 
@@ -444,9 +445,9 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46890 legacy statement 생성 실패로 인한 assert 발생시 추가적인 정보를 남겨야 합니다
+### BUG-46890  legacy statement 생성 실패로 인한 assert 발생시 추가적인 정보를 남겨야 합니다
 
--   **module** : sm\_transaction
+-   **module** : sm_transaction
 
 -   **Category** : Assert
 
@@ -475,7 +476,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46891 replication sync중 conflict 발생으로 데이터가 불일치하는 경우에도 Success로 처리되는 문제가 있습니다.
+### BUG-46891  replication sync중 conflict 발생으로 데이터가 불일치하는 경우에도 Success로 처리되는 문제가 있습니다.
 
 -   **module** : dm
 
@@ -517,7 +518,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46893 aix용 PICL에서 SWAP\_FREE의 값이 kB 단위여야 합니다
+### BUG-46893  aix용 PICL에서 SWAP_FREE의 값이 KB 단위여야 합니다
 
 -   **module** : ux-altiMon
 
@@ -545,7 +546,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-46903 Administrator 매뉴얼 "매체복구 사례 4" 복구 절차 수정
+### BUG-46903  Administrator 매뉴얼 "매체복구 사례 4" 복구 절차 수정
 
 - **module** : sm
 
@@ -586,7 +587,7 @@ Fixed Bugs
               log files that are not needed for recovery to another
               directory.
 
-### BUG-46910 replication Sync중 데이타가 추가되거나 삭제될 경우, 실제로는 Sync 성공하였는데도 실패로 처리되는 문제가 있습니다.
+### BUG-46910  replication Sync중 데이타가 추가되거나 삭제될 경우, 실제로는 Sync 성공하였는데도 실패로 처리되는 문제가 있습니다.
 
 - **module** : dm
 
@@ -655,14 +656,14 @@ Changes
 
 #### Replication protocol Version
 
-Replication 프로토콜 버전은 변경되지 않았다..
+Replication 프로토콜 버전은 변경되지 않았다.
 
 #### Sharding Version
 
 샤딩 버전은 변경 되지 않았다.
 
 > 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다.
+> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다. 샤딩 설정은 [Altibase Sharding 설치와 설정](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#2altibase-sharding-%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95>)을 참고한다.
 
 ### 프로퍼티
 
