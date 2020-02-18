@@ -5134,7 +5134,7 @@ RETURN VARCHAR(65534);
 
 ##### Parameter
 
-| 이름          | In/Output | Data Type    | Description                                                  |
+| Name          | In/Output | Data Type    | Description                                                  |
 | ------------- | --------- | ------------ | ------------------------------------------------------------ |
 | *object_type* | IN        | VARCHAR(20)  | Object type                                                  |
 | *object_name* | IN        | VARCHAR(128) | Object name (case sensitive)                                 |
