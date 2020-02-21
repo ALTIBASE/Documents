@@ -742,7 +742,7 @@ int var3[10];
 EXEC SQL END DECLARE SECTION;
 EXEC SQL SELECT * INTO :var1 
 FROM T1 WHERE i1 = :var3;	(X)
-또는 
+or 
 EXEC SQL SELECT * INTO :var2 
 FROM T1 WHERE i1 = :var3;	(X)
 ```
@@ -3873,7 +3873,7 @@ This statement is also supported in Altibase.
 
 ```
 EXEC SQL COMMIT WORK RELEASE;
-또는
+or
 EXEC SQL ROLLBACK  WORK RELEASE;
 ```
 
@@ -3881,7 +3881,7 @@ EXEC SQL ROLLBACK  WORK RELEASE;
 
 ```
 EXEC SQL COMMIT WORK RELEASE;
-또는
+or
 EXEC SQL ROLLBACK  WORK RELEASE;
 ```
 
