@@ -1678,7 +1678,7 @@ DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
                            internal_replication_host_ip in varchar(64),
                            internal_replication_port_no in integer,
                            conn_type in integer default NULL );
-
+```
 
 ##### 설명
 
@@ -1695,6 +1695,8 @@ host_ip: 지역 샤드 노드에서 서비스에 사용할 호스트 IP를 입�
 port_no: 지역 샤드 노드에서 서비스에 사용할 Port를 입력한다. 
 
 internal_host_ip: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 호스트 IP를 입력한다. 이더넷 및  인피니 밴드를 지원한다.
+
+internal_port_no: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 Port를 입력한다. 
 
 internal_replication_host_ip: 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP를 입력한다. internal_host_ip와 동일한 라인을 사용할 것을 권장한다. 
 
