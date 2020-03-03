@@ -1669,11 +1669,16 @@ iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 ##### 구문
 
 ```
-DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,                                                                node_name in varchar(10),                                                                host_ip in varchar(64),                                                                  port_no in integer,                                                                      internal_host_ip in varchar(64),                                                          internal_port_no in integer,
+DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
+                           node_name in varchar(10),
+			   host_ip in varchar(64),
+			   port_no in integer,
+			   internal_host_ip in varchar(64),
+			   internal_port_no in integer,
                            internal_replication_host_ip in varchar(64),
                            internal_replication_port_no in integer,
                            conn_type in integer default NULL );
-```
+
 
 ##### 설명
 
