@@ -118,16 +118,15 @@ Fixed Bugs
 -   **증상** : table에 eager replication 이 설정 되어 있으면 DDL을 허용하지 않는데, 
     
 
-partitioned table의 경우 alter tablespace 구문이 실패하지 않는 문제가 있어 수정합니다.
+partitioned table의 경우 alter tablespace 구문이 실패하지 않지 않고 수행되는 문제가 있어 수정합니다.
     
 -   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
+-   **재현 절차**
+    
+-   **수행 결과**
+    
+-   **예상 결과**
+    
 -   **Workaround**
 
 -   **변경사항**
