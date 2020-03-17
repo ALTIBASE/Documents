@@ -3282,11 +3282,11 @@ altiMon은 주로 OS 정보와 DB 정보를 모니터링하며, 자세한 설명
 altiMon은 OS 정보를 수집하기 위해 C언어로 작성된 PICL 라이브러리를 사용한다.
 PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
-| OS    | CPU              | Version                      | PICL Library                |
-|-------|------------------|------------------------------|-----------------------------|
-| AIX   | ppc64            | OS Version 5.3, 6.1, 7.1     | aix-ppc64-5.so              |
-| HP-UX | ia64             | IA64                         | hpux-ia64-11.sl             |
-| LINUX | X86_64 ppc64(le) | OS Version 2.6 glibc 2.5이상 | linux-x64.so linux-ppc64.so |
+| OS    | CPU                   | Version                           | PICL Library                     |
+| ----- | --------------------- | --------------------------------- | -------------------------------- |
+| AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1          | aix-ppc64-5.so                   |
+| HP-UX | ia64                  | IA64                              | hpux-ia64-11.sl                  |
+| LINUX | X86_64</br> ppc64(le) | OS Version 2.6</br> glibc 2.5이상 | linux-x64.so </br>linux-ppc64.so |
 
 지원하지 않는 OS 버전에서 아래 방법으로 하위 버전용 PICL이 동작하는지를 확인한 후에 사용할 수도 있다.
 
@@ -3294,7 +3294,7 @@ PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
   $ cd $ALTIBASE_HOME/altiMon # java -Dpicl="<picl_lib_file>" -jar lib/com.altibase.picl.jar
   ```
 
-사용예)
+사용 예)
 
 지원하지 않는 버전의 AIX 운영체제에서 "aix-ppc64-5.so" PICL 라이브러리가 사용 가능한지 검증하고 altimon을 구동하는 절차이다.
 
