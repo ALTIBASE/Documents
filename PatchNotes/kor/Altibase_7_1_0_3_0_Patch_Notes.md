@@ -100,7 +100,7 @@ New Features
     
     - Error Code
     
-      -   에러메시지가 아래와 같이변경되었습니다.
+      -   에러메시지가 아래와 같이 변경되었습니다.
     
           - 변경전: General error. The size of the provided file <0%s> is too big. The maximum file size is about 2GB.
     
@@ -115,9 +115,9 @@ New Features
 - **재현 빈도** : Always
 
 - **증상** : updateBinaryStream()을 사용해서 LOB 데이터를 update 할 때
-  길이인자가 int 타입이라 4GB 데이터로 update 할 수 없습니다.
+  길이 인자가 int 타입이라 4GB 데이터로 update 할 수 없습니다.
 
-  그래서 long 타입을 지원하는 interface를 추가하여, 4GB 데이터를 업데이트 할수 있도록 수정되었습니다.
+  그래서 long 타입을 지원하는 인터페이스를 추가하여, 4GB 데이터를 업데이트할 수 있도록 수정되었습니다.
 
 - **재현 방법**
 
@@ -314,16 +314,15 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** :  이중화 대상이 아닌 table partition 인 경우에는 이중화 flag로 설정하지 않도록 수정합니다.
+-   **증상** :  이중화 대상이 아닌 partition 테이블인 경우에는 이중화 flag로 설정하지 않도록 수정합니다.
     
 -   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
+-   **재현 절차**
+    
+-   **수행 결과**
+    
+-   **예상 결과**
+    
 -   **Workaround**
 
 -   **변경사항**
@@ -341,8 +340,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** : 1. logfile이 잘못되어 이후 log가 더 있음에도 불구하고 잘못된 logfile까지만 redo하였을 때 WAL이 깨어진 것을 검증하지 못하는 버그
-    
+-   **증상** : 1. logfile이 잘못되어 이후 log가 더 있음에도 불구하고 잘못된 logfile까지만 redo하였을 때 WAL(Write-Ahead Logging)이 깨어진 것을 검증하지 못하는 버그
 2. WAL을 확인 하는 부분이, 이후 logfile을 reset 하는 부분 보다 뒤에 있어서 한번 잘못된 recovery를 시도 하면 버그 1의 문제가 해결되어 WAL이 잘못된 것을 찾아내더라도 이미 이후 logfile이 모두 reset되어 recovery 재시도가 불가능하게 만드는 버그 
    
 
@@ -505,12 +503,12 @@ Fixed Bugs
         ---------------------------
 
 
-    ​    
-    ​    
-    ​    
-    ​    
-    ​    
-
+    
+    
+    
+    
+    
+    
         6 rows selected.
 
   -   **예상 결과**
@@ -568,9 +566,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** :  { ? = call } 형태의 escape sql문이 정상적으로 실행되지
-    않는 문제 수정
-
+-   **증상** :  { ? = call } 형태의 escape sql문이 정상적으로 실행되지 않는 문제를 수정합니다.
+    
 - **재현 방법**
 
   -   **재현 절차**
@@ -680,9 +677,7 @@ Changes
 
 메타 버전은 변경되지 않았다.
 
-> 패치를 롤백하려는 경우,
-> [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를
-> 참고한다.
+> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
 
 #### CM protocol Version
 
