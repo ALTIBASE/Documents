@@ -215,7 +215,7 @@ If both Hadoop and Scoop are installed, follow the instruction below to install 
 
 ### Installing the Altibase Hadoop Connector
 
-아래의 순서대로 Altibase 하둡 커넥터를 설치한다.
+Install the Altibase Hadoop Connector in the following order:
 
 1.  Download the Altibase Hadoop Connector Package from http://altibase.com/supportcenter/en/.
 
