@@ -122,7 +122,7 @@ For more detailed information, please refer to the following documents.
 
 -   Error Message Reference
 
-#### ltibase Welcomes Your Comments and Feedbacks
+#### Altibase Welcomes Your Comments and Feedbacks
 
 Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there is any corrections or classifications that you would find useful.
 
