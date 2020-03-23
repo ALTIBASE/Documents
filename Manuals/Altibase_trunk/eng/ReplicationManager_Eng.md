@@ -65,6 +65,8 @@ Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
 ----
+### About This Manual
+This manual describes how to use Replication Manager to manage an Altibase database.
 
 #### Audience
 
