@@ -413,7 +413,7 @@ UPDATE s1 SET i2=1 WHERE k1=1;
 DELETE FROM s1 WHERE k1>3;
 ```
 
-샤드 쿼리가 아닌 몇 가지 예를 보면 다음과 같다.
+논샤드 쿼리의 몇 가지 예를 보면 다음과 같다.
 
 ```
 SELECT count(*) FROM s1;
