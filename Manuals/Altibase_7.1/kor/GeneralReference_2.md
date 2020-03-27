@@ -3199,7 +3199,8 @@ Lazy 모드로 이중화 수행 과정에서 Active 서버와 Standby 서버의 
   size, precision, scale 이 다를 경우
 - 제약 조건  
   check 제약 조건이 다를 경우  
-  Not Null 제약 조건이 다를 경우
+  Not Null 제약 조건이 다를 경우  
+  다른 메타 정보 중 LOB 컬럼이 포함된 경우
 - 인덱스  
   유니크 인덱스나 Function-based 인덱스가 이중화 대상 컬럼과 이중화 대상이
   아닌 컬럼으로 구성되어 있을 경우  

@@ -4673,8 +4673,8 @@ SQLGetTypeInfo()를 호출함으로서 알 수 있다.
 | SQL_REAL           | REAL                 | C의 FLOAT과 동일한 데이터 타입                               |
 | SQL_FLOAT          | FLOAT(p)             | \-1E+120에서 1E+120까지의 부동 소수점 숫자 데이터 (1\<=p\<=38) |
 | SQL_DOUBLE         | DOUBLE               | C의 DOUBLE과 동일한 데이터 타입                              |
-| SQL_BLOB           | BLOB                 | 최대 4 Giga Bytes 길이를 가지는 가변길이 이진 데이터 타입    |
-| SQL_CLOB           | CLOB                 | 최대 4 Giga Bytes 길이를 가지는 가변길이 문자 데이터 타입    |
+| SQL_BLOB           | BLOB                 | 최대 4GB-1Byte 길이를 가지는 가변길이 이진 데이터 타입    |
+| SQL_CLOB           | CLOB                 | 최대 4GB-1Byte 길이를 가지는 가변길이 문자 데이터 타입    |
 | SQL_TYPE_DATE      | DATE                 | 날짜를 표현하는 데이터 타입                                  |
 | SQL_TYPE_TIME      | DATE                 | 날짜를 표현하는 데이터 타입                                  |
 | SQL_TYPE_TIMESTAMP | DATE                 | 날짜를 표현하는 데이터 타입                                  |
@@ -5916,7 +5916,7 @@ SQL_TYPE_DATE, SQL_TYPE_TIME, SQL_TYPE_TIMESTAMP를 사용하기를 권장한다
 ##### 데이터 타입
 
 Altibase 4에서 LOB 타입은 길이가 페이지 크기로 제한되었으나, Altibase 5에서는
-최대 2GB까지 지원하는 BLOB, CLOB으로 구성된다.
+최대 4GB-1byte 까지 지원하는 BLOB, CLOB으로 구성된다.
 
 ###### Altibase 4 DDL
 

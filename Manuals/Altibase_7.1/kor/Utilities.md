@@ -3282,19 +3282,19 @@ altiMon은 주로 OS 정보와 DB 정보를 모니터링하며, 자세한 설명
 altiMon은 OS 정보를 수집하기 위해 C언어로 작성된 PICL 라이브러리를 사용한다.
 PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
-| OS    | CPU          | Version                      | PICL Library                |
-|-------|--------------|------------------------------|-----------------------------|
-| AIX   | ppc64        | OS Version 5.3, 6.1, 7.1     | aix-ppc64-5.so              |
-| HP-UX | ia64         | IA64                         | hpux-ia64-11.sl             |
-| LINUX | X86_64 ppc64 | OS Version 2.6 glibc 2.5이상 | linux-x64.so linux-ppc64.so |
+| OS    | CPU                   | Version                           | PICL Library                     |
+| ----- | --------------------- | --------------------------------- | -------------------------------- |
+| AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1          | aix-ppc64-5.so                   |
+| HP-UX | ia64                  | IA64                              | hpux-ia64-11.sl                  |
+| LINUX | X86_64</br> ppc64(le) | OS Version 2.6</br> glibc 2.5이상 | linux-x64.so </br>linux-ppc64.so |
 
 지원하지 않는 OS 버전에서 아래 방법으로 하위 버전용 PICL이 동작하는지를 확인한 후에 사용할 수도 있다.
 
   ```
   $ cd $ALTIBASE_HOME/altiMon # java -Dpicl="<picl_lib_file>" -jar lib/com.altibase.picl.jar
   ```
-  
-사용예)
+
+사용 예)
 
 지원하지 않는 버전의 AIX 운영체제에서 "aix-ppc64-5.so" PICL 라이브러리가 사용 가능한지 검증하고 altimon을 구동하는 절차이다.
 
@@ -3304,13 +3304,13 @@ PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
   $ cd $ALTIBASE_HOME/altiMon 
   $ java -Dpicl="aix-ppc64-5.so" -jar lib/com.altibase.picl.jar
   ```
-  
+
 2. 정상 동작이 검증된 후 $ALTIBASE_HOME/bin/altimon.sh 파일을 열어서 PICL_LIB 변수에 해당 PICL 파일을 설정한다.
 
   ```
   PICL_LIB=-Dpicl="aix-ppc64-5.so"
   ```
-  
+
 3. altimon을 구동한다
 
   ```
@@ -3339,22 +3339,23 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 
 모니터링 대상인 Altibase의 접속 정보와 altiMon 제어 정보를 설정하는 파일이다.
 
-| 태그 이름                                               | 필수 여부 | 설명                                                                                                                                                                                                         |
-|---------------------------------------------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL c 라이브러리가 없는 경우에 false로 지정한다.                                                       |
-| \<DateFormat\>                                          | 옵션      | 로그 기록시 사용할 날짜 시간 포맷 기본값: yyyy-MM-dd HH:mm:ss 설정 가능한 날짜 형식은 [자바 문서](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html) 참조한다.                    |
-| \<Interval\>                                            | 옵션      | 데이터 수집 주기. 기본값: 60 (초) \<OSMetric\>또는 \<SQLMetric\> 설정 부분에 Interval을 지정하지 않으면 여기에 설정한 값이 적용된다. 단, \<GroupMetric\>은 영향을 받지 않는다.                               |
-| \<LogDir\>                                              | 옵션      | 별도의 디스크 사용시 설정하면 된다. 설정하지 않으면 아래의 디렉토리가 기본으로 설정된다. \$ALTIBASE_HOME/altiMon/logs                                                                                        |
-| \<MaintenancePeriod\>                                   | 옵션      | 로그 파일 유지 기간 기본값: 3 (일)                                                                                                                                                                           |
-| \<Target Name='String'\>                                | 필수      | 모니터링 대상 데이터베이스 Name: 이름                                                                                                                                                                        |
-| \<HomeDirectory\>                                       | 옵션      | 알티베이스 홈 디렉토리를 절대 경로로 설정한다. 설정하지 않으면 ALTIBASE_HOME 환경변수 값이 사용된다.                                                                                                         |
+| 태그 이름                                               | 필수 여부 | 설명                                                         |
+| ------------------------------------------------------- | --------- | ------------------------------------------------------------ |
+| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL c 라이브러리가 없는 경우에 false로 지정한다. |
+| \<DateFormat\>                                          | 옵션      | 로그 기록시 사용할 날짜 시간 포맷 기본값: yyyy-MM-dd HH:mm:ss 설정 가능한 날짜 형식은 [자바 문서](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html) 참조한다. |
+| \<Interval\>                                            | 옵션      | 데이터 수집 주기. 기본값: 60 (초) \<OSMetric\>또는 \<SQLMetric\> 설정 부분에 Interval을 지정하지 않으면 여기에 설정한 값이 적용된다. 단, \<GroupMetric\>은 영향을 받지 않는다. |
+| \<LogDir\>                                              | 옵션      | 별도의 디스크 사용시 설정하면 된다. 설정하지 않으면 아래의 디렉토리가 기본으로 설정된다. \$ALTIBASE_HOME/altiMon/logs |
+| \<MaintenancePeriod\>                                   | 옵션      | 로그 파일 유지 기간 기본값: 3 (일)                           |
+| \<Target Name='String'\>                                | 필수      | 모니터링 대상 데이터베이스 Name: 이름                        |
+| \<HomeDirectory\>                                       | 옵션      | 알티베이스 홈 디렉토리를 절대 경로로 설정한다. 설정하지 않으면 ALTIBASE_HOME 환경변수 값이 사용된다. |
 | \<DBConnectionWatchdogCycle\>                           | 옵션      | DB connection watchdog 실행 주기 DB connection watchdog은 모니터링 대상인 데이터베이스가 shutdown된 후에 일정 시간을 주기로 데이터베이스에 접속을 시도하여 모니터링을 지속할 수 있도록 한다. 기본값: 60 (초) |
-| \<User\>                                                | 옵션      | 접속 사용자. 설정하지 않으면 SYS 사용자로 접속한다.                                                                                                                                                          |
-| \<Password Encrypted="Yes \| No"\>                      | 필수      | 비밀 번호 Encrypted 속성이 "No"일 때 사용자가 비밀번호를 등록하여도, altimon을 구동하면 Encrypted 속성은 "Yes"로 변경되고 비밀번호도 암호화된다.                                                             |
-| \<Port\>                                                | 필수      | 포트 번호                                                                                                                                                                                                    |
-| \<NLS\>                                                 | 필수      | NLS_USE                                                                                                                                                                                                      |
-| \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                                                                                                                                                                               |
-| \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                                                                                                                                                                 |
+| \<User\>                                                | 옵션      | 접속 사용자. 설정하지 않으면 SYS 사용자로 접속한다.          |
+| \<Password Encrypted="Yes \| No"\>                      | 필수      | 비밀 번호 Encrypted 속성이 "No"일 때 사용자가 비밀번호를 등록하여도, altimon을 구동하면 Encrypted 속성은 "Yes"로 변경되고 비밀번호도 암호화된다. |
+| \<Port\>                                                | 필수      | 포트 번호                                                    |
+| \<NLS\>                                                 | 필수      | NLS_USE                                                      |
+| \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                               |
+| \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                 |
+| \<ConnectionProperties\>                                  | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
 
 ##### Metrics.xml
 
@@ -3370,7 +3371,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 | \<Command\>                                                  | 커맨드 또는 스크립트 파일을 설정하며, CommandMetric일 경우 필수이다. 스크립트 파일은 절대 경로 또는 상대 경로로 설정할 수 있다. 상대 경로의 기준은 \$ALTIBASE_HOME/altiMon 디렉토리이다. |
 | \<Alert Activate='true' ComparisonColumn='ALLOC_MEM_MB' ComparisonType='gt'\> | 경고 설정. 옵션. <br />threshold 값과 비교되는 측정값은 숫자여야 한다. <br />Activate: Alert 동작 여부, 옵션. 기본값: true <br />ComparisonColumn: threshold 값을 비교할 대상 칼럼. 옵션. <br />ComparisonType: 비교 연산자. 필수. <br />-eq: is equal to the threshold value <br />-ne: is not equal to the threshold value <br />-gt: is greater than the threshold value <br />-ge: is greater than or equal to the threshold value <br />-lt: is less than the threshold value <br />-le: is less than or equal to the threshold value |
 | \<WarningThreshold Value='500'\> or \<CriticalThreshold Value='800'\> | threshold 값 설정 (critical 또는 warning 두 가지 레벨로 설정 가능) \<Alert Activate= true\>인 경우 필수. <br />Value: threshold 값 |
-| \<ActionScript\>db_usage.sh\</ActionScript\>                 | threshold 값을 벗어난 경우 수행할 스크립트 파일 이름 설정. <br />\$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 해당 스크립트 파일이 있어야 한다. |
+| \<ActionScript\>db_usage.sh\</ActionScript\>                 | threshold 값을 벗어난 경우 수행할 스크립트 파일 이름 설정. <br />\$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 해당 스크립트 파일이 있어야 한다.<br />action script 수행시 metric 이름, 레벨 (CRITICAL 또는 WARNING), threshold 값, 측정값이 인자로 전달된다. |
 
 ##### GroupMetrics.xml
 

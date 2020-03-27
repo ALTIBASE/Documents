@@ -16634,11 +16634,11 @@ the Altibase server.
 SQL_FILE_APPEND, SQL_FILE_READ).
 
 **0x5113A ( 332090) ulERR_ABORT_FILE_SIZE_TOO_BIG General error. The size of the
-provided file \<0%s\> is too big. The maximum file size is about 2GB.**
+provided file \<0%s\> is too big. The maximum file size is 4,294,967,295 bytes (4GB-1byte).**
 
 **Cause:** The file is too big.
 
-**Action:** Check whether the file is correct and use a smaller file.
+**Action:** Check the file size and use a smaller file.
 
 **0x5113C ( 332092) ulERR_ABORT_INVALID_APP_BUFFER_TYPE_LOB Invalid application
 buffer type : type id \<0%d\> cannot be used as a LOB source buffer.**

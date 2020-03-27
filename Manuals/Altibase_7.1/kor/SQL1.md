@@ -1782,13 +1782,13 @@ QUERY가 적용된 경우 실행 계획에 출력된다.
 
 명시한 테이블에 대해 테이블 전체 스캔을 수행할 것을 지시하는 힌트이다.
 
-![full scan](media/SQL/full scan.gif)
+![full scan](media/SQL/full%20scan.gif)
 
 #### GROUP BUCKET COUNT
 
 GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![group bucket count](media/SQL/group bucket count.gif)
+![group bucket count](media/SQL/group%20bucket%20count.gif)
 
 #### GROUP_HASH
 
@@ -1814,7 +1814,7 @@ GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하
 
 HASH와 DISTINCT 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![hash bucket count](media/SQL/hash bucket count.gif)
+![hash bucket count](media/SQL/hash%20bucket%20count.gif)
 
 #### HASH_SJ
 
@@ -1859,7 +1859,7 @@ INDEX ASC힌트와 같은 동작을 한다.
 명시된 인덱스를 사용하여 해당 테이블에 대해서 인덱스 스캔을 수행하되, 내림
 차순으로 탐색한다.
 
-![index desc](media/SQL/index desc.gif)
+![index desc](media/SQL/index%20desc.gif)
 
 #### INDEX_DESC
 
@@ -1891,9 +1891,12 @@ KEEP_PLAN는 한 번 생성된 플랜이 참조하는 테이블의 통계 정보
 
 #### LEADING
 
-힌트에 사용된 테이블들을 먼저 조인되도록 한다.
+힌트에 사용된 테이블들을 먼저 조인되도록 한다. 두 개 이상의 LEADING 힌트를 사용한
+경우에는 처음 LEADING 힌트만 효과가 있다. ORDERED 힌트와 함께 사용된 경우에는 
+ORDERED 힌트가 무시된다. 힌트에 사용된 테이블에 Lateral View를 명시한 경우에는 
+효과가 없다.
 
-![](media/SQL/d7925f2e0025071a87646b15d2fee986.png)
+![](media/SQL/leading.gif)
 
 #### MERGE_AJ
 
@@ -1953,7 +1956,7 @@ CNF힌트와 같은 동작을 한다.
 명시된 인덱스를 사용해서 해당 테이블에 대한 인덱스 스캔을 수행하지 않도록
 지시하는 힌트이다.
 
-![no index](media/SQL/no index.gif)
+![no index](media/SQL/no%20index.gif)
 
 #### NO_INDEX
 

@@ -390,7 +390,7 @@ long long
     <tr>
     	<td>BLOB/CLOB</td>
         <td></td>
-        <td>1~2147483647</td>
+        <td>1~4294967295</td>
     </tr>
     <tr>
     	<td>BYTE</td>
@@ -2588,7 +2588,7 @@ BLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 2GB 크기까지
+BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 4GB-1bye 크기까지
 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
@@ -2608,7 +2608,7 @@ CLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 2GB 크기
+CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 4GB-1bye 크기
 크기까지 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
@@ -5164,6 +5164,8 @@ Unsigned Integer
 
 Spin 모드에서 데드락을 검출하는 간격을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_MAX_SLEEP (단위 : 마이크로 초)
 
 데이터 타입
@@ -5186,6 +5188,8 @@ Unsigned Integer
 
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 최대 시간을 명시한다.
+
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
 
 #### LOCK_MGR_MIN_SLEEP (단위 : 마이크로 초)
 
@@ -5210,6 +5214,8 @@ Unsigned Integer
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 시간을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_SPIN_COUNT (단위: 회수)
 
 ##### 데이터 타입
@@ -5231,6 +5237,8 @@ Unsigned Integer
 ##### 설명
 
 Spin 모드에서 Lock 획득에 실패했을 경우 재시도 회수를 명시한다.
+
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
 
 #### LOCK_MGR_TYPE 
 
@@ -5256,7 +5264,9 @@ Unsigned Integer
 
 0: Mutex 모드
 
-1: Spin lock 모드
+1: Spin lock 모드 (deprecated, 7.1.0.3.2)
+
+2: light Mutex (added, 7.1.0.3.2)
 
 #### LOCK_NODE_CACHE_COUNT (단위 : 개수)
 

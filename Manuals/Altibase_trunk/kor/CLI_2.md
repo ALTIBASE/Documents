@@ -4673,8 +4673,8 @@ SQLGetTypeInfo()를 호출함으로서 알 수 있다.
 | SQL_REAL           | REAL                 | C의 FLOAT과 동일한 데이터 타입                               |
 | SQL_FLOAT          | FLOAT(p)             | \-1E+120에서 1E+120까지의 부동 소수점 숫자 데이터 (1\<=p\<=38) |
 | SQL_DOUBLE         | DOUBLE               | C의 DOUBLE과 동일한 데이터 타입                              |
-| SQL_BLOB           | BLOB                 | 최대 4 Giga Bytes 길이를 가지는 가변길이 이진 데이터 타입    |
-| SQL_CLOB           | CLOB                 | 최대 4 Giga Bytes 길이를 가지는 가변길이 문자 데이터 타입    |
+| SQL_BLOB           | BLOB                 | 최대 4GB-1Byte 길이를 가지는 가변길이 이진 데이터 타입    |
+| SQL_CLOB           | CLOB                 | 최대 4GB-1Byte 길이를 가지는 가변길이 문자 데이터 타입    |
 | SQL_TYPE_DATE      | DATE                 | 날짜를 표현하는 데이터 타입                                  |
 | SQL_TYPE_TIME      | DATE                 | 날짜를 표현하는 데이터 타입                                  |
 | SQL_TYPE_TIMESTAMP | DATE                 | 날짜를 표현하는 데이터 타입                                  |
@@ -4715,6 +4715,7 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 | SQL_C_TYPE_TIME      | SQL_TIME_STRUCT      | struct tagTIME_STRUCT { SQLSMALLINT hour; SQLSMALLINT minute; SQLSMALLINT second; } TIME_STRUCT |
 | SQL_C_TYPE_TIMESTAMP | SQL_TIMESTAMP_STRUCT | struct tagTIMESTAMP_STRUCT {SQLSMALLINT year; SQLSMALLINT month; SQLSMALLINT day; SQLSMALLINT hour; SQLSMALLINT minute; SQLSMALLINT second; SQLINTEGER fraction; **}** TIMESTAMP_STRUCT; |
 | SQL_C_NIBBLE         | SQL_NIBBLE_STRUCT    | struct tagNIBBLE_STRUCT { SQLCHAR length; SQLCHAR value[1]; } NIBBLE_STRUCT |
+| SQL_C_NUMERIC        | SQL_NUMERIC_STRUCT   | struct tagSQL_NUMERIC_STRUCT{SQLCHAR precision; SQLSCHAR scale; SQLCHAR sign; SQLCHAR val[SQL_MAX_NUMERIC_LEN]; } SQL_NUMERIC_STRUCT; |
 
 ### SQL 데이터형을 C 데이터형으로 변환하기
 
@@ -4722,35 +4723,41 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 
 
 
-|                      | SQL_C_CHAR | SQL_C_WCHAR | SQL_C_BIT | SQL_C_STINYINT | SQL_C_UTINYINT | SQL_C_SBIGINT | SQL_C_UBIGINT | SQL_C_SSHORT | SQL_C_USHORT | SQL_C_SLONG | SQL_C_ULONG | SQL_C_FLOAT | SQL_C_DOUBLE | SQL_C_BINARY | SQL_C_TYPE_DATE | SQL_C_TYPE_TIME | SQL_C_TYPE_TIMESTAMP | SQL_C_BYTES | SQL_C_NIBBLE |
-|----------------------|------------|-------------|-----------|----------------|----------------|---------------|---------------|--------------|--------------|-------------|-------------|-------------|--------------|--------------|-----------------|-----------------|----------------------|-------------|--------------|
-| SQL_CHAR             | \#         |             | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_VARCHAR          | \#         |             | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_WCHAR            |            | \#          | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_WVARCHAR         |            | \#          | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_DECIMAL          | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_NUMERIC          | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_SMALLINT         | ○          |             | ○         | ○              | ○              | ○             | ○             | \#           | ○            | ○           | ○           | ○           | ○            | ○            |                 |                 |                      |             |              |
-| (signed)             |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |
-| SQL_INTEGER          | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | \#          | ○           | ○           | ○            | ○            |                 |                 |                      |             |              |
-| (signed)             |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |
-| SQL_BIGINT           | ○          |             | ○         | ○              | ○              | \#            | ○             | ○            | ○            | ○           | ○           | ○           | ○            | ○            |                 |                 |                      |             |              |
-| (signed)             |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |
-| SQL_REAL             | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_FLOAT            | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_DOUBLE           | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | ○           | \#           | ○            |                 |                 |                      |             |              |
-| SQL_BINARY           | ○          |             |           |                |                |               |               |              |              |             |             |             |              | \#           |                 |                 |                      |             |              |
-| SQL_TYPE_DATE        | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            | \#              |                 | ○                    |             |              |
-| SQL_TYPE_TIME        | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 | \#              | ○                    |             |              |
-| SQL_TYPE_TIMESTAMP   | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            | ○               | ○               | \#                   |             |              |
-| SQL_INTERVAL         | ○          |             |           |                |                |               |               |              |              |             |             | ○           | \#           | ○            |                 |                 |                      |             |              |
-| SQL_BYTES            | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 |                 |                      | \#          |              |
-| SQL_NIBBLE           | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             | \#           |
-| SQL_GEOMETRY         |            |             |           |                |                |               |               |              |              |             |             |             |              | \#           |                 |                 |                      |             |              |
+|                    | SQL_C_CHAR | SQL_C_WCHAR | SQL_C_BIT | SQL_C_STINYINT | SQL_C_UTINYINT | SQL_C_SBIGINT | SQL_C_UBIGINT | SQL_C_SSHORT | SQL_C_USHORT | SQL_C_SLONG | SQL_C_ULONG | SQL_C_FLOAT | SQL_C_DOUBLE | SQL_C_BINARY | SQL_C_TYPE_DATE | SQL_C_TYPE_TIME | SQL_C_TYPE_TIMESTAMP | SQL_C_BYTES | SQL_C_NIBBLE | SQL_C_NUMERIC |
+| ------------------ | ---------- | ----------- | --------- | -------------- | -------------- | ------------- | ------------- | ------------ | ------------ | ----------- | ----------- | ----------- | ------------ | ------------ | --------------- | --------------- | -------------------- | ----------- | ------------ | ------------- |
+| SQL_CHAR           | \#         |             | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              | ○             |
+| SQL_VARCHAR        | \#         |             | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              | ○             |
+| SQL_WCHAR          |            | \#          | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              | ○             |
+| SQL_WVARCHAR       |            | \#          | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              | ○             |
+| SQL_DECIMAL        | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              | ○             |
+| SQL_NUMERIC        | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              | ○             |
+| SQL_SMALLINT       | ○          |             | ○         | ○              | ○              | ○             | ○             | \#           | ○            | ○           | ○           | ○           | ○            | ○            |                 |                 |                      |             |              | ○             |
+| (signed)           |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |               |
+| SQL_INTEGER        | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | \#          | ○           | ○           | ○            | ○            |                 |                 |                      |             |              | ○             |
+| (signed)           |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |               |
+| SQL_BIGINT         | ○          |             | ○         | ○              | ○              | \#            | ○             | ○            | ○            | ○           | ○           | ○           | ○            | ○            |                 |                 |                      |             |              | ○             |
+| (signed)           |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |               |
+| SQL_REAL           | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              | ○             |
+| SQL_FLOAT          | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              | ○             |
+| SQL_DOUBLE         | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | ○           | \#           | ○            |                 |                 |                      |             |              | ○             |
+| SQL_BINARY         | ○          |             |           |                |                |               |               |              |              |             |             |             |              | \#           |                 |                 |                      |             |              |               |
+| SQL_TYPE_DATE      | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            | \#              |                 | ○                    |             |              |               |
+| SQL_TYPE_TIME      | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 | \#              | ○                    |             |              |               |
+| SQL_TYPE_TIMESTAMP | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            | ○               | ○               | \#                   |             |              |               |
+| SQL_INTERVAL       | ○          |             |           |                |                |               |               |              |              |             |             | ○           | \#           | ○            |                 |                 |                      |             |              |               |
+| SQL_BYTES          | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 |                 |                      | \#          |              |               |
+| SQL_NIBBLE         | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             | \#           |               |
+| SQL_GEOMETRY       |            |             |           |                |                |               |               |              |              |             |             |             |              | \#           |                 |                 |                      |             |              |               |
 
 \# : Default conversion
 
 ○ : Supported conversion
+
+
+
+*SQL_NUMERIC -- SQL_C_BINARY의 경우 SQL_NUMERIC_STRUCT 으로 변환된다.
+
+
 
 ### C 데이터형을 SQL 데이터형으로 변환하기
 
@@ -4759,7 +4766,7 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 
 
 |                      | SQL_CHAR | SQL_VARCHAR | SQL_WCHAR | SQL_WVARCHAR | SQL_DECIMAL | SQL_NUMERIC | SQL_SMALLINT(signed) | SQL_INTEGER(signed) | SQL_BIGINT(signed) | SQL_REAL | SQL_FLOAT | SQL_DOUBLE | SQL_BINARY | SQL_DATE | SQL_INTERVAL | SQL_BYTES | SQL_NIBBLE | SQL_GEOMETRY |
-|----------------------|----------|-------------|-----------|--------------|-------------|-------------|----------------------|---------------------|--------------------|----------|-----------|------------|------------|----------|--------------|-----------|------------|--------------|
+| -------------------- | -------- | ----------- | --------- | ------------ | ----------- | ----------- | -------------------- | ------------------- | ------------------ | -------- | --------- | ---------- | ---------- | -------- | ------------ | --------- | ---------- | ------------ |
 | SQL_C_CHAR           | \#       | \#          |           |              | \#          | \#          | ○                    | ○                   | ○                  | ○        | ○         | ○          | ○          | ○        |              | ○         | ○          |              |
 | SQL_C_WCHAR          |          |             | \#        | \#           |             |             |                      |                     |                    |          |           |            |            |          |              |           |            |              |
 | SQL_C_BIT            | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
@@ -4773,16 +4780,23 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 | SQL_C_ULONG          | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
 | SQL_C_FLOAT          | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | \#       | ○         | ○          |            |          |              |           |            |              |
 | SQL_C_DOUBLE         | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | \#        | \#         |            |          |              |           |            |              |
-| SQL_C_BINARY         | ○        | ○           | ○         | ○            |             |             |                      |                     |                    |          |           |            | \#         |          |              |           |            | ○            |
+| SQL_C_BINARY         | ○        | ○           | ○         | ○            |             | ○           |                      |                     |                    |          |           |            | \#         |          |              |           |            | ○            |
 | SQL_C_TYPE_DATE      |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |          |              |           |            |              |
 | SQL_C_TYPE_TIME      |          |             |           |              |             |             |                      |                     |                    |          |           |            |            | ○        |              |           |            |              |
 | SQL_C_TYPE_TIMESTAMP |          |             |           |              |             |             |                      |                     |                    |          |           |            |            | ○        |              |           |            |              |
 | SQL_C_BYTES          |          |             |           |              |             |             |                      |                     |                    |          |           |            |            | ○        |              | \#        |            |              |
 | SQL_C_NIBBLE         |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |          |              |           | \#         |              |
+| SQL_C_NUMERIC        |          |             |           |              | ○           | ○           | ○                    | ○                   | ○                  |          | ○         |            |            |          |              |           |            |              |
 
 \# : Default conversion
 
 ○ : Supported conversion
+
+
+
+*SQL_NUMERIC -- SQL_C_BINARY의 경우 SQL_NUMERIC_STRUCT 으로 변환된다.
+
+
 
 ## C.부록: 오류 코드
 
@@ -5916,7 +5930,7 @@ SQL_TYPE_DATE, SQL_TYPE_TIME, SQL_TYPE_TIMESTAMP를 사용하기를 권장한다
 ##### 데이터 타입
 
 Altibase 4에서 LOB 타입은 길이가 페이지 크기로 제한되었으나, Altibase 5에서는
-최대 2GB까지 지원하는 BLOB, CLOB으로 구성된다.
+최대 4GB-1Byte 까지 지원하는 BLOB, CLOB으로 구성된다.
 
 ###### Altibase 4 DDL
 
