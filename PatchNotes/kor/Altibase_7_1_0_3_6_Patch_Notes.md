@@ -1,9 +1,10 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Altibase 7.1.0.3.6 Patch Notes](#altibase-71036-patch-notes)
   - [New Features](#new-features)
-    - [BUG-47677  -extra\_col\_delimiter 옵션을 지원해야 합니다.](#bug-47677%C2%A0--extra%5C_col%5C_delimiter-%EC%98%B5%EC%85%98%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47677  -extra\_col\_delimiter 옵션을 지원해야 합니다.](#bug-47677--extra%5C_col%5C_delimiter-%EC%98%B5%EC%85%98%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-47691  PowerPC 와 PowerPC LE(little endian) 에서 jdbcAdapter 의 지원](#bug-47691%C2%A0-powerpc-%EC%99%80-powerpc-lelittle-endian-%EC%97%90%EC%84%9C-jdbcadapter-%EC%9D%98-%EC%A7%80%EC%9B%90)
     - [BUG-47692  PowerPC LE(little endian) 용 altimon 패키지 제공](#bug-47692%C2%A0-powerpc-lelittle-endian-%EC%9A%A9-altimon-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
     - [BUG-47727  v$transaction 에 undo 진행 상태 모니터링 컬럼 추가](#bug-47727-%C2%A0vtransaction-%EC%97%90-undo-%EC%A7%84%ED%96%89-%EC%83%81%ED%83%9C-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%BB%AC%EB%9F%BC-%EC%B6%94%EA%B0%80)
@@ -27,11 +28,11 @@
     - [BUG-47736  uniqueness가 깨진 memory index 있는 경우에 서버를 띄우면 안됩니다.](#bug-47736-%C2%A0uniqueness%EA%B0%80-%EA%B9%A8%EC%A7%84-memory-index-%EC%9E%88%EB%8A%94-%EA%B2%BD%EC%9A%B0%EC%97%90-%EC%84%9C%EB%B2%84%EB%A5%BC-%EB%9D%84%EC%9A%B0%EB%A9%B4-%EC%95%88%EB%90%A9%EB%8B%88%EB%8B%A4)
     - [BUG-47741  HP-UX에서 iSQL 암호 입력 시 Here document 처리를 해야 합니다](#bug-47741%C2%A0-hp-ux%EC%97%90%EC%84%9C-isql-%EC%95%94%ED%98%B8-%EC%9E%85%EB%A0%A5-%EC%8B%9C-here-document-%EC%B2%98%EB%A6%AC%EB%A5%BC-%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-47744  View Merge되는 인라인뷰의 컬럼을 특정 Aggregation에 사용한경우 비정상 종료할 수 있습니다.](#bug-47744%C2%A0-view-merge%EB%90%98%EB%8A%94-%EC%9D%B8%EB%9D%BC%EC%9D%B8%EB%B7%B0%EC%9D%98-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8A%B9%EC%A0%95-aggregation%EC%97%90-%EC%82%AC%EC%9A%A9%ED%95%9C%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47745 sdcRow::makeTrailingNullUpdateInfo()의 디버깅 정보 출력 위치 변경.](#bug-47745%C2%A0sdcrowmaketrailingnullupdateinfo%EC%9D%98-%EB%94%94%EB%B2%84%EA%B9%85-%EC%A0%95%EB%B3%B4-%EC%B6%9C%EB%A0%A5-%EC%9C%84%EC%B9%98-%EB%B3%80%EA%B2%BD)
-    - [BUG-47750 CONNECT BY 절에 variable 컬럼을 포함한 조인 오퍼레이션을 사용한 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47750%C2%A0connect-by-%EC%A0%88%EC%97%90-variable-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%A1%B0%EC%9D%B8-%EC%98%A4%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47752 LEFT OUTER JOIN 오른쪽이 집합 연산을 포함한 인라인 뷰이고 ON 절이 OR 조건으로 구성된 경우 Altibase 서버가 비정상 종료합니다.](#bug-47752%C2%A0left-outer-join-%EC%98%A4%EB%A5%B8%EC%AA%BD%EC%9D%B4-%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%9D%B4%EA%B3%A0-on-%EC%A0%88%EC%9D%B4-or-%EC%A1%B0%EA%B1%B4%EC%9C%BC%EB%A1%9C-%EA%B5%AC%EC%84%B1%EB%90%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47754 중단된 log record로 Recovery를 시도하는 경우, 비정상 종료 할 수 있습니다.](#bug-47754%C2%A0%EC%A4%91%EB%8B%A8%EB%90%9C-log-record%EB%A1%9C-recovery%EB%A5%BC-%EC%8B%9C%EB%8F%84%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47758 트랜잭션 고립화 수준(isolation level)에 따라 CONNECT BY 절을 포함한 SQL 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47758%C2%A0%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B3%A0%EB%A6%BD%ED%99%94-%EC%88%98%EC%A4%80isolation-level%EC%97%90-%EB%94%B0%EB%9D%BC-connect-by-%EC%A0%88%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-sql-%EC%88%98%ED%96%89-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47745  sdcRow::makeTrailingNullUpdateInfo()의 디버깅 정보 출력 위치 변경.](#bug-47745%C2%A0-sdcrowmaketrailingnullupdateinfo%EC%9D%98-%EB%94%94%EB%B2%84%EA%B9%85-%EC%A0%95%EB%B3%B4-%EC%B6%9C%EB%A0%A5-%EC%9C%84%EC%B9%98-%EB%B3%80%EA%B2%BD)
+    - [BUG-47750  CONNECT BY 절에 variable 컬럼을 포함한 조인 오퍼레이션을 사용한 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47750-%C2%A0connect-by-%EC%A0%88%EC%97%90-variable-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%A1%B0%EC%9D%B8-%EC%98%A4%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47752  LEFT OUTER JOIN 오른쪽이 집합 연산을 포함한 인라인 뷰이고 ON 절이 OR 조건으로 구성된 경우 Altibase 서버가 비정상 종료합니다.](#bug-47752%C2%A0-left-outer-join-%EC%98%A4%EB%A5%B8%EC%AA%BD%EC%9D%B4-%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%9D%B4%EA%B3%A0-on-%EC%A0%88%EC%9D%B4-or-%EC%A1%B0%EA%B1%B4%EC%9C%BC%EB%A1%9C-%EA%B5%AC%EC%84%B1%EB%90%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47754  중단된 log record로 Recovery를 시도하는 경우, 비정상 종료 할 수 있습니다.](#bug-47754%C2%A0-%EC%A4%91%EB%8B%A8%EB%90%9C-log-record%EB%A1%9C-recovery%EB%A5%BC-%EC%8B%9C%EB%8F%84%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47758  트랜잭션 고립화 수준(isolation level)에 따라 CONNECT BY 절을 포함한 SQL 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47758%C2%A0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B3%A0%EB%A6%BD%ED%99%94-%EC%88%98%EC%A4%80isolation-level%EC%97%90-%EB%94%B0%EB%9D%BC-connect-by-%EC%A0%88%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-sql-%EC%88%98%ED%96%89-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -1104,7 +1105,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47745 sdcRow::makeTrailingNullUpdateInfo()의 디버깅 정보 출력 위치 변경.
+### BUG-47745  sdcRow::makeTrailingNullUpdateInfo()의 디버깅 정보 출력 위치 변경.
 
 -   **module** : sm-disk-collection
 
@@ -1134,7 +1135,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47750 CONNECT BY 절에 variable 컬럼을 포함한 조인 오퍼레이션을 사용한 경우 Altibase 서버가 비정상 종료할 수 있습니다.
+### BUG-47750  CONNECT BY 절에 variable 컬럼을 포함한 조인 오퍼레이션을 사용한 경우 Altibase 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : qp
 
@@ -1237,7 +1238,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47752 LEFT OUTER JOIN 오른쪽이 집합 연산을 포함한 인라인 뷰이고 ON 절이 OR 조건으로 구성된 경우 Altibase 서버가 비정상 종료합니다.
+### BUG-47752  LEFT OUTER JOIN 오른쪽이 집합 연산을 포함한 인라인 뷰이고 ON 절이 OR 조건으로 구성된 경우 Altibase 서버가 비정상 종료합니다.
 
 -   **module** : qp-select-execute
 
@@ -1298,7 +1299,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47754 중단된 log record로 Recovery를 시도하는 경우, 비정상 종료 할 수 있습니다.
+### BUG-47754  중단된 log record로 Recovery를 시도하는 경우, 비정상 종료 할 수 있습니다.
 
 -   **module** : sm\_recovery
 
@@ -1335,7 +1336,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47758 트랜잭션 고립화 수준(isolation level)에 따라 CONNECT BY 절을 포함한 SQL 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.
+### BUG-47758  트랜잭션 고립화 수준(isolation level)에 따라 CONNECT BY 절을 포함한 SQL 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : sm\_collection
 
