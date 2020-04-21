@@ -1,3 +1,45 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Altibase 7.1.0.3.6 Patch Notes](#altibase-71036-patch-notes)
+  - [New Features](#new-features)
+    - [BUG-47677  -extra\_col\_delimiter 옵션을 지원해야 합니다.](#bug-47677%C2%A0--extra%5C_col%5C_delimiter-%EC%98%B5%EC%85%98%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47691  PowerPC 와 PowerPC LE(little endian) 에서 jdbcAdapter 의 지원](#bug-47691%C2%A0-powerpc-%EC%99%80-powerpc-lelittle-endian-%EC%97%90%EC%84%9C-jdbcadapter-%EC%9D%98-%EC%A7%80%EC%9B%90)
+    - [BUG-47692  PowerPC LE(little endian) 용 altimon 패키지 제공](#bug-47692%C2%A0-powerpc-lelittle-endian-%EC%9A%A9-altimon-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
+    - [BUG-47727  v$transaction 에 undo 진행 상태 모니터링 컬럼 추가](#bug-47727-%C2%A0vtransaction-%EC%97%90-undo-%EC%A7%84%ED%96%89-%EC%83%81%ED%83%9C-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%BB%AC%EB%9F%BC-%EC%B6%94%EA%B0%80)
+    - [BUG-47762  32bit Linux 클라이언트 제공](#bug-47762%C2%A0-32bit-linux-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%EA%B3%B5)
+    - [BUG-47639  JDBC 드라이버에서 lob 컬럼값이 NULL일때 ResultSet.getBlob()이나 ResultSet.getClob()이 NULL을 반환하도록 연결속성이 추가되었습니다.](#bug-47639%C2%A0-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84%EC%97%90%EC%84%9C-lob-%EC%BB%AC%EB%9F%BC%EA%B0%92%EC%9D%B4-null%EC%9D%BC%EB%95%8C-resultsetgetblob%EC%9D%B4%EB%82%98-resultsetgetclob%EC%9D%B4-null%EC%9D%84-%EB%B0%98%ED%99%98%ED%95%98%EB%8F%84%EB%A1%9D-%EC%97%B0%EA%B2%B0%EC%86%8D%EC%84%B1%EC%9D%B4-%EC%B6%94%EA%B0%80%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+  - [Fixed Bugs](#fixed-bugs)
+    - [BUG-45803  eager replication 중인 table에 ALTER TABLE ... RENAME CONSTRAINT 의 DDL이 실패하지 않는 문제가 있습니다.](#bug-45803%C2%A0-eager-replication-%EC%A4%91%EC%9D%B8-table%EC%97%90-alter-table--rename-constraint-%EC%9D%98-ddl%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47580  Compact Disk Page 실패에 대한 정보 보강](#bug-47580-%C2%A0compact-disk-page-%EC%8B%A4%ED%8C%A8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%A0%95%EB%B3%B4-%EB%B3%B4%EA%B0%95)
+    - [BUG-47628  AltibaseDatabaseMetaData.getSQLKeywords() 로 리턴되는 키워드에 누락이 있습니다.](#bug-47628-%C2%A0altibasedatabasemetadatagetsqlkeywords-%EB%A1%9C-%EB%A6%AC%ED%84%B4%EB%90%98%EB%8A%94-%ED%82%A4%EC%9B%8C%EB%93%9C%EC%97%90-%EB%88%84%EB%9D%BD%EC%9D%B4-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47647  오류없이 쿼리수행이 성공한 경우에도, The tablespace does not have enough free space ( TBS Name : ). 에러가 기록됩니다.](#bug-47647%C2%A0-%EC%98%A4%EB%A5%98%EC%97%86%EC%9D%B4-%EC%BF%BC%EB%A6%AC%EC%88%98%ED%96%89%EC%9D%B4-%EC%84%B1%EA%B3%B5%ED%95%9C-%EA%B2%BD%EC%9A%B0%EC%97%90%EB%8F%84-the-tablespace-does-not-have-enough-free-space--tbs-name---%EC%97%90%EB%9F%AC%EA%B0%80-%EA%B8%B0%EB%A1%9D%EB%90%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47650  endStmt() 실패시 서버가 비정상종료 합니다.](#bug-47650%C2%A0-endstmt-%EC%8B%A4%ED%8C%A8%EC%8B%9C-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81%EC%A2%85%EB%A3%8C-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47658  aexport 통계값 처리시 single quotation 처리가 필요합니다](#bug-47658%C2%A0-aexport-%ED%86%B5%EA%B3%84%EA%B0%92-%EC%B2%98%EB%A6%AC%EC%8B%9C-single-quotation-%EC%B2%98%EB%A6%AC%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47690  INLIST 조건에 복합 Index를 사용할 경우 비정상 종료 할수 있습니다.](#bug-47690-%C2%A0inlist-%EC%A1%B0%EA%B1%B4%EC%97%90-%EB%B3%B5%ED%95%A9-index%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47693  CLOB 컬럼에 empty 데이터가 있는 경우 조회 결과가 틀립니다](#bug-47693-%C2%A0clob-%EC%BB%AC%EB%9F%BC%EC%97%90-empty-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EC%9E%88%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EC%A1%B0%ED%9A%8C-%EA%B2%B0%EA%B3%BC%EA%B0%80-%ED%8B%80%EB%A6%BD%EB%8B%88%EB%8B%A4)
+    - [BUG-47702  \<\> 연산자가 있을 경우 Selectivity가 1인 INDEX에 대한 잘못된 index 선택 오류](#bug-47702-%C2%A0%5C%5C-%EC%97%B0%EC%82%B0%EC%9E%90%EA%B0%80-%EC%9E%88%EC%9D%84-%EA%B2%BD%EC%9A%B0-selectivity%EA%B0%80-1%EC%9D%B8-index%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9E%98%EB%AA%BB%EB%90%9C-index-%EC%84%A0%ED%83%9D-%EC%98%A4%EB%A5%98)
+    - [BUG-47714  cmERR\_ABORT\_SELECT\_ERROR 에러 발생시 CLI 메모리가 증가합니다.](#bug-47714%C2%A0-cmerr%5C_abort%5C_select%5C_error-%EC%97%90%EB%9F%AC-%EB%B0%9C%EC%83%9D%EC%8B%9C-cli-%EB%A9%94%EB%AA%A8%EB%A6%AC%EA%B0%80-%EC%A6%9D%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47715  redo log가 누락되는 현상이 발생하여 recovery 에서 실패합니다.](#bug-47715-%C2%A0redo-log%EA%B0%80-%EB%88%84%EB%9D%BD%EB%90%98%EB%8A%94-%ED%98%84%EC%83%81%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%98%EC%97%AC-recovery-%EC%97%90%EC%84%9C-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47732  empty lob을 PSM 내부에서 select 할 때 에러 발생합니다](#bug-47732%C2%A0-empty-lob%EC%9D%84-psm-%EB%82%B4%EB%B6%80%EC%97%90%EC%84%9C-select-%ED%95%A0-%EB%95%8C-%EC%97%90%EB%9F%AC-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47734  INDEX Scan시 문자 사이에 탭이 있을경우, 데이터가 조회되지 않는 문제가 있습니다.](#bug-47734-%C2%A0index-scan%EC%8B%9C-%EB%AC%B8%EC%9E%90-%EC%82%AC%EC%9D%B4%EC%97%90-%ED%83%AD%EC%9D%B4-%EC%9E%88%EC%9D%84%EA%B2%BD%EC%9A%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EC%A1%B0%ED%9A%8C%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47735  2개 이상의 session으로 Disk LOB insert 중 deadlock 으로 hang 발생.](#bug-47735%C2%A0-2%EA%B0%9C-%EC%9D%B4%EC%83%81%EC%9D%98-session%EC%9C%BC%EB%A1%9C-disk-lob-insert-%EC%A4%91-deadlock-%EC%9C%BC%EB%A1%9C-hang-%EB%B0%9C%EC%83%9D)
+    - [BUG-47736  uniqueness가 깨진 memory index 있는 경우에 서버를 띄우면 안됩니다.](#bug-47736-%C2%A0uniqueness%EA%B0%80-%EA%B9%A8%EC%A7%84-memory-index-%EC%9E%88%EB%8A%94-%EA%B2%BD%EC%9A%B0%EC%97%90-%EC%84%9C%EB%B2%84%EB%A5%BC-%EB%9D%84%EC%9A%B0%EB%A9%B4-%EC%95%88%EB%90%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47741  HP-UX에서 iSQL 암호 입력 시 Here document 처리를 해야 합니다](#bug-47741%C2%A0-hp-ux%EC%97%90%EC%84%9C-isql-%EC%95%94%ED%98%B8-%EC%9E%85%EB%A0%A5-%EC%8B%9C-here-document-%EC%B2%98%EB%A6%AC%EB%A5%BC-%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47744  View Merge되는 인라인뷰의 컬럼을 특정 Aggregation에 사용한경우 비정상 종료할 수 있습니다.](#bug-47744%C2%A0-view-merge%EB%90%98%EB%8A%94-%EC%9D%B8%EB%9D%BC%EC%9D%B8%EB%B7%B0%EC%9D%98-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8A%B9%EC%A0%95-aggregation%EC%97%90-%EC%82%AC%EC%9A%A9%ED%95%9C%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47745 sdcRow::makeTrailingNullUpdateInfo()의 디버깅 정보 출력 위치 변경.](#bug-47745%C2%A0sdcrowmaketrailingnullupdateinfo%EC%9D%98-%EB%94%94%EB%B2%84%EA%B9%85-%EC%A0%95%EB%B3%B4-%EC%B6%9C%EB%A0%A5-%EC%9C%84%EC%B9%98-%EB%B3%80%EA%B2%BD)
+    - [BUG-47750 CONNECT BY 절에 variable 컬럼을 포함한 조인 오퍼레이션을 사용한 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47750%C2%A0connect-by-%EC%A0%88%EC%97%90-variable-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%A1%B0%EC%9D%B8-%EC%98%A4%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47752 LEFT OUTER JOIN 오른쪽이 집합 연산을 포함한 인라인 뷰이고 ON 절이 OR 조건으로 구성된 경우 Altibase 서버가 비정상 종료합니다.](#bug-47752%C2%A0left-outer-join-%EC%98%A4%EB%A5%B8%EC%AA%BD%EC%9D%B4-%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%9D%B4%EA%B3%A0-on-%EC%A0%88%EC%9D%B4-or-%EC%A1%B0%EA%B1%B4%EC%9C%BC%EB%A1%9C-%EA%B5%AC%EC%84%B1%EB%90%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47754 중단된 log record로 Recovery를 시도하는 경우, 비정상 종료 할 수 있습니다.](#bug-47754%C2%A0%EC%A4%91%EB%8B%A8%EB%90%9C-log-record%EB%A1%9C-recovery%EB%A5%BC-%EC%8B%9C%EB%8F%84%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47758 트랜잭션 고립화 수준(isolation level)에 따라 CONNECT BY 절을 포함한 SQL 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47758%C2%A0%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B3%A0%EB%A6%BD%ED%99%94-%EC%88%98%EC%A4%80isolation-level%EC%97%90-%EB%94%B0%EB%9D%BC-connect-by-%EC%A0%88%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-sql-%EC%88%98%ED%96%89-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+  - [Changes](#changes)
+    - [Version Info](#version-info)
+    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase 7.1.0.3.6 Patch Notes
 ==============================
 
