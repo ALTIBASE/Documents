@@ -4,7 +4,7 @@
 
 - [Altibase 7.1.0.3.6 Patch Notes](#altibase-71036-patch-notes)
   - [New Features](#new-features)
-    - [BUG-47677  -extra\_col\_delimiter 옵션을 지원해야 합니다.](#bug-47677--extra%5C_col%5C_delimiter-%EC%98%B5%EC%85%98%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47677  -extra_col_delimiter 옵션을 지원해야 합니다.](#bug-47677%C2%A0--extra_col_delimiter-%EC%98%B5%EC%85%98%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-47691  PowerPC 와 PowerPC LE(little endian) 에서 jdbcAdapter 의 지원](#bug-47691%C2%A0-powerpc-%EC%99%80-powerpc-lelittle-endian-%EC%97%90%EC%84%9C-jdbcadapter-%EC%9D%98-%EC%A7%80%EC%9B%90)
     - [BUG-47692  PowerPC LE(little endian) 용 altimon 패키지 제공](#bug-47692%C2%A0-powerpc-lelittle-endian-%EC%9A%A9-altimon-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
     - [BUG-47727  v$transaction 에 undo 진행 상태 모니터링 컬럼 추가](#bug-47727-%C2%A0vtransaction-%EC%97%90-undo-%EC%A7%84%ED%96%89-%EC%83%81%ED%83%9C-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%BB%AC%EB%9F%BC-%EC%B6%94%EA%B0%80)
@@ -47,7 +47,7 @@ Altibase 7.1.0.3.6 Patch Notes
 New Features
 ------------
 
-### BUG-47677  -extra\_col\_delimiter 옵션을 지원해야 합니다.
+### BUG-47677  -extra_col_delimiter 옵션을 지원해야 합니다.
 
 -   **module** : ux-iloader
 
@@ -56,7 +56,7 @@ New Features
 -   **재현 빈도** : Always
 
 -   **증상** : 그동안 비공식적으로 지원되던 -informix
-    옵션을 -extra\_col\_delimiter 이름으로 공식지원합니다.
+    옵션을 -extra_col_delimiter 이름으로 공식지원합니다.
 
     이 옵션은 레코드 마지막 컬럼 뒤에 컬럼 구분자와 레코드 구분자가
     연달아 위치한 경우, 이를 레코드의 끝으로 인식하기 위한 옵션입니다. 자세한 내용은 매뉴얼 [iloader#일반옵션]([https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iLoader.md#%EC%9D%BC%EB%B0%98-%EC%98%B5%EC%85%98](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iLoader.md#일반-옵션))을 참고한다.
