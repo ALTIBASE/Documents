@@ -66,9 +66,9 @@ In addition, the server-side sharding can be applied without modifying any exist
 
 Previously, to roll back a patch when the meta version was different, the user had to manually reconfigure the version with the meta of the version the user wants to roll back to, and then roll back the patch. As of ALtibase 7.1.0.1.2, a meta downgrade command is provided so that patch rollback can be performed even when the meta version is different.
 
-'''
+```
 % server downgrade
-'''
+```
 
 ###### Parition Exchange DDL Support
 
