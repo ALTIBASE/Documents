@@ -297,7 +297,7 @@ The UTL_SMTP storage package that performs the SMTP protocol has been added so t
 | CLOSE_DATA                     | Sends \<CRLF> \<CRLF>, which is the end of data transmission of SMTP protocol |
 | QUIT                           | Terminates the connection with the QUIT command of the SMTP protocol |
 
-###### Other System-defined Save Packages
+###### Other System-defined Storage Packages
 
 Other system-defined storage packges added by Altibase are as follows.
 
