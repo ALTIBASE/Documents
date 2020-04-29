@@ -64,6 +64,10 @@ In addition, the server-side sharding can be applied without modifying any exist
 
 ##### SQL Extension
 
+Previously, to roll back a patch when the meta version was different, the user had to manually reconfigure the version with the meta of the version the user wants to roll back to, and then roll back the patch. As of ALtibase 7.1.0.1.2, a meta downgrade command is provided so that patch rollback can be performed even when the meta version is different.
+
+'''% server downgrade'''
+
 ###### Parition Exchange DDL Support
 
 Parition CONJOIN and partition DISJOIN statements are provided to enable partition exchange between normal partitions (non-partitioned tables) and partitioned tables as well as partitions of partitioned tables.
@@ -380,13 +384,13 @@ JDBC Adapter is a utility that applies data changed in the Altibase database to 
 
 The SQuirreL SQL client, an open source product for DB object browsing and SQL execution, can be used in conjunction with Altibase.
 
-###### Shaard Manage Support
+###### Shard Manage Support
 
 Shard Manager is a tool to help organize and manage Altibase Sharding data nodes and shard objects. Altibase Sharding consists of multiple databases, so managing each database and object can be expensive. In this environment, the user can use Shard Manager to improve work efficiency.
 
 ###### altimon.sh Improvement
 
-altimon.sh has been improved to monitor the host equipment where Altibase server and altiMon are installed. altiMon mainly monitors OS information and DB information, and in order to collect OS information, it is possible in an operating system that can use the PICL library.
+altimon.sh has been mainly improved to  monitors OS information and DB information, and in order to collect OS information, it is possible in an operating system that can use the PICL library.
 
 ###### Change of INPUT/OUTPUT Type Related Behavior in iSQL Host Variable Declaration
 
