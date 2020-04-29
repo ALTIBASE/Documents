@@ -5081,6 +5081,11 @@ alter system set rp_conflict_msglog_flag=4
 | RESOURCE_GROUP_ID            | INTEGER     | 로그 파일 그룹(LFG)의 식별자 |
 | LEGACY_TRANS_COUNT           | INTEGER     | 내부 용도                    |
 | ISOLATION_LEVEL              | INTEGER     | 아래 참조                    |
+| PROCESSED_UNDO_TIME          | INTEGER     | 아래 참조                    |
+| ESTIMATED_TOTAL_UNDO_TIME    | INTEGER     | 아래 참조                    |
+| TOTAL_LOG_COUNT              | BIGINT      | 아래 참조                    |
+| TOTAL_UNDO_LOG_COUNT         | BIGINT      | 아래 참조                    |
+| PROCESSED_UNDO_LOG_COUNT     | BIGINT      | 아래 참조                    |
 
 #### 칼럼 정보
 
@@ -5231,6 +5236,26 @@ SCN을 가진다. 이 항목은 현재 해당 트랜잭션에서 메모리 테�
 -   1: REPEATABLE READ
 
 -   2: SERIALIZABLE
+
+##### PROCESSED_UNDO_TIME
+
+해당 트랜잭션의 UNDO 시작 시점부터 현재까지 UNDO 진행된 시간 ( 단위: 초 )
+
+##### ESTIMATED_TOTAL_UNDO_TIME
+
+해당 트랜잭션의 UNDO완료 될 때까지 추정되는 총 소요 시간 ( 단위: 초 )
+
+##### TOTAL_LOG_COUNT
+
+해당 트랜잭션의 총 로그 개수
+
+##### TOTAL_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 앞으로 UNDO 해야 할 총 로그 개수 
+
+##### PROCESSED_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 현재까지 언두 완료된 로그 개수 
 
 ### <a name="vtransaction_mgr"><a/>V\$TRANSACTION_MGR
 

@@ -26,7 +26,7 @@ Altibase® Administration
 
 ![](media/GeneralReference/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Altibase Administration General Reference참조 테이블
+Altibase Administration General Reference
 
 
 Release 7.1

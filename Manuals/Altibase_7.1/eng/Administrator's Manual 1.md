@@ -48,7 +48,7 @@
 
 Altibase® Administration
 
-Administrator’s Manual
+Administrator’s Manual 1
 ======================
 
 ![](media/Admin/e5cfb3761673686d093a3b00c062fe7a.png)
