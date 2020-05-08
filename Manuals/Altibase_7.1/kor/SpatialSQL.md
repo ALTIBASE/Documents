@@ -1027,7 +1027,7 @@ INSERT INTO test1 VALUES (6, GEOMCOLLFROMTEXT('GEOMETRYCOLLECTION EMPTY'));
 
 ### GEOMETRY 표현 형식
 
-GEOMETRY 데이터 타입을 표현하기 위하여 Altibase는 3가지 방법을 제공한다.
+GEOMETRY 데이터 타입을 표현하기 위하여 Altibase는 5가지 방법을 제공한다.
 
 -   WKT(Well-Known Text) 형식: 공간 객체를 문자와 숫자로 표현하여 SQL등에서 직접
     사용될 수 있는 텍스트 형식이다. 문법이 간결하고 읽기 쉽도록 디자인 되어
@@ -1035,6 +1035,10 @@ GEOMETRY 데이터 타입을 표현하기 위하여 Altibase는 3가지 방법�
 
 -   WKB(Well-Known Binary) 형식: 공간 객체를 이진형태로 표현한 것으로 GEOMETRY
     데이터 전송 및 연산에 효율적으로 디자인되어 있다.
+   
+-   EWKT(Extended Well-Known Text) 형식: WKT 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
+
+-   EWKB(Extended Well-Known Binary) 형식: WKB 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
 
 -   내부 이진 형식: Altibase 내부에 저장되는 이진 형태로서 내부관리 및 공간
     연산에 효율적으로 디자인되어 있으며, C-API를 이용하여 조작할 수 있다. 제
@@ -1042,7 +1046,7 @@ GEOMETRY 데이터 타입을 표현하기 위하여 Altibase는 3가지 방법�
 
 #### WKT (Well-Known Text) 
 
-WKT(Well-known Text)는 공간 객체를 문자와 숫자로 표현하기 위한 형식이다. WKT는
+WKT(Well-known Text)는 공간 객체를 문자와 숫자로 표현하기 위한 형식이다.  WKT 형식으로 공간 객체를 표현하는 경우, 객체의 SRID는 0으로 간주된다. WKT는
 다음과 같은 BNF(Backus Naur Form) 형태로 정의된다.
 
 ```
@@ -1117,7 +1121,7 @@ WKT(Well-known Text)는 공간 객체를 문자와 숫자로 표현하기 위한
 
 #### WKB (Well-Known Binary)
 
-WKB(Well-Known Binary)는 공간 객체를 이진 형태로 표현하기 위한 형식이다.
+WKB(Well-Known Binary)는 공간 객체를 이진 형태로 표현하기 위한 형식이다. WKB 형식으로 공간 객체를 표현하는 경우, 객체의 SRID는 0으로 간주된다.
 
 OGC 표준에서 권고하는 이진 형태이며, 서로 다른 공간 DBMS간의 데이터 호환을
 위하여 사용한다.
@@ -1235,6 +1239,31 @@ WKBGeometry wkbGeometries{num_wkbGeometries} ;
 내부 링을 가진 폴리곤을 표현한다. 외부링과 내부링은 각각 3개의 포인트로
 구성된다.
 
+
+#### EWKT (Extended Well-Known Text)
+
+EWKT는 WKT 형식에 추가적으로 SRID 정보를 표기한 것이다. SRID 정보의 표기를 제외하면 표기법은 WKT 형식과 동일하다. EWKT 형식은 OpenGIS 표준안이 아니며, EWKT 형식을 사용해 기술한 공간 데이터의 예시는 다음과 같다.
+
+| 형식               | WKT 표현 | SRID                                                                                 | 설명                                              |
+|--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
+| Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | 한 점; SRID는 4326                                             |
+| LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | 3점을 갖는 라인스트링; SRID는 100                             |
+| Polygon            | SRID=-999;POLYGON( (10 10, 10 20, 20 20, 20 15, 10 10) )                                          | -999 | 1개의 외부링과 0개의 내부링으로 된 폴리곤; SRID는 -999          |
+| MultiPoint         | SRID=0;MULTIPOINT(10 10, 20 20)                                                                | 0 | 2점을 갖는 멀티포인트; SRID는 0     |
+
+#### EWKB (Extended Well-Known Binary)
+
+EWKB는 WKB 형식에 추가적으로 SRID 정보를 표기한 것이다. SRID 정보의 표기를 제외하면 표기법은 WKB 형식과 동일하다. 
+EWKB 형식은 OpenGIS 표준안이 아니다. EWKB 형식의 표기방법은 WKB 형식과 거의 같으나, 바이트 순서(1바이트; NDR, XDR 중 하나)와 GEOMETRY 데이터 타입(4바이트; POINT, MULTIPOINT 등)을 표기한 이후 4바이트 크기의 SRID를 표기한다는 점에 차이가 있다. SRID 표기 이후에는 WKB 형식과 마찬가지로 객체 정보를 이진 형태로 표기한다.
+
+| 형식               | WKT 표현 | SRID                                                                                 | 설명                                              |
+|--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
+| Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | 한 점; SRID는 4326                                             |
+| LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | 3점을 갖는 라인스트링; SRID는 100                             |
+| Polygon            | SRID=-999;POLYGON( (10 10, 10 20, 20 20, 20 15, 10 10) )                                          | -999 | 1개의 외부링과 0개의 내부링으로 된 폴리곤; SRID는 -999          |
+| MultiPoint         | SRID=0;MULTIPOINT(10 10, 20 20)                                                                | 0 | 2점을 갖는 멀티포인트; SRID는 0     |
+
+
 ### 데이터 정의어
 
 이 절에서는 데이터베이스 오브젝트를 생성하기 위해서 사용하는 SQL DDL 문장의
@@ -1248,7 +1277,7 @@ Reference* 을 참조한다.
 
 ```
 CREATE TABLE table_name (
-    column_name GEOMETRY [(precision)] );
+    column_name GEOMETRY [(precision)] [(SRID srid)]);
 ```
 
 ##### 설명
@@ -1256,6 +1285,8 @@ CREATE TABLE table_name (
 *precision* 생성될 칼럼의 최대 크기(Bytes 단위)를 명시한다. 최소 16Bytes, 최대
 100MBytes까지 지정할 수 있으며, 명시하지 않을 경우 기본값으로 32,000 Bytes을
 갖는다. 저장 공간이 precision보다 큰 공간객체 데이터는 삽입할 수 없다.
+
+srid 생성될 칼럼의 SRID를 명시한다. 4바이트의 signed integer를 사용할 수 있으며, 지정하지 않으면 기본값 0이 된다.
 
 CREATE TABLE 구문에 대한 자세한 설명은 *SQL Reference* 을 참조하기 바란다.
 
@@ -1282,6 +1313,13 @@ Create success.
 
 ```
 iSQL> CREATE TABLE t2 ( id INTEGER, obj GEOMETRY (128) ) ;
+Create success.
+```
+
+정수형 칼럼 id와 SRID 100을 갖는 GEOMETRY 칼럼 obj를 갖는 테이블을 생성한다.
+
+```
+iSQL> CREATE TABLE t3 ( id INTEGER, obj GEOMETRY SRID 100) ;
 Create success.
 ```
 
@@ -1350,7 +1388,7 @@ Altibase에서 제공하는 공간 함수는 각 함수의 특징에 따라 다�
     GEOMETRY 타입의 데이터를 이용한 각종 분석 작업을 수행하기 위한 함수
 
 -   공간 객체 생성 함수  
-    Altibase 내부 저장 형식이 아닌 WKT나 WKB 형식을 이용하여 공간 객체를
+    Altibase 내부 저장 형식이 아닌 WKT, WKB, EWKT, EWKB 형식을 이용하여 공간 객체를
     생성하는 함수
 
 ### 기본 함수
@@ -1591,6 +1629,69 @@ GEOMETRYCOLLECTION( POINT(1 1) , LINESTRING(2 2, 3 3) )
 109         
 
 10 rows selected.
+```
+
+#### ASEWKT
+
+##### 구문
+
+```
+ASEWKT( GEOMETRY[,precision] ) 
+```
+
+##### 설명
+
+공간 객체를 EWKT(Extended Well-Known Text) 표현 형태로 반환한다.
+Precision을 이용하여 WKT의 최대 길이를 제어할 수 있다. 기본값은 256 bytes이며, 최소 32, 최대 32000까지 사용할 수 있다.
+
+##### 반환 타입
+
+```
+VARCHAR
+```
+
+##### 예제
+```
+iSQL> SELECT F1, ASEWKT(F2, 40) FROM TB1;
+F1          ASEWKT(F2, 40)                            
+---------------------------------------------------------
+1           SRID=0;POINT(2 2)                         
+2           SRID=100;POINT(2 2)                       
+3           SRID=101;POINT(2 2)                       
+4           SRID=102;POINT(2 2)                       
+5           SRID=103;POINT(2 2)                       
+5 rows selected.
+```
+
+#### ASEWKB
+
+##### 구문
+
+```
+ASEWKB( GEOMETRY ) 
+```
+
+##### 설명
+
+공간 객체를 EWKB(Extended Well-Known Binary) 표현 형태로 반환한다.
+
+##### 반환 타입
+
+```
+BINARY
+```
+
+##### 예제
+```
+iSQL> SELECT F1, ASEWKT(GEOMFROMEWKB(ASEWKB(F2)), 40) FROM TB1;
+F1          ASEWKT(GEOMFROMEWKB(ASEWKB(F2)), 40)      
+---------------------------------------------------------
+1           SRID=0;POINT(2 2)                         
+2           SRID=100;POINT(2 2)                       
+3           SRID=101;POINT(2 2)                       
+4           SRID=102;POINT(2 2)                       
+5           SRID=103;POINT(2 2)                       
+5 rows selected.
 ```
 
 #### ISEMPTY
@@ -3005,6 +3106,70 @@ MULTIPOLYGON(((7 9, 3 9, 3 5, 7 5, 7 9), (6 6, 4 6, 4 8, 6 8, 6 6)), ((9 5, 8 5,
 4 rows selected.
 ```
 
+#### SRID
+
+##### 구문
+
+```
+SRID( GEOMETRY )
+```
+
+##### 설명
+
+공간 객체의 SRID를 반환한다.
+
+##### 반환 타입
+
+```
+INTEGER
+```
+
+##### 예제
+
+```
+iSQL> SELECT F1, SRID(F2) FROM TB1;
+F1          SRID(F2)    
+---------------------------
+1           0           
+2           100         
+3           101         
+4           102         
+5           103         
+5 rows selected.
+```
+
+#### SETSRID
+
+##### 구문
+
+```
+SETSRID( GEOMETRY, INTEGER )
+```
+
+##### 설명
+
+공간 객체의 SRID를 변경한다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT F1, SRID(F2) FROM TB1;
+F1          SRID(F2)    
+---------------------------
+1           0           
+2           100         
+3           101         
+4           102         
+5           103         
+5 rows selected.
+```
+
 ### 공간 객체 생성 함수
 
 #### GEOMFROMTEXT
@@ -3024,6 +3189,8 @@ GEOMFROMTEXT( WKT)
 WKT로 표현 가능한 공간 객체는 모두 입력이 허용된다.
 
 WKT의 문법이 잘못되었을 경우 에러를 출력한다.
+
+생성된 객체의 SRID는 0이다.
 
 ##### 반환 타입
 
@@ -3064,6 +3231,8 @@ WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 포인트 객체�
 포인트가 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
+
+생성된 객체의 SRID는 0이다.
 
 ##### 반환 타입
 
@@ -3106,6 +3275,8 @@ WKT(Well-Known Text) 형태로 공간 객체를 입력받아 라인스트링 객
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
+생성된 객체의 SRID는 0이다.
+
 ##### 반환 타입
 
 ```
@@ -3145,6 +3316,8 @@ WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 폴리곤 객체�
 폴리곤이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
+
+생성된 객체의 SRID는 0이다.
 
 ##### 반환 타입
 
@@ -3186,6 +3359,8 @@ WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 멀티포인트 �
 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
+
+생성된 객체의 SRID는 0이다.
 
 ##### 반환 타입
 
@@ -3588,6 +3763,66 @@ ASTEXT(OBJ)
 106
 POLYGON((1 1, 3 1, 3 3, 1 3, 1 1))
 1 row selected.
+```
+
+
+#### GEOMFROMEWKT 
+
+##### 구문
+
+```
+GEOMFROMEWKT( EWKT )
+```
+
+##### 설명
+
+EWKT(Extended Well-Known Text) 형태로 공간 객체를 입력 받아 GEOMETRY 객체를 생성한다.
+EWKT로 표현 가능한 공간 객체는 모두 입력이 허용된다.
+EWKT의 문법이 잘못된 경우 에러를 출력한다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+```
+iSQL> INSERT INTO TB3 VALUES(101, GEOMFROMEWKT('SRID=101;GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))'));
+1 row inserted.
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          
+--------------
+ASEWKT(OBJ)                                                                                                                                                                                                                                                       
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+101         
+SRID=101;GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )                                                                                                                                                                             
+1 row selected.
+ 
+ 
+iSQL> INSERT INTO TB3 VALUES(101, GEOMFROMEWKT('POINT(10 10), SRID=4326'));
+[ERR-A101A : Error parsing well-known-text 
+0001 : INSERT INTO TB3 VALUES(101, GEOMFROMEWKT('POINT(10 10), SRID=102'))
+                                  ^                                      ^
+]
+```
+
+#### GEOMFROMEWKB 
+
+##### 구문
+
+```
+GEOMFROMEWKB( EWKB )
+```
+
+##### 설명
+
+EWKB(Extended Well-Known Binary) 형태로 공간 객체를 입력 받아 GEOMETRY 객체를 생성한다.
+
+##### 반환 타입
+
+```
+GEOMETRY
 ```
 
 ### Dimensionally Extended Nine Intersection Model(DE－9IM) 
@@ -6073,6 +6308,65 @@ ACS_ERROR
 ACSEndian
 ```
 
+#### ACSGetGeometrySRID
+
+공간 객체의 Endian을 해당 플랫폼과 동일하게 변환시킨다..
+
+##### 구문
+
+```
+ACSRENTURN ASCGetGeometrySRID( ACSHENV aHandle,
+                               stdGeometryType * aGeometry,
+                               SQLINTEGER * aSRID );
+```
+
+##### 인자
+
+| 자료유형          | 인자      | 사용   | 설명                    |
+|-------------------|-----------|--------|-------------------------|
+| ACSHENV           | aHandle   | 입력   | 환경 핸들               |
+| stdGeometryType\* | aGeometry | 입력 | 공간객체를 가리키는 포인터 |
+| SQLINTEGER \* | aSRID | 출력 | 입력된 공간객체의 SRID를 받아올 버퍼를 가리키는 포인터|
+
+##### 결과값
+
+```
+ACS_SUCCESS
+ACS_ERROR
+```
+
+##### 설명
+
+공간 객체의 SRID를 가져온다.
+
+##### 진단
+
+함수가 ACS_ERROR를 리턴한 경우 ACSError에서 얻은 정보로 어떤 에러인지 확인할 수
+있다.
+
+| ErrorCode       | 설명             | 부연설명                                |
+|-----------------|------------------|-----------------------------------------|
+| 0x5101C(331804) | 널파라미터       | 함수인자가 NULL일 경우                  |
+| 0x511F9(332281) | 잘못된 공간 객체 | 입력된 공간객체가 유효하지 않은 값이다. |
+
+##### 예제
+
+```
+ACSHENV sAcsEnv;
+stdGeometryType * sSubObj;
+SQLINTEGER sSRID;
+...
+if ( ACSGetGeometrySRID( sAcsEnv, sSubObj, &sSRID ) == ACS_SUCCESS )
+{
+    printf( "SRID=%d\n", sSRID );
+}
+else
+{
+    exit(-1);
+}
+
+```
+
 ## A.부록: Spatial 칼럼의 제약사항
 
 이 부록은 Altibase에 Spatial 기능을 확장함에 따라 기존의 DBMS 기능 중 GEOEMTRY
@@ -6082,10 +6376,31 @@ ACSEndian
 
 #### 제약 조건 
 
-Altibase에서 제공하는 제약 조건 중 GEOMETRY 칼럼에 적용할 수 있는 제약 조건은
-“NOT NULL” 제약 조건이 유일하다.
+Altibase에서 제공하는 제약 조건 중 GEOMETRY 칼럼에 적용할 수 있는 제약 조건은 SRID를 제외하면, “NOT NULL” 제약 조건이 유일하다.
 
 그 외 다른 제약 조건은 공간 데이터 타입에는 적용할 수 없다.
+
+#### SRID (공간 참조 식별자)
+
+SRID(Spatial Reference Identifier)는 공간 객체를 구분하기 위해 지정하는 식별자이다. SRID는 GEOMETRY 칼럼에 적용할 수 있으며, 테이블에 INSERT하는 GEOMETRY 객체에 SRID를 지정할 수도 있다.
+테이블에 INSERT하는 GEOMETRY 객체의 SRID는 대응되는 칼럼의 SRID와 일치하거나 0이어야만 한다. 칼럼이나 객체의 SRID를 지정하지 않는 경우 기본값으로 0이 된다.
+ALTER TABLE MODIFY COLUMN 구문을 사용해 칼럼의 SRID를 변경할 수 있다. 이 때 해당 칼럼에 INSERT된 모든 객체의 SRID는 변경하려는 SRID와 일치하거나 0이어야 한다.
+
+##### 예제
+
+```
+CREATE TABLE T1 (I1 GEOMETRY);
+INSERT INTO T1 VALUES(GEOMETRY'POINT(1 1)');
+INSERT INTO T1 VALUES(GEOMETRY'SRID=99;POINT(1 1)');
+ 
+-- FAIL
+iSQL> ALTER TABLE T1 MODIFY COLUMN I1 SRID 100;
+[ERR-31461 : Invalid SRID datatype.]
+ 
+-- SUCCESS
+iSQL> ALTER TABLE T1 MODIFY COLUMN I1 SRID 99;
+Alter success.
+```
 
 #### 인덱스 
 
@@ -6262,182 +6577,109 @@ CREATE INDEX RT_IDX_TB3 ON TB3(OBJ) ;
 
 ## C.부록: Geometry 참조 테이블
 
-이 부록은 OGC 표준을 만족하는 메타 테이블 SPATIAL_REF_SYS, GEOMETRY_COLUMNS을
-Altibase에 설치하는 방법과 사용법, 그리고 관련된 제약 사항에 대해 설명한다.
+이 부록은 OGC 표준을 만족하는 메타 테이블 SPATIAL_REF_SYS, GEOMETRY_COLUMNS의 사용법, 관련된 제약 사항에 대해 설명한다.
 
 ### Geometry 참조 테이블 
 
 Geometry 참조 테이블은 공간 참조 식별자(SRID, Spatial Reference ID)와, 공간 참조
-시스템(SRS, Spatial Reference System)에 대한 정보를 관리하기 위해 사용한다.
-
-#### 설치법
-
-Altibase 패키지 내, \$ALTIBASE_HOME/thirdparty/ArcGIS/geometry_colums.sql 파일을
-isql 등으로 실행하면, 참조 테이블이 데이터베이스에 생성된다.
-
-\<예제\>
-
-```
-$ isql -u sys -p manager -f 
-$ALTIBASE_HOME/thirdparty/ArcGIS/geometry_columns.sql 
-```
-
-#### 사용법
-
-SPATIAL_REF_SYS, GEOMETRY_COLUMNS은 PUBLIC SYNONYM 테이블로 일반 사용자는 조회만
-할 수 있다.
-
-ADDGEOMETRYCOLUMNS, DROPGEOMETRYCOLUMNS은 PUBLIC SYNONYM 프로시저를 사용하여
-GEOMETRY_COLUMNS 테이블에 정보를 등록, 삭제할 수 있다.
-
-기본적인 공간 참조 시스템(Spatial Reference System) 외에 추가를 원할 경우
-\$ALTIBASE_HOME/thirdparty/ArcGIS/geometry_colums.sql을 수정하여 사용할 수 있다.
+시스템(SRS, Spatial Reference System)에 대한 정보를 참조하기 위해 사용한다.
 
 #### 제약 사항
 
--   본 메타 테이블은 단지 참조용으로만 사용된다.
-
--   SRID 값이 다른 Geometry간의 연산은 지원하지 않는다.
-
--   SYS사용자만이 ADDGEOMETRYCOLUMNS, DROPGEOMETRYCOLUMNS은 PUBLIC SYNONYM
-    프로시저를 사용할 수 있다.
-
--   어떤 공간객체를 다른 공간 참조 시스템으로 변환하는 것은 지원하지 않는다.
+- GEOMETRY_COLUMNS, SYSTEM_.SYS_GEOMETRIES_ 테이블은 일반 메타 테이블로 단지 참조용으로만 사용된다.
 
 #### GEOMETRY_COLUMNS
 
 GEOMETRY 칼럼에 공간 참조 식별자(SRID, Spatial Reference ID)를 지정, 관리하기
 위해 사용한다.
 
+이 테이블은 SYSTEM_.SYS_GEOMETRY_COLUMNS_ 메타 테이블의 synonym이다.
+
 | Column name     | Type         | Description          |
 |-----------------|--------------|----------------------|
-| TABLE_SCHEMA    | VARCHAR(256) | 테이블 소유자 이름   |
-| TABLE_NAME      | VARCHAR(256) | 테이블 이름          |
-| GEOMETRY_COLUMN | VARCHAR(256) | COLUMN의 이름        |
+| F_TABLE_SCHEMA    | VARCHAR(128) | 테이블 소유자 이름   |
+| F_TABLE_NAME      | VARCHAR(128) | 테이블 이름          |
+| F_GEOMETRY_COLUMN | VARCHAR(128) | COLUMN의 이름        |
 | COORD_DIMENSION | INTERGER     | GEOMETRY 객체의 차원 |
 | SRID            | INTERGER     | 공간 참조 식별자     |
 
 #### SPATIAL_REF_SYS
 
-공간 참조 식별자(SRID, Spatial Reference System)와 이에 대응하는 공간 참조
-시스템(SRS, Spatial Reference System)에 관한 정보를 관리하기 위해 사용한다.
+공간 참조 식별자(SRID, Spatial Reference IDentifier)와 이에 대응하는 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 관리하기 위해 사용한다.
+
+이 테이블은 SYSTEM_.USER_SRS 메타 테이블의 synonym이다.
+
+SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등독하기 위해서는 ADD_SPATIAL_REF_SYS, DELETE_SPATIAL_REF_SYS 프로시저를 사용해야한다.
 
 | Column name | Type           | Description                                          |
 |-------------|----------------|------------------------------------------------------|
 | SRID        | INTEGER        | 내부적으로 사용되는 공간 참조자                      |
-| AUTH_NAME   | VARCHAR(80)    | 표준 이름                                            |
+| AUTH_NAME   | VARCHAR(256)    | 표준 이름                                            |
 | AUTH_SRID   | INTERGER       | 표준 식별자                                          |
 | SRTEXT      | VARCHAR (2048) | OGC-WKT형태로 표현 되는 공간 참조 시스템에 대한 설명 |
 | PROJ4TEXT   | VARCHAR (2048) | PROJ4에서 사용되는 정보                              |
 
 ### 관련 저장 프로시저 
 
-#### ADDGEOMETRYCOLUMNS
+#### ADD_SPATIAL_REF_SYS
 
 ##### 구문
 
 ```
-ADDGEOMETRYCOLUMNS(f_schema VARCHAR(40), 
-f_table_name VARCHAR(40), 
-f_column_name VARCHAR(40), 
-srid INTEGER);
+SYS_SPATIAL.ADD_SPATIAL_REF_SYS( SRID in integer,
+                                 AUTH_NAME in varchar(256),
+                                 AUTH_SRID in integer,
+                                 SRTEXT in varchar(2048),
+                                 PROJ4TEXT in varchar(2048) );
 ```
 
 ##### 설명
 
-데이터베이스에 존재하는 GEOMETRY COLUMN을 GEOMETRY_COLUMNS 메타 테이블에
-등록한다.
+SPATIAL_REF_SYS_BASE 테이블에 Spatial Reference System 메타데이터를 등록하는 프러시저이다.
 
-| 인자          | 자료형      | 설명                      |
+##### 파라미터
+
+| 이름          | 입출력     | 데이터 타입  | 설명                    |
 |---------------|-------------|---------------------------|
-| f_schema      | VARCHAR(40) | 테이블의 소유자           |
-| f_table_name  | VARCHAR(40) | 테이블의 이름             |
-| f_column_name | VARCHAR(40) | GEOMETRY COLUMN의 이름    |
-| SRID          | INTEGER     | 공간 참조 시스템의 식별자 |
+| SRID      | IN | INTEGER      | Spatial Reference System의 데이터베이스 내에서의 ID |
+| AUTH_NAME  | IN| VARCHAR(256) | Spatial Reference System에서 사용된 표준의 이름 |
+| AUTH_SRID | IN | INTEGER    | 표준에 의해 정의된 Spatial Reference System의 ID |
+| SRTEXT          | IN     | VARCHAR(2048)  | Spatial Reference System의 Well-Known Text 표현 |
+| PROJ4TEXT          | IN    |VARCHAR(2048) | PROJ4에서 사용되는 정보 |
 
-##### 제약 사항
+##### 결과값
 
-ADDGEOMETRYCOLUMN은 다음과 같은 제약사항을 가진다.
+저장 프로시저이므로 결과값을 반환하지 않는다.
 
--   입력한 소유자와 테이블이 데이터베이스에 존재해야 한다.
+##### 예외
 
--   입력한 COLUMN의 타입이 GEOMETRY어야 한다.
+예외를 발생시키지 않는다.
 
--   입력한 SRID는 SYSTEM_REF_SYSTEM 메타 테이블에 존재해야 한다.
 
-##### 에러메시지
-
-저장 프로시저 실행시 다음과 같은 오류가 발생할 수 있다.
-
-| 메시지                                        | 설명                                                |
-|-----------------------------------------------|-----------------------------------------------------|
-| This SRID value is out of range.              | 등록되지 않은 SRID로 컬럼을 추가할 때 발생한다.     |
-| Only geometry column can be added.            | 추가하려는 컬럼이 Geometry 컬럼이 아닐 때 발생한다. |
-| It is impossible to add a nonexistent column. | 추가하려는 컬럼이 존재하지 않는 경우에 발생한다.    |
-| This column has already been added.           | 이미 등록된 컬럼을 추가할 때 발생한다.              |
-
-##### 예제
-
-```
-ISQL> exec AddGeometryColumns( 'SYS', 'T2', 'I1', 100 );
-Execute success.
-ISQL> exec AddGeometryColumns( 'SYS', 'T2', 'I1', -1 );
-[ERR-F1F14 : This column is already added. 
-0027 : RAISE_APPLICATION_ERROR(990996,'This column is already added.');
-ISQL> exec AddGeometryColumns( 'SYS', 'T2', 'I1', -1 );
-[ERR-F1F14 : This column is already added. 
-0027 :RAISE_APPLICATION_ERROR(990996,'This column is already added.');
-       ^                                                               ^
-]
-```
-
-#### DROPGEOMETRYCOLUMNS
+#### DELETE_SPATIAL_REF_SYS
 
 ##### 구문
 
 ```
-DROPGEOMETRYCOLUMNS( varchar(40),
-varchar(40),
-varchar(40) );
+SYS_SPATIAL.DELETE_SPATIAL_REF_SYS( SRID in integer,
+                                    AUTH_NAME in varchar(256) );
 ```
 
 ##### 설명
 
-GEOMETRY_COLUMNS 메타 테이블에 등록된 GEOMETRY COLUMN을 삭제한다.
+GEOMETRY_COLUMNS_BASE 테이블에 등록한 Geometry Column의 메타데이터를 삭제하는 프러시저이다.
 
-| 인자          | 자료형      | 설명                   |
-|---------------|-------------|------------------------|
-| f_schema      | VARCHAR(40) | Table의 소유자         |
-| f_table_name  | VARCHAR(40) | Table의 이름           |
-| f_column_name | VARCHAR(40) | GEOMETRY COLUMN의 이름 |
+##### 파라미터
 
-##### 제약 사항
+| 이름          | 입출력     | 데이터 타입  | 설명                    |
+|---------------|-------------|---------------------------|
+| SRID      | IN | INTEGER      | Spatial Reference System의 데이터베이스 내에서의 ID |
+| AUTH_NAME  | IN| VARCHAR(256) | Spatial Reference System에서 사용된 표준의 이름 |
 
-DROPGEOMETRYCOLUMN는 다음과 같은 제약사항을 가진다.
+##### 결과값
 
--   입력한 소유자와 테이블이 데이터베이스에 존재해야 한다.
+저장 프로시저이므로 결과값을 반환하지 않는다.
 
--   입력한 COLUMN의 타입이 GEOMETRY어야 한다.
+##### 예외
 
--   입력한 SRID는 SYSTEM_REF_SYSTEM 메타 테이블에 존재해야 한다.
-
-##### 에러메세지
-
-저장 프로시저 실행시 다음과 같은 오류가 발생할 수 있다.
-
-| 메시지                                         | 설명                                                    |
-|------------------------------------------------|---------------------------------------------------------|
-| This column is not a geometry column.          | 삭제하려는 컬럼이 Geometry 컬럼이 아닐 경우에 발생한다. |
-| It is impossible to drop a nonexistent column. | 삭제하려는 컬럼이 존재하지 않을 경우에 발생한다.        |
-
-##### 예제
-
-```
-iSQL> exec DropGeometryColumns( 'SYS', 'T2', 'I1' ); 
-Execute success. 
-ISQL> exec DropGeometryColumns( 'SYS', 'T1', 'I1' );
-[ERR-F1F13 : This column is not geometry column. 
-0016 : RAISE_APPLICATION_ERROR(990995,'This column is not geometry column.');
-        ^                                                                       ^
-] 
-```
+예외를 발생시키지 않는다.
