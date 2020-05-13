@@ -2624,7 +2624,7 @@ DSN=192.168.1.11;UID=SYS;PWD=MANAGER;CONNTYPE=1;NLS_USE=KO16KSC5601;PORT_NO=2020
 ```
 
 -   SOCK_RCVBUF_BLOCK_RATIO  
-    Set the size of the socket receive buffer in 32K increments. For example, if this property value is 2 to set, the socket receive buffer size is set to 64K. If the value of this attribute is not set, refer to the ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO environment variable for the value. Set it. The default value is 0.  
+    Set the size of the socket receive buffer in 32K increments. For example, if this property value is set to 2, the socket receive buffer size is set to 64K. If the value of this attribute is not set, refer to the ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO environment variable for the value. Set it. The default value is 0.  
     If the maximum socket receive buffer size among the TCP kernel parameters is set to less than the socket receive buffer size set by this property value, this property may be ignored or an error may be generated depending on the OS. ('Linux.core.rmem_max' TCP kernel parameter).
 
 > #### Restrictions
