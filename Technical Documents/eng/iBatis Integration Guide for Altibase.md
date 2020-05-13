@@ -1163,6 +1163,6 @@ Right-click on SimpleConnection project, click Properties-Java Build Path-Click 
 
 Run the SimpleConnection project.
 
-After clicking the SimpleConnection project, run from the menu or click the Run button.
+After clicking the SimpleConnection project, run it on the menu or click the Run button.
 
 ![img](http://aid.altibase.com/download/attachments/7340084/additional_6.png?version=1&modificationDate=1416820405000&api=v2)
