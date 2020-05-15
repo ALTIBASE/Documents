@@ -34,7 +34,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **증상** : iloader로 특정 샤드 노드에 데이터를 in/out하기 위한 옵션으로 -stmt_prefix 가 추가되었습니다. 자세한 내용은 [iLoader User's Manual -일반옵션]([https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iLoader.md#%EC%9D%BC%EB%B0%98-%EC%98%B5%EC%85%98](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iLoader.md#일반-옵션)) 을 참고하시기 바랍니다.
+-   **증상** : iloader로 특정 샤드 노드에 데이터를 in/out하기 위한 옵션으로 -stmt_prefix 가 추가되었습니다. 자세한 내용은 [iLoader User's Manual -일반옵션]([https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iLoader.md#%EC%9D%BC%EB%B0%98-%EC%98%B5%EC%85%98](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iLoader.md#일반-옵션)) 을 참고하시기 바랍니다. 
 
 -   **재현 방법**
 -   **재현 절차**
