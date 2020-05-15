@@ -220,7 +220,7 @@ New Features
 
 - **재현 빈도** : Always
 
-- **증상** : 현재 JDBC 드라이버는 LOB컬럼값이 null 일때,  ResultSet.getBlob()이나 ResultSet.getClob()을 호출하면 null이 아닌 LOB 객체를 반환합니다. 이로 인해, Hibernate 통합 테스트에서 다수의 테스트가 실패하는 문제가 있습니다. </br> 패치 적용 후 부터는 lob 컬럼값이 null인 경우, ResultSet.getBlob()  및 ResultSet.getClob() 수행시 NULL을 반환할수 있도록 JDBC 연결 속성 - lob_null_select가  추가되었습니다. Hibernate에서 Lob 관련 기능을 사용하려면 lob_null_select 속성을 off로 설정하는 것을 권장합니다. 이 경우 반환되는 NULL 에 대한 예외처리를 해줘야 합니다. </br>자세한 내용은 [JDBC매뉴얼]([https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC.md#lob-%EA%B4%80%EB%A0%A8-%EC%86%8D%EC%84%B1](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC.md#lob-관련-속성))을 참고합니다.  </br> Hibernate 는 5.4 이상 버전을 사용하는 것을 권장합니다.
+- **증상** : 현재 JDBC 드라이버는 LOB컬럼값이 null 일때,  ResultSet.getBlob()이나 ResultSet.getClob()을 호출하면 null이 아닌 LOB 객체를 반환합니다. 이로 인해, Hibernate 통합 테스트에서 다수의 테스트가 실패하는 문제가 있습니다. </br> 패치 적용 후 부터는 lob 컬럼값이 null인 경우, ResultSet.getBlob()  및 ResultSet.getClob() 수행시 NULL을 반환할수 있도록 JDBC 연결 속성 - [lob_null_select](https://github.com/ALTIBASE/Documents/blob/17855d2cf347c005bc10e97c6e19ea8a2ba13405/Manuals/Altibase_7.1/kor/JDBC.md#lob_null_select)가  추가되었습니다. Hibernate에서 Lob 관련 기능을 사용하려면 [lob_null_select](https://github.com/ALTIBASE/Documents/blob/17855d2cf347c005bc10e97c6e19ea8a2ba13405/Manuals/Altibase_7.1/kor/JDBC.md#lob_null_select) 속성을 off로 설정하는 것을 권장합니다. 이 경우 반환되는 NULL 에 대한 예외처리를 해줘야 합니다. </br>자세한 내용은 [JDBC매뉴얼]([https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC.md#lob-%EA%B4%80%EB%A0%A8-%EC%86%8D%EC%84%B1](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC.md#lob-관련-속성))을 참고합니다.  </br> Hibernate 는 5.4 이상 버전을 사용하는 것을 권장합니다.
 
 - **재현 방법**
 
