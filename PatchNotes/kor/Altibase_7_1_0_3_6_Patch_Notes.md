@@ -30,6 +30,7 @@
     - [BUG-47744  View Merge되는 인라인뷰의 컬럼을 특정 Aggregation에 사용한경우 비정상 종료할 수 있습니다.](#bug-47744-view-merge%EB%90%98%EB%8A%94-%EC%9D%B8%EB%9D%BC%EC%9D%B8%EB%B7%B0%EC%9D%98-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8A%B9%EC%A0%95-aggregation%EC%97%90-%EC%82%AC%EC%9A%A9%ED%95%9C%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-47745  sdcRow::makeTrailingNullUpdateInfo()의 디버깅 정보 출력 위치 변경.](#bug-47745-sdcrowmaketrailingnullupdateinfo%EC%9D%98-%EB%94%94%EB%B2%84%EA%B9%85-%EC%A0%95%EB%B3%B4-%EC%B6%9C%EB%A0%A5-%EC%9C%84%EC%B9%98-%EB%B3%80%EA%B2%BD)
     - [BUG-47750  CONNECT BY 절에 variable 컬럼을 포함한 조인 오퍼레이션을 사용한 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47750-connect-by-%EC%A0%88%EC%97%90-variable-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%A1%B0%EC%9D%B8-%EC%98%A4%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47751  서브쿼리가 인라인뷰의 lob 컬럼을 프리디킷으로 사용하고 집계함수를 사용하는 경우 비정상 종료 할 수 있습니다.](#bug-47751-%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC%EA%B0%80-%EC%9D%B8%EB%9D%BC%EC%9D%B8%EB%B7%B0%EC%9D%98-lob-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%94%84%EB%A6%AC%EB%94%94%ED%82%B7%EC%9C%BC%EB%A1%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B3%A0-%EC%A7%91%EA%B3%84%ED%95%A8%EC%88%98%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-47752  LEFT OUTER JOIN 오른쪽이 집합 연산을 포함한 인라인 뷰이고 ON 절이 OR 조건으로 구성된 경우 Altibase 서버가 비정상 종료합니다.](#bug-47752-left-outer-join-%EC%98%A4%EB%A5%B8%EC%AA%BD%EC%9D%B4-%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%9D%B4%EA%B3%A0-on-%EC%A0%88%EC%9D%B4-or-%EC%A1%B0%EA%B1%B4%EC%9C%BC%EB%A1%9C-%EA%B5%AC%EC%84%B1%EB%90%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-47754  중단된 log record로 Recovery를 시도하는 경우, 비정상 종료 할 수 있습니다.](#bug-47754-%EC%A4%91%EB%8B%A8%EB%90%9C-log-record%EB%A1%9C-recovery%EB%A5%BC-%EC%8B%9C%EB%8F%84%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-47758  트랜잭션 고립화 수준(isolation level)에 따라 CONNECT BY 절을 포함한 SQL 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-47758-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B3%A0%EB%A6%BD%ED%99%94-%EC%88%98%EC%A4%80isolation-level%EC%97%90-%EB%94%B0%EB%9D%BC-connect-by-%EC%A0%88%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-sql-%EC%88%98%ED%96%89-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
@@ -1238,6 +1239,54 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+### BUG-47751  서브쿼리가 인라인뷰의 lob 컬럼을 프리디킷으로 사용하고 집계함수를 사용하는 경우 비정상 종료 할 수 있습니다.
+
+- **module** : qp-select-execute
+
+- **Category** : Fatal
+
+- **재현 빈도** : Always
+
+- **증상** : Subquery unnesting 시 lob 컬럼에 제약이 있는데, 인라인뷰의 lob 컬럼을 쿼리에 사용했을 때, lob locator에 대해서 lob 컬럼체크를 하지 않아서 발생하는 문제입니다.
+
+  서브쿼리가 인라인뷰의 lob 컬럼을 프리디킷으로 사용하고 집계함수를 사용하는 경우, Subquery unnesting이 발생하지 않도록 수정합니다.
+
+- **재현 방법**
+
+  - **재현 절차**
+
+        drop table t1;
+        create table t1(i1 int, i2 clob);
+        insert into t1 values(1,1);
+        insert into t1 values(2,2);
+        
+        SELECT /*+ NO_PLAN_CACHE */ SUBSTR(I1,0,LENGTH(I1))
+          FROM T1 A
+         WHERE I1 = ( SELECT /*+ NO_MERGE(V1) */ MAX(I1) FROM (SELECT * FROM T1) V1 WHERE SUBSTR(I2,0,LENGTH(I2)) = A.I1 );
+
+  - **수행 결과**
+
+        [ERR-91015 : Communication failure.]
+
+  - **예상 결과**
+
+        SUBSTR(I1,0,LENGTH(I1))
+        ---------------------------
+        1
+        2
+        2 rows selected.
+
+- **Workaround**
+
+      no_unnest 힌트 사용
+
+- **변경사항**
+
+  -   Performance view
+  -   Property
+  -   Compile Option
+  -   Error Code
+
 ### BUG-47752  LEFT OUTER JOIN 오른쪽이 집합 연산을 포함한 인라인 뷰이고 ON 절이 OR 조건으로 구성된 경우 Altibase 서버가 비정상 종료합니다.
 
 -   **module** : qp-select-execute
@@ -1289,8 +1338,6 @@ Fixed Bugs
           2 rows selected.
 
 -   **Workaround**
-
-        no
 
 -   **변경사항**
 
