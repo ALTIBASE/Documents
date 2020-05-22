@@ -1364,7 +1364,7 @@ If the function succeeds, the number of rows in the result set brought to aHandl
 
 #### Description
 
-In the V \ $ REPSENDER_SENT_LOG_COUNT performance view, this function searches the number of rows by classifying logs sent by the redundant sender by DML type.
+In the V\$REPSENDER_SENT_LOG_COUNT performance view, this function searches the number of rows by classifying logs sent by the redundant sender by DML type.
 
 If the function succeeds, a pointer to an array of type ABIRepSentLogCount is stored, which contains the result set in aHandle.
 
