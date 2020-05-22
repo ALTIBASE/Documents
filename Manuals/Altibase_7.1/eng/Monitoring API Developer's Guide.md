@@ -1334,7 +1334,7 @@ If the function succeeds, the function returns the number of rows in the result 
 
 #### Description
 
-In the V \ $ REPGAP performance view, this function retrieves the difference between the last log record sent by the replication sender and the most recently created log record.
+In the V\$REPGAP performance view, this function retrieves the difference between the last log record sent by the replication sender and the most recently created log record.
 
 If the function succeeds, a pointer to an array of type ABIRepGap containing the result set in aHandle is returned.
 
