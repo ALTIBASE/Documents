@@ -91,7 +91,7 @@
     - [V\$VERSION](#vversion)
     - [V\$VOL_TABLESPACES](#vvol_tablespaces)
     - [V\$WAIT_CLASS_NAME](#vwait_class_name)
-   - [V\$XID](#vxid)
+    - [V\$XID](#vxid)
   - [4.샘플 스키마](#4%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
     - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
     - [E-R 다이어그램과 샘플 데이타](#e-r-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8%EA%B3%BC-%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%83%80)
@@ -144,7 +144,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | SLEEPS_CNT         | BIGINT  | 래치를 잡기 위하여 sleep한 횟수 |
 
 ### <a name="vlibrary"><a/>V\$LIBRARY
-
+	
 C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보를 보여준다.
 라이브러리 정보를 통해서 원하는 라이브러리를 제대로 로드했는지 확인할 수 있다.
 
