@@ -4726,16 +4726,13 @@ order by 5 desc;
 ```
 
 
-
-<a name="vsys_license">
-
-<a/>V\$SYS_LICENSE
+### <a name="vsys_license"><a/>V\$SYS_LICENSE
 
 라이선스 관련 정보를 기록하고 있는 메타 테이블이다.
 
 | Column name               | Type         | Description                               |
 | :------------------------ | :----------- | :---------------------------------------- |
-| START_DATE                | VARCHAR(16 ) | 해당 라이선스키를 사용해 검사한 일자      |
+| START_DATE                | VARCHAR(16 ) | 해당 라이선스키를 사용한 최초의 검사일자  |
 | VALID_YN                  | VARCHAR(2 )  | valid라이선스 여부                        |
 | LICENSE_KEY               | VARCHAR(128) | 해당 라이선스키                           |
 | ISSUED_DATE               | VARCHAR(16 ) | 라이선스키 발급일자                       |
@@ -4756,11 +4753,11 @@ order by 5 desc;
 
 #### 칼럼정보
 
-**START_DATE**
+##### START_DATE
 
-라이선스키를 사용한 일자를 저장한다.
+라이선스키를 사용한 최초의 검사일자를 저장한다.
 
-**VALID_YN**
+##### VALID_YN
 
 라이선스키가 유효한 것인가를 표시한다. 라이선스키가 유효하지 않으면 고객지원이 안된나 사용할 수는 있다.
 
@@ -4768,64 +4765,64 @@ order by 5 desc;
 
   \* N: 유효하지 않음
 
-**LICENSE_KEY**
+##### LICENSE_KEY
 
 라이선스키를 저장한다. 만약 없을 경우는 -로 저장된다.
 
-**ISSUED_DATE**
+##### ISSUED_DATE
 
 라이선스키를 발급받은 일자가 저장된다. 
 
-**TYPE**
+##### TYPE
 
 라이선스의 타입을 저장한다.  Standard/Enterprise/Trial 중 하나가 저장된다. 만약 없을 경우는 -로 저장된다.
 
 
- **EXPIRE_DATE**
+##### EXPIRE_DATE
 
 라이선스 만료일자가 저장된다. 만약 없을 경우는 -로 저장된다.
 
-**LICENSED_PRODUCT_VERSION**
+##### LICENSED_PRODUCT_VERSIO
 
-버전정보가 major.minor형식으로 저장된다.만약 없을 경우는 -로 저장된다.
+버전정보가 MAJOR.MINOR형식으로 저장된다.만약 없을 경우는 -로 저장된다.
 
-**LICENSED_MAC_ADDRESS**
+##### LICENSED_MAC_ADDRES
 
-라이선스받은 하드웨어주소가 저장된다. 만약 없을 경우는 -로 저장된다.
+라이선스를 받은 하드웨어주소가 저장된다. 만약 없을 경우는 -로 저장된다.
 
-**LICENSED_HOST_NAME**
+##### LICENSED_HOST_NAME
 
-라이선스받은 호스트이름이 저장된다.만약 없을 경우는 -로 저장된다.
+라이선스를 받은 호스트이름이 저장된다.만약 없을 경우는 -로 저장된다.
 
-**LICENSED_MEM_MAX_DB_SIZE**
+##### LICENSED_MEM_MAX_DB_SIZE
 
-라이선스 받은 메모리DB의 최대크기가 저장된다. 단위는 바이트이다. 만약 없을 경우는 -로 저장된다.
+라이선스를 받은 메모리DB의 최대크기가 저장된다. 단위는 바이트이다. 만약 없을 경우는 -로 저장된다.
 
-**LICENSED_DISK_MAX_DB_SIZE**
+##### LICENSED_DISK_MAX_DB_SIZE
 
  디스크DB의 최대 크기를 저장한다. 단위는 바이트이다. 만약 없을 경우는 -로 저장된다. (현재는 사용되지는 않는다.)
 
-**LICENSED_CORE_MAX_COUNT**
+##### LICENSED_CORE_MAX_COUNT
 
-라이선스받은 사용가능한 최대코어갯수가 저장된다. 이 값보다 더 많은 코어갯수가 있는 장비에서 기동시에는 전체코어갯수중 라이선스를 받은 코어갯수까지만 사용된다.
+라이선스를 받은 사용가능한 최대코어갯수가 저장된다. 이 값보다 더 많은 코어갯수가 있는 장비에서 기동시에는 전체코어갯수들 중 라이선스를 받은 코어갯수까지만 사용된다.
 
 만약 없을 경우는 -로 저장된다.
 
-**CHECKED_MAC_ADDRESS**
+##### CHECKED_MAC_ADDRESS
 
-현재 시스템에 있는 하드웨어 주소들을 저장한다. 갯수가 댜수일때는 128바이트한도내에서 저장된다.
+현재 시스템에 있는 하드웨어 주소들을 저장한다. 갯수가 댜수일때는 128바이트의 한도내에서 저장된다.
 
-**CHECKED_HOST_NAME**
+##### CHECKED_HOST_NAME
 
 현재 시스템의 호스트 이름이 저장된다.
 
-**CHECKED_MEM_MAX_DB_SIZE**
+##### CHECKED_MEM_MAX_DB_SIZE
 
 인스톨시 인스톨러에서 입력한 MEM_MAX_DB_SIZE 프로퍼티값이다. 단위는 바이트이다.
 
 만약, 인스톨 이후에 곧바로 기동하지 않고 MEM_MAX_DB_SIZE프로퍼티를 변경한 후에 DB를 기동했다면 변경된 프로퍼티 값으로 저장된다.
 
-**CHECKED_MAX_CORE_COUNT**
+##### CHECKED_MAX_CORE_COUNT
 
 현재 시스템에 있는 코어갯수를 저장한다.
 
@@ -4833,7 +4830,7 @@ order by 5 desc;
 
 #### 예제
 
-오용을 방지하기 위하여 일부정보는 *표처리하였다.
+오용을 방지하기 위하여 일부정보는 *표로 처리하였다.
 
 ```
 
