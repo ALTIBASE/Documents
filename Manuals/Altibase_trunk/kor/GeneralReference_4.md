@@ -76,7 +76,7 @@
     - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
     - [V\$SYSTEM_EVENT](#vsystem_event)
     - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
-    - [V\$SYS_LICENSE](#vsys_license)
+    - [V\$SYS_LICENSE_](#vsys_license_)
     - [V\$TABLE](#vtable)
     - [V\$TABLESPACES](#vtablespaces)
     - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
@@ -4726,7 +4726,7 @@ order by 5 desc;
 ```
 
 
-### <a name="vsys_license"><a/>V\$SYS_LICENSE
+### <a name="vsys_license_"><a/>V\$SYS_LICENSE_
 
 라이선스 관련 정보를 기록하고 있는 메타 테이블이다.
 
