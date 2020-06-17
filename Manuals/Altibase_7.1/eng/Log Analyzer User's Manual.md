@@ -2753,7 +2753,7 @@ ALA_RC ALA_SetXLogPoolSize (
 | Argument      | Description                                         |
 | ------------- | --------------------------------------------------- |
 | aHandle       | This is the handle of the XLog Collector            |
-| aXLogPoolSize | XLog Pool의 크기 This is the size of the XLog Pool. |
+| aXLogPoolSize | This is the size of the XLog Pool This is the size of the XLog Pool. |
 | aOutErrorMgr  | This is an Error Manager structure.                 |
 
 #### Return Values
@@ -2790,8 +2790,8 @@ int main()
     * XLog Sender Name                   : log_analysis
     * XLog Sender Authentication Information               : IP=127.0.0.1
     * Listening Port                        : 30300
-    * The max. size of XLog Pool                  : 10000
-    * CObtain transaction XLog in the order of commit : Disable
+    * The max size of XLog Pool                  : 10000
+    * Retrieve transaction XLog in the order of commit : Disable
     * The reference number of XLog for which ACK will be sent out        : 100
     */
     (void)ALA_CreateXLogCollector("log_analysis",
@@ -2898,7 +2898,7 @@ With the exception of user settings and the XLog Pool, all of the data in the XL
 -   If the peer being connected to is not an XLog Sender, handshaking will fail.
 -   If a connection with an XLog Sender is not established within the specified handshaking timeout period, a timeout event will occur. 
 -   ALA_ReceiveXLog(), ALA_GetXLog() and ALA_SendACK() must not be called before handshaking is completed. 
--   Before commencing handshaking, ALA_FreeXLog() must be executed for all XLogs that were obtained using ALA_GetXLog(), in order to ensure that the XLog Pool is not depleted.
+-   Before commencing handshaking, ALA_FreeXLog() must be executed for all XLogs that were retrieved using ALA_GetXLog(), in order to ensure that the XLog Pool is not depleted.
 
 #### Related Functions
 
@@ -2953,8 +2953,8 @@ while(sInsertXLogInQueue != ALA_TRUE)
     (void)ALA_ReceiveXLog(aHandle, &sInsertXLogInQueue, NULL);
 }
 
-/* Obtain XLog from XLog Queue
- * Assuming that transaction XLog is obtained in the order in which records are logged
+/* Retrieve XLog from XLog Queue
+ * Assuming that transaction XLog is retrieved in the order in which records are logged
  */
 (void)ALA_GetXLog(aHandle, &sXLog, NULL);
 
@@ -2972,7 +2972,7 @@ sExitFlag = ALA_TRUE;
 /*  Return XLog to XLog Pool */
 (void)ALA_FreeXLog(aHandle, sXLog, NULL);
 
-/* Obtain the Status of XLog Collector */
+/* Retrieve the Status of XLog Collector */
 (void)ALA_GetXLogCollectorStatus(aHandle,
                                  &sXLogCollectorStatus,
 NULL);
@@ -3013,9 +3013,9 @@ ALA_FAILURE
 
 This function is used to receive an XLog and add it to the XLog Queue.
 
-The memory for an XLog is obtained from the XLog Pool.
+The memory for an XLog is retrieved from the XLog Pool.
 
-When transaction XLogs are obtained in the order in which transactions are committed, all of the XLogs pertaining to a given transaction are stored in the transaction table until the corresponding COMMIT XLog is received. 
+When transaction XLogs are retrieved in the order in which transactions are committed, all of the XLogs pertaining to a given transaction are stored in the transaction table until the corresponding COMMIT XLog is received. 
 
 This function can be called at the same time as ALA_GetXLog().
 
@@ -3024,8 +3024,8 @@ This function can be called at the same time as ALA_GetXLog().
 -   ALA_Handshake() must be called before this function. If a network error occurs after a successful call to ALA_Handshake(), the call to this function will fail. 
 -   If no XLogs are received within the XLog reception timeout period, a timeout event will occur. 
 -   If there are no XLogs available in the XLog Pool, the call to this function will fail. 
--   When transaction XLogs are obtained in the order in which transactions are committed, XLogs that are received are not necessarily added to the XLog Queue. 
--   If a network error occurs or a REPL_STOP XLog is received, it will be necessary to roll back any uncommitted transactions for which XLogs have been obtained, and in connection with which the database contents have been changed. 
+-   When transaction XLogs are retrieved in the order in which transactions are committed, XLogs that are received are not necessarily added to the XLog Queue. 
+-   If a network error occurs or a REPL_STOP XLog is received, it will be necessary to roll back any uncommitted transactions for which XLogs have been retrieved, and in connection with which the database contents have been changed. 
 -   Memory for aOutInsertXLogInQueue must be allocated in advance.
 
 #### Related Functions
@@ -3062,7 +3062,7 @@ ALA_RC ALA_GetXLog(
 | Argument     | Description                                   |
 | ------------ | --------------------------------------------- |
 | aHandle      | This is the handle of the XLog Collector.     |
-| aOutXLog     | This is an XLog obtained from the XLog Queue. |
+| aOutXLog     | This is an XLog retrieved from the XLog Queue. |
 | aOutErrorMgr | This is an Error Manager structure.           |
 
 #### Return Values
@@ -3073,7 +3073,7 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain an XLog from the XLog Queue. 
+This function is used to retrieve an XLog from the XLog Queue. 
 
 It can be called at the same time as ALA_ReceiveXLog(). 
 
@@ -3139,13 +3139,13 @@ When a REPL_STOP XLog is received, the network connection is disconnected.
 The ACK message contains the so-called “Restart SN”. The Restart SN is the SN having the lowest value among the following SNs:
 
 -   The lowest XLog SN for active transactions that were checked at the time point at which ALA_GetXLog() was most recently called
--   If there are no active transactions, the SN of the last XLog that was obtained using ALA_GetXLog() 
--   When transaction XLogs are obtained in the order in which transactions are committed, the lowest XLog SN for uncommitted transactions that are currently stored in the transaction table.
+-   If there are no active transactions, the SN of the last XLog that was retrieved using ALA_GetXLog() 
+-   When transaction XLogs are retrieved in the order in which transactions are committed, the lowest XLog SN for uncommitted transactions that are currently stored in the transaction table.
 
 #### Considerations
 
 -   ACK has an influence on the XLog Sender's meta table and on flushing. If ACK is not sent within the time period specified in the REPLICATION_RECEIVE_TIMEOUT property on the XLog Sender, the XLog Sender drops the network connection. Moreover, if ACK is not sent for a long time, the XLog Sender may stop sending XLogs, update the Restart SN with the SN for the most recently recorded log, and resume attempting to send XLogs. 
--   Because the restart SN on the XLog Sender can be updated after the XLog Sender receives ACK, it is necessary to process all of the XLogs obtained by calling ALA_GetXLog() before calling ALA_SendACK(). 
+-   Because the restart SN on the XLog Sender can be updated after the XLog Sender receives ACK, it is necessary to process all of the XLogs retrieved by calling ALA_GetXLog() before calling ALA_SendACK(). 
 -   If a network error occurs, the XLog Sender will periodically attempt handshaking. When handshaking succeeds, the XLog Sender will resume sending XLogs, beginning with the XLog having the Restart SN.
 
 #### Related Functions
@@ -3191,7 +3191,7 @@ This function returns an XLog to the XLog Pool.
 
 #### Consideration
 
-If XLogs obtained using ALA_GetXLog() are not returned to the XLog Pool for an excessively long period of time, the XLog Pool may become depleted.
+If XLogs retrieved using ALA_GetXLog() are not returned to the XLog Pool for an excessively long period of time, the XLog Pool may become depleted.
 
 #### Related Functions
 
@@ -3234,7 +3234,7 @@ This function terminates an XLog Collector.
 
 #### Considerations
 
-Before this function is called, ALA_FreeXLog() must be executed for all XLogs that were obtained by calling ALA_GetXLog(). 
+Before this function is called, ALA_FreeXLog() must be executed for all XLogs that were retrieved by calling ALA_GetXLog(). 
 
 Regardless of the result value, any subsequent calls to the Log Analysis API functions in relation to the corresponding XLog Collector will fail.
 
@@ -3314,7 +3314,7 @@ The internal values corresponding to mMyIP, mMyPort, mPeerIP, mPeerPort and mSoc
 
 When ALA_ReceiveXLog() is called, the value that is returned in mXLogCountInPool is incremented if a ROLLBACK XLog is received and decremented when other kinds of XLogs are received. It is incremented when ALA_FreeXLog() is called. 
 
-mLastArrivedSN is the SN of the XLog that was most recently received by calling ALA_ReceiveXLog(). mLastProcessedSN is the SN of the XLog that was most recently obtained by calling ALA_GetXLog(). 
+mLastArrivedSN is the SN of the XLog that was most recently received by calling ALA_ReceiveXLog(). mLastProcessedSN is the SN of the XLog that was most recently retrieved by calling ALA_GetXLog(). 
 
 The status value corresponding to mNetworkValid might change when ALA_Handshake(), ALA_ReceiveXLog() or ALA_SendACK() is called.
 
@@ -3367,7 +3367,7 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain the XLog header for the specified XLog.
+This function is used to retrieve the XLog header for the specified XLog.
 
 #### Related Functions
 
@@ -3395,19 +3395,19 @@ void testXLogGetPart(const ALA_XLog * aXLog)
     ALA_XLogSavepoint  * sXLogSavepoint  = NULL;
     ALA_XLogLOB        * sXLogLOB        = NULL;
 
-   /* Obtain XLog Header */
+   /* Retrieve XLog Header */
  (void)ALA_GetXLogHeader(aXLog, &sXLogHeader, NULL);
  
- /* Obtain XLog Primary Key */
+ /* Retrieve XLog Primary Key */
  (void)ALA_GetXLogPrimaryKey(aXLog, &sXLogPrimaryKey, NULL);
  
- /* Obtain XLog Column */
+ /* Retrieve XLog Column */
  (void)ALA_GetXLogColumn(aXLog, &sXLogColumn, NULL);
  
- /* Obtain XLog Savepoint */
+ /* Retrieve XLog Savepoint */
  (void)ALA_GetXLogSavepoint(aXLog, &sXLogSavepoint, NULL);
  
- /* Obtain XLog LOB */
+ /* Retrieve XLog LOB */
  (void)ALA_GetXLogLOB(aXLog, &sXLogLOB, NULL);
 }
 ```
@@ -3443,7 +3443,7 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain the XLog primary key for the specified XLog.
+This function is used to Retrieve the XLog primary key for the specified XLog.
 
 #### Related Functions
 
@@ -3490,7 +3490,7 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain the XLog column for the specified XLog.
+This function is used to Retrieve the XLog column for the specified XLog.
 
 #### Related Functions
 
@@ -3537,7 +3537,7 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain the XLog savepoint information for the specified XLog.
+This function is used to retrieve the XLog savepoint information for the specified XLog.
 
 #### Related Functions
 
@@ -3584,7 +3584,7 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain the XLog LOB information for the specified XLog.
+This function is used to retrieve the XLog LOB information for the specified XLog.
 
 #### Related Functions
 
@@ -3647,7 +3647,7 @@ void testProtocolVersion()
 {
 ALA_ProtocolVersion sProtocolVersion;
 
-/* Obtain Protocol Version */
+/* Retrieve Protocol Version */
 (void)ALA_GetProtocolVersion(&sProtocolVersion, NULL);
 }
 ```
@@ -3683,12 +3683,12 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain information about Replication.
+This function is used to retrieve information about Replication.
 
 #### Considerations
 
 -   If there are no meta data pertaining to replication, this function returns NULL for the aOutReplication argument. 
--   Any meta data that were obtained using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
+-   Any meta data that were retrieved using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
 
 #### Related Functions
 
@@ -3722,14 +3722,14 @@ void testMetaInformation(ALA_Handle aHandle)
     UInt              sColumnPos;
     UInt              sIndexPos;
 
-    /* Obtain replication information */
+    /* Retrieve replication information */
     (void)ALA_GetReplicationInfo(aHandle, &sReplication, NULL);
     
     for(sTablePos = 0; sTablePos < sReplication->mTableCount; sTablePos++)
     {
         sTable = &(sReplication->mTableArray[sTablePos]);
         
-        /* Obtain table information by table OID */
+        /* Retrieve table information by table OID */
         (void)ALA_GetTableInfo(aHandle,
             sTable->mTableOID,
             &sTableByTableOID,
@@ -3741,7 +3741,7 @@ void testMetaInformation(ALA_Handle aHandle)
             break;
         }
         
-        /* Obtain table information by name */
+        /* Retrieve table information by name */
         (void)ALA_GetTableInfoByName(aHandle,
             sTable->mFromUserName,
             sTable->mFromTableName,
@@ -3756,7 +3756,7 @@ void testMetaInformation(ALA_Handle aHandle)
         
         /* Process primary key column */
         for(sPKColumnPos = 0; sPKColumnPos < sTable->mPKColumnCount; sPKColumnPos++)
-        {         /* Obtain the primary key column information by primary key column ID */
+        {         /* Retrieve the primary key column information by primary key column ID */
     
             (void)ALA_GetColumnInfo(sTable,
                 sTable->mPKColumnArray[sPKColumnPos]->mColumnID,
@@ -3775,7 +3775,7 @@ void testMetaInformation(ALA_Handle aHandle)
         /* Process column */
     
         for(sColumnPos = 0; sColumnPos < sTable->mColumnCount; sColumnPos++)
-        {        /*  Obtain column information by column ID */
+        {        /*  Retrieve column information by column ID */
             (void)ALA_GetColumnInfo(sTable,
                 sTable->mColumnArray[sColumnPos].mColumnID,
                 &sColumn,
@@ -3792,7 +3792,7 @@ void testMetaInformation(ALA_Handle aHandle)
         
         /* Process Index */
         for(sIndexPos = 0; sIndexPos < sTable->mIndexCount; sIndexPos++)
-        {        /* Obtain index information by index ID */
+        {        /* Retrieve index information by index ID */
             (void)ALA_GetIndexInfo(sTable,
                 sTable->mIndexArray[sIndexPos].mIndexID,
                 &sIndex,
@@ -3849,7 +3849,7 @@ This function retrieves information about the table identified by the specified 
 
 -   If there are no meta data corresponding to the specified table, or if the specified table could not be found, this function returns NULL for the aOutTable argument.
 
--   Any meta data that were obtained using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
+-   Any meta data that were retrieved using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
 
 #### Related Functions
 
@@ -3905,7 +3905,7 @@ This function retrieves information about the table identified by the specified 
 #### Considerations
 
 -   If there are no meta data corresponding to the specified table, or if no table corresponding to the specified user name and table name could be found, this function returns NULL for the aOutTable argument. 
--   Any meta data that were obtained using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
+-   Any meta data that were Retrieved using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
 
 #### Related Functions
 
@@ -3960,7 +3960,7 @@ This function retrieves the information about the column identified by the speci
 
 -   If there are no meta data corresponding to the specified column or the specified table, this function returns NULL for the aOutColumn argument.
 
--   Any meta data that were obtained using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
+-   Any meta data that were Retrieved using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
 
 #### Related Functions
 
@@ -4015,7 +4015,7 @@ This function retrieves the information about the index identified by the specif
 
 -   If there are no meta data corresponding to the specified index, or if the specified table or index could not be found, this function returns NULL for the aOutIndex argument.
 
--   Any meta data that were obtained using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
+-   Any meta data that were Retrieved using this function before handshaking was performed should not be used again after handshaking, as the information might be out of date.
 
 #### Related Functions
 
@@ -4087,7 +4087,7 @@ void testColumnInformation(ALA_Handle aHandle)
      UInt sColumnPos;
 
       
-     /* Obtain replication information */
+     /* Retrieve replication information */
      (void)ALA_GetReplicationInfo(aHandle, &sReplication, NULL);
      for(sTablePos = 0; sTablePos < sReplication->mTableCount; sTablePos++)
      {
@@ -4103,7 +4103,7 @@ void testColumnInformation(ALA_Handle aHandle)
              break;
          }
 
-         /* Obtain table information by name */
+         /* Retrieve table information by name */
          (void)ALA_GetTableInfoByName(aHandle,
                          sTable->mFromUserName,
                          sTable->mFromTableName,
@@ -4117,7 +4117,7 @@ void testColumnInformation(ALA_Handle aHandle)
 
          /*  Process column */
          for(sColumnPos = 0; sColumnPos < sTable->mColumnCount; sColumnPos++)
-         { /* Obtain column information by column ID */
+         { /* Retrieve column information by column ID */
              (void)ALA_GetColumnInfo(sTable,
                              sTable->mColumnArray[sColumnPos].mColumnID,
                              &sColumn,
@@ -4195,7 +4195,7 @@ void testInternalNumeric(ALA_Column * aColumn, ALA_Value * aAltibaseValue)
     SInt sNumericSign;
     SInt sNumericExponent;
 
-    /* Obtain the internal numeric information */
+    /* Retrieve the internal numeric information */
     (void)ALA_GetInternalNumericInfo(aColumn,
         aAltibaseValue,
         &sNumericSign,
@@ -4277,7 +4277,7 @@ void testAltibaseText(ALA_Table * aTable, ALA_XLog * aXLog)
 {
     SChar        sBuffer[1024];
 
-    /* Obtain Altibase SQL */
+    /* Retrieve Altibase SQL */
     (void)ALA_GetAltibaseSQL(aTable,
         aXLog,
         1024,
@@ -4362,7 +4362,7 @@ sPKColumnPos++)
 /* The primary key sequence for the XLog and the primary key sequence for the table are the same */
 sColumn = aTable->mPKColumnArray[sPKColumnPos];
 
-/*  Obtain the Altibase text */
+/*  Retrieve the Altibase text */
 (void)ALA_GetAltibaseText(sColumn,
 &(aXLog->mPrimaryKey.mPKColArray[sPKColumnPos]),
 1024,
@@ -4373,20 +4373,20 @@ NULL);
 /* Process the column */
 for(sColumnPos = 0; sColumnPos < aXLog->mColumn.mColCnt; sColumnPos++)
 {
-/* Obtain the column information */
+/* Retrieve the column information */
 (void)ALA_GetColumnInfo(aTable,
 aXLog->mColumn.mCIDArray[sColumnPos],
 &sColumn,
 NULL);
 
-/* Obtain the Altibase text for the Before Image */
+/* Retrieve the Altibase text for the Before Image */
 (void)ALA_GetAltibaseText(sColumn,
 &(aXLog->mColumn.mBColArray[sColumnPos]),
 1024,
 sBuffer,
 NULL);
 
-/* Obtain the Altibase text for the After Image */
+/* Retrieve the Altibase text for the After Image */
 (void)ALA_GetAltibaseText(sColumn,
 &(aXLog->mColumn.mAColArray[sColumnPos]),
 1024,
@@ -4630,13 +4630,13 @@ SChar          * sErrorMessage;
 /* Invoking of Log Analysis API fails */
 …
 
-/* Obtain the error code */
+/* Retrieve the error code */
 (void)ALA_GetErrorCode(&sErrorMgr, &sErrorCode);
 
-/* Obtain the error level */
+/* Retrieve the error level */
 (void)ALA_GetErrorLevel(&sErrorMgr, &sErrorLevel);
 
-/* Obtain the error message */
+/* Retrieve the error message */
 (void)ALA_GetErrorMessage(&sErrorMgr, &sErrorMessage);
 }
 ```
@@ -4670,14 +4670,14 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain an error code. 
+This function is used to Retrieve an error code. 
 
 An error code is a unique numerical value that identifies the kind of error that has occurred.
 
 #### Considerations
 
 -   It is necessary to allocate memory in which to store aOutErrorCode before calling this function. 
--   Because the mErrorCode element of the ALA_ErrorMgr structure contains information that is internally used and thus not easy to parse or understand, it is necessary to use the ALA_GetErrorCode() function in order to obtain the error code.
+-   Because the mErrorCode element of the ALA_ErrorMgr structure contains information that is internally used and thus not easy to parse or understand, it is necessary to use the ALA_GetErrorCode() function in order to Retrieve the error code.
 
 #### Related Functions
 
@@ -4769,7 +4769,7 @@ ALA_FAILURE
 
 #### Description
 
-This function is used to obtain the actual error message from an Error Manager.
+This function is used to retrieve the actual error message from an Error Manager.
 
 #### Consideration
 
@@ -5168,7 +5168,7 @@ network error) has occurred.</p>
 | 0x52010    | Invalid Role                                                 | ALA_Handshake                                                |
 | 0x52011    | Invalid Replication Flags                                    | ALA_Handshake                                                |
 | 0x52007    | Geometry Endian Conversion Failure                           | ALA_GetXLog                                                  |
-| 0x52036    | Unable to obtain the MTD module.                             | ALA_GetXLog<br />ALA_GetAltibaseText<br />ALA_GetAltibaseSQL |
+| 0x52036    | Unable to retrieve the MTD module.                             | ALA_GetXLog<br />ALA_GetAltibaseText<br />ALA_GetAltibaseSQL |
 | 0x52037    | Failed to create text with the MTD module.                   | ALA_GetAltibaseText                                          |
 | 0x52038    | CMT Initialization Failure                                   | ALA_GetODBCCValue                                            |
 | 0x52039    | CMT End Failure                                              | ALA_GetODBCCValue                                            |

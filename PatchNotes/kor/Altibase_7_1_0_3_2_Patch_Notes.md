@@ -66,7 +66,7 @@ ERR-111b6(errno=9) LOCK_MGR_TYPE 1 is deprecated.
     -   Performance view
     -   Property
         -   변경
-            -   LOCK_MGR_TYPE 의 설정값의 MAX가 변경되었습니다.
+            -   [LOCK_MGR_TYPE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_1.md#lock_mgr_type) 의 설정값의 MAX가 변경되었습니다.
                 -   1 -> 2
                 -   1(Spin Lock 모드)이 제거
                 -   2 (Light Mutex모드) 추가

@@ -3765,6 +3765,51 @@ POLYGON((1 1, 3 1, 3 3, 1 3, 1 1))
 1 row selected.
 ```
 
+#### ST_MAKEPOINT
+
+##### 구문
+
+```
+ST_MAKEPOINT( x, y )
+```
+
+##### 설명
+
+x, y 값을 입력 받아 POINT 공간 객체를 반환한다.
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_MAKEPOINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
+
+#### ST_POINT
+
+##### 구문
+
+```
+ST_POINT( x, y )
+```
+
+##### 설명
+
+ST_MAKEPOINT와 동일하다.
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_POINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_POINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
 
 #### GEOMFROMEWKT 
 
@@ -3787,6 +3832,7 @@ GEOMETRY
 ```
 
 ##### 예제
+
 ```
 iSQL> INSERT INTO TB3 VALUES(101, GEOMFROMEWKT('SRID=101;GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))'));
 1 row inserted.
@@ -3826,6 +3872,7 @@ GEOMETRY
 ```
 
 ### Dimensionally Extended Nine Intersection Model(DE－9IM) 
+
 
 본 절에서는 Altibase에서 제공하는 공간 관계 연산자에 대하여 설명한다.
 
