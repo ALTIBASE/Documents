@@ -34,7 +34,7 @@ New Features
 
 -   **재현 빈도** : Always
 
-- **증상** : Internal procedure 기능을 지원합니다.
+- **증상** : [Internal procedure](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/ExternalProcedure.md#internal-mode) 기능을 지원합니다.
 
   External procedure는 external procedure agent process를 통해서 외부
   library를 load하고, server process와 external procedure agent간의
@@ -72,7 +72,7 @@ New Features
     
       - 추가
     
-        - V$LIBRARY
+        - [V$LIBRARY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vlibrary)
     
           C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보를 보여준다. 라이브러리 정보를 통해서 원하는 라이브러리를 제대로 로드했는지 확인할 수 있다.
     
@@ -84,7 +84,7 @@ New Features
           | CREATE_TIME     | VARCHAR(48) | 동적 라이브러리가 생성된 시간                        |
           | OPEN_TIME       | VARCHAR(48) | 동적 라이브러리를 로드한 시간                        |
     
-        - V$PROCINFO
+        - [V$PROCINFO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vprocinfo)
     
           프로시저의 상태 및 타입정보를 확인할 수 있다.
     
@@ -469,6 +469,6 @@ Replication 프로토콜 버전은 변경되지 않았다.
 
 #### 추가된 성능 뷰
 
-V$LIBRARY
+[V$LIBRARY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vlibrary)
 
-V$PROCINFO
+[V$PROCINFO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vprocinfo)
