@@ -3901,6 +3901,44 @@ POINT(1 1)
 
 ```
 
+#### ST_MAKELINE
+
+##### 구문
+
+```
+ST_MAKELINE( GEOMETRY1, GEOMETRY2, ... )
+```
+
+##### 설명
+
+Point, MultiPoint, LineString 객체를 인자로 받아 LineString 객체를 생성한다.
+여러 개의 Geometry 객체를 가변적으로 입력 받을 수 있다.   
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', GEOMETRY'POINT(2 2)' ) ) AS GEOM FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2)                                
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', 
+    2                             GEOMETRY'LINESTRING(2 2, 3 3)', 
+    3                             GEOMETRY'MULTIPOINT(4 4, 5 5)' ) ) AS GEOM
+    4 FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2, 3 3, 4 4, 5 5)                 
+1 row selected.
+```
+
 ### Dimensionally Extended Nine Intersection Model(DE－9IM) 
 
 본 절에서는 Altibase에서 제공하는 공간 관계 연산자에 대하여 설명한다.
