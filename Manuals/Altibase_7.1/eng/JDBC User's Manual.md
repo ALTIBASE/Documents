@@ -1920,10 +1920,10 @@ The following are ResultSet object types available for user specification.
     Unscrollable; the cursor can be moved only forward. Data of the ResultSet is determined at the point in time at which the cursor opens in the database server.
     
 -   TYPE_SCROLL_INSENSITIVE  
-    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. Data of the ResultSet is determined at the point in time at which the cursor opens in the database server. Memory can become scarce, due to caching the ResultSet retrieved from the server on the client.
+    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. Data of the ResultSet is determined at the point in time at which the cursor opens in the database server. Memory can be increased cause the result set retrieved from the server is accumulated and cached on the client side.
     
 -   TYPE_SCROLL_SENSITIVE  
-    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. The ResultSet is determined at the point in time at which the cursor opens in the database server; however, data within the ResultSet is determined at the point in time at which the client retrieves or updates it.
+    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. The ResultSet is determined at the point in time at which the cursor opens in the database server; however, data within the ResultSet is determined at the point in time at which the client retrieves or updates it. Memory can be increased cause the result set retrieved from the server is accumulated and cached on the client side.
 
 #### Concurrency
 
