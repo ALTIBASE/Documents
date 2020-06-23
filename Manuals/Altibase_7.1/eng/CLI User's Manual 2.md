@@ -5587,7 +5587,7 @@ Therefore, when you use the Altibase CLI of Altibase 5, SQL_TYPE_DATE, SQL_TYPE_
 
 ##### Data Type
 
-In Altibase 4, length of LOB type is limited to page size. However, it consists of BLOB and CLOB supporting maximum 2GB.
+In Altibase 4, length of LOB type is limited to page size. However, it consists of BLOB and CLOB supporting maximum 4GB-1byte.
 
 ###### Altibase 4 DDL
 
