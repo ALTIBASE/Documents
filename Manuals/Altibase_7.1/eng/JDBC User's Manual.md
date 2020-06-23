@@ -2244,9 +2244,8 @@ This sections offers instructions on how to use LOB type data provided by Altiba
 
 #### Prerequisites
 
--   Altibase supports the LOB data types, BLOB and CLOB, and each can have the maximum size of 4GB-1byte. However, it is only available in JDK 1.6 or later.
-
-In JDK 1.5, if sPstmt is cast to AltibasePreparedStatement type, setBinaryStream() method defined as long type length variable can be called.
+-   Altibase supports the LOB data types, BLOB and CLOB, and each can have the maximum size of 4GB-1byte. 
+In JDK 1.5, if sPstmt is cast to AltibasePreparedStatement object, setBinaryStream() method defined as long type length variable can be called.
     
 ```
 import Altibase.jdbc.driver.AltibasePreparedStatement;
