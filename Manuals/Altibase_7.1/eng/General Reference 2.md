@@ -2913,7 +2913,8 @@ This property configures how to synchronize inconsistent data between the local 
 - 0: Normal Insert
 - 1: Direct-Path Insert
 
-Because the Direct-Path Insert method creates an index after data synchronization, index inconsistent may occur if synchronization fails.
+When using the Direct-Path Insert Method in the replication SYNC process, the index is recreated after data synchronization.
+Therefore, if the replication SYNC process fails, index inconsistency may occur.
 
 Please refer to *Administrator’s Manual* for in-depth description on Direct-Path Insert. 
 
