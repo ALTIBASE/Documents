@@ -2913,6 +2913,8 @@ This property configures how to synchronize inconsistent data between the local 
 - 0: Normal Insert
 - 1: Direct-Path Insert
 
+Because the Direct-Path Insert method creates an index after data synchronization, index inconsistent may occur if synchronization fails.
+
 Please refer to *Administrator’s Manual* for in-depth description on Direct-Path Insert. 
 
 The value of this property can be modified through ALTER SYSTEM statement during the Altibase operation.
