@@ -2594,7 +2594,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 
 ###### Using the setCharacterStream method with a Reader object
 
-In JDK 1.5, if sPstmt is cast to the AltibasePreparedStatement type, the setCharacterStream() method defined as a long length variable can be called.
+In JDK 1.5, if sPstmt is cast to the AltibasePreparedStatement object, the setCharacterStream() method defined as a long length variable can be called.
 
 ```
 import Altibase.jdbc.driver.AltibasePreparedStatement;
