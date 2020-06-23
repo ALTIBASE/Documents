@@ -2244,7 +2244,7 @@ This sections offers instructions on how to use LOB type data provided by Altiba
 
 #### Prerequisites
 
--   Altibase supports the LOB data types, BLOB and CLOB, and each can have the maximum size of 2Gbytes.
+-   Altibase supports the LOB data types, BLOB and CLOB, and each can have the maximum size of 4GB-1byte.
 
 To manipulate LOB data, the autocommit mode of a session must satisfy one of the following conditions.
 
