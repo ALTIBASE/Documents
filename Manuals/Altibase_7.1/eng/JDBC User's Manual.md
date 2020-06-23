@@ -2245,15 +2245,15 @@ This sections offers instructions on how to use LOB type data provided by Altiba
 #### Prerequisites
 
 -   Altibase supports the LOB data types, BLOB and CLOB, and each can have the maximum size of 4GB-1byte. However, it is only available in JDK 1.6 or later.
-    > Note: When using setBinaryStream() in JDK 1.5, a file of size 4GB-1 cannot be inserted. This is because, in JDK 1.5, the length argument to setBinaryStream is of type int. In this case, compile the application with JDK 1.6 or higher, or import Altibase.jdbc.driver.AltibasePreparedStatement and cast it as shown below.
+
+In JDK 1.5, if sPstmt is cast to AltibasePreparedStatement type, setBinaryStream() method defined as long type length variable can be called.
     
-    ```
-    import Altibase.jdbc.driver.AltibasePreparedStatement;
-    ...
-    ((AltibasePreparedStatement)sPreStmt).setBinaryStream( 2,                                  
-                                                           sFInStream,                         
-                                                           sFile.length() );  
-    ```                
+```
+import Altibase.jdbc.driver.AltibasePreparedStatement;
+...
+((AltibasePreparedStatement)sPstmt).setBinaryStream(1, sInputStream, sLength);
+...
+```
 
 To manipulate LOB data, the autocommit mode of a session must satisfy one of the following conditions.
 
@@ -2595,20 +2595,14 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 
 ###### Using the setCharacterStream method with a Reader object
 
+In JDK 1.5, if sPstmt is cast to the AltibasePreparedStatement type, the setCharacterStream() method defined as a long length variable can be called.
+
 ```
-Reader sReader = ...
-long sLength = ...
+import Altibase.jdbc.driver.AltibasePreparedStatement;
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
-VALUES (?)");
-...
-sPstmt.setCharacterStream(1, sReader, sLength);
-...
-sPstmt.execute();
+((AltibasePreparedStatement)sPstmt).setCharacterStream(1, sReader, sLength);
 ...
 ```
-
-
 
 ###### Using the setCharacterStream method with a Writer object
 
