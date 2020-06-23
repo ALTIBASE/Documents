@@ -16617,7 +16617,7 @@ provided file \<0%s\> is too big. The maximum file size is about 4,294,967,295 b
 
 **Cause:** The file is too big.
 
-**Action:** Check the file size and use a smaller file
+**Action:** Check the file size and use a smaller file.
 
 **0x5113C ( 332092) ulERR_ABORT_INVALID_APP_BUFFER_TYPE_LOB Invalid application
 buffer type : type id \<0%d\> cannot be used as a LOB source buffer.**
