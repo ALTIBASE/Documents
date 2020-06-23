@@ -371,7 +371,7 @@ Floating-Point Numbers Size Calculation: ( 3 + ( ( p ) + 2 ) / 2 )
     <tr>
     	<td>BLOB/CLOB</td>
         <td></td>
-        <td>1~2147483647</td>
+        <td>1~4294967295</td>
     </tr>
     <tr>
     	<td>BYTE</td>
