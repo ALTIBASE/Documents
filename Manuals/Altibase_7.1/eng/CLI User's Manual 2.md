@@ -4381,8 +4381,8 @@ The following table shows the list of the Altibase SQL data types and the standa
 | SQL_REAL            | REAL                   | The same data type as Float of C                             |
 | SQL_FLOAT           | FLOAT(p)               | Fixed decimal numeric type data from -1E+120 to 1E+120 (1<=p<=38) |
 | SQL_DOUBLE          | DOUBLE                 | The same data type with DOUBLE of C                          |
-| SQL_BLOB            | BLOB                   | Variable-length binary data type with up to 4 Giga Bytes length |
-| SQL_CLOB            | CLOB                   | Variable-length character data type with up to 4 Giga Bytes length |
+| SQL_BLOB            | BLOB                   | Variable-length binary data type with up to 4GB-1Bytes length |
+| SQL_CLOB            | CLOB                   | Variable-length character data type with up to 4GB-1Byte length |
 | SQL_TYPE_DATE       | DATE                   | Year, month, and day fields, conforming to the rules of the Gregorian calendar. |
 | SQL_TYPE_TIME       | DATE                   | Hour, minute, and second fields, with valid values for hours of 00 to 23, valid values for minutes of 00 to 59, and valid values for seconds of 00 to 61. |
 | SQL_TYPE_TIMESTAMP  | DATE                   | Year, month, day, hour, minute, and second fields, with valid values as defined for the DATE and TIME data types. |
