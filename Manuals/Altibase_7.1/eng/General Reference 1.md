@@ -2966,7 +2966,8 @@ The values in the “Alter Level” column have the following meaning:
           <td></td>
       </tr>
       <tr>
-      	<td>FAST_START_IO_TARGET</td>
+      	<td>
+          _TARGET</td>
           <td>SYSTEM</td>
       </tr>
       <tr>
