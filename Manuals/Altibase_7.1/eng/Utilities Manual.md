@@ -2772,6 +2772,7 @@ This file configures Altibase access and altiMon control information.
 | \<NLS\>                                                 | Mandatory | NLS_USE                                                      |
 | \<DbName\>                                              | Optional  | Database Name <br/>Default Value : mydb                      |
 | \<IPv6\>                                                | Optional  | IPv6 status of use <br/>Default Value: false                 |
+| \<ConnectionProperties\>                                  | Optional     | Specifies additional connection attributes. <br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
 
 ##### Metrics.xml
 

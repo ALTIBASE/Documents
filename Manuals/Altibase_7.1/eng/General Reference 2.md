@@ -2913,6 +2913,9 @@ This property configures how to synchronize inconsistent data between the local 
 - 0: Normal Insert
 - 1: Direct-Path Insert
 
+When using the Direct-Path Insert Method in the replication SYNC process, the index is recreated after data synchronization.
+Therefore, if the replication SYNC process fails, index inconsistency may occur.
+
 Please refer to *Administrator’s Manual* for in-depth description on Direct-Path Insert. 
 
 The value of this property can be modified through ALTER SYSTEM statement during the Altibase operation.

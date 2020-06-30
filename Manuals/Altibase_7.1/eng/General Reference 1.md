@@ -371,7 +371,7 @@ Floating-Point Numbers Size Calculation: ( 3 + ( ( p ) + 2 ) / 2 )
     <tr>
     	<td>BLOB/CLOB</td>
         <td></td>
-        <td>1~2147483647</td>
+        <td>1~4294967295</td>
     </tr>
     <tr>
     	<td>BYTE</td>
@@ -2966,7 +2966,8 @@ The values in the “Alter Level” column have the following meaning:
           <td></td>
       </tr>
       <tr>
-      	<td>FAST_START_IO_TARGET</td>
+      	<td>
+          _TARGET</td>
           <td>SYSTEM</td>
       </tr>
       <tr>

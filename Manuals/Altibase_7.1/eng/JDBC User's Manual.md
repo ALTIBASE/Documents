@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents**  
 
 - [JDBC User’s Manual](#jdbc-users-manual)
   - [Preface](#preface)
@@ -1920,10 +1920,10 @@ The following are ResultSet object types available for user specification.
     Unscrollable; the cursor can be moved only forward. Data of the ResultSet is determined at the point in time at which the cursor opens in the database server.
     
 -   TYPE_SCROLL_INSENSITIVE  
-    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. Data of the ResultSet is determined at the point in time at which the cursor opens in the database server. Memory can become scarce, due to caching the ResultSet retrieved from the server on the client.
+    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. Data of the ResultSet is determined at the point in time at which the cursor opens in the database server. Memory can be increased cause the result set retrieved from the server is accumulated and cached on the client side.
     
 -   TYPE_SCROLL_SENSITIVE  
-    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. The ResultSet is determined at the point in time at which the cursor opens in the database server; however, data within the ResultSet is determined at the point in time at which the client retrieves or updates it.
+    Scrollable; the cursor can be moved forward, backwards, or moved to a specified location. The ResultSet is determined at the point in time at which the cursor opens in the database server; however, data within the ResultSet is determined at the point in time at which the client retrieves or updates it. Memory can be increased cause the result set retrieved from the server is accumulated and cached on the client side.
 
 #### Concurrency
 
@@ -2244,7 +2244,15 @@ This sections offers instructions on how to use LOB type data provided by Altiba
 
 #### Prerequisites
 
--   Altibase supports the LOB data types, BLOB and CLOB, and each can have the maximum size of 2Gbytes.
+-   Altibase supports the LOB data types, BLOB and CLOB, and each can have the maximum size of 4GB-1byte. 
+In JDK 1.5, if sPstmt is cast to AltibasePreparedStatement object, setBinaryStream() method defined as long type length variable can be called.
+    
+```
+import Altibase.jdbc.driver.AltibasePreparedStatement;
+...
+((AltibasePreparedStatement)sPstmt).setBinaryStream(1, sInputStream, sLength);
+...
+```
 
 To manipulate LOB data, the autocommit mode of a session must satisfy one of the following conditions.
 
@@ -2586,20 +2594,14 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 
 ###### Using the setCharacterStream method with a Reader object
 
+In JDK 1.5, if sPstmt is cast to the AltibasePreparedStatement object, the setCharacterStream() method defined as a long length variable can be called.
+
 ```
-Reader sReader = ...
-long sLength = ...
+import Altibase.jdbc.driver.AltibasePreparedStatement;
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
-VALUES (?)");
-...
-sPstmt.setCharacterStream(1, sReader, sLength);
-...
-sPstmt.execute();
+((AltibasePreparedStatement)sPstmt).setCharacterStream(1, sReader, sLength);
 ...
 ```
-
-
 
 ###### Using the setCharacterStream method with a Writer object
 

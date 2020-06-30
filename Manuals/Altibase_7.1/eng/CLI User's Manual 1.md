@@ -2536,7 +2536,7 @@ port number
 
 NLS_USE
 
-TIMEOUT setting
+LOGIN_TIMEOUT(TIMEOUT) setting
 
 SQLDriverConnectW() as a Unicode string supports same execution as SQLDriverConnect().
 
@@ -2600,9 +2600,9 @@ Each keyword has following attributes:
 -   NLS_NCHAR_LITERAL_REPLACE  
     This checks to use NCHAR with analyzing SQL statements. (0: doesn't analyze SQL statments, 1: analyzes SQL statements. This causes worse performance.)
 -   TIMEOUT  
-    Time waiting for server connection attemption. The default value is 3 seconds.3초이다.
+    Time waiting for server connection attemption. The default value is 60 seconds. The default value is 0 second (infinite waiting).
 -   CONNECTION_TIMEOUT  
-    Set timeout value to prevent blocking that may occur in select() or poll() in an unstable network
+    Set timeout value to prevent blocking that may occur in select() or poll() in an unstable network. The default value is 0 second (infinite waiting).
 -   DATE_FORMAT  
     Date Format. The default date format is YYYY/MM/DD HH:MI:SS. 
 -   IpcFilePath  
