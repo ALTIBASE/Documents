@@ -625,17 +625,24 @@ Information on external library objects that have been created and are currently
 
 -   SYS_LIBRARIES\_
 
-Information on Agent Processes that have been created for the execution of external procedures and are currently existent can be obtained from the performance view below.
+Information about dynamic libraries loaded directly from the current database can be viewed in the performance view below
 
 -   V\$EXTPROC_AGENT
 
 For more detailed information on each meta table and performance view, please refer to *General Reference.*
 
+-   V\$LIBRARY
+
+The mode of the external procedure can be checked in the current database in the performance view below.
+
+-   V\$PROCINFO
+
+For detailed description of each meta table and performance view, refer to *General Reference*.
 
 
 ### Related Properties
 
-The following are properties related to agent operations for external procedures.
+The following are properties related to agent operations for external procedures. The internal mode that does not create an agent process is not affected.
 
 -   EXTPROC_AGENT_CONNECT_TIMEOUT
 
