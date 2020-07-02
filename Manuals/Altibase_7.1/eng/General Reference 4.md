@@ -4902,7 +4902,7 @@ The total number of logs to UNDO in the transaction
 
 ##### PROCESSED_UNDO_LOG_COUNT
 
-The number of undo-finished logs in the trnasaction
+The number of undo-finished logs in the transaction
 
 ### V\$TRANSACTION_MGR
 
