@@ -3218,14 +3218,14 @@ When the Lob column value is null, Hibernate assumes that ResultSet.getBlob() an
 When the lob_null_select value is off, getBlob(), getClob() must be done and null processing should be done as follows.
 ```
 Blob sBlob = sRs.getBlob();
-if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
+if (sBlob != null) // NullpointerException may occur when sBlob is null.
 {
    long sLength = sBlob.length();  
    System.out.println("blob length===>" + sLength);
 }
 ...
 Clob sClob = sRs.getClob();
-if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
+if (sClob != null) // If sClob is null, NullpointerException may occur.
 {
    long sLength = sClob.length();  
    System.out.println("clob length===>" + sLength);
