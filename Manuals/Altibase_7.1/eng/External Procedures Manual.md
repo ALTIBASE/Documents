@@ -180,25 +180,41 @@ A C/C++ external procedure refers to a function written in C or C++, that is com
 
 #### Features
 
-External procedures provided by Altibase have the following features and advantages:
+External procedures provided by Altibase include external mode and internal mode, and have the following features and advantages:
 
+##### Common
 -   Since the implementation body and the call specification of C/C++ external procedures are unassociated, alteration of the C/C++ external procedure body does not require alteration of the calling program which calls the procedure.
 -   Since the execution of C/C++ external procedures and Altibase server processes are separated, the database is not affected even if there is an error in the C/C++ external procedure written by the user. 
 -   Inherent functions of the C/C++ languages, previously unsupported by PSM(Stored procedures), are available for use. 
 -   Some computation-intensive tasks are executed most efficiently, when written in lower level programming languages, such as the C language. 
--   By simply converting previously written C/C++ functions to external procedures, calls can be directly made from PSM. In other words, it is possible to reuse the C / C ++ functions written once, thus reducing development costs.
+-   By simply converting previously written C/C++ functions to external procedures, calls can be directly made from PSM. In other words, it is possible to reuse the C/C++ functions written once, thus reducing development costs.
+
+##### External mode
+-   Since the execution of C/C++ external procedures and the Altibase server process are separated, there is no effect on the databaase even if there is a problem with C/C++ external procedure written by the user
+
+##### Internal mode
+-   Because the Altibase server process directly calls external procedures, the server may crash if the user-written external procedure is defective. A memory leak may occur if memory allocated by a user-written C/C++ external procedure is not released. Therefore, testing is required to ensure that there are no problems with user-written C/C++ external procedure.
 
 #### Flow of Calling External Procedures
 
 Like regular stored procedures(PSM), external procedures can also be called in the client session. The overall flow from the creation of an external procedure to its invocation is depicted below. 
 
+##### Common
 After building a dynamic library from a user-written function in C or C++(an external procedure) and storing it in a location identifiable by Altibase, you should create an external procedure object (a stored procedure that registers the external procedure) with a SQL statement.
 
+##### External mode
 Afterwards, the stored procedure that registered the external procedure is called in the client session, and the Altibase server starts the Agent Process.
 
 The Agent Process loads the dynamic library file related to the external procedure and executes the related C/C++ function within the library, and then sends the result to the Altibase server, which then returns the result to the client. 
 
-The following figure illustrates the flow of an external procedure called by the client and executed through the Agent Process.
+##### Internal mode
+When a store procedure that registers an external procedure is called in a client session, the Altibase server calls the corresponding function. When creating a stored procedure that registers an external procedure, or compiling, load a dynamic library containing C/C++ external procedures written by the user.
+
+If multiple external procedures that use the same dynamic library are created, load the dynamic library only once and increment the reference count by 1. Removing or recreating an external procedure reduces the number of dynamic library references, and unloads the dynamic library file if there is no external procedure referencing the dynamic library.
+
+The number of external procedures referencing the dynamic library can be checked with V$LIBRARY.
+
+The following is a diagram schematically showing the flow of the external procedure called by the client.
 
 ![](media/ExternalProcedure/image022_eng.png)
 
@@ -212,8 +228,7 @@ When the stored procedure that registered an external procedure is invoked in th
 
 Because the Agent Process is subordinate to the service session of the Altibase server, a number of n Agent Processes are created when external procedures are invoked in a number of n client sessions. Also, the Agent Process created by a session also terminates when the session does.
 
-
-
+Internal mode loads a dynamic library directly from the Altibase server without an agent process and executes external procedures.
 
 
 ## 2. How to Use External Procedures
@@ -232,10 +247,10 @@ This section introduces data types supported for writing external procedures, an
 
 The following table concatenates valid PSM data types of arguments for the creation of external procedure objects, and valid data types of user-defined C/C++ function arguments. The user should note that pointer types can vary for user-defined C/C++ functions depending on the input/output mode of arguments.
 
-| PSM Data Type | IN                   | INOUT/OUT               | RETURN               | 비고                                                         |
+| PSM Data Type | IN                   | INOUT/OUT               | RETURN               | REMARK                                                       |
 | ------------- | -------------------- | ----------------------- | -------------------- | ------------------------------------------------------------ |
 | BIGINT        | long long            | long long \*            | long long            |                                                              |
-| BOOLEAN       | char                 | char \*                 | char                 | BOOLEAN의 경우에는 아래 두 가지 값을 허용한다. 0: FALSE 1: TRUE |
+| BOOLEAN       | char                 | char \*                 | char                 | In the case of BOOLEAN, the following two values are allowed: 0: FALSE 1: TRUE |
 | SMALLINT      | int                  | int \*                  | int                  |                                                              |
 | INTEGER       |                      |                         |                      |                                                              |
 | REAL          | float                | float \*                | float                |                                                              |
@@ -244,7 +259,9 @@ The following table concatenates valid PSM data types of arguments for the creat
 | VARCHAR       |                      |                         |                      |                                                              |
 | NCHAR         |                      |                         |                      |                                                              |
 | NVARCHAR      |                      |                         |                      |                                                              |
-| NUMERIC       | double               | double \*               | double               | Precision이 높은 인자는 double 형으로 변환하는 과정에서 데이터 손실이 발생할 수 있다. |
+| BYTE          |                      |                         |                      |                                                              |
+| VARBYTE       |                      |                         |                      |                                                              |
+| NUMERIC       | double               | double \*               | double               | Higer precision factors can cause data loss during conversion to double |
 | DECIMAL       |                      |                         |                      |                                                              |
 | NUMBER        |                      |                         |                      |                                                              |
 | FLOAT         |                      |                         |                      |                                                              |
