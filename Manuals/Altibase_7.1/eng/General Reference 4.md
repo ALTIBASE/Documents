@@ -4746,6 +4746,11 @@ This view displays information about transaction objects.
 | RESOURCE_GROUP_ID            | INTEGER     | The log file group identifier |
 | LEGACY_TRANS_COUNT           | INTEGER     | For internal use              |
 | ISOLATION_LEVEL              | INTEGER     | See below                     |
+| PROCESSED_UNDO_TIME          | INTEGER     | See below                     |
+| ESTIMATED_TOTAL_UNDO_TIME    | INTEGER     | See below                     |
+| TOTAL_LOG_COUNT              | BIGINT      | See below                     |
+| TOTAL_UNDO_LOG_COUNT         | BIGINT      | See below                     |
+| PROCESSED_UNDO_LOG_COUNT     | BIGINT      | See below                     |
 
 #### Column Information
 
@@ -4878,6 +4883,26 @@ This is the isolation level of transaction.
 -   1: REPEATABLE READ
 
 -   2: SERIALIZABLE
+
+##### PROCESSED_UNDO_TIME
+
+The time that UNDO has processed from the beginning of UNDo of the transaciton to the present (Unit: second)
+
+##### ESTIMATED_TOTAL_UNDO_TIME
+
+The estimated total time to complete UNDO for the trasnaction (Unit: second)
+
+##### TOTAL_LOG_COUNT
+
+The total number of logs for the trasnaction
+
+##### TOTAL_UNDO_LOG_COUNT
+
+The total number of logs to UNDO in the transaction
+
+##### PROCESSED_UNDO_LOG_COUNT
+
+The number of undo-finished logs in the trnasaction
 
 ### V\$TRANSACTION_MGR
 
