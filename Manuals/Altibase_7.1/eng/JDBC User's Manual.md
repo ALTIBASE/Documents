@@ -3203,6 +3203,36 @@ Since the library that Hibernate officially provides does not include AltibaseDi
 
 The AltibaseDialect.java file and the AltibaseLimitHandler.java file are Available from the Altibase Github site. For detailed instructions on how to port AltibaseDialect, refer to (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md).
 
+#### Lob Related Properties
+When the Lob column value is null, Hibernate assumes that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, it is recommended to set the following JDBC connection property to OFF in order to use Lob-related functions in Hibernate because the object related to the interface is returned even if the value is null.
+
+##### lob_null_select
+| Default value    | on                                                           |
+|----------|---------------------------------------------------------------|
+| Range of value | [on \| off ]                                                 |
+| Requirement | No                                                            |
+| Setting range | Session                                                         |
+| Description     | Whether ResultSet.getBlob(), ResultSet.getClob() returns an object when the lob column value is null  | 
+
+##### Example
+When the lob_null_select value is off, getBlob(), getClob() must be done and null processing should be done as follows.
+```
+Blob sBlob = sRs.getBlob();
+if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
+{
+   long sLength = sBlob.length();  
+   System.out.println("blob length===>" + sLength);
+}
+...
+Clob sClob = sRs.getClob();
+if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
+{
+   long sLength = sClob.length();  
+   System.out.println("clob length===>" + sLength);
+}
+```
+
+
 ### Sharding
 #### Properties
 The following attributes have been added for the jdbc sharding feature.
