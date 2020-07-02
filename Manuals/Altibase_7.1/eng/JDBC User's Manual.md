@@ -33,6 +33,7 @@
     - [JDBC Logging](#jdbc-logging)
     - [Hibernate](#hibernate)
     - [Sharding](#sharding)
+    - [SQL Plan](#sql-plan)
   - [4. Tips & Recommendation](#4-tips--recommendation)
     - [Tips for Better Performance](#tips-for-better-performance)
     - [SQL States](#sql-states)
@@ -3422,6 +3423,43 @@ The general Altibase jdbc driver is supported, but the functions not supported b
   * javax.sql.XADataSource
       * getXAConnection()
       * getXAConnection(String user, String password)
+
+### SQL Plan
+
+This function is to import the SQL execution plan as string as a non-standard API. The execution plan shows the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLY, and the default setting is OFF.
+
+#### How to use
+
+To get the execution plan, before executing the SQL statement, the setExplainPlan(byteaExplainPlanMode) method of the AltibaseConnection object must be called to specify what content to get the execution plan. The aExplainPlanMode options that can be specified are described in the table below
+
+#### Factor
+
+|                 PROPERTY                 | PROPERTY VALUE |                             DESCRIPTION                             |
+| :----------------------------------: | :----: | :----------------------------------------------------------: |
+| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | After executing the SELECT statement, the Plan Tree information is not displayed, only the result record is displayed |
+|  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. In the Plan Tree, the number of records accessed, the amount of memory occupied by tuples, and the cost are displayed. |
+| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. If EXPLAN PLAN = ONLY, only the execution plan is created without query execution, so items that value is determined after actual, execution, such as the ACCESS item, are displayed as question marks ("??"). |
+
+#### Code Example
+
+```
+AltibaseConnection sConn = (AltibaseConnection)DriverManager.getConnection(sURL, sProps);
+sConn.setExplainPlan(AltibaseConnection.EXPLAIN_PLAN_ONLY);
+AltibaseStatement  sStmt = (AltibaseStatement)sConn.prepareStatement("SELECT sysdate FROM dual");
+System.out.println(sStmt.getExplainPlan());
+```
+
+#### Result Example
+
+```
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
+ SCAN ( TABLE: DUAL, FULL SCAN, ACCESS: ??, COST: 0.01 )
+------------------------------------------------------------
+```
+
+
+---------------------
 
 ## 4. Tips & Recommendation
 
