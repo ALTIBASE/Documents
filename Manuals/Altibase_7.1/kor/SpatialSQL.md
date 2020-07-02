@@ -3765,52 +3765,6 @@ POLYGON((1 1, 3 1, 3 3, 1 3, 1 1))
 1 row selected.
 ```
 
-#### ST_MAKEPOINT
-
-##### 구문
-
-```
-ST_MAKEPOINT( x, y )
-```
-
-##### 설명
-
-x, y 값을 입력 받아 POINT 공간 객체를 반환한다.
-
-##### 예제
-
-```
-iSQL> SELECT ASTEXT( ST_MAKEPOINT( 1, 1 ) ) FROM DUAL;        
-ASTEXT(ST_MAKEPOINT(1,1))                 
---------------------------------------------
-POINT(1 1)                                
-1 row selected.
-
-```
-
-#### ST_POINT
-
-##### 구문
-
-```
-ST_POINT( x, y )
-```
-
-##### 설명
-
-ST_MAKEPOINT와 동일하다.
-
-##### 예제
-
-```
-iSQL> SELECT ASTEXT( ST_POINT( 1, 1 ) ) FROM DUAL;        
-ASTEXT(ST_POINT(1,1))                 
---------------------------------------------
-POINT(1 1)                                
-1 row selected.
-
-```
-
 #### GEOMFROMEWKT 
 
 ##### 구문
@@ -3871,6 +3825,52 @@ EWKB(Extended Well-Known Binary) 형태로 공간 객체를 입력 받아 GEOMET
 GEOMETRY
 ```
 
+#### ST_MAKEPOINT
+
+##### 구문
+
+```
+ST_MAKEPOINT( x, y )
+```
+
+##### 설명
+
+x, y 값을 입력 받아 POINT 공간 객체를 반환한다.
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_MAKEPOINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
+
+#### ST_POINT
+
+##### 구문
+
+```
+ST_POINT( x, y )
+```
+
+##### 설명
+
+ST_MAKEPOINT와 동일하다.
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_POINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_POINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
+
 #### ST_MAKELINE
 
 ##### 구문
@@ -3908,6 +3908,42 @@ GEOM
 LINESTRING(1 1, 2 2, 3 3, 4 4, 5 5)                 
 1 row selected.
 
+```
+
+#### ST_MAKEENVELOPE
+
+##### 구문
+
+```
+ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
+```
+
+##### 설명
+
+입력한 Double 형 변수 4개에 해당하는 LINESTRING( X1 Y1, X2 Y2 )를 ENVELOPE 수행한 결과인 POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 )로 반환한다.
+
+SRID를 입력한 경우 생성된 공간 객체의 SRID로 설정된다. 만약 SRID를 입력하지 않은 경우 생성된 공간객체의 SRID는 0이다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138 ) ) AS POL FROM DUAL;
+POL
+----------------------------------------------------------------------------------------------------------------------------
+SRID=0;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138, 104 ) ) AS POL FROM DUAL;
+POL
+----------------------------------------------------------------------------------------------------------------------------
+SRID=104;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
 ```
 
 ### Dimensionally Extended Nine Intersection Model(DE－9IM) 
