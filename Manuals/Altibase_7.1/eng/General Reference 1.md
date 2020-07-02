@@ -4908,6 +4908,7 @@ Read-Write, Single Value
 ##### Description
 
 This property specifies intervals (Unit: second) for detecting a deadlock in the spin mode.
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_MAX_SLEEP (Unit: microsecond)
 
@@ -4930,6 +4931,7 @@ Read-Write, Single Value
 ##### Description
 
 This property specifies the maximum sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode. 
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_MIN_SLEEP (Unit: microsecond)
 
@@ -4951,7 +4953,8 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode.
+This property specifies the sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode. 
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_SPIN_COUNT (Unit: frequency)
 
@@ -4974,6 +4977,7 @@ Read-Write, Single Value
 ##### Description
 
 This property specifies the reattempt counts for a case which fails to obtain a lock in a spin mode.
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_TYPE 
 
@@ -4999,7 +5003,9 @@ This property is used to select a table lock manager type and it cannot be modif
 
 0: Mutex mode
 
-1: Spin lock mode
+1: Spin lock mode (deprecated, 7.1.0.3.2)
+
+2: light Mutex (added, 7.1.0.3.2)
 
 #### LOCK_NODE_CACHE_COUNT (Unit: count)
 
