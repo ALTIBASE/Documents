@@ -5554,6 +5554,8 @@ Read-Write, Single Value
 
 When a table is dropped with the DROP statement, RECYCLEBIN_ENABLE specifies whether a table is to be moved to a recycle bin or dropped directly from the database system.
 
+Tables dropped into the trash are renamed with special names. In addition, the table type has been changed to the 'R' type, any other DDL and INSERT/UPDATE/DELETE cannot be executed. However, SELECT is possible.
+
 If the recycle bin contains a table, the table can be queried or recovered/dropped with the FLASHBACK or PURGE statement, even if the value of this property is altered to 0. 
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. 
