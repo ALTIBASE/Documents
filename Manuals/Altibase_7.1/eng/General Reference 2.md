@@ -1147,7 +1147,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[0, 3]
+[0, 2]
 
 ##### Description 
 
