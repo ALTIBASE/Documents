@@ -1767,7 +1767,7 @@ If this hint is specified, the optimizer uses an exisiting execution plan (inste
 
 #### LEADING
 
-This hint firstly joins the tables that are used in a hint.
+This hint firstly joins the tables that are used in a hint. If more than one LEADING hint is used, only the first LEADING hint is effective. When used with the ORDERED hint, the ORDERED hint is ignored. If the Lateral View is specified in the table used for hint, it has no effect.
 
 ![](media/SQL/d7925f2e0025071a87646b15d2fee986.png)
 
