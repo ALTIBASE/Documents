@@ -2714,7 +2714,7 @@ This function frees resources allocated for the result set produced by the execu
 
 #### Example
 
-Refer to the examples in altibase_stmt_bind_result() altibase_stmt_data_seek()
+Refer to the examples in altibase_stmt_bind_result() and altibase_stmt_data_seek().
 
 ### altibase_stmt_get_attr()
 
