@@ -3265,7 +3265,7 @@ The following figure briefly illustrates the Array Binding. It can be seen that 
 
 ![](media/ACI/5_eng.png)
 
-For more detailed information about using the array binding and array fetching, refer to *ODBC Reference.*
+For more detailed information about using the array binding and array fetching, refer to *CLI User's Manual.*
 
 #### How to Set ALTIBASE_BIND
 
