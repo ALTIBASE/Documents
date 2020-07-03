@@ -3585,6 +3585,43 @@ GEOMETRY object is created by receiving spatial objects in the form of EWKB (Ext
 GEOMETRY
 ```
 
+#### ST_MAKELINE
+
+##### Syntax
+
+```
+ST_MAKELINE( GEOMETRY1, GEOMETRY2, ... )
+```
+
+##### Description
+
+This creates a LineString object by receiving Point, MultiPoint, and LineString objects as arguments.
+Multiple parameters can be received and create multiple Geometry objects as a single LineString.
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', GEOMETRY'POINT(2 2)' ) ) AS GEOM FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2)                                
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', 
+    2                                                          GEOMETRY'LINESTRING(2 2, 3 3)', 
+    3                                                          GEOMETRY'MULTIPOINT(4 4, 5 5)' ) ) AS GEOM
+    4 FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2, 3 3, 4 4, 5 5)                 
+1 row selected.
+```
 
 #### Dimensionally Extended Nine Intersection Model(DE－9IM) 
 
