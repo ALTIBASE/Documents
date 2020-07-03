@@ -277,7 +277,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 1. Click Aliases -> New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows -> View Aliases to activate it. 
   
-2. Enter the information below/
+2. Enter the information below:
 
    Name: Database Connection Name
 
@@ -323,7 +323,7 @@ By selecting SQL from the two tabs at the top, users can enter and execute queri
 
 ### Hibernate
 
-Altibase provides non-standard SQl, and Hibernate supports the dialect class to perform this function.
+Altibase provides non-standard SQL, and Hibernate supports the dialect class to perform this function.
 
 To integrate Altibase in Hibernate, configure Altibase JDBC Driver, and AltibaseDialect.class must be specified in Hibernate's configuration.
 
