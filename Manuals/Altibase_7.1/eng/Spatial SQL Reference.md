@@ -816,11 +816,13 @@ In Altibase, the GEOMETRY data type can be represented using any of the three wa
 
 -   WKT (Well-Known Text): A text format in which a spatial object is represented using letters and numbers. This allows it to be processed directly within SQL applications or other similar applications. The WKT format was designed using simple gramar for easy readability. 
 -   WKB (Well-Known Binary): A format in which a spatial object is represented in binary form. It was designed for the purpose of efficiently transferring and performing operations on GEOMETRY type data.
+-   EWKT (Extended Well-known Text): A format which SID (Spatial Reference Identifier) representing a spatial object is added to the WKT format.
+-   EWKB (Extended Well-Known Binary): A format which SID (Spatial Reference Identifier) information representing a spatial object is added to the WKB format.
 -   Internal Binary: A format in which data is stored within Altibase. It was designed for the purpose of efficiently managing and performing spatial operations on spatial data. Data saved in the internal binary format of Altibase can only be manipulated using the C API. The C API will be described in Spatial Application Development.
 
 #### WKT (Well-Known Text) 
 
-WKT (Well-known Text) is a format for representing a spatial object using letters and numbers. WKT is defined using Backus-Naur Form (BNF) notation, as shown below:
+WKT (Well-known Text) is a format for representing a spatial object using letters and numbers. When expressing a spatial object in WKT format, the SRID of the object is regarded as 0. WKT is defined using Backus-Naur Form (BNF) notation, as shown below:
 
 ```
 <Geometry Tagged Text> : =
@@ -894,7 +896,7 @@ The examples of spatial data shown in WKT format above are shown graphically bel
 
 #### WKB (Well-Known Binary)
 
-WKB (Well-known Binary) is a format in which a spatial object is represented in binary form. 
+WKB (Well-known Binary) is a format in which a spatial object is represented in binary form. When representing a spatial object in WKB format, the SIRD of the object is regarded as 0.
 
 This is the binary form put forth in the OGC Standards. It is used to ensure data compatibility between heterogeneous spatial DBMSs. 
 
@@ -1002,6 +1004,28 @@ WKBGeometry wkbGeometries{num_wkbGeometries} ;
 
 In this example, the Little Endian (NDR) byte order is used, and a POLYGON with one exterior ring and one interior ring is described. Each of the exterior and interior rings consists of three points.
 
+#### EWKT (Extended Well-Known Text)
+
+EWKT is an additional form of SRID information in WKT format. The notation is the same as the WKT format except for the SRID information in WKT format. The EWKT format is not an OpenGIS standard, and examples of spatial data described using the EWKT format are as follows.
+
+| 형식               | WKT 표현 | SRID                                                                                 | 설명                                              |
+|--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
+| Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | 한 점; SRID는 4326                                             |
+| LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | 3점을 갖는 라인스트링; SRID는 100                             |
+| Polygon            | SRID=-999;POLYGON( (10 10, 10 20, 20 20, 20 15, 10 10) )                                          | -999 | 1개의 외부링과 0개의 내부링으로 된 폴리곤; SRID는 -999          |
+| MultiPoint         | SRID=0;MULTIPOINT(10 10, 20 20)                                                                | 0 | 2점을 갖는 멀티포인트; SRID는 0     |
+
+#### EWKB (Extended Well-Known Binary)
+
+EWKB는 WKB 형식에 추가적으로 SRID 정보를 표기한 것이다. SRID 정보의 표기를 제외하면 표기법은 WKB 형식과 동일하다. 
+EWKB 형식은 OpenGIS 표준안이 아니다. EWKB 형식의 표기방법은 WKB 형식과 거의 같으나, 바이트 순서(1바이트; NDR, XDR 중 하나)와 GEOMETRY 데이터 타입(4바이트; POINT, MULTIPOINT 등)을 표기한 이후 4바이트 크기의 SRID를 표기한다는 점에 차이가 있다. SRID 표기 이후에는 WKB 형식과 마찬가지로 객체 정보를 이진 형태로 표기한다.
+
+| 형식               | WKT 표현 | SRID                                                                                 | 설명                                              |
+|--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
+| Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | 한 점; SRID는 4326                                             |
+| LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | 3점을 갖는 라인스트링; SRID는 100                             |
+| Polygon            | SRID=-999;POLYGON( (10 10, 10 20, 20 20, 20 15, 10 10) )                                          | -999 | 1개의 외부링과 0개의 내부링으로 된 폴리곤; SRID는 -999          |
+| MultiPoint         | SRID=0;MULTIPOINT(10 10, 20 20)                                                                | 0 | 2점을 갖는 멀티포인트; SRID는 0     |
 
 
 ### DDL For Geometry
