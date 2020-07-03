@@ -1993,6 +1993,8 @@ Great attention should be paid to call altibase_store_result() because there can
 
 altibase_store_result() cannot be used with the functions such as altibase_use_result() and altibase_list_tables() which return result set. The user must call altibase_free_result() to free current result set handle and obtain other one after you are done with the result set.
 
+After using it, The result set obtained with this function must be releases by using altibase_free_result().
+
 #### Example
 
 Refer to the examples in altibase_data_seek() and altibase_query().
