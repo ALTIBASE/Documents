@@ -616,7 +616,7 @@ As shown in the following diagram, the entities involved in a distributed transa
 
 If an AP announces the start of a distributed transaction to the TM using TX interface, the TM determines which RMs (databases) are involved in the distributed transaction. The TM internally generates XIDs to identify the transaction branches that are to be executed in respective RMs, and then calls XA interface with the XIDs to the RMs. 
 
-The RMs (i.e. database nodes) then start to process the transaction branches corresponding to the respective XIDs. 
+Each RM (DB node) starts processing the transaction branch corresponding to the transmitted XID. In addition, until the request for termination of the transaction is received from the TM, the operation requested from the AP is recognized as the operation in the global transaction corresponding to the XID, and the operation transaction corresponding to the XID, and the operation is performed in the transaction branch.
 
 To terminate the transaction, the AP calls the TM via the TX interface. The TM then uses the XA interface to instruct the RMs on which the branches of the distributed transaction are running to either commit or roll back their respective transaction branches.
 
