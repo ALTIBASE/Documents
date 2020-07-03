@@ -323,7 +323,7 @@ By selecting SQL from the two tabs at the top, users can enter and execute queri
 
 ### Hibernate
 
-Altibase provides non-standard SQl, and Hibernate supports the dialect class to perform this function.
+Altibase provides non-standard SQL, and Hibernate supports the dialect class to perform this function.
 
 To integrate Altibase in Hibernate, configure Altibase JDBC Driver, and AltibaseDialect.class must be specified in Hibernate's configuration.
 
