@@ -555,7 +555,7 @@ The elements of this enum type are:
 
 ##### enum ALTIBASE_FAILOVER_EVENT
 
-This is an enumeration that represents a Failover event. Ifthe failover callback functionis registered, the failover callback function is notified of values returned by the failover events. They are used when the failover callback function determines its advance to the next step. For more details, refer tp Chapter6: Using Failover.
+This is an enumeration that represents a Failover event. Ifthe failover callback functionis registered, the failover callback function is notified of values returned by the failover events. They are used when the failover callback function determines its advance to the next step. For more details, refer to Chapter6: Using Failover.
 
 | Enum Value        | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
