@@ -370,7 +370,7 @@ OpenLDAP supports RDBMS as a backend repository, which is called SQL Backend or 
 
 #### Altibase Installation
 
-We recommend users to install Altibase 6.5.1 or above.
+We recommend users to install Altibase 6.5.1 or later.
 
 For more detailed information on installation, please refer to the *Installation Guide*.
 
