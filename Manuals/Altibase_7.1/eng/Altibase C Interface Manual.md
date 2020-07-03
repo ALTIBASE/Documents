@@ -885,7 +885,7 @@ int  altibase_data_seek (
 
 | Data Type     | Argument | In/Output | Descriptions                                                 |
 | ------------- | -------- | --------- | ------------------------------------------------------------ |
-| ALTIBASE_RES  | *result* | Input     | Result handl                                                 |
+| ALTIBASE_RES  | *result* | Input     | Result handle                                                 |
 | ALTIBASE_LONG | *offset* | Input     | The offset value is a row number and should be in the range from 0. |
 
 #### Return Values
