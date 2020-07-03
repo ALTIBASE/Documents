@@ -951,7 +951,9 @@ unsigned int  altibase_errno (
 
 altibase_errno() returns the numerical value of the error code from previous function. All functuins do not return error codes. Error codes are returned by queries for their operation. Errors are listed at *Error Message Refrence* in detail. 
 
-Make sure to check the value before calling another function because it is initialized or new one is created instead if another function is called. The value returned by altibase_errno() is different from that of SQLSTATE. You should use altibase_sqlstate() to find a specific SQLSTATE when handling errors.
+If an error occurs while executing a function, if another function is called without immediately checking the error, the error information disappears. Therefore, when an error occurs, this function should be used to check the error information.
+
+The value returned by altibase_errno() is an Altibase self-defined error code is different from the SQLSTATE defined in the ODBC standard specification. To get SQLSTATE, altibase_sqlstate() is used. Generally, it is not recommended to write an error handling routine by checking the return value of altibase_errno().
 
 #### Example
 
