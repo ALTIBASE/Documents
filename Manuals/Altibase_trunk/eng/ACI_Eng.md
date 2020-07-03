@@ -254,7 +254,7 @@ This chapter explains how to develop application programs using ACI.
 
 #### Basic Usages
 
-An ACI application program generally consists of following three parts:
+ACI application program generally consists of following three parts:
 
 -    initializing handles
 -   Processing transactions
