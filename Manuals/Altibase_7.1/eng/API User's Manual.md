@@ -227,7 +227,7 @@ A. Set the value of the ODBCSYSINI environment variable to the home directory pa
 export ODBCSYSINI=~
 ```
 
-B. Add an environment variable indicating the path where the unixODBC Driver Manager is installed, as shown below. Depending on the platform and whether the OS is a 32-bit or 64-bit OS, the library path will be one of LD_LIBRARY_PATH, LD_LIBRARY_PATH_64 or SHLIB_PATH.  
+4. Add an environment variable indicating the path where the unixODBC Driver Manager is installed, as shown below. Depending on the platform and whether the OS is a 32-bit or 64-bit OS, the library path will be one of LD_LIBRARY_PATH, LD_LIBRARY_PATH_64 or SHLIB_PATH.  
 
 In the following example, unixODBC is installed at /usr/local/odbcDriverManager32 or /usr/local/odbcDriverManager64.
 
@@ -236,7 +236,7 @@ export LD_LIBRARY_PATH= /usr/local/odbcDriverManager32/lib:\$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH_64= /usr/local/odbcDriverManager64/lib:\$LD_LIBRARY_PATH_64
 ```
 
-4. Create the following two files in the $ODBCSYSINI path: 
+5. Create the following two files in the $ODBCSYSINI path: 
 
 ```
 odbc.ini  
@@ -246,7 +246,7 @@ odbcinst.ini
 
 6. odbcinst.ini must be an empty file having a size of 0 bytes. 
 
-2. In odbc.ini, specify the DSN name, the path and directory where the ODBC driver of Altibase is installed, and the server address and port number.
+7. In odbc.ini, specify the DSN name, the path and directory where the ODBC driver of Altibase is installed, and the server address and port number.
 
 ```
    [Altibase]
