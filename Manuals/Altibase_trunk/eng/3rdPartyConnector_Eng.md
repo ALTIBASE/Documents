@@ -277,7 +277,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 1. Click Aliases -> New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows -> View Aliases to activate it. 
   
-2. Enter the information below/
+2. Enter the information below:
 
    Name: Database Connection Name
 
