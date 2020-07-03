@@ -841,7 +841,7 @@ int  altibase_connect (
 
 #### Return Values
 
-The function returns ALTIBASE_SUCCESS if successful or ALTIBASE_ERROR if an error occurred.
+The function returns ALTIBASE_SUCCESS if successful, or ALTIBASE_ERROR if an error occurred.
 
 #### Description
 
