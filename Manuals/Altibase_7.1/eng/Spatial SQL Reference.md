@@ -3471,6 +3471,62 @@ POLYGON((1 1, 3 1, 3 3, 1 3, 1 1))
 1 row selected.
 ```
 
+#### ST_MAKEPOINT
+
+##### Syntax
+
+```
+ST_MAKEPOINT( x, y )
+```
+
+##### Description
+
+This receives the x and y values and returns the spatial object of POINT
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_MAKEPOINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+```
+
+#### ST_POINT
+
+##### Syntax
+
+```
+ST_POINT( x, y )
+```
+
+##### Description
+
+This is the same as ST_MAKEPOINT.
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_POINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_POINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+```
+
 #### GEOMFROMEWKT 
 
 ##### Syntax
