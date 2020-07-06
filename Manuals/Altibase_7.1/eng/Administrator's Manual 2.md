@@ -3085,7 +3085,7 @@ iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 iSQL(sysdba)> STARTUP SERVICE;
 ```
 
-### 11.4 Managing Backup Files
+### Managing Backup Files
 
 Unlike full backups, backup files generated from incremental backups are managed by the Altibase server, instead of the DBA.
 
