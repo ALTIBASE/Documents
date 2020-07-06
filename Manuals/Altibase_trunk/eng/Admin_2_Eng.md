@@ -1562,8 +1562,7 @@ Altibase supports the following types of backup operations:
 - Logical Backup  
   Utility backup
   
-- Physical Backup
-  
+- Physical Backup  
   Offline backup 
   Oneline backup
 
