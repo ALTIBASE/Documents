@@ -1295,7 +1295,7 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 $
 ```
 
-5. Objects and Privileges
+## 5. Objects and Privileges
 -------------------------
 
 This chapter describes how to manage objects and privileges in Altibase.
@@ -1320,7 +1320,7 @@ This is described in detail in the "Tables" section below.
 
 When a table data are divided into pieces(each pice is called a partition) and stored them in different table spaces, this table is called a partitioned table. For large tables, partitioned tables can make data management much easier.
 
-More detailed information about partitioned tables, please refer to "Chapter 7: Partitioned Objects",
+More detailed information about partitioned tables, please refer to "Chapter 7: Partitioned Objects".
 
 ##### Partitioned Indexes
 
