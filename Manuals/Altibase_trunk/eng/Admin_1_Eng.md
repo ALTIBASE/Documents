@@ -2431,17 +2431,16 @@ The following SQL statements are provided for the materialized view. For more de
 
 -   DROP MATERIALIZED VIEW
 
-- #### Truncating Materialized Views
+For the matrialized view, the following SQL statements are provided for table where the actual data is contained, and refer to the SQL Rerence for more detailed information.
 
-  Data of the materialized view can be deleted by using the TRUNCATE TABLE statement.
+-   ALTER TABLE
 
-  #### Data Manipul
+-   TRUNCATE TABLE
 
-  Altibase only support SELECT for materialized views.
+-   LOCK TABLE
 
-  #### Related SQL Statements
+-   SELECT
 
-  The following SQL statements are provided for the materialized view. For more detailed information, please refer to *SQL Reference*
 
 ### Sequences
 
