@@ -2417,7 +2417,7 @@ DROP MATERIALIZED VIEW avg_sal;
 
 Data of the materialized view can be deleted by using the TRUNCATE TABLE statement.
 
-#### Data Manipul
+#### Data Manipulation
 
 Altibase only supports SELECT for materialized views.
 
