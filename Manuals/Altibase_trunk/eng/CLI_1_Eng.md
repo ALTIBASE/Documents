@@ -1696,7 +1696,7 @@ When performing bulk fetches with SQLBulkOperations and bookmarks, write the pro
    A. The data to be bound must be an array of the same size as the SQL_ATTR_ROW_ARRAY_SIZE value.
    
 
-B. The array which is to store the bookmark value of the row to be fetched is bound to the 0th column (the bookmark column).
+   B. The array which is to store the bookmark value of the row to be fetched is bound to the 0th column (the bookmark column).
 
 5. Copy the bookmark of the row to be fetched into the array buffer bound to the 0th column.
 
