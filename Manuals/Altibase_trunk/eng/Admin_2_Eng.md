@@ -1563,8 +1563,8 @@ Altibase supports the following types of backup operations:
   Utility backup
   
 - Physical Backup  
-  Offline backup 
-  Oneline backup
+  Offline backup  
+  Online backup
 
 When logical backup is performed using the aexport or iLoader utility, script files for creating tables, indexes and files in which table records are written are created.
 
