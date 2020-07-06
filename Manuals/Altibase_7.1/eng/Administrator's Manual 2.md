@@ -4563,7 +4563,7 @@ Meta tables and performance views are used to check the operation status of Alti
 
 The major entities to be monitored are as follows:
 
-**Session and Statements **
+**Session and Statements**
 
 Information on currently connected sessions can be checked using performance views while Altibase is running. Multiple statements can be assigned to a single session<sup>8</sup>. Session properties can be set differently for each session.
 
