@@ -259,7 +259,7 @@ Figure 7-8 Example of a global non-partitioned index
 
 [Figure 7-9] shows the types of indexes that have been examined so far:
 
-![](media/Admin/Admin_eng.1.42.7.jpg.png)
+![](media/Admin/cdba9650f1626e7cc409038702eb8b1d.png)
 
 [Figure 7-9] Types of Indexes
 
