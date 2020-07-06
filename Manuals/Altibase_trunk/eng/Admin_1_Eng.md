@@ -4447,7 +4447,7 @@ The term "tablespace online backup" refers to backup that is conducted while the
 
 [Figure 6-14] The Concepts of Media Recovery
 
-![](media/Admin/6-14_Eng.jpg)
+![](media/Admin/6-14_Eng.png)
 
 -   If data file xyz, which exists in a disk tablespace, is damaged, it can be restored using a data file that was previously created during a hot backup. A memory tablespace can be recovered using a checkpoint image file that was previously created during a hot backup. 
 -   On the basis of the final checkpoint SCN (140) and recovery LSN (32:010), which are written in the header of the data file that was created during the backup, the file can be restored to the current final checkpoint SCN (200). 
