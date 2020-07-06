@@ -507,6 +507,7 @@ The load balancer detects the overload of each services, add or remove service t
 Altibase creates and manages service threads for query processing and pools them in the Service Thread Pool. The number of service threads that are created corresponds to the user config- uration at the time the server was started.
 
 **Service Thread**
+
 The service thread processes queries and returns the result to the client. When the Altibase server starts up, Altibase creates and stores as many service threads in the service thread pool as specified in the configuration (altibase.properties) information. 
 
 **Checkpoint Thread**
