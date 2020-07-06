@@ -1890,7 +1890,7 @@ SQLFreeHandle
 
 SQLColAttribute brings the attributes for the column of the result set, and judges the count of columns. 
 
-SQLColAttributeW() as a Unicode string supports same execution as SQLColAttribute()
+SQLColAttributeW() as a Unicode string supports same execution as SQLColAttribute().
 
 #### Syntax
 
