@@ -4584,7 +4584,7 @@ Information about the entire database and each tablespace, table and index, can 
 - SYS_TABLES_: Information on tables
 - _SYS_INDICES_: Information on indexes
 
-**Memory Usage **
+**Memory Usage**
 
 Information on the memory areas used by Altibase while it is running can also be checked using performance views. This includes information about the amount of memory used for memory tablespace data (including old versions of records) storage, index storage space, temporary areas for use in processing queries, session information storage space, the memory buffer pool, and the like
 
