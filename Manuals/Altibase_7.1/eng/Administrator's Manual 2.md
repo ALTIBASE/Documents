@@ -389,7 +389,7 @@ In the example above, the part_table table is created and range-partitioned into
 
 [Figure 7-11] shows the above example in graphical form:
 
-![](media/Admin/Admin_eng.1.44.1.jpg.png)
+![](media/Admin/7-11.png)
 
 [Figure 7-11] Partition Areas of a Range-Partitioned Table
 
