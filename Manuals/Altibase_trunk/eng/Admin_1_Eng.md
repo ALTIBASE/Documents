@@ -2914,7 +2914,7 @@ Alter success.
 
 #### Creating Jobs
 
-With the CREATE JOB statement, a JOB can be created and the stored procedure to be executed, the point in time of execution, the interval after which it is to be executed and etc. can also be set. If the user name of the procedure to be registered is omitted, the SYS user is assumed by Objects and Privileges 81 default.
+With the CREATE JOB statement, a JOB can be created and the stored procedure to be executed, the point in time of execution, the interval after which it is to be executed and the execution cycle. If the user name of the procedure to be registered is omitted, it is regarded as the SYS user.
 
 When a JOB is created, it is in the DISABLE state by default. In order to operate the JOB according to the execution cycle, it must be changed to the ENABLE state.
 
