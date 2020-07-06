@@ -1870,7 +1870,7 @@ SQL_ERROR
 
 This closes cursor and discars the suspended results. 
 
-This option has same functionality as using SQL_CLOSE option in SQLFreeStmt(). However, 240000 errors occur if cursor is not open in SQLCloseCorsor()
+This option has same functionality as using SQL_CLOSE option in SQLFreeStmt(). However, 240000 errors occur if cursor is not open in SQLCloseCorsor().
 
 #### Diagnosis
 
