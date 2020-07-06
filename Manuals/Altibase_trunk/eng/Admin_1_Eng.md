@@ -3543,7 +3543,7 @@ A memory tablespace is a tablespace in which all data are stored in memory. The 
 
 Memory tablespaces are closely related to checkpoint image files. [Figure 6-6] shows the relationship between a memory table space, tables, and checkpoint image files. 
 
-![](6-5_Eng.png)
+![](media/Admin/6-6_Eng.png)
 
 [Figure 6-6] The Relationship between a Memory Tablespace , Tables and Checkpoint Image Files
 
