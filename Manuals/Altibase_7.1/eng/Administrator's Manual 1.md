@@ -5395,11 +5395,13 @@ tablespace user_data02;
 
 -   Row Size and Total Data Size
 
-Row Size: 34[Header] + (1+8) + (1+130) + (1+4) + (1+8) = 188 bytes Total Size of Data: [ 188 ] * 1,000,000 data = 179.29 Megabytes
+Row Size: 34[Header] + (1+8) + (1+130) + (1+4) + (1+8) = 188 bytes 
+Total Size of Data: [ 188 ] * 1,000,000 data = 179.29 Megabytes
 
 -   Index Size
 
-Index Size for one Row: 10[Header] + (1+8)[C1] = 19 bytes Total Index Size: 19 * 1,000,000 data = 18.12 Megabytes
+Index Size for one Row: 10[Header] + (1+8)[C1] = 19 bytes 
+Total Index Size: 19 * 1,000,000 data = 18.12 Megabytes
 
 -   Total Amount of Disk Space Occupied by TEST001
 
