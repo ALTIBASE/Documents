@@ -2235,7 +2235,7 @@ Suppose that the database is operating in archivelog mode and that a user accide
 - The time when the table was dropped: September 18, 2007, 15:00 
 - The current time: September 18, 2007, 18:00
 
-In order to recover the summary table, it will be necessary to perform incomplete media recovery to restore the database to its state at 14:30 on September 18, which is 3.5 hours before the current time.
+In order to recover the summary table, it will be necessary to perform incomplete media recovery to restore the database to its state at 14:30 on September 18, 2007, which is 3.5 hours before the current time.
 
 ##### Backup Procedure
 
