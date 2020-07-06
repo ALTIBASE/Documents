@@ -1665,7 +1665,7 @@ When performing bulk updates with SQLBulkOperations and bookmarks, write the pro
    A. The data to be bound must be an array of the same size as the SQL_ATTR_ROW_ARRAY_SIZE value.
    
 
-B. The array which is to store the bookmark value of the row to be updated is bound to the 0th column (the bookmark column).
+   B. The array which is to store the bookmark value of the row to be updated is bound to the 0th column (the bookmark column).
 
 5. Set data.
 
