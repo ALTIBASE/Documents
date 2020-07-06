@@ -1809,7 +1809,7 @@ When recovery is performed, only the data files should be restored from backup c
 
 One such special case is the case where a user accidentally deletes a tablespace using the DROP TABLESPACE command. Because there are no data pertaining to the dropped tablespace in the current log anchor files at that time, it is acceptable to restore log anchor files from backup copies. 
 
-**When recovering a data file of a memory tablespace, the stable memory data file must be used to restore the other memory data file. **
+**When recovering a data file of a memory tablespace, the stable memory data file must be used to restore the other memory data file.**
 
 Because ping-pong checkpointing is used for memory tablespaces in Altibase, two data files pertaining to each memory tablespace are maintained on disk. A pair of data files, in which the same image is saved, is stored in a location set using the MEM_DB_DIR property. Both data files must exist in order for Altibase to operate normally. At any particular point in time, the memory tablespace is only using one of these data files.
 
@@ -1846,7 +1846,7 @@ Because log anchor files include information about the tablespaces in a database
 iSQL(sysdba)> ALTER DATABASE BACKUP LOGANCHOR TO 'anchor_path';
 ```
 
-**Altibase encounters the following problems when the database is backed up and restored with a replicated database. **
+**Altibase encounters the following problems when the database is backed up and restored with a replicated database.**
 
 If a database backed up on one server is restored on another server, there might be problems to use replication after Altibase recovery because the network addresses are different.
 
