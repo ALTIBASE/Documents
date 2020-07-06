@@ -1642,7 +1642,7 @@ To insert data with SQLBulkOperations, write the program in the following order:
    A. The data to be bound must be an array of the same size as the SQL_ATTR_ROW_ARRAY_SIZE value.
    
 
-B. The size of the array specified for the SQL_ATTR_ROW_STATUS_PTR statement attribute must be equal to, or larger than SQL_ATTR_ROW_ARRY_SIZE
+   B. The size of the array specified for the SQL_ATTR_ROW_STATUS_PTR statement attribute must be equal to, or larger than SQL_ATTR_ROW_ARRY_SIZE
 
 4. Call SQLBulkOperations(stmt, SQL_ADD).
 
