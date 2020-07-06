@@ -1297,7 +1297,7 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 $
 ```
 
-5. Objects and Privileges
+## 5. Objects and Privileges
 -------------------------
 
 This chapter describes how to manage objects and privileges in Altibase.
