@@ -5224,7 +5224,7 @@ In this schema, column C1 and column C2 are fixed-length columns, whereas column
 
 -   If the size of the data in the column C3 is 200 bytes
 
-[Total Length of One Record] = 34 + (1+32) + (3+1024) + (3+200) = 1297 Bytes
+[Total Length of One Record] = 34 + (1+32) + (3+1024) + (3+200) = 1295 Bytes
 
 -   If the size of the data in 
 
