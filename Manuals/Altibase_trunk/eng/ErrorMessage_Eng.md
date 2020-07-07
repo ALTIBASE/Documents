@@ -1911,7 +1911,7 @@ No=\<0%u\>, Offset=\<1%u\>)**
 **Cause:** LSN Offset is invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center(http://support.altibase.com).
+Support Center(http://support.altibase.com/en/).
 
 ### ABORT
 
