@@ -4490,6 +4490,8 @@ The following table is the list of valid type identifiers for C data type. Also,
 
 ○ : Supported conversion
 
+*SQL_NUMERIC - For SQL_C_BINARY, it is converted to SQL_NUMERIC_STRUCT.
+
 ## Appendix C. Error Codes
 
 SQLError returns SQLSTATE values as defined in the X/Open and SQL Access Group SQL CAE specification (1992), and ODBC specifications. SQLSTATE is a five-byte alphanumeric string. This Appendix describes SQLSTATE values for Altibase CLI and ODBC.
