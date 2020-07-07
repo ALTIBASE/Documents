@@ -3356,7 +3356,7 @@ Cursor scrollability, sensitivity and concurrency can be specified using the SQL
     Cursor concurrency is set using the SQL_ATTR_CONCURRENCY attribute of SQLSetStmtAttr. the Altibase CLI driver supports the following two types of cursor concurrency: 
     -   SQL_CONCUR_READONLY: Read-only
     
--   SQL_CONCUR_ROWVER: Concurrency control with row versions.
+    -   SQL_CONCUR_ROWVER: Concurrency control with row versions.
 
 ### Implicit Cursor Conversionse
 
