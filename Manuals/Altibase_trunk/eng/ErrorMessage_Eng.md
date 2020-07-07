@@ -1571,7 +1571,7 @@ Support Center (http://support.altibase.com/en/).
 **Cause:** The system failed to initialize a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1000E ( 65550) smERR_FATAL_ThrMutexDestroy Failed to invoke the
 mutex_destroy() system function**
