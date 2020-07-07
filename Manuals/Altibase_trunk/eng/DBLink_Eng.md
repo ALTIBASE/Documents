@@ -844,7 +844,7 @@ This section describes the JDBC settings necessary to use Altibase Database Link
 
 -   Installing JRE
 -   Installing the JDBC Driver
--   COnfiguring the AltiLinker Properties File
+-   Configuring the AltiLinker Properties File
 -   Configuring the Altibase property file
 
 #### Installing JRE
