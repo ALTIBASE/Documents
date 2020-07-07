@@ -5325,7 +5325,7 @@ When the above program is executed, the following output is displayed.
 
 #### SQL_NIBBLE
 
-SQL_C_NIBBLE supported in Altibase 4 is not available to Altibase 5. However, you can fetch data with SQL_C_BINARY.
+SQL_C_NIBBLE supported in Altibase 4 is not available to Altibase 5. However, the user can fetch data with SQL_C_BINARY.
 
 ##### NIBBLE to C type
 
