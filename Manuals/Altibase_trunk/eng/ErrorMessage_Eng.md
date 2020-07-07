@@ -1897,7 +1897,7 @@ or invalid logfiles at '\<0%s\>'.**
 **Cause:** The secondary flusher has stopped due to an unexpected problem.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10192 ( 65938) smERR_FATAL_PageReadStopped Failed to read a page.**
 
