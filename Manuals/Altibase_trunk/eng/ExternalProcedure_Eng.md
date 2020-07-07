@@ -178,7 +178,7 @@ This chapter introduces C/C++ external procedures and functions. In addition, th
 
 A C/C++ external procedure refers to a function written in C or C++, that is compiled and stored in the Dynamic Link Library(DLL). C/C++ external procedures can be used by calling them within SQL statements. An external procedure can be executed through Altibase external procedure object, and is executed in the same manner as calling a stored procedure within a SQL statement or an application program.
 
-#### Features
+#### Common
 
 External procedures provided by Altibase have the following features and advantages:
 
@@ -188,15 +188,35 @@ External procedures provided by Altibase have the following features and advanta
 -   Some computation-intensive tasks are executed most efficiently, when written in lower level programming languages, such as the C language. 
 -   By simply converting previously written C/C++ functions to external procedures, calls can be directly made from PSM. In other words, it is possible to reuse the C / C ++ functions written once, thus reducing development costs.
 
+##### External mode
+
+-   Because the execution of C/C++ external procedures and the Altibase server process are separated, there is no problem in the database even if there is a problem in the database or with the C/C++ external procedures written by the user.
+
+##### Internal mode
+
+-   Since the ALtibase server process directly calls external procedures, the server may crash if the user written C/C++ external procedure is defective.
+-   A memory leak may occur if memory allocated by a user-written C/C++ external procedure is not released
+-   Therefore, it is necessary to sufficiently test the C/C++ external procedure written by the user so that there isn't any problem.
+
 #### Flow of Calling External Procedures
 
 Like regular stored procedures(PSM), external procedures can also be called in the client session. The overall flow from the creation of an external procedure to its invocation is depicted below. 
 
+##### Common
+
 After building a dynamic library from a user-written function in C or C++(an external procedure) and storing it in a location identifiable by Altibase, you should create an external procedure object (a stored procedure that registers the external procedure) with a SQL statement.
+
+##### External mode
 
 Afterwards, the stored procedure that registered the external procedure is called in the client session, and the Altibase server starts the Agent Process.
 
 The Agent Process loads the dynamic library file related to the external procedure and executes the related C/C++ function within the library, and then sends the result to the Altibase server, which then returns the result to the client. 
+
+##### Internal mode
+
+When a stored procedure that registers an external procedure is called in a client session, the Altibase server calls the corresponding function. When creating a stored procedure that registers an external procedure or when compiling a dynamic library containing user-written C/C++ external procedrues. If multiple external procedures that use the same dynamic library are created, load the dynamic library only once and incremenet the reference count by 1.
+
+Removing or recreating an external procedure reduces the number of dynamic library references, and unloads the dynamic library if there is no external procedure referencing the dynamic library. The number of external procedures referencing the dynamic library can be checked with V\$LIBRARY.
 
 The following figure illustrates the flow of an external procedure called by the client and executed through the Agent Process.
 
