@@ -2666,7 +2666,7 @@ resetlog.**
 **Cause:** The system failed to open the log file.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x110C1 ( 69825) smERR_ABORT_NotFoundDataFile The data file containing page
 [\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
