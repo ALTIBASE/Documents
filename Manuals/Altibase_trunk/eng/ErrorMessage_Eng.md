@@ -1130,7 +1130,7 @@ errors.
 **Cause:** An unexpected internal server error has occurred.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x0109F ( 4255) idERR_ABORT_IDX_LIBRARY_NOT_FOUND Library file for external
 procedure/function not found : \<0%s\>\<1%s\>\<2%s\>**
