@@ -3381,15 +3381,15 @@ Cursor conversion rules are as follows:
 
 -   If the user-specified cursor attribute is not compatible with the cursor type, the driver converts the cursor type in the following order:
   
--   dynamic → keyset-driven → static → foward-only
+    -   dynamic → keyset-driven → static → foward-only
   
 -   If an application specifies the cursor type, the driver converts the remaining attributes in the following order, until they are compatible with the characteristics of the selected type:
   
--   sensitive → insensitive
+    -   sensitive → insensitive
   
--   scrollable → non-scrollable
+    -   scrollable → non-scrollable
   
--   updatable → read-only
+    -   updatable → read-only
 
 ### Scrolling and Fetching Rows
 
