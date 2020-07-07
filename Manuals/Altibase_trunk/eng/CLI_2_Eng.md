@@ -4456,6 +4456,8 @@ The following table is the list of valid type identifiers for C data type. Also,
 
 ○ : Supported conversion
 
+*SQL_NUMERIC - For SQL_C_BINARY, it is converted to SQL_NUMERIC_STRUCT.
+
 ### Converting C Data into SQL Data types
 
 ![](media/CLI/CLI.1.95.1.jpg)
