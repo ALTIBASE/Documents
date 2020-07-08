@@ -3915,6 +3915,28 @@ Read-Only, Single Value
 
 This property specifies the name of the message file to which debugging information for server errors is written
 
+#### DUMP_MSGLOG_RESERVE_SIZE (Unit : byte)
+
+##### Data type
+
+Unsigned Integer
+
+##### Default Value
+
+10 \* 1024 \* 1024
+
+##### Attributes
+
+Read-only, Single value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the amount of space to secure in advance on the disk to store the message file in which debugging information is recorded.
+
 #### ERROR_MSGLOG_COUNT
 
 ##### Data Type
