@@ -769,7 +769,7 @@ When the external procedure is being executed, the value is passed to the proced
 
 ##### call_spec
 
-This specifies the names of user-defined functions, library objects and parameters. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once.
+This specifies the names of user-defined functions, library objects and parameters. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once. If INTERNAL is specified, it operates in the internal mode in which the server directly loads and executes the dynamic library without connecting with the agent process. If EXTERNAL is specified or omitted, it operates in external mode to connect with the agent process.
 
 ##### fun_name
 
