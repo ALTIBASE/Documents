@@ -4547,6 +4547,28 @@ The following values are available for specification:
 
 6: Write both conflict messages and SQL statements that cause conflict
 
+#### RP_CONFLICT_MSGLOG_RESERVE_SIZE (Unit : byte)
+
+##### Data type
+
+Unsigned Integer
+
+##### Default Value
+
+10 \* 1024 \* 1024
+
+##### Attributes
+
+Read-Only, Single value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the amount of space to be reserved on disk for storing the trace log file for a replication collison.
+
 #### RP_CONFLICT_MSGLOG_SIZE (Unit: bytes)
 
 ##### Data Type
