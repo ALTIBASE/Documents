@@ -4835,7 +4835,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. You can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database
+This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. The user can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database.
 
 #### LOB_OBJECT_BUFFER_SIZE (Unit: byte)
 
