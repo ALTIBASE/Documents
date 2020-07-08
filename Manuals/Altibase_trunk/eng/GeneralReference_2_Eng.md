@@ -4165,6 +4165,28 @@ None
 
 This property specifies the file in which to write messages that arise during Main module processing. 
 
+#### MM_MSGLOG_RESERVE_SIZE (Unit : byte)
+
+##### Data type
+
+Unsigned Integer
+
+##### Default value
+
+10 \* 1024 \* 1024
+
+##### Attributes
+
+Read-Only, Single value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the amount of space to reserve on the disk in advance to store the message file for the main module.
+
 #### MM_MSGLOG_SIZE (Unit: byte)
 
 ##### Data Type
