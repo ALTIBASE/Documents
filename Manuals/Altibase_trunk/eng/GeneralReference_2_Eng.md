@@ -4003,6 +4003,27 @@ Read-Only, Single Value
 
 This property specifies the maximum size, in bytes, of the file to which server error messages are stored.
 
+#### ERROR_MSGLOG_RESERVE_SIZE (Unit : byte)
+
+##### Data type
+
+Unsigned Integer
+
+##### Default value
+
+10 \* 1024 \* 1024
+
+##### Attributes
+
+Read-Only, Single value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the amount of space to be reserved in advance for the file where the server error message is stored.
 
 #### LB_MSGLOG_COUNT 
 
