@@ -3234,7 +3234,8 @@ The values in the “Alter Level” column have the following meaning:
           <td>BOTH</td>
       </tr>
        <tr>
-      	<td>TOTAL_WA_SIZE</td>
+      	<td>
+         </td>
           <td>SYSTEM</td>
       </tr>
        <tr>
@@ -8863,6 +8864,32 @@ Read-Write, Single Value
 This property specifies the maximum size of memory available for allocation for sorting or hashing operations
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. The response to a request for alteration is immediately returned, however, the altered value is not actually applied to the server until the temporary table in use is nonexistent. For further information about temporary tables, please refer to the description of the TEMP_MAX_PAGE_COUNT property.
+
+#### INIT_TOTAL_WA_SIZE (Unit: bytes)
+
+##### Data Type
+
+Unsigned Long
+
+##### Default Value
+
+128MB
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[512K, 2<sup>64</sup>-1]
+
+##### Description
+
+Specifies the amount of memory to be allocated in advance for sorting or hashing.
+
+If it is larger than TOTAL_WA_SIZE, only TOTAL_WA_SIZE is created.
+
+The value of this property can be changed by using the ALTER SYSTEM statemen when Altibase is running
 
 #### TOUCH_TIME_INTERVAL (Unit: second)
 
