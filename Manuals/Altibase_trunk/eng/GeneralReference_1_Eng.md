@@ -823,7 +823,7 @@ NUMBER [(precision, scale)]
 
 ##### Description
 
-This is an alias of the NUMERIC data type. However, when precision and scale are not defined, they are the same as for the FLOAT data type.
+This is an alias of the NUMERIC data type. However, when precision and scale are not defined, they are the same as for the FLOAT data type. The FLOAT data type is rounded to the 39th digit.
 
 #### NUMERIC
 
