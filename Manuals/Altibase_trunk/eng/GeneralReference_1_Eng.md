@@ -2468,7 +2468,7 @@ The second method is dynamic, meaning that configuration changes can be made eve
 
 The third method of configuring the Altibase environment is through the use of operating system environment variables. Like the method involving the altibase.properties file, this configuration method is also static. Properties that are read-only or that can only have a single value can be set in this way. After specifying the environment variable as ALTIBASE_property_name, it will be necessary to reboot the database server in order to implement the changes.
 
-Here is an example
+Here is an example.
 
 ```
 $ export ALTIBASE_DEFAULT_DATE_FORMAT=YYYY/MM/DD
