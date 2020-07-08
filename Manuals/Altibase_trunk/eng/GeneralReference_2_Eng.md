@@ -1185,6 +1185,28 @@ The number of transactions which can be simultaneously created during the Altiba
 
 This property should increase or decrease the value by 2n and the database must be created again when decreasing the value.
 
+#### SHARED_TRANS_HASH_BUCKET_COUNT(단위 : 해시 저장소 개수)
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default value
+
+1024
+
+##### Attributes
+
+Read-Only, Single value
+
+##### Range
+
+[16,16384]
+
+##### Description
+
+Sets the hash storage size of the data structure for managing shared transactions created during the Altibase sharding.
+
 ### Backup and Recovery Properties
 
 These properties are related to the management of change logs, which are maintained in response to database changes.
