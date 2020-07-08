@@ -3314,7 +3314,7 @@ Read-Only, Single Value
 
 ##### Description
 
-Sets the number of times an error is allowed to continuously occur before a trap is sent. The default value is 3. If the value is 0, a trap is not sent. For more detailed information, please refer to altiPropertyAlarmSessionFailureCount in the SNMP Agent Guide
+Sets the number of times an error is allowed to continuously occur before a trap is sent. The default value is 3. If the value is 0, a trap is not sent. For more detailed information, please refer to altiPropertyAlarmSessionFailureCount in the SNMP Agent Guide.
 
 #### SNMP_ENABLE 
 
