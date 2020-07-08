@@ -967,7 +967,7 @@ This executes the external procedure or external function.
 
 The way to pass a value to a parameter is as follows:
 
--   Postional-based: This is a basic delivery method, based on the position of a defined parameter. The value is entered.
+-   Positional-based: This is a basic delivery method, based on the position of a defined parameter. The value is entered.
   
 -   Name-based: Enter the name of the defined parameter and the value after the arrow (=\>). Values can be passed in any order.
   
