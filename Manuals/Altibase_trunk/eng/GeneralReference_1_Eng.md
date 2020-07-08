@@ -1946,7 +1946,7 @@ TO_CHAR ( '28-DEC-1980', 'W' )
 
 ###### Description
 
-This displays which week of the year it is (1~52 or 1~53) depending on ISO 8601. The start of the week is Monday, and the first week includes the first Thursday (January, 4th) of the year.
+This displays which week of the year it is (1\~52 or 1\~53) depending on ISO 8601. The start of the week is Monday, and the first week includes the first Thursday (January, 4th) of the year.
 
 This element cannot be used with the TO_DATE function.
 
