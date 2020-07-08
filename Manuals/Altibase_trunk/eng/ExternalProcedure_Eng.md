@@ -572,14 +572,14 @@ void entryfunction(char* func_name, int arg_count, void ** args, void ** returnA
     }
     else if(strcmp(func_name, "str_uppercase_count") == 0)
     {
-        if( *returnArg != NULL ) // int 타입을 반환
+        if( *returnArg != NULL ) // return int type
         {
             **(int**)returnArg = str_uppercase_count ((char*)args[0], *((long long*)args[1]), (char*)args[2]);
         }
     }
     else if(strcmp(func_name, "str_uppercase_return") == 0)
     {
-        if( returnArg != NULL ) // char* 타입을 반환
+        if( returnArg != NULL ) // return char* type
         {
             *(char**)returnArg = str_uppercase_return ((char*)args[0], *((long long*)args[1]), (char*)args[2]);
         }
