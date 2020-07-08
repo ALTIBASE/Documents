@@ -6963,7 +6963,7 @@ Read-Write, Single Value
 
 This property limits the number of bytes of memory that can be used to execute a single query statement. 
 
-This property can be changed using the ALTER SYSTEM statement during system operation
+This property can be changed using the ALTER SYSTEM statement during system operation.
 
 #### EXECUTOR_FAST_SIMPLE_QUERY
 
