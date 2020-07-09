@@ -4404,6 +4404,143 @@ from
      where WAIT_CLASS != 'Idle')
 order by 5 desc;
 ```
+### V\$SYS_LICENSE_
+
+This is a meta table that records license-related information.
+
+| Column name               | Type         | Description                               |
+| :------------------------ | :----------- | :---------------------------------------- |
+| START_DATE                | VARCHAR(16 ) | The first inspection date using the license key  |
+| VALID_YN                  | VARCHAR(2 )  | The valid license                      |
+| LICENSE_KEY               | VARCHAR(128) | The corresponding license key                          |
+| ISSUED_DATE               | VARCHAR(16 ) | The date of license key issuance                       |
+| TYPE                      | VARCHAR(32 ) | Standard/Enterprise/Trial                 |
+| EXPIRE_DATE               | VARCHAR(16 ) | The expire date                                  |
+| LICENSED_PRODUCT_VERSION  | VARCHAR(8 )  | Major/Minor version                   |
+| LICENSED_MAC_ADDRESS      | VARCHAR(32 ) | Allowed MAC-address                             |
+| LICENSED_HOST_NAME        | VARCHAR(32 ) | Allowed hostname                       |
+| LICENSED_MEM_MAX_DB_SIZE  | VARCHAR(32 ) | The maximum memory DB size                         |
+| LICENSED_DISK_MAX_DB_SIZE | VARCHAR(32 ) | The maximum disk DB size                         |
+| LICENSED_CORE_MAX_COUNT   | VARCHAR(16 ) | The number of cores allowed                           |
+| CHECKED_MAC_ADDRESS       | VARCHAR(128) | MAC-address of the current system at startup           |
+| CHECKED_HOST_NAME         | VARCHAR(128) | The host name of the current system at startup          |
+| CHECKED_MEM_MAX_DB_SIZE   | VARCHAR(32 ) | The maximum memory DB size entered when installing altibase |
+| CHECKED_CORE_MAX_COUNT    | VARCHAR(16 ) | The number of (physical) cores in the current system             |
+
+
+
+#### Column Information
+
+##### START_DATE
+
+This stores the first inspection date using the license key.
+
+##### VALID_YN
+
+This indicates whether the license key is valid. If the license key is not valid, customer support may be available.
+
+  \* Y: Valid
+
+  \* N: Invalide
+
+##### LICENSE_KEY
+
+This saves the license key. If not, it is stored as -.
+
+##### ISSUED_DATE
+
+This indicates the date the license key was issued is stored.
+
+##### TYPE
+
+This stores the type of license. Standard, Enterprise, or Trial is stored. If not, it is stored as -.
+
+##### EXPIRE_DATE
+
+This stores the license expiration date. If not, it is stored as -.
+
+##### LICENSED_PRODUCT_VERSIO
+
+This stores the licensed product version in the form of MAJOR or MINOR. If not it is stored as -.
+
+##### LICENSED_MAC_ADDRES
+
+This stores the licensed hardware address. If not, it is stored as -.
+
+##### LICENSED_HOST_NAME
+
+This stores the licensed hostname. If not, it is stored as -.
+
+##### LICENSED_MEM_MAX_DB_SIZE
+
+This stores the maximum size of the licensed memory DB. The unit is bytes. If not, it is stored as -.
+
+##### LICENSED_DISK_MAX_DB_SIZE
+
+This stores the maximum size of the disk DB. The unit is bytes. If not, it is stored as -. (Not currently used)
+
+##### LICENSED_CORE_MAX_COUNT
+
+This stores the maximum number of available cores licensed. On a machine with more cores than this value, only the number of licensed cores among the total cores is used at startup.
+
+If not, it is stored as -.
+
+##### CHECKED_MAC_ADDRESS
+
+This stores the hardware addresses currently in the system. When the nubmer is large, it is stored within the limit of 128 bytes.
+
+##### CHECKED_HOST_NAME
+
+This stores the host name of the current system.
+
+##### CHECKED_MEM_MAX_DB_SIZE
+
+This is the value of the MEM_MAX_DB_SIZE property entered by the installer when installing. The unit is bytes.
+
+If the DB is started after changing the MEM_MAX_DB_SIZE property without starting immediately after the installation, it is saved as the changed property value.
+
+##### CHECKED_MAX_CORE_COUNT
+
+This stores the number of cores currently in the system.
+
+
+#### Example
+
+In order to prevent misuse, some information is processed with *.
+
+```
+
+iSQL> select * from system_.sys_license_;
+START_DATE VALID_YN
+\-------------------------------
+LICENSE_KEY
+\------------------------------------------------------------------------------------------------------------------------------------
+ISSUED_DATE TYPE EXPIRE_DATE
+\--------------------------------------------------------------------------
+LICENSED_PRODUCT_VERSION LICENSED_MAC_ADDRESS
+\---------------------------------------------------------------
+LICENSED_HOST_NAME LICENSED_MEM_MAX_DB_SIZE
+\-----------------------------------------------------------------------
+LICENSED_DISK_MAX_DB_SIZE LICENSED_CORE_MAX_COUNT
+\--------------------------------------------------------------
+CHECKED_MAC_ADDRESS
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_HOST_NAME
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_MEM_MAX_DB_SIZE CHECKED_MAX_CORE_COUNT
+\-------------------------------------------------------------
+2020-5-18 Y
+74BCF6CD6DE71B2341B79E4A05E327765E59C2529673CBD52CFAE779753E33A9E4FB7A746291420F3D775D0F0664B1EA6243CC*
+2020-5-18 STANDARDEDITION 2020-10-10
+7.1 -
+bdw-ex-altibase 107374182400
+107374182400 192
+[A0:36:9F:18:DA:*][02:42:FE:4F:1A:*][52:54:00:64:F0:*][A0:36:9F:18:DA:*]
+bdw-ex-altibase
+10737418240 96
+1 row selected.
+```
+
 
 ### V\$TABLE
 
