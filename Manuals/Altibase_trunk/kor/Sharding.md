@@ -1238,7 +1238,7 @@ Altibase Sharding
 | 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
 | 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
-| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
+| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 
 #### SHARD_ENABLE
@@ -1427,6 +1427,64 @@ SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
 > 주의 사항
 >
 > - AVG의 경우 SUM(SUM()) / SUM(COUNT()) 로 변환되어서 부동소숫점 타입의 결과가 상이할 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### SHARD_TRANSFORM_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+7
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 7]
+
+##### 설명
+
+Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 변환 기능을 제어한다.
+
+해당 프로퍼티 값은 BITMAP 형태이며,
+
+- LIMIT 최적화 변환 기능 켜짐은 1 ( 001 )
+- SELECTION 최적화 변환 기능 켜짐은 2 ( 010 )
+- PROJECTION 최적화 변환 기능 켜짐은 4 ( 100 )
+
+위 값에 조합으로 제어된다.
+
+예를 들어 다음 구문은 SHARD_TRANSFORM_MODE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT * FROM T1 A LIMIT 1;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A ) A LIMIT 1;
+SHARD_TRANSFORM_MODE = 1;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) + 1 ) A LIMIT 1;
+```
+
+SELECT A.I1 FROM T1 A, T1 B WHERE A.I1 > 0;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 2;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A WHERE ( ( A.I1 > 0 ) ) ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 4;
+-> SELECT A.I1 FROM SHARD( SELECT SYS.A.I1 AS I1 FROM T1 as A ) A, SHARD( SELECT NULL FROM T1 as B ) B WHERE A.I1 > 0;
+```
+
+> 주의 사항
+>
+> - LIMIT 의 경우, Shard Split Method 에 따라 분산된 데이터 형태 차이로 Standalone 과 결과 값이 다를 수 있다.
 
 Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
