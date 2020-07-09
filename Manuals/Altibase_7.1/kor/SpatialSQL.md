@@ -3934,6 +3934,8 @@ GEOMETRY
 
 ##### 제약 조건
 
+이 함수는 Intel 환경의 Linux 운영체제에서만 사용할 수 있다.
+
 입력된 인자가 하나라도 NULL인 경우, NULL을 반환한다.
 
 입력된 GEOMETRY 객체가 EMPTY인 경우, EMPTY GEOMETRY 객체를 반환한다.
