@@ -1159,6 +1159,46 @@ This view displays information about stored procedures being used by the system.
 
 ##### PROC_OID
 
+The identifier of a stored procedure or stored function, which is the same as a PROC_OID value in the SYS_PROCEDURES_ meta table.
+
+##### MODIFY_COUNT
+
+Incremented by 1 each time a stored procedure or function is recreated or recompiled. The initial value is 0.
+
+##### STATUS
+
+The value indicating whether a stored procedure or function can be executed. VALID indicates that it is executable. Refer to the description of the STATUS column in the SYS_PROCEDURES_ meta table.
+
+##### SESSION_ID
+
+The ID of the session that changed the status of the stored procedure or funciton to INVALID. If the status has never changed, this value is 0 or -1.
+
+##### PROC_TYPE
+
+The type of stored procedure. The possible values are:
+
+- NORMAL : Normal procedure
+
+- EXTERNAL C : C/C++ External Procedure
+
+- INTERNAL C : C/C++ Internal Procedure
+
+- UNKNOWN : If the compilation of the stored procedure fails when starting the server, the internal procedure type is not known, so it is marked UNKNOWN. Subsequently, when compiled and in VALID status, the correct type is set.
+
+### V\$PROCINFO
+
+| Column name  | Type        | Description                      |
+|--------------|-------------|----------------------------------|
+| PROC_OID     | BIGINT      | The object identifier of the stored procedure        |
+| MODIFY_COUNT | INTEGER     | The number of times a stored procedure was recreated or recompiled |
+| STATUS       | VARCHAR(7)  | The status of the object. If INVALID, it is not executable |
+| SESSION_ID   | INTEGER     | The ID of the session that changed the STATUS of the stored procedure |
+| PROC_TYPE    | VARCHAR(10) | The type of stored procedure |
+
+#### Column Information
+
+##### PROC_OID
+
 This is an OID, which is a unique object identifier for a stored procedure. 
 
 ##### PIECE
