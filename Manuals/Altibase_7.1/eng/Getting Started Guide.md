@@ -201,7 +201,7 @@ Please refer to the following documents for more detailed information:
 
 -   JDBC User's Manual
 
--   SQL User's Manual
+-   iSQL User's Manual
 
 #### Altibase Welcomes Your Comments and Feedback
 
