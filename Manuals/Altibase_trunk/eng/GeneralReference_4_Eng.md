@@ -502,7 +502,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Replication_Control                    | The memory that is used by the Replication Manager           |
 | Replication_Data                       | The memory that is used for processing XLOGs                 |
 | Replication_Executor                   | Not currently used                                           |
-| Replication_Met                        | 메타 캐시에 의해 사용되는 메모리                             |
+| Replication_Met                        | The memory used by meta cache                             |
 | Replication_Module_Property            | Not currently used                                           |
 | Replication_Network                    | The memory that is used for communication for replication    |
 | Replication_Receiver                   | The memory that is used by the replication Receiver          |
