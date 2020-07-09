@@ -5752,7 +5752,7 @@ This specifies a user-defined CALLBACK function for verifying passwords.
 
 ### Altibase Sharding Properties
 
-#### SHARD_ENABLE 
+#### SHARD_META_ENABLE 
 
 ##### Data Type
 
