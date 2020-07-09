@@ -135,6 +135,37 @@ This view displays statistical information about the BCB latch of the buffer poo
 | WRITE_MISS         | BIGINT  | The number of failures to obtain write latches            |
 | SLEEPS_CNT         | BIGINT  | The number of sleeps related to latch attempts            |
 
+### V\LIBRARY
+
+This view provides informaiton of dynamically loaded library in C/C++ internal procedure. The user can check whether the desired library is properly loaded with the library information.
+
+| Column name        | Type        | Description                                        |
+|--------------------|-------------|----------------------------------------------------|
+| FILE_SPEC          | CHAR(4000)  | The path to dynamic library files                         |
+| REFERENCE_COUNT    | INTEGER     | The number of internal procedures referencing dynba |
+| FILE_SIZE          | INTEGER     | The file size of dynamic library (bytes)                  |
+| CREATE_TIME        | VARCHAR(48) | The time the dynamic library was created                        |
+| OPEN_TIME          | VARCHAR(48) | The time the dynamic library was loaded                        |
+
+#### Column Information
+
+##### FILE_SPEC
+
+This indicates the path of the dynamic library file pointed to by the library object. It is displayed as a relative path to the default path ($ALTIBASE_HOME/lib) where the library files are located.
+
+##### REFERENCE_COUNT
+
+This indicates the number of internal stored procedures or stored functions referencing a dynamic library.
+
+##### FILE_SIZE
+This indicates the size of a dynamic library file. (Unit: bytes)
+
+##### CREATE_TIME
+This indicates the date and time when the dynamic library was created. Receive and save from file information.
+
+##### OPEN_TIME
+This indicates the date and time when dynamic library was loaded.
+
 ### V\$LFG
 
 This view provides statistical information to help database administrators monitor group commit activity. For more detailed information about each column, please refer to the commit section in this manual. 
