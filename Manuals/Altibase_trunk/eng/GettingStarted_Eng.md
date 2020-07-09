@@ -740,9 +740,9 @@ Multilingual support means that the DBMS is capable of storing and processing ch
   A character set is a particular group of characters that are associated with respective numeric values. The following table shows how an individual character is associated with a different numeric value depending on whether it is encoded using the UTF-8, UTF-16 BE or UTF-16 LE character set.
   
   | Character | UTF-8 | UTF-16 BE | UTF-16 LE |
-  | --------- | ----- | --------- | --------- |
-| A         | 41    | 00 41     | 41 00     |
-  | Ő         | C3 B6 | 00 F6     | F6 00     |
+  | ---- | ----- | --------- | --------- |
+  | A    | 41    | 00 41     | 41 00     |
+  | Ő    | C3 B6 | 00 F6     | F6 00     |
   
 -   NLS(National Language Support)  
     This allows the database to be used in a particular language environment. If NLS is appropriately set, the user can read and write data to and from the database using the character set specified by the user's application.
