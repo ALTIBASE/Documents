@@ -135,7 +135,7 @@ This view displays statistical information about the BCB latch of the buffer poo
 | WRITE_MISS         | BIGINT  | The number of failures to obtain write latches            |
 | SLEEPS_CNT         | BIGINT  | The number of sleeps related to latch attempts            |
 
-### V\LIBRARY
+### V\$LIBRARY
 
 This view provides informaiton of dynamically loaded library in C/C++ internal procedure. The user can check whether the desired library is properly loaded with the library information.
 
