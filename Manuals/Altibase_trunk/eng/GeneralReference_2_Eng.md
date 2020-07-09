@@ -6173,7 +6173,7 @@ Unsigned Integer
 
 ##### Default Value
 
-32767
+32000
 
 ##### Attributes
 
@@ -6223,7 +6223,7 @@ Unsigned Integer
 
 ##### Default Value
 
-16383
+16000
 
 ##### Attributes
 
@@ -6245,7 +6245,7 @@ Unsigned Integer
 
 ##### Default Value
 
-10921
+10666
 
 ##### Attributes
 
@@ -6267,7 +6267,7 @@ Unsigned Integer
 
 ##### Default
 
-16383
+16000
 
 ##### Attributes
 
@@ -6289,7 +6289,7 @@ Unsigned Integer
 
 ##### Default Value
 
-10921
+10666
 
 ##### Attributes
 
@@ -6343,7 +6343,7 @@ Unsigned Integer
 
 ##### Default Value
 
-32767
+32000
 
 ##### Attributes
 
