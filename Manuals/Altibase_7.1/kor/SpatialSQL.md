@@ -3307,12 +3307,11 @@ iSQL> INSERT INTO TB3 VALUES (104, LINEFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20
 
 ```
 POLYFROMTEXT( WKT[, srid] )
-ST_POLYFROMTEXT( WKT[, srid] )
 ```
 
 ##### 설명
 
-WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 폴리곤 객체를 생성한다.
+WKT(Well-Known Text) 형태로 공간 객체와 SRID를 입력 받아 폴리곤 객체를 생성한다.
 
 폴리곤이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
