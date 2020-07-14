@@ -3952,7 +3952,7 @@ GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, INTEGER to_srid );
 
 ##### 설명
 
-입력 GEOMETRY 객체의 좌표계가 변환된 GEOMETRY 객체를 생성한다.
+GEOMETRY 객체가 입력된 좌표계로 변환되어 새롭게 생성된다.
 입출력 좌표계는 SRID 또는 PROJ4TEXT 문자열로 입력될 수 있다.
 
 ##### 반환 타입
