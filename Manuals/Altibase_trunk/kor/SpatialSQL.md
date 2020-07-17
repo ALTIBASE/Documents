@@ -3324,18 +3324,18 @@ iSQL> INSERT INTO TB3 VALUES (104, LINEFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20
 ##### 구문
 
 ```
-POLYFROMTEXT( WKT )
+POLYFROMTEXT( WKT[, srid] )
 ```
 
 ##### 설명
 
-WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 폴리곤 객체를 생성한다.
+WKT(Well-Known Text) 형태로 공간 객체와 SRID를 입력 받아 폴리곤 객체를 생성한다.
 
 폴리곤이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
-WKT의 값이 NULL인 경우에는 NULL을 반환한다.
+WKT의 값이 NULL이거나 SRID의 값이 NULL인 경우에는 NULL을 반환한다.
 
-생성된 객체의 SRID는 0이다.
+SRID를 입력하지 않으면 생성된 객체의 SRID는 0이다.
 
 ##### 반환 타입
 
@@ -3359,6 +3359,64 @@ POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
 
 iSQL> INSERT INTO TB3 VALUES (105, POLYFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> INSERT INTO TB3 VALUES (120, POLYFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          ASEWKT(OBJ)
+---------------------------------------------------------------------------------------------------------------------
+104         SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+120         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+2 rows selected.
+```
+
+#### ST_POLYGONFROMTEXT
+
+##### 구문
+
+```
+ST_POLYGONFROMTEXT( TEXT[, srid] )
+```
+
+##### 설명
+
+WKT(Well-Known Text) 형태 또는 EWKT(Extended Well-Known Text) 형태의 공간 객체와 SRID를 입력 받아 폴리곤 객체를 생성한다.
+
+WKT의 값이 NULL이거나 SRID의 값이 NULL인 경우에는 NULL을 반환한다.
+
+POLYFROMTEXT와 달리 폴리곤이 아닌 공간 객체를 표현한 WKT또는 EWKT인 경우에는 NULL을 반환한다.
+
+WKT 형태 또는 EWKT 형태가 문법이 잘못된 경우 에러를 출력한다.
+
+SRID를 입력하지 않으면 생성된 객체의 SRID는 0이다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> INSERT INTO TB3 VALUES (121, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (122, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (123, ST_POLYGONFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (124, ST_POLYGONFROMTEXT('SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          ASEWKT(OBJ)
+---------------------------------------------------------------------------------------------------------------------
+121         SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+122         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+123
+124         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+4 rows selected.
 ```
 
 #### MPOINTFROMTEXT
