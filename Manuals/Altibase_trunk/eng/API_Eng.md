@@ -227,7 +227,7 @@ A. Set the value of the ODBCSYSINI environment variable to the home directory pa
 export ODBCSYSINI=~
 ```
 
-B. Add an environment variable indicating the path where the unixODBC Driver Manager is installed, as shown below. Depending on the platform and whether the OS is a 32-bit or 64-bit OS, the library path will be one of LD_LIBRARY_PATH, LD_LIBRARY_PATH_64 or SHLIB_PATH.  
+4. Add an environment variable indicating the path where the unixODBC Driver Manager is installed, as shown below. Depending on the platform and whether the OS is a 32-bit or 64-bit OS, the library path will be one of LD_LIBRARY_PATH, LD_LIBRARY_PATH_64 or SHLIB_PATH.  
 
 In the following example, unixODBC is installed at /usr/local/odbcDriverManager32 or /usr/local/odbcDriverManager64.
 
@@ -236,7 +236,7 @@ export LD_LIBRARY_PATH= /usr/local/odbcDriverManager32/lib:\$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH_64= /usr/local/odbcDriverManager64/lib:\$LD_LIBRARY_PATH_64
 ```
 
-4. Create the following two files in the $ODBCSYSINI path: 
+5. Create the following two files in the $ODBCSYSINI path: 
 
 ```
 odbc.ini  
@@ -246,7 +246,7 @@ odbcinst.ini
 
 6. odbcinst.ini must be an empty file having a size of 0 bytes. 
 
-2. In odbc.ini, specify the DSN name, the path and directory where the ODBC driver of Altibase is installed, and the server address and port number.
+7. In odbc.ini, specify the DSN name, the path and directory where the ODBC driver of Altibase is installed, and the server address and port number.
 
 ```
    [Altibase]
@@ -616,7 +616,7 @@ As shown in the following diagram, the entities involved in a distributed transa
 
 If an AP announces the start of a distributed transaction to the TM using TX interface, the TM determines which RMs (databases) are involved in the distributed transaction. The TM internally generates XIDs to identify the transaction branches that are to be executed in respective RMs, and then calls XA interface with the XIDs to the RMs. 
 
-The RMs (i.e. database nodes) then start to process the transaction branches corresponding to the respective XIDs. 
+Each RM (DB node) starts processing the transaction branch corresponding to the transmitted XID. In addition, until the request for termination of the transaction is received from the TM, the operation requested from the AP is recognized as the operation in the global transaction corresponding to the XID, and the operation transaction corresponding to the XID, and the operation is performed in the transaction branch.
 
 To terminate the transaction, the AP calls the TM via the TX interface. The TM then uses the XA interface to instruct the RMs on which the branches of the distributed transaction are running to either commit or roll back their respective transaction branches.
 

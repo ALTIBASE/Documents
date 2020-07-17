@@ -823,7 +823,7 @@ NUMBER [(precision, scale)]
 
 ##### Description
 
-This is an alias of the NUMERIC data type. However, when precision and scale are not defined, they are the same as for the FLOAT data type.
+This is an alias of the NUMERIC data type. However, when precision and scale are not defined, they are the same as for the FLOAT data type. The FLOAT data type is rounded to the 39th digit.
 
 #### NUMERIC
 
@@ -1946,7 +1946,7 @@ TO_CHAR ( '28-DEC-1980', 'W' )
 
 ###### Description
 
-This displays which week of the year it is (1~52 or 1~53) depending on ISO 8601. The start of the week is Monday, and the first week includes the first Thursday (January, 4th) of the year.
+This displays which week of the year it is (1\~52 or 1\~53) depending on ISO 8601. The start of the week is Monday, and the first week includes the first Thursday (January, 4th) of the year.
 
 This element cannot be used with the TO_DATE function.
 
@@ -2468,7 +2468,7 @@ The second method is dynamic, meaning that configuration changes can be made eve
 
 The third method of configuring the Altibase environment is through the use of operating system environment variables. Like the method involving the altibase.properties file, this configuration method is also static. Properties that are read-only or that can only have a single value can be set in this way. After specifying the environment variable as ALTIBASE_property_name, it will be necessary to reboot the database server in order to implement the changes.
 
-Here is an example
+Here is an example.
 
 ```
 $ export ALTIBASE_DEFAULT_DATE_FORMAT=YYYY/MM/DD
@@ -3234,7 +3234,8 @@ The values in the “Alter Level” column have the following meaning:
           <td>BOTH</td>
       </tr>
        <tr>
-      	<td>TOTAL_WA_SIZE</td>
+      	<td>
+         </td>
           <td>SYSTEM</td>
       </tr>
        <tr>
@@ -4833,7 +4834,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. You can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database
+This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. The user can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database.
 
 #### LOB_OBJECT_BUFFER_SIZE (Unit: byte)
 
@@ -6963,7 +6964,7 @@ Read-Write, Single Value
 
 This property limits the number of bytes of memory that can be used to execute a single query statement. 
 
-This property can be changed using the ALTER SYSTEM statement during system operation
+This property can be changed using the ALTER SYSTEM statement during system operation.
 
 #### EXECUTOR_FAST_SIMPLE_QUERY
 
@@ -8863,6 +8864,32 @@ Read-Write, Single Value
 This property specifies the maximum size of memory available for allocation for sorting or hashing operations
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. The response to a request for alteration is immediately returned, however, the altered value is not actually applied to the server until the temporary table in use is nonexistent. For further information about temporary tables, please refer to the description of the TEMP_MAX_PAGE_COUNT property.
+
+#### INIT_TOTAL_WA_SIZE (Unit: bytes)
+
+##### Data Type
+
+Unsigned Long
+
+##### Default Value
+
+128MB
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[512K, 2<sup>64</sup>-1]
+
+##### Description
+
+Specifies the amount of memory to be allocated in advance for sorting or hashing.
+
+If it is larger than TOTAL_WA_SIZE, only TOTAL_WA_SIZE is created.
+
+The value of this property can be changed by using the ALTER SYSTEM statemen when Altibase is running
 
 #### TOUCH_TIME_INTERVAL (Unit: second)
 

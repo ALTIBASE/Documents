@@ -1642,7 +1642,7 @@ To insert data with SQLBulkOperations, write the program in the following order:
    A. The data to be bound must be an array of the same size as the SQL_ATTR_ROW_ARRAY_SIZE value.
    
 
-B. The size of the array specified for the SQL_ATTR_ROW_STATUS_PTR statement attribute must be equal to, or larger than SQL_ATTR_ROW_ARRY_SIZE
+   B. The size of the array specified for the SQL_ATTR_ROW_STATUS_PTR statement attribute must be equal to, or larger than SQL_ATTR_ROW_ARRY_SIZE
 
 4. Call SQLBulkOperations(stmt, SQL_ADD).
 
@@ -1665,7 +1665,7 @@ When performing bulk updates with SQLBulkOperations and bookmarks, write the pro
    A. The data to be bound must be an array of the same size as the SQL_ATTR_ROW_ARRAY_SIZE value.
    
 
-B. The array which is to store the bookmark value of the row to be updated is bound to the 0th column (the bookmark column).
+   B. The array which is to store the bookmark value of the row to be updated is bound to the 0th column (the bookmark column).
 
 5. Set data.
 
@@ -1696,7 +1696,7 @@ When performing bulk fetches with SQLBulkOperations and bookmarks, write the pro
    A. The data to be bound must be an array of the same size as the SQL_ATTR_ROW_ARRAY_SIZE value.
    
 
-B. The array which is to store the bookmark value of the row to be fetched is bound to the 0th column (the bookmark column).
+   B. The array which is to store the bookmark value of the row to be fetched is bound to the 0th column (the bookmark column).
 
 5. Copy the bookmark of the row to be fetched into the array buffer bound to the 0th column.
 
@@ -1870,7 +1870,7 @@ SQL_ERROR
 
 This closes cursor and discars the suspended results. 
 
-This option has same functionality as using SQL_CLOSE option in SQLFreeStmt(). However, 240000 errors occur if cursor is not open in SQLCloseCorsor()
+This option has same functionality as using SQL_CLOSE option in SQLFreeStmt(). However, 240000 errors occur if cursor is not open in SQLCloseCorsor().
 
 #### Diagnosis
 
@@ -1890,7 +1890,7 @@ SQLFreeHandle
 
 SQLColAttribute brings the attributes for the column of the result set, and judges the count of columns. 
 
-SQLColAttributeW() as a Unicode string supports same execution as SQLColAttribute()
+SQLColAttributeW() as a Unicode string supports same execution as SQLColAttribute().
 
 #### Syntax
 

@@ -4835,7 +4835,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. You can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database
+This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. The user can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database.
 
 #### LOB_OBJECT_BUFFER_SIZE (Unit: byte)
 
@@ -4908,6 +4908,7 @@ Read-Write, Single Value
 ##### Description
 
 This property specifies intervals (Unit: second) for detecting a deadlock in the spin mode.
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_MAX_SLEEP (Unit: microsecond)
 
@@ -4930,6 +4931,7 @@ Read-Write, Single Value
 ##### Description
 
 This property specifies the maximum sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode. 
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_MIN_SLEEP (Unit: microsecond)
 
@@ -4951,7 +4953,8 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode.
+This property specifies the sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode. 
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_SPIN_COUNT (Unit: frequency)
 
@@ -4974,6 +4977,7 @@ Read-Write, Single Value
 ##### Description
 
 This property specifies the reattempt counts for a case which fails to obtain a lock in a spin mode.
+(The spin mode is deprecated and the value is ignored starting from Altibase 7.1.0.3.2)
 
 #### LOCK_MGR_TYPE 
 
@@ -4999,7 +5003,9 @@ This property is used to select a table lock manager type and it cannot be modif
 
 0: Mutex mode
 
-1: Spin lock mode
+1: Spin lock mode (deprecated, 7.1.0.3.2)
+
+2: light Mutex (added, 7.1.0.3.2)
 
 #### LOCK_NODE_CACHE_COUNT (Unit: count)
 
@@ -5547,6 +5553,8 @@ Read-Write, Single Value
 ##### Description
 
 When a table is dropped with the DROP statement, RECYCLEBIN_ENABLE specifies whether a table is to be moved to a recycle bin or dropped directly from the database system.
+
+Tables dropped into the trash are renamed with special names. In addition, the table type has been changed to the 'R' type, any other DDL and INSERT/UPDATE/DELETE cannot be executed. However, SELECT is possible.
 
 If the recycle bin contains a table, the table can be queried or recovered/dropped with the FLASHBACK or PURGE statement, even if the value of this property is altered to 0. 
 
@@ -6965,7 +6973,7 @@ Read-Write, Single Value
 
 This property limits the number of bytes of memory that can be used to execute a single query statement. 
 
-This property can be changed using the ALTER SYSTEM statement during system operation
+This property can be changed using the ALTER SYSTEM statement during system operation.
 
 #### EXECUTOR_FAST_SIMPLE_QUERY
 

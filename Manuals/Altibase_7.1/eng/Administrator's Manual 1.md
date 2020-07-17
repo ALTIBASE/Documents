@@ -1295,7 +1295,7 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 $
 ```
 
-5. Objects and Privileges
+## 5. Objects and Privileges
 -------------------------
 
 This chapter describes how to manage objects and privileges in Altibase.
@@ -1320,7 +1320,7 @@ This is described in detail in the "Tables" section below.
 
 When a table data are divided into pieces(each pice is called a partition) and stored them in different table spaces, this table is called a partitioned table. For large tables, partitioned tables can make data management much easier.
 
-More detailed information about partitioned tables, please refer to "Chapter 7: Partitioned Objects",
+More detailed information about partitioned tables, please refer to "Chapter 7: Partitioned Objects".
 
 ##### Partitioned Indexes
 
@@ -2415,7 +2415,7 @@ DROP MATERIALIZED VIEW avg_sal;
 
 Data of the materialized view can be deleted by using the TRUNCATE TABLE statement.
 
-#### Data Manipul
+#### Data Manipulation
 
 Altibase only supports SELECT for materialized views.
 
@@ -4446,7 +4446,7 @@ The term "tablespace online backup" refers to backup that is conducted while the
 
 [Figure 6-14] The Concepts of Media Recovery
 
-![](media/Admin/6-14_Eng.jpg)
+![](media/Admin/6-14_Eng.png)
 
 -   If data file xyz, which exists in a disk tablespace, is damaged, it can be restored using a data file that was previously created during a hot backup. A memory tablespace can be recovered using a checkpoint image file that was previously created during a hot backup. 
 -   On the basis of the final checkpoint SCN (140) and recovery LSN (32:010), which are written in the header of the data file that was created during the backup, the file can be restored to the current final checkpoint SCN (200). 
@@ -4972,7 +4972,7 @@ The required undo table size can generally be approximated by the following form
 
 -   Size of Undo Tablespace = 
   
-    Long-Term Transaction Time (sec) x (the number of undo pages allocated per second + the number of TSS pages allocated per second) x page size (8kB)
+    Long-Term Transaction Time (sec) x (the number of undo pages allocated per second + the number of TSS pages allocated per second) x page size (8KB)
 
 In this example, if the executing time of a long-term transaction is 600 seconds (10 minutes) and 1000 undo pages and 24 TSS pages are allocated per second, then 10 x 60 x (1000 + 24) x 8K = 4800 MB, which requires about 4.7G of the undo tablespace.
 
@@ -5223,7 +5223,7 @@ In this schema, column C1 and column C2 are fixed-length columns, whereas column
 
 -   If the size of the data in the column C3 is 200 bytes
 
-[Total Length of One Record] = 34 + (1+32) + (3+1024) + (3+200) = 1297 Bytes
+[Total Length of One Record] = 34 + (1+32) + (3+1024) + (3+200) = 1295 Bytes
 
 -   If the size of the data in 
 
@@ -5395,11 +5395,13 @@ tablespace user_data02;
 
 -   Row Size and Total Data Size
 
-Row Size: 34[Header] + (1+8) + (1+130) + (1+4) + (1+8) = 188 bytes Total Size of Data: [ 188 ] * 1,000,000 data = 179.29 Megabytes
+Row Size: 34[Header] + (1+8) + (1+130) + (1+4) + (1+8) = 188 bytes 
+Total Size of Data: [ 188 ] * 1,000,000 data = 179.29 Megabytes
 
 -   Index Size
 
-Index Size for one Row: 10[Header] + (1+8)[C1] = 19 bytes Total Index Size: 19 * 1,000,000 data = 18.12 Megabytes
+Index Size for one Row: 10[Header] + (1+8)[C1] = 19 bytes 
+Total Index Size: 19 * 1,000,000 data = 18.12 Megabytes
 
 -   Total Amount of Disk Space Occupied by TEST001
 

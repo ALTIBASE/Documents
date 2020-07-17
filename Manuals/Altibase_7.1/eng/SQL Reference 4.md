@@ -3929,10 +3929,10 @@ KILDONG DHONG
 \<Query\> Use the STUFF function to change the contents of the input string when KO16KSC5601 is set as the database character set.
 
 ```
-iSQL> SELECT STUFF ('알티베이스0', 5, 1, '데이터베이스') FROM dual;
-STUFF ('알티베이스0', 5, 1, '데이터베이스’)
+iSQL> SELECT STUFF ('Altibase0', 5, 1, 'Database') FROM dual;
+STUFF ('Altibase0', 5, 1, 'Database’)
 ------------------------------------------------
-알티베이데이터베이스0
+AltibaseDatabase0
 1 row selected.
 ```
 

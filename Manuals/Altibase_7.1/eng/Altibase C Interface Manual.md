@@ -555,7 +555,7 @@ The elements of this enum type are:
 
 ##### enum ALTIBASE_FAILOVER_EVENT
 
-This is an enumeration that represents a Failover event. Ifthe failover callback functionis registered, the failover callback function is notified of values returned by the failover events. They are used when the failover callback function determines its advance to the next step. For more details, refer tp Chapter6: Using Failover.
+This is an enumeration that represents a Failover event. Ifthe failover callback functionis registered, the failover callback function is notified of values returned by the failover events. They are used when the failover callback function determines its advance to the next step. For more details, refer to Chapter6: Using Failover.
 
 | Enum Value        | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
@@ -841,7 +841,7 @@ int  altibase_connect (
 
 #### Return Values
 
-The function returns ALTIBASE_SUCCESS if successful or ALTIBASE_ERROR if an error occurred.
+The function returns ALTIBASE_SUCCESS if successful, or ALTIBASE_ERROR if an error occurred.
 
 #### Description
 
@@ -885,7 +885,7 @@ int  altibase_data_seek (
 
 | Data Type     | Argument | In/Output | Descriptions                                                 |
 | ------------- | -------- | --------- | ------------------------------------------------------------ |
-| ALTIBASE_RES  | *result* | Input     | Result handl                                                 |
+| ALTIBASE_RES  | *result* | Input     | Result handle                                                 |
 | ALTIBASE_LONG | *offset* | Input     | The offset value is a row number and should be in the range from 0. |
 
 #### Return Values
@@ -2714,7 +2714,7 @@ This function frees resources allocated for the result set produced by the execu
 
 #### Example
 
-Refer to the examples in altibase_stmt_bind_result() altibase_stmt_data_seek()
+Refer to the examples in altibase_stmt_bind_result() and altibase_stmt_data_seek().
 
 ### altibase_stmt_get_attr()
 

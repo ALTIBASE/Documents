@@ -816,11 +816,13 @@ In Altibase, the GEOMETRY data type can be represented using any of the three wa
 
 -   WKT (Well-Known Text): A text format in which a spatial object is represented using letters and numbers. This allows it to be processed directly within SQL applications or other similar applications. The WKT format was designed using simple gramar for easy readability. 
 -   WKB (Well-Known Binary): A format in which a spatial object is represented in binary form. It was designed for the purpose of efficiently transferring and performing operations on GEOMETRY type data.
+-   EWKT (Extended Well-known Text): A format which SID (Spatial Reference Identifier) representing a spatial object is added to the WKT format.
+-   EWKB (Extended Well-Known Binary): A format which SID (Spatial Reference Identifier) information representing a spatial object is added to the WKB format.
 -   Internal Binary: A format in which data is stored within Altibase. It was designed for the purpose of efficiently managing and performing spatial operations on spatial data. Data saved in the internal binary format of Altibase can only be manipulated using the C API. The C API will be described in Spatial Application Development.
 
 #### WKT (Well-Known Text) 
 
-WKT (Well-known Text) is a format for representing a spatial object using letters and numbers. WKT is defined using Backus-Naur Form (BNF) notation, as shown below:
+WKT (Well-known Text) is a format for representing a spatial object using letters and numbers. When expressing a spatial object in WKT format, the SRID of the object is regarded as 0. WKT is defined using Backus-Naur Form (BNF) notation, as shown below:
 
 ```
 <Geometry Tagged Text> : =
@@ -894,7 +896,7 @@ The examples of spatial data shown in WKT format above are shown graphically bel
 
 #### WKB (Well-Known Binary)
 
-WKB (Well-known Binary) is a format in which a spatial object is represented in binary form. 
+WKB (Well-known Binary) is a format in which a spatial object is represented in binary form. When representing a spatial object in WKB format, the SIRD of the object is regarded as 0.
 
 This is the binary form put forth in the OGC Standards. It is used to ensure data compatibility between heterogeneous spatial DBMSs. 
 
@@ -1002,6 +1004,28 @@ WKBGeometry wkbGeometries{num_wkbGeometries} ;
 
 In this example, the Little Endian (NDR) byte order is used, and a POLYGON with one exterior ring and one interior ring is described. Each of the exterior and interior rings consists of three points.
 
+#### EWKT (Extended Well-Known Text)
+
+EWKT is an additional form of SRID information in WKT format. The notation is the same as the WKT format except for the SRID information in WKT format. The EWKT format is not an OpenGIS standard, and examples of spatial data described using the EWKT format are as follows.
+
+| Format               | WKT REPRESENTATION | SRID                                                                                 | DESCRIPTION                                              |
+|--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
+| Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | One point; SRID is 4326                                             |
+| LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | A linestring with three points; SRID is 100                             |
+| Polygon            | SRID=-999;POLYGON( (10 10, 10 20, 20 20, 20 15, 10 10) )                                          | -999 | Poloy with one outer ring and zero inner ring; SRID is -999          |
+| MultiPoint         | SRID=0;MULTIPOINT(10 10, 20 20)                                                                | 0 | Multipoint with two points     |
+
+#### EWKB (Extended Well-Known Binary)
+
+EWKB is an addition form of SRID information in WKB format. The notation of SRID information is the same as that of WKB format. 
+The EWKB format is not an OpenGIS standard. The EWKB format is written in the same as the WKB format, but there is a difference. After writing the byte order (one byte; one of NDR and XDR) and the GEOMETRY data type (4 bytes; POINT, MULTIPLE, etc.), the 4-byte SRID is displayed. After SRID notation, object information is expressed in binary form as in WKB format.
+
+| FORMAT               | WKT REPRESENTATION | SRID                                                                                 | DESCRIPTION                                              |
+|--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
+| Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | One point; SRID is 4326                                             |
+| LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | A linestring with three points; SRID is 100                             |
+| Polygon            | SRID=-999;POLYGON( (10 10, 10 20, 20 20, 20 15, 10 10) )                                          | -999 | Polygon with one outer ring and zero inner ring; SRID is -999          |
+| MultiPoint         | SRID=0;MULTIPOINT(10 10, 20 20)                                                                | 0 | Multipoint with two points; SRID is 0     |
 
 
 ### DDL For Geometry
@@ -1019,7 +1043,7 @@ CREATE TABLE table_name (
 
 ##### Description
 
-This is is used to specify the maximum size of the column to be created. The allowable range is from 16 bytes to 100 megabytes. If not specified, the column will default to a size of 32,000 bytes. Any attempt to INSERT a spatial object that occupies more space than the precision specified here will fail.
+This is is used to specify the maximum size of the column to be created. The allowable range is from 16 bytes to 100 megabytes. If not specified, the column will default to a size of 32,000 bytes. Any attempt to INSERT a spatial object that occupies more space than the precision specified here will fail. SRID of the column to be created. A 4-byte signed integer can be used. If not specified, the default value is 0.
 
 This specifies the SRID of the column to be created. A 4-byte integer can be used, which will default to 0 if not specified.
 
@@ -1106,7 +1130,7 @@ This section describes the spatial functions that are supported for use in Altib
 
 #### Types of Spatial Functions
 
-AThe spatial functions that are available in Altibase can be broadly classified as follows based on their characteristics:
+The spatial functions that are available in Altibase can be broadly classified as follows based on their characteristics:
 
 -   Basic Functions  
     These functions are used to check the values of attributes, both general attributes and those specific to the GEOMETRY type. 
@@ -1115,7 +1139,7 @@ AThe spatial functions that are available in Altibase can be broadly classified 
     These functions are used to perform various analytical tasks on GEOMETRY type data.
 
     Spatial Object Creationg Functions  
-    These functions are used to create spatial objects in WKT or WKB format, rather than in the internal storage format of Altibase.
+    These functions are used to create spatial objects in WKT, WKB, EWKT, or EWKB format, rather than in the internal storage format of Altibase.
     
 
 ### Basic Spatial Functions
@@ -1349,6 +1373,71 @@ GEOMETRYCOLLECTION( POINT(1 1) , LINESTRING(2 2, 3 3) )
 
 10 rows selected.
 ```
+#### ASEWKT
+
+##### Syntax
+
+```
+ASEWKT( GEOMETRY[,precision] ) 
+```
+
+##### Description
+
+This function returns the spatial object in the form of EWKT (Extended-Well Known Text).
+Precision can be used to control the maximum length of the WKT. The default value is 256 bytes, and can be used up to a minimum of 32 and a maximum is 32000.
+
+
+##### Return Type
+
+```
+VARCHAR
+```
+
+##### Example
+```
+iSQL> SELECT F1, ASEWKT(F2, 40) FROM TB1;
+F1          ASEWKT(F2, 40)                            
+---------------------------------------------------------
+1           SRID=0;POINT(2 2)                         
+2           SRID=100;POINT(2 2)                       
+3           SRID=101;POINT(2 2)                       
+4           SRID=102;POINT(2 2)                       
+5           SRID=103;POINT(2 2)                       
+5 rows selected.
+```
+
+#### ASEWKB
+
+##### Syntax
+
+```
+ASEWKB( GEOMETRY ) 
+```
+
+##### Description
+
+This function returns the spatial object in the form of EWKB (Extended Well-Known Binary)
+
+
+##### Return type
+
+```
+BINARY
+```
+
+##### Example
+```
+iSQL> SELECT F1, ASEWKT(GEOMFROMEWKB(ASEWKB(F2)), 40) FROM TB1;
+F1          ASEWKT(GEOMFROMEWKB(ASEWKB(F2)), 40)      
+---------------------------------------------------------
+1           SRID=0;POINT(2 2)                         
+2           SRID=100;POINT(2 2)                       
+3           SRID=101;POINT(2 2)                       
+4           SRID=102;POINT(2 2)                       
+5           SRID=103;POINT(2 2)                       
+5 rows selected.
+```
+
 
 #### ISEMPTY
 
@@ -2740,6 +2829,71 @@ MULTIPOLYGON(((7 9, 3 9, 3 5, 7 5, 7 9), (6 6, 4 6, 4 8, 6 8, 6 6)), ((9 5, 8 5,
 4 rows selected.
 ```
 
+#### SRID
+
+##### Syntax
+
+```
+SRID( GEOMETRY )
+```
+
+##### Description
+
+This returns the SRID of the spatial object.
+
+
+##### Return type
+
+```
+INTEGER
+```
+
+##### Example
+
+```
+iSQL> SELECT F1, SRID(F2) FROM TB1;
+F1          SRID(F2)    
+---------------------------
+1           0           
+2           100         
+3           101         
+4           102         
+5           103         
+5 rows selected.
+```
+
+#### SETSRID
+
+##### Syntax
+
+```
+SETSRID( GEOMETRY, INTEGER )
+```
+
+##### Description
+
+This changes the SRID of sptial object.
+
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT F1, SRID(F2) FROM TB1;
+F1          SRID(F2)    
+---------------------------
+1           0           
+2           100         
+3           101         
+4           102         
+5           103         
+5 rows selected.
+```
 
 
 #### Spatial Object Creation Functions
@@ -3314,6 +3468,158 @@ ASTEXT(OBJ)
 ----------------------------------------------------------------------------
 106
 POLYGON((1 1, 3 1, 3 3, 1 3, 1 1))
+1 row selected.
+```
+
+#### ST_MAKEPOINT
+
+##### Syntax
+
+```
+ST_MAKEPOINT( x, y )
+```
+
+##### Description
+
+This receives the x and y values and returns the spatial object of POINT
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_MAKEPOINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+```
+
+#### ST_POINT
+
+##### Syntax
+
+```
+ST_POINT( x, y )
+```
+
+##### Description
+
+This is the same as ST_MAKEPOINT.
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_POINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_POINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+```
+
+#### GEOMFROMEWKT 
+
+##### Syntax
+
+```
+GEOMFROMEWKT( EWKT )
+```
+
+##### Description
+
+GEOMETRY object is created by receiving spatial objects in the form of EWKT (Extended Well-Known Text). All spatial objects that can be represented by EWKT are allowed to be input. If the syntax of EWKT is incorrect, an error is displayed.
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+```
+iSQL> INSERT INTO TB3 VALUES(101, GEOMFROMEWKT('SRID=101;GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))'));
+1 row inserted.
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          
+--------------
+ASEWKT(OBJ)                                                                                                                                                                                                                                                       
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+101         
+SRID=101;GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )                                                                                                                                                                             
+1 row selected.
+ 
+ 
+iSQL> INSERT INTO TB3 VALUES(101, GEOMFROMEWKT('POINT(10 10), SRID=4326'));
+[ERR-A101A : Error parsing well-known-text 
+0001 : INSERT INTO TB3 VALUES(101, GEOMFROMEWKT('POINT(10 10), SRID=102'))
+                                  ^                                      ^
+]
+```
+
+#### GEOMFROMEWKB 
+
+##### Syntax
+
+```
+GEOMFROMEWKB( EWKB )
+```
+
+##### Description
+
+GEOMETRY object is created by receiving spatial objects in the form of EWKB (Extended Well-Known Binary)
+
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+#### ST_MAKELINE
+
+##### Syntax
+
+```
+ST_MAKELINE( GEOMETRY1, GEOMETRY2, ... )
+```
+
+##### Description
+
+This creates a LineString object by receiving Point, MultiPoint, and LineString objects as arguments.
+Multiple parameters can be received and create multiple Geometry objects as a single LineString.
+
+##### Return type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', GEOMETRY'POINT(2 2)' ) ) AS GEOM FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2)                                
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', 
+    2                                                          GEOMETRY'LINESTRING(2 2, 3 3)', 
+    3                                                          GEOMETRY'MULTIPOINT(4 4, 5 5)' ) ) AS GEOM
+    4 FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2, 3 3, 4 4, 5 5)                 
 1 row selected.
 ```
 
@@ -5701,6 +6007,64 @@ If this function returns ACS_ERROR, use ACSError() to check the information rela
 ACSEndian
 ```
 
+#### ACSGetGeometrySRID
+
+The Endian of the spatial object is converted to the same platform.
+
+
+##### Syntax
+
+```
+ACSRENTURN ASCGetGeometrySRID( ACSHENV aHandle,
+                               stdGeometryType * aGeometry,
+                               SQLINTEGER * aSRID );
+```
+
+##### Arguments
+
+| DATA TYPE          | ARGUMENT      | IN/OUTPUT   | DESCRIPTION                    |
+|-------------------|-----------|--------|-------------------------|
+| ACSHENV           | aHandle   | Input   | Environment handle               |
+| stdGeometryType\* | aGeometry | Input | Pointer to spatial object |
+| SQLINTEGER \* | aSRID | Output | Pointer to the buffer to receive the SRID of the input spatial object |
+
+##### Result Value
+
+```
+ACS_SUCCESS
+ACS_ERROR
+```
+
+##### Description
+
+This receives the SRID of a spatial object.
+
+
+##### Diagnosis
+
+If the function returns ACS_ERROR, it can be checked what kind of error is the information obtained from ACSError.
+
+| ErrorCode       | DESCRIPTION             | Additional remark                                |
+|-----------------|------------------|-----------------------------------------|
+| 0x5101C(331804) | Null parameter       | When the function argument is NULL                  |
+| 0x511F9(332281) | Invalid sptial object | The spatial object inserted is an invalid value |
+
+##### Example
+
+```
+ACSHENV sAcsEnv;
+stdGeometryType * sSubObj;
+SQLINTEGER sSRID;
+...
+if ( ACSGetGeometrySRID( sAcsEnv, sSubObj, &sSRID ) == ACS_SUCCESS )
+{
+    printf( "SRID=%d\n", sSRID );
+}
+else
+{
+    exit(-1);
+}
+```
 
 
 ## Appendix A. Limitations on the Use of Spatial Data in Altiabase

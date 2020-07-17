@@ -4,6 +4,7 @@
 - [General Reference](#general-reference)
    - [3. The Data Dictionary](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [V\$LATCH](#vlatch)
+    - [V\$LIBRARY](#vlibrary)
     - [V\$LFG](#vlfg)
     - [V\$LOCK](#vlock)
     - [V\$LOCK_STATEMENT](#vlock_statement)
@@ -25,6 +26,7 @@
     - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
     - [V\$PKGTEXT](#vpkgtext)
     - [V\$PLANTEXT](#vplantext)
+    - [V\$PROCINFO](#vprocinfo)
     - [V\$PROCTEXT](#vproctext)
     - [V\$PROPERTY](#vproperty)
     - [V\$REPEXEC](#vrepexec)
@@ -135,9 +137,42 @@ This view displays statistical information about the BCB latch of the buffer poo
 | WRITE_MISS         | BIGINT  | The number of failures to obtain write latches            |
 | SLEEPS_CNT         | BIGINT  | The number of sleeps related to latch attempts            |
 
+### V\$LIBRARY
+
+This view provides information of dynamically library in C/C++ internal procedure. This can be checked whether the desired library is properly loaded with the library information.
+
+| Column name        | Type        | Description                                        |
+|--------------------|-------------|----------------------------------------------------|
+| FILE_SPEC          | CHAR(4000)  | The path to dynamic library files                         |
+| REFERENCE_COUNT    | INTEGER     | The number of internal procedures referencing dynamic libraries |
+| FILE_SIZE          | INTEGER     | The file size of dynamic library (Bytes)                |
+| CREATE_TIME        | VARCHAR(48) | The time the dynamic library was created                    |
+| OPEN_TIME          | VARCHAR(48) | The time dynamic library was loaded                       |
+
+#### Column Information
+
+##### FILE_SPEC
+
+This indicates the path of dynamic library file pointed to by the library object. It is displayed as a relative path to the default path ($\ALTIBASE_HOME/lib) where the library files are located.
+
+##### REFERENCE_COUNT
+
+This indicates the number of internal stored procedures or stored functions referencing a dynamic library.
+
+##### FILE_SIZE
+
+This indicates the size of a dynamic library file. (Unit: Bytes)
+
+##### CREATE_TIME
+
+This indicates the date and time when the dynamic library was created. This is received and saved from file information.
+
+##### OPEN_TIME
+This indicates the date and time when the dynamic library was loaded.
+
 ### V\$LFG
 
-This view provides statistical information to help database administrators monitor group commit activity. For more detailed information about each column, please refer to the commit section in this manual. 
+This view provides statistical information to help database administrators monitor group commit activity. For more detailed information about each column, please refer to the commit section in this manual.
 
 | Column name           | Type    | Description                                                  |
 | --------------------- | ------- | ------------------------------------------------------------ |
@@ -1113,6 +1148,47 @@ A complete execution plan for one statement is divided into text fragments 64 by
 ##### TEXT
 
 This shows the contents of the 64-byte text fragment that is part of the execution plan statement. 
+
+### V\$PROCINFO
+
+| Column name  | Type        | Description                      |
+|--------------|-------------|----------------------------------|
+| PROC_OID     | BIGINT      | The object identifier of the stored procedure        |
+| MODIFY_COUNT | INTEGER     | The number of times a stored procedure was recreated or recompiled |
+| STATUS       | VARCHAR(7)  | The status of the object. If INVALID, it is cannot be executed |
+| SESSION_ID   | INTEGER     | The ID of the session that changed the STATUS of the stored procedure |
+| PROC_TYPE    | VARCHAR(10) | The type of stored procedure |
+
+#### Column information
+
+##### PROC_OID
+
+This is an identifier of a stored procedure or stored function, which is the same as a PROC_OID value in the SYS_PROCEDURES meta table.
+
+##### MODIFY_COUNT
+
+This increments by 1 each time a stored procedure or function is recreated or compiled. The initial value is 0
+
+##### STATUS
+
+This indicates whether a stored procedure or function can be executed. VALID indicates that it can be executed. Refer to the description of the STATUS column in the SYS_PROCEDURES_ meta table
+
+##### SESSION_ID
+
+This indicates the ID of the session that changed the status of the stored procedure or function to INVALID. If the state has never changed, this value is 0 or -1.
+
+##### PROC_TYPE
+
+This indicates the type of stored procedure. The possible values are:
+
+- NORMAL : Normal Procedure
+
+- EXTERNAL C : C/C++ External Procedure
+
+- INTERNAL C : C/C++ Internal Procedure
+
+- UNKNOWN : If the compliation of the stored procedure fails when starting the server, the internal procedure type is not known and marked as UNKNOWN. Subsequently, when compiled and in VALID status, the correct type is set.
+
 
 ###  V\$PROCTEXT
 
@@ -4670,6 +4746,11 @@ This view displays information about transaction objects.
 | RESOURCE_GROUP_ID            | INTEGER     | The log file group identifier |
 | LEGACY_TRANS_COUNT           | INTEGER     | For internal use              |
 | ISOLATION_LEVEL              | INTEGER     | See below                     |
+| PROCESSED_UNDO_TIME          | INTEGER     | See below                     |
+| ESTIMATED_TOTAL_UNDO_TIME    | INTEGER     | See below                     |
+| TOTAL_LOG_COUNT              | BIGINT      | See below                     |
+| TOTAL_UNDO_LOG_COUNT         | BIGINT      | See below                     |
+| PROCESSED_UNDO_LOG_COUNT     | BIGINT      | See below                     |
 
 #### Column Information
 
@@ -4802,6 +4883,26 @@ This is the isolation level of transaction.
 -   1: REPEATABLE READ
 
 -   2: SERIALIZABLE
+
+##### PROCESSED_UNDO_TIME
+
+The time that UNDO has processed from the beginning of UNDo of the transaciton to the present (Unit: second)
+
+##### ESTIMATED_TOTAL_UNDO_TIME
+
+The estimated total time to complete UNDO for the trasnaction (Unit: second)
+
+##### TOTAL_LOG_COUNT
+
+The total number of logs for the trasnaction
+
+##### TOTAL_UNDO_LOG_COUNT
+
+The total number of logs to UNDO in the transaction
+
+##### PROCESSED_UNDO_LOG_COUNT
+
+The number of undo-finished logs in the transaction
 
 ### V\$TRANSACTION_MGR
 

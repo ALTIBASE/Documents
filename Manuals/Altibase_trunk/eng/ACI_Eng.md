@@ -254,7 +254,7 @@ This chapter explains how to develop application programs using ACI.
 
 #### Basic Usages
 
-An ACI application program generally consists of following three parts:
+ACI application program generally consists of following three parts:
 
 -    initializing handles
 -   Processing transactions
@@ -555,7 +555,7 @@ The elements of this enum type are:
 
 ##### enum ALTIBASE_FAILOVER_EVENT
 
-This is an enumeration that represents a Failover event. Ifthe failover callback functionis registered, the failover callback function is notified of values returned by the failover events. They are used when the failover callback function determines its advance to the next step. For more details, refer tp Chapter6: Using Failover.
+This is an enumeration that represents a Failover event. Ifthe failover callback functionis registered, the failover callback function is notified of values returned by the failover events. They are used when the failover callback function determines its advance to the next step. For more details, refer to Chapter6: Using Failover.
 
 | Enum Value        | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
@@ -841,7 +841,7 @@ int  altibase_connect (
 
 #### Return Values
 
-The function returns ALTIBASE_SUCCESS if successful or ALTIBASE_ERROR if an error occurred.
+The function returns ALTIBASE_SUCCESS if successful, or ALTIBASE_ERROR if an error occurred.
 
 #### Description
 
@@ -885,7 +885,7 @@ int  altibase_data_seek (
 
 | Data Type     | Argument | In/Output | Descriptions                                                 |
 | ------------- | -------- | --------- | ------------------------------------------------------------ |
-| ALTIBASE_RES  | *result* | Input     | Result handl                                                 |
+| ALTIBASE_RES  | *result* | Input     | Result handle                                                 |
 | ALTIBASE_LONG | *offset* | Input     | The offset value is a row number and should be in the range from 0. |
 
 #### Return Values
@@ -951,7 +951,9 @@ unsigned int  altibase_errno (
 
 altibase_errno() returns the numerical value of the error code from previous function. All functuins do not return error codes. Error codes are returned by queries for their operation. Errors are listed at *Error Message Refrence* in detail. 
 
-Make sure to check the value before calling another function because it is initialized or new one is created instead if another function is called. The value returned by altibase_errno() is different from that of SQLSTATE. You should use altibase_sqlstate() to find a specific SQLSTATE when handling errors.
+If an error occurs while executing a function, if another function is called without immediately checking the error, the error information disappears. Therefore, when an error occurs, this function should be used to check the error information.
+
+The value returned by altibase_errno() is an Altibase self-defined error code is different from the SQLSTATE defined in the ODBC standard specification. To get SQLSTATE, altibase_sqlstate() is used. Generally, it is not recommended to write an error handling routine by checking the return value of altibase_errno().
 
 #### Example
 
@@ -1991,6 +1993,8 @@ Great attention should be paid to call altibase_store_result() because there can
 
 altibase_store_result() cannot be used with the functions such as altibase_use_result() and altibase_list_tables() which return result set. The user must call altibase_free_result() to free current result set handle and obtain other one after you are done with the result set.
 
+After using it, The result set obtained with this function must be releases by using altibase_free_result().
+
 #### Example
 
 Refer to the examples in altibase_data_seek() and altibase_query().
@@ -2714,7 +2718,7 @@ This function frees resources allocated for the result set produced by the execu
 
 #### Example
 
-Refer to the examples in altibase_stmt_bind_result() altibase_stmt_data_seek()
+Refer to the examples in altibase_stmt_bind_result() and altibase_stmt_data_seek().
 
 ### altibase_stmt_get_attr()
 
@@ -3261,7 +3265,7 @@ The following figure briefly illustrates the Array Binding. It can be seen that 
 
 ![](media/ACI/5_eng.png)
 
-For more detailed information about using the array binding and array fetching, refer to *ODBC Reference.*
+For more detailed information about using the array binding and array fetching, refer to *CLI User's Manual.*
 
 #### How to Set ALTIBASE_BIND
 

@@ -33,6 +33,7 @@
     - [JDBC Logging](#jdbc-logging)
     - [Hibernate](#hibernate)
     - [Sharding](#sharding)
+    - [SQL Plan](#sql-plan)
   - [4. Tips & Recommendation](#4-tips--recommendation)
     - [Tips for Better Performance](#tips-for-better-performance)
     - [SQL States](#sql-states)
@@ -3202,6 +3203,36 @@ Since the library that Hibernate officially provides does not include AltibaseDi
 
 The AltibaseDialect.java file and the AltibaseLimitHandler.java file are Available from the Altibase Github site. For detailed instructions on how to port AltibaseDialect, refer to (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md).
 
+#### Lob Related Properties
+When the Lob column value is null, Hibernate assumes that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, it is recommended to set the following JDBC connection property to OFF in order to use Lob-related functions in Hibernate because the object related to the interface is returned even if the value is null.
+
+##### lob_null_select
+| Default value    | on                                                           |
+|----------|---------------------------------------------------------------|
+| Range of value | [on \| off ]                                                 |
+| Requirement | No                                                            |
+| Setting range | Session                                                         |
+| Description     | Whether ResultSet.getBlob(), ResultSet.getClob() returns an object when the lob column value is null  | 
+
+##### Example
+When the lob_null_select value is off, getBlob(), getClob() must be done and null processing should be done as follows.
+```
+Blob sBlob = sRs.getBlob();
+if (sBlob != null) // NullpointerException may occur when sBlob is null.
+{
+   long sLength = sBlob.length();  
+   System.out.println("blob length===>" + sLength);
+}
+...
+Clob sClob = sRs.getClob();
+if (sClob != null) // If sClob is null, NullpointerException may occur.
+{
+   long sLength = sClob.length();  
+   System.out.println("clob length===>" + sLength);
+}
+```
+
+
 ### Sharding
 #### Properties
 The following attributes have been added for the jdbc sharding feature.
@@ -3422,6 +3453,43 @@ The general Altibase jdbc driver is supported, but the functions not supported b
   * javax.sql.XADataSource
       * getXAConnection()
       * getXAConnection(String user, String password)
+
+### SQL Plan
+
+This function is to import the SQL execution plan as string as a non-standard API. The execution plan shows the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLY, and the default setting is OFF.
+
+#### How to use
+
+To get the execution plan, before executing the SQL statement, the setExplainPlan(byteaExplainPlanMode) method of the AltibaseConnection object must be called to specify what content to get the execution plan. The aExplainPlanMode options that can be specified are described in the table below
+
+#### Factor
+
+|                 PROPERTY                 | PROPERTY VALUE |                             DESCRIPTION                             |
+| :----------------------------------: | :----: | :----------------------------------------------------------: |
+| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | After executing the SELECT statement, the Plan Tree information is not displayed, only the result record is displayed |
+|  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. In the Plan Tree, the number of records accessed, the amount of memory occupied by tuples, and the cost are displayed. |
+| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. If EXPLAN PLAN = ONLY, only the execution plan is created without query execution, so items that value is determined after actual, execution, such as the ACCESS item, are displayed as question marks ("??"). |
+
+#### Code Example
+
+```
+AltibaseConnection sConn = (AltibaseConnection)DriverManager.getConnection(sURL, sProps);
+sConn.setExplainPlan(AltibaseConnection.EXPLAIN_PLAN_ONLY);
+AltibaseStatement  sStmt = (AltibaseStatement)sConn.prepareStatement("SELECT sysdate FROM dual");
+System.out.println(sStmt.getExplainPlan());
+```
+
+#### Result Example
+
+```
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
+ SCAN ( TABLE: DUAL, FULL SCAN, ACCESS: ??, COST: 0.01 )
+------------------------------------------------------------
+```
+
+
+---------------------
 
 ## 4. Tips & Recommendation
 

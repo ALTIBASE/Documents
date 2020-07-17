@@ -3066,7 +3066,7 @@ Information not only about tables, but also about sequences, views, etc. is save
 - A: A view automatically created for the maintenance of the data of the materialized view
 - G: An internal table for global index of
 - D: A dictionary table internally used for actually storing compressed column data
-
+- R: A table have been dropped and managed in the recycle bin
 ##### REPLICATION_COUNT
 
 This is the number of replication objects associated with the table.

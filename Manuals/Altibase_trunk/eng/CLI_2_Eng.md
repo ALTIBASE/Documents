@@ -3356,7 +3356,7 @@ Cursor scrollability, sensitivity and concurrency can be specified using the SQL
     Cursor concurrency is set using the SQL_ATTR_CONCURRENCY attribute of SQLSetStmtAttr. the Altibase CLI driver supports the following two types of cursor concurrency: 
     -   SQL_CONCUR_READONLY: Read-only
     
--   SQL_CONCUR_ROWVER: Concurrency control with row versions.
+    -   SQL_CONCUR_ROWVER: Concurrency control with row versions.
 
 ### Implicit Cursor Conversionse
 
@@ -3381,15 +3381,15 @@ Cursor conversion rules are as follows:
 
 -   If the user-specified cursor attribute is not compatible with the cursor type, the driver converts the cursor type in the following order:
   
--   dynamic → keyset-driven → static → foward-only
+    -   dynamic → keyset-driven → static → foward-only
   
 -   If an application specifies the cursor type, the driver converts the remaining attributes in the following order, until they are compatible with the characteristics of the selected type:
   
--   sensitive → insensitive
+    -   sensitive → insensitive
   
--   scrollable → non-scrollable
+    -   scrollable → non-scrollable
   
--   updatable → read-only
+    -   updatable → read-only
 
 ### Scrolling and Fetching Rows
 
@@ -4456,6 +4456,8 @@ The following table is the list of valid type identifiers for C data type. Also,
 
 ○ : Supported conversion
 
+*SQL_NUMERIC - For SQL_C_BINARY, it is converted to SQL_NUMERIC_STRUCT.
+
 ### Converting C Data into SQL Data types
 
 ![](media/CLI/CLI.1.95.1.jpg)
@@ -4487,6 +4489,8 @@ The following table is the list of valid type identifiers for C data type. Also,
 \# : Default conversion
 
 ○ : Supported conversion
+
+*SQL_NUMERIC - For SQL_C_BINARY, it is converted to SQL_NUMERIC_STRUCT.
 
 ## Appendix C. Error Codes
 
@@ -5321,7 +5325,7 @@ When the above program is executed, the following output is displayed.
 
 #### SQL_NIBBLE
 
-SQL_C_NIBBLE supported in Altibase 4 is not available to Altibase 5. However, you can fetch data with SQL_C_BINARY.
+SQL_C_NIBBLE supported in Altibase 4 is not available to Altibase 5. However, the user can fetch data with SQL_C_BINARY.
 
 ##### NIBBLE to C type
 

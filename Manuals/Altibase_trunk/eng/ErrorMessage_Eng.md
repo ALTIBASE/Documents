@@ -1130,7 +1130,7 @@ errors.
 **Cause:** An unexpected internal server error has occurred.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x0109F ( 4255) idERR_ABORT_IDX_LIBRARY_NOT_FOUND Library file for external
 procedure/function not found : \<0%s\>\<1%s\>\<2%s\>**
@@ -1571,7 +1571,7 @@ Support Center (http://support.altibase.com/en/).
 **Cause:** The system failed to initialize a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1000E ( 65550) smERR_FATAL_ThrMutexDestroy Failed to invoke the
 mutex_destroy() system function**
@@ -1897,7 +1897,7 @@ or invalid logfiles at '\<0%s\>'.**
 **Cause:** The secondary flusher has stopped due to an unexpected problem.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10192 ( 65938) smERR_FATAL_PageReadStopped Failed to read a page.**
 
@@ -1911,7 +1911,7 @@ No=\<0%u\>, Offset=\<1%u\>)**
 **Cause:** LSN Offset is invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center(http://support.altibase.com).
+Support Center(http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -2666,7 +2666,7 @@ resetlog.**
 **Cause:** The system failed to open the log file.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x110C1 ( 69825) smERR_ABORT_NotFoundDataFile The data file containing page
 [\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
@@ -14326,6 +14326,18 @@ occurred.: \<0%s\>: \<1%s\>**
 **Action:** Verify the error number in the trace log file and contact Altibase
 Support Center (http://support.altibase.com/en/).
 
+**0xE113D ( 921917) sdERR_ABORT_REMOTE_COMMIT_FAILED Failed to commit a remote transaction when performing \<1%s\> on remote node \<0%s\>.: \<2%s\>**
+
+**Cause:** A network problem occurred.
+
+**Action:** Verify the state of link on the remote node. Execute rollback and try again.
+
+**0xE113E ( 921918) sdERR_ABORT_PREPARE_DID_NOT_BEGIN_TX Failed to commit a transaction, because the transaction did not begin.**
+
+**Cause:** The transaction is not begin.
+
+**Action:** Verify the state of link on the remote node. Execute rollback and try again.
+
 7.ST Error Code
 ---------------
 
@@ -15886,6 +15898,13 @@ found. (SQLTextID = \<0%s\>)**
 
 **Action:** Check whether SQLTextID exists in V\$SQL_PLAN_CACHE_SQLTEXT.
 
+**0x410FD ( 266493) mmERR_ABORT_SHARED_TRANSACTION_STATE_INVALID The state of shared transaction is invalid. (State = \<0%s\>, Action = \<1%s\>)**
+
+**Cause:** This is an internal error related to unexpected state of shared transaction.
+
+**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
+
+
 ### IGNORE
 
 **0x42000 ( 270336) mmERR_IGNORE_NO_ERROR No main module error**
@@ -16968,6 +16987,13 @@ argument.**
 **Cause:** An argument for the rconnect() function was invalid.
 
 **Action:** Check the IP and host name.
+
+**0x51223 ( 332323) ulERR_ABORT_NEED_ROLLBACK Failed to execute the statement, because the global transaction has been terminated.**
+
+**Cause:** After failing to commit in global transaction level, rollback is necessary to execute a statement to a remote server.
+
+**Action:** Execute rollback and retry the statement.
+
 
 ### IGNORE
 
