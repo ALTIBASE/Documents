@@ -1148,7 +1148,7 @@ Run the Patch Uninstaller to remove the patch
 >
 > After performing a server downgrade, the user must delete the patch. If the server is run without deleting the patch, the meta upgrade will occur because the meta version has been modified to the previous version. 
 
-4. Patching Products With the Altibase Package Installer
+## 4. Patching Products With the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
