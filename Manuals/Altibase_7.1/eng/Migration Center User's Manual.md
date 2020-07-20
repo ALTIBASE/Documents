@@ -869,11 +869,11 @@ Internally, this process consists of three steps to avoid database object depend
 
     2.  Constraints: Migrates constraints, namely unique, primary key, foreign key, and check constraints
     
-3.  Index: Migrates index objects
+    3.  Index: Migrates index objects
   
-4.  Synonym: Migrates private synonym objects
+    4.  Synonym: Migrates private synonym objects
   
-5.  Procedures, functions, materialized views, views, typesets and triggers: Depends on the database management system and its version
+    5.  Procedures, functions, materialized views, views, typesets and triggers: Depends on the database management system and its version
 
 
 
