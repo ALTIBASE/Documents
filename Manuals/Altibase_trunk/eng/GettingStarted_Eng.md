@@ -1309,7 +1309,7 @@ However, DDL statements that are not allowed in replication should be used after
 
 
 
-7. Fail-Over
+## 7. Fail-Over
 ---------
 
 Altibase provides a Fail-Over function to overcome failures and provide service regardless of failures while operating the database system. This chapter describes the functions and usage of Fail-Over supported by Altibase.
