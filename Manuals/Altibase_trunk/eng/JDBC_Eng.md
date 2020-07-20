@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents** 
 
 - [JDBC User’s Manual](#jdbc-users-manual)
   - [Preface](#preface)
@@ -3208,21 +3208,21 @@ When the Lob column value is null, Hibernate uses ResultSet.getBlob(), ResultSet
 |----------|---------------------------------------------------------------|
 | Range | [on \| off ]                                                 |
 | Requirement | No                                                            |
-| Setting range | 세션                                                           |
+| Setting range | Session                                                           |
 | Description     | Whether ResultSet.getBlob() or ResultSet.getClob() returns an object when the lob column value is null  | 
 ##### Example 
 Since the default value of lob_null_select is off, you need to do null processing after getBlob() and getClob() as follows.
 
 ```
 Blob sBlob = sRs.getBlob();
-if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
+if (sBlob != null) // If sBlob is null, NullpointerException may occur.
 {
    long sLength = sBlob.length();  
    System.out.println("blob length===>" + sLength);
 }
 ...
 Clob sClob = sRs.getClob();
-if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
+if (sClob != null) // If sClob is null, NullpointerException may occur.
 {
    long sLength = sClob.length();  
    System.out.println("clob length===>" + sLength);
