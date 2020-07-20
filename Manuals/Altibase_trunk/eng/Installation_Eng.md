@@ -125,7 +125,7 @@ When you need immediate assistance regarding technical issues, please contact Al
 
 Thank you. We appreciate your feedback and suggestions.
 
-1. About the Altibase Package Installer
+## 1. About the Altibase Package Installer
 ------------------------
 
 This Altibase Package Installer is a Java-based installer that lets you easily install Altibase products such as the database server, client components, tools, and so forth.
