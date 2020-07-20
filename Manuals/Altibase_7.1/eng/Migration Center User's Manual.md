@@ -504,9 +504,9 @@ The users can easily perform migration in GUI mode with this quick step guide. T
 2.  Prepare the project
 
     1.  Register source and destination database connections 
-2.  Create a project 
+    2.  Create a project 
     3.  Open the project 
-4.  Connect to source and destination databases 
+    4.  Connect to source and destination databases 
     5.  Set migration options
 3.  Build the project
 4.  Reconcile the project
