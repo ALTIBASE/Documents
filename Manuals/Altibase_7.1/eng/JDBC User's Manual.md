@@ -3342,9 +3342,8 @@ Logging related settings are also available as environment variables. By default
 | SHARD_JDBC_TRCLOG_LEVEL        | shardjdbc log level                                          | OFF     |
 | SHARD_JDBC_TRCLOG_PRINT_STDERR | Whether to pass to the parent logger. <br/> If set to TRUE, logs are normally left in the console. | FALSE   |
 ##### Log Levels
-```
 Originally, JDK Logging can be set in the following order: SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, but shardjdbc uses both SEVERE and INFO levels.
-```
+
 
 | Name   | Description                                                  |
 | ------ | ------------------------------------------------------------ |
