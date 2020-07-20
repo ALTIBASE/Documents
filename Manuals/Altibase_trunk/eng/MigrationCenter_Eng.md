@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents** 
 
 - [Migration Center User's Manual](#migration-center-users-manual)
   - [Preface](#preface)
@@ -505,9 +505,9 @@ The users can easily perform migration in GUI mode with this quick step guide. T
 2.  Prepare the project
 
     1.  Register source and destination database connections 
-2.  Create a project 
+    2.  Create a project 
     3.  Open the project 
-4.  Connect to source and destination databases 
+    4.  Connect to source and destination databases 
     5.  Set migration options
 3.  Build the project
 4.  Reconcile the project
