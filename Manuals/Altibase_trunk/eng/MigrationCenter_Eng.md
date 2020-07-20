@@ -527,15 +527,15 @@ Double-click the “migcenter.bat” icon in the Migration Center folder on Micr
 
     2.  Connection Name: A unique database connection name to be used for Migration Center projects
     
-3.  IP: The Internet Protocol (IP) address of the database server
+    3.  IP: The Internet Protocol (IP) address of the database server
   
-4.  Port: The port number of the database server or SSL port number of the Altibase server
+    4.  Port: The port number of the database server or SSL port number of the Altibase server
   
-5.  User: The valid user ID for the database
+    5.  User: The valid user ID for the database
   
-6.  Password: The password corresponding to the user ID for the database.
+    6.  Password: The password corresponding to the user ID for the database.
   
-7.  JDBC Driver:  The JDBC driver path to be used to connect to the database.
+    7.  JDBC Driver:  The JDBC driver path to be used to connect to the database.
         
     8.  Encoding: The default character set used on the client.
 
