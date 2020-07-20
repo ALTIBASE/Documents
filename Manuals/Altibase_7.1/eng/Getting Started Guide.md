@@ -1893,7 +1893,7 @@ jdbc:Altibase://hostname:portnum/databasename
 2. Usually, the URL is provided and an attempt to connect to the URL is made as follows: (if the id for logging into the databas is "SYS" and the password is "MANAGER")
   
      ```
- String url = "jdbc:Altibase://127.0.0.1:20300/mydb";
+      String url = "jdbc:Altibase://127.0.0.1:20300/mydb";
       Connection con = DriverManager.getConnection(url, “SYS”, “MANAGER”);
      ```
 
