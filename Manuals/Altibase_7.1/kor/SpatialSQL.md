@@ -3918,6 +3918,12 @@ ST_POINT( x, y )
 
 ST_MAKEPOINT와 동일하다.
 
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
 ##### 예제
 
 ```
@@ -3934,13 +3940,12 @@ POINT(1 1)
 ##### 구문
 
 ```
-ST_MAKELINE( GEOMETRY1, GEOMETRY2, ... )
+ST_MAKELINE( GEOMETRY1, GEOMETRY2 )
 ```
 
 ##### 설명
 
-Point, MultiPoint, LineString 객체를 인자로 받아 LineString 객체를 생성한다.
-인자를 가변적으로 받아 여러개의 Geometry 객체를 하나의 LineString으로 생성해 낼 수 있다. 
+Point, MultiPoint, LineString 객체를 입력 받아 LineString 객체를 생성한다. 
 
 ##### 반환 타입
 
@@ -3957,15 +3962,69 @@ GEOM
 LINESTRING(1 1, 2 2)                                
 1 row selected.
  
-iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', 
-    2                                                          GEOMETRY'LINESTRING(2 2, 3 3)', 
-    3                                                          GEOMETRY'MULTIPOINT(4 4, 5 5)' ) ) AS GEOM
-    4 FROM DUAL;
-GEOM                                                
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'LINESTRING(1 1, 2 2)', 
+    2 GEOMETRY'LINESTRING(3 3, 4 4)' ) ) AS GEOM
+    3 FROM DUAL;
+GEOM                                                                                                                                                                                                                                                              
 ------------------------------------------------------
-LINESTRING(1 1, 2 2, 3 3, 4 4, 5 5)                 
+LINESTRING(1 1, 2 2, 3 3, 4 4)                                                                                                                                                                                                                                    
 1 row selected.
+```
 
+#### ST_MAKEPOLYGON
+
+##### 구문
+
+```
+ST_MAKEPOLYGON( GEOMETRY )
+```
+
+##### 설명
+
+LineString 객체를 입력 받아 Polygon 객체를 생성한다. 이 때 LineString은 반드시 Ring 형태여야 한다. 
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOLYGON( GEOMETRY'LINESTRING( 0 0, 1 1, 1 0, 0 0 ) ' ) ) AS GEOM FROM DUAL; 
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+POLYGON((0 0, 1 1, 1 0, 0 0))                                                                                                                                                                                                                                     
+1 row selected.
+```
+
+#### ST_POLYGON
+
+##### 구문
+
+```
+ST_POLYGON( GEOMETRY, SRID )
+```
+
+##### 설명
+
+ST_MAKEPOLYGON과 유사하다. LineString과 SRID를 입력 받아 SRID를 갖는 Polygon 객체를 생성한다.  
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ST_ASEWKT( ST_POLYGON( GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 2 ) ', 4326 ) ) AS GEOM FROM DUAL;
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+SRID=4326;POLYGON((2 2, 3 2, 3 3, 2 3, 2 2))                                                                                                                                                                                                                      
+1 row selected.
 ```
 
 #### ST_MAKEENVELOPE
