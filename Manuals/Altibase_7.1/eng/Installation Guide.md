@@ -254,7 +254,7 @@ uninstall-base
 -   rollback-p0_0_0_10: the directory that contains backups of the files patched with 7.1.0.0.10.
 -   uninstall-p0_0_0_10: the executable file needed to delete the patch 7.1.0.0.10 and rollback to the previous version. These files are stored in the rollback-p0_0_0_10 directory.
 
-2. Installing Products with the Altibase Package Installer
+## 2. Installing Products with the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
