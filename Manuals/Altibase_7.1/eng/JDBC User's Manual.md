@@ -3502,7 +3502,7 @@ The following tips should be kept in mind to enhance the performance of JDBC app
 -   It is recommended to execute one operation on one Connection object. For example, if a multiple number of Statement objects are created in one Connection object and their operations are executed, this can induce performance loss. 
 -   It is recommended to use the Connection Pool provided by Middleware (WAS) when the Connection object is frequently created and deleted. This is because the cost of connecting and terminating a Connection is relatively higher than other operations. 
 
-5. Error Messages
+## 5. Error Messages
 -----------
 
 This chapter lists the SQL States of errors which can occur while using the Altibase JDBC driver.
