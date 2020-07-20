@@ -3451,6 +3451,39 @@ The general Altibase jdbc driver is supported, but the functions not supported b
       * getXAConnection()
       * getXAConnection(String user, String password)
 
+### SQL Plan
+Provides the funciton to import the SQL execution plan as a string as a non-standard API. The SQL plan represents the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLy, and the default setting is OFF.
+
+#### How to use
+
+To get the SQL plan, before execution the SQL statement, the user must call the setExplainPlan(byteaExplainPlanMode) method of the AltibaseConnection object to specify what content to get the execution SQL plan. The aExplainPlanMode options that can be specified are described in the table below. After entering the SQL statement in the AltibaseStatement object, the execution plan of the string behavior can be returned by calling the getExplainPlan() method.
+
+#### Function
+
+|                 Attribute                 | Attribute Value |                             Description                             |
+| :----------------------------------: | :----: | :----------------------------------------------------------: |
+| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | After executing the SELECT statement, the Plan Tree informaiton is not displayed, onlt the result record is displayed |
+|  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. In the plan tree, the number of records accessed, the amount of memory occupied by tuples, and the cost are displayed |
+| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. When EXPLAN PLAN = ONLY, only the execution plan is generated without query execution, so items whose value is determined after actual execution, such as the ACCESS item, are displayed as question marks (“??”) |
+
+#### Code Example
+
+```
+AltibaseConnection sConn = (AltibaseConnection)DriverManager.getConnection(sURL, sProps);
+sConn.setExplainPlan(AltibaseConnection.EXPLAIN_PLAN_ONLY);
+AltibaseStatement  sStmt = (AltibaseStatement)sConn.prepareStatement("SELECT sysdate FROM dual");
+System.out.println(sStmt.getExplainPlan());
+```
+
+#### Code Result
+
+```
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
+ SCAN ( TABLE: DUAL, FULL SCAN, ACCESS: ??, COST: 0.01 )
+------------------------------------------------------------
+```
+
 ## 4. Tips & Recommendation
 
 This chapter shows how to use Altibase JDBC driver efficiently.
