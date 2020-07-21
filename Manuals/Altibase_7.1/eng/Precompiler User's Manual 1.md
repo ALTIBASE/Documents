@@ -4211,7 +4211,7 @@ Both host variables and indicator variables can be used in both the SET and WHER
 -   Arrays must not be used together with non-array type variables. For example, if the host variable used in the SET clause is an array, the host variable used in the WHERE clause must also be an array.
 
 ```
-예) EXEC SQL BEGIN DECLARE SECTION;
+Example) EXEC SQL BEGIN DECLARE SECTION;
 int var1[10]; 
 int var2[10];
 int var3;
