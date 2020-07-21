@@ -60,7 +60,7 @@ Customer Service Portal: [http://support.altibase.com/en/]
 
 Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
-1. Preface
+## 1. Preface
 ----
 
 ### About This Manual
