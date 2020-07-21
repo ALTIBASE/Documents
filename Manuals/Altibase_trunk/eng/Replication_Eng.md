@@ -2244,6 +2244,47 @@ Determining that Fail-Over has succeeded consists of the successful completion o
 
 The actual method of writing callback functions is described below for various client application environments.
 
+### Writing Callback in JDBC
+
+#### Fail-Over related Callback Interface
+
+To write a Fail-Over callback function in an application using JDBC, the user must write a class that implements thte ABFailOverCallback interface provided by the Altibase JDBC driver. The ABFailOverCallback interface is defined as follows.
+
+```
+public interface ABFailOverCallback
+{
+	int FO_BEGIN	= 0;
+	int FO_END	= 1;
+	int FO_ABORT	= 2;
+	int FO_GO	= 3;
+	int FO_QUIT	= 4;
+
+	int failOverCallback(Connection aConnection,
+		   Object aAppContext,
+		   int aFailOverEvent);
+};
+```
+
+The meaning of the values is as follows:
+
+-   FO_BEGIN  
+    This event notifies Fail-Over callback that STF (Service Time FailOver) starts.
+
+-   FO_END  
+    This event notifies Fail-Over callback that the STF was successful.
+
+-   FO_ABORT  
+    This event notifies Fail-Over callback that the STF has failed.
+
+-   FO_GO  
+    This is the value that the user returns from the callback funciton to the library in order to proceed with the next step of STF.
+
+-   FO_QUIT  
+    This is the value that the user returns from the callback function to the library, meaning that the STF should not proceed.
+
+-   aAppContext  
+    This is an arbitrary object that the user wants to save. If there is no object to save, set it to null.
+    
 #### Writing Fail-Over Callback Functions
 
 The MyFailOverCallback class, which implements the ABFailOverCallback Interface, must be written.
