@@ -1711,7 +1711,7 @@ The buffer_size property specifies the initial size of the queue. Values range f
 
 If the unit (K, M, G) is not input, it is recognized in units of Megabytes.
 
-For more detailed information about properties, please refer to the *General Reference**.* 
+For more detailed information about properties, please refer to the *General Reference*.
 
 ##### Example
 
