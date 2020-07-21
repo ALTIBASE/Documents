@@ -1526,7 +1526,7 @@ Altibase provides the following extra replication features:
 
 -   Recovery Option
 
--   Offline Option)
+-   Offline Option
 
 -   Replication Gapless Option
 
