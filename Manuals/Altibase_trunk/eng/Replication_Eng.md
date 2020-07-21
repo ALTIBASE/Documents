@@ -3066,6 +3066,22 @@ retry:
 
 ### PDO - Callback
 
+#### Registering Fail-Over Callback
+
+To register a Fail-over callback in an application using PDO, use the following method.
+
+```
+...
+public bool PDO::setFailoverCallback(string $callback, mixed $app_context)
+...
+```
+
+-   \$callback  
+    This is the name of the function to register as a callback
+
+-   \$app_context  
+    This is an arbitrary variable to be used as a callback. The variable transfered to \$app_context is transfered as the \$context argument in the callback function. This value is for reference when performing user callback, so if it is not needed it, do not use it. This returns TRUE if the callback registeration was successful and FALSE if it failed.
+
 #### Fail-Over Callback Related Interfaces
 
 In the application using PDO, FailOver Callback function is defined as below: 
