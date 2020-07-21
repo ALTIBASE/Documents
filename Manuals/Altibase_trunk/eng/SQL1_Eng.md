@@ -2958,7 +2958,7 @@ For detailed more information about sequences, please refer to the description o
 
 #### Examples
 
-\<\Query\> Change the sequence seq1 so that the minimum value is 0, the maximum value is 100, and increments by 1.
+\<\Query> Change the sequence seq1 so that the minimum value is 0, the maximum value is 100, and increments by 1.
 
 ```
 iSQL> ALTER SEQUENCE seq1
