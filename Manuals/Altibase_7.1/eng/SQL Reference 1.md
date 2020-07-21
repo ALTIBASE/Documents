@@ -3956,7 +3956,7 @@ PARTITION BY HASH (I1)
 
 
 
-##### Addint Partitions
+##### Adding Partitions
 
 \<Query\>  Add a new partition to a hash-partitioned table
 
