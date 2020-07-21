@@ -2897,7 +2897,7 @@ This type can be used only with CLOB type database columns. It is essential that
 
 When using the APRE_CLOB type as an input host variable, set the value of the corresponding indicator variable to -1 to indicate that the value of the host variable is NULL. When the value of the host variable is any other value (i.e. a non-NULL value), set the value of the indicator variable to the length of the data saved in the host variable. 
 
-When using this type as an output host variable, a value of -1 in the corresponding indicator variable indicates that a NULL value was returned to the host variable, whereas an indicator variable value greater than 0 indicates that a non-NULL value was returned to the host variable, and furthermore indicates the length of the data saved in the host variable. Finally, if the data returned to the host variable was truncated, SQL_NO_TOTAL (-4) is returned in the indicator variable.
+When using this type as an output host variable, NULL is returned when the indicator variable is -1, and if it is greater than 0, the length of the value stored in the host variable is stored in the indicator variable.
 
 ##### Example
 
