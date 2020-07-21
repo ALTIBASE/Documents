@@ -2410,7 +2410,7 @@ struct tag1
     int a; 
 } *A; 
 A = (struct tag1*)(malloc(sizeof(struct tag1))); 
-INSERT INTO T1 VALUES ( :A ); 혹은 INSERT INTO T1 VALUES (:A->a); 
+INSERT INTO T1 VALUES ( :A ); or INSERT INTO T1 VALUES (:A->a); 
 ```
 
 (2) First declare the structure, and then declare a pointer to the structure in a separate statement.
@@ -2422,7 +2422,7 @@ struct tag1
 }; 
 struct tag1 *A; 
 A = (struct tag1*)(malloc(sizeof(struct tag1))); 
-SELECT I1 INTO :A FROM T1; 혹은 SELECT I1 INTO :A->a FROM T1; 
+SELECT I1 INTO :A FROM T1; or SELECT I1 INTO :A->a FROM T1; 
 ```
 
 (3) First declare a structure and define a type based on the structure in the same statement, and then declare a pointer to the type in a separate statement.
@@ -2434,7 +2434,7 @@ typedef struct tag1
 }tag1; 
 tag1 *A; 
 A = (tag1*)(malloc(sizeof(tag1))); 
-SELECT I1 INTO :A FROM T1; 혹은 SELECT I1 INTO :A->a FROM T1; 
+SELECT I1 INTO :A FROM T1; or SELECT I1 INTO :A->a FROM T1; 
 ```
 
 In the following example, vDataT2 is a pointer to a structure, and is used as an input host variable.
