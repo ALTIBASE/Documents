@@ -1726,4 +1726,4 @@ ALTIBASE-MIB::altiStatusIndex.1 = INTEGER: 1
 
 ##### Answer
 
-Verify that Altibase is running.
+If the entire ALTIBASE MIB is not output, verify if Altibase is running.
