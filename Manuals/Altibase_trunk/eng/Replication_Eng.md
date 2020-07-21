@@ -439,17 +439,14 @@ This chapter explains the replication steps and how to use Altibase replication 
 2.  Choose the tables or partitions to be replicated  
     Every table to be replicated must have a primary key.
 
-3.  Set the replication conditions  
-    Set only the logs that pertain to the replication conditions as replication targets. If it is not specified, all of the table data will be the replication target.
-
-4.  Create a replication object using the CREATE REPLICATION statement  
+3.  Create a replication object using the CREATE REPLICATION statement  
     The replication object must have the same name in both databases.
     
-5. Start replication using the ALTER REPLICATION statement 
+4. Start replication using the ALTER REPLICATION statement 
 
     When replication is started, the local server creates a replication Sender thread and this thread connects to a replication manager on the remote server. At this time, the replication manager on the remote server generates a repliation Receiver thread.
 
-6.  The replication service is started.
+5.  The replication service is started.
 
 ### Troubleshooting
 
