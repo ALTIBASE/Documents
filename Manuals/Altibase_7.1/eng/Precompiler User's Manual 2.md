@@ -1865,7 +1865,7 @@ This statement is used to return records that were retrieved when the cursor was
 
 If the same cursor identifier is used in multiple DECLARE CURSOR statements within the same application, then the most recently declared cursor having that identifier at run time will be used. 
 
-##### ExampleExample
+##### Example
 
 The following example shows the use of the cursor CUR to fetch results into different output host variables depending on the situation. Because an indicator variable has been defined for each host variable, it is possible to handle NULL values. The use of the while loop ensures that the FETCH operation is repeated until SQL_NO_DATA is returned. 
 
