@@ -1673,13 +1673,13 @@ If this hint is specified, the optimizer creates an execution plan that most eff
 
 This hint specifies that the full table scan will be performed for the specified table.
 
-![full scan](media/SQL/full scan.gif)
+![full scan](Manuals/Altibase_trunk/eng/media/SQL/full scan.gif)
 
 #### GROUP BUCKET COUNT
 
 This hint specifies the number of hash buckets for the GROUP-AGGREGATION and AGGREGATION execution nodes. 
 
-![group bucket count](media/SQL/group bucket count.gif)
+![group bucket count](Manuals/Altibase_trunk/eng/media/SQL/group bucket count.gif)
 
 #### GROUP_HASH
 
@@ -1703,7 +1703,7 @@ If this hint is specified, a nested subquery uses a hash join to perform an anti
 
 This hint specifies the number of hash buckets for the HASH and DISTINCT execution nodes. 
 
-![hash bucket count](media/SQL/hash bucket count.gif)
+![hash bucket count](Manuals/Altibase_trunk/eng/media/SQL/hash bucket count.gif)
 
 #### HASH_SJ
 
