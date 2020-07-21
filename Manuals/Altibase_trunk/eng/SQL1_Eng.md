@@ -1337,7 +1337,7 @@ Users can specify multiple hints in a single comment by separating them with bla
 
 For more detailed information about each hint, please refer to the next section. 
 
-For more detailed information about using hints for query tuning, please refer to the Performance Tuning Guide. 
+For more detailed information about using hints for query tuning, please refer to the *Performance Tuning Guide*. 
 
 #### Examples
 
