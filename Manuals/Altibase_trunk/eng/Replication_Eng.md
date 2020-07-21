@@ -3121,21 +3121,6 @@ function focbfunnc($db, $context, $event)
 
 #### Registering Fail-Over Callback
 
-To register a FailOver callback in an applicaiton that uses PDO, use the following method:
-
-```
-...
-public bool PDO::setFailoverCallback(string $callback, mixed $app_context)
-...
-```
-
--   \$callback  
-    This is a function name to register as a callback.
--   \$app_context  
-    This is an arbitrary variable used as a callback. A variable sent to $app_context is sent to $app_context parameter in the callback function. This value is referred when performing user callbacks, so do not use it if it is not needed.
-    -   If registering callback is successful - TRUE
-    -   If registering callback fails - FALSE
-
 After a successful connection, the failover callback is specified. Examples are shown below: 
 
 ```
