@@ -6337,7 +6337,7 @@ iSQL> CREATE SEQUENCE seq2;
 Create success.
 ```
 
-\<Query\> Output information on all sequences created by user1
+\<Query\> Output information on all sequences created by user1.
 
 ```
 iSQL> SELECT * FROM SEQ;
