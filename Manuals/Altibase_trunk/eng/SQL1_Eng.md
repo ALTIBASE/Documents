@@ -3246,7 +3246,7 @@ Please refer to the parallel clause description of CREATE TABLE.
 - INITRANS Clause  
   This is used to change the initial number of TTS (Touched Transaction Slots). 
   
-- MAXTRANS 절  
+- MAXTRANS Clause  
   This is used to change the maximum number of TTS (Touched Transaction Slots).
 
 *storage_clause*
