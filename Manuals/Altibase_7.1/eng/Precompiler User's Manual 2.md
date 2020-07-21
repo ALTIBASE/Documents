@@ -2683,7 +2683,7 @@ When used with the EXECUTE statement, array-type host variables can only be used
 
 The following shows the array types that can be used in the EXECUTE statement:
 
-- Simpl arrays
+- Simple arrays
 - Structures containing arrays as elements thereof
 
 #### Limitations
