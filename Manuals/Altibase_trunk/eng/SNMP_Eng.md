@@ -864,7 +864,7 @@ Read-write
 
 altiPropertyAlarmUtransTimeout sets whether or not to raise a trap when a utrans timeout occurs in a session connected to Altibase. If this value is 0, a trap is not raised. 
 
-The initial value can be set for SNMP_ALARM_UTRANS_TIMEOUT, and the default value is 1.
+The initial value can be set for SNMP_ALARM_UTRANS_TIMEOUT, and the default value is 3.
 
 ##### Example
 
