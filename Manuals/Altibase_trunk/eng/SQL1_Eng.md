@@ -6235,7 +6235,7 @@ SEQ1.CURRVAL
 1 row selected.
 ```
 
-\<Query\> Change the value in column i1 to the next value of the sequence, which is 0
+\<Query\> Change the value in column i1 to the next value of the sequence, which is 0.
 
 ```
 iSQL> UPDATE SEQTBL SET i1 = seq1.NEXTVAL;
