@@ -6915,7 +6915,7 @@ ENO INTEGER PRIMARY KEY,
   This option stipulates that if a row in the parent table is deleted, all rows in child tables that have foreign keys that reference this row will also be deleted.
   
 
-  For example, if the table employees is created as follows, when a department from the table departments is tried to be deleted, all rows referencing this department number in the table employees are also deleted.
+For example, if the table employees is created as follows, when a department from the table departments is tried to be deleted, all rows referencing this department number in the table employees are also deleted.
 
   ```
   CREATE TABLE employees (
@@ -6933,7 +6933,7 @@ ENO INTEGER PRIMARY KEY,
   
   In order to enforce the referential integrity of this option, the target column must be nullable. 
 
-  For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
+For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
   
   ```
 CREATE TABLE employees (
