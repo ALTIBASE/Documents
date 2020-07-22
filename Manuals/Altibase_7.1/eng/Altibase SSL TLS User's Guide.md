@@ -443,7 +443,7 @@ If the port property has not been set for JDBC, the value specified for ALTIBASE
 
 Please consider the following when using SSL for JDBC.
 
-###### Importing the PKCS #12 File into the Keystore (Available for JRE 1.6. or Above)
+###### Importing the PKCS #12 File into the Keystore (Available for JRE 1.6. or later)
 
 To use mutual authentication over SSL, you must first import the client's CA certificate and private key into the KeyStore. At this time, the supported version is JRE1.6 or higher. This is because, in Java 6 or higher, you can use the importkeystore option to send a pem file to the keystore.
 
