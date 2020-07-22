@@ -7243,7 +7243,7 @@ Create the following tables:
 
   ```
   iSQL> INSERT INTO tbl_timestamp VALUES(DEFAULT, 2, '02-FEB-01', Byte'A1111002');
-1 row inserted.
+  1 row inserted.
   iSQL> UPDATE tbl_timestamp SET i1 = DEFAULT, i2 = 102, i3 = '02-FEB-02', i4 = Byte'B1111002' WHERE i2 = 2;
   1 row updated.
   iSQL> SELECT * FROM tbl_timestamp;
@@ -7497,7 +7497,7 @@ iSQL> CREATE TABLE inventory(
   
   ```
   CREATE TABLE list_customers 
-( 
+  ( 
   	customer_id	NUMBER(6), 
   	cust_first_name	VARCHAR(20), 
   	cust_last_name	VARCHAR(20), 
@@ -7540,7 +7540,7 @@ iSQL> CREATE TABLE inventory(
   \<Query\> Create a table in which the LOB data is stored in separate tablespaces; specifically, in which the LOB data in the image1 column is stored in the lob_data1 tablespace and the LOB data in the image2 column is stored in the lob_data2 tablespace. CREATE TABLE lob_products
   
   ```
-CREATE TABLE lob_products 
+  CREATE TABLE lob_products 
   (
     product_id integer, 
     image1 BLOB, 
