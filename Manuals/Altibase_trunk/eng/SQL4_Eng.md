@@ -7335,10 +7335,10 @@ When a number is added to or subtracted from a DATE type value, it is interprete
 ```
 date [ + | - ] n
 date – date
-date [ + | - ] days (더하기/빼기 n일: n)
-date [ + | - ] hours (더하기/빼기 n시간: n/24) )
-date [ + | - ] minutes (더하기/빼기 n분: n/(24*60) )
-date [ + | - ] seconds (더하기/빼기 n초: n/(24*60*60))
+date [ + | - ] days (plus/minus n day: n)
+date [ + | - ] hours (plus/minus n hour: n/24) )
+date [ + | - ] minutes (plus/minus n minute: n/(24*60) )
+date [ + | - ] seconds (plus/minus n second: n/(24*60*60))
 ```
 
 > Note:
