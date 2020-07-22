@@ -3986,7 +3986,7 @@ This deletes all statement auditing and DDL statement auditing conditions that h
 
 *delaudit_object_clause*
 
-The deletes auditing conditions that have been enabled for a particular object.
+This deletes auditing conditions that have been enabled for a particular object.
 
 #### Precautions
 
