@@ -216,7 +216,20 @@ COUNT
 1 row selected.
 ```
 
+##### Deleting Multiple table data
 
+\<Query\> Delete employees belong to the 'MARKETING DEPT' deparment in the employees and departments tables.
+
+```
+iSQL> DELETE e, d FROM employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+4 rows deleted.
+
+iSQL> select count(*) from  employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+COUNT
+-----------------------
+0
+1 row selected.
+```
 
 ##### Deleting Rows using the RETURNING clause
 
