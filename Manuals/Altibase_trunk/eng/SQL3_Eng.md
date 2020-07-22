@@ -3574,7 +3574,7 @@ DEQUEUE MESSAGE, CORRID FROM Q1 WHERE CORRID=237;
 
 ## 5. Data Control Language
 
-- This chapter explains each of the Data Control Language (DCL) statements that are available in Altibase.
+This chapter explains each of the Data Control Language (DCL) statements that are available in Altibase.
 
 ### ALTER REPLICATION 
 
