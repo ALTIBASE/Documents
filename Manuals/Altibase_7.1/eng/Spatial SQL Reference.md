@@ -351,8 +351,7 @@ The method by which spatial data is processed in Altibase has the following char
 -   Spatial Object  
     A spatial object consists of both spatial data, which are used to represent the real world, and operations, such as procedures, methods and functions, related to this data. 
 -   Surface  
-    A surface can be thought of as a trace of the continuous movement of a line, or as a planar form that cannot be described using a single point or line. Surfaces are classified as either planes or curved surfaces depending on whether their profile protrudes from a plane (i.e. a flat surface). Generally, the term “surface” is understood to refer to a planar surface, unless otherwise specified.
--   
+    A surface can be thought of as a trace of the continuous movement of a line, or as a planar form that cannot be described using a single point or line. Surfaces are classified as either planes or curved surfaces depending on whether their profile protrudes from a plane (i.e. a flat surface). Generally, the term “surface” is understood to refer to a planar surface, unless otherwise specified.   
 
 ## 2. Spatial SQL
 
