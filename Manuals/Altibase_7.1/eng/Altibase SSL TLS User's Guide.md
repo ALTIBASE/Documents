@@ -186,9 +186,9 @@ This section describes the requirements for using SSL communication on the serve
 #### Server
 
 -   OpenSSL toolkit 0.9.4~1.0.2 
--   Altibase version 6.5.1 or above (only supports Intel-Linux)
+-   Altibase version 6.5.1 or later (only supports Intel-Linux)
 
-The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. You should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug that was disclosed in April 2014. 
+The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. You should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug.
 
 The user can use the OPENSSL_NO_HEARTBEATS option to check whether or not it is infected. 
 
