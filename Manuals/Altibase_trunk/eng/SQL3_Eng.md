@@ -2966,7 +2966,7 @@ This specifies the name and value of the column to be updated. This clause can h
 - If no result on the subquery is returned, NULL is updated in the column. 
 - If DEFAULT is assigned in a column when using a subquery, DAFAULT attribute value is updated in the column.
 
-*Modifying the data in a timestamp column*
+*Modifying the data in a TIMESTAMP column*
 
 When an UPDATE statement is executed on a TIMESTAMP column, the default behavior is to update the column with the system time. Therefore, if no value is specified when a TIMESTAMP column is updated, it will be updated with the system time, rather than NULL.
 
