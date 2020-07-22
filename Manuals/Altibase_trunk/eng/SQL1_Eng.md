@@ -7068,7 +7068,7 @@ This clause is used to specify the PCTFREE, PCTUSED, INITRANS, and MAXTRANS. If 
   This option must be set to an integer value ranging from 0 to 99, representing the percentage. If this value is not set, the default PCTUSED value is 40. This option only applies to pages that have been assigned to tables.
 - INITRANS Clause  
   This clause is used to set the initial number of TTS (Touched Transaction Slots). The default value is 2.
-- MAXTRANS 절  
+- MAXTRANS Clause  
   This clause is used to set the maximum number of TTS (Touched Transaction Slots), to which the number of TTS can increase. The default value is 120.
 
 > Note: 
