@@ -3017,7 +3017,7 @@ The WITH GRANT OPTION is used to enable the grantee to grant the object privileg
 >   
 >-   In order to grant object access privileges, it is necessary to be the SYS user, the owner of the object, or a user to whom the relevant object access privileges have been granted with the WITH GRANT OPTION.
 >   
-> -   • The owner of an object automatically has all privileges for the object.
+> -  The owner of an object automatically has all privileges for the object.
 >
 
 The following query can be used to display all of the object privileges supported in Altibase.
