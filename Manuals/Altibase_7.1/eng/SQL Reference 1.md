@@ -6931,7 +6931,7 @@ ENO INTEGER PRIMARY KEY,
   
   In order to enforce the referential integrity of this option, the target column must be nullable. 
 
-  For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
+For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
   
   ```
 CREATE TABLE employees (
