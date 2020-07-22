@@ -2835,24 +2835,6 @@ F1          SRID(F2)    
 4           102         
 5           103         
 5 rows selected.
-
-
-iSQL> INSERT INTO TB1 SELECT F1, SETSRID(F2, 9999) FROM TB1;
-5 rows inserted.
-iSQL> SELECT F1, SRID(F2) FROM TB1;
-F1          SRID(F2)    
----------------------------
-1           0           
-2           100         
-3           101         
-4           102         
-5           103         
-1           9999        
-2           9999        
-3           9999        
-4           9999        
-5           9999        
-10 rows selected.
 ```
 
 #### SETSRID
@@ -2885,6 +2867,24 @@ F1          SRID(F2)    
 4           102         
 5           103         
 5 rows selected.
+
+
+iSQL> INSERT INTO TB1 SELECT F1, SETSRID(F2, 9999) FROM TB1;
+5 rows inserted.
+iSQL> SELECT F1, SRID(F2) FROM TB1;
+F1          SRID(F2)    
+---------------------------
+1           0           
+2           100         
+3           101         
+4           102         
+5           103         
+1           9999        
+2           9999        
+3           9999        
+4           9999        
+5           9999        
+10 rows selected.
 ```
 
 ### Spatial Object Creation Functions
