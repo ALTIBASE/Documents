@@ -1781,7 +1781,7 @@ ASIN (number)
 
 ##### Description
 
-ASIN returns the arcsine of the input argument, which must be within the range from -1 to 1 inclusive. If the input value does not fall within this range, 0.000000 is returned. The function returns a DOUBLE type numeric value in radians within the range from -/2 to /2 inclusive.
+ASIN returns the arcsine of the input argument, which must be within the range from -1 to 1 inclusive. If the input value does not fall within this range, 0.000000 is returned. The function returns a DOUBLE type numeric value in radians within the range from -π/2 to π/2 inclusive.
 
 ##### Example
 
@@ -1809,7 +1809,7 @@ ATAN (number)
 
 ##### Description
 
-ATAN returns the arc tangent of the input argument, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from -/2 to /2 inclusive.
+ATAN returns the arc tangent of the input argument, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from -π/2 to π/2 inclusive.
 
 ##### Example
 
@@ -1837,7 +1837,7 @@ ATAN2 (n, m)
 
 ##### Description
 
-ATAN2 returns the arc tangent of two input arguments, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from - (exclusive) to  (inclusive).
+ATAN2 returns the arc tangent of two input arguments, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from -π (exclusive) to π (inclusive).
 
 ##### Example
 
