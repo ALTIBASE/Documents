@@ -3056,6 +3056,17 @@ POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
 
 iSQL> INSERT INTO TB3 VALUES (105, POLYFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> INSERT INTO TB3 VALUES (120, POLYFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          ASEWKT(OBJ)
+---------------------------------------------------------------------------------------------------------------------
+104         SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+120         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+2 rows selected.
+
 ```
 
 #### MPOINTFROMTEXT
