@@ -3581,6 +3581,260 @@ GEOMETRY object is created by receiving spatial object in EWKB format.
 GEOMETRY
 ```
 
+#### ST_MAKEPOINT
+
+##### Syntax
+
+```
+
+ST_MAKEPOINT( x, y )
+```
+
+##### Description
+
+This receives the x and y values and returns the sptail object of POINT.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_MAKEPOINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
+
+#### ST_POINT
+
+##### Syntax
+
+```
+ST_POINT( x, y )
+```
+
+##### Description
+
+Same as ST_MAKEPOINT.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_POINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_POINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
+
+#### ST_MAKELINE
+
+##### Syntax
+
+```
+ST_MAKELINE( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+This creats a LineString object by receiving Point, MultiPoint, and LineString objects.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', GEOMETRY'POINT(2 2)' ) ) AS GEOM FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2)                                
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'LINESTRING(1 1, 2 2)', 
+    2 GEOMETRY'LINESTRING(3 3, 4 4)' ) ) AS GEOM
+    3 FROM DUAL;
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+LINESTRING(1 1, 2 2, 3 3, 4 4)                                                                                                                                                                                                                                    
+1 row selected.
+```
+
+#### ST_MAKEPOLYGON
+
+##### Syntax
+
+```
+ST_MAKEPOLYGON( GEOMETRY )
+```
+
+##### Description
+
+This creates a Polygon object by receiving the LineString object. At this time, LineString must be in the form of a ring.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOLYGON( GEOMETRY'LINESTRING( 0 0, 1 1, 1 0, 0 0 ) ' ) ) AS GEOM FROM DUAL; 
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+POLYGON((0 0, 1 1, 1 0, 0 0))                                                                                                                                                                                                                                     
+1 row selected.
+```
+
+#### ST_POLYGON
+
+##### Syntax
+
+```
+ST_POLYGON( GEOMETRY, SRID )
+```
+
+##### Description
+
+Similar to ST_MAKEPLOYGON, this creates Pology object with SRID by receiving LineString and SRID.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ST_ASEWKT( ST_POLYGON( GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 2 ) ', 4326 ) ) AS GEOM FROM DUAL;
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+SRID=4326;POLYGON((2 2, 3 2, 3 3, 2 3, 2 2))                                                                                                                                                                                                                      
+1 row selected.
+```
+
+#### ST_MAKEENVELOPE
+
+##### Syntax
+
+```
+ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
+```
+
+##### Description
+
+This return LINESTRING( X1 Y1, X2 Y2) corresponding to 4 input double variables as POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ), which is the result of ENVELOPE.
+
+
+If an SRID is entered, it is set as the SRID of the created spatial object. If the SRID is not entered, the created spatial object's SRID is 0. 
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138 ) ) AS POL FROM DUAL;
+POL
+----------------------------------------------------------------------------------------------------------------------------
+SRID=0;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138, 104 ) ) AS POL FROM DUAL;
+POL
+----------------------------------------------------------------------------------------------------------------------------
+SRID=104;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+```
+
+#### ST_TRANSFORM
+
+##### Syntax
+
+```
+GEOMETRY ST_Transform( GEOMETRY, INTEGER to_srid );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, INTEGER to_srid );
+```
+
+##### Description
+
+GEOMETRY object is converted to the input coordinate system and newly created.
+
+The input/output coordinate system can be input as an SRID or PROJ4TEXT string.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Constraints
+
+This function is only available for Linux operating system in Intel environment.
+
+If any input argument is NULL, NULL is returned.
+
+If the input GEOMETRY object is EMPTY, the EMPTY GEOMETRY object is returned.
+
+If the I/O SRID is the same, the returned GEOMETRY object is the same as the input GEOMETRY object.
+
+When the SRID is input as the input/output coordinate system, the Spatial Reference System metadata of the SRID corresponding to the SPATIAL_REF_SYS table must exist.
+
+The PROJ4TEXT syntax supports only the PROJ library version 4 format.
+
+If the output coordinate system is PROJ4TEXT, the SRID of the returned GEOMETRY object is set to 0.
+
+If the input coordinate system is PROJ4TEXT and the SRID of the input GEOMETRY object is 0, the SRID of the returned GEOMETRY object is set to 0.
+
+##### Example
+
+```
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), 4326 )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=4326;POINT(127.0246 37.5326)                                                                                                                                                                                                                                 
+1 row selected.
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+1 row selected.
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+1 row selected.
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', 4326 )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+1 row selected.
+```
+
 ### Dimensionally Extended Nine Intersection Model(DE－9IM) 
 
 #### Spatial Relational Operators in the Dimensionally Extended Nine Intersection Model(DE－9IM) 
