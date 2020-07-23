@@ -3069,6 +3069,52 @@ ID          ASEWKT(OBJ)
 
 ```
 
+#### ST_POLYGONFROMTEXT
+
+##### Syntax
+
+```
+ST_POLYGONFROMTEXT( TEXT[, srid] )
+```
+
+##### Description
+
+A polygon object is created by receiving spatial objects and SIRDs in the for of Well-Known Text (WKT) or Extended Well known Text (EWKT).
+
+If the value of WKT is NULL or the value of SRID is NULL, NULL is returned.
+
+If the syntax of WKT or EWKT is incorrect, an error is output.
+
+If no SRID is entred, the created object's SRID is 0.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> INSERT INTO TB3 VALUES (121, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (122, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (123, ST_POLYGONFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (124, ST_POLYGONFROMTEXT('SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          ASEWKT(OBJ)
+---------------------------------------------------------------------------------------------------------------------
+121         SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+122         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+123
+124         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+4 rows selected.
+```
+
 #### MPOINTFROMTEXT
 
 ##### Syntax
