@@ -5256,13 +5256,19 @@ The user can manually set statistics for objects or the system using the followi
 
 For more detailed information about each stored procedure, please refer to DBMS Stats in the Stored Procedures Manual.
 
+### Auto Stats
+
+#### Inquirying Statistical Information
+
+The collected statistics are stored in the V$DMBS_STATS performance view. For more information on \V$DBMS_STATS performance view, refer to the General Reference.
+
 #### Restrictions
 
 For the system statistics, it is recommended to collect only once after starting the Altibase server with a certain amout of load (repeating FULL SCAN and INDEX SCAN). Otherwise, some statistical values may not be measured correctly.
 
 Because objects and data in the database are constantly changing, users need to update statistics periodically to optimize queries. It is recommended to collect the table statistics monthly if when there are many data changes.
 
-6. SQL Hints
+## 6. SQL Hints
 --------
 
 This chapter describes SQL hints taht let the user to change the execution plan of an SQL statement. 
