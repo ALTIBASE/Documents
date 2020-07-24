@@ -2222,7 +2222,7 @@ AND T3.m3 = T4.x3;
 
 The join relationships in the above query can be expressed as follows:
 
-![join_kor](media/TuningGuide/TuningGuide_eng.1.18.2.jpg)
+![join_kor](media/TuningGuide/join_kor.gif)
 
 By evaluating only the cost of join relationships when determining the join order, the optimizer prevents tables without direct join relationships, (e.g., tables T1 and T4) from being chosen to be joined first. 
 
@@ -2234,7 +2234,7 @@ The optimizer uses the join relationships generated above to determine the order
 
 The way that the join order is determined is to choose the joins with the highest selectivity to be processed first. Then, these joins are again sorted by efficiency. However, this join relationship order is not the actual join order. The actual join order is finally set when the joining method is determined. 
 
-![join_order_kor](media/TuningGuide/TuningGuide_eng.1.18.3.jpg)
+![join_order_kor](media/TuningGuide/join_order_kor.gif)
 
 [Figure 3-3] Join Ordering
 
