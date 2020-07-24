@@ -5546,7 +5546,7 @@ Incorrect usage example:
 
 - EXISTS must be unnested using a inner/semi-join; however, an anti-join hint is used.
   
-```
+  ```
   SELECT * FROM T1 WHERE EXISTS ( SELECT /*+HASH_AJ*/ * FROM T2  WHERE T2.a1 = T1.i1 );
   ```
 
