@@ -739,7 +739,33 @@ To execute direct-path uploading in logging mode with a specified array size:
 il in t1.form -d t1.dat -array 1000 -direct
 ```
 
+#### OUT
 
+When executing OUT operation with iLoader, the following options can be used to increase performance.
+
+| Factor                             | Description                                                        |
+| --------------------------------- | ------------------------------------------------------------ |
+| \-array *array_size*              | Option to specify the number of rows to fetch at one time.<br /> Default: 1 |
+| \-parallel *count*                | This option specifies the number of threads to work simultaneously. As many threads as specified are created and processed in parallel, as many data files as threads are created. When downloading using the <br /> -parallel option alone, bind and fetch are repeatedly performed, which causes performance degradation. Therefore, the -array option must be used together.<br />In case of IN, there are always 2 connections to the server.<br />Default: 1, Max: 32 |
+| \-prefetch_rows *n*               | When executing a select query, the user can specify the number of records fetched from the database at one time. The range of possible values is 0 to 214783647. 0 means the maximum size that can be contained in a network packet.<br /> Default: 0 |
+| -async prefetch *[on\|off\|auto]* | To improve fetch performance, asynchronous prefetch can be configured. The values ​​that can be set for this option are as follows.<br />- off: Do not perform asynchronous prefetch. (Default)<br />- on: Perform asynchronous prefetch.<br />- auto: Perform auto tuning for asynchronous prefetch. (Linux only)<br /><br />For detailed information on asynchronous prefetch, please refer to ALTIBASE_PREFETCH_ASYNC, ALTIBASE_PREFETCH_AUTO_TUNING, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO in *CLI User's Manual*. |
+
+##### LOB Column contraints
+
+If there is a LOB column in the download target table, the value specified by the user is ignored for the next option and is set internally as follows.
+
+| Option      | Setting Value |
+| --------- | ------ |
+| -array    | 1      |
+| -parallel | 1      |
+
+##### Example
+
+Download to Array 1000.
+
+```
+iLoader> out -f t1.form -d t1.dat -array 1000
+```
 
 ### Using iLoader in Batch Mode
 
