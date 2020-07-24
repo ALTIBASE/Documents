@@ -411,7 +411,7 @@ Note: If the server character set and the value set in ALTIBASE_NLS_USE are diff
 
 #### Syntax
 
-![](/Users/richardnahm/Desktop/Documents/Manuals/Altibase_7.1/kor/media/Utilities/83e5d3722e9a7c575270c6a6bb5206c2.gif)
+![](media/Utilities/83e5d3722e9a7c575270c6a6bb5206c2.gif)
 
 #### Parameters
 
