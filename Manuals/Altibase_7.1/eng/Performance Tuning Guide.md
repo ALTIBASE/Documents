@@ -2164,7 +2164,7 @@ For example, the shortest conversion path will be between the FLOAT and VARCHAR 
 
 The following figure shows data type conversion paths.
 
-![data_type_conversion_path_kor](media/TuningGuide/TuningGuide_eng.1.18.1.jpg)
+![data_type_conversion_path_kor](media/TuningGuide/data_type_conversion_path_kor.gif)
 
 [Figure 3-2] Data Type Conversion Paths
 
