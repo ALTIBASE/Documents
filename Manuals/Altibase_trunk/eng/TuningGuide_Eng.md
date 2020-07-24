@@ -3151,7 +3151,7 @@ Fedorov
 
 This section provides an example and briefly explains how to interpret a plan tree. The explain plan is determined by following the entire plan tree wherein plan nodes are connected in tree form.
 
-![plan_tree_kor](media/TuningGuide/TuningGuide_eng.1.24.2.jpg)
+![plan_tree_kor](media/TuningGuide/plan_tree_kor.gif)
 
 Each individual node in the execution plan tree is displayed as one row. The further the node is indented from the left (the further it is located towards the right), the lower the node is and it is executed faster than other nodes.
 
@@ -3163,7 +3163,7 @@ In the above example, the node that accesses the database first is the SCAN node
 
 The following figure shows the execution plan described above in tree diagram form.
 
-![fetch_path_kor](media/TuningGuide/TuningGuide_eng.1.24.3.jpg)
+![fetch_path_kor](media/TuningGuide/fetch_path_kor.gif)
 
 [Figure 4-1] Sequence in which Records are Requested and Fetched
 
