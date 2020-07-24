@@ -5599,7 +5599,7 @@ A function of delaying execution is provided. The execution of hierarchy, sortin
 
 -   DELAY: Activation in delaying execution of the execution plan.
 
-7. SQL Plan Cache
+## 7. SQL Plan Cache
 --------------
 
 This chapter describes the concepts and features of Altibase's SQL Plan Cache and Result Cache features.
