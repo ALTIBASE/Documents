@@ -5221,9 +5221,9 @@ Well-built statistics play an important role when the optimizer determines the m
 -   Database system statistics
 
     -   The average time spent reading a single page 
--   The average time spent reading multiple pages 
+    -   The average time spent reading multiple pages 
     -   The average time spent hashing 
--   The average time spent comparing
+    -   The average time spent comparing
 
 ### Managing Statistics
 
