@@ -114,7 +114,7 @@ Dynamic SQL is useful in the following cases:
 -   When the name of the table to be queried can vary during runtime 
 -   When it is appropriate to change a query hint depending on the circumstances, or when it is necessary to change a conditional operator for a condition clause 
 -   When SQL statements that are used in stored procedures and functions need to be optimized frequently due to the frequent execution of DDL and DML statements 
--   When it is necessary to frequently execute SQL statements for which the execution cost exceeds the optimization cost.  When it is desired to create versatile, reusable stored procedures
+-   When it is necessary to frequently execute SQL statements for which the execution cost exceeds the optimization cost.  When it is desired to create versatile, reusable stored procedures
 
 However, in some situations, using dynamic SQL may realize lower performance than using static SQL. This is attributable to the high cost of creating and deleting statements and binding variables to them. Although the use of dynamic SQL statements permits greater flexibility when designing applications, it may result in reduced performance.
 
