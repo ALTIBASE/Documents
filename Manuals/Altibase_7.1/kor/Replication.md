@@ -1687,8 +1687,9 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 문 실행이 가능�
     또한 지역 서버와 원격 서버의 파티션에 이중화 격차가 발생할 수 있으므로, 
     데이터가 다른지 여부를 확인하여야 한다.
 
-이중화 대상인 파티션을 SPLIT, MERGE, DROP 하여 새로 생성된 되거나 삭제된 파티션은 
-자동으로 이중화 대상인 파티션으로 추가되거나 제거된다.
+이중화 대상인 파티션을 SPLIT, MERGE, DROP시 원격 서버에도 동일한 이름으로 파티션을 생성 하거나 
+삭제 하여야 하며, 새로 생성된 되거나 삭제된 파티션은 자동으로 이중화 대상인 파티션으로 추가되거나 
+제거된다.
 
 #### 제약사항
 
@@ -1756,7 +1757,7 @@ iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
 iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );
-(Local SYS User)
+(Remote SYS User)
 iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
 iSQL> AUTOCOMMIT OFF;
 iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
