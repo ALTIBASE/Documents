@@ -301,11 +301,13 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **증상** : [ST_PolygonFromText](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SpatialSQL.md#st_polygonfromtext) 함수가 추가되었습니다.
+- **증상** : [ST_PolygonFromText](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SpatialSQL.md#st_polygonfromtext) 함수가 추가되었습니다.
 
-    ```
-ST_PolygonFromText( wkt [, SRID] )
-    ```
+  구문은 아래와 같습니다.
+
+  ```
+  ST_PolygonFromText( wkt [, SRID] )
+  ```
 
 -   **재현 방법**
 
