@@ -1706,7 +1706,7 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
 -   ALTER TABLE table_name DROP COLUMN  
     프라이머리 키를 삭제할 수 없다.  
     압축 컬럼을 삭제할 수 없다.
--   AALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
+-   ALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
     이중화가 구동 중에 수행할 수 없다.  
     해당 테이블을 잠금 설정(LOCK TABLE)한다.  
     이중화 대상 테이블은 지역 서버와 원격 서버간의 이중화 격차를 확인해야 한다.
