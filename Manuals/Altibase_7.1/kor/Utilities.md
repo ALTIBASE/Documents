@@ -4860,7 +4860,7 @@ Altibase 서버가 비정상 종료될 때 \$ALTIBASE_HOME/trc 디렉토리에 �
 
 ```
 dumptrc [-h |[-p file_path][-c [-s]]
-[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] |-f |-v]
+[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] [x] |-f |-v]
 ```
 
 
@@ -4930,8 +4930,7 @@ Altibase 기술서비스 팀에 송부하면, 보다 빨리 문제를 해결할 
 
 #### 주의 사항
 
-dumptrc가 정상적으로 동작하려면, Altibase의 실행 파일의 버전과 dumptrc의 버전이
-동일해야 정확한 콜 스택 정보를 확인할 수 있다.
+Altibase의 실행 파일의 버전과 dumptrc의 버전이 동일해야 정확한 콜 스택 정보를 확인할 수 있다.버전이 틀릴 경우는 잘못된 값이 나올 수 있기 때문에 기본적으로 경고메시지를 보여주고 콜 스택을 출력하지 않는다. 버전이 틀릴때도 강제로 콜스택을 출력하기 위해서는 -x옵션을 사용하면 된다.
 
 #### 사용예
 
