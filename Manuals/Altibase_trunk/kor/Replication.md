@@ -1610,7 +1610,7 @@ REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값에 따라 지원하는 DDL 문이 
 다음은 REPLICATION_DDL_ENABLE_LEVEL의 값이 0일 때 지원하는 DDL 문이다.
 
 ```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
 
 ALTER TABLE table_name DROP COLUMN column_name;
 
@@ -1620,19 +1620,17 @@ ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
 
 ALTER TABLE table_name ALTER TABLESPACE;
 
+ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
+
 ALTER TABLE table_name TRUNCATE PARTITION TRUNCATE TABLE table_name;
 
-ALTER TABLE table_name SPLIT PARTITION partition_name(condition) INTO
-( PARTITION partition_name
-   PARTITION partition_name);
+ALTER TABLE table_name REPLACE table_name;
 
-ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
-
-ALTER TABLE table_name DROP PARTITION partiton_name; 
+ALTER TABLE table_name REPLACE table_name PARTITION partition_name ;
 
 TRUNCATE TABLE table_name;
 
-CREATE INDEX index_name ON table_name (column_name);
+CREATE INDEX index_name ON table_name ( column_name );
 
 DROP INDEX index_name;
 ```
@@ -1640,32 +1638,42 @@ DROP INDEX index_name;
 REPLICATION_DDL_ENABLE_LEVEL의 값이 1일 때 지원하는 DDL 문은 아래와 같다.
 
 ```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE NOT NULL);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
 
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE UNIQUE);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
 
-ALTER TABLE table_name ALTER COLUMN (column_name NOT NULL);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
 
-ALTER TABLE table_name ALTER COLUMN (column_name NULL);
+ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
 
-ALTER TABLE table_name MODIFY COLUMN (column_name DATA_TYPE);
+ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
 
-ALTER TABLE table_name MODIFY COLUMN (column_name NULL);
+ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
 
-ALTER TABLE table_name MODIFY COLUMN (column_name NOT NULL);
+ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
 
-ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능) 
+ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
 
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
+ALTER TABLE table_name SPLIT PARTITION partition_name ( condition ) INTO ( PARTITION partition_name PARTITION partition_name );
 
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name) LOCAL;
+ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
+
+ALTER TABLE table_name DROP PARTITION partiton_name; 
+
+ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능 ) 
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name ) LOCAL;
+
+ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
 
 ALTER TABLE table_name DROP CONSTRAINT constraint_name; 
  ( Unique, Local Unique가 있는 것도 삭제 가능 )
 
-CREATE UNIQUE INDEX index_name ON table_name (column_name);
+CREATE UNIQUE INDEX index_name ON table_name ( column_name );
 
-CREATE INDEX index_name ON table_name (expression);
+CREATE INDEX index_name ON table_name ( expression );
 
 DROP INDEX index_name; ( unique, function-base 인덱스가 있는 것도 삭제 가능 )
 ```
@@ -1676,17 +1684,18 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 문 실행이 가능�
 실행을 하기 위해서는 우선 프로퍼티를 다음과 같이 설정해야 한다.
 
 -   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
-
+-   REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 LEVEL에 맞게 설정한다.
 -   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를
     NONE 이외의 값으로 설정한다.
+-   이중화 대상인 테이블에 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을 수행하려면, 
+    원격 서버에 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 1로 설정한다.   
+    대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다. 
+    또한 지역 서버와 원격 서버의 파티션에 이중화 격차가 발생할 수 있으므로, 
+    데이터가 다른지 여부를 확인하여야 한다.
 
--   이중화 대상인 테이블에 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을
-    수행하려면, 대상 테이블을 LOCK TABLE...UNTIL NEXT DDL 구문으로 잠금 설정해야
-    한다. 또한 지역 서버와 원격 서버의 파티션에 이중화 격차가 발생할 수
-    있으므로, 데이터가 다른지 여부를 확인하여야 한다.
-
-이중화 대상인 파티션을 SPLIT, MERGE, DROP 하여 새로 생성된 파티션은 자동으로
-지역 서버와 원격 서버에 동일한 이름의 파티션이 추가되거나 제거된다.
+이중화 대상인 파티션을 SPLIT, MERGE, DROP시 원격 서버에도 동일한 이름으로 파티션을 생성 하거나 
+삭제 하여야 하며, 새로 생성된 되거나 삭제된 파티션은 자동으로 이중화 대상인 파티션으로 추가되거나 
+제거된다.
 
 #### 제약사항
 
@@ -1700,11 +1709,9 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
 -   ALTER TABLE table_name ADD COLUMN  
     외래 키를 추가할 수 없다.  
     압축 컬럼을 추가할 수 없다.
-
 -   ALTER TABLE table_name DROP COLUMN  
     프라이머리 키를 삭제할 수 없다.  
     압축 컬럼을 삭제할 수 없다.
-
 -   ALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
     이중화가 구동 중에 수행할 수 없다.  
     해당 테이블을 잠금 설정(LOCK TABLE)한다.  
@@ -1714,7 +1721,8 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
     MERGE 대상이 되는 파티션은 모두 이중화 객체에 존재해야 한다.  
     DROP PARTITION은 이중화 객체에 2개 이상의 파티션이나 테이블이 있어야 수행할
     수 있다.
-
+매뉴얼의 처리 순서와 다르게 처리할 경우 데이터 불일치가 발생할 수 있다.
+    
 -   TRUNCATE TABLE  
     압축 컬럼을 가지지 않는 테이블에 한해서 지원된다.
 
@@ -1739,32 +1747,42 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
 Alter success.
 ```
 
-파티션 P2에 있는 테이블 T1을 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+- 테이블 T1에 있는 파티션 P2를 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+
 
 ```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 1;
+(Local SYS User)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> AUTOCOMMIT OFF;
+iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
 iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
-       INTO (PARTITION P3, PARTITION P4 ); 
-```
-
-파티션 P2, P3에 있는 테이블 T1을 파티션 P23으로 합쳐서 생성한다 (MERGE TABLE).
-
-```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );
+(Remote SYS User)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> AUTOCOMMIT OFF;
+iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
-```
-
-파티션 P1을 제거한다 (DROP TABLE).
-
-```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );
+(Local SYS User)
+iSQL> ALTER REPLICATION REP1 START;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
+(Local SYS User)
+iSQL> AUTOCOMMIT ON;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+(Remote SYS User)
+iSQL> AUTOCOMMIT ON;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;
 ```
 
 ### 이중화 대상 테이블에 DDL 복제 실행
@@ -1863,25 +1881,6 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
 Alter success.
 iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
 Alter success.
-```
-
-파티션 P2에 있는 테이블 T1을 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
-
-```
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
-       INTO (PARTITION P3, PARTITION P4 ); 
-```
-
-파티션 P2, P3에 있는 테이블 T1을 파티션 P23으로 합쳐서 생성한다 (MERGE TABLE).
-
-```
-iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
-```
-
-파티션 P1을 제거한다 (DROP TABLE).
-
-```
-iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 ```
 
 ### SQL 반영 모드
