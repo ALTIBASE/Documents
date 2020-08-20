@@ -35,7 +35,7 @@ New Features
 
 -   **재현 빈도** : Always
 
-- **증상** : ST_Collect 함수가 추가되었습니다.
+- **증상** : [ST_Collect](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SpatialSQL.md#st_collect) 함수가 추가되었습니다.
 
   ##### 구문
 
