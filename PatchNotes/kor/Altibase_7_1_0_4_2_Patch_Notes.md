@@ -189,7 +189,7 @@ Fixed Bugs
 
 -   **증상** : 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 이후
     이중화 start시 실패하는 문제를 수정합니다. 이로 인해 기존과
-    동작방식이 일부 변경되었으므로(추가된 스텝이 존재하므로) [Replicaton 매뉴얼#이중화대상테이블에DDL실행]([https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Replication.md#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89) 에서 [예제](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Replication.md#예제-4)의 내용을 먼저 확인하시기 바랍니다.
+    동작방식이 일부 변경되었으므로(추가된 스텝이 존재하므로) [Replicaton 매뉴얼#이중화대상테이블에DDL실행](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Replication.md#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89) 에서 [예제](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Replication.md#예제-4)의 내용을 먼저 확인하시기 바랍니다.
 
 이중화 대상인 테이블에 SPLIT PARTITION과 MERGE PARTITION, DROP
     PARTITION을 수행하려면, 원격서버에 REPLICATION\_DIFF\_META\_START\_ENABLE 프로퍼티를
