@@ -2365,6 +2365,48 @@ F1          ISRING(F2)
 1 row selected.
 ```
 
+#### ST_ISCOLLECTION
+
+##### 구문
+
+```
+ST_ISCOLLECTION( GEOMETRY )
+```
+
+##### 설명
+
+인자로 받은 공간 객체가 Multi\*이거나 GeometryCollection이면 1을 반환하고, 
+그렇지 않으면 0을 반환한다. 
+
+
+##### 반환 타입
+
+```
+INTEGER
+```
+
+##### 예제
+
+```
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'POINT(1 1)'); 
+ST_ISCOLLECTION(GEOMETRY'POINT(1 1)') 
+----------------------------------------
+0           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)');
+ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)') 
+---------------------------------------------
+1           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(2 2, 3 3))');  
+ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTIO 
+---------------------------------------------
+1           
+1 row selected.
+```
+
 #### NUMPOINTS
 
 ##### 구문
