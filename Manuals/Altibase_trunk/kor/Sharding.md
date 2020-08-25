@@ -597,7 +597,11 @@ Altibase Sharding은 다음 요소로 구성되어 있다.
 
 ZooKeeper는 샤드 노드 구성 정보를 관리하며, split brain 현상을 방지한다.
 
-#### 샤딩 시스템 구성
+#### 샤딩 클러스터 시스템
+
+샤딩 클러스터 시스템은 사용자의 Shard DDL(ADD, DROP, JOIN, FAILOVER, FAILBACK) 구문이나 샤딩 HA에 의해서 자동으로 Sharded Database 서비스에 참여하거나 제외될 수 있다. 
+
+![](media/Sharding/sharding_cluster_system_view.png)
 
 Altibase Sharding 시스템은 모든 샤드 노드가 샤드 메타, 코디네이터 및 데이터 저장소에 대한 역할을 할 수 있도록 구성해야 한다.
 
