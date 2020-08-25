@@ -509,7 +509,7 @@ Split brain 현상을 방지하기 위하여 Apache ZooKeeper를 사용한다.
 
 전체적인 Altibase Sharding 시스템에서 사용되는 용어에 대해서 [그림 1-7]에서 도식화 하였다.
 
-![sharding_overview_terminolodge](media/Sharding/sharding_overview_terminolodge.png)
+![sharding_overview_terminology](media/Sharding/sharding_overview_terminology.png)
 
 [그림 1‑7] Altibase Sharding 용어 및 개요
 
