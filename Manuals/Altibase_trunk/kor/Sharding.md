@@ -584,7 +584,8 @@ Altibase Sharding은 다음 요소로 구성되어 있다.
 -   샤드 라이브러리
 -   샤드 노드
     -   샤드 메타
-    -   샤드 데이터
+    -   샤드 데이터 원본
+    -   샤드 데이터 복제본
 -   ZooKeeper
 
 응용프로그램은 샤드 라이브러리를 사용하여 클라이언트측 샤딩과 서버측 샤딩을 사용할 수 있으며, 그 외의 라이브러리를 사용하는 경우 서버측 샤딩만을 사용할 수 있다.
@@ -603,15 +604,15 @@ ZooKeeper는 샤드 노드 구성 정보를 관리하며, split brain 현상을 
 
 ![](media/Sharding/sharding_cluster_system_view.png)
 
-Altibase Sharding 시스템은 모든 샤드 노드가 샤드 메타, 코디네이터 및 데이터 저장소에 대한 역할을 할 수 있도록 구성해야 한다.
+[그림 1‑10] Altibase Sharding cluster system view
 
-하나의 샤드 노드는 그림 1-10과 같이 고가용성을 고려하여 데이터를 Standby로 이중화하는 것을 권장한다.
+Altibase Sharding 시스템은 모든 샤드 노드가 K-safety 만큼의 샤드 데이타 복제본을 유지하여, 모든 샤드 노드가 Active 노드이면서 동시에 Standby 노드의 역할을 한다.
 
-Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)이 없는 시스템 구성으로 높은 신뢰성을 가질 수 있으며 코디네이터의 부하를 분산 시킬 수 있는 장점을 가지고 있다.
+Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)이 없는 시스템 구성으로 높은 신뢰성을 가질 수 있다.
 
-![](media/Sharding/sharding_system_config.png)
+![](media/Sharding/sharding_replication_view.png)
 
-[그림 1‑10] Altibase Sharding 시스템 구성
+[그림 1‑11] Altibase Sharding replication view
 
 ### Altibase Sharding 특징
 
