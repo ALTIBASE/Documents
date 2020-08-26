@@ -253,7 +253,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 질의처리에 필요한 데이터의 위치를 파악하고, 해당하는 데이터베이스들에 질의를
 분산 처리하여 그 결과를 통합하여 반환한다.
 
-이 구조는 코디네이터에서 중간처리를 함으로써, 기존 응용프로그램 변경을 최소화할 수 있는 장점이 있다. 반면 코디네이터 처리 용량을 넘어서면 병목현상(bottle-neck)이 발생하여 샤딩 시스템을 확장하기 어려운 단점이 있다. 
+반면에 코디네이터 처리 용량을 넘어서면 병목현상(bottle-neck)이 발생하여 샤딩 시스템을 확장하기 어려운 단점이 있다. 
 
 #### 클라이언트측 샤딩(Client-side Sharding)
 
@@ -281,6 +281,22 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
 
+##### 샤드 노드(shard node) 
+
+샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
+
+##### sharded database
+
+여러개의 샤드 노드들로 구성된 사용자 입장에서 논리적으로 하나인 데이타베이스를 sharded database 라고 한다. 
+
+##### 샤드 클러스터 관리자(ZooKeeper)
+
+Split brain 방지등의 샤딩 클러스터 관리를 위하여 Apache ZooKeeper를 사용한다.
+
+##### 샤딩 클러스터 시스템(Sharding Cluster System)
+
+여러개의 샤드 노드들로 구성된 sharded database 와 샤드 클러스터 관리자(ZooKeeper)를 합하여 샤딩 클러스터 시스템이라고 한다. 
+
 ##### 샤드 메타(shard meta) 
 
 샤드 노드의 정보, 샤드 객체, 분산 설정 등 분산 정보가 저장되는 메타 테이블들을 총칭하여 샤드 메타라고 한다. 샤드 메타 테이블들은 sys_shard 사용자의 객체로 관리된다.
@@ -296,6 +312,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 ##### 샤드 데이터(shard data) 
 
 분산된 데이터 조각이다. 전체 분산 데이터베이스의 데이터 일부를 가지고 있다.
+
+##### 샤드 레플리카(shard replica) 
+
+샤드 데이타에 대한 복제본이다. k-safety 값 만큼의 복제본을 가지고 있다.
 
 ##### 샤드 커넥션(shard connection)
 
@@ -334,15 +354,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 샤딩 시스템에서 데이터를 위치시키는 방법이다. 데이터의 특성에 맞게 적용할 수 있는 다양한 분산 방식을 제공한다. 현재 지원하는 분산 방식은 다음과 같다.
 
 -   HASH
-
 -   RANGE
-
 -   LIST
-
 -   COMPOSITE
-
 -   CLONE
-
 -   SOLO
 
 ##### 샤드 객체(shard object)
@@ -393,7 +408,6 @@ DELETE FROM s1 WHERE k1>3;
 
 ```
 SELECT count(*) FROM s1;
-SELECT k1, count(*) FROM s1 group by k1;
 SELECT * FROM s1 order by k1;
 ```
 
@@ -442,8 +456,7 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 
 ##### 샤드 키(shard key)
 
-분산 정의의 기준이 되는 컬럼 또는 파라미터이다. 현재 샤드 키로 사용할 수 있는
-데이터 타입은 다음과 같다.
+분산 정의의 기준이 되는 컬럼 또는 파라미터이다. 현재 샤드 키로 사용할 수 있는 데이터 타입은 다음과 같다.
 
 -   smallint
 -   integer
@@ -501,10 +514,6 @@ K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은
 
 Altibase Sharding에서는 K-safety는 0, 1 또는 2의 값을 가질 수 있다. K-safety가 1 일때, 샤드노드 하나가 장애가 발행해도 전체 시스템은 정상적으로 운영된다. 추가적으로 샤드노드에 장애가 발생하더라도, 해당 노드의 복제본을 가진 노드가 장애가 발생하지 않는 한, 전체 시스템은 정상적으로 운영된다.
 
-##### ZooKeeper
-
-Split brain 현상을 방지하기 위하여 Apache ZooKeeper를 사용한다.
-
 ##### 용어 및 개요 정리
 
 전체적인 Altibase Sharding 시스템에서 사용되는 용어에 대해서 [그림 1-7]에서 도식화 하였다.
@@ -535,32 +544,26 @@ Altibase Sharding은 다양한 분산 방식과 분산 객체, 유틸리티를 �
 
 #### Altibase Sharding 구성 요소
 
-Altibase Sharding은 클라이언트 측에서 동작하는 샤드 라이브러리와 모든 샤드 노드마다 존재하는 샤드 메타, 샤드 데이터 그리고 샤드 코디네이터로 구성되며, 이들 구성요소가 서로 유기적으로 연계되어 분산 처리를 수행한다.
-
-![altibase_sharding_structure](media/Sharding/altibase_sharding_structure.png)
-
-[그림 1-9] Altibase Sharding 구성 요소
-
-### Altibase Sharding 구성 
-
-Altibase Sharding은 다음 요소로 구성되어 있다.
-
 -   응용프로그램 
 -   샤드 라이브러리
 -   샤드 노드
+    -   샤드 코디네이터
     -   샤드 메타
-    -   샤드 데이터 : 원본 및 복제본
+    -   샤드 데이터
+    -   샤드 레플리카
 -   ZooKeeper
 
 응용프로그램은 샤드 라이브러리를 사용하여 클라이언트측 샤딩과 서버측 샤딩을 사용할 수 있으며, 그 외의 라이브러리를 사용하는 경우 서버측 샤딩만을 사용할 수 있다.
 
-샤드 메타는 샤드 노드 구성 및 샤드 객체에 관련된 정보 및 샤딩에 필요한 메타 데이터를 저장한다.
-
 샤드 코디네이터는 샤드 쿼리 분석기, 최적화기, 실행기로 구성되어있으며 쿼리를 분석하고 최적화하여 전체 샤드 노드들간의 데이터 및 트랜잭션 처리를 조율한다.
+
+샤드 메타는 샤드 노드 구성 및 샤드 객체에 관련된 정보 및 샤딩에 필요한 메타 데이터를 저장한다.
 
 샤드 데이터는 실제 데이터가 분산 저장되어 있는 데이터베이스이다.
 
-ZooKeeper는 샤드 노드 구성 정보를 관리하며, split brain 현상을 방지한다.
+샤드 레플리카는 샤드 데이타에 대한 복제본이다. k-safety 값 만큼의 복제본을 가지고 있다.
+
+ZooKeeper는 split brain 방지등의 클러스터 관리를 수행한다.
 
 #### 샤딩 클러스터 시스템
 
