@@ -5511,7 +5511,7 @@ The following data types support direct key indexes.
 - INITRANS Clause  
   This is used to set the initial number of TTS (Touched Transaction Slots). The default is 8.
 - MAXTRANS Clause  
-  This is used to set the maximum number of TTS (Touched Transaction Slots). The default is 30.
+  This is used to set the maximum number of TTS (Touched Transaction Slots). The default is 50.
 
 *TABLESPACE Clause*
 
