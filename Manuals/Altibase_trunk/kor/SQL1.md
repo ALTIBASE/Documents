@@ -6084,7 +6084,7 @@ R-Tree 인덱스를 생성하도록 지시한다. 이는 다차원 데이터 처
 - INITRANS 절  
   TTS(Touched Transaction Slot)의 초기 개수를 지정한다. 기본값은 8개이다.
 - MAXTRANS 절  
-  TTS의 최대 개수를 지정한다. 기본값은 30개이다.
+  TTS의 최대 개수를 지정한다. 기본값은 50개이다.
 
 *TABLESPACE 절*
 
