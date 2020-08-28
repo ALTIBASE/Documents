@@ -510,9 +510,27 @@ altibase.properties 순이며 설정되지 않았을 경우에는 데이터베�
 주의) 서버 캐릭터 셋과 ALTIBASE_NLS_USE에 설정한 값이 다를 경우에는 정상적으로
 동작하지 않을 수 있다. 반드시 적절한 값을 설정할 것을 권장한다.
 
+##### ALTIBASE_UT_FILE_PERMISSION
 
+aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공통 환경변수이다. 
+값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
 
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ALTIBASE_UT_FILE_PERMISSION=600
 
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
+
+예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다. 
+aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+
+##### AEXPORT_FILE_PERMISSION
+
+aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export AEXPORT_FILE_PERMISSION=600 
 
 ### aexport사용방법
 
