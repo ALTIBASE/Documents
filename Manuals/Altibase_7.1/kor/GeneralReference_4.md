@@ -4,6 +4,7 @@
 - [General Reference](#general-reference)
    - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [V\$LATCH](#vlatch)
+    - [V\$LIBRARY](#vlibrary)
     - [V\$LFG](#vlfg)
     - [V\$LOCK](#vlock)
     - [V\$LOCK_STATEMENT](#vlock_statement)
@@ -25,6 +26,7 @@
     - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
     - [V\$PKGTEXT](#vpkgtext)
     - [V\$PLANTEXT](#vplantext)
+    - [V\$PROCINFO](#vprocinfo)
     - [V\$PROCTEXT](#vproctext)
     - [V\$PROPERTY](#vproperty)
     - [V\$REPEXEC](#vrepexec)
@@ -139,6 +141,38 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | WRITE_SUCCESS_IMME | BIGINT  | 쓰기 래치를 바로 성공한 횟수    |
 | WRITE_MISS         | BIGINT  | 쓰기 래치를 바로 잡지 못한 횟수 |
 | SLEEPS_CNT         | BIGINT  | 래치를 잡기 위하여 sleep한 횟수 |
+
+### <a name="vlibrary"><a/>V\$LIBRARY
+	
+C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보를 보여준다.
+라이브러리 정보를 통해서 원하는 라이브러리를 제대로 로드했는지 확인할 수 있다.
+
+| Column name        | Type        | Description                                        |
+|--------------------|-------------|----------------------------------------------------|
+| FILE_SPEC          | CHAR(4000)  | 동적 라이브러리 파일의 경로                          |
+| REFERENCE_COUNT    | INTEGER     | 동적 라이브러리를 참조하는 Internal procedure의 개수 |
+| FILE_SIZE          | INTEGER     | 동적 라이브러리의 파일 크기 (Bytes)                  |
+| CREATE_TIME        | VARCHAR(48) | 동적 라이브러리가 생성된 시간                        |
+| OPEN_TIME          | VARCHAR(48) | 동적 라이브러리를 로드한 시간                        |
+
+#### 칼럼 정보
+
+##### FILE_SPEC
+
+라이브러리 객체가 가리키는 동적 라이브러리 파일의 경로를 나타낸다. 라이브러리 파일이 위치하는 기본 경로 ($ALTIBASE_HOME/lib)에 대한 상대 경로로 표시된다.
+
+##### REFERENCE_COUNT
+
+동적 라이브러리를 참조하는 Internal 저장 프로시저 또는 저장 함수의 개수를 나타낸다.
+
+##### FILE_SIZE
+동적 라이브러리 파일의 크기를 나타낸다. (단위 : Bytes)
+
+##### CREATE_TIME
+동적 라이브러리를 생성한 일시를 나타낸다. 파일 정보에서 얻어서 저장한다.
+
+##### OPEN_TIME
+동적 라이브러리를 로드한 일시를 나타낸다.
 
 ### <a name="vlfg"><a/>V\$LFG
 
@@ -1197,6 +1231,45 @@ statement 식별자를 나타낸다.
 ##### TEXT
 
 실행계획 전체 텍스트의 일부분인 64바이트 텍스트 조각의 내용이다.
+
+### <a name="vprocinfo"><a/>V\$PROCINFO
+| Column name  | Type        | Description                      |
+|--------------|-------------|----------------------------------|
+| PROC_OID     | BIGINT      | 저장 프로시저의 객체 식별자        |
+| MODIFY_COUNT | INTEGER     | 저장 프로시저가 재 생성 또는 재 컴파일 된 횟수 |
+| STATUS       | VARCHAR(7)  | 객체의 상태를 나타낸다. INVALID이면 실행 불가능 상태이다. |
+| SESSION_ID   | INTEGER     | 저장 프로시저의 STATUS를 변경한 세션의 ID를 나타낸다. |
+| PROC_TYPE    | VARCHAR(10) | 저장 프로시저의 타입을 나타낸다. |
+
+#### 칼럼 정보
+
+##### PROC_OID
+
+저장 프로시저 또는 저장 함수의 식별자로, SYS_PROCEDURES_ 메타 테이블의 한 PROC_OID 값과 동일하다.
+
+##### MODIFY_COUNT
+
+저장 프로시저 또는 함수가 재 생성 또는 재 컴파일 할 때마다 1씩 증가한다. 초기값은 0이다.
+
+##### STATUS
+
+저장 프로시저 또는 함수의 실행 가능 여부를 나타내는 값이다. VALID는 실행가능함을 나타낸다. SYS_PROCEDURES_ 메타 테이블의 STATUS  칼럼 설명을 참조한다.
+
+##### SESSION_ID
+
+저장 프로시저 또는 함수의 상태를 INVALID로 변경한 세션의 ID를 나타낸다. 상태가 변경된 적이 없으면 이 값이 0 또는 -1이다.
+
+##### PROC_TYPE
+
+저장 프로시저의 타입을 나타낸다. 가능한 값은 다음과 같다.
+
+- NORMAL : 일반 프로시저
+
+- EXTERNAL C : C/C++ External Procedure
+
+- INTERNAL C : C/C++ Internal Procedure
+
+- UNKNOWN : 서버를 구동할 때 저장 프로시저 컴파일에 실패하면 내부 프로시저 타입을 알 수 없어서 UNKNOWN으로 표시한다. 이후 컴파일이 되어 VALID 상태가 되면 정확한 타입이 설정된다.
 
 ###  <a name="vproctext"><a/>V\$PROCTEXT
 
@@ -5012,6 +5085,11 @@ alter system set rp_conflict_msglog_flag=4
 | RESOURCE_GROUP_ID            | INTEGER     | 로그 파일 그룹(LFG)의 식별자 |
 | LEGACY_TRANS_COUNT           | INTEGER     | 내부 용도                    |
 | ISOLATION_LEVEL              | INTEGER     | 아래 참조                    |
+| PROCESSED_UNDO_TIME          | INTEGER     | 아래 참조                    |
+| ESTIMATED_TOTAL_UNDO_TIME    | INTEGER     | 아래 참조                    |
+| TOTAL_LOG_COUNT              | BIGINT      | 아래 참조                    |
+| TOTAL_UNDO_LOG_COUNT         | BIGINT      | 아래 참조                    |
+| PROCESSED_UNDO_LOG_COUNT     | BIGINT      | 아래 참조                    |
 
 #### 칼럼 정보
 
@@ -5162,6 +5240,26 @@ SCN을 가진다. 이 항목은 현재 해당 트랜잭션에서 메모리 테�
 -   1: REPEATABLE READ
 
 -   2: SERIALIZABLE
+
+##### PROCESSED_UNDO_TIME
+
+해당 트랜잭션의 UNDO 시작 시점부터 현재까지 UNDO 진행된 시간 ( 단위: 초 )
+
+##### ESTIMATED_TOTAL_UNDO_TIME
+
+해당 트랜잭션의 UNDO완료 될 때까지 추정되는 총 소요 시간 ( 단위: 초 )
+
+##### TOTAL_LOG_COUNT
+
+해당 트랜잭션의 총 로그 개수
+
+##### TOTAL_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 앞으로 UNDO 해야 할 총 로그 개수 
+
+##### PROCESSED_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 현재까지 언두 완료된 로그 개수 
 
 ### <a name="vtransaction_mgr"><a/>V\$TRANSACTION_MGR
 

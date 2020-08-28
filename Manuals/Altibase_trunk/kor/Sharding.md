@@ -37,36 +37,26 @@
     - [샤딩 분산 시스템 변경](#%EC%83%A4%EB%94%A9-%EB%B6%84%EC%82%B0-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%B3%80%EA%B2%BD)
   - [4.Altibase Sharding 딕셔너리](#4altibase-sharding-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [샤드 메타](#%EC%83%A4%EB%93%9C-%EB%A9%94%ED%83%80)
-    - [SYS_SHARD.VERSION\_](#sys_shardversion%5C_)
-    - [SYS_SHARD.LOCAL_META_INFO\_](#sys_shardlocal_meta_info%5C_)
-    - [SYS_SHARD. GLOBAL_META_INFO\_](#sys_shard-global_meta_info%5C_)
-    - [SYS_SHARD.NODES\_](#sys_shardnodes%5C_)
-    - [SYS_SHARD.OBJECTS\_](#sys_shardobjects%5C_)
-    - [SYS_SHARD.RANGES\_](#sys_shardranges%5C_)
-    - [SYS_SHARD.CLONES\_](#sys_shardclones%5C_)
-    - [SYS_SHARD.SOLOS\_](#sys_shardsolos%5C_)
+    - [SYS_SHARD.VERSION\_](#sys_shardversion_)
+    - [SYS_SHARD.LOCAL_META_INFO\_](#sys_shardlocal_meta_info_)
+    - [SYS_SHARD. GLOBAL_META_INFO\_](#sys_shard-global_meta_info_)
+    - [SYS_SHARD.NODES\_](#sys_shardnodes_)
+    - [SYS_SHARD.OBJECTS\_](#sys_shardobjects_)
+    - [SYS_SHARD.RANGES\_](#sys_shardranges_)
+    - [SYS_SHARD.CLONES\_](#sys_shardclones_)
+    - [SYS_SHARD.SOLOS\_](#sys_shardsolos_)
     - [성능 뷰 (Performance View)](#%EC%84%B1%EB%8A%A5-%EB%B7%B0-performance-view)
     - [샤드 성능 뷰 (Shard Performance View)](#%EC%83%A4%EB%93%9C-%EC%84%B1%EB%8A%A5-%EB%B7%B0-shard-performance-view)
-    - [S\$CONNECTION_INFO](#s%5Cconnection_info)
-    - [S\$PROPERTY](#s%5Cproperty)
-    - [S\$SESSION](#s%5Csession)
-    - [S\$STATEMENT](#s%5Cstatement)
+    - [S\$CONNECTION_INFO](#sconnection_info)
+    - [S\$PROPERTY](#sproperty)
+    - [S\$SESSION](#ssession)
+    - [S\$STATEMENT](#sstatement)
   - [5.Altibase Sharding 패키지](#5altibase-sharding-%ED%8C%A8%ED%82%A4%EC%A7%80)
     - [DBMS_SHARD](#dbms_shard)
   - [6. shardLoader](#6-shardloader)
     - [설치 방법](#%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95)
     - [shardLoader 설정](#shardloader-%EC%84%A4%EC%A0%95)
     - [명령행 옵션](#%EB%AA%85%EB%A0%B9%ED%96%89-%EC%98%B5%EC%85%98)
-  - [7. Shard Manager](#7-shard-manager)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [특징](#%ED%8A%B9%EC%A7%95)
-    - [설치](#%EC%84%A4%EC%B9%98)
-    - [사용자 인터페이스](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-    - [샤드 데이터베이스 관리](#%EC%83%A4%EB%93%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B4%80%EB%A6%AC)
-    - [샤드 데이터베이스 레포트](#%EC%83%A4%EB%93%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A0%88%ED%8F%AC%ED%8A%B8)
-    - [샤드 노드 관리](#%EC%83%A4%EB%93%9C-%EB%85%B8%EB%93%9C-%EA%B4%80%EB%A6%AC)
-    - [샤드 객체 관리](#%EC%83%A4%EB%93%9C-%EA%B0%9D%EC%B2%B4-%EA%B4%80%EB%A6%AC)
-    - [SQL 실행: DDL](#sql-%EC%8B%A4%ED%96%89-ddl)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -79,9 +69,9 @@ Altibase Sharding Guide
 
 Altibase Administration Altibase Sharding Guide
 
-Release 7.1
+Release 7.2
 
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
 없이 무단으로 복제 또는 전용할 수 없습니다.
@@ -101,8 +91,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ### 이 매뉴얼에 대하여
 
-이 매뉴얼은 Altibase의 분산 데이터베이스 기술인 Altibase Sharding에 대해
-설명한다.
+이 매뉴얼은 Altibase의 분산 데이터베이스 기술인 Altibase Sharding에 대해 설명한다.
 
 #### 대상 사용자
 
@@ -126,7 +115,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 7.1 또는 그 이상의 버전을 사용한다는 가정 하에 작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 7.2 또는 그 이상의 버전을 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 
@@ -153,8 +142,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 문서화 규칙
 
-이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이
-매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
+이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이 매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
 
 여기서 설명하는 규칙은 다음과 같다.
 
@@ -164,8 +152,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ##### 구문 다이어그램
 
-이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
-설명한다.
+이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을 설명한다.
 
 | 구성 요소                        | 의미                                                         |
 | -------------------------------- | ------------------------------------------------------------ |
@@ -241,17 +228,13 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 샤딩 개념 및 모델
 
-샤딩(Sharding)은 한 대의 데이터베이스에 저장했던 데이터를 여러 대의
-데이터베이스에 분산하여 저장 및 처리하는 스케일 아웃 기술이다.
+샤딩(Sharding)은 하나의 데이터베이스에 저장했던 데이터를 여러개의 데이터베이스들에 분산하여 저장 및 처리하는 스케일 아웃 기술이다.
 
 ![](media/Sharding/1cd95d21b81794ed43c6eafff01f8e7c.png)
 
 [그림 1‑1] sharding 개념
 
-샤딩의 유형은 일반적으로 코디네이터를 이용하여 데이터를 분산하여 처리하는 서버측
-샤딩(server-side sharding)과 응용프로그램에서 데이터를 분산하여 처리하는
-클라이언트측 샤딩(client-side sharding) 방식이 있다. 그리고 이 두 가지 방식을
-모두 수용하는 하이브리드 샤딩(hybrid sharding) 방식도 가능하다.
+샤딩의 유형은 일반적으로 코디네이터를 이용하여 데이터를 분산하여 처리하는 서버측 샤딩(server-side sharding)과 클라이언트 레벨에서 데이터를 분산하여 처리하는 클라이언트측 샤딩(client-side sharding) 방식이 있다. 알티베이스는 이 두 가지 방식을 혼용한 하이브리드 샤딩(hybrid sharding) 방식이다.
 
 -   서버측 샤딩(Server-side Sharding)
 
@@ -270,7 +253,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 질의처리에 필요한 데이터의 위치를 파악하고, 해당하는 데이터베이스들에 질의를
 분산 처리하여 그 결과를 통합하여 반환한다.
 
-이 구조는 코디네이터의 도움으로 기존 응용프로그램 변경을 최소화할 수 있는 장점이 있다. 반면 코디네이터 처리 용량을 넘어서면 병목현상(bottle-neck)이 발생하여 샤딩 시스템을 확장하기 어려운 단점이 있다. 
+반면에 코디네이터 처리 용량을 넘어서면 병목현상(bottle-neck)이 발생하여 샤딩 시스템을 확장하기 어려운 단점이 있다. 
 
 #### 클라이언트측 샤딩(Client-side Sharding)
 
@@ -278,33 +261,45 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 [그림 1‑3] 클라이언트측 샤딩
 
-클라이언트측 샤딩은 응용프로그램에서 데이터가 위치한 데이터베이스를 미리 알고,
-직접 데이터베이스에 접속하는 구조이다.
+클라이언트측 샤딩은 클라이언트 레벨에서 데이터가 위치한 데이터베이스를 미리 알고, 해당 데이터베이스에 직접 접속하여 처리하는 구조이다. 이 구조는 샤딩 확장에 따른 용량과 성능 확장이 가능하고 코디네이터 부하 한계로 인한 제약점이 없다는 장점이 있다. 
 
-이 구조는 샤딩 확장에 따른 용량과 성능 확장이 가능하고 코디네이터 부하 한계로 인한 제약점이 없다는 장점이 있다. 그러나, 응용 프로그램에서 분산 데이터베이스 접속을 판단하고 통합 질의를 수행해야하기 때문에, 프로그램 작성이 복잡해진다는 단점이 있다.
+그러나, 클라이언트 레벨에서 대량 데이타 조인 및 집계처리를 포함한 모든 형태의 분산처리를 직접하려면, 클라이언트들이 모두 컴퓨팅 파워가 서버급이어야 하는데, 그럴 수 없으므로, 클라이언트측 샤딩에서는 단순하게 처리할 수 있는것들만을 처리하는 단점이 있다.
 
 #### 하이브리드 샤딩(Hybrid Sharding)
 
-하이브리드 샤딩은 클라이언트측 샤딩과 서버측 샤딩을 동시에 사용할 수 있는 샤딩
-방식이다.
+하이브리드 샤딩은 클라이언트측 샤딩과 서버측 샤딩을 혼용하는 방식이다.
 
-애플리케이션은 데이터의 통합이 필요한 경우 서버측 샤딩을 선택하거나, 확장과
-성능이 필요한 경우 클라이언트측 샤딩을 선택하여 각 샤딩의 장점을 취하고 단점을
-보완할 수 있다.
+알티베이스는 쿼리별로 처리 성능 및 효율에 맞추어 자동으로 서버측 샤딩 혹은 클라이언트측 샤딩으로 처리한다. 그래서, 각 샤딩방식의 장점을 취하고 단점을 보완할 수 있다.
 
 ![](media/Sharding/944963501cb5f8370b7dfe663bec7608.jpg)
 
 [그림 1‑4] 하이브리드 샤딩
 
-### 용어
+### Altibase Sharding 용어
 
 ##### 샤드 노드(shard node) 
 
 샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
 
+##### 샤드 노드(shard node) 
+
+샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
+
+##### sharded database
+
+여러개의 샤드 노드들로 구성된 사용자 입장에서 논리적으로 하나인 데이타베이스를 sharded database 라고 한다. 
+
+##### 샤드 클러스터 관리자(ZooKeeper)
+
+Split brain 방지등의 샤딩 클러스터 관리를 위하여 Apache ZooKeeper를 사용한다.
+
+##### 샤딩 클러스터 시스템(Sharding Cluster System)
+
+여러개의 샤드 노드들로 구성된 sharded database 와 샤드 클러스터 관리자(ZooKeeper)를 합하여 샤딩 클러스터 시스템이라고 한다. 
+
 ##### 샤드 메타(shard meta) 
 
-샤드 노드의 정보, 샤드 객체, 분산 설정 등 샤드 관련 정보가 저장되는 메타 테이블들을 총칭하여 샤드 메타라고 한다. 샤드 메타 테이블들은 sys_shard 사용자의 객체로 관리된다.
+샤드 노드의 정보, 샤드 객체, 분산 설정 등 분산 정보가 저장되는 메타 테이블들을 총칭하여 샤드 메타라고 한다. 샤드 메타 테이블들은 sys_shard 사용자의 객체로 관리된다.
 
 ##### 샤드 코디네이터(shard coordinator) 
 
@@ -312,15 +307,19 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ##### 샤드 라이브러리(shard library) 
 
-하이브리드 샤딩을 지원하는 응용프로그램 라이브러리이다.
+하이브리드 샤딩을 지원하는 클라이언트 프로그램 라이브러리이다.
 
 ##### 샤드 데이터(shard data) 
 
 분산된 데이터 조각이다. 전체 분산 데이터베이스의 데이터 일부를 가지고 있다.
 
+##### 샤드 레플리카(shard replica) 
+
+샤드 데이타에 대한 복제본이다. k-safety 값 만큼의 복제본을 가지고 있다.
+
 ##### 샤드 커넥션(shard connection)
 
-외부 커넥션과 내부 커넥션을 통칭하여 샤드 커넥션이라고 한다.
+각종 커넥션들을 통칭하여 샤드 커넥션이라고 한다.
 
 ##### 외부 커넥션(external connection)
 
@@ -328,11 +327,11 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ###### 사용자 커넥션(user connection)
 
-클라이언트가 샤드 메타 데이터베이스에 명시적으로 접속한 연결이다.
+사용자의 클라이언트 응용프로그램에서 명시적으로 접속한 연결이다.
 
 ###### 샤드 라이브러리 커넥션(shard library connection )
 
-샤드 라이브러리를 사용한 클라이언트가 데이터 처리를 위해 샤드 노드들에 자동으로 접속한 연결이다.
+샤드 라이브러리를 사용한 클라이언트가 데이터 처리를 위해 모든 샤드 노드들에 자동으로 접속한 연결이다.
 
 ##### 내부 커넥션 (internal connection)
 
@@ -355,15 +354,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 샤딩 시스템에서 데이터를 위치시키는 방법이다. 데이터의 특성에 맞게 적용할 수 있는 다양한 분산 방식을 제공한다. 현재 지원하는 분산 방식은 다음과 같다.
 
 -   HASH
-
 -   RANGE
-
 -   LIST
-
 -   COMPOSITE
-
 -   CLONE
-
 -   SOLO
 
 ##### 샤드 객체(shard object)
@@ -380,21 +374,18 @@ Altibase Sharding에서 제공하는 분산 방식에 따라 설정된 테이블
 
 * 샤드 키 분산 테이블  
   * 단일 샤드 키 분산 테이블 ( HASH, RANGE, LIST )
-
   * 복합 샤드 키 분산 테이블 ( COMPOSITE )
 * 복제 분산 테이블 ( CLONE )
 * 독립 분산 테이블 ( SOLO )
 
-##### 샤드 쿼리(shard query)
+##### 샤드 쿼리(shard query), 논샤드 쿼리(Non-shard query)
 
 샤딩으로 분산된 데이터베이스에서 쿼리는 샤드 쿼리와 논샤드 쿼리로 분류한다.
 
-샤드 쿼리는 분산된 테이블의 레코드를 쿼리 수행하여도 결과가 논리적으로 동일한
-테이블의 레코드를 처리한 것과 동일하다. 논샤드 쿼리는 샤드 쿼리가 아닌 모든
+샤드쿼리는 동일한 쿼리를 분산된 테이블의 레코드를 샤드노드별로 별개로 수행하여 취합한 결과가 하나의 데이타베이스에서 처리한 결과와 동일 할 경우를 지칭한다. 논샤드 쿼리는 샤드 쿼리가 아닌 모든
 쿼리를 지칭한다.
 
-클라이언트측 샤딩으로 수행할 경우, 스케일 아웃이 가능하다. 샤딩으로
-데이터베이스를 분산하면, 샤드 쿼리를 사용하는 것이 좋다.
+샤드쿼리는 클라이언트측 샤딩으로 수행되며, 성능 및 스케일 아웃에 유리하다.
 
 ![](media/Sharding/098aaf2d253164bcb0ac978ebf2d9574.jpg)
 
@@ -413,26 +404,20 @@ UPDATE s1 SET i2=1 WHERE k1=1;
 DELETE FROM s1 WHERE k1>3;
 ```
 
-샤드 쿼리가 아닌 몇 가지 예를 보면 다음과 같다.
+논샤드 쿼리의 몇 가지 예를 보면 다음과 같다.
 
 ```
 SELECT count(*) FROM s1;
-SELECT k1, count(*) FROM s1 group by k1;
 SELECT * FROM s1 order by k1;
 ```
 
-Altibase Sharding은 스케일아웃을 위하여 가능한 한 샤드 쿼리를 샤드 라이브러리를
-사용하여 하이브리드 샤딩(클라이언트측 샤딩)으로 수행하는 것을 권장한다.
-
-논샤드 쿼리는 샤드 코디네이터의 중간 처리를 거치게 되어 질의 처리 성능이 샤드 쿼리에 비해 떨어지므로 논샤드 쿼리를 튜닝하여 클라이언트측 샤딩으로 수행하는 것이 좋다.
+논샤드 쿼리는 샤드 코디네이터의 중간 처리를 거치게 되어 질의 처리 성능이 샤드 쿼리에 비해 떨어지므로 논샤드 쿼리를 튜닝하여 샤드쿼리로 만드는 것이 성능 및 스케일아웃 측면에서 유리하다.
 
 ##### 샤드 뷰(shard view)
 
-Altibase Sharding은 샤드 뷰를 제공한다. 쿼리가 논샤드 쿼리인 경우, 앞에 "SHARD"
-키워드를 추가하면 샤드 노드에 논샤드 쿼리를 전송할 수 있다.
+Altibase Sharding은 샤드 뷰를 제공한다. 쿼리가 논샤드 쿼리인 경우, 앞에 "SHARD" 키워드를 추가하면 샤드 노드에 논샤드 쿼리를 전송할 수 있다.
 
-샤드 뷰를 사용하면 샤드 코디네이터의 부하를 줄이거나, 사용자가 의도하여 분산
-쿼리를 수행할 수 있다.
+샤드 뷰를 사용하면 샤드 코디네이터의 부하를 줄이거나, 사용자가 의도하여 분산쿼리를 수행할 수 있다.
 
 샤드 코디네이터의 부하를 줄이는 예는 다음과 같다.
 
@@ -457,31 +442,30 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 
 ##### 샤드 쿼리 분석기(shard query analyzer)
 
-사용자의 쿼리가 샤드 쿼리인지 논샤드 쿼리인지 분석한다. 샤드 쿼리인 경우 샤드
-코디네이터 없이 클라이언트측 샤딩에서 독립적으로 수행할 수 있도록 분석 결과를
-생성한다.
+사용자의 쿼리가 서버측 샤딩으로 수행하는 쿼리와 클라이언트측 샤딩으로 수행하는 쿼리로 구분한다.
 
-샤드 분석결과는 쿼리 수행 시마다 재사용되어, 샤드 코디네이터에서 샤드 쿼리 분석으로
-생기는 부하는 크지 않다.
+샤드 분석결과는 쿼리 수행 시마다 재사용 되므로, 샤드 코디네이터에서 샤드 쿼리 분석으로 생기는 부하는 크지 않다.
 
 ##### 샤드 쿼리 최적화기(shard query optimizer)
 
-사용자의 쿼리가 논샤드 쿼리이면 쿼리를 분석하여 샤드 데이터 영역에 요청할 부분과 샤드
-코디네이터에서 수행할 부분으로 분리하고, 최적화하여 분산 플랜을 생성한다.
+샤드 코디네이터의 샤드 쿼리 최적화기는 서버측 샤딩에 대한 최적의 분산 쿼리를 생성하고, 분산 쿼리에 대한 분산 플랜을 생성한다.
+
+사용자 쿼리가 서버측 샤딩으로 수행되는 쿼리로 분류된 경우, 해당 쿼리를 서버측에서 수행하기 위해서 분산부와 통합부로 구분한다. 분산부는 각 샤드 노드에서 수행할 부분(분산) 쿼리이고, 통합부는 각 노드에서 수행한 결과를 모아서 수행할 나머지(통합) 쿼리이다.
+
+가능한 많은 부분을 분산부로 처리하는 것이 성능을 극대화할 수 있기 때문에 샤드 쿼리 최적화기는 최대한 샤드 쿼리 변환(Shard Transformation)을 수행한다.
+
+##### 샤드 쿼리 실행기 (Shard Query Executor)
+
+샤드 쿼리 실행기는 클라이언트측 샤딩의 실행기와 서버측 샤딩의 실행기로 구분한다. 클라이언트측 샤딩의 실행기는 샤드 라이브러리에서 동작하며, 서버측 샤딩의 실행기는 샤드 노드에서 샤드 코디네이터를 통해서 동작한다.
 
 ##### 샤드 키(shard key)
 
-분산 정의의 기준이 되는 컬럼 또는 파라미터이다. 현재 샤드 키로 사용할 수 있는
-데이터 타입은 다음과 같다.
+분산 정의의 기준이 되는 컬럼 또는 파라미터이다. 현재 샤드 키로 사용할 수 있는 데이터 타입은 다음과 같다.
 
 -   smallint
-
 -   integer
-
 -   bigint
-
 -   char
-
 -   varchar
 
 ##### 샤드 키워드(shard keyword)
@@ -489,14 +473,13 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 Altibase Sharding에서 지원하는 키워드로 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
 
 -   SHARD
-
 -   NODE
 
 샤드 지원 구문의 앞이나 SELECT문의 샤드 뷰 앞에 사용하면 해당 쿼리를 샤드 쿼리로 수행하여 결과를 반환한다.
 
 ```
-SHARD SELECT shard_node_name(),count(*) FROM s1;
-NODE[DATA] SELECT shard_node_name(),count(*) FROM v$session;
+SHARD SELECT shard_node_name(), count(*) FROM s1;
+NODE[DATA] SELECT shard_node_name(), count(*) FROM v$session;
 NODE[DATA(‘node1’)] SELECT * FROM s1;
 ```
 
@@ -506,29 +489,36 @@ NODE[DATA(‘node1’)] SELECT * FROM s1;
 
 ##### 샤드 플랜(shard plan)
 
-질의가 샤드 코디네이터에서 분산 수행되는 경우의 질의 수행계획을 말한다. 샤드
-플랜에는 샤드 노드에서 분산 수행된 질의의 수행계획을 포함한다.
+질의가 샤드 코디네이터에서 분산 수행되는 경우의 질의 수행계획을 말한다. 샤드 플랜에는 샤드 노드에서 분산 수행되는 질의의 수행계획을 포함한다.
 
 ##### 샤드 트랜잭션(shard transaction)
 
-애플리케이션이 생성한 트랜잭션에서 수행하는 질의의 따라 샤드 노드들에 분산 트랜잭션을 생성하게 된다. 이 트랜잭션들을 샤드 트랜잭션이라고 한다. 
+애플리케이션이 생성한 트랜잭션에서 수행하는 질의의 따라 샤드 노드들에 분산 트랜잭션을 생성하게 된다. 이 트랜잭션들을 샤드 트랜잭션이라고 한다.
+
+클라이언트측 샤딩으로 생성된 트랜잭션과 서버측 샤딩으로 생성된 트랜잭션을 하나의 트랜잭션으로 통합하여 수행한다.
 
 샤드 트랜잭션은 다음과 같이 분류할 수 있다.
 
--   다중 노드 트랜잭션(multiple node transaction)  
-    분산 트랜잭션을 허용하지만, 샤드 트랜잭션의 일관성을 보장하지 않는다.
+-   다중 노드 트랜잭션(multiple node transaction)
+    분산 트랜잭션을 개별 샤드 노드별로 처리한다. 노드장애등의 상황에서 커밋이 안되는 노드가 발생할 수 있다.
+-   글로벌 트랜잭션(global transaction)
+    분산 트랜잭션을 two-phase commit를 사용하여 처리하여, 분산 트랜잭션에 참여한 모든 샤드노드에 동일하게 커밋 혹은 롤백이 되는것을 보장한다.
+-   글로벌 일관 트랜잭션(global consistent transaction)
+    글로벌 트랜잭션에서 보장하는것에 추가하여, 글로벌 읽기 일관성을 보장한다.
 
 ##### 샤드 메타 번호(Shard Meta Number )
 
 샤드 메타 번호(SMN)란 샤드 메타에 대한 버전 관리 번호 이다.
 
-##### 용어 및 개요 정리
+##### 레플리카 셋(Replica Set)
 
-전체적인 Altibase Sharding 시스템에서 사용되는 용어에 대해서 [그림 1-7]에서 도식화 하였다.
+레플리카 셋(Replica Set)이란 Altibase Sharding 시스템에서 무중단 서비스를 제공하기 위해 생성한 복제(Replication)들의 관계를 저장한 객체이다.
 
-![sharding_overview_terminolodge](media/Sharding/sharding_overview_terminolodge.png)
+##### K-safety
 
-[그림 1‑7] Altibase Sharding 용어 및 개요
+K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은 샤드데이타가 복제된 갯수를 나타낸다. 이러한 복제들은 장애가 발생한 샤드노드에 대한 fail-over를 수행할 수 있다록 한다.
+
+Altibase Sharding에서는 K-safety는 0, 1 또는 2의 값을 가질 수 있다. K-safety가 1 일때, 샤드노드 하나가 장애가 발행해도 전체 시스템은 정상적으로 운영된다. 추가적으로 샤드노드에 장애가 발생하더라도, 해당 노드의 복제본을 가진 노드가 장애가 발생하지 않는 한, 전체 시스템은 정상적으로 운영된다.
 
 ### Altibase Sharding 개요
 
@@ -537,53 +527,79 @@ NODE[DATA(‘node1’)] SELECT * FROM s1;
 Altibase Sharding은 Altibase에 샤딩 기술을 도입하여 저장 용량과 시간당 처리량을
 향상시키고 대용량의 데이터베이스를 분산처리할 수 있게 한다.
 
-Altibase Sharding은 하이브리드 샤딩으로써, 기존의 SQL을 분석하여 자동으로
+Altibase Sharding은 하이브리드 샤딩으로써, 사용자 SQL을 분석하여 자동으로
 클라이언트측 샤딩이나 서버측 샤딩으로 수행할 것인지를 분석하여 경로를
 최적화한다.
 
 Altibase Sharding은 다양한 분산 방식과 분산 객체, 유틸리티를 지원하고 있으며,
 다양한 업무에서 샤딩을 적용할 수 있다.
 
-기존의 SQL을 수정하지 않고, 샤드 전용 라이브러리만 교체하는 것으로 Altibase
-Sharding을 쉽게 적용할 수 있다. 뿐만 아니라 기존 응용프로그램을 전혀 수정하지
-않은 상태에서도 서버측 샤딩을 적용할 수 있다.
+샤드 전용 클라이언트 라이브러리를 사용하여야 하이브리드 샤딩방식이 적용된다. 샤드 전용 클라이언트 라이브러리를 사용하지 않으면 서버측 샤딩방식으로만 동작한다.
 
 ![altibase_hybrid_sharding_overview_small](media/Sharding/altibase_hybrid_sharding_overview_small.png)
 
 [그림 1‑8] Altibase Sharding의 하이브리드 샤딩
 
-#### Altibase Sharding 구성 요소
+#### Altibase Sharding 구성 개요
 
-Altibase Sharding은 사용자 응용프로그램 측에서 동작하는 샤드
-라이브러리와 샤드 노드 존재하는 샤드 메타, 데이터 그리고 샤드 코디네이터로 구성되며, 이들 구성요소가 서로 유기적으로 연계되어 분산 처리를 수행한다.
+![sharding_overview_terminology](media/Sharding/sharding_overview_terminology.png)
 
-![altibase_sharding_structure](media/Sharding/altibase_sharding_structure.png)
+-   응용프로그램 
+-   샤드 라이브러리
+-   샤드 노드
+    -   샤드 코디네이터
+    -   샤드 메타
+    -   샤드 데이터
+    -   샤드 레플리카
+-   ZooKeeper
 
-[그림 1-9] Altibase Sharding 구성 요소
+응용프로그램은 샤드 라이브러리를 사용하여 클라이언트측 샤딩과 서버측 샤딩을 사용할 수 있으며, 그 외의 라이브러리를 사용하는 경우 서버측 샤딩만을 사용할 수 있다.
 
-#### Altibase Sharding 장점
+샤드 코디네이터는 샤드 쿼리 분석기, 최적화기, 실행기로 구성되어있으며 쿼리를 분석하고 최적화하여 전체 샤드 노드들간의 데이터 및 트랜잭션 처리를 조율한다.
 
-Altibase Sharding은 일반적인 샤딩의 장점 외에도 추가적인 장점을 가지고 있다.
+샤드 메타는 샤드 노드 구성 및 샤드 객체에 관련된 정보 및 샤딩에 필요한 메타 데이터를 저장한다.
+
+샤드 데이터는 실제 데이터가 분산 저장되어 있는 데이터베이스이다.
+
+샤드 레플리카는 샤드 데이타에 대한 복제본이다. k-safety 값 만큼의 복제본을 가지고 있다.
+
+ZooKeeper는 split brain 방지등의 클러스터 관리를 수행한다.
+
+#### 샤딩 클러스터 시스템
+
+샤딩 클러스터 시스템은 사용자의 Shard DDL(ADD, DROP, JOIN, FAILOVER, FAILBACK) 구문이나 샤딩 HA에 의해서 자동으로 Sharded Database 서비스에 참여하거나 제외될 수 있다. 
+
+![](media/Sharding/sharding_cluster_system_view.png)
+
+[그림 1‑10] Altibase Sharding cluster system view
+
+#### 샤딩 복제 개요
+
+Altibase Sharding 시스템은 모든 샤드 노드가 K-safety 만큼의 샤드 데이타 복제본을 유지하여, 모든 샤드 노드가 Active 노드이면서 동시에 Standby 노드의 역할을 한다.
+
+Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)이 없는 시스템 구성으로 높은 신뢰성을 가질 수 있다.
+
+![](media/Sharding/sharding_replication_view.png)
+
+[그림 1‑11] Altibase Sharding replication view
+
+### Altibase Sharding 특징
 
 ##### 선형 확장성
 
-Altibase Sharding은 Altibase에 샤딩 기술을 도입하여 성능 병목을 제거하고 샤드
-노드를 추가하여 저장 용량과 시간당 처리량을 선형적으로 향상시켜 대용량의
-데이터를 분산 처리할 수 있다.
+Altibase Sharding은 scale-out시에 성능 병목없이 저장 용량과 시간당 처리량을 선형적으로 향상시켜 대용량의 데이터를 분산 처리할 수 있다.
+
+#### No SPOF(No Single Point Of Failure)
+
+Altibase Sharding의 모든 샤드 노드가 마스터 역할을 수행하여, 단일 장애점(single point of failure)이 없다는 특징을 갖는다.
 
 ##### 오류 독립성
 
-Altibase Sharding을 통해 사용자는 하나의 데이터베이스를 논리적으로 나누어 관리할
-수 있다. 하나의 샤드 노드가 비정상적이거나 속도가 느려지더라도 다른 샤드 노드의 성능이나 가용성에는 영향을 미치지 않는다.
+하나의 샤드 노드가 비정상적이거나 속도가 느려지더라도 다른 샤드 노드의 성능이나 가용성에는 영향을 미치지 않는다.
 
 ##### 애플리케이션 호환성
 
-Altibase Sharding은 서버측 샤딩과 클라이언트측 샤딩을 동시에 지원하는 하이브리드
-샤딩을 지원한다. 사용자 쿼리의 쿼리 최적화를 통해, 자동으로 성능에 유리한
-클라이언트측 샤딩으로 수행되거나 호환성이 높은 서버측 샤딩으로 수행된다.
-
-특히, Altibase Sharding의 하이브리드 샤딩은 기존 응용프로그램 소스나 기존 SQL을
-수정하지 않고, 샤드 전용 라이브러리만 교체하는 것으로 적용할 수 있다.
+기존 응용프로그램 소스나 기존 SQL을 수정하지 않고, 샤딩을 적용할 수 있다.
 
 ##### 사용자 정의 데이터 분산
 
@@ -596,165 +612,56 @@ Altibase Sharding을 통해 사용자는 데이터베이스의 데이터를 원�
 또한 지역적으로 가까운 데이터들을 물리적으로 가까운 샤드 노드에 위치시킬 수
 있기 때문에, 물리적으로 특정 관할 구역에 가까운 데이터를 모아둘 수도 있다.
 
-##### 이중화를 통한 고가용성 
+##### 복제를 통한 고가용성 
 
-Altibase Sharding은 이중화를 지원한다. 이중화를 이용하여 샤딩환경에서도 안전한 HA(High
-Availability)를 구축할 수 있다.
+Altibase Sharding은 K-safety 값 만큼의 복제본을 유지하여, 고가용성(High Availability)을 보장한다.
 
-### Altibase Sharding 구성 
+#### 지능적인 하이브리드 샤딩
 
-Altibase Sharding은 다음 요소로 구성되어 있다.
-
--   응용프로그램 
--   샤드 라이브러리
--   샤드 노드
-    -   샤드 메타
-    -   샤드 데이터
-
-응용프로그램은 샤드 라이브러리를 사용하여 클라이언트측 샤딩과 서버측 샤딩을
-사용할 수 있으며, 그 외의 라이브러리를 사용하는 경우 서버측 샤딩만을 사용할 수
-있다.
-
-샤드 메타는 샤드 노드 구성 및 샤드 객체에 관련된 정보 및 샤딩에 필요한 메타 데이터를 저장한다.
-
-샤드 코디네이터는 샤드 쿼리 분석기, 최적화기, 실행기로 구성되어있으며 쿼리를 분석하고 최적화하여 전체 샤드 노드들간의 데이터 및 트랜잭션 처리를 조율한다.
-
-샤드 데이터는 실제 데이터가 분산 저장되어 있는 데이터베이스이다.
-
-#### 샤딩 시스템 구성
-
-Altibase Sharding 시스템은 모든 샤드 노드가 샤드 메타, 코디네이터 및 데이터 저장소에 대한 역할을 할 수 있도록 구성해야 한다.
-
-하나의 샤드 노드는 그림 1-10과 같이 고가용성을 고려하여 데이터를 Standby로 이중화하는 것을 권장한다.
-
-Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)이 없는 시스템 구성으로 높은 신뢰성을 가질 수 있으며 코디네이터의 부하를 분산 시킬 수 있는 장점을 가지고 있다.
-
-![](media/Sharding/sharding_system_config.png)
-
-[그림 1‑10] Altibase Sharding 시스템 구성
-
-### Altibase Sharding 특징
-
-Altibase Sharding은 Altibase DBMS를 기반으로 데이터를 분산 저장하며, 클라이언트측 샤딩과 서버측
-샤딩을 동시에 사용하는 하이브리드 샤딩을 제공한다.
-
-#### 지능적인 클라이언트측 샤딩
-
-일반적으로 샤딩은 서버측 샤딩을 주로 제공하면서, 부분적으로 클라이언트측 샤딩을
-지원한다. 그러나 알티베이스의 샤딩은 클라이언트측 샤딩을 서버측 샤딩과 동일하게
-제공한다.
+일반적으로 샤딩은 서버측 샤딩을 주로 제공하면서, 부분적으로 클라이언트측 샤딩을 지원한다. 그러나 알티베이스의 샤딩은 서버측 샤딩과 클라이언트측 샤딩을 동시에 제공한다.
 
 일반적인 클라이언트측 샤딩의 특징은 다음과 같다.
 
 -   커넥션 시점 샤딩  
-    응용프로그램에서 특정 노드를 지정하여 접속하는 방식이다. 다른 
-    노드에 접근하기 위해서는 재접속을 해야 한다.
+    응용프로그램에서 특정 노드를 지정하여 접속하는 방식이다. 다른 노드에 접근하기 위해서는 재접속을 해야 한다.
 
--   SQL생성 시점 샤딩  
-    응용프로그램에서 쿼리를 생성할 때 수행할 노드를 지정하는 방식이다.
-    다른 노드에 접근하기 위해서는 쿼리를 재생성해야 한다.
+-   SQL 작성 시점 샤딩  
+    응용프로그램에서 쿼리를 작성(혹은 생성)할 때 수행할 노드를 지정하는 방식이다. 다른 노드에 접근하기 위해서는 쿼리를 재작성(혹은 재생성)해야 한다.
 
-Altibase Sharding의 클라이언트측 샤딩의 특징은 다음과 같다.
+Altibase Sharding의 하이브리드 샤딩의 특징은 다음과 같다.
 
--   SQL수행 시점 샤딩  
-    서버측 샤딩과 동일하게, 응용프로그램에서 쿼리를 수행하는 시점에 자동으로
-    수행할 샤드 노드가 선택된다. 사용자는 샤드 노드를 구분할 필요가 없다.
+-   SQL 수행 시점 샤딩
+    응용프로그램에서 쿼리를 수행하는 시점에 자동으로 수행할 샤드 노드가 선택된다. 사용자는 샤드 노드를 구분할 필요가 없다.
 
--   하이브리드 샤딩  
+-   하이브리드 샤딩
     쿼리에 따라 클라이언트측이나 서버측으로 수행경로를 변경하여 성능을 최대화한다.
 
 #### 쉬운 SQL 작성
 
-Altibase Sharding환경에서는 별도의 API나 SQL 힌트 등의 추가 인터페이스 없이
-사용자의 질의(SQL)만으로 샤딩 기능을 사용할 수 있다. 또한 분산 테이블과 일반
-테이블을 구분하지 않고 SQL을 작성하는 것만으로 샤딩을 사용할 수 있다.
+별도의 API나 SQL 힌트 등의 추가 인터페이스 없이 사용자의 질의(SQL)만으로 샤딩 기능을 사용할 수 있다.
 
-특히, Altibase Sharding은 사용자가 하이브리드 샤딩을 고려하여 쿼리를 튜닝할 수
-있도록 추가적인 샤드 키워드를 제공하여 쉽게 SQL을 작성할 수 있다.
+사용자가 하이브리드 샤딩을 고려하여 쿼리를 튜닝할 수 있도록 추가적인 샤드 키워드를 제공한다.
 
-#### 쉬운 샤드 설정
+#### 쉬운 샤드 노드 설정
 
-Altibase Sharding은 Altibase 패키지에 내장된 기본 기능이다. Altibase Sharding을
-사용하려면, 이 기능을 활성화하고 샤드 설정만 추가하면 이미 사용중인
-데이터베이스를 샤드 데이터베이스로 변경할 수 있다. 따라서 데이터베이스를
-재생성할 필요가 없으며, 프로퍼티 설정을 통하여 샤드 노드로 사용할 수
-있다.  
+Shard DDL(ADD, DROP, JOIN, FAILOVER, FAILBACK) 구문을 제공하여, 손쉬은 샤드 노드 관리를 할 수 있다.
 
-Altibase Sharding은 샤딩 시스템을 운영, 관리하는데 필요한 DBMS_SHARD 패키지를
-제공한다. 이 패키지에서 제공하는 서브프로그램을 이용하여 샤드를 구성하고
-관리하며, 다른 샤드 노드에 직접 접속하지 않고도 원격 샤드 노드를 관리할 수 있는
-기능을 제공한다.
+##### 다양한 업무 적용 범위
 
-#### No SPOF(No Single Point Of Failure)
-
-Altibase Sharding의 샤드 메타와 샤드 코디네이터는 모든 샤드 노드에서 동일하게 수행할 수 있는 구성 요소 이므로, 통합 구성시 전체 샤딩 시스템의 단일 장애점(single point of failure)이 없다는 특징을 갖는다.
-
-#### 샤드 쿼리 분석기 (Shard Query Analyzer)
-
-Altibase Sharding의 샤드 쿼리 분석기는 사용자의 질의를 분석하여 최적의 수행
-경로와 수행 방법을 선택한다.
-
-샤드 쿼리 분석기는 샤드 노드에 입력되는 모든 쿼리를 분석하여 서버측 샤딩으로
-수행하는 쿼리와 클라이언트측 샤딩으로 수행하는 쿼리로 구분한다.
-
-클라이언트측 샤딩으로 수행하는 경우 샤딩의 확장성과 성능을 모두 극대화할 수
-있으며, 서버측 샤딩으로 수행하는 경우 샤드 쿼리 최적화기가 가장 효율적인 분산
-플랜을 생성한다.
-
-#### 샤드 쿼리 최적화기 (Shard Query Optimizer)
-
-샤드 코디네이터의 샤드 쿼리 최적화기는 서버측 샤딩에 대한 최적의 분산 쿼리를 생성하고, 분산 쿼리에
-대한 분산 플랜을 생성한다.
-
-사용자 쿼리가 서버측 샤딩으로 수행되는 쿼리로 분류된 경우, 해당 쿼리를
-서버측에서 수행하기 위해서 분산부와 통합부로 구분한다. 분산부는 각 샤드 노드에서
-수행할 부분(분산) 쿼리이고, 통합부는 각 노드에서 수행한 결과를 모아서
-수행할 나머지(통합) 쿼리이다.
-
-가능한 많은 부분을 분산부로 처리하는 것이 성능을 극대화할 수 있기 때문에 샤드
-쿼리 최적화기는 최대한 샤드 쿼리 변환(Shard Transformation)을 수행한다.
-
-#### 샤드 쿼리 실행기 (Shard Query Executor)
-
-Altibase Sharding의 샤드 쿼리 실행기는 클라이언트측 샤딩의 실행기와 서버측
-샤딩의 실행기로 구분한다. 클라이언트측 샤딩의 실행기는 샤드 라이브러리에서
-동작하며, 서버측 샤딩의 실행기는 샤드 노드에서 샤드 코디네이터를 통해서 동작한다.
-
-##### OLTP 쿼리
-
-클라이언트측 샤딩의 실행기는 응응프로그램의 클라이언트 라이브러리에서 동작한다.
-사용자의 쿼리를 최초 prepare시 분석한 후 쿼리 execute 시에는 추가 분석없이
-실행할 수 있으므로, 다음과 같은 OLTP (Online Transaction Processing) 업무 특성에
-적합하다.
+클라이언트측 샤딩의 특징에 적합한 다음과 같은 OLTP (Online Transaction Processing) 업무
 
 -   대용량 데이터베이스를 대상으로 하는 업무
-
 -   매우 짧은 시간에 읽거나 조작하는 업무를 하나의 트랜잭션 단위로 수행하는 업무
-
--   읽거나 조작하는 데이터가 매우 적은 업무
-
 -   매우 많은 사용자가 동시에 수행하는 업무
-
 -   매우 짧은 시간에 높은 처리량이 요구되는 업무
 
-##### OLAP 쿼리
+서버측 샤딩의 특징에 적합한 다음과 같은 OLAP (Online Analytical Processing) 업무
 
-서버측 샤딩의 실행기는 현재 접속 중인 노드에서 동작하고, 샤드 쿼리 분석기가 변환한 분산
-쿼리와 통합 쿼리를 수행한다. 서버측 샤딩의 실행기는 분산 쿼리를 각 샤드
-노드에서 동시에 병렬 수행하고 통합 쿼리를 수행하므로, 샤드 노드의 수에
-비례하여 성능과 처리량을 늘어난다. 따라서 다음과 같은 OLAP (Online Analytical
-Processing) 업무 특성에 적합하다.
+-   샤드노드별로 분산처리 될 수 있는 것이 많은 업무
 
--   동일한 데이터에 여러 기준을 적용하여 다차원 데이터 분석을 하는 업무
+##### 최적 경로의 쿼리 수행을 통한 분산 트랜잭션의 우수한 성능
 
-##### 샤드 트랜잭션
-
-샤드 트랜잭션이란 클라이언트측 샤딩으로 생성된 트랜잭션과 서버측 샤딩으로 생성된
-트랜잭션을 통합함으로써, 트랜잭션내의 쿼리를 클라이언트측인지 서버측 샤딩인지
-구분하지 않고 수행하는 기능이다.
-
-Altibase Sharding의 하이브리드 샤딩은 OLTP성 쿼리와 OLAP성 쿼리를 하나의
-트랜잭션으로 지원하므로, 각 쿼리를 최적의 수행 경로로 수행한다.
+하나의 샤드 트랜잭션내의 다양한 쿼리들은 개별적으로 최적의 경로로 수행될수 있어서, 분산 트랜잭션의 성능이 우수하다.
 
 ![](media/Sharding/shard_query_analyzer_optimizer_executer.png)
 
@@ -767,8 +674,8 @@ Q3-2는 샤드 쿼리 분석기가 Q3에서 생성한 분산 쿼리와 통합 �
 Q1) insert into t1(key, c1) values (1, 100);
 Q2) update t1 set c1=c1+1 where key=2;
 Q3) select sum(c) total_count from (select count(*) c from t1);
-Q3-1) select count(*) c from t1;
-Q3-2) select sum(c) total_count from temp;
+    Q3-1) select count(*) c from t1;
+    Q3-2) select sum(c) total_count from temp;
 ```
 
 #### 다양한 샤드 쿼리와 함수 지원
@@ -776,33 +683,22 @@ Q3-2) select sum(c) total_count from temp;
 Altibase Sharding은 아래의 쿼리를 지원한다.
 
 -   INSERT
-
 -   INSERT SELECT
-
 -   UPDATE
-
 -   DELETE
-
 -   SELECT
-
-    \- Join
-
-    \- Outer Join
-
-    \- Aggregate function
-
-    \- Grouping
-
-    \- Ordering
-
-    \- Subquery
+    - Join
+    - Outer Join
+    - Aggregate function
+    - Grouping
+    - Ordering
+    - Subquery
 
 쿼리가 샤드 쿼리인지 논샤드 쿼리인지 여부는 샤드 플랜을 조회하여 확인할 수 있다.
-논샤드 쿼리로 플랜이 조회되는 경우 샤드(SHARD) 키워드를 이용하여 좀 더 효율적인
+논샤드 쿼리로 플랜이 조회되는 경우 샤드 키워드를 이용하여 좀 더 효율적인
 쿼리로 튜닝할 수 있다. 뿐만 아니라 다음과 같은 샤드 지원 함수들을 제공한다.
 
 -   SHARD_NODE_NAME
-
 -   SHARD_KEY
 
 #### 다양한 분산 객체
@@ -823,15 +719,10 @@ Altibase Sharding은 아래와 같이 다양하게 데이터 분산 방식을 �
 샤드 키 분산 방식은 아래와 같다.
 
 -   해시(hash) 분산 방식
-
 -   범위(range) 분산 방식
-
 -   리스트(list) 분산 방식
-
 -   복합(composite) 샤드 키 분산 방식
-
 -   복제(clone) 분산 방식
-
 -   독립(solo) 분산 방식
 
 ![](media/Sharding/636327fd7d5bf5268d74f89b0760cbe9.png)
@@ -1139,12 +1030,12 @@ Altibase Sharding에서 샤드 메타는 샤드 노드 식별자를 제외한 �
 
 샤드 패키지인 DBMS_SHARD 패키지에는 샤드 메타를 생성하는 서브 프로그램이 포함되어 있다. 최초 한번만 수행하면 샤드 메타가 생성된다. 
 
-샤드 노드에서 샤드 메타 및 코디네이터를 활성화 하기 위해서 샤드 메타에 대한 노드 식별자를 샤딩 시스템에서 유일한 값으로 지정해야 한다.
+샤드 노드에서 샤드 메타 및 코디네이터를 활성화 하기 위해서 샤드 노드 식별자를 샤딩 시스템에서 유일한 값으로 지정해야 한다.
 
 ##### 구문
 
 ```
-DBMS_SHARD.CREATE_META( meta_node_id in integer )
+DBMS_SHARD.CREATE_META()
 ```
 
 ##### 설명
@@ -1163,49 +1054,18 @@ sys_shard.nodes_ 테이블과 인덱스를 생성한다.
  sys_shard.ranges_ 테이블과 인덱스를 생성한다.
  sys_shard. clones _ 테이블과 인덱스를 생성한다.
  sys_shard.solos_ 테이블과 인덱스를 생성한다.
+ sys_shard.replica_sets_ 테이블과 인덱스를 생성한다.
+ sys_shard.failover_historys_ 테이블과 인덱스를 생성한다.
 
 샤드 메타 생성 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 CREATE_META 을 참조한다.
 
 ##### 예제
 
-\<질의\> 샤드 메타 식별자가 1인 샤드 메타를 생성한다.
+\<질의\> 샤드 메타를 생성한다.
 
 ```
-iSQL> EXEC DBMS_SHARD.CREATE_META(1);
+iSQL> EXEC DBMS_SHARD.CREATE_META();
 ```
-
-#### 샤드 메타 식별자 재설정
-
-샤드 노드의 샤드 메타 식별자를 재설정한다.
-
-##### 구문
-
-```
-DBMS_SHARD.RESET_META_NODE_ID( meta_node_id in integer )
-```
-
-##### 설명
-
-샤드 노드에서 CREATE_META 구문 수행시 지정한 샤드 메타에 대한 노드 식별자를 변경하고자 하는 경우 사용한다.
-
-샤드 메타 식별자 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *RESET_META_NODE_ID*를 참조한다.
-
-##### 예제
-
-\<질의\> 샤드 메타 식별자를 2로 변경한다. 
-
-```
-iSQL> EXEC DBMS_SHARD.RESET_META_NODE_ID(2);
-```
-
-#### 샤드 메타 생성 및 식별자 변경 관련 주의 사항
-
-샤드 메타를 생성하거나 식별자를 변경하는 작업은 샤딩 시스템 전반에 영향을 미치므로 아래 주의사항을 숙지하고 진행하도록 한다. 
-
-* 샤드 메타 생성 및 식별자 변경 전에 접속한 연결에 대해서는 정상적인 샤딩 서비스를 이용할 수 없으므로 
-샤드 메타 생성 및 식별자 변경 후 재접속해야 한다. 
-* 샤드 메타 생성 및 식별자 변경을 위해 사용한 연결은 변경 완료 후 종료해야 한다.
-* 샤드 메타 생성 및 식별자 변경 관련 작업은 샤딩 시스템 운영전에 완료해야 한다.
 
 #### 샤드 메타 관리
 
@@ -1265,7 +1125,7 @@ Altibase Sharding
 | 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
 | 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
 | 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
-| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE                           | Yes                | SYSTEM          |
+| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
 | 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 
 #### SHARD_ENABLE
@@ -1457,6 +1317,64 @@ SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
 
 Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### SHARD_TRANSFORM_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+7
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 7]
+
+##### 설명
+
+Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 변환 기능을 제어한다.
+
+해당 프로퍼티 값은 BITMAP 형태이며,
+
+- LIMIT 최적화 변환 기능 켜짐은 1 ( 001 )
+- SELECTION 최적화 변환 기능 켜짐은 2 ( 010 )
+- PROJECTION 최적화 변환 기능 켜짐은 4 ( 100 )
+
+위 값에 조합으로 제어된다.
+
+예를 들어 다음 구문은 SHARD_TRANSFORM_MODE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT * FROM T1 A LIMIT 1;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A ) A LIMIT 1;
+SHARD_TRANSFORM_MODE = 1;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) + 1 ) A LIMIT 1;
+```
+
+SELECT A.I1 FROM T1 A, T1 B WHERE A.I1 > 0;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 2;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A WHERE ( ( A.I1 > 0 ) ) ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 4;
+-> SELECT A.I1 FROM SHARD( SELECT SYS.A.I1 AS I1 FROM T1 as A ) A, SHARD( SELECT NULL FROM T1 as B ) B WHERE A.I1 > 0;
+```
+
+> 주의 사항
+>
+> - LIMIT 의 경우, Shard Split Method 에 따라 분산된 데이터 형태 차이로 Standalone 과 결과 값이 다를 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
 #### SD_MSGLOG_COUNT
 
 ##### 데이터 타입
@@ -1575,71 +1493,44 @@ altibase_sd.log
 
 ### Altibase Sharding 제약사항
 
-Altibase Sharding의 제약 조건을 설명한다. 이 조건을 만족하지 않을 경우 Altibase
-Sharding을 사용할 수 없다.
+#### 기본 조건
 
-#### 선행 조건
+-   샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
 
--   샤딩은 하나의 데이터베이스를 여러 데이터베이스로 나누어 저장하는 기술이다.
-    따라서 각 데이터베이스는 서로 독립적으로 운영되고 관리되어야 한다.
--   전체 샤딩 시스템에서 동작하는 샤드 노드들은 샤드 메타 및 샤드 관련 테이블 스키마 정보가 동일해야 한다.
+#### 프라퍼티 제약조건
+-   ISOLATION_LEVEL은 0(read committed)만 지원한다.
+-   AUTO_COMMIT은 0(non-autocommit)만 지원한다.
 
 #### 데이터 제약조건
 
--   샤딩은 데이터가 분산 가능한 형태인 경우에 효과적이다. 사용자의 업무 형태,
-    데이터 특성에 따라 샤딩의 적용 여부를 판단해야 한다.
--   데이터가 분산 가능하지 않거나 대부분의 질의가 샤드 쿼리가 아닌 경우, 샤딩을
-    적용하더라도 여러 데이터베이스를 다루는 부하때문에 하나의 데이터베이스로
-    운영하는 것에 비해 장점이 많지 않다.
--   샤딩은 데이터가 분산 가능하고, 질의가 샤드 쿼리인 경우, 우수한 확장성을
-    보장한다.
--   샤딩은 여러 샤드 노드에 데이터의 로드가 고르게 분산되어야 한다. 이를 위하여
-    분산 방식과 샤드 키를 적절하게 선택해야 한다.
--   샤딩은 운영 중에 데이터가 고르게 분산되어 있는지 확인하고 필요한 경우에는
-    데이터를 재분산 해야 한다.
--   샤드 키 테이블에서 기본 키 또는 유니크 속성을 갖는 컬럼은 샤드 키와 동일한
-    컬럼이어야 하며 그렇지 않은 경우 샤딩 시스템 전역에서 유니크 속성에 대한
-    정합성을 보장하지 않는다.
--   단일 샤드 키 테이블의 생성시 해당 샤드 테이블 분산 방식에 대응되는 파티션드
-    테이블로 생성해야 하며 파티션 키와 샤드 키는 동일해야한다.
+-   샤드 키 테이블에서 기본 키는 샤드 키를 포함하여야 한다. 그리고, 기본 키에서 샤드 키가 순서상 앞에 있어야 한다.
+-   샤드 키 테이블에서 기본 키 이외의 유니크 속성을 갖는 컬럼은 개별 샤드 노드별로만 유니크가 보장된다. 샤딩 시스템 전역으로 유니크 검사를 하지는 않는다. 
+-   단일 샤드 키 테이블의 생성시 해당 샤드 테이블 분산 방식에 대응되는 파티션드 테이블(partitioned table)로 생성해야 하며 파티션 키와 샤드 키는 동일해야한다.
     - 각 파티션의 경계는 분산 경계를 포함해야 한다.
--   샤드 객체의 스키마가 상이한 경우 올바른 수행 결과를 보장하지 않는다.
+-   global non-partitioned index를 지원하지 않는다.
+-   global secondary index를 지원하지 않는다.
+-   geometry 컬럼, 암호화 컬럼과 압축 컬럼을 지원하지 않는다.  
 -   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
--   샤드 테이블에 트리거(Trigger)를 사용할 수 없다.
--   패키지는 샤드 객체로 지원하지 않는다.
+-   materialized view를 지원하지 않는다.
 -   이 외의 쿼리에 대한 제약사항은 샤드 쿼리 절을 참고한다.
 
 #### 연결 제약조건
 
--   클라이언트와 서버 간에 연결관계가 복잡하다.
--   네트워크에서 발생할 수 있는 문제들이 샤딩 환경에서 확률적으로 더 많이 발생할
-    수 있다.
+-   다중-쓰레드(multi-thread) 클라이언트 프로그램에서 데이타베이스 커넥션 공유를 지원하지 않는다.
+-   SSL 을 지원하지 않는다.
+-   IPv6 를 지원하지 않는다.
 
 #### 샤드 노드 장애
 
--   여러 개의 샤드 노드들 중에서 일부 샤드 노드에 네트워크나 서버 장애가
-    발생하는 경우가 있다. 이것을 전체 데이터베이스 시스템의 장애로 볼 것인지,
-    일부 데이터베이스 시스템의 장애로 볼 것인지는 응용프로그램마다 다를 수
-있으나, Altibase Sharding은 장애 노드를 접근하지 않는 작업은 정상 동작한다.
 -   Altibase Sharding은 응용프로그램에서 데이터베이스로 커넥션을 생성할 때, 일부
     샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.  
     (jdbc같은 경우 응용프로그램에서 데이터베이스로 커넥션을 생성할 때 META와의 접속까지만 
     이루어지기 때문에 노드 장애여부와 상관없이 META만 정상적이라면 커넥션이 생성된다.)
--   만약 커넥션 생성 후, 사용자 쿼리가 prepare, bind, execute를 수행시에는 일부
-    샤드 노드에 장애가 발생하더라도 장애가 발생하지 않는 샤드 노드로 서비스를
-    계속 수행할 수 있다.
--   일부 샤드 노드의 장애에도 불구하고 나머지 샤드 노드에서 서비스를 계속하기
-    위해서는 응용프로그램의 에러 처리 방식을 수정하는 것을 통해서 서비스를
-    지속할 수 있다.
--   Altibase Sharding은 샤드 구성 전에 사용하던 기존의 응용프로그램을 그대로
-    사용할 경우, 에러 처리는 일부 샤드 노드의 장애를 전체 데이터베이스의 장애로
-    판단한다.
 
 #### 하위 호환성
 
--   샤드 기능은 하위 호환성을 갖지 않는다. 다시말해 샤드 버전이 동일한 서버,
-    클라이언트에 대해서만 샤드 기능을 사용할 수 있다.  
-    샤드 버전은 다음과 같이 확인할 수 있다.
+-   샤드 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤드 기능을 사용할 수 있다.
+-   샤드 버전은 다음과 같이 확인할 수 있다.
 
 ```
 $ALTIBASE_HOME/bin/altibase -v
@@ -1667,9 +1558,9 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 
 Altibase Sharding을 사용하기 위하여 각 샤드 노드에 샤딩 관련 정보를 설정해야 한다.
 
-샤딩 관련 메타 정보는 샤드 메타 식별자(META_NODE_ID) 를 제외하고는 모두 동일하게 유지해야 한다.
+샤딩 관련 메타 정보는 지역 샤드 노드 정보(SYS_SHARD.LOCAL_META_INFO_)를 제외하고는 모두 동일하게 유지해야 한다.
 
-샤딩 시스템을 최초로 구성하거나 노드를 추가하기 위해서는 모든 노드에 동일한 순서로 샤드 노드 설정 과정을 거치거나 aexport 등을 이용해 복제하여, 샤드 메타 정보를 동일하도록 유지해야 한다.
+샤딩 시스템을 최초로 구성하거나 노드를 추가하기 위해서는 지역 샤드 노드의 정보를 설정한 후 모든 노드에 동일한 순서로 전체 샤드 노드 설정 과정을 거치거나 aexport 등을 이용해 복제하여, 샤드 메타 정보를 동일하도록 유지해야 한다.
 
 샤드 노드 설정을 전역적으로 적용하기 위해서 샤드 매니저를 사용하는 것을 권장한다.
 
@@ -1684,7 +1575,122 @@ iSQL> COMMIT;
 iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 ```
 
+#### 샤드 노드 관련 메타 작업 주의 사항
 
+샤드 메타를 생성하거나 샤드 노드 관련 정보를 변경하는 작업은 샤딩 시스템 전반에 영향을 미치므로 아래 주의사항을 숙지하고 진행하도록 한다. 
+
+* 샤드 메타 생성 및 샤드 노드 관련 정보 변경 전에 접속한 연결에 대해서는 정상적인 샤딩 서비스를 이용할 수 없으므로 
+  샤드 메타 생성 및 샤드 노드 관련 정보 변경 후 재접속해야 한다. 
+* 샤드 메타 생성 및 샤드 노드 관련 정보 변경을 위해 사용한 연결은 변경 완료 후 종료해야 한다.
+* 샤드 메타 생성 및 샤드 노드 관련 정보 변경 관련 작업은 샤딩 시스템 운영전에 완료해야 한다.
+
+#### 지역 사드 노드 설정 
+
+샤드 패키지인 DBMS_SHARD 패키지에는 지역 샤드 노드의 정보를 설정하는 서브 프로그램을 제공한다.
+
+샤드 노드를 사용하기 위해서는 먼저 지역 샤드 노드의 정보를 등록해야한다. 
+
+##### 구문
+
+```
+DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
+                           node_name in varchar(10),
+			   host_ip in varchar(64),
+			   port_no in integer,
+			   internal_host_ip in varchar(64),
+			   internal_port_no in integer,
+                           internal_replication_host_ip in varchar(64),
+                           internal_replication_port_no in integer,
+                           conn_type in integer default NULL );
+```
+
+##### 설명
+
+지역 노드를 샤드 노드로 사용하기 위해서 지역 샤드 노드의 정보를 입력한다.  
+
+필수 적으로 입력되어야 하는 값은 다음과 같다. 
+
+shard_node_id:  지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다. 
+
+node_name: 지역 샤드 노드에서 사용할 노드 이름을 입력하며, 샤드 노드 이름도 전체 시스템에서 유일해야한다. 
+
+host_ip: 지역 샤드 노드에서 서비스에 사용할 호스트 IP를 입력한다. 
+
+port_no: 지역 샤드 노드에서 서비스에 사용할 Port를 입력한다. 
+
+internal_host_ip: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 호스트 IP를 입력한다. 이더넷 및  인피니 밴드를 지원한다.
+
+internal_port_no: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 Port를 입력한다. 
+
+internal_replication_host_ip: 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP를 입력한다. internal_host_ip와 동일한 라인을 사용할 것을 권장한다. 
+
+internal_replication_port_no: 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값을 입력해야한다. 
+
+conn_type: 내부적으로 사용되는 코디네이터 연결 방식으로 입력하지 않는 경우 TCP를 사용한다. 그 외 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
+
+##### 예제
+
+\<질의\> 샤드 노드 식별자가 0인 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
+
+```
+iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(0, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
+```
+
+#### 샤드 복제 정보 설정
+
+샤딩 클러스터 시스템은 무중단 서비스를 위해서 이중화를 사용하여 데이터 복제를 지원한다. 샤딩 클러스터 시스템을 사용하기 위해서는 전체 샤딩 클러스터 시스템에서 사용할 이중화 방식을 설정해야한다. 
+
+이 설정은 전체 시스템 내에서 최초로 등록되는 노드에서 지정되어야 한다. 
+
+##### 구문
+
+```
+DBMS_SHARD.SET_REPLICATION( k_safety         in  integer,
+                            replication_mode in  varchar(10) default NULL,
+                            parallel_count   in  integer default NULL );
+```
+
+##### 설명
+
+샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.   
+
+k_safety: 시스템 내에서 유지할 복제본의 개수를 지정한다.  0, 1, 2를 지원하며 '0'으로 설정하면 이중화를 사용하지 않는다.
+
+replication_mode: 'CONSISTENT', 'NOWAIT' 의 두 가지 모드를 지원하며, 'CONSISTENT' 는 동기 모드로 COMMIT시 복제본에도 로그가 기록된 것을 확인하고 반환하여 일부 성능 저하가 발생할 수 있으나 복제본의 데이터 일관성을 보장한다.  'NOWAIT'은 비동기 모드로 복제 처리가 서비스 트랜잭션에 영향을 주지 않아 성능이 우수하다. 다만, 복제본의 데이터는 손실이 발생하거나 일관성이 깨질 수 있다. 
+
+parallel_count: 샤딩 클러스터 시스템은 데이터 복제를 위해서 Altibase 이중화 기술을 사용한다. 이 때, 사용할 이중화 병렬 적용자의 수를 지정한다. 지정하지 않는 경우 1로 설정된다. 이중화 병렬 적용자에 대한 자세한 내용은 *'Altibase Replication Manual을 참고한다'*
+
+##### 예제
+
+\<질의\> 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
+
+```
+iSQL>  EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
+```
+
+#### 샤드 노드 식별자 재설정
+
+샤드 노드의 샤드 노드 식별자를 재설정한다.
+
+##### 구문
+
+```
+DBMS_SHARD.RESET_SHARD_NODE_ID( SHARD_NODE_ID in integer )
+```
+
+##### 설명
+
+샤드 노드에서 샤드 노드 식별자를 변경하고자 하는 경우 사용한다.
+
+샤드 노드 식별자 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *RESET_SHARD_NODE_ID*를 참조한다.
+
+##### 예제
+
+\<질의\> 샤드 노드 식별자를 2로 변경한다. 
+
+```
+iSQL> EXEC DBMS_SHARD.RESET_SHARD_NODE_ID(2);
+```
 
 #### 샤드 노드 추가
 
@@ -2187,6 +2193,36 @@ user1 사용자의 t1은 이미 독립 분산으로 설정되어 있다고 가�
 iSQL> EXEC DBMS_SHARD.SET_SHARD_SOLO(‘user1’,‘t1’,‘node1’);
 iSQL> SELECT * FROM sys_shard.solos_;
 ```
+
+#### 파티션(Partition) 기반 분산 설정
+
+파티션 기반 분산 설정은 샤드 테이블의 파티션 정보를 이용하여 테이블의 파티셔닝 방식에 맞춰 자동으로 샤드 분산 방식을 설정해 준다. 파티션 기반 분산을 적용하는 샤드 객체는 샤드 키 값 대신 테이블의 파티션을 지정한다.
+
+##### 구문
+
+```
+DBMS_SHARD.SET_SHARD_PARTITION_NODE
+```
+
+##### 설명
+
+샤드 테이블의 파티셔닝 방식을 이용하여 자동으로 샤드 테이블 분산정보를 설정한다.
+
+##### 예제
+
+user1 사용자의 t1은 파티션드 테이블로 설정되어 있다고 가정한다.
+
+```
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PARTITION_NODE(‘user1’,‘t1’,'p1',‘node1’);
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PARTITION_NODE(‘user1’,‘t1’,'p2',‘node2’);
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PARTITION_NODE(‘user1’,‘t1’,'p3',‘node3’);
+iSQL> SELECT * FROM sys_shard.ranges_;
+```
+
+> 주의 사항
+>
+> * 파티션 기반 분산 설정은 단일 샤드 키 분산 설정에만 사용할 수 있다.
+> * 파티션 기반 분산 설정은 일반 테이블 대상으로는 수행 할 수 없다. 파티션드 테이블 대상으로만 수행 하여야 한다.
 
 ### 샤드 키
 
@@ -3605,16 +3641,18 @@ Altibase Sharding하위 버전에서 상위 버전으로 업그레이드 시 이
 
 다음 표는 샤드 메타 테이블의 목록이다.
 
-| **샤드 메타 테이블 이름** | **설명**                                                  |
-| ------------------------- | --------------------------------------------------------- |
-| **VERSION\_**             | Altibase Sharding의 버전을 기록하는 샤드 메타 테이블      |
-| **LOCAL_META_INFO\_**     | 지역 데이터베이스의 샤드 정보를 기록하는 샤드 메타 테이블 |
-| **GLOBAL_META_INFO\_**    | 샤드 메타 제어 정보를 기록하는 샤드 메타 테이블           |
-| **NODES\_**               | 샤드 노드 정보를 기록하는 샤드 메타 테이블                |
-| **OBJECTS\_**             | 샤드 객체 정보를 기록하는 샤드 메타 테이블                |
-| **RANGES\_**              | 샤드 키 분산 테이블 정보를 기록하는 샤드 메타 테이블      |
-| **CLONES\_**              | 복제 분산 테이블 정보를 기록하는 샤드 메타 테이블         |
-| **SOLOS\_**               | 독립 분산 테이블 정보를 기록하는 샤드 메타 테이블         |
+| **샤드 메타 테이블 이름** | **설명**                                                   |
+| ------------------------- | ---------------------------------------------------------- |
+| **VERSION\_**             | Altibase Sharding의 버전을 기록하는 샤드 메타 테이블       |
+| **LOCAL_META_INFO\_**     | 지역 데이터베이스의 샤드 정보를 기록하는 샤드 메타 테이블  |
+| **GLOBAL_META_INFO\_**    | 샤드 메타 제어 정보를 기록하는 샤드 메타 테이블            |
+| **NODES\_**               | 샤드 노드 정보를 기록하는 샤드 메타 테이블                 |
+| **OBJECTS\_**             | 샤드 객체 정보를 기록하는 샤드 메타 테이블                 |
+| **RANGES\_**              | 샤드 키 분산 테이블 정보를 기록하는 샤드 메타 테이블       |
+| **CLONES\_**              | 복제 분산 테이블 정보를 기록하는 샤드 메타 테이블          |
+| **SOLOS\_**               | 독립 분산 테이블 정보를 기록하는 샤드 메타 테이블          |
+| **REPLICA_SETS_**         | 샤드 노드의 레플리카 셋을 기록하는 샤드 메타 테이블        |
+| **FAILOVER_HISTORYS_**    | 샤드 시스템의 Failover History를 기록하는 샤드 메타 테이블 |
 
 ### SYS_SHARD.VERSION\_
 
@@ -3644,18 +3682,74 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 
 지역 데이터베이스의 샤드 정보를 기록하는 메타 테이블이다.
 
-| Column name  | Type    | Description      |
-| ------------ | ------- | ---------------- |
-| META_NODE_ID | INTEGER | 샤드 메타 식별자 |
+| Column name                  | Type        | Description               |
+| ---------------------------- | ----------- | ------------------------- |
+| SHARD_NODE_ID                | INTEGER     | 샤드 노드 식별자          |
+| SHARDED_DB_NAME              | VARCHAR(40) | 샤드된 데이터 베이스 이름 |
+| NODE_NAME                    | VARCHAR(40) | 샤드 노드 이름            |
+| HOST_IP                      | VARCHAR(64) | 서비스 호스트 IP          |
+| PORT_NO                      | INTEGER     | 서비스 포트               |
+| INTERNAL_HOST_IP             | VARCHAR(64) | 코디네이터 호스트 IP      |
+| INTERNAL_PORT_NO             | INTEGER     | 코디네이터 포트           |
+| INTERNAL_REPLICATION_HOST_IP | VARCHAR(64) | 샤드 이중화 호스트 IP     |
+| INTERNAL_REPLICATION_PORT_NO | INTEGER     | 샤드 이중화 포트          |
+| INTERNAL_CONN_TYPE           | INTEGER     | 코디네이터 연결 타입      |
+| K_SAFETY                     | INTEGER     | 복제본 수                 |
+| REPLICATION_MODE             | INTEGER     | 샤드 이중화 모드          |
+| PARALLEL_COUNT               | INTEGER     | 이중화 병렬 적용자 수     |
 
 #### 칼럼 정보
 
-##### META_NODE_ID
+##### SHARD_NODE_ID
 
-지역 데이터베이스의 샤드 메타 식별자로 전체 샤딩 시스템에서 유일해야 한다.
+지역 데이터베이스의 샤드 노드 식별자로 전체 샤딩 시스템에서 유일해야 한다.
 
-CREATE_META 프로시저를 통해 최초로 샤드 메타를 생성시에 입력해야하며
-RESET_META_NODE_ID로 변경 가능하다.
+SET_LOCAL_NODE 프로시저를 통해 최초로 지역 샤드 정보를 설정시에 입력해야하며
+SET_LOCAL_NODE 혹은 RESET_SHARD_NODE_ID로 변경 가능하다.
+
+##### SHARDED_DB_NAME
+
+지역 샤드 노드가 참여할 논리적인 샤드된 데이터 베이스 이름을 나타내며, 지역 데이터 베이스의 DB 이름으로 자동으로 입력다. 
+
+##### NODE_NAME
+
+지역 샤드 노드의 이름이다.
+
+##### HOST_IP
+
+지역 샤드 노드에서 서비스에 사용할 호스트 IP 이다. 
+
+##### PORT_NO 
+
+지역 샤드 노드에서 서비스에 사용할 Port 이다. 
+
+##### INTERNAL_HOST_IP
+
+지역 샤드 노드에서 코디네이터가 내부적으로 사용하는 호스트 IP 이다. 
+
+##### INTERNAL_REPLICATION_HOST_IP
+
+지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP 이다.
+
+##### INTERNAL_REPLICATION_PORT_NO
+
+지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값으로 유지되어야 한다.
+
+#####  INTERNAL_CONN_TYPE
+
+내부적으로 사용되는 코디네이터 연결 방식이다. 1로 설정된 경우 TCP를 사용하며 8인 경우 인피니 밴드를 사용한다.  
+
+##### K_SAFETY
+
+시스템 내에서 유지할 복제본의 개수를 나타낸다.  
+
+##### REPLICATION_MODE
+
+시스템에서 사용하는 샤드 이중화 모드를 나타낸다. 값이 12인 경우 'CONSISTENT' 샤드 이중화 모드를 의미하며, 10인 경우 샤드 이중화 모드 중 'NOWAIT' 모드를 나타낸다.  
+
+##### PARALLEL_COUNT
+
+샤드 이중화에서 사용하는 이중화 병렬 적용자의 수를 나타낸다. 
 
 ### SYS_SHARD. GLOBAL_META_INFO\_
 
@@ -3754,18 +3848,19 @@ port 번호를 나타낸다.
 
 Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다.
 
-| Column name         | Type         | Description                                                  |
-| ------------------- | ------------ | ------------------------------------------------------------ |
-| SHARD_ID            | INTEGER      | 샤드 객체 식별자                                             |
-| USER_NAME           | VARCHAR(128) | 샤드 객체 소유자                                             |
-| OBJECT_NAME         | VARCHAR(128) | 샤드 객체 이름                                               |
-| OBJECT_TYPE         | CHAR(1)      | 샤드 객체 종류 T : 테이블 P : 프로시저                       |
-| SPLIT_METHOD        | CHAR(1)      | 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) C : 복제(clone) S : 독립(solo) |
-| KEY_COLUMN_NAME     | VARCHAR(128) | 샤드 키 이름                                                 |
-| SUB_SPLIT_METHOD    | CHAR(1)      | 서브 샤드 키 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) |
-| SUB_KEY_COLUMN_NAME | VARCHAR(128) | 서브 샤드 키 칼럼 이름                                       |
-| DEFAULT_NODE_ID     | INTEGER      | 기본 샤드 노드 번호                                          |
-| SMN                 | BIGINT       | 샤드 메타 번호                                               |
+| Column name            | Type         | Description                                                  |
+| ---------------------- | ------------ | ------------------------------------------------------------ |
+| SHARD_ID               | INTEGER      | 샤드 객체 식별자                                             |
+| USER_NAME              | VARCHAR(128) | 샤드 객체 소유자                                             |
+| OBJECT_NAME            | VARCHAR(128) | 샤드 객체 이름                                               |
+| OBJECT_TYPE            | CHAR(1)      | 샤드 객체 종류 T : 테이블 P : 프로시저                       |
+| SPLIT_METHOD           | CHAR(1)      | 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) C : 복제(clone) S : 독립(solo) |
+| KEY_COLUMN_NAME        | VARCHAR(128) | 샤드 키 이름                                                 |
+| SUB_SPLIT_METHOD       | CHAR(1)      | 서브 샤드 키 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) |
+| SUB_KEY_COLUMN_NAME    | VARCHAR(128) | 서브 샤드 키 칼럼 이름                                       |
+| DEFAULT_NODE_ID        | INTEGER      | 기본 샤드 노드 번호                                          |
+| DEFAULT_PARTITION_NAME | VARCHAR(128) | 기본 파티션 이름                                             |
+| SMN                    | BIGINT       | 샤드 메타 번호                                               |
 
 #### 칼럼 정보
 
@@ -3806,6 +3901,10 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 샤드 객체의 기본 샤드 노드를 나타낸다. 분산 설정이 완전하지 않을 경우 설정 기준
 이외의 데이터가 저장되는 샤드 노드이다.
 
+##### DEFAULT_PARTITION_NAME
+
+샤드 객체의 기본 샤드 노드로 분산된 파티션의 이름이다.
+
 ##### SMN
 
 샤드 메타에 대한 버전 관리 번호를 나타낸다.
@@ -3815,19 +3914,25 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 샤드 키 분산 테이블(HASH, RANGE, LIST, COMPOSITE)의 분산 정보를 기록하는 메타
 테이블이다.
 
-| Column name | Type         | Description      |
-| ----------- | ------------ | ---------------- |
-| SHARD_ID    | INTEGER      | 샤드 객체 식별자 |
-| VALUE       | VARCHAR(100) | 샤드 키 값       |
-| SUB_VALUE   | VARCHAR(100) | 서브 샤드 키 값  |
-| NODE_ID     | INTEGER      | 샤드 노드 번호   |
-| SMN         | BIGINT       | 샤드 메타 번호   |
+| Column name    | Type         | Description                               |
+| -------------- | ------------ | ----------------------------------------- |
+| SHARD_ID       | INTEGER      | 샤드 객체 식별자                          |
+| PARTITION_NAME | VARCHAR(128) | 샤드 객체의 파티션 이름                    |
+| VALUE          | VARCHAR(100) | 샤드 키 값                                |
+| SUB_VALUE      | VARCHAR(100) | 서브 샤드 키 값                           |
+| NODE_ID        | INTEGER      | 샤드 노드 번호                            |
+| SMN            | BIGINT       | 샤드 메타 번호                            |
+| REPLICA_SET_ID | INTEGER      | 샤드 객체와 연결된 레플리카 셋의 식별번호 |
 
 #### 칼럼 정보
 
 ##### SHARD_ID
 
 샤드 객체의 번호를 나타낸다.
+
+##### PARTITION_NAME
+
+샤드 객체의 파티션 이름을 나타낸다. 
 
 ##### VALUE
 
@@ -3844,6 +3949,10 @@ VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 �
 ##### SMN
 
 샤드 메타에 대한 버전 관리 번호를 나타낸다.
+
+##### REPLICA_SET_ID
+
+샤드 객체와 연결된 레플리카 셋의 식별 번호를 나타낸다.
 
 ### SYS_SHARD.CLONES\_
 
@@ -3873,11 +3982,12 @@ VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 �
 
 샤드 객체에 독립 분산 방식이 적용된 샤드 테이블 정보를 기록하는 메타 테이블이다.
 
-| Column name | Type    | Description             |
-| ----------- | ------- | ----------------------- |
-| SHARD_ID    | INTEGER | 샤드 객체 식별자        |
-| NODE_ID     | INTEGER | 샤드 노드의 지역 식별자 |
-| SMN         | BIGINT  | 샤드 메타 번호          |
+| Column name    | Type    | Description                               |
+| -------------- | ------- | ----------------------------------------- |
+| SHARD_ID       | INTEGER | 샤드 객체 식별자                          |
+| NODE_ID        | INTEGER | 샤드 노드의 지역 식별자                   |
+| SMN            | BIGINT  | 샤드 메타 번호                            |
+| REPLICA_SET_ID | INTEGER | 샤드 객체와 연결된 레플리카 셋의 식별번호 |
 
 #### 칼럼 정보
 
@@ -3888,6 +3998,138 @@ VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 �
 ##### NODE_ID
 
 데이터가 독립 저장되는 샤드 노드의 지역 식별자 번호를 나타낸다.
+
+##### SMN
+
+샤드 메타에 대한 버전 관리 번호를 나타낸다.
+
+##### REPLICA_SET_ID
+
+샤드 객체와 연결된 레플리카 셋의 식별 번호를 나타낸다.
+
+### SYS_SHARD.REPLICA_SETS_
+
+Altibase Sharding 시스템에서 무중단 서비스를 제공하기 위해 생성한 데이터 복제(Replication)간의 관계를 나타내는 레플리카 셋을 저장한 메타 테이블이다.
+
+| Column name                | Type        | Description                           |
+| -------------------------- | ----------- | ------------------------------------- |
+| REPLICA_SET_ID             | INTEGER     | 레플리카 셋의 식별자                  |
+| PRIMARY_NODE_NAME          | VARCHAR(40) | 레플리카 셋과 연결된 주 노드 이름     |
+| FIRST_BACKUP_NODE_NAME     | VARCHAR(40) | 레플리카 셋의 첫번째 Backup 노드 이름 |
+| SECOND_BACKUP_NODE_NAME    | VARCHAR(40) | 레플리카 셋의 두번째 Backup 노드 이름 |
+| FIRST_REPLICATION_NAME     | VARCHAR(40) | 첫번째 Backup의 이중화 이름           |
+| FIRST_REPL_FROM_NODE_NAME  | VARCHAR(40) | 첫번째 Backup의 송신자 노드의 이름    |
+| FIRST_REPL_TO_NODE_NAME    | VARCHAR(40) | 첫번째 Backup의 수신자 노드의 이름    |
+| SECOND_REPLICATION_NAME    | VARCHAR(40) | 두번째 Backup의 이중화 이름           |
+| SECOND_REPL_FROM_NODE_NAME | VARCHAR(40) | 두번째 Backup의 송신자 노드의 이름    |
+| SECOND_REPL_TO_NODE_NAME   | VARCHAR(40) | 두번째 Backup의 수신자 노드의 이름    |
+| SMN                        | BIGINT      | 샤드 메타 번호                        |
+
+#### 칼럼 정보
+
+##### REPLICA_SET_ID
+
+레플리카 셋의 식별 번호를 나타낸다.
+
+##### PRIMARY_NODE_NAME
+
+레플리카 셋과 연결된 샤드 객체가 저장되어 있는 NODE의 이름을 나타낸다.
+
+##### FIRST_BACKUP_NODE_NAME
+
+레플리카 셋의 첫번째 Backup을 담당하는 노드 이름을 나타낸다.
+
+##### SECOND_BACKUP_NODE_NAME
+
+레플리카 셋의 두번째 Backup을 담당하는 노드 이름을 나타낸다.
+
+##### FIRST_REPLICATION_NAME
+
+첫번째 Backup의 이중화 이름을 나타낸다.
+
+##### FIRST_REPL_FROM_NODE_NAME
+
+첫번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
+
+##### FIRST_REPL_TO_NODE_NAME
+
+첫번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
+
+##### SECOND_REPLICATION_NAME
+
+두번째 Backup의 이중화 이름을 나타낸다.
+
+##### SECOND_REPL_FROM_NODE_NAME
+
+두번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
+
+##### SECOND_REPL_TO_NODE_NAME
+
+두번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
+
+##### SMN
+
+샤드 메타에 대한 버전 관리 번호를 나타낸다.
+
+### SYS_SHARD.FAILOVER_HISTORYS_
+
+Failover 발생시 레플리카 셋(ReplicaSet)의 변경 내역을 저장한 메타 테이블이다.
+
+| Column name                | Type        | Description                           |
+| -------------------------- | ----------- | ------------------------------------- |
+| REPLICA_SET_ID             | INTEGER     | 레플리카 셋의 식별자                  |
+| PRIMARY_NODE_NAME          | VARCHAR(40) | 레플리카 셋과 연결된 주 노드 이름     |
+| FIRST_BACKUP_NODE_NAME     | VARCHAR(40) | 레플리카 셋의 첫번째 Backup 노드 이름 |
+| SECOND_BACKUP_NODE_NAME    | VARCHAR(40) | 레플리카 셋의 두번째 Backup 노드 이름 |
+| FIRST_REPLICATION_NAME     | VARCHAR(40) | 첫번째 Backup의 이중화 이름           |
+| FIRST_REPL_FROM_NODE_NAME  | VARCHAR(40) | 첫번째 Backup의 송신자 노드의 이름    |
+| FIRST_REPL_TO_NODE_NAME    | VARCHAR(40) | 첫번째 Backup의 수신자 노드의 이름    |
+| SECOND_REPLICATION_NAME    | VARCHAR(40) | 두번째 Backup의 이중화 이름           |
+| SECOND_REPL_FROM_NODE_NAME | VARCHAR(40) | 두번째 Backup의 송신자 노드의 이름    |
+| SECOND_REPL_TO_NODE_NAME   | VARCHAR(40) | 두번째 Backup의 수신자 노드의 이름    |
+| SMN                        | BIGINT      | 샤드 메타 번호                        |
+
+#### 칼럼 정보
+
+##### REPLICA_SET_ID
+
+레플리카 셋의 식별 번호를 나타낸다.
+
+##### PRIMARY_NODE_NAME
+
+레플리카 셋과 연결된 샤드 객체가 저장되어 있는 NODE의 이름을 나타낸다.
+
+##### FIRST_BACKUP_NODE_NAME
+
+레플리카 셋의 첫번째 Backup을 담당하는 노드 이름을 나타낸다.
+
+##### SECOND_BACKUP_NODE_NAME
+
+레플리카 셋의 두번째 Backup을 담당하는 노드 이름을 나타낸다.
+
+##### FIRST_REPLICATION_NAME
+
+첫번째 Backup의 이중화 이름을 나타낸다.
+
+##### FIRST_REPL_FROM_NODE_NAME
+
+첫번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
+
+##### FIRST_REPL_TO_NODE_NAME
+
+첫번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
+
+##### SECOND_REPLICATION_NAME
+
+두번째 Backup의 이중화 이름을 나타낸다.
+
+##### SECOND_REPL_FROM_NODE_NAME
+
+두번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
+
+##### SECOND_REPL_TO_NODE_NAME
+
+두번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
 
 ##### SMN
 
@@ -4104,8 +4346,9 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 | 프로시저 및 함수              | 설명                                                         |
 | ----------------------------- | ------------------------------------------------------------ |
 | CREATE_META                   | 샤드 노드에서 샤드 메타 테이블을 생성한다.                   |
-| RESET_META_NODE_ID            | 현재 접속 노드 식별자를 변경한다.                            |
+| RESET_SHARD_NODE_ID           | 현재 접속 노드 식별자를 변경한다.                            |
 | EXECUTE_IMMEDIATE             | 샤드 노드로 ad-hoc 쿼리를 수행한다.                          |
+| SET_REPLICATION               | 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.          |
 | SET_NODE                      | 샤드 노드를 등록한다.                                        |
 | RESET_NODE_EXTERNAL           | 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드 접속 정보를 변경한다. |
 | RESET_NODE_INTERNAL           | 코디네이터가 연결할 샤드 노드 접속 정보를 변경한다.          |
@@ -4113,12 +4356,14 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 | SET_SHARD_TABLE_COMPOSITE     | 복합 샤드 키를 갖는 샤드 테이블을 등록한다.                  |
 | SET_SHARD_PROCEDURE           | 샤드 프로시저를 등록한다.                                    |
 | SET_SHARD_PROCEDURE_COMPOSITE | 복합 샤드 키를 갖는 샤드 프로시저를 등록한다.                |
+| SET_SHARD_PARTITION_NODE      | 테이블의 파티셔닝 방식과 같은 방식으로 분산정보를 등록한다.  |
 | SET_SHARD_HASH                | HASH 방식의 분산정보를 등록한다.                             |
 | SET_SHARD_RANGE               | RANGE 방식의 분산정보를 등록한다.                            |
 | SET_SHARD_LIST                | LIST 방식의 분산정보를 등록한다.                             |
 | SET_SHARD_CLONE               | CLONE 방식의 분산정보를 등록한다.                            |
 | SET_SHARD_SOLO                | SOLO 방식의 분산정보를 등록한다.                             |
 | RESET_SHARD_RESIDENT_NODE     | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
+| RESET_SHARD_PARTITION_NODE    | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
 | SET_SHARD_COMPOSITE           | 복합 샤드 키 방식의 분산정보를 등록한다.                     |
 | CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                        |
 | REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 샤드 노드의 데이터를 재분배한다. |
@@ -4134,14 +4379,14 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 ##### 구문
 
 ```
-CREATE_META(meta_node_id in integer)
+CREATE_META()
 ```
 
 ##### 파라미터
 
-| 이름         | 입출력 | 데이터 타입 | 설명             |
-| ------------ | ------ | ----------- | ---------------- |
-| meta_node_id | IN     | INTEGER     | 샤드 메타 식별자 |
+| 이름          | 입출력 | 데이터 타입 | 설명             |
+| ------------- | ------ | ----------- | ---------------- |
+| SHARD_NODE_ID | IN     | INTEGER     | 샤드 노드 식별자 |
 
 ##### 설명
 
@@ -4150,52 +4395,51 @@ CREATE_META(meta_node_id in integer)
 create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과
 인덱스, 시퀀스가 생성된다. 이후부터 Altibase Sharding 기능을 사용할 수 있다.
 
-meta_node_id 파라미터는 샤드 메타 식별자이며 DBMS_SHARD.RESET_META_NODE_ID 를
-통해서 변경 가능하다.
+SHARD_NODE_ID 파라미터는 샤드 노드 식별자이며 DBMS_SHARD.SET_LOCAL_NODE 혹은 DBMS_SHARD.RESET_SHARD_NODE_ID 를 통해서 변경 가능하다.
 
-meta_node_id는 전체 샤딩 시스템에서 유일한 값이어야 한다.
+SHARD_NODE_ID는 전체 샤딩 시스템에서 유일한 값이어야 한다.
 
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.create_meta(1);
+iSQL> EXEC dbms_shard.create_meta();
 Execute success.
 ```
 
 > ##### 주의 사항
 >
 > - 메타 테이블을 삭제하면 샤딩을 사용할 수 없으므로 주의해야 한다.
-> - meta_node_id 값 범위: 0\~65535
+> - SHARD_NODE_ID 값 범위: 0\~65535
 
-#### RESET_META_NODE_ID
+#### RESET_SHARD_NODE_ID
 
 ##### 구문
 
 ```
-RESET_META_NODE_ID(meta_node_id in integer)
+RESET_SHARD_NODE_ID(SHARD_NODE_ID in integer)
 ```
 
 ##### 파라미터
 
-| 이름         | 입출력 | 데이터 타입 | 설명             |
-| ------------ | ------ | ----------- | ---------------- |
-| meta_node_id | IN     | INTEGER     | 샤드 메타 식별자 |
+| 이름          | 입출력 | 데이터 타입 | 설명             |
+| ------------- | ------ | ----------- | ---------------- |
+| SHARD_NODE_ID | IN     | INTEGER     | 샤드 노드 식별자 |
 
 ##### 설명
 
-샤드 메타 식별자를 변경한다.
+샤드 노드 식별자를 변경한다.
 
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.reset_meta_node_id(1);
+iSQL> EXEC dbms_shard.reset_SHARD_NODE_ID(1);
 Execute success.
 ```
 
 > ##### 주의 사항
 >
-> - meta_node_id는 Altibase Sharding 시스템 내에서 구별 가능한 유일값이어야 한다.
-> - meta_node_id 값 범위: 0\~65535
+> - SHARD_NODE_ID는 Altibase Sharding 시스템 내에서 구별 가능한 유일값이어야 한다.
+> - SHARD_NODE_ID 값 범위: 0\~65535
 
 #### EXECUTE_IMMEDIATE
 
@@ -4204,7 +4448,7 @@ Execute success.
 ```
 EXECUTE_IMMEDIATE(
  query     in varchar(65534),
- node_name in varchar(40) default NULL)
+ node_name in varchar(10) default NULL)
 ```
 
 ##### 파라미터
@@ -4212,7 +4456,7 @@ EXECUTE_IMMEDIATE(
 | 이름      | 입출력 | 데이터 타입    | 설명      |
 | --------- | ------ | -------------- | --------- |
 | query     | IN     | VARCHAR(65534) | 샤드 쿼리 |
-| node_name | IN     | VARCHAR(40)    | 샤드 노드 |
+| node_name | IN     | VARCHAR(10)    | 샤드 노드 |
 
 ##### 설명
 
@@ -4226,13 +4470,44 @@ iSQL> EXEC dbms_shard.execute_immediate(‘TRUNCATE TABLE s1’,’node1’);
 Execute success.
 ```
 
+#### SET_REPLICATION
+
+##### 구문
+
+```
+SET_REPLICATION(
+ k_safety          in integer,
+ replication_mode  in varchar(10) default NULL,
+ parallel_count    in integer default NULL )
+```
+
+##### 파라미터
+
+| 이름             | 입출력 | 데이터 타입 | 설명                               |
+| ---------------- | ------ | ----------- | ---------------------------------- |
+| k_safety         | IN     | INTEGER     | 시스템 내에서 유지할 복제본의 갯수 |
+| replication_mode | IN     | VARCHAR(10) | 이중화에서 사용할 복제 방식        |
+| parallel_count   | IN     | INTEGER     | 이중화 병렬 적용자의 수            |
+
+##### 설명
+
+샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.   
+
+##### 예제
+
+\<질의\> 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
+
+```
+iSQL>  EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
+```
+
 #### SET_NODE
 
 ##### 구문
 
 ```
 SET_NODE(
- node_name          in varchar(40),
+ node_name          in varchar(10),
  host_ip            in varchar(16),
  port_no            in integer,
  alternate_host_ip  in varchar(16) default NULL,
@@ -4244,7 +4519,7 @@ SET_NODE(
 
 | 이름              | 입출력 | 데이터 타입 | 설명                                                         |
 | ----------------- | ------ | ----------- | ------------------------------------------------------------ |
-| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                                               |
+| node_name         | IN     | VARCHAR(10) | 샤드 노드 이름                                               |
 | host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                               |
 | port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
 | alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
@@ -4277,7 +4552,7 @@ Execute success.
 ##### 구문
 
 ```
-RESET_NODE_EXTERNAL(node_name in varchar(40),
+RESET_NODE_EXTERNAL(node_name in varchar(10),
                     host_ip   in varchar(16),
                     port_no   in integer,
                     alternate_host_ip in varchar(16),
@@ -4288,7 +4563,7 @@ RESET_NODE_EXTERNAL(node_name in varchar(40),
 
 | 이름              | 입출력 | 데이터 타입 | 설명                            |
 | ----------------- | ------ | ----------- | ------------------------------- |
-| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                  |
+| node_name         | IN     | VARCHAR(10) | 샤드 노드 이름                  |
 | host_ip           | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP        |
 | port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호           |
 | alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP        |
@@ -4316,7 +4591,7 @@ Execute success.
 ##### 구문
 
 ```
-RESET_NODE_INTERNAL(node_name          in varchar(40),
+RESET_NODE_INTERNAL(node_name          in varchar(10),
                     host_ip            in varchar(16),
                     port_no            in integer,
                     alternate_host_ip  in varchar(16),
@@ -4326,14 +4601,14 @@ RESET_NODE_INTERNAL(node_name          in varchar(40),
 
 ##### 파라미터
 
-| 이름              | 입출력 | 데이터 타입 | 설명                                                    |
-| ----------------- | ------ | ----------- | ------------------------------------------------------- |
-| node_name         | IN     | VARCHAR(40) | 샤드 노드 이름                                          |
-| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                          |
-| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                   |
-| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                |
-| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                         |
-| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.|
+| 이름              | 입출력 | 데이터 타입 | 설명                                                         |
+| ----------------- | ------ | ----------- | ------------------------------------------------------------ |
+| node_name         | IN     | VARCHAR(10) | 샤드 노드 이름                                               |
+| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                               |
+| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
+| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
+| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                              |
+| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다. |
 
 ##### 설명
 
@@ -4358,31 +4633,36 @@ Execute success.
 
 ```
 SET_SHARD_TABLE(
- user_name         in varchar(128),
- table_name        in varchar(128),
- split_method      in varchar(1),
- key_column_name   in varchar(128) default NULL,
- default_node_name in varchar(40) default NULL)
+ user_name    		         in varchar(128),
+ table_name        			 in varchar(128),
+ split_method    			 in varchar(1) default NULL,
+ partition_key_column_name   in varchar(128) default NULL,
+ default_node_name 			 in varchar(40) default NULL)
 ```
 
 ##### 파라미터
 
-| 이름              | 입출력 | 데이터 타입  | 설명                                                         |
-| ----------------- | ------ | ------------ | ------------------------------------------------------------ |
-| user_name         | IN     | VARCHAR(128) | 테이블 소유자의 이름                                         |
-| table_name        | IN     | VARCHAR(128) | 테이블 이름                                                  |
-| split_method      | IN     | VARCHAR(1)   | 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 C: 복제 분산 방식 S: 독립 분산 방식 |
-| key_column_name   | IN     | VARCHAR(128) | 샤드 키 컬럼 이름                                            |
-| default_node_name | IN     | VARCHAR(40)  | 기본 샤드 노드                                               |
+| 이름                      | 입출력 | 데이터 타입  | 설명                                                         |
+| ------------------------- | ------ | ------------ | ------------------------------------------------------------ |
+| user_name                 | IN     | VARCHAR(128) | 테이블 소유자의 이름                                         |
+| table_name                | IN     | VARCHAR(128) | 테이블 이름                                                  |
+| split_method              | IN     | VARCHAR(1)   | 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 C: 복제 분산 방식 S: 독립 분산 방식 |
+| partition_key_column_name | IN     | VARCHAR(128) | 샤드 키 컬럼 이름                                            |
+| default_node_name         | IN     | VARCHAR(40)  | 기본 샤드 노드                                               |
 
 **설명**
 
-샤드 노드에 샤드 테이블 정보를 설정한다.
+모든 샤드 노드에 샤드 테이블 정보를 설정하고 복제용 테이블을 생성한다.
+
+분산 방식을 지정하지 않을 경우, 테이블의 파티션 정보를 읽어 자동으로 설정한다. 
+테이블의 파티션 키가 두개 이상이면 자동으로 선택하지 못하고 에러가 발생한다.
 
 기본 샤드 노드란 샤드 키 분산 객체에 한해 분산 정보가 정의되지 않은 경우에
 선택되는 샤드 노드를 의미하며, 지정하지 않을 수도 있다. 기본 샤드 노드를
 지정하지 않을 경우, 샤드 키 분산 정보에 맞지 않는 샤드 키 값이 입력되면, 처리할
 수 없으므로 에러가 발생한다.
+
+파티션 테이블을 대상으로 할 경우 기본 샤드 노드를 지정하였으면 K-safety 값에 따라 기본 파티션의 복제를(Replication) 생성한다.
 
 ##### 예제
 
@@ -4397,13 +4677,19 @@ iSQL> EXEC dbms_shard.set_shard_table('sys','t4','C');
 Execute success.
 iSQL> EXEC dbms_shard.set_shard_table('sys','t5','S');
 Execute success.
+iSQL> EXEC dbms_shard.set_shard_table('sys','t6');
+Execute success.
 ```
 
 > ##### 주의사항
 >
 > - 샤드 테이블을 설정하기 위해서는 반드시 샤드 노드에 동일한 테이블 스키마가
 >   생성되어야 한다.
+> - 분산 방식을 지정할때 반드시 테이블의 파티셔닝 방법과 같은 분산 방식을 지정하여야 한다.
 > - 테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
+> - 일반 테이블은 K-safety 값이 0일 경우에만 샤드 테이블로 설정할 수 있다.
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_TABLE_COMPOSITE
 
@@ -4434,7 +4720,7 @@ SET_SHARD_TABLE_COMPOSITE(
 
 **설명**
 
-샤드 노드에서 복합 샤드 키를 적용하는 샤드 테이블의 정보를 설정한다.
+모든 샤드 노드에서 복합 샤드 키를 적용하는 샤드 테이블의 정보를 설정하고 복제용 테이블을 생성한다.
 
 ##### 예제
 
@@ -4448,6 +4734,10 @@ Execute success.
 > - 복합 샤드키를 적용한 샤드 테이블 역시 샤드 노드에 동일한 테이블 스키마가
 >   생성되어야 한다.
 > - 테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
+> - 복합 샤드키를 사용할 경우 무중단 서비스(HA)를 제공하지 않는다. K-Safety 값을 0으로 설정하여야 한다.
+> - 복합 샤드키를 사용할 경우 일반 테이블 대상으로만 수행 할 수 있다.
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_PROCEDURE
 
@@ -4475,7 +4765,7 @@ SET_SHARD_PROCEDURE(
 
 ##### 설명
 
-샤드 노드에 샤드 프로시저의 정보를 설정한다.
+모든 샤드 노드에 샤드 프로시저의 정보를 설정한다.
 
 Altibase Sharding 에서 지원하는 분산 방법의 종류는 샤드 테이블과 동일하다.
 
@@ -4499,6 +4789,8 @@ Execute success.
 > - 샤드 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한 프로시저가
 >   생성되어야 한다.
 > - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_PROCEDURE_COMPOSITE
 
@@ -4529,7 +4821,7 @@ SET_SHARD_PROCEDURE_COMPOSITE(
 
 ##### 설명
 
-샤드 노드에 복합 샤드 키를 적용하는 샤드 프로시저의 정보를 설정한다.
+모든 샤드 노드에 복합 샤드 키를 적용하는 샤드 프로시저의 정보를 설정한다.
 
 Altibase Sharding에서 지원하는 분산 방법의 종류는 샤드 테이블과 동일하다.
 
@@ -4545,6 +4837,54 @@ Execute success.
 > - 복합 샤드 키 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한
 >   프로시저가 생성되어야 한다.
 > - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
+#### SET_SHARD_PARTITION_NODE
+
+##### 구문
+
+```
+SET_SHARD_PARTITION_NODE(
+ user_name 	    in varchar(128),
+ object_name    in varchar(128),
+ partition_name in varchar(128),
+ node_name      in varchar(10) )
+```
+
+##### 파라미터
+
+| 이름           | 입출력 | 데이터 타입  | 설명               |
+| -------------- | ------ | ------------ | ------------------ |
+| user_name      | IN     | VARCHAR(128) | 객체 소유자의 이름 |
+| object_name    | IN     | VARCHAR(128) | 객체 이름          |
+| partition_name | IN     | VARCHAR(128) | 객체의 파티션 이름 |
+| node_name      | IN     | VARCHAR(10)  | 샤드 노드          |
+
+##### 설명
+
+모든 샤드 노드에 샤드 객체의 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
+
+샤드 객체의 분산 방식은 객체의 파티션 분할 방식과 같게 설정된다.
+
+파티션 테이블이 아닌 객체는 설정할수 없다.
+
+기본 파티션을 대상으로 수행 할 경우 샤드 객체의 기본 노드가 변경된다. 
+기본 노드가 변경될 경우 기존에 데이터 복제가 존재하면 제거하고 지정된 기본 노드를 대상으로 새롭게 데이터 복제를 생성해 준다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p1','node1');
+Execute success.
+iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p2','node2');
+Execute success.
+```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_HASH
 
@@ -4554,7 +4894,7 @@ Execute success.
 SET_SHARD_HASH(    user_name in varchar(128),
                    object_name in varchar(128),
                    hash_max in integer,
-                   node_name in varchar(40))
+                   node_name in varchar(10))
 ```
 
 ##### 파라미터
@@ -4564,12 +4904,13 @@ SET_SHARD_HASH(    user_name in varchar(128),
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름                          |
 | object_name | IN     | VARCHAR(128) | 객체 이름                                   |
 | hash_max    | IN     | INTEGER      | 해시 분산의 상한값 [1-1000] (non-inclusive) |
-| node_name   | IN     | VARCHAR(40)  | 기본 샤드노드                               |
+| node_name   | IN     | VARCHAR(10)  | 기본 샤드노드                               |
 
 ##### 설명
 
-샤드 노드에 해시 방식으로 분산되는 샤드 객체의 정보를 설정한다. 지정 가능한 해시
-상한값은 [ 1 \~ 1000 ]으로 정의한다.
+모든 샤드 노드에 해시 방식으로 분산되는 샤드 객체의 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다. 
+
+지정 가능한 해시 상한값은 [ 1 \~ 1000 ]으로 정의한다.
 
 실제 샤드 키에 대한 해시 값은 [ 0 \~ 999 ]이다.
 
@@ -4593,6 +4934,11 @@ iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',800,'node2');
 Execute success
 ```
 
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
 #### SET_SHARD_RANGE
 
 ##### 구문
@@ -4601,7 +4947,7 @@ Execute success
 SET_SHARD_RANGE(     user_name    in  varchar(128),
                      object_name  in  varchar(128),
                      value_max    in  varchar(100),
-                     node_name    in  varchar(40))
+                     node_name    in  varchar(10))
 ```
 
 ##### 파라미터
@@ -4611,11 +4957,11 @@ SET_SHARD_RANGE(     user_name    in  varchar(128),
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름                        |
 | object_name | IN     | VARCHAR(128) | 객체 이름                                 |
 | value_max   | IN     | VARCHAR(100) | 범위 분산 샤드 키의 상한값(non-inclusive) |
-| node_name   | IN     | VARCHAR(40)  | 기본 샤드 노드                            |
+| node_name   | IN     | VARCHAR(10)  | 기본 샤드 노드                            |
 
 ##### 설명
 
-샤드 노드에 범위 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
+모든 샤드 노드에 범위 분산 방식으로 샤드 객체의 분산 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
 
 ##### 예제
 
@@ -4634,6 +4980,11 @@ iSQL> EXEC dbms_shard.set_shard_range('sys','t2',600,'node2');
 Execute success. 
 ```
 
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
 #### SET_SHARD_LIST
 
 ##### 구문
@@ -4642,7 +4993,7 @@ Execute success.
 SET_SHARD_LIST(    user_name    in  varchar(128),
                    object_name  in  varchar(128),
                    value        in  varchar(100),
-                   node_name    in  varchar(40))
+                   node_name    in  varchar(10))
 ```
 
 ##### 파라미터
@@ -4652,11 +5003,11 @@ SET_SHARD_LIST(    user_name    in  varchar(128),
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름             |
 | object_name | IN     | VARCHAR(128) | 객체 이름                      |
 | value       | IN     | VARCHAR(100) | 리스트 분산의 샤드 키의 최대값 |
-| node_name   | IN     | VARCHAR(40)  | 기본 샤드 노드                 |
+| node_name   | IN     | VARCHAR(10)  | 기본 샤드 노드                 |
 
 ##### 설명
 
-샤드 노드에 리스트 분산 방식의 샤드 객체에 대한 분산 정보를 설정한다.
+모든 샤드 노드에 리스트 분산 방식의 샤드 객체에 대한 분산 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
 
 ##### 예제
 
@@ -4669,6 +5020,12 @@ iSQL> EXEC dbms_shard.set_shard_list('sys','t3','3a','node3');
 Execute success.
 ```
 
+> ##### 주의사항
+>
+> - 리스트 분산 방식으로 설정할 경우 다수의 파티셔닝 조건 값을 갖는 파티션은 설정할 수 없다.
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
 #### SET_SHARD_COMPOSITE
 
 ##### 구문
@@ -4679,7 +5036,7 @@ SET_SHARD_COMPOSITE(
  object_name  in  varchar(128),
  value        in  varchar(100),
  sub_value    in  varchar(100),
- node_name    in  varchar(40))
+ node_name    in  varchar(10))
 ```
 
 ##### 파라미터
@@ -4690,11 +5047,11 @@ SET_SHARD_COMPOSITE(
 | object_name | IN     | VARCHAR(128) | 객체 이름             |
 | value       | IN     | VARCHAR(100) | 샤드 키의 최대값      |
 | sub_value   | IN     | VARCHAR(100) | 서브 샤드 키의 최대값 |
-| node_name   | IN     | VARCHAR(40)  | 기본 샤드 노드        |
+| node_name   | IN     | VARCHAR(10)  | 기본 샤드 노드        |
 
 ##### 설명
 
-샤드 노드에 복합 샤드 키를 적용한 샤드 객체의 분산 정보를 설정한다.
+모든 샤드 노드에 복합 샤드 키를 적용한 샤드 객체의 분산 정보를 설정한다.
 
 ##### 예제
 
@@ -4714,6 +5071,13 @@ iSQL> EXEC dbms_shard.set_shard_composite('sys','proc6','서울','강서구','no
 Execute success
 ```
 
+> ##### 주의사항
+>
+> - 복합 샤드 키 샤드 객체의 경우 K-Safety가 0 일 때만 설정 가능하기 때문에 데이터 복제(Replication)를 제공하지 않는다.
+> - 복합 샤드키를 사용할 경우 일반 테이블 대상으로만 수행 할 수 있다.
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
 #### SET_SHARD_CLONE
 
 ##### 구문
@@ -4721,7 +5085,7 @@ Execute success
 ```
 SET_SHARD_CLONE(user_name    in  varchar(128),
                 object_name  in  varchar(128),
-                node_name    in  varchar(40))
+                node_name    in  varchar(10))
 ```
 
 ##### 파라미터
@@ -4730,11 +5094,11 @@ SET_SHARD_CLONE(user_name    in  varchar(128),
 | ----------- | ------ | ------------ | ------------------ |
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름 |
 | object_name | IN     | VARCHAR(128) | 객체 이름          |
-| node_name   | IN     | VARCHAR(40)  | 샤드 노드          |
+| node_name   | IN     | VARCHAR(10)  | 샤드 노드          |
 
 ##### 설명
 
-샤드 노드에 복제 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
+모든 샤드 노드에 복제 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
 
 ##### 예제
 
@@ -4746,6 +5110,11 @@ Execute success.
 iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node3');
 ```
 
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
 #### SET_SHARD_SOLO
 
 ##### 구문
@@ -4753,7 +5122,7 @@ iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node3');
 ```
 SET_SHARD_SOLO(user_name    in  varchar(128),
                object_name  in  varchar(128),
-               node_name    in  varchar(40))
+               node_name    in  varchar(10))
 ```
 
 ##### 파라미터
@@ -4762,11 +5131,11 @@ SET_SHARD_SOLO(user_name    in  varchar(128),
 | ----------- | ------ | ------------ | ------------------ |
 | user_name   | IN     | VARCHAR(128) | 객체 소유자의 이름 |
 | object_name | IN     | VARCHAR(128) | 객체 이름          |
-| node_name   | IN     | VARCHAR(40)  | 샤드 노드          |
+| node_name   | IN     | VARCHAR(10)  | 샤드 노드          |
 
 ##### 설명
 
-샤드 노드에 독립 분산 방식의 샤드 객체의 분산 정보를 설정한다.
+모든 샤드 노드에 독립 분산 방식의 샤드 객체의 분산 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
 
 ##### 예제
 
@@ -4777,6 +5146,11 @@ iSQL> EXEC dbms_shard.set_shard_solo('sys','proc5','node1');
 Execute success.
 ```
 
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
 #### RESET_SHARD_RESIDENT_NODE
 
 ##### 구문
@@ -4784,8 +5158,8 @@ Execute success.
 ```
 RESET_SHARD_RESIDENT_NODE( user_name     in varchar(128),
                            object_name   in varchar(128),
-                           old_node_name in varchar(40),
-                           new_node_name in varchar(40),
+                           old_node_name in varchar(10),
+                           new_node_name in varchar(10),
                            value         in varchar(100) default NULL,
                            sub_value     in varchar(100) default NULL )
 ```
@@ -4796,8 +5170,8 @@ RESET_SHARD_RESIDENT_NODE( user_name     in varchar(128),
 | ------------- | ------ | ------------ | --------------------- |
 | user_name     | IN     | VARCHAR(128) | 객체 소유자의 이름    |
 | object_name   | IN     | VARCHAR(128) | 객체 이름             |
-| old_node_name | IN     | VARCHAR(40)  | 현재 노드 이름        |
-| new_node_name | IN     | VARCHAR(40)  | 변경할 노드 이름      |
+| old_node_name | IN     | VARCHAR(10)  | 현재 노드 이름        |
+| new_node_name | IN     | VARCHAR(10)  | 변경할 노드 이름      |
 | value         | IN     | VARCHAR(100) | 샤드 키의 최대값      |
 | sub_value     | IN     | VARCHAR(100) | 서브 샤드 키의 최대값 |
 
@@ -4815,6 +5189,45 @@ Execute success.
 iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',1000,'node3');
 Execute success.
 iSQL> EXEC dbms_shard.reset_shard_resident_node('sys','t1','node3','node2',1000);
+Execute success.
+```
+
+#### RESET_SHARD_PARTITION_NODE
+
+##### 구문
+
+```
+RESET_SHARD_PARTITION_NODE( user_name      in varchar(128),
+                            object_name    in varchar(128),
+                            old_node_name  in varchar(10),
+                            new_node_name  in varchar(10),
+                            partition_name in varchar(128) default NULL )
+```
+
+##### 파라미터
+
+| 이름           | 입출력 | 데이터 타입  | 설명               |
+| -------------- | ------ | ------------ | ------------------ |
+| user_name      | IN     | VARCHAR(128) | 객체 소유자의 이름 |
+| object_name    | IN     | VARCHAR(128) | 객체 이름          |
+| old_node_name  | IN     | VARCHAR(10)  | 현재 노드 이름     |
+| new_node_name  | IN     | VARCHAR(10)  | 변경할 노드 이름   |
+| partition_name | IN     | VARCHAR(128) | 객체의 파티션 이름 |
+
+##### 설명
+
+등록된 분산 정보의 샤드 노드를 변경한다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.set_shard_table('sys','t1','H','i1');
+Execute success.
+iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p1','node1');
+Execute success.
+iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p2','node3');
+Execute success.
+iSQL> EXEC dbms_shard.reset_shard_partition_node('sys','t1','node3','node2','p2');
 Execute success.
 ```
 
@@ -4965,7 +5378,7 @@ iSQL> COMMIT;
 ```
 REBUILD_DATA_NODE(user_name   in  varchar(128),
                   table_name  in varchar(128),
-                  node_name   in varchar(40),
+                  node_name   in varchar(10),
                   batch_count in bigint default 0)
 ```
 
@@ -4975,7 +5388,7 @@ REBUILD_DATA_NODE(user_name   in  varchar(128),
 | ----------- | ------ | ------------ | -------------------------------- |
 | user_name   | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
 | table_name  | IN     | VARCHAR(128) | 테이블 이름                      |
-| node_name   | IN     | VARCHAR(40)  | 샤드 노드 이름                   |
+| node_name   | IN     | VARCHAR(10)  | 샤드 노드 이름                   |
 | batch_count | IN     | BIGINT       | 일괄 처리 행의 단위 (기본값 : 0) |
 
 ##### 설명
@@ -5034,14 +5447,14 @@ iSQL> COMMIT;
 ##### 구문
 
 ```
-UNSET_NODE(node_name in varchar(40))
+UNSET_NODE(node_name in varchar(10))
 ```
 
 ##### 파라미터
 
 | 이름      | 입출력 | 데이터 타입 | 설명      |
 | --------- | ------ | ----------- | --------- |
-| node_name | IN     | VARCHAR(40) | 샤드 노드 |
+| node_name | IN     | VARCHAR(10) | 샤드 노드 |
 
 ##### 설명
 
@@ -5072,10 +5485,12 @@ UNSET_SHARD_TABLE(     user_name  in varchar(128),
 
 ##### 설명
 
-샤드 노드에서 샤드 테이블의 정보를 삭제한다.
+모든 샤드 노드에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
 
 UNSET_SHARD_TABLE() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산 정보도
 모두 삭제된다.
+
+복제 테이블도 같이 삭제 된다.
 
 ##### 예제
 
@@ -5083,6 +5498,11 @@ UNSET_SHARD_TABLE() 함수를 사용하여 샤드 테이블 정보를 삭제하�
 iSQL> EXEC dbms_shard.unset_shard_table('sys','t5');
 Execute success.
 ```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### UNSET_SHARD_TABLE_BY_ID
 
@@ -5100,10 +5520,12 @@ UNSET_SHARD_TABLE_BY_ID(shard_id in integer)
 
 ##### 설명
 
-샤드 메타에서 샤드 테이블의 정보를 삭제한다.
+모든 샤드 메타에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
 
 UNSET_SHARD_TABLE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산
 정보도 모두 삭제된다.
+
+복제 테이블도 같이 삭제 된다.
 
 삭제된 shard_id는 sys_shard.objects_에서 조회할 수 있다.
 
@@ -5111,8 +5533,13 @@ UNSET_SHARD_TABLE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭�
 
 ```
 iSQL> EXEC dbms_shard.unset_shard_table_by_id(123);
-Execute success.
+Execute success. 
 ```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### UNSET_SHARD_PROCEDURE
 
@@ -5133,7 +5560,7 @@ UNSET_SHARD_PROCEDURE(
 
 ##### 설명
 
-샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
+모든 샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
 
 UNSET_SHARD_PROCEDURE() 함수를 사용하여 샤드 프로시저 정보를 삭제하면, 분산
 정보도 모두 삭제된다.
@@ -5144,6 +5571,11 @@ UNSET_SHARD_PROCEDURE() 함수를 사용하여 샤드 프로시저 정보를 삭
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
 Execute success.
 ```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### UNSET_SHARD_PROCEDURE_BY_ID
 
@@ -5162,7 +5594,7 @@ UNSET_SHARD_PROCEDURE_BY_ID(
 
 ##### 설명
 
-샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
+모든 샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
 
 UNSET_SHARD_PROCEDURE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 각
 분산 방식 때 정의했던 분산 정보도 모두 삭제된다.
@@ -5175,6 +5607,11 @@ UNSET_SHARD_PROCEDURE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 
 iSQL> EXEC dbms_shard.unset_shard_procedure_by_id(123);
 Execute success. 
 ```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 ## 6. shardLoader
 
@@ -5199,929 +5636,3 @@ iLoader와 동일하다. 사용방법은 *iLoader User's Manual \> 2. iLoader �
 > #### 주의사항
 >
 > shardLoader는 lob 컬럼, array 등 몇 가지 옵션을 제공하지 않는다. 해당 기능을 사용하기 위해서는 각 샤드 노드 별로 iLoader를 사용해야 한다.
-
-## 7. Shard Manager
-
-### 개요
-
-Shard Manager는 Altibase Sharding의 샤드 노드와 샤드 객체에 대한 구성 및 관리를 돕는 도구이다.
-
-Altibase Sharding은 다수의 데이터베이스로 구성되기 때문에, 각 데이터베이스와 객체를 관리하는 비용이 많이 들 수 있다. 이러한 환경에서 관리자는 Shard Manager를 사용함으로써 여러 데이터베이스에서 수행해야 하는 반복 작업을 단순화하여 업무 효율성을 향상시키고, 샤드 노드와 샤드 객체를 시각화하여 구성에 대한 이해도를 증진시킬 수 있다.
-
-### 특징
-
-Shard Manager의 특징은 다음과 같다.
-
--   샤드 데이터베이스를 손쉽게 추가/삭제/초기화할 수 있다.
--   샤드 노드를 손쉽게 등록/수정/해제할 수 있다.
--   DB 객체를 샤드 객체로 손쉽게 등록/해제할 수 있다.
--   여러 노드에 걸쳐 존재하는 분산 객체의 개별 정보 및 분산 정보를 하나의 창에서 확인할 수 있다.
--   여러 노드들에 대해, SQL(DDL)을 Primary DB/Alternate DB 단위로 한 번에 수행할 수 있다.
--   샤드 노드 구성, 샤드 객체 분포 및 스키마, 그리고 데이터 분포를 HTML 형태의 레포트로 확인할 수 있다.
-
-### 설치
-
-이 절에서는 Shard Manager를 설치할 때 필요한 환경과 선행 조건, 그리고 설치 및 제거 방법을 안내한다.
-
-#### 시스템 요구사항
-
-Shard Manager는 Windows 또는 Linux에서 설치 및 실행이 가능하다.
-
-##### GUI 모드
-
-Windows용 Shard Manager는 Java 6 64bit JRE를 포함해서 패키징된다. 
-
-- Windows OS 64bit 사용자는 특별한 설정이 필요없다.
-- Windows OS 32bit 사용자는 Shard Mananager가 설치된 디렉토리의 64bit JRE 디렉토리를 32bit용 JRE로 변경해야 한다. 
-
-Linux용 Shard Manager는 JRE를 포함하지 않는다. 따라서 사용자가 실행 환경에 적합한 버전의 JRE를 설치해야 한다.
-
-##### CLI 모드
-
-실행 환경에 적합한 JAVA_HOME 환경변수를 설정해야 한다. 
-
-
-
-운영체제별 자세한 지원 사항은 다음의 링크된 페이지에서 확인할 수 있다( [http://www.eclipse.org/projects/project-plan.php?projectid=eclipse\#target_environments](http://www.eclipse.org/projects/project-plan.php?projectid=eclipse%23target_environments) ).
-
-| 리소스                        | 최소 요구사항                       |
-| ----------------------------- | ----------------------------------- |
-| OS                            | Windows 32/64 bit 또는 Linux 64 bit |
-| 메모리                        | 512 MB                              |
-| Java Runtime Environment(JRE) | JRE Version 6                       |
-| 디스크 공간                   | 90 MB                               |
-| 화면 해상도                   | 1024 \* 786 pixels                  |
-| CPU                           | Pentium III 800MHz                  |
-
-#### 호환가능 데이터베이스
-
-Shard Manager와 호환가능한 데이터베이스는 아래와 같다.
-
--   알티베이스 데이터베이스에 샤드 환경 변수가 설정되어있어야 한다.
--   알티베이스 데이터베이스 샤딩에 필요한 패키지가 설치되어 있어야 한다. 
-
-샤딩에 필요한 패키지는 $ALTIBASE_HOME/packages에 포함되어 있으며 설치 대상 목록은 다음과 같다.
-
-- dbms_shard.sql, dbms_shard.plb
-- dbms_metadata.sql, dbms_metadata.plb
-
-#### 설치와 제거
-
-제공된 압축(zip) 파일을 원하는 위치에 해제하면 Shard Manager 설치가 완료된다. Shard Manager를 제거하기 위해서는 설치 시 생성한 Shard Manager 디렉토리를 삭제하면 제거가 완료된다.
-
-### 사용자 인터페이스
-
-Shard Manager는 그래픽 사용자 인터페이스 (GUI) 모드와 명령어 인터페이스 (CLI) 모드, 두 가지 사용자 인터페이스를 제공한다. 
-
-#### 그래픽 사용자 인터페이스 (GUI) 모드
-
-GUI 모드는 사용자 친화적인 인터페이스로 Shard Manager의 기본 인터페이스이다. GUI 모드를 사용하면 샤드 데이터베이스 관리를 직관적으로 수행할 수 있다. GUI 사용자 인터페이스는 Windows OS를 기준으로 설명한다. 
-
-ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
-
-화면에서 빈 공간은 샤드 데이터베이스 뷰, 샤드 객체 뷰에 따라 다른 뷰(쿼리 뷰, 상세 뷰, 레코드 카운트 뷰, 메모리 테이블스페이스 사용률 뷰)를 보여준다.
-
-![](media/Sharding/shm_first.png)
-
-##### 샤드 데이터베이스 뷰
-
-샤드 데이터베이스 뷰는 샤드 노드를 하나의 그룹으로 표현하는 샤드 데이터베이스를 중심으로 샤드 정보를 보여준다. 기본 전체 화면의 왼쪽 상단에 위치한다.
-
-샤드 데이터베이스 뷰에서 표현하는 정보는 3가지이다.
-
-1. 샤드 데이터베이스: 사용자가 등록한 샤드 노드를 하나의 그룹으로 나타낸다. 특정 샤드 노드로 접속을 성공하면, 샤드 데이터베이스는 현재 접속 노드로부터 샤드 노드들의 정보를 가져와 트리 구조의 하위 노드로 표현한다.
-2. 샤드 노드: 샤드 메타에 등록된 샤드 노드이다. 하위 개체로 Primary/Alternate DB의 연결 정보를 보여준다.
-3. DB의 연결정보: 샤드 노드를 구성하는 Primary/Alternate DB 연결 정보이다.
-
-![](media/Sharding/shm_shard_database_view.png)
-
-**Label Expression**
-
--   샤드 데이터베이스: 샤드 데이터베이스 추가 시 사용자가 부여한 이름
--   샤드 노드: 샤드 메타에 등록된 샤드 노드 이름
--   샤드 노드의 연결정보: IP 주소 : 포트 번호 (SMN)
-
-**Icon Expression**
-
--   샤드 데이터베이스: 샤드 노드에 성공적으로 접속하면 아이콘 오른쪽 하단에 초록색 화살표를 표시한다.
--   샤드 노드의 연결정보: 원형 아이콘은 접속 성공 시 초록색, 실패 시 빨간색으로 표시된다. 해당 연결 정보가 샤드 노드의 alternate DB는 아이콘 오른쪽 하단에 'A' 문자를 표시한다.
-
-##### 샤드 객체 뷰
-
-샤드 객체 뷰는 샤드 데이터베이스 뷰에서 선택된 샤드 데이터베이스에 속한 샤드 객체를 보여준다. 기본 전체화면의 왼쪽 하단에 위치한다.
-
-샤드 객체는 종류에 따라 'Procedures', 'Tables'의 트리 하위 노드로 표현된다.
-
--   프로시저: 샤드 메타에 등록된 샤드 프로시저이다.
--   프로시저 파라미터: 샤드 프로시저에서 샤드 키 또는 서브 샤드 키로 사용되는 파라미터 정보
--   테이블: 샤드 메타에 등록된 샤드 테이블이다.
--   테이블 컬럼: 샤드 테이블에서 샤드 키 또는 서브 샤드 키로 사용되는 컬럼 정보
-
-![](media/Sharding/shm_shard_objects.png)
-
-**Label Expression**
-
--   프로시저, 테이블: 사용자 이름.객체 이름
--   프로시저 파라미터: 프로시저 파라미터 이름 [데이터 타입]
--   테이블 컬럼: 테이블 컬럼 이름 [데이터 타입]
-
-**Icon Expression**
-
--   프로시저 파라미터: 파라미터 타입에 따라 IN은 오른쪽, OUT은 왼쪽, IN OUT은 양쪽 화살표 아이콘을 표시한다. 열쇠 그림 위의 숫자가 1이면 샤드 키, 2이면 서브 샤드 키를 의미한다.
--   테이블 컬럼: 열쇠 그림 위의 숫자가 1이면 샤드 키, 2이면 서브 샤드 키를 의미한다.
-
-**칼럼 설명**
-
--   Name: 샤드 객체의 이름을 표시한다.
-
--   Split Method: 샤드 객체의 분산 방식을 표시한다.
-
-**샤드 객체 뷰 툴바**
-
--   Set Shard Object(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)): 샤드 객체를 추가한다.
--   Create Shard Hash Table (![](media/Sharding/table_add.png)): 새로운 테이블 생성과 Set Shard Hash Table을 동시에 수행한다.
--   Resharding for Shard Key Distributed table(![](media/Sharding/reshard_shard.png)): Shard Key Distributed table (Hash, Range, List) 리샤딩을 수행한다.
--   Resharding for Clone table(![](media/Sharding/reshard_clone.png)): Clone table 리샤딩을 수행한다.
--   Resharding for Solo table(![](media/Sharding/reshard_solo.png)): Solo table 리샤딩을 수행한다.
--   Refresh (![](media/Sharding/action_refresh.gif)): 샤드 객체 뷰를 업데이트 한다.																																							 
-
-
-##### 쿼리 뷰
-
-쿼리 뷰는 사용자가 입력한 쿼리를 샤드 노드를 구성하는 Primary, Alternate DB를 대상으로 수행하는 뷰이다. 
-
-쿼리 뷰에서 사용가능한 쿼리 종류는 데이터 정의 언어(Data Definition Language, DDL)과 데이터 제어 언어(Data Control Language, DCL)이다. 
-
-쿼리 뷰는 (Data Manipulation Language, DML: SELECT, INSERT, DELETE, UPDATE) 를 지원하지 않는다. 쿼리 뷰에서 입력한 DML은 사용자가 선택한 DB에서 모두 수행되기 때문에, 예상하지 못한 결과를 가져올 수 있다. 
-
-샤드 데이터베이스를 연결할 때 자동으로 뷰가 나타나며, 대상 데이터베이스의 이름이 뷰의 제목으로 사용된다. 사용자가 쿼리 뷰를 직접 열 때에는 샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼을 누르거나 선택 후, Shard Database 메뉴를 열어 'Open Query View'를 선택하면 생성된다. 기본 전체 화면 오른쪽 상단에 위치한다.
-																											  
-![](media/Sharding/shm_query_view.png)
-
-##### 쿼리 뷰 툴바
-
--   Execute Statement (![](media/Sharding/de1f28e5e2b6fb8d2d6484ef3772e3e9.png)): 커서로 선택한 문자 블록 또는 해당 커서가 위치한 라인이 수행된다.
--   Execute Script (![](media/Sharding/436ca8084a13745802c439308c90c757.png)): 쿼리 뷰에 입력한 모든 SQL문이 수행된다.
-
-사용자가 선택한 체크박스에 따라 Primary 또는 Alternate DB DB를 대상으로 쿼리를 수행하며, 쿼리 수행 결과는 콘솔 뷰에 출력된다. 
-
-쿼리 뷰에 여러 SQL문을 입력할 수 있으며, 일부 또는 전체 SQL문을 선택하여 수행할 수 있다. SQL문은 입력한 순서대로 수행된다.
-
-##### 상세 뷰
-
-상세 뷰는 특정 객체에 대해 샤드 메타에 등록된 분산 정보와 각 노드에 저장된 해당 객체의 상세 정보를 보여준다. 
-
-대상 객체의 사용자 이름과 객체 이름이 개별 뷰의 제목으로 쓰인다. 샤드 객체 뷰에서 객체를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Shard Object 메뉴를 열어 'Show Detail'을 선택하면 생성되며, 기본 전체화면의 오른쪽 상단에 위치한다.
-
-상세 뷰는 샤드 객체 정보를 'Shard Info'와  'Detail'라는 탭으로 분류하여 보여준다.
-
--   Shard Info: 대상 객체가 샤드 객체인 경우, 샤드 메타에 등록된 분산 정보를 보여준다.
-    - Split Information: 샤드 키, 분산 방식, 기본 노드를 보여준다.
-    - Key Values: 선택한 샤드 객체가 분산된 샤드 노드의 이름과 샤드 키 값, 서브 샤드 키의 값을 보여준다.
-
-![](media/Sharding/shm_detail_view1.png)
-
-- Detail: 각 노드에 저장된 객체의 상세 정보를 보여준다.
-  - Owner Databases: 샤드 객체 뷰에서 선택된 객체와 동일한 스키마 이름과 객체 이름을 가진 객체가 저장되어 있는 데이터베이스 리스트를 보여준다. (Label Expression: '샤드 노드 이름 (IP 주소 : 포트 번호)' )
-  - Owner Databases에서 선택된 데이터베이스에 존재하는 분산 객체의 정보는 오른쪽 화면에 탭 형식으로 분류하여 나타낸다. 샤드 테이블의 경우 'Properties', 'Columns', 'Constraints'로 분류하고, 샤드 프로시저의 경우 'Properties', 'Parameters', 'Code'로 분류한다.
-
-![](media/Sharding/shm_detail_view2.png)
-
-##### 메모리 테이블스페이스 사용률 뷰
-
-메모리 테이블스페이스 사용률 뷰는 샤드 데이터베이스를 구성하는 DB의 메모리 테이블스페이스 사용률을 보여준다. 
-
-접속한 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Shard Database 메뉴를 열어 'Show Memory Tablespace Usage'를 클릭하면 생성된다. 생성 시 기본 전체화면 오른쪽 상단에 위치한다.
-
-![](media/Sharding/shm_mem_usage.png)
-
-**칼럼 설명**
-
--   Database: 샤드 노드의 연결정보로 접속한 데이터베이스(Label Expression: '샤드 노드 이름 (IP 주소 : 포트 번호)'
--   Tablespace Name: 메모리 테이블스페이스 이름, 노드에 존재하는 메모리 테이블스페이스가 다수일 경우, 선택할 수 있다.
--   Max(MB): 메모리 테이블스페이스에서 사용할 수 있는 최대 메모리 크기, 테이블스페이스 생성 시 최대 크기를 지정하지 않았다면 MEM_MAX_DB_SIZE 프로퍼티에 지정된 크기를, AUTOEXTEND가 OFF라면 메모리 테이블스페이스가 할당받은 크기를 출력한다.
--   Alloc(MB): 메모리 테이블스페이스에 할당된 메모리 크기
--   Used(MB): 'Alloc(MB)'의 값 중, 실제 사용하는 메모리 크기
--   Usage(%): 메모리 테이블스페이스 사용률 (= Alloc(MB) / Max(MB) \* 100)
-
-##### 레코드 카운트 뷰
-
-샤드 테이블의 레코드는 여러 샤드 노드에 분산되어 저장된다. 레코드 카운트 뷰는 각 샤드 노드에 저장된 레코드 개수를 표시한다. 기본적으로 Primary DB에 저장된 테이블 레코드 갯수를 보여준다.
-
-샤드 객체 뷰에서 테이블을 마우스 오른쪽 버튼으로 누르거나, 선택 후 'Shard Object' 메뉴에서 'Show Record Count'를 클릭하면 생성된다. 기본 전체화면의 오른쪽 상단에 위치한다.
-
-![](media/Sharding/shm_record_count1.png)
-
-![](media/Sharding/shm_record_count2.png)
-
-**칼럼 설명**
-
--   Shard Node: 샤드 메타에 저장된 노드의 이름
--   Address: 샤드 노드의 연결정보로 노드에 Alternate DB가 있으면 연결정보를 선택할 수 있다. (Label Expression: 'IP 주소 : 포트 번호')
--   Record Count: Shard Node와 Address 컬럼에서 선택된 데이터베이스에 저장된 테이블의 레코드 개수
-
-##### 콘솔 뷰
-
-프로그램 수행 중 사용자에게 전달할 정보가 기록되는 뷰이다. 
-
-프로그램의 수행 상태와 쿼리 실행결과 등이 기록된다. 기본 전체화면 오른쪽 하단에 위치한다.
-
-![](media/Sharding/6bbda1671fc279b120c6c0736e63eb5f.jpg)
-
-#### 명령어 인터페이스 (CLI) 모드
-
-CLI 모드는 GUI를 수행할 수 없는 환경 또는 shell script를 이용한 반복 작업 수행 등 특수 목적을 위해 제공하는 인터페이스이다. CLI 사용자 인터페이스는 Linux OS를 기준으로 설명한다. 
-
-작업 수행 형식은 수행할 작업 option과 그에 따라 필요한 값을 입력한다. 
-
-```bash
-$ ./ShardManCli.sh -option [XML file path | shard_db_name]
-```
-
-지원하는 작업 option은 다음과 같이 확인할 수 있다.
-
-```bash
-$ ./ShardManCli.sh
------------------------------------------------------------------
-     Shard Manager CLI
-     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
-     All Rights Reserved.
------------------------------------------------------------------
-usage: Shard Manager CLI
- -report <arg>      generate report for given shard database name
- -reshard <arg>     resharding shard objects with XML file
- -sharddb <arg>     create/load/remove shard database with XML file
- -shardnode <arg>   add/remove shard node(s) from target shard database
-                    with XML file
-```
-
-입력할 XML의 문법(DTD)는 Shard Manager 패키지에 제공되는 XML 샘플 파일을 참조한다. 
-
-- shard_db.xml: 샤드 데이터베이스 관리
-- shard_node.xml: 샤드 노드 관리
-- shard_obj.xml: 샤드 객체 관리
-- reshard.xml: 리샤딩
-
-### 샤드 데이터베이스 관리
-
-#### 새로운 샤드 데이터베이스 추가
-
-새로운 샤드 데이터베이스를 만든다. 샤드 데이터베이스를 구성하는 모든 데이터베이스들은 샤드 메타값이 초기화 되어 있어야 하며, 샤드 객체는 없어야 한다. 새로 설치된 데이터베이스들에 샤드 데이터베이스 프로퍼티가 설정되어 있고, 필수 패키지만 설치된 상태를 권장한다.
-
-##### GUI 모드
-
-1.  툴바 또는 Database 메뉴에 위치한 'Create New Shard Database'를 클릭한다.
-2.  샤드 데이터베이스 이름과 샤드 노드,  그리고 DB 공통 연결정보를 입력한다. 샤드 데이터베이스 이름은 사용자가 임의로 설정하는 이름이다. 샤드 노드 연결정보는 노드 이름 및 노드를 구성하는 데이터베이스 접속 정보를 입력한다. Replication IP는 데이터베이스의 IP와 다른 값을 사용한Alternate DB가 없으면 Alternate 컬럼에 값을 입력하지 않는다. Common Database Properties는 DB 접속에 필요한 공통 정보를 입력한다.
-3.  'Test' 버튼을 클릭하여 입력한 연결정보를 통해 노드에 접속이 정상적으로 이루어지는지 확인한다.
-4.  'OK' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
-7.  정상적으로 샤드 데이터베이스가 생성되었다면 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에 나타난다.
-
-##### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -sharddb ./shard_db.xml
-```
-
-<ShardDb Action="Create">을 이용하여 새로운 샤드 데이터베이스를 등록한다.
-
-```xml
-<ShardDb Name = "NewAltiShard" Action="Create">
-    <CommonDbConn DbName="MYDB" UserName="SYS" Password="MANAGER" JdbcDriver="C:\Altibase\Driver\Altibase.jar"/>
-    <ShardNode Name="NODE1">
-       <Db Type="Primary"   Ip="192.168.1.11" Port="20300">
-       <Db Type="Alternate" Ip="192.168.1.12" Port="20300">
-    </ShardNode>
-    <ShardNode Name="NODE2">
-       <Db Type="Primary"   Ip="192.168.1.21" Port="20300" JdbcDriver="C:\Altibase\Driver\Altibase2.jar">
-       <Db Type="Alternate" Ip="192.168.1.22" Port="20300" JdbcDriver="C:\Altibase\Driver\Altibase2.jar">
-    </ShardNode>
-    <ShardNode Name="NODE3">
-       <Db Type="Primary"   Ip="192.168.1.31" Port="20300" ReplIp="192.168.2.31" >
-    </ShardNode>        
-</ShardDb>
-```
-
-새로운 샤드 데이터 베이스를 추가할 때, DB 객체 생성 및 샤드 객체 설정도 함께 할 수 있다 (<ShardObjList>). 샤드 객체 상세 내용은 '샤드 객체 설정'을 참조한다.
-
-```xml
-<ShardDb Name = "CreateShardDb" Action="Create">
-    <CommonDbConn DbName="MYDB" UserName="SYS" Password="MANAGER" DriverPath="./drv/Altibase_7_1_0_0_0_branch_rev.76468.jar"/>
-    <ShardNode Name="NODE1">
-       <Db Type="Primary"   Ip="192.168.1.24" Port="12099" />
-       <Db Type="Alternate" Ip="192.168.1.94" Port="56816" />
-    </ShardNode>
-    <ShardNode Name="NODE2">
-       <Db Type="Primary"   Ip="192.168.1.26" Port="12099" DriverPath="./drv/Altibase_Trunk_rev.81318.jar" />
-       <Db Type="Alternate" Ip="192.168.1.94" Port="56817" DriverPath="./drv/Altibase_Trunk_rev.81318.jar" />
-    </ShardNode>
-    <ShardNode Name="NODE3">
-       <Db Type="Primary"   Ip="192.168.1.27" Port="12099" RpIp="192.168.1.30" />
-    </ShardNode>
-    <ShardObjList>
-        <DDL> 
-            CREATE OR REPLACE PROCEDURE SYS.P1 (c1 INT) as begin null; 
-            END
-        </DDL>
-        <Set Schema="SYS" Name="P1" ObjType="P" SplitMethod="H" KeyColumnName="C1" DefaultNode="NODE1"/>
-        
-        <DDL IgnoreFailure = "T">DROP TABLE SYS.CT1</DDL>
-        <DDL>CREATE TABLE CT1 ( I1 char(20) primary key)</DDL>
-        <Set Schema="SYS" Name="CT1" ObjType="T" SplitMethod="C" DefaultNode="NODE1, NODE2, NODE3" />
-        
-        <DDL IgnoreFailure = "T">DROP TABLE SYS.ST1</DDL>
-        <DDL>CREATE TABLE ST1 ( I1 char(20) primary key)</DDL>
-        <Set Schema="SYS" Name="ST1" ObjType="T" SplitMethod="S" DefaultNode="NODE2" />  
-        
-        <DDL IgnoreFailure = "T">DROP TABLE SYS.HT1</DDL>
-        <CreateAndSet Schema="SYS" Name="HT1" ObjType="T" SplitMethod="H" KeyColumnName="I1" DefaultNode="NODE1" PartitionPerNode = "3">
-            <ColumnSql>
-                I1 VARCHAR(32) PRIMARY KEY, 
-                I2 VARCHAR(32)
-            </ColumnSql>
-        </CreateAndSet>
-    </ShardObjList>    
-</ShardDb>
-```
-
-
-
-#### 샤드 데이터베이스 읽어 오기
-
-미리 구성되어 있는 Altibase Sharding에 접속해 샤드 데이터베이스를 등록하는 메뉴이다.  
-
-주의할 점은 여러 개의 샤드 매니저가 동일한 Altibase Sharding을 대상으로 동시에 작업을 하면 예상하지 못한 결과를 초래할 수 있다. 반드시 하나의 샤드 매니저로 하나의 Altibase Sharding에만 작업해야 한다.
-
-##### GUI 모드
-
-1. 툴바 또는 Database 메뉴에 위치한 'Load from Running Shard Database'를 클릭한다.					  
-2.  샤드 데이터베이스 이름과 최초 접속 노드의 연결정보를 입력한다. 샤드 데이터베이스 이름은 사용자가 임의로 설정하는 이름이다. 최초 접속 노드 연결정보는 샤드 노드와 샤드 객체 정보를 가지고 오기 위해서 필요하다. 
-3.  'Test' 버튼을 클릭하여 입력한 연결정보를 통해 최초 접속 노드에 접속이 정상적으로 이루어지는지 확인한다.
-4.  'Next' 버튼을 클릭하여 다음 페이지에서 최초 접속 노드로부터 가져온 샤드 노드 이름, 연결정보, 그리고 접속하는데 사용될 JDBC 드라이버 파일을 확인한다.
-5.  각 샤드 노드 접속에 필요한 JDBC 드라이버 파일이 최초 접속 노드에서 사용한 파일과 다르면, Driver Path 열에서 해당하는 칸에 위치한 연필 아이콘을 클릭하여 드라이버 파일을 변경한다.
-6.  'Finish' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
-7.  정상적으로 샤드 데이터베이스가 생성되었다면 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에 나타난다.
-
-##### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -sharddb ./shard_db.xml
-```
-
-<ShardDb Action="Load">로 미리 구성되어 있는 샤드 데이터베이스를 Shard Manager에 등록한다. 샤드 데이터베이스내의 Primary DB 접속 정보를 입력 후 수행하면 된다.
-
-```xml
-<ShardDb Name = "LoadFromRunningAltiShard" Action="Load">
-   <Db Type="Primary"   Ip="192.168.1.11" Port="20300" DbName="MYDB" UserName="SYS"
-       Password="MANAGER" JdbcDriver="C:\Altibase\Driver\Altibase.jar">
-</ShardDb>
-```
-
-#### 샤드 데이터베이스 편집
-
-샤드 데이터베이스가 가장 먼저 접속할 데이터베이스의 접속 정보를 수정하기 위한 메뉴이다.
-
-##### GUI 모드				
-
-1.  샤드 데이터베이스 뷰에서 수정할 샤드 데이터베이스를 클릭한다.
-2.  샤드 데이터베이스 뷰 위에서 마우스 오른쪽 버튼을 누르거나, Shard Database 메뉴를 열어 'Edit Shard Database'를 클릭한다.
-3.  최초 접속 노드 연결정보를 수정한 뒤, 'Test'버튼을 클릭하여 접속 여부를 확인한다.
-4.  'Next' 버튼을 클릭하여 다음 페이지에서 수정된 최초 접속 노드로부터 가져온 데이터 노드 리스트를 확인한다.
-5.  각 샤드 노드 접속에 필요한 JDBC 드라이버 파일의 변경이 필요하면, Driver Path 열에서 해당하는 칸에 위치한 연필 아이콘을 클릭하여 파일을 변경한다.
-6.  'Finish' 버튼을 클릭하여 수정된 샤드 데이터베이스를 저장한다.
-
-##### CLI 모드
-
-N/A
-
-#### 샤드 데이터베이스 연결
-
-샤드 데이터베이스에 연결한다.
-
-##### GUI 모드
-
-1. 샤드 데이터베이스 뷰에서 연결할 샤드 데이터베이스를 더블클릭하거나, 마우스 오른쪽 버튼으로 눌러 'Connect'를 클릭한다.
-2. 연결이 정상적으로 수행되면 아이콘 오른쪽 하단에 초록색 화살표를 표시하고, 트리
-   하위 노드로 샤드 메타에 등록된 샤드 노드를 표시한다.
-
-##### CLI 모드
-
-N/A
-
-#### 샤드 데이터베이스 연결 해제
-
-샤드 데이터베이스 연결을 해제한다.
-
-##### GUI 모드
-
-1. 샤드 데이터베이스 뷰에서 연결 해제할 샤드 데이터베이스를 더블클릭하거나, 마우스 오른쪽 버튼을 눌러 'Disconnect'를 클릭한다. 
-2. 연결이 정상적으로 해제되었다면 아이콘 오른쪽 하단에 있는 초록색 화살표가 사라지고, 트리 하위 노드들이 사라진다.
-
-##### CLI 모드
-
-N/A
-
-#### 샤드 데이터베이스 삭제
-
-샤드 데이터베이스를 초기화 후, Shard Manager에서 제거한다. 
-
-- 샤드 객체: 샤드 메타에 등록된 모든 샤드 객체를 해제하고, 대응되는 DB객체를 삭제한다. 
-- 샤드 노드: Primary DB와 Alternate DB간의 이중화 객체, 그리고 샤드 메타를 초기화 시킨다. 
-- 샤드 데이터베이스: Shard Manager에서 제거한다.
-
-##### GUI 모드
-
-1. 샤드 데이터베이스 뷰에서 삭제할 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Remove Shard Database'를 클릭한다.
-2. 삭제 여부를 묻는 팝업 창에서 삭제할 샤드 데이터베이스가 맞는지 확인한 뒤,'Yes' 버튼을 클릭한다.
-3. 정상적으로 샤드 데이터베이스가 삭제되었다면, 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에서 사라진다.
-
-##### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -sharddb ./shard_db.xml
-```
-
-<ShardDb Action="Remove">를 이용하여 샤드 데이터베이스를 삭제한다.
-
-```xml
-<ShardDb Name = "RemoveAltiShard" Action="Remove"/>
-```
-
-
-
-#### 메모리 테이블스페이스 사용률 확인
-
-##### GUI 모드
-
-1.  샤드 데이터베이스 뷰에서 메모리 테이블스페이스의 사용률을 확인하려는 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Show Memory Tablespace Usage'를 클릭한다.
-2.  확인하고자 하는 데이터베이스의 행에서 Tablespace Name 열에 해당하는 칸을 클릭하여 원하는 메모리 테이블스페이스를 선택한다.
-
-##### CLI 모드
-
-N/A
-
-### 샤드 데이터베이스 레포트
-
-샤드 데이터베이스의 현황을 요약한 HTML 포멧의 Shard Confinguration, Record Count 레포트를 제공한다. 
-
-- Shard Confinguration 레포트: 샤드 노드 구성과 샤드 객체 구성 및 DDL을 보여준다. 
-
-- Record Count 레포트: 샤드 테이블의 노드(DB)별 레코드 갯수 분포를 보여준다. 이때 DB별 레코드 반환 시점의 차이로 인해 레코드 갯수 차이가 있을 수 있다.
-
-#### GUI 모드
-
-1. 샤드 데이터베이스 뷰에서 대상 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 메뉴바에서 Shard Database 메뉴를 열어 'Generate Report'를 클릭한다.
-2. 레포트 생성 완료 시 콘솔뷰에 파일 경로가 나타난다. 샤드 매니저가 설치된 경로의 report 디렉토리에 레포트 파일이 생성된다.  파일 이름은 수행 시작 시간을 기준으로 yyyyMMdd_HHmmss_[ShardConf | ShardRecord].html 형식으로 만들어진다.
-
-#### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -report shardb_name
-```
-
- XML 파일 대신 대상 샤드 데이터베이스 이름을 직접 입력하여 레포트를 생성한다. 생성되는 레포트 파일은 GUI 모드의 것과 동일하다.
-
-### 샤드 노드 관리
-
-#### 샤드 노드 추가
-
-샤드 노드를 추가한다. 노드를 추가할때, 새 노드의 Primary/Alternate DB에 샤드 메타를 복제하고 샤드 객체를 생성한다. 또한 새 노드의 Primary/Alternate DB간에 이중화 객체도 필요시 자동 생성한다.
-
-추가되는 노드의 Primary/Alternate DB에는 DB 객체들이 없어야 한다. 샤드 데이터베이스 프로퍼티가 설정되어 있고, 필수 패키지만 설치된 초기화된 데이터베이스를 권장한다. 
-
-##### GUI 모드
-
-1.  샤드 데이터베이스에 새로운 샤드 노드를 추가한다.
-2.  샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Add Data Node'를 클릭한다.
-3.  노드 이름과 Primary DB 연결정보를 반드시 입력하며, 선택적으로 Alternate DB의 연결정보까지 입력할 수 있다.
-4.  'Test' 버튼을 클릭하여 입력한 연결정보에 접속이 정상적으로 이루어지는지 확인한다.
-5.  'OK' 버튼을 클릭하여 샤드 노드를 추가한다. 
-    1.  추가할 샤드 노드의 Primary/Alternate DB에 기존 샤드 노드에 등록된 샤드 객체를 자동으로 생성 시도한다. 이때 DB 객체 생성이 하나라도 실패하면 생성에 성공한 DB 객체들도 다시 삭제 후, 샤드 노드 추가를 취소한다. 
-    2.  추가되는 샤드 노드에 Alternate DB 연결정보가 입력되어 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 이중화 객체를 자동으로 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
-6.  정상적으로 수행되었으면, 샤드 데이터베이스에 등록한 샤드 노드가 추가된다.
-
-##### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -shardnode ./shard_node.xml
-```
-
-<ShardNode Action="Add">로 기존 샤드 데이터베이스에 새로운 노드를 추가한다.
-
-```xml
-<ShardDb Name = "AltiShard">
-    <ShardNode Name="NODE4" Action="Add">
-       <Db Type="Primary"   Ip="192.168.1.41" Port="20300">
-       <Db Type="Alternate" Ip="192.168.1.42" Port="20300">
-    </ShardNode>
-    <ShardNode Name="NODE5" Action="Add">
-       <Db Type="Primary"   Ip="192.168.1.51" Port="20300" ReplIp="192.168.2.51" JdbcDriver="C:\Altibase\Driver\Altibase.jar">
-    </ShardNode>
-</ShardDb>
-```
-
-#### 샤드 노드 삭제
-
- 샤드 노드를 삭제한다.
-
-##### GUI 모드
-
-1.  샤드 데이터베이스 뷰에서 삭제할 샤드 노드를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Remove Shard Node'를 클릭한다.
-2.  삭제 여부를 묻는 팝업 창에서 삭제할 샤드 노드에 대한 정보를 확인한 뒤, 'Yes' 버튼을 클릭한다. Primary
-    DB와 Alternate DB간 샤드 매니저가 생성한 이중화 객체가 있으면, 이를 감지해서 이중화 객체를 중지하고 삭제할 것인지 물어본다. 
-3.  정상적으로 샤드 노드가 삭제되었다면 샤드 데이터베이스 뷰 내 대상 노드가 사라진다.
-
-##### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -shardnode ./shard_node.xml
-```
-
-<ShardNode Action="Remove">로 샤드 데이터베이스에서 등록된 노드를 제거한다. 제거되는 노드의  Shard key partitioned table의 파티션, Clone table, 그리고 Solo table은 AltNodeName의 노드로 이동된다. 
-
-```xml
-<ShardDb Name = "AltiShard">
-    <ShardNode Name="NODE5" Action="Remove" AltNodeName="NODE3">
-    <ShardNode Name="NODE4" Action="Remove" AltNodeName="NODE2">
-</ShardDb>
-```
-
-#### Alternate DB 추가
-
-대상 노드에 Alternate DB를 추가한다. 새 Alternate DB에 샤드 메타를 복제하고 샤드 객체를 생성한다. 또한 Primary/Alternate DB간에 이중화 객체도 필요시 자동 생성한다.
-
-추가되는 Alternate DB는 DB  객체들이 없어야 한다. 샤드 데이터베이스 프로퍼티가 설정되어 있고, 필수 패키지만 설치된 초기화된 데이터베이스를 권장한다. 
-
-##### GUI 모드
-
-1. 샤드 데이터베이스 뷰에서 alternate DB를 추가할 샤드 노드 연결정보의 트리 상위 노드인 샤드 노드를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Add Alternate DB'를 클릭한다.
-2. 추가할 alternate DB 접속 정보를 입력한다.																						   
-3. 'Test' 버튼을 클릭하여 입력한 연결정보로 접속이 정상적으로 이루어지는지 확인한다.
-4. 'OK' 버튼을 클릭하여 Alternate DB를 추가한다.
-   1. Primary DB에 생성되어 있는 샤드 객체가 Alternate DB의 DB 메타에 미리 생성되어 있지 않으면, 자동으로 생성 시도한다. 이때 DB 객체 생성이 하나라도 실패하면 생성에 성공한 DB 객체들도 다시 삭제 후,  Alternate DB 추가가 실패한다.
-   2. Primary DB에 샤드 테이블이 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 이중화 객체를 자동으로 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
-5. 정상적으로 alternate DB가 추가되었다면 샤드 데이터베이스 뷰 내 대상 샤드 노드의 트리 하위 노드로 Alternate DB정보가 추가된다.
-
-##### CLI 모드
-
-N/A
-
-#### Alternate DB 삭제
-
-샤드 메타에서 Alternate DB 정보를 삭제한다. 노드에서 Alternate DB가 제거된다.
-
-##### GUI 모드
-
-1.  샤드 데이터베이스 뷰에서 삭제할 Alternate DB가 포함된 샤드 노드를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Remove Alternate Node'를 클릭한다.
-2.  삭제 여부를 묻는 팝업 창에서 삭제할 Alternate DB를 확인한 뒤 'Yes' 버튼을 클릭한다.
-3.  정상적으로 alternate DB가 삭제되었다면 샤드 데이터베이스 뷰 내 대상 샤드 노드의 트리 하위 노드인 Alternate DB 정보가 사라진다.
-
-##### CLI 모드
-
-N/A
-
-### 샤드 객체 관리
-
-#### 샤드 객체 설정
-
-일반 DB 객체를 샤드 객체로 설정한다. 샤드 메타에 샤드 객체 정보가 저장된다.
-
-##### GUI 모드
-
-1. 샤드 객체 뷰의 툴바에 위치한 'Set Shard Object' 버튼(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)) 또는 메뉴에서 'Shard Object' - 'Set Shard Object' 항목을 클릭한다.
-2. 'Available Database Object' 테이블에서 샤드 객체로 지정할 항목의 체크박스를 클릭하여 선택한다. 이때 Shard Key도 함께 지정해야 한다.
-![](media/Sharding/shm_set_shard_object.png)
-3. 'Composite'을 제외한 샤드 키 분산 테이블이면, 선택한 샤드 객체의 샤드 키와 서브 샤드 키를 지정한 뒤, 샤드 키 분산 방식, 서브 샤드 키 분산 방식, 기본 노드를 선택한다.
-4. 'Key Values' 테이블에서 분산 정보에 등록할 노드와 샤드 키 값, 서브 샤드 키 값을 작성한다.
-5. 'Submit' 버튼을 클릭하여 샤드 객체 설정을 샤드 노드에 요청한다.
-6. 샤드 객체 설정이 완료되면, 해당 객체는 샤드 객체 뷰에 표시된다. 지정한 분산 방식은 'Split Method'에 표시되고, 샤드 키와 서브 샤드 키는 객체의 하위 노드로 표시된다.
-
-##### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -shardobj ./shard_obj.xml
-```
-
-두가지 샤드 객체 설정 방법을 제공한다.
-
-첫번째는 모든 샤드 객체에 적용가능한 방법으로 <Set>을 사용하여 DB 객체를 샤드 객체로 설정하는 방법이다. 여기서 DDL은 DB 객체 생성/삭제가 필요한 경우에만 수행한다.
-
-```xml
-<ShardDb Name = "ShardDb">
-    <ShardObjList>
-        <DDL> 
-            CREATE OR REPLACE PROCEDURE SYS.P1 (C1 INT) as begin null; 
-            END
-        </DDL>
-        <Set Schema="SYS" Name="P1" ObjType="P" SplitMethod="H" KeyColumnName="C1" DefaultNode="NODE1"/>
-        
-        <DDL IgnoreFailure = "T">DROP TABLE SYS.HT2</DDL>
-        <DDL>
-            CREATE TABLE SYS.HT2 ( 
-                I1 VARCHAR(32) PRIMARY KEY, 
-                I2 VARCHAR(32) 
-            )
-            PARTITION BY RANGE_USING_HASH ( I1 )
-            (
-                PARTITION P1 VALUES LESS THAN ( 200 ),
-                PARTITION P2 VALUES LESS THAN ( 400 ),
-                PARTITION P3 VALUES LESS THAN ( 600 ),
-                PARTITION P4 VALUES LESS THAN ( 800 ),
-                PARTITION P5 VALUES LESS THAN ( 1000 ),
-                PARTITION PD VALUES DEFAULT
-            )
-        </DDL>
-        <Set Schema="SYS" Name="HT2" ObjType="T" SplitMethod="H" KeyColumnName="I1"  DefaultNode="NODE1">
-            <ValueNodeList>
-                <ValueNode Value = "200" NodeName="NODE1"/>
-                <ValueNode Value = "400" NodeName="NODE1"/>
-                <ValueNode Value = "600" NodeName="NODE2"/>
-                <ValueNode Value = "800" NodeName="NODE2"/>
-                <ValueNode Value = "1000" NodeName="NODE3"/>
-            </ValueNodeList>            
-        </Set>   
-                
-        <DDL IgnoreFailure = "T">DROP TABLE SYS.LT1</DDL>      
-        <DDL>
-            CREATE TABLE SYS.LT1 
-            ( 
-                C1 int PRIMARY KEY, 
-                C2 VARCHAR(32) 
-            )
-            PARTITION BY LIST ( C1 )
-            (
-                PARTITION P1 VALUES ( 1 ),
-                PARTITION P2 VALUES ( 2 ),
-                PARTITION P3 VALUES ( 3 ),
-                PARTITION PD VALUES DEFAULT
-            )
-        </DDL>
-        <Set Schema="SYS" Name="LT1" ObjType="T" SplitMethod="L"  KeyColumnName="C1" DefaultNode="NODE1">
-            <ValueNodeList>
-                <ValueNode Value = "SEOUL" NodeName="NODE1"/>
-                <ValueNode Value = "BUSAN" NodeName="NODE2"/>
-                <ValueNode Value = "TAEGU" NodeName="NODE3"/>
-            </ValueNodeList>
-        </Set>
-                
-        <DDL>
-            CREATE TABLE SYS.RT1 
-            ( 
-                C1 INTEGER PRIMARY KEY, 
-                C2 INTEGER
-            )
-            PARTITION BY RANGE ( C1 )
-            (
-                PARTITION P1 VALUES LESS THAN ( 100 ),
-                PARTITION P2 VALUES LESS THAN ( 300 ),
-                PARTITION P3 VALUES LESS THAN ( 500 ),
-                PARTITION PD VALUES DEFAULT
-            )
-        </DDL>
-        <Set Schema="SYS" Name="RT1" ObjType="T" SplitMethod="R" KeyColumnName="C1" DefaultNode="NODE1">
-            <ValueNodeList>
-                <ValueNode Value = "100" NodeName="NODE1"/>
-                <ValueNode Value = "300" NodeName="NODE2"/>
-                <ValueNode Value = "500" NodeName="NODE3"/>
-            </ValueNodeList>
-        </Set>
-        
-        <DDL>CREATE TABLE CT1 ( I1 char(20) primary key)</DDL>
-        <Set Schema="SYS" Name="CT1" ObjType="T" SplitMethod="C" DefaultNode="NODE1, NODE3" />
-                
-        <DDL>CREATE TABLE ST1 ( I1 char(20) primary key)</DDL>
-        <Set Schema="SYS" Name="ST1" ObjType="T" SplitMethod="S" DefaultNode="NODE2" />
-    </ShardObjList>
-</ShardDb>
-```
-
-두번째는 샤드 해시 테이블에만 적용가능한 방법으로 <CreateAndSet>으로 파티션드 해시 테이블을 생성하고, 이를 샤드 테이블로 설정한다. 
-
-PartitionPerNode는 각 노드당 몇개의 파티션을 생성할 것인지를 지정하는 옵션이다. 따라서, 최종 생성되는 파티션의 갯수는 (PartitionPerNode * 노드 갯수) + 디폴트 파티션 1개이다. 디폴트 파티션은 Default Node에 생성된다.
-
-```xml
-<ShardDb Name = "ShardDb">
-    <ShardObjList>
-        <CreateAndSet Schema="SYS" Name="HT1" ObjType="T" SplitMethod="H" KeyColumnName="C1" DefaultNode="NODE1" PartitionPerNode = "3">
-            <ColumnSql>
-                C1 VARCHAR(32) PRIMARY KEY, 
-                C2 VARCHAR(32)
-            </ColumnSql>
-        </CreateAndSet>
-    </ShardObjList>
-</ShardDb>
-```
-
-
-
-#### 샤드 객체 해제
-
-샤드 메타에서 샤드 객체 정보를 삭제하여, 일반 DB 객체로 변경한다.
-
-##### GUI 모드
-
-1.  샤드 객체 뷰에서 원하는 샤드 객체를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 'Shard Object' 메뉴를 열어 'Unset Shard Object'를 클릭한다.
-2.  샤드 객체 해제를 완료하면, 샤드 객체 뷰에서 해당하는 샤드 객체가 제거된다. 
-
-##### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -shardobj ./shard_obj.xml
-```
-
-<Unset>을 이용하여 샤드 객체를 해제한다.
-
-```xml
-<ShardDb Name = "ShardDb">
-    <ShardObjList>
-        <Unset Schema="SYS" Name="PROC1" ObjType="P" /> 
-        <Unset Schema="SYS" Name="T1" ObjType="T" />
-    </ShardObjList>
-</ShardDb>
-```
-
-#### 샤드 객체 삭제
-
-샤드 객체를 해제한 후, 샤드 메타에서 삭제한다. 그리고, 샤드 데이터베이스에 등록된 모든 DB에서 해당 객체를 삭제한다.
-
-##### GUI 모드
-
-1.  샤드 객체 뷰에서 원하는 객체를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Object 메뉴를 열어, 객체 종류가 테이블일 경우 'Drop Table'를, 프로시저일 경우 'Drop Procedure'를 클릭한다.
-2.  삭제 여부를 묻는 팝업 창에서 삭제할 객체를 확인한 뒤, 'Yes' 버튼을 클릭한다.
-3.  정상적으로 객체가 삭제되었다면 샤드 객체 뷰 내 해당 객체가 사라진다.
-
-##### CLI 모드
-
-CLI 모드에는 동일한 기능이 제공되지 않는다. 
-
-```bash
-$ ./ShardManCli.sh -shardobj ./shard_obj.xml
-```
-
-하지만, <Unset>과 <DDL>을 함께 사용하면 동일한 결과를 얻을 수 있다.
-
-```xml
-<ShardDb Name = "ShardDb">
-    <ShardObjList>
-        <Unset Schema="SYS" Name="PROC1" ObjType="P" /> 
-        <DDL>DROP PRCEDURE SYS.PROC1</DDL>
-        <Unset Schema="SYS" Name="T1" ObjType="T" />
-        <DDL>DROP TABLE SYS.T1</DDL>
-    </ShardObjList>
-</ShardDb>
-```
-
-#### 샤드 객체 정보 확인
-
-##### GUI 모드
-
-샤드 객체 뷰에서 원하는 객체를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Object 메뉴를 열어 'Show Detail'을 클릭한다.
-
-##### CLI 모드
-
-N/A
-
-#### 테이블 레코드 카운트 확인
-
-##### GUI 모드
-
-1.  샤드 객체 뷰에서 원하는 테이블을 마우스 오른쪽 버튼으로 누르거나 클릭 후 Shard Object 메뉴를 열어, 'Show Record Count'를 클릭한다.
-2.  확인하고자 하는 샤드 노드의 행에서 Address 열에 해당하는 칸을 클릭하여 원하는 연결정보를 선택한다.
-
-##### CLI 모드
-
-N/A
-
-#### Resharding
-
-샤드 노드간 샤드 테이블의 데이터 재분배를 손쉽게 수행한다. GUI 모드에서 리샤딩 대상 테이블 종류에 따라 Resharding for Shard Key Distributed table (Hash, Range, List), Resharding for Clone table, Resharding for Solo table를 선택 가능하다. CLI 모드에서는 -reshard 옵션과 동작을 정의한 XML을 작성해 리샤딩을 수행한다.
-
-##### Resharding for Shard Key Distributed table
-
-###### GUI 모드
-
-1.  샤드 객체 뷰의 툴바에 위치한 'Resharding for Shard Key Distributed table' 아이콘 또는 메뉴에서 'Shard Object' -> 'Resharding' -> 'Resharding for Shard Key Distributed table'을 클릭한다.
-2.  'Shard Tables' 리스트에서 리샤딩 대상 샤드 테이블을 클릭하여 선택한다.
-3.  샤드 테이블을 선택하면 'Partitions' 테이블에 파티션의 목록이 표시된다. 'Distribution' 테이블에는 노드별 레코드 갯수가 표시된다.
-4.  'Partitions' 테이블에서 ToNode 컬럼값을 클릭하여 이동할 노드를 선택한다. 'Shard Tables'에서 다른 테이블을 선택하여 여러 테이블을 resharding한번으로 작업할 수 있다. 작업 대상 파티션 노드 변경사항은 'Resharding candidates'에 표시된다.
-5.  'OK' 버튼을 누르면 작업 대상 파티션 노드 변경사항이 차례로 수행된다.
-6.  '테이블 레코드 카운트 확인'을 수행하여 Resharding으로 레코드 재분배 결과를 확인할 수 있다.
-
-###### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -reshard ./reshard.xml
-```
-
-아래는 NODE1의 H1 테이블 파티션 P1, P2를 NODE4로 리샤딩하는 예제이다.
-
-```xml
-<ReshardingList ShardDbName = "AltiShard">
-	<TableList FromNode="NODE1" ToNode="NODE4">
-		<Table Schema="SYS" Name="H1" Part="P1, P2" />
-	</TableList>
-</ReshardingList>
-```
-
-
-
-##### Resharding for Clone table
-
-###### GUI 모드
-
-1. 샤드 객체 뷰의 툴바에 위치한 'Resharding for Clone table' 아이콘 또는 메뉴에서 'Shard Object' -> 'Resharding' -> 'Resharding for Clone table'을 클릭한다.
-2. 'Clone Tables' 리스트에서 리샤딩 대상 샤드 테이블을 클릭하여 선택한다.
-3. 'Nodes' 테이블의 'New' 항목을 선택하여 복사 또는 이동할 노드를 선택한다. Clone table은 최소한 한개 이상의 노드에 있어야 한다.
-4. 'Shard Object' 뷰에서 리샤딩 한 테이블의 'Show Detail'을 수행하여 리샤딩 결과를 확인할 수 있다.
-
-###### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -reshard ./reshard.xml
-```
-
-아래는 NODE1에만 할당된 클론 테이블 CT1을, NODE2, NODE3로 복제 후 NODE1에서 제거하는 예제이다. CloneOp는 Copy 또는 Remove를 선택할 수 있다. 자세한 내용은 패키지에 제공되는 reshard.xml의 DTD를 참고한다.
-
-```xml
-<ReshardingList ShardDbName = "AltiShard">
-	<TableList FromNode="NODE1" ToNode="NODE2">
-		<Table Schema="SYS" Name="CT1" CloneOp="Copy" />
-	</TableList>
-	<TableList FromNode="NODE1" ToNode="NODE3">
-		<Table Schema="SYS" Name="CT1" CloneOp="Copy" />
-        <Table Schema="SYS" Name="CT1" CloneOp="Remove" />
-	</TableList>    
-</ReshardingList>
-```
-
-
-
-##### Resharding for Solo table
-
-###### GUI 모드
-
-1. 샤드 객체 뷰의 툴바에 위치한 'Resharding for Solo table' 아이콘 또는 메뉴에서 'Shard Object' -> 'Resharding' -> 'Resharding for Solo table'을 클릭한다.
-2. 'Solo Tables' 리스트에서 리샤딩 대상 샤드 테이블을 클릭하여 선택한다.
-3. 'Nodes' 테이블의 'New' 항목을 선택하여 이동할 노드를 선택한다. Solo table은 하나의 노드에만 존재할 수 있다.
-4. 'Shard Object' 뷰에서 리샤딩 한 테이블의 'Show Detail'을 수행하여 리샤딩 결과를 확인할 수 있다.
-
-###### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -reshard ./reshard.xml
-```
-
-아래는 솔로 테이블 ST1을 NODE1에서 NODE2로 리샤딩하는 예제이다.
-
-```xml
-<ReshardingList ShardDbName = "AltiShard">
-	<TableList FromNode="NODE1" ToNode="NODE2">
-		<Table Schema="SYS" Name="ST1" />
-	</TableList>
-</ReshardingList>
-```
-
-
-
-### SQL 실행: DDL
-
-샤드 데이터베이스에 속한 여러 데이터베이스들을 대상으로 사용자가 입력한 SQL을 수행한다. DDL만 지원되며, DML이나 Select 문은 지원하지 않는다.
-
-#### GUI 모드
-
-##### 쿼리 뷰 열기
-
-샤드 데이터베이스 뷰에서 원하는 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Show Query View'를 클릭한다.
-
-##### SQL 실행
-
-선택한 노드 종류에 해당하는 데이터베이스에서 입력한 SQL문이 실행된다.
-
-1.  쿼리 뷰 내 SQL 입력 창에 실행하고자 하는 SQL문을 입력한다.
-2.  쿼리 뷰 내 툴바에 위치한 체크박스 중, 입력한 SQL문을 실행하고자 하는 대상 DB 종류를 선택한다.
-3.  입력한 SQL문 중 특정 쿼리만 수행하려면, 해당 구문을 마우스 커서로 드래그하여 선택한 뒤 쿼리 뷰의 툴바에서 'Execute Statement'(![](media/Sharding/de1f28e5e2b6fb8d2d6484ef3772e3e9.png))을 클릭한다. 입력한 전체 SQL문을 모두 수행하고 싶을 경우에는 'Execute Script'(![](media/Sharding/436ca8084a13745802c439308c90c757.png))을 클릭하여 SQL 문을 실행한다.
-4.  콘솔 뷰를 통해 각 데이터베이스에서의 실행 결과를 확인한다.
-
-#### CLI 모드
-
-```bash
-$ ./ShardManCli.sh -shardobj ./shard_obj.xml
-```
-
-아래는 DB 객체인 프로시저 P1과 테이블 T1을 모든 노드에 생성하는 예제이다.  
-
-IgnoreFailure = "T" 옵션을 사용하면, 해당 구문을 수행하다 실패 또는 예외가 발생해도 무시하고 다음 작업을 진행한다. IgnoreFailure = "T" 옵션이 없으면 실패 또는 예외 발생시 에러 메세지를 표시하고 문제 발생 지점에서 수행을 중지한다.
-
-좀더 상세한 내용은 '샤드 객체 관리'를 참조한다.
-
-```xml
-<ShardDb Name = "ShardDb">
-    <ShardObjList>
-        <DDL> 
-            CREATE OR REPLACE PROCEDURE SYS.P1 (C1 INT) as begin null; 
-            END
-        </DDL> 
-        <DDL IgnoreFailure = "T">DROP TABLE SYS.CT1</DDL>
-        <DDL>CREATE TABLE CT1 ( I1 char(20) primary key)</DDL>
-    </ShardObjList>
-</ShardDb>
-```

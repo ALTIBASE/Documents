@@ -1027,7 +1027,7 @@ REMOTE_EXECUTE_IMMEDIATE( 'link1', 'alter table t1 add constraint const1 unique(
 Altibase 데이터베이스 링크는 JDBC 인터페이스를 사용하므로, JDBC v3.0에 명세화된
 표준 데이터 타입을 지원한다.
 
-아래 그림은 지역 서버인 Altibase와 AltiLiker 사이의 데이터 타입 변환과
+아래 그림은 지역 서버인 Altibase와 AltiLinker 사이의 데이터 타입 변환과
 AltiLinker와 각 이기종 데이터베이스의 JDBC 드라이버간의 데이터 타입 변환이
 어떻게 이루어지는지를 보여준다.
 
