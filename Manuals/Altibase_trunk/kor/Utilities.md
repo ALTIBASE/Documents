@@ -1587,6 +1587,7 @@ Fetch Rec In Slave : 2
 MOSX = DF, Count :          1
 MXSO = DF, Count :          0
 MOSO = DF, Count :          1
+MOSO = EQ, Count :          1
 
  SCAN TPS:   20547.95
      Time:       0.00 sec
