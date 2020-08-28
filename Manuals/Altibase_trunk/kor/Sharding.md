@@ -687,15 +687,15 @@ Altibase Sharding은 아래의 쿼리를 지원한다.
 -   UPDATE
 -   DELETE
 -   SELECT
-    \- Join
-    \- Outer Join
-    \- Aggregate function
-    \- Grouping
-    \- Ordering
-    \- Subquery
+    - Join
+    - Outer Join
+    - Aggregate function
+    - Grouping
+    - Ordering
+    - Subquery
 
 쿼리가 샤드 쿼리인지 논샤드 쿼리인지 여부는 샤드 플랜을 조회하여 확인할 수 있다.
-논샤드 쿼리로 플랜이 조회되는 경우 샤드(SHARD) 키워드를 이용하여 좀 더 효율적인
+논샤드 쿼리로 플랜이 조회되는 경우 샤드 키워드를 이용하여 좀 더 효율적인
 쿼리로 튜닝할 수 있다. 뿐만 아니라 다음과 같은 샤드 지원 함수들을 제공한다.
 
 -   SHARD_NODE_NAME
