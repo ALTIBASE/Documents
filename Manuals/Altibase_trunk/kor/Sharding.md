@@ -704,7 +704,7 @@ Altibase Sharding은 아래의 쿼리를 지원한다.
 #### 다양한 분산 객체
 
 일반적인 샤딩은 샤드 테이블에 한해 물리적 데이터 분산만 적용하지만, Altibase
-Sharding은 샤드 프로시저를 분산하여 수행할 수 있다.
+Sharding은 샤드 프로시저도 분산하여 수행할 수 있다.
 
 샤드 프로시저의 경우 인자를 샤드 키로 적용하여 논리적인 분산을 수행하는 방식으로
 샤딩을 수행한다.
@@ -734,22 +734,16 @@ Altibase Sharding은 아래와 같이 다양하게 데이터 분산 방식을 �
 Altibase Sharding의 해시 분산은 샤드 키에 해당하는 값을 내장된 hash함수를
 이용하여 분산하는 것을 말한다.
 
-Altibase는 대부분의 데이터 타입에 최적화된 해시 함수를 제공한다. 해시 함수는
-데이터를 균등하게 분산하는데 이용된다. Altibase Sharding은 해시 함수로부터 구한
-해시 값에 나머지 연산을 수행한 값을 이용하여, 전체 데이터를 1000개의 그룹으로
-나누어 관리한다. 각 그룹마다 샤드 노드를 지정하여 데이터를 임의로 분산시킬 수
-있다.
+해시 함수는 데이터를 균등하게 분산하는데 이용된다. 
 
--   hash_group[1] = { record(x) \| if (mod(hash(shard key value of x),1000)==0)
-    };
+해시 함수로부터 구한 해시 값에 나머지 연산을 수행한 값을 이용하여, 전체 데이터를 1000개의 그룹으로 나누어 관리한다. 
 
--   hash_group[2] = { record(x) \| if (mod(hash(shard key value of x),1000)==1)
-    };
+각 그룹마다 샤드 노드를 지정하여 데이터를 임의로 분산시킬 수 있다.
 
+-   hash_group[1] = { record(x) \| if (mod(hash(shard key value of x),1000)==0) };
+-   hash_group[2] = { record(x) \| if (mod(hash(shard key value of x),1000)==1) };
 -   …
-
--   hash_group[1000] = { record(x) \| if (mod(hash(shard key value of
-    x),1000)==999) };
+-   hash_group[1000] = { record(x) \| if (mod(hash(shard key value of x),1000)==999) };
 
 이렇게 구분된 1000개의 hash group을 사용자의 필요에 따라 분산 정의한다. 예를
 들면 user\_ id를 기준으로 해시 분산 방식으로 설정하는 경우, user_id의 해시 값을
