@@ -277,79 +277,79 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ### Altibase Sharding 용어
 
-##### 샤드 노드(shard node) 
+#### 샤드 노드(shard node) 
 
 샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
 
-##### 샤드 노드(shard node) 
+#### 샤드 노드(shard node) 
 
 샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
 
-##### sharded database
+#### sharded database
 
 여러개의 샤드 노드들로 구성된 사용자 입장에서 논리적으로 하나인 데이타베이스를 sharded database 라고 한다. 
 
-##### 샤드 클러스터 관리자(ZooKeeper)
+#### 샤드 클러스터 관리자(ZooKeeper)
 
 Split brain 방지등의 샤딩 클러스터 관리를 위하여 Apache ZooKeeper를 사용한다.
 
-##### 샤딩 클러스터 시스템(Sharding Cluster System)
+#### 샤딩 클러스터 시스템(Sharding Cluster System)
 
 여러개의 샤드 노드들로 구성된 sharded database 와 샤드 클러스터 관리자(ZooKeeper)를 합하여 샤딩 클러스터 시스템이라고 한다. 
 
-##### 샤드 메타(shard meta) 
+#### 샤드 메타(shard meta) 
 
 샤드 노드의 정보, 샤드 객체, 분산 설정 등 분산 정보가 저장되는 메타 테이블들을 총칭하여 샤드 메타라고 한다. 샤드 메타 테이블들은 sys_shard 사용자의 객체로 관리된다.
 
-##### 샤드 코디네이터(shard coordinator) 
+#### 샤드 코디네이터(shard coordinator) 
 
 분산된 데이터베이스를 통합하여 질의를 최적화하고 수행하는 분산 질의 처리기이다.
 
-##### 샤드 라이브러리(shard library) 
+#### 샤드 라이브러리(shard library) 
 
 하이브리드 샤딩을 지원하는 클라이언트 프로그램 라이브러리이다.
 
-##### 샤드 데이터(shard data) 
+#### 샤드 데이터(shard data) 
 
 분산된 데이터 조각이다. 전체 분산 데이터베이스의 데이터 일부를 가지고 있다.
 
-##### 샤드 레플리카(shard replica) 
+#### 샤드 레플리카(shard replica) 
 
 샤드 데이타에 대한 복제본이다. k-safety 값 만큼의 복제본을 가지고 있다.
 
-##### 샤드 커넥션(shard connection)
+#### 샤드 커넥션(shard connection)
 
 각종 커넥션들을 통칭하여 샤드 커넥션이라고 한다.
 
-##### 외부 커넥션(external connection)
+#### 외부 커넥션(external connection)
 
 외부 네트워크를 사용한 샤드 노드의 연결을 외부 커넥션이라고 하며 외부 커넥션은 사용자 커넥션과 샤드 라이브러리 커넥션의 두 가지가 있다.
 
-###### 사용자 커넥션(user connection)
+#### 사용자 커넥션(user connection)
 
 사용자의 클라이언트 응용프로그램에서 명시적으로 접속한 연결이다.
 
-###### 샤드 라이브러리 커넥션(shard library connection )
+#### 샤드 라이브러리 커넥션(shard library connection )
 
 샤드 라이브러리를 사용한 클라이언트가 데이터 처리를 위해 모든 샤드 노드들에 자동으로 접속한 연결이다.
 
-##### 내부 커넥션 (internal connection)
+#### 내부 커넥션 (internal connection)
 
 내부 네트워크를 사용한 샤드 노드의 연결을 내부 커넥션이라고하며 샤드 노드들 간에 내부적으로 사용하는 것으로 코디네이터 커넥션이 있다.
 
-###### 코디네이터 커넥션 (coordinator connection)
+#### 코디네이터 커넥션 (coordinator connection)
 
 샤드 노드들 간에 내부적으로 사용하는 연결이다.
 
-##### 샤드 세션(shard session)
+#### 샤드 세션(shard session)
 
 사용자 커넥션으로 연결된 세션과 관련하여 열린 모든 세션의 그룹을 샤드 세션이라 한다.
 
-##### 코디네이팅 샤드 노드(coordinating shard node)
+#### 코디네이팅 샤드 노드(coordinating shard node)
 
 샤드 노드들 중 사용자가 접속한(사용자 커넥션) 샤드 노드를 말한다.
 
-##### 분산 방식(split method)
+#### 분산 방식(split method)
 
 샤딩 시스템에서 데이터를 위치시키는 방법이다. 데이터의 특성에 맞게 적용할 수 있는 다양한 분산 방식을 제공한다. 현재 지원하는 분산 방식은 다음과 같다.
 
@@ -360,14 +360,14 @@ Split brain 방지등의 샤딩 클러스터 관리를 위하여 Apache ZooKeepe
 -   CLONE
 -   SOLO
 
-##### 샤드 객체(shard object)
+#### 샤드 객체(shard object)
 
 분산 저장 및 처리되는 객체를 지칭한다. 현재 지원하는 분산객체는 다음과 같다.
 
 -   Table
 -   Procedure
 
-##### 샤드 테이블(shard table)
+#### 샤드 테이블(shard table)
 
 Altibase Sharding에서 제공하는 분산 방식에 따라 설정된 테이블을 샤드 테이블이라고 하며 샤드 테이블에 대한 정보는 샤드 메타에 등록된다. 
 샤드 테이블은 다음과 같이 분류된다.
@@ -378,7 +378,7 @@ Altibase Sharding에서 제공하는 분산 방식에 따라 설정된 테이블
 * 복제 분산 테이블 ( CLONE )
 * 독립 분산 테이블 ( SOLO )
 
-##### 샤드 쿼리(shard query), 논샤드 쿼리(Non-shard query)
+#### 샤드 쿼리(shard query), 논샤드 쿼리(Non-shard query)
 
 샤딩으로 분산된 데이터베이스에서 쿼리는 샤드 쿼리와 논샤드 쿼리로 분류한다.
 
@@ -413,7 +413,7 @@ SELECT * FROM s1 order by k1;
 
 논샤드 쿼리는 샤드 코디네이터의 중간 처리를 거치게 되어 질의 처리 성능이 샤드 쿼리에 비해 떨어지므로 논샤드 쿼리를 튜닝하여 샤드쿼리로 만드는 것이 성능 및 스케일아웃 측면에서 유리하다.
 
-##### 샤드 뷰(shard view)
+#### 샤드 뷰(shard view)
 
 Altibase Sharding은 샤드 뷰를 제공한다. 쿼리가 논샤드 쿼리인 경우, 앞에 "SHARD" 키워드를 추가하면 샤드 노드에 논샤드 쿼리를 전송할 수 있다.
 
@@ -440,13 +440,13 @@ SELECT sum(s) FROM SHARD(SELECT sum(k1) s FROM s1);
 SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1); 
 ```
 
-##### 샤드 쿼리 분석기(shard query analyzer)
+#### 샤드 쿼리 분석기(shard query analyzer)
 
 사용자의 쿼리가 서버측 샤딩으로 수행하는 쿼리와 클라이언트측 샤딩으로 수행하는 쿼리로 구분한다.
 
 샤드 분석결과는 쿼리 수행 시마다 재사용 되므로, 샤드 코디네이터에서 샤드 쿼리 분석으로 생기는 부하는 크지 않다.
 
-##### 샤드 쿼리 최적화기(shard query optimizer)
+#### 샤드 쿼리 최적화기(shard query optimizer)
 
 샤드 코디네이터의 샤드 쿼리 최적화기는 서버측 샤딩에 대한 최적의 분산 쿼리를 생성하고, 분산 쿼리에 대한 분산 플랜을 생성한다.
 
@@ -454,11 +454,11 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 
 가능한 많은 부분을 분산부로 처리하는 것이 성능을 극대화할 수 있기 때문에 샤드 쿼리 최적화기는 최대한 샤드 쿼리 변환(Shard Transformation)을 수행한다.
 
-##### 샤드 쿼리 실행기 (Shard Query Executor)
+#### 샤드 쿼리 실행기 (Shard Query Executor)
 
 샤드 쿼리 실행기는 클라이언트측 샤딩의 실행기와 서버측 샤딩의 실행기로 구분한다. 클라이언트측 샤딩의 실행기는 샤드 라이브러리에서 동작하며, 서버측 샤딩의 실행기는 샤드 노드에서 샤드 코디네이터를 통해서 동작한다.
 
-##### 샤드 키(shard key)
+#### 샤드 키(shard key)
 
 분산 정의의 기준이 되는 컬럼 또는 파라미터이다. 현재 샤드 키로 사용할 수 있는 데이터 타입은 다음과 같다.
 
@@ -468,7 +468,7 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 -   char
 -   varchar
 
-##### 샤드 키워드(shard keyword)
+#### 샤드 키워드(shard keyword)
 
 Altibase Sharding에서 지원하는 키워드로 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
 
@@ -483,15 +483,15 @@ NODE[DATA] SELECT shard_node_name(), count(*) FROM v$session;
 NODE[DATA(‘node1’)] SELECT * FROM s1;
 ```
 
-##### 샤드 프로시저(shard procedure)
+#### 샤드 프로시저(shard procedure)
 
 샤딩 시스템에 설정된 분산 정의된 프로시저로 지정된 인자의 값을 기준으로 분산 수행된다. 프로시저 내의 쿼리에 대해서는 사용자가 분산 처리하도록 작성해야 한다.
 
-##### 샤드 플랜(shard plan)
+#### 샤드 플랜(shard plan)
 
 질의가 샤드 코디네이터에서 분산 수행되는 경우의 질의 수행계획을 말한다. 샤드 플랜에는 샤드 노드에서 분산 수행되는 질의의 수행계획을 포함한다.
 
-##### 샤드 트랜잭션(shard transaction)
+#### 샤드 트랜잭션(shard transaction)
 
 애플리케이션이 생성한 트랜잭션에서 수행하는 질의의 따라 샤드 노드들에 분산 트랜잭션을 생성하게 된다. 이 트랜잭션들을 샤드 트랜잭션이라고 한다.
 
@@ -506,15 +506,15 @@ NODE[DATA(‘node1’)] SELECT * FROM s1;
 -   글로벌 일관 트랜잭션(global consistent transaction)
     글로벌 트랜잭션에서 보장하는것에 추가하여, 글로벌 읽기 일관성을 보장한다.
 
-##### 샤드 메타 번호(Shard Meta Number )
+#### 샤드 메타 번호(Shard Meta Number )
 
 샤드 메타 번호(SMN)란 샤드 메타에 대한 버전 관리 번호 이다.
 
-##### 레플리카 셋(Replica Set)
+#### 레플리카 셋(Replica Set)
 
 레플리카 셋(Replica Set)이란 Altibase Sharding 시스템에서 무중단 서비스를 제공하기 위해 생성한 복제(Replication)들의 관계를 저장한 객체이다.
 
-##### K-safety
+#### K-safety
 
 K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은 샤드데이타가 복제된 갯수를 나타낸다. 이러한 복제들은 장애가 발생한 샤드노드에 대한 fail-over를 수행할 수 있다록 한다.
 
@@ -567,7 +567,7 @@ ZooKeeper는 split brain 방지등의 클러스터 관리를 수행한다.
 
 #### 샤딩 클러스터 시스템
 
-샤딩 클러스터 시스템은 사용자의 Shard DDL(ADD, DROP, JOIN, FAILOVER, FAILBACK) 구문이나 샤딩 HA에 의해서 자동으로 Sharded Database 서비스에 참여하거나 제외될 수 있다. 
+샤딩 클러스터 시스템은 사용자의 Shard DDL(ADD, DROP, JOIN, FAILBACK) 구문이나 샤딩 HA에 의해서 자동으로 Sharded Database 서비스에 참여하거나 제외될 수 있다. 
 
 ![](media/Sharding/sharding_cluster_system_view.png)
 
@@ -585,7 +585,7 @@ Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)�
 
 ### Altibase Sharding 특징
 
-##### 선형 확장성
+#### 선형 확장성
 
 Altibase Sharding은 scale-out시에 성능 병목없이 저장 용량과 시간당 처리량을 선형적으로 향상시켜 대용량의 데이터를 분산 처리할 수 있다.
 
@@ -593,15 +593,17 @@ Altibase Sharding은 scale-out시에 성능 병목없이 저장 용량과 시간
 
 Altibase Sharding의 모든 샤드 노드가 마스터 역할을 수행하여, 단일 장애점(single point of failure)이 없다는 특징을 갖는다.
 
-##### 오류 독립성
+#### 오류 독립성
 
 하나의 샤드 노드가 비정상적이거나 속도가 느려지더라도 다른 샤드 노드의 성능이나 가용성에는 영향을 미치지 않는다.
 
-##### 애플리케이션 호환성
+#### 애플리케이션 호환성
 
 기존 응용프로그램 소스나 기존 SQL을 수정하지 않고, 샤딩을 적용할 수 있다.
 
-##### 사용자 정의 데이터 분산
+사용자가 하이브리드 샤딩을 고려하여 쿼리를 튜닝할 수 있도록 추가적인 샤드 키워드를 제공한다.
+
+#### 사용자 정의 데이터 분산
 
 Altibase Sharding을 통해 사용자는 데이터베이스의 데이터를 원하는 형태로 분산할
 수 있도록 정의할 수 있다.
@@ -612,7 +614,7 @@ Altibase Sharding을 통해 사용자는 데이터베이스의 데이터를 원�
 또한 지역적으로 가까운 데이터들을 물리적으로 가까운 샤드 노드에 위치시킬 수
 있기 때문에, 물리적으로 특정 관할 구역에 가까운 데이터를 모아둘 수도 있다.
 
-##### 복제를 통한 고가용성 
+#### 복제를 통한 고가용성 
 
 Altibase Sharding은 K-safety 값 만큼의 복제본을 유지하여, 고가용성(High Availability)을 보장한다.
 
@@ -636,17 +638,11 @@ Altibase Sharding의 하이브리드 샤딩의 특징은 다음과 같다.
 -   하이브리드 샤딩
     쿼리에 따라 클라이언트측이나 서버측으로 수행경로를 변경하여 성능을 최대화한다.
 
-#### 쉬운 SQL 작성
+#### 쉬운 클러스터 관리
 
-별도의 API나 SQL 힌트 등의 추가 인터페이스 없이 사용자의 질의(SQL)만으로 샤딩 기능을 사용할 수 있다.
+Shard DDL(ADD, DROP, JOIN, FAILBACK) 구문을 제공하여, 손쉬은 샤드 노드 관리를 할 수 있다.
 
-사용자가 하이브리드 샤딩을 고려하여 쿼리를 튜닝할 수 있도록 추가적인 샤드 키워드를 제공한다.
-
-#### 쉬운 샤드 노드 설정
-
-Shard DDL(ADD, DROP, JOIN, FAILOVER, FAILBACK) 구문을 제공하여, 손쉬은 샤드 노드 관리를 할 수 있다.
-
-##### 다양한 업무 적용 범위
+#### 다양한 업무 적용 범위
 
 클라이언트측 샤딩의 특징에 적합한 다음과 같은 OLTP (Online Transaction Processing) 업무
 
@@ -659,7 +655,7 @@ Shard DDL(ADD, DROP, JOIN, FAILOVER, FAILBACK) 구문을 제공하여, 손쉬은
 
 -   샤드노드별로 분산처리 될 수 있는 것이 많은 업무
 
-##### 최적 경로의 쿼리 수행을 통한 분산 트랜잭션의 우수한 성능
+#### 최적 경로의 쿼리 수행을 통한 분산 트랜잭션의 우수한 성능
 
 하나의 샤드 트랜잭션내의 다양한 쿼리들은 개별적으로 최적의 경로로 수행될수 있어서, 분산 트랜잭션의 성능이 우수하다.
 
@@ -847,15 +843,11 @@ shardLoader를 사용하는 것 보다는 성능이 떨어진다.
 샤딩 시스템을 운영하다보면, 샤드 노드의 불균형 상태가 발생할 수 있다.
 
 -   특정 샤드 노드의 분산 데이터 집중
-
 -   특정 샤드 노드의 읽기/쓰기 집중
-
 -   특정 샤드 노드의 장애로 인한 교체
-
 -   샤드 노드 증설
 
-관리자는 이 때 데이터 분산 방법의 변경을 고려해야 한다. Altibase Sharding은
-데이터 분산 방법을 변경하고 데이터 이동을 위해서 다음의 두 가지 방법을 제공한다.
+관리자는 이 때 데이터 분산 방법의 변경을 고려해야 한다. 데이터 분산 방법을 변경하고 데이터 이동을 위해서 다음의 두 가지 방법을 제공한다.
 
 * 데이터 재구축 (Rebuild Data)
 * 리샤딩 (Resharding)
