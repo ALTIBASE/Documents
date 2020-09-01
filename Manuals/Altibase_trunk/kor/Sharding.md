@@ -956,9 +956,9 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 
 ##### 샤딩 응용프로그램 서버 연결 설정
 
-응용프로그램은 최초 접속 시 데이터베이스 서버의 ip/port를 전체 부하를 고려하여 샤드 코디네이터 역할을 할 수 있는 하나의 샤드 노드를 선택한 후 해당 노드의 ip/port로 지정한다. 
+응용프로그램은 접속할 샤드노드의 우선순위가 있는 경우는, 해당 우선순위에 맞춰서, 기본 ip/port 및 AlternateServers를 설정한다.
 
-최초 접속 샤드 노드를 이중화를 할 경우 장애 복구를 위해 connect시 AlternateServer를 설정 한다.
+응용프로그램은 접속할 샤드노드의 우선순위가 없는 경우는, LoadBalance=on을 설정한다. 그러면, 기본 ip/port 및 AlternateServers 에 설정된 샤드노드들에 대하여, 랜덤하게 접속한다.
 
 ##### 샤딩 응용프로그램 라이브러리 설정
 
@@ -967,13 +967,11 @@ cli 응용프로그램 빌드 시 기존의 odbccli 라이브러리를 shardcli 
 
 shardcli 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
 
-jdbc 같은 경우에는 기존과 같이 Altibase.jar를 클래스패스에 추가하고 jdbc 접속 url에 sharding prefix를 붙여주면 된다. 이때 ip와 port는 shardcli와 마찬가지로 메타 노드의 ip와 port가 되어야 한다.
+jdbc 같은 경우에는 기존과 같이 Altibase.jar를 클래스패스에 추가하고 jdbc 접속 url에 sharding prefix를 붙여주면 된다.
 
 ### 샤드 메타 설정
 
-Altibase Sharding을 사용하기 위해서는 샤드 메타를 생성해야 한다. 각 샤드 노드는 Altibase Sharding에 필요한 모든 메타 정보를 샤드 메타에 영구적으로 저장한다.
-
-Altibase Sharding에서 샤드 메타는 샤드 노드 식별자를 제외한 모든 샤드 메타 정보를 각 샤드 노드에서 동일하게 유지되어야 한다.
+Sharding을 사용하기 위해서는 샤드 메타를 모든 샤드 노드에 생성해 주어야 한다.
 
 샤드 메타 설정은 DBMS_SHARD 패키지를 이용한다.
 
@@ -1003,7 +1001,7 @@ sys_shard.local_meta_info_ 와 sys_shard.global_meta_info_ 테이블을 생성�
 sys_shard.nodes_ 테이블과 인덱스를 생성한다.
  sys_shard.objects_ 테이블과 인덱스를 생성한다.
  sys_shard.ranges_ 테이블과 인덱스를 생성한다.
- sys_shard. clones _ 테이블과 인덱스를 생성한다.
+ sys_shard.clones _ 테이블과 인덱스를 생성한다.
  sys_shard.solos_ 테이블과 인덱스를 생성한다.
  sys_shard.replica_sets_ 테이블과 인덱스를 생성한다.
  sys_shard.failover_historys_ 테이블과 인덱스를 생성한다.
@@ -1032,7 +1030,7 @@ SMN이란 샤드 메타의 분산 정의 변경 이력 번호 이며, 시스템 
 
 좀 더 쉽게 설명하면 초기 상태의 샤드 메타는 SMN은 1이며, 노드를 추가하여 샤드 메타에 신규 정보가 추가되고 트랜잭션이 완료되면 새로운 샤드 메타 변경 이력은 SMN 2가 된다.
 
-샤드 메타 변경 작업은 AUTOCOMMIT OFF로 설정하여 한번의 작업으로 수행해야 한다.SMN은 다음의 세 가지 유형의 SMN이 존재한다. 
+SMN은 다음의 세 가지 유형의 SMN이 존재한다. 
 
 * Meta SMN
   * 샤드 메타가 유지하는 샤드 메타 변경 이력 중 가장 최신의SMN
