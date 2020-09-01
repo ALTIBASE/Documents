@@ -777,7 +777,7 @@ iSQL> SELECT hash, count(*) FROM (SELECT mod(hash(user_id),1000)+1 hash FROM tab
 있다.
 
 ```
-iSQL> SELECT hash, count(*) FROM (SELECT mod(hash(user_id),1000)+1 hash FROM table) GROUP BY hash;
+iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 ```
 
 그러나 범위 분산 방식으로 데이터를 고르게 분산했더라도, 운영 중에 데이터가
@@ -885,11 +885,11 @@ Altibase Sharding의 리샤딩이란 서비스 운영 중에 데이터 일부를
 Altibase Sharding은 별도의 설치가 필요없다.
 
 Altibase 패키지 인스톨러를 이용하여 설치를 완료하였다면, 몇 가지 추가 설정만으로
-Altibase Sharding을 사용할 수 있다. 추가 설정은 이 문서의 *'Altibase Sharding 설정*'을 참조한다.
+Altibase Sharding을 사용할 수 있다. 추가 설정은 이 문서의 '*Altibase Sharding 설정*'을 참조한다.
 
 #### 운영체제
 
-Altibase Sharding은 현재 아래의 운영체제에서만 지원한다.
+Altibase Sharding은 현재 아래의 운영체제만 지원한다.
 
 | OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
 | ----- | ---------------------------- | --------------- | ------------ | ------------ |
@@ -901,7 +901,7 @@ Altibase Sharding은 현재 아래의 운영체제에서만 지원한다.
 
 #### 데이터베이스 버전
 
--   Altibase : Altibase 7.1.0 이상
+-   Altibase : Altibase 7.2 이상
 
 ### Altibase Sharding 설정
 
@@ -909,11 +909,8 @@ Altibase Hybrid Sharding을 위해 서버와 클라이언트의 샤딩 관련 �
 적용해야 한다.
 
 -   샤드 환경 설정
-
 -   클라이언트 설정
-
     -   샤딩 응용프로그램 서버 연결 설정
-
     -   샤딩 응용프로그램 라이브러리 설정
 
 #### 샤드 환경 설정
