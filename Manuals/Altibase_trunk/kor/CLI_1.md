@@ -2861,6 +2861,11 @@ SQL_ERROR
     NORMAL 및 SHUTDOWN IMMEDIATE를 수행할 수 없다.
 -   PORT_NO  
     연결 포트 번호
+-   ALTERNATESERVERS  
+    -   connection time failover시와 session time failover시에 사용될수 있는 추가 접속서버들을 기록한다. 
+    -   표시형식(정규표현식) : [host_name:port_number][, host_name:port_number]*
+-   LOADBALANCE
+    - ON 혹은 OFF 값을 갖을 수 있고, 기본값은 OFF 이다. 이 값이 on 인 경우에, 최초 접속시 접속가능 서버중 랜덤으로 접속시도한다. 그리고, session time failover시에는 접속되어있었던 서버에 먼저 접속 시도, 그 후 기존 접속 서버는 제외하고, 랜덤으로 접속시도 한다.
 -   NLS_USE  
     사용언어 지정 (US7ASCII : 영어, KO16KSC5601 : 한국어)
 -   NLS_NCHAR_LITERAL_REPLACE  
