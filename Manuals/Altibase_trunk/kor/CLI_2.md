@@ -6495,3 +6495,77 @@ Altibase 4에서는 성능 향상과 관련하여 prefetch 하는 행의 숫자�
 
 따라서 위 속성을 SQLSetStmtAttr() 함수로 세팅할 경우, ‘Optional feature not
 implemented’ 오류가 발생하므로 주의해야 한다.
+
+## E.부록: ShardCLI
+
+### CLI 대비 ShardCLI API 지원 범위
+| Attribute      | SQLCLI              | ShardCLI |
+| -------------- | ------------------- | -------- |
+| 연결 관리      | SQLAllocConnect     | O        |
+|                | SQLAllocEnv         | O        |
+|                | SQLAllocStmt        | O        |
+|                | SQLAllocHandle      | O        |
+|                | SQLCloseCursor      | O        |
+|                | SQLConnect          | O        |
+|                | SQLDisconnect       | O        |
+|                | SQLDriverConnect    | O        |
+|                | SQLEndTran          | O        |
+|                | SQLFreeConnect      | O        |
+|                | SQLFreeEnv          | O        |
+|                | SQLFreeHandle       | O        |
+|                | SQLFreeStmt         | O        |
+|                | SQLTransact         | O        |
+| SQL 실행 요청  | SQLBindParameter    | O        |
+|                | SQLExecDirect       | O        |
+|                | SQLExecute          | O        |
+|                | SQLNativeSql        | O        |
+|                | SQLParamData        | X        |
+|                | SQLPrepare          | O        |
+|                | SQLPutData          | X        |
+| SQL 실행 검색  | SQLBindCol          | O        |
+|                | SQLColAttribute     | O        |
+|                | SQLDescribeCol      | O        |
+|                | SQLDescribeParam    | O        |
+|                | SQLError            | O        |
+|                | SQLFetch            | O        |
+|                | SQLFetchScroll      | X        |
+|                | SQLGetConnectAttr   | O        |
+|                | SQLGetData          | O        |
+|                | SQLGetInfo          | O        |
+|                | SQLGetStmtAttr      | O        |
+|                | SQLGetTypeInfo      | O        |
+|                | SQLNumParams        | O        |
+|                | SQLNumResultCols    | O        |
+|                | SQLRowCount         | O        |
+|                | SQLMoreResults      | O        |
+| 속성 처리      | SQLGetEnvAttr       | O        |
+|                | SQLGetFunctions     | X        |
+|                | SQLSetConnectAttr   | O        |
+|                | SQLSetEnvAttr       | O        |
+|                | SQLSetStmtAttr      | O        |
+| 메타 정보 처리 | SQLColumns          | O        |
+|                | SQLForeignKeys      | O        |
+|                | SQLGetDescField     | O        |
+|                | SQLGetDescRec       | X        |
+|                | SQLGetDiagField     | O        |
+|                | SQLGetDiagRec       | O        |
+|                | SQLPrimaryKeys      | O        |
+|                | SQLProcedureColumns | O        |
+|                | SQLProcedures       | O        |
+|                | SQLSetDescField     | O        |
+|                | SQLSpecialColumns   | O        |
+|                | SQLStatistics       | O        |
+|                | SQLTablePrivileges  | O        |
+|                | SQLTables           | O        |
+| LOB            | SQLBindFileToCol    | X        |
+|                | SQLBindFileToParam  | X        |
+|                | SQLGetLobLength     | X        |
+|                | SQLGetLob           | X        |
+|                | SQLPutLob           | X        |
+|                | SQLTrimLob          | X        |
+|                | SQLFreeLob          | O        |
+| 기타           | SQLBulkOperations   | X        |
+|                | SQLCancel           | X        |
+|                | SQLGetPlan          | O        |
+|                | SQLSetPos           | X        |
+
