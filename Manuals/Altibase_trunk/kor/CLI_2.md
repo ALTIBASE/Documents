@@ -6557,12 +6557,12 @@ implemented’ 오류가 발생하므로 주의해야 한다.
 |                | SQLStatistics       | O        |
 |                | SQLTablePrivileges  | O        |
 |                | SQLTables           | O        |
-| LOB            | SQLBindFileToCol    | X        |
-|                | SQLBindFileToParam  | X        |
-|                | SQLGetLobLength     | X        |
-|                | SQLGetLob           | X        |
-|                | SQLPutLob           | X        |
-|                | SQLTrimLob          | X        |
+| LOB            | SQLBindFileToCol    | O        |
+|                | SQLBindFileToParam  | O        |
+|                | SQLGetLobLength     | O        |
+|                | SQLGetLob           | O        |
+|                | SQLPutLob           | O        |
+|                | SQLTrimLob          | O        |
 |                | SQLFreeLob          | O        |
 | 기타           | SQLBulkOperations   | X        |
 |                | SQLCancel           | X        |
