@@ -516,6 +516,20 @@ K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은
 
 Altibase Sharding에서는 K-safety는 0, 1 또는 2의 값을 가질 수 있다. K-safety가 1 일때, 샤드노드 하나가 장애가 발행해도 전체 시스템은 정상적으로 운영된다. 추가적으로 샤드노드에 장애가 발생하더라도, 해당 노드의 복제본을 가진 노드가 장애가 발생하지 않는 한, 전체 시스템은 정상적으로 운영된다.
 
+#### ShardCLI
+
+ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
+
+CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 라이브러리로 바꾸어야 한다.
+
+ShardCLI 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
+
+#### ShardJDBC
+
+ShardJDBC는 JDBC 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
+
+JDBC는 별도의 샤딩 라이브러리가 존재하는것은 아니고, JDBC 접속 URL에 sharding prefix를 붙여주면 ShardJDBC 로 동작한다.
+
 ### Altibase Sharding 개요
 
 #### Altibase Sharding 소개
@@ -952,18 +966,29 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 
 ##### 샤딩 응용프로그램 서버 연결 설정
 
-응용프로그램은 접속할 샤드노드의 우선순위가 있는 경우는, 해당 우선순위에 맞춰서, 기본 ip/port 및 AlternateServers를 설정한다.
+접속할 샤드노드의 우선순위가 있는 경우는, 해당 우선순위에 맞춰서, 기본 ip/port 및 AlternateServers를 설정한다.
 
-응용프로그램은 접속할 샤드노드의 우선순위가 없는 경우는, LoadBalance=on을 설정한다. 그러면, 기본 ip/port 및 AlternateServers 에 설정된 샤드노드들에 대하여, 랜덤하게 접속한다.
+접속할 샤드노드의 우선순위가 없는 경우는, LoadBalance=on을 설정한다. 그러면, 기본 ip/port 및 AlternateServers 에 설정된 샤드노드들에 대하여, 랜덤하게 접속한다.
 
 ##### 샤딩 응용프로그램 라이브러리 설정
 
-cli 응용프로그램 빌드 시 기존의 odbccli 라이브러리를 shardcli 라이브러리로
-바꾸어야 한다.
+###### ShardCLI
 
-shardcli 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
+ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
 
-jdbc 같은 경우에는 기존과 같이 Altibase.jar를 클래스패스에 추가하고 jdbc 접속 url에 sharding prefix를 붙여주면 된다.
+CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 라이브러리로 바꾸어야 한다.
+
+ShardCLI 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
+
+###### ShardJDBC
+
+ShardJDBC는 JDBC 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
+
+JDBC는 별도의 샤딩 라이브러리가 존재하는것은 아니고, JDBC 접속 URL에 sharding prefix를 붙여주면 ShardJDBC 로 동작한다.
+
+###### 그외 API
+
+ShardCLI와 ShardJDBC를 제외한 API를 사용하는 경우는 서버측 샤딩으로만 동작한다. 
 
 ### 샤드 메타 설정
 
