@@ -503,8 +503,6 @@ JDBC는 별도의 샤딩 라이브러리가 존재하는것은 아니고, JDBC �
 
 ### Altibase Sharding 개요
 
-#### Altibase Sharding 소개
-
 Altibase Sharding은 Altibase에 샤딩 기술을 도입하여 저장 용량과 시간당 처리량을
 향상시키고 대용량의 데이터베이스를 분산처리할 수 있게 한다.
 
@@ -864,8 +862,7 @@ Altibase Sharding의 리샤딩이란 서비스 운영 중에 데이터 일부를
 
 Altibase Sharding은 별도의 설치가 필요없다.
 
-Altibase 패키지 인스톨러를 이용하여 설치를 완료하였다면, 몇 가지 추가 설정만으로
-Altibase Sharding을 사용할 수 있다. 추가 설정은 이 문서의 '*Altibase Sharding 설정*'을 참조한다.
+Altibase 패키지 인스톨러를 이용하여 설치를 완료한 후에 샤딩을 위한 추가적인 설정을 하면 된다.
 
 #### 운영체제
 
@@ -882,6 +879,40 @@ Altibase Sharding은 현재 아래의 운영체제만 지원한다.
 #### 데이터베이스 버전
 
 -   Altibase : Altibase 7.2 이상
+
+#### 샤드 환경 설정
+
+기존의 설치된 Altibase를 샤드 노드로 설정하기 위해서는 다음 과정이 선행되어야 한다.
+
+-   샤딩관련 프로퍼티 설정 : SHARD_ENABLE 및 기타 샤딩관련 프라퍼티를 설정한다.
+-   샤드 패키지 생성 : DBMS_SHARD 패키지를 생성한다.
+
+##### 샤딩관련 프로퍼티 설정 
+
+SHARD_ENABLE 프로퍼티를 활성화한 후 서버를 재시작하면, 샤드 노드의 메타 저장소 및 코드네이터 기능이 활성화 된다.
+
+```
+iSQL> SELECT name, value1 FROM v$property WHERE name = 'SHARD_ENABLE';
+NAME   : SHARD_ENABLE
+VALUE1 : 1
+```
+
+샤드 노드 기능이 활성화되면, 샤드 패키지를 생성하거나 샤드관련 내장 함수, 성능 뷰를 사용할 수 있다.
+
+SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티들이 있다. 
+
+샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.propertites.sharding 에 저장있다. 이곳에 설정된 값들을 참고하여, \$ALTIBASE_HOME/conf/altibase.propertites 를 변경해주면 된다.
+
+##### 샤드 패키지 생성
+
+샤드 패키지는 \$ALTIBASE_HOME/packages에 있다. 샤드 패키지는 샤드 기능을 제어할 수 있는 사용자 인터페이스를 제공한다.
+
+```
+is –f $ALTIBASE_HOME/packages/dbms_shard.sql
+is –f $ALTIBASE_HOME/packages/dbms_shard.plb
+```
+
+DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 이 문서의 *DBMS_SHARD패키지* 설명을 참조한다.
 
 ### Zookeeper 설정
 
@@ -974,175 +1005,6 @@ Altibase Sharding은 현재 아래의 운영체제만 지원한다.
 |                    |                        | /node_name2(ep)(E)      |                                                              |                                                              |
 |                    |                        | ...                     |                                                              |                                                              |
 
-### Altibase Sharding 설정
-
-Altibase Hybrid Sharding을 위해 서버와 클라이언트의 샤딩 관련 설정은 통일성있게
-적용해야 한다.
-
--   샤드 환경 설정
--   클라이언트 설정
-    -   샤딩 응용프로그램 서버 연결 설정
-    -   샤딩 응용프로그램 라이브러리 설정
-
-#### 샤드 환경 설정
-
-기존의 설치된 Altibase를 샤드 노드로 설정하기 위해서는 다음
-과정이 필요하다.
-
--   프로퍼티 설정  
-    SHARD_ENABLE
-
--   샤드 패키지 생성  
-    DBMS_SHARD
-
-##### 프로퍼티 설정 
-
-SHARD_ENABLE 프로퍼티를 활성화한 후 서버를 재시작하면, 샤드 노드의 메타 저장소 및 코드네이터 기능이 활성화 된다.
-기능이 활성화된다.
-
-```
-iSQL> SELECT name, value1 FROM v$property WHERE name = 'SHARD_ENABLE';
-NAME   : SHARD_ENABLE
-VALUE1 : 1
-```
-
-샤드 노드 기능이 활성화되면, 샤드 패키지를 생성하거나 샤드
-관련 내장 함수, 성능 뷰를 사용할 수 있다.
-
-##### 샤드 패키지 생성
-
-샤드 패키지는
-\$ALTIBASE_HOME/packages에 있다. 샤드 패키지는 샤드 기능을 제어할 수 있는 사용자
-인터페이스를 제공한다.
-
-```
-is –f $ALTIBASE_HOME/packages/dbms_shard.sql
-is –f $ALTIBASE_HOME/packages/dbms_shard.plb
-```
-
-DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 이 문서의 *DBMS_SHARD패키지*
-설명을 참조한다.
-
-#### 클라이언트 설정
-
-##### 샤딩 응용프로그램 서버 연결 설정
-
-접속할 샤드노드의 우선순위가 있는 경우는, 해당 우선순위에 맞춰서, 기본 ip/port 및 AlternateServers를 설정한다.
-
-접속할 샤드노드의 우선순위가 없는 경우는, LoadBalance=on을 설정한다. 그러면, 기본 ip/port 및 AlternateServers 에 설정된 샤드노드들에 대하여, 랜덤하게 접속한다.
-
-##### 샤딩 응용프로그램 라이브러리 설정
-
-###### ShardCLI
-
-ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
-
-CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 라이브러리로 바꾸어야 한다.
-
-ShardCLI 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
-
-###### ShardJDBC
-
-ShardJDBC는 JDBC 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
-
-JDBC는 별도의 샤딩 라이브러리가 존재하는것은 아니고, JDBC 접속 URL에 sharding prefix를 붙여주면 ShardJDBC 로 동작한다.
-
-###### 그외 API
-
-ShardCLI와 ShardJDBC를 제외한 API를 사용하는 경우는 서버측 샤딩으로만 동작한다. 
-
-### 샤드 메타 설정
-
-Sharding을 사용하기 위해서는 샤드 메타를 모든 샤드 노드에 생성해 주어야 한다.
-
-샤드 메타 설정은 DBMS_SHARD 패키지를 이용한다.
-
-#### 샤드 메타(Shard meta) 생성
-
-샤드 패키지인 DBMS_SHARD 패키지에는 샤드 메타를 생성하는 서브 프로그램이 포함되어 있다. 최초 한번만 수행하면 샤드 메타가 생성된다. 
-
-샤드 노드에서 샤드 메타 및 코디네이터를 활성화 하기 위해서 샤드 노드 식별자를 샤딩 시스템에서 유일한 값으로 지정해야 한다.
-
-##### 구문
-
-```
-DBMS_SHARD.CREATE_META()
-```
-
-##### 설명
-
-샤드 메타는 sys 사용자로 생성해야 한다. 샤드 메타를 생성하는 내부 과정은 다음과
-같이 처리한다.
-
-sys_shard 사용자를 생성한다.
-
-sys_shard.version\_ 테이블을 생성하고, 현재 shard version을 입력한다.
-
-sys_shard.local_meta_info_ 와 sys_shard.global_meta_info_ 테이블을 생성하고 샤드 메타 정보를 입력한다.
-
-sys_shard.nodes_ 테이블과 인덱스를 생성한다.
- sys_shard.objects_ 테이블과 인덱스를 생성한다.
- sys_shard.ranges_ 테이블과 인덱스를 생성한다.
- sys_shard.clones _ 테이블과 인덱스를 생성한다.
- sys_shard.solos_ 테이블과 인덱스를 생성한다.
- sys_shard.replica_sets_ 테이블과 인덱스를 생성한다.
- sys_shard.failover_historys_ 테이블과 인덱스를 생성한다.
-
-샤드 메타 생성 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 CREATE_META 을 참조한다.
-
-##### 예제
-
-\<질의\> 샤드 메타를 생성한다.
-
-```
-iSQL> EXEC DBMS_SHARD.CREATE_META();
-```
-
-#### 샤드 메타 관리
-
-샤드 메타는 전체 샤딩 시스템의 분산 정보를 가지고 있으며 각 노드에서 샤드 메타 정보를 통해 데이터의 위치를 판단하여 질의를 분석하고 처리한다. 그러므로, 모든 샤드 노드에서 동일한 샤드 메타를 유지해야 한다.
-
-또한, 샤드 메타는 시점 별로 다른 버전을 가질 수 있어서 이에 대한 형상 관리를 수행한다. 그러므로, 샤드 메타의 변경은 모든 노드에 동일하게 수행되어야 한다.
-
-#### 샤드 메타 형상
-
-SMN이란 샤드 메타의 분산 정의 변경 이력 번호 이며, 시스템 내부적으로 관리된다.
-
-분산 정의 변경은 노드 등록/제거, 샤드 객체 등록/제거 등의 변경을 말한다.
-
-좀 더 쉽게 설명하면 초기 상태의 샤드 메타는 SMN은 1이며, 노드를 추가하여 샤드 메타에 신규 정보가 추가되고 트랜잭션이 완료되면 새로운 샤드 메타 변경 이력은 SMN 2가 된다.
-
-SMN은 다음의 세 가지 유형의 SMN이 존재한다. 
-
-* Meta SMN
-  * 샤드 메타가 유지하는 샤드 메타 변경 이력 중 가장 최신의SMN
-
-* Data SMN 
-  * 데이터의 형상이 어떤 버전의 샤드 메타 기준으로 되어있는지에 대한 SMN
-
-* Session SMN
-  * 개별 세션이 인식하고 있는 SMN
-
-다음과 같은 샤드 메타의 변경을 유발하는 샤드 노드 설정은 샤드 메타에 변경 이력이 Meta SMN과 함께 저장된다.
-
-Meta SMN의 변경은 실제 Altibase Sharding 시스템에서 인식하지 않으며 각 노드에서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL)을 통해 Data SMN을 변경하여 이후의 작업들이 변경된 SMN을 기준으로 동작할 수 있도록 해야한다. 
-
-각 세션은 최초 접속 시에 Data SMN을 자신의 Session SMN으로 할당받아 수행한다.
-
-샤드 메타 적용 구문이 수행되어 Data SMN이 변경되면 이전에 접속한 세션은 각각 자신의 접속 시점에 유지되던 Session SMN을 기준으로 샤딩 서비스를 수행하며 이를 보정해 주기 위해서 서버 내부에서 SMN 차이를 보정해 주는 코디네이터가 동작한다.
-
-Session SMN은 해당 세션이 트랜잭션을 COMMIT하는 시점에 이전 Session SMN과 Data SMN을 비교하여 다른 경우 최신 Data SMN으로 갱신한다.
-
-```
-SMN 변경 예제>
-iSQL> AUTOCOMMIT OFF;
-iSQL> EXEC DBMS_SHARD.SET_NODE(‘node1’,‘192.168.1.10’,20300);
-iSQL> EXEC DBMS_SHARD.SET_NODE(‘node2’,‘192.168.1.11’,20300, ‘192.168.1.101’,20300);
-iSQL> COMMIT;
-iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
-iSQL> COMMIT;
-```
-
 ### 디렉토리
 
 Altibase Sharding 의 환경 설정에 관한 디렉토리는 Altibase 서버와 동일하다.
@@ -1151,9 +1013,7 @@ Altibase Sharding 의 환경 설정에 관한 디렉토리는 Altibase 서버와
 
 #### trc 디렉토리
 
-altibase_sd.log
-
-샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
+altibase_sd.log : 샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
 ## Altibase Sharding 사용
 
@@ -1207,24 +1067,120 @@ altibase_sd.log
 ```
 $ALTIBASE_HOME/bin/altibase -v
 ```
-### Altibase Sharding 통신 방법
+
+### 클라이언트 설정
+
+#### 샤딩 응용프로그램 서버 연결 설정
+
+접속할 샤드노드의 우선순위가 있는 경우는, 해당 우선순위에 맞춰서, 기본 ip/port 및 AlternateServers를 설정한다.
+
+접속할 샤드노드의 우선순위가 없는 경우는, LoadBalance=on을 설정한다. 그러면, 기본 ip/port 및 AlternateServers 에 설정된 샤드노드들에 대하여, 랜덤하게 접속한다.
+
+#### 샤딩 응용프로그램 라이브러리 설정
+
+##### ShardCLI
+
+ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
+
+CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 라이브러리로 바꾸어야 한다.
+
+ShardCLI 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
+
+##### ShardJDBC
+
+ShardJDBC는 JDBC 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
+
+JDBC는 별도의 샤딩 라이브러리가 존재하는것은 아니고, JDBC 접속 URL에 sharding prefix를 붙여주면 ShardJDBC 로 동작한다.
+
+##### 그외 API
+
+ShardCLI와 ShardJDBC를 제외한 API를 사용하는 경우는 서버측 샤딩으로만 동작한다. 
+
+#### Altibase Sharding 통신 방법
 샤딩에서 사용하는 커넥션에 따라 지원하는 통신 방법은 다음과 같다.
 
-#### 사용자 커넥션(User Connection)
+##### 사용자 커넥션(User Connection)
 사용자 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
 자세한 내용은 *Administrator manual*의 서버/클라이언트 통신 장을 참고한다.
 
-#### 샤드 라이브러리 커넥션(Shard Library Connection)
+##### 샤드 라이브러리 커넥션(Shard Library Connection)
 샤드 라이브러리 커넥션의 통신 방법으로 사용자 커넥션 스트링의 SHARD_CONNTYPE 속성에 해당하며 다음의 통신 타입을 지원한다.
 SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
 - 1: TCP (기본값)
 - 8: IB (InfiniBand)
 
-#### 코디네이터 커넥션(Coordinator Connection)
+##### 코디네이터 커넥션(Coordinator Connection)
 코디네이터와 샤드노드의 내부 커넥션 통신 방법으로 노드 설정시 지정 가능하며 다음의 통신 타입을 지원한다.
 노드 설정의 인자로 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
 - 1: TCP (기본값)
 - 8: IB (InfiniBand)
+
+### 샤드 메타 설정
+
+Sharding을 사용하기 위해서는 샤드 메타를 모든 샤드 노드에 생성해 주어야 한다.
+
+샤드 메타 설정은 DBMS_SHARD 패키지를 이용한다.
+
+#### 샤드 메타(Shard meta) 생성
+
+샤드 패키지인 DBMS_SHARD 패키지에는 샤드 메타를 생성하는 서브 프로그램이 포함되어 있다. 최초 한번만 수행하면 샤드 메타가 생성된다. 
+
+##### 구문
+
+```
+DBMS_SHARD.CREATE_META()
+```
+
+##### 설명
+
+샤드 메타는 sys 사용자로 생성해야 한다. 샤드 메타를 생성하는 내부 과정은 다음과 같다.
+
+sys_shard 사용자가 생성되고, sys_shard 사용자의 하위에 샤드 메타 관련 객체들이 생성된다.
+
+샤드 메타 생성 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 CREATE_META 을 참조한다.
+
+##### 예제
+
+\<질의\> 샤드 메타를 생성한다.
+
+```
+iSQL> EXEC DBMS_SHARD.CREATE_META();
+```
+
+#### 샤드 메타 관리
+
+샤드 메타는 전체 샤딩 시스템의 분산 정보를 가지고 있으며 각 노드에서 샤드 메타 정보를 통해 데이터의 위치를 판단하여 질의를 분석하고 처리한다. 그러므로, 모든 샤드 노드에서 동일한 샤드 메타를 유지해야 한다.
+
+또한, 샤드 메타는 시점 별로 다른 버전을 가질 수 있어서 이에 대한 형상 관리를 수행한다. 그러므로, 샤드 메타의 변경은 모든 노드에 동일하게 수행되어야 한다.
+
+#### 샤드 메타 형상
+
+SMN이란 샤드 메타의 분산 정의 변경 이력 번호 이며, 시스템 내부적으로 관리된다.
+
+분산 정의 변경은 노드 등록/제거, 샤드 객체 등록/제거 등의 변경을 말한다.
+
+좀 더 쉽게 설명하면 초기 상태의 샤드 메타는 SMN은 1이며, 노드를 추가하여 샤드 메타에 신규 정보가 추가되고 트랜잭션이 완료되면 새로운 샤드 메타 변경 이력은 SMN 2가 된다.
+
+SMN은 다음의 세 가지 유형의 SMN이 존재한다. 
+
+* Meta SMN
+  * 샤드 메타가 유지하는 샤드 메타 변경 이력 중 가장 최신의 SMN
+
+* Data SMN 
+  * 데이터의 형상이 어떤 버전의 샤드 메타 기준으로 되어있는지에 대한 SMN
+
+* Session SMN
+  * 개별 세션이 인식하고 있는 SMN
+
+다음과 같은 샤드 메타의 변경을 유발하는 샤드 노드 설정은 샤드 메타에 변경 이력이 Meta SMN과 함께 저장된다.
+
+Meta SMN의 변경은 실제 Altibase Sharding 시스템에서 인식하지 않으며 각 노드에서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL)을 통해 Data SMN을 변경하여 이후의 작업들이 변경된 SMN을 기준으로 동작할 수 있도록 해야한다. 
+
+각 세션은 최초 접속 시에 Data SMN을 자신의 Session SMN으로 할당받아 수행한다.
+
+샤드 메타 적용 구문이 수행되어 Data SMN이 변경되면 이전에 접속한 세션은 각각 자신의 접속 시점에 유지되던 Session SMN과 다르게 된다. 이를 보정해 주기 위한 작업은 Altibase 내부적으로 자동으로 처리된다.
+
+Session SMN은 해당 세션이 트랜잭션을 COMMIT하는 시점에 이전 Session SMN과 Data SMN을 비교하여 다른 경우 최신 Data SMN으로 갱신한다.
 
 ### 샤드 노드
 
