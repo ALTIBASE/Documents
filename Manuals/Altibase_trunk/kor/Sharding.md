@@ -894,17 +894,19 @@ Altibase Sharding은 현재 아래의 운영체제만 지원한다.
   - syncLimit : The number of ticks that can pass between sending a request and getting an acknowledgement
   - clientPort : Zookeeper 연결을 위한 port. 다수의 Zookeeper 서버가 기본적으로는 동일한 port를 사용해야 한다.
   - server.X : Zookeeper 서버의 IP와 내부 연결 port. 모든 장비에서 동일한 순서를 사용해야 한다. server의 숫자는 최소 3개, 최대 7개로 그 외의 경우 에러가 발생한다.
-    - ex) server.1=192.168.1.10:2888:3888
-    -     server.2=192.168.1.11:2888:3888
-    -     server.3=192.168.1.12:2888:3888
+    - 예제 
+      - server.1=192.168.1.10:2888:3888
+      - server.2=192.168.1.11:2888:3888
+      - server.3=192.168.1.12:2888:3888
   - dataDir : Zookeeper 데이터가 저장될 path. Zookeeper server를 사용하지 않고 client만 사용할 것이라면 없어도 상관 없다.(절대 경로를 사용해야 한다.)
 - Zookeeper 서버를 사용하지 않고 client로만 사용하는 경우에도 zoo.cfg 파일에서 정보를 가져온다.
 
 #### Zookeeper server 기동
 - zoo.cfg에 저장된 dataDir에 접근해 server ID명을 데이터로 가지는 myid라는 이름의 파일을 생성한다.
-  - ex) 192.168.1.10 장비의 dataDir에 "1"이라는 데이터를 가지는 myid라는 파일을 생성한다.
-  -     192.168.1.11 장비의 dataDir에 "2"이라는 데이터를 가지는 myid라는 파일을 생성한다.
-  -     192.168.1.12 장비의 dataDir에 "3"이라는 데이터를 가지는 myid라는 파일을 생성한다.
+  - 예제
+    - 192.168.1.10 장비의 dataDir에 "1"이라는 데이터를 가지는 myid라는 파일을 생성한다.
+    - 192.168.1.11 장비의 dataDir에 "2"이라는 데이터를 가지는 myid라는 파일을 생성한다.
+    - 192.168.1.12 장비의 dataDir에 "3"이라는 데이터를 가지는 myid라는 파일을 생성한다.
 - \$ALTIBASE_HOME/ZookeeperServer/bin의 zkServer.sh 스크립트를 사용해 서버를 띄운다.(zkServer.sh start를 수행한다.)
 - zoo.cfg에 존재하는 모든 서버를 마찬가지로 띄운다.
 - \$ALTIBASE_HOME/ZookeeperServer/bin의 zkCli.sh 스크립트를 사용해 정상적으로 연결되었는지 체크한다.
