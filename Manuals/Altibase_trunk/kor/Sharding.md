@@ -86,8 +86,7 @@ Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 homepage: [http://www.altibase.com](http://www.altibase.com/)
 
-서문
-----
+## 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -116,29 +115,6 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 #### 소프트웨어 환경
 
 이 매뉴얼은 데이터베이스 서버로 Altibase 7.2 또는 그 이상의 버전을 사용한다는 가정 하에 작성되었다.
-
-#### 이 매뉴얼의 구성
-
-이 매뉴얼은 다음과 같이 구성되어 있다.
-
--   제 1장 Altibase Sharding 소개  
-    이 장은 샤딩의 일반적인 개념과 Altibase Shading을 설명한다.
-
--   제 2 장 Altibase Sharding 설치와 설정  
-    이 장에서는 Altibase Sharding을 설정하는 방법을 설명한다.
-
--   제 3 장 Altibase Sharding 딕셔너리  
-    이 장에서는 Altibase Sharding의 객체 및 시스템 정보를 제공하는 딕셔너리를
-    설명한다.
-
--   제 4장 Altibase Sharding 사용 방법  
-    이 장에서는 Altibase Sharding의 사용 방법을 설명한다.
-
--   제 5 장 Altibase Sharding 패키지  
-    이 장에서는 Altibase Sharding 패키지를 구성하는 프로시저와 함수를 설명한다.
-
--   제 6장 Altibase Sharding 유틸리티  
-    이 장에서는 Altibase Sharding에서 지원하는 유틸리티를 설명한다.
 
 #### 문서화 규칙
 
@@ -189,15 +165,11 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 자세한 정보를 위하여 다음 문서 목록을 참조하기 바란다.
 
 -   Administrator’s Manual
-
 -   Replication Manual
-
 -   CLI User's Manual
-
+-   JDBC User's Manual
 -   Utilities Manual
-
 -   iLoader User's Manual
-
 -   Error Message Reference
 
 #### Altibase는 여러분의 의견을 환영합니다.
@@ -219,8 +191,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사 드립니다.
 
-1.Altibase Sharding 소개
-----------------------
+## Altibase Sharding 소개
 
 이 장은 Altibase Sharding의 개념과 특징에 대하여 설명한다.
 
@@ -885,8 +856,7 @@ Altibase Sharding의 리샤딩이란 서비스 운영 중에 데이터 일부를
 리샤딩은 주로 노드 증설 혹은 특정 노드의 부하 집중에 따른 데이터 이동을 위하여
 사용되며, 서비스 운영 중에 사용할 수 있는 장점을 가진다.
 
-2.Altibase Sharding 설치와 설정
------------------------------
+## Altibase Sharding 설치
 
 이 장에서는 Altibase Sharding을 구성하고 사용환경을 설정하는 방법을 설명한다.
 
@@ -1082,367 +1052,6 @@ iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 iSQL> COMMIT;
 ```
 
-### 프로퍼티
-
-본 절에서는 Altibase Sharding 프로퍼티를 설명한다.
-
-Altibase Sharding 
-
-프로퍼티는 크게 다음과 같이 분류할 수 있다.
-
-| **분류**                  | **프로퍼티**                                                 | **동적 변경 허용** | **변경 레벨**   |
-| ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
-| 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
-| 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
-| 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
-| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
-| 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
-
-#### SHARD_ENABLE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding의 샤드 노드로 설정한다.
-
-0: Disabled
-
-1: Enabled
-
-#### SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1024]
-
-##### 설명
-
-코디네이터 커넥션의 재접속 횟수를 설정한다.
-
-#### SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY (단위: 초)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 3600]
-
-##### 설명
-
-코디네이터 커넥션의 재접속 지연 시간을 설정한다.
-
-#### SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT (단위: 초)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-코디네이터 커넥션의 데이터 수신 최대 지연 시간을 설정한다.
-
-#### SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT (단위: 초)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-60
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-코디네이터 커넥션 접속이 이루어진 후 인증 절차가 완료될 때까지 허용된 시간을
-설정한다.
-
-#### TRCLOG_DETAIL_SHARD
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Isql에서 explain plan 기능과 함께 사용 시 샤드 분석 정보를 출력한다. 이 trace
-log를 사용하기 위해 1을 설정한다.
-
-단, 이 프로퍼티의 값을 1로 설정할 경우에는 내부적으로 cache 된 plan을 사용하지
-않고 새로이 plan을 생성한다.
-
-Altibas Sharding 운영 중 ALTER SESSION, ALTER SYSTEM 문을 이용하여 이 프로퍼티의
-값을 변경할 수 있다.
-
-#### SHARD_AGGREGATION_TRANSFORM_ENABLE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding 환경에서 AGGREGATION 분산 수행을 최적화하기 위해 다음 집계 함수를 사용한 쿼리를 내부적으로 변환한다.
-
-- SUM
-- MIN
-- MAX
-- COUNT
-- AVG
-
-예를 들어 다음 구문은 SHARD_AGGREGATION_TRANSFORM_ENABLE 값에 따라 아래와 같이 변환하여 수행한다.
-
-SELECT count(*) FROM t1;
-
-```
-SHARD_AGGREGATION_TRANSFORM_ENABLE = 0
--> SELECT count(*) FROM shard(SELECT * FROM t1)
-SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
--> SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
-```
-
-> 주의 사항
->
-> - AVG의 경우 SUM(SUM()) / SUM(COUNT()) 로 변환되어서 부동소숫점 타입의 결과가 상이할 수 있다.
-
-Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-#### SHARD_TRANSFORM_MODE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-7
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 7]
-
-##### 설명
-
-Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 변환 기능을 제어한다.
-
-해당 프로퍼티 값은 BITMAP 형태이며,
-
-- LIMIT 최적화 변환 기능 켜짐은 1 ( 001 )
-- SELECTION 최적화 변환 기능 켜짐은 2 ( 010 )
-- PROJECTION 최적화 변환 기능 켜짐은 4 ( 100 )
-
-위 값에 조합으로 제어된다.
-
-예를 들어 다음 구문은 SHARD_TRANSFORM_MODE 값에 따라 아래와 같이 변환하여 수행한다.
-
-SELECT * FROM T1 A LIMIT 1;
-
-```
-SHARD_TRANSFORM_MODE = 0;
--> SELECT * FROM SHARD( SELECT * FROM T1 A ) A LIMIT 1;
-SHARD_TRANSFORM_MODE = 1;
--> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) + 1 ) A LIMIT 1;
-```
-
-SELECT A.I1 FROM T1 A, T1 B WHERE A.I1 > 0;
-
-```
-SHARD_TRANSFORM_MODE = 0;
--> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
-SHARD_TRANSFORM_MODE = 2;
--> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A WHERE ( ( A.I1 > 0 ) ) ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
-SHARD_TRANSFORM_MODE = 4;
--> SELECT A.I1 FROM SHARD( SELECT SYS.A.I1 AS I1 FROM T1 as A ) A, SHARD( SELECT NULL FROM T1 as B ) B WHERE A.I1 > 0;
-```
-
-> 주의 사항
->
-> - LIMIT 의 경우, Shard Split Method 에 따라 분산된 데이터 형태 차이로 Standalone 과 결과 값이 다를 수 있다.
-
-Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-#### SD_MSGLOG_COUNT
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-10
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-샤드 관련 메시지 파일의 최대 개수를 지정한다.
-
-#### SD_MSGLOG_FILE
-
-##### 데이터 타입
-
-String
-
-##### 기본값
-
-altibase_sd.log
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-없음
-
-##### 설명
-
-샤드 관련 메시지가 기록되는 파일이다.
-
-#### SD_MSGLOG_FLAG
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-65537
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-샤드 관련 경고 메시지나 트레이스 메시지를 SD_MSGLOG_FILE에 기록 할지 여부를
-나타내는 플래그 값이다.
-
-0 : 기본 에러 메시지
-
-1 : 샤드 메타 에러 메시지
-
-65536 : 샤드 메타 변경 트레이스 메시지
-
-샤드 관련 트레이스 로깅 레벨을 확인하는 방법은 *General Reference*의
-V\$TRACELOG를 참조한다.
-
-#### SD_MSGLOG_SIZE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-10 \* 1024 \* 1024
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-샤드 관련 메시지 파일의 최대 크기를 지정한다.
-
 ### 디렉토리
 
 Altibase Sharding 의 환경 설정에 관한 디렉토리는 Altibase 서버와 동일하다.
@@ -1455,8 +1064,7 @@ altibase_sd.log
 
 샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
-3.Altibase Sharding 사용방법
---------------------------
+## Altibase Sharding 사용
 
 이 장에서는 Altibase Sharding 사용 방법을 자세히 설명한다. 앞에서 설명한 샤드 노드
 설정과 샤드 패키지 생성 과정 이후의 사용 방법을 기술한다.
@@ -3562,7 +3170,7 @@ Altibase Sharding 유틸리티의*Shard Manager*절을 참조한다.
 독립 분산 테이블의 리샤딩은 테이블 단위로 진행 된다는 것을 제외하고 단일 키 분산
 테이블과 동일하다.
 
-## 4.Altibase Sharding 딕셔너리
+## Altibase Sharding 딕셔너리
 
 Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타와 단일
 샤드 노드의 샤딩 관련 시스템 프로세스 정보를 보여주는 성능 뷰(Performance View),
@@ -5586,11 +5194,374 @@ Execute success.
 > - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
-## 6. shardLoader
+## Altibase Sharding 프로퍼티
+
+본 절에서는 Altibase Sharding 프로퍼티를 설명한다.
+
+Altibase Sharding 
+
+프로퍼티는 크게 다음과 같이 분류할 수 있다.
+
+| **분류**                  | **프로퍼티**                                                 | **동적 변경 허용** | **변경 레벨**   |
+| ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
+| 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
+| 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
+| 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
+| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
+| 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
+
+#### SHARD_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Altibase Sharding의 샤드 노드로 설정한다.
+
+0: Disabled
+
+1: Enabled
+
+#### SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1024]
+
+##### 설명
+
+코디네이터 커넥션의 재접속 횟수를 설정한다.
+
+#### SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY (단위: 초)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 3600]
+
+##### 설명
+
+코디네이터 커넥션의 재접속 지연 시간을 설정한다.
+
+#### SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT (단위: 초)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+코디네이터 커넥션의 데이터 수신 최대 지연 시간을 설정한다.
+
+#### SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT (단위: 초)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+60
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+코디네이터 커넥션 접속이 이루어진 후 인증 절차가 완료될 때까지 허용된 시간을
+설정한다.
+
+#### TRCLOG_DETAIL_SHARD
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Isql에서 explain plan 기능과 함께 사용 시 샤드 분석 정보를 출력한다. 이 trace
+log를 사용하기 위해 1을 설정한다.
+
+단, 이 프로퍼티의 값을 1로 설정할 경우에는 내부적으로 cache 된 plan을 사용하지
+않고 새로이 plan을 생성한다.
+
+Altibas Sharding 운영 중 ALTER SESSION, ALTER SYSTEM 문을 이용하여 이 프로퍼티의
+값을 변경할 수 있다.
+
+#### SHARD_AGGREGATION_TRANSFORM_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Altibase Sharding 환경에서 AGGREGATION 분산 수행을 최적화하기 위해 다음 집계 함수를 사용한 쿼리를 내부적으로 변환한다.
+
+- SUM
+- MIN
+- MAX
+- COUNT
+- AVG
+
+예를 들어 다음 구문은 SHARD_AGGREGATION_TRANSFORM_ENABLE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT count(*) FROM t1;
+
+```
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 0
+-> SELECT count(*) FROM shard(SELECT * FROM t1)
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
+-> SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
+```
+
+> 주의 사항
+>
+> - AVG의 경우 SUM(SUM()) / SUM(COUNT()) 로 변환되어서 부동소숫점 타입의 결과가 상이할 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### SHARD_TRANSFORM_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+7
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 7]
+
+##### 설명
+
+Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 변환 기능을 제어한다.
+
+해당 프로퍼티 값은 BITMAP 형태이며,
+
+- LIMIT 최적화 변환 기능 켜짐은 1 ( 001 )
+- SELECTION 최적화 변환 기능 켜짐은 2 ( 010 )
+- PROJECTION 최적화 변환 기능 켜짐은 4 ( 100 )
+
+위 값에 조합으로 제어된다.
+
+예를 들어 다음 구문은 SHARD_TRANSFORM_MODE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT * FROM T1 A LIMIT 1;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A ) A LIMIT 1;
+SHARD_TRANSFORM_MODE = 1;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) + 1 ) A LIMIT 1;
+```
+
+SELECT A.I1 FROM T1 A, T1 B WHERE A.I1 > 0;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 2;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A WHERE ( ( A.I1 > 0 ) ) ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 4;
+-> SELECT A.I1 FROM SHARD( SELECT SYS.A.I1 AS I1 FROM T1 as A ) A, SHARD( SELECT NULL FROM T1 as B ) B WHERE A.I1 > 0;
+```
+
+> 주의 사항
+>
+> - LIMIT 의 경우, Shard Split Method 에 따라 분산된 데이터 형태 차이로 Standalone 과 결과 값이 다를 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### SD_MSGLOG_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+샤드 관련 메시지 파일의 최대 개수를 지정한다.
+
+#### SD_MSGLOG_FILE
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+altibase_sd.log
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+샤드 관련 메시지가 기록되는 파일이다.
+
+#### SD_MSGLOG_FLAG
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+65537
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+샤드 관련 경고 메시지나 트레이스 메시지를 SD_MSGLOG_FILE에 기록 할지 여부를
+나타내는 플래그 값이다.
+
+0 : 기본 에러 메시지
+
+1 : 샤드 메타 에러 메시지
+
+65536 : 샤드 메타 변경 트레이스 메시지
+
+샤드 관련 트레이스 로깅 레벨을 확인하는 방법은 *General Reference*의
+V\$TRACELOG를 참조한다.
+
+#### SD_MSGLOG_SIZE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10 \* 1024 \* 1024
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+샤드 관련 메시지 파일의 최대 크기를 지정한다.
+
+## Aktibase Sharding 유틸리티
+
+### shardLoader
 
 shardLoader는 iloader와 기능이 동일하다. 샤드 노드에 직접 접속하여 데이터를 처리하므로 빠른 데이터 적재가 가능하다. shardLoader는 데이터 마이그레이션과 데이터 재분배에 사용할 수 있다.
 
-### 설치 방법
+#### 설치 방법
 
 shardLoader는 Altibase 패키지를 설치할 때 자동으로 설치된다. 실행 파일의 위치는 다음과 같다.
 
@@ -5598,14 +5569,14 @@ shardLoader는 Altibase 패키지를 설치할 때 자동으로 설치된다. �
 $ALTIBASE_HOME/bin
 ```
 
-### shardLoader 설정
+#### shardLoader 설정
 
 iLoader와 동일하다. 사용방법은 “*iLoader User's Manual \> 1. iLoader 개요 \> iLoader의 소개 \> iLoader 설정”*을 참조한다.
 
-### 명령행 옵션
+#### 명령행 옵션
 
 iLoader와 동일하다. 사용방법은 *iLoader User's Manual \> 2. iLoader 사용 방법 \>명령행 옵션”*을 참조한다.
 
 > #### 주의사항
 >
-> shardLoader는 lob 컬럼, array 등 몇 가지 옵션을 제공하지 않는다. 해당 기능을 사용하기 위해서는 각 샤드 노드 별로 iLoader를 사용해야 한다.
+> shardLoader는 array 등 몇 가지 옵션을 제공하지 않는다. 해당 기능을 사용하기 위해서는 각 샤드 노드 별로 iLoader를 사용해야 한다.
