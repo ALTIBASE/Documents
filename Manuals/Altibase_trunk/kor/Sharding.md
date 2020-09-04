@@ -883,6 +883,95 @@ Altibase Sharding은 현재 아래의 운영체제만 지원한다.
 
 -   Altibase : Altibase 7.2 이상
 
+### Zookeeper 설정
+
+#### Zookeeper 사용 환경 세팅
+- Zookeeper server의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
+- Zookeeper server를 사용하기 위해서는 JDK 1.8 이상 버전을 사용해야 한다.
+- \$ALTIBASE_HOME/ZookeeperServer/conf에 zoo.cfg를 생성한다.(zoo_sample.cfg를 복사해 필요한 부분만 바꿔 사용해도 된다.)
+  - tickTime : The number of milliseconds of each tick
+  - initLimit : The number of ticks that the initial synchronization phase can take
+  - syncLimit : The number of ticks that can pass between sending a request and getting an acknowledgement
+  - clientPort : Zookeeper 연결을 위한 port. 다수의 Zookeeper 서버가 기본적으로는 동일한 port를 사용해야 한다.
+  - server.X : Zookeeper 서버의 IP와 내부 연결 port. 모든 장비에서 동일한 순서를 사용해야 한다. server의 숫자는 최소 3개, 최대 7개로 그 외의 경우 에러가 발생한다.
+    - ex) server.1=192.168.1.10:2888:3888
+    -     server.2=192.168.1.11:2888:3888
+    -     server.3=192.168.1.12:2888:3888
+  - dataDir : Zookeeper 데이터가 저장될 path. Zookeeper server를 사용하지 않고 client만 사용할 것이라면 없어도 상관 없다.(절대 경로를 사용해야 한다.)
+- Zookeeper 서버를 사용하지 않고 client로만 사용하는 경우에도 zoo.cfg 파일에서 정보를 가져온다.
+
+#### Zookeeper server 기동
+- zoo.cfg에 저장된 dataDir에 접근해 server ID명을 데이터로 가지는 myid라는 이름의 파일을 생성한다.
+  - ex) 192.168.1.10 장비의 dataDir에 "1"이라는 데이터를 가지는 myid라는 파일을 생성한다.
+  -     192.168.1.11 장비의 dataDir에 "2"이라는 데이터를 가지는 myid라는 파일을 생성한다.
+  -     192.168.1.12 장비의 dataDir에 "3"이라는 데이터를 가지는 myid라는 파일을 생성한다.
+- \$ALTIBASE_HOME/ZookeeperServer/bin의 zkServer.sh 스크립트를 사용해 서버를 띄운다.(zkServer.sh start를 수행한다.)
+- zoo.cfg에 존재하는 모든 서버를 마찬가지로 띄운다.
+- \$ALTIBASE_HOME/ZookeeperServer/bin의 zkCli.sh 스크립트를 사용해 정상적으로 연결되었는지 체크한다.
+
+#### Zookeeper client 사용
+- 샤드 노드들의 Altibase 서버가 Zookeeper client로 동작한다.
+- SHARD DDL(alter database shard add / join / failback) 구문 사용시, 샤드 노드들의 Altibase 서버가 Zookeeper client로서 자동으로 Zookeeper server에 연결한다.
+- Zookeeper server에 접속이 된 이후에는, Zookeeper server와 통신이 안될 경우, 해당 샤드노드의 알티베이스 서버가 죽는다.
+- tickTime \* syncLimit 시간 이상 연결이 되지 않을 경우, 연결이 끊긴 것으로 판단한다.
+- zkCli.sh : Zookeeper server에서 기본적으로 제공하는 client 프로그램으로 간단하게 데이터를 체크할 수 있다.
+  - 기본적으로 zkCli.sh만 실행할 경우 localhost:2181에 연결되며 이를 변경하고 싶을 경우 -server 옵션으로 서버명(혹은 IP)와 port를 넣으면 된다.
+  - [명령어 /path]의 형태로 명령을 내릴수 있으며 path는 반드시 full path여야 하며 마지막에 /가 들어가면 안된다.
+  - 명령어 list
+    - ls : 해당 path의 하위 path의 list를 가져온다.(값은 가져오지 않는다.)
+      - watch 옵션을 줄 경우 하위 path가 추가되면 알람이 발생한다.
+    - get : 해당 path의 데이터를 가져온다. 데이터가 없다면 null로 표기된다.
+      - watch 옵션을 줄 경우 하위 path가 추가되면 알람이 발생한다.
+    - set : 해당 path의 값을 세팅한다.
+    - create : 해당 path를 생성한다. 단, 상위 path가 반드시 존재해야 한다.
+      - \-e 옵션을 주면 ephemeral로 생성되어, 생성한 client와 연결이 끊기면 자동적으로 삭제된다.
+    - delete : 해당 path를 제거한다. 단, 하위 path가 존재하면 실패한다.
+    - deleteall : 해당 path와 하위 path를 모두 제거한다.
+
+#### Zookeeper 사용시 주의 사항
+- Zookeeper는 리눅스 외에서 사용할 수 없다.
+- Zookeeper server는 절반 이상이 살아있을때만 정상작동 하며 그 이하의 서버만 살아있을 경우 절반 이상이 될때까지 client의 요청을 무시한다.
+- Zookeeper의 path에는 한개의 값만 존재할 수 있다. 단, 하위 path는 다수가 존재 할 수 있다.(동일 이름은 불가능하다)
+- 각 Zookeeper client는 zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다.
+
+#### Zookeeper 메타
+- Altibase Sharding에서 클러스터 관리를 위하여, Zookeeper 메타를 아래와 같이 관리한다.
+  - (W) : watch를 걸 디렉토리
+  - (E) : data 없이 비어있는 디렉토리
+  - (ep) : ephemeral Node
+
+| root path          | sub path               | 2nd sub path            | 3rd sub path                                                 | 설명                                                         |
+| ------------------ | ---------------------- | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| /altibase_shard(E) | /cluster_meta(E)       |                         |                                                              | 클러스터  메타                                               |
+|                    |                        | /validation(E)          |                                                              | cluster의 모든 참석 노드가 동일하게 가지고 있어야 하는 값이다. 해당 값이 다를 경우 샤딩에 참여할 수 없다. |
+|                    |                        |                         | /sharded_database_name                                       | DB  생성시 입력한 DB의 이름                                  |
+|                    |                        |                         | /k-safety                                                    | 복사본의 수                                                  |
+|                    |                        |                         | /replication_mode                                            | consistent(12) / ackwait(11) / notwait(10) 중 하나           |
+|                    |                        |                         | /character_set                                               | DB 생성시 입력한 character set                               |
+|                    |                        |                         | /national_character_set                                      | DB 생성시 입력한 national character set                      |
+|                    |                        |                         | /binary_version                                              | 알티베이스의 binary version(sm version)                      |
+|                    |                        |                         | /shard_version                                               | 알티베이스의 shard version                                   |
+|                    |                        |                         | /parallel_count                                              | 이중화 복제를 처리하는 applier의 수                          |
+|                    |                        |                         | /trans_TBL_size                                              | 트랜잭션 테이블의 크기                                       |
+|                    |                        | /SMN                    |                                                              | 현재 정상 서비스를 제공하는 클러스터의 SMN                   |
+|                    |                        | /failover_history       |                                                              | 장애 발생 기록 : 장애가 발생한 (노드 이름 : 장애 발생시 SMN )를 리스트로 관리한다. |
+|                    |                        | /fault_detection_time   |                                                              | 아직  처리하지 않은 장애 중 첫 장애가 발생한 시간            |
+|                    |                        | /zookeeper_meta_lock(E) | /locked(ep)                                                  | zookeeper의 클러스터 메타를 변경하는 작업을 수행시 사용하는 lock이다. lock을 잡았을 때 locked라는  path를 임시 노드로 생성한다.  lock을 잡는 노드와 해당  session의 ID를 값으로 가지며, 해당 값이 모두 동일한 대상이 lock을 잡으러 들어올 경우 lock을 잡은것으로 취급한다. |
+|                    |                        | /shard_meta_lock(E)     | /locked(ep)                                                  | 샤드 메타를 변경하는 작업을 수행시 사용하는  lock이다. lock을 잡았을 때 locked라는 path를 임시 노드로 생성한다. lock을 잡는 노드와 해당 Tx의 ID를 값으로 가지며, 해당 값이 모두 동일한 대상이 lock을 잡으러 들어올 경우 lock을 잡은것으로 취급한다. |
+|                    | /node_meta(E)          |                         |                                                              | 각 노드들의 메타 데이터이다. node_name별로 하위 path로 관리된다. |
+|                    |                        | /node_name1(E)          |                                                              | 해당  노드의 이름(중복 불가)                                 |
+|                    |                        |                         | /shard_node_id                                               | 해당 노드의 식별자 ID                                        |
+|                    |                        |                         | [/node_ip:port](http://node_ipport/)                         | 해당 노드의 외부 IP 및 Port                                  |
+|                    |                        |                         | [/internal_node_ip:port](http://internal_node_ipport/)       | 해당 노드의 내부 IP 및 Port                                  |
+|                    |                        |                         | [/internal_replication_host_ip:port](http://internal_replication_host_ipport/) | 해당 노드의 replication 내부 IP 및 Port                      |
+|                    |                        |                         | /conn_type                                                   | 해당 노드의 internal 연결 방식                               |
+|                    |                        |                         | /state                                                       | add / run / shutdown / join / failover / failback 중 하나    |
+|                    |                        |                         | /failoverTo                                                  | 해당 노드에 장애가 발생해  failover가 발생했을 경우 해당 노드의 데이터를 failover한  노드의 이름이다. failover가 완료된 후에 적는다.  해당 노드에  failover가 발생하지 않았을 경우나  failback이 완료된 경우에는 비어있다. |
+|                    |                        | ...                     |                                                              |                                                              |
+|                    | /connection_info(W)(E) | /node_name1(ep)(E)      |                                                              | 샤드노드가 접속되면, ephemeral 로 자동 생성되며, 접속이 끝어지면 자동으로 삭제된다. 어떤 샤드노드가 비정상종료하면, 삭제 이벤트가 발생하고, 이 이벤트를 다른 샤드노드들에서 감지한 후에, failover 동작이 개시된다. |
+|                    |                        | /node_name2(ep)(E)      |                                                              |                                                              |
+|                    |                        | ...                     |                                                              |                                                              |
+
 ### Altibase Sharding 설정
 
 Altibase Hybrid Sharding을 위해 서버와 클라이언트의 샤딩 관련 설정은 통일성있게
