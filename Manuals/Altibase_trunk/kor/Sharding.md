@@ -335,12 +335,17 @@ Zookeeper에 샤드 클러스터 관리를 위하여 관리하는 정보를 의�
 -   CLONE
 -   SOLO
 
-#### 샤드 객체(shard object)
+#### 샤드 객체(shard object) 혹은 분산 객체
 
 분산 저장 및 처리되는 객체를 지칭한다. 현재 지원하는 분산객체는 다음과 같다.
 
 -   Table
 -   Procedure
+-   Sharded sequence
+
+#### 로컬 객체(local object)
+
+분산 정의를 하지 않은 객체를 지칭한다. 로컬 객체에 대한 작업은 샤딩 클러스터 전체와는 관련없이, user session으로 접속한, 해당 특정 노드에서만 처리된다. 
 
 #### 샤드 테이블(shard table)
 
@@ -1151,39 +1156,7 @@ $ALTIBASE_HOME/bin/altibase -v
    - DBMS_SHARD.SET_SHARD_TABLE(...), DBMS_SHARD.SET_SHARD_RANGE(...) 등등
    - 위 구문들을 이용하여, 객체별 분산정의를 한후에, COMMIT 을 수행하면, 샤딩 클러스터에 참여된 모든 샤드노드들에 동시에 적용된다.
 
-### 샤드 메타 설정
-
-Sharding을 사용하기 위해서는 샤드 메타를 모든 샤드 노드에 생성해 주어야 한다.
-
-샤드 메타 설정은 DBMS_SHARD 패키지를 이용한다.
-
-#### 샤드 메타(Shard meta) 생성
-
-샤드 패키지인 DBMS_SHARD 패키지에는 샤드 메타를 생성하는 서브 프로그램이 포함되어 있다.
-
-##### 구문
-
-```
-DBMS_SHARD.CREATE_META()
-```
-
-##### 설명
-
-샤드 메타는 sys 사용자로 생성해야 한다. 샤드 메타를 생성하는 내부 과정은 다음과 같다.
-
-sys_shard 사용자가 생성되고, sys_shard 사용자의 하위에 샤드 메타 관련 객체들이 생성된다.
-
-샤드 메타 생성 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 CREATE_META 을 참조한다.
-
-##### 예제
-
-\<질의\> 샤드 메타를 생성한다.
-
-```
-iSQL> EXEC DBMS_SHARD.CREATE_META();
-```
-
-#### 샤드 메타 관리
+### 샤드 메타 관리
 
 샤드 메타는 전체 샤딩 시스템의 분산 정보를 가지고 있으며 각 노드에서 샤드 메타 정보를 통해 데이터의 위치를 판단하여 질의를 분석하고 처리한다. 그러므로, 샤딩 관련 메타 정보는 지역 샤드 노드 정보(SYS_SHARD.LOCAL_META_INFO_)를 제외하고는 모두 동일하게 유지해야 한다.
 
@@ -1217,7 +1190,21 @@ Data SMN이 변경되면 이전에 접속한 세션은 각각 자신의 접속 �
 
 (TOBEMODIFIED) Session SMN은 해당 세션이 트랜잭션을 COMMIT하는 시점에 이전 Session SMN과 Data SMN을 비교하여 다른 경우 최신 Data SMN으로 갱신한다.
 
-#### 지역 사드 노드 설정 
+### 샤드 메타 생성
+
+Sharding을 사용하기 위해서는 아래 구문을 이용하여, 샤드 메타를 모든 샤드 노드에 생성해 주어야 한다.
+
+```
+DBMS_SHARD.CREATE_META()
+```
+
+샤드 메타는 sys 사용자로 생성해야 한다. 샤드 메타를 생성하는 내부 과정은 다음과 같다.
+
+sys_shard 사용자가 생성되고, sys_shard 사용자의 하위에 샤드 메타 관련 객체들이 생성된다.
+
+샤드 메타 생성 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 CREATE_META 을 참조한다.
+
+### 지역 사드 노드 설정 
 
 샤드 패키지인 DBMS_SHARD 패키지에는 지역 샤드 노드의 정보를 설정하는 서브 프로그램을 제공한다.
 
@@ -1227,7 +1214,7 @@ Data SMN이 변경되면 이전에 접속한 세션은 각각 자신의 접속 �
 
 한번도 샤딩 클러스터에 참여하지 않은 경우에만 변경가능하며, 변경은 최초 설정과 동일한 인터페이스를 통해 진행한다.
 
-##### 구문
+#### 구문
 
 ```
 DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
@@ -1241,7 +1228,7 @@ DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
                            conn_type in integer default NULL );
 ```
 
-##### 설명
+#### 설명
 
 지역 노드를 샤드 노드로 사용하기 위해서 지역 샤드 노드의 정보를 입력한다.
 
@@ -1257,7 +1244,7 @@ DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
 - internal_replication_port_no: 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값을 입력해야한다. 
 - conn_type: 내부적으로 사용되는 코디네이터 연결 방식으로 입력하지 않는 경우 TCP를 사용한다. 그 외 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
 
-##### 예제
+#### 예제
 
 \<질의\> shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
 
@@ -1265,13 +1252,13 @@ DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
 iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(1, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
 ```
 
-#### 샤드 복제 정보 설정
+### 샤드 복제 정보 설정
 
 샤딩 클러스터 시스템은 무중단 서비스를 위해서 데이터 복제를 통하여 k-safety를 지원한다. 샤딩 클러스터 시스템을 사용하기 위해서는 전체 샤딩 클러스터 시스템에서 사용할 이중화 방식을 설정해야한다. 
 
 이 설정은 전체 시스템 내에서 최초로 추가 되는 노드에서 지정되어야 한다. 
 
-##### 구문
+#### 구문
 
 ```
 DBMS_SHARD.SET_REPLICATION( k_safety         in  integer,
@@ -1279,7 +1266,7 @@ DBMS_SHARD.SET_REPLICATION( k_safety         in  integer,
                             parallel_count   in  integer default NULL );
 ```
 
-##### 설명
+#### 설명
 
 샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.   
 
@@ -1289,7 +1276,7 @@ k_safety: 시스템 내에서 유지할 복제본의 개수를 지정한다.  0,
 
 parallel_count: 샤딩 클러스터 시스템은 데이터 복제를 위해서 Altibase 이중화 기술을 사용한다. 이 때, 사용할 이중화 병렬 적용자의 수를 지정한다. 지정하지 않는 경우 1로 설정된다. 이중화 병렬 적용자에 대한 자세한 내용은 *'Altibase Replication Manual을 참고한다'*
 
-##### 예제
+#### 예제
 
 \<질의\> 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
 
@@ -1297,7 +1284,7 @@ parallel_count: 샤딩 클러스터 시스템은 데이터 복제를 위해서 A
 iSQL>  EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
 ```
 
-#### (TOBEMODIFIED) 샤드 노드 추가
+### (TOBEMODIFIED) 샤드 노드 추가
 
 샤드 노드를 추가하기 전에, 각종 데이타베이스 객체들을 아래와 같이 생성한다.
 - (TOBEMODIFIED) 기존에 이미 데이타베이스 객체들이 모두 생성된 샤드노드가 있다면, 해당 노드에서 aexport 유틸리티를 이용하여, 객체 생성구문을 얻을 수 있다.
@@ -1321,7 +1308,7 @@ ALTER DATABASE SHARD ADD;
 - 클론 테이블은 이미 추가된 다른 샤드 노드에서 복제하여 동일하게 데이타가 설정된다.
 - 샤드 메타정보도 이미 추가된 다른 샤드 노드에서 복제하여 동일하게 데이타가 설정된다.
 
-#### 샤드 노드 삭제
+### 샤드 노드 삭제
 
 특정 샤드 노드에서 아래의 SHARD DDL 구문을 수행하면, 해당 샤드 노드가 샤딩 클러스터에서 삭제된다.
 
@@ -1331,31 +1318,24 @@ ALTER DATABASE SHARD ADD;
 
 ### 샤드 객체 
 
-Altibase Sharding은 현재 다음 두 가지 샤드 객체(shard object)를 지원한다. 샤드
-객체란 일반 테이블 혹은 프로시저에 샤드 설정을 추가한 객체를 의미한다.
-
+Altibase Sharding은 현재 다음과 같은 샤드 객체(shard object)를 지원한다.
 -   샤드 테이블
 -   샤드 프로시저
+-   sharded sequence
 
 샤드 객체에 샤드를 설정하기 위해서는 아래의 절차를 수행하여야 한다.
 
--   테이블에 샤드 키 컬럼 지정 또는 프로시저에 샤드 키 파라미터 지정
+-   테이블에 샤드 키 컬럼 지정
+-   프로시저에 샤드 키 파라미터 지정
 -   분산 방식 지정
 -   분산 노드 지정
 
-샤드 객체 설정을 전역적으로 적용하기 위해서 샤드 매니저를 사용하는 것을
-권장한다.
-
-수동으로 설정 하는 경우 가용 노드를 포함한 모든 샤드 노드에서 동일한 설정 작업을
-수행하고 작업의 완료를 알리기 위해서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD
-SHARD META NUMBER LOCAL)을 수행해야 한다.
+분산정의를 한후에, COMMIT 을 수행하면, 샤딩 클러스터에 참여된 모든 샤드노드들에 동시에 적용된다.
 
 ```
-iSQL> AUTOCOMMIT OFF;
 iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE(‘user1’,‘t1’,‘h’,‘i1’,‘node1’);
 iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE(‘user1’,‘t2’,‘r’,‘i1’,‘node1’);
 iSQL> COMMIT;
-iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 ```
 
 > 주의 사항
@@ -1366,16 +1346,11 @@ iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 
 샤드 테이블을 설정하기 위해서 먼저 각 샤드 노드에 테이블이 생성되어 있어야 한다.
 
-샤드 테이블은 단일 샤드 키 분산 테이블과 복합 샤드 키 분산 테이블, 복제 분산
-테이블 그리고 독립 분산 테이블이 있다.
+샤드 테이블은 단일 샤드 키 분산 테이블과 복합 샤드 키 분산 테이블, 복제 분산 테이블 그리고 독립 분산 테이블이 있다.
 
-복제 분산 테이블과 독립 분산 테이블 그리고 복합 샤드 키 분산 테이블은 Altibase의
-일반 테이블 생성과 동일하며, 모든 샤드 노드에 동일한 스키마의 테이블을 생성한다.
-단일 샤드 키 분산 테이블은 샤드 키 컬럼을 파티션 키로 하여 파티션드 테이블로
-생성해야한다.
+k-safety 가 1 이상인 경우에는, 단일 샤드 키 분산 테이블은 분산 방식 유형에 대응되는 파티션드 테이블로 생성되어 있어야 한다. 파티션 키와 샤드 키는 동일한 컬럼을 사용해야 한다. 파티션 범위와 분산정의의 범위는 동일하여야 한다.
 
-단일 샤드 키 분산 테이블은 분산 방식에 따라 각 샤드 테이블 유형에 대응되는
-파티션드 테이블을 생성해야 한다.
+노드 추가시 리샤딩은 파티션 단위로만 할 수 있다. 그러므로, 향후 노드 확장을 고려하여, 파티션의 범위 및 갯수를 정하는 것이 좋다. 
 
 | 샤드 테이블        | 파티셔닝 방법    |
 | ------------------ | ---------------- |
@@ -1384,17 +1359,6 @@ iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 | 리스트 분산 테이블 | LIST             |
 
 [표 2]. 단일 샤드 키 분산 테이블 별 파티셔닝 방법
-
-[표 2]에 나타난 것과 같이 해시 분산 테이블의 경우 RANGE_USING_HASH, 범위 분산
-테이블의 경우 RANGE 그리고 리스트 분산 테이블의 경우 LIST 파티션드 테이블로
-생성해야 하며, 파티션 키와 샤드 키는 동일한 컬럼을 사용해야 한다.
-
-테이블 생성시 파티션의 범위는 분산 범위와 동일하거나 노드 확장을 위해서 더
-세부적으로 지정하는 것을 추천한다.
-
-만약 샤드 노드 2개를 사용하며 해시로 분산하며 향후 샤드 노드 2개를 더 추가할
-계획을 가지고 있다면 4개의 파티션을 생성하는 것이 노드 추가 및 데이터 이동 시
-유리하다.
 
 ##### 구문
 
@@ -1424,24 +1388,18 @@ Create success.
 
 #### 샤드 테이블 설정
 
-테이블을 샤드 테이블로 설정한다. 샤드 노드에 미리 생성되어 있는 테이블에 샤드
-설정을 추가한다.
-
-샤드 설정 후, 샤드 쿼리를 수행하기 위하여 모든 샤드 노드에 동일한 스키마의
-테이블이 생성되어 있어야 한다. DBMS_SHARD 패키지는 샤드 테이블을 추가하는 서브
-프로그램을 제공한다.
+테이블을 샤드 테이블로 설정한다. 샤드 노드에 미리 생성되어 있는 테이블에 샤드 테이블 분산 정의를 한다.
 
 ##### 구문
 
 ```
-DBMS_SHARD.SET_SHARD_TABLE
-DBMS_SHARD.SET_SHARD_TABLE_COMPOSITE
+DBMS_SHARD.SET_SHARD_TABLE(...)
+DBMS_SHARD.SET_SHARD_TABLE_COMPOSITE(...)
 ```
 
 ##### 설명
 
-샤드 테이블을 설정한다. 샤드 테이블 설정 구문에 대한 자세한 설명은 DBMS_SHARD
-패키지의 *SET_SHARD_TABLE* 또는 *SET_SHARD_TABLE_COMPOSITE*를 참조한다.
+샤드 테이블을 설정한다. 샤드 테이블 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *SET_SHARD_TABLE* 또는 *SET_SHARD_TABLE_COMPOSITE*를 참조한다.
 
 ##### 예제
 
