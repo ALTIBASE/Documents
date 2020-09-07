@@ -868,32 +868,28 @@ Altibase Sharding의 리샤딩이란 서비스 운영 중에 데이터 일부를
 
 ### Altibase Sharding 설치
 
-Altibase Sharding은 별도의 설치가 필요없다.
+Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설치를 완료한 후에 아래와 같은 샤딩 환경 설정을 하면 된다.
 
-Altibase 패키지 인스톨러를 이용하여 설치를 완료한 후에 샤딩을 위한 추가적인 설정을 하면 된다.
-
-#### 운영체제
-
-Altibase Sharding은 현재 아래의 운영체제만 지원한다.
-
-| OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
-| ----- | ---------------------------- | --------------- | ------------ | ------------ |
-| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit       |
-| LINUX | PowerPC7 (BE)                | redhat 6.5 이상 | 64-bit       | 64-bit       |
-| LINUX | PowerPC8 (LE)                | redhat 7.2 이상 | 64-bit       | 64-bit       |
-
-[표 1. Altibase Sharding 지원 운영체제]
-
-#### 데이터베이스 버전
-
--   Altibase : Altibase 7.2 이상
 
 #### 샤드 환경 설정
 
 기존의 설치된 Altibase를 샤드 노드로 설정하기 위해서는 다음 과정이 선행되어야 한다.
 
+-   sharded database 생성
 -   샤딩관련 프로퍼티 설정 : SHARD_ENABLE 및 기타 샤딩관련 프라퍼티를 설정한다.
 -   샤드 패키지 생성 : DBMS_SHARD 패키지를 생성한다.
+
+##### sharded database 생성 
+
+논리적으로 하나인 sharded database를 생성하기 위해서는, 각 샤드 노드별로 sharded database의 일부 조각인 샤드 데이터베이스를 생성해야한다. 
+
+샤드 데이터 베이스 생성 시에는 기존 데이터 베이스 생성과 동일하며 모든 샤드 노드의 데이터 베이스 생성은 동일하게 이뤄져야한다. 
+
+샤드 데이터베이스를 생성 시에 입력된 데이터 베이스 이름은 논리적으로 하나인 sharded database 이름으로써, 모든 샤드 노드별 데이타베이스가 동일한 이름을 갖아야 한다. 
+
+create database *my_sharded_db_name* INITSIZE=10M noarchivelog character set *UTF8* national character set *UTF8*;
+
+이탤릭체로 표시된 부분과 *TRANSACTION_TABLE_SIZE* 는 모든 샤드 노드에서 동일해야한다.
 
 ##### 샤딩관련 프로퍼티 설정 
 
@@ -1074,6 +1070,17 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 
 #### 기본 조건
 -   샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
+
+#### 운영체제
+- Altibase Sharding은 현재 아래의 운영체제만 지원한다.
+
+| OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
+| ----- | ---------------------------- | --------------- | ------------ | ------------ |
+| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit       |
+| LINUX | PowerPC7 (BE)                | redhat 6.5 이상 | 64-bit       | 64-bit       |
+| LINUX | PowerPC8 (LE)                | redhat 7.2 이상 | 64-bit       | 64-bit       |
+
+[표 1. Altibase Sharding 지원 운영체제]
 
 #### 프라퍼티 제약조건
 -   ISOLATION_LEVEL은 0(read committed)만 지원한다.
@@ -1257,7 +1264,7 @@ DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
 
 필수 적으로 입력되어야 하는 값은 다음과 같다. 
 
-shard_node_id:  지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다. 
+(TOBEMODIFIED) shard_node_id:  지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다. 
 
 node_name: 지역 샤드 노드에서 사용할 노드 이름을 입력하며, 샤드 노드 이름도 전체 시스템에서 유일해야한다. 
 
@@ -1277,10 +1284,10 @@ conn_type: 내부적으로 사용되는 코디네이터 연결 방식으로 입�
 
 ##### 예제
 
-\<질의\> 샤드 노드 식별자가 0인 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
+\<질의\> shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
 
 ```
-iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(0, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
+iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(1, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
 ```
 
 #### 샤드 복제 정보 설정
