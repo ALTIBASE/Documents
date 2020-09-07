@@ -1366,8 +1366,7 @@ CREATE TABLE
 
 ##### 설명
 
-샤드 테이블을 생성한다. CREATE TABLE에 대한 자세한 내용은 *SQL Reference*를
-참고한다.
+샤드 테이블을 생성한다. CREATE TABLE에 대한 자세한 내용은 *SQL Reference*를 참고한다.
 
 ##### 예제
 
@@ -1411,17 +1410,14 @@ iSQL> SELECT * FROM sys_shard.objects_;
 
 #### 샤드 테이블 해제
 
-샤드 테이블을 해제할 수 있다. 샤드 테이블을 해제한다고 해서 테이블까지 삭제되는
-것은 아니며, 테이블을 삭제하더라도 샤드 테이블이 해제되지는 않는다. 샤드
-테이블의 설정은 테이블의 이름에 기반하므로 테이블이 재생성되고 샤드 키 이름이
-동일하게 생성된다면 이전에 생성한 샤드 설정은 유효하다.
+샤드 테이블을 해제할 수 있다. 샤드 테이블을 해제한다고 해서 테이블까지 삭제되는 것은 아니며, 테이블을 삭제하더라도 샤드 테이블이 해제되지는 않는다. 샤드 테이블의 설정은 테이블의 이름에 기반하므로 테이블이 재생성되고 샤드 키 이름이 동일하게 생성된다면 이전에 생성한 샤드 설정은 유효하다.
 
 DBMS_SHARD 패키지에는 샤드 테이블을 해제하는 서브 프로그램을 제공한다.
 
 ##### 구문
 
 ```
-DBMS_SHARD.UNSET_SHARD_TABLE
+DBMS_SHARD.UNSET_SHARD_TABLE(...)
 ```
 
 ##### 설명
@@ -1438,12 +1434,10 @@ iSQL> EXEC DBMS_SHARD.UNSET_SHARD_TABLE(‘user1’,‘t1’);
 
 샤드 프로시저는 일반 프로시저에 샤드 설정을 추가한 프로시저를 말한다.
 
-샤드 프로시저는 실제 데이터를 갖지 않지만, 데이터를 다루는데 사용하는 함수로서
-프로시저가 분산된 데이터를 처리한다. 프로시저의 수행을 분산하여 샤딩에서 사용할
+샤드 프로시저는 실제 데이터를 갖지 않지만, 데이터를 다루는데 사용하는 함수로서 프로시저가 분산된 데이터를 처리한다. 프로시저의 수행을 분산하여 샤딩에서 사용할
 수 있다.
 
-샤드 프로시저의 파라미터들 중 하나가 샤드 키로 사용되며, 프로시저가 호출될 때의
-파라미터 값으로 샤드 노드를 선택하여 선택된 노드에서 프로시저가
+샤드 프로시저의 파라미터들 중 하나가 샤드 키로 사용되며, 프로시저가 호출될 때의 파라미터 값으로 샤드 노드를 선택하여 선택된 노드에서 프로시저가
 수행된다.
 
 DBMS_SHARD 패키지는 샤드 프로시저를 추가하는 서브 프로그램을 제공한다.
@@ -1451,15 +1445,13 @@ DBMS_SHARD 패키지는 샤드 프로시저를 추가하는 서브 프로그램�
 ##### 구문
 
 ```
-DBMS_SHARD.SET_SHARD_PROCEDURE
-DBMS_SHARD.SET_SHARD_PROCEDURE_COMPOSITE
+DBMS_SHARD.SET_SHARD_PROCEDURE(...)
+DBMS_SHARD.SET_SHARD_PROCEDURE_COMPOSITE(...)
 ```
 
 ##### 설명
 
-샤드 프로시저를 설정한다. 샤드 프로시저 설정 구문에 대한 자세한 설명은
-DBMS_SHARD 패키지의 *SET_SHARD_PROCEDURE* 또는 *SET_SHARD_PROCEDURE_COMPOSITE*을
-참조한다.
+샤드 프로시저를 설정한다. 샤드 프로시저 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *SET_SHARD_PROCEDURE* 또는 *SET_SHARD_PROCEDURE_COMPOSITE*을 참조한다.
 
 ##### 예제
 
@@ -1471,10 +1463,8 @@ iSQL> SELECT * FROM sys_shard.objects_;
 
 #### 샤드 프로시저 해제
 
-샤드 프로시저를 해제할 수 있다. 샤드 프로시저를 해제하여도 프로시저까지 삭제되는
-것은 아니다. 또한, 프로시저를 삭제하더라도 샤드 프로시저가 해제되는 것은 아니다.
-샤드 프로시저의 설정은 프로시저의 이름에 기반하므로 프로시저가 재생성되고 샤드
-키 파라미터의 이름이 동일하게 생성된다면 이전에 생성한 샤드 설정은 유효하다.
+샤드 프로시저를 해제할 수 있다. 샤드 프로시저를 해제하여도 프로시저까지 삭제되는 것은 아니다. 또한, 프로시저를 삭제하더라도 샤드 프로시저가 해제되는 것은 아니다.
+샤드 프로시저의 설정은 프로시저의 이름에 기반하므로 프로시저가 재생성되고 샤드 키 파라미터의 이름이 동일하게 생성된다면 이전에 생성한 샤드 설정은 유효하다.
 
 DBMS_SHARD 패키지에는 샤드 프로시저를 해제하는 서브 프로그램을 제공한다.
 
@@ -1496,39 +1486,25 @@ iSQL> EXEC DBMS_SHARD.UNSET_SHARD_PROCEDURE (‘user1’,‘proc1’);
 
 ### 분산 정보 설정
 
-Altibase Sharding은 샤드 객체에 대하여 다음과 같은 분산 방식(split method)으로
-분산 정보를 설정한다.
+Altibase Sharding은 샤드 객체에 대하여 다음과 같은 분산 방식(split method)으로 분산 정보를 설정한다.
 
 -   단일 샤드 키 분산 설정
-
     -   해시(hash) 분산 설정
-
     -   범위(range) 분산 설정
-
     -   리스트(list) 분산 설정
-
 -   복합(composite) 샤드 키 분산 설정
-
 -   복제(clone) 분산 설정
-
 -   독립(solo) 분산 설정
 
-본 장에서는 각 분산 방식에 대해 수동으로 설정하는 방법을 설명한다.
+본 장에서는 각 분산 방식에 대해 설정하는 방법을 설명한다.
 
-분산 정보 설정을 전역적으로 적용하기 위해서 샤드 매니저를 사용하는 것을
-권장한다.
-
-수동으로 설정 하는 경우 가용 노드를 포함한 모든 샤드 노드에서 동일한 설정 작업을
-수행하고 작업의 완료를 알리기 위해서 샤드 메타 적용 구문(ALTER SYSTEM RELOAD
-SHARD META NUMBER LOCAL)을 수행해야 한다.
+분산정의를 한후에, COMMIT 을 수행하면, 샤딩 클러스터에 참여된 모든 샤드노드들에 동시에 적용된다.
 
 ```
-iSQL> AUTOCOMMIT OFF;
 iSQL> EXEC DBMS_SHARD.SET_SHARD_HASH(‘user1’,‘t1’,300,‘node1’);
 iSQL> EXEC DBMS_SHARD.SET_SHARD_HASH(‘user1’,’‘t1’,600,‘node2’);
 iSQL> EXEC DBMS_SHARD.SET_SHARD_HASH(‘user1’,’‘t1’,1000,‘node3’);
 iSQL> COMMIT;
-iSQL> ALTER SYSTEM RELOAD SHARD META NUMBER LOCAL;
 ```
 
 > 주의 사항
