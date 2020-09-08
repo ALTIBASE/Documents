@@ -1100,6 +1100,10 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 -   geometry 컬럼, 암호화 컬럼과 압축 컬럼을 지원하지 않는다.  
 -   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
 -   materialized view를 지원하지 않는다.
+
+#### 쿼리 제약사항
+-   다중 테이블 삽입절(INSERT)은 사용할 수 없다.
+-   다중 로우 삽입절(INSERT)은 사용 할 수 없다.
 -   이 외의 쿼리에 대한 제약사항은 샤드 쿼리 절을 참고한다.
 
 #### 연결 제약조건
@@ -1752,12 +1756,26 @@ Altibase Sharding에서 트랜잭션을 시작할 때 다중 노드 트랜잭션
 
 커밋 또는 롤백 시 샤드 노드에 장애가 발생한 경우, 샤드 라이브러리는 그 즉시, 에러를 반환한다. 따라서, 데이터의 일관성 확인이 필요하다.
 
-###### ShardCLI
+##### ShardCLI
+
+```
+SQLSetConnectAttr (
+	SQLHDBC 	dbc,
+	SQLINTEGER 	Attribute,
+	SQLPOINTER	ValuePtr,
+	SQLINTEGER 	StringLength );
+```
+다중 노드 트랜잭션으로 설정할 때에는 Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL을 ValuePtr에는 ALTIBASE_MULTIPLE_NODE_TRANSACTION을 입력한다. 
+
+SQLSetConnectAttr에 대한 자세한 설명은 *CLI User's Manual > 2. Altibase CLI 함수*를 참조한다.
 
 ```
 SQLSetConnectAttr(dbc, ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_MULTIPLE_NODE_TRANSACTION, 0);
 ```
-###### ShardJDBC
+
+##### ShardJDBC
+
+ShardJDBC는 연결속성의 형태로 지원한다.
 
 ```
 DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard_transaction_level=1");
@@ -1792,39 +1810,20 @@ Altibase Sharding은 다음과 같은 구문을 지원한다.
 
 모든 샤드 테이블(s1, c1, so1)에 대해 모든 형태의 insert 구문을 지원한다.
 
-Insert 값에 따라 단일 샤드 노드에서 수행하는 샤드 쿼리는 다음과 같다.
+입력값에 따라 단일 샤드 노드에서 수행하는 샤드 쿼리는 다음과 같다.
 
 -   INSERT INTO s1(k1, i1) VALUES(?, 2);
-
 -   INSERT INTO so1(i1) VALUES(?);
 
-샤드 키 분산 테이블에 INSERT를 수행하는 경우 샤드 키에 해당하는 값에 수식이
-있거나, 시퀀스, 또는 서브 쿼리가 있을 수 있다. 이 때 샤드 코디네이터가 그 값을 미리
-계산한 후에 해당 노드로 전달한다.
+샤드 키 분산 테이블에 INSERT를 수행하는 경우 샤드 키에 해당하는 값에 수식이 있거나, 시퀀스, 또는 서브 쿼리가 있을 수 있다. 이 때 샤드 코디네이터가 그 값을 미리 계산한 후에 해당 노드로 전달한다.
 
 -   INSERT INTO s1(i1, i2) VALUES(?+1, 2)
-
 -   INSERT INTO s1(i1, i2) VALUES(seq1.nextval, 2)
-
 -   INSERT INTO s1(i1, i2) VALUES((SELECT 1 FROM dual), 2)
 
-여러 노드에 걸쳐 있는 복제 분산 테이블의 경우 다중 노드에 수행한다.
+모든 노드에 걸쳐 있는 복제 분산 테이블의 경우 모든 노드에 수행한다.
 
 -   INSERT INTO c1(i1) VALUES (?)
-
-##### 구문
-
-```
-INSERT INTO s1 VALUES(1, 2);
-```
-
-##### 예제
-
-\<질의\> s1테이블에 insert를 수행하라.
-
-```
-iSQL> INSERT INTO s1 VALUES(1, 2);
-```
 
 > ##### 제약 사항
 >
@@ -1833,8 +1832,7 @@ iSQL> INSERT INTO s1 VALUES(1, 2);
 
 #### INSERT SELECT
 
-Insert select문은 항상 다중 노드 수행 쿼리이므로 내부 커넥션으로 수행된다.Insert
-select문을 이용하면 다른 분산 테이블에 데이터를 복사할 수 있다.
+Insert select문은 항상 다중 노드 수행 쿼리이므로 내부 커넥션으로 수행된다. Insert select문을 이용하면 다른 분산 테이블에 데이터를 복사할 수 있다.
 
 ##### 구문
 
