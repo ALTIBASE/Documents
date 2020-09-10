@@ -1783,11 +1783,9 @@ DriverManager.getConnection("jdbc:sharding:Altibase://ip_address:port/mydb?shard
 ```
 
 ### 샤드 쿼리
-
 샤드 쿼리(shard query)란 분산된 각 데이터베이스에서의 질의 결과의 합이, 논리적으로 분산되지 않은 상태의 데이터베이스 질의 결과와 같은 경우를 말한다.
 
 Altibase Sharding은 다음과 같은 구문을 지원한다.
-
 -   INSERT
 -   INSERT SELECT
 -   UPDATE
@@ -1795,12 +1793,10 @@ Altibase Sharding은 다음과 같은 구문을 지원한다.
 -   SELECT
 
 각 구문에 대해 대표적인 샤드 쿼리의 판단 기준은 다음과 같다.
-
 -   샤드 키에 대한 equal value 형식의 조건절이 있는 형태
 -   SELECT \* FROM t1과 같이 단순히 결과를 취합하는 형태
 
-그러나 현실에서는 보다 다양하고 복잡한 형태의 쿼리가 수행되므로 일부 사례 설명을 위해 아래와 같은 테이블이 생성되어 있다고 가정한다.
-
+그러나, 현실에서는 보다 다양하고 복잡한 형태의 쿼리가 수행되므로 일부 사례 설명을 위해 아래와 같은 테이블이 생성되어 있다고 가정한다.
 -   동일한 샤드 키 분산 방식을 적용한 샤드 테이블 s1, s2
 -   (샤드 키 컬럼 k1, 일반 컬럼 i1)
 -   복제 분산 방식을 적용한 샤드 테이블 c1 (일반 컬럼 i1)
@@ -1808,41 +1804,28 @@ Altibase Sharding은 다음과 같은 구문을 지원한다.
 -   일반 테이블 t1 (일반 컬럼 i1)
 
 #### INSERT
-
 모든 샤드 테이블(s1, c1, so1)에 대해 모든 형태의 insert 구문을 지원한다.
 
 입력값에 따라 단일 샤드 노드에서 수행하는 샤드 쿼리는 다음과 같다.
-
 -   INSERT INTO s1(k1, i1) VALUES(?, 2);
 -   INSERT INTO so1(i1) VALUES(?);
 
 샤드 키 분산 테이블에 INSERT를 수행하는 경우 샤드 키에 해당하는 값에 수식이 있거나, 시퀀스, 또는 서브 쿼리가 있을 수 있다. 이 때 샤드 코디네이터가 그 값을 미리 계산한 후에 해당 노드로 전달한다.
-
 -   INSERT INTO s1(i1, i2) VALUES(?+1, 2)
 -   INSERT INTO s1(i1, i2) VALUES(seq1.nextval, 2)
 -   INSERT INTO s1(i1, i2) VALUES((SELECT 1 FROM dual), 2)
 
 모든 노드에 걸쳐 있는 복제 분산 테이블의 경우 모든 노드에 수행한다.
-
 -   INSERT INTO c1(i1) VALUES (?)
 
 > ##### 제약 사항
->
 > - 다중 테이블 삽입절은 사용할 수 없다.
 > - 다중 로우 삽입절은 사용 할 수 없다.
 
 #### INSERT SELECT
-
 Insert select문은 항상 다중 노드 수행 쿼리이므로 내부 커넥션으로 수행된다. Insert select문을 이용하면 다른 분산 테이블에 데이터를 복사할 수 있다.
 
-##### 구문
-
-```
-INSERT INTO s2 SELECT * FROM s1;
-```
-
 ##### 예제
-
 \<질의\> 분산 테이블 s1의 데이터를 분산 테이블 s2에 복사하라.
 
 ```
@@ -1850,17 +1833,9 @@ iSQL> INSERT INTO s2 SELECT * FROM s1;
 ```
 
 #### UPDATE
-
 조건절에 따라 UPDATE 문을 단일 노드 수행 쿼리와 다중 노드 수행 쿼리로 나눈다. 샤드 키 컬럼은 update할 수 없다.
 
-##### 구문
-
-```
-UPDATE s1 SET i1=3 WHERE k1=1;
-```
-
 ##### 예제
-
 \<질의\> s1테이블의 k1컬럼이 1인 레코드에 대해 i1컬럼을 3으로 update하라.
 
 ```
@@ -1874,29 +1849,18 @@ iSQL> UPDATE s1 SET i1=3;
 ```
 
 #### DELETE
-
 조건절에 따라 DELETE 문을 단일 노드 수행 쿼리와 다중 노드 수행 쿼리로 나눈다.
 
-##### 구문
-
-```
-DELETE FROM s1 WHERE k1=1;
-```
-
 ##### 예제
-
 \<질의\> s1테이블에서 k1 칼럼의 값이 1인 레코드를 삭제한다.
-
 ```
 iSQL> DELETE FROM s1 WHERE k1=1;
 ```
 
 #### SELECT
-
 Select문은 조건절에 따라 수행방법이 영향을 받는다.
 
 Altibase Sharding은 샤드 테이블에 대해 다음과 같은 유형을 지원한다.
-
 -   Join
 -   Aggregate function
 -   Grouping
@@ -1904,7 +1868,6 @@ Altibase Sharding은 샤드 테이블에 대해 다음과 같은 유형을 지�
 -   Subquery
 
 ##### Join
-
 Select 시 샤드 테이블에 다음과 같은 형태의 join구문을 지원한다.
 
 ###### Inner join
@@ -1932,7 +1895,6 @@ Join 구문 역시 쿼리 최적화를 통해 수행되기 때문에 샤드 키�
 
 
 ###### Outer join
-
 동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 샤드 키 outer join을 지원한다.
 -   SELECT \~ FROM *s1* LEFT OUTER JOIN *s2* ON *s1.k1 = s2.k1*
 -   SELECT \~ FROM *s1* RIGHT OUTER JOIN *s2* ON *s1.k1 = s2.k1*
@@ -1942,89 +1904,53 @@ Join 구문 역시 쿼리 최적화를 통해 수행되기 때문에 샤드 키�
 -   SELECT \~ FROM *s1* LEFT OUTER JOIN *c1* ON *c1.i1 = s1.i1*
 
 복제 분산 테이블(c1)과 독립 분산 테이블(so1)간의 모든 outer join 을 지원한다.
-
 -   SELECT \~ FROM *c1* LEFT OUTER JOIN *so1* ON *c1.i1 = so1.i1*
-
 -   SELECT \~ FROM *c1* RIGHT OUTER JOIN *so1* ON *c1.i1 = so1.i1*
-
 -   SELECT \~ FROM *c1* FULL OUTER JOIN *so1* ON *so1.i1 = c1.i1*
 
 Outer join이 inner join으로 변환될 경우를 지원한다. 다음 쿼리는 쿼리 변환기를 거쳐 inner join으로 변환되어 수행한다.
-
 -   SELECT \~ FROM *s1* RIGHT OUTER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
     =\> SELECT \~ FROM *s1* INNER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
-    
 
 ###### Semi- join
-
 동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 semi-join을 지원한다.
-
 -   SELECT \~ FROM *s1* WHERE *EXISTS* (SELECT \~ FROM *s2* WHERE *s1.k1 = s2.k1* AND \~) AND \~
 
 복제 분산 테이블(c1)의 경우 모든 샤드 테이블에 대해 semi-join을 지원한다.
-
 -   SELECT \~ FROM c1 WHERE *EXISTS* (SELECT \~ FROM *s1* WHERE *c1.i1 = s1.i1* AND \~) AND \~
-    
 -   SELECT \~ FROM s1 WHERE *EXISTS* (SELECT \~ FROM *c1* WHERE *c1.i1 = so1.i1* AND \~) AND \~
 
 ##### Aggregate function
-
 Altibase Sharding 은 샤드 테이블에 대해 아래 집계 함수를 지원한다.
-
 -   COUNT
-
 -   MIN
-
 -   MAX
-
 -   SUM
-
 -   AVG
-
 -   STDDEV
-
 -   VARIANCE
 
-샤드 키 분산 테이블의 경우 분산 데이터의 특성상 노드 각각에 대해 집계를
-수행하므로 그 결과는 모든 데이터의 집계 결과와 논리적으로 같을 수 없다. 따라서
-샤드 키 분산 테이블(s1)의 경우 샤드 키 컬럼으로 필터링 되는 경우에 한해
-지원한다.
-
+샤드 키 분산 테이블의 경우 분산 데이터의 특성상 노드 각각에 대해 집계를 수행하므로 그 결과는 모든 데이터의 집계 결과와 논리적으로 같을 수 없다. 따라서, 샤드 키 분산 테이블(s1)의 경우 샤드 키 컬럼으로 필터링 되는 경우에 한해 지원한다.
 -   SELECT *count(\*)* FROM *s1* WHERE *k1 = ?* \~
-
 -   SELECT *sum(k1)* FROM *s1* WHERE *k1 = ?* \~
 
-특정 샤드 노드에서 동작하는 복제 분산 테이블(c1)과 독립 분산 테이블(so1)은
-일반 테이블의 경우와 동일하게 수행한다.
-
+특정 샤드 노드에서 동작하는 복제 분산 테이블(c1)과 독립 분산 테이블(so1)은 일반 테이블의 경우와 동일하게 수행한다.
 -   SELECT *count(\*)* FROM *c1*\~
-
 -   SELECT *sum(k1)* FROM *so1* \~
 
 ##### Grouping
-
 Altibase Sharding은 샤드 테이블에 대해 다음 grouping 방식을 지원한다.
-
 -   GROUP BY 구문
-
 -   DISTINCT 구문
 
-샤드 키 분산 테이블(s1)에서 샤드 키 컬럼을 grouping 대상으로 포함하는 모든
-구문을 지원한다.
-
+샤드 키 분산 테이블(s1)에서 샤드 키 컬럼을 grouping 대상으로 포함하는 모든 구문을 지원한다.
 -   SELECT \~ FROM *s1* \~ GROUP BY *k1*,\~
-
 -   SELECT distinct *k1*,\~ FROM *s1* \~
-
 -   SELECT distinct *k1*,\~ FROM *s1* \~ GROUP BY *k1*,\~
 
-특정 노드에서 동작하는 복제 분산 테이블(c1)과 독립 분산 테이블(so1)은
-별다른 제약없이 수행된다.
-
+특정 노드에서 동작하는 복제 분산 테이블(c1)과 독립 분산 테이블(so1)은 별다른 제약없이 수행된다.
 -   SELECT \~ FROM *c1* \~ GROUP BY \~
-
 -   SELECT distinct \~ FROM *c1* \~
-
 -   SELECT distinct \~ FROM *so1* \~ GROUP BY \~
 
 ##### Ordering
