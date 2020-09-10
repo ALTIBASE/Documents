@@ -1073,9 +1073,6 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 
 ### Altibase Sharding 제약사항
 
-#### 기본 조건
--   샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
-
 #### 운영체제
 - Altibase Sharding은 현재 아래의 운영체제만 지원한다.
 
@@ -1086,6 +1083,10 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 | LINUX | PowerPC8 (LE)                | redhat 7.2 이상 | 64-bit       | 64-bit       |
 
 [표 1. Altibase Sharding 지원 운영체제]
+
+#### 기본 조건
+-   샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
+-   샤드 노드별 데이타베이스들의 계정이름 및 암호는 모두 동일하게 설정되어 있어야 한다. 
 
 #### 프라퍼티 제약조건
 -   ISOLATION_LEVEL은 0(read committed)만 지원한다.
@@ -1850,8 +1851,7 @@ iSQL> INSERT INTO s2 SELECT * FROM s1;
 
 #### UPDATE
 
-조건절에 따라 UPDATE 문을 단일 노드 수행 쿼리와 다중 노드 수행
-쿼리로 나눈다. 샤드 키 컬럼은 update할 수 없다.
+조건절에 따라 UPDATE 문을 단일 노드 수행 쿼리와 다중 노드 수행 쿼리로 나눈다. 샤드 키 컬럼은 update할 수 없다.
 
 ##### 구문
 
@@ -1875,8 +1875,7 @@ iSQL> UPDATE s1 SET i1=3;
 
 #### DELETE
 
-조건절에 따라 DELETE 문을 단일 노드 수행 쿼리와 다중 노드 수행
-쿼리로 나눈다.
+조건절에 따라 DELETE 문을 단일 노드 수행 쿼리와 다중 노드 수행 쿼리로 나눈다.
 
 ##### 구문
 
