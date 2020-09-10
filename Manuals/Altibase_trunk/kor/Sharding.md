@@ -1895,34 +1895,12 @@ iSQL> DELETE FROM s1 WHERE k1=1;
 
 Select문은 조건절에 따라 수행방법이 영향을 받는다.
 
-##### 구문
-
-```
-SELECT * FROM s1 WHERE k1=1;
-```
-
-##### 예제
-
-\<질의\> s1테이블의 k1칼럼의 값이 1인 레코드를 조회한다.
-
-```
-iSQL> SELECT * FROM s1 WHERE k1=1;
-```
-
-> ##### 주의 사항
->
-> Select문은 사용 유형이 다양한 만큼 그 수행 여부에 영향을 줄 수 있는 요소가 많다.
-
 Altibase Sharding은 샤드 테이블에 대해 다음과 같은 유형을 지원한다.
 
 -   Join
-
 -   Aggregate function
-
 -   Grouping
-
 -   Ordering
-
 -   Subquery
 
 ##### Join
@@ -1931,8 +1909,7 @@ Select 시 샤드 테이블에 다음과 같은 형태의 join구문을 지원�
 
 ###### Inner join
 
-동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 샤드 키 inner join을
-지원한다.
+동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 샤드 키 inner join을 지원한다.
 
 -   SELECT \~ FROM *s1, s2* WHERE *s1.k1 = s2.k1*
 
@@ -1940,59 +1917,42 @@ Join 구문 역시 쿼리 최적화를 통해 수행되기 때문에 샤드 키�
 샤드 키에 해당하는 노드로 샤드 라이브러리 커넥션을 생성하여 해당 노드에 직접
 수행한다. 하지만 샤드 키 필터를 적용하지 않을 경우 내부 커넥션을 생성하여 모든
 노드에 수행한 후 샤드 코디네이터가 그 결과를 취합하여 사용자에게 전달한다.
-
 -   SELECT \~ FROM s1, s2 WHERE s1.k1 = s2.k1 AND [s1.k1\|s2.k1] = ?  
     =\> 샤드 라이브러리 커넥션으로 특정 노드에 직접 수행
-
 -   SELECT \~ FROM s1, s2 WHERE s1.k1 = s2.k1 AND [s1.i1\|s2.i1] = ?  
     =\> 내부 커넥션으로 모든 노드를 수행하고 취합 후 전달 받음
 
-복제 분산 테이블(c1)의 경우 모든 샤드 테이블(s1,c1,so1)에 대해 inner join을
-지원한다.
-
+복제 분산 테이블(c1)의 경우 모든 샤드 테이블(s1,c1,so1)에 대해 inner join을 지원한다.
 -   SELECT \~ FROM *c1, s1* WHERE *c1.i1 = s1.i1*
-
 -   SELECT \~ FROM c1, so1 WHERE c1.i1 = so1.i1
 
-독립 분산 테이블(so1)과 복제 분산 테이블(c1)의 inner join시 특정 노드를
-지정하는 독립 분산 테이블(so1)의 특성상 필터의 유무와 무관하게 샤드 라이브러리 커넥션으로
-동작한다.
-
+독립 분산 테이블(so1)과 복제 분산 테이블(c1)의 inner join시 특정 노드를 지정하는 독립 분산 테이블(so1)의 특성상 필터의 유무와 무관하게 샤드 라이브러리 커넥션으로 동작한다.
 - SELECT \~ FROM *c1, so1* WHERE *c1.i1 = so1.i1*
-
   =\> 샤드 라이브러리 커넥션으로 특정 노드로 직접 수행
 
 
 ###### Outer join
 
-동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 샤드 키 outer join을
-지원한다.
-
+동일한 샤드 키 분산 방식이 적용된 샤드 테이블(s1,s2)간의 샤드 키 outer join을 지원한다.
 -   SELECT \~ FROM *s1* LEFT OUTER JOIN *s2* ON *s1.k1 = s2.k1*
-
 -   SELECT \~ FROM *s1* RIGHT OUTER JOIN *s2* ON *s1.k1 = s2.k1*
-
 -   SELECT \~ FROM *s1* FULL OUTER JOIN *s2* ON *s1.k1 = s2.k1*
 
-샤드 키 분산 테이블(s1)과 복제 분산 테이블(c1)의 경우 아래 유형에 한해 지원한다.
-
+샤드 키 분산 테이블(s1)과 복제 분산 테이블(c1)의 경우 LEFT OUTER JOIN 유형에 한해 지원한다.
 -   SELECT \~ FROM *s1* LEFT OUTER JOIN *c1* ON *c1.i1 = s1.i1*
 
 복제 분산 테이블(c1)과 독립 분산 테이블(so1)간의 모든 outer join 을 지원한다.
 
 -   SELECT \~ FROM *c1* LEFT OUTER JOIN *so1* ON *c1.i1 = so1.i1*
 
--   SELECT \~ FROM *c1* RIGHT OUTER JOIN *so1* ON c*1.i1 = so1.i1*
+-   SELECT \~ FROM *c1* RIGHT OUTER JOIN *so1* ON *c1.i1 = so1.i1*
 
 -   SELECT \~ FROM *c1* FULL OUTER JOIN *so1* ON *so1.i1 = c1.i1*
 
-Outer join이 inner join으로 변환될 경우를 지원한다. 다음 쿼리는 쿼리 변환기를
-거쳐 inner join으로 변환되어 수행한다.
+Outer join이 inner join으로 변환될 경우를 지원한다. 다음 쿼리는 쿼리 변환기를 거쳐 inner join으로 변환되어 수행한다.
 
 -   SELECT \~ FROM *s1* RIGHT OUTER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
-    
-
-=\> SELECT \~ FROM *s1* INNER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
+    =\> SELECT \~ FROM *s1* INNER JOIN *c1* ON *c1.i1 = s1.i1* WHERE *s1.i1 = 1*
     
 
 ###### Semi- join
@@ -5297,9 +5257,9 @@ Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 
 
 해당 프로퍼티 값은 BITMAP 형태이며,
 
-- LIMIT 최적화 변환 기능 켜짐은 1 ( 001 )
-- SELECTION 최적화 변환 기능 켜짐은 2 ( 010 )
-- PROJECTION 최적화 변환 기능 켜짐은 4 ( 100 )
+- LIMIT 최적화 변환 기능 켜짐은 1 ( 이진수 표현 0b001 )
+- SELECTION 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b010 )
+- PROJECTION 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b100 )
 
 위 값에 조합으로 제어된다.
 
@@ -5311,7 +5271,7 @@ SELECT * FROM T1 A LIMIT 1;
 SHARD_TRANSFORM_MODE = 0;
 -> SELECT * FROM SHARD( SELECT * FROM T1 A ) A LIMIT 1;
 SHARD_TRANSFORM_MODE = 1;
--> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) + 1 ) A LIMIT 1;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) - 1 ) A LIMIT 1;
 ```
 
 SELECT A.I1 FROM T1 A, T1 B WHERE A.I1 > 0;
