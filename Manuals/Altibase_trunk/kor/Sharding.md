@@ -3687,12 +3687,8 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 | 프로시저 및 함수              | 설명                                                         |
 | ----------------------------- | ------------------------------------------------------------ |
 | CREATE_META                   | 샤드 노드에서 샤드 메타 테이블을 생성한다.                   |
-| RESET_SHARD_NODE_ID           | 현재 접속 노드 식별자를 변경한다.                            |
-| EXECUTE_IMMEDIATE             | 샤드 노드로 ad-hoc 쿼리를 수행한다.                          |
+| SET_LOCAL_NODE                | 샤드 노드를 등록한다.                                        |
 | SET_REPLICATION               | 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.          |
-| SET_NODE                      | 샤드 노드를 등록한다.                                        |
-| RESET_NODE_EXTERNAL           | 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드 접속 정보를 변경한다. |
-| RESET_NODE_INTERNAL           | 코디네이터가 연결할 샤드 노드 접속 정보를 변경한다.          |
 | SET_SHARD_TABLE               | 샤드 테이블을 등록한다.                                      |
 | SET_SHARD_TABLE_COMPOSITE     | 복합 샤드 키를 갖는 샤드 테이블을 등록한다.                  |
 | SET_SHARD_PROCEDURE           | 샤드 프로시저를 등록한다.                                    |
@@ -3701,120 +3697,85 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 | SET_SHARD_HASH                | HASH 방식의 분산정보를 등록한다.                             |
 | SET_SHARD_RANGE               | RANGE 방식의 분산정보를 등록한다.                            |
 | SET_SHARD_LIST                | LIST 방식의 분산정보를 등록한다.                             |
+| SET_SHARD_COMPOSITE           | 복합 샤드 키 방식의 분산정보를 등록한다.                     |
 | SET_SHARD_CLONE               | CLONE 방식의 분산정보를 등록한다.                            |
 | SET_SHARD_SOLO                | SOLO 방식의 분산정보를 등록한다.                             |
 | RESET_SHARD_RESIDENT_NODE     | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
 | RESET_SHARD_PARTITION_NODE    | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
-| SET_SHARD_COMPOSITE           | 복합 샤드 키 방식의 분산정보를 등록한다.                     |
-| CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                        |
-| REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 샤드 노드의 데이터를 재분배한다. |
-| REBUILD_DATA_NODE             | 변경된 샤드 키 분산방식에 따라 특정 샤드 노드의 데이터를 재분배한다. |
-| UNSET_NODE                    | 샤드 노드를 해제한다.                                        |
 | UNSET_SHARD_TABLE             | 샤드 테이블을 해제한다.                                      |
 | UNSET_SHARD_TABLE_BY_ID       | shard_id로 샤드 테이블을 해제한다.                           |
 | UNSET_SHARD_PROCEDURE         | 샤드 프로시저를 해제한다.                                    |
 | UNSET_SHARD_PROCEDURE_BY_ID   | shard_id로 샤드 프로시저를 해제한다.                         |
+| CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                        |
+| REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 샤드 노드의 데이터를 재분배한다. |
+| REBUILD_DATA_NODE             | 변경된 샤드 키 분산방식에 따라 특정 샤드 노드의 데이터를 재분배한다. |
+| EXECUTE_IMMEDIATE             | 샤드 노드로 ad-hoc 쿼리를 수행한다.                          |
 
 #### CREATE_META
-
 ##### 구문
-
 ```
 CREATE_META()
 ```
 
 ##### 파라미터
-
-| 이름          | 입출력 | 데이터 타입 | 설명             |
-| ------------- | ------ | ----------- | ---------------- |
-| SHARD_NODE_ID | IN     | INTEGER     | 샤드 노드 식별자 |
+없음.
 
 ##### 설명
-
 현재 접속 노드에서 샤드 메타 테이블을 생성한다.
 
-create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과
-인덱스, 시퀀스가 생성된다. 이후부터 Altibase Sharding 기능을 사용할 수 있다.
-
-SHARD_NODE_ID 파라미터는 샤드 노드 식별자이며 DBMS_SHARD.SET_LOCAL_NODE 혹은 DBMS_SHARD.RESET_SHARD_NODE_ID 를 통해서 변경 가능하다.
-
-SHARD_NODE_ID는 전체 샤딩 시스템에서 유일한 값이어야 한다.
+create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과 인덱스, 시퀀스가 생성된다.
 
 ##### 예제
-
 ```
 iSQL> EXEC dbms_shard.create_meta();
 Execute success.
 ```
 
-> ##### 주의 사항
->
-> - 메타 테이블을 삭제하면 샤딩을 사용할 수 없으므로 주의해야 한다.
-> - SHARD_NODE_ID 값 범위: 0\~65535
-
-#### RESET_SHARD_NODE_ID
-
+#### SET_LOCAL_NODE
 ##### 구문
-
 ```
-RESET_SHARD_NODE_ID(SHARD_NODE_ID in integer)
+DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
+                           node_name in varchar(10),
+			   host_ip in varchar(64),
+			   port_no in integer,
+			   internal_host_ip in varchar(64),
+			   internal_port_no in integer,
+                           internal_replication_host_ip in varchar(64),
+                           internal_replication_port_no in integer,
+                           conn_type in integer default NULL );
 ```
-
 ##### 파라미터
-
-| 이름          | 입출력 | 데이터 타입 | 설명             |
-| ------------- | ------ | ----------- | ---------------- |
-| SHARD_NODE_ID | IN     | INTEGER     | 샤드 노드 식별자 |
+- shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다.
+  - shard_node_id 값 범위: 0\~65535 (TOBEMODIFIED) 1 \~ 9999 로 조정되어야 한다. sharded sequence 에서 shard_node_id를 사용하기 때문이다.
+- node_name: 지역 샤드 노드에서 사용할 노드 이름을 입력하며, 샤드 노드 이름도 전체 시스템에서 유일해야한다. node_name 의 대소문자는 구별하지 않는다.
+- host_ip: 지역 샤드 노드에서 서비스에 사용할 호스트 IP를 입력한다. 
+- port_no: 지역 샤드 노드에서 서비스에 사용할 Port를 입력한다. 
+- internal_host_ip: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 호스트 IP를 입력한다. 이더넷 및  인피니 밴드를 지원한다.
+- internal_port_no: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 Port를 입력한다. 
+- internal_replication_host_ip: 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP를 입력한다. internal_host_ip와 동일한 라인을 사용할 것을 권장한다. 
+- internal_replication_port_no: 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값을 입력해야한다. 
+- conn_type: 내부적으로 사용되는 코디네이터 연결 방식으로 입력하지 않는 경우 TCP를 사용한다. 그 외 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
 
 ##### 설명
+샤드 패키지인 DBMS_SHARD 패키지에는 지역 샤드 노드의 정보를 설정하는 서브 프로그램을 제공한다.
 
-샤드 노드 식별자를 변경한다.
+샤드 노드를 사용하기 위해서는 먼저 지역 샤드 노드의 정보를 등록해야한다. 
 
-##### 예제
+한번 샤딩 클러스터에 참여한 후에는, 지역 정보의 재 설정은 불가하며, 재설정을 위해서는 노드 제거 및 추가를 해야한다. 
 
-```
-iSQL> EXEC dbms_shard.reset_SHARD_NODE_ID(1);
-Execute success.
-```
+한번도 샤딩 클러스터에 참여하지 않은 경우에만 변경가능하며, 변경은 최초 설정과 동일한 인터페이스를 통해 진행한다.
 
-> ##### 주의 사항
->
-> - SHARD_NODE_ID는 Altibase Sharding 시스템 내에서 구별 가능한 유일값이어야 한다.
-> - SHARD_NODE_ID 값 범위: 0\~65535
+현재 ip address는 ip v4형식만 지원한다.
 
-#### EXECUTE_IMMEDIATE
-
-##### 구문
+#### 예제
+\<질의\> shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
 
 ```
-EXECUTE_IMMEDIATE(
- query     in varchar(65534),
- node_name in varchar(10) default NULL)
-```
-
-##### 파라미터
-
-| 이름      | 입출력 | 데이터 타입    | 설명      |
-| --------- | ------ | -------------- | --------- |
-| query     | IN     | VARCHAR(65534) | 샤드 쿼리 |
-| node_name | IN     | VARCHAR(10)    | 샤드 노드 |
-
-##### 설명
-
-샤드 노드에서 임의의 샤드 노드에 특정(ad-hoc) 쿼리를 수행한다. node_name을
-지정하지 않으면, 모든 샤드 노드에 수행한다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.execute_immediate(‘TRUNCATE TABLE s1’,’node1’);
-Execute success.
+iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(1, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
 ```
 
 #### SET_REPLICATION
-
 ##### 구문
-
 ```
 SET_REPLICATION(
  k_safety          in integer,
@@ -3823,149 +3784,18 @@ SET_REPLICATION(
 ```
 
 ##### 파라미터
-
-| 이름             | 입출력 | 데이터 타입 | 설명                               |
-| ---------------- | ------ | ----------- | ---------------------------------- |
-| k_safety         | IN     | INTEGER     | 시스템 내에서 유지할 복제본의 갯수 |
-| replication_mode | IN     | VARCHAR(10) | 이중화에서 사용할 복제 방식        |
-| parallel_count   | IN     | INTEGER     | 이중화 병렬 적용자의 수            |
+- k_safety: 시스템 내에서 유지할 복제본의 갯수
+- replication_mode: 이중화에서 사용할 복제 방식
+- parallel_count: 이중화 병렬 적용자의 수
 
 ##### 설명
-
 샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.   
 
 ##### 예제
-
 \<질의\> 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
 
 ```
 iSQL>  EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
-```
-
-#### SET_NODE
-
-##### 구문
-
-```
-SET_NODE(
- node_name          in varchar(10),
- host_ip            in varchar(16),
- port_no            in integer,
- alternate_host_ip  in varchar(16) default NULL,
- alternate_port_no  in integer default NULL,
- conn_type          in integer default NULL)
-```
-
-##### 파라미터
-
-| 이름              | 입출력 | 데이터 타입 | 설명                                                         |
-| ----------------- | ------ | ----------- | ------------------------------------------------------------ |
-| node_name         | IN     | VARCHAR(10) | 샤드 노드 이름                                               |
-| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                               |
-| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
-| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
-| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                              |
-| conn_type         | IN     | INTEGER     | 내부적으로 사용되는 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다. |
-
-##### 설명
-
-샤드 노드에서 샤드 노드의 이름과 IP 및 PORT 정보와 Alternate IP 및 Alternate
-Port를 설정한다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.set_node('node1','192.168.1.11',20300);
-Execute success.
-iSQL> EXEC dbms_shard.set_node('node2','192.168.1.12',20300);
-Execute success.
-iSQL> EXEC dbms_shard.set_node('node3','192.168.1.13',20300);
-Execute success.
-iSQL> EXEC dbms_shard.set_node('NODE3','192.168.1.23',11094,'192.168.1.24',11094);
-Execute success.
-iSQL> EXEC dbms_shard.set_node('node4', '192.168.1.30', 20300, '192.168.1.31',
-20400, 1);
-Execute success.
-```
-
-#### RESET_NODE_EXTERNAL
-
-##### 구문
-
-```
-RESET_NODE_EXTERNAL(node_name in varchar(10),
-                    host_ip   in varchar(16),
-                    port_no   in integer,
-                    alternate_host_ip in varchar(16),
-                    alternate_port_no in integer)
-```
-
-##### 파라미터
-
-| 이름              | 입출력 | 데이터 타입 | 설명                            |
-| ----------------- | ------ | ----------- | ------------------------------- |
-| node_name         | IN     | VARCHAR(10) | 샤드 노드 이름                  |
-| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP        |
-| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호           |
-| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP        |
-| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호 |
-
-##### 설명
-
-샤드 메타에 설정한 외부(샤드 라이브러리 연결) 연결 접속 정보를 변경한다.
-
-RESET_NODE_EXTERNAL 프로시저를 이용하여 샤드라이브러리와 샤드 노드 간 접속
-정보를 변경 할 수 있으며,  
-내부적으로 사용되는 코디네이터연결 접속 정보 변경을 위해서는 RESET_NODE_INTERNAL
-프로시저를 사용해야 한다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.reset_node_external('node1', '192.168.100.1', 20300,
-'192.168.100.2', 20300 );
-Execute success.
-```
-
-#### RESET_NODE_INTERNAL
-
-##### 구문
-
-```
-RESET_NODE_INTERNAL(node_name          in varchar(10),
-                    host_ip            in varchar(16),
-                    port_no            in integer,
-                    alternate_host_ip  in varchar(16),
-                    alternate_port_no  in integer,
-                    conn_type          in integer)
-```
-
-##### 파라미터
-
-| 이름              | 입출력 | 데이터 타입 | 설명                                                         |
-| ----------------- | ------ | ----------- | ------------------------------------------------------------ |
-| node_name         | IN     | VARCHAR(10) | 샤드 노드 이름                                               |
-| host_ip           | IN     | VARCHAR(16) | 샤드 노드의 IP                                               |
-| port_no           | IN     | INTEGER     | 샤드 노드의 PORT 번호                                        |
-| alternate_host_ip | IN     | VARCHAR(16) | 샤드 노드의 Alternate IP                                     |
-| alternate_port_no | IN     | INTEGER     | 샤드 노드의 Alternate PORT 번호                              |
-| conn_type         | IN     | INTEGER     | 코디네이터 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다. |
-
-##### 설명
-
-샤드 메타에 설정한 내부(코디네이터 연결) 연결 접속 정보를 변경한다..
-
-RESET_NODE_INTERNAL 프로시저를 이용하여 코디네이터와 샤드 노드 간 접속 정보를
-변경 할 수 있으며,  
-샤드라이브러리에서 사용하는 외부 응용프로그램과 샤드 노드 간 접속 정보 변경을
-위해서는 RESET_NODE_EXTERNAL 프로시저를 사용해야 한다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.reset_node_external ('node1', '192.168.100.1', 20300,
-'192.168.100.2', 20300, 1);
-Execute success.
 ```
 
 #### SET_SHARD_TABLE
@@ -4572,6 +4402,152 @@ iSQL> EXEC dbms_shard.reset_shard_partition_node('sys','t1','node3','node2','p2'
 Execute success.
 ```
 
+#### UNSET_SHARD_TABLE
+
+##### 구문
+
+```
+UNSET_SHARD_TABLE(     user_name  in varchar(128),
+                       table_name in varchar(128))
+```
+
+##### 파라미터
+
+| 이름       | 입출력 | 데이터 타입  | 설명                 |
+| ---------- | ------ | ------------ | -------------------- |
+| user_name  | IN     | VARCHAR(128) | 테이블 소유자의 이름 |
+| table_name | IN     | VARCHAR(128) | 테이블 이름          |
+
+##### 설명
+
+모든 샤드 노드에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
+
+UNSET_SHARD_TABLE() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산 정보도
+모두 삭제된다.
+
+복제 테이블도 같이 삭제 된다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.unset_shard_table('sys','t5');
+Execute success.
+```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
+#### UNSET_SHARD_TABLE_BY_ID
+
+##### 구문
+
+```
+UNSET_SHARD_TABLE_BY_ID(shard_id in integer)
+```
+
+##### 파라미터
+
+| 이름     | 입출력 | 데이터 타입 | 설명           |
+| -------- | ------ | ----------- | -------------- |
+| shard_id | IN     | INTEGER     | 샤드 객체 번호 |
+
+##### 설명
+
+모든 샤드 메타에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
+
+UNSET_SHARD_TABLE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산
+정보도 모두 삭제된다.
+
+복제 테이블도 같이 삭제 된다.
+
+삭제된 shard_id는 sys_shard.objects_에서 조회할 수 있다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.unset_shard_table_by_id(123);
+Execute success. 
+```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
+#### UNSET_SHARD_PROCEDURE
+
+##### 구문
+
+```
+UNSET_SHARD_PROCEDURE(
+  user_name in varchar(128),
+  proc_name in varchar(128))
+```
+
+##### 파라미터
+
+| 이름      | 입출력 | 데이터 타입  | 설명                   |
+| --------- | ------ | ------------ | ---------------------- |
+| user_name | IN     | VARCHAR(128) | 프로시저 소유자의 이름 |
+| proc_name | IN     | VARCHAR(128) | 프로시저 이름          |
+
+##### 설명
+
+모든 샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
+
+UNSET_SHARD_PROCEDURE() 함수를 사용하여 샤드 프로시저 정보를 삭제하면, 분산
+정보도 모두 삭제된다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
+Execute success.
+```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
+#### UNSET_SHARD_PROCEDURE_BY_ID
+
+##### 구문
+
+```
+UNSET_SHARD_PROCEDURE_BY_ID(
+	shard_id in integer)
+```
+
+##### 파라미터
+
+| 이름     | 입출력 | 데이터 타입 | 설명           |
+| -------- | ------ | ----------- | -------------- |
+| shard_id | IN     | INTEGER     | 샤드 객체 번호 |
+
+##### 설명
+
+모든 샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
+
+UNSET_SHARD_PROCEDURE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 각
+분산 방식 때 정의했던 분산 정보도 모두 삭제된다.
+
+샤드 메타를 삭제할 shard_id 는 sys_shard.objects_에서 조회할 수 있다.
+
+##### 예제
+
+```
+iSQL> EXEC dbms_shard.unset_shard_procedure_by_id(123);
+Execute success. 
+```
+
+> ##### 주의사항
+>
+> - Non-Autocommit 에서만 수행 할 수 있다.
+> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+
 #### CHECK_DATA
 
 ##### 구문
@@ -4783,176 +4759,35 @@ iSQL> COMMIT;
 > - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이 프로시저를 수행해야 한다.
 > - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
-#### UNSET_NODE
+
+#### EXECUTE_IMMEDIATE
 
 ##### 구문
 
 ```
-UNSET_NODE(node_name in varchar(10))
+EXECUTE_IMMEDIATE(
+ query     in varchar(65534),
+ node_name in varchar(10) default NULL)
 ```
 
 ##### 파라미터
 
-| 이름      | 입출력 | 데이터 타입 | 설명      |
-| --------- | ------ | ----------- | --------- |
-| node_name | IN     | VARCHAR(10) | 샤드 노드 |
+| 이름      | 입출력 | 데이터 타입    | 설명      |
+| --------- | ------ | -------------- | --------- |
+| query     | IN     | VARCHAR(65534) | 샤드 쿼리 |
+| node_name | IN     | VARCHAR(10)    | 샤드 노드 |
 
 ##### 설명
 
-샤드 노드에서 이전에 설정한 샤드 노드 정보를 삭제한다.
+샤드 노드에서 임의의 샤드 노드에 특정(ad-hoc) 쿼리를 수행한다. node_name을
+지정하지 않으면, 모든 샤드 노드에 수행한다.
 
 ##### 예제
 
 ```
-iSQL> EXEC dbms_shard.unset_node('node1');
+iSQL> EXEC dbms_shard.execute_immediate(‘TRUNCATE TABLE s1’,’node1’);
 Execute success.
 ```
-
-#### UNSET_SHARD_TABLE
-
-##### 구문
-
-```
-UNSET_SHARD_TABLE(     user_name  in varchar(128),
-                       table_name in varchar(128))
-```
-
-##### 파라미터
-
-| 이름       | 입출력 | 데이터 타입  | 설명                 |
-| ---------- | ------ | ------------ | -------------------- |
-| user_name  | IN     | VARCHAR(128) | 테이블 소유자의 이름 |
-| table_name | IN     | VARCHAR(128) | 테이블 이름          |
-
-##### 설명
-
-모든 샤드 노드에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
-
-UNSET_SHARD_TABLE() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산 정보도
-모두 삭제된다.
-
-복제 테이블도 같이 삭제 된다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.unset_shard_table('sys','t5');
-Execute success.
-```
-
-> ##### 주의사항
->
-> - Non-Autocommit 에서만 수행 할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### UNSET_SHARD_TABLE_BY_ID
-
-##### 구문
-
-```
-UNSET_SHARD_TABLE_BY_ID(shard_id in integer)
-```
-
-##### 파라미터
-
-| 이름     | 입출력 | 데이터 타입 | 설명           |
-| -------- | ------ | ----------- | -------------- |
-| shard_id | IN     | INTEGER     | 샤드 객체 번호 |
-
-##### 설명
-
-모든 샤드 메타에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
-
-UNSET_SHARD_TABLE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산
-정보도 모두 삭제된다.
-
-복제 테이블도 같이 삭제 된다.
-
-삭제된 shard_id는 sys_shard.objects_에서 조회할 수 있다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.unset_shard_table_by_id(123);
-Execute success. 
-```
-
-> ##### 주의사항
->
-> - Non-Autocommit 에서만 수행 할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### UNSET_SHARD_PROCEDURE
-
-##### 구문
-
-```
-UNSET_SHARD_PROCEDURE(
-  user_name in varchar(128),
-  proc_name in varchar(128))
-```
-
-##### 파라미터
-
-| 이름      | 입출력 | 데이터 타입  | 설명                   |
-| --------- | ------ | ------------ | ---------------------- |
-| user_name | IN     | VARCHAR(128) | 프로시저 소유자의 이름 |
-| proc_name | IN     | VARCHAR(128) | 프로시저 이름          |
-
-##### 설명
-
-모든 샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
-
-UNSET_SHARD_PROCEDURE() 함수를 사용하여 샤드 프로시저 정보를 삭제하면, 분산
-정보도 모두 삭제된다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
-Execute success.
-```
-
-> ##### 주의사항
->
-> - Non-Autocommit 에서만 수행 할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### UNSET_SHARD_PROCEDURE_BY_ID
-
-##### 구문
-
-```
-UNSET_SHARD_PROCEDURE_BY_ID(
-	shard_id in integer)
-```
-
-##### 파라미터
-
-| 이름     | 입출력 | 데이터 타입 | 설명           |
-| -------- | ------ | ----------- | -------------- |
-| shard_id | IN     | INTEGER     | 샤드 객체 번호 |
-
-##### 설명
-
-모든 샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
-
-UNSET_SHARD_PROCEDURE_BY_ID() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 각
-분산 방식 때 정의했던 분산 정보도 모두 삭제된다.
-
-샤드 메타를 삭제할 shard_id 는 sys_shard.objects_에서 조회할 수 있다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.unset_shard_procedure_by_id(123);
-Execute success. 
-```
-
-> ##### 주의사항
->
-> - Non-Autocommit 에서만 수행 할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 ## Altibase Sharding 프로퍼티
 
