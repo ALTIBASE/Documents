@@ -6096,11 +6096,11 @@ This is the value by which the sequence increments. The default value is 1. The 
 
 *MAXVALUE*
 
-This is the maximum value of the sequence. This can be set to any value between -9223372036854775807 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 9223372036854775806. If the value for INCREMENT BY is less than 0, the default value is -1.
+This is the maximum value of the sequence. This can be set to any value between -9223372036854775805 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 9223372036854775806. If the value for INCREMENT BY is less than 0, the default value is -1.
 
 *MINVALUE*
 
-This is the minimum value of the sequence. This can be set to any value between -9223372036854775807 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 1. If the value for INCREMENT BY is less than 0, the default value is -9223372036854775807.
+This is the minimum value of the sequence. This can be set to any value between -9223372036854775806 and 9223372036854775805. If the value for INCREMENT BY is more than 0, the default value is 1. If the value for INCREMENT BY is less than 0, the default value is -9223372036854775806.
 
 *CYCLE*
 
