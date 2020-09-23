@@ -1797,6 +1797,7 @@ typedef struct ALA_Replication
     ALA_Table   *mTableArray;     /* Table Array */
     SChar mDBCharSet[ULA_NAME_LEN]; /* DB Charter Set */
     SChar mDBNCharSet[ULA_NAME_LEN]; /* DB National Charter Set */
+    ULong mSenderVersion;            /* Sender Version */   
 } ALA_Replication;
 
 typedef struct ALA_Table

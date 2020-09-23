@@ -2895,6 +2895,7 @@ REPLICATION_NAME 값과 동일하다.
 | SM_COL_SPACE         | INTEGER       | 테이블스페이스 식별자                                        |
 | QP_FLAG              | INTEGER       | 내부 플래그                                                  |
 | DEFAULT_VAL          | VARCHAR(4000) | 칼럼의 기본 값                                               |
+| MT_SRID              | INTEGER       | GEOMETRY 칼럼에 적용된 SRID                                  |
 
 #### 칼럼 정보
 
@@ -2940,6 +2941,10 @@ Altibase 서버가 사용하는 내부 플래그이다.
 ##### MT_POLICY_NAME
 
 암호화된 칼럼의 경우, 칼럼에 적용된 보안 정책의 이름을 나타낸다.
+
+##### MT_SRID
+
+GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
 
 ##### SM_ID
 
@@ -3332,6 +3337,7 @@ SYS_TABLES\_ 메타 테이블에는 테이블 외에 시퀀스, 뷰 정보 등�
 - G: 글로벌 인덱스를 위해 내부적으로 사용되는 테이블
 - D: 압축 칼럼의 데이터를 실제로 저장하기 위해 내부적으로 사용되는 딕셔너리
   테이블
+- R: 삭제(Drop)되어 휴지통에서 관리되고 있는 테이블
 
 ##### REPLICATION_COUNT
 

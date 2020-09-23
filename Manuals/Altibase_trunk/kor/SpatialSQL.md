@@ -2365,6 +2365,48 @@ F1          ISRING(F2)
 1 row selected.
 ```
 
+#### ST_ISCOLLECTION
+
+##### 구문
+
+```
+ST_ISCOLLECTION( GEOMETRY )
+```
+
+##### 설명
+
+인자로 받은 공간 객체가 Multi\*이거나 GeometryCollection이면 1을 반환하고, 
+그렇지 않으면 0을 반환한다. 
+
+
+##### 반환 타입
+
+```
+INTEGER
+```
+
+##### 예제
+
+```
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'POINT(1 1)'); 
+ST_ISCOLLECTION(GEOMETRY'POINT(1 1)') 
+----------------------------------------
+0           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)');
+ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)') 
+---------------------------------------------
+1           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(2 2, 3 3))');  
+ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTIO 
+---------------------------------------------
+1           
+1 row selected.
+```
+
 #### NUMPOINTS
 
 ##### 구문
@@ -3168,6 +3210,24 @@ F1          SRID(F2)    
 4           102         
 5           103         
 5 rows selected.
+
+
+iSQL> INSERT INTO TB1 SELECT F1, SETSRID(F2, 9999) FROM TB1;
+5 rows inserted.
+iSQL> SELECT F1, SRID(F2) FROM TB1;
+F1          SRID(F2)    
+---------------------------
+1           0           
+2           100         
+3           101         
+4           102         
+5           103         
+1           9999        
+2           9999        
+3           9999        
+4           9999        
+5           9999        
+10 rows selected.
 ```
 
 ### 공간 객체 생성 함수
@@ -3306,18 +3366,18 @@ iSQL> INSERT INTO TB3 VALUES (104, LINEFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20
 ##### 구문
 
 ```
-POLYFROMTEXT( WKT )
+POLYFROMTEXT( WKT[, srid] )
 ```
 
 ##### 설명
 
-WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 폴리곤 객체를 생성한다.
+WKT(Well-Known Text) 형태로 공간 객체와 SRID를 입력 받아 폴리곤 객체를 생성한다.
 
 폴리곤이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
-WKT의 값이 NULL인 경우에는 NULL을 반환한다.
+WKT의 값이 NULL이거나 SRID의 값이 NULL인 경우에는 NULL을 반환한다.
 
-생성된 객체의 SRID는 0이다.
+SRID를 입력하지 않으면 생성된 객체의 SRID는 0이다.
 
 ##### 반환 타입
 
@@ -3341,6 +3401,64 @@ POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
 
 iSQL> INSERT INTO TB3 VALUES (105, POLYFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> INSERT INTO TB3 VALUES (120, POLYFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          ASEWKT(OBJ)
+---------------------------------------------------------------------------------------------------------------------
+104         SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+120         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+2 rows selected.
+```
+
+#### ST_POLYGONFROMTEXT
+
+##### 구문
+
+```
+ST_POLYGONFROMTEXT( TEXT[, srid] )
+```
+
+##### 설명
+
+WKT(Well-Known Text) 형태 또는 EWKT(Extended Well-Known Text) 형태의 공간 객체와 SRID를 입력 받아 폴리곤 객체를 생성한다.
+
+WKT의 값이 NULL이거나 SRID의 값이 NULL인 경우에는 NULL을 반환한다.
+
+POLYFROMTEXT와 달리 폴리곤이 아닌 공간 객체를 표현한 WKT또는 EWKT인 경우에는 NULL을 반환한다.
+
+WKT 형태 또는 EWKT 형태가 문법이 잘못된 경우 에러를 출력한다.
+
+SRID를 입력하지 않으면 생성된 객체의 SRID는 0이다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> INSERT INTO TB3 VALUES (121, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (122, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (123, ST_POLYGONFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (124, ST_POLYGONFROMTEXT('SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          ASEWKT(OBJ)
+---------------------------------------------------------------------------------------------------------------------
+121         SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+122         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+123
+124         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+4 rows selected.
 ```
 
 #### MPOINTFROMTEXT
@@ -3565,6 +3683,32 @@ WKB(Well-Known Binary) 형태로 공간 객체를 입력 받아 라인스트링 
 
 라인스트링이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를
 출력한다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+#### ST_LINESTRINGFROMWKB
+
+##### 구문
+
+```
+ST_LINESTRINGFROMWKB( WKB[, SRID] )
+```
+
+##### 설명
+
+WKB(Well-Known Binary) 형태 또는 EWKT(Extended Well-Known Text) 형태의 공간 객체와 SRID를 입력 받아 폴리곤 객체를 생성한다.
+
+WKB의 값이 NULL이거나 SRID의 값이 NULL인 경우에는 NULL을 반환한다.
+
+LINEFROMWKB와 달리 라인스트링이 아닌 공간 객체를 표현한 WKT또는 EWKT인 경우에는 NULL을 반환한다.
+
+WKT 형태 또는 EWKT 형태가 문법이 잘못된 경우 에러를 출력한다.
+
+SRID를 입력하지 않으면 생성된 객체의 SRID는 0이다.
 
 ##### 반환 타입
 
@@ -3823,6 +3967,303 @@ EWKB(Extended Well-Known Binary) 형태로 공간 객체를 입력 받아 GEOMET
 
 ```
 GEOMETRY
+```
+
+#### ST_MAKEPOINT
+
+##### 구문
+
+```
+
+ST_MAKEPOINT( x, y )
+```
+
+##### 설명
+
+x, y 값을 입력 받아 POINT 공간 객체를 반환한다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_MAKEPOINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
+
+#### ST_POINT
+
+##### 구문
+
+```
+ST_POINT( x, y )
+```
+
+##### 설명
+
+ST_MAKEPOINT와 동일하다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_POINT( 1, 1 ) ) FROM DUAL;        
+ASTEXT(ST_POINT(1,1))                 
+--------------------------------------------
+POINT(1 1)                                
+1 row selected.
+
+```
+
+#### ST_MAKELINE
+
+##### 구문
+
+```
+ST_MAKELINE( GEOMETRY1, GEOMETRY2 )
+```
+
+##### 설명
+
+Point, MultiPoint, LineString 객체를 입력 받아 LineString 객체를 생성한다. 
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'POINT(1 1)', GEOMETRY'POINT(2 2)' ) ) AS GEOM FROM DUAL;
+GEOM                                                
+------------------------------------------------------
+LINESTRING(1 1, 2 2)                                
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_MAKELINE( GEOMETRY'LINESTRING(1 1, 2 2)', 
+    2 GEOMETRY'LINESTRING(3 3, 4 4)' ) ) AS GEOM
+    3 FROM DUAL;
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+LINESTRING(1 1, 2 2, 3 3, 4 4)                                                                                                                                                                                                                                    
+1 row selected.
+```
+
+#### ST_MAKEPOLYGON
+
+##### 구문
+
+```
+ST_MAKEPOLYGON( GEOMETRY )
+```
+
+##### 설명
+
+LineString 객체를 입력 받아 Polygon 객체를 생성한다. 이 때 LineString은 반드시 Ring 형태여야 한다. 
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOLYGON( GEOMETRY'LINESTRING( 0 0, 1 1, 1 0, 0 0 ) ' ) ) AS GEOM FROM DUAL; 
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+POLYGON((0 0, 1 1, 1 0, 0 0))                                                                                                                                                                                                                                     
+1 row selected.
+```
+
+#### ST_POLYGON
+
+##### 구문
+
+```
+ST_POLYGON( GEOMETRY, SRID )
+```
+
+##### 설명
+
+ST_MAKEPOLYGON과 유사하다. LineString과 SRID를 입력 받아 SRID를 갖는 Polygon 객체를 생성한다.  
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ST_ASEWKT( ST_POLYGON( GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 2 ) ', 4326 ) ) AS GEOM FROM DUAL;
+GEOM                                                                                                                                                                                                                                                              
+------------------------------------------------------
+SRID=4326;POLYGON((2 2, 3 2, 3 3, 2 3, 2 2))                                                                                                                                                                                                                      
+1 row selected.
+```
+
+#### ST_COLLECT
+
+##### 구문
+
+```
+ST_COLLECT( GEOMETRY1, GEOMETRY2 );
+```
+
+##### 설명
+
+Geometry 객체들을 입력 받아 GeometryCollection 객체를 생성한다. 이 때 input type이 동일하면 결과값은 Multi\*가 되고, 동일하지 않으면 GeometryCollection이 된다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'POINT( 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                                                              
+------------------------------------------------------------------------------------
+MULTIPOINT(1 1, 2 2)                                                              
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'LINESTRING( 1 1, 2 2 )', GEOMETRY'LINESTRING( 3 3, 4 4 )' ) ) AS GEOM FROM DUAL;
+GEOM                                                                              
+------------------------------------------------------------------------------------
+MULTILINESTRING((1 1, 2 2), (3 3, 4 4))                                           
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POLYGON( ( 0 0, 1 1, 1 0, 0 0 ) )', GEOMETRY'POLYGON( ( 10 10, 2 2, 2 0, 10 10 ) )' ) ) AS GEOM FROM DUAL;
+GEOM                                                                              
+------------------------------------------------------------------------------------
+MULTIPOLYGON(((0 0, 1 1, 1 0, 0 0)), ((10 10, 2 2, 2 0, 10 10)))                  
+1 row selected.
+ 
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'LINESTRING( 1 1, 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                                                              
+------------------------------------------------------------------------------------
+GEOMETRYCOLLECTION( POINT(1 1) , LINESTRING(1 1, 2 2) )                           
+1 row selected.
+```
+
+#### ST_MAKEENVELOPE
+
+##### 구문
+
+```
+ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
+```
+
+##### 설명
+
+입력한 Double 형 변수 4개에 해당하는 LINESTRING( X1 Y1, X2 Y2 )를 ENVELOPE 수행한 결과인 POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 )로 반환한다.
+SRID를 입력한 경우 생성된 공간 객체의 SRID로 설정된다. 만약 SRID를 입력하지 않은 경우 생성된 공간객체의 SRID는 0이다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 예제
+
+```
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138 ) ) AS POL FROM DUAL;
+POL
+----------------------------------------------------------------------------------------------------------------------------
+SRID=0;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138, 104 ) ) AS POL FROM DUAL;
+POL
+----------------------------------------------------------------------------------------------------------------------------
+SRID=104;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+```
+
+#### ST_TRANSFORM
+
+##### 구문
+
+```
+GEOMETRY ST_Transform( GEOMETRY, INTEGER to_srid );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, INTEGER to_srid );
+```
+
+##### 설명
+
+GEOMETRY 객체가 입력된 좌표계로 변환되어 새롭게 생성된다.
+입출력 좌표계는 SRID 또는 PROJ4TEXT 문자열로 입력될 수 있다.
+
+##### 반환 타입
+
+```
+GEOMETRY
+```
+
+##### 제약 조건
+
+이 함수는 Intel 환경의 Linux 운영체제에서만 사용할 수 있다.
+
+입력된 인자가 하나라도 NULL인 경우, NULL을 반환한다.
+
+입력된 GEOMETRY 객체가 EMPTY인 경우, EMPTY GEOMETRY 객체를 반환한다.
+
+입출력 SRID가 동일한 경우, 반환된 GEOMETRY 객체는 입력된 GEOMETRY 객체와 동일하다.
+
+입출력 좌표계로 SRID가 입력된 경우, SPATIAL_REF_SYS 테이블에 해당하는 SRID의 Spatial Reference System 메타 데이터가 존재해야 한다.
+
+PROJ4TEXT 문법은 PROJ 라이브러리 버전 4 형식만 지원한다.
+
+출력 좌표계가 PROJ4TEXT인 경우, 반환된 GEOMETRY 객체의 SRID는 0으로 설정된다.
+
+입력 좌표계가  PROJ4TEXT이며 입력된 GEOMETRY 객체의 SRID가 0인 경우, 반환된 GEOMETRY 객체의 SRID는 0으로 설정된다.
+
+##### 예제
+
+```
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), 4326 )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=4326;POINT(127.0246 37.5326)                                                                                                                                                                                                                                 
+1 row selected.
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+1 row selected.
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+1 row selected.
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', 4326 )) as geometry;
+GEOMETRY                                                                                                                                                                                                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+1 row selected.
 ```
 
 ### Dimensionally Extended Nine Intersection Model(DE－9IM) 

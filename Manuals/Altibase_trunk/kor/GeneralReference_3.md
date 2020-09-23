@@ -2873,6 +2873,7 @@ REPLICATION_NAME 값과 동일하다.
 | MT_SCALE             | INTEGER       | 소수 자릿수                                                  |
 | MT_ENCRYPT_PRECISION | INTEGER       | 암호화 칼럼 정밀도                                           |
 | MT_POLICY_NAME       | VARCHAR(16)   | 암호화 칼럼에 사용된 정책의 이름                             |
+| MT_SRID              | INTEGER       | GEOMETRY 칼럼에 적용된 SRID                                  |
 | SM_ID                | INTEGER       | 칼럼 식별자                                                  |
 | SM_FLAG              | INTEGER       | 내부 플래그                                                  |
 | SM_OFFSET            | INTEGER       | 내부 오프셋                                                  |
@@ -2927,6 +2928,10 @@ Altibase 서버가 사용하는 내부 플래그이다.
 ##### MT_POLICY_NAME
 
 암호화된 칼럼의 경우, 칼럼에 적용된 보안 정책의 이름을 나타낸다.
+
+##### MT_SRID
+
+GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
 
 ##### SM_ID
 
@@ -3319,6 +3324,7 @@ SYS_TABLES\_ 메타 테이블에는 테이블 외에 시퀀스, 뷰 정보 등�
 - G: 글로벌 인덱스를 위해 내부적으로 사용되는 테이블
 - D: 압축 칼럼의 데이터를 실제로 저장하기 위해 내부적으로 사용되는 딕셔너리
   테이블
+- R: 삭제(Drop)되어 휴지통에서 관리되고 있는 테이블
 
 ##### REPLICATION_COUNT
 

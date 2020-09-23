@@ -1782,13 +1782,13 @@ QUERY가 적용된 경우 실행 계획에 출력된다.
 
 명시한 테이블에 대해 테이블 전체 스캔을 수행할 것을 지시하는 힌트이다.
 
-![full scan](media/SQL/full scan.gif)
+![full scan](media/SQL/full%20scan.gif)
 
 #### GROUP BUCKET COUNT
 
 GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![group bucket count](media/SQL/group bucket count.gif)
+![group bucket count](media/SQL/group%20bucket%20count.gif)
 
 #### GROUP_HASH
 
@@ -1814,7 +1814,7 @@ GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하
 
 HASH와 DISTINCT 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![hash bucket count](media/SQL/hash bucket count.gif)
+![hash bucket count](media/SQL/hash%20bucket%20count.gif)
 
 #### HASH_SJ
 
@@ -1859,7 +1859,7 @@ INDEX ASC힌트와 같은 동작을 한다.
 명시된 인덱스를 사용하여 해당 테이블에 대해서 인덱스 스캔을 수행하되, 내림
 차순으로 탐색한다.
 
-![index desc](media/SQL/index desc.gif)
+![index desc](media/SQL/index%20desc.gif)
 
 #### INDEX_DESC
 
@@ -1956,7 +1956,7 @@ CNF힌트와 같은 동작을 한다.
 명시된 인덱스를 사용해서 해당 테이블에 대한 인덱스 스캔을 수행하지 않도록
 지시하는 힌트이다.
 
-![no index](media/SQL/no index.gif)
+![no index](media/SQL/no%20index.gif)
 
 #### NO_INDEX
 
@@ -6084,7 +6084,7 @@ R-Tree 인덱스를 생성하도록 지시한다. 이는 다차원 데이터 처
 - INITRANS 절  
   TTS(Touched Transaction Slot)의 초기 개수를 지정한다. 기본값은 8개이다.
 - MAXTRANS 절  
-  TTS의 최대 개수를 지정한다. 기본값은 30개이다.
+  TTS의 최대 개수를 지정한다. 기본값은 50개이다.
 
 *TABLESPACE 절*
 

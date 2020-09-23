@@ -76,6 +76,7 @@
     - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
     - [V\$SYSTEM_EVENT](#vsystem_event)
     - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
+    - [V\$SYS_LICENSE_](#vsys_license_)
     - [V\$TABLE](#vtable)
     - [V\$TABLESPACES](#vtablespaces)
     - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
@@ -4724,6 +4725,148 @@ from
 order by 5 desc;
 ```
 
+
+### <a name="vsys_license_"><a/>V\$SYS_LICENSE_
+
+라이선스 관련 정보를 기록하고 있는 메타 테이블이다.
+
+| Column name               | Type         | Description                               |
+| :------------------------ | :----------- | :---------------------------------------- |
+| START_DATE                | VARCHAR(16 ) | 해당 라이선스키를 사용한 최초의 검사일자  |
+| VALID_YN                  | VARCHAR(2 )  | valid라이선스 여부                        |
+| LICENSE_KEY               | VARCHAR(128) | 해당 라이선스키                           |
+| ISSUED_DATE               | VARCHAR(16 ) | 라이선스키 발급일자                       |
+| TYPE                      | VARCHAR(32 ) | Standard/Enterprise/Trial                 |
+| EXPIRE_DATE               | VARCHAR(16 ) | 만료일자                                  |
+| LICENSED_PRODUCT_VERSION  | VARCHAR(8 )  | MAJOR.MINOR 형식의 버전                   |
+| LICENSED_MAC_ADDRESS      | VARCHAR(32 ) | 허용된 맥주소                             |
+| LICENSED_HOST_NAME        | VARCHAR(32 ) | 허용된 호스트이름                         |
+| LICENSED_MEM_MAX_DB_SIZE  | VARCHAR(32 ) | 최대 메모리DB크기                         |
+| LICENSED_DISK_MAX_DB_SIZE | VARCHAR(32 ) | 최대 디스크DB크기                         |
+| LICENSED_CORE_MAX_COUNT   | VARCHAR(16 ) | 허용된 코어갯수                           |
+| CHECKED_MAC_ADDRESS       | VARCHAR(128) | 기동시 현재 시스템의 맥주소(들)           |
+| CHECKED_HOST_NAME         | VARCHAR(128) | 기동시 현재 시스템의 호스트이름           |
+| CHECKED_MEM_MAX_DB_SIZE   | VARCHAR(32 ) | altibase인스톨시 입력한 최대 메모리DB크기 |
+| CHECKED_CORE_MAX_COUNT    | VARCHAR(16 ) | 현재 시스템의 (물리)코어 갯수             |
+
+
+
+#### 칼럼정보
+
+##### START_DATE
+
+라이선스키를 사용한 최초의 검사일자를 저장한다.
+
+##### VALID_YN
+
+라이선스키가 유효한 것인가를 표시한다. 라이선스키가 유효하지 않으면 고객지원이 안된나 사용할 수는 있다.
+
+  \* Y: 유효함.
+
+  \* N: 유효하지 않음
+
+##### LICENSE_KEY
+
+라이선스키를 저장한다. 만약 없을 경우는 -로 저장된다.
+
+##### ISSUED_DATE
+
+라이선스키를 발급받은 일자가 저장된다. 
+
+##### TYPE
+
+라이선스의 타입을 저장한다.  Standard/Enterprise/Trial 중 하나가 저장된다. 만약 없을 경우는 -로 저장된다.
+
+
+##### EXPIRE_DATE
+
+라이선스 만료일자가 저장된다. 만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_PRODUCT_VERSIO
+
+버전정보가 MAJOR.MINOR형식으로 저장된다.만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_MAC_ADDRES
+
+라이선스를 받은 하드웨어주소가 저장된다. 만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_HOST_NAME
+
+라이선스를 받은 호스트이름이 저장된다.만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_MEM_MAX_DB_SIZE
+
+라이선스를 받은 메모리DB의 최대크기가 저장된다. 단위는 바이트이다. 만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_DISK_MAX_DB_SIZE
+
+ 디스크DB의 최대 크기를 저장한다. 단위는 바이트이다. 만약 없을 경우는 -로 저장된다. (현재는 사용되지는 않는다.)
+
+##### LICENSED_CORE_MAX_COUNT
+
+라이선스를 받은 사용가능한 최대코어갯수가 저장된다. 이 값보다 더 많은 코어갯수가 있는 장비에서 기동시에는 전체코어갯수들 중 라이선스를 받은 코어갯수까지만 사용된다.
+
+만약 없을 경우는 -로 저장된다.
+
+##### CHECKED_MAC_ADDRESS
+
+현재 시스템에 있는 하드웨어 주소들을 저장한다. 갯수가 댜수일때는 128바이트의 한도내에서 저장된다.
+
+##### CHECKED_HOST_NAME
+
+현재 시스템의 호스트 이름이 저장된다.
+
+##### CHECKED_MEM_MAX_DB_SIZE
+
+인스톨시 인스톨러에서 입력한 MEM_MAX_DB_SIZE 프로퍼티값이다. 단위는 바이트이다.
+
+만약, 인스톨 이후에 곧바로 기동하지 않고 MEM_MAX_DB_SIZE프로퍼티를 변경한 후에 DB를 기동했다면 변경된 프로퍼티 값으로 저장된다.
+
+##### CHECKED_MAX_CORE_COUNT
+
+현재 시스템에 있는 코어갯수를 저장한다.
+
+
+
+#### 예제
+
+오용을 방지하기 위하여 일부정보는 *표로 처리하였다.
+
+```
+
+iSQL> select * from system_.sys_license_;
+START_DATE VALID_YN
+\-------------------------------
+LICENSE_KEY
+\------------------------------------------------------------------------------------------------------------------------------------
+ISSUED_DATE TYPE EXPIRE_DATE
+\--------------------------------------------------------------------------
+LICENSED_PRODUCT_VERSION LICENSED_MAC_ADDRESS
+\---------------------------------------------------------------
+LICENSED_HOST_NAME LICENSED_MEM_MAX_DB_SIZE
+\-----------------------------------------------------------------------
+LICENSED_DISK_MAX_DB_SIZE LICENSED_CORE_MAX_COUNT
+\--------------------------------------------------------------
+CHECKED_MAC_ADDRESS
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_HOST_NAME
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_MEM_MAX_DB_SIZE CHECKED_MAX_CORE_COUNT
+\-------------------------------------------------------------
+2020-5-18 Y
+74BCF6CD6DE71B2341B79E4A05E327765E59C2529673CBD52CFAE779753E33A9E4FB7A746291420F3D775D0F0664B1EA6243CC*
+2020-5-18 STANDARDEDITION 2020-10-10
+7.1 -
+bdw-ex-altibase 107374182400
+107374182400 192
+[A0:36:9F:18:DA:*][02:42:FE:4F:1A:*][52:54:00:64:F0:*][A0:36:9F:18:DA:*]
+bdw-ex-altibase
+10737418240 96
+1 row selected.
+```
+
+
+
 ### <a name="vtable"><a/>V\$TABLE
 
 성능 뷰 리스트를 보여준다.
@@ -5081,6 +5224,11 @@ alter system set rp_conflict_msglog_flag=4
 | RESOURCE_GROUP_ID            | INTEGER     | 로그 파일 그룹(LFG)의 식별자 |
 | LEGACY_TRANS_COUNT           | INTEGER     | 내부 용도                    |
 | ISOLATION_LEVEL              | INTEGER     | 아래 참조                    |
+| PROCESSED_UNDO_TIME          | INTEGER     | 아래 참조                    |
+| ESTIMATED_TOTAL_UNDO_TIME    | INTEGER     | 아래 참조                    |
+| TOTAL_LOG_COUNT              | BIGINT      | 아래 참조                    |
+| TOTAL_UNDO_LOG_COUNT         | BIGINT      | 아래 참조                    |
+| PROCESSED_UNDO_LOG_COUNT     | BIGINT      | 아래 참조                    |
 
 #### 칼럼 정보
 
@@ -5231,6 +5379,26 @@ SCN을 가진다. 이 항목은 현재 해당 트랜잭션에서 메모리 테�
 -   1: REPEATABLE READ
 
 -   2: SERIALIZABLE
+
+##### PROCESSED_UNDO_TIME
+
+해당 트랜잭션의 UNDO 시작 시점부터 현재까지 UNDO 진행된 시간 ( 단위: 초 )
+
+##### ESTIMATED_TOTAL_UNDO_TIME
+
+해당 트랜잭션의 UNDO완료 될 때까지 추정되는 총 소요 시간 ( 단위: 초 )
+
+##### TOTAL_LOG_COUNT
+
+해당 트랜잭션의 총 로그 개수
+
+##### TOTAL_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 앞으로 UNDO 해야 할 총 로그 개수 
+
+##### PROCESSED_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 현재까지 언두 완료된 로그 개수 
 
 ### <a name="vtransaction_mgr"><a/>V\$TRANSACTION_MGR
 

@@ -4,7 +4,7 @@
 
 - [Altibase 7.1.0.2.8 Patch Notes](#altibase-71028-patch-notes)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-47149  Sender에서 conflict를 포함한 트랜잭션 abort가 발생한 순간, 사용자가 V$REPRECEIVER_TRANSTBL 를 조회하면 서버가 비정상 종료할 수 있습니다.](#bug-47149-sender%EC%97%90%EC%84%9C-conflict%EB%A5%BC-%ED%8F%AC%ED%95%A8%ED%95%9C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-abort%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%9C-%EC%88%9C%EA%B0%84-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-vrepreceiver_transtbl-%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%98%EB%A9%B4-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47149  Standby server에서 conflict를 포함한 트랜잭션 abort가 발생한 순간, 사용자가 V$REPRECEIVER_TRANSTBL 를 조회하면 서버가 비정상 종료할 수 있습니다.](#bug-47149-sender%EC%97%90%EC%84%9C-conflict%EB%A5%BC-%ED%8F%AC%ED%95%A8%ED%95%9C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-abort%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%9C-%EC%88%9C%EA%B0%84-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-vrepreceiver_transtbl-%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%98%EB%A9%B4-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-47155  sender가 updateXSN()을 호출할 때, sender의 mXSN보다 업데이트 할 SN값이 크다면, update을 수행하지 않습니다.](#bug-47155-sender%EA%B0%80-updatexsn%EC%9D%84-%ED%98%B8%EC%B6%9C%ED%95%A0-%EB%95%8C-sender%EC%9D%98-mxsn%EB%B3%B4%EB%8B%A4-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%ED%95%A0-sn%EA%B0%92%EC%9D%B4-%ED%81%AC%EB%8B%A4%EB%A9%B4-update%EC%9D%84-%EC%88%98%ED%96%89%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-47306  이중화가 여러개 구성되어있는 경우 온라인 DDL 수행시 DDL이 실패하는 문제 수정](#bug-47306-%EC%9D%B4%EC%A4%91%ED%99%94%EA%B0%80-%EC%97%AC%EB%9F%AC%EA%B0%9C-%EA%B5%AC%EC%84%B1%EB%90%98%EC%96%B4%EC%9E%88%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EC%98%A8%EB%9D%BC%EC%9D%B8-ddl-%EC%88%98%ED%96%89%EC%8B%9C-ddl%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%98%EB%8A%94-%EB%AC%B8%EC%A0%9C-%EC%88%98%EC%A0%95)
     - [BUG-47325  조회 결과 출력시 개행문자로 인해 잘못된 위치에서 줄바꿈을 합니다](#bug-47325-%EC%A1%B0%ED%9A%8C-%EA%B2%B0%EA%B3%BC-%EC%B6%9C%EB%A0%A5%EC%8B%9C-%EA%B0%9C%ED%96%89%EB%AC%B8%EC%9E%90%EB%A1%9C-%EC%9D%B8%ED%95%B4-%EC%9E%98%EB%AA%BB%EB%90%9C-%EC%9C%84%EC%B9%98%EC%97%90%EC%84%9C-%EC%A4%84%EB%B0%94%EA%BF%88%EC%9D%84-%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -26,7 +26,7 @@ Altibase 7.1.0.2.8 Patch Notes
 Fixed Bugs
 ----------
 
-### BUG-47149  Sender에서 conflict를 포함한 트랜잭션 abort가 발생한 순간, 사용자가 V$REPRECEIVER_TRANSTBL 를 조회하면 서버가 비정상 종료할 수 있습니다.
+### BUG-47149  Standby Server에서 conflict를 포함한 트랜잭션 abort가 발생한 순간, 사용자가 V$REPRECEIVER_TRANSTBL 를 조회하면 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : rp
 

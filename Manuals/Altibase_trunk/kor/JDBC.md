@@ -29,6 +29,7 @@
     - [JDBC 로깅](#jdbc-%EB%A1%9C%EA%B9%85)
     - [Hibernate](#hibernate)
     - [Sharding](#sharding)
+    - [SQL Plan](#sql-plan)
   - [4.Tips & Recommendation](#4tips--recommendation)
     - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
   - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
@@ -702,6 +703,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
 | 설명      | KeyStore의 경로를 지정한다. <br />KeyStore는 개인 인증서와 공개 인증서를 가지고 있다. |
+
+##### loadbalance
+
+| 기본값    | off                    |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [ on \| off ]                                                |
+| 필수 여부 | No                                                           |
+| 설정 범위 |                                                              |
+| 설명      | 이 값이 on 인 경우에, 최초 접속시 접속가능 서버중 랜덤으로 접속시도한다. 그리고, session time failover시에는 접속되어있었던 서버에 먼저 접속 시도, 그 후 기존 접속 서버는 제외하고, 랜덤으로 접속시도 한다. |
 
 ##### lob_cache_threshold
 
@@ -1656,7 +1666,7 @@ do{
             }
         }
     }
-}while(stmt.getMoreResults());
+}while(sCallStmt.getMoreResults());
 sCallStmt.close();
 ```
 
@@ -3503,6 +3513,36 @@ AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)�
 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
 (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
+#### Lob 관련 속성
+Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이 
+null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null이더라도 Lob관련 객체가
+리턴되었기 때문에 다음 JDBC연결 속성을 통해 제어가 가능하다.
+
+##### lob_null_select
+| 기본값    | off                                                           |
+|----------|---------------------------------------------------------------|
+| 값의 범위 | [on \| off ]                                                 |
+| 필수 여부 | No                                                            |
+| 설정 범위 | 세션                                                           |
+| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  | 
+##### 예제 
+lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다.
+```
+Blob sBlob = sRs.getBlob();
+if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
+{
+   long sLength = sBlob.length();  
+   System.out.println("blob length===>" + sLength);
+}
+...
+Clob sClob = sRs.getClob();
+if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
+{
+   long sLength = sClob.length();  
+   System.out.println("clob length===>" + sLength);
+}
+```
+
 ### Sharding
 #### Properties
 jdbc sharding 기능을 위해 다음 속성들이 추가되었다.
@@ -3772,6 +3812,40 @@ FailoverSample.java의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER)
   * javax.sql.XADataSource
       * getXAConnection()
       * getXAConnection(String user, String password)
+
+### SQL Plan
+
+SQL 실행 계획을 문자열로 가져오는 기능을 비표준 API로 제공한다. 실행 계획은 Altibase가 명령문을 실행하기 위해 수행하는 작업의 순서를 나타낸다. Option에는 ON, OFF, 또는 ONLY가 올 수 있으며 기본 설정값은 OFF이다.
+
+#### 사용법
+
+실행 계획을 가져오기 위해서는 SQL 문을 수행하기 전에 AltibaseConnection 객체의 setExplainPlan(byte aExplainPlanMode) 메소드를 호출해, 어떤 내용의 실행 계획을 가져올지 지정해야 한다. 지정 가능한 aExplainPlanMode 옵션은 아래 표에 기술되어 있다. AltibaseStatement 객체에 SQL 문을 입력 후, getExplainPlan() 메서드를 호출하여 문자열 행태의 실행 계획을 반환 받을 수 있다.
+
+#### 인자
+
+|                 속성                 | 속성값 |                             내용                             |
+| :----------------------------------: | :----: | :----------------------------------------------------------: |
+| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | SELECT 문 실행 후 Plan Tree 정보는 보여주지 않고 결과 레코드만 보여준다. |
+|  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | SELECT 문 실행 후 결과 레코드와 함께 Plan Tree의 정보를 보여준다. Plan tree에는 레코드 접근 횟수 및 튜플이 점유한 메모리 양, 비용 등이 출력된다. |
+| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | SELECT 문 실행 후 결과 레코드와 함께 Plan Tree의 정보를 보여준다. EXPLAN PLAN = ONLY인 경우 질의 실행 없이 실행 계획만 생성하므로, ACCESS 항목과 같이 실제 실행 후 그 값이 결정되는 항목들은 물음표(“??”)로 표시된다. |
+
+#### 코드 예제
+
+```
+AltibaseConnection sConn = (AltibaseConnection)DriverManager.getConnection(sURL, sProps);
+sConn.setExplainPlan(AltibaseConnection.EXPLAIN_PLAN_ONLY);
+AltibaseStatement  sStmt = (AltibaseStatement)sConn.prepareStatement("SELECT sysdate FROM dual");
+System.out.println(sStmt.getExplainPlan());
+```
+
+#### 코드 결과
+
+```
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
+ SCAN ( TABLE: DUAL, FULL SCAN, ACCESS: ??, COST: 0.01 )
+------------------------------------------------------------
+```
 
 4.Tips & Recommendation
 ---------------------

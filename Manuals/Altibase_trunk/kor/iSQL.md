@@ -853,7 +853,28 @@ IPCDA_FILEPATH 환경 변수 또는 iSQL 옵션인 –IPCDA -FILEPATH를 서버�
 이 환경 변수는 Asia/Seoul과 같은 타임 존의 이름이나 KST 같은 약어를 사용해서
 설정할 수 있다. 또는 +09:00 같은 UTC 오프셋 값을 사용해서 설정할 수도 있다.
 
+#### ALTIBASE_UT_FILE_PERMISSION
 
+aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공통 환경변수이다.  
+
+값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ALTIBASE_UT_FILE_PERMISSION=600
+
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
+
+예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다.
+ aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+
+#### ISQL_FILE_PERMISSION
+
+iSQL이 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ISQL_FILE_PERMISSION=600
 
 ### 개인별 iSQL 환경 설정
 
@@ -3449,7 +3470,7 @@ NCHAR 및 NVARCHAR 타입의 내셔널 캐릭터 상수 문자를 사용하기 �
   $ export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE =1
   ```
 
-  ​   
+     
 
 - SQL 구문에서 NCHAR 타입 상수 문자열을 사용하기 위해 해당 문자열 바로 앞에
   “N”을 붙여 사용한다.

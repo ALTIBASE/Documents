@@ -1279,7 +1279,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 3]
+[0, 2]
 
 ##### 설명
 
@@ -2041,57 +2041,10 @@ Unsigned Integer
 
 이중화 대상 테이블에 사용할 수 있는 DDL 구문의 범위를 결정한다. 이 프로퍼티를
 사용하려면 먼저 REPLICATION_DDL_ENABLE 프로퍼티의 값을 1로 설정해야 한다.
-REPLICATION_DDL_ENABLE_LEVEL 값에 따라 허용되는 DDL 구문은 아래와 같다.
+REPLICATION_DDL_ENABLE_LEVEL 값에 따라 허용되는 DDL 구문은
+ *Replication Manual*을 참조한다.
 
-- REPLICATION_DDL_ENABLE_LEVEL = 0
-
-ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
-
-ALTER TABLE table_name DROP COLUMN column_name;
-
-ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT
-
-ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT
-
-ALTER TABLE table_name TRUNCATE PARTITION
-
-TRUNCATE TABLE table_name;
-
-CREATE INDEX index_name ON table_name ( column_name );
-
-DROP INDEX index_name; -- for Normal Index
-
-- REPLICATION_DDL_ENABLE_LEVEL = 1
-
-ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
-
-ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
-
-ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
-
-ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
-
-ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
-
-ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
-
-ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
-
-ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique,
-function-base index 가 있는 컬럼도 삭제 가능)
-
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
-
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name )
-LOCAL;
-
-ALTER TABLE table_name DROP CONSTRAINT constraint_name; ( Unique, Local Unique )
-
-CREATE UNIQUE INDEX index_name ON table_name ( column_name );
-
-CREATE INDEX index_name ON table_name ( expression );
-
-DROP INDEX index_name; ( unique, function-base 인덱스도 삭제 가능 )
+Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
 #### REPLICATION_DDL_SYNC
 
@@ -3424,6 +3377,33 @@ Unsigned Integer
 이중화 작업중 변경작업 충돌(update conflict) 시 변경된 내용의 반영을 결정한다.
 값이 0 이면 충돌이 있을 경우 반영하지 않고 오류 처리하며, 1 일 경우 충돌을
 무시하고 반영한다.
+
+Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Lazy 모드로 이중화 수행 과정에서 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을 
+수행하여 Active 서버와 Standby 서버의 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에 이중화를 
+START 할 수 있는 프로퍼티이다.
+이 값을 1로 설정하면 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에도 이중화를 START 할 수 있다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 

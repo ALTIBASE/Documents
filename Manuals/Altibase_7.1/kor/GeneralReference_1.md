@@ -5164,6 +5164,8 @@ Unsigned Integer
 
 Spin 모드에서 데드락을 검출하는 간격을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_MAX_SLEEP (단위 : 마이크로 초)
 
 데이터 타입
@@ -5186,6 +5188,8 @@ Unsigned Integer
 
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 최대 시간을 명시한다.
+
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
 
 #### LOCK_MGR_MIN_SLEEP (단위 : 마이크로 초)
 
@@ -5210,6 +5214,8 @@ Unsigned Integer
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 시간을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_SPIN_COUNT (단위: 회수)
 
 ##### 데이터 타입
@@ -5232,6 +5238,8 @@ Unsigned Integer
 
 Spin 모드에서 Lock 획득에 실패했을 경우 재시도 회수를 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_TYPE 
 
 ##### 데이터 타입
@@ -5248,7 +5256,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 1]
+[0, 2]
 
 ##### 설명
 
@@ -5256,7 +5264,9 @@ Unsigned Integer
 
 0: Mutex 모드
 
-1: Spin lock 모드
+1: Spin lock 모드 (deprecated, 7.1.0.3.2)
+
+2: light Mutex (added, 7.1.0.3.2)
 
 #### LOCK_NODE_CACHE_COUNT (단위 : 개수)
 
@@ -5846,6 +5856,11 @@ Unsigned Integer
 테이블이 DROP 구문으로 삭제된 경우 휴지통으로 버려지거나, 데이터베이스
 시스템에서 바로 삭제할 것인지를 설정할 수 있다. 기본값은 DROP 구문을 수행하면
 시스템에서 테이블이 제거된다.
+
+휴지통으로 버려진 테이블은 이름이 변경되어 저장된다.
+그리고 테이블 타입이 ‘R’ 타입으로 변경 되어
+일체 다른 DDL 및 INSERT/UPDATE/DELETE 등을 수행 할 수 없다.
+단 SELECT는 가능하다.
 
 휴지통에 테이블이 존재한다면 프로퍼티의 값을 0으로 변경하더라도 휴지통의
 테이블을 조회하거나 FLASHBACK 또는 PURGE 구문을 사용하여 복구 및 제거할 수 있다.
