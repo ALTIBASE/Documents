@@ -46,7 +46,8 @@ New Features
 
 - **변경사항**
 
-  -   Performance view
+  - Performance view
+
   - Property
     - altComp.cfg 파일에 프로퍼티 추가되었습니다.
 
@@ -62,9 +63,9 @@ New Features
 
       이 옵션은 대용량 테이블을 비교할 때, 부하를 많이 줄 수 있으므로 주의해서 사용해야 한다.
 
--   Compile Option
+  - Compile Option
 
--   Error Code
+  - Error Code
 
 ### BUG-48136 Altibase 7.1 Windows클라이언트 지원
 
