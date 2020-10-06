@@ -44,30 +44,26 @@ New Features
 
 -   **Workaround**
 
--   **변경사항**
+- **변경사항**
 
-    -   Performance view
-    -   Property
-        -   altComp.cfg 파일에 프로퍼티 추가되었습니다.
+  -   Performance view
+  - Property
+    - altComp.cfg 파일에 프로퍼티 추가되었습니다.
 
-            [LOG_EQ_MOSO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Utilities.md#log_eq_moso)
+      [LOG_EQ_MOSO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Utilities.md#log_eq_moso)
 
-            PK를 포함한 모든 컬럼의 값이 일치하는 MOSO 레코드 정보를
-실행 결과 파일에  기록할 지 결정하는 프로퍼티이다. 
-            
+      PK를 포함한 모든 컬럼의 값이 일치하는 MOSO 레코드 정보를
+      실행 결과 파일에  기록할 지 결정하는 프로퍼티이다. 
 
-프로퍼티 값은 “ON”, “OFF”를 가질 수 있으며, “ON”이면
-            기록하고, “OFF”이면 기록 하지 않는다. 프로퍼티를 지정하지 않으면 "OFF"로 동작한다.
-            
-            기록 형식은 MOSO[m,n]-\>EQ:PK-\>{PCOL\_V} 이다.
+      프로퍼티 값은 “ON”, “OFF”를 가질 수 있으며, “ON”이면 기록하고, “OFF”이면 기록 하지 않는다. 프로퍼티를 지정하지 않으면 "OFF"로 동작한다. 기록 형식은 MOSO[m,n]->EQ:PK->{PCOL_V} 이다.
 
--   m : Master Server의 레코드 순서
-             -   n : Slave Server의 레코드 순서
+      - m : Master Server의 레코드 순서
+      - n : Slave Server의 레코드 순서
 
-            이 옵션은 대용량 테이블을 비교할 때, 부하를 많이 줄 수
-            있으므로 주의해서 사용해야 한다.
-    
-    -   Compile Option
+      이 옵션은 대용량 테이블을 비교할 때, 부하를 많이 줄 수 있으므로 주의해서 사용해야 한다.
+
+-   Compile Option
+
 -   Error Code
 
 ### BUG-48136 Altibase 7.1 Windows클라이언트 지원
