@@ -2660,7 +2660,7 @@ B+-Tree는 인덱스의 최하위 레벨에 존재하는 리프 노드 (Leaf Nod
 
 R-Tree인덱스를 사용하여 대상 객체 검색시 Altibase는 다음의 과정을 수행한다.
 
-1.  각 공간 객체를 감싸는 최소 사각형인 MBR (Minimum Bounding Rectagle)을
+1.  각 공간 객체를 감싸는 최소 사각형인 MBR (Minimum Bounding Rectangle)을
     이용하여 일차로 조건 필터링 (Filtering)을 수행한다.
 
 2.  이 결과로 남은 객체에 대해 정확한 인덱스 검색 조건을 체크하는 리파인먼트
