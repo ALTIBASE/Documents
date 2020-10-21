@@ -19,7 +19,7 @@ Altibase 7.1.0.3.9 Patch Notes
 Fixed Bugs
 ----------
 
-### BUG-47836 LEFT OUTER JOIN 시 복합 인덱스가 사용되고 OR 절 predicate시 사용될 경우 결과가 틀릴수 있습니다.
+### BUG-47836  LEFT OUTER JOIN 시 복합 인덱스가 사용되고 OR 절 predicate시 사용될 경우 결과가 틀릴수 있습니다.
 
 -   **module** : qp
 
@@ -130,7 +130,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47846 sql 문자열이 32000자를 넘어갈 때 쿼리를 중복 실행하는 경우 encoding 에러가 발생할 수 있습니다.
+### BUG-47846  sql 문자열이 32000자를 넘어갈 때 쿼리를 중복 실행하는 경우 encoding 에러가 발생할 수 있습니다.
 
 -   **module** : mm-jdbc
 
