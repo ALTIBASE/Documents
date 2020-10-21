@@ -4,19 +4,19 @@
 
 - [Altibase 7.1.0.4.4 Patch Notes](#altibase-71044-patch-notes)
   - [New Features](#new-features)
-    - [BUG-47652 iSQL, aexport, iLoader로 생성되는 파일에 대한 접근 권한 제어가 필요합니다](#bug-47652isql-aexport-iloader%EB%A1%9C-%EC%83%9D%EC%84%B1%EB%90%98%EB%8A%94-%ED%8C%8C%EC%9D%BC%EC%97%90-%EB%8C%80%ED%95%9C-%EC%A0%91%EA%B7%BC-%EA%B6%8C%ED%95%9C-%EC%A0%9C%EC%96%B4%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47652  iSQL, aexport, iLoader로 생성되는 파일에 대한 접근 권한 제어가 필요합니다](#bug-47652-isql-aexport-iloader%EB%A1%9C-%EC%83%9D%EC%84%B1%EB%90%98%EB%8A%94-%ED%8C%8C%EC%9D%BC%EC%97%90-%EB%8C%80%ED%95%9C-%EC%A0%91%EA%B7%BC-%EA%B6%8C%ED%95%9C-%EC%A0%9C%EC%96%B4%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-47902 이중화가 sql apply 모드로 수행 중일때 item 갯수가 같으나 table 구성이 다를 경우 이중화 start가 실패 할수 있습니다.](#bug-47902%EC%9D%B4%EC%A4%91%ED%99%94%EA%B0%80-sql-apply-%EB%AA%A8%EB%93%9C%EB%A1%9C-%EC%88%98%ED%96%89-%EC%A4%91%EC%9D%BC%EB%95%8C-item-%EA%B0%AF%EC%88%98%EA%B0%80-%EA%B0%99%EC%9C%BC%EB%82%98-table-%EA%B5%AC%EC%84%B1%EC%9D%B4-%EB%8B%A4%EB%A5%BC-%EA%B2%BD%EC%9A%B0-%EC%9D%B4%EC%A4%91%ED%99%94-start%EA%B0%80-%EC%8B%A4%ED%8C%A8-%ED%95%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-48066 DDL SYNC를 1로 하고 LOCK TABLE을 한 상태에서 DDL을 수행할 경우 DeadLock이 발생합니다.](#bug-48066ddl-sync%EB%A5%BC-1%EB%A1%9C-%ED%95%98%EA%B3%A0-lock-table%EC%9D%84-%ED%95%9C-%EC%83%81%ED%83%9C%EC%97%90%EC%84%9C-ddl%EC%9D%84-%EC%88%98%ED%96%89%ED%95%A0-%EA%B2%BD%EC%9A%B0-deadlock%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48069 GEOMETRY 컬럼이 포함된 테이블을 이중화 start한 후 이중화 stop, start를 다시 하면 start가 실패합니다.](#bug-48069geometry-%EC%BB%AC%EB%9F%BC%EC%9D%B4-%ED%8F%AC%ED%95%A8%EB%90%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EC%9D%B4%EC%A4%91%ED%99%94-start%ED%95%9C-%ED%9B%84-%EC%9D%B4%EC%A4%91%ED%99%94-stop-start%EB%A5%BC-%EB%8B%A4%EC%8B%9C-%ED%95%98%EB%A9%B4-start%EA%B0%80-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48076 disk table에 with 구문 사용 시 or 절과 결합된 constant predicate가 존재할 경우 결과 오류](#bug-48076disk-table%EC%97%90-with-%EA%B5%AC%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EC%8B%9C-or-%EC%A0%88%EA%B3%BC-%EA%B2%B0%ED%95%A9%EB%90%9C-constant-predicate%EA%B0%80-%EC%A1%B4%EC%9E%AC%ED%95%A0-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98)
-    - [BUG-48091 사용자 psm에서 메타를 사용하는 경우 meta upgrade가 실패합니다.](#bug-48091%EC%82%AC%EC%9A%A9%EC%9E%90-psm%EC%97%90%EC%84%9C-%EB%A9%94%ED%83%80%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-meta-upgrade%EA%B0%80-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48096 altibase\_cli.ini.sample 이 패키지에 누락되어 있어서 추가합니다.](#bug-48096altibase%5C_cliinisample-%EC%9D%B4-%ED%8C%A8%ED%82%A4%EC%A7%80%EC%97%90-%EB%88%84%EB%9D%BD%EB%90%98%EC%96%B4-%EC%9E%88%EC%96%B4%EC%84%9C-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48101 distinct sort에 중복된 target을 사용하는 경우 결과 오류가 발생합니다.](#bug-48101distinct-sort%EC%97%90-%EC%A4%91%EB%B3%B5%EB%90%9C-target%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48113 DATE 변환시 malloc free 제거](#bug-48113date-%EB%B3%80%ED%99%98%EC%8B%9C-malloc-free-%EC%A0%9C%EA%B1%B0)
-    - [BUG-48116 recursive with 구문의 view가 재시작 할경우 조건에 따라 비정상 종료할 수 있습니다.](#bug-48116recursive-with-%EA%B5%AC%EB%AC%B8%EC%9D%98-view%EA%B0%80-%EC%9E%AC%EC%8B%9C%EC%9E%91-%ED%95%A0%EA%B2%BD%EC%9A%B0-%EC%A1%B0%EA%B1%B4%EC%97%90-%EB%94%B0%EB%9D%BC-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-48119 7.1.0.3.0 이상의 클라이언트에서 7.1.0.2.9 이하의 서버로 is, iloader 수행시, Incompatible property 에러 발생합니다.](#bug-4811971030-%EC%9D%B4%EC%83%81%EC%9D%98-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90%EC%84%9C-71029-%EC%9D%B4%ED%95%98%EC%9D%98-%EC%84%9C%EB%B2%84%EB%A1%9C-is-iloader-%EC%88%98%ED%96%89%EC%8B%9C-incompatible-property-%EC%97%90%EB%9F%AC-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48125 Merge 쿼리 동작시 Trigger가 있을 경우 간헐적으로 에러가 발생하거나 비정상 종료 할 수 있습니다.](#bug-48125merge-%EC%BF%BC%EB%A6%AC-%EB%8F%99%EC%9E%91%EC%8B%9C-trigger%EA%B0%80-%EC%9E%88%EC%9D%84-%EA%B2%BD%EC%9A%B0-%EA%B0%84%ED%97%90%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EA%B1%B0%EB%82%98-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47902  이중화가 sql apply 모드로 수행 중일때 item 갯수가 같으나 table 구성이 다를 경우 이중화 start가 실패 할수 있습니다.](#bug-47902-%EC%9D%B4%EC%A4%91%ED%99%94%EA%B0%80-sql-apply-%EB%AA%A8%EB%93%9C%EB%A1%9C-%EC%88%98%ED%96%89-%EC%A4%91%EC%9D%BC%EB%95%8C-item-%EA%B0%AF%EC%88%98%EA%B0%80-%EA%B0%99%EC%9C%BC%EB%82%98-table-%EA%B5%AC%EC%84%B1%EC%9D%B4-%EB%8B%A4%EB%A5%BC-%EA%B2%BD%EC%9A%B0-%EC%9D%B4%EC%A4%91%ED%99%94-start%EA%B0%80-%EC%8B%A4%ED%8C%A8-%ED%95%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-48066  DDL SYNC를 1로 하고 LOCK TABLE을 한 상태에서 DDL을 수행할 경우 DeadLock이 발생합니다.](#bug-48066-ddl-sync%EB%A5%BC-1%EB%A1%9C-%ED%95%98%EA%B3%A0-lock-table%EC%9D%84-%ED%95%9C-%EC%83%81%ED%83%9C%EC%97%90%EC%84%9C-ddl%EC%9D%84-%EC%88%98%ED%96%89%ED%95%A0-%EA%B2%BD%EC%9A%B0-deadlock%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48069  GEOMETRY 컬럼이 포함된 테이블을 이중화 start한 후 이중화 stop, start를 다시 하면 start가 실패합니다.](#bug-48069-geometry-%EC%BB%AC%EB%9F%BC%EC%9D%B4-%ED%8F%AC%ED%95%A8%EB%90%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EC%9D%B4%EC%A4%91%ED%99%94-start%ED%95%9C-%ED%9B%84-%EC%9D%B4%EC%A4%91%ED%99%94-stop-start%EB%A5%BC-%EB%8B%A4%EC%8B%9C-%ED%95%98%EB%A9%B4-start%EA%B0%80-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48076  disk table에 with 구문 사용 시 or 절과 결합된 constant predicate가 존재할 경우 결과 오류](#bug-48076-disk-table%EC%97%90-with-%EA%B5%AC%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EC%8B%9C-or-%EC%A0%88%EA%B3%BC-%EA%B2%B0%ED%95%A9%EB%90%9C-constant-predicate%EA%B0%80-%EC%A1%B4%EC%9E%AC%ED%95%A0-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98)
+    - [BUG-48091  사용자 psm에서 메타를 사용하는 경우 meta upgrade가 실패합니다.](#bug-48091-%EC%82%AC%EC%9A%A9%EC%9E%90-psm%EC%97%90%EC%84%9C-%EB%A9%94%ED%83%80%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-meta-upgrade%EA%B0%80-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48096  altibase\_cli.ini.sample 이 패키지에 누락되어 있어서 추가합니다.](#bug-48096-altibase%5C_cliinisample-%EC%9D%B4-%ED%8C%A8%ED%82%A4%EC%A7%80%EC%97%90-%EB%88%84%EB%9D%BD%EB%90%98%EC%96%B4-%EC%9E%88%EC%96%B4%EC%84%9C-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48101  distinct sort에 중복된 target을 사용하는 경우 결과 오류가 발생합니다.](#bug-48101-distinct-sort%EC%97%90-%EC%A4%91%EB%B3%B5%EB%90%9C-target%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48113  DATE 변환시 malloc free 제거](#bug-48113-date-%EB%B3%80%ED%99%98%EC%8B%9C-malloc-free-%EC%A0%9C%EA%B1%B0)
+    - [BUG-48116  recursive with 구문의 view가 재시작 할경우 조건에 따라 비정상 종료할 수 있습니다.](#bug-48116-recursive-with-%EA%B5%AC%EB%AC%B8%EC%9D%98-view%EA%B0%80-%EC%9E%AC%EC%8B%9C%EC%9E%91-%ED%95%A0%EA%B2%BD%EC%9A%B0-%EC%A1%B0%EA%B1%B4%EC%97%90-%EB%94%B0%EB%9D%BC-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-48119  7.1.0.3.0 이상의 클라이언트에서 7.1.0.2.9 이하의 서버로 is, iloader 수행시, Incompatible property 에러 발생합니다.](#bug-48119-71030-%EC%9D%B4%EC%83%81%EC%9D%98-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90%EC%84%9C-71029-%EC%9D%B4%ED%95%98%EC%9D%98-%EC%84%9C%EB%B2%84%EB%A1%9C-is-iloader-%EC%88%98%ED%96%89%EC%8B%9C-incompatible-property-%EC%97%90%EB%9F%AC-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48125  Merge 쿼리 동작시 Trigger가 있을 경우 간헐적으로 에러가 발생하거나 비정상 종료 할 수 있습니다.](#bug-48125-merge-%EC%BF%BC%EB%A6%AC-%EB%8F%99%EC%9E%91%EC%8B%9C-trigger%EA%B0%80-%EC%9E%88%EC%9D%84-%EA%B2%BD%EC%9A%B0-%EA%B0%84%ED%97%90%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EA%B1%B0%EB%82%98-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -31,7 +31,7 @@ Altibase 7.1.0.4.4 Patch Notes
 New Features
 ------------
 
-### BUG-47652 iSQL, aexport, iLoader로 생성되는 파일에 대한 접근 권한 제어가 필요합니다
+### BUG-47652  iSQL, aexport, iLoader로 생성되는 파일에 대한 접근 권한 제어가 필요합니다
 
 -   **module** : ux-isql
 
@@ -110,7 +110,7 @@ New Features
 Fixed Bugs
 ----------
 
-### BUG-47902 이중화가 sql apply 모드로 수행 중일때 item 갯수가 같으나 table 구성이 다를 경우 이중화 start가 실패 할수 있습니다.
+### BUG-47902  이중화가 sql apply 모드로 수행 중일때 item 갯수가 같으나 table 구성이 다를 경우 이중화 start가 실패 할수 있습니다.
 
 -   **module** : rp
 
@@ -141,7 +141,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48066 DDL SYNC를 1로 하고 LOCK TABLE을 한 상태에서 DDL을 수행할 경우 DeadLock이 발생합니다.
+### BUG-48066  DDL SYNC를 1로 하고 LOCK TABLE을 한 상태에서 DDL을 수행할 경우 DeadLock이 발생합니다.
 
 -   **module** : rp
 
@@ -193,7 +193,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48069 GEOMETRY 컬럼이 포함된 테이블을 이중화 start한 후 이중화 stop, start를 다시 하면 start가 실패합니다.
+### BUG-48069  GEOMETRY 컬럼이 포함된 테이블을 이중화 start한 후 이중화 stop, start를 다시 하면 start가 실패합니다.
 
 -   **module** : rp
 
@@ -237,7 +237,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48076 disk table에 with 구문 사용 시 or 절과 결합된 constant predicate가 존재할 경우 결과 오류
+### BUG-48076  disk table에 with 구문 사용 시 or 절과 결합된 constant predicate가 존재할 경우 결과 오류
 
 -   **module** : qp
 
@@ -332,7 +332,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48091 사용자 psm에서 메타를 사용하는 경우 meta upgrade가 실패합니다.
+### BUG-48091  사용자 psm에서 메타를 사용하는 경우 meta upgrade가 실패합니다.
 
 -   **module** : qp-meta
 
@@ -376,7 +376,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48096 altibase\_cli.ini.sample 이 패키지에 누락되어 있어서 추가합니다.
+### BUG-48096  altibase\_cli.ini.sample 이 패키지에 누락되어 있어서 추가합니다.
 
 -   **module** : pkg-map
 
@@ -403,7 +403,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48101 distinct sort에 중복된 target을 사용하는 경우 결과 오류가 발생합니다.
+### BUG-48101  distinct sort에 중복된 target을 사용하는 경우 결과 오류가 발생합니다.
 
 -   **module** : qp-select-pvo
 
@@ -464,7 +464,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48113 DATE 변환시 malloc free 제거
+### BUG-48113  DATE 변환시 malloc free 제거
 
 -   **module** : mt-function
 
@@ -490,7 +490,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48116 recursive with 구문의 view가 재시작 할경우 조건에 따라 비정상 종료할 수 있습니다.
+### BUG-48116  recursive with 구문의 view가 재시작 할경우 조건에 따라 비정상 종료할 수 있습니다.
 
 -   **module** : qp-dml-execute
 
@@ -580,7 +580,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48119 7.1.0.3.0 이상의 클라이언트에서 7.1.0.2.9 이하의 서버로 is, iloader 수행시, Incompatible property 에러 발생합니다.
+### BUG-48119  7.1.0.3.0 이상의 클라이언트에서 7.1.0.2.9 이하의 서버로 is, iloader 수행시, Incompatible property 에러 발생합니다.
 
 -   **module** : rp
 
@@ -606,7 +606,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48125 Merge 쿼리 동작시 Trigger가 있을 경우 간헐적으로 에러가 발생하거나 비정상 종료 할 수 있습니다.
+### BUG-48125  Merge 쿼리 동작시 Trigger가 있을 경우 간헐적으로 에러가 발생하거나 비정상 종료 할 수 있습니다.
 
 -   **module** : qp-psm-trigger-execute
 

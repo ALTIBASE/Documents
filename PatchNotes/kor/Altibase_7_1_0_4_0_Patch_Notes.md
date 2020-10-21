@@ -4,33 +4,33 @@
 
 - [Altibase 7.1.0.4.0 Patch Notes](#altibase-71040-patch-notes)
   - [New Features](#new-features)
-    - [BUG-47805 SRID(Spatial Reference IDentifier) interface 지원](#bug-47805sridspatial-reference-identifier-interface-%EC%A7%80%EC%9B%90)
-    - [BUG-47873 GEOMETRY 컬럼의 SRID 속성에 대해서 Replication  지원](#bug-47873geometry-%EC%BB%AC%EB%9F%BC%EC%9D%98-srid-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-replication--%EC%A7%80%EC%9B%90)
-    - [BUG-47816 ST_Transform 함수 지원](#bug-47816st_transform-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
-    - [BUG-47857 ST_MakePoint 함수 지원](#bug-47857st_makepoint-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
-    - [BUG-47883 ST_MakeLine 함수 지원](#bug-47883st_makeline-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
-    - [BUG-47919 ST_MakeEnvelope 함수에서 SRID 인자를 추가합니다.](#bug-47919st_makeenvelope-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-srid-%EC%9D%B8%EC%9E%90%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47966 ST_PolygonFromText 함수 지원](#bug-47966st_polygonfromtext-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
-    - [BUG-47974 sctTableSpaceMgr::mMutex 제거](#bug-47974scttablespacemgrmmutex-%EC%A0%9C%EA%B1%B0)
-    - [BUG-47963 altiComp에서 동일한 레코드들의 건수를 보여주는 기능 추가](#bug-47963alticomp%EC%97%90%EC%84%9C-%EB%8F%99%EC%9D%BC%ED%95%9C-%EB%A0%88%EC%BD%94%EB%93%9C%EB%93%A4%EC%9D%98-%EA%B1%B4%EC%88%98%EB%A5%BC-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
+    - [BUG-47805  SRID(Spatial Reference IDentifier) interface 지원](#bug-47805-sridspatial-reference-identifier-interface-%EC%A7%80%EC%9B%90)
+    - [BUG-47873  GEOMETRY 컬럼의 SRID 속성에 대해서 Replication  지원](#bug-47873-geometry-%EC%BB%AC%EB%9F%BC%EC%9D%98-srid-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-replication--%EC%A7%80%EC%9B%90)
+    - [BUG-47816  ST_Transform 함수 지원](#bug-47816-st_transform-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
+    - [BUG-47857  ST_MakePoint 함수 지원](#bug-47857-st_makepoint-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
+    - [BUG-47883  ST_MakeLine 함수 지원](#bug-47883-st_makeline-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
+    - [BUG-47919  ST_MakeEnvelope 함수에서 SRID 인자를 추가합니다.](#bug-47919-st_makeenvelope-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-srid-%EC%9D%B8%EC%9E%90%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47966  ST_PolygonFromText 함수 지원](#bug-47966-st_polygonfromtext-%ED%95%A8%EC%88%98-%EC%A7%80%EC%9B%90)
+    - [BUG-47974  sctTableSpaceMgr::mMutex 제거](#bug-47974-scttablespacemgrmmutex-%EC%A0%9C%EA%B1%B0)
+    - [BUG-47963  altiComp에서 동일한 레코드들의 건수를 보여주는 기능 추가](#bug-47963-alticomp%EC%97%90%EC%84%9C-%EB%8F%99%EC%9D%BC%ED%95%9C-%EB%A0%88%EC%BD%94%EB%93%9C%EB%93%A4%EC%9D%98-%EA%B1%B4%EC%88%98%EB%A5%BC-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-47786 Inverse Join으로 인해, subquery unnest 시 결과 오류가 발생할 수 있습니다.](#bug-47786inverse-join%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-subquery-unnest-%EC%8B%9C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47840 단순 Partition Insert시 Execution memory 최적화](#bug-47840%EB%8B%A8%EC%88%9C-partition-insert%EC%8B%9C-execution-memory-%EC%B5%9C%EC%A0%81%ED%99%94)
-    - [BUG-47868 APRE에서 Anonymous block 을 사용할 때, 내부적으로 변환되는 내장 SQL의 메모리 사이즈가 잘못 계산되고 있습니다.](#bug-47868apre%EC%97%90%EC%84%9C-anonymous-block-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EB%82%B4%EB%B6%80%EC%A0%81%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%EB%90%98%EB%8A%94-%EB%82%B4%EC%9E%A5-sql%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%82%AC%EC%9D%B4%EC%A6%88%EA%B0%80-%EC%9E%98%EB%AA%BB-%EA%B3%84%EC%82%B0%EB%90%98%EA%B3%A0-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47884 prepare시에 통계정보를 구성할 때 인덱스와 통계정보가 매칭되지 않습니다.](#bug-47884prepare%EC%8B%9C%EC%97%90-%ED%86%B5%EA%B3%84%EC%A0%95%EB%B3%B4%EB%A5%BC-%EA%B5%AC%EC%84%B1%ED%95%A0-%EB%95%8C-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%99%80-%ED%86%B5%EA%B3%84%EC%A0%95%EB%B3%B4%EA%B0%80-%EB%A7%A4%EC%B9%AD%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47889 altipasswd에서 암호 대소문자 구분이 필요합니다.](#bug-47889altipasswd%EC%97%90%EC%84%9C-%EC%95%94%ED%98%B8-%EB%8C%80%EC%86%8C%EB%AC%B8%EC%9E%90-%EA%B5%AC%EB%B6%84%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47900 이중화 update XSN 시 에러가 발생했을때 로그에 잘못된 SN값이 기록되고 있습니다.](#bug-47900%EC%9D%B4%EC%A4%91%ED%99%94-update-xsn-%EC%8B%9C-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%96%88%EC%9D%84%EB%95%8C-%EB%A1%9C%EA%B7%B8%EC%97%90-%EC%9E%98%EB%AA%BB%EB%90%9C-sn%EA%B0%92%EC%9D%B4-%EA%B8%B0%EB%A1%9D%EB%90%98%EA%B3%A0-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47901 이중화 sendStop 함수에서 timeout 이 발생하여도 timeout 처리가 되지 않습니다.](#bug-47901%EC%9D%B4%EC%A4%91%ED%99%94-sendstop-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-timeout-%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%98%EC%97%AC%EB%8F%84-timeout-%EC%B2%98%EB%A6%AC%EA%B0%80-%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47910 통계 수집되지 않은 테이블의 unique constraint가 통계에 일부 포함됩니다.](#bug-47910%ED%86%B5%EA%B3%84-%EC%88%98%EC%A7%91%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-unique-constraint%EA%B0%80-%ED%86%B5%EA%B3%84%EC%97%90-%EC%9D%BC%EB%B6%80-%ED%8F%AC%ED%95%A8%EB%90%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47917 외부 프로시저 생성구문에서 parsing 오류가 발생하는 경우가 있습니다.](#bug-47917%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%83%9D%EC%84%B1%EA%B5%AC%EB%AC%B8%EC%97%90%EC%84%9C-parsing-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47918 PARTITION SPLIT 시 동일한 파티션 이름을 사용한 경우, 이중화 DDL Sync 에서 비정상 종료할 수 있습니다.](#bug-47918partition-split-%EC%8B%9C-%EB%8F%99%EC%9D%BC%ED%95%9C-%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%9D%B4%EB%A6%84%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%9D%B4%EC%A4%91%ED%99%94-ddl-sync-%EC%97%90%EC%84%9C-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47944 메타버전 8.8.1또는 8.7.1에서 하위버전으로 메타 다운그레이드 수행시 실패할 수 있습니다.](#bug-47944%EB%A9%94%ED%83%80%EB%B2%84%EC%A0%84-881%EB%98%90%EB%8A%94-871%EC%97%90%EC%84%9C-%ED%95%98%EC%9C%84%EB%B2%84%EC%A0%84%EC%9C%BC%EB%A1%9C-%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C-%EC%88%98%ED%96%89%EC%8B%9C-%EC%8B%A4%ED%8C%A8%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47945 Disk Buffer의 CheckPoint List 오류에 대한 디버깅 코드 추가.](#bug-47945disk-buffer%EC%9D%98-checkpoint-list-%EC%98%A4%EB%A5%98%EC%97%90-%EB%8C%80%ED%95%9C-%EB%94%94%EB%B2%84%EA%B9%85-%EC%BD%94%EB%93%9C-%EC%B6%94%EA%B0%80)
-    - [BUG-47948 DROP TABLESPACE memory\_tablespace 와 V$DATABASE 조회 중 동시성 문제로 인해 서버가 비정상 종료할 수 있습니다.](#bug-47948drop-tablespace-memory%5C_tablespace-%EC%99%80-vdatabase-%EC%A1%B0%ED%9A%8C-%EC%A4%91-%EB%8F%99%EC%8B%9C%EC%84%B1-%EB%AC%B8%EC%A0%9C%EB%A1%9C-%EC%9D%B8%ED%95%B4-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47953 USE_DW_BUFFER enable 환경에서, DW_BUFFER 를 이용해서 깨진 페이지(Corrupt Page)를 복구할 때 비정상 종료 할 수 있습니다.](#bug-47953use_dw_buffer-enable-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-dw_buffer-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C-%EA%B9%A8%EC%A7%84-%ED%8E%98%EC%9D%B4%EC%A7%80corrupt-page%EB%A5%BC-%EB%B3%B5%EA%B5%AC%ED%95%A0-%EB%95%8C-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47954 active-active상황에서 동시에 truncate 할 경우 sender가 stop될수 있습니다.](#bug-47954active-active%EC%83%81%ED%99%A9%EC%97%90%EC%84%9C-%EB%8F%99%EC%8B%9C%EC%97%90-truncate-%ED%95%A0-%EA%B2%BD%EC%9A%B0-sender%EA%B0%80-stop%EB%90%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47970 Disk Index 에서 inconsistent page 에 대해서 page latch가 풀리지 않는 경우가 있습니다.](#bug-47970disk-index-%EC%97%90%EC%84%9C-inconsistent-page-%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-page-latch%EA%B0%80-%ED%92%80%EB%A6%AC%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47986 disk table에서 INNER JOIN 시 OR 절 predicate이 constant filter와 합쳐져서 인덱스를 타는 경우 결과 오류](#bug-47986disk-table%EC%97%90%EC%84%9C-inner-join-%EC%8B%9C-or-%EC%A0%88-predicate%EC%9D%B4-constant-filter%EC%99%80-%ED%95%A9%EC%B3%90%EC%A0%B8%EC%84%9C-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EB%A5%BC-%ED%83%80%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98)
+    - [BUG-47786  Inverse Join으로 인해, subquery unnest 시 결과 오류가 발생할 수 있습니다.](#bug-47786-inverse-join%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-subquery-unnest-%EC%8B%9C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47840  단순 Partition Insert시 Execution memory 최적화](#bug-47840-%EB%8B%A8%EC%88%9C-partition-insert%EC%8B%9C-execution-memory-%EC%B5%9C%EC%A0%81%ED%99%94)
+    - [BUG-47868  APRE에서 Anonymous block 을 사용할 때, 내부적으로 변환되는 내장 SQL의 메모리 사이즈가 잘못 계산되고 있습니다.](#bug-47868-apre%EC%97%90%EC%84%9C-anonymous-block-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EB%82%B4%EB%B6%80%EC%A0%81%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%EB%90%98%EB%8A%94-%EB%82%B4%EC%9E%A5-sql%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%82%AC%EC%9D%B4%EC%A6%88%EA%B0%80-%EC%9E%98%EB%AA%BB-%EA%B3%84%EC%82%B0%EB%90%98%EA%B3%A0-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47884  prepare시에 통계정보를 구성할 때 인덱스와 통계정보가 매칭되지 않습니다.](#bug-47884-prepare%EC%8B%9C%EC%97%90-%ED%86%B5%EA%B3%84%EC%A0%95%EB%B3%B4%EB%A5%BC-%EA%B5%AC%EC%84%B1%ED%95%A0-%EB%95%8C-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%99%80-%ED%86%B5%EA%B3%84%EC%A0%95%EB%B3%B4%EA%B0%80-%EB%A7%A4%EC%B9%AD%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47889  altipasswd에서 암호 대소문자 구분이 필요합니다.](#bug-47889--altipasswd%EC%97%90%EC%84%9C-%EC%95%94%ED%98%B8-%EB%8C%80%EC%86%8C%EB%AC%B8%EC%9E%90-%EA%B5%AC%EB%B6%84%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47900  이중화 update XSN 시 에러가 발생했을때 로그에 잘못된 SN값이 기록되고 있습니다.](#bug-47900-%EC%9D%B4%EC%A4%91%ED%99%94-update-xsn-%EC%8B%9C-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%96%88%EC%9D%84%EB%95%8C-%EB%A1%9C%EA%B7%B8%EC%97%90-%EC%9E%98%EB%AA%BB%EB%90%9C-sn%EA%B0%92%EC%9D%B4-%EA%B8%B0%EB%A1%9D%EB%90%98%EA%B3%A0-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47901  이중화 sendStop 함수에서 timeout 이 발생하여도 timeout 처리가 되지 않습니다.](#bug-47901-%EC%9D%B4%EC%A4%91%ED%99%94-sendstop-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-timeout-%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%98%EC%97%AC%EB%8F%84-timeout-%EC%B2%98%EB%A6%AC%EA%B0%80-%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47910  통계 수집되지 않은 테이블의 unique constraint가 통계에 일부 포함됩니다.](#bug-47910-%ED%86%B5%EA%B3%84-%EC%88%98%EC%A7%91%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-unique-constraint%EA%B0%80-%ED%86%B5%EA%B3%84%EC%97%90-%EC%9D%BC%EB%B6%80-%ED%8F%AC%ED%95%A8%EB%90%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47917  외부 프로시저 생성구문에서 parsing 오류가 발생하는 경우가 있습니다.](#bug-47917-%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%83%9D%EC%84%B1%EA%B5%AC%EB%AC%B8%EC%97%90%EC%84%9C-parsing-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47918  PARTITION SPLIT 시 동일한 파티션 이름을 사용한 경우, 이중화 DDL Sync 에서 비정상 종료할 수 있습니다.](#bug-47918-partition-split-%EC%8B%9C-%EB%8F%99%EC%9D%BC%ED%95%9C-%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%9D%B4%EB%A6%84%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%9D%B4%EC%A4%91%ED%99%94-ddl-sync-%EC%97%90%EC%84%9C-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47944  메타버전 8.8.1또는 8.7.1에서 하위버전으로 메타 다운그레이드 수행시 실패할 수 있습니다.](#bug-47944-%EB%A9%94%ED%83%80%EB%B2%84%EC%A0%84-881%EB%98%90%EB%8A%94-871%EC%97%90%EC%84%9C-%ED%95%98%EC%9C%84%EB%B2%84%EC%A0%84%EC%9C%BC%EB%A1%9C-%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C-%EC%88%98%ED%96%89%EC%8B%9C-%EC%8B%A4%ED%8C%A8%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47945  Disk Buffer의 CheckPoint List 오류에 대한 디버깅 코드 추가](#bug-47945-disk-buffer%EC%9D%98-checkpoint-list-%EC%98%A4%EB%A5%98%EC%97%90-%EB%8C%80%ED%95%9C-%EB%94%94%EB%B2%84%EA%B9%85-%EC%BD%94%EB%93%9C-%EC%B6%94%EA%B0%80)
+    - [BUG-47948  DROP TABLESPACE memory\_tablespace 와 V$DATABASE 조회 중 동시성 문제로 인해 서버가 비정상 종료할 수 있습니다.](#bug-47948-drop-tablespace-memory%5C_tablespace-%EC%99%80-vdatabase-%EC%A1%B0%ED%9A%8C-%EC%A4%91-%EB%8F%99%EC%8B%9C%EC%84%B1-%EB%AC%B8%EC%A0%9C%EB%A1%9C-%EC%9D%B8%ED%95%B4-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47953  USE_DW_BUFFER enable 환경에서, DW_BUFFER 를 이용해서 깨진 페이지(Corrupt Page)를 복구할 때 비정상 종료 할 수 있습니다.](#bug-47953-use_dw_buffer-enable-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-dw_buffer-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C-%EA%B9%A8%EC%A7%84-%ED%8E%98%EC%9D%B4%EC%A7%80corrupt-page%EB%A5%BC-%EB%B3%B5%EA%B5%AC%ED%95%A0-%EB%95%8C-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47954  active-active상황에서 동시에 truncate 할 경우 sender가 stop될수 있습니다.](#bug-47954-active-active%EC%83%81%ED%99%A9%EC%97%90%EC%84%9C-%EB%8F%99%EC%8B%9C%EC%97%90-truncate-%ED%95%A0-%EA%B2%BD%EC%9A%B0-sender%EA%B0%80-stop%EB%90%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47970  Disk Index 에서 inconsistent page 에 대해서 page latch가 풀리지 않는 경우가 있습니다.](#bug-47970-disk-index-%EC%97%90%EC%84%9C-inconsistent-page-%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-page-latch%EA%B0%80-%ED%92%80%EB%A6%AC%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47986  disk table에서 INNER JOIN 시 OR 절 predicate이 constant filter와 합쳐져서 인덱스를 타는 경우 결과 오류](#bug-47986-disk-table%EC%97%90%EC%84%9C-inner-join-%EC%8B%9C-or-%EC%A0%88-predicate%EC%9D%B4-constant-filter%EC%99%80-%ED%95%A9%EC%B3%90%EC%A0%B8%EC%84%9C-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EB%A5%BC-%ED%83%80%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -46,7 +46,7 @@ Altibase 7.1.0.4.0 Patch Notes
 New Features
 ------------
 
-### BUG-47805 SRID(Spatial Reference IDentifier) interface 지원
+### BUG-47805  SRID(Spatial Reference IDentifier) interface 지원
 
 -   **module** : st-spatial
 
@@ -112,7 +112,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-47873 GEOMETRY 컬럼의 SRID 속성에 대해서 Replication  지원
+### BUG-47873  GEOMETRY 컬럼의 SRID 속성에 대해서 Replication  지원
 
 - **module** : rp
 
@@ -149,7 +149,7 @@ New Features
   -   Compile Option
   -   Error Code
 
-### BUG-47816 ST_Transform 함수 지원
+### BUG-47816  ST_Transform 함수 지원
 
 -   **module** : st-function
 
@@ -194,7 +194,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-47857 ST_MakePoint 함수 지원
+### BUG-47857  ST_MakePoint 함수 지원
 
 -   **module** : st
 
@@ -225,7 +225,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-47883 ST_MakeLine 함수 지원
+### BUG-47883  ST_MakeLine 함수 지원
 
 -   **module** : st
 
@@ -256,7 +256,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-47919 ST_MakeEnvelope 함수에서 SRID 인자를 추가합니다.
+### BUG-47919  ST_MakeEnvelope 함수에서 SRID 인자를 추가합니다.
 
 -   **module** : st-function
 
@@ -293,7 +293,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-47966 ST_PolygonFromText 함수 지원
+### BUG-47966  ST_PolygonFromText 함수 지원
 
 -   **module** : st-function
 
@@ -349,7 +349,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-47974 sctTableSpaceMgr::mMutex 제거
+### BUG-47974  sctTableSpaceMgr::mMutex 제거
 
 -   **module** : sm\_resource
 -   **Category** : Enhancement
@@ -370,7 +370,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-47963 altiComp에서 동일한 레코드들의 건수를 보여주는 기능 추가
+### BUG-47963  altiComp에서 동일한 레코드들의 건수를 보여주는 기능 추가
 
 - **module** : ux-audit(altiComp)
 
@@ -410,7 +410,7 @@ New Features
 Fixed Bugs
 ----------
 
-### BUG-47786 Inverse Join으로 인해, subquery unnest 시 결과 오류가 발생할 수 있습니다.
+### BUG-47786  Inverse Join으로 인해, subquery unnest 시 결과 오류가 발생할 수 있습니다.
 
 -   **module** : qp
 
@@ -620,7 +620,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47840 단순 Partition Insert시 Execution memory 최적화
+### BUG-47840  단순 Partition Insert시 Execution memory 최적화
 
 -   **module** : qp
 -   **Category** : Efficiency
@@ -641,7 +641,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47868 APRE에서 Anonymous block 을 사용할 때, 내부적으로 변환되는 내장 SQL의 메모리 사이즈가 잘못 계산되고 있습니다.
+### BUG-47868  APRE에서 Anonymous block 을 사용할 때, 내부적으로 변환되는 내장 SQL의 메모리 사이즈가 잘못 계산되고 있습니다.
 
 -   **module** : mm-apre
 
@@ -667,7 +667,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47884 prepare시에 통계정보를 구성할 때 인덱스와 통계정보가 매칭되지 않습니다.
+### BUG-47884  prepare시에 통계정보를 구성할 때 인덱스와 통계정보가 매칭되지 않습니다.
 
 -   **module** : qp-dml-pvo
 
@@ -783,7 +783,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47889 altipasswd에서 암호 대소문자 구분이 필요합니다.
+### BUG-47889  altipasswd에서 암호 대소문자 구분이 필요합니다.
 
 -   **module** : ux-isql
 
@@ -845,7 +845,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47900 이중화 update XSN 시 에러가 발생했을때 로그에 잘못된 SN값이 기록되고 있습니다.
+### BUG-47900  이중화 update XSN 시 에러가 발생했을때 로그에 잘못된 SN값이 기록되고 있습니다.
 
 -   **module** : rp
 
@@ -872,7 +872,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47901 이중화 sendStop 함수에서 timeout 이 발생하여도 timeout 처리가 되지 않습니다.
+### BUG-47901  이중화 sendStop 함수에서 timeout 이 발생하여도 timeout 처리가 되지 않습니다.
 
 -   **module** : rp
 
@@ -899,7 +899,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47910 통계 수집되지 않은 테이블의 unique constraint가 통계에 일부 포함됩니다.
+### BUG-47910  통계 수집되지 않은 테이블의 unique constraint가 통계에 일부 포함됩니다.
 
 -   **module** : ux-aexport
 
@@ -971,7 +971,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47917 외부 프로시저 생성구문에서 parsing 오류가 발생하는 경우가 있습니다.
+### BUG-47917  외부 프로시저 생성구문에서 parsing 오류가 발생하는 경우가 있습니다.
 
 -   **module** : qp-psm-trigger-pvo
 
@@ -1013,7 +1013,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47918 PARTITION SPLIT 시 동일한 파티션 이름을 사용한 경우, 이중화 DDL Sync 에서 비정상 종료할 수 있습니다.
+### BUG-47918  PARTITION SPLIT 시 동일한 파티션 이름을 사용한 경우, 이중화 DDL Sync 에서 비정상 종료할 수 있습니다.
 
 -   **module** : rp
 
@@ -1055,7 +1055,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47944 메타버전 8.8.1또는 8.7.1에서 하위버전으로 메타 다운그레이드 수행시 실패할 수 있습니다.
+### BUG-47944  메타버전 8.8.1또는 8.7.1에서 하위버전으로 메타 다운그레이드 수행시 실패할 수 있습니다.
 
 -   **module** : qp-meta
 
@@ -1150,7 +1150,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47945 Disk Buffer의 CheckPoint List 오류에 대한 디버깅 코드 추가
+### BUG-47945  Disk Buffer의 CheckPoint List 오류에 대한 디버깅 코드 추가
 
 -   **module** : sm-disk-resource
 
@@ -1176,7 +1176,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47948 DROP TABLESPACE memory\_tablespace 와 V$DATABASE 조회 중 동시성 문제로 인해 서버가 비정상 종료할 수 있습니다.
+### BUG-47948  DROP TABLESPACE memory\_tablespace 와 V$DATABASE 조회 중 동시성 문제로 인해 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : sm-mem-resource
 
@@ -1206,7 +1206,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47953 USE_DW_BUFFER enable 환경에서, DW_BUFFER 를 이용해서 깨진 페이지(Corrupt Page)를 복구할 때 비정상 종료 할 수 있습니다.
+### BUG-47953  USE_DW_BUFFER enable 환경에서, DW_BUFFER 를 이용해서 깨진 페이지(Corrupt Page)를 복구할 때 비정상 종료 할 수 있습니다.
 
 -   **module** : sm-disk-recovery
 
@@ -1233,7 +1233,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47954 active-active상황에서 동시에 truncate 할 경우 sender가 stop될수 있습니다.
+### BUG-47954  active-active상황에서 동시에 truncate 할 경우 sender가 stop될수 있습니다.
 
 -   **module** : rp
 
@@ -1289,7 +1289,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47970 Disk Index 에서 inconsistent page 에 대해서 page latch가 풀리지 않는 경우가 있습니다.
+### BUG-47970  Disk Index 에서 inconsistent page 에 대해서 page latch가 풀리지 않는 경우가 있습니다.
 
 -   **module** : sm-disk-index
 
@@ -1319,7 +1319,7 @@ mini transaction 의 null 예외처리가 누락된 것이 원인으로, null �
     -   Compile Option
     -   Error Code
 
-### BUG-47986 disk table에서 INNER JOIN 시 OR 절 predicate이 constant filter와 합쳐져서 인덱스를 타는 경우 결과 오류
+### BUG-47986  disk table에서 INNER JOIN 시 OR 절 predicate이 constant filter와 합쳐져서 인덱스를 타는 경우 결과 오류
 
 -   **module** : qp
 

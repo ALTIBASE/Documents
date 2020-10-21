@@ -1,18 +1,19 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Altibase 7.1.0.4.2 Patch Notes](#altibase-71042-patch-notes)
   - [New Features](#new-features)
-    - [BUG-48014 ST\_Collect 함수지원](#bug-48014st%5C_collect-%ED%95%A8%EC%88%98%EC%A7%80%EC%9B%90)
-    - [BUG-48023 Alitbase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.](#bug-48023alitbase-71%EC%97%90%EC%84%9C-%EC%BF%BC%EB%A6%AC-%ED%94%8C%EB%9E%9C%EB%B3%80%EA%B2%BD%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-%EB%96%A8%EC%96%B4%EC%A7%84-aexport-%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9B%90%EB%B3%B5%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48047 heapmin이 제거된 AIX 패키지 제공](#bug-48047heapmin%EC%9D%B4-%EC%A0%9C%EA%B1%B0%EB%90%9C-aix-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
+    - [BUG-48014  ST_Collect 함수지원](#bug-48014-st_collect-%ED%95%A8%EC%88%98%EC%A7%80%EC%9B%90)
+    - [BUG-48023  Alitbase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.](#bug-48023-alitbase-71%EC%97%90%EC%84%9C-%EC%BF%BC%EB%A6%AC-%ED%94%8C%EB%9E%9C%EB%B3%80%EA%B2%BD%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-%EB%96%A8%EC%96%B4%EC%A7%84-aexport-%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9B%90%EB%B3%B5%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48047  heapmin이 제거된 AIX 패키지 제공](#bug-48047-heapmin%EC%9D%B4-%EC%A0%9C%EA%B1%B0%EB%90%9C-aix-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-46438 SORT_AREA_SIZE 가 너무 작아서 쿼리 수행이 실패한 경우에 잘못된 에러메시지가 출력됩니다.](#bug-46438sort_area_size-%EA%B0%80-%EB%84%88%EB%AC%B4-%EC%9E%91%EC%95%84%EC%84%9C-%EC%BF%BC%EB%A6%AC-%EC%88%98%ED%96%89%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%9C-%EA%B2%BD%EC%9A%B0%EC%97%90-%EC%9E%98%EB%AA%BB%EB%90%9C-%EC%97%90%EB%9F%AC%EB%A9%94%EC%8B%9C%EC%A7%80%EA%B0%80-%EC%B6%9C%EB%A0%A5%EB%90%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47761 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 이중화 start시 실패합니다.](#bug-47761%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-splitmergedrop-partition-%EC%88%98%ED%96%89-%ED%9B%84-%EC%9D%B4%EC%A4%91%ED%99%94-start%EC%8B%9C-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47967 subquery의 외부참조 컬럼이 2개이상 존재할 경우 결과값이 달라집니다.](#bug-47967subquery%EC%9D%98-%EC%99%B8%EB%B6%80%EC%B0%B8%EC%A1%B0-%EC%BB%AC%EB%9F%BC%EC%9D%B4-2%EA%B0%9C%EC%9D%B4%EC%83%81-%EC%A1%B4%EC%9E%AC%ED%95%A0-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC%EA%B0%92%EC%9D%B4-%EB%8B%AC%EB%9D%BC%EC%A7%91%EB%8B%88%EB%8B%A4)
-    - [BUG-48026 이중화 handshake 중에 네트워크 장애가 발생하면 이중화가 멈추는 문제가 발생할수 있습니다.](#bug-48026%EC%9D%B4%EC%A4%91%ED%99%94-handshake-%EC%A4%91%EC%97%90-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%9E%A5%EC%95%A0%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EB%A9%B4-%EC%9D%B4%EC%A4%91%ED%99%94%EA%B0%80-%EB%A9%88%EC%B6%94%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-48036 alter table modify column한 이후에 related object의 상태가 invalid로 변경되지 않습니다.](#bug-48036alter-table-modify-column%ED%95%9C-%EC%9D%B4%ED%9B%84%EC%97%90-related-object%EC%9D%98-%EC%83%81%ED%83%9C%EA%B0%80-invalid%EB%A1%9C-%EB%B3%80%EA%B2%BD%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-48045 with 구문에 view 최적화 처리시 결과 오류가 발생합니다.](#bug-48045with-%EA%B5%AC%EB%AC%B8%EC%97%90-view-%EC%B5%9C%EC%A0%81%ED%99%94-%EC%B2%98%EB%A6%AC%EC%8B%9C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-46438  SORT_AREA_SIZE 가 너무 작아서 쿼리 수행이 실패한 경우에 잘못된 에러메시지가 출력됩니다.](#bug-46438-sort_area_size-%EA%B0%80-%EB%84%88%EB%AC%B4-%EC%9E%91%EC%95%84%EC%84%9C-%EC%BF%BC%EB%A6%AC-%EC%88%98%ED%96%89%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%9C-%EA%B2%BD%EC%9A%B0%EC%97%90-%EC%9E%98%EB%AA%BB%EB%90%9C-%EC%97%90%EB%9F%AC%EB%A9%94%EC%8B%9C%EC%A7%80%EA%B0%80-%EC%B6%9C%EB%A0%A5%EB%90%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47761  이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 이중화 start시 실패합니다.](#bug-47761-%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-splitmergedrop-partition-%EC%88%98%ED%96%89-%ED%9B%84-%EC%9D%B4%EC%A4%91%ED%99%94-start%EC%8B%9C-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47967  subquery의 외부참조 컬럼이 2개이상 존재할 경우 결과값이 달라집니다.](#bug-47967-subquery%EC%9D%98-%EC%99%B8%EB%B6%80%EC%B0%B8%EC%A1%B0-%EC%BB%AC%EB%9F%BC%EC%9D%B4-2%EA%B0%9C%EC%9D%B4%EC%83%81-%EC%A1%B4%EC%9E%AC%ED%95%A0-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC%EA%B0%92%EC%9D%B4-%EB%8B%AC%EB%9D%BC%EC%A7%91%EB%8B%88%EB%8B%A4)
+    - [BUG-48026  이중화 handshake 중에 네트워크 장애가 발생하면 이중화가 멈추는 문제가 발생할수 있습니다.](#bug-48026-%EC%9D%B4%EC%A4%91%ED%99%94-handshake-%EC%A4%91%EC%97%90-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%9E%A5%EC%95%A0%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EB%A9%B4-%EC%9D%B4%EC%A4%91%ED%99%94%EA%B0%80-%EB%A9%88%EC%B6%94%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-48036  alter table modify column한 이후에 related object의 상태가 invalid로 변경되지 않습니다.](#bug-48036-alter-table-modify-column%ED%95%9C-%EC%9D%B4%ED%9B%84%EC%97%90-related-object%EC%9D%98-%EC%83%81%ED%83%9C%EA%B0%80-invalid%EB%A1%9C-%EB%B3%80%EA%B2%BD%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-48045  with 구문에 view 최적화 처리시 결과 오류가 발생합니다.](#bug-48045-with-%EA%B5%AC%EB%AC%B8%EC%97%90-view-%EC%B5%9C%EC%A0%81%ED%99%94-%EC%B2%98%EB%A6%AC%EC%8B%9C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -27,7 +28,7 @@ Altibase 7.1.0.4.2 Patch Notes
 New Features
 ------------
 
-### BUG-48014 ST\_Collect 함수지원
+### BUG-48014  ST_Collect 함수지원
 
 -   **module** : st
 
@@ -68,7 +69,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-48023 Alitbase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.
+### BUG-48023  Alitbase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.
 
 -   **module** : ux-aexport
 
@@ -95,7 +96,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-48047 heapmin이 제거된 AIX 패키지 제공
+### BUG-48047  heapmin이 제거된 AIX 패키지 제공
 
 -   **module** : id
 
@@ -125,7 +126,7 @@ New Features
 Fixed Bugs
 ----------
 
-### BUG-46438 SORT_AREA_SIZE 가 너무 작아서 쿼리 수행이 실패한 경우에 잘못된 에러메시지가 출력됩니다.
+### BUG-46438  SORT_AREA_SIZE 가 너무 작아서 쿼리 수행이 실패한 경우에 잘못된 에러메시지가 출력됩니다.
 
 -   **module** : sm-disk-resource
 
@@ -179,7 +180,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47761 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 이중화 start시 실패합니다.
+### BUG-47761  이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 이중화 start시 실패합니다.
 
 -   **module** : rp
 
@@ -259,7 +260,7 @@ Fixed Bugs
     
     -   Error Code
 
-### BUG-47967 subquery의 외부참조 컬럼이 2개이상 존재할 경우 결과값이 달라집니다.
+### BUG-47967  subquery의 외부참조 컬럼이 2개이상 존재할 경우 결과값이 달라집니다.
 
 -   **module** : qp-select
 
@@ -312,7 +313,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48026 이중화 handshake 중에 네트워크 장애가 발생하면 이중화가 멈추는 문제가 발생할수 있습니다.
+### BUG-48026  이중화 handshake 중에 네트워크 장애가 발생하면 이중화가 멈추는 문제가 발생할수 있습니다.
 
 -   **module** : dm
 
@@ -344,7 +345,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48036 alter table modify column한 이후에 related object의 상태가 invalid로 변경되지 않습니다.
+### BUG-48036  alter table modify column한 이후에 related object의 상태가 invalid로 변경되지 않습니다.
 
 -   **module** : qp-ddl-dcl-execute
 
@@ -454,7 +455,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48045 with 구문에 view 최적화 처리시 결과 오류가 발생합니다.
+### BUG-48045  with 구문에 view 최적화 처리시 결과 오류가 발생합니다.
 
 -   **module** : qp-dml-pvo
 

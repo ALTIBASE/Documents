@@ -1,15 +1,16 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Altibase 7.1.0.4.5 Patch Notes](#altibase-71045-patch-notes)
   - [New Features](#new-features)
-    - [BUG-48134 altiComp에서 동일한 레코드(MOSO EQ)에 대해서도 로그 파일에 기록하는 기능이 필요합니다.](#bug-48134alticomp%EC%97%90%EC%84%9C-%EB%8F%99%EC%9D%BC%ED%95%9C-%EB%A0%88%EC%BD%94%EB%93%9Cmoso-eq%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C%EB%8F%84-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC%EC%97%90-%EA%B8%B0%EB%A1%9D%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48136 Altibase 7.1 Windows클라이언트 지원](#bug-48136altibase-71-windows%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A7%80%EC%9B%90)
+    - [BUG-48134  altiComp에서 동일한 레코드(MOSO EQ)에 대해서도 로그 파일에 기록하는 기능이 필요합니다.](#bug-48134-alticomp%EC%97%90%EC%84%9C-%EB%8F%99%EC%9D%BC%ED%95%9C-%EB%A0%88%EC%BD%94%EB%93%9Cmoso-eq%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C%EB%8F%84-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC%EC%97%90-%EA%B8%B0%EB%A1%9D%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48136  Altibase 7.1 Windows클라이언트 지원](#bug-48136-altibase-71-windows%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A7%80%EC%9B%90)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-48120 index NDV와 Predicate NDV 의 차이로 비효율적인 인덱스가 선택될 수 있습니다.](#bug-48120index-ndv%EC%99%80-predicate-ndv-%EC%9D%98-%EC%B0%A8%EC%9D%B4%EB%A1%9C-%EB%B9%84%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EA%B0%80-%EC%84%A0%ED%83%9D%EB%90%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-48128 scalar subquery+ aggregation function + group\_sort일때 결과 오류가 발생합니다.](#bug-48128scalar-subquery-aggregation-function--group%5C_sort%EC%9D%BC%EB%95%8C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-48135 Index NL Join Penalty 값을 조절할 수 있는 프로퍼티 추가](#bug-48135index-nl-join-penalty-%EA%B0%92%EC%9D%84-%EC%A1%B0%EC%A0%88%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%B6%94%EA%B0%80)
-    - [BUG-48160 fixed table 출력시 lock table 잡힌 table을 lock 대기하지 않고 제외하고 출력하는 방법 추가](#bug-48160fixed-table-%EC%B6%9C%EB%A0%A5%EC%8B%9C-lock-table-%EC%9E%A1%ED%9E%8C-table%EC%9D%84-lock-%EB%8C%80%EA%B8%B0%ED%95%98%EC%A7%80-%EC%95%8A%EA%B3%A0-%EC%A0%9C%EC%99%B8%ED%95%98%EA%B3%A0-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-%EC%B6%94%EA%B0%80)
+    - [BUG-48120  index NDV와 Predicate NDV 의 차이로 비효율적인 인덱스가 선택될 수 있습니다.](#bug-48120-index-ndv%EC%99%80-predicate-ndv-%EC%9D%98-%EC%B0%A8%EC%9D%B4%EB%A1%9C-%EB%B9%84%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EA%B0%80-%EC%84%A0%ED%83%9D%EB%90%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-48128  scalar subquery+ aggregation function + group\_sort일때 결과 오류가 발생합니다.](#bug-48128-scalar-subquery-aggregation-function--group%5C_sort%EC%9D%BC%EB%95%8C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48135  Index NL Join Penalty 값을 조절할 수 있는 프로퍼티 추가](#bug-48135-index-nl-join-penalty-%EA%B0%92%EC%9D%84-%EC%A1%B0%EC%A0%88%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%B6%94%EA%B0%80)
+    - [BUG-48160  fixed table 출력시 lock table 잡힌 table을 lock 대기하지 않고 제외하고 출력하는 방법 추가](#bug-48160-fixed-table-%EC%B6%9C%EB%A0%A5%EC%8B%9C-lock-table-%EC%9E%A1%ED%9E%8C-table%EC%9D%84-lock-%EB%8C%80%EA%B8%B0%ED%95%98%EC%A7%80-%EC%95%8A%EA%B3%A0-%EC%A0%9C%EC%99%B8%ED%95%98%EA%B3%A0-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-%EC%B6%94%EA%B0%80)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -24,7 +25,7 @@ Altibase 7.1.0.4.5 Patch Notes
 New Features
 ------------
 
-### BUG-48134 altiComp에서 동일한 레코드(MOSO EQ)에 대해서도 로그 파일에 기록하는 기능이 필요합니다.
+### BUG-48134  altiComp에서 동일한 레코드(MOSO EQ)에 대해서도 로그 파일에 기록하는 기능이 필요합니다.
 
 -   **module** : ux-audit(altiComp)
 
@@ -67,7 +68,7 @@ New Features
 
   - Error Code
 
-### BUG-48136 Altibase 7.1 Windows클라이언트 지원
+### BUG-48136  Altibase 7.1 Windows클라이언트 지원
 
 -   **module** : ul-odbc
 
@@ -97,7 +98,7 @@ New Features
 Fixed Bugs
 ----------
 
-### BUG-48120 index NDV와 Predicate NDV 의 차이로 비효율적인 인덱스가 선택될 수 있습니다.
+### BUG-48120  index NDV와 Predicate NDV 의 차이로 비효율적인 인덱스가 선택될 수 있습니다.
 
 -   **module** : qp-select-pvo
 
@@ -176,7 +177,7 @@ Fixed Bugs
     
     -   Error Code
 
-### BUG-48128 scalar subquery+ aggregation function + group\_sort일때 결과 오류가 발생합니다.
+### BUG-48128  scalar subquery+ aggregation function + group\_sort일때 결과 오류가 발생합니다.
 
 -   **module** : qp-select-pvo
 
@@ -229,7 +230,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48135 Index NL Join Penalty 값을 조절할 수 있는 프로퍼티 추가
+### BUG-48135  Index NL Join Penalty 값을 조절할 수 있는 프로퍼티 추가
 
 -   **module** : qp-select-pvo
 
@@ -262,7 +263,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48160 fixed table 출력시 lock table 잡힌 table을 lock 대기하지 않고 제외하고 출력하는 방법 추가
+### BUG-48160  fixed table 출력시 lock table 잡힌 table을 lock 대기하지 않고 제외하고 출력하는 방법 추가
 
 -   **module** : sm\_interface
 
