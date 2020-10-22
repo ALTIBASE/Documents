@@ -3106,6 +3106,8 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 | TABLE_NAME           | VARCHAR(128) | 테이블 이름                   |
 | PARTITION_NAME       | VARCHAR(128) | 파티션 이름                   |
 | PRIMARY_KEY_INDEX_ID | INTEGER      | 프라이머리 키의 인덱스 식별자 |
+| PARTITION_COUNT      | INTEGER      | 파티션 테이블의 총 개수 |
+
 
 #### 칼럼 정보
 
@@ -3136,6 +3138,10 @@ TABLE_NAME 값과 동일하다.
 ##### PRIMARY_KEY_INDEX_ID
 
 프라이머리 키 (Primary Key)의 인덱스 식별자이다.
+
+##### PARTITION_COUNT
+
+지역 서버의 이중화 대사 테이블이 속해 있는 파티션드 테이블으 구성하는 파티션 총 개수
 
 #### 참조 테이블
 
