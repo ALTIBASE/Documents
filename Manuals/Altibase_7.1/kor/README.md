@@ -1,5 +1,7 @@
 # Altibase 7.1 Korean manuals
 
+이 매뉴얼은 7.1.0.4.7 기준으로 업데이트 되었습니다.
+
 ## New Features
 
 - ### [New Features Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/NewFeaturesGuide.md)
