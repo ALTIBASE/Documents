@@ -2551,7 +2551,7 @@ SYS_TABLES_
 | PEER_REPLICATION_NAME    | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
 | REMOTE_LAST_DDL_XSN      | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
 
-[<sup>13</sup>] SN: 로그 레코드의 식별 번호
+[<sup>13</sup>] SN(Seqence Number): 로그 레코드의 식별 번호
 
 #### 칼럼 정보
 
