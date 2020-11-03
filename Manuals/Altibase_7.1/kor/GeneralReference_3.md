@@ -2561,8 +2561,10 @@ SYS_TABLES_
 | PARALLEL_APPLIER_COUNT   | INTEGER     | 병렬 적용자(Applier)의 수                                    |
 | REMOTE_XSN               | BIGINT      | 원격 서버에서 가장 최근에 처리한 SN                          |
 | APPLIER_INIT_BUFFER_SIZE | BIGINT      | applier buffer 의 초기 사이즈                                |
+| PEER_REPLICATION_NAME    | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
+| REMOTE_LAST_DDL_XSN      | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
 
-[<sup>13</sup>] SN: 로그 레코드의 식별 번호
+[<sup>13</sup>] SN(Sequence Number): 로그 레코드의 식별 번호
 
 #### 칼럼 정보
 
@@ -2636,12 +2638,13 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 옵션을 설정시 이진수로 제어되며, 십진수로 변환되어 표시된다. 두 개 이상의 옵션을
 사용할 경우 각각의 옵션에 해당하는 이진수 합이 십진수로 반환된다.
 
-- 0(00000): 이중화 옵션을 사용하지 않음
-- 1(00001): 복구 옵션 사용
-- 2(00010): 오프라인 옵션 사용
-- 4(00100): 이중화 갭 해소 옵션 사용
-- 8(01000): 병렬 적용자 옵션 사용
-- 16(10000):이중화 트랜잭션 그룹 옵션 사용
+- 0(000000): 이중화 옵션을 사용하지 않음
+- 1(000001): 복구 옵션 사용
+- 2(000010): 오프라인 옵션 사용
+- 4(000100): 이중화 갭 해소 옵션 사용
+- 8(001000): 병렬 적용자 옵션 사용
+- 16(010000):이중화 트랜잭션 그룹 옵션 사용
+- 32(100000):로컬 이중화 옵션 사용
 
 ##### INVALID_RECOVERY
 
@@ -2685,6 +2688,14 @@ REMOTE_XSN보다 SN이 작은 로그는 보내지 않고 Skip한다..
 만약 병렬 적용자 큐의 수가 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE
 값보다 작다면 병렬 적용자 큐의 수는 프로퍼티
 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE에 지정된 값으로 설정된다.
+
+##### PEER_REPLICATION_NAME
+
+로컬 이중화 옵션을 사용했을 때 원격 이중화의 이름이다.
+
+##### REMOTE_LAST_DDL_XSN
+
+원격 서버에서 가장 최근에 처리한 DDL의 SN 이다. 
 
 #### 예제
 
@@ -3111,14 +3122,21 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 테이블의 정보를 가진 메타
 테이블이다.
 
-| Column name          | Type         | Description                   |
-| -------------------- | ------------ | ----------------------------- |
-| REPLICATION_NAME     | VARCHAR(40)  | 이중화 이름                   |
-| TABLE_OID            | BIGINT       | 테이블 객체 식별자            |
-| USER_NAME            | VARCHAR(128) | 사용자 이름                   |
-| TABLE_NAME           | VARCHAR(128) | 테이블 이름                   |
-| PARTITION_NAME       | VARCHAR(128) | 파티션 이름                   |
-| PRIMARY_KEY_INDEX_ID | INTEGER      | 프라이머리 키의 인덱스 식별자 |
+| Column name           | Type          | Description                                    |
+| --------------------- | ------------- | ---------------------------------------------- |
+| REPLICATION_NAME      | VARCHAR(40)   | 이중화 이름                                    |
+| TABLE_OID             | BIGINT        | 테이블 객체 식별자                             |
+| USER_NAME             | VARCHAR(128)  | 사용자 이름                                    |
+| TABLE_NAME            | VARCHAR(128)  | 테이블 이름                                    |
+| PARTITION_NAME        | VARCHAR(128)  | 파티션 이름                                    |
+| PRIMARY_KEY_INDEX_ID  | INTEGER       | 프라이머리 키의 인덱스 식별자                  |
+| REMOTE_USER_NAME      | VARCHAR(128)  | 원격 서버의 대상 테이블 소유자 이름            |
+| REMOTE_TABLE_NAME     | VARCHAR(128)  | 원격 서버의 대상 테이블 이름                   |
+| REMOTE_PARTITION_NAME | VARCHAR(128)  | 원격 서버의 파티션 이름                        |
+| PARTITION_ORDER       | INTEGER       | 파티션 순서(해쉬 파티션일 경우 필요)           |
+| PARTITION_MIN_VALUE   | VARCHAR(4000) | 파티션의 최소 기준값 (해쉬 파티션의 경우 NULL) |
+| PARTITION_MAX_VALUE   | VARCHAR(4000) | 파티션의 최대 기준값 (해쉬 파티션의 경우 NULL) |
+| INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN                         |
 
 #### 칼럼 정보
 
@@ -3149,6 +3167,38 @@ TABLE_NAME 값과 동일하다.
 ##### PRIMARY_KEY_INDEX_ID
 
 프라이머리 키 (Primary Key)의 인덱스 식별자이다.
+
+##### REMOTE_USER_NAME
+
+원격 서버의 이중화 대상 테이블인 소유자의 이름이다. 
+
+##### REMOTE_TABLE_NAME
+
+원격 서버의 이중화 대상 테이블의 이름이다.
+
+##### REMOTE_PARTITION_NAME
+
+원격 서버의 이중화 대상 테이블이 속해 있는 파티션의 이름이다.
+
+##### PARTITION_ORDER
+
+파티션들 중에서 이 파티션의 순서를 나타낸다. 해쉬 (HASH) 파티션인 경우에
+필요하다.
+
+##### PARTITION_MIN_VALUE
+
+파티션의 최소 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는
+널(NULL)이다.
+
+##### PARTITION_MAX_VALUE
+
+파티션의 최대 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는
+널(NULL)이다.
+
+##### INVALID_MAX_SN
+
+이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에
+기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
 
 #### 참조 테이블
 
