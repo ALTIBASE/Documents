@@ -60,7 +60,7 @@ Customer Service Portal: [http://support.altibase.com/en/]
 
 Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
-1. Preface
+## 1. Preface
 ----
 
 ### About This Manual
@@ -1526,7 +1526,7 @@ Altibase provides the following extra replication features:
 
 -   Recovery Option
 
--   Offline Option)
+-   Offline Option
 
 -   Replication Gapless Option
 
@@ -1609,7 +1609,7 @@ The below figure is an example of the offline option in use.
 ##### Offline Option Restrictions
 
 -   This option can only be used when executing replication in LAZY mode.
--   Offline replication is not supported for replication objects which designate compressed tables as replication targets
+-   Offline replication is not supported for replication objects which designate compressed tables as replication targets.
 -   The offline option cannot be used at the same time as the recovery option.
 -   At the moment that offline replication starts, any replication Receiver thread having the same replication_name must be in a stopped state. If such a thread is still running, offline replication will terminate.
 -   If the log file directory on the Active Server cannot be accessed due to a disk error, offline replication will fail.
@@ -1714,7 +1714,7 @@ The buffer_size property specifies the initial size of the queue. Values range f
 
 If the unit (K, M, G) is not input, it is recognized in units of Megabytes.
 
-For more detailed information about properties, please refer to the *General Reference**.* 
+For more detailed information about properties, please refer to the *General Reference*.
 
 ##### Example
 

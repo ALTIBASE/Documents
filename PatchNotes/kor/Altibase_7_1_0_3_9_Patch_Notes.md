@@ -3,8 +3,8 @@
 
 - [Altibase 7.1.0.3.9 Patch Notes](#altibase-71039-patch-notes)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-47836 LEFT OUTER JOIN 시 복합 인덱스가 사용되고 OR 절 predicate시 사용될 경우 결과가 틀릴수 있습니다.](#bug-47836left-outer-join-%EC%8B%9C-%EB%B3%B5%ED%95%A9-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EA%B0%80-%EC%82%AC%EC%9A%A9%EB%90%98%EA%B3%A0-or-%EC%A0%88-predicate%EC%8B%9C-%EC%82%AC%EC%9A%A9%EB%90%A0-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC%EA%B0%80-%ED%8B%80%EB%A6%B4%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-47846 sql 문자열이 32000자를 넘어갈 때 쿼리를 중복 실행하는 경우 encoding 에러가 발생할 수 있습니다.](#bug-47846sql-%EB%AC%B8%EC%9E%90%EC%97%B4%EC%9D%B4-32000%EC%9E%90%EB%A5%BC-%EB%84%98%EC%96%B4%EA%B0%88-%EB%95%8C-%EC%BF%BC%EB%A6%AC%EB%A5%BC-%EC%A4%91%EB%B3%B5-%EC%8B%A4%ED%96%89%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-encoding-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47836 LEFT OUTER JOIN 시 복합 인덱스가 사용되고 OR 절 predicate시 사용될 경우 결과가 틀릴수 있습니다.](#bug-47836-left-outer-join-%EC%8B%9C-%EB%B3%B5%ED%95%A9-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EA%B0%80-%EC%82%AC%EC%9A%A9%EB%90%98%EA%B3%A0-or-%EC%A0%88-predicate%EC%8B%9C-%EC%82%AC%EC%9A%A9%EB%90%A0-%EA%B2%BD%EC%9A%B0-%EA%B2%B0%EA%B3%BC%EA%B0%80-%ED%8B%80%EB%A6%B4%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-47846 sql 문자열이 32000자를 넘어갈 때 쿼리를 중복 실행하는 경우 encoding 에러가 발생할 수 있습니다.](#bug-47846-sql-%EB%AC%B8%EC%9E%90%EC%97%B4%EC%9D%B4-32000%EC%9E%90%EB%A5%BC-%EB%84%98%EC%96%B4%EA%B0%88-%EB%95%8C-%EC%BF%BC%EB%A6%AC%EB%A5%BC-%EC%A4%91%EB%B3%B5-%EC%8B%A4%ED%96%89%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-encoding-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -19,7 +19,7 @@ Altibase 7.1.0.3.9 Patch Notes
 Fixed Bugs
 ----------
 
-### BUG-47836 LEFT OUTER JOIN 시 복합 인덱스가 사용되고 OR 절 predicate시 사용될 경우 결과가 틀릴수 있습니다.
+### BUG-47836  LEFT OUTER JOIN 시 복합 인덱스가 사용되고 OR 절 predicate시 사용될 경우 결과가 틀릴수 있습니다.
 
 -   **module** : qp
 
@@ -28,7 +28,7 @@ Fixed Bugs
 -   **재현 빈도** : Always
 
 -   **증상** : LEFT OUTER JOIN 시 복합인덱스가 사용되고 OR절 predicate시 사용될 경우 결과오류 수정
-    
+
 - **재현 방법**
 
   - **재현 절차**
@@ -40,16 +40,16 @@ Fixed Bugs
             "GAAP_CD" VARCHAR(20)  ,
             "FORM_CD" VARCHAR(20)  ,
             "ACGRP_CD" VARCHAR(20)  ,
-            "UP_GRP_CD" VARCHAR(20) 
+            "UP_GRP_CD" VARCHAR(20)
         );
         alter table "CA_ACGRP_MST" add constraint "CA_ACGRP_MST_PK" primary key("GAAP_CD","FORM_CD","ACGRP_CD");
-        
+
         insert into CA_ACGRP_MST    (   GAAP_CD,    FORM_CD,    ACGRP_CD,   UP_GRP_CD)                                  values (    1,  'D0012',    2,  3);
         insert into CA_ACGRP_MST    (   GAAP_CD,    FORM_CD,    ACGRP_CD,   UP_GRP_CD)                                  values (    1,  'D0012',    1,  3);
         insert into CA_ACGRP_MST    (   GAAP_CD,    FORM_CD,    ACGRP_CD,   UP_GRP_CD)                                  values (    1,  'D0012',    3,  3);
         insert into CA_ACGRP_MST    (   GAAP_CD,    FORM_CD,    ACGRP_CD,   UP_GRP_CD)                                  values (    1,  'D0022',    2,  3);
         insert into CA_ACGRP_MST    (   GAAP_CD,    FORM_CD,    ACGRP_CD,   UP_GRP_CD)                                  values (    1,  'D0032',    2,  3);
-        
+
         create table "CA_ACGRP_LDTL"
         (
             "GAAP_CD" VARCHAR(20)  ,
@@ -69,14 +69,14 @@ Fixed Bugs
         exec :LANG := 'KO';    
         exec :FORM := 'D0012';    
         exec :GAAP := '1';    
-        PREPARE 
+        PREPARE
         SELECT /*  */
-            A.GAAP_CD, 
-            A.FORM_CD, 
+            A.GAAP_CD,
+            A.FORM_CD,
             A.ACGRP_CD AS ACCT_CD
         FROM     CA_ACGRP_MST A
         LEFT OUTER JOIN CA_ACGRP_LDTL AA ON
-        A.ACGRP_CD = AA.ACGRP_CD 
+        A.ACGRP_CD = AA.ACGRP_CD
         WHERE    A.GAAP_CD = '1' AND  (A.FORM_CD = :FORM OR '' = :FORM );
 
   - **수행 결과**
@@ -111,17 +111,17 @@ Fixed Bugs
 
 - **Workaround**
 
-      PREPARE 
+      PREPARE
       SELECT /*+ NO INDEX(A,CA_ACGRP_MST_PK) */
-          A.GAAP_CD, 
-          A.FORM_CD, 
+          A.GAAP_CD,
+          A.FORM_CD,
           A.ACGRP_CD AS ACCT_CD
       FROM     CA_ACGRP_MST A
       LEFT OUTER JOIN CA_ACGRP_LDTL AA ON
-      A.ACGRP_CD = AA.ACGRP_CD 
+      A.ACGRP_CD = AA.ACGRP_CD
       WHERE    A.GAAP_CD = '1' AND  (A.FORM_CD = :FORM OR '' = :FORM );
-      
-      * work around 사용 시 결과는 올바르지만 출력 순서가 달라질 수 있습니다. 
+
+      * work around 사용 시 결과는 올바르지만 출력 순서가 달라질 수 있습니다.
 
 -   **변경사항**
 
@@ -130,7 +130,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47846 sql 문자열이 32000자를 넘어갈 때 쿼리를 중복 실행하는 경우 encoding 에러가 발생할 수 있습니다.
+### BUG-47846  sql 문자열이 32000자를 넘어갈 때 쿼리를 중복 실행하는 경우 encoding 에러가 발생할 수 있습니다.
 
 -   **module** : mm-jdbc
 
@@ -139,7 +139,7 @@ Fixed Bugs
 -   **재현 빈도** : Always
 
 -   **증상** : sql이 32000자가 넘어갈 때 문자열 인코딩 중 illegalStateException 이 발생할 수 있는 문제 수정.
-    
+
 - **재현 방법**
 
   -   **재현 절차**

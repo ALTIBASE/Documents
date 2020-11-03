@@ -446,7 +446,7 @@ For mroe detailed information about Altibase objects, please refer to the *Admin
 
 Altibase uses passowrd authentication. This means that the user has to enter a password when logging into the database.
 
-The password the user uses to connect to Altibase also has similar constraints as the object name: characters for passwords are A~Z, a~z, 0~9, _, and $. In addition, Altibase's reserved words cannot be in passwords. The first character must be a letter or _. The maximum length of the password is 40 bytes.
+The password the user uses to connect to Altibase also has similar constraints as the object name: characters for passwords are A\~Z, a\~z, 0~9, _, and $. In addition, Altibase's reserved words cannot be in passwords. The first character must be a letter or _. The maximum length of the password is 40 bytes.
 
 Altibase automatically converts lowercase passwords to uppercase by default. However, you can create a case sensitive password by setting the value of CASE_SENSITIVE_PASSWORD to 1, and then enclosing the password in quotation marks, when creating a user with the CREATE USER statement. If you omit the quotation marks, the database will convert the string to uppercase, even if the value of CASE_SENSITIVE_PASSWORD is 1.
 
@@ -1337,7 +1337,7 @@ Users can specify multiple hints in a single comment by separating them with bla
 
 For more detailed information about each hint, please refer to the next section. 
 
-For more detailed information about using hints for query tuning, please refer to the Performance Tuning Guide. 
+For more detailed information about using hints for query tuning, please refer to the *Performance Tuning Guide*. 
 
 #### Examples
 
@@ -3246,7 +3246,7 @@ Please refer to the parallel clause description of CREATE TABLE.
 - INITRANS Clause  
   This is used to change the initial number of TTS (Touched Transaction Slots). 
   
-- MAXTRANS 절  
+- MAXTRANS Clause  
   This is used to change the maximum number of TTS (Touched Transaction Slots).
 
 *storage_clause*
@@ -3956,7 +3956,7 @@ PARTITION BY HASH (I1)
 
 
 
-##### Addint Partitions
+##### Adding Partitions
 
 \<Query\>  Add a new partition to a hash-partitioned table
 
@@ -6096,15 +6096,15 @@ This is the value by which the sequence increments. The default value is 1. The 
 
 *MAXVALUE*
 
-This is the maximum value of the sequence. This can be set to any value between -9223372036854775807 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 9223372036854775806. If the value for INCREMENT BY is less than 0, the default value is -1.
+This is the maximum value of the sequence. This can be set to any value between -9223372036854775805 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 9223372036854775806. If the value for INCREMENT BY is less than 0, the default value is -1.
 
 *MINVALUE*
 
-This is the minimum value of the sequence. This can be set to any value between -9223372036854775807 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 1. If the value for INCREMENT BY is less than 0, the default value is -9223372036854775807.
+This is the minimum value of the sequence. This can be set to any value between -9223372036854775806 and 9223372036854775805. If the value for INCREMENT BY is more than 0, the default value is 1. If the value for INCREMENT BY is less than 0, the default value is -9223372036854775806.
 
 *CYCLE*
 
-This clause is used to ensure that the sequence will continue to generate values when it reaches the value specified using MAXVALUE or MINVALUE. The sequence cycles again from the minimum value in the case of an ascending sequence, or from the maximum value in the case of a descending sequence
+This clause is used to ensure that the sequence will continue to generate values when it reaches the value specified using MAXVALUE or MINVALUE. The sequence cycles again from the minimum value in the case of an ascending sequence, or from the maximum value in the case of a descending sequence.
 
 *CACHE*
 
@@ -6153,7 +6153,7 @@ iSQL> select * from v$seq;
 
 This command displays information about all sequence objects that have been created. Unlike Select * from seq, querying the performance view allows information about other users' sequences to be viewed. For more information on the performance view V$SEQ, please refer to the section of the Data Dictionary that explains performance views in the *General Reference.*
 
-\<Query\> Create a sequence named seq1 that begins at 13, increments by 3, and has a minimum value of 0 and no maximum value
+\<Query\> Create a sequence named seq1 that begins at 13, increments by 3, and has a minimum value of 0 and no maximum value.
 
 ```
 iSQL> CREATE SEQUENCE seq1
@@ -6233,7 +6233,7 @@ SEQ1.CURRVAL
 1 row selected.
 ```
 
-\<Query\> Change the value in column i1 to the next value of the sequence, which is 0
+\<Query\> Change the value in column i1 to the next value of the sequence, which is 0.
 
 ```
 iSQL> UPDATE SEQTBL SET i1 = seq1.NEXTVAL;
@@ -6337,7 +6337,7 @@ iSQL> CREATE SEQUENCE seq2;
 Create success.
 ```
 
-\<Query\> Output information on all sequences created by user1
+\<Query\> Output information on all sequences created by user1.
 
 ```
 iSQL> SELECT * FROM SEQ;
@@ -6847,7 +6847,7 @@ A unique constraint and a primary key constraint cannot both be defined for the 
 
   This clause specifies an integrity rule that applies to the target column. Only the target column can be referenced within the condition of the column_constraint clause. The following limitations concern the conditions of CHECK constraints:
   
-- Subqueries, sequences, all pseudo columns, such as LEVEL, ROWNUM, etc., and non-deterministic SQL functions, such as SYSDATE, USER_ID, etc., cannot be included. 
+  - Subqueries, sequences, all pseudo columns, such as LEVEL, ROWNUM, etc., and non-deterministic SQL functions, such as SYSDATE, USER_ID, etc., cannot be included. 
   - The PRIOR operator cannot be used. 
   - LOB type data cannot be used.
   
@@ -6931,7 +6931,7 @@ ENO INTEGER PRIMARY KEY,
   
   In order to enforce the referential integrity of this option, the target column must be nullable. 
 
-  For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
+For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
   
   ```
 CREATE TABLE employees (
@@ -7066,7 +7066,7 @@ This clause is used to specify the PCTFREE, PCTUSED, INITRANS, and MAXTRANS. If 
   This option must be set to an integer value ranging from 0 to 99, representing the percentage. If this value is not set, the default PCTUSED value is 40. This option only applies to pages that have been assigned to tables.
 - INITRANS Clause  
   This clause is used to set the initial number of TTS (Touched Transaction Slots). The default value is 2.
-- MAXTRANS 절  
+- MAXTRANS Clause  
   This clause is used to set the maximum number of TTS (Touched Transaction Slots), to which the number of TTS can increase. The default value is 120.
 
 > Note: 
@@ -7243,7 +7243,7 @@ Create the following tables:
 
   ```
   iSQL> INSERT INTO tbl_timestamp VALUES(DEFAULT, 2, '02-FEB-01', Byte'A1111002');
-1 row inserted.
+  1 row inserted.
   iSQL> UPDATE tbl_timestamp SET i1 = DEFAULT, i2 = 102, i3 = '02-FEB-02', i4 = Byte'B1111002' WHERE i2 = 2;
   1 row updated.
   iSQL> SELECT * FROM tbl_timestamp;
@@ -7497,7 +7497,7 @@ iSQL> CREATE TABLE inventory(
   
   ```
   CREATE TABLE list_customers 
-( 
+  ( 
   	customer_id	NUMBER(6), 
   	cust_first_name	VARCHAR(20), 
   	cust_last_name	VARCHAR(20), 
@@ -7540,7 +7540,7 @@ iSQL> CREATE TABLE inventory(
   \<Query\> Create a table in which the LOB data is stored in separate tablespaces; specifically, in which the LOB data in the image1 column is stored in the lob_data1 tablespace and the LOB data in the image2 column is stored in the lob_data2 tablespace. CREATE TABLE lob_products
   
   ```
-CREATE TABLE lob_products 
+  CREATE TABLE lob_products 
   (
     product_id integer, 
     image1 BLOB, 

@@ -60,7 +60,7 @@ Customer Service Portal: [http://support.altibase.com/en/]
 
 Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
-1. Preface
+## 1. Preface
 ----
 
 ### About This Manual
@@ -439,17 +439,14 @@ This chapter explains the replication steps and how to use Altibase replication 
 2.  Choose the tables or partitions to be replicated  
     Every table to be replicated must have a primary key.
 
-3.  Set the replication conditions  
-    Set only the logs that pertain to the replication conditions as replication targets. If it is not specified, all of the table data will be the replication target.
-
-4.  Create a replication object using the CREATE REPLICATION statement  
+3.  Create a replication object using the CREATE REPLICATION statement  
     The replication object must have the same name in both databases.
     
-5. Start replication using the ALTER REPLICATION statement 
+4. Start replication using the ALTER REPLICATION statement 
 
     When replication is started, the local server creates a replication Sender thread and this thread connects to a replication manager on the remote server. At this time, the replication manager on the remote server generates a repliation Receiver thread.
 
-6.  The replication service is started.
+5.  The replication service is started.
 
 ### Troubleshooting
 
@@ -1526,7 +1523,7 @@ Altibase provides the following extra replication features:
 
 -   Recovery Option
 
--   Offline Option)
+-   Offline Option
 
 -   Replication Gapless Option
 
@@ -1609,7 +1606,7 @@ The below figure is an example of the offline option in use.
 ##### Offline Option Restrictions
 
 -   This option can only be used when executing replication in LAZY mode.
--   Offline replication is not supported for replication objects which designate compressed tables as replication targets
+-   Offline replication is not supported for replication objects which designate compressed tables as replication targets.
 -   The offline option cannot be used at the same time as the recovery option.
 -   At the moment that offline replication starts, any replication Receiver thread having the same replication_name must be in a stopped state. If such a thread is still running, offline replication will terminate.
 -   If the log file directory on the Active Server cannot be accessed due to a disk error, offline replication will fail.
@@ -1714,7 +1711,7 @@ The buffer_size property specifies the initial size of the queue. Values range f
 
 If the unit (K, M, G) is not input, it is recognized in units of Megabytes.
 
-For more detailed information about properties, please refer to the *General Reference**.* 
+For more detailed information about properties, please refer to the *General Reference*.
 
 ##### Example
 
@@ -2247,6 +2244,47 @@ Determining that Fail-Over has succeeded consists of the successful completion o
 
 The actual method of writing callback functions is described below for various client application environments.
 
+### Writing Callback in JDBC
+
+#### Fail-Over related Callback Interface
+
+To write a Fail-Over callback function in an application using JDBC, the user must write a class that implements thte ABFailOverCallback interface provided by the Altibase JDBC driver. The ABFailOverCallback interface is defined as follows.
+
+```
+public interface ABFailOverCallback
+{
+	int FO_BEGIN	= 0;
+	int FO_END	= 1;
+	int FO_ABORT	= 2;
+	int FO_GO	= 3;
+	int FO_QUIT	= 4;
+
+	int failOverCallback(Connection aConnection,
+		   Object aAppContext,
+		   int aFailOverEvent);
+};
+```
+
+The meaning of the values is as follows:
+
+-   FO_BEGIN  
+    This event notifies Fail-Over callback that STF (Service Time FailOver) starts.
+
+-   FO_END  
+    This event notifies Fail-Over callback that the STF was successful.
+
+-   FO_ABORT  
+    This event notifies Fail-Over callback that the STF has failed.
+
+-   FO_GO  
+    This is the value that the user returns from the callback funciton to the library in order to proceed with the next step of STF.
+
+-   FO_QUIT  
+    This is the value that the user returns from the callback function to the library, meaning that the STF should not proceed.
+
+-   aAppContext  
+    This is an arbitrary object that the user wants to save. If there is no object to save, set it to null.
+    
 #### Writing Fail-Over Callback Functions
 
 The MyFailOverCallback class, which implements the ABFailOverCallback Interface, must be written.
@@ -3028,6 +3066,22 @@ retry:
 
 ### PDO - Callback
 
+#### Registering Fail-Over Callback
+
+To register a Fail-over callback in an application using PDO, use the following method.
+
+```
+...
+public bool PDO::setFailoverCallback(string $callback, mixed $app_context)
+...
+```
+
+-   \$callback  
+    This is the name of the function to register as a callback
+
+-   \$app_context  
+    This is an arbitrary variable to be used as a callback. The variable transfered to \$app_context is transfered as the \$context argument in the callback function. This value is for reference when performing user callback, so if it is not needed it, do not use it. This returns TRUE if the callback registeration was successful and FALSE if it failed.
+
 #### Fail-Over Callback Related Interfaces
 
 In the application using PDO, FailOver Callback function is defined as below: 
@@ -3066,21 +3120,6 @@ function focbfunnc($db, $context, $event)
 #### 
 
 #### Registering Fail-Over Callback
-
-To register a FailOver callback in an applicaiton that uses PDO, use the following method:
-
-```
-...
-public bool PDO::setFailoverCallback(string $callback, mixed $app_context)
-...
-```
-
--   \$callback  
-    This is a function name to register as a callback.
--   \$app_context  
-    This is an arbitrary variable used as a callback. A variable sent to $app_context is sent to $app_context parameter in the callback function. This value is referred when performing user callbacks, so do not use it if it is not needed.
-    -   If registering callback is successful - TRUE
-    -   If registering callback fails - FALSE
 
 After a successful connection, the failover callback is specified. Examples are shown below: 
 

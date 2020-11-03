@@ -618,6 +618,8 @@ If the LOB data to be stored in a LOB file are NULL, no characters are stored at
 
 ### Performance Options
 
+#### IN
+
 The following options can realize considerable performance gains when running iLoader.
 
 | Factor                                     | Description                                                  |
@@ -626,10 +628,20 @@ The following options can realize considerable performance gains when running iL
 | \-commit *commit_unit*                     | When uploading data, this option determines how many records are committed at one time after being inserted. By default, 1000 records are committed after being inserted.<br />If commit_unit is set to 0, the application runs in NONAUTOCOMMIT mode, in which the commit operation takes place only after all data have been inserted. <br />If commit_unit is set to 1, the application runs in AUTOCOMMIT mode, in which a commit operation takes place for every record at the time that it is inserted. <br/>When this option is used together with the array option, the commit operation takes place after a number of records equal to array_size * commit_unit have been inserted. |
 | \-atomic                                   | This option is set to use the Atomic Array INSERT option. Atomic Array INSERT realizes better performance than Array Insert because Atomic Array INSERT handles a number of Insert statements (up to the size of the array) as a single transaction. This option must be used together with the -array option. Additionally, tables that contain LOB type columns cannot be handled using this option. Furthermore, this option is useful only when uploading data. |
 | \-direct [log\|nolog] (Direct-Path INSERT) | This option is for use with the Direct-Path INSERT when uploading data to a disk table.<br/>If neither log nor nolog is specified, log is the default. If using nolog mode, it is essential to back up the table in question. If execution fails in nolog mode, recovery to a normal state will be impossible. <br/>If loading tables for which there are restrictions (Restrictions for Direct-Path INSERT), execution will automatically switch to the atomic option. <br/>If the -array option has not been set, the size of the array will automatically be set to the maximum possible size (=USHRT_MAX-1, or 65535). <br/>If the -commit option is omitted, its value will be set to 1. |
-| \-parallel *count*                         | This specifies the number of threads that can operate at the same time. A number of threads can be created and executed in parallel up to the specified value, the maximum of which is 32. When downloading, a number of files equal to the specified value is created, and the data are saved therein. <br/>When downloading with only the -parallel option set, the performance of repeated bind and fetch operations may be reduced. Therefore, when downloading data, the -parallel and -array options should be used together. <br/>If a LOB column is present, this option is ignored. When uploading with the -parallel option, iloader creates *count + 1* connections, and when downloading with this option, iloader always creates two connections. Therefore, when uploading or downloading with this option via IPC, the value in the IPC_CHANNEL_COUNT property in altibase.properties must be equal to or greater than the number of these connections. |
-| \-readsize *integer*                       | This is used as an option for the IN mode. This option specifies the amount of data that are read from a file at one time. The size must be greater than 0. The default is 1048576 bytes. |
-| \-prefetch_rows                            | This option can be used as OUT mode. This opeion can specify the number of records fetching from the database at once when executing a SELECT query. The settable value ranges from 0 to 214783647 and the default value is 0. The 0 indicates the maximum size which can be put in a network packet. |
-| \-async prefetch                           | This option is used with the out command. You can configure asynchronous prefetch to improve fetch performance. Possible values for this option are: <br /><br/>off: Do not perform asynchronous prefetch. (Default) <br /><br/>on: Asynchronous prefetch <br /><br/>auto: auto tuning for asynchronous prefetch (Linux only). <br /><br/>For more information about asynchronous prefetch, refer to ALTIBASE_PREFETCH_ASYNC, ALTIBASE_PREFETCH_AUTO_TUNING, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO in the *CLI User's Manual.* |
+| \-parallel *count*                         | This specifies the number of threads that can operate at the same time. A number of threads can be created and executed in parallel up to the specified value, the maximum of which is 32. When downloading, a number of files equal to the specified value is created, and the data are saved therein. <br/>When downloading with only the -parallel option set, the performance of repeated bind and fetch operations may be reduced. Therefore, when downloading data, the -parallel and -array options should be used together. <br/>If a LOB column is present, this option is ignored. When uploading with the -parallel option, iloader creates *count + 1* connections, and when downloading with this option, iloader always creates two connections. Therefore, when uploading or downloading with this option via IPC, the value in the IPC_CHANNEL_COUNT property in altibase.properties must be equal to or greater than the number of these connections. <br /> Default value: 1, Max value: 32 |
+| \-readsize *n*                       | This is used as an option for the IN mode. This option specifies the amount of data that are read from a file at one time. The size must be greater than 0. The default is 1048576 bytes. |
+
+##### LOB column constraints
+
+If there is a LOB colum in the table to be uploaded, the value speicifed by the user is ignored for the following options and internally set as shown in the table below.
+
+| Option      | Setting Value |
+| --------- | ------ |
+| -array    | 1      |
+| -atomic   | Ignored |
+| -commit   | 1      |
+| -direct   | Ignored |
+| -parallel | 1      |
 
 #### Atomic Array INSERT
 
@@ -727,7 +739,33 @@ To execute direct-path uploading in logging mode with a specified array size:
 il in t1.form -d t1.dat -array 1000 -direct
 ```
 
+#### OUT
 
+When executing OUT operation with iLoader, the following options can be used to increase performance.
+
+| Factor                             | Description                                                        |
+| --------------------------------- | ------------------------------------------------------------ |
+| \-array *array_size*              | Option to specify the number of rows to fetch at one time.<br /> Default: 1 |
+| \-parallel *count*                | This option specifies the number of threads to work simultaneously. As many threads as specified are created and processed in parallel, as many data files as threads are created. When downloading using the <br /> -parallel option alone, bind and fetch are repeatedly performed, which causes performance degradation. Therefore, the -array option must be used together.<br />In case of IN, there are always 2 connections to the server.<br />Default: 1, Max: 32 |
+| \-prefetch_rows *n*               | When executing a select query, the user can specify the number of records fetched from the database at one time. The range of possible values is 0 to 214783647. 0 means the maximum size that can be contained in a network packet.<br /> Default: 0 |
+| -async prefetch *[on\|off\|auto]* | To improve fetch performance, asynchronous prefetch can be configured. The values ​​that can be set for this option are as follows.<br />- off: Do not perform asynchronous prefetch. (Default)<br />- on: Perform asynchronous prefetch.<br />- auto: Perform auto tuning for asynchronous prefetch. (Linux only)<br /><br />For detailed information on asynchronous prefetch, please refer to ALTIBASE_PREFETCH_ASYNC, ALTIBASE_PREFETCH_AUTO_TUNING, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO in *CLI User's Manual*. |
+
+##### LOB Column contraints
+
+If there is a LOB column in the download target table, the value specified by the user is ignored for the next option and is set internally as follows.
+
+| Option      | Setting Value |
+| --------- | ------ |
+| -array    | 1      |
+| -parallel | 1      |
+
+##### Example
+
+Download to Array 1000.
+
+```
+iLoader> out -f t1.form -d t1.dat -array 1000
+```
 
 ### Using iLoader in Batch Mode
 

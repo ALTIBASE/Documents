@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents** 
 
 - [JDBC User’s Manual](#jdbc-users-manual)
   - [Preface](#preface)
@@ -3200,6 +3200,36 @@ Since the library that Hibernate officially provides does not include AltibaseDi
 
 The AltibaseDialect.java file and the AltibaseLimitHandler.java file are Available from the Altibase Github site. For detailed instructions on how to port AltibaseDialect, refer to (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md).
 
+#### Lob related properties
+When the Lob column value is null, Hibernate uses ResultSet.getBlob(), ResultSet.getClob() according to the JDBC specification, assuming to return null, and the function works. However, since the Lob-related object is returned even if the value is null, the interface can be controlled with the following JDBC connection properties.
+
+##### lob_null_select
+| Default Value    | off                                                           |
+|----------|---------------------------------------------------------------|
+| Range | [on \| off ]                                                 |
+| Requirement | No                                                            |
+| Setting range | Session                                                           |
+| Description     | Whether ResultSet.getBlob() or ResultSet.getClob() returns an object when the lob column value is null  | 
+##### Example 
+Since the default value of lob_null_select is off, you need to do null processing after getBlob() and getClob() as follows.
+
+```
+Blob sBlob = sRs.getBlob();
+if (sBlob != null) // If sBlob is null, NullpointerException may occur.
+{
+   long sLength = sBlob.length();  
+   System.out.println("blob length===>" + sLength);
+}
+...
+Clob sClob = sRs.getClob();
+if (sClob != null) // If sClob is null, NullpointerException may occur.
+{
+   long sLength = sClob.length();  
+   System.out.println("clob length===>" + sLength);
+}
+```
+
+
 ### Sharding
 #### Properties
 The following attributes have been added for the jdbc sharding feature.
@@ -3309,9 +3339,9 @@ Logging related settings are also available as environment variables. By default
 | SHARD_JDBC_TRCLOG_LEVEL        | shardjdbc log level                                          | OFF     |
 | SHARD_JDBC_TRCLOG_PRINT_STDERR | Whether to pass to the parent logger. <br/> If set to TRUE, logs are normally left in the console. | FALSE   |
 ##### Log Levels
-```
+
 Originally, JDK Logging can be set in the following order: SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, but shardjdbc uses both SEVERE and INFO levels.
-```
+
 
 | Name   | Description                                                  |
 | ------ | ------------------------------------------------------------ |
@@ -3421,6 +3451,39 @@ The general Altibase jdbc driver is supported, but the functions not supported b
       * getXAConnection()
       * getXAConnection(String user, String password)
 
+### SQL Plan
+Provides the funciton to import the SQL execution plan as a string as a non-standard API. The SQL plan represents the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLy, and the default setting is OFF.
+
+#### How to use
+
+To get the SQL plan, before execution the SQL statement, the user must call the setExplainPlan(byteaExplainPlanMode) method of the AltibaseConnection object to specify what content to get the execution SQL plan. The aExplainPlanMode options that can be specified are described in the table below. After entering the SQL statement in the AltibaseStatement object, the execution plan of the string behavior can be returned by calling the getExplainPlan() method.
+
+#### Function
+
+|                 Attribute                 | Attribute Value |                             Description                             |
+| :----------------------------------: | :----: | :----------------------------------------------------------: |
+| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | After executing the SELECT statement, the Plan Tree informaiton is not displayed, onlt the result record is displayed |
+|  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. In the plan tree, the number of records accessed, the amount of memory occupied by tuples, and the cost are displayed |
+| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. When EXPLAN PLAN = ONLY, only the execution plan is generated without query execution, so items whose value is determined after actual execution, such as the ACCESS item, are displayed as question marks (“??”) |
+
+#### Code Example
+
+```
+AltibaseConnection sConn = (AltibaseConnection)DriverManager.getConnection(sURL, sProps);
+sConn.setExplainPlan(AltibaseConnection.EXPLAIN_PLAN_ONLY);
+AltibaseStatement  sStmt = (AltibaseStatement)sConn.prepareStatement("SELECT sysdate FROM dual");
+System.out.println(sStmt.getExplainPlan());
+```
+
+#### Code Result
+
+```
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
+ SCAN ( TABLE: DUAL, FULL SCAN, ACCESS: ??, COST: 0.01 )
+------------------------------------------------------------
+```
+
 ## 4. Tips & Recommendation
 
 This chapter shows how to use Altibase JDBC driver efficiently.
@@ -3433,7 +3496,7 @@ The following tips should be kept in mind to enhance the performance of JDBC app
 -   It is recommended to execute one operation on one Connection object. For example, if a multiple number of Statement objects are created in one Connection object and their operations are executed, this can induce performance loss. 
 -   It is recommended to use the Connection Pool provided by Middleware (WAS) when the Connection object is frequently created and deleted. This is because the cost of connecting and terminating a Connection is relatively higher than other operations. 
 
-5. Error Messages
+## 5. Error Messages
 -----------
 
 This chapter lists the SQL States of errors which can occur while using the Altibase JDBC driver.

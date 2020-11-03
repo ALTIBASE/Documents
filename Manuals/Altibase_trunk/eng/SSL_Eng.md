@@ -186,9 +186,9 @@ This section describes the requirements for using SSL communication on the serve
 #### Server
 
 -   OpenSSL toolkit 0.9.4~1.0.2 
--   Altibase version 6.5.1 or above (only supports Intel-Linux)
+-   Altibase version 6.5.1 or later (only supports Intel-Linux)
 
-The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. You should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug that was disclosed in April 2014. 
+The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. You should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug.
 
 The user can use the OPENSSL_NO_HEARTBEATS option to check whether or not it is infected. 
 
@@ -443,7 +443,7 @@ If the port property has not been set for JDBC, the value specified for ALTIBASE
 
 Please consider the following when using SSL for JDBC.
 
-###### Importing the PKCS #12 File into the Keystore (Available for JRE 1.6. or Above)
+###### Importing the PKCS #12 File into the Keystore (Available for JRE 1.6. or later)
 
 To use mutual authentication over SSL, you must first import the client's CA certificate and private key into the KeyStore. At this time, the supported version is JRE1.6 or higher. This is because, in Java 6 or higher, you can use the importkeystore option to send a pem file to the keystore.
 
@@ -493,14 +493,14 @@ SSL connection properties are located in $ALTIBASE_HOME/conf.
 
 | Name       | Description                                                  | Range        | Default Value |
 | ---------- | ------------------------------------------------------------ | ------------ | ------------- |
-| SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory. <br/>Ex)SSL_CA= /cert/ ca-cert.pem. | 없음         | NULL          |
-| SSL_CAPATH | Specifies CAPATH in a CA directory format. <br/>Ex) SSL_CAPATH=/etc/ssl/certs | 없음         | NULL          |
-| SSL_CERT   | Sets the Altibase certificate path. </br>Ex)SSL_CERT=/cert/client-cert.pe m | 없음         | NULL          |
-| SSL_KEY    | Sets the server private (secret) key path. <br/>Ex) SSL_KEY=/cert/client-key.pem | 없음         | NULL          |
+| SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory. <br/>Ex)SSL_CA= /cert/ ca-cert.pem. | None         | NULL          |
+| SSL_CAPATH | Specifies CAPATH in a CA directory format. <br/>Ex) SSL_CAPATH=/etc/ssl/certs | None         | NULL          |
+| SSL_CERT   | Sets the Altibase certificate path. </br>Ex)SSL_CERT=/cert/client-cert.pe m | None         | NULL          |
+| SSL_KEY    | Sets the server private (secret) key path. <br/>Ex) SSL_KEY=/cert/client-key.pem | None         | NULL          |
 | SSL_VERIFY | Sets whether or not to authenticate the server certificate. An SSL handshake fails if authentication fails, and it becomes impossible to communicate over SSL. <br/>0 : (OFF) Does not authenticate the server certificate <br/>1: (ON) Authenticates the server certificate <br/>Ex) SSL_VERIFY=0 | 0: OFF 1: ON | 0 (off)       |
-| SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at OpenSSL (http://www.openssl.org/) or execute the following command in the shell environment. $ openssl ciphers <br/>Ex)SSL_CIPHER=EDH-DSS-DESCBC-SHA:DES-CBC-SHA | 없음         | NULL          |
+| SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at OpenSSL (http://www.openssl.org/) or execute the following command in the shell environment. $ openssl ciphers <br/>Ex)SSL_CIPHER=EDH-DSS-DESCBC-SHA:DES-CBC-SHA | None         | NULL          |
 
-다음은 서버의 SSL 프로퍼티와 ODBC/CLI용 프로퍼티를 비교한 표이다.
+The following is a table comparing the server SSL properties and ODBC/CLI properties.
 
 | Name                      | Server(altibase.properties) | ODBC/CLI                                                     |
 | ------------------------- | --------------------------- | ------------------------------------------------------------ |

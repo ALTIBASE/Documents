@@ -3124,6 +3124,7 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 | PARTITION_MIN_VALUE   | VARCHAR(4000) | 파티션의 최소 기준값 (해쉬 파티션의 경우 NULL) |
 | PARTITION_MAX_VALUE   | VARCHAR(4000) | 파티션의 최대 기준값 (해쉬 파티션의 경우 NULL) |
 | INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN                         |
+| PARTITION_COUNT      | INTEGER      | 파티션 테이블의 총 개수 |
 
 #### 칼럼 정보
 
@@ -3186,6 +3187,10 @@ TABLE_NAME 값과 동일하다.
 
 이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에
 기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
+
+##### PARTITION_COUNT
+
+지역 서버의 이중화 대사 테이블이 속해 있는 파티션드 테이블을 구성하는 파티션 테이블의 총 개수
 
 #### 참조 테이블
 

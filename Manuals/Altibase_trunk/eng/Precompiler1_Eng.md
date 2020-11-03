@@ -2392,7 +2392,7 @@ EXEC SQL BEGIN DECLARE SECTION;
 char* var1;
 EXEC SQL END DECLARE SECTION;
 
-또는
+Or
 
 EXEC SQL BEGIN DECLARE SECTION;
 #define MAX_CHAR_PTR 90000
@@ -2410,7 +2410,7 @@ struct tag1
     int a; 
 } *A; 
 A = (struct tag1*)(malloc(sizeof(struct tag1))); 
-INSERT INTO T1 VALUES ( :A ); 혹은 INSERT INTO T1 VALUES (:A->a); 
+INSERT INTO T1 VALUES ( :A ); or INSERT INTO T1 VALUES (:A->a); 
 ```
 
 (2) First declare the structure, and then declare a pointer to the structure in a separate statement.
@@ -2422,7 +2422,7 @@ struct tag1
 }; 
 struct tag1 *A; 
 A = (struct tag1*)(malloc(sizeof(struct tag1))); 
-SELECT I1 INTO :A FROM T1; 혹은 SELECT I1 INTO :A->a FROM T1; 
+SELECT I1 INTO :A FROM T1; or SELECT I1 INTO :A->a FROM T1; 
 ```
 
 (3) First declare a structure and define a type based on the structure in the same statement, and then declare a pointer to the type in a separate statement.
@@ -2434,7 +2434,7 @@ typedef struct tag1
 }tag1; 
 tag1 *A; 
 A = (tag1*)(malloc(sizeof(tag1))); 
-SELECT I1 INTO :A FROM T1; 혹은 SELECT I1 INTO :A->a FROM T1; 
+SELECT I1 INTO :A FROM T1; or SELECT I1 INTO :A->a FROM T1; 
 ```
 
 In the following example, vDataT2 is a pointer to a structure, and is used as an input host variable.
@@ -2897,7 +2897,7 @@ This type can be used only with CLOB type database columns. It is essential that
 
 When using the APRE_CLOB type as an input host variable, set the value of the corresponding indicator variable to -1 to indicate that the value of the host variable is NULL. When the value of the host variable is any other value (i.e. a non-NULL value), set the value of the indicator variable to the length of the data saved in the host variable. 
 
-When using this type as an output host variable, a value of -1 in the corresponding indicator variable indicates that a NULL value was returned to the host variable, whereas an indicator variable value greater than 0 indicates that a non-NULL value was returned to the host variable, and furthermore indicates the length of the data saved in the host variable. Finally, if the data returned to the host variable was truncated, SQL_NO_TOTAL (-4) is returned in the indicator variable.
+When using this type as an output host variable, NULL is returned when the indicator variable is -1, and if it is greater than 0, the length of the value stored in the host variable is stored in the indicator variable.
 
 ##### Example
 
@@ -4211,7 +4211,7 @@ Both host variables and indicator variables can be used in both the SET and WHER
 -   Arrays must not be used together with non-array type variables. For example, if the host variable used in the SET clause is an array, the host variable used in the WHERE clause must also be an array.
 
 ```
-예) EXEC SQL BEGIN DECLARE SECTION;
+Example) EXEC SQL BEGIN DECLARE SECTION;
 int var1[10]; 
 int var2[10];
 int var3;

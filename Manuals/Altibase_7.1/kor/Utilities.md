@@ -510,9 +510,27 @@ altibase.properties 순이며 설정되지 않았을 경우에는 데이터베�
 주의) 서버 캐릭터 셋과 ALTIBASE_NLS_USE에 설정한 값이 다를 경우에는 정상적으로
 동작하지 않을 수 있다. 반드시 적절한 값을 설정할 것을 권장한다.
 
+##### ALTIBASE_UT_FILE_PERMISSION
 
+aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공통 환경변수이다. 
+값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
 
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ALTIBASE_UT_FILE_PERMISSION=600
 
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
+
+예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다. 
+aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+
+##### AEXPORT_FILE_PERMISSION
+
+aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export AEXPORT_FILE_PERMISSION=600 
 
 ### aexport사용방법
 
@@ -1488,6 +1506,22 @@ csv 형식으로 파일에 저장한다.
 
 예) FILE_MODE_MAX_ARRAY = 1000
 
+##### LOG_EQ_MOSO
+
+PK를 포함한 모든 컬럼의 값이 일치하는 MOSO 레코드 정보를 실행 결과 파일에 
+기록할 지 결정하는 프로퍼티이다. 
+
+프로퍼티 값은 “ON”, “OFF”를 가질 수 있으며, “ON”이면 기록하고, “OFF”이면 기록
+하지 않는다. 프로퍼티를 지정하지 않으면 "OFF"로 동작한다.
+
+기록 형식은 *MOSO[m,n]->EQ:PK->{PCOL_V}* 이다.
+
+-   m : Master Server의 레코드 순서
+
+-   n : Slave Server의 레코드 순서
+
+이 옵션은 대용량 테이블을 비교할 때, 부하를 많이 줄 수 있으므로 주의해서 사용해야 한다.
+
 #### TABLES 그룹 
 
 실행 대상이 되는 테이블에 관련된 정보를 정의한다. 이 그룹은 실행 대상이 되는
@@ -1587,6 +1621,7 @@ Fetch Rec In Slave : 2
 MOSX = DF, Count :          1
 MXSO = DF, Count :          0
 MOSO = DF, Count :          1
+MOSO = EQ, Count :          1
 
  SCAN TPS:   20547.95
      Time:       0.00 sec
@@ -4860,7 +4895,7 @@ Altibase 서버가 비정상 종료될 때 \$ALTIBASE_HOME/trc 디렉토리에 �
 
 ```
 dumptrc [-h |[-p file_path][-c [-s]]
-[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] |-f |-v]
+[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] [x] |-f |-v]
 ```
 
 
@@ -4930,8 +4965,7 @@ Altibase 기술서비스 팀에 송부하면, 보다 빨리 문제를 해결할 
 
 #### 주의 사항
 
-dumptrc가 정상적으로 동작하려면, Altibase의 실행 파일의 버전과 dumptrc의 버전이
-동일해야 정확한 콜 스택 정보를 확인할 수 있다.
+Altibase의 실행 파일의 버전과 dumptrc의 버전이 동일해야 정확한 콜 스택 정보를 확인할 수 있다.버전이 틀릴 경우는 잘못된 값이 나올 수 있기 때문에 기본적으로 경고메시지를 보여주고 콜 스택을 출력하지 않는다. 버전이 틀릴때도 강제로 콜스택을 출력하기 위해서는 -x옵션을 사용하면 된다.
 
 #### 사용예
 

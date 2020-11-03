@@ -1751,7 +1751,7 @@ ACOS (number)
 
 ##### Description
 
-ACOS returns the arccosine of the input argument, which must be within the range from -1 to 1 inclusive. If the input value does not fall within this range, 0.000000 is returned. The function returns a DOUBLE type value in radians within the range from 0 to pi). 
+ACOS returns the arccosine of the input argument, which must be within the range from -1 to 1 inclusive. If the input value does not fall within this range, 0.000000 is returned. The function returns a DOUBLE type value in radians within the range from 0 to π(pi). 
 
 *1 radian = 180º/pi*
 
@@ -1781,7 +1781,7 @@ ASIN (number)
 
 ##### Description
 
-ASIN returns the arcsine of the input argument, which must be within the range from -1 to 1 inclusive. If the input value does not fall within this range, 0.000000 is returned. The function returns a DOUBLE type numeric value in radians within the range from -/2 to /2 inclusive.
+ASIN returns the arcsine of the input argument, which must be within the range from -1 to 1 inclusive. If the input value does not fall within this range, 0.000000 is returned. The function returns a DOUBLE type numeric value in radians within the range from -π/2 to π/2 inclusive.
 
 ##### Example
 
@@ -1809,7 +1809,7 @@ ATAN (number)
 
 ##### Description
 
-ATAN returns the arc tangent of the input argument, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from -/2 to /2 inclusive.
+ATAN returns the arc tangent of the input argument, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from -π/2 to π/2 inclusive.
 
 ##### Example
 
@@ -1837,7 +1837,7 @@ ATAN2 (n, m)
 
 ##### Description
 
-ATAN2 returns the arc tangent of two input arguments, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from - (exclusive) to  (inclusive).
+ATAN2 returns the arc tangent of two input arguments, which can be any real number. The function returns a DOUBLE type numeric value in radians within the range from -π (exclusive) to π (inclusive).
 
 ##### Example
 
@@ -7335,10 +7335,10 @@ When a number is added to or subtracted from a DATE type value, it is interprete
 ```
 date [ + | - ] n
 date – date
-date [ + | - ] days (더하기/빼기 n일: n)
-date [ + | - ] hours (더하기/빼기 n시간: n/24) )
-date [ + | - ] minutes (더하기/빼기 n분: n/(24*60) )
-date [ + | - ] seconds (더하기/빼기 n초: n/(24*60*60))
+date [ + | - ] days (plus/minus n day: n)
+date [ + | - ] hours (plus/minus n hour: n/24) )
+date [ + | - ] minutes (plus/minus n minute: n/(24*60) )
+date [ + | - ] seconds (plus/minus n second: n/(24*60*60))
 ```
 
 > Note:
@@ -7979,6 +7979,20 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO         EMP_TEL
 9           Diaz                  Curtis                4001        0165293668
 15          Davenport             Jason                 1003        0119556884
 3 rows selected.
+```
+
+\<Query\> Display information for all departments that containt an underscore (-) in the department name.
+
+```
+iSQL> INSERT INTO departments VALUES(5002, 'USA_HQ', 'Palo Alto', 100);
+1 row inserted.
+iSQL> SELECT * FROM departments
+WHERE dname LIKE '%\_%' ESCAPE '\';
+DNO         DNAME                           DEP_LOCATION  MGR_NO
+---------------------------------------------------------------------------
+5002        USA_HQ                          Palo Alto     100
+1 row selected.
+
 ```
 
 In the above example, the backslash (“\”) is defined as an escape character using the ESCAPE option. Using this escape character before the underscore character indicates that the underscore character is not to be handled as a wildcard.

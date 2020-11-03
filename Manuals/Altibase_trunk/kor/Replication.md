@@ -2719,6 +2719,8 @@ ConnectionRetryCount는 가용 서버에 접속 실패 시, 접속 시도 반복
 ConnectionRetryDelay는 가용 서버 접속 실패 시, 다시 접속을 시도하기 전에
 대기하는 시간으로 초 단위이다. 생략할 수 있으며, 기본값은 1이다.
 
+LoadBalance는 on 혹은 off 값을 갖을 수 있고, 기본값은 off 이다. 이 값이 on 인 경우에, 최초 접속시 접속가능 서버중 랜덤으로 접속시도한다. 그리고, session time failover시에는 접속되어있었던 서버에 먼저 접속 시도, 그 후 기존 접속 서버는 제외하고, 랜덤으로 접속시도 한다.
+
 SessionFailOver는 STF (Service Time Fail-Over)를 할 것인지 여부를 나타낸다.
 생략할 수 있으며, 기본값은 off이다.
 

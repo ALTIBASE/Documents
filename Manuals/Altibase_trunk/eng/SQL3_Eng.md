@@ -216,7 +216,20 @@ COUNT
 1 row selected.
 ```
 
+##### Deleting Multiple table data
 
+\<Query\> Delete employees belong to the 'MARKETING DEPT' deparment in the employees and departments tables.
+
+```
+iSQL> DELETE e, d FROM employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+4 rows deleted.
+
+iSQL> select count(*) from  employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+COUNT
+-----------------------
+0
+1 row selected.
+```
 
 ##### Deleting Rows using the RETURNING clause
 
@@ -1181,7 +1194,7 @@ If hierarchical data is queried using the ORDER BY clause or the GROUP BY clause
   The CONNECT BY clause must precede the ORDER BY, GROUP BY, HAVING clause after the WHERE clause. 
   
 
-The NOCYCLE keyword instructs the database to return all rows preceding the occurrence of a loop from a query, regardless of the existence of a loop in the result set of the hierarchical query. 
+  The NOCYCLE keyword instructs the database to return all rows preceding the occurrence of a loop from a query, regardless of the existence of a loop in the result set of the hierarchical query. 
 
   The SYS_CONNECT_BY_PATH function can easily retrieve PATH information up to the current row in a hierarchical query. For further information on this function, refer to “Chapter6: SQL Functions”. 
 
@@ -1190,7 +1203,7 @@ The NOCYCLE keyword instructs the database to return all rows preceding the occu
   The PRIOR operator is used to distinguish previously searched rows from the current row. Use of the PRIOR operator is mandatory in order to refer to the parent row. 
   
 
-The PRIOR operator is only valid in the SELECT list, WHERE clause or CONNECT BY clause of query statements that include the CONNECT BY clause. 
+  The PRIOR operator is only valid in the SELECT list, WHERE clause or CONNECT BY clause of query statements that include the CONNECT BY clause. 
 
   If set operators (UNION, INTERSECT, etc) are used in the query, the PRIOR operator cannot be included in the ORDER BY clause. 
 
@@ -1199,7 +1212,7 @@ The PRIOR operator is only valid in the SELECT list, WHERE clause or CONNECT BY 
   CONNECT_BY_ROOT is a unary operator that is valid only in hierarchical queries. If a column is qualified with this operator, the column value of the root row is returned. 
   
 
-This operator cannot be used in the START WITH condition or the CONNECT BY condition.
+  This operator cannot be used in the START WITH condition or the CONNECT BY condition.
 
 
 - *CONNECT_BY_ISLEAF Pseudocolumn* 
@@ -2953,7 +2966,7 @@ This specifies the name and value of the column to be updated. This clause can h
 - If no result on the subquery is returned, NULL is updated in the column. 
 - If DEFAULT is assigned in a column when using a subquery, DAFAULT attribute value is updated in the column.
 
-*Modifying the data in a timestamp column*
+*Modifying the data in a TIMESTAMP column*
 
 When an UPDATE statement is executed on a TIMESTAMP column, the default behavior is to update the column with the system time. Therefore, if no value is specified when a TIMESTAMP column is updated, it will be updated with the system time, rather than NULL.
 
@@ -3561,7 +3574,7 @@ DEQUEUE MESSAGE, CORRID FROM Q1 WHERE CORRID=237;
 
 ## 5. Data Control Language
 
-- This chapter explains each of the Data Control Language (DCL) statements that are available in Altibase.
+This chapter explains each of the Data Control Language (DCL) statements that are available in Altibase.
 
 ### ALTER REPLICATION 
 
@@ -3973,7 +3986,7 @@ This deletes all statement auditing and DDL statement auditing conditions that h
 
 *delaudit_object_clause*
 
-The deletes auditing conditions that have been enabled for a particular object.
+This deletes auditing conditions that have been enabled for a particular object.
 
 #### Precautions
 

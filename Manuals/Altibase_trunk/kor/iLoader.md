@@ -351,7 +351,25 @@ altibase.properties 파일 내의 프로퍼티 순이다. 만약 아무것도 �
 
 NLS_USE 설정의 우선순위는 FORM 파일의 DATA_NLS_USE(in 옵션 수행시에만 적용), -NLS_USE 옵션, 환경변수 ALTIBASE_NLS_USE, altibase.properties 내의 프로퍼티 순으로 참조 적용되며, 아무것도 설정되지 않았을 경우에는 기본 캐릭터 셋(US7ASCII)을 사용한다.
 
+##### ALTIBASE_UT_FILE_PERMISSION
 
+aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공통 환경변수이다. 
+값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, export ALTIBASE_UT_FILE_PERMISSION=600
+
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
+
+예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
+
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다. aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+
+##### ILO_FILE_PERMISSION
+
+iloader가 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, export ILO_FILE_PERMISSION=600
 
 2.iLoader 사용 방법
 -----------------

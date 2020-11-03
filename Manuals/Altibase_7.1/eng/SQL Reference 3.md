@@ -3561,7 +3561,7 @@ DEQUEUE MESSAGE, CORRID FROM Q1 WHERE CORRID=237;
 
 ## 5. Data Control Language
 
-- This chapter explains each of the Data Control Language (DCL) statements that are available in Altibase.
+This chapter explains each of the Data Control Language (DCL) statements that are available in Altibase.
 
 ### ALTER REPLICATION 
 
@@ -3973,7 +3973,7 @@ This deletes all statement auditing and DDL statement auditing conditions that h
 
 *delaudit_object_clause*
 
-The deletes auditing conditions that have been enabled for a particular object.
+This deletes auditing conditions that have been enabled for a particular object.
 
 #### Precautions
 
