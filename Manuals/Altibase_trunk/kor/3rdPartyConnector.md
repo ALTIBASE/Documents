@@ -837,7 +837,7 @@ javawriter.bootoptions=-Xmx512m -Xms32m -Djava.class.path=.:ggjava/ggjava.jar:./
 | NUMBER        | NUMBER          |                                                              |
 | FLOAT         | FLOAT           |                                                              |
 | BINARY FLOAT  | FLOAT           |                                                              |
-| BINARY DOUBLE | FLOAT           | 데이터가 일부만 넘어오는 현상이 있다.                        |
+| BINARY DOUBLE | DOUBLE          |                                                              |
 | DATE          | DATE            |                                                              |
 | TIMESTAMP     | DATE            | 스케일의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 오라클에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, Altibase에서는 타임스탬프 값의 스케일이 마이크로초(6자리 수)이다. |
 | RAW           | BLOB            |                                                              |
