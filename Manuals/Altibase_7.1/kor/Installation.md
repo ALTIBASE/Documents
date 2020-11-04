@@ -334,6 +334,48 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 이중화 기능 사용 시 전용선 사용을 권장한다.
 
+### 지원 플랫폼
+
+Altibase 는 아래 플랫폼에 대해서 서버/클라이언트 모두 지원합니다. 단, Windows의 경우는 클라이언트만 지원합니다.
+
+#### AIX
+
+AIX 6.1TL3 이상(64-bit)
+
+AIX 7.1 , AIX 7.2(64-bit)
+
+#### HP
+
+HP-UX.IA64 11.31 이상(64-bit)
+
+#### Linux(x86)
+
+Redhat 6.0 이상(64-bit)
+
+Redhat 7.0 이상(64-bit)
+
+Redhat 8.0이상(64-bit)
+
+#### Power Linux
+
+Power7 Redhat 6.5 이상(64-bit)
+
+Power7 Redhat 7.0 이상(64-bit)
+
+Power8 Redhat 6.5 이상(64-bit)
+
+Power8 Redhat 7.0 이상(64-bit)
+
+#### Power Linux Little Endian(LE)
+
+Power8(LE) Redhat 7.2 이상(64-bit)
+
+#### Windows
+
+Altibase 7.1.0.4.5 부터 windows 클라이언트를 지원합니다.
+
+Windows Server 2008-x64 (64bit)
+
 ### Altibase 패키지 인스톨러
 
 #### Altibase 설치 기본 순서
