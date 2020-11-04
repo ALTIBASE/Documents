@@ -355,8 +355,6 @@ Redhat 6.0 이상(64-bit)
 
 Redhat 7.0 이상(64-bit)
 
-Redhat 8.0이상(64-bit)
-
 #### Power Linux
 
 Power7 Redhat 6.5 이상(64-bit)
