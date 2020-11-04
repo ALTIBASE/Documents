@@ -10,6 +10,7 @@
     - [APatch 디렉터리](#apatch-%EB%94%94%EB%A0%89%ED%84%B0%EB%A6%AC)
   - [2.패키지 인스톨러를 이용한 제품 설치](#2%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
     - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+    - [지원 플랫폼](#%EC%A7%80%EC%9B%90-%ED%94%8C%EB%9E%AB%ED%8F%BC)
     - [Altibase 패키지 인스톨러](#altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
     - [Altibase 제품 설치](#altibase-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
     - [Altibase 클라이언트 제품 설치](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
