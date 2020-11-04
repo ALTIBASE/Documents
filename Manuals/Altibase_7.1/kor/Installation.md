@@ -373,7 +373,7 @@ Power8(LE) Redhat 7.2 이상(64-bit)
 
 #### Windows
 
-Altibase 7.1.0.4.5 부터 windows 클라이언트를 지원합니다.
+Altibase 7.1.0.4.5 부터 windows 용 Altibase 클라이언트를 지원합니다.
 
 Windows Server 2008-x64 (64bit)
 
