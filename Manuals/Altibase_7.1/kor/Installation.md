@@ -373,6 +373,10 @@ Altibase 7.1.0.0.8 부터 지원합니다.
 
 Power8(LE) Redhat 7.2 이상(64-bit)
 
+> altimon의 경우 7.1.0.3.6 이상부터 Power Linux(LE)용 altimon이 지원됩니다.
+>
+> jdbcAdapter의 경우  7.1.0.3.6 이상부터 Power Linux(LE)용 jdbcAdapter가 지원됩니다.
+
 #### Windows
 
 Altibase 7.1.0.4.5 부터 windows 용 Altibase 클라이언트를 지원합니다.
