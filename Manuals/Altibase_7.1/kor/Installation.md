@@ -347,17 +347,21 @@ AIX 7.1 , AIX 7.2(64-bit)
 
 > altimon의 경우, 7.1.0.1.9 이상부터 AIX 7.x 용 altimon이 지원됩니다.
 
-#### HP
+#### HP-UX
 
 HP-UX.IA64 11.31 이상(64-bit)
 
 #### Linux(x86)
+
+GNU glibc 2.12 and higher
 
 Redhat 6.0 이상(64-bit)
 
 Redhat 7.0 이상(64-bit)
 
 #### Power Linux
+
+GNU glibc 2.12 and higher
 
 Power7 Redhat 6.5 이상(64-bit)
 
@@ -370,6 +374,8 @@ Power8 Redhat 7.0 이상(64-bit)
 #### Power Linux Little Endian(LE)
 
 Altibase 7.1.0.0.8 부터 지원합니다.
+
+GNU glibc 2.17 and higher
 
 Power8(LE) Redhat 7.2 이상(64-bit)
 
