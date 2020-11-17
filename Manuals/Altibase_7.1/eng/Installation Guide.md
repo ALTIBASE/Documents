@@ -291,6 +291,59 @@ You should have at least 12GB of free disk space to smoothly run the database.
 
 It is recommended to use a dedicated line when using the replication feature.
 
+### Supported Platforms
+
+Altibase supports both server/client for the following platforms. However, for Windows, only the client is supported.
+
+#### AIX
+
+AIX 6.1TL3 and later (64-bit)
+
+AIX 7.1 , AIX 7.2(64-bit)
+
+>For altimon, altimon for AIX 7.x is supported starting from 7.1.0.1.9 and later.
+
+#### HP-UX
+
+HP-UX.IA64 11.31 and later(64-bit)
+
+#### Linux(x86)
+
+GNU glibc 2.12 and later
+
+Redhat 6.0 and later(64-bit)
+
+Redhat 7.0 and later(64-bit)
+
+#### Power Linux
+
+GNU glibc 2.12 and later
+
+Power7 Redhat 6.5 and later(64-bit)
+
+Power7 Redhat 7.0 and later(64-bit)
+
+Power8 Redhat 6.5 and later(64-bit)
+
+Power8 Redhat 7.0 and later(64-bit)
+
+#### Power Linux Little Endian(LE)
+
+GNU glibc 2.17 and later
+
+Power8(LE) Redhat 7.2 and later(64-bit)
+
+> For altimon, altimon for Power Linux(LE) is supported starting from 7.1.0.3.6 and later.
+>
+> For jdbcAdapter, jdbcAdapter for Power Linux(LE) is supported starting from 7.1.0.3.6 and later.
+
+#### Windows
+
+Starting from Altibase version 7.1.0.4.5, Altibase client for windows is supported.
+
+Windows Server 2008-x64 (64bit)
+
+
 ### Altibase Package Installer
 
 #### Basic Steps for Installing Altibase
