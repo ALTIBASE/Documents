@@ -1316,7 +1316,7 @@ Altibase supports the execution of DDL statements on replication target tables. 
   
 -   The target table should be locked by the LOCK TABLE...UNTIL NEXT DDL statement in order to execute SPLIT PARTITION, MERGE PARTITION, and DROP PARTITION on a replication target table. Moreover, the data should be checked to identify since there would be a replication gap between the local and remote server.
 
-If the SPLIT, MERGE, or DROP is executed on a replication target partition, the identical replication partition is automatically removed or added to the local or remote server.
+If the SPLIT, MERGE, or DROP is executed on a replication target partition, a partition with the same name must be created or deleted on the remote server and a newly created or deleted partition is automatically added or removed as a replication target partition.
 
 #### Restrictions
 
