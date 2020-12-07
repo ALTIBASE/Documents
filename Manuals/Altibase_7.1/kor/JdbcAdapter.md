@@ -281,7 +281,6 @@ jdbcAdapter를 설치하고 실행하기 위해서는 다음의 시스템 요구
 -   LINUX
 -   AIX 
 -   HP-UX
--   WINDOWS
 
 #### 데이터베이스 버전
 
