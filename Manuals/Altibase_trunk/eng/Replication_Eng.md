@@ -1253,7 +1253,7 @@ ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
 
 ALTER TABLE table_name ALTER TABLESPACE;
 
-ALTER TABLE table_name TRUNCATE PARTITION TRUNCATE TABLE table_name;
+ALTER TABLE table_name TRUNCATE PARTITION partition_name;
 
 ALTER TABLE table_name SPLIT PARTITION partition_name(condition) INTO
 ( PARTITION partition_name
