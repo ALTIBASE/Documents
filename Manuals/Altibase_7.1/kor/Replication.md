@@ -1616,7 +1616,7 @@ ALTER TABLE table_name ALTER TABLESPACE;
 
 ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
 
-ALTER TABLE table_name TRUNCATE PARTITION TRUNCATE TABLE table_name;
+ALTER TABLE table_name TRUNCATE PARTITION partition_name;
 
 ALTER TABLE table_name REPLACE table_name;
 
