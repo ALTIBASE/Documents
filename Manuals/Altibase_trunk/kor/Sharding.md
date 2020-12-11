@@ -2930,6 +2930,414 @@ Altibase Sharding 유틸리티의*Shard Manager*절을 참조한다.
 독립 분산 테이블의 리샤딩은 테이블 단위로 진행 된다는 것을 제외하고 단일 키 분산
 테이블과 동일하다.
 
+## Altibase Sharding 프로퍼티
+
+| **분류**                  | **프로퍼티**                                                 | **동적 변경 허용** | **변경 레벨**   |
+| ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
+| 초기화      | SHARD_ENABLE                                                                | No              |                 |
+| 일반 사용자 접속제한 | SHARD_ADMIN_MODE                                                      | Yes                 | SYSTEM                |
+| 내부 연결   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
+| 쿼리 분석   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
+| 쿼리 변환   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
+| 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
+
+#### SHARD_ADMIN_MODE
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1
+##### 속성
+변경 가능, 단일 값
+##### 값의 범위
+[0, 1]
+##### 설명
+이 프로퍼티는 관리자 모드로 접근하는 것만 허용한다. SHARD_ENABLE 로 동작되는 경우 항상 1로 설정 되며 SYS 또는 SYSTEM_ 사용자가 서버와 연결을 맺어 작업을 할 수 있고 그 외 일반 사용자들은 연결 자체가 실패한다.
+- 0: OFF
+- 1: ON
+
+명시적 설정
+- ALTER SYSTEM SET SHARD_ADMIN_MODE로 변경 가능하다.
+- 일반사용자는 ALTER SYSTEM 권한을 가지는 경우 변경 가능하다.
+- Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+암시적 설정
+- 노드가 샤딩 클러스터에 참여하여 정상적으로 운영중에는 자동으로 SHARD_ADMIN_MODE 는 0 으로 변경된다.
+- Shard DDL 혹은 비정상적 상황으로 인하여, 노드가 샤딩 클러스터에서 이탈한 경우에는, 자동으로 SHARD_ADMIN_MODE 는 1 으로 변경된다.
+
+#### SHARD_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Altibase Sharding의 샤드 노드로 설정한다.
+
+0: Disabled
+
+1: Enabled
+
+#### SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1024]
+
+##### 설명
+
+코디네이터 커넥션의 재접속 횟수를 설정한다.
+
+#### SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY (단위: 초)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 3600]
+
+##### 설명
+
+코디네이터 커넥션의 재접속 지연 시간을 설정한다.
+
+#### SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT (단위: 초)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+코디네이터 커넥션의 데이터 수신 최대 지연 시간을 설정한다.
+
+#### SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT (단위: 초)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+60
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+코디네이터 커넥션 접속이 이루어진 후 인증 절차가 완료될 때까지 허용된 시간을
+설정한다.
+
+#### TRCLOG_DETAIL_SHARD
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Isql에서 explain plan 기능과 함께 사용 시 샤드 분석 정보를 출력한다. 이 trace
+log를 사용하기 위해 1을 설정한다.
+
+단, 이 프로퍼티의 값을 1로 설정할 경우에는 내부적으로 cache 된 plan을 사용하지
+않고 새로이 plan을 생성한다.
+
+Altibas Sharding 운영 중 ALTER SESSION, ALTER SYSTEM 문을 이용하여 이 프로퍼티의
+값을 변경할 수 있다.
+
+#### SHARD_AGGREGATION_TRANSFORM_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Altibase Sharding 환경에서 AGGREGATION 분산 수행을 최적화하기 위해 다음 집계 함수를 사용한 쿼리를 내부적으로 변환한다.
+
+- SUM
+- MIN
+- MAX
+- COUNT
+- AVG
+
+예를 들어 다음 구문은 SHARD_AGGREGATION_TRANSFORM_ENABLE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT count(*) FROM t1;
+
+```
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 0
+-> SELECT count(*) FROM shard(SELECT * FROM t1)
+SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
+-> SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
+```
+
+> 주의 사항
+>
+> - AVG의 경우 SUM(SUM()) / SUM(COUNT()) 로 변환되어서 부동소숫점 타입의 결과가 상이할 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### SHARD_TRANSFORM_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+7
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 7]
+
+##### 설명
+
+Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 변환 기능을 제어한다.
+
+해당 프로퍼티 값은 BITMAP 형태이며,
+
+- LIMIT 최적화 변환 기능 켜짐은 1 ( 이진수 표현 0b001 )
+- SELECTION 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b010 )
+- PROJECTION 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b100 )
+
+위 값에 조합으로 제어된다.
+
+예를 들어 다음 구문은 SHARD_TRANSFORM_MODE 값에 따라 아래와 같이 변환하여 수행한다.
+
+SELECT * FROM T1 A LIMIT 1;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A ) A LIMIT 1;
+SHARD_TRANSFORM_MODE = 1;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) - 1 ) A LIMIT 1;
+```
+
+SELECT A.I1 FROM T1 A, T1 B WHERE A.I1 > 0;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 2;
+-> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A WHERE ( ( A.I1 > 0 ) ) ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
+SHARD_TRANSFORM_MODE = 4;
+-> SELECT A.I1 FROM SHARD( SELECT SYS.A.I1 AS I1 FROM T1 as A ) A, SHARD( SELECT NULL FROM T1 as B ) B WHERE A.I1 > 0;
+```
+
+> 주의 사항
+>
+> - LIMIT 의 경우, Shard Split Method 에 따라 분산된 데이터 형태 차이로 Standalone 과 결과 값이 다를 수 있다.
+
+Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### SD_MSGLOG_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+샤드 관련 메시지 파일의 최대 개수를 지정한다.
+
+#### SD_MSGLOG_FILE
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+altibase_sd.log
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+샤드 관련 메시지가 기록되는 파일이다.
+
+#### SD_MSGLOG_FLAG
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+65537
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+샤드 관련 경고 메시지나 트레이스 메시지를 SD_MSGLOG_FILE에 기록 할지 여부를
+나타내는 플래그 값이다.
+
+0 : 기본 에러 메시지
+
+1 : 샤드 메타 에러 메시지
+
+65536 : 샤드 메타 변경 트레이스 메시지
+
+샤드 관련 트레이스 로깅 레벨을 확인하는 방법은 *General Reference*의
+V\$TRACELOG를 참조한다.
+
+#### SD_MSGLOG_SIZE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10 \* 1024 \* 1024
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 232-1]
+
+##### 설명
+
+샤드 관련 메시지 파일의 최대 크기를 지정한다.
+
+## Shard DDL
+
+Shard DDL은 샤딩 클러스터 시스템의 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
+
+Shard DDL은 transactional DDL 상태에서도, 성공하면 commit이 되고, 실패하면 rollback 된다.
+
+### ALTER DATABASE SHARD ADD
+
+#### 구문
+alter_database_shard ::=
+
+#### 전제 조건
+- SYS 사용자이어야 한다.
+- GLOBAL_TRANSACTION_LEVEL 설정 값이 2 또는 3 이어야 한다.
+- SHARD_ENABLE 설정 값이 1 이어야 한다.
+- SHARD 메타정보가 구성되어 있어야 한다.
+- Zookeeper가 구성되어 있어야 한다.
+
+#### 설명
+새로운 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
+
+노드가 샤딩 클러스터에 추가되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
+
+#### 예제
+```
+ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
+ALTER DATABASE SHARD ADD ;
+```
+
 ## Altibase Sharding 딕셔너리
 
 Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타와 단일
@@ -4656,360 +5064,6 @@ iSQL> EXEC dbms_shard.execute_immediate(‘TRUNCATE TABLE s1’,’node1’);
 Execute success.
 ```
 
-## Altibase Sharding 프로퍼티
-
-| **분류**                  | **프로퍼티**                                                 | **동적 변경 허용** | **변경 레벨**   |
-| ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
-| 초기화 관련 프로퍼티      | SHARD_ENABLE                                                 | No                 |                 |
-| 내부 연결 관련 프로퍼티   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
-| 쿼리 분석 관련 프로퍼티   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
-| 쿼리 변환 관련 프로퍼티   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
-| 메시지 로그 관련 프로퍼티 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
-
-#### SHARD_ENABLE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding의 샤드 노드로 설정한다.
-
-0: Disabled
-
-1: Enabled
-
-#### SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1024]
-
-##### 설명
-
-코디네이터 커넥션의 재접속 횟수를 설정한다.
-
-#### SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY (단위: 초)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 3600]
-
-##### 설명
-
-코디네이터 커넥션의 재접속 지연 시간을 설정한다.
-
-#### SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT (단위: 초)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-코디네이터 커넥션의 데이터 수신 최대 지연 시간을 설정한다.
-
-#### SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT (단위: 초)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-60
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-코디네이터 커넥션 접속이 이루어진 후 인증 절차가 완료될 때까지 허용된 시간을
-설정한다.
-
-#### TRCLOG_DETAIL_SHARD
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Isql에서 explain plan 기능과 함께 사용 시 샤드 분석 정보를 출력한다. 이 trace
-log를 사용하기 위해 1을 설정한다.
-
-단, 이 프로퍼티의 값을 1로 설정할 경우에는 내부적으로 cache 된 plan을 사용하지
-않고 새로이 plan을 생성한다.
-
-Altibas Sharding 운영 중 ALTER SESSION, ALTER SYSTEM 문을 이용하여 이 프로퍼티의
-값을 변경할 수 있다.
-
-#### SHARD_AGGREGATION_TRANSFORM_ENABLE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding 환경에서 AGGREGATION 분산 수행을 최적화하기 위해 다음 집계 함수를 사용한 쿼리를 내부적으로 변환한다.
-
-- SUM
-- MIN
-- MAX
-- COUNT
-- AVG
-
-예를 들어 다음 구문은 SHARD_AGGREGATION_TRANSFORM_ENABLE 값에 따라 아래와 같이 변환하여 수행한다.
-
-SELECT count(*) FROM t1;
-
-```
-SHARD_AGGREGATION_TRANSFORM_ENABLE = 0
--> SELECT count(*) FROM shard(SELECT * FROM t1)
-SHARD_AGGREGATION_TRANSFORM_ENABLE = 1
--> SELECT sum(c) FROM shard(SELECT count(*) c FROM t1);
-```
-
-> 주의 사항
->
-> - AVG의 경우 SUM(SUM()) / SUM(COUNT()) 로 변환되어서 부동소숫점 타입의 결과가 상이할 수 있다.
-
-Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-#### SHARD_TRANSFORM_MODE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-7
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 7]
-
-##### 설명
-
-Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 변환 기능을 제어한다.
-
-해당 프로퍼티 값은 BITMAP 형태이며,
-
-- LIMIT 최적화 변환 기능 켜짐은 1 ( 이진수 표현 0b001 )
-- SELECTION 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b010 )
-- PROJECTION 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b100 )
-
-위 값에 조합으로 제어된다.
-
-예를 들어 다음 구문은 SHARD_TRANSFORM_MODE 값에 따라 아래와 같이 변환하여 수행한다.
-
-SELECT * FROM T1 A LIMIT 1;
-
-```
-SHARD_TRANSFORM_MODE = 0;
--> SELECT * FROM SHARD( SELECT * FROM T1 A ) A LIMIT 1;
-SHARD_TRANSFORM_MODE = 1;
--> SELECT * FROM SHARD( SELECT * FROM T1 A LIMIT FOR SHARD CAST( 1 AS BIGINT ) + CAST( 1 AS BIGINT ) - 1 ) A LIMIT 1;
-```
-
-SELECT A.I1 FROM T1 A, T1 B WHERE A.I1 > 0;
-
-```
-SHARD_TRANSFORM_MODE = 0;
--> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
-SHARD_TRANSFORM_MODE = 2;
--> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A WHERE ( ( A.I1 > 0 ) ) ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
-SHARD_TRANSFORM_MODE = 4;
--> SELECT A.I1 FROM SHARD( SELECT SYS.A.I1 AS I1 FROM T1 as A ) A, SHARD( SELECT NULL FROM T1 as B ) B WHERE A.I1 > 0;
-```
-
-> 주의 사항
->
-> - LIMIT 의 경우, Shard Split Method 에 따라 분산된 데이터 형태 차이로 Standalone 과 결과 값이 다를 수 있다.
-
-Altibase Sharding 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-#### SD_MSGLOG_COUNT
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-10
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-샤드 관련 메시지 파일의 최대 개수를 지정한다.
-
-#### SD_MSGLOG_FILE
-
-##### 데이터 타입
-
-String
-
-##### 기본값
-
-altibase_sd.log
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-없음
-
-##### 설명
-
-샤드 관련 메시지가 기록되는 파일이다.
-
-#### SD_MSGLOG_FLAG
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-65537
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-샤드 관련 경고 메시지나 트레이스 메시지를 SD_MSGLOG_FILE에 기록 할지 여부를
-나타내는 플래그 값이다.
-
-0 : 기본 에러 메시지
-
-1 : 샤드 메타 에러 메시지
-
-65536 : 샤드 메타 변경 트레이스 메시지
-
-샤드 관련 트레이스 로깅 레벨을 확인하는 방법은 *General Reference*의
-V\$TRACELOG를 참조한다.
-
-#### SD_MSGLOG_SIZE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-10 \* 1024 \* 1024
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-샤드 관련 메시지 파일의 최대 크기를 지정한다.
 
 ## Aktibase Sharding 유틸리티
 
