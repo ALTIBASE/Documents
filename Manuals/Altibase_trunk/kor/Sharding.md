@@ -3328,7 +3328,7 @@ alter_database_shard ::=
 - Zookeeper가 구성되어 있어야 한다.
 
 #### 설명
-새로운 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
+본 shard DDL을 수행하는 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
 
 노드가 샤딩 클러스터에 추가되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
 
@@ -3336,6 +3336,54 @@ alter_database_shard ::=
 ```
 ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
 ALTER DATABASE SHARD ADD ;
+```
+
+### ALTER DATABASE SHARD DROP
+
+#### 구문
+alter_database_shard ::=
+
+#### 전제 조건
+- SYS 사용자이어야 한다.
+- GLOBAL_TRANSACTION_LEVEL 설정 값이 2 또는 3 이어야 한다.
+- SHARD_ENABLE 설정 값이 1 이어야 한다.
+- SHARD 메타정보가 구성되어 있어야 한다.
+- Zookeeper가 구성되어 있어야 한다.
+- 현재 노드는 샤딩 클러스터에 추가되어 정상적으로 운영중인 상태이어야 한다. 
+
+#### 설명
+본 shard DDL을 수행하는 노드를 샤딩 클러스터에 제거 하기 위한 구문이다.
+
+노드가 샤딩 클러스터에 제거되면, 자동으로 SHARD_ADMIN_MODE가 1 으로 변경되고, 일반 사용자는 해당 노드에 접속할 수 없게 된다.
+
+#### 예제
+```
+ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
+ALTER DATABASE SHARD DROP ;
+```
+
+### ALTER DATABASE SHARD JOIN
+
+#### 구문
+alter_database_shard ::=
+
+#### 전제 조건
+- SYS 사용자이어야 한다.
+- GLOBAL_TRANSACTION_LEVEL 설정 값이 2 또는 3 이어야 한다.
+- SHARD_ENABLE 설정 값이 1 이어야 한다.
+- SHARD 메타정보가 구성되어 있어야 한다.
+- Zookeeper가 구성되어 있어야 한다.
+- 현재 노드는 샤딩 클러스터에 추가된 후에, shutdown 명령으로 샤딩 클러스터에서 이탈된 상태이어야 한다. 
+
+#### 설명
+본 shard DDL을 수행하는 노드를 샤딩 클러스터에 다시 참여 시키기 위한 구문이다.
+
+노드가 샤딩 클러스터에 다시 참여되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
+
+#### 예제
+```
+ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
+ALTER DATABASE SHARD JOIN ;
 ```
 
 ## Altibase Sharding 딕셔너리
