@@ -3318,8 +3318,7 @@ Unsigned Integer
 
 ## Shard DDL
 
-- Shard DDL은 샤딩 클러스터 시스템의 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
-- Shard DDL은 transactional DDL 상태에서도, 성공하면 commit이 되고, 실패하면 rollback 된다.
+- Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
 - SYS 사용자이어야 한다.
 - GLOBAL_TRANSACTION_LEVEL 설정 값이 2 또는 3 이어야 한다.
 - SHARD_ENABLE 설정 값이 1 이어야 한다.
@@ -3329,7 +3328,7 @@ Unsigned Integer
 ### ALTER DATABASE SHARD ADD
 
 #### 구문
-alter_database_shard ::=
+ALTER DATABASE SHARD ADD
 
 #### 설명
 본 shard DDL을 수행하는 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
@@ -3345,7 +3344,7 @@ ALTER DATABASE SHARD ADD ;
 ### ALTER DATABASE SHARD DROP
 
 #### 구문
-alter_database_shard ::=
+ALTER DATABASE SHARD DROP
 
 #### 설명
 본 shard DDL을 수행하는 노드를 샤딩 클러스터에 제거 하기 위한 구문이다.
@@ -3363,7 +3362,7 @@ ALTER DATABASE SHARD DROP ;
 ### ALTER DATABASE SHARD JOIN
 
 #### 구문
-alter_database_shard ::=
+ALTER DATABASE SHARD JOIN
 
 #### 설명
 본 shard DDL을 수행하는 노드를 샤딩 클러스터에 다시 참여 시키기 위한 구문이다.
@@ -3376,6 +3375,39 @@ alter_database_shard ::=
 ```
 ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
 ALTER DATABASE SHARD JOIN ;
+```
+
+### ALTER DATABASE SHARD FAILOVER
+
+#### 구문
+ALTER DATABASE SHARD FAILOVER 'target_node_name'
+
+#### 설명
+특정 노드에 장애가 발생하였을 때, 다른 노드에서 장애가 발생한 노드의 데이터 영역을 서비스 할 수 있도록 하는 작업이다.
+
+기본적으로는 Zookeeper에 의해 장애노드가 감지되면 자동으로 수행된다. 또한, 사용자가 수동으로 실행 할 수도 있다.
+
+설정된 K-Safety 값에 따라 최대 2차 장애까지는 데이터의 손실없는 failover를 제공할 수 있다.
+
+정상적인 상태의 노드들 중에 노드 이름으로 오름차순으로 정렬 했을때, 장애가 발생한 target node 의 이름과 비교해서 바로 다음 순서에 있는 노드를 next alive node 라고 한다. 이름 순으로 가장 마지막에 있던 노드의 next alive node는 이름 순으로 가장 처음에 위치하는 노드가 된다. 즉, 이름 순서는 환(ring)의 형태로 검색하도록 되어 있다.
+
+failover가 완료되면, next alive node가 장애가 발생한 target node에서 서비스하던 데이타를 서비스 하게 된다.
+
+자동으로 failover가 될때이든, 사용자가 수동으로 failover 명령어를 수행할 때이든, 장애가 발생한 target node 는 kill 된다.
+
+사용자가 수동으로 failover 명령어를 수행할 때는, 수행 노드와 target node가 동일 노드일때는 명령수행이 실패한다. 또한, 수행노드는 정상적으로 운영중이 상태이어야 한다. 그리고, 이미 failover 된 노드를 다시 failover 시킬 수는 없다.
+
+자동으로 failover가 수행되는 경우에, next alive node가 failover 명령어의 수행노드가 된다. 또한, 여러 노드에 장애가 발생할 경우 시스템 내부적으로, 장애가 발생한 노드들의 이름들로 list가 구성되고, 장애를 감지한 수행노드를 기준으로 정렬된 역순으로 failover 를 수행하게 된다.
+
+예를들어, N1~6 노드가 존재하는데, N1 노드와 N3 노드가 장애노드가 되었을 때, N4가 감지하였을 경우 N3 노드 먼저 그리고, N1 노드 순서로 failover되고, N2 노드가 감지할 경우 N1 노드 먼저 그리고, N3 노드의 순서로 failover 된다.
+
+failover된 노드는, 사용자의 failback 명령에 의해서만 다시 샤딩 클러스터에 참여할 수 있다.
+
+#### 예제
+아래는 사용자가 수동으로 실행할때의 예제이다. node1 이라는 이름을 가진 노드가 존재한다고 가정한 것이다.
+```
+ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
+ALTER DATABASE SHARD FAILOVER node1 ;
 ```
 
 ## Altibase Sharding 딕셔너리
