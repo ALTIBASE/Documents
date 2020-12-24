@@ -43,6 +43,7 @@
     - [ALTER DATABASE SHARD DROP](#alter-database-shard-drop)
     - [ALTER DATABASE SHARD JOIN](#alter-database-shard-join)
     - [ALTER DATABASE SHARD FAILOVER](#alter-database-shard-failover)
+    - [ALTER DATABASE SHARD FAILBACK](#alter-database-shard-failback)
   - [Altibase Sharding 딕셔너리](#altibase-sharding-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [샤드 메타](#%EC%83%A4%EB%93%9C-%EB%A9%94%ED%83%80)
     - [SYS_SHARD.VERSION\_](#sys_shardversion%5C_)
