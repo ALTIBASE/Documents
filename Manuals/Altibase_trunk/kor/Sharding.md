@@ -3332,9 +3332,14 @@ Unsigned Integer
 ALTER DATABASE SHARD ADD
 
 #### 설명
-본 shard DDL을 수행하는 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
+본 구문을 수행하는 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
 
 노드가 샤딩 클러스터에 추가되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
+
+샤딩 클러스터에 속한 모든 노드들이 정상적인 상황에서만 수행이 가능한 명령이다. 
+- shutdown 된 노드가 있다면, 먼저 join을 수행하여야 한다.
+- failover 된 노드가 있다면, 먼저 failback이 수행되어야 한다.
+- drop 명령어에 의해서 샤딩 클러스터에서 제외된 노드는, 더이상 샤딩 클러스터에 속한 노드가 아니므로 상관없다. 
 
 #### 예제
 ```
@@ -3348,9 +3353,11 @@ ALTER DATABASE SHARD ADD ;
 ALTER DATABASE SHARD DROP
 
 #### 설명
-본 shard DDL을 수행하는 노드를 샤딩 클러스터에 제거 하기 위한 구문이다.
+본 구문을 수행하는 노드를 샤딩 클러스터에 제거 하기 위한 구문이다.
 
-현재 노드는 샤딩 클러스터에 추가되어 정상적으로 운영중인 상태이어야 한다. 
+샤딩 클러스터에 속한 모든 노드들이 정상적인 상황에서만 수행이 가능한 명령이다. 
+
+본 구문의 수행 노드는 샤딩 클러스터에 추가되어 정상적으로 운영중인 상태이어야 한다. 
 
 노드가 샤딩 클러스터에 제거되면, 자동으로 SHARD_ADMIN_MODE가 1 으로 변경되고, 일반 사용자는 해당 노드에 접속할 수 없게 된다.
 
@@ -3366,9 +3373,9 @@ ALTER DATABASE SHARD DROP ;
 ALTER DATABASE SHARD JOIN
 
 #### 설명
-본 shard DDL을 수행하는 노드를 샤딩 클러스터에 다시 참여 시키기 위한 구문이다.
+본 구문을 수행하는 노드를 샤딩 클러스터에 다시 참여 시키기 위한 구문이다.
 
-현재 노드는 샤딩 클러스터에 추가된 후에, shutdown 명령으로 샤딩 클러스터에서 이탈된 상태이어야 한다. 
+본 구문의 수행 노드는 샤딩 클러스터에 추가된 후에, shutdown 명령으로 샤딩 클러스터에서 이탈된 상태이어야 한다. 
 
 노드가 샤딩 클러스터에 다시 참여되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
 
@@ -3410,6 +3417,27 @@ failover된 노드는, 사용자의 failback 명령에 의해서만 다시 샤�
 ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
 ALTER DATABASE SHARD FAILOVER node1 ;
 ```
+
+### ALTER DATABASE SHARD FAILBACK
+
+#### 구문
+ALTER DATABASE SHARD FAILBACK
+
+#### 설명
+본 구문을 수행하는 노드를 샤딩 클러스터에 다시 failback 시키기 위한 구문이다.
+
+본 구문의 수행 노드는 아래 노드들이 대상이 된다.
+- 장애가 발생하여 자동으로 failover 된 노드
+- 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드
+- 사용자에 의한 shutdown 명령어에 의하지 않고, 비정상적 상태가 되었으나, failover는 되지 않은 노드
+- 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
+
+#### 예제
+```
+ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
+ALTER DATABASE SHARD FAILBACK ;
+```
+
 
 ## Altibase Sharding 딕셔너리
 
