@@ -340,7 +340,6 @@ Zookeeper에 샤드 클러스터 관리를 위하여 관리하는 정보를 의�
 -   HASH
 -   RANGE
 -   LIST
--   COMPOSITE
 -   CLONE
 -   SOLO
 
@@ -363,7 +362,6 @@ Altibase Sharding에서 제공하는 분산 방식에 따라 설정된 테이블
 
 * 샤드 키 분산 테이블  
   * 단일 샤드 키 분산 테이블 ( HASH, RANGE, LIST )
-  * 복합 샤드 키 분산 테이블 ( COMPOSITE )
 * 복제 분산 테이블 ( CLONE )
 * 독립 분산 테이블 ( SOLO )
 
@@ -718,7 +716,6 @@ Altibase Sharding은 아래와 같이 다양하게 데이터 분산 방식을 �
 -   해시(hash) 분산 방식
 -   범위(range) 분산 방식
 -   리스트(list) 분산 방식
--   복합(composite) 샤드 키 분산 방식
 -   복제(clone) 분산 방식
 -   독립(solo) 분산 방식
 
@@ -800,18 +797,6 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 이 경우 데이터를 지역별로 분산하여, 지역별 통계 쿼리 작성에 유리하다. 리스트
 분산 방식도 범위 분산 방식처럼 데이터가 샤드 노드들에 고르게 분산될 수 있도록
 지정하는 것이 좋다.
-
-##### 복합(Composite) 샤드 키 분산 방식
-
-복합 샤드 키 분산 방식은 두 개의 샤드 키를 적용한 분산 방식으로 각 샤드 키는
-해시, 범위, 리스트 분산 방식 중 선택하여 적용한다.
-
-예를 들면 지역명을 샤드 키(리스트 분산)로 적용하고 고객번호를 서브 샤드 키(해시
-분산)로 적용하면 다음과 같다.
-
--   { record(x) \| (shard key value of x) = ‘서울’ and hash(sub-shard key value of x) \<= 500 }  -\> 샤드 노드1
--   { record(x) \| (shard key value of x) = ‘서울’ and hash(sub-shard key value of x) \<= 1000 } -\> 샤드 노드 2
--   { record(x) \| (shard key value of x) = ‘강원’ and hash(sub-shard key value of x) \<= 1000 } -\> 샤드 노드 3
 
 ##### 복제(Clone) 분산 방식
 
@@ -1407,18 +1392,16 @@ Create success.
 
 ```
 DBMS_SHARD.SET_SHARD_TABLE(...)
-DBMS_SHARD.SET_SHARD_TABLE_COMPOSITE(...)
 ```
 
 ##### 설명
 
-샤드 테이블을 설정한다. 샤드 테이블 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *SET_SHARD_TABLE* 또는 *SET_SHARD_TABLE_COMPOSITE*를 참조한다.
+샤드 테이블을 설정한다. 샤드 테이블 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *SET_SHARD_TABLE*를 참조한다.
 
 ##### 예제
 
 ```
 iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE(‘user1’,‘t1’,‘h’,‘i1’,‘node1’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_COMPOSITE(‘user1’,‘t2’,‘h’,‘i1’,‘r',‘i2',‘node1’); 
 iSQL> SELECT * FROM sys_shard.objects_;
 ```
 
@@ -1458,18 +1441,16 @@ DBMS_SHARD 패키지는 샤드 프로시저를 추가하는 서브 프로그램�
 
 ```
 DBMS_SHARD.SET_SHARD_PROCEDURE(...)
-DBMS_SHARD.SET_SHARD_PROCEDURE_COMPOSITE(...)
 ```
 
 ##### 설명
 
-샤드 프로시저를 설정한다. 샤드 프로시저 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *SET_SHARD_PROCEDURE* 또는 *SET_SHARD_PROCEDURE_COMPOSITE*을 참조한다.
+샤드 프로시저를 설정한다. 샤드 프로시저 설정 구문에 대한 자세한 설명은 DBMS_SHARD 패키지의 *SET_SHARD_PROCEDURE*을 참조한다.
 
 ##### 예제
 
 ```
 iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE(‘user1’,‘proc1’,‘h’,‘p1’,‘node1’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_COMPOSITE(‘user1’,‘proc2’,‘h’,‘p1’,‘l',‘p2',‘node1’);
 iSQL> SELECT * FROM sys_shard.objects_;
 ```
 
@@ -1504,7 +1485,6 @@ Altibase Sharding은 샤드 객체에 대하여 다음과 같은 분산 방식(s
     -   해시(hash) 분산 설정
     -   범위(range) 분산 설정
     -   리스트(list) 분산 설정
--   복합(composite) 샤드 키 분산 설정
 -   복제(clone) 분산 설정
 -   독립(solo) 분산 설정
 
@@ -1623,41 +1603,6 @@ user1 사용자의 t1은 이미 list 분산으로 설정되어 있다고 가정�
 iSQL> EXEC DBMS_SHARD.SET_SHARD_LIST(‘user1’,‘t1’,‘서울’, ‘node1’);
 iSQL> EXEC DBMS_SHARD.SET_SHARD_LIST(‘user1’,‘t1’,‘부산’, ‘node2’);
 iSQL> EXEC DBMS_SHARD.SET_SHARD_LIST(‘user1’,‘t1’,‘대구’, ‘node3’);
-iSQL> SELECT * FROM sys_shard.ranges_;
-```
-
-#### 복합(Composite) 샤드 키 분산 설정
-
-Altibase Sharding 은 두 개의 샤드 키를 적용하는 분산 방법으로 복합 샤드 키 분산을 제공한다.
-
-샤드 키 분산 방식(hash, range, list)중에서 두 개의 샤드 키를 적용한 복합 분산 기법으로써, 각각의 샤드 키는 서로 다른 분산 방법을 적용할 수 있다. 단, 복합 샤드 키를 적용할 경우에는 아래의 패키지를 적용하여 샤드 객체를 설정해야 한다.
-
--   SET_SHARD_TABLE_COMPOSITE
--   SET_SHARD_PROCEDURE_COMPOSITE
-
-복합 샤드 키를 적용한 샤드 객체를 해제 방법은 샤드 객체 해제 방법과 동일하다.
-
-##### 구문 
-
-```
-DBMS_SHARD.SET_SHARD_COMPOSITE
-```
-
-##### 설명
-
-복합 샤드 키 분산 정보를 설정한다.
-
-##### 예제
-
-user1 사용자의 t1은 이미 복합 샤드 키 분산으로 설정되어 있다고 가정한다.
-
-```
-iSQL> EXEC DBMS_SHARD.SET_SHARD_COMPOSITE(‘user1’,‘t1’,‘서울’,‘강남구’,‘node1’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_COMPOSITE(‘user1’,‘t1’,‘서울’,‘강북구’,‘node2’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_COMPOSITE(‘user1’,‘t1’,‘서울’,‘강서구’,‘node3’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_COMPOSITE(‘user1’,‘t1’,‘부산’,‘강서구’,‘node1’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_COMPOSITE(‘user1’,‘t1’,‘부산’,‘금정구’,‘node2’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_COMPOSITE(‘user1’,‘t1’,‘부산’,‘남구’,‘node3’);
 iSQL> SELECT * FROM sys_shard.ranges_;
 ```
 
@@ -2733,7 +2678,7 @@ Altibase Sharding은 이와 같은 다양한 샤딩 시스템 변경에 대한 �
 | 지원 항목        | 리샤딩                         | 데이터 재구축                             |
 | ---------------- | ------------------------------ | ----------------------------------------- |
 | 테이블 종류      | 파티션드 테이블                | 일반 테이블, 파티션드 테이블              |
-| 분산 방식        | HASH, RANGE, LIST, SOLO, CLONE | HASH, RANGE, LIST, COMPOSITE              |
+| 분산 방식        | HASH, RANGE, LIST, SOLO, CLONE | HASH, RANGE, LIST              |
 | 변경 작업        | 동일 분산 방식의 범위 변경     | 분산 방식 변경 및 범위 변경, 샤드 키 변경 |
 | 데이터 이동 단위 | 파티션 단위                    | 테이블 단위                               |
 | 서비스 중단 여부 | 서비스 무중단                  | 서비스 중단                               |
@@ -2814,7 +2759,7 @@ Altibase Sharding은 샤드 테이블의 분산 정보를 변경한 후, 기존�
 
 성능을 고려하여, 데이터 재구축은 변경된 분산 기준에 맞지 않는 데이터(incorrect data)만 이동(move)시키는 방식으로 수행되며 여러 세션에서 동시에 수행 가능하다. 단, 내부적으로 데이터의 이동이 수반되기 때문에 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
 
-데이터 재구축은 샤드 키 분산(hash, range, list, composite) 방식을 적용한 샤드 테이블에 한해 지원하며, 복제 분산 방식과 독립 분산 방식은 지원하지 않는다.
+데이터 재구축은 샤드 키 분산(hash, range, list) 방식을 적용한 샤드 테이블에 한해 지원하며, 복제 분산 방식과 독립 분산 방식은 지원하지 않는다.
 
 - hash(500,1000) \<-\> hash(300,600,1000) (O)
 - hash \<-\> range (O)
@@ -2949,29 +2894,7 @@ Altibase Sharding 유틸리티의*Shard Manager*절을 참조한다.
 | 쿼리 분석   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
-
-#### SHARD_ADMIN_MODE
-##### 데이터 타입
-Unsigned Integer
-##### 기본값
-1
-##### 속성
-변경 가능, 단일 값
-##### 값의 범위
-[0, 1]
-##### 설명
-이 프로퍼티는 관리자 모드로 접근하는 것만 허용한다. SHARD_ENABLE 로 동작되는 경우 항상 1로 설정 되며 SYS 또는 SYSTEM_ 사용자가 서버와 연결을 맺어 작업을 할 수 있고 그 외 일반 사용자들은 연결 자체가 실패한다.
-- 0: OFF
-- 1: ON
-
-명시적 설정
-- ALTER SYSTEM SET SHARD_ADMIN_MODE로 변경 가능하다.
-- 일반사용자는 ALTER SYSTEM 권한을 가지는 경우 변경 가능하다.
-- Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-암시적 설정
-- 노드가 샤딩 클러스터에 참여하여 정상적으로 운영중에는 자동으로 SHARD_ADMIN_MODE 는 0 으로 변경된다.
-- Shard DDL 혹은 비정상적 상황으로 인하여, 노드가 샤딩 클러스터에서 이탈한 경우에는, 자동으로 SHARD_ADMIN_MODE 는 1 으로 변경된다.
+| SHARD DDL lock 처리 | SHARD_DDL_LOCK_TIMEOUT<br />SHARD_DDL_LOCK_TRY_COUNT | Yes Yes           | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -2998,6 +2921,30 @@ Altibase Sharding의 샤드 노드로 설정한다.
 0: Disabled
 
 1: Enabled
+
+
+#### SHARD_ADMIN_MODE
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1
+##### 속성
+변경 가능, 단일 값
+##### 값의 범위
+[0, 1]
+##### 설명
+이 프로퍼티는 관리자 모드로 접근하는 것만 허용한다. SHARD_ENABLE 로 동작되는 경우 항상 1로 설정 되며 SYS 또는 SYSTEM_ 사용자가 서버와 연결을 맺어 작업을 할 수 있고 그 외 일반 사용자들은 연결 자체가 실패한다.
+- 0: OFF
+- 1: ON
+
+명시적 설정
+- ALTER SYSTEM SET SHARD_ADMIN_MODE로 변경 가능하다.
+- 일반사용자는 ALTER SYSTEM 권한을 가지는 경우 변경 가능하다.
+- Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+암시적 설정
+- 노드가 샤딩 클러스터에 참여하여 정상적으로 운영중에는 자동으로 SHARD_ADMIN_MODE 는 0 으로 변경된다.
+- Shard DDL 혹은 비정상적 상황으로 인하여, 노드가 샤딩 클러스터에서 이탈한 경우에는, 자동으로 SHARD_ADMIN_MODE 는 1 으로 변경된다.
 
 #### SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
 
@@ -3297,26 +3244,41 @@ Unsigned Integer
 V\$TRACELOG를 참조한다.
 
 #### SD_MSGLOG_SIZE
-
 ##### 데이터 타입
-
 Unsigned Integer
-
 ##### 기본값
-
 10 \* 1024 \* 1024
-
 ##### 속성
-
 읽기 전용, 단일 값
-
 ##### 값의 범위
-
 [0, 232-1]
-
 ##### 설명
-
 샤드 관련 메시지 파일의 최대 크기를 지정한다.
+
+#### SHARD_DDL_LOCK_TIMEOUT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+3
+##### 속성
+변경가능, 단일 값
+##### 값의 범위
+[0, 65535]
+##### 설명
+Shard DDL은 다수의 노드에 DDL을 수행하는 것을 통해서 하나의 Shard DDL을 완료할 수 있다. 그러므로, 원격 노드에 수행되는 DDL에 대한 DDL_LOCK_TIMEOUT을 지정해야한다. 이 값은 Shard DDL 내부에서 사용되는 DDL에 대한 DDL_LOCK_TIMEOUT을 지정하기 위해 사용된다.
+
+#### SHARD_DDL_LOCK_TRY_COUNT 
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+200
+##### 속성
+변경가능, 단일 값
+##### 값의 범위
+[0, 2^32 -1]
+##### 설명
+Shard DDL은 다수의 노드에 DDL을 수행하는데, 이 때, 각 노드에서 수행된 DDL이 lock timeout 등의 오류로 실패할 수 있다. 이 프로퍼티는 각 노드에서 수행되는 DDL을 재수행 하는 횟수를 지정한다.
+
 
 ## Shard DDL
 
@@ -3330,7 +3292,7 @@ Unsigned Integer
 ### ALTER DATABASE SHARD ADD
 
 #### 구문
-ALTER DATABASE SHARD ADD
+ALTER DATABASE SHARD ADD ;
 
 #### 설명
 본 구문을 수행하는 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
@@ -3351,7 +3313,7 @@ ALTER DATABASE SHARD ADD ;
 ### ALTER DATABASE SHARD DROP
 
 #### 구문
-ALTER DATABASE SHARD DROP
+ALTER DATABASE SHARD DROP ;
 
 #### 설명
 본 구문을 수행하는 노드를 샤딩 클러스터에 제거 하기 위한 구문이다.
@@ -3371,7 +3333,7 @@ ALTER DATABASE SHARD DROP ;
 ### ALTER DATABASE SHARD JOIN
 
 #### 구문
-ALTER DATABASE SHARD JOIN
+ALTER DATABASE SHARD JOIN ;
 
 #### 설명
 본 구문을 수행하는 노드를 샤딩 클러스터에 다시 참여 시키기 위한 구문이다.
@@ -3389,7 +3351,7 @@ ALTER DATABASE SHARD JOIN ;
 ### ALTER DATABASE SHARD FAILOVER
 
 #### 구문
-ALTER DATABASE SHARD FAILOVER 'target_node_name'
+ALTER DATABASE SHARD FAILOVER "target_node_name" ;
 
 #### 설명
 특정 노드에 장애가 발생하였을 때, 다른 노드에서 장애가 발생한 노드의 데이터 영역을 서비스 할 수 있도록 하는 작업이다.
@@ -3422,7 +3384,7 @@ ALTER DATABASE SHARD FAILOVER node1 ;
 ### ALTER DATABASE SHARD FAILBACK
 
 #### 구문
-ALTER DATABASE SHARD FAILBACK
+ALTER DATABASE SHARD FAILBACK ;
 
 #### 설명
 본 구문을 수행하는 노드를 샤딩 클러스터에 다시 failback 시키기 위한 구문이다.
@@ -3437,6 +3399,28 @@ ALTER DATABASE SHARD FAILBACK
 ```
 ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
 ALTER DATABASE SHARD FAILBACK ;
+```
+
+### ALTER DATABASE SHARD MOVE
+
+#### 구문
+```
+ALTER DATABASE SHARD MOVE { TABLE ["user_name" . ] "table_name" [ PARTITION {"(partition_name)"} ] | PROCEDURE ["user_name" . ] "procedure_name" KEY ( "value" ) }+  TO "node_name" ;
+```
+
+#### 설명
+시스템 운영중에 본 구문을 수행하여, 샤드 테이블 및 샤드 프로시져의 분산정의를 변경하기 위한 구문이다.
+- 샤드 객체의 분산 영역에 대한 정의를 사용자가 지정한 노드로 이동시킨다.
+- 샤드키 테이블에 대하여는 개별 파티션별로 지정한 노드로 이동이 가능하다.
+- 솔로 테이블에 대하여는 해당 테이블 전체에 대하여 지정한 노드로 이동이 가능하다.
+- 샤드 프로시져에 대하여는 샤드키의 value 하나에 대하여 지정한 노드로 이동이 가능하다.
+- 두 노드간의 이동이 가능하다. 원천 노드가 두개 이상인 경우는 수행할 수 없다. 
+- 한번에 다수의 샤드 객체에 대한 변경이 가능하다.
+
+#### 예제
+```
+ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
+ALTER DATABASE SHARD MOVE TABLE user1.table1 PARTITION (p1), TABLE user2.soloTable1, TABLE user1.table2 PARTITION (p2), PROCEDURE user1.shardproc1 key ( 123 )  TO NODE4; ;
 ```
 
 
@@ -3762,7 +3746,7 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 
 ### SYS_SHARD.RANGES\_
 
-샤드 키 분산 테이블(HASH, RANGE, LIST, COMPOSITE)의 분산 정보를 기록하는 메타
+샤드 키 분산 테이블(HASH, RANGE, LIST)의 분산 정보를 기록하는 메타
 테이블이다.
 
 | Column name    | Type         | Description                               |
@@ -4200,14 +4184,11 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 | SET_LOCAL_NODE                | 샤드 노드를 등록한다.                                        |
 | SET_REPLICATION               | 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.          |
 | SET_SHARD_TABLE               | 샤드 테이블을 등록한다.                                      |
-| SET_SHARD_TABLE_COMPOSITE     | 복합 샤드 키를 갖는 샤드 테이블을 등록한다.                  |
 | SET_SHARD_PROCEDURE           | 샤드 프로시저를 등록한다.                                    |
-| SET_SHARD_PROCEDURE_COMPOSITE | 복합 샤드 키를 갖는 샤드 프로시저를 등록한다.                |
 | SET_SHARD_PARTITION_NODE      | 테이블의 파티셔닝 방식과 같은 방식으로 분산정보를 등록한다.  |
 | SET_SHARD_HASH                | HASH 방식의 분산정보를 등록한다.                             |
 | SET_SHARD_RANGE               | RANGE 방식의 분산정보를 등록한다.                            |
 | SET_SHARD_LIST                | LIST 방식의 분산정보를 등록한다.                             |
-| SET_SHARD_COMPOSITE           | 복합 샤드 키 방식의 분산정보를 등록한다.                     |
 | SET_SHARD_CLONE               | CLONE 방식의 분산정보를 등록한다.                            |
 | SET_SHARD_SOLO                | SOLO 방식의 분산정보를 등록한다.                             |
 | RESET_SHARD_RESIDENT_NODE     | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
@@ -4367,51 +4348,6 @@ Execute success.
 > - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
-#### SET_SHARD_TABLE_COMPOSITE
-
-##### 구문
-
-```
-SET_SHARD_TABLE_COMPOSITE(
- user_name  in varchar(128),
- table_name in varchar(128),
- split_method in varchar(1),
- key_column_name in varchar(128),
- sub_split_method in varchar(1),
- sub_key_column_name in varchar(128),
- default_node_name in varchar(40) default NULL)
-```
-
-##### 파라미터
-- user_name: 테이블 소유자의 이름
-- table_name: 테이블 이름
-- split_method: 샤드 키 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식
-- key_column_name: 샤드 키 컬럼 이름
-- sub_split_method: 서브 샤드 키 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식
-- sub_key_column_name: 서브 샤드 키 컬럼 이름
-- default_node_name: 기본 샤드 노드(default node)
-
-**설명**
-
-모든 샤드 노드에서 복합 샤드 키를 적용하는 샤드 테이블의 정보를 설정하고 복제용 테이블을 생성한다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.set_shard_table_composite(‘sys’,’t6’,’L’,’i1’,'L','i2',’node3’);
-Execute success.
-```
-
-> ##### 주의사항
->
-> - 복합 샤드키를 적용한 샤드 테이블 역시 샤드 노드에 동일한 테이블 스키마가
->   생성되어야 한다.
-> - 테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
-> - 복합 샤드키를 사용할 경우 무중단 서비스(HA)를 제공하지 않는다. K-Safety 값을 0으로 설정하여야 한다.
-> - 복합 샤드키를 사용할 경우 일반 테이블 대상으로만 수행 할 수 있다.
-> - Non-Autocommit 에서만 수행 할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
 #### SET_SHARD_PROCEDURE
 
 ##### 구문
@@ -4458,51 +4394,6 @@ Execute success.
 >
 > - 샤드 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한 프로시저가
 >   생성되어야 한다.
-> - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
-> - Non-Autocommit 에서만 수행 할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### SET_SHARD_PROCEDURE_COMPOSITE
-
-##### 구문
-
-```
-SET_SHARD_PROCEDURE_COMPOSITE(
- user_name in varchar(128),
- proc_name in varchar(128),
- split_method in varchar(1),
- key_param_name in varchar(128) default NULL,
- sub_split_method in varchar(1),
- sub_key_param_name in varchar(128) default NULL,
- default_node_name in varchar(40) default NULL)
-```
-
-##### 파라미터
-- user_name: 프로시저 소유자의 이름
-- proc_name: 프로시저 이름
-- split_method: 샤드 키 파라미터 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식
-- key_param_name: 샤드 키 파라미터 이름
-- sub_split_method: 서브 샤드 키 파라미터 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식
-- sub_key_param_name: 서브 샤드 키 파라미터 이름
-- default_node_name: 기본 샤드 노드(default node)
-
-##### 설명
-
-모든 샤드 노드에 복합 샤드 키를 적용하는 샤드 프로시저의 정보를 설정한다.
-
-Altibase Sharding에서 지원하는 분산 방법의 종류는 샤드 테이블과 동일하다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.set_shard_procedure_composite('sys','proc6','L','p1', 'L','p2','node3');
-Execute success.
-```
-
-> ##### 주의사항
->
-> - 복합 샤드 키 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한
->   프로시저가 생성되어야 한다.
 > - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
 > - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
@@ -4676,50 +4567,6 @@ Execute success.
 > ##### 주의사항
 >
 > - 리스트 분산 방식으로 설정할 경우 다수의 파티셔닝 조건 값을 갖는 파티션은 설정할 수 없다.
-> - Non-Autocommit 에서만 수행 할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### SET_SHARD_COMPOSITE
-##### 구문
-```
-SET_SHARD_COMPOSITE(
- user_name    in  varchar(128),
- object_name  in  varchar(128),
- value        in  varchar(100),
- sub_value    in  varchar(100),
- node_name    in  varchar(10))
-```
-
-##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- value: 샤드 키의 최대값
-- sub_value: 서브 샤드 키의 최대값
-- node_name: 기본 샤드 노드
-
-##### 설명
-모든 샤드 노드에 복합 샤드 키를 적용한 샤드 객체의 분산 정보를 설정한다.
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.set_shard_composite('sys','t6','서울','강남구','node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_composite('sys','t6','서울','강북구','node2');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_composite('sys','t6','서울','강서구','node3');
-Execute success.
-
-iSQL> EXEC dbms_shard.set_shard_composite('sys','proc6','서울','강남구','node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_composite('sys','proc6','서울','강북구','node2');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_composite('sys','proc6','서울','강서구','node3');
-Execute success
-```
-
-> ##### 주의사항
-> - 복합 샤드 키 샤드 객체의 경우 K-Safety가 0 일 때만 설정 가능하기 때문에 데이터 복제(Replication)를 제공하지 않는다.
-> - 복합 샤드키를 사용할 경우 일반 테이블 대상으로만 수행 할 수 있다.
 > - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
