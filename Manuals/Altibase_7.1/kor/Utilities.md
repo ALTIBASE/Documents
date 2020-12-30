@@ -773,31 +773,8 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
     그대로 적용된다.
 
 -   대상 데이터베이스에 SSL 접속을 원한다면 프로퍼티 파일에 SSL 관련 프로퍼티를
-    설정해야 한다. 자세한 설명은 aexport 프로퍼티 절의 ILOADER_ARRAY  
-    ILOADER_ARRAY = *count* (기본값: 1)  
-    iLoader로 데이터를 다운로드 또는 업로드 할 때 한 번에 처리할 row 개수를
-    지정한다.
-
--   ILOADER**\_**COMMIT  
-    ILOADER**\_**COMMIT = *count* (기본값: 1000)  
-    iLoader로 데이터를 업로드할 때 커밋할 단위(개수)를 지정한다. 이 프로퍼티로
-    -commit옵션의 값을 지정할 수 있다.
-
--   ILOADER_PARALLEL  
-    ILOADER_PARALLEL = *count* (기본값: 1)  
-    iLoader로 데이터를 다운로드 또는 업로드 할 때 병렬로 처리할 쓰레드 개수를
-    지정한다.
-
--   ILOADER_ASYNC_PREFETCH  
-    ILOADER_ASYNC_PREFETCH = OFF\|ON\|AUTO (기본값 OFF)  
-    iLoader로 데이터를 다운로드할 때 비동기 prefetch 동작을 설정한다. 자세한
-    설명은 iLoader User's Manual의  
-    '-async_prefetch' 옵션을 참고하기 바란다.
-
--   SSL_ENABLE 프로퍼티를 참조하기 바란다.
-
-
-
+    설정해야 한다. 자세한 설명은 aexport 프로퍼티 절의 SSL_ENABLE 프로퍼티를 참조하기 바란다.
+ 
 #### aexport 프로퍼티
 
 ##### aexport 프로퍼티 설정
@@ -3390,7 +3367,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 | \<NLS\>                                                 | 필수      | NLS_USE                                                      |
 | \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                               |
 | \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                 |
-| \<ConnectionProperties\>                                  | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
+| \<ConnectionProperties\>                                | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
 
 ##### Metrics.xml
 

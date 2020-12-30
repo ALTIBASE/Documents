@@ -419,7 +419,8 @@ iloader [-h]
         [-partition]
         [-dry-run]
         [-prefetch_rows]
-        [-async_prefetch off|on|auto]]
+        [-async_prefetch off|on|auto]
+        [-geom WKB]]
 ```
 
 
@@ -465,7 +466,7 @@ Altibase는 다음의 옵션들을 기본적으로 사용해 iLoader를 수행�
 | \-e *enclosing*                           | 칼럼 사이의 구분자 세부 입력 방법은 -t option과 같다.        |
 | \-lob *lob_option_string*                 | LOB 데이터는 최대 4GB의 크기를 가지므로 32-bit OS 에서 2GB 보다 큰 LOB 데이터를 하나의 파일에 저장할 때 문제가 발생할 수 있다. 따라서 이 옵션을 이용해 LOB 타입의 데이터를 다루는 방식을 설정할 수 있다. 이 옵션이 지정되지 않았을 경우 LOB 칼럼도 다른 칼럼과 마찬가지로 처리된다. |
 | \-replication true/false                  | 이중화를 off 하고 데이터를 로딩할 수 있는 옵션이다. (생략할 경우 true가 적용된다.) |
-| \-mode *mode_type*                        | APPEND : 기존의 테이블에 추가하여 삽입(기본값) REPLACE: DELETE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 TRUNCATE: TRUNCATE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 |
+| \-mode *mode_type*                        | APPEND : 기존의 테이블에 추가하여 삽입(기본값) <br/>REPLACE: DELETE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 TRUNCATE: TRUNCATE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 |
 | \-bad *badfile*                           | 로딩할 때 오류가 발생하여 업로드 되지 못한 행을 저장하며, 지정하지 않으면 저장하지 않는다. 옵션으로 stdout, stderr을 사용(소문자만 지원) 하여 파일을 생성하지 않고 stdout(standard out), stderr(standard error)를 화면으로 출력한다. |
 | \-log *logfile*                           | iloader가 수행하면서 발생하는 전반적인 과정을 기록한다. 시작 시간, 종료 시간, 대상 행 수, 처리 행 수, 오류 행 수, 오류 내역 등이 여기에 기록된다. 지정하지 않으면 저장하지 않는다. 옵션으로 stdout, stderr을 사용(소문자만 지원함) 하여 파일을 생성하지 않고 stdout(standard out), stderr(standard error)를 화면으로 출력한다. |
 | \-split *n*                               | 파일마다 저장할 레코드의 개수를 설정(out 커맨드에서만 적용됨)한다. 명령어 실행 후 n개의 레코드가 저장된 파일들이 datafile.dat0 부터 datafile.dat1, … 의 파일 이름으로 생성된다. |
@@ -473,7 +474,7 @@ Altibase는 다음의 옵션들을 기본적으로 사용해 iLoader를 수행�
 | \-partition                               | \-T 옵션에 지정한 테이블이 partitioned 테이블이라면, 그 테이블의 파티션 개수만큼의 FORM 파일이 생성 된다. 각 FORM 파일의 이름은 formfile_name.partition_name이 될 것이다. 만약 지정한 테이블이 partitioned 테이블이 아니면, formfile_name이름으로 한 개의 FORM 파일이 생성 된다. |
 | -stmt_prefix [prefix_value]               | in/out 모드 수행시 iLoader가 생성하는 SQL 구문 앞에 사용자 지정값을 설정할 때 사용하는 옵션이다. 옵션 값을 입력하지 않으면 "NODE [META]"가 기본값으로 설정된다.<br /><br />예) iloader in -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat -array 100 -atomic -stmt_prefix<br />생성되는 구문: NODE [META] INSERT INTO T1 VALUES (?, ?)<br />iloader out -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat -stmt_prefix "NODE [DATA('NODE1')]"<br />생성되는 구문: NODE [DATA('NODE1')] SELECT I1, I2 FROM T1<br /><br />이 옵션은 데이터 업로드/다운로드에만 유효하다. |
 | -extra_col_delimiter                      | 레코드 마지막 컬럼 뒤에 컬럼 구분자와 레코드 구분자가 연달아 위치한 경우, 이를 레코드의 끝으로 인식하기 위한 옵션이다.<br/> <br/>예를 들어, 컬럼 구분자가 '^'이고 레코드 구분자가 '\n'인 데이터 파일이, 아래와 같은 형식이면 -extra_col_delimiter 옵션이 필요하다.<br/>Kim^1077^RD^\n<br/>Lee^1099^CS^\n<br/> <br/>이 옵션은 -rule csv 또는 -t 옵션과 함께 사용할 수 있다. |
-| -geom [WKB]                               | out 모드 수행시, Geometry 객체를 Well-Known Binary (WKB) 포맷으로 out 하기 위한 옵션이다.<br/>Geometry 객체를 Extended Well-Known Binary (EWKB) 포맷으로 지원하는 알티베이스 서버의 데이터를, WKB 포맷을 사용하는 하위 버젼으로 이관을 위해 사용된다.<br/>이 옵션을 사용하지 않으면 알티베이스 서버의 Geometry 객체 표현 포맷을 따른다. |																																																																																																																					 
+| -geom [WKB]                               | out 모드 수행시, 공간 데이터를 Well-Known Binary (WKB) 포맷으로 out 하기 위한 옵션이다.<br/>Extended Well-Known Binary (EWKB) 포맷으로 지원하는 Altibase의 공간 데이터를, WKB 포맷을 사용하는 하위 버젼으로 이관하기 위해 사용한다.<br/>이 옵션을 사용하지 않으면 Altibase의 공간 객체 지원 포맷을 따른다. |
 
 -   위의 명령행 옵션 중 -S, -U, -P 가 빠져 있는 경우에는 실행 시 사용자에게 직접
     옵션 값을 입력받게 된다.
