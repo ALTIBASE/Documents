@@ -2896,6 +2896,7 @@ Altibase Sharding 유틸리티의*Shard Manager*절을 참조한다.
 | 쿼리 변환   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes Yes            | SYSTEM          |
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No No Yes No       | SYSTEM          |
 | SHARD DDL lock 처리 | SHARD_DDL_LOCK_TIMEOUT<br />SHARD_DDL_LOCK_TRY_COUNT | Yes Yes           | SYSTEM, SESSION |
+| 트랜잭션 | GLOBAL_TRANSACTION_LEVEL<br />VERSIONING_MIN_TIME<br />INDOUBT_FETCH_TIMEOUT<br />INDOUBT_FETCH_METHOD<br />SHARD_STATEMENT_RETRY | Yes Yes Yes Yes | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -3280,6 +3281,73 @@ Unsigned Integer
 ##### 설명
 Shard DDL은 다수의 노드에 DDL을 수행하는데, 이 때, 각 노드에서 수행된 DDL이 lock timeout 등의 오류로 실패할 수 있다. 이 프로퍼티는 각 노드에서 수행되는 DDL을 재수행 하는 횟수를 지정한다.
 
+#### GLOBAL_TRANSACTION_LEVEL
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+2 (뭐지? HDB도 영향있을텐데...)shard_enable 아닐때, 어떻게 되는지???
+##### 속성
+변경가능, 단일 값
+##### 값의 범위
+[1,2,3]
+##### 설명
+세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.(??? 시스템은 안되나 ???)
+- 1 : multiple node transaction
+- 2 : global transaction
+- 3 : global consistent transaction
+
+#### VERSIONING_MIN_TIME
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+0
+##### 속성
+변경가능, 단일 값, millisecond
+##### 값의 범위
+[0 ~ 100000]
+##### 설명
+데이터베이스 스냅샷 유지 시간(millisecond)
+- 샤딩에서 GLOBAL_TRANSACTION_LEVEL=3 으로 사용시 VERSIONING_MIN_TIME 을 0 이 아닌값으로 지정해야 합니다.
+- 분산 정합성에서 2개 이상의 노드에서 동일한 스냅샷을 scan 하기 위해 요구자 SCN 을 사용하는데 이러한 요구자 SCN 을 허용하기 위해 데이터베이스 스냅샷을 유지하는 최소 시간이 프로퍼티 값입니다.
+- 샤딩을 사용시에는 500 millisecond 가 권장값 입니다.
+
+#### INDOUBT_FETCH_TIMEOUT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+10
+##### 속성
+변경가능, 단일 값, second
+##### 값의 범위
+[0 ~ 86400]
+##### 설명
+Indoubt 트랜잭션 최대 대기 시간(second)
+
+#### INDOUBT_FETCH_METHOD
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1
+##### 속성
+변경가능, 단일 값, second
+##### 값의 범위
+[0,1]
+##### 설명
+Indoubt 트랜잭션으로 인한 최대 지연 후 처리 방법
+- 0: skip
+- 1: error
+
+#### SHARD_STATEMENT_RETRY
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1
+##### 속성
+변경가능, 단일 값
+##### 값의 범위
+[0 ~ 65535]
+##### 설명
+샤드 데이터베이스의 최신 스냅샷을 얻기 위한 재시도 횟수
 
 ## Shard DDL
 
