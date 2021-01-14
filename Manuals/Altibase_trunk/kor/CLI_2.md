@@ -6568,6 +6568,6 @@ implemented’ 오류가 발생하므로 주의해야 한다.
 |                | SQLFreeLob          | O        |
 | 기타           | SQLBulkOperations   | X        |
 |                | SQLCancel           | X        |
-|                | SQLGetPlan          | O        |
+|                | SQLGetPlan          | X        |
 |                | SQLSetPos           | X        |
 
