@@ -152,6 +152,10 @@ New Features
 
 -   **증상** : 8개 이상 클라이언트에서 DEQUEUE를 동시에 수행할 경우 성능이 하락하는 현상이 있습니다. 병렬로 DEQUEUE 수행 시 발생하는 병목을 제거하여 성능을 개선합니다.
     
+    디스크 QUEUE 테이블 지원 중단합니다. 
+    
+    이 버그 반영 이후 CREATE QUEUE 구문에서 디스크 테이블스페이스 지정 시 ERR-311E5 : The table is not a memory or volatile table. 에러 발생합니다.
+    
 -   **재현 방법**
 
     -   **재현 절차**
