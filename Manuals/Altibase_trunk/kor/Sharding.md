@@ -2935,18 +2935,19 @@ Unsigned Integer
 ##### 값의 범위
 [0, 1]
 ##### 설명
-이 프로퍼티는 관리자 모드로 접근하는 것만 허용한다. SHARD_ENABLE 로 동작되는 경우 항상 1로 설정 되며 SYS 또는 SYSTEM_ 사용자가 서버와 연결을 맺어 작업을 할 수 있고 그 외 일반 사용자들은 연결 자체가 실패한다.
+이 프로퍼티는 관리자 모드로 접근하는 것만 허용할지를 제어한다. 1 로 설정하는 경우에, SYS 또는 SYSTEM_ 사용자가 서버와 연결을 맺어 작업을 할 수 있고 그 외 일반 사용자들은 연결 자체가 실패한다.
 - 0: OFF
 - 1: ON
+
+자동 설정(암시적 설정)
+- SHARD_ENABLE 을 1 로 알티베이스 서버를 기동한 경우에, 자동으로 SHARD_ADMIN_MODE 는 1 로 설정 된다.
+- 노드가 샤딩 클러스터에 참여하여 정상적으로 운영중에는 자동으로 SHARD_ADMIN_MODE 는 0 으로 변경된다.
+- Shard DDL 혹은 비정상적 상황으로 인하여, 노드가 샤딩 클러스터에서 이탈한 경우에는, 자동으로 SHARD_ADMIN_MODE 는 1 으로 변경된다.
 
 명시적 설정
 - ALTER SYSTEM SET SHARD_ADMIN_MODE로 변경 가능하다.
 - 일반사용자는 ALTER SYSTEM 권한을 가지는 경우 변경 가능하다.
 - Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-암시적 설정
-- 노드가 샤딩 클러스터에 참여하여 정상적으로 운영중에는 자동으로 SHARD_ADMIN_MODE 는 0 으로 변경된다.
-- Shard DDL 혹은 비정상적 상황으로 인하여, 노드가 샤딩 클러스터에서 이탈한 경우에는, 자동으로 SHARD_ADMIN_MODE 는 1 으로 변경된다.
 
 #### SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
 
