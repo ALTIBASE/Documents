@@ -905,7 +905,7 @@ VALUE1 : 1
 
 SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티들이 있다. 
 
-샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.propertites.sharding 에 저장있다. 이곳에 설정된 값들을 참고하여, \$ALTIBASE_HOME/conf/altibase.propertites 를 변경해주면 된다.
+샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장있다. 이곳에 설정된 값들을 참고하여, \$ALTIBASE_HOME/conf/altibase.properties 를 변경해주면 된다.
 
 ##### 샤드 패키지 생성
 
