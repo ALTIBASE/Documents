@@ -3295,6 +3295,7 @@ Unsigned Integer
 - 1 : multiple node transaction
 - 2 : global transaction
 - 3 : global consistent transaction
+세션에서 global_transaction_level을 변경시에 이미 트랜잭션이 시작되어 있는 경우에는, 1 과 2 는 서로 변경이 되지만, 1 혹은 2 에서 3 으로 변경할 수는 없다. 3 에서 1 혹은 2 로 변경할 수도 없다.
 
 #### VERSIONING_MIN_TIME
 ##### 데이터 타입
