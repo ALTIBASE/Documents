@@ -457,19 +457,10 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 -   varchar
 
 #### 샤드 키워드(shard keyword)
-
-Altibase Sharding에서 지원하는 키워드로 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
-
+샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
 -   SHARD
--   NODE
-
-샤드 지원 구문의 앞이나 SELECT문의 샤드 뷰 앞에 사용하면 해당 쿼리를 샤드 쿼리로 수행하여 결과를 반환한다.
-
-```
-SHARD SELECT shard_node_name(), count(*) FROM s1;
-NODE[DATA] SELECT shard_node_name(), count(*) FROM v$session;
-NODE[DATA(‘node1’)] SELECT * FROM s1;
-```
+-   NODE[META]
+-   NODE[DATA]
 
 #### 샤드 프로시저(shard procedure)
 
@@ -2017,21 +2008,16 @@ Unnesting, view merge 등의 서브 쿼리에 대한 변환이 수행될 경우 
 그 수행 여부가 결정된다.
 
 ### 샤드 키워드
-
-사용자는 특정 노드의 현재 데이터 상태를 확인하거나 특정 노드의 데이터를 취합하는 것을 원할 수 있다.
-
-Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메타, 코디네이터 또는 샤드 데이터(저장소) 역할로 특정 샤드 노드에 쿼리를 전송하고 그 수행 결과를 취합할 수 있는 샤드 키워드를 제공하며 iSQL 을 통해 사용 가능하다.
+샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다.
 
 #### 구문
 
 샤드 키워드는 다음 구문에 한해 제공하며 구문식은 다음과 같다.
 
 -   SHARD
-    - INSERT, UPDATE, DELETE
-    - SELECT
+    - SELECT, INSERT, UPDATE, DELETE
 -   NODE[META]
-    - INSERT, UPDATE, DELETE
-    - SELECT
+    - SELECT, INSERT, UPDATE, DELETE
 -   NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)]
     - SELECT
 
@@ -2041,84 +2027,34 @@ Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메
 
 ![](media/Sharding/d15e35752ab4fd66496232e1d1e055a1.jpg)
 
-#### SHARD
+#### *SHARD* 샤드 키워드
+SHARD 샤드 키워드를 사용하면, 쿼리에 존재하는 샤드객체의 분산정의가 존재하는 모든 샤드 노드(들)에 쿼리를 전송하고 수행하여 취합한다. 분산 수행할 수 있는 샤딩객체가 전혀 없을 때는 에러가 발생한다.
 
-SHARD 키워드를 사용하면 샤드 쿼리 분석기를 통해 쿼리에 존재하는 샤드 객체 분산 정보가 존재하는 모든 샤드 노드에 쿼리를 전송하고 수행하여 취합한다.
-
-각 노드의 데이터를 취합한 결과가 논리적으로 동일할 수 없는 즉, 샤드 쿼리가 아닌 다음의 사례를 살펴보자.
-
+샤딩에서는 아래 두개의 쿼리가 동일한 결과를 얻어온다.
 -   SELECT count(\*) FROM *s1;*
-
-일반 쿼리에 SHARD 키워드를 적용하면 분산 정보가 존재하는 모든 노드를 대상으로 쿼리를 수행하고 그 결과를 얻어온다.
-
--   SHARD SELECT count(\*) FROM *s1;*
-
--   SELECT \* FROM SHARD*(* SELECT count(\*) FROM *s1);*
-
-아래와 같은 형태를 적절히 활용하면 사용자가 원하는 유용한 결과를 얻을 수 있다.
-
 -   SELECT sum(cn) FROM SHARD ( SELECT count(\*) cn FROM s1);
 
--   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1) GROUP BY i1;
-
+집계함수 중 몇가지(SUM,MIN,MAX,COUNT,AVG)에 대해서는 시스템 내부적으로 자동으로 최적화되어 수행하지만, 그외의 경우에는 최적화되어서 수행되지 않으므로, 성능이 느릴수 있다. 이러한 경우에, 사용자가 샤드 키워드를 이용하여, 수동으로 쿼리 튜닝하는 방법으로 사용할 수 있다.
+-   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1) GROUP BY i1; ??? 이거 해보자 이게 실제 되나? inline view에도 groupby가 있어야 할것 같다...
 -   SELECT \* FROM SHARD (SELECT \* FROM s1 limit 10) limit 10;
 
-##### 구문
-
-```
-SHARD SELECT * FROM s1 WHERE k1>1;
-SELECT * FROM SHARD(SELECT * FROM s1 WHERE k1>1);
-```
-
-##### 예제
-
-\<질의\> s1테이블의 전체 레코드 개수를 구하라.
-
-```
-iSQL> SELECT sum(cn) FROM SHARD(SELECT count(*) cn FROM s1);
-```
-
-#### NODE
-
-NODE 키워드는 인자로 명시한 노드에 쿼리를 전송하고 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다.
-
-사용 가능한 NODE 유형은 다음과 같다.
-
--   NODE[META] : 코디네이팅 샤드 노드에 대한 쿼리 수행
+#### *NODE* 샤드 키워드
+NODE 키워드는 인자로 명시한 노드에 쿼리를 분석 및 변환없이 수행하고, 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다. 사용 가능한 NODE 유형은 다음과 같다.
+-   NODE[META] : 사용자 세션이 접속한 샤드 노드에 대해 쿼리 분석 및 변환없이 수행
 -   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이 수행
 -   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리 분석 및 변환없이 수행
 
-노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다.
-
-##### 구문
-
+노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다. 아래는 몇가지 사용예이다.
 ```
 NODE[META] SELECT count(*) FROM t1;
 NODE[DATA] SELECT count(*) FROM s1;
 SELECT * FROM NODE[META](SELECT count(*) FROM s1);
-SELECT * FROM NODE[DATA]('node1', 'node2')](SELECT count(*) FROM s1);
-```
-
-\<질의\> 코디네이팅 샤드 노드에 존재하는 t2테이블의 레코드 개수를 구하라.
-
-```
-iSQL> CREATE TABLE t2 AS SELECT * FROM s1
-iSQL> EXEC dbms_shard.set_shard_table('sys','t2','H','i1');
-iSQL> EXEC dbms_shard.set_shard_hash('sys','t2',1000,'node1');
-iSQL> NODE[META] SELECT count(*) FROM t1;
-```
-
-\<질의\> 'node2' 에 존재하는 s1 샤드 테이블에 대해 샤드키가 아닌 i1 컬럼의 group별 합을 수행하라.
-
-```
-iSQL> SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
+SELECT * FROM NODE[DATA('node1', 'node2')](SELECT count(*) FROM s1);
+SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
 ```
 
 > ##### 주의 사항
->
-> 샤드 키워드는 iSQL 을 통한 관리 목적으로 사용해야 한다.
->
-> 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 따라서 사용에 각별한 주의가 필요하다.
+> NODE 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 그러므로, NODE 샤드 키워드는 DBA가 임시적으로 사용하는 목적으로만 사용해야 한다.
 
 ### 샤드 함수
 
