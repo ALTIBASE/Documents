@@ -912,7 +912,7 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 ### Zookeeper 설정
 
 #### Zookeeper 사용 환경 세팅
-- Zookeeper server의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
+- Zookeeper server의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 3.5.6 버전이 존재하며 따로 설치 할 필요는 없다.
 - Zookeeper server를 사용하기 위해서는 JDK 1.8 이상 버전을 사용해야 한다.
 - \$ALTIBASE_HOME/ZookeeperServer/conf에 zoo.cfg를 생성한다.(zoo_sample.cfg를 복사해 필요한 부분만 바꿔 사용해도 된다.)
   - tickTime : The number of milliseconds of each tick
