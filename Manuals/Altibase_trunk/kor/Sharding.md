@@ -2035,7 +2035,7 @@ SHARD 샤드 키워드를 사용하면, 쿼리에 존재하는 샤드객체의 �
 -   SELECT sum(cn) FROM SHARD ( SELECT count(\*) cn FROM s1);
 
 집계함수 중 몇가지(SUM,MIN,MAX,COUNT,AVG)에 대해서는 시스템 내부적으로 자동으로 최적화되어 수행하지만, 그외의 경우에는 최적화되어서 수행되지 않으므로, 성능이 느릴수 있다. 이러한 경우에, 사용자가 샤드 키워드를 이용하여, 수동으로 쿼리 튜닝하는 방법으로 사용할 수 있다.
--   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1) GROUP BY i1; ??? 이거 해보자 이게 실제 되나? inline view에도 groupby가 있어야 할것 같다...
+-   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1 GROUP BY i1);
 -   SELECT \* FROM SHARD (SELECT \* FROM s1 limit 10) limit 10;
 
 #### *NODE* 샤드 키워드
