@@ -925,6 +925,7 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
       - server.2=192.168.1.11:2888:3888
       - server.3=192.168.1.12:2888:3888
   - dataDir : Zookeeper 데이터가 저장될 path. Zookeeper server를 사용하지 않고 client만 사용할 것이라면 없어도 상관 없다.(절대 경로를 사용해야 한다.)
+    - zoo_sample.cfg 에서는 예제의 목적으로만 dataDir=/tmp/zookeeper 로 설정해 놓았다. 실제 운영하기 위해서는 안전한 곳으로 재지정이 필요하다.
 - Zookeeper 서버를 사용하지 않고 client로만 사용하는 경우에도 zoo.cfg 파일에서 정보를 가져온다.
 
 #### Zookeeper server 기동
