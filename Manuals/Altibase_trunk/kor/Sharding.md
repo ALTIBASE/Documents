@@ -912,7 +912,9 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 ### Zookeeper 설정
 
 #### Zookeeper 사용 환경 세팅
-- Zookeeper server의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 3.5.6 버전이 존재하며 따로 설치 할 필요는 없다.
+- Altibase Sharding은 Zookeeper 3.5.6 버전을 사용해야 한다.
+- Zookeeper 관리를 위한 자세한 내용은 https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html 를 참고한다.
+- Zookeeper server의 3.5.6 버전의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
 - Zookeeper server를 사용하기 위해서는 JDK 1.8 이상 버전을 사용해야 한다.
 - \$ALTIBASE_HOME/ZookeeperServer/conf에 zoo.cfg를 생성한다.(zoo_sample.cfg를 복사해 필요한 부분만 바꿔 사용해도 된다.)
   - tickTime : The number of milliseconds of each tick
@@ -962,7 +964,6 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 - Zookeeper server는 절반 이상이 살아있을때만 정상작동 하며 그 이하의 서버만 살아있을 경우 절반 이상이 될때까지 client의 요청을 무시한다.
 - Zookeeper의 path에는 한개의 값만 존재할 수 있다. 단, 하위 path는 다수가 존재 할 수 있다.(동일 이름은 불가능하다)
 - 각 Zookeeper client는 zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다.
-- 운영환경에서의 Zookeeper 관리를 위해서는 https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html 를 참고한다.
 
 #### Zookeeper 메타
 - Altibase Sharding에서 클러스터 관리를 위하여, Zookeeper 메타를 아래와 같이 관리한다.
