@@ -965,6 +965,7 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 - Zookeeper의 path에는 한개의 값만 존재할 수 있다. 단, 하위 path는 다수가 존재 할 수 있다.(동일 이름은 불가능하다)
 - 각 Zookeeper client는 zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다.
 - Zookeeper 의 snapshot files 혹은 transactional log files 에 corruption 이 발생한 경우의 troubleshooting 은  https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html#sc_troubleshooting 을 참고한다.
+- Zookeeper transactional log files 의 위치는 Zookeeper의 성능에 밀접한 영향을 미치므로, 운영환경에서는 성능 좋은 전용 디바이스에 위치 시키는 것을 권장한다.
 
 #### Zookeeper 메타
 - Altibase Sharding에서 클러스터 관리를 위하여, Zookeeper 메타를 아래와 같이 관리한다.
