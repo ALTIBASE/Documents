@@ -457,19 +457,10 @@ SELECT * FROM shard(SELECT shard_node_name(), count(*) FROM s1);
 -   varchar
 
 #### 샤드 키워드(shard keyword)
-
-Altibase Sharding에서 지원하는 키워드로 임의의 데이터가 존재하는 샤드 노드로 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
-
+샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다. 샤드 키워드의 종류는 다음과 같다.
 -   SHARD
--   NODE
-
-샤드 지원 구문의 앞이나 SELECT문의 샤드 뷰 앞에 사용하면 해당 쿼리를 샤드 쿼리로 수행하여 결과를 반환한다.
-
-```
-SHARD SELECT shard_node_name(), count(*) FROM s1;
-NODE[DATA] SELECT shard_node_name(), count(*) FROM v$session;
-NODE[DATA(‘node1’)] SELECT * FROM s1;
-```
+-   NODE[META]
+-   NODE[DATA]
 
 #### 샤드 프로시저(shard procedure)
 
@@ -905,7 +896,7 @@ VALUE1 : 1
 
 SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티들이 있다. 
 
-샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.propertites.sharding 에 저장있다. 이곳에 설정된 값들을 참고하여, \$ALTIBASE_HOME/conf/altibase.propertites 를 변경해주면 된다.
+샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장있다. 샤딩을 최초 구성시에는, 이 화일을 복사하여 \$ALTIBASE_HOME/conf/altibase.properties 를 만들고, 추가적인 변경사항을 고려해주면 된다.
 
 ##### 샤드 패키지 생성
 
@@ -921,7 +912,9 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 ### Zookeeper 설정
 
 #### Zookeeper 사용 환경 세팅
-- Zookeeper server의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
+- Altibase Sharding은 Zookeeper 3.5.6 버전을 사용해야 한다.
+- Zookeeper 관리를 위한 자세한 내용은 https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html 를 참고한다.
+- Zookeeper server의 3.5.6 버전의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
 - Zookeeper server를 사용하기 위해서는 JDK 1.8 이상 버전을 사용해야 한다.
 - \$ALTIBASE_HOME/ZookeeperServer/conf에 zoo.cfg를 생성한다.(zoo_sample.cfg를 복사해 필요한 부분만 바꿔 사용해도 된다.)
   - tickTime : The number of milliseconds of each tick
@@ -934,6 +927,7 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
       - server.2=192.168.1.11:2888:3888
       - server.3=192.168.1.12:2888:3888
   - dataDir : Zookeeper 데이터가 저장될 path. Zookeeper server를 사용하지 않고 client만 사용할 것이라면 없어도 상관 없다.(절대 경로를 사용해야 한다.)
+    - zoo_sample.cfg 에서는 예제의 목적으로만 dataDir=/tmp/zookeeper 로 설정해 놓았다. 실제 운영하기 위해서는 안전한 곳으로 재지정이 필요하다.
 - Zookeeper 서버를 사용하지 않고 client로만 사용하는 경우에도 zoo.cfg 파일에서 정보를 가져온다.
 
 #### Zookeeper server 기동
@@ -966,10 +960,12 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
     - deleteall : 해당 path와 하위 path를 모두 제거한다.
 
 #### Zookeeper 사용시 주의 사항
-- Zookeeper는 리눅스 외에서 사용할 수 없다.
+- Zookeeper native client C library는 리눅스만 지원하고, Altibase server는 Zookeeper native client C library를 이용하여, Zookeeper에 클라이언트로서 접속하도록 되어 있다. 즉, 샤딩을 지원하는 알티베이스는 리눅스만 지원한다.
 - Zookeeper server는 절반 이상이 살아있을때만 정상작동 하며 그 이하의 서버만 살아있을 경우 절반 이상이 될때까지 client의 요청을 무시한다.
 - Zookeeper의 path에는 한개의 값만 존재할 수 있다. 단, 하위 path는 다수가 존재 할 수 있다.(동일 이름은 불가능하다)
 - 각 Zookeeper client는 zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다.
+- Zookeeper 의 snapshot files 혹은 transactional log files 에 corruption 이 발생한 경우의 troubleshooting 은  https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html#sc_troubleshooting 을 참고한다.
+- Zookeeper transactional log files 의 위치는 Zookeeper의 성능에 밀접한 영향을 미치므로, 운영환경에서는 성능 좋은 전용 디바이스에 위치 시키는 것을 권장한다.
 
 #### Zookeeper 메타
 - Altibase Sharding에서 클러스터 관리를 위하여, Zookeeper 메타를 아래와 같이 관리한다.
@@ -1089,13 +1085,29 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 
 #### 데이터 제약조건
 -   샤드 테이블은 기본 키가 있어야 한다.
--   샤드 키 테이블에서 기본 키는 샤드 키를 포함하여야 한다.
+-   샤드키는 테이블별로 1개만 지정할 수 있다.
+-   샤드키 테이블에서 기본 키는 샤드 키를 포함하여야 한다.
+-   샤드키 테이블은 분산 방식에 대응되는 파티션드 테이블(partitioned table)로 생성해야 하며 파티션 키와 샤드 키는 동일해야 한다.
+    - 각 파티션의 경계는 분산 경계를 포함해야 한다.
 -   샤드 키 테이블에서 기본 키 이외의 유니크 속성을 갖는 컬럼은 개별 샤드 노드별로만 유니크가 보장된다. 샤딩 시스템 전역으로 유니크 검사를 하지는 않는다.
 -   global non-partitioned index를 지원하지 않는다.
 -   global secondary index를 지원하지 않는다.
 -   geometry 컬럼, 암호화 컬럼과 압축 컬럼을 지원하지 않는다.  
 -   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
 -   materialized view를 지원하지 않는다.
+
+#### DDL 제약사항
+- 샤딩관련 객체에 대한 DDL을 수행할 수 없습니다.
+- 이때 샤딩관련 객체에는, 
+  - 샤드테이블 
+  - 샤드테이블에 대해서 자동 생성되는 \_BAK\_ 테이블
+  - 샤드테이블 및 \_BAK\_ 테이블과 관련된 인덱스
+  - 샤드프로시져
+  - 샤드테이블의 복제를 위하여 자동 생성되는 이중화객체
+- 샤딩관련 객체에 DDL을 수행하기 위해서는, 샤딩객체에서 설정해제하고, DDL을 한 이후에 다시 샤딩객체로 설정하여야 합니다.
+- 예외적으로 아래의 DDL은, 샤딩객체에서 설정해제하지 않고 수행할 수 있도록, 허용되어 있습니다. 이러한 허용 DDL의 종류를 지속적으로 늘려갈 예정입니다.
+  - 이중화객체에 대한 FLUSH 구문
+  - online partition split 구문
 
 #### 쿼리 제약사항
 -   다중 테이블 삽입절(INSERT)은 사용할 수 없다.
@@ -1110,11 +1122,6 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 -   IPv6 를 지원하지 않는다.
 -   ShardCLI 제약사항은 CLI User's Manual 에서 ShardCLI 부분을 참고한다.
 -   ShardJDBC 제약사항은 JDBC User's Manual 에서 Sharding 부분을 참고한다.
-
-#### K-safety 가 1 이상에서의 제약조건
--   단일 샤드 키 테이블만 지원한다.
--   샤드 키 테이블은 분산 방식에 대응되는 파티션드 테이블(partitioned table)로 생성해야 하며 파티션 키와 샤드 키는 동일해야한다.
-    - 각 파티션의 경계는 분산 경계를 포함해야 한다.
 -   Altibase Sharding은 응용프로그램에서 데이터베이스로 커넥션을 생성할 때, 일부
     샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.  
     (jdbc같은 경우 응용프로그램에서 데이터베이스로 커넥션을 생성할 때 META와의 접속까지만 
@@ -2006,21 +2013,16 @@ Unnesting, view merge 등의 서브 쿼리에 대한 변환이 수행될 경우 
 그 수행 여부가 결정된다.
 
 ### 샤드 키워드
-
-사용자는 특정 노드의 현재 데이터 상태를 확인하거나 특정 노드의 데이터를 취합하는 것을 원할 수 있다.
-
-Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메타, 코디네이터 또는 샤드 데이터(저장소) 역할로 특정 샤드 노드에 쿼리를 전송하고 그 수행 결과를 취합할 수 있는 샤드 키워드를 제공하며 iSQL 을 통해 사용 가능하다.
+샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다.
 
 #### 구문
 
 샤드 키워드는 다음 구문에 한해 제공하며 구문식은 다음과 같다.
 
 -   SHARD
-    - INSERT, UPDATE, DELETE
-    - SELECT
+    - SELECT, INSERT, UPDATE, DELETE
 -   NODE[META]
-    - INSERT, UPDATE, DELETE
-    - SELECT
+    - SELECT, INSERT, UPDATE, DELETE
 -   NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)]
     - SELECT
 
@@ -2030,84 +2032,34 @@ Altibase Sharding은 사용자의 요구사항을 처리하기 위해 샤드 메
 
 ![](media/Sharding/d15e35752ab4fd66496232e1d1e055a1.jpg)
 
-#### SHARD
+#### *SHARD* 샤드 키워드
+SHARD 샤드 키워드를 사용하면, 쿼리에 존재하는 샤드객체의 분산정의가 존재하는 모든 샤드 노드(들)에 쿼리를 전송하고 수행하여 취합한다. 분산 수행할 수 있는 샤딩객체가 전혀 없을 때는 에러가 발생한다.
 
-SHARD 키워드를 사용하면 샤드 쿼리 분석기를 통해 쿼리에 존재하는 샤드 객체 분산 정보가 존재하는 모든 샤드 노드에 쿼리를 전송하고 수행하여 취합한다.
-
-각 노드의 데이터를 취합한 결과가 논리적으로 동일할 수 없는 즉, 샤드 쿼리가 아닌 다음의 사례를 살펴보자.
-
+샤딩에서는 아래 두개의 쿼리가 동일한 결과를 얻어온다.
 -   SELECT count(\*) FROM *s1;*
-
-일반 쿼리에 SHARD 키워드를 적용하면 분산 정보가 존재하는 모든 노드를 대상으로 쿼리를 수행하고 그 결과를 얻어온다.
-
--   SHARD SELECT count(\*) FROM *s1;*
-
--   SELECT \* FROM SHARD*(* SELECT count(\*) FROM *s1);*
-
-아래와 같은 형태를 적절히 활용하면 사용자가 원하는 유용한 결과를 얻을 수 있다.
-
 -   SELECT sum(cn) FROM SHARD ( SELECT count(\*) cn FROM s1);
 
--   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1) GROUP BY i1;
-
+집계함수 중 몇가지(SUM,MIN,MAX,COUNT,AVG)에 대해서는 시스템 내부적으로 자동으로 최적화되어 수행하지만, 그외의 경우에는 최적화되어서 수행되지 않으므로, 성능이 느릴수 있다. 이러한 경우에, 사용자가 샤드 키워드를 이용하여, 수동으로 쿼리 튜닝하는 방법으로 사용할 수 있다.
+-   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1 GROUP BY i1);
 -   SELECT \* FROM SHARD (SELECT \* FROM s1 limit 10) limit 10;
 
-##### 구문
-
-```
-SHARD SELECT * FROM s1 WHERE k1>1;
-SELECT * FROM SHARD(SELECT * FROM s1 WHERE k1>1);
-```
-
-##### 예제
-
-\<질의\> s1테이블의 전체 레코드 개수를 구하라.
-
-```
-iSQL> SELECT sum(cn) FROM SHARD(SELECT count(*) cn FROM s1);
-```
-
-#### NODE
-
-NODE 키워드는 인자로 명시한 노드에 쿼리를 전송하고 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다.
-
-사용 가능한 NODE 유형은 다음과 같다.
-
--   NODE[META] : 코디네이팅 샤드 노드에 대한 쿼리 수행
+#### *NODE* 샤드 키워드
+NODE 키워드는 인자로 명시한 노드에 쿼리를 분석 및 변환없이 수행하고, 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다. 사용 가능한 NODE 유형은 다음과 같다.
+-   NODE[META] : 사용자 세션이 접속한 샤드 노드에 대해 쿼리 분석 및 변환없이 수행
 -   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이 수행
 -   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리 분석 및 변환없이 수행
 
-노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다.
-
-##### 구문
-
+노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다. 아래는 몇가지 사용예이다.
 ```
 NODE[META] SELECT count(*) FROM t1;
 NODE[DATA] SELECT count(*) FROM s1;
 SELECT * FROM NODE[META](SELECT count(*) FROM s1);
-SELECT * FROM NODE[DATA]('node1', 'node2')](SELECT count(*) FROM s1);
-```
-
-\<질의\> 코디네이팅 샤드 노드에 존재하는 t2테이블의 레코드 개수를 구하라.
-
-```
-iSQL> CREATE TABLE t2 AS SELECT * FROM s1
-iSQL> EXEC dbms_shard.set_shard_table('sys','t2','H','i1');
-iSQL> EXEC dbms_shard.set_shard_hash('sys','t2',1000,'node1');
-iSQL> NODE[META] SELECT count(*) FROM t1;
-```
-
-\<질의\> 'node2' 에 존재하는 s1 샤드 테이블에 대해 샤드키가 아닌 i1 컬럼의 group별 합을 수행하라.
-
-```
-iSQL> SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
+SELECT * FROM NODE[DATA('node1', 'node2')](SELECT count(*) FROM s1);
+SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
 ```
 
 > ##### 주의 사항
->
-> 샤드 키워드는 iSQL 을 통한 관리 목적으로 사용해야 한다.
->
-> 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 따라서 사용에 각별한 주의가 필요하다.
+> NODE 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 그러므로, NODE 샤드 키워드는 DBA가 임시적으로 사용하는 목적으로만 사용해야 한다.
 
 ### 샤드 함수
 
@@ -2543,18 +2495,9 @@ Execute success.
 
 #### 응용 프로그램 가이드
 
-Altibase Sharding 환경에서는 여러 샤드 노드에서 수행중인 트랜잭션 및 커넥션이
-있으며, 이들은 최적화 과정을 거쳐서 샤드 라이브러리 혹은 서버에서 내부적으로
-처리된다. 그러므로 특정 노드의 장애나 접속 에러 시에도 일부 커넥션이 남아 있거나
-트랜잭션이 완전히 철회되지 않을 수 있다.
+Altibase Sharding 환경에서는 여러 샤드 노드에서 수행중인 트랜잭션 및 커넥션이 있으며, 이들은 최적화 과정을 거쳐서 샤드 라이브러리 혹은 서버에서 내부적으로 처리된다. 
 
-이러한 분산 환경에서 응용 프로그램이 트랜잭션 처리를 일관되게 하기 위해서는
-NON-AUTOCOMMIT을 사용하여 다음의 가이드에 따라 작성되어야 Fail-Over가 정상적으로
-처리될 수 있다.
-
-다만, 응용 프로그램이 다수의 샤드 노드를 접근하지 않도록 설계된 경우에는
-AUTOCOMMIT 모드를 사용할 수 있으나 이 경우에도 AUTOCOMMIT에 대한 가이드에 따라
-처리되어야 Fail-Over 이후에 서비스가 정상적으로 처리될 수 있다.
+이러한 분산 환경에서 응용 프로그램이 트랜잭션 처리를 일관되게 하기 위해서는 NON-AUTOCOMMIT을 사용하여 다음의 가이드에 따라 작성되어야 Fail-Over가 정상적으로 처리될 수 있다.
 
 ##### CTF(Connection Time Failover)
 
@@ -2564,78 +2507,29 @@ CTF의 경우에는 데이터 베이스 연결이 되는지에 따라 성공 여
 되어있을 수 있으므로 명시적으로 SQLDisconnect를 호출하여 전체 연결을 끊어 주어야
 한다.
 
-CTF는 트랜잭션이 시작되기 전에 발생하므로 Commit 모드는 고려하지 않아도 된다.
-
 ##### STF(Service Time Failover)
 
-ShardCLI 경우는 SQLPrepare, SQLExecute, SQLFetch등에서 SQL_SUCCESS가 아닌 에러가
-발생하면, SQLGetDiagRec에 statement 핸들을 넘기고, 이 함수의 5번째 인자에
-반환되는 native 에러 코드 값이 ALTIBASE_FAILOVER_SUCCESS인 진단
-레코드(diagnostic record)가 있으면 STF가 성공한 것으로 판단할 수 있다.
+ShardCLI 경우는 SQLPrepare, SQLExecute, SQLFetch등에서 SQL_SUCCESS가 아닌 에러가 발생하면, SQLGetDiagRec에 statement 핸들을 넘기고, 이 함수의 5번째 인자에 반환되는 native 에러 코드 값이 ALTIBASE_FAILOVER_SUCCESS인 진단 레코드(diagnostic record)가 있으면 STF가 성공한 것으로 판단할 수 있다.
 
 - NON-AUTOCOMMIT 트랜잭션
 
-ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음의 순서로 에러
-로직을 처리한다.
+ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음의 순서로 에러 로직을 처리한다.
 
-1. STF가 성공한 경우(ALTIBASE_FAILOVER_SUCCESS) Rollback을 수행하며 Rollback이
-   성공하면 트랜잭션 재시작 위치로 되돌아 가서 응용 프로그램 로직을 수행한다.
-   1. 트랜잭션 재시작 위치는 SQLPrepare,SQLExecute를 사용하는 경우 최초
-      SQLPrepare 이전으로 돌아가야 하며 Bind는 다시 하지 않아도 된다.
+1. STF가 성공한 경우(ALTIBASE_FAILOVER_SUCCESS) Rollback을 수행하며 Rollback이 성공하면 트랜잭션 재시작 위치로 되돌아 가서 응용 프로그램 로직을 수행한다.
+   1. 트랜잭션 재시작 위치는 SQLPrepare,SQLExecute를 사용하는 경우 최초 SQLPrepare 이전으로 돌아가야 하며 Bind는 다시 하지 않아도 된다.
    2. SQLDirectExec를 사용하는 경우에는 SQLDirectExec 이전으로 돌아가면 된다.
-   3. STF 성공 후 Rollback을 하는 중에 다시 Fail-Over가 발생할 수 있으므로 이
-      경우에는 Rollback을 한번 더 수행한다.
-2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는
-   경우(ALTIBASE_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE) 전체 노드에 대한 연결을
-   명시적으로 끊고 최초 연결부터 재시도 한다.
-   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로
-      SQLDisconnect를 호출해야 모든 노드에 연결이 끊긴다
+   3. STF 성공 후 Rollback을 하는 중에 다시 Fail-Over가 발생할 수 있으므로 이 경우에는 Rollback을 한번 더 수행한다.
+2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는 경우(ALTIBASE_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE) 전체 노드에 대한 연결을 명시적으로 끊고 최초 연결부터 재시도 한다.
+   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로 SQLDisconnect를 호출해야 모든 노드에 연결이 끊긴다
 3. 그 외의 에러에 대해서는 응용 프로그램 에러 처리 로직을 수행한다.
 
-- AUTOCOMMIT 트랜잭션
-
-  ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음의 순서로 에러
-  로직을 처리한다.
-
-1. STF가 성공한 경우(ALTIBASE_FAILOVER_SUCCESS) 트랜잭션 재시작 위치로 되돌아
-   가서 응용 프로그램 로직을 수행한다.
-   1. 트랜잭션 재시작 위치는 SQLPrepare, SQLExecute를 사용하는 경우 최초
-      SQLPrepare 이전으로 돌아가야 하며 Bind는 다시 하지 않아도 된다.
-   2. SQLDirectExec를 사용하는 경우에는 SQLDirectExec 이전으로 돌아가면 된다.
-2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는 경우
-   (ALTIBASE_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE) 전체 노드에 대한 연결을
-   명시적으로 끊고 최초 연결부터 재시도 한다.
-   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로
-      SQLDisconnect를 호출해야 모든 노드에 연결이 끊긴다.
-
 ##### ShardCLI Failover Sample Code
-
-Altibase Sharding의 failover를 포함하는 Shardcli sample 코드는
-\$ALTIBASE_HOME/sample/SHARD/Fail-Over/failoversample.cpp에 있으며, 해당
-프로그램은 ShardCLI를 이용하여 작성한 fail-over를 고려한 응용 프로그램 예제이다.
-
-failoversample.cpp의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER);”의
-구문으로 T1 테이블을 생성한 후 T1 테이블을 샤드 테이블로 등록하였다고 가정한다.
-
-해당 프로그램은 최초 접속할 샤드 노드의 port와 alternate port를 순차적으로
-입력받아 연결하고 응용 프로그램 로직을 수행하여 Direct-Execute 방식으로 데이터를
-한 건 입력하고 Prepare-Execute 방식으로 질의를 수행한 후 검색된 데이터를
-출력하는 프로그램이다.
-
-예제 프로그램을 수행중에 특정 노드에 장애가 있는 경우 최초 접속시에 CTF가
-동작하며 실행 중에는 STF를 통해 fail-over 된다.
-
-주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기
-위해서 SQLDisconnect를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는
-다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLDiagRec을 통해 모든
-노드의 에러를 점검해야 한다.
-
-에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드
-노드에 남아 있는 트랜잭션을 정리하기 위해서 SQLEndTran(ROLLBACK)을 호출해 준 후
-다시 Prepare 혹은 DirecExecute 로직으로 돌아가서 수행 한다.
-
-자세한 코드 내용은 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/failoversample.cpp를
-참고한다.
+- Altibase Sharding의 failover를 포함하는 ShardCLI sample 코드는 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/failoversample.cpp에 있다.
+- failoversample.cpp의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER);”의 구문으로 T1 테이블을 생성한 후 T1 테이블을 샤드 테이블로 등록하였다고 가정한다.
+- 해당 프로그램은 최초 접속할 샤드 노드의 port와 alternate port를 순차적으로 입력받아 연결하고 응용 프로그램 로직을 수행하여 Direct-Execute 방식으로 데이터를 한 건 입력하고 Prepare-Execute 방식으로 질의를 수행한 후 검색된 데이터를 출력하는 프로그램이다.
+- 예제 프로그램을 수행중에 특정 노드에 장애가 있는 경우 최초 접속시에 CTF가 동작하며 실행 중에는 STF를 통해 fail-over 된다.
+- 주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기 위해서 SQLDisconnect를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는 다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLDiagRec을 통해 모든 노드의 에러를 점검해야 한다.
+- 에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드 노드에 남아 있는 트랜잭션을 정리하기 위해서 SQLEndTran(ROLLBACK)을 호출해 준 후 다시 Prepare 혹은 DirecExecute 로직으로 돌아가서 수행 한다.
 
 ### 샤딩 분산 시스템 변경
 
@@ -2935,18 +2829,19 @@ Unsigned Integer
 ##### 값의 범위
 [0, 1]
 ##### 설명
-이 프로퍼티는 관리자 모드로 접근하는 것만 허용한다. SHARD_ENABLE 로 동작되는 경우 항상 1로 설정 되며 SYS 또는 SYSTEM_ 사용자가 서버와 연결을 맺어 작업을 할 수 있고 그 외 일반 사용자들은 연결 자체가 실패한다.
+이 프로퍼티는 관리자 모드로 접근하는 것만 허용할지를 제어한다. 1 로 설정하는 경우에, SYS 또는 SYSTEM_ 사용자가 서버와 연결을 맺어 작업을 할 수 있고 그 외 일반 사용자들은 연결 자체가 실패한다.
 - 0: OFF
 - 1: ON
+
+자동 설정(암시적 설정)
+- SHARD_ENABLE 을 1 로 알티베이스 서버를 기동한 경우에, 자동으로 SHARD_ADMIN_MODE 는 1 로 설정 된다.
+- 노드가 샤딩 클러스터에 참여하여 정상적으로 운영중에는 자동으로 SHARD_ADMIN_MODE 는 0 으로 변경된다.
+- Shard DDL 혹은 비정상적 상황으로 인하여, 노드가 샤딩 클러스터에서 이탈한 경우에는, 자동으로 SHARD_ADMIN_MODE 는 1 으로 변경된다.
 
 명시적 설정
 - ALTER SYSTEM SET SHARD_ADMIN_MODE로 변경 가능하다.
 - 일반사용자는 ALTER SYSTEM 권한을 가지는 경우 변경 가능하다.
 - Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-암시적 설정
-- 노드가 샤딩 클러스터에 참여하여 정상적으로 운영중에는 자동으로 SHARD_ADMIN_MODE 는 0 으로 변경된다.
-- Shard DDL 혹은 비정상적 상황으로 인하여, 노드가 샤딩 클러스터에서 이탈한 경우에는, 자동으로 SHARD_ADMIN_MODE 는 1 으로 변경된다.
 
 #### SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
 
@@ -3285,7 +3180,7 @@ Shard DDL은 다수의 노드에 DDL을 수행하는데, 이 때, 각 노드에�
 ##### 데이터 타입
 Unsigned Integer
 ##### 기본값
-2 (뭐지? HDB도 영향있을텐데...)shard_enable 아닐때, 어떻게 되는지???
+1
 ##### 속성
 변경가능, 단일 값
 ##### 값의 범위
@@ -3295,6 +3190,7 @@ Unsigned Integer
 - 1 : multiple node transaction
 - 2 : global transaction
 - 3 : global consistent transaction
+세션에서 global_transaction_level을 변경시에 이미 트랜잭션이 시작되어 있는 경우에는, 1 과 2 는 서로 변경이 되지만, 1 혹은 2 에서 3 으로 변경할 수는 없다. 3 에서 1 혹은 2 로 변경할 수도 없다.
 
 #### VERSIONING_MIN_TIME
 ##### 데이터 타입
@@ -3373,12 +3269,6 @@ ALTER DATABASE SHARD ADD ;
 - failover 된 노드가 있다면, 먼저 failback이 수행되어야 한다.
 - drop 명령어에 의해서 샤딩 클러스터에서 제외된 노드는, 더이상 샤딩 클러스터에 속한 노드가 아니므로 상관없다. 
 
-#### 예제
-```
-ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
-ALTER DATABASE SHARD ADD ;
-```
-
 ### ALTER DATABASE SHARD DROP
 
 #### 구문
@@ -3393,12 +3283,6 @@ ALTER DATABASE SHARD DROP ;
 
 노드가 샤딩 클러스터에 제거되면, 자동으로 SHARD_ADMIN_MODE가 1 으로 변경되고, 일반 사용자는 해당 노드에 접속할 수 없게 된다.
 
-#### 예제
-```
-ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
-ALTER DATABASE SHARD DROP ;
-```
-
 ### ALTER DATABASE SHARD JOIN
 
 #### 구문
@@ -3410,12 +3294,6 @@ ALTER DATABASE SHARD JOIN ;
 본 구문의 수행 노드는 샤딩 클러스터에 추가된 후에, shutdown 명령으로 샤딩 클러스터에서 이탈된 상태이어야 한다. 
 
 노드가 샤딩 클러스터에 다시 참여되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
-
-#### 예제
-```
-ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
-ALTER DATABASE SHARD JOIN ;
-```
 
 ### ALTER DATABASE SHARD FAILOVER
 
@@ -3443,13 +3321,6 @@ failover가 완료되면, next alive node가 장애가 발생한 target node에�
 
 failover된 노드는, 사용자의 failback 명령에 의해서만 다시 샤딩 클러스터에 참여할 수 있다.
 
-#### 예제
-아래는 사용자가 수동으로 실행할때의 예제이다. node1 이라는 이름을 가진 노드가 존재한다고 가정한 것이다.
-```
-ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
-ALTER DATABASE SHARD FAILOVER node1 ;
-```
-
 ### ALTER DATABASE SHARD FAILBACK
 
 #### 구문
@@ -3463,12 +3334,6 @@ ALTER DATABASE SHARD FAILBACK ;
 - 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드
 - 사용자에 의한 shutdown 명령어에 의하지 않고, 비정상적 상태가 되었으나, failover는 되지 않은 노드
 - 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
-
-#### 예제
-```
-ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
-ALTER DATABASE SHARD FAILBACK ;
-```
 
 ### ALTER DATABASE SHARD MOVE
 
@@ -3488,58 +3353,23 @@ ALTER DATABASE SHARD MOVE { TABLE ["user_name" . ] "table_name" [ PARTITION {"(p
 
 #### 예제
 ```
-ALTER SESSION SET GLOBAL_TRANSACTION_LEVEL = 2;
 ALTER DATABASE SHARD MOVE TABLE user1.table1 PARTITION (p1), TABLE user2.soloTable1, TABLE user1.table2 PARTITION (p2), PROCEDURE user1.shardproc1 key ( 123 )  TO NODE4; ;
 ```
 
 
 ## Altibase Sharding 딕셔너리
+Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타 테이블들과 단일 샤드 노드의 샤딩 관련 시스템 프로세스 정보를 보여주는 성능 뷰(Performance View)들,
+그리고 전체 샤딩 시스템의 실시간 정보를 보여주는 샤드 성능 뷰(Shard Performance View)들로 나뉘어진다.
 
-Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타와 단일
-샤드 노드의 샤딩 관련 시스템 프로세스 정보를 보여주는 성능 뷰(Performance View),
-그리고 전체 샤딩 시스템의 실시간 정보를 보여주는 샤드 성능 뷰(Shard Performance
-View)로 나뉘어진다.
+### 샤드 메타 테이블
+분산 데이터베이스에 생성된 분산 객체에 대한 정보를 저장하고 있는 SYS_SHARD 사용자의 테이블이다.
 
-본 장은 샤드 데이터베이스 객체 정보 및 Altibase Sharding시스템 정보를 제공하는
-데이터 딕셔너리에 대해 설명한다.
-
-### 샤드 메타
-
-샤드 메타란 Altibase Sharding을 사용하는 전체 분산 데이터베이스에 생성된 객체에
-대한 모든 정보를 저장하고 있는 SYS_SHARD사용자의 시스템 정의 테이블이다.
-
-#### 구조 및 기능
-
-샤드 메타 테이블은 분산 데이터베이스 객체를 관리하기 위해 시스템에 의해 정의된
-테이블이다.
-
-Altibase Sharding은 분산 데이터베이스 질의를 처리하기 위해 샤드 객체 정보를
-조회하며 샤드 객체 및 노드 정보를 저장 및 변경할 때 샤드 메타 테이블을 사용한다.
-
-샤드 메타 테이블의 소유자는 일반 메타 테이블과는 달리 SYS_SHARD 사용자이며, 샤드
-메타에 대한 변경은 DBMS\_ SHARD 패키지를 이용해야 한다.
-
-#### 샤드 메타 테이블 조회
-
-DBMS_SHARD패키지를 이용하여 분산 데이터베이스 관련 정보를 등록, 삭제 및 변경 시
-샤드 메타 테이블의 레코드가 시스템에 의해 생성, 삭제 또는 변경된다.
-
-변경된 데이터베이스 객체 정보는 샤드 메타 테이블을 조회함으로써 확인할 수 있다.
-샤드 메타 테이블의 레코드는 일반 테이블과 같이 SELECT 문으로 조회가 가능하다.
-
-#### 샤드 메타 테이블 데이터 변경
-
-Altibase Sharding 시스템 사용자가 DBMS_SHARD 패키지 이외의 방법으로 샤드 메타 를
-변경하면 샤딩 시스템 구동이 실패하거나, 분산 데이터베이스 관련 정보를 상실하여
-시스템에 치명적인 손상이 발생할 수 있다.
-
-#### 샤드 메타 테이블 스키마 변경
-
-Altibase Sharding에 새로운 기능이 제공되거나 기존 구문의 기능 변경 시 샤드 메타
-테이블 스키마가 변경될 수 있다. 샤드 메타 테이블 스키마의 변경이 발생하면
-데이터베이스 마이그레이션이 필요하다.
-
-Altibase Sharding하위 버전에서 상위 버전으로 업그레이드 시 이를 고려해야 한다.
+#### 설명
+- 분산 데이터베이스 질의 및 분산 노드 관리시에 샤드 메타 테이블을 사용한다.
+- 샤드 메타 테이블의 소유자는 일반 메타 테이블과는 달리 SYS_SHARD 사용자이며, 샤드 메타 테이블에 대한 변경은 DBMS_SHARD 패키지를 이용해야 한다.
+- DBMS_SHARD 패키지 이외의 방법으로 샤드 메타 테이블을 변경하면 샤딩 시스템 구동이 실패하거나, 분산 데이터베이스 관련 정보를 상실하여 시스템에 치명적인 손상이 발생할 수 있다.
+- Altibase Sharding에 새로운 기능이 제공되거나 기존 구문의 기능 변경 시 샤드 메타 테이블 스키마가 변경될 수 있다. 샤드 메타 테이블 스키마의 변경이 발생하면 데이터베이스 마이그레이션이 필요하다.
+- Altibase Sharding하위 버전에서 상위 버전으로 업그레이드 시 이를 고려해야 한다.
 
 #### 샤드 메타 테이블 종류
 
@@ -3571,20 +3401,16 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 #### 칼럼 정보
 
 ##### MAJOR_VER
-
 메이저 버전을 나타낸다.
 
 ##### MINOR_VER
-
 마이너 버전을 나타낸다.
 
 ##### PATCH_VER
-
 패치 버전을 나타낸다.
 
 ### SYS_SHARD.LOCAL_META_INFO\_
-
-지역 데이터베이스의 샤드 정보를 기록하는 메타 테이블이다.
+지역 데이터베이스의 샤드 노드 하나에 대한 정보만을 기록하는 메타 테이블이다.
 
 | Column name                  | Type        | Description               |
 | ---------------------------- | ----------- | ------------------------- |
@@ -3605,58 +3431,44 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 #### 칼럼 정보
 
 ##### SHARD_NODE_ID
-
 지역 데이터베이스의 샤드 노드 식별자로 전체 샤딩 시스템에서 유일해야 한다.
 
-SET_LOCAL_NODE 프로시저를 통해 최초로 지역 샤드 정보를 설정시에 입력해야하며
-SET_LOCAL_NODE 혹은 RESET_SHARD_NODE_ID로 변경 가능하다.
+SET_LOCAL_NODE 프로시저를 통해 최초로 지역 샤드 정보를 설정시에 입력해야하며 SET_LOCAL_NODE 혹은 RESET_SHARD_NODE_ID(??? 삭제여부 확인필요???)로 변경 가능하다.
 
 ##### SHARDED_DB_NAME
-
-지역 샤드 노드가 참여할 논리적인 샤드된 데이터 베이스 이름을 나타내며, 지역 데이터 베이스의 DB 이름으로 자동으로 입력다. 
+지역 샤드 노드가 참여할 논리적인 샤드된 데이터 베이스 이름을 나타내며, 지역 데이터 베이스의 DB 이름으로 자동으로 설정된다. 
 
 ##### NODE_NAME
-
 지역 샤드 노드의 이름이다.
 
 ##### HOST_IP
-
 지역 샤드 노드에서 서비스에 사용할 호스트 IP 이다. 
 
 ##### PORT_NO 
-
 지역 샤드 노드에서 서비스에 사용할 Port 이다. 
 
 ##### INTERNAL_HOST_IP
-
 지역 샤드 노드에서 코디네이터가 내부적으로 사용하는 호스트 IP 이다. 
 
 ##### INTERNAL_REPLICATION_HOST_IP
-
 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP 이다.
 
 ##### INTERNAL_REPLICATION_PORT_NO
-
 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값으로 유지되어야 한다.
 
 #####  INTERNAL_CONN_TYPE
-
 내부적으로 사용되는 코디네이터 연결 방식이다. 1로 설정된 경우 TCP를 사용하며 8인 경우 인피니 밴드를 사용한다.  
 
 ##### K_SAFETY
-
 시스템 내에서 유지할 복제본의 개수를 나타낸다.  
 
 ##### REPLICATION_MODE
-
 시스템에서 사용하는 샤드 이중화 모드를 나타낸다. 값이 12인 경우 'CONSISTENT' 샤드 이중화 모드를 의미하며, 10인 경우 샤드 이중화 모드 중 'NOWAIT' 모드를 나타낸다.  
 
 ##### PARALLEL_COUNT
-
 샤드 이중화에서 사용하는 이중화 병렬 적용자의 수를 나타낸다. 
 
-### SYS_SHARD. GLOBAL_META_INFO\_
-
+### SYS_SHARD.GLOBAL_META_INFO\_
 샤드 메타 정보에 대한 내용을 기록하는 메타 테이블이다.
 
 | Column name | Type    | Description                                        |
@@ -3667,17 +3479,13 @@ SET_LOCAL_NODE 혹은 RESET_SHARD_NODE_ID로 변경 가능하다.
 #### 칼럼 정보
 
 ##### ID
-
 시스템 내부적으로 복제를 위해 사용되는 키 값
 
 ##### SMN
-
-데이터베이스의 샤드 메타에서 유지하는 메타 정보중 가장 최신 메타에 대한 샤드
-메타 번호(Shard Meta Number)를 나타낸다.
+데이터베이스의 샤드 메타에서 유지하는 메타 정보 중 가장 최신 메타에 대한 샤드 메타 번호(Shard Meta Number)를 나타낸다.
 
 ### SYS_SHARD.NODES\_
-
-Altibase Sharding의 샤드 노드 정보를 기록하는 메타 테이블이다.
+Altibase Sharding의 모든 샤드 노드들의 정보를 기록하는 메타 테이블이다.
 
 | Column name                | Type        | Description                                 |
 | -------------------------- | ----------- | ------------------------------------------- |
@@ -3697,27 +3505,19 @@ Altibase Sharding의 샤드 노드 정보를 기록하는 메타 테이블이다
 #### 칼럼 정보
 
 ##### NODE_ID
-
 샤드 노드의 지역 식별자를 나타낸다.
 
 ##### NODE_NAME
-
 샤드 노드의 이름을 나타내며 샤드 노드의 이름은 유일해야 한다.
 
 ##### HOST_IP
-
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 ip address를
-나타낸다.
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 ip address를 나타낸다.
 
 ##### PORT_NO
-
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를
-나타낸다.
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를 나타낸다.
 
 ##### ALTERNATE_HOST_IP
-
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버 ip
-address를 나타낸다.
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버 ip address를 나타낸다.
 
 ##### ALTERNATE_PORT_IP
 
@@ -4061,7 +3861,7 @@ Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤�
 
 예를들어, 사용자는 전체 샤딩 시스템의 프로퍼티 설정을 보기 위해서 각 노드에 접속 후 해당 노드의 성능 뷰를 모두 검색해 볼 수 있다. 그러나, 이와 같은 방법으로 전체 샤딩 시스템의 프로퍼티를 검색하는 것은 샤드 노드가 늘 어남에 따라 사용자의 불편을 증가시킨다.
 
-그러므로, 전체 샤드 시스템의 프로퍼티를 검색하기 위해서 특정 샤드 노드에 접속해서 샤드 성능 뷰를 통해 서비스 중인 샤드 노드의 프로퍼티를 검색할 수 있다.
+그러므로, 전체 샤딩 시스템의 프로퍼티를 검색하기 위해서 특정 샤드 노드에 접속해서 샤드 성능 뷰를 통해 서비스 중인 샤드 노드들 전체의 프로퍼티를 검색할 수 있다.
 
 이와 같이 사용자는 샤드 성능 뷰를 통해 편리하게 전체 시스템을 모니터링 할 수 있다.
 
@@ -4189,7 +3989,9 @@ iSQL\> SELECT \* FROM S\$TAB;
 
 세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.
 
-1 : 다중 노드 트랜잭션 (multiple node transaction)
+- 1 : multiple node transaction
+- 2 : global transaction
+- 3 : global consistent transaction
 
 샤딩 메뉴얼의 샤드 트랜잭션 항목을 참조한다
 
@@ -4414,7 +4216,6 @@ Execute success.
 > - 분산 방식을 지정할때 반드시 테이블의 파티셔닝 방법과 같은 분산 방식을 지정하여야 한다.
 > - 테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
 > - 일반 테이블은 K-safety 값이 0일 경우에만 샤드 테이블로 설정할 수 있다.
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_PROCEDURE
@@ -4461,10 +4262,8 @@ Execute success.
 
 > ##### 주의사항
 >
-> - 샤드 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한 프로시저가
->   생성되어야 한다.
+> - 샤드 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한 프로시저가 생성되어야 한다.
 > - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_PARTITION_NODE
@@ -4507,7 +4306,6 @@ Execute success.
 
 > ##### 주의사항
 >
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_HASH
@@ -4557,7 +4355,6 @@ Execute success
 
 > ##### 주의사항
 >
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_RANGE
@@ -4600,7 +4397,6 @@ Execute success.
 
 > ##### 주의사항
 >
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_LIST
@@ -4636,7 +4432,6 @@ Execute success.
 > ##### 주의사항
 >
 > - 리스트 분산 방식으로 설정할 경우 다수의 파티셔닝 조건 값을 갖는 파티션은 설정할 수 없다.
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_CLONE
@@ -4665,7 +4460,6 @@ iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node3');
 ```
 
 > ##### 주의사항
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_SOLO
@@ -4693,7 +4487,6 @@ Execute success.
 ```
 
 > ##### 주의사항
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### RESET_SHARD_RESIDENT_NODE
@@ -4788,7 +4581,6 @@ Execute success.
 ```
 
 > ##### 주의사항
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### UNSET_SHARD_TABLE_BY_ID
@@ -4817,7 +4609,6 @@ Execute success.
 ```
 
 > ##### 주의사항
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### UNSET_SHARD_PROCEDURE
@@ -4845,7 +4636,6 @@ Execute success.
 ```
 
 > ##### 주의사항
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### UNSET_SHARD_PROCEDURE_BY_ID
@@ -4873,7 +4663,6 @@ Execute success.
 ```
 
 > ##### 주의사항
-> - Non-Autocommit 에서만 수행 할 수 있다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### CHECK_DATA
@@ -4959,7 +4748,6 @@ node_name:NODE1, record_count:3314, correct_count:3314, incorrect_count:0
 node_name:NODE2, record_count:3312, correct_count:3312, incorrect_count:0
 node_name:NODE3, record_count:3373, correct_count:3373, incorrect_count:0
 
-iSQL> AUTOCOMMIT OFF;
 iSQL> EXEC dbms_shard.unset_shard_table('sys','t1');
 iSQL> EXEC dbms_shard.set_shard_table('sys','t1','h','i1','node1');
 iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',500,'node1');
@@ -5019,7 +4807,6 @@ REBUILD_DATA_NODE(user_name   in  varchar(128),
 
 ##### 예제
 ```
-iSQL> AUTOCOMMIT OFF;
 iSQL> EXEC dbms_shard.unset_shard_table('sys', 't1');
 iSQL> EXEC dbms_shard.set_shard_table('sys','t1','R','i1','node3');
 iSQL> EXEC dbms_shard.set_shard_range('sys','t1',330,'node1');
@@ -5083,7 +4870,7 @@ Execute success.
 ```
 
 
-## Aktibase Sharding 유틸리티
+## Altibase Sharding 유틸리티
 
 ### shardLoader
 
