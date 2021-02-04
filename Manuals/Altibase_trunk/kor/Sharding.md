@@ -1010,6 +1010,8 @@ Altibase Sharding 의 환경 설정에 관한 디렉토리는 Altibase 서버와
 
 본 장에서는 Altibase Sharding 의 추가적인 내용만을 설명한다.
 
+#### xlogfile 디렉토리 (???TBD???)
+
 #### trc 디렉토리
 
 altibase_sd.log : 샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
