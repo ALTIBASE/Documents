@@ -3559,8 +3559,8 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 | OBJECT_TYPE            | CHAR(1)      | 샤드 객체 종류 T : 테이블 P : 프로시저                       |
 | SPLIT_METHOD           | CHAR(1)      | 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) C : 복제(clone) S : 독립(solo) |
 | KEY_COLUMN_NAME        | VARCHAR(128) | 샤드 키 이름                                                 |
-| SUB_SPLIT_METHOD       | CHAR(1)      | 서브 샤드 키 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) |
-| SUB_KEY_COLUMN_NAME    | VARCHAR(128) | 서브 샤드 키 칼럼 이름                                       |
+| SUB_SPLIT_METHOD       | CHAR(1)      | Unused, reserved for future use |
+| SUB_KEY_COLUMN_NAME    | VARCHAR(128) | Unused, reserved for future use |
 | DEFAULT_NODE_ID        | INTEGER      | 기본 샤드 노드 번호                                          |
 | DEFAULT_PARTITION_NAME | VARCHAR(128) | 기본 파티션 이름                                             |
 | SMN                    | BIGINT       | 샤드 메타 번호                                               |
@@ -3590,14 +3590,6 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 ##### KEY_COLUMN_NAME
 
 샤드 객체의 샤드 키 이름을 나타낸다.
-
-##### SUB_SPLIT_METHOD
-
-샤드 객체의 서브 샤드 키 분산 방식을 나타낸다.
-
-##### SUB_KEY_COLUMN_NAME
-
-샤드 객체의 서브 샤드 키 칼럼 이름을 나타낸다.
 
 ##### DEFAULT_NODE_ID
 
