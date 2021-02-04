@@ -1012,8 +1012,13 @@ Altibase Sharding 의 환경 설정에 관한 디렉토리는 Altibase 서버와
 
 #### xlogfile 디렉토리 (???TBD???)
 
-#### trc 디렉토리
+#### Zookeeper 디렉토리
+?????
 
+#### conf 디렉토리
+altibase.properties.shard : 샤드 환경에서의 권장 설정값들이 기록되는 파일들이다.
+
+#### trc 디렉토리
 altibase_sd.log : 샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
 ### 클라이언트 설정
