@@ -5750,36 +5750,6 @@ Maximum length : 40 bytes
 
 This specifies a user-defined CALLBACK function for verifying passwords.
 
-### Altibase Sharding Properties
-
-#### SHARD_META_ENABLE 
-
-##### Data Type
-
-Unsigned Integer
-
-##### Default Value
-
-0
-
-##### Attributes
-
-Read-Only, Single Value
-
-##### Range
-
-[0, 1]
-
-##### Description
-
-Set to shard node of Altibase sharding:
-
-0: Disabled
-
-1: Enabled
-
-For other sharding properties, please refer to the *Sharding Manual*.
-
 ### Other Properties
 
 #### ACCESS_LIST
