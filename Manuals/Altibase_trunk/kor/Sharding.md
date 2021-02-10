@@ -4091,29 +4091,24 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 
 아래의 표와 같이 DBMS_SHARD 패키지를 구성하는 프로시저와 함수를 제공한다.
 
-| 프로시저 및 함수              | 설명                                                         |
+| PROCEDURES                    | 설명                                                          |
 | ----------------------------- | ------------------------------------------------------------ |
-| CREATE_META                   | 샤드 노드에서 샤드 메타 테이블을 생성한다.                   |
-| SET_LOCAL_NODE                | 샤드 노드를 등록한다.                                        |
-| SET_REPLICATION               | 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.          |
-| SET_SHARD_TABLE               | 샤드 테이블을 등록한다.                                      |
-| SET_SHARD_PROCEDURE           | 샤드 프로시저를 등록한다.                                    |
-| SET_SHARD_PARTITION_NODE      | 테이블의 파티셔닝 방식과 같은 방식으로 분산정보를 등록한다.  |
-| SET_SHARD_HASH                | HASH 방식의 분산정보를 등록한다.                             |
-| SET_SHARD_RANGE               | RANGE 방식의 분산정보를 등록한다.                            |
-| SET_SHARD_LIST                | LIST 방식의 분산정보를 등록한다.                             |
-| SET_SHARD_CLONE               | CLONE 방식의 분산정보를 등록한다.                            |
-| SET_SHARD_SOLO                | SOLO 방식의 분산정보를 등록한다.                             |
-| RESET_SHARD_RESIDENT_NODE     | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
-| RESET_SHARD_PARTITION_NODE    | 등록된 분산 정보의 샤드 노드를 변경한다.                     |
-| UNSET_SHARD_TABLE             | 샤드 테이블을 해제한다.                                      |
-| UNSET_SHARD_TABLE_BY_ID       | shard_id로 샤드 테이블을 해제한다.                           |
-| UNSET_SHARD_PROCEDURE         | 샤드 프로시저를 해제한다.                                    |
-| UNSET_SHARD_PROCEDURE_BY_ID   | shard_id로 샤드 프로시저를 해제한다.                         |
-| CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                        |
-| REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 샤드 노드의 데이터를 재분배한다. |
-| REBUILD_DATA_NODE             | 변경된 샤드 키 분산방식에 따라 특정 샤드 노드의 데이터를 재분배한다. |
-| EXECUTE_IMMEDIATE             | 샤드 노드로 ad-hoc 쿼리를 수행한다.                          |
+| CREATE_META                   | 샤드 노드에서 샤드 메타 테이블을 생성한다.                           |
+| SET_LOCAL_NODE                | 지역 샤드 노드의 정보를 설정한다.                                  |
+| SET_REPLICATION               | 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.                    |
+| SET_SHARD_TABLE_SHARDKEY      | 샤드키 테이블 샤드객체로 등록한다.                                  |
+| SET_SHARD_TABLE_SOLO          | 솔로 테이블 샤드객체로 등록한다.                                    |
+| SET_SHARD_TABLE_CLONE         | 클론 테이블 샤드객체로 등록한다.                                    |
+| SET_SHARD_PROCEDURE_SHARDKEY  | 샤드키 프로시저 샤드객체로 등록한다.                                 |
+| SET_SHARD_PROCEDURE_SOLO      | 솔로 프로시저 샤드객체로 등록한다.                                   |
+| SET_SHARD_PROCEDURE_CLONE     | 클론 프로시저 샤드객체로 등록한다.                                   |
+| UNSET_SHARD_TABLE             | 샤드 테이블을 해제한다.                                           |
+| UNSET_SHARD_TABLE_BY_ID       | shard_id로 샤드 테이블을 해제한다.                                |
+| UNSET_SHARD_PROCEDURE         | 샤드 프로시저를 해제한다.                                         |
+| UNSET_SHARD_PROCEDURE_BY_ID   | shard_id로 샤드 프로시저를 해제한다.                               |
+| CHECK_DATA                    | 샤드 키와 데이터의 유효성을 확인한다.                                |
+| REBUILD_DATA                  | 변경된 샤드 키 분산방식에 따라 모든 샤드 노드의 데이터를 재분배한다.       |
+| REBUILD_DATA_NODE             | 변경된 샤드 키 분산방식에 따라 특정 샤드 노드의 데이터를 재분배한다.       |
 
 #### CREATE_META
 ##### 구문
@@ -4161,19 +4156,14 @@ DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
 - conn_type: 내부적으로 사용되는 코디네이터 연결 방식으로 입력하지 않는 경우 TCP를 사용한다. 그 외 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
 
 ##### 설명
-샤드 패키지인 DBMS_SHARD 패키지에는 지역 샤드 노드의 정보를 설정하는 서브 프로그램을 제공한다.
-
-샤드 노드를 사용하기 위해서는 먼저 지역 샤드 노드의 정보를 등록해야한다. 
-
-한번 샤딩 클러스터에 참여한 후에는, 지역 정보의 재 설정은 불가하며, 재설정을 위해서는 노드 제거 및 추가를 해야한다. 
-
-한번도 샤딩 클러스터에 참여하지 않은 경우에만 변경가능하며, 변경은 최초 설정과 동일한 인터페이스를 통해 진행한다.
-
-현재 ip address는 ip v4형식만 지원한다.
+지역 샤드 노드의 정보를 설정한다.
+- 샤드 노드를 사용하기 위해서는 먼저 지역 샤드 노드의 정보를 등록해야한다. 
+- 한번 샤딩 클러스터에 참여한 후에는, 지역 정보의 재 설정은 불가하며, 재설정을 위해서는 노드 제거 및 추가를 해야한다. 
+- 한번도 샤딩 클러스터에 참여하지 않은 경우에만 변경가능하며, 변경은 최초 설정과 동일한 인터페이스를 통해 진행한다.
+- 현재 ip address는 ip v4형식만 지원한다.
 
 #### 예제
-\<질의\> shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
-
+shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
 ```
 iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(1, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
 ```
@@ -4193,72 +4183,136 @@ SET_REPLICATION(
 - parallel_count: 이중화 병렬 적용자의 수
 
 ##### 설명
-샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.   
+샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.
 
 ##### 예제
-\<질의\> 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
-
+샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
 ```
 iSQL>  EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
 ```
-
-#### SET_SHARD_TABLE
+#### SET_SHARD_TABLE_SHARDKEY
 ##### 구문
 ```
-SET_SHARD_TABLE(
- user_name    		         in varchar(128),
- table_name        			 in varchar(128),
- split_method    			 in varchar(1) default NULL,
- partition_key_column_name   in varchar(128) default NULL,
- default_node_name 			 in varchar(40) default NULL)
+SET_SHARD_TABLE_SHARDKEY( user_name                     in varchar(128),
+                          table_name                    in varchar(128),
+                          partiton_node_list            in varvchar(32000), 
+                          method_for_irregular          in char(1) default 'E' ,
+                          replication_parallel_count    in integer default 1 )
 ```
 
 ##### 파라미터
 - user_name: 테이블 소유자의 이름
 - table_name: 테이블 이름
-- split_method: 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 C: 복제 분산 방식 S: 독립 분산 방식
-- partition_key_column_name: 샤드 키 컬럼 이름
-- default_node_name: 기본 샤드 노드
+- partiton_node_list: 파티션이름과 노드이름의 쌍들을 콤마로 구분한 리스트이며, 모든 파티션이름이 기술되어야 한다.
+- method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
+  - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
+  - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
+  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다.
+    - 샤드테이블로 등록된 이후에는 분산정의에 맞지 않는 데이타를 접근할 수 없다.
+    - REBUILD_DATA_SHARDKEY_TABLE 프로시저를 이용하여, 분산정의에 맞지 않는 데이타를 분산정의에 맞게 데이타 이동을 할 수 있다.
+- replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
-**설명**
-
-모든 샤드 노드에 샤드 테이블 정보를 설정하고 복제용 테이블을 생성한다.
-
-분산 방식을 지정하지 않을 경우, 테이블의 파티션 정보를 읽어 자동으로 설정한다. 
-테이블의 파티션 키가 두개 이상이면 자동으로 선택하지 못하고 에러가 발생한다.
-
-기본 샤드 노드란 샤드 키 분산 객체에 한해 분산 정보가 정의되지 않은 경우에
-선택되는 샤드 노드를 의미하며, 지정하지 않을 수도 있다. 기본 샤드 노드를
-지정하지 않을 경우, 샤드 키 분산 정보에 맞지 않는 샤드 키 값이 입력되면, 처리할
-수 없으므로 에러가 발생한다.
-
-파티션 테이블을 대상으로 할 경우 기본 샤드 노드를 지정하였으면 K-safety 값에 따라 기본 파티션의 복제를(Replication) 생성한다.
+##### 설명
+샤드키 테이블 샤드객체로 등록한다.
+- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
+- 파티션 테이블만 등록될 수 있으며, 파티션키 컬럼은 PK 컬럼들중에 하나여야 하며, 파티션키 컬럼이 샤드키 컬럼으로 등록된다.
+  - 파티션의 종류는 range with hash 와 range 그리고 list 세가지만 가능하다.
+  - range with hash 파티션은 hash 분산으로 등록된다.
+  - range 파티션은 range 분산으로 등록된다.
+  - list 파티션은 list 분산으로 등록된다.
+  - list 파티션 정의시 개별 파티션별로 list value는 하나씩만 가져야 한다.
+- 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 파티션별로 데이터가 백업 테이블의 파티션에 동기화 된다.
 
 ##### 예제
-
 ```
-iSQL> EXEC dbms_shard.set_shard_table('sys','t1','H','i1','node3');
+iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
 Execute success.
-iSQL> EXEC dbms_shard.set_shard_table('sys','t2','R','i1', 'node3');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_table('sys','t3','L','i1', 'node3');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_table('sys','t4','C');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_table('sys','t5','S');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_table('sys','t6');
+iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
 Execute success.
 ```
+#### SET_SHARD_TABLE_SOLO
+##### 구문
+```
+SET_SHARD_TABLE_SOLO( user_name                     in varchar(128),
+                      table_name                    in varchar(128),
+                      node_name                     in varchar(10),
+                      method_for_irregular          in char(1) default 'E' ,
+                      replication_parallel_count    in integer default 1 )
+```
 
-> ##### 주의사항
->
-> - 샤드 테이블을 설정하기 위해서는 반드시 샤드 노드에 동일한 테이블 스키마가
->   생성되어야 한다.
-> - 분산 방식을 지정할때 반드시 테이블의 파티셔닝 방법과 같은 분산 방식을 지정하여야 한다.
-> - 테이블을 제거(drop)하더라도 샤드 테이블 정보는 삭제되지 않는다.
-> - 일반 테이블은 K-safety 값이 0일 경우에만 샤드 테이블로 설정할 수 있다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
+##### 파라미터
+- user_name: 테이블 소유자의 이름
+- table_name: 테이블 이름
+- partiton_node_list: 파티션이름과 노드이름의 쌍들을 콤마로 구분한 리스트이며, 모든 파티션이름이 기술되어야 한다.
+- method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
+  - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
+  - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
+  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다.
+    - 샤드테이블로 등록된 이후에는 분산정의에 맞지 않는 데이타를 접근할 수 없다.
+    - REBUILD_DATA_SHARDKEY_TABLE 프로시저를 이용하여, 분산정의에 맞지 않는 데이타를 분산정의에 맞게 데이타 이동을 할 수 있다.
+- replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
+
+##### 설명
+샤드키 테이블 샤드객체로 등록한다.
+- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
+- 파티션 테이블만 등록될 수 있으며, 파티션키 컬럼은 PK 컬럼들중에 하나여야 하며, 파티션키 컬럼이 샤드키 컬럼으로 등록된다.
+  - 파티션의 종류는 range with hash 와 range 그리고 list 세가지만 가능하다.
+  - range with hash 파티션은 hash 분산으로 등록된다.
+  - range 파티션은 range 분산으로 등록된다.
+  - list 파티션은 list 분산으로 등록된다.
+  - list 파티션 정의시 개별 파티션별로 list value는 하나씩만 가져야 한다.
+- 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 파티션별로 데이터가 백업 테이블의 파티션에 동기화 된다.
+
+##### 예제
+```
+iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
+Execute success.
+iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
+Execute success.
+```
+
+#### SET_SHARD_TABLE_CLONE
+##### 구문
+```
+SET_SHARD_TABLE( user_name                     in varchar(128),
+                 table_name                    in varchar(128),
+                 partiton_node_list            in varvchar(32000), 
+                 method_for_irregular          in char(1) default 'E' ,
+                 replication_parallel_count    in integer default 1 )
+```
+
+##### 파라미터
+- user_name: 테이블 소유자의 이름
+- table_name: 테이블 이름
+- partiton_node_list: 파티션이름과 노드이름의 쌍들을 콤마로 구분한 리스트이며, 모든 파티션이름이 기술되어야 한다.
+- method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
+  - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
+  - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
+  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다.
+    - 샤드테이블로 등록된 이후에는 분산정의에 맞지 않는 데이타를 접근할 수 없다.
+    - REBUILD_DATA_SHARDKEY_TABLE 프로시저를 이용하여, 분산정의에 맞지 않는 데이타를 분산정의에 맞게 데이타 이동을 할 수 있다.
+- replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
+
+##### 설명
+샤드키 테이블 샤드객체로 등록한다.
+- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
+- 파티션 테이블만 등록될 수 있으며, 파티션키 컬럼은 PK 컬럼들중에 하나여야 하며, 파티션키 컬럼이 샤드키 컬럼으로 등록된다.
+  - 파티션의 종류는 range with hash 와 range 그리고 list 세가지만 가능하다.
+  - range with hash 파티션은 hash 분산으로 등록된다.
+  - range 파티션은 range 분산으로 등록된다.
+  - list 파티션은 list 분산으로 등록된다.
+  - list 파티션 정의시 개별 파티션별로 list value는 하나씩만 가져야 한다.
+- 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 파티션별로 데이터가 백업 테이블의 파티션에 동기화 된다.
+
+##### 예제
+```
+iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
+Execute success.
+iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
+Execute success.
+```
+
+
 
 #### SET_SHARD_PROCEDURE
 
@@ -4308,68 +4362,6 @@ Execute success.
 > - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
-#### SET_SHARD_PARTITION_NODE
-
-##### 구문
-
-```
-SET_SHARD_PARTITION_NODE(
- user_name 	    in varchar(128),
- object_name    in varchar(128),
- partition_name in varchar(128),
- node_name      in varchar(10) )
-```
-
-##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- partition_name: 객체의 파티션 이름
-- node_name: 샤드 노드
-
-##### 설명
-
-모든 샤드 노드에 샤드 객체의 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
-
-샤드 객체의 분산 방식은 객체의 파티션 분할 방식과 같게 설정된다.
-
-파티션 테이블이 아닌 객체는 설정할수 없다.
-
-기본 파티션을 대상으로 수행 할 경우 샤드 객체의 기본 노드가 변경된다. 
-기본 노드가 변경될 경우 기존에 데이터 복제가 존재하면 제거하고 지정된 기본 노드를 대상으로 새롭게 데이터 복제를 생성해 준다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p1','node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p2','node2');
-Execute success.
-```
-
-> ##### 주의사항
->
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### SET_SHARD_HASH
-
-##### 구문
-
-```
-SET_SHARD_HASH(    user_name in varchar(128),
-                   object_name in varchar(128),
-                   hash_max in integer,
-                   node_name in varchar(10))
-```
-
-##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- hash_max: 해시 분산의 상한값 [1-1000] (non-inclusive)
-- node_name: 기본 샤드노드
-
-##### 설명
-
-모든 샤드 노드에 해시 방식으로 분산되는 샤드 객체의 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다. 
 
 지정 가능한 해시 상한값은 [ 1 \~ 1000 ]으로 정의한다.
 
@@ -4395,31 +4387,6 @@ iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',800,'node2');
 Execute success
 ```
 
-> ##### 주의사항
->
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### SET_SHARD_RANGE
-
-##### 구문
-
-```
-SET_SHARD_RANGE(     user_name    in  varchar(128),
-                     object_name  in  varchar(128),
-                     value_max    in  varchar(100),
-                     node_name    in  varchar(10))
-```
-
-##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- value_max: 범위 분산 샤드 키의 상한값(non-inclusive)
-- node_name: 기본 샤드 노드
-
-##### 설명
-
-모든 샤드 노드에 범위 분산 방식으로 샤드 객체의 분산 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
-
 ##### 예제
 
 \<질의\> sys.t2 테이블에 샤드 키 값에 따라 데이터가 다음과 같이 분산된다.
@@ -4436,30 +4403,6 @@ Execute success.
 iSQL> EXEC dbms_shard.set_shard_range('sys','t2',600,'node2');
 Execute success. 
 ```
-
-> ##### 주의사항
->
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
-#### SET_SHARD_LIST
-
-##### 구문
-
-```
-SET_SHARD_LIST(    user_name    in  varchar(128),
-                   object_name  in  varchar(128),
-                   value        in  varchar(100),
-                   node_name    in  varchar(10))
-```
-
-##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- value: 리스트 분산의 샤드 키의 최대값
-- node_name: 기본 샤드 노드
-
-##### 설명
-모든 샤드 노드에 리스트 분산 방식의 샤드 객체에 대한 분산 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
 
 ##### 예제
 ```
@@ -4531,71 +4474,6 @@ Execute success.
 > ##### 주의사항
 > - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
-#### RESET_SHARD_RESIDENT_NODE
-##### 구문
-```
-RESET_SHARD_RESIDENT_NODE( user_name     in varchar(128),
-                           object_name   in varchar(128),
-                           old_node_name in varchar(10),
-                           new_node_name in varchar(10),
-                           value         in varchar(100) default NULL,
-                           sub_value     in varchar(100) default NULL )
-```
-
-##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- old_node_name: 현재 노드 이름
-- new_node_name: 변경할 노드 이름
-- value: 샤드 키의 최대값
-- sub_value: 서브 샤드 키의 최대값
-
-##### 설명
-등록된 분산 정보의 샤드 노드를 변경한다.
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.set_shard_table('sys','t1','H','i1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',500,'node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',1000,'node3');
-Execute success.
-iSQL> EXEC dbms_shard.reset_shard_resident_node('sys','t1','node3','node2',1000);
-Execute success.
-```
-
-#### RESET_SHARD_PARTITION_NODE
-##### 구문
-```
-RESET_SHARD_PARTITION_NODE( user_name      in varchar(128),
-                            object_name    in varchar(128),
-                            old_node_name  in varchar(10),
-                            new_node_name  in varchar(10),
-                            partition_name in varchar(128) default NULL )
-```
-
-##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- old_node_name: 현재 노드 이름
-- new_node_name: 변경할 노드 이름
-- partition_name: 객체의 파티션 이름
-
-##### 설명
-등록된 분산 정보의 샤드 노드를 변경한다.
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.set_shard_table('sys','t1','H','i1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p1','node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_partition_node('sys','t1','p2','node3');
-Execute success.
-iSQL> EXEC dbms_shard.reset_shard_partition_node('sys','t1','node3','node2','p2');
-Execute success.
-```
 
 #### UNSET_SHARD_TABLE
 ##### 구문
@@ -4889,28 +4767,6 @@ iSQL> COMMIT;
 > - 복합 샤드 키를 포함한 샤드 키 테이블에 한해 적용된다.
 > - 기존의 샤드 분산 테이블을 해제하고 새로운 분산방식을 적용한 후, 이 프로시저를 수행해야 한다.
 > - 데이터의 정합성 보장을 위해서는 사용자 어플리케이션을 정지한 이후 수행해야 한다.
-
-#### EXECUTE_IMMEDIATE
-##### 구문
-```
-EXECUTE_IMMEDIATE(
- query     in varchar(65534),
- node_name in varchar(10) default NULL)
-```
-
-##### 파라미터
-- query: 샤드 쿼리
-- node_name: 샤드 노드
-
-##### 설명
-샤드 노드에서 임의의 샤드 노드에 특정(ad-hoc) 쿼리를 수행한다. node_name을 지정하지 않으면, 모든 샤드 노드에 수행한다.
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.execute_immediate(‘TRUNCATE TABLE s1’,’node1’);
-Execute success.
-```
-
 
 ## Altibase Sharding 유틸리티
 
