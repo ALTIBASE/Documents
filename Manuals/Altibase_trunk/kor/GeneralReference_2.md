@@ -6266,34 +6266,6 @@ String
 
 패스워드를 검증할 사용자 정의 콜백 함수(CALLBACK function)를 지정한다.
 
-### Altibase Sharding 관련 프로퍼티
-
-#### SHARD_META_ENABLE 
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding의 메타 노드로 설정한다.
-
-0: Disabled
-
-1: Enabled
-
 ### 기타 프로퍼티 
 
 #### ACCESS_LIST
