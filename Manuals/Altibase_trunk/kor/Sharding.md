@@ -4243,7 +4243,7 @@ SET_SHARD_TABLE_SOLO( user_name                     in varchar(128),
 ##### 파라미터
 - user_name: 테이블 소유자의 이름
 - table_name: 테이블 이름
-- partiton_node_list: 파티션이름과 노드이름의 쌍들을 콤마로 구분한 리스트이며, 모든 파티션이름이 기술되어야 한다.
+- node_name: 솔로 테이블이 존재할 노드 이름
 - method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
   - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
   - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
@@ -4253,21 +4253,15 @@ SET_SHARD_TABLE_SOLO( user_name                     in varchar(128),
 - replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
 ##### 설명
-샤드키 테이블 샤드객체로 등록한다.
+솔로 테이블 샤드객체로 등록한다.
 - 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
-- 파티션 테이블만 등록될 수 있으며, 파티션키 컬럼은 PK 컬럼들중에 하나여야 하며, 파티션키 컬럼이 샤드키 컬럼으로 등록된다.
-  - 파티션의 종류는 range with hash 와 range 그리고 list 세가지만 가능하다.
-  - range with hash 파티션은 hash 분산으로 등록된다.
-  - range 파티션은 range 분산으로 등록된다.
-  - list 파티션은 list 분산으로 등록된다.
-  - list 파티션 정의시 개별 파티션별로 list value는 하나씩만 가져야 한다.
 - 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 파티션별로 데이터가 백업 테이블의 파티션에 동기화 된다.
 
 ##### 예제
 ```
-iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
+iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1');
 Execute success.
-iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
+iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1', 'R',5);
 Execute success.
 ```
 
