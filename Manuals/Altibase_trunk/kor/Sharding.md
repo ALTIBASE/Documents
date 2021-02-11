@@ -4088,7 +4088,9 @@ Altibase Sharding 패키지를 구성하는 프로시저와 함수에 대해 설
 ### DBMS_SHARD
 DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 DBMS_SHARD 패키지의 프로시저들을 수행할 수 있다.
+- DBMS_SHARD 패키지의 프로시저들은 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 - DBMS_SHARD 패키지의 프로시저들은 global transaction level 2 이상에서만 수행할 수 있다.
+- node name은 모두 대문자로 처리된다.
 
 아래의 표와 같이 DBMS_SHARD 패키지를 구성하는 프로시저와 함수를 제공한다.
 
@@ -4123,7 +4125,6 @@ create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를
 ##### 예제
 ```
 iSQL> EXEC dbms_shard.create_meta();
-Execute success.
 ```
 
 #### SET_LOCAL_NODE
@@ -4185,7 +4186,7 @@ DBMS_SHARD.SET_REPLICATION(
 ##### 예제
 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
 ```
-iSQL>  EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
 ```
 #### SET_SHARD_TABLE_SHARDKEY
 ##### 구문
@@ -4203,9 +4204,9 @@ DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(
 - table_name: 테이블 이름
 - partiton_node_list: 파티션이름과 노드이름의 쌍들을 콤마로 구분한 리스트이며, 모든 파티션이름이 기술되어야 한다.
 - method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
-  - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
-  - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이타는 이후에는 SQL에서 없는 데이타로 취급된다. 
+  - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
+  - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
+  - R: (remain) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이타는 이후에는 SQL에서 없는 데이타로 취급된다. 
 - replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
 ##### 설명
@@ -4221,10 +4222,8 @@ DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(
 
 ##### 예제
 ```
-iSQL> DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
-Execute success.
-iSQL> DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
-Execute success.
+iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
+iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
 ```
 #### SET_SHARD_TABLE_SOLO
 ##### 구문
@@ -4242,9 +4241,9 @@ DBMS_SHARD.SET_SHARD_TABLE_SOLO(
 - table_name: 테이블 이름
 - node_name: 솔로 테이블이 존재할 노드 이름
 - method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
-  - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
-  - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이타는 이후에는 SQL에서 없는 데이타로 취급된다.
+  - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
+  - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
+  - R: (remain) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이타는 이후에는 SQL에서 없는 데이타로 취급된다. 
 - replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
 ##### 설명
@@ -4255,9 +4254,7 @@ DBMS_SHARD.SET_SHARD_TABLE_SOLO(
 ##### 예제
 ```
 iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1');
-Execute success.
 iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1', 'R',5);
-Execute success.
 ```
 
 #### SET_SHARD_TABLE_CLONE
@@ -4286,160 +4283,99 @@ DBMS_SHARD.SET_SHARD_TABLE_CLONE(
 ##### 예제
 ```
 iSQL> EXEC dbms_shard.set_shard_table_clone('sys','t1','node1');
-Execute success.
 ```
 
-#### SET_SHARD_PROCEDURE
+#### SET_SHARD_PROCEDURE_SHARDKEY
 
 ##### 구문
-
 ```
-SET_SHARD_PROCEDURE(
+SET_SHARD_PROCEDURE_SHARDKEY(
   user_name in varchar(128),
   proc_name in varchar(128),
   split_method in varchar(1),
-  key_param_name in varchar(128) default NULL,
-  default_node_name in varchar(40) default NULL)
+  key_param_name in varchar(128),
+  value_node_list in varvchar(32000), 
+  default_node_name in varchar(40) default NULL,
+  proc_replace in char(1) default 'N')
 ```
 
 ##### 파라미터
 - user_name: 프로시저 소유자의 이름
 - proc_name: 프로시저 이름
-- split_method: 분산 방식 H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식 C: 복제 분산 방식 S: 독립 분산 방식
+- split_method: 분산 방식(H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식)
 - key_param_name: 샤드 키 파라미터 이름
-- default_node_name: 기본 샤드 노드
+- value_node_list: value와 node 이름의 쌍들을 콤마로 구분한 리스트
+  - 해시분산 방식의 경우 지정 가능한 value 의 범위는 1 ~ 1000 사이의 정수이다.
+- default_node_name: 기본 샤드 노드(범위가 지정되지 않은 샤드키 파라미터 값이 사용되면, 기본 샤드 노드의 프로시저가 호출된다.)
+- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
+  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
+  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
 
 ##### 설명
-
-모든 샤드 노드에 샤드 프로시저의 정보를 설정한다.
-
-Altibase Sharding 에서 지원하는 분산 방법의 종류는 샤드 테이블과 동일하다.
-
-##### 예제
-
-```
-iSQL> EXEC dbms_shard.set_shard_procedure('sys','proc1','H','p1','node3');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_procedure('sys','proc2','R','p1','node3');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_procedure('sys','proc3','L','p1','node3');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_procedure('SYS','proc4','C');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_procedure('SYS','proc5','S');
-Execute success.
-```
-
-> ##### 주의사항
->
-> - 샤드 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한 프로시저가 생성되어야 한다.
-> - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
-
-지정 가능한 해시 상한값은 [ 1 \~ 1000 ]으로 정의한다.
-
-실제 샤드 키에 대한 해시 값은 [ 0 \~ 999 ]이다.
-
-구간별로 샤드 노드를 적절하게 지정해야 하며, 만약 지정하지 않을 경우 기본 샤드
-노드로 데이터가 분산된다.
-
-##### 예제
-
-\<질의\> sys.t1 테이블에 샤드 키의 hash 값에 따라 데이터가 다음과 같이 분산된다.
-
-- 0 \~ 499는 node1으로 분산
-- 500 \~ 799는 node2로 분산
-- 나머지 hash 값(800 \~ 999)은 기본 샤드 노드로 분산
-
-```
-iSQL> EXEC dbms_shard.set_shard_table('sys','t1','H','i1','node3');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',500,'node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_hash('sys','t1',800,'node2');
-Execute success
-```
-
-##### 예제
-
-\<질의\> sys.t2 테이블에 샤드 키 값에 따라 데이터가 다음과 같이 분산된다.
-
-- 0 \~ 299는 node1으로 분산
-- 300 \~ 599는 node2로 분산
-- 나머지 값은 기본 샤드 노드로 분산
-
-```
-iSQL> EXEC dbms_shard.set_shard_table('sys','t2','R','i1','node3');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_range('sys','t2',300,'node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_range('sys','t2',600,'node2');
-Execute success. 
-```
+샤드키 프로시저 샤드객체로 등록한다.
+- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 
 ##### 예제
 ```
-iSQL> EXEC dbms_shard.set_shard_list('sys','t3','1a','node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_list('sys','t3','2a','node2');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_list('sys','t3','3a','node3');
-Execute success.
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY( 'SYS', 'PROC1', 'L', 'KEY_PARAM','1 NODE1,2 NODE2, 3 NODE3');
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY( 'SYS', 'PROC1', 'L', 'KEY_PARAM','1 NODE1,2 NODE2, 3 NODE3', NULL ,'Y');
 ```
 
-> ##### 주의사항
->
-> - 리스트 분산 방식으로 설정할 경우 다수의 파티셔닝 조건 값을 갖는 파티션은 설정할 수 없다.
+#### SET_SHARD_PROCEDURE_SOLO
 
-#### SET_SHARD_CLONE
 ##### 구문
 ```
-SET_SHARD_CLONE(user_name    in  varchar(128),
-                object_name  in  varchar(128),
-                node_name    in  varchar(10))
+SET_SHARD_PROCEDURE_SOLO(
+  user_name in varchar(128),
+  proc_name in varchar(128),
+  node_name in varchar(10),
+  proc_replace in char(1) default 'N')
 ```
 
 ##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- node_name: 샤드 노드
+- user_name: 프로시저 소유자의 이름
+- proc_name: 프로시저 이름
+- node_name: 솔로 프로시저가 호출될 노드의 이름
+- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
+  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
+  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
 
 ##### 설명
-모든 샤드 노드에 복제 분산 방식으로 샤드 객체의 분산 정보를 설정한다.
+솔로 프로시저 샤드객체로 등록한다.
+- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 
 ##### 예제
 ```
-iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node2');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node3');
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO( 'SYS', 'PROC1', 'NODE3');
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO( 'SYS', 'PROC1', 'NODE3', 'Y');
 ```
 
+#### SET_SHARD_PROCEDURE_CLONE
 
-#### SET_SHARD_SOLO
 ##### 구문
 ```
-SET_SHARD_SOLO(user_name    in  varchar(128),
-               object_name  in  varchar(128),
-               node_name    in  varchar(10))
+SET_SHARD_PROCEDURE_CLONE(
+  user_name in varchar(128),
+  proc_name in varchar(128),
+  proc_replace in char(1) default 'N')
 ```
 
 ##### 파라미터
-- user_name: 객체 소유자의 이름
-- object_name: 객체 이름
-- node_name: 샤드 노드
+- user_name: 프로시저 소유자의 이름
+- proc_name: 프로시저 이름
+- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
+  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
+  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
 
 ##### 설명
-모든 샤드 노드에 독립 분산 방식의 샤드 객체의 분산 정보를 설정하고 K-Safety 값에 따라 자동으로 복제(Replication) 되도록 한다.
+클론 프로시저 샤드객체로 등록한다.
+- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 
 ##### 예제
 ```
-iSQL> EXEC dbms_shard.set_shard_solo('sys','t5','node1');
-Execute success.
-iSQL> EXEC dbms_shard.set_shard_solo('sys','proc5','node1');
-Execute success.
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1');
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1', 'Y');
 ```
-
 
 #### UNSET_SHARD_TABLE
 ##### 구문
@@ -4447,28 +4383,20 @@ Execute success.
 DBMS_SHARD.UNSET_SHARD_TABLE(
   user_name  in varchar(128),
   table_name in varchar(128),
-  drop_backup_tbl in boolean)
+  drop_bak_tbl in char(1) default 'Y')
 ```
 
 ##### 파라미터
 - user_name: 테이블 소유자의 이름
 - table_name: 테이블 이름
-- 백업 테이블 삭제 여부
-
-기본 값은 삭제 (TRUE)
+- 백업 테이블 삭제 여부('Y': 삭제, 'N': 미삭제)
 
 ##### 설명
-모든 샤드 노드에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
-
-UNSET_SHARD_TABLE() 함수를 사용하여 샤드 테이블 정보를 삭제하면, 분산 정보도
-모두 삭제된다.
-
-복제 테이블도 같이 삭제 된다.
+샤드 테이블을 해제한다.
 
 ##### 예제
 ```
 iSQL> EXEC dbms_shard.unset_shard_table('sys','t5');
-Execute success.
 ```
 
 #### UNSET_SHARD_PROCEDURE
@@ -4484,14 +4412,9 @@ DBMS_SHARD.UNSET_SHARD_PROCEDURE(
 - proc_name: 프로시저 이름
 
 ##### 설명
-모든 샤드 노드에서 샤드 프로시저의 정보를 삭제한다.
-
-UNSET_SHARD_PROCEDURE() 함수를 사용하여 샤드 프로시저 정보를 삭제하면, 분산
-정보도 모두 삭제된다.
+샤드 프로시저를 해제한다.
 
 ##### 예제
 ```
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
-Execute success.
 ```
-
