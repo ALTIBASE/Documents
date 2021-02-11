@@ -1210,7 +1210,7 @@ $ALTIBASE_HOME/bin/altibase -v
    - ALTER DATABASE SHARD ADD;
    - 개별 샤드 노드들은 샤딩 클러스터에 추가되지 전까지는, sys 사용자를 제외한 다른 일반 사용자의 접속은 차단된다.
 6. 샤딩 클러스터에 참여된 하나의 노드에서, 아래 구문들을 이용하여, 객체별 분산정의를 한다.
-   - DBMS_SHARD.SET_SHARD_TABLE(...), DBMS_SHARD.SET_SHARD_RANGE(...) 등등
+   - DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(...), DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY(...) 등등
    - 위 구문들을 이용하여, 객체별 분산정의를 한후에, COMMIT 을 수행하면, 샤딩 클러스터에 참여된 모든 샤드노드들에 동시에 적용된다.
 
 ### 샤드 메타 관리
@@ -1374,30 +1374,10 @@ ALTER DATABASE SHARD ADD;
 클론 테이블을 제외하고, 해당 샤드 노드에 속한 샤드 테이블의 데이타 영역이 있다면, 샤드 노드 삭제를 할 수 없다. 리샤딩을 이용하여, 해당 데이타 영역을 다른 샤드 노드로 이동 먼저 시킨 후에, 샤드 노드 삭제를 할 수 있다. 
 
 ### 샤드 객체 
-
 Altibase Sharding은 현재 다음과 같은 샤드 객체(shard object)를 지원한다.
 -   샤드 테이블
 -   샤드 프로시저
 -   sharded sequence
-
-샤드 객체에 샤드를 설정하기 위해서는 아래의 절차를 수행하여야 한다.
-
--   테이블에 샤드 키 컬럼 지정
--   프로시저에 샤드 키 파라미터 지정
--   분산 방식 지정
--   분산 노드 지정
-
-분산정의를 한후에, COMMIT 을 수행하면, 샤딩 클러스터에 참여된 모든 샤드노드들에 동시에 적용된다.
-
-```
-iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE(‘user1’,‘t1’,‘h’,‘i1’,‘node1’);
-iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE(‘user1’,‘t2’,‘r’,‘i1’,‘node1’);
-iSQL> COMMIT;
-```
-
-> 주의 사항
->
-> * 샤드 객체 설정은 데이터의 이동을 수반하지 않는다. 데이터 이동 관련 내용은 *"리샤딩"*을 참고한다. 
 
 #### 샤드 테이블 생성
 
