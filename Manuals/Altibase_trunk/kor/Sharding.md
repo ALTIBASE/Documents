@@ -4086,8 +4086,9 @@ Altibase Sharding 관점으로 분류한 사용자 쿼리 유형이다.
 Altibase Sharding 패키지를 구성하는 프로시저와 함수에 대해 설명한다.
 
 ### DBMS_SHARD
-
 DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 DBMS_SHARD 패키지의 프로시저들을 수행할 수 있다.
+- DBMS_SHARD 패키지의 프로시저들은 global transaction level 2 이상에서만 수행할 수 있다.
 
 아래의 표와 같이 DBMS_SHARD 패키지를 구성하는 프로시저와 함수를 제공한다.
 
@@ -4108,7 +4109,7 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 #### CREATE_META
 ##### 구문
 ```
-CREATE_META()
+DBMS_SHARD.CREATE_META()
 ```
 
 ##### 파라미터
@@ -4128,15 +4129,16 @@ Execute success.
 #### SET_LOCAL_NODE
 ##### 구문
 ```
-DBMS_SHARD.SET_LOCAL_NODE( shard_node_id in integer,
-                           node_name in varchar(10),
-			   host_ip in varchar(64),
-			   port_no in integer,
-			   internal_host_ip in varchar(64),
-			   internal_port_no in integer,
-                           internal_replication_host_ip in varchar(64),
-                           internal_replication_port_no in integer,
-                           conn_type in integer default NULL );
+DBMS_SHARD.SET_LOCAL_NODE( 
+  shard_node_id in integer,
+  node_name in varchar(10),
+  host_ip in varchar(64),
+  port_no in integer,
+  internal_host_ip in varchar(64),
+  internal_port_no in integer,
+  internal_replication_host_ip in varchar(64),
+  internal_replication_port_no in integer,
+  conn_type in integer default NULL );
 ```
 ##### 파라미터
 - shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다.
@@ -4166,10 +4168,10 @@ iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(1, 'NODE1', '192.168.1.10', 20300, '192.168
 #### SET_REPLICATION
 ##### 구문
 ```
-SET_REPLICATION(
- k_safety          in integer,
- replication_mode  in varchar(10) default NULL,
- parallel_count    in integer default NULL )
+DBMS_SHARD.SET_REPLICATION(
+  k_safety          in integer,
+  replication_mode  in varchar(10) default NULL,
+  parallel_count    in integer default NULL )
 ```
 
 ##### 파라미터
@@ -4188,11 +4190,12 @@ iSQL>  EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
 #### SET_SHARD_TABLE_SHARDKEY
 ##### 구문
 ```
-SET_SHARD_TABLE_SHARDKEY( user_name                     in varchar(128),
-                          table_name                    in varchar(128),
-                          partiton_node_list            in varvchar(32000), 
-                          method_for_irregular          in char(1) default 'E' ,
-                          replication_parallel_count    in integer default 1 )
+DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY( 
+  user_name                     in varchar(128),
+  table_name                    in varchar(128),
+  partiton_node_list            in varvchar(32000), 
+  method_for_irregular          in char(1) default 'E' ,
+  replication_parallel_count    in integer default 1 )
 ```
 
 ##### 파라미터
@@ -4202,7 +4205,7 @@ SET_SHARD_TABLE_SHARDKEY( user_name                     in varchar(128),
 - method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
   - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
   - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다.
+  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이타는 이후에는 SQL에서 없는 데이타로 취급된다. 
 - replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
 ##### 설명
@@ -4218,19 +4221,20 @@ SET_SHARD_TABLE_SHARDKEY( user_name                     in varchar(128),
 
 ##### 예제
 ```
-iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
+iSQL> DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
 Execute success.
-iSQL> SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
+iSQL> DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
 Execute success.
 ```
 #### SET_SHARD_TABLE_SOLO
 ##### 구문
 ```
-SET_SHARD_TABLE_SOLO( user_name                     in varchar(128),
-                      table_name                    in varchar(128),
-                      node_name                     in varchar(10),
-                      method_for_irregular          in char(1) default 'E' ,
-                      replication_parallel_count    in integer default 1 )
+DBMS_SHARD.SET_SHARD_TABLE_SOLO( 
+  user_name                     in varchar(128),
+  table_name                    in varchar(128),
+  node_name                     in varchar(10),
+  method_for_irregular          in char(1) default 'E' ,
+  replication_parallel_count    in integer default 1 )
 ```
 
 ##### 파라미터
@@ -4240,7 +4244,7 @@ SET_SHARD_TABLE_SOLO( user_name                     in varchar(128),
 - method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
   - E(error): 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
   - T(truncate): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다.
+  - R(remain): 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이타는 이후에는 SQL에서 없는 데이타로 취급된다.
 - replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
 ##### 설명
@@ -4259,10 +4263,11 @@ Execute success.
 #### SET_SHARD_TABLE_CLONE
 ##### 구문
 ```
-SET_SHARD_TABLE_CLONE( user_name                     in varchar(128),
-                       table_name                    in varchar(128),
-                       reference_node_name           in varchar(10) default NULL,
-                       replication_parallel_count    in integer default 1 )
+DBMS_SHARD.SET_SHARD_TABLE_CLONE( 
+  user_name                     in varchar(128),
+  table_name                    in varchar(128),
+  reference_node_name           in varchar(10) default NULL,
+  replication_parallel_count    in integer default 1 )
 ```
 
 ##### 파라미터
@@ -4290,12 +4295,11 @@ Execute success.
 
 ```
 SET_SHARD_PROCEDURE(
- user_name in varchar(128),
- proc_name in varchar(128),
- split_method in varchar(1),
- key_param_name in varchar(128) default NULL,
- default_node_name in varchar(40) default NULL)
-
+  user_name in varchar(128),
+  proc_name in varchar(128),
+  split_method in varchar(1),
+  key_param_name in varchar(128) default NULL,
+  default_node_name in varchar(40) default NULL)
 ```
 
 ##### 파라미터
@@ -4330,8 +4334,6 @@ Execute success.
 >
 > - 샤드 프로시저를 설정하기 위해서는 반드시 샤드 노드에 동일한 프로시저가 생성되어야 한다.
 > - 프로시저를 제거(drop)하더라도 샤드 프로시저 정보는 삭제되지 않는다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
 
 지정 가능한 해시 상한값은 [ 1 \~ 1000 ]으로 정의한다.
 
@@ -4387,7 +4389,6 @@ Execute success.
 > ##### 주의사항
 >
 > - 리스트 분산 방식으로 설정할 경우 다수의 파티셔닝 조건 값을 갖는 파티션은 설정할 수 없다.
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_CLONE
 ##### 구문
@@ -4414,8 +4415,6 @@ Execute success.
 iSQL> EXEC dbms_shard.set_shard_clone('sys','t4','node3');
 ```
 
-> ##### 주의사항
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
 #### SET_SHARD_SOLO
 ##### 구문
@@ -4441,20 +4440,22 @@ iSQL> EXEC dbms_shard.set_shard_solo('sys','proc5','node1');
 Execute success.
 ```
 
-> ##### 주의사항
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
 
 #### UNSET_SHARD_TABLE
 ##### 구문
 ```
-UNSET_SHARD_TABLE(     user_name  in varchar(128),
-                       table_name in varchar(128))
+DBMS_SHARD.UNSET_SHARD_TABLE(
+  user_name  in varchar(128),
+  table_name in varchar(128),
+  drop_backup_tbl in boolean)
 ```
 
 ##### 파라미터
 - user_name: 테이블 소유자의 이름
 - table_name: 테이블 이름
+- 백업 테이블 삭제 여부
+
+기본 값은 삭제 (TRUE)
 
 ##### 설명
 모든 샤드 노드에서 데이터 복제(Replication)를 중지하고 샤드 테이블의 정보를 삭제한다.
@@ -4470,13 +4471,10 @@ iSQL> EXEC dbms_shard.unset_shard_table('sys','t5');
 Execute success.
 ```
 
-> ##### 주의사항
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
-
 #### UNSET_SHARD_PROCEDURE
 ##### 구문
 ```
-UNSET_SHARD_PROCEDURE(
+DBMS_SHARD.UNSET_SHARD_PROCEDURE(
   user_name in varchar(128),
   proc_name in varchar(128))
 ```
@@ -4496,7 +4494,4 @@ UNSET_SHARD_PROCEDURE() 함수를 사용하여 샤드 프로시저 정보를 삭
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
 Execute success.
 ```
-
-> ##### 주의사항
-> - Global Transaction Level 2 이상에서만 수행 할 수 있다.
 
