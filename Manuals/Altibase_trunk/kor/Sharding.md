@@ -2872,6 +2872,43 @@ iSQL\> SELECT \* FROM S\$TAB;
 - TOUCH_COUNT (INTEGER): 현재 트랜잭션의 DML 발생 횟수
 - LINK_FAILURE (INTEGER): 샤드 노드의 연결 상태 0: 정상 1: 실패
 
+#### S\$DIST_LOCK_WAIT
+- NODE_NAME (VARCHAR(40)):   
+- TRANS_ID (BIGINT): 
+- SHARD_PIN (VARCHAR(20)):    
+- FIRST_STMT_SCN (VARCHAR(29)):    
+- FIRST_STMT_TIME (VARCHAR(64)):    
+- DISTRIBUTION_LEVEL (INTEGER):        
+- WAIT_FOR_TRANS_ID (BIGINT):         
+- WAIT_FOR_SHARD_PIN (VARCHAR(20)):    
+- WAIT_FOR_FIRST_STMT_SCN (VARCHAR(29)):    
+- WAIT_FOR_FIRST_STMT_TIME (VARCHAR(64)):    
+- WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER):        
+- DEADLOCK_DETECTION_CAUSE (VARCHAR(64)):    
+- DEADLOCK_WAIT_TIME (BIGINT):         
+- DEADLOCK_ELAPSED_TIME (BIGINT):  
+
+#### S\$LOCK_WAIT
+- NODE_NAME (VARCHAR(40)):   
+- TRANS_ID (BIGINT): 
+- SHARD_PIN (VARCHAR(20)):    
+- FIRST_STMT_SCN (VARCHAR(29)):    
+- FIRST_STMT_TIME (VARCHAR(64)):    
+- DISTRIBUTION_LEVEL (INTEGER):        
+- WAIT_FOR_TRANS_ID (BIGINT):         
+- WAIT_FOR_SHARD_PIN (VARCHAR(20)):    
+- WAIT_FOR_FIRST_STMT_SCN (VARCHAR(29)):    
+- WAIT_FOR_FIRST_STMT_TIME (VARCHAR(64)):    
+- WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER):        
+
+#### S\$PENDING_WAIT
+- NODE_NAME (VARCHAR(40)):   
+- TRANS_ID (BIGINT): 
+- SHARD_PIN (VARCHAR(20)):    
+- WAIT_FOR_TRANS_ID (BIGINT):         
+- WAIT_FOR_XID (VARCHAR(256)):    
+- WAIT_FOR_SHARD_PIN (VARCHAR(20)):    
+
 #### S\$PROPERTY
 샤딩 시스템의 각 노드에 설정된 시스템 프로퍼티의 정보를 보여준다.
 - NODE_NAME (VARCHAR(256)): 샤드 노드 이름
@@ -2905,7 +2942,27 @@ iSQL\> SELECT \* FROM S\$TAB;
   - S (Shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우
   - N (Non-shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우
   - 단, 코디네이터 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로 '-' 로 표시된다.
-- 그 외 컬럼들은 V$STATEMENT 와 동일하다.
+- 그 외 컬럼들은 V\$STATEMENT 와 동일하다.
+
+#### S\$TIME_SCN
+- NODE_NAME (VARCHAR(40)):    
+- TIME (VARCHAR(32)):
+- SYSTEM_SCN (VARCHAR(29)):    
+- BASE (CHAR(1)):  
+
+#### S\$TRANSACTION
+- NODE_NAME                                VARCHAR(40)    
+- FIRST_MIN_DISK_VIEW_SCN                  VARCHAR(29)    
+- LAST_REQUEST_VIEW_SCN                    VARCHAR(29)    
+- PREPARE_SCN                              VARCHAR(29)    
+SHARD_PIN                                VARCHAR(20)    
+GCTX_FIRST_STMT_TIME                     VARCHAR(64)    
+GCTX_FIRST_STMT_SCN                      VARCHAR(29)    
+DISTRIBUTION_LEVEL                       INTEGER        
+GLOBAL_CONSISTENCY                       INTEGER        
+DEADLOCK_DETECTION_CAUSE                 VARCHAR(64)    
+DEADLOCK_WAIT_TIME                       BIGINT         
+DEADLOCK_ELAPSED_TIME                    BIGINT
 
 5.Altibase Sharding 패키지
 ------------------------
