@@ -2596,7 +2596,7 @@ Unsigned Integer
 - SHARD 메타정보가 구성되어 있어야 한다.
 - Zookeeper가 구성되어 있어야 한다.
 
-### ALTER DATABASE SHARD ADD
+### ADD
 
 #### 구문
 ALTER DATABASE SHARD ADD ;
@@ -2611,7 +2611,7 @@ ALTER DATABASE SHARD ADD ;
 - failover 된 노드가 있다면, 먼저 failback이 수행되어야 한다.
 - drop 명령어에 의해서 샤딩 클러스터에서 제외된 노드는, 더이상 샤딩 클러스터에 속한 노드가 아니므로 상관없다. 
 
-### ALTER DATABASE SHARD DROP
+### DROP
 
 #### 구문
 ALTER DATABASE SHARD DROP ;
@@ -2625,7 +2625,7 @@ ALTER DATABASE SHARD DROP ;
 
 노드가 샤딩 클러스터에 제거되면, 자동으로 SHARD_ADMIN_MODE가 1 으로 변경되고, 일반 사용자는 해당 노드에 접속할 수 없게 된다.
 
-### ALTER DATABASE SHARD JOIN
+### JOIN
 
 #### 구문
 ALTER DATABASE SHARD JOIN ;
@@ -2637,7 +2637,7 @@ ALTER DATABASE SHARD JOIN ;
 
 노드가 샤딩 클러스터에 다시 참여되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
 
-### ALTER DATABASE SHARD FAILOVER
+### FAILOVER
 
 #### 구문
 ALTER DATABASE SHARD FAILOVER "target_node_name" ;
@@ -2663,7 +2663,7 @@ failover가 완료되면, next alive node가 장애가 발생한 target node에�
 
 failover된 노드는, 사용자의 failback 명령에 의해서만 다시 샤딩 클러스터에 참여할 수 있다.
 
-### ALTER DATABASE SHARD FAILBACK
+### FAILBACK
 
 #### 구문
 ALTER DATABASE SHARD FAILBACK ;
@@ -2677,7 +2677,7 @@ ALTER DATABASE SHARD FAILBACK ;
 - 사용자에 의한 shutdown 명령어에 의하지 않고, 비정상적 상태가 되었으나, failover는 되지 않은 노드
 - 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
 
-### ALTER DATABASE SHARD MOVE
+### MOVE
 
 #### 구문
 ```
