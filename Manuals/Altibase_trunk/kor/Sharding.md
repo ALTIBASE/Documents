@@ -2855,7 +2855,7 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 - MINOR_VER: Altibase Sharding 마이너 버전을 나타낸다.
 - PATCH_VER: Altibase Sharding 패치 버전을 나타낸다.
 
-### SYS_SHARD.LOCAL_META_INFO\_
+#### SYS_SHARD.LOCAL_META_INFO\_
 지역 데이터베이스의 샤드 노드 하나에 대한 정보만을 기록하는 메타 테이블이다.
 
 | Column name                  | Type        | Description               |
