@@ -418,6 +418,7 @@ Split brain 방지등의 샤딩 클러스터 관리를 위하여 Apache Zookeepe
   - 범위 분산 샤드키 테이블: RANGE 파티셔닝
   - 리스트 분산 샤드키 테이블: LIST 파티셔닝
 - 샤드키 테이블을 샤드객체로 등록시에 파티션별로 노드를 지정하도록 되어있다.
+- 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
 - 노드 추가시 리샤딩은 파티션 단위로만 할 수 있다. 그러므로, 향후 노드 확장을 고려하여, 파티션의 범위 및 갯수를 정하는 것이 좋다.
 - 샤드 테이블 분산객체로 등록은 아래 구문을 사용한다. 자세한 설명은 DBMS_SHARD 패키지를 참조한다.
   - DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(...)
@@ -581,14 +582,11 @@ SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티�
 샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장있다. 샤딩을 최초 구성시에는, 이 화일을 복사하여 \$ALTIBASE_HOME/conf/altibase.properties 를 만들고, 추가적인 변경사항을 고려해주면 된다.
 
 ##### 샤드 패키지 생성
-
 샤드 패키지는 \$ALTIBASE_HOME/packages에 있다. 샤드 패키지는 샤드 기능을 제어할 수 있는 사용자 인터페이스를 제공한다.
-
 ```
 is –f $ALTIBASE_HOME/packages/dbms_shard.sql
 is –f $ALTIBASE_HOME/packages/dbms_shard.plb
 ```
-
 DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 이 문서의 *DBMS_SHARD패키지* 설명을 참조한다.
 
 ### Zookeeper 설정
@@ -2701,7 +2699,6 @@ ALTER DATABASE SHARD MOVE { TABLE ["user_name" . ] "table_name" [ PARTITION {"(p
 ALTER DATABASE SHARD MOVE TABLE user1.table1 PARTITION (p1), TABLE user2.soloTable1, TABLE user1.table2 PARTITION (p2), PROCEDURE user1.shardproc1 key ( 123 )  TO NODE4; ;
 ```
 
-
 ## Altibase Sharding 딕셔너리
 Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타 테이블들과 단일 샤드 노드의 샤딩 관련 시스템 프로세스 정보를 보여주는 성능 뷰(Performance View)들,
 그리고 전체 샤딩 시스템의 실시간 정보를 보여주는 샤드 성능 뷰(Shard Performance View)들로 나뉘어진다.
@@ -2849,22 +2846,22 @@ Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다�
 Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한 내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
 
 샤드 성능 뷰의 전체 목록은 iSQL에서 다음과 같이 조회할 수 있다.
-iSQL\> SELECT \* FROM S\$TAB;
+iSQL\> SELECT \* FROM S$TAB;
 
 샤드 성능 뷰의 스키마는 일반 테이블과 마찬가지로 iSQL 에서 DESC 명령어를 통해 확인할 수 있고, 데이터는 일반 테이블과 동일하게 SELECT문을 이용하여 검색할 수 있다.
 
 #### 샤드 성능 뷰의 종류
-- S\$CONNECTION_INFO: 현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보
-- S\$DIST_LOCK_WAIT:
-- S\$LOCK_WAIT:
-- S\$PENDING_WAIT:
-- S\$PROPERTY: 모든 샤드 노드의 시스템 프로퍼티 정보
-- S\$SESSION: 모든 샤드 노드의 샤드 세션에 대한 세션 정보
-- S\$STATEMENT: 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보
-- S\$TIME_SCN:
-- S\$TRANSACTION:
+- S$CONNECTION_INFO: 현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보
+- S$DIST_LOCK_WAIT:
+- S$LOCK_WAIT:
+- S$PENDING_WAIT:
+- S$PROPERTY: 모든 샤드 노드의 시스템 프로퍼티 정보
+- S$SESSION: 모든 샤드 노드의 샤드 세션에 대한 세션 정보
+- S$STATEMENT: 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보
+- S$TIME_SCN:
+- S$TRANSACTION:
 
-#### S\$CONNECTION_INFO
+#### S$CONNECTION_INFO
 현재 세션에서 코디네이터가 연결한 접속 상태에 대한 정보를 보여주는 성능 뷰 이다.
 - NODE_ID (INTEGER): 샤드 노드의 지역 식별자
 - NODE_NAME (VARCHAR(40)): 샤드 노드 이름
@@ -2872,7 +2869,7 @@ iSQL\> SELECT \* FROM S\$TAB;
 - TOUCH_COUNT (INTEGER): 현재 트랜잭션의 DML 발생 횟수
 - LINK_FAILURE (INTEGER): 샤드 노드의 연결 상태 0: 정상 1: 실패
 
-#### S\$DIST_LOCK_WAIT
+#### S$DIST_LOCK_WAIT
 - NODE_NAME (VARCHAR(40)):   
 - TRANS_ID (BIGINT): 
 - SHARD_PIN (VARCHAR(20)):    
@@ -2888,7 +2885,7 @@ iSQL\> SELECT \* FROM S\$TAB;
 - DEADLOCK_WAIT_TIME (BIGINT):         
 - DEADLOCK_ELAPSED_TIME (BIGINT):  
 
-#### S\$LOCK_WAIT
+#### S$LOCK_WAIT
 - NODE_NAME (VARCHAR(40)):   
 - TRANS_ID (BIGINT): 
 - SHARD_PIN (VARCHAR(20)):    
@@ -2901,7 +2898,7 @@ iSQL\> SELECT \* FROM S\$TAB;
 - WAIT_FOR_FIRST_STMT_TIME (VARCHAR(64)):    
 - WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER):        
 
-#### S\$PENDING_WAIT
+#### S$PENDING_WAIT
 - NODE_NAME (VARCHAR(40)):   
 - TRANS_ID (BIGINT): 
 - SHARD_PIN (VARCHAR(20)):    
@@ -2909,16 +2906,16 @@ iSQL\> SELECT \* FROM S\$TAB;
 - WAIT_FOR_XID (VARCHAR(256)):    
 - WAIT_FOR_SHARD_PIN (VARCHAR(20)):    
 
-#### S\$PROPERTY
+#### S$PROPERTY
 샤딩 시스템의 각 노드에 설정된 시스템 프로퍼티의 정보를 보여준다.
-- NODE_NAME (VARCHAR(256)): 샤드 노드 이름
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
 - 그 외 컬럼들은 V$PROPERTY 와 동일하다.
 
-#### S\$SESSION
+#### S$SESSION
 샤드 세션과 관련한 모든 샤드 노드의 세션에 대한 정보를 보여준다.
 - ID (VARCHAR(20)): 샤드 세션 식별자
 - SHARD_META_NUMBER (BIGINT): 세션이 인식하고 있는 SMN
-- NODE_NAME (BIGINT): 샤드 노드 이름
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
 - SHARD_CLIENT (VARCHAR(1)): 샤드 클라이언트 라이브러리 사용 유무
   - Y : 샤드 클라이언트 라이브러리 사용
   - N : 샤드 클라이언트 라이브러리 미사용
@@ -2926,14 +2923,21 @@ iSQL\> SELECT \* FROM S\$TAB;
   - U : 사용자와 코디네이터간의 사용자(User) 세션
   - C : 코디네이터와 샤드 데이터간의 코디네이터(Coordinator) 세션
   - L : 사용자와 샤드 데이터간의 샤드 라이브러리(Library) 세션
-- SESSION_ID (BIGINT): 샤드 노드의 V\$SESSION.ID
+- SESSION_ID (BIGINT): 샤드 노드의 V$SESSION.ID
 - GLOBAL_TRANSACTION_LEVEL (INTEGER): 글로벌 트랜잭션 레벨
   - 1 : multiple node transaction
   - 2 : global transaction
   - 3 : global consistent transaction
+- GCTX_COORD_SCN (BIGINT):
+- GCTX_PREPARE_SCN (BIGINT):
+- GCTX_GLOBAL_COMMIT_SCN (BIGINT):
+- GCTX_LAST_SYSTEM_SCN (BIGINT):
+- SHARD_STATEMENT_RETRY (INTEGER):
+- INDOUBT_FETCH_TIMEOUT (INTEGER):        
+- INDOUBT_FETCH_METHOD (INTEGER):
 - 그 외 컬럼들은 V$SESSION 과 동일하다.
 
-#### S\$STATEMENT
+#### S$STATEMENT
 모든 샤드 노드의 세션 별로 실행중이거나 가장 최근 실행된 구문에 대한 정보를 보여준다.
 - SHARD_SESSION_ID (VARCHAR(20)): 샤드 세션 식별자
 - NODE_NAME (VARCHAR(40)): 샤드 노드 이름
@@ -2942,33 +2946,36 @@ iSQL\> SELECT \* FROM S\$TAB;
   - S (Shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우
   - N (Non-shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우
   - 단, 코디네이터 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로 '-' 로 표시된다.
-- 그 외 컬럼들은 V\$STATEMENT 와 동일하다.
+- GCTX_REQUEST_SCN (BIGINT):         
+- GCTX_FIRST_STMT_SCN (BIGINT):         
+- GCTX_FIRST_STMT_TIME (BIGINT):         
+- DISTRIBUTION_LEVEL (INTEGER):  
+- 그 외 컬럼들은 V$STATEMENT 와 동일하다.
 
-#### S\$TIME_SCN
+#### S$TIME_SCN
 - NODE_NAME (VARCHAR(40)):    
 - TIME (VARCHAR(32)):
 - SYSTEM_SCN (VARCHAR(29)):    
 - BASE (CHAR(1)):  
 
-#### S\$TRANSACTION
-- NODE_NAME                                VARCHAR(40)    
-- FIRST_MIN_DISK_VIEW_SCN                  VARCHAR(29)    
-- LAST_REQUEST_VIEW_SCN                    VARCHAR(29)    
-- PREPARE_SCN                              VARCHAR(29)    
-SHARD_PIN                                VARCHAR(20)    
-GCTX_FIRST_STMT_TIME                     VARCHAR(64)    
-GCTX_FIRST_STMT_SCN                      VARCHAR(29)    
-DISTRIBUTION_LEVEL                       INTEGER        
-GLOBAL_CONSISTENCY                       INTEGER        
-DEADLOCK_DETECTION_CAUSE                 VARCHAR(64)    
-DEADLOCK_WAIT_TIME                       BIGINT         
-DEADLOCK_ELAPSED_TIME                    BIGINT
+#### S$TRANSACTION
+- NODE_NAME (VARCHAR(40)):
+- FIRST_MIN_DISK_VIEW_SCN (VARCHAR(29)):    
+- LAST_REQUEST_VIEW_SCN (VARCHAR(29)):    
+- PREPARE_SCN (VARCHAR(29)):    
+- SHARD_PIN (VARCHAR(20)):
+- GCTX_FIRST_STMT_TIME (VARCHAR(64)):    
+- GCTX_FIRST_STMT_SCN (VARCHAR(29)):    
+- DISTRIBUTION_LEVEL (INTEGER):      
+- GLOBAL_CONSISTENCY (INTEGER):
+- DEADLOCK_DETECTION_CAUSE (VARCHAR(64)):    
+- DEADLOCK_WAIT_TIME (BIGINT):      
+- DEADLOCK_ELAPSED_TIME (BIGINT):
+- 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
 
 5.Altibase Sharding 패키지
 ------------------------
-
 Altibase Sharding 패키지를 구성하는 프로시저와 함수에 대해 설명한다.
-
 ### DBMS_SHARD
 DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 DBMS_SHARD 패키지의 프로시저들을 수행할 수 있다.
@@ -2977,20 +2984,17 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 - node name은 모두 대문자로 처리된다.
 
 아래의 표와 같이 DBMS_SHARD 패키지를 구성하는 프로시저와 함수를 제공한다.
-
-| PROCEDURES                    | 설명                                                          |
-| ----------------------------- | ------------------------------------------------------------ |
-| CREATE_META                   | 샤드 노드에서 샤드 메타 테이블을 생성한다.                           |
-| SET_LOCAL_NODE                | 지역 샤드 노드의 정보를 설정한다.                                  |
-| SET_REPLICATION               | 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.                    |
-| SET_SHARD_TABLE_SHARDKEY      | 샤드키 테이블 샤드객체로 등록한다.                                  |
-| SET_SHARD_TABLE_SOLO          | 솔로 테이블 샤드객체로 등록한다.                                    |
-| SET_SHARD_TABLE_CLONE         | 클론 테이블 샤드객체로 등록한다.                                    |
-| SET_SHARD_PROCEDURE_SHARDKEY  | 샤드키 프로시저 샤드객체로 등록한다.                                 |
-| SET_SHARD_PROCEDURE_SOLO      | 솔로 프로시저 샤드객체로 등록한다.                                   |
-| SET_SHARD_PROCEDURE_CLONE     | 클론 프로시저 샤드객체로 등록한다.                                   |
-| UNSET_SHARD_TABLE             | 샤드 테이블을 해제한다.                                           |
-| UNSET_SHARD_PROCEDURE         | 샤드 프로시저를 해제한다.                                         |
+- CREATE_META: 샤드 노드에서 샤드 메타 테이블을 생성한다.
+- SET_LOCAL_NODE: 지역 샤드 노드의 정보를 설정한다.
+- SET_REPLICATION: 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.
+- SET_SHARD_TABLE_SHARDKEY: 샤드키 테이블 샤드객체로 등록한다.
+- SET_SHARD_TABLE_SOLO: 솔로 테이블 샤드객체로 등록한다.
+- SET_SHARD_TABLE_CLONE: 클론 테이블 샤드객체로 등록한다.
+- SET_SHARD_PROCEDURE_SHARDKEY: 샤드키 프로시저 샤드객체로 등록한다.
+- SET_SHARD_PROCEDURE_SOLO: 솔로 프로시저 샤드객체로 등록한다.
+- SET_SHARD_PROCEDURE_CLONE: 클론 프로시저 샤드객체로 등록한다.
+- UNSET_SHARD_TABLE: 샤드 테이블을 해제한다.
+- UNSET_SHARD_PROCEDURE: 샤드 프로시저를 해제한다.
 
 #### CREATE_META
 ##### 구문
