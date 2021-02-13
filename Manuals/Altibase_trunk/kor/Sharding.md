@@ -2760,32 +2760,18 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 
 #### SYS_SHARD.NODES_
 Altibase Sharding의 모든 샤드 노드들의 정보를 기록하는 메타 테이블이다.
-- NODE_ID (INTEGER): 샤드 노드의 지역 식별자                     |
-- NODE_NAME (VARCHAR(40)): 샤드 노드 이름                              |
+- NODE_ID (INTEGER): 샤드 노드의 지역 식별자
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
 - HOST_IP (VARCHAR(64)): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 ip address를 나타낸다.
-- PORT_NO (INTEGER): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를 나타낸다.                |
-- ALTERNATE_HOST_IP (VARCHAR(64)): 샤드 노드의 external alternative ip address |
-- ALTERNATE_PORT_NO (INTEGER): 샤드 노드의 external alternative port 번호  |
-- INTERNAL_HOST_IP (VARCHAR(64)): 샤드 노드의 internal ip address             |
-- INTERNAL_PORT_NO (INTEGER): 샤드 노드의 internal port 번호              |
-- INTERNAL_ALTERNATE_HOST_IP (VARCHAR(64)): 샤드 노드의 internal alternative ip address |
-- INTERNAL_ALTERNATE_PORT_NO (INTEGER): 샤드 노드의 internal alternative port 번호  |
-- INTERNAL_CONN_TYPE (INTEGER): 샤드 노드의 internal 연결 방식              |
-- SMN (BIGINT): 샤드 메타 번호                              |
-##### ALTERNATE_HOST_IP
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버 ip address를 나타낸다.
-##### ALTERNATE_PORT_IP
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버 port 번호를 나타낸다.
-##### INTERNAL_HOST_IP
-코디네이터가 연결할 샤드 노드의 ip address를 나타낸다.
-##### INTERNAL_PORT_NO
-코디네이터가 연결할 샤드 노드의 port 번호를 나타낸다.
-##### INTERNAL_ALTERNATE_HOST_IP
-코디네이터가 연결할 샤드 노드의 alternate 서버 ip address를 나타낸다.
-##### INTERNAL_ALTERNATE_PORT_NO
-코디네이터가 연결할 샤드 노드의 alternate 서버 port 번호를 나타낸다.
-##### INTERNAL_CONN_TYPE
-코디네이터가 연결할 샤드 노드의 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
+- PORT_NO (INTEGER): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를 나타낸다.
+- ALTERNATE_HOST_IP (VARCHAR(64)): Unused, reserved for future use
+- ALTERNATE_PORT_NO (INTEGER): Unused, reserved for future use
+- INTERNAL_HOST_IP (VARCHAR(64)): 샤드 노드의 코디네이터가 연결할 internal ip address
+- INTERNAL_PORT_NO (INTEGER): 샤드 노드의 코디네이터가 연결할 internal port 번호
+- INTERNAL_ALTERNATE_HOST_IP (VARCHAR(64)): Unused, reserved for future use
+- INTERNAL_ALTERNATE_PORT_NO (INTEGER): Unused, reserved for future use
+- INTERNAL_CONN_TYPE (INTEGER): 샤드 노드의 internal 연결 방식
+- SMN (BIGINT): 샤드 메타 번호
 
 #### SYS_SHARD.OBJECTS_
 Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다.
