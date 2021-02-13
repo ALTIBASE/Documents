@@ -44,7 +44,6 @@
     - [ALTER DATABASE SHARD MOVE](#alter-database-shard-move)
   - [Altibase Sharding 딕셔너리](#altibase-sharding-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [샤드 메타 테이블](#%EC%83%A4%EB%93%9C-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [SYS_SHARD.LOCAL_META_INFO\_](#sys_shardlocal_meta_info%5C_)
     - [성능 뷰 (Performance View)](#%EC%84%B1%EB%8A%A5-%EB%B7%B0-performance-view)
     - [샤드 성능 뷰 (Shard Performance View)](#%EC%83%A4%EB%93%9C-%EC%84%B1%EB%8A%A5-%EB%B7%B0-shard-performance-view)
   - [5.Altibase Sharding 패키지](#5altibase-sharding-%ED%8C%A8%ED%82%A4%EC%A7%80)
