@@ -2733,20 +2733,14 @@ Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하
 | **REPLICA_SETS_**         | 샤드 노드의 레플리카 셋을 기록하는 샤드 메타 테이블        |
 | **FAILOVER_HISTORYS_**    | 샤드 시스템의 Failover History를 기록하는 샤드 메타 테이블 |
 
-#### SYS_SHARD.VERSION\_
+#### SYS_SHARD.VERSION_
 Altibase Sharding의 버전을 기록하는 메타 테이블이다.
-| Column name | Type    |
-| ----------- | ------- |
-| MAJOR_VER   | INTEGER |
-| MINOR_VER   | INTEGER |
-| PATCH_VER   | INTEGER |
-- MAJOR_VER: Altibase Sharding 메이저 버전을 나타낸다.
-- MINOR_VER: Altibase Sharding 마이너 버전을 나타낸다.
-- PATCH_VER: Altibase Sharding 패치 버전을 나타낸다.
+- MAJOR_VER(INTEGER): Altibase Sharding 메이저 버전을 나타낸다.
+- MINOR_VER(INTEGER): Altibase Sharding 마이너 버전을 나타낸다.
+- PATCH_VER(INTEGER): Altibase Sharding 패치 버전을 나타낸다.
 
 #### SYS_SHARD.LOCAL_META_INFO\_
 지역 데이터베이스의 샤드 노드 하나에 대한 정보만을 기록하는 메타 테이블이다.
-
 | Column name                  | Type        | Description               |
 | ---------------------------- | ----------- | ------------------------- |
 | SHARD_NODE_ID                | INTEGER     | 샤드 노드 식별자          |
@@ -2765,14 +2759,10 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 
 #### 칼럼 정보
 - SHARD_NODE_ID: 지역 데이터베이스의 샤드 노드 식별자로 전체 샤딩 시스템에서 유일해야 한다.
-  - SET_LOCAL_NODE 프로시저를 통해 최초로 지역 샤드 정보를 설정시에 입력해야하며 SET_LOCAL_NODE 혹은 RESET_SHARD_NODE_ID(??? 삭제여부 확인필요???)로 변경 가능하다.
 - SHARDED_DB_NAME: 지역 샤드 노드가 참여할 논리적인 샤드된 데이터 베이스 이름을 나타내며, 지역 데이터 베이스의 DB 이름으로 자동으로 설정된다. 
 - NODE_NAME: 지역 샤드 노드의 이름이다.
-
-##### HOST_IP
-지역 샤드 노드에서 서비스에 사용할 호스트 IP 이다. 
-
-##### PORT_NO 
+- HOST_IP: 지역 샤드 노드에서 서비스에 사용할 호스트 IP 이다. 
+- PORT_NO 
 지역 샤드 노드에서 서비스에 사용할 Port 이다. 
 
 ##### INTERNAL_HOST_IP
