@@ -2717,9 +2717,6 @@ Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하
 - Altibase Sharding하위 버전에서 상위 버전으로 업그레이드 시 이를 고려해야 한다.
 
 #### 샤드 메타 테이블 종류
-
-다음 표는 샤드 메타 테이블의 목록이다.
-
 | **샤드 메타 테이블 이름** | **설명**                                                   |
 | ------------------------- | ---------------------------------------------------------- |
 | **VERSION\_**             | Altibase Sharding의 버전을 기록하는 샤드 메타 테이블       |
@@ -2735,432 +2732,132 @@ Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하
 
 #### SYS_SHARD.VERSION_
 Altibase Sharding의 버전을 기록하는 메타 테이블이다.
-- MAJOR_VER(INTEGER): Altibase Sharding 메이저 버전을 나타낸다.
-- MINOR_VER(INTEGER): Altibase Sharding 마이너 버전을 나타낸다.
-- PATCH_VER(INTEGER): Altibase Sharding 패치 버전을 나타낸다.
+- MAJOR_VER (INTEGER): Altibase Sharding 메이저 버전을 나타낸다.
+- MINOR_VER (INTEGER): Altibase Sharding 마이너 버전을 나타낸다.
+- PATCH_VER (INTEGER): Altibase Sharding 패치 버전을 나타낸다.
 
-#### SYS_SHARD.LOCAL_META_INFO\_
+#### SYS_SHARD.LOCAL_META_INFO_
 지역 데이터베이스의 샤드 노드 하나에 대한 정보만을 기록하는 메타 테이블이다.
-| Column name                  | Type        | Description               |
-| ---------------------------- | ----------- | ------------------------- |
-| SHARD_NODE_ID                | INTEGER     | 샤드 노드 식별자          |
-| SHARDED_DB_NAME              | VARCHAR(40) | 샤드된 데이터 베이스 이름 |
-| NODE_NAME                    | VARCHAR(40) | 샤드 노드 이름            |
-| HOST_IP                      | VARCHAR(64) | 서비스 호스트 IP          |
-| PORT_NO                      | INTEGER     | 서비스 포트               |
-| INTERNAL_HOST_IP             | VARCHAR(64) | 코디네이터 호스트 IP      |
-| INTERNAL_PORT_NO             | INTEGER     | 코디네이터 포트           |
-| INTERNAL_REPLICATION_HOST_IP | VARCHAR(64) | 샤드 이중화 호스트 IP     |
-| INTERNAL_REPLICATION_PORT_NO | INTEGER     | 샤드 이중화 포트          |
-| INTERNAL_CONN_TYPE           | INTEGER     | 코디네이터 연결 타입      |
-| K_SAFETY                     | INTEGER     | 복제본 수                 |
-| REPLICATION_MODE             | INTEGER     | 샤드 이중화 모드          |
-| PARALLEL_COUNT               | INTEGER     | 이중화 병렬 적용자 수     |
+- SHARD_NODE_ID (INTEGER): 지역 데이터베이스의 샤드 노드 식별자로 전체 샤딩 시스템에서 유일해야 한다.
+- SHARDED_DB_NAME (VARCHAR(40)): 지역 샤드 노드가 참여할 논리적인 샤드된 데이터 베이스 이름을 나타내며, 지역 데이터 베이스의 DB 이름으로 자동으로 설정된다. 
+- NODE_NAME (VARCHAR(40)): 지역 샤드 노드의 이름이다.
+- HOST_IP (VARCHAR(64)): 지역 샤드 노드에서 서비스에 사용할 호스트 IP 이다. 
+- PORT_NO (INTEGER): 지역 샤드 노드에서 서비스에 사용할 Port 이다. 
+- INTERNAL_HOST_IP (VARCHAR(64)): 지역 샤드 노드에서 코디네이터가 내부적으로 사용하는 호스트 IP 이다. 
+- INTERNAL_PORT_NO (INTEGER): 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 Port 이다. 
+- INTERNAL_REPLICATION_HOST_IP (VARCHAR(64)): 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP 이다.
+- INTERNAL_REPLICATION_PORT_NO (INTEGER): 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값으로 유지되어야 한다.
+- INTERNAL_CONN_TYPE (INTEGER): 내부적으로 사용되는 코디네이터 연결 방식이다. 1로 설정된 경우 TCP를 사용하며 8인 경우 인피니 밴드를 사용한다.  
+- K_SAFETY (INTEGER): 시스템 내에서 유지할 복제본의 개수를 나타낸다.  
+- REPLICATION_MODE (INTEGER): 시스템에서 사용하는 샤드 이중화 모드를 나타낸다. 
+  - 값이 12인 경우 'CONSISTENT' 샤드 이중화 모드를 의미하며, 10인 경우 샤드 이중화 모드 중 'NOWAIT' 모드를 나타낸다.  
+- PARALLEL_COUNT (INTEGER): 샤드 이중화에서 사용하는 이중화 병렬 적용자의 수를 나타낸다. 
 
-#### 칼럼 정보
-- SHARD_NODE_ID: 지역 데이터베이스의 샤드 노드 식별자로 전체 샤딩 시스템에서 유일해야 한다.
-- SHARDED_DB_NAME: 지역 샤드 노드가 참여할 논리적인 샤드된 데이터 베이스 이름을 나타내며, 지역 데이터 베이스의 DB 이름으로 자동으로 설정된다. 
-- NODE_NAME: 지역 샤드 노드의 이름이다.
-- HOST_IP: 지역 샤드 노드에서 서비스에 사용할 호스트 IP 이다. 
-- PORT_NO 
-지역 샤드 노드에서 서비스에 사용할 Port 이다. 
-
-##### INTERNAL_HOST_IP
-지역 샤드 노드에서 코디네이터가 내부적으로 사용하는 호스트 IP 이다. 
-
-##### INTERNAL_REPLICATION_HOST_IP
-지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP 이다.
-
-##### INTERNAL_REPLICATION_PORT_NO
-지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값으로 유지되어야 한다.
-
-#####  INTERNAL_CONN_TYPE
-내부적으로 사용되는 코디네이터 연결 방식이다. 1로 설정된 경우 TCP를 사용하며 8인 경우 인피니 밴드를 사용한다.  
-
-##### K_SAFETY
-시스템 내에서 유지할 복제본의 개수를 나타낸다.  
-
-##### REPLICATION_MODE
-시스템에서 사용하는 샤드 이중화 모드를 나타낸다. 값이 12인 경우 'CONSISTENT' 샤드 이중화 모드를 의미하며, 10인 경우 샤드 이중화 모드 중 'NOWAIT' 모드를 나타낸다.  
-
-##### PARALLEL_COUNT
-샤드 이중화에서 사용하는 이중화 병렬 적용자의 수를 나타낸다. 
-
-#### SYS_SHARD.GLOBAL_META_INFO\_
+#### SYS_SHARD.GLOBAL_META_INFO_
 샤드 메타 정보에 대한 내용을 기록하는 메타 테이블이다.
+- ID (INTEGER):시스템 내부적으로 복제를 위해 사용되는 키 값
+- SHARD_META_NUMBER (BIGINT):데이터베이스의 샤드 메타에서 유지하는 메타 정보 중 가장 최신 메타에 대한 샤드 메타 번호(Shard Meta Number)를 나타낸다.
 
-| Column name | Type    | Description                                        |
-| ----------- | ------- | -------------------------------------------------- |
-| ID          | INTEGER | 이중화를 위한 주 키                                |
-| SMN         | BIGINT  | 샤드 메타가 가지고 있는 가장 최신의 샤드 메타 번호 |
-
-#### 칼럼 정보
-
-##### ID
-시스템 내부적으로 복제를 위해 사용되는 키 값
-
-##### SMN
-데이터베이스의 샤드 메타에서 유지하는 메타 정보 중 가장 최신 메타에 대한 샤드 메타 번호(Shard Meta Number)를 나타낸다.
-
-#### SYS_SHARD.NODES\_
+#### SYS_SHARD.NODES_
 Altibase Sharding의 모든 샤드 노드들의 정보를 기록하는 메타 테이블이다.
-
-| Column name                | Type        | Description                                 |
-| -------------------------- | ----------- | ------------------------------------------- |
-| NODE_ID                    | INTEGER     | 샤드 노드의 지역 식별자                     |
-| NODE_NAME                  | VARCHAR(40) | 샤드 노드 이름                              |
-| HOST_IP                    | VARCHAR(64) | 샤드 노드 external ip address               |
-| PORT_NO                    | INTEGER     | 샤드 노드 external port 번호                |
-| ALTERNATE_HOST_IP          | VARCHAR(64) | 샤드 노드의 external alternative ip address |
-| ALTERNATE_PORT_NO          | INTEGER     | 샤드 노드의 external alternative port 번호  |
-| INTERNAL_HOST_IP           | VARCHAR(64) | 샤드 노드의 internal ip address             |
-| INTERNAL_PORT_NO           | INTEGER     | 샤드 노드의 internal port 번호              |
-| INTERNAL_ALTERNATE_HOST_IP | VARCHAR(64) | 샤드 노드의 internal alternative ip address |
-| INTERNAL_ALTERNATE_PORT_NO | INTEGER     | 샤드 노드의 internal alternative port 번호  |
-| INTERNAL_CONN_TYPE         | INTEGER     | 샤드 노드의 internal 연결 방식              |
-| SMN                        | BIGINT      | 샤드 메타 번호                              |
-
-#### 칼럼 정보
-
-##### NODE_ID
-샤드 노드의 지역 식별자를 나타낸다.
-
-##### NODE_NAME
-샤드 노드의 이름을 나타내며 샤드 노드의 이름은 유일해야 한다.
-
-##### HOST_IP
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 ip address를 나타낸다.
-
-##### PORT_NO
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를 나타낸다.
-
+- NODE_ID (INTEGER): 샤드 노드의 지역 식별자                     |
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름                              |
+- HOST_IP (VARCHAR(64)): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 ip address를 나타낸다.
+- PORT_NO (INTEGER): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를 나타낸다.                |
+- ALTERNATE_HOST_IP (VARCHAR(64)): 샤드 노드의 external alternative ip address |
+- ALTERNATE_PORT_NO (INTEGER): 샤드 노드의 external alternative port 번호  |
+- INTERNAL_HOST_IP (VARCHAR(64)): 샤드 노드의 internal ip address             |
+- INTERNAL_PORT_NO (INTEGER): 샤드 노드의 internal port 번호              |
+- INTERNAL_ALTERNATE_HOST_IP (VARCHAR(64)): 샤드 노드의 internal alternative ip address |
+- INTERNAL_ALTERNATE_PORT_NO (INTEGER): 샤드 노드의 internal alternative port 번호  |
+- INTERNAL_CONN_TYPE (INTEGER): 샤드 노드의 internal 연결 방식              |
+- SMN (BIGINT): 샤드 메타 번호                              |
 ##### ALTERNATE_HOST_IP
 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버 ip address를 나타낸다.
-
 ##### ALTERNATE_PORT_IP
-
-샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버
-port 번호를 나타낸다.
-
+샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 alternate 서버 port 번호를 나타낸다.
 ##### INTERNAL_HOST_IP
-
 코디네이터가 연결할 샤드 노드의 ip address를 나타낸다.
-
 ##### INTERNAL_PORT_NO
-
 코디네이터가 연결할 샤드 노드의 port 번호를 나타낸다.
-
 ##### INTERNAL_ALTERNATE_HOST_IP
-
 코디네이터가 연결할 샤드 노드의 alternate 서버 ip address를 나타낸다.
-
 ##### INTERNAL_ALTERNATE_PORT_NO
-
 코디네이터가 연결할 샤드 노드의 alternate 서버 port 번호를 나타낸다.
-
 ##### INTERNAL_CONN_TYPE
-
 코디네이터가 연결할 샤드 노드의 연결 방식으로 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
 
-##### SMN
-
-샤드 메타에 대한 버전 관리 번호를 나타낸다.
-
-#### SYS_SHARD.OBJECTS\_
-
+#### SYS_SHARD.OBJECTS_
 Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다.
+- SHARD_ID (INTEGER): 샤드 객체 식별자
+- USER_NAME (VARCHAR(128)): 샤드 객체 소유자
+- OBJECT_NAME (VARCHAR(128)): 샤드 객체 이름
+- OBJECT_TYPE (CHAR(1)): 샤드 객체 종류 T : 테이블 P : 프로시저
+- SPLIT_METHOD (CHAR(1)): 분산 방식(H: hash, R: range, L: list, C: clone, S: solo)
+- KEY_COLUMN_NAME (VARCHAR(128)): 샤드 키 이름
+- SUB_SPLIT_METHOD (CHAR(1)): Unused, reserved for future use
+- SUB_KEY_COLUMN_NAME (VARCHAR(128)): Unused, reserved for future use
+- DEFAULT_NODE_ID (INTEGER): 기본 샤드 노드 번호
+- DEFAULT_PARTITION_NAME (VARCHAR(128)): 기본 파티션 이름
+- SMN (BIGINT): 샤드 메타 번호
 
-| Column name            | Type         | Description                                                  |
-| ---------------------- | ------------ | ------------------------------------------------------------ |
-| SHARD_ID               | INTEGER      | 샤드 객체 식별자                                             |
-| USER_NAME              | VARCHAR(128) | 샤드 객체 소유자                                             |
-| OBJECT_NAME            | VARCHAR(128) | 샤드 객체 이름                                               |
-| OBJECT_TYPE            | CHAR(1)      | 샤드 객체 종류 T : 테이블 P : 프로시저                       |
-| SPLIT_METHOD           | CHAR(1)      | 분산 방식 H : 해시(hash) R : 범위(range) L : 리스트(list) C : 복제(clone) S : 독립(solo) |
-| KEY_COLUMN_NAME        | VARCHAR(128) | 샤드 키 이름                                                 |
-| SUB_SPLIT_METHOD       | CHAR(1)      | Unused, reserved for future use |
-| SUB_KEY_COLUMN_NAME    | VARCHAR(128) | Unused, reserved for future use |
-| DEFAULT_NODE_ID        | INTEGER      | 기본 샤드 노드 번호                                          |
-| DEFAULT_PARTITION_NAME | VARCHAR(128) | 기본 파티션 이름                                             |
-| SMN                    | BIGINT       | 샤드 메타 번호                                               |
+#### SYS_SHARD.RANGES_
+샤드 키 분산 테이블(HASH, RANGE, LIST)의 분산 정보를 기록하는 메타 테이블이다.
+- SHARD_ID (INTEGER): 샤드 객체 식별자
+- PARTITION_NAME (VARCHAR(128)): 샤드 객체의 파티션 이름
+- VALUE (VARCHAR(100)): 샤드 키 값
+- SUB_VALUE (VARCHAR(100)):: Unused, reserved for future use
+- NODE_ID (INTEGER): VALUE를 기준으로 저장되는 데이터의 노드 번호를 나타낸다.
+- SMN (BIGINT): 샤드 메타 번호
+- REPLICA_SET_ID (INTEGER): 샤드 객체와 연결된 레플리카 셋의 식별번호
 
-#### 칼럼 정보
+#### SYS_SHARD.CLONES_
+샤드 객체에 클론 분산 방식이 적용된 분산 정보를 기록하는 메타 테이블이다.
+- SHARD_ID (INTEGER): 샤드 객체 식별자
+- NODE_ID (INTEGER): 샤드 노드의 지역 식별자
+- SMN (BIGINT): 샤드 메타 번호
 
-##### SHARD_ID
-
-샤드 객체의 번호를 나타낸다.
-
-##### USER_NAME
-
-샤드 객체의 소유자 이름을 나타낸다.
-
-##### OBJECT_NAME
-
-샤드 객체 이름을 나타낸다.
-
-##### OBJECT_TYPE
-
-샤드 객체 종류를 나타낸다.
-
-##### SPLIT_METHOD
-
-샤드 객체 분산 방식을 나타낸다.
-
-##### KEY_COLUMN_NAME
-
-샤드 객체의 샤드 키 이름을 나타낸다.
-
-##### DEFAULT_NODE_ID
-
-샤드 객체의 기본 샤드 노드를 나타낸다. 분산 설정이 완전하지 않을 경우 설정 기준
-이외의 데이터가 저장되는 샤드 노드이다.
-
-##### DEFAULT_PARTITION_NAME
-
-샤드 객체의 기본 샤드 노드로 분산된 파티션의 이름이다.
-
-##### SMN
-
-샤드 메타에 대한 버전 관리 번호를 나타낸다.
-
-#### SYS_SHARD.RANGES\_
-
-샤드 키 분산 테이블(HASH, RANGE, LIST)의 분산 정보를 기록하는 메타
-테이블이다.
-
-| Column name    | Type         | Description                               |
-| -------------- | ------------ | ----------------------------------------- |
-| SHARD_ID       | INTEGER      | 샤드 객체 식별자                          |
-| PARTITION_NAME | VARCHAR(128) | 샤드 객체의 파티션 이름                    |
-| VALUE          | VARCHAR(100) | 샤드 키 값                                |
-| SUB_VALUE      | VARCHAR(100) | 서브 샤드 키 값                           |
-| NODE_ID        | INTEGER      | 샤드 노드 번호                            |
-| SMN            | BIGINT       | 샤드 메타 번호                            |
-| REPLICA_SET_ID | INTEGER      | 샤드 객체와 연결된 레플리카 셋의 식별번호 |
-
-#### 칼럼 정보
-
-##### SHARD_ID
-
-샤드 객체의 번호를 나타낸다.
-
-##### PARTITION_NAME
-
-샤드 객체의 파티션 이름을 나타낸다. 
-
-##### VALUE
-
-샤드 키 값을 나타낸다.
-
-##### SUB_VALUE
-
-서브 샤드 키 값을 나타낸다.
-
-##### NODE_ID
-
-VALUE와 SUB_VALUE를 기준으로 저장되는 데이터의 노드 번호를 나타낸다.
-
-##### SMN
-
-샤드 메타에 대한 버전 관리 번호를 나타낸다.
-
-##### REPLICA_SET_ID
-
-샤드 객체와 연결된 레플리카 셋의 식별 번호를 나타낸다.
-
-#### SYS_SHARD.CLONES\_
-
-샤드 객체에 복제 분산 방식이 적용된 분산 정보를 기록하는 메타 테이블이다.
-
-| Column name | Type    | Description             |
-| ----------- | ------- | ----------------------- |
-| SHARD_ID    | INTEGER | 샤드 객체 식별자        |
-| NODE_ID     | INTEGER | 샤드 노드의 지역 식별자 |
-| SMN         | BIGINT  | 샤드 메타 번호          |
-
-#### 칼럼 정보
-
-##### SHARD_ID
-
-샤드 객체 번호를 나타낸다.
-
-##### NODE_ID
-
-데이터가 복제 저장되는 샤드 노드의 지역 식별자 번호를 나타낸다.
-
-##### SMN
-
-샤드 메타에 대한 버전 관리 번호를 나타낸다.
-
-#### SYS_SHARD.SOLOS\_
-
-샤드 객체에 독립 분산 방식이 적용된 샤드 테이블 정보를 기록하는 메타 테이블이다.
-
-| Column name    | Type    | Description                               |
-| -------------- | ------- | ----------------------------------------- |
-| SHARD_ID       | INTEGER | 샤드 객체 식별자                          |
-| NODE_ID        | INTEGER | 샤드 노드의 지역 식별자                   |
-| SMN            | BIGINT  | 샤드 메타 번호                            |
-| REPLICA_SET_ID | INTEGER | 샤드 객체와 연결된 레플리카 셋의 식별번호 |
-
-#### 칼럼 정보
-
-##### SHARD_ID
-
-샤드 객체 번호를 나타낸다.
-
-##### NODE_ID
-
-데이터가 독립 저장되는 샤드 노드의 지역 식별자 번호를 나타낸다.
-
-##### SMN
-
-샤드 메타에 대한 버전 관리 번호를 나타낸다.
-
-##### REPLICA_SET_ID
-
-샤드 객체와 연결된 레플리카 셋의 식별 번호를 나타낸다.
+#### SYS_SHARD.SOLOS_
+샤드 객체에 솔로 분산 방식이 적용된 샤드 테이블 정보를 기록하는 메타 테이블이다.
+- SHARD_ID (INTEGER): 샤드 객체 식별자
+- NODE_ID (INTEGER): 샤드 노드의 지역 식별자
+- SMN (BIGINT): 샤드 메타 번호
+- REPLICA_SET_ID (INTEGER): 샤드 객체와 연결된 레플리카 셋의 식별번호
 
 #### SYS_SHARD.REPLICA_SETS_
-
-Altibase Sharding 시스템에서 무중단 서비스를 제공하기 위해 생성한 데이터 복제(Replication)간의 관계를 나타내는 레플리카 셋을 저장한 메타 테이블이다.
-
-| Column name                | Type        | Description                           |
-| -------------------------- | ----------- | ------------------------------------- |
-| REPLICA_SET_ID             | INTEGER     | 레플리카 셋의 식별자                  |
-| PRIMARY_NODE_NAME          | VARCHAR(40) | 레플리카 셋과 연결된 주 노드 이름     |
-| FIRST_BACKUP_NODE_NAME     | VARCHAR(40) | 레플리카 셋의 첫번째 Backup 노드 이름 |
-| SECOND_BACKUP_NODE_NAME    | VARCHAR(40) | 레플리카 셋의 두번째 Backup 노드 이름 |
-| FIRST_REPLICATION_NAME     | VARCHAR(40) | 첫번째 Backup의 이중화 이름           |
-| FIRST_REPL_FROM_NODE_NAME  | VARCHAR(40) | 첫번째 Backup의 송신자 노드의 이름    |
-| FIRST_REPL_TO_NODE_NAME    | VARCHAR(40) | 첫번째 Backup의 수신자 노드의 이름    |
-| SECOND_REPLICATION_NAME    | VARCHAR(40) | 두번째 Backup의 이중화 이름           |
-| SECOND_REPL_FROM_NODE_NAME | VARCHAR(40) | 두번째 Backup의 송신자 노드의 이름    |
-| SECOND_REPL_TO_NODE_NAME   | VARCHAR(40) | 두번째 Backup의 수신자 노드의 이름    |
-| SMN                        | BIGINT      | 샤드 메타 번호                        |
-
-#### 칼럼 정보
-
-##### REPLICA_SET_ID
-
-레플리카 셋의 식별 번호를 나타낸다.
-
-##### PRIMARY_NODE_NAME
-
-레플리카 셋과 연결된 샤드 객체가 저장되어 있는 NODE의 이름을 나타낸다.
-
-##### FIRST_BACKUP_NODE_NAME
-
-레플리카 셋의 첫번째 Backup을 담당하는 노드 이름을 나타낸다.
-
-##### SECOND_BACKUP_NODE_NAME
-
-레플리카 셋의 두번째 Backup을 담당하는 노드 이름을 나타낸다.
-
-##### FIRST_REPLICATION_NAME
-
-첫번째 Backup의 이중화 이름을 나타낸다.
-
-##### FIRST_REPL_FROM_NODE_NAME
-
-첫번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
-
-##### FIRST_REPL_TO_NODE_NAME
-
-첫번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
-
-##### SECOND_REPLICATION_NAME
-
-두번째 Backup의 이중화 이름을 나타낸다.
-
-##### SECOND_REPL_FROM_NODE_NAME
-
-두번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
-
-##### SECOND_REPL_TO_NODE_NAME
-
-두번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
-
-##### SMN
-
-샤드 메타에 대한 버전 관리 번호를 나타낸다.
+Sharding HA를 제공하기 위해 생성한 데이터 복제(Replication)간의 관계를 나타내는 레플리카 셋을 저장한 메타 테이블이다.
+- REPLICA_SET_ID (INTEGER): 레플리카 셋의 식별자
+- PRIMARY_NODE_NAME (VARCHAR(40)): 레플리카 셋과 연결된 주 노드 이름
+- FIRST_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 첫번째 Backup 노드 이름
+- SECOND_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 두번째 Backup 노드 이름
+- FIRST_REPLICATION_NAME (VARCHAR(40)): 첫번째 Backup의 이중화 이름
+- FIRST_REPL_FROM_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 송신자 노드의 이름
+- FIRST_REPL_TO_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 수신자 노드의 이름
+- SECOND_REPLICATION_NAME (VARCHAR(40)): 두번째 Backup의 이중화 이름
+- SECOND_REPL_FROM_NODE_NAME (VARCHAR(40)): 두번째 Backup의 송신자 노드의 이름
+- SECOND_REPL_TO_NODE_NAME (VARCHAR(40)): 두번째 Backup의 수신자 노드의 이름
+- SMN (BIGINT): 샤드 메타 번호
 
 #### SYS_SHARD.FAILOVER_HISTORYS_
-
 Failover 발생시 레플리카 셋(ReplicaSet)의 변경 내역을 저장한 메타 테이블이다.
-
-| Column name                | Type        | Description                           |
-| -------------------------- | ----------- | ------------------------------------- |
-| REPLICA_SET_ID             | INTEGER     | 레플리카 셋의 식별자                  |
-| PRIMARY_NODE_NAME          | VARCHAR(40) | 레플리카 셋과 연결된 주 노드 이름     |
-| FIRST_BACKUP_NODE_NAME     | VARCHAR(40) | 레플리카 셋의 첫번째 Backup 노드 이름 |
-| SECOND_BACKUP_NODE_NAME    | VARCHAR(40) | 레플리카 셋의 두번째 Backup 노드 이름 |
-| FIRST_REPLICATION_NAME     | VARCHAR(40) | 첫번째 Backup의 이중화 이름           |
-| FIRST_REPL_FROM_NODE_NAME  | VARCHAR(40) | 첫번째 Backup의 송신자 노드의 이름    |
-| FIRST_REPL_TO_NODE_NAME    | VARCHAR(40) | 첫번째 Backup의 수신자 노드의 이름    |
-| SECOND_REPLICATION_NAME    | VARCHAR(40) | 두번째 Backup의 이중화 이름           |
-| SECOND_REPL_FROM_NODE_NAME | VARCHAR(40) | 두번째 Backup의 송신자 노드의 이름    |
-| SECOND_REPL_TO_NODE_NAME   | VARCHAR(40) | 두번째 Backup의 수신자 노드의 이름    |
-| SMN                        | BIGINT      | 샤드 메타 번호                        |
-
-#### 칼럼 정보
-
-##### REPLICA_SET_ID
-
-레플리카 셋의 식별 번호를 나타낸다.
-
-##### PRIMARY_NODE_NAME
-
-레플리카 셋과 연결된 샤드 객체가 저장되어 있는 NODE의 이름을 나타낸다.
-
-##### FIRST_BACKUP_NODE_NAME
-
-레플리카 셋의 첫번째 Backup을 담당하는 노드 이름을 나타낸다.
-
-##### SECOND_BACKUP_NODE_NAME
-
-레플리카 셋의 두번째 Backup을 담당하는 노드 이름을 나타낸다.
-
-##### FIRST_REPLICATION_NAME
-
-첫번째 Backup의 이중화 이름을 나타낸다.
-
-##### FIRST_REPL_FROM_NODE_NAME
-
-첫번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
-
-##### FIRST_REPL_TO_NODE_NAME
-
-첫번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
-
-##### SECOND_REPLICATION_NAME
-
-두번째 Backup의 이중화 이름을 나타낸다.
-
-##### SECOND_REPL_FROM_NODE_NAME
-
-두번째 Backup을 전송하는 송신자 노드의 이름을 나타낸다.
-
-##### SECOND_REPL_TO_NODE_NAME
-
-두번째 Backup을 전송받는 수신자 노드의 이름을 나타낸다.
-
-##### SMN
-
-샤드 메타에 대한 버전 관리 번호를 나타낸다.
+- REPLICA_SET_ID (INTEGER): 레플리카 셋의 식별자
+- PRIMARY_NODE_NAME (VARCHAR(40)): 레플리카 셋과 연결된 주 노드 이름
+- FIRST_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 첫번째 Backup 노드 이름
+- SECOND_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 두번째 Backup 노드 이름
+- FIRST_REPLICATION_NAME (VARCHAR(40)): 첫번째 Backup의 이중화 이름
+- FIRST_REPL_FROM_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 송신자 노드의 이름
+- FIRST_REPL_TO_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 수신자 노드의 이름
+- SECOND_REPLICATION_NAME (VARCHAR(40)): 두번째 Backup의 이중화 이름
+- SECOND_REPL_FROM_NODE_NAME (VARCHAR(40)): 두번째 Backup의 송신자 노드의 이름
+- SECOND_REPL_TO_NODE_NAME (VARCHAR(40)): 두번째 Backup의 수신자 노드의 이름
+- SMN (BIGINT): 샤드 메타 번호
 
 ### 성능 뷰 (Performance View)
-
-성능 뷰 (performance view)란 메모리에 존재하는 구조이지만 일반 테이블 형태로 제공되어 시스템 메모리, 프로세스 상태, 세션, 버퍼, 쓰레드 등에 대한 Altibase 시스템 내부 정보를 사용자에게 제공하는 뷰이다.
-
-사용자가 테이블에 저장된 데이터를 검색하기 위하여 SQL을 사용하는 것처럼, Altibase 운용 시 사용되는 메모리 객체 (예. 세션 정보, 로그 정보)에 관한 정보를 SQL문을 이용하여 성능 뷰로부터 쉽게 검색할 수 있다.
-
-Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 프로세스에 대한 정보를 의미하며 현재 접속된 시스템에 대한 정보를 보여준다.
+Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 프로세스에 대한 정보를 의미하며 현재 사용자 세션이 접속된 시스템에 대한 정보를 보여준다.
 
 Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다양한 실행 정보를 얻을수 있으며 자세한 내용은 *General Reference* 의 성능 뷰를 참고한다.
 
 ### 샤드 성능 뷰 (Shard Performance View)
-
 Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한 내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
 
 이 절에서는 Altibase Sharding이 지원하는 샤드 성능 뷰의 구조 및 기능, 종류, 조회 방법, 그리고 각 뷰에서 제공하는 정보에 대해 설명한다.
