@@ -2708,8 +2708,6 @@ Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하
 
 ### 샤드 메타 테이블
 분산 데이터베이스에 생성된 분산 객체에 대한 정보를 저장하고 있으며, SYS_SHARD 사용자의 테이블이다.
-
-#### 설명
 - 분산 데이터베이스 질의 및 분산 노드 관리시에 샤드 메타 테이블을 사용한다.
 - 샤드 메타 테이블의 소유자는 일반 메타 테이블과는 달리 SYS_SHARD 사용자이며, 샤드 메타 테이블에 대한 변경은 DBMS_SHARD 패키지를 이용해야 한다.
 - DBMS_SHARD 패키지 이외의 방법으로 샤드 메타 테이블을 변경하면 샤딩 시스템 구동이 실패하거나, 분산 데이터베이스 관련 정보를 상실하여 시스템에 치명적인 손상이 발생할 수 있다.
@@ -2717,18 +2715,16 @@ Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하
 - Altibase Sharding하위 버전에서 상위 버전으로 업그레이드 시 이를 고려해야 한다.
 
 #### 샤드 메타 테이블 종류
-| **샤드 메타 테이블 이름** | **설명**                                                   |
-| ------------------------- | ---------------------------------------------------------- |
-| **VERSION\_**             | Altibase Sharding의 버전을 기록하는 샤드 메타 테이블       |
-| **LOCAL_META_INFO\_**     | 지역 데이터베이스의 샤드 정보를 기록하는 샤드 메타 테이블  |
-| **GLOBAL_META_INFO\_**    | 샤드 메타 제어 정보를 기록하는 샤드 메타 테이블            |
-| **NODES\_**               | 샤드 노드 정보를 기록하는 샤드 메타 테이블                 |
-| **OBJECTS\_**             | 샤드 객체 정보를 기록하는 샤드 메타 테이블                 |
-| **RANGES\_**              | 샤드 키 분산 테이블 정보를 기록하는 샤드 메타 테이블       |
-| **CLONES\_**              | 복제 분산 테이블 정보를 기록하는 샤드 메타 테이블          |
-| **SOLOS\_**               | 독립 분산 테이블 정보를 기록하는 샤드 메타 테이블          |
-| **REPLICA_SETS_**         | 샤드 노드의 레플리카 셋을 기록하는 샤드 메타 테이블        |
-| **FAILOVER_HISTORYS_**    | 샤드 시스템의 Failover History를 기록하는 샤드 메타 테이블 |
+- VERSION_: Altibase Sharding의 버전을 기록하는 샤드 메타 테이블
+- LOCAL_META_INFO_: 지역 데이터베이스의 샤드 정보를 기록하는 샤드 메타 테이블
+- GLOBAL_META_INFO_: 샤드 메타 제어 정보를 기록하는 샤드 메타 테이블
+- NODES_: 샤드 노드 정보를 기록하는 샤드 메타 테이블
+- OBJECTS_: 샤드 객체 정보를 기록하는 샤드 메타 테이블
+- RANGES_: 샤드 키 분산 테이블 정보를 기록하는 샤드 메타 테이블
+- CLONES_: 복제 분산 테이블 정보를 기록하는 샤드 메타 테이블
+- SOLOS_: 독립 분산 테이블 정보를 기록하는 샤드 메타 테이블
+- REPLICA_SETS_: 샤드 노드의 레플리카 셋을 기록하는 샤드 메타 테이블
+- FAILOVER_HISTORY_: 샤드 시스템의 Failover History를 기록하는 샤드 메타 테이블
 
 #### SYS_SHARD.VERSION_
 Altibase Sharding의 버전을 기록하는 메타 테이블이다.
@@ -2785,6 +2781,7 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 - SUB_KEY_COLUMN_NAME (VARCHAR(128)): Unused, reserved for future use
 - DEFAULT_NODE_ID (INTEGER): 기본 샤드 노드 번호
 - DEFAULT_PARTITION_NAME (VARCHAR(128)): 기본 파티션 이름
+- DEFAULT_PARTITION_REPLICA_SET_ID (INTEGER): 기본 파티션에 연결된 레플리카셋 ID
 - SMN (BIGINT): 샤드 메타 번호
 
 #### SYS_SHARD.RANGES_
@@ -2802,6 +2799,7 @@ Altibase Sharding의 샤드 객체 정보를 기록하는 메타 테이블이다
 - SHARD_ID (INTEGER): 샤드 객체 식별자
 - NODE_ID (INTEGER): 샤드 노드의 지역 식별자
 - SMN (BIGINT): 샤드 메타 번호
+- REPLICA_SET_ID (INTEGER): 샤드 객체와 연결된 레플리카 셋의 식별번호
 
 #### SYS_SHARD.SOLOS_
 샤드 객체에 솔로 분산 방식이 적용된 샤드 테이블 정보를 기록하는 메타 테이블이다.
@@ -2816,6 +2814,8 @@ Sharding HA를 제공하기 위해 생성한 데이터 복제(Replication)간의
 - PRIMARY_NODE_NAME (VARCHAR(40)): 레플리카 셋과 연결된 주 노드 이름
 - FIRST_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 첫번째 Backup 노드 이름
 - SECOND_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 두번째 Backup 노드 이름
+- STOP_FIRST_BACKUP_NODE_NAME (VARCHAR(40)): 이중화가 중지된 상태에서의 레플리카 셋의 첫번째 Backup 노드 이름
+- STOP_SECOND_BACKUP_NODE_NAME (VARCHAR(40)): 이중화가 중지된 상태에서의 레플리카 셋의 두번째 Backup 노드 이름
 - FIRST_REPLICATION_NAME (VARCHAR(40)): 첫번째 Backup의 이중화 이름
 - FIRST_REPL_FROM_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 송신자 노드의 이름
 - FIRST_REPL_TO_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 수신자 노드의 이름
@@ -2824,12 +2824,14 @@ Sharding HA를 제공하기 위해 생성한 데이터 복제(Replication)간의
 - SECOND_REPL_TO_NODE_NAME (VARCHAR(40)): 두번째 Backup의 수신자 노드의 이름
 - SMN (BIGINT): 샤드 메타 번호
 
-#### SYS_SHARD.FAILOVER_HISTORYS_
+#### SYS_SHARD.FAILOVER_HISTORY_
 Failover 발생시 레플리카 셋(ReplicaSet)의 변경 내역을 저장한 메타 테이블이다.
 - REPLICA_SET_ID (INTEGER): 레플리카 셋의 식별자
 - PRIMARY_NODE_NAME (VARCHAR(40)): 레플리카 셋과 연결된 주 노드 이름
 - FIRST_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 첫번째 Backup 노드 이름
 - SECOND_BACKUP_NODE_NAME (VARCHAR(40)): 레플리카 셋의 두번째 Backup 노드 이름
+- STOP_FIRST_BACKUP_NODE_NAME (VARCHAR(40)): 이중화가 중지된 상태에서의 레플리카 셋의 첫번째 Backup 노드 이름
+- STOP_SECOND_BACKUP_NODE_NAME (VARCHAR(40)): 이중화가 중지된 상태에서의 레플리카 셋의 두번째 Backup 노드 이름
 - FIRST_REPLICATION_NAME (VARCHAR(40)): 첫번째 Backup의 이중화 이름
 - FIRST_REPL_FROM_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 송신자 노드의 이름
 - FIRST_REPL_TO_NODE_NAME (VARCHAR(40)): 첫번째 Backup의 수신자 노드의 이름
@@ -2846,190 +2848,64 @@ Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다�
 ### 샤드 성능 뷰 (Shard Performance View)
 Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한 내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
 
-이 절에서는 Altibase Sharding이 지원하는 샤드 성능 뷰의 구조 및 기능, 종류, 조회 방법, 그리고 각 뷰에서 제공하는 정보에 대해 설명한다.
-
-#### 구조 및 기능
-
-기존의 성능 뷰와 다르게 샤드 성능 뷰는 전체 샤딩 시스템과 연관된 정보를 한눈에 볼 수 있도록 제공한다.
-
-예를들어, 사용자는 전체 샤딩 시스템의 프로퍼티 설정을 보기 위해서 각 노드에 접속 후 해당 노드의 성능 뷰를 모두 검색해 볼 수 있다. 그러나, 이와 같은 방법으로 전체 샤딩 시스템의 프로퍼티를 검색하는 것은 샤드 노드가 늘 어남에 따라 사용자의 불편을 증가시킨다.
-
-그러므로, 전체 샤딩 시스템의 프로퍼티를 검색하기 위해서 특정 샤드 노드에 접속해서 샤드 성능 뷰를 통해 서비스 중인 샤드 노드들 전체의 프로퍼티를 검색할 수 있다.
-
-이와 같이 사용자는 샤드 성능 뷰를 통해 편리하게 전체 시스템을 모니터링 할 수 있다.
-
-#### 샤드 성능 뷰의 조회 방법
-
 샤드 성능 뷰의 전체 목록은 iSQL에서 다음과 같이 조회할 수 있다.
-
 iSQL\> SELECT \* FROM S\$TAB;
 
 샤드 성능 뷰의 스키마는 일반 테이블과 마찬가지로 iSQL 에서 DESC 명령어를 통해 확인할 수 있고, 데이터는 일반 테이블과 동일하게 SELECT문을 이용하여 검색할 수 있다.
 
 #### 샤드 성능 뷰의 종류
-
-샤드 성능 뷰의 이름은 S\$로 시작한다. 아래 표는 전체 샤드 성능 뷰의 목록이다.
-
-| **이름**           | **설명**                                                     |
-| ------------------ | ------------------------------------------------------------ |
-| S\$CONNECTION_INFO | 현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보 |
-| S\$PROPERTY        | 모든 샤드 노드의 시스템 프로퍼티 정보                        |
-| S\$SESSION         | 모든 샤드 노드의 샤드 세션에 대한 세션 정보                  |
-| S\$STATEMENT       | 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보            |
+- S\$CONNECTION_INFO: 현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보
+- S\$DIST_LOCK_WAIT:
+- S\$LOCK_WAIT:
+- S\$PENDING_WAIT:
+- S\$PROPERTY: 모든 샤드 노드의 시스템 프로퍼티 정보
+- S\$SESSION: 모든 샤드 노드의 샤드 세션에 대한 세션 정보
+- S\$STATEMENT: 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보
+- S\$TIME_SCN:
+- S\$TRANSACTION:
 
 #### S\$CONNECTION_INFO
-
 현재 세션에서 코디네이터가 연결한 접속 상태에 대한 정보를 보여주는 성능 뷰 이다.
-
-| Column name  | Type        | Description                           |
-| ------------ | ----------- | ------------------------------------- |
-| NODE_ID      | INTEGER     | 샤드 노드의 지역 식별자               |
-| NODE_NAME    | VARCHAR(40) | 샤드 노드 이름                        |
-| COMM_NAME    | VARCHAR(64) | 접속 정보                             |
-| TOUCH_COUNT  | INTEGER     | 현재 트랜잭션의 DML 발생 횟수         |
-| LINK_FAILURE | INTEGER     | 샤드 노드의 연결 상태 0: 정상 1: 실패 |
-
-#### 칼럼 정보
-
-##### NODE_ID
-
-연결된 샤드 노드의 지역 식별자를 나타낸다.
-
-##### NODE_NAME
-
-연결된 샤드 노드의 이름을 나타낸다.
-
-##### COMM_NAME
-
-샤드 노드와의 현재 접속 상태를 나타낸다.
-
-##### TOUCH_COUNT
-
-샤드 노드와의 연결된 세션 중 현재 트랜잭션에서 발생한 DML 횟수를 나타낸다.
-
-##### LINK_FAILURE
-
-조회 시점의 샤드 노드와의 연결 상태를 나타낸다.
+- NODE_ID (INTEGER): 샤드 노드의 지역 식별자
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
+- COMM_NAME (VARCHAR(64)): 접속 정보
+- TOUCH_COUNT (INTEGER): 현재 트랜잭션의 DML 발생 횟수
+- LINK_FAILURE (INTEGER): 샤드 노드의 연결 상태 0: 정상 1: 실패
 
 #### S\$PROPERTY
-
 샤딩 시스템의 각 노드에 설정된 시스템 프로퍼티의 정보를 보여준다.
-
-| Column name | Type         | Description                    |
-| ----------- | ------------ | ------------------------------ |
-| NODE_NAME   | VARCHAR(256) | 샤드 노드 이름                 |
-| 그 외 컬럼  |              | 샤드 노드의 V$PROPERTY 와 동일 |
-
-#### 칼럼 정보
-
-##### NODE_NAME
-
-노드의 이름을 나타낸다.
-
-##### 그 외 컬럼
-
-위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$PROPERTY 의 칼럼 정보를 참고한다.
+- NODE_NAME (VARCHAR(256)): 샤드 노드 이름
+- 그 외 컬럼들은 V$PROPERTY 와 동일하다.
 
 #### S\$SESSION
-
 샤드 세션과 관련한 모든 샤드 노드의 세션에 대한 정보를 보여준다.
-
-| Column name        | Type        | Description                          |
-| ------------------ | ----------- | ------------------------------------ |
-| ID                 | VARCHAR(20) | 샤드 세션 식별자                     |
-| SHARD_META_NUMBER  | BIGINT      | 세션이 인식하고 있는 SMN             |
-| NODE_NAME          | BIGINT      | 샤드 노드 이름                       |
-| SHARD_CLIENT       | VARCHAR(1)  | 샤드 클라이언트 라이브러리 사용 유무 |
-| SHARD_SESSION_TYPE | VARCHAR(1)  | 샤드 세션 유형                       |
-| SESSION_ID         | BIGINT      | 샤드 노드의 V\$SESSION.ID            |
-| GLOBAL_TRANSACTION_LEVEL | INTEGER | 글로벌 트랜잭션 레벨 |
-| 그 외 컬럼         |             | 샤드 노드의 V$SESSION 과 동일        |
-
-#### 칼럼 정보
-
-##### ID
-
-샤드 세션을 구별하는 고유 식별자이다.
-
-##### SHARD_META_NUMBER
-
-세션이 인식하고 있는 SMN 으로 자세한 내용은 샤드 메타 설정의 Session SMN 을 참고한다.
-
-##### NODE_NAME
-
-샤드 노드 이름을 나타낸다.
-
-##### SHARD_CLIENT
-
-세션의 샤드 클라이언트 라이브러리의 사용 여부이다.
-
-- Y : 샤드 클라이언트 라이브러리 사용
-- N : 샤드 클라이언트 라이브러리 미사용
-
-##### SHARD_SESSION_TYPE
-
-세션의 샤드 세션 타입이다.
-
-- U : 사용자와 코디네이터간의 사용자(User) 세션
-- C : 코디네이터와 샤드 데이터간의 코디네이터(Coordinator) 세션
-- L : 사용자와 샤드 데이터간의 샤드 라이브러리(Library) 세션
-
-##### SESSION_ID
-
-샤드 노드의 세션 식별자로 샤드 노드의 V$SESSION.ID 와 동일한 값이다.
-
-##### GLOBAL_TRANSACTION_LEVEL
-
-세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.
-
-- 1 : multiple node transaction
-- 2 : global transaction
-- 3 : global consistent transaction
-
-샤딩 메뉴얼의 샤드 트랜잭션 항목을 참조한다
-
-##### 그 외 컬럼
-
-위 항목을 제외한 모든 칼럼은 *General Reference* 의 V\$SESSION 의 칼럼 정보를 참고한다.
+- ID (VARCHAR(20)): 샤드 세션 식별자
+- SHARD_META_NUMBER (BIGINT): 세션이 인식하고 있는 SMN
+- NODE_NAME (BIGINT): 샤드 노드 이름
+- SHARD_CLIENT (VARCHAR(1)): 샤드 클라이언트 라이브러리 사용 유무
+  - Y : 샤드 클라이언트 라이브러리 사용
+  - N : 샤드 클라이언트 라이브러리 미사용
+- SHARD_SESSION_TYPE (VARCHAR(1)): 샤드 세션 유형
+  - U : 사용자와 코디네이터간의 사용자(User) 세션
+  - C : 코디네이터와 샤드 데이터간의 코디네이터(Coordinator) 세션
+  - L : 사용자와 샤드 데이터간의 샤드 라이브러리(Library) 세션
+- SESSION_ID (BIGINT): 샤드 노드의 V\$SESSION.ID
+- GLOBAL_TRANSACTION_LEVEL (INTEGER): 글로벌 트랜잭션 레벨
+  - 1 : multiple node transaction
+  - 2 : global transaction
+  - 3 : global consistent transaction
+- 그 외 컬럼들은 V$SESSION 과 동일하다.
 
 #### S\$STATEMENT
-
 모든 샤드 노드의 세션 별로 실행중이거나 가장 최근 실행된 구문에 대한 정보를 보여준다.
-
-| Column name        | Type        | Description                       |
-| ------------------ | ----------- | --------------------------------- |
-| SHARD_SESSION_ID   | VARCHAR(20) | 샤드 세션 식별자                  |
-| NODE_NAME          | VARCHAR(40) | 샤드 노드 이름                    |
-| SHARD_SESSION_TYPE | VARCHAR(1)  | 세션의 샤드 세션 유형             |
-| QUERY_TYPE         | VARCHAR(1)  | 사용자 쿼리에 대한 샤드 쿼리 타입 |
-| 그 외 컬럼         |             | 샤드 노드의 V$STATEMENT 와 동일   |
-
-#### 칼럼 정보
-
-##### SHARD_SESSION_ID
-
-구문이 수행되는 세션의 샤드 세션 식별자이다.
-
-##### NODE_NAME
-
-구문이 수행되는 샤드 노드 이름이다.
-
-##### SHARD_SESSION_TYPE
-
-구문이 수행되는 세션의 샤드 세션 유형으로 S$SESSION.SHARD_SESSION_TYPE 과 동일하다.
-
-##### QUERY_TYPE
-
-Altibase Sharding 관점으로 분류한 사용자 쿼리 유형이다.
-
-- S (Shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우
-- N (Non-shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우
-
-단, 코디네이터 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로 '-' 로 표시된다.
-
-##### 그 외 컬럼
-
-위 항목을 제외한 모든 칼럼은 *General Reference*의 V\$STATEMENT의 칼럼 정보를 참고한다.
+- SHARD_SESSION_ID (VARCHAR(20)): 샤드 세션 식별자
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
+- SHARD_SESSION_TYPE (VARCHAR(1)): 세션의 샤드 세션 유형 (S$SESSION.SHARD_SESSION_TYPE 과 동일하다.)
+- QUERY_TYPE (VARCHAR(1)): 사용자 쿼리에 대한 샤드 쿼리 타입
+  - S (Shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우
+  - N (Non-shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우
+  - 단, 코디네이터 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로 '-' 로 표시된다.
+- 그 외 컬럼들은 V$STATEMENT 와 동일하다.
 
 5.Altibase Sharding 패키지
 ------------------------
