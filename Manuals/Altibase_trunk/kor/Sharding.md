@@ -777,17 +777,6 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 -   ISOLATION_LEVEL은 0(read committed)만 지원한다.
 -   AUTO_COMMIT은 0(non-autocommit)만 지원한다.
 
-#### 데이터 제약조건
--   샤드 테이블은 기본 키가 있어야 한다.
--   기본 키 중 하나를 파키션 키로 사용하는 파티션 테이블만 샤드키 테이블로 설정될 수 있으며, 파티션 키가 샤드키로 설정된다.
--   샤드 키 컬럼은 update할 수 없다.
--   샤드 키 테이블에서 기본 키 이외의 유니크 속성을 갖는 컬럼은 개별 샤드 노드별로만 유니크가 보장된다. 샤딩 시스템 전역으로 유니크 검사를 하지는 않는다.
--   global non-partitioned index를 지원하지 않는다.
--   global secondary index를 지원하지 않는다.
--   geometry 컬럼, 암호화 컬럼과 압축 컬럼을 지원하지 않는다.  
--   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
--   materialized view를 지원하지 않는다.
-
 #### DDL 제약사항
 - 샤딩관련 객체에 대한 DDL을 수행할 수 없습니다.
 - 이때 샤딩관련 객체에는, 
@@ -799,12 +788,49 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 - 샤딩관련 객체에 DDL을 수행하기 위해서는, 샤딩객체에서 설정해제하고, DDL을 한 이후에 다시 샤딩객체로 설정하여야 합니다.
 - 예외적으로 아래의 DDL은, 샤딩객체에서 설정해제하지 않고 수행할 수 있도록, 허용되어 있습니다. 이러한 허용 DDL의 종류를 지속적으로 늘려갈 예정입니다.
   - 이중화객체에 대한 FLUSH 구문
-  - online partition split 구문
 
+#### 데이터 제약조건
+-   샤드 테이블은 기본 키가 있어야 한다.
+-   기본 키 중 하나를 파키션 키로 사용하는 파티션 테이블만 샤드키 테이블로 설정될 수 있으며, 파티션 키가 샤드키로 설정된다.
+-   샤드 키 컬럼은 update할 수 없다.
+-   샤드 키 테이블에서 기본 키 이외의 유니크 속성을 갖는 컬럼은 개별 샤드 노드별로만 유니크가 보장된다. 샤딩 시스템 전역으로 유니크 검사를 하지는 않는다.
+-   global non-partitioned index를 지원하지 않는다.
+-   global secondary index를 지원하지 않는다.
+-   geometry 컬럼, 암호화 컬럼과 압축 컬럼을 지원하지 않는다.  
+-   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
+-   materialized view를 지원하지 않는다.
+
+global unique constraint
+auto-commit
+dblink
+XA
+shard APRE
+fetch across commit 
+사용자 savepoint
+queue
+materialized view
+updatable view
+statement attribute
+SSL / IPv6
+geometry/encryption/압축 컬럼
+PSM
+reference cursor
+autonomous transaction
+user defined type
+쿼리구문
+recursive with
+move
+merge
+multi-table I/U/D
+table function
+DML with limit
+insert default values(all default)
+insert multi rows
+ insert ~ return ~ into
 #### 쿼리 제약사항
--   다중 테이블 삽입절(INSERT)은 사용할 수 없다.
--   다중 로우 삽입절(INSERT)은 사용 할 수 없다.
--   이 외의 쿼리에 대한 제약사항은 샤드 쿼리 절을 참고한다.
+- 클론 테이블에 대한 DML에서는 non-deterministic 기능들은 사용할 수 없다.
+- 다중 테이블 삽입절(INSERT)은 사용할 수 없다.
+- 다중 로우 삽입절(INSERT)은 사용 할 수 없다.
 
 #### 연결 제약조건
 -   샤드 전용 클라이언트 라이브러리를 사용하여야 하이브리드 샤딩방식이 적용된다. 샤드 전용 클라이언트 라이브러리를 사용하지 않으면 서버측 샤딩방식으로만 동작한다.
@@ -822,7 +848,6 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 #### 하위 호환성
 -   샤드 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤드 기능을 사용할 수 있다.
 -   샤드 버전은 다음과 같이 확인할 수 있다.
-
 ```
 $ALTIBASE_HOME/bin/altibase -v
 ```
@@ -951,9 +976,6 @@ SHARD-COORDINATOR 실행노드는 사용자가 입력한 쿼리 중 샤드 노�
 샤드 쿼리 최적화기는 해당 쿼리를 서버측에서 수행하기 위해 샤드 쿼리 변환을 통해 최적의 분산부 쿼리 생성을 시도하는데 이 경우 최적화된 분산부 쿼리 생성 가능성을 다음과 같이 표현한다.
 - 변환된 분산부 쿼리 생성이 가능하면 'Yes'
 - 변환된 분산부 쿼리 생성이 불가하면 'No'
-
-#### 쿼리 튜닝
-- GROUP BY 절에 샤드키 컬럼이 포함된 경우 샤드 쿼리로 판단한다.
 
 ### Fail-Over
 사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
@@ -1857,9 +1879,7 @@ iSQL\> SELECT \* FROM S$TAB;
 - DEADLOCK_ELAPSED_TIME (BIGINT):
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
 
-5.Altibase Sharding 패키지
-------------------------
-Altibase Sharding 패키지를 구성하는 프로시저와 함수에 대해 설명한다.
+## Altibase Sharding 패키지
 ### DBMS_SHARD
 DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 DBMS_SHARD 패키지의 프로시저들을 수행할 수 있다.
