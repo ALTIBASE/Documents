@@ -171,7 +171,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사 드립니다.
 
-## Altibase Sharding 소개
+## Altibase Sharding 개념
 이 장은 Altibase Sharding의 개요와 용어를 설명한다.
 
 ### Altibase Sharding 개요
