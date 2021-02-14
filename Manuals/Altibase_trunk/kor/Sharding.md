@@ -770,8 +770,11 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 ### Altibase Sharding 제약사항
 
 #### 기본 조건
--   샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
--   샤드 노드별 데이터베이스들의 계정이름 및 암호는 모두 동일하게 설정되어 있어야 한다. 
+- 샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
+- 샤드 노드별 데이터베이스들의 계정이름 및 암호는 모두 동일하게 설정되어 있어야 한다. 
+- 샤드 테이블은 기본 키가 있어야 한다.
+- 기본 키 중 하나를 파키션 키로 사용하는 파티션 테이블만 샤드키 테이블로 설정될 수 있으며, 파티션 키가 샤드키로 설정된다.
+- 샤드 키 컬럼은 update할 수 없다.
 
 #### 프라퍼티 제약조건
 -   ISOLATION_LEVEL은 0(read committed)만 지원한다.
@@ -789,35 +792,23 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 - 예외적으로 아래의 DDL은, 샤딩객체에서 설정해제하지 않고 수행할 수 있도록, 허용되어 있습니다. 이러한 허용 DDL의 종류를 지속적으로 늘려갈 예정입니다.
   - 이중화객체에 대한 FLUSH 구문
 
-#### 데이터 제약조건
--   샤드 테이블은 기본 키가 있어야 한다.
--   기본 키 중 하나를 파키션 키로 사용하는 파티션 테이블만 샤드키 테이블로 설정될 수 있으며, 파티션 키가 샤드키로 설정된다.
--   샤드 키 컬럼은 update할 수 없다.
--   샤드 키 테이블에서 기본 키 이외의 유니크 속성을 갖는 컬럼은 개별 샤드 노드별로만 유니크가 보장된다. 샤딩 시스템 전역으로 유니크 검사를 하지는 않는다.
--   global non-partitioned index를 지원하지 않는다.
--   global secondary index를 지원하지 않는다.
--   geometry 컬럼, 암호화 컬럼과 압축 컬럼을 지원하지 않는다.  
--   샤드 테이블에 대한 변경 가능 뷰(Updatable View)는 갱신할 수 없다.
--   materialized view를 지원하지 않는다.
+#### 미지원 기능
+- global unique constraint
+- global non-partitioned index
+- global secondary index
+- geometry/encryption/compression column type
+- updatable view
+- materialized view
+- dblink
+- XA
+- fetch across commit 
+- queue
+- statement attribute
+- 클론 테이블에 대한 DML에서는 non-deterministic 기능
 
-global unique constraint
-auto-commit
-dblink
-XA
-shard APRE
-fetch across commit 
-사용자 savepoint
-queue
-materialized view
-updatable view
-statement attribute
-SSL / IPv6
-geometry/encryption/압축 컬럼
-PSM
-reference cursor
-autonomous transaction
-user defined type
-쿼리구문
+#### 미지원 쿼리
+- 다중 테이블 삽입절(INSERT)
+- 다중 로우 삽입절(INSERT)
 recursive with
 move
 merge
@@ -825,12 +816,13 @@ multi-table I/U/D
 table function
 DML with limit
 insert default values(all default)
-insert multi rows
- insert ~ return ~ into
-#### 쿼리 제약사항
-- 클론 테이블에 대한 DML에서는 non-deterministic 기능들은 사용할 수 없다.
-- 다중 테이블 삽입절(INSERT)은 사용할 수 없다.
-- 다중 로우 삽입절(INSERT)은 사용 할 수 없다.
+- insert multi rows
+- insert ~ return ~ into
+
+#### 미지원 PSM 기능
+- reference cursor
+- autonomous transaction
+- user defined type
 
 #### 연결 제약조건
 -   샤드 전용 클라이언트 라이브러리를 사용하여야 하이브리드 샤딩방식이 적용된다. 샤드 전용 클라이언트 라이브러리를 사용하지 않으면 서버측 샤딩방식으로만 동작한다.
