@@ -518,26 +518,35 @@ Altibase Sharding의 리샤딩이란 서비스 운영 중에 데이터 일부를
 ## Altibase Sharding 관리
 이 장에서는 Altibase Sharding을 구성하고 사용환경을 설정하는 방법을 설명한다.
 
-### Altibase Sharding 설치
-Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설치를 완료한 후에 아래와 같은 샤딩 환경 설정을 하면 된다.
+### Altibase 관리
 
-#### Altibase Sharding 디렉토리
+#### Altibase Sharding 운영체제
+Altibase Sharding은 아래의 운영체제를 지원한다.
+| OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
+| ----- | ---------------------------- | --------------- | ------------ | ------------ |
+| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit       |
+| LINUX | PowerPC7 (BE)                | redhat 6.5 이상 | 64-bit       | 64-bit       |
+| LINUX | PowerPC8 (LE)                | redhat 7.2 이상 | 64-bit       | 64-bit       |
+
+#### Altibase 디렉토리
 
 Altibase Sharding 의 환경 설정에 관한 디렉토리는 Altibase 서버와 동일하다.
 
 본 장에서는 Altibase Sharding 의 추가적인 내용만을 설명한다.
 
-#### xlogfile 디렉토리 (???TBD???)
+##### xlogfile 디렉토리 (???TBD???)
 
-#### Zookeeper 디렉토리
+##### Zookeeper 디렉토리
 ?????
 
-#### conf 디렉토리
+##### conf 디렉토리
 altibase.properties.shard : 샤드 환경에서의 권장 설정값들이 기록되는 파일들이다.
 
-#### trc 디렉토리
+##### trc 디렉토리
 altibase_sd.log : 샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
+#### Altibase 설치
+Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설치를 완료한 후에 아래와 같은 샤딩 환경 설정을 하면 된다.
 
 #### 샤드 환경 설정
 기존의 설치된 Altibase를 샤드 노드로 설정하기 위해서는 다음 과정이 선행되어야 한다.
@@ -574,9 +583,9 @@ is –f $ALTIBASE_HOME/packages/dbms_shard.plb
 ```
 DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 이 문서의 *DBMS_SHARD패키지* 설명을 참조한다.
 
-### Zookeeper 설정
+### Zookeeper 관리
 
-#### Zookeeper 사용 환경 세팅
+#### Zookeeper 설정
 - Altibase Sharding은 Zookeeper 3.5.6 버전을 사용해야 한다.
 - Zookeeper 관리를 위한 자세한 내용은 https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html 를 참고한다.
 - Zookeeper server의 3.5.6 버전의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
@@ -595,7 +604,7 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
     - zoo_sample.cfg 에서는 예제의 목적으로만 dataDir=/tmp/zookeeper 로 설정해 놓았다. 실제 운영하기 위해서는 안전한 곳으로 재지정이 필요하다.
 - Zookeeper 서버를 사용하지 않고 client로만 사용하는 경우에도 zoo.cfg 파일에서 정보를 가져온다.
 
-#### Zookeeper server 기동
+#### Zookeeper server 사용
 - zoo.cfg에 저장된 dataDir에 접근해 server ID명을 데이터로 가지는 myid라는 이름의 파일을 생성한다.
   - 예제
     - 192.168.1.10 장비의 dataDir에 "1"이라는 데이터를 가지는 myid라는 파일을 생성한다.
@@ -631,11 +640,11 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 - 각 Zookeeper client는 zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다.
 - Zookeeper 의 snapshot files 혹은 transactional log files 에 corruption 이 발생한 경우의 troubleshooting 은  https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html#sc_troubleshooting 을 참고한다.
 
-#### Zookeeper 메타
-- Altibase Sharding에서 클러스터 관리를 위하여, Zookeeper 메타를 아래와 같이 관리한다.
-  - (W) : watch를 걸 디렉토리
-  - (E) : data 없이 비어있는 디렉토리
-  - (ep) : ephemeral Node
+#### Zookeeper 샤딩 클러스터 메타 데이터
+Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한다.
+- (W) : watch를 걸 디렉토리
+- (E) : data 없이 비어있는 디렉토리
+- (ep) : ephemeral Node
 
 | root path          | sub path               | 2nd sub path            | 3rd sub path                                                 | 설명                                                         |
 | ------------------ | ---------------------- | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -759,17 +768,6 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 - 8: IB (InfiniBand)
 
 ### Altibase Sharding 제약사항
-
-#### 운영체제
-- Altibase Sharding은 현재 아래의 운영체제만 지원한다.
-
-| OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
-| ----- | ---------------------------- | --------------- | ------------ | ------------ |
-| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit       |
-| LINUX | PowerPC7 (BE)                | redhat 6.5 이상 | 64-bit       | 64-bit       |
-| LINUX | PowerPC8 (LE)                | redhat 7.2 이상 | 64-bit       | 64-bit       |
-
-[표 1. Altibase Sharding 지원 운영체제]
 
 #### 기본 조건
 -   샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
