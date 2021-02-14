@@ -511,39 +511,33 @@ SELECT * FROM s1 order by k1;
 K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은 0, 1 또는 2의 값을 가질 수 있으며, 샤드데이터가 복제된 갯수를 나타낸다. 이러한 복제들은 장애가 발생한 샤드노드에 대한 fail-over를 수행할 수 있도록 한다.
 
 #### 리샤딩 (Resharding)
-Altibase Sharding의 리샤딩이란 서비스 운영 중에 데이터 일부를 하나의 샤드 노드에서 다른 샤드 노드로 이동하는 것을 말한다.
+리샤딩이란 서비스 운영 중에 데이터 일부를 하나의 샤드 노드에서 다른 샤드 노드로 이동하는 것을 말한다.
 - 리샤딩은 주로 노드 증설 혹은 특정 노드의 부하 집중에 따른 데이터 이동을 위하여 사용되며, 서비스 운영 중에 사용할 수 있는 장점을 가진다.
-- 리샤딩은 "ALTER DATABASE SHARD MOVE" 구문으로 제공된다.
+- 리샤딩은 "ALTER DATABASE SHARD MOVE" SHARD DDL 구문으로 제공된다.
 
 ## Altibase Sharding 관리
 이 장에서는 Altibase Sharding을 구성하고 사용환경을 설정하는 방법을 설명한다.
 
 ### Altibase 관리
 
-#### Altibase Sharding 운영체제
-Altibase Sharding은 아래의 운영체제를 지원한다.
+#### Altibase Sharding platform
+Altibase Sharding은 아래의 platform 지원한다.
 | OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
 | ----- | ---------------------------- | --------------- | ------------ | ------------ |
 | LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit       |
 | LINUX | PowerPC7 (BE)                | redhat 6.5 이상 | 64-bit       | 64-bit       |
 | LINUX | PowerPC8 (LE)                | redhat 7.2 이상 | 64-bit       | 64-bit       |
 
-#### Altibase 디렉토리
-
-Altibase Sharding 의 환경 설정에 관한 디렉토리는 Altibase 서버와 동일하다.
-
-본 장에서는 Altibase Sharding 의 추가적인 내용만을 설명한다.
-
-##### xlogfile 디렉토리 (???TBD???)
-
-##### Zookeeper 디렉토리
-?????
-
-##### conf 디렉토리
-altibase.properties.shard : 샤드 환경에서의 권장 설정값들이 기록되는 파일들이다.
-
-##### trc 디렉토리
-altibase_sd.log : 샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
+#### Altibase directories and files
+여기서는 Sharding 관련 특이사항들만 기술한다.
+- $ALTIBASE_HOME/xlogs directory
+  k-safety 복제를 위한 xlog 화일들이 위치한다.
+- $ALTIBASE_HOME/ZookeeperServer directory
+  Zookeeper 프로그램이 위치한다.
+- $ALTIBASE_HOME/conf/altibase.properties.shard file
+  샤드 환경에서의 권장 설정값들이 기록되는 파일들이다.
+- $ALTIBASE_HOME/trc/altibase_sd.log
+  샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
 #### Altibase 설치
 Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설치를 완료한 후에 아래와 같은 샤딩 환경 설정을 하면 된다.
@@ -678,7 +672,8 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 |                    |                        | /node_name2(ep)(E)      |                                                              |                                                              |
 |                    |                        | ...                     |                                                              |                                                              |
 
-### 샤딩 클러스터 백업/복구 고려사항
+### 샤딩 클러스터 백업/복구 관리
+
 #### 기본 고려사항
 - 공통 고려사항
   - 백업과 복구는 각각의 개별 노드들에 대하여 독립적으로 수행하는것을 전제로 한다.
@@ -696,7 +691,8 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
   - 오프라인백업을 이용하여, 특정 노드만을 복구하는 경우에는, 기본적으로는 해당 노드는 샤딩클러스터에 참여(failback 혹은 join) 시켜서 사용할수 없다.
 - 온라인 백업/복구 고려사항
   - 완전복구된 노드에 대해서만, 샤딩클러스터에 참여(failback 혹은 join) 시켜서 사용하는 것을 기본으로 한다.
-#### 상황별 고려사항
+
+#### 불완전복구 상황별 고려사항
 - k-safety가 1 이상에서, 특정 노드를 shutdown 했는데, 해당 노드에 장애 발생후, 해당 노드가 불완전복구된 상황
   - 이 경우에 해당 불완전복구된 노드를 join시키면 데이터 손실이 발생한다.
   - failover SHARD DDL을 이용하여, 해당 노드를 강제로 failover시키서, 해당 노드의 데이터를 다른 노드에서 정상운영되도록 한다.
@@ -721,51 +717,6 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
     - 해당 노드의 데이터는 불완전복구본, 오프라인 백업본 혹은 논리적 백업본을 이용하여, 최대한의 데이터를 확보한다.
     - 최대한 확보한 데이터는, 샤딩클러스터에 논리적 복구를 이용하여 데이터를 다시 적재하여 사용할 수 있다. 
 
-### 클라이언트 설정
-
-#### 샤딩 응용프로그램 서버 연결 설정
-접속할 샤드노드의 우선순위가 있는 경우는, 해당 우선순위에 맞춰서, 기본 ip/port 및 AlternateServers를 설정한다.
-
-접속할 샤드노드의 우선순위가 없는 경우는, LoadBalance=on을 설정한다. 그러면, 기본 ip/port 및 AlternateServers 에 설정된 샤드노드들에 대하여, 랜덤하게 접속한다.
-
-#### 샤딩 응용프로그램 라이브러리 설정
-
-##### ShardCLI
-
-ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
-
-CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 라이브러리로 바꾸어야 한다.
-
-ShardCLI 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
-
-##### ShardJDBC
-
-ShardJDBC는 JDBC 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
-
-JDBC는 별도의 샤딩 라이브러리가 존재하는것은 아니고, JDBC 접속 URL에 sharding prefix를 붙여주면 ShardJDBC 로 동작한다.
-
-##### 그외 API
-
-ShardCLI와 ShardJDBC를 제외한 API를 사용하는 경우는 서버측 샤딩으로만 동작한다. 
-
-#### Altibase Sharding 통신 방법
-샤딩에서 사용하는 커넥션에 따라 지원하는 통신 방법은 다음과 같다.
-
-##### 사용자 커넥션(User Connection)
-사용자 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
-자세한 내용은 *Administrator manual*의 서버/클라이언트 통신 장을 참고한다.
-
-##### 샤드 라이브러리 커넥션(Shard Library Connection)
-샤드 라이브러리 커넥션의 통신 방법으로 사용자 커넥션 스트링의 SHARD_CONNTYPE 속성에 해당하며 다음의 통신 타입을 지원한다.
-SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
-- 1: TCP (기본값)
-- 8: IB (InfiniBand)
-
-##### 코디네이터 커넥션(Coordinator Connection)
-코디네이터와 샤드노드의 내부 커넥션 통신 방법으로 노드 설정시 지정 가능하며 다음의 통신 타입을 지원한다.
-노드 설정의 인자로 명시하지 않을 경우 TCP 를 기본값으로 동작한다.
-- 1: TCP (기본값)
-- 8: IB (InfiniBand)
 
 ### Altibase Sharding 제약사항
 
@@ -784,10 +735,10 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 - 샤딩관련 객체에 대한 DDL을 수행할 수 없습니다.
 - 이때 샤딩관련 객체에는, 
   - 샤드테이블 
-  - 샤드테이블에 대해서 자동 생성되는 \_BAK\_ 테이블
-  - 샤드테이블 및 \_BAK\_ 테이블과 관련된 인덱스
+  - 샤드테이블에 대해서 k-safety 복제를 위하여 자동 생성되는 백업 테이블
+  - 샤드테이블에 대한 인덱스
   - 샤드프로시져
-  - 샤드테이블의 복제를 위하여 자동 생성되는 이중화객체
+  - 샤드테이블의 k-safety 복제를 위하여 자동 생성되는 이중화객체
 - 샤딩관련 객체에 DDL을 수행하기 위해서는, 샤딩객체에서 설정해제하고, DDL을 한 이후에 다시 샤딩객체로 설정하여야 합니다.
 - 예외적으로 아래의 DDL은, 샤딩객체에서 설정해제하지 않고 수행할 수 있도록, 허용되어 있습니다. 이러한 허용 DDL의 종류를 지속적으로 늘려갈 예정입니다.
   - 이중화객체에 대한 FLUSH 구문
@@ -804,20 +755,18 @@ SHARD_CONNTYPE 을 명시하지 않을 경우 TCP 를 기본값으로 동작한�
 - fetch across commit 
 - queue
 - statement attribute
-- 클론 테이블에 대한 DML에서는 non-deterministic 기능
 
 #### 미지원 쿼리
-- 다중 테이블 삽입절(INSERT)
-- 다중 로우 삽입절(INSERT)
-recursive with
-move
-merge
-multi-table I/U/D
-table function
-DML with limit
-insert default values(all default)
-- insert multi rows
-- insert ~ return ~ into
+- DML with limit
+- DML with multi-tables 
+- clone table DML with non-deterministic function
+- insert multi-rows 
+- insert with all default values
+- insert with return into
+- recursive with
+- move
+- merge
+- table function
 
 #### 미지원 PSM 기능
 - reference cursor
@@ -827,15 +776,9 @@ insert default values(all default)
 #### 연결 제약조건
 -   샤드 전용 클라이언트 라이브러리를 사용하여야 하이브리드 샤딩방식이 적용된다. 샤드 전용 클라이언트 라이브러리를 사용하지 않으면 서버측 샤딩방식으로만 동작한다.
     - 샤드 전용 클라이언트 라이브러리는 ShardCLI와 ShardJDBC 두가지만 제공한다.
--   다중-쓰레드(multi-thread) 클라이언트 프로그램에서 데이터베이스 커넥션 공유를 지원하지 않는다.
 -   SSL 을 지원하지 않는다.
 -   IPv6 를 지원하지 않는다.
--   ShardCLI 제약사항은 CLI User's Manual 에서 ShardCLI 부분을 참고한다.
--   ShardJDBC 제약사항은 JDBC User's Manual 에서 Sharding 부분을 참고한다.
--   Altibase Sharding은 응용프로그램에서 데이터베이스로 커넥션을 생성할 때, 일부
-    샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.  
-    (jdbc같은 경우 응용프로그램에서 데이터베이스로 커넥션을 생성할 때 META와의 접속까지만 
-    이루어지기 때문에 노드 장애여부와 상관없이 META만 정상적이라면 커넥션이 생성된다.)
+-   Altibase Sharding은 응용프로그램에서 데이터베이스로 커넥션을 생성할 때, 일부 샤드 노드에서 장애가 발생하면 이를 에러로 처리하고 커넥션 생성이 실패한다.  
 
 #### 하위 호환성
 -   샤드 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤드 기능을 사용할 수 있다.
@@ -848,10 +791,8 @@ $ALTIBASE_HOME/bin/altibase -v
 
 이 장에서는 Altibase Sharding 사용 방법을 자세히 설명한다. 앞에서 설명한 샤드 환경 설정과 Zookeeper 설정 이후의 사용 방법을 기술한다.
 
-### Altibase Sharding 사용 기본 흐름
+### 샤딩 사용 기본 흐름
 아래의 모든 작업은 sys 사용자로 작업하는것을 가정한다.
-
-모든 작업은 auto commit off 상태에서 진행되어야 하므로, 작업 후에, COMMIT을 수행해 주어야 한다. 단, 노드 추가는 SHARD DDL을 사용하는데, SHARD DDL은 자동으로 COMMIT 혹은 ROLLBACK이 된다. 
 
 1. 샤드 노드별로 아래 구문을 수행하여, 샤드 메타를 각각 생성한다.
    - DBMS_SHARD.CREATE_META()
@@ -875,9 +816,6 @@ $ALTIBASE_HOME/bin/altibase -v
 샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다.
 
 #### 구문
-
-샤드 키워드는 다음 구문에 한해 제공하며 구문식은 다음과 같다.
-
 -   SHARD
     - SELECT, INSERT, UPDATE, DELETE
 -   NODE[META]
@@ -950,65 +888,15 @@ iSQL> SELECT count(*) FROM s1 WHERE shard_key(k1,1);
 ### 샤드 실행계획
 Altibase Sharding 사용자는 iSQL을 통해 쿼리가 수행되는 실행계획을 조회할 수 있다.
 - alter session set TRCLOG_DETAIL_SHARD = 1;
-  단, TRCLOG_DETAIL_SHARD=1 의 경우 내부적으로 cache 된 plan을 사용하지 않고 새로이 plan을 생성하므로 사용상 주의가 필요하다.
-- 샤드 최적화기가 생성한 실행계획과 샤드 노드에서 생성한 실행계획을 모두 조회할 수 있으며 쿼리를 분석하여 최적화 하는데 사용할 수 있다.
-
-##### 설명
-SHARD-COORDINATOR 실행노드는 사용자가 입력한 쿼리 중 샤드 노드에서 수행할 쿼리를 수행하고, 그 결과를 통합하여 상위 실행노드로 전달한다.
-- 보다 상세한 수행 결과를 조회하기 위하여 다음 명령을 사용한다.
-- ALTER SESSION SET TRCLOG_DETAIL_PREDICATE = 1;
-- TRCLOG_DETAIL_PREDICATE 프로퍼티 값을 1로 설정하면, SHARD-COORDINATOR가 특정 샤드 노드로 쿼리를 보내어 수행한 이력 및 플랜을 조회할 수 있다. 
-
-##### NON-SHARD QUERY REASON
-사용자 쿼리를 논샤드 쿼리로 분석한 이유이다.
-
-##### QUERY TRANSFORMABLE
-사용자 쿼리가 논샤드 쿼리로 분류된 경우라면 서버측 샤딩을 수행하게 된다.
-
-샤드 쿼리 최적화기는 해당 쿼리를 서버측에서 수행하기 위해 샤드 쿼리 변환을 통해 최적의 분산부 쿼리 생성을 시도하는데 이 경우 최적화된 분산부 쿼리 생성 가능성을 다음과 같이 표현한다.
-- 변환된 분산부 쿼리 생성이 가능하면 'Yes'
-- 변환된 분산부 쿼리 생성이 불가하면 'No'
-
-### Fail-Over
-사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
-- 사용자 커넥션에 대한 Fail-Over는 Replication환경에서 Altibase Fail-Over의 사용법과 동일하며, Replication환경에서 Altibase Fail-Over의 사용법은 *Altibase Replication Manual*을 참고한다.
-
-Fail-Over 콜백 함수는 사용자 커넥션에 대해서만 동작하며 샤드 라이브러리 커넥션에 대한 Fail-Over 콜백 함수는 지원하지 않는다.
-
-#### 응용 프로그램 가이드
-Altibase Sharding 환경에서는 여러 샤드 노드에서 수행중인 트랜잭션 및 커넥션이 있으며, 이들은 최적화 과정을 거쳐서 샤드 라이브러리 혹은 서버에서 내부적으로 처리된다. 
-
-이러한 분산 환경에서 응용 프로그램이 트랜잭션 처리를 일관되게 하기 위해서는 NON-AUTOCOMMIT을 사용하여 다음의 가이드에 따라 작성되어야 Fail-Over가 정상적으로 처리될 수 있다.
-
-##### CTF(Connection Time Failover)
-
-CTF의 경우에는 데이터 베이스 연결이 되는지에 따라 성공 여부를 바로 알 수 있다.
-
-다만, 분산 환경에서는 일부 노드의 에러로 인해 실패했을 때, 일부 노드에 접속 되어있을 수 있으므로 명시적으로 SQLDisconnect를 호출하여 전체 연결을 끊어 주어야 한다.
-
-##### STF(Service Time Failover)
-ShardCLI 경우는 SQLPrepare, SQLExecute, SQLFetch등에서 SQL_SUCCESS가 아닌 에러가 발생하면, SQLGetDiagRec에 statement 핸들을 넘기고, 이 함수의 5번째 인자에 반환되는 native 에러 코드 값이 ALTIBASE_FAILOVER_SUCCESS인 진단 레코드(diagnostic record)가 있으면 STF가 성공한 것으로 판단할 수 있다.
-
-- NON-AUTOCOMMIT 트랜잭션
-
-ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음의 순서로 에러 로직을 처리한다.
-
-1. STF가 성공한 경우(ALTIBASE_FAILOVER_SUCCESS) Rollback을 수행하며 Rollback이 성공하면 트랜잭션 재시작 위치로 되돌아 가서 응용 프로그램 로직을 수행한다.
-   1. 트랜잭션 재시작 위치는 SQLPrepare,SQLExecute를 사용하는 경우 최초 SQLPrepare 이전으로 돌아가야 하며 Bind는 다시 하지 않아도 된다.
-   2. SQLDirectExec를 사용하는 경우에는 SQLDirectExec 이전으로 돌아가면 된다.
-   3. STF 성공 후 Rollback을 하는 중에 다시 Fail-Over가 발생할 수 있으므로 이 경우에는 Rollback을 한번 더 수행한다.
-2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는 경우(ALTIBASE_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE) 전체 노드에 대한 연결을 명시적으로 끊고 최초 연결부터 재시도 한다.
-   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로 SQLDisconnect를 호출해야 모든 노드에 연결이 끊긴다
-3. 그 외의 에러에 대해서는 응용 프로그램 에러 처리 로직을 수행한다.
-
-##### ShardCLI Failover Sample Code
-- Altibase Sharding의 failover를 포함하는 ShardCLI sample 코드는 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/failoversample.cpp에 있다.
-- failoversample.cpp의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER);”의 구문으로 T1 테이블을 생성한 후 T1 테이블을 샤드 테이블로 등록하였다고 가정한다.
-- 해당 프로그램은 최초 접속할 샤드 노드의 port와 alternate port를 순차적으로 입력받아 연결하고 응용 프로그램 로직을 수행하여 Direct-Execute 방식으로 데이터를 한 건 입력하고 Prepare-Execute 방식으로 질의를 수행한 후 검색된 데이터를 출력하는 프로그램이다.
-- 예제 프로그램을 수행중에 특정 노드에 장애가 있는 경우 최초 접속시에 CTF가 동작하며 실행 중에는 STF를 통해 fail-over 된다.
-- 주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기 위해서 SQLDisconnect를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는 다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLDiagRec을 통해 모든 노드의 에러를 점검해야 한다.
-- 에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드 노드에 남아 있는 트랜잭션을 정리하기 위해서 SQLEndTran(ROLLBACK)을 호출해 준 후 다시 Prepare 혹은 DirecExecute 로직으로 돌아가서 수행 한다.
-
+  내부적으로 cache 된 plan을 사용하지 않고 새로이 plan을 생성하므로 사용상 주의가 필요하다.
+- alter session set TRCLOG_DETAIL_PREDICATE = 1;
+  SHARD-COORDINATOR가 특정 샤드 노드로 쿼리를 보내어 수행한 이력 및 플랜을 조회할 수 있다. 
+- SHARD-COORDINATOR 실행노드
+  사용자가 입력한 쿼리 중 샤드 노드에서 수행할 쿼리를 수행하고, 그 결과를 통합하여 상위 실행노드로 전달한다.
+- NON-SHARD QUERY REASON
+  사용자 쿼리를 논샤드 쿼리로 분석한 이유이다.
+- QUERY TRANSFORMABLE
+  논샤드 쿼리에 대한 샤드 퀴리 변환 최적화 가능 여부(Yes/No)
 
 ## Altibase Sharding 프로퍼티
 
@@ -1417,7 +1305,7 @@ Unsigned Integer
 ##### 값의 범위
 [1,2,3]
 ##### 설명
-세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.(??? 시스템은 안되나 ???)
+세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.
 - 1 : multiple node transaction
 - 2 : global transaction
 - 3 : global consistent transaction
@@ -2207,20 +2095,51 @@ iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
 ```
 
 ## ShardCLI
-```
-SQLSetConnectAttr (
-	SQLHDBC 	dbc,
-	SQLINTEGER 	Attribute,
-	SQLPOINTER	ValuePtr,
-	SQLINTEGER 	StringLength );
-```
-다중 노드 트랜잭션으로 설정할 때에는 Attribute에는 ALTIBASE_GLOBAL_TRANSACTION_LEVEL을 ValuePtr에는 ALTIBASE_MULTIPLE_NODE_TRANSACTION을 입력한다. 
+ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
 
-SQLSetConnectAttr에 대한 자세한 설명은 *CLI User's Manual > 2. Altibase CLI 함수*를 참조한다.
+#### ShardCLI 라이브러리
+CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 라이브러리로 바꾸어야 한다.
+- ShardCLI 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
 
-```
-SQLSetConnectAttr(dbc, ALTIBASE_GLOBAL_TRANSACTION_LEVEL, (void*)ALTIBASE_MULTIPLE_NODE_TRANSACTION, 0);
-```
+#### ShardCLI 제약사항
+- 다중-쓰레드(multi-thread) 클라이언트 프로그램에서 데이터베이스 커넥션 공유를 지원하지 않는다.
+
+#### 사용자 커넥션(User Connection)
+사용자 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
+자세한 내용은 *Administrator manual*의 서버/클라이언트 통신 장을 참고한다.
+
+#### Fail-Over
+사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
+- 사용자 커넥션에 대한 Fail-Over는 Replication환경에서 Altibase Fail-Over의 사용법과 동일하며, Replication환경에서 Altibase Fail-Over의 사용법은 *Altibase Replication Manual*을 참고한다.
+
+Fail-Over 콜백 함수는 사용자 커넥션에 대해서만 동작하며 샤드 라이브러리 커넥션에 대한 Fail-Over 콜백 함수는 지원하지 않는다.
+
+##### CTF(Connection Time Failover)
+
+CTF의 경우에는 데이터 베이스 연결이 되는지에 따라 성공 여부를 바로 알 수 있다.
+
+다만, 분산 환경에서는 일부 노드의 에러로 인해 실패했을 때, 일부 노드에 접속 되어있을 수 있으므로 명시적으로 SQLDisconnect를 호출하여 전체 연결을 끊어 주어야 한다.
+
+##### STF(Service Time Failover)
+ShardCLI 경우는 SQLPrepare, SQLExecute, SQLFetch등에서 SQL_SUCCESS가 아닌 에러가 발생하면, SQLGetDiagRec에 statement 핸들을 넘기고, 이 함수의 5번째 인자에 반환되는 native 에러 코드 값이 ALTIBASE_FAILOVER_SUCCESS인 진단 레코드(diagnostic record)가 있으면 STF가 성공한 것으로 판단할 수 있다.
+
+ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음의 순서로 에러 로직을 처리한다.
+
+1. STF가 성공한 경우(ALTIBASE_FAILOVER_SUCCESS) Rollback을 수행하며 Rollback이 성공하면 트랜잭션 재시작 위치로 되돌아 가서 응용 프로그램 로직을 수행한다.
+   1. 트랜잭션 재시작 위치는 SQLPrepare,SQLExecute를 사용하는 경우 최초 SQLPrepare 이전으로 돌아가야 하며 Bind는 다시 하지 않아도 된다.
+   2. SQLDirectExec를 사용하는 경우에는 SQLDirectExec 이전으로 돌아가면 된다.
+   3. STF 성공 후 Rollback을 하는 중에 다시 Fail-Over가 발생할 수 있으므로 이 경우에는 Rollback을 한번 더 수행한다.
+2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는 경우(ALTIBASE_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE) 전체 노드에 대한 연결을 명시적으로 끊고 최초 연결부터 재시도 한다.
+   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로 SQLDisconnect를 호출해야 모든 노드에 연결이 끊긴다
+3. 그 외의 에러에 대해서는 응용 프로그램 에러 처리 로직을 수행한다.
+
+##### ShardCLI Failover Sample Code
+- Altibase Sharding의 failover를 포함하는 ShardCLI sample 코드는 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/failoversample.cpp에 있다.
+- failoversample.cpp의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER);”의 구문으로 T1 테이블을 생성한 후 T1 테이블을 샤드 테이블로 등록하였다고 가정한다.
+- 해당 프로그램은 최초 접속할 샤드 노드의 port와 alternate port를 순차적으로 입력받아 연결하고 응용 프로그램 로직을 수행하여 Direct-Execute 방식으로 데이터를 한 건 입력하고 Prepare-Execute 방식으로 질의를 수행한 후 검색된 데이터를 출력하는 프로그램이다.
+- 예제 프로그램을 수행중에 특정 노드에 장애가 있는 경우 최초 접속시에 CTF가 동작하며 실행 중에는 STF를 통해 fail-over 된다.
+- 주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기 위해서 SQLDisconnect를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는 다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLDiagRec을 통해 모든 노드의 에러를 점검해야 한다.
+- 에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드 노드에 남아 있는 트랜잭션을 정리하기 위해서 SQLEndTran(ROLLBACK)을 호출해 준 후 다시 Prepare 혹은 DirecExecute 로직으로 돌아가서 수행 한다.
 
 ## ShardJDBC
 
