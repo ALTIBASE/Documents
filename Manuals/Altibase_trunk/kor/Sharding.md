@@ -1362,7 +1362,7 @@ Unsigned Integer
 ##### 설명
 샤드 데이터베이스의 최신 스냅샷을 얻기 위한 재시도 횟수
 
-## Shard DDL
+## SHARD DDL
 - Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
 - SYS 사용자이어야 한다.
 - GLOBAL_TRANSACTION_LEVEL 설정 값이 2 또는 3 이어야 한다.
@@ -1621,12 +1621,12 @@ Failover 발생시 레플리카 셋(ReplicaSet)의 변경 내역을 저장한 �
 - SECOND_REPL_TO_NODE_NAME (VARCHAR(40)): 두번째 Backup의 수신자 노드의 이름
 - SMN (BIGINT): 샤드 메타 번호
 
-### 성능 뷰 (Performance View)
+### 성능 뷰
 Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 프로세스에 대한 정보를 의미하며 현재 사용자 세션이 접속된 시스템에 대한 정보를 보여준다.
 
 Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다양한 실행 정보를 얻을수 있으며 자세한 내용은 *General Reference* 의 성능 뷰를 참고한다.
 
-### 샤드 성능 뷰 (Shard Performance View)
+### 샤드 성능 뷰
 Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한 내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
 
 샤드 성능 뷰의 전체 목록은 iSQL에서 다음과 같이 조회할 수 있다.
