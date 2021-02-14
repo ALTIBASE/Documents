@@ -2094,7 +2094,7 @@ DBMS_SHARD.UNSET_SHARD_PROCEDURE(
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
 ```
 
-## ShardCLI
+## ShardCLI (*under construction*)
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
 
 #### ShardCLI 라이브러리
@@ -2141,7 +2141,7 @@ ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음
 - 주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기 위해서 SQLDisconnect를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는 다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLDiagRec을 통해 모든 노드의 에러를 점검해야 한다.
 - 에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드 노드에 남아 있는 트랜잭션을 정리하기 위해서 SQLEndTran(ROLLBACK)을 호출해 준 후 다시 Prepare 혹은 DirecExecute 로직으로 돌아가서 수행 한다.
 
-## ShardJDBC
+## ShardJDBC (*under construction*)
 
 ShardJDBC는 연결속성의 형태로 지원한다.
 
