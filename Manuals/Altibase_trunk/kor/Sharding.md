@@ -12,10 +12,10 @@
   - [Altibase Sharding Administration](#altibase-sharding-administration)
     - [Altibase Administration](#altibase-administration)
     - [Zookeeper Administration](#zookeeper-administration)
-    - [Sharding Backup and Restore](#sharding-backup-and-restore)
-    - [Altibase Sharding Restrinction](#altibase-sharding-restrinction)
+    - [Sharding Backup and Recovery](#sharding-backup-and-recovery)
+    - [Altibase Sharding Restriction](#altibase-sharding-restriction)
   - [Using Altibase Sharding](#using-altibase-sharding)
-    - [Sharding usage flow](#sharding-usage-flow)
+    - [Sharding Usage Flow](#sharding-usage-flow)
     - [Shard Built-in Function](#shard-built-in-function)
     - [Sharding Tuning](#sharding-tuning)
   - [Altibase Sharding Property](#altibase-sharding-property)
@@ -669,7 +669,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 |                    |                        | /node_name2(ep)(E)      |                                                              |                                                              |
 |                    |                        | ...                     |                                                              |                                                              |
 
-### Sharding Backup and Restore
+### Sharding Backup and Recovery
 
 #### 기본 고려사항
 - 공통 고려사항
@@ -715,7 +715,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
     - 최대한 확보한 데이터는, 샤딩클러스터에 논리적 복구를 이용하여 데이터를 다시 적재하여 사용할 수 있다. 
 
 
-### Altibase Sharding Restrinction
+### Altibase Sharding Restriction
 
 #### 기본 조건
 - 샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
@@ -788,7 +788,7 @@ $ALTIBASE_HOME/bin/altibase -v
 
 이 장에서는 Altibase Sharding 사용 방법을 자세히 설명한다. 앞에서 설명한 샤드 환경 설정과 Zookeeper 설정 이후의 사용 방법을 기술한다.
 
-### Sharding usage flow
+### Sharding Usage Flow
 아래의 모든 작업은 sys 사용자로 작업하는것을 가정한다.
 
 1. 샤드 노드별로 아래 구문을 수행하여, 샤드 메타를 각각 생성한다.
