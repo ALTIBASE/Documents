@@ -2512,8 +2512,6 @@ The property file for configuring the Altibase server is called "altibase.proper
 - User account security properties
 - Other properties
 
-For more detailed information on Altibase Sharding properties, please refer to the properties chapter of "Altibase Sharding Guide" manual.
-
 The following table lists all Altibase properties. For reference, each group in the table has the following meaning:
 
 - D: Database initialization properties
