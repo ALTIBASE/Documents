@@ -1238,7 +1238,6 @@ An application can call SQLSetConnectAttr () at any point whether the connection
 | ALTIBASE_CONN_ATTR_IPC_FILEPATH   | If ALTIBASE_HOME is different when server and client are connected by IPC in Unix environment, the socket path of Unix domain does not match. At this time, if ALTIBASE_HOME / trc / cm-ipc file is used, Unix domain communication is possible and information of shared memory can be obtained. |
 | ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO  | Sets the size of the socket receive buffer in 32K increments. If the value of this property is set to 2, the size of the socket receive buffer is 64K. The default value is 0. If the maximum socket receive buffer size among the TCP kernel parameters is set to less than the socket receive buffer size set by this property value, this property may be ignored or an error may be generated depending on the OS. (For Linux OS, it corresponds to 'net.core.rmem_max' TCP kernel parameter.) |
 | ALTIBASE_MESSAGE_CALLBACK         | Registers a callback function to receive a message from the server. The user can handle the received message with a callback function. For details, refer to the sample below: <$ ALTIBASE_HOME / sample / SQLCLI / demo_message.cpp> |
-| ALTIBASE_GLOBAL_TRANSACTION_LEVEL | The user can specify the level of the transaction to run when using Sharding. For more information about transaction level, refer to Shard Transaction in *Sharding Manual.* |
 
 #### Diagnosis	
 
