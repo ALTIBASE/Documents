@@ -15,7 +15,6 @@
     - [감사 관련 프로퍼티](#%EA%B0%90%EC%82%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [에이전트 관련 프로퍼티](#%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [사용자 계정 보안 관련 프로퍼티](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EB%B3%B4%EC%95%88-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Altibase Sharding 관련 프로퍼티](#altibase-sharding-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [기타 프로퍼티](#%EA%B8%B0%ED%83%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -5968,36 +5967,6 @@ String
 ##### 설명
 
 패스워드를 검증할 사용자 정의 콜백 함수(CALLBACK function)를 지정한다.
-
-### Altibase Sharding 관련 프로퍼티
-
-#### SHARD_ENABLE 
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding의 샤드 노드로 설정한다.
-
-0: Disabled
-
-1: Enabled
-
-그외 Sharding 관련 프로퍼티는 [Sharding 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)을 참조한다.
 
 ### 기타 프로퍼티 
 
