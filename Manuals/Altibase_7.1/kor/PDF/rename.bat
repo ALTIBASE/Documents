@@ -30,7 +30,6 @@ rename	Precompiler_1.pdf	Precompiler_User's_Manual1.pdf
 rename	Precompiler_2.pdf	Precompiler_User's_Manual2.pdf
 rename	Replication.pdf	Replication Manual.pdf
 rename	ReplicationManager.pdf	Replication_Manager_User's_Manual.pdf
-rename	Sharding.pdf	Altibase_Sharding_Guide.pdf
 rename	SNMP.pdf	SNMP_Agent_Guide.pdf
 rename	SpatialSQL.pdf	Spatial_SQL_Reference.pdf
 rename	SQL1.pdf	SQL_Reference1.pdf
