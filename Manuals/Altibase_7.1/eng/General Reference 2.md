@@ -15,7 +15,6 @@
     - [Auditing Properties](#%EA%B0%90%EC%82%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [C/C++ External Procedure Agent Properties](#%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [Account Security Properties](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EB%B3%B4%EC%95%88-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Altibase Sharding Properties](#altibase-sharding-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [Other Properties](#%EA%B8%B0%ED%83%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -5518,36 +5517,6 @@ Maximum length : 40 bytes
 ##### Description
 
 This specifies a user-defined CALLBACK function for verifying passwords.
-
-### Altibase Sharding Properties
-
-#### SHARD_ENABLE 
-
-##### Data Type
-
-Unsigned Integer
-
-##### Default Value
-
-0
-
-##### Attributes
-
-Read-Only, Single Value
-
-##### Range
-
-[0, 1]
-
-##### Description
-
-Set to shard node of Altibase sharding:
-
-0: Disabled
-
-1: Enabled
-
-For other sharding properties, please refer to the *Sharding Manual*.
 
 ### Other Properties
 
