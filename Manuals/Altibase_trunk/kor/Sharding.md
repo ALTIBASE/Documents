@@ -913,16 +913,12 @@ SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
 
 JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위한 조건
 - 클론 테이블과 샤드키 테이블간의 JOIN 쿼리
-- 동일한 분산 정의를 갖는 샤드키 테이블간의 샤드키 컬럼을 사용하는 JOIN 쿼리
+- 동일한 분산 정의를 갖는 샤드키 테이블간의 샤드키 컬럼을 사용한 equal(=) JOIN 쿼리
+- 동일한 분산 정의를 갖는 샤드키 테이블간의 샤드키 컬럼을 사용한 equal any(IN) SUBQUERY JOIN 쿼리
 
 기타 샤딩 최적화가 수행되는 조건
 - AGGREGATION 분산 최적화는 SHARD_AGGREGATION_TRANSFORM_ENABLE property 설명 부분을 참고한다.
 - Limit, Selection, Projection 최적화는 SHARD_TRANSFORM_MODE property 설명 부분을 참고한다.
-
-항상 서버 사이드 쿼리로 수행되는 경우
-- 샤드키 테이블 간의 subquery JOIN 쿼리
-- 샤드키 테이블과 솔로 테이블 간의 subquery JOIN 쿼리
-- 샤드키 테이블과 로컬 테이블 간의 subquery JOIN 쿼리
 
 주의사항
 - 샤딩에서는 인덱스를 힌트를 통해서 결과 레코드들의 순서를 보장하는 기능은 제공되지 않는다.
