@@ -2723,8 +2723,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
 - 사용자 계정 보안 관련 프로퍼티
 - 기타 프로퍼티
 
-이 외 Altibase Sharding 관련 프로퍼티는 *Altibase Sharding Guide manual*의 프로퍼티 장을 참고한다.
-
 다음의 표는 위 분류기준에 의해서 Altibase 프로퍼티를 정리한 표이다. 참고로 표의 각 분류는 다음과 같은 의미를 지닌다.
 
 - D: 데이터베이스 초기화
