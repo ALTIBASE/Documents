@@ -359,6 +359,8 @@ Redhat 6.0 이상(64-bit)
 
 Redhat 7.0 이상(64-bit)
 
+Redhat 8.0 이상(64-bit)
+
 #### Power Linux
 
 GNU glibc 2.12 and higher
