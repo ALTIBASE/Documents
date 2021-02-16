@@ -907,7 +907,7 @@ Altibase Sharding 사용자는 iSQL을 통해 쿼리가 수행되는 실행계�
 | 쿼리 변환   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes<br />Yes            | SYSTEM          |
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No<br />No<br />Yes<br />No       | SYSTEM          |
 | SHARD DDL lock 처리 | SHARD_DDL_LOCK_TIMEOUT<br />SHARD_DDL_LOCK_TRY_COUNT | Yes<br />Yes           | SYSTEM, SESSION |
-| 트랜잭션 | GLOBAL_TRANSACTION_LEVEL<br />VERSIONING_MIN_TIME<br />INDOUBT_FETCH_TIMEOUT<br />INDOUBT_FETCH_METHOD<br />SHARD_STATEMENT_RETRY | Yes<br />Yes<br />Yes<br />Yes<br />Yes | SYSTEM, SESSION |
+| 트랜잭션 | GLOBAL_TRANSACTION_LEVEL<br />VERSIONING_MIN_TIME<br />INDOUBT_FETCH_TIMEOUT<br />INDOUBT_FETCH_METHOD<br />SHARD_STATEMENT_RETRY<br />SHARED_TRANS_HASH_BUCKET_COUNT | Yes<br />Yes<br />Yes<br />Yes<br />Yes<br />No | SYSTEM, SESSION |
 
 #### SHARD_ENABLE
 
@@ -1361,6 +1361,18 @@ Unsigned Integer
 [0 ~ 65535]
 ##### 설명
 샤드 데이터베이스의 최신 스냅샷을 얻기 위한 재시도 횟수
+
+#### SHARED_TRANS_HASH_BUCKET_COUNT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1024
+##### 속성
+읽기 전용, 단일 값 (단위 : 해시 저장소 개수)
+##### 값의 범위
+[16,16384]
+##### 설명
+공유 트랜잭션 관리를 위한 자료구조의 Hash 저장소 크기를 설정한다.
 
 ## SHARD DDL
 - Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
