@@ -5,7 +5,6 @@
   - [New Features](#new-features)
     - [BUG-46475  HP-UX, AIX용 JDBC adapter를 지원 해야 합니다.](#bug-46475-hp-ux-aix%EC%9A%A9-jdbc-adapter%EB%A5%BC-%EC%A7%80%EC%9B%90-%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-46216  updatable join view 에서 key reserved 체크 기능 추가](#bug-46216--updatable-join-view-%EC%97%90%EC%84%9C-key-reserved-%EC%B2%B4%ED%81%AC-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
-    - [BUG-46425  JDBC Driver 에 sharding 기능 추가](#bug-46425-jdbc-driver-%EC%97%90-sharding-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
     - [BUG-46352  OpenSSL 로딩시 버전을 출력해 주어야 합니다.](#bug-46352-openssl-%EB%A1%9C%EB%94%A9%EC%8B%9C-%EB%B2%84%EC%A0%84%EC%9D%84-%EC%B6%9C%EB%A0%A5%ED%95%B4-%EC%A3%BC%EC%96%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-46411  LOB Fetch 성능향상을 위해, LOB\_CACHE\_THRESHOLD 프로퍼티의 MAX값 변경](#bug-46411-lob-fetch-%EC%84%B1%EB%8A%A5%ED%96%A5%EC%83%81%EC%9D%84-%EC%9C%84%ED%95%B4-lob%5C_cache%5C_threshold-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%9D%98-max%EA%B0%92-%EB%B3%80%EA%B2%BD)
     - [BUG-46443  JDBC 성능 향상을 위해, 일반 바인드 파라미터 전송에 list protocol을 적용](#bug-46443-jdbc-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81%EC%9D%84-%EC%9C%84%ED%95%B4-%EC%9D%BC%EB%B0%98-%EB%B0%94%EC%9D%B8%EB%93%9C-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EC%A0%84%EC%86%A1%EC%97%90-list-protocol%EC%9D%84-%EC%A0%81%EC%9A%A9)
@@ -184,23 +183,6 @@ New Features
 
 - **변경사항**
 
-  - Performance view
-  - Property
-  - Compile Option
-  - Error Code
-
-### BUG-46425  JDBC Driver 에 sharding 기능 추가
-
-- **module** : mm-jdbc
-- **Category** : Functionality
-- **재현 빈도** : Always
-- **증상** : JDBC Driver 에 sharding 기능을 추가하였습니다.
-- **재현 방법**
-  - **재현 절차**
-  - **수행 결과**
-  - **예상 결과**
-- **Workaround**
-- **변경사항**
   - Performance view
   - Property
   - Compile Option
@@ -1622,9 +1604,9 @@ Changes
 
 ### Version Info
 
-| altibase version | database binary version | meta version | cm protocol version | replication protocol version | sharding version |
-| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- | ---------------- |
-| 7.1.0.1.5        | 6.5.1                   | 8.6.1        | 7.1.6               | 7.4.3                        | 2.1.0            |
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 7.1.0.1.5        | 6.5.1                   | 8.6.1        | 7.1.6               | 7.4.3                        |
 
 > Altibase 7.1 패치 버전별 히스토리는
 > [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md)
@@ -1655,13 +1637,6 @@ Changes
 #### Replication protocol Version
 
 Replication 프로토콜 버전은 변경되지 않았다.
-
-#### Sharding Version
-
-샤딩 버전은 변경 되지 않았다.
-
-> 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다. 샤딩 설정은 *[Altibase Sharding 설치와 설정](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#2altibase-sharding-%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95>)*을 참고한다.
 
 ### 프로퍼티
 
