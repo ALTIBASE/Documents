@@ -2139,6 +2139,77 @@ ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음
 - 주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기 위해서 SQLDisconnect를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는 다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLDiagRec을 통해 모든 노드의 에러를 점검해야 한다.
 - 에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드 노드에 남아 있는 트랜잭션을 정리하기 위해서 SQLEndTran(ROLLBACK)을 호출해 준 후 다시 Prepare 혹은 DirecExecute 로직으로 돌아가서 수행 한다.
 
+#### CLI 대비 ShardCLI API 지원 범위
+| Attribute      | SQLCLI              | ShardCLI |
+| -------------- | ------------------- | -------- |
+| 연결 관리      | SQLAllocConnect     | O        |
+|                | SQLAllocEnv         | O        |
+|                | SQLAllocStmt        | O        |
+|                | SQLAllocHandle      | O        |
+|                | SQLCloseCursor      | O        |
+|                | SQLConnect          | O        |
+|                | SQLDisconnect       | O        |
+|                | SQLDriverConnect    | O        |
+|                | SQLEndTran          | O        |
+|                | SQLFreeConnect      | O        |
+|                | SQLFreeEnv          | O        |
+|                | SQLFreeHandle       | O        |
+|                | SQLFreeStmt         | O        |
+|                | SQLTransact         | O        |
+| SQL 실행 요청  | SQLBindParameter    | O        |
+|                | SQLExecDirect       | O        |
+|                | SQLExecute          | O        |
+|                | SQLNativeSql        | O        |
+|                | SQLParamData        | X        |
+|                | SQLPrepare          | O        |
+|                | SQLPutData          | X        |
+| SQL 실행 검색  | SQLBindCol          | O        |
+|                | SQLColAttribute     | O        |
+|                | SQLDescribeCol      | O        |
+|                | SQLDescribeParam    | O        |
+|                | SQLError            | O        |
+|                | SQLFetch            | O        |
+|                | SQLFetchScroll      | X        |
+|                | SQLGetConnectAttr   | O        |
+|                | SQLGetData          | O        |
+|                | SQLGetInfo          | O        |
+|                | SQLGetStmtAttr      | O        |
+|                | SQLGetTypeInfo      | O        |
+|                | SQLNumParams        | O        |
+|                | SQLNumResultCols    | O        |
+|                | SQLRowCount         | O        |
+|                | SQLMoreResults      | O        |
+| 속성 처리      | SQLGetEnvAttr       | O        |
+|                | SQLGetFunctions     | X        |
+|                | SQLSetConnectAttr   | O        |
+|                | SQLSetEnvAttr       | O        |
+|                | SQLSetStmtAttr      | O        |
+| 메타 정보 처리 | SQLColumns          | O        |
+|                | SQLForeignKeys      | O        |
+|                | SQLGetDescField     | O        |
+|                | SQLGetDescRec       | X        |
+|                | SQLGetDiagField     | O        |
+|                | SQLGetDiagRec       | O        |
+|                | SQLPrimaryKeys      | O        |
+|                | SQLProcedureColumns | O        |
+|                | SQLProcedures       | O        |
+|                | SQLSetDescField     | O        |
+|                | SQLSpecialColumns   | O        |
+|                | SQLStatistics       | O        |
+|                | SQLTablePrivileges  | O        |
+|                | SQLTables           | O        |
+| LOB            | SQLBindFileToCol    | O        |
+|                | SQLBindFileToParam  | O        |
+|                | SQLGetLobLength     | O        |
+|                | SQLGetLob           | O        |
+|                | SQLPutLob           | O        |
+|                | SQLTrimLob          | O        |
+|                | SQLFreeLob          | O        |
+| 기타           | SQLBulkOperations   | X        |
+|                | SQLCancel           | X        |
+|                | SQLGetPlan          | X        |
+|                | SQLSetPos           | X        |
+
 
 ## ShardJDBC (*under construction*)
 
