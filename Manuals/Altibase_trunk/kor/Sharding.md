@@ -169,10 +169,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사 드립니다.
 
-## Altibase Sharding 개념
+## Altibase Sharding Concept
 이 장은 Altibase Sharding의 개요와 용어를 설명한다.
 
-### Altibase Sharding 개요
+### Altibase Sharding Overview
 
 #### 샤딩 개념 및 모델
 샤딩(Sharding)은 하나의 데이터베이스에 저장했던 데이터를 여러개의 데이터베이스들에 분산하여 저장 및 처리하는 스케일 아웃 기술이다.
@@ -327,7 +327,7 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 -   TABLE_2 –\> 샤드 노드 2
 -   TABLE_3 –\> 샤드 노드 1
 
-### Altibase Sharding 용어
+### Altibase Sharding Terminology
 
 #### 샤드 노드(shard node) 
 샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
@@ -513,10 +513,10 @@ K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은
 - 리샤딩은 주로 노드 증설 혹은 특정 노드의 부하 집중에 따른 데이터 이동을 위하여 사용되며, 서비스 운영 중에 사용할 수 있는 장점을 가진다.
 - 리샤딩은 "ALTER DATABASE SHARD MOVE" SHARD DDL 구문으로 제공된다.
 
-## Altibase Sharding 관리
+## Altibase Sharding Administration
 이 장에서는 Altibase Sharding을 구성하고 사용환경을 설정하는 방법을 설명한다.
 
-### Altibase 관리
+### Altibase Administration
 
 #### Altibase Sharding platform
 Altibase Sharding은 아래의 platform 지원한다.
@@ -537,7 +537,7 @@ Altibase Sharding은 아래의 platform 지원한다.
 - $ALTIBASE_HOME/trc/altibase_sd.log
   샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
-#### Altibase 설치
+#### Altibase Installation
 Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설치를 완료한 후에 아래와 같은 샤딩 환경 설정을 하면 된다.
 
 #### 샤드 환경 설정
@@ -575,7 +575,7 @@ is –f $ALTIBASE_HOME/packages/dbms_shard.plb
 ```
 DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 이 문서의 *DBMS_SHARD패키지* 설명을 참조한다.
 
-### Zookeeper 관리
+### Zookeeper Administration
 
 #### Zookeeper 설정
 - Altibase Sharding은 Zookeeper 3.5.6 버전을 사용해야 한다.
@@ -670,7 +670,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 |                    |                        | /node_name2(ep)(E)      |                                                              |                                                              |
 |                    |                        | ...                     |                                                              |                                                              |
 
-### 샤딩 클러스터 백업/복구 관리
+### Sharding Backup and Restore
 
 #### 기본 고려사항
 - 공통 고려사항
@@ -716,7 +716,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
     - 최대한 확보한 데이터는, 샤딩클러스터에 논리적 복구를 이용하여 데이터를 다시 적재하여 사용할 수 있다. 
 
 
-### Altibase Sharding 제약사항
+### Altibase Sharding Restrinction
 
 #### 기본 조건
 - 샤드 노드들은 샤드 메타 및 샤드 관련 객체들의 스키마 정보가 동일해야 한다.
@@ -785,11 +785,11 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 $ALTIBASE_HOME/bin/altibase -v
 ```
 
-## Altibase Sharding 사용
+## Using Altibase Sharding 
 
 이 장에서는 Altibase Sharding 사용 방법을 자세히 설명한다. 앞에서 설명한 샤드 환경 설정과 Zookeeper 설정 이후의 사용 방법을 기술한다.
 
-### 샤딩 사용 기본 흐름
+### Sharding usage flow
 아래의 모든 작업은 sys 사용자로 작업하는것을 가정한다.
 
 1. 샤드 노드별로 아래 구문을 수행하여, 샤드 메타를 각각 생성한다.
@@ -810,53 +810,7 @@ $ALTIBASE_HOME/bin/altibase -v
    - DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(...), DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY(...) 등등
    - 위 구문들을 이용하여, 객체별 분산정의를 한후에, COMMIT 을 수행하면, 샤딩 클러스터에 참여된 모든 샤드노드들에 동시에 적용된다.
 
-### 샤드 키워드
-샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다.
-
-#### 구문
--   SHARD
-    - SELECT, INSERT, UPDATE, DELETE
--   NODE[META]
-    - SELECT, INSERT, UPDATE, DELETE
--   NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)]
-    - SELECT
-
-![](media/Sharding/79bcb8f6b5cb10cc7a7b816363aa709f.jpg)
-
-**shard_keyword_clause::=**
-
-![](media/Sharding/d15e35752ab4fd66496232e1d1e055a1.jpg)
-
-#### *SHARD* 샤드 키워드
-SHARD 샤드 키워드를 사용하면, 쿼리에 존재하는 샤드객체의 분산정의가 존재하는 모든 샤드 노드(들)에 쿼리를 전송하고 수행하여 취합한다. 분산 수행할 수 있는 샤딩객체가 전혀 없을 때는 에러가 발생한다.
-
-샤딩에서는 아래 두개의 쿼리가 동일한 결과를 얻어온다.
--   SELECT count(\*) FROM *s1;*
--   SELECT sum(cn) FROM SHARD ( SELECT count(\*) cn FROM s1);
-
-집계함수 중 몇가지(SUM,MIN,MAX,COUNT,AVG)에 대해서는 시스템 내부적으로 자동으로 최적화되어 수행하지만, 그외의 경우에는 최적화되어서 수행되지 않으므로, 성능이 느릴수 있다. 이러한 경우에, 사용자가 샤드 키워드를 이용하여, 수동으로 쿼리 튜닝하는 방법으로 사용할 수 있다.
--   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1 GROUP BY i1);
--   SELECT \* FROM SHARD (SELECT \* FROM s1 limit 10) limit 10;
-
-#### *NODE* 샤드 키워드
-NODE 키워드는 인자로 명시한 노드에 쿼리를 분석 및 변환없이 수행하고, 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다. 사용 가능한 NODE 유형은 다음과 같다.
--   NODE[META] : 사용자 세션이 접속한 샤드 노드에 대해 쿼리 분석 및 변환없이 수행
--   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이 수행
--   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리 분석 및 변환없이 수행
-
-노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다. 아래는 몇가지 사용예이다.
-```
-NODE[META] SELECT count(*) FROM t1;
-NODE[DATA] SELECT count(*) FROM s1;
-SELECT * FROM NODE[META](SELECT count(*) FROM s1);
-SELECT * FROM NODE[DATA('node1', 'node2')](SELECT count(*) FROM s1);
-SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
-```
-
-> ##### 주의 사항
-> NODE 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 그러므로, NODE 샤드 키워드는 DBA가 임시적으로 사용하는 목적으로만 사용해야 한다.
-
-### 샤드 함수
+### Shard Built-in Function
 Altibase Sharding은 사용자 편의를 위해 추가적인 샤드 함수를 제공한다.
 #### shard_node_name
 ##### 구문
@@ -883,8 +837,10 @@ shard_key(key_column, value)
 iSQL> SELECT count(*) FROM s1 WHERE shard_key(k1,1); 
 ```
 
-### 샤드 실행계획
-Altibase Sharding 사용자는 iSQL을 통해 쿼리가 수행되는 실행계획을 조회할 수 있다.
+### Sharding Tuning
+
+#### Sharding Explain Plan
+Altibase Sharding 사용자는 iSQL의 Explain Plan 기능을 통해 쿼리가 수행되는 실행계획을 조회할 수 있다.
 - alter session set TRCLOG_DETAIL_SHARD = 1;
   내부적으로 cache 된 plan을 사용하지 않고 새로이 plan을 생성하므로 사용상 주의가 필요하다.
 - alter session set TRCLOG_DETAIL_PREDICATE = 1;
@@ -896,7 +852,80 @@ Altibase Sharding 사용자는 iSQL을 통해 쿼리가 수행되는 실행계�
 - QUERY TRANSFORMABLE
   논샤드 쿼리에 대한 샤드 퀴리 변환 최적화 가능 여부(Yes/No)
 
-## Altibase Sharding 프로퍼티
+#### Shard Keyword
+샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다.
+
+##### 구문
+-   SHARD
+    - SELECT, INSERT, UPDATE, DELETE
+-   NODE[META]
+    - SELECT, INSERT, UPDATE, DELETE
+-   NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)]
+    - SELECT
+
+![](media/Sharding/79bcb8f6b5cb10cc7a7b816363aa709f.jpg)
+
+**shard_keyword_clause::=**
+
+![](media/Sharding/d15e35752ab4fd66496232e1d1e055a1.jpg)
+
+##### *SHARD* Shard Keyword
+SHARD 샤드 키워드를 사용하면, 쿼리에 존재하는 샤드객체의 분산정의가 존재하는 모든 샤드 노드(들)에 쿼리를 전송하고 수행하여 취합한다. 분산 수행할 수 있는 샤딩객체가 전혀 없을 때는 에러가 발생한다.
+
+샤딩에서는 아래 두개의 쿼리가 동일한 결과를 얻어온다.
+-   SELECT count(\*) FROM *s1;*
+-   SELECT sum(cn) FROM SHARD ( SELECT count(\*) cn FROM s1);
+
+집계함수 중 몇가지(SUM,MIN,MAX,COUNT,AVG)에 대해서는 시스템 내부적으로 자동으로 최적화되어 수행하지만, 그외의 경우에는 최적화되어서 수행되지 않으므로, 성능이 느릴수 있다. 이러한 경우에, 사용자가 샤드 키워드를 이용하여, 수동으로 쿼리 튜닝하는 방법으로 사용할 수 있다.
+-   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1 GROUP BY i1);
+-   SELECT \* FROM SHARD (SELECT \* FROM s1 limit 10) limit 10;
+
+##### *NODE* Shard Keyword
+NODE 키워드는 인자로 명시한 노드에 쿼리를 분석 및 변환없이 수행하고, 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다. 사용 가능한 NODE 유형은 다음과 같다.
+-   NODE[META] : 사용자 세션이 접속한 샤드 노드에 대해 쿼리 분석 및 변환없이 수행
+-   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이 수행
+-   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리 분석 및 변환없이 수행
+
+노드를 구성하고 샤드 객체 구성 전 후의 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다. 아래는 몇가지 사용예이다.
+```
+NODE[META] SELECT count(*) FROM t1;
+NODE[DATA] SELECT count(*) FROM s1;
+SELECT * FROM NODE[META](SELECT count(*) FROM s1);
+SELECT * FROM NODE[DATA('node1', 'node2')](SELECT count(*) FROM s1);
+SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
+```
+
+> ##### 주의 사항
+> NODE 샤드 키워드의 적용 결과는 단순히 해당 노드의 수행 결과를 얻어 취합하는 것이므로 결과의 정합성을 보장하지 않는다. 그러므로, NODE 샤드 키워드는 DBA가 임시적으로 사용하는 목적으로만 사용해야 한다.
+
+#### Sharding Query Tuning
+
+단일 테이블에 대하여, 클라이언트 사이드 쿼리로 수행되기 위한 조건
+- 솔로 테이블에 대한 모든 쿼리
+- 클론 테이블에 대한 모든 쿼리
+- 샤드키 테이블에 대한 쿼리에서 WHERE 조건절에 샤드키 컬럼에 대한 조건이 equal(=) 조건으로 명시되는 경우
+- 샤드키 테이블에 대한 쿼리에서 DISTINCT 절에 샤드키 컬럼이 명시되는 경우
+- 샤드키 테이블에 대한 aggregation 쿼리에서 GROUP BY 절에 샤드키 컬럼이 명시되는 경우
+- 샤드키 테이블에 대한 aggregation 쿼리에서 GROUP BY 절에 샤드키 컬럼이 명시되는 경우 
+- SELECT * FROM t1 과 같이 샤드키 테이블에 대하여 단순히 결과를 취합하는 경우
+- 샤드키 테이블에 대한 INSERT 쿼리에서 샤드키 컬럼에 해당하는 값이 직접적으로 사용되는 경우
+  - 샤드키 컬럼에 해당하는 값에 수식이 있거나, 시퀀스, 또는 서브 쿼리가 있을 수 있는 경우에는 서버 사이드로 수행한다.
+  - INSERT ~ SELECT ~ 쿼리는 서버 사이드로 수행된다.
+
+JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위한 조건
+- 솔로 테이블과 샤드키 테이블간의 JOIN 쿼리
+- 클론 테이블과 샤드키 테이블간의 JOIN 쿼리
+- 동일한 분산 정의를 갖는 샤드키 테이블간의 샤드키 컬럼을 사용하는 JOIN 쿼리
+
+기타 샤딩 최적화가 수행되는 조건
+- AGGREGATION 분산 최적화는 SHARD_AGGREGATION_TRANSFORM_ENABLE property 설명 부분을 참고한다.
+- Limit, Selection, Projection 최적화는 SHARD_TRANSFORM_MODE property 설명 부분을 참고한다.
+
+주의사항
+- 샤딩에서는 인덱스를 힌트를 통해서 결과 레코드들의 순서를 보장하는 기능은 제공되지 않는다.
+  - 단, 단일노드 쿼리인 경우에는 보장된다.(이 경우에도, 샤드 실행계획을 보고, 최종 실행노드에서 수행되는 쿼리의 힌트에 해당 내용이 들어 있는지 확인해야 한다.)
+
+## Altibase Sharding Property
 
 | **분류**                  | **프로퍼티**                                                 | **동적 변경 허용** | **변경 레벨**   |
 | ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
@@ -1105,6 +1134,8 @@ Altibase Sharding 환경에서 AGGREGATION 분산 수행을 최적화하기 위�
 - MAX
 - COUNT
 - AVG
+- STDDEV
+- VARIANCE
 
 예를 들어 다음 구문은 SHARD_AGGREGATION_TRANSFORM_ENABLE 값에 따라 아래와 같이 변환하여 수행한다.
 
@@ -1633,7 +1664,7 @@ Failover 발생시 레플리카 셋(ReplicaSet)의 변경 내역을 저장한 �
 - SECOND_REPL_TO_NODE_NAME (VARCHAR(40)): 두번째 Backup의 수신자 노드의 이름
 - SMN (BIGINT): 샤드 메타 번호
 
-### 성능 뷰
+### Performance View
 Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 프로세스에 대한 정보를 의미하며 현재 사용자 세션이 접속된 시스템에 대한 정보를 보여준다.
 
 Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다양한 실행 정보를 얻을수 있으며 자세한 내용은 *General Reference* 의 성능 뷰를 참고한다.
@@ -1769,7 +1800,7 @@ iSQL\> SELECT \* FROM S$TAB;
 - DEADLOCK_ELAPSED_TIME (BIGINT):
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
 
-## Altibase Sharding 패키지
+## Altibase Sharding Package
 ### DBMS_SHARD
 DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 DBMS_SHARD 패키지의 프로시저들을 수행할 수 있다.
