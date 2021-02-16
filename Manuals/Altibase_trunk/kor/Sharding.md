@@ -841,13 +841,13 @@ iSQL> SELECT count(*) FROM s1 WHERE shard_key(k1,1);
 #### Sharding Explain Plan
 Altibase Sharding 사용자는 iSQL의 Explain Plan 기능을 통해 쿼리가 수행되는 실행계획을 조회할 수 있다.
 - alter session set TRCLOG_DETAIL_SHARD = 1;
-  내부적으로 cache 된 plan을 사용하지 않고 새로이 plan을 생성하므로 사용상 주의가 필요하다.
+  내부적으로 cache 된 plan을 사용하지 않고 새로이 plan을 생성한다.
 - alter session set TRCLOG_DETAIL_PREDICATE = 1;
   SHARD-COORDINATOR가 특정 샤드 노드로 쿼리를 보내어 수행한 이력 및 플랜을 조회할 수 있다. 
 - SHARD-COORDINATOR 실행노드
   사용자가 입력한 쿼리 중 샤드 노드에서 수행할 쿼리를 수행하고, 그 결과를 통합하여 상위 실행노드로 전달한다.
 - NON-SHARD QUERY REASON
-  사용자 쿼리를 논샤드 쿼리로 분석한 이유이다.
+  사용자 쿼리를 논샤드 쿼리로 판단한 이유이다.
 - QUERY TRANSFORMABLE
   논샤드 쿼리에 대한 샤드 퀴리 변환 최적화 가능 여부(Yes/No)
 
@@ -912,13 +912,17 @@ SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
   - INSERT ~ SELECT ~ 쿼리는 서버 사이드로 수행된다.
 
 JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위한 조건
-- 솔로 테이블과 샤드키 테이블간의 JOIN 쿼리
 - 클론 테이블과 샤드키 테이블간의 JOIN 쿼리
 - 동일한 분산 정의를 갖는 샤드키 테이블간의 샤드키 컬럼을 사용하는 JOIN 쿼리
 
 기타 샤딩 최적화가 수행되는 조건
 - AGGREGATION 분산 최적화는 SHARD_AGGREGATION_TRANSFORM_ENABLE property 설명 부분을 참고한다.
 - Limit, Selection, Projection 최적화는 SHARD_TRANSFORM_MODE property 설명 부분을 참고한다.
+
+항상 서버 사이드 쿼리로 수행되는 경우
+- 샤드키 테이블 간의 subquery JOIN 쿼리
+- 샤드키 테이블과 솔로 테이블 간의 subquery JOIN 쿼리
+- 샤드키 테이블과 로컬 테이블 간의 subquery JOIN 쿼리
 
 주의사항
 - 샤딩에서는 인덱스를 힌트를 통해서 결과 레코드들의 순서를 보장하는 기능은 제공되지 않는다.
