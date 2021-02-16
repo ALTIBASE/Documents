@@ -1526,11 +1526,11 @@ ALTER DATABASE SHARD MOVE { TABLE ["user_name" . ] "table_name" [ PARTITION {"(p
 ALTER DATABASE SHARD MOVE TABLE user1.table1 PARTITION (p1), TABLE user2.soloTable1, TABLE user1.table2 PARTITION (p2), PROCEDURE user1.shardproc1 key ( 123 )  TO NODE4; ;
 ```
 
-## Altibase Sharding 딕셔너리
+## Altibase Sharding Dictionary
 Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타 테이블들과 단일 샤드 노드의 샤딩 관련 시스템 프로세스 정보를 보여주는 성능 뷰(Performance View)들,
 그리고 전체 샤딩 시스템의 실시간 정보를 보여주는 샤드 성능 뷰(Shard Performance View)들로 나뉘어진다.
 
-### 샤드 메타 테이블
+### Shard Meta Table
 분산 데이터베이스에 생성된 분산 객체에 대한 정보를 저장하고 있으며, SYS_SHARD 사용자의 테이블이다.
 - 분산 데이터베이스 질의 및 분산 노드 관리시에 샤드 메타 테이블을 사용한다.
 - 샤드 메타 테이블의 소유자는 일반 메타 테이블과는 달리 SYS_SHARD 사용자이며, 샤드 메타 테이블에 대한 변경은 DBMS_SHARD 패키지를 이용해야 한다.
@@ -1669,7 +1669,7 @@ Altibase Sharding에서 성능 뷰는 단일 샤드 노드에서 실행중인 �
 
 Altibase에서 제공하는 성능 뷰를 통해서 단일 샤드 노드의 다양한 실행 정보를 얻을수 있으며 자세한 내용은 *General Reference* 의 성능 뷰를 참고한다.
 
-### 샤드 성능 뷰
+### Shard Performance View
 Altibase Sharding에서 제공하는 샤딩 전용의 성능 뷰로 전체 샤딩 시스템과 관련한 내부 정보(예. 샤드 세션 정보)를 사용자가 모니터링 할 수 있다.
 
 샤드 성능 뷰의 전체 목록은 iSQL에서 다음과 같이 조회할 수 있다.
