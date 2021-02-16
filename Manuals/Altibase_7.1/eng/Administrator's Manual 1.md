@@ -423,16 +423,6 @@ Altibase provides log-based database replication to realize both high availabili
 
 Altibase also provides a load-balancing feature. In the replicated Altibase database environment, user transactions can be divided into two or more groups. Each group of transactions is executed on a corresponding server, and changes on one server are reflected on the other servers automatically. In this way, data consistency between the servers is ensured.
 
-#### Altibase Sharding
-
-Altibase introduces sharding technology  to Altibase, which improves storage capacity and throughput timely, enability distributed processing of large databases. 
-
-Altibase Sharding can use both client-side and server-side sharding. In particular, client-side sharding can be applied by replacing only shard-specific libraries without modifying existing applications or SQL.
-
-In addition, Altibase supports server-side sharding, allowing users to choose client-side sharding to improve application performance, or server-side sharding for compatibility.
-
-Please refer to the "*Altibase Sharding Guide*" for more detailed information.
-
 #### Client-Server Protocol
 
 When running Altibase in a client-server architecture, a user can select and use a client-server protocol suitable for the configuration of the application system. The communication protocols that Altibase supports are TCP/IP, IPC, IPCDA and Unix domain socket.
