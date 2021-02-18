@@ -2150,10 +2150,6 @@ CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 
 - array binding 및 array fetch 는 지원하지 않는다.
 
 
-#### 사용자 커넥션(User Connection)
-사용자 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
-자세한 내용은 *Administrator manual*의 서버/클라이언트 통신 장을 참고한다.
-
 #### Fail-Over
 사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
 - 사용자 커넥션에 대한 Fail-Over는 Replication환경에서 Altibase Fail-Over의 사용법과 동일하며, Replication환경에서 Altibase Fail-Over의 사용법은 *Altibase Replication Manual*을 참고한다.
