@@ -2147,7 +2147,7 @@ CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 
 #### ShardCLI 제약사항
 - 다중-쓰레드(multi-thread) 클라이언트 프로그램에서 데이터베이스 커넥션 공유를 지원하지 않는다.
 - AUTOCOMMIT OFF 로 접속하여야 한다. AUTOCOMMIT ON 으로는 접속이 되지 않는다.
-- array binding 은 지원하지 않는다.
+- array binding 및 array fetch 는 지원하지 않는다.
 
 
 #### 사용자 커넥션(User Connection)
