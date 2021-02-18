@@ -2234,7 +2234,7 @@ ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음
 |                | SQLSetStmtAttr      | X        |
 | 메타 정보 처리 | SQLColumns          | O        |
 |                | SQLForeignKeys      | O        |
-|                | SQLGetDescField     | O        |
+|                | SQLGetDescField     | X        |
 |                | SQLGetDescRec       | X        |
 |                | SQLGetDiagField     | O        |
 |                | SQLGetDiagRec       | O        |
