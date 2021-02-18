@@ -1919,7 +1919,6 @@ DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(
 - method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
   - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
   - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-  - R: (remain) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이터는 이후에는 SQL에서 없는 데이터로 취급된다. 
 - replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
 ##### 설명
@@ -1956,7 +1955,6 @@ DBMS_SHARD.SET_SHARD_TABLE_SOLO(
 - method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
   - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
   - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-  - R: (remain) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터가 존재해도 삭제하지 않고 그대로 둔다. 그렇지만, 분산정의에 맞지 않는 데이터는 이후에는 SQL에서 없는 데이터로 취급된다. 
 - replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
 
 ##### 설명
