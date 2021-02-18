@@ -2140,6 +2140,8 @@ ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수
 #### ShardCLI 라이브러리
 CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 라이브러리로 바꾸어야 한다.
 - ShardCLI 라이브러리는 libshardcli.a와 libshardcli_sl.so 두 개의 파일을 지원한다.
+  - CLI 에서 libodbccli.a 을 이용하여 build 하고 있던것을 ShardCLI에서는 libshardcli.a 로 교체하여 build 하여야 한다.
+  - CLI 에서 공유라이브러리 방식인 libodbccli_sl.so 를 이용하여 build 하고 있던것은 ShardCLI에서는 libshardcli_sl.so 로 교체하여 build 하여야 한다.
 
 #### ShardCLI 제약사항
 - 다중-쓰레드(multi-thread) 클라이언트 프로그램에서 데이터베이스 커넥션 공유를 지원하지 않는다.
