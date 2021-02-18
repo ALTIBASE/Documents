@@ -2146,6 +2146,8 @@ CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 
 
 #### ShardCLI 제약사항
 - 다중-쓰레드(multi-thread) 클라이언트 프로그램에서 데이터베이스 커넥션 공유를 지원하지 않는다.
+- AUTOCOMMIT OFF 로 접속하여야 한다. AUTOCOMMIT ON 으로는 접속이 되지 않는다.
+
 
 #### 사용자 커넥션(User Connection)
 사용자 커넥션 스트링의 CONN_TYPE 속성에 해당하며 Altibase 에서 제공하는 통신방법과 동일하다.
@@ -2257,6 +2259,49 @@ ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음
 
 
 ## ShardJDBC (*under construction*)
+
+#### 제약사항
+일반 Altibase jdbc 드라이버는 지원하는데 sharding jdbc 드라이버에서 지원하지 않는 기능은 다음과 같다.
+
+##### 접속
+- AUTOCOMMIT OFF 로 접속하여야 한다. AUTOCOMMIT ON 으로는 접속이 되지 않는다.
+
+##### Savepoint 
+* Savepoint 관련 기능은 지원하지 않는다.
+  * java.sql.Connection
+    * rollback(Savepoint aSavepoint)
+    * setSavepoint()
+    * setSavepoint(String aName)
+    * releaseSavepoint(Savepoint aSavepoint)
+##### Scrollable Statement
+* Sharding의 특성상 ResultSetType은 FORWARD_ONLY만 지원한다.
+  * java.sql.Connection  
+    * createStatement(int aResultSetType, int aResultSetConcurrency, int aResultSetHoldability)
+    * prepareStatement(String aSql, int aResultSetType, int aResultSetConcurrency)
+##### Lob  
+* Multiple node lob 데이터 처리
+  * java.sql.PreparedStatement
+      * 다수의 노드에 대해 lob데이터를 insert 또는 update 하는 기능
+        * setXXX 호출 후 execute할때 NOT SUPPORTED 에러가 발생한다.
+          * setCharacterStream(int aParameterIndex, Reader aReader, int aLength)
+          * setBinaryStream(int aParameterIndex, InputStream aValue, int aLength)
+          * setAsciiStream(int aParameterIndex, InputStream aValue, int aLength)
+          * setBlob(int aIndex, Blob aValue)
+          * setClob(int aIndex, Clob aValue)
+* 서버사이드 lob 데이터 처리
+  * 서버에서 lob을 지원하지 않는다.      
+##### Statement Batch
+* Statement가 실행될때마다 노드를 결정해야 하기때문에 batch기능은 PreparedStatement 에서만 지원
+  * java.sql.Statement
+    * addBatch(String aSql)
+    * clearBatch()
+    * executeBatch()
+##### XADataSource
+* XA관련 인터페이스는 지원하지 않는다.
+  * javax.sql.XADataSource
+      * getXAConnection()
+      * getXAConnection(String user, String password)
+
 
 #### Properties
 jdbc sharding 기능을 위해 다음 속성들이 추가되었다.
@@ -2406,18 +2451,12 @@ Altibase Sharding 환경에서는 여러 샤드 노드에서 수행중인 트랜
 NON-AUTOCOMMIT을 사용하여 다음의 가이드에 따라 작성되어야 Fail-Over가 정상적으로
 처리될 수 있다.
 
-다만, 응용 프로그램이 다수의 샤드 노드를 접근하지 않도록 설계된 경우에는
-AUTOCOMMIT 모드를 사용할 수 있으나 이 경우에도 AUTOCOMMIT에 대한 가이드에 따라
-처리되어야 Fail-Over 이후에 서비스가 정상적으로 처리될 수 있다.
-
 ##### CTF(Connection Time Failover)
 
 CTF의 경우에는 데이터 베이스 연결이 되는지에 따라 성공 여부를 바로 알 수 있다.
 
 단, ShardJDBC같은 경우 lazy 방식이 기본이기 때문에 트랜잭션이 이미 시작된 경우 execute 시점에 
 노드의 에러로 장애가 발생하더라도 CTF가 발생하지 않고 STF가 올라오게 된다. 
-AUTOCOMMIT 상황이라면 이런 경우 CTF가 발생하게 되며, shard_lazy_connect 속성이 false일 때는
-ShardCLI와 동일하게 동작하게 된다.
 
 따라서 최초 사용자 커넥션 생성이 실패했을 때 전체 연결을 끊을 필요는 없으며 사용자 커넥션 접속만 
 재시도하면 된다. 
@@ -2444,21 +2483,6 @@ ShardJDBC에서 예외가 발생하였을 때 다음의 순서로 에러로직�
    1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로
       Connection.close()를 호출해야 모든 노드에 연결이 끊긴다
 3. 그 외의 에러에 대해서는 응용 프로그램 에러 처리 로직을 수행한다.
-
-- AUTOCOMMIT 트랜잭션
-
-  ShardJDBC에서 예외가 발생하였을 때 다음의 순서로 에러 로직을 처리한다.
-
-1. STF가 성공한 경우(ShardFailOverSuccessException) 트랜잭션 재시작 위치로 되돌아
-   가서 응용 프로그램 로직을 수행한다.
-   1. 트랜잭션 재시작 위치는 prepare를 사용하는 경우 최초 prepare 이전, execute시는
-      execute 이전으로 하면 된다. 또한 이때 Bind는 다시 하지 않아도 된다.
-   2. direct execute를 사용하는 경우에는 direct execute 이전으로 돌아가면 된다.
-2. STF가 실패하고 더 이상 서비스 가능한 가용 노드가 없는 경우
-   (ShardFailoverIsNotAvailableException) 전체 노드에 대한 연결을 명시적으로 끊고 
-   최초 연결부터 재시도 한다.
-   1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로
-      Connection.close()를 호출해야 모든 노드에 연결이 끊긴다.
 
 ##### ShardJDBC Failover Sample Code
 
@@ -2488,42 +2512,4 @@ FailoverSample.java의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER)
 
 자세한 코드 내용은 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/FailoverSample.java를
 참고한다.
-
-#### 제약사항
-일반 Altibase jdbc 드라이버는 지원하는데 sharding jdbc 드라이버에서 지원하지 않는 기능은 다음과 같다.
-##### Savepoint 
-* Savepoint 관련 기능은 지원하지 않는다.
-  * java.sql.Connection
-    * rollback(Savepoint aSavepoint)
-    * setSavepoint()
-    * setSavepoint(String aName)
-    * releaseSavepoint(Savepoint aSavepoint)
-##### Scrollable Statement
-* Sharding의 특성상 ResultSetType은 FORWARD_ONLY만 지원한다.
-  * java.sql.Connection  
-    * createStatement(int aResultSetType, int aResultSetConcurrency, int aResultSetHoldability)
-    * prepareStatement(String aSql, int aResultSetType, int aResultSetConcurrency)
-##### Lob  
-* Multiple node lob 데이터 처리
-  * java.sql.PreparedStatement
-      * 다수의 노드에 대해 lob데이터를 insert 또는 update 하는 기능
-        * setXXX 호출 후 execute할때 NOT SUPPORTED 에러가 발생한다.
-          * setCharacterStream(int aParameterIndex, Reader aReader, int aLength)
-          * setBinaryStream(int aParameterIndex, InputStream aValue, int aLength)
-          * setAsciiStream(int aParameterIndex, InputStream aValue, int aLength)
-          * setBlob(int aIndex, Blob aValue)
-          * setClob(int aIndex, Clob aValue)
-* 서버사이드 lob 데이터 처리
-  * 서버에서 lob을 지원하지 않는다.      
-##### Statement Batch
-* Statement가 실행될때마다 노드를 결정해야 하기때문에 batch기능은 PreparedStatement 에서만 지원
-  * java.sql.Statement
-    * addBatch(String aSql)
-    * clearBatch()
-    * executeBatch()
-##### XADataSource
-* XA관련 인터페이스는 지원하지 않는다.
-  * javax.sql.XADataSource
-      * getXAConnection()
-      * getXAConnection(String user, String password)
 
