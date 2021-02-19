@@ -13,6 +13,7 @@
     - [Altibase Administration](#altibase-administration)
     - [Zookeeper Administration](#zookeeper-administration)
     - [Sharding Backup and Recovery](#sharding-backup-and-recovery)
+    - [Altibase Sharding Sizing](#altibase-sharding-sizing)
     - [Altibase Sharding Restriction](#altibase-sharding-restriction)
   - [Using Altibase Sharding](#using-altibase-sharding)
     - [Sharding Usage Flow](#sharding-usage-flow)
@@ -714,6 +715,30 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
     - 해당 노드의 데이터는 불완전복구본, 오프라인 백업본 혹은 논리적 백업본을 이용하여, 최대한의 데이터를 확보한다.
     - 최대한 확보한 데이터는, 샤딩클러스터에 논리적 복구를 이용하여 데이터를 다시 적재하여 사용할 수 있다. 
 
+### Altibase Sharding Sizing
+
+#### stand-alone 사이즈 대비, 단일 샤드노드의 sizing
+- CPU size per node
+  - (CPU size for stand-alone) * ((k-safety + 1) / (number of nodes))
+- disk size per node
+  - (disk size for stand-alone) * ((k-safety + 1) / (number of nodes))
+- memory size per node
+  - ((memory size for stand-alone) * ((k-safety + 1) / (number of nodes))) + ((number of sessions per node) * (memory size per session))
+  - statements를 위한 메모리는 개별 statement가 끝나면 메모리에서 해제되므로, 위 메모리 산정공식에는 별도로 기재되지 않았음.
+- network size per node
+  - (network size for stand-alone) * ((k-safety + 1) / (number of nodes)) * 2
+  - select시 노드간 데이타 전송량 고려하였습니다.
+
+#### Number of sessions per node
+- total = user sessions + library sessions + coordinator sessions + partial coordinator sessions
+- user sessions = (number of clients) / (number of nodes)
+- library sessions = (number of clients)
+- coordinator sessions = (number of clients)
+- partial coordinator sessions = (number of clients) * (number of nodes)
+
+#### Number of statements per node
+- Number of sessions per node 와 동일함.
+- 단, Number of sessions per node는 한번 session을 맺으면, 계속 지속하는 형태이고,  Number of statements per node는 개별 statement가 끝나면 메모리에서 해제됨. 
 
 ### Altibase Sharding Restriction
 
