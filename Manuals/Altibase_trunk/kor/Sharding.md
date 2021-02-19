@@ -1990,6 +1990,7 @@ DBMS_SHARD.SET_SHARD_TABLE_CLONE(
 - reference_node_name이 설정 된 경우 전 노드의 해당 클론 테이블은 참조 노드의 테이블 데이터를 기준으로 동기화 된다.
 - reference_node_name이 NULL인 경우는 전 노드의 해당 클론 테이블에 데이터가 존재하면 에러가 발생 한다.
 - reference_node 이외의 노드의 데이터는 삭제 되고 에러가 발생해도 데이터가 원복되지는 않는다.
+- 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
 
 ##### 예제
 ```
