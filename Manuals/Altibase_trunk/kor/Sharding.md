@@ -1828,8 +1828,6 @@ iSQL\> SELECT \* FROM S$TAB;
 ## Altibase Sharding Package
 ### DBMS_SHARD
 DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 DBMS_SHARD 패키지의 프로시저들을 수행할 수 있다.
-- DBMS_SHARD 패키지의 프로시저들은 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 - DBMS_SHARD 패키지의 프로시저들은 global transaction level 2 이상에서만 수행할 수 있다.
 - node name은 모두 대문자로 처리된다.
 
@@ -1857,8 +1855,8 @@ DBMS_SHARD.CREATE_META()
 
 ##### 설명
 현재 접속 노드에서 샤드 메타 테이블을 생성한다.
-
-create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과 인덱스, 시퀀스가 생성된다.
+- create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과 인덱스, 시퀀스가 생성된다.
+- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
 
 ##### 예제
 ```
@@ -1897,6 +1895,7 @@ DBMS_SHARD.SET_LOCAL_NODE(
 - 한번 샤딩 클러스터에 참여한 후에는, 지역 정보의 재 설정은 불가하며, 재설정을 위해서는 노드 제거 및 추가를 해야한다. 
 - 한번도 샤딩 클러스터에 참여하지 않은 경우에만 변경가능하며, 변경은 최초 설정과 동일한 인터페이스를 통해 진행한다.
 - 현재 ip address는 ip v4형식만 지원한다.
+- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
 
 #### 예제
 shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
@@ -1920,6 +1919,7 @@ DBMS_SHARD.SET_REPLICATION(
 
 ##### 설명
 샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.
+- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
 
 ##### 예제
 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
@@ -1956,6 +1956,8 @@ DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(
   - list 파티션은 list 분산으로 등록된다.
   - list 파티션 정의시 개별 파티션별로 list value는 하나씩만 가져야 한다.
 - 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 파티션별로 데이터가 백업 테이블의 파티션에 동기화 된다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
@@ -1986,6 +1988,8 @@ DBMS_SHARD.SET_SHARD_TABLE_SOLO(
 솔로 테이블 샤드객체로 등록한다.
 - 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
 - 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 데이터가 백업 테이블에 동기화 된다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
@@ -2016,6 +2020,8 @@ DBMS_SHARD.SET_SHARD_TABLE_CLONE(
 - reference_node_name이 NULL인 경우는 전 노드의 해당 클론 테이블에 데이터가 존재하면 에러가 발생 한다.
 - reference_node 이외의 노드의 데이터는 삭제 되고 에러가 발생해도 데이터가 원복되지는 않는다.
 - 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
@@ -2051,6 +2057,8 @@ SET_SHARD_PROCEDURE_SHARDKEY(
 ##### 설명
 샤드키 프로시저 샤드객체로 등록한다.
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
@@ -2080,6 +2088,8 @@ SET_SHARD_PROCEDURE_SOLO(
 ##### 설명
 솔로 프로시저 샤드객체로 등록한다.
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
@@ -2107,6 +2117,8 @@ SET_SHARD_PROCEDURE_CLONE(
 ##### 설명
 클론 프로시저 샤드객체로 등록한다.
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
@@ -2131,6 +2143,8 @@ DBMS_SHARD.UNSET_SHARD_TABLE(
 ##### 설명
 샤드 테이블을 해제한다.
 - 샤드 테이블에 대한 분산정의만 해제되는 것이고, 테이블 자체가 삭제되는것은 아니다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
@@ -2153,13 +2167,15 @@ DBMS_SHARD.UNSET_SHARD_PROCEDURE(
 ##### 설명
 샤드 프로시저를 해제한다.
 - 샤드 프로시저에 대한 분산정의만 해제되는 것이고, 프로시저 자체가 삭제되는것은 아니다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
 
 ##### 예제
 ```
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
 ```
 
-## ShardCLI (*under construction*)
+## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
 
 #### ShardCLI 라이브러리
@@ -2174,19 +2190,19 @@ CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 
 - array binding 및 array fetch 는 지원하지 않는다.
 
 
-#### Fail-Over
+#### Fail-Over  (*under construction*)
 사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
 - 사용자 커넥션에 대한 Fail-Over는 Replication환경에서 Altibase Fail-Over의 사용법과 동일하며, Replication환경에서 Altibase Fail-Over의 사용법은 *Altibase Replication Manual*을 참고한다.
 
 Fail-Over 콜백 함수는 사용자 커넥션에 대해서만 동작하며 샤드 라이브러리 커넥션에 대한 Fail-Over 콜백 함수는 지원하지 않는다.
 
-##### CTF(Connection Time Failover)
+##### CTF(Connection Time Failover)  (*under construction*)
 
 CTF의 경우에는 데이터 베이스 연결이 되는지에 따라 성공 여부를 바로 알 수 있다.
 
 다만, 분산 환경에서는 일부 노드의 에러로 인해 실패했을 때, 일부 노드에 접속 되어있을 수 있으므로 명시적으로 SQLDisconnect를 호출하여 전체 연결을 끊어 주어야 한다.
 
-##### STF(Service Time Failover)
+##### STF(Service Time Failover)  (*under construction*)
 ShardCLI 경우는 SQLPrepare, SQLExecute, SQLFetch등에서 SQL_SUCCESS가 아닌 에러가 발생하면, SQLGetDiagRec에 statement 핸들을 넘기고, 이 함수의 5번째 인자에 반환되는 native 에러 코드 값이 ALTIBASE_FAILOVER_SUCCESS인 진단 레코드(diagnostic record)가 있으면 STF가 성공한 것으로 판단할 수 있다.
 
 ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음의 순서로 에러 로직을 처리한다.
@@ -2199,7 +2215,7 @@ ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음
    1. 샤딩 환경에서는 다수의 노드에 접속이 이뤄져 있으므로 명시적으로 SQLDisconnect를 호출해야 모든 노드에 연결이 끊긴다
 3. 그 외의 에러에 대해서는 응용 프로그램 에러 처리 로직을 수행한다.
 
-##### ShardCLI Failover Sample Code
+##### ShardCLI Failover Sample Code  (*under construction*)
 - Altibase Sharding의 failover를 포함하는 ShardCLI sample 코드는 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/failoversample.cpp에 있다.
 - failoversample.cpp의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER);”의 구문으로 T1 테이블을 생성한 후 T1 테이블을 샤드 테이블로 등록하였다고 가정한다.
 - 해당 프로그램은 최초 접속할 샤드 노드의 port와 alternate port를 순차적으로 입력받아 연결하고 응용 프로그램 로직을 수행하여 Direct-Execute 방식으로 데이터를 한 건 입력하고 Prepare-Execute 방식으로 질의를 수행한 후 검색된 데이터를 출력하는 프로그램이다.
@@ -2207,7 +2223,7 @@ ShardCLI 함수에서 SQL_SUCCESS가 아닌 에러가 발생하였을 때 다음
 - 주의할 점은, 접속을 재시도 하기 위해서는 남아 있을 수 있는 커넥션을 종료하기 위해서 SQLDisconnect를 명시적으로 호출해 주어야 하며, 에러가 발생했을 때에는 다수의 노드에서 발생했을 수 있는 에러를 확인하기 위해서 SQLDiagRec을 통해 모든 노드의 에러를 점검해야 한다.
 - 에러 점검을 통해서 Service Time Fail-over가 되면 연결이 종료되지 않은 샤드 노드에 남아 있는 트랜잭션을 정리하기 위해서 SQLEndTran(ROLLBACK)을 호출해 준 후 다시 Prepare 혹은 DirecExecute 로직으로 돌아가서 수행 한다.
 
-#### CLI 대비 ShardCLI API 지원 범위
+#### CLI 대비 ShardCLI API 지원 범위  (*completed*)
 | Attribute      | SQLCLI              | ShardCLI |
 | -------------- | ------------------- | -------- |
 | 연결 관리      | SQLAllocConnect     | O        |
