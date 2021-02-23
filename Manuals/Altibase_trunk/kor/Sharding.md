@@ -19,7 +19,6 @@
     - [Sharding Usage Flow](#sharding-usage-flow)
     - [Shard Built-in Function](#shard-built-in-function)
     - [Sharding Tuning](#sharding-tuning)
-  - [Altibase Sharding Property](#altibase-sharding-property)
   - [SHARD DDL](#shard-ddl)
     - [ADD](#add)
     - [DROP](#drop)
@@ -27,12 +26,13 @@
     - [FAILOVER](#failover)
     - [FAILBACK](#failback)
     - [MOVE](#move)
+  - [Altibase Sharding Package](#altibase-sharding-package)
+    - [DBMS_SHARD](#dbms_shard)
+  - [Altibase Sharding Property](#altibase-sharding-property)
   - [Altibase Sharding Dictionary](#altibase-sharding-dictionary)
     - [Shard Meta Table](#shard-meta-table)
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
-  - [Altibase Sharding Package](#altibase-sharding-package)
-    - [DBMS_SHARD](#dbms_shard)
   - [ShardCLI (*under construction*)](#shardcli-under-construction)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
 
@@ -950,6 +950,477 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 - 샤딩에서는 인덱스를 힌트를 통해서 결과 레코드들의 순서를 보장하는 기능은 제공되지 않는다.
   - 단, 단일노드 쿼리인 경우에는 보장된다.(이 경우에도, 샤드 실행계획을 보고, 최종 실행노드에서 수행되는 쿼리의 힌트에 해당 내용이 들어 있는지 확인해야 한다.)
 
+## SHARD DDL
+- Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
+- SYS 사용자이어야 한다.
+- GLOBAL_TRANSACTION_LEVEL 설정 값이 2 또는 3 이어야 한다.
+- SHARD_ENABLE 설정 값이 1 이어야 한다.
+- SHARD 메타정보가 구성되어 있어야 한다.
+- Zookeeper가 구성되어 있어야 한다.
+- 다른 세션에서 이미 SHARD DDL을 수행중이면, 해당 SHARD DDL의 수행이 완료될때까지는 대기된다. 
+
+### ADD
+
+#### 구문
+ALTER DATABASE SHARD ADD ;
+
+#### 설명
+본 구문을 수행하는 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
+
+노드가 샤딩 클러스터에 추가되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
+
+샤딩 클러스터에 속한 모든 노드들이 정상적인 상황에서만 수행이 가능한 명령이다. 
+- shutdown 된 노드가 있다면, 먼저 join을 수행하여야 한다.
+- failover 된 노드가 있다면, 먼저 failback이 수행되어야 한다.
+- drop 명령어에 의해서 샤딩 클러스터에서 제외된 노드는, 더이상 샤딩 클러스터에 속한 노드가 아니므로 상관없다. 
+
+샤드 노드를 추가하기 전에, 각종 데이터베이스 객체들을 미리 생성하는 것이 편리하다.
+- 기존에 이미 데이터베이스 객체들이 모두 생성된 샤드 노드가 있다면, 해당 노드에서 aexport 유틸리티를 이용하여, 객체 생성구문을 얻을 수 있다.
+- 로컬 테이블들은 이미 추가된 다른 샤드노드들과 객체 생성 정보가 틀려도 된다.
+- 샤드 객체들은 이미 추가된 다른 샤드노드들과 객체 생성 정보가 동일 하여야 한다.
+- 샤드 테이블들은 모두 비어 있어야 한다.
+
+샤드 노드를 추가하는 순간 아래와 같은 작업이 내부적으로 수행된다.
+- Zookeeper 에 접속되고, Zookeeper 메타에 추가되는 샤드 노드에 대한 정보가 설정된다.
+- 클론 테이블은 이미 추가된 다른 샤드 노드에서 복제하여 동일하게 데이터가 설정된다.
+- 샤드 메타정보도 이미 추가된 다른 샤드 노드에서 복제하여 동일하게 데이터가 설정된다.
+
+### DROP
+
+#### 구문
+ALTER DATABASE SHARD DROP ;
+
+#### 설명
+본 구문을 수행하는 노드를 샤딩 클러스터에 제거 하기 위한 구문이다.
+- 샤딩 클러스터에 속한 모든 노드들이 정상적인 상황에서만 수행이 가능한 명령이다. 
+- 본 구문의 수행 노드는 샤딩 클러스터에 추가되어 정상적으로 운영중인 상태이어야 한다. 
+- 노드가 샤딩 클러스터에 제거되면, 자동으로 SHARD_ADMIN_MODE가 1 으로 변경되고, 일반 사용자는 해당 노드에 접속할 수 없게 된다.
+- 클론 테이블을 제외하고, 해당 샤드 노드에 속한 샤드 테이블의 데이터 영역이 있다면, 샤드 노드 삭제를 할 수 없다. 
+  리샤딩을 이용하여, 해당 데이터 영역을 다른 샤드 노드로 이동 먼저 시킨 후에, 샤드 노드 삭제를 할 수 있다. 
+
+### JOIN
+
+#### 구문
+ALTER DATABASE SHARD JOIN ;
+
+#### 설명
+본 구문을 수행하는 노드를 샤딩 클러스터에 다시 참여 시키기 위한 구문이다.
+
+본 구문의 수행 노드는 샤딩 클러스터에 추가된 후에, shutdown 명령으로 샤딩 클러스터에서 이탈된 상태이어야 한다. 
+
+노드가 샤딩 클러스터에 다시 참여되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
+
+### FAILOVER
+
+#### 구문
+ALTER DATABASE SHARD FAILOVER "target_node_name" ;
+
+#### 설명
+특정 노드에 장애가 발생하였을 때, 다른 노드에서 장애가 발생한 노드의 데이터 영역을 서비스 할 수 있도록 하는 작업이다.
+
+기본적으로는 Zookeeper에 의해 장애노드가 감지되면 자동으로 수행된다. 또한, 사용자가 수동으로 실행 할 수도 있다.
+
+설정된 K-Safety 값에 따라 최대 2차 장애까지는 데이터의 손실없는 failover를 제공할 수 있다.
+
+정상적인 상태의 노드들 중에 노드 이름으로 오름차순으로 정렬 했을때, 장애가 발생한 target node 의 이름과 비교해서 바로 다음 순서에 있는 노드를 next alive node 라고 한다. 이름 순으로 가장 마지막에 있던 노드의 next alive node는 이름 순으로 가장 처음에 위치하는 노드가 된다. 즉, 이름 순서는 환(ring)의 형태로 검색하도록 되어 있다.
+
+failover가 완료되면, next alive node가 장애가 발생한 target node에서 서비스하던 데이터를 서비스 하게 된다.
+
+자동으로 failover가 될때이든, 사용자가 수동으로 failover 명령어를 수행할 때이든, 장애가 발생한 target node 는 kill 된다.
+
+사용자가 수동으로 failover 명령어를 수행할 때는, 수행 노드와 target node가 동일 노드일때는 명령수행이 실패한다. 또한, 수행노드는 정상적으로 운영중이 상태이어야 한다. 그리고, 이미 failover 된 노드를 다시 failover 시킬 수는 없다.
+
+자동으로 failover가 수행되는 경우에, next alive node가 failover 명령어의 수행노드가 된다. 또한, 여러 노드에 장애가 발생할 경우 시스템 내부적으로, 장애가 발생한 노드들의 이름들로 list가 구성되고, 장애를 감지한 수행노드를 기준으로 정렬된 역순으로 failover 를 수행하게 된다.
+
+예를들어, N1~6 노드가 존재하는데, N1 노드와 N3 노드가 장애노드가 되었을 때, N4가 감지하였을 경우 N3 노드 먼저 그리고, N1 노드 순서로 failover되고, N2 노드가 감지할 경우 N1 노드 먼저 그리고, N3 노드의 순서로 failover 된다.
+
+failover된 노드는, 사용자의 failback 명령에 의해서만 다시 샤딩 클러스터에 참여할 수 있다.
+
+### FAILBACK
+
+#### 구문
+ALTER DATABASE SHARD FAILBACK ;
+
+#### 설명
+본 구문을 수행하는 노드를 샤딩 클러스터에 다시 failback 시키기 위한 구문이다.
+
+본 구문의 수행 노드는 아래 노드들이 대상이 된다.
+- 장애가 발생하여 자동으로 failover 된 노드
+- 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드
+- 사용자에 의한 shutdown 명령어에 의하지 않고, 비정상적 상태가 되었으나, failover는 되지 않은 노드
+- 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
+
+### MOVE
+
+#### 구문
+```
+ALTER DATABASE SHARD MOVE { TABLE ["user_name" . ] "table_name" [ PARTITION {"(partition_name)"} ] | PROCEDURE ["user_name" . ] "procedure_name" KEY ( "value" ) }+  TO "node_name" ;
+```
+
+#### 설명
+시스템 운영중에 본 구문을 수행하여, 샤드 테이블 및 샤드 프로시져의 분산정의를 변경하기 위한 구문이다.
+- 샤드 객체의 분산 영역에 대한 정의를 사용자가 지정한 노드로 이동시킨다.
+- 샤드키 테이블에 대하여는 개별 파티션별로 지정한 노드로 이동이 가능하다.
+- 솔로 테이블에 대하여는 해당 테이블 전체에 대하여 지정한 노드로 이동이 가능하다.
+- 샤드 프로시져에 대하여는 샤드키의 value 하나에 대하여 지정한 노드로 이동이 가능하다.
+- 두 노드간의 이동이 가능하다. 원천 노드가 두개 이상인 경우는 수행할 수 없다. 
+- 한번에 다수의 샤드 객체에 대한 변경이 가능하다.
+
+#### 예제
+```
+ALTER DATABASE SHARD MOVE TABLE user1.table1 PARTITION (p1), TABLE user2.soloTable1, TABLE user1.table2 PARTITION (p2), PROCEDURE user1.shardproc1 key ( 123 )  TO NODE4; ;
+```
+
+## Altibase Sharding Package
+### DBMS_SHARD
+DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
+- DBMS_SHARD 패키지의 프로시저들은 global transaction level 2 이상에서만 수행할 수 있다.
+- node name은 모두 대문자로 처리된다.
+
+아래의 표와 같이 DBMS_SHARD 패키지를 구성하는 프로시저와 함수를 제공한다.
+- CREATE_META: 샤드 노드에서 샤드 메타 테이블을 생성한다.
+- SET_LOCAL_NODE: 지역 샤드 노드의 정보를 설정한다.
+- SET_REPLICATION: 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.
+- SET_SHARD_TABLE_SHARDKEY: 샤드키 테이블 샤드객체로 등록한다.
+- SET_SHARD_TABLE_SOLO: 솔로 테이블 샤드객체로 등록한다.
+- SET_SHARD_TABLE_CLONE: 클론 테이블 샤드객체로 등록한다.
+- SET_SHARD_PROCEDURE_SHARDKEY: 샤드키 프로시저 샤드객체로 등록한다.
+- SET_SHARD_PROCEDURE_SOLO: 솔로 프로시저 샤드객체로 등록한다.
+- SET_SHARD_PROCEDURE_CLONE: 클론 프로시저 샤드객체로 등록한다.
+- UNSET_SHARD_TABLE: 샤드 테이블을 해제한다.
+- UNSET_SHARD_PROCEDURE: 샤드 프로시저를 해제한다.
+
+#### CREATE_META
+##### 구문
+```
+DBMS_SHARD.CREATE_META()
+```
+
+##### 파라미터
+없음.
+
+##### 설명
+현재 접속 노드에서 샤드 메타 테이블을 생성한다.
+- create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과 인덱스, 시퀀스가 생성된다.
+- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
+
+##### 예제
+```
+iSQL> EXEC dbms_shard.create_meta();
+```
+
+#### SET_LOCAL_NODE
+##### 구문
+```
+DBMS_SHARD.SET_LOCAL_NODE( 
+  shard_node_id in integer,
+  node_name in varchar(10),
+  host_ip in varchar(64),
+  port_no in integer,
+  internal_host_ip in varchar(64),
+  internal_port_no in integer,
+  internal_replication_host_ip in varchar(64),
+  internal_replication_port_no in integer,
+  conn_type in integer default NULL );
+```
+##### 파라미터
+- shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다.
+  - shard_node_id 값 범위: 0\~65535 (TOBEMODIFIED) 1 \~ 9999 로 조정되어야 한다. sharded sequence 에서 shard_node_id를 사용하기 때문이다.
+- node_name: 지역 샤드 노드에서 사용할 노드 이름을 입력하며, 샤드 노드 이름도 전체 시스템에서 유일해야한다. node_name 의 대소문자는 구별하지 않는다.
+- host_ip: 지역 샤드 노드에서 서비스에 사용할 호스트 IP를 입력한다. 
+- port_no: 지역 샤드 노드에서 서비스에 사용할 Port를 입력한다. 
+- internal_host_ip: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 호스트 IP를 입력한다. 이더넷 및  인피니 밴드를 지원한다.
+- internal_port_no: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 Port를 입력한다. 
+- internal_replication_host_ip: 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP를 입력한다. internal_host_ip와 동일한 라인을 사용할 것을 권장한다. 
+- internal_replication_port_no: 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값을 입력해야한다. 
+- conn_type: 내부적으로 사용되는 코디네이터 연결 방식으로 입력하지 않는 경우 TCP를 사용한다. 그 외 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
+
+##### 설명
+지역 샤드 노드의 정보를 설정한다.
+- 샤드 노드를 사용하기 위해서는 먼저 지역 샤드 노드의 정보를 등록해야한다. 
+- 한번 샤딩 클러스터에 참여한 후에는, 지역 정보의 재 설정은 불가하며, 재설정을 위해서는 노드 제거 및 추가를 해야한다. 
+- 한번도 샤딩 클러스터에 참여하지 않은 경우에만 변경가능하며, 변경은 최초 설정과 동일한 인터페이스를 통해 진행한다.
+- 현재 ip address는 ip v4형식만 지원한다.
+- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
+
+#### 예제
+shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
+```
+iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(1, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
+```
+
+#### SET_REPLICATION
+##### 구문
+```
+DBMS_SHARD.SET_REPLICATION(
+  k_safety          in integer,
+  replication_mode  in varchar(10) default NULL,
+  parallel_count    in integer default NULL )
+```
+
+##### 파라미터
+- k_safety: 시스템 내에서 유지할 복제본의 갯수
+- replication_mode: 이중화에서 사용할 복제 방식
+- parallel_count: 이중화 병렬 적용자의 수
+
+##### 설명
+샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.
+- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
+
+##### 예제
+샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
+```
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
+```
+#### SET_SHARD_TABLE_SHARDKEY
+##### 구문
+```
+DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY( 
+  user_name                     in varchar(128),
+  table_name                    in varchar(128),
+  partiton_node_list            in varvchar(32000), 
+  method_for_irregular          in char(1) default 'E' ,
+  replication_parallel_count    in integer default 1 )
+```
+
+##### 파라미터
+- user_name: 테이블 소유자의 이름
+- table_name: 테이블 이름
+- partiton_node_list: 파티션이름과 노드이름의 쌍들을 콤마로 구분한 리스트이며, 모든 파티션이름이 기술되어야 한다.
+- method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
+  - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
+  - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
+- replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
+
+##### 설명
+샤드키 테이블 샤드객체로 등록한다.
+- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
+- 파티션 테이블만 등록될 수 있으며, 파티션키 컬럼은 PK 컬럼들중에 하나여야 하며, 파티션키 컬럼이 샤드키 컬럼으로 등록된다.
+  - 파티션의 종류는 range with hash 와 range 그리고 list 세가지만 가능하다.
+  - range with hash 파티션은 hash 분산으로 등록된다.
+  - range 파티션은 range 분산으로 등록된다.
+  - list 파티션은 list 분산으로 등록된다.
+  - list 파티션 정의시 개별 파티션별로 list value는 하나씩만 가져야 한다.
+- 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 파티션별로 데이터가 백업 테이블의 파티션에 동기화 된다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
+iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
+```
+#### SET_SHARD_TABLE_SOLO
+##### 구문
+```
+DBMS_SHARD.SET_SHARD_TABLE_SOLO( 
+  user_name                     in varchar(128),
+  table_name                    in varchar(128),
+  node_name                     in varchar(10),
+  method_for_irregular          in char(1) default 'E' ,
+  replication_parallel_count    in integer default 1 )
+```
+
+##### 파라미터
+- user_name: 테이블 소유자의 이름
+- table_name: 테이블 이름
+- node_name: 솔로 테이블이 존재할 노드 이름
+- method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
+  - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
+  - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
+- replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
+
+##### 설명
+솔로 테이블 샤드객체로 등록한다.
+- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
+- 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 데이터가 백업 테이블에 동기화 된다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1');
+iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1', 'R',5);
+```
+
+#### SET_SHARD_TABLE_CLONE
+##### 구문
+```
+DBMS_SHARD.SET_SHARD_TABLE_CLONE( 
+  user_name                     in varchar(128),
+  table_name                    in varchar(128),
+  reference_node_name           in varchar(10) default NULL,
+  replication_parallel_count    in integer default 1 )
+```
+
+##### 파라미터
+- user_name: 테이블 소유자의 이름
+- table_name: 테이블 이름
+- reference_node_name: 최초 데이터 동기화의 기준이 되는 참조 노드 이름
+- replication_parallel_count: 클론 테이블 최초 동기화 시 replication parallel count
+
+##### 설명
+클론 테이블 샤드객체로 등록한다.
+- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
+- reference_node_name이 설정 된 경우 전 노드의 해당 클론 테이블은 참조 노드의 테이블 데이터를 기준으로 동기화 된다.
+- reference_node_name이 NULL인 경우는 전 노드의 해당 클론 테이블에 데이터가 존재하면 에러가 발생 한다.
+- reference_node 이외의 노드의 데이터는 삭제 되고 에러가 발생해도 데이터가 원복되지는 않는다.
+- 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC dbms_shard.set_shard_table_clone('sys','t1','node1');
+```
+
+#### SET_SHARD_PROCEDURE_SHARDKEY
+
+##### 구문
+```
+SET_SHARD_PROCEDURE_SHARDKEY(
+  user_name in varchar(128),
+  proc_name in varchar(128),
+  split_method in varchar(1),
+  key_param_name in varchar(128),
+  value_node_list in varvchar(32000), 
+  default_node_name in varchar(40) default NULL,
+  proc_replace in char(1) default 'N')
+```
+
+##### 파라미터
+- user_name: 프로시저 소유자의 이름
+- proc_name: 프로시저 이름
+- split_method: 분산 방식(H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식)
+- key_param_name: 샤드 키 파라미터 이름
+- value_node_list: value와 node 이름의 쌍들을 콤마로 구분한 리스트
+  - 해시분산 방식의 경우 지정 가능한 value 의 범위는 1 ~ 1000 사이의 정수이다.
+- default_node_name: 기본 샤드 노드(범위가 지정되지 않은 샤드키 파라미터 값이 사용되면, 기본 샤드 노드의 프로시저가 호출된다.)
+- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
+  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
+  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
+
+##### 설명
+샤드키 프로시저 샤드객체로 등록한다.
+- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY( 'SYS', 'PROC1', 'L', 'KEY_PARAM','1 NODE1,2 NODE2, 3 NODE3');
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY( 'SYS', 'PROC1', 'L', 'KEY_PARAM','1 NODE1,2 NODE2, 3 NODE3', NULL ,'Y');
+```
+
+#### SET_SHARD_PROCEDURE_SOLO
+
+##### 구문
+```
+SET_SHARD_PROCEDURE_SOLO(
+  user_name in varchar(128),
+  proc_name in varchar(128),
+  node_name in varchar(10),
+  proc_replace in char(1) default 'N')
+```
+
+##### 파라미터
+- user_name: 프로시저 소유자의 이름
+- proc_name: 프로시저 이름
+- node_name: 솔로 프로시저가 호출될 노드의 이름
+- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
+  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
+  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
+
+##### 설명
+솔로 프로시저 샤드객체로 등록한다.
+- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO( 'SYS', 'PROC1', 'NODE3');
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO( 'SYS', 'PROC1', 'NODE3', 'Y');
+```
+
+#### SET_SHARD_PROCEDURE_CLONE
+
+##### 구문
+```
+SET_SHARD_PROCEDURE_CLONE(
+  user_name in varchar(128),
+  proc_name in varchar(128),
+  proc_replace in char(1) default 'N')
+```
+
+##### 파라미터
+- user_name: 프로시저 소유자의 이름
+- proc_name: 프로시저 이름
+- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
+  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
+  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
+
+##### 설명
+클론 프로시저 샤드객체로 등록한다.
+- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1');
+iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1', 'Y');
+```
+
+#### UNSET_SHARD_TABLE
+##### 구문
+```
+DBMS_SHARD.UNSET_SHARD_TABLE(
+  user_name  in varchar(128),
+  table_name in varchar(128),
+  drop_bak_tbl in char(1) default 'Y')
+```
+
+##### 파라미터
+- user_name: 테이블 소유자의 이름
+- table_name: 테이블 이름
+- 백업 테이블 삭제 여부('Y': 삭제, 'N': 미삭제)
+
+##### 설명
+샤드 테이블을 해제한다.
+- 샤드 테이블에 대한 분산정의만 해제되는 것이고, 테이블 자체가 삭제되는것은 아니다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC dbms_shard.unset_shard_table('sys','t5');
+iSQL> EXEC dbms_shard.unset_shard_table('sys','t5', 'N');
+```
+
+#### UNSET_SHARD_PROCEDURE
+##### 구문
+```
+DBMS_SHARD.UNSET_SHARD_PROCEDURE(
+  user_name in varchar(128),
+  proc_name in varchar(128))
+```
+
+##### 파라미터
+- user_name: 프로시저 소유자의 이름
+- proc_name: 프로시저 이름
+
+##### 설명
+샤드 프로시저를 해제한다.
+- 샤드 프로시저에 대한 분산정의만 해제되는 것이고, 프로시저 자체가 삭제되는것은 아니다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+
+##### 예제
+```
+iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
+```
+
 ## Altibase Sharding Property
 
 | **분류**                  | **프로퍼티**                                                 | **동적 변경 허용** | **변경 레벨**   |
@@ -1497,126 +1968,6 @@ Unsigned Integer
 consistent replication에서 특정 수의 xlogfile을 만들때마다, 사용이 완료된 xlogfile 들을 삭제하는데, 이때의 특정 수의 xlogfile 을 뜻한다.
 - Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-## SHARD DDL
-- Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
-- SYS 사용자이어야 한다.
-- GLOBAL_TRANSACTION_LEVEL 설정 값이 2 또는 3 이어야 한다.
-- SHARD_ENABLE 설정 값이 1 이어야 한다.
-- SHARD 메타정보가 구성되어 있어야 한다.
-- Zookeeper가 구성되어 있어야 한다.
-- 다른 세션에서 이미 SHARD DDL을 수행중이면, 해당 SHARD DDL의 수행이 완료될때까지는 대기된다. 
-
-### ADD
-
-#### 구문
-ALTER DATABASE SHARD ADD ;
-
-#### 설명
-본 구문을 수행하는 노드를 샤딩 클러스터에 추가 하기 위한 구문이다.
-
-노드가 샤딩 클러스터에 추가되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
-
-샤딩 클러스터에 속한 모든 노드들이 정상적인 상황에서만 수행이 가능한 명령이다. 
-- shutdown 된 노드가 있다면, 먼저 join을 수행하여야 한다.
-- failover 된 노드가 있다면, 먼저 failback이 수행되어야 한다.
-- drop 명령어에 의해서 샤딩 클러스터에서 제외된 노드는, 더이상 샤딩 클러스터에 속한 노드가 아니므로 상관없다. 
-
-샤드 노드를 추가하기 전에, 각종 데이터베이스 객체들을 미리 생성하는 것이 편리하다.
-- 기존에 이미 데이터베이스 객체들이 모두 생성된 샤드 노드가 있다면, 해당 노드에서 aexport 유틸리티를 이용하여, 객체 생성구문을 얻을 수 있다.
-- 로컬 테이블들은 이미 추가된 다른 샤드노드들과 객체 생성 정보가 틀려도 된다.
-- 샤드 객체들은 이미 추가된 다른 샤드노드들과 객체 생성 정보가 동일 하여야 한다.
-- 샤드 테이블들은 모두 비어 있어야 한다.
-
-샤드 노드를 추가하는 순간 아래와 같은 작업이 내부적으로 수행된다.
-- Zookeeper 에 접속되고, Zookeeper 메타에 추가되는 샤드 노드에 대한 정보가 설정된다.
-- 클론 테이블은 이미 추가된 다른 샤드 노드에서 복제하여 동일하게 데이터가 설정된다.
-- 샤드 메타정보도 이미 추가된 다른 샤드 노드에서 복제하여 동일하게 데이터가 설정된다.
-
-### DROP
-
-#### 구문
-ALTER DATABASE SHARD DROP ;
-
-#### 설명
-본 구문을 수행하는 노드를 샤딩 클러스터에 제거 하기 위한 구문이다.
-- 샤딩 클러스터에 속한 모든 노드들이 정상적인 상황에서만 수행이 가능한 명령이다. 
-- 본 구문의 수행 노드는 샤딩 클러스터에 추가되어 정상적으로 운영중인 상태이어야 한다. 
-- 노드가 샤딩 클러스터에 제거되면, 자동으로 SHARD_ADMIN_MODE가 1 으로 변경되고, 일반 사용자는 해당 노드에 접속할 수 없게 된다.
-- 클론 테이블을 제외하고, 해당 샤드 노드에 속한 샤드 테이블의 데이터 영역이 있다면, 샤드 노드 삭제를 할 수 없다. 
-  리샤딩을 이용하여, 해당 데이터 영역을 다른 샤드 노드로 이동 먼저 시킨 후에, 샤드 노드 삭제를 할 수 있다. 
-
-### JOIN
-
-#### 구문
-ALTER DATABASE SHARD JOIN ;
-
-#### 설명
-본 구문을 수행하는 노드를 샤딩 클러스터에 다시 참여 시키기 위한 구문이다.
-
-본 구문의 수행 노드는 샤딩 클러스터에 추가된 후에, shutdown 명령으로 샤딩 클러스터에서 이탈된 상태이어야 한다. 
-
-노드가 샤딩 클러스터에 다시 참여되면, 자동으로 SHARD_ADMIN_MODE가 0 으로 변경되고, 일반 사용자도 해당 노드에 접속할 수 있게 된다.
-
-### FAILOVER
-
-#### 구문
-ALTER DATABASE SHARD FAILOVER "target_node_name" ;
-
-#### 설명
-특정 노드에 장애가 발생하였을 때, 다른 노드에서 장애가 발생한 노드의 데이터 영역을 서비스 할 수 있도록 하는 작업이다.
-
-기본적으로는 Zookeeper에 의해 장애노드가 감지되면 자동으로 수행된다. 또한, 사용자가 수동으로 실행 할 수도 있다.
-
-설정된 K-Safety 값에 따라 최대 2차 장애까지는 데이터의 손실없는 failover를 제공할 수 있다.
-
-정상적인 상태의 노드들 중에 노드 이름으로 오름차순으로 정렬 했을때, 장애가 발생한 target node 의 이름과 비교해서 바로 다음 순서에 있는 노드를 next alive node 라고 한다. 이름 순으로 가장 마지막에 있던 노드의 next alive node는 이름 순으로 가장 처음에 위치하는 노드가 된다. 즉, 이름 순서는 환(ring)의 형태로 검색하도록 되어 있다.
-
-failover가 완료되면, next alive node가 장애가 발생한 target node에서 서비스하던 데이터를 서비스 하게 된다.
-
-자동으로 failover가 될때이든, 사용자가 수동으로 failover 명령어를 수행할 때이든, 장애가 발생한 target node 는 kill 된다.
-
-사용자가 수동으로 failover 명령어를 수행할 때는, 수행 노드와 target node가 동일 노드일때는 명령수행이 실패한다. 또한, 수행노드는 정상적으로 운영중이 상태이어야 한다. 그리고, 이미 failover 된 노드를 다시 failover 시킬 수는 없다.
-
-자동으로 failover가 수행되는 경우에, next alive node가 failover 명령어의 수행노드가 된다. 또한, 여러 노드에 장애가 발생할 경우 시스템 내부적으로, 장애가 발생한 노드들의 이름들로 list가 구성되고, 장애를 감지한 수행노드를 기준으로 정렬된 역순으로 failover 를 수행하게 된다.
-
-예를들어, N1~6 노드가 존재하는데, N1 노드와 N3 노드가 장애노드가 되었을 때, N4가 감지하였을 경우 N3 노드 먼저 그리고, N1 노드 순서로 failover되고, N2 노드가 감지할 경우 N1 노드 먼저 그리고, N3 노드의 순서로 failover 된다.
-
-failover된 노드는, 사용자의 failback 명령에 의해서만 다시 샤딩 클러스터에 참여할 수 있다.
-
-### FAILBACK
-
-#### 구문
-ALTER DATABASE SHARD FAILBACK ;
-
-#### 설명
-본 구문을 수행하는 노드를 샤딩 클러스터에 다시 failback 시키기 위한 구문이다.
-
-본 구문의 수행 노드는 아래 노드들이 대상이 된다.
-- 장애가 발생하여 자동으로 failover 된 노드
-- 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드
-- 사용자에 의한 shutdown 명령어에 의하지 않고, 비정상적 상태가 되었으나, failover는 되지 않은 노드
-- 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
-
-### MOVE
-
-#### 구문
-```
-ALTER DATABASE SHARD MOVE { TABLE ["user_name" . ] "table_name" [ PARTITION {"(partition_name)"} ] | PROCEDURE ["user_name" . ] "procedure_name" KEY ( "value" ) }+  TO "node_name" ;
-```
-
-#### 설명
-시스템 운영중에 본 구문을 수행하여, 샤드 테이블 및 샤드 프로시져의 분산정의를 변경하기 위한 구문이다.
-- 샤드 객체의 분산 영역에 대한 정의를 사용자가 지정한 노드로 이동시킨다.
-- 샤드키 테이블에 대하여는 개별 파티션별로 지정한 노드로 이동이 가능하다.
-- 솔로 테이블에 대하여는 해당 테이블 전체에 대하여 지정한 노드로 이동이 가능하다.
-- 샤드 프로시져에 대하여는 샤드키의 value 하나에 대하여 지정한 노드로 이동이 가능하다.
-- 두 노드간의 이동이 가능하다. 원천 노드가 두개 이상인 경우는 수행할 수 없다. 
-- 한번에 다수의 샤드 객체에 대한 변경이 가능하다.
-
-#### 예제
-```
-ALTER DATABASE SHARD MOVE TABLE user1.table1 PARTITION (p1), TABLE user2.soloTable1, TABLE user1.table2 PARTITION (p2), PROCEDURE user1.shardproc1 key ( 123 )  TO NODE4; ;
-```
 
 ## Altibase Sharding Dictionary
 Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하는 샤드 메타 테이블들과 단일 샤드 노드의 샤딩 관련 시스템 프로세스 정보를 보여주는 성능 뷰(Performance View)들,
@@ -1891,356 +2242,6 @@ iSQL\> SELECT \* FROM S$TAB;
 - DEADLOCK_WAIT_TIME (BIGINT):      
 - DEADLOCK_ELAPSED_TIME (BIGINT):
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
-
-## Altibase Sharding Package
-### DBMS_SHARD
-DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
-- DBMS_SHARD 패키지의 프로시저들은 global transaction level 2 이상에서만 수행할 수 있다.
-- node name은 모두 대문자로 처리된다.
-
-아래의 표와 같이 DBMS_SHARD 패키지를 구성하는 프로시저와 함수를 제공한다.
-- CREATE_META: 샤드 노드에서 샤드 메타 테이블을 생성한다.
-- SET_LOCAL_NODE: 지역 샤드 노드의 정보를 설정한다.
-- SET_REPLICATION: 샤딩 클러스터 시스템의 데이터 복제 방식을 설정한다.
-- SET_SHARD_TABLE_SHARDKEY: 샤드키 테이블 샤드객체로 등록한다.
-- SET_SHARD_TABLE_SOLO: 솔로 테이블 샤드객체로 등록한다.
-- SET_SHARD_TABLE_CLONE: 클론 테이블 샤드객체로 등록한다.
-- SET_SHARD_PROCEDURE_SHARDKEY: 샤드키 프로시저 샤드객체로 등록한다.
-- SET_SHARD_PROCEDURE_SOLO: 솔로 프로시저 샤드객체로 등록한다.
-- SET_SHARD_PROCEDURE_CLONE: 클론 프로시저 샤드객체로 등록한다.
-- UNSET_SHARD_TABLE: 샤드 테이블을 해제한다.
-- UNSET_SHARD_PROCEDURE: 샤드 프로시저를 해제한다.
-
-#### CREATE_META
-##### 구문
-```
-DBMS_SHARD.CREATE_META()
-```
-
-##### 파라미터
-없음.
-
-##### 설명
-현재 접속 노드에서 샤드 메타 테이블을 생성한다.
-- create_meta를 수행하면 SYS_SHARD 계정이 생성되고 샤드에 메타를 저장할 테이블과 인덱스, 시퀀스가 생성된다.
-- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.create_meta();
-```
-
-#### SET_LOCAL_NODE
-##### 구문
-```
-DBMS_SHARD.SET_LOCAL_NODE( 
-  shard_node_id in integer,
-  node_name in varchar(10),
-  host_ip in varchar(64),
-  port_no in integer,
-  internal_host_ip in varchar(64),
-  internal_port_no in integer,
-  internal_replication_host_ip in varchar(64),
-  internal_replication_port_no in integer,
-  conn_type in integer default NULL );
-```
-##### 파라미터
-- shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다.
-  - shard_node_id 값 범위: 0\~65535 (TOBEMODIFIED) 1 \~ 9999 로 조정되어야 한다. sharded sequence 에서 shard_node_id를 사용하기 때문이다.
-- node_name: 지역 샤드 노드에서 사용할 노드 이름을 입력하며, 샤드 노드 이름도 전체 시스템에서 유일해야한다. node_name 의 대소문자는 구별하지 않는다.
-- host_ip: 지역 샤드 노드에서 서비스에 사용할 호스트 IP를 입력한다. 
-- port_no: 지역 샤드 노드에서 서비스에 사용할 Port를 입력한다. 
-- internal_host_ip: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 호스트 IP를 입력한다. 이더넷 및  인피니 밴드를 지원한다.
-- internal_port_no: 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 Port를 입력한다. 
-- internal_replication_host_ip: 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP를 입력한다. internal_host_ip와 동일한 라인을 사용할 것을 권장한다. 
-- internal_replication_port_no: 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값을 입력해야한다. 
-- conn_type: 내부적으로 사용되는 코디네이터 연결 방식으로 입력하지 않는 경우 TCP를 사용한다. 그 외 지원 타입은 *Altibase Sharding 통신 방법*의 코디네이터 커넥션을 참고한다.
-
-##### 설명
-지역 샤드 노드의 정보를 설정한다.
-- 샤드 노드를 사용하기 위해서는 먼저 지역 샤드 노드의 정보를 등록해야한다. 
-- 한번 샤딩 클러스터에 참여한 후에는, 지역 정보의 재 설정은 불가하며, 재설정을 위해서는 노드 제거 및 추가를 해야한다. 
-- 한번도 샤딩 클러스터에 참여하지 않은 경우에만 변경가능하며, 변경은 최초 설정과 동일한 인터페이스를 통해 진행한다.
-- 현재 ip address는 ip v4형식만 지원한다.
-- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
-
-#### 예제
-shard_node_id 가 1 이고, 'NODE1' 이름을 갖는 지역 샤드 노드의 정보를 등록한다. 
-```
-iSQL> EXEC DBMS_SHARD.SET_LOCAL_NODE(1, 'NODE1', '192.168.1.10', 20300, '192.168.1.11', 20300, '192.168.1.10', 30300 );
-```
-
-#### SET_REPLICATION
-##### 구문
-```
-DBMS_SHARD.SET_REPLICATION(
-  k_safety          in integer,
-  replication_mode  in varchar(10) default NULL,
-  parallel_count    in integer default NULL )
-```
-
-##### 파라미터
-- k_safety: 시스템 내에서 유지할 복제본의 갯수
-- replication_mode: 이중화에서 사용할 복제 방식
-- parallel_count: 이중화 병렬 적용자의 수
-
-##### 설명
-샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.
-- 본 프로시저 수행후 commit 을 사용자가 해주어야 한다.
-
-##### 예제
-샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하도록 설정한다.
-```
-iSQL> EXEC DBMS_SHARD.SET_REPLICATION(2,'consistent', 1);
-```
-#### SET_SHARD_TABLE_SHARDKEY
-##### 구문
-```
-DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY( 
-  user_name                     in varchar(128),
-  table_name                    in varchar(128),
-  partiton_node_list            in varvchar(32000), 
-  method_for_irregular          in char(1) default 'E' ,
-  replication_parallel_count    in integer default 1 )
-```
-
-##### 파라미터
-- user_name: 테이블 소유자의 이름
-- table_name: 테이블 이름
-- partiton_node_list: 파티션이름과 노드이름의 쌍들을 콤마로 구분한 리스트이며, 모든 파티션이름이 기술되어야 한다.
-- method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
-  - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
-  - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-- replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
-
-##### 설명
-샤드키 테이블 샤드객체로 등록한다.
-- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
-- 파티션 테이블만 등록될 수 있으며, 파티션키 컬럼은 PK 컬럼들중에 하나여야 하며, 파티션키 컬럼이 샤드키 컬럼으로 등록된다.
-  - 파티션의 종류는 range with hash 와 range 그리고 list 세가지만 가능하다.
-  - range with hash 파티션은 hash 분산으로 등록된다.
-  - range 파티션은 range 분산으로 등록된다.
-  - list 파티션은 list 분산으로 등록된다.
-  - list 파티션 정의시 개별 파티션별로 list value는 하나씩만 가져야 한다.
-- 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 파티션별로 데이터가 백업 테이블의 파티션에 동기화 된다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
-iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
-```
-#### SET_SHARD_TABLE_SOLO
-##### 구문
-```
-DBMS_SHARD.SET_SHARD_TABLE_SOLO( 
-  user_name                     in varchar(128),
-  table_name                    in varchar(128),
-  node_name                     in varchar(10),
-  method_for_irregular          in char(1) default 'E' ,
-  replication_parallel_count    in integer default 1 )
-```
-
-##### 파라미터
-- user_name: 테이블 소유자의 이름
-- table_name: 테이블 이름
-- node_name: 솔로 테이블이 존재할 노드 이름
-- method_for_irregular: 해당 테이블에 데이터가 기 존재 시 수행 옵션
-  - E: (error) 기본 값으로 샤드 객체로 등록하려는 테이블에 분산정의에 맞지 않는 데이터가 존재하면 에러를 발생한다.
-  - T: (truncate) 샤드 객체로 등록 하려는 테이블에 분산정의에 맞지 않는 데이터를 삭제 한다.
-- replication_parallel_count: 테이블과 백업 테이블 동기화 시 replication parallel count
-
-##### 설명
-솔로 테이블 샤드객체로 등록한다.
-- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
-- 본 프로시져 수행 시 백업 테이블은 재생성되고, 분산정의에 맞추어 원천테이블의 데이터가 백업 테이블에 동기화 된다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1');
-iSQL> EXEC dbms_shard.set_shard_solo('sys','t2','node1', 'R',5);
-```
-
-#### SET_SHARD_TABLE_CLONE
-##### 구문
-```
-DBMS_SHARD.SET_SHARD_TABLE_CLONE( 
-  user_name                     in varchar(128),
-  table_name                    in varchar(128),
-  reference_node_name           in varchar(10) default NULL,
-  replication_parallel_count    in integer default 1 )
-```
-
-##### 파라미터
-- user_name: 테이블 소유자의 이름
-- table_name: 테이블 이름
-- reference_node_name: 최초 데이터 동기화의 기준이 되는 참조 노드 이름
-- replication_parallel_count: 클론 테이블 최초 동기화 시 replication parallel count
-
-##### 설명
-클론 테이블 샤드객체로 등록한다.
-- 전체 샤드 노드에 해당 테이블의 스키마와 인덱스 및 constraint는 동일해야 한다. 또한, view 테이블은 샤드 객체로 등록할 수 없다.
-- reference_node_name이 설정 된 경우 전 노드의 해당 클론 테이블은 참조 노드의 테이블 데이터를 기준으로 동기화 된다.
-- reference_node_name이 NULL인 경우는 전 노드의 해당 클론 테이블에 데이터가 존재하면 에러가 발생 한다.
-- reference_node 이외의 노드의 데이터는 삭제 되고 에러가 발생해도 데이터가 원복되지는 않는다.
-- 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.set_shard_table_clone('sys','t1','node1');
-```
-
-#### SET_SHARD_PROCEDURE_SHARDKEY
-
-##### 구문
-```
-SET_SHARD_PROCEDURE_SHARDKEY(
-  user_name in varchar(128),
-  proc_name in varchar(128),
-  split_method in varchar(1),
-  key_param_name in varchar(128),
-  value_node_list in varvchar(32000), 
-  default_node_name in varchar(40) default NULL,
-  proc_replace in char(1) default 'N')
-```
-
-##### 파라미터
-- user_name: 프로시저 소유자의 이름
-- proc_name: 프로시저 이름
-- split_method: 분산 방식(H: 해시 분산 방식 R: 범위 분산 방식 L: 리스트 분산 방식)
-- key_param_name: 샤드 키 파라미터 이름
-- value_node_list: value와 node 이름의 쌍들을 콤마로 구분한 리스트
-  - 해시분산 방식의 경우 지정 가능한 value 의 범위는 1 ~ 1000 사이의 정수이다.
-- default_node_name: 기본 샤드 노드(범위가 지정되지 않은 샤드키 파라미터 값이 사용되면, 기본 샤드 노드의 프로시저가 호출된다.)
-- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
-  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
-  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
-
-##### 설명
-샤드키 프로시저 샤드객체로 등록한다.
-- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY( 'SYS', 'PROC1', 'L', 'KEY_PARAM','1 NODE1,2 NODE2, 3 NODE3');
-iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY( 'SYS', 'PROC1', 'L', 'KEY_PARAM','1 NODE1,2 NODE2, 3 NODE3', NULL ,'Y');
-```
-
-#### SET_SHARD_PROCEDURE_SOLO
-
-##### 구문
-```
-SET_SHARD_PROCEDURE_SOLO(
-  user_name in varchar(128),
-  proc_name in varchar(128),
-  node_name in varchar(10),
-  proc_replace in char(1) default 'N')
-```
-
-##### 파라미터
-- user_name: 프로시저 소유자의 이름
-- proc_name: 프로시저 이름
-- node_name: 솔로 프로시저가 호출될 노드의 이름
-- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
-  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
-  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
-
-##### 설명
-솔로 프로시저 샤드객체로 등록한다.
-- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO( 'SYS', 'PROC1', 'NODE3');
-iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO( 'SYS', 'PROC1', 'NODE3', 'Y');
-```
-
-#### SET_SHARD_PROCEDURE_CLONE
-
-##### 구문
-```
-SET_SHARD_PROCEDURE_CLONE(
-  user_name in varchar(128),
-  proc_name in varchar(128),
-  proc_replace in char(1) default 'N')
-```
-
-##### 파라미터
-- user_name: 프로시저 소유자의 이름
-- proc_name: 프로시저 이름
-- proc_replace: 기존 분산정보 변경여부  ('Y': 변경, 'N': 에러발생)
-  - Y: 기존에 동일이름의 샤드 프로시져가 있으면, 현재 등록하는 분산정보로 변경된다.
-  - N: 기존에 동일이름의 샤드 프로시져가 있으면, 에러가 발생한다.
-
-##### 설명
-클론 프로시저 샤드객체로 등록한다.
-- 전 노드의 해당 프로시저의 내용이 동일해야 한다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1');
-iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1', 'Y');
-```
-
-#### UNSET_SHARD_TABLE
-##### 구문
-```
-DBMS_SHARD.UNSET_SHARD_TABLE(
-  user_name  in varchar(128),
-  table_name in varchar(128),
-  drop_bak_tbl in char(1) default 'Y')
-```
-
-##### 파라미터
-- user_name: 테이블 소유자의 이름
-- table_name: 테이블 이름
-- 백업 테이블 삭제 여부('Y': 삭제, 'N': 미삭제)
-
-##### 설명
-샤드 테이블을 해제한다.
-- 샤드 테이블에 대한 분산정의만 해제되는 것이고, 테이블 자체가 삭제되는것은 아니다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.unset_shard_table('sys','t5');
-iSQL> EXEC dbms_shard.unset_shard_table('sys','t5', 'N');
-```
-
-#### UNSET_SHARD_PROCEDURE
-##### 구문
-```
-DBMS_SHARD.UNSET_SHARD_PROCEDURE(
-  user_name in varchar(128),
-  proc_name in varchar(128))
-```
-
-##### 파라미터
-- user_name: 프로시저 소유자의 이름
-- proc_name: 프로시저 이름
-
-##### 설명
-샤드 프로시저를 해제한다.
-- 샤드 프로시저에 대한 분산정의만 해제되는 것이고, 프로시저 자체가 삭제되는것은 아니다.
-- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
-
-##### 예제
-```
-iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
-```
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
