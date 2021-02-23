@@ -962,6 +962,8 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No<br />No<br />Yes<br />No       | SYSTEM          |
 | SHARD DDL lock 처리 | SHARD_DDL_LOCK_TIMEOUT<br />SHARD_DDL_LOCK_TRY_COUNT | Yes<br />Yes           | SYSTEM, SESSION |
 | 트랜잭션 | GLOBAL_TRANSACTION_LEVEL<br />VERSIONING_MIN_TIME<br />INDOUBT_FETCH_TIMEOUT<br />INDOUBT_FETCH_METHOD<br />SHARD_STATEMENT_RETRY<br />SHARED_TRANS_HASH_BUCKET_COUNT | Yes<br />Yes<br />Yes<br />Yes<br />Yes<br />No | SYSTEM, SESSION |
+| xlogfile | XLOGFILE_DIR<br />XLOGFILE_PREPARE_COUNT<br />XLOGFILE_SIZE<br />XLOGFILE_REMOVE_INTERVAL<br />XLOGFILE_REMOVE_INTERVAL_BY_FILE_CREATE | No<br />No<br />No<br />Yes<br />Yes | SYSTEM |
+
 
 #### SHARD_ENABLE
 
@@ -1428,6 +1430,72 @@ Unsigned Integer
 [16,16384]
 ##### 설명
 공유 트랜잭션 관리를 위한 자료구조의 Hash 저장소 크기를 설정한다.
+
+#### XLOGFILE_DIR
+##### 데이터 타입
+String
+##### 기본값
+\$ALTIBASE_HOME/xlogs
+##### 속성
+읽기 전용, 다중 값
+##### 값의 범위
+없음
+##### 설명
+consistent replication의 xlogfile 들이 존재할 경로를 지정한다.
+
+#### XLOGFILE_PREPARE_COUNT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+5
+##### 속성
+읽기 전용, 단일 값
+##### 값의 범위
+[0, 2<sup>32</sup>-1]
+##### 설명
+consistent replication에서 성능상 이점을 위해 xlogfile 들을 미리 만들어 놓는 개수를 뜻한다.
+
+#### XLOGFILE_SIZE (단위: 바이트) 
+##### 데이터 타입
+Unsigned long
+
+##### 기본값
+10 \* 1024 \* 1024
+
+##### 속성
+읽기 전용, 단일 값
+
+##### 값의 범위
+[64 \* 1024, 2<sup>64</sup>-1]
+
+##### 설명
+consistent replication에서 생성하는 개별 xlogfile 의 size를 뜻한다.
+
+#### XLOGFILE_REMOVE_INTERVAL(단위 : 초)
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+600
+##### 속성
+변경 가능, 단일 값
+##### 값의 범위
+[3, 2592000]
+##### 설명
+consistent replication에서 사용이 완료된 xlogfile 들을 삭제하는 주기를 뜻한다.
+- Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### XLOGFILE_REMOVE_INTERVAL_BY_FILE_CREATE
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+10
+##### 속성
+변경 가능, 단일 값
+##### 값의 범위
+[1, 2<sup>32</sup>-1]
+##### 설명
+consistent replication에서 특정 수의 xlogfile을 만들때마다, 사용이 완료된 xlogfile 들을 삭제하는데, 이때의 특정 수의 xlogfile 을 뜻한다.
+- Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
 ## SHARD DDL
 - Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다. 샤드 노드 추가/삭제/참여/샤드이중화재구성/리샤딩 등이 있다.
