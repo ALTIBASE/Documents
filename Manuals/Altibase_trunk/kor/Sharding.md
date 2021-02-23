@@ -1369,16 +1369,15 @@ Unsigned Integer
 ##### 데이터 타입
 Unsigned Integer
 ##### 기본값
-0
+0 (샤딩 권장값 500)
 ##### 속성
 변경가능, 단일 값, millisecond
 ##### 값의 범위
 [0 ~ 100000]
 ##### 설명
 데이터베이스 스냅샷 유지 시간(millisecond)
-- 샤딩에서 GLOBAL_TRANSACTION_LEVEL=3 으로 사용시 VERSIONING_MIN_TIME 을 0 이 아닌값으로 지정해야 합니다.
+- 샤딩에서 GLOBAL_TRANSACTION_LEVEL=3 으로 사용하는 세션이 하나라도 있으면, VERSIONING_MIN_TIME 을 0 이 아닌값으로 지정해야 합니다.
 - 분산 정합성에서 2개 이상의 노드에서 동일한 스냅샷을 scan 하기 위해 요구자 SCN 을 사용하는데 이러한 요구자 SCN 을 허용하기 위해 데이터베이스 스냅샷을 유지하는 최소 시간이 프로퍼티 값입니다.
-- 샤딩을 사용시에는 500 millisecond 가 권장값 입니다.
 
 #### INDOUBT_FETCH_TIMEOUT
 ##### 데이터 타입
