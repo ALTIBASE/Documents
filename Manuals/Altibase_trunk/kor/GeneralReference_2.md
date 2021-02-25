@@ -2869,6 +2869,30 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+20000
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[2, 2<sup>32</sup>-1]
+
+##### 설명
+
+Applier 가 다른 Applier 의 Transaction 반영 대기시 시스템 함수인 yield 를 이용하여 대기 하는 횟수.
+
+yield 함수를 사용시 CPU 사용을 하기 때문에 이 횟수 이상 호출 이후에는 CPU 자원을 사용안하는 timed_wait 함수를 호출 한다.
+
 #### REPLICATION_RECOVERY_MAX_LOGFILE
 
 ##### 데이터 타입
