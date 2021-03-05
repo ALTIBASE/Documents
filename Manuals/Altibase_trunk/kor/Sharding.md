@@ -353,6 +353,9 @@ Split brain 방지등의 샤딩 클러스터 관리를 위하여 Apache Zookeepe
 #### 샤드 코디네이터(shard coordinator) 
 분산된 데이터베이스를 통합하여 질의를 최적화하고 수행하는 분산 질의 처리기이다.
 
+#### 파셜 코디네이터(partial coordinator) 
+non-shard DML 처리를 위한 분산 질의 처리기이다.
+
 #### 샤드 라이브러리(shard library) 
 하이브리드 샤딩을 지원하는 클라이언트 프로그램 라이브러리이다.
 
