@@ -570,6 +570,8 @@ SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티�
 
 샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장있다. 샤딩을 최초 구성시에는, 이 화일을 복사하여 \$ALTIBASE_HOME/conf/altibase.properties 를 만들고, 추가적인 변경사항을 고려해주면 된다.
 
+기존에 사용하던 altibase.properties 를 기반으로 하여 변경을 하고 싶은 경우에는, 단독DB환경에서의 권장값이 기록되어 있는 altibase.properties.sample 과 샤딩환경에서의 권장값이 기록되어 있는 altibase.properties.shard 를 비교하여, 해당 편차를 기존의 altibase.properties 에 변경해주면 된다.
+
 ##### 샤드 패키지 생성
 샤드 패키지는 \$ALTIBASE_HOME/packages에 있다. 샤드 패키지는 샤드 기능을 제어할 수 있는 사용자 인터페이스를 제공한다.
 ```
@@ -1152,7 +1154,10 @@ DBMS_SHARD.SET_LOCAL_NODE(
 ```
 ##### 파라미터
 - shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다.
-  - shard_node_id 값 범위: 0\~65535 (TOBEMODIFIED) 1 \~ 9999 로 조정되어야 한다. sharded sequence 에서 shard_node_id를 사용하기 때문이다.
+  - shard_node_id 값 범위: 1 \~ 9999
+  - 기존 node drop 후에, 신규 node add 하는 경우에, 기존에 사용했던 shard_node_id 를 재사용하지 말고 신규로 번호를 부여하는 것이 좋다.
+  - 기존 shard_node_id 를 재사용하는 경우에, 기존 shard_node_id로 사용되던, sharded sequence가 있었다면, 동일한 sequence 를 생성하게 되는 문제가 있다.
+    - 이 경우에는 해당 sharded sequence의 초기값을 기존에 발급되었던 값보다 큰 값으로 설정해주어야 한다.
 - node_name: 지역 샤드 노드에서 사용할 노드 이름을 입력하며, 샤드 노드 이름도 전체 시스템에서 유일해야한다. node_name 의 대소문자는 구별하지 않는다.
 - host_ip: 지역 샤드 노드에서 서비스에 사용할 호스트 IP를 입력한다. 
 - port_no: 지역 샤드 노드에서 서비스에 사용할 Port를 입력한다. 
