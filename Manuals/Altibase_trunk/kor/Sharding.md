@@ -569,7 +569,7 @@ VALUE1 : 1
 
 SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티들이 있다. 
 
-샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장있다. 샤딩을 최초 구성시에는, 이 화일을 복사하여 \$ALTIBASE_HOME/conf/altibase.properties 를 만들고, 추가적인 변경사항을 고려해주면 된다.
+샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장있다. 샤딩을 최초 구성시에는, 이 화일을 복사하여 \$ALTIBASE_HOME/conf/altibase.properties 를 만들고, 추가적인 변경사항을 고려해주면 된다. 인스톨러를 이용하여 샤딩용으로 선택하여 설치한 경우에는 이 과정을 인스톨러에서 자동으로 처리해 준다.
 
 기존에 사용하던 altibase.properties 를 기반으로 하여 변경을 하고 싶은 경우에는, 단독DB환경에서의 권장값이 기록되어 있는 altibase.properties.sample 과 샤딩환경에서의 권장값이 기록되어 있는 altibase.properties.shard 를 비교하여, 해당 편차를 기존의 altibase.properties 에 변경해주면 된다.
 
@@ -584,6 +584,9 @@ DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 �
 ### Zookeeper Administration
 
 #### Zookeeper 설정
+- \$ALTIBASE_HOME 하위에서 ZookeeperServer.tar.gz 가 존재한다. 이것은 Zookeeper 3.5.6 버전이다. 샤딩에서는 이 버전의 Zookeeper를 사용해야 한다.
+- 인스톨러를 이용하여 설치하는 경우에는 \$ALTIBASE_HOME 하위에 ZookeeperServer 디렉토리가 있고, 이곳에 이미 Zookeeper 화일들이 존재할것이다.
+- 만일, \$ALTIBASE_HOME 하위에  ZookeeperServer 디렉토리가 없다면, \$ALTIBASE_HOME 디렉토리에서 tar -xvf ZookeeperServer.tar.gz 명령을 사용하여 Zookeeper 화일들을 풀어 주어야 한다. 
 - Altibase Sharding은 Zookeeper 3.5.6 버전을 사용해야 한다.
 - Zookeeper 관리를 위한 자세한 내용은 https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html 를 참고한다.
 - Zookeeper server의 3.5.6 버전의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
