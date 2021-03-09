@@ -305,7 +305,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-48357 iloader out 인자에 -WKB 옵션을 추가합니다.
+### BUG-48357 iloader out 인자에 -geom WKB 옵션을 추가합니다.
 
 -   **module** : ux-iloader
 
@@ -313,8 +313,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **증상** : iloader out 인자에 -WKB 옵션을 추가합니다. 이 옵션으로,Altibase 7.1.0.4.0 이상에서 제공하는 EWKB(Extended Well-Known
-    Binary) 형식의 공간 데이터를 WKB(Well-Known Binary) 형식으로,다운로드할 수 있습니다.
+-   **증상** : iloader out 인자에 -geom WKB 옵션을 추가합니다. Altibase 7.1.0.4.0 이상에서 제공하는 EWKB(Extended Well-KnownBinary) 형식의 공간 데이터를 WKB(Well-Known Binary) 형식으로 다운로드할 때 이 옵션을 사용합니다. 
     
 -   **재현 방법**
 -   **재현 절차**
