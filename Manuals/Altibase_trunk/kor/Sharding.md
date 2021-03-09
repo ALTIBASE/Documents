@@ -33,8 +33,9 @@
     - [Shard Meta Table](#shard-meta-table)
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
-  - [ShardCLI (*under construction*)](#shardcli-under-construction)
+  - [ShardCLI](#shardcli)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
+  - [Utilities](#utilities)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -820,10 +821,12 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
   - 특정 샤드노드의 sys 계정의 암호를 변경하면, 타 샤드노드들과 연동이 되지 않아 문제가 발생합니다.
   - sys 계정의 암호 변경을 위해서는 모든 샤드노드들은 shutdown 한 후에 재구동 한 상태에서 동일하게 암호를 변경한 후에 모든 샤드노드들을 샤딩 클러스터에 JOIN 시켜야 합니다.
     - 샤드노드들을 샤딩 클러스터에 JOIN 시키기 전에, 필수적으로 altipasswd 툴을 이용한 암호 변경작업도 해주어야 합니다. 
+- alter session set replication = false 기능을 사용할 수 없다. 
+  - 특정 세션의 DML만 k-safety 복제가 되지 않아, 샤딩 데이타정합성에 위배가 되기 때문이다.
 
 #### 하위 호환성
--   샤드 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤드 기능을 사용할 수 있다.
--   샤드 버전은 다음과 같이 확인할 수 있다.
+-   샤딩 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤딩 기능을 사용할 수 있다.
+-   샤딩 버전은 다음과 같이 확인할 수 있다.
 ```
 $ALTIBASE_HOME/bin/altibase -v
 ```
@@ -2650,3 +2653,22 @@ FailoverSample.java의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER)
 자세한 코드 내용은 \$ALTIBASE_HOME/sample/SHARD/Fail-Over/FailoverSample.java를
 참고한다.
 
+## Utilities
+해당 유틸리티 매뉴얼을 기본으로 참조한다. 여기서는, 샤딩환경에서의 특이사항만을 기술한다.
+
+### iloader
+- 모든 기능은 서버사이드로 동작하여, 성능이 느릴 수 있다.
+- replication false 옵션을 사용할 수 없다.
+  - k-safety 복제가 되지 않아, 샤딩 데이타정합성에 위배가 되기 때문이다.
+- mode TRUNCATE 옵션을 샤드 테이블에 대하여 사용할 수 없다.
+  - 향후 샤드 테이블에 대한 TRUNCATE 구문이 허용되면, 그때부터 본 기능이 동작할 것이다.
+- direct 옵션을 샤드 테이블에 대하여 사용할 수 없다.
+  - k-safety 복제가 되지 않아, 샤딩 데이타정합성에 위배가 되기 때문이다.
+- geometry/encryption/compression column type 을 지원하지 않는다.
+- ssl 옵션을 사용할 수 없다.
+- commit 1 옵션을 사용할 수 없다. (commit 1 에서 iLoader가 AUTOCOMMIT 모드로 동작하기 때문이다.)
+
+### shardLoader
+- iLoader를 shardCLI library를 사용하여 build 한 것이다. upload 와 download 가 client-side 로 수행되므로, iLoader 보다 성능이 빠를 수 있다.
+- array 옵션 및 atomic 옵션을 사용할 수 없다.
+- 추가로 iloader 의 모든 제약사항이 동일하게 적용된다.
