@@ -36,9 +36,6 @@
 
 - ### [DB Link User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DBLink.md)
 
-- ### [Altibase Sharding Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md)
-
-
 
 ## Application Development
 

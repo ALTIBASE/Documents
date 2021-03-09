@@ -50,16 +50,6 @@ Altibase 7.1.0.1.2 can be run on the operating systems and platforms listed in t
 
 ### New Features
 
-#### Altibase Sharding 2.0
-
-As of Altibase 7.1, Altibase Sharding is provided. Altibase Sharding introduces sharding technology to Altibase, improving stroage capacity and throughput per hour, and enabling distributed processing of large databases.
-
-Altibase Sharding is a hybrid sharding, and anlyzes existing SQL to automatically analyze whether to perform client-side sharding or server-side sharding to optimize the path.
-
-Altibase Sharding supports various distributed methods, distributed objects, and utilities, and can be applied to various tasks. Altibase Sharding can be easily applied by replacing only the shard-only library without modifying the existing SQL.
-
-In addition, the server-side sharding can be applied without modifying any existing applications. 
-
 ####  Meta Downgrade
 
 As of ALtibase 7.1.0.1.2, a meta downgrade command is provided so that patch rollback can be performed even when the meta version is different.
@@ -386,10 +376,6 @@ JDBC Adapter is a utility that applies data changed in the Altibase database to 
 
 The SQuirreL SQL client, an open source product for DB object browsing and SQL execution, can be used in conjunction with Altibase.
 
-###### Shard Manage Support
-
-Shard Manager is a tool to help organize and manage Altibase Sharding data nodes and shard objects. Altibase Sharding consists of multiple databases, so managing each database and object can be expensive. In this environment, the user can use Shard Manager to improve work efficiency.
-
 ###### altimon.sh Improvement
 
 altimon.sh has been mainly improved to  monitors OS information and DB information, and in order to collect OS information, it is possible in an operating system that can use the PICL library.
@@ -593,10 +579,10 @@ The functions added, changed, and removed that DBAs and developers need to under
 
 Version by Database Component
 
-| Altibase Version | Database Binary Version | Communication Protocol Version | Meta Version | Replication Protocol Version | Sharding Version |
-| ---------------- | ----------------------- | ------------------------------ | ------------ | ---------------------------- | ---------------- |
-| 6.5.1            | 6.3.1                   | 7.1.3                          | 8.1.1        | 7.4.2                        | -                |
-| 7.1.0.1.2        | 6.5.1                   | 7.1.6                          | 8.5.1        | 7.4.2                        | 2.0.0            |
+| Altibase Version | Database Binary Version | Communication Protocol Version | Meta Version | Replication Protocol Version |
+| ---------------- | ----------------------- | ------------------------------ | ------------ | ---------------------------- |
+| 6.5.1            | 6.3.1                   | 7.1.3                          | 8.1.1        | 7.4.2                        |
+| 7.1.0.1.2        | 6.5.1                   | 7.1.6                          | 8.5.1        | 7.4.2                        |
 
 #### Compatibility
 
@@ -635,18 +621,6 @@ The replication protocol version has not been changed. Therefore, replication be
 | ---------------- | ---------------------------- |
 | 6.5.1            | 7.4.2                        |
 | 7.1.0.1.2        | 7.4.2                        |
-
-##### Sharding Version
-
-Starting with the Altibase 7.1, sharding is provided.
-
-> Precautions:
->
-> Altibase sharding protocol and meta do not guarantee high and low compatibility. In other words, if the sharding version is different, it must be reconstructed.
-
-| Altibase Version | Sharding Version |
-| ---------------- | ---------------- |
-| 7.1.0.1.2        | 2.0.0            |
 
 #### Properties
 

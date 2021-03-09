@@ -2295,9 +2295,9 @@ Changes
 
 ### Version Info
 
-| altibase version | database binary version | meta version | cm protocol version | replication protocol version | sharding version |
-| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- | ---------------- |
-| 7.1.0.1.4        | 6.5.1                   | 8.6.1        | 7.1.6               | 7.4.3                        | 2.1.0            |
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 7.1.0.1.4        | 6.5.1                   | 8.6.1        | 7.1.6               | 7.4.3                        |
 
 > Altibase 7.1 패치 버전별 히스토리는
 > [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md)
@@ -2328,13 +2328,6 @@ Changes
 #### Replication protocol Version
 
 이중화 프로토콜 버전이 7.4.3에서 7.4.4로 변경되었지만, 하위 호환성을 보장한다.
-
-#### Sharding Version
-
-샤딩 버전이 2.0.0에서 2.1.0으로 변경되었다. 샤딩에서 사용하는 메타 테이블 및 패키지(프로시저)가 변경되었으므로, 패치 후 샤딩 재구성해야 한다.
-
-> 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다. 샤딩 설정은 *[Altibase Sharding 설치와 설정](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#2altibase-sharding-%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95>)*을 참고한다.
 
 ### 프로퍼티
 

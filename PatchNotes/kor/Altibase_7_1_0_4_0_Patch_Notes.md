@@ -1422,9 +1422,9 @@ Changes
 
 ### Version Info
 
-| altibase version | database binary version | meta version | cm protocol version | replication protocol version | sharding version |
-| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- | ---------------- |
-| 7.1.0.4.0        | 6.5.1                   | 8.8.1        | 7.1.7               | 7.4.6                        | 2.2.1            |
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 7.1.0.4.0        | 6.5.1                   | 8.8.1        | 7.1.7               | 7.4.6                        |
 
 > Altibase 7.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
 
@@ -1459,12 +1459,6 @@ BUG-47873으로 인해, 이중화 프로토콜 버전이 7.4.5에서 7.4.6으로
 또한 내부적으로 ALA 프로토콜이 변경되어, 7.1.0.4.0 JDBC Adapter 와 oraAdapter 에서 아래의 오류(BUG-48015)가 발생합니다. 이 문제는 다음번 패치(7.1.0.4.1)에서 반영될 예정입니다.
 
 > BUG-48015 ALA protocol 변경으로 인해 jdbcAdapter, oraAdapter가 7.1.0.3.9 이하 버전과 연동 되지 않습니다. 
-
-#### Sharding Version
-
-샤딩 버전은 변경 되지 않았다.
-
-> 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다.
 
 ### 프로퍼티
 

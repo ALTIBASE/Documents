@@ -10,7 +10,6 @@
     - [BUG-47436  altiMon에서 Altibase 접속정보를 설정할 때, 추가적인 연결 속성을 지정하는 기능이 필요합니다](#bug-47436-altimon%EC%97%90%EC%84%9C-altibase-%EC%A0%91%EC%86%8D%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%84%A4%EC%A0%95%ED%95%A0-%EB%95%8C-%EC%B6%94%EA%B0%80%EC%A0%81%EC%9D%B8-%EC%97%B0%EA%B2%B0-%EC%86%8D%EC%84%B1%EC%9D%84-%EC%A7%80%EC%A0%95%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-47437  altiMon에서 action script 수행시 metric 이름, 레벨, 기준값, 측정값을 인자로 넘겨줘야 합니다.](#bug-47437-altimon%EC%97%90%EC%84%9C-action-script-%EC%88%98%ED%96%89%EC%8B%9C-metric-%EC%9D%B4%EB%A6%84-%EB%A0%88%EB%B2%A8-%EA%B8%B0%EC%A4%80%EA%B0%92-%EC%B8%A1%EC%A0%95%EA%B0%92%EC%9D%84-%EC%9D%B8%EC%9E%90%EB%A1%9C-%EB%84%98%EA%B2%A8%EC%A4%98%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-47434  SQLCLI에서 반환되는 에러를 출력할 때 에러 코드도 포함해야 합니다](#bug-47434-sqlcli%EC%97%90%EC%84%9C-%EB%B0%98%ED%99%98%EB%90%98%EB%8A%94-%EC%97%90%EB%9F%AC%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%A0-%EB%95%8C-%EC%97%90%EB%9F%AC-%EC%BD%94%EB%93%9C%EB%8F%84-%ED%8F%AC%ED%95%A8%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47353  샤드 객체와 구성에 대한 report를 제공해야 합니다.](#bug-47353-%EC%83%A4%EB%93%9C-%EA%B0%9D%EC%B2%B4%EC%99%80-%EA%B5%AC%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%9C-report%EB%A5%BC-%EC%A0%9C%EA%B3%B5%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-46632  메모리 덤프시 TRACE LOG가 2KB를 초과하는 경우 출력되지 않는 문제가 있습니다.](#bug-46632-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%8D%A4%ED%94%84%EC%8B%9C-trace-log%EA%B0%80-2kb%EB%A5%BC-%EC%B4%88%EA%B3%BC%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EC%B6%9C%EB%A0%A5%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-47371  이중화 대상이 아닌 table partition 인 경우에는 이중화 flag로 설정하지 않도록 수정합니다.](#bug-47371-%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81%EC%9D%B4-%EC%95%84%EB%8B%8C-table-partition-%EC%9D%B8-%EA%B2%BD%EC%9A%B0%EC%97%90%EB%8A%94-%EC%9D%B4%EC%A4%91%ED%99%94-flag%EB%A1%9C-%EC%84%A4%EC%A0%95%ED%95%98%EC%A7%80-%EC%95%8A%EB%8F%84%EB%A1%9D-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -244,34 +243,6 @@ New Features
 -   **Workaround**
 
 -   **변경사항**
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-47353  샤드 객체와 구성에 대한 report를 제공해야 합니다.
-
--   **module** : ux-shardManager
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **증상** : 샤드 객체와 구성에 대한 Configuration & report가
-    추가되었습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
     -   Performance view
     -   Property
     -   Compile Option
@@ -657,9 +628,9 @@ Changes
 
 ### Version Info
 
-| altibase version | database binary version | meta version | cm protocol version | replication protocol version | sharding version |
-| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- | ---------------- |
-| 7.1.0.3.0        | 6.5.1                   | 8.7.1        | 7.1.7               | 7.4.5                        | 2.2.1            |
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 7.1.0.3.0        | 6.5.1                   | 8.7.1        | 7.1.7               | 7.4.5                        |
 
 > Altibase 7.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
 
@@ -686,13 +657,6 @@ Changes
 #### Replication protocol Version
 
 Replication 프로토콜 버전은 변경되지 않았다.
-
-#### Sharding Version
-
-샤딩 버전은 변경 되지 않았다.
-
-> 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다.
 
 ### 프로퍼티
 

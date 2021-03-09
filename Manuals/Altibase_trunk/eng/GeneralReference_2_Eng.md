@@ -1,22 +1,20 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [General Reference](#general-reference)
-  - [2. Altibase Properties](#2altibase-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Session Properties](#%EC%84%B8%EC%85%98-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Time-out Properties](#%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Transaction Properties](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Backup and Recovery Properties](#%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Replication Properties](#%EC%9D%B4%EC%A4%91%ED%99%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Network and Security Properties](#%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Message Logging Properties](#%EB%A9%94%EC%8B%9C%EC%A7%80-%EB%A1%9C%EA%B7%B8-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Database Link Properties](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Auditing Properties](#%EA%B0%90%EC%82%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [C/C++ External Procedure Agent Properties](#%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Account Security Properties](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EB%B3%B4%EC%95%88-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Altibase Sharding Properties](#altibase-sharding-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Other Properties](#%EA%B8%B0%ED%83%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+  - [2. Altibase Properties](#2-altibase-properties)
+    - [Session Properties](#session-properties)
+    - [Time-out Properties](#time-out-properties)
+    - [Tranaction Properties](#tranaction-properties)
+    - [Backup and Recovery Properties](#backup-and-recovery-properties)
+    - [Replication Properties](#replication-properties)
+    - [Network and Security Properties](#network-and-security-properties)
+    - [Message Logging Properties](#message-logging-properties)
+    - [Database Link Properties](#database-link-properties)
+    - [Auditing Properties](#auditing-properties)
+    - [C/C++ External Procedure Agent Properties](#cc-external-procedure-agent-properties)
+    - [Account Security Properties](#account-security-properties)
+    - [Other Properties](#other-properties)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -1184,28 +1182,6 @@ Read-Only, Single Value
 The number of transactions which can be simultaneously created during the Altibase service is specifiable when creating a database, and memory for such process is allocated in advance. 
 
 This property should increase or decrease the value by 2n and the database must be created again when decreasing the value.
-
-#### SHARED_TRANS_HASH_BUCKET_COUNT(단위 : 해시 저장소 개수)
-
-##### Data Type
-
-Unsigned Integer
-
-##### Default value
-
-1024
-
-##### Attributes
-
-Read-Only, Single value
-
-##### Range
-
-[16,16384]
-
-##### Description
-
-Sets the hash storage size of the data structure for managing shared transactions created during the Altibase sharding.
 
 ### Backup and Recovery Properties
 
@@ -5749,36 +5725,6 @@ Maximum length : 40 bytes
 ##### Description
 
 This specifies a user-defined CALLBACK function for verifying passwords.
-
-### Altibase Sharding Properties
-
-#### SHARD_META_ENABLE 
-
-##### Data Type
-
-Unsigned Integer
-
-##### Default Value
-
-0
-
-##### Attributes
-
-Read-Only, Single Value
-
-##### Range
-
-[0, 1]
-
-##### Description
-
-Set to shard node of Altibase sharding:
-
-0: Disabled
-
-1: Enabled
-
-For other sharding properties, please refer to the *Sharding Manual*.
 
 ### Other Properties
 

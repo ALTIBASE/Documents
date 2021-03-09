@@ -143,7 +143,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | SLEEPS_CNT         | BIGINT  | 래치를 잡기 위하여 sleep한 횟수 |
 
 ### <a name="vlibrary"><a/>V\$LIBRARY
-	
+
 C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보를 보여준다.
 라이브러리 정보를 통해서 원하는 라이브러리를 제대로 로드했는지 확인할 수 있다.
 
@@ -1846,21 +1846,32 @@ COMMIT 또는 ROLLBACK과 무관하게 계산된다. 즉 ROLLBACK을 수행해�
 
 이중화 수신자의 정보를 보여준다.
 
-| Column name            | Type        | Description                                                      |
-|------------------------|-------------|------------------------------------------------------------------|
-| REP_NAME               | VARCHAR(40) | 이중화 객체의 이름                                               |
-| PARALLEL_APPLIER_INDEX | INTEGER     | 적용자 번호                                                      |
-| APPLY_XSN              | BIGINT      | 처리중인 XSN                                                     |
+| Column name            | Type        | Description                                                  |
+| ---------------------- | ----------- | ------------------------------------------------------------ |
+| REP_NAME               | VARCHAR(40) | 이중화 객체의 이름                                           |
+| PARALLEL_APPLIER_INDEX | INTEGER     | 적용자 번호                                                  |
+| APPLY_XSN              | BIGINT      | 처리중인 XSN                                                 |
 | INSERT_SUCCESS_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 성공한 INSERT 로그레코드의 수 |
 | INSERT_FAILURE_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 실패한 INSERT 로그레코드의 수 |
 | UPDATE_SUCCESS_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 성공한 UPDATE 로그레코드의 수 |
 | UPDATE_FAILURE_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 실패한 UPDATE 로그레코드의 수 |
 | DELETE_SUCCESS_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 성공한 DELETE 로그레코드의 수 |
 | DELETE_FAILURE_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 실패한 DELETE 로그레코드의 수 |
+| STATUS                 | VARCHAR(10) | RECEIVER APPLIER 의 현재 동작 상태                           |
 
 #### 칼럼 정보
 
-칼럼 정보에 대한 자세한 내용은 V\$REPRECEIVER를 참조한다.
+##### STATUS
+
+RECEIVER APPLIER 의 현재 동작 상태를 나타낸다
+
+- INITIALIZE : 초기화 중
+- WORKING : 데이터 반영 중
+- DEQUEUEING : XLog 를 receiver 로 부터 전달 받기를 대기 중
+- WAITING : 다른 Applier 들이 transaction 반영을 대기 중
+- STOP : 종료
+
+나머지 칼럼 정보에 대한 자세한 내용은 V\$REPRECEIVER를 참조한다.
 
 ### <a name="vrepreceiver_statistics"><a/>V\$REPRECEIVER_STATISTICS
 

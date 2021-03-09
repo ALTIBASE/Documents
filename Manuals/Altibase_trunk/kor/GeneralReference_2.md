@@ -1,7 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [General Reference](#general-reference)
   - [2.Altibase 프로퍼티](#2altibase-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [세션 관련 프로퍼티](#%EC%84%B8%EC%85%98-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
@@ -15,7 +14,6 @@
     - [감사 관련 프로퍼티](#%EA%B0%90%EC%82%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [에이전트 관련 프로퍼티](#%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [사용자 계정 보안 관련 프로퍼티](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EB%B3%B4%EC%95%88-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Altibase Sharding 관련 프로퍼티](#altibase-sharding-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [기타 프로퍼티](#%EA%B8%B0%ED%83%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1320,28 +1318,6 @@ Altibase 서비스 중에 동시에 생성될 수 있는 트랜잭션 개수를 
 
 이 프로퍼티는 2n 크기만큼 값을 증감시켜야 하며, 감소시킬 때에는 반드시
 데이터베이스를 다시 생성해야 한다.
-
-#### SHARED_TRANS_HASH_BUCKET_COUNT(단위 : 해시 저장소 개수)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1024
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[16,16384]
-
-##### 설명
-
-Altibase Sharding 서비스 중에 생성되는 공유 트랜잭션 관리를 위한 자료구조의 Hash 저장소 크기를 설정한다.
 
 ### 백업 및 복구 관련 프로퍼티
 
@@ -2893,6 +2869,30 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+20000
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[2, 2<sup>32</sup>-1]
+
+##### 설명
+
+Applier 가 다른 Applier 의 Transaction 반영 대기시 시스템 함수인 yield 를 이용하여 대기 하는 횟수.
+
+yield 함수를 사용시 CPU 사용을 하기 때문에 이 횟수 이상 호출 이후에는 CPU 자원을 사용안하는 timed_wait 함수를 호출 한다.
+
 #### REPLICATION_RECOVERY_MAX_LOGFILE
 
 ##### 데이터 타입
@@ -3598,7 +3598,7 @@ Unsigned Integer
 
 ##### 기본값
 
-0
+20300
 
 ##### 속성
 
@@ -6265,34 +6265,6 @@ String
 ##### 설명
 
 패스워드를 검증할 사용자 정의 콜백 함수(CALLBACK function)를 지정한다.
-
-### Altibase Sharding 관련 프로퍼티
-
-#### SHARD_META_ENABLE 
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding의 메타 노드로 설정한다.
-
-0: Disabled
-
-1: Enabled
 
 ### 기타 프로퍼티 
 
