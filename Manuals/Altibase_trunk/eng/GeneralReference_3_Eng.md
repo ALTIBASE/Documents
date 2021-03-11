@@ -2552,6 +2552,7 @@ This meta table contains information about replication target tables.
 | INVALID_MAX_SN        | BIGINT        | The highest log SN to skip                                   |
 | CONDITION             | VARCHAR(1000) | Deprecated                                                   |
 | REPLICATION_UNIT      | CHAR(1)       | The replication unit                                         |
+| IS_CONDITION_SYNCED   | INTEGER       | Whether or not a replication is conditional synced           |
 
 One replication object can pertain to more than one table, and SYS_REPL_ITEMS_ has a record for each of these tables. For example, if a replication pertains to 10 tables, this meta table will contain 10 records pertaining to this replication.
 
@@ -2603,6 +2604,10 @@ This is the unit of the replication target item. One of the following two values
 
 - T: The replication target item is a table.
 - P: The replication target item is a partition.
+
+##### IS_CONDITION_SYNCED
+Whether or not a replication is conditional synced           |
+
 
 #### Reference Tables
 
