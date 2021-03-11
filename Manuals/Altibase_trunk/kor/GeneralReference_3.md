@@ -2770,6 +2770,7 @@ SYS_REPLICATIONS_
 | INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN              |
 | CONDITION             | VARCHAR(1000) | Deprecated                          |
 | REPLICATION_UNIT      | CHAR(1)       | 이중화 단위                         |
+| IS_CONDITION_SYNCED   | INTEGER       | conditional sync 여부               |
 
 하나의 이중화 객체는 한 개 이상의 테이블들을 포함할 수 있으며, 이들 테이블
 각각에 대해 SYS_REPL_ITEMS_에 레코드가 존재한다. 예를 들어 한 이중화가 10개의
@@ -2833,6 +2834,9 @@ TABLE_NAME 값과 동일하다.
 
 - T: 이중화 대상 아이템이 테이블임을 나타낸다.
 - P: 이중화 대상 아이템이 파티션임을 나타낸다.
+
+##### IS_CONDITION_SYNCED
+conditional sync 여부
 
 #### 참조 테이블
 
