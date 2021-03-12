@@ -569,9 +569,9 @@ VALUE1 : 1
 
 SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티들이 있다. 
 
-샤딩관련 프라퍼티들의 권장설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장있다. 샤딩을 최초 구성시에는, 이 화일을 복사하여 \$ALTIBASE_HOME/conf/altibase.properties 를 만들고, 추가적인 변경사항을 고려해주면 된다. 인스톨러를 이용하여 샤딩용으로 선택하여 설치한 경우에는 이 과정을 인스톨러에서 자동으로 처리해 준다.
+샤딩관련 프라퍼티들의 권장 설정값들은 \$ALTIBASE_HOME/conf/altibase.properties.shard 에 저장되어 있다. 샤딩을 최초 구성시에는, 이 화일을 복사하여 \$ALTIBASE_HOME/conf/altibase.properties 를 만들고, 추가적인 변경사항을 고려해주면 된다. 인스톨러를 이용하여 샤딩용으로 선택하여 설치한 경우에는 이 과정을 인스톨러에서 자동으로 처리해 준다.
 
-기존에 사용하던 altibase.properties 를 기반으로 하여 변경을 하고 싶은 경우에는, 단독DB환경에서의 권장값이 기록되어 있는 altibase.properties.sample 과 샤딩환경에서의 권장값이 기록되어 있는 altibase.properties.shard 를 비교하여, 해당 편차를 기존의 altibase.properties 에 변경해주면 된다.
+기존에 사용하던 altibase.properties 를 기반으로 하여 변경을 하고 싶은 경우에는, 단독DB환경에서의 권장값이 기록되어 있는 altibase.properties.sample 과 샤딩 환경에서의 권장값이 기록되어 있는 altibase.properties.shard 를 비교하여, 해당 편차를 기존의 altibase.properties 에 변경해주면 된다.
 
 ##### 샤드 패키지 생성
 샤드 패키지는 \$ALTIBASE_HOME/packages에 있다. 샤드 패키지는 샤드 기능을 제어할 수 있는 사용자 인터페이스를 제공한다.
