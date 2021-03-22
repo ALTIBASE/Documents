@@ -94,6 +94,8 @@ Replication 프로토콜 버전은 변경되지 않았다.
 
 #### 추가된 프로퍼티
 
+__SQL_PLAN_CACHE_VALID_MODE
+
 #### 변경된 프로퍼티
 
 #### 삭제된 프로퍼티
