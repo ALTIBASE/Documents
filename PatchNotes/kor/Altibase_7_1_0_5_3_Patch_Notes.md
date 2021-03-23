@@ -20,22 +20,14 @@ Fixed Bugs
 ### BUG-48594 시노님(synonym)을 포함한 SQL 수행 시 SQL PLAN CACHE 로 인한 CPU 병목을 개선합니다. 
 
 -   **module** : qp-dml-execute
-
 -   **Category** : Enhancement
-
 -   **재현 빈도** : Always
-
 -   **내용** : 시노님(synonym)을 포함한 SQL 수행 시 SQL PLAN CACHE 처리 과정에서 잦은 시스템콜(malloc)로 인한 CPU 병목 현상을 개선합니다. 개선 방식 사용을 원할 경우 __SQL_PLAN_CACHE_VALID_MODE = 1 을 설정해야 합니다.
-
 -   **재현 방법**
   -   **재현 절차**
-    
   -   **수행 결과**
-    
   -   **예상 결과**
-  
 -   **Workaround**
-
 -   **변경사항**
     -   Performance view
         
