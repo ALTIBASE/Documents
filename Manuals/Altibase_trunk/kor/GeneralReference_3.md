@@ -3,7 +3,7 @@
 - [General Reference](#general-reference)
   - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-     - [SYS_AUDIT\_](#sys_audit_)
+    - [SYS_AUDIT\_](#sys_audit_)
     - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
     - [SYS_COLUMNS\_](#sys_columns_)
     - [SYS_COMMENTS\_](#sys_comments_)
