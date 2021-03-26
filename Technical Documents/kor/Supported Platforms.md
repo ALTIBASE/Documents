@@ -31,8 +31,8 @@ Altibase 7.1 지원 플랫폼은 [Altibase 7.1 Installation 매뉴얼](https://g
 
 |                      | JDK 4 | JDK 5 | JDK 6 | JDK 7 |
 | :------------------- | :---: | :---: | :---: | :---: |
-| **JDBC Driver**      |   ●   |   ●   |       |       |
-| **DB Link**          |   ●   |   ●   |       |       |
+| **JDBC Driver**      | **X** |   ●   |       |       |
+| **DB Link**          | **X** |   ●   |       |       |
 | **Adapter for JDBC** | **X** | **X** | **X** |   ●   |
 | **altiMon**          | **X** |   ●   |       |       |
 
