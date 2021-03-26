@@ -3315,6 +3315,8 @@ iSQL> ALTER SEQUENCE seq1 ENABLE SYNC TABLE;
 
 ![image56_add_table_partition](media/SQL/image56_add_table_partition.gif)
 
+[partition_range_clause ::=](#partition_range_clause) 
+
 **alter_partition ::=**
 
 ![alter_partition](media/SQL/alter_partition.gif)
@@ -3535,11 +3537,25 @@ CREATE TABLE의 parallel_clause 설명을 참고한다.
 
 *add_table_partition*
 
-이는 파티션드 테이블에 파티션을 추가하는 절이다. 이 절은 해시 파티션드
-테이블에만 사용할 수 있다. 기존 파티션들에 로컬 인덱스가 이미 생성되어 있는
-경우, 추가된 파티션에도 로컬 인덱스가 자동으로 생성된다. 이 때 로컬 인덱스의
+이는 파티션드 테이블에 한개의 파티션을 추가하는 절이다. 이 절은 해시 파티션드
+테이블 또는 기본 파티션이 생략된 범위 파티션드 테이블에만 사용할 수 있다.
+
+partition_spec 절은 해시 파티션드 테이블에만 사용할 수 있다.
+
+partition_range_clause 절은 범위 파티션드 테이블에만 사용할 수 있으며,
+범위 파티션드 테이블의 마지막 범위의 파티션을 추가하는 구문이다.
+SPLIT 파티션 연산과 다르게 데이터가 이동하지 않기 때문에 DML문과의 동시성을 보장할 수 있다.
+
+기존 파티션들에 로컬 인덱스가 이미 생성되어 있는 경우, 
+추가된 파티션에도 로컬 인덱스가 자동으로 생성된다. 이 때 로컬 인덱스의
 이름은 시스템에 의해 자동으로 결정되고, 그 인덱스는 새로 추가된 파티션과 같은
 테이블스페이스에 저장된다.
+
+> 주의 
+>
+> - 범위 파티션드 테이블의 기본 파티션을 추가 할 수 없다.
+> - 범위 파티션드 테이블의 범위 중간에 파티션을 추가할 수 없다.
+>   SPLIT 파티션 연산을 사용해야한다.
 
 *partition_spec*
 
@@ -3596,6 +3612,8 @@ SPLIT PARTITION, MERGE PARTITION, 또는 ADD PARTITION을 실행할 경우 새�
 이 절은 파티션을 제거하는데 사용된다. 파티션에 있는 데이터와 함께 로컬 인덱스도
 제거된다. 데이터를 삭제하지 않으려면, 파티션을 DROP을 하기 전에 다른 파티션과
 합병(MERGE)한다.
+
+> 주의 : 범위, 리스트 파티션드 테이블의 기본 파티션을 삭제 할 수 없다.
 
 *merge_table_partition*
 
@@ -3670,9 +3688,9 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 
 *modify_column_clause*
 
-기존 칼럼의 자료형(data type)을 변경한다.
+기존 칼럼의 자료형(data type)을 변경하거나 공간 객체 타입인 경우 SRID의 값을 변경한다.
 
-기존 칼럼의 자료형(data type)을 변경한다. SRID는 4바이트 범위 내의 정수를 사용할 수 있다. 만약 SRID의 값을 변경할 경우 테이블에 입력된 값과 일치하는 값만 선택할 수 있다.
+SRID는 4바이트 범위 내의 정수를 사용할 수 있다. 만약 SRID의 값을 변경할 경우 테이블에 입력된 값과 일치하는 값만 선택할 수 있다.
 
 다음의 표는 특정 자료형이 다른 자료형으로 변경이 가능한지 여부를 나타낸다. △로
 표시한 부분은 자료형을 변경했을 때, 테이블의 데이터가 NULL이 아닌 경우 자료
@@ -4464,8 +4482,6 @@ ALTER TABLE T6 ADD PARTITION P2 INDEX ( T6_IDX PARTITION T6_P2_IDX );
 ```
 ALTER TABLE T4 MERGE PARTITIONS P1, P2 INTO PARTITION P1 INDEX ( T4_IDX
 PARTITION T4_P1_IDX );
-
-
 ```
 
 \<질의\> 범위 파티션드 테이블 T4에서 기본 파티션인 P1를 100을 기준으로 분리한다.
@@ -5452,6 +5468,7 @@ Comment created.
   테이블로 변환된 대상 테이블의 관련 메타 테이블은 모두 삭제된다.
 - 대상 테이블과 관련된 PSM, 패키지, 뷰는 사용할 수 없다.
 - 해시 파티션드 테이블은 지원하지 않는다.
+- 기본 파티션이 생략된 파티션드 테이블은 지원하지 않는다.
 - 생성되는 파티션드 테이블의 스키마는 대상 테이블의 스키마와 동일해야 한다.
   대상 테이블은 칼럼 개수와 이름, 순서와 자료형, in row와 compressed logging
   옵션, CHECK 및 NOT NULL 제약조건이 전부 동일해야 한다.
@@ -7389,7 +7406,7 @@ MY_DEPT.MEMBER
 
 **range_partitioning ::=**
 
-![range_partitioning_image124](media/SQL/range_partitioning_image124.gif)
+![range_partitioning_image124](media/SQL/image124_2.gif)
 
 **partition_default_clause ::=**
 
@@ -7403,6 +7420,8 @@ MY_DEPT.MEMBER
 
 [lob_column_properties ::=](#lob_column_properties)*,* [access_mode_clause
 ::=](#access_mode_clause_CREATETALBE)
+
+<a name="partition_range_clause"></a>
 
 **partition_range_clause ::=**
 
@@ -7765,8 +7784,43 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 최대값을 설정함으로써 결정된다.
 
 명시된 범위 외의 모든 값과 NULL은 기본 파티션(default partition)에 속하게 된다.
-기본 파티션 절은 생략할 수 없다. 여러 칼럼들의 조합으로 파티션 키를 정의할 수
-있다.
+여러 칼럼들의 조합으로 파티션 키를 정의할 수 있다.
+
+범위 파티션드 테이블 생성시 기본 파티션 절은 생략할 수 있다.
+기본 파티션 절이 생략된 경우에만 ALTER TABLE ADD PARTITION 구문을 사용할 수 있다.
+
+> 주의 : 
+>
+> - 기본 파티션을 추가 또는 삭제할 수 없습니다. 즉, ATLER TABLE ADD , DROP PARTITION 구문을 지원하지 않습니다. 범위 파티션테이블을 생성시 주의해야한다.
+>
+> - 파티션 키 컬럼의 값으로 NULL을 삽입해야 하는 경우 기본파티션이 반드시 있어야한다.
+>
+> - 기본 파티션이 없는 경우  CONJOIN/DISJOIN 구문을 지원하지 않습니다.
+
+> 참고 : 기본 파티션 절을 생략한 경우 SYS_TABLE_PARTITIONS_에 이름이 ""(NULL)인 파티션이 생성된다.
+>
+> ```
+> CREATE TABLE t1 ( i1 INT, i2 INT)
+> PARTITION BY RANGE ( i1 )
+> ( PARTITION p1 VALUES LESS THAN (10),
+>   PARTITION p2 VALUES LESS THAN (20)
+> );
+> 
+> SELECT PARTITION_NAME as p_name
+>  , PARTITION_MIN_VALUE as min
+>  , PARTITION_MAX_VALUE as max
+> FROM SYSTEM_.SYS_TABLES_ T,
+>  SYSTEM_.SYS_TABLE_PARTITIONS_ p
+> WHERE T.USER_ID = 2 
+>  AND T.TABLE_NAME = 'T1'
+>  AND T.TABLE_ID = P.TABLE_ID;
+> P_NAME  MIN     MAX
+> ----------------------------
+> P1              10
+> P2      10      20
+>         20
+> 3 rows selected.
+> ```
 
 *table_partition_description*
 

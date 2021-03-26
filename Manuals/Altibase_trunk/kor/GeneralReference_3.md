@@ -3,7 +3,7 @@
 - [General Reference](#general-reference)
   - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [SYS_AUDIT\_](#sys_audit_)
+     - [SYS_AUDIT\_](#sys_audit_)
     - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
     - [SYS_COLUMNS\_](#sys_columns_)
     - [SYS_COMMENTS\_](#sys_comments_)
@@ -67,6 +67,9 @@
     - [SYS_VIEW_PARSE\_](#sys_view_parse_)
     - [SYS_VIEW_RELATED\_](#sys_view_related_)
     - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
+    - [SYS_GEOMETRIES_](#sys_geometries_)
+    - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
+    - [USER_SRS_](#user_srs_)
     - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
     - [V\$ACCESS_LIST](#vaccess_list)
     - [V\$ALLCOLUMN](#vallcolumn)
@@ -664,7 +667,7 @@ IN ROW 절이나 VARIABLE 옵션(가변 길이 칼럼)에 대한 자세한 사�
 ```
 SYS_USERS_
 SYS_TABLES_
-STO_USER_COLUMNS_
+SYS_GEOMETRIES_
 ```
 
 ### SYS_COMMENTS\_
@@ -4144,6 +4147,50 @@ SYS_PROCEDURES_
 ##### STATUS
 
 글로벌 트랜잭션의 상태
+
+### SYS_GEOMETRIES_
+
+GEOMETRY 칼럼을 보유한 테이블에 대한 정보를 저장하고 있는 메타 테이블이다.
+
+| Column name     | Type     | Description                            |
+| --------------- | -------- | -------------------------------------- |
+| USER_ID         | INTERGER | 테이블의 소유자 식별자                       |
+| TABLE_ID        | INTERGER | 테이블의 식별자                            |
+| COLUMN_ID       | INTERGER | 컬럼의 식별자                          |
+| COORD_DIMENSION | INTERGER | GEOMETRY 객체의 차원                      |
+| SRID            | INTERGER | 데이터베이스 내에서의 공간 참조 식별자           |
+
+### SYS_GEOMETRY_COLUMNS_
+
+GEOMETRY 칼럼에 공간 참조 식별자(SRID, Spatial Reference ID)를 지정, 관리하기 위해 사용한다.
+
+이 메타 테이블의 synonym은 GEOMETRY_COLUMNS_이다.
+
+| Column name       | Type         | Description                            |
+| ----------------- | ------------ | -------------------------------------- |
+| F_TABLE_SCHEMA    | VARCHAR(128) | 테이블 소유자 이름                         |
+| F_TABLE_NAME      | VARCHAR(128) | 테이블 이름                              |
+| F_GEOMETRY_COLUMN | VARCHAR(128) | 컬럼의 이름                              |
+| COORD_DIMENSION   | INTERGER     | GEOMETRY 객체의 차원                     |
+| SRID              | INTERGER     | 데이터베이스 내에서의 공간 참조 식별자          |
+
+### USER_SRS_
+
+공간 참조 식별자(SRID, Spatial Reference IDentifier)와 이에 대응하는 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 관리하기 위해 사용한다.
+
+이 메타 테이블의 synonym은 SPATIAL_REF_SYS 이다.
+
+SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록하기 위해서는 SYS_SPATIAL 패키지의ADD_SPATIAL_REF_SYS, DELETE_SPATIAL_REF_SYS 프로시저를 사용해야한다.
+메타 데이터를 등록할 때 SRID와  AUTH_SRID를 동일한 값으로 사용하는것을 권장합니다.
+자세한 내용은 *Spatial Manual*을 참조한다.
+
+| Column name | Type          | Description                                           |
+| ----------- | ------------- | ----------------------------------------------------- |
+| SRID        | INTEGER       | 데이터베이스 내에서의 공간 참조 식별자                         |
+| AUTH_NAME   | VARCHAR(256)  | 표준 이름                                               |
+| AUTH_SRID   | INTEGER       | 표준 식별자                                              |
+| SRTEXT      | VARCHAR(2048) | OGC-WKT 형태로 표현 되는 공간 참조 시스템에 대한 설명            |
+| PROJ4TEXT   | VARCHAR(2048) | PROJ4에서 사용되는 정보                                    |
 
 ### 성능 뷰
 
