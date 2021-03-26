@@ -4171,8 +4171,8 @@ GEOMETRY 칼럼에 공간 참조 식별자(SRID, Spatial Reference ID)를 지정
 
 이 메타 테이블의 synonym은 SPATIAL_REF_SYS 이다.
 
-SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록 및 삭제하기 위해서는 SYS_SPATIAL 패키지의ADD_SPATIAL_REF_SYS, DELETE_SPATIAL_REF_SYS 프로시저를 사용해야한다.
-메타 데이터를 등록할 때 SRID와  AUTH_SRID를 동일한 값으로 사용하는것을 권장합니다.
+SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록 및 삭제하기 위해서는 SYS_SPATIAL 패키지의 ADD_SPATIAL_REF_SYS, DELETE_SPATIAL_REF_SYS 프로시저를 사용해야한다.
+메타 데이터를 등록할 때 SRID와 AUTH_SRID를 동일한 값으로 사용하는것을 권장합니다.
 자세한 내용은 *Spatial Manual*을 참조한다.
 
 | Column name | Type          | Description                                           |
