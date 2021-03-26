@@ -337,59 +337,28 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 ### 지원 플랫폼
 
-Altibase 는 아래 플랫폼에 대해서 서버/클라이언트 모두 지원합니다. 단, Windows의 경우는 클라이언트만 지원합니다.
-
-#### AIX
-
-AIX 6.1TL3 이상(64-bit)
-
-AIX 7.1 , AIX 7.2(64-bit)
-
-> altimon의 경우, 7.1.0.1.9 이상부터 AIX 7.x 용 altimon이 지원됩니다.
-
-#### HP-UX
-
-HP-UX.IA64 11.31 이상(64-bit)
-
-#### Linux(x86)
-
-GNU glibc 2.12 and higher
-
-Redhat 6.0 이상(64-bit)
-
-Redhat 7.0 이상(64-bit)
-
-Redhat 8.0 이상(64-bit)
-
-#### Power Linux
-
-GNU glibc 2.12 and higher
-
-Power7 Redhat 6.5 이상(64-bit)
-
-Power7 Redhat 7.0 이상(64-bit)
-
-Power8 Redhat 6.5 이상(64-bit)
-
-Power8 Redhat 7.0 이상(64-bit)
-
-#### Power Linux Little Endian(LE)
-
-Altibase 7.1.0.0.8 부터 지원합니다.
-
-GNU glibc 2.17 and higher
-
-Power8(LE) Redhat 7.2 이상(64-bit)
-
-> altimon의 경우 7.1.0.3.6 이상부터 Power Linux(LE)용 altimon이 지원됩니다.
+>  *Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.*
 >
-> jdbcAdapter의 경우  7.1.0.3.6 이상부터 Power Linux(LE)용 jdbcAdapter가 지원됩니다.
+> *Microsoft Windows 는 Altibase 클라이언트만 지원합니다.*
 
-#### Windows
 
-Altibase 7.1.0.4.5 부터 windows 용 Altibase 클라이언트를 지원합니다.
+|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                          |
+| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :----------------------------------------------------------- |
+| **AIX on IBM Power Systems**                                 |                     |                           |                                                              |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                                              |
+| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | *- altiMon : Altibase 7.1.0.1.9 이상*<br />*- AIX 7.2의 경우 Altibase 7.1.0.4.7 이상 권장* |
+| **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                              |
+| HP-UX 11.31                                                  |          ●          |             ●             |                                                              |
+| **Linux x86-64**                                             |                     |                           |                                                              |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
+| **Linux on Power**                                           |                     |                           |                                                              |
+| POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
+| **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상<br />- Altibase 7.1.0.0.8 이상<br />- altiMon : Altibase 7.1.0.3.6 이상 <br />- Adapter for JDBC : Altibase 7.1.0.3.6 이상*<br /> |
+| **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
+| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*                       |
 
-Windows Server 2008-x64 (64bit)
+
 
 ### Altibase 패키지 인스톨러
 
