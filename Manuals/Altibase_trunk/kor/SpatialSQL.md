@@ -28,9 +28,8 @@
     - [객체 생성 함수](#%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%95%A8%EC%88%98)
     - [객체 검색 함수](#%EA%B0%9D%EC%B2%B4-%EA%B2%80%EC%83%89-%ED%95%A8%EC%88%98)
     - [Endian 함수](#endian-%ED%95%A8%EC%88%98)
-  - [4. 데이터 마이그레이션](#4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
-    - [Altibase 공간 데이터 마이그레이션](#altibase-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
-    - [이기종 데이터베이스 공간 데이터 마이그레이션](#%EC%9D%B4%EA%B8%B0%EC%A2%85-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
+  - [4. 공간 데이터 마이그레이션](#4-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
+    - [Altibase 제품간 공간 데이터 마이그레이션](#altibase-%EC%A0%9C%ED%92%88%EA%B0%84-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
   - [A.부록: Spatial 칼럼의 제약사항](#a%EB%B6%80%EB%A1%9D-spatial-%EC%B9%BC%EB%9F%BC%EC%9D%98-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
     - [GEOMETRY 칼럼에 대한 제약 사항](#geometry-%EC%B9%BC%EB%9F%BC%EC%97%90-%EB%8C%80%ED%95%9C-%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
   - [B.부록: 스키마](#b%EB%B6%80%EB%A1%9D-%EC%8A%A4%ED%82%A4%EB%A7%88)
@@ -6828,16 +6827,6 @@ Altibase 제품간 공간 데이터 마이그레이션을 위해 iLoader와 aexp
 한가지 주의할 점은 Altibase가 공간 데이터를 저장하는 포맷이다. SYSTEM\_.SYS\_DATABASE\_ 테이블 기준 메타 버젼 8.8.1 미만 버젼은 WKB 포맷을, 8.8.1이상 버젼은 EWKB 포맷을 지원한다. 마이그레이션 수행 시 추출되는 공간 데이터의 포맷은 공간 데이터가 저장된 Altibase가 지원하는 포맷에 따른다. 따라서, 8.8.1 미만 버젼은 WKB 포맷 공간 데이터 파일이 생성되고, 8.8.1이상 버젼은 EWKB 포맷 데이터 파일을 생성한다.
 
 WKB 포맷의 공간 데이터는 EWKB 지원 Altibase가 읽고 자동으로 변환한다. 반면, EWKB 포맷 공간 데이터는 WKB 지원 Altibase가 인식하지 못한다. 따라서, EWKB 포맷 데이터를  WKB 지원 Altibase로 데이터 이관 할때 원본 데이터를 WKB 포맷으로 추출하는 옵션을 사용해야 한다. 마이그레이션 작업할 때는 aexport의 aexport.properties 파일에 'ILOADER_GEOM = WKB' 옵션을, 하나의 테이블만 작업할 때는 iLoader에서 '-geom WKB' 옵션을 사용한다. 상세 내용은 iLoader와 aexport 매뉴얼을 참조한다.
-
-앞서 설명한 것과 별도로 altiShapeLoader를 이용하여 shapefile 포맷으로 공간 데이터를 import/export 하는 방법도 제공한다. 
-
-### 이기종 데이터베이스과 공간 데이터 마이그레이션
-
-데이터베이스 제품마다 공간 데이터를 표현하거나 저장하는 방법이 대부분 다르다. 서로 다른 형식의 공간 데이터를 교환하기 위해, 대부분의 데이터베이스 벤더들은 사실상 산업 표준인 shapefile 포맷으로 공간 데이터를  import/export 하는 유틸리티를 제공한다.
-
-Altibase는 altiShapeLoader라는 shapefile 유틸리티를 제공한다. 이를 이용하여 타 DBMS에서 만들어진 shapefile을 Altibase로 import하거나 Altibase의 공간 데이터를 shapefile로 export 할 수 있다. 상세 사용법은 altiShapeLoader 매뉴얼을 참조한다.
-
-Migration Center는 공간 데이터 타입을 지원하지 않는다. 마이그레이션 수행시 공간 데이터 테이블은 제외하고 마이그레이션이 수행된다.
 
 ## A.부록: Spatial 칼럼의 제약사항
 
