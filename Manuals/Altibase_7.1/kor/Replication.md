@@ -2277,7 +2277,7 @@ ALTER REPLICATION replication_name
 DROP HOST ‘remotehostip‘ | 'remotehostname', remoteportno;
 
 ALTER REPLICATION replication_name
-SET HOST ‘remotehostip‘ | 'remotehostname, remoteportno;
+SET HOST ‘remotehostip‘ | 'remotehostname', remoteportno;
 ```
 
 #### 설명
