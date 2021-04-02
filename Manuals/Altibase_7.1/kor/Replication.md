@@ -1225,7 +1225,7 @@ CREATE [LAZY|EAGER] REPLICATION replication_name
 [FOR ANALYSIS | FOR PROPAGABLE LOGGING | FOR PROPAGATION | FOR ANALYSIS PROPAGATION] 
 [AS MASTER|AS SLAVE] 
 [OPTIONS options_name [option_name ... ] ] 
-WITH { ‘remote_host_ip’, remote_host_ port_no [USING conn_type [ib_latency]]} 
+WITH { ‘remote_host_ip’ | 'remote_host_name', remote_host_ port_no [USING conn_type [ib_latency]]} 
 ...
 FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
 [,FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
@@ -1269,8 +1269,8 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
   0, 1과 2, 또는 2와 1. 다른 조합은 실패할 것이다. (0: 지정하지 않은 경우, 1:
   Master, 2: Slave)
 
-- ***remote_host_ip***  
-  원격 서버의 IP 주소값
+- ***remote_host_ip | remote_host_name***  
+  원격 서버의 IP 주소값 이나 호스트 이름
 
 - ***remote_host_port_no***  
   원격 서버 수신 쓰레드의 포트 번호. 즉, 원격 서버의 Altibase 프로퍼티의
@@ -2265,16 +2265,16 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 
 ```
 CREATE REPLICATION replication_name {as master|as slave} 
-WITH 'remotehostip', remoteportno 'remotehostip', remoteportno …
+WITH 'remotehostip' | 'remote_host_name', remoteportno 'remotehostip', remoteportno …
 FROM user.localtableA TO user.remotetableA,
 FROM user.localtableB TO user.remotetableB, …, 
 FROM user.localtableC TO user.remotetableC;
 
 ALTER REPLICATION replication_name
-ADD HOST ‘remote_host_ip‘, remote_port_no [USING conn_type [ib_latency]];
+ADD HOST ‘remote_host_ip‘ | 'remote_host_name', remote_port_no [USING conn_type [ib_latency]];
 
 ALTER REPLICATION replication_name
-DROP HOST ‘remotehostip‘, remoteportno;
+DROP HOST ‘remotehostip‘ | 'remote_host_name', remoteportno;
 
 ALTER REPLICATION replication_name
 SET HOST ‘remotehostip‘, remoteportno;
@@ -2289,15 +2289,15 @@ SET HOST ‘remotehostip‘, remoteportno;
 나머지 IP 주소에 연결을 다시 시도하여 통신을 수행한다.
 
 -   CREATE REPLICATION  
-    이중화 객체의 이름을 지정하고 WITH 절에는 이중화 상대 서버의 IP주소와 상대
-    서버 이중화 수신자의 서비스 포트를 다중으로 컴마 없이 리스트로 명시한다.
+    이중화 객체의 이름을 지정하고 WITH 절에는 이중화 상대 서버의 IP주소나
+    호스트 명과 상대 서버 이중화 수신자의 서비스 포트를 다중으로 컴마 없이 리스트로 명시한다.
     FROM 절에는 지역 서버의 대상 테이블 소유자와 테이블 명을 TO 절에는 원격
     서버의 대상 테이블 소유자와 테이블 명을 명시하며 콤마 리스트로 여러 개의
     테이블을 지정할 수 있다.
 
 -   ALTER REPLICATION (ADD HOST):  
     호스트를 추가한다. 이중화 중지 후 호스트를 추가 할 수 있다. 이 구문 수행
-    후에, 송신 쓰레드는 호스트를 추가 하기 전에 사용하던 IP 주소에 다시 연결을
+    후에, 송신 쓰레드는 호스트를 추가 하기 전에 사용하던 IP 주소나 호스트 명에 다시 연결을
     시도한다.
 
 -   *conn_type*  
@@ -2308,7 +2308,7 @@ SET HOST ‘remotehostip‘, remoteportno;
 
 -   ALTER REPLICATION (DROP HOST) :  
     호스트를 제거한다. 이중화 중지 후 호스트를 제거 할 수 있다. 이 구문 수행
-    후에, 송신 쓰레드는 맨 처음 IP 주소로 연결을 시도한다.
+    후에, 송신 쓰레드는 맨 처음 IP 주소나 호스트명으로 연결을 시도한다.
 
 -   ALTER REPLICATION (SET HOST) :  
     특정 호스트를 현재 호스트로 지정한다. 이중화 중지 후 호스트를 지정 할 수
