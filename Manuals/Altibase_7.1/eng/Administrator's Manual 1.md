@@ -59,7 +59,7 @@ Altibase Administration Administrator’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
 prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
@@ -81,7 +81,7 @@ Preface
 
 - ### About This Manual
 
-  This manual explains the concepts, components, and basic use of Altibase
+  This manual explains the concepts, components, and basic use of Altibase.
 
   #### Audience
 
@@ -437,7 +437,7 @@ For more detailed information on server and client communication, please refer t
 
 #### **Database Space**
 
-An Altibase database consists of all of the data in the database stored in one or more tablespaces. The tablespaces are divided into memory tablespaces and disk tablespaces. 
+Altibase database consists of all of the data in the database stored in one or more tablespaces. The tablespaces are divided into memory tablespaces and disk tablespaces. 
 
 Besides the system tablespace (which is created by Altibase), a user can add memory and disk tablespaces.
 
@@ -453,7 +453,7 @@ Database Link unites disparate data sources on interconnected servers to produce
 
 #### iSQL
 
-Users can manage their databases quickly and easily using iSQL (the Altibase interactive SQL command utility).
+The users can manage their databases quickly and easily using iSQL (the Altibase interactive SQL command utility).
 
 #### altiComp
 
@@ -527,7 +527,7 @@ The Archievelog thread regularly copies online log files to a predefined destina
 
 #### Physical Database Structure
 
-An Altibase database physically consists of log anchor files, log files, and data files.
+Altibase database physically consists of log anchor files, log files, and data files.
 
 **Log Anchor Files**
 
