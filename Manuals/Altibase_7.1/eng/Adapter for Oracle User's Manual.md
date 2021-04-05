@@ -38,7 +38,7 @@ Altibase Tool & Utilities Adapter for Oracle User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -527,21 +527,21 @@ This is used to set whether the Altibase Log Analyzer will output Trace Logs.
 
 ##### ALTIBASE_USER
 
-This is used to specify the name of a user account with which to connect to Altibase.
+This property specifies the name of a user account with which to connect to Altibase.
 
 ##### ALTIBASE_PASSWORD
 
-This is used to specify the password for the user account through which the connection to Altibase will be established.
+This property specifies the password for the user account through which the connection to Altibase will be established.
 
 ##### ALTIBASE_IP
 
-This is the IP address of the server on which Altibase is installed.
+This property specifies the IP address of the server on which Altibase is installed.
 
 -   Default Value: 127.0.0.1
 
 ##### ALTIBASE_PORT
 
-This is the number of the port at which Altibase listens.
+This property specifies the number of the port at which Altibase listens.
 
 -   Range: 1024 – 65535
 
@@ -574,7 +574,7 @@ These properties are used to set whether DML statements executed in Altibase wil
 
 ##### ORACLE_PASSWORD
 
-This is used to specify the password for the user account through which the connection to the Oracle DB will be established.
+This property specifies to specify the password for the user account through which the connection to the Oracle DB will be established.
 
 ##### ORACLE_ASYNCRONOUS_COMMIT
 
@@ -665,7 +665,7 @@ The error values included in dbms_skip_error_include.list and dbms_skip_error_ex
 
 ##### ORACLE_SKIP_INSERT
 
-This determines whether INSERT statements executed in Altibase are also executed in Oracle DB. If this is set to 1 (“skip”), the INSERT statement is skipped, which means that it is not executed in the Oracle DB.
+This property determines whether INSERT statements executed in Altibase are also executed in Oracle DB. If this is set to 1 (“skip”), the INSERT statement is skipped, which means that it is not executed in the Oracle DB.
 
 -   Default Value: 0
 
@@ -675,7 +675,7 @@ This determines whether INSERT statements executed in Altibase are also executed
 
 ##### ORACLE_SKIP_UPDATE
 
-Thisdetermines whether the UPDATE statement executed in Altibase is also executed in Oracle DB. If this is set to 1 (“skip”), the UPDATE statement is skipped, which means that it is not executed in the Oracle DB.
+This property determines whether the UPDATE statement executed in Altibase is also executed in Oracle DB. If this is set to 1 (“skip”), the UPDATE statement is skipped, which means that it is not executed in the Oracle DB.
 
 -   Default: 0
 
@@ -685,7 +685,7 @@ Thisdetermines whether the UPDATE statement executed in Altibase is also execute
 
 ##### ORACLE_SKIP_DELETE
 
-This determines whether DELETE statements executed in Altibase are also executed in Oracle DB. If this is set to 1 (“skip”), the DELETE statement is skipped, meaning that it is not executed in the Oracle DB.
+This property determines whether DELETE statements executed in Altibase are also executed in Oracle DB. If this is set to 1 (“skip”), the DELETE statement is skipped, meaning that it is not executed in the Oracle DB.
 
 -   Default: 0
 -   0: Do not skip the statement. That is, the statement is executed normally.
@@ -706,7 +706,7 @@ When executing DML on the Oracle DB, the user of the reflection table is set as 
 
 ##### ADAPTER_ERROR_RESTART_COUNT (Unit: Number)
 
-This shows the number of times that oraAdapter is retried when an error occurs while oraAdapter is reflecting records in Oracle DB.
+This property indicates the number of times that oraAdapter is retried when an error occurs while oraAdapter is reflecting records in Oracle DB.
 
 -   Default Value: 0
 
@@ -718,7 +718,7 @@ This shows the number of times that oraAdapter is retried when an error occurs w
 
 ##### ADAPTER_ERROR_RESTART_INTERVAL (Unit: Second)
 
-When retrying the number of times set in the ADAPTER_ERROR_RESTART_COUNT property, indicates the retry cycle.
+When retrying the number of times set in the ADAPTER_ERROR_RESTART_COUNT property, this property indicates the retry cycle.
 
 -   Default Value: 0
 
