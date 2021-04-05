@@ -97,10 +97,10 @@ This manual is organized as follows:
 -   Chapter 3: XA Interface  
     This chapter introduces the data structures and functions that are needed to use the XA functions supported by Altibase and provides basic procedures for using ODBC, APRE and JDBC in an XA environment.
     
--   Chapter 4: The iLoader API  
+-   Chapter 4: iLoader API  
     This chapter introduces the Altibase iLoader API, which is an application programming interface that lets you create applications that use function calls to download data from, or upload data to, an Altibase database server.
     
--   Chapter 5: The CheckServer API  
+-   Chapter 5: CheckServer API  
     This chapter introduces the Altibase CheckServer API, which is an application programming interface for creating applications that use function calls to monitor whether the Altibase server has terminated abnormally.
 
 #### Documentation Conventions
@@ -200,7 +200,7 @@ This chapter explains how to integrate PHP pages with Altibase using PHP's ODBC 
 
 ### Installing the ODBC Manager for Integration with PHP
 
-In order to integrate Altibase with a PHP interface, the ODBC Manager must be installed. This section describes how to install the ODBC Manager in Unix, or Linux environments.
+In order to integrate Altibase with the PHP interface, the ODBC Manager must be installed. This section describes how to install the ODBC Manager in Unix, or Linux environments.
 
 #### The ODBC Manager in Unix and Linux
 
@@ -326,7 +326,7 @@ To use pdo_altibase, you have to use pecl environment. Download the pecl package
 Software requirements
 ```
 
--   Altibase : Altibase 6.5.1.5.1 or above
+-   Altibase : Altibase 6.5.1.5.1 or later
 
 -   OS : Linux (Refer the Altibase Release Notes for a detailed version.)
 
@@ -873,7 +873,7 @@ When operating in asynchronous mode, this is used to determine whether to keep w
 
 This section describes the basic procedures for using ODBC, APRE and JDBC in an XA environment.
 
-#### ODBC/XA 수행 순서
+#### ODBC/XA execution order
 
 1.  xa_open  
     Connect to the specified server.
@@ -925,7 +925,7 @@ SQLINTEGER sLen);
 
 ##### How to Author an Application depending on the Setting of XA_NAME in xa_open
 
-n XA applications, a cursor is valid only for a single transaction. This means that a cursor must be opened after the start of execution of a transaction, and must be closed before the transaction is completed (i.e. committed or rolled back).
+In XA applications, a cursor is valid only for a single transaction. This means that a cursor must be opened after the start of execution of a transaction, and must be closed before the transaction is completed (i.e. committed or rolled back).
 
 ###### How to Author an Application when Using the Default Connection
 
@@ -2092,7 +2092,7 @@ int altibase_iloader_datain (
 
 ##### Arguments
 
-| Argumetn    | In/Output | Description                                                  |
+| Argument    | In/Output | Description                                                  |
 | ----------- | --------- | ------------------------------------------------------------ |
 | handle      | Input     | This is the pointer to the iLoader handle.                   |
 | version     | Input     | This is the version of the iLoader API.                      |
