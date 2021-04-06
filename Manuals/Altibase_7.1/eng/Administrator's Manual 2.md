@@ -66,7 +66,7 @@ Altibase Administration Administrator’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -247,7 +247,7 @@ In contrast, for a local index, because a partitioned table modification stateme
 
 ##### Global Non-partitioned Index
 
-Global non-partitioned indexes work similarly to non-partitioned indexes. These indexes are created globally without an index partition key on a partitioned table.
+Global non-partitioned indexes operate similarly to non-partitioned indexes. These indexes are created globally without an index partition key on a partitioned table.
 
 The following figure shows the creation of a global non-partitioned index without specifying an index partition key on the table tbl_sales, which is divided into three partitions.
 
@@ -341,9 +341,9 @@ The default partition must be specified when a partitioned object is created. If
 
 ### Partitioning Methods
 
-Objects can be partitioned in three ways: range partitioning, list partitioning, and hash partitioning
+Objects can be partitioned in three ways: range partitioning, list partitioning, and hash partitioning.
 
-Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values
+Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values.
 
 The following operations are supported on partitions created by each partitioning method:
 
@@ -717,7 +717,7 @@ To maintain database integrity, a properly executed transaction must exhibit the
 
 - Atomicity - Either all of the statements that constitute a transaction are completely executed, or none of them are. That is, the transaction cannot be partially successful.
 - Consistency - The execution of a transaction must not break the integrity of the database.
-- Isolation: when multiple transaction are executed at the same time,  no transaction should be afffected by the results of other transactions.
+- Isolation: When multiple transaction are executed at the same time,  no transaction should be afffected by the results of other transactions.
 - Durability: Once a transaction has been committed, the resultant changes are not lost under any circumstances, such as system failure. 
 
 #### Autonomous_Transaction
@@ -1326,7 +1326,7 @@ A lock must be acquired in order to access a page. Access modes are categorized,
 
 [Table 9-2] Buffer Access Mode
 
-The permission relationship between access modes is as follows
+The permission relationship between access modes is as follows.
 
 <table>
     <tr>
@@ -1840,7 +1840,7 @@ iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE
 SYS_TBS_MEM_DIC TO ‘/backup_dir’;
 ```
 
-Because log anchor files include information about the tablespaces in a database, they must be backed up along with the dictionary tablespace whenever the structure of a tablespace is changed.
+Because log anchor files include information about the tablespaces in the database, they must be backed up along with the dictionary tablespace whenever the structure of a tablespace is changed.
 
 ```
 iSQL(sysdba)> ALTER DATABASE BACKUP LOGANCHOR TO 'anchor_path';
@@ -1848,9 +1848,9 @@ iSQL(sysdba)> ALTER DATABASE BACKUP LOGANCHOR TO 'anchor_path';
 
 **Altibase encounters the following problems when the database is backed up and restored with a replicated database.**
 
-If a database backed up on one server is restored on another server, there might be problems to use replication after Altibase recovery because the network addresses are different.
+If the database backed up on one server is restored on another server, there might be problems to use replication after Altibase recovery because the network addresses are different.
 
-Even if a database is restored on the same system, replication can be retransmitted based on meta information at the time of backup. In this case, some data may be changed to data at the time of backup.
+Even if the database is restored on the same system, replication can be retransmitted based on meta information at the time of backup. In this case, some data may be changed to data at the time of backup.
 
 Therefore, if replication is active, it is necessary to either: (1) the value of REPLICATION_SENDER_AUTO_START property changes to '0', and performs the recovery using the backup file (2) when the recovery is completed, RESET the replication or recreate the replication objects.
 
@@ -3280,7 +3280,7 @@ For more detailed information about how to configure and implement SSL/TLS in Al
 
 ## 13. Securing Data 
 
-The chapter covers how to use security modules to develop a database encryption strategy. 
+The chapter describes how to use security modules to develop a database encryption strategy. 
 
 ### Overview 
 
@@ -3540,7 +3540,7 @@ The auditing feature described in this chapter differs from replication auditing
 
 ### Introduction
 
-The auditing feature monitors the execution of certain database operations and writes related information to files. DBAs can specify statements and objects as auditing targets
+The auditing feature monitors the execution of certain database operations and writes related information to files. DBAs can specify statements and objects as auditing targets.
 
 When auditing a database server, the server tracks every statement being executed and writes logs in real time. 
 
