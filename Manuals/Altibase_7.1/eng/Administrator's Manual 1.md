@@ -657,11 +657,11 @@ This directory contains the header files required when writing an application pr
 
 ##### alaAPI.h
 
-An API header file that is used by the Altibase Log Analyzer.
+The API header file that is used by the Altibase Log Analyzer.
 
 ##### sqlcli.h
 
-A header file that is needed in order to create client applications.
+The header file that is needed in order to create client applications.
 
 ##### sqltypes.h
 
@@ -917,13 +917,13 @@ After installing Altibase, the database administrator must create and manage the
 
 ### Creating a Database
 
-An Altibase database consists of one or more logical storage units called tablespaces, which collectively store all of the database's data. Altibase stores data logically in tablespaces and physically in data files, which are associated with corresponding tablespaces. Before the database server can be started, it is first necessary to create a database manually using the CREATE DATABASE command.
+Altibase database consists of one or more logical storage units called tablespaces, which collectively store all of the database's data. Altibase stores data logically in tablespaces and physically in data files, which are associated with corresponding tablespaces. Before the database server can be started, it is first necessary to create a database manually using the CREATE DATABASE command.
 
 This section describes the types of tablespaces and logging systems, and how to create a database.
 
 #### Types of Tablespaces
 
-An Altibase database consists of several kinds of tablespaces. Tablespaces are classified into several types, depending on their usage and how the data is stored.
+Altibase database consists of several kinds of tablespaces. Tablespaces are classified into several types, depending on their usage and how the data is stored.
 
 By default, when the user runs the CREATE DATABASE statement, checkpoint images and data files are created in the $ALTIBASE_HOME/dbs directory.
 
@@ -1185,7 +1185,7 @@ The database performs the following tasks in each phase:
 | PRE-PROCESS | The initial phase. The server prepares to advance to the PROCESS phase. |
 | PROCESS     | In this phase, the CREATE DATABASE and DROP DATABASE statements can be executed, a limited number of performance views can be used to ob- tain information, and property values can be changed. The server prepares to advance to the CONTROL phase. |
 | CONTROL     | Media Recovery can be performed in this phase. The server prepares to ad- vance to the META phase. If incomplete recovery is performed during the CONTROL phase, online logs must be reset when proceeding to the META phase. |
-| META        | Meta data (the dictionary table) can be upgraded in this phase. For infor- mation about incomplete recovery, please refer to the section on [Complete vs.](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892) [Incomplete Recovery ](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892)in Chapter 10. The server prepares to advance to the SERVICE phase. |
+| META        | Meta data (the dictionary table) can be upgraded in this phase. For information about incomplete recovery, please refer to the section on [Complete vs.](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892) [Incomplete Recovery ](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892)in Chapter 10. The server prepares to advance to the SERVICE phase. |
 | SERVICE     | The SERVICE phase is the normal operational state of Altibase. Users other than the SYS user can establish connections to Altibase in this phase.SHUTDOWN NORMAL/IMMEDIATE/ABORT can all be executed. |
 
 
@@ -1468,9 +1468,7 @@ When it is desired to execute a DDL statement on a table containing a large amou
 
 ##### **Manipulating Data in Large Memory Tables Using DML**
 
-Executing DML statements on tables that do not contain much data does not cause a big
-
-problem from the viewpoint of Altibase performance or usage, as long as the data are properly managed. However, when even a single UPDATE or DELETE DML statement affects a large number of records in a table, the transaction associated with this DML statement can take a long time to execute. The occurrence of such slow transactions can cause the following serious problems, which negatively affect the use of Altibase:
+Executing DML statements on tables that do not contain much data does not cause a big problem from the viewpoint of Altibase performance or usage, as long as the data are properly managed. However, when even a single UPDATE or DELETE DML statement affects a large number of records in a table, the transaction associated with this DML statement can take a long time to execute. The occurrence of such slow transactions can cause the following serious problems, which negatively affect the use of Altibase:
 
 ###### **Exclusive Access to the Table**
 
@@ -1760,7 +1758,7 @@ The following SQL statements are supported for temporary tables. For more detail
 
 ### **Compressed Tables**
 
-A compressed table is a table that has a compressed column. If you create a table with a compressed column, the Altibase server automatically creates a dictionary table and a unique index to speed up SELECT operations. The dictionary table is the table that stores data, and a dictionary table is created for each compressed column. If data is inserted into or altered in a compressed column, the actual data is inserted into the dictionary table, whereas pointers (or OIDs) that point to the actual data are stored in compressed columns. Regardless of whether a compressed table is a memory table or a disk table, the dictionary table is generated in memory tablespace.
+A compressed table is a table that has a compressed column. If a table is created with a compressed column, the Altibase server automatically creates a dictionary table and a unique index to speed up SELECT operations. The dictionary table is the table that stores data, and a dictionary table is created for each compressed column. If data is inserted into or altered in a compressed column, the actual data is inserted into the dictionary table, whereas pointers (or OIDs) that point to the actual data are stored in compressed columns. Regardless of whether a compressed table is a memory table or a disk table, the dictionary table is generated in memory tablespace.
 
 ![](media/Admin/compressed_table.gif)
 
@@ -1949,7 +1947,7 @@ The following SQL statements are provided for use with queue tables. For more de
 
 ### **Constraints**
 
-Constraints are limitations that govern the insertion of data into tables and the changes that can be made to existing data. This section explains the kinds of constraints and how to use them to ensure data consistency.
+Constraints are limitations that control the insertion of data into tables and the changes that can be made to existing data. This section explains the kinds of constraints and how to use them to ensure data consistency.
 
 #### Types
 
@@ -2178,7 +2176,7 @@ The attributes of an index can be changed using the ALTER INDEX statement.
 
 ##### **Dropping Indexes**
 
-An index can be removed explicitly using the DROP INDEX statement, or implicitly by removing the associated constraint.
+Index can be removed explicitly using the DROP INDEX statement, or implicitly by removing the associated constraint.
 
 ###### Example
 
@@ -2450,7 +2448,7 @@ Every time the sequence's next value is accessed, the value of the sequence incr
 
 #### Using Sequences in INSERT Statements
 
-The following example shows how to generate a key value using a sequence and insert it into a table:
+The following example shows how to create a key value using a sequence and insert it into a table:
 
 ##### Example
 
@@ -2478,7 +2476,7 @@ The CREATE SEQUENCE statement is used to create a sequence. The following option
     This is the minimum value of the sequence.
 
 -   CYCLE  
-    This option is specified to ensure that the sequence will continue to generate values when it reaches its maximum or minimum value. The sequence cycles again from the minimum value in the case of an ascending sequence, or from the maximum value in the case of a descending sequence.
+    This option is specified to ensure that the sequence will continue to create values when it reaches its maximum or minimum value. The sequence cycles again from the minimum value in the case of an ascending sequence, or from the maximum value in the case of a descending sequence.
     
 -   CACHE  
     Sequence values can be created in advance and cached in memory so that they can be returned more quickly. The number of sequence values cached in this way is equal to the value specified using the CACHE option. The cache is populated when a key value is first requested from a new sequence, and is accessed every time the next key value is subsequently requested from the sequence. After the last sequence value in the cache has been used, the next request for a key value from the sequence causes new sequence values to be created and cached in memory. Then the first value is returned from this new cache. When a sequence is created, the default CACHE value is 20.
@@ -2707,7 +2705,7 @@ END;
 
 #### Creating or Replacing Procedures
 
-If a user wants to change the stored procedure's parameters or main frame while retaining the name of an existing stored procedure, a muser use the CREATE OR REPLACE PROCEDURE to recreate the stored procedure
+If the user wants to change the stored procedure's parameters or main frame while retaining the name of an existing stored procedure, the user use the CREATE OR REPLACE PROCEDURE to recreate the stored procedure
 
 ##### Example
 
@@ -3618,18 +3616,18 @@ A disk tablespace is a tablespace for storing disk-based objects. It is intended
 
 Altibase tablespaces can also be classified depending on what data are stored in them as follows: 
 
--   The Dictionary Tablespace 
--   The Undo Tablespace 
+-   Dictionary Tablespace 
+-   Undo Tablespace 
 -   Temporary Tablespace 
 -   Data Tablespace
 
-##### The Dictionary Tablespace
+##### Dictionary Tablespace
 
 The dictionary tablespace is the tablespace for storing the meta data that are required for system operation. A database can have only one dictionary tablespace, which is automatically created by the system when a database is created. Users cannot create objects in dictionary tablespace; only the system can create system objects for managing meta data. In order to ensure fast access to meta data, the dictionary tablespace exists in memory. If the dictionary tablespace crashes, the entire database becomes inoperable, in which case the database will need to be restored through backup and media recovery. 
 
-##### The Undo Tablespace
+##### Undo Tablespace
 
-The undo tablespace is for storing undo images that remain after operations are conducted on disk objects. Since Altibase uses Multi-Version Concurrency Control, it requires space in which to store images that show the state of data before changes were made. These so-called "before images" are stored in the undo tablespace. 
+An undo tablespace is for storing undo images that remain after operations are conducted on disk objects. Since Altibase uses Multi-Version Concurrency Control, it requires space in which to store images that show the state of data before changes were made. These so-called "before images" are stored in the undo tablespace. 
 
 Only one undo tablespace can exist in the database, and it is shared by all disk tablespaces in the database. This makes the undo tablespace essential for system operation, like the dictionary tablespace. It can be backed up, but the entire tablespace must be backed up at one time.
 
@@ -3718,7 +3716,7 @@ The data page consists of six different areas, as shown in [Figure 6-8].
 
 Disk tablespace can be manually managed using the PCTFREE and PCTUSED parameters. 
 
-The PCTFREE and PCTUSED parameters can be used to control the use of free space when performing input or update operation on raw data. 
+PCTFREE and PCTUSED parameters can be used to control the use of free space when performing input or update operation on raw data. 
 
 These two parameters are set using the PCTFREE and PCTUSED properties in the altibase.properties file. They can also be explicitly specified when a table is created using the CREATE TABLE statement or changed using the ALTER TABLE statement.
 
@@ -3792,7 +3790,7 @@ This section describes the features of the undo tablespace and how to manage it,
 
 #### Undo Records
 
-The database must maintain related information to rollback or undo the results of updated transactions. This information is usually stored as undo records before the transactions are committed. 
+Database must maintain related information to rollback or undo the results of updated transactions. This information is usually stored as undo records before the transactions are committed. 
 
 Undo records are used for the following purposes: 
 
@@ -3810,16 +3808,16 @@ Additionally, when a record that is in the process of being changed by a transac
 
 The features of the undo tablespace are as follows:
 
--   The undo tablespace is automatically managed by the system. 
--   The default undo tablespace file is undo001.dbf, which is in auto extension mode. Data files can be added to the undo tablespace, and their sizes can be changed. 
--   The undo tablespace can be backed up online. 
+-   Undo tablespace is automatically managed by the system. 
+-   Default undo tablespace file is undo001.dbf, which is in auto extension mode. Data files can be added to the undo tablespace, and their sizes can be changed. 
+-   Undo tablespace can be backed up online. 
 -   Database objects other than TSS segments and undo segments cannot be created in the undo tablespace. 
 -   Because the undo tablespace is a system tablespace, it cannot be taken offline or discarded. 
--   The undo tablespace is reset whenever the server is restarted.
+-   Undo tablespace is reset whenever the server is restarted.
 
 In Altibase, information about the undo tablespace and the space in the undo tablespace are managed by the system. In other words, the server automatically manages the space and segments in the undo tablespace. 
 
-The undo tablespace is created when the database is created. Because it is a system tablespace, only one undo tablespace can exist. If the undo tablespace does not exist, the server will fail to start up, and an error message will be written to the boot log.
+Undo tablespace is created when the database is created. Because it is a system tablespace, only one undo tablespace can exist. If the undo tablespace does not exist, the server will fail to start up, and an error message will be written to the boot log.
 
 In the undo tablespace, transaction segments (TSS segments and undo segments) are managed. The user can change the number of transaction segments using the TRANSACTION_SEGMENT_COUNT property. The numbers of TSS segments and undo segments that are created, respectively, equal the number specified by the user in this property. If the TRANSACTION_SEGMENT_COUNT property is set to 255, 255 TSS segments and 255 undo segments are created every time the server is started up
 
@@ -3901,11 +3899,11 @@ Additionally, data file backup can be commenced using the ALTER TABLESPACE … B
 
 ### Tablespace States
 
-A tablespace can be in an online, offline, or discarded state depending on the service state. 
+Tablespace can be in an online, offline, or discarded state depending on the service state. 
 
 The state of user-defined disk and memory tablespaces can be changed from online to offline or vice-versa. However, the state of volatile and temporary tablespaces cannot be changed. Additionally, the state of tablespaces that contain tables to be replicated cannot be changed.
 
-The ALTER TABLESPACE ONLINE and ALTER TABLESPACE OFFLINE statements can be used to change the state of a tablespace. 
+ALTER TABLESPACE ONLINE and ALTER TABLESPACE OFFLINE statements can be used to change the state of a tablespace. 
 
 However, please note that this can only be achieved during the Meta and Service startup phases.
 
@@ -3919,7 +3917,7 @@ It is impossible to execute DML and DDL statements on the tables or indexes that
 
 In addition, the only DDL statements that can be executed on the tablespace are the DROP TABLESPACE, ALTER TABLESPACE DISCARD, and ALTER TABLESPACE ONLINE statements.
 
-The ALTER TABLESPACE ONLINE statement is used to bring an offline tablespace back online so that it can be accessed, along with the tables and indexes it contains. 
+ALTER TABLESPACE ONLINE statement is used to bring an offline tablespace back online so that it can be accessed, along with the tables and indexes it contains. 
 
 Because the objects in a memory tablespace are not loaded into memory when the memory tablespace is offline, in situations where the amount of memory is limiting (that is, insufficient), the user is advised to take memory tablespaces offline.
 
@@ -3967,7 +3965,7 @@ The tablespace attributes that can be specified when a tablespace is created var
 
 ##### Tablespace Name
 
-The tablespace name must be unique. No more than one object of the same name can be created. While the names of data files can be set in a disk tablespace, for a memory tablespace, only the path where the checkpoint image will be stored can be specified. The name of the checkpoint image is automatically generated based on the name of a tablespace.
+Tablespace name must be unique. No more than one object of the same name can be created. While the names of data files can be set in a disk tablespace, for a memory tablespace, only the path where the checkpoint image will be stored can be specified. The name of the checkpoint image is automatically generated based on the name of a tablespace.
 
 ##### Disk Data File Attributes
 
@@ -4113,7 +4111,7 @@ CHECKPOINT PATH ‘Checkpoint Image Path List’
 SPLIT EACH integer [K/M/G]
 ```
 
-The checkpoint image path attribute only applies to memory tablespaces. Altibase uses ping-pong checkpointing for high-performance transaction processing in memory tablespaces. For ping-pong checkpointing, at least two sets of checkpoint images are created on disk. Each checkpoint image can be divided into several files and saved in that form. The size of the files into which the checkpoint image is divided can be specified using the SPLIT EACH clause. These files can be stored in different paths in order to distribute the expense of disk I/O. The user can freely specify the size of the files into which the checkpoint image is divided and the path where the checkpoint images are saved. The user can add or change paths for saving checkpoint image files, but cannot change the size of the files into which the checkpoint image is divided once it has been set.
+Checkpoint image path attribute only applies to memory tablespaces. Altibase uses ping-pong checkpointing for high-performance transaction processing in memory tablespaces. For ping-pong checkpointing, at least two sets of checkpoint images are created on disk. Each checkpoint image can be divided into several files and saved in that form. The size of the files into which the checkpoint image is divided can be specified using the SPLIT EACH clause. These files can be stored in different paths in order to distribute the expense of disk I/O. The user can freely specify the size of the files into which the checkpoint image is divided and the path where the checkpoint images are saved. The user can add or change paths for saving checkpoint image files, but cannot change the size of the files into which the checkpoint image is divided once it has been set.
 
 ##### Volatile Tablespace Attributes
 
@@ -4191,7 +4189,7 @@ Create success.
 
 #### Dropping Tablespaces
 
-A tablespace can be deleted only by the SYS user or by a user who has been granted the DROP TABLESPACE privilege. To delete a tablespace, use the ‘DROP TABLESPACE …’ SQL statement. System tablespaces cannot be deleted by general users. Memory, disk, and volatile tablespaces are all deleted the same way, using the following command:
+Tablespace can be deleted only by the SYS user or by a user who has been granted the DROP TABLESPACE privilege. To delete a tablespace, use the ‘DROP TABLESPACE …’ SQL statement. System tablespaces cannot be deleted by general users. Memory, disk, and volatile tablespaces are all deleted the same way, using the following command:
 
 ```
 DROP TABLESPACE {Tablespace Name} 
@@ -4599,7 +4597,7 @@ Create success.
 
 This section describes how to add a checkpoint path to a memory tablespace. 
 
-The checkpoint paths for a memory tablespace can only be set during the control phase. After shutting down the Altibase server, restart it in the control phase.
+The checkpoint paths for a memory tablespace can only be set during the control stage. After shutting down the Altibase server, restart it in the control stage.
 
 ```
 $ isql -u sys -p manager -sysdba 
@@ -4712,7 +4710,7 @@ ALTER AUTOEXTEND ON;
 Alter success.
 ```
 
-In the above example, the tablespace will be extended in increments equal to the number of pages specified in the EXPAND_CHUNK_PAGE_COUNT property, which is the default unit of extension for tablespaces
+In the above example, the tablespace will be extended in increments equal to the number of pages specified in the EXPAND_CHUNK_PAGE_COUNT property, which is the default unit of extension for tablespaces.
 
 In addition, the tablespace will be able to increase in size the same as if the maximum size were set to UNLIMITED, up to the limit at which the total size of all memory tablespaces in the system would not exceed the MEM_MAX_DB_SIZE property. 
 
@@ -4849,7 +4847,7 @@ iSQL> CREATE MEMORY TABLESPACE USER_MEM_TBS SIZE 256M;
 Create success.
 ```
 
-Then shut down Altibase and delete the checkpoint files for the tablespace. When an attempt is made to start up Altibase, the following error will occur:
+Then, shut down Altibase and delete the checkpoint files for the tablespace. When an attempt is made to start up Altibase, the following error will occur:
 
 ```
 [SM-WARNING] CANNOT IDENTIFY DATAFILE 
@@ -4867,7 +4865,7 @@ Altibase will generate an error if there are no data files and checkpoint images
 
 Now it is time to discard USER_MEM_TBS.
 
-The Discard statement can be executed only during the control phase. So, start up Altibase in the control phase.
+The Discard statement can be executed only during the control stage. So, start up Altibase in the control stage.
 
 ```
 $ isql -u sys -p manager -sysdba 
@@ -4881,7 +4879,7 @@ iSQL(sysdba)> ALTER TABLESPACE USER_MEM_TBS DISCARD;
 Alter success. 
 ```
 
-Then execute the STARTUP SERVICE command to start up Altibase in the service phase.
+Then execute the STARTUP SERVICE command to start up Altibase in the service stage.
 
 ```
 iSQL(sysdba)> startup service 
