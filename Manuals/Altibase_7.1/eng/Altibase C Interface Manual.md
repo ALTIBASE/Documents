@@ -98,7 +98,7 @@ Altibase Application Development ACI Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -535,7 +535,7 @@ When input binding binary data, do not set the data length to ALTIBASE_NTS.
 
 ##### enum ALTIBASE_BIND_TYPE
 
-This gets the data type of the bind variable as follows.
+This returns the data type of the bind variable as follows.
 
 The elements of this enum type are:
 
@@ -1375,7 +1375,7 @@ The columns in the result set returned by this function are:
 | 18            | IS_NULLABLE       | VARCHAR             | NO : nulls are not included in the column. <br/>YES : nulls are included in the column. |
 | 19            | STORE_TYPE        | CHAR(1)             | This field determines the type of column to store. V: A column is stored in variable length format. <br/>F: A column is stored in fixed length format. <br>L: A column is stored in LOB format. |
 
-The results are aligned by using TABLE_CAT, TABLE_SCHEM, TABLE_NAME and ORDINAL_POSITION.  반환된다.
+The results are aligned by using TABLE_CAT, TABLE_SCHEM, TABLE_NAME and ORDINAL_POSITION.  is returned.
 
 The results are aligned by using TABLE_CAT, TABLE_SCHEM, TABLE_NAME and ORDINAL_POSITION. altibase_list_fields() cannot be used with the functions such as altibase_use_result() and altibase_list_tables() which return result set. You must free current result set handle with altibase_free_result() to obtain other one.
 
@@ -1433,7 +1433,7 @@ The columns in the result set returned by this function are:
 | 9              | PCTFREE         | INTEGER            | PCTFREE value set in the table. For a description of PCTFREE, refer to the CREATE TABLE statement in *SQL Reference*. |
 | 10             | PCTUSED         | INTEGER            | PCTUSED value set in the table. For a description of PCTUSED, refer to the CREATE TABLE statement in *SQL Reference*. |
 
-The results are aligned by using TABLE_TYPE, TABLE_CAT, TABLE_SCHEM and TABLE_NAME. altibase_list_tables() cannot be used with the functions such as altibase_use_result() and altibase_list_tables() which return result set. The user must free current result set handle with altibase_free_result() to obtain other one.
+The results are aligned by using TABLE_TYPE, TABLE_CAT, TABLE_SCHEM and TABLE_NAME. altibase_list_tables() cannot곗 be used with the functions such as altibase_use_result() and altibase_list_tables() which return result set. The user must free current result set handle with altibase_free_result() to obtain other one.
 
 ### altibase_next_result()
 
@@ -1523,7 +1523,7 @@ altibase_num_rows() retrives the number of rows from a result set. The use of al
 
 If the user uses altibase_store_result(), altibase_num_rows() returns the correct value. However, if the user uses altibase_num_rows(), altibase_num_rows() does not return the correct value until all the rows in the result set have been retrieved. 
 
-altibase_num_rows() is intended to use with statements that return a result set such as SELECT. For statements such as INSERT, UPDATE and DELETE, the number of affected rows can be obtained with altibase_affected_rows().
+altibase_num_rows() is intended to use with statements that return a result set such as SELECT. For statements such as INSERT, UPDATE and DELETE, the number of affected rows can be obtained with altibase_affected_rows(). 
 
 ### altibase_proto_version()
 
@@ -3045,7 +3045,7 @@ Refer to Array Binding in Chapter 5: Using Array Binding and Array Fetching.
 
 ### altibase_stmt_set_array_fetch()
 
-altibase_stmt_set_array_fetch() specifies the size of array when you want to fetch an array.
+altibase_stmt_set_array_fetch() specifies the size of array when the user wants to fetch an array.
 
 #### Syntax
 
@@ -3149,9 +3149,9 @@ altibase_stmt_sqlstate() returns a null-terminating character string containing 
 
 altibase_stmt_sqlstate() returns a null-terminating string containing the SQLSTATE error code for the most recently invoked prepared statement function that can succeed of fail. The error code consists of five characters. “00000” means “no error”. For a list of possible values, refer to *Error Message Reference*.
 
-Make sure you check the value before calling another function becuase it is initialized or new one is created instead if you call another function. The value returned by altobase_stmt_errno() is different from that of SQLSTATE. You should use altobase_sqlstate() to find a specific SQLSTATE when handling errors. It is recommended not to check the values returned by altibase_stmt_errno() but those of SQLSTATE if you need error code.
+Make sure you check the value before calling another function becuase it is initialized or new one is created instead if you call another function. The value returned by altobase_stmt_errno() is different from that of SQLSTATE. altobase_sqlstate() should be used to find a specific SQLSTATE when handling errors. It is recommended not to check the values returned by altibase_stmt_errno() but those of SQLSTATE if you need error code.
 
-Not all Altibase error number returned by altibase_stmt_errno() are mapped to SQLSTATE error codes. Therefore, you cannot know the values of SQLSTATE by checking those returned by altibase_stmt_errno(), or you cannot know the values returned by altibase_stmt_errno() by checking those of SQLSTATE exactly. You must not change or cancel it as you please because it is managed within procedure.
+Not all Altibase error number returned by altibase_stmt_errno() are mapped to SQLSTATE error codes. Therefore, the user cannot know the values of SQLSTATE by checking those returned by altibase_stmt_errno(), or the user cannot know the values returned by altibase_stmt_errno() by checking those of SQLSTATE exactly. The user must not change or cancel it as you please because it is managed within procedure.
 
 #### Example
 
