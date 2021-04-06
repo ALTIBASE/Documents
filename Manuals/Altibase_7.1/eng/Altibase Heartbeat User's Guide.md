@@ -35,7 +35,7 @@ Altibase Tool & Utilities Altibase HeartBeat User's Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -54,7 +54,7 @@ Preface
 
 ### About This Manual
 
-This guide describes how to use the Altibase Heartbeat utility in a distributed database environment.
+This manual describes how to use the Altibase Heartbeat utility in a distributed database environment.
 
 #### Audience
 
@@ -433,7 +433,7 @@ The contents of the $ALTI_HBP_HOME/conf/aheartbeat.settings file are identical o
 
 ####  Failover Execution File
 
-Make the necessary changes to the contents of the altibaseFailureEvent.sh and remoteNodeFailureEvent.sh files in the \$ALTI_HBP_HOME/bin directory. You can also write an application program for Failover, put the execution binary into the $ALTI_HBP_HOME/bin directory and then set the environment variables.
+Make the necessary changes to the contents of the altibaseFailureEvent.sh and remoteNodeFailureEvent.sh files in the \$ALTI_HBP_HOME/bin directory. The user can also write an application program for Failover, put the execution binary into the $ALTI_HBP_HOME/bin directory and then set the environment variables.
 
 #### Starting aheartbeat 
 
