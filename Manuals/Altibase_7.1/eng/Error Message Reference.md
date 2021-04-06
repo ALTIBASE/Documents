@@ -73,7 +73,7 @@ Altibase Message Error Message Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~ 2018 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~ 2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is
 provided under a license agreement containing restrictions on use and disclosure
