@@ -45,7 +45,7 @@ Altibase Application Development Database Link User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -2137,7 +2137,7 @@ In order to use Altibase Database Link, altibase.properties, the properties file
 
 #### altibase.properties
 
-The following properties are related to database links. For further information on properties, please refer to *General Reference.* 
+The following properties are related to database links. For more detailed information on properties, please refer to *General Reference.* 
 
 -   AUTO_REMOTE_EXEC
 
