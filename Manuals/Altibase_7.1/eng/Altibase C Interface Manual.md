@@ -256,7 +256,7 @@ This chapter explains how to develop application programs using ACI.
 
 An ACI application program generally consists of following three parts:
 
--    initializing handles
+-   Initializing handles
 -   Processing transactions
 -   Release handles
 
