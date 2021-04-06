@@ -72,7 +72,7 @@ Altibase® Application Development
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -786,7 +786,7 @@ SQL_ERROR
 
 #### Description
 
-SQLPrimaryKeys () returns the results in the format of standard result set which is sorted in order byTABLE_CAT, TABLE_SCHEM, TABLE_NAME, and KEY_SEQ. 
+SQLPrimaryKeys () returns the results in the format of standard result set which is sorted in order by TABLE_CAT, TABLE_SCHEM, TABLE_NAME, and KEY_SEQ. 
 
 The search type cannot be used to define the schema-defining arguments or the table name. In many cases, calling of SQLPrimaryKeys () is mapped on the search that is complex and cost a lot. 
 
@@ -1021,7 +1021,7 @@ SQL_ERROR
 
 #### Description
 
-SQLProcedures () displays the list of all procedures in the required range. A user may have or have not a privilege to use and execute these procedures. 
+SQLProcedures () displays the list of all procedures in the required range. The user may have or have not a privilege to use and execute these procedures. 
 
 SQLProcedures () returns the results in the format of the standard result set format sorted in order by PROCEDURE_CAT, PROCEDURE_SCHEM, and PROCEDURE_NAME.
 
@@ -5630,11 +5630,11 @@ SQLExecute(stmt);
 
 ##### Using LOB in ODBC application
 
-If you want to fetch LOB column in ODBC application and store data in LOB column, call SQLDescribeCol, SQLColAttribute or SQLDescribeParam. 
+In order to fetch LOB column in ODBC application and store data in LOB column, call SQLDescribeCol, SQLColAttribute or SQLDescribeParam. 
 
-If you execute these functions in LOB column, they are returned as data types of SQL_BLOB and SQL_CLOB. However, ODBC application doesn’t recognize data types such as SQL_BLOB or SQL_CLOB. 
+If these functions are executed in LOB column, they are returned as data types of SQL_BLOB and SQL_CLOB. However, ODBC application doesn’t recognize data types such as SQL_BLOB or SQL_CLOB. 
 
-Therefore, you may return them as data type which ODBC application recognizes.You can solve this problem by setting LongDataCompat = on in odbc.ini. If you call SQLColAttribute() in LOB column for this option, ODBC returns SQL_LONGVINARYto SQL_BLOB and SQL_LONGVARCHAR to SQL_CLOB relatively
+Therefore, the user may return them as data type which ODBC application recognizes. The user can solve this problem by setting LongDataCompat = on in odbc.ini. If you call SQLColAttribute() in LOB column for this option, ODBC returns SQL_LONGVINARYto SQL_BLOB and SQL_LONGVARCHAR to SQL_CLOB relatively
 
 ##### Use Examples in PHP Program
 
@@ -5829,11 +5829,11 @@ SQLFetch(stmt);
 SQLExecute(stmt);
 ```
 
-However, if you execute codes above with the Altibase CLI driver in Altibase 5, function sequence error occurs in SQLExecute(stmt). 
+However, if codes above are executed with the Altibase CLI driver in Altibase 5, function sequence error occurs in SQLExecute(stmt). 
 
 Because stmt performing SQLExecute() first indicates to generate result set. Therefore, ODBC cursor becomes open and state of stmt indicates S5. (Refer to MSDN ODBC specification.). However, error occurs in this state cause of no performing SQLExecute().
 
-If you want to perform SQLExecute() again, call SQLCloseCursor() clearly as follows and then make stmt have S1 or S3 state.
+In order to perform SQLExecute() again, call SQLCloseCursor() clearly as follows and then make stmt have S1 or S3 state.
 
 ```
 SQLExecute(stmt);
@@ -5851,11 +5851,11 @@ ColumnSize of SQLBindParameter() as the 6th parameter in Altibase 5 is different
 
 CLI library in Altibase 4 references data only if they, which StrLen_or_IndPtr argument indicates, have variable length. However, Altibase 5 references the values in the memory StrLen_or_IndPtr argument indicates whenever performing SQLExecute() or SQLExecDirect() because Altibase 5 can implement SQLPutData() and SQLParamData(). 
 
-Therefore, you need special care in perfectly initializing memory the pointer indicates if sending StrLen_or_Ind as the last argument of SQLBindParameter() to not Null pointer but valid pointer variables. 
+Therefore, The user needs special care in perfectly initializing memory the pointer indicates if sending StrLen_or_Ind as the last argument of SQLBindParameter() to not Null pointer but valid pointer variables. 
 
 If SQL_DATA_AT_EXEC is -2 as constant number or SQL_LEN_DATA_AT_EXEC() is less than - 100 without initializing memory completely, CLI library judges user intends to send the argument with SQLPutData(). And CLI library returns SQL_NEED_DATA when you call SQLExecute(). 
 
-If SQLExecDirect() returns the unintended value(SQL_NEED_DATA) cause of no initialized value above, this influences on functions called next. So you need special care that function sequence errors in all functions called next cause to return SQL_ERROR.
+If SQLExecDirect() returns the unintended value(SQL_NEED_DATA) cause of no initialized value above, this influences on functions called next. So The user needs special care that function sequence errors in all functions called next cause to return SQL_ERROR.
 
 #### SQLPutData(), SQLParamData()
 
@@ -5970,7 +5970,7 @@ check_error(SQL_HANDLE_DBC, gHdbc, "STMT free", sRetCode);
 
 #### Limitation on ALTER SESSION statements
 
-Altibase 4 specifies AUTOCOMMIT MODE and DEFAULT_DATE_FORMAT as session properties as follows
+Altibase 4 specifies AUTOCOMMIT MODE and DEFAULT_DATE_FORMAT as session properties as follows.
 
 ```
 SQLExecDirect(stmt, 
@@ -6077,7 +6077,7 @@ If you want to get the same result as Altibase 4 in Altibase 5, SQLMoreResults (
 
 Altibase does not have restrictions on Array Execute and Array Fetch as buffer size.
 
-Therefore, you can bind array in the allocated memory and can use CM_BUFF_SIZE no more.
+Therefore, the user can bind array in the allocated memory and can use CM_BUFF_SIZE no more.
 
 #### Unavailable Properties
 
