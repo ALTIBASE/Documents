@@ -29,7 +29,7 @@ Altibase Administration General Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -3003,7 +3003,7 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Write, Single Value 값
+Read-Write, Single Value 
 
 ##### Range
 
@@ -5543,7 +5543,7 @@ ACCESS_LIST = operation, address, mask
 
 ```
 IF 
-BITXOR(BITAND(IP_패킷,mask), BITAND(address,mask)) = 0
+BITXOR(BITAND(IP_packet,mask), BITAND(address,mask)) = 0
 THEN  valid
 ELSE  invalid
 ```
@@ -5682,7 +5682,7 @@ Unsigned Integer
 
 ##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
 ##### Range
 
