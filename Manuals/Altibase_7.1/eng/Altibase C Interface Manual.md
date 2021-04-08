@@ -643,7 +643,7 @@ Notice that the ALTIBASE_ROW cannot be obtained (indicated by the dashed line). 
 
 This chapter describes the specifications of ACI functions used with Altibase handle. For each ACI functions, the following information are described.
 
--    Name of the function and purpose of use 
+-   Name of the function and purpose of use 
 -   Arguments list of the function 
 -   Return Values 
 -   Usages of function and notes 
@@ -718,7 +718,7 @@ altibase_client_version() returns the client library information as a constant. 
 | Format | Meaning                        | Remarks                                                      |
 | ------ | ------------------------------ | ------------------------------------------------------------ |
 | MM     | Where MM is the major version. |                                                              |
-| mm     | Where mm is the minor version. | When you assign a value to mm, if the value is shorter than the declared length of this, Altibase pads 0 to the rest space. |
+| mm     | Where mm is the minor version. | When the value is assigned to mm, if the value is shorter than the declared length of this, Altibase pads 0 to the rest space. |
 | tt     | Where tt is the term           | If the value is shorter than 2, Altibase pads 0 to the rest space. |
 | SS     | Where SS is the patch set.     | If the value is shorter than 2, Altibase pads 0 to the rest space. |
 | pp     | Where pp is the patch.         | If the value is shorter than 2, Altibase pads 0 to the rest space. |
@@ -773,7 +773,7 @@ This function closes the connection to the server and frees all resources alloca
 All statement handles belonging to the connection handle passed as arguments when this function is called
 Processing of SQL statements related to (ALTIBASE_STMT) is aborted, the results are discarded, and all resources associated with these statement handles are freed.
 
-If you have a result set handle returned using a connection handle, you must first call the altibase_free_result () function to free the result set handle before executing this function.
+If the user has a result set handle returned using a connection handle, the user must first call the altibase_free_result () function to free the result set handle before executing this function.
 do.
 
 #### Example
@@ -951,7 +951,7 @@ unsigned int  altibase_errno (
 
 altibase_errno() returns the numerical value of the error code from previous function. All functuins do not return error codes. Error codes are returned by queries for their operation. Errors are listed at *Error Message Refrence* in detail. 
 
-Make sure to check the value before calling another function because it is initialized or new one is created instead if another function is called. The value returned by altibase_errno() is different from that of SQLSTATE. You should use altibase_sqlstate() to find a specific SQLSTATE when handling errors.
+Make sure to check the value before calling another function because it is initialized or new one is created instead if another function is called. The value returned by altibase_errno() is different from that of SQLSTATE. altibase_sqlstate() must be used to find a specific SQLSTATE when handling errors.
 
 #### Example
 
@@ -2020,7 +2020,7 @@ altibase_use_result() returns an ALTIBASE_RES result structure for success, or n
 
 altibase_use_result() returns result set of a query. 
 
- This function does not actually read the result set into the client like altibase_store_result() does. Instead, each row must be retrieved individually by making calls to altibase_fetch_row(). This reads the result of a query directly from the server without storing it in a temporary table or local buffer.
+This function does not actually read the result set into the client like altibase_store_result() does. Instead, each row must be retrieved individually by making calls to altibase_fetch_row(). This reads the result of a query directly from the server without storing it in a temporary table or local buffer.
 
 altibase_use_result () returns an empty result set instead of NULL even when there are no query results. If NULL is returned by a call to altibase_use_result (), the result set failed to be read.
 
