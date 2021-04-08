@@ -63,7 +63,7 @@ Monitoring API Developer's Guide
 
 Altibase Application Development Monitoring API Developer's Guide
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners
 
@@ -213,7 +213,7 @@ Users can view the following data in an application with Altibase Monitoring API
 
 #### Supported Altibase Versions
 
-Altibase Monitoring API is supported for Altibase 5.5.1 or above. 
+Altibase Monitoring API is supported for Altibase 5.5.1 or later. 
 
 #### Consideration
 
