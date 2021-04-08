@@ -79,7 +79,7 @@ Altibase Application Development Log Analyzer User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -4093,7 +4093,7 @@ void testColumnInformation(ALA_Handle aHandle)
      for(sTablePos = 0; sTablePos < sReplication->mTableCount; sTablePos++)
      {
          sTable = &(sReplication->mTableArray[sTablePos]);
-         /* Table OID로 Table 정보 얻기 */
+         /* Getting Table Information by Table OID */
          (void)ALA_GetTableInfo( aHandle,
                              sTable->mTableOID,
                              &sTableByTableOID,
@@ -4792,7 +4792,7 @@ Refer to ALA_ClearErrorMgr.
 
 ### Error Code Table
 
-오류 The Log Analyzer error codes and the cause of each kind of error are set forth in the following table.코드와 발생 원인을 설명한다.
+The Log Analyzer error codes and the cause of each kind of error are set forth in the following table.
 
 #### FATAL Error
 
