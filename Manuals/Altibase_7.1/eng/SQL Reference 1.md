@@ -54,7 +54,7 @@ Altibase Application Development SQL Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -194,7 +194,7 @@ This chapter describes the overview, classification, and structure of SQL for us
 
 ### Overview of Altibase SQL
 
-Structured Query Language (SQL) is a language for defining data objects and managing, manipulating and searching data in a database. This section describes the characteristics of Altibase SQL.
+Structured Query Language (SQL) is a language for defining data objects and managing, manipulating, and searching data in a database. This section describes the characteristics of Altibase SQL.
 
 #### Altibase SQL Features 
 
@@ -1359,7 +1359,7 @@ The following query selects the employee numbers, names, and occupations of all 
 SELECT eno, e_firstname, e_lastname, emp_job FROM employees WHERE sex = 'F';
 ```
 
-For example, an index would be created on the Genter (SEX) column of the table EMPLOYEES witht he number of employees, and the value of this column would be either 'M' or 'F'.
+For example, an index would be created on the Gender (SEX) column of the table EMPLOYEES witht he number of employees, and the value of this column would be either 'M' or 'F'.
 
 If there are as many male employees as female employees, a full scan would be faster than an index scan. However, if there are many more male employees than female employees, an index scan would be faster than a full scan. If a column has only two different values, the query optimizer assumes that half of the rows contain each value and uses the cost-based approach to perform a full scan. 
 
@@ -1835,7 +1835,7 @@ This hint can be used with other hints that force semi-joins or anti-joins. For 
 
 #### NO_MERGE
 
-메인 쿼리와 인라인 뷰 쿼리를 하나의 쿼리로 병합하지 않도록 지시하는 힌트이다.
+This is a hint instructing not to merge the main query and the inline view query into a single query.
 
 ![no_merge](media/SQL/no_merge.gif)
 
@@ -1865,8 +1865,7 @@ If a hint is specified while the SERIAL_EXECUTE_MODE property is enabled, it wil
 
 #### NO_TRANSITIVE_PRED
 
-조건절 이행을 배제하는 힌트이다. 조건절 이행에 대해서는 "Performance Tuning
-Guide \> 3장 쿼리 옵티마이저 \> 쿼리 변환 > 조건절 이행"을 참고한다. This hint specifies that predicate transitivity is not to be allowed. For more detailed information about predicate transitivity, please refer to the *Performance Tuning Guide* in Chapter 3: Query Optimizer.
+This hint specifies that predicate transitivity is not to be allowed. For more detailed information about predicate transitivity, please refer to the *Performance Tuning Guide* in Chapter 3: Query Optimizer.
 
 ![no_transitive_pred](media/SQL/no_transitive_pred.gif)
 
