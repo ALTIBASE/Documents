@@ -997,7 +997,7 @@ if (SQLAllocHandle(SQL_HANDLE_DBC, env, &dbc) != SQL_SUCCESS)
 
 ### SQLAllocStmt
 
-SQLAllocStmt allocates and initializes the memory for the SQL statements. Up to 1024statements are allocated to one connection. 
+SQLAllocStmt allocates and initializes the memory for the SQL statements. Up to 1024 statements are allocated to one connection. 
 
 SQLAllocStmt () can be replaced by SQLAllocHandle ().
 
@@ -3018,7 +3018,7 @@ When the result set is created, the cursor is positioned before the start of the
 
 | Current row set | Returned code | New row set                                     | Number of the fetched rows |
 | --------------- | ------------- | ----------------------------------------------- | -------------------------- |
-| 시작 전         | SQL_SUCCESS   | 1 to 5                                          | 5                          |
+| Before start    | SQL_SUCCESS   | 1 to 5                                          | 5                          |
 | 1 to 5          | SQL_SUCCESS   | 6 to 10                                         | 5                          |
 | 52 to 56        | SQL_SUCCESS   | 57 to 61                                        | 5                          |
 | 91 to 95        | SQL_SUCCESS   | 96 to 100                                       | 5                          |
