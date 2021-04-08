@@ -40,7 +40,7 @@ Altibase Administration Installation Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.
 
@@ -128,17 +128,17 @@ Thank you. We appreciate your feedback and suggestions.
 ## 1. About the Altibase Package Installer
 ------------------------
 
-This Altibase Package Installer is a Java-based installer that lets you easily install Altibase products such as the database server, client components, tools, and so forth.
+This Altibase Package Installer is a Java-based installer that lets users easily install Altibase products such as the database server, client components, tools, and so forth.
 
 ### Altibase Home
 
-When you install Altibase with the Altibase Package Installer, a home directory and APatch directory are generated.
+When installing Altibase with the Altibase Package Installer, a home directory and APatch directory are generated.
 
 The Altibase home directory is the default directory wherein Altibase software is installed.
 
 #### Altibase Home Directory
 
-When you install Altibase with the Altibase Package Installer, a home directory (wherein Altibase products are installed) is generated. The Altibase home directory takes the following values by default
+When installing Altibase with the Altibase Package Installer, a home directory (wherein Altibase products are installed) is generated. The Altibase home directory takes the following values by default
 
 -   When installing Altibase Server Products:
 
@@ -285,7 +285,7 @@ The requirements and recommendations listed in this chapter assume that your dat
 
 Altibase requires a disk with sufficient storage space to hold tablespaces (to store data), transaction logs, and Altibase software. Altibase software and transaction logs require at least 1GB of space, respectively.
 
-You should have at least 12GB of free disk space to smoothly run the database.
+There must be at least 12GB of free disk space to smoothly run the database.
 
 #### Network
 
@@ -374,7 +374,7 @@ To install Altibase products, follow the steps below. More detailed description 
 
 #### Download the Altibase Package Installer
 
-You can download the appropriate Package Installer for your operating system from Altibase's Customer Support site (support.altibase.com/en/)
+The appropriate Package Installer can be downloaded for the operating system from Altibase's Customer Support site (support.altibase.com/en/)
 
 Altibase Package Installer names follow the rule below:
 
@@ -396,11 +396,11 @@ Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x
 
 | OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
 |-------|------------------------------|-----------------|--------------|--------------|
-| AIX   | PowerPC                      | 6.1 tl03 이상   | 64-bit       | 64-bit,      |
-| HP-UX | IA64                         | 11.31 이상      | 64-bit       | 64-bit,      |
-| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit,      |
+| AIX   | PowerPC                      | 6.1 tl03 or later   | 64-bit       | 64-bit,      |
+| HP-UX | IA64                         | 11.31 or later      | 64-bit       | 64-bit,      |
+| LINUX | x86-64 (GNU glibc 2.12 or later) | redhat 6.0 or later | 64-bit       | 64-bit,      |
 
-Altibase 7.1 is compatible with JDK 1.5 or higher.
+Altibase 7.1 is compatible with JDK 1.5 or later.
 
 #### Installation Mode
 
@@ -1146,7 +1146,7 @@ For meta downgrade-able version, perform the meta downgrade with the following s
 $ server downgrade
 ```
 
-> \* Note: User must shut down the server (server stop) before performing the meta downgrade. If the user does perform this without shutting down the server, then the following error with occur: 
+> \* Note: The user must shut down the server (server stop) before performing the meta downgrade. If the user does perform this without shutting down the server, then the following error with occur: 
 
 ```
 $ server downgrade
@@ -1520,7 +1520,7 @@ System kernel parameters can be classified into the following:
 
 #### AIX
 
-##### 설정 방법
+##### How to set
 
 Kernel parameters can be set with the /usr/bin/smit utility
 
@@ -1532,7 +1532,7 @@ The same values for shared memory and semaphore on HP-UX are also recommended fo
 
 Depending on the file caching policy for AIX, the file system can swap-out memory from the application program heap, although the system has free memory, and use it as file-cache (this is called stealing).
 
-For AIX 5.2 or higher, kernel parameters can be set as below to prevent the system from stealing: 
+For AIX 5.2 or later, kernel parameters can be set as below to prevent the system from stealing: 
 
 ```
 minperm =  5%
@@ -1540,7 +1540,7 @@ lru_file_repage = 0 (AIX 5.2 ML4 or higher)
 strict_maxclient = 0
 ```
 
-###### Posix AIO의 설정
+###### Configuration of Posix AIO
 
 AIX provides the Posix A/O interfaces for improved disk I/O improvement which must be manually activated. However, from AIX 6.1 and higher, the interfaces are activated by default.
 
@@ -1562,7 +1562,7 @@ Kernel parameters can be set in the sem,shmmax, shmmni, swapiness files at the /
 
 The same values for shared memory and semaphore on HP-UX are also recommended for Linux
 
-However, sessions using the IPC connection can be abruptly cut off, if the Linux kernel version is lower than 2.5. 
+However, sessions using the IPC connection can be abruptly cut off, if the Linux kernel version is earlier than 2.5. 
 
 To set kernel parameters automatically when the server boots, add the following to the /etc/rc.d/rc/local file. 
 
