@@ -42,7 +42,7 @@ Altibase New Features Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1183,7 +1183,7 @@ Altibase does not support the DataPort function and utility (convdp) that can tr
 
 ##### Shared Memory Function Not Supported
 
-Shared memory mode is not supported since 7.1.
+Shared memory mode is not supported starting from version 7.1.
 
 Delete the management tool 'shmutil' that supports shared memory and the following properties.
 
