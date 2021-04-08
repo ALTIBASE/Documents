@@ -48,7 +48,7 @@ Altibase Administration Replication Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -469,7 +469,7 @@ The Receiver thread on Server B terminates and the Sender thread on Server B att
 
 ##### Server A restarts (the Sender thread calls the Receiver thread on the remote server)
 
-1.   Server A’s Sender thread automatically starts and performs replication with Server B. 
+1.  Server A’s Sender thread automatically starts and performs replication with Server B. 
 2.  Server B’s Sender thread starts Server A’s replication Receiver thread and it performs replication. 
 3.  Server B’s Sender thread starts Server A’s Receiver thread. 
 4.  Server A’s Sender thread starts Server B’s Receiver and it performs replication. 
@@ -792,7 +792,7 @@ The parallel replication method in lazy mode is described in the Extra Features 
 
 ### Performance View related to Replication
 
-The following performance views are provided to monitor replication progress. For more information on performance views, see the General Reference.
+The following performance views are provided to monitor replication progress. For more information on performance views, refer to the General Reference.
 
 -   V\$REPEXEC
 
@@ -1167,7 +1167,7 @@ iSQL> ALTER REPLICATION rep1 STOP;
 Alter success.
 ```
 
--   • Assuming that the name of a replication is *rep1*, use the following commands to drop a table from a replication object.
+-   Assuming that the name of a replication is *rep1*, use the following commands to drop a table from a replication object.
 
 ```
 iSQL> ALTER REPLICATION rep1 STOP;
@@ -1310,7 +1310,7 @@ DROP INDEX index_name; ( unique, function-base indexes can be dropped)
 
 Altibase supports the execution of DDL statements on replication target tables. However, the following property settings must be set
 
--   • The REPLICATION_DDL_ENABLE property must be set to 1.
+-   The REPLICATION_DDL_ENABLE property must be set to 1.
 
 -   The replication session property, set using the ALTER SESSION SET REPLICATION statement, must be set to some value other than NONE.
   
@@ -1402,7 +1402,7 @@ ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );
 
 #### Description
 
-Altibase can replicate DDL statements for tables taht are subject to be replicated. However, for DDL replication statements, the properties must be set as follows:
+Altibase can replicate DDL statements for tables that are subject to be replicated. However, for DDL replication statements, the properties must be set as follows:
 -   Set the REPLICATION_DDL_ENABLE property to 1
 -   Set the REPLICATION_DDL_ENABLE_LEVEL property to the same value of the replication local server that executes DDL and the replication remote server that receives DDL
 -   Set the REPLICATION session property, which can be set with ALTER SESSION SET REPLICATION statemnet, to a value other than NONE.
@@ -2836,7 +2836,7 @@ int main( SInt argc, SChar *argv[])
 
 ### Embedded SQL
 
-Because the Fail-Over data structures used here are the same as those used in CLI, and because the structure of an ESQLC (Embedded SQL in C) application is similar to that of a CLI application, only the features unique to ESQLC will be described here
+Because the Fail-Over data structures used here are the same as those used in CLI, and because the structure of an ESQLC (Embedded SQL in C) application is similar to that of a CLI application, only the features unique to ESQLC will be described here.
 
 #### Registering Fail-Over Callback Functions
 
