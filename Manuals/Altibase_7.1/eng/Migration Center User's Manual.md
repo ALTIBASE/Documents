@@ -77,7 +77,7 @@ Altibase Tools & Utilities Migration Center User's Manual
 
 Release 7.8
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -677,7 +677,7 @@ The source / destination database connection information and the project recorde
 
 If either the project recorded in the registration file or the registration of the database connection information fails, all project and database connection registration recorded in the registration file are canceled.
 
-You can use a name other than "register.xml" as the name of the registration file.
+The user can use a name other than "register.xml" as the name of the registration file.
 
 ##### Set Migration Options 
 
@@ -2847,7 +2847,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13008
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -2872,7 +2872,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13009
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -2936,7 +2936,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13011
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -2965,7 +2965,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13012
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TO DO 
 
@@ -2994,7 +2994,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13013
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3025,7 +3025,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13014
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3054,7 +3054,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13015
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3145,7 +3145,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14003
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3166,7 +3166,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14004
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3222,7 +3222,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14006
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3249,7 +3249,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14007
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO
 
@@ -3301,7 +3301,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14009
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3326,7 +3326,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14010
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3892,7 +3892,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20017
 
--   Version Scope: Altibase 6.3.1.1.7 or below 
+-   Version Scope: Altibase 6.3.1.1.7 or earlier 
 
 -   Type: REMOVED 
 
@@ -4240,7 +4240,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20045
 
--   Version Scope: Altibase 6.3.1.0.0 or above 
+-   Version Scope: Altibase 6.3.1.0.0 or later 
 
 -   Type: TODO 
 
@@ -4725,7 +4725,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20059
 
--   Version Scope: Altibase version tag 6.5.1.0.0 or below 
+-   Version Scope: Altibase version tag 6.5.1.0.0 or earlier 
 
 -   Type: TODO 
 
@@ -4748,7 +4748,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
   FROM **TABLE(func1('ALTIBASE')) /\* [TODO] RULE-20059 : Table function must be
   converted manually \*/**;
 
-- Version Scope: Altibase version tag 6.5.1.0.0 or above 
+- Version Scope: Altibase version tag 6.5.1.0.0 or later 
 
 - Type: TODO 
 
@@ -4778,7 +4778,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20060
 
--   Version Scope: Altibase version tag 6.5.1.0.0 or above 
+-   Version Scope: Altibase version tag 6.5.1.0.0 or later 
 
 -   Type: TODO 
 
@@ -4803,7 +4803,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20061
 
--   Version Scope: Altibase version tag 6.5.1.0.0 or above
+-   Version Scope: Altibase version tag 6.5.1.0.0 or later
 
 -   Type: TODO 
 
@@ -4900,7 +4900,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20066
 
-- Version Scope: Altibase version tag 6.1.1.0.0 or below 
+- Version Scope: Altibase version tag 6.1.1.0.0 or earlier 
 
 - Type: TODO 
 
@@ -5771,7 +5771,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 -   Type: REMOVED 
 
--   Description: PRAGMA is removed. PRAGMA is removed. However, when it is removed, AUTONOMOUS_TRANSACTION is excluded in Altibase 6.3.1.0.10 or higher, and EXCEPTION_INIT is excluded in Altibase 6.5.1.0.0 or higher. 
+-   Description: PRAGMA is removed. PRAGMA is removed. However, when it is removed, AUTONOMOUS_TRANSACTION is excluded in Altibase 6.3.1.0.10 or higher, and EXCEPTION_INIT is excluded in Altibase 6.5.1.0.0 or later. 
 
 - Original SQL Text:
 
@@ -5843,7 +5843,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
   END;
 
-- Original SQL Text: Altibase 6.3.1.0.10 or above
+- Original SQL Text: Altibase 6.3.1.0.10 or later
 
   CREATE PROCEDURE addShot(p_cnt INTEGER)
 
@@ -5912,7 +5912,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
   END;
 
-- Original SQL Text: Altibase 6.3.1.0.10 or above
+- Original SQL Text: Altibase 6.3.1.0.10 or later
 
   CREATE OR REPLACE PROCEDURE addShot(p_cnt INTEGER)
 
@@ -6121,7 +6121,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32001
 
--   Version Scope:Altibase version tag 6.3.1.0.0 or below
+-   Version Scope:Altibase version tag 6.3.1.0.0 or earlier
 
 -   Type: REMOVED 
 
@@ -6210,7 +6210,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32002
 
--   Version Scope: Altibase version tag 6.3.1.0.0 or below
+-   Version Scope: Altibase version tag 6.3.1.0.0 or earlier
 
 -   Type: REMOVED 
 
@@ -6923,7 +6923,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32020
 
-- Version Scope : Altibase 6.5.1.0.0 or below
+- Version Scope : Altibase 6.5.1.0.0 or earlier
 
 - Type: TODO 
 
@@ -7133,7 +7133,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-33002
 
--   Version Scope : Altibase 6.3.1.0.0 or above 
+-   Version Scope : Altibase 6.3.1.0.0 or later 
 
 -   Type: TODO 
 
@@ -7244,7 +7244,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-40002
 
--   Version Scope: Altibase 6.3.1.0.0 or above 
+-   Version Scope: Altibase 6.3.1.0.0 or later 
 
 -   Type: TODO
 
@@ -7584,7 +7584,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-40017
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -8022,11 +8022,11 @@ In the “Missing” tab of the report created after the Run step, you can see t
 
 ### Altibase
 
-#### When migrating Altibase version 5.1.5 or lower, the characters are broken.
+#### When migrating Altibase version 5.1.5 or earlier, the characters are broken.
 
 ##### Cause
 
-Altibase version 5.1.5 or lower does not support globalization, so JDBC does not know how to handle the character set of the database.
+Altibase version 5.1.5 or earlier does not support globalization, so JDBC does not know how to handle the character set of the database.
 
 ##### Action
 
@@ -8048,7 +8048,7 @@ The user in the connection information at the Migration Center does not have pri
 
 Grant the Altibase user access to the tablespace.
 
-#### When migrating Altibase version 4.5.1.0 or lower, it fails to retrieve information of a column whose data type is BLOB, byte, or nibble.
+#### When migrating Altibase version 4.5.1.0 or earlier, it fails to retrieve information of a column whose data type is BLOB, byte, or nibble.
 
 ##### Cause
 
