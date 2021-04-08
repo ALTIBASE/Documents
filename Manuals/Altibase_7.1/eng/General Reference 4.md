@@ -107,7 +107,7 @@ Altibase Administration General Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -738,8 +738,7 @@ This is the number of node allocation requests that have been made to the node p
 
 ##### TOTAL_FREE_REQ
 
-인덱스에서 사용되었던 노드가 삭제되어 노드 풀에 반환 요청된 횟수를 나타낸다.
-시스템이 시작된 후부터 누적된 값을 유지한다.
+This is the number of times the node that was used in the index was deleted and returned to the node pool. The accumulated value is maintained after the system is started.
 
 ##### FREE_REQ_COUNT
 
@@ -2484,7 +2483,7 @@ This is the cumulative amount of time spent on reading one page from secondary b
 
 ##### SINGLE_PAGE_WRITE_USEC
 
-하나의 페이지를 보조 버퍼에 쓰는데 소요된 누적 시간이다. (단위: micro-seconds)
+This is the cumulative time spent writing one page to the auxiliary buffer. (Unit: micro-seconds)
 
 ##### MPR_READ_USEC
 
