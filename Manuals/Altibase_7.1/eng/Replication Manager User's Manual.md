@@ -49,7 +49,7 @@ Altibase Tools & Utilities Replication Manager User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -346,11 +346,11 @@ To connect to a database, complete the following steps:
 
 ##### Working with the Connected Database
 
-If you have followed the preceding steps successfully, you are ready to manage replication on the connected database.
+If the user has followed the preceding steps successfully, the user is ready to manage replication on the connected database.
 
 ##### Disconnecting from the Database
 
-After finishing your work, it will be necessary to close the connection with the database. To close a connection with a database, select the target database connection. Open the context menu by right-clicking on the target database, and then choose "Disconnect" from the context menu.
+After finishing the operation, it will be necessary to close the connection with the database. To close a connection with a database, select the target database connection. Open the context menu by right-clicking on the target database, and then choose "Disconnect" from the context menu.
 
 ##### Editing DB Connection Information
 
