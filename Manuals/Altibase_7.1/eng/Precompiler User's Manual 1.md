@@ -58,7 +58,7 @@ Altibase Application Development Precompiler User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -382,10 +382,7 @@ This is used to specify the location of the file(s) created by APRE. If this opt
 
 #### \-mt
 
-전처리할 파일이 멀티쓰레드 프로그램일 경우, 반드시 이 옵션을 지정하여야 한다. 이
-옵션은 각각의 소스 파일(.sc)에 적용할 수 없으므로, 두 개 이상의 소스 파일을
-전처리하여 실행 프로그램을 만드는 경우에는 모든 소스 파일에 이 옵션을 적용해야
-한다.
+If the file to be preprocessed is a multithreaded program, this option must be specified. Since this option cannot be applied to each source file (.sc), an executable program can be created by preprocessing more than one source file, this option must be applied to all source files.
 
 ```
 EXEC SQL OPTION(THREADS=TRUE);
