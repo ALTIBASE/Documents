@@ -65,7 +65,7 @@ Altibase Application Development Precompiler User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -4941,7 +4941,7 @@ If I do it the first way, I have to put APRE on every server that accesses the a
 
 I would appreciate a suggestion as to how to go about this, and am curious about how your other clients have tackled this problem. 
 
-Please provide a sample makefile that I should use in such a scenario
+Please provide a sample makefile that I should use in such a scenario.
 
 ##### Answer
 
