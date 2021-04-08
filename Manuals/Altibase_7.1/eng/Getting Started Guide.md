@@ -52,7 +52,7 @@ Altibase Administration Getting Started Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
 prohibited. All trademarks, registered or otherwise, are the property of their respective owners. 
@@ -233,7 +233,7 @@ This chapter contains the following sections:
 
 #### Download the Package Installer.
 
-Visit Altibase Customer Service Portal (http://support.altibase.com/en) and download the installer that is suitable for your operation system.
+Visit Altibase Customer Service Portal (http://support.altibase.com/en/) and download the installer that is suitable for your operation system.
 
 For more detailed information on the package installer files, please refer to Chapter 2 "Installing Products with the Altibase Package Installer" in the Installation Guide.
 
