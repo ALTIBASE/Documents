@@ -30,7 +30,7 @@ Altibase Application Development ODBC User\'s Manual
 
 Release 7.1 (August 29th, 2019)
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners. 
 
@@ -257,7 +257,7 @@ When the “Altibase Connection Config” window appears, enter the following.
 
 -   NLS\_USE: Enter the client character set.
 
-You can check whether or not the ODBC driver is successfully connected to the database by clicking “Test Connection”. Once you click “OK”, you will be able to see the data source added to the DSN tab in the name you have just entered.
+The user can check whether or not the ODBC driver is successfully connected to the database by clicking “Test Connection”. Once the user clicks “OK”, the user will be able to see the data source added to the DSN tab in the name you have just entered.
 
 ## 3. ODBC Programming
 
@@ -267,7 +267,7 @@ This chapter describes how to develop ODBC application using the Altibase ODBC D
 
 ### Connection String
 
-When developing an ODBC application using Altibase ODBC, you can also use a connection string, instead of a DSN. The connection string consists of the following attributes:
+When developing an ODBC application using Altibase ODBC, the user can also use a connection string, instead of a DSN. The connection string consists of the following attributes:
 
 | Attributes     | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -488,7 +488,7 @@ SQL_C_SLONG, SQL_NUMERIC, 0, 0,
 
 **Execution Result**
 
-If you run the exe file generated after compiling in Visual C++, you will get the following result.
+If the user executes the exe file generated after compiling in Visual C++, the following result will be disaplyed.
 
 
 
