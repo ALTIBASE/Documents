@@ -49,7 +49,7 @@ Altibase Development Spatial SQL Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1524,7 +1524,7 @@ ISVALID( GEOMETRY )
 
 ##### Description
 
-This function allows you to test whether a GEOMETRY object meets its requirements for validity. 
+This function allows to test whether a GEOMETRY object meets its requirements for validity. 
 
 If a GEOMETRY object meets all of the criteria for validity for that subtype, this function returns 1. If the object in question does not meet all of its criteria for validity, this function returns 0. 
 
@@ -1565,7 +1565,7 @@ ISVALIDHEADER( GEOMETRY )
 
 ##### Description
 
-This function allows you to test whether a GEOMETRY object meets its requirements for validity by checking only the header information of the object. 
+This function allows to test whether a GEOMETRY object meets its requirements for validity by checking only the header information of the object. 
 
 If a GEOMETRY object meets all of the criteria for validity for that subtype, this function returns 1. If the object in question does not meet all of its criteria for validity, this function returns 0. Be careful to avoid inserting invalid GEOMETRY objects into the DBMS, as this will result in errors or unpredictable results.
 
@@ -4992,7 +4992,7 @@ ACSCreateLineString2D
 
 ##### Example
 
-\$ALTIBASE_HOME/sample/SPATIAL/insertObject.cpp파일을 참고하기 바란다.
+Sample code can be found at: \$ALTIBASE_HOME/sample/SPATIAL/insertObject.cpp.
 
 #### ACSCreateMultiPolygon2D
 
