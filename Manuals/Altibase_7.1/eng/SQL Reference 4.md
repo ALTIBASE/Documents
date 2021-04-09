@@ -36,7 +36,7 @@
 
 ### Introduction to SQL Functions
 
-SQL functions are built into Altibase, and are available for use in various SQL statements. In addition to the built-in SQL functions, it is also possible for the user to define stored functions. For more information, please refer to the *Stored Procedures Manual.*
+SQL functions are built into Altibase, and are available for use in various SQL statements. In addition to the built-in SQL functions, it is also possible for the user to define stored functions. For more detailed information, please refer to the *Stored Procedures Manual.*
 
  If a SQL function is called and an argument having a data type other than the data type expected by the SQL function is provided, then Altibase attempts to convert the argument to the expected data type before executing the SQL function. If an argument having a NULL value is provided when calling a SQL function, then the SQL function returns NULL. 
 
@@ -2720,7 +2720,7 @@ TO_CHAR( BITNOT( BIT'01010101' ) )
 
 ### Character Functions
 
-Character functions return either character or numeric values. They can be classified into two types depending on which kind of data they return
+Character functions return either character or numeric values. They can be classified into two types depending on which kind of data they return.
 
 - ##### Character functions that return character data 
 
@@ -4389,7 +4389,7 @@ LAST_DAY (date)
 
 ##### Description
 
-LAST_DAY returns the last day of the month that contains date. The return type is always DATE, regardless of whether the type of date is DATE, CHAR or VARCHAR.
+LAST_DAY returns the last day of the month that contains date. The return type is always DATE, regardless of whether the type of date is DATE, CHAR, or VARCHAR.
 
 ##### Examples
 
@@ -4553,7 +4553,7 @@ SYSDATETIME
 
 ##### Description
 
-Thiss prints the current date and time of the system of which Altibase is running. This is an alias of the SYSDATE function and does not support time zones.
+This prints the current date and time of the system of which Altibase is running. This is an alias of the SYSDATE function and does not support time zones.
 
 ##### Example
 
@@ -5615,7 +5615,7 @@ AESENCRYPT (VARCHAR  expr,
 
 ##### Example
 
-Please refer to the examples for AESDECRYPT
+Please refer to the examples for AESDECRYPT.
 
 #### DESDECRYPT
 
@@ -5943,7 +5943,7 @@ This function returns the length of a value in a BLOB, BYTE or NIBBLE type colum
 
 ##### Example
 
-\<Query\> Output the length of three binary data type values
+\<Query\> Output the length of three binary data type values.
 
 ```
 iSQL> CREATE TABLE T1 (I1 BLOB, I2 Byte(10), I3 NIBBLE(10) );
@@ -6597,7 +6597,6 @@ NULLIF (expr1, expr2)
 
 ##### Description
 
-입력한 *expr1*과 *expr2*이 동일하면 NULL을 반환하고, 그렇지 않으면 *expr1*을
 This function returns NULL if the two input expressions, expr1 and expr2, are equal; otherwise, it returns expr1. 
 
 ##### Example
