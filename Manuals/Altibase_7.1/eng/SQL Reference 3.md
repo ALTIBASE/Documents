@@ -113,7 +113,7 @@ Each variable_name is either a host variable or a PSM variable in which queried 
 
 Host variable or PSM variable types must be compatible with relevant expr types. 
 
-> Note: ':' must be prefixed to variable names for iSQL
+> Note: ':' must be prefixed to variable names for iSQL.
 
 Limitations of the returning clause:
 
@@ -315,7 +315,7 @@ This specifies the view into which a record is to be inserted as a subquery.
 
 When the values to be inserted are provided only for some columns, but not for others, NULL is inserted into every column for which an insert value is not provided and which does not have a set DEFAULT value. (The default value for a TIMESTAMP column is the system time at the time that the INSERT operation occurred. Therefore, if no insert value is provided for a TIMESTAMP column, the system time, rather than NULL, is inserted into that column.) 
 
-NULL values can also be inserted by explicitly specifying NULL in the VALUES clause
+NULL values can also be inserted by explicitly specifying NULL in the VALUES clause.
 
 *multi_table_insert Clause*
 
@@ -434,7 +434,7 @@ INSERT /*+ APPEND */ INTO T2 SELECT * FROM T1;
 
 ##### Multi-table INSERT statement
 
-\<Query\> Multiple rows are inserted into a single table at once
+\<Query\> Multiple rows are inserted into a single table at once.
 
 ```
 CREATE TABLE t (
@@ -2823,7 +2823,7 @@ SOLUTION DEVELOPMENT DEPT       F  1
 11 rows selected.
 ```
 
-\<Query\> Print the telephone number and gender of each employee. 
+\<Query\> Output the telephone number and gender of each employee. 
 
 ```
 iSQL> SELECT eno, e_lastname, e_firstname, "info", "item"
