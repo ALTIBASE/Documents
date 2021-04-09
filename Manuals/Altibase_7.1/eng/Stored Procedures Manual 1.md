@@ -76,7 +76,7 @@ Altibase Application Development Stored Procedures Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -260,7 +260,7 @@ A stored function is the same as a stored procedure with the exception that it h
 
 A typeset is a set of user-defined types that can be used in stored procedures. They are chiefly used for passing user-defined types between procedures in the form of parameters and return values.
 
-For more information about typesets, please refer to Chapter7: Typesets.
+For more information about typesets, please refer to Chapter 7: Typesets.
 
 #### Features
 
@@ -418,7 +418,7 @@ within SQL statements.</TD>
 
 The following data types are supported for use with stored procedures:
 
--   SQL 데이터 Types
+-   SQL data Types
 
 -   BOOLEAN Types
 
