@@ -1573,7 +1573,7 @@ The REFERENCING clause has the following restrictions:
 The trigger action clause consists of the following three parts:
 
 - Action granularity: Determines the unit (row or statement) by which the trigger operates
-- Action WHEN condition: Optionally used to set an additional condition to determine whether the trigger will fire.
+- Action WHEN condition: Optionally specify additional conditions that determine whether or not the trigger should be triggered
 - Action body: Determines what the trigger actually does. 
 
 *FOR EACH {ROW\|STATEMENT}*
@@ -1581,7 +1581,7 @@ The trigger action clause consists of the following three parts:
 This is used to specify the unit of operation of the trigger. The changes to the data in the table take place according to this unit. The default is FOR EACH STATEMENT.
 
 - FOR EACH ROW: The operations specified in action body are conducted once for each row that is affected by trigger_event and satisfies the WHEN clause. The FOR EACH ROW clause must be used when either the REFERENCING clause or the WHEN clause is used.
-- FOR EACH STATEMENT: The trigger will be fired only once, either after or before execution of the DML statement that caused the trigger to fire.
+- FOR EACH STATEMENT: The trigger operates only once after or before the execution of the DML statement that triggers the trigger operation.
 
 *WHEN search_condition*
 
@@ -1623,9 +1623,11 @@ For more detailed information about the use of block statements in stored proced
 - Trigger Execution Failure  
   If an error occurs while a trigger is executing, the DML statement that caused the trigger to fire will also fail.
 - Execution of DDL on Tables Referenced in Triggers  
-  When a table that causes triggers to fire is deleted using the DROP TABLE statement, the triggers that fire in response to changes made to the table are also deleted. However, when a table that is referred to by the action body of a trigger is altered or dropped, the trigger is not dropped. In the case where the table is dropped, when it becomes impossible to perform the operations in the action body of such a trigger, any DML statements that cause the trigger to fire will fail. In the case where the table is altered, the trigger will be internally recompiled and executed at the time it is fired.
+  When a table is deleted, all triggers created for that table are also deleted.
+  However, when the table referenced in the trigger's action body is changed or deleted.
+  In this case, the trigger is not removed. If the action body of the trigger cannot be executed because the reference table is deleted, the DML statement that caused the trigger will fail. If the reference table is changed, the trigger will be internally recompiled when the trigger occurs and will be executed normally.
 - Triggers and Replication  
-  DML statements that are executed in the course of replication do not cause triggers to fire.
+  Changes in table data reflected due to replication do not trigger trigger actions.
 
 #### Examples
 
@@ -1813,7 +1815,7 @@ Specifies whether to enable or disable the user’s TCP connection. Only the SYS
 
 If the number of times login fails equals the number set for this value, the account is locked and login is impossible until it is unlocked. 
 
-If PASSWORD_LOCK_TIME is set, the account is automatically unlocked after the specified time elapses
+If PASSWORD_LOCK_TIME is set, the account is automatically unlocked after the specified time elapses.
 
 *PASSWORD_LOCK_TIME*
 
