@@ -242,6 +242,7 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_REPLICATIONS\_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
 | SYS_REPL_HOSTS\_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
 | SYS_REPL_ITEMS\_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_ITEMS_REPLACE_HISTORY\_  | 이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OFFLINE_DIR\_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_COLUMNS\_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
@@ -2847,6 +2848,48 @@ conditional sync 여부
 SYS_REPLICATIONS_
 SYS_USERS_
 SYS_TABLES_
+```
+
+### SYS_REPL_ITEMS_REPLACE_HISTORY\_
+
+이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 가진 메타 테이블이다.
+
+| Column name           | Type          | Description                         |
+| --------------------- | ------------- | ----------------------------------- |
+| REPLICATION_NAME      | VARCHAR(40)   | 이중화 이름                         |
+| USER_NAME             | VARCHAR(128)  | 대상 테이블 소유자 이름             |
+| TABLE_NAME            | VARCHAR(128)  | 대상 테이블 이름                    |
+| PARTITION_NAME        | VARCHAR(128)  | 대상 파티션 이름                    |
+| OLD_OID               | BIGINT        | ALTER TABLE REPLACE 구문 수행 전 테이블 또는 파티션의 OID  |
+| NEW_OID               | BIGINT        | ALTER TABLE REPLACE 구문 수행 후 테이블 또는 파티션의 OID  |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한 REPLICATION_NAME 값과 동일하다.
+
+##### USER_NAME
+이중화 대상 테이블 소유자의 사용자 이름으로, SYS_USERS\_ 메타 테이블의 한 USER_NAME 값과 동일하다.
+
+##### TABLE_NAME
+이중화 대상 테이블의 이름으로, SYS_TABLES\_ 메타 테이블의 한 TABLE_NAME 값과 동일하다.
+
+##### PARTITION_NAME
+이중화 대상 파티션의 이름으로, SYS_TABLE_PARTITIONS_의 한 PARTITION_NAME 값과 동일하다.
+
+##### OLD_OID
+ALTER TABLE REPLACE 구문 수행 전 테이블 또는 파티션의 OID 이다.
+
+##### NEW_OID
+ALTER TABLE REPLACE 구문 수행 후 테이블 또는 파티션의 OID 이다.
+
+#### 참조 테이블
+
+```
+SYS_REPLICATIONS_
+SYS_USERS_
+SYS_TABLES_
+SYS_TABLE_PARTITIONS_
 ```
 
 ### SYS_REPL_OFFLINE_DIR\_
