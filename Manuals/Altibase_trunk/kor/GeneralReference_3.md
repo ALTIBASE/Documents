@@ -213,7 +213,6 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_DIRECTORIES\_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
 | SYS_DN_USERS\_               | 향후 확장 예정                                               |
 | SYS_DUMMY\_                  | 내부 용도                                                    |
-| SYS_REPL_RECEIVER\_          | 내부 용도                                                    |
 | SYS_ENCRYPTED_COLUMNS\_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
 | SYS_GRANT_OBJECT\_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
 | SYS_GRANT_SYSTEM\_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
@@ -244,12 +243,14 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_REPLICATIONS\_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
 | SYS_REPL_HOSTS\_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
 | SYS_REPL_ITEMS\_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_ITEMS_HISTORY\_     | 내부 용도                                                    |
 | SYS_REPL_ITEM_REPLACE_HISTORY\_  | 이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OFFLINE_DIR\_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_COLUMNS\_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_INDICES\_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_ITEMS\_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_RECEIVER\_          | 내부 용도                                                    |
 | SYS_REPL_RECOVERY_INFOS\_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
 | SYS_SECURITY\_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
 | SYS_SYNONYMS\_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
