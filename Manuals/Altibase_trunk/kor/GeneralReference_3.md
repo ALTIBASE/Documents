@@ -3344,6 +3344,8 @@ SYS_USERS_
 | HIDDEN                     | CHAR(1)      | 숨김 속성을 갖는 테이블인지 여부                             |
 | ACCESS                     | CHAR(1)      | 테이블 접근 모드                                             |
 | PARALLEL_DEGREE            | INTEGER      | 병렬 질의를 처리하는 쓰레드의 개수                           |
+| USABLE                     | CHAR(1)      | 테이블의 사용 여부                                           |
+| SHARD_FLAG                 | INTEGER      | 샤드 환경에서 테이블의 역할 구분                             |
 | CREATED                    | DATE         | 테이블이 생성된 시간                                         |
 | LAST_DDL_TIME              | DATE         | 테이블에 대해 마지막으로 DDL 변경 작업이 일어난 시간         |
 
@@ -3466,24 +3468,33 @@ MAX_TRANS에 설정된 개수까지 증가할 수 있다.
 - N: 임시 테이블이 아님
 
 ##### HIDDEN
-
 해당 테이블이 숨기는 테이블인지 여부를 나타낸다.
 
 - Y: 사용자에게 숨기는 테이블임
 - N: 사용자에게 공개된 테이블임 (일반 테이블)
 
-##### PARALLEL_DEGREE
-
-파티션드 테이블을 스캔할 때 병렬 질의를 처리하는 쓰레드의 개수를 나타낸다.
-
 ##### ACCESS
-
-테이블의 데이터에 대한 접근 모드를 나타낸다. 기본 모드는 읽기/쓰기가 가능한
-W이다.
-
+테이블의 데이터에 대한 접근 모드를 나타낸다. 기본 모드는 읽기/쓰기가 가능한 W 이다.
 - R: 데이터 읽기 전용 모드
 - W: 데이터 읽기/쓰기 모드 (기본 모드)
 - A: 데이터 읽기/추가 모드. 이 모드에서는 데이터 변경/삭제가 허용되지 않는다.
+
+##### PARALLEL_DEGREE
+파티션드 테이블을 스캔할 때 병렬 질의를 처리하는 쓰레드의 개수를 나타낸다.
+
+##### USABLE
+테이블의 사용여부를 나타낸다. 기본값은 Y(Usable) 이다.
+- Y: Usable
+- N: Unusable
+
+##### SHARD_FLAG
+샤드 환경에서 테이블의 역할 구분을 나타낸다. 기본값은 0(None) 이다.
+- 0: None
+- 1: Meta
+- 2: Back-up
+- 3: Split (Range|List|Hash)
+- 4: Clone
+- 5: Solo
 
 #### 참조 테이블
 
@@ -3507,6 +3518,7 @@ SYS_USERS_
 | PARTITION_ORDER            | INTEGER       | 파티션 순서 (해쉬 파티션일 경우 필요)               |
 | TBS_ID                     | INTEGER       | 테이블스페이스 식별자                               |
 | PARTITION_ACCESS           | CHAR(1)       | 파티션 접근 모드                                    |
+| PARTITION_USABLE           | CHAR(1)       | 파티션 사용여부                                    |
 | REPLICATION_COUNT          | INTEGER       | 파티션에 관련된 이중화 객체의 개수                  |
 | REPLICATION_RECOVERY_COUNT | INTEGER       | 파티션에 대해 복구 옵션을 설정한 이중화 객체의 개수 |
 | CREATED                    | DATE          | 파티션이 생성된 시간                                |
@@ -3563,6 +3575,11 @@ W이다.
 - R: 데이터 읽기 전용 모드
 - W: 데이터 읽기/쓰기 모드(기본 모드)
 - A: 데이터 읽기/추가 모드. 이 모드에서는 데이터 변경/삭제가 허용되지 않는다.
+
+##### PARTITION_USABLE
+파티션의 사용여부를 나타낸다. 기본값은 Y(Usable) 이다.
+- Y: Usable
+- N: Unusable
 
 ##### REPLICATION_COUNT
 
