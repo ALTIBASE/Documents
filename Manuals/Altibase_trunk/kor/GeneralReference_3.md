@@ -44,6 +44,7 @@
     - [SYS_REPLICATIONS\_](#sys_replications_)
     - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
     - [SYS_REPL_ITEMS\_](#sys_repl_items_)
+    - [SYS_REPL_ITEM_REPLACE_HISTORY\_](#sys_repl_item_replace_history_)
     - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
     - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
     - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
