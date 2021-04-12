@@ -213,6 +213,7 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_DIRECTORIES\_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
 | SYS_DN_USERS\_               | 향후 확장 예정                                               |
 | SYS_DUMMY\_                  | 내부 용도                                                    |
+| SYS_REPL_RECEIVER\_          | 내부 용도                                                    |
 | SYS_ENCRYPTED_COLUMNS\_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
 | SYS_GRANT_OBJECT\_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
 | SYS_GRANT_SYSTEM\_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
