@@ -243,7 +243,7 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_REPLICATIONS\_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
 | SYS_REPL_HOSTS\_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
 | SYS_REPL_ITEMS\_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
-| SYS_REPL_ITEMS_REPLACE_HISTORY\_  | 이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 저장하는 메타 테이블 |
+| SYS_REPL_ITEM_REPLACE_HISTORY\_  | 이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OFFLINE_DIR\_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_COLUMNS\_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
@@ -2851,7 +2851,7 @@ SYS_USERS_
 SYS_TABLES_
 ```
 
-### SYS_REPL_ITEMS_REPLACE_HISTORY\_
+### SYS_REPL_ITEM_REPLACE_HISTORY\_
 
 이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 가진 메타 테이블이다.
 
