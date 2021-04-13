@@ -2154,17 +2154,17 @@ iSQL\> SELECT \* FROM S$TAB;
 
 #### 샤드 성능 뷰의 종류
 - S$CONNECTION_INFO: 현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보
-- S$DIST_LOCK_WAIT:
-- S$LOCK_WAIT:
-- S$PENDING_WAIT:
+- S$DIST_LOCK_WAIT: 샤딩 시스템에서 분산 데드락으로 탐지된 트랜잭션 간의 대기 정보
+- S$LOCK_WAIT: 샤딩 시스템에서 수행되는 분산 트랜잭션 간의 대기 정보
+- S$PENDING_WAIT: 샤딩 시스템에서 읽기 정합성 보장을 위해 Pending 트랜잭션의 완료를 대기하고 있는 트랜잭션들의 정보
 - S$PROPERTY: 모든 샤드 노드의 시스템 프로퍼티 정보
 - S$SESSION: 모든 샤드 노드의 샤드 세션에 대한 세션 정보
 - S$STATEMENT: 모든 샤드 노드의 세션에서 수행되는 모든 구문 정보
-- S$TIME_SCN:
-- S$TRANSACTION:
+- S$TIME_SCN: 분산 트랜잭션의 읽기 정합성 보장을 위해 허용되는 시간별 SCN
+- S$TRANSACTION: 샤드 트랜잭션 객체의 정보
 
 #### S$CONNECTION_INFO
-현재 세션에서 코디네이터가 연결한 접속 상태에 대한 정보를 보여주는 성능 뷰 이다.
+현재 세션에서의 코디네이팅 샤드 노드와 다른 샤드 노드의 연결 상태에 대한 정보
 - NODE_ID (INTEGER): 샤드 노드의 지역 식별자
 - NODE_NAME (VARCHAR(40)): 샤드 노드 이름
 - COMM_NAME (VARCHAR(64)): 접속 정보
@@ -2172,41 +2172,44 @@ iSQL\> SELECT \* FROM S$TAB;
 - LINK_FAILURE (INTEGER): 샤드 노드의 연결 상태 0: 정상 1: 실패
 
 #### S$DIST_LOCK_WAIT
-- NODE_NAME (VARCHAR(40)):   
-- TRANS_ID (BIGINT): 
-- SHARD_PIN (VARCHAR(20)):    
-- FIRST_STMT_SCN (VARCHAR(29)):    
-- FIRST_STMT_TIME (VARCHAR(64)):    
-- DISTRIBUTION_LEVEL (INTEGER):        
-- WAIT_FOR_TRANS_ID (BIGINT):         
-- WAIT_FOR_SHARD_PIN (VARCHAR(20)):    
-- WAIT_FOR_FIRST_STMT_SCN (VARCHAR(29)):    
-- WAIT_FOR_FIRST_STMT_TIME (VARCHAR(64)):    
-- WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER):        
-- DEADLOCK_DETECTION_CAUSE (VARCHAR(64)):    
-- DEADLOCK_WAIT_TIME (BIGINT):         
-- DEADLOCK_ELAPSED_TIME (BIGINT):  
+샤딩 시스템에서 분산 데드락으로 탐지된 트랜잭션 간의 대기 정보
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
+- TRANS_ID (BIGINT): 대기 트랜잭션 식별자
+- SHARD_PIN (VARCHAR(20)): 대기 트랜잭션의 샤드핀
+- DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 트랜잭션에서 최초 수행한 statement 의 SCN
+- DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 대기 트랜잭션에서 최초 수행한 statement 의 시작 시간
+- DISTRIBUTION_LEVEL (INTEGER): 대기 트랜잭션에서 수행한 statement 의 최대 분산 레벨      
+- WAIT_FOR_TRANS_ID (BIGINT): 대기 대상 트랜잭션 식별자   
+- WAIT_FOR_SHARD_PIN (VARCHAR(20)): 대기 대상 트랜잭션의 샤드핀 
+- WAIT_FOR_DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 대상 트랜잭션에서 최초 수행한 statement 의 SCN
+- WAIT_FOR_DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 대기 대상 트랜잭션에서 최초 수행한 statement 의 시작 시간
+- WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER): 대기 대상 트랜잭션에서 수행한 statement 의 최대 분산 레벨  
+- DISTRIBUTION_DEADLOCK_DETECTION (VARCHAR(19)): 대기 트랜잭션의 분산 데드락 탐지 원인
+- DISTRIBUTION_DEADLOCK_WAIT_TIME (BIGINT): 대기 트랜잭션에서 수행중인 statement 가 실패 처리 될때까지의 전체 유예 시간 (Microsecond) 
+- DISTRIBUTION_DEADLOCK_ELAPSED_TIME (BIGINT): 대기  트랜잭션에서 수행중인 statement 가 분산 데드락으로 탐지된 후 경과된 시간 (Microsecond)
 
 #### S$LOCK_WAIT
-- NODE_NAME (VARCHAR(40)):   
-- TRANS_ID (BIGINT): 
-- SHARD_PIN (VARCHAR(20)):    
-- FIRST_STMT_SCN (VARCHAR(29)):    
-- FIRST_STMT_TIME (VARCHAR(64)):    
-- DISTRIBUTION_LEVEL (INTEGER):        
-- WAIT_FOR_TRANS_ID (BIGINT):         
-- WAIT_FOR_SHARD_PIN (VARCHAR(20)):    
-- WAIT_FOR_FIRST_STMT_SCN (VARCHAR(29)):    
-- WAIT_FOR_FIRST_STMT_TIME (VARCHAR(64)):    
-- WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER):        
+샤딩 시스템에서 수행되는 분산 트랜잭션 간의 대기 정보
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
+- TRANS_ID (BIGINT): 대기 트랜잭션 식별자
+- SHARD_PIN (VARCHAR(20)): 대기 트랜잭션의 샤드핀
+- DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 트랜잭션에서 최초 수행한 statement 의 SCN
+- DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 대기 트랜잭션에서 최초 수행한 statement 의 시작 시간
+- DISTRIBUTION_LEVEL (INTEGER): 대기 트랜잭션에서 수행한 statement 의 최대 분산 레벨
+- WAIT_FOR_TRANS_ID (BIGINT): 대기 대상 트랜잭션 식별자
+- WAIT_FOR_SHARD_PIN (VARCHAR(20)): 대기 대상 트랜잭션의 샤드핀
+- WAIT_FOR_DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 대상 트랜잭션에서 최초 수행한 statement 의 SCN
+- WAIT_FOR_DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 대기 대상 트랜잭션에서 최초 수행한 statement 의 시작 시간
+- WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER): 대기 대상 트랜잭션에서 수행한 statement 의 최대 분산 레벨
 
 #### S$PENDING_WAIT
-- NODE_NAME (VARCHAR(40)):   
-- TRANS_ID (BIGINT): 
-- SHARD_PIN (VARCHAR(20)):    
-- WAIT_FOR_TRANS_ID (BIGINT):         
-- WAIT_FOR_XID (VARCHAR(256)):    
-- WAIT_FOR_SHARD_PIN (VARCHAR(20)):    
+샤딩 시스템에서 읽기 정합성 보장을 위해 Pending 트랜잭션의 완료를 대기하고 있는 트랜잭션들의 정보
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
+- TRANS_ID (BIGINT): 현재 대기하고 있는 트랜잭션의 식별자
+- SHARD_PIN (VARCHAR(20)): 현재 대기하고 있는 트랜잭션의 샤드핀
+- WAIT_FOR_TRANS_ID (BIGINT): Pending 트랜잭션의 식별자 
+- WAIT_FOR_XID (VARCHAR(256)): Pending 트랜잭션의 XID
+- WAIT_FOR_SHARD_PIN (VARCHAR(20)): Pending 트랜잭션의 샤드핀
 
 #### S$PROPERTY
 샤딩 시스템의 각 노드에 설정된 시스템 프로퍼티의 정보를 보여준다.
@@ -2230,13 +2233,15 @@ iSQL\> SELECT \* FROM S$TAB;
   - 1 : multiple node transaction
   - 2 : global transaction
   - 3 : global consistent transaction
-- GCTX_COORD_SCN (BIGINT):
-- GCTX_PREPARE_SCN (BIGINT):
-- GCTX_GLOBAL_COMMIT_SCN (BIGINT):
-- GCTX_LAST_SYSTEM_SCN (BIGINT):
-- SHARD_STATEMENT_RETRY (INTEGER):
-- INDOUBT_FETCH_TIMEOUT (INTEGER):        
-- INDOUBT_FETCH_METHOD (INTEGER):
+- GCTX_COORD_SCN (BIGINT): 샤드 코디네이터가 요구자 SCN 으로 사용하기 위해 수집한 SCN
+- GCTX_PREPARE_SCN (BIGINT): 글로벌 트랜잭션이 참여 노드에 PREPARE 명령 수행 후 수집한 가장 높은 SCN
+- GCTX_GLOBAL_COMMIT_SCN (BIGINT): 글로벌 트랜잭션이 참여 노드로 COMMIT 을 수행하기 위해 결정한 COMMIT SCN
+- GCTX_LAST_SYSTEM_SCN (BIGINT): 글로벌 트랜잭션이 수집한 시스템의 최신 SCN
+- SHARD_STATEMENT_RETRY (INTEGER): 현재 세션의 샤드 데이터베이스의 최신 스냅샷을 얻기 위한 재시도 횟수
+- INDOUBT_FETCH_TIMEOUT (INTEGER): 현재 세션의 Indoubt 트랜잭션 최대 대기 시간
+- INDOUBT_FETCH_METHOD (INTEGER): 현재 세션의 Indoubt 트랜잭션으로 인한 최대 지연 후 처리 방법
+  - 0 : Indoubt 트랜잭션이 수정한 값을 보지 않고 다음 값을 읽는다.
+  - 1 : 에러 발생
 - 그 외 컬럼들은 V$SESSION 과 동일하다.
 
 #### S$STATEMENT
@@ -2248,31 +2253,45 @@ iSQL\> SELECT \* FROM S$TAB;
   - S (Shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되는 경우
   - N (Non-shard query) : 분산 수행 결과와 단일 수행 결과의 정합성이 보장되지 않는 경우
   - 단, 코디네이터 커넥션을 통해 수행되는 구문의 경우 분석 대상이 아니므로 '-' 로 표시된다.
-- GCTX_REQUEST_SCN (BIGINT):         
-- GCTX_FIRST_STMT_SCN (BIGINT):         
-- GCTX_FIRST_STMT_TIME (BIGINT):         
-- DISTRIBUTION_LEVEL (INTEGER):  
+- GCTX_REQUEST_SCN (BIGINT): 현재 statement 에서 읽기 정합성을 위해 요구한 SCN  
+- DISTRIBUTION_FIRST_STMT_SCN (BIGINT): 분산 트랜잭션에서 최초 수행한 statement 의 SCN  
+- DISTRIBUTION_FIRST_STMT_TIME (BIGINT): 분산 트랜잭션에서 최초 수행한 statement 의 시작 시간     
+- DISTRIBUTION_LEVEL (INTEGER): 분산 트랜잭션에서 수행한 statement 의 분산 레벨
 - 그 외 컬럼들은 V$STATEMENT 와 동일하다.
 
 #### S$TIME_SCN
-- NODE_NAME (VARCHAR(40)):    
-- TIME (VARCHAR(32)):
-- SYSTEM_SCN (VARCHAR(29)):    
-- BASE (CHAR(1)):  
+분산 트랜잭션의 읽기 정합성 보장을 위해 허용되는 시간별 SCN
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
+- TIME (VARCHAR(32)): 시간
+- SYSTEM_SCN (VARCHAR(29)): 해당 시간의 SYSTEM SCN
+- BASE (CHAR(1)): 현재 읽기가 허용되는 최소 SCN
 
 #### S$TRANSACTION
-- NODE_NAME (VARCHAR(40)):
-- FIRST_MIN_DISK_VIEW_SCN (VARCHAR(29)):    
-- LAST_REQUEST_VIEW_SCN (VARCHAR(29)):    
-- PREPARE_SCN (VARCHAR(29)):    
-- SHARD_PIN (VARCHAR(20)):
-- GCTX_FIRST_STMT_TIME (VARCHAR(64)):    
-- GCTX_FIRST_STMT_SCN (VARCHAR(29)):    
-- DISTRIBUTION_LEVEL (INTEGER):      
-- GLOBAL_CONSISTENCY (INTEGER):
-- DEADLOCK_DETECTION_CAUSE (VARCHAR(64)):    
-- DEADLOCK_WAIT_TIME (BIGINT):      
-- DEADLOCK_ELAPSED_TIME (BIGINT):
+샤드 트랜잭션 객체의 정보
+- NODE_NAME (VARCHAR(40)): 샤드 노드 이름
+- MEMORY_VIEW_SCN (VARCHAR(29)): minimum memory view SCN   
+- MIN_MEMORY_LOB_VIEW_SCN (VARCHAR(29)): minimum memory LOB view SCN
+- DISK_VIEW_SCN (VARCHAR(29)): minimum disk view SCN
+- MIN_DISK_LOB_VIEW_SCN (VARCHAR(29)): minimum disk LOB view SCN
+- LAST_REQUEST_VIEW_SCN (VARCHAR(29)): 현재 해당 트랜잭션에서 요구자 SCN 을 가지는 구문 중 가장 오래된 SCN
+  - 이 값이 2의 63제곱이면 어떤 구문도 요구자 SCN을 가지지 않았다는것을 의미한다.
+- PREPARE_SCN (VARCHAR(29)): PREPARE 시점의 시스템 SCN
+  - 이 값이 2의 63제곱이면 PREPARE SCN 을 얻지 않았다는것을 의미한다.
+- GLOBAL_CONSISTENCY (INTEGER): 분산 트랜잭션의 읽기 정합성 보장 여부
+- SHARD_PIN (VARCHAR(20)): 트랜잭션에 설정된 샤드핀(분산데드락 검출시 사용한다.)
+- DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 분산 트랜잭션에서 최초 수행한 statement 의 시작 시간(분산데드락 검출시 사용한다.)
+- DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 분산 트랜잭션에서 최초 수행한 statement 의 SCN(분산데드락 검출시 사용한다.)
+- DISTRIBUTION_LEVEL (INTEGER): 분산 트랜잭션에서 수행한 statement 의 마지막 분산 레벨(분산데드락 검출시 사용한다.)
+  - 0: INIT
+  - 1: SINGLE
+  - 2: MULTI
+  - 3: PARALLEL
+- DEADLOCK_DETECTION_CAUSE (VARCHAR(19)): 현재 분산 트랜잭션의 분산 데드락 탐지 원인
+  - VIEWSCN, TIME, SHARD_PIN_SEQ, SHARD_PIN_NODE_ID, ALL_EQUAL
+  - 분산 데드락이 탐지 되지 않았으면 NONE 이다.
+- DISTRIBUTION_DEADLOCK_WAIT_TIME (BIGINT): 현재 분산 트랜잭션에서 수행중인 statement 가 실패 처리 될때까지의 전체 유예 시간을 나타낸다. (Microsecond)
+- DISTRIBUTION_DEADLOCK_ELAPSED_TIME (BIGINT): 현재 분산 트랜잭션에서 수행중인 statement 가 분산 데드락으로 탐지된 후 경과된 시간. (Microsecond)
+  - DISTRIBUTION_DEADLOCK_WAIT_TIME 값에 도달하면 stamtenet 는 실패 처리 된다. 
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
 
 ## ShardCLI
