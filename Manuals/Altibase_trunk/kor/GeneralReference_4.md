@@ -422,7 +422,7 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 |-------------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | GC_NAME                 | VARCHAR(128) | 가비지 콜렉터의 이름 MEM_LOGICAL_AGER: 구버전 인덱스 키 슬롯 해제 쓰레드 MEM_DELTHR: 삭제된 레코드를 해제하고 DROP TABLE 등 지연(pending) 연산을 하는 쓰레드 |
 | CURRSYSTEMVIEWSCN       | VARCHAR(29)  | 현재 시스템 view SCN                                                                                                                                         |
-| MINMEMSCNINTXS          | VARCHAR(29)  | 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN                                                                                                             |
+| MINMEMSCNINTXS          | VARCHAR(29)  | 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN (샤딩환경에서 추가의미는 아래에서 설명)                                                                                        |
 | OLDESTTX                | BIGINT       | 가장 오랜된 트랜잭션 식별자(MINMEMSCNINTXS를 소유한 트랜잭션의 식별자)                                                                                       |
 | SCNOFTAIL               | VARCHAR(29)  | 공간 회수 OID 리스트의 tail의 commit SCN                                                                                                                     |
 | IS_EMPTY_OIDLIST        | BIGINT       | 공간 회수 OID 리스트가 비어 있는지 여부 0: 비어 있음 1: 비어 있지 않음                                                                                       |
@@ -433,28 +433,29 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 | THREAD_COUNT            | INTEGER      | 공간 회수 쓰레드의 개수                                                                                                                                      |
 
 #### 칼럼 정보
-
 Altibase는 MVCC를 지원하므로 하나의 레코드에 대해 여러 버전이 생길 수 있다. 즉
 하나의 레코드는 1개의 최신버전과 다수의 구버전으로 구성된다. MVCC에 대한 자세한
 내용은 *Getting Started Guide* 와 *Administrator's Manual*의 다중 버전 동시성
 제어 (MVCC, Multi-Version Concurrency Control) 기법 부분을 참조한다.
 
-##### AGING_REQUEST_OID_CNT
+##### MINMEMSCNINTXS
+- stand-alone 환경 : 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN, 즉, min(TXs.MinMemViewSCN)
+- sharding 환경 : VERSIONING_MIN_TIME != 0 이면, min(TXs.MinMemViewSCN, sTimeSCN (주1))
+  - (주1) sTimeSCN 은 VERSIONING_MIN_TIME 으로 지정된 시간 전 SCN
 
+##### AGING_REQUEST_OID_CNT
 한 트랜잭션이 레코드 10건을 지우고 커밋할 경우, 10건의 구버전 레코드가 생기기
 때문에 10건의 공간 회수 대상이 생긴다. 하지만 기존 ADD_OID_CNT는 트랜잭션 단위로
 계산하기 때문에 1 증가한다. 이해 반해 AGING_REQUEST_OID_CNT는 OID 단위로
 계산하기 때문에 10만큼 증가한다.
 
 ##### AGING_PROCESSED_OID_CNT
-
 가비지 콜렉터(garbage collector 혹은 ager)가 하나의 가비지 콜렉션(garbage
 collection 혹은 aging) OID 리스트에 존재하는 구버전 레코드 10건을 지울 경우,
 GC_OID_CNT는 리스트 단위로 계산하기 때문에 1 증가한다. 이해 반해
 AGING_PROCESSED_OID_CNT는 OID 단위로 계산하기 때문에 10 증가한다.
 
 ##### THREAD_COUNT
-
 공간 회수(garbage collection, aging) 쓰레드 개수를 나타낸다.
 
 ### <a name="vmemstat"><a/>V\$MEMSTAT
@@ -5421,35 +5422,30 @@ Altibase 트랜잭션 관리자의 정보를 보여준다.
 | FREE_LIST_COUNT      | INTEGER     | 프리 리스트 개수                    |
 | BEGIN_ENABLE         | BIGINT      | 새로운 트랜잭션 시작 가능 여부      |
 | ACTIVE_COUNT         | INTEGER     | 작업중인 트랜잭션의 개수            |
-| SYS_MIN_DISK_VIEWSCN | VARCHAR(29) | 트랜잭션 중 가장 작은 디스크 뷰 SCN |
+| SYS_MIN_DISK_VIEWSCN | VARCHAR(29) | 트랜잭션 중 가장 작은 디스크 뷰 SCN (샤딩환경에서 추가의미는 아래에서 설명) |
 
 #### 칼럼 정보
 
 ##### TOTAL_COUNT
-
 Altibase는 시스템 시작시에 프로퍼티에 지정된 개수의 트랜잭션 객체들을 트랜잭션
 풀에 미리 생성해 두고 이것을 사용한다. 이 값은 현재 Altibase에서 생성한 트랜잭션
 객체의 총 개수를 나타낸다.
 
 ##### FREE_LIST_COUNT
-
 트랜잭션 풀을 분할 관리하는 리스트의 개수를 나타낸다.
 
 ##### BEGIN_ENABLE
-
 새로운 트랜잭션을 시작할 수 있는지를 나타낸다.
-
 -   0: disabled
-
 -   1: enabled
 
 ##### ACTIVE_COUNT
-
 현재 할당되어 작업을 수행중인 트랜잭션 객체의 개수를 나타낸다.
 
 ##### SYS_MIN_DISK_VIEWSCN
-
-트랜잭션 중에서 가장 작은 디스크 뷰 SCN이다.
+- stand-alone 환경 : 트랜잭션 중에서 가장 작은 디스크 뷰 SCN, 즉, min(TXs.MinDskViewSCN)
+- sharding 환경 : VERSIONING_MIN_TIME != 0 이면, min(TXs.MinMemViewSCN, sTimeSCN (주1))
+  - min(TXs.MinDskViewSCN , sTimeSCN (주1))
 
 ### <a name="vtssegs"><a/>V\$TSSEGS
 
