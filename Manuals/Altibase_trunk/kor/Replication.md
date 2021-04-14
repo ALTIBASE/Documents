@@ -2276,19 +2276,20 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 
 ```
 CREATE REPLICATION replication_name {as master|as slave} 
-WITH 'remotehostip', remoteportno 'remotehostip', remoteportno …
+WITH 'remote_host_ip' | 'remote_host_name', remote_port_no
+     'remote_host_ip' | 'remote_host_name', remote_port_no …
 FROM user.localtableA TO user.remotetableA,
 FROM user.localtableB TO user.remotetableB, …, 
 FROM user.localtableC TO user.remotetableC;
 
 ALTER REPLICATION replication_name
-ADD HOST ‘remote_host_ip‘ | 'remote_host_name', remote_port_no [USING conn_type [ib_latency]];
+ADD HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no [USING conn_type [ib_latency]];
 
 ALTER REPLICATION replication_name
-DROP HOST ‘remotehostip‘ | 'remotehostname', remoteportno;
+DROP HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
 
 ALTER REPLICATION replication_name
-SET HOST ‘remotehostip‘ | 'remotehostname', remoteportno;
+SET HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
 ```
 
 #### 설명
