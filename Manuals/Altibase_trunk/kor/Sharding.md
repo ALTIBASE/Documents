@@ -2179,12 +2179,18 @@ iSQL\> SELECT \* FROM S$TAB;
 - DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 트랜잭션에서 최초 수행한 statement 의 SCN
 - DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 대기 트랜잭션에서 최초 수행한 statement 의 시작 시간
 - DISTRIBUTION_LEVEL (INTEGER): 대기 트랜잭션에서 수행한 statement 의 최대 분산 레벨      
+  - 0: INIT
+  - 1: SINGLE
+  - 2: MULTI
+  - 3: PARALLEL
 - WAIT_FOR_TRANS_ID (BIGINT): 대기 대상 트랜잭션 식별자   
 - WAIT_FOR_SHARD_PIN (VARCHAR(20)): 대기 대상 트랜잭션의 샤드핀 
 - WAIT_FOR_DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 대상 트랜잭션에서 최초 수행한 statement 의 SCN
 - WAIT_FOR_DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 대기 대상 트랜잭션에서 최초 수행한 statement 의 시작 시간
 - WAIT_FOR_DISTRIBUTION_LEVEL (INTEGER): 대기 대상 트랜잭션에서 수행한 statement 의 최대 분산 레벨  
-- DISTRIBUTION_DEADLOCK_DETECTION (VARCHAR(19)): 대기 트랜잭션의 분산 데드락 탐지 원인
+- DISTRIBUTION_DEADLOCK_DETECTION (VARCHAR(64)): 대기 트랜잭션의 분산 데드락 탐지 원인
+  - VIEWSCN, TIME, SHARD_PIN_SEQ, SHARD_PIN_NODE_ID, ALL_EQUAL
+  - 분산 데드락이 탐지 되지 않았으면 NONE 이다.
 - DISTRIBUTION_DEADLOCK_WAIT_TIME (BIGINT): 대기 트랜잭션에서 수행중인 statement 가 실패 처리 될때까지의 전체 유예 시간 (Microsecond) 
 - DISTRIBUTION_DEADLOCK_ELAPSED_TIME (BIGINT): 대기  트랜잭션에서 수행중인 statement 가 분산 데드락으로 탐지된 후 경과된 시간 (Microsecond)
 
@@ -2196,6 +2202,10 @@ iSQL\> SELECT \* FROM S$TAB;
 - DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 트랜잭션에서 최초 수행한 statement 의 SCN
 - DISTRIBUTION_FIRST_STMT_TIME (VARCHAR(64)): 대기 트랜잭션에서 최초 수행한 statement 의 시작 시간
 - DISTRIBUTION_LEVEL (INTEGER): 대기 트랜잭션에서 수행한 statement 의 최대 분산 레벨
+  - 0: INIT
+  - 1: SINGLE
+  - 2: MULTI
+  - 3: PARALLEL
 - WAIT_FOR_TRANS_ID (BIGINT): 대기 대상 트랜잭션 식별자
 - WAIT_FOR_SHARD_PIN (VARCHAR(20)): 대기 대상 트랜잭션의 샤드핀
 - WAIT_FOR_DISTRIBUTION_FIRST_STMT_SCN (VARCHAR(29)): 대기 대상 트랜잭션에서 최초 수행한 statement 의 SCN
@@ -2257,6 +2267,10 @@ iSQL\> SELECT \* FROM S$TAB;
 - DISTRIBUTION_FIRST_STMT_SCN (BIGINT): 분산 트랜잭션에서 최초 수행한 statement 의 SCN  
 - DISTRIBUTION_FIRST_STMT_TIME (BIGINT): 분산 트랜잭션에서 최초 수행한 statement 의 시작 시간     
 - DISTRIBUTION_LEVEL (INTEGER): 분산 트랜잭션에서 수행한 statement 의 분산 레벨
+  - 0: INIT
+  - 1: SINGLE
+  - 2: MULTI
+  - 3: PARALLEL
 - 그 외 컬럼들은 V$STATEMENT 와 동일하다.
 
 #### S$TIME_SCN
@@ -2264,7 +2278,7 @@ iSQL\> SELECT \* FROM S$TAB;
 - NODE_NAME (VARCHAR(40)): 샤드 노드 이름
 - TIME (VARCHAR(32)): 시간
 - SYSTEM_SCN (VARCHAR(29)): 해당 시간의 SYSTEM SCN
-- BASE (CHAR(1)): 현재 읽기가 허용되는 최소 SCN
+- BASE (CHAR(1)): 현재 읽기가 허용되는 최소 SCN 인 경우 'Y' 로 표시한다.
 
 #### S$TRANSACTION
 샤드 트랜잭션 객체의 정보
@@ -2286,7 +2300,7 @@ iSQL\> SELECT \* FROM S$TAB;
   - 1: SINGLE
   - 2: MULTI
   - 3: PARALLEL
-- DEADLOCK_DETECTION_CAUSE (VARCHAR(19)): 현재 분산 트랜잭션의 분산 데드락 탐지 원인
+- DISTRIBUTION_DEADLOCK_DETECTION (VARCHAR(64)): 현재 분산 트랜잭션의 분산 데드락 탐지 원인
   - VIEWSCN, TIME, SHARD_PIN_SEQ, SHARD_PIN_NODE_ID, ALL_EQUAL
   - 분산 데드락이 탐지 되지 않았으면 NONE 이다.
 - DISTRIBUTION_DEADLOCK_WAIT_TIME (BIGINT): 현재 분산 트랜잭션에서 수행중인 statement 가 실패 처리 될때까지의 전체 유예 시간을 나타낸다. (Microsecond)
