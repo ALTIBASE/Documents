@@ -4006,8 +4006,7 @@ DEFAULT를 명시하면 이중화는 이중화 객체 생성시 기본모드로 
 
 *set_transaction_clause*
 
-현재 세션에서 수행되는 트랜잭션에 read only, read/write**오류! 책갈피가 정의되어
-있지 않습니다.** 또는 고립화 수준(isolation level)을 설정할 수 있다. 자세한
+현재 세션에서 수행되는 트랜잭션에 read only, read/write 또는 고립화 수준(isolation level)을 설정할 수 있다. 자세한
 내용은 이 매뉴얼의 [SET TRANSACTION](#set_transaction) 구문을 참조한다.
 
 #### 예제
