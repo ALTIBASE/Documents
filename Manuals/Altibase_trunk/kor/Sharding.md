@@ -962,7 +962,7 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 
 기타 샤딩 최적화가 수행되는 조건
 - AGGREGATION 분산 최적화는 SHARD_AGGREGATION_TRANSFORM_ENABLE property 설명 부분을 참고한다.
-- Limit, Selection, Projection 최적화는 SHARD_TRANSFORM_MODE property 설명 부분을 참고한다.
+- Limit, Selection, Projection, Out reference predicate 최적화는 SHARD_TRANSFORM_MODE property 설명 부분을 참고한다.
 
 주의사항
 - 샤딩에서는 인덱스를 힌트를 통해서 결과 레코드들의 순서를 보장하는 기능은 제공되지 않는다.
@@ -1692,7 +1692,7 @@ Unsigned Integer
 
 ##### 기본값
 
-7
+15
 
 ##### 속성
 
@@ -1700,7 +1700,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 7]
+[0, 15]
 
 ##### 설명
 
@@ -1708,9 +1708,10 @@ Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 
 
 해당 프로퍼티 값은 BITMAP 형태이며,
 
-- LIMIT 최적화 변환 기능 켜짐은 1 ( 이진수 표현 0b001 )
-- SELECTION 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b010 )
-- PROJECTION 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b100 )
+- Limit 최적화 변환 기능 켜짐은 1 ( 이진수 표현 0b0001 )
+- Selection 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b0010 )
+- Projection 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b0100 )
+- Out reference predicate 최적화 변환 기능 켜짐은 8 ( 이진수 표현 0b1000 )
 
 위 값에 조합으로 제어된다.
 
@@ -2252,6 +2253,12 @@ iSQL\> SELECT \* FROM S$TAB;
 - INDOUBT_FETCH_METHOD (INTEGER): 현재 세션의 Indoubt 트랜잭션으로 인한 최대 지연 후 처리 방법
   - 0 : Indoubt 트랜잭션이 수정한 값을 보지 않고 다음 값을 읽는다.
   - 1 : 에러 발생
+- LAST_SHARD_META_NUMBER (BIGINT):
+- RECEIVED_SHARD_META_NUMBER (BIGINT):
+- SHARD_STMT_EXEC_SEQ (INTEGER): 세션의 현재 트랜잭션 내의 STATEMENT 수행 번호      
+  - SHARD CLIENT에 의해 클라이언트 측 수행시 1 ~ 1999999999 까지 증가하며 기록된다.
+  - COORDINATOR에 의해 서버 측 수행 시 2000000001 ~ 3999999999 까지 증가하며 기록된다.
+  - 하나의 트랜잭션내에서 위 범위를 넘어가면 에러가 발생된다.
 - 그 외 컬럼들은 V$SESSION 과 동일하다.
 
 #### S$STATEMENT
@@ -2271,6 +2278,10 @@ iSQL\> SELECT \* FROM S$TAB;
   - 1: SINGLE
   - 2: MULTI
   - 3: PARALLEL
+- SHARD_PARTIAL_EXEC_TYPE (VARCHAR(13)): STATEMENT의 PARTIAL COORDINATING TYPE
+  - NORMAL        : Partial coordinating 되지 않은 statement
+  - PARTIAL COORD : Partial coordinating statement
+  - PARTIAL QUERY : Partial coordinating statement로 부터 파생된 부분 분산 수행 statement
 - 그 외 컬럼들은 V$STATEMENT 와 동일하다.
 
 #### S$TIME_SCN
