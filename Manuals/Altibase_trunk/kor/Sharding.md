@@ -2339,7 +2339,10 @@ iSQL\> SELECT \* FROM S$TAB;
   - clone table에 write (insert, delete, update) 할 수 없다.
 - 위의 경우를 제외하고는, global로 동작한다.
 
-
+### PSM Restriction
+- Shard procedure에서는 DCL, DDL 을 수행할 수 없습니다.
+- 일반 procedure에서 DCL, DDL을 실행할 때, commit 하지 않은 노드가 있으면 DCL, DDL이 불가능합니다.
+  - 일반 procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하면 됩니다.
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
