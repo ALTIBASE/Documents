@@ -33,6 +33,7 @@
     - [Shard Meta Table](#shard-meta-table)
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
+  - [Stored Procedures](#storedprocedures)
   - [ShardCLI](#shardcli)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
   - [Utilities](#utilities)
@@ -2326,6 +2327,15 @@ iSQL\> SELECT \* FROM S$TAB;
 - DISTRIBUTION_DEADLOCK_ELAPSED_TIME (BIGINT): 현재 분산 트랜잭션에서 수행중인 statement 가 분산 데드락으로 탐지된 후 경과된 시간. (Microsecond)
   - DISTRIBUTION_DEADLOCK_WAIT_TIME 값에 도달하면 stamtenet 는 실패 처리 된다. 
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
+
+## Stored Procedures
+### PSM Execution Policy
+- Query에 의해서 실행한 function, trigger는 local로 동작한다.
+- 분산 실행하는 shard procedure는 local로 동작한다.
+  - 일반 procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
+- Job scheduler, DBMS_CONCURRENT_EXEC package와 같이 별도의 session으로 실행하는 procedure는 local로 동작한다.
+- Local로 동작할 때 호출한 PSM은 local로 동작한다.
+- 위의 경우를 제외하고는, global로 동작한다.
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
