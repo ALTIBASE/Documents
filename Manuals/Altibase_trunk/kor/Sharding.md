@@ -1336,7 +1336,9 @@ SET_SHARD_PROCEDURE_SHARDKEY(
 샤드키 프로시저 샤드객체로 등록한다.
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
+- User defined type의 parameter를 갖는 procedure는 shard procedure로 등록할 수 없습니다.
+  - 따라서, procedure의 parameter의 type이 array, record, row, reference cursor type이면 shard procedure로 등록할 수 없습니다.
 
 ##### 예제
 ```
@@ -1368,6 +1370,8 @@ SET_SHARD_PROCEDURE_SOLO(
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
 - 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- User defined type의 parameter를 갖는 procedure는 shard procedure로 등록할 수 없습니다.
+  - 따라서, procedure의 parameter의 type이 array, record, row, reference cursor type이면 shard procedure로 등록할 수 없습니다.
 
 ##### 예제
 ```
@@ -1397,6 +1401,8 @@ SET_SHARD_PROCEDURE_CLONE(
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
 - 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- User defined type의 parameter를 갖는 procedure는 shard procedure로 등록할 수 없습니다.
+  - 따라서, procedure의 parameter의 type이 array, record, row, reference cursor type이면 shard procedure로 등록할 수 없습니다.
 
 ##### 예제
 ```
