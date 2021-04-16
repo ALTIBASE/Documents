@@ -1241,7 +1241,7 @@ DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(
 ##### 예제
 ```
 iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
-iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
+iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'E', 5 );
 ```
 #### SET_SHARD_TABLE_SOLO
 ##### 구문
@@ -1586,7 +1586,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1608,7 +1608,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1766,7 +1766,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1810,7 +1810,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1834,7 +1834,7 @@ Unsigned Integer
 ##### 속성
 읽기 전용, 단일 값
 ##### 값의 범위
-[0, 232-1]
+[0, 2^32-1]
 ##### 설명
 샤드 관련 메시지 파일의 최대 크기를 지정한다.
 
@@ -1858,7 +1858,7 @@ Unsigned Integer
 ##### 속성
 변경가능, 단일 값
 ##### 값의 범위
-[0, 2^32 -1]
+[0, 2^32-1]
 ##### 설명
 Shard DDL은 다수의 노드에 DDL을 수행하는데, 이 때, 각 노드에서 수행된 DDL이 lock timeout 등의 오류로 실패할 수 있다. 이 프로퍼티는 각 노드에서 수행되는 DDL을 재수행 하는 횟수를 지정한다.
 
@@ -1962,7 +1962,7 @@ Unsigned Integer
 ##### 속성
 읽기 전용, 단일 값
 ##### 값의 범위
-[0, 2<sup>32</sup>-1]
+[0, 2^32-1]
 ##### 설명
 consistent replication에서 성능상 이점을 위해 xlogfile 들을 미리 만들어 놓는 개수를 뜻한다.
 
@@ -1977,7 +1977,7 @@ Unsigned long
 읽기 전용, 단일 값
 
 ##### 값의 범위
-[64 \* 1024, 2<sup>64</sup>-1]
+[64 \* 1024, 2^64-1]
 
 ##### 설명
 consistent replication에서 생성하는 개별 xlogfile 의 size를 뜻한다.
@@ -2003,7 +2003,7 @@ Unsigned Integer
 ##### 속성
 변경 가능, 단일 값
 ##### 값의 범위
-[1, 2<sup>32</sup>-1]
+[1, 2^32-1]
 ##### 설명
 consistent replication에서 특정 수의 xlogfile을 만들때마다, 사용이 완료된 xlogfile 들을 삭제하는데, 이때의 특정 수의 xlogfile 을 뜻한다.
 - Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
