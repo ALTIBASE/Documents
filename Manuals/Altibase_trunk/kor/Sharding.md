@@ -2253,8 +2253,10 @@ iSQL\> SELECT \* FROM S$TAB;
 - INDOUBT_FETCH_METHOD (INTEGER): 현재 세션의 Indoubt 트랜잭션으로 인한 최대 지연 후 처리 방법
   - 0 : Indoubt 트랜잭션이 수정한 값을 보지 않고 다음 값을 읽는다.
   - 1 : 에러 발생
-- LAST_SHARD_META_NUMBER (BIGINT):
-- RECEIVED_SHARD_META_NUMBER (BIGINT):
+- LAST_SHARD_META_NUMBER (BIGINT): 해당 세션에 리샤딩이 발생하기 이전 기준이 되었던 SMN
+- RECEIVED_SHARD_META_NUMBER (BIGINT): 마지막으로 수신한 SMN
+  - 사용자 세션, 라이브러리 세션은 샤드 클라이언트로 부터 가장 최근에 수신한 SMN
+  - 코디네이터 세션은 사용자 세션으로 부터 가장 최근에 수신한 SMN
 - SHARD_STMT_EXEC_SEQ (INTEGER): 세션의 현재 트랜잭션 내의 STATEMENT 수행 번호      
   - SHARD CLIENT에 의해 클라이언트 측 수행시 1 ~ 1999999999 까지 증가하며 기록된다.
   - COORDINATOR에 의해 서버 측 수행 시 2000000001 ~ 3999999999 까지 증가하며 기록된다.
