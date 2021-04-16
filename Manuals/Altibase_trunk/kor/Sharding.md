@@ -33,7 +33,7 @@
     - [Shard Meta Table](#shard-meta-table)
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
-  - [Stored Procedures](#storedprocedures)
+  - [Stored Procedures](#stored-procedures)
   - [ShardCLI](#shardcli)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
   - [Utilities](#utilities)
