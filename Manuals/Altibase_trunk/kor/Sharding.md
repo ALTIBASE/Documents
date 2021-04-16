@@ -1300,7 +1300,7 @@ DBMS_SHARD.SET_SHARD_TABLE_CLONE(
 - reference_node 이외의 노드의 데이터는 삭제 되고 에러가 발생해도 데이터가 원복되지는 않는다.
 - 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
 
 ##### 예제
 ```
@@ -2335,7 +2335,11 @@ iSQL\> SELECT \* FROM S$TAB;
   - 일반 procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
 - Job scheduler, DBMS_CONCURRENT_EXEC package와 같이 별도의 session으로 실행하는 procedure는 local로 동작한다.
 - Local로 동작할 때 호출한 PSM은 local로 동작한다.
+- Local 실행시 제약사항
+  - clone table에 write (insert, delete, update) 할 수 없다.
 - 위의 경우를 제외하고는, global로 동작한다.
+
+
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
