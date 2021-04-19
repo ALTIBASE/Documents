@@ -28,6 +28,7 @@
     - [MOVE](#move)
   - [Altibase Sharding Package](#altibase-sharding-package)
     - [DBMS_SHARD](#dbms_shard)
+    - [DBMS_SHARD_GET_DIAGNOSTICS](#dbms_shard_get_diagnostics)
   - [Altibase Sharding Property](#altibase-sharding-property)
   - [Altibase Sharding Dictionary](#altibase-sharding-dictionary)
     - [Shard Meta Table](#shard-meta-table)
@@ -1459,6 +1460,67 @@ DBMS_SHARD.UNSET_SHARD_PROCEDURE(
 ```
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
 ```
+
+### DBMS_SHARD_GET_DIAGNOSTICS
+Sharding 환경에서 PSM내에서 발생한 multiple node error를 확인하는 기능을 제공합니다.
+
+아래의 함수를 제공한다.
+- GET_ERROR_COUNT: Multi error에 등록된 error 개수를 반환한다.
+- GET_ERROR_CODE: Error code를 반환한다.
+- GET_ERROR_MESSAGE: Error message를 반환한다.
+- GET_ERROR_NODE_ID: Error가 발생한 node의 ID를 반환한다.
+- GET_ERROR_SEQNUM_BY_NODE_ID: Node ID에 해당하는 error 순번을 반환한다.
+
+#### GET_ERROR_COUNT
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() return integer
+```
+##### 파라미터
+없음.
+##### Return Value
+Multi error에 등록된 error 개수를 반환한다.
+
+#### GET_ERROR_CODE
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_CODE(seqno in integer) return integer
+```
+##### 파라미터
+- seqno: 1 부터 DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() 의 return value 사이의 자연수
+##### Return Value
+순번(seqno)에 해당하는 error code를 반환한다.
+
+#### GET_ERROR_MESSAGE
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_MESSAGE(seqno in integer) return varchar
+```
+##### 파라미터
+- seqno: 1 부터 DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() 의 return value 사이의 자연수
+##### Return Value
+순번(seqno)에 해당하는 error message를 반환한다.
+
+#### GET_ERROR_NODE_ID
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_NODE_ID(seqno in integer) return integer
+```
+##### 파라미터
+- seqno: 1 부터 DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() 의 return value 사이의 자연수
+##### Return Value
+순번(seqno)에 해당하는 error가 발생한 NODE_ID를 반환한다.
+
+
+#### GET_ERROR_SEQNUM_BY_NODE_ID
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_SEQNUM_BY_NODE_ID(nodeid in integer) return integer
+```
+##### 파라미터
+- nodeid: NODE_ID를 이용하여 특정 노드에서 발생한 error를 확인하고자 하는 경우에 사용한다.
+##### Return Value
+nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)을 반환한다.
 
 ## Altibase Sharding Property
 
