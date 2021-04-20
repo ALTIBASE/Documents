@@ -17,6 +17,7 @@
     - [Altibase Sharding Restriction](#altibase-sharding-restriction)
   - [Using Altibase Sharding](#using-altibase-sharding)
     - [Sharding Usage Flow](#sharding-usage-flow)
+    - [Multiple Error Handling](#multiple-error-handling)
     - [Shard Built-in Function](#shard-built-in-function)
     - [Sharding Tuning](#sharding-tuning)
   - [SHARD DDL](#shard-ddl)
@@ -29,13 +30,14 @@
   - [Altibase Sharding Package](#altibase-sharding-package)
     - [DBMS_SHARD](#dbms_shard)
     - [DBMS_SHARD_GET_DIAGNOSTICS](#dbms_shard_get_diagnostics)
+  - [Stored Procedures](#stored-procedures)
+  - [Sharded Sequence](#sharded-sequence)
   - [Altibase Sharding Property](#altibase-sharding-property)
   - [Altibase Sharding Dictionary](#altibase-sharding-dictionary)
     - [Shard Meta Table](#shard-meta-table)
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
-  - [Sharded Sequence](#sharded-sequence)
-  - [Stored Procedures](#stored-procedures)
+  - [Precompiler](#precomplier)
   - [ShardCLI](#shardcli)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
   - [Utilities](#utilities)
@@ -856,6 +858,17 @@ $ALTIBASE_HOME/bin/altibase -v
    - DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(...), DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY(...) 등등
    - 위 구문들을 이용하여, 객체별 분산정의를 한후에, COMMIT 을 수행하면, 샤딩 클러스터에 참여된 모든 샤드노드들에 동시에 적용된다.
 
+### Multiple Error Handling
+- sharding 환경에서는 하나의 operation에 대하여, 여러 노드에서 동일한 혹은 서로 다른 에러들이 발생할 수 있으므로, 대표에러라는 개념을 둔다.
+- 대표에러의 에러코드 
+  - 동일한 에러가 여러개 발생한 경우에는 해당 에러코드로 설정된다.
+  - 동일하지 않은 에러가 하나라도 있는 경우에는 다중에러라는 에러코드가 설정된다.
+  - 다중에러코드 자체는 개별 사용자 인터페이스별 설명부분을 참고한다.
+- 대표에러의 에러메시지
+  - 동일한 에러가 여러개 발생했든, 서로 다른 에러가 여러개 발생했든 상관없이, 발생한 에러의 에러메시지는 모두 합쳐서, 대표에러의 에러메시지를 만든다. 
+  - 동일에러 일지라도, 에러가 발생한 노드별로 고유의 부가 정보가 에러메시지에 표기되어 있을 수 있기 때문이다.
+- 대표에러 혹은 모든 개별에러를 확인하는 방법은 개별 사용자 인터페이스별 설명부분을 참고한다.
+
 ### Shard Built-in Function
 Altibase Sharding은 사용자 편의를 위해 추가적인 샤드 함수를 제공한다.
 #### shard_node_name
@@ -1472,6 +1485,15 @@ Sharding 환경에서 PSM내에서 발생한 multiple node error를 확인하는
 - GET_ERROR_NODE_ID: Error가 발생한 node의 ID를 반환한다.
 - GET_ERROR_SEQNUM_BY_NODE_ID: Node ID에 해당하는 error 순번을 반환한다.
 
+#### 예제
+```
+FOR I IN 1 .. DBMS_GET_DIAGNOSTICS.GET_ERROR_COUNT() LOOP
+  PRINTLN( 'NODE ID : ' || DBMS_GET_DIAGNOSTICS.GET_ERROR_NODE_ID(I) );
+  PRINTLN( 'ERROR CODE : ' || DBMS_GET_DIAGNOSTICS.GET_ERROR_CODE(I) );
+  PRINTLN( 'ERROR MESSAGE : ' || DBMS_GET_DIAGNOSTICS.GET_ERROR_MESSAGE(I) );
+END LOOP;
+```
+
 #### GET_ERROR_COUNT
 ##### 구문
 ```
@@ -1522,6 +1544,113 @@ function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_SEQNUM_BY_NODE_ID(nodeid in intege
 - nodeid: NODE_ID를 이용하여 특정 노드에서 발생한 error를 확인하고자 하는 경우에 사용한다.
 ##### Return Value
 nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)을 반환한다.
+
+
+## Stored Procedures
+#### PSM Execution Policy
+- Query에 의해서 실행한 function, trigger는 local로 동작한다.
+- 분산 실행하는 shard procedure는 local로 동작한다.
+  - 일반 procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
+- Job scheduler, DBMS_CONCURRENT_EXEC package와 같이 별도의 session으로 실행하는 procedure는 local로 동작한다.
+- Local로 동작할 때 호출한 PSM은 local로 동작한다.
+- Local 실행시 제약사항
+  - clone table에 write (insert, delete, update) 할 수 없다.
+- 위의 경우를 제외하고는, global로 동작한다.
+
+#### PSM Restriction
+- Shard procedure에서는 DCL, DDL 을 수행할 수 없습니다.
+- 일반 procedure에서 DCL, DDL을 실행할 때, commit 하지 않은 노드가 있으면 DCL, DDL이 불가능합니다.
+  - 일반 procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하면 됩니다.
+- autonomous transaction pragma 를 지원하지 않는다.
+- 분산실행되는 query또는 procedure에서 package global variable을 사용하는 경우에 오류가 발생합니다.
+  - 단, CONSTANT 속성이 있는 경우 항상 사용자가 지정한 값을 사용하므로 분산실행에 사용할 수 있습니다.
+
+#### 다중에러 처리
+- 다중에러 및 대표에러에 대한 설명은 [Multiple Error Handling](#multiple-error-handling)을 참고한다.
+- 하나의 operation에 대하여, 여러 노드에서 서로 다른 에러가 발생한 경우에는, 다중에러에 대한 대표에러로써, SHARD_MULTIPLE_ERRORS exception 이 발생한다.
+- SHARD_MULTIPLE_ERRORS 인 경우에, 여러개의 에러를 확인하고자 하는 경우는 DBMS_SHARD_GET_DIAGNOSTICS package를 사용할 수 있다.
+
+##### 예제
+```
+CREATE OR REPLACE PROCEDURE PROC1 AS
+BEGIN
+  INSERT INTO T2 SELECT * FROM T1;
+  EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN                 -- error reduce되는 경우
+      PRINTLN('DUP VAL ON INDEX');
+      PRINTLN('SQLCODE : ' || SQLCODE);
+      PRINTLN('SQLERRM : ' || SQLERRM);
+    WHEN SHARD_MULTIPLE_ERRORS THEN            -- error reduce되지 않는 경우
+      PRINTLN('SHARD MULTIPLE ERRORS');
+      PRINTLN('SQLCODE : ' || SQLCODE);
+      PRINTLN('SQLERRM : ' || SQLERRM);
+    WHEN OTHERS THEN                           -- 기타 catch할 수 없는 error
+      PRINTLN('OTHERS ERROR');
+      PRINTLN('SQLCODE : ' || SQLCODE);
+      PRINTLN('SQLERRM : ' || SQLERRM);
+END;
+/
+```
+
+## Sharded Sequence
+- Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
+- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
+- 동일 Node내에서는 순서는 보장한다.
+- node_id 를 prefix 로 사용하여 uniqueness를 제공한다. 그러므로, node_id 가 재사용되면 uniqueness 가 깨질 수 있습니다.
+- node_id 는 1~9200 사이의 값을 가질 수 있다.
+
+#### 문법
+- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다. 여기에서 별도로 기록되지 않는 내용들은 모두 일반 sequence 와 동일하게 동작한다. 
+- Sharded sequence는 기존 sequence 문법에서 sequence option 에서 shard clause를 추가로 지원하는 것을 지칭한다.
+  - sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
+- Sharded sequence는 sync table option을 지원하지 않는다.
+  - sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
+- Sharded sequence는 CURRVAL을 지원하지 않는다.
+- Sharded sequence의 shard clause
+  - SHARD
+    - FIXED 혹은 VARIABLE을 지정하지 않으면, FIXED 가 기본으로 지정된다.
+  - SHARD FIXED
+    - node id prefix를 제외한 자릿수가 15 자리로 고정된다.
+  - SHARD VARIABLE
+    - node id prefix를 제외한 자릿수가 MAXVALUE 설정에 맞추어, 1~15 자리가 될 수 있다.
+
+#### MIN/MAX VALUE
+- 사용자는 node_id prefix를 포함하지 않고, 원하는 MIN/MAX VALUE를 설정한다.
+- Default
+  - MIN VALUE : -999,999,999,999,999
+  - MAX VALUE : 999,999,999,999,999
+- PREFIX(1 ~ 9,200) 까지 고려하면 아래와 같다.
+  - MIN : -9,200 999,999,999,999,999
+  - MAX : 9,200 999,999,999,999,999
+- node_id prefix를 고려하면, sequence를 사용시에는 BIGINT 타입의 변수를 사용할것을 권장한다.
+
+#### 예제
+```
+-- Sharded sequence (with fixed scale) @node_id = 1
+iSQL> CREATE SEQUENCE S1 SHARD;
+iSQL> SELECT S1.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with fixed scale @node_id = 1
+iSQL> CREATE SEQUENCE S2 SHARD FIXED;
+iSQL> SELECT S2.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with fixed scale and maxvalue 1,000 @node_id = 1
+iSQL> CREATE SEQUENCE S5 SHARD FIXED MAXVALUE 1000;
+iSQL> SELECT S5.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with variable scale (and maxvalue 999,999,999,999,999) @node_id = 1
+iSQL> CREATE SEQUENCE S3 SHARD VARIABLE;
+iSQL> SELECT S3.NEXTVAL;
+1000000000000001
+
+-- Sharded sequence with variable scale and maxvalue 1,000 @node_id = 1
+iSQL> CREATE SEQUENCE S4 SHARD VARIABLE MAXVALUE 1000;
+iSQL> SELECT S4.NEXTVAL;
+10001
+```
 
 ## Altibase Sharding Property
 
@@ -2391,84 +2520,18 @@ iSQL\> SELECT \* FROM S$TAB;
   - DISTRIBUTION_DEADLOCK_WAIT_TIME 값에 도달하면 stamtenet 는 실패 처리 된다. 
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
 
-## Sharded Sequence
-- Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
-- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
-- 동일 Node내에서는 순서는 보장한다.
-- node_id 를 prefix 로 사용하여 uniqueness를 제공한다. 그러므로, node_id 가 재사용되면 uniqueness 가 깨질 수 있습니다.
-- node_id 는 1~9200 사이의 값을 가질 수 있다.
+## Precomplier
+여기서는 샤딩환경에서의 Precomplier 특이사항만 기술한다.
 
-#### 문법
-- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다. 여기에서 별도로 기록되지 않는 내용들은 모두 일반 sequence 와 동일하게 동작한다. 
-- Sharded sequence는 기존 sequence 문법에서 sequence option 에서 shard clause를 추가로 지원하는 것을 지칭한다.
-  - sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Sharded sequence는 sync table option을 지원하지 않는다.
-  - sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Sharded sequence는 CURRVAL을 지원하지 않는다.
-- Sharded sequence의 shard clause
-  - SHARD
-    - FIXED 혹은 VARIABLE을 지정하지 않으면, FIXED 가 기본으로 지정된다.
-  - SHARD FIXED
-    - node id prefix를 제외한 자릿수가 15 자리로 고정된다.
-  - SHARD VARIABLE
-    - node id prefix를 제외한 자릿수가 MAXVALUE 설정에 맞추어, 1~15 자리가 될 수 있다.
-
-#### MIN/MAX VALUE
-- 사용자는 node_id prefix를 포함하지 않고, 원하는 MIN/MAX VALUE를 설정한다.
-- Default
-  - MIN VALUE : -999,999,999,999,999
-  - MAX VALUE : 999,999,999,999,999
-- PREFIX(1 ~ 9,200) 까지 고려하면 아래와 같다.
-  - MIN : -9,200 999,999,999,999,999
-  - MAX : 9,200 999,999,999,999,999
-- node_id prefix를 고려하면, sequence를 사용시에는 BIGINT 타입의 변수를 사용할것을 권장한다.
-
-#### 예제
-```
--- Sharded sequence (with fixed scale) @node_id = 1
-iSQL> CREATE SEQUENCE S1 SHARD;
-iSQL> SELECT S1.NEXTVAL;
-1000000000000001
- 
--- Sharded sequence with fixed scale @node_id = 1
-iSQL> CREATE SEQUENCE S2 SHARD FIXED;
-iSQL> SELECT S2.NEXTVAL;
-1000000000000001
- 
--- Sharded sequence with fixed scale and maxvalue 1,000 @node_id = 1
-iSQL> CREATE SEQUENCE S5 SHARD FIXED MAXVALUE 1000;
-iSQL> SELECT S5.NEXTVAL;
-1000000000000001
- 
--- Sharded sequence with variable scale (and maxvalue 999,999,999,999,999) @node_id = 1
-iSQL> CREATE SEQUENCE S3 SHARD VARIABLE;
-iSQL> SELECT S3.NEXTVAL;
-1000000000000001
-
--- Sharded sequence with variable scale and maxvalue 1,000 @node_id = 1
-iSQL> CREATE SEQUENCE S4 SHARD VARIABLE MAXVALUE 1000;
-iSQL> SELECT S4.NEXTVAL;
-10001
-```
-
-## Stored Procedures
-#### PSM Execution Policy
-- Query에 의해서 실행한 function, trigger는 local로 동작한다.
-- 분산 실행하는 shard procedure는 local로 동작한다.
-  - 일반 procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
-- Job scheduler, DBMS_CONCURRENT_EXEC package와 같이 별도의 session으로 실행하는 procedure는 local로 동작한다.
-- Local로 동작할 때 호출한 PSM은 local로 동작한다.
-- Local 실행시 제약사항
-  - clone table에 write (insert, delete, update) 할 수 없다.
-- 위의 경우를 제외하고는, global로 동작한다.
-
-#### PSM Restriction
-- Shard procedure에서는 DCL, DDL 을 수행할 수 없습니다.
-- 일반 procedure에서 DCL, DDL을 실행할 때, commit 하지 않은 노드가 있으면 DCL, DDL이 불가능합니다.
-  - 일반 procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하면 됩니다.
-- autonomous transaction pragma 를 지원하지 않는다.
-- 분산실행되는 query또는 procedure에서 package global variable을 사용하는 경우에 오류가 발생합니다.
-  - 단, CONSTANT 속성이 있는 경우 항상 사용자가 지정한 값을 사용하므로 분산실행에 사용할 수 있습니다.
+#### 다중에러 처리
+- 다중에러 및 대표에러에 대한 설명은 [Multiple Error Handling](#multiple-error-handling)을 참고한다. 
+- SQLCODE
+  - 대표에러에 대한 에러 코드
+- sqlca.sqlerrm.sqlerrmc
+  - 대표에러에 대한 에러 메시지
+- EXEC GET DIAGNOSTICS
+  - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
+- SQLCODE, sqlca.sqlerrm.sqlerrmc 및 EXEC GET DIAGNOSTICS 구문에 대한 설명은 Precomplier 매뉴얼을 참고한다.
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
@@ -2484,6 +2547,12 @@ CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 
 - AUTOCOMMIT OFF 로 접속하여야 한다. AUTOCOMMIT ON 으로는 접속이 되지 않는다.
 - array binding 및 array fetch 는 지원하지 않는다.
 
+#### 다중에러 처리
+- 다중에러 및 대표에러에 대한 설명은 [Multiple Error Handling](#multiple-error-handling)을 참고한다. 
+- SQLError(...) 
+  - 대표에러를 최초로 반환한다. 발생한 에러가 여러 개일 경우 호출할 때마다 그 다음 개별에러들을 반환한다.
+- SQLGetDiagRec(..., RecNumber, ...)
+  - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
 
 #### Fail-Over  (*under construction*)
 사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
