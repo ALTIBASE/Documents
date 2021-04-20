@@ -2406,6 +2406,8 @@ iSQL\> SELECT \* FROM S$TAB;
 - 일반 procedure에서 DCL, DDL을 실행할 때, commit 하지 않은 노드가 있으면 DCL, DDL이 불가능합니다.
   - 일반 procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하면 됩니다.
 - autonomous transaction pragma 를 지원하지 않는다.
+- 분산실행되는 query또는 procedure에서 package global variable을 사용하는 경우에 오류가 발생합니다.
+  - 단, CONSTANT 속성이 있는 경우 항상 사용자가 지정한 값을 사용하므로 분산실행에 사용할 수 있습니다.
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
