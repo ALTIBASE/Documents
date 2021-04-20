@@ -3168,6 +3168,7 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 변경될 시퀀스 이름이다.
 
 *restart clause*
+
 아래 세가지 형태가 가능하다.
 - RESTART
   - START VALUE를 INCREMENT VALUE가 1 이상이면 MIN VALUE로, INCREMENT VALUE가 -1 이하이면 MAX VALUE로 초기화하고, SEQUENCE 를 재시작한다.
