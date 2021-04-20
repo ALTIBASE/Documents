@@ -3138,7 +3138,7 @@ Alter success.
 
 **alter_sequence ::=**
 
-![](media/SQL/47068a33f6105def77759ac8433a2974.png)
+![](media/SQL/alter_sequence.gif)
 
 **sequence_options ::=**
 
@@ -3166,6 +3166,15 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 *seq_name*
 
 변경될 시퀀스 이름이다.
+
+*restart clause*
+아래 세가지 형태가 가능하다.
+- RESTART
+  - START VALUE를 INCREMENT VALUE가 1 이상이면 MIN VALUE로, INCREMENT VALUE가 -1 이하이면 MAX VALUE로 초기화하고, SEQUENCE 를 재시작한다.
+- RESTART WITH N
+  - START VALUE를 N으로 초기화하고, SEQUENCE 를 재시작한다.
+- RESTART START WITH N
+  - 위에 기술한 RESTART WITH N 와 동일하다.
 
 *INCREMENT BY*
 
