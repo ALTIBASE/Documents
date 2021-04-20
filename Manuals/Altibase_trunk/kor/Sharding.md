@@ -28,11 +28,14 @@
     - [MOVE](#move)
   - [Altibase Sharding Package](#altibase-sharding-package)
     - [DBMS_SHARD](#dbms_shard)
+    - [DBMS_SHARD_GET_DIAGNOSTICS](#dbms_shard_get_diagnostics)
   - [Altibase Sharding Property](#altibase-sharding-property)
   - [Altibase Sharding Dictionary](#altibase-sharding-dictionary)
     - [Shard Meta Table](#shard-meta-table)
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
+  - [Sharded Sequence](#sharded-sequence)
+  - [Stored Procedures](#stored-procedures)
   - [ShardCLI](#shardcli)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
   - [Utilities](#utilities)
@@ -962,7 +965,7 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 
 기타 샤딩 최적화가 수행되는 조건
 - AGGREGATION 분산 최적화는 SHARD_AGGREGATION_TRANSFORM_ENABLE property 설명 부분을 참고한다.
-- Limit, Selection, Projection 최적화는 SHARD_TRANSFORM_MODE property 설명 부분을 참고한다.
+- Limit, Selection, Projection, Out reference predicate 최적화는 SHARD_TRANSFORM_MODE property 설명 부분을 참고한다.
 
 주의사항
 - 샤딩에서는 인덱스를 힌트를 통해서 결과 레코드들의 순서를 보장하는 기능은 제공되지 않는다.
@@ -1154,7 +1157,7 @@ DBMS_SHARD.SET_LOCAL_NODE(
 ```
 ##### 파라미터
 - shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다.
-  - shard_node_id 값 범위: 1 \~ 9999
+  - shard_node_id 값 범위: 1 \~ 9200
   - 기존 node drop 후에, 신규 node add 하는 경우에, 기존에 사용했던 shard_node_id 를 재사용하지 말고 신규로 번호를 부여하는 것이 좋다.
   - 기존 shard_node_id 를 재사용하는 경우에, 기존 shard_node_id로 사용되던, sharded sequence가 있었다면, 동일한 sequence 를 생성하게 되는 문제가 있다.
     - 이 경우에는 해당 sharded sequence의 초기값을 기존에 발급되었던 값보다 큰 값으로 설정해주어야 한다.
@@ -1240,7 +1243,7 @@ DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(
 ##### 예제
 ```
 iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2' );
-iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'R', 5 );
+iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS','T1','P1 NODE1, P2 NODE2', 'E', 5 );
 ```
 #### SET_SHARD_TABLE_SOLO
 ##### 구문
@@ -1299,7 +1302,7 @@ DBMS_SHARD.SET_SHARD_TABLE_CLONE(
 - reference_node 이외의 노드의 데이터는 삭제 되고 에러가 발생해도 데이터가 원복되지는 않는다.
 - 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
 
 ##### 예제
 ```
@@ -1336,7 +1339,9 @@ SET_SHARD_PROCEDURE_SHARDKEY(
 샤드키 프로시저 샤드객체로 등록한다.
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
+- User defined type의 parameter를 갖는 procedure는 shard procedure로 등록할 수 없습니다.
+  - 따라서, procedure의 parameter의 type이 array, record, row, reference cursor type이면 shard procedure로 등록할 수 없습니다.
 
 ##### 예제
 ```
@@ -1368,6 +1373,8 @@ SET_SHARD_PROCEDURE_SOLO(
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
 - 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- User defined type의 parameter를 갖는 procedure는 shard procedure로 등록할 수 없습니다.
+  - 따라서, procedure의 parameter의 type이 array, record, row, reference cursor type이면 shard procedure로 등록할 수 없습니다.
 
 ##### 예제
 ```
@@ -1397,6 +1404,8 @@ SET_SHARD_PROCEDURE_CLONE(
 - 전 노드의 해당 프로시저의 내용이 동일해야 한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
 - 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- User defined type의 parameter를 갖는 procedure는 shard procedure로 등록할 수 없습니다.
+  - 따라서, procedure의 parameter의 type이 array, record, row, reference cursor type이면 shard procedure로 등록할 수 없습니다.
 
 ##### 예제
 ```
@@ -1452,6 +1461,67 @@ DBMS_SHARD.UNSET_SHARD_PROCEDURE(
 ```
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
 ```
+
+### DBMS_SHARD_GET_DIAGNOSTICS
+Sharding 환경에서 PSM내에서 발생한 multiple node error를 확인하는 기능을 제공합니다.
+
+아래의 함수를 제공한다.
+- GET_ERROR_COUNT: Multi error에 등록된 error 개수를 반환한다.
+- GET_ERROR_CODE: Error code를 반환한다.
+- GET_ERROR_MESSAGE: Error message를 반환한다.
+- GET_ERROR_NODE_ID: Error가 발생한 node의 ID를 반환한다.
+- GET_ERROR_SEQNUM_BY_NODE_ID: Node ID에 해당하는 error 순번을 반환한다.
+
+#### GET_ERROR_COUNT
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() return integer
+```
+##### 파라미터
+없음.
+##### Return Value
+Multi error에 등록된 error 개수를 반환한다.
+
+#### GET_ERROR_CODE
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_CODE(seqno in integer) return integer
+```
+##### 파라미터
+- seqno: 1 부터 DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() 의 return value 사이의 자연수
+##### Return Value
+순번(seqno)에 해당하는 error code를 반환한다.
+
+#### GET_ERROR_MESSAGE
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_MESSAGE(seqno in integer) return varchar
+```
+##### 파라미터
+- seqno: 1 부터 DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() 의 return value 사이의 자연수
+##### Return Value
+순번(seqno)에 해당하는 error message를 반환한다.
+
+#### GET_ERROR_NODE_ID
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_NODE_ID(seqno in integer) return integer
+```
+##### 파라미터
+- seqno: 1 부터 DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_COUNT() 의 return value 사이의 자연수
+##### Return Value
+순번(seqno)에 해당하는 error가 발생한 NODE_ID를 반환한다.
+
+
+#### GET_ERROR_SEQNUM_BY_NODE_ID
+##### 구문
+```
+function DBMS_SHARD_GET_DIAGNOSTICS.GET_ERROR_SEQNUM_BY_NODE_ID(nodeid in integer) return integer
+```
+##### 파라미터
+- nodeid: NODE_ID를 이용하여 특정 노드에서 발생한 error를 확인하고자 하는 경우에 사용한다.
+##### Return Value
+nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)을 반환한다.
 
 ## Altibase Sharding Property
 
@@ -1579,7 +1649,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1601,7 +1671,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1692,7 +1762,7 @@ Unsigned Integer
 
 ##### 기본값
 
-7
+15
 
 ##### 속성
 
@@ -1700,7 +1770,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 7]
+[0, 15]
 
 ##### 설명
 
@@ -1708,9 +1778,10 @@ Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 
 
 해당 프로퍼티 값은 BITMAP 형태이며,
 
-- LIMIT 최적화 변환 기능 켜짐은 1 ( 이진수 표현 0b001 )
-- SELECTION 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b010 )
-- PROJECTION 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b100 )
+- Limit 최적화 변환 기능 켜짐은 1 ( 이진수 표현 0b0001 )
+- Selection 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b0010 )
+- Projection 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b0100 )
+- Out reference predicate 최적화 변환 기능 켜짐은 8 ( 이진수 표현 0b1000 )
 
 위 값에 조합으로 제어된다.
 
@@ -1758,7 +1829,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1802,7 +1873,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2^32-1]
 
 ##### 설명
 
@@ -1826,7 +1897,7 @@ Unsigned Integer
 ##### 속성
 읽기 전용, 단일 값
 ##### 값의 범위
-[0, 232-1]
+[0, 2^32-1]
 ##### 설명
 샤드 관련 메시지 파일의 최대 크기를 지정한다.
 
@@ -1850,7 +1921,7 @@ Unsigned Integer
 ##### 속성
 변경가능, 단일 값
 ##### 값의 범위
-[0, 2^32 -1]
+[0, 2^32-1]
 ##### 설명
 Shard DDL은 다수의 노드에 DDL을 수행하는데, 이 때, 각 노드에서 수행된 DDL이 lock timeout 등의 오류로 실패할 수 있다. 이 프로퍼티는 각 노드에서 수행되는 DDL을 재수행 하는 횟수를 지정한다.
 
@@ -1954,7 +2025,7 @@ Unsigned Integer
 ##### 속성
 읽기 전용, 단일 값
 ##### 값의 범위
-[0, 2<sup>32</sup>-1]
+[0, 2^32-1]
 ##### 설명
 consistent replication에서 성능상 이점을 위해 xlogfile 들을 미리 만들어 놓는 개수를 뜻한다.
 
@@ -1969,7 +2040,7 @@ Unsigned long
 읽기 전용, 단일 값
 
 ##### 값의 범위
-[64 \* 1024, 2<sup>64</sup>-1]
+[64 \* 1024, 2^64-1]
 
 ##### 설명
 consistent replication에서 생성하는 개별 xlogfile 의 size를 뜻한다.
@@ -1995,7 +2066,7 @@ Unsigned Integer
 ##### 속성
 변경 가능, 단일 값
 ##### 값의 범위
-[1, 2<sup>32</sup>-1]
+[1, 2^32-1]
 ##### 설명
 consistent replication에서 특정 수의 xlogfile을 만들때마다, 사용이 완료된 xlogfile 들을 삭제하는데, 이때의 특정 수의 xlogfile 을 뜻한다.
 - Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
@@ -2252,6 +2323,14 @@ iSQL\> SELECT \* FROM S$TAB;
 - INDOUBT_FETCH_METHOD (INTEGER): 현재 세션의 Indoubt 트랜잭션으로 인한 최대 지연 후 처리 방법
   - 0 : Indoubt 트랜잭션이 수정한 값을 보지 않고 다음 값을 읽는다.
   - 1 : 에러 발생
+- LAST_SHARD_META_NUMBER (BIGINT): 해당 세션에 리샤딩이 발생하기 이전 기준이 되었던 SMN
+- RECEIVED_SHARD_META_NUMBER (BIGINT): 마지막으로 수신한 SMN
+  - 사용자 세션, 라이브러리 세션은 샤드 클라이언트로 부터 가장 최근에 수신한 SMN
+  - 코디네이터 세션은 사용자 세션으로 부터 가장 최근에 수신한 SMN
+- SHARD_STMT_EXEC_SEQ (INTEGER): 세션의 현재 트랜잭션 내의 STATEMENT 수행 번호      
+  - SHARD CLIENT에 의해 클라이언트 측 수행시 1 ~ 1999999999 까지 증가하며 기록된다.
+  - COORDINATOR에 의해 서버 측 수행 시 2000000001 ~ 3999999999 까지 증가하며 기록된다.
+  - 하나의 트랜잭션내에서 위 범위를 넘어가면 에러가 발생된다.
 - 그 외 컬럼들은 V$SESSION 과 동일하다.
 
 #### S$STATEMENT
@@ -2271,6 +2350,10 @@ iSQL\> SELECT \* FROM S$TAB;
   - 1: SINGLE
   - 2: MULTI
   - 3: PARALLEL
+- SHARD_PARTIAL_EXEC_TYPE (VARCHAR(13)): STATEMENT의 PARTIAL COORDINATING TYPE
+  - NORMAL        : Partial coordinating 되지 않은 statement
+  - PARTIAL COORD : Partial coordinating statement
+  - PARTIAL QUERY : Partial coordinating statement로 부터 파생된 부분 분산 수행 statement
 - 그 외 컬럼들은 V$STATEMENT 와 동일하다.
 
 #### S$TIME_SCN
@@ -2307,6 +2390,85 @@ iSQL\> SELECT \* FROM S$TAB;
 - DISTRIBUTION_DEADLOCK_ELAPSED_TIME (BIGINT): 현재 분산 트랜잭션에서 수행중인 statement 가 분산 데드락으로 탐지된 후 경과된 시간. (Microsecond)
   - DISTRIBUTION_DEADLOCK_WAIT_TIME 값에 도달하면 stamtenet 는 실패 처리 된다. 
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
+
+## Sharded Sequence
+- Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
+- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
+- 동일 Node내에서는 순서는 보장한다.
+- node_id 를 prefix 로 사용하여 uniqueness를 제공한다. 그러므로, node_id 가 재사용되면 uniqueness 가 깨질 수 있습니다.
+- node_id 는 1~9200 사이의 값을 가질 수 있다.
+
+#### 문법
+- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다. 여기에서 별도로 기록되지 않는 내용들은 모두 일반 sequence 와 동일하게 동작한다. 
+- Sharded sequence는 기존 sequence 문법에서 sequence option 에서 shard clause를 추가로 지원하는 것을 지칭한다.
+  - sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
+- Sharded sequence는 sync table option을 지원하지 않는다.
+  - sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
+- Sharded sequence는 CURRVAL을 지원하지 않는다.
+- Sharded sequence의 shard clause
+  - SHARD
+    - FIXED 혹은 VARIABLE을 지정하지 않으면, FIXED 가 기본으로 지정된다.
+  - SHARD FIXED
+    - node id prefix를 제외한 자릿수가 15 자리로 고정된다.
+  - SHARD VARIABLE
+    - node id prefix를 제외한 자릿수가 MAXVALUE 설정에 맞추어, 1~15 자리가 될 수 있다.
+
+#### MIN/MAX VALUE
+- 사용자는 node_id prefix를 포함하지 않고, 원하는 MIN/MAX VALUE를 설정한다.
+- Default
+  - MIN VALUE : -999,999,999,999,999
+  - MAX VALUE : 999,999,999,999,999
+- PREFIX(1 ~ 9,200) 까지 고려하면 아래와 같다.
+  - MIN : -9,200 999,999,999,999,999
+  - MAX : 9,200 999,999,999,999,999
+- node_id prefix를 고려하면, sequence를 사용시에는 BIGINT 타입의 변수를 사용할것을 권장한다.
+
+#### 예제
+```
+-- Sharded sequence (with fixed scale) @node_id = 1
+iSQL> CREATE SEQUENCE S1 SHARD;
+iSQL> SELECT S1.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with fixed scale @node_id = 1
+iSQL> CREATE SEQUENCE S2 SHARD FIXED;
+iSQL> SELECT S2.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with fixed scale and maxvalue 1,000 @node_id = 1
+iSQL> CREATE SEQUENCE S5 SHARD FIXED MAXVALUE 1000;
+iSQL> SELECT S5.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with variable scale (and maxvalue 999,999,999,999,999) @node_id = 1
+iSQL> CREATE SEQUENCE S3 SHARD VARIABLE;
+iSQL> SELECT S3.NEXTVAL;
+1000000000000001
+
+-- Sharded sequence with variable scale and maxvalue 1,000 @node_id = 1
+iSQL> CREATE SEQUENCE S4 SHARD VARIABLE MAXVALUE 1000;
+iSQL> SELECT S4.NEXTVAL;
+10001
+```
+
+## Stored Procedures
+#### PSM Execution Policy
+- Query에 의해서 실행한 function, trigger는 local로 동작한다.
+- 분산 실행하는 shard procedure는 local로 동작한다.
+  - 일반 procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
+- Job scheduler, DBMS_CONCURRENT_EXEC package와 같이 별도의 session으로 실행하는 procedure는 local로 동작한다.
+- Local로 동작할 때 호출한 PSM은 local로 동작한다.
+- Local 실행시 제약사항
+  - clone table에 write (insert, delete, update) 할 수 없다.
+- 위의 경우를 제외하고는, global로 동작한다.
+
+#### PSM Restriction
+- Shard procedure에서는 DCL, DDL 을 수행할 수 없습니다.
+- 일반 procedure에서 DCL, DDL을 실행할 때, commit 하지 않은 노드가 있으면 DCL, DDL이 불가능합니다.
+  - 일반 procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하면 됩니다.
+- autonomous transaction pragma 를 지원하지 않는다.
+- 분산실행되는 query또는 procedure에서 package global variable을 사용하는 경우에 오류가 발생합니다.
+  - 단, CONSTANT 속성이 있는 경우 항상 사용자가 지정한 값을 사용하므로 분산실행에 사용할 수 있습니다.
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
