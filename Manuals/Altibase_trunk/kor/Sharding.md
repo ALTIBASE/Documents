@@ -34,6 +34,7 @@
     - [Shard Meta Table](#shard-meta-table)
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
+  - [Sharded Sequence](#sharded-sequence)
   - [Stored Procedures](#stored-procedures)
   - [ShardCLI](#shardcli)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
@@ -1156,7 +1157,7 @@ DBMS_SHARD.SET_LOCAL_NODE(
 ```
 ##### 파라미터
 - shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 시스템에서 유일해야한다.
-  - shard_node_id 값 범위: 1 \~ 9999
+  - shard_node_id 값 범위: 1 \~ 9200
   - 기존 node drop 후에, 신규 node add 하는 경우에, 기존에 사용했던 shard_node_id 를 재사용하지 말고 신규로 번호를 부여하는 것이 좋다.
   - 기존 shard_node_id 를 재사용하는 경우에, 기존 shard_node_id로 사용되던, sharded sequence가 있었다면, 동일한 sequence 를 생성하게 되는 문제가 있다.
     - 이 경우에는 해당 sharded sequence의 초기값을 기존에 발급되었던 값보다 큰 값으로 설정해주어야 한다.
@@ -2390,8 +2391,68 @@ iSQL\> SELECT \* FROM S$TAB;
   - DISTRIBUTION_DEADLOCK_WAIT_TIME 값에 도달하면 stamtenet 는 실패 처리 된다. 
 - 그 외 컬럼들은 V$TRANSACTION 과 동일하다.
 
+## Sharded Sequence
+- Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
+- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
+- 동일 Node내에서는 순서는 보장한다.
+- node_id 를 prefix 로 사용하여 uniqueness를 제공한다. 그러므로, node_id 가 재사용되면 uniqueness 가 깨질 수 있습니다.
+- node_id 는 1~9200 사이의 값을 가질 수 있다.
+
+#### 문법
+- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다. 여기에서 별도로 기록되지 않는 내용들은 모두 일반 sequence 와 동일하게 동작한다. 
+- Sharded sequence는 기존 sequence 문법에서 sequence option 에서 shard clause를 추가로 지원하는 것을 지칭한다.
+  - sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
+- Sharded sequence는 sync table option을 지원하지 않는다.
+  - sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
+- Sharded sequence는 CURRVAL을 지원하지 않는다.
+- Sharded sequence의 shard clause
+  - SHARD
+    - FIXED 혹은 VARIABLE을 지정하지 않으면, FIXED 가 기본으로 지정된다.
+  - SHARD FIXED
+    - node id prefix를 제외한 자릿수가 15 자리로 고정된다.
+  - SHARD VARIABLE
+    - node id prefix를 제외한 자릿수가 MAXVALUE 설정에 맞추어, 1~15 자리가 될 수 있다.
+
+#### MIN/MAX VALUE
+- 사용자는 node_id prefix를 포함하지 않고, 원하는 MIN/MAX VALUE를 설정한다.
+- Default
+  - MIN VALUE : -999,999,999,999,999
+  - MAX VALUE : 999,999,999,999,999
+- PREFIX(1 ~ 9,200) 까지 고려하면 아래와 같다.
+  - MIN : -9,200 999,999,999,999,999
+  - MAX : 9,200 999,999,999,999,999
+- node_id prefix를 고려하면, sequence를 사용시에는 BIGINT 타입의 변수를 사용할것을 권장한다.
+
+#### 예제
+```
+-- Sharded sequence (with fixed scale) @node_id = 1
+iSQL> CREATE SEQUENCE S1 SHARD;
+iSQL> SELECT S1.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with fixed scale @node_id = 1
+iSQL> CREATE SEQUENCE S2 SHARD FIXED;
+iSQL> SELECT S2.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with fixed scale and maxvalue 1,000 @node_id = 1
+iSQL> CREATE SEQUENCE S5 SHARD FIXED MAXVALUE 1000;
+iSQL> SELECT S5.NEXTVAL;
+1000000000000001
+ 
+-- Sharded sequence with variable scale (and maxvalue 999,999,999,999,999) @node_id = 1
+iSQL> CREATE SEQUENCE S3 SHARD VARIABLE;
+iSQL> SELECT S3.NEXTVAL;
+1000000000000001
+
+-- Sharded sequence with variable scale and maxvalue 1,000 @node_id = 1
+iSQL> CREATE SEQUENCE S4 SHARD VARIABLE MAXVALUE 1000;
+iSQL> SELECT S4.NEXTVAL;
+10001
+```
+
 ## Stored Procedures
-### PSM Execution Policy
+#### PSM Execution Policy
 - Query에 의해서 실행한 function, trigger는 local로 동작한다.
 - 분산 실행하는 shard procedure는 local로 동작한다.
   - 일반 procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
@@ -2401,7 +2462,7 @@ iSQL\> SELECT \* FROM S$TAB;
   - clone table에 write (insert, delete, update) 할 수 없다.
 - 위의 경우를 제외하고는, global로 동작한다.
 
-### PSM Restriction
+#### PSM Restriction
 - Shard procedure에서는 DCL, DDL 을 수행할 수 없습니다.
 - 일반 procedure에서 DCL, DDL을 실행할 때, commit 하지 않은 노드가 있으면 DCL, DDL이 불가능합니다.
   - 일반 procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하면 됩니다.
