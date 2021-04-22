@@ -864,7 +864,12 @@ $ALTIBASE_HOME/bin/altibase -v
 - 대표에러의 에러코드 
   - 동일한 에러가 여러개 발생한 경우에는 해당 에러코드로 설정된다.
   - 동일하지 않은 에러가 하나라도 있는 경우에는 다중에러라는 에러코드가 설정된다.
-  - 다중에러코드 자체는 개별 사용자 인터페이스별 설명부분을 참고한다.
+- 다중에러 대표에러코드인 경우에 특별한 처리를 하려면, 아래 에러코드를 사용한다.
+```
+0xE113F ( 921919) sdERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
+# *Cause: Multiple errors occurred on each of shard nodes.
+# *Action: Check the error messages on each shard node.
+```
 - 대표에러의 에러메시지
   - 동일한 에러가 여러개 발생했든, 서로 다른 에러가 여러개 발생했든 상관없이, 발생한 에러의 에러메시지는 모두 합쳐서, 대표에러의 에러메시지를 만든다. 
   - 동일에러 일지라도, 에러가 발생한 노드별로 고유의 부가 정보가 에러메시지에 표기되어 있을 수 있기 때문이다.
@@ -2533,12 +2538,6 @@ iSQL\> SELECT \* FROM S$TAB;
 - EXEC GET DIAGNOSTICS
   - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
 - SQLCODE, sqlca.sqlerrm.sqlerrmc 및 EXEC GET DIAGNOSTICS 구문에 대한 설명은 Precomplier 매뉴얼을 참고한다.
-- 다중에러 대표에러코드
-```
-0xE113F ( 921919) sdERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
-# *Cause: Multiple errors occurred on each of shard nodes.
-# *Action: Check the error messages on each shard node.
-```
 
 ## ODBC
 여기서는 샤딩환경에서의 ODBC 특이사항만 기술한다.
@@ -2549,12 +2548,6 @@ iSQL\> SELECT \* FROM S$TAB;
   - 대표에러를 최초로 반환한다. 발생한 에러가 여러 개일 경우 호출할 때마다 그 다음 개별에러들을 반환한다.
 - SQLGetDiagRec(..., RecNumber, ...)
   - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
-- 다중에러 대표에러코드
-```
-0xE113F ( 921919) sdERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
-# *Cause: Multiple errors occurred on each of shard nodes.
-# *Action: Check the error messages on each shard node.
-```
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
@@ -2576,12 +2569,6 @@ CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 
   - 대표에러를 최초로 반환한다. 발생한 에러가 여러 개일 경우 호출할 때마다 그 다음 개별에러들을 반환한다.
 - SQLGetDiagRec(..., RecNumber, ...)
   - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
-- 다중에러 대표에러코드
-```
-0x51225 ( 332325) ulERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
-# *Cause: Multiple errors occurred on each of shard nodes.
-# *Action: Check the error messages on each shard node.
-```
 
 #### Fail-Over  (*under construction*)
 사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
