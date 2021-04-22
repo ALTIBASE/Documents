@@ -2557,6 +2557,8 @@ SYS_TABLES_
 | APPLIER_INIT_BUFFER_SIZE | BIGINT      | applier buffer 의 초기 사이즈                                |
 | PEER_REPLICATION_NAME    | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
 | REMOTE_LAST_DDL_XSN      | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
+| CURRENT_READ_XLOGFILE_NO | INTEGER     | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file number와 offset |
+| CURRENT_READ_XLOGFILE_OFFSET | INTEGER | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file 내에서의 offset |
 
 [<sup>13</sup>] SN(Seqence Number): 로그 레코드의 식별 번호
 
