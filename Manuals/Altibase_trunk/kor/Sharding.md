@@ -863,13 +863,7 @@ $ALTIBASE_HOME/bin/altibase -v
 - sharding 환경에서는 하나의 operation에 대하여, 여러 노드에서 동일한 혹은 서로 다른 에러들이 발생할 수 있으므로, 대표에러라는 개념을 둔다.
 - 대표에러의 에러코드 
   - 동일한 에러가 여러개 발생한 경우에는 해당 에러코드로 설정된다.
-  - 동일하지 않은 에러가 하나라도 있는 경우에는 다중에러라는 에러코드가 설정된다.
-- 다중에러 대표에러코드인 경우에 특별한 처리를 하려면, 아래 에러코드를 사용한다.
-```
-0xE113F ( 921919) sdERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
-# *Cause: Multiple errors occurred on each of shard nodes.
-# *Action: Check the error messages on each shard node.
-```
+  - 동일하지 않은 에러가 하나라도 있는 경우에는 다중에러라는 에러코드(16진수: 0xE113F, 10진수: 921919)가 설정된다.
 - 대표에러의 에러메시지
   - 동일한 에러가 여러개 발생했든, 서로 다른 에러가 여러개 발생했든 상관없이, 발생한 에러의 에러메시지는 모두 합쳐서, 대표에러의 에러메시지를 만든다. 
   - 동일에러 일지라도, 에러가 발생한 노드별로 고유의 부가 정보가 에러메시지에 표기되어 있을 수 있기 때문이다.
