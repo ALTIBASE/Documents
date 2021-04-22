@@ -38,6 +38,7 @@
     - [Performance View](#performance-view)
     - [Shard Performance View](#shard-performance-view)
   - [Precompiler](#precomplier)
+  - [ODBC](#odbc)
   - [ShardCLI](#shardcli)
   - [ShardJDBC (*under construction*)](#shardjdbc-under-construction)
   - [Utilities](#utilities)
@@ -2532,6 +2533,28 @@ iSQL\> SELECT \* FROM S$TAB;
 - EXEC GET DIAGNOSTICS
   - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
 - SQLCODE, sqlca.sqlerrm.sqlerrmc 및 EXEC GET DIAGNOSTICS 구문에 대한 설명은 Precomplier 매뉴얼을 참고한다.
+- 다중에러 대표에러코드
+```
+0xE113F ( 921919) sdERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
+# *Cause: Multiple errors occurred on each of shard nodes.
+# *Action: Check the error messages on each shard node.
+```
+
+## ODBC
+여기서는 샤딩환경에서의 ODBC 특이사항만 기술한다.
+
+#### 다중에러 처리
+- 다중에러 및 대표에러에 대한 설명은 [Multiple Error Handling](#multiple-error-handling)을 참고한다. 
+- SQLError(...) 
+  - 대표에러를 최초로 반환한다. 발생한 에러가 여러 개일 경우 호출할 때마다 그 다음 개별에러들을 반환한다.
+- SQLGetDiagRec(..., RecNumber, ...)
+  - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
+- 다중에러 대표에러코드
+```
+0xE113F ( 921919) sdERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
+# *Cause: Multiple errors occurred on each of shard nodes.
+# *Action: Check the error messages on each shard node.
+```
 
 ## ShardCLI
 ShardCLI는 CLI 응용프로그램을 하이브리드 샤딩으로 동작할 수 있도록 하는 기능이다.
@@ -2553,6 +2576,12 @@ CLI 응용프로그램 빌드 시 기존의 ODBCCLI 라이브러리를 ShardCLI 
   - 대표에러를 최초로 반환한다. 발생한 에러가 여러 개일 경우 호출할 때마다 그 다음 개별에러들을 반환한다.
 - SQLGetDiagRec(..., RecNumber, ...)
   - 가져올 에러의 번호(순서)를 인자로 지정하여 해당 에러를 가져온다. 1번 에러를 요청할 때 대표 에러를 반환한다.
+- 다중에러 대표에러코드
+```
+0x51225 ( 332325) ulERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.
+# *Cause: Multiple errors occurred on each of shard nodes.
+# *Action: Check the error messages on each shard node.
+```
 
 #### Fail-Over  (*under construction*)
 사용자 커넥션에 대한 Fail-Over는 응용 프로그램에서 API의 연결 함수 호출시 입력한 연결 속성 문자열에 명시하거나 연결 설정 파일에 명시한 샤드 노드의 IP, PORT로 시도한다.
