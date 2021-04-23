@@ -3179,7 +3179,13 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 | PARTITION_MIN_VALUE   | VARCHAR(4000) | 파티션의 최소 기준값 (해쉬 파티션의 경우 NULL) |
 | PARTITION_MAX_VALUE   | VARCHAR(4000) | 파티션의 최대 기준값 (해쉬 파티션의 경우 NULL) |
 | INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN                         |
-| PARTITION_COUNT      | INTEGER      | 파티션 테이블의 총 개수 |
+| TABLE_ID              | INTEGER       | 테이블 식별자 |
+| TABLE_PARTITION_TYPE  | INTEGER       | 테이블 파티션 타입 |
+| IS_PARTITION          | CHAR(1)       | 파티션 여부 Y/N |
+| REPLICATION_UNIT      | CHAR(1)       | 이중화 단위 |
+| TBS_TYPE              | INTEGER       | 테이블스페이스 유형 |
+| PARTITION_METHOD      | INTEGER       | 파티션 방법 |
+| PARTITION_COUNT       | INTEGER       | 파티션 테이블의 총 개수 |
 
 #### 칼럼 정보
 
@@ -3243,6 +3249,32 @@ TABLE_NAME 값과 동일하다.
 이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에
 기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
 
+##### TABLE_ID
+SYS_TABLES_ 의 TABLE_ID 를 참고한다.
+
+##### TABLE_PARTITION_TYPE
+- 0: PARTITIONED TABLE
+- 1: TABLE PARTITION
+- 100: NONE PARTITIONED TABLE
+
+##### IS_PARTITION
+- Y: 파티션드 테이블
+- N: 그외
+
+##### REPLICATION_UNIT
+- T: 이중화 대상 아이템이 테이블임을 나타낸다.
+- P: 이중화 대상 아이템이 파티션임을 나타낸다.
+
+##### TBS_TYPE
+V$TABLESPACES 의 TYPE 컬럼을 참고한다.
+
+##### PARTITION_METHOD
+- 0: RANGE
+- 1: HASH
+- 2: LIST
+- 3: RANGE_USING_HASH
+- 100: NONE
+
 ##### PARTITION_COUNT
 
 지역 서버의 이중화 대사 테이블이 속해 있는 파티션드 테이블을 구성하는 파티션 테이블의 총 개수
@@ -3250,9 +3282,11 @@ TABLE_NAME 값과 동일하다.
 #### 참조 테이블
 
 ```
+SYS_TABLES_
 SYS_REPL_OLD_COLUMNS_
 SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
+V$TABLESPACES
 ```
 
 ### SYS_REPL_RECOVERY_INFOS\_
