@@ -33,8 +33,8 @@
     - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
   - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
     - [SQL States](#sql-states)
-  - [6.JDBC 4.x API References](#6jdbc-4x-api-references)
-      - [Java 8 Time API](#java-8-time-api)      
+  - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
+      - [Java 8 Time API](#java-8-time-api)
   - [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
     - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
     - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
@@ -137,7 +137,7 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
     이 장은 Altibase의 JDBC 드라이버를 사용하면서 발생할 수 있는 SQL State를
     기술한다.
 
--   제 6장 JDBC 4.x API References  
+-   제 6장 JDBC 4.2 API References  
     이 장은 Altibase의 JDBC 드라이버가 지원하는 JDBC 4.2 스펙 API에 대해 기술한다.
 
 -   부록 A. 데이터 타입 맵핑  
@@ -235,23 +235,23 @@ Altibase JDBC 드라이버는 패키지를 설치한 후, \$ALTIBASE_HOME/lib �
 #### 버전 호환성
 
 Altibase 7.1 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 스펙을
-준수(일부 기능 제외)한다. 또한 하위 버전의 자바(JDK 1.5)를 사용하는 사용자를 위해
-JDBC 3.0 스펙을 구현한 드라이버도 함께 지원한다. JDBC 4.2 스펙용 JDBC 드라이버를
-사용하기 위해서는 JDK 1.8 이상이 필요하며 알티베이스 JDBC에서 지원하는 JDBC 4.x
-스펙 API는 JDBC 4.x API References를 참조하면 된다.
+준수(일부 기능 제외)한다. 또한 하위 버전의 자바를 사용하는 사용자를 위해 JDBC 3.0 
+스펙을 구현한 드라이버도 함께 지원한다. JDBC 4.2 스펙용 JDBC 드라이버를
+사용하기 위해서는 JRE 1.8 이상이 필요하며 알티베이스 JDBC에서 지원하는 JDBC 4.2
+스펙 API는 JDBC 4.2 API References를 참조하면 된다.
 
 #### JDBC 드라이버 버전 확인
 
 설치된 JDBC 드라이버의 버전과 드라이버가 컴파일된 JDK 버전을 아래와 같이 확인할
 수 있다.
 
-##### JDBC 4.2 스펙을 위한 JDBC 드라이버
+##### JDBC 4.2 지원 드라이버 확인
 ```
 $ java -jar $ALTIBASE_HOME/lib/Altibase42.jar
 Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 4.2 compiled with JDK 5, JDK 8(sharding included)
 ```
 
-##### JDBC 3.0 스펙을 위한 JDBC 드라이버
+##### JDBC 3.0 지원 드라이버 확인
 ```
 $ java -jar $ALTIBASE_HOME/lib/Altibase.jar
 Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 3.0 compiled with JDK 5(sharding included)
@@ -262,7 +262,8 @@ Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 3.0 compiled with JDK 5(sharding incl
 #### CLASSPATH 설정
 
 Altibase JDBC를 사용하려면 Altibase JDBC 드라이버를 CLASSPATH 환경변수에
-추가해야 한다. 이때 JDBC 스펙에 따라 각각 Altibase42.jar, Altibase.jar 파일을 클래스패스에 추가하면 된다.
+추가해야 한다. 이때 사용하고자 하는 JDBC 4.2 또는 3.0 스펙에 따라 각각 
+Altibase42.jar, Altibase.jar 파일을 클래스패스에 추가하면 된다.
 
 Altibase는 로깅 기능을 지원하지 않는 Altibase.jar 파일과 지원하는 Altibase_t.jar
 파일을 함께 제공하고 있지만 JDBC 4.2 스펙용 로깅 드라이버는 공식적으로 지원하지 않는다.
@@ -937,7 +938,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()의 <br>결과에 function 정보가 포함될지 여부. JDBC spec4.2를 지원하는 Altibase42.jar에서만 <br>효과가 있으며 Altibase.jar에서는 설정해도 영향이 없다. <br>해당 값이 false인 경우 function정보가 빠지기 때문에 DatabaseMetaData.getFunctions()<br>와 DatabaseMetaData.getFunctionColumns()를 각각 따로 사용해야 한다.|
+| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()<br>의 결과에 function 객체도 포함할지 지정한다. 해당 값을 false로 설정하면 function 객체<br>정보를 얻기 위해서 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 별도로 사용해야 한다.<br> JDBC spec. 4.2를 지원하는 Altibase42.jar 에서만 효과가 있으며 Altibase.jar에서는 설정해도 효과가 없다.|
 
 ### Statement와 ResultSet 다루기
 
@@ -3552,7 +3553,7 @@ null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 �
 | 값의 범위 | [on \| off ]                                                 |
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
-| 설명     | lob 컬럼값이 null 일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  | 
+| 설명     | lob 컬럼값이 null 일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
 ##### 예제 
 lob_null_select 값이 off 인 경우 다음과 같이 getBlob(), getClob()을 한 후 null 처리를 해줘야 한다.
 ```
@@ -3746,7 +3747,7 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 |                                       |       | XA close failed                                                                                          | F02      |
 |                                       |       | XA recover failed                                                                                        | F03      |
 
-6.JDBC 4.x API References
+6.JDBC 4.2 API References
 -----------
 ### java.sql.Connection
 | 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                        |      예외 처리                                 |

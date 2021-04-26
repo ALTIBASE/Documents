@@ -33,7 +33,7 @@
     - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
   - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
     - [SQL States](#sql-states)
-  - [6.JDBC 4.x API References](#6jdbc-4x-api-references)
+  - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
       - [Java 8 Time API](#java-8-time-api)
   - [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
     - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
@@ -137,9 +137,9 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
     이 장은 Altibase의 JDBC 드라이버를 사용하면서 발생할 수 있는 SQL State를
     기술한다.
 
--   제 6장 JDBC 4.x API References  
+-   제 6장 JDBC 4.2 API References  
     이 장은 Altibase의 JDBC 드라이버가 지원하는 JDBC 4.2 스펙 API에 대해 기술한다.
-    
+
 -   부록 A. 데이터 타입 맵핑  
     Altibase의 데이터 타입과 JDBC 표준 데이터 타입, Java 데이터 타입간에 호환
     여부를 기술한다.
@@ -235,8 +235,8 @@ Altibase JDBC 드라이버는 패키지를 설치한 후, \$ALTIBASE_HOME/lib �
 #### 버전 호환성
 
 Altibase 7.2 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 스펙을
-준수(일부 기능 제외)한다. 또한, JDK 1.8 이상에서 정상적으로 동작한다.
-알티베이스 JDBC에서 지원하는 JDBC 4.x 스펙 API는 JDBC 4.x API References를 참조하면 된다.
+준수(일부 기능 제외)한다. 또한, JRE 1.8 이상에서 정상적으로 동작한다.
+알티베이스 JDBC에서 지원하는 JDBC 4.2 스펙 API는 JDBC 4.2 API References를 참조하면 된다.
 
 #### JDBC 드라이버 버전 확인
 
@@ -932,8 +932,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()의 <br>결과에 function 정보가 포함될지 여부. <br>해당 값이 false인 경우 function정보가 빠지기 때문에 DatabaseMetaData.getFunctions()<br>와 DatabaseMetaData.getFunctionColumns()를 각각 따로 사용해야 한다.|
-
+| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()<br>의 결과에 function 객체도 포함할지 지정한다. 해당 값을 false로 설정하면 function 객체<br>정보를 얻기 위해서 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 별도로 사용해야 한다.|
 
 ### Statement와 ResultSet 다루기
 
@@ -3740,7 +3739,7 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 |                                       |       | XA close failed                                                                                          | F02      |
 |                                       |       | XA recover failed                                                                                        | F03      |
 
-6.JDBC 4.x API References
+6.JDBC 4.2 API References
 -----------
 ### java.sql.Connection
 | 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                        |      예외 처리                                 |
@@ -3962,7 +3961,7 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | getVendorTypeNumber()                         | 4.2      |    O     |                                        |                                |
 
 ### Java 8 Time API
-JDBC spec 4.2를 지원하는 Altibase42.jar 에서는 다음과 같이 Java8 Time API를 java.sql 타입으로 변환하여 지원한다.
+JDBC spec 4.2를 준수하는 알티베이스 JDBC 드라이버는 다음과 같이 Java8 Time API를 java.sql 타입으로 변환하여 지원한다.
 | Java 8 Time Class        | Altibase JDBC            |
 |--------------------------|--------------------------|
 | java.time.LocalDate      | java.sql.Date            |
