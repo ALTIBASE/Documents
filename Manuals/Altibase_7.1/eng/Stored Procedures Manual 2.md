@@ -71,7 +71,7 @@ Altibase Application Development Stored Procedures Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -668,7 +668,7 @@ When an exception occurs, Altibase looks for an exception handler to which to pa
 
 SQLCODE and SQLERRM can be used in an exception handler to check which kind of error occurred and return the related error message. In other words, SQLCODE returns the Altibase error number and SQLERRM returns the corresponding error message. 
 
-SQLCODE and SQLERRM cannot be directly used in SQL statements. Instead, assign their values to local variables and use these variables within SQL statements
+SQLCODE and SQLERRM cannot be directly used in SQL statements. Instead, assign their values to local variables and use these variables within SQL statements.
 
 ##### exception name
 
@@ -7618,7 +7618,7 @@ The entered RAW type of data is returned as INTEGER type.
 
 ##### Exception
 
-예외를 발생시키지 않는다.
+There is no exception.
 
 ##### Example
 
