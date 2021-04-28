@@ -1209,6 +1209,7 @@ DBMS_SHARD.SET_REPLICATION(
 ##### 파라미터
 - k_safety: 시스템 내에서 유지할 복제본의 갯수
 - replication_mode: 이중화에서 사용할 복제 방식
+  - 'consistent' 모드 한가지만 지원함.
 - parallel_count: 이중화 병렬 적용자의 수
 
 ##### 설명
