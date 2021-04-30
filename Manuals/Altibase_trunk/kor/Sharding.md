@@ -2155,7 +2155,7 @@ Unsigned Integer
 ##### 속성
 읽기 전용, 단일 값
 ##### 값의 범위
-[0, 2^32-1]
+[1, 2^32-1]
 ##### 설명
 consistent replication에서 성능상 이점을 위해 xlogfile 들을 미리 만들어 놓는 개수를 뜻한다.
 
