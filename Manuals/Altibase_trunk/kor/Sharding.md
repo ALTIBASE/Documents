@@ -573,13 +573,20 @@ SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티�
 
 기존에 사용하던 altibase.properties 를 기반으로 하여 변경을 하고 싶은 경우에는, 단독DB환경에서의 권장값이 기록되어 있는 altibase.properties.sample 과 샤딩 환경에서의 권장값이 기록되어 있는 altibase.properties.shard 를 비교하여, 해당 편차를 기존의 altibase.properties 에 변경해주면 된다.
 
-##### 샤드 패키지 생성
-샤드 패키지는 \$ALTIBASE_HOME/packages에 있다. 샤드 패키지는 샤드 기능을 제어할 수 있는 사용자 인터페이스를 제공한다.
+##### 샤딩관련 패키지 생성
+- 샤딩관련 패키지는 \$ALTIBASE_HOME/packages에 있으며, installer를 이용하여 알티베이스를 설치시에는 기본으로 설치된다.
+  - DBMS_SHARD (참고: 본 매뉴얼내에 상세 설명이 있음.)
+  - DBMS_SHARD_GET_DIAGNOSTICS (참고: 본 매뉴얼내에 상세 설명이 있음.)
+  - DBMS_METADATA (참고: Stored Procedures 매뉴얼내에 상세 설명이 있음.)
+- 만약, 위의 패키지들이 설치되어 있지 않으면, 아래와 같이 설치할 수 있다.
 ```
 is –f $ALTIBASE_HOME/packages/dbms_shard.sql
 is –f $ALTIBASE_HOME/packages/dbms_shard.plb
+is –f $ALTIBASE_HOME/packages/dbms_shard_get_diagnostics.sql
+is –f $ALTIBASE_HOME/packages/dbms_shard_get_diagnostics.plb
+is -f $ALTIBASE_HOME/packages/dbms_metadata.sql
+is -f $ALTIBASE_HOME/packages/dbms_metadata.plb
 ```
-DBMS_SHARD 패키지의 함수 및 프로시저에 대한 자세한 설명은 이 문서의 *DBMS_SHARD패키지* 설명을 참조한다.
 
 ### Zookeeper Administration
 
