@@ -246,9 +246,11 @@ Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)�
 ![](media/Sharding/sharding_replication_view.png)
 
 #### 알티베이스 샤딩의 업무 적용 범위
-- 데이터 유실없는 HA가 보장되어야 하는 업무이고,
-- 다수의 클라이언트가 대량데이터에 대하여 단순 OLTP (Online Transaction Processing) 처리를 하는 업무이고, 
-- 쿼리가 실행되는 순간에는 특정 하나의 샤드노드에서만 수행하면 결과가 도출되거나, 여러 샤드노드에서 연관관계없이 실행하고 단순이 합치기만 해서 결과가 도출되는 형태여야 한다. 
+- SQL 응용 프로그램을 사용하고,
+- 트랜잭션 ACID(Atomicity, Consistency, Isolation, and Durability)가 지켜져야 하며,
+- 데이타베이스 부하 증가시에 서버들을 수평확장하여, 전체 서버들을 모두 액티브 노드로 사용하는것이 필요하고,  
+- 데이터 유실없는 HA(High Availability)가 보장되어야 하며,
+- 단순 OLTP (Online Transaction Processing) 처리를 주로 하는 업무 
 
 #### 최적 경로의 쿼리 수행을 통한 분산 트랜잭션의 우수한 성능
 하나의 샤드 트랜잭션내의 다양한 쿼리들은 개별적으로 최적의 경로로 수행될수 있어서, 분산 트랜잭션의 성능이 우수하다.
