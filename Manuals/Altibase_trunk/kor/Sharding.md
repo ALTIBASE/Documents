@@ -550,7 +550,8 @@ Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설�
 기존의 설치된 Altibase를 샤드 노드로 설정하기 위해서는 다음 과정이 선행되어야 한다.
 -   sharded database 생성
 -   샤딩관련 프로퍼티 설정 : SHARD_ENABLE 및 기타 샤딩관련 프라퍼티를 설정한다.
--   샤드 패키지 생성 : DBMS_SHARD 패키지를 생성한다.
+-   샤딩관련 패키지 생성 : DBMS_SHARD 패키지 및 기타 샤딩관련 패키지를 생성한다.
+-   Zookeeper 설정
 
 ##### sharded database 생성 
 논리적으로 하나인 sharded database를 생성하기 위해서는, 각 샤드 노드별로 sharded database의 일부 조각인 샤드 데이터베이스를 생성해야한다. 
