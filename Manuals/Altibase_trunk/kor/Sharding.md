@@ -192,7 +192,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 서버측 샤딩(server-side sharding)
 
-![](media/Sharding/39b805a11697d8b7669b42bb61efc037.png)
+![](media/Sharding/server-side-sharding.png)
 
 서버측 샤딩은 응용프로그램들과 호환하기 위하여 분할된 데이터베이스를 통합하는 코디네이터(coordinator)가 필요하다. 코디네이터는 응용프로그램에서 요청 받은 질의처리에 필요한 데이터의 위치를 파악하고, 해당하는 샤드 노드들에 질의를 분산 처리하여 그 결과를 통합하여 반환한다.
 
@@ -205,7 +205,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 -   SQL 작성 시점 샤딩  
     응용프로그램에서 쿼리를 작성(혹은 생성)할 때 수행할 노드를 지정하는 방식이다. 다른 노드에 접근하기 위해서는 쿼리를 재작성(혹은 재생성)해야 한다.
 
-![](media/Sharding/c692bfbc33bf556ad6ed199b492dffd1.png)
+![](media/Sharding/client-side-sharding.png)
 
 클라이언트측 샤딩은 클라이언트에서 데이터가 위치한 샤드노드를 미리 알고, 해당 샤드노드에 직접 접속하여 처리하는 구조이다. 이 구조는 샤드노드 추가에 따른 코디네이터 부하 한계로 인한 제약점이 없다는 장점이 있다. 
 
@@ -246,11 +246,10 @@ Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)�
 ![](media/Sharding/sharding_replication_view.png)
 
 #### 알티베이스 샤딩의 업무 적용 범위
-- SQL 응용 프로그램을 사용하고,
-- 트랜잭션 ACID(Atomicity, Consistency, Isolation, and Durability)가 지켜져야 하며,
-- 데이타베이스 부하 증가시에 서버들을 수평확장하여, 전체 서버들을 모두 액티브 노드로 사용하는것이 필요하고,  
-- 데이터 유실없는 HA(High Availability)가 보장되어야 하며,
-- 단순 OLTP (Online Transaction Processing) 처리를 주로 하는 업무 
+- shard nothing 환경에서 여러대의 서버를 모두 active 하게 활용하여,
+- 트랜잭션 ACID(Atomicity, Consistency, Isolation, and Durability)가 보장되어야 하고,
+- 데이터 유실없는 HA(High Availability)가 보장되어야 하는,
+- OLTP(Online Transaction Processing) 처리를 주로 하는 업무 
 
 #### 최적 경로의 쿼리 수행을 통한 분산 트랜잭션의 우수한 성능
 하나의 샤드 트랜잭션내의 다양한 쿼리들은 개별적으로 최적의 경로로 수행될수 있어서, 분산 트랜잭션의 성능이 우수하다.
