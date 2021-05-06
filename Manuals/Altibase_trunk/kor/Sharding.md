@@ -661,39 +661,39 @@ is -f $ALTIBASE_HOME/packages/dbms_metadata.plb
 Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한다.
 - (W) : watch를 걸 디렉토리
 - (E) : data 없이 비어있는 디렉토리
-- (ep) : ephemeral Node
+- (ep) : ephemeral node
 
 | root path          | sub path               | 2nd sub path            | 3rd sub path                                                 | 설명                                                         |
 | ------------------ | ---------------------- | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | /altibase_shard(E) | /cluster_meta(E)       |                         |                                                              | 클러스터  메타                                               |
-|                    |                        | /validation(E)          |                                                              | cluster의 모든 참석 노드가 동일하게 가지고 있어야 하는 값이다. 해당 값이 다를 경우 샤딩에 참여할 수 없다. |
-|                    |                        |                         | /sharded_database_name                                       | DB  생성시 입력한 DB의 이름                                  |
-|                    |                        |                         | /k-safety                                                    | 복사본의 수                                                  |
-|                    |                        |                         | /replication_mode                                            | consistent(12) / ackwait(11) / notwait(10) 중 하나           |
-|                    |                        |                         | /character_set                                               | DB 생성시 입력한 character set                               |
-|                    |                        |                         | /national_character_set                                      | DB 생성시 입력한 national character set                      |
-|                    |                        |                         | /binary_version                                              | 알티베이스의 binary version(sm version)                      |
-|                    |                        |                         | /shard_version                                               | 알티베이스의 shard version                                   |
-|                    |                        |                         | /parallel_count                                              | 이중화 복제를 처리하는 applier의 수                          |
-|                    |                        |                         | /trans_TBL_size                                              | 트랜잭션 테이블의 크기                                       |
-|                    |                        | /SMN                    |                                                              | 현재 정상 서비스를 제공하는 클러스터의 SMN                   |
-|                    |                        | /failover_history       |                                                              | 장애 발생 기록 : 장애가 발생한 (노드 이름 : 장애 발생시 SMN )를 리스트로 관리한다. |
-|                    |                        | /fault_detection_time   |                                                              | 아직  처리하지 않은 장애 중 첫 장애가 발생한 시간            |
-|                    |                        | /zookeeper_meta_lock(E) | /locked(ep)                                                  | zookeeper의 클러스터 메타를 변경하는 작업을 수행시 사용하는 lock이다. lock을 잡았을 때 locked라는  path를 임시 노드로 생성한다.  lock을 잡는 노드와 해당  session의 ID를 값으로 가지며, 해당 값이 모두 동일한 대상이 lock을 잡으러 들어올 경우 lock을 잡은것으로 취급한다. |
-|                    |                        | /shard_meta_lock(E)     | /locked(ep)                                                  | 샤드 메타를 변경하는 작업을 수행시 사용하는  lock이다. lock을 잡았을 때 locked라는 path를 임시 노드로 생성한다. lock을 잡는 노드와 해당 Tx의 ID를 값으로 가지며, 해당 값이 모두 동일한 대상이 lock을 잡으러 들어올 경우 lock을 잡은것으로 취급한다. |
-|                    | /node_meta(E)          |                         |                                                              | 각 노드들의 메타 데이터이다. node_name별로 하위 path로 관리된다. |
-|                    |                        | /node_name1(E)          |                                                              | 해당  노드의 이름(중복 불가)                                 |
-|                    |                        |                         | /shard_node_id                                               | 해당 노드의 식별자 ID                                        |
-|                    |                        |                         | [/node_ip:port](http://node_ipport/)                         | 해당 노드의 외부 IP 및 Port                                  |
-|                    |                        |                         | [/internal_node_ip:port](http://internal_node_ipport/)       | 해당 노드의 내부 IP 및 Port                                  |
-|                    |                        |                         | [/internal_replication_host_ip:port](http://internal_replication_host_ipport/) | 해당 노드의 replication 내부 IP 및 Port                      |
-|                    |                        |                         | /conn_type                                                   | 해당 노드의 internal 연결 방식                               |
-|                    |                        |                         | /state                                                       | add / run / shutdown / join / failover / failback 중 하나    |
-|                    |                        |                         | /failoverTo                                                  | 해당 노드에 장애가 발생해  failover가 발생했을 경우 해당 노드의 데이터를 failover한  노드의 이름이다. failover가 완료된 후에 적는다.  해당 노드에  failover가 발생하지 않았을 경우나  failback이 완료된 경우에는 비어있다. |
-|                    |                        | ...                     |                                                              |                                                              |
-|                    | /connection_info(W)(E) | /node_name1(ep)(E)      |                                                              | 샤드노드가 접속되면, ephemeral 로 자동 생성되며, 접속이 끝어지면 자동으로 삭제된다. 어떤 샤드노드가 비정상종료하면, 삭제 이벤트가 발생하고, 이 이벤트를 다른 샤드노드들에서 감지한 후에, failover 동작이 개시된다. |
+|                    |                        | /validation(E)          |                                                              | 본 경로 이하의 데이터는 cluster의 모든 참석 노드가 동일하게 가지고 있어야 하는 값이다. 해당 값이 다를 경우 샤딩에 참여할 수 없다. |
+|                    |                        |                         | /sharded_database_name                                       | 개별 DB 생성시 입력한 DB의 이름 |
+|                    |                        |                         | /k-safety                                                    | 복사본의 수 |
+|                    |                        |                         | /replication_mode                                            | 12: consistent (현재 consistent mode 하나만을 지원한다.) |
+|                    |                        |                         | /character_set                                               | DB 생성시 입력한 character set |
+|                    |                        |                         | /national_character_set                                      | DB 생성시 입력한 national character set |
+|                    |                        |                         | /binary_version                                              | 알티베이스 binary version(sm version) |
+|                    |                        |                         | /shard_version                                               | 알티베이스 shard version |
+|                    |                        |                         | /parallel_count                                              | 이중화 복제를 처리하는 applier의 수 |
+|                    |                        |                         | /trans_TBL_size                                              | 트랜잭션 테이블의 크기 |
+|                    |                        | /SMN                    |                                                              | 현재 서비스하는 클러스터의 SMN |
+|                    |                        | /failover_history       |                                                              | 장애 발생 기록 : 장애가 발생한 이력(노드 이름 : 장애 발생시 SMN )을 리스트로 관리한다. |
+|                    |                        | /fault_detection_time   |                                                              | 아직 처리하지 않은 장애 중 첫 장애가 발생한 시간            |
+|                    |                        | /zookeeper_meta_lock(E) | /locked(ep)                                                  | zookeeper의 클러스터 메타를 변경하는 작업을 수행시 사용하는 lock이다. lock을 잡았을 때 locked라는  path를 ephemeral node로 생성한다. lock을 잡는 샤드노드와 session ID를 값으로 가지며, 해당 값이 모두 동일한 작업이 lock을 잡으러 들어올 경우 lock을 이미 잡은것으로 판단한다. |
+|                    |                        | /shard_meta_lock(E)     | /locked(ep)                                                  | 샤드 메타를 변경하는 작업을 수행시 사용하는 lock이다. lock을 잡았을 때 locked라는 path를 ephemeral node로 생성한다. lock을 잡는 샤드노드와 Tx ID를 값으로 가지며, 해당 값이 모두 동일한 작업이 lock을 잡으러 들어올 경우 lock을 잡은것으로 판단한다. |
+|                    | /node_meta(E)          |                         |                                                              | 각 노드들의 메타 데이터이다. node name별로 하위 path로 관리된다. |
+|                    |                        | /node_name1(E)          |                                                              | 해당 노드의 node name (중복 불가) |
+|                    |                        |                         | /shard_node_id                                               | 해당 노드의 node ID (중복 불가) |
+|                    |                        |                         | [/node_ip:port](http://node_ipport/)                         | 해당 노드의 외부 IP 및 Port |
+|                    |                        |                         | [/internal_node_ip:port](http://internal_node_ipport/)       | 해당 노드의 내부 IP 및 Port |
+|                    |                        |                         | [/internal_replication_host_ip:port](http://internal_replication_host_ipport/) | 해당 노드의 replication 내부 IP 및 Port |
+|                    |                        |                         | /conn_type                                                   | 해당 노드의 internal 연결 방식 |
+|                    |                        |                         | /state                                                       | add / run / shutdown / join / failover / failback 중 하나 |
+|                    |                        |                         | /failoverTo                                                  | 해당 노드에 장애가 발생해 failover가 발생했을 경우 해당 노드의 데이터를 failover 해간 노드의 이름이 failover가 완료된 후에 기록된다. 해당 노드에 failover가 발생하지 않았을 경우나 failback이 완료된 경우에는 비어있다. |
+|                    |                        | ...                     |                                                              | 샤드노드별로 위의 내용이 반복된다. |
+|                    | /connection_info(W)(E) | /node_name1(ep)(E)      |                                                              | 샤드노드가 접속되면, ephemeral 로 자동 생성되며, 접속이 끝어지면 자동으로 삭제된다. 어떤 샤드노드가 비정상종료하면, 삭제 이벤트가 발생하고, 이 이벤트를 다른 샤드노드들에서 감지하여 failover 동작이 개시된다. |
 |                    |                        | /node_name2(ep)(E)      |                                                              |                                                              |
-|                    |                        | ...                     |                                                              |                                                              |
+|                    |                        | ...                     |                                                              | 클러스터에 접속된 모든 샤드노드별로 하나씩 생성된다. |
 
 ### Sharding Backup and Recovery
 
@@ -707,7 +707,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 - 논리적 백업/복구 고려사항
   - 샤딩클러스터에 참여된 상태에서는 기본적으로 쿼리 수행은 특정 노드를 대상으로 하지 않고, 전체 클러스터를 대상으로 한다.
   - 샤딩클러스터에 참여된 상태에서도 NODE[META] 샤드 키워드를 사용하면, 쿼리 수행은 사용자 세션이 접속한 샤드 노드로 대상이 국한된다.
-  - iLoader에서도 NODE[META] 샤드 키워드를 사용할 수 있으며, 이에 대한 내용은 iLoader 매뉴얼을 참고한다.
+  - iLoader에서도 NODE[META] 와 NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)] 등의 shard keyword를 사용할 수 있으며, 이에 대한 내용은 iLoader 매뉴얼을 참고한다.
 - 오프라인 백업/복구 고려사항
   - 오프라인백업 및 복구시에 xlogfile들도 백업 및 복구해야 한다.
   - 샤딩클러스터 전체 노드들에 대하여, 한꺼번에 오프라인백업을 한 경우에는, 샤딩클러스터 전체 노드에 대하여 한꺼번에 복구하는 용도로 사용할수 있다. 
@@ -817,9 +817,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 - table function
 
 #### 미지원 PSM 기능
-- reference cursor
-- autonomous transaction
-- user defined type
+본 매뉴얼의 PSM Restriction 항목을 참고한다.
 
 #### 연결 제약조건
 -   샤드 전용 클라이언트 라이브러리를 사용하여야 하이브리드 샤딩방식이 적용된다. 샤드 전용 클라이언트 라이브러리를 사용하지 않으면 서버측 샤딩방식으로만 동작한다.
