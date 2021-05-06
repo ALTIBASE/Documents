@@ -628,7 +628,8 @@ is -f $ALTIBASE_HOME/packages/dbms_metadata.plb
 - zoo.cfg에 존재하는 모든 Zookeeper 서버를 각각의 노드에서 개별적으로 start 시켜 주어야 한다.
 - \$ALTIBASE_HOME/ZookeeperServer/bin의 zkCli.sh 스크립트를 사용해 정상적으로 연결되었는지 체크한다.
 - Zookeeper server는 샤드노드와 상관없이 구성될 수 있다. 
-  - 이런 경우에는 Altibase 소프트웨어 패키지만 설치 후에, Altibase 데이타베이스는 생성하지 않고, Altibase 소프트웨어 패키지 내부에 있는 Zookeeper 소프트웨어만을 이용하여 구성하면 된다. 
+  - Altibase 소프트웨어 패키지만 설치 후에, 데이타베이스는 생성하지 않고, Altibase 소프트웨어 패키지 내부에 있는 Zookeeper 소프트웨어만을 이용하여 구성할 수 있다.
+  - Altibase 소프트웨어 패키지와 상관없이, Zookeeper 소프트웨어만을 설치해서 구성할 수도 있다.
 
 #### Zookeeper client 사용
 - 샤드 노드들의 Altibase 서버가 Zookeeper client로 동작한다.
@@ -653,7 +654,7 @@ is -f $ALTIBASE_HOME/packages/dbms_metadata.plb
 - Zookeeper native client C library는 리눅스만 지원하고, Altibase server는 Zookeeper native client C library를 이용하여, Zookeeper에 클라이언트로서 접속하도록 되어 있다. 즉, 샤딩을 지원하는 알티베이스는 리눅스만 지원한다.
 - Zookeeper server는 절반 이상이 살아있을때만 정상작동 하며 그 이하의 서버만 살아있을 경우 절반 이상이 될때까지 client의 요청을 무시한다.
 - Zookeeper의 path에는 한개의 값만 존재할 수 있다. 단, 하위 path는 다수가 존재 할 수 있다.(동일 이름은 불가능하다)
-- 각 Zookeeper client는, 즉, 개별적인 Altibase 서버는, zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다. 해당 Zookeeper server와의 연결이 끊어지면, 자동으로 다른 Zookeeper server와 연결을 시도한다.
+- 각 Zookeeper client(즉, 개별적인 Altibase 서버)는 zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다. 해당 Zookeeper server와의 연결이 끊어지면, 자동으로 다른 Zookeeper server 들 중에 하나와 연결을 시도한다.
 - Zookeeper 의 snapshot files 혹은 transactional log files 에 corruption 이 발생한 경우의 troubleshooting 은  https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html#sc_troubleshooting 을 참고한다.
 
 #### Zookeeper 샤딩 클러스터 메타 데이터
