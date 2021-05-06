@@ -745,16 +745,16 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 
 ### Altibase Sharding Sizing
 
-#### stand-alone 사이즈 대비, 단일 샤드노드의 sizing
+#### 전체 시스템을 stand-alone 으로 구성할때의 사이즈에 대비하여 단일 샤드 노드의 sizing
 - CPU size per node
-  - (CPU size for stand-alone) * ((k-safety + 1) / (number of nodes))
+  - (CPU size for stand-alone) * (k-safety + 1) / (number of nodes)
 - disk size per node
-  - (disk size for stand-alone) * ((k-safety + 1) / (number of nodes))
+  - (disk size for stand-alone) * (k-safety + 1) / (number of nodes)
 - memory size per node
-  - ((memory size for stand-alone) * ((k-safety + 1) / (number of nodes))) + ((number of sessions per node) * (memory size per session))
-  - statements를 위한 메모리는 개별 statement가 끝나면 메모리에서 해제되므로, 위 메모리 산정공식에는 별도로 기재되지 않았음.
+  - ((memory size for stand-alone) * (k-safety + 1) / (number of nodes)) + ((number of sessions per node) * (memory size per session))
+  - statements를 위한 메모리는 개별 statement가 끝나면 메모리에서 해제되므로, 위 메모리 산정공식에는 별도로 기재하지 않았습니다.
 - network size per node
-  - (network size for stand-alone) * ((k-safety + 1) / (number of nodes)) * 2
+  - 2 * (network size for stand-alone) * (k-safety + 1) / (number of nodes)
   - select시 노드간 데이타 전송량 고려하였습니다.
 
 #### Number of sessions per node
@@ -797,6 +797,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 - global unique constraint
 - global non-partitioned index
 - global secondary index
+- global foreign-key
 - geometry/encryption/compression column type
 - updatable view
 - materialized view
