@@ -332,7 +332,7 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 ### Altibase Sharding Terminology
 
 #### 샤드 노드(shard node) 
-샤딩 시스템을 구성하는 각각의 데이터베이스 인스턴스이다. 최대 128개의 샤드 노드를 지원한다.
+샤딩 시스템을 구성하는 전체 데이터들이 분산되어 저장되는 개별적인 데이터베이스들이다. 최대 128개의 샤드 노드를 지원한다.
 
 #### sharded database
 여러개의 샤드 노드들로 구성된 사용자 입장에서 논리적으로 하나인 데이터베이스를 sharded database 라고 한다. 
@@ -516,7 +516,7 @@ SELECT * FROM s1 order by k1;
 레플리카 셋(Replica Set)이란 Altibase Sharding 시스템에서 무중단 서비스를 제공하기 위해 생성한 복제(Replication)들의 관계를 저장한 객체이다.
 
 #### K-safety
-K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은 0, 1 또는 2의 값을 가질 수 있으며, 샤드데이터가 복제된 갯수를 나타낸다. 이러한 복제들은 장애가 발생한 샤드노드에 대한 fail-over를 수행할 수 있도록 한다.
+K-safety는 장애 감내(fault tolerance)를 위하여 샤드데이터를 복제하는 갯수를 지정한다. k-safety는 0, 1 또는 2의 값을 가질 수 있으며, 이러한 복제들은 장애가 발생한 샤드노드에 대한 fail-over를 수행할 수 있도록 한다.
 
 #### 리샤딩 (Resharding)
 리샤딩이란 서비스 운영 중에 데이터 일부를 하나의 샤드 노드에서 다른 샤드 노드로 이동하는 것을 말한다.
@@ -529,7 +529,7 @@ K-safety는 장애 감내(fault tolerance) 허용값를 의미하며, 이 값은
 ### Altibase Administration
 
 #### Altibase Sharding platform
-Altibase Sharding은 아래의 platform 지원한다.
+Altibase Sharding은 아래의 platform 들을 지원한다.
 | OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
 | ----- | ---------------------------- | --------------- | ------------ | ------------ |
 | LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit       |
@@ -543,9 +543,9 @@ Altibase Sharding은 아래의 platform 지원한다.
 - $ALTIBASE_HOME/ZookeeperServer directory
   Zookeeper 프로그램이 위치한다.
 - $ALTIBASE_HOME/conf/altibase.properties.shard file
-  샤드 환경에서의 권장 설정값들이 기록되는 파일들이다.
+  샤드 환경에서의 권장 설정값들이 기록되는 파일이다.
 - $ALTIBASE_HOME/trc/altibase_sd.log
-  샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
+  샤드 관련 경고 메시지나 트레이스 메시지 등이 기록되는 파일이다.
 
 #### Altibase Installation
 Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설치를 완료한 후에 아래와 같은 샤딩 환경 설정을 하면 된다.
@@ -558,9 +558,9 @@ Altibase 패키지 인스톨러를 이용하여 Altibase 소프트웨어의 설�
 -   Zookeeper 설정
 
 ##### sharded database 생성 
-논리적으로 하나인 sharded database를 생성하기 위해서는, 각 샤드 노드별로 sharded database의 일부 조각인 샤드 데이터베이스를 생성해야한다. 
-- 샤드 데이터 베이스 생성 시에는 기존 데이터 베이스 생성과 동일하며 모든 샤드 노드의 데이터 베이스 생성은 동일하게 이뤄져야한다. 
-- 샤드 데이터베이스를 생성 시에 입력된 데이터 베이스 이름은 논리적으로 하나인 sharded database 이름으로써, 모든 샤드 노드별 데이터베이스가 동일한 이름을 갖아야 한다. 
+논리적으로 하나인 sharded database를 생성하기 위해서는, 각 샤드 노드별로 sharded database의 일부 조각인 개별적인 데이터베이스들을 생성해야한다. 
+- 샤딩을 위하여 개별 데이터베이스를 생성시에, 모든 샤드 노드의 개별 데이터베이스 생성은 동일하게 이뤄져야한다. 
+- 개별 데이터베이스를 생성시에 입력된 데이터베이스 이름은 논리적으로 하나인 sharded database 이름으로 사용되므로, 모든 샤드 노드별 데이터베이스가 동일한 이름을 갖아야 한다. 
 - create database *my_sharded_db_name* INITSIZE=10M noarchivelog character set *UTF8* national character set *UTF8*;
   이탤릭체로 표시된 부분과 *TRANSACTION_TABLE_SIZE* 는 모든 샤드 노드에서 동일해야한다.
 
@@ -582,9 +582,9 @@ SHARD_ENABLE 프로퍼티 이외에도, 여러가지 샤딩관련 프라퍼티�
 
 ##### 샤딩관련 패키지 생성
 - 샤딩관련 패키지는 \$ALTIBASE_HOME/packages에 있으며, installer를 이용하여 알티베이스를 설치시에는 기본으로 설치된다.
-  - DBMS_SHARD (참고: 본 매뉴얼내에 상세 설명이 있음.)
-  - DBMS_SHARD_GET_DIAGNOSTICS (참고: 본 매뉴얼내에 상세 설명이 있음.)
-  - DBMS_METADATA (참고: Stored Procedures 매뉴얼내에 상세 설명이 있음.)
+  - DBMS_SHARD (참고: 본 매뉴얼에 상세 설명이 있음.)
+  - DBMS_SHARD_GET_DIAGNOSTICS (참고: 본 매뉴얼에 상세 설명이 있음.)
+  - DBMS_METADATA (참고: Stored Procedures 매뉴얼에 상세 설명이 있음.)
 - 만약, 위의 패키지들이 설치되어 있지 않으면, 아래와 같이 설치할 수 있다.
 ```
 is –f $ALTIBASE_HOME/packages/dbms_shard.sql
@@ -601,39 +601,40 @@ is -f $ALTIBASE_HOME/packages/dbms_metadata.plb
 - \$ALTIBASE_HOME 하위에서 ZookeeperServer.tar.gz 가 존재한다. 이것은 Zookeeper 3.5.6 버전이다. 샤딩에서는 이 버전의 Zookeeper를 사용해야 한다.
 - 인스톨러를 이용하여 설치하는 경우에는 \$ALTIBASE_HOME 하위에 ZookeeperServer 디렉토리가 있고, 이곳에 이미 Zookeeper 화일들이 존재할것이다.
 - 만일, \$ALTIBASE_HOME 하위에  ZookeeperServer 디렉토리가 없다면, \$ALTIBASE_HOME 디렉토리에서 tar -xvf ZookeeperServer.tar.gz 명령을 사용하여 Zookeeper 화일들을 풀어 주어야 한다. 
-- Altibase Sharding은 Zookeeper 3.5.6 버전을 사용해야 한다.
-- Zookeeper 관리를 위한 자세한 내용은 https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html 를 참고한다.
-- Zookeeper server의 3.5.6 버전의 binary는 \$ALTIBASE_HOME/ZookeeperServer에 존재하며 따로 설치 할 필요는 없다.
+- Zookeeper 관리를 위한 자세한 내용은 https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html 를 참고한다. 본 매뉴얼에서는 Zookeeper 설정을 위한 기본적인 내용만 다룬다.
 - Zookeeper server를 사용하기 위해서는 JDK 1.8 이상 버전을 사용해야 한다.
 - \$ALTIBASE_HOME/ZookeeperServer/conf에 zoo.cfg를 생성한다.(zoo_sample.cfg를 복사해 필요한 부분만 바꿔 사용해도 된다.)
   - tickTime : The number of milliseconds of each tick
   - initLimit : The number of ticks that the initial synchronization phase can take
   - syncLimit : The number of ticks that can pass between sending a request and getting an acknowledgement
-  - clientPort : Zookeeper 연결을 위한 port. 다수의 Zookeeper 서버가 기본적으로는 동일한 port를 사용해야 한다.
-  - server.X : Zookeeper 서버의 IP와 내부 연결 port. 모든 장비에서 동일한 순서를 사용해야 한다. server의 숫자는 최소 3개, 최대 7개로 그 외의 경우 에러가 발생한다.
+  - clientPort : Zookeeper 연결을 위한 port 이다. 다수의 Zookeeper 서버가 기본적으로는 동일한 port를 사용해야 한다.
+  - server.X : Zookeeper 서버의 IP와 내부 연결 port 이다. 모든 장비에서 동일한 순서를 사용해야 한다. 샤딩에서는 Zookeeper 서버는 3개, 5개, 7개 중에 하나로 구성하는 것으로 제한한다.
     - 예제 
       - server.1=192.168.1.10:2888:3888
       - server.2=192.168.1.11:2888:3888
       - server.3=192.168.1.12:2888:3888
-  - dataDir : Zookeeper 데이터가 저장될 path. Zookeeper server를 사용하지 않고 client만 사용할 것이라면 없어도 상관 없다.(절대 경로를 사용해야 한다.)
-    - zoo_sample.cfg 에서는 예제의 목적으로만 dataDir=/tmp/zookeeper 로 설정되어 있다. /tmp 디렉토리의 내용은 시스템 부팅시에 삭제되므로, 필수적으로 안전한 곳으로 재지정이 필요하다.
-- Zookeeper 서버를 사용하지 않고 client로만 사용하는 경우에도 zoo.cfg 파일에서 정보를 가져온다.
+  - dataDir : Zookeeper 데이터가 저장될 path 이다. 절대 경로를 사용해야 한다.
+    - 해당 샤드 노드는 Zookeeper client로만 사용된다면, 해당 경로에 실제 데이타들은 생성되지 않는다.
+    - zoo_sample.cfg 은 예제의 목적으로 dataDir=/tmp/zookeeper 로 설정되어 있다. /tmp 디렉토리의 내용은 시스템 부팅시에 삭제되므로, 필수적으로 안전한 경로로 재지정이 필요하다.
+- Altibase 서버 구동시에 Zookeeper client로서 Zookeeper server에 접속하기 위한 정보를 zoo.cfg 파일에서 가져온다.
 
 #### Zookeeper server 사용
 - zoo.cfg에 저장된 dataDir에 접근해 server ID명을 데이터로 가지는 myid라는 이름의 파일을 생성한다.
-  - 예제
+  - 위의 server.X 설정 예제를 사용하여 구성시에 아래와 같이 myid라는 파일을 생성한다.
     - 192.168.1.10 장비의 dataDir에 "1"이라는 데이터를 가지는 myid라는 파일을 생성한다.
     - 192.168.1.11 장비의 dataDir에 "2"이라는 데이터를 가지는 myid라는 파일을 생성한다.
     - 192.168.1.12 장비의 dataDir에 "3"이라는 데이터를 가지는 myid라는 파일을 생성한다.
 - \$ALTIBASE_HOME/ZookeeperServer/bin의 zkServer.sh 스크립트를 사용해 서버를 띄운다.(zkServer.sh start를 수행한다.)
-- zoo.cfg에 존재하는 모든 서버를 마찬가지로 띄운다.
+- zoo.cfg에 존재하는 모든 Zookeeper 서버를 각각의 노드에서 개별적으로 start 시켜 주어야 한다.
 - \$ALTIBASE_HOME/ZookeeperServer/bin의 zkCli.sh 스크립트를 사용해 정상적으로 연결되었는지 체크한다.
+- Zookeeper server는 샤드노드와 상관없이 구성될 수 있다. 
+  - 이런 경우에는 Altibase 소프트웨어 패키지만 설치 후에, Altibase 데이타베이스는 생성하지 않고, Altibase 소프트웨어 패키지 내부에 있는 Zookeeper 소프트웨어만을 이용하여 구성하면 된다. 
 
 #### Zookeeper client 사용
 - 샤드 노드들의 Altibase 서버가 Zookeeper client로 동작한다.
 - SHARD DDL(alter database shard add / join / failback) 구문 사용시, 샤드 노드들의 Altibase 서버가 Zookeeper client로서 자동으로 Zookeeper server에 연결한다.
-- Zookeeper server에 접속이 된 이후에는, Zookeeper server와 통신이 안될 경우, 해당 샤드노드의 알티베이스 서버가 죽는다.
-- tickTime \* syncLimit 시간 이상 연결이 되지 않을 경우, 연결이 끊긴 것으로 판단한다.
+- Zookeeper server에 접속이 된 이후에는, Zookeeper server와 통신이 안될 경우, 해당 샤드노드의 알티베이스 서버는 스스로 shutdown 한다.
+- tickTime \* syncLimit 시간동안 연결이 되지 않을 경우, 연결이 끊긴 것으로 판단한다.
 - zkCli.sh : Zookeeper server에서 기본적으로 제공하는 client 프로그램으로 간단하게 데이터를 체크할 수 있다.
   - 기본적으로 zkCli.sh만 실행할 경우 localhost:2181에 연결되며 이를 변경하고 싶을 경우 -server 옵션으로 서버명(혹은 IP)와 port를 넣으면 된다.
   - [명령어 /path]의 형태로 명령을 내릴수 있으며 path는 반드시 full path여야 하며 마지막에 /가 들어가면 안된다.
@@ -652,7 +653,7 @@ is -f $ALTIBASE_HOME/packages/dbms_metadata.plb
 - Zookeeper native client C library는 리눅스만 지원하고, Altibase server는 Zookeeper native client C library를 이용하여, Zookeeper에 클라이언트로서 접속하도록 되어 있다. 즉, 샤딩을 지원하는 알티베이스는 리눅스만 지원한다.
 - Zookeeper server는 절반 이상이 살아있을때만 정상작동 하며 그 이하의 서버만 살아있을 경우 절반 이상이 될때까지 client의 요청을 무시한다.
 - Zookeeper의 path에는 한개의 값만 존재할 수 있다. 단, 하위 path는 다수가 존재 할 수 있다.(동일 이름은 불가능하다)
-- 각 Zookeeper client는 zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다.
+- 각 Zookeeper client는, 즉, 개별적인 Altibase 서버는, zoo.cfg에 있는 Zookeeper server 들 중 무작위로 하나를 선택해 연결한다. 해당 Zookeeper server와의 연결이 끊어지면, 자동으로 다른 Zookeeper server와 연결을 시도한다.
 - Zookeeper 의 snapshot files 혹은 transactional log files 에 corruption 이 발생한 경우의 troubleshooting 은  https://zookeeper.apache.org/doc/r3.5.5/zookeeperAdmin.html#sc_troubleshooting 을 참고한다.
 
 #### Zookeeper 샤딩 클러스터 메타 데이터
