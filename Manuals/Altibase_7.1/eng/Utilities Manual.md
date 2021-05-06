@@ -2744,7 +2744,7 @@ The user should select the Java version equivalent to the number of bits of the 
 
 #### Setting altiMon Configuration 
 
-It is required that the following files located in the $ALTIBASE_HOME/altiMon/conf directory should be configured in order to properly use altiMon
+It is required that the following files located in the $ALTIBASE_HOME/altiMon/conf directory should be configured in order to properly use altiMon.
 
 -   [config.xml](#config.xml)
 
@@ -3406,7 +3406,7 @@ When checkServer is executed, it creates the files checkServer.pid and checkServ
 
 If checkServer is terminated abnormally, for example by using the command kill -9, the checkServer.pid file will not be deleted from the $ALTIBASE_HOME/trc directory. As long as this file remains in that directory, it will prevent checkServer from being executed again.
 
-To terminate checkServer normally, use the killcheckServer utility
+To terminate checkServer normally, use the killcheckServer utility.
 
 #### Note
 
@@ -4357,7 +4357,7 @@ END-STACK =======================================
 
 ```
 
-<Example 4>  Output a call stack from trc log of a different directory
+<Example 4>  Output a call stack from trc log of a different directory.
 
 ```
 $ dumptrc -p /home/djin/work/altidev4/trunk/altibase_home/trc -c -n 20
