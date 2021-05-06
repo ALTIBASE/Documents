@@ -32,7 +32,7 @@ Altibase Tools & Utilities iLoader User's Manual
 
 Altibase Application Development Monitoring API Developer's Guide
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -943,7 +943,7 @@ The options -S server_name, -U user_name, -P password, and -PORT port_no must be
 
 ###### Remote Server Data
 
-Executing on remote server
+Executing on the remote server
 
 ```
 iSQL> CREATE TABLE department (
@@ -968,7 +968,7 @@ iSQL> INSERT INTO department VALUES (3001, 'operations', 'Sinchon', 9);
 
 ###### Remote Data Download
 
-Excuting on local server
+Excuting on the local server
 
 ```
 $ iloader formout -s 192.168.1.71 -u sys -p manager -port 20594 -T department -f dept.fmt
@@ -1002,7 +1002,7 @@ dept.dat   dept.fmt
 
 ###### Remote Data Upload
 
-Executing on local server
+Executing on the local server
 
 ```
 $ iloader in -s 192.168.1.71 -u sys -p manager -port 20594 -f dept.fmt -d dept.dat -mode replace
@@ -1394,7 +1394,7 @@ Error Row Count : 1
 
 ### About FORM Files
 
-A FORM file is similar to a Create Table statement in that contains information for iLoader about the attributes of a table with which data are to be exchanged. iLoader can be used to automatically create FORM files. They can also be directly edited to use the following additional options
+A FORM file is similar to a Create Table statement in that contains information for iLoader about the attributes of a table with which data are to be exchanged. iLoader can be used to automatically create FORM files. They can also be directly edited to use the following additional options.
 
 -   SEQUENCE *sequence_name column_name* [NEXTVAL \| CURRVAL ]
 
@@ -2348,7 +2348,7 @@ sys     0m2.990s
 
 **Question**
 
-When I use iLoader with the following FORM file, a parsing error occurs. What is the reason?
+When I use iLoader with the following FORM file, a parsing error occurs. What is the reason for this error?
 
 ```
 table TB_SPEC
@@ -2363,11 +2363,11 @@ table TB_SPEC
 
 **Answer**
 
- Since CONDITION is a reserved word in Altibase, a parsing error occurs.
+Because CONDITION is a reserved word in Altibase, a parsing error occurs.
 
 **Question**
 
-Whenever I use iLoader to upload data, I receive errors. I want detailed information about the errors. Can you tell me how to get it?
+Whenever I use iLoader to upload data, I receive errors. I want detailed information about the errors. Can you tell me how to get the information?
 
 **Answer**
 
