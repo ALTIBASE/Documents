@@ -303,9 +303,9 @@ iSQL> SELECT hash, count(*) FROM (SELECT mod(hash(user_id),1000)+1 hash FROM tab
 - 범위 분산 방식으로 데이터를 고르게 분산했더라도, 운영 중에 데이터가 변경됨으로써 불균형이 발생할 수 있기 때문에 지속적으로 데이터 분포의 모니터링이 필요하다.
 
 아래는 alphanumeric 의 샤드 키 값에 대한 임의의 범위 분산 설정 예시이다.
--   { record(x) \| (shard key value of x) \<= ‘9’ }        -\> 샤드 노드 1
--   { record(x) \| ‘9’ \< (shard key value of x) \<= ‘M’ } -\> 샤드 노드 2
--   { record(x) \| ‘M’ \< (shard key value of x) \<= ‘Z’ } -\> 샤드 노드 3
+-   { record(x) \| (shard key value of x) \< ‘9’ }        -\> 샤드 노드 1
+-   { record(x) \| ‘9’ \<= (shard key value of x) \< ‘M’ } -\> 샤드 노드 2
+-   { record(x) \| ‘M’ \<= (shard key value of x) \< ‘Z’ } -\> 샤드 노드 3
 
 범위 분산 방식 역시 데이터를 분산하기 전에 쿼리로 데이터의 분포를 예측할 수 있다.
 ```
@@ -353,10 +353,10 @@ Split brain 방지등의 샤딩 클러스터 관리를 위하여 Apache Zookeepe
 샤드 노드의 정보, 샤드 객체, 분산 설정 등 분산 정보가 저장되는 샤드 메타 테이블들의 데이터를 총칭하여 샤드 메타 데이터라고 한다. 샤드 메타 테이블들은 sys_shard 사용자의 객체로 관리된다.
 
 #### 샤드 코디네이터(shard coordinator) 
-분산된 데이터베이스를 통합하여 질의를 최적화하고 수행하는 분산 질의 처리기이다.
+분산된 데이터베이스를 통합하여 질의를 수행하는 분산 질의 처리기이다. 사용자 커넥션에서 접속한 샤드 노드에 생성된다.
 
 #### 파셜 코디네이터(partial coordinator) 
-non-shard DML 처리를 위한 분산 질의 처리기이다.
+non-shard DML 처리를 위한 분산 질의 처리기이다. 해당 DML의 대상이 되는 데이타가 존재하는 모든 샤드 노드들에 생성된다.
 
 #### 샤드 라이브러리(shard library) 
 하이브리드 샤딩을 지원하는 클라이언트 프로그램 라이브러리이다.
@@ -409,7 +409,7 @@ non-shard DML 처리를 위한 분산 질의 처리기이다.
   - 범위 분산 샤드키 테이블: RANGE 파티셔닝
   - 리스트 분산 샤드키 테이블: LIST 파티셔닝
 - 샤드키 테이블을 샤드객체로 등록시에 파티션별로 노드를 지정하도록 되어있다.
-- 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 수정할 수 있다.
+- 클론 테이블은 global_transaction_level 을 3 으로 설정한 경우에만 DML을 수행할 수 있다. select 는 global_transaction_level의 설정과 관련없이 수행할 수 있다.
 - 노드 추가시 리샤딩은 파티션 단위로만 할 수 있다. 그러므로, 향후 노드 확장을 고려하여, 파티션의 범위 및 갯수를 정하는 것이 좋다.
 - 샤드 테이블 분산객체로 등록은 아래 구문을 사용한다. 자세한 설명은 DBMS_SHARD 패키지를 참조한다.
   - DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY(...)
@@ -426,6 +426,11 @@ non-shard DML 처리를 위한 분산 질의 처리기이다.
   - DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY(...)
   - DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO(...)
   - DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE(...)
+
+#### sharded sequence
+Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
+- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
+- 동일 Node내에서는 순서는 보장한다.
 
 #### 샤드키(shard key)
 - 샤드키 테이블에 대한 샤드키는 데이터를 분산하는 기준이 되는 테이블의 컬럼이다.
@@ -485,7 +490,7 @@ SELECT * FROM s1 order by k1;
 샤드 쿼리 실행기는 클라이언트측 샤딩의 실행기와 서버측 샤딩의 실행기로 구분한다. 클라이언트측 샤딩의 실행기는 샤드 라이브러리에서 동작하며, 서버측 샤딩의 실행기는 샤드 노드에서 샤드 코디네이터를 통해서 동작한다.
 
 #### 샤드 트랜잭션(shard transaction)
-애플리케이션이 생성한 트랜잭션에서 수행하는 질의의 따라 샤드 노드들에 분산 트랜잭션을 생성하게 된다. 이 트랜잭션들을 샤드 트랜잭션이라고 한다.
+애플리케이션이 생성한 트랜잭션에서 수행하는 질의에 따라 샤드 노드들에 분산 트랜잭션을 생성하게 된다. 이 트랜잭션들을 샤드 트랜잭션이라고 한다.
 
 클라이언트측 샤딩으로 생성된 트랜잭션과 서버측 샤딩으로 생성된 트랜잭션을 하나의 트랜잭션으로 통합하여 수행한다.
 
@@ -502,9 +507,9 @@ SELECT * FROM s1 order by k1;
 - 분산 정의 변경은 노드 추가/제거, 샤드 객체 등록/해제 등의 변경을 말한다.
 - SMN은 다음의 세 가지 유형의 SMN이 존재한다. 
   - Meta SMN: 샤드 메타 데이터를 변경하는 트랜잭션 내부에서만 존재하고, 해당 트랜잭션이 COMMIT 이 되는 순간 Data SMN 에 적용이 된다.
-  - Data SMN: 데이터의 형상이 어떤 버전의 샤드 메타 기준으로 되어있는지에 대한 SMN
+  - Data SMN: 샤드 노드별로 데이터의 형상이 어떤 SMN 기준으로 되어있는지를 나타낸다.
   - Session SMN: 개별 세션이 인식하고 있는 SMN
-    - 각 세션은 최초 접속 시에 Data SMN을 자신의 Session SMN으로 할당받아 수행한다.
+    - 각 세션은 최초 접속 시에 해당 노드의 Data SMN을 자신의 Session SMN으로 할당받아 수행한다.
     - Data SMN이 변경되어 기존의 Session SMN과 다르게 되면, 자동으로 최신 Data SMN으로 Session SMN을 갱신한다.
 
 #### 레플리카 셋(Replica Set)
@@ -909,16 +914,21 @@ iSQL> SELECT count(*) FROM s1 WHERE shard_key(k1,1);
 
 #### Sharding Explain Plan
 Altibase Sharding 사용자는 iSQL의 Explain Plan 기능을 통해 쿼리가 수행되는 실행계획을 조회할 수 있다.
-- alter session set TRCLOG_DETAIL_SHARD = 1;
-  내부적으로 cache 된 plan을 사용하지 않고 새로이 plan을 생성한다.
-- alter session set TRCLOG_DETAIL_PREDICATE = 1;
-  SHARD-COORDINATOR가 특정 샤드 노드로 쿼리를 보내어 수행한 이력 및 플랜을 조회할 수 있다. 
+
+샤딩 상세 실행계획 조회시 아래와 같이 설정한 후에 해당 쿼리를 수행한다.
+- alter session set TRCLOG_DETAIL_SHARD = 1 ;
+  - 내부적으로 cache 된 plan을 사용하지 않고 새로이 plan을 생성한다.
+- alter session set TRCLOG_DETAIL_PREDICATE = 1 ;
+  - SHARD-COORDINATOR가 특정 샤드 노드로 쿼리를 보내어 수행한 이력 및 플랜을 조회할 수 있다. 
+- alter session set EXPLAIN PLAN = ON (or ONLY) ;
+
+샤딩 실행계획에서 추가된 항목들은 아래와 같다.
 - SHARD-COORDINATOR 실행노드
-  사용자가 입력한 쿼리 중 샤드 노드에서 수행할 쿼리를 수행하고, 그 결과를 통합하여 상위 실행노드로 전달한다.
+  - 사용자가 입력한 쿼리 중 샤드 노드에서 수행할 쿼리를 수행하고, 그 결과를 통합하여 상위 실행노드로 전달한다.
 - NON-SHARD QUERY REASON
-  사용자 쿼리를 논샤드 쿼리로 판단한 이유이다.
+  - 사용자 쿼리를 논샤드 쿼리로 판단한 이유이다.
 - QUERY TRANSFORMABLE
-  논샤드 쿼리에 대한 샤드 퀴리 변환 최적화 가능 여부(Yes/No)
+  - 논샤드 쿼리에 대한 샤드 퀴리 변환 최적화 가능 여부(Yes/No)
 
 #### Shard Keyword
 샤드 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다.
