@@ -1201,7 +1201,7 @@ DBMS_SHARD.SET_LOCAL_NODE(
 - shard_node_id: 지역 샤드 노드의 샤드 노드 식별자로 전체 클러스터 시스템에서 유일해야한다.
   - shard_node_id 값 범위: 1 \~ 9200
   - 기존 node drop 후에, 신규 node add 하는 경우에, 기존에 사용했던 shard_node_id 를 재사용하지 말고 신규로 번호를 부여하는 것이 좋다.
-  - 기존 shard_node_id 를 재사용하는 경우에, 기존 shard_node_id로 사용되던, sharded sequence가 있었다면, 동일한 sequence 를 생성하게 되는 문제가 있다.
+  - 기존 shard_node_id 를 재사용하는 경우에, 기존 shard_node_id로 사용되던, sharded sequence가 있었다면, 이미 발부했던 sequence를 다시 발부할 수 있게 되는 문제가 있다.
     - shard_node_id 를 재사용하고자 하는 경우에는, 해당 sharded sequence의 초기값을 기존에 발급되었던 값보다 큰 값으로 설정해주어야 한다.
 - node_name: 지역 샤드 노드에서 사용할 노드 이름을 입력하며, 샤드 노드 이름도 전체 클러스터 시스템에서 유일해야한다. node_name 은 모두 대문자로 처리된다.
 - host_ip: 지역 샤드 노드에서 서비스에 사용할 호스트 IP를 입력한다. 
@@ -2968,7 +2968,7 @@ FailoverSample.java의 코드는 “CREATE TABLE T1 (I1 VARCHAR(20), I2 INTEGER)
 - direct 옵션을 샤드 테이블에 대하여 사용할 수 없다.
   - k-safety 복제가 되지 않아, 샤딩 데이타정합성에 위배가 되기 때문이다.
 - geometry/encryption/compression column type 을 지원하지 않는다.
-- ssl 옵션을 사용할 수 없다.
+- SSL 옵션을 사용할 수 없다.
 - commit 1 옵션을 사용할 수 없다. (commit 1 에서 iLoader가 AUTOCOMMIT 모드로 동작하기 때문이다.)
 
 ### shardLoader
