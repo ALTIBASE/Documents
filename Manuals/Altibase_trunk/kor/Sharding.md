@@ -246,7 +246,7 @@ Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)�
 ![](media/Sharding/sharding_replication_view.png)
 
 #### 알티베이스 샤딩의 업무 적용 범위
-- shared nothing 환경에서 여러대의 서버를 모두 active 용도로 사용하며,
+- shared nothing 환경에서 여러대의 서버를 모두 active 용도로 사용하여,
 - 트랜잭션 ACID(Atomicity, Consistency, Isolation, and Durability)가 보장되어야 하고,
 - 데이터 유실없는 HA(High Availability)가 보장되어야 하는,
 - OLTP(Online Transaction Processing) 처리를 주로 하는 업무 
