@@ -332,7 +332,7 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 ### Altibase Sharding Terminology
 
 #### 샤드 노드(shard node) 
-샤딩 시스템을 구성하는 전체 데이터들이 분산되어 저장되는 개별적인 데이터베이스들이다. 최대 128개의 샤드 노드를 지원한다.
+샤딩 시스템을 구성하는 전체 데이터들이 분산되어 저장되는 개별적인 데이터베이스들이다.
 
 #### sharded database
 여러개의 샤드 노드들로 구성된 사용자 입장에서 논리적으로 하나인 데이터베이스를 sharded database 라고 한다. 
@@ -1602,6 +1602,7 @@ nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)
 - autonomous transaction pragma 를 지원하지 않는다.
 - 분산실행되는 query또는 procedure에서 package global variable을 지원하지 않는다.
   - 단, CONSTANT 속성이 있는 경우는 분산실행 되더라도 동일한 값을 갖는것이 보장되므로, 분산실행에 사용될 수 있다.
+  - global procedure에서 쿼리내부가 아닌곳에서 package global variable을 사용하는 것은 지원한다.
 
 #### 다중에러 처리
 - 다중에러 및 대표에러에 대한 설명은 [Multiple Error Handling](#multiple-error-handling)을 참고한다.
