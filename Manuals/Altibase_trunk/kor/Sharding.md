@@ -494,11 +494,11 @@ SELECT * FROM s1 order by k1;
 
 클라이언트측 샤딩으로 생성된 트랜잭션과 서버측 샤딩으로 생성된 트랜잭션을 하나의 트랜잭션으로 통합하여 수행한다.
 
-샤드 트랜잭션은 다음과 같이 분류할 수 있다.
+샤드 트랜잭션은 다음과 같이 분류할 수 있으며, GLOBAL_TRANSACTION_LEVEL 프라퍼티를 이용하여, system 및 session 별로 설정 및 변경할 수 있다.
 -   다중 노드 트랜잭션(multiple node transaction)
     - 분산 트랜잭션을 개별 샤드 노드별로 처리한다. 노드장애등의 상황에서 커밋이 안되는 노드가 발생할 수 있다.
 -   글로벌 트랜잭션(global transaction)
-    - 분산 트랜잭션을 two-phase commit를 사용하여 처리하여, 분산 트랜잭션에 참여한 모든 샤드노드에 동일하게 커밋 혹은 롤백이 되는것을 보장한다.
+    - 분산 트랜잭션을 two-phase commit를 사용하여 처리하여, 분산 트랜잭션에 참여한 모든 샤드노드에 전체 커밋 혹은 전체 롤백이 되는것을 보장한다.
 -   글로벌 일관 트랜잭션(global consistent transaction)
     - 글로벌 트랜잭션에서 보장하는것에 추가하여, 글로벌 읽기 일관성을 보장한다.
 
@@ -2102,11 +2102,12 @@ Unsigned Integer
 ##### 값의 범위
 [1,2,3]
 ##### 설명
-세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다.
+세션에 설정된 글로벌 트랜잭션 레벨을 나타낸다. 아래 항목들에 대한 설명은 본 매뉴얼의 shard transaction 항목을 참고한다.
 - 1 : multiple node transaction
 - 2 : global transaction
 - 3 : global consistent transaction
-세션에서 global_transaction_level을 변경시에 이미 트랜잭션이 시작되어 있는 경우에는, 1 과 2 는 서로 변경이 되지만, 1 혹은 2 에서 3 으로 변경할 수는 없다. 3 에서 1 혹은 2 로 변경할 수도 없다.
+
+세션에서 global_transaction_level을 변경시에 이미 트랜잭션이 시작되어 있는 경우에는, 1 과 2 는 서로 변경이 되지만, 1 혹은 2 에서 3 으로 변경할 수는 없다. 또한, 3 에서 1 혹은 2 로도 변경할 수도 없다.
 
 #### VERSIONING_MIN_TIME
 ##### 데이터 타입
@@ -2257,11 +2258,11 @@ Altibase Sharding의 데이터 딕셔너리는 샤드 객체 정보를 저장하
 - GLOBAL_META_INFO_: 샤드 메타 제어 정보를 기록하는 샤드 메타 테이블
 - NODES_: 샤드 노드 정보를 기록하는 샤드 메타 테이블
 - OBJECTS_: 샤드 객체 정보를 기록하는 샤드 메타 테이블
-- RANGES_: 샤드 키 분산 테이블 정보를 기록하는 샤드 메타 테이블
-- CLONES_: 복제 분산 테이블 정보를 기록하는 샤드 메타 테이블
-- SOLOS_: 독립 분산 테이블 정보를 기록하는 샤드 메타 테이블
+- RANGES_: 샤드 키 분산 테이블 및 프로시져 정보를 기록하는 샤드 메타 테이블
+- CLONES_: 복제 분산 테이블 및 프로시져 정보를 기록하는 샤드 메타 테이블
+- SOLOS_: 독립 분산 테이블 및 프로시져 정보를 기록하는 샤드 메타 테이블
 - REPLICA_SETS_: 샤드 노드의 레플리카 셋을 기록하는 샤드 메타 테이블
-- FAILOVER_HISTORY_: 샤드 시스템의 Failover History를 기록하는 샤드 메타 테이블
+- FAILOVER_HISTORY_: 샤드 시스템의 failover history를 기록하는 샤드 메타 테이블
 
 #### SYS_SHARD.VERSION_
 Altibase Sharding의 버전을 기록하는 메타 테이블이다.
@@ -2272,18 +2273,18 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 #### SYS_SHARD.LOCAL_META_INFO_
 지역 데이터베이스의 샤드 노드 하나에 대한 정보만을 기록하는 메타 테이블이다.
 - SHARD_NODE_ID (INTEGER): 지역 데이터베이스의 샤드 노드 식별자로 전체 샤딩 시스템에서 유일해야 한다.
-- SHARDED_DB_NAME (VARCHAR(40)): 지역 샤드 노드가 참여할 논리적인 샤드된 데이터 베이스 이름을 나타내며, 지역 데이터 베이스의 DB 이름으로 자동으로 설정된다. 
+- SHARDED_DB_NAME (VARCHAR(40)): 지역 샤드 노드가 참여할 논리적인 sharded database 이름을 나타내며, 지역 데이터베이스의 DB 이름으로 자동으로 설정된다. 
 - NODE_NAME (VARCHAR(40)): 지역 샤드 노드의 이름이다.
 - HOST_IP (VARCHAR(64)): 지역 샤드 노드에서 서비스에 사용할 호스트 IP 이다. 
-- PORT_NO (INTEGER): 지역 샤드 노드에서 서비스에 사용할 Port 이다. 
+- PORT_NO (INTEGER): 지역 샤드 노드에서 서비스에 사용할 port 이다. 
 - INTERNAL_HOST_IP (VARCHAR(64)): 지역 샤드 노드에서 코디네이터가 내부적으로 사용하는 호스트 IP 이다. 
-- INTERNAL_PORT_NO (INTEGER): 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 Port 이다. 
+- INTERNAL_PORT_NO (INTEGER): 지역 샤드 노드에서 코디네이터가 내부적으로 사용할 port 이다. 
 - INTERNAL_REPLICATION_HOST_IP (VARCHAR(64)): 지역 샤드 노드에서 내부 복제용으로 사용할 호스트 IP 이다.
-- INTERNAL_REPLICATION_PORT_NO (INTEGER): 지역 샤드 노드에서 내부 복제용으로 사용할 Port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값으로 유지되어야 한다.
+- INTERNAL_REPLICATION_PORT_NO (INTEGER): 지역 샤드 노드에서 내부 복제용으로 사용할 port로 REPLICATION_PORT_NO 프로퍼티 값과 동일한 값으로 유지되어야 한다.
 - INTERNAL_CONN_TYPE (INTEGER): 내부적으로 사용되는 코디네이터 연결 방식이다. 1로 설정된 경우 TCP를 사용하며 8인 경우 인피니 밴드를 사용한다.  
-- K_SAFETY (INTEGER): 시스템 내에서 유지할 복제본의 개수를 나타낸다.  
+- K_SAFETY (INTEGER): 시스템 내에서 유지할 복제본의 개수를 나타낸다.
 - REPLICATION_MODE (INTEGER): 시스템에서 사용하는 샤드 이중화 모드를 나타낸다. 
-  - 값이 12인 경우 'CONSISTENT' 샤드 이중화 모드를 의미하며, 10인 경우 샤드 이중화 모드 중 'NOWAIT' 모드를 나타낸다.  
+  - 12: 'CONSISTENT' 샤드 이중화 모드
 - PARALLEL_COUNT (INTEGER): 샤드 이중화에서 사용하는 이중화 병렬 적용자의 수를 나타낸다. 
 
 #### SYS_SHARD.GLOBAL_META_INFO_
@@ -2295,11 +2296,11 @@ Altibase Sharding의 버전을 기록하는 메타 테이블이다.
 Altibase Sharding의 모든 샤드 노드들의 정보를 기록하는 메타 테이블이다.
 - NODE_ID (INTEGER): 샤드 노드의 지역 식별자
 - NODE_NAME (VARCHAR(40)): 샤드 노드 이름
-- HOST_IP (VARCHAR(64)): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 ip address를 나타낸다.
+- HOST_IP (VARCHAR(64)): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 IP address를 나타낸다.
 - PORT_NO (INTEGER): 샤드 라이브러리 또는 외부 응용프로그램에서 연결할 샤드 노드의 port 번호를 나타낸다.
 - ALTERNATE_HOST_IP (VARCHAR(64)): Unused, reserved for future use
 - ALTERNATE_PORT_NO (INTEGER): Unused, reserved for future use
-- INTERNAL_HOST_IP (VARCHAR(64)): 샤드 노드의 코디네이터가 연결할 internal ip address
+- INTERNAL_HOST_IP (VARCHAR(64)): 샤드 노드의 코디네이터가 연결할 internal IP address
 - INTERNAL_PORT_NO (INTEGER): 샤드 노드의 코디네이터가 연결할 internal port 번호
 - INTERNAL_ALTERNATE_HOST_IP (VARCHAR(64)): Unused, reserved for future use
 - INTERNAL_ALTERNATE_PORT_NO (INTEGER): Unused, reserved for future use
