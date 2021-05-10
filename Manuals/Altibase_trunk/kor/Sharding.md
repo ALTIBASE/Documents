@@ -1579,23 +1579,29 @@ nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)
 
 
 ## Stored Procedures
+여기서는 샤딩환경에서 stored procedure가 stand-alone 환경에서의 stored procedure와 다른 부분만을 설명한다.
+
 #### PSM Execution Policy
-- Query에 의해서 실행한 function, trigger는 local로 동작한다.
-- 분산 실행하는 shard procedure는 local로 동작한다.
-  - 일반 procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
-- Job scheduler, DBMS_CONCURRENT_EXEC package와 같이 별도의 session으로 실행하는 procedure는 local로 동작한다.
-- Local로 동작할 때 호출한 PSM은 local로 동작한다.
-- Local 실행시 제약사항
+- 아래에 local 범위로 동작한다고 명시한 경우를 제외하고는, global 범위로 동작한다.
+- Query에 의해서 실행한 function, trigger는 local 범위로 동작한다.
+  - Query에 의해서 실행되지 않고, 사용자 프로그램에서 직접 호출되는 function은 global 범위로 동작한다.
+- 분산객체로 등록된 shard procedure 해당 분산노드에서 실행되는데, 해당 노드에서는 local 범위로 동작한다.
+  - 이때, 분산노드라 함은, clone procedure인 경우는 전체 노드들이고, 그외 solo procedure 혹은 shardkey procedure인 경우는 분산정의에 의거한 특정 노드가 된다.
+  - 분산객체로 등록되지 않은 procedure를 global procedure 라고 하고, 이러한 procedure는 global 범위로 동작한다.
+  - global procedure에서 shard procedure를 execute immediate로 호출하는 경우는 분산 실행하는 shard procedure로 처리된다.
+  - global procedure에서 shard procedure를 execute immediate로 호출하지 않고, 바로 호출하는 경우는 일반 procedure로 처리하며, global 범위로 동작한다.
+- Job scheduler, DBMS_CONCURRENT_EXEC package와 같이 별도의 session으로 실행하는 procedure는 local 범위로 동작한다.
+- 어떤 PSM이 Local 범위로 동작하는 상태에서, 해당 PSM내에서 호출되는 PSM은 local 범위로 동작한다.
+- Local 범위로 실행시 제약사항
   - clone table에 write (insert, delete, update) 할 수 없다.
-- 위의 경우를 제외하고는, global로 동작한다.
 
 #### PSM Restriction
 - Shard procedure에서는 DCL, DDL 을 수행할 수 없습니다.
-- 일반 procedure에서 DCL, DDL을 실행할 때, commit 하지 않은 노드가 있으면 DCL, DDL이 불가능합니다.
-  - 일반 procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하면 됩니다.
+- 동일 트랜잭션내에서 global procedure를 호출하기전에 user session이 아닌 다른 노드에서 commit되지 않은 트랜잭션이 있는 경우에는, global procedure에서 DCL, DDL을 수행할 수 없다.
+  - global procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하여야 한다.
 - autonomous transaction pragma 를 지원하지 않는다.
-- 분산실행되는 query또는 procedure에서 package global variable을 사용하는 경우에 오류가 발생합니다.
-  - 단, CONSTANT 속성이 있는 경우 항상 사용자가 지정한 값을 사용하므로 분산실행에 사용할 수 있습니다.
+- 분산실행되는 query또는 procedure에서 package global variable을 지원하지 않는다.
+  - 단, CONSTANT 속성이 있는 경우는 분산실행 되더라도 동일한 값을 갖는것이 보장되므로, 분산실행에 사용될 수 있다.
 
 #### 다중에러 처리
 - 다중에러 및 대표에러에 대한 설명은 [Multiple Error Handling](#multiple-error-handling)을 참고한다.
@@ -1632,7 +1638,7 @@ END;
 - node_id 는 1~9200 사이의 값을 가질 수 있다.
 
 #### 문법
-- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다. 여기에서 별도로 기록되지 않는 내용들은 모두 일반 sequence 와 동일하게 동작한다. 
+- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다.
 - Sharded sequence는 기존 sequence 문법에서 sequence option 에서 shard clause를 추가로 지원하는 것을 지칭한다.
   - sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
 - Sharded sequence는 sync table option을 지원하지 않는다.
@@ -1654,7 +1660,7 @@ END;
 - PREFIX(1 ~ 9,200) 까지 고려하면 아래와 같다.
   - MIN : -9,200 999,999,999,999,999
   - MAX : 9,200 999,999,999,999,999
-- node_id prefix를 고려하면, sequence를 사용시에는 BIGINT 타입의 변수를 사용할것을 권장한다.
+- node_id가 prefix로 사용되므로, sharded sequence를 사용시에는 BIGINT 타입의 변수를 사용할것을 권장한다.
 
 #### 예제
 ```
@@ -1690,7 +1696,7 @@ iSQL> SELECT S4.NEXTVAL;
 | ------------------------- | ------------------------------------------------------------ | ------------------ | --------------- |
 | 초기화      | SHARD_ENABLE                                                                | No              |                 |
 | 일반 사용자 접속제한 | SHARD_ADMIN_MODE                                                      | Yes                 | SYSTEM                |
-| 내부 연결   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
+| 내부 연결   | SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT<br />SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY<br />SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT<br />SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT | Yes                | SYSTEM          |
 | 쿼리 분석   | TRCLOG_DETAIL_SHARD                                          | Yes                | SYSTEM, SESSION |
 | 쿼리 변환   | SHARD_AGGREGATION_TRANSFORM_ENABLE<br />SHARD_TRANSFORM_MODE | Yes<br />Yes            | SYSTEM          |
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No<br />No<br />Yes<br />No       | SYSTEM          |
