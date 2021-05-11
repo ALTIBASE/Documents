@@ -635,7 +635,7 @@ The following figure illustrates the relationships among Altibase handles and ot
 
 ![](media/ACI/image3.gif)
 
-In the above relationship, the ALTIBASE_RES obtained using the ALTIBASE_STMT handle is
+Looking at the above relationship diagram, it can be seen that ALTIBASE_ROW cannot be obtained with ALTIBASE_RES obtained using the ALTIBASE_STMT handle (shown as a dotted line).
 Notice that the ALTIBASE_ROW cannot be obtained (indicated by the dashed line). ALTIBASE_ROW can be obtained only through the altibase_query () related function that executes SQL statements directly without binding. Refer to description of each function for details.
 
 3.ACI Functions Description

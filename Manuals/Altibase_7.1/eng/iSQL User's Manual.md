@@ -41,7 +41,7 @@ Altibase Tools & Utilities iSQL User's Manual
 
 Altibase Application Development Monitoring API Developer's Guide
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -428,7 +428,7 @@ list </TD><TD>ELECT * FROM V$TAB;</TD><TD>Displays the list of all of the perfor
 iSQL.</TD>
      </TR>
      <TR>
-         <TD>테이블 목록 보기</TD><TD>SELECT * FROM TAB;</TD><TD>Displays the list of currently created tables. This command is only available in
+         <TD>View table list</TD><TD>SELECT * FROM TAB;</TD><TD>Displays the list of currently created tables. This command is only available in
 iSQL.</TD>
      </TR>
      <TR>
@@ -2319,7 +2319,7 @@ ENO
 
 #### Describing CHECK constraints Information
 
-This function displays information on CHECK constraints when the DESC command is used to view the table structure.
+This function outputs information on CHECK constraints when the DESC command is used to view the table structure.
 
 ```
 iSQL> SET CHKCONSTRAINTS ON;        -> Check Constraint information is output. 
@@ -3295,7 +3295,7 @@ quit; - exit iSQL
 
 ### Using National Character Sets
 
-When using NCHAR and NVARCHAR type character constants, if the following environment variables settings are made, there will be no concerns over possible data loss.
+When using NCHAR and NVARCHAR type character sets, if the following environment variables settings are made, there will be no concerns over possible data loss.
 
 The ALTIBASE_NLS_NCHAR_LITERAL_REPLACE environment variable must be set to1.
 

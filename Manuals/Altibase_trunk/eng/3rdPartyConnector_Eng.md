@@ -34,7 +34,7 @@ Altibase Application Development Altibase 3rd Party Connector Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -157,7 +157,7 @@ This is the list of the software and system requirements to install and run the 
 
 | Software Requirements      | SQuirreL SQL Client 3.7.1 or 3.8.0 |
 | -------------------------- | ---------------------------------- |
-| Compatible Database System | Altibase 6.5.1 or above            |
+| Compatible Database System | Altibase 6.5.1 or later            |
 
 
 

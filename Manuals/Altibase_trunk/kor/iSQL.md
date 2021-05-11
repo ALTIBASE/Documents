@@ -580,10 +580,16 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SELECT 결과 출력 방향</TD><TD>SET VERTICAL ON;<BR>SET VERTICAL OFF;</TD><TD>레코드를 조회할 때 이 값을 ON으로 설정하면, SELECT의 결과가 세로로 보여진다.<BR>기본값: OFF</TD>
      </TR>
      <TR>
+         <TD>MULTIERROR 출력 여부</TD><TD>SET MULTIERROR ON;<BR>SET MULTIERROR OFF;</TD><TD>SQL 수행시 이 값을 ON으로 설정하면, 다중에러가 표시될 수 있다.<BR>기본값: OFF 이고 이때는 다중에러가 발생해도 하나의 에러만 표시된다.</TD>
+     </TR>
+     <TR>
          <TD ROWSPAN="19">iSQL 화면 설정 값 보기</TD><TD>SHOW LINESIZE</TD><TD>현재의 LINESIZE 값을 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW COLSIZE</TD><TD>현재의 COLSIZE 값을 보여준다.</TD>
+     </TR>
+     <TR>
+         <TD>SHOW MULTIERROR</TD><TD>현재의 MULTIERROR 값을 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW LOBOFFSET</TD><TD>현재의 LOBOFFSET 값을 보여준다.</TD>
