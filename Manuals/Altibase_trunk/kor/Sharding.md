@@ -833,7 +833,6 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 #### 기타 샤딩 특이사항
 - LOCK TABLE 구문은 user connection 이 접속한 노드에만 효력을 미친다.
 - LOCK TABLE 구문에서 UNTIL NEXT DDL 옵션은 샤딩환경에서는 지원하지 않는다.
-- non-shard select 인 경우에 select 구문에서 for update를 사용해도, 해당 레코드들에 lock 이 잡히지 않는다.
 - DDL의 경우 prepare 단계는 내부적으로 parsing / validation / optimization 을 거치게 된다. 이때, parsing 은 성공했는데, validation 혹은 optimization 에서 실패시의 특이사항
   - stand-alone DB에서는 자동으로 commit 이 수행되도록 되어 있다.
   - 샤딩환경에서는 자동 commit 이 수행되지 않는다.
