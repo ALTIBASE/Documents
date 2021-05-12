@@ -332,7 +332,7 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 ### Altibase Sharding Terminology
 
 #### 샤드 노드(shard node) 
-샤딩 시스템을 구성하는 전체 데이터들이 분산되어 저장되는 개별적인 데이터베이스들이다.
+샤딩 시스템을 구성하는 전체 데이터들이 분산되어 저장되는 개별적인 데이터베이스들이다. 최대 128개의 샤드 노드를 지원한다.
 
 #### sharded database
 여러개의 샤드 노드들로 구성된 사용자 입장에서 논리적으로 하나인 데이터베이스를 sharded database 라고 한다. 
@@ -833,7 +833,6 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 #### 기타 샤딩 특이사항
 - LOCK TABLE 구문은 user connection 이 접속한 노드에만 효력을 미친다.
 - LOCK TABLE 구문에서 UNTIL NEXT DDL 옵션은 샤딩환경에서는 지원하지 않는다.
-- non-shard select 인 경우에 select 구문에서 for update를 사용해도, 해당 레코드들에 lock 이 잡히지 않는다.
 - DDL의 경우 prepare 단계는 내부적으로 parsing / validation / optimization 을 거치게 된다. 이때, parsing 은 성공했는데, validation 혹은 optimization 에서 실패시의 특이사항
   - stand-alone DB에서는 자동으로 commit 이 수행되도록 되어 있다.
   - 샤딩환경에서는 자동 commit 이 수행되지 않는다.
