@@ -332,7 +332,7 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 ### Altibase Sharding Terminology
 
 #### 샤드 노드(shard node) 
-샤딩 시스템을 구성하는 전체 데이터들이 분산되어 저장되는 개별적인 데이터베이스들이다.
+샤딩 시스템을 구성하는 전체 데이터들이 분산되어 저장되는 개별적인 데이터베이스들이다. 최대 128개의 샤드 노드를 지원한다.
 
 #### sharded database
 여러개의 샤드 노드들로 구성된 사용자 입장에서 논리적으로 하나인 데이터베이스를 sharded database 라고 한다. 
