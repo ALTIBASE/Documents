@@ -505,8 +505,8 @@ RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so
 2. libncurses.so.5, libtinfo.so.5 파일이 없는 경우 심볼릭 링크를 생성한다.
 
    ```bash
-   % ls -s /usr/lib64/libncurses.so.6.1 /usr/lib64/libncurses.so.5
-   % ls -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5
+   % ln -s /usr/lib64/libncurses.so.6.1 /usr/lib64/libncurses.so.5
+   % ln -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5
    ```
 
 3. 생성한 심볼릭 링크를 확인한다.
