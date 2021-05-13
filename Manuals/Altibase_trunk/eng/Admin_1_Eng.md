@@ -60,7 +60,7 @@ Altibase Administration Administrator’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
 prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
@@ -438,7 +438,7 @@ For more detailed information on server and client communication, please refer t
 
 #### **Database Space**
 
-An Altibase database consists of all of the data in the database stored in one or more tablespaces. The tablespaces are divided into memory tablespaces and disk tablespaces. 
+Altibase database consists of all of the data in the database stored in one or more tablespaces. The tablespaces are divided into memory tablespaces and disk tablespaces. 
 
 Besides the system tablespace (which is created by Altibase), a user can add memory and disk tablespaces.
 
@@ -510,7 +510,7 @@ The session management thread monitors the status of the connected session betwe
 
 **Garbage Collection Thread (Ager)
 
-Using MVCC can cause old and unnecessary data to remain in memory. As soon as some data becomes unnecessary, the garbage collection thread recovers memory space so that it can be reused, in order to maximize the efficiency of memory usage. The garbage collection thread is also called the ager.
+Using the MVCC can cause old and unnecessary data to remain in memory. As soon as some data becomes unnecessary, the garbage collection thread recovers memory space so that it can be reused, in order to maximize the efficiency of memory usage. The garbage collection thread is also called the ager.
 
 **Log Flush Thread**
 
@@ -529,7 +529,7 @@ The Archievelog thread regularly copies online log files to a predefined destina
 
 #### Physical Database Structure
 
-An Altibase database physically consists of log anchor files, log files, and data files.
+Altibase database physically consists of log anchor files, log files, and data files.
 
 **Log Anchor Files**
 
@@ -1030,7 +1030,7 @@ In the Process phase, use the CREATE DATABASE command to create a database as sh
 
 For more detailed information on using the CREATE DATABASE statement, please refer to the *SQL Reference*.
 
- In the following example, a database is created using the default options:
+In the following example, a database is created using the default options:
 
 ```
 iSQL> create database mydb initsize=50M noarchivelog character set ksc5601 national character set utf16;
@@ -2785,7 +2785,7 @@ The following trigger constituents determine when a trigger fires, whether it fi
     This is the SQL statement that causes the trigger to fire when executed.
 
 -   Trigger condition (WHEN Clause) 
-    This is a SQL condition that must be satisfied to fire the trigger.
+    This is the SQL condition that must be satisfied to fire the trigger.
 
 -   Trigger Action  
     This is the body of the stored procedure that the trigger executes when the trigger condition is TRUE.
@@ -3619,8 +3619,8 @@ A disk tablespace is a tablespace for storing disk-based objects. It is intended
 
 Altibase tablespaces can also be classified depending on what data are stored in them as follows: 
 
--   The Dictionary Tablespace 
--   The Undo Tablespace 
+-   Dictionary Tablespace 
+-   Undo Tablespace 
 -   Temporary Tablespace 
 -   Data Tablespace
 
