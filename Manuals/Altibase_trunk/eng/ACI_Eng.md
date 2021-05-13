@@ -98,7 +98,7 @@ Altibase Application Development ACI Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -643,7 +643,7 @@ Notice that the ALTIBASE_ROW cannot be obtained (indicated by the dashed line). 
 
 This chapter describes the specifications of ACI functions used with Altibase handle. For each ACI functions, the following information are described.
 
--    Name of the function and purpose of use 
+-   Name of the function and purpose of use 
 -   Arguments list of the function 
 -   Return Values 
 -   Usages of function and notes 
@@ -681,7 +681,7 @@ This function returns the following values, depending on the type of the last SQ
 
 -   UPDATE statement: Number of records changed
 -   DELETE statement: Number of records deleted
--   INSERT statement: number of records added
+-   INSERT statement: Number of records added
 
 If the last SQL statement executed was a SELECT statement, this function will return 0.
 To get the number of records selected by the SELECT statement, use altibase_num_rows () should be used.
@@ -1126,7 +1126,7 @@ altibase_field() returns the pointer to the definition of a specified column on 
 
 #### Description
 
-This function returns information about the specified column as an ALTIBASE_FIELD pointer. appointed
+This function returns information about the specified column as an ALTIBASE_FIELD pointer. 
 Possible column numbers are values from 0 (altibase_num_fields (result) -1).
 
 The memory pointed to by the pointer returned by this function is managed internally by the library. It should never be changed or released by the user.
@@ -2739,7 +2739,7 @@ int  altibase_stmt_get_attr (
 | ----------------------- | -------- | --------- | ------------------------------------------------------- |
 | ALTIBASE_STMT           | *stmt*   | Input     | Statement handle                                        |
 | ALTIBASE_STMT_ATTR_TYPE | *option* | Input     | The option argument is the option that you want to get. |
-| void \*                 | *arg*    | 입력      | The arg is the output buffer.                           |
+| void \*                 | *arg*    | Input      | The arg is the output buffer.                           |
 
 #### Return Values
 
@@ -3503,7 +3503,7 @@ This section describes the data structures provided for writing Failover-related
 
 #### Failover-related Data Types
 
-To support writing Failover-related tasks in your application, Altibase provides the following Failover event values and function pointers for callback functions.
+To support writing Failover-related tasks in the application, Altibase provides the following Failover event values and function pointers for callback functions.
 
 ##### enum ALTIBASE_FAILOVER_EVENT
 
