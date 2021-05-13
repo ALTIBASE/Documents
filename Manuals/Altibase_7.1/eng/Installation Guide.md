@@ -440,10 +440,10 @@ For RHEL 8, libncurses.so.5 and libtinfo.so.5 must be created in order to execut
    % ls -l /usr/lib64/| grep -e libncurses.so -e libtinfo.so
    -rw-r--r--   1 root root       31 Jan 16  2019 libncurses.so
    lrwxrwxrwx.  1 root root       17 Jan 16  2019 libncurses.so.6 -> libncurses.so.6.1*
-   -rwxr-xr-x.  1 root root   216912 Jan 16  2019 libncurses.so.6.1*                 # ncurses 라이브러리 파일
+   -rwxr-xr-x.  1 root root   216912 Jan 16  2019 libncurses.so.6.1*                 # ncurses library file
    lrwxrwxrwx   1 root root       13 Jan 16  2019 libtinfo.so -> libtinfo.so.6*
    lrwxrwxrwx.  1 root root       15 Jan 16  2019 libtinfo.so.6 -> libtinfo.so.6.1*
-   -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo 라이브러리 파일
+   -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo library file
    ```
 
 2. If libncurses.so.5 and libtinfo.so.5 files do not exist, create symbolic links.
