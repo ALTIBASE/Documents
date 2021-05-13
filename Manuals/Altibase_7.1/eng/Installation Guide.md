@@ -293,7 +293,7 @@ It is recommended to use a dedicated line when using the replication feature.
 
 ### Supported Platforms
 
->  *Altibase server/client only support 64-bit..*
+>  *Altibase server/client only support 64-bit.*
 >
 > *Microsoft Windows only supports Altibase client.*
 
