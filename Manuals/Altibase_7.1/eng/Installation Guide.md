@@ -293,55 +293,35 @@ It is recommended to use a dedicated line when using the replication feature.
 
 ### Supported Platforms
 
-Altibase supports both server/client for the following platforms. However, for Windows, only the client is supported.
+### 지원 플랫폼
 
-#### AIX
-
-AIX 6.1TL3 and later (64-bit)
-
-AIX 7.1 , AIX 7.2(64-bit)
-
->For altimon, altimon for AIX 7.x is supported starting from 7.1.0.1.9 and later.
-
-#### HP-UX
-
-HP-UX.IA64 11.31 and later(64-bit)
-
-#### Linux(x86)
-
-GNU glibc 2.12 and later
-
-Redhat 6.0 and later(64-bit)
-
-Redhat 7.0 and later(64-bit)
-
-#### Power Linux
-
-GNU glibc 2.12 and later
-
-Power7 Redhat 6.5 and later(64-bit)
-
-Power7 Redhat 7.0 and later(64-bit)
-
-Power8 Redhat 6.5 and later(64-bit)
-
-Power8 Redhat 7.0 and later(64-bit)
-
-#### Power Linux Little Endian(LE)
-
-GNU glibc 2.17 and later
-
-Power8(LE) Redhat 7.2 and later(64-bit)
-
-> For altimon, altimon for Power Linux(LE) is supported starting from 7.1.0.3.6 and later.
+>  *Altibase server/client only support 64-bit..*
 >
-> For jdbcAdapter, jdbcAdapter for Power Linux(LE) is supported starting from 7.1.0.3.6 and later.
+> *Microsoft Windows only supports Altibase client.*
 
-#### Windows
 
-Starting from Altibase version 7.1.0.4.5, Altibase client for windows is supported.
+|                                                              | Altibase server<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                    |
+| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------- |
+| **AIX on IBM Power Systems**                                 |                     |                           |                                        |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                        |
+| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             |                                        |
+| **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
+| HP-UX 11.31                                                  |          ●          |             ●             |                                        |
+| **Linux x86-64**                                             |                     |                           |                                        |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                |
+| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br />        |
+| **Linux on Power**                                           |                     |                           |                                        |
+| POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                |
+| **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />          |
+| **Microsoft Windows (x64)**                                  |                     |                           |                                        |
+| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상* |
 
-Windows Server 2008-x64 (64bit)
+> **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
+>
+> RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [설치 환경 사전 확인-Red Hat Enterprise Linux 8](#footnote-rhel8-sharedlibrary) 을 확인한다.
+
+
 
 
 ### Altibase Package Installer
