@@ -309,7 +309,7 @@ It is recommended to use a dedicated line when using the replication feature.
 | HP-UX 11.31                                                  |          ●          |             ●             |                                        |
 | **Linux x86-64**                                             |                     |                           |                                        |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
-| Red Hat Enterprise Linux 8[Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 or later*  <br />        |
+| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 or later*  <br />        |
 | **Linux on Power**                                           |                     |                           |                                        |
 | POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
@@ -319,7 +319,7 @@ It is recommended to use a dedicated line when using the replication feature.
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >
-> For RHEL 8, libncurses.so.5 and libtinfo.so.5 links must be created in order to execute iSQL and iLoader. For more detailed information, refer to [Checking the pre-installation environment -Red Hat Enterprise Linux 8](#footnote-rhel8-sharedlibrary).
+> For RHEL 8, libncurses.so.5 and libtinfo.so.5 links must be created in order to execute iSQL and iLoader. For more detailed information, refer to [Check the environment before installation -Red Hat Enterprise Linux 8](#footnote-rhel8-sharedlibrary).
 
 
 
@@ -431,6 +431,52 @@ During this operation, the Altibase Package Installer checks the following infor
 -   The operating system mode (64-bit)
 
 If you have downloaded an Altibase Package Installer that does not match your operating system, an error message is returned and the installation will be aborted. Finding problems with the system configuration in the previous step reduces the likelihood of encountering problems during installation.
+
+**<a name="footnote-rhel8-sharedlibrary">Red Hat Enterprise Linux 8  </a>**
+
+For RHEL 8, libncurses.so.5 and libtinfo.so.5 must be created in order to execute iSQL and iLoader. In order to do this, the user needs root privileges.
+
+1. Check the ncurses and tinfo library files.
+
+   ```bash
+   % ls -l /usr/lib64/| grep -e libncurses.so -e libtinfo.so
+   -rw-r--r--   1 root root       31 Jan 16  2019 libncurses.so
+   lrwxrwxrwx.  1 root root       17 Jan 16  2019 libncurses.so.6 -> libncurses.so.6.1*
+   -rwxr-xr-x.  1 root root   216912 Jan 16  2019 libncurses.so.6.1*                 # ncurses 라이브러리 파일
+   lrwxrwxrwx   1 root root       13 Jan 16  2019 libtinfo.so -> libtinfo.so.6*
+   lrwxrwxrwx.  1 root root       15 Jan 16  2019 libtinfo.so.6 -> libtinfo.so.6.1*
+   -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo 라이브러리 파일
+   ```
+
+2. If libncurses.so.5 and libtinfo.so.5 files do not exist, create symbolic links.
+
+   ```bash
+   % ln -s /usr/lib64/libncurses.so.6.1 /usr/lib64/libncurses.so.5
+   % ln -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5
+   ```
+
+3. Check the created symbolic links.
+
+   ```bash
+   % ls -l /usr/lib64/ | grep -e libncurses.so.5 -e libtinfo.so.5
+   lrwxrwxrwx   1 root root       17 May  7 16:44 libncurses.so.5 -> libncurses.so.6.1*
+   lrwxrwxrwx   1 root root       15 May  7 16:51 libtinfo.so.5 -> libtinfo.so.6.1*
+   ```
+
+
+
+- If libncurses.so.5 file does not exist, the following error occurs when iSQL is executed.
+
+  % isql
+  isql: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
+
+  % server create utf8 utf8
+  /home/dev02/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
+
+- In RHEL 8, the ncurses (including tinfo) library version has been changed to 6.1. Altibase requires ncurses 5 version files. 
+  The ncurses library guarantees both source-level compatibility (API) and binary compatibility (ABI) from ncurses 5 to ncurses 6.2. 
+
+  Reference : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
 
 #### Download the Package Installer
 
