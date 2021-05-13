@@ -46,7 +46,7 @@ Altibase Application Development Application Program Interface User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -200,7 +200,7 @@ This chapter explains how to integrate PHP pages with Altibase using PHP's ODBC 
 
 ### Installing the ODBC Manager for Integration with PHP
 
-In order to integrate Altibase with a PHP interface, the ODBC Manager must be installed. This section describes how to install the ODBC Manager in Unix, or Linux environments.
+In order to integrate Altibase with the PHP interface, the ODBC Manager must be installed. This section describes how to install the ODBC Manager in Unix, or Linux environments.
 
 #### The ODBC Manager in Unix and Linux
 
@@ -563,7 +563,7 @@ $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 
 This chapter explains the general concept of distributed transactions, introduces the XA standard, and describes the XA interface.
 
- It explains how to use a global transaction manager to access Altibase via ODBC, JDBC and APRE, and specifies the support for the XA within Altibase. It also describes the limitations of the XA distributed transaction processing model and how to deal with problems that can arise in applications.
+It explains how to use a global transaction manager to access Altibase via ODBC, JDBC and APRE, and specifies the support for the XA within Altibase. It also describes the limitations of the XA distributed transaction processing model and how to deal with problems that can arise in applications.
 
 
 
@@ -791,7 +791,7 @@ flags can be set to one of the following values:
 
 ##### xa_prepare
 
-When using the two-phase commit protocol, this is executed before committing or rolling back a transaction
+When using the two-phase commit protocol, this is executed before committing or rolling back a transaction.
 
 ```
 int xa_prepare(XID *xid, int rmid, long flags);
@@ -808,10 +808,10 @@ flags can be set to one of the following values:
 xa_prepare can return the following values:
 
 -   XA_RDONLY  
-    This is returned when the transaction doesn't change any of the data on the RM (i.e. DBMS). The transaction does not need to be committed or rolled back
+    This is returned when the transaction doesn't change any of the data on the RM (i.e. DBMS). The transaction does not need to be committed or rolled back.
     
 -   XA_OK  
-    This is returned when the prepare task is performed normally
+    This is returned when the prepare task is performed normally.
 
 ##### xa_commit
 
@@ -839,7 +839,7 @@ int xa_recover(XID *xids, long count, int rmid, long flags);
 
 The return value indicates the number of XIDs that were recovered. The count parameter is used to set the maximum number of XIDs that fit into the xids array. 
 
-flags can be set to one or more of the following values:
+Flags can be set to one or more of the following values:
 
 -   TMSTARTRSCAN  
     For more information, please refer to the XA Specification documentation.
@@ -858,7 +858,7 @@ This instructs the Altibase server (i.e. the RM) to stop managing a heuristicall
 int xa_forget(XID * xid, int rmid, long flags);
 ```
 
-flags can be set to the following value:
+Flags can be set to the following value:
 
 -   TMNOFLAGS  
     Always set to specify this value.
@@ -873,7 +873,7 @@ When operating in asynchronous mode, this is used to determine whether to keep w
 
 This section describes the basic procedures for using ODBC, APRE and JDBC in an XA environment.
 
-#### ODBC/XA 수행 순서
+#### ODBC/XA execution order
 
 1.  xa_open  
     Connect to the specified server.
@@ -1704,7 +1704,7 @@ class XA4
 
 ### How to Solve Application Problems Using XA
 
-This section explains how to determine the cause of any XA-related errors that may arise.
+This section explains how to determine the cause of any XA-related errors that may occur.
 
 #### Checking XA Tracking Information
 
