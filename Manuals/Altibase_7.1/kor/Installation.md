@@ -29,8 +29,6 @@
 
 
 
-[TOC]
-
 Altibase® Administration
 
 Installation Guide
