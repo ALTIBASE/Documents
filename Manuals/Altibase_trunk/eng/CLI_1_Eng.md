@@ -60,7 +60,7 @@ Altibase Application Development Altibase CLI User's Manaul
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -3687,7 +3687,7 @@ This function returns only the data of unbound columnsWhen SQLGetData () is call
 
 ##### Retrieving Data with SQLGetData ()
 
-To return the data to a specified column, SQLGetData () must execute the following series of procedures
+To return the data to a specified column, SQLGetData () must execute the following series of procedures.
 
 1.  Returns SQL_NO_DATA if it has already returned all of the data for the column. 
 2.  If the data is NULL, SQL_NULL_DATA will be set in *pcbValue. If the data for the corresponding column is not NULL, SQLGetData () will proceed to the next phase. 
@@ -4007,9 +4007,9 @@ This retrieves attribute value of environment handle.
 | -------- | --------------------------- | ------------------------------------------------------------ |
 | HY000    | General error               | No error occurs explicitly                                   |
 | HY001    | Memory allocation error     | This denotes to fial to allocate memory for handle.          |
-| HY092    | Invalid attribute or option | The value specified in attribute is not valid one supported by this driver. |
-| 01004    | Data is cut off             | The size of value buffer is lesser than the size of returned data. |
-| HYC00    | Unsupported Attribute Use   | The value specified in attribute is unsupported in driver.   |
+| HY092    | Invalid attribute or option | Value specified in attribute is not valid one supported by this driver. |
+| 01004    | Data is cut off             | Size of value buffer is lesser than the size of returned data. |
+| HYC00    | Unsupported Attribute Use   | Value specified in attribute is unsupported in driver.   |
 
 #### Related Function
 
