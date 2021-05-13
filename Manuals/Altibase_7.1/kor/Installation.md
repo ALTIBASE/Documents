@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
+**Table of Contents**  
 
 - [Installation Guide](#installation-guide)
     - [서문](#%EC%84%9C%EB%AC%B8)
@@ -25,10 +23,13 @@
     - [사용자 계정의 리소스 한계 값 확인](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95%EC%9D%98-%EB%A6%AC%EC%86%8C%EC%8A%A4-%ED%95%9C%EA%B3%84-%EA%B0%92-%ED%99%95%EC%9D%B8)
     - [OS별 커널 파라미터 설정](#os%EB%B3%84-%EC%BB%A4%EB%84%90-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EC%84%A4%EC%A0%95)
     - [THP 설정 확인 및 비활성화 방법](#thp-%EC%84%A4%EC%A0%95-%ED%99%95%EC%9D%B8-%EB%B0%8F-%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94-%EB%B0%A9%EB%B2%95)
+    - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
     - [디스크 구성 상태 확인](#%EB%94%94%EC%8A%A4%ED%81%AC-%EA%B5%AC%EC%84%B1-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8)
     - [OS Patch](#os-patch)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
+[TOC]
 
 Altibase® Administration
 
@@ -337,9 +338,8 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 ### 지원 플랫폼
 
->  *Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.*
->
-> *Microsoft Windows 는 Altibase 클라이언트만 지원합니다.*
+>  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*
+>*Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
 
 
 |                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                    |
@@ -361,7 +361,7 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >
-> RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [설치 환경 사전 확인-Red Hat Enterprise Linux 8](#footnote-rhel8-sharedlibrary) 을 확인한다.
+> RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [A.부록: 설치 전 확인 사항 - Red Hat Enterprise Linux 8](#Red-Hat-Enterprise-Linux-8) 을 확인한다.
 
 
 
@@ -1819,7 +1819,7 @@ Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고�
 
 3. THP 옵션이 never 인지 확인한다.
 
-### **<a name="footnote-rhel8-sharedlibrary">Red Hat Enterprise Linux 8  </a>**
+### Red Hat Enterprise Linux 8
 
 RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 이 작업 root 권한이 필요하다.
 
