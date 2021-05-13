@@ -300,7 +300,7 @@ It is recommended to use a dedicated line when using the replication feature.
 > *Microsoft Windows only supports Altibase client.*
 
 
-|                                                              | Altibase server<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                    |
+|                                                              | Altibase server <br /> | Altibase client <br /> | Software requirements                  |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------- |
 | **AIX on IBM Power Systems**                                 |                     |                           |                                        |
 | AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                        |
@@ -308,18 +308,18 @@ It is recommended to use a dedicated line when using the replication feature.
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                        |
 | **Linux x86-64**                                             |                     |                           |                                        |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                |
-| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br />        |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
+| Red Hat Enterprise Linux 8[Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 or later*  <br />        |
 | **Linux on Power**                                           |                     |                           |                                        |
 | POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />          |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 or later*<br />          |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                        |
-| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상* |
+| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase client 7.1.0.4.5 or later* |
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >
-> RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [설치 환경 사전 확인-Red Hat Enterprise Linux 8](#footnote-rhel8-sharedlibrary) 을 확인한다.
+> For RHEL 8, libncurses.so.5 and libtinfo.so.5 links must be created in order to execute iSQL and iLoader. For more detailed information, refer to [Checking the pre-installation environment -Red Hat Enterprise Linux 8](#footnote-rhel8-sharedlibrary).
 
 
 
