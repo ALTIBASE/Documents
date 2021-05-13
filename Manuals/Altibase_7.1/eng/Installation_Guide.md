@@ -319,7 +319,7 @@ It is recommended to use a dedicated line when using the replication feature.
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >
-> For RHEL 8, libncurses.so.5 and libtinfo.so.5 links must be created in order to execute iSQL and iLoader. For more detailed information, refer to [Appendix A. Installation Prerequisites - Red Hat Enterprise Linux 8](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Installation_Guide.md#red-hat-enterprise-linux-8)
+> For RHEL 8, libncurses.so.5 and libtinfo.so.5 links must be created in order to execute iSQL and iLoader. For more detailed information, refer to [Appendix A. Installation Prerequisites - Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
 
 
 
