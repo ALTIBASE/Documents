@@ -1,6 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Adapter for JDBC User’s Manual](#adapter-for-jdbc-users-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -24,8 +21,6 @@
     - [FAQ](#faq)
   - [B.부록: jdbcAdapter 사용시 DDL 수행 순서](#b%EB%B6%80%EB%A1%9D-jdbcadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%98%ED%96%89-%EC%88%9C%EC%84%9C)
     - [jdbcAdapter 사용시 DDL 수행 순서](#jdbcadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%98%ED%96%89-%EC%88%9C%EC%84%9C)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Altibase® Tool & Utilities
 
