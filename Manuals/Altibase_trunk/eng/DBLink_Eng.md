@@ -45,7 +45,7 @@ Altibase Application Development Database Link User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -288,9 +288,9 @@ The following table displays the full names and meanings of the notations used i
 | Notation           | Full Name                                | Meaning                                                      |
 | ------------------ | ---------------------------------------- | ------------------------------------------------------------ |
 | DB-Link            | Altibase Database Link                   | Altibase Database Link                                       |
-| Heterogeneous-Link | Heterogeneous Database Link              | The database link between an Altibase server and a heterogeneous database system |
-| Homogeneous-Link   | Homogeneous Database Link                | The database link between Altibase servers of the same version. |
-| Heterogeneous DBMS | Heterogeneous database management system | Heterogeneous database management system, which includes Altibase servers of versions that differ from the local server. |
+| Heterogeneous-Link | Heterogeneous Database Link              | Database link between an Altibase server and a heterogeneous database system |
+| Homogeneous-Link   | Homogeneous Database Link                | Database link between Altibase servers of the same version |
+| Heterogeneous DBMS | Heterogeneous database management system | Heterogeneous database management system, which includes Altibase servers of versions that differ from the local server |
 
 ### Components of Altibase Database Link
 
@@ -1408,7 +1408,7 @@ INTEGER REMOTE_BIND_VARIABLE (
 | Name               | In/Output | Data Type | Description                                                  |
 | ------------------ | --------- | --------- | ------------------------------------------------------------ |
 | *dblink_name*      | Input     | VARCHAR   | The name of the database link object                         |
-| *statement_id*     | Input     | BIGINT    | Statement ID                                                 |
+| *statement_id*     | Input     | BIGINT    | The statement ID                                                 |
 | *parameter_number* | Input     | INTEGER   | The numerical order of the parameters in SQL statements to which values are bound. Starts from 1. |
 | *value*            | Input     | VARCHAR   | The value to be bound                                        |
 
