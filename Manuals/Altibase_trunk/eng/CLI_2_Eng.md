@@ -72,7 +72,7 @@ Altibase® Application Development
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1791,7 +1791,7 @@ SQL_ERROR
 
 #### Description
 
-returns information about a single table as a standard result set, ordered by NON_UNIQUE, TYPE, INDEX_QUALIFIER, INDEX_NAME, and ORDINAL_POSITION. The result set combines the statistical information of the table and the data for index.
+Returns information about a single table as a standard result set, ordered by NON_UNIQUE, TYPE, INDEX_QUALIFIER, INDEX_NAME, and ORDINAL_POSITION. The result set combines the statistical information of the table and the data for index.
 
 | Column Name      | No.  | Data Type           | Description                                                  |
 | ---------------- | ---- | ------------------- | ------------------------------------------------------------ |
@@ -2027,7 +2027,7 @@ The following table lists the columns in the result set.
 | SQLSTATE | Description                 | Comments                                                     |
 | -------- | --------------------------- | ------------------------------------------------------------ |
 | 08S01    | Communication channel error | Communication channel failure before the function processing is completed between the Altibase CLI driver and the database |
-| HY000    | General erro                |                                                              |
+| HY000    | General error                |                                                              |
 
 #### Related Functions
 
@@ -2136,7 +2136,7 @@ Discarding incompleted result sets.
 
 Calling SQLTransact () when there is not transaction is currently used will return SQL_SUCCESS without any affecting the database server. 
 
-SQLTransact() may fail while Commit or Rollback is executed due to loss of connection. In this case, an application cannot judge whether commit or rollback was made.In this case the database administrator handles it manually.
+SQLTransact() may fail while Commit or Rollback is executed due to loss of connection. In this case, an application cannot judge whether commit or rollback was made. In this case the database administrator handles it manually.
 
 #### Example
 
@@ -2968,7 +2968,7 @@ The fromPosition argument must not be larger than the length of the target LOB a
 | SQLSTATE | Description                                          | Comments                                                     |
 | -------- | ---------------------------------------------------- | ------------------------------------------------------------ |
 | 08S01    | Communication link fault (Data transmission failure) | Communication link failed before function processing is complete between Altibase CLI driver and DB. |
-| HY000    | 일반 오류                                            |                                                              |
+| HY000    | General error                                            |                                                              |
 
 #### Related Functions
 
@@ -5450,7 +5450,7 @@ Examples and results are omitted cause of no unusual events in this case.
 
 #### SQL_BYTE
 
-This is bound to SQL_C_BINARY instead of SQL_C_BYTE in Altibase 4 and then is executed in the same way as this is in Altibase 4
+This is bound to SQL_C_BINARY instead of SQL_C_BYTE in Altibase 4 and then is executed in the same way as this is in Altibase 4.
 
 ##### BYTE to C types
 
@@ -5584,7 +5584,7 @@ SQL_TYPE_TIMESTAMP is retuned when Altibase 5 inserts data as SQL Type into DATE
 
 However, if you call SQLColAttribute() or SQLDescribeCol(), SQL_DATE is returned as SQL type because DATE type in Altibase 4 consists of basic elements such as day and hour, and much data such as special characters separating basic elements. 
 
-Therefore, when you use the Altibase CLI of Altibase 5, SQL_TYPE_DATE, SQL_TYPE_TIME and SQL_TYPE_TIMESTAMP as constant numbers for ODBC 3.0 are recommended.
+Therefore, when using the Altibase CLI of Altibase 5, SQL_TYPE_DATE, SQL_TYPE_TIME and SQL_TYPE_TIMESTAMP as constant numbers for ODBC 3.0 are recommended.
 
 #### LOB
 
@@ -5608,9 +5608,9 @@ CREATE TABLE T1 (I1 BLOB); ---> This precision in brackets disappears.
 
 Altibase CLI application supports private functions to use LOB. Refer to Chapter3: LOB Interface for details about special functions for LOB. 
 
-You can use functions available to general binary and character type except functions for LOB. You can store and search LOB data with standard ODBC in ODBC application cause of these features. 
+The user can use functions available to general binary and character type except functions for LOB. You can store and search LOB data with standard ODBC in ODBC application cause of these features. 
 
-You can’t update and retrieve data partially in ODBC application, whereas you can in Altibase CLI application with SQLGetLob and SQLPutLob.
+The user cannot update and retrieve data partially in ODBC application, whereas you can in Altibase CLI application with SQLGetLob and SQLPutLob.
 
 ```
 CREATE TABLE T1 (I1 BLOB, I2 CLOB);  // Turn off the AUTOCOMMIT mode of the connection.
@@ -5634,11 +5634,11 @@ SQLExecute(stmt);
 
 ##### Using LOB in ODBC application
 
-If you want to fetch LOB column in ODBC application and store data in LOB column, call SQLDescribeCol, SQLColAttribute or SQLDescribeParam. 
+In order to fetch LOB column in ODBC application and store data in LOB column, call SQLDescribeCol, SQLColAttribute or SQLDescribeParam. 
 
-If you execute these functions in LOB column, they are returned as data types of SQL_BLOB and SQL_CLOB. However, ODBC application doesn’t recognize data types such as SQL_BLOB or SQL_CLOB. 
+If these functions are executed in LOB column, they are returned as data types of SQL_BLOB and SQL_CLOB. However, ODBC application doesn’t recognize data types such as SQL_BLOB or SQL_CLOB. 
 
-Therefore, you may return them as data type which ODBC application recognizes.You can solve this problem by setting LongDataCompat = on in odbc.ini. If you call SQLColAttribute() in LOB column for this option, ODBC returns SQL_LONGVINARYto SQL_BLOB and SQL_LONGVARCHAR to SQL_CLOB relatively
+Therefore, the user may return them as data type which ODBC application recognizes. The user can solve this problem by setting LongDataCompat = on in odbc.ini. If you call SQLColAttribute() in LOB column for this option, ODBC returns SQL_LONGVINARYto SQL_BLOB and SQL_LONGVARCHAR to SQL_CLOB relatively
 
 ##### Use Examples in PHP Program
 
@@ -5833,11 +5833,11 @@ SQLFetch(stmt);
 SQLExecute(stmt);
 ```
 
-However, if you execute codes above with the Altibase CLI driver in Altibase 5, function sequence error occurs in SQLExecute(stmt). 
+However, if above codes are executed with the Altibase CLI driver in Altibase 5, function sequence error occurs in SQLExecute(stmt). 
 
 Because stmt performing SQLExecute() first indicates to generate result set. Therefore, ODBC cursor becomes open and state of stmt indicates S5. (Refer to MSDN ODBC specification.). However, error occurs in this state cause of no performing SQLExecute().
 
-If you want to perform SQLExecute() again, call SQLCloseCursor() clearly as follows and then make stmt have S1 or S3 state.
+In order to perform SQLExecute() again, call SQLCloseCursor() clearly as follows and then make stmt have S1 or S3 state.
 
 ```
 SQLExecute(stmt);
@@ -5992,7 +5992,7 @@ However, the Altibase CLI driver cannot know property changes if transmitting SQ
 
 In Altibase 5 the property is modified with SQLSetConnectAttr() to solve this problem. Altibase 5 always makes the property in the Altibase CLI driver same as that in server. 
 
-You can write as follows when using the Altibase CLI.
+It can be written as follows when using the Altibase CLI.
 
 ```
 SQLSetConnectAttr(conn,
@@ -6075,13 +6075,13 @@ Each execution result of syntax the argument indicates is created, and then sent
 
 In Altibase 4, when all three results are summed together, SQLRowCount () is 208 Return the result. 
 
-If you want to get the same result as Altibase 4 in Altibase 5, SQLMoreResults () The function must be repeated until it returns SQL_NO_DATA and added to the result obtained by SQLRowCount ().
+In order to get the same result as Altibase 4 in Altibase 5, SQLMoreResults () The function must be repeated until it returns SQL_NO_DATA and added to the result obtained by SQLRowCount ().
 
 #### Unlimited Array Execute, Array Fetch
 
 Altibase does not have restrictions on Array Execute and Array Fetch as buffer size.
 
-Therefore, you can bind array in the allocated memory and can use CM_BUFF_SIZE no more.
+Therefore, the user can bind array in the allocated memory and can use CM_BUFF_SIZE no more.
 
 #### Unavailable Properties
 
