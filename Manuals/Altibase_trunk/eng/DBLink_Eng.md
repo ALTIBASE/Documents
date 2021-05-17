@@ -1493,7 +1493,7 @@ CHAR(char_size) REMOTE_GET_COLUMN_CHAR (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 | *char_size*     | Input     | INTEGER   | The size of the CHAR type to be returned            |
 
@@ -1520,7 +1520,7 @@ VARCHAR(char_size) REMOTE_GET_COLUMN_VARCHAR (
 | Name            | In/Output | Data Type | Description                                       |
 | --------------- | --------- | --------- | ------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object              |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                       |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                       |
 | *column_number* | Input     | INTEGER   | The order of columns with the row. Starts from 1. |
 | *varchar_size*  | Input     | INTEGER   | The size of the VARCHAR type to be returned       |
 
@@ -1547,7 +1547,7 @@ FLOAT(precision) REMOTE_GET_COLUMN_FLOAT (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 | *precision*     | Input     | INTEGER   | The precision of the FLOAT type to be returned      |
 
@@ -1577,7 +1577,7 @@ SMALLINT REMOTE_GET_COLUMN_SMALLINT (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 
 ##### Return Value
@@ -1602,7 +1602,7 @@ INTEGER REMOTE_GET_COLUMN_INTEGER (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 
 ##### Return Value
@@ -1627,7 +1627,7 @@ BIGINT REMOTE_GET_COLUMN_BIGINT (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 
 ##### Return Value
@@ -1652,7 +1652,7 @@ REAL REMOTE_GET_COLUMN_REAL (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 
 ##### Return Value
@@ -1677,7 +1677,7 @@ DOUBLE REMOTE_GET_COLUMN_DOUBLE (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 
 ##### Return Value
@@ -1702,7 +1702,7 @@ DATE REMOTE_GET_COLUMN_DATE (
 | Name            | In/Output | Data Type | Description                                         |
 | --------------- | --------- | --------- | --------------------------------------------------- |
 | *dblink_name*   | Input     | VARCHAR   | The name of the database link object                |
-| *statement_id*  | Input     | BIGINT    | Statement ID to be executed                         |
+| *statement_id*  | Input     | BIGINT    | The statement ID to be executed                         |
 | *column_number* | Input     | INTEGER   | The order of columns within the row. Starts from 1. |
 
 ##### Return Value
@@ -1726,7 +1726,7 @@ INTEGER REMOTE_NEXT_ROW (
 | Name           | In/Output | Data Type | Description                          |
 | -------------- | --------- | --------- | ------------------------------------ |
 | *dblink_name*  | Input     | VARCHAR   | The name of the database link object |
-| *statement_id* | Input     | BIGINT    | Statement ID to be executed          |
+| *statement_id* | Input     | BIGINT    | The statement ID to be executed          |
 
 ##### Return Value
 
@@ -1885,7 +1885,7 @@ INTEGER REMOTE_ADD_BATCH (
 | Name         | In/Output | Data Type | Description                          |
 | ------------ | --------- | --------- | ------------------------------------ |
 | dblink_name  | Input     | VARCHAR   | The name of the database link object |
-| statement_id | Input     | BIGINT    | Statement ID                         |
+| statement_id | Input     | BIGINT    | The statement ID                         |
 
 ##### Return Value
 
@@ -1912,7 +1912,7 @@ BIGINT REMOTE_ALLOC_STATEMENT_BATCH (
 | Name           | In/Output | Data Type | Description                                 |
 | -------------- | --------- | --------- | ------------------------------------------- |
 | dblink_name    | Input     | VARCHAR   | The name of the database link object        |
-| statement_text | Input     | VARCHAR   | SQL statement to execute on a remote server |
+| statement_text | Input     | VARCHAR   | The sQL statement to execute on a remote server |
 
 ##### Return Value
 
@@ -1941,7 +1941,7 @@ INTEGER REMOTE_BIND_VARIABLE_BATCH (
 | Name             | In/Output | Data Type | Description                                                  |
 | ---------------- | --------- | --------- | ------------------------------------------------------------ |
 | dblink_name      | Input     | VARCHAR   | The name of database link object                             |
-| statement_id     | Input     | BIGINT    | Statement ID                                                 |
+| statement_id     | Input     | BIGINT    | The statement ID                                                 |
 | parameter_number | Input     | VARCHAR   | The parameter number which will be bound in the SQL statement. It begins with 1. |
 | Value            | Input     | VARCHAR   | The binding value                                            |
 
@@ -1970,7 +1970,7 @@ INTEGER REMOTE_STATEMENT_BATCH (
 | Name         | In/Output | Data Type | Description                          |
 | ------------ | --------- | --------- | ------------------------------------ |
 | dblink_name  | Input     | VARCHAR   | The name of the database link object |
-| statement_id | Input     | BIGINT    | Statement ID                         |
+| statement_id | Input     | BIGINT    | The statement ID                         |
 
 ##### Return Value
 
@@ -1997,7 +1997,7 @@ INTEGER REMOTE_FREE_STATEMENT_BATCH (
 | Name         | In/Output | Data Type | Description                          |
 | ------------ | --------- | --------- | ------------------------------------ |
 | dblink_name  | Input     | VARCHAR   | The name of the database link object |
-| statement_id | Input     | BIGINT    | Statement ID                         |
+| statement_id | Input     | BIGINT    | The statement ID                         |
 
 ##### Return Value
 
@@ -2024,7 +2024,7 @@ INTEGER REMOTE_GET_RESULT_COUNT_BATCH (
 | Name         | In/Output | Data Type | Description                          |
 | ------------ | --------- | --------- | ------------------------------------ |
 | dblink_name  | Input     | VARCHAR   | The name of the database link object |
-| statement_id | Input     | BIGINT    | Statement ID                         |
+| statement_id | Input     | BIGINT    | The statement ID                         |
 
 ##### Return Value
 
@@ -2052,7 +2052,7 @@ INTEGER REMOTE_GET_RESULT_BATCH (
 | Name         | In/Output | Data Type | Description                                                  |
 | ------------ | --------- | --------- | ------------------------------------------------------------ |
 | dblink_name  | Input     | VARCHAR   | The name of the database link object                         |
-| statement_id | Input     | BIGINT    | Statement ID                                                 |
+| statement_id | Input     | BIGINT    | The statement ID                                                 |
 | index        | Input     | INTEGER   | The sequence number (index) of SQL statements which are batch processed. |
 
 ##### Return Value
