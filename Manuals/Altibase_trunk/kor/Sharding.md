@@ -23,6 +23,7 @@
   - [SHARD DDL](#shard-ddl)
     - [ADD](#add)
     - [DROP](#drop)
+    - [DROP FORCE](#drop-force)
     - [JOIN](#join)
     - [FAILOVER](#failover)
     - [FAILBACK](#failback)
@@ -1069,9 +1070,18 @@ ALTER DATABASE SHARD DROP ;
 - 클론 테이블을 제외하고, 해당 샤드 노드에 속한 샤드 테이블의 데이터 영역이 있다면, 샤드 노드를 삭제 할 수 없다. 
   리샤딩을 이용하여, 해당 데이터 영역을 다른 샤드 노드로 이동 시킨 후에, 샤드 노드를 삭제 할 수 있다. 
 
-### DROP FORCE (*under construction*)
+### DROP FORCE
+(*under construction*)
+
+#### 구문
+ALTER DATABASE SHARD DROP "target_node_name" FORCE ;
+
+#### 설명
 - failover 된 노드가 영구장애가 발생하여, 이 노드로 failback을 시킬 수 없는 경우에 해당 노드를 강제로 샤딩 클러스터에서 제거하기 위한 기능이다.
-- 현재 개발중인 기능으로 개발이 완료되면 상세 내용을 기록할 것임.
+- 비정상종료되었으나 failover가 되지 않은 노드가 존재하는 상황에서는 어떤 노드이든 DROP FORCE를 할 수 없다.
+  - 이런 노드들을 먼저 FAILOVER shard DDL을 이용하여 failover를 시킨 후에만, DROP FORCE shard DDL을 수행할 수 있다.
+- 사용자의 shutdown 명령어에 의해 shutdown된 노드이지만, 영구장애가 발생하여, JOIN shard DDL을 할 수 없는 경우에도, 먼저 FAILOVER shard DDL을 이용하여 failover를 시킨 후에만, DROP FORCE shard DDL을 수행할 수 있다.
+- DROP FORCE shard DDL은 제거될 노드에서는 수행할 수 없다.
 
 ### JOIN
 
@@ -1093,9 +1103,11 @@ ALTER DATABASE SHARD FAILOVER "target_node_name" ;
 #### 설명
 특정 노드에 장애가 발생하였을 때, 다른 노드에서 장애가 발생한 노드의 데이터 영역을 서비스 할 수 있도록 하는 작업이다.
 
-기본적으로는 Zookeeper에 의해 장애노드가 감지되면 자동으로 수행된다. 또한, 사용자가 수동으로 실행 할 수도 있다.
+단, 설정된 K-Safety 값을 넘어서는 노드이름으로 연속된 노드들의 장애가 발생하는 경우에는, 장애가 발생한 노드의 데이터 영역을 서비스 할 수 없는 채로 failover를 한다.
 
-설정된 K-Safety 값에 따라 최대 2차 장애까지는 데이터의 손실없는 failover를 제공할 수 있다.
+기본적으로는 Zookeeper에 의해 장애노드가 감지되면 자동으로 수행된다. 또한, 정상적인 노드에 대해서도 사용자가 수동으로 FAILOVER shard DDL을 수행 할 수도 있다. 그리고, 비정상종료되었으나 자동 failover가 되지 않은 노드가 있다면, 사용자가 수동으로 FAILOVER shard DDL을 수행해 주어야 한다.
+
+사용자의 shutdown 명령어에 의해 shutdown된 노드이지만, 영구장애가 발생하여, JOIN shard DDL을 할 수 없는 경우에는, 사용자가 수동으로 FAILOVER shard DDL을 수행해 주어야 한다.
 
 정상적인 상태의 노드들 중에 노드 이름으로 오름차순으로 정렬 했을때, 장애가 발생한 target node 의 이름과 비교해서 바로 다음 순서에 있는 노드를 next alive node 라고 한다. 이름 순으로 가장 마지막에 있던 노드의 next alive node는 이름 순으로 가장 처음에 위치하는 노드가 된다. 즉, 이름 순서는 환(ring)의 형태로 검색하도록 되어 있다.
 
@@ -1111,6 +1123,8 @@ failover가 완료되면, next alive node가 장애가 발생한 target node에�
 
 failover된 노드는, 사용자의 failback 명령에 의해서만 다시 샤딩 클러스터에 참여할 수 있다.
 
+단, failover된 노드에 영구장애가 발생해서, 해당 노드를 failback 시킬 수 없을 때는, 해당 노드를 DROP FORCE shard DDL을 이용하여, 제거 할 수 있다.
+
 ### FAILBACK
 
 #### 구문
@@ -1122,7 +1136,7 @@ ALTER DATABASE SHARD FAILBACK ;
 본 구문의 수행 노드는 아래 노드들이 대상이 된다.
 - 장애가 발생하여 자동으로 failover 된 노드
 - 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드
-- 사용자에 의한 shutdown 명령어에 의하지 않고, 비정상적 상태가 되었으나, failover는 되지 않은 노드
+  - 비정상종료되었으나 failover가 되지 않은 노드가 있다면, 해당 노드를 먼저 FAILOVER shard DDL을 이용하여, failover를 시켜야만, FAILBACK shard DDL을 수행할 수 있다.
 - 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
 
 ### MOVE
