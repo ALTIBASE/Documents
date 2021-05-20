@@ -105,7 +105,7 @@ Altibase Administration General Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -212,7 +212,7 @@ This is the number of log files on disk that are open for use by Altibase.
 
 ##### LF_PREPARE_COUNT
 
-This is the number of log files that have been created in advance (prepared) by the log file creation thread up to the present moment
+This is the number of log files that have been created in advance (prepared) by the log file creation thread up to the present moment.
 
 ##### LF_PREPARE_WAIT_COUNT
 
@@ -560,7 +560,7 @@ This indicates the memory usage of the module.
 
 ##### ALLOC_COUNT	
 
-This is the number of unit memories that make up ALLOC_SIZE in the module
+This is the number of unit memories that make up ALLOC_SIZE in the module.
 
 ##### MAX_TOTAL_SIZE
 
@@ -734,8 +734,7 @@ This is the number of node allocation requests that have been made to the node p
 
 ##### TOTAL_FREE_REQ
 
-인덱스에서 사용되었던 노드가 삭제되어 노드 풀에 반환 요청된 횟수를 나타낸다.
-시스템이 시작된 후부터 누적된 값을 유지한다.
+This is the number of times the node that was used in the index was deleted and returned to the node pool. This is the accumulated value that is maintained after the system is started.
 
 ##### FREE_REQ_COUNT
 
@@ -828,7 +827,7 @@ This is the number of nodes that have not been allocated to RTREE indexes and th
 
 ##### USED_NODE_COUNT
 
-This is the total number of nodes that are currently allocated to RTREE indexes
+This is the total number of nodes that are currently allocated to RTREE indexes.
 
 ##### NODE_SIZE
 
@@ -1025,7 +1024,7 @@ This view shows NLS (National Language Support)-related information for both the
 
 ##### SESSION_ID
 
-This is the unique number of the session
+This is the unique number of the session.
 
 ##### NLS_USE
 
@@ -1077,7 +1076,7 @@ This view stores the names of territories available to be set for the database o
 
 This view displays information about backups which are no longer required to be retained.
 
-Since columns of this view are part of the V\$BACKUP_INFO performance view, please refer to column information about the V$BACKUP_INFO performance view for further information.
+Since columns of this view are part of the V\$BACKUP_INFO performance view, please refer to column information about the V$BACKUP_INFO performance view for more information.
 
 | Column name                    | Type      | Description                     |
 | ------------------------------ | --------- | ------------------------------- |
@@ -2049,7 +2048,7 @@ This is the number of log records that have been read and sent by the Sender thr
 
 This indicates the replication mode set by the user. The type of replicaiton mode is LAZY or EAGER.
 
-For more detailed information about the replication mode, please refer to the *Replication Manual.*
+For more detailed information about the replication mode, please refer to the *Replication Manual*.
 
 ##### ACT_REPL_MODE
 
@@ -2164,7 +2163,7 @@ This is the identifier of one of several replication Senders working in parallel
 
 This performance view displays the number of logs sent by the replication Sender, sorted by the DML type. Whenever the number of replication logs specified for the REPLICATION_SENDER_LOG_COUNT_PERIOD property is sent, the data of this performance view is updated. 
 
-For parallel replication in EAGER mode, only the information about the Parent Sender is displayed in this performance view; information about each Sender thread is displayed in the V$REPSENDER_SENT_LOG_COUNT_PARALLEL performance view
+For parallel replication in EAGER mode, only the information about the Parent Sender is displayed in this performance view; information about each Sender thread is displayed in the V$REPSENDER_SENT_LOG_COUNT_PARALLEL performance view.
 
 | Column name      | Type        | Description                                        |
 | ---------------- | ----------- | -------------------------------------------------- |
@@ -2479,7 +2478,7 @@ This is the cumulative amount of time spent on reading one page from secondary b
 
 ##### SINGLE_PAGE_WRITE_USEC
 
-하나의 페이지를 보조 버퍼에 쓰는데 소요된 누적 시간이다. (단위: micro-seconds)
+This is the cumulative time spent writing one page to the auxiliary buffer. (Unit: micro-seconds)
 
 ##### MPR_READ_USEC
 
@@ -3008,9 +3007,9 @@ This indicates the value set for the QUERY_REWRITE_ENABLE property in the sessio
 
 This indicates the execution level of global transactions set for the DBLINK_GLOBAL_TRANSACTION_LEVEL property in the session. For further information about the DBLINK_GLOBAL_TRANSACTION_LEVEL property, please refer to Chapter 2.
 
--   0: remote statement execution level
+-   0: Remote statement execution level
 
--   1: simple transaction commit level
+-   1: Simple transaction commit level
 
 -   2: Two-Phase Commit
 
@@ -4242,7 +4241,7 @@ This is the name of the statistic, which is shown in one of the above performanc
 
 ###  V\$SYSSTAT
 
-This view shows the status of the system. It should be noted that the shown value may be out of date, because the status values are updated every 3 seconds based on the data for all sessions
+This view shows the status of the system. It should be noted that the shown value may be out of date, because the status values are updated every 3 seconds based on the data for all sessions.
 
 | Column name | Type         | Description                                |
 | ----------- | ------------ | ------------------------------------------ |
@@ -4883,7 +4882,7 @@ This view displays information about transaction objects.
 
 ##### ID
 
-This is a number for classifying the transaction, ranging from 0 to 2^32 – 1. These values can be reused
+This is a number for classifying the transaction, ranging from 0 to 2^32 – 1. These values can be reused.
 
 ##### SESSION_ID
 
@@ -4899,7 +4898,7 @@ This is the SCN of the oldest of the currently open disk LOB cursors for the pre
 
 ##### DISK_VIEW_SCN
 
-This is the lowest of the View SCN values for cursors that are currently open for disk tables for the present transaction. The range of values is the same as for MEMORY_VIEW_SCN
+This is the lowest of the View SCN values for cursors that are currently open for disk tables for the present transaction. The range of values is the same as for MEMORY_VIEW_SCN.
 
 ##### MIN_DISK_LOB_VIEW_SCN
 
