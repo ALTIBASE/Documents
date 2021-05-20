@@ -52,7 +52,7 @@ Altibase Administration Getting Started Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
 prohibited. All trademarks, registered or otherwise, are the property of their respective owners. 
@@ -233,7 +233,7 @@ This chapter contains the following sections:
 
 #### Download the Package Installer.
 
-Visit Altibase Customer Service Portal (http://support.altibase.com/en) and download the installer that is suitable for your operation system.
+Visit Altibase Customer Service Portal (http://support.altibase.com/en/) and download the installer that is suitable for your operation system.
 
 For more detailed information on the package installer files, please refer to Chapter 2 "Installing Products with the Altibase Package Installer" in the Installation Guide.
 
@@ -634,7 +634,7 @@ More detailed information on this can be found in the *C/C++ External Procedures
 
 The dynamic library file containing user-fined containing user-defined C/C++ functions to be used with external procedures must be identifiable by the Altibase server. For this purpose, Altibase provides the library object which is a database object that corresponds to the dynamic library file on a one-to-one basis.
 
-More detailed information on this can be found in the C/C++ External Procedures Manual.
+More detailed information on this can be found in the *C/C++ External Procedures Manual*.
 
 #### Non-schema Objects
 
@@ -1865,7 +1865,7 @@ BIGINT - END TIME :  [16:43:49]
 
 ### Applications Using JDBC
 
-The following describes how to create a client application that uses the JDBC driver of Altibase. For more information about the JDBC driver of Altibase, please refer to   the Altibase JDBC User's Manual.
+The following describes how to create a client application that uses the JDBC driver of Altibase. For more information about the JDBC driver of Altibase, please refer to the Altibase JDBC User's Manual.
 
 #### JDBC Driver
 
