@@ -200,7 +200,7 @@ External procedures provided by Altibase have the following features and advanta
 
 #### Flow of Calling External Procedures
 
-Like regular stored procedures(PSM), external procedures can also be called in the client session. The overall flow from the creation of an external procedure to its invocation is depicted below. 
+Similar to regular stored procedures(PSM), external procedures can also be called in the client session. The overall flow from the creation of an external procedure to its invocation is depicted below. 
 
 ##### Common
 
@@ -255,7 +255,7 @@ The following table concatenates valid PSM data types of arguments for the creat
 | PSM Data Type | IN                   | INOUT/OUT               | RETURN               | 비고                                                         |
 | ------------- | -------------------- | ----------------------- | -------------------- | ------------------------------------------------------------ |
 | BIGINT        | long long            | long long \*            | long long            |                                                              |
-| BOOLEAN       | char                 | char \*                 | char                 | BOOLEAN의 경우에는 아래 두 가지 값을 허용한다. 0: FALSE 1: TRUE |
+| BOOLEAN       | char                 | char \*                 | char                 | In the case of BOOLEAN, the following two values ​​are allowed. 0: FALSE 1: TRUE |
 | SMALLINT      | int                  | int \*                  | int                  |                                                              |
 | INTEGER       |                      |                         |                      |                                                              |
 | REAL          | float                | float \*                | float                |                                                              |
@@ -264,7 +264,7 @@ The following table concatenates valid PSM data types of arguments for the creat
 | VARCHAR       |                      |                         |                      |                                                              |
 | NCHAR         |                      |                         |                      |                                                              |
 | NVARCHAR      |                      |                         |                      |                                                              |
-| NUMERIC       | double               | double \*               | double               | Precision이 높은 인자는 double 형으로 변환하는 과정에서 데이터 손실이 발생할 수 있다. |
+| NUMERIC       | double               | double \*               | double               | Data loss may occur in the process of converting an argument with high precision to a double type. |
 | DECIMAL       |                      |                         |                      |                                                              |
 | NUMBER        |                      |                         |                      |                                                              |
 | FLOAT         |                      |                         |                      |                                                              |
