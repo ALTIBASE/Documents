@@ -33,7 +33,7 @@ Altibase Tools & Utilities Altibase Hadoop Connector User's Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -171,15 +171,15 @@ This chapter explains how to install the Altibase Hadoop Connector and required 
 
 ### Software Requirements
 
-The following software must be installed in order to install and run the Altibase Hadoop Connector
+The following software must be installed in order to install and run the Altibase Hadoop Connector.
 
--   JRE (Java Runtime Environment) or JDK (Java Development Kit) version 1.6 or above
+-   JRE (Java Runtime Environment) or JDK (Java Development Kit) version 1.6 or later
     
 -   Hadoop Version 1.0
 
--   Sqoop version 1.4.4 or above
+-   Sqoop version 1.4.4 or later
 
--   Altibase version 5.0 or above
+-   Altibase version 5.0 or later
 
 This section describes how to install the Hadoop and Swap required to run the Altibase Hadoop connector. In addition, it describes how to install the Altibase JDBC driver in Hadoop and Scan environment for interworking with the Altibase server.
 
@@ -399,7 +399,7 @@ If the value set for sqoop.export.records.per.statement is larger than 1, the Al
 
 #### Inserting Data From a CSV File 
 
-When exporting with a CSV file, options which specify delimiters are available for use. For further information on options available for use, please refer to “Importing to HDFS in a Text File”.
+When exporting with a CSV file, options which specify delimiters are available for use. For more detailed information on options available for use, please refer to “Importing to HDFS in a Text File”.
 
 #### Inserting Data in Batch Mode
 
