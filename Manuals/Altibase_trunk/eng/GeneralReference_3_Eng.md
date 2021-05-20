@@ -118,7 +118,7 @@ Altibase Administration General Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -755,7 +755,7 @@ This is the identifier of a table referenced in a FOREIGN KEY constraint (not th
 
 ##### REFERENCED_INDEX_ID
 
-This indicates a UNIQUE or PRIMARY KEY constraint that must exist in a table referenced by a FOREIGN KEY constraint. The identifier of this constraint will be the same as a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table
+This indicates a UNIQUE or PRIMARY KEY constraint that must exist in a table referenced by a FOREIGN KEY constraint. The identifier of this constraint will be the same as a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
 
 ##### CHECK_CONDITION
 
@@ -1099,7 +1099,7 @@ SYS_PRIVILEGES_
 
 ### SYS_INDEX_COLUMNS\_
 
-This is the meta table that contains information about all columns associated with indexes defined for all tables
+This is the meta table that contains information about all columns associated with indexes defined for all tables.
 
 | Column name     | Type    | Description                             |
 | --------------- | ------- | --------------------------------------- |
@@ -1307,7 +1307,7 @@ This is the number of columns with which the index is associated.
 
 This is indicates whether range scanning is possible using the index.
 
-- T: Range scanning is possible
+- T: Range scanning is possible.
 - F: Range scanning is not possible.
 
 ##### IS_DIRECTKEY
@@ -1478,7 +1478,7 @@ SYS_COLUMNS_
 
 ### SYS_MATERIALIZED_VIEWS\_
 
-Materialized view에 대한 정보가 기록된 메타 테이블이다.
+This is a meta table that contains information about materialized views.
 
 | Column name       | Type         | Description                                                  |
 | ----------------- | ------------ | ------------------------------------------------------------ |
@@ -1977,8 +1977,8 @@ This indicates the partitioning method.
 
 This indicates whether it is permissible for records that have been updated to be moved to other partitions when the value of a partition key column is updated. 
 
-- T: movement of updated records between partition is permitted
-- F: movement of updated records between partition is forbidden
+- T: Movement of updated records between partition is permitted
+- F: Movement of updated records between partition is forbidden
 
 #### Reference Tables
 
@@ -2316,7 +2316,7 @@ SYS_TABLES_
 
 ### SYS_RECYCLEBIN\_
 
-This table contains information about tables in the recycle bin. If the value for the RECYCLEBIN_ENABLE property is set to 1, this table contains information about tables moved to the recycle bin using the DROP statement
+This table contains information about tables in the recycle bin. If the value for the RECYCLEBIN_ENABLE property is set to 1, this table contains information about tables moved to the recycle bin using the DROP statement.
 
 | Column name         | Type         | Description                                                  |
 | ------------------- | ------------ | ------------------------------------------------------------ |
@@ -2600,7 +2600,7 @@ If DDL statements or Sync operations are executed on replication target tables, 
 
 ##### REPLICATION_UNIT
 
-This is the unit of the replication target item. One of the following two values is indicated in this column
+This is the unit of the replication target item. One of the following two values is indicated in this column.
 
 - T: The replication target item is a table.
 - P: The replication target item is a partition.
@@ -3097,7 +3097,7 @@ The user can set PCTFREE between 0 and 99 when executing the CREATE TABLE statem
 
 ##### PCTUSED
 
-This is a threshold below which the amount of used space in a page must decrease in order for the page to return to the state in which records can be inserted from the state in which only update operations are possible. If the amount of free space falls below the percentage specified in PCTFREE, it will become impossible to insert new records into the page, and it will only be possible to update and delete rows. If subsequent update or delete operations reduce the percentage of used space below the threshold specified by PCTUSED, it will become possible to insert new rows into the page again
+This is a threshold below which the amount of used space in a page must decrease in order for the page to return to the state in which records can be inserted from the state in which only update operations are possible. If the amount of free space falls below the percentage specified in PCTFREE, it will become impossible to insert new records into the page, and it will only be possible to update and delete rows. If subsequent update or delete operations reduce the percentage of used space below the threshold specified by PCTUSED, it will become possible to insert new rows into the page again.
 
 The user can set PCTUSED between 0 and 99 when the CREATE TABLE statement is executed.
 
@@ -3612,7 +3612,7 @@ This is the user's temporary tablespace identifier.
 
 ##### DISABLE_TCP
 
-This indicates to allow or restrict the user's TCP connection
+This indicates to allow or restrict the user's TCP connection.
 
 ### SYS_USER_ROLES\_
 
@@ -5542,7 +5542,7 @@ This is the number of times waiting to be queued to store data on disk.
 
 ##### WORK_AREA_SIZE
 
-This is the space used for hash sorting in memory.기 위해 메모리에서 사용된 공간
+This is the space used for hash sorting in memory.
 
 ##### DISK_USAGE
 
