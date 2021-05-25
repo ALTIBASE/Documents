@@ -35,7 +35,7 @@ Altibase Tool & Utilities Altibase HeartBeat User's Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -146,7 +146,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 ## 1. Introduction to Altibase Heartbeat
 
-This chapter introduces Altibase Heartbeat and describes its basic procedure.
+This chapter introduces the Altibase Heartbeat and describes its basic procedure.
 
 ### Overview of Altibase Heartbeat
 
