@@ -424,7 +424,7 @@ $ setenv DISPLAY <machine name>:0.0
 
 \<machine_name\> is the IP address or host name of the computer that is to display the Altibase Package Installer process. Use the serene command for Shell or set export DISPLAY=\<machine name\>:0.0 for Korn Shell.
 
-If you want to allow the Altibase Package Installer to run in GUI mode at a remote location other than the host computer, run the following command on the remote computer: 
+In order to allow the Altibase Package Installer to run in GUI mode at a remote location other than the host computer, run the following command on the remote computer: 
 
 ```
 $ xhost +
@@ -438,7 +438,7 @@ To run the Altibase Package Installerm a suer needs to download the Package Inst
 $ chmod +x altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
 ```
 
-Run the Altibase Package Installer
+Run the Altibase Package Installer.
 
 ```
 $./altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
@@ -954,7 +954,7 @@ To start the Altibase Package Installer in GUI mode, please refer to [Set the In
 
 #### Starting the Altibase Package Installation
 
-To run the ALtibase Package Installer, users must download the Package Installer and then change the permissions of the file by using chmod. 
+To run the ALtibase Package Installer, the user must download the Package Installer and then change the permissions of the file by using chmod. 
 
 ```
 $ chmod +x altibase-client-7.1.0.0.0-LINUX-X86-64bit-release.run
@@ -1093,7 +1093,7 @@ For meta downgrade-able version, perform the meta downgrade with the following s
 $ server downgrade
 ```
 
-> \* Note: User must shut down the server (server stop) before performing the meta downgrade. If the user does perform this without shutting down the server, then the following error with occur: 
+> \* Note: The user must shut down the server (server stop) before performing the meta downgrade. If the user does perform this without shutting down the server, then the following error with occur: 
 
 ```
 $ server downgrade
@@ -1487,7 +1487,7 @@ lru_file_repage = 0 (AIX 5.2 ML4 or higher)
 strict_maxclient = 0
 ```
 
-###### Posix AIO의 설정
+###### Configuration of Posix AIO
 
 AIX provides the Posix A/O interfaces for improved disk I/O improvement which must be manually activated. However, from AIX 6.1 and higher, the interfaces are activated by default.
 
@@ -1592,5 +1592,5 @@ There is a bug in glibc that could cause deadlock due to race conditions such as
 
 #### AIX
 
- When using Altibase on AIX, memory usage increases (hearpmin library bug). In this case, C/C++ compilers of the appropriate version must be patched from the IBM Support Portal (http://www-01.ibm.com/support/docview.wss?uid=swg21110831 ).
+When using Altibase on AIX, memory usage increases (hearpmin library bug). In this case, C/C++ compilers of the appropriate version must be patched from the IBM Support Portal (http://www-01.ibm.com/support/docview.wss?uid=swg21110831 ).
 
