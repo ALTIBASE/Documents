@@ -1048,12 +1048,12 @@ jdbcAdapter를 이용하여 Alitbase에서 변경된 데이타를 Other DB에 �
 서비스를 제공하는 Altibase 서버에서 장애가 발생하면 Other DB에 적용하지 못한 로그를  전송할 수 없게 된다.
 이때 Altibase 서버에 META_LOGGING Option을 수행 중이고, Altibase 서버와 동일한 데이터베이스 구성을 가진
 Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Alitbase 서버의 로그 파일에 직접 접근하여
-미전송 로그를 가져와서 반영할 수 있다.
+미전송 로그를 가져와서 Other DB에 반영할 수 있다.
 
 -   META_LOGGING
     이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
     미전송 로그를 읽어 올때 필요한 메타 정보를 구성할 수 있게 한다.
-    파일 경로는 로그 파일 경로에 ala_meta_files 폴더 안에 생성 된다.
+    파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
 -   SET OFFLINE ENABLE WITH 'log_dir' 
     오프라인 이중화 옵션을 사용할 수 있도록 설정한다. 이중화가 중지되어 있는 상태에서만
     이 구문을 수행할 수 있다.
@@ -1063,7 +1063,7 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
     오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는
     상태에서만 이 구문을 수행할 수 있다.
 -   BUILD OFFLINE META
-    설정된 로그 파일 경로에 ala_meta_files 폴더에서 메타 파일과 SN파일을 읽어 
+    설정된 로그 파일 경로의 ala_meta_files 폴더에서 메타 파일과 SN 파일을 읽어 
     오프라인 이중화에 필요한 메타 정보를 구성한다.
 -   RESET OFFLINE META
     BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을때
@@ -1078,14 +1078,14 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
 - 이중화 메타정보 파일 읽기, 쓰기 기능은 ALA만 사용 할수 있다.
 - Offline jdbcAdapter을 수행할 서버의 ALA 객체 이름은 Active 서버의 ALA 객체 이름과 동일해야 한다. 
 - 압축 테이블을 이중화 대상으로 가지는 ALA객체에 대해서는 Offline jdbcAdapter를 지원하지 않는다.
-- Offline jdbcAdapter가 디스크 이상으로 Active서버의 로그파일과 메타파일 경로에 접근하지 못할 
+- Offline jdbcAdapter가 디스크 이상으로 Active서버의 로그 파일과 메타 파일 경로에 접근하지 못할 
   경우에는 실패한다.
 - Active 서버와 Standby 서버의 로그 파일 크기는 동일해야 한다. 로그 파일 크기는 데이터베이스 생성 시에 
   정해지므로 오프라인 옵션을 사용하기 전에 이를 꼭 확인하여야 한다.
-- 로그 파일과 메타파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우
+- 로그 파일과 메타 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우
   비정상 종료와 같은 문제를 발생시킬 수 있다.
-- Standby 서버에 메타파일을 읽어 온 후 재구동해서는 안 된다. 왜냐하면 Standby서버를 재시작하면 
-  수신하지 못한 로그를 분석하는데 사용할 정보가 사라지기 때문이다.
+- Standby 서버에 BUILD OFFLINE META 수행 후 재구동할 경우 BUILD OFFLINE META를 다시 수행 해야 한다.
+- META_LOGGING Option을 사용할 경우 ALA도 이중화와 동일하게 갭을 Archive 로그로 처리 하지 않는다.
 - 두 데이터베이스 서버의 SM버전, OS, OS비트수 (32또는 64) 또는 로그 파일의 크기가 서로 다르면, 
   Offline jdbcAdapter를 시작하거나 오프라인 옵션으로 ALA 객체를 생성할 때 실패한다.
 
