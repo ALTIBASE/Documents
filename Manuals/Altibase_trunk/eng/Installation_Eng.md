@@ -40,7 +40,7 @@ Altibase Administration Installation Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.
 
@@ -128,11 +128,11 @@ Thank you. We appreciate your feedback and suggestions.
 ## 1. About the Altibase Package Installer
 ------------------------
 
-This Altibase Package Installer is a Java-based installer that lets you easily install Altibase products such as the database server, client components, tools, and so forth.
+This Altibase Package Installer is a Java-based installer that lets users easily install Altibase products such as the database server, client components, tools, and so forth.
 
 ### Altibase Home
 
-When you install Altibase with the Altibase Package Installer, a home directory and APatch directory are generated.
+When installing Altibase with the Altibase Package Installer, a home directory and APatch directory are generated.
 
 The Altibase home directory is the default directory wherein Altibase software is installed.
 
