@@ -1275,7 +1275,7 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
   정해지므로 오프라인 옵션을 사용하기 전에 이를 꼭 확인하여야 한다.
 - 로그 파일과 메타 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우
    비정상 종료와 같은 문제를 발생시킬 수 있다.
-- Standby 서버에 BUILD OFFLINE META 수행 후 재구동할 경우 BUILD OFFLINE META를 다시 수행 해야 한다.
+- Standby 서버에 BUILD OFFLINE META 수행 후 재 구동할 경우 로그를 분석하는데 사용할 Remote Meta 정보가 사라지기 때문에 BUILD OFFLINE META를 다시 수행 해야 한다. 
 - META_LOGGING Option을 사용할 경우 ALA도 이중화와 동일하게 갭을 Archive 로그로 처리 하지 않는다.
 - 두 데이터베이스 서버의 SM버전, OS, OS비트수 (32또는 64) 또는 로그 파일의 크기가 서로 다르면, 
   Offline OraAdapter를 시작하거나 오프라인 옵션으로 ALA 객체를 생성할 때 실패한다.
