@@ -423,26 +423,23 @@ Create New Shard Database 시와 동일하게 데이타베이스를 준비한다
 
 ## Shard Object Management
 
-### 샤드 객체 설정
+### Set Shard Object
+일반 DB 객체를 샤드 객체로 설정한다.
 
-일반 DB 객체를 샤드 객체로 설정한다. 샤드 메타에 샤드 객체 정보가 저장된다.
+1. 메뉴에서 'Shard Object' - 'Set Shard Object' 항목을 클릭한다.
+2. 'Available Database Object' 테이블에서 샤드 객체로 지정할 항목의 체크박스를 클릭하여 선택한다. 
+3. Solo 혹은 Clone 을 제외하고, shardkey table/procedure 이면, 선택한 샤드 객체의 샤드 키를 지정한 뒤, 샤드 키 분산 방식, 기본 노드를 선택한다.
+4. 'Key Values' 테이블에서 분산 정보에 등록할 노드와 샤드 키 값을 작성한다. shardkey table은 partitioned table만 가능하고, 샤드 키 값은 파티션 키 값과 동일하게 자동으로 설정된다. 해당 파티션별 분산노드만 지정하면 된다.
+5. 'Submit' 버튼을 클릭하여 샤드 객체 설정을 한다.
+6. 샤드 객체 설정이 완료되면, 해당 객체는 샤드 객체 뷰에 표시된다. 지정한 분산 방식은 'Split Method'에 표시되고, 샤드 키는 객체의 하위 노드로 표시된다.
 
-1. 샤드 객체 뷰의 툴바에 위치한 'Set Shard Object' 버튼(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)) 또는 메뉴에서 'Shard Object' - 'Set Shard Object' 항목을 클릭한다.
-2. 'Available Database Object' 테이블에서 샤드 객체로 지정할 항목의 체크박스를 클릭하여 선택한다. 이때 Shard Key도 함께 지정해야 한다.
-![](media/Sharding/shm_set_shard_object.png)
-3. 'Composite'을 제외한 샤드 키 분산 테이블이면, 선택한 샤드 객체의 샤드 키와 서브 샤드 키를 지정한 뒤, 샤드 키 분산 방식, 서브 샤드 키 분산 방식, 기본 노드를 선택한다.
-4. 'Key Values' 테이블에서 분산 정보에 등록할 노드와 샤드 키 값, 서브 샤드 키 값을 작성한다.
-5. 'Submit' 버튼을 클릭하여 샤드 객체 설정을 샤드 노드에 요청한다.
-6. 샤드 객체 설정이 완료되면, 해당 객체는 샤드 객체 뷰에 표시된다. 지정한 분산 방식은 'Split Method'에 표시되고, 샤드 키와 서브 샤드 키는 객체의 하위 노드로 표시된다.
-
-### 샤드 객체 해제
-
-샤드 메타에서 샤드 객체 정보를 삭제하여, 일반 DB 객체로 변경한다.
+### Unset Shard Object
+샤드 객체 정보를 설정 해제하여, 일반 DB 객체로 변경한다.
 
 1.  샤드 객체 뷰에서 원하는 샤드 객체를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 'Shard Object' 메뉴를 열어 'Unset Shard Object'를 클릭한다.
 2.  샤드 객체 해제를 완료하면, 샤드 객체 뷰에서 해당하는 샤드 객체가 제거된다. 
 
-### 샤드 객체 삭제
+### 
 
 샤드 객체를 해제한 후, 샤드 메타에서 삭제한다. 그리고, 샤드 데이터베이스에 등록된 모든 DB에서 해당 객체를 삭제한다.
 
