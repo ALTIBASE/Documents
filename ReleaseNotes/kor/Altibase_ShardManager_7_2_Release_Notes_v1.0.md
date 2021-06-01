@@ -113,7 +113,7 @@ Shard Manager is based on the following Open Source Libraries and Royalty-Free I
 
 #### 2.5.2 Manual
 
-*need to modify* https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#7-shard-manager
+*need to modify* https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/ShardManager.md
 
 #### 2.5.3 Installation
 
