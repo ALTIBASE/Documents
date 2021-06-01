@@ -388,9 +388,9 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
 1. Shard Databases View 에서 대상 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 메뉴바에서 Shard Database 메뉴를 열어 'Generate Report'를 클릭한다.
 2. 레포트 생성 완료 시 Console View 에 파일 경로가 나타난다. 샤드 매니저가 설치된 경로의 report 디렉토리에 report 파일이 생성된다.  파일 이름은 수행 시작 시간을 기준으로 yyyyMMdd_HHmmss_[ShardConf | ShardRecord].html 형식으로 만들어진다.
 
-### 샤드 노드 관리
+## Shard Node Management
 
-#### 샤드 노드 추가
+### 샤드 노드 추가
 
 샤드 노드를 추가한다. 노드를 추가할때, 새 노드의 Primary/Alternate DB에 샤드 메타를 복제하고 샤드 객체를 생성한다. 또한 새 노드의 Primary/Alternate DB간에 이중화 객체도 필요시 자동 생성한다.
 
@@ -405,7 +405,7 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
     2.  추가되는 샤드 노드에 Alternate DB 연결정보가 입력되어 있으면, Primary DB와 Alternate DB간 샤드 테이블을 이중화 하기 위해 이중화 객체를 자동으로 생성하고 이중화를 시작한다. 샤드 매니저가 생성하는 이중화 객체의 이름 형식은 SHDMGR_IN_NODE_*NodeName* 이다.
 6.  정상적으로 수행되었으면, 샤드 데이터베이스에 등록한 샤드 노드가 추가된다.
 
-#### 샤드 노드 삭제
+### 샤드 노드 삭제
 
  샤드 노드를 삭제한다.
 
@@ -414,9 +414,9 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
     DB와 Alternate DB간 샤드 매니저가 생성한 이중화 객체가 있으면, 이를 감지해서 이중화 객체를 중지하고 삭제할 것인지 물어본다. 
 3.  정상적으로 샤드 노드가 삭제되었다면 샤드 데이터베이스 뷰 내 대상 노드가 사라진다.
 
-### 샤드 객체 관리
+## Shard Object Management
 
-#### 샤드 객체 설정
+### 샤드 객체 설정
 
 일반 DB 객체를 샤드 객체로 설정한다. 샤드 메타에 샤드 객체 정보가 저장된다.
 
@@ -428,14 +428,14 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
 5. 'Submit' 버튼을 클릭하여 샤드 객체 설정을 샤드 노드에 요청한다.
 6. 샤드 객체 설정이 완료되면, 해당 객체는 샤드 객체 뷰에 표시된다. 지정한 분산 방식은 'Split Method'에 표시되고, 샤드 키와 서브 샤드 키는 객체의 하위 노드로 표시된다.
 
-#### 샤드 객체 해제
+### 샤드 객체 해제
 
 샤드 메타에서 샤드 객체 정보를 삭제하여, 일반 DB 객체로 변경한다.
 
 1.  샤드 객체 뷰에서 원하는 샤드 객체를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 'Shard Object' 메뉴를 열어 'Unset Shard Object'를 클릭한다.
 2.  샤드 객체 해제를 완료하면, 샤드 객체 뷰에서 해당하는 샤드 객체가 제거된다. 
 
-#### 샤드 객체 삭제
+### 샤드 객체 삭제
 
 샤드 객체를 해제한 후, 샤드 메타에서 삭제한다. 그리고, 샤드 데이터베이스에 등록된 모든 DB에서 해당 객체를 삭제한다.
 
@@ -443,13 +443,7 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
 2.  삭제 여부를 묻는 팝업 창에서 삭제할 객체를 확인한 뒤, 'Yes' 버튼을 클릭한다.
 3.  정상적으로 객체가 삭제되었다면 샤드 객체 뷰 내 해당 객체가 사라진다.
 
-#### 샤드 객체 정보 확인
-샤드 객체 뷰에서 원하는 객체를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Object 메뉴를 열어 'Show Detail'을 클릭한다.
-
-#### 테이블 레코드 카운트 확인
-1.  샤드 객체 뷰에서 원하는 테이블을 마우스 오른쪽 버튼으로 누르거나 클릭 후 Shard Object 메뉴를 열어, 'Show Record Count'를 클릭한다.
-2.  확인하고자 하는 샤드 노드의 행에서 Address 열에 해당하는 칸을 클릭하여 원하는 연결정보를 선택한다.
-
+[comment]: <> "
 #### Resharding
 
 샤드 노드간 샤드 테이블의 데이터 재분배를 손쉽게 수행한다. GUI 모드에서 리샤딩 대상 테이블 종류에 따라 Resharding for Shard Key Distributed table (Hash, Range, List), Resharding for Clone table, Resharding for Solo table를 선택 가능하다. CLI 모드에서는 -reshard 옵션과 동작을 정의한 XML을 작성해 리샤딩을 수행한다.
@@ -477,18 +471,4 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
 2. 'Solo Tables' 리스트에서 리샤딩 대상 샤드 테이블을 클릭하여 선택한다.
 3. 'Nodes' 테이블의 'New' 항목을 선택하여 이동할 노드를 선택한다. Solo table은 하나의 노드에만 존재할 수 있다.
 4. 'Shard Object' 뷰에서 리샤딩 한 테이블의 'Show Detail'을 수행하여 리샤딩 결과를 확인할 수 있다.
-
-
-### SQL 실행: DDL
-샤드 데이터베이스에 속한 여러 데이터베이스들을 대상으로 사용자가 입력한 SQL을 수행한다. DDL만 지원되며, DML이나 Select 문은 지원하지 않는다.
-
-##### 쿼리 뷰 열기
-샤드 데이터베이스 뷰에서 원하는 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Database 메뉴를 열어 'Show Query View'를 클릭한다.
-
-##### SQL 실행
-선택한 노드 종류에 해당하는 데이터베이스에서 입력한 SQL문이 실행된다.
-
-1.  쿼리 뷰 내 SQL 입력 창에 실행하고자 하는 SQL문을 입력한다.
-2.  쿼리 뷰 내 툴바에 위치한 체크박스 중, 입력한 SQL문을 실행하고자 하는 대상 DB 종류를 선택한다.
-3.  입력한 SQL문 중 특정 쿼리만 수행하려면, 해당 구문을 마우스 커서로 드래그하여 선택한 뒤 쿼리 뷰의 툴바에서 'Execute Statement'(![](media/Sharding/de1f28e5e2b6fb8d2d6484ef3772e3e9.png))을 클릭한다. 입력한 전체 SQL문을 모두 수행하고 싶을 경우에는 'Execute Script'(![](media/Sharding/436ca8084a13745802c439308c90c757.png))을 클릭하여 SQL 문을 실행한다.
-4.  콘솔 뷰를 통해 각 데이터베이스에서의 실행 결과를 확인한다.
+"
