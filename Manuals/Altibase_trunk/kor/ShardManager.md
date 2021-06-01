@@ -249,11 +249,9 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 -   샤드 노드의 연결정보: 원형 아이콘은 접속 성공 시 초록색, 실패 시 빨간색으로 표시된다.
 
 ### Shard Objects View
-
 샤드 객체 뷰는 샤드 데이터베이스 뷰에서 선택된 샤드 데이터베이스에 속한 샤드 객체를 보여준다. 기본 전체화면의 왼쪽 하단에 위치한다.
 
 샤드 객체는 종류에 따라 'Procedures', 'Tables'의 트리 하위 노드로 표현된다.
-
 -   프로시저: 샤드 메타에 등록된 샤드 프로시저이다.
 -   프로시저 파라미터: 샤드 프로시저에서 샤드 키로 사용되는 파라미터 정보
 -   테이블: 샤드 메타에 등록된 샤드 테이블이다.
@@ -262,21 +260,19 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 ![](media/Sharding/shm_shard_objects.png)
 
 #### Label Expression
-
 -   프로시저, 테이블: 사용자 이름.객체 이름
 -   프로시저 파라미터: 프로시저 파라미터 이름 [데이터 타입]
 -   테이블 컬럼: 테이블 컬럼 이름 [데이터 타입]
 
 #### Icon Expression
-
 -   프로시저 파라미터: 파라미터 타입에 따라 IN은 오른쪽, OUT은 왼쪽, IN OUT은 양쪽 화살표 아이콘을 표시한다. 열쇠 그림 위의 숫자가 1이면 샤드 키를 의미한다.
 -   테이블 컬럼: 열쇠 그림 위의 숫자가 1이면 샤드 키를 의미한다.
 
-###### Column Description
+#### Column Description
 -   Name: 샤드 객체의 이름을 표시한다.
 -   Split Method: 샤드 객체의 분산 방식을 표시한다.
 
-###### Toolbar
+#### Toolbar
 [comment]: <> "-   Set Shard Object(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)): 샤드 객체를 추가한다."
 
 [comment]: <> "-   Resharding for Shard Key Distributed table(![](media/Sharding/reshard_shard.png)): Shard Key Distributed table (Hash, Range, List) 리샤딩을 수행한다."
@@ -287,28 +283,26 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 
 -   Create Shard Table (![](media/Sharding/table_add.png)): 새로운 테이블 생성과 Set Shard Table을 동시에 수행한다.
 -   Refresh (![](media/Sharding/action_refresh.gif)): 샤드 객체 뷰를 업데이트 한다.																																							 
-##### Query View
-
-쿼리 뷰는 사용자가 입력한 쿼리를 샤드 노드를 구성하는 Primary, Alternate DB를 대상으로 수행하는 뷰이다. 
-
+### Query View
 쿼리 뷰에서 사용가능한 쿼리 종류는 데이터 정의 언어(Data Definition Language, DDL)과 데이터 제어 언어(Data Control Language, DCL)이다. 
 
-쿼리 뷰는 (Data Manipulation Language, DML: SELECT, INSERT, DELETE, UPDATE) 를 지원하지 않는다. 쿼리 뷰에서 입력한 DML은 사용자가 선택한 DB에서 모두 수행되기 때문에, 예상하지 못한 결과를 가져올 수 있다. 
+쿼리 뷰는 (Data Manipulation Language, DML: SELECT, INSERT, DELETE, UPDATE) 를 지원하지 않는다.
 
 샤드 데이터베이스를 연결할 때 자동으로 뷰가 나타나며, 대상 데이터베이스의 이름이 뷰의 제목으로 사용된다. 사용자가 쿼리 뷰를 직접 열 때에는 샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼을 누르거나 선택 후, Shard Database 메뉴를 열어 'Open Query View'를 선택하면 생성된다. 기본 전체 화면 오른쪽 상단에 위치한다.
-																											  
+
 ![](media/Sharding/shm_query_view.png)
 
-###### Toolbar
+#### Toolbar
 -   Execute Statement (![](media/Sharding/de1f28e5e2b6fb8d2d6484ef3772e3e9.png)): 커서로 선택한 문자 블록 또는 해당 커서가 위치한 라인이 수행된다.
 -   Execute Script (![](media/Sharding/436ca8084a13745802c439308c90c757.png)): 쿼리 뷰에 입력한 모든 SQL문이 수행된다.
 
-사용자가 선택한 체크박스에 따라 Primary 또는 Alternate DB DB를 대상으로 쿼리를 수행하며, 쿼리 수행 결과는 콘솔 뷰에 출력된다. 
+'One Node'를 선택하면, 사용자가 최초 접속한 샤드노드, 즉, user session 이 맺어진 샤드 노드에만 해당 쿼리를 수행한다.
+
+'All Nodes'를 선택하면, 전체 샤드 노드들을 대상으로 해당 쿼리를 수행한다. 
 
 쿼리 뷰에 여러 SQL문을 입력할 수 있으며, 일부 또는 전체 SQL문을 선택하여 수행할 수 있다. SQL문은 입력한 순서대로 수행된다.
 
-##### Detail View
-
+### Detail View
 상세 뷰는 특정 객체에 대해 샤드 메타에 등록된 분산 정보와 각 노드에 저장된 해당 객체의 상세 정보를 보여준다. 
 
 대상 객체의 사용자 이름과 객체 이름이 개별 뷰의 제목으로 쓰인다. 샤드 객체 뷰에서 객체를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Shard Object 메뉴를 열어 'Show Detail'을 선택하면 생성되며, 기본 전체화면의 오른쪽 상단에 위치한다.
