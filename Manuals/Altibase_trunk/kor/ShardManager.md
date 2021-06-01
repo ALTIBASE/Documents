@@ -279,8 +279,8 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 -   Split Method: 샤드 객체의 분산 방식을 표시한다.
 
 ###### Toolbar
--   Set Shard Object(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)): 샤드 객체를 추가한다.
--   Create Shard Hash Table (![](media/Sharding/table_add.png)): 새로운 테이블 생성과 Set Shard Hash Table을 동시에 수행한다.
+[//] # (-   Set Shard Object(![](media/Sharding/e74a11e0f77d2845b3ca5b8cd59e27e9.png)): 샤드 객체를 추가한다.)
+-   Create Shard Table (![](media/Sharding/table_add.png)): 새로운 테이블 생성과 Set Shard Table을 동시에 수행한다.
 -   Resharding for Shard Key Distributed table(![](media/Sharding/reshard_shard.png)): Shard Key Distributed table (Hash, Range, List) 리샤딩을 수행한다.
 -   Resharding for Clone table(![](media/Sharding/reshard_clone.png)): Clone table 리샤딩을 수행한다.
 -   Resharding for Solo table(![](media/Sharding/reshard_solo.png)): Solo table 리샤딩을 수행한다.
