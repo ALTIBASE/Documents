@@ -165,16 +165,12 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사 드립니다.
 
-### Outline
-
+## Overview
 Shard Manager는 Altibase Sharding의 샤드 노드와 샤드 객체에 대한 구성 및 관리를 돕는 GUI 도구이다.
 
 Altibase Sharding은 다수의 데이터베이스로 구성되기 때문에, 각 데이터베이스와 객체를 관리하는 비용이 많이 들 수 있다. 이러한 환경에서 관리자는 Shard Manager를 사용함으로써 여러 데이터베이스에서 수행해야 하는 반복 작업을 단순화하여 업무 효율성을 향상시키고, 샤드 노드와 샤드 객체를 시각화하여 구성에 대한 이해도를 증진시킬 수 있다.
 
-### Features
-
 Shard Manager의 특징은 다음과 같다.
-
 -   샤드 데이터베이스를 손쉽게 추가/삭제/초기화할 수 있다.
 -   샤드 노드를 손쉽게 등록/수정/해제할 수 있다.
 -   DB 객체를 샤드 객체로 손쉽게 등록/해제할 수 있다.
@@ -182,7 +178,7 @@ Shard Manager의 특징은 다음과 같다.
 -   여러 노드들에 대해, SQL(DDL)을 전체 샤드노드들에 한 번에 수행할 수 있다.
 -   샤드 노드 구성, 샤드 객체 분포 및 스키마, 그리고 데이터 분포를 HTML 형태의 레포트로 확인할 수 있다.
 
-### Installstion
+## Installstion
 
 이 절에서는 Shard Manager를 설치할 때 필요한 환경과 선행 조건, 그리고 설치 및 제거 방법을 안내한다.
 
@@ -220,7 +216,7 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
 
 제공된 압축(zip) 파일을 원하는 위치에 해제하면 Shard Manager 설치가 완료된다. Shard Manager를 제거하기 위해서는 설치 시 생성한 Shard Manager 디렉토리를 삭제하면 제거가 완료된다.
 
-### User Interface
+## User Interface
 
 Shard Manager는 그래픽 사용자 인터페이스 (GUI) 모드를 제공한다.
 
@@ -234,8 +230,7 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 
 ![](media/Sharding/shm_first.png)
 
-##### Shard Databases View
-
+### Shard Databases View
 샤드 데이터베이스 뷰는 샤드 노드들의 그룹인 샤드 데이터베이스를 중심으로 샤드 정보를 보여준다. 기본 전체 화면의 왼쪽 상단에 위치한다.
 
 샤드 데이터베이스 뷰에서 표현하는 정보는 3가지이다.
@@ -246,18 +241,16 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 
 ![](media/Sharding/shm_shard_database_view.png)
 
-###### Label Expression
-
+#### Label Expression
 -   샤드 데이터베이스: 샤드 데이터베이스 추가 시 사용자가 부여한 이름
 -   샤드 노드: 샤드 메타에 등록된 샤드 노드 이름
 -   샤드 노드의 연결정보: IP 주소 : 포트 번호 (SMN)
 
-###### Icon Expression
-
+#### Icon Expression
 -   샤드 데이터베이스: 샤드 노드에 성공적으로 접속하면 아이콘 오른쪽 하단에 초록색 화살표를 표시한다.
 -   샤드 노드의 연결정보: 원형 아이콘은 접속 성공 시 초록색, 실패 시 빨간색으로 표시된다.
 
-##### Shard Objects View
+### Shard Objects View
 
 샤드 객체 뷰는 샤드 데이터베이스 뷰에서 선택된 샤드 데이터베이스에 속한 샤드 객체를 보여준다. 기본 전체화면의 왼쪽 하단에 위치한다.
 
@@ -270,16 +263,16 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 
 ![](media/Sharding/shm_shard_objects.png)
 
-###### Label Expression
+#### Label Expression
 
 -   프로시저, 테이블: 사용자 이름.객체 이름
 -   프로시저 파라미터: 프로시저 파라미터 이름 [데이터 타입]
 -   테이블 컬럼: 테이블 컬럼 이름 [데이터 타입]
 
-###### Icon Expression
+#### Icon Expression
 
--   프로시저 파라미터: 파라미터 타입에 따라 IN은 오른쪽, OUT은 왼쪽, IN OUT은 양쪽 화살표 아이콘을 표시한다. 열쇠 그림 위의 숫자가 1이면 샤드 키, 2이면 서브 샤드 키를 의미한다.
--   테이블 컬럼: 열쇠 그림 위의 숫자가 1이면 샤드 키, 2이면 서브 샤드 키를 의미한다.
+-   프로시저 파라미터: 파라미터 타입에 따라 IN은 오른쪽, OUT은 왼쪽, IN OUT은 양쪽 화살표 아이콘을 표시한다. 열쇠 그림 위의 숫자가 1이면 샤드 키를 의미한다.
+-   테이블 컬럼: 열쇠 그림 위의 숫자가 1이면 샤드 키를 의미한다.
 
 ###### Column Description
 -   Name: 샤드 객체의 이름을 표시한다.
@@ -370,10 +363,9 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 
 ![](media/Sharding/6bbda1671fc279b120c6c0736e63eb5f.jpg)
 
-### 샤드 데이터베이스 관리
+## Shard Database Management
 
-#### 새로운 샤드 데이터베이스 추가
-
+### Create New Shard Database
 새로운 샤드 데이터베이스를 만든다. 샤드 데이터베이스를 구성하는 모든 데이터베이스들은 샤드 메타값이 초기화 되어 있어야 하며, 샤드 객체는 없어야 한다. 새로 설치된 데이터베이스들에 샤드 데이터베이스 프로퍼티가 설정되어 있고, 필수 패키지만 설치된 상태를 권장한다.
 
 1.  툴바 또는 Database 메뉴에 위치한 'Create New Shard Database'를 클릭한다.
@@ -382,7 +374,7 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 4.  'OK' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
 7.  정상적으로 샤드 데이터베이스가 생성되었다면 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에 나타난다.
 
-#### 샤드 데이터베이스 읽어 오기
+### Load from Running Shard Database
 
 미리 구성되어 있는 Altibase Sharding에 접속해 샤드 데이터베이스를 등록하는 메뉴이다.  
 
