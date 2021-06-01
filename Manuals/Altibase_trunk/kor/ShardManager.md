@@ -321,15 +321,14 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 
 ![](media/Sharding/shm_detail_view2.png)
 
-##### Memory Tablespace Usage View
-
+### Memory Tablespace Usage View
 메모리 테이블스페이스 사용률 뷰는 샤드 데이터베이스를 구성하는 DB의 메모리 테이블스페이스 사용률을 보여준다. 
 
 접속한 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 선택 후 Shard Database 메뉴를 열어 'Show Memory Tablespace Usage'를 클릭하면 생성된다. 생성 시 기본 전체화면 오른쪽 상단에 위치한다.
 
 ![](media/Sharding/shm_mem_usage.png)
 
-###### Column Description
+#### Column Description
 -   Database: 샤드 노드의 연결정보로 접속한 데이터베이스(Label Expression: '샤드 노드 이름 (IP 주소 : 포트 번호)'
 -   Tablespace Name: 메모리 테이블스페이스 이름, 노드에 존재하는 메모리 테이블스페이스가 다수일 경우, 선택할 수 있다.
 -   Max(MB): 메모리 테이블스페이스에서 사용할 수 있는 최대 메모리 크기, 테이블스페이스 생성 시 최대 크기를 지정하지 않았다면 MEM_MAX_DB_SIZE 프로퍼티에 지정된 크기를, AUTOEXTEND가 OFF라면 메모리 테이블스페이스가 할당받은 크기를 출력한다.
@@ -337,14 +336,14 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 -   Used(MB): 'Alloc(MB)'의 값 중, 실제 사용하는 메모리 크기
 -   Usage(%): 메모리 테이블스페이스 사용률 (= Alloc(MB) / Max(MB) \* 100)
 
-##### Record Count View
-샤드 테이블의 레코드는 여러 샤드 노드에 분산되어 저장된다. 레코드 카운트 뷰는 각 샤드 노드에 저장된 레코드 개수를 표시한다. 기본적으로 Primary DB에 저장된 테이블 레코드 갯수를 보여준다.
+### Record Count View
+샤드 테이블의 레코드는 여러 샤드 노드에 분산되어 저장된다. 레코드 카운트 뷰는 각 샤드 노드에 저장된 레코드 개수를 표시한다. 
 
 샤드 객체 뷰에서 테이블을 마우스 오른쪽 버튼으로 누르거나, 선택 후 'Shard Object' 메뉴에서 'Show Record Count'를 클릭하면 생성된다. 기본 전체화면의 오른쪽 상단에 위치한다.
 
 ![](media/Sharding/shm_record_count1.png)
 
-![](media/Sharding/shm_record_count2.png)
+[comment]: <> "![](media/Sharding/shm_record_count2.png)"
 
 ###### Column Description
 -   Shard Node: 샤드 메타에 저장된 노드의 이름
