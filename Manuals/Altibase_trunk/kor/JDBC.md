@@ -3788,10 +3788,10 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | isPoolable()                                               | 4.0      |    O     |                                                                          |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
 | isCloseOnCompletion()                                      | 4.1      |    O     |                                                                          |                                                      |
-| executeLargetBatch()                                       | 4.2      |    O     |                                                                          |                                                      |
+| executeLargeBatch()                                        | 4.2      |    O     |                                                                          |                                                      |
 | executeLargeUpdate(String sql)                             | 4.2      |    O     |                                                                          |                                                      |
 | getLargeMaxRows()                                          | 4.2      |    O     |                                                                          |                                                      |
-| setLargeMaxRows()                                          | 4.2      |    O     |                                                                          |                                                      |
+| setLargeMaxRows(long max)                                  | 4.2      |    O     |                                                                          |                                                      |
 | getLargeUpdateCount()                                      | 4.2      |    O     |                                                                          |                                                      |
 
 ### java.sql.PreparedStatement
