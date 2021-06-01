@@ -1,4 +1,4 @@
-[comment]: <> (This is a comment, (it will) not be included)
+[comment]: <> "This is a comment, (it will) not be included"
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
