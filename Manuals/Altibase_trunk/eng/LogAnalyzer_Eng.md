@@ -79,7 +79,7 @@ Altibase Application Development Log Analyzer User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -2753,7 +2753,7 @@ ALA_RC ALA_SetXLogPoolSize (
 | Argument      | Description                                         |
 | ------------- | --------------------------------------------------- |
 | aHandle       | This is the handle of the XLog Collector            |
-| aXLogPoolSize | XLog Pool의 크기 This is the size of the XLog Pool. |
+| aXLogPoolSize | This is the size of the XLog Pool. |
 | aOutErrorMgr  | This is an Error Manager structure.                 |
 
 #### Return Values
