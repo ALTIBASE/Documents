@@ -3086,11 +3086,11 @@ sPstmt.executeUpdate();
 
 ### JDBC Logging
 
-JJDBC Logging means to record all sorts of logs occurring in the Altibase JDBC driver, and the log can be recorded by using java.util.logging package. This section will discuss how to use and configure the JDBC logging.
+JDBC Logging means to record all sorts of logs occurring in the Altibase JDBC driver, and the log can be recorded by using java.util.logging package. This section will discuss how to use and configure the JDBC logging.
 
 #### Installing JDBC Logging
 
-JIn order to record a log from the JDBC driver, the JDBC jar file with an added logging function should be used. Also, it should be used after activating a logging function in the ALTIBASE_JDBC_TRACE environment variable.
+In order to record a log from the JDBC driver, the JDBC jar file with an added logging function should be used. Also, it should be used after activating a logging function in the ALTIBASE_JDBC_TRACE environment variable.
 
 ##### JRE Version
 
