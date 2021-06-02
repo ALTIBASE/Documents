@@ -229,9 +229,9 @@ jdbcAdapter is currenly only supported in the following OS:
 
 #### Datbase Versions
 
--   Altibase : Version 6.3.1 or above
+-   Altibase : Version 6.3.1 or later
 
--   OTHER DB : JDBC 4.1 or lower version of other database
+-   OTHER DB : JDBC 4.1 or earlier version of other database
 
 #### Database Character Set
 
