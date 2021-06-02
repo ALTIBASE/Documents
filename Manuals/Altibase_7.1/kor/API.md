@@ -10,19 +10,28 @@
     - [제약 및 주의사항](#%EC%A0%9C%EC%95%BD-%EB%B0%8F-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
     - [사용 방법](#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
     - [사용 예제](#%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
-  - [3.XA Interface](#3xa-interface)
+  - [3. .NET Data Provider](#2-net-data-provider)
+    - [.NET Data Provider의 개요](#net-data-provider%EC%9D%98-%EA%B0%9C%EC%9A%94)
+    - [DTC와 분산 트랜잭션](#dtc%EC%99%80-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
+    - [.NET Data Provider 사용 방법](#net-data-provider-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+    - [ALTIBASE HDB .NET Data Provider사용 선언](#altibase-hdb-net-data-provider%EC%82%AC%EC%9A%A9-%EC%84%A0%EC%96%B8)
+    - [.NET Data Provider Interface](#net-data-provider-interface)
+    - [연결 정보](#%EC%97%B0%EA%B2%B0-%EC%A0%95%EB%B3%B4)
+    - [.NET Data Provider 예제](#net-data-provider-%EC%98%88%EC%A0%9C)
+    - [분산 트랜잭션 Trouble Shooting](#%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-trouble-shooting)
+  - [4.XA Interface](#4xa-interface)
     - [XA 개요](#xa-%EA%B0%9C%EC%9A%94)
     - [XA 인터페이스](#xa-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
     - [XA 사용](#xa-%EC%82%AC%EC%9A%A9)
     - [XA 사용시 제약사항](#xa-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
     - [JDBC 분산 트랜잭션](#jdbc-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
     - [XA를 사용한 애플리케이션의 문제 해결](#xa%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0)
-  - [4.iLoader API](#4iloader-api)
+  - [5.iLoader API](#5iloader-api)
     - [iLoader API 개요](#iloader-api-%EA%B0%9C%EC%9A%94)
     - [iLoader API 사용](#iloader-api-%EC%82%AC%EC%9A%A9)
     - [iLoader API 데이타 구조체](#iloader-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
     - [iLoader API](#iloader-api)
-  - [5.CheckServer API](#5checkserver-api)
+  - [6.CheckServer API](#5checkserver-api)
     - [CheckServer API 개요](#checkserver-api-%EA%B0%9C%EC%9A%94)
     - [CheckServer API 사용](#checkserver-api-%EC%82%AC%EC%9A%A9)
     - [CheckServer API 데이타 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
@@ -45,7 +54,7 @@ Altibase Application Development Application Program Interface User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
 무단으로 복제 또는 전용할 수 없습니다.
@@ -610,10 +619,77 @@ unset($stmt_del);
 $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 ```
 
+## 3. .NET Data Provider
+
+이 장에서는 마이크로소프트의 ADO.NET 인터페이스를 ALTIBASE HDB와 함께 사용하기 위한 방법을 설명한다.
+
+### .NET Data Provider의 개요
+
+------
+
+#### 개요
+
+ALTIBASE HDB .NET Data Provider는 마이크로소프트의 ADO.NET 인터페이스를 ALTIBASE HDB에서 사용하기 위해 구현한 것이다. 즉, 닷넷 프레임워크(.NET Framework) 기반의 애플리케이션에서 ALTIBASE HDB를 사용하기 위해서는 ALTIBASE HDB .NET Data Provider를 사용해야 한다.
+
+ADO.NET 인터페이스는 닷넷 프레임워크를 사용하여 DBMS와 같은 데이타 소스에 접근한다. 닷넷 프레임워크는 ODBC와 OLEDB 인터페이스를 지원하며, SQLServer와 ORACLE 에 접근하는 방법을 기본으로 제공한다.
+
+닷넷 프레임워크에 기반한 Data Provider의 역할은 데이타 소스에 접근하여 명령어를 수행하고 결과값을 추출해오는 것이다. 이렇게 가져온 결과값을 ADO.NET DataSet 클래스를 이용하여 개발자가 가공하고 다시 데이타 소스에 반영하게 된다.
+
+하지만 데이터베이스에 접속하기까지 상당한 시간이 소용되기 때문에 연결 풀링(Connection Pooling)을 지원하여 연결 시간을 절약할 수 있다. 연결 풀링은 연결이 생성되면 풀러에서 연결을 할당하고, 연결이 닫히면 풀러로 반환하여 재사용할 수 있다.
+
+또한 ALTIBASE HDB .NET Data Provider는 MSDTC(Microsoft Distributed Transaction Coordinator, 이하 DTC)를 기반으로 다수의 리소스 매니저(Resource Manager, 이하 RM)들간에 분산 트랜잭션을 지원한다. DTC로 초기화된 분산 트랜잭션에 XA 인터페이스를 이용하여 XA 트랜잭션으로 연동시켜 XA RM으로 참여한다. DTC는 마이크로소프트 윈도우즈 운영체제에서 시스템 서비스로 제공하는 미들웨어이며, ALTIBASE 뿐만 아니라 다른 제품의 RM 간에도 분산 트랜잭션을 수행할 수 있다.
+
+ADO.NET 인터페이스의 가장 큰 장점은 ALTIBASE HDB 버전을 업그레이드 하더라도, 새로운 ALTIBASE HDB와 일치하도록 CLI 라이브러리만 업그레이드하면 Data Provider나 애플리케이션을 변경하지 않고 계속 사용할 수 있다는 것이다.
+
+기타 ADO.NET의 자세한 내용은 마이크로소프트의 홈페이지 ([http://www.msdn.com](http://www.msdn.com/))를 참고한다.
+
+#### 요구 사항
+
+* .NET Framework
+
+  알티베이스 HDB 패키지에 포함된 .NET Data Provider는 .NET Framework 2.0 이상, Entity FrameWork는 .NET Framework 3.5 SP1이상에서 사용하기를 권장한다.
+
+* ADO.NET 버전에 따라서 다른 .NET Data Provide 라이브러리 파일을 제공하므로, 사용하려는 ADO.NET 버전에 적합한 라이브러리를 사용해야 한다.
+
+* Altibase CLI 라이브러리
+
+  ALTIBASE HDB .NET Data Provider는 Altibase CLI 라이브러리를 이용하여 데이타베이스 서버에 접속하므로 Altibase CLI 라이브러리를 설치해야 한다. 알티베이스 HDB (서버 또는 클라이언트) 패키지에 기본으로 제공된다.
+
+* DTC 시스템 서비스
+
+  분산 트랜잭션을 수행하기 위해서는 DTC 시스템 서비스가 설치되어 있어야 한다. 또한 ALTIBASE HDB .NET Data Provider는 XA 트랜잭션과 연동시켜 분산 트랜잭션을 수행하기 때문에 DTC 설정시 'XA 트랜잭션 사용' 옵션을 반드시 활성화시켜야 한다.
+
+#### 주의사항 및 제약 사항
+
+* .NET Data Provider는 CLI 라이브러리를 사용하므로 해당 시스템에 맞는 odbccli_sl.dll과 함께 사용해야 한다.
+* .NET Framework 버전에 따라 일부 구현이 다르므로, 해당하는 .NET Framework 버전을 위해 빌드된 .NET Data Provider를 사용해야 한다.
+* ColumnName 속성은 DataReader, CommandBuilder 등에서 대소문자를 구별한다. 테이블을 생성할 때 큰 따옴표를 이용해 칼럼 이름을 감싸지 않은 경우, 컬럼 이름은 대문자로 변환된다. 이 경우 대문자로 된 칼럼 이름을 사용해야 올바른 값을 가져올 수 있다.
+* NUMBER, NUMERIC, FLOAT, DECIMAL 타입 컬럼으로부터 DataReader.GetValue()를 사용해서 데이타를 가져올 때, 데이타 손실이 발생할 수 있다. 이는 이 함수가 숫자 데이타를 .NET System.Decimal타입으로 변환하는데, 이 때 가져온 데이타의 범위가 System.Decimal 로 표현할 수 있는 범위를 넘는 경우이다.
+* ALTIBASE HDB .NET Data Provider는 다중 쿼리문의 실행을 지원하지 않는다. 여러 개의 SQL문을 한번에 실행하려면 저장 프로시저를 사용하도록 한다.
+* 연결 풀링에 대한 제약 사항은 [연결 풀링의 제약사항](javascript:WWHClickedPopup('API_Manual', 'API.1.15.html#9000477', '');)을 참고하기 바란다.
+* 분산 트랜잭션 수행에 대한 제약 사항은 *[DTC와 분산 트랜잭션 절의 DTC 제약사항을](javascript:WWHClickedPopup('API_Manual', 'API.1.14.html#9000326', '');)* 참고하길 바란다.
 
 
 
-3.XA Interface
+### DTC와 분산 트랜잭션
+
+------
+
+#### DTC
+
+Distributed Transaction Coordinator(이하 DTC)는 분산 트랜잭션을 관리하기 위하여 마이크로소프트사가 제공하는 미들웨어이다. DTC는 OLE 트랜잭션을 기반으로 분산 트랜잭션을 초기화 및 제어하고, 분산 트랜잭션의 ACID 속성을 보장한다. 이를 위해 2단계 커밋 프로토콜(two phase commit protocol, 2PC protocol)을 사용한다. DTC는 OLE 트랜잭션 뿐만 아니라 X/Open에서 XA 트랜잭션, IBM LU 트랜잭션 등으로도 호환이 가능하다.
+
+#### 알티베이스의 분산 트랜잭션
+
+ALTIBASE HDB .NET Data Provider는 OLE 트랜잭션과 XA 트랜잭션으로 연동되기 때문에 OLE 트랜잭션과 호환되는 다른 제품의 RM과 분산 트랜잭션을 수행할 수 있다.
+
+ALTIBASE HDB .NET Data Provider는 XA 인터페이스를 One-pipe connection 방식으로 DTC와 연동한다. 그리고 ALTIBASE HDB .NET Data Provider는 읽기 전용 최적화(read-only optimization), 단일 단계 커밋(single phase commit)의 DTC 최적화 기법을 지원한다.
+
+DTC는 현재 수행중인 트랜잭션 정보를 저장하는 로깅(logging) 기능을 제공한다. 이 정보를 이용해 복구(recovery)를 수행하거나 현재 수행중인 분산 트랜잭션의 목록이나 통계 정보를 조회할 수 있다. 뿐만 아니라 추적(tracing data) 기능도 제공하여 이미 수행했던 트랜잭션 정보도 추적할 수 있다.
+
+DTC에 대한 자세한 내용은 *[Distributed Transaction Coordinator](https://msdn.microsoft.com/en-us/library/ms684146(v=vs.85).aspx)*(https://msdn.microsoft.com/en-us/library/ms684146(v=vs.85).aspx)를 참고한다.
+
+4.XA Interface
 ------------
 
 이 장은 XA 표준을 소개하고, 분산 트랜잭션의 기본 개념과 XA 인터페이스를
