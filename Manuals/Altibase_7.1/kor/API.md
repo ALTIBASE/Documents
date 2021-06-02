@@ -619,7 +619,7 @@ unset($stmt_del);
 $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 ```
 
-## 3..NET Data Provider
+## 3. .NET Data Provider
 
 이 장에서는 마이크로소프트의 ADO.NET 인터페이스를 ALTIBASE HDB와 함께 사용하기 위한 방법을 설명한다.
 
