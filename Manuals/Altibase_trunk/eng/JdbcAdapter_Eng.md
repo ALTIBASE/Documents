@@ -35,7 +35,7 @@ Altibase Tool & Utilities Adapter for Oracle User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -229,9 +229,9 @@ jdbcAdapter is currenly only supported in the following OS:
 
 #### Datbase Versions
 
--   Altibase : Version 6.3.1 or above
+-   Altibase : Version 6.3.1 or later
 
--   OTHER DB : JDBC 4.1 or lower version of other database
+-   OTHER DB : JDBC 4.1 or earlier version of other database
 
 #### Database Character Set
 
