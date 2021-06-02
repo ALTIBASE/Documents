@@ -689,7 +689,7 @@ DTC는 현재 수행중인 트랜잭션 정보를 저장하는 로깅(logging) �
 
 DTC에 대한 자세한 내용은 *[Distributed Transaction Coordinator](https://msdn.microsoft.com/en-us/library/ms684146(v=vs.85).aspx)*(https://msdn.microsoft.com/en-us/library/ms684146(v=vs.85).aspx)를 참고한다.
 
-![API.1.14.1](/Users/richardnahm/Desktop/API.1.14.1 (1).jpg)
+![API.1.14.1](media/API/API.1.14.1.jpg)
 
 **[그림 3‑1] DTC를 이용한 분산 트랜잭션**
 
@@ -767,19 +767,19 @@ IDE (Integrated Development Environment) 환경에서 .NET Data Provider 등록�
 
 1. 새 프로젝트를 연다.
 
-   ![API.1.15.1 (1)](/Users/richardnahm/Desktop/API.1.15.1 (1).jpg)
+   ![API.1.15.1](media/API/API.1.15.1.jpg)
 
    [그림 3‑2] 새 프로젝트 열기
 
 2. .NET Data Provider를 등록하기 위해, “References”에 마우스 오른 쪽 버튼을 클릭하여 “참조 추가” 메뉴를 클릭한다.
 
-   ![API.1.15.2 (1)](/Users/richardnahm/Desktop/API.1.15.2 (1).jpg)
+   ![API.1.15.2](media/API/API.1.15.2.jpg)
 
    [그림 3‑3] 프로젝트의 참조 추가 설정
 
 3. ALTIBASE HDB 설치 디렉터리 내의 lib 디렉터리에서 Altibase.Data.AltibaseClient.dll를 찾아 등록한다. ALTIBASE HDB 설치 디렉터리는 환경변수 %ALTIBASE_HOME%으로 확인한다.
 
-   ![API.1.15.3 (1)](/Users/richardnahm/Desktop/API.1.15.3 (1).jpg)
+   ![API.1.15.3](kor/media/API/API.1.15.3.jpg)
 
    [그림 3‑4] .NET Data Provider를 프로젝트에 등록
 
