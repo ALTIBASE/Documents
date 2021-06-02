@@ -387,8 +387,8 @@ This is a property specifying the IP address of Xlog sender. This property enabl
 
 ##### ALA_RECEIVER_PORT
 
-XLog 콜렉터가 XLog를 수신하기 위해 사용하는 포트 번호를 지정하는 프로퍼티이다.
-jdbcAdpater가 대기하고 있는 포트 번호를 지정하도록 한다.
+This property specifies the port number used by the XLog collector to receive XLogs.
+This property specifies the port number on which jdbcAdpater is listening.
 
 -   Range: 1024 – 65535
 
