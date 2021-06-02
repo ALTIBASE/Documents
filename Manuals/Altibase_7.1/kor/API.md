@@ -10,7 +10,7 @@
     - [제약 및 주의사항](#%EC%A0%9C%EC%95%BD-%EB%B0%8F-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
     - [사용 방법](#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
     - [사용 예제](#%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
-  - [3..NET Data Provider](#3-net-data-provider)
+  - [3..NET Data Provider](#3-.net-data-provider)
     - [.NET Data Provider의 개요](#net-data-provider%EC%9D%98-%EA%B0%9C%EC%9A%94)
     - [DTC와 분산 트랜잭션](#dtc%EC%99%80-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
     - [.NET Data Provider 사용 방법](#net-data-provider-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
