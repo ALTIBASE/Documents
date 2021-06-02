@@ -10,7 +10,7 @@
     - [제약 및 주의사항](#%EC%A0%9C%EC%95%BD-%EB%B0%8F-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
     - [사용 방법](#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
     - [사용 예제](#%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
-  - [3. .NET Data Provider](#2-net-data-provider)
+  - [3..NET Data Provider](#3-net-data-provider)
     - [.NET Data Provider의 개요](#net-data-provider%EC%9D%98-%EA%B0%9C%EC%9A%94)
     - [DTC와 분산 트랜잭션](#dtc%EC%99%80-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
     - [.NET Data Provider 사용 방법](#net-data-provider-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
@@ -619,7 +619,7 @@ unset($stmt_del);
 $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 ```
 
-## 3. .NET Data Provider
+## 3..NET Data Provider
 
 이 장에서는 마이크로소프트의 ADO.NET 인터페이스를 ALTIBASE HDB와 함께 사용하기 위한 방법을 설명한다.
 
@@ -688,6 +688,1037 @@ ALTIBASE HDB .NET Data Provider는 XA 인터페이스를 One-pipe connection 방
 DTC는 현재 수행중인 트랜잭션 정보를 저장하는 로깅(logging) 기능을 제공한다. 이 정보를 이용해 복구(recovery)를 수행하거나 현재 수행중인 분산 트랜잭션의 목록이나 통계 정보를 조회할 수 있다. 뿐만 아니라 추적(tracing data) 기능도 제공하여 이미 수행했던 트랜잭션 정보도 추적할 수 있다.
 
 DTC에 대한 자세한 내용은 *[Distributed Transaction Coordinator](https://msdn.microsoft.com/en-us/library/ms684146(v=vs.85).aspx)*(https://msdn.microsoft.com/en-us/library/ms684146(v=vs.85).aspx)를 참고한다.
+
+![API.1.14.1](/Users/richardnahm/Desktop/API.1.14.1 (1).jpg)
+
+**[그림 3‑1] DTC를 이용한 분산 트랜잭션**
+
+#### ADO.NET 분산 트랜잭션
+
+ADO.NET의 분산 트랜잭션은 DTC 시스템 서비스에서 초기화된 OLE 트랜잭션을 객체화하여 제어한다. ADO.NET에서 초기화한 분산 트랜잭션은 DTC 시스템 서비스에 의해 관리되고, 완료 명령시 2단계 커밋 프로토콜(2PC protocol)을 실행한다.
+
+DTC 시스템 서비스에서 제공하는 복구(revoery), 로깅(logging), 추적(tracing), 목록, 통계 등 모두 그대로 이용할 수 있다.
+
+.NET 2.0부터는 LTM(Lightweight Transaction Manager)을 지원하여 최적화된 트랜잭션 관리자를 제공한다. 만약 단일 리소스 관리자(RM)가 참여할 때에는 DTC에 의해 분산 트랜잭션으로 수행되는 것이 아니라, .NET 자체의 트랜잭션 관리자인 LTM에 의해 로컬 트랜잭션으로 수행된다. 그리고 둘 이상의 RM이 참여할 때에만 분산 트랜잭션으로 수행된다. 첫 번째 리소스 관리자의 참여시 LTM에 의해 로컬 트랜잭션으로 수행되다가 두 번째 리소스 관리자 참여시 첫 번째 참여자에게 분산 트랜잭션으로 승격시키도록 요청한다. 이를 '트랜잭션 프로모션(transaction promotion)'이라 한다.
+
+첫 번째 리소스 관리자는 DTC 시스템 서비스로 분산 트랜잭션을 초기화한 후 수행중인 로컬 트랜잭션을 분산 트랜잭션으로 상승시킨다. 이를 '트랜잭션 에스컬레이션(transaction escalation)'이라 한다. 분산 트랜잭션 객체를 두 번째 참여자에게 전달하여 분산 트랜잭션에 참여시키고 그 이후에도 그 분산 트랜잭션에 참여하게 된다.
+
+#### ADO.NET 인터페이스
+
+.NET 2.0에서 ADO.NET의 트랜잭션 프로그래밍 모델은 크게 명시적 트랜잭션 프로그래밍 모델(explicit transaction programming model)과 암묵적 트랜잭션 프로그래밍 모델(implicit transaction programming model)이 있다.
+
+명시적 트랜잭션 프로그래밍 모델에는 DbConnection.EnlistTransaction 메소드를 이용해 DbConnection 객체를 트랜잭션에 참여시키는 방식이다. ALTIBASE HDB .NET Data Provider에서 명시적으로 트랜잭션에 참여시키기 위해서는 연결 문자열(connection string)에 'Enlist=false' 속성을 설정해야 한다.
+
+암묵적 트랜잭션 프로그래밍 모델은 DbConnection.Open 메소드 호출시 내부에서 접속 후 앰비언트 트랜잭션[1](http://192.168.1.160:8080/manual/hdb/6_5_1/kor/html/API Manual/API.1.10.html#8000001)(ambient transaction)에 참여시키는 방식이다. ALTIBASE HDB .NET Data Provider에서 DbConnection.Open 메소드 호출시 암묵적으로 트랜잭션에 참여하기 위해서는 연결 문자열에 'Enlist=true' 속성을 설정하거나 Enlist 속성을 설정하지 않아야 한다.
+
+두 가지 모델 모두 로컬 트랜잭션 뿐만 아니라 분산 트랜잭션도 지원한다. ALTIBASE HDB .NET Data Provider에서 명시적 트랜잭션 프로그래밍 모델로써 명시적으로 분산 트랜잭션에 참여하기 위해 추가적으로 AltibaseConnection.EnlistDistributedTransaction 메소드도 지원한다.
+
+ADO.NET에서 분산 트랜잭션을 종료하기 위해서 CommitableTransaction.Commit 메소드 또는 CommitableTransaction.Abort 메소드를 호출할 수 있다. CommitableTransaction.Commit 메소드를 호출하면 DTC 시스템 서비스에서 2단계 커밋 프로토콜(2 PC protocol)을 실행한다. 준비 단계(prepare phase)에서 참여한 모든 리소스 관리자(RM)에게 커밋(commit)이 가능한지 여부를 확인하여, DTC 시스템 서비스가 최종 커밋(commit)을 할 것인지 롤백(rollback)을 할 것인지 결정하여 로깅(logging)한 후, 두 번째인 커밋 단계(commit phase)를 실행한다. 이 때 첫 번째 단계인 준비 단계(prepare phase) 수행 즉, 최종 커밋(commit) 여부가 결정되면 CommitableTransaction.Commit 메소드에서 반환되고 두 번째 단계(second phase)는 백그라운에서 비동기적으로 처리된다. CommitableTransaction.Commit 메소드가 반환 직후 또 다른 트랜잭션에 참여하려면 이전 트랜잭션이 완료될 때까지 대기해야 한다. CommitableTransaction.Abort 메소드를 호출할 경우에도 롤백(rollback) 명령이 비동기적으로 수행될 수 있다. 트랜잭션 상태가 활성화된(active) 상태라면 또 다른 트랜잭션에 참여할 수 없음을 주의해야 한다.
+
+#### DTC 복구
+
+DTC는 시스템 실패(system failure), 통신 실패(communication failure) 등을 대비하여 복구(recovery) 기능을 제공한다.
+
+실패하는 구성 요소(component)에 따라 크게 hot recovery와 cold recovery로 나뉜다. Hot recovery는 RM이 실패한 경우 RM이 재시작될 때까지 DTC가 주기적으로 검사하여 복구 기능을 수행한다. cold recovery는 DTC가 실패한 경우 DTC가 재시작될 때 복구 기능을 수행한다. 이 경우 모두 준비 단계에서 로깅(logging)된 결정된 명령, 커밋(commit) 또는 롤백(rollback)을 기반으로 복구시킨다.
+
+응용프로그램이 실패한 경우에는 DTC가 이를 감지하여 바로 복구 기능을 수행한다. ALTIBASE HDB .NET Provider와 같이 XA 트랜잭션으로 연동하였다면, DTC 내부의 XA mapper 구성 요소(component)에 의해 XA 복구 기능을 수행한다.
+
+다수의 노드에 걸쳐 작업을 수행하고 분산 트랜잭션을 종료하기 위해 커밋(commit) 명령을 내리면 2 단계 커밋 프로토콜(2 PC protocol)을 시작하는데, 준비 단계(prepare phase) 이후 커밋 단계(commit phase)에서 리소스 관리자(RM)에 완료 명령(commit 명령 또는 abort 명령)이 도착하지 않으면 해당 리소스 관리자(RM)는 트랜잭션을 커밋해야 할지 롤백해야 할지 모르는 in-doubt 상태로 지속될 수 있다. 이런 트랜잭션을 in-doubt 트랜잭션이라 한다. In-doubt 트랜잭션은 커밋 트리(commit tree)에서 중간의 통신 회선 실패, DTC 시스템 서비스의 로그 초기화 등으로 발생할 수 있다. 따라서 지속적인 In-doubt 상태를 방지하려면, 수동으로 해결할 수 있는 방식을 DTC 시스템 서비스에서 제공하고 ALTIBASE HDB에서도 제공해야 한다. DTC 시스템 서비스에서는 트랜잭션 목록 GUI에서 수동으로 해결(heuristic completion)할 수 있고, ALTIBASE HDB에서는 XA_HEURISTIC_COMPLETE 시스템 프로퍼티와 XA_INDOUBT_TX_TIMEOUT 시스템 프로퍼티를 설정하여 해결할 수 있다.
+
+#### DTC 제약사항
+
+기본적은 제약 사항은 ALTIBASE HDB .NET Data Provider의 분산 트랜잭션은 OLE 트랜잭션과 XA 인터페이스를 이용해 XA 트랜잭션으로 연동시키기 때문에 ALTIBASE HDB에서 제공하는 XA 트랜잭션의 제약 사항을 포함한다. XA 트랜잭션의 제약 사항을 제외한 ALTIBASE HDB .NET Data Provider의 제약 사항은 아래와 같다. XA 트랜잭션의 제약 사항은 'XA 사용시 제약사항'을 참조해 주시길 바란다.
+
+*  다른 트랜잭션에 참여하거나 접속을 해제할 경우 대기 상태가 발생할 수 있다. 커밋 명령을 내리면 2단계 커밋 프로토콜을 실행하는데 두 번째인 커밋 단계는 백그라운드에서 비동기적으로 처리되므로, 이를 완료될 때까지 대기한다. 지속적인 in-doubt 트랜잭션이 될 경우를 대비하여 ALTIBASE HDB의 XA_HEURISTIC_COMPLETE 시스템 프로퍼티와 XA_INDOUBT_TX_TIMEOUT 시스템 프로퍼티를 설정하기를 권장한다.
+*  분산 트랜잭션의 완료 명령(commit 명령 또는 abort 명령) 없이 접속을 해제할 경우, XA 트랜잭션 제약에 따라 트랜잭션을 강제로 롤백(rollback)시킨다.
+*  DTC의 제약사항으로써 하나의 분산 트랜잭션에 참여할 수 있는 리소스 관리자(RM)는 최대 32개이며, 동시에 수행할 수 있는 분산 트랜잭션의 수는 DTC 시스템 서비스의 로그 파일 크기에 의존한다.
+
+[1]앰비언트 트랜잭션(ambient transaction)이란, Transaction.Current 프로퍼티로 얻은 트랜잭션 객체를 말하며 현재 쓰레드에서 실행 중인 트랜잭션 객체이다.
+
+
+
+### .NET Data Provider 사용 방법
+
+------
+
+ALTIBASE HDB가 설치된 디렉터리 (환경변수 %ALTIBASE_HOME%)내의 lib 디렉터리에 .NET Data Provider가 존재한다. 파일의 이름은 다음과 같다.
+
+> %ALTIBASE_HOME%\lib\Altibase.Data.AltibaseClient.dll
+>
+> %ALTIBASE_HOME%\lib\Altibase.Data.Entity.dll
+
+#### .NET 응용프로그램 컴파일
+
+ALTIBASE HDB .NET Data Provider를 사용한 애플리케이션은 아래 2가지 방법으로 컴파일할 수 있다.
+
+##### 커맨드 라인에서 컴파일하는 방법
+
+커맨드 라인에서 소스 파일을 컴파일을 할 때에는 아래와 같이 DLL를 참조합니다.
+
+```
+csc /r:%ALTIBASE_HOME%\lib\Altibase.Data.AltibaseClient.dll 프로그램명.cs
+```
+
+##### IDE 환경에서 컴파일하는 방법
+
+```
+IDE (Integrated Development Environment) 환경에서 .NET Data Provider 등록하는 방법이다. (예 MS Viaual Studio)
+```
+
+1. 새 프로젝트를 연다.
+
+   ![API.1.15.1 (1)](/Users/richardnahm/Desktop/API.1.15.1 (1).jpg)
+
+   [그림 3‑2] 새 프로젝트 열기
+
+2. .NET Data Provider를 등록하기 위해, “References”에 마우스 오른 쪽 버튼을 클릭하여 “참조 추가” 메뉴를 클릭한다.
+
+   ![API.1.15.2 (1)](/Users/richardnahm/Desktop/API.1.15.2 (1).jpg)
+
+   [그림 3‑3] 프로젝트의 참조 추가 설정
+
+3. ALTIBASE HDB 설치 디렉터리 내의 lib 디렉터리에서 Altibase.Data.AltibaseClient.dll를 찾아 등록한다. ALTIBASE HDB 설치 디렉터리는 환경변수 %ALTIBASE_HOME%으로 확인한다.
+
+   ![API.1.15.3 (1)](/Users/richardnahm/Desktop/API.1.15.3 (1).jpg)
+
+   [그림 3‑4] .NET Data Provider를 프로젝트에 등록
+
+4. 프로젝트를 빌드하고 생성된 실행파일을 실행한다.
+
+#### 배열 바인딩 (Array Binding)
+
+ALTIBASE HDB .NET Data Provider는 배열 바인딩을 지원하는데, 즉 배열 형태의 데이타에 대하여 파라미터 바인딩이 가능하다. 이는 일반적인 바인딩 방법보다 적은 네트워크 비용으로 여러 개의 열을 처리하므로 속도 향상을 기대할 수 있다.
+
+현재는 입력(Input) 파라미터로만 배열 바인딩을 지원하며, 출력(Output)이나 입출력 공용 파라미터의 배열 바인딩은 지원하지 않는다.
+
+배열 바인딩 순서는 다음과 같다.
+
+1. 바인드하려는 변수들을 모두 배열로 잡는다. 이 때 배열 크기는 AltibaseCommand 클래스의 ArrayBindCount 값보다 크거나 같아야 한다.
+
+2. 배열 변수들을 파라미터에 바인드한다. 만약 바인드하려는 칼럼이 CHAR, VARCHAR, BLOB 타입인 경우에는, 파라미터 설정시 AltibaseParameter 클래스의 ArrayBindSize를 배열 요소 중 가장 큰 것과 같은 크기로 설정해야 한다.
+
+3. AltibaseCommand 클래스의 ArrayBindCount 값을 세팅한다.
+
+   예: 한번에 100개씩 입력하는 경우
+
+   ```
+   ArrayBindCount = 100;
+   ```
+
+4. SQL 구문을 실행한다.
+
+##### 주의사항
+
+* ArrayBindCount의 유효 범위는 1부터 65535까지이다. 배열 크기를 무조건 크게 잡는다고 속도가 빨라지는 것은 아니므로 적당한 크기로 바인딩한다.
+
+* CHAR, VARCHAR, BLOB 타입의 경우 배열 단일 요소의 데이타 길이가 ArrayBindSize를 넘을 경우 에러가 발생한다.
+
+* NCHAR, NVARCHAR 타입의 경우, ArrayBindSize 값은 byte가 아닌 문자 수로 세팅해야 한다.
+
+* BLOB 타입의 경우, 소스 프로그램에서 배열 타입으로 Object를 사용하고, 배열 원소는 byte[]를 사용한다.
+
+  예:
+
+  ```
+   byte[] var1; byte[] var2; Object[] var = new Object[2] {var1, var2};
+  ```
+
+* CLOB, BYTE, NIBBLE, BIT, VARBIT, GEOMETRY 타입의 배열 바인딩은 지원하지 않는다.
+
+##### 예제
+
+```
+using System;
+using System.Data;
+using Altibase.Data.AltibaseClient;
+ 
+class ArrayBind
+{
+static void Main()
+{
+AltibaseConnection con = new AltibaseConnection();
+con.ConnectionString = "DSN=127.0.0.1;UID=sys;PWD=manager;NLS_USE=KO16KSC5601";
+con.Open();
+Console.WriteLine("Connected successfully");
+// table: create table t1 (c1 int, c2 varchar(12));
+ 
+// 3 records
+const int arrayBindCount = 3;
+int[] c1 = new int[arrayBindCount] { 100, 200, 300};
+String[] c2 = new String[arrayBindCount] { "APPLE", "ORANGE", "GRAPE" };
+AltibaseCommand cmd = new AltibaseCommand();
+cmd.Connection = con;
+//=====================================================
+// bind parameters
+//=====================================================
+cmd.CommandText = "insert into t1 values (?, ?)";
+ 
+AltibaseParameter prm1 = new AltibaseParameter("c1", DbType.Int32);
+prm1.Direction = ParameterDirection.Input;
+prm1.Value = c1;
+AltibaseParameter prm2 = new AltibaseParameter("c2", DbType.AnsiString);
+prm2.Direction = ParameterDirection.Input;
+prm2.Value = c2;
+prm2.ArrayBindSize = 12; // max element size in bytes
+cmd.Parameters.Add(prm1);
+cmd.Parameters.Add(prm2);
+//=====================================================
+// execute INSERT
+//=====================================================
+cmd.ArrayBindCount = arrayBindCount;
+cmd.ExecuteNonQuery();
+//=====================================================
+// SELECT
+//=====================================================
+IDataReader sDataReader = null;
+cmd.Parameters.Clear();
+cmd.CommandText = "select * from t1";
+sDataReader = cmd.ExecuteReader();
+while (sDataReader.Read())
+{
+for (int i = 0; i < sDataReader.FieldCount; i++)
+{
+Console.Write("[" + sDataReader.GetValue(i) + "] ");
+}
+Console.WriteLine();
+}
+sDataReader.Close();
+con.Close();
+con.Dispose();
+}
+}
+```
+
+### ALTIBASE HDB .NET Data Provider사용 선언
+
+------
+
+ALTIBASE HDB .NET Data Provider 클래스들을 사용려면, 먼저 아래와 같이 선언하여야 있다.
+
+```
+using Altibase.Data.AltibaseClient;
+```
+
+#### 트랜잭션 처리
+
+ADO.NET에서 제공하는 트랜잭션 처리 인터페이스를 이용하여 트랜잭션을 처리할 수 있다.
+
+ADO.NET 인터페이스를 이용한 트랜잭션 처리는 AltibaseTransaction 객체를 사용하는 방법과 CommittableTransaction 객체를 사용하는 방법이 있다.
+
+AltibaseTransaction 객체를 사용하는 방법은 아래의 예제와 같이 AltibaseConnection.BeginTransaction() 메소드를 통해 트랜잭션 객체를 얻어 사용하는 방법이다. 이 방법은 로컬 트랜잭션으로만 수행할 수 있다.
+
+```
+AltibaseConnection sConn = new AltibaseConnection(sConnStr);
+sConn.Open();
+ 
+// 트랜잭션 시작
+AltibaseTransaction sTrans = sConn.BeginTransaction();
+ 
+AltibaseCommand sCmd = sConn.CreateCommand();
+// 트랜잭션 작업 ...
+// TODO
+ 
+// 트랜잭션 끝
+sTrans.Commit();
+```
+
+CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로 참여할 수 있다. ALTIBASE HDB .NET Data Provider에서 암시적인 방식으로 트랜잭션에 참여하기 위해서는 접속 문자열에 Enlist 속성을 설정하지 않거나 'Enlist=true' 라고 설정한다. 명시적인 참여는 접속 문자열에 'Enlist=false'로 설정한다.
+
+ALTIBASE HDB .NET Data Provider는 추가적으로 AltibaseConnection.EnlistDistributedTransaction 메소드를 지원하여 명시적으로 분산 트랜잭션에 참여할 수도 있다.
+
+#### 연결 풀링(Connection Pooling)
+
+애플리케이션이 데이터베이스 서버에 연결하는 과정은 여러 단계를 거치므로 시간이 많이 걸리며, 동일한 과정을 여러 번 진행할 수 있다. ADO.NET에서는 연결하고 닫히는 횟수를 최소화하기 위해 연결 풀링을 제공한다.
+
+연결 풀링은 연결에 필요한 소유권을 유지하고 있다. 이를 위해 풀러는 연결 요청을 받으면 연결이 가능한지 확인하고 연결을 할당하거나 새로운 연결을 풀러에 생성하여 할당한다. 연결이 닫힐 때에도 연결을 바로 해제하지 않고 풀러에 반환한다.
+
+연결 풀링은 Max Pool Size의 값에 따라 다르며, 기본적으로 100개까지 사용할 수 있다.
+
+##### 풀 만들기
+
+연결이 되면 연결 문자열(Connection String)과 정확하게 일치하는 알고리즘에 따라 연결 풀이 생성된다. 연결이 될 때마다 연결 문자열이 연결 풀과 정확하게 일치하지 않을 경우 새로운 풀이 생성된다. 연결 문자열의 속성이나 대소문자 및 공백수의 차이가 있어도 다른 풀로 인식한다. 연결 문자열에 MIN POOL SIZE의 값을 설정하면 해당 값만큼 연결 풀이 자동으로 생성된다. 만약 이 값을 설정하지 않았다면 기본값이 0이므로 자동 생성되는 연결은 없다.연결 할당 및 추가
+
+연결을 요청받으면 연결 문자열에 해당하는 풀을 확인하여 연결을 할당하거나, 생성하여 연결한다. 만약 연결 풀이 없다면 Max Pool Size(기본값 100개) 속성 값까지 연결 풀을 생성할 수 있으며, 이 값을 초과할 경우에는 Connection Life Time 값을 초과하는 연결 풀이 예외를 발생할 때까지 대기한다
+
+예외가 발생한 연결 풀은 자동으로 제거가 되며, 명시적으로 연결 풀을 닫으면 연결이 제거되는 것이 아니라 풀러에 회수된다.
+
+##### 연결 제거
+
+응용 프로그램에서 명시적으로 연결 풀을 닫거나 제거하지 않으면 연결 풀러는 정기적으로 연결 풀을 검사하여 연결을 제거한다. 연결은 Connection Life Time 속성에 설정한 시간 동안 사용되지 않을 경우 제거되며, Min Pool Size의 값만큼 최소한의 풀을 남겨두고 회수된다.
+
+그리고 예외가 발생한 연결 풀도 제거된다. 만약 풀러에 회수된 연결 풀을 선택하여 사용할 경우 정확하게 일치되는지 여부를 검사하고 사용하는 것이 아니기 때문에 실제로 연결할 때 예외가 발생할 수 있다.
+
+##### 풀 지우기
+
+AltibaseConnection 클래스에서 풀을 제거할 수 있는 메소드는 ClearPool및 ClearAllPools이 있다. ClearPool 메소드는 지정된 연결 풀을 지우며, ClearAllPools 메소드는 모든 연결 풀을 지운다.
+
+##### 제약 사항
+
+연결 풀은 Min Pool Size 속성 값만큼 자동으로 생성되며, 서버에 접속할 수 있는 개수 이상은 만들 수 없다. Pool Size의 값은 클라이언트에서 연결할 수 있는 풀의 개수를 설정한다.
+
+
+
+#### 스키마
+
+ALTIBASE HDB는 GetSchema() 메소드를 사용해서 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 이외에도 ALTIBASE HDB에서 지원하는 다음과 같은 메타 정보 스키마를 조회해 볼 수 있도록 지원한다.
+
+| 스키마              | 메타 테이블             | 설명                                                         |
+| ------------------- | ----------------------- | ------------------------------------------------------------ |
+| Users               | SYS_USERS_              | 사용자 관련 정보를 저장하는 메타 테이블                      |
+| Tables              | SYS_TABLES_             | 테이블 관련 정보를 저장하는 메타 테이블                      |
+| Views               | SYS_VIEWS_              | 뷰 관련 정보를 저장하는 메타 테이블                          |
+| Sequences           | V$SEQ                   | 시퀀스 관련 정보를 저장하는 성능 뷰                          |
+| Synonyms            | SYS_SYNONYMS_           | 시노님 관련 정보를 저장하는 메타 테이블                      |
+| Indexes             | SYS_INDICES_            | 인덱스 정보를 기록하고 있는 메타 테이블                      |
+| Columns             | SYS_COLUMNS_            | 칼럼 관련 정보를 저장하는 메타 테이블                        |
+| Constraints         | SYS_CONSTRAINTS_        | 제약 조건 관련 정보를 저장하는 메타 테이블                   |
+| Procedures          | SYS_PROCEDURES_         | 저장 프로시저 및 함수 관련 정보를 저장하는 메타 테이블       |
+| ProcedureParameters | SYS_PROC_PARAS_         | 저장 프로시저 및 함수의 파라미터 관련 정보를 저장하는 메타 테이블 |
+| IndexColumns        | SYS_INDEX_COLUMNS_      | 인덱스 칼럼 관련 정보를 저장하는 메타 테이블                 |
+| ConstraintColumns   | SYS_CONSTRAINT_COLUMNS_ | 제약 조건 칼럼 관련 정보를 저장하는 메타 테이블              |
+| Triggers            | SYS_TRIGGERS_           | 트리거 관련 정보를 저장하는 메타 테이블                      |
+
+[표 3‑1] ALTIBASE에서 지원하는 메타 정보 스키마
+
+ALTIBASE HDB에서 지원하는 각각의 스키마에 대한 자세한 설명은 *General Reference* 의 데이타 딕셔너리를 참조한다.
+
+
+
+#### ALTIBASE HDB .NET Data Provider클래스
+
+ALTIBASE HDB의 .NET Data Provider는 데이타베이스와의 연결, 질의 실행 및 결과 검색을 위한 기능을 제공한다. 이 기능들은 아래 표에서 보여주는 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메소드 기능은 마이크로소프트의 ADO.NET 문서을 참조한다.
+
+| 클래스              | 설명                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| AltibaseConnection  | 데이타베이스와의 연결을 설정하고 트랜잭션을 시작할 수 있다.  |
+| AltibaseCommand     | 데이타베이스에서 질의문을 실행하고 매개변수를 표시할 수 있다. |
+| AltibaseDataReader  | 데이타베이스에서 명령 수행에 대한 결과를 가져와 출력할 수 있다. |
+| AltibaseDataAdapter | DataSet에 데이타를 채우고 데이타베이스로 저장된 데이타를 갱신할 수 있다. |
+
+[표 3‑2] 연결 및 질의 실행, 결과 검색을 위한 ALTIBASE HDB .NET Data Provider 클래스
+
+ALTIBASE HDB .Net Data Provider는 예외 처리, 저장 프로시저 실행과 트랜잭션 처리 등을 위해 다음 클래스들을 제공한다.
+
+| 클래스              | 설명                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| AltibaseException   | 데이타베이스 오류나, .Net Framework을 통해 받은 클라이언트 오류를 받아 표시할 수 있다. |
+| AltibaseParameter   | SQL 명령 및 저장 프로시저에 대한 입력, 출력 파라미터를 정의한다. |
+| AltibaseTransaction | 데이타베이스에서 트랜잭션 관련 명령을 수행할 수 있도록 한다. |
+
+[표 3‑3] 예외처리, 트랜잭션 처리를 위한 ALTIBASE HDB .NET Data Provider 클래스
+
+
+
+#### ALTIBASE HDB .NET Data Provider 데이타 타입
+
+테이블 칼럼이나 파라미터의 데이타 타입을 선언하기 위해서 AltibaseDbType 클래스가 사용된다.
+
+아래 표를 통해 AltibaseDbType 클래스, ALTIBASE HDB가 제공하는 데이타 타입과 .NET Framework의 데이타 타입 간의 관계를 확인할 수 있다.
+
+| AltibaseDbType | ALTIBASE HDB 데이타베이스 칼럼 타입 | .NET Framework |
+| -------------- | ----------------------------------- | -------------- |
+| BigInt         | BIGINT                              | Int64          |
+| BitArray       | BIT                                 | BitArray[]     |
+| Blob           | BLOB                                | Byte[]         |
+| Binary         | BYTE                                | Byte[]         |
+| Char           | CHAR                                | String         |
+| Clob           | CLOB                                | String         |
+| DateTime       | DATE                                | DateTime       |
+| Decimal        | DECIMAL                             | Decimal        |
+| Double         | DOUBLE                              | Double         |
+| Float          | FLOAT                               | Decimal        |
+| Geometry       | GEOMETRY                            | Byte[]         |
+| Integer        | INT                                 | Int32          |
+| NChar          | NCHAR                               | String         |
+| NibbleArray    | NIBBLE                              | NibbleArray    |
+| Number         | NUMBER                              | Decimal        |
+| Numeric        | NUMERIC                             | Decimal        |
+| NVarChar       | NVARCHAR                            | String         |
+| Real           | REAL                                | Float          |
+| SmallInt       | SMALLINT                            | Int16          |
+| VarBitArray    | VARBIT                              | BitArray[]     |
+| VarChar        | VARCHAR                             | String         |
+
+[표 3‑4] 데이타 타입 간의 관계
+
+SQL 구문 내에 내셔널 캐릭터를 포함하는 상수 문자열을 사용하려면, 해당 문자열 바로 앞에 ‘N’을 붙이면 된다.
+
+#### 주의 사항
+
+다음은 알티베이스에서 제공하는 Entity Provider를 사용할 때의 주의 사항이다.
+
+* 데이타베이스에 BIT 또는 VARBIT 데이타 타입의 컬럼을 생성할 때 크기가 반드시 1이어야 한다.
+* 데이타베이스에 NUMERIC 또는 NUMBER 데이타 타입의 컬럼을 생성할 때 precision은 1에서 38 사이의 크기이고 scale은 0에서 precision 사이의 크기여야 한다.
+* NIBBLE, BLOB, CLOB 데이타 타입을 지원하지 않는다. NIBBLE과 BLOB 대신에 BYTE 데이타 타입을, CLOB 대신에 VARCHAR 데이타 타입을 사용하도록 한다.
+
+
+
+### .NET Data Provider Interface
+
+------
+
+#### 지원하지 않는 인터페이스
+
+아래 표는 알티베이스 .NET Data Provider가 지원하지 않는 인터페이스 목록이다.
+
+| 클래스                                             | 구분                                                         | 구성요소                       |
+| -------------------------------------------------- | ------------------------------------------------------------ | ------------------------------ |
+| AltibaseConnection                                 | M                                                            | ChangeDatabase                 |
+| P                                                  | DataSource                                                   |                                |
+| P                                                  | ServerVsion                                                  |                                |
+| AltibaseCommand                                    | M                                                            | Cancel                         |
+| P                                                  | CommandTimeout                                               |                                |
+| P                                                  | CommandType                                                  |                                |
+| AltibaseDataReader                                 | M                                                            | GetData                        |
+| M                                                  | GetDbDataReader                                              |                                |
+| M                                                  | GetProviderSpecificFieldType                                 |                                |
+| M                                                  | GetProviderSpecificValue                                     |                                |
+| M                                                  | GetProviderSpecificValues                                    |                                |
+| P                                                  | Depth                                                        |                                |
+| P                                                  | HasRows                                                      |                                |
+| P                                                  | VisibleFieldCount                                            |                                |
+| AltibaseDataAdapter                                | M                                                            | AddToBatch(IDbCommand command) |
+| M                                                  | CrearBatch                                                   |                                |
+| M                                                  | ExecuteBatch                                                 |                                |
+| M                                                  | GetBatchedParameter                                          |                                |
+| M                                                  | GetBatchedRecordsAffected(int commandIdentifier,  out int recordsAffected, out Exception error) |                                |
+| M                                                  | InitializeBatching                                           |                                |
+| M                                                  | TerminateBatching                                            |                                |
+| AltibaseDataSourceEnumerator                       | A                                                            |                                |
+| AltibaseFactory                                    | M                                                            | CreateDataSourceEnumerator     |
+| M                                                  | CreatePermission                                             |                                |
+| AltibaseParameter                                  | M                                                            | ResetDbType                    |
+| M                                                  | Clone                                                        |                                |
+| AltibaseParameterCollection                        | M                                                            | AddRange                       |
+| AltibasePermission                                 | A                                                            |                                |
+| AltibasePermissionAttribute                        | A                                                            |                                |
+| M: Method  <br />P: Property  <br />A: 클래스 전체 |                                                              |                                |
+
+* AltibaseDataReader.Depth는 언제나 0을 반환한다.
+
+상속받는 추상 클래스에 기본 구현이 있는 메소드는 해당하는 기본 메소드를 사용한다. 기본 구현을 제공하는 멤버는 다음과 같다.
+
+* CreateCommandBuilder
+* CreateConnectionStringBuilder
+* CreateDataSourceEnumerator
+* CreatePermission
+* GetProviderSpecificFieldType
+* GetProviderSpecificValue
+* GetProviderSpecificValues
+* VisibleFieldCount
+* GetBatchedRecordsAffected(int commandIdentifier, out int recordsAffected, out Exception error)
+
+기본 구현이 없는 멤버는 모두 NotImplementedException을 발생시킨다.
+
+
+
+### 연결 정보
+
+------
+
+이 절에서는 ALTIBASE HDB에 접속할 때 사용 가능한 연결 속성들의 정보를 기술하고, 연결 속성을 설정하는 방법에 대해 설명한다.
+
+#### 연결 문자열 (Connection String)
+
+.NET 응용 프로그램에서 ALTIBASE HDB에 접속하기 위한 연결 문자열은 다음과 같다.
+
+```
+Server=127.0.0.1;PORT=20091;User=sys;Password=manager
+```
+
+#### 연결 속성 정보
+
+ALTIBASE HDB에 접속할 때 사용 가능한 연결 속성에 대해 기술한다. 각 속성에 대한 기술에는 다음의 항목들이 포함된다.
+
+* 기본값: 명시하지 않을 경우 기본적으로 사용되는 값
+* 값의 범위: 지정 가능한 값 
+* 필수 여부: 반드시 지정해야 하는지 여부
+* 설정 범위: 설정한 속성이 시스템 전체에 영향을 미치는지 또는 해당 세션에만 영향을 미치는지 여부
+* 설명: 속성에 대한 설명
+
+##### Application name
+
+| 기본값    | .NET Altibase Data Provider                                  |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | 임의의 문자열                                                |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | 접속된 클라이언트의 애플리케이션 정보를 나타낸다. V$SESSION의  CLIENT_APP_INFO 칼럼에 출력되는 값이다. |
+
+##### Connection life time
+
+| 기본값     | 0                                                            |
+| ---------- | ------------------------------------------------------------ |
+| 값의 범위  | Unsigned Integer 범위내의  숫자값  [1 - 231]                 |
+| 필수 여부  | No                                                           |
+| 설정  범위 | N/A                                                          |
+| 설명       | 연결 풀이 이 속성 값만큼 사용하지 않을 경우 풀러에서 제거된다. 단위는 초(sec)이며, 이 값이 0이면 무한대를 의미한다. |
+
+##### Connection timeout
+
+| 기본값    | 15                                                           |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | Unsigned Integer 범위내의  숫자값  [1 - 231]                 |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | 연결 풀에 연결될 때까지 대기하는 시간이며, 단위는 초(sec)이다. 이 값이 0이면 무한대를 의미한다. |
+
+##### Data source
+
+| 기본값     |                                                              |
+| ---------- | ------------------------------------------------------------ |
+| 값의  범위 |                                                              |
+| 필수  여부 | No                                                           |
+| 설정  범위 | N/A                                                          |
+| 설명       | 데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.   - server 값이 존재하면, data source 값은 무시됨.  - server 값이 존재하지 않고, data source 값과 동일한  ODBC 데이터 원본이 존재하면 dsn(data  source name)이 사용.  - server 값이 존재하지 않고, 동일한 ODBC 데이터 원본이 존재하지 않으면 서버의 IP 또는  호스트 이름을 사용. |
+
+##### Encoding
+
+| 기본값    |                                    |
+| --------- | ---------------------------------- |
+| 값의 범위 |                                    |
+| 필수 여부 | No                                 |
+| 설정 범위 | N/A                                |
+| 설명      | 클라이언트의 문자 집합을 설정한다. |
+
+##### Enlist
+
+| 기본값      | true                                                         |
+| ----------- | ------------------------------------------------------------ |
+| 값의  범위  | [true \| false]                                              |
+| 필수  여부  | No                                                           |
+| 설정   범위 | N/A                                                          |
+| 설명        | 해당 쓰레드의 트랜잭션 컨텍스트(Transaction.Current  프로퍼티).   즉 현재 코드가 실행되고 있는 트랜잭션인 앰비언트 트랜잭션(ambient transaction)에 암묵적인 참여 여부를 나타낸다. |
+
+##### Max pool size
+
+| 기본값     | 100                                              |
+| ---------- | ------------------------------------------------ |
+| 값의  범위 | Unsigned Integer 범위내의  숫자값  [1 - 231]     |
+| 필수  여부 | No                                               |
+| 설정  범위 | N/A                                              |
+| 설명       | 생성할 수 있는 최대한의 연결 풀 개수를 나타낸다. |
+
+##### Min pool size
+
+| 기본값     | 0                                                            |
+| ---------- | ------------------------------------------------------------ |
+| 값의  범위 | Unsigned Integer 범위내의  숫자값  [1 - 231]                 |
+| 필수  여부 | No                                                           |
+| 설정  범위 | N/A                                                          |
+| 설명       | 연결 풀이 풀러에 있는 최소한의 개수를 나타낸다. 풀이 생성되면 이 값만큼 연결 풀이 자동 생성되며, connection life time의 기간 동안 사용되지 않을 경우 풀러에서  제거된다. 그러나 연결 풀이 제거되더라도 이 속성에 정한 개수만큼  유지되어야 한다. |
+
+##### nchar literal replace
+
+| 기본값    | false                                                        |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | [true \| false]                                              |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | SQL문 내에서 내셔널 캐릭터 셋을 가지는  상수 문자열의 사용 여부를 결정한다. |
+
+##### password
+
+| 기본값    |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | 데이터베이스 사용자 비밀번호                                 |
+| 필수 여부 | Yes                                                          |
+| 설정 범위 | N/A                                                          |
+| 설명      | 접속을 시도하는 데이터베이스 서버의 사용자 비밀번호를 나타낸다. |
+
+##### pooling
+
+| 기본값    | true                                  |
+| --------- | ------------------------------------- |
+| 값의 범위 | [true \| false]                       |
+| 필수 여부 | No                                    |
+| 설정 범위 | N/A                                   |
+| 설명      | 연결 풀링을 사용할 것인지를 결정한다. |
+
+##### port
+
+| 기본값    | 20300                                                   |
+| --------- | ------------------------------------------------------- |
+| 값의 범위 | [0~65535]                                               |
+| 필수 여부 | No                                                      |
+| 설정 범위 | N/A                                                     |
+| 설명      | 접속을 시도할 ALTIBASE HDB 서버의 포트 번호를 지정한다. |
+
+##### prefer ipv6
+
+| 기본값    | false                                                        |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | [true \| false]                                              |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | IPv6 주소를 IPv4 주소보다 우선 사용할 것인지를 결정한다. false이면 IPv4 주소를 사용하여 데이터베이스 서버에 접속한다. |
+
+##### server
+
+| 기본값    | localhost                                                    |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 |                                                              |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | 접속을 시도할 ALTIBASE HDB 서버의 IP 주소 또는 호스트 이름이다. |
+
+##### transaction timeout
+
+| 기본값    | 서버의 설정값                                                |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | Unsinged Integer 범위의 숫자값  [1 - 231]                    |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | UPDATE 수행 시간이 설정된 값을 초과하면  자동으로 종료한다. 단위는 초(sec)이다. 이 값이 0이면 무한대를 의미한다. |
+
+##### user id
+
+| 기본값    |                                                           |
+| --------- | --------------------------------------------------------- |
+| 값의 범위 | 데이터베이스 사용자 ID                                    |
+| 필수 여부 | Yes                                                       |
+| 설정 범위 | N/A                                                       |
+| 설명      | 접속을 시도하는 데이터베이스 서버의 사용자 ID를 나타낸다. |
+
+
+
+### .NET Data Provider 예제
+
+------
+
+#### DDL 과 DML 단순 예제
+
+AltibaseConnection 클래스를 사용하여 ALTIBASE HDB에 접근하여 test_goods 테이블을 생성하고 데이타를 삽입한 후 검색한다.
+
+using Altibase.Data.AltibaseClient;
+
+class ConnectionTest
+{
+    static void Main(string[] args)
+    {
+        string sConnectionString = "Server=127.0.0.1;PORT=20091;User=sys;Password=manager";
+         AltibaseConnection conn = new AltibaseConnection(sConnectionString);
+ 
+        try
+        {
+            conn.Open(); // This connects to the database
+            AltibaseCommand command = new AltibaseCommand("drop table test_goods", conn);
+ 
+            try 
+            {
+                command.ExecuteNonQuery(); // This executes a query
+            }
+            catch (Exception ex) {}
+
+            command.CommandText = 
+            "create table test_goods (
+              gno char(10), 
+              gname char(20), 
+              location char(9), 
+              stock integer, 
+              price numeric(10, 2))";
+            command.ExecuteNonQuery(); // This executes a query
+
+            command.CommandText = 
+            "insert into test_goods values 
+              ('A111100001','IM-300','AC0001',1000,78000)";
+            command.ExecuteNonQuery();//This executes a query
+
+            command.CommandText = 
+            "insert into test_goods values 
+              ('A111100002','IM-310','DD0001',100,98000)";
+            command.ExecuteNonQuery();//This executes a query
+
+            command.CommandText = 
+            "insert into test_goods values 
+              ('B111100001','NT-H5000','AC0002',780,35800)";
+            command.ExecuteNonQuery();//This executes a query
+
+            command.CommandText = "select * from test_goods";
+            AltibaseDataReader dr = command.ExecuteReader();
+            Console.WriteLine(" GNO GNAME LOCATION STOCK PRICE ");
+            Console.WriteLine(
+"===================================================================================");
+
+            while (dr.Read())
+            {
+                for (int i = 0; i < dr.FieldCount; i++)
+                {
+                    Console.Write("\t{0}", dr[i]);
+                }
+                // This outputs the retrieved data
+                Console.WriteLine();
+            }
+        }
+        catch (Exception ex)
+        {
+          Console.WriteLine(ex.ToString());
+        }
+        conn.Close(); // This closes the connection to the database
+    }
+}using Altibase.Data.AltibaseClient;
+
+class ConnectionTest
+{
+    static void Main(string[] args)
+    {
+        string sConnectionString = "DSN=127.0.0.1;PORT_NO=20091;UID=sys;PWD=manager;";
+        // This is the host IP address and port number of the database server used as the DSN 
+        AltibaseConnection conn = new AltibaseConnection(sConnectionString);
+ 
+        try
+        {
+            conn.Open(); // This connects to the database
+            AltibaseCommand command = new AltibaseCommand("drop table test_goods", conn);
+ 
+            try 
+            {
+                command.ExecuteNonQuery(); // This executes a query
+            }
+            catch (Exception ex) {}
+
+            command.CommandText = 
+            "create table test_goods (
+              gno char(10), 
+              gname char(20), 
+              location char(9), 
+              stock integer, 
+              price numeric(10, 2))";
+            command.ExecuteNonQuery(); // This executes a query
+
+            command.CommandText = 
+            "insert into test_goods values 
+              ('A111100001','IM-300','AC0001',1000,78000)";
+            command.ExecuteNonQuery();//This executes a query
+
+            command.CommandText = 
+            "insert into test_goods values 
+              ('A111100002','IM-310','DD0001',100,98000)";
+            command.ExecuteNonQuery();//This executes a query
+
+            command.CommandText = 
+            "insert into test_goods values 
+              ('B111100001','NT-H5000','AC0002',780,35800)";
+            command.ExecuteNonQuery();//This executes a query
+
+            command.CommandText = "select * from test_goods";
+            AltibaseDataReader dr = command.ExecuteReader();
+            Console.WriteLine(" GNO GNAME LOCATION STOCK PRICE ");
+            Console.WriteLine(
+"===================================================================================");
+
+            while (dr.Read())
+            {
+                for (int i = 0; i < dr.FieldCount; i++)
+                {
+                    Console.Write("\t{0}", dr[i]);
+                }
+                // This outputs the retrieved data
+                Console.WriteLine();
+            }
+        }
+        catch (Exception ex)
+        {
+          Console.WriteLine(ex.ToString());
+        }
+        conn.Close(); // This closes the connection to the database
+    }
+}
+
+실행결과
+GNO           GNAME         LOCATION    STOCK   PRICE
+==================================================
+A111100001  IM-300        AC0001       1000    78000
+A111100002  IM-310        DD0001       100     98000
+B111100001  NT-H5000     AC0002        780     35800
+
+#### 벌크 복사
+
+AltibaseBulkCopy를 이용해서 bulkcopy_source 테이블에서 bulkcopy_destination 테이블로 데이타를 복사한다.
+
+```
+using System;
+using System.Data;
+using Altibase.Data.AltibaseClient;
+class Program
+{
+    static void Main(string[] args)
+    {
+        if (args.Length != 2)
+        {
+            Console.WriteLine("\t[NOT PASSED]: Invalid argument");
+            return;
+        }
+
+        string connectionString = GetConnectionString(args);
+        using (AltibaseConnection sourceConnection = 
+                new AltibaseConnection(connectionString))
+        {
+            sourceConnection.Open();
+
+            // Perform an initial count on the destination table.
+            AltibaseCommand commandRowCount = new AltibaseCommand(
+                "SELECT COUNT(*) FROM BULKCOPY_DESTINATION;",
+                sourceConnection);
+
+            long countStart = System.Convert.ToInt32(
+                commandRowCount.ExecuteScalar());
+
+            Console.WriteLine("Starting row count = {0}", countStart);
+
+             // Get data from the source table as a AltibaseDataReader.
+            AltibaseCommand commandSourceData = new AltibaseCommand(
+                "SELECT A1, A2, A3, A4 FROM BULKCOPY_SOURCE;",
+                 sourceConnection);
+
+            AltibaseDataReader reader =
+                commandSourceData.ExecuteReader();
+
+            // Open the destination connection. In the real world you would
+            // not use AltibaseBulkCopy to move data from one table to the other
+             // in the same database. This is for demonstration purposes only.
+            using (AltibaseConnection destinationConnection =
+                       new AltibaseConnection(connectionString))
+            {
+                destinationConnection.Open();
+
+                // Set up the bulk copy object.
+                // Note that the column positions in the source
+                // data reader match the column positions in
+                // the destination table so there is no need to
+                // map columns.
+                using (AltibaseBulkCopy bulkCopy =
+                           new AltibaseBulkCopy(destinationConnection))
+                {
+                    bulkCopy.DestinationTableName =
+                        "BULKCOPY_DESTINATION";
+
+                    try
+                    {
+                        // Write from the source to the destination.
+                        bulkCopy.WriteToServer(reader);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        // Close the AltibaseDataReader. The AltibaseBulkCopy
+                        // object is automatically closed at the end
+                        // of the using block.
+                        reader.Close();
+                    }
+                }
+
+                // Perform a final count on the destination
+                // table to see how many rows were added.
+                long countEnd = System.Convert.ToInt32(
+                    commandRowCount.ExecuteScalar());
+
+                Console.WriteLine("Ending row count = {0}", countEnd);
+                Console.WriteLine("{0} rows were added.", countEnd - countStart);
+            }
+        }
+    }
+    private static string GetConnectionString(string[] args)
+    // To avoid storing the sourceConnection string in your code,
+    // you can retrieve it from a configuration file.
+    {
+        return "Server=" + args[0] + ";" + "PORT=" + args[1] + ";" + "User=sys;Password=manager";
+    }
+}
+
+```
+#### 연결 풀링 예제
+
+ADO.NET에서 연결 풀링를 사용하는 예제는 다음과 같다.
+
+```
+static void Main(string[] sArgs)
+{
+    AltibaseConnection cn = new AltibaseConnection();
+    AltibaseConnection cn2 = new AltibaseConnection();
+    AltibaseCommand cmd = new AltibaseCommand();
+    string cnStr = "Server=127.0.0.1;Port=20300;User=user;Password=pwd;Pooling=true;Min Pool Size=0;Max Pool Size=10";
+  
+    cn.ConnectionString = cnStr;
+    cn.Open();
+  
+    Console.WriteLine("Successfully Connected.");
+  
+    cmd.Connection = cn;
+    cmd.CommandText = "SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS') FROM DUAL";
+  
+    AltibaseDataReader dr = cmd.ExecuteReader();
+    while (dr.Read())
+    {
+        Console.WriteLine(dr[0].ToString());
+    }
+    dr.Close();
+  
+    cn.Close();
+ 
+    cn2.ConnectionString = cnStr;
+    cn2.Open(); // Pooled Connection
+    cn2.Close();
+}
+```
+
+
+
+#### 분산 트랜잭션 예제
+
+ADO.NET에서 분산 트랜잭션에 참여하는 방법은 암묵적인 방법과 명시적인 방법 2가지가 존재한다. 
+
+암묵적으로 트랜잭션에 참여하는 방법은 연결 문자열에 'Enlist=true' 속성을 설정하거나, 이 속성을 설정하지 않고 DbConnection.Open 메소드를 호출하면 된다. 
+
+명시적으로 트랜잭션에 참여하는 방법은 'Enlist=false' 속성을 설정하고 연결 수립 이후 DbConnection.EnlistTransaction 메소드 또는 AltibaseConnection.EnlistDistributedTransaction 메소드를 호출하면 된다.
+
+분산 트랜잭션에 암묵적으로 참여하여 commit을 수행하는 예제이다. 만약 Rollback을 수행하려면, scope.Complete() 메소드를 호출하지 않는다.
+
+```
+var cn1_str = "Server=127.0.0.1;PORT=20300;User=root;Password=1234";
+var cn2_str = "Server=127.0.0.1;PORT=20301;User=root;Password=1234;Enlist=true";
+ 
+using (var scope = new TransactionScope())
+{
+    using (var cn1 = new AltibaseConnection(cn1_str))
+    {
+        cn1.Open();
+   
+        // ...
+    }
+   
+    using (var cn2 = new AltibaseConnection(cn2_str))
+    {
+        cn2.Open();
+  
+        // ...
+    }
+   
+    scope.Complete();
+}
+```
+
+##### 명시적 트랜잭션 참여
+분산 트랜잭션에 명시적으로 참여하여 commit을 수행하는 예제이다. 명시적으로 트랜잭션에 참여하기 위해서는 참여하고자 하는 트랜잭션 객체를 AltibaseConnect.EnlistTransaction 메소드로 호출한다. 
+
+만약 rollback을 수행하려면, tx.commit() 메소드 대신 tx.rollback() 메소드를 호출한다.
+
+```
+var cn1_str = "Server=127.0.0.1;PORT=20300;User=root;Password=1234;Enlist=false";
+var cn2_str = "Server=127.0.0.1;PORT=20301;User=root;Password=1234;Enlist=false";
+ 
+var tx = new CommittableTransaction();
+ 
+using (var cn1 = new AltibaseConnection(cn1_str))
+{
+    cn1.Open();
+    cn1.EnlistTransaction(tx);
+ 
+    // ...
+}
+ 
+using (var cn2 = new AltibaseConnection(cn2_str))
+{
+    cn2.Open();
+    cn2.EnlistTransaction(tx);
+ 
+    // ...
+}
+ 
+tx.Commit();
+```
+
+위 예제는 두 번째 접속 cn2가 참여하기 전까지 로컬 트랜잭션으로 수행되다가 cn2가 참여되는 순간부터 분산 트랜잭션으로 승격되어 수행된다. 만약 처음부터 분산 트랜잭션에 참여하려면, 아래의 예제처럼 AltibaseConnect.EnlistDistributedTransaction 메소드를 사용하여 참여한다.
+
+```
+var cn1_str = "Server=127.0.0.1;PORT=20300;User=root;Password=1234;Enlist=false";
+var cn2_str = "Server=127.0.0.1;PORT=20301;User=root;Password=1234;Enlist=false";
+ 
+var tx = new CommittableTransaction();
+var dtx = TransactionInterop.GetDtcTransaction(tx); // transaction escalation
+ 
+using (var cn1 = new AltibaseConnection(cn1_str))
+{
+    cn1.Open();
+    cn1.EnlistDistributedTransaction((System.EnterpriseServices.ITransaction)dtx);
+ 
+    // ...
+}
+ 
+using (var cn2 = new AltibaseConnection(cn2_str))
+{
+    cn2.Open();
+    cn2.EnlistDistributedTransaction((System.EnterpriseServices.ITransaction)dtx);
+ 
+    // ...
+}
+ 
+tx.Commit();
+```
+
+
+
+### 분산 트랜잭션 Trouble Shooting
+분산 트랜잭션을 수행시 정상적으로 동작하지 않을 때 몇 가지 사항을 확인하여 해결할 수 있다.
+
+
+
+##### 질문
+
+ALTIBASE HDB .NET Data Provider와 함께 분산 트랜잭션이 동작하지 않습니다.
+
+##### 답변
+
+분산 트랜잭션이 동작하지 않을 때 다음 사항들을 우선 확인하기 바랍니다.
+
+
+
+##### 질문
+
+ALTIBASE HDB .NET Data Provider와 함께 분산 트랜잭션이 동작하지 않습니다.
+
+##### 답변
+
+분산 트랜잭션이 동작하지 않을 때 다음 사항들을 우선 확인하기 바랍니다.
+
+*  DTC 시스템 서비스가 정상적인 수행 여부 확인
+* HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSDTC\XADLL 레지스트리 위치에 'odbccli_sl.dll' 값이 등록되었는지 확인(참고 : Wow64인 경우 레지스트리 위치는 HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\MSDTC\XADLL)
+* DTC 시스템 서비스에서 'XA 트랜잭션 사용' 옵션의 설정 여부 확인
+
+
+
+##### 질문
+
+분산 트랜잭션을 수행하였으나, 정상적으로 동작하지 않습니다.
+
+##### 답변
+
+분산 트랜잭션은 다음의 경우 정상적으로 동작하지 않습니다.
+
+* 트랜잭션 타임아웃이 초과할 경우
+* 하나의 분산 트랜잭션에 32개 이상의 리소스 관리자(RM)가 참여를 시도할 경우
+* DTC 시스템 서비스의 로그 파일 크기를 초과하도록 다수의 분산 트랜잭션을 수행할 경우
+
+
+
+##### 질문
+
+커밋 이후 또 다른 트랜잭션에 참여하거나 접속을 해제할 때 접속 해제가 완료될 때까지 장기간 대기할 수 있다.
+
+##### 답변
+
+커밋 트리(commit tree)에서 중간 통신 회선 실패, DTC 시스템 서비스의 로그 초기화 등으로 인해 2 단계 커밋 프로토콜(2 PC protocol) 중 두 번째 단계(second phase)의 명령이 전달받지 못할 경우가 발생한다. 이를 대비하여 ALTIBASE HDB의 XA_HEURISTIC_COMPLETE 시스템 프로퍼티와 XA_INDOUBT_TX_TIMEOUT 시스템 프로퍼티를 설정하기를 권장한다.
+
+
+
+##### 질문
+
+분산 트랜잭션에 참여 시도시 순간적으로 실패할 수도 있다.
+
+DbConnection.EnlistTransaction 메소드 또는 AltibaseConnection.EnlistDistributedTransaction 메소드를 이용해 분산 트랜잭션에 참여를 시도할 때 실패할 수 있다. 참여 과정에서 DTC 시스템 서비스는 XA 복구(recovery)를 위해 xa_open 함수로 RM에 접속을 시도한다. 이 때 네트워크 장애 등 일시적인 현상으로 접속이 실패할 수 있으며, 이 경우 다시 참여를 시도할 것을 권장한다.
 
 4.XA Interface
 ------------
