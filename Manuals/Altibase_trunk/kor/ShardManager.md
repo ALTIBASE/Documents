@@ -158,8 +158,8 @@ Shard Manager는 Altibase Sharding의 샤드 노드와 샤드 객체에 대한 �
 Altibase Sharding은 다수의 데이터베이스로 구성되기 때문에, 각 데이터베이스와 객체를 관리하는 비용이 많이 들 수 있다. 이러한 환경에서 관리자는 Shard Manager를 사용함으로써 여러 데이터베이스에서 수행해야 하는 반복 작업을 단순화하여 업무 효율성을 향상시키고, 샤드 노드와 샤드 객체를 시각화하여 구성에 대한 이해도를 증진시킬 수 있다.
 
 Shard Manager의 특징은 다음과 같다.
--   샤드 데이터베이스를 손쉽게 추가/삭제/초기화할 수 있다.
--   샤드 노드를 손쉽게 등록/수정/해제할 수 있다.
+-   샤드 데이터베이스를 손쉽게 추가/삭제할 수 있다.
+-   샤드 노드를 손쉽게 추가/삭제할 수 있다.
 -   DB 객체를 샤드 객체로 손쉽게 등록/해제할 수 있다.
 -   여러 노드에 걸쳐 존재하는 분산 객체의 개별 정보 및 분산 정보를 하나의 창에서 확인할 수 있다.
 -   여러 노드들에 대해, SQL(DDL)을 전체 샤드노드들에 한 번에 수행할 수 있다.
@@ -193,18 +193,15 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 ### Shard Databases View
 샤드 데이터베이스 뷰는 샤드 노드들의 그룹인 샤드 데이터베이스를 중심으로 샤드 정보를 보여준다. 기본 전체 화면의 왼쪽 상단에 위치한다.
 
-샤드 데이터베이스 뷰에서 표현하는 정보는 3가지이다.
-
-1. 샤드 데이터베이스: 사용자가 등록한 샤드 노드들을 하나의 그룹으로 나타낸다. 특정 샤드 노드로 접속을 성공하면, 샤드 데이터베이스는 현재 접속 노드로부터 샤드 노드들의 정보를 가져와 트리 구조의 하위 노드로 표현한다.
-2. 샤드 노드: 샤드 메타에 등록된 샤드 노드이다.
-3. DB의 연결정보: 샤드 노드 연결 정보이다.
+사용자가 등록한 샤드 노드들을 하나의 그룹으로 나타낸다. 특정 샤드 노드로 접속을 성공하면, 샤드 데이터베이스는 현재 접속 노드로부터 샤드 노드들의 정보를 가져와 트리 구조의 하위 노드로 표현한다.
 
 ![](media/Sharding/shm_shard_database_view.png)
 
 #### Label Expression
--   샤드 데이터베이스: 샤드 데이터베이스 추가 시 사용자가 부여한 이름
--   샤드 노드: 샤드 메타에 등록된 샤드 노드 이름
--   샤드 노드의 연결정보: IP 주소 : 포트 번호 (SMN)
+- 샤드 데이터베이스: 샤드 데이터베이스 추가 시 사용자가 부여한 이름
+- 샤드 노드: 샤드 메타에 등록된 샤드 노드 이름
+- 샤드 노드의 연결정보: IP 주소 : 포트 번호 (SMN)
+  - SMN: Shard Meta Number 
 
 #### Icon Expression
 -   샤드 데이터베이스: 샤드 노드에 성공적으로 접속하면 아이콘 오른쪽 하단에 초록색 화살표를 표시한다.
@@ -246,9 +243,9 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 -   Create Shard Table (![](media/Sharding/table_add.png)): 새로운 테이블 생성과 Set Shard Table을 동시에 수행한다.
 -   Refresh (![](media/Sharding/action_refresh.gif)): 샤드 객체 뷰를 업데이트 한다.																																							 
 ### Query View
-쿼리 뷰에서 사용가능한 쿼리 종류는 데이터 정의 언어(Data Definition Language, DDL)과 데이터 제어 언어(Data Control Language, DCL)이다. 
+쿼리 뷰에서 사용가능한 쿼리 종류는 Data Definition Language(DDL)과 Data Control Language(DCL)이다. 
 
-쿼리 뷰는 (Data Manipulation Language, DML: SELECT, INSERT, DELETE, UPDATE) 를 지원하지 않는다.
+쿼리 뷰는 Data Manipulation Language(DML)인 SELECT, INSERT, DELETE, UPDATE 를 지원하지 않는다.
 
 샤드 데이터베이스를 연결할 때 자동으로 뷰가 나타나며, 대상 데이터베이스의 이름이 뷰의 제목으로 사용된다. 사용자가 쿼리 뷰를 직접 열 때에는 샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼을 누르거나 선택 후, Shard Database 메뉴를 열어 'Open Query View'를 선택하면 생성된다. 기본 전체 화면 오른쪽 상단에 위치한다.
 
@@ -291,12 +288,13 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 ![](media/Sharding/shm_mem_usage.png)
 
 #### Column Description
--   Database: 샤드 노드의 연결정보로 접속한 데이터베이스(Label Expression: '샤드 노드 이름 (IP 주소 : 포트 번호)'
--   Tablespace Name: 메모리 테이블스페이스 이름, 노드에 존재하는 메모리 테이블스페이스가 다수일 경우, 선택할 수 있다.
--   Max(MB): 메모리 테이블스페이스에서 사용할 수 있는 최대 메모리 크기, 테이블스페이스 생성 시 최대 크기를 지정하지 않았다면 MEM_MAX_DB_SIZE 프로퍼티에 지정된 크기를, AUTOEXTEND가 OFF라면 메모리 테이블스페이스가 할당받은 크기를 출력한다.
--   Alloc(MB): 메모리 테이블스페이스에 할당된 메모리 크기
--   Used(MB): 'Alloc(MB)'의 값 중, 실제 사용하는 메모리 크기
--   Usage(%): 메모리 테이블스페이스 사용률 (= Alloc(MB) / Max(MB) \* 100)
+- Database: 샤드 노드의 연결정보로 접속한 데이터베이스
+  - Label Expression: '샤드 노드 이름 (IP 주소 : 포트 번호)'
+- Tablespace Name: 메모리 테이블스페이스 이름, 노드에 존재하는 메모리 테이블스페이스가 다수일 경우, 선택할 수 있다.
+- Max(MB): 메모리 테이블스페이스에서 사용할 수 있는 최대 메모리 크기, 테이블스페이스 생성 시 최대 크기를 지정하지 않았다면 MEM_MAX_DB_SIZE 프로퍼티에 지정된 크기를, AUTOEXTEND가 OFF라면 메모리 테이블스페이스가 할당받은 크기를 출력한다.
+- Alloc(MB): 메모리 테이블스페이스에 할당된 메모리 크기
+- Used(MB): 'Alloc(MB)'의 값 중, 실제 사용하는 메모리 크기
+- Usage(%): 메모리 테이블스페이스 사용률 (= Alloc(MB) / Max(MB) \* 100)
 
 ### Record Count View
 샤드 테이블의 레코드는 여러 샤드 노드에 분산되어 저장된다. 레코드 카운트 뷰는 각 샤드 노드에 저장된 레코드 개수를 표시한다. 
@@ -309,8 +307,9 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 
 #### Column Description
 -   Shard Node: 샤드 메타에 저장된 노드의 이름
--   Address: 샤드 노드의 연결정보를 표시한다. (Label Expression: 'IP 주소 : 포트 번호')
--   Record Count: Shard Node와 Address 컬럼에서 선택된 데이터베이스에 저장된 테이블의 레코드 개수
+-   Address: 샤드 노드의 연결정보를 표시한다. 
+    -   Label Expression: 'IP 주소 : 포트 번호'
+-   Record Count: Shard Node별 및 합산한 레코드 개수를 표시한다.
 
 ### Console View
 프로그램 수행 중 사용자에게 전달할 정보가 기록되는 뷰이다. 
@@ -324,14 +323,14 @@ ShardManager.exe를 클릭해서 최초로 실행한 화면이다.
 ### Create New Shard Database
 새로운 샤드 데이터베이스를 만든다. 
 
-Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베이스를 준비한다.
+Altibase Sharding Guide 의 Altibase Installation 부분을 참고하여, 데이타베이스를 준비한다.
 - 샤딩관련 프로퍼티가 설정되어 있어야 한다.
 - 샤딩관련 패키지들이 설치되어 있어야 한다.
 - 샤드메타는 생성되지 않은 상태여야 한다.
 - Zookeeper 설정이 되어있고, 구동이 되어있는 상태여야 한다.
 
 1.  툴바 또는 Shard Database 메뉴에 위치한 'Create New Shard Database'를 클릭한다.
-2.  입력 항목들의 의미는 Sharding 매뉴얼에서 DBMS_SHARD 패키지의 SET_LOCAL_NODE 와 SET_REPLICATION 부분을 참고한다.
+2.  입력 항목들의 의미는 Altibase Sharding Guide 에서 DBMS_SHARD 패키지의 SET_LOCAL_NODE 와 SET_REPLICATION 부분을 참고한다.
 3.  'Test' 버튼을 클릭하여 입력한 연결정보를 통해 노드에 접속이 정상적으로 이루어지는지 확인한다.
 4.  'OK' 버튼을 클릭하여 샤드 데이터베이스를 저장한다.
 7.  정상적으로 샤드 데이터베이스가 생성되었다면 해당 샤드 데이터베이스가 샤드 데이터베이스 뷰에 나타난다.
@@ -360,10 +359,7 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
 2. 연결이 정상적으로 해제되었다면 아이콘 오른쪽 하단에 있는 초록색 화살표가 사라지고, 트리 하위 노드들이 사라진다.
 
 ### Remove Shard Database
-샤드 데이터베이스를 초기화 후, Shard Manager에서 제거한다.
-
 해당 샤드 데이타베이스에서 disconnect 되어있는 상태에서만 수행할 수 있다.
-
 - 샤드 객체: 모든 샤드 객체를 해제하고, 대응되는 DB 객체를 drop 한다. 
 - 샤드 노드: 모든 샤드 노드를 drop 한다. 
 - 샤드 데이터베이스: Shard Manager에서 제거한다.
@@ -389,7 +385,7 @@ Sharding 매뉴얼의 Altibase Installation 부분을 참고하여, 데이타베
 Create New Shard Database 시와 동일하게 데이타베이스를 준비한다.
 
 새로운 샤드 노드를 추가하기 전에, 기존 샤드 노드가 있었다면, 기존 샤드 노드와 동일한 데이터베이스 객체들을 미리 생성해 놓아야 한다.
-- 기존에 이미 데이터베이스 객체들이 모두 생성된 샤드 노드가 있다면, 해당 노드에서 aexport 유틸리티를 이용하여, 객체 생성구문을 얻을 수 있다.
+- 기존에 이미 데이터베이스 객체들이 생성된 샤드 노드가 있다면, 해당 노드에서 aexport 유틸리티를 이용하여, 객체 생성구문을 얻을 수 있다.
 - 아래의 예외사항들을 제외한, 모든 데이터베이스 객체들을 생성해 놓아야 한다.
 - 샤드 테이블들 및 백업테이블들인 _BAK_ 테이블들은 모두 생성되어 있되, 비어 있어야 한다.
 - k-safety 복제를 위하여 시스템적으로 관리되는 이중화 객체들(repl_set_~)은 자동으로 생성되므로, 미리 생성해 놓으면 안된다.
@@ -397,7 +393,7 @@ Create New Shard Database 시와 동일하게 데이타베이스를 준비한다
 
 1.  샤드 데이터베이스에 새로운 샤드 노드를 추가한다.
 2.  샤드 데이터베이스 뷰에서 샤드 데이터베이스를 마우스 오른쪽 버튼으로 누르거나, 클릭 후 Shard Node 메뉴를 열어 'Add Shard Node'를 클릭한다.
-3.  입력 항목들의 의미는 Sharding 매뉴얼에서 DBMS_SHARD 패키지의 SET_LOCAL_NODE 부분을 참고한다.
+3.  입력 항목들의 의미는 Altibase Sharding Guide 에서 DBMS_SHARD 패키지의 SET_LOCAL_NODE 부분을 참고한다.
 4.  'Test' 버튼을 클릭하여 입력한 연결정보에 접속이 정상적으로 이루어지는지 확인한다.
 5.  'OK' 버튼을 클릭하여 샤드 노드를 추가한다. 
 6.  정상적으로 수행되었으면, 샤드 데이터베이스에 등록한 샤드 노드가 추가된다.
@@ -410,7 +406,7 @@ Create New Shard Database 시와 동일하게 데이타베이스를 준비한다
 3.  내부적으로, 해당 샤드 노드에 SHARD DDL인 ALTER DATABASE SHARD DROP 구문을 수행시켜 준다.
 4.  정상적으로 샤드 노드가 삭제되었다면 샤드 데이터베이스 뷰 내 대상 노드가 사라진다.
 
-해당 샤드 노드에 분산정의된 객체가 있는 경우는 미리 리샤딩을 통하여, 다른 샤드 노드로 분산정의를 변경해 놓아야 한다. 그렇지 않으면, 본 기능 수행시 에러가 발생한다.
+해당 샤드 노드에 클론 객체를 제외한, 분산정의된 객체가 있는 경우는 미리 리샤딩을 통하여, 다른 샤드 노드로 분산정의를 변경해 놓아야 한다. 그렇지 않으면, 본 기능 수행시 에러가 발생한다.
 
 ## Shard Object Management
 
