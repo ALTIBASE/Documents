@@ -2754,7 +2754,7 @@ ALA_RC ALA_SetXLogPoolSize (
 | Argument      | Description                                         |
 | ------------- | --------------------------------------------------- |
 | aHandle       | This is the handle of the XLog Collector            |
-| aXLogPoolSize | This is the size of the XLog Pool This is the size of the XLog Pool. |
+| aXLogPoolSize | This is the size of the XLog Pool. |
 | aOutErrorMgr  | This is an Error Manager structure.                 |
 
 #### Return Values
