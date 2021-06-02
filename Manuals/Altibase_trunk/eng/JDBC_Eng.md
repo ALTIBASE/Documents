@@ -55,7 +55,7 @@ Altibase Application Development JDBC User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1430,7 +1430,7 @@ Connection conn = ds.getConnection();
 
 For more detailed information on how to install and configure the WebLogic server, please refer to http://docs.oracle.com/middleware/1213/wls/index.html. 
 
-You can configure the connection pool and the JDBC datasource by referring to the following links:
+The connection pool and the JDBC datasource can be configured by referring to the following links:
 
 * http://docs.oracle.com/middleware/1213/wls/WLACH/taskhelp/jdbc/jdbc_datasources/CreateDataSources.html 
 * http://docs.oracle.com/middleware/1213/wls/WLACH/pagehelp/JDBCjdbcdatasourcesjdbcdatasourceconfigconnectionpooltitle.html
@@ -3083,11 +3083,11 @@ sPstmt.executeUpdate();
 
 ### JDBC Logging
 
-JJDBC Logging means to record all sorts of logs occurring in the Altibase JDBC driver, and the log can be recorded by using java.util.logging package. This section will discuss how to use and configure the JDBC logging.
+JDBC Logging means to record all sorts of logs occurring in the Altibase JDBC driver, and the log can be recorded by using java.util.logging package. This section will discuss how to use and configure the JDBC logging.
 
 #### Installing JDBC Logging
 
-JIn order to record a log from the JDBC driver, the JDBC jar file with an added logging function should be used. Also, it should be used after activating a logging function in the ALTIBASE_JDBC_TRACE environment variable.
+In order to record a log from the JDBC driver, the JDBC jar file with an added logging function should be used. Also, it should be used after activating a logging function in the ALTIBASE_JDBC_TRACE environment variable.
 
 ##### JRE Version
 
