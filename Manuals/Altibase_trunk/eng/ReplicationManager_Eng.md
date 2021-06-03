@@ -49,7 +49,7 @@ Altibase Tools & Utilities Replication Manager User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -137,7 +137,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 ## 1. Introduction to Replication Manager
 
-This chapter is intended to help all users who want to install Replication Manager and understand its features. It also provides an overview of Replication Manager. It contains the following sections:
+This chapter is intended to help all users who want to install the Replication Manager and understand its features. It also provides an overview of Replication Manager. It contains the following sections:
 
 -   Overview of Replication Manager
 -   Installing and Updating Replication Manager
@@ -162,7 +162,7 @@ The major benefits of this tool are:
 
 ### Installing Replication Manager
 
-This chapter describes the essential prerequisites and system requirements for installing Replication Manager. It also explains how to install and uninstall Replication Manager.
+This chapter describes the essential prerequisites and system requirements for installing Replication Manager. This chapter also explains how to install and uninstall Replication Manager.
 
 -   System Requirements
 -   Installation Media
@@ -264,9 +264,9 @@ It is organized as follows:
 
 #### Starting and Shutting Down
 
-To start Replication Manager, execute the "Replication Manager" application in Linux in the folder in which the application was installed. 
+To start the Replication Manager, execute the "Replication Manager" application in Linux in the folder in which the application was installed. 
 
-To shut down Replication Manager, select "File", then "Exit" from the top menu of Replication Manager, or click on the X in the upper-right corner. 
+To shut down the Replication Manager, select "File", then "Exit" from the top menu of Replication Manager, or click on the X in the upper-right corner. 
 
 #### Connecting to Altibase 
 
