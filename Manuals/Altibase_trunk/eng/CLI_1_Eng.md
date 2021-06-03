@@ -1868,7 +1868,7 @@ SQL_ERROR
 
 #### Description
 
-This closes cursor and discars the suspended results. 
+This closes cursor and discards the suspended results. 
 
 This option has same functionality as using SQL_CLOSE option in SQLFreeStmt(). However, 240000 errors occur if cursor is not open in SQLCloseCorsor().
 
@@ -3018,7 +3018,7 @@ When the result set is created, the cursor is positioned before the start of the
 
 | Current row set | Returned code | New row set                                     | Number of the fetched rows |
 | --------------- | ------------- | ----------------------------------------------- | -------------------------- |
-| 시작 전         | SQL_SUCCESS   | 1 to 5                                          | 5                          |
+| Before start        | SQL_SUCCESS   | 1 to 5                                          | 5                          |
 | 1 to 5          | SQL_SUCCESS   | 6 to 10                                         | 5                          |
 | 52 to 56        | SQL_SUCCESS   | 57 to 61                                        | 5                          |
 | 91 to 95        | SQL_SUCCESS   | 96 to 100                                       | 5                          |
@@ -3522,7 +3522,7 @@ SQL_CLOSE: Closes the cursor related to *stmt*, and discards all pending results
 
 SQL_DROP: The resources related to the input statement handle will be released, and the handle will be freed. In case there is an open cursor, the cursor will be closed and all pending results will be deleted.
 
-SQL_UNBIND: Releases all column buffers bound by SQLBindCol for the given StatementHandle
+SQL_UNBIND: Releases all column buffers bound by SQLBindCol for the given StatementHandle.
 
 SQL_RESET_PARAMS: Releases all parameter buffers set by SQLBindParameter (). The relation between an application variable or file reference and a SQL statement parameter marker of the statement handle will be released.
 
@@ -4019,7 +4019,7 @@ SQLSetEnvAttr
 
 ### SQLGetFunctions
 
-This retrieves function list supported by Altibase CLI driver.
+This retrieves function list supported by the Altibase CLI driver.
 
 #### Syntax
 

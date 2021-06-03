@@ -112,7 +112,7 @@ As the Altibase ODBC driver is built upon Altibase CLI, you can refer to the Alt
 
 ### Data Type
 
-For mored detailed information on on the mapping relationship between SQL data type and ODBC data type supported by Altibase, please refer to “B. Appendix: Data Types” in Altibase CLI User’s Manual.
+For more detailed information on on the mapping relationship between SQL data type and ODBC data type supported by Altibase, please refer to “B. Appendix: Data Types” in Altibase CLI User’s Manual.
 
 ### ODBC API
 

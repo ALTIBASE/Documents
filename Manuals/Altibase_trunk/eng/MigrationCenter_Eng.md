@@ -78,7 +78,7 @@ Altibase Tools & Utilities Migration Center User's Manual
 
 Release 7.8
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -286,9 +286,9 @@ This section discusses the system requirements for Migration Center and compatib
 
 #### Software Requirements
 
--   Java Development Kit (JDK), or Java Runtime Environment (JRE) 5 or higher
+-   Java Development Kit (JDK), or Java Runtime Environment (JRE) 5 or later
 
-Migration Center is a pure Java application that uses Swing for GUI mode. It runs regardless of the user’s hardware and operating system, but relies on the JRE. The user is recommended to install Oracle, or IBM Java 5 or higher. To run Migration Center in GUI mode, the user’s environment must support Java Swing.
+Migration Center is a pure Java application that uses Swing for GUI mode. It runs regardless of the user’s hardware and operating system, but relies on the JRE. The user is recommended to install Oracle, or IBM Java 5 or later. To run Migration Center in GUI mode, the user’s environment must support Java Swing.
 
 Since Migration Center is bundled with the JRE 7 for the 64-bit Microsoft Windows system, these users do not need to install the JRE. However, other operating system users must configure the JRE and related environment variables appropriately.
 
@@ -302,11 +302,11 @@ If Altibase is the target database, the source database that can be migrated is 
 
 ###### Destination Database
 
--   Altibase 5.5.1 or above
+-   Altibase 5.5.1 or later
 
 ###### Source Database
 
--   Altibase: 4.3.9 or above
+-   Altibase: 4.3.9 or later
 
 -   Oracle Database: 9i - 11g
 
@@ -332,7 +332,7 @@ If Oracle is the target database, the source database that can be migrated is as
 
 ###### Source Database
 
--   Altibase: 4.3.9 or above
+-   Altibase: 4.3.9 or later
 
 ##### JDBC Driver
 
@@ -344,7 +344,7 @@ Users can download the appropriate JDBC driver file from the following site:
 
 1.  Microsoft does not support the JDBC driver for SQL Server 2005 according to the Microsoft Support Lifecycle(MSL) policy, and it also does not provide download link. Therefore, users should use the JDBC driver included in the database product they are using.
   
-2.  Microsoft JDBC Driver for SQL Server 2008, for 2008 R2, for 2012 can be downloaded from the link below. Since Migration Center has been tested with JDBC driver version 6.0 and JRE 7 environment, it is recommended for users to use the same driver version and JRE version. Also in Linux OS, the value of JAVA_HOME environment variable must be set to the path where the JRE 7 or higher is installed. If you want to use a version other than JDBC Driver 6.0, you need to check the driver version, compatible SQL Server version, and supported JRE version in the Microsoft JDBC Driver for SQL Server Support Matrix.  
+2.  Microsoft JDBC Driver for SQL Server 2008, for 2008 R2, for 2012 can be downloaded from the link below. Since Migration Center has been tested with JDBC driver version 6.0 and JRE 7 environment, it is recommended for users to use the same driver version and JRE version. Also in Linux OS, the value of JAVA_HOME environment variable must be set to the path where the JRE 7 or later is installed. If you want to use a version other than JDBC Driver 6.0, you need to check the driver version, compatible SQL Server version, and supported JRE version in the Microsoft JDBC Driver for SQL Server Support Matrix.  
     Download Microsoft JDBC Driver for SQL Server:  
     <https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017>  
     Microsoft JDBC Driver for SQL Server Support Matrix:  
@@ -678,7 +678,7 @@ The source / destination database connection information and the project recorde
 
 If either the project recorded in the registration file or the registration of the database connection information fails, all project and database connection registration recorded in the registration file are canceled.
 
-You can use a name other than "register.xml" as the name of the registration file.
+The user can use a name other than "register.xml" as the name of the registration file.
 
 ##### Set Migration Options 
 
@@ -2827,7 +2827,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 - Type: TODO 
 
-- Description: The PIPELINED USING/AGGREGATE USING clause must be converted manually 
+- Description: The PIPELINED USING/AGGREGATE USING clause must be converted manually .
 
 -  Original SQL Text:
 
@@ -2937,7 +2937,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13011
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later
 
 - Type: TODO 
 
@@ -2995,7 +2995,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13013
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later
 
 - Type: TODO 
 
@@ -3026,7 +3026,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13014
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later
 
 - Type: TODO 
 
@@ -3055,7 +3055,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-13015
 
-- Version Scope: Altibase 6.3.1.0.0 or above 
+- Version Scope: Altibase 6.3.1.0.0 or later
 
 - Type: TODO 
 
@@ -3146,7 +3146,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14003
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later
 
 - Type: TODO 
 
@@ -3167,7 +3167,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14004
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later
 
 - Type: TODO 
 
@@ -3223,7 +3223,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14006
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later
 
 - Type: TODO 
 
@@ -3250,7 +3250,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14007
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO
 
@@ -3275,7 +3275,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14008
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3302,7 +3302,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14009
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3327,7 +3327,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-14010
 
-- Version Scope : Altibase 6.3.1.0.0 or above 
+- Version Scope : Altibase 6.3.1.0.0 or later 
 
 - Type: TODO 
 
@@ -3893,7 +3893,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20017
 
--   Version Scope: Altibase 6.3.1.1.7 or below 
+-   Version Scope: Altibase 6.3.1.1.7 or earlier
 
 -   Type: REMOVED 
 
@@ -4241,7 +4241,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20045
 
--   Version Scope: Altibase 6.3.1.0.0 or above 
+-   Version Scope: Altibase 6.3.1.0.0 or later
 
 -   Type: TODO 
 
@@ -4726,7 +4726,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20059
 
--   Version Scope: Altibase version tag 6.5.1.0.0 or below 
+-   Version Scope: Altibase version tag 6.5.1.0.0 or earlier
 
 -   Type: TODO 
 
@@ -4749,7 +4749,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
   FROM **TABLE(func1('ALTIBASE')) /\* [TODO] RULE-20059 : Table function must be
   converted manually \*/**;
 
-- Version Scope: Altibase version tag 6.5.1.0.0 or above 
+- Version Scope: Altibase version tag 6.5.1.0.0 or later 
 
 - Type: TODO 
 
@@ -4779,7 +4779,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20060
 
--   Version Scope: Altibase version tag 6.5.1.0.0 or above 
+-   Version Scope: Altibase version tag 6.5.1.0.0 or later 
 
 -   Type: TODO 
 
@@ -4804,7 +4804,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20061
 
--   Version Scope: Altibase version tag 6.5.1.0.0 or above
+-   Version Scope: Altibase version tag 6.5.1.0.0 or later
 
 -   Type: TODO 
 
@@ -4901,7 +4901,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20066
 
-- Version Scope: Altibase version tag 6.1.1.0.0 or below 
+- Version Scope: Altibase version tag 6.1.1.0.0 or earlier
 
 - Type: TODO 
 
@@ -6122,7 +6122,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32001
 
--   Version Scope:Altibase version tag 6.3.1.0.0 or below
+-   Version Scope:Altibase version tag 6.3.1.0.0 or earlier
 
 -   Type: REMOVED 
 
@@ -6211,7 +6211,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32002
 
--   Version Scope: Altibase version tag 6.3.1.0.0 or below
+-   Version Scope: Altibase version tag 6.3.1.0.0 or earlier
 
 -   Type: REMOVED 
 
@@ -6924,7 +6924,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32020
 
-- Version Scope : Altibase 6.5.1.0.0 or below
+- Version Scope : Altibase 6.5.1.0.0 or earlier
 
 - Type: TODO 
 
@@ -7134,7 +7134,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-33002
 
--   Version Scope : Altibase 6.3.1.0.0 or above 
+-   Version Scope : Altibase 6.3.1.0.0 or later
 
 -   Type: TODO 
 
@@ -7245,7 +7245,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-40002
 
--   Version Scope: Altibase 6.3.1.0.0 or above 
+-   Version Scope: Altibase 6.3.1.0.0 or later
 
 -   Type: TODO
 
@@ -8049,7 +8049,7 @@ The user in the connection information at the Migration Center does not have pri
 
 Grant the Altibase user access to the tablespace.
 
-#### When migrating Altibase version 4.5.1.0 or lower, it fails to retrieve information of a column whose data type is BLOB, byte, or nibble.
+#### When migrating Altibase version 4.5.1.0 or earlier, it fails to retrieve information of a column whose data type is BLOB, byte, or nibble.
 
 ##### Cause
 

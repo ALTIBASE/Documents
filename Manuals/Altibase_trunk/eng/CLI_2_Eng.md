@@ -167,7 +167,7 @@ SQL_ERROR
 
 SQLGetPlan is nonstandard function, but you can use it when retrieving information of execution plan. 
 
-At this time, you shouldn't modify information returned by aPlan.
+At this time, the user shouldn't modify information returned by aPlan.
 
 #### Related Function
 
@@ -615,7 +615,7 @@ SQLNumResultCols(stmt, &columnCount);
 
 ### SQLParamData
 
-You can use this when inserting data while running command.
+This can be used when inserting data while running command.
 
 #### Syntax
 
@@ -2223,7 +2223,7 @@ If the above entry is added, the types such as SQL_BLOB and SQL_CLOB are convert
 
 ### SQLBindFileToCol
 
-SQLBindFileToCol binds a file or files to the columns in the result set for BLOB or CLOB data type
+SQLBindFileToCol binds a file or files to the columns in the result set for BLOB or CLOB data type.
 
 #### Syntax
 
@@ -3355,7 +3355,7 @@ Cursor scrollability, sensitivity and concurrency can be specified using the SQL
     Cursor concurrency is set using the SQL_ATTR_CONCURRENCY attribute of SQLSetStmtAttr. the Altibase CLI driver supports the following two types of cursor concurrency: 
     -   SQL_CONCUR_READONLY: Read-only
     
-    -   SQL_CONCUR_ROWVER: Concurrency control with row versions.
+    -   SQL_CONCUR_ROWVER: Concurrency control with row versions
 
 ### Implicit Cursor Conversionse
 
@@ -4884,6 +4884,7 @@ Please refer to SQLColumns.
 ### State Transition Table
 
 The following table lists the major functions that affect state transition:
+
 <table>
   <tr>
     <th><img src="media/CLI/diagonal.png"/></th>
@@ -5018,7 +5019,7 @@ char *query = “....”;
 SQLPrepare(stmt, query, SQL_NTS);
 ```
 
-The user only have to modify type casting as follows to solve this problem.
+The user only has to modify type casting as follows to solve this problem.
 
 ```
 char *query = “....”;
