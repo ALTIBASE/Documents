@@ -65,7 +65,7 @@ Altibase Application Development Precompiler User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -956,7 +956,7 @@ EXEC SQL ATOMIC FOR <:host_var | constant> {INSERT … }
 >
 > The ATOMIC FOR clause can only be used with INSERT statements. It cannot be used with any other DML statements.
 > 
->The ATOMIC FOR clause can be used with INSERT statements in which data are inserted into LOB type columns, but once the LOB data have been transferred, they cannot be rolled back if an error occurs. In such cases it will be necessary for the user to roll back the LOB data directly using a savepoint.
+> The ATOMIC FOR clause can be used with INSERT statements in which data are inserted into LOB type columns, but once the LOB data have been transferred, they cannot be rolled back if an error occurs. In such cases it will be necessary for the user to roll back the LOB data directly using a savepoint.
 > 
 > There are several other considerations to keep in mind when using the ATOMIC FOR clause, which are set forth in the following table:
 
@@ -3410,7 +3410,7 @@ EXEC SQL OPTION (THREADS = TRUE);
 
 ##### mt1.sc 
 
-This sample can be found at $ALTIBASE_HOME/sample/APRE/mt1.sc 
+This sample can be found at $ALTIBASE_HOME/sample/APRE/mt1.sc.
 
 ##### Result of Execution  
 
@@ -3743,7 +3743,7 @@ This section describes the Oracle data types and the corresponding data types of
 
 ### Embedded Functions
 
-Like Oracle, Altibase provides numeric functions, date functions, string functions, data type conversion functions, and other built-in functions.  This section explains which Altibase functions should be used in place of corresponding Oracle functions
+Like Oracle, Altibase provides numeric functions, date functions, string functions, data type conversion functions, and other built-in functions.  This section explains which Altibase functions should be used in place of corresponding Oracle functions.
 
 #### Built-in Functions Compared
 
@@ -3832,7 +3832,7 @@ EXEC SQL CONNECT :username IDENTIFIED BY :password
 USING :connstr;
 ```
 
-- If the USING clause is not specified, the application will attempt to connect to an Altibase database on the same system
+- If the USING clause is not specified, the application will attempt to connect to an Altibase database on the same system.
 
 ##### Establishing a Named Connection
 
