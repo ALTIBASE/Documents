@@ -38,7 +38,7 @@ Altibase Tool & Utilities Adapter for Oracle User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -387,7 +387,7 @@ To use oraAdapter, the following environment variables must be set.
 
 #### ORA_ADAPTER_HOME
 
-is is the directory in which oraAdapter was installed. This environment variable is set automatically during oraAdapter installation.
+This is the directory in which oraAdapter was installed. This environment variable is set automatically during oraAdapter installation.
 
 #### Library Path
 
@@ -675,7 +675,7 @@ This determines whether INSERT statements executed in Altibase are also executed
 
 ##### ORACLE_SKIP_UPDATE
 
-Thisdetermines whether the UPDATE statement executed in Altibase is also executed in Oracle DB. If this is set to 1 (“skip”), the UPDATE statement is skipped, which means that it is not executed in the Oracle DB.
+This determines whether the UPDATE statement executed in Altibase is also executed in Oracle DB. If this is set to 1 (“skip”), the UPDATE statement is skipped, which means that it is not executed in the Oracle DB.
 
 -   Default: 0
 
@@ -907,7 +907,7 @@ The Adapter for Oracle Utility supports the following options:
 
 To make oaUtility work properly, the user needs to check the following:
 
--   -oraAdapter is controlled using sed, grep, ps, wc, iSQL (Altibase), and SQLPlus (Oracle) commands based on the Bash Shell. OaUtility works normally when all the utilities are installed and can be executed.
+-   oraAdapter is controlled using sed, grep, ps, wc, iSQL (Altibase), and SQLPlus (Oracle) commands based on the Bash Shell. OaUtility works normally when all the utilities are installed and can be executed.
 -   oaUtility is affected by personal preferences. Therefore, if the environment variable or personal environment (login.sql, glogin.sql) is set, initialize or change the path to prevent oaUtility from being affected.
 
 #### oaUtility start
@@ -964,7 +964,7 @@ oaUtility { check [ alive | constraints] }
 
 ##### Description
 
-If neither the alive nor constraints option is specified, oaUtility continually checks whether oraAdapter is running, and if it has been shut down (regardless of whether it was shut down normally or forcibly), restarts it. 
+If either the alive or constraints option is specified, oaUtility continually checks whether oraAdapter is running, and if it has been shut down (regardless of whether it was shut down normally or forcibly), restarts it. 
 
 If either the alive or constraints option is specified, the corresponding task is performed only once, and then oaUtility shuts down (i.e. does NOT perform continual checking). Specifying the alive option tells oaUtility to check whether oraAdapter is running. 
 
