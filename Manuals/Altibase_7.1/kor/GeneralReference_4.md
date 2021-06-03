@@ -50,6 +50,12 @@
     - [V\$REPSENDER_TRANSTBL](#vrepsender_transtbl)
     - [V\$REPSENDER_TRANSTBL_PARALLEL](#vrepsender_transtbl_parallel)
     - [V\$REPSYNC](#vrepsync)
+    - [V\$REPL_REMOTE_META_REPLICATIONS](#vrepl_remote_meta_replications)
+    - [V\$REPL_REMOTE_META_ITEMS](#vrepl_remote_meta_items)
+    - [V\$REPL_REMOTE_META_COLUMNS](#vrepl_remote_meta_columns)
+    - [V\$REPL_REMOTE_META_INDEX_COLUMNS](#vrepl_remote_meta_index_columns)
+    - [V\$REPL_REMOTE_META_INDICES](#vrepl_remote_meta_indices)
+    - [V\$REPL_REMOTE_META_CHECKS](#vrepl_remote_meta_checks)
     - [V\$RESERVED_WORDS](#vreserved_words)
     - [V\$SBUFFER_STAT](#vsbuffer_stat)
     - [V\$SEGMENT](#vsegment)
@@ -2568,6 +2574,370 @@ REPLICATION_SYNC_TUPLE_COUNT 프로퍼티에 설정한 레코드 개수 단위�
 
 이 칼럼은 이는 동기화 진행 중에는 동기화 된 레코드의 개수를 보여주며, 동기화가
 완료되면 -1을 보여준다.
+
+### <a name="vrepl_remote_meta_replications"><a/>V\$REPL_REMOTE_META_REPLICATIONS
+
+원격 서버의 이중화 관련 정보를 기록하고 있는 SYS_REPLICATIONS\_ 메타 테이블의 정보를 보여준다.
+
+| Column name              | Type        | Description                                           |
+| ------------------------ | ----------- | ----------------------------------------------------- |
+| REPLICATION_NAME         | VARCHAR(40) | 이중화 이름                                           |
+| XSN                      | BIGINT      | 송신자가 XLog 전송을 재개할 재시작 SN(Seqence Number) |
+| ITEM_COUNT               | INTEGER     | 이중화 대상 테이블 개수                               |
+| CONFLICT_RESOLUTION      | INTEGER     | 이중화 충돌 해결 방법                                 |
+| REPL_MODE                | INTEGER     | 기본 이중화 모드                                      |
+| ROLE                     | INTEGER     | 송신 쓰레드의 역할                                    |
+| OPTIONS                  | INTEGER     | 부가적인 이중화 기능을 위한 플래그                    |
+| REMOTE_FAULT_DETECT_TIME | DATE        | 원격 서버의 장애 감지 시각                            |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 이중화 이름으로, 이중화 생성 시 사용자가 명시한다.
+
+##### XSN
+
+원격 서버의 이중화가 시작될 때, 송신 쓰레드에서 로그 전송을 시작해야 할 SN을 나타낸다.
+
+##### ITEM_COUNT
+
+원격 서버의 이중화 대상 테이블의 개수이다. 해당 이중화에 대해 원격 서버의 
+SYS_REPL_ITEMS\_ 메타 테이블에 이 수만큼 레코드들이 존재한다.
+
+##### CONFLICT_RESOLUTION
+
+원격 서버의 이중화 충돌 해결 방법을 기록한다.
+
+- 0: 기본 값
+- 1: Master Server로 동작
+- 2: Slave Server로 동작
+
+이중화 충돌 해결 방법에 대한 자세한 설명은 *Replication Manual*을 참조한다.
+
+##### REPL_MODE
+
+원격 서버의 이중화 생성시에 지정한 기본 이중화 모드이다.
+
+- 0: LAZY MODE (기본 값)
+- 2: EAGER MODE
+
+기본 이중화 모드는 ALTER SESSION SET REPLICATION 구문으로 세션의 이중화 모드를
+설정하지 않았을 때 사용된다.
+
+기본 이중화 모드에 관한 자세한 내용은 *Replication Manual*을 참조하며, ALTER
+SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한다.
+
+##### ROLE
+
+원격 서버의 송신 쓰레드의 역할을 나타낸다.
+
+- 0: 이중화
+- 1: Log Analyzer
+- 2: Propagable Logging(이중화 로그 복제)
+- 3: Propagation(복제 로그 전송)
+
+자세한 내용은 Log Analyzer User's Manual을 참고한다.
+
+##### OPTIONS
+
+원격 서버의  이중화 부가 기능을 나타내는 플래그이다. 이중화 옵션의 종류는 아래와 같으며,
+각 옵션을 설정시 이진수로 제어되며, 십진수로 변환되어 표시된다. 두 개 이상의 옵션을
+사용할 경우 각각의 옵션에 해당하는 이진수 합이 십진수로 반환된다.
+
+- 0(000000): 이중화 옵션을 사용하지 않음
+- 1(000001): 복구 옵션 사용
+- 2(000010): 오프라인 옵션 사용
+- 4(000100): 이중화 갭 해소 옵션 사용
+- 8(001000): 병렬 적용자 옵션 사용
+- 16(010000):이중화 트랜잭션 그룹 옵션 사용
+- 32(100000):로컬 이중화 옵션 사용
+
+##### REMOTE_FAULT_DETECT_TIME
+
+원격 서버의 이중화 동작 중에 원격 서버의 장애를 감지한 시점을 기록한다.
+
+### <a name="vrepl_remote_meta_items"><a/>V\$REPL_REMOTE_META_ITEMS
+
+원격 서버의 이중화 대상 테이블에 관련된 정보를 가진 SYS_REPL_ITEMS_ 메타 테이블 정보를 보여준다.
+
+| Column name           | Type         | Description                         |
+| --------------------- | ------------ | ----------------------------------- |
+| REPLICATION_NAME      | VARCHAR(40)  | 이중화 이름                         |
+| TABLE_OID             | BIGINT       | 테이블 객체 식별자                  |
+| LOCAL_USER_NAME       | VARCHAR(128) | 지역 서버의 대상 테이블 소유자 이름 |
+| LOCAL_TABLE_NAME      | VARCHAR(128) | 지역 서버의 대상 테이블 이름        |
+| LOCAL_PARTITION_NAME  | VARCHAR(128) | 지역 서버의 파티션 이름             |
+| REMOTE_USER_NAME      | VARCHAR(128) | 원격 서버의 대상 테이블 소유자 이름 |
+| REMOTE_TABLE_NAME     | VARCHAR(128) | 원격 서버의 대상 테이블 이름        |
+| REMOTE_PARTITION_NAME | VARCHAR(128) | 원격 서버의 파티션 이름             |
+| INVALID_MAX_SN        | BIGINT       | 건너 뛸 로그의 최대 SN              |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름으로,  원격 서버의 SYS_REPLICATIONS\_ 메타 테이블의 
+한 REPLICATION_NAME 값과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의  이중화 대상 테이블 또는 파티션의 식별자로, 원격 서버의 SYS_TABLES\_ 메타 테이블의
+한 TABLE_OID 값 또는 SYS_TABLES_PARTITIONS_의 한 PARTITION_OID 값과 동일하다.
+
+##### LOCAL_USER_NAME
+
+원격 서버의 이중화 대상 테이블 소유자의 사용자 이름으로, 원격 서버의 SYS_USERS\_ 메타 테이블의 
+한 USER_NAME 값과 동일하다.
+
+##### LOCAL_TABLE_NAME
+
+원격 서버의 이중화 대상 테이블의 이름으로, 원격 서버의 SYS_TABLES\_ 메타 테이블의
+한 TABLE_NAME 값과 동일하다.
+
+##### LOCAL_PARTITION_NAME
+
+원격 서버의 이중화 대상 파티션의 이름이다.
+
+##### REMOTE_USER_NAME
+
+지역 서버의 이중화 대상 테이블 소유자의 사용자 이름으로, 지역 서버의 SYS_USERS\_ 메타 테이블의
+한 USER_NAME 값과 동일하다.
+
+##### REMOTE_TABLE_NAME
+
+지역  서버의 이중화 대상 테이블의 이름으로, 지역 서버의 SYS_TABLES\_ 메타 테이블의
+한 TABLE_NAME 값과 동일하다.
+
+##### REMOTE_PARTITION_NAME
+
+지역 서버의 이중화 대상 파티션의 이름이다.
+
+##### INVALID_MAX_SN
+
+원격 서버의 이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에
+기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
+
+### <a name="vrepl_remote_meta_columns"><a/>V\$REPL_REMOTE_META_COLUMNS
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 칼럼의 정보를 가진
+SYS_REPL_OLD_COLUMNS_ 메타 테이블 정보를 보여 준다.
+
+| Column name          | Type         | Description                      |
+| -------------------- | ------------ | -------------------------------- |
+| REPLICATION_NAME     | VARCHAR(40)  | 이중화 이름                      |
+| TABLE_OID            | BIGINT       | 테이블 객체 식별자               |
+| COLUMN_NAME          | VARCHAR(128) | 칼럼 이름                        |
+| MT_DATATYPE_ID       | INTEGER      | 데이터 타입 식별자               |
+| MT_LANGUAGE_ID       | INTEGER      | 언어 식별자                      |
+| MT_FLAG              | INTEGER      | 내부 플래그                      |
+| MT_PRECISION         | INTEGER      | 정밀도                           |
+| MT_SCALE             | INTEGER      | 소수 자릿수                      |
+| MT_ENCRYPT_PRECISION | INTEGER      | 암호화 칼럼 정밀도               |
+| MT_POLICY_NAME       | VARCHAR(16)  | 암호화 칼럼에 사용된 정책의 이름 |
+| MT_SRID              | INTEGER      | GEOMETRY 칼럼에 적용된 SRID      |
+| SM_ID                | INTEGER      | 칼럼 식별자                      |
+| SM_FLAG              | INTEGER      | 내부 플래그                      |
+| SM_OFFSET            | INTEGER      | 내부 오프셋                      |
+| SM_SIZE              | INTEGER      | 내부 크기                        |
+| QP_FLAG              | INTEGER      | 내부 플래그                      |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름이다.  메타 테이블의
+한 REPLICATION_NAME값과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 사용중인 이중화 대상 테이블의 식별자이다. 
+SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### COLUMN_NAME
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 칼럼의 이름이다.
+
+##### MT_DATATYPE_ID
+
+데이터 타입 식별자로, 내부 값이다.
+
+##### MT_LANGUAGE_ID
+
+언어 식별자로, 내부 값이다.
+
+##### MT_FLAG
+
+Altibase 서버가 사용하는 내부 플래그이다.
+
+##### MT_PRECISION
+
+숫자 타입의 경우, 칼럼의 정밀도 (숫자 자리수)를 나타낸다. 타입의 경우, 문자형
+데이터 타입의 길이를 나타낸다.
+
+##### MT_SCALE
+
+숫자 타입의 경우, 칼럼의 소수점 이하 자릿수를 나타낸다.
+
+##### MT_ENCRYPT_PRECISION
+
+암호화된 칼럼의 정밀도 (크기)를 나타낸다.
+
+##### MT_POLICY_NAME
+
+암호화된 칼럼의 경우, 칼럼에 적용된 보안 정책의 이름을 나타낸다.
+
+##### MT_SRID
+
+GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
+
+##### SM_ID
+
+칼럼 식별자이다. 0부터 시작한다.
+
+##### SM_FLAG
+
+Altibase 서버가 사용하는 내부 플래그이다.
+
+##### SM_OFFSET
+
+Altibase 서버가 사용하는 내부 오프셋이다.
+
+##### SM_SIZE
+
+Altibase 서버가 사용하는 내부 크기이다.
+
+##### QP_FLAG
+
+Altibase 서버가 내부적으로 사용하는 플래그이다.
+
+### <a name="vrepl_remote_meta_index_columns"><a/>V\$REPL_REMOTE_META_INDEX_COLUMNS
+
+원격 서버의 이중화 송신 쓰레드가 현재 사용 중인 이중화 대상 인덱스 칼럼의 정보를 가진 SYS_REPL_OLD_INDEX_COLUMNS_ 메타 테이블 정보를 보여 준다.
+
+| Column name      | Type        | Description        |
+| ---------------- | ----------- | ------------------ |
+| REPLICATION_NAME | VARCHAR(40) | 이중화 이름        |
+| TABLE_OID        | BIGINT      | 테이블 객체 식별자 |
+| INDEX_ID         | INTEGER     | 인덱스 식별자      |
+| KEY_COLUMN_ID    | INTEGER     | 칼럼 식별자        |
+| KEY_COLUMN_FLAG  | INTEGER     | 내부 플래그        |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름으로, 원격 서버의 SYS_REPLICATIONS\_ 메타 테이블의 
+한 REPLICATION_NAME 값과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 테이블의 식별자이다. 원격 서버의 SYS_TABLES\_
+메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### INDEX_ID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 식별자이다.
+
+##### KEY_COLUMN_ID
+
+인덱스를 구성하는 칼럼의 식별자이다.
+
+##### KEY_COLUMN_FLAG
+
+인덱스를 구성하는 칼럼의 내부 플래그이다.
+
+### <a name="vrepl_remote_meta_indices"><a/>V\$REPL_REMOTE_META_INDICES
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 정보를 가진
+SYS_REPL_OLD_INDICES_ 메타 테이블의 정보를 보여 준다.
+
+| Column name      | Type         | Description               |
+| ---------------- | ------------ | ------------------------- |
+| REPLICATION_NAME | VARCHAR(40)  | 이중화 이름               |
+| TABLE_OID        | BIGINT       | 테이블 객체 식별자        |
+| INDEX_ID         | INTEGER      | 인덱스 식별자             |
+| INDEX_NAME       | VARCHAR(128) | 인덱스 이름               |
+| TYPE_ID          | INTEGER      | 인덱스 타입 식별자        |
+| IS_UNIQUE        | CHAR(1)      | 글로벌 유니크 인덱스 여부 |
+| IS_RANGE         | CHAR(1)      | 범위 검색 가능 여부       |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름으로, 원격 서버의  SYS_REPLICATIONS\_ 메타 테이블의
+한 REPLICATION_NAME과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 테이블의 식별자이다.
+원격 서버의 SYS_TABLES\_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### INDEX_ID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 인덱스의 식별자이다.
+
+##### INDEX_NAME
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 이름이다.
+
+##### TYPE_ID
+
+인덱스 유형 식별자로, 내부 값이다.
+
+##### IS_UNIQUE
+
+글로벌 유니크 인덱스인지 여부를 나타낸다. 'Y'는 글로벌 유니크를 나타내고, 'N'은
+글로벌 유니크가 아님을 나타낸다.
+
+##### IS_RANGE
+
+범위 검색 가능 여부를 나타낸다. 'Y'는 범위 검색이 가능한 인덱스이고, 'N'은 범위
+검색이 불가능한 인덱스임을 나타낸다.
+
+### <a name="vrepl_remote_meta_checks"><a/>V\$REPL_REMOTE_META_CHECKS
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 테이블의 제약 조건에 관한 정보를 보여 준다.
+
+| Column name      | Type          | Description                  |
+| ---------------- | ------------- | ---------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | 이중화 이름                  |
+| TABLE_OID        | BIGINT        | 테이블 객체 식별자           |
+| CONSTRAINT_ID    | INTEGER       | 제약조건 식별자              |
+| CONSTRAINT_NAME  | VARCHAR(128)  | 제약조건 이름                |
+| COLUMN_CNT       | INTEGER       | 제약조건에 관련된 칼럼 개수  |
+| CHECK_CONDITION  | VARCHAR(4000) | Check 제약조건의 조건 문자열 |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름으로, 원격 서버의  SYS_REPLICATIONS\_ 메타 테이블의
+한 REPLICATION_NAME과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 테이블의 식별자이다.
+원격 서버의 SYS_TABLES\_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### CONSTRAINT_ID
+
+제약 조건 식별자로 시스템 시퀀스에 의해 자동으로 부여된다.
+
+##### CONSTRAINT_NAME
+
+제약 조건의 이름을 나타낸다.
+
+##### COLUMN_CNT
+
+제약 조건에 관련된 칼럼들의 개수를 나타낸다. 예를 들어 UNIQUE (i1, i2, i3) 과
+같은 제약 조건을 생성하였다면 이 값은 3일 것이다.
+
+##### CHECK_CONDITION
+
+사용자가 Check 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
+나타낸다.
 
 ### <a name="vreserved_words"><a/>V\$RESERVED_WORDS
 
