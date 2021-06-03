@@ -1,17 +1,18 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents** 
+**Table of Contents**  
 
 - [Altibase 7.1.0.5.6 Patch Notes](#altibase-71056-patch-notes)
-  - [Fixed Bugs](#fixed-bugs)
+  - [New Features](#new-features)
     - [BUG-48888 JDBC API Specification 4.2를 지원하는 JDBC 드라이버(Altibase42.jar)가 추가되었습니다.](#bug-48888jdbc-api-specification-42%EB%A5%BC-%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84altibase42jar%EA%B0%80-%EC%B6%94%EA%B0%80%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-48902 CONVERT 함수 사용 시 source\_char\_set 이 dest\_char\_set 을 초과하는 경우 Altibase 서버가 비정상 종료합니다.](#bug-48902convert-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%8B%9C-source%5C_char%5C_set-%EC%9D%B4-dest%5C_char%5C_set-%EC%9D%84-%EC%B4%88%EA%B3%BC%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-48905 분석함수 ROW\_NUMBER 를 LIMIT k와 동일한 의미로 사용한 쿼리 성능을 개선하였습니다.](#bug-48905%EB%B6%84%EC%84%9D%ED%95%A8%EC%88%98-row%5C_number-%EB%A5%BC-limit-k%EC%99%80-%EB%8F%99%EC%9D%BC%ED%95%9C-%EC%9D%98%EB%AF%B8%EB%A1%9C-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%BF%BC%EB%A6%AC-%EC%84%B1%EB%8A%A5%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%98%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-48920 디스크 인덱스 키 삽입 과정에서 인덱스 노드 공간 활용을 위해 인덱스 구조 변경이 발생할 때 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-48920%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%ED%82%A4-%EC%82%BD%EC%9E%85-%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EB%85%B8%EB%93%9C-%EA%B3%B5%EA%B0%84-%ED%99%9C%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%B4-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%A0-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-48944 중첩된 LEFT OUTER JOIN 수행 방식을 최적화합니다.](#bug-48944%EC%A4%91%EC%B2%A9%EB%90%9C-left-outer-join-%EC%88%98%ED%96%89-%EB%B0%A9%EC%8B%9D%EC%9D%84-%EC%B5%9C%EC%A0%81%ED%99%94%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-48969 TRCLOG\_EXPLAIN\_GRAPH = 1 에서 SELECT 절에 사용된 서브쿼리 정보를 출력하도록 개선합니다.](#bug-48969trclog%5C_explain%5C_graph--1-%EC%97%90%EC%84%9C-select-%EC%A0%88%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%9C-%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8F%84%EB%A1%9D-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-48971 레코드가 없는 테이블을 통계정보 수집 시 잘못된 NDV (Number of Distinct Value) 설정으로 FULL SCAN 가능성이 높아지는 현상을 개선합니다.](#bug-48971%EB%A0%88%EC%BD%94%EB%93%9C%EA%B0%80-%EC%97%86%EB%8A%94-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%ED%86%B5%EA%B3%84%EC%A0%95%EB%B3%B4-%EC%88%98%EC%A7%91-%EC%8B%9C-%EC%9E%98%EB%AA%BB%EB%90%9C-ndv-number-of-distinct-value-%EC%84%A4%EC%A0%95%EC%9C%BC%EB%A1%9C-full-scan-%EA%B0%80%EB%8A%A5%EC%84%B1%EC%9D%B4-%EB%86%92%EC%95%84%EC%A7%80%EB%8A%94-%ED%98%84%EC%83%81%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-48995 Adapter for Oracle, Adapter for JDBC 에 오프라인 이중화 메타 복제(Offline Option) 기능이 추가되었습니다.](#bug-48995adapter-for-oracle-adapter-for-jdbc-%EC%97%90-%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%9D%B4%EC%A4%91%ED%99%94-%EB%A9%94%ED%83%80-%EB%B3%B5%EC%A0%9Coffline-option-%EA%B8%B0%EB%8A%A5%EC%9D%B4-%EC%B6%94%EA%B0%80%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+  - [Fixed Bugs](#fixed-bugs)
+    - [BUG-48902 CONVERT 함수 사용 시 source\_char\_set 이 dest\_char\_set 을 초과하는 경우 Altibase 서버가 비정상 종료합니다.](#bug-48902convert-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%8B%9C-source%5C_char%5C_set-%EC%9D%B4-dest%5C_char%5C_set-%EC%9D%84-%EC%B4%88%EA%B3%BC%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48920 디스크 인덱스 키 삽입 과정에서 인덱스 노드 공간 활용을 위해 인덱스 구조 변경이 발생할 때 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-48920%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%ED%82%A4-%EC%82%BD%EC%9E%85-%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EB%85%B8%EB%93%9C-%EA%B3%B5%EA%B0%84-%ED%99%9C%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%B4-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%A0-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -20,10 +21,12 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+
+
 Altibase 7.1.0.5.6 Patch Notes
 ==============================
 
-Fixed Bugs
+New Features
 ----------
 
 ### BUG-48888 JDBC API Specification 4.2를 지원하는 JDBC 드라이버(Altibase42.jar)가 추가되었습니다.
@@ -34,10 +37,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : JDBC API Specification 4.2를 지원하는 Altibase JDBC
-    드라이버(Altibase42.jar)가 추가되었습니다. Altibase42.jar
-    를 사용하기 위해서 JRE 1.8 이상이 필요합니다.
-
+-   **설명** : JDBC API Specification 4.2를 지원하는 Altibase JDBC 드라이버(Altibase42.jar)가 추가되었습니다. Altibase42.jar를 사용하기 위해서 JRE 1.8 이상이 필요합니다.
+    
     보다 자세한 설명은 JDBC User’s Manual 을 참고하세요.
 
     - [JDBC User’s Manual - 1.JDBC 시작하기 - JDBC 드라이버 설치](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC.md#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%84%A4%EC%B9%98)
@@ -61,51 +62,6 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48902 CONVERT 함수 사용 시 source\_char\_set 이 dest\_char\_set 을 초과하는 경우 Altibase 서버가 비정상 종료합니다.
-
--   **module** : qp
-
--   **Category** : Fatal
-
--   **재현 빈도** : Always
-
--   **설명** : CONVERT 함수 사용 시 source\_char\_set
-    이 dest\_char\_set 을 초과하는 경우 예외 처리 부족으로 Altibase
-    서버가 비정상 종료하는 현상을 수정합니다.
-
-- **재현 방법**
-
-  - **재현 절차**
-
-    ```sql
-    DROP TABLE BUG_48902;         
-    CREATE TABLE BUG_48902(I1 DECIMAL);
-    INSERT INTO BUG_48902 VALUES ( -3 );
-    SELECT CONVERT(I1, 'UTF8', 'UTF8' ) FROM BUG_48902;
-    ```
-
-  - **수행 결과**
-
-    ```sql
-    ERR-91015 : Communication failure.
-    Altibase 서버 비정상 종료
-    ```
-
-  -   **예상 결과**
-
-      ```sql
-      ERR-2101D : Invalid data length
-      ```
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
 ### BUG-48905 분석함수 ROW\_NUMBER 를 LIMIT k와 동일한 의미로 사용한 쿼리 성능을 개선하였습니다.
 
 -   **module** : qp-dml-execute
@@ -114,12 +70,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : 분석함수 ROW\_NUMBER 를 LIMIT k와 동일한 의미로 사용한
-    쿼리 성능을 개선하였습니다. 
-
-    LIMIT 의 마지막 값 조건에 바인드 변수를 사용한 경우 쿼리 성능이
-    향상되었습니다.
-
+-   **설명** : 분석함수 ROW\_NUMBER 를 LIMIT k와 동일한 의미로 사용한 쿼리 성능을 개선하였습니다. LIMIT 의 마지막 값 조건에 바인드 변수를 사용한 경우 쿼리 성능이 향상되었습니다.
+    
 - **재현 방법**
 
   - **재현 절차**
@@ -218,35 +170,6 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-48920 디스크 인덱스 키 삽입 과정에서 인덱스 노드 공간 활용을 위해 인덱스 구조 변경이 발생할 때 Altibase 서버가 비정상 종료할 수 있습니다.
-
--   **module** : sm
-
--   **Category** : Assert
-
--   **재현 빈도** : Rare
-
--   **설명** : 디스크 인덱스 키 삽입 과정에서 인덱스 노드 공간 활용을
-    위해 인덱스 구조 변경이 발생할 경우 Altibase 서버가 비정상 종료하는
-    현상을 수정합니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
 ### BUG-48944 중첩된 LEFT OUTER JOIN 수행 방식을 최적화합니다.
 
 -   **module** : qp-dml-execute
@@ -255,12 +178,11 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : 중첩된 LEFT OUTER JOIN 에서 불필요한 테이블 읽기를
-    제거합니다. 
+-   **설명** : 중첩된 LEFT OUTER JOIN 에서 불필요한 테이블 읽기를 제거합니다. 
+    
 
-    본 버그에서 최적화한 기능을 사용하려면
-    \_\_LEFT\_OUTER\_SKIP\_RIGHT\_ENABLE = 1 을 설정해야 합니다.
-
+본 버그에서 최적화한 기능을 사용하려면 _\_LEFT\_OUTER\_SKIP\_RIGHT\_ENABLE = 1 을 설정해야 합니다.
+    
 - **재현 방법**
 
   - **재현 절차**
@@ -384,9 +306,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : TRCLOG\_EXPLAIN\_GRAPH = 1 에서 SELECT 절에 사용된
-    서브쿼리 정보를 출력하도록 개선합니다.
-
+-   **설명** : TRCLOG\_EXPLAIN\_GRAPH = 1 에서 SELECT 절에 사용된 서브쿼리 정보를 출력하도록 개선합니다.
+    
 - **재현 방법**
 
   - **재현 절차**
@@ -484,12 +405,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Frequence
 
--   **설명** : 레코드가 없는 테이블을 통계정보 수집 시 NDV (Number of
-    Distinct Value) 가 잘못 산정되는 현상을 개선합니다. 
-
-    NDV 가 잘못 산정된 경우 INDEX SCAN 보다 FULL SCAN 을 선택하여 쿼리
-    성능에 영향을 줄 수 있습니다.
-
+-   **설명** : 레코드가 없는 테이블을 통계정보 수집 시 NDV (Number of Distinct Value) 가 잘못 산정되는 현상을 개선합니다. NDV 가 잘못 산정된 경우 INDEX SCAN 보다 FULL SCAN 을 선택하여 쿼리 성능에 영향을 줄 수 있습니다.
+    
 -   **재현 방법**
 
     -   **재현 절차**
@@ -515,10 +432,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : Adapter for Oracle, Adapter for JDBC 운영 중 Altibase
-    서버 장애 발생 시 동기화하지 못한 데이터를 오프라인 옵션(Offline
-    Option) 기능으로 동기화할 수 있습니다.
-
+-   **설명** : Adapter for Oracle, Adapter for JDBC 운영 중 Altibase 서버 장애 발생 시 동기화하지 못한 데이터를 오프라인 옵션(Offline Option) 기능으로 동기화할 수 있습니다.
+    
     이 기능을 사용하기 위해서 아래의 조건을 만족해야 합니다.
 
     - 이중화 객체 생성 시 META\_LOGGING 옵션 사용
@@ -548,6 +463,79 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+Fixed Bugs
+----------
+
+### BUG-48902 CONVERT 함수 사용 시 source\_char\_set 이 dest\_char\_set 을 초과하는 경우 Altibase 서버가 비정상 종료합니다.
+
+- **module** : qp
+
+- **Category** : Fatal
+
+- **재현 빈도** : Always
+
+- **설명** : CONVERT 함수 사용 시 source\_char\_set이 dest\_char\_set 을 초과하는 경우 예외 처리 부족으로 Altibase 서버가 비정상 종료하는 현상을 수정합니다.
+  
+- **재현 방법**
+
+  - **재현 절차**
+
+    ```sql
+    DROP TABLE BUG_48902;         
+    CREATE TABLE BUG_48902(I1 DECIMAL);
+    INSERT INTO BUG_48902 VALUES ( -3 );
+    SELECT CONVERT(I1, 'UTF8', 'UTF8' ) FROM BUG_48902;
+    ```
+
+  - **수행 결과**
+
+    ```sql
+    ERR-91015 : Communication failure.
+    Altibase 서버 비정상 종료
+    ```
+
+  - **예상 결과**
+
+    ```sql
+    ERR-2101D : Invalid data length
+    ```
+
+- **Workaround**
+
+- **변경사항**
+
+  -   Performance view
+  -   Property
+  -   Compile Option
+  -   Error Code
+
+### BUG-48920 디스크 인덱스 키 삽입 과정에서 인덱스 노드 공간 활용을 위해 인덱스 구조 변경이 발생할 때 Altibase 서버가 비정상 종료할 수 있습니다.
+
+-   **module** : sm
+
+-   **Category** : Assert
+
+-   **재현 빈도** : Rare
+
+-   **설명** : 디스크 인덱스 키 삽입 과정에서 인덱스 노드 공간 활용을위해 인덱스 구조 변경이 발생할 경우 Altibase 서버가 비정상 종료하는 현상을 수정합니다.
+    
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
 Changes
 -------
 
@@ -557,9 +545,7 @@ Changes
 | :--------------: | :---------------------: | :----------: | :-----------------: | :--------------------------: |
 |    7.1.0.5.6     |          6.5.1          |    8.9.1     |        7.1.7        |            7.4.6             |
 
-> Altibase 7.1 패치 버전별 히스토리는
-> [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md)
-> 에서 확인할 수 있다.
+> Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
 
 ### 호환성
 
@@ -567,17 +553,13 @@ Changes
 
 데이터베이스 바이너리 버전은 변경되지 않았다.
 
-> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의
-> 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는
-> 데이터베이스를 재구성해야 한다.
+> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는 데이터베이스를 재구성해야 한다.
 
 #### Meta Version
 
 메타 버전은 변경되지 않았다.
 
-> 패치를 롤백하려는 경우,
-> [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를
-> 참고한다.
+> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
 
 #### CM protocol Version
 
