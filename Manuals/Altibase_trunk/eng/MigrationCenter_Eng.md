@@ -4804,7 +4804,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20061
 
--   Version Scope: Altibase version tag 6.5.1.0.0 or above
+-   Version Scope: Altibase version tag 6.5.1.0.0 or later
 
 -   Type: TODO 
 
@@ -4901,7 +4901,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-20066
 
-- Version Scope: Altibase version tag 6.1.1.0.0 or below 
+- Version Scope: Altibase version tag 6.1.1.0.0 or earlier
 
 - Type: TODO 
 
@@ -6122,7 +6122,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32001
 
--   Version Scope:Altibase version tag 6.3.1.0.0 or below
+-   Version Scope:Altibase version tag 6.3.1.0.0 or earlier
 
 -   Type: REMOVED 
 
@@ -6211,7 +6211,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32002
 
--   Version Scope: Altibase version tag 6.3.1.0.0 or below
+-   Version Scope: Altibase version tag 6.3.1.0.0 or earlier
 
 -   Type: REMOVED 
 
@@ -6924,7 +6924,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-32020
 
-- Version Scope : Altibase 6.5.1.0.0 or below
+- Version Scope : Altibase 6.5.1.0.0 or earlier
 
 - Type: TODO 
 
@@ -7134,7 +7134,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-33002
 
--   Version Scope : Altibase 6.3.1.0.0 or above 
+-   Version Scope : Altibase 6.3.1.0.0 or later
 
 -   Type: TODO 
 
@@ -7245,7 +7245,7 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-40002
 
--   Version Scope: Altibase 6.3.1.0.0 or above 
+-   Version Scope: Altibase 6.3.1.0.0 or later
 
 -   Type: TODO
 
@@ -8049,7 +8049,7 @@ The user in the connection information at the Migration Center does not have pri
 
 Grant the Altibase user access to the tablespace.
 
-#### When migrating Altibase version 4.5.1.0 or lower, it fails to retrieve information of a column whose data type is BLOB, byte, or nibble.
+#### When migrating Altibase version 4.5.1.0 or earlier, it fails to retrieve information of a column whose data type is BLOB, byte, or nibble.
 
 ##### Cause
 
