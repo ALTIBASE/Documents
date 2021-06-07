@@ -54,7 +54,7 @@ Altibase Application Development SQL Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -440,7 +440,7 @@ Database objects are named using identifiers that follow these rules:
   - The following non-schema objects also have their own namespace:  
     Users, Replication objects, Tablespaces, Directory objects.
 
-For mroe detailed information about Altibase objects, please refer to the *Administrator's Manual*.
+For more detailed information about Altibase objects, please refer to the *Administrator's Manual*.
 
 ##### Passwords
 
@@ -1751,7 +1751,7 @@ This hint performs the same action equivalent to the INDEX DESC hint.
 
 #### INVERSE_JOIN
 
-If this hint is specified, a nested subquery uses an inverse join[^1] to perform either an anti-join or a semi-join. You need to specify this hint within the subquery. 
+If this hint is specified, a nested subquery uses an inverse join[^1] to perform either an anti-join or a semi-join. The user needs to specify this hint within the subquery. 
 
 [^1]: 1An inverse join can be either an inverse index nested loop join, an inverse hash join, or an inverse sort join. For more detailed information about inverse joins, please refer to the *Performance Tuning Guide*.
 
@@ -1835,7 +1835,7 @@ This hint can be used with other hints that force semi-joins or anti-joins. For 
 
 #### NO_MERGE
 
-메인 쿼리와 인라인 뷰 쿼리를 하나의 쿼리로 병합하지 않도록 지시하는 힌트이다.
+This hint instructs not to merge the main query and inline view query into one query.
 
 ![no_merge](media/SQL/no_merge.gif)
 
@@ -1865,8 +1865,7 @@ If a hint is specified while the SERIAL_EXECUTE_MODE property is enabled, it wil
 
 #### NO_TRANSITIVE_PRED
 
-조건절 이행을 배제하는 힌트이다. 조건절 이행에 대해서는 "Performance Tuning
-Guide \> 3장 쿼리 옵티마이저 \> 쿼리 변환 > 조건절 이행"을 참고한다. This hint specifies that predicate transitivity is not to be allowed. For more detailed information about predicate transitivity, please refer to the *Performance Tuning Guide* in Chapter 3: Query Optimizer.
+This hint specifies that predicate transitivity is not to be allowed. For more detailed information about predicate transitivity, please refer to the *Performance Tuning Guide* in Chapter 3: Query Optimizer.
 
 ![no_transitive_pred](media/SQL/no_transitive_pred.gif)
 
@@ -2800,7 +2799,7 @@ This is used to remove a table from a replication object. A table can be removed
 
 *FLUSH*
 
-Please refer to the ALTER REPLICATION clause of the Datat Control Statement.
+Please refer to the ALTER REPLICATION clause of the Data Control Statement.
 
 *SET HOST*
 
@@ -2827,7 +2826,7 @@ There are several points that users working with replication must keep in mind b
 
 ##### Start execution of the repl1 replication object 
 
-\<Query\> Send the data on the local server data to the remote server, and start replication
+\<Query\> Send the data on the local server data to the remote server, and start replication.
 
 ```
 iSQL> ALTER REPLICATION rep1 SYNC;
@@ -3238,7 +3237,7 @@ Please refer to the parallel clause description of CREATE TABLE.
 - PCTFREE Clause  
   This is used to change the percentage of free space that is reserved for future use when updating records that have already been saved in pages. 
   
-  An ALTER TABLE statement containing the alter_table_segment_attribute_clause, which is used to change segment attributes, can be executed while Altibase is running. However, the changes will not be immediately applied in all of the pages in the segment; rather, each table page will be changed individually the next time the page is accessed
+  An ALTER TABLE statement containing the alter_table_segment_attribute_clause, which is used to change segment attributes, can be executed while Altibase is running. However, the changes will not be immediately applied in all of the pages in the segment; rather, each table page will be changed individually the next time the page is accessed.
   
 - PCTUSED Clause  
   This is used to change the threshold below which the amount of used space in a page must decrease in order for the page to return to the state in which records can be inserted.
@@ -3370,7 +3369,7 @@ The following table shows which data types can be changed into which data types.
 
   - Character data type --> Numeric data type  
     Character data should consist only of numbers and decimal points  
-    Character data must be within the rage of numeric data types.
+    Character data must be within the rage of numeric data types
   - Character data type --> Character data type  
     The column size must be greater than or equal to the length of the data type before the change
   - Numeric data type --\> Character data type  
@@ -3379,7 +3378,7 @@ The following table shows which data types can be changed into which data types.
     The data must be within the range of the numeric data type users want to change.
   - Character data type --> Data date type  
     The data before the change should stored as a date  
-    The data format must match the DEFAULT_DATE_FORMAT property.
+    The data format must match the DEFAULT_DATE_FORMAT property
   - Date data type --> Character data type 
     When converted to the character type, it is changed to DEFAULT_DATE_FORMAT
 
@@ -6460,7 +6459,7 @@ When creating a PRIVATE synonym, it is possible to specify the name of the owner
 
 *synonym_name*
 
-If there is a table, view, sequence, stored procedure, stored function or another synonym that has the same name as the synonym to be created, an error will be raised. Because synonyms occupy the same namespace as these object types, the name for the synonym must be unique within the schema in which it is created. Refer to "Rules for Object Names"  for more information onf specifying names.
+If there is a table, view, sequence, stored procedure, stored function,or another synonym that has the same name as the synonym to be created, an error will be raised. Because synonyms occupy the same namespace as these object types, the name for the synonym must be unique within the schema in which it is created. Refer to "Rules for Object Names"  for more information onf specifying names.
 
 *FOR clause*
 
