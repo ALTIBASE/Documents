@@ -2799,7 +2799,7 @@ This is used to remove a table from a replication object. A table can be removed
 
 *FLUSH*
 
-Please refer to the ALTER REPLICATION clause of the Datat Control Statement.
+Please refer to the ALTER REPLICATION clause of the Data Control Statement.
 
 *SET HOST*
 
