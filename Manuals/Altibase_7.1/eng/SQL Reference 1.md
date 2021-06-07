@@ -440,7 +440,7 @@ Database objects are named using identifiers that follow these rules:
   - The following non-schema objects also have their own namespace:  
     Users, Replication objects, Tablespaces, Directory objects.
 
-For mroe detailed information about Altibase objects, please refer to the *Administrator's Manual*.
+For more detailed information about Altibase objects, please refer to the *Administrator's Manual*.
 
 ##### Passwords
 
