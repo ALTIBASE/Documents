@@ -1835,7 +1835,7 @@ This hint can be used with other hints that force semi-joins or anti-joins. For 
 
 #### NO_MERGE
 
-This is a hint instructing not to merge the main query and the inline view query into a single query.
+This hint instructs not to merge the main query and inline view query into one query.
 
 ![no_merge](media/SQL/no_merge.gif)
 
