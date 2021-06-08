@@ -447,7 +447,7 @@ INSERT /*+ APPEND */ INTO T2 SELECT * FROM T1;
 
 ##### Multi-table INSERT statement
 
-\<Query\> Multiple rows are inserted into a single table at once
+\<Query\> Multiple rows are inserted into a single table at once.
 
 ```
 CREATE TABLE t (
@@ -571,7 +571,7 @@ This is used to specify the name of the table to lock.
 
 This is used to specify the name of the partition to be locked.
 
-If the partition name is specified, lock mode is applied to the partition and ROW SHAR or ROW EXCLUSIVE is applied to the table
+If the partition name is specified, lock mode is applied to the partition and ROW SHAR or ROW EXCLUSIVE is applied to the table.
 
 |      Lock Mode      |   Partition Apply   |  Table Apply  |
 | :-----------------: | :-----------------: | :-----------: |
@@ -2279,7 +2279,7 @@ DNO         SEX  SUM(SALARY)
 24 rows selected.
 ```
 
-\<Query\> Use the GROUPING SETS in the GROUP BY clause to calculate salary subtotals for the following three groupings: (dno,sex), (dno), ()
+\<Query\> Use the GROUPING SETS in the GROUP BY clause to calculate salary subtotals for the following three groupings: (dno,sex), (dno), ().
 
 ```
 iSQL> SELECT dno, sex, SUM(salary) 
@@ -3996,7 +3996,7 @@ If auditing has already started, this statement cannot be executed. An error occ
 
 #### Example
 
-\<Query 1\> Delete auditing conditions for the user user1. After deletion, you can see that the auditing conditions have been deleted from SYS_AUDIT_OPTS_.
+\<Query 1\> Delete auditing conditions for the user user1. After deletion, the user can see that the auditing conditions have been deleted from SYS_AUDIT_OPTS_.
 
 ```
 iSQL> DELAUDIT by user1;
