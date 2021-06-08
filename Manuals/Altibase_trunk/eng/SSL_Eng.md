@@ -188,7 +188,7 @@ This section describes the requirements for using SSL communication on the serve
 -   OpenSSL toolkit 0.9.4~1.0.2 
 -   Altibase version 6.5.1 or later (only supports Intel-Linux)
 
-The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. You should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug.
+The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. The user should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug.
 
 The user can use the OPENSSL_NO_HEARTBEATS option to check whether or not it is infected. 
 
@@ -202,7 +202,7 @@ The OpenSSL toolkit has to be installed in order to use the SSL communication wi
 
 It is recommended using Java Runtime Environment 1.6 (JRE1.6) or later to conveniently implement the client Java application through the SSL. JRE 1.6 or later((JRE 1.5 are also available for use) is recommended for the following reason:
 
--   Only JRE 1.6 or above supports importing the client’s certificate into the keystore (Note that importing the certificate is not always required.).
+-   Only JRE 1.6 or later supports importing the client’s certificate into the keystore (Note that importing the certificate is not always required.).
 
 ### Configuring the Environment for SSL
 
@@ -245,7 +245,7 @@ The following are properties that you need to set to connect over SSL within Alt
 -   SSL_MAX_LISTEN  
     : Sets the listen queue maximum size for concurrent SSL connections. You should note that more listeners require more memory.
 -   SSL_CIPHER_LIST  
-    : The candidate cipher algorithm list available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons. You can check the list at OpenSSL (http://www.openssl.org/) or execute the following command in the shell environment.
+    : The candidate cipher algorithm list available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons. The user can check the list at OpenSSL (http://www.openssl.org/) or execute the following command in the shell environment.
 
 ```
 $ openssl ciphers
@@ -354,7 +354,7 @@ $openssl pkcs12 -export -in client_certificate.pem -inkey client_secretkey_file.
 
 Import the prepared PKCS #12 file into the keystore with the following options. <sup>1</sup>
 
-[<sup>1</sup>] You can only import .pem files into keystore with the '-importkeystore' option in Java 6 or above.
+[<sup>1</sup>] You can only import .pem files into keystore with the '-importkeystore' option in Java 6 or later.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks -srcstoretype pkcs12
@@ -548,7 +548,7 @@ SELECT * FROM SYSTEM_.SYS_USERS_
 
 ##### Examples
 
-\<Query\> Create a user who is not allowed to connect via TCP
+\<Query\> Create a user who is not allowed to connect via TCP.
 
 ```
 iSQL> CREATE USER user1 IDENTIFIED BY user1 DISABLE TCP;
