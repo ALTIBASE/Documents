@@ -49,7 +49,7 @@ Altibase Development Spatial SQL Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -3290,7 +3290,7 @@ GEOMFROMWKB( WKB )
 
 ##### Description
 
-This function accepts a spatial object in WKB (Well-Known Binary)<sup>7</sup> format as input and creates and outputs a GEOMETRY object
+This function accepts a spatial object in WKB (Well-Known Binary)<sup>7</sup> format as input and creates and outputs a GEOMETRY object.
 
 [<sup>7</sup>] For more detailed information on WKB (Well-Known Binary), please refer to GEOMETRY expression format.
 
@@ -3742,7 +3742,7 @@ ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
 
 ##### Description
 
-This return LINESTRING( X1 Y1, X2 Y2) corresponding to 4 input double variables as POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ), which is the result of ENVELOPE.
+This returns LINESTRING( X1 Y1, X2 Y2) corresponding to 4 input double variables as POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ), which is the result of ENVELOPE.
 
 
 If an SRID is entered, it is set as the SRID of the created spatial object. If the SRID is not entered, the created spatial object's SRID is 0. 
@@ -5553,7 +5553,7 @@ This function is used to determine the number of child spatial objects in a comp
 
 ##### Diagnosing Errors
 
-If this function returns ACS_ERROR, use ACSError() to check the information related to the error
+If this function returns ACS_ERROR, use ACSError() to check the information related to the error.
 
 | ErrorCode       | Description                  | Notes                                                        |
 | --------------- | ---------------------------- | ------------------------------------------------------------ |
@@ -5573,7 +5573,7 @@ Sample code can be found at: $ALTIBASE_HOME/sample/SPATIAL/selectObject.cpp
 
 #### ACSGetGeometryN
 
-This function is used to get the Nth child spatial object in a compound spatial object, such as a MultiPoint, MultiLineString, MultiPolygon or GeometryCollection object
+This function is used to get the Nth child spatial object in a compound spatial object, such as a MultiPoint, MultiLineString, MultiPolygon or GeometryCollection object.
 
 ##### Syntax
 
