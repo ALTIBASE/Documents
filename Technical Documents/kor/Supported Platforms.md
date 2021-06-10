@@ -66,7 +66,7 @@
 |Solaris 10|●|●|●||
 |Solaris 11|●|●|●|*- Altibase 6.5.1.4.2 이상*|
 |**Microsoft Windows (x64)**|||||
-|Microsoft Windows Server 2008<br/>Microsoft Windows Server 2012<br/>Microsoft Windows Server 2016<br/>Microsoft Windows Server 2019|●|●|●|*- 2016: Altibase 6.5.1.7.2 이상*<br /> *- 2019Altibase 6.5.1.7.5 이상*|
+|Microsoft Windows Server 2008<br/>Microsoft Windows Server 2012<br/>Microsoft Windows Server 2016<br/>Microsoft Windows Server 2019|●|●|●|*- 2016: Altibase 6.5.1.7.2 이상*<br /> *- 2019: Altibase 6.5.1.7.5 이상*|
 |Microsoft Windows 7<br/>Microsoft Windows 8|●|●|●||
 |Microsoft Windows 10|●|●|●|*- Altibase  6.5.1.6.2 이상*|
 
