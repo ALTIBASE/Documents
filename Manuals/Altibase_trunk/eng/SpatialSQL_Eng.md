@@ -194,7 +194,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 ------------------
 
-This chapter explains fundamental spatial data concepts, defines some related terminology, and describes the features of spatial data that are particular to Altibase.
+This chapter explains fundamental concepts of spatial data, defines some related terminology, and describes the features of spatial data that are particular to Altibase.
 
 ### The Concept of Spatial Data
 
@@ -6361,7 +6361,7 @@ This Appendix provides a reference for the table schema and data used in the exa
 
 #### Purpose
 
-Information on the sample tables that are used to help explain the syntax and functionality of Altibase Spatial SQL is provided here.
+The information on the sample tables that are used to help explain the syntax and functionality of Altibase Spatial SQL is provided here.
 
 #### Schema
 
