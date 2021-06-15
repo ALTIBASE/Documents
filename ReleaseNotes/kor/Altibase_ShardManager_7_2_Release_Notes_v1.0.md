@@ -113,7 +113,10 @@ Shard Manager is based on the following Open Source Libraries and Royalty-Free I
 
 #### 2.5.2 Manual
 
-*need to modify* https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/ShardManager.md
+https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/ShardManager.md
+
+[comment]: <> "현재는 trunk에만 shard manager manual 이 있지만, 7.2 릴리즈를 하면, 어차피 위의 위치에 매뉴얼이 생길것입니다. 혹시 실수라고 생각하시는 분이 있을것 같아서 코멘트 남깁니다."
+
 
 #### 2.5.3 Installation
 
