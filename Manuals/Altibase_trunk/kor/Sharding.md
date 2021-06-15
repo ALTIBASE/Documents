@@ -804,7 +804,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 - materialized view
 - dblink
 - XA
-- fetch across commit 
+- fetch across commit(FAC)
 - queue
 - statement attribute
 
