@@ -811,7 +811,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 #### 미지원 쿼리
 - DML with limit
 - DML with multi-tables 
-- clone table DML with non-deterministic function
+- clone table update/delete with non-deterministic element
 - insert multi-rows 
 - insert with all default values
 - insert with return into
