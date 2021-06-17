@@ -54,7 +54,7 @@ Altibase Administration Performance Tunning Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1330,9 +1330,9 @@ Altibase denotes this as the “key filter processing method” as well. This me
 
 However, performance improvement is limited to disk tables as memory table indexes do not store key values. 
 
-The filter processing method is used for predicates on which indexes cannot be used. It directly reads data and compares it. If multiple filters must be used to process a WHERE clause predicate, the optimizer compares the estimated cost for each filter and processes filters by lowest price, so that filters are processed with minimum cost. 
+The filter processing method is used for predicates on which indexes cannot be used. It directly reads data and compares it. If multiple filters must be used to process a WHERE clause predicate, the optimizer compares the estimated cost for each filter and processes filters by lowest price, so that filters are processed with the minimum cost. 
 
-The following example shows a query using an index full scan and its execution plan
+The following example shows a query using an index full scan and its execution plan.
 
 ```
 CREATE TABLE t1(c1 INT, c2 CHAR(10)) 
