@@ -76,7 +76,7 @@ Altibase Application Development Stored Procedures Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -443,7 +443,7 @@ The SQL data types listed in the following table have different maximum sizes in
 | BLOB        | 2GB - 1                        | 100MB Determined by the LOB_OBJECT_BUFFER_SIZE property (default value: 32KB) |
 | CLOB        | 2GB - 1                        | 100MB Determined by the LOB_OBJECT_BUFFER_SIZE property (default value: 32KB) |
 
-On omission, the size of the CHAR, VARCHAR, NCHAR and NVARCHAR types is 1 by default.
+On omission, the size of the CHAR, VARCHAR, NCHAR, and NVARCHAR types is 1 by default.
 
 In case the data type of parameters or return values is set to CHAR, NCHAR, NVARCHAR or VARCHAR in the stored procedures or functions, the size of data type is set to the specified size of properties as follows:
 
@@ -996,7 +996,7 @@ For example, suppose that an index that existed when a stored procedure was crea
 
 When an invalid procedure is called, it is automatically and immediately recompiled by the database. However, compiling at run time in this way can cause significant performance issues in some systems. Therefore, it is recommended that procedures be recompiled when they enter an invalid state. 
 
-The ALTER PROCEDURE statement is used to explicitly recompile a stored procedure under these circumstances
+The ALTER PROCEDURE statement is used to explicitly recompile a stored procedure under these circumstances.
 
 #### Example
 
@@ -1573,7 +1573,7 @@ A stored procedure or function consists of one or more blocks. This chapter desc
 
 A block can be broadly divided into a declaration section, a block body and an exception handler section.
 
- A semicolon (“;”), which indicates the end of a statement, is not used after the DECLARE, BEGIN or EXCEPTION statements, but must be placed after the END statement and other commands in stored procedures. Comments can be used in stored procedures. 
+A semicolon (“;”), which indicates the end of a statement, is not used after the DECLARE, BEGIN or EXCEPTION statements, but must be placed after the END statement and other commands in stored procedures. Comments can be used in stored procedures. 
 
 To comment out all or part of a single line, place two hyphen characters (“--”) at the beginning of the text to be commented out. To comment out multiple lines, place the C-style delimiters “/*” and “*/” around the text to be commented out. 
 
@@ -1700,7 +1700,7 @@ count_val INTEGER := 0;
 
 ##### Cursor Declaration
 
- Please refer to the CURSOR section in Chapter 5 in this manual.
+Please refer to the CURSOR section in Chapter 5 in this manual.
 
 ##### Exception Declaration
 
@@ -2678,7 +2678,7 @@ User-defined labels are used in the following three situations:
 
 -   To limit the scope of multiple variables having the same name, or to overcome ambiguity that occurs when a variable and a column have the same name 
 -   To exit a nested loop 
--   For use with the GOTO statement
+-   To use with the GOTO statement
 
 #### Limitations
 
@@ -3004,7 +3004,7 @@ FUNC_PLUS_10(I1)
 
 #### Purpose
 
-This is a stored procedure extension of the INSERT 
+This is a stored procedure extension of the INSERT.
 
 The following example inserts the value of a record type variable when inserting a new record into a table or a specific partition withn a stored procedure.
 
@@ -4433,7 +4433,7 @@ This statement is used to initialize a cursor, execute the query, and determine 
 
 ##### cursor_name
 
-This is the name of the cursor to open
+This is the name of the cursor to open.
 
 A cursor having this name must have been declared in the declare section of the current block or an outer block.
 
