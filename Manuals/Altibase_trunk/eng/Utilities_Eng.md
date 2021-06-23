@@ -1209,7 +1209,6 @@ script_file_name: File name including the path of the environment file
 
 This function compares the contents of the Master and Slave Databases with each execution log file and table, and creates an execution result file that includes the contents of inconsistent columns of inconsistent records.
 
-For example,
 
 For example, if you run the following altiComp command successfully, /user/charlie/altibase_home/altiComp> altiComp sample.cfg a “mastertable-username.slavetable.log” file is created for each table in the altiComp directory, alongside sample.log. 
 
@@ -2738,7 +2737,7 @@ $ altimon.sh start
 
 ##### Notes
 
-altiMon requires java 1.5 version or above to operate.
+altiMon requires java 1.5 version or later to operate.
 
 The user should select the Java version equivalent to the number of bits of the PICL c library. For example, if the PICL c library is linux x64, 64bit Java should be used.
 
@@ -3269,7 +3268,7 @@ altiwarp {--iname input_file} [--oname output_file]
 
 | Parameter | Description                                                  |
 | --------- | ------------------------------------------------------------ |
-| \-h/--h   | Prints help                                                  |
+| \-h/--h   | Outputs help                                                  |
 | \--iname  | Specifies the name of the file to encrypt. On omission of the extension, .sql is assumed. |
 | \--oname  | Specifies the file name under which an encrypted code program is to be saved. On omission of the extension, it is saved as a .plb file. |
 
