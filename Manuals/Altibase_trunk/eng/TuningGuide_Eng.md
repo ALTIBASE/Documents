@@ -1450,7 +1450,7 @@ In the above example, key range processing can only be performed on the first pr
 
 As described above, for composite indexes, only the predicates that appear in the same order as the order of the key columns (without any missing columns) can be evaluated using key range processing, and only if those predicates use equality operations. 
 
-If the following type of query is frequently executed and you wish to add an index, you should add an index that can be used to its maximum.
+If the following type of query is frequently executed, and in order to add an index, the user should add an index that can be used to its maximum.
 
 ```
 WHERE i1 > 0 AND i2 = 1
@@ -2043,7 +2043,7 @@ Whether the index can be used is determined by the predicate format. An index ca
 
 [Table 3-3] Predicate Formats and Index Availability
 
-As described above, you can only use indexes by writing the proper predicates. You should be especially careful that the column value is neither converted nor altered. 
+As described above, you can only use indexes by writing the proper predicates. The user should be especially careful that the column value is neither converted nor altered. 
 
 For more detailed information about data types and data conversions for indexes, please refer to Indexes and Data Types.
 
