@@ -32,7 +32,7 @@ Altibase Tools & Utilities iLoader User's Manual
 
 Altibase Application Development Monitoring API Developer's Guide
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -414,7 +414,7 @@ ISQL_CONNECTION : TCP
 
 ##### Limitations of Options
 
-Field delimiters, row delimiters and block delimiters cannot be subsets of each other. In other words, the field delimiter must not contain the row delimiter, and the row delimiter must not contain the field delimiter. Moreover, column values cannot contain these delimiters.  
+Field delimiters, row delimiters, and block delimiters cannot be subsets of each other. In other words, the field delimiter must not contain the row delimiter, and the row delimiter must not contain the field delimiter. Moreover, column values cannot contain these delimiters.  
 For example, if the field delimiter is ‘-’ and the row delimiter is ‘-#’, a row having 3 columns would be displayed as follows:
 
 ```
@@ -1078,11 +1078,11 @@ DNO         DNAME                           DEP_LOCATION  MGR_NO
 
 ### Using iLoader in Interactive Mode
 
-If you don't enter any of the mandatory inputs for iLoader execution, i.e. formout / out / in, the iLoader> prompt will be displayed, and iLoader will be executed in interactive mode. In interactive mode, command-line options can be used the same way as in batch mode
+If the user does not enter any of the mandatory inputs for iLoader execution, i.e. formout / out / in, the iLoader> prompt will be displayed, and iLoader will be executed in interactive mode. In interactive mode, command-line options can be used the same way as in batch mode
 
 #### Starting iLoader
 
-You must first be logged in before entering interactive mode. Connection information can be entered either on the command line or via iLoader. Additional information required to establish a connection with the server includes the server name (-S), user name (-U) and password (-P). The password is not case-sensitive, but the user name is if you use double quotation marks to enclose this.
+The user must first be logged in before entering interactive mode. Connection information can be entered either on the command line or via iLoader. Additional information required to establish a connection with the server includes the server name (-S), user name (-U) and password (-P). The password is not case-sensitive, but the user name is if you use double quotation marks to enclose this.
 
 How to Enter Connection Information on the Command line
 
@@ -2399,7 +2399,7 @@ table TB_SPEC
 
 **Answer**
 
- Since CONDITION is a reserved word in Altibase, a parsing error occurs.
+Since CONDITION is a reserved word in Altibase, a parsing error occurs.
 
 **Question**
 
