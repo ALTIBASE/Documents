@@ -174,7 +174,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 ### iSQL Overview
 
-iSQL is a user tool for accessing an Altibase and retrieving and modifying stored data using SQL statements and a number of additional commands. 
+iSQL is an user's tool for accessing an Altibase and retrieving and modifying stored data using SQL statements and a number of additional commands. 
 
 #### iSQL Main Functionality
 
@@ -206,7 +206,7 @@ In order for iSQL to access a server, the following information is necessary.
     The name (or IP address) of a computer on which Altibase Server is running
 
 -   port_no  
-    The port number used when connecting via TCP, IPC or IPCDA
+    The port number used when connecting via TCP, IPC, or IPCDA
 
 -   user_id  
     A User ID registered in the database
@@ -227,13 +227,13 @@ port_no and NLS_USE can be set using the environment variables or the server set
 2.  environment variables (ALTIBASE_PORT_NO, ALTIBASE_NLS_USE) 
 3.  server settings file (altibase.properties)
 
-Therefore, when it is desired to connect using options other than those that have been previously set, the command-line options can be used, so that it is not necessary to change the settings in the server setting file or the environment variables. 
+Therefore, when it is desired to connect using options other than those that have been previously set, the command-line options can be used, so that it is not necessary to change the settings in the server setting file or the environment variables.
 
 If any options have not been set, when iSQL is executed for the first time, the user will be prompted to enter the corresponding variables. At this time, it is essential to enter values that are valid and follow the proper format, otherwise iSQL may not run properly. 
 
 However, if the NLS_USE option in particular has not been set, no command prompt will appear at the time of execution. Instead, US7ASCII will be used, and a connection attempt will be made. In this case, if the character set of the database is not US7ASCII, the application will not execute properly, or some of the user’s data may become corrupted. Thus it is paramount that NLS_USE be set to a suitable value for the usage environment. 
 
-In order to ensure stable iSQL operation, we recommend that the following environment variables be set: • ALTIBAS
+In order to ensure stable iSQL operation, we recommend that the following environment variables be set: • ALTIBASE
 
 -   ALTIBASE_HOME : the path to a server or client installation 
 -   ALTIBASE_PORT_NO : the port number to use to connect to the server 
@@ -428,7 +428,8 @@ list </TD><TD>ELECT * FROM V$TAB;</TD><TD>Displays the list of all of the perfor
 iSQL.</TD>
      </TR>
      <TR>
-         <TD>테이블 목록 보기</TD><TD>SELECT * FROM TAB;</TD><TD>Displays the list of currently created tables. This command is only available in
+         <TD>Display table
+list</TD><TD>SELECT * FROM TAB;</TD><TD>Displays the list of currently created tables. This command is only available in
 iSQL.</TD>
      </TR>
      <TR>
@@ -1702,7 +1703,7 @@ was executed can be observed.
 
 The command edit is provided for creating and editing files in iSQL. 
 
-If you execute ed without parameters, a temporary file named iSQL.buf containing the most recently executed query statements will be created, and the following screen will be visible. (To save space, only a few of the blank lines that would be displayed on the screen are shown here.)
+If ed is executed without parameters, a temporary file named iSQL.buf containing the most recently executed query statements will be created, and the following screen will be visible. (To save space, only a few of the blank lines that would be displayed on the screen are shown here.)
 
 ```
 iSQL> SELECT sysdate FROM dual;
@@ -2039,9 +2040,9 @@ ID          NAME     ADDRESS  PHONE
 
 #### SET NUM[WIDTH]
 
-This command sets the number of characters to display for data of NUMERIC, DECIMAL, NUMBER and FLOAT columns in SELECT result sets. Data with many significant digits can be made more legible by setting this value high. 
+This command sets the number of characters to display for data of NUMERIC, DECIMAL, NUMBER, and FLOAT columns in SELECT result sets. Data with many significant digits can be made more legible by setting this value high. 
 
-The following example sets NUMWIDTH to 30, and then queries NUMERIC, DECIMAL, NUMBER and FLOAT columns.
+The following example sets NUMWIDTH to 30, and then queries NUMERIC, DECIMAL, NUMBER, and FLOAT columns.
 
 ```
 iSQL> CREATE TABLE t1
@@ -2536,7 +2537,7 @@ The following command is used to obtain detailed information about how condition
 ALTER SYSTEM SET TRCLOG_DETAIL_PREDICATE = 1;
 ```
 
-If this property is set to 1, signifying “ON”, as in the above statement, the execution plan’s WHERE clause conditions, including FIXED KEY RANGE, VARIBALE KEY RANGE and FILTER, are classified and displayed in detail. Therefore, if the WHERE clause is complicated, you can check which predicates will be executed by scanning the sorted indexes. However, this information may not be output if queries are changed to optimize them in some way.
+If this property is set to 1, signifying “ON”, as in the above statement, the execution plan’s WHERE clause conditions, including FIXED KEY RANGE, VARIBALE KEY RANGE and FILTER, are classified and displayed in detail. Therefore, if the WHERE clause is complicated, the user can check which predicates will be executed by scanning the sorted indexes. However, this information may not be output if queries are changed to optimize them in some way.
 
 The following example shows the output when the given SQL statement is executed:
 
