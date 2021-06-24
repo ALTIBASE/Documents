@@ -512,8 +512,13 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 <li>getMetData</li>
 <li>getParameterMetaData</li>
 <li>setObject(int, Object, int)</li>
+<li>setBigDecimal(int, BigDecimal)</li>
 </ul>
-또한 DBCP의 statement pool이 활성화되어 있을 경우 충돌이 발생할 수 있기 때문에 <br /> deferred 옵션이 켜져 있을 경우에는 statement pool 옵션을 꺼야 한다.</p>
+<p> 제약사항 </p>
+<ul>
+<li>바인드 파라메터가 없는데도 setXXX로 바인딩을 한 경우 원래는 에러가 발생해야 하지만 deferred일때는 에러가 발생하지 않는다.</li>
+<li>nchar, nvarchar 컬럼에 대해 기존에는 setString()으로 자동처리가 되었지만 deferred에서는 setNString()으로 바꿔서 바인딩해야 한다.</li>
+</ul>
 </td>
 </tr>
 </tbody>
