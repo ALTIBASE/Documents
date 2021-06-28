@@ -629,7 +629,7 @@ altiComp, checkServer, dumpbi, dumpct, dumpdb, dumpddf, dumpla, dumplf, iloader,
 isql, killCheckServer, server, apre
 ```
 
-For more detailed information on iloader, isql and apre, please refer to the *iLoader User's Manual, iSQL User's Manual*, and *Precompiler User's Manual*.
+For more detailed information on iloader, isql, and apre, please refer to the *iLoader User's Manual, iSQL User's Manual*, and *Precompiler User's Manual*.
 
 For more detailed information about other utilities, please refer to the *Utilities Manual*.
 
@@ -693,7 +693,7 @@ This library is needed in order to create embedded SQL programs. For more detail
 
 ##### libodbccli.a
 
-This library is used when authoring Altibase CLI applications. For more detailed information, please refer to the *CLI User’s Manual*.
+This library is used when writing Altibase CLI applications. For more detailed information, please refer to the *CLI User’s Manual*.
 
 ##### libalticapi.a
 
@@ -967,7 +967,7 @@ When the database is first created, the log files and the log anchor files are c
 
 Altibase maintains a set of 3 log anchor files. These log files are created in the same location
 
-when the database is created, but it is recommended that the 3 log anchor files be maintained on different file systems. The property for specifying the location of the log anchor files is LOGANCHOR_DIR.
+When the database is created, but it is recommended that the 3 log anchor files be maintained on different file systems. The property for specifying the location of the log anchor files is LOGANCHOR_DIR.
 
 For more detailed information about the Altibase properties, please refer to the *General Reference*.
 
@@ -1028,7 +1028,7 @@ In the Process phase, use the CREATE DATABASE command to create a database as sh
 
 For more detailed information on using the CREATE DATABASE statement, please refer to the *SQL Reference*.
 
- In the following example, a database is created using the default options:
+In the following example, a database is created using the default options:
 
 ```
 iSQL> create database mydb initsize=50M noarchivelog character set ksc5601 national character set utf16;
@@ -3501,15 +3501,12 @@ Figure 6-4 The Structure of a Page in Disk Tablespace
     This area contains information that is necessary depending on the type of page.
 
 -   Free Space
-  
-
-This area is used to save new data.
+    This area is used to save new data.
     
 -   Stored Procedure Data  
     Rows, indexes, or undo records are stored here depending on the type of page.
 
 -   Page Footer
-  
     This area is located at the end of the page, and contains information that is used to check page integrity.
 
 ###### How Records are Stored in a Page
