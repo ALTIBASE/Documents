@@ -1122,7 +1122,7 @@ The checkpoint message for each step is written to $ALTIBASE_HOME/trc/altibase_s
 
 | Checkpoint Message                                    | Description                                                  |
 | ----------------------------------------------------- | ------------------------------------------------------------ |
-| [CHECKPOINT-BEGIN]                                    | Checkpointing starts                                         |
+| [CHECKPOINT-BEGIN]                                    | Checkpointing begins                                         |
 |                                                       | Flushes dirty pages in database buffer Tablespace log anchor synchronization |
 | [CHECKPOINT-step2] Write BeginChkpt Log [0,1036171]   | Writes Checkpoint Begin Log                                  |
 | [CHECKPOINT-step3] Flush Dirty Page(s)                | Flushes dirty pages in memory DB                             |
