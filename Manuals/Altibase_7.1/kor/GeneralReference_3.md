@@ -4367,6 +4367,8 @@ Altibase에 접근하는 특정 IP 패킷의 접근 허용 및 제한 정보를 
 | ADDRESS     | VARCHAR(40) | IP 주소                                         |
 | OPERATION   | VARCHAR(6)  | IP 주소 접근 허용 및 제한 여부                  |
 | MASK        | VARCHAR(16) | 서브넷 마스크(IPv4) 또는 prefix 비트 길이(IPv6) |
+| LIMIT       | INTEGER     | 세션 최대 허용 개수                             |
+| CONNECTED   | INTEGER     | 현재 세션 접속 개수                             |
 
 #### **칼럼 정보**
 
@@ -4389,6 +4391,16 @@ IP 패킷 주소의 접근 허용 및 제한 여부를 보여준다.
 
 IPv4 주소일 경우 서브넷 마스크를 기술하고, IPv6 주소인 경우에는 prefix 비트의
 길이를 기술한다. 자세한 내용은 ACCESS_LIST 프로퍼티의 설명을 참조한다
+
+**LIMIT**
+
+ACCESS_LIST에 해당하는 세션의 최대 허용개수
+
+*RELOAD ACCESS LIST를 통해 ACCESS_LIST 추가시 기존에 연결된 세션은 연결을 해제하지 않고 이후 연결 요청에 대해서만 적용된다. 따라서 V$ACCESS_LIST 조회시 Limit 값보다 CONNECTED 값이 더 크게 조회될 수 있다.
+
+**CONNECTED**
+
+ACCESS_LIST에 해당하는 현재 접속된 세션 개수
 
 ### V\$ALLCOLUMN
 

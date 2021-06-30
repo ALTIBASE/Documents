@@ -5998,14 +5998,16 @@ String
 
 ##### 형식
 
-ACCESS_LIST = operation, address, mask
+ACCESS_LIST = operation, address, mask, <limit>
 
 ##### 값의 범위
 
 - operation ::= [PERMIT\|DENY]  
   검사 규칙과 일치하는 IP 패킷의 접근을 허용할 것인지 제한할 것인지 기술한다.
+  
 - address  
   검사할 패킷의 IP 주소를 기술한다.
+  
 - mask  
   명시한 주소값이 IPv4 주소 형식이면, 이것은 서브넷 마스크로, 패킷의 IP 주소
   중, 특정 부분만 검사하도록 설정한다.  
@@ -6013,6 +6015,20 @@ ACCESS_LIST = operation, address, mask
   prefix비트의 길이를 나타낸다. 즉, 등록된 주소의 마스크 비트 길이에 해당하는
   값이 접근하는 패킷의 IP 주소의 마스크 비트 길이에 해당하는 값과 일치한다면
   접근이 허용된다.
+  
+- limit
+
+  access_list에 해당하는 ip의 최대 접속 개수를 지정한다.
+
+  access_list에 검사 규칙과 일치하더라도 접속된 세션 개수가 limit 개수를 초과하면 IP 접근을 제한한다.
+
+  limit 설정의 경우 옵셔널하게 동작하며 설정하지 않았을경우 0으로 자동 설정되어 기능이 동작하지 않는다. 
+
+  RELOAD ACCESS LIST를 통해 access_list 추가시 기존에 연결된 세션은 연결을 해제하지 않고 이후 연결 요청에 대해서만 적용된다. 
+
+  따라서 경우에 따라서 V$ACCESS_LIST 조회시 Limit 값보다 CONNECTED 값이 더 크게 조회될 수 있다.
+
+  
 
 ##### 검사 규칙
 
@@ -6070,6 +6086,14 @@ deny, 0.0.0.0, 0.0.0.0
 deny, ::1, 1
 deny, fe80::, 1
 ```
+
+192.168.3.17 주소의 세션 접근 허용 개수를 5개로 제한한다.
+
+```
+ACCESS_LIST = permit, 192.168.3.17, 255.255.255.255,5
+```
+
+
 
 **ACCESS_LIST_FILE**
 
