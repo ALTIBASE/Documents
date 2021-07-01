@@ -4394,9 +4394,9 @@ IPv4 주소일 경우 서브넷 마스크를 기술하고, IPv6 주소인 경우
 
 **LIMIT**
 
-ACCESS_LIST에 해당하는 세션의 최대 허용개수
+ACCESS_LIST에 명시된 접속 가능한 IP 주소 영역에서 허용되는 최대 접속 세션 개수.
 
-*RELOAD ACCESS LIST를 통해 ACCESS_LIST 추가시 기존에 연결된 세션은 연결을 해제하지 않고 이후 연결 요청에 대해서만 적용된다. 따라서 V$ACCESS_LIST 조회시 Limit 값보다 CONNECTED 값이 더 크게 조회될 수 있다.
+운영 중 RELOAD ACCESS LIST로 ACCESS_LIST를 추가하면, 기존에 연결된 세션은 영향을 받지 않으며, 변경 이후 새로운 연결 요청에 대해서만 ACCESS_LIST 조건이 적용된다. 예를 들어 ACCESS_LIST에 limit값을 설정 후 RELOAD ACCESS LIST 수행하면, 적용 이후 새로운 연결에 대해서만 limit 값이 적용된다. 이런 경우, V$ACCESS_LIST 조회시 Limit 값보다 CONNECTED 값이 더 클 수도 있다.
 
 **CONNECTED**
 
