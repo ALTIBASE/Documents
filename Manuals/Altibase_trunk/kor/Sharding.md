@@ -1619,6 +1619,8 @@ nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)
 - 분산실행되는 query또는 procedure에서 package global variable을 지원하지 않는다.
   - 단, CONSTANT 속성이 있는 경우는 분산실행 되더라도 동일한 값을 갖는것이 보장되므로, 분산실행에 사용될 수 있다.
   - global procedure에서 쿼리내부가 아닌곳에서 package global variable을 사용하는 것은 지원한다.
+- PSM 내의 SELECT clause 에 PSM 변수 사용 시에는 cast 함수를 씌워서 PSM 변수에 대한 data type을 명시적으로 지정하는 work around 사용이 필요합니다.
+  - ex.) SELECT cast(psm_var1 as integer) INTO v1 FROM t1 WHERE i1 = 1; 
 
 #### 다중에러 처리
 - 다중에러 및 대표에러에 대한 설명은 [Multiple Error Handling](#multiple-error-handling)을 참고한다.
