@@ -44,6 +44,7 @@
     - [SYS_REPLICATIONS\_](#sys_replications_)
     - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
     - [SYS_REPL_ITEMS\_](#sys_repl_items_)
+    - [SYS_REPL_ITEM_REPLACE_HISTORY\_](#sys_repl_item_replace_history_)
     - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
     - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
     - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
@@ -67,6 +68,9 @@
     - [SYS_VIEW_PARSE\_](#sys_view_parse_)
     - [SYS_VIEW_RELATED\_](#sys_view_related_)
     - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
+    - [SYS_GEOMETRIES_](#sys_geometries_)
+    - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
+    - [USER_SRS_](#user_srs_)
     - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
     - [V\$ACCESS_LIST](#vaccess_list)
     - [V\$ALLCOLUMN](#vallcolumn)
@@ -239,11 +243,14 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_REPLICATIONS\_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
 | SYS_REPL_HOSTS\_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
 | SYS_REPL_ITEMS\_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_ITEMS_HISTORY\_     | 내부 용도                                                    |
+| SYS_REPL_ITEM_REPLACE_HISTORY\_  | 이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OFFLINE_DIR\_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_COLUMNS\_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_INDICES\_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_ITEMS\_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_RECEIVER\_          | 내부 용도                                                    |
 | SYS_REPL_RECOVERY_INFOS\_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
 | SYS_SECURITY\_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
 | SYS_SYNONYMS\_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
@@ -664,7 +671,7 @@ IN ROW 절이나 VARIABLE 옵션(가변 길이 칼럼)에 대한 자세한 사�
 ```
 SYS_USERS_
 SYS_TABLES_
-STO_USER_COLUMNS_
+SYS_GEOMETRIES_
 ```
 
 ### SYS_COMMENTS\_
@@ -2548,8 +2555,12 @@ SYS_TABLES_
 | PARALLEL_APPLIER_COUNT   | INTEGER     | 병렬 적용자(Applier)의 수                                    |
 | REMOTE_XSN               | BIGINT      | 원격 서버에서 가장 최근에 처리한 SN                          |
 | APPLIER_INIT_BUFFER_SIZE | BIGINT      | applier buffer 의 초기 사이즈                                |
+| PEER_REPLICATION_NAME    | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
+| REMOTE_LAST_DDL_XSN      | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
+| CURRENT_READ_XLOGFILE_NO | INTEGER     | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file number와 offset |
+| CURRENT_READ_XLOGFILE_OFFSET | INTEGER | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file 내에서의 offset |
 
-[<sup>13</sup>] SN: 로그 레코드의 식별 번호
+[<sup>13</sup>] SN(Seqence Number): 로그 레코드의 식별 번호
 
 #### 칼럼 정보
 
@@ -2623,12 +2634,13 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 옵션을 설정시 이진수로 제어되며, 십진수로 변환되어 표시된다. 두 개 이상의 옵션을
 사용할 경우 각각의 옵션에 해당하는 이진수 합이 십진수로 반환된다.
 
-- 0(00000): 이중화 옵션을 사용하지 않음
-- 1(00001): 복구 옵션 사용
-- 2(00010): 오프라인 옵션 사용
-- 4(00100): 이중화 갭 해소 옵션 사용
-- 8(01000): 병렬 적용자 옵션 사용
-- 16(10000):이중화 트랜잭션 그룹 옵션 사용
+- 0(000000): 이중화 옵션을 사용하지 않음
+- 1(000001): 복구 옵션 사용
+- 2(000010): 오프라인 옵션 사용
+- 4(000100): 이중화 갭 해소 옵션 사용
+- 8(001000): 병렬 적용자 옵션 사용
+- 16(010000):이중화 트랜잭션 그룹 옵션 사용
+- 32(100000):로컬 이중화 옵션 사용
 
 ##### INVALID_RECOVERY
 
@@ -2657,7 +2669,7 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 ##### REMOTE_XSN
 
 원격 서버에서 가장 최근에 처리한 SN 이다. Sender 재시작 시 해당
-REMOTE_XSN보다 SN이 작은 로그는 보내지 않고 Skip한다..
+REMOTE_XSN보다 SN이 작은 로그는 보내지 않고 Skip한다.
 
 ##### APPLIER_INIT_BUFFER_SIZE
 
@@ -2672,6 +2684,14 @@ REMOTE_XSN보다 SN이 작은 로그는 보내지 않고 Skip한다..
 만약 병렬 적용자 큐의 수가 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE
 값보다 작다면 병렬 적용자 큐의 수는 프로퍼티
 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE에 지정된 값으로 설정된다.
+
+##### PEER_REPLICATION_NAME
+
+로컬 이중화 옵션을 사용했을 때 원격 이중화의 이름이다.
+
+##### REMOTE_LAST_DDL_XSN
+
+원격 서버에서 가장 최근에 처리한 DDL의 SN 이다. 
 
 #### 예제
 
@@ -2759,6 +2779,7 @@ SYS_REPLICATIONS_
 | INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN              |
 | CONDITION             | VARCHAR(1000) | Deprecated                          |
 | REPLICATION_UNIT      | CHAR(1)       | 이중화 단위                         |
+| IS_CONDITION_SYNCED   | INTEGER       | conditional sync 여부               |
 
 하나의 이중화 객체는 한 개 이상의 테이블들을 포함할 수 있으며, 이들 테이블
 각각에 대해 SYS_REPL_ITEMS_에 레코드가 존재한다. 예를 들어 한 이중화가 10개의
@@ -2823,12 +2844,57 @@ TABLE_NAME 값과 동일하다.
 - T: 이중화 대상 아이템이 테이블임을 나타낸다.
 - P: 이중화 대상 아이템이 파티션임을 나타낸다.
 
+##### IS_CONDITION_SYNCED
+conditional sync 여부
+
 #### 참조 테이블
 
 ```
 SYS_REPLICATIONS_
 SYS_USERS_
 SYS_TABLES_
+```
+
+### SYS_REPL_ITEM_REPLACE_HISTORY\_
+
+이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 가진 메타 테이블이다.
+
+| Column name           | Type          | Description                         |
+| --------------------- | ------------- | ----------------------------------- |
+| REPLICATION_NAME      | VARCHAR(40)   | 이중화 이름                         |
+| USER_NAME             | VARCHAR(128)  | 대상 테이블 소유자 이름             |
+| TABLE_NAME            | VARCHAR(128)  | 대상 테이블 이름                    |
+| PARTITION_NAME        | VARCHAR(128)  | 대상 파티션 이름                    |
+| OLD_OID               | BIGINT        | ALTER TABLE REPLACE 구문 수행 전 테이블 또는 파티션의 OID  |
+| NEW_OID               | BIGINT        | ALTER TABLE REPLACE 구문 수행 후 테이블 또는 파티션의 OID  |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한 REPLICATION_NAME 값과 동일하다.
+
+##### USER_NAME
+이중화 대상 테이블 소유자의 사용자 이름으로, SYS_USERS\_ 메타 테이블의 한 USER_NAME 값과 동일하다.
+
+##### TABLE_NAME
+이중화 대상 테이블의 이름으로, SYS_TABLES\_ 메타 테이블의 한 TABLE_NAME 값과 동일하다.
+
+##### PARTITION_NAME
+이중화 대상 파티션의 이름으로, SYS_TABLE_PARTITIONS_의 한 PARTITION_NAME 값과 동일하다.
+
+##### OLD_OID
+ALTER TABLE REPLACE 구문 수행 전 테이블 또는 파티션의 OID 이다.
+
+##### NEW_OID
+ALTER TABLE REPLACE 구문 수행 후 테이블 또는 파티션의 OID 이다.
+
+#### 참조 테이블
+
+```
+SYS_REPLICATIONS_
+SYS_USERS_
+SYS_TABLES_
+SYS_TABLE_PARTITIONS_
 ```
 
 ### SYS_REPL_OFFLINE_DIR\_
@@ -2873,6 +2939,7 @@ REPLICATION_NAME 값과 동일하다.
 | MT_SCALE             | INTEGER       | 소수 자릿수                                                  |
 | MT_ENCRYPT_PRECISION | INTEGER       | 암호화 칼럼 정밀도                                           |
 | MT_POLICY_NAME       | VARCHAR(16)   | 암호화 칼럼에 사용된 정책의 이름                             |
+| MT_SRID              | INTEGER       | GEOMETRY 칼럼에 적용된 SRID                                  |
 | SM_ID                | INTEGER       | 칼럼 식별자                                                  |
 | SM_FLAG              | INTEGER       | 내부 플래그                                                  |
 | SM_OFFSET            | INTEGER       | 내부 오프셋                                                  |
@@ -2927,6 +2994,10 @@ Altibase 서버가 사용하는 내부 플래그이다.
 ##### MT_POLICY_NAME
 
 암호화된 칼럼의 경우, 칼럼에 적용된 보안 정책의 이름을 나타낸다.
+
+##### MT_SRID
+
+GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
 
 ##### SM_ID
 
@@ -3093,14 +3164,28 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 테이블의 정보를 가진 메타
 테이블이다.
 
-| Column name          | Type         | Description                   |
-| -------------------- | ------------ | ----------------------------- |
-| REPLICATION_NAME     | VARCHAR(40)  | 이중화 이름                   |
-| TABLE_OID            | BIGINT       | 테이블 객체 식별자            |
-| USER_NAME            | VARCHAR(128) | 사용자 이름                   |
-| TABLE_NAME           | VARCHAR(128) | 테이블 이름                   |
-| PARTITION_NAME       | VARCHAR(128) | 파티션 이름                   |
-| PRIMARY_KEY_INDEX_ID | INTEGER      | 프라이머리 키의 인덱스 식별자 |
+| Column name           | Type          | Description                                    |
+| --------------------- | ------------- | ---------------------------------------------- |
+| REPLICATION_NAME      | VARCHAR(40)   | 이중화 이름                                    |
+| TABLE_OID             | BIGINT        | 테이블 객체 식별자                             |
+| USER_NAME             | VARCHAR(128)  | 사용자 이름                                    |
+| TABLE_NAME            | VARCHAR(128)  | 테이블 이름                                    |
+| PARTITION_NAME        | VARCHAR(128)  | 파티션 이름                                    |
+| PRIMARY_KEY_INDEX_ID  | INTEGER       | 프라이머리 키의 인덱스 식별자                  |
+| REMOTE_USER_NAME      | VARCHAR(128)  | 원격 서버의 대상 테이블 소유자 이름            |
+| REMOTE_TABLE_NAME     | VARCHAR(128)  | 원격 서버의 대상 테이블 이름                   |
+| REMOTE_PARTITION_NAME | VARCHAR(128)  | 원격 서버의 파티션 이름                        |
+| PARTITION_ORDER       | INTEGER       | 파티션 순서(해쉬 파티션일 경우 필요)           |
+| PARTITION_MIN_VALUE   | VARCHAR(4000) | 파티션의 최소 기준값 (해쉬 파티션의 경우 NULL) |
+| PARTITION_MAX_VALUE   | VARCHAR(4000) | 파티션의 최대 기준값 (해쉬 파티션의 경우 NULL) |
+| INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN                         |
+| TABLE_ID              | INTEGER       | 테이블 식별자 |
+| TABLE_PARTITION_TYPE  | INTEGER       | 테이블 파티션 타입 |
+| IS_PARTITION          | CHAR(1)       | 파티션 여부 Y/N |
+| REPLICATION_UNIT      | CHAR(1)       | 이중화 단위 |
+| TBS_TYPE              | INTEGER       | 테이블스페이스 유형 |
+| PARTITION_METHOD      | INTEGER       | 파티션 방법 |
+| PARTITION_COUNT       | INTEGER       | 파티션 테이블의 총 개수 |
 
 #### 칼럼 정보
 
@@ -3132,12 +3217,76 @@ TABLE_NAME 값과 동일하다.
 
 프라이머리 키 (Primary Key)의 인덱스 식별자이다.
 
+##### REMOTE_USER_NAME
+
+원격 서버의 이중화 대상 테이블인 소유자의 이름이다. 
+
+##### REMOTE_TABLE_NAME
+
+원격 서버의 이중화 대상 테이블의 이름이다.
+
+##### REMOTE_PARTITION_NAME
+
+원격 서버의 이중화 대상 테이블이 속해 있는 파티션의 이름이다.
+
+##### PARTITION_ORDER
+
+파티션들 중에서 이 파티션의 순서를 나타낸다. 해쉬 (HASH) 파티션인 경우에
+필요하다.
+
+##### PARTITION_MIN_VALUE
+
+파티션의 최소 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는
+널(NULL)이다.
+
+##### PARTITION_MAX_VALUE
+
+파티션의 최대 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는
+널(NULL)이다.
+
+##### INVALID_MAX_SN
+
+이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에
+기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
+
+##### TABLE_ID
+SYS_TABLES_ 의 TABLE_ID 를 참고한다.
+
+##### TABLE_PARTITION_TYPE
+- 0: PARTITIONED TABLE
+- 1: TABLE PARTITION
+- 100: NONE PARTITIONED TABLE
+
+##### IS_PARTITION
+- Y: 파티션드 테이블
+- N: 그외
+
+##### REPLICATION_UNIT
+- T: 이중화 대상 아이템이 테이블임을 나타낸다.
+- P: 이중화 대상 아이템이 파티션임을 나타낸다.
+
+##### TBS_TYPE
+V$TABLESPACES 의 TYPE 컬럼을 참고한다.
+
+##### PARTITION_METHOD
+- 0: RANGE
+- 1: HASH
+- 2: LIST
+- 3: RANGE_USING_HASH
+- 100: NONE
+
+##### PARTITION_COUNT
+
+지역 서버의 이중화 대사 테이블이 속해 있는 파티션드 테이블을 구성하는 파티션 테이블의 총 개수
+
 #### 참조 테이블
 
 ```
+SYS_TABLES_
 SYS_REPL_OLD_COLUMNS_
 SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
+V$TABLESPACES
 ```
 
 ### SYS_REPL_RECOVERY_INFOS\_
@@ -3277,6 +3426,8 @@ SYS_USERS_
 | HIDDEN                     | CHAR(1)      | 숨김 속성을 갖는 테이블인지 여부                             |
 | ACCESS                     | CHAR(1)      | 테이블 접근 모드                                             |
 | PARALLEL_DEGREE            | INTEGER      | 병렬 질의를 처리하는 쓰레드의 개수                           |
+| USABLE                     | CHAR(1)      | 테이블의 사용 여부                                           |
+| SHARD_FLAG                 | INTEGER      | 샤드 환경에서 테이블의 역할 구분                             |
 | CREATED                    | DATE         | 테이블이 생성된 시간                                         |
 | LAST_DDL_TIME              | DATE         | 테이블에 대해 마지막으로 DDL 변경 작업이 일어난 시간         |
 
@@ -3319,6 +3470,7 @@ SYS_TABLES\_ 메타 테이블에는 테이블 외에 시퀀스, 뷰 정보 등�
 - G: 글로벌 인덱스를 위해 내부적으로 사용되는 테이블
 - D: 압축 칼럼의 데이터를 실제로 저장하기 위해 내부적으로 사용되는 딕셔너리
   테이블
+- R: 삭제(Drop)되어 휴지통에서 관리되고 있는 테이블
 
 ##### REPLICATION_COUNT
 
@@ -3398,24 +3550,33 @@ MAX_TRANS에 설정된 개수까지 증가할 수 있다.
 - N: 임시 테이블이 아님
 
 ##### HIDDEN
-
 해당 테이블이 숨기는 테이블인지 여부를 나타낸다.
 
 - Y: 사용자에게 숨기는 테이블임
 - N: 사용자에게 공개된 테이블임 (일반 테이블)
 
-##### PARALLEL_DEGREE
-
-파티션드 테이블을 스캔할 때 병렬 질의를 처리하는 쓰레드의 개수를 나타낸다.
-
 ##### ACCESS
-
-테이블의 데이터에 대한 접근 모드를 나타낸다. 기본 모드는 읽기/쓰기가 가능한
-W이다.
-
+테이블의 데이터에 대한 접근 모드를 나타낸다. 기본 모드는 읽기/쓰기가 가능한 W 이다.
 - R: 데이터 읽기 전용 모드
 - W: 데이터 읽기/쓰기 모드 (기본 모드)
 - A: 데이터 읽기/추가 모드. 이 모드에서는 데이터 변경/삭제가 허용되지 않는다.
+
+##### PARALLEL_DEGREE
+파티션드 테이블을 스캔할 때 병렬 질의를 처리하는 쓰레드의 개수를 나타낸다.
+
+##### USABLE
+테이블의 사용여부를 나타낸다. 기본값은 Y(Usable) 이다.
+- Y: Usable
+- N: Unusable
+
+##### SHARD_FLAG
+샤드 환경에서 테이블의 역할 구분을 나타낸다. 기본값은 0(None) 이다.
+- 0: None
+- 1: Meta
+- 2: Back-up
+- 3: Split (Range|List|Hash)
+- 4: Clone
+- 5: Solo
 
 #### 참조 테이블
 
@@ -3439,6 +3600,7 @@ SYS_USERS_
 | PARTITION_ORDER            | INTEGER       | 파티션 순서 (해쉬 파티션일 경우 필요)               |
 | TBS_ID                     | INTEGER       | 테이블스페이스 식별자                               |
 | PARTITION_ACCESS           | CHAR(1)       | 파티션 접근 모드                                    |
+| PARTITION_USABLE           | CHAR(1)       | 파티션 사용여부                                    |
 | REPLICATION_COUNT          | INTEGER       | 파티션에 관련된 이중화 객체의 개수                  |
 | REPLICATION_RECOVERY_COUNT | INTEGER       | 파티션에 대해 복구 옵션을 설정한 이중화 객체의 개수 |
 | CREATED                    | DATE          | 파티션이 생성된 시간                                |
@@ -3495,6 +3657,11 @@ W이다.
 - R: 데이터 읽기 전용 모드
 - W: 데이터 읽기/쓰기 모드(기본 모드)
 - A: 데이터 읽기/추가 모드. 이 모드에서는 데이터 변경/삭제가 허용되지 않는다.
+
+##### PARTITION_USABLE
+파티션의 사용여부를 나타낸다. 기본값은 Y(Usable) 이다.
+- Y: Usable
+- N: Unusable
 
 ##### REPLICATION_COUNT
 
@@ -4080,6 +4247,50 @@ SYS_PROCEDURES_
 
 글로벌 트랜잭션의 상태
 
+### SYS_GEOMETRIES_
+
+GEOMETRY 칼럼을 보유한 테이블에 대한 정보를 저장하고 있는 메타 테이블이다.
+
+| Column name     | Type     | Description                            |
+| --------------- | -------- | -------------------------------------- |
+| USER_ID         | INTERGER | 테이블의 소유자 식별자                       |
+| TABLE_ID        | INTERGER | 테이블의 식별자                            |
+| COLUMN_ID       | INTERGER | 컬럼의 식별자                          |
+| COORD_DIMENSION | INTERGER | GEOMETRY 객체의 차원                      |
+| SRID            | INTERGER | 데이터베이스 내에서의 공간 참조 식별자           |
+
+### SYS_GEOMETRY_COLUMNS_
+
+GEOMETRY 칼럼에 공간 참조 식별자(SRID, Spatial Reference ID)를 지정, 관리하기 위해 사용한다.
+
+이 메타 테이블의 synonym은 GEOMETRY_COLUMNS_이다.
+
+| Column name       | Type         | Description                            |
+| ----------------- | ------------ | -------------------------------------- |
+| F_TABLE_SCHEMA    | VARCHAR(128) | 테이블 소유자 이름                         |
+| F_TABLE_NAME      | VARCHAR(128) | 테이블 이름                              |
+| F_GEOMETRY_COLUMN | VARCHAR(128) | 컬럼의 이름                              |
+| COORD_DIMENSION   | INTERGER     | GEOMETRY 객체의 차원                     |
+| SRID              | INTERGER     | 데이터베이스 내에서의 공간 참조 식별자          |
+
+### USER_SRS_
+
+공간 참조 식별자(SRID, Spatial Reference IDentifier)와 이에 대응하는 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 관리하기 위해 사용한다.
+
+이 메타 테이블의 synonym은 SPATIAL_REF_SYS 이다.
+
+SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록하기 위해서는 SYS_SPATIAL 패키지의 ADD_SPATIAL_REF_SYS, DELETE_SPATIAL_REF_SYS 프로시저를 사용해야한다.
+메타 데이터를 등록할 때 SRID와 AUTH_SRID를 동일한 값으로 사용하는것을 권장합니다.
+자세한 내용은 *Spatial Manual*을 참조한다.
+
+| Column name | Type          | Description                                           |
+| ----------- | ------------- | ----------------------------------------------------- |
+| SRID        | INTEGER       | 데이터베이스 내에서의 공간 참조 식별자                         |
+| AUTH_NAME   | VARCHAR(256)  | 표준 이름                                               |
+| AUTH_SRID   | INTEGER       | 표준 식별자                                              |
+| SRTEXT      | VARCHAR(2048) | OGC-WKT 형태로 표현 되는 공간 참조 시스템에 대한 설명            |
+| PROJ4TEXT   | VARCHAR(2048) | PROJ4에서 사용되는 정보                                    |
+
 ### 성능 뷰
 
 성능 뷰 (performance view)란 메모리에 존재하는 구조이지만 일반 테이블 형태로
@@ -4264,6 +4475,8 @@ Altibase에 접근하는 특정 IP 패킷의 접근 허용 및 제한 정보를 
 | ADDRESS     | VARCHAR(40) | IP 주소                                         |
 | OPERATION   | VARCHAR(6)  | IP 주소 접근 허용 및 제한 여부                  |
 | MASK        | VARCHAR(16) | 서브넷 마스크(IPv4) 또는 prefix 비트 길이(IPv6) |
+| LIMIT       | INTEGER     | 세션 최대 허용 개수                             |
+| CONNECTED   | INTEGER     | 현재 세션 접속 개수                             |
 
 #### **칼럼 정보**
 
@@ -4286,6 +4499,16 @@ IP 패킷 주소의 접근 허용 및 제한 여부를 보여준다.
 
 IPv4 주소일 경우 서브넷 마스크를 기술하고, IPv6 주소인 경우에는 prefix 비트의
 길이를 기술한다. 자세한 내용은 ACCESS_LIST 프로퍼티의 설명을 참조한다
+
+**LIMIT**
+
+ACCESS_LIST에 명시된 접속 가능한 IP 주소 영역에서 허용되는 최대 접속 세션 개수.
+
+운영 중 RELOAD ACCESS LIST로 ACCESS_LIST를 추가하면, 기존에 연결된 세션은 영향을 받지 않으며, 변경 이후 새로운 연결 요청에 대해서만 ACCESS_LIST 조건이 적용된다. 예를 들어 ACCESS_LIST에 limit값을 설정 후 RELOAD ACCESS LIST 수행하면, 적용 이후 새로운 연결에 대해서만 limit 값이 적용된다. 이런 경우, V$ACCESS_LIST 조회시 Limit 값보다 CONNECTED 값이 더 클 수도 있다.
+
+**CONNECTED**
+
+ACCESS_LIST에 해당하는 현재 접속된 세션 개수
 
 ### V\$ALLCOLUMN
 

@@ -4,7 +4,6 @@
 
 - [Altibase 7.1.0.2.5 Patch Notes](#altibase-71025-patch-notes)
   - [New Features](#new-features)
-    - [BUG-46790  shardjdbc에서 failover 지원](#bug-46790-shardjdbc%EC%97%90%EC%84%9C-failover-%EC%A7%80%EC%9B%90)
     - [BUG-46878  java version 9 이상을 사용할 경우 DBLink 시작 실패](#bug-46878-java-version-9-%EC%9D%B4%EC%83%81%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0-dblink-%EC%8B%9C%EC%9E%91-%EC%8B%A4%ED%8C%A8)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-46938  Mathematics function data 전체를 재사용하기 위해 getStatus, setStatus 추가 시 성능이슈 수정](#bug-46938-mathematics-function-data-%EC%A0%84%EC%B2%B4%EB%A5%BC-%EC%9E%AC%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-getstatus-setstatus-%EC%B6%94%EA%B0%80-%EC%8B%9C-%EC%84%B1%EB%8A%A5%EC%9D%B4%EC%8A%88-%EC%88%98%EC%A0%95)
@@ -26,32 +25,6 @@ Altibase 7.1.0.2.5 Patch Notes
 
 New Features
 ------------
-
-### BUG-46790  shardjdbc에서 failover 지원
-
--   **module** : mm-jdbc
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **증상** : shardjdbc에 failover 를 지원합니다.
-
--   **재현 방법**
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-46878  java version 9 이상을 사용할 경우 DBLink 시작 실패
 
@@ -357,9 +330,9 @@ Changes
 
 ### Version Info
 
-| altibase version | database binary version | meta version | cm protocol version | replication protocol version | sharding version |
-| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- | ---------------- |
-| 7.1.0.2.5        | 6.5.1                   | 8.7.1        | 7.1.7               | 7.4.5                        | 2.2.1            |
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 7.1.0.2.5        | 6.5.1                   | 8.7.1        | 7.1.7               | 7.4.5                        |
 
 > Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
 
@@ -386,13 +359,6 @@ Changes
 #### Replication protocol Version
 
 Replication 프로토콜 버전은 변경되지 않았다.
-
-#### Sharding Version
-
-샤딩 버전은 변경 되지 않았다.
-
-> 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다. 샤딩 설정은 [Altibase Sharding 설치와 설정](<https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md#2altibase-sharding-%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95>)을 참고한다.
 
 ### 프로퍼티
 

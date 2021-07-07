@@ -15,8 +15,11 @@
     - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
     - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
     - [예제](#%EC%98%88%EC%A0%9C)
-
-
+  - [4.Oracle GoldenGate](#4oracle-goldengate)
+    - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
+    - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
+    - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
+    - [제약사항](#%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
 
 Altibase® Application Development
 
@@ -739,3 +742,107 @@ $ isql -s localhost -u ldap -p ldap -f testdb_data.sql
 -   testdb_metadata.sql:맵핑용 메타데이터 입력
 
 -   testdb_data.sql: objectClass 데이터 입력
+
+4.Oracle GoldenGate
+---------
+
+### Oracle GoldenGate 소개
+
+Oracle GoldenGate는 데이터베이스 데이터를 전통적 데이터베이스, 클라우드, 빅데이터, NoSQL 및 Streams 환경에 실시간 복제하기 위한 도구이다.
+
+Oracle GoldenGate for Big Data는 Generic JDBC API를 이용한 JDBC Handler를 이용하여 원본 데이터베이스에서 복제된 데이터를 전달하는 기능을 제공한다.
+
+Oracle GoldenGate 상세 내용은 제품 홈페이지를 참조한다.
+
+####  연동 아키텍처
+
+![ogg_architecture](media/3rdPartyConnector/ogg_architecture.png)
+
+ 알티베이스와 연동하기 위한 구조는 크게 소스 데이터베이스, 소스 데이터베이스를 위한 Oracle GoldenGate, 대상 데이터베이스를 위한 Oracle GoldenGate for Big Data, 그리고 대상 데이터베이스로 구성되어 있다.
+
+1. 소스 데이터베이스: Oracle GoldenGate가 지원하는 데이터베이스.
+2. Oracle GoldenGate: 소스 데이터베이스의 입력/변경 데이터의 로그를 분석 및 전달하는 역할을 한다.
+3. Oracle GoldenGate for Big Data: Oracle GoldenGate로부터 전달받은 데이터 변경 사항을 대상 데이터베이스에 전달하는 역할을 한다.
+4. 대상 데이터베이스: Oracle GoldenGate for Big Data JDBC Handler가 지원하는 데이터베이스
+
+### 설치 및 구성
+
+설치는 다양한 방법으로 구성 가능하다. 테스트 된 구성은 다음과 같다. 대괄호 (square brackets [])는 동일한 장비에 동일한 계정으로 설치한다는 의미이다.
+
+1. [소스 데이터베이스 + Oracle GoldenGate] / [Oracle GoldenGate for Big Data] / [알티베이스]
+2. [소스 데이터베이스 + Oracle GoldenGate + Oracle GoldenGate for Big Data] / [알티베이스]
+
+Oracle GoldenGate 및 Oracle GoldenGate for Big Data 설치 및 구성 방법은 제품 매뉴얼을 참조한다. 
+
+테스트에서 사용된 Oracle GoldenGate for Big Data 알티베이스용 설정파일은 다음과 같다.
+
+**Replicat properties 파일 (dirprm/rjdbc.prm)**
+
+TARGET의 User name과 Table name은 쌍따옴표로 묶어야 한다.
+
+**prm file sample**
+
+```bash
+TARGETDB LIBFILE libggjava.so SET property=dirprm/jdbc_altibase.props
+REPORTCOUNT EVERY 1 MINUTES, RATE
+GROUPTRANSOPS 1000
+MAP orclpdb.ogg_test.tablea, TARGET "SYS"."TABLEA";
+```
+
+**Java Adapter properties 파일(dirprm/jdbc_altibase.props)**
+
+**props file sample**
+
+```
+gg.handlerlist=jdbcwriter
+gg.handler.jdbcwriter.type=jdbc
+#Handler properties for Altibase database target
+gg.handler.jdbcwriter.DriverClass=Altibase.jdbc.driver.AltibaseDriver
+gg.handler.jdbcwriter.connectionURL=jdbc:Altibase://127.0.0.1:20172/mydb
+gg.handler.jdbcwriter.userName=sys
+gg.handler.jdbcwriter.password=manager
+gg.classpath=altibase/lib/Altibase.jar
+goldengate.userexit.writers=javawriter
+javawriter.stats.display=TRUE
+javawriter.stats.full=TRUE
+gg.log=log4j
+gg.log.level=INFO
+gg.report.time=30sec
+javawriter.bootoptions=-Xmx512m -Xms32m -Djava.class.path=.:ggjava/ggjava.jar:./dirprm
+```
+
+### 테스트 버전
+
+- Oracle database 12.2.0.1.0
+- Oracle GoldenGate 12.3.0.1.4
+- Oracle GoldenGate for Big Data 12.3.2.1
+- Altibase 7.1.0.4.6
+
+### 제약사항
+
+오라클 데이터 타입 중 일부는 호환되지 않는다. 특히, Binary double은 알티베이스와 호환되는 데이터 타입도 없고 값도 일부만 복제되는 제약사항이 있다.
+
+아래는 데이터 타입 호환 테스트 결과이다.
+
+**Oracle database to Altibase**
+
+| 소스          | 대상            | Note                                                         |
+| :------------ | :-------------- | :----------------------------------------------------------- |
+| INT           | INT             |                                                              |
+| CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있는 반면, Oracle에서 문자 길이로 정의할 수 있기 때문에 주의해야 한다. |
+| NCHAR         | NCHAR           | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있는 반면, Oracle에서 문자 길이로 정의할 수 있기 때문에 주의해야 한다.이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
+| VARCHAR2      | VARCHAR         | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있는 반면, Oracle에서 문자 길이로 정의할 수 있기 때문에 주의해야 한다.오라클의 VARCHAR2 최대 크기는 32,767 바이트로 Altibase의 VARCHAR 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+| NVARCHAR2     | NVARCHAR        | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있는 반면, Oracle에서 문자 길이로 정의할 수 있기 때문에 주의해야 한다.오라클의 NVARCHAR2 최대 크기는 32,767 바이트로 Altibase의 NVARCHAR 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+| LONG          | CLOB            |                                                              |
+| NUMBER        | NUMBER          |                                                              |
+| FLOAT         | FLOAT           |                                                              |
+| BINARY FLOAT  | FLOAT           |                                                              |
+| BINARY DOUBLE | DOUBLE          |                                                              |
+| DATE          | DATE            |                                                              |
+| TIMESTAMP     | DATE            | 스케일의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 오라클에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, Altibase에서는 타임스탬프 값의 스케일이 마이크로초(6자리 수)이다. |
+| RAW           | BLOB            |                                                              |
+| LONG RAW      | BLOB            |                                                              |
+| BLOB          | BLOB            |                                                              |
+| CLOB          | CLOB            |                                                              |
+| NCLOB         | NVARCHAR(10666) | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다.실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
+| ROWID         | VARCHAR(18)     |                                                              |

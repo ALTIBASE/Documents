@@ -17,7 +17,7 @@
     - [XA 사용시 제약사항](#xa-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
     - [JDBC 분산 트랜잭션](#jdbc-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
     - [XA를 사용한 애플리케이션의 문제 해결](#xa%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0)
-  - [4.iLoader API](#4iloader-api)
+  - [4.iLoader API](#3iloader-api)
     - [iLoader API 개요](#iloader-api-%EA%B0%9C%EC%9A%94)
     - [iLoader API 사용](#iloader-api-%EC%82%AC%EC%9A%A9)
     - [iLoader API 데이타 구조체](#iloader-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
@@ -45,7 +45,7 @@ Altibase Application Development Application Program Interface User’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
 무단으로 복제 또는 전용할 수 없습니다.
@@ -611,8 +611,6 @@ $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 ```
 
 
-
-
 3.XA Interface
 ------------
 
@@ -698,7 +696,7 @@ Manager)과 하나 이상의 RM (Resource Manager)이 분산 트랜잭션에 관
 
 ![xa](media/API/xa.gif)
 
-[그림 4‑1] XA 구조
+[그림 3‑1] XA 구조
 
 AP가 TX 인터페이스를 사용하여 TM에게 분산 트랜잭션이 시작됐다고 알리면, TM은
 어떤 RM (데이타베이스 시스템)이 분산 트랜잭션의 대상인지 확인한다. TM은
@@ -814,7 +812,7 @@ NAME=value;NAME=value;NAME=value;…
 | XA_NAME     | Altibase Embedded SQL 프로그램에서 연결의 식별자로 사용되는 이름이다. Altibase Embedded SQL로 애플리케이션을 작성할 때 이 값을 생략하면, 기본 연결을 사용하게 된다. 만약 XA_NAME 속성에 이름을 명시했다면, SQL문 수행시 AT 절에 이 이름을 사용하면 된다. |
 | XA_LOG_DIR  | Altibase XA 라이브러리에서 발생한 에러 정보를 로깅하는 디렉터리를 명시한다. 기본값은 ALTIBASE_HOME 환경변수가 설정되었을 경우 \$ALTIBASE_HOME/trc이고, 그렇지 않다면 현재 디렉터리다.                                                                    |
 
-[표 4‑2] XA 인터페이스에 추가된 필드
+[표 3‑2] XA 인터페이스에 추가된 필드
 
 rmid는 접속할 서버의 ID를 기록하며, 아무 값이나 쓸 수 있다.
 
@@ -1195,7 +1193,7 @@ TM은 일반적으로 XA 인터페이스를 사용해서 트랜잭션을 제어�
 | tx_commit     | 트랜잭션을 커밋한다.        |
 | tx_rollback   | 트랜잭션을 롤백한다.        |
 
-[표 4‑3] TX 인터페이스
+[표 3‑3] TX 인터페이스
 
 TX 인터페이스와 XA 인터페이스의 호출 흐름을 살펴보면, 다음 그림과 같다.
 
@@ -1422,7 +1420,7 @@ XA 표준에 부합하는 분산 트랜잭션 기능을 구현한 모든 클래�
 
 ![image18](media/API/image18.gif)
 
-[그림 4‑3] 분산 트랜잭션 과정
+[그림 3‑3] 분산 트랜잭션 과정
 
 애플리케이션 서버는 각각의 자원들과 연결될 수 있는 XAConnection을 지원한다.
 
@@ -1472,7 +1470,7 @@ AltibaseConnectionPoolDataSource의 connection properties를 모두 포함한다
 
 ![image19](media/API/image19.gif)
 
-[그림 4‑4] AltibaseXADataSource 클래스
+[그림 3‑4] AltibaseXADataSource 클래스
 
 AltibaseXADataSource 클래스의 getXAConnection 메소드는 XAConnection 타입의
 인스턴스를 반환한다. 이 인스턴스는 실제로 ABPooledConnection 클래스의
@@ -1508,7 +1506,7 @@ ABPooledConnection 클래스의 getXAResource 메소드는 AltibaseXAResource �
 
 ![image20](media/API/image20.gif)
 
-[그림 4‑5] ABPooledConnection 클래스
+[그림 3‑5] ABPooledConnection 클래스
 
 getConnection 메소드를 통해 반환되는 ABConnection 인스턴스는 데이타베이스와의
 물리적인 연결에 대한 임시 핸들이고, 이 Connection은 글로벌 트랜잭션에
@@ -1532,7 +1530,7 @@ javax.transaction.xa.XAResource 인터페이스를 구현하는 클래스의 인
 
 ![image21](media/API/image21.gif)
 
-[그림 4‑6] AltibaseXAResource 클래스
+[그림 3‑6] AltibaseXAResource 클래스
 
 Altibase JDBC driver 는 ABPooledConnection 클래스의 getXAResource 메소드를
 호출할 때마다 AltibaseXAResource 인스턴스를 생성하여 반환하고, Altibase JDBC
@@ -1600,13 +1598,13 @@ XA 관련 메소드는 에러가 발생할 때, ABXAException을 throw한다. AB
 | Driver Classname | Altibase.jdbc.driver.AltibaseDriver | Altibase.jdbc.driver.AltibaseXADataSource |
 | Properties       | User=[username]                     | User=[username]                           |
 
-[표 4‑4] NON-XA와 XA의 연결정보 비교
+[표 3‑4] NON-XA와 XA의 연결정보 비교
 
 
 
 ![image22](media/API/image22.jpeg)
 
-[그림 4‑7] JDBC 연결정보 입력
+[그림 3‑7] JDBC 연결정보 입력
 
 
 
@@ -1614,14 +1612,14 @@ XA 관련 메소드는 에러가 발생할 때, ABXAException을 throw한다. AB
    Services-\>JDBC-\>Data Sources에서 Configure a new JDBC Data Source를 선택한다.  
    Name과 JNDI Name을 입력하고 “Honor Global Transactions”에 체크한다.  
    다음 페이지에서 PoolName에 앞서 만든 Pool의 이름을 입력한다. (weblogic 8.1)
-   ([그림 6-7] 데이타 소스 생성 참조)  
+   ([그림 5-7] 데이타 소스 생성 참조)  
 
    > Note: weblogic8.1 이전 버전에서는 Services-\>JDBC-\>XA Data Sources에서
    > 새로운 DataSource를 생성한다.
 
 ![](media/API/image23.jpeg)
 
-[그림 4‑8] 데이타 소스 생성
+[그림 3‑8] 데이타 소스 생성
 
 ##### Weblogic 애플리케이션 예제 
 
@@ -1671,7 +1669,7 @@ DataSource xads1 = (DataSource)ctx.lookup("altiTXDS");
 
 ![](media/API/854d2590732a990a589c46dde6517ed7.png)
 
-[그림 4‑9] 제우스에서 데이타 소스 설정하기
+[그림 3‑9] 제우스에서 데이타 소스 설정하기
 
 ##### JEUS애플리케이션 예제
 

@@ -40,7 +40,7 @@ Altibase Administration SNMP Agent Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -864,7 +864,7 @@ Read-write
 
 altiPropertyAlarmUtransTimeout sets whether or not to raise a trap when a utrans timeout occurs in a session connected to Altibase. If this value is 0, a trap is not raised. 
 
-The initial value can be set for SNMP_ALARM_UTRANS_TIMEOUT, and the default value is 1.
+The initial value can be set for SNMP_ALARM_UTRANS_TIMEOUT, and the default value is 3.
 
 ##### Example
 
@@ -1726,4 +1726,4 @@ ALTIBASE-MIB::altiStatusIndex.1 = INTEGER: 1
 
 ##### Answer
 
-Verify that Altibase is running.
+If the entire ALTIBASE MIB is not output, verify if Altibase is running.

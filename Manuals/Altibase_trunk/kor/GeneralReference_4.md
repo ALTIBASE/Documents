@@ -4,6 +4,7 @@
 - [General Reference](#general-reference)
    - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [V\$LATCH](#vlatch)
+    - [V\$LIBRARY](#vlibrary)
     - [V\$LFG](#vlfg)
     - [V\$LOCK](#vlock)
     - [V\$LOCK_STATEMENT](#vlock_statement)
@@ -25,6 +26,7 @@
     - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
     - [V\$PKGTEXT](#vpkgtext)
     - [V\$PLANTEXT](#vplantext)
+    - [V\$PROCINFO](#vprocinfo)
     - [V\$PROCTEXT](#vproctext)
     - [V\$PROPERTY](#vproperty)
     - [V\$REPEXEC](#vrepexec)
@@ -74,6 +76,7 @@
     - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
     - [V\$SYSTEM_EVENT](#vsystem_event)
     - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
+    - [V\$SYS_LICENSE_](#vsys_license_)
     - [V\$TABLE](#vtable)
     - [V\$TABLESPACES](#vtablespaces)
     - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
@@ -139,6 +142,38 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | WRITE_SUCCESS_IMME | BIGINT  | 쓰기 래치를 바로 성공한 횟수    |
 | WRITE_MISS         | BIGINT  | 쓰기 래치를 바로 잡지 못한 횟수 |
 | SLEEPS_CNT         | BIGINT  | 래치를 잡기 위하여 sleep한 횟수 |
+
+### <a name="vlibrary"><a/>V\$LIBRARY
+
+C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보를 보여준다.
+라이브러리 정보를 통해서 원하는 라이브러리를 제대로 로드했는지 확인할 수 있다.
+
+| Column name        | Type        | Description                                        |
+|--------------------|-------------|----------------------------------------------------|
+| FILE_SPEC          | CHAR(4000)  | 동적 라이브러리 파일의 경로                          |
+| REFERENCE_COUNT    | INTEGER     | 동적 라이브러리를 참조하는 Internal procedure의 개수 |
+| FILE_SIZE          | INTEGER     | 동적 라이브러리의 파일 크기 (Bytes)                  |
+| CREATE_TIME        | VARCHAR(48) | 동적 라이브러리가 생성된 시간                        |
+| OPEN_TIME          | VARCHAR(48) | 동적 라이브러리를 로드한 시간                        |
+
+#### 칼럼 정보
+
+##### FILE_SPEC
+
+라이브러리 객체가 가리키는 동적 라이브러리 파일의 경로를 나타낸다. 라이브러리 파일이 위치하는 기본 경로 ($ALTIBASE_HOME/lib)에 대한 상대 경로로 표시된다.
+
+##### REFERENCE_COUNT
+
+동적 라이브러리를 참조하는 Internal 저장 프로시저 또는 저장 함수의 개수를 나타낸다.
+
+##### FILE_SIZE
+동적 라이브러리 파일의 크기를 나타낸다. (단위 : Bytes)
+
+##### CREATE_TIME
+동적 라이브러리를 생성한 일시를 나타낸다. 파일 정보에서 얻어서 저장한다.
+
+##### OPEN_TIME
+동적 라이브러리를 로드한 일시를 나타낸다.
 
 ### <a name="vlfg"><a/>V\$LFG
 
@@ -387,7 +422,7 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 |-------------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | GC_NAME                 | VARCHAR(128) | 가비지 콜렉터의 이름 MEM_LOGICAL_AGER: 구버전 인덱스 키 슬롯 해제 쓰레드 MEM_DELTHR: 삭제된 레코드를 해제하고 DROP TABLE 등 지연(pending) 연산을 하는 쓰레드 |
 | CURRSYSTEMVIEWSCN       | VARCHAR(29)  | 현재 시스템 view SCN                                                                                                                                         |
-| MINMEMSCNINTXS          | VARCHAR(29)  | 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN                                                                                                             |
+| MINMEMSCNINTXS          | VARCHAR(29)  | 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN (샤딩환경에서 추가의미는 아래에서 설명)                                                                                        |
 | OLDESTTX                | BIGINT       | 가장 오랜된 트랜잭션 식별자(MINMEMSCNINTXS를 소유한 트랜잭션의 식별자)                                                                                       |
 | SCNOFTAIL               | VARCHAR(29)  | 공간 회수 OID 리스트의 tail의 commit SCN                                                                                                                     |
 | IS_EMPTY_OIDLIST        | BIGINT       | 공간 회수 OID 리스트가 비어 있는지 여부 0: 비어 있음 1: 비어 있지 않음                                                                                       |
@@ -398,28 +433,29 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 | THREAD_COUNT            | INTEGER      | 공간 회수 쓰레드의 개수                                                                                                                                      |
 
 #### 칼럼 정보
-
 Altibase는 MVCC를 지원하므로 하나의 레코드에 대해 여러 버전이 생길 수 있다. 즉
 하나의 레코드는 1개의 최신버전과 다수의 구버전으로 구성된다. MVCC에 대한 자세한
 내용은 *Getting Started Guide* 와 *Administrator's Manual*의 다중 버전 동시성
 제어 (MVCC, Multi-Version Concurrency Control) 기법 부분을 참조한다.
 
-##### AGING_REQUEST_OID_CNT
+##### MINMEMSCNINTXS
+- stand-alone 환경 : 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN, 즉, min(TXs.MinMemViewSCN)
+- sharding 환경 : VERSIONING_MIN_TIME != 0 이면, min(TXs.MinMemViewSCN, sTimeSCN (주1))
+  - (주1) sTimeSCN 은 VERSIONING_MIN_TIME 으로 지정된 시간 전 SCN
 
+##### AGING_REQUEST_OID_CNT
 한 트랜잭션이 레코드 10건을 지우고 커밋할 경우, 10건의 구버전 레코드가 생기기
 때문에 10건의 공간 회수 대상이 생긴다. 하지만 기존 ADD_OID_CNT는 트랜잭션 단위로
 계산하기 때문에 1 증가한다. 이해 반해 AGING_REQUEST_OID_CNT는 OID 단위로
 계산하기 때문에 10만큼 증가한다.
 
 ##### AGING_PROCESSED_OID_CNT
-
 가비지 콜렉터(garbage collector 혹은 ager)가 하나의 가비지 콜렉션(garbage
 collection 혹은 aging) OID 리스트에 존재하는 구버전 레코드 10건을 지울 경우,
 GC_OID_CNT는 리스트 단위로 계산하기 때문에 1 증가한다. 이해 반해
 AGING_PROCESSED_OID_CNT는 OID 단위로 계산하기 때문에 10 증가한다.
 
 ##### THREAD_COUNT
-
 공간 회수(garbage collection, aging) 쓰레드 개수를 나타낸다.
 
 ### <a name="vmemstat"><a/>V\$MEMSTAT
@@ -1198,6 +1234,35 @@ statement 식별자를 나타낸다.
 
 실행계획 전체 텍스트의 일부분인 64바이트 텍스트 조각의 내용이다.
 
+### <a name="vprocinfo"><a/>V\$PROCINFO
+| Column name  | Type        | Description                      |
+|--------------|-------------|----------------------------------|
+| PROC_OID     | BIGINT      | 저장 프로시저의 객체 식별자        |
+| MODIFY_COUNT | INTEGER     | 저장 프로시저가 재 생성 또는 재 컴파일 된 횟수 |
+| STATUS       | VARCHAR(7)  | 객체의 상태를 나타낸다. INVALID이면 실행 불가능 상태이다. |
+| SESSION_ID   | INTEGER     | 저장 프로시저의 STATUS를 변경한 세션의 ID를 나타낸다. |
+| PROC_TYPE    | VARCHAR(10) | 저장 프로시저의 타입을 나타낸다. |
+| SHARD_SPLIT_METHOD | VARCHAR(7) | shard procedure의 split method |
+
+#### 칼럼 정보
+##### PROC_OID
+저장 프로시저 또는 저장 함수의 식별자로, SYS_PROCEDURES_ 메타 테이블의 한 PROC_OID 값과 동일하다.
+##### MODIFY_COUNT
+저장 프로시저 또는 함수가 재 생성 또는 재 컴파일 할 때마다 1씩 증가한다. 초기값은 0이다.
+##### STATUS
+저장 프로시저 또는 함수의 실행 가능 여부를 나타내는 값이다. VALID는 실행가능함을 나타낸다. SYS_PROCEDURES_ 메타 테이블의 STATUS  칼럼 설명을 참조한다.
+##### SESSION_ID
+저장 프로시저 또는 함수의 상태를 INVALID로 변경한 세션의 ID를 나타낸다. 상태가 변경된 적이 없으면 이 값이 0 또는 -1이다.
+##### PROC_TYPE
+저장 프로시저의 타입을 나타낸다. 가능한 값은 다음과 같다.
+- NORMAL : 일반 프로시저
+- EXTERNAL C : C/C++ External Procedure
+- INTERNAL C : C/C++ Internal Procedure
+- UNKNOWN : 서버를 구동할 때 저장 프로시저 컴파일에 실패하면 내부 프로시저 타입을 알 수 없어서 UNKNOWN으로 표시한다. 이후 컴파일이 되어 VALID 상태가 되면 정확한 타입이 설정된다.
+##### SHARD_SPLIT_METHOD
+- shard procedure는 'HASH', 'RANGE', 'LIST', 'CLONE', 'SOLO' 중에 하나가 올 수 있습니다.
+- 일반 procedure는 'NONE' 으로 나옵니다.
+
 ###  <a name="vproctext"><a/>V\$PROCTEXT
 
 시스템에서 수행되는 저장 프로시저의 문자열 정보를 나타낸다.
@@ -1769,21 +1834,32 @@ COMMIT 또는 ROLLBACK과 무관하게 계산된다. 즉 ROLLBACK을 수행해�
 
 이중화 수신자의 정보를 보여준다.
 
-| Column name            | Type        | Description                                                      |
-|------------------------|-------------|------------------------------------------------------------------|
-| REP_NAME               | VARCHAR(40) | 이중화 객체의 이름                                               |
-| PARALLEL_APPLIER_INDEX | INTEGER     | 적용자 번호                                                      |
-| APPLY_XSN              | BIGINT      | 처리중인 XSN                                                     |
+| Column name            | Type        | Description                                                  |
+| ---------------------- | ----------- | ------------------------------------------------------------ |
+| REP_NAME               | VARCHAR(40) | 이중화 객체의 이름                                           |
+| PARALLEL_APPLIER_INDEX | INTEGER     | 적용자 번호                                                  |
+| APPLY_XSN              | BIGINT      | 처리중인 XSN                                                 |
 | INSERT_SUCCESS_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 성공한 INSERT 로그레코드의 수 |
 | INSERT_FAILURE_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 실패한 INSERT 로그레코드의 수 |
 | UPDATE_SUCCESS_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 성공한 UPDATE 로그레코드의 수 |
 | UPDATE_FAILURE_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 실패한 UPDATE 로그레코드의 수 |
 | DELETE_SUCCESS_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 성공한 DELETE 로그레코드의 수 |
 | DELETE_FAILURE_COUNT   | BIGINT      | 지역 서버에서 수신 쓰레드가 적용에 실패한 DELETE 로그레코드의 수 |
+| STATUS                 | VARCHAR(10) | RECEIVER APPLIER 의 현재 동작 상태                           |
 
 #### 칼럼 정보
 
-칼럼 정보에 대한 자세한 내용은 V\$REPRECEIVER를 참조한다.
+##### STATUS
+
+RECEIVER APPLIER 의 현재 동작 상태를 나타낸다
+
+- INITIALIZE : 초기화 중
+- WORKING : 데이터 반영 중
+- DEQUEUEING : XLog 를 receiver 로 부터 전달 받기를 대기 중
+- WAITING : 다른 Applier 들이 transaction 반영을 대기 중
+- STOP : 종료
+
+나머지 칼럼 정보에 대한 자세한 내용은 V\$REPRECEIVER를 참조한다.
 
 ### <a name="vrepreceiver_statistics"><a/>V\$REPRECEIVER_STATISTICS
 
@@ -4651,6 +4727,148 @@ from
 order by 5 desc;
 ```
 
+
+### <a name="vsys_license_"><a/>V\$SYS_LICENSE_
+
+라이선스 관련 정보를 기록하고 있는 메타 테이블이다.
+
+| Column name               | Type         | Description                               |
+| :------------------------ | :----------- | :---------------------------------------- |
+| START_DATE                | VARCHAR(16 ) | 해당 라이선스키를 사용한 최초의 검사일자  |
+| VALID_YN                  | VARCHAR(2 )  | valid라이선스 여부                        |
+| LICENSE_KEY               | VARCHAR(128) | 해당 라이선스키                           |
+| ISSUED_DATE               | VARCHAR(16 ) | 라이선스키 발급일자                       |
+| TYPE                      | VARCHAR(32 ) | Standard/Enterprise/Trial                 |
+| EXPIRE_DATE               | VARCHAR(16 ) | 만료일자                                  |
+| LICENSED_PRODUCT_VERSION  | VARCHAR(8 )  | MAJOR.MINOR 형식의 버전                   |
+| LICENSED_MAC_ADDRESS      | VARCHAR(32 ) | 허용된 맥주소                             |
+| LICENSED_HOST_NAME        | VARCHAR(32 ) | 허용된 호스트이름                         |
+| LICENSED_MEM_MAX_DB_SIZE  | VARCHAR(32 ) | 최대 메모리DB크기                         |
+| LICENSED_DISK_MAX_DB_SIZE | VARCHAR(32 ) | 최대 디스크DB크기                         |
+| LICENSED_CORE_MAX_COUNT   | VARCHAR(16 ) | 허용된 코어갯수                           |
+| CHECKED_MAC_ADDRESS       | VARCHAR(128) | 기동시 현재 시스템의 맥주소(들)           |
+| CHECKED_HOST_NAME         | VARCHAR(128) | 기동시 현재 시스템의 호스트이름           |
+| CHECKED_MEM_MAX_DB_SIZE   | VARCHAR(32 ) | altibase인스톨시 입력한 최대 메모리DB크기 |
+| CHECKED_CORE_MAX_COUNT    | VARCHAR(16 ) | 현재 시스템의 (물리)코어 갯수             |
+
+
+
+#### 칼럼정보
+
+##### START_DATE
+
+라이선스키를 사용한 최초의 검사일자를 저장한다.
+
+##### VALID_YN
+
+라이선스키가 유효한 것인가를 표시한다. 라이선스키가 유효하지 않으면 고객지원이 안된나 사용할 수는 있다.
+
+  \* Y: 유효함.
+
+  \* N: 유효하지 않음
+
+##### LICENSE_KEY
+
+라이선스키를 저장한다. 만약 없을 경우는 -로 저장된다.
+
+##### ISSUED_DATE
+
+라이선스키를 발급받은 일자가 저장된다. 
+
+##### TYPE
+
+라이선스의 타입을 저장한다.  Standard/Enterprise/Trial 중 하나가 저장된다. 만약 없을 경우는 -로 저장된다.
+
+
+##### EXPIRE_DATE
+
+라이선스 만료일자가 저장된다. 만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_PRODUCT_VERSIO
+
+버전정보가 MAJOR.MINOR형식으로 저장된다.만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_MAC_ADDRES
+
+라이선스를 받은 하드웨어주소가 저장된다. 만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_HOST_NAME
+
+라이선스를 받은 호스트이름이 저장된다.만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_MEM_MAX_DB_SIZE
+
+라이선스를 받은 메모리DB의 최대크기가 저장된다. 단위는 바이트이다. 만약 없을 경우는 -로 저장된다.
+
+##### LICENSED_DISK_MAX_DB_SIZE
+
+ 디스크DB의 최대 크기를 저장한다. 단위는 바이트이다. 만약 없을 경우는 -로 저장된다. (현재는 사용되지는 않는다.)
+
+##### LICENSED_CORE_MAX_COUNT
+
+라이선스를 받은 사용가능한 최대코어갯수가 저장된다. 이 값보다 더 많은 코어갯수가 있는 장비에서 기동시에는 전체코어갯수들 중 라이선스를 받은 코어갯수까지만 사용된다.
+
+만약 없을 경우는 -로 저장된다.
+
+##### CHECKED_MAC_ADDRESS
+
+현재 시스템에 있는 하드웨어 주소들을 저장한다. 갯수가 댜수일때는 128바이트의 한도내에서 저장된다.
+
+##### CHECKED_HOST_NAME
+
+현재 시스템의 호스트 이름이 저장된다.
+
+##### CHECKED_MEM_MAX_DB_SIZE
+
+인스톨시 인스톨러에서 입력한 MEM_MAX_DB_SIZE 프로퍼티값이다. 단위는 바이트이다.
+
+만약, 인스톨 이후에 곧바로 기동하지 않고 MEM_MAX_DB_SIZE프로퍼티를 변경한 후에 DB를 기동했다면 변경된 프로퍼티 값으로 저장된다.
+
+##### CHECKED_MAX_CORE_COUNT
+
+현재 시스템에 있는 코어갯수를 저장한다.
+
+
+
+#### 예제
+
+오용을 방지하기 위하여 일부정보는 *표로 처리하였다.
+
+```
+
+iSQL> select * from system_.sys_license_;
+START_DATE VALID_YN
+\-------------------------------
+LICENSE_KEY
+\------------------------------------------------------------------------------------------------------------------------------------
+ISSUED_DATE TYPE EXPIRE_DATE
+\--------------------------------------------------------------------------
+LICENSED_PRODUCT_VERSION LICENSED_MAC_ADDRESS
+\---------------------------------------------------------------
+LICENSED_HOST_NAME LICENSED_MEM_MAX_DB_SIZE
+\-----------------------------------------------------------------------
+LICENSED_DISK_MAX_DB_SIZE LICENSED_CORE_MAX_COUNT
+\--------------------------------------------------------------
+CHECKED_MAC_ADDRESS
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_HOST_NAME
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_MEM_MAX_DB_SIZE CHECKED_MAX_CORE_COUNT
+\-------------------------------------------------------------
+2020-5-18 Y
+74BCF6CD6DE71B2341B79E4A05E327765E59C2529673CBD52CFAE779753E33A9E4FB7A746291420F3D775D0F0664B1EA6243CC*
+2020-5-18 STANDARDEDITION 2020-10-10
+7.1 -
+bdw-ex-altibase 107374182400
+107374182400 192
+[A0:36:9F:18:DA:*][02:42:FE:4F:1A:*][52:54:00:64:F0:*][A0:36:9F:18:DA:*]
+bdw-ex-altibase
+10737418240 96
+1 row selected.
+```
+
+
+
 ### <a name="vtable"><a/>V\$TABLE
 
 성능 뷰 리스트를 보여준다.
@@ -5008,6 +5226,11 @@ alter system set rp_conflict_msglog_flag=4
 | RESOURCE_GROUP_ID            | INTEGER     | 로그 파일 그룹(LFG)의 식별자 |
 | LEGACY_TRANS_COUNT           | INTEGER     | 내부 용도                    |
 | ISOLATION_LEVEL              | INTEGER     | 아래 참조                    |
+| PROCESSED_UNDO_TIME          | INTEGER     | 아래 참조                    |
+| ESTIMATED_TOTAL_UNDO_TIME    | INTEGER     | 아래 참조                    |
+| TOTAL_LOG_COUNT              | BIGINT      | 아래 참조                    |
+| TOTAL_UNDO_LOG_COUNT         | BIGINT      | 아래 참조                    |
+| PROCESSED_UNDO_LOG_COUNT     | BIGINT      | 아래 참조                    |
 
 #### 칼럼 정보
 
@@ -5159,6 +5382,26 @@ SCN을 가진다. 이 항목은 현재 해당 트랜잭션에서 메모리 테�
 
 -   2: SERIALIZABLE
 
+##### PROCESSED_UNDO_TIME
+
+해당 트랜잭션의 UNDO 시작 시점부터 현재까지 UNDO 진행된 시간 ( 단위: 초 )
+
+##### ESTIMATED_TOTAL_UNDO_TIME
+
+해당 트랜잭션의 UNDO완료 될 때까지 추정되는 총 소요 시간 ( 단위: 초 )
+
+##### TOTAL_LOG_COUNT
+
+해당 트랜잭션의 총 로그 개수
+
+##### TOTAL_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 앞으로 UNDO 해야 할 총 로그 개수 
+
+##### PROCESSED_UNDO_LOG_COUNT
+
+해당 트랜잭션에서 현재까지 언두 완료된 로그 개수 
+
 ### <a name="vtransaction_mgr"><a/>V\$TRANSACTION_MGR
 
 Altibase 트랜잭션 관리자의 정보를 보여준다.
@@ -5169,35 +5412,30 @@ Altibase 트랜잭션 관리자의 정보를 보여준다.
 | FREE_LIST_COUNT      | INTEGER     | 프리 리스트 개수                    |
 | BEGIN_ENABLE         | BIGINT      | 새로운 트랜잭션 시작 가능 여부      |
 | ACTIVE_COUNT         | INTEGER     | 작업중인 트랜잭션의 개수            |
-| SYS_MIN_DISK_VIEWSCN | VARCHAR(29) | 트랜잭션 중 가장 작은 디스크 뷰 SCN |
+| SYS_MIN_DISK_VIEWSCN | VARCHAR(29) | 트랜잭션 중 가장 작은 디스크 뷰 SCN (샤딩환경에서 추가의미는 아래에서 설명) |
 
 #### 칼럼 정보
 
 ##### TOTAL_COUNT
-
 Altibase는 시스템 시작시에 프로퍼티에 지정된 개수의 트랜잭션 객체들을 트랜잭션
 풀에 미리 생성해 두고 이것을 사용한다. 이 값은 현재 Altibase에서 생성한 트랜잭션
 객체의 총 개수를 나타낸다.
 
 ##### FREE_LIST_COUNT
-
 트랜잭션 풀을 분할 관리하는 리스트의 개수를 나타낸다.
 
 ##### BEGIN_ENABLE
-
 새로운 트랜잭션을 시작할 수 있는지를 나타낸다.
-
 -   0: disabled
-
 -   1: enabled
 
 ##### ACTIVE_COUNT
-
 현재 할당되어 작업을 수행중인 트랜잭션 객체의 개수를 나타낸다.
 
 ##### SYS_MIN_DISK_VIEWSCN
-
-트랜잭션 중에서 가장 작은 디스크 뷰 SCN이다.
+- stand-alone 환경 : 트랜잭션 중에서 가장 작은 디스크 뷰 SCN, 즉, min(TXs.MinDskViewSCN)
+- sharding 환경 : VERSIONING_MIN_TIME != 0 이면, min(TXs.MinMemViewSCN, sTimeSCN (주1))
+  - min(TXs.MinDskViewSCN , sTimeSCN (주1))
 
 ### <a name="vtssegs"><a/>V\$TSSEGS
 

@@ -276,15 +276,21 @@ jdbcAdapter를 설치하고 실행하기 위해서는 다음의 시스템 요구
 
 #### 운영체제
 
-현재 아래의 운영체제에서만 jdbcAdapter를 지원한다.
+현재 아래의 운영체제에서 jdbcAdapter를 지원한다.
 
--   LINUX : x86-64bit
+-   LINUX
+-   AIX 
+-   HP-UX
+-   WINDOWS
 
 #### 데이터베이스 버전
 
 -   Altibase : 버전 6.3.1 이상 버전 지원
-
--   OTHER DB : JDBC 4.1 이하 버전의 데이터베이스 지원
+-   OTHER DB : JDBC v3.0 이상을 지원 하는 데이터베이스 중 Altibase와 동일한 DML 구문을 사용하는 데이터 베이스
+-   OTHER DB로 사용 가능한것이 확인된 데이터 베이스
+    -   Altibase
+    -   Oracle
+    -   MariaDB
 
 #### 데이터베이스 문자집합
 

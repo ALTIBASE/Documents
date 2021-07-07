@@ -105,7 +105,7 @@ Altibase Administration General Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -134,6 +134,37 @@ This view displays statistical information about the BCB latch of the buffer poo
 | WRITE_SUCCESS_IMME | BIGINT  | The number of immediate successes to obtain write latches |
 | WRITE_MISS         | BIGINT  | The number of failures to obtain write latches            |
 | SLEEPS_CNT         | BIGINT  | The number of sleeps related to latch attempts            |
+
+### V\$LIBRARY
+
+This view provides informaiton of dynamically loaded library in C/C++ internal procedure. The user can check whether the desired library is properly loaded with the library information.
+
+| Column name        | Type        | Description                                        |
+|--------------------|-------------|----------------------------------------------------|
+| FILE_SPEC          | CHAR(4000)  | The path to dynamic library files                         |
+| REFERENCE_COUNT    | INTEGER     | The number of internal procedures referencing dynba |
+| FILE_SIZE          | INTEGER     | The file size of dynamic library (bytes)                  |
+| CREATE_TIME        | VARCHAR(48) | The time the dynamic library was created                        |
+| OPEN_TIME          | VARCHAR(48) | The time the dynamic library was loaded                        |
+
+#### Column Information
+
+##### FILE_SPEC
+
+This indicates the path of the dynamic library file pointed to by the library object. It is displayed as a relative path to the default path ($ALTIBASE_HOME/lib) where the library files are located.
+
+##### REFERENCE_COUNT
+
+This indicates the number of internal stored procedures or stored functions referencing a dynamic library.
+
+##### FILE_SIZE
+This indicates the size of a dynamic library file. (Unit: bytes)
+
+##### CREATE_TIME
+This indicates the date and time when the dynamic library was created. Receive and save from file information.
+
+##### OPEN_TIME
+This indicates the date and time when dynamic library was loaded.
 
 ### V\$LFG
 
@@ -181,7 +212,7 @@ This is the number of log files on disk that are open for use by Altibase.
 
 ##### LF_PREPARE_COUNT
 
-This is the number of log files that have been created in advance (prepared) by the log file creation thread up to the present moment
+This is the number of log files that have been created in advance (prepared) by the log file creation thread up to the present moment.
 
 ##### LF_PREPARE_WAIT_COUNT
 
@@ -471,7 +502,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Replication_Control                    | The memory that is used by the Replication Manager           |
 | Replication_Data                       | The memory that is used for processing XLOGs                 |
 | Replication_Executor                   | Not currently used                                           |
-| Replication_Met                        | 메타 캐시에 의해 사용되는 메모리                             |
+| Replication_Met                        | The memory used by meta cache                             |
 | Replication_Module_Property            | Not currently used                                           |
 | Replication_Network                    | The memory that is used for communication for replication    |
 | Replication_Receiver                   | The memory that is used by the replication Receiver          |
@@ -529,7 +560,7 @@ This indicates the memory usage of the module.
 
 ##### ALLOC_COUNT	
 
-This is the number of unit memories that make up ALLOC_SIZE in the module
+This is the number of unit memories that make up ALLOC_SIZE in the module.
 
 ##### MAX_TOTAL_SIZE
 
@@ -703,8 +734,7 @@ This is the number of node allocation requests that have been made to the node p
 
 ##### TOTAL_FREE_REQ
 
-인덱스에서 사용되었던 노드가 삭제되어 노드 풀에 반환 요청된 횟수를 나타낸다.
-시스템이 시작된 후부터 누적된 값을 유지한다.
+This is the number of times the node that was used in the index was deleted and returned to the node pool. This is the accumulated value that is maintained after the system is started.
 
 ##### FREE_REQ_COUNT
 
@@ -797,7 +827,7 @@ This is the number of nodes that have not been allocated to RTREE indexes and th
 
 ##### USED_NODE_COUNT
 
-This is the total number of nodes that are currently allocated to RTREE indexes
+This is the total number of nodes that are currently allocated to RTREE indexes.
 
 ##### NODE_SIZE
 
@@ -994,7 +1024,7 @@ This view shows NLS (National Language Support)-related information for both the
 
 ##### SESSION_ID
 
-This is the unique number of the session
+This is the unique number of the session.
 
 ##### NLS_USE
 
@@ -1046,7 +1076,7 @@ This view stores the names of territories available to be set for the database o
 
 This view displays information about backups which are no longer required to be retained.
 
-Since columns of this view are part of the V\$BACKUP_INFO performance view, please refer to column information about the V$BACKUP_INFO performance view for further information.
+Since columns of this view are part of the V\$BACKUP_INFO performance view, please refer to column information about the V$BACKUP_INFO performance view for more information.
 
 | Column name                    | Type      | Description                     |
 | ------------------------------ | --------- | ------------------------------- |
@@ -1123,6 +1153,46 @@ This view displays information about stored procedures being used by the system.
 | PROC_OID    | BIGINT      | The object identifier of a stored procedure         |
 | PIECE       | INTEGER     | The serial number for the stored procedure fragment |
 | TEXT        | VARCHAR(64) | A fragment of the stored procedure text             |
+
+#### Column Information
+
+##### PROC_OID
+
+The identifier of a stored procedure or stored function, which is the same as a PROC_OID value in the SYS_PROCEDURES_ meta table.
+
+##### MODIFY_COUNT
+
+Incremented by 1 each time a stored procedure or function is recreated or recompiled. The initial value is 0.
+
+##### STATUS
+
+The value indicating whether a stored procedure or function can be executed. VALID indicates that it is executable. Refer to the description of the STATUS column in the SYS_PROCEDURES_ meta table.
+
+##### SESSION_ID
+
+The ID of the session that changed the status of the stored procedure or funciton to INVALID. If the status has never changed, this value is 0 or -1.
+
+##### PROC_TYPE
+
+The type of stored procedure. The possible values are:
+
+- NORMAL : Normal procedure
+
+- EXTERNAL C : C/C++ External Procedure
+
+- INTERNAL C : C/C++ Internal Procedure
+
+- UNKNOWN : If the compilation of the stored procedure fails when starting the server, the internal procedure type is not known, so it is marked UNKNOWN. Subsequently, when compiled and in VALID status, the correct type is set.
+
+### V\$PROCINFO
+
+| Column name  | Type        | Description                      |
+|--------------|-------------|----------------------------------|
+| PROC_OID     | BIGINT      | The object identifier of the stored procedure        |
+| MODIFY_COUNT | INTEGER     | The number of times a stored procedure was recreated or recompiled |
+| STATUS       | VARCHAR(7)  | The status of the object. If INVALID, it is not executable |
+| SESSION_ID   | INTEGER     | The ID of the session that changed the STATUS of the stored procedure |
+| PROC_TYPE    | VARCHAR(10) | The type of stored procedure |
 
 #### Column Information
 
@@ -1978,7 +2048,7 @@ This is the number of log records that have been read and sent by the Sender thr
 
 This indicates the replication mode set by the user. The type of replicaiton mode is LAZY or EAGER.
 
-For more detailed information about the replication mode, please refer to the *Replication Manual.*
+For more detailed information about the replication mode, please refer to the *Replication Manual*.
 
 ##### ACT_REPL_MODE
 
@@ -2093,7 +2163,7 @@ This is the identifier of one of several replication Senders working in parallel
 
 This performance view displays the number of logs sent by the replication Sender, sorted by the DML type. Whenever the number of replication logs specified for the REPLICATION_SENDER_LOG_COUNT_PERIOD property is sent, the data of this performance view is updated. 
 
-For parallel replication in EAGER mode, only the information about the Parent Sender is displayed in this performance view; information about each Sender thread is displayed in the V$REPSENDER_SENT_LOG_COUNT_PARALLEL performance view
+For parallel replication in EAGER mode, only the information about the Parent Sender is displayed in this performance view; information about each Sender thread is displayed in the V$REPSENDER_SENT_LOG_COUNT_PARALLEL performance view.
 
 | Column name      | Type        | Description                                        |
 | ---------------- | ----------- | -------------------------------------------------- |
@@ -2408,7 +2478,7 @@ This is the cumulative amount of time spent on reading one page from secondary b
 
 ##### SINGLE_PAGE_WRITE_USEC
 
-하나의 페이지를 보조 버퍼에 쓰는데 소요된 누적 시간이다. (단위: micro-seconds)
+This is the cumulative time spent writing one page to the auxiliary buffer. (Unit: micro-seconds)
 
 ##### MPR_READ_USEC
 
@@ -2937,9 +3007,9 @@ This indicates the value set for the QUERY_REWRITE_ENABLE property in the sessio
 
 This indicates the execution level of global transactions set for the DBLINK_GLOBAL_TRANSACTION_LEVEL property in the session. For further information about the DBLINK_GLOBAL_TRANSACTION_LEVEL property, please refer to Chapter 2.
 
--   0: remote statement execution level
+-   0: Remote statement execution level
 
--   1: simple transaction commit level
+-   1: Simple transaction commit level
 
 -   2: Two-Phase Commit
 
@@ -4171,7 +4241,7 @@ This is the name of the statistic, which is shown in one of the above performanc
 
 ###  V\$SYSSTAT
 
-This view shows the status of the system. It should be noted that the shown value may be out of date, because the status values are updated every 3 seconds based on the data for all sessions
+This view shows the status of the system. It should be noted that the shown value may be out of date, because the status values are updated every 3 seconds based on the data for all sessions.
 
 | Column name | Type         | Description                                |
 | ----------- | ------------ | ------------------------------------------ |
@@ -4333,6 +4403,143 @@ from
      where WAIT_CLASS != 'Idle')
 order by 5 desc;
 ```
+### V\$SYS_LICENSE_
+
+This is a meta table that records license-related information.
+
+| Column name               | Type         | Description                               |
+| :------------------------ | :----------- | :---------------------------------------- |
+| START_DATE                | VARCHAR(16 ) | The first inspection date using the license key  |
+| VALID_YN                  | VARCHAR(2 )  | The valid license                      |
+| LICENSE_KEY               | VARCHAR(128) | The corresponding license key                          |
+| ISSUED_DATE               | VARCHAR(16 ) | The date of license key issuance                       |
+| TYPE                      | VARCHAR(32 ) | Standard/Enterprise/Trial                 |
+| EXPIRE_DATE               | VARCHAR(16 ) | The expire date                                  |
+| LICENSED_PRODUCT_VERSION  | VARCHAR(8 )  | Major/Minor version                   |
+| LICENSED_MAC_ADDRESS      | VARCHAR(32 ) | Allowed MAC-address                             |
+| LICENSED_HOST_NAME        | VARCHAR(32 ) | Allowed hostname                       |
+| LICENSED_MEM_MAX_DB_SIZE  | VARCHAR(32 ) | The maximum memory DB size                         |
+| LICENSED_DISK_MAX_DB_SIZE | VARCHAR(32 ) | The maximum disk DB size                         |
+| LICENSED_CORE_MAX_COUNT   | VARCHAR(16 ) | The number of cores allowed                           |
+| CHECKED_MAC_ADDRESS       | VARCHAR(128) | MAC-address of the current system at startup           |
+| CHECKED_HOST_NAME         | VARCHAR(128) | The host name of the current system at startup          |
+| CHECKED_MEM_MAX_DB_SIZE   | VARCHAR(32 ) | The maximum memory DB size entered when installing altibase |
+| CHECKED_CORE_MAX_COUNT    | VARCHAR(16 ) | The number of (physical) cores in the current system             |
+
+
+
+#### Column Information
+
+##### START_DATE
+
+This stores the first inspection date using the license key.
+
+##### VALID_YN
+
+This indicates whether the license key is valid. If the license key is not valid, customer support may be available.
+
+  \* Y: Valid
+
+  \* N: Invalide
+
+##### LICENSE_KEY
+
+This saves the license key. If not, it is stored as -.
+
+##### ISSUED_DATE
+
+This indicates the date the license key was issued is stored.
+
+##### TYPE
+
+This stores the type of license. Standard, Enterprise, or Trial is stored. If not, it is stored as -.
+
+##### EXPIRE_DATE
+
+This stores the license expiration date. If not, it is stored as -.
+
+##### LICENSED_PRODUCT_VERSIO
+
+This stores the licensed product version in the form of MAJOR or MINOR. If not it is stored as -.
+
+##### LICENSED_MAC_ADDRES
+
+This stores the licensed hardware address. If not, it is stored as -.
+
+##### LICENSED_HOST_NAME
+
+This stores the licensed hostname. If not, it is stored as -.
+
+##### LICENSED_MEM_MAX_DB_SIZE
+
+This stores the maximum size of the licensed memory DB. The unit is bytes. If not, it is stored as -.
+
+##### LICENSED_DISK_MAX_DB_SIZE
+
+This stores the maximum size of the disk DB. The unit is bytes. If not, it is stored as -. (Not currently used)
+
+##### LICENSED_CORE_MAX_COUNT
+
+This stores the maximum number of available cores licensed. On a machine with more cores than this value, only the number of licensed cores among the total cores is used at startup.
+
+If not, it is stored as -.
+
+##### CHECKED_MAC_ADDRESS
+
+This stores the hardware addresses currently in the system. When the nubmer is large, it is stored within the limit of 128 bytes.
+
+##### CHECKED_HOST_NAME
+
+This stores the host name of the current system.
+
+##### CHECKED_MEM_MAX_DB_SIZE
+
+This is the value of the MEM_MAX_DB_SIZE property entered by the installer when installing. The unit is bytes.
+
+If the DB is started after changing the MEM_MAX_DB_SIZE property without starting immediately after the installation, it is saved as the changed property value.
+
+##### CHECKED_MAX_CORE_COUNT
+
+This stores the number of cores currently in the system.
+
+
+#### Example
+
+In order to prevent misuse, some information is processed with *.
+
+```
+
+iSQL> select * from system_.sys_license_;
+START_DATE VALID_YN
+\-------------------------------
+LICENSE_KEY
+\------------------------------------------------------------------------------------------------------------------------------------
+ISSUED_DATE TYPE EXPIRE_DATE
+\--------------------------------------------------------------------------
+LICENSED_PRODUCT_VERSION LICENSED_MAC_ADDRESS
+\---------------------------------------------------------------
+LICENSED_HOST_NAME LICENSED_MEM_MAX_DB_SIZE
+\-----------------------------------------------------------------------
+LICENSED_DISK_MAX_DB_SIZE LICENSED_CORE_MAX_COUNT
+\--------------------------------------------------------------
+CHECKED_MAC_ADDRESS
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_HOST_NAME
+\------------------------------------------------------------------------------------------------------------------------------------
+CHECKED_MEM_MAX_DB_SIZE CHECKED_MAX_CORE_COUNT
+\-------------------------------------------------------------
+2020-5-18 Y
+74BCF6CD6DE71B2341B79E4A05E327765E59C2529673CBD52CFAE779753E33A9E4FB7A746291420F3D775D0F0664B1EA6243CC*
+2020-5-18 STANDARDEDITION 2020-10-10
+7.1 -
+bdw-ex-altibase 107374182400
+107374182400 192
+[A0:36:9F:18:DA:*][02:42:FE:4F:1A:*][52:54:00:64:F0:*][A0:36:9F:18:DA:*]
+bdw-ex-altibase
+10737418240 96
+1 row selected.
+```
+
 
 ### V\$TABLE
 
@@ -4675,7 +4882,7 @@ This view displays information about transaction objects.
 
 ##### ID
 
-This is a number for classifying the transaction, ranging from 0 to 2^32 – 1. These values can be reused
+This is a number for classifying the transaction, ranging from 0 to 2^32 – 1. These values can be reused.
 
 ##### SESSION_ID
 
@@ -4691,7 +4898,7 @@ This is the SCN of the oldest of the currently open disk LOB cursors for the pre
 
 ##### DISK_VIEW_SCN
 
-This is the lowest of the View SCN values for cursors that are currently open for disk tables for the present transaction. The range of values is the same as for MEMORY_VIEW_SCN
+This is the lowest of the View SCN values for cursors that are currently open for disk tables for the present transaction. The range of values is the same as for MEMORY_VIEW_SCN.
 
 ##### MIN_DISK_LOB_VIEW_SCN
 

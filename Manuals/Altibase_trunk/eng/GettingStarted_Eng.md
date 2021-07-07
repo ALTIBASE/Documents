@@ -52,7 +52,7 @@ Altibase Administration Getting Started Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
 prohibited. All trademarks, registered or otherwise, are the property of their respective owners. 
@@ -201,7 +201,7 @@ Please refer to the following documents for more detailed information:
 
 -   JDBC User's Manual
 
--   SQL User's Manual
+-   iSQL User's Manual
 
 #### Altibase Welcomes Your Comments and Feedback
 
@@ -233,7 +233,7 @@ This chapter contains the following sections:
 
 #### Download the Package Installer.
 
-Visit Altibase Customer Service Portal (http://support.altibase.com/en) and download the installer that is suitable for your operation system.
+Visit Altibase Customer Service Portal (http://support.altibase.com/en/) and download the installer that is suitable for your operation system.
 
 For more detailed information on the package installer files, please refer to Chapter 2 "Installing Products with the Altibase Package Installer" in the Installation Guide.
 
@@ -634,7 +634,7 @@ More detailed information on this can be found in the *C/C++ External Procedures
 
 The dynamic library file containing user-fined containing user-defined C/C++ functions to be used with external procedures must be identifiable by the Altibase server. For this purpose, Altibase provides the library object which is a database object that corresponds to the dynamic library file on a one-to-one basis.
 
-More detailed information on this can be found in the C/C++ External Procedures Manual.
+More detailed information on this can be found in the *C/C++ External Procedures Manual*.
 
 #### Non-schema Objects
 
@@ -740,9 +740,9 @@ Multilingual support means that the DBMS is capable of storing and processing ch
   A character set is a particular group of characters that are associated with respective numeric values. The following table shows how an individual character is associated with a different numeric value depending on whether it is encoded using the UTF-8, UTF-16 BE or UTF-16 LE character set.
   
   | Character | UTF-8 | UTF-16 BE | UTF-16 LE |
-  | --------- | ----- | --------- | --------- |
-| A         | 41    | 00 41     | 41 00     |
-  | Ő         | C3 B6 | 00 F6     | F6 00     |
+  | ---- | ----- | --------- | --------- |
+  | A    | 41    | 00 41     | 41 00     |
+  | Ő    | C3 B6 | 00 F6     | F6 00     |
   
 -   NLS(National Language Support)  
     This allows the database to be used in a particular language environment. If NLS is appropriately set, the user can read and write data to and from the database using the character set specified by the user's application.
@@ -1309,7 +1309,7 @@ However, DDL statements that are not allowed in replication should be used after
 
 
 
-7. Fail-Over
+## 7. Fail-Over
 ---------
 
 Altibase provides a Fail-Over function to overcome failures and provide service regardless of failures while operating the database system. This chapter describes the functions and usage of Fail-Over supported by Altibase.
@@ -1865,7 +1865,7 @@ BIGINT - END TIME :  [16:43:49]
 
 ### Applications Using JDBC
 
-The following describes how to create a client application that uses the JDBC driver of Altibase. For more information about the JDBC driver of Altibase, please refer to   the Altibase JDBC User's Manual.
+The following describes how to create a client application that uses the JDBC driver of Altibase. For more information about the JDBC driver of Altibase, please refer to the Altibase JDBC User's Manual.
 
 #### JDBC Driver
 
@@ -1892,7 +1892,7 @@ jdbc:Altibase://hostname:portnum/databasename
 2. Usually, the URL is provided and an attempt to connect to the URL is made as follows: (if the id for logging into the databas is "SYS" and the password is "MANAGER")
   
      ```
- String url = "jdbc:Altibase://127.0.0.1:20300/mydb";
+      String url = "jdbc:Altibase://127.0.0.1:20300/mydb";
       Connection con = DriverManager.getConnection(url, “SYS”, “MANAGER”);
      ```
 
