@@ -240,7 +240,7 @@ This chapter describes how to install SQuirreL SQL Client.
 1. Download the SQuirreL SQL Client that can be installed on the system from the link below.  
    [http://squirrel-sql.sourceforge.net/#installation](http://squirrel-sql.sourceforge.net/#installation )
 
-2. Double click on the downloaded "squirrel_sql-3.7.1-standard.jar" to start installation.
+2. Double click on the downloaded "squirrel_sql-3.7.1-standard.jar" to start the installation.
 
 
 
