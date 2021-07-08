@@ -1462,7 +1462,7 @@ int  altibase_next_result (
 
 #### Description
 
-This function is used when you execute multiple statements and then read the next statement result set. Before each call to altibase_next_result(), the user must call altibase_free_result() for the current statement if it is a statement that returned a result set. 
+This function is used when executing multiple statements and then reading the next statement result set. Before each call to altibase_next_result(), the user must call altibase_free_result() for the current statement if it is a statement that returned a result set. 
 
 After calling altibase_next_result(), the state of the connection is as if you had called altibase_query() for the next statement. This means that you can call altibase_store_result() and altibase_affected_rows().
 
