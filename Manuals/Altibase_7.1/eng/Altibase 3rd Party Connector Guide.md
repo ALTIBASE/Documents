@@ -157,7 +157,7 @@ This is the list of the software and system requirements to install and run the 
 
 | Software Requirements      | SQuirreL SQL Client 3.7.1 or 3.8.0 |
 | -------------------------- | ---------------------------------- |
-| Compatible Database System | Altibase 6.5.1 or above            |
+| Compatible Database System | Altibase 6.5.1 or later            |
 
 
 
