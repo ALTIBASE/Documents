@@ -1085,11 +1085,8 @@ Altibase 프로세스가 비정상적으로 종료하는 시점의 작업 메모
 
 ##### altibase_qp.log
 
-질의 처리 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
-
-##### altibase_job.log
-
-job 쓰레드에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
+질의 처리 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는
+파일들이다.
 
 ##### altibase_mm.log
 
@@ -1109,7 +1106,8 @@ SNMP에서  발생하는 경고 메시지나 트레이스 메시지 등이 기�
 
 ##### altibase_dk.log
 
-데이터베이스 링크 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
+데이터베이스 링크 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는
+파일들이다.
 
 ##### altibase_ipc.log
 
@@ -3675,25 +3673,32 @@ DROP JOB job1;
 
 #### 작업 로그 확인하기
 
-마지막으로 실행된 JOB의 프로시저 수행이 실패했다면, 그 에러 코드가 SYS_JOBS\_ 메타 테이블의 ERROR_CODE 칼럼에 저장된다.
-그리고 에러 메시지 등의 자세한 정보는 QP_MSGLOG_FILE 프로퍼티에 설정된 트레이스 로그 파일(기본: \$ALTIBASE_HOME/trc/altibase_job.log)로 저장된다.
-단, job 쓰레드에 대한 TRCLEVEL 1 이 설정되어 있는 경우에는 만 트레이스 로그가 기록되므로, 아래의 쿼리를 이용해서 TRCLEVEL 1의 FLAG를 확인하도록 한다.
+마지막으로 실행된 JOB의 프로시저 수행이 실패했다면, 그 에러 코드가 SYS_JOBS\_
+메타 테이블의 ERROR_CODE 칼럼에 저장된다. 그리고 에러 메시지 등의 자세한 정보는
+QP_MSGLOG_FILE 프로퍼티에 설정된 트레이스 로그 파일(기본:
+\$ALTIBASE_HOME/trc/altibase_qp.log)로 저장된다. 단, QP모듈에 대한 TRCLEVEL 2가
+설정되어 있는 경우에만 트레이스 로그가 기록되므로, 아래의 쿼리를 이용해서
+TRCLEVEL 2의 FLAG를 확인하도록 한다.
 
 ```
-iSQL> SELECT * from V$TRACELOG WHERE MODULE_NAME='JOB' AND DESCRIPTION != '---';
-MODULE_NAME       TRCLEVEL    FLAG      POWLEVEL             DESCRIPTION
--------------------------------------------------------------------------------------------------------------------------------------
-JOB               1           O         1                    JOB Trace Log
-JOB               99          SUM       1                    Total Sum of Trace Log Values
+iSQL> SELECT * from V$TRACELOG 
+WHERE MODULE_NAME='QP' AND DESCRIPTION!='---';
+MODULE_NAME  TRCLEVEL    FLAG      POWLEVEL             DESCRIPTION
+----------------------------------------------------------------------------------
+QP        1           X         1                    PSM Error Line Trace Log
+QP        2           O         2                    DDL Trace Log
+QP        99          SUM       2                    Total Sum of Trace Log Values
 ```
 
-만약, TRCLEVEL 2의 FLAG가 ‘X’이면, 아래의 구문으로 트레이스 로깅 레벨을 변경할 수 있다.
+만약, TRCLEVEL 2의 FLAG가 ‘X’이면, 아래의 구문으로 트레이스 로깅 레벨을 변경할
+수 있다.
 
 ```
-ALTER SYSTEM SET job_msglog_flag = <기존값 + 2>;
+ALTER SYSTEM SET qp_msglog_flag = <기존값 + 2>;
 ```
 
-기존 값은 TRCLEVEL 칼럼 값이 99인 레코드의 POWLEVEL 칼럼 값을 조회해서 확인할 수 있다.
+기존 값은 TRCLEVEL 칼럼 값이 99인 레코드의 POWLEVEL 칼럼 값을 조회해서 확인할 수
+있다.
 
 #### 관련 프로퍼티 및 메타 테이블
 
