@@ -71,7 +71,7 @@ Altibase Application Development Stored Procedures Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1797,7 +1797,7 @@ If an invalid parameter is passed to a file control-related system stored proced
 
 #### FCLOSE 
 
-This stored procedure closes and reinitializes a file handle
+This stored procedure closes and reinitializes a file handle.
 
 ##### Syntax
 
@@ -5198,7 +5198,7 @@ ORDER BY table_name;
 
 #### GET_DEPENDENT_DDL
 
-This returns DDL statement for objects that depend on the specified object
+This returns DDL statement for objects that depend on the specified object.
 
 ##### Syntax
 
@@ -5320,7 +5320,7 @@ DBMS_METADATA.SET_TRANSFORM_PARAM (
 | ------------------------------ | ------------------ | ------------------------------------------------------------ | ------- |
 | 모든 객체                      | SQLTERMINATOR      | Specifies whether to append an SQL terminator to the DDL statement. <br /> T: appends an SQL terminator <br/> F: does not append an SQL terminator | F       |
 | TABLE<br/>INDEX<br/>CONSTRAINT | SEGMENT_ATTRIBUTES | Specifies whether segment attributes (physical attributes, storage clause, tablespace, logging) are included. <br /> T: With <br/> F: Without | T       |
-|                                | STORAGE            | storage clause 포함 여부를 지정한다.<br />T: 포함<br/>F: 미포함 | T       |
+|                                | STORAGE            | pecifies whether or not to include.<br />T: With<br/>F: Without | T       |
 |                                | TABLESPACE         | Specifies whether the storage clause is included. <br /> T: With <br/> F: Without | T       |
 | TABLE                          | CONSTRAINTS        | Specifies whether to include constraint (primary key, unique, check) except foreign key. <br/> T: With <br/> F: Without | T       |
 |                                | REF_CONSTRAINTS    | Specifies whether or not to include a foreign key. <br/> T: With <br/> F: Without |         |
@@ -7088,7 +7088,7 @@ Refer to File Control in Altibase Stored Procedures manual for in-depth informat
 
 #### FCLOSE
 
-The FCLOSE is a procedure providing a function of closing and re-initializing the file handle which is open
+The FCLOSE is a procedure providing a function of closing and re-initializing the file handle which is opened.
 
 ##### Syntax
 
@@ -7420,7 +7420,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception	
 
-There is no exception
+There is no exception.
 
 #### PUT
 
@@ -7480,7 +7480,7 @@ UTL_FILE.PUT_LINE(
 
 ##### Return Value
 
-No return value exists since it is a stored procedure.
+Because it is a stored procedure, there is no return value.
 
 ##### Exceptions
 
@@ -7618,7 +7618,7 @@ The entered RAW type of data is returned as INTEGER type.
 
 ##### Exception
 
-예외를 발생시키지 않는다.
+There is no exception.
 
 ##### Example
 
@@ -7875,7 +7875,7 @@ The specified length from the beginning point of input data of RAW data is retur
 
 ##### Exception
 
-There is no exception
+There is no exception.
 
 ##### Example
 
@@ -8393,7 +8393,7 @@ Execute success.
 
 #### Example 4
 
-Create a stored procedure called *showProcBody*, which outputs the contents of a desired stored procedure
+Create a stored procedure called *showProcBody*, which outputs the contents of a desired stored procedure.
 
 ```
 create or replace procedure showProcBody(p1 in varchar(40)) 

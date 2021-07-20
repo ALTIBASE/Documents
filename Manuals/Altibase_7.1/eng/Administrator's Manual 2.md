@@ -1122,7 +1122,7 @@ The checkpoint message for each step is written to $ALTIBASE_HOME/trc/altibase_s
 
 | Checkpoint Message                                    | Description                                                  |
 | ----------------------------------------------------- | ------------------------------------------------------------ |
-| [CHECKPOINT-BEGIN]                                    | Checkpointing starts                                         |
+| [CHECKPOINT-BEGIN]                                    | Checkpointing begins                                         |
 |                                                       | Flushes dirty pages in database buffer Tablespace log anchor synchronization |
 | [CHECKPOINT-step2] Write BeginChkpt Log [0,1036171]   | Writes Checkpoint Begin Log                                  |
 | [CHECKPOINT-step3] Flush Dirty Page(s)                | Flushes dirty pages in memory DB                             |
@@ -1896,7 +1896,7 @@ Offline backup and recovery are generally used when the database was created in 
 
 ##### Cautions When Performing Offline Backup
 
-Before performing the offline backup, stop all services related to Altibase
+Before performing the offline backup, stop all services related to Altibase.
 
 If an offline backup is performed while the database is running, the contents of log files will change during the backup, and thus the backup will not be performed correctly. Therefore, be sure that the Altibase server is stopped before performing an offline backup.
 
@@ -2856,7 +2856,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 
 #### Recovery Steps with Incremental Backups
 
-This section outlines the steps of database recovery with incremental backups. First, this section will describe how to restore the changeTracking file and the backupInfo file, and then explains how to perform a database recovery will be explained. 
+This section outlines the steps of database recovery with incremental backups. First, this section will describe how to restore the changeTracking file and the backupInfo file, and then explains how to perform a database recovery will be explained.
 
 If a media failure occurs and the changeTracking file or the backupInfo file in the $ALTIBASE_HOME/dbs directory is lost, the server cannot be started in the CONTROL phase. In this case, the server must be started in the PROCESS phase and the following operations must be executed on the changeTracking file and the backupInfo file.
 

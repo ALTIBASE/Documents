@@ -51,7 +51,7 @@ Altibase Tools & Utilities Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1209,9 +1209,8 @@ script_file_name: File name including the path of the environment file
 
 This function compares the contents of the Master and Slave Databases with each execution log file and table, and creates an execution result file that includes the contents of inconsistent columns of inconsistent records.
 
-For example,
 
-For example, if you run the following altiComp command successfully, /user/charlie/altibase_home/altiComp> altiComp sample.cfg a “mastertable-username.slavetable.log” file is created for each table in the altiComp directory, alongside sample.log. 
+For example, if the following altiComp command is running successfully, /user/charlie/altibase_home/altiComp> altiComp sample.cfg a “mastertable-username.slavetable.log” file is created for each table in the altiComp directory, alongside sample.log. 
 
 ##### Execution Log File
 
@@ -1887,7 +1886,7 @@ The following restrictions should be considered when selecting comparison target
 
 ### Comparison (DIFF) Function
 
-The comparison(DIFF) function identifies inconsistent records that might be occurred during the replication execution between Master DB and Slave DB and records them to the file, and it is an efficient ability to verify inconsistent records between the two database system.
+The comparison(DIFF) function identifies inconsistent records that might be occurred during the replication execution between Master DB and Slave DB and records them to the file, and it is an efficient ability to verify inconsistent records between the two database systems.
 
 #### Environment File
 
@@ -2738,7 +2737,7 @@ $ altimon.sh start
 
 ##### Notes
 
-altiMon requires java 1.5 version or above to operate.
+altiMon requires java 1.5 version or later to operate.
 
 The user should select the Java version equivalent to the number of bits of the PICL c library. For example, if the PICL c library is linux x64, 64bit Java should be used.
 
@@ -3183,7 +3182,7 @@ Files are output in the follwing format.
 
 ```
 
-Each item is printed as follows. 
+Each item is output as follows. 
 
 ##### [STATEMENT]
 
@@ -3269,7 +3268,7 @@ altiwarp {--iname input_file} [--oname output_file]
 
 | Parameter | Description                                                  |
 | --------- | ------------------------------------------------------------ |
-| \-h/--h   | Prints help                                                  |
+| \-h/--h   | Outputs help                                                  |
 | \--iname  | Specifies the name of the file to encrypt. On omission of the extension, .sql is assumed. |
 | \--oname  | Specifies the file name under which an encrypted code program is to be saved. On omission of the extension, it is saved as a .plb file. |
 
@@ -3802,7 +3801,7 @@ DataFileDescSlot ID           [ 1, 2 ]
 
 ddumpla outputs the contents of loganchor files, which are saved in binary form, in the form of text. 
 
- Loganchor files contain information that is necessary in order to recover physically stored information (i.e. data files).When a database is created using the CREATE DATABASE statement, Altibase creates these files and stores them with the sequential names loganchor# (where “#” = 1, 2, or 3). Altibase stores these three files, which have the same contents, in the three respective directories specified using the LOGANCHOR_DIR property in altibase.properties. The reason that three files are maintained is to be prepared in the event that some of the files become lost or corrupt. These files contain information about all of the database's tablespaces and the data files stored in them, as well as recovery-related information. When the database is started, this information is used to load the database into memory and prepare to provide service.
+Loganchor files contain information that is necessary in order to recover physically stored information (i.e. data files).When a database is created using the CREATE DATABASE statement, Altibase creates these files and stores them with the sequential names loganchor# (where “#” = 1, 2, or 3). Altibase stores these three files, which have the same contents, in the three respective directories specified using the LOGANCHOR_DIR property in altibase.properties. The reason that three files are maintained is to be prepared in the event that some of the files become lost or corrupt. These files contain information about all of the database's tablespaces and the data files stored in them, as well as recovery-related information. When the database is started, this information is used to load the database into memory and prepare to provide service.
 
 ```
 dumpla <loganchor_file_name>
@@ -4181,7 +4180,7 @@ dumptrc [-h |[-p file_path][-c [-s]]
 | --------- | ------------------------------------------------------------ |
 | \-h       | This outputs help. If the parameter is omitted or used as a duplicate with other parameter, the help would be preceding. |
 | \-p       | This parameter specify the path brining a trace log file. Basically, if the path is not specified, a log file in $ALTIBASE_HOME/trc is retrieved. |
-| \-c       | This parameter converts ALTIBASE process call stack recorded in altibase_error.log into a function name which a user can identify and return. Use -s option if you do not wish to convert the call stack address into a function name. Only the call stack is recorded if the parameter is used with -a, -i, -e, -n. |
+| \-c       | This parameter converts ALTIBASE process call stack recorded in altibase_error.log into a function name which a user can identify and return. Use -s option if the user does not wish to convert the call stack address into a function name. Only the call stack is recorded if the parameter is used with -a, -i, -e, -n. |
 | \-s       | This parameter outputs only the call stack recorded in a trace log and does not modify a function name. |
 | \-a       | This parameter sorts and outputs all the trace log files.    |
 | \-i       | This parameter outputs specific trace log files. Multiple log files can be output. However, this parameter cannot be used with -e parameter. |
@@ -4228,7 +4227,7 @@ The information of Altibase internal modules executed during Altibase terminatio
 
 If outputting a trace log file located from a different path other than $ALTIBASE_HOME/trc, the path can be modified by using -p parameter. 
 
-If experiencing abnormal termination of Altibase server, converts the process call stack into dumptrc and send it to Altibase technical service team so that the problem can be quickly solved.
+If experiencing abnormal termination of Altibase server, convert the process call stack into dumptrc and send it to Altibase technical service team so that the problem can be quickly solved.
 
 #### Precaution
 

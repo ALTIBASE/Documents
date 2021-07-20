@@ -28,7 +28,7 @@ Altibase Tools & Utilities Altibase SSL/TLS User's Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -153,7 +153,7 @@ Altibase adopts SSL/TLS using symmetric-key algorithms to encrypt/decrypt data, 
 When a network connection over SSL is initiated, Altibase and its client perform an SSL handshake as below:
 
 1.  The client and server exchange their information (e.g., SSL version, cipher setting and so on) to set up a secure connection environment. 
-2.  If server authentication is required, the server sends the client its own certificate and the client verifies server identity with it. 
+2.  If the server authentication is required, the server sends the client its own certificate and the client verifies server identity with it. 
 3.  If the server requests for the client's certificate, the client also sends the server its own certificate and the server verifies client identity with it. 
 4.  The client and server exchange key information with public key cryptography and generate a session key to encrypt/decrypt data and validate data integrity. 
 5.  The client and server communicate to each other that the future message will be encrypted with the session key and that the handshake is finished.
@@ -188,7 +188,7 @@ This section describes the requirements for using SSL communication on the serve
 -   OpenSSL toolkit 0.9.4~1.0.2 
 -   Altibase version 6.5.1 or later (only supports Intel-Linux)
 
-The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. You should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug.
+The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. The user should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug.
 
 The user can use the OPENSSL_NO_HEARTBEATS option to check whether or not it is infected. 
 
@@ -200,9 +200,9 @@ The OpenSSL toolkit has to be installed in order to use the SSL communication wi
 
 ##### JDBC
 
-It is recommended using Java Runtime Environment 1.6 (JRE1.6) or above to conveniently implement the client Java application through the SSL. JRE 1.6 or above((JRE 1.5 are also available for use) is recommended for the following reason:
+It is recommended using Java Runtime Environment 1.6 (JRE1.6) or later to conveniently implement the client Java application through the SSL. JRE 1.6 or later((JRE 1.5 are also available for use) is recommended for the following reason:
 
--   Only JRE 1.6 or above supports importing the client’s certificate into the keystore (Note that importing the certificate is not always required.).
+-   Only JRE 1.6 or later supports importing the client’s certificate into the keystore (Note that importing the certificate is not always required.).
 
 ### Configuring the Environment for SSL
 
@@ -223,14 +223,11 @@ This section discusses how to configure the environment for Altibase SSL.
 -   Step 5: Start the Server
 
 ##### Step 1: Confirm the Installation of OpenSSL and its Library
-
-SSL이 활성화된 Altibase를 설치하기 전에 OpenSSL 툴킷을 설치하는 것이 좋다. 만약
-OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면,Altibase는 OpenSSL
-라이브러리를 찾을 수 없다는 경고 메세지가 나타난다. It is recommnded to install the OpenSSl toolkit before installing SSL-enabled Altibase. Otherwise, if an Altibase function is used and OpenSSL is not installed, Altibase reports that it is unable to find the OpenSSL library.
+It is recommnded to install the OpenSSl toolkit before installing SSL-enabled Altibase. Otherwise, if an Altibase function is used and OpenSSL is not installed, Altibase reports that it is unable to find the OpenSSL library.
 
 Verify that OpenSSL is installed on the server and that it is not infected with the Heartbleed bug. If necessary, install it with the package manager provided by the operating system (e.g., RPM, Red Hat Linux) or download it from http://www.openssl.org/source and compile it manually. 
 
-설치가 끝나면, 아래와 같이 설치된 OpenSSL 버전을 확인한다.
+After installation, check the installed version of OpenSSL as shown below.
 
 ```
 $ openssl version
@@ -248,7 +245,7 @@ The following are properties that you need to set to connect over SSL within Alt
 -   SSL_MAX_LISTEN  
     : Sets the listen queue maximum size for concurrent SSL connections. You should note that more listeners require more memory.
 -   SSL_CIPHER_LIST  
-    : The candidate cipher algorithm list available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons. You can check the list at OpenSSL (http://www.openssl.org/) or execute the following command in the shell environment.
+    : The candidate cipher algorithm list available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons. The user can check the list at OpenSSL (http://www.openssl.org/) or execute the following command in the shell environment.
 
 ```
 $ openssl ciphers
@@ -357,7 +354,7 @@ $openssl pkcs12 -export -in client_certificate.pem -inkey client_secretkey_file.
 
 Import the prepared PKCS #12 file into the keystore with the following options. <sup>1</sup>
 
-[<sup>1</sup>] You can only import .pem files into keystore with the '-importkeystore' option in Java 6 or above.
+[<sup>1</sup>] You can only import .pem files into keystore with the '-importkeystore' option in Java 6 or later.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks -srcstoretype pkcs12
@@ -551,7 +548,7 @@ SELECT * FROM SYSTEM_.SYS_USERS_
 
 ##### Examples
 
-\<Query\> Create a user who is not allowed to connect via TCP
+\<Query\> Create a user who is not allowed to connect via TCP.
 
 ```
 iSQL> CREATE USER user1 IDENTIFIED BY user1 DISABLE TCP;

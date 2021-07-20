@@ -440,7 +440,7 @@ Database objects are named using identifiers that follow these rules:
   - The following non-schema objects also have their own namespace:  
     Users, Replication objects, Tablespaces, Directory objects.
 
-For mroe detailed information about Altibase objects, please refer to the *Administrator's Manual*.
+For more detailed information about Altibase objects, please refer to the *Administrator's Manual*.
 
 ##### Passwords
 
@@ -1835,7 +1835,7 @@ This hint can be used with other hints that force semi-joins or anti-joins. For 
 
 #### NO_MERGE
 
-This is a hint instructing not to merge the main query and the inline view query into a single query.
+This hint instructs not to merge the main query and inline view query into one query.
 
 ![no_merge](media/SQL/no_merge.gif)
 
@@ -2799,7 +2799,7 @@ This is used to remove a table from a replication object. A table can be removed
 
 *FLUSH*
 
-Please refer to the ALTER REPLICATION clause of the Datat Control Statement.
+Please refer to the ALTER REPLICATION clause of the Data Control Statement.
 
 *SET HOST*
 

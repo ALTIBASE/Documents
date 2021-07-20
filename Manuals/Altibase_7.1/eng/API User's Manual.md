@@ -454,7 +454,7 @@ foreach ($db->query("SELECT * FROM dual") as $row) {
 
 #### DATE Format Setup 
 
-You can set which string format to use as the default for DATE.
+The user can set which string format to use as the default for DATE.
 
 ```
 $db->setAttribute(PDO::ALTIBASE_DATE_FORMAT, "YYYY-MM-DD");
@@ -587,10 +587,10 @@ XA is a useful construct for applications that process transactions in one or mo
     In some situations, when an RM does not receive an expected command pertaining to an in-doubt transaction, such as a COMMIT command or the like, the RM proceeds to commit or roll back the transaction of its own accord. Completion of transactions in this way is referred to as “Heuristic Commit” or “Heuristic Rollback”, or collectively as “Heuristic Completion”. Typical causes are network failure and transaction timeouts.
     
 -   In-doubt Transaction  
-    An “in-doubt transaction” is a transaction branch that has been prepared on an RM (i.e. DBMS) and for which a commit or rollback message has not yet been received. It is also known as a “pending transaction”.
+    An “in-doubt transaction” is a transaction branch that has been prepared on a RM (i.e. DBMS) and for which a commit or rollback message has not yet been received. It is also known as a “pending transaction”.
     
 -   Resource Manager (RM)  
-    A Resource Manager (RM) controls a resource that is accessed by an XA transaction. It must be possible to restore the resource to its original state in the event of a failure. An RM can be, for example, a relational database, a transactional queue, or a file system.
+    A Resource Manager (RM) controls a resource that is accessed by a XA transaction. It must be possible to restore the resource to its original state in the event of a failure. A RM can be, for example, a relational database, a transactional queue, or a file system.
     
 -   Transaction Branch  
     A transaction branch is essentially a sub-transaction that is part of the global transaction. It is executed on one of the Resource Managers (see above) participating in the global transaction. There is a one-to-one relationship between a transaction branch and a so-called “XID” (i.e. a Transaction ID in XA parlance).

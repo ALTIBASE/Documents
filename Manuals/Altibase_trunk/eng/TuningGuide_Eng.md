@@ -54,7 +54,7 @@ Altibase Administration Performance Tunning Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1330,9 +1330,9 @@ Altibase denotes this as the “key filter processing method” as well. This me
 
 However, performance improvement is limited to disk tables as memory table indexes do not store key values. 
 
-The filter processing method is used for predicates on which indexes cannot be used. It directly reads data and compares it. If multiple filters must be used to process a WHERE clause predicate, the optimizer compares the estimated cost for each filter and processes filters by lowest price, so that filters are processed with minimum cost. 
+The filter processing method is used for predicates on which indexes cannot be used. It directly reads data and compares it. If multiple filters must be used to process a WHERE clause predicate, the optimizer compares the estimated cost for each filter and processes filters by lowest price, so that filters are processed with the minimum cost. 
 
-The following example shows a query using an index full scan and its execution plan
+The following example shows a query using an index full scan and its execution plan.
 
 ```
 CREATE TABLE t1(c1 INT, c2 CHAR(10)) 
@@ -1450,7 +1450,7 @@ In the above example, key range processing can only be performed on the first pr
 
 As described above, for composite indexes, only the predicates that appear in the same order as the order of the key columns (without any missing columns) can be evaluated using key range processing, and only if those predicates use equality operations. 
 
-If the following type of query is frequently executed and you wish to add an index, you should add an index that can be used to its maximum.
+If the following type of query is frequently executed, and in order to add an index, the user should add an index that can be used to its maximum.
 
 ```
 WHERE i1 > 0 AND i2 = 1
@@ -2043,7 +2043,7 @@ Whether the index can be used is determined by the predicate format. An index ca
 
 [Table 3-3] Predicate Formats and Index Availability
 
-As described above, you can only use indexes by writing the proper predicates. You should be especially careful that the column value is neither converted nor altered. 
+As described above, you can only use indexes by writing the proper predicates. The user should be especially careful that the column value is neither converted nor altered. 
 
 For more detailed information about data types and data conversions for indexes, please refer to Indexes and Data Types.
 

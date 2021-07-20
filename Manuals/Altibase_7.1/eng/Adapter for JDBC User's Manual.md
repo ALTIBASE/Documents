@@ -172,7 +172,7 @@ Altibase's Adapter for JDBC(jdbcAdapter) is an utility which applies modified da
 
 In order to replicate modified data in Altibase to other databse, Altibase, jdbcAdapter, and other database, which supports JDBC, should be installed in the first place shown in Figure1-1.
 
-jjdbcAdapter has been implimented with integration of Altibase Log Analysis API(ALA) and Java data base connectivity (JDBC). The ALA utility receives data that has been modified in Altibase whereas JDBC is used to send the data to other database. Refer to the L*og Analyzer User's Manual* for detailed information on ALA.
+jdbcAdapter has been implimented with integration of Altibase Log Analysis API(ALA) and Java data base connectivity (JDBC). The ALA utility receives data that has been modified in Altibase whereas JDBC is used to send the data to other database. Refer to the *Log Analyzer User's Manual* for detailed information on ALA.
 
 The following figure demonstrates how jdbcAdapter replicates from Altibase to other database.
 
@@ -326,10 +326,10 @@ It is recommended to install jdbcAdapter on other user's account rather than Alt
 
 After installing jdbcAdapter, it is required to configure environment variables, add a library path, and set the database and national character sets. 
 
-Refer to the "Configuration" section described later in this chapter for more detailed information on configuring the environment variables. .
+Refer to the "Configuration" section described later in this chapter for more detailed information on configuring the environment variables.
 
 -   JDBC_ADAPTER_HOME  
-    This environment variable is automatically set when installing jdbcAdapter
+    This environment variable is automatically set when installing jdbcAdapter.
 
 -   ALTIBASE_NLS_USE  
     The character set used in Altibase is specified in this environment variable. Refer to the Getting Started Guide for more detailed information on the character set.
@@ -791,7 +791,7 @@ oaUtility { check [ alive ] }
 
 This option is used to continuously check whether jdbcAdapter operates or not, and restarts if oaUtility is terminated(regardless of normal shutdown or forcible shutdown). 
 
-If the alive option is specified, only one check is made to see if jdbcAdapter is running, and then oaUtility is terminated
+If the alive option is specified, only one check is made to see if jdbcAdapter is running, and then oaUtility is terminated.
 
 ### Command-Line Option
 

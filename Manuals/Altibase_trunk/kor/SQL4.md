@@ -57,7 +57,7 @@ SQL 함수는 크게 다음의 표처럼 분류된다.
 | 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE |
 | 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, 날짜/시간, 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, TO_RAW, UNIX_TO_DATE |
 | 암호화 함수                     | 문자열에 대해 암호화와 복호화를 수행한다. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
-| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, INVOKE_USER_ID, INVOKE_USER_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
+| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HASH, HOST_NAME, INVOKE_USER_ID, INVOKE_USER_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
 
 ### 집계 함수
 
@@ -6783,6 +6783,40 @@ GROUP BY 절에 속하는 수식만 이 함수의 인자가 될 수 있다.
 ##### 예제
 
 GROUPING_ID 함수의 예제를 참고하라.
+
+#### HASH
+##### 구문
+```
+HASH (expr1 [, expr2])
+```
+##### 설명
+해시 값을 구하는 함수이다. 선택적으로 나머지 연산을 수행할 수 있다.
+- expr2가 없는 경우는 expr1의 해시 값을 리턴한다.
+- expr2가 있는 경우에는, expr1의 해시 값을 expr2로 나머지 연산을 수행한 값을 리턴한다.
+- 리턴값은 BIGINT 타입이다.
+- 동일한 데이터 타입의 동일한 값은 같은 해시 값을 가진다.
+- 상이한 데이터 타입의 동일한 값은 서로 다른 해시 값을 가질 수 있다.
+
+##### 예제
+```
+iSQL> SELECT DUMMY, HASH(DUMMY), HASH('X') FROM DUAL;
+DUMMY                 HASH(DUMMY)          HASH('X')
+--------------------------------------------------------------------
+X                     2870066102           2870066102
+1 row selected.
+
+iSQL> SELECT HASH(1), HASH(1,3), MOD(HASH(1),3) FROM DUAL;
+HASH(1)              HASH(1,3)            MOD(HASH(1),3)
+-------------------------------------------------------------------
+1780082249           2                    2
+1 row selected.
+
+iSQL> SELECT HASH(SMALLINT'1'), HASH(BIGINT'1'), HASH(VARCHAR'1') FROM DUAL;
+HASH(SMALLINT'1')    HASH(BIGINT'1')      HASH(VARCHAR'1')
+-------------------------------------------------------------------
+1780082249           4027148833           424066797
+1 row selected.
+```
 
 #### HOST_NAME
 
