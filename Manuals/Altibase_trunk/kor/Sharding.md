@@ -27,6 +27,7 @@
     - [JOIN](#join)
     - [FAILOVER](#failover)
     - [FAILBACK](#failback)
+    - [FAILBACK SYNC](#failback-sync)
     - [MOVE](#move)
   - [Altibase Sharding Package](#altibase-sharding-package)
     - [DBMS_SHARD](#dbms_shard)
@@ -1078,10 +1079,11 @@ ALTER DATABASE SHARD DROP "target_node_name" FORCE ;
 
 #### 설명
 - failover 된 노드가 영구장애가 발생하여, 이 노드로 failback을 시킬 수 없는 경우에 해당 노드를 강제로 샤딩 클러스터에서 제거하기 위한 기능이다.
-- 비정상종료되었으나 failover가 되지 않은 노드가 존재하는 상황에서는 어떤 노드이든 DROP FORCE를 할 수 없다.
+- 비정상종료되었으나 failover가 되지 않은 노드가 존재하는 상황에서는 어떤 노드를 DROP FORCE 구문으로 제거할 수 없다.
   - 이런 노드들을 먼저 FAILOVER shard DDL을 이용하여 failover를 시킨 후에만, DROP FORCE shard DDL을 수행할 수 있다.
 - 사용자의 shutdown 명령어에 의해 shutdown된 노드이지만, 영구장애가 발생하여, JOIN shard DDL을 할 수 없는 경우에도, 먼저 FAILOVER shard DDL을 이용하여 failover를 시킨 후에만, DROP FORCE shard DDL을 수행할 수 있다.
-- DROP FORCE shard DDL은 제거될 노드에서는 수행할 수 없다.
+- DROP FORCE 구문은 가장 최근에 failover 된 노드를 대상으로만 수행할 수 있다.
+- DROP FORCE 구문은 제거될 노드 자신에서는 수행할 수 없다. 정상적인 노드에서 수행하여 다른 어떤 노드를 강제로 제거할 수 있다. 
 
 ### JOIN
 
@@ -1132,12 +1134,23 @@ ALTER DATABASE SHARD FAILBACK ;
 
 #### 설명
 본 구문을 수행하는 노드를 샤딩 클러스터에 다시 failback 시키기 위한 구문이다.
+- 장애가 발생하여 자동으로 failover 된 노드를 failback 시킬 수 있다.
+- 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드를 failback 시킬 수 있다.
+- 비정상종료되었으나 failover가 되지 않은 노드가 존재하는 상황에서는 FAILBACK 구문을 수행할 수 없다.
+  - 이런 노드들을 먼저 FAILOVER 구문을 이용하여 failover를 시킨 후에만, FAILBACK 구문을 수행할 수 있다.
+- FAILBACK 구문은 가장 최근에 failover 된 노드에서만 수행할 수 있다.
+- 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 FAILBACK 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
 
-본 구문의 수행 노드는 아래 노드들이 대상이 된다.
-- 장애가 발생하여 자동으로 failover 된 노드
-- 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드
-  - 비정상종료되었으나 failover가 되지 않은 노드가 있다면, 해당 노드를 먼저 FAILOVER shard DDL을 이용하여, failover를 시켜야만, FAILBACK shard DDL을 수행할 수 있다.
-- 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
+### FAILBACK SYNC
+
+#### 구문
+ALTER DATABASE SHARD FAILBACK SYNC ;
+
+#### 설명
+FAILBACK SYNC 구문은 아래 사항을 제외하고, 나머지는 일반 FAILBACK 구문과 동일하다.
+- failover시에 시스템 내부적으로 역이중화를 생성하여, failback시에 failover 이후에 변경된 데이터만 다시 failback 되는 노드로 반영하도록 되어 있다.
+- 그러나, k-safety를 초과하여 연속 failover가 발생하였거나, failover 된 노드중에 DROP FORCE 구문으로 제거된 노드가 존재하는 경우에는, 변경 데이타만 반영하는것이 불가능하게 된다.
+- 이 경우에 FAILBACK SYNC 구문을 사용해야만 하고, 전체 데이터를 모두 복제하여 failback 노드의 데이터를 구성하게 된다.
 
 ### MOVE
 
