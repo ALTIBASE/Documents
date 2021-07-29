@@ -1152,7 +1152,7 @@ FAILBACK SYNC 구문은 아래 사항을 제외하고, 나머지는 일반 FAILB
 - 그러나, k-safety를 초과하여 연속 failover가 발생하였거나, failover 된 노드중에 DROP FORCE 구문으로 제거된 노드가 존재하는 경우에는, 변경 데이타만 반영하는것이 불가능하게 된다.
 - 이 경우에 FAILBACK SYNC 구문을 사용해야만 하고, 전체 데이터를 모두 복제하여 failback 노드의 데이터를 구성하게 된다.
 - DROP FORCE 구문으로 어떤 노드를 제거하기 전에 failover 된 노드를 대상으로 failback 할때는 FAILBACK SYNC 구문을 사용해야 한다.
-- DROP FORCE 구문으로 어떤 노드를 제거한 후에 failover 된 노드를 대상으로 failback 할때는 일반 FAILBACK 구문을 사용해야 한다.
+- DROP FORCE 구문으로 어떤 노드를 제거한 후에 신규로 failover 된 노드를 대상으로 failback 할때는 일반 FAILBACK 구문을 사용하면 된다.
 
 ### MOVE
 
