@@ -337,25 +337,31 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 ### 지원 플랫폼
 
 >  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*
->*Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
+>  *Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
+>
+>  *Altibase 7.1 패치 버전을 명시하지 않은 경우 Altibase 7.1 모든 버전에서 지원함을 의미한다.
 
 
-|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                    |
-| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------- |
-| **AIX on IBM Power Systems**                                 |                     |                           |                                        |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                        |
-| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             |                                        |
-| **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
-| HP-UX 11.31                                                  |          ●          |             ●             |                                        |
-| **Linux x86-64**                                             |                     |                           |                                        |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                |
-| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br />        |
-| **Linux on Power**                                           |                     |                           |                                        |
-| POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                |
-| **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />          |
-| **Microsoft Windows (x64)**                                  |                     |                           |                                        |
-| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상* |
+|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                      |
+| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------------------------- |
+| **AIX on IBM Power Systems**                                 |                     |                           |                                                          |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                                          |
+| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | *- AIX 7.2 경우 Altibase 7.1.0.4.7 이상*                 |
+| **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                          |
+| HP-UX 11.31                                                  |          ●          |             ●             |                                                          |
+| **Linux x86-64**                                             |                     |                           |                                                          |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
+| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br />                          |
+| **Linux on Power**                                           |                     |                           |                                                          |
+| POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
+| **Linux on Power** **(Little Endian)**                       |                     |                           |                                                          |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.3.6 이상* |
+| **Microsoft Windows (x64)**                                  |                     |                           |                                                          |
+| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*                   |
+
+> **Red Hat Enterprise Linux 이외 리눅스 배포판**
+>
+> Red Hat Enterprise Linux 이외에 호환성 테스트 된 리눅스 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >
