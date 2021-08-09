@@ -891,17 +891,15 @@ Manual*, *Precompiler User's Manual*을 각각 참조하고, 나머지 유틸리
 conf 디렉토리에는 아래의 파일들이 존재한다.
 
 -   altibase_user.env: Altibase 운영을 위한 환경변수 설정 파일
-
 -   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한
     설명은 *General Reference*를 참조하기 바란다.
-
 -   license: Altibase 라이선스 파일
-
 -   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한
     설명은 *General Reference*를 참조하기 바란다.
-
 -   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은
     *Utilities Manual*을 참조하기 바란다.
+-   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 *Utilities Manual*을 
+    참조하기 바란다.
 
 #### dbs 디렉토리
 
