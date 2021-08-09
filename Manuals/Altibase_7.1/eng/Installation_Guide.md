@@ -313,7 +313,7 @@ It is recommended to use a dedicated line when using the replication feature.
 | **Linux on Power**                                           |                     |                           |                                        |
 | POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 or later*<br /><br />*- Altibase 7.1.0.3.6 or later* |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 or later*<br />*- Altibase 7.1.0.3.6 or later* |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                        |
 | Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase client 7.1.0.4.5 or later* |
 
