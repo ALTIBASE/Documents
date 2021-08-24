@@ -1058,7 +1058,6 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
     - not null
     - nullable
 - constraints
-  - modify constraint
   - rename constraint
   - drop constraint
 - index
