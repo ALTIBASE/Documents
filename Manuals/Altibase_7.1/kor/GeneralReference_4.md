@@ -2577,7 +2577,9 @@ REPLICATION_SYNC_TUPLE_COUNT 프로퍼티에 설정한 레코드 개수 단위�
 
 ### <a name="vrepl_remote_meta_replications"><a/>V\$REPL_REMOTE_META_REPLICATIONS
 
-원격 서버의 이중화 관련 정보를 기록하고 있는 SYS_REPLICATIONS\_ 메타 테이블의 정보를 보여준다.
+수신자가 가지고 있는 송신자의 SYS_REPLICATIONS\_ 메타 테이블의 정보를 보여준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
 
 | Column name              | Type        | Description                                           |
 | ------------------------ | ----------- | ----------------------------------------------------- |
@@ -2659,7 +2661,9 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 
 ### <a name="vrepl_remote_meta_items"><a/>V\$REPL_REMOTE_META_ITEMS
 
-원격 서버의 이중화 대상 테이블에 관련된 정보를 가진 SYS_REPL_ITEMS_ 메타 테이블 정보를 보여준다.
+수신자가 가지고 있는 송신자의 SYS_REPL_ITEMS_ 메타 테이블 정보를 보여준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
 
 | Column name           | Type         | Description                         |
 | --------------------- | ------------ | ----------------------------------- |
@@ -2720,8 +2724,9 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 
 ### <a name="vrepl_remote_meta_columns"><a/>V\$REPL_REMOTE_META_COLUMNS
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 칼럼의 정보를 가진
-SYS_REPL_OLD_COLUMNS_ 메타 테이블 정보를 보여 준다.
+수신자가 가지고 있는 송신자의  SYS_REPL_OLD_COLUMNS_ 메타 테이블 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
 
 | Column name          | Type         | Description                      |
 | -------------------- | ------------ | -------------------------------- |
@@ -2813,7 +2818,9 @@ Altibase 서버가 내부적으로 사용하는 플래그이다.
 
 ### <a name="vrepl_remote_meta_index_columns"><a/>V\$REPL_REMOTE_META_INDEX_COLUMNS
 
-원격 서버의 이중화 송신 쓰레드가 현재 사용 중인 이중화 대상 인덱스 칼럼의 정보를 가진 SYS_REPL_OLD_INDEX_COLUMNS_ 메타 테이블 정보를 보여 준다.
+수신자가 가지고 있는 송신자의  SYS_REPL_OLD_INDEX_COLUMNS_ 메타 테이블 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
 
 | Column name      | Type        | Description        |
 | ---------------- | ----------- | ------------------ |
@@ -2849,8 +2856,9 @@ Altibase 서버가 내부적으로 사용하는 플래그이다.
 
 ### <a name="vrepl_remote_meta_indices"><a/>V\$REPL_REMOTE_META_INDICES
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 정보를 가진
-SYS_REPL_OLD_INDICES_ 메타 테이블의 정보를 보여 준다.
+수신자가 가지고 있는 송신자의  SYS_REPL_OLD_INDICES_ 메타 테이블의 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
 
 | Column name      | Type         | Description               |
 | ---------------- | ------------ | ------------------------- |
@@ -2898,7 +2906,9 @@ SYS_REPL_OLD_INDICES_ 메타 테이블의 정보를 보여 준다.
 
 ### <a name="vrepl_remote_meta_checks"><a/>V\$REPL_REMOTE_META_CHECKS
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 테이블의 제약 조건에 관한 정보를 보여 준다.
+수신자가 가지고 있는 송신자의 이중화 테이블의 제약 조건에 관한 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
 
 | Column name      | Type          | Description                  |
 | ---------------- | ------------- | ---------------------------- |
@@ -3704,7 +3714,6 @@ DDL 복제를 수행하는 지역 서버를 기준으로 초과값 측정된다.
 - UNKNOWN
   클라이언트의 메시지콜백 등록 여부를 알 수 없으며, 서버는 메시지를 클라이언트로 전송한다.
   해당기능이 없는 구버전 클라이언트가 접속한 경우 UNKNOWN 상태를 가진다.
-  
 ### <a name="vsession_event"><a/>V\$SESSION_EVENT
 
 현재 Altibase에 접속중인 세션별로 모든 대기 이벤트들에 대한 통계 정보(누적치)를
