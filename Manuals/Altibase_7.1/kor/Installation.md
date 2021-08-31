@@ -362,7 +362,7 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**<br>RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [A.부록: 설치 전 확인 사항 - Red Hat Enterprise Linux 8](#Red-Hat-Enterprise-Linux-8) 을 확인한다.
 
-> **<a name="footnote_Windows client limitations">Windows 클라이언트 제약 사항</a>**<br>다음은 Altibase 7.1 Windows 클라이언트에서 지원하지 않는 기능이다.
+> **<a name="footnote-winclnt-limitations">Altibase 7.1 Windows 클라이언트 제약 사항</a>**<br>다음은 Altibase 7.1 Windows 클라이언트에서 지원하지 않는 기능이다.
 >
 > - .NET Data Provider
 > - Altibase C Interface
