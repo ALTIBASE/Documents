@@ -356,7 +356,7 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
 | POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.3.6 이상*     |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
-| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*[제약사항](#footnote_Windows client limitations ) |
+| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*[제약사항](#footnote-winclnt-limitations ) |
 
 > **<a name="footnote-linuxversion">리눅스 배포판 버전</a>**<br>호환성 테스트를 완료한 Red Hat Enterprise Linux 마이너 버전 정보와 Red Hat Enterprise Linu 이외에 호환성 테스트 된 리눅스 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
 
