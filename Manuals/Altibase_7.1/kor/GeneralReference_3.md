@@ -3209,6 +3209,32 @@ SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
 ```
 
+### SYS_REPL_TABLE_OID_IN_USE_
+
+이중화 갭에 포함되어 있는 DDL로 인해 객체 식별자가 변경된 테이블의 변경 전 객체 식별자를 관리하는 테이블이다.
+
+| Column name      | Type         | Description               |
+| ---------------- | ------------ | ------------------------- |
+| REPLICATION_NAME | VARCHAR(40)  | 이중화 이름               |
+| OLD_TABLE_OID    | BIGINTBIGINT | 테이블의 이전 객체 식별자 |
+| TABLE_OID        | BIGINTBIGINT | 테이블의 현재 객체 식별자 |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
+REPLICATION_NAME 값과 동일하다.
+
+##### OLD_TABLE_OID
+
+이중화 갭에 포함되어 있는 DDL로 인해 객체 식별자가 변경된 테이블의 변경 전 객체 식별자이다.
+
+##### TABLE_OID
+
+이중화 대상 테이블 또는 파티션의 식별자로,  SYS_REPL_ITEMS\_ 메타 테이블의 한
+TABLE_OID 값과 동일하다.
+
 ### SYS_REPL_RECOVERY_INFOS\_
 
 원격 서버의 복구에 사용하기 위해 로그 정보를 기록하는 메타 테이블이다.
