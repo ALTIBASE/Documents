@@ -49,6 +49,7 @@
     - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
     - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
     - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
+    - [SYS_REPL_TABLE_OID_IN_USE\_](#sys_repl_table_oid_in_use_)
     - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
     - [SYS_SECURITY\_](#sys_security_)
     - [SYS_SYNONYMS\_](#sys_synonyms_)
@@ -3209,7 +3210,7 @@ SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
 ```
 
-### SYS_REPL_TABLE_OID_IN_USE_
+### SYS_REPL_TABLE_OID_IN_USE\_
 
 이중화 갭에 포함되어 있는 DDL로 인해 객체 식별자가 변경된 테이블의 변경 전 객체 식별자를 관리하는 테이블이다.
 
