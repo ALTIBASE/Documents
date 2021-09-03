@@ -3212,13 +3212,13 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ### SYS_REPL_TABLE_OID_IN_USE\_
 
-이중화 갭에 포함되어 있는 DDL로 인해 객체 식별자가 변경된 테이블의 변경 전 객체 식별자를 관리하는 테이블이다.
+이중화가 아직 처리하지 않은 DDL 로그에 포함된 테이블의 테이블 객체 식별자(TABLE OID) 정보를 관리하는 메타 테이블이다.
 
-| Column name      | Type         | Description               |
-| ---------------- | ------------ | ------------------------- |
-| REPLICATION_NAME | VARCHAR(40)  | 이중화 이름               |
-| OLD_TABLE_OID    | BIGINTBIGINT | 테이블의 이전 객체 식별자 |
-| TABLE_OID        | BIGINTBIGINT | 테이블의 현재 객체 식별자 |
+| Column name      | Type         | Description                    |
+| ---------------- | ------------ | ------------------------------ |
+| REPLICATION_NAME | VARCHAR(40)  | 이중화 이름                    |
+| OLD_TABLE_OID    | BIGINTBIGINT | DDL 수행 전 테이블 객체 식별자 |
+| TABLE_OID        | BIGINTBIGINT | 현재 테이블 객체 식별자        |
 
 #### 칼럼 정보
 
@@ -3229,12 +3229,11 @@ REPLICATION_NAME 값과 동일하다.
 
 ##### OLD_TABLE_OID
 
-이중화 갭에 포함되어 있는 DDL로 인해 객체 식별자가 변경된 테이블의 변경 전 객체 식별자이다.
+이중화가 아직 처리하지 않은 DDL 로그에 포함된 테이블의 이전 테이블 객체 식별자이다.
 
 ##### TABLE_OID
 
-이중화 대상 테이블 또는 파티션의 식별자로,  SYS_REPL_ITEMS\_ 메타 테이블의 한
-TABLE_OID 값과 동일하다.
+이중화가 아직 처리하지 않은 DDL 로그에 포함된 테이블의 현재 테이블 객체 식별자이다. 이 값은 SYS_REPL_ITEMS_ 메타 테이블의 한 TABLE_OID 값과 동일하다.
 
 ### SYS_REPL_RECOVERY_INFOS\_
 
