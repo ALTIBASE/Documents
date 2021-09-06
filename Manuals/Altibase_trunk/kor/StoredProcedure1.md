@@ -1808,7 +1808,7 @@ BEGIN과 END사이의 부분으로 SQL문과 흐름 제어문을 포함한다.
 
 -   커서 관련문: OPEN, FETCH, CLOSE, Cursor FOR LOOP
 
--   동적 SQL문: EXECUTE IMmedia/StoredProcedureTE
+-   동적 SQL문: EXECUTE IMMEDIATE
 
 -   예외처리 구문: RAISE, RAISE_APPLICATION_ERROR
 
