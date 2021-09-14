@@ -321,7 +321,8 @@ C/C++ 함수의 인자에 사용할 수 있는 자료형을 연결한 표이다.
 |---------------------------|----------------------|-------------------------|----------------------|---------------------------------------------------------------------------------------|
 | BIGINT                    | long long            | long long \*            | long long            |                                                                                       |
 | BOOLEAN                   | char                 | char \*                 | char                 | BOOLEAN의 경우에는 아래 두 가지 값을 허용한다. 0: FALSE 1: TRUE                       |
-| SMALLINT                  | int                  | int \*                  | int                  |                                                                                       |
+| SMALLINT
+  INTEGER                | int                  | int \*                  | int                  |                                                                                       |
 | INTEGER                   |                      |                         |                      |                                                                                       |
 | REAL                      | float                | float \*                | float                |                                                                                       |
 | DOUBLE                    | double               | double \*               | double               |                                                                                       |
