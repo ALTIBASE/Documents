@@ -820,6 +820,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 - move
 - merge
 - table function
+- set transaction
 
 #### 미지원 PSM 기능
 본 매뉴얼의 PSM Restriction 항목을 참고한다.
