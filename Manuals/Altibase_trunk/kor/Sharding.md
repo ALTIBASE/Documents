@@ -430,7 +430,7 @@ non-shard DML 처리를 위한 분산 질의 처리기이다. 해당 DML의 대�
   - DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO(...)
   - DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE(...)
 
-#### sharded sequence
+##### sharded sequence
 Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
 - 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
 - 동일 Node내에서는 순서는 보장한다.
