@@ -430,11 +430,6 @@ non-shard DML 처리를 위한 분산 질의 처리기이다. 해당 DML의 대�
   - DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO(...)
   - DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE(...)
 
-##### sharded sequence
-Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
-- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
-- 동일 Node내에서는 순서는 보장한다.
-
 #### 샤드키(shard key)
 - 샤드키 테이블에 대한 샤드키는 데이터를 분산하는 기준이 되는 테이블의 컬럼이다.
 - 샤드키 프로시저에 대한 샤드키는 호출되는 프로시저의 노드를 결정하는 프로시저의 파라미터를 말한다.
