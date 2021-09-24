@@ -120,7 +120,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to Altibase Hadoop Connector
+## 1. Introduction to Altibase SSL/TLS
 
 This chapter describes the concepts and features of Altibase SSL/TLS.
 
