@@ -6871,3 +6871,33 @@ QUERY_REWRITE_ENABLE 프로퍼티에 대해서는 2장을 참고하라.
 
 - FALSE: Altibase 서버에서 쿼리 변환 시에 함수 기반 인덱스 미적용(disable)
 - TRUE: Altibase 서버에서 쿼리 변환 시에 함수 기반 인덱스 적용(enable)
+
+
+
+
+
+### V\$QUEUE 
+
+현재 사용중인 QUEUE 테이블 정보를 보여준다
+
+| Column name | Type       | Description                                     |
+| ----------- | ---------- | ----------------------------------------------- |
+| TABLE_OID   | BIGINT     | 테이블 객체 식별자                              |
+| DELETE_ON   | VARCHAR(1) | 해당 테이블에 DELETE 연산을 수행할수있는지 여부 |
+| QUEUED      | BIGINT     | 큐 테이블에 있는 아이템의 수                    |
+
+#### 칼럼 정보
+
+##### TABLE_OID 
+
+테이블 식별자로 SYS_TABLES_메타 테이블의 한 TABLE_OID 값과 동일하다
+
+##### DELETE_ON
+
+T : DELETE 연산이 허용된다.  
+
+F : DELETE 연산이 허용되지 않는다.  DELETE 연산을 허용한 경우보다 DEQUE 성능이 향상된다.
+
+##### QUEUED
+
+큐 테이블에 있는 아이템의 수이다.
