@@ -295,16 +295,16 @@ It is recommended to use a dedicated line when using the replication feature.
 
 ### Supported Platforms
 
->  *Altibase server/client only support 64-bit.*
+>  *Altibase server/client only support 64-bit.*<br>*Microsoft Windows only supports Altibase client.*
 >
-> *Microsoft Windows only supports Altibase client.*
+>  All versions of Altibase 7.1 support it unless the patch version is specified. 
 
 
 |                                                              | Altibase server <br /> | Altibase client <br /> | Software requirements                  |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------- |
 | **AIX on IBM Power Systems**                                 |                     |                           |                                        |
 | AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                        |
-| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             |                                        |
+| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | <br/>*- AIX 7.2 : Altibase 7.1.0.4.7 or later* |
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                        |
 | **Linux x86-64**                                             |                     |                           |                                        |
@@ -313,7 +313,7 @@ It is recommended to use a dedicated line when using the replication feature.
 | **Linux on Power**                                           |                     |                           |                                        |
 | POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 or later*<br />          |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 or later*<br />*- Altibase 7.1.0.3.6 or later* |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                        |
 | Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase client 7.1.0.4.5 or later* |
 
