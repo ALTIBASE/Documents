@@ -35,8 +35,7 @@ Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이 무단으로 복제 또는 전용할 수 없습니다.
 
 **㈜알티베이스**
 
@@ -53,8 +52,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ### 이 매뉴얼에 대하여
 
-이 매뉴얼은 Altibase에서 변경된 데이터를 JDBC를 지원하는 다른 데이터베이스에
-복제하는 유틸리티인 Adapter for JDBC에 대해 설명한다.
+이 매뉴얼은 Altibase에서 변경된 데이터를 JDBC를 지원하는 다른 데이터베이스에 복제하는 유틸리티인 Adapter for JDBC에 대해 설명한다.
 
 #### 대상 사용자
 
@@ -78,17 +76,15 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 6.3.1 또는 그 이상의 버전을 사용한다는
-가정 하에 작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 6.3.1 또는 그 이상의 버전을 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
 -   제 1장 소개  
-    이 장은 Adapter for JDBC의 개념과 Altibase에서 변경된 데이터가 다른
-    데이터베이스에 복제되는 동작 구조를 설명한다.
-
+    이 장은 Adapter for JDBC의 개념과 Altibase에서 변경된 데이터가 다른 데이터베이스에 복제되는 동작 구조를 설명한다.
+    
 -   제 2 장 설치와 환경설정  
     이 장에서는 Adapter for JDBC를 설치하고 설정하는 방법을 설명한다.
 
@@ -101,8 +97,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 문서화 규칙
 
-이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이
-매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
+이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이 매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
 
 여기서 설명하는 규칙은 다음과 같다.
 
@@ -112,8 +107,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ##### 구문 다이어그램
 
-이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
-설명한다.
+이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을 설명한다.
 
 | 구성 요소                           | 의미                                                         |
 | ----------------------------------- | ------------------------------------------------------------ |
@@ -129,8 +123,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ##### 샘플 코드 규칙
 
-코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어
-설명한다.
+코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어 설명한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
@@ -165,9 +158,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### Altibase는 여러분의 의견을 환영합니다.
 
-이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은 다음
-버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래 내용과 함께
-고객서비스포털( http://support.altibase.com/kr/ )로 보내주시기 바랍니다.
+이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은 다음 버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래 내용과 함께 고객서비스포털( http://support.altibase.com/kr/ )로 보내주시기 바랍니다.
 
 -   사용 중인 매뉴얼의 이름과 버전
 
@@ -175,30 +166,22 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 -   사용자의 성함, 주소, 전화번호
 
-이 외에도 Altibase 기술지원 설명서의 오류와 누락된 부분 및 기타 기술적인
-문제들에 대해서 이 주소로 보내주시면 정성껏 처리하겠습니다. 또한, 기술적인
-부분과 관련하여 즉각적인 도움이 필요한 경우에도 고객서비스포털을 통해 서비스를
-요청하시기 바랍니다.
+이 외에도 Altibase 기술지원 설명서의 오류와 누락된 부분 및 기타 기술적인 문제들에 대해서 이 주소로 보내주시면 정성껏 처리하겠습니다. 또한, 기술적인 부분과 관련하여 즉각적인 도움이 필요한 경우에도 고객서비스포털을 통해 서비스를 요청하시기 바랍니다.
 
 여러분의 의견에 항상 감사드립니다.
 
 1.소개
 ----
 
-이 장은 Adapter for JDBC의 개념과 구조, 그리고 Altibase에서 변경된 데이터가 다른
-데이터베이스에 복제되는 동작 구조를 설명한다.
+이 장은 Adapter for JDBC의 개념과 구조, 그리고 Altibase에서 변경된 데이터가 다른 데이터베이스에 복제되는 동작 구조를 설명한다.
 
 ### Adapter for JDBC
 
-Altibase Adapter for JDBC(이하 'jdbcAdapter'라 칭한다)는 Altibase에서 변경된
-데이터를 JDBC를 지원하는 다른 데이터베이스에 적용하는 유틸리티이다. 이는
-Altibase 에서 제공하는 Altibase Log Analysis API를 이용하여 구현되었다.
+Altibase Adapter for JDBC(이하 'jdbcAdapter'라 칭한다)는 Altibase에서 변경된 데이터를 JDBC를 지원하는 다른 데이터베이스에 적용하는 유틸리티이다. 이는 Altibase 에서 제공하는 Altibase Log Analysis API를 이용하여 구현되었다.
 
 #### 구조와 개념
 
-사용자가 Altibase에서 변경된 데이터를 다른 데이터베이스(Other DB)로 복제하기
-위해서는 아래 그림에 보이는 것처럼 먼저 Altibase, jdbcAdapter 및 사용하려는
-JDBC를 지원하는 타사의 데이터베이스를 설치해야 한다.
+사용자가 Altibase에서 변경된 데이터를 다른 데이터베이스(Other DB)로 복제하기 위해서는 아래 그림에 보이는 것처럼 먼저 Altibase, jdbcAdapter 및 사용하려는 JDBC를 지원하는 타사의 데이터베이스를 설치해야 한다.
 
 jdbcAdapter는 Altibase Log Analysis API (이하 ALA라 칭한다)와 Java data base
 connectivity (JDBC)를 사용하여 구현되었다. ALA는 Altibase에서 변경된 데이터를

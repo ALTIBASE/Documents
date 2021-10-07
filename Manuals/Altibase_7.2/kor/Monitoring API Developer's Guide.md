@@ -113,7 +113,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 Altibase 버전 7.2을 사용한다는 가정 하에 작성되었다.
+이 매뉴얼은 Altibase 버전 7.2를 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 

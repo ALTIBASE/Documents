@@ -102,7 +102,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.2를 사용한다는 가정 하에
 작성되었다.
 
 #### 이 매뉴얼의 구성
@@ -996,7 +996,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
 $ aexport -s 127.0.0.1 -u sys -p manager
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -1067,7 +1067,7 @@ Create success.
 $ aexport -s 127.0.0.1 -u user1 -p user1
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -1147,7 +1147,7 @@ Create success.
 $ aexport -s 127.0.0.1 -u user1 -p user1 -object user1.t1
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -1158,7 +1158,7 @@ user1_t1_CRT.sql
 $ aexport -s 127.0.0.1 -u user1 -p user1 -object user1.m1
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -1169,7 +1169,7 @@ user1_m1_CRT.sql
 $ aexport -s 127.0.0.1 -u user1 -p user1 -object user1.t1,user1.v1,user1.proc1
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
