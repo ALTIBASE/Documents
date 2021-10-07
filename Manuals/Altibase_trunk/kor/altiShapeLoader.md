@@ -225,7 +225,7 @@ altiShapeLoader는 알티베이스를 대상으로 shp 파일을 import/export �
 
 #### 호환되는 알티베이스 버전
 
--   Altibase 7.1.0 또는 그 이상 버전
+-   Altibase 7.1.0.5.7 또는 그 이상 버전
 
 ### 설치 및 제거
 
@@ -693,5 +693,4 @@ GeoTools 라이브러리를 사용하여 제작되었기에, GeoTools의 제약�
 | 문자형    | NCHAR, NVARCHAR                                        | 미지원                  | N/A                                                          |
 | 날짜      | DATE (Time 포함)                                       | Date (Time 제외)        | dBase Time 미지원                                            |
 | 이진      | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB | 미지원                  | N/A                                                          |
-
 
