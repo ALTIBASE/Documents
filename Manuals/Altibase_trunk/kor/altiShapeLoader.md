@@ -225,7 +225,7 @@ altiShapeLoader는 알티베이스를 대상으로 shp 파일을 import/export �
 
 #### 호환되는 알티베이스 버전
 
--   Altibase 7.1.0.4.0 또는 그 이상 버전
+-   Altibase 7.1.0.4.1 또는 그 이상 버전
 
 ### 설치 및 제거
 
@@ -258,8 +258,8 @@ altiShapeLoader를 제거하려면, 설치된 altiShapeLoader 디렉토리를 �
 
 altiShapeLoader로 import 작업을 수행할 때 알티베이스에 등록되지 않은 SRID를 가진 shp 파일을 있으면, SYS_SPATIAL.ADD_SPATIAL_REF_SYS 프로시저를 통해 등록작업을 수행한다.
 
-1. 이를 위해서 SYS_SPATIAL.ADD_SPATIAL_REF_SYS 프로시저가 알티베이스에 미리 생성되어 있어야 한다.  SYS 사용자로 SYS_SPATIAL 패키지를 알티베이스에 설치해야 한다.
-2. altiShapeLoader에서 사용하는 데이터베이스 사용자 계정은 EXECUTE ANY PROCEDURE 권한이 있어야 한다. SYS_SPATIAL.ADD_SPATIAL_REF_SYS 프로시저를 수행하기 위해 필요한 권한이다.
+1. 이를 위해서 SYS_SPATIAL.ADD_SPATIAL_REF_SYS 프로시저가 알티베이스에 미리 생성되어 있어야 한다.  **SYS 사용자로 SYS_SPATIAL 패키지를 알티베이스에 설치**해야 한다.
+2. altiShapeLoader에서 사용하는 데이터베이스 사용자 계정은 **EXECUTE ANY PROCEDURE 권한**이 있어야 한다. SYS_SPATIAL.ADD_SPATIAL_REF_SYS 프로시저를 수행하기 위해 필요한 권한이다.
 
 ### 접속 정보 및 수행 옵션
 
