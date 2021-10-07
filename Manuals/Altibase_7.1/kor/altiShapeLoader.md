@@ -20,7 +20,6 @@
   - [데이터 타입 제약점](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EC%A0%9C%EC%95%BD%EC%A0%90)
     - [Import 데이터 타입 변환](#import-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
     - [Export 데이터 타입 변환](#export-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
-- [4.Open Source Libraries](#4open-source-libraries)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -695,19 +694,4 @@ GeoTools 라이브러리를 사용하여 제작되었기에, GeoTools의 제약�
 | 날짜      | DATE (Time 포함)                                       | Date (Time 제외)        | dBase Time 미지원                                            |
 | 이진      | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB | 미지원                  | N/A                                                          |
 
-
-
-# 4.Open Source Libraries 
-
-이 장은 altiShapeLoader 프로그램 작성에 사용된 오픈 소스 라이브러리와 라이선스에 대해 기술한다.
-
-altiShapeLoader는 다음 표에 기술된 오픈 소스 라이브러리를 기반하여 작성되었다. 라이선스 파일들은 텍스트 형식으로 altiShapeLoader와 함께 배포된다.
-
-| Library                                    | Version | Homepage                          | Open               |
-| ------------------------------------------ | ------- | --------------------------------- | ------------------ |
-| GeoTools                                   | 22.5    | https://geotools.org/             | LGPL               |
-| EPSG Authority Service Using HSQL Database | 22.5    | http://hsqldb.org/                | LGPL               |
-| Apache Commons IO                          | 2.6     | https://commons.apache.org/       | Apache License 2.0 |
-| Apache Commons CLI                         | 1.3.1   | https://commons.apache.org/       | Apache License 2.0 |
-| Apache log4j                               | 1.2.16  | https://logging.apache.org/log4j/ | Apache License 2.0 |
 
