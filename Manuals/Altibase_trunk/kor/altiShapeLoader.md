@@ -225,7 +225,7 @@ altiShapeLoader는 알티베이스를 대상으로 shp 파일을 import/export �
 
 #### 호환되는 알티베이스 버전
 
--   Altibase 7.1.0.5.7 또는 그 이상 버전
+-   Altibase 7.1.0.4.0 또는 그 이상 버전
 
 ### 설치 및 제거
 
