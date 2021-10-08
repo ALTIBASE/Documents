@@ -1819,41 +1819,29 @@ dataCompJ는 불일치 레코드 발견 시 dataCompJ 환경 파일에 기술된
 
 #### 일치 정책 (Synchronization policy)
 
-일치 정책은 dataCompJ 프로그램이 불일치 레코드 발견 시, Master 테이블의 레코드를
-기준으로, Slave 테이블의 레코드를 어떻게 일치시킬지를 명시하는 정책이다. 일치
-정책으로 다음과 같은 세 가지 방법을 제공한다..
+일치 정책은 dataCompJ 프로그램이 불일치 레코드 발견 시, Master 테이블의 레코드를 기준으로, Slave 테이블의 레코드를 어떻게 일치시킬지를 명시하는 정책이다. 일치 정책으로 다음과 같은 세 가지 방법을 제공한다..
 
-1.  MOSO 불일치: UPDATE_TO_SLAVE 정책으로 Master 테이블의 레코드를 기준으로,
-    동일한 주요 키를 가진 Slave 테이블의 레코드를 변경(update)한다.
-
-2.  MOSX 불일치: INSERT_TO_SLAVE 정책으로 Master 테이블에만 존재하고 Slave
-    테이블에는 존재하지 않는 레코드를 Slave 테이블에 삽입(insert)한다.
-
-3.  MXSO 불일치: DELETE_FROM_SLAVE정책으로 Master 테이블에는 존재하지 않고 Slave
-    테이블에만 존재하는 레코드를 Slave 테이블에서 삭제(delete)한다.
+1.  MOSO 불일치: UPDATE_TO_SLAVE 정책으로 Master 테이블의 레코드를 기준으로, 동일한 주요 키를 가진 Slave 테이블의 레코드를 변경(update)한다.
+    
+2.  MOSX 불일치: INSERT_TO_SLAVE 정책으로 Master 테이블에만 존재하고 Slave 테이블에는 존재하지 않는 레코드를 Slave 테이블에 삽입(insert)한다.
+    
+3.  MXSO 불일치: DELETE_FROM_SLAVE정책으로 Master 테이블에는 존재하지 않고 Slave 테이블에만 존재하는 레코드를 Slave 테이블에서 삭제(delete)한다.
 
 ### dataCompJ 사용 방법
 
-이 절에서는 dataCompJ를 실행하기 위한 방법을 설명한다. dataCompJ의 환경 파일
-설정과 설정 시 고려할 점들을 설명한다.
+이 절에서는 dataCompJ를 실행하기 위한 방법을 설명한다. dataCompJ의 환경 파일 설정과 설정 시 고려할 점들을 설명한다.
 
 #### 설치 및 제거
 
-dataCompJ는 공식 Altibase 고객서비스포털 http://support.altibase.com 에서 내려
-받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로
-제공된다. 이 파일은 실행 파일과 JDBC 드라이버들을 포함하고 있다.
+dataCompJ는 공식 Altibase 고객서비스포털 http://support.altibase.com 에서 내려 받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 이 파일은 실행 파일과 JDBC 드라이버들을 포함하고 있다.
 
-dataCompJ 설치는 압축을 풀기만 하면 된다. 결과로 생긴 디렉토리 안에는
-dataCompJCli.sh를 포함해서 jdbc 하위 디렉토리 및 xml 파일이 존재한다. 이 폴더를
-원하는 위치로 옮기면 dataCompJ를 사용할 준비가 된 것이다.
+dataCompJ 설치는 압축을 풀기만 하면 된다. 결과로 생긴 디렉토리 안에는 dataCompJCli.sh를 포함해서 jdbc 하위 디렉토리 및 xml 파일이 존재한다. 이 폴더를 원하는 위치로 옮기면 dataCompJ를 사용할 준비가 된 것이다.
 
-dataCompJ를 제거하려면, dataCompJ가 설치되어 있는 디렉토리를 삭제하기만 하면
-된다.
+dataCompJ를 제거하려면, dataCompJ가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
 
 #### dataCompJ 실행 방법
 
-dataCompJ를 Command Line Interface (CLI)에서 수행하기 위한 명령은 다음과 같은
-형태를 갖는다.
+dataCompJ를 Command Line Interface (CLI)에서 수행하기 위한 명령은 다음과 같은 형태를 갖는다.
 
 - Linux
 
@@ -1871,33 +1859,25 @@ dataCompJ를 Command Line Interface (CLI)에서 수행하기 위한 명령은 �
 
 ##### dataCompJ_env_file_path
 
-dataCompJ 환경 파일의 경로를 의미하며 dataCompJ 설치 시 dataCompJ.xml 파일이
-기본으로 제공된다.
+dataCompJ 환경 파일의 경로를 의미하며 dataCompJ 설치 시 dataCompJ.xml 파일이 기본으로 제공된다.
 
 #### dataCompJ 수행 단계
 
-dataCompJ는 사용자가 설정한 환경파일을 기반으로 동작하며, 크게 구축(Build)과
-실행(Run)이라는 두 단계로 수행된다.
+dataCompJ는 사용자가 설정한 환경파일을 기반으로 동작하며, 크게 구축(Build)과 실행(Run)이라는 두 단계로 수행된다.
 
 ##### 구축(Build) 단계
 
-구축 단계는 주어진 환경파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기
-위해 초기 조사를 수행하는 단계이다. 만약, 하나의 문제라도 발견되면 리포트
-파일(dataCompJ_report.txt)에 출력하고 실행(Run) 단계로 진행되는 것이 중지되고,
-dataCompJ는 종료된다.
+구축 단계는 주어진 환경파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위해 초기 조사를 수행하는 단계이다. 만약, 하나의 문제라도 발견되면 리포트 파일(dataCompJ_report.txt)에 출력하고 실행(Run) 단계로 진행되는 것이 중지되고, dataCompJ는 종료된다.
 
 1.  사용자가 지정한 환경파일을 읽는다.
 
 2.  환경파일에 기술된 접속정보가 유효한지 확인한다.
 
-3.  환경파일에 기술된 대상 테이블들의 유효성을 검증하기 위해 양쪽 데이터베이스에
-    접속하여 메타 정보를 확인한다. 테이블 중 어느 한쪽이라도 문제를 발견하면
-    리포트 파일에 출력하고 dataCompJ를 종료한다.
+3.  환경파일에 기술된 대상 테이블들의 유효성을 검증하기 위해 양쪽 데이터베이스에 접속하여 메타 정보를 확인한다. 테이블 중 어느 한쪽이라도 문제를 발견하면 리포트 파일에 출력하고 dataCompJ를 종료한다.
 
 ##### 실행(Run) 단계
 
-실행 단계는 대상 테이블들의 데이터를 비교하여, 사용자의 선택에 따라 비교(DIFF)
-또는 일치(SYNC) 기능을 수행하는 단계이다.
+실행 단계는 대상 테이블들의 데이터를 비교하여, 사용자의 선택에 따라 비교(DIFF) 또는 일치(SYNC) 기능을 수행하는 단계이다.
 
 각 TablePair의 수행 결과는 출력 파일 (dataCompJ_report.txt)에 출력된다.
 
@@ -1905,29 +1885,19 @@ dataCompJ는 종료된다.
 
 dataCompJ를 수행하면 텍스트 형식의 리포트 파일 1개, 로그 파일 2개가 생성된다.
 
-비교(DIFF) 기능에 의해 생성되는 출력 파일은 '[비교(DIFF) 기능](#비교diff-기능)'
-에서 상세히 설명한다.
+비교(DIFF) 기능에 의해 생성되는 출력 파일은 '[비교(DIFF) 기능](#비교diff-기능)' 에서 상세히 설명한다.
 
--   dataCompJ_report.txt: 수행 결과를 정리하여 사용자에게 전달하기 위한 텍스트
-    형태의 리포트 파일이다.
-
+-   dataCompJ_report.txt: 수행 결과를 정리하여 사용자에게 전달하기 위한 텍스트 형태의 리포트 파일이다.
+    
 -   dataCompJ.log: 프로그램 수행 시 발생하는 이벤트를 기록하는 로그 파일이다.
     프로그램의 상세 수행이력을 추적하기 위해 사용하는 파일이다.
 
--   dataCompJ_data.log: 실행(Run) 단계에서 생성되는 로그 파일로, 사용자가 설정
-    파일의 \<TraceInconsistentRecord\>를 true로 설정한 경우
-    비교(diff)/일치(sync) 수행 시 처리되는 불일치 레코드의 상세 내용을 기록한다.
-    불일치 레코드가 많은 경우 대용량의 파일이 생성되고 프로그램의 처리 성능이
-    저하되기 때문에, 불일치 레코드 처리 내역에 대한 상세 내용이 필요한 경우에만
-    사용을 권장한다.
+-   dataCompJ_data.log: 실행(Run) 단계에서 생성되는 로그 파일로, 사용자가 설정 파일의 \<TraceInconsistentRecord\>를 true로 설정한 경우 비교(diff)/일치(sync) 수행 시 처리되는 불일치 레코드의 상세 내용을 기록한다.
+    불일치 레코드가 많은 경우 대용량의 파일이 생성되고 프로그램의 처리 성능이 저하되기 때문에, 불일치 레코드 처리 내역에 대한 상세 내용이 필요한 경우에만 사용을 권장한다.
 
 #### dataCompJ 환경파일 설정
 
-dataCompJ를 수행하기 위해서는 환경파일 입력이 필수적이다. dataCompJ 설치 시
-dataCompJ.xml 라는 파일이 기본 환경 파일로 제공되고 있으며, 사용자가 임의의
-파일을 작성 후 사용도 가능하다. 하지만, 환경파일은 dataCompJ.xml에 기술된 XML
-규칙에 따라 작성되어야 하며 다국어가 포함된 경우 반드시 UTF-8로 인코딩 되어야
-한다.
+dataCompJ를 수행하기 위해서는 환경파일 입력이 필수적이다. dataCompJ 설치 시 dataCompJ.xml 라는 파일이 기본 환경 파일로 제공되고 있으며, 사용자가 임의의 파일을 작성 후 사용도 가능하다. 하지만, 환경파일은 dataCompJ.xml에 기술된 XML 규칙에 따라 작성되어야 하며 다국어가 포함된 경우 반드시 UTF-8로 인코딩 되어야 한다.
 
 dataCompJ 환경파일은 크게 [Connections](#connections), [Options](#options), [TablePairs](#tablepairs) 3개 부분으로 구성된다.
 
@@ -1937,12 +1907,10 @@ Connections 부분은 Master DB 및 Slave DB에 접속하기 위한 정보를 �
 
 ###### \<MasterDB\> 
 
-Master DB의 접속 정보를 기록한다. MasterDB의 종류는 반드시 Altibase
-데이터베이스여야 한다. 아래 XML Element는 MasterDB의 하위 요소들이다.
+Master DB의 접속 정보를 기록한다. MasterDB의 종류는 반드시 Altibase 데이터베이스여야 한다. 아래 XML Element는 MasterDB의 하위 요소들이다.
 
 \<JdbcUrl\>  
-JDBC 접속에 사용되는 정보로 데이터베이스 사용자 아이디와 암호를 제외한 나머지
-정보를 기록하는 문자열이다.
+JDBC 접속에 사용되는 정보로 데이터베이스 사용자 아이디와 암호를 제외한 나머지 정보를 기록하는 문자열이다.
 
 \<JdbcFilePath\>  
 Master DB 접속에 사용할 JDBC jar file이 존재하는 경로를 지정한다.
@@ -1954,13 +1922,10 @@ Master DB 접속에 사용할 JDBC jar file이 존재하는 경로를 지정한�
 데이터베이스 접속을 위한 사용자 아이디의 암호를 지정한다.
 
 \<FetchSize\>  
-데이터베이스에서 데이터를 가져오는 작업을 할 때, 한번에 가져오는 레코드의 개수를
-지정한다. 이 항목은 선택 항목이며, 기본값은1,000이다.
+데이터베이스에서 데이터를 가져오는 작업을 할 때, 한번에 가져오는 레코드의 개수를 지정한다. 이 항목은 선택 항목이며, 기본값은1,000이다.
 
 \<BatchSize\>  
-데이터베이스에 insert/delete/update 같은 변경 작업을 수행할 때, 한 번에 수행되는
-레코드 개수를 지정한다. 예를 들어 이 항목에 10을 지정하면, 10개 레코드 단위로
-insert/delete/update를 수행한다. 이 항목은 선택 항목으로, 기본값은 1,000이다.
+데이터베이스에 insert/delete/update 같은 변경 작업을 수행할 때, 한 번에 수행되는 레코드 개수를 지정한다. 예를 들어 이 항목에 10을 지정하면, 10개 레코드 단위로 insert/delete/update를 수행한다. 이 항목은 선택 항목으로, 기본값은 1,000이다.
 
 ###### \<SlaveDB\> 
 
@@ -1972,8 +1937,7 @@ Options 부분은 dataCompJ의 수행에 필요한 사용자 설정 값을 입�
 
 ###### \<Operation\> 
 
-불일치 데이터 처리를 위한 기능을 지정하는 항목으로 비교(DIFF)나 일치(SYNC) 둘 중
-하나의 기능을 선택한다.
+불일치 데이터 처리를 위한 기능을 지정하는 항목으로 비교(DIFF)나 일치(SYNC) 둘 중 하나의 기능을 선택한다.
 
 ###### \<FileEncoding\> 
 
@@ -1982,27 +1946,20 @@ dataCompJ 수행 시 생성되는 파일들의 encoding 타입을 지정한다.
 ###### \<Diff\>
 
 \<DirPath\>  
-비교(DIFF) 수행 시 생성되는 비교 대상 테이블 별 결과 CSV 파일이 생성되는
-디렉토리 경로를 지정한다.
+비교(DIFF) 수행 시 생성되는 비교 대상 테이블 별 결과 CSV 파일이 생성되는 디렉토리 경로를 지정한다.
 
 ###### \<Sync\> 
 
 일치(SYNC) 기능 수행 시 옵션들
 
 \<MOSO UPDATE_TO_SLAVE="true"/\>  
-MOSO 불일치 데이터 발견 시 Master 테이블 레코드 기준으로 Slave 테이블의 레코드
-업데이트(Update) 여부. false를 선택하게 되면 MOSO 불일치 데이터를 처리하지 않게
-된다.
+MOSO 불일치 데이터 발견 시 Master 테이블 레코드 기준으로 Slave 테이블의 레코드 업데이트(Update) 여부. false를 선택하게 되면 MOSO 불일치 데이터를 처리하지 않게 된다.
 
 \<MOSX INSERT_TO_SLAVE="true"/\>  
-MOSX 불일치 데이터 발견 시 Master 테이블에만 존재하는 레코드를 Slave 테이블에
-삽입(Insert) 여부. false를 선택하게 되면 MOSX 불일치 데이터를 처리하지 않게
-된다.
+MOSX 불일치 데이터 발견 시 Master 테이블에만 존재하는 레코드를 Slave 테이블에 삽입(Insert) 여부. false를 선택하게 되면 MOSX 불일치 데이터를 처리하지 않게 된다.
 
 \<MXSO DELETE_FROM_SLAVE="true"/\>  
-MXSO 불일치 데이터 발견 시 Master 테이블에 존재하지 않는 Slave 테이블의 레코드를
-삭제(Insert) 여부. false를 선택하게 되면 MXSO 불일치 데이터를 처리하지 않게
-된다.
+MXSO 불일치 데이터 발견 시 Master 테이블에 존재하지 않는 Slave 테이블의 레코드를 삭제(Insert) 여부. false를 선택하게 되면 MXSO 불일치 데이터를 처리하지 않게 된다.
 
 ###### \<Log\>
 
@@ -2012,29 +1969,19 @@ MXSO 불일치 데이터 발견 시 Master 테이블에 존재하지 않는 Slav
 dataCompJ 수행 시 생성되는 로그 파일들의 디렉토리 경로를 지정한다.
 
 \<TraceInconsistentRecord\>  
-diff/sync 수행 시 발견되는 모든 불일치 레코드의 상세 내역을 dataCompJ_data.log
-파일에 기록여부를 true/false 값으로 결정한다.
+diff/sync 수행 시 발견되는 모든 불일치 레코드의 상세 내역을 dataCompJ_data.log 파일에 기록여부를 true/false 값으로 결정한다.
 
 ###### \<MaxThread\> 
 
-dataCompJ에게 할당 가능한 최대 쓰레드 개수. 0으로 지정하는 경우, dataCompJ가
-해당 머신의 CPU core 개수를 MaxThread으로 할당한다.
+dataCompJ에게 할당 가능한 최대 쓰레드 개수. 0으로 지정하는 경우, dataCompJ가 해당 머신의 CPU core 개수를 MaxThread으로 할당한다.
 
 ##### TablePairs
 
-TablePairs 부분은 비교 대상 테이블들을 기록하는 곳이다. 비교 대상 테이블에 대한
-개별 정보를 기록하는 방법과 일괄적으로 테이블 이름들이 나열되어 있는 텍스트 파일
-경로를 지정하는 방법 두 가지를 제공한다. 그리고 이 두 가지 방법은 각 개별로
-사용가능하고 함께 사용도 가능하다.
+TablePairs 부분은 비교 대상 테이블들을 기록하는 곳이다. 비교 대상 테이블에 대한 개별 정보를 기록하는 방법과 일괄적으로 테이블 이름들이 나열되어 있는 텍스트 파일 경로를 지정하는 방법 두 가지를 제공한다. 그리고 이 두 가지 방법은 각 개별로 사용가능하고 함께 사용도 가능하다.
 
-개별 테이블에 대한 정보를 제공하는 방법은 아래와 같으며, 데이터 비교 방법에 대한
-상세한 제어가 가능하다는 장점이 있다. 예를 들어, 데이터 비교 시 특정 칼럼을
-제외시키거나 특정 조건을 만족하는 데이터들만 비교 대상으로 할 수 도 있다.
+개별 테이블에 대한 정보를 제공하는 방법은 아래와 같으며, 데이터 비교 방법에 대한 상세한 제어가 가능하다는 장점이 있다. 예를 들어, 데이터 비교 시 특정 칼럼을 제외시키거나 특정 조건을 만족하는 데이터들만 비교 대상으로 할 수 도 있다.
 
-비교 대상인 테이블 이름은 Master DB와 Slave DB 모두에서 허용하는 이름이어야
-한다. 만약 xml 파일에 있는 테이블 이름에 공백, 특수 문자 등이 포함되었거나
-대소문자를 구분해야 할 경우 큰따옴표(")를 사용해야 한다. 예를 들어, 비교 대상
-테이블 이름이 SYS schema의Employee 01이면, 테이블 이름이 공백을 포함하기 때문에
+비교 대상인 테이블 이름은 Master DB와 Slave DB 모두에서 허용하는 이름이어야 한다. 만약 xml 파일에 있는 테이블 이름에 공백, 특수 문자 등이 포함되었거나 대소문자를 구분해야 할 경우 큰따옴표(")를 사용해야 한다. 예를 들어, 비교 대상 테이블 이름이 SYS schema의Employee 01이면, 테이블 이름이 공백을 포함하기 때문에
 SYS."Employee 01"과 같이 테이블 이름에 큰 따옴표를 사용한다.
 
 ###### \<TablePair\> 
@@ -2043,32 +1990,19 @@ SYS."Employee 01"과 같이 테이블 이름에 큰 따옴표를 사용한다.
 아래의 XML element는 TablePair의 하위 요소들이다.
 
 \<MasterTable\>  
-MasterDB에 존재하는 비교 대상 테이블의 이름으로 [*SchemaName*].*TableName*
-형식으로 지정 가능하다. 스키마 이름을 별도로 지정하지 않으면 MasterDB의 UserId를
-기본 스키마 이름으로 사용하게 된다. 이 항목은 필수 항목으로 기술되지 않으면
-프로그램 수행 시 에러가 발생한다.
+MasterDB에 존재하는 비교 대상 테이블의 이름으로 [*SchemaName*].*TableName* 형식으로 지정 가능하다. 스키마 이름을 별도로 지정하지 않으면 MasterDB의 UserId를 기본 스키마 이름으로 사용하게 된다. 이 항목은 필수 항목으로 기술되지 않으면 프로그램 수행 시 에러가 발생한다.
 
 \<SlaveTable\>  
-SlaveDB에 존재하는 비교 대상 테이블의 이름으로 [*SchemaName*].*TableName*
-형식으로 지정 가능하다. 스키마 이름을 별도로 지정하지 않으면 SlaveDB의 UserId를
-기본 스키마 이름으로 사용하게 된다. 이 항목은 선택 항목으로, 기술되지 않으면
-\<MasterTable\>과 같은 이름으로 간주된다
+SlaveDB에 존재하는 비교 대상 테이블의 이름으로 [*SchemaName*].*TableName* 형식으로 지정 가능하다. 스키마 이름을 별도로 지정하지 않으면 SlaveDB의 UserId를 기본 스키마 이름으로 사용하게 된다. 이 항목은 선택 항목으로, 기술되지 않으면 \<MasterTable\>과 같은 이름으로 간주된다.
 
 \<Exclude\>  
-테이블의 레코드를 projection하는 조건을 지정한다. 쉼표(,)를 구분자로 사용하여
-여러 개의 칼럼을 지정할 수 있다. 이 항목은 선택 항목으로, 기술되지 않으면
-dataCompJ가 지원하는 데이터 타입을 가진 모든 칼럼들을 비교대상으로 선택한다.
+테이블의 레코드를 projection하는 조건을 지정한다. 쉼표(,)를 구분자로 사용하여 여러 개의 칼럼을 지정할 수 있다. 이 항목은 선택 항목으로, 기술되지 않으면 dataCompJ가 지원하는 데이터 타입을 가진 모든 칼럼들을 비교대상으로 선택한다.
 
 \<Where\>  
-테이블의 레코드를 selection하는 조건을 지정한다. SQL 문의 WHERE 절에 기술하는
-방식과 동일하게 기술하며 다중 조건을 허용한다. 하지만, 양쪽 데이터베이스에
-동일하게 적용되기 때문에 양쪽 데이터베이스 문법에 어긋나지 않아야 한다. 이
-항목은 선택 항목으로, 기술되지 않으면 모든 레코드들을 비교 대상으로 한다.
+테이블의 레코드를 selection하는 조건을 지정한다. SQL 문의 WHERE 절에 기술하는 방식과 동일하게 기술하며 다중 조건을 허용한다. 하지만, 양쪽 데이터베이스에 동일하게 적용되기 때문에 양쪽 데이터베이스 문법에 어긋나지 않아야 한다. 이 항목은 선택 항목으로, 기술되지 않으면 모든 레코드들을 비교 대상으로 한다.
 
 \<TableNameFilePath\>  
-일괄적으로 테이블 이름들을 나열한 텍스트 파일 경로를 제공하는 방법은 아래와
-같으며, 다수의 테이블들을 일괄적으로 비교해야 하는 경우 테이블 입력을 손쉽게 할
-수 있다는 장점이 있다.
+일괄적으로 테이블 이름들을 나열한 텍스트 파일 경로를 제공하는 방법은 아래와 같으며, 다수의 테이블들을 일괄적으로 비교해야 하는 경우 테이블 입력을 손쉽게 할 수 있다는 장점이 있다.
 
 ```
 <TableNameFilePath>table_name_file_path</TableNameFilePath>
@@ -2076,49 +2010,33 @@ dataCompJ가 지원하는 데이터 타입을 가진 모든 칼럼들을 비교�
 
 
 
-table_name_file_path는 테이블 이름들을 나열한 텍스트 파일의 경로이다. 비교 대상
-테이블의 이름은 [SchemaName].TableName 형식으로 지정할 수 있으며, 각각의 테이블
-이름은 개행 문자로 구분된다. MasterDB의 비교 대상 테이블 이름과 SlaveDB의 비교
-대상 테이블 이름이 반드시 일치해야 한다.
+table_name_file_path는 테이블 이름들을 나열한 텍스트 파일의 경로이다. 비교 대상 테이블의 이름은 [SchemaName].TableName 형식으로 지정할 수 있으며, 각각의 테이블 이름은 개행 문자로 구분된다. MasterDB의 비교 대상 테이블 이름과 SlaveDB의 비교 대상 테이블 이름이 반드시 일치해야 한다.
 
 ###### 제약 사항
 
-비교 대상의 테이블을 선택할 때 다음의 제약 사항을 반드시 고려해야 한다. 하나의
-제약 사항이라도 위반한 경우, dataCompJ는 구축 단계에서 발생한 문제점을 리포트
-파일(dataCompJ_report.txt)에 출력하고, 실행 단계를 수행하지 않는다.
+비교 대상의 테이블을 선택할 때 다음의 제약 사항을 반드시 고려해야 한다. 하나의 제약 사항이라도 위반한 경우, dataCompJ는 구축 단계에서 발생한 문제점을 리포트 파일(dataCompJ_report.txt)에 출력하고, 실행 단계를 수행하지 않는다.
 
-1.  하나의 비교대상 테이블은 MasterDB와 SlaveDB에 반드시 동일하게 (칼럼 이름,
-    칼럼 순서, 데이터 타입, Primary key) 구성되어야 한다. 단, 데이터 타입은
-    이기종 데이터베이스간 서로 비교 가능한 타입이면 가능하다.
-
-2.  지원하지 않는 데이터 타입의 칼럼은 비교 대상에서 자동으로 제외된다. (예,
-    LOB과 같은 binary type)
-
-3.  주요 키(primary key) 외에 값을 비교할 수 있는 칼럼이 적어도 한 개 이상이어야
-    한다.
-
+1.  하나의 비교대상 테이블은 MasterDB와 SlaveDB에 반드시 동일하게 (칼럼 이름, 칼럼 순서, 데이터 타입, Primary key) 구성되어야 한다. 단, 데이터 타입은 이기종 데이터베이스간 서로 비교 가능한 타입이면 가능하다.
+    
+2.  지원하지 않는 데이터 타입의 칼럼은 비교 대상에 서 자동으로 제외된다. (예, LOB과 같은 binary type)
+    
+3.  주요 키(primary key) 외에 값을 비교할 수 있는 칼럼이 적어도 한 개 이상이어야 한다.
+    
     -   (예제 1) table1 (c1 int, c2 int, c3 CLOB, primary key (c1, c2))  
         (예제 2) table1 (c1 int, c2 int, c3 varchar(100), primary key (c1, c2))  
-        예제 1에서 '제약조건 3'을 만족하는 컬럼은 c3 뿐이다. 하지만 c3 컬럼의
-        데이터 타입인 CLOB은 dataCompJ가 지원하지 않기 때문에, '제약 사항 2'를
-        위반하게 된다. 따라서 table1에 대한 비교는 허용되지 않는다.  
-        예제 2에서 '제약 사항 3'을 만족하는 컬럼은 c3 뿐이다. 그리고 c3의 데이터
-        타입이 dataCompJ가 지원하는 varchar 타입이기 때문에 table1에 대한 비교가
-        가능하다.
+        예제 1에서 '제약조건 3'을 만족하는 컬럼은 c3 뿐이다. 하지만 c3 컬럼의 데이터 타입인 CLOB은 dataCompJ가 지원하지 않기 때문에, '제약 사항 2'를 위반하게 된다. 따라서 table1에 대한 비교는 허용되지 않는다.  
+        예제 2에서 '제약 사항 3'을 만족하는 컬럼은 c3 뿐이다. 그리고 c3의 데이터 타입이 dataCompJ가 지원하는 varchar 타입이기 때문에 table1에 대한 비교가 가능하다.
 
 
 
 ### 비교(DIFF) 기능
 
-비교(DIFF) 기능은 Master DB와 Slave DB 간의 이기종 복제 작업에서 발생할 수 있는
-불일치 레코드들을 식별하고 이들을 파일에 기록하여, 두 데이터베이스 시스템간의
-불일치 레코드들을 확인하기 위한 기능을 가진다.
+비교(DIFF) 기능은 Master DB와 Slave DB 간의 이기종 복제 작업에서 발생할 수 있는 불일치 레코드들을 식별하고 이들을 파일에 기록하여, 두 데이터베이스 시스템간의 불일치 레코드들을 확인하기 위한 기능을 가진다.
 
 #### 환경 파일
 
 dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “DIFF”로 지정한다.
-\<Connections\>와 \<Options\> 항목들은 모두 필수적으로 기입해야 하며, 대상
-테이블에 대해 \<TablePairs\>에 기술해야 한다.
+\<Connections\>와 \<Options\> 항목들은 모두 필수적으로 기입해야 하며, 대상 테이블에 대해 \<TablePairs\>에 기술해야 한다.
 
 ##### dataCompJ.xml
 
@@ -2180,8 +2098,7 @@ $ dataCompJCli.sh -f dataCompJ.xml
 
 #### 실행 결과
 
-실행 결과로 수행 결과가 요약된 리포트 파일( dataCompJ_report.txt)과 수행 중
-이벤트가 기록되는 로그파일들(dataCompJ.log, dataCompJ_data.log)이 생성된다.
+실행 결과로 수행 결과가 요약된 리포트 파일( dataCompJ_report.txt)과 수행 중 이벤트가 기록되는 로그파일들(dataCompJ.log, dataCompJ_data.log)이 생성된다.
 "[출력 파일](#출력-파일)"에 이들 파일들에 대해 상세히 설명되어 있다.
 
 예제에 사용되는 테이블의 구조는 아래와 같다.
@@ -2262,8 +2179,7 @@ MXSO    Slave only                            1
 
 ##### 실행 데이터 파일
 
-비교(DIFF) 기능 선택의 결과로 TablePair 단위로 다음 4개의 Comma-separated values
-(CSV) 형식의 데이터 파일들이 생성된다.
+비교(DIFF) 기능 선택의 결과로 TablePair 단위로 다음 4개의 Comma-separated values (CSV) 형식의 데이터 파일들이 생성된다.
 
 -   *SchemaName.TableName*\_MASTER_diff.csv:  
     MOSO 불일치 발생시 Master table의 해당 레코드 값을 CSV 형태로 저장하는 파일.
@@ -2272,17 +2188,13 @@ MXSO    Slave only                            1
     MOSO 불일치 발생시 Slave table의 해당 레코드 값을 CSV 형태로 저장하는 파일.
 
 -   *SchemaName.TableName*\_MASTER_only.csv:  
-    MOSX 불일치 발생으로 Master table에만 존재하는 레코드 값을 CSV 형태로
-    저장하는 파일.
-
+    MOSX 불일치 발생으로 Master table에만 존재하는 레코드 값을 CSV 형태로 저장하는 파일.
+    
 -   *SchemaName.TableName*\_SLAVE_only.csv:  
-    MXSO 불일치 발생으로 Slave table에만 존재하는 레코드 값을 CSV 형태로
-    저장하는 파일.
+    MXSO 불일치 발생으로 Slave table에만 존재하는 레코드 값을 CSV 형태로 저장하는 파일.
 
 *SchemaName.TableName*\_MASTER_diff.csv 파일과
-*SchemaName.TableName*\_SLAVE_diff.csv 파일에는 MOSO 불일치 데이터가 같은 순서로
-기록되기 때문에, diff 프로그램으로 두 개의 파일을 비교함으로써 MOSO 불일치
-발생부분을 직관적으로 비교 가능하다.
+*SchemaName.TableName*\_SLAVE_diff.csv 파일에는 MOSO 불일치 데이터가 같은 순서로 기록되기 때문에, diff 프로그램으로 두 개의 파일을 비교함으로써 MOSO 불일치 발생부분을 직관적으로 비교 가능하다.
 
 #### 예제
 
@@ -2299,17 +2211,11 @@ CREATE TABLE ex2 (C1 int primary key, C2 varchar(20), C3 int);
 
 두 개의 테이블을 대상으로 schema 이름을 생략 또는 명시하는 예제이다.
 
-아래의 예제에서 EX1테이블의 경우 \<MasterTable\>항목은 스키마 이름 없이 테이블
-이름만 기술하고, \<SlaveTable\> 항목은 생략했다. 스키마 이름 없이 테이블 이름만
-기술한 \<MasterTable\>은 \<MasterDB\>-\<UserId\>에 입력된 값을 스키마 이름으로
-사용하게 된다. 생략된 \<SlaveTable\>은 \<MasterTable\>과 같은 값으로 가정하고
-처리된다.
+아래의 예제에서 EX1테이블의 경우 \<MasterTable\>항목은 스키마 이름 없이 테이블 이름만 기술하고, \<SlaveTable\> 항목은 생략했다. 스키마 이름 없이 테이블 이름만 기술한 \<MasterTable\>은 \<MasterDB\>-\<UserId\>에 입력된 값을 스키마 이름으로 사용하게 된다. 생략된 \<SlaveTable\>은 \<MasterTable\>과 같은 값으로 가정하고 처리된다.
 
-EX1테이블의 C3 칼럼은 dataCompJ가 지원하지 않는 데이터 타입인 CLOB으로 비교
-대상에서 자동으로 제외되며, 리포트의 Candidate tables 항목에 이 내용이 기록된다.
+EX1테이블의 C3 칼럼은 dataCompJ가 지원하지 않는 데이터 타입인 CLOB으로 비교 대상에서 자동으로 제외되며, 리포트의 Candidate tables 항목에 이 내용이 기록된다.
 
-EX2 테이블은 스키마 이름과 테이블 이름을 사용자가 명시적으로 입력하였고, 입력
-받은 스키마 이름과 테이블 이름을 기반으로 처리된다.
+EX2 테이블은 스키마 이름과 테이블 이름을 사용자가 명시적으로 입력하였고, 입력받은 스키마 이름과 테이블 이름을 기반으로 처리된다.
 
 ###### dataCompJ.xml
 
@@ -2409,11 +2315,8 @@ MXSO    Slave only                            0
 
 ##### DIFF 예제 2
 
-대상 테이블의 특정 칼럼을 사용자가 명시적으로 제외하고(Exclude), 특정 조건을
-만족하는 레코드(Where)만을 대상으로 비교(Diff) 수행하는 예제이다.
-dataCompJ.xml에 EX1 테이블에 대해 주요 키가 아닌 칼럼들 중 C4 칼럼을
-비교대상에서 제외시키고 C1 칼럼 값이 5보다 큰 레코드만 비교 작업을 수행하도록
-사용자가 명시적으로 입력한다.
+대상 테이블의 특정 칼럼을 사용자가 명시적으로 제외하고(Exclude), 특정 조건을 만족하는 레코드(Where)만을 대상으로 비교(Diff) 수행하는 예제이다.
+dataCompJ.xml에 EX1 테이블에 대해 주요 키가 아닌 칼럼들 중 C4 칼럼을 비교대상에서 제외시키고 C1 칼럼 값이 5보다 큰 레코드만 비교 작업을 수행하도록 사용자가 명시적으로 입력한다.
 
 ###### dataCompJ.xml
 
@@ -2502,15 +2405,12 @@ MXSO    Slave only                            0
 
 ### 일치(SYNC) 기능
 
-일치(SYNC)기능은 Master DB와 Slave DB 간의 이기종 복제 작업에서 발생할 수 있는
-불일치 레코드들을 식별하여 이를 Slave DB에 적용하는 기능이다. 두 데이터베이스
-시스템의 데이터 동기화(Synchronization)를 손쉽게 할 수 있다.
+일치(SYNC)기능은 Master DB와 Slave DB 간의 이기종 복제 작업에서 발생할 수 있는 불일치 레코드들을 식별하여 이를 Slave DB에 적용하는 기능이다. 두 데이터베이스 시스템의 데이터 동기화(Synchronization)를 손쉽게 할 수 있다.
 
 #### 환경 파일
 
 dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “SYNC”로 지정한다.
-\<Connections\>와 \<Options\> 항목들은 모두 필수적으로 기입해야 하며, 대상
-테이블에 대해 \<TablePairs\>에 기술해야 한다.
+\<Connections\>와 \<Options\> 항목들은 모두 필수적으로 기입해야 하며, 대상 테이블에 대해 \<TablePairs\>에 기술해야 한다.
 
 ###### dataCompJ.xml
 
@@ -2574,8 +2474,7 @@ Refer to the following output files for details.
 
 #### 실행 결과
 
-실행 결과로 수행 결과가 요약된 리포트 파일, dataCompJ_report.txt, 그리고 수행 중
-이벤트가 기록되는 로그 파일들(dataCompJ.log, dataCompJ_data.log)이 생성된다.
+실행 결과로 수행 결과가 요약된 리포트 파일, dataCompJ_report.txt, 그리고 수행 중 이벤트가 기록되는 로그 파일들(dataCompJ.log, dataCompJ_data.log)이 생성된다.
 "[출력 파일](#출력-파일)"에 이들 파일들에 대해 상세히 설명되어 있다.
 
 ###### dataCompJ_report.txt
@@ -2620,9 +2519,7 @@ MXSO    DELETE FROM SLAVE                1           0
 ------------------------------------------------------
 ```
 
-모든 대상 테이블과 레코드들에 대해 SYNC가 정확히 수행된 경우, 동일한 대상
-테이블에 대해 DIFF 기능을 재수행시 모든 레코드가 동일하다는 비교 결과를 얻게
-된다.
+모든 대상 테이블과 레코드들에 대해 SYNC가 정확히 수행된 경우, 동일한 대상 테이블에 대해 DIFF 기능을 재수행시 모든 레코드가 동일하다는 비교 결과를 얻게 된다.
 
 ```
 $ dataCompJCli.sh -f ./dataCompJ.xml
@@ -2688,32 +2585,24 @@ MXSO    Slave only                            0
 
 ### 이기종간 데이터 타입 호환 테이블
 
-dataCompJ가 지원하는 이기종 데이터베이스 간의 호환되는 데이터 타입 매핑
-테이블이다.
+dataCompJ가 지원하는 이기종 데이터베이스 간의 호환되는 데이터 타입 매핑 테이블이다.
 
-dataCompJ가 지원하지 않는 데이터 타입을 가진 테이블을 대상으로 데이터 비교를
-수행하면 다음과 같이 처리된다.
+dataCompJ가 지원하지 않는 데이터 타입을 가진 테이블을 대상으로 데이터 비교를 수행하면 다음과 같이 처리된다.
 
--   Master 테이블과 Slave 테이블 모두 dataCompJ가 지원하지 않는 데이터 타입인
-    경우: 구축(Build) 단계에서 지원하지 않는 데이터 타입이라는 에러를 리포트
-    파일(dataCompJ_report.txt)에 출력하고, 실행(Run) 단계가 수행되지 않는다.
+- Master 테이블과 Slave 테이블 모두 dataCompJ가 지원하지 않는 데이터 타입인 경우: 
 
--   Master 테이블과 Slave 테이블 둘 중 한쪽은 지원되고 한쪽은 지원되지 않는
-    데이터 타입인 경우: 구축(Build) 단계에서 테이블의 비교 대상 칼럼의 개수가
-    다르다는 에러를 리포트 파일(dataCompJ_report.txt)에 출력하고, 실행(run)
-    단계가 수행되지 않는다.
+  구축(Build) 단계에서 지원하지 않는 데이터 타입이라는 에러를 리포트 파일(dataCompJ_report.txt)에 출력하고, 실행(Run) 단계가 수행되지 않는다.
 
-dataCompJ가 지원하는 데이터 타입이지만, 비교 대상 테이블의 칼럼 데이터 타입이
-이기종간 데이터 타입 호환 테이블과 다른 데이터 타입 조합을 사용하는 경우 다음과
-같이 처리된다.
+-   Master 테이블과 Slave 테이블 둘 중 한쪽은 지원되고 한쪽은 지원되지 않는 데이터 타입인 경우: 
+    
+    구축(Build) 단계에서 테이블의 비교 대상 칼럼의 개수가 다르다는 에러를 리포트 파일(dataCompJ_report.txt)에 출력하고, 실행(run) 단계가 수행되지 않는다.
 
--   데이터 비교 자체가 아예 불가능한 타입의 경우 (예를 들어, 정수형과 문자형
-    데이터 타입간의 비교): 구축(build) 단계에서 리포트 파일에 호환되지 않는
-    타입이라고 출력하고, 실행(run) 단계가 수행되지 않는다.
+dataCompJ가 지원하는 데이터 타입이지만, 비교 대상 테이블의 칼럼 데이터 타입이 이기종간 데이터 타입 호환 테이블과 다른 데이터 타입 조합을 사용하는 경우 다음과 같이 처리된다.
 
+-   데이터 비교 자체가 아예 불가능한 타입의 경우 (예를 들어, 정수형과 문자형 데이터 타입간의 비교): 구축(build) 단계에서 리포트 파일에 호환되지 않는 타입이라고 출력하고, 실행(run) 단계가 수행되지 않는다.
+    
 -   비교가 애매한 데이터 타입의 경우 (예를 들어 정수형과 부동 소수점 형):
-    구축(build) 단계에서 처리할 수 없으므로, 그대로 실행(run) 단계가 수행된다.
-    하지만 수행 결과에 모든 레코드가 불일치 레코드로 처리된다.
+    구축(build) 단계에서 처리할 수 없으므로, 그대로 실행(run) 단계가 수행된다. 하지만 수행 결과에 모든 레코드가 불일치 레코드로 처리된다.
 
 #### Altibase to Oracle
 
@@ -2760,11 +2649,7 @@ dataCompJ가 지원하는 데이터 타입이지만, 비교 대상 테이블의 
 
 #### 개요
 
-감사가 Altibase 서버에서 수행 중이라면, \$ALTIBASE_HOME/trc 디렉토리에
-기본적으로 감사 로그 파일이 생성되고 로그가 기록될 것이다. 감사 로그 파일의
-위치는 AUDIT_LOG_DIR 프로퍼티로 변경 가능하다. 이 파일에는 사용자가 읽을 수 없는
-바이너리 형태의 감사 로그가 기록되어 있다. altiAudit 유틸리티는 감사 로그 파일을
-문자 형태로 변환하여 출력함으로써 사용자가 감사 로그를 분석할 수 있게 한다.
+감사가 Altibase 서버에서 수행 중이라면, \$ALTIBASE_HOME/trc 디렉토리에 기본적으로 감사 로그 파일이 생성되고 로그가 기록될 것이다. 감사 로그 파일의 위치는 AUDIT_LOG_DIR 프로퍼티로 변경 가능하다. 이 파일에는 사용자가 읽을 수 없는 바이너리 형태의 감사 로그가 기록되어 있다. altiAudit 유틸리티는 감사 로그 파일을 문자 형태로 변환하여 출력함으로써 사용자가 감사 로그를 분석할 수 있게 한다.
 
 ```
 altiAudit [-s] {audit_log_file_name}
@@ -2886,8 +2771,7 @@ into t1 values ('aaaa', 1)"
 
 #### 개요
 
-‘altibase’는 Altibase의 모든 서비스를 관장하는 서버 프로세스를 실행하는
-파일이다.
+‘altibase’는 Altibase의 모든 서비스를 관장하는 서버 프로세스를 실행하는 파일이다.
 
 ```
 altibase {-v|n}
@@ -2908,24 +2792,15 @@ altibase {-v|n}
 
 #### 설명
 
-‘altibase’는 Altibase의 모든 서비스를 관장하는 서버 프로세스의 실행
-가능(executable) 파일이다.
+‘altibase’는 Altibase의 모든 서비스를 관장하는 서버 프로세스의 실행 가능(executable) 파일이다.
 
-Altibase를 구동하거나 종료하기 위해 이 커맨드를 직접 사용하면 안 된다. 대신에
-iSQL에 SYSDBA 모드로 접속한 뒤, 구동이나 종료 명령을 사용하거나 server 커맨드를
-사용해야 한다. server 커맨드는 실제로 Altibase 구동과 종료에 관련된 일련의
-명령을 묶어놓은 쉘 스크립트이다. 관련 내용은 본 문서의 server 항목을 참조한다.
+Altibase를 구동하거나 종료하기 위해 이 커맨드를 직접 사용하면 안 된다. 대신에 iSQL에 SYSDBA 모드로 접속한 뒤, 구동이나 종료 명령을 사용하거나 server 커맨드를 사용해야 한다. server 커맨드는 실제로 Altibase 구동과 종료에 관련된 일련의 명령을 묶어놓은 쉘 스크립트이다. 관련 내용은 본 문서의 server 항목을 참조한다.
 
-보다 자세한 Altibase의 구동 및 종료에 관한 내용은 *iSQL User’s Manual*이나
-*Getting Started Guide* 를 참조한다.
+보다 자세한 Altibase의 구동 및 종료에 관한 내용은 *iSQL User’s Manual*이나 *Getting Started Guide* 를 참조한다.
 
-iSQL로 구동된 Altibase 서버 프로세스는 백그라운드에서 운영된다. 반면, 쉘
-프롬프트에서 altibase 커맨드를 -n옵션으로 수행할 경우 Altibase는 포그라운드에서
-구동된다. 이는 Altibase 디버깅을 위한 용도로만 사용되며, 실 운영 시에는 사용하지
-않도록 한다.
+iSQL로 구동된 Altibase 서버 프로세스는 백그라운드에서 운영된다. 반면, 쉘 프롬프트에서 altibase 커맨드를 -n옵션으로 수행할 경우 Altibase는 포그라운드에서 구동된다. 이는 Altibase 디버깅을 위한 용도로만 사용되며, 실 운영 시에는 사용하지 않도록 한다.
 
-\-v 옵션으로 altibase 커맨드를 실행하면 현재 설치된 Altibase 제품의 버전 정보를
-출력한다.
+\-v 옵션으로 altibase 커맨드를 실행하면 현재 설치된 Altibase 제품의 버전 정보를 출력한다.
 
 #### 참고사항
 
@@ -2956,11 +2831,9 @@ altimon.sh {start \| stop}
 
 #### 설명
 
-altiMon은 Altibase 서버와 altiMon이 구동된 호스트 장비를 지속적으로 모니터링하여
-로그 파일에 수집한 데이터를 기록한다.
+altiMon은 Altibase 서버와 altiMon이 구동된 호스트 장비를 지속적으로 모니터링하여 로그 파일에 수집한 데이터를 기록한다.
 
-altiMon은 주로 OS 정보와 DB 정보를 모니터링하며, 자세한 설명은 altiMon 설정을
-참고한다.
+altiMon은 주로 OS 정보와 DB 정보를 모니터링하며, 자세한 설명은 altiMon 설정을 참고한다.
 
 ##### start
 
@@ -3030,13 +2903,11 @@ PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
 altiMon은 java 1.5 이상에서 동작한다.
 
-Java 버전은 PICL c 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL
-c 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
+Java 버전은 PICL C 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL C 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
 
 #### altiMon 설정(Configuration)
 
-altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디렉토리에 있는
-아래의 파일들을 설정한다.
+altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디렉토리에 있는 아래의 파일들을 설정한다.
 
 -   [config.xml](#config.xml)
 
@@ -3068,8 +2939,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 
 ##### Metrics.xml
 
-사전 정의된 OS Meric, SQL Metric과 사용자 정의된 OS Metric(Command Metric)을
-설정하는 파일이다.
+사전 정의된 OS Meric, SQL Metric과 사용자 정의된 OS Metric(Command Metric)을 설정하는 파일이다.
 
 | 태그 이름                                                    | 설명                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -3084,12 +2954,9 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 
 ##### GroupMetrics.xml
 
-Group Metric을 정의하는 파일이다. OS Metric, Command Metric과 SQL Metric의
-조합으로 이루어진다. Metrics.xml에 정의한 metric을 사용해서 GroupMetric을 정의할
-수 있다.
+Group Metric을 정의하는 파일이다. OS Metric, Command Metric과 SQL Metric의 조합으로 이루어진다. Metrics.xml에 정의한 metric을 사용해서 GroupMetric을 정의할 수 있다.
 
-Group Metric으로 수집한 데이터는 일반 Metric 측정값이 \*.log 파일에 저장되는
-것과 달리, CSV 형식의 파일로 저장된다.
+Group Metric으로 수집한 데이터는 일반 Metric 측정값이 \*.log 파일에 저장되는 것과 달리, CSV 형식의 파일로 저장된다.
 
 | 태그 이름                                   | 설명                                                         |
 | ------------------------------------------- | ------------------------------------------------------------ |
@@ -3100,10 +2967,8 @@ Group Metric으로 수집한 데이터는 일반 Metric 측정값이 \*.log 파�
 ##### 기타
 
 -   action_scripts 디렉토리  
-    \<ActionScript\> 태그에 설정하는 스크립트 파일은
-    \$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 위치한다.  
-    예를 들어 \<ActionScript\>db_usage.sh\</ActionScript\>의 'db_usage.sh'
-    파일은 action_scripts 디렉토리에 있어야 스크립트 파일이 정상적으로 수행된다.
+    \<ActionScript\> 태그에 설정하는 스크립트 파일은 \$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 위치한다.  
+    예를 들어 \<ActionScript\>db_usage.sh\</ActionScript\>의 'db_usage.sh' 파일은 action_scripts 디렉토리에 있어야 스크립트 파일이 정상적으로 수행된다.
 
 #### 사용예
 
@@ -3224,27 +3089,21 @@ altiMon 설정 파일들에 대한 예제이다.
 
 ##### logs/archive 디렉토리
 
-logs 디렉토리의 altimon.log, \*.csv 제외한 모든 파일이 archive/YYYY-MM-DD
-디렉토리로 매일 백업된다.
+logs 디렉토리의 altimon.log, \*.csv 제외한 모든 파일이 archive/YYYY-MM-DD 디렉토리로 매일 백업된다.
 
-이 디렉토리들 중에서 \<MaintenancePeriod\>에 설정한 유지 기간이 지난 디렉토리는
-매일 1:50am에 삭제된다.
+이 디렉토리들 중에서 \<MaintenancePeriod\>에 설정한 유지 기간이 지난 디렉토리는 매일 1:50am에 삭제된다.
 
 ##### logs/csv_backup 디렉토리
 
-Group Metric은 설정이 변경되지 않는 한 계속 같은 csv 파일에 측정 데이터가
-추가된다.
+Group Metric은 설정이 변경되지 않는 한 계속 같은 csv 파일에 측정 데이터가 추가된다.
 
-그러나 metric 설정이 변경된 경우, 즉 Group Metric의 대상이 되는 target이 변경된
-경우에는 기존의 csv 파일이 logs/csv_backup 디렉토리로 백업되고 동일한 이름의
-새로운 파일에 데이터가 기록된다.
+그러나 metric 설정이 변경된 경우, 즉 Group Metric의 대상이 되는 target이 변경된 경우에는 기존의 csv 파일이 logs/csv_backup 디렉토리로 백업되고 동일한 이름의 새로운 파일에 데이터가 기록된다.
 
 ### altierr
 
 #### 개요
 
-altierr은 Altibase 서버 에러 코드에 대한 상세한 설명을 검색하여 출력하는
-유틸리티이다. 에러 번호나 에러 메시지 패턴을 이용하여 검색이 가능하다.
+altierr은 Altibase 서버 에러 코드에 대한 상세한 설명을 검색하여 출력하는 유틸리티이다. 에러 번호나 에러 메시지 패턴을 이용하여 검색이 가능하다.
 
 ```
 altierr {-w keyword pattern | [-n] error number}
@@ -3265,15 +3124,11 @@ altierr {-w keyword pattern | [-n] error number}
 
 #### 설명
 
-altierr은 Altibase 서버의 에러 코드 번호나 에러 메시지에 포함된 문자열을
-이용하여 에러에 대한 상세한 설명을 검색하고 출력해 주는 유틸리티이다.
+altierr은 Altibase 서버의 에러 코드 번호나 에러 메시지에 포함된 문자열을 이용하여 에러에 대한 상세한 설명을 검색하고 출력해 주는 유틸리티이다.
 
-에러 상세 설명에는 에러 코드 번호, 에러 코드 문자열, 에러 설명, 에러가 발생한
-원인, 그리고 에러에 대한 조치 사항이 포함된다.
+에러 상세 설명에는 에러 코드 번호, 에러 코드 문자열, 에러 설명, 에러가 발생한 원인, 그리고 에러에 대한 조치 사항이 포함된다.
 
-Altibase 서버는 에러 상황 발생시 해당 코드를 “ERR-{에러번호}” 형태로
-altibase_boot.log에 출력한다. 여기에서 에러 번호는 16진수 값으로, 해당 에러에
-대한 상세 설명을 검색하기 위해 altierr을 다음과 같이 사용할 수 있다.
+Altibase 서버는 에러 상황 발생시 해당 코드를 “ERR-{에러번호}” 형태로 altibase_boot.log에 출력한다. 여기에서 에러 번호는 16진수 값으로, 해당 에러에 대한 상세 설명을 검색하기 위해 altierr을 다음과 같이 사용할 수 있다.
 
 ```
 For ‘ERR-00015’
@@ -3282,10 +3137,7 @@ $ altierr –w 00015
 $ altierr 21
 ```
 
-C/C++ Precompiler나 ODBC로 작성된 애플리케이션의 경우 SQL 관련 기능 수행 시
-SQLCODE나 ODBC 함수의 리턴 코드에 에러 코드가 설정이 된다. 이 때 설정되는 에러
-코드는 음의 정수 값이 설정되며, 해당 에러에 대한 상세 설명을 검색하기 위해
-다음과 같이 altierr을 사용할 수 있다.
+C/C++ Precompiler나 ODBC로 작성된 애플리케이션의 경우 SQL 관련 기능 수행 시 SQLCODE나 ODBC 함수의 리턴 코드에 에러 코드가 설정이 된다. 이 때 설정되는 에러 코드는 음의 정수 값이 설정되며, 해당 에러에 대한 상세 설명을 검색하기 위해 다음과 같이 altierr을 사용할 수 있다.
 
 ```
 For -266286
@@ -3294,8 +3146,7 @@ $ altierr 266286
 $ altierr 0x4102E
 ```
 
-altierr은 에러 메시지에 포함된 키워드를 이용한 검색을 지원하며, 이 경우 여러
-개의 레코드가 검색될 수 있다. 키워드 패턴을 이용한 검색은 다음과 같다.
+altierr은 에러 메시지에 포함된 키워드를 이용한 검색을 지원하며, 이 경우 여러 개의 레코드가 검색될 수 있다. 키워드 패턴을 이용한 검색은 다음과 같다.
 
 ```
 $ altierr –w connect
@@ -3330,8 +3181,7 @@ SYS 사용자의 암호를 변경한다.
 
 #### 사용예
 
-SYS 사용자의 암호 “manager”를 “manager1234”로 변경한다면 쉘 프롬프트 상에서
-다음과 같이 수행한다.
+SYS 사용자의 암호 “manager”를 “manager1234”로 변경한다면 쉘 프롬프트 상에서 다음과 같이 수행한다.
 
 ```
 $ altipasswd
@@ -3346,10 +3196,7 @@ Retype New Password : manager1234
 
 #### 개요
 
-Altibase 서버 내에서 수행되는 작업과 서버의 상태 정보를 파일로 기록하여 분석할
-수 있다. 서버가 남긴 상태 파일을 프로파일이라 하며 altiProfile은 이 프로파일을
-문자 형태로 변환하여 출력하거나, STATEMENT 관련 데이터만 추출하여 통계 정보를
-구축하여 출력한다. 이 정보를 사용하여 사용자는 시스템의 상태를 분석할 수 있다.
+Altibase 서버 내에서 수행되는 작업과 서버의 상태 정보를 파일로 기록하여 분석할 수 있다. 서버가 남긴 상태 파일을 프로파일이라 하며 altiProfile은 이 프로파일을 문자 형태로 변환하여 출력하거나, STATEMENT 관련 데이터만 추출하여 통계 정보를 구축하여 출력한다. 이 정보를 사용하여 사용자는 시스템의 상태를 분석할 수 있다.
 
 ```
 altiProfile [-stat query|session] {profile_name [profile_name2 [profile_name3] ...}
@@ -3370,8 +3217,7 @@ altiProfile [-stat query|session] {profile_name [profile_name2 [profile_name3] .
 
 #### 설명
 
-서버가 남긴 프로파일을 문자 형태로 변환하거나, STATEMENT 관련 데이터만 추출하여
-통계 정보를 구축한다.
+서버가 남긴 프로파일을 문자 형태로 변환하거나, STATEMENT 관련 데이터만 추출하여 통계 정보를 구축한다.
 
 #### 사용예
 
@@ -3392,8 +3238,7 @@ $ altiProfile -stat query $ALTIBASE_HOME/trc/*.prof
 
 #### 사용 방법
 
-서버의 상태 및 작업 내용을 기록하려면 QUERY_PROF_FLAG 프로퍼티를 0보다 큰 값으로
-설정하여야 한다. QUERY_PROF_FLAG 프로퍼티의 값에 따라 다음의 정보들이 기록된다.
+서버의 상태 및 작업 내용을 기록하려면 QUERY_PROF_FLAG 프로퍼티를 0보다 큰 값으로 설정하여야 한다. QUERY_PROF_FLAG 프로퍼티의 값에 따라 다음의 정보들이 기록된다.
 
 | 값   | 이름           | 설명                                                         |
 | ---- | -------------- | ------------------------------------------------------------ |
@@ -3405,17 +3250,14 @@ $ altiProfile -stat query $ALTIBASE_HOME/trc/*.prof
 | 16   | [SYSTEM STAT]  | 3초마다 시스템 정보 출력(V\$SYSSTAT 정보)                    |
 | 32   | [MEMORY STAT]  | 3초마다 메모리 정보 출력(V\$MEMSTAT 정보)                    |
 
-위의 값을 조합하여 원하는 정보를 기록하도록 설정한다. 예를 들어, 프로퍼티를
-1+4+32=37로 설정하면 SQL 문이 실행될 때마다 SQL 문의 실행정보와 실행계획을
-출력하고 3초마다 메모리 정보를 출력한다.
+위의 값을 조합하여 원하는 정보를 기록하도록 설정한다. 예를 들어, 프로퍼티를 1+4+32=37로 설정하면 SQL 문이 실행될 때마다 SQL 문의 실행정보와 실행계획을 출력하고 3초마다 메모리 정보를 출력한다.
 
-프로퍼티가 설정되면, 서버는 alti-\#시간-\#번호.prof 이름의 파일에 정보를 남긴다.
+프로퍼티가 설정되면, 서버는 alti-\#시간-\#번호.prof 이름의 파일에 정보를 남긴다. 
 사용자는 altiProfile 명령어로 상태 파일을 변환하여 분석할 수 있다.
 
 ##### 통계 정보 출력
 
-altiProfile은 -stat 옵션을 사용해서 실행된 SQL문에 대한 통계 정보를 구축하고
-출력할 수 있다. 이 정보는 튜닝 대상이 되는 SQL문을 찾는데 도움이 된다.
+altiProfile은 -stat 옵션을 사용해서 실행된 SQL문에 대한 통계 정보를 구축하고 출력할 수 있다. 이 정보는 튜닝 대상이 되는 SQL문을 찾는데 도움이 된다.
 
 \-stat query 옵션을 실행하여 구축되는 통계 정보는 아래와 같다.
 
@@ -3435,11 +3277,9 @@ altiProfile은 -stat 옵션을 사용해서 실행된 SQL문에 대한 통계 �
 
 -   QUERY: 수행된 SQL문
 
-\-stat session 옵션으로 수행한다면, query 옵션을 실행하여 구축되는 통계 정보에
-SESSION ID가 추가된다.
+\-stat session 옵션으로 수행한다면, query 옵션을 실행하여 구축되는 통계 정보에 SESSION ID가 추가된다.
 
-아래는 \$ALTIBASE_HOME/trc 디렉토리에 생성된 모든 프로파일을 분석하여 SQL문 별로
-통계 정보를 구축하는 altiProfile 실행 예제이다.
+아래는 \$ALTIBASE_HOME/trc 디렉토리에 생성된 모든 프로파일을 분석하여 SQL문 별로 통계 정보를 구축하는 altiProfile 실행 예제이다.
 
 ```
 $ altiProfile -stat query $ALTIBASE_HOME/trc/*.prof
@@ -3456,8 +3296,7 @@ $ altiProfile -stat query $ALTIBASE_HOME/trc/*.prof
 ```
 
 위에 실행 로그를 살펴보면, 통계 정보는 CSV 형식과 텍스트 형식의 파일로 저장된다.
-출력된 파일의 이름은 'alti-prof-stat-\#시간.csv'과 'alti-prof-stat-\#시간.txt'로
-자동 생성된다.
+출력된 파일의 이름은 'alti-prof-stat-\#시간.csv'과 'alti-prof-stat-\#시간.txt'로 자동 생성된다.
 
 다음은 텍스트 파일의 내용이다. 통계 정보는 TOTAL 값으로 정렬되어 출력된다.
 
@@ -3474,8 +3313,7 @@ COUNT      AVG          TOTAL         MIN         MAX    SUCCESS  FAIL   QUERY
 ```
 
 다음은 CSV 파일의 내용이다. 텍스트 파일과 동일한 내용이 CSV 형식으로 출력된다.
-CSV 형식의 파일은 excel 같은 스프레드시트 애플리케이션을 사용해서 사용자가
-원하는 포맷으로 가공할 수 있다.
+CSV 형식의 파일은 excel 같은 스프레드시트 애플리케이션을 사용해서 사용자가 원하는 포맷으로 가공할 수 있다.
 
 ```
 $ cat alti-prof-stat-1423543711.csv
@@ -3490,12 +3328,9 @@ COUNT,AVG,TOTAL,MIN,MAX,SUCCES,FAIL,QUERY
 
 #### 주의 사항
 
-프로파일링 기능을 동작시킬 경우, 서버 내에서 실행되는 모든 SQL 문에 대해 실행
-정보를 기록하며 또한 매 3초마다 세션 및 시스템 정보 등 서버의 상태를 기록하므로
-시스템에 부하를 줄 수 있다.
+프로파일링 기능을 동작시킬 경우, 서버 내에서 실행되는 모든 SQL 문에 대해 실행 정보를 기록하며 또한 매 3초마다 세션 및 시스템 정보 등 서버의 상태를 기록하므로 시스템에 부하를 줄 수 있다.
 
-또한 프로파일링 기능을 설정할 때 프로파일이 커져 디스크가 꽉 찰 수 있으므로
-신중해야 한다..
+또한 프로파일링 기능을 설정할 때 프로파일이 커져 디스크가 꽉 찰 수 있으므로 신중해야 한다..
 
 #### 출력항목
 
@@ -3587,9 +3422,7 @@ SQL 문에 바인드 되는 변수들에 대한 정보이다.
 
 #### 개요
 
-altiwrap은 PSM(Persistent Stored Module)으로 작성된 코드 프로그램을 암호화할 수
-있는 유틸리티이다. altiwrap을 사용하여 코드를 암호화하면 다른 개발자에게 저장
-프로시저 및 저장 함수 등의 PSM 코드가 노출되는 것을 방지할 수 있다.
+altiwrap은 PSM(Persistent Stored Module)으로 작성된 코드 프로그램을 암호화할 수 있는 유틸리티이다. altiwrap을 사용하여 코드를 암호화하면 다른 개발자에게 저장 프로시저 및 저장 함수 등의 PSM 코드가 노출되는 것을 방지할 수 있다.
 
 ```
 altiwarp {--iname input_file} [--oname output_file]
@@ -3611,8 +3444,7 @@ altiwarp {--iname input_file} [--oname output_file]
 
 #### 설명
 
-altiwrap을 실행하여 개발자가 작성한 저장 프로시저 및 저장 함수의 코드 프로그램을
-암호화하여, 다른 개발자 또는 경쟁사에 노출되는 것을 방지할 수 있다.
+altiwrap을 실행하여 개발자가 작성한 저장 프로시저 및 저장 함수의 코드 프로그램을 암호화하여, 다른 개발자 또는 경쟁사에 노출되는 것을 방지할 수 있다.
 
 Altibase가 암호화할 수 있는 구문은 아래와 같다.
 
@@ -3628,13 +3460,11 @@ Altibase가 암호화할 수 있는 구문은 아래와 같다.
 
 #### 주의 사항
 
--   코드 프로그램이 암호화 된 후에는 프로그램을 변경할 수 없다. 프로그램을
-    변경할 때에는 암호화 전의 원본 프로그램에서 변경한 후 다시 암호화해야 한다.
-
+-   코드 프로그램이 암호화 된 후에는 프로그램을 변경할 수 없다. 프로그램을 변경할 때에는 암호화 전의 원본 프로그램에서 변경한 후 다시 암호화해야 한다.
+    
 -   트리거(trigger)는 암호화할 수 없다.
 
--   암호화된 프로그램 코드는 구문(syntax) 및 시맨틱(semantic)의 오류를 검사하지
-    못한다.
+-   암호화된 프로그램 코드는 구문(syntax) 및 시맨틱(semantic)의 오류를 검사하지 못한다.
 
 #### 사용예제
 
@@ -3684,8 +3514,7 @@ Execute success.
 
 #### 개요
 
-로그 파일을 생성할 때 사용되는 시스템 콜의 응답 시간을 출력한다. 출력 값은
-LOG_CREATE_METHOD 프로퍼티에서 시스템 콜을 결정하는데 참고된다.
+로그 파일을 생성할 때 사용되는 시스템 콜의 응답 시간을 출력한다. 출력 값은 LOG_CREATE_METHOD 프로퍼티에서 시스템 콜을 결정하는데 참고된다.
 
 #### 구문
 
@@ -3713,8 +3542,7 @@ write to expand file size to 1GB
 
 #### 개요
 
-Altibase 프로세스를 감시하며, 프로세스가 비정상 종료하면 지정된 스크립트 파일을
-실행한다.
+Altibase 프로세스를 감시하며, 프로세스가 비정상 종료하면 지정된 스크립트 파일을 실행한다.
 
 ```
 checkServer [-n] {-f server-restart-script-file}
@@ -3735,11 +3563,9 @@ checkServer [-n] {-f server-restart-script-file}
 
 #### 설명
 
-checkServer는 주기적으로 Altibase 프로세스가 실행 중인지를 검사하여 Altibase
-프로세스가 종료 되었을 경우 사용자가 지정한 스크립트를 수행한다.
+checkServer는 주기적으로 Altibase 프로세스가 실행 중인지를 검사하여 Altibase 프로세스가 종료 되었을 경우 사용자가 지정한 스크립트를 수행한다.
 
-Altibase가 비정상 종료 되었을 경우 Altibase 재구동 스크립트를 수행하는 것이
-일반적이며, 재구동 스크립트는 다음과 같은 형식으로 작성할 수 있다.
+Altibase가 비정상 종료 되었을 경우 Altibase 재구동 스크립트를 수행하는 것이 일반적이며, 재구동 스크립트는 다음과 같은 형식으로 작성할 수 있다.
 
 -   Altibase 구동 스크립트 ‘restart.sh’
 
@@ -3748,24 +3574,15 @@ Altibase가 비정상 종료 되었을 경우 Altibase 재구동 스크립트를
 ${ALTIBASE_HOME}/bin/server start
 ```
 
-checkServer는 구동시 \$ALTIBASE_HOME/trc 디렉토리에 checkServer.pid와
-checkServer.log 파일을 생성한다. checkServer.pid파일은 또 다른 checkServer가
-동시에 수행되지 못하도록 하는 락의 역할을 하며 checkServer.log에는 checkServer의
-동작 상태가 주기적으로 기록된다.
+checkServer는 구동시 \$ALTIBASE_HOME/trc 디렉토리에 checkServer.pid와 checkServer.log 파일을 생성한다. checkServer.pid파일은 또 다른 checkServer가 동시에 수행되지 못하도록 하는 락의 역할을 하며  heckServer.log에는 checkServer의 동작 상태가 주기적으로 기록된다.
 
-checkServer를 ‘kill -9’등의 방법으로 강제 종료했을 경우에 checkServer.pid 파일이
-디렉터리에 계속 남아있게 되어 checkServer를 다시 수행할 수 없게 된다. 이 때는
-checkServer.pid파일을 삭제하면 checkServer를 정상적으로 시작할 수 있다.
+checkServer를 ‘kill - 9’등의 방법으로 강제 종료했을 경우에 checkServer.pid 파일이 디렉터리에 계속 남아있게 되어 checkServer를 다시 수행할 수 없게 된다. 이 때는 checkServer.pid파일을 삭제하면 checkServer를 정상적으로 시작할 수 있다.
 
 checkServer를 종료하기 위해선 반드시 killCheckServer 유틸리티를 이용한다.
 
 #### 주의 사항
 
-checkServer는 Altibase 서버가 “server stop” 커맨드를 사용하지 않고 종료된
-경우에만, 지정한 재시작 스크립트를 실행한다. “server stop” 커맨드를 사용하여
-Altibase 서버를 정상 종료하는 경우, checkServer 프로세스도 역시 종료되어, 재시작
-스크립트를 실행하지 않게 된다. 이것은 checkServer가 “server stop” 커맨드를
-사용하여 종료하는 것만 정상 종료라고 판단하기 때문이다.
+checkServer는 Altibase 서버가 “server stop” 커맨드를 사용하지 않고 종료된 경우에만, 지정한 재시작 스크립트를 실행한다. “server stop” 커맨드를 사용하여 Altibase 서버를 정상 종료하는 경우, checkServer 프로세스도 역시 종료되어, 재시작 스크립트를 실행하지 않게 된다. 이것은 checkServer가 “server stop” 커맨드를 사용하여 종료하는 것만 정상 종료라고 판단하기 때문이다.
 
 #### 사용예
 
@@ -3781,8 +3598,7 @@ $ checkServer –f restart.sh &
 
 #### 개요
 
-dumpbi는 이진 형식으로 저장된 backupinfo 파일의 백업 정보를 문자 형식으로
-보여준다.
+dumpbi는 이진 형식으로 저장된 backupinfo 파일의 백업 정보를 문자 형식으로 보여준다.
 
 ```
 dumpbi  <backupinfo_file_name>
@@ -3842,8 +3658,7 @@ dumpbi는 backupinfo 의 백업 정보를 다음과 같은 섹션으로 구분�
 
 #### 개요
 
-dumpct는 이진 형식으로 저장된 changeTracking 파일의 정보를 문자 형식으로
-보여준다.
+dumpct는 이진 형식으로 저장된 changeTracking 파일의 정보를 문자 형식으로 보여준다.
 
 ```
 dumpct  <changeTracking_file_name>
@@ -3871,11 +3686,7 @@ $ dumpct changeTracking
 
 #### 출력
 
-dumpct는 changeTracking 파일 내의 변경 추적 정보를 다음과 같은 
-
-[^]: 
-
-으로 구분하여 출력한다.
+dumpct는 changeTracking 파일 내의 변경 추적 정보를 다음과 같은 [^]: 으로 구분하여 출력한다.
 
 ##### [CHANGE TRACKING FILE HDR]
 
@@ -3915,9 +3726,7 @@ dumpct는 changeTracking 파일 내의 변경 추적 정보를 다음과 같은
 
 #### 개요
 
-dumpdb는 메모리 체크포인트 이미지 파일로부터 메모리 테이블스페이스에 대한 정보를
-출력하거나 또는 메모리 테이블스페이스의 증분 백업 파일의 내용을 문자 형식으로
-보여주는 유틸리티이다.
+dumpdb는 메모리 체크포인트 이미지 파일로부터 메모리 테이블스페이스에 대한 정보를 출력하거나 또는 메모리 테이블스페이스의 증분 백업 파일의 내용을 문자 형식으로 보여주는 유틸리티이다.
 
 ```
 dumpdb {-j job_number } [-i pingpong_number] [-o] [-f file_name] [-s] [-p] [-d]
@@ -3943,16 +3752,11 @@ dumpdb {-j job_number } [-i pingpong_number] [-o] [-f file_name] [-s] [-p] [-d]
 
 #### 설명
 
-메모리 체크포인트 이미지 파일을 분석하여 메타 헤더, 페이지 등의 정보를 텍스트
-형태로 출력하거나 또는 메모리 테이블스페이스의 증분 백업 파일에서 백업 정보를
-텍스트 형태로 출력한다.
+메모리 체크포인트 이미지 파일을 분석하여 메타 헤더, 페이지 등의 정보를 텍스트 형태로 출력하거나 또는 메모리 테이블스페이스의 증분 백업 파일에서 백업 정보를 텍스트 형태로 출력한다.
 
-이 유틸리티는 디스크에 저장된 체크포인트 이미지 파일을 분석하기 때문에, Altibase
-서버가 구동 중이 아니더라도 이 유틸리티를 수행하여 데이터베이스에 생성되어 있는
-스키마를 확인할 수 있다.
+이 유틸리티는 디스크에 저장된 체크포인트 이미지 파일을 분석하기 때문에, Altibase 서버가 구동 중이 아니더라도 이 유틸리티를 수행하여 데이터베이스에 생성되어 있는 스키마를 확인할 수 있다.
 
-하지만 DDL 직후 서버가 비정상 종료되어 갱신된 스키마가 디스크에 기록되지 못하면
-해당 정보를 확인할 수 없다.
+하지만 DDL 직후 서버가 비정상 종료되어 갱신된 스키마가 디스크에 기록되지 못하면 해당 정보를 확인할 수 없다.
 
 #### 사용예
 
@@ -3970,39 +3774,31 @@ $ dumpdb -j 5 -o 65536
 $ dumpdb -j 6 -s 0 -p 4
 ```
 
-\<예제 1\> 다음은 메모리 테이블스페이스에 관한 정보를 출력한다. –s 인자를
-추가하여 특정 테이블스페이스에 관한 정보만 출력할 수도 있다.
+\<예제 1\> 다음은 메모리 테이블스페이스에 관한 정보를 출력한다. –s 인자를 추가하여 특정 테이블스페이스에 관한 정보만 출력할 수도 있다.
 
 ```
 $ dumpdb -j 1
 ```
 
-\<예제 2\> 다음은 메모리 테이블스페이스의 FreeListInfo(FLI) 페이지에 관한 정보를
-출력한다. –s 인자를 추가하여 특정 테이블스페이스에 관한 정보만 출력할 수 있고,
--d 인자를 추가해서 FLI 페이지의 유효하지 않은 부분도 출력할 수 있다.
+\<예제 2\> 다음은 메모리 테이블스페이스의 FreeListInfo(FLI) 페이지에 관한 정보를 출력한다. –s 인자를 추가하여 특정 테이블스페이스에 관한 정보만 출력할 수 있고, -d 인자를 추가해서 FLI 페이지의 유효하지 않은 부분도 출력할 수 있다.
 
 ```
 % dumpdb -j 2
 ```
 
-\<예제 3\> 다음은 메모리 테이블스페이스의 FreePage들을 출력한다. –s 인자를
-추가하여 특정 테이블스페이스에 관한 정보만 출력할 수도 있다.
+\<예제 3\> 다음은 메모리 테이블스페이스의 FreePage들을 출력한다. –s 인자를 추가하여 특정 테이블스페이스에 관한 정보만 출력할 수도 있다.
 
 ```
 % dumpdb -j 3
 ```
 
-\<예제 4\> 다음은 데이터베이스에 생성되어 있는 모든 객체 정보를 출력한다. –o
-인자(아래 예제에서 SelfOID 항목)를 추가하여 특정 객체에 관한 정보만 상세히
-출력할 수도 있다. –d 인자를 추가해서 객체의 칼럼 정보와 인덱스 정보 등도 출력할
-수 있다.
+\<예제 4\> 다음은 데이터베이스에 생성되어 있는 모든 객체 정보를 출력한다. –o 인자(아래 예제에서 SelfOID 항목)를 추가하여 특정 객체에 관한 정보만 상세히 출력할 수도 있다. –d 인자를 추가해서 객체의 칼럼 정보와 인덱스 정보 등도 출력할 수 있다.
 
 ```
 % dumpdb -j 4
 ```
 
-\<예제 5\> 다음은 데이터베이스에 생성되어 있는 모든 객체의 정보를 칼럼 정보와
-인덱스 정보 등과 함께 출력한다.
+\<예제 5\> 다음은 데이터베이스에 생성되어 있는 모든 객체의 정보를 칼럼 정보와 인덱스 정보 등과 함께 출력한다.
 
 ```
 % dumpdb -j 4 -d
@@ -4064,8 +3860,7 @@ Dump complete.
 
 #### 출력 항목
 
-다음의 표는 증분 백업 파일에 대해 dumpdb 유틸리티를 실행하여 출력되는 항목들에
-한하여 설명한다.
+다음의 표는 증분 백업 파일에 대해 dumpdb 유틸리티를 실행하여 출력되는 항목들에 한하여 설명한다.
 
 | 필드 이름           | 설명                                                                                                                                            |
 |---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -4079,8 +3874,7 @@ Dump complete.
 #### 개요
 
 dumpddf는 데이터 파일의 헤더 정보 또는 데이터 파일 내의 특정 페이지를 출력한다.
-또는 증분 백업 파일에 대해 dumpddf를 수행하면 백업 파일의 헤더 정보와 백업
-정보가 출력된다.
+또는 증분 백업 파일에 대해 dumpddf를 수행하면 백업 파일의 헤더 정보와 백업 정보가 출력된다.
 
 ```
 dumpddf {-f datafile_name} {-m | -p pid}
@@ -4102,9 +3896,7 @@ dumpddf {-f datafile_name} {-m | -p pid}
 
 #### 설명
 
-데이터 파일의 헤더의 정보 또는 데이터 파일 내의 특정 페이지를 텍스트 형태로
-출력한다. 지정한 페이지가 테이블이나 인덱스의 페이지이면 논리적으로 구성하여
-출력한다.
+데이터 파일의 헤더의 정보 또는 데이터 파일 내의 특정 페이지를 텍스트 형태로 출력한다. 지정한 페이지가 테이블이나 인덱스의 페이지이면 논리적으로 구성하여 출력한다.
 
 #### 사용예
 
@@ -4184,14 +3976,7 @@ DataFileDescSlot ID           [ 1, 2 ]
 
 dumpla는 이진 형식으로 저장된 loganchor 파일의 내용을 문자 형식으로 보여준다.
 
-loganchor는 Altibase의 물리적인 저장 정보(테이블스페이스, 데이터 파일)와 복구를
-위해 필요한 정보들이 저장되는 파일이다. Altibase는 데이터베이스 생성 시(CREATE
-DATABASE 실행 시)에 이 파일을 생성하고 altibase.properties에 설정된 세 개의
-LOGANCHOR_DIR 디렉토리에 loganchor\#(\#은 1, 2, 3)의 이름으로 저장, 관리한다. 세
-개의 파일은 모두 같은 내용으로 파일이 손상될 경우를 대비해 복사본을 유지하는
-것이다. 데이터베이스 생성 시에 현재 데이터베이스에 존재하는 테이블스페이스와
-이에 속한 데이터 파일, 그리고 복구 관련 정보들이 저장된다. 데이터베이스 구동
-시에 이 정보들을 이용하여 데이터베이스를 메모리에 적재하고 서비스를 준비한다.
+loganchor는 Altibase의 물리적인 저장 정보(테이블스페이스, 데이터 파일)와 복구를 위해 필요한 정보들이 저장되는 파일이다. Altibase는 데이터베이스 생성 시(CREATE DATABASE 실행 시)에 이 파일을 생성하고 altibase.properties에 설정된 세 개의 LOGANCHOR_DIR 디렉토리에 loganchor\#(\#은 1, 2, 3)의 이름으로 저장, 관리한다. 세 개의 파일은 모두 같은 내용으로 파일이 손상될 경우를 대비해 복사본을 유지하는 것이다. 데이터베이스 생성 시에 현재 데이터베이스에 존재하는 테이블스페이스와 이에 속한 데이터 파일, 그리고 복구 관련 정보들이 저장된다. 데이터베이스 구동 시에 이 정보들을 이용하여 데이터베이스를 메모리에 적재하고 서비스를 준비한다.
 
 ```
 dumpla <loganchor_file_name>
@@ -4223,8 +4008,7 @@ dumpla는 loganchor의 내용을 다음과 같은 섹션으로 구분하여 출�
 
 ##### [LOGANCHOR ATTRIBUTE SIZE]
 
-현재 Loganchor에 어떤 데이터들이 얼마만큼의 공간을 사용하고 있는지를 나타낸다.
-내용은 다음과 같다.
+현재 Loganchor에 어떤 데이터들이 얼마만큼의 공간을 사용하고 있는지를 나타낸다. 내용은 다음과 같다.
 
 | 필드 이름                  | 값(단위 바이트)                 | 설명                                                                                    |
 |----------------------------|---------------------------------|-----------------------------------------------------------------------------------------|
@@ -4236,9 +4020,7 @@ dumpla는 loganchor의 내용을 다음과 같은 섹션으로 구분하여 출�
 
 ##### [LOGANCHOR HEADER]
 
-데이터베이스의 버전 및 체크포인트 Log Sequence Number (LSN) 등의 loganchor
-Header 정보를 나타낸다. LSN에 대한 자세한 설명은 “dumplf 의 출력”절을 참고하기
-바란다.
+데이터베이스의 버전 및 체크포인트 Log Sequence Number (LSN) 등의 loganchor Header 정보를 나타낸다. LSN에 대한 자세한 설명은 “dumplf 의 출력”절을 참고하기 바란다.
 
 | 필드 이름                         | 값                                   | 설명                                                                                                                                                                                                                      |
 |-----------------------------------|--------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -4349,8 +4131,7 @@ Header 정보를 나타낸다. LSN에 대한 자세한 설명은 “dumplf 의 �
 | Maximum Size                       | 0 \~ unsigned int 타입의 최대값             | 최대 크기(MByte)                                              |
 | ChangeTracking DataFileDescSlot ID | 0 \~ unsigned int 타입의 최대값             | Disk datafile과 묶여있는 ChangeTracking의 DataFileDescSlot ID |
 
-[DISK DATABASE FILE ATTRIBUTE] 내용 중 Database File Status의 의미는 다음과
-같다.
+[DISK DATABASE FILE ATTRIBUTE] 내용 중 Database File Status의 의미는 다음과 같다.
 
 | 값           | 설명                    |
 |--------------|-------------------------|
@@ -4409,15 +4190,10 @@ backupinfo 파일에 대한 정보를 나타낸다. 내용은 다음과 같다.
 
 #### 개요
 
-Altibase는 복구를 위해서 트랜잭션이 변경 연산(INSERT, DELETE, UPDATE 등)을
-수행할 때, 데이터베이스 영역(DB File)외의 별도 파일에 로그를 남긴다. 이 로그는
-IO 최소화를 위해서 이진(binary) 형식으로 기록되어 있다. 이 로그가 기록되는 로그
-파일은 altibase.properties의 LOG_DIR 프로퍼티에 설정되는 디렉토리에 logfile\#(
-\#은 로그파일 번호로 계속 증가한다) 형태로 저장된다.
+Altibase는 복구를 위해서 트랜잭션이 변경 연산(INSERT, DELETE, UPDATE 등)을 수행할 때, 데이터베이스 영역(DB File)외의 별도 파일에 로그를 남긴다. 이 로그는 IO 최소화를 위해서 이진(binary) 형식으로 기록되어 있다. 이 로그가 기록되는 로그 파일은 altibase.properties의 LOG_DIR 프로퍼티에 설정되는 디렉토리에 logfile\#(\#은 로그파일 번호로 계속 증가한다) 형태로 저장된다.
 
 dumplf는 이 로그 파일의 내용을 텍스트 형식으로 변환해서 보여주는 유틸리티이다.
-이 로그를 통해서 데이터베이스에 수행된 연산의 종류 및 변경 연산을 수행하는
-트랜잭션의 빈도를 측정할 수 있다.
+이 로그를 통해서 데이터베이스에 수행된 연산의 종류 및 변경 연산을 수행하는 트랜잭션의 빈도를 측정할 수 있다.
 
 ```
 dumplf {-f log_file_name} [-t transaction_id][-s] [-l][-S lsn [-F path] [-g]]
@@ -4561,8 +4337,7 @@ MVCC와 관련된 자세한 설명은 *Administrator’s Manual* 을 참고하�
 
 #### 개요
 
-Altibase 서버가 비정상 종료될 때 \$ALTIBASE_HOME/trc 디렉토리에 기록되는
-트레이스 로그 파일을 사용자가 식별할 수 있는 형태로 변환하여 출력한다.
+Altibase 서버가 비정상 종료될 때 \$ALTIBASE_HOME/trc 디렉토리에 기록되는 트레이스 로그 파일을 사용자가 식별할 수 있는 형태로 변환하여 출력한다.
 
 ```
 dumptrc [-h |[-p file_path][-c [-s]]
@@ -4592,9 +4367,7 @@ dumptrc [-h |[-p file_path][-c [-s]]
 
 #### 설명
 
-프로세스 콜 스택에는 Altibase 종료 당시 수행되던 Altibase 내부 모듈에 대한
-정보가 기록된다. dumptrc를 이용하여 가져올 수 있는 트레이스 로그 파일은
-\$ALTIBASE_HOME/trc 디렉터리에 기록되는 아래의 파일들을 사용할 수 있다.
+프로세스 콜 스택에는 Altibase 종료 당시 수행되던 Altibase 내부 모듈에 대한 정보가 기록된다. dumptrc를 이용하여 가져올 수 있는 트레이스 로그 파일은 \$ALTIBASE_HOME/trc 디렉터리에 기록되는 아래의 파일들을 사용할 수 있다.
 
 -   ERROR : altibase_error.log
 
@@ -4628,11 +4401,9 @@ dumptrc [-h |[-p file_path][-c [-s]]
 
 -   SD : altibase_sd.log
 
-만약 \$ALTIBASE_HOME/trc가 아닌 다른 경로에 있는 트레이스 로그 파일을 출력할
-때에는 '-p'를 사용하여 경로를 변경할 수 있다.
+만약 \$ALTIBASE_HOME/trc가 아닌 다른 경로에 있는 트레이스 로그 파일을 출력할 때에는 '-p'를 사용하여 경로를 변경할 수 있다.
 
-Altibase 서버가 비정상 종료할 경우, 프로세스 콜 스택을 dumptrc로 변환하여
-Altibase 기술서비스 팀에 송부하면, 보다 빨리 문제를 해결할 수 있을 것이다.
+Altibase 서버가 비정상 종료할 경우, 프로세스 콜 스택을 dumptrc로 변환하여 Altibase 기술서비스 팀에 송부하면, 보다 빨리 문제를 해결할 수 있을 것이다.
 
 #### 주의 사항
 
@@ -4717,8 +4488,7 @@ $ dumptrc -e error
 10 logs printed.
 ```
 
-콜 스택과 altibase_boot.log, altibase_sm.log을 함께 출력하되 상위 20개 로그
-출력한다.
+콜 스택과 altibase_boot.log, altibase_sm.log을 함께 출력하되 상위 20개 로그를 출력한다.
 
 ```
 $ dumptrc -c -i error -i server -i sm -n 20
@@ -4822,11 +4592,7 @@ killCheckServer
 
 killCheckServer는 실행 중인 checkServer를 종료한다.
 
-server stop 또는 server kill 명령을 사용해서 Altibase 서버를 종료할 경우,
-checkServer가 동작 중이라면 서버 종료 전에 먼저 server 스크립트 내에서
-killCheckServer가 checkServer의 동작을 동작을 멈추도록 되어 있다. 그리고,
-\$ALTIBASE_HOME/trc 디렉토리의 killCheckServer.log 파일에 killCheckServer 수행
-결과가 아래와 같이 기록된다.
+server stop 또는 server kill 명령을 사용해서 Altibase 서버를 종료할 경우, checkServer가 동작 중이라면 서버 종료 전에 먼저 server 스크립트 내에서 killCheckServer가 checkServer의 동작을 동작을 멈추도록 되어 있다. 그리고, \$ALTIBASE_HOME/trc 디렉토리의 killCheckServer.log 파일에 killCheckServer 수행 결과가 아래와 같이 기록된다.
 
 - checkServer가 동작 중일 때:
 
@@ -4885,9 +4651,7 @@ server { start | stop | restart | kill | status | create db_charset national_cha
 
 #### 설명
 
-Altibase의 구동 및 종료, 데이터베이스 생성은 iSQL상에서 SQL 구문으로 수행해야
-한다. Altibase는 사용자 편의를 위해 관리자가 자주 사용하는 이러한 구문들을
-묶어서 쉘 스크립트 파일 형태로 제공한다.
+Altibase의 구동 및 종료, 데이터베이스 생성은 iSQL상에서 SQL 구문으로 수행해야 한다. Altibase는 사용자 편의를 위해 관리자가 자주 사용하는 이러한 구문들을 묶어서 쉘 스크립트 파일 형태로 제공한다.
 
 server 스크립트가 제공하는 기능은 다음과 같다.
 
@@ -4930,5 +4694,4 @@ $ server stopRoleManager
 
 #### 참고사항
 
-Administrator’s Manual, *SQL Reference, Disaster Recovery Manage* 를 참고하기
-바란다.
+Administrator’s Manual, *SQL Reference, Disaster Recovery Manage* 를 참고하기 바란다.
