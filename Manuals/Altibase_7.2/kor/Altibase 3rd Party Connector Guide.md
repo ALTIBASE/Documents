@@ -38,8 +38,7 @@ Release 7.2
 
 Copyright ⓒ 2001\~ 2021 Altibase Corp. All Rights Reserved.
 
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이 무단으로 복제 또는 전용할 수 없습니다.
 
 **㈜알티베이스**
 
@@ -84,17 +83,15 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.2 이상을 사용한다는 가정 하에
-작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.2 이상을 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
 -   제 1장 SquirreL SQL 클라이언트  
-    이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을
-    설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
-
+    이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
+    
 -   제 2장 Hibernate
 
 -   제 3장 OpenLDAP  
@@ -102,8 +99,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 #### 문서화 규칙
 
-이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이
-매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
+이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이 매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
 
 여기서 설명하는 규칙은 다음과 같다.
 
@@ -111,8 +107,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ##### 샘플 코드 규칙
 
-코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어
-설명한다.
+코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어 설명한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
@@ -162,22 +157,17 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 1.SquirreL SQL 클라이언트
 -----------------------
 
-이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고
-Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
+이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
 
 
 
 ### Altibase Plugin for SQuirreL SQL Client 설치
 
-Altibase Plugin for SQuirreL SQL Client(이하 Altibase Plugin) 은 Altibase에
-접속하여 SQuirreL SQL Client를 사용하기 위한 Plugin이다. Altibase Plugin은
-SQuirreL SQL Client의 공식 Plugin이 아니기 때문에, SQuirreL SQL Client와 별도로
-사용자가 직접 다운로드 받아 설치해야 한다.
+Altibase Plugin for SQuirreL SQL Client(이하 Altibase Plugin) 은 Altibase에 접속하여 SQuirreL SQL Client를 사용하기 위한 Plugin이다. Altibase Plugin은 SQuirreL SQL Client의 공식 Plugin이 아니기 때문에, SQuirreL SQL Client와 별도로 사용자가 직접 다운로드 받아 설치해야 한다.
 
 #### 시스템 요구사항
 
-Altibase plugin을 설치하고 실행하기 위해 필요한 소프트웨어 요구사항과 Altibase
-Plugin과 호환되는 데이터베이스 관리 시스템을 열거한다.
+Altibase plugin을 설치하고 실행하기 위해 필요한 소프트웨어 요구사항과 Altibase Plugin과 호환되는 데이터베이스 관리 시스템을 열거한다.
 
 | 소프트웨어 요구사항             | SQuirreL SQL Client 3.7.1 또는 3.8.0 |
 |---------------------------------|--------------------------------------|
@@ -191,26 +181,15 @@ Altibase Plugin을 사용하기 위한 설치 및 준비 방법과 제거 방법
 
 #### 설치 절차
 
-1.  SQuirreL SQL Client 다운로드: <http://squirrel-sql.sourceforge.net/> 에서
-    SQuirreL SQL Client를 다운로드하여 설치한다.
-
-2.  Altibase Plugin 다운로드: <http://support.altibase.com> 다운로드 항목에서
-    altibase4squirrel.zip 을 다운 받은 후 압축을 푼다. 압축 해제된 파일들 중
-    altibase4squirrel.jar(Altibase Plugin) 파일을, 설치한 SQuirreL SQL Client
-    디렉토리의 plugins 하위 디렉토리에 복사한다.(예, C:\\Program
-    Files\\squirrel-sql-3.8.0\\plugins\\altibase4squirrel.jar)
-
-3.  SQuirreL SQL Client 실행: 이제 Altibase Plugin을 사용할 준비가 완료되었다.
-    SQuirreL SQL Client를 실행시키면 altibase4squirrel.jar가 자동으로 로딩된다.
-    Plugin 로딩은 SQuirreL SQL Client 수행 후 , 메인 메뉴 중 ‘플러그인-요약’ 을
-    클릭하여 확인 가능하다. SQurreL SQL Client 구동은 Windows는
-    squirrel-sql.bat를, Linux는 squirrel-sql.sh 를 실행시킨다. SQuirreL SQL
-    Client 구동에 대한 자세한 내용은 SQuirreL SQL Client 매뉴얼을 참조한다.
+1.  SQuirreL SQL Client 다운로드: <http://squirrel-sql.sourceforge.net/> 에서 SQuirreL SQL Client를 다운로드하여 설치한다.
+    
+2.  Altibase Plugin 다운로드: <http://support.altibase.com> 다운로드 항목에서 altibase4squirrel.zip 을 다운 받은 후 압축을 푼다. 압축 해제된 파일들 중 altibase4squirrel.jar(Altibase Plugin) 파일을, 설치한 SQuirreL SQL Client 디렉토리의 plugins 하위 디렉토리에 복사한다.(예, C:\\ProgramFiles\\squirrel-sql-3.8.0\\plugins\\altibase4squirrel.jar)
+    
+3.  SQuirreL SQL Client 실행: 이제 Altibase Plugin을 사용할 준비가 완료되었다. SQuirreL SQL Client를 실행시키면 altibase4squirrel.jar가 자동으로 로딩된다. Plugin 로딩은 SQuirreL SQL Client 수행 후 , 메인 메뉴 중 ‘플러그인-요약’ 을 클릭하여 확인 가능하다. SQurreL SQL Client 구동은 Windows는 squirrel-sql.bat를, Linux는 squirrel-sql.sh 를 실행시킨다. SQuirreL SQL Client 구동에 대한 자세한 내용은 SQuirreL SQL Client 매뉴얼을 참조한다.
 
 #### 제거 
 
-Altibase Plugin의 제거는 SQuirreL SQL Client 프로그램을 종료한 후, SQuirreL SQL
-Client plugin 디렉토리에서 altibase4squirrel.jar를 삭제하면 된다.
+Altibase Plugin의 제거는 SQuirreL SQL Client 프로그램을 종료한 후, SQuirreL SQL Client plugin 디렉토리에서 altibase4squirrel.jar를 삭제하면 된다.
 
 
 
@@ -234,8 +213,7 @@ Altibase의 database 객체를 SQuirreL SQL Client Object Tree에서 보여준�
 
 #### Table 및 종속 객체(Constraint, Index, Trigger)
 
-Table 객체에 대해 해당 테이블에 종속된 Constraint, Index, Trigger 객체를
-테이블의 하위 객체로 표현한다.
+Table 객체에 대해 해당 테이블에 종속된 Constraint, Index, Trigger 객체를 테이블의 하위 객체로 표현한다.
 
 ![](media/3rdPartyConnector/85f132e53314078bd6229a6374fb9a1c.png)
 
@@ -243,8 +221,7 @@ Table 객체에 대해 해당 테이블에 종속된 Constraint, Index, Trigger 
 
 #### 객체 상세정보
 
-데이터베이스 객체에 대한 상세 정보를 보여준다. 예를 들어 Index, Sequence,
-Synonym, Constraint등이 객체들에 대해 상세 정보를 지원한다.
+데이터베이스 객체에 대한 상세 정보를 보여준다. 예를 들어 Index, Sequence, Synonym, Constraint등이 객체들에 대해 상세 정보를 지원한다.
 
 ![](media/3rdPartyConnector/c30b56fb95983fa1d3eb88ceb07727b3.png)
 
@@ -254,8 +231,7 @@ Synonym, Constraint등이 객체들에 대해 상세 정보를 지원한다.
 
 PSM 객체 타입 및 필요한 객체들에 대해 다음의 객체 생성 DDL을 보여준다.
 
-: Stored Procedure, Function, Package, Typeset, Trigger, Library, Synonym,
-View, Materialized View
+: Stored Procedure, Function, Package, Typeset, Trigger, Library, Synonym, View, Materialized View
 
 ![](media/3rdPartyConnector/261713767eebd46dd3fd3eda2a5dae5e.png)
 
@@ -263,9 +239,7 @@ View, Materialized View
 
 #### PSM DDL grammar 지원
 
-SQuirreL SQL Client의 SQL editor에서 Altibase PSM DDL grammar를 지원한다.
-altibase.jar를 설치하지 않은 경우, SQuirreL SQL Client 자체 parser로는 Altibase
-PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
+SQuirreL SQL Client의 SQL editor에서 Altibase PSM DDL grammar를 지원한다. altibase.jar를 설치하지 않은 경우, SQuirreL SQL Client 자체 parser로는 Altibase PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 ![](media/3rdPartyConnector/a5866d7d28e7835da07f497853b8fbfa.png)
 
@@ -280,8 +254,7 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 1. 아래 링크에서 자신의 시스템에 설치 가능한 SquirreL SQL Client를 다운받는다.  
    [http://squirrel-sql.sourceforge.net/#installation](http://squirrel-sql.sourceforge.net/#installation )
 
-2. 다운로드 받은 "squirrel-sql-3.7.1-standard.jar"을 더블 클릭하여 설치를
-   시작한다.
+2. 다운로드 받은 "squirrel-sql-3.7.1-standard.jar"을 더블 클릭하여 설치를 시작한다.
 
 
 
@@ -289,13 +262,10 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 #### 등록 방법
 
-1. SquirreL SQL Client를 설치한 디렉토리의 "squirrel-sql.bat"를 더블 클릭하여
-   프로그램을 구동시킨다.
-
-2. Drivers -\> New Driver를 클릭하여 Altibase JDBC driver를 등록한다. Drivers
-   메뉴가 비활성화 되어 있다면 Windows -\> View Drivers를 클릭하여 활성화
-   시킨다.
-
+1. SquirreL SQL Client를 설치한 디렉토리의 "squirrel-sql.bat"를 더블 클릭하여 프로그램을 구동시킨다.
+   
+2. Drivers -\> New Driver를 클릭하여 Altibase JDBC driver를 등록한다. Drivers 메뉴가 비활성화 되어 있다면 Windows -\> View Drivers를 클릭하여 활성화시킨다.
+   
 3. Add Driver 창의 Driver항목에 아래와 같이 입력한다.
 
    ```
@@ -303,12 +273,10 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
    Example URL:jdbc:Altibase://<host>:<port>/<database>
    ```
 
-4. 하단의 Extra Class Path 탭의 "Add" 버튼을 클릭하여 접속에 사용할 Altibase
-   JDBC driver file을 선택한다.
+4. 하단의 Extra Class Path 탭의 "Add" 버튼을 클릭하여 접속에 사용할 Altibase JDBC driver file을 선택한다.
    ![](media/3rdPartyConnector/7a7832fac4ae08eb6ef0be8384a4adf2.jpg)
-
-   파일 선택 후\` "List Drivers" 버튼을 눌러, 하단의 Class Name 콤보 박스에
-   "Altibase.jdbc.driver.AltibaseDriver"가 추가되었는지 확인한다.  
+   
+   파일 선택 후\` "List Drivers" 버튼을 눌러, 하단의 Class Name 콤보 박스에 "Altibase.jdbc.driver.AltibaseDriver"가 추가되었는지 확인한다.  
    ![](media/3rdPartyConnector/50892767215a171c63c70f850c053d13.jpg)
 
 
@@ -320,10 +288,8 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 #### 데이터베이스 접속 정보 등록
 
-1. 메인 메뉴의 Aliases -\> New Alias를 클릭하여 접속할 데이터베이스 정보를
-   등록한다. Aliases 메뉴가 비활성화되어 있으면, Windows -\> View Aliases를
-   클릭하여 활성화시킨다.
-
+1. 메인 메뉴의 Aliases -\> New Alias를 클릭하여 접속할 데이터베이스 정보를 등록한다. Aliases 메뉴가 비활성화되어 있으면, Windows -\> View Aliases를 클릭하여 활성화시킨다.
+   
 2. 아래 정보를 입력한다.
 
    Name: 데이터베이스 접속 이름
@@ -351,9 +317,7 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 #### Objects
 
-접속에 성공하면 아래와 같이 두 개의 탭으로 구성된 창이 열린다. Object창이
-기본으로 선택되는데, 연결된 데이터베이스에 존재하는 객체 및 상세정보를 볼 수
-있다.
+접속에 성공하면 아래와 같이 두 개의 탭으로 구성된 창이 열린다. Object창이 기본으로 선택되는데, 연결된 데이터베이스에 존재하는 객체 및 상세정보를 볼 수 있다.
 
 ![](media/3rdPartyConnector/e237ba850cfd9b27b05f7b324676f944.jpg)
 
@@ -372,25 +336,15 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 ### Hibernate
 
-Altibase는 비표준SQL을 제공하며, Hibernate는 이러한 기능을 수행할 수 있도록
-Dialect 클래스를 지원한다.
+Altibase는 비표준SQL을 제공하며, Hibernate는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
 
-Hibernate에서 Altibase를 연동하려면 Altibase의 JDBC Driver를 설정하고,
-Hibernate의 configuration에 AltibaseDialect.class를 지정해야 한다.
+Hibernate에서 Altibase를 연동하려면 Altibase의 JDBC Driver를 설정하고, Hibernate의 configuration에 AltibaseDialect.class를 지정해야 한다.
 
 #### AltibaseDialect
 
-Hibernate가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class를 포함하지
-않기 때문에 AltibaseDialect.java파일 (필요에 따라
-[AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)포함)을
-컴파일하고 Hibernate가 제공하는 파일에 포팅해야 사용할 수 있다.
-AltibaseDialect.java파일과
-[AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)파일은
-Altibase Github사이트에서 제공한다.
+Hibernate가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class를 포함하지 않기 때문에 AltibaseDialect.java파일 (필요에 따라 [AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)포함)을 컴파일하고 Hibernate가 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java파일과 [AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)파일은 Altibase Github사이트에서 제공한다.
 
-상세한 사용 방법은 [AltibaseDialect 포팅방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md)
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md )을
-참고한다.
+상세한 사용 방법은 [AltibaseDialect 포팅방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md )을 참고한다.
 
 
 
@@ -401,11 +355,9 @@ Altibase Github사이트에서 제공한다.
 
 ### OpenLDAP 소개
 
-OpenLDAP은 경량형 디렉터리 접근 프로토콜(Light-weight Directory Access Protocol,
-LDAP)을 오픈 소스로 구현한 것이다.
+OpenLDAP은 경량형 디렉터리 접근 프로토콜(Light-weight Directory Access Protocol, LDAP)을 오픈 소스로 구현한 것이다.
 
-OpenLDAP은 backend 저장소로 RDBMS를 지원하는데 이를 SQL Backend 또는
-back-sql이라고 한다. back-sql은 RDBMS와 연동시 ODBC를 사용한다.
+OpenLDAP은 backend 저장소로 RDBMS를 지원하는데 이를 SQL Backend 또는 back-sql이라고 한다. back-sql은 RDBMS와 연동시 ODBC를 사용한다.
 
 #### OpenLDAP 설치
 
@@ -439,8 +391,7 @@ Altibase는 6.5.1 이상을 설치할 것을 권장한다.
 
 ### 메타 데이터 설정
 
-LDAP용 메타 테이블에 LDAP의 objectClass와 attributeType들을 Altibase의 어떤
-테이블과 컬럼으로 매핑할 것인지 저장해야 한다.
+LDAP용 메타 테이블에 LDAP의 objectClass와 attributeType들을 Altibase의 어떤 테이블과 컬럼으로 매핑할 것인지 저장해야 한다.
 
 Altibase는 4개의 LDAP용 메타 테이블을 설정하여 사용할 수 있다.
 
@@ -469,8 +420,7 @@ objectClass 맵핑 테이블로써 structuralObjectClass와 테이블간의 관�
 
 #### ldap_attr_mappings
 
-attributeType 맵핑 테이블로써 특정 objectClass를 위한 attributeType이 어떻게 SQL
-문과 맵핑되는지를 저장한다.
+attributeType 맵핑 테이블로써 특정 objectClass를 위한 attributeType이 어떻게 SQL문과 맵핑되는지를 저장한다.
 
 | 컬럼 이름     | 설명                                                         |
 | ------------- | ------------------------------------------------------------ |
@@ -499,8 +449,7 @@ attributeType 맵핑 테이블로써 특정 objectClass를 위한 attributeType�
 
 #### ldap_entry_objclasses
 
-objectClass 맵핑 테이블이다. 엔트리가 어떤 보조 objectClass(auxiliary
-objectClasses)를 가지는지를 저장한다.
+objectClass 맵핑 테이블이다. 엔트리가 어떤 보조 objectClass(auxiliary objectClasses)를 가지는지를 저장한다.
 
 | 컬럼 이름 | 설명                                                         |
 | --------- | ------------------------------------------------------------ |
@@ -523,8 +472,7 @@ server = 127.0.0.1
 port = 20030
 ```
 
-odbc 추적 설정: back-end 오류 발생시 문제 추적을 위해 아래의 설정을 이용할 수
-있다.
+odbc 추적 설정: back-end 오류 발생시 문제 추적을 위해 아래의 설정을 이용할 수 있다.
 
 #### .odbcinst.ini
 
@@ -585,11 +533,7 @@ upper_func      UPPER
 
 ![openldap_dit](media/3rdPartyConnector/openldap_dit.gif)
 
-root DN은 dc=example,dc=com이며, ldif (LDAP Data Interchange Files, 트리
-데이터를 텍스트로 표현한 파일)는 아래와 같다. root DN "dc=example,dc=com" 외에는
-샘플 파일을 참고하기 바란다. 샘플 파일은
-<https://github.com/ALTIBASE/openldap/tree/master/servers/slapd/back-sql/rdbms_depend/altibase> 에
-있다.
+root DN은 dc=example,dc=com이며, ldif (LDAP Data Interchange Files, 트리 데이터를 텍스트로 표현한 파일)는 아래와 같다. root DN "dc=example,dc=com" 외에는 샘플 파일을 참고하기 바란다. 샘플 파일은 <https://github.com/ALTIBASE/openldap/tree/master/servers/slapd/back-sql/rdbms_depend/altibase> 에 있다.
 
 ```
 # Mitya Kovalev, example.com
@@ -645,11 +589,9 @@ o: Example
 dc: example
 ```
 
-이 엔트리는 structural objectClass "organization"과 auxiliary objectClass인
-"dcObject"를 포함(contain)하며, 각각의 정의는 아래와 같다.
+이 엔트리는 structural objectClass "organization"과 auxiliary objectClass인 "dcObject"를 포함(contain)하며, 각각의 정의는 아래와 같다.
 
-objectClass를 DB 테이블로 맵핑하기 위해서는 objectClass의 attribute member들
-중에서 선택해서 컬럼화해야 한다. 이 예제에서는 "o"와 "dc" attribute를 선택했다.
+objectClass를 DB 테이블로 맵핑하기 위해서는 objectClass의 attribute member들 중에서 선택해서 컬럼화해야 한다. 이 예제에서는 "o"와 "dc" attribute를 선택했다.
 
 ```
 objectclass ( 2.5.6.4 NAME 'organization'
@@ -663,8 +605,7 @@ objectclass ( 1.3.6.1.4.1.1466.344 NAME 'dcObject'
     SUP top AUXILIARY MUST dc )
 ```
 
-아래는 위의 objectClass를 Altibase의 테이블로 맵핑한 "institutes" 테이블의 생성
-구문과 데이터 삽입, 검색, 변경 등을 위한 메타 데이터를 생성하는 SQL문이다.
+아래는 위의 objectClass를 Altibase의 테이블로 맵핑한 "institutes" 테이블의 생성 구문과 데이터 삽입, 검색, 변경 등을 위한 메타 데이터를 생성하는 SQL문이다.
 
 ```
 CREATE TABLE institutes (
@@ -709,10 +650,7 @@ END;
 /
 ```
 
-위 샘플 예제는 스크립트 파일로 제공되며, 아래와 같이 샘플 데이터를 구축할 수
-있다. 사용된 스크립트 파일은
-<https://github.com/ALTIBASE/openldap/tree/master/servers/slapd/back-sql/rdbms_depend/altibase>에서
-다운로드할 수 있다.
+위 샘플 예제는 스크립트 파일로 제공되며, 아래와 같이 샘플 데이터를 구축할 수 있다. 사용된 스크립트 파일은 <https://github.com/ALTIBASE/openldap/tree/master/servers/slapd/back-sql/rdbms_depend/altibase>에서 다운로드할 수 있다.
 
 #### ldap 사용자 생성 
 
