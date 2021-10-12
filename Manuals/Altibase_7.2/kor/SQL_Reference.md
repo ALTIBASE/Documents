@@ -1,4 +1,6 @@
-**Table of Contents**  
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [SQL Reference](#sql-reference)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -120,6 +122,8 @@
     - [그 외의 조건](#%EA%B7%B8-%EC%99%B8%EC%9D%98-%EC%A1%B0%EA%B1%B4)
   - [A.부록: 정규 표현식](#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D)
     - [정규 표현식 지원](#%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D-%EC%A7%80%EC%9B%90)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -10693,17 +10697,17 @@ Altibase는 다음과 같은 객체 접근 권한을 지원한다.
 <a name="grant_tbl2"><a/>
 
 | Priv ID | Object privileges | Table | Sequence | PSM/ External Procedure | View | directory | External Library |
-| ------- | ----------------- | ----- | -------- | ----------------------- | ---- | --------- | ---------------- |
-| 101     | ALTER             | O     | O        |                         |      |           |                  |
-| 102     | DELETE            | O     |          |                         |      |           |                  |
-| 103     | EXECUTE           |       |          | O                       |      |           | O                |
-| 104     | INDEX             | O     |          |                         |      |           |                  |
-| 105     | INSERT            | O     |          |                         |      |           |                  |
-| 106     | REFERENCES        | O     |          |                         |      |           |                  |
-| 107     | SELECT            | O     | O        |                         | O    |           |                  |
-| 108     | UPDATE            | O     |          |                         |      |           |                  |
-| 109     | READ              |       |          |                         |      | O         |                  |
-| 110     | WRITE             |       |          |                         |      | O         |                  |
+| ------- | ----------------- | :---: | :------: | :---------------------: | :--: | :-------: | :--------------: |
+| 101     | ALTER             |   O   |    O     |                         |      |           |                  |
+| 102     | DELETE            |   O   |          |                         |      |           |                  |
+| 103     | EXECUTE           |       |          |            O            |      |           |        O         |
+| 104     | INDEX             |   O   |          |                         |      |           |                  |
+| 105     | INSERT            |   O   |          |                         |      |           |                  |
+| 106     | REFERENCES        |   O   |          |                         |      |           |                  |
+| 107     | SELECT            |   O   |    O     |                         |  O   |           |                  |
+| 108     | UPDATE            |   O   |          |                         |      |           |                  |
+| 109     | READ              |       |          |                         |      |     O     |                  |
+| 110     | WRITE             |       |          |                         |      |     O     |                  |
 
 모든 사용자는 자동으로 메타 테이블에 대한 SELECT 권한을 가진다.
 
@@ -10726,11 +10730,11 @@ END;
 /
 Create success.
 
-iSQL> CREATE USER uare5 IDENTIFIED BY rose5;
+iSQL> CREATE USER user5 IDENTIFIED BY rose5;
 Create success.
-iSQL> GRANT EXECUTE ANY PROCEDURE, SELECT ANY TABLE TO uare5;
+iSQL> GRANT EXECUTE ANY PROCEDURE, SELECT ANY TABLE TO user5;
 Grant success.
-iSQL> CONNECT uare5/rose5;
+iSQL> CONNECT user5/rose5;
 Connect success.
 iSQL> EXEC sys.proc1;
 Execute success.
@@ -10777,9 +10781,9 @@ SEQTBL.I1
 16          
 12 rows selected.
 
-iSQL> GRANT ALTER ANY SEQUENCE, INSERT ANY TABLE, SELECT ANY SEQUENCE TO uare5;
+iSQL> GRANT ALTER ANY SEQUENCE, INSERT ANY TABLE, SELECT ANY SEQUENCE TO user5;
 Grant success.
-iSQL> CONNECT uare5/rose5;
+iSQL> CONNECT user5/rose5;
 Connect success.	
 iSQL> ALTER SEQUENCE sys.seq1
   INCREMENT BY 50
@@ -10840,17 +10844,17 @@ Drop success.
 
 ##### 객체 권한
 
-\<질의1\> 사용자 uare6가 WITH GRANT OPTION으로 employees 테이블에 대한 SELECT와 DELETE 객체 권한을 부여 받은 후, 같은 권한을 다른 사용자 user7과 uare8에게 부여한다.
+\<질의1\> 사용자 user6가 WITH GRANT OPTION으로 employees 테이블에 대한 SELECT와 DELETE 객체 권한을 부여 받은 후, 같은 권한을 다른 사용자 user7과 user8에게 부여한다.
 
 ```
-iSQL> CREATE USER uare6 IDENTIFIED BY rose6;
+iSQL> CREATE USER user6 IDENTIFIED BY rose6;
 Create success.
-iSQL> GRANT CREATE USER TO uare6;
+iSQL> GRANT CREATE USER TO user6;
 Grant success.
 iSQL> @schema.sql
-iSQL> GRANT SELECT, DELETE ON employees TO uare6 WITH GRANT OPTION;
+iSQL> GRANT SELECT, DELETE ON employees TO user6 WITH GRANT OPTION;
 Grant success.
-iSQL> CONNECT uare6/rose6;
+iSQL> CONNECT user6/rose6;
 Connect success.
 iSQL> CREATE USER user7 IDENTIFIED BY rose7;
 Create success.
@@ -10866,60 +10870,90 @@ ENO         E_LASTNAME
 No rows selected.
 iSQL> CONNECT sys/manager;
 Connect success.
-iSQL> CREATE USER uare8 IDENTIFIED BY rose8;
+iSQL> CREATE USER user8 IDENTIFIED BY rose8;
 Create success.
-iSQL> CONNECT uare6/rose6;
+iSQL> CONNECT user6/rose6;
 Connect success.
-iSQL> GRANT SELECT, DELETE ON sys.employees TO uare8;
+iSQL> GRANT SELECT, DELETE ON sys.employees TO user8;
 Grant success.
 ```
 
-WITH GRANT OPTION 으로 객체권한을 부여받은 사용자 uare6는 자신이 생성한 사용자 user7 뿐만 아니라 원래의 권한 부여자(SYS)가 생성한 사용자 uare8에게도 객체
-권한을 부여할 수 있다.
+WITH GRANT OPTION 으로 객체권한을 부여받은 사용자 user6는 자신이 생성한 사용자 user7 뿐만 아니라 원래의 권한 부여자(SYS)가 생성한 사용자 user8에게도 객체 권한을 부여할 수 있다.
 
 ```
-iSQL> CONNECT uare8/rose8;Connect success.iSQL> DELETE FROM sys.employees WHERE eno = 13;1 row deleted.iSQL> SELECT eno, e_lastname FROM sys.employees WHERE eno = 13;ENO         E_LASTNAME                 -------------------------------------No rows selected.
+iSQL> CONNECT user8/rose8;
+Connect success.
+iSQL> DELETE FROM sys.employees WHERE eno = 13;
+1 row deleted.
+
+iSQL> SELECT eno, e_lastname FROM sys.employees WHERE eno = 13;
+ENO         E_LASTNAME                 
+-------------------------------------
+No rows selected.
 ```
 
-\<질의 2\> 다음은 사용자에게 시스템 권한, 객체 권한을 부여한 후 각각의 권한을
-해제하는 예제이다.
+\<질의 2\> 다음은 사용자에게 시스템 권한, 객체 권한을 부여한 후 각각의 권한을 해제하는 예제이다.
 
-1. SYS 사용자가 uare9에게 모든 시스템 권한을 부여한다.
-
-   ```
-   iSQL> CONNECT sys/manager;Connect success.iSQL> CREATE TABLE book(  isbn CHAR(10) PRIMARY KEY,  title VARCHAR(50),  author VARCHAR(30),  edition INTEGER DEFAULT 1,  publishingyear INTEGER,  price NUMBER(10,2),  pubcode CHAR(4));Create success.iSQL> CREATE TABLE inventory(  subscriptionid CHAR(10) PRIMARY KEY,  storecode CHAR(4),  purchasedate DATE,  quantity INTEGER,  paid CHAR(1));Create success.iSQL> CREATE USER uare9 IDENTIFIED BY rose9;Create success.iSQL> GRANT ALL PRIVILEGES TO uare9;Grant success.
-   ```
-
-
-2. SYS는 사용자uare9에게 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION
-   으로 부여한다.
-
-  ```
-iSQL> GRANT REFERENCES ON book TO uare9 WITH GRANT OPTION;Grant success.
-  ```
-
-  사용자uare9은 SYS로부터 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION
-  으로 부여 받았기 때문에, uare9은 다른 사용자(uare10)에게 객체 book에 대해
-  REFERENCES 객체 권한을 부여할 수 있다.
-
-3. uare9이 SYS의 객체인 book 테이블에 데이터를 입력한다.
+1. SYS 사용자가 user9에게 모든 시스템 권한을 부여한다.
 
    ```
-   iSQL> CONNECT uare9/rose9;Connect success.iSQL> INSERT INTO sys.book VALUES ('0070521824', 'Software Engineering', 'Roger S. Pressman', 4, 1982, 100000, 'CHAU');1 row inserted.iSQL> INSERT INTO sys.book VALUES ('0137378424', 'Database Processing', 'David M. Kroenke', 6, 1972, 80000, 'PREN');1 row inserted.
-   ```
-
-
-
-   uare9이 SYS의 객체인 inventory 테이블에 데이터를 입력한다.
-
-   ```
-iSQL> INSERT INTO sys.inventory VALUES('BORD000002', 'BORD', '12-Jun-2003', 6, 'N');iSQL> INSERT INTO sys.inventory VALUES('MICR000001', 'MICR', '07-Jun-2003', 7, 'N');1 row inserted.
+   iSQL> CONNECT sys/manager;
+   Connect success.
+   iSQL> CREATE TABLE book(
+     isbn CHAR(10) PRIMARY KEY,
+     title VARCHAR(50),
+     author VARCHAR(30),
+     edition INTEGER DEFAULT 1,
+     publishingyear INTEGER,
+     price NUMBER(10,2),
+     pubcode CHAR(4));
+   Create success.
+   iSQL> CREATE TABLE inventory(
+     subscriptionid CHAR(10) PRIMARY KEY,
+     storecode CHAR(4),
+     purchasedate DATE,
+     quantity INTEGER,
+     paid CHAR(1));
+   Create success.
+   
+   iSQL> CREATE USER user9 IDENTIFIED BY rose9;
+   Create success.
+   iSQL> GRANT ALL PRIVILEGES TO user9;
+   Grant success.
    ```
 
 
+2. SYS는 사용자 user9에게 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION 으로 부여한다.
+
+   ```
+   iSQL> GRANT REFERENCES ON book TO user9 WITH GRANT OPTION;
+   Grant success.
+   ```
+
+   사용자 user9은 SYS로부터 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION 으로 부여 받았기 때문에, user9은 다른 사용자(user10)에게 객체 book에 대해 REFERENCES 객체 권한을 부여할 수 있다.
+
+3. user9이 SYS의 객체인 book 테이블에 데이터를 입력한다.
+
+   ```
+   iSQL> CONNECT user9/rose9;
+   Connect success.
+   
+   iSQL> INSERT INTO sys.book VALUES ('0070521824', 'Software Engineering', 'Roger S. Pressman', 4, 1982, 100000, 'CHAU');
+   1 row inserted.
+   iSQL> INSERT INTO sys.book VALUES ('0137378424', 'Database Processing', 'David M. Kroenke', 6, 1972, 80000, 'PREN');
+   1 row inserted.
+   ```
+   
+   user9이 SYS의 객체인 inventory 테이블에 데이터를 입력한다.
+   
+   ```
+   iSQL> INSERT INTO sys.inventory VALUES('BORD000002', 'BORD', '12-Jun-2003', 6, 'N');
+   iSQL> INSERT INTO sys.inventory VALUES('MICR000001', 'MICR', '07-Jun-2003', 7, 'N');
+   1 row inserted.
+   ```
 
 
-4. uare9이 SYS의 객체인 book 테이블을 조회한다.
+4. user9이 SYS의 객체인 book 테이블을 조회한다.
 
    ```
    iSQL> SELECT * FROM sys.book;
@@ -10937,115 +10971,160 @@ iSQL> INSERT INTO sys.inventory VALUES('BORD000002', 'BORD', '12-Jun-2003', 6, '
    PREN  
    2 rows selected.
    ```
-
-
-
-   uare9이 SYS의 객체인 inventory 테이블을 조회한다.
-
+   
+    user9이 SYS의 객체인 inventory 테이블을 조회한다.
+   
    ```
-iSQL> SELECT * FROM sys.inventory;
-INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
-------------------------------------------------
-INVENTORY.QUANTITY INVENTORY.PAID  
---------------------------------------
-BORD000002  BORD  2003/06/12 00:00:00  
-6           N  
-MICR000001  MICR  2003/06/07 00:00:00  
-7           N  
-2 rows selected.
-
-iSQL> CREATE TABLE book(
-  isbn CHAR(10) PRIMARY KEY,
-  title VARCHAR(50),
-  author VARCHAR(30),
-  edition INTEGER DEFAULT 1,
-  publishingyear INTEGER,
-  price NUMBER(10,2),
-  pubcode CHAR(4));
-Create success.
-
-iSQL> CREATE TABLE inventory(
-  subscriptionid CHAR(10) PRIMARY KEY,
-  isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES book(isbn), 
-  storecode CHAR(4),
-  purchasedate DATE,
-  quantity INTEGER,
-  paid CHAR(1));
-Create success.
+   iSQL> SELECT * FROM sys.inventory;
+   INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
+   ------------------------------------------------
+   INVENTORY.QUANTITY INVENTORY.PAID  
+   --------------------------------------
+   BORD000002  BORD  2003/06/12 00:00:00  
+   6           N  
+   MICR000001  MICR  2003/06/07 00:00:00  
+   7           N  
+   2 rows selected.
+   
+   iSQL> CREATE TABLE book(
+     isbn CHAR(10) PRIMARY KEY,
+     title VARCHAR(50),
+     author VARCHAR(30),
+     edition INTEGER DEFAULT 1,
+     publishingyear INTEGER,
+     price NUMBER(10,2),
+     pubcode CHAR(4));
+   Create success.
+   
+   iSQL> CREATE TABLE inventory(
+     subscriptionid CHAR(10) PRIMARY KEY,
+     isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES book(isbn), 
+     storecode CHAR(4),
+     purchasedate DATE,
+     quantity INTEGER,
+     paid CHAR(1));
+   Create success.
    ```
 
-5. uare9은 SYS로부터 ALL PRIVILEGES를 부여 받았으므로 다른 사용자를 생성할 수
-   있다.
+5. user9은 SYS로부터 ALL PRIVILEGES를 부여 받았으므로 다른 사용자를 생성할 수 있다.
 
-  ```
-iSQL> CREATE USER uare10 IDENTIFIED BY rose10;
-Create success.
-  ```
+   ```
+   iSQL> CREATE USER user10 IDENTIFIED BY rose10;
+   Create success.
+   ```
 
-6. SYS는 uare9에게 REFERENCES 권한을 WITH GRANT OPTION으로 부여했기 때문에,
-   uare9는 다른 사용자(uare10)에게 이 권한을 부여할 수 있다.
+6. SYS는 user9에게 REFERENCES 권한을 WITH GRANT OPTION으로 부여했기 때문에, user9는 다른 사용자(user10)에게 이 권한을 부여할 수 있다.
 
-  ```
-iSQL> GRANT REFERENCES ON sys.book TO uare10;Grant success.
-  ```
-
-
-7. GRANT ANY PRIVILEGES를 부여 받은 uare9이 다른 사용자(uare10)에게 시스템
-   권한을 부여한다.
+   ```
+   iSQL> GRANT REFERENCES ON sys.book TO user10;
+   Grant success.
+   ```
 
 
+7. GRANT ANY PRIVILEGES를 부여 받은 user9이 다른 사용자(user10)에게 시스템 권한을 부여한다.
 
-  ```
-iSQL> GRANT ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANYTABLE TO uare10;Grant success.
-  ```
-
-
-8. 사용자 uare10은 ALTER ANY TABLE과 REFERENCE 권한이 있기 때문에, 다른 사용자
-   소유의 테이블에 제약조건을 추가할 수 있다.
-
-  ```
-iSQL> CONNECT uare10/rose10;Connect success.iSQL> ALTER TABLE sys.inventory  ADD COLUMN (isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES sys.book(isbn));Alter success.
-  ```
+   ```
+   iSQL> GRANT ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY
+   TABLE TO user10;
+   Grant success
+   ```
 
 
+8. 사용자 user10은 ALTER ANY TABLE과 REFERENCE 권한이 있기 때문에, 다른 사용자 소유의 테이블에 제약조건을 추가할 수 있다.
+
+   ```
+   iSQL> CONNECT user10/rose10;
+   Connect success.
+   iSQL> ALTER TABLE sys.inventory
+     ADD COLUMN (isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES sys.book(isbn));
+   Alter success.
+   ```
 
 
-9. 사용자 uare10은 INSERT ANY TABLE 권한이 있기 때문에, 사용자 uare9가 소유한
-   테이블에 데이터를 입력할 수 있다.
+9. 사용자 user10은 INSERT ANY TABLE 권한이 있기 때문에, 사용자 user9가 소유한 테이블에 데이터를 입력할 수 있다.
 
-  ```
-iSQL> INSERT INTO uare9.book VALUES('0471316156', 'JAVA and CORBA', 'Robert Orfali', 2, 1998, 50000, 'PREN');1 row inserted.iSQL> INSERT INTO uare9.inventory VALUES('TOWE000001', '0471316156', 'TOWE', '01-Jun-2003', 5, 'N');1 row inserted.
-  ```
+   ```
+   iSQL> INSERT INTO user9.book VALUES('0471316156', 'JAVA and CORBA', 'Robert Orfali', 2, 1998, 50000, 'PREN');
+   1 row inserted.
+   iSQL> INSERT INTO user9.inventory VALUES('TOWE000001', '0471316156', 'TOWE', '01-Jun-2003', 5, 'N');
+   1 row inserted.
+   ```
+
+   사용자 user10은 INSERT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블에 데이터를   입력할 수 있다.
+
+   ```
+   iSQL> INSERT INTO sys.book VALUES('053494566X', 'Working Classes', 'Robert Orfali', 1, 1999, 80000, 'WILE');
+   1 row inserted.
+   iSQL> INSERT INTO sys.inventory VALUES('MICR000005', 'WILE', '28-JUN-1999', 8, 'N', '053494566X');
+   1 row inserted.
+   ```
 
 
-
-  사용자 uare10은 INSERT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블에 데이터를
-  입력할 수 있다.
-
-  ```
-iSQL> INSERT INTO sys.book VALUES('053494566X', 'Working Classes', 'Robert Orfali', 1, 1999, 80000, 'WILE');1 row inserted.iSQL> INSERT INTO sys.inventory VALUES('MICR000005', 'WILE', '28-JUN-1999', 8, 'N', '053494566X');1 row inserted.
-  ```
-
-
-10. 사용자 uare10은 SELECT ANY TABLE 권한이 있기 때문에, uare9소유의 테이블을
-    조회할 수 있다.
-
+10. 사용자 user10은 SELECT ANY TABLE 권한이 있기 때문에, user9소유의 테이블을 조회할 수 있다.
+    
     ```
-    iSQL> SELECT * FROM uare9.book;BOOK.ISBN   BOOK.TITLE                                          ------------------------------------------------BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  ------------------------------------------------BOOK.PUBCODE  ----------------0471316156  JAVA and CORBA                                      Robert Orfali                   2           1998        50000       PREN  1 row selected.iSQL> SELECT * FROM uare9.inventory;INVENTORY.SUBSCRIPTIONID  INVENTORY.ISBN  INVENTORY.STORECODE  ------------------------------------------------INVENTORY.PURCHASEDATE INVENTORY.QUANTITY INVENTORY.PAID  ------------------------------------------------TOWE000001  0471316156  TOWE  2003/06/01 00:00:00  5           N  1 row selected.
+    iSQL> SELECT * FROM user9.book;
+    BOOK.ISBN   BOOK.TITLE                                          
+    ------------------------------------------------
+    BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
+    ------------------------------------------------
+    BOOK.PUBCODE  
+    ----------------
+    0471316156  JAVA and CORBA                                      
+    Robert Orfali                   2           1998        50000       
+    PREN  
+    1 row selected.
+    iSQL> SELECT * FROM user9.inventory;
+    INVENTORY.SUBSCRIPTIONID  INVENTORY.ISBN  INVENTORY.STORECODE  
+    ------------------------------------------------
+    INVENTORY.PURCHASEDATE INVENTORY.QUANTITY INVENTORY.PAID  
+    ------------------------------------------------
+    TOWE000001  0471316156  TOWE  
+    2003/06/01 00:00:00  5           N  
+    1 row selected.
+    ```
+    
+    사용자 user10은 SELECT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블을 조회할수 있다.
+    
+    ```
+    iSQL> SELECT * FROM sys.book;
+    BOOK.ISBN   BOOK.TITLE                                          
+    ------------------------------------------------
+    BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
+    ------------------------------------------------
+    BOOK.PUBCODE  
+    ----------------
+    0070521824  Software Engineering                                
+    Roger S. Pressman               4           1982        100000      
+    CHAU  
+    0137378424  Database Processing                                 
+    David M. Kroenke                6           1972        80000       
+    PREN  
+    053494566X  Working Classes                                     
+    Robert Orfali                   1           1999        80000       
+    WILE  
+    3 rows selected.
+    iSQL> SELECT * FROM sys.inventory;
+    INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
+    ------------------------------------------------
+    INVENTORY.QUANTITY INVENTORY.PAID  INVENTORY.ISBN  
+    ------------------------------------------------
+    BORD000002  BORD  2003/06/12 00:00:00  
+    6           N              
+    MICR000001  MICR  2003/06/07 00:00:00  
+    7           N              
+    MICR000005  WILE  1999/06/28 00:00:00  
+    8           N  053494566X  
+    3 rows selected.
     ```
 
 
-
-    사용자 uare10은 SELECT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블을 조회할수 있다.```iSQL> SELECT * FROM sys.book;BOOK.ISBN   BOOK.TITLE                                          ------------------------------------------------BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  ------------------------------------------------BOOK.PUBCODE  ----------------0070521824  Software Engineering                                Roger S. Pressman               4           1982        100000      CHAU  0137378424  Database Processing                                 David M. Kroenke                6           1972        80000       PREN  053494566X  Working Classes                                     Robert Orfali                   1           1999        80000       WILE  3 rows selected.iSQL> SELECT * FROM sys.inventory;INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE ------------------------------------------------INVENTORY.QUANTITY INVENTORY.PAID  INVENTORY.ISBN  ------------------------------------------------BORD000002  BORD  2003/06/12 00:00:00  6           N              MICR000001  MICR  2003/06/07 00:00:00  7           N              MICR000005  WILE  1999/06/28 00:00:00  8           N  053494566X  3 rows selected.```
-
-
-11. 사용자 uare10은 DELETE ANY TABLE 권한이 있기 때문에, SYS와 uare9소유의
-    테이블의 데이터를 삭제할 수 있다.
-
+11. 사용자 user10은 DELETE ANY TABLE 권한이 있기 때문에, SYS와 user9소유의 테이블의 데이터를 삭제할 수 있다.
+    
     ```
-    iSQL> DELETE FROM uare9.inventory WHERE subscriptionid = 'TOWE000001';
+    iSQL> DELETE FROM user9.inventory WHERE subscriptionid = 'TOWE000001';
     1 row deleted.
-    iSQL> SELECT * FROM uare9.inventory;
+    iSQL> SELECT * FROM user9.inventory;
     INVENTORY.SUBSCRIPTIONID  INVENTORY.ISBN  INVENTORY.STORECODE  
     ------------------------------------------------
     INVENTORY.PURCHASEDATE INVENTORY.QUANTITY INVENTORY.PAID  
@@ -11068,61 +11147,51 @@ iSQL> INSERT INTO sys.book VALUES('053494566X', 'Working Classes', 'Robert Orfal
     ```
 
 
-
-
-12. 사용자 uare9이 REVOKE ALL 구문을 사용하지 않고 uare10으로부터 모든 권한을
-    해제한다.
-
+12. 사용자 user9이 REVOKE ALL 구문을 사용하지 않고 user10으로부터 모든 권한을 해제한다.
+    
     ```
-    iSQL> CONNECT uare9/rose9;
+    iSQL> CONNECT user9/rose9;
     Connect success.
-    iSQL> REVOKE ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY TABLE FROM uare10;
+    iSQL> REVOKE ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY TABLE FROM user10;
     Revoke success.
     ```
 
 
-
-
-13. 사용자 uare10의 REFERENCES 권한과 함께 관련된 참조 무결성
-    제약조건(referential integrity constraints)도 같이 삭제한다.
-
+13. 사용자 user10의 REFERENCES 권한과 함께 관련된 참조 무결성 제약조건(referential integrity constraints)도 같이 삭제한다.
+    
     ```
-    iSQL> REVOKE REFERENCES ON sys.book FROM uare10 CASCADE CONSTRAINTS;
+    iSQL> REVOKE REFERENCES ON sys.book FROM user10 CASCADE CONSTRAINTS;
     Revoke success.
     ```
 
 
-
-
-14. 사용자 uare9의 모든 시스템 권한을 해제한다.
+14. 사용자 user9의 모든 시스템 권한을 해제한다.
 
     ```
     iSQL> CONNECT sys/manager;
     Connect success.
-    iSQL> REVOKE ALL PRIVILEGES FROM uare9;
+    iSQL> REVOKE ALL PRIVILEGES FROM user9;
     Revoke success.
     ```
 
 
-15. 사용자 uare9의 GRANT ANY PRIVILEGES 권한을 해제한다.
+15. 사용자 user9의 GRANT ANY PRIVILEGES 권한을 해제한다.
 
     ```
-    iSQL> REVOKE GRANT ANY PRIVILEGES FROM uare9;
+    iSQL> REVOKE GRANT ANY PRIVILEGES FROM user9;
     Revoke success.
     ```
 
 
-16. 사용자 uare9의 REFERENCES 권한을 해제한다.
+16. 사용자 user9의 REFERENCES 권한을 해제한다.
 
     ```
-    iSQL> REVOKE REFERENCES ON book FROM uare9;
+    iSQL> REVOKE REFERENCES ON book FROM user9;
     Revoke success.
-    
     ```
 
 
-\<질의 3\> user01의 T1 테이블에 대한 SELECT, UPDATE, INSERT, DELETE 객체 권한을
-alti_role 롤에 부여한다. 그리고 alti_role 롤을 다른 사용자 user02에게 부여한다.
+\<질의 3\> user01의 T1 테이블에 대한 SELECT, UPDATE, INSERT, DELETE 객체 권한을 alti_role 롤에 부여한다. 그리고 alti_role 롤을 다른 사용자 user02에게 부여한다.
 
 ```
 iSQL> create role alti_role;
@@ -11182,13 +11251,11 @@ T1.I1
 
 #### 전제 조건
 
-SYS 사용자, 테이블의 소유자, DROP ANY TABLE 시스템 권한을 가진 사용자만이 이
-구문을 수행할 수 있다.
+SYS 사용자, 테이블의 소유자, DROP ANY TABLE 시스템 권한을 가진 사용자만이 이 구문을 수행할 수 있다.
 
 #### 설명
 
-명시한 테이블이 휴지통에서 제거되는 구문이다. 동일 이름의 테이블이 휴지통에 여러
-개 존재할 경우 가장 먼저 DROP된 테이블이 데이터베이스에서 삭제된다.
+명시한 테이블이 휴지통에서 제거되는 구문이다. 동일 이름의 테이블이 휴지통에 여러 개 존재할 경우 가장 먼저 DROP된 테이블이 데이터베이스에서 삭제된다.
 
 *user_name*
 
@@ -11196,16 +11263,21 @@ SYS 사용자, 테이블의 소유자, DROP ANY TABLE 시스템 권한을 가진
 
 *table_name*
 
-휴지통에서 제거할 테이블의 이름을 명시한다. 테이블의 이름은 DROP 되기 전의
-테이블의 이름이거나 휴지통으로 옮겨지면서 시스템에서 부여된 객체의 이름을 명시할
-수 있다.
+휴지통에서 제거할 테이블의 이름을 명시한다. 테이블의 이름은 DROP 되기 전의 테이블의 이름이거나 휴지통으로 옮겨지면서 시스템에서 부여된 객체의 이름을 명시할 수 있다.
 
 #### 예제
 
 \<질의\> DROP이 수행된 테이블 t1을 휴지통에서 비운다.
 
 ```
-iSQL> alter session set recyclebin_enable = 1;Alter success.iSQL> create table t1 (i1 integer);Create success.iSQL> drop table t1;Drop success.iSQL> purge table t1;Purge success.
+iSQL> alter session set recyclebin_enable = 1;
+Alter success.
+iSQL> create table t1 (i1 integer);
+Create success.
+iSQL> drop table t1;
+Drop success.
+iSQL> purge table t1;
+Purge success.
 ```
 
 
@@ -11220,19 +11292,15 @@ iSQL> alter session set recyclebin_enable = 1;Alter success.iSQL> create table t
 
 #### 전제 조건
 
-SYS 사용자, 테이블이 속한 스키마의 소유자, 테이블에 ALTER 객체 권한을 가진
-사용자, 또는 ALTER ANY TABLE 시스템 권한을 가진 사용자만이 테이블 이름을 변경할
-수 있다.
+SYS 사용자, 테이블이 속한 스키마의 소유자, 테이블에 ALTER 객체 권한을 가진 사용자, 또는 ALTER ANY TABLE 시스템 권한을 가진 사용자만이 테이블 이름을 변경할 수 있다.
 
 #### 설명
 
-명시된 테이블의 이름을 새로운 이름으로 변경한다. 테이블의 이름만 변경되고 그
-안에 저장된 데이터는 유지된다.
+명시된 테이블의 이름을 새로운 이름으로 변경한다. 테이블의 이름만 변경되고 그 안에 저장된 데이터는 유지된다.
 
 *user_name*
 
-이름이 변경될 테이블의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 세션에
-연결된 사용자의 스키마에 속한 것으로 간주한다.
+이름이 변경될 테이블의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 세션에 연결된 사용자의 스키마에 속한 것으로 간주한다.
 
 *old_name*
 
@@ -11251,13 +11319,15 @@ SYS 사용자, 테이블이 속한 스키마의 소유자, 테이블에 ALTER �
 \<질의\> 테이블 employees의 이름을 emp1으로 변경하라.
 
 ```
-iSQL> RENAME employees TO emp1;Rename success.
+iSQL> RENAME employees TO emp1;
+Rename success.
 ```
 
 또는
 
 ```
-iSQL> ALTER TABLE employees  RENAME TO emp1;Alter success.
+iSQL> ALTER TABLE employees  RENAME TO emp1;
+Alter success.
 ```
 
 
@@ -11284,11 +11354,9 @@ SYS 사용자와 원래 그 권한을 부여한 사용자만이 해당 권한을
 
 #### 설명
 
-REVOKE 구문은 명시된 사용자가 가진 시스템 권한 또는 특정 객체에 대한 객체 권한
-또는 롤을 해제한다. 또는 롤에 부여된 시스템 권한 또는 객체 권한을 해제한다.
+REVOKE 구문은 명시된 사용자가 가진 시스템 권한 또는 특정 객체에 대한 객체 권한 또는 롤을 해제한다. 또는 롤에 부여된 시스템 권한 또는 객체 권한을 해제한다.
 
-시스템 및 객체 접근 권한, 롤을 해제하려면 GRANT 명령으로 직접 부여되었던
-권한들에 대해서만 해제할 수 있다.
+시스템 및 객체 접근 권한, 롤을 해제하려면 GRANT 명령으로 직접 부여되었던 권한들에 대해서만 해제할 수 있다.
 
 ##### 시스템 접근 권한 (System privilege)
 
@@ -11298,16 +11366,13 @@ REVOKE 구문은 명시된 사용자가 가진 시스템 권한 또는 특정 �
 
 *system_privilege*
 
-해제할 시스템 권한을 명시하는 절이다. 시스템 권한의 목록은 GRANT구문의 설명을
-참고한다.
+해제할 시스템 권한을 명시하는 절이다. 시스템 권한의 목록은 GRANT구문의 설명을 참고한다.
 
 *ALL PRIVILEGES*
 
-이 REVOKE 문을 실행하는 사용자에 의해서 부여된 모든 시스템 권한을 해제하는
-옵션이다.
+이 REVOKE 문을 실행하는 사용자에 의해서 부여된 모든 시스템 권한을 해제하는 옵션이다.
 
-ALL PRIVILEGES 옵션으로 부여된 시스템 권한은 ALL PRIVILEGES 옵션을 사용해서
-해제하거나 각각의 권한을 따로따로 해제해도 된다.
+ALL PRIVILEGES 옵션으로 부여된 시스템 권한은 ALL PRIVILEGES 옵션을 사용해서 해제하거나 각각의 권한을 따로따로 해제해도 된다.
 
 *FROM user*
 
@@ -11331,17 +11396,13 @@ ALL PRIVILEGES 옵션으로 부여된 시스템 권한은 ALL PRIVILEGES 옵션�
 
 *object_privilege*
 
-해제할 객체 권한을 명시하는 절이다. 객체 권한의 목록은 GRANT구문의 설명을
-참고한다.
+해제할 객체 권한을 명시하는 절이다. 객체 권한의 목록은 GRANT구문의 설명을 참고한다.
 
 *ALL [PRIVILEGES]*
 
-이 REVOKE 문을 실행하는 사용자에 의해서 부여된 모든 객체 권한을 해제하는
-옵션이다.
+이 REVOKE 문을 실행하는 사용자에 의해서 부여된 모든 객체 권한을 해제하는 옵션이다.
 
-ALL PRIVILEGES 옵션으로 권한을 해제하면, 사용자에게 부여된 모든 객체 권한이
-해제된다. 즉, ALL [PRIVILEGES] 옵션을 사용하지 않고 부여된 객체 권한도 해제된다.
-예을 들어, 다음 구문으로 부여된 객체 권한은:
+ALL PRIVILEGES 옵션으로 권한을 해제하면, 사용자에게 부여된 모든 객체 권한이 해제된다. 즉, ALL [PRIVILEGES] 옵션을 사용하지 않고 부여된 객체 권한도 해제된다. 예를 들어, 다음 구문으로 부여된 객체 권한은:
 
 ```
 GRANT SELECT ON object TO user;
@@ -11361,8 +11422,7 @@ REVOKE ALL ON object FROM user;
 
 *ON object*
 
-어느 객체(테이블, 시퀀스, 저장 프로시저 등)에 대한 권한을 해제할지를 명시하는
-절이다.
+어느 객체(테이블, 시퀀스, 저장 프로시저 등)에 대한 권한을 해제할지를 명시하는 절이다.
 
 *ON DIRECTORY directory_name*
 
@@ -11382,23 +11442,27 @@ REVOKE ALL ON object FROM user;
 
 *CASCADE CONSTRAINTS*
 
-REFERENCES 권한 또는 ALL [PRIVILEGS]를 사용해서 해제할 때 사용할 수 있는
-옵션이다. 이 옵션을 사용해서 사용자의 권한을 해제하면 관련된 모든 참조 무결성
-제약조건(referential integrity constraints)도 함께 삭제된다.
+REFERENCES 권한 또는 ALL [PRIVILEGS]를 사용해서 해제할 때 사용할 수 있는 옵션이다. 이 옵션을 사용해서 사용자의 권한을 해제하면 관련된 모든 참조 무결성 제약조건(referential integrity constraints)도 함께 삭제된다.
 
 #### 예제
 
 \<질의\> 객체 권한을 해제하라.
 
 ```
-iSQL> CONNECT uare6/rose6;Connect success.iSQL> REVOKE SELECT, DELETE ON sys.employees  FROM user7, uare8;Revoke success.iSQL> CONNECT user7/rose7;Connect success.iSQL> SELECT eno, e_lastname FROM sys.employees WHERE eno = 15;[ERR-311B1: The user must have the SELECT_ANY_TABLE privilege(s) to execute this statement.]
+iSQL> CONNECT uare6/rose6;
+Connect success.
+iSQL> REVOKE SELECT, DELETE ON sys.employees
+  FROM uare7, uare8;
+Revoke success.
+iSQL> CONNECT uare7/rose7;
+Connect success.
+iSQL> SELECT eno, e_lastname FROM sys.employees WHERE eno = 15;
+[ERR-311B1: The user must have the SELECT_ANY_TABLE privilege(s) to execute this statement.]
 ```
 
-employees 테이블에 대한 SELECT와 DELETE 권한 해제 후, 그 테이블에 SELECT 문을
-실행하면 오류 메시지를 볼 수 있다.
+employees 테이블에 대한 SELECT와 DELETE 권한 해제 후, 그 테이블에 SELECT 문을 실행하면 오류 메시지를 볼 수 있다.
 
-\<질의 2\> 롤에 부여된 create user, drop user의 시스템 권한 중에서 create user
-권한을 해제한다.
+\<질의 2\> 롤에 부여된 create user, drop user의 시스템 권한 중에서 create user 권한을 해제한다.
 
 ```
 iSQL> create role alti_role;
@@ -11425,8 +11489,7 @@ iSQL> create user user02 identified by user02;
 [ERR-311B1 : The user must have CREATE_USER privilege(s) to execute this statement.]
 ```
 
-\<질의 3\> alti_role 롤에서 사용자 user01의 테이블 t1에 대한 DELETE 객체 권한을
-해제한다.
+\<질의 3\> alti_role 롤에서 사용자 user01의 테이블 t1에 대한 DELETE 객체 권한을 해제한다.
 
 ```
 iSQL> create role alti_role;
@@ -11500,9 +11563,7 @@ iSQL> delete from user01.t1 where i1=3;
 
 #### 전제 조건
 
-SYS 사용자, 테이블이 속한 스키마의 소유자, 테이블에 ALTER 객체 권한을 가진
-사용자, 또는 ALTER ANY TABLE 시스템 권한을 가진 사용자만이 테이블 이름을 변경할
-수 있다.
+SYS 사용자, 테이블이 속한 스키마의 소유자, 테이블에 ALTER 객체 권한을 가진 사용자, 또는 ALTER ANY TABLE 시스템 권한을 가진 사용자만이 테이블 이름을 변경할 수 있다.
 
 #### 설명
 
@@ -11510,31 +11571,24 @@ SYS 사용자, 테이블이 속한 스키마의 소유자, 테이블에 ALTER �
 
 *user_name*
 
-레코드가 삭제될 테이블의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 세션에
-연결된 사용자의 스키마에 속한 것으로 간주한다.
+레코드가 삭제될 테이블의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 세션에 연결된 사용자의 스키마에 속한 것으로 간주한다.
 
 *tbl_name*
 
 레코드가 삭제될 테이블 이름을 명시한다.
 
-*table_name* 에는 큐 테이블 명을 지정하여 ENQUE된 메시지를 한꺼번에 삭제할 수
-있다.
+*table_name* 에는 큐 테이블 명을 지정하여 ENQUE된 메시지를 한꺼번에 삭제할 수 있다.
 
 #### TRUNCATE vs. DELETE
 
-TRUNCATE 문을 수행한 경우는 해당 테이블에 할당된 모든 페이지가 데이터베이스에
-free page로 반납된다. 따라서 이 페이지들은 다른 테이블에 의해 사용될 수 있다.
-그러나 DELETE 문을 수행하여 해당 테이블의 모든 레코드를 삭제한 경우는 free
-page가 생기더라도 데이터베이스에 다시 반납되지 않고 해당 테이블 내에 유지되기
+TRUNCATE 문을 수행한 경우는 해당 테이블에 할당된 모든 페이지가 데이터베이스에 free page로 반납된다. 따라서 이 페이지들은 다른 테이블에 의해 사용될 수 있다. 그러나 DELETE 문을 수행하여 해당 테이블의 모든 레코드를 삭제한 경우는 free page가 생기더라도 데이터베이스에 다시 반납되지 않고 해당 테이블 내에 유지되기
 때문에 메모리 사용량이 줄지 않는다.
 
-TRUNCATE 구문은 DDL구문이므로 이 구문을 성공적으로 수행한 후에는 rollback이
-불가능하다.
+TRUNCATE 구문은 DDL구문이므로 이 구문을 성공적으로 수행한 후에는 rollback이 불가능하다.
 
 #### 주의 사항
 
-레코드의 삭제가 성공적으로 수행되었다면 삭제된 레코드는 복구될 수 없다. 그러나
-수행 완료 전에 오류가 발생한 경우나 서버가 죽은 경우엔 롤백이 가능하다.
+레코드의 삭제가 성공적으로 수행되었다면 삭제된 레코드는 복구될 수 없다. 그러나 수행 완료 전에 오류가 발생한 경우나 서버가 죽은 경우엔 롤백이 가능하다.
 
 #### 예제
 
@@ -11585,25 +11639,19 @@ Truncate success.
 
 #### 전제 조건
 
-SYS 사용자, 테이블 소유자, DELETE ANY TABLE 시스템 권한을 가진 사용자 및
-테이블에 대한 DELETE 객체 권한을 가진 사용자만이 이 구문으로 해당 테이블의
-레코드를 삭제할 수 있다.
+SYS 사용자, 테이블 소유자, DELETE ANY TABLE 시스템 권한을 가진 사용자 및 테이블에 대한 DELETE 객체 권한을 가진 사용자만이 이 구문으로 해당 테이블의 레코드를 삭제할 수 있다.
 
-뷰의 레코드를 삭제할 경우, 사용자는 베이스 테이블에 대해 위와 동일한 권한을
-가져야 한다.
+뷰의 레코드를 삭제할 경우, 사용자는 베이스 테이블에 대해 위와 동일한 권한을 가져야 한다.
 
 #### 설명
 
-조건을 만족하는 레코드를 해당 테이블에서 삭제하는 구문이다. 또한 이 구문으로
-특정 파티션에 있는 데이터를 삭제할 수도 있다.
+조건을 만족하는 레코드를 해당 테이블에서 삭제하는 구문이다. 또한 이 구문으로 특정 파티션에 있는 데이터를 삭제할 수도 있다.
 
-WHERE 절은 SELECT구문의 WHERE 절과 동일하다. WHERE 절을 생략하면 테이블의 모든
-데이터가 삭제된다.
+WHERE 절은 SELECT구문의 WHERE 절과 동일하다. WHERE 절을 생략하면 테이블의 모든 데이터가 삭제된다.
 
 *user_name*
 
-레코드를 삭제할 테이블의 소유자 이름을 명시한다. 생략하면 Altibase는 테이블이
-현재 세션에 연결된 사용자의 스키마에 속한 것으로 간주한다.
+레코드를 삭제할 테이블의 소유자 이름을 명시한다. 생략하면 Altibase는 테이블이 현재 세션에 연결된 사용자의 스키마에 속한 것으로 간주한다.
 
 *tbl_name*
 
@@ -11623,8 +11671,7 @@ returning 절은 DML 문에 의해 영향을 받은 레코드를 조회한다.
 
 *expr*
 
-각 expr는 DML 문에 의해 영향을 받는 칼럼의 이름이거나 칼럼 타입과 호환되는
-데이터 표현식이어야 한다.
+각 expr는 DML 문에 의해 영향을 받는 칼럼의 이름이거나 칼럼 타입과 호환되는 데이터 표현식이어야 한다.
 
 *INTO*
 
