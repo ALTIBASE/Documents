@@ -12944,8 +12944,8 @@ GROUPING SETS은 그룹화된 칼럼의 개수가 n개일 때 n개의 GROUP BY�
   
 ```
   GROUP BY GROUPING SETS((), a, b, c)
-  ```
-  
+```
+
 빈 그룹은 그룹화 없이 총계를 구하기 위해 사용할 수 있다.
 
 *HAVING 조건절*
@@ -14028,7 +14028,7 @@ Gottlieb              Fleischer             500
 
   아래의 질의들에서 access 회수를 비교해 보면 각각 20과 4인 것을 알수 있다.
   
-  \<질의\> 성별이 여자인 직원의 사원 번호, 이름, 직업을 출력하라. (full scan 이용)
+  <질의> 성별이 여자인 직원의 사원 번호, 이름, 직업을 출력하라. (full scan 이용)
   
   ```
   iSQL> SELECT /*+ FULL SCAN(employees) */ eno, e_firstname, e_lastname, emp_job
@@ -14044,27 +14044,27 @@ Gottlieb              Fleischer             500
    SCAN ( TABLE: EMPLOYEES, FULL SCAN, ACCESS: 20, SELF_ID: 2 )
   ------------------------------------------------
   ```
-
- 	 \<질의\> 성별이 여자인 직원의 사원 번호, 이름, 직업을 출력하라. (index 이용)
-
+  
+  <질의> 성별이 여자인 직원의 사원 번호, 이름, 직업을 출력하라. (index 이용)
+  
   ```
-iSQL> CREATE INDEX gender_index ON employees(sex);
-Create success.
-iSQL> SELECT /*+ INDEX(employees, gender_INDEX) use gender_index because there are few female employees */ eno, e_firstname, e_lastname, emp_job
- FROM employees
- WHERE sex = 'F';
-ENO E_FIRSTNAME E_LASTNAME EMP_JOB 
-------------------------------------------------
-.
-.
-.
-------------------------------------------------
-PROJECT ( COLUMN_COUNT: 4, TUPLE_SIZE: 65 )
- SCAN ( TABLE: EMPLOYEES, INDEX: GENDER_INDEX, ACCESS: 4, SELF_ID: 2 )
-------------------------------------------------
+  iSQL> CREATE INDEX gender_index ON employees(sex);
+  Create success.
+  iSQL> SELECT /*+ INDEX(employees, gender_INDEX) use gender_index because there are few female employees */ eno, e_firstname, e_lastname, emp_job
+   FROM employees
+   WHERE sex = 'F';
+  ENO E_FIRSTNAME E_LASTNAME EMP_JOB 
+  ------------------------------------------------
+  .
+  .
+  .
+  ------------------------------------------------
+  PROJECT ( COLUMN_COUNT: 4, TUPLE_SIZE: 65 )
+   SCAN ( TABLE: EMPLOYEES, INDEX: GENDER_INDEX, ACCESS: 4, SELF_ID: 2 )
+  ------------------------------------------------
   ```
-
-  <질의\> 1사분기(1월에서 3월까지) 동안의 모든 주문에 대한 주문번호, 상품번호, 주문량을 출력하라 (index 이용). 각 월에 해당하는 주문 테이블의 이름이 orders_\#\# 라고 가정한다.
+  
+  <질의> 1사분기(1월에서 3월까지) 동안의 모든 주문에 대한 주문번호, 상품번호, 주문량을 출력하라 (index 이용). 각 월에 해당하는 주문 테이블의 이름이 orders_## 라고 가정한다.
 
   ```
 create view orders as
