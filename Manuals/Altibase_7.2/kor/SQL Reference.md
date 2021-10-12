@@ -14015,21 +14015,21 @@ Gottlieb              Fleischer             500
 - *Table Access Method Hints*
 
   : full scan, index scan, index ascending order scan, index descending order scan, no index scan
-  
+
   다음은 사원들 중 모든 여사원의 번호, 이름, 직업을 검색하는 질의이다.
-  
+
   ```
   SELECT eno, e_firstname, e_lastname, emp_job FROM employees WHERE sex = 'F';
   ```
-  
+
   예를 들어, 많은 수의 사원들이 있는 사원 테이블의 성별(SEX) 칼럼에 인덱스가 정의되어 있고, 이 칼럼의 값은 ‘M’ 또는 ‘F’이다.
-  
+
   만약, 남자 직원과 여자 직원의 비율이 같다면 full scan으로 전체 테이블을 검색하는 것이 index scan으로 검색하는 것보다 더 빠를 것이다. 그러나, 만약 여자 직원의 비율이 남자 직원보다 상대적으로 적다면, index scan이 전체 테이블의 full scan 보다 빠를 것이다. 즉, 칼럼이 서로 다른 두 개의 값만을 가지고 있을 때, 쿼리 옵티마이저는 각 값의 행들이 50%씩 존재한다고 가정해서 비용 기반 접근 방식으로서 index scan 보다 전체 테이블의 full scan을 선택한다.
 
   아래의 질의들에서 access 회수를 비교해 보면 각각 20과 4인 것을 알수 있다.
-  
+
   <질의> 성별이 여자인 직원의 사원 번호, 이름, 직업을 출력하라. (full scan 이용)
-  
+
   ```
   iSQL> SELECT /*+ FULL SCAN(employees) */ eno, e_firstname, e_lastname, emp_job
    FROM employees 
@@ -14044,9 +14044,9 @@ Gottlieb              Fleischer             500
    SCAN ( TABLE: EMPLOYEES, FULL SCAN, ACCESS: 20, SELF_ID: 2 )
   ------------------------------------------------
   ```
-  
+
   <질의> 성별이 여자인 직원의 사원 번호, 이름, 직업을 출력하라. (index 이용)
-  
+
   ```
   iSQL> CREATE INDEX gender_index ON employees(sex);
   Create success.
@@ -14063,49 +14063,48 @@ Gottlieb              Fleischer             500
    SCAN ( TABLE: EMPLOYEES, INDEX: GENDER_INDEX, ACCESS: 4, SELF_ID: 2 )
   ------------------------------------------------
   ```
-  
+
   <질의> 1사분기(1월에서 3월까지) 동안의 모든 주문에 대한 주문번호, 상품번호, 주문량을 출력하라 (index 이용). 각 월에 해당하는 주문 테이블의 이름이 orders_## 라고 가정한다.
 
   ```
-create view orders as
-select ono, order_date, eno, cno, gno, qty from orders_01
-union all
-select ono, order_date, eno, cno, gno, qty from orders_02
-union all
-select ono, order_date, eno, cno, gno, qty from orders_03;
-create index order1_gno on orders_01(gno);
-create index order2_gno on orders_02(gno);
-create index order3_gno on orders_03(gno);
-
-iSQL> select /*+ index( orders, 
-           orders1_gno, orders2_gno,orders3_gno ) */
-           ONO, GNO, QTY
-      from orders;
-ONO                  GNO         QTY         
--------------------------------------------------
-.
-.
-.
-------------------------------------------------
-PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 24 )
- VIEW ( ORDERS, ACCESS: 14, SELF_ID: 6 )
-  PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
-   VIEW ( ACCESS: 14, SELF_ID: 5 )
-    BAG-UNION
-     PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
-      SCAN ( TABLE: ORDERS_01, INDEX: ORDERS1_GNO, ACCESS: , SELF_ID: 0 )
-     PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
-      SCAN ( TABLE: ORDERS_02, INDEX: ORDERS2_GNO, ACCESS: 4, SELF_ID: 1 )
-     PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
-      SCAN ( TABLE: ORDERS_03, INDEX: ORDERS3_GNO, ACCESS: 7, SELF_ID: 4 )
-------------------------------------------------
+  create view orders as
+  select ono, order_date, eno, cno, gno, qty from orders_01
+  union all
+  select ono, order_date, eno, cno, gno, qty from orders_02
+  union all
+  select ono, order_date, eno, cno, gno, qty from orders_03;
+  create index order1_gno on orders_01(gno);
+  create index order2_gno on orders_02(gno);
+  create index order3_gno on orders_03(gno);
+  
+  iSQL> select /*+ index( orders, 
+             orders1_gno, orders2_gno,orders3_gno ) */
+             ONO, GNO, QTY
+        from orders;
+  ONO                  GNO         QTY         
+  -------------------------------------------------
+  .
+  .
+  .
+  ------------------------------------------------
+  PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 24 )
+   VIEW ( ORDERS, ACCESS: 14, SELF_ID: 6 )
+    PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
+     VIEW ( ACCESS: 14, SELF_ID: 5 )
+      BAG-UNION
+       PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
+        SCAN ( TABLE: ORDERS_01, INDEX: ORDERS1_GNO, ACCESS: , SELF_ID: 0 )
+       PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
+        SCAN ( TABLE: ORDERS_02, INDEX: ORDERS2_GNO, ACCESS: 4, SELF_ID: 1 )
+       PROJECT ( COLUMN_COUNT: 6, TUPLE_SIZE: 48 )
+        SCAN ( TABLE: ORDERS_03, INDEX: ORDERS3_GNO, ACCESS: 7, SELF_ID: 4 )
+  ------------------------------------------------
   ```
-
 
 - *Join Order Hints (ordered, optimized)*
 
-  \<질의\> 주문된 상품을 담당하고 있는 직원의 사원번호, 이름과 해당 고객의 이름을 출력하라. (employees 테이블과 customers 테이블을 조인하고, 그 결과를 orders 테이블과 조인하기 위해 ORDERED 힌트를 사용하라.)
-  
+  <질의> 주문된 상품을 담당하고 있는 직원의 사원번호, 이름과 해당 고객의 이름을 출력하라. (employees 테이블과 customers 테이블을 조인하고, 그 결과를 orders 테이블과 조인하기 위해 ORDERED 힌트를 사용하라.)
+
   ```
   iSQL> SELECT /*+ ORDERED */ DISTINCT o.eno, e.e_lastname, c.c_lastname
   FROM employees e, customers c, orders o
@@ -14125,9 +14124,9 @@ PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 24 )
    SCAN ( TABLE: ORDERS O, FULL SCAN, ACCESS: 12000, SELF_ID: 3 )
   ------------------------------------------------
   ```
-  
-  \<질의\> 주문된 상품을 담당하고 있는 직원의 사원번호, 이름과 해당 고객의 이름을 출력하라. (FROM 절의 테이블들의 순서에 상관없이 옵티마이저에 의해서 테이블 조인 순서가 결정되도록 하라.)
-  
+
+  <질의> 주문된 상품을 담당하고 있는 직원의 사원번호, 이름과 해당 고객의 이름을 출력하라. (FROM 절의 테이블들의 순서에 상관없이 옵티마이저에 의해서 테이블 조인 순서가 결정되도록 하라.)
+
   ```
   iSQL> SELECT DISTINCT o.eno, e.e_lastname, c.c_lastname
   FROM employees e, customers c, orders o 
@@ -14147,7 +14146,6 @@ PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 24 )
    SCAN ( TABLE: EMPLOYEES E, INDEX: __SYS_IDX_ID_366, ACCESS: 30, SELF_ID: 1 )
   ------------------------------------------------
   ```
-
 
 - *Optimizer Mode Hints (rule, cost)*
 
@@ -14172,7 +14170,6 @@ PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 24 )
   iSQL> SELECT /*+ USE_MERGE (t1,t2) */ * FROM t1, t2 WHERE t1.i1 = t2.i1;
   ```
 
-
 - *Hash Bucket Size Hints (hash bucket count, group bucket count, set bucket count)*
 
   ```
@@ -14183,11 +14180,10 @@ PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 24 )
   iSQL> SELECT /*+ SET BUCKET COUNT (20) */  * FROM t1 INTERSECT SELECT * FROM t2;
   ```
 
-
 - *Push Predicate Hints*
 
-  \<질의\> 1사분기(1월에서 3월까지) 동안 발생한 주문 중에서 한번의 주문수량이 10000개이상인 고객의 명단과 상품번호을 구하라.(고객 테이블과 주문 테이블을 조인하기 위해 Push Predicate 힌트를 사용하라.)
-  
+  <질의> 1사분기(1월에서 3월까지) 동안 발생한 주문 중에서 한번의 주문수량이 10000개이상인 고객의 명단과 상품번호을 구하라.(고객 테이블과 주문 테이블을 조인하기 위해 Push Predicate 힌트를 사용하라.)
+
   ```
   create view orders as
   select ono, order_date, eno, cno, gno, qty from orders_01
@@ -14244,10 +14240,9 @@ PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 24 )
   ------------------------------------------------
   ```
 
-
 ##### OUTER JOIN을 이용한 조회
 
-\<질의\> 모든 부서에 대한 부서 번호와 사원 이름을 출력하라. (단, 사원이 전혀 없는 부서 번호 5001도 출력되게 하라.)
+<질의> 모든 부서에 대한 부서 번호와 사원 이름을 출력하라. (단, 사원이 전혀 없는 부서 번호 5001도 출력되게 하라.)
 
 ```
 iSQL> INSERT INTO departments VALUES('5001', 'Quality Assurance', 'Jonglo', 22);
@@ -14262,7 +14257,7 @@ DNO E_LASTNAME
 .
 ```
 
-\<질의\> 모든 부서에 대한 부서 번호와 사원 이름을 출력하라. (단, 부서에 소속이 되어 있지 않은 CEO도 출력되게 하라.)
+<질의> 모든 부서에 대한 부서 번호와 사원 이름을 출력하라. (단, 부서에 소속이 되어 있지 않은 CEO도 출력되게 하라.)
 
 ```
 iSQL> SELECT d.dno, e.e_lastname
@@ -14275,7 +14270,7 @@ DNO E_LASTNAME
 .
 ```
 
-\<질의\> 부서의 위치와 상품을 모아 놓은 장소가 같은 곳에 해당하는 부서의 부서번호, 부서 이름, 상품 번호를 출력하라.
+<질의> 부서의 위치와 상품을 모아 놓은 장소가 같은 곳에 해당하는 부서의 부서번호, 부서 이름, 상품 번호를 출력하라.
 
 ```
 iSQL> INSERT INTO departments VALUES('6002', 'headquarters', 'CE0002', 100);
@@ -14290,11 +14285,9 @@ DNO         DNAME                           GNO
 .
 ```
 
-
-
 ##### In-line View를 이용한 조회
 
-\<질의\> 자신이 속한 부서의 평균 급여보다 급여를 많이 받는 모든 사원의 이름, 급여, 부서 번호 및 그 부서의 평균 급여를 출력하라.
+<질의> 자신이 속한 부서의 평균 급여보다 급여를 많이 받는 모든 사원의 이름, 급여, 부서 번호 및 그 부서의 평균 급여를 출력하라.
 
 ```
 iSQL> SELECT e.e_last name, e.salary, e.dno, v1.salavg
@@ -14309,11 +14302,9 @@ ENAME   SALARY   DNO   SALAVG
 .
 ```
 
-
-
 ##### Lateral View를 이용한 조회
 
-\<질의\> 각 부서의 부서명과 급여 총계, 급여 평균을 검색하라.
+<질의> 각 부서의 부서명과 급여 총계, 급여 평균을 검색하라.
 
 ```
 iSQL> SELECT DEPT.dname, LV.*
@@ -14332,7 +14323,7 @@ BUSINESS DEPT                   4190        1396.66666666667
 8 rows selected.
 ```
 
-\<질의\> 각 부서에서 사원 번호가 가장 빠른 사원 1인의 이름과 부서명을 검색하라. 부서에 사원이 없다면 부서명이라도 출력해야 한다.
+<질의> 각 부서에서 사원 번호가 가장 빠른 사원 1인의 이름과 부서명을 검색하라. 부서에 사원이 없다면 부서명이라도 출력해야 한다.
 
 ```
 insert into departments values(8000, 'empty dept', 'seoul', 20);
@@ -14354,11 +14345,9 @@ Gottlieb              Fleischer             BUSINESS DEPT
 9 rows selected.
 ```
 
-
-
 ##### PIVOT/UNPIVOT 절을 이용한 조회
 
-\<질의\> 각 부서별 남자와 여자 직원의 수를 구하라.
+<질의> 각 부서별 남자와 여자 직원의 수를 구하라.
 
 ```
 iSQL> SELECT * FROM 
@@ -14380,7 +14369,7 @@ SOLUTION DEVELOPMENT DEPT       3                    1
 8 rows selected.
 ```
 
-\<질의\> 다음 예제는 비교를 위해서 GROUP BY와 ORDER BY 절을 이용한 질의를 보여준다. 같은 정보를 출력하지만, 읽기가 더 힘든 것을 알 수 있다.
+<질의> 다음 예제는 비교를 위해서 GROUP BY와 ORDER BY 절을 이용한 질의를 보여준다. 같은 정보를 출력하지만, 읽기가 더 힘든 것을 알 수 있다.
 
 ```
 iSQL> SELECT d.dname, e.sex, count(*) FROM departments d, employees e WHERE d.dno = e.dno GROUP BY d.dname, e.sex ORDER BY d.dname, e.sex DESC;
@@ -14400,7 +14389,7 @@ SOLUTION DEVELOPMENT DEPT       F  1
 11 rows selected.
 ```
 
-\<질의\> 사원의 전화번호와 성별이 각각 출력되도록 한다.
+<질의> 사원의 전화번호와 성별이 각각 출력되도록 한다.
 
 ```
 iSQL> SELECT eno, e_lastname, e_firstname, "info", "item"
@@ -14424,11 +14413,9 @@ ENO         E_LASTNAME            E_FIRSTNAME           info             item
 40 rows selected.
 ```
 
-
-
 ##### Table Fuction 조회
 
-\<질의\> 사용자 정의 함수 'func1'를 생성하여, 10개의 행을 검색하라.
+<질의> 사용자 정의 함수 'func1'를 생성하여, 10개의 행을 검색하라.
 
 ```
 iSQL> CREATE TYPESET type1
@@ -14466,8 +14453,6 @@ C1          C2
 10          100         
 10 rows selected.
 ```
-
-
 
 ### UPDATE 
 
