@@ -70,7 +70,7 @@ Altibase® Application Development
 
 ![](/media/CLI/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -3385,9 +3385,9 @@ Cursor conversion rules are as follows:
 -   If an application specifies the cursor type, the driver converts the remaining attributes in the following order, until they are compatible with the characteristics of the selected type:
   
     -   sensitive → insensitive
-  
+    
     -   scrollable → non-scrollable
-  
+    
     -   updatable → read-only
 
 ### Scrolling and Fetching Rows

@@ -33,7 +33,7 @@ Altibase Heartbeat User's Guide
 
 Altibase Tool & Utilities Altibase HeartBeat User's Guide
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -608,5 +608,4 @@ The output format of log information is as follows.
 ```
 [YYYY-MM-DD HH:MM:SS T-<threadID>] Log Body
 ```
-
 

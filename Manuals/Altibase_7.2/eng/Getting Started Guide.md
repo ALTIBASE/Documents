@@ -50,7 +50,7 @@ Getting Started Guide
 
 Altibase Administration Getting Started Guide
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -310,7 +310,7 @@ The command to startup Altibase can only be executed with the account that insta
 $ isql -u sys -p manager -sysdba
 -------------------------------------------------------
 Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -344,7 +344,7 @@ Alternatively, the user can run the server using the server scrip command. For m
 $ server start
 -------------------------------------------------------     
 Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -419,7 +419,7 @@ The server can also be forcibly shutdown using a server script command.
 $ server stop
 -------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -449,7 +449,7 @@ The server can also be forcibly shutdown using the server script command 'server
 $ server kill 
 -------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -744,7 +744,6 @@ Multilingual support means that the DBMS is capable of storing and processing ch
   | A    | 41    | 00 41     | 41 00     |
   | Ő    | C3 B6 | 00 F6     | F6 00     |
 
-  
 -   NLS(National Language Support)  
     This allows the database to be used in a particular language environment. If NLS is appropriately set, the user can read and write data to and from the database using the character set specified by the user's application.
 
@@ -1881,7 +1880,7 @@ jdbc:Altibase://hostname:portnum/databasename
 
 
 1. When loading the JDBC driver, register the JDBC driver with the following code in the program and use it:
-  
+
 ```
      Class.forName(“Altibase.jdbc.driver.AltibaseDriver”)
 ```
@@ -2205,5 +2204,4 @@ $ <DELETE>
 ----------------------------------------------------
 7 rows deleted
 ```
-
 

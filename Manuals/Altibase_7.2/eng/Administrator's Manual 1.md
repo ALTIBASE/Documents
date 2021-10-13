@@ -57,7 +57,7 @@ Administrator’s Manual 1
 
 Altibase Administration Administrator’s Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -984,7 +984,7 @@ This does not access a database, but establishes an administration session. It w
 ```
 ------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 ------------------------------------------------
@@ -1120,7 +1120,7 @@ The following demonstrates how to start up an Altibase database using iSQL:
 $ isql –u sys –p manager –sysdba
 ----------------------------------------------
  Altibase Client Query utility.
- Release Version 7.1.0.0.1
+ Release Version 7.2.0.0.1
  Copyright 2000, Altibase Corporation or its subsidiaries.
  All Rights Reserved.
 ----------------------------------------------
@@ -1245,7 +1245,7 @@ The server can also be forcibly shut down using a server script:
 $ server stop
 -----------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------
@@ -1277,7 +1277,7 @@ The server can also be forcibly shut down using a server script.
 $ server kill 
 --------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 --------------------------------------------------------

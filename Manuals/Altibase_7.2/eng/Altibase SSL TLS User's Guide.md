@@ -26,7 +26,7 @@ Altibase® Tools & Utilities
 
 Altibase Tools & Utilities Altibase SSL/TLS User's Guide
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -295,7 +295,7 @@ If SSL_ENABLE is set to 1, the SSL listen port is displayed as follows. This mea
 $server start
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -621,7 +621,7 @@ SYSDBA is a special privilege for the SYS user to perform administrative jobs. L
 $ isql -s localhost -u sys -p manager -sysdba
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -794,5 +794,4 @@ class SslSimpleSQL
     }
 }
 ```
-
 

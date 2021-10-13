@@ -96,7 +96,7 @@ Altibase C Interface Manual
 
 Altibase Application Development ACI Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 

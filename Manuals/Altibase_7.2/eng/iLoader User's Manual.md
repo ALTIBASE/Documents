@@ -397,7 +397,7 @@ Create success.
 $ iloader formout -T test -f test.fmt
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -771,7 +771,7 @@ iSQL> EXIT
 $ iloader formout -s 127.0.0.1 -u sys -p manager -T T1 -f T1.fmt
 -------------------------------------------------------
  Altibase Data Load/Download utility.
- Release Version 7.1
+ Release Version 7.2
  Copyright 2000, AltibaseCorporation or its subsidiaries.
  All Rights Reserved.
 -------------------------------------------------------
@@ -812,7 +812,7 @@ In the following example, the T1.fmt file is used to download data to the T1.dat
 $ iloader out -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -857,7 +857,7 @@ In the following example, the T1.fmt file and the T1.dat file are used to upload
 $ iloader in -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat -F 1 -L 2
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -974,7 +974,7 @@ Excuting on the local server
 $ iloader formout -s 192.168.1.71 -u sys -p manager -port 20594 -T department -f dept.fmt
 -------------------------------------------------------     
 Altibase Data Load/Download utility.
-    Release Version 7.1.0.1
+    Release Version 7.2.0.0.1
     Copyright 2000, Altibase Corporation or its subsidiaries.
     All Rights Reserved.
 -------------------------------------------------------
@@ -1008,7 +1008,7 @@ Executing on the local server
 $ iloader in -s 192.168.1.71 -u sys -p manager -port 20594 -f dept.fmt -d dept.dat -mode replace
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -1054,7 +1054,7 @@ How to Enter Connection Information on the Command line
 $ iloader -s 127.0.0.1 -u sys -p manager
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -1070,7 +1070,7 @@ iLoader>          	->  When the iLoader prompt appears, enter a command to accom
 $ iloader
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -1184,7 +1184,7 @@ MGR_NO      MNAME      ADDRESS
 $ iloader -s 192.168.1.10 -u sys -p manager -port 21300
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -1199,7 +1199,7 @@ or
 $ iloader -port 21300
 -------------------------------------------------------
      Altibase Data Load/Download utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------

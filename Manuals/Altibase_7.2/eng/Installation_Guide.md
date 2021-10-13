@@ -40,7 +40,7 @@ Installation Guide
 
 Altibase Administration Installation Guide
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -297,7 +297,7 @@ It is recommended to use a dedicated line when using the replication feature.
 
 >  *Altibase server/client only support 64-bit.*<br>*Microsoft Windows only supports Altibase client.*
 >
->  All versions of Altibase 7.1 support it unless the patch version is specified. 
+>  All versions of Altibase 7.2 support it unless the patch version is specified. 
 
 
 |                                                              | Altibase server <br /> | Altibase client <br /> | Software requirements                  |

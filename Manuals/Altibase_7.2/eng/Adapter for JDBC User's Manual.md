@@ -33,7 +33,7 @@ Adapter for JDBC User’s Manual
 
 Altibase Tool & Utilities Adapter for Oracle User’s Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -400,7 +400,7 @@ This property specifies the port number for XLog collector to receive XLog. This
 -   Range: 0 \~ 65535
 
 -   0: The adapter waits until the sender of the ALA replication object attempts to connect.
-  
+
 
 (Depends on the value of the REPLICATION_SENDER_SLEEP_TIMEOUT attribute of the Altibase server).
     
@@ -811,7 +811,7 @@ This option is used to output the version of Altibase with which jdbcAdapter was
 
 ```
 $./jdbcAdapter -v
-Adapter for JDBC version 7.1.0.0.2
+Adapter for JDBC version 7.2.0.0.1
 ...
 ```
 

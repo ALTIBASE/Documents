@@ -36,7 +36,7 @@ Adapter for Oracle User’s Manual
 
 Altibase Tool & Utilities Adapter for Oracle User’s Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -281,7 +281,7 @@ The oraAdapter installer can be executed in GUI mode if suitable display setting
 3. The next dialog is for choosing the directory in which oraAdapter is to be installed. By default, a directory called "oraAdapter" will be created within the home directory of the user performing the installation
   
 4. To use oraAdapter, Altibase Log Analyzer (ALA) property settings should be as follows.
-  
+
 
 ALA_SENDER_IP: This is the IP address of the server on which Altibase is installed. It is set to 127.0.0.1 by default, assuming that Altibase and oraAdapter are operating on the same server.
 
@@ -336,7 +336,7 @@ ORACLE_ARRAY_DML_MAX_SIZE: “Array DML” means grouping multiple DML statement
 9. After the user has verified the property settings in the confirmation dialog box, the user is ready to install oraAdapter. Click "Next" to continue.
 
 10. While oraAdapter is being installed, the following two environment variables are set. Note that in order for the system to make use of the two new environment variables, it will be necessary to log out and log back in.
-  
+
 
 ORA_ADAPTER_HOME: this environment variable is added with the oraAdapter home directory that was specified earlier during the installation process
     
