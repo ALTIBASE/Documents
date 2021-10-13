@@ -922,7 +922,7 @@ COMMIT;
 $ isql
 -------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -1010,7 +1010,7 @@ $ isql -U sys -P manager [-SYSDBA]
 $ isql [-sysdba]
 -------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -1041,7 +1041,7 @@ The following is an example of the use of iSQL to start up Altibase. For more in
 $ isql –s 127.0.0.1 –u sys –p manager –sysdba
 -------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------
@@ -1127,7 +1127,7 @@ Connect success.
 $ isql
 -------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.1
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -------------------------------------------------------

@@ -47,7 +47,7 @@ Replication Manager User’s Manual
 
 Altibase Tools & Utilities Replication Manager User’s Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -292,7 +292,7 @@ To import the JDBC driver, do the following:
 1. Click on the "JDBC driver manager" icon in the toolbar to open the "JDBC driver manager" dialog box.
   
 2. In this dialog box, click on the "+" icon on the right to open the "Import JDBC driver file" dialog box, as shown below.
-  
+
 
 ![5d9de880b8ffcff76f8f2fed4b5f50cf](media/ReplicationManager/5d9de880b8ffcff76f8f2fed4b5f50cf.png)
 

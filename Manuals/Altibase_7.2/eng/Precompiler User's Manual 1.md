@@ -56,7 +56,7 @@ Precompiler User’s Manual
 
 Altibase Application Development Precompiler User’s Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -306,7 +306,7 @@ The screen that is displayed when APRE is executed is shown below.
 $ apre sample1.sc
 --------------------------------------------------------
   APRE C/C++ Precompiler.
-  Release Version 7.1.0.0.0
+  Release Version 7.2.0.0.1
   Copyright 2000, Altibase Corporation or its subsidiaries.
   All rights reserved.
 --------------------------------------------------------
@@ -460,7 +460,7 @@ Check the version of the APRE C/C++ precompiler:
 
 ```
 $ apre –v
-Altibase Precompiler2(APRE) Ver. 7.1.0.0.1 XEON_LINUX_redhat_Enterprise_AS4-64bit-7.1.0.0.1-release-GCC3.4.6 (xeon-redhat-linux-gnu) Oct 23 2013 09:28:30
+Altibase Precompiler2(APRE) Ver. 7.2.0.0.1 XEON_LINUX_redhat_Enterprise_AS4-64bit-7.2.0.0.1-release-GCC3.4.6 (xeon-redhat-linux-gnu) Oct 23 2013 09:28:30
 ```
 
 #### \-n
@@ -652,7 +652,7 @@ For detailed instructions on how to connect to database servers, please refer to
   
     INCLUDE statement: EXEC SQL INCLUDE …  
     OPTION statement: EXEC SQL OPTION …  
-WHENEVER statement: EXEC SQL WHENEVER …
+  WHENEVER statement: EXEC SQL WHENEVER …
 
 ##### Example
 

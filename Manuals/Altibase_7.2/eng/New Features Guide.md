@@ -1,3 +1,7 @@
+
+
+
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -40,7 +44,7 @@ New Features Guide
 
 Altibase New Features Guide
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -1377,5 +1381,4 @@ The performance views modified in this release are as follows.
 -   V\$SESSION
 
 -   V\$TRANSACTION : ISOLATION_LEVEL to indicate transaction isolation level is added.
-
 

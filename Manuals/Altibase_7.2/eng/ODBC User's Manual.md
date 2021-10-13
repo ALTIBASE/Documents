@@ -28,7 +28,7 @@ Altibase® Application Development
 
 Altibase Application Development ODBC User\'s Manual
 
-Release 7.1 (August 29th, 2019)
+Release 7.2 
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 

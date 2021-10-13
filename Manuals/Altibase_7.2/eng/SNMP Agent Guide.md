@@ -38,7 +38,7 @@ SNMP Agent Guide
 
 Altibase Administration SNMP Agent Guide
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 

@@ -77,7 +77,7 @@ Log Analyzer User’s Manual
 
 Altibase Application Development Log Analyzer User’s Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -5675,5 +5675,4 @@ void printAlaErr(ALA_ErrorMgr * aErrorMgr)
     printf("ALA Error : %d, %s\n", sErrorCode, sErrorMessage);
 }
 ```
-
 
