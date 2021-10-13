@@ -1338,7 +1338,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 ### <a name="vqueue_delete_off"><a/>V\$QUEUE_DELETE_OFF	
 
-QUEUE 테이블 중에서 DELETE 연산이 허용되지 않는 QUEUE 를 보여준다. DELETE 연산이 허용되지 않는 QUEUE는  DELETE 연산을 허용한 경우보다 DEQUEUE 성능이 향상된다.
+QUEUE 테이블 중에서 DELETE 연산이 허용되지 않는 QUEUE 를 보여준다. DELETE 연산이 허용되지 않는 QUEUE는 DELETE 연산을 허용한 경우보다 DEQUEUE 성능이 향상된다.
 
 | Column name | Type       | Description                                     |
 | ----------- | ---------- | ----------------------------------------------- |
