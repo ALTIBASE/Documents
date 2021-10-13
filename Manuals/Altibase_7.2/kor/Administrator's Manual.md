@@ -5488,6 +5488,8 @@ SYSTEM_.SYS_TBS_USERS_
 V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES 
 ```
 
+
+
 ## 7.파티션드 객체
 
 ### 파티셔닝 정의
@@ -5670,12 +5672,12 @@ sales_date에 의해서 정렬되어 있고, 각 인덱스를 어떠한 인덱�
 현재 Altibase는 로컬 인덱스와 글로벌 논파티션드 인덱스만 지원한다. 글로벌 파티션드 인덱스는 지원하지 않는다. 이것을 디스크 테이블과 연관지어 정리하면 다음과 같다.
 
 |                                      | 논파티션드 테이블 | 파티션드 테이블 |
-| ------------------------------------ | ----------------- | --------------- |
-| (파티션드)로컬 프리픽스드 인덱스     | X                 | O               |
-| (파티션드)로컬 논프리픽스드 인덱스   | X                 | O               |
-| (파티션드)글로벌 프리픽스드 인덱스   | X                 | X               |
-| (파티션드)글로벌 논프리픽스드 인덱스 | X                 | X               |
-| 글로벌 논파티션드 인덱스             | O                 | O               |
+| ------------------------------------ | :---------------: | :-------------: |
+| (파티션드)로컬 프리픽스드 인덱스     |         X         |        O        |
+| (파티션드)로컬 논프리픽스드 인덱스   |         X         |        O        |
+| (파티션드)글로벌 프리픽스드 인덱스   |         X         |        X        |
+| (파티션드)글로벌 논프리픽스드 인덱스 |         X         |        X        |
+| 글로벌 논파티션드 인덱스             |         O         |        O        |
 
 [표 7‑1] 디스크 테이블에 지원되는 인덱스의 종류
 
@@ -5684,12 +5686,12 @@ sales_date에 의해서 정렬되어 있고, 각 인덱스를 어떠한 인덱�
 단 파티션드 메모리 테이블에는 글로벌 논파티션드 인덱스를 생성할 수 없다. 메모리 테이블에 생성할 수 있는 인덱스 종류는 아래의 표와 같다.
 
 |                                      | 논파티션드 테이블 | 파티션드 테이블 |
-| ------------------------------------ | ----------------- | --------------- |
-| (파티션드)로컬 프리픽스드 인덱스     | X                 | O               |
-| (파티션드)로컬 논프리픽스드 인덱스   | X                 | O               |
-| (파티션드)글로벌 프리픽스드 인덱스   | X                 | X               |
-| (파티션드)글로벌 논프리픽스드 인덱스 | X                 | X               |
-| 글로벌 논파티션드 인덱스             | O                 | X               |
+| ------------------------------------ | :---------------: | :-------------: |
+| (파티션드)로컬 프리픽스드 인덱스     |         X         |        O        |
+| (파티션드)로컬 논프리픽스드 인덱스   |         X         |        O        |
+| (파티션드)글로벌 프리픽스드 인덱스   |         X         |        X        |
+| (파티션드)글로벌 논프리픽스드 인덱스 |         X         |        X        |
+| 글로벌 논파티션드 인덱스             |         O         |        X        |
 
 [표 7‑2] 메모리 테이블에 지원되는 인덱스의 종류
 
@@ -5749,15 +5751,15 @@ column_domain ≡ ∪partition_condition ……………… rule3
 위 방법으로 생성된 각 파티션에 대해 다음과 같은 연산이 가능한다.
 
 |                     | 범위 파티셔닝으로 생성된 파티션 | 리스트 파티셔닝으로 생성된 파티션 | 해시 파티셔닝으로 생성된 파티션 |
-| ------------------- | ------------------------------- | --------------------------------- | ------------------------------- |
-| 테이블스페이스 변경 | ○                               | ○                                 | ○                               |
-| 추가                | X                               | X                                 | ○                               |
-| 병합                | X                               | X                                 | ○                               |
-| 삭제                | ○                               | ○                                 | X                               |
-| 합병                | ○                               | ○                                 | X                               |
-| 이름 변경           | ○                               | ○                                 | ○                               |
-| 분할                | ○                               | ○                                 | X                               |
-| 레코드 삭제         | ○                               | ○                                 | ○                               |
+| ------------------- | :-----------------------------: | :-------------------------------: | :-----------------------------: |
+| 테이블스페이스 변경 |                ○                |                 ○                 |                ○                |
+| 추가                |                X                |                 X                 |                ○                |
+| 병합                |                X                |                 X                 |                ○                |
+| 삭제                |                ○                |                 ○                 |                X                |
+| 합병                |                ○                |                 ○                 |                X                |
+| 이름 변경           |                ○                |                 ○                 |                ○                |
+| 분할                |                ○                |                 ○                 |                X                |
+| 레코드 삭제         |                ○                |                 ○                 |                ○                |
 
 [표 7 3] 파티션 별 지원 연산
 
@@ -6213,66 +6215,92 @@ Altibase는 데이터에 대한 동시 접근을 제어하기 위해 잠금을 �
 
 잠금 호환성이란 이미 다른 트랜잭션이 해당 객체에 대해 잠금을 획득하고 있을 때 한 트랜잭션이 그 객체에 대해 특정 모드의 잠금을 요구하게 되는 경우 그 요구가 받아들여질 수 있는지의 여부를 결정하기 위해 사용되는 잠금 모드 간의 호환성을 의미한다.
 
-<table>
-    <tr>
-    	<th></th>
-        <th colspan="6">Granted Mode</th>
-    </tr>
-    <tr>
-    	<td>Requested Mode</td>
-        <td>NONE</td>
-        <td>IS</td>
-        <td>IX</td>
-        <td>SIX</td>
-        <td>S</td>
-        <td>X</td>
-    </tr>
-    <tr>
-    	<td>IS</td>
-        <td>O</td>
-        <td>O</td>
-        <td>O</td>
-        <td>O</td>
-        <td>O</td>
-        <td>-</td>
-    </tr>
-     <tr>
-    	<td>IX</td>
-        <td>O</td>
-        <td>O</td>
-        <td>O</td>
-        <td>-</td>
-        <td>-</td>
-         <td>-</td>
-    </tr>
-     <tr>
-    	<td>SIX</td>
-        <td>O</td>
-        <td>O</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-     <tr>
-    	<td>S</td>
-        <td>O</td>
-        <td>O</td>
-        <td>-</td>
-        <td>-</td>
-        <td>O</td>
-        <td>-</td>
-    </tr>
-    <tr>
-    	<td>X</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-7btt{border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-zwlc{background-color:#f9f9f9;border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-abip{background-color:#f9f9f9;border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 489px">
+<colgroup>
+<col style="width: 123px">
+<col style="width: 61px">
+<col style="width: 61px">
+<col style="width: 61px">
+<col style="width: 61px">
+<col style="width: 61px">
+<col style="width: 61px">
+</colgroup>
+<thead>
+  <tr>
+    <th class="tg-0pky"></th>
+    <th class="tg-7btt" colspan="6">Granted Mode</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-zwlc">Requested Mode</td>
+    <td class="tg-zwlc">NONE</td>
+    <td class="tg-zwlc">IS</td>
+    <td class="tg-zwlc">IX</td>
+    <td class="tg-zwlc">SIX</td>
+    <td class="tg-zwlc">S</td>
+    <td class="tg-zwlc">X</td>
+  </tr>
+  <tr>
+    <td class="tg-7btt">IS</td>
+    <td class="tg-c3ow">O</td>
+    <td class="tg-c3ow">O</td>
+    <td class="tg-c3ow">O</td>
+    <td class="tg-c3ow">O</td>
+    <td class="tg-c3ow">O</td>
+    <td class="tg-c3ow">-</td>
+  </tr>
+  <tr>
+    <td class="tg-zwlc">IX</td>
+    <td class="tg-abip">O</td>
+    <td class="tg-abip">O</td>
+    <td class="tg-abip">O</td>
+    <td class="tg-abip">-</td>
+    <td class="tg-abip">-</td>
+    <td class="tg-abip">-</td>
+  </tr>
+  <tr>
+    <td class="tg-7btt">SIX</td>
+    <td class="tg-c3ow">O</td>
+    <td class="tg-c3ow">O</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+  </tr>
+  <tr>
+    <td class="tg-zwlc">S</td>
+    <td class="tg-abip">O</td>
+    <td class="tg-abip">O</td>
+    <td class="tg-abip">-</td>
+    <td class="tg-abip">-</td>
+    <td class="tg-abip">O</td>
+    <td class="tg-abip">-</td>
+  </tr>
+  <tr>
+    <td class="tg-7btt">X</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+  </tr>
+</tbody>
 </table>
+
 
 
 [표 8‑2] 잠금 모드간의 호환성
@@ -6779,17 +6807,17 @@ Altibase는 항상 정확한 데이터를 읽도록 보장하기 위해 디스�
 Lock의 허가는 아래의 표와 같이 접근 모드, 디스크로부터 페이지 읽기, 및 대기 모드에 따라 달라진다.
 
 | 접근   모드 | 디스크로부터     읽기 | 대기   모드 | Lock 획득   결과                                     |
-| ----------- | --------------------- | ----------- | ---------------------------------------------------- |
-| Fix         | O                     | 상관없다    | 읽기가 끝날 때까지 대기 후 허가                      |
-| Fix         | X                     | 상관없다    | 허가                                                 |
-| Read        | O                     | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
-| Read        | O                     | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 대기           |
-| Read        | X                     | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
-| Read        | X                     | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 바로 에러 리턴 |
-| Write       | O                     | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
-| Write       | O                     | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 대기           |
-| Write       | X                     | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
-| Write       | X                     | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 바로 에러 리턴 |
+| ----------- | :-------------------: | ----------- | ---------------------------------------------------- |
+| Fix         |           O           | 상관없다    | 읽기가 끝날 때까지 대기 후 허가                      |
+| Fix         |           X           | 상관없다    | 허가                                                 |
+| Read        |           O           | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
+| Read        |           O           | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 대기           |
+| Read        |           X           | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
+| Read        |           X           | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 바로 에러 리턴 |
+| Write       |           O           | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
+| Write       |           O           | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 대기           |
+| Write       |           X           | 대기        | 접근 모드가 허가되면 허가,    실패 시 대기           |
+| Write       |           X           | 대기안함    | 접근 모드가 허가되면 허가,    실패 시 바로 에러 리턴 |
 
    [표 9‑5] Lock 획득 허가
 
@@ -6989,11 +7017,11 @@ iSQL> alter tablespace SYS_TBS_DISK_DATA end backup;
 다음의 표는 Altibase의 다양한 백업 모드를 설명한다.
 
 | 백업 종류                         | 백업 방법                                                    | 백업 객체                                                | 복구 방법                                                    | 온라인중에 가능? |
-| --------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------ | ---------------- |
-| iLoader를 이용한 백업             | iLoader의 out 명령 이용                                      | 사용자가 명시한 테이블                                   | iLoader의 in 명령 이용                                       | O                |
-| 전체 데이터베이스의 온라인 백업   | SQL 문 이용 ALTER DATABASE BACKUP DATBASE TO ‘BACKUP_DIR’;   | 시스템 전체 테이블스페이스의 데이터 파일과 로그 앵커파일 | 1\> 유닉스 명령어 cp 이용 2\> ALTER DATABASE RECOVER DATABASE; | O                |
-| 특정 테이블스페이스의 온라인 백업 | 1\> SQL 문 이용 ALTER DATABASE BACKUP TABLESPACE 테이블스페이스이름 TO ‘backup_dir’; 또는 1\> ALTER TABLESPACE 테이블스페이스 이름 BEGIN BACKUP; 2\> 유닉스 명령어 cp 사용 cp \<원본 파일\> \<backup_dir\> 3\> ALTER TABLESPACE 테이블스페이스 이름 END BACKUP; | 테이블스페이스의 모든 데이터 파일                        | 1\> 유닉스 명령어 cp 이용. 2\> ALTER DATABASE RECOVER DATABASE; | O                |
-| 오프라인 백업                     | 1\>데이터베이스 종료 2\>유닉스 명령어 cp 이용                | 전체 데이터베이스                                        | 유닉스 명령어 cp 이용                                        | X                |
+| --------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------ | :--------------: |
+| iLoader를 이용한 백업             | iLoader의 out 명령 이용                                      | 사용자가 명시한 테이블                                   | iLoader의 in 명령 이용                                       |        O         |
+| 전체 데이터베이스의 온라인 백업   | SQL 문 이용 ALTER DATABASE BACKUP DATBASE TO ‘BACKUP_DIR’;   | 시스템 전체 테이블스페이스의 데이터 파일과 로그 앵커파일 | 1\> 유닉스 명령어 cp 이용 2\> ALTER DATABASE RECOVER DATABASE; |        O         |
+| 특정 테이블스페이스의 온라인 백업 | 1\> SQL 문 이용 ALTER DATABASE BACKUP TABLESPACE 테이블스페이스이름 TO ‘backup_dir’; 또는 1\> ALTER TABLESPACE 테이블스페이스 이름 BEGIN BACKUP; 2\> 유닉스 명령어 cp 사용 cp \<원본 파일\> \<backup_dir\> 3\> ALTER TABLESPACE 테이블스페이스 이름 END BACKUP; | 테이블스페이스의 모든 데이터 파일                        | 1\> 유닉스 명령어 cp 이용. 2\> ALTER DATABASE RECOVER DATABASE; |        O         |
+| 오프라인 백업                     | 1\>데이터베이스 종료 2\>유닉스 명령어 cp 이용                | 전체 데이터베이스                                        | 유닉스 명령어 cp 이용                                        |        X         |
 | 백업시간 비교                     | iLoader \< online backup \< offline backup                   |                                                          |                                                              |                  |
 
 [표 10‑1] 백업 종류에 따른 방법
@@ -7009,14 +7037,13 @@ iSQL> alter tablespace SYS_TBS_DISK_DATA end backup;
 
 ##### 방식에 따른 백업 분류
 
-- 데이터베이스 시스템에 의한 백업 (Database-Driven Backup)  
-  Altibase 서버에 의해 파일 복사가 수행된다.  
-  한번의 DCL 구문으로 전체 DB 혹은 테이블스페이스 순서대로 백업된다.  
+- 데이터베이스 시스템에 의한 백업 (Database-Driven Backup)
+  Altibase 서버에 의해 파일 복사가 수행된다.
+  한번의 DCL 구문으로 전체 DB 혹은 테이블스페이스 순서대로 백업된다.
   데이터베이스 단위 백업, 테이블스페이스 단위 백업 모두 지원된다.
-- DBA에 의한 Backup (DBA-Driven Backup)  
-  DBA에 의해 파일 복사가 수행된다.  
-  여러 테이블스페이스에 대한 병렬 백업을 수행할 수 있으므로 3rd-Party 백업
-  솔루션과의 연동이 가능하다.  
+- DBA에 의한 Backup (DBA-Driven Backup)
+  DBA에 의해 파일 복사가 수행된다.
+  여러 테이블스페이스에 대한 병렬 백업을 수행할 수 있으므로 3rd-Party 백업 솔루션과의 연동이 가능하다.
   테이블스페이스 단위 백업만 지원된다.
 
 #### 데이터베이스 모드
@@ -7047,7 +7074,9 @@ create database mydb INITSIZE=100M archivelog;
 다음 예는 control 구동 단계에서 데이터베이스 모드를 아카이브 로그 모드로 변경하는 예이다.
 
 ```
-$ isql -silent -u sys -p manager -sysdbaiSQL(sysdba)> startup control;iSQL(sysdba)> alter database archivelog;
+$ isql -silent -u sys -p manager -sysdba
+iSQL(sysdba)> startup control;
+iSQL(sysdba)> alter database archivelog;
 ```
 
 #### 데이터베이스 모드에 따른 온라인 백업 및 매체 복구
@@ -7113,7 +7142,17 @@ Altibase에서는 매체 복구를 control 구동 단계에서만 할 수 있다
 다음은 매체 복구의 예제이다. TEST 테이블스페이스의 데이터 파일 ‘user1.dbf’ 파일이 유실되었다. 이 예제는 이틀 전에 온라인(Online) 백업받은 ‘user1.dbf’을 이용하여 유실된 데이터 파일을 현재 시점으로 복원한다.
 
 ```
-$ cp /bck/user1.dbf  $ALTIBASE_HOME/dbs$ isql -silent -u sys -p manager -sysdba[ERR-00000 : Connected to idle instance]iSQL(sysdba)> startup control;Trying Connect to Altibase.. Connected with Altibase.TRANSITION TO PHASE : PROCESSTRANSITION TO PHASE : CONTROLCommand execute success.iSQL(sysdba)> alter database recover database;Alter success.
+$ cp /bck/user1.dbf  $ALTIBASE_HOME/dbs
+$ isql -silent -u sys -p manager -sysdba
+[ERR-00000 : Connected to idle instance]
+iSQL(sysdba)> startup control;
+Trying Connect to Altibase.. Connected with Altibase.
+TRANSITION TO PHASE : PROCESS
+TRANSITION TO PHASE : CONTROL
+Command execute success.
+
+iSQL(sysdba)> alter database recover database;
+Alter success.
 ```
 
 TEST 테이블스페이스의 데이터 파일 ‘user1.dbf’가 매체 복구되었다.
@@ -7186,7 +7225,9 @@ SYS_TBS_MEM_DIC-1-0, SYS_TBS_MEM_DIC-1-1, SYS_TBS_MEM_DIC-1-2
 메모리 테이블스페이스를 위한 데이터 파일의 복사는 다음과 같이 되어야 한다.
 
 ```
-$ cp SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs;$ cp SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs;$ cp SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs;
+$ cp SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs;
+$ cp SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs;
+$ cp SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs;
 ```
 
 복구 완료 시점에 자동으로 안정적인(stable) 메모리 데이터 파일을 복사해서 불안정한(unstable) 메모리 데이터 파일을 생성한다.
@@ -7270,7 +7311,10 @@ iLoader> in –d t1.dat –f t1.fmt
 예제)
 
 ```
-$ALTIBASE_HOME/conf/altibase.properties MEM_DB_DIR=$ALTIBASE_HOME/dbs0MEM_DB_DIR =$ALTIBASE_HOME/dbs1LOGANCHOR_DIR =$ALTIBASE_HOME/logs
+$ALTIBASE_HOME/conf/altibase.properties 
+MEM_DB_DIR=$ALTIBASE_HOME/dbs0
+MEM_DB_DIR =$ALTIBASE_HOME/dbs1
+LOGANCHOR_DIR =$ALTIBASE_HOME/logs
 ```
 
 백업해야 하는 디스크 테이블스페이스에는 시스템 테이블스페이스,언두 테이블스페이스와 임시 테이블스페이스만 있다.
@@ -7335,7 +7379,9 @@ SYS_TBS_MEM_DIC-0-0
 모든 로그앵커 파일이 /backup_dir 디렉토리에 온라인 백업된다.
 
 ```
-iSQL(sysdba)> alter database backup loganchor to ‘/backup_dir’;$ ls /backup_dirloganchor0 loganchor1 loganchor2
+iSQL(sysdba)> alter database backup loganchor to ‘/backup_dir’;
+$ ls /backup_dir
+loganchor0 loganchor1 loganchor2
 ```
 
 #### DBA에 의한 온라인 백업
@@ -7347,7 +7393,23 @@ iSQL(sysdba)> alter database backup loganchor to ‘/backup_dir’;$ ls /backup_
 메모리 테이블스페이스 데이터 파일은 안정(stable) 버전 데이터 파일인지 확인 후 온라인 백업한다.
 
 ```
-iSQL(sysdba)> alter tablespace USER_MEMORY_TBS begin backup;iSQL(sysdba)> select * from v$stable_mem_datafiles;V$STABLE_MEM_DATAFILES.MEM_DATA_FILE------------------------------/altibase_home/dbs/USER_MEM_TBS-0-0$ cp $ALTIBASE_HOME/dbs/USER_MEMORY_TBS-0-0  /backup_dir/iSQL(sysdba)> alter tablespace USER_MEMORY_TBS end backup;iSQL(sysdba)> alter tablespace USER_DISK_TBS begin backup;$ cp $ALTIBASE_HOME/dbs/USER_DISK_TBS.dbf /backup_dir/iSQL(sysdba)> alter tablespace USER_DISK_TBS end backup;$ ls /backup_dirUSER_MEMORY_TBS-0-0 USER_DISK_TBS.dbf 
+iSQL(sysdba)> alter tablespace USER_MEMORY_TBS begin backup;
+iSQL(sysdba)> select * from v$stable_mem_datafiles;
+V$STABLE_MEM_DATAFILES.MEM_DATA_FILE
+------------------------------
+/altibase_home/dbs/USER_MEM_TBS-0-0
+
+$ cp $ALTIBASE_HOME/dbs/USER_MEMORY_TBS-0-0  /backup_dir/
+
+iSQL(sysdba)> alter tablespace USER_MEMORY_TBS end backup;
+iSQL(sysdba)> alter tablespace USER_DISK_TBS begin backup;
+
+$ cp $ALTIBASE_HOME/dbs/USER_DISK_TBS.dbf /backup_dir/
+
+iSQL(sysdba)> alter tablespace USER_DISK_TBS end backup;
+
+$ ls /backup_dir
+USER_MEMORY_TBS-0-0 USER_DISK_TBS.dbf 
 ```
 
 #### SNAPSHOT 백업
@@ -7388,7 +7450,11 @@ iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
 온라인 백업 완료 메시지가 altibase_sm.log에 남겨진다. 이 수동 백업의 예제에서는, logfile15341 로그파일이 아카이브 되었다는 메지지가 백업이 완료됨을 표시한다.
 
 ```
-[2007/09/18 14:42:38] [Thread-6] [Level-9] Waiting logfile15341 to archive  [2007/09/18 14:42:43] [Thread-6] [Level-9] Database-Level Backup Completed [SUCCESS] 
+[2007/09/18 14:42:38] [Thread-6] [Level-9] 
+Waiting logfile15341 to archive 
+ 
+[2007/09/18 14:42:43] [Thread-6] [Level-9] 
+Database-Level Backup Completed [SUCCESS]  
 ```
 
 #### 매체복구 사례 1
@@ -7404,13 +7470,31 @@ iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
 완전 복구에 필요한 아카이브 로그 파일을 확인한다.
 
 ```
-iSQL(sysdba)> SELECT NAME, CREATE_LSN_LFGID,              CREATE_LSN_FILENO FROM V$DATAFILES;---------------------------------------------------------…/altibase_home/dbs/abc.dbf0            18320
+iSQL(sysdba)> SELECT NAME, CREATE_LSN_LFGID,
+              CREATE_LSN_FILENO FROM V$DATAFILES;
+---------------------------------------------------------
+…
+/altibase_home/dbs/abc.dbf
+0            18320
 ```
 
 가장 최근 삭제된 로그 파일을 확인하기 위해서는 유틸리티 ‘dumpla’를 이용하여 loganchor의 내용을 확인한다.
 
 ```
-$ dumpla loganchor0[LOGANCHOR HEADER]Binary DB Version        	 [ 5.3.3 ]                               Archivelog Mode          	 [ Archivelog ]                          Begin Checkpoint LSN     	 [ 20345, 469859 ]                    End Checkpoint LSN       	 [ 20345, 470300 ]                    Disk Redo LSN            	 [ 20345, 469859 ]                    Server Status            	 [ SERVER SHUTDOWN ]                     End LSN                  	 [ 20345,470341 ]                     ResetLog LSN             	 [ 4294967295, 4294967295 ]  Last Created Logfile Num 	 [ 20350 ]                               Delete Logfile(s) Range  	 [ 20333 ~ 20344 ]                       Update And Flush Count   	 [ 316 ]                                 New Tablespace ID        	 [ 8 ]
+$ dumpla loganchor0
+[LOGANCHOR HEADER]
+Binary DB Version        	 [ 5.3.3 ]                               
+Archivelog Mode          	 [ Archivelog ]                          
+Begin Checkpoint LSN     	 [ 20345, 469859 ]                    
+End Checkpoint LSN       	 [ 20345, 470300 ]                    
+Disk Redo LSN            	 [ 20345, 469859 ]                    
+Server Status            	 [ SERVER SHUTDOWN ]                     
+End LSN                  	 [ 20345,470341 ]                     
+ResetLog LSN             	 [ 4294967295, 4294967295 ]  
+Last Created Logfile Num 	 [ 20350 ]                               
+Delete Logfile(s) Range  	 [ 20333 ~ 20344 ]                       
+Update And Flush Count   	 [ 316 ]                                 
+New Tablespace ID        	 [ 8 ]
 ```
 
 ARCHIVE_DIR 프로퍼티에 정의된 디렉토리에 logfile18320부터 logfile20344까지 존재하는지 확인한다. 만약 존재하지 않는다면, 아카이브 로그파일을 백업 저장 장치로부터 ARCHIVE_DIR 프로퍼티에 지정된 디렉토리로 복사한다.
@@ -7442,7 +7526,10 @@ iSQL(sysdba)> alter DATABASE RECOVER DATABASE;
 3일전에 다음과 같이 백업을 수행했다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE user_disk_tbs TO ‘/backup1’;iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;$ ls   /backup1USER_DISK_TBS01.dbf USER_DISK_TBS02.dbf USER_DISK_TBS03.dbf
+iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE user_disk_tbs TO ‘/backup1’;
+iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
+$ ls   /backup1
+USER_DISK_TBS01.dbf USER_DISK_TBS02.dbf USER_DISK_TBS03.dbf
 ```
 
 ##### 복구 절차
@@ -7450,7 +7537,14 @@ iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE user_disk_tbs TO ‘/backup1’;i
 완전 복구에 필요한 아카이브 로그 파일을 확인 확인한 후, 아카이브 디렉토리로 해당 파일들을 복사한다. 필요한 아카이브 로그 파일을 확인하는 방법은 복구될 데이터 파일의 헤더에 있는 정보를 참조하는 것이다. 헤더 정보는 dumpddf 유틸리티를 이용하여 다음과 같이 확인해 볼 수 있다.
 
 ```
-$ dumpddf -m -f USER_DISK_TBS01.dbf[BEGIN DATABASE FILE HEADER]Binary DB Version [ 5.4.1 ]Redo LSN          [ 4, 2257550 ]Create LSN        [ 0, 657403 ][END DATABASE FILE HEADER]
+$ dumpddf -m -f USER_DISK_TBS01.dbf
+[BEGIN DATABASE FILE HEADER]
+
+Binary DB Version [ 5.4.1 ]
+Redo LSN          [ 4, 2257550 ]
+Create LSN        [ 0, 657403 ]
+
+[END DATABASE FILE HEADER]
 ```
 
 위 결과는 백업된 데이터 파일을 이용하여 데이터베이스를 복원하려면 아카이브 로그 파일 logfile4 이후 파일들을 필요로 함을 나타낸다.
@@ -7480,7 +7574,11 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 7일 전에 같이 백업을 수행했다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE user_disk_tbs TO '/backup_dir’;iSQL(sysdba)>ALTER SYSTEM SWITCH LOGFILE;$ ls  /backup_dirUSER_DISK_TBS01.dbf USER_DISK_TBS02.dbf 
+iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE user_disk_tbs TO '/backup_dir’;
+iSQL(sysdba)>ALTER SYSTEM SWITCH LOGFILE;
+
+$ ls  /backup_dir
+USER_DISK_TBS01.dbf USER_DISK_TBS02.dbf 
 ```
 
 ##### 복구 절차
@@ -7494,13 +7592,20 @@ $ cp /backup_dir/*.dbf /disk2/dbs;
 CONTROL 구동 단계에서 USER_DISK_TBS 테이블스페이스의 데이터 파일 경로를 변경한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE '/disk1/dbs/USER_DISK_TBS01.dbf' TO '/disk2/dbs/USER_DISK_TBS01.dbf';iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE '/disk1/dbs/USER_DISK_TBS02.dbf' TO '/disk2/dbs/USER_DISK_TBS02.dbf';
+iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
+'/disk1/dbs/USER_DISK_TBS01.dbf' TO 
+'/disk2/dbs/USER_DISK_TBS01.dbf';
+iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
+'/disk1/dbs/USER_DISK_TBS02.dbf' TO 
+'/disk2/dbs/USER_DISK_TBS02.dbf';
 ```
 
 > Note: 이 작업 수행을 위해서 alter tablespace 명령을 사용할 수도 있다.
 
 ```
-iSQL(sysdba)> ALTER TABLESPACE user_disk_tbs RENAME DATAFILE '/disk1/dbs/USER_DISK_TBS02.dbf' TO '/disk2/dbs/USER_DISK_TBS02.dbf';
+iSQL(sysdba)> ALTER TABLESPACE user_disk_tbs RENAME DATAFILE 
+'/disk1/dbs/USER_DISK_TBS02.dbf' TO 
+'/disk2/dbs/USER_DISK_TBS02.dbf';
 ```
 
 데이터 파일 경로가 정확히 변경되었는지 v\$datafile성능 뷰를 확인한다.
@@ -7530,7 +7635,8 @@ summary 테이블을 복구하기 위해서는 현재 시각에서 3시간 30분
 지난번 백업 시 다음과 같이 전체 데이터베이스를 백업하였다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO‘/backup_dir’;iSQL(sysdba)> alter SYSTEM SWITCH LOGFILE;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO‘/backup_dir’;
+iSQL(sysdba)> alter SYSTEM SWITCH LOGFILE;
 ```
 
 ##### 복구 절차
@@ -7542,16 +7648,26 @@ $ cp /backup_dir/*.dbf $ALTIBASE_HOME/dbs;
 ```
 
 2. 메모리 테이블스페이스에 대해 핑퐁(ping pong) 체크 포인트 기법을 사용하고 있기 때문에, 백업 시에는 메모리 테이블스페이스의 안전한(stable)한 데이터 파일만 복사되었다.  
-   예) 백업받은 메모리 테이블스페이스의 데이터 파일이 다음과 같다,
+   예) 백업받은 메모리 테이블스페이스의 데이터 파일이 다음과 같다.
 
 ```
-SYS_TBS_MEM_DIC-1-0, SYS_TBS_MEM_DIC-1-1, SYS_TBS_MEM_DIC-1-2SYS_TBS_MEM_DATA-0-0, SYS_TBS_MEM_DATA-0-1, SYS_TBS_MEM_DATA-0-2
+SYS_TBS_MEM_DIC-1-0, 
+SYS_TBS_MEM_DIC-1-1, 
+SYS_TBS_MEM_DIC-1-2
+SYS_TBS_MEM_DATA-0-0, 
+SYS_TBS_MEM_DATA-0-1, 
+SYS_TBS_MEM_DATA-0-2
 ```
 
 3. 백업된 메모리 테이블스페이스는 안정한(stable) 데이터 파일이기 때문에 안정한 버전의 확인 절차 없이 복사하면 된다.
 
 ```
-$ cp  SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs$ cp  SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs$ cp  SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs$ cp  SYS_TBS_MEM_DATA-0-0  $ALTIBASE_HOME/dbs $ cp  SYS_TBS_MEM_DATA-0-1  $ALTIBASE_HOME/dbs$ cp  SYS_TBS_MEM_DATA-0-2  $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DATA-0-0  $ALTIBASE_HOME/dbs 
+$ cp  SYS_TBS_MEM_DATA-0-1  $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DATA-0-2  $ALTIBASE_HOME/dbs
 ```
 
 4. 불완전 복구는 백업된 로그앵커 파일을 사용한다. 백업 된 저장 장치로부터 로그앵커를 복사한다.
@@ -7563,7 +7679,10 @@ $ cp /backup_dir/loganchor* $ALTIBASE_HOME/logs
 5. 불완전 복구에 필요한 아카이브 로그 파일을 아래와 같이 확인한다.
 
 ```
-iSQL(sysdba)> select last_deleted_logfile from v$lfg; LAST_DELETED_LOGFILE -------------------------------------------------------------------------------        15021
+iSQL(sysdba)> select last_deleted_logfile from v$lfg; 
+LAST_DELETED_LOGFILE 
+-------------------------------------------------------------------------------        
+15021
 ```
 
 6. $ALTIBASE_HOME$/logs 에 있는 파일을 확인한다. 
@@ -7658,7 +7777,12 @@ iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE to ‘/backup_dir’;
 완전 복구에 필요한 아카이브 로그 파일을 확인한 후, 아카이브 디렉토리로 해당 파일들을 복사한다. 필요한 아카이브 로그 파일을 확인하는 방법은 복구될 데이터 파일의 헤더에 있는 정보를 참조하는 것이다. 헤더 정보는 dumpdb 유틸리티를 이용하여 다음과 같이 확인할 수 있다
 
 ```
-% dumpdb -j 0 -f SYS_TBS_MEM_DIC-0-0[BEGIN CHECKPOINT IMAGE HEADER]Binary DB Version          [ 5.4.1 ]Redo LSN    [ 4, 2257550 ]Create LSN  [ 0, 657403 ][END CHECKPOINT IMAGE HEADER]
+% dumpdb -j 0 -f SYS_TBS_MEM_DIC-0-0
+[BEGIN CHECKPOINT IMAGE HEADER]
+Binary DB Version          [ 5.4.1 ]
+Redo LSN    [ 4, 2257550 ]
+Create LSN  [ 0, 657403 ]
+[END CHECKPOINT IMAGE HEADER]
 ```
 
 위 결과는 백업된 데이터 파일을 사용하여 데이터베이스를 복원하기 위해서는 logfile4 아카이브 로그 파일 이후의 파일들이 필요함을 나타낸다.
@@ -7672,13 +7796,39 @@ $ cp /backup_dir/SYS_TBS_MEM_DIC-0-0 $ALTIBASE_HOME/dbs;
 \$ALTIBASE_HOME/bin/dumpla loganchor0 결과 중 테이블스페이스 이름이 SYS_TBS_MEM_DIC인 테이블스페이스 속성들 중 Stable Checkpoint Image Num이란 항목을 참고한다.
 
 ```
-% dumpla loganchor0[ TABLESPACE ATTRIBUTE ]Tablespace ID                 [ 0 ]Tablespace Name               [ SYS_TBS_MEM_DIC ]New Database File ID          [ 0 ]Tablespace Status             [ ONLINE ]TableSpace Type               [ 0 ]Checkpoint Path Count         [ 0 ]Autoextend Mode               [ Autoextend ]Shared Memory Key             [ 0 ]Stable Checkpoint Image Num.  [ 1 ]Init Size                     [ 4 MBytes ( 129 Pages ) ]Next Size                     [ 4 MBytes ( 128 Pages ) ]Maximum Size                  [ 134217727 MBytes ( 4294967295 Pages ) ]Split File Size               [ 1024 MBytes ( 32768 Pages ) ][ MEMORY CHECKPOINT PATH ATTRIBUTE ]Tablespace ID                 [ 0 ]Checkpoint Path               [ /home/altibase_home/dbs ][ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]Tablespace ID                 [ 0 ]File Number                   [ 0 ]Create LSN                    [ 0, 2028 ]Create On Disk (PingPong 0)   [ Created ]Create On Disk (PingPong 1)   [ Created ]
+% dumpla loganchor0
+[ TABLESPACE ATTRIBUTE ]
+Tablespace ID                 [ 0 ]
+Tablespace Name               [ SYS_TBS_MEM_DIC ]
+New Database File ID          [ 0 ]
+Tablespace Status             [ ONLINE ]
+TableSpace Type               [ 0 ]
+Checkpoint Path Count         [ 0 ]
+Autoextend Mode               [ Autoextend ]
+Shared Memory Key             [ 0 ]
+Stable Checkpoint Image Num.  [ 1 ]
+Init Size                     [ 4 MBytes ( 129 Pages ) ]
+Next Size                     [ 4 MBytes ( 128 Pages ) ]
+Maximum Size                  [ 134217727 MBytes ( 4294967295 Pages ) ]
+Split File Size               [ 1024 MBytes ( 32768 Pages ) ]
+
+
+[ MEMORY CHECKPOINT PATH ATTRIBUTE ]
+Tablespace ID                 [ 0 ]
+Checkpoint Path               [ /home/altibase_home/dbs ]
+[ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]
+Tablespace ID                 [ 0 ]
+File Number                   [ 0 ]
+Create LSN                    [ 0, 2028 ]
+Create On Disk (PingPong 0)   [ Created ]
+Create On Disk (PingPong 1)   [ Created ]
 ```
 
 백업 데이터 파일의 번호는 [0]이고 현재 안정한 데이터 파일의 번호는 [1]이므로, 다음과 같이 복사한다.
 
 ```
-$ cd $ALTIBASE_HOME/dbs$ cp SYS_TBS_MEM_DIC-0-0  SYS_TBS_MEM_DIC-1-0 
+$ cd $ALTIBASE_HOME/dbs
+$ cp SYS_TBS_MEM_DIC-0-0  SYS_TBS_MEM_DIC-1-0 
 ```
 
 CONTROL 구동 단계에서 미디어 복구를 수행한다.
@@ -7710,7 +7860,8 @@ iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
 불완전 복구에 필요한 데이터 파일과 로그앵커 파일을 백업 본으로부터 복사한다. 백업 받은 데이터베이스의 모든 디스크 테이블스페이스의 데이터 파일들을 데이터 파일들의 원래 위치로 복사한다.
 
 ```
-$ cp /backup_dir/*.dbf $ALTIBASE_HOME/dbs$ cp /backup_dir/SYS_TBS_* $ALTIBASE_HOME/dbs
+$ cp /backup_dir/*.dbf $ALTIBASE_HOME/dbs
+$ cp /backup_dir/SYS_TBS_* $ALTIBASE_HOME/dbs
 ```
 
 불완전 복구에 필요한 아카이브 로그 파일을 확인한다. 불완전 복구는 백업된 로그앵커 파일을 사용한다. 백업 저장 장치로부터 로그앵커 파일을 복사한다.
@@ -7929,7 +8080,18 @@ iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 0 TABLESPACE SYS_TBS_MEM_D
 백업을 수행한 후 백업 경로에서 파일들을 확인한 결과이다.
 
 ```
-%ls /backup_dirTAG_20121031_040537 %ls backup_dir/TAG_20121031_040537SYS_TBS_MEM_DIC-0-0_TAG_20121031_040537.ibakbackupinfo
+% ls /backup_dir
+TAG_MONDAY
+ 
+% ls /backup_dir/TAG_MONDAY
+SYS_TBS_MEM_DATA-0-0_TAG_MONDAY.ibak
+backupinfo
+loganchor1
+loganchor0
+loganchor2
+system001.dbf_TAG_MONDAY.ibak
+SYS_TBS_MEM_DIC-0-0_TAG_MONDAY.ibak
+undo001.dbf_TAG_MONDAY.ibak
 ```
 
 백업 태그를 지정하여 백업하는 구문의 예제이다.
@@ -7941,7 +8103,12 @@ iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 0 TABLESPACE SYS_TBS_MEM_D
 백업을 수행한 후 백업 경로에서 파일들을 확인한 결과이다.
 
 ```
-%ls /backup_dirTAG_MONDAY %ls backup_dir/TAG_MONDAYSYS_TBS_MEM_DIC-0-0_TAG_MONDAY.ibakbackupinfo
+% ls /backup_dir
+TAG_MONDAY
+ 
+% ls backup_dir/TAG_MONDAY
+SYS_TBS_MEM_DIC-0-0_TAG_MONDAY.ibak
+backupinfo
 ```
 
 ##### 레벨 1 백업
@@ -7959,7 +8126,18 @@ iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE;
 백업을 수행한 후 백업 경로에서 파일들을 확인한 결과이다.
 
 ```
-%ls /backup_dirTAG_20121031_043507 %ls /backup_dir/TAG_20121031_043507SYS_TBS_MEM_DATA-0-0_TAG_20121031_043507.ibakbackupinfologanchor1loganchor0loganchor2system001.dbf_TAG_20121031_043507.ibakSYS_TBS_MEM_DIC-0-0_TAG_20121031_043507.ibakundo001.dbf_TAG_20121031_043507.ibak
+% ls /backup_dir
+TAG_20121031_043507
+ 
+% ls /backup_dir/TAG_20121031_043507
+SYS_TBS_MEM_DATA-0-0_TAG_20121031_043507.ibak
+backupinfo
+loganchor1
+loganchor0
+loganchor2
+system001.dbf_TAG_20121031_043507.ibak
+SYS_TBS_MEM_DIC-0-0_TAG_20121031_043507.ibak
+undo001.dbf_TAG_20121031_043507.ibak
 ```
 
 누적 증분 백업하는 구문의 예제이다.
@@ -7979,7 +8157,18 @@ iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'TUESD
 백업을 수행한 후 백업 경로에서 파일들을 확인한 결과이다.
 
 ```
-%ls /backup_dirTAG_TUESDAY %ls /backup_dir/TAG_TUESDAYSYS_TBS_MEM_DATA-0-0_TAG_TUESDAY.ibakSYS_TBS_MEM_DIC-0-0_TAG_TUESDAY.ibakbackupinfologanchor0loganchor1loganchor2system001.dbf_TAG_TUESDAY.ibakundo001.dbf_TAG_TUESDAY.ibak
+% ls /backup_dir
+TAG_TUESDAY
+ 
+% ls /backup_dir/TAG_TUESDAY
+SYS_TBS_MEM_DATA-0-0_TAG_TUESDAY.ibak
+SYS_TBS_MEM_DIC-0-0_TAG_TUESDAY.ibak
+backupinfo
+loganchor0
+loganchor1
+loganchor2
+system001.dbf_TAG_TUESDAY.ibak
+undo001.dbf_TAG_TUESDAY.ibak
 ```
 
 ###### 테이블스페이스 단위 증분 백업
@@ -7993,7 +8182,12 @@ iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 TABLESPACE SYS_TBS_MEM_D
 백업을 수행한 후 백업 경로에서 파일들을 확인한 결과이다.
 
 ```
-%ls /backup_dirTAG_20121031_211432 %ls /backup_dir/TAG_20121031_211432SYS_TBS_MEM_DIC-0-0_TAG_20121031_211432.ibakbackupinfo
+% ls /backup_dir
+TAG_20121031_211432
+ 
+% ls /backup_dir/TAG_20121031_211432
+SYS_TBS_MEM_DIC-0-0_TAG_20121031_211432.ibak
+backupinfo
 ```
 
 누적 증분 백업하는 구문의 예제이다.
@@ -8013,7 +8207,12 @@ iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 TABLESPACE SYS_TBS_MEM_D
 백업을 수행한 후 백업 경로에서 파일들을 확인한 결과이다.
 
 ```
-%ls /backup_dirTAG_WEDNESDAY %ls /backup_dir/TAG_WEDNESDAYSYS_TBS_MEM_DIC-0-0_TAG_WEDNESDAY.ibakbackupinfo
+% ls /backup_dir
+TAG_WEDNESDAY
+ 
+% ls /backup_dir/TAG_WEDNESDAY
+SYS_TBS_MEM_DIC-0-0_TAG_WEDNESDAY.ibak
+backupinfo
 ```
 
 ### 증분 백업에 대한 매체 복구
@@ -8097,13 +8296,15 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE FROM TAG 'TUESDAY';
 백업 태그 이름을 이용한 불완전 복원 후 복구 시에는 복원과 복구에 사용되는 백업 태그 이름이 동일해야 한다. 아래와 같이 복원과 복구에 서로 다른 백업 태그 이름을 사용하면 복구에 실패할 것이다. 성공적인 복구를 위해서는 'SUNDAY'가 아닌 'TUESDAY'를 사용해야 한다.
 
 ```
-ALTER DATABASE RESTORE DATABASE FROM TAG 'TUESDAY';ALTER DATABASE RECOVER DATABASE FROM TAG ‘SUNDAY';
+ALTER DATABASE RESTORE DATABASE FROM TAG 'TUESDAY';
+ALTER DATABASE RECOVER DATABASE FROM TAG ‘SUNDAY';
 ```
 
 만약 TUESDAY라는 백업 태그를 이용해 복원하고 그 이후 시점으로 불완전 복구를 하고 싶다면 아래와 같이 UNTIL TIME 혹은 UNTIL CANCEL구문을 사용하면 된다.
 
 ```
-ALTER DATABASE RESTORE DATABASE FROM TAG 'TUESDAY';ALTER DATABASE RECOVER DATABASE UNTIL CANCEL;
+ALTER DATABASE RESTORE DATABASE FROM TAG 'TUESDAY';
+ALTER DATABASE RECOVER DATABASE UNTIL CANCEL;
 ```
 
 #### 매체 복원 예제
@@ -8111,7 +8312,13 @@ ALTER DATABASE RESTORE DATABASE FROM TAG 'TUESDAY';ALTER DATABASE RECOVER DATABA
 매체 복원 및 복구의 예를 들기 위해, 아래와 같이 증분 백업을 했다고 가정하자.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 0 DATABASE WITH TAG 'MONDAY';iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'TUESDAY';iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'WEDNESDAY';iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 0 DATABASE WITH TAG 'THURSDAY';iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'FRIDAY';iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 CUMULATIVE DATABASE WITH TAG 'SATURDAY';iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'SUNDAY';
+iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 0 DATABASE WITH TAG 'MONDAY';
+iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'TUESDAY';
+iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'WEDNESDAY';
+iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 0 DATABASE WITH TAG 'THURSDAY';
+iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'FRIDAY';
+iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 CUMULATIVE DATABASE WITH TAG 'SATURDAY';
+iSQL(sysdba)> ALTER DATABASE BACKUP INCREMENTAL LEVEL 1 DATABASE WITH TAG 'SUNDAY';
 ```
 
 ##### 완전 복원
@@ -8167,7 +8374,8 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;iSQL(sysdba)> STARTUP SERVICE;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> STARTUP SERVICE;
 ```
 
 ###### 불완전 복원 후 완전 복구
@@ -8187,7 +8395,8 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;iSQL(sysdba)> STARTUP SERVICE;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> STARTUP SERVICE;
 ```
 
 불완전 복원 후 완전 복구 방법은 증분 백업 파일이 소실된 경우에 사용할 수 있는 복구 방법이다. 이 때는 소실된 증분 백업 파일 이전의 백업 파일로 복원한 다음, 아카이브 로그를 이용해 완전 복구를 수행하면 된다.
@@ -8201,7 +8410,8 @@ iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;iSQL(sysdba)> STA
 아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을 사용해서 loganchor와 backupInfo를 복원한다.
 
 ```
-%cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs%cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
+% cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
+% cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
 ```
 
 loganchor 파일을 과거 버전으로 복원했기 때문에 changeTracking 파일이 더 이상 유효하지 않게 된다. 따라서 아래의 구문으로 서버의 PROCESS 구동 단계에서 변경 추적 기능을 비활성화해서 changeTracking 파일을 삭제하도록 한다.
@@ -8225,7 +8435,9 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL CANCEL;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 resetlogs를 수행하고 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;iSQL(sysdba)> STARTUP SERVICE;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
+iSQL(sysdba)> STARTUP SERVICE;
 ```
 
 ###### 불완전 복원 후 불완전 복구
@@ -8233,7 +8445,8 @@ iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;iSQL(sysdba)> ALT
 아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을 사용해서 loganchor와 backupInfo를 복원한다.
 
 ```
-%cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs%cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
+% cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
+% cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
 ```
 
 loganchor 파일을 과거 버전으로 복원했기 때문에 changeTracking 파일이 더 이상 유효하지 않게 된다. 따라서 아래의 구문으로 서버의 PROCESS 구동 단계에서 변경 추적 기능을 비활성화해서 changeTracking 파일을 삭제하도록 한다.
@@ -8341,7 +8554,9 @@ IPv6 주소는 16bit크기의 16진수 8개가 콜론(:)으로 구분되어 표�
 IPv6 주소내의 네 개의 0으로 표시된 부분은 각각 한 개의 0으로 줄여서 표기할 수 있거나 모두 생략할 수도 있다. 그러므로 다음의 IPv6 주소들은 모두 같은 주소를 나타낸다.
 
 ```
-2001:cdba:0000:0000:0000:0000:3257:96522001:cdba:0:0:0:0:3257:96522001:cdba::3257:9652
+2001:cdba:0000:0000:0000:0000:3257:9652
+2001:cdba:0:0:0:0:3257:9652
+2001:cdba::3257:9652
 ```
 
 위 주소를 위한 URL 형식은 다음과 같다:
@@ -8353,7 +8568,9 @@ Altibase는 RFC2732에 명세화된 표준 IPv6 주소 표기법을 지원한다
 다음은 Altibase에서 유효한 IPv6 주소의 예이다:
 
 ```
-[::1][2002:c0a8:101:1:216:e6ff:fed2:7aea]$ isql -s [2002:c0a8:101:1:216:e6ff:fed2:7aea] -u sys
+[::1]
+[2002:c0a8:101:1:216:e6ff:fed2:7aea]
+$ isql -s [2002:c0a8:101:1:216:e6ff:fed2:7aea] -u sys
 ```
 
 FE80로 시작하는 링크 로컬 주소의 경우, 영역 인덱스가 퍼센트 표시(%)로 구분되어 주소 뒤에 붙는다. 영역 인덱스는 링크 로컬 주소가 할당된 인터페이스를 위한 색인이다.
@@ -8361,7 +8578,8 @@ FE80로 시작하는 링크 로컬 주소의 경우, 영역 인덱스가 퍼센�
 리눅스 시스템에서 Altibase 서버에 연결하려면 링크 로컬 주소의 영역을 표시하는 영역 인덱스를 붙여야 한다. (예외로 JDBC 응용프로그램을 위해서는 영역 인덱스가 필요없다.) 영역 인덱스를 사용한 예는 다음과 같다:
 
 ```
-[fe80::221:86ff:fe94:f51f%eth0]$ isql -s [fe80::221:86ff:fe94:f51f%eth0] -u sys
+[fe80::221:86ff:fe94:f51f%eth0]
+$ isql -s [fe80::221:86ff:fe94:f51f%eth0] -u sys
 ```
 
 ##### IP 스택
@@ -8577,7 +8795,9 @@ ISQL> CONNECT sys/manager
 2. 보안 모듈 관련 프로퍼티를 설정한다.
 
 ```
-iSQL> ALTER SYSTEM SET SECURITY_MODULE_NAME = 'altibase';iSQL> ALTER SYSTEM SET SECURITY_MODULE_LIBRARY = '/altibase_home/lib/libsecurity.so';iSQL> ALTER SYSTEM SET SECURITY_ECC_POLICY_NAME = 'ecc_policy1';
+iSQL> ALTER SYSTEM SET SECURITY_MODULE_NAME = 'altibase';
+iSQL> ALTER SYSTEM SET SECURITY_MODULE_LIBRARY = '/altibase_home/lib/libsecurity.so';
+iSQL> ALTER SYSTEM SET SECURITY_ECC_POLICY_NAME = 'ecc_policy1';
 ```
 
 3. 보안 모듈을 구동한다.
@@ -8589,7 +8809,10 @@ iSQL> ALTER SYSTEM START SECURITY;
 4. 보안 모듈 구동 상태를 확인한다.
 
 ```
-iSQL> SELECT * FROM SYSTEM_.SYS_SECURITY_;MODULE_NAME MODULE_VERSION ECC_POLICY_NAME ECC_POLICY_CODE--------------------------------------------------------------altibase 1.0 ecc_policy1 abcde12345
+iSQL> SELECT * FROM SYSTEM_.SYS_SECURITY_;
+MODULE_NAME MODULE_VERSION ECC_POLICY_NAME ECC_POLICY_CODE
+--------------------------------------------------------------
+altibase 1.0 ecc_policy1 abcde12345
 ```
 
 #### 보안 모듈 종료 
@@ -8603,7 +8826,10 @@ iSQL> ALTER SYSTEM STOP SECURITY;
 다음과 같이 보안 모듈 연동 상태를 확인할 수 있다.
 
 ```
-iSQL> SELECT * FROM SYSTEM_.SYS_SECURITY_;MODULE_NAME  MODULE_VERSION ECC_POLICY_NAME ECC_POLICY_CODE--------------------------------------------------------------No rows selected.
+iSQL> SELECT * FROM SYSTEM_.SYS_SECURITY_;
+MODULE_NAME  MODULE_VERSION ECC_POLICY_NAME ECC_POLICY_CODE
+--------------------------------------------------------------
+No rows selected.
 ```
 
 > Note: 보안 모듈의 종료는 암호화 컬럼이 존재하지 않는 경우에만 수행할 수 있다.
@@ -8631,13 +8857,21 @@ CREATE TABLE table_name (column_name datatype [ENCRYPT USING ‘policy_name’])
 질의 1\> 테이블 생성시에 empID1, ssn1칼럼을 암호 칼럼으로 지정한다.
 
 ```
-CREATE TABLE t1 (name1  varchar(5), 	             empID1 varchar(10) ENCRYPT USING ‘policy_id’,	             ssn1   char(12) ENCRYPT USING ‘policy_ssn’);
+CREATE TABLE t1 (name1  varchar(5), 
+	             empID1 varchar(10) ENCRYPT USING 'policy_id',
+	             ssn1   char(12) ENCRYPT USING 'policy_ssn');
 ```
 
 질의 2\> 테이블에 암호 칼럼이 있는지 확인한다.
 
 ```
-iSQL> DESC t1----------------------------------------------------------------NAME             TYPE                                  IS NULL----------------------------------------------------------------NAME1            VARCHAR(10) FIXEDEMPID1            VARCHAR(8) ENCRYPT  FIXEDSSN               CHAR(12) ENCRYPT FIXED
+iSQL> DESC t1
+----------------------------------------------------------------
+NAME             TYPE                                  IS NULL
+----------------------------------------------------------------
+NAME1            VARCHAR(10)         FIXED
+EMPID1           VARCHAR(8) ENCRYPT  FIXED
+SSN              CHAR(12) ENCRYPT    FIXED
 ```
 
 #### 암호 칼럼으로 변경
@@ -8853,7 +9087,10 @@ No rows selected.
 객체 감사 조건을 설정하는 구문은 아래와 같다.
 
 ```
-AUDIT operation_comma_listON object_nameBY ACCESS | SESSIONWHENEVER [NOT] SUCCESSFUL;
+AUDIT operation_comma_listON object_nameBY ACCESS | SESSIONWHENEVER [NOT] SUCCESSFUL;AUDIT operation_comma_list
+ON object_name
+BY ACCESS | SESSION
+WHENEVER [NOT] SUCCESSFUL;
 ```
 
 구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
@@ -9022,7 +9259,31 @@ AUDIT all ON seq1 WHENEVER SUCCESSFUL;
 위의 설정 후에 SYS_AUDIT_OPTS\_ 뷰를 조회해서 설정된 조건을 확인할 수 있다.
 
 ```
-iSQL> set vertical on;iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_ WHERE OBJECT_NAME = 'SEQ1';USER_NAME        : SYSOBJECT_NAME      : SEQ1OBJECT_TYPE      : SEQUENCESELECT_OP        : S/-INSERT_OP        : S/-UPDATE_OP        : S/-DELETE_OP        : S/-MOVE_OP          : S/-MERGE_OP         : S/-ENQUEUE_OP       : S/-DEQUEUE_OP       : S/-LOCK_TABLE_OP    : S/-EXECUTE_OP       : S/-COMMIT_OP        : -/-ROLLBACK_OP      : -/-SAVEPOINT_OP     : -/-CONNECT_OP       : -/-DISCONNECT_OP    : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP  : -/-DDL_OP           : -/-1 row selected.
+iSQL> set vertical on;
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_ WHERE OBJECT_NAME = 'SEQ1';
+USER_NAME        : SYS
+OBJECT_NAME      : SEQ1
+OBJECT_TYPE      : SEQUENCE
+SELECT_OP        : S/-
+INSERT_OP        : S/-
+UPDATE_OP        : S/-
+DELETE_OP        : S/-
+MOVE_OP          : S/-
+MERGE_OP         : S/-
+ENQUEUE_OP       : S/-
+DEQUEUE_OP       : S/-
+LOCK_TABLE_OP    : S/-
+EXECUTE_OP       : S/-
+COMMIT_OP        : -/-
+ROLLBACK_OP      : -/-
+SAVEPOINT_OP     : -/-
+CONNECT_OP       : -/-
+DISCONNECT_OP    : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP  : -/-
+DDL_OP           : -/-
+
+1 row selected.
 ```
 
 ##### 해제
@@ -9030,7 +9291,9 @@ iSQL> set vertical on;iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_ WHERE OBJECT_N
 설정되어 있던 감사 조건을 해제하는 구문은 아래와 같다.
 
 ```
-NOAUDIT  operation_comma_listON object_nameWHENEVER [NOT] SUCCESSFUL;
+NOAUDIT  operation_comma_list
+ON object_name
+WHENEVER [NOT] SUCCESSFUL;
 ```
 
 구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
@@ -9040,13 +9303,58 @@ NOAUDIT  operation_comma_listON object_nameWHENEVER [NOT] SUCCESSFUL;
 \<질의1\> 테이블 friends에 다음과 같은 감사 조건이 설정되어 있다고 가정하자.
 
 ```
-iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_ WHERE OBJECT_NAME = 'FRIENDS';USER_NAME : SYSOBJECT_NAME : FRIENDSOBJECT_TYPE : TABLESELECT_OP : S/SINSERT_OP : S/SUPDATE_OP : S/SDELETE_OP : S/SMOVE_OP : S/SMERGE_OP : S/SENQUEUE_OP : S/SDEQUEUE_OP : S/SLOCK_TABLE_OP : S/SEXECUTE_OP : S/SCOMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/-DISCONNECT_OP : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : -/-
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_ WHERE OBJECT_NAME = 'FRIENDS';
+USER_NAME : SYS
+OBJECT_NAME : FRIENDS
+OBJECT_TYPE : TABLE
+SELECT_OP : S/S
+INSERT_OP : S/S
+UPDATE_OP : S/S
+DELETE_OP : S/S
+MOVE_OP : S/S
+MERGE_OP : S/S
+ENQUEUE_OP : S/S
+DEQUEUE_OP : S/S
+LOCK_TABLE_OP : S/S
+EXECUTE_OP : S/S
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
 ```
 
 이들 조건 중 SELECT 구문의 성공에 대한 감사를 해제하라.
 
 ```
-iSQL> NOAUDIT select ON friends WHENEVER SUCCESSFUL;iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_ WHERE OBJECT_NAME = 'FRIENDS';USER_NAME : SYSOBJECT_NAME : FRIENDSOBJECT_TYPE : TABLESELECT_OP : -/SINSERT_OP : S/SUPDATE_OP : S/SDELETE_OP : S/SMOVE_OP : S/SMERGE_OP : S/SENQUEUE_OP : S/SDEQUEUE_OP : S/SLOCK_TABLE_OP : S/SEXECUTE_OP : S/SCOMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/-DISCONNECT_OP : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : -/-1 row selected.
+iSQL> NOAUDIT select ON friends WHENEVER SUCCESSFUL;
+
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_ WHERE OBJECT_NAME = 'FRIENDS';
+USER_NAME : SYS
+OBJECT_NAME : FRIENDS
+OBJECT_TYPE : TABLE
+SELECT_OP : -/S
+INSERT_OP : S/S
+UPDATE_OP : S/S
+DELETE_OP : S/S
+MOVE_OP : S/S
+MERGE_OP : S/S
+ENQUEUE_OP : S/S
+DEQUEUE_OP : S/S
+LOCK_TABLE_OP : S/S
+EXECUTE_OP : S/S
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
+1 row selected.
 ```
 
 #### 구문 감사
@@ -9058,7 +9366,10 @@ Altibase 서버에서 특정한 SQL 구문이 수행되는 것을 감시하고 �
 구문 감사 조건을 설정하는 구문은 아래와 같다.
 
 ```
-AUDIT operation_comma_list BY user_nameBY ACCESS|SESSIONWHENEVER [NOT] SUCCESSFUL;
+AUDIT operation_comma_list 
+BY user_name
+BY ACCESS|SESSION
+WHENEVER [NOT] SUCCESSFUL;
 ```
 
 구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
@@ -9068,19 +9379,100 @@ AUDIT operation_comma_list BY user_nameBY ACCESS|SESSIONWHENEVER [NOT] SUCCESSFU
 \<질의1\> Altibase 서버에 대해 실패하는 모든 CONNECT, DISCONNECT 구문의 정보를 액세스 단위로 로그를 기록하라.
 
 ```
-iSQL> AUDIT connect, disconnect BY ACCESS WHENEVER NOT SUCCESSFUL;Audit successiSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;USER_NAME : ALLOBJECT_NAME : ALLOBJECT_TYPE :SELECT_OP : -/-INSERT_OP : -/-UPDATE_OP : -/-DELETE_OP : -/-MOVE_OP : -/-MERGE_OP : -/-ENQUEUE_OP : -/-DEQUEUE_OP : -/-LOCK_TABLE_OP : -/-EXECUTE_OP : -/-COMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/ADISCONNECT_OP : -/AALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : -/-1 row selected.
+iSQL> AUDIT connect, disconnect BY ACCESS WHENEVER NOT SUCCESSFUL;
+Audit success
+
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
+
+USER_NAME : ALL
+OBJECT_NAME : ALL
+OBJECT_TYPE :
+SELECT_OP : -/-
+INSERT_OP : -/-
+UPDATE_OP : -/-
+DELETE_OP : -/-
+MOVE_OP : -/-
+MERGE_OP : -/-
+ENQUEUE_OP : -/-
+DEQUEUE_OP : -/-
+LOCK_TABLE_OP : -/-
+EXECUTE_OP : -/-
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/A
+DISCONNECT_OP : -/A
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
+
+1 row selected.
 ```
 
 \<질의2\> Altibase 서버 내에서 수행되는 모든 INSERT 구문에 대한 정보를 세션 단위로 로그를 기록하라.
 
 ```
-iSQL> AUDIT insert;Audit success.iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;USER_NAME : ALLOBJECT_NAME : ALLOBJECT_TYPE :SELECT_OP : -/-INSERT_OP : S/SUPDATE_OP : -/-DELETE_OP : -/-MOVE_OP : -/-MERGE_OP : -/-ENQUEUE_OP : -/-DEQUEUE_OP : -/-LOCK_TABLE_OP : -/-EXECUTE_OP : -/-COMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/-DISCONNECT_OP : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : -/-1 row selected.
+iSQL> AUDIT insert;
+Audit success.
+
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
+
+USER_NAME : ALL
+OBJECT_NAME : ALL
+OBJECT_TYPE :
+SELECT_OP : -/-
+INSERT_OP : S/S
+UPDATE_OP : -/-
+DELETE_OP : -/-
+MOVE_OP : -/-
+MERGE_OP : -/-
+ENQUEUE_OP : -/-
+DEQUEUE_OP : -/-
+LOCK_TABLE_OP : -/-
+EXECUTE_OP : -/-
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
+
+1 row selected.
 ```
 
 \<질의3\> Altibase 서버 내에서 수행에 실패하는 모든 INSERT, UPDATE, SELECT, 또는 DELETE 구문에 대한 정보를 액세스 단위로 로그를 기록하라.
 
 ```
-iSQL> AUDIT insert, update, select, delete BY ACCESS WHENEVER NOT SUCCESSFUL;Audit success.iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;USER_NAME : ALLOBJECT_NAME : ALLOBJECT_TYPE :SELECT_OP : -/AINSERT_OP : -/AUPDATE_OP : -/ADELETE_OP : -/AMOVE_OP : -/-MERGE_OP : -/-ENQUEUE_OP : -/-DEQUEUE_OP : -/-LOCK_TABLE_OP : -/-EXECUTE_OP : -/-COMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/-DISCONNECT_OP : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : -/-1 row selected.
+iSQL> AUDIT insert, update, select, delete BY ACCESS WHENEVER NOT SUCCESSFUL;
+Audit success.
+
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
+
+USER_NAME : ALL
+OBJECT_NAME : ALL
+OBJECT_TYPE :
+SELECT_OP : -/A
+INSERT_OP : -/A
+UPDATE_OP : -/A
+DELETE_OP : -/A
+MOVE_OP : -/-
+MERGE_OP : -/-
+ENQUEUE_OP : -/-
+DEQUEUE_OP : -/-
+LOCK_TABLE_OP : -/-
+EXECUTE_OP : -/-
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
+
+1 row selected.
 ```
 
 ##### 해제
@@ -9088,7 +9480,9 @@ iSQL> AUDIT insert, update, select, delete BY ACCESS WHENEVER NOT SUCCESSFUL;Aud
 구문 감사 조건을 해제하는 구문은 아래와 같다.
 
 ```
-NOAUDIT operation_comma_listBY user_nameWHENEVER [NOT] SUCCESSFUL;
+NOAUDIT operation_comma_list
+BY user_name
+WHENEVER [NOT] SUCCESSFUL;
 ```
 
 구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
@@ -9098,13 +9492,64 @@ NOAUDIT operation_comma_listBY user_nameWHENEVER [NOT] SUCCESSFUL;
 \<질의1\> 다음과 같이 감사 조건이 설정되어 있다고 가정하자.
 
 ```
-iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;    USER_NAME : ALL    OBJECT_NAME : ALL    OBJECT_TYPE :    SELECT_OP : -/A    INSERT_OP : -/A    UPDATE_OP : -/A    DELETE_OP : -/A    MOVE_OP : -/-    MERGE_OP : -/-    ENQUEUE_OP : -/-    DEQUEUE_OP : -/-    LOCK_TABLE_OP : -/-    EXECUTE_OP : -/-    COMMIT_OP : -/-    ROLLBACK_OP : -/-    SAVEPOINT_OP : -/-    CONNECT_OP : -/-    DISCONNECT_OP : -/-    ALTER_SESSION_OP : -/-    ALTER_SYSTEM_OP : -/-    DDL_OP : -/-    1 row selected.
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
+
+USER_NAME : ALL
+OBJECT_NAME : ALL
+OBJECT_TYPE :
+SELECT_OP : -/A
+INSERT_OP : -/A
+UPDATE_OP : -/A
+DELETE_OP : -/A
+MOVE_OP : -/-
+MERGE_OP : -/-
+ENQUEUE_OP : -/-
+DEQUEUE_OP : -/-
+LOCK_TABLE_OP : -/-
+EXECUTE_OP : -/-
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
+
+1 row selected.
 ```
 
 이들 조건 중 SELECT 구문에 대한 감사를 해제하라.
 
 ```
-iSQL> NOAUDIT select;Audit success.iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;USER_NAME : ALLOBJECT_NAME : ALLOBJECT_TYPE :SELECT_OP : -/-INSERT_OP : -/AUPDATE_OP : -/ADELETE_OP : -/AMOVE_OP : -/-MERGE_OP : -/-ENQUEUE_OP : -/-DEQUEUE_OP : -/-LOCK_TABLE_OP : -/-EXECUTE_OP : -/-COMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/-DISCONNECT_OP : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : -/-1 row selected.
+iSQL> NOAUDIT select;
+Audit success.
+
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
+
+USER_NAME : ALL
+OBJECT_NAME : ALL
+OBJECT_TYPE :
+SELECT_OP : -/-
+INSERT_OP : -/A
+UPDATE_OP : -/A
+DELETE_OP : -/A
+MOVE_OP : -/-
+MERGE_OP : -/-
+ENQUEUE_OP : -/-
+DEQUEUE_OP : -/-
+LOCK_TABLE_OP : -/-
+EXECUTE_OP : -/-
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
+
+1 row selected.
 ```
 
 #### DDL문 감사
@@ -9194,7 +9639,9 @@ DDL_OP : -/T
 DDL문 감사 조건을 해제하는 구문은 아래와 같다.
 
 ```
-NOAUDIT DDLBY user_nameWHENEVER [NOT] SUCCESSFUL;
+NOAUDIT DDL
+BY user_name
+WHENEVER [NOT] SUCCESSFUL;
 ```
 
 구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
@@ -9204,13 +9651,64 @@ NOAUDIT DDLBY user_nameWHENEVER [NOT] SUCCESSFUL;
 \<질의1\> 다음과 같이 감사 조건이 설정되어 있다고 가정하자.
 
 ```
-iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;USER_NAME : ALLOBJECT_NAME : ALLOBJECT_TYPE :SELECT_OP : -/-INSERT_OP : -/-UPDATE_OP : -/-DELETE_OP : -/-MOVE_OP : -/-MERGE_OP : -/-ENQUEUE_OP : -/-DEQUEUE_OP : -/-LOCK_TABLE_OP : -/-EXECUTE_OP : -/-COMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/-DISCONNECT_OP : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : T/T1 row selected.
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
+
+USER_NAME : ALL
+OBJECT_NAME : ALL
+OBJECT_TYPE :
+SELECT_OP : -/-
+INSERT_OP : -/-
+UPDATE_OP : -/-
+DELETE_OP : -/-
+MOVE_OP : -/-
+MERGE_OP : -/-
+ENQUEUE_OP : -/-
+DEQUEUE_OP : -/-
+LOCK_TABLE_OP : -/-
+EXECUTE_OP : -/-
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : T/T
+
+1 row selected.
 ```
 
 DDL 문에 대한 감사를 해제하라.
 
 ```
-iSQL> NOAUDIT DDL;Audit success.iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;USER_NAME : ALLOBJECT_NAME : ALLOBJECT_TYPE :SELECT_OP : -/-INSERT_OP : -/-UPDATE_OP : -/-DELETE_OP : -/-MOVE_OP : -/-MERGE_OP : -/-ENQUEUE_OP : -/-DEQUEUE_OP : -/-LOCK_TABLE_OP : -/-EXECUTE_OP : -/-COMMIT_OP : -/-ROLLBACK_OP : -/-SAVEPOINT_OP : -/-CONNECT_OP : -/-DISCONNECT_OP : -/-ALTER_SESSION_OP : -/-ALTER_SYSTEM_OP : -/-DDL_OP : -/-1 row selected.
+iSQL> NOAUDIT DDL;
+Audit success.
+
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
+
+USER_NAME : ALL
+OBJECT_NAME : ALL
+OBJECT_TYPE :
+SELECT_OP : -/-
+INSERT_OP : -/-
+UPDATE_OP : -/-
+DELETE_OP : -/-
+MOVE_OP : -/-
+MERGE_OP : -/-
+ENQUEUE_OP : -/-
+DEQUEUE_OP : -/-
+LOCK_TABLE_OP : -/-
+EXECUTE_OP : -/-
+COMMIT_OP : -/-
+ROLLBACK_OP : -/-
+SAVEPOINT_OP : -/-
+CONNECT_OP : -/-
+DISCONNECT_OP : -/-
+ALTER_SESSION_OP : -/-
+ALTER_SYSTEM_OP : -/-
+DDL_OP : -/-
+
+1 row selected.
 ```
 
 > #### 주의 사항
@@ -9263,7 +9761,8 @@ AUDIT_OUTPUT_METHOD 프로퍼티 값을 1\~9로 설정하면 syslog를 사용하
 아래는 syslog를 사용해서 출력되는 사용 예제이다. [AUDIT] 구분자는 AUDIT_TAG_NAME_IN_SYSLOG 프로퍼티 값에 의해 설정된다.
 
 ```
-$ tail /var/log/user.logOct 27 09:22:19 mmj altibase: [AUDIT]SYS,1,127.0.0.1,CLI-64LE,isql,DDL,1,65537,19905,4,2,1,0,0,0,0,0,0,0,0,0,0,0,"create table t1(i int)"
+$ tail /var/log/user.log
+Oct 27 09:22:19 mmj altibase: [AUDIT]SYS,1,127.0.0.1,CLI-64LE,isql,DDL,1,65537,19905,4,2,1,0,0,0,0,0,0,0,0,0,0,0,"create table t1(i int)"
 ```
 
 ## 15.Altibase 튜닝
@@ -9322,7 +9821,7 @@ Altibase는 한 개의 LFG만 사용하도록 설정된다. 그리고 LOG_DIR과
 
 ```
 LOG_DIR = ?/logs                   # 로그 경로
-ARCHIVE_DIR = ?/arch_logs         # 아카이브 로그 경로
+ARCHIVE_DIR = ?/arch_logs          # 아카이브 로그 경로
 ```
 
 물음표(“?”)는 Altibase 홈(\$ALTIBASE_HOME) 디렉토리를 나타내므로, 로그가 기록되는 경로는 \$ALTIBASE_HOME/logs가 된다.
@@ -9330,7 +9829,9 @@ ARCHIVE_DIR = ?/arch_logs         # 아카이브 로그 경로
 데이터베이스를 생성한 후 로그 경로 안의 내용을 살펴보면 다음과 같이 logfile0부터 logfile2까지 세 개의 로그파일이 존재하는 것을 볼 수 있다. 이들 중 오직 하나의 로그파일에만 트랜잭션이 데이터베이스에 변경을 가하면서 발생하는 로그가 기록된다.
 
 ```
--rw-------   1 kmkim kmkim 10485760 Jun 22 15:46 logfile0-rw-------   1 kmkim kmkim 10485760 Jun 22 15:46 logfile1-rw-------   1 kmkim kmkim 10485760 Jun 22 15:46 logfile2
+-rw-------   1 kmkim kmkim 10485760 Jun 22 15:46 logfile0
+-rw-------   1 kmkim kmkim 10485760 Jun 22 15:46 logfile1
+-rw-------   1 kmkim kmkim 10485760 Jun 22 15:46 logfile2
 ```
 
 ### 그룹 커밋 
