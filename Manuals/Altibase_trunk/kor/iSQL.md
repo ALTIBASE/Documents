@@ -300,7 +300,7 @@ isql
 [-S server_name]
 [-PORT port_no]
 [-U user_id] [-P password] [/NOLOG]
-[-SYSDBA]
+[-SYSDBA] [-KEEP_SYSDBA]
 [-UNIXDOMAIN-FILEPATH filepath]
 [-IPC-FILEPATH filepath]
 [-SILENT]
@@ -336,6 +336,10 @@ isql
   SYS 사용자가 관리자 모드로 iSQL 유틸리티를 사용하기 위해서 -SYSDBA
   옵션을 사용할 수 있다. 서버가 구동되어 있지 않다면, iSQL은 idle 인스턴스로
   접속할 것이며, 그 상태에서 서버를 구동할 수 있다.
+- -KEEP_SYSDBA
+  사용자가 -sysdba 옵션으로 관리자 모드로 접속 시, 서버 구동 후에는 서비스 
+  세션으로 재접속 된다. -keep_sydba 옵션은 서버 구동 후 서비스 세션으로 
+  재접속하지 않고 관리자 모드를 유지하게 한다. 
 - -UNIXDOMAIN-FILEPATH *filepath*  
   유닉스 환경에서 서버와 클라이언트가 유닉스 도메인 소켓으로 접속할 때
   (ISQL_CONNECTION=UNIX), ALTIBASE_HOME이 서로 다르다면 유닉스 도메인의 소켓
@@ -465,7 +469,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>접속해제</TD><TD>DISCONNECT;</TD><TD>현재 세션을 종료하고 서버와의 연결을 끊는다.</TD>
      </TR>
      <TR>
-         <TD rowspan="4">데이터베이스 객체 정보 조회</TD><TD>성능 뷰 목록 보기</TD><TD>ELECT * FROM V$TAB;</TD><TD>시스템이 제공하는 모든 성능 뷰 목록을 보여준다. 이 명령어는 iSQL에서만 사용가능 하다.</TD>
+         <TD rowspan="4">데이터베이스 객체 정보 조회</TD><TD>성능 뷰 목록 보기</TD><TD>SELECT * FROM V$TAB;</TD><TD>시스템이 제공하는 모든 성능 뷰 목록을 보여준다. 이 명령어는 iSQL에서만 사용가능 하다.</TD>
      </TR>
      <TR>
          <TD>테이블 목록 보기</TD><TD>SELECT * FROM TAB;</TD><TD>현재 생성된 테이블의 목록을 보여준다. 이 명령어는 iSQL에서만 사용가능 하다.</TD>
@@ -580,10 +584,16 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SELECT 결과 출력 방향</TD><TD>SET VERTICAL ON;<BR>SET VERTICAL OFF;</TD><TD>레코드를 조회할 때 이 값을 ON으로 설정하면, SELECT의 결과가 세로로 보여진다.<BR>기본값: OFF</TD>
      </TR>
      <TR>
+         <TD>MULTIERROR 출력 여부</TD><TD>SET MULTIERROR ON;<BR>SET MULTIERROR OFF;</TD><TD>SQL 수행시 이 값을 ON으로 설정하면, 다중에러가 표시될 수 있다.<BR>기본값: OFF 이고 이때는 다중에러가 발생해도 하나의 에러만 표시된다.</TD>
+     </TR>
+     <TR>
          <TD ROWSPAN="19">iSQL 화면 설정 값 보기</TD><TD>SHOW LINESIZE</TD><TD>현재의 LINESIZE 값을 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW COLSIZE</TD><TD>현재의 COLSIZE 값을 보여준다.</TD>
+     </TR>
+     <TR>
+         <TD>SHOW MULTIERROR</TD><TD>현재의 MULTIERROR 값을 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW LOBOFFSET</TD><TD>현재의 LOBOFFSET 값을 보여준다.</TD>
@@ -853,7 +863,28 @@ IPCDA_FILEPATH 환경 변수 또는 iSQL 옵션인 –IPCDA -FILEPATH를 서버�
 이 환경 변수는 Asia/Seoul과 같은 타임 존의 이름이나 KST 같은 약어를 사용해서
 설정할 수 있다. 또는 +09:00 같은 UTC 오프셋 값을 사용해서 설정할 수도 있다.
 
+#### ALTIBASE_UT_FILE_PERMISSION
 
+aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공통 환경변수이다.  
+
+값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ALTIBASE_UT_FILE_PERMISSION=600
+
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
+
+예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다.
+ aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+
+#### ISQL_FILE_PERMISSION
+
+iSQL이 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ISQL_FILE_PERMISSION=600
 
 ### 개인별 iSQL 환경 설정
 
@@ -3449,7 +3480,7 @@ NCHAR 및 NVARCHAR 타입의 내셔널 캐릭터 상수 문자를 사용하기 �
   $ export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE =1
   ```
 
-  ​   
+     
 
 - SQL 구문에서 NCHAR 타입 상수 문자열을 사용하기 위해 해당 문자열 바로 앞에
   “N”을 붙여 사용한다.

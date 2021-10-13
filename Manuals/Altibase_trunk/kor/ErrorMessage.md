@@ -14346,6 +14346,18 @@ occurred.: \<0%s\>: \<1%s\>**
 **Action:** Verify the error number in the trace log file and contact Altibase
 Support Center (http://support.Altibase.com).
 
+**0xE113D ( 921917) sdERR_ABORT_REMOTE_COMMIT_FAILED Failed to commit a remote transaction when performing \<1%s\> on remote node \<0%s\>.: \<2%s\>**
+
+**Cause:** A network problem occurred.
+
+**Action:** Verify the state of link on the remote node. Execute rollback and try again.
+
+**0xE113E ( 921918) sdERR_ABORT_PREPARE_DID_NOT_BEGIN_TX Failed to commit a transaction, because the transaction did not begin.**
+
+**Cause:** The transaction is not begin.
+
+**Action:** Verify the state of link on the remote node. Execute rollback and try again.
+
 7.ST Error Code
 ---------------
 
@@ -15907,6 +15919,12 @@ found. (SQLTextID = \<0%s\>)**
 
 **Action:** Check whether SQLTextID exists in V\$SQL_PLAN_CACHE_SQLTEXT.
 
+**0x410FD ( 266493) mmERR_ABORT_SHARED_TRANSACTION_STATE_INVALID The state of shared transaction is invalid. (State = \<0%s\>, Action = \<1%s\>)**
+
+**Cause:** This is an internal error related to unexpected state of shared transaction.
+
+**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
+
 ### IGNORE
 
 **0x42000 ( 270336) mmERR_IGNORE_NO_ERROR No main module error**
@@ -16634,11 +16652,11 @@ the Altibase server.
 SQL_FILE_APPEND, SQL_FILE_READ).
 
 **0x5113A ( 332090) ulERR_ABORT_FILE_SIZE_TOO_BIG General error. The size of the
-provided file \<0%s\> is too big. The maximum file size is about 2GB.**
+provided file \<0%s\> is too big. The maximum file size is 4,294,967,295 bytes (4GB-1byte).**
 
 **Cause:** The file is too big.
 
-**Action:** Check whether the file is correct and use a smaller file.
+**Action:** Check the file size and use a smaller file.
 
 **0x5113C ( 332092) ulERR_ABORT_INVALID_APP_BUFFER_TYPE_LOB Invalid application
 buffer type : type id \<0%d\> cannot be used as a LOB source buffer.**
@@ -16989,6 +17007,12 @@ argument.**
 **Cause:** An argument for the rconnect() function was invalid.
 
 **Action:** Check the IP and host name.
+
+**0x51223 ( 332323) ulERR_ABORT_NEED_ROLLBACK Failed to execute the statement, because the global transaction has been terminated.**
+
+**Cause:** After failing to commit in global transaction level, rollback is necessary to execute a statement to a remote server.
+
+**Action:** Execute rollback and retry the statement.
 
 ### IGNORE
 

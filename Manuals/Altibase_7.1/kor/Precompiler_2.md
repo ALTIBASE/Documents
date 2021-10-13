@@ -5210,9 +5210,9 @@ Altibase 설치에 대한 자세한 설명은 *Installation Guide* 를 참조하
 \$ALTIBASE_HOME/sample/APRE 디렉토리에 포함된 Makefile을 이용하여 실행 파일을
 만들 수 있다.
 
-예제 프로그램에 포함된 Makefile은 gmake rule로 작성되었으므로 반드시 gmake를
-설치 후 사용해야 한다. 그렇지 않으면 Makefile을 사용하여 실행 파일을 생성시
-오류가 발생한다.
+> **주의사항**
+>
+> 예제 프로그램에 포함된 Makefile은 gmake rule로 작성되었으므로 반드시 gmake를 설치 후 사용해야 한다. 그렇지 않으면 Makefile을 사용하여 실행 파일을 생성시 오류가 발생한다.
 
 ##### 컴파일
 
@@ -5254,10 +5254,7 @@ $ ./delete
 7 rows deleted
 ```
 
-> ##### 주의사항
->
-> sample에서 제공하는 makefile은
->
+
 
 ### 예제 프로그램의 테이블 정보
 

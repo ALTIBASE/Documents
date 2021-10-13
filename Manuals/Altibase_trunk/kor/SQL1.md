@@ -1701,8 +1701,8 @@ PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 34, COST: 1.68 )
 | 액세스 방법                          | [FULL SCAN](#full-scan) [INDEX](#index) [INDEX ASC](#index-asc) INDEX_ASC [INDEX DESC](#index-desc) <br />INDEX_DESC [NO INDEX](#no-index) NO_INDEX |
 | 병렬 처리                            | [PARALLEL](#parallel) NO_PARALLEL                            |
 | 조인 순서                            | LEADING [ORDERED](#ORDERED)                                  |
-| 조인 방법                            | [USE_NL](#use_nl) [USE_FULL_NL](#use_full_nl) [USE_FULL_STORE_NL](#use_full_store_nl) [USE_INDEX_NL](#use_index_nl) <br />[USE_ANTI](#use_anti) [USE_HASH](#use_hash) [USE_ONE_PASS_HASH](#use_one_pass_hash) [USE_TWO_PASS_HASH](#use_two_pass_hash) <br />[USE_INVERSE_HASH](#use_inverse_hash) [USE_SORT](#use_sort) [USE_ONE_PASS_SORT](#use_one_pass_sort) <br />[USE_TWO_PASS_SORT](#use_two_pass_sort) [USE_MERGE](#use_inverse_hash) |
-| 중첩된 부질의 중첩 풀기 시 조인 방법 | [NL_SJ](#nl_sj) [HASH_SJ](#hash_sj) [SORT_SJ](#sort_sj) [MERGE_SJ](#merge_sj) [NL_AJ](#nl_aj) [HASH_AJ](#hash_aj) [SORT_AJ](#sort_aj) [MERGE_AJ](#merge_aj) [INVERSE_JOIN](#inverse_join) [NO_INVERSE_JOIN](#no_inverse_join) NO_USE_HASH NO_USE_MERGE <br />NO_USE_NL NO_USE_SORT |
+| 조인 방법                            | [USE_NL](#use_nl) [USE_FULL_NL](#use_full_nl) [USE_FULL_STORE_NL](#use_full_store_nl) [USE_INDEX_NL](#use_index_nl) <br />[USE_ANTI](#use_anti) [USE_HASH](#use_hash) [USE_ONE_PASS_HASH](#use_one_pass_hash) [USE_TWO_PASS_HASH](#use_two_pass_hash) <br />[USE_INVERSE_HASH](#use_inverse_hash) [USE_SORT](#use_sort) [USE_ONE_PASS_SORT](#use_one_pass_sort) <br />[USE_TWO_PASS_SORT](#use_two_pass_sort) [USE_MERGE](#use_inverse_hash) <br />NO_USE_NL NO_USE_HASH NO_USE_MERGE NO_USE_SORT |
+| 중첩된 부질의 중첩 풀기 시 조인 방법 | [NL_SJ](#nl_sj) [HASH_SJ](#hash_sj) [SORT_SJ](#sort_sj) [MERGE_SJ](#merge_sj) [NL_AJ](#nl_aj) [HASH_AJ](#hash_aj) [SORT_AJ](#sort_aj) [MERGE_AJ](#merge_aj) [INVERSE_JOIN](#inverse_join) [NO_INVERSE_JOIN](#no_inverse_join) |
 | 쿼리 변환                            | [NO_MERGE](#no_merge) [NO_TRANSITIVE_PRED](#no_transitive_pred) [NO_UNNEST](#no_unnest) [UNNEST](#unnest) |
 | 중간 결과 저장 매체                  | [TEMP_TBS_DISK](#temp_tbs_disk) [TEMP_TBS_MEMORY](#temp_tbs_memory) |
 | 해시 버킷 크기                       | [GROUP BUCKET COUNT](#group-bucket-count) [HASH BUCKET COUNT](#hash-bucket-count) [SET BUCKET COUNT](#set-bucket-count) |
@@ -1711,7 +1711,10 @@ PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 34, COST: 1.68 )
 | 뷰 최적화 방법                       | [NO_PUSH_SELECT_VIEW](#no_push_select_view) [PUSH_SELECT_VIEW](#push_select_view) [PUSH_PRED](#push_pred) |
 | 단순 쿼리                            | [EXEC_FAST](#exec_fast) [NO_EXEC_FAST](#no_exec_fast)        |
 | 단순 필터                            | [SERIAL_FILTER](#serial_filter) [NO_SERIAL_FILTER](#no_serial_filter)        |
-| 그 외                                | [APPEND](#append) [DELAY](#delay) HIGH_PRECISION [KEEP_PLAN](#keep_plan) [NO DELAY](#no-delay) <br />[NO_PLAN_CACHE](#no_plan_cache) RESULT_CACHE TOP_RESULT_CACHE<br />[PLAN_CACHE_KEEP](#PLAN_CACHE_KEEP) |
+| 그 외                                | [APPEND](#append) [DELAY](#delay) [NO_DELAY](#no-delay) HIGH_PRECISION [KEEP_PLAN](#keep_plan) <br />[NO_PLAN_CACHE](#no_plan_cache) RESULT_CACHE TOP_RESULT_CACHE<br />[PLAN_CACHE_KEEP](#PLAN_CACHE_KEEP) |
+
+ALTIBASE 는 모든 힌트에 대해 운영 프로그램을 수정하지 않고 ALTIBASE 에만 적용되는 힌트를 제공한다. 
+기존 힌트에 'ALTI_' 접두사를 붙여 사용하며 두 개 이상의 키워드로 구성된 힌트일 경우 space 를 under bar 로 대체한 후 'ALTI_' 접두사를 붙여 사용한다.
 
 #### APPEND
 
@@ -1782,13 +1785,13 @@ QUERY가 적용된 경우 실행 계획에 출력된다.
 
 명시한 테이블에 대해 테이블 전체 스캔을 수행할 것을 지시하는 힌트이다.
 
-![full scan](media/SQL/full scan.gif)
+![full scan](media/SQL/full%20scan.gif)
 
 #### GROUP BUCKET COUNT
 
 GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![group bucket count](media/SQL/group bucket count.gif)
+![group bucket count](media/SQL/group%20bucket%20count.gif)
 
 #### GROUP_HASH
 
@@ -1814,7 +1817,7 @@ GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하
 
 HASH와 DISTINCT 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![hash bucket count](media/SQL/hash bucket count.gif)
+![hash bucket count](media/SQL/hash%20bucket%20count.gif)
 
 #### HASH_SJ
 
@@ -1859,7 +1862,7 @@ INDEX ASC힌트와 같은 동작을 한다.
 명시된 인덱스를 사용하여 해당 테이블에 대해서 인덱스 스캔을 수행하되, 내림
 차순으로 탐색한다.
 
-![index desc](media/SQL/index desc.gif)
+![index desc](media/SQL/index%20desc.gif)
 
 #### INDEX_DESC
 
@@ -1891,9 +1894,12 @@ KEEP_PLAN는 한 번 생성된 플랜이 참조하는 테이블의 통계 정보
 
 #### LEADING
 
-힌트에 사용된 테이블들을 먼저 조인되도록 한다.
+힌트에 사용된 테이블들을 먼저 조인되도록 한다. 두 개 이상의 LEADING 힌트를 사용한
+경우에는 처음 LEADING 힌트만 효과가 있다. ORDERED 힌트와 함께 사용된 경우에는 
+ORDERED 힌트가 무시된다. 힌트에 사용된 테이블에 Lateral View를 명시한 경우에는 
+효과가 없다.
 
-![](media/SQL/d7925f2e0025071a87646b15d2fee986.png)
+![](media/SQL/leading.gif)
 
 #### MERGE_AJ
 
@@ -1927,7 +1933,7 @@ KEEP_PLAN는 한 번 생성된 플랜이 참조하는 테이블의 통계 정보
 
 ![nl_sj](media/SQL/nl_sj.gif)
 
-#### NO DELAY 
+#### NO_DELAY 
 
 쿼리의 프로퍼티와 상관없이 실행 계획의 그래프를 기준으로 hierarchy, sorting,
 windowing, grouping, set, distinction의 실행(execute)이 패치(fetch)에서
@@ -1953,7 +1959,7 @@ CNF힌트와 같은 동작을 한다.
 명시된 인덱스를 사용해서 해당 테이블에 대한 인덱스 스캔을 수행하지 않도록
 지시하는 힌트이다.
 
-![no index](media/SQL/no index.gif)
+![no index](media/SQL/no%20index.gif)
 
 #### NO_INDEX
 
@@ -3132,7 +3138,7 @@ Alter success.
 
 **alter_sequence ::=**
 
-![](media/SQL/47068a33f6105def77759ac8433a2974.png)
+![](media/SQL/alter_sequence.gif)
 
 **sequence_options ::=**
 
@@ -3160,6 +3166,16 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 *seq_name*
 
 변경될 시퀀스 이름이다.
+
+*restart clause*
+
+아래 세가지 형태가 가능하다.
+- RESTART
+  - START VALUE를 INCREMENT VALUE가 1 이상이면 MIN VALUE로, INCREMENT VALUE가 -1 이하이면 MAX VALUE로 초기화하고, SEQUENCE 를 재시작한다.
+- RESTART WITH N
+  - START VALUE를 N으로 초기화하고, SEQUENCE 를 재시작한다.
+- RESTART START WITH N
+  - 위에 기술한 RESTART WITH N 와 동일하다.
 
 *INCREMENT BY*
 
@@ -3308,6 +3324,8 @@ iSQL> ALTER SEQUENCE seq1 ENABLE SYNC TABLE;
 **add_table_partition ::=**
 
 ![image56_add_table_partition](media/SQL/image56_add_table_partition.gif)
+
+[partition_range_clause ::=](#partition_range_clause) 
 
 **alter_partition ::=**
 
@@ -3529,11 +3547,25 @@ CREATE TABLE의 parallel_clause 설명을 참고한다.
 
 *add_table_partition*
 
-이는 파티션드 테이블에 파티션을 추가하는 절이다. 이 절은 해시 파티션드
-테이블에만 사용할 수 있다. 기존 파티션들에 로컬 인덱스가 이미 생성되어 있는
-경우, 추가된 파티션에도 로컬 인덱스가 자동으로 생성된다. 이 때 로컬 인덱스의
+이는 파티션드 테이블에 한 개의 파티션을 추가하는 절이다. 이 절은 해시 파티션드
+테이블 또는 기본 파티션이 생략된 범위 파티션드 테이블에만 사용할 수 있다.
+
+partition_spec 절은 해시 파티션드 테이블에만 사용할 수 있다.
+
+partition_range_clause 절은 범위 파티션드 테이블에만 사용할 수 있으며,
+범위 파티션드 테이블의 마지막 범위의 파티션을 추가하는 구문이다.
+SPLIT 파티션 연산과 다르게 데이터가 이동하지 않기 때문에 DML문과의 동시성을 보장할 수 있다.
+
+기존 파티션들에 로컬 인덱스가 이미 생성되어 있는 경우, 
+추가된 파티션에도 로컬 인덱스가 자동으로 생성된다. 이 때 로컬 인덱스의
 이름은 시스템에 의해 자동으로 결정되고, 그 인덱스는 새로 추가된 파티션과 같은
 테이블스페이스에 저장된다.
+
+> 주의 
+>
+> - 범위 파티션드 테이블의 기본 파티션을 추가 할 수 없다.
+> - 범위 파티션드 테이블의 범위 중간에 파티션을 추가할 수 없다.
+>   SPLIT 파티션 연산을 사용해야한다.
 
 *partition_spec*
 
@@ -3590,6 +3622,8 @@ SPLIT PARTITION, MERGE PARTITION, 또는 ADD PARTITION을 실행할 경우 새�
 이 절은 파티션을 제거하는데 사용된다. 파티션에 있는 데이터와 함께 로컬 인덱스도
 제거된다. 데이터를 삭제하지 않으려면, 파티션을 DROP을 하기 전에 다른 파티션과
 합병(MERGE)한다.
+
+> 주의 : 범위, 리스트 파티션드 테이블의 기본 파티션을 삭제 할 수 없다.
 
 *merge_table_partition*
 
@@ -3664,9 +3698,9 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 
 *modify_column_clause*
 
-기존 칼럼의 자료형(data type)을 변경한다.
+기존 칼럼의 자료형(data type)을 변경하거나 공간 객체 타입인 경우 SRID의 값을 변경한다.
 
-기존 칼럼의 자료형(data type)을 변경한다. SRID는 4바이트 범위 내의 정수를 사용할 수 있다. 만약 SRID의 값을 변경할 경우 테이블에 입력된 값과 일치하는 값만 선택할 수 있다.
+SRID는 4바이트 범위 내의 정수를 사용할 수 있다. 만약 SRID의 값을 변경할 경우 테이블에 입력된 값과 일치하는 값만 선택할 수 있다.
 
 다음의 표는 특정 자료형이 다른 자료형으로 변경이 가능한지 여부를 나타낸다. △로
 표시한 부분은 자료형을 변경했을 때, 테이블의 데이터가 NULL이 아닌 경우 자료
@@ -4458,8 +4492,6 @@ ALTER TABLE T6 ADD PARTITION P2 INDEX ( T6_IDX PARTITION T6_P2_IDX );
 ```
 ALTER TABLE T4 MERGE PARTITIONS P1, P2 INTO PARTITION P1 INDEX ( T4_IDX
 PARTITION T4_P1_IDX );
-
-
 ```
 
 \<질의\> 범위 파티션드 테이블 T4에서 기본 파티션인 P1를 100을 기준으로 분리한다.
@@ -5446,6 +5478,7 @@ Comment created.
   테이블로 변환된 대상 테이블의 관련 메타 테이블은 모두 삭제된다.
 - 대상 테이블과 관련된 PSM, 패키지, 뷰는 사용할 수 없다.
 - 해시 파티션드 테이블은 지원하지 않는다.
+- 기본 파티션이 생략된 파티션드 테이블은 지원하지 않는다.
 - 생성되는 파티션드 테이블의 스키마는 대상 테이블의 스키마와 동일해야 한다.
   대상 테이블은 칼럼 개수와 이름, 순서와 자료형, in row와 compressed logging
   옵션, CHECK 및 NOT NULL 제약조건이 전부 동일해야 한다.
@@ -6081,7 +6114,7 @@ R-Tree 인덱스를 생성하도록 지시한다. 이는 다차원 데이터 처
 - INITRANS 절  
   TTS(Touched Transaction Slot)의 초기 개수를 지정한다. 기본값은 8개이다.
 - MAXTRANS 절  
-  TTS의 최대 개수를 지정한다. 기본값은 30개이다.
+  TTS의 최대 개수를 지정한다. 기본값은 50개이다.
 
 *TABLESPACE 절*
 
@@ -6761,17 +6794,17 @@ MINVALUE의 차이보다 작아야 한다.
 
 *MAXVALUE*
 
-시퀀스의 최대값을 명시한다. 이는 -9223372036854775807부터
+시퀀스의 최대값을 명시한다. 이는 -9223372036854775805부터
 9223372036854775806까지의 범위내에서 지정 가능하다. 생략할 경우, INCREMENT BY의
 값이 0보다 크면 기본값은 9223372036854775806이다. INCREMENT BY의 값이 0보다
 작으면, 기본값은 -1이다.
 
 *MINVALUE*
 
-시퀀스의 최소값을 명시한다. 이는 -9223372036854775807부터
-9223372036854775806까지의 범위내에서 지정 가능하다. 생략할 경우, INCREMENT BY의
+시퀀스의 최소값을 명시한다. 이는 -9223372036854775806부터
+9223372036854775805까지의 범위내에서 지정 가능하다. 생략할 경우, INCREMENT BY의
 값이 0보다 크면 기본값은 1이다. INCREMENT BY의 값이 0보다 작으면, 기본값은
--9223372036854775807이다.
+-9223372036854775806이다.
 
 *CYCLE*
 
@@ -7383,7 +7416,7 @@ MY_DEPT.MEMBER
 
 **range_partitioning ::=**
 
-![range_partitioning_image124](media/SQL/range_partitioning_image124.gif)
+![range_partitioning_image124](media/SQL/image124_2.gif)
 
 **partition_default_clause ::=**
 
@@ -7397,6 +7430,8 @@ MY_DEPT.MEMBER
 
 [lob_column_properties ::=](#lob_column_properties)*,* [access_mode_clause
 ::=](#access_mode_clause_CREATETALBE)
+
+<a name="partition_range_clause"></a>
 
 **partition_range_clause ::=**
 
@@ -7759,8 +7794,43 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 최대값을 설정함으로써 결정된다.
 
 명시된 범위 외의 모든 값과 NULL은 기본 파티션(default partition)에 속하게 된다.
-기본 파티션 절은 생략할 수 없다. 여러 칼럼들의 조합으로 파티션 키를 정의할 수
-있다.
+여러 칼럼들의 조합으로 파티션 키를 정의할 수 있다.
+
+범위 파티션드 테이블 생성시 기본 파티션 절은 생략할 수 있다.
+기본 파티션 절이 생략된 경우에만 ALTER TABLE ADD PARTITION 구문을 사용할 수 있다.
+
+> 주의 : 
+>
+> - 기본 파티션을 추가 또는 삭제할 수 없습니다. 즉, ATLER TABLE ADD , DROP PARTITION 구문을 지원하지 않습니다. 범위 파티션테이블을 생성시 주의해야한다.
+>
+> - 파티션 키 컬럼의 값으로 NULL을 삽입해야 하는 경우 기본파티션이 반드시 있어야한다.
+>
+> - 기본 파티션이 없는 경우  CONJOIN/DISJOIN 구문을 지원하지 않습니다.
+
+> 참고 : 기본 파티션 절을 생략한 경우 SYS_TABLE_PARTITIONS_에 이름이 ""(NULL)인 파티션이 생성된다.
+>
+> ```
+> CREATE TABLE t1 ( i1 INT, i2 INT)
+> PARTITION BY RANGE ( i1 )
+> ( PARTITION p1 VALUES LESS THAN (10),
+>   PARTITION p2 VALUES LESS THAN (20)
+> );
+> 
+> SELECT PARTITION_NAME as p_name
+>  , PARTITION_MIN_VALUE as min
+>  , PARTITION_MAX_VALUE as max
+> FROM SYSTEM_.SYS_TABLES_ T,
+>  SYSTEM_.SYS_TABLE_PARTITIONS_ p
+> WHERE T.USER_ID = 2 
+>  AND T.TABLE_NAME = 'T1'
+>  AND T.TABLE_ID = P.TABLE_ID;
+> P_NAME  MIN     MAX
+> ----------------------------
+> P1              10
+> P2      10      20
+>         20
+> 3 rows selected.
+> ```
 
 *table_partition_description*
 

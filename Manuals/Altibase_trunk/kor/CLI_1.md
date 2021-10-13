@@ -2861,6 +2861,11 @@ SQL_ERROR
     NORMAL 및 SHUTDOWN IMMEDIATE를 수행할 수 없다.
 -   PORT_NO  
     연결 포트 번호
+-   ALTERNATESERVERS  
+    -   connection time failover시와 session time failover시에 사용될수 있는 추가 접속서버들을 기록한다. 
+    -   예시 : AlternateServers=(192.168.3.54:20300,192.168.3.53:20300)
+-   LOADBALANCE
+    - ON 혹은 OFF 값을 갖을 수 있고, 기본값은 OFF 이다. 이 값이 on 인 경우에, 최초 접속시 접속가능 서버중 랜덤으로 접속시도한다. 그리고, session time failover시에는 접속되어있었던 서버에 먼저 접속 시도, 그 후 기존 접속 서버는 제외하고, 랜덤으로 접속시도 한다.
 -   NLS_USE  
     사용언어 지정 (US7ASCII : 영어, KO16KSC5601 : 한국어)
 -   NLS_NCHAR_LITERAL_REPLACE  
@@ -2950,86 +2955,6 @@ prepare 수행의 결과가 반드시 필요한 함수는 다음과 같다: SQLE
 SQLColAttribute, SQLDescribeCol, SQLDescribeParam, SQLNumParams,
 SQLNumResultCols
 
-Deferred prepare 기능을 사용하기 위해서는 애플리케이션 내에서 한 statement
-핸들에 대한 SQLPrepare 함수와 SQLExeucte 함수 호출 사이에 다른 statement 핸들로
-SQLPrepare를 호출해서는 안 된다.
-
-\<Deferred prepare 기능이 사용되지 못 하는 예제\>
-
-1.  SQLPrepare가 반복적으로 호출되는 경우
-
-```
-for ( i = 0; i < MAX_STMT; i++ )
-{
-    rc = SQLPrepare( stmt[i], (SQLCHAR *)"SELECT I1 FROM T1 WHERE I2 = ?", SQL_NTS);
-    if ( rc == SQL_SUCCESS )
-    {
-          /*  .......... */
-    }
- 
-    rc = SQLBindParameter( stmt[i], 1, SQL_PARAM_INPUT, SQL_C_SLONG,
-                           SQL_INTEGER, 0, 0, & sIntData, sizeof(sIntData),
-                           & sIntLength );
-    if ( rc == SQL_SUCCESS )
-    {
-         /* ............. */
-    }
- 
-    rc = SQLBindCol( stmt[i], 1, SQL_C_CHAR, sCharData, sizeof(sCharData),
-                     & sCharLength );
-    if ( rc == SQL_SUCCESS )
-    {
-        /* ................*/
-    }
-}   
- 
-for ( i = 0; i < MAX_STMT; i++ )
-{
-    sIntData = 3;
- 
-    if ( SQLExecute(stmt[i]) == SQL_SUCCESS )
-    {
-          /* ................. */
-    }
- 
-    sFetchCount = 0;
-    while ( SQLFetch(stmt[i]) == SQL_SUCCESS )
-    {
-        sFetchCount++;
-    }
-    if ( sFetchCount == 1 )
-    {
-        // SUCCESS;
-    }
-    else
-    {
-        // FAILURE;
-        break;
-    }
-}
-
-```
-
-2. 여러 개의 statement 핸들이 번갈아 사용되는 경우
-
-```
-SQLPrepare( stmt1, (SQLCHAR *)"SELECT I001 FROM T_SQLCLI", SQL_NTS );
-
-SQLPrepare( stmt2, (SQLCHAR *)"SELECT I001, I002, I003 FROM T_SQLCLI", SQL_NTS );
-
-SQLPrepare( stmt3, (SQLCHAR *)"SELECT I001, I002, I003, I004, I005, I006, I007, I008, I009 FROM T_SQLCLI", SQL_NTS );
-
-SQLPrepare( stmt4, (SQLCHAR *)"SELECT I001, I002, I003, I004, I005, I006, I007, I008, I009, I010 FROM T_SQLCLI", SQL_NTS );   
-
-SQLPrepare( stmt5, (SQLCHAR *)"SELECT * FROM T_SQLCLI", SQL_NTS );
-
-rc = SQLNumResultCols( stmt1, &sNumResultCols[0] );
-if ( rc == SQL_SUCCESS)
-{   
-    printf("\t NumResultCols : %d\n", sNumResultCols[0]); 
-}
-
-```
 
 #### 진 단
 

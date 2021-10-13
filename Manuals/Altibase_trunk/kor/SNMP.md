@@ -1868,4 +1868,4 @@ ALTIBASE-MIB::altiStatusIndex.1 = INTEGER: 1
 
 ##### 답변
 
-ATIBASE MIB 전체가 출력되지 않을 경우, Altibase가 실행중인지 확인하기 바랍니다.
+ATLIBASE MIB 전체가 출력되지 않을 경우, Altibase가 실행중인지 확인하기 바랍니다.

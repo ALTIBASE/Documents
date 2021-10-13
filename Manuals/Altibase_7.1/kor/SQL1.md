@@ -1701,8 +1701,8 @@ PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 34, COST: 1.68 )
 | 액세스 방법                          | [FULL SCAN](#full-scan) [INDEX](#index) [INDEX ASC](#index-asc) INDEX_ASC [INDEX DESC](#index-desc) <br />INDEX_DESC [NO INDEX](#no-index) NO_INDEX |
 | 병렬 처리                            | [PARALLEL](#parallel) NO_PARALLEL                            |
 | 조인 순서                            | LEADING [ORDERED](#ORDERED)                                  |
-| 조인 방법                            | [USE_NL](#use_nl) [USE_FULL_NL](#use_full_nl) [USE_FULL_STORE_NL](#use_full_store_nl) [USE_INDEX_NL](#use_index_nl) <br />[USE_ANTI](#use_anti) [USE_HASH](#use_hash) [USE_ONE_PASS_HASH](#use_one_pass_hash) [USE_TWO_PASS_HASH](#use_two_pass_hash) <br />[USE_INVERSE_HASH](#use_inverse_hash) [USE_SORT](#use_sort) [USE_ONE_PASS_SORT](#use_one_pass_sort) <br />[USE_TWO_PASS_SORT](#use_two_pass_sort) [USE_MERGE](#use_inverse_hash) |
-| 중첩된 부질의 중첩 풀기 시 조인 방법 | [NL_SJ](#nl_sj) [HASH_SJ](#hash_sj) [SORT_SJ](#sort_sj) [MERGE_SJ](#merge_sj) [NL_AJ](#nl_aj) [HASH_AJ](#hash_aj) [SORT_AJ](#sort_aj) [MERGE_AJ](#merge_aj) [INVERSE_JOIN](#inverse_join) [NO_INVERSE_JOIN](#no_inverse_join) NO_USE_HASH NO_USE_MERGE <br />NO_USE_NL NO_USE_SORT |
+| 조인 방법                            | [USE_NL](#use_nl) [USE_FULL_NL](#use_full_nl) [USE_FULL_STORE_NL](#use_full_store_nl) [USE_INDEX_NL](#use_index_nl) <br />[USE_ANTI](#use_anti) [USE_HASH](#use_hash) [USE_ONE_PASS_HASH](#use_one_pass_hash) [USE_TWO_PASS_HASH](#use_two_pass_hash) <br />[USE_INVERSE_HASH](#use_inverse_hash) [USE_SORT](#use_sort) [USE_ONE_PASS_SORT](#use_one_pass_sort) <br />[USE_TWO_PASS_SORT](#use_two_pass_sort) [USE_MERGE](#use_inverse_hash) <br /> NO_USE_NL NO_USE_HASH NO_USE_MERGE NO_USE_SORT |
+| 중첩된 부질의 중첩 풀기 시 조인 방법 | [NL_SJ](#nl_sj) [HASH_SJ](#hash_sj) [SORT_SJ](#sort_sj) [MERGE_SJ](#merge_sj) [NL_AJ](#nl_aj) [HASH_AJ](#hash_aj) [SORT_AJ](#sort_aj) [MERGE_AJ](#merge_aj) [INVERSE_JOIN](#inverse_join) [NO_INVERSE_JOIN](#no_inverse_join) |
 | 쿼리 변환                            | [NO_MERGE](#no_merge) [NO_TRANSITIVE_PRED](#no_transitive_pred) [NO_UNNEST](#no_unnest) [UNNEST](#unnest) |
 | 중간 결과 저장 매체                  | [TEMP_TBS_DISK](#temp_tbs_disk) [TEMP_TBS_MEMORY](#temp_tbs_memory) |
 | 해시 버킷 크기                       | [GROUP BUCKET COUNT](#group-bucket-count) [HASH BUCKET COUNT](#hash-bucket-count) [SET BUCKET COUNT](#set-bucket-count) |
@@ -1711,7 +1711,10 @@ PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 34, COST: 1.68 )
 | 뷰 최적화 방법                       | [NO_PUSH_SELECT_VIEW](#no_push_select_view) [PUSH_SELECT_VIEW](#push_select_view) [PUSH_PRED](#push_pred) |
 | 단순 쿼리                            | [EXEC_FAST](#exec_fast) [NO_EXEC_FAST](#no_exec_fast)        |
 | 단순 필터                            | [SERIAL_FILTER](#serial_filter) [NO_SERIAL_FILTER](#no_serial_filter)        |
-| 그 외                                | [APPEND](#append) [DELAY](#delay) HIGH_PRECISION [KEEP_PLAN](#keep_plan) [NO DELAY](#no-delay) <br />[NO_PLAN_CACHE](#no_plan_cache) RESULT_CACHE TOP_RESULT_CACHE<br />[PLAN_CACHE_KEEP](#PLAN_CACHE_KEEP) |
+| 그 외                                | [APPEND](#append) [DELAY](#delay) [NO_DELAY](#no-delay) HIGH_PRECISION [KEEP_PLAN](#keep_plan) <br />[NO_PLAN_CACHE](#no_plan_cache) RESULT_CACHE TOP_RESULT_CACHE<br />[PLAN_CACHE_KEEP](#PLAN_CACHE_KEEP) |
+
+ALTIBASE 는 모든 힌트에 대해 운영 프로그램을 수정하지 않고 ALTIBASE 에만 적용되는 힌트를 제공한다.
+기존 힌트에 'ALTI_' 접두사를 붙여 사용하며 두 개 이상의 키워드로 구성된 힌트일 경우 space 를 under bar 로 대체한 후 'ALTI_' 접두사를 붙여 사용한다.
 
 #### APPEND
 
@@ -1782,13 +1785,13 @@ QUERY가 적용된 경우 실행 계획에 출력된다.
 
 명시한 테이블에 대해 테이블 전체 스캔을 수행할 것을 지시하는 힌트이다.
 
-![full scan](media/SQL/full scan.gif)
+![full scan](media/SQL/full%20scan.gif)
 
 #### GROUP BUCKET COUNT
 
 GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![group bucket count](media/SQL/group bucket count.gif)
+![group bucket count](media/SQL/group%20bucket%20count.gif)
 
 #### GROUP_HASH
 
@@ -1814,7 +1817,7 @@ GROUP-AGGREGATION과 AGGREGATION 실행 노드의 해시 버킷 수를 지정하
 
 HASH와 DISTINCT 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
-![hash bucket count](media/SQL/hash bucket count.gif)
+![hash bucket count](media/SQL/hash%20bucket%20count.gif)
 
 #### HASH_SJ
 
@@ -1859,7 +1862,7 @@ INDEX ASC힌트와 같은 동작을 한다.
 명시된 인덱스를 사용하여 해당 테이블에 대해서 인덱스 스캔을 수행하되, 내림
 차순으로 탐색한다.
 
-![index desc](media/SQL/index desc.gif)
+![index desc](media/SQL/index%20desc.gif)
 
 #### INDEX_DESC
 
@@ -1891,9 +1894,12 @@ KEEP_PLAN는 한 번 생성된 플랜이 참조하는 테이블의 통계 정보
 
 #### LEADING
 
-힌트에 사용된 테이블들을 먼저 조인되도록 한다.
+힌트에 사용된 테이블들을 먼저 조인되도록 한다. 두 개 이상의 LEADING 힌트를 사용한
+경우에는 처음 LEADING 힌트만 효과가 있다. ORDERED 힌트와 함께 사용된 경우에는 
+ORDERED 힌트가 무시된다. 힌트에 사용된 테이블에 Lateral View를 명시한 경우에는 
+효과가 없다.
 
-![](media/SQL/d7925f2e0025071a87646b15d2fee986.png)
+![](media/SQL/leading.gif)
 
 #### MERGE_AJ
 
@@ -1927,7 +1933,7 @@ KEEP_PLAN는 한 번 생성된 플랜이 참조하는 테이블의 통계 정보
 
 ![nl_sj](media/SQL/nl_sj.gif)
 
-#### NO DELAY 
+#### NO_DELAY 
 
 쿼리의 프로퍼티와 상관없이 실행 계획의 그래프를 기준으로 hierarchy, sorting,
 windowing, grouping, set, distinction의 실행(execute)이 패치(fetch)에서
@@ -1953,7 +1959,7 @@ CNF힌트와 같은 동작을 한다.
 명시된 인덱스를 사용해서 해당 테이블에 대한 인덱스 스캔을 수행하지 않도록
 지시하는 힌트이다.
 
-![no index](media/SQL/no index.gif)
+![no index](media/SQL/no%20index.gif)
 
 #### NO_INDEX
 
@@ -3399,7 +3405,7 @@ iSQL> ALTER SEQUENCE seq1 ENABLE SYNC TABLE;
 
 **modify_column_spec::=**
 
-![image71_modify_column_spec](media/SQL/image71_modify_column_spec.gif)
+![image71_modify_column_spec](media/SQL/modify_column_spec.gif)
 
 **drop_column_clause::=**
 
@@ -3666,7 +3672,9 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 
 *modify_column_clause*
 
-기존 칼럼의 자료형(data type)을 변경한다.
+기존 칼럼의 자료형(data type)을 변경하거나  공간객체 타입인 경우 SRID의 값을 변경한다.
+
+SRID는 4바이트 범위 내의 정수를 사용할 수 있다. 만약 SRID의 값을 변경할 경우 테이블에 입력된 값과 일치하는 값만 선택할 수 있다.
 
 다음의 표는 특정 자료형이 다른 자료형으로 변경이 가능한지 여부를 나타낸다. △로
 표시한 부분은 자료형을 변경했을 때, 테이블의 데이터가 NULL이 아닌 경우 자료
@@ -3917,6 +3925,7 @@ SCN(System Commit Number)을 증가시켜 옵티마이저가 테이블이 변경
   시간 값이 입력된다. 따라서 ALTIER TABLE SET/DROP DEFAULT 문을 이용하여 DEFAULT를
   변경 또는 삭제할 수 없다. 자세한 설명은 CREATE TABLE 문을
   참고한다.
+- GEOMETRY 칼럼의 SRID를 변경할 때, 테이블에 입력된 값과 일치하는 값만 선택할 수 있다. 예를 들어 테이블 안에 100, 101, 102를 SRID로 갖는 값이 입력된 경우 어떤 값으로도 변경할 수 없다. 
 
 #### 예제
 
@@ -6760,17 +6769,17 @@ MINVALUE의 차이보다 작아야 한다.
 
 *MAXVALUE*
 
-시퀀스의 최대값을 명시한다. 이는 -9223372036854775807부터
+시퀀스의 최대값을 명시한다. 이는 -9223372036854775805부터
 9223372036854775806까지의 범위내에서 지정 가능하다. 생략할 경우, INCREMENT BY의
 값이 0보다 크면 기본값은 9223372036854775806이다. INCREMENT BY의 값이 0보다
 작으면, 기본값은 -1이다.
 
 *MINVALUE*
 
-시퀀스의 최소값을 명시한다. 이는 -9223372036854775807부터
-9223372036854775806까지의 범위내에서 지정 가능하다. 생략할 경우, INCREMENT BY의
+시퀀스의 최소값을 명시한다. 이는 -9223372036854775806부터
+9223372036854775805까지의 범위내에서 지정 가능하다. 생략할 경우, INCREMENT BY의
 값이 0보다 크면 기본값은 1이다. INCREMENT BY의 값이 0보다 작으면, 기본값은
--9223372036854775807이다.
+-9223372036854775806이다.
 
 *CYCLE*
 

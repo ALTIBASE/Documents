@@ -1,7 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [General Reference](#general-reference)
   - [2.Altibase 프로퍼티](#2altibase-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [세션 관련 프로퍼티](#%EC%84%B8%EC%85%98-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
@@ -15,7 +14,6 @@
     - [감사 관련 프로퍼티](#%EA%B0%90%EC%82%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [에이전트 관련 프로퍼티](#%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [사용자 계정 보안 관련 프로퍼티](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EB%B3%B4%EC%95%88-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [Altibase Sharding 관련 프로퍼티](#altibase-sharding-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [기타 프로퍼티](#%EA%B8%B0%ED%83%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1279,7 +1277,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 3]
+[0, 2]
 
 ##### 설명
 
@@ -2041,57 +2039,62 @@ Unsigned Integer
 
 이중화 대상 테이블에 사용할 수 있는 DDL 구문의 범위를 결정한다. 이 프로퍼티를
 사용하려면 먼저 REPLICATION_DDL_ENABLE 프로퍼티의 값을 1로 설정해야 한다.
-REPLICATION_DDL_ENABLE_LEVEL 값에 따라 허용되는 DDL 구문은 아래와 같다.
+REPLICATION_DDL_ENABLE_LEVEL 값에 따라 허용되는 DDL 구문은
+ *Replication Manual*을 참조한다.
 
-- REPLICATION_DDL_ENABLE_LEVEL = 0
+Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
+#### REPLICATION_DDL_SYNC
 
-ALTER TABLE table_name DROP COLUMN column_name;
+##### 데이터 타입
 
-ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT
+Unsigned Integer
 
-ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT
+##### 기본값
 
-ALTER TABLE table_name TRUNCATE PARTITION
+0
 
-TRUNCATE TABLE table_name;
+##### 속성
 
-CREATE INDEX index_name ON table_name ( column_name );
+변경 가능, 단일 값
 
-DROP INDEX index_name; -- for Normal Index
+##### 값의 범위
 
-- REPLICATION_DDL_ENABLE_LEVEL = 1
+[0, 1]
 
-ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
+##### 설명
 
-ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
+이중화중 DDL 복제 여부를 나타낸다.
 
-ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
+0 : 이중화중 DDL 복제를 허용하지 않음.  DDL 수행 시 이중화 지역 서버 ( Local Server ) 에서만 수행된다.   
 
-ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
+1 : 이중화중 DDL 복제를 허용함.  DDL 수행 시 이중화 원격 서버 ( Remote Server )에 DDL 이 복제된다.   
 
-ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
-ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
+#### REPLICATION_DDL_SYNC_TIMEOUT ( 단위 : 초 )
 
-ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
+##### 데이터 타입
 
-ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique,
-function-base index 가 있는 컬럼도 삭제 가능)
+Unsigned Integer
 
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
+##### 기본값
 
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name )
-LOCAL;
+7200
 
-ALTER TABLE table_name DROP CONSTRAINT constraint_name; ( Unique, Local Unique )
+##### 속성
 
-CREATE UNIQUE INDEX index_name ON table_name ( column_name );
+변경 가능, 단일 값
 
-CREATE INDEX index_name ON table_name ( expression );
+##### 값의 범위
 
-DROP INDEX index_name; ( unique, function-base 인덱스도 삭제 가능 )
+[0, 2<sup>32</sup>-1]
+
+##### 설명
+
+DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 이중화 지역, 원격 서버 모두 취소된다.
+DDL 복제를 수행하는 이중화 지역서버를 기준으로 Timeout 값이 측정된다.
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
 #### REPLICATION_EAGER_PARALLEL_FACTOR
 
@@ -2866,6 +2869,30 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+20000
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup>-1]
+
+##### 설명
+
+Applier 가 다른 Applier 의 Transaction 반영 대기시 시스템 함수인 yield 를 이용하여 대기 하는 횟수.
+
+yield 함수를 사용시 CPU 사용을 하기 때문에 이 횟수 이상 호출 이후에는 CPU 자원을 사용안하는 timed_wait 함수를 호출 한다.
+
 #### REPLICATION_RECOVERY_MAX_LOGFILE
 
 ##### 데이터 타입
@@ -3166,18 +3193,17 @@ Unsigned Integer
 
 ##### 설명
 
-Lazy 모드로 이중화를 수행할 경우, Active 서버와 Standby 서버의 이중화 테이블의
-메타 정보가 동일하지 않고 아래의 조건일 때 SQL 문으로 반영된다.
+Lazy 모드로 이중화 수행 과정에서 Active 서버와 Standby 서버의 이중화 테이블 메타 정보가 다른 경우, 아래의 조건에 따라 XLog가 SQL 문으로 변환되어 반영된다.
 
-- 0: SQL문으로 반영되지 않는 모든 DDL 문이 Binary로 반영된다. 이 때 메타
-  정보가 다르면 핸드쉐이크시 에러가 발생한다.
-- 1: 아래의 조건일 때, 이중화를 시작하면 DDL이 SQL 문으로 반영된다.
+- 0: XLog를 이용하여 이중화가 동작한다. 이때, 메타 정보가 다르면 Handshaking 에러가 발생한다.
+- 1: 아래의 조건에서 이중화를 수행하면, XLog가 SQL 문으로 변환이 되어 이중화 테이블에 반영한다.
 - 컬럼 정보  
   데이타 타입이 다를 경우  
   size, precision, scale 이 다를 경우
 - 제약 조건  
   check 제약 조건이 다를 경우  
-  Not Null 제약 조건이 다를 경우
+  Not Null 제약 조건이 다를 경우  
+  다른 메타 정보 중 LOB 컬럼이 포함된 경우
 - 인덱스  
   유니크 인덱스나 Function-based 인덱스가 이중화 대상 컬럼과 이중화 대상이
   아닌 컬럼으로 구성되어 있을 경우  
@@ -3209,6 +3235,10 @@ Unsigned Integer
 
 - 0: Normal Insert
 - 1: Direct-Path Insert
+
+이중화 SYNC 과정에서 Direct-Path Insert 방식을 이용할 경우, 
+데이터 동기화 이후 Index를 재생성한다. 따라서, 이중화 SYNC 과정이 도중에 실패할 경우, 
+Index inconsistent 가 발생할 수 있다.
 
 Direct-Path Insert에 대한 자세한 설명은 *Administrator’s Manual*을 참조하기
 바란다. Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수
@@ -3400,6 +3430,33 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Lazy 모드로 이중화 수행 과정에서 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을 
+수행하여 Active 서버와 Standby 서버의 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에 이중화를 
+START 할 수 있는 프로퍼티이다.
+이 값을 1로 설정하면 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에도 이중화를 START 할 수 있다.
+
+Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
 ### 네트워크 관련 프로퍼티
 
 #### IB_CONCHKSPIN
@@ -3541,7 +3598,7 @@ Unsigned Integer
 
 ##### 기본값
 
-0
+20300
 
 ##### 속성
 
@@ -6209,48 +6266,22 @@ String
 
 패스워드를 검증할 사용자 정의 콜백 함수(CALLBACK function)를 지정한다.
 
-### Altibase Sharding 관련 프로퍼티
-
-#### SHARD_META_ENABLE 
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Altibase Sharding의 메타 노드로 설정한다.
-
-0: Disabled
-
-1: Enabled
-
 ### 기타 프로퍼티 
 
 #### ACCESS_LIST
 
 ##### 형식
 
-ACCESS_LIST = operation, address, mask
+ACCESS_LIST = operation, address, mask, [limit]
 
 ##### 값의 범위
 
 - operation ::= [PERMIT\|DENY]  
   검사 규칙과 일치하는 IP 패킷의 접근을 허용할 것인지 제한할 것인지 기술한다.
+  
 - address  
   검사할 패킷의 IP 주소를 기술한다.
+  
 - mask  
   명시한 주소값이 IPv4 주소 형식이면, 이것은 서브넷 마스크로, 패킷의 IP 주소
   중, 특정 부분만 검사하도록 설정한다.  
@@ -6258,6 +6289,14 @@ ACCESS_LIST = operation, address, mask
   prefix비트의 길이를 나타낸다. 즉, 등록된 주소의 마스크 비트 길이에 해당하는
   값이 접근하는 패킷의 IP 주소의 마스크 비트 길이에 해당하는 값과 일치한다면
   접근이 허용된다.
+  
+- limit
+
+  선택 입력 항목으로 ACCESS_LIST에 명시된 접속 가능한 IP 주소 영역에서 허용되는 최대 접속 세션 개수를 지정한다.
+
+  limit 값을 입력하면 모든 접속 요청에 대해 limit 조건 검사를 수행한다. 따라서, 허용된 IP의 접속 요청도 limit 개수를 초과하면 접속을 허용하지 않는다. 값을 입력하지 않으면 limit 조건을 검사하지 않는다.
+
+  운영 중 RELOAD ACCESS LIST로 ACCESS_LIST를 추가하면, 기존에 연결된 세션은 영향을 받지 않으며, 변경 이후 새로운 연결 요청에 대해서만 ACCESS_LIST 조건이 적용된다. 예를 들어 ACCESS_LIST에 limit값을 설정 후 RELOAD ACCESS LIST 수행하면, 적용 이후 새로운 연결에 대해서만 limit 값이 적용된다. 이런 경우, V$ACCESS_LIST 조회시 Limit 값보다 CONNECTED 값이 더 클 수도 있다.
 
 ##### 검사 규칙
 
@@ -6315,6 +6354,14 @@ deny, 0.0.0.0, 0.0.0.0
 deny, ::1, 1
 deny, fe80::, 1
 ```
+
+192.168.3.17 주소의 세션 접근 허용 개수를 5개로 제한한다.
+
+```
+ACCESS_LIST = permit, 192.168.3.17, 255.255.255.255, 5
+```
+
+
 
 **ACCESS_LIST_FILE**
 

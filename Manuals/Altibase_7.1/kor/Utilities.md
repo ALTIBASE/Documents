@@ -510,9 +510,27 @@ altibase.properties 순이며 설정되지 않았을 경우에는 데이터베�
 주의) 서버 캐릭터 셋과 ALTIBASE_NLS_USE에 설정한 값이 다를 경우에는 정상적으로
 동작하지 않을 수 있다. 반드시 적절한 값을 설정할 것을 권장한다.
 
+##### ALTIBASE_UT_FILE_PERMISSION
 
+aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공통 환경변수이다. 
+값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
 
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ALTIBASE_UT_FILE_PERMISSION=600
 
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
+
+예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다. 
+aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+
+##### AEXPORT_FILE_PERMISSION
+
+aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export AEXPORT_FILE_PERMISSION=600 
 
 ### aexport사용방법
 
@@ -755,30 +773,7 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
     그대로 적용된다.
 
 -   대상 데이터베이스에 SSL 접속을 원한다면 프로퍼티 파일에 SSL 관련 프로퍼티를
-    설정해야 한다. 자세한 설명은 aexport 프로퍼티 절의 ILOADER_ARRAY  
-    ILOADER_ARRAY = *count* (기본값: 1)  
-    iLoader로 데이터를 다운로드 또는 업로드 할 때 한 번에 처리할 row 개수를
-    지정한다.
-
--   ILOADER**\_**COMMIT  
-    ILOADER**\_**COMMIT = *count* (기본값: 1000)  
-    iLoader로 데이터를 업로드할 때 커밋할 단위(개수)를 지정한다. 이 프로퍼티로
-    -commit옵션의 값을 지정할 수 있다.
-
--   ILOADER_PARALLEL  
-    ILOADER_PARALLEL = *count* (기본값: 1)  
-    iLoader로 데이터를 다운로드 또는 업로드 할 때 병렬로 처리할 쓰레드 개수를
-    지정한다.
-
--   ILOADER_ASYNC_PREFETCH  
-    ILOADER_ASYNC_PREFETCH = OFF\|ON\|AUTO (기본값 OFF)  
-    iLoader로 데이터를 다운로드할 때 비동기 prefetch 동작을 설정한다. 자세한
-    설명은 iLoader User's Manual의  
-    '-async_prefetch' 옵션을 참고하기 바란다.
-
--   SSL_ENABLE 프로퍼티를 참조하기 바란다.
-
-
+    설정해야 한다. 자세한 설명은 aexport 프로퍼티 절의 SSL_ENABLE 프로퍼티를 참조하기 바란다.
 
 #### aexport 프로퍼티
 
@@ -1473,6 +1468,11 @@ MOSO 불일치에 대한 SU정책을 지정. 해당 레코드의 Slave DB에서 
 운영하기 위한 쓰레드의 개수를 지정한다. 작업하려는 쓰레드의 개수를 제한 없이
 사용하려면 “-1”을 명시한다.
 
+##### COUNT_TO_COMMIT
+
+변경된 데이터(Insert, Delete, or Update)를 몇 건 단위로 커밋할 것인가를 나타내는 
+단위 옵션이다. 기본값은 1000건 단위로 커밋한다.
+
 ##### FILE_MODE_MAX_ARRAY
 
 이 값이 1보다 크면 작업 대상 테이블의 데이터를 파일에 저장한 후, 파일의 데이터에
@@ -1487,6 +1487,46 @@ csv 형식으로 파일에 저장한다.
 이 옵션은 Altibase 서버간의 SYNC 또는 DIFF 작업 시에만 사용할 수 있다.
 
 예) FILE_MODE_MAX_ARRAY = 1000
+
+##### DIFF LOG 옵션
+
+DIFF는 Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주요 키(Primary Key)를 
+기준으로 레코드 값을 비교하여 실행 결과 파일에 기록하는 작업이다. 네가지 유형의 레코드 
+비교 결과를 실행 결과 파일에 기록 여부를 설정할 수 있도록 각각의 프로퍼티를 제공한다.
+
+프로퍼티 값은 “ON”, “OFF”를 가질 수 있으며, “ON”이면 기록하고, “OFF”이면 기록
+하지 않는다. 프로퍼티를 지정하지 않으면 기본값에 따라 동작한다.
+
+1. ###### LOG_EQ_MOSO
+
+   PK를 포함한 모든 컬럼의 값이 일치하는 레코드 (EQ_MOSO)를 실행 결과 파일에 
+   기록할 지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "OFF"로 동작한다.
+
+   이 옵션은 대용량 테이블을 비교할 때, 실행 결과 파일 용량이 커질 수 있으므로 주의해서 
+   사용해야 한다.
+
+2. ###### LOG_DF_MOSO
+
+   PK는 동일하지만 나머지 컬럼값 중 하나라도 일치하는 않는 레코드 (DF_MOSO)를 
+   실행 결과 파일에 기록할 지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
+
+3. ###### LOG_MOSX
+
+   Master DB에는 있으나, Slave DB에는 없는 레코드 (MOSX) 를 실행 결과 파일에 기록할 
+   지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
+
+4. ###### LOG_MXSO
+
+   Master DB에는 없지만, Slave DB에는 있는 레코드 (MXSO) 를 실행 결과 파일에 기록할 
+   지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
 
 #### TABLES 그룹 
 
@@ -1587,6 +1627,7 @@ Fetch Rec In Slave : 2
 MOSX = DF, Count :          1
 MXSO = DF, Count :          0
 MOSO = DF, Count :          1
+MOSO = EQ, Count :          1
 
  SCAN TPS:   20547.95
      Time:       0.00 sec
@@ -3282,19 +3323,19 @@ altiMon은 주로 OS 정보와 DB 정보를 모니터링하며, 자세한 설명
 altiMon은 OS 정보를 수집하기 위해 C언어로 작성된 PICL 라이브러리를 사용한다.
 PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
-| OS    | CPU          | Version                      | PICL Library                |
-|-------|--------------|------------------------------|-----------------------------|
-| AIX   | ppc64        | OS Version 5.3, 6.1, 7.1     | aix-ppc64-5.so              |
-| HP-UX | ia64         | IA64                         | hpux-ia64-11.sl             |
-| LINUX | X86_64 ppc64 | OS Version 2.6 glibc 2.5이상 | linux-x64.so linux-ppc64.so |
+| OS    | CPU                   | Version                           | PICL Library                     |
+| ----- | --------------------- | --------------------------------- | -------------------------------- |
+| AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1          | aix-ppc64-5.so                   |
+| HP-UX | ia64                  | IA64                              | hpux-ia64-11.sl                  |
+| LINUX | X86_64</br> ppc64(le) | OS Version 2.6</br> glibc 2.5이상 | linux-x64.so </br>linux-ppc64.so |
 
 지원하지 않는 OS 버전에서 아래 방법으로 하위 버전용 PICL이 동작하는지를 확인한 후에 사용할 수도 있다.
 
   ```
   $ cd $ALTIBASE_HOME/altiMon # java -Dpicl="<picl_lib_file>" -jar lib/com.altibase.picl.jar
   ```
-  
-사용예)
+
+사용 예)
 
 지원하지 않는 버전의 AIX 운영체제에서 "aix-ppc64-5.so" PICL 라이브러리가 사용 가능한지 검증하고 altimon을 구동하는 절차이다.
 
@@ -3304,13 +3345,13 @@ PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
   $ cd $ALTIBASE_HOME/altiMon 
   $ java -Dpicl="aix-ppc64-5.so" -jar lib/com.altibase.picl.jar
   ```
-  
+
 2. 정상 동작이 검증된 후 $ALTIBASE_HOME/bin/altimon.sh 파일을 열어서 PICL_LIB 변수에 해당 PICL 파일을 설정한다.
 
   ```
   PICL_LIB=-Dpicl="aix-ppc64-5.so"
   ```
-  
+
 3. altimon을 구동한다
 
   ```
@@ -3339,22 +3380,23 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 
 모니터링 대상인 Altibase의 접속 정보와 altiMon 제어 정보를 설정하는 파일이다.
 
-| 태그 이름                                               | 필수 여부 | 설명                                                                                                                                                                                                         |
-|---------------------------------------------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL c 라이브러리가 없는 경우에 false로 지정한다.                                                       |
-| \<DateFormat\>                                          | 옵션      | 로그 기록시 사용할 날짜 시간 포맷 기본값: yyyy-MM-dd HH:mm:ss 설정 가능한 날짜 형식은 [자바 문서](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html) 참조한다.                    |
-| \<Interval\>                                            | 옵션      | 데이터 수집 주기. 기본값: 60 (초) \<OSMetric\>또는 \<SQLMetric\> 설정 부분에 Interval을 지정하지 않으면 여기에 설정한 값이 적용된다. 단, \<GroupMetric\>은 영향을 받지 않는다.                               |
-| \<LogDir\>                                              | 옵션      | 별도의 디스크 사용시 설정하면 된다. 설정하지 않으면 아래의 디렉토리가 기본으로 설정된다. \$ALTIBASE_HOME/altiMon/logs                                                                                        |
-| \<MaintenancePeriod\>                                   | 옵션      | 로그 파일 유지 기간 기본값: 3 (일)                                                                                                                                                                           |
-| \<Target Name='String'\>                                | 필수      | 모니터링 대상 데이터베이스 Name: 이름                                                                                                                                                                        |
-| \<HomeDirectory\>                                       | 옵션      | 알티베이스 홈 디렉토리를 절대 경로로 설정한다. 설정하지 않으면 ALTIBASE_HOME 환경변수 값이 사용된다.                                                                                                         |
+| 태그 이름                                               | 필수 여부 | 설명                                                         |
+| ------------------------------------------------------- | --------- | ------------------------------------------------------------ |
+| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL c 라이브러리가 없는 경우에 false로 지정한다. |
+| \<DateFormat\>                                          | 옵션      | 로그 기록시 사용할 날짜 시간 포맷 기본값: yyyy-MM-dd HH:mm:ss 설정 가능한 날짜 형식은 [자바 문서](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html) 참조한다. |
+| \<Interval\>                                            | 옵션      | 데이터 수집 주기. 기본값: 60 (초) \<OSMetric\>또는 \<SQLMetric\> 설정 부분에 Interval을 지정하지 않으면 여기에 설정한 값이 적용된다. 단, \<GroupMetric\>은 영향을 받지 않는다. |
+| \<LogDir\>                                              | 옵션      | 별도의 디스크 사용시 설정하면 된다. 설정하지 않으면 아래의 디렉토리가 기본으로 설정된다. \$ALTIBASE_HOME/altiMon/logs |
+| \<MaintenancePeriod\>                                   | 옵션      | 로그 파일 유지 기간 기본값: 3 (일)                           |
+| \<Target Name='String'\>                                | 필수      | 모니터링 대상 데이터베이스 Name: 이름                        |
+| \<HomeDirectory\>                                       | 옵션      | 알티베이스 홈 디렉토리를 절대 경로로 설정한다. 설정하지 않으면 ALTIBASE_HOME 환경변수 값이 사용된다. |
 | \<DBConnectionWatchdogCycle\>                           | 옵션      | DB connection watchdog 실행 주기 DB connection watchdog은 모니터링 대상인 데이터베이스가 shutdown된 후에 일정 시간을 주기로 데이터베이스에 접속을 시도하여 모니터링을 지속할 수 있도록 한다. 기본값: 60 (초) |
-| \<User\>                                                | 옵션      | 접속 사용자. 설정하지 않으면 SYS 사용자로 접속한다.                                                                                                                                                          |
-| \<Password Encrypted="Yes \| No"\>                      | 필수      | 비밀 번호 Encrypted 속성이 "No"일 때 사용자가 비밀번호를 등록하여도, altimon을 구동하면 Encrypted 속성은 "Yes"로 변경되고 비밀번호도 암호화된다.                                                             |
-| \<Port\>                                                | 필수      | 포트 번호                                                                                                                                                                                                    |
-| \<NLS\>                                                 | 필수      | NLS_USE                                                                                                                                                                                                      |
-| \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                                                                                                                                                                               |
-| \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                                                                                                                                                                 |
+| \<User\>                                                | 옵션      | 접속 사용자. 설정하지 않으면 SYS 사용자로 접속한다.          |
+| \<Password Encrypted="Yes \| No"\>                      | 필수      | 비밀 번호 Encrypted 속성이 "No"일 때 사용자가 비밀번호를 등록하여도, altimon을 구동하면 Encrypted 속성은 "Yes"로 변경되고 비밀번호도 암호화된다. |
+| \<Port\>                                                | 필수      | 포트 번호                                                    |
+| \<NLS\>                                                 | 필수      | NLS_USE                                                      |
+| \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                               |
+| \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                 |
+| \<ConnectionProperties\>                                | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
 
 ##### Metrics.xml
 
@@ -3370,7 +3412,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 | \<Command\>                                                  | 커맨드 또는 스크립트 파일을 설정하며, CommandMetric일 경우 필수이다. 스크립트 파일은 절대 경로 또는 상대 경로로 설정할 수 있다. 상대 경로의 기준은 \$ALTIBASE_HOME/altiMon 디렉토리이다. |
 | \<Alert Activate='true' ComparisonColumn='ALLOC_MEM_MB' ComparisonType='gt'\> | 경고 설정. 옵션. <br />threshold 값과 비교되는 측정값은 숫자여야 한다. <br />Activate: Alert 동작 여부, 옵션. 기본값: true <br />ComparisonColumn: threshold 값을 비교할 대상 칼럼. 옵션. <br />ComparisonType: 비교 연산자. 필수. <br />-eq: is equal to the threshold value <br />-ne: is not equal to the threshold value <br />-gt: is greater than the threshold value <br />-ge: is greater than or equal to the threshold value <br />-lt: is less than the threshold value <br />-le: is less than or equal to the threshold value |
 | \<WarningThreshold Value='500'\> or \<CriticalThreshold Value='800'\> | threshold 값 설정 (critical 또는 warning 두 가지 레벨로 설정 가능) \<Alert Activate= true\>인 경우 필수. <br />Value: threshold 값 |
-| \<ActionScript\>db_usage.sh\</ActionScript\>                 | threshold 값을 벗어난 경우 수행할 스크립트 파일 이름 설정. <br />\$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 해당 스크립트 파일이 있어야 한다. |
+| \<ActionScript\>db_usage.sh\</ActionScript\>                 | threshold 값을 벗어난 경우 수행할 스크립트 파일 이름 설정. <br />\$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 해당 스크립트 파일이 있어야 한다.<br />action script 수행시 metric 이름, 레벨 (CRITICAL 또는 WARNING), threshold 값, 측정값이 인자로 전달된다. |
 
 ##### GroupMetrics.xml
 
@@ -3602,10 +3644,7 @@ Error Message Reference 참조
 
 #### 개요
 
-SYSDBA 모드 접속을 위한 SYS 사용자의 암호를 변경한다. 데이터베이스 상에서 ALTER
-USER 문으로 암호를 변경하는 경우, 이 커맨드로 한 번 더 암호 변경 작업을 해야
-한다. ALTER USER 문으로만 암호를 변경했을 경우, 데이터베이스 구동, 종료 등
-SYSDBA 작업을 했을 때 오류가 발생하게 된다.
+altipasswd는 $ALTIBASE_HOME/conf/syspassword 파일을 변경한다. 데이터베이스가 서비스 상태가 아닐때는 SYSDBA 옵션으로 iSQL을 구동하여 관리자 작업을 수행하는데, 이때 syspassword 파일을 읽어 sys 계정의 패스워드를 체크한다. 따라서, 데이터베이스 상에서 ALTER USER 문으로 sys 암호를 변경하는 경우, altipasswd로 syspassword 파일의 암호도 동일하게 변경해야 한다. 데이터베이스내의 sys 암호와 syspassword 암호가 동일하게 유지되지 않으면, 데이터베이스 구동, 종료 등 SYSDBA 작업을 할 때 오류가 발생하게 된다.
 
 ```
 altipasswd
@@ -4859,7 +4898,7 @@ Altibase 서버가 비정상 종료될 때 \$ALTIBASE_HOME/trc 디렉토리에 �
 
 ```
 dumptrc [-h |[-p file_path][-c [-s]]
-[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] |-f |-v]
+[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] [x] |-f |-v]
 ```
 
 
@@ -4929,8 +4968,7 @@ Altibase 기술서비스 팀에 송부하면, 보다 빨리 문제를 해결할 
 
 #### 주의 사항
 
-dumptrc가 정상적으로 동작하려면, Altibase의 실행 파일의 버전과 dumptrc의 버전이
-동일해야 정확한 콜 스택 정보를 확인할 수 있다.
+Altibase의 실행 파일의 버전과 dumptrc의 버전이 동일해야 정확한 콜 스택 정보를 확인할 수 있다.버전이 틀릴 경우는 잘못된 값이 나올 수 있기 때문에 기본적으로 경고메시지를 보여주고 콜 스택을 출력하지 않는다. 버전이 틀릴때도 강제로 콜스택을 출력하기 위해서는 -x옵션을 사용하면 된다.
 
 #### 사용예
 

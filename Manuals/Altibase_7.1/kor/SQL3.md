@@ -60,6 +60,12 @@
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
+**multiple_delete ::=**
+
+![multiple_delete](media/SQL/multiple_delete.gif)
+
+[tbl_ref ::=](#tbl_ref)
+
 #### 전제 조건
 
 SYS 사용자, 테이블 소유자, DELETE ANY TABLE 시스템 권한을 가진 사용자 및
@@ -128,6 +134,16 @@ Returning 절의 제약 사항:
 
 > 참고: PSM 내에서 BULK COLLECT 절을 사용해서 한꺼번에 여러 행을 collection 변수로
 > 반환할 수 있다. 이에 대한 자세한 내용은 *Stored Procedures Manual*을 참고하라.
+
+*multiple_delete*
+
+join 조건을 만족하는 레코드가 tbl_name에 지정된 테이블에서 삭제하는 구문이다.
+
+multiple delete 제약 사항:
+
+- limit_clause 와 returning_clause 를 사용할 수 없다.
+- dictionary table 을 사용할 수 없다.
+- full outer join 을 사용할 수 없다.
 
 #### HINTS 옵션
 
@@ -212,7 +228,20 @@ COUNT
 1 row selected.
 ```
 
+##### Multiple table 데이터 삭제
 
+\<질의\> employees와 departments 테이블의 'MARKETING DEPT' 부서에 속한 사원을 삭제한다.
+
+```
+iSQL> DELETE e, d FROM employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+4 rows deleted.
+
+iSQL> select count(*) from  employees e, departments d WHERE e.dno = d.dno and d.dname = 'MARKETING DEPT';
+COUNT
+-----------------------
+0
+1 row selected.
+```
 
 ##### Returing 절을 사용한 삭제
 
@@ -550,7 +579,7 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO
 
 **lock_table ::=**
 
-![](media/SQL/e99f48f993166dcd8201c1ef39f47f4d.png)
+![](media/SQL/lock_table_partition.png)
 
 #### 전제 조건
 
@@ -571,6 +600,20 @@ lock_mode에 명시한 잠금 모드로 특정한 모드 내에서 테이블 잠
 *tbl_name*
 
 잠금이 걸릴 테이블의 이름을 명시한다.
+
+*partition_name*
+
+잠금이 걸릴 파티션의 이름을 명시한다.
+파티션의 이름을 명시하면, 파티션에 잠금 모드를 적용하고 테이블에는 ROW SHARE 또는 ROW EXCLUSIVE를 적용한다.
+
+|      잠금 모드      |     파티션 적용     |  테이블 적용  |
+| :-----------------: | :-----------------: | :-----------: |
+|      ROW SHARE      |      ROW SHARE      |   ROW SHARE   |
+|    SHARE UPDATE     |    SHARE UPDATE     |   ROW SHARE   |
+|    ROW EXCLUSIVE    |    ROW EXCLUSIVE    | ROW EXCLUSIVE |
+| SHARE ROW EXCLUSIVE | SHARE ROW EXCLUSIVE | ROW EXCLUSIVE |
+|        SHARE        |        SHARE        |   ROW SHARE   |
+|      EXCLUSIVE      |      EXCLUSIVE      | ROW EXCLUSIVE |
 
 *lock_mode*
 
@@ -3130,6 +3173,22 @@ C1          C2
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
+**multiple_update ::=**
+
+![multiple_update](media/SQL/multiple_update.gif)
+
+**tbl_ref ::=**
+
+![multiple_update2](media/SQL/tbl_ref.gif)
+
+**one_table ::=**
+
+![multiple_update3](media/SQL/one_table.gif)
+
+**join_table ::=**
+
+![multiple_update4](media/SQL/join_table.gif)
+
 #### 전제 조건
 
 SYS 사용자, 테이블 소유자, UPDATE ANY TABLE 시스템 권한을 가진 사용자 및
@@ -3186,6 +3245,28 @@ DEFAULT키워드를 사용하는 것이다.
 *returning_clause*
 
 DELETE 구문의 returning_clause를 참고하라.
+
+*multiple_update*
+
+join 조건을 만족하는 레코드를 찾아 명시한 컬럼들의 값을 변경하는 구문이다.
+
+multiple update 제약 사항:
+
+- limit_clause 와 returning_clause 를 사용할 수 없다.
+- dictionary table 을 사용할 수 없다.
+- full outer join 을 사용할 수 없다.
+
+*tbl_ref*
+
+multiple update 를 하기 위한 table 을 명시한다.
+
+*one_table*
+
+한 개의 table이거나 혹은 view 를 명시한다.
+
+*join_table*
+
+table 사이의 join 조건을 명시한다.
 
 #### HINTS 옵션
 
@@ -3418,6 +3499,14 @@ iSQL> UPDATE simple_emp SET salary=3000 WHERE dname='RESEARCH DEVELOPMENT DEPT 1
 2 rows updated.
 ```
 
+##### Multiple table 갱신
+
+\<질의\> employees와 departments 테이블을 join 후 칼럼 salary를 갱신한다.
+
+```
+UPDATE employees e, departments d SET salary=4000 WHERE e.dno = d.dno and d.dname='BUSINESS DEPT';
+4 rows updated.
+```
 
 
 ### MOVE 
@@ -3915,8 +4004,7 @@ DEFAULT를 명시하면 이중화는 이중화 객체 생성시 기본모드로 
 
 *set_transaction_clause*
 
-현재 세션에서 수행되는 트랜잭션에 read only, read/write**오류! 책갈피가 정의되어
-있지 않습니다.** 또는 고립화 수준(isolation level)을 설정할 수 있다. 자세한
+현재 세션에서 수행되는 트랜잭션에 read only, read/write 또는 고립화 수준(isolation level)을 설정할 수 있다. 자세한
 내용은 이 매뉴얼의 [SET TRANSACTION](#set_transaction) 구문을 참조한다.
 
 #### 예제

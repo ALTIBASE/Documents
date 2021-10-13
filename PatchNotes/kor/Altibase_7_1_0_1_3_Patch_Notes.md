@@ -1248,9 +1248,9 @@ Changes
 
 ### Version Info
 
-| altibase version | database binary version | meta version | cm protocol version | replication protocol version | sharding version |
-| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- | ---------------- |
-| 7.1.0.1.3        | 6.5.1                   | 8.5.1        | 7.1.6               | 7.4.2                        | 2.0.0            |
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 7.1.0.1.3        | 6.5.1                   | 8.5.1        | 7.1.6               | 7.4.2                        |
 
 
 > Altibase 7.1 패치 버전별 히스토리는
@@ -1282,13 +1282,6 @@ Changes
 #### Replication protocol Version
 
 Replication 프로토콜 버전은 변경되지 않았다..
-
-#### Sharding Version
-
-샤딩 버전은 변경 되지 않았다.
-
-> 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지
-> 않는다. 즉, 샤딩 버전이 다른 경우, 재구성해야 한다.
 
 ### 프로퍼티
 

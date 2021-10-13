@@ -390,7 +390,7 @@ long long
     <tr>
     	<td>BLOB/CLOB</td>
         <td></td>
-        <td>1~2147483647</td>
+        <td>1~4294967295</td>
     </tr>
     <tr>
     	<td>BYTE</td>
@@ -2588,7 +2588,7 @@ BLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 2GB 크기까지
+BLOB은 이진형 대용량 데이타를 저장하기 위한 이진형 데이터 타입으로, 4GB-1bye 크기까지
 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
@@ -2608,7 +2608,7 @@ CLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 2GB 크기
+CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 4GB-1bye 크기
 크기까지 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
@@ -2721,8 +2721,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
 - C/C++ 외부 프로시저용 에이전트 관련 프로퍼티
 - 사용자 계정 보안 관련 프로퍼티
 - 기타 프로퍼티
-
-이 외 Altibase Sharding 관련 프로퍼티는 *Altibase Sharding Guide manual*의 프로퍼티 장을 참고한다.
 
 다음의 표는 위 분류기준에 의해서 Altibase 프로퍼티를 정리한 표이다. 참고로 표의 각 분류는 다음과 같은 의미를 지닌다.
 
@@ -3413,10 +3411,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>BOTH</td>
       </tr>
       <tr>
-      	<td>TEMP_MAX_PAGE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
       	<td>TEMP_STATS_WATCH_TIME</td>
           <td>SYSTEM</td>
       </tr>
@@ -3445,6 +3439,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
        <tr>
       	<td>TOTAL_WA_SIZE</td>
+          <td>SYSTEM</td>
+      </tr>
+       <tr>
+        <td>INIT_TOTAL_WA_SIZE</td>
           <td>SYSTEM</td>
       </tr>
        <tr>
@@ -5164,6 +5162,8 @@ Unsigned Integer
 
 Spin 모드에서 데드락을 검출하는 간격을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_MAX_SLEEP (단위 : 마이크로 초)
 
 데이터 타입
@@ -5186,6 +5186,8 @@ Unsigned Integer
 
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 최대 시간을 명시한다.
+
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
 
 #### LOCK_MGR_MIN_SLEEP (단위 : 마이크로 초)
 
@@ -5210,6 +5212,8 @@ Unsigned Integer
 Spin 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에
 sleep하는 시간을 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_SPIN_COUNT (단위: 회수)
 
 ##### 데이터 타입
@@ -5232,6 +5236,8 @@ Unsigned Integer
 
 Spin 모드에서 Lock 획득에 실패했을 경우 재시도 회수를 명시한다.
 
+(Spin 모드가 deprecated 되어 7.1.0.3.2 부터는 값이 무시된다.)
+
 #### LOCK_MGR_TYPE 
 
 ##### 데이터 타입
@@ -5248,7 +5254,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 1]
+[0, 2]
 
 ##### 설명
 
@@ -5256,7 +5262,9 @@ Unsigned Integer
 
 0: Mutex 모드
 
-1: Spin lock 모드
+1: Spin lock 모드 (deprecated, 7.1.0.3.2)
+
+2: light Mutex (added, 7.1.0.3.2)
 
 #### LOCK_NODE_CACHE_COUNT (단위 : 개수)
 
@@ -5496,7 +5504,7 @@ Unsigned Integer
 
 ##### 기본값
 
-50
+90
 
 ##### 속성
 
@@ -5846,6 +5854,11 @@ Unsigned Integer
 테이블이 DROP 구문으로 삭제된 경우 휴지통으로 버려지거나, 데이터베이스
 시스템에서 바로 삭제할 것인지를 설정할 수 있다. 기본값은 DROP 구문을 수행하면
 시스템에서 테이블이 제거된다.
+
+휴지통으로 버려진 테이블은 이름이 변경되어 저장된다.
+그리고 테이블 타입이 ‘R’ 타입으로 변경 되어
+일체 다른 DDL 및 INSERT/UPDATE/DELETE 등을 수행 할 수 없다.
+단 SELECT는 가능하다.
 
 휴지통에 테이블이 존재한다면 프로퍼티의 값을 0으로 변경하더라도 휴지통의
 테이블을 조회하거나 FLASHBACK 또는 PURGE 구문을 사용하여 복구 및 제거할 수 있다.
@@ -6466,8 +6479,6 @@ Unsigned Integer
 예를 들어 임시 페이지 프레임의 개수가 100일 때, 이 값이 1이면 버킷의 개수는
 프레임의 개수와 같아진다. 이 값이 2이면 버킷의 개수는 프레임 개수의 절반인 50이
 된다.
-
-임시 테이블에 대한 설명은 TEMP_MAX_PAGE_COUNT 프로퍼티를 참고하기 바란다.
 
 #### TEMP_PAGE_CHUNK_COUNT 
 
@@ -7520,7 +7531,7 @@ Unsigned Long
 
 ##### 값의 범위
 
-[512K, 2<sup>64</sup>-1]
+[3M, 2<sup>64</sup>-1]
 
 ##### 설명
 
@@ -9175,38 +9186,6 @@ Unsigned Integer
 Altibase 운영 중 ALTER SYSTEM 또는 ALTER SESSION문을 이용하여 이 프로퍼티의 값을
 변경할 수 있다. 단, 활성화된 트랜잭션이 없을 경우에만 변경할 수 있다.
 
-#### TEMP_MAX_PAGE_COUNT
-
-##### 데이터 타입
-
-Unsigned Int
-
-##### 기본값
-
-524288
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[1024, 2<sup>32</sup>-1]
-
-##### 설명
-
-하나의 임시 테이블<sup>8</sup>이 사용할 수 있는 최대 페이지 개수를 지정한다. 임시
-테이블에 할당된 페이지에 대한 정보는 TOTAL_WA_SIZE 프로퍼티로 지정한 영역 내에서
-관리되기 때문에, 이 프로퍼티의 값이 클수록 서버가 정렬(sorting) 또는
-해싱(hashing) 작업을 위해 사용할 수 있는 영역이 줄어든다.
-
-[<sup>8</sup>] 임시 테이블: 서버가 질의를 처리하는 과정에서 중간 결과를 저장하기 위해
-
-디스크 상의 임시 테이블스페이스에 내부적으로 생성하는 테이블로써, 사용자 임시
-테이블과는 다르다.
-
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
 #### TEMP_STATS_WATCH_TIME
 
 ##### 데이터 타입
@@ -9229,7 +9208,6 @@ Unsigned Int
 
 통계 정보에 등록되는 기준 시간을 지정한다. 임시 테이블을 사용하는 연산 중 이
 프로퍼티의 설정된 시간보다 오래 걸리는 연산은 통계정보로 등록된다. 임시 테이블에
-대한 설명은 TEMP_MAX_PAGE_COUNT 프로퍼티 설명을 참고하도록 한다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
@@ -9429,7 +9407,7 @@ Unsigned Long
 
 ##### 기본값
 
-128MB
+0
 
 ##### 속성
 
@@ -9437,16 +9415,39 @@ Unsigned Long
 
 ##### 값의 범위
 
-[512K, 2<sup>64</sup>-1]
+[0, 2<sup>64</sup>-1]
 
 ##### 설명
 
 정렬 또는 해싱 작업을 위해 할당할 수 있는 메모리의 최대 크기를 지정한다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-단, 변경 요청에 대한 응답은 바로 반환되지만, 변경된 값이 실제로 서버에 적용 되는
-시점은 사용 중인 임시 테이블이 없을 때까지 지연된다. 임시 테이블에 대한 설명은
-TEMP_MAX_PAGE_COUNT 프로퍼티 설명을 참고하도록 한다.
+
+#### INIT_TOTAL_WA_SIZE (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Long
+
+##### 기본값
+
+2<sup>64</sup>-1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>64</sup>-1]
+
+##### 설명
+
+정렬 또는 해싱 작업을 위해 미리 할당 할 메모리의 크기를 지정한다.
+
+TOTAL_WA_SIZE 보다 더 클 경우 TOTAL_WA_SIZE 까지만 생성한다.
+
+Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
 #### TOUCH_TIME_INTERVAL (단위: 초)
 
