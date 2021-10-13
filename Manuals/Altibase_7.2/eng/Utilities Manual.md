@@ -49,9 +49,9 @@ Utilities Manual
 
 Altibase Tools & Utilities Manual
 
-Release 7.1
+Release 7.2
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -725,7 +725,7 @@ When Altibase is installed, the \$ALTIBASE_HOME/conf directory does not actually
 $ aexport -s 127.0.0.1 -u sys -p manager
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -796,7 +796,7 @@ Create success.
 $ aexport -s 127.0.0.1 -u user1 -p user1
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -887,7 +887,7 @@ user1_t1_CRT.sql
 $ aexport -s 127.0.0.1 -u user1 -p user1 -object user1.m1
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -898,7 +898,7 @@ user1_m1_CRT.sql
 $ aexport -s 127.0.0.1 -u user1 -p user1 -object user1.t1,user1.v1,user1.proc1
 -----------------------------------------------------------------
     Altibase Export Script Utility.
-    Release Version 7.1.0.0.0
+    Release Version 7.2.0.0.1
     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
     All Rights Reserved.
 -----------------------------------------------------------------
@@ -1877,7 +1877,7 @@ The following restrictions should be considered when selecting comparison target
 2.  The unsupported data type is automatically excluded from the comparison targets. (e.g., the binary type such as LOB)
   
 3.  There should be at least more than one column which can compare values other than a primary key.
-  
+
 -   (Example 1) table1 (c1 int, c2 int, c3 CLOB, primary key (c1, c2))  
   (Example 2) table1 (c1 int, c2 int, c3 varchar(100), primary key (c1, c2))  
 

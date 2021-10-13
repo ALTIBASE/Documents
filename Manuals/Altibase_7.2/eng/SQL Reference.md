@@ -135,7 +135,7 @@ Altibase® Application Development
 
 Altibase Application Development SQL Reference
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 

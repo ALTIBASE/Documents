@@ -63,7 +63,7 @@ Altibase® Application Development
 
 Altibase Application Development Precompiler User’s Manual
 
-Release 7.1
+Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -2008,6 +2008,7 @@ int        F;     /* the number of analyzed columns */
   
 - The following illustrations describe the SQLDA structure using the bind variables function and select list function, respectively. 
   
+
 ![](media/Precompiler/edcc97fcbd6f426eb299efde4390f87d_eng.png)
 
 ##### Sequential Operation Process
@@ -4852,7 +4853,7 @@ $ make delete
 apre -t cpp delete.sc
 -----------------------------------------------------------------
      Altibase C/C++ Precompiler.
-     Release Version 7.1.0.0.0
+     Release Version 7.2.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
