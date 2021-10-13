@@ -76,8 +76,7 @@ Release 7.2
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이 무단으로 복제 또는 전용할 수 없습니다.
 
 **㈜알티베이스**
 
@@ -129,9 +128,7 @@ SQL_INVALID_HANDLE
 
 #### 설 명
 
-SQLGetInfo()는 DBMS의 일반적인 정보를 얻기 위해 사용한다. 이 함수는 InfoType에
-따라 각각의 유형별로 관련 정보를 획득할 수 있으며, Altibase는 ODBC 표준을
-준수한다.
+SQLGetInfo()는 DBMS의 일반적인 정보를 얻기 위해 사용한다. 이 함수는 InfoType에 따라 각각의 유형별로 관련 정보를 획득할 수 있으며, Altibase는 ODBC 표준을 준수한다.
 
 #### 진 단
 
@@ -233,8 +230,7 @@ SQL_INVALID_HANDLE
 
 #### 설 명
 
-SQLGetStmtAttr()는 명령문 핸들과 관련된 속성을 반환한다. 명령문 속성이나 자세한
-내용은[SQLSetStmtAttr()](#sqlsetpos)를 참조하기 바란다.
+SQLGetStmtAttr()는 명령문 핸들과 관련된 속성을 반환한다. 명령문 속성이나 자세한 내용은[SQLSetStmtAttr()](#sqlsetpos)를 참조하기 바란다.
 
 #### 진 단
 
@@ -254,8 +250,7 @@ SQLSetStmtAttr
 
 ### SQLGetTypeInfo
 
-DB에서 지원되는 데이터 타입에 관한 정보를 반환한다. Altibase CLI 드라이버는 SQL
-실행 결과에 대한 정보를 반환한다. 데이터 타입은 DDL 문에서 사용된다.
+DB에서 지원되는 데이터 타입에 관한 정보를 반환한다. Altibase CLI 드라이버는 SQL 실행 결과에 대한 정보를 반환한다. 데이터 타입은 DDL 문에서 사용된다.
 
 #### 구 문
 
@@ -283,9 +278,7 @@ SQL_ERROR
 
 #### 설 명
 
-SQLGetTypeInfo()는 Altibase에서 제공하는 데이터 타입에 대한 정보를 표준 결과
-집합 형태로 반환한다. 현재 결과 집합은 TYPE_NAME에 대한 오름 차순으로 정렬되어서
-반환된다.
+SQLGetTypeInfo()는 Altibase에서 제공하는 데이터 타입에 대한 정보를 표준 결과 집합 형태로 반환한다. 현재 결과 집합은 TYPE_NAME에 대한 오름 차순으로 정렬되어서 반환된다.
 
 #### 진 단
 
@@ -378,16 +371,9 @@ SQL_NO_DATA
 
 #### 설명
 
-Statement를 Fetch해서 결과 집합을 가져 올 경우 해당 커서의 위치는 결과 집합의 첫
-번째 레코드에 있게 된다. 애플리케이션에 따라서는 그 결과 집합을 사용할 때, 그
-결과가 더 남아 있는지에 대한 검사를 하게 된다. 결과 값이 남아 있는 경우에는
-SQL_SUCCESS가 반환이 되며, 더 이상 결과가 남아 있지 않은 경우에는 SQL_NO_DATA가
-반환된다.
+Statement를 Fetch해서 결과 집합을 가져 올 경우 해당 커서의 위치는 결과 집합의 첫 번째 레코드에 있게 된다. 애플리케이션에 따라서는 그 결과 집합을 사용할 때, 그 결과가 더 남아 있는지에 대한 검사를 하게 된다. 결과 값이 남아 있는 경우에는 SQL_SUCCESS가 반환이 되며, 더 이상 결과가 남아 있지 않은 경우에는 SQL_NO_DATA가 반환된다.
 
-결과 집합을 Fetch하면 Cursor의 위치는 first result set에 오게된다. Application에
-따라 그 결과 집합을 쓰고나서 결과가 더 남아 있는지 대한 검사를 하게된다.
-결과값이 남아 있다면 SQL_SUCCESS가 리턴되며, 더 이상 결과가 남아 있지 않은 경우
-SQL_NO_DATA가 리턴된다.
+결과 집합을 Fetch하면 Cursor의 위치는 first result set에 오게된다. Application에 따라 그 결과 집합을 쓰고나서 결과가 더 남아 있는지 대한 검사를 하게된다. 결과값이 남아 있다면 SQL_SUCCESS가 리턴되며, 더 이상 결과가 남아 있지 않은 경우 SQL_NO_DATA가 리턴된다.
 
 #### 관련함수
 
@@ -435,8 +421,7 @@ SQL_ERROR
 
 #### 설 명
 
-SQL 구문을 Altibase CLI 드라이버가 지원하는 문장으로 변환시켜준다.
-SQLNativeSql() 실행은 하지 않는다.
+SQL 구문을 Altibase CLI 드라이버가 지원하는 문장으로 변환시켜준다. SQLNativeSql() 실행은 하지 않는다.
 
 ALTIBASE는 다음과 같은 구문들을 지원한다.
 
@@ -444,9 +429,8 @@ ALTIBASE는 다음과 같은 구문들을 지원한다.
 
 -   {t, '07:23:56'} → TO_DATE('07:23:56', 'HH:MI:SS')
 
--   {ts, '1981-09-27 07:23:56'} → TO_DATE('1981-09-27 07:23:56', 'YYYY-MM-DD
-    HH:MI:SS')
-
+-   {ts, '1981-09-27 07:23:56'} → TO_DATE('1981-09-27 07:23:56', 'YYYY-MM-DD-HH:MI:SS')
+    
 -   {? = call PROC1(a, ?, c)} → EXECUTE ? := PROC1(a, ? ,c)
 
 #### 진 단
@@ -498,8 +482,7 @@ SQL_SUCCESS
 
 이 함수는 SQLPrepare()가 호출된 후에만 호출할 수 있다.
 
-만약 stmt와 관련된 명령문이 매개변수들을 포함하지 않으면, SQLNumParams()는
-\**parameterCountPtr*에 0을 설정한다.
+만약 stmt와 관련된 명령문이 매개변수들을 포함하지 않으면, SQLNumParams()는 \**parameterCountPtr*에 0을 설정한다.
 
 #### 진 단
 
@@ -589,14 +572,10 @@ SQL_ERROR
 
 #### 설 명
 
-만약 stmt와 관련된 명령문이 열들을 반환하지 않으면, SQLNumResultCols()는 \*col에
-0을 설정한다.이 함수를 호출하기 전에 SQLPrepare() 또는 SQLExecDirect()를
-호출해야 한다.
+만약 stmt와 관련된 명령문이 열들을 반환하지 않으면, SQLNumResultCols()는 \*col에 0을 설정한다.이 함수를 호출하기 전에 SQLPrepare() 또는 SQLExecDirect()를 호출해야 한다.
 
-이 함수를 호출한 후에 SQLDescribeCol(), SQLColAttribute(), SQLBindCol() 또는
-SQLGetData()를 호출할 수 있다.  
-SQLNumResultCols()는 단지 명령문이 준비, 실행 또는 지정된 상태일 때 성공적으로
-호출될 수 있다.
+이 함수를 호출한 후에 SQLDescribeCol(), SQLColAttribute(), SQLBindCol() 또는 SQLGetData()를 호출할 수 있다.  
+SQLNumResultCols()는 단지 명령문이 준비, 실행 또는 지정된 상태일 때 성공적으로 호출될 수 있다.
 
 #### 진 단
 
@@ -605,8 +584,7 @@ SQLNumResultCols()는 단지 명령문이 준비, 실행 또는 지정된 상태
 | 08S01    | 통신 회선 장애 (데이터 송수신 실패) | Altibase CLI 드라이버와 DB간에 함수 처리가 완료되기 전에 통신 회선 실패 |
 | HY000    | 일반 오류                           |                                                                         |
 
-SQLNumResultCols()가 SQLPrepare() 후, 그리고 SQLExecute() 전에 호출될 때 두
-함수에 의해서 반환된 어떠한 SQLSTATE도 반환할 수 있다.
+SQLNumResultCols()가 SQLPrepare() 후, 그리고 SQLExecute() 전에 호출될 때 두 함수에 의해서 반환된 어떠한 SQLSTATE도 반환할 수 있다.
 
 #### 관련함수
 
@@ -724,26 +702,11 @@ SQL_ERROR
 
 #### 설 명
 
-애플리케이션은 사전 준비를 위해서 SQL문을 DB로 보내기 위해 SQLPrepare()를
-호출한다. 애플리케이션은 SQL문에 하나 이상의 매개변수 마커(?)를 포함할 수 있다.
-매개변수 마커를 포함하기 위해, 애플리케이션은 적절한 위치에서 SQL 문자열에
-매개변수 마커를 삽입한다.
+애플리케이션은 사전 준비를 위해서 SQL문을 DB로 보내기 위해 SQLPrepare()를 호출한다. 애플리케이션은 SQL문에 하나 이상의 매개변수 마커(?)를 포함할 수 있다. 매개변수 마커를 포함하기 위해, 애플리케이션은 적절한 위치에서 SQL 문자열에 매개변수 마커를 삽입한다.
 
-일단 명령문이 준비되면, 애플리케이션은 나중에 함수를 호출하는데 명령문을
-참고하기 위해 명령문 핸들을 사용한다. 명령문 핸들과 관련된 준비된 명령문은
-애플리케이션이 SQL_DROP 옵션으로 SQLFreeStmt()를 호출함으로서 명령문을 해제할
-때까지 또는 명령문 핸들이 SQLPrepare(), SQLExecDirect(), 또는 카탈로그 함수들
-(SQLColumns(), SQLTables(), 등등) 중 하나가 호출로 인해 사용될 때까지
-SQLExecute()를 호출함으로서 다시 실행될 수 있다. 일단 애플리케이션이 명령문을
-준비하면, 애플리케이션은 결과 집합의 형식에 대한 정보를 요구할 수 있다. 몇 몇
-구현에 있어서는 SQLPrepare() 후에 SQLDescribeCol()을 호출하는 것은 SQLExecute()
-또는 SQLExecDirect() 후에 호출하는것 만큼 효과적이지 않을 수 있다.
+일단 명령문이 준비되면, 애플리케이션은 나중에 함수를 호출하는데 명령문을 참고하기 위해 명령문 핸들을 사용한다. 명령문 핸들과 관련된 준비된 명령문은 애플리케이션이 SQL_DROP 옵션으로 SQLFreeStmt()를 호출함으로서 명령문을 해제할 때까지 또는 명령문 핸들이 SQLPrepare(), SQLExecDirect(), 또는 카탈로그 함수들 (SQLColumns(), SQLTables(), 등등) 중 하나가 호출로 인해 사용될 때까지 SQLExecute()를 호출함으로서 다시 실행될 수 있다. 일단 애플리케이션이 명령문을 준비하면, 애플리케이션은 결과 집합의 형식에 대한 정보를 요구할 수 있다. 몇 몇 구현에 있어서는 SQLPrepare() 후에 SQLDescribeCol()을 호출하는 것은 SQLExecute() 또는 SQLExecDirect() 후에 호출하는것 만큼 효과적이지 않을 수 있다.
 
-ODBC 데이터 타입은 명령문이 실행(모든 매개변수가 바인드 되지 않았다면) 될 때
-검사된다. 최대한의 상호운용을 위해, 애플리케이션은 같은 명령문에서 새로운 SQL
-문을 준비하기 전에 이전 SQL 문에 적용된 모든 매개변수들을 언바운드 해야만 한다.
-이것은 새로운 정보에 적용되고 있는 이전 매개변수 정보 때문에 발생하는 오류들을
-예방한다.
+ODBC 데이터 타입은 명령문이 실행(모든 매개변수가 바인드 되지 않았다면) 될 때 검사된다. 최대한의 상호운용을 위해, 애플리케이션은 같은 명령문에서 새로운 SQL문을 준비하기 전에 이전 SQL 문에 적용된 모든 매개변수들을 언바운드 해야만 한다. 이것은 새로운 정보에 적용되고 있는 이전 매개변수 정보 때문에 발생하는 오류들을 예방한다.
 
 #### 진 단
 
@@ -785,9 +748,7 @@ if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
 
 ### SQLPrimaryKeys
 
-단일 테이블의 프라이머리 키를 구성하는 열 이름들을 결과 집합 형태로 반환한다. 이
-함수는 단일 호출에서 다중 테이블들의 프라이머리 키들을 반환하는 것은 지원하지
-않는다.
+단일 테이블의 프라이머리 키를 구성하는 열 이름들을 결과 집합 형태로 반환한다. 이 함수는 단일 호출에서 다중 테이블들의 프라이머리 키들을 반환하는 것은 지원하지 않는다.
 
 Unicode SQLPrimarykeysW() 동작은 SQLPrimarykeys()와 동일하다.
 
@@ -827,14 +788,11 @@ SQL_ERROR
 
 #### 설 명
 
-SQLPrimaryKeys()는 TABLE_CAT, TABLE_SCHEM, TABLE_NAME, 그리고 KEY_SEQ에 의해
-순서화된 표준 결과 집합 형태로 결과들을 반환한다.
+SQLPrimaryKeys()는 TABLE_CAT, TABLE_SCHEM, TABLE_NAME, 그리고 KEY_SEQ에 의해 순서화된 표준 결과 집합 형태로 결과들을 반환한다.
 
 탐색 유형은 스키마 규정자 또는 테이블 이름을 지정하기 위해 사용될 수 없다.
 
-많은 경우에 있어서, SQLPrimaryKeys() 호출이 시스템 카탈로그에 대해 복잡하여
-비용이 드는 조회에 맵핑되므로 가끔 사용되어야 하며, 호출을 반복하는 대신 저장된
-결과를 사용해야 한다.
+많은 경우에 있어서, SQLPrimaryKeys() 호출이 시스템 카탈로그에 대해 복잡하여 비용이 드는 조회에 맵핑되므로 가끔 사용되어야 하며, 호출을 반복하는 대신 저장된 결과를 사용해야 한다.
 
 다음 테이블은 결과 집합의 열들을 나열한 것이다.
 
@@ -900,8 +858,7 @@ while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)
 
 ### SQLProcedureColumns
 
-명시된 프로시저에 대해 결과 집합을 구성하고 있는 열들 뿐만 아니라 입력과 출력
-매개변수들의 목록을 결과 집합의 형태로 반환한다.
+명시된 프로시저에 대해 결과 집합을 구성하고 있는 열들 뿐만 아니라 입력과 출력 매개변수들의 목록을 결과 집합의 형태로 반환한다.
 
 Unicode SQLProcedureColumnsW() 동작은 SQLProcedureColumns()와 동일하다.
 
@@ -945,11 +902,9 @@ SQL_ERROR
 
 #### 설 명
 
-이 함수는 프로시저 매개변수들과 프로시저에 의해 반환된 결과 집합(들)을 구성하는
-열들을 검색하기 위하여 명령문 실행 전에 사용된다.
+이 함수는 프로시저 매개변수들과 프로시저에 의해 반환된 결과 집합(들)을 구성하는 열들을 검색하기 위하여 명령문 실행 전에 사용된다.
 
-SQLProcedureColumns()은 PROCEDURE_CAT, PROCEDURE_SCHEM, PROCEDURE_NAME, 그리고
-COLUMN_TYPE에 의해 순서화된 표준 결과 집합 형태로 결과들을 반환한다.
+SQLProcedureColumns()은 PROCEDURE_CAT, PROCEDURE_SCHEM, PROCEDURE_NAME, 그리고 COLUMN_TYPE에 의해 순서화된 표준 결과 집합 형태로 결과들을 반환한다.
 
 열 이름들은 각 프로시저에 대해 다음 순서로 반환된다.
 
@@ -1070,15 +1025,11 @@ SQL_ERROR
 
 #### 설 명
 
-SQLProcedures()는 요구된 범위 내에서 모든 프로시저의 목록을 나열한다. 사용자는
-이러한 프로시저들을 실행할 수 있는 사용 권한을 가질 수도 있고 없을 수도 있다.
+SQLProcedures()는 요구된 범위 내에서 모든 프로시저의 목록을 나열한다. 사용자는 이러한 프로시저들을 실행할 수 있는 사용 권한을 가질 수도 있고 없을 수도 있다.
 
-SQLProcedures()는 PROCEDURE_CAT, PROCEDURE_SCHEM, 그리고 PROCEDURE_NAME에 의해
-순서화된 표준 결과 집합 형태로 결과들을 반환한다.
+SQLProcedures()는 PROCEDURE_CAT, PROCEDURE_SCHEM, 그리고 PROCEDURE_NAME에 의해 순서화된 표준 결과 집합 형태로 결과들을 반환한다.
 
-> Note: SQLProcedures()는 모든 프로시저들을 반환하지 않을 수도 있다.
-> 애플리케이션은 프로시저가 SQLProcedures()에 의해 반환 여부와 상관없이 유효한
-> 프로시저를 사용할 수 있다. SQLProcedures()에 의해 반환되는 열은 [표 2-4]와 같다.
+> Note: SQLProcedures()는 모든 프로시저들을 반환하지 않을 수도 있다. 애플리케이션은 프로시저가 SQLProcedures()에 의해 반환 여부와 상관없이 유효한 프로시저를 사용할 수 있다. SQLProcedures()에 의해 반환되는 열은 [표 2-4]와 같다.
 
 | 열 이름           | 열번호 | 자료 유형          | 설명                                                                                                                                                                                                                     |
 |-------------------|--------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1206,16 +1157,11 @@ SQL_ERROR
 
 #### 설 명
 
-UPDATE, INSERT 또는 DELETE 문에 의해 영향을 받은 행들의 수를 반환한다. 그 외에
-MOVE, ENQUEUE, MERGE 처럼 행에 변경시키는 SQL문의 경우에도 영향을 받은 행들의
-개수가 \**row*에 반환된다. 만약 영향을 받은 행이 없다면 \**row*에 0이 반환된다.
+UPDATE, INSERT 또는 DELETE 문에 의해 영향을 받은 행들의 수를 반환한다. 그 외에 MOVE, ENQUEUE, MERGE 처럼 행에 변경시키는 SQL문의 경우에도 영향을 받은 행들의 개수가 \**row*에 반환된다. 만약 영향을 받은 행이 없다면 \**row*에 0이 반환된다.
 
-입력 명령문 핸들로 마지막 실행한 SQL문이 위에 열거한 SQL 문이 아니거나
-성공적으로 실행되지 않은 경우 이 함수는 \**row*에 -1이 반환된다.
+입력 명령문 핸들로 마지막 실행한 SQL문이 위에 열거한 SQL 문이 아니거나 성공적으로 실행되지 않은 경우 이 함수는 \**row*에 -1이 반환된다.
 
-Cascading delete operation (부모 테이블에 임의의 행이 삭제되면 그것과 관련된
-자식 테이블의 모든 행도 삭제됨)과 같은 SQL문에 의해 영향을 받는 임의의 테이블의
-행들은 개수에 포함되지 않는다.
+Cascading delete operation (부모 테이블에 임의의 행이 삭제되면 그것과 관련된 자식 테이블의 모든 행도 삭제됨)과 같은 SQL문에 의해 영향을 받는 임의의 테이블의 행들은 개수에 포함되지 않는다.
 
 이 함수를 호출하기전에 SQLExecute() 또는 SQLExecDirect()를 호출해야만 한다.
 
@@ -1282,9 +1228,7 @@ SQL_ERROR
 
 #### 설 명
 
-애플리케이션은 연결이 할당되거나 해제되는 어느 시점에서나 SQLSetConnectAttr()을
-호출할 수 있다. 애플리케이션에서 성공적으로 설정된 모든 연결과 명령문 속성들은
-현재 연결에서 SQLFreeHandle()이 호출될 때까지 보존된다.
+애플리케이션은 연결이 할당되거나 해제되는 어느 시점에서나 SQLSetConnectAttr()을 호출할 수 있다. 애플리케이션에서 성공적으로 설정된 모든 연결과 명령문 속성들은 현재 연결에서 SQLFreeHandle()이 호출될 때까지 보존된다.
 
 | 속성                             | 내용                                                                                                                                                                                                                                                                                                                                                                                               |
 |----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1307,8 +1251,7 @@ SQL_ERROR
 | 25000    | 로컬 트랜잭션 수행중이므로 연산 불가 | NON-AUTOCOMMIT 모드에서 SQL_ATTR_ENLIST_IN_DTC 속성으로 분산 트랜잭션에 참여 시도시 실패 |
 | HY000    | 일반 오류                            |                                                                                          |
 
-*Attribute*가 명령문 속성일 때, SQLSetConnectAttr()은 SQLSetStmtAttr()에 의해
-반환된 어떠한 SQLSTATE도 반환할 수 있다.
+*Attribute*가 명령문 속성일 때, SQLSetConnectAttr()은 SQLSetStmtAttr()에 의해 반환된 어떠한 SQLSTATE도 반환할 수 있다.
 
 #### 관련함수
 
@@ -1421,9 +1364,7 @@ SQL_ERROR
 
 #### 설 명
 
-애플리케이션은 현재 환경에서 어떠한 연결 핸들도 할당되지 않은 경우에만
-SQLSetEnvAttr()을 호출할 수 있다. 애플리케이션에서 성공적으로 설정된 모든 환경
-속성들은 현재 환경에서 SQLFreeHandle()이 호출될 때까지 보존된다.
+애플리케이션은 현재 환경에서 어떠한 연결 핸들도 할당되지 않은 경우에만 SQLSetEnvAttr()을 호출할 수 있다. 애플리케이션에서 성공적으로 설정된 모든 환경 속성들은 현재 환경에서 SQLFreeHandle()이 호출될 때까지 보존된다.
 
 #### 환경 속성
 
@@ -1479,11 +1420,7 @@ SQL_ERROR
 
 #### 설 명
 
-SQLSetPos는 행집합 내에서 커서의 위치를 지정하고, 그 위치의 데이터를 새로
-가져오거나 갱신 또는 삭제하도록 해준다. *rowNumber*는 행집합 내에서 작업을
-수행할 행의 번호를 지정한다. *rowNumber*가 1이면 행집합에서 첫 번째 행을
-가리킨다. *rowNumber*가 0이면 행집합 내의 모든 행에 작업이 적용된다. 하지만
-*operation*이 SQL_POSITION일 때, *rowNumber*는 0일 수 없다.
+SQLSetPos는 행집합 내에서 커서의 위치를 지정하고, 그 위치의 데이터를 새로 가져오거나 갱신 또는 삭제하도록 해준다. *rowNumber*는 행집합 내에서 작업을 수행할 행의 번호를 지정한다. *rowNumber*가 1이면 행집합에서 첫 번째 행을 가리킨다. *rowNumber*가 0이면 행집합 내의 모든 행에 작업이 적용된다. 하지만 *operation*이 SQL_POSITION일 때, *rowNumber*는 0일 수 없다.
 
 커서 위치는 아래의 작업에 요구된다:
 
@@ -1514,16 +1451,13 @@ SQLSetPos 함수의 *operation* 인자에는 아래의 옵션이 지원된다:
 
    A.한 버퍼의 데이터를 변경하고자 하는 값으로 변경
 
-   B. 칼럼을 무시하려면 length/indicator를 SQL_COLUMN_IGNORE로 지정해서
-   SQLBindCol을 재호출
-
-   C. 행을 작업 대상에서 제외하려면, SQL_ATTR_ROW_OPERATION_PTR 명령문
-   속성을 설정하고 그 행에 대응하는 배열 요소에 SQL_ROW_IGNORE를 설정
-
+   B. 칼럼을 무시하려면 length/indicator를 SQL_COLUMN_IGNORE로 지정해서 SQLBindCol을 재호출
+   
+   C. 행을 작업 대상에서 제외하려면, SQL_ATTR_ROW_OPERATION_PTR 명령문 속성을 설정하고 그 행에 대응하는 배열 요소에 SQL_ROW_IGNORE를 설정
+   
 4. SQLSetPos 호출
 
-   A.L_ATTR_ROW_STATUS_PTR 명령문 속성에 상태 배열을 설정했다면, 이 배열의
-   값을 통해 각 행의 수행 결과를 확인할 수 있다.
+   A.L_ATTR_ROW_STATUS_PTR 명령문 속성에 상태 배열을 설정했다면, 이 배열의 값을 통해 각 행의 수행 결과를 확인할 수 있다.
 
 #### 진 단
 
@@ -1594,21 +1528,11 @@ SQL_ERROR
 
 #### 설 명
 
-명령문 속성은 다른 SQLSetStmtAttr() 호출에 의해 옵션이 변경되거나 명령문이
-SQLFreeHandle()을 호출하여 *stmt*가 제거될 때까지 *stmt*에 대한 명령문 옵션은
-효력이 있다. 핸들 해제 방식 SQL_CLOSE, SQL_UNBIND, 또는 SQL_RESET_PARAMS과 함께
-SQLFreeStmt()를 호출하는 것은 명령문 속성을 재설정하지 않는다.
+명령문 속성은 다른 SQLSetStmtAttr() 호출에 의해 옵션이 변경되거나 명령문이 SQLFreeHandle()을 호출하여 *stmt*가 제거될 때까지 *stmt*에 대한 명령문 옵션은 효력이 있다. 핸들 해제 방식 SQL_CLOSE, SQL_UNBIND, 또는 SQL_RESET_PARAMS과 함께 SQLFreeStmt()를 호출하는 것은 명령문 속성을 재설정하지 않는다.
 
-열 양식 바인딩을 사용하기 위해 애플리케이션은 함수 SQLSetStmtAttr()의 인자
-Attribute에 SQL_ATTR_PARAM_BIND_TYPE을 설정하고 인자 param에
-SQL_PARAM_BIND_BY_COLUMN을 설정한다. 만약 실행 도중 매번 ARRAY_SIZE가
-변경된다면, PARAM_SIZE만 변경을 하면 된다.
+열 양식 바인딩을 사용하기 위해 애플리케이션은 함수 SQLSetStmtAttr()의 인자 Attribute에 SQL_ATTR_PARAM_BIND_TYPE을 설정하고 인자 param에 SQL_PARAM_BIND_BY_COLUMN을 설정한다. 만약 실행 도중 매번 ARRAY_SIZE가 변경된다면, PARAM_SIZE만 변경을 하면 된다.
 
-PARAM_STATUS_PTR은 각 열들이 수행되었는지에 대한 여부를 돌려주기 위한 값으로
-SQLSMALLINT의 배열로 지정한다. 성공하면 SQL_SUCCESS, SQL_SUCCESS_WITH_INFO가,
-실패하면 SQL_PARAM_ERROR, 수행되지 않은 경우 SQL_PARAM_UNUSED가 반환된다. 매크로
-값은 SQL_PARAM_SUCCESS은 0, SQL_PARAM_ERROR는 5, SQL_PARAM_SUCCESS_WITH_INFO는
-6, SQL_PARAM_UNUSED는 7이다.
+PARAM_STATUS_PTR은 각 열들이 수행되었는지에 대한 여부를 돌려주기 위한 값으로 SQLSMALLINT의 배열로 지정한다. 성공하면 SQL_SUCCESS, SQL_SUCCESS_WITH_INFO가, 실패하면 SQL_PARAM_ERROR, 수행되지 않은 경우 SQL_PARAM_UNUSED가 반환된다. 매크로 값은 SQL_PARAM_SUCCESS은 0, SQL_PARAM_ERROR는 5, SQL_PARAM_SUCCESS_WITH_INFO는 6, SQL_PARAM_UNUSED는 7이다.
 
 ```
 SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_BIND_TYPE, SQL_PARAM_BIND_BY_COLUMN);
@@ -1616,9 +1540,7 @@ SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, ARRAY_SIZE, 0);
 SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_STATUS_PTR, ParamStatusArray, 0);
 ```
 
-PARAMS_PROCESSED_PTR에 처리된 열의 개수를 저장하기 위한 변수의 포인터를
-지정한다. SQLINTEGER의 포인터형이다. 그 다음 기존처럼 SQLBindParameter()를
-수행하면 된다.
+PARAMS_PROCESSED_PTR에 처리된 열의 개수를 저장하기 위한 변수의 포인터를 지정한다. SQLINTEGER의 포인터형이다. 그 다음 기존처럼 SQLBindParameter()를 수행하면 된다.
 
 ```
 SQLSetStmtAttr(stmt, SQL_ATTR_PARAMS_PROCESSED_PTR, &ParamsProcessed, 0);
@@ -1626,8 +1548,7 @@ SQLSetStmtAttr(stmt, SQL_ATTR_PARAMS_PROCESSED_PTR, &ParamsProcessed, 0);
 
 SQLBindParameter()를 수행
 
-행 양식 바인딩을 사용할 때, 열 양식 바인딩과의 차이는 PARAM_BIND_TYPE에
-structure의 크기를 지정하는 것이다.
+행 양식 바인딩을 사용할 때, 열 양식 바인딩과의 차이는 PARAM_BIND_TYPE에 structure의 크기를 지정하는 것이다.
 
 ```
 SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_BIND_TYPE, sizeof(struct…));
@@ -1774,21 +1695,13 @@ SQL_ERROR
 
 #### 설 명
 
-*fColType*이 SQL_BEST_ROWID 일 때, SQLSpecialColumns()는 테이블의 각 행을
-유일하게 식별하는 열(들)을 반환한다. 이러한 열들은 select 목록이나 WHERE 절에서
-사용될 수 있다.
+*fColType*이 SQL_BEST_ROWID 일 때, SQLSpecialColumns()는 테이블의 각 행을 유일하게 식별하는 열(들)을 반환한다. 이러한 열들은 select 목록이나 WHERE 절에서 사용될 수 있다.
 
-테이블의 열들에 대한 다양한 정보를 반환하는데 사용되는 SQLColumns()는 행을
-유일하게 식별하는 열들이나 또는 행의 어떤 값이 트랜잭션에 의해 갱신될 때
-자동으로 갱신되는 열들을 반드시 반환하지는 않기 때문에 SQLSpecialColumns()는
-이러한 열들을 반환하는데 사용한다.
+테이블의 열들에 대한 다양한 정보를 반환하는데 사용되는 SQLColumns()는 행을 유일하게 식별하는 열들이나 또는 행의 어떤 값이 트랜잭션에 의해 갱신될 때 자동으로 갱신되는 열들을 반드시 반환하지는 않기 때문에 SQLSpecialColumns()는 이러한 열들을 반환하는데 사용한다.
 
-테이블의 각 행을 유일하게 식별하는 열들이 없다면, SQLSpecialColumns()는 행들이
-없는 행집합을 반환한다. 명령문상에서 SQLFetch()에 대한 후속 호출은 SQL_NO_DATA를
-반환한다.
+테이블의 각 행을 유일하게 식별하는 열들이 없다면, SQLSpecialColumns()는 행들이 없는 행집합을 반환한다. 명령문상에서 SQLFetch()에 대한 후속 호출은 SQL_NO_DATA를 반환한다.
 
-*fColType*, *fScope*, *fNullable* 인자들이 DB에서 지원되지 않는 특징들을
-명시하면 SQLSpecialColumns()는 빈 결과 집합을 반환한다.
+*fColType*, *fScope*, *fNullable* 인자들이 DB에서 지원되지 않는 특징들을 명시하면 SQLSpecialColumns()는 빈 결과 집합을 반환한다.
 
 | 이름           | 번호 | 자료유형            | 설명                                                                              |
 |----------------|------|---------------------|-----------------------------------------------------------------------------------|
@@ -1843,8 +1756,7 @@ if (SQLSpecialColumns(stmt, 0,
 
 ### SQLStatistics
 
-단일 테이블에 대한 통계 목록과 그 테이블과 관련된 색인들을 검색한다. Altibase
-CLI 드라이버는 정보들을 결과 집합 형태로 반환한다.
+단일 테이블에 대한 통계 목록과 그 테이블과 관련된 색인들을 검색한다. Altibase CLI 드라이버는 정보들을 결과 집합 형태로 반환한다.
 
 Unicode SQLStatisticsW() 동작은 SQLStatistics()와 동일하다.
 
@@ -1888,9 +1800,7 @@ SQL_ERROR
 
 #### 설 명
 
-SQLStatistcs()는 단일 테이블에 대한 정보를 NON_UNIQUE, TYPE, INDEX_QUALIFIER,
-INDEX_NAME, 그리고 ORDINAM_POSITION 순서로 결과 집합에 반환한다. 결과 집합은
-테이블의 통계 정보와 (CARDINALITY와 PAGES) 각 색인에 대한 정보를 결합시킨다.
+SQLStatistcs()는 단일 테이블에 대한 정보를 NON_UNIQUE, TYPE, INDEX_QUALIFIER, INDEX_NAME, 그리고 ORDINAM_POSITION 순서로 결과 집합에 반환한다. 결과 집합은 테이블의 통계 정보와 (CARDINALITY와 PAGES) 각 색인에 대한 정보를 결합시킨다.
 
 | 이름             | 번호 | 자료 유형           | 설명                                                                                                                                                                                                                                                                      |
 |------------------|------|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1952,8 +1862,7 @@ if (SQLStatistics(stmt,NULL, 0,
 
 ### SQLTablePrivileges
 
-테이블들의 목록과 각 테이블과 관련된 권한들을 반환한다. Altibase CLI 드라이버는
-명시된 명령문 상에 결과 집합으로써 정보를 반환한다.
+테이블들의 목록과 각 테이블과 관련된 권한들을 반환한다. Altibase CLI 드라이버는 명시된 명령문 상에 결과 집합으로써 정보를 반환한다.
 
 Unicode SQLTablePrivilegesW() 동작은 SQLTablePrivileges()와 동일하다.
 
@@ -1993,8 +1902,7 @@ SQL_ERROR
 
 #### 설 명
 
-SQLTablePrivileges()는 TABLE_CAT, TABLE_SCHEM, TABLE_NAME, PRIVILEGE, 그리고
-GRANTEE에 의해 순서화된 표준 결과 집합 형태로 결과들을 반환한다.
+SQLTablePrivileges()는 TABLE_CAT, TABLE_SCHEM, TABLE_NAME, PRIVILEGE, 그리고 GRANTEE에 의해 순서화된 표준 결과 집합 형태로 결과들을 반환한다.
 
 다음 테이블은 결과 집합의 열들을 나열한다.
 
@@ -2055,8 +1963,7 @@ if (SQLTablePrivileges(stmt,
 
 ### SQLTables
 
-특정 DB에 저장된 테이블, 카탈로그 또는 스키마 이름들, 그리고 테이블 타입의
-목록이 결과 집합 형태로 반환된다.
+특정 DB에 저장된 테이블, 카탈로그 또는 스키마 이름들, 그리고 테이블 타입의 목록이 결과 집합 형태로 반환된다.
 
 Unicode SQLTablesW() 동작은 SQLTables()와 동일하다.
 
@@ -2100,29 +2007,19 @@ SQL_ERROR
 
 #### 설 명
 
-SQLTables()는 요구된 범위 내에서 모든 테이블 정보를 나열한다. 어떤 사용자는
-임의의 테이블에 대해서 SELECT 특권을 가질 수도 있고 아닐 수도 있다.
+SQLTables()는 요구된 범위 내에서 모든 테이블 정보를 나열한다. 어떤 사용자는 임의의 테이블에 대해서 SELECT 특권을 가질 수도 있고 아닐 수도 있다.
 
-애플리케이션은 SELECT 특권이 주어지지 않은 사용자가 임의의 테이블을 검색하는
-상황을 조정할 수 있어야만 한다.
+애플리케이션은 SELECT 특권이 주어지지 않은 사용자가 임의의 테이블을 검색하는 상황을 조정할 수 있어야만 한다.
 
-카탈로그, 스키마, 테이블 타입의 목록을 지원하기 위하여, 다음 특별한 구문들은
-SQLTables()의 *cName*, *sName*, *tName*, 그리고 *tableType*을 위해 정의된다:
+카탈로그, 스키마, 테이블 타입의 목록을 지원하기 위하여, 다음 특별한 구문들은 SQLTables()의 *cName*, *sName*, *tName*, 그리고 *tableType*을 위해 정의된다:
 
-만약 *sName*이 SQL_ALL_SCHEMAS이고 그리고 *cName*과 *tName*이 빈 문자열이면 결과
-집합은 DB에 대해 유효한 스키마 목록들을 포함한다. (모든 열들은 TABLE_SCHEM 열이
-NULL 들을 포함하기를 기대한다.)
+만약 *sName*이 SQL_ALL_SCHEMAS이고 그리고 *cName*과 *tName*이 빈 문자열이면 결과 집합은 DB에 대해 유효한 스키마 목록들을 포함한다. (모든 열들은 TABLE_SCHEM 열이 NULL 들을 포함하기를 기대한다.)
 
-만약 *tableType*이 SQL_ALL_TABLE_TYPES이고 *cName*, *sName*, 그리고 *tName*이 빈
-문자열이면, 결과 집합은 DB에 대해 유효한 테이블 타입 목록들을 포함한다.
-(TABLE_TYPE 열을 제외한 모든 열은 NULL들을 포함한다.)
+만약 *tableType*이 SQL_ALL_TABLE_TYPES이고 *cName*, *sName*, 그리고 *tName*이 빈 문자열이면, 결과 집합은 DB에 대해 유효한 테이블 타입 목록들을 포함한다. (TABLE_TYPE 열을 제외한 모든 열은 NULL들을 포함한다.)
 
-애플리케이션은 *tableType*을 대문자로 항상 명시해야 하며, 다음의 값 중 하나를
-지정할 수 있다: SQL_ALL_TABLE_TYPES, "SYSTEM TABLE", "TABLE", "VIEW", "QUEUE",
-"SYNONYM", "MATERIALIZED VIEW".
+애플리케이션은 *tableType*을 대문자로 항상 명시해야 하며, 다음의 값 중 하나를 지정할 수 있다: SQL_ALL_TABLE_TYPES, "SYSTEM TABLE", "TABLE", "VIEW", "QUEUE", "SYNONYM", "MATERIALIZED VIEW".
 
-SQLTables()는 TABLE_TYPE, TABLE_CAT, TABLE_SCHEM, 그리고 TABLE_NAME 순서에 의해
-결과들을 표준 결과 집합 형태로 반환한다.
+SQLTables()는 TABLE_TYPE, TABLE_CAT, TABLE_SCHEM, 그리고 TABLE_NAME 순서에 의해 결과들을 표준 결과 집합 형태로 반환한다.
 
 다음 테이블은 결과 집합의 열들을 나열한 것이다.
 
@@ -2205,15 +2102,7 @@ while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)
 
 ### SQLTransact
 
-연결 상태에서 현재 트랜잭션을 정상 종료하거나 철회한다.
-
-연결 시간 이후나 이전 SQLTransact() 호출 이후의 연결에서 수행 된 데이터베이스에
-대한 모든 변경을 정상 종료하거나 철회한다.
-
-트랜잭션이 연결 상태에서 사용 중이면 애플리케이션은 데이터베이스를 단절하기 전에
-SQLTransact()를 호출해야 한다.
-
-SQLTransact()는 SQLEndTran()으로 대체될 수 있다.
+연결 상태에서 현재 트랜잭션을 정상 종료하거나 철회한다. 연결 시간 이후나 이전 SQLTransact() 호출 이후의 연결에서 수행 된 데이터베이스에 대한 모든 변경을 정상 종료하거나 철회한다. 트랜잭션이 연결 상태에서 사용 중이면 애플리케이션은 데이터베이스를 단절하기 전에 SQLTransact()를 호출해야 한다. SQLTransact()는 SQLEndTran()으로 대체될 수 있다.
 
 #### 구 문
 
@@ -2250,12 +2139,9 @@ SQLTransact()를 호출한 후에도 명령문 핸들이 유효
 
 미결 검색인 결과 집합이 삭제된다.
 
-현재 사용 중인 트랜잭션이 없으면 SQLTransact()를 호출하는 것은 데이터베이스
-서버에 아무런 영향을 끼치지 않고 SQL_SUCCESS를 반환한다.
+현재 사용 중인 트랜잭션이 없으면 SQLTransact()를 호출하는 것은 데이터베이스 서버에 아무런 영향을 끼치지 않고 SQL_SUCCESS를 반환한다.
 
-연결 손실 때문에 COMMIT 또는 ROLLBACK을 실행하는 동안 SQLTransact()가 실패할 수
-있다. 이 경우에는 애플리케이션이 반영 또는 롤백이 처리되었는지 판별할 수
-없으므로 데이터베이스 관리자에게 도움을 요청
+연결 손실 때문에 COMMIT 또는 ROLLBACK을 실행하는 동안 SQLTransact()가 실패할 수 있다. 이 경우에는 애플리케이션이 반영 또는 롤백이 처리되었는지 판별할 수 없으므로 데이터베이스 관리자에게 도움을 요청
 
 #### 예 제
 
@@ -2281,8 +2167,7 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 
 [표 3‑1] SQL 데이터 타입의 식별자
 
-다음 표는 LOB을 지원하는 C 데이터 타입의 식별자이다. 각 식별자에 해당하는 ODBC의
-C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
+다음 표는 LOB을 지원하는 C 데이터 타입의 식별자이다. 각 식별자에 해당하는 ODBC의 C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
 
 | C 타입 식별자      | ODBC C 타입 | C 타입 정의      |
 |--------------------|-------------|------------------|
@@ -2291,28 +2176,17 @@ C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
 
 [표 3‑2] LOB 지원 C 데이터 타입의 식별자
 
-64비트 정수형의 이름은 플랫폼에 따라 다르다. 위 표에서 사용한 \_int64는 일부
-플랫폼에서 사용되는 64비트 정수형의 이름이다.
+64비트 정수형의 이름은 플랫폼에 따라 다르다. 위 표에서 사용한 \_int64는 일부 플랫폼에서 사용되는 64비트 정수형의 이름이다.
 
-CLOB 데이터는 SQL_C_CHAR를, BLOB 데이터는 SQL_C_BINARY를 사용하여 사용자 변수를
-바인딩하도록 한다.
+CLOB 데이터는 SQL_C_CHAR를, BLOB 데이터는 SQL_C_BINARY를 사용하여 사용자 변수를 바인딩하도록 한다.
 
-LOB Locator를 얻고자 한다면, 해당 LOB 칼럼의 타입에 따라서 SQL_C_CLOB_LOCATOR,
-혹은 SQL_C_BLOB_LOCATOR를 적절하게 바인드하면 된다. 여기서 말하는 LOB Locator
-즉, LOB 위치 입력기는 운영체제의 파일 포인터처럼 LOB 데이터를 연산할 때 사용되는
-핸들이다.
+LOB Locator를 얻고자 한다면, 해당 LOB 칼럼의 타입에 따라서 SQL_C_CLOB_LOCATOR, 혹은 SQL_C_BLOB_LOCATOR를 적절하게 바인드하면 된다. 여기서 말하는 LOB Locator 즉, LOB 위치 입력기는 운영체제의 파일 포인터처럼 LOB 데이터를 연산할 때 사용되는 핸들이다.
 
-읽기용 LOB 위치 입력기는 SELECT LOB칼럼이름 FROM 테이블 where… 와 select를
-수행한 후에 획득된다. 쓰기용 LOB 위치입력기는 SELECT LOB칼럼이름 FROM 테이블
-where… FOR UPDATE를 수행한 후에 획득된다.
+읽기용 LOB 위치 입력기는 SELECT LOB칼럼이름 FROM 테이블 where… 와 select를 수행한 후에 획득된다. 쓰기용 LOB 위치입력기는 SELECT LOB칼럼이름 FROM 테이블 where… FOR UPDATE를 수행한 후에 획득된다.
 
-LOB 위치입력기는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에
-위치입력기를 발생시킨 트랜잭션과 수명주기(life-cycle)를 같이 한다. 따라서 LOB
-위치입력기를 이용하여 LOB에 대한 연산을 하기 위해서는 connection을 항상
-NON-AUTOCOMMIT 모드로 설정하여 사용해야 한다.
+LOB 위치입력기는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에 위치입력기를 발생시킨 트랜잭션과 수명주기(life-cycle)를 같이 한다. 따라서 LOB 위치입력기를 이용하여 LOB에 대한 연산을 하기 위해서는 connection을 항상 NON-AUTOCOMMIT 모드로 설정하여 사용해야 한다.
 
-사용자 변수의 LOB 타입으로 지정된 타입, 이를테면 SQL_C_BLOB, SQL_C_CLOB 등은
-따로 존재하지 않음에 유의한다.
+사용자 변수의 LOB 타입으로 지정된 타입, 이를테면 SQL_C_BLOB, SQL_C_CLOB 등은 따로 존재하지 않음에 유의한다.
 
 ### LOB Function Overview
 
@@ -2341,31 +2215,22 @@ LOB 데이터를 다루기 위해서 사용되는 함수들은 아래와 같다.
 
 8.  여타 ODBC 의 모든 표준 함수들
 
-위 함수들 중 1 \~ 6번은 Altibase가 LOB 을 다루기 위해 제공하는 특수 함수들로써,
-ODBC 표준에는 없는 함수들이다.
+위 함수들 중 1 \~ 6번은 Altibase가 LOB 을 다루기 위해 제공하는 특수 함수들로써, ODBC 표준에는 없는 함수들이다.
 
-7, 8 번과 같이 ODBC 스펙에서 정의하는 함수들을 이용해서 데이터베이스의 칼럼
-타입이 LOB 인지의 여부에 무관하게 표준 함수만으로도 LOB 데이터에 접근할 수 있다.
-단, ODBC 표준 함수만을 사용했을 경우, 부분 갱신(partial update), 부분
-검색(partial retrieve) 등의 기능은 사용할 수 없다.
+7, 8 번과 같이 ODBC 스펙에서 정의하는 함수들을 이용해서 데이터베이스의 칼럼 타입이 LOB 인지의 여부에 무관하게 표준 함수만으로도 LOB 데이터에 접근할 수 있다. 단, ODBC 표준 함수만을 사용했을 경우, 부분 갱신(partial update), 부분 검색(partial retrieve) 등의 기능은 사용할 수 없다.
 
-만약 사용자가 ODBC driver manager를 이용해서 프로그래밍을 하고자 할 경우에는,
-odbc.ini 파일에 다음과 같은 항목을 추가해야 한다.
+만약 사용자가 ODBC driver manager를 이용해서 프로그래밍을 하고자 할 경우에는, odbc.ini 파일에 다음과 같은 항목을 추가해야 한다.
 
 ```
 LongDataCompat = yes또는
 LongDataCompat = on
 ```
 
-위의 항목을 odbc.ini 파일에 추가했을 경우, SQL_BLOB, SQL_CLOB 과 같은 타입은
-각각 SQL_LONGVARBINARY, SQL_LONGVARCHAR 와 같은 타입으로 변환되어서 사용자에게
-전달된다. 따라서 ODBC driver manager를 사용하더라도 투명하게 LOB 데이터를 다룰
-수 있다.
+위의 항목을 odbc.ini 파일에 추가했을 경우, SQL_BLOB, SQL_CLOB 과 같은 타입은 각각 SQL_LONGVARBINARY, SQL_LONGVARCHAR 와 같은 타입으로 변환되어서 사용자에게 전달된다. 따라서 ODBC driver manager를 사용하더라도 투명하게 LOB 데이터를 다룰 수 있다.
 
 ### SQLBindFileToCol
 
-BLOB 또는 CLOB 데이터 타입에 대해 파일 또는 파일들을 결과 집합의 열에
-바인드한다.
+BLOB 또는 CLOB 데이터 타입에 대해 파일 또는 파일들을 결과 집합의 열에 바인드한다.
 
 #### 구 문
 
@@ -2403,17 +2268,11 @@ SQL_ERROR
 
 #### 설 명
 
-SQLBindFileToCol()은 결과 집합의 LOB 데이터를 파일로 바인드하며, SQLBindCol()은
-애플리케이션 변수(메모리 버퍼)에 바인드한다.
+SQLBindFileToCol()은 결과 집합의 LOB 데이터를 파일로 바인드하며, SQLBindCol() 애플리케이션 변수(메모리 버퍼)에 바인드한다.
 
-SQLBindFileToCol() 호출 후 SQLFetch()가 호출되면, DBMS의 LOB 데이터가 파일로
-저장되며, valueLength 포인터가 가리키는 버퍼에는 파일에 저장된 데이터의 길이
-(바이트 단위) 가 저장된다. 만약, LOB이 NULL일 경우 valueLength 포인터가 가리키는
-버퍼에는 SQL_NULL_DATA가 저장된다. fileName, fileNameLength, fileOptions 인자의
-값은 SQLFetch() 시 참조되며, 인자의 오류 여부도 FETCH시 보고된다.
+SQLBindFileToCol() 호출 후 SQLFetch()가 호출되면, DBMS의 LOB 데이터가 파일로 저장되며, valueLength 포인터가 가리키는 버퍼에는 파일에 저장된 데이터의 길이 (바이트 단위) 가 저장된다. 만약, LOB이 NULL일 경우 valueLength 포인터가 가리키는 버퍼에는 SQL_NULL_DATA가 저장된다. fileName, fileNameLength, fileOptions 인자의 값은 SQLFetch() 시 참조되며, 인자의 오류 여부도 FETCH시 보고된다.
 
-FETCH 시 한 번에 여러 개의 LOB을 파일로 가져오는 경우, fileName, fileNameLength,
-fileOptions, valueLength 인자는 모두 배열이어야 한다.
+FETCH 시 한 번에 여러 개의 LOB을 파일로 가져오는 경우, fileName, fileNameLength, fileOptions, valueLength 인자는 모두 배열이어야 한다.
 
 #### 진 단
 
@@ -2588,9 +2447,7 @@ for (i = 0; ; i++)
 
 ### SQLindFileToParam
 
-SQL 문에서 LOB 데이터 타입을 위해 사용된 매개변수 마커 ‘?’를 파일 또는 파일들에
-바인드시킨다. SQLExecute() 또는 SQLExecDirect()가 호출될 때 자료가 파일에서
-데이터베이스 관리 시스템으로 전송된다.
+SQL 문에서 LOB 데이터 타입을 위해 사용된 매개변수 마커 ‘?’를 파일 또는 파일들에 바인드시킨다. SQLExecute() 또는 SQLExecDirect()가 호출될 때 자료가 파일에서 데이터베이스 관리 시스템으로 전송된다.
 
 #### 구 문
 
@@ -2630,23 +2487,13 @@ SQL_ERROR
 
 #### 설 명
 
-SQLBindFileToParam()은 LOB 매개변수 마커를 파일에 바인드시킨다. 매개변수 마커를
-애플리케이션 변수(메모리 버퍼)에 바인드시키고 싶을 경우, SQLBindParameter()를
-사용하면 된다. SQLBindFileToParam(), SQLBindParameter() 중 어느 것이든 가장
-최근에 호출한 바인드 함수에 의한 바인딩만 유효하게 된다.
+SQLBindFileToParam()은 LOB 매개변수 마커를 파일에 바인드시킨다. 매개변수 마커를 애플리케이션 변수(메모리 버퍼)에 바인드시키고 싶을 경우, SQLBindParameter()를 사용하면 된다. SQLBindFileToParam(), SQLBindParameter() 중 어느 것이든 가장 최근에 호출한 바인드 함수에 의한 바인딩만 유효하게 된다.
 
-fileName, fileNameLength, fileOptions, ind 인자의 값은 SQLExecute() 또는
-SQLExecDirect() 시 참조되므로 SQLExecute() 또는 SQLExecDirect() 호출 전에 값을
-설정해주어야 한다. SQLExecute() 또는 SQLExecDirect()가 호출되면, 데이터가
-바인드된 파일로부터 읽혀 DBMS로 전송된다.
+fileName, fileNameLength, fileOptions, ind 인자의 값은 SQLExecute() 또는 SQLExecDirect() 시 참조되므로 SQLExecute() 또는 SQLExecDirect() 호출 전에 값을 설정해주어야 한다. SQLExecute() 또는 SQLExecDirect()가 호출되면, 데이터가 바인드된 파일로부터 읽혀 DBMS로 전송된다.
 
-LOB이 NULL일 경우 ind 포인터가 가리키는 버퍼에 SQL_NULL_DATA를 설정한 후
-SQLExecute() 또는 SQLExecDirect()를 호출한다. 만약, LOB이 NULL이 아닐 경우 ind
-포인터가 가리키는 버퍼에는 0을 설정해야 한다. ind 인자는 NULL 포인터여서는
-안된다.
+LOB이 NULL일 경우 ind 포인터가 가리키는 버퍼에 SQL_NULL_DATA를 설정한 후 SQLExecute() 또는 SQLExecDirect()를 호출한다. 만약, LOB이 NULL이 아닐 경우 ind 포인터가 가리키는 버퍼에는 0을 설정해야 한다. ind 인자는 NULL 포인터여서는 안 된다.
 
-파일의 배열을 한 매개변수 마커에 바인드하는 경우, fileName, fileNameLength,
-fileOptions, ind 인자는 모두 배열이어야 한다.
+파일의 배열을 한 매개변수 마커에 바인드하는 경우, fileName, fileNameLength, fileOptions, ind 인자는 모두 배열이어야 한다.
 
 #### 진 단
 
@@ -2844,24 +2691,17 @@ SQL_ERROR
 
 LOB locator가 가리키는 LOB의 길이를 얻기 위해 사용되는 함수이다.
 
-LOB locator는 데이터베이스 내의 LOB을 직접 가리키는(LOB 내에서의 오프셋 아님)
-값이다. LOB locator를 얻는 방법은 두 가지가 존재한다 :
+LOB locator는 데이터베이스 내의 LOB을 직접 가리키는(LOB 내에서의 오프셋 아님) 값이다. LOB locator를 얻는 방법은 두 가지가 존재한다 :
 
-SQLBindCol()이나 SQLGetData() 함수를 통해 SELECT SQL 문의 결과 집합의 LOB
-열로부터 얻을 수 있다.
+SQLBindCol()이나 SQLGetData() 함수를 통해 SELECT SQL 문의 결과 집합의 LOB 열로부터 얻을 수 있다.
 
-이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR,
-혹은, SQL_C_BLOB_LOCATOR 여야 한다.
+이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR, 혹은, SQL_C_BLOB_LOCATOR 여야 한다.
 
 SQLBindParameter() 의 output parameter 를 통해 얻을 수 있다.
 
-이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR,
-혹은, SQL_C_BLOB_LOCATOR 여야 한다.
+이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR, 혹은, SQL_C_BLOB_LOCATOR 여야 한다.
 
-현재의 트랜잭션 도중 얻어진 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수
-없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다. 만약 유효하지
-않은 LOB locator를 인자로 사용할 경우, 본 함수는 SQL_ERROR 를 리턴하며,
-valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
+현재의 트랜잭션 도중 얻어진 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다. 만약 유효하지 않은 LOB locator를 인자로 사용할 경우, 본 함수는 SQL_ERROR 를 리턴하며, valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
 
 valueLength 인자를 통해 LOB의 길이가 리턴된다.
 
@@ -2940,8 +2780,7 @@ if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 
 ### SQLGetLob
 
-트랜잭션이 진행 중에 얻어진 LOB Locator가 가리키는 LOB에서 데이터의 일부분을
-애플리케이션 데이터 버퍼(application data buffer)로 가져온다.
+트랜잭션이 진행 중에 얻어진 LOB Locator가 가리키는 LOB에서 데이터의 일부분을 애플리케이션 데이터 버퍼(application data buffer)로 가져온다.
 
 #### 구 문
 
@@ -2983,21 +2822,13 @@ SQL_ERROR
 
 #### 설 명
 
-sourceLocator가 가리키는 LOB 데이터의 일부분을 서버에서 애플리케이션(application
-data buffer)으로 가져온다. LOB 데이터를 나누어 가져오기 위해 사용된다. LOB의
-전체 길이는 SQLGetLobLength()를 호출하여 얻을 수 있다.
+sourceLocator가 가리키는 LOB 데이터의 일부분을 서버에서 애플리케이션(application data buffer)으로 가져온다. LOB 데이터를 나누어 가져오기 위해 사용된다. LOB의 전체 길이는 SQLGetLobLength()를 호출하여 얻을 수 있다.
 
-sourceLocator가 현재의 트랜잭션 내에서 열린 LOB locator가 아닌 경우 본 함수의
-인자로 사용할 수 없다. 트랜잭션을 종료하면 LOB locator가 무효화되기 때문이다.
-소스 LOB locator가 유효하지 않은 경우, SQLGetLob() 함수는 SQL_ERROR 를 리턴하며,
-value 및 valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
+sourceLocator가 현재의 트랜잭션 내에서 열린 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수 없다. 트랜잭션을 종료하면 LOB locator가 무효화되기 때문이다. 소스 LOB locator가 유효하지 않은 경우, SQLGetLob() 함수는 SQL_ERROR 를 리턴하며, value 및 valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
 
-sourceLocator가 NULL인 LOB을 가리킬 경우, SQLGetLob() 함수는 LOB locator의
-길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
+sourceLocator가 NULL인 LOB을 가리킬 경우, SQLGetLob() 함수는 LOB locator의 길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
 
-SQLGetLob() 호출 결과 반환될 데이터의 크기가 bufferSize의 버퍼 크기보다 클 경우,
-SQLGetLob() 함수는 SQL_SUCCESS_WITH_INFO (SQLSTATE=01004)를 리턴하며, 버퍼에
-반환되는 데이터는 버퍼의 크기에 맞춰 끝부분이 잘린다.
+SQLGetLob() 호출 결과 반환될 데이터의 크기가 bufferSize의 버퍼 크기보다 클 경우, SQLGetLob() 함수는 SQL_SUCCESS_WITH_INFO (SQLSTATE=01004)를 리턴하며, 버퍼에 반환되는 데이터는 버퍼의 크기에 맞춰 끝부분이 잘린다.
 
 #### 진 단
 
@@ -3089,10 +2920,7 @@ if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 
 ### SQLPutLob
 
-이 함수의 동작들은 모두 내부에서 갱신 작업으로 동작한다. 삽입은 길이가 0인 기존
-LOB 데이터를 다른 값으로 갱신하는 동작이다. 갱신은 인자의 값에 따라 기존
-데이터의 지정한 위치부터 다른 값으로 덮어쓰거나 기존 데이터 뒤에 덧붙이는 동작을
-할 수 있다.
+이 함수의 동작들은 모두 내부에서 갱신 작업으로 동작한다. 삽입은 길이가 0인 기존 LOB 데이터를 다른 값으로 갱신하는 동작이다. 갱신은 인자의 값에 따라 기존 데이터의 지정한 위치부터 다른 값으로 덮어쓰거나 기존 데이터 뒤에 덧붙이는 동작을 할 수 있다.
 
 #### 구 문
 
@@ -3132,26 +2960,15 @@ SQL_ERROR
 
 #### 설 명
 
-이 함수는 애플리케이션 버퍼(application data buffer, value 인자)가 담고 있는
-데이터를 타겟 LOB locator(targetLocator 인자)가 가리키는 LOB에 삽입 또는
-갱신한다.
+이 함수는 애플리케이션 버퍼(application data buffer, value 인자)가 담고 있는 데이터를 타겟 LOB locator(targetLocator 인자)가 가리키는 LOB에 삽입 또는 갱신한다.
 
-이 함수를 실행하면, 서버는 타겟 LOB의 fromPosition 위치부터의 데이터를 value
-버퍼의 valueLength 길이만큼의 데이터로 덮어쓴다. valueLength가 (LOBSize –
-fromPosition)보다 큰 경우, 데이터베이스에서 타겟 LOB의 길이가 늘어난다.
-fromPosition이 타겟 LOB 값의 끝 위치를 가리키면, value 버퍼의 valueLength
-길이만큼의 데이터가 기존 값 뒤에 덧붙여진다.
+이 함수를 실행하면, 서버는 타겟 LOB의 fromPosition 위치부터의 데이터를 value 버퍼의 valueLength 길이만큼의 데이터로 덮어쓴다. valueLength가 (LOBSize – fromPosition)보다 큰 경우, 데이터베이스에서 타겟 LOB의 길이가 늘어난다. fromPosition이 타겟 LOB 값의 끝 위치를 가리키면, value 버퍼의 valueLength 길이만큼의 데이터가 기존 값 뒤에 덧붙여진다.
 
-타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의
-인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다.
-타겟 LOB locator가 유효하지 않을 때에는, SQLPutLob() 함수는 SQL_ERROR를
-리턴한다.
+타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다. 타겟 LOB locator가 유효하지 않을 때에는, SQLPutLob() 함수는 SQL_ERROR를 리턴한다.
 
-타겟 LOB locator가 NULL인 LOB을 가리킬 경우, SQLPutLob() 함수는 LOB locator가
-길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
+타겟 LOB locator가 NULL인 LOB을 가리킬 경우, SQLPutLob() 함수는 LOB locator가 길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
 
-fromPosition 인자는 호출 시점의 타겟 LOB 길이보다 크면 안 된다. fromPosition
-값이 타겟 LOB 길이보다 크면, SQLPutLob() 함수는 SQL_ERROR를 리턴한다.
+fromPosition 인자는 호출 시점의 타겟 LOB 길이보다 크면 안 된다. fromPosition 값이 타겟 LOB 길이보다 크면, SQLPutLob() 함수는 SQL_ERROR를 리턴한다.
 
 #### 진 단
 
@@ -3365,12 +3182,9 @@ SQL_ERROR
 
 #### 설 명
 
-이 함수는 타겟 LOB locator가 가리키는 LOB 값에서 지정한 위치 뒤쪽의 데이터를
-삭제하며, 삭제 후에는 타겟 LOB의 길이가 줄어든다.
+이 함수는 타겟 LOB locator가 가리키는 LOB 값에서 지정한 위치 뒤쪽의 데이터를 삭제하며, 삭제 후에는 타겟 LOB의 길이가 줄어든다.
 
-타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의
-인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효가 되기 때문이다.
-타겟 LOB locator가 유효하지 않은 경우, SQLTrimLob() 함수는 SQL_ERROR을 리턴한다.
+타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효가 되기 때문이다. 타겟 LOB locator가 유효하지 않은 경우, SQLTrimLob() 함수는 SQL_ERROR을 리턴한다.
 
 #### 진 단
 
@@ -3472,15 +3286,11 @@ SQL_ERROR
 
 #### 설 명
 
-LOB locator로 대표되는 LOB에 대한 조작이 종료되었음을 서버에게 알려준다. 이로
-인해 서버에서 할당된 LOB locator는 해제되며, 그와 관련된 서버의 자원들도
-해제된다.
+LOB locator로 대표되는 LOB에 대한 조작이 종료되었음을 서버에게 알려준다. 이로 인해 서버에서 할당된 LOB locator는 해제되며, 그와 관련된 서버의 자원들도 해제된다.
 
-본 함수는 LOB locator가 가리키는 LOB에 대한 변경 사항을 commit 또는 rollback하지
-않는다.
+본 함수는 LOB locator가 가리키는 LOB에 대한 변경 사항을 commit 또는 rollback하지 않는다.
 
-SQLEndTran()으로 트랜잭션을 종료한 경우, LOB locator는 자동으로 해제되므로 본
-함수를 호출할 필요가 없다.
+SQLEndTran()으로 트랜잭션을 종료한 경우, LOB locator는 자동으로 해제되므로 본 함수를 호출할 필요가 없다.
 
 #### 진 단
 
@@ -3518,25 +3328,17 @@ Altibase CLI 드라이버의 커서는 다음을 지원한다:
 
 -   위치 지정 업데이트
 
-커서의 특성은 SQL문을 실행하기 전에 SQLSetStmtAttr로 설정한 명령문 속성에 의해
-제어된다. 결과 집합을 처리하는 Altibase CLI API 함수들은 fetch, 스크롤, 및 위치
-지정 업데이트 같은 커서의 기능을 지원한다.
+커서의 특성은 SQL문을 실행하기 전에 SQLSetStmtAttr로 설정한 명령문 속성에 의해 제어된다. 결과 집합을 처리하는 Altibase CLI API 함수들은 fetch, 스크롤, 및 위치 지정 업데이트 같은 커서의 기능을 지원한다.
 
 #### 커서 특성 설정
 
-애플리케이션에서 SQL문을 실행하기 전에 하나 이상의 커서 속성을 설정하여 커서의
-동작을 제어할 수 있다. ODBC 표준에는 커서의 특성을 지정하는 아래의 두 가지
-방법이 있다.
+애플리케이션에서 SQL문을 실행하기 전에 하나 이상의 커서 속성을 설정하여 커서의 동작을 제어할 수 있다. ODBC 표준에는 커서의 특성을 지정하는 아래의 두 가지 방법이 있다.
 
 -   커서 유형  
-    커서 유형은 SQLSetStmtAttr의 SQL_ATTR_CURSOR_TYPE 속성을 사용하여 설정할 수
-    있다. Altibase CLI 드라이버는 정방향 전용(forward-only), 정적(static), 및
-    키집합(keyset-driven) 커서 유형을 지원한다.
-
+    커서 유형은 SQLSetStmtAttr의 SQL_ATTR_CURSOR_TYPE 속성을 사용하여 설정할 수 있다. Altibase CLI 드라이버는 정방향 전용(forward-only), 정적(static), 및 키집합(keyset-driven) 커서 유형을 지원한다.
+    
 -   커서 동작  
-    커서 동작은 SQLSetStmtAttr의 SQL_ATTR_CURSOR_SCROLLABLE,
-    SQL_ATTR_CURSOR_SENSITIVITY, 및 SQL_ATTR_CONCURRENCY 속성을 사용하여 설정할
-    수 있다.
+    커서 동작은 SQLSetStmtAttr의 SQL_ATTR_CURSOR_SCROLLABLE, SQL_ATTR_CURSOR_SENSITIVITY, 및 SQL_ATTR_CONCURRENCY 속성을 사용하여 설정할 수 있다.
 
 커서 유형은 ODBC 스타일이며, 커서 동작은 SQL-92/ISO 스타일이다.
 
@@ -3544,59 +3346,35 @@ Altibase CLI 드라이버의 커서는 다음을 지원한다:
 
 Altibase CLI 드라이버는 아래 세 가지 유형의 커서를 지원한다.
 
--   정방향 전용 커서: 스크롤을 지원하지 않으며, 커서의 처음부터 끝까지
-    순차적으로 행을 fetch하는 것만 지원한다.
-
+-   정방향 전용 커서: 스크롤을 지원하지 않으며, 커서의 처음부터 끝까지 순차적으로 행을 fetch하는 것만 지원한다.
+    
 -   정적 커서: 커서가 열릴 당시의 결과 집합을 표시하며, 읽기 전용이다.
 
--   키 집합 커서: 행 순서는 커서가 열릴 때 고정된다. 키가 아닌 칼럼의 데이터
-    수정 내용은 커서를 통해 볼 수 있다.
+-   키 집합 커서: 행 순서는 커서가 열릴 때 고정된다. 키가 아닌 칼럼의 데이터 수정 내용은 커서를 통해 볼 수 있다.
 
 #### 커서 동작
 
-SQLSetStmtAttr의 SQL_ATTR_CURSOR_SCROLLABLE, SQL_ATTR_CURSOR_SENSITIVITY, 및
-SQL_ATTR_CONCURRENCY 속성을 사용해서 커서의 스크롤 가능 여부, 민감도, 및
-동시성을 지정할 수 있다.
+SQLSetStmtAttr의 SQL_ATTR_CURSOR_SCROLLABLE, SQL_ATTR_CURSOR_SENSITIVITY, 및 SQL_ATTR_CONCURRENCY 속성을 사용해서 커서의 스크롤 가능 여부, 민감도, 및 동시성을 지정할 수 있다.
 
 -   스크롤 가능 여부  
-    SQL_ATTR_CURSOR_SCROLLABLE이 SQL_SCROLLABLE로 설정되면, 커서는 여러 방향으로
-    이동 가능하다. SQL_ATTR_CURSOR_SCROLLABLE이 SQL_NONSCROLLABLE로 설정되면,
-    커서는 SQL_FETCH_NEXT로만 움직일 수 있다.
-
+    SQL_ATTR_CURSOR_SCROLLABLE이 SQL_SCROLLABLE로 설정되면, 커서는 여러 방향으로 이동 가능하다. SQL_ATTR_CURSOR_SCROLLABLE이 SQL_NONSCROLLABLE로 설정되면, 커서는 SQL_FETCH_NEXT로만 움직일 수 있다.
+    
 -   민감도  
-    SQL_ATTR_CURSOR_SENSITIVITY가 SQL_SENSITIVE로 설정되면, 커서는
-    데이터베이스의 데이터 수정 내용을 반영한다. 즉, 행 집합을 다시 가져올 필요가
-    경우, 데이터베이스에서 최신 데이터를 가져온다. SQL_ATTR_CURSOR_SENSITIVITY가
-    SQL_INSENSITIVE로 설정되면, 커서는 데이터 수정 내용을 반영하지 않는다. 즉,
-    행 집합을 다시 가져올 필요가 경우, 캐시에서 데이터를 가져온다.
-
+    SQL_ATTR_CURSOR_SENSITIVITY가 SQL_SENSITIVE로 설정되면, 커서는 데이터베이스의 데이터 수정 내용을 반영한다. 즉, 행 집합을 다시 가져올 필요가 경우, 데이터베이스에서 최신 데이터를 가져온다. SQL_ATTR_CURSOR_SENSITIVITY가 SQL_INSENSITIVE로 설정되면, 커서는 데이터 수정 내용을 반영하지 않는다. 즉, 행 집합을 다시 가져올 필요가 경우, 캐시에서 데이터를 가져온다.
+    
 -   동시성  
-    커서의 동시성은 SQLSetStmtAttr에 SQL_ATTR_CONCURRENCY 속성을 사용하여
-    설정된다. Altibase CLI 드라이버는 아래 두 가지 유형의 커서 동시성을
-    지원한다.
-
+    커서의 동시성은 SQLSetStmtAttr에 SQL_ATTR_CONCURRENCY 속성을 사용하여 설정된다. Altibase CLI 드라이버는 아래 두 가지 유형의 커서 동시성을 지원한다.
     -   SQL_CONCUR_READONLY: 읽기 전용
-
+    
     -   SQL_CONCUR_ROWVER: 행 버전을 사용하여 동시성 제어
 
 ### 암시적 커서 변환
 
-애플리케이션은 커서 유형을 지정하는 대신에 커서 동작 관련 속성들을 일일이 지정할
-수도 있다. 그 방법은 명령문 핸들에 대해 커서를 열기 전에
-SQL_ATTR_CURSOR_SCROLLABLE, SQL_ATTR_CURSOR_SENSITIVITY, 및 SQL_ATTR_CONCURRENCY
-명령문 속성을 설정하는 것이다. 그러면 Altibase CLI 드라이버가 애플리케이션에서
-요청한 특성을 가장 효율적으로 제공하는 커서 유형을 선택한다.
+애플리케이션은 커서 유형을 지정하는 대신에 커서 동작 관련 속성들을 일일이 지정할 수도 있다. 그 방법은 명령문 핸들에 대해 커서를 열기 전에 SQL_ATTR_CURSOR_SCROLLABLE, SQL_ATTR_CURSOR_SENSITIVITY, 및 SQL_ATTR_CONCURRENCY 명령문 속성을 설정하는 것이다. 그러면 Altibase CLI 드라이버가 애플리케이션에서 요청한 특성을 가장 효율적으로 제공하는 커서 유형을 선택한다.
 
-애플리케이션이 SQL_ATTR_CURSOR_SCROLLABLE, SQL_ATTR_CURSOR_SENSITIVITY,
-SQL_ATTR_CONCURRENCY, 또는 SQL_ATTR_CURSOR_TYPE 명령문 속성 중 어떤 것을 설정할
-때마다, 드라이버는 네 가지 속성 값들이 양립하도록 다른 속성 값을 변경한다. 즉,
-애플리케이션이 커서 동작 관련 속성을 지정하면, 드라이버는 암시적 선택에 기반하여
-커서 유형을 나타내는 속성을 변경할 수 있다. 그리고, 애플리케이션이 커서 유형을
-지정하면, 드라이버는 선택된 커서 유형의 특성에 부합하도록 다른 속성들을 변경할
-수 있다.
+애플리케이션이 SQL_ATTR_CURSOR_SCROLLABLE, SQL_ATTR_CURSOR_SENSITIVITY, SQL_ATTR_CONCURRENCY, 또는 SQL_ATTR_CURSOR_TYPE 명령문 속성 중 어떤 것을 설정할 때마다, 드라이버는 네 가지 속성 값들이 양립하도록 다른 속성 값을 변경한다. 즉, 애플리케이션이 커서 동작 관련 속성을 지정하면, 드라이버는 암시적 선택에 기반하여 커서 유형을 나타내는 속성을 변경할 수 있다. 그리고, 애플리케이션이 커서 유형을 지정하면, 드라이버는 선택된 커서 유형의 특성에 부합하도록 다른 속성들을 변경할 수 있다.
 
-애플리케이션이 커서 유형과 커서 동작 속성을 모두 지정하면 의도하지 않은 특성의
-커서를 얻을 수 있으므로 주의가 필요하다.
+애플리케이션이 커서 유형과 커서 동작 속성을 모두 지정하면 의도하지 않은 특성의 커서를 얻을 수 있으므로 주의가 필요하다.
 
 아래의 표는 커서 유형별 기본 커서 동작을 보여준다.
 
@@ -3607,31 +3385,25 @@ SQL_ATTR_CONCURRENCY, 또는 SQL_ATTR_CURSOR_TYPE 명령문 속성 중 어떤 �
 | 키집합 (keyset-driven)     | sensitive   | scrollable       | updatable |
 | 동적 (dynamic)             | \-          | \-               | \-        |
 
-Altibase CLI 드라이버는 동적 커서는 지원하지 않는다. 또한, 정방향 전용과 정적
-커서의 경우, 위 표의 조합 외에 다른 동작의 조합은 지원하지 않는다. 키 집합
-커서의 경우, 위 표의 조합 외에 (SENSITIVE, SCROLLABLE, READ-ONLY) 조합을
-지원한다.
+Altibase CLI 드라이버는 동적 커서는 지원하지 않는다. 또한, 정방향 전용과 정적 커서의 경우, 위 표의 조합 외에 다른 동작의 조합은 지원하지 않는다. 키 집합 커서의 경우, 위 표의 조합 외에 (SENSITIVE, SCROLLABLE, READ-ONLY) 조합을 지원한다.
 
 커서 변환 규칙은 아래와 같다.
 
--   사용자가 지정한 커서 속성이 커서 유형과 부합하지 않으면, 드라이버는 커서
-    유형을 아래의 순서로 변환한다.
-
+-   사용자가 지정한 커서 속성이 커서 유형과 부합하지 않으면, 드라이버는 커서 유형을 아래의 순서로 변환한다.
+    
     -   dynamic → keyset-driven → static → foward-only
-
--   애플리케이션이 커서 유형을 지정하면, 드라이버는 선택된 유형의 특성에 부합할
-    때까지 다른 속성들을 아래의 순서로 변환한다.
-
+    
+-   애플리케이션이 커서 유형을 지정하면, 드라이버는 선택된 유형의 특성에 부합할 때까지 다른 속성들을 아래의 순서로 변환한다.
+    
     -   sensitive → insensitive
-
+    
     -   scrollable → non-scrollable
-
+    
     -   updatable → read-only
 
 ### 행 스크롤 및 Fetch
 
-스크롤 가능한 커서를 사용하려면 Altibase CLI 애플리케이션에서 다음을 수행해야
-한다.
+스크롤 가능한 커서를 사용하려면 Altibase CLI 애플리케이션에서 다음을 수행해야 한다.
 
 -   SQLSetStmtAttr을 사용하여 커서 속성을 설정한다.
 
@@ -3639,40 +3411,21 @@ Altibase CLI 드라이버는 동적 커서는 지원하지 않는다. 또한, �
 
 -   SQLFetch 또는 SQLFetchScroll을 이용하여 행을 스크롤하고 가져온다.
 
-ODBC 커서는 한 번에 한 행씩만 가져가도록 제한하지는 않는다. SQLFetch 또는
-SQLFetchScroll을 호출할 때마다 여러 행을 가져올 수 있다. ODBC 응용 프로그램 같은
-클라이언트/서버 구조의 데이터베이스 작업 시에는 한 번에 여러 행을 가져오는 것이
-효율적이다. fetch 시 반환되는 행의 수를 행 집합 크기라고 하며 SQLSetStmtAttr의
-SQL_ATTR_ROW_ARRAY_SIZE를 사용하여 지정할 수 있다.
+ODBC 커서는 한 번에 한 행씩만 가져가도록 제한하지는 않는다. SQLFetch 또는 SQLFetchScroll을 호출할 때마다 여러 행을 가져올 수 있다. ODBC 응용 프로그램 같은 클라이언트/서버 구조의 데이터베이스 작업 시에는 한 번에 여러 행을 가져오는 것이 효율적이다. fetch 시 반환되는 행의 수를 행 집합 크기라고 하며 SQLSetStmtAttr의 SQL_ATTR_ROW_ARRAY_SIZE를 사용하여 지정할 수 있다.
 
-행 집합 크기가 1보다 큰 커서를 블록 커서라고 하며, 배열 바인딩을 사용해서 블록
-커서에서 데이터를 검색할 수 있다. 이에 대한 자세한 내용은 2장의 SQLFetch 함수를
-참고한다.
+행 집합 크기가 1보다 큰 커서를 블록 커서라고 하며, 배열 바인딩을 사용해서 블록 커서에서 데이터를 검색할 수 있다. 이에 대한 자세한 내용은 2장의 SQLFetch 함수를 참고한다.
 
-SQLFetch는 정방향 전용 커서만 사용 가능하며, SQLFetchScroll는 커서를 여러
-방향으로 이동할 수 있다.
+SQLFetch는 정방향 전용 커서만 사용 가능하며, SQLFetchScroll는 커서를 여러 방향으로 이동할 수 있다.
 
 #### 행 집합에 북마크 설정
 
-북마크는 데이터의 행을 식별하는 데 사용되는 값이다. Altibase CLI
-애플리케이션에서는 특정 행에 대해 북마크를 요청하고 이를 저장한 다음 다시 이것을
-커서에 전달하여 그 행으로 돌아간다.
+북마크는 데이터의 행을 식별하는 데 사용되는 값이다. Altibase CLI 애플리케이션에서는 특정 행에 대해 북마크를 요청하고 이를 저장한 다음 다시 이것을 커서에 전달하여 그 행으로 돌아간다.
 
-SQLFetchScroll을 사용하여 행을 가져올 때, 애플리케이션에서는 시작 행을 선택하기
-위한 기준으로 북마크를 사용할 수 있다. 이 북마크는 현재 커서 위치를 사용하지
-않기 때문에 절대 주소 형태로 되어 있다. 애플리케이션에서는 SQL_FETCH_BOOKMARK로
-SQLFetchScroll을 호출하여 북마크가 표시된 행으로 스크롤할 수 있다. 이 작업은
-SQL_ATTR_FETCH_BOOKMARK_PTR 명령문 속성으로 설정한 북마크를 사용한다. 즉,
-북마크로 식별된 행부터 행집합을 반환한다. 애플리케이션에서 SQLFetchScroll 호출
-시 인자에 오프셋을 지정할 수 있다. 오프셋이 지정되면, 반환되는 행집합의 첫 번째
-행은 북마크로 식별된 행에서 오프셋 수만큼 더하여 결정된다. Altibase CLI
-드라이버는 정적 및 키집합 커서에 대해서만 북마크를 지원한다. 북마크가 설정되어
-있을 때, 동적 커서가 요청되면 키집합 커서가 대신 열린다.
+SQLFetchScroll을 사용하여 행을 가져올 때, 애플리케이션에서는 시작 행을 선택하기 위한 기준으로 북마크를 사용할 수 있다. 이 북마크는 현재 커서 위치를 사용하지 않기 때문에 절대 주소 형태로 되어 있다. 애플리케이션에서는 SQL_FETCH_BOOKMARK로 SQLFetchScroll을 호출하여 북마크가 표시된 행으로 스크롤할 수 있다. 이 작업은 SQL_ATTR_FETCH_BOOKMARK_PTR 명령문 속성으로 설정한 북마크를 사용한다. 즉, 북마크로 식별된 행부터 행집합을 반환한다. 애플리케이션에서 SQLFetchScroll 호출 시 인자에 오프셋을 지정할 수 있다. 오프셋이 지정되면, 반환되는 행집합의 첫 번째 행은 북마크로 식별된 행에서 오프셋 수만큼 더하여 결정된다. Altibase CLI 드라이버는 정적 및 키집합 커서에 대해서만 북마크를 지원한다. 북마크가 설정되어 있을 때, 동적 커서가 요청되면 키집합 커서가 대신 열린다.
 
 ### 제약 사항
 
-Altibase CLI 드라이버의 커서를 사용하려면, 결과 집합을 가져오는 SELECT 문에
-아래와 같은 제약 사항이 있다.
+Altibase CLI 드라이버의 커서를 사용하려면, 결과 집합을 가져오는 SELECT 문에 아래와 같은 제약 사항이 있다.
 
 -   FROM 절에 한 개의 테이블만 지정할 수 있다.
 
@@ -3682,14 +3435,11 @@ Altibase CLI 드라이버의 커서를 사용하려면, 결과 집합을 가져�
 
 -   FROM 절에 일반 테이블만 지정할 수 있다.
 
--   SELECT 리스트에 순수 칼럼만 지정할 수 있다. 수식 또는 함수가 포함될 수 없다.
-    그리고, NOT NULL 제약조건이 있으면서 DEFAULT값이 없는 칼럼은 SELECT 리스트에
-    반드시 포함되어야 한다.
+-   SELECT 리스트에 순수 칼럼만 지정할 수 있다. 수식 또는 함수가 포함될 수 없다. 그리고, NOT NULL 제약조건이 있으면서 DEFAULT값이 없는 칼럼은 SELECT 리스트에 반드시 포함되어야 한다.
 
 ## A.부록: Sample Code
 
-이 부록은 본 매뉴얼에서 전반적으로 사용된 예제에 대하여 전체 코드 리스트를
-제공한다.
+이 부록은 본 매뉴얼에서 전반적으로 사용된 예제에 대하여 전체 코드 리스트를 제공한다.
 
 ### 프로그래밍 시 각 단계에서 주의할 점
 
@@ -3697,15 +3447,11 @@ Altibase CLI 애플리케이션 작성시 주의할 점과 범하기 쉬운 오�
 
 #### 파라미터 바인딩
 
-이 절은 SQLBindCol()과 SQLBindParameter() 함수의 마지막 인자인 *valueLength*
-(지시자, indicator) 사용 시의 주의 사항에 대해 설명한다.
+이 절은 SQLBindCol()과 SQLBindParameter() 함수의 마지막 인자인 *valueLength* (지시자, indicator) 사용 시의 주의 사항에 대해 설명한다.
 
-SQLBindCol() 함수의 *valueLength*는 출력 인자이다. 조회된 데이터가 NULL 이면, 이
-인자 변수에 SQL_NULL_DATA 가 반환된다.
+SQLBindCol() 함수의 *valueLength*는 출력 인자이다. 조회된 데이터가 NULL 이면, 이 인자 변수에 SQL_NULL_DATA 가 반환된다.
 
-SQLBindParameter() 함수의 바인딩 입출력 타입을 SQL_PARAM_INPUT 로 지정하면,
-*valueLength*는 입력 인자로 사용된다. 바인딩되는 인자 변수의 데이터 타입이 가변
-길이 타입일 경우 실제 바인딩되는 데이터의 길이를 표시하는 데 사용된다.
+SQLBindParameter() 함수의 바인딩 입출력 타입을 SQL_PARAM_INPUT 로 지정하면, valueLength*는 입력 인자로 사용된다. 바인딩되는 인자 변수의 데이터 타입이 가변 길이 타입일 경우 실제 바인딩되는 데이터의 길이를 표시하는 데 사용된다.
 
 예를 들어, *valueLength*에 아래의 값을 지정할 수 있다.
 
@@ -3713,34 +3459,19 @@ SQLBindParameter() 함수의 바인딩 입출력 타입을 SQL_PARAM_INPUT 로 �
 
 -   SQL_NULL_DATA: 널 값을 바인딩
 
--   SQL_DATA_AT_EXEC 혹은 SQL_LEN_DATA_AT_EXEC() 매크로의 결과값: 사용자가
-    SQLPutData(), SQLParamData() 의 조합으로 데이터를 삽입하겠다는 의미로써,
-    SQLExecute() 실행시 SQL_NEED_DATA 를 리턴한다.
+-   SQL_DATA_AT_EXEC 혹은 SQL_LEN_DATA_AT_EXEC() 매크로의 결과값: 사용자가 SQLPutData(), SQLParamData() 의 조합으로 데이터를 삽입하겠다는 의미로써, SQLExecute() 실행시 SQL_NEED_DATA 를 리턴한다.
 
-SQLBindParameter()에서 입출력 타입을 SQL_PARAM_OUTPUT 로 지정할 경우의
-*valueLength*는 SELECT 문 실행시 사용되는 SQLBindCol() 함수의 *valueLength*와
-동일한 역할을 한다.
+SQLBindParameter()에서 입출력 타입을 SQL_PARAM_OUTPUT 로 지정할 경우의 valueLength*는 SELECT 문 실행시 사용되는 SQLBindCol() 함수의 *valueLength*와 동일한 역할을 한다.
 
 #### 트랜잭션 Commit 
 
-autocommit off의 세션에서 commit을 하지 않고 응용프로그램을 종료할 경우 commit
-하지 않은 트랜잭션은 모두 Altibase 서버에 의해 롤백(rollback) 된다. 그러나,
-SQLDisconnect() 를 호출하고 응용프로그램을 종료할 경우에는 Altibase 서버가
-커밋되지 않은 트랜잭션들을 commit 한다.
+autocommit off의 세션에서 commit을 하지 않고 응용프로그램을 종료할 경우 commit 하지 않은 트랜잭션은 모두 Altibase 서버에 의해 롤백(rollback) 된다. 그러나, SQLDisconnect() 를 호출하고 응용프로그램을 종료할 경우에는 Altibase 서버가 커밋되지 않은 트랜잭션들을 commit 한다.
 
 #### SQL 함수 사용
 
-SQLFreeStmt()에서 두 번째 인자를 SQL_DROP으로 했을 경우에는 핸들의 상태가 핸들을
-할당하기 이전의 상태가 된다. 즉, SQLFreeHandle()과 완전히 동일한 동작을
-수행한다. 그러나, SQL_CLOSE 인자를 사용하면 SQLCloseCursor()와 완전히 동일한
-동작을 수행한다. SQLPrepare()를 수행한 명령문의 경우에는, SQLCloseCursor() 호출
-후에 준비(prepare)를 한 상태로 돌아가게 된다.
+SQLFreeStmt()에서 두 번째 인자를 SQL_DROP으로 했을 경우에는 핸들의 상태가 핸들을 할당하기 이전의 상태가 된다. 즉, SQLFreeHandle()과 완전히 동일한 동작을 수행한다. 그러나, SQL_CLOSE 인자를 사용하면 SQLCloseCursor()와 완전히 동일한 동작을 수행한다. SQLPrepare()를 수행한 명령문의 경우에는, SQLCloseCursor() 호출 후에 준비(prepare)를 한 상태로 돌아가게 된다.
 
-SQLPrepare()를 사용하여 SELECT 문을 수행할 경우, SQLExecute() -\> SQLFetch() 시
-SELECT 문의 수행 결과, 결과 집합의 마지막 레코드까지 페치를 하지 않고, 다른
-호스트 변수를 바인딩해서 SQLExecute()를 다시 호출할 경우에 “invalid cursor
-state”가 발생한다. 이를 방지하기 위해서는 SQLCloseCursor()를 호출하고 나서
-SQLExecute()를 호출하면 된다.
+SQLPrepare()를 사용하여 SELECT 문을 수행할 경우, SQLExecute() -\> SQLFetch() 시 SELECT 문의 수행 결과, 결과 집합의 마지막 레코드까지 페치를 하지 않고, 다른 호스트 변수를 바인딩해서 SQLExecute()를 다시 호출할 경우에 “invalid cursor state”가 발생한다. 이를 방지하기 위해서는 SQLCloseCursor()를 호출하고 나서 SQLExecute()를 호출하면 된다.
 
 ### Altibase CLI 프로그램 기본 예제
 
@@ -4642,21 +4373,15 @@ SQLRETURN execute_proc()
 
 ## B.부록: 데이터형
 
-이 부록은 Altibase의 데이터 타입과 SQL 데이터 타입, C 데이터 타입의 종류를
-설명하고, 각각의 데이터 타입간에 변경이 가능한지 여부를 나타낸다.
+이 부록은 Altibase의 데이터 타입과 SQL 데이터 타입, C 데이터 타입의 종류를 설명하고, 각각의 데이터 타입간에 변경이 가능한지 여부를 나타낸다.
 
 ### SQL 데이터형
 
-ODBC 드라이버와 Altibase CLI가 Altibase SQL 데이터 타입을 ODBC 스펙에 정의된 SQL
-type 식별자들에 어떻해 대응하는가에 대한 정보와 Altibase SQL 데이터 타입을 ODBC
-스펙의 SQL type 식별자들에 어떻게 대응하는가에 대한 정보는 SQLGetTypeInfo()를
-호출함으로서 반환된다.
+ODBC 드라이버와 Altibase CLI가 Altibase SQL 데이터 타입을 ODBC 스펙에 정의된 SQL type 식별자들에 어떻해 대응하는가에 대한 정보와 Altibase SQL 데이터 타입을 ODBC 스펙의 SQL type 식별자들에 어떻게 대응하는가에 대한 정보는 SQLGetTypeInfo()를 호출함으로서 반환된다.
 
-ODBC 드라이버와 Altibase CLI가 어떤 데이터 타입을 지원하는가는
-SQLGetTypeInfo()를 호출함으로서 알 수 있다.
+ODBC 드라이버와 Altibase CLI가 어떤 데이터 타입을 지원하는가는 SQLGetTypeInfo()를 호출함으로서 알 수 있다.
 
-다음 테이블은 Altibase CLI가 지원하는 SQL 데이터 타입들에 대한 유효한 SQL type
-식별자들의 목록이다.
+다음 테이블은 Altibase CLI가 지원하는 SQL 데이터 타입들에 대한 유효한 SQL type 식별자들의 목록이다.
 
 | SQL type 식별자    | ALTIBASE 데이터 타입 | 부연 설명                                                    |
 | ------------------ | -------------------- | ------------------------------------------------------------ |
@@ -4684,15 +4409,11 @@ SQLGetTypeInfo()를 호출함으로서 알 수 있다.
 
 ### C 데이터형
 
-C 데이터 타입들은 애플리케이션에서 데이터를 저장하기 위해 사용되는 C 버퍼의
-데이터 타입을 나타낸다.
+C 데이터 타입들은 애플리케이션에서 데이터를 저장하기 위해 사용되는 C 버퍼의 데이터 타입을 나타낸다.
 
-C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 그리고 cType과
-함께 SQLBindParameter()에 명시된다.
+C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 그리고 cType과 함께 SQLBindParameter()에 명시된다.
 
-다음 테이블은 C 데이터 타입에 대해 유효한 타입 식별자들의 목록이다. 또한,
-테이블은 각 식별자에 해당하는 ODBC 스펙의 C 데이터 타입과 이 데이터 타입의
-정의를 나열한다.
+다음 테이블은 C 데이터 타입에 대해 유효한 타입 식별자들의 목록이다. 또한, 테이블은 각 식별자에 해당하는 ODBC 스펙의 C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
 
 | C Type 식별자        | ODBC C typedef       | C type                                                       |
 | -------------------- | -------------------- | ------------------------------------------------------------ |
@@ -4785,14 +4506,11 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 
 ## C.부록: 오류 코드
 
-SQLError는 X/Open 및 SQL Access Group SQL CAE 규격(1992)과 ODBC 스펙에서 정의한
-대로 SQLSTATE 값을 반환한다. SQLSTATE 값은 다섯 문자를 포함하는 문자열이다. 이
-부록에서는 Altibase CLI와 ODBC를 위한 SQLSTATE 값을 설명한다.
+SQLError는 X/Open 및 SQL Access Group SQL CAE 규격(1992)과 ODBC 스펙에서 정의한 대로 SQLSTATE 값을 반환한다. SQLSTATE 값은 다섯 문자를 포함하는 문자열이다. 이 부록에서는 Altibase CLI와 ODBC를 위한 SQLSTATE 값을 설명한다.
 
 ### SQLSTATE
 
-다음 테이블은 Altibase CLI 드라이버의 SQLError가 반환할 수 있는 SQLSTATE 값을
-표시한다.
+다음 테이블은 Altibase CLI 드라이버의 SQLError가 반환할 수 있는 SQLSTATE 값을 표시한다.
 
 | SQLSTATE | Error                                                            | Can be returned from                                                                   |
 |----------|------------------------------------------------------------------|----------------------------------------------------------------------------------------|
@@ -4834,9 +4552,7 @@ SQLError는 X/Open 및 SQL Access Group SQL CAE 규격(1992)과 ODBC 스펙에�
 
 ### 명령문 상태 전이
 
-다음 테이블들은 명령문 상태에서 해당 핸들 타입(environment, connection, 또는
-statement)을 사용하고 있는 Altibase CLI 함수들이 호출됐을 때 각 상태들의 전환이
-어떻게 되는지를 보여준다.
+다음 테이블들은 명령문 상태에서 해당 핸들 타입(environment, connection, 또는 statement)을 사용하고 있는 Altibase CLI 함수들이 호출됐을 때 각 상태들의 전환이 어떻게 되는지를 보여준다.
 
 Altibase CLI 명령문들은 다음과 같은 상태를 갖는다.
 
@@ -4880,8 +4596,7 @@ Altibase CLI 명령문들은 다음과 같은 상태를 갖는다.
 > -   NP : Not Prepared. The statement was not prepared.
 >
 
-예를 들어 다음은 SQLPrepare 함수에 대한 statement state transition table을 보는
-방법이다.
+예를 들어 다음은 SQLPrepare 함수에 대한 statement state transition table을 보는 방법이다.
 
 <table>
    <tr>
@@ -4900,14 +4615,7 @@ Altibase CLI 명령문들은 다음과 같은 상태를 갖는다.
       <td>E => S1</td>
    </tr>
 </table>
-핸들 타입이 SQL_HANDLE_STMT 이며 명령문 상태가 S0 일 때 SQLPrepare 함수가 불려진
-경우, -SQL_INVALID_HANDLE (IH)이 반환된다. 핸들 타입이 SQL_HANDLE_STMT 이고
-상태가 S1일 때는 불려진 함수 SQLPrepare가 성공적으로 수행되면 S1 상태를 그대로
-유지한다. 핸들 타입이 SQL_HANDLE_STMT 이고 S2인 상태에서 SQLPrepare 함수가
-불렸을 때 그 함수가 성공적으로 수행되면 명령문의 상태는 S2로 전환되고 수행에
-실패를 했을 경우 명령문의 상태는 S1 상태 그대로 남아있다. 핸들 타입이
-SQL_HANDLE_STMT인 S6 상태에서 함수가 불리우면 항상 SQL_ERROR와 SQLSTATE 24000
-(Invalid Cursor State)이 반환된다.
+핸들 타입이 SQL_HANDLE_STMT 이며 명령문 상태가 S0 일 때 SQLPrepare 함수가 불려진 경우, -SQL_INVALID_HANDLE (IH)이 반환된다. 핸들 타입이 SQL_HANDLE_STMT 이고 상태가 S1일 때는 불려진 함수 SQLPrepare가 성공적으로 수행되면 S1 상태를 그대로 유지한다. 핸들 타입이 SQL_HANDLE_STMT 이고 S2인 상태에서 SQLPrepare 함수가 불렸을 때 그 함수가 성공적으로 수행되면 명령문의 상태는 S2로 전환되고 수행에 실패를 했을 경우 명령문의 상태는 S1 상태 그대로 남아있다. 핸들 타입이 SQL_HANDLE_STMT인 S6 상태에서 함수가 불리우면 항상 SQL_ERROR와 SQLSTATE 24000(Invalid Cursor State)이 반환된다.
 
 **SQLAllocHandle**
 <table>
@@ -4944,8 +4652,7 @@ SQL_HANDLE_STMT인 S6 상태에서 함수가 불리우면 항상 SQL_ERROR와 SQ
 |----------------|--------------|-------------|------------|
 | (IH)           | \--          | \--         | \--        |
 
-**SQLColumns, SQLGetTypeInfo, SQLPrimaryKeys, SQLProcedureColumns,
-SQLProcedures, SQLStatistics, SQLTables**
+**SQLColumns, SQLGetTypeInfo, SQLPrimaryKeys, SQLProcedureColumns, SQLProcedures, SQLStatistics, SQLTables**
 
 <table>
    <tr>
@@ -4964,8 +4671,6 @@ SQLProcedures, SQLStatistics, SQLTables**
       <td>S => S6 </td>
    </tr>
 </table>
-
-
 **SQLConnect**
 
 | S0 Unallocated | S1 Allocated | S2 Prepared | S6 Infetch |
@@ -4978,9 +4683,7 @@ SQLProcedures, SQLStatistics, SQLTables**
 |----------------|--------------|-------------|------------|
 | \--            | \* =\> S0    | \* =\> S0   | \* =\> S0  |
 
-> \* 함수 SQLDisconnect를 부르면 연결 핸들과 연관된 모든 명령문들을 종료한다.
-> 그리고, 이 함수는 연결 상태를 allocated connection 상태로 놓는다; 명령문 상태가
-> S0가 되기 전에 연결 상태는 C4 (connected connection)이다.
+> \* 함수 SQLDisconnect를 부르면 연결 핸들과 연관된 모든 명령문들을 종료한다. 그리고, 이 함수는 연결 상태를 allocated connection 상태로 놓는다; 명령문 상태가 S0가 되기 전에 연결 상태는 C4 (connected connection)이다.
 
 **SQLDriverConnect**
 
@@ -5008,8 +4711,6 @@ SQLConnect 참고
       <td> E => S1 </td>
    </tr>
 </table>
-
-
 **SQLExecute**
 
 <table>
@@ -5055,8 +4756,6 @@ if P => S2)
 </td>
    </tr>
 </table>
-
-
 **SQLFreeHandle**
 
 | S0 Unallocated | S1 Allocated | S2 Prepared | S6 Infetch |
@@ -5150,8 +4849,7 @@ SQLColumns 참고
 |----------------|--------------|-------------|------------|
 | \--\*          | \--          | \--         | (24000)    |
 
-> \* 설정한 속성 (*Attribute*)이 연결 속성인 경우. 설정한 속성이 명령문 속성인
-> 경우는 SQLSetStmtAttr 참고.
+> \* 설정한 속성 (*Attribute*)이 연결 속성인 경우. 설정한 속성이 명령문 속성인 경우는 SQLSetStmtAttr 참고.
 
 **SQLSetEnvAttr**
 
@@ -5179,13 +4877,9 @@ SQLColumns 참고
    </tr>
 </table>
 
-(1) *Attribute* 인자가 SQL_ATTR_CONCURRENCY, SQL_ATTR_CURSOR_TYPE,
-SQL_ATTR_SIMULATE_CURSOR, SQL_ATTR_USE_BOOKMARKS, SQL_ATTR_CURSOR_SCROLLABLE,
-또는 SQL_ATTR_CURSOR_SENSITIVITY이 아닌 경우
+(1) *Attribute* 인자가 SQL_ATTR_CONCURRENCY, SQL_ATTR_CURSOR_TYPE, SQL_ATTR_SIMULATE_CURSOR, SQL_ATTR_USE_BOOKMARKS, SQL_ATTR_CURSOR_SCROLLABLE, 또는 SQL_ATTR_CURSOR_SENSITIVITY이 아닌 경우
 
-(2) *Attribute* 인자가 SQL_ATTR_CONCURRENCY, SQL_ATTR_CURSOR_TYPE,
-SQL_ATTR_SIMULATE_CURSOR, SQL_ATTR_USE_BOOKMARKS, SQL_ATTR_CURSOR_SCROLLABLE,
-또는 SQL_ATTR_CURSOR_SENSITIVITY인 경우
+(2) *Attribute* 인자가 SQL_ATTR_CONCURRENCY, SQL_ATTR_CURSOR_TYPE, SQL_ATTR_SIMULATE_CURSOR, SQL_ATTR_USE_BOOKMARKS, SQL_ATTR_CURSOR_SCROLLABLE, 또는 SQL_ATTR_CURSOR_SENSITIVITY인 경우
 
 **SQLStatistics**
 
@@ -5301,15 +4995,11 @@ Cf )
 
 ## D.부록: 업그레이드
 
-이 부록은 Altibase 4를 위한 ODBC 또는 Altibase CLI 응용 프로그램들을 Altibase
-5에서도 사용할 수 있도록 필요한 사항들을 정리했다.
+이 부록은 Altibase 4를 위한 ODBC 또는 Altibase CLI 응용 프로그램들을 Altibase 5에서도 사용할 수 있도록 필요한 사항들을 정리했다.
 
-Altibase 5로 업그레이드 되면서 지원하는 CLI 인터페이스의 수준이 확장됐다. 특히
-X/Open CLI 표준과 ODBC 스펙을 최대한 준수하여 사용자의 응용 프로그램뿐 아니라
-범용 애플리케이션과의 호환성을 높였다.
+Altibase 5로 업그레이드 되면서 지원하는 CLI 인터페이스의 수준이 확장됐다. 특히 X/Open CLI 표준과 ODBC 스펙을 최대한 준수하여 사용자의 응용 프로그램뿐 아니라 범용 애플리케이션과의 호환성을 높였다.
 
-이 부록에서는 Altibase 5로 업그레이드되면서 추가되거나 재정의된 데이터 타입과
-기타 변경 사항들을 설명한다.
+이 부록에서는 Altibase 5로 업그레이드되면서 추가되거나 재정의된 데이터 타입과 기타 변경 사항들을 설명한다.
 
 -   데이터 타입
 
@@ -5319,13 +5009,11 @@ X/Open CLI 표준과 ODBC 스펙을 최대한 준수하여 사용자의 응용 �
 
 이 절에서는 Altibase 5에서 새롭게 추가된 데이터 타입들을 설명한다.
 
-이전 버전보다 표준을 더욱 준수하여 기존의 애플리케이션을 컴파일할 때 발생할 수
-있는 문제들을 해결하도록 한다.
+이전 버전보다 표준을 더욱 준수하여 기존의 애플리케이션을 컴파일할 때 발생할 수 있는 문제들을 해결하도록 한다.
 
 #### SQLCHAR, SQLSCHAR
 
-이전의 CLI 애플리케이션들은 SQLCHAR와 char를 혼용해서 사용했다. 그러나 표준
-지향의 SQLCHAR는 아래와 같이 새롭게 정의된다.
+이전의 CLI 애플리케이션들은 SQLCHAR와 char를 혼용해서 사용했다. 그러나 표준 지향의 SQLCHAR는 아래와 같이 새롭게 정의된다.
 
 ```
 typedef unsigned char SQLCHAR;
@@ -5348,9 +5036,7 @@ SQLPrepare(stmt, (SQLCHAR *)query, SQL_NTS);
 
 #### SQL_BIT, SQL_VARBIT
 
-Altibase는 버전 5부터 SQL 92 표준의 BIT 타입뿐 아니라 사용자 편의를 위한 VARBIT
-타입을 지원한다. BIT와 VARBIT에 대한 자세한 내용은 *SQL Reference*을 참조하기
-바란다.
+Altibase는 버전 5부터 SQL 92 표준의 BIT 타입뿐 아니라 사용자 편의를 위한 VARBIT 타입을 지원한다. BIT와 VARBIT에 대한 자세한 내용은 *SQL Reference*을 참조하기 바란다.
 
 ##### BIT to C type
 
@@ -5488,12 +5174,9 @@ Data : BIT Data
 
 ###### BIT/VARBIT SQL_C_BINARY
 
-BIT를 SQL_C_BINARY로 바인드하여 페치할 때에는 서버에서 전달되는 데이터를
-사용자에게 그대로 전달해준다. 사용자 버퍼에 저장되는 데이터의 형식은 앞에서
-설명한 것과 같다.
+BIT를 SQL_C_BINARY로 바인드하여 페치할 때에는 서버에서 전달되는 데이터를 사용자에게 그대로 전달해준다. 사용자 버퍼에 저장되는 데이터의 형식은 앞에서 설명한 것과 같다.
 
-다음의 예제처럼 구조체 struct bit_t를 정의해서 사용하면 보다 편리하게 서버에
-접근할 수 있다.
+다음의 예제처럼 구조체 struct bit_t를 정의해서 사용하면 보다 편리하게 서버에 접근할 수 있다.
 
 ```
 CREATE TABLE T1(I1 BIT(17), I2 VARBIT(37));
@@ -5575,19 +5258,15 @@ Precision : 27 -> VARBIT 는 패딩하지 않으므로 27.
 38 A8 93 60 (0011 1000 1010 1000 1001 0011 011)
 ```
 
-만약, BUFFER_SIZE가 필요한 메모리 크기보다 작을 경우 SQLFetch()는
-SQL_SUCCESS_WITH_INFO를 리턴하고, BUFFER_SIZE 만큼만 바인드 된 메모리에 쓴다.
+만약, BUFFER_SIZE가 필요한 메모리 크기보다 작을 경우 SQLFetch()는 SQL_SUCCESS_WITH_INFO를 리턴하고, BUFFER_SIZE 만큼만 바인드 된 메모리에 쓴다.
 
 ###### BIT/VARBIT to SQL_C_BIT
 
-ODBC의 SQL_C_BIT는 0 또는 1의 값을 갖는 8비트의 부호 없는 정수이기 때문에 주의가
-필요하다. 즉, SQL_C_BIT로 바인드하여 페치할 경우 서버의 테이블에 BIT ‘011001’이
-저장되었어도 바인드 된 변수에는 0x64가 아니라 0x01이 들어간다
+ODBC의 SQL_C_BIT는 0 또는 1의 값을 갖는 8비트의 부호 없는 정수이기 때문에 주의가 필요하다. 즉, SQL_C_BIT로 바인드하여 페치할 경우 서버의 테이블에 BIT ‘011001’이 저장되었어도 바인드 된 변수에는 0x64가 아니라 0x01이 들어간다
 
 ###### BIT to SQL_C_CHAR
 
-BIT 칼럼을 페치할 때 SQL_C_CHAR 로 바인드했다면, 결과는 ODBC 타입 변환 규칙에
-따라 항상 0 또는 1을 갖는다.
+BIT 칼럼을 페치할 때 SQL_C_CHAR 로 바인드했다면, 결과는 ODBC 타입 변환 규칙에 따라 항상 0 또는 1을 갖는다.
 
 ```
 CREATE TABLE T1 (I1 BIT(12));
@@ -5640,8 +5319,7 @@ printf(“sLength = %d\n”, sLength);
 
 #### SQL_NIBBLE
 
-Altibase 4에서 지원하던 SQL_C_NIBBLE 타입은 Altibase 5에서 사용하지 않는다.
-그러나 SQL_C_BINARY를 이용하여 원하는 데이터를 페치할 수 있다.
+Altibase 4에서 지원하던 SQL_C_NIBBLE 타입은 Altibase 5에서 사용하지 않는다. 그러나 SQL_C_BINARY를 이용하여 원하는 데이터를 페치할 수 있다.
 
 ##### NIBBLE to C type
 
@@ -5677,8 +5355,7 @@ SQL_C_CHAR 및 SQL_C_BINARY로의 변환만 가능하다.
        <td>n/a</td> 
    </tr>
 </table>
-방법은 BIT를 BINARY로 페치할 때와 동일하지만, NIBBLE의 BINARY 형식은 BIT와 달리
-precision 필드가 1바이트 정수라는 것을 주의해야 한다.
+방법은 BIT를 BINARY로 페치할 때와 동일하지만, NIBBLE의 BINARY 형식은 BIT와 달리 precision 필드가 1바이트 정수라는 것을 주의해야 한다.
 
 ##### 바이너리 형식
 
@@ -5704,12 +5381,9 @@ Data : Nibble Data
 
 ###### NIBBLE to SQL_C_BINARY
 
-NIBBLE을 SQL_C_BINARY로 바인드하여 페치할 때에는 서버에서 전달되는 데이터를
-사용자에게 그대로 전달해준다. 사용자 버퍼에 저장되는 데이터의 형식은 앞에서
-설명한 것과 같다.
+NIBBLE을 SQL_C_BINARY로 바인드하여 페치할 때에는 서버에서 전달되는 데이터를 사용자에게 그대로 전달해준다. 사용자 버퍼에 저장되는 데이터의 형식은 앞에서 설명한 것과 같다.
 
-다음의 예제에서 사용하는 것처럼 nibble_t 구조체를 정의해서 사용하면 보다
-편리하게 접근할 수 있다.
+다음의 예제에서 사용하는 것처럼 nibble_t 구조체를 정의해서 사용하면 보다 편리하게 접근할 수 있다.
 
 ```
 CREATE TABLE T1(I1 NIBBLE, I2 NIBBLE(10), I3 NIBBLE(21) NOT NULL);
@@ -5762,14 +5436,11 @@ Precision : 3
 
 #### SQL_BYTE
 
-Altibase 4에 있던 SQL_C_BYTE 대신 SQL_C_BINARY로 바인드하여 동일한 방식으로
-동작한다.
+Altibase 4에 있던 SQL_C_BYTE 대신 SQL_C_BINARY로 바인드하여 동일한 방식으로 동작한다.
 
 ##### BYTE to C types
 
-SQL_C_CHAR, SQL_C_BINARY 외의 다른 타입으로의 변환은 불가능하다. 그러나 바이너리
-데이터를 SQL_C_CHAR로 변환할 때 원천 데이터의 1 바이트가 ASCII 2 글자로 표현되는
-것을 주의해야 한다.
+SQL_C_CHAR, SQL_C_BINARY 외의 다른 타입으로의 변환은 불가능하다. 그러나 바이너리 데이터를 SQL_C_CHAR로 변환할 때 원천 데이터의 1 바이트가 ASCII 2 글자로 표현되는 것을 주의해야 한다.
 <table>
    <tr>
       <th>C type id</th>
@@ -5805,11 +5476,7 @@ SQL_C_CHAR, SQL_C_BINARY 외의 다른 타입으로의 변환은 불가능하다
        <td>01004</td>
    </tr>
 </table>
-Altibase CLI는 바이너리 데이터를 SQL_C_CHAR로 변환할 때 각각의 바이트가 항상
-16진수의 쌍(pair)으로 변환되고, 널 터미네이트(NULL terminate) 시킨다. 따라서
-바인드 한 SQL_C_CHAR 버퍼의 크기가 짝수일 때에는 바인드 한 버퍼의 마지막
-바이트에 NULL termination 문자가 찍히는 것이 아니라, 바인드 한 버퍼의 마지막에서
-한 바이트 앞의 위치에 NULL termination 문자가 찍힌다.
+Altibase CLI는 바이너리 데이터를 SQL_C_CHAR로 변환할 때 각각의 바이트가 항상 16진수의 쌍(pair)으로 변환되고, 널 터미네이트(NULL terminate) 시킨다. 따라서 바인드 한 SQL_C_CHAR 버퍼의 크기가 짝수일 때에는 바인드 한 버퍼의 마지막 바이트에 NULL termination 문자가 찍히는 것이 아니라, 바인드 한 버퍼의 마지막에서 한 바이트 앞의 위치에 NULL termination 문자가 찍힌다.
 
 <table>
    <tr>
@@ -5845,8 +5512,7 @@ string : “AABB1112”
 
 ##### 바이너리 형식
 
-바이트 타입은 NIBBLE이나 BIT처럼 형식이 따로 존재하는 것이 아니라, 이진 데이터의
-칼럼이다.
+바이트 타입은 NIBBLE이나 BIT처럼 형식이 따로 존재하는 것이 아니라, 이진 데이터의 칼럼이다.
 
 ##### 데이터 타입 변환 예제
 
@@ -5898,24 +5564,17 @@ Data : 5678
 
 #### DATE : SQL_TYPE_TIMESTAMP
 
-Altibase 5에서는 DATE 칼럼에 SQLDescribeCol() 또는SQLColAttribute()를 이용하여
-SQL type으로 가져올 경우, SQL_TYPE_TIMESTAMP를 반환한다. SQL_TYPE_TIMESTAMP는
-ODBC 표준 타입 중에서 Altibase의 DATE 타입과 유사한 타입으로 년, 월, 일, 시, 분,
-초로 구성됐다.
+Altibase 5에서는 DATE 칼럼에 SQLDescribeCol() 또는SQLColAttribute()를 이용하여 SQL type으로 가져올 경우, SQL_TYPE_TIMESTAMP를 반환한다. SQL_TYPE_TIMESTAMP는 ODBC 표준 타입 중에서 Altibase의 DATE 타입과 유사한 타입으로 년, 월, 일, 시, 분, 초로 구성됐다.
 
-그러나 Altibase 4에서는 DATE 타입이 날짜, 시간 등의 기본요소와 이들을 구분하는
-특수문자 등 다량의 데이터로 구성되어 있어, SQLColAttribute() 또는
-SQLDescribeCol()을 호출하면 SQL type으로 SQL_DATE가 반환됐다.
+그러나 Altibase 4에서는 DATE 타입이 날짜, 시간 등의 기본요소와 이들을 구분하는 특수문자 등 다량의 데이터로 구성되어 있어, SQLColAttribute() 또는 SQLDescribeCol()을 호출하면 SQL type으로 SQL_DATE가 반환됐다.
 
-따라서 Altibase 5의 Altibase CLI를 사용할 때에는 ODBC 3.0의 타입 상수인
-SQL_TYPE_DATE, SQL_TYPE_TIME, SQL_TYPE_TIMESTAMP를 사용하기를 권장한다.
+따라서 Altibase 5의 Altibase CLI를 사용할 때에는 ODBC 3.0의 타입 상수인 SQL_TYPE_DATE, SQL_TYPE_TIME, SQL_TYPE_TIMESTAMP를 사용하기를 권장한다.
 
 #### LOB
 
 ##### 데이터 타입
 
-Altibase 4에서 LOB 타입은 길이가 페이지 크기로 제한되었으나, Altibase 5에서는
-최대 4GB-1byte 까지 지원하는 BLOB, CLOB으로 구성된다.
+Altibase 4에서 LOB 타입은 길이가 페이지 크기로 제한되었으나, Altibase 5에서는 최대 4GB-1byte 까지 지원하는 BLOB, CLOB으로 구성된다.
 
 ###### Altibase 4 DDL
 
@@ -5931,16 +5590,11 @@ CREATE TABLE T1 (I1 BLOB); ---> 괄호 안의 precision 이 사라짐.
 
 ##### LOB 함수 사용
 
-Altibase CLI 애플리케이션에서 LOB을 사용하기 위해 제공되는 전용 함수가 제공된다.
-LOB을 위한 특수 함수에 대한 자세한 내용은 3장 LOB 인터페이스를 참조한다.
+Altibase CLI 애플리케이션에서 LOB을 사용하기 위해 제공되는 전용 함수가 제공된다. LOB을 위한 특수 함수에 대한 자세한 내용은 3장 LOB 인터페이스를 참조한다.
 
-LOB을 위한 함수 외에도 일반적인 바이너리, 문자형 타입에서 사용할 수 있는 함수도
-사용이 가능하다. 이러한 특징 때문에 ODBC 애플리케이션에서 표준 ODBC를 사용하여
-LOB 데이터의 저장 및 검색 등이 가능하다.
+LOB을 위한 함수 외에도 일반적인 바이너리, 문자형 타입에서 사용할 수 있는 함수도 사용이 가능하다. 이러한 특징 때문에 ODBC 애플리케이션에서 표준 ODBC를 사용하여 LOB 데이터의 저장 및 검색 등이 가능하다.
 
-그러나 부분 수정(partial update), 부분 검색(partial retrieve)과 같은 기능은 ODBC
-응용 프로그램에서 사용할 수 없다. 단 CLI 응용 프로그램에서는 SQLGetLob,
-SQLPutLob 등의 함수를 이용하여 사용이 가능하다.
+그러나 부분 수정(partial update), 부분 검색(partial retrieve)과 같은 기능은 ODBC 응용 프로그램에서 사용할 수 없다. 단 CLI 응용 프로그램에서는 SQLGetLob, SQLPutLob 등의 함수를 이용하여 사용이 가능하다.
 
 ```
 CREATE TABLE T1 (I1 BLOB, I2 CLOB);  // CONNECTION의 AUTOCOMMIT 모드를 OFF 시킨다.
@@ -5964,18 +5618,11 @@ SQLExecute(stmt);
 
 ##### ODBC 응용프로그램에서 LOB 사용하기
 
-ODBC 응용 프로그램에서 LOB 칼럼을 페치(fetch)하거나 LOB 칼럼에 데이터를 저장할
-때에는 SQLDescribeCol, SQLColAttribute 또는 SQLDescribeParam 함수를 호출한다.
+ODBC 응용 프로그램에서 LOB 칼럼을 페치(fetch)하거나 LOB 칼럼에 데이터를 저장할 때에는 SQLDescribeCol, SQLColAttribute 또는 SQLDescribeParam 함수를 호출한다.
 
-LOB 칼럼에서 이들 함수를 수행하면 SQL_BLOB, SQL_CLOB의 데이터 타입으로 반환된다.
-그러나 ODBC 응용 프로그램은 SQL_BLOB이나 SQL_CLOB과 같은 데이터 타입을 인지할 수
-없다.
+LOB 칼럼에서 이들 함수를 수행하면 SQL_BLOB, SQL_CLOB의 데이터 타입으로 반환된다. 그러나 ODBC 응용 프로그램은 SQL_BLOB이나 SQL_CLOB과 같은 데이터 타입을 인지할 수 없다.
 
-따라서 ODBC 응용 프로그램이 인식할 수 있는 데이터 타입으로 반환해야 한다. 이러한
-문제는 odbc.ini에 LongDataCompat = on 으로 옵션을 주어서 해결할 수 있다. 이
-옵션을 실행할 경우 LOB 칼럼에 SQLColAttribute() 등의 함수를 호출하면, SQL_BLOB
-대신 SQL_LONGVARBINARY를, SQL_CLOB 대신 SQL_LONGVARCHAR를 해당 칼럼의 타입으로
-반환한다.
+따라서 ODBC 응용 프로그램이 인식할 수 있는 데이터 타입으로 반환해야 한다. 이러한 문제는 odbc.ini에 LongDataCompat = on 으로 옵션을 주어서 해결할 수 있다. 이 옵션을 실행할 경우 LOB 칼럼에 SQLColAttribute() 등의 함수를 호출하면, SQL_BLOB 대신 SQL_LONGVARBINARY를, SQL_CLOB 대신 SQL_LONGVARCHAR를 해당 칼럼의 타입으로 반환한다.
 
 ##### PHP 프로그램에서 LOB 사용 예제
 
@@ -6157,8 +5804,7 @@ odbc_commit($Connection);
 
 #### SQLCloseCursor
 
-Altibase 4의 Altibase CLI 라이브러리에는 ODBC state machine이 있지 않기 때문에
-아래의 순서로 함수를 호출한다.
+Altibase 4의 Altibase CLI 라이브러리에는 ODBC state machine이 있지 않기 때문에 아래의 순서로 함수를 호출한다.
 
 ```
 SQLHSTMT stmt;
@@ -6170,16 +5816,11 @@ SQLFetch(stmt);
 SQLExecute(stmt);
 ```
 
-그러나 Altibase 5의 Altibase CLI 드라이버로 위의 코드를 실행하면,
-SQLExecute(stmt)에서 Function sequence error가 발생한다.
+그러나 Altibase 5의 Altibase CLI 드라이버로 위의 코드를 실행하면, SQLExecute(stmt)에서 Function sequence error가 발생한다.
 
-이러한 오류가 발생하는 이유는 처음 SQLExecute()를 수행한 stmt가 result set을
-생성시키는 문장이기 때문이다. 따라서 ODBC cursor가 open 되며, stmt의 상태는 S5로
-된다 (MSDN ODBC specification 참조). 그러나 S5 상태에서는 SQLExecute()를 수행할
-수 없어 오류가 발생한다.
+이러한 오류가 발생하는 이유는 처음 SQLExecute()를 수행한 stmt가 result set을 생성시키는 문장이기 때문이다. 따라서 ODBC cursor가 open 되며, stmt의 상태는 S5로 된다 (MSDN ODBC specification 참조). 그러나 S5 상태에서는 SQLExecute()를 수행할 수 없어 오류가 발생한다.
 
-이 상태에서 다시 SQLExecute()를 수행하려면, 아래와 같이 명시적으로
-SQLCloseCursor()를 호출하여 stmt를 S1 이나 S3 상태로 만들어야 한다.
+이 상태에서 다시 SQLExecute()를 수행하려면, 아래와 같이 명시적으로 SQLCloseCursor()를 호출하여 stmt를 S1 이나 S3 상태로 만들어야 한다.
 
 ```
 SQLExecute(stmt);
@@ -6191,43 +5832,27 @@ SQLExecute(stmt);
 
 #### SQLBindParameter – ColumnSize 인자
 
-Altibase 5에서는 SQLBindParameter의 인자들 중 6 번째
-인자인 ColumnSize의 사용이 이전 버전과 달라졌다.
+Altibase 5에서는 SQLBindParameter의 인자들 중 6 번째 인자인 ColumnSize의 사용이 이전 버전과 달라졌다.
 
-이전 버전에서는 이 인자에 0을 입력해도 문제가 없었다. 그러나 Altibase 5에서는
-서버로 전송하는 데이터의 최대 길이를 입력하지 않으면 수행할 때 마다 해당 정보를
-확인하므로 성능에 문제가 발생한다.
+이전 버전에서는 이 인자에 0을 입력해도 문제가 없었다. 그러나 Altibase 5에서는 서버로 전송하는 데이터의 최대 길이를 입력하지 않으면 수행할 때 마다 해당 정보를 확인하므로 성능에 문제가 발생한다.
 
 #### SQLBindParameter – StrLen_or_IndPtr 인자
 
-Altibase 4의 CLI 라이브러리에서는 StrLen_or_IndPtr 인자가 가리키는 데이터가
-가변길이일 때에만 참조를 했다.
+Altibase 4의 CLI 라이브러리에서는 StrLen_or_IndPtr 인자가 가리키는 데이터가 가변길이일 때에만 참조를 했다.
 
-그러나 Altibase 5에서 SQLPutData()와 SQLParamData() 함수를 구현하게 되면서,
-StrLen_or_IndPtr 인자가 가리키는 곳의 메모리에 있는 값은 SQLExecute() 또는
-SQLExecDirect()를 수행할 때마다 참조한다.
+그러나 Altibase 5에서 SQLPutData()와 SQLParamData() 함수를 구현하게 되면서, StrLen_or_IndPtr 인자가 가리키는 곳의 메모리에 있는 값은 SQLExecute() 또는 SQLExecDirect()를 수행할 때마다 참조한다.
 
-따라서 SQLBindParameter()의 마지막 인자인 StrLen_or_Ind를 널(NULL) 포인터가 아닌
-유효한 포인터 변수로 전달하였다면, 포인터가 가리키는 곳의 메모리가 제대로
-초기화되었는지 주의해야 한다.
+따라서 SQLBindParameter()의 마지막 인자인 StrLen_or_Ind를 널(NULL) 포인터가 아닌 유효한 포인터 변수로 전달하였다면, 포인터가 가리키는 곳의 메모리가 제대로 초기화되었는지 주의해야 한다.
 
-만약 해당 메모리가 제대로 초기화되지 않고, SQL_DATA_AT_EXEC 상수 (-2) 이거나
-SQL_LEN_DATA_AT_EXEC() 매크로의 결과 값인 -100 이하의 값을 가졌을 때, CLI
-라이브러리는 사용자가 해당 인자를 SQLPutData()를 이용해서 전달하겠다는 의도로
-해석한다. 그리고 SQLExecute() 함수를 호출했을 때 SQL_NEED_DATA를 반환한다.
+만약 해당 메모리가 제대로 초기화되지 않고, SQL_DATA_AT_EXEC 상수 (-2) 이거나 SQL_LEN_DATA_AT_EXEC() 매크로의 결과 값인 -100 이하의 값을 가졌을 때, CLI 라이브러리는 사용자가 해당 인자를 SQLPutData()를 이용해서 전달하겠다는 의도로 해석한다. 그리고 SQLExecute() 함수를 호출했을 때 SQL_NEED_DATA를 반환한다.
 
-위와 같이 초기화되지 않은 값 때문에 SQLExecDirect() 등의 함수가 의도하지 않은
-값(SQL_NEED_DATA)을 반환한다면, 그 다음 호출하는 함수들에도 영향을 준다. 그리고
-다음부터 호출하는 함수에서 모두 Function Sequence Error가 발생하여, SQL_ERROR가
-반환되는 것을 주의해야 한다.
+위와 같이 초기화되지 않은 값 때문에 SQLExecDirect() 등의 함수가 의도하지 않은 값(SQL_NEED_DATA)을 반환한다면, 그 다음 호출하는 함수들에도 영향을 준다. 그리고 다음부터 호출하는 함수에서 모두 Function Sequence Error가 발생하여, SQL_ERROR가 반환되는 것을 주의해야 한다.
 
 #### SQLPutData(), SQLParamData()
 
-Altibase 5의 Altibase CLI는 이전 버전에서 지원하지 않았던 SQLPutData()와
-SQLParamData()를 지원한다. 각각의 함수의 자세한 사용법은 MSDN을 참조하기 바란다.
+Altibase 5의 Altibase CLI는 이전 버전에서 지원하지 않았던 SQLPutData()와 SQLParamData()를 지원한다. 각각의 함수의 자세한 사용법은 MSDN을 참조하기 바란다.
 
-다음 예제는 상기 함수 및 앞서 설명한 StrLen_or_IndPtr 인자를 사용한 예제
-프로그램이다.
+다음 예제는 상기 함수 및 앞서 설명한 StrLen_or_IndPtr 인자를 사용한 예제 프로그램이다.
 
 ```
 Table Schema : 
@@ -6336,8 +5961,7 @@ check_error(SQL_HANDLE_DBC, gHdbc, "STMT free", sRetCode);
 
 #### ALTER SESSION 구문의 사용 제한
 
-Altibase 4에서는 세션 속성(property)인 AUTOCOMMIT MODE, DEFAULT_DATE_FORMAT를
-다음과 같이 지정했다.
+Altibase 4에서는 세션 속성(property)인 AUTOCOMMIT MODE, DEFAULT_DATE_FORMAT를 다음과 같이 지정했다.
 
 ```
 SQLExecDirect(stmt, 
@@ -6349,19 +5973,11 @@ SQLExecDirect(stmt,
 SQL_NTS); 
 ```
 
-위의 두 세션 속성은 Altibase CLI의 변환(conversion) 및 트랜잭션 관련 함수들의
-동작에 결정적인 영향을 주기 때문에 반드시 Altibase CLI 드라이버가 이에 대한
-정보를 가지고 있어야 한다.
+위의 두 세션 속성은 Altibase CLI의 변환(conversion) 및 트랜잭션 관련 함수들의 동작에 결정적인 영향을 주기 때문에 반드시 Altibase CLI 드라이버가 이에 대한 정보를 가지고 있어야 한다.
 
-그러나 SQLExecDirect() 함수를 이용하여 SQL 구문을 서버에 직접 전송할 경우
-Altibase CLI 드라이버가 해당 속성의 변경사항을 알 수 없다. 물론 해당 속성의 값을
-알기 위해 Altibase CLI 드라이버가 서버에서 정보를 얻어올 수도 있지만 이는 성능을
-저하시킬 수 있다.
+그러나 SQLExecDirect() 함수를 이용하여 SQL 구문을 서버에 직접 전송할 경우 Altibase CLI 드라이버가 해당 속성의 변경사항을 알 수 없다. 물론 해당 속성의 값을 알기 위해 Altibase CLI 드라이버가 서버에서 정보를 얻어올 수도 있지만 이는 성능을 저하시킬 수 있다.
 
-이러한 문제 해결을 위해 Altibase 5에서는 SQLSetConnectAttr()으로 해당 속성을
-수정하여, 별도의 절차 없이 Altibase CLI 드라이버가 유지하는 속성과 서버에 세팅된
-속성이 항상 일치할 수 있도록 했다. Altibase CLI를 이용할 때 Altibase 5에서는
-다음과 같이 프로그래밍하라.
+이러한 문제 해결을 위해 Altibase 5에서는 SQLSetConnectAttr()으로 해당 속성을 수정하여, 별도의 절차 없이 Altibase CLI 드라이버가 유지하는 속성과 서버에 세팅된 속성이 항상 일치할 수 있도록 했다. Altibase CLI를 이용할 때 Altibase 5에서는 다음과 같이 프로그래밍하라.
 
 ```
 SQLSetConnectAttr(conn,
@@ -6382,15 +5998,11 @@ Altibase CLI의 결과 값(Result)은 다음 두 가지로 나뉜다.
 
 -   Result set
 
-Altibase CLI는 Altibase 5에서 다중 결과(multiple results)를 고려하고 있다. 즉,
-한 번의 실행으로 복수의 결과들을 얻을 수 있다는 의미이다. 따라서 배열(Array)
-바인딩을 사용할 때, SQLRowCount() 함수의 반환 값은 Altibase 4의 값과는 차이가
-있다.
+Altibase CLI는 Altibase 5에서 다중 결과(multiple results)를 고려하고 있다. 즉, 한 번의 실행으로 복수의 결과들을 얻을 수 있다는 의미이다. 따라서 배열(Array) 바인딩을 사용할 때, SQLRowCount() 함수의 반환 값은 Altibase 4의 값과는 차이가 있다.
 
 -   SQLRowCount() : “current” result 에서 affected row count를 얻는 함수
 
--   SQLMoreResults() : “next” result 로 이동하는 함수. current result 가 마지막
-    result 이면 SQL_NO_DATA를 리턴한다.
+-   SQLMoreResults() : “next” result 로 이동하는 함수. current result 가 마지막 result 이면 SQL_NO_DATA를 리턴한다.
 
 ##### 예제
 
@@ -6445,24 +6057,17 @@ printf(“totalRowcount = %d\n”, totalRowCount);
 208 -> affected row count 의 합계.
 ```
 
-각각의 인자를 받은 구문들의 실행 결과는 각각 생성되어 Altibase CLI 드라이버로
-전달된다. 이렇게 여러 개의 결과가 생성될 경우 각각의 결과들은 SQLMoreResults()
-함수를 통해 다음 결과로 이동하고, SQLRowCount()로 결과를 가져온다.
+각각의 인자를 받은 구문들의 실행 결과는 각각 생성되어 Altibase CLI 드라이버로 전달된다. 이렇게 여러 개의 결과가 생성될 경우 각각의 결과들은 SQLMoreResults() 함수를 통해 다음 결과로 이동하고, SQLRowCount()로 결과를 가져온다.
 
-Altibase 4에서는 위의 세 개의 결과를 모두 합치면 SQLRowCount()가 208 이라는
-결과를 반환한다.
+Altibase 4에서는 위의 세 개의 결과를 모두 합치면 SQLRowCount()가 208 이라는 결과를 반환한다.
 
-만약 Altibase 5에서 Altibase 4와 동일한 결과를 얻기 위해서는 SQLMoreResults()
-함수를 SQL_NO_DATA를 반환할 때까지 반복하고, SQLRowCount()로 가져온 결과를
-더해줘야 한다.
+만약 Altibase 5에서 Altibase 4와 동일한 결과를 얻기 위해서는 SQLMoreResults() 함수를 SQL_NO_DATA를 반환할 때까지 반복하고, SQLRowCount()로 가져온 결과를 더해줘야 한다.
 
 #### 크기 제한 없는 Array Execute, Array Fetch
 
-Altibase 5에서는 통신 버퍼 크기 만큼 Array Execute, Array Fetch를 할 수 있는
-제약이 사라졌다.
+Altibase 5에서는 통신 버퍼 크기 만큼 Array Execute, Array Fetch를 할 수 있는 제약이 사라졌다.
 
-따라서 메모리가 허용하는 만큼 Array binding을 할 수 있게 되었으며,
-CM_BUFF_SIZE의 속성도 더 이상 지원하지 않는다.
+따라서 메모리가 허용하는 만큼 Array binding을 할 수 있게 되었으며, CM_BUFF_SIZE의 속성도 더 이상 지원하지 않는다.
 
 #### 사라진 속성들
 
@@ -6474,9 +6079,6 @@ CM_BUFF_SIZE의 속성도 더 이상 지원하지 않는다.
 
 ##### SQL_ATTR_MAX_ROWS
 
-Altibase 4에서는 성능 향상과 관련하여 prefetch 하는 행의 숫자를 지정하는 의미로
-사용했다. 그러나 ODBC 문서에 따르면 이 속성은 SELECT 구문의 LIMIT 절과 비슷한
-의미를 가진다. 이와 같은 기능은 Altibase CLI에서는 지원하지 않는다.
+Altibase 4에서는 성능 향상과 관련하여 prefetch 하는 행의 숫자를 지정하는 의미로 사용했다. 그러나 ODBC 문서에 따르면 이 속성은 SELECT 구문의 LIMIT 절과 비슷한 의미를 가진다. 이와 같은 기능은 Altibase CLI에서는 지원하지 않는다.
 
-따라서 위 속성을 SQLSetStmtAttr() 함수로 세팅할 경우, ‘Optional feature not
-implemented’ 오류가 발생하므로 주의해야 한다.
+따라서 위 속성을 SQLSetStmtAttr() 함수로 세팅할 경우, ‘Optional feature not implemented’ 오류가 발생하므로 주의해야 한다.
