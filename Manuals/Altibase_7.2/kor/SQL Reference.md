@@ -17291,6 +17291,7 @@ yoon;poo;blake;smith;poul
 60          
 rin;jones;woo;miller;kim;martin                                                                       
 6 rows selected.
+
 ```
 
 \<질의\> 다음은 분석 함수에서 LISTAGG를 사용하는 예제이다. emp 테이블에서 job의 순서대로 name을 출력할 때, 이름 사이에 ';'을 삽입하여 출력하라.
