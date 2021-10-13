@@ -4629,7 +4629,10 @@ SQLRETURN  SQLNumResultCols (
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -4684,7 +4687,9 @@ SQLNumResultCols(stmt, &columnCount);
 #### 구 문
 
 ```
-SQLRETURN SQLParamData (		SQLHSTMT   stmt,		SQLPOINTER *value);
+SQLRETURN SQLParamData (
+		SQLHSTMT   stmt,
+		SQLPOINTER *value);
 ```
 
 #### 인 자
@@ -4697,7 +4702,12 @@ SQLRETURN SQLParamData (		SQLHSTMT   stmt,		SQLPOINTER *value);
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_NEED_DATASQL_NO_DATASQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_NEED_DATA
+SQL_NO_DATA
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -4776,7 +4786,13 @@ ODBC 데이터 타입은 명령문이 실행(모든 매개변수가 바인드 �
 #### 관련함수
 
 ```
-SQLAllocHandleSQLBindColSQLBindParameterSQLEndTranSQLExecDirectSQLExecuteSQLRowCount
+SQLAllocHandle
+SQLBindCol
+SQLBindParameter
+SQLEndTran
+SQLExecDirect
+SQLExecute
+SQLRowCount
 ```
 
 #### 예 제
@@ -4784,7 +4800,15 @@ SQLAllocHandleSQLBindColSQLBindParameterSQLEndTranSQLExecDirectSQLExecuteSQLRowC
 < $ALTIBASE_HOME/sample/SQLCLI/demo_ex2.cpp 참고 >
 
 ```
-sprintf(query,"INSERT INTO DEMO_EX2 VALUES( ?, ?, ?, ?, ?, ? )");/* Statement를 준비하고 변수를 바인드한다. */if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, query);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+sprintf(query,"INSERT INTO DEMO_EX2 VALUES( ?, ?, ?, ?, ?, ? )");
+
+/* Statement를 준비하고 변수를 바인드한다. */
+if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, query);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ### SQLPrimaryKeys
@@ -4906,7 +4930,16 @@ Unicode SQLProcedureColumnsW() 동작은 SQLProcedureColumns()와 동일하다.
 #### 구 문
 
 ```
-SQLRETURN  SQLProcedureColumns (	SQLHSTMT		stmt,	SQLCHAR *		cName,	SQLSMALLINT 	cNameLength,	SQLCHAR *		sName,	SQLSMALLINT 	sNameLength,	SQLCHAR *		pName,	SQLSMALLINT 	pNameLength,	SQLCHAR * 		colName,	SQLSMALLINT	    colNameLength );
+SQLRETURN  SQLProcedureColumns (
+	SQLHSTMT		stmt,
+	SQLCHAR *		cName,
+	SQLSMALLINT 	cNameLength,
+	SQLCHAR *		sName,
+	SQLSMALLINT 	sNameLength,
+	SQLCHAR *		pName,
+	SQLSMALLINT 	pNameLength,
+	SQLCHAR * 		colName,
+	SQLSMALLINT	    colNameLength );
 ```
 
 #### 인 자
@@ -5024,7 +5057,14 @@ Unicode SQLProceduresW()의 동작은 SQLProcedures()와 동일하다.
 #### 구 문
 
 ```
-SQLRETURN  SQLProcedures (	SQLHSTMT		stmt,	SQLCHAR *		cName,	SQLSMALLINT 	cNameLength,	SQLCHAR *		sName ,	SQLSMALLINT 	sNameLength,	SQLCHAR *		pName,	SQLSMALLINT 	pNameLength );
+SQLRETURN  SQLProcedures (
+	SQLHSTMT		stmt,
+	SQLCHAR *		cName,
+	SQLSMALLINT 	cNameLength,
+	SQLCHAR *		sName ,
+	SQLSMALLINT 	sNameLength,
+	SQLCHAR *		pName,
+	SQLSMALLINT 	pNameLength );
 ```
 
 #### 인 자
@@ -5042,7 +5082,10 @@ SQLRETURN  SQLProcedures (	SQLHSTMT		stmt,	SQLCHAR *		cName,	SQLSMALLINT 	cNameL
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -5143,7 +5186,10 @@ SQL_ERROR
 #### 관련함수
 
 ```
-SQLBindParameterSQLExecDirectSQLExecuteSQLParamData
+SQLBindParameter
+SQLExecDirect
+SQLExecute
+SQLParamData
 ```
 
 ### SQLRowCount
@@ -5153,7 +5199,9 @@ UPDATE, INSERT 또는 DELETE 문에 의해 영향을 받은 행들의 수를 반
 #### 구 문
 
 ```
-SQLRETURN  SQLRowCount (	SQLHSTMT		stmt,	SQLLEN *		row );
+SQLRETURN  SQLRowCount (
+	SQLHSTMT		stmt,
+	SQLLEN *		row );
 ```
 
 #### 인 자
@@ -5319,7 +5367,10 @@ SQLRETURN SQLSetDescField (
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -5338,7 +5389,10 @@ descriptor의 속성을 한 개 지정한다.
 #### 관련함수
 
 ```
-SQLBindColSQLBindParameterSQLGetDescFieldSQLGetDescRec
+SQLBindCol
+SQLBindParameter
+SQLGetDescField
+SQLGetDescRec
 ```
 
 ### SQLSetEnvAttr
@@ -5492,7 +5546,15 @@ SQLSetPos 함수의 *operation* 인자에는 아래의 옵션이 지원된다:
 #### 관련함수
 
 ```
-SQLBindColSQLBulkOperationsSQLCancelSQLFetchScrollSQLGetDescFieldSQLGetDescRecSQLSetDescFieldSQLSetDescRecSQLSetStmtAttr
+SQLBindCol
+SQLBulkOperations
+SQLCancel
+SQLFetchScroll
+SQLGetDescField
+SQLGetDescRec
+SQLSetDescField
+SQLSetDescRec
+SQLSetStmtAttr
 ```
 
 ### SQLSetStmtAttr
@@ -5504,7 +5566,11 @@ Unicode SQLSetStmtAttrW() 동작은 SQLSetStmtAttr()와 동일하다.
 #### 구 문
 
 ```
-SQLRETURN  SQLSetStmtAttr (	SQLHSTMT 	stmt,	SQLINTEGER	Attribute,	SQLPOINTER	param,	SQLINTEGER	StringLength );
+SQLRETURN  SQLSetStmtAttr (
+	SQLHSTMT 	stmt,
+	SQLINTEGER	Attribute,
+	SQLPOINTER	param,
+	SQLINTEGER	StringLength );
 ```
 
 #### 인 자
@@ -5607,7 +5673,39 @@ SQLBindParameter()를 수행
 < $ALTIBASE_HOME/sample/SQLCLI/demo_ex4.cpp 참고 >
 
 ```
-SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_BIND_TYPE, (void*)sizeof(demo_ex4_data), 0);SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, (void*)10, 0);SQLSetStmtAttr(stmt, SQL_ATTR_PARAMS_PROCESSED_PTR,(void*) &processed_ptr, 0);SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_STATUS_PTR, (void*)status, 0);Automic Array Insert를 사용한다.SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, (SQLPOINTER) array_size, 0); // Array Size를 지정한다.SQLSetStmtAttr(stmt, ALTIBASE_STMT_ATTR_ATOMIC_ARRAY, (SQLPOINTER) SQL_TRUE, 0); // Atomic 속성을 지정한다.아래는 커서 타입을 지정하는 예제 코드이다....SQLAllocStmt(sDbc, &sStmt);SQLSetStmtAttr(sStmt, SQL_ATTR_CURSOR_TYPE, (SQLPOINTER) SQL_CURSOR_KEYSET_DRIVEN, NULL);SQLSetStmtAttr(sStmt, SQL_ATTR_ROW_STATUS_PTR, (SQLPOINTER) sRowStatus, NULL);/* ... */SQLExecDirect(sStmt, (SQLCHAR *)"SELECT t1.* FROM t1", SQL_NTS);while (1){	sRC = SQLFetch(sStmt);	if (! SQL_SUCCEEDED(sRC))	{	break;	}	if (sRowStatus == SQL_ROW_DELETED)	{	/* hole */	}	else	{	/* todo */	}}...
+SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_BIND_TYPE, (void*)sizeof(demo_ex4_data), 0);
+SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, (void*)10, 0);
+SQLSetStmtAttr(stmt, SQL_ATTR_PARAMS_PROCESSED_PTR,(void*) &processed_ptr, 0);
+SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_STATUS_PTR, (void*)status, 0);
+Automic Array Insert를 사용한다.
+SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, (SQLPOINTER) array_size, 0); // Array Size를 지정한다.
+SQLSetStmtAttr(stmt, ALTIBASE_STMT_ATTR_ATOMIC_ARRAY, (SQLPOINTER) SQL_TRUE, 0); // Atomic 속성을 지정한다.
+아래는 커서 타입을 지정하는 예제 코드이다.
+...
+SQLAllocStmt(sDbc, &sStmt);
+SQLSetStmtAttr(sStmt, SQL_ATTR_CURSOR_TYPE, (SQLPOINTER) SQL_CURSOR_KEYSET_DRIVEN, NULL);
+SQLSetStmtAttr(sStmt, SQL_ATTR_ROW_STATUS_PTR, (SQLPOINTER) sRowStatus, NULL);
+
+/* ... */
+
+SQLExecDirect(sStmt, (SQLCHAR *)"SELECT t1.* FROM t1", SQL_NTS);
+while (1)
+{
+	sRC = SQLFetch(sStmt);
+	if (! SQL_SUCCEEDED(sRC))
+	{
+	break;
+	}
+	if (sRowStatus == SQL_ROW_DELETED)
+	{
+	/* hole */
+	}
+	else
+	{
+	/* todo */
+	}
+}
+...
 ```
 
 ### SQLSpecialColumns
@@ -5623,7 +5721,17 @@ Unicode SQLSpecialColumnsW() 동작은 SQLSpecialColumns()와 동일하다.
 #### 구 문
 
 ```
-SQLRETURN  SQLSpecialColumns (	SQLHSTMT 		stmt,	SQLSMALLINT		fColType,	SQLCHAR *		szTableQual,	SQLSMALLINT		cbTableQual,	SQLCHAR *		szTableOwner,	SQLSMALLINT     cbTableOwner,	SQLCHAR *		szTableName,	SQLSMALLINT		cbTableName,	SQLSMALLINT		fScope,	SQLSMALLINT 	fNullable );
+SQLRETURN  SQLSpecialColumns (
+	SQLHSTMT 		stmt,
+	SQLSMALLINT		fColType,
+	SQLCHAR *		szTableQual,
+	SQLSMALLINT		cbTableQual,
+	SQLCHAR *		szTableOwner,
+	SQLSMALLINT     cbTableOwner,
+	SQLCHAR *		szTableName,
+	SQLSMALLINT		cbTableName,
+	SQLSMALLINT		fScope,
+	SQLSMALLINT 	fNullable );
 ```
 
 #### 인 자
@@ -5644,7 +5752,10 @@ SQLRETURN  SQLSpecialColumns (	SQLHSTMT 		stmt,	SQLSMALLINT		fColType,	SQLCHAR *
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -5678,7 +5789,10 @@ SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
 #### 관련함수
 
 ```
-SQLBindColSQLColumnsSQLFetchSQLPrimaryKeys
+SQLBindCol
+SQLColumns
+SQLFetch
+SQLPrimaryKeys
 ```
 
 #### 예 제
@@ -5686,7 +5800,23 @@ SQLBindColSQLColumnsSQLFetchSQLPrimaryKeys
 < $ALTIBASE_HOME/sample/SQLCLI/demo_meta7.cpp 참고 >
 
 ```
-if (SQLSpecialColumns(stmt, 0,                          NULL, 0,                          NULL, 0,                          "DEMO_META7", SQL_NTS,                          NULL, 0) != SQL_SUCCESS){    execute_err(dbc, stmt, "SQLColumns");      SQLFreeStmt(stmt, SQL_DROP);      return SQL_ERROR;}  SQLBindCol(stmt, 2, SQL_C_CHAR, szColumnName, STR_LEN, &cbColumnName);  SQLBindCol(stmt, 3, SQL_C_SSHORT, &DataType, 0, &cbDataType);  SQLBindCol(stmt, 4, SQL_C_CHAR, szTypeName, STR_LEN, &cbTypeName);  SQLBindCol(stmt, 5, SQL_C_SLONG, &ColumnSize, 0, &cbColumnSize);  SQLBindCol(stmt, 6, SQL_C_SLONG, &BufferLength, 0, &cbBufferLength);  SQLBindCol(stmt, 7, SQL_C_SSHORT, &DecimalDigits, 0, &cbDecimalDigits);
+if (SQLSpecialColumns(stmt, 0,
+                          NULL, 0,
+                          NULL, 0,
+                          "DEMO_META7", SQL_NTS,
+                          NULL, 0) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, "SQLColumns");
+      SQLFreeStmt(stmt, SQL_DROP);
+      return SQL_ERROR;
+}
+
+  SQLBindCol(stmt, 2, SQL_C_CHAR, szColumnName, STR_LEN, &cbColumnName);
+  SQLBindCol(stmt, 3, SQL_C_SSHORT, &DataType, 0, &cbDataType);
+  SQLBindCol(stmt, 4, SQL_C_CHAR, szTypeName, STR_LEN, &cbTypeName);
+  SQLBindCol(stmt, 5, SQL_C_SLONG, &ColumnSize, 0, &cbColumnSize);
+  SQLBindCol(stmt, 6, SQL_C_SLONG, &BufferLength, 0, &cbBufferLength);
+  SQLBindCol(stmt, 7, SQL_C_SSHORT, &DecimalDigits, 0, &cbDecimalDigits);
 ```
 
 ### SQLStatistics
@@ -5698,7 +5828,16 @@ Unicode SQLStatisticsW() 동작은 SQLStatistics()와 동일하다.
 #### 구 문
 
 ```
-SQLRETURN  SQLStatistics (	SQLHSTMT 		stmt,	SQLCHAR *		cName,	SQLSMALLINT		cNameLength,	SQLCHAR *		sName,	SQLSMALLINT 	sNameLength,	SQLCHAR *		tName,	SQLSMALLINT		tNameLength,	SQLSMALLINT		unique,	SQLSMALLINT 	reserved );
+SQLRETURN  SQLStatistics (
+	SQLHSTMT 		stmt,
+	SQLCHAR *		cName,
+	SQLSMALLINT		cNameLength,
+	SQLCHAR *		sName,
+	SQLSMALLINT 	sNameLength,
+	SQLCHAR *		tName,
+	SQLSMALLINT		tNameLength,
+	SQLSMALLINT		unique,
+	SQLSMALLINT 	reserved );
 ```
 
 #### 인 자
@@ -5718,7 +5857,10 @@ SQLRETURN  SQLStatistics (	SQLHSTMT 		stmt,	SQLCHAR *		cName,	SQLSMALLINT		cName
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -5754,7 +5896,9 @@ SQLStatistcs()는 단일 테이블에 대한 정보를 NON_UNIQUE, TYPE, INDEX_Q
 #### 관련함수
 
 ```
-SQLBindColSQLFetchSQLPrimaryKeys
+SQLBindCol
+SQLFetch
+SQLPrimaryKeys
 ```
 
 #### 예 제
@@ -5762,7 +5906,23 @@ SQLBindColSQLFetchSQLPrimaryKeys
 < $ALTIBASE_HOME/sample/SQLCLI/demo_meta4.cpp 참고 >
 
 ```
-if (SQLStatistics(stmt,NULL, 0,                      NULL, 0,                      "DEMO_META4", SQL_NTS,                      SQL_INDEX_ALL, 0) != SQL_SUCCESS)    {        execute_err(dbc, stmt, "SQLStatistics");        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;    }    SQLBindCol(stmt, 2, SQL_C_CHAR, szSchema, STR_LEN, &cbSchema);    SQLBindCol(stmt, 3, SQL_C_CHAR, szTableName, STR_LEN,&cbTableName);    SQLBindCol(stmt, 4, SQL_C_SSHORT, &NonUnique, 0, &cbNonUnique);    SQLBindCol(stmt, 6, SQL_C_CHAR, szIndexName, STR_LEN, &cbIndexName);    SQLBindCol(stmt, 8, SQL_C_SSHORT, &OrdinalPosition, 0, &cbOrdinalPosition);    SQLBindCol(stmt, 9, SQL_C_CHAR, szColumnName, STR_LEN, &cbColumnName);    SQLBindCol(stmt, 10, SQL_C_CHAR, szAscDesc, 2, &cbAscDesc);
+if (SQLStatistics(stmt,NULL, 0,
+                      NULL, 0,
+                      "DEMO_META4", SQL_NTS,
+                      SQL_INDEX_ALL, 0) != SQL_SUCCESS)
+    {
+        execute_err(dbc, stmt, "SQLStatistics");
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR;
+    }
+
+    SQLBindCol(stmt, 2, SQL_C_CHAR, szSchema, STR_LEN, &cbSchema);
+    SQLBindCol(stmt, 3, SQL_C_CHAR, szTableName, STR_LEN,&cbTableName);
+    SQLBindCol(stmt, 4, SQL_C_SSHORT, &NonUnique, 0, &cbNonUnique);
+    SQLBindCol(stmt, 6, SQL_C_CHAR, szIndexName, STR_LEN, &cbIndexName);
+    SQLBindCol(stmt, 8, SQL_C_SSHORT, &OrdinalPosition, 0, &cbOrdinalPosition);
+    SQLBindCol(stmt, 9, SQL_C_CHAR, szColumnName, STR_LEN, &cbColumnName);
+    SQLBindCol(stmt, 10, SQL_C_CHAR, szAscDesc, 2, &cbAscDesc);
 ```
 
 ### SQLTablePrivileges
@@ -5774,7 +5934,14 @@ Unicode SQLTablePrivilegesW() 동작은 SQLTablePrivileges()와 동일하다.
 #### 구 문
 
 ```
-SQLRETURN  SQLTablePrivileges(	SQLHSTMT		stmt,		SQLCHAR *		cName,		SQLSMALLINT		cNaneLength, 			SQLCHAR *		sName, 			SQLSMALLINT		sNameLength, 			SQLCHAR *		tName, 	SQLSMALLINT		tNameLength);
+SQLRETURN  SQLTablePrivileges(
+	SQLHSTMT		stmt,	
+	SQLCHAR *		cName,	
+	SQLSMALLINT		cNaneLength, 		
+	SQLCHAR *		sName, 		
+	SQLSMALLINT		sNameLength, 		
+	SQLCHAR *		tName, 
+	SQLSMALLINT		tNameLength);
 ```
 
 #### 인 자
@@ -5792,7 +5959,10 @@ SQLRETURN  SQLTablePrivileges(	SQLHSTMT		stmt,		SQLCHAR *		cName,		SQLSMALLINT		
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -5824,7 +5994,13 @@ SQLTablePrivileges()는 TABLE_CAT, TABLE_SCHEM, TABLE_NAME, PRIVILEGE, 그리고
 #### 관련함수
 
 ```
-SQLBindColSQLCancelSQLColumnsSQLFetchSQLPrimaryKeysSQLStatisticsSQLTables
+SQLBindCol
+SQLCancel
+SQLColumns
+SQLFetch
+SQLPrimaryKeys
+SQLStatistics
+SQLTables
 ```
 
 #### 예 제
@@ -5832,7 +6008,22 @@ SQLBindColSQLCancelSQLColumnsSQLFetchSQLPrimaryKeysSQLStatisticsSQLTables
 < $ALTIBASE_HOME/sample/SQLCLI/demo_meta10.cpp 참고 >
 
 ```
-if (SQLTablePrivileges(stmt,                       NULL, 0,                       "SYS", SQL_NTS,                       "DEMO_META10", SQL_NTS) != SQL_SUCCESS)    {        execute_err(dbc, stmt, "SQLTablePrivileges");        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;    }    SQLBindCol(stmt, 2, SQL_C_CHAR, szSchema, NAME_LEN, &cbSchema);    SQLBindCol(stmt, 3, SQL_C_CHAR, szTableName, NAME_LEN,&cbTableName);    SQLBindCol(stmt, 4, SQL_C_CHAR, szGrantor, NAME_LEN, &cbGrantor);    SQLBindCol(stmt, 5, SQL_C_CHAR, szGrantee, NAME_LEN, &cbGrantee);    SQLBindCol(stmt, 6, SQL_C_CHAR, szPrivilege, NAME_LEN,&cbPrivilege);    SQLBindCol(stmt, 7, SQL_C_CHAR, szGrantable, 5, &cbGrantable);
+if (SQLTablePrivileges(stmt,
+                       NULL, 0,
+                       "SYS", SQL_NTS,
+                       "DEMO_META10", SQL_NTS) != SQL_SUCCESS)
+    {
+        execute_err(dbc, stmt, "SQLTablePrivileges");
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR;
+    }
+
+    SQLBindCol(stmt, 2, SQL_C_CHAR, szSchema, NAME_LEN, &cbSchema);
+    SQLBindCol(stmt, 3, SQL_C_CHAR, szTableName, NAME_LEN,&cbTableName);
+    SQLBindCol(stmt, 4, SQL_C_CHAR, szGrantor, NAME_LEN, &cbGrantor);
+    SQLBindCol(stmt, 5, SQL_C_CHAR, szGrantee, NAME_LEN, &cbGrantee);
+    SQLBindCol(stmt, 6, SQL_C_CHAR, szPrivilege, NAME_LEN,&cbPrivilege);
+    SQLBindCol(stmt, 7, SQL_C_CHAR, szGrantable, 5, &cbGrantable);
 ```
 
 ### SQLTables
@@ -5844,7 +6035,16 @@ Unicode SQLTablesW() 동작은 SQLTables()와 동일하다.
 #### 구 문
 
 ```
-SQLRETURN  SQLTables (	SQLHSTMT 		stmt,	SQLCHAR *		cName,	SQLSMALLINT 	cNameLength,	SQLCHAR *		sName,	SQLSMALLINT 	sNameLength,	SQLCHAR *		tName,	SQLSMALLINT 	tNameLength,	SQLCHAR *		tableType,	SQLSMALLINT 	tableTypeLength);
+SQLRETURN  SQLTables (
+	SQLHSTMT 		stmt,
+	SQLCHAR *		cName,
+	SQLSMALLINT 	cNameLength,
+	SQLCHAR *		sName,
+	SQLSMALLINT 	sNameLength,
+	SQLCHAR *		tName,
+	SQLSMALLINT 	tNameLength,
+	SQLCHAR *		tableType,
+	SQLSMALLINT 	tableTypeLength);
 ```
 
 #### 인 자
@@ -5864,7 +6064,10 @@ SQLRETURN  SQLTables (	SQLHSTMT 		stmt,	SQLCHAR *		cName,	SQLSMALLINT 	cNameLeng
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -5905,7 +6108,10 @@ SQLTables()는 TABLE_TYPE, TABLE_CAT, TABLE_SCHEM, 그리고 TABLE_NAME 순서�
 #### 관련함수
 
 ```
-SQLBindColSQLColumnsSQLFetchSQLStatistics
+SQLBindCol
+SQLColumns
+SQLFetch
+SQLStatistics
 ```
 
 #### 예 제
@@ -5913,7 +6119,49 @@ SQLBindColSQLColumnsSQLFetchSQLStatistics
 < $ALTIBASE_HOME/sample/SQLCLI/demo_meta1.cpp 참고 >
 
 ```
-if (SQLTables(stmt,                  NULL, 0,                  NULL, 0,                  NULL, 0,                  NULL, 0) != SQL_SUCCESS)    {                     execute_err(dbc, stmt, "SQLTables");        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;     }    if (SQLBindCol(stmt, 2, SQL_C_CHAR,                   schem, sizeof(schem), &schem_ind) != SQL_SUCCESS)    {        execute_err(dbc, stmt, "SQLBindCol");        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;    }    if (SQLBindCol(stmt, 3, SQL_C_CHAR,                   name, sizeof(name), &name_ind) != SQL_SUCCESS)    {        execute_err(dbc, stmt, "SQLBindCol");        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;    }    if (SQLBindCol(stmt, 4, SQL_C_CHAR,                   type, sizeof(type), &type_ind) != SQL_SUCCESS)    {        execute_err(dbc, stmt, "SQLBindCol");        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;    }while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)    {        if ( rc == SQL_ERROR )        {            execute_err(dbc, stmt, "SQLFetch");            break;        }        printf("%-40s%-40s%s\n", schem, name, type);    }
+if (SQLTables(stmt,
+                  NULL, 0,
+                  NULL, 0,
+                  NULL, 0,
+                  NULL, 0) != SQL_SUCCESS)
+    {             
+        execute_err(dbc, stmt, "SQLTables");
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR; 
+    }
+
+    if (SQLBindCol(stmt, 2, SQL_C_CHAR,
+                   schem, sizeof(schem), &schem_ind) != SQL_SUCCESS)
+    {
+        execute_err(dbc, stmt, "SQLBindCol");
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR;
+    }
+
+    if (SQLBindCol(stmt, 3, SQL_C_CHAR,
+                   name, sizeof(name), &name_ind) != SQL_SUCCESS)
+    {
+        execute_err(dbc, stmt, "SQLBindCol");
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR;
+    }
+
+    if (SQLBindCol(stmt, 4, SQL_C_CHAR,
+                   type, sizeof(type), &type_ind) != SQL_SUCCESS)
+    {
+        execute_err(dbc, stmt, "SQLBindCol");
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR;
+    }
+while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)
+    {
+        if ( rc == SQL_ERROR )
+        {
+            execute_err(dbc, stmt, "SQLFetch");
+            break;
+        }
+        printf("%-40s%-40s%s\n", schem, name, type);
+    }
 ```
 
 ### SQLTransact
@@ -5923,7 +6171,10 @@ if (SQLTables(stmt,                  NULL, 0,                  NULL, 0,         
 #### 구 문
 
 ```
-SQLRETURN  SQLTransact (	SQLHENV 		env,	SQLHDBC 		dbc,	SQLSMALLINT 	type );
+SQLRETURN  SQLTransact (
+	SQLHENV 		env,
+	SQLHDBC 		dbc,
+	SQLSMALLINT 	type );
 ```
 
 #### 인 자
@@ -5937,7 +6188,9 @@ SQLRETURN  SQLTransact (	SQLHENV 		env,	SQLHDBC 		dbc,	SQLSMALLINT 	type );
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -6257,7 +6510,15 @@ SQL 문에서 LOB 데이터 타입을 위해 사용된 매개변수 마커 ‘?�
 #### 구 문
 
 ```
-SQLRETURN SQLBindFileToParam(    SQLHSTMT         stmt,    SQLSMALLINT      par,    SQLSMALLINT      sqlType,    SQLCHAR *        fileName,    SQLLEN *         fileNameLength,    SQLUINTEGER *    fileOptions,    SQLLEN           maxFileNameLength,    SQLLEN *         ind);
+SQLRETURN SQLBindFileToParam(
+    SQLHSTMT         stmt,
+    SQLSMALLINT      par,
+    SQLSMALLINT      sqlType,
+    SQLCHAR *        fileName,
+    SQLLEN *         fileNameLength,
+    SQLUINTEGER *    fileOptions,
+    SQLLEN           maxFileNameLength,
+    SQLLEN *         ind);
 ```
 
 #### 인 자
@@ -6276,7 +6537,10 @@ SQLRETURN SQLBindFileToParam(    SQLHSTMT         stmt,    SQLSMALLINT      par,
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -6299,31 +6563,154 @@ LOB이 NULL일 경우 ind 포인터가 가리키는 버퍼에 SQL_NULL_DATA를 �
 #### 관련함수
 
 ```
-SQLBindColSQLBindFileToColSQLExecuteSQLExecDirectSQLDescribeParam
+SQLBindCol
+SQLBindFileToCol
+SQLExecute
+SQLExecDirect
+SQLDescribeParam
 ```
 
 #### 예 제
 
 ```
-테이블은 다음 DDL에 의해 생성되었다고 가정한다.CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 BLOB);
+테이블은 다음 DDL에 의해 생성되었다고 가정한다.
+CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 BLOB);
 ```
 
 ##### 한 개의 LOB을 테이블에 입력
 
 ```
-SQLCHAR fileName[16];SQLLEN fileNameLength = 15;SQLUINTEGER fileOptions = SQL_FILE_READ;SQLLEN ind = 0;.strcpy(query, "INSERT INTO T1 VALUES (1, ?)");/* Statement를 준비하고 파일을 바인드한다. */if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPrepare : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}strcpy(fileName, "Terminator2.avi");if (SQLBindFileToParam(stmt, 1, SQL_BLOB, fileName, &fileNameLength, &fileOptions, 16, &ind) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindFileToParam : “);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLExecute(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, "SQLExecute : ");    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLCHAR fileName[16];
+SQLLEN fileNameLength = 15;
+SQLUINTEGER fileOptions = SQL_FILE_READ;
+SQLLEN ind = 0;
+.
+strcpy(query, "INSERT INTO T1 VALUES (1, ?)");
+
+/* Statement를 준비하고 파일을 바인드한다. */
+if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPrepare : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+strcpy(fileName, "Terminator2.avi");
+if (SQLBindFileToParam(stmt, 1, SQL_BLOB, fileName, &fileNameLength, &fileOptions, 16, &ind) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindFileToParam : “);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLExecute(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, "SQLExecute : ");
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ##### 세 개의 LOB을 테이블에 입력
 
 ```
-SQLINTEGER i1[3];SQLCHAR fileName[3][10];SQLLEN fileNameLength[3];SQLUINTEGER fileOptions[3];SQLLEN ind[3];.if (SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, (SQLPOINTER) 3, 0) != SQL_SUCCESS){    execute_err(dbc, stmt, "SQLSetStmtAttr : ");    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_BIND_TYPE, SQL_PARAM_BIND_BY_COLUMN, 0) != SQL_SUCCESS){    execute_err(dbc, stmt, "SQLSetStmtAttr : ");    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}strcpy(query, "INSERT INTO T1 VALUES (?, ?)");/* Statement를 준비하고 파일을 바인드한다. */if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPrepare : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_INTEGER, SQL_INTEGER, 0, 0, (SQLPOINTER) i1, 0, NULL) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindParameter : “);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLBindFileToParam(stmt, 2, SQL_BLOB, (SQLCHAR *) fileName, fileNameLength, fileOptions, 10, ind) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindFileToParam : “);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}/* Insert할 데이터를 가져올 파일 지정 */strcpy(fileName[0], "Cube.avi");strcpy(fileName[1], "Movie.avi");strcpy(fileName[2], "Term.avi");for (i = 0; i < 3; i++){    i1[i] = i + 1;    fileNameLength[i] = strlen(fileName[i]);    fileOptions[i] = SQL_FILE_READ;    ind[i] = 0;}if (SQLExecute(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, "SQLExecute : ");    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLINTEGER i1[3];
+SQLCHAR fileName[3][10];
+SQLLEN fileNameLength[3];
+SQLUINTEGER fileOptions[3];
+SQLLEN ind[3];
+.
+if (SQLSetStmtAttr(stmt, SQL_ATTR_PARAMSET_SIZE, (SQLPOINTER) 3, 0) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, "SQLSetStmtAttr : ");
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLSetStmtAttr(stmt, SQL_ATTR_PARAM_BIND_TYPE, SQL_PARAM_BIND_BY_COLUMN, 0) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, "SQLSetStmtAttr : ");
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+strcpy(query, "INSERT INTO T1 VALUES (?, ?)");
+
+/* Statement를 준비하고 파일을 바인드한다. */
+if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPrepare : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_INTEGER, SQL_INTEGER, 0, 0, (SQLPOINTER) i1, 0, NULL) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindParameter : “);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLBindFileToParam(stmt, 2, SQL_BLOB, (SQLCHAR *) fileName, fileNameLength, fileOptions, 10, ind) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindFileToParam : “);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+/* Insert할 데이터를 가져올 파일 지정 */
+strcpy(fileName[0], "Cube.avi");
+strcpy(fileName[1], "Movie.avi");
+strcpy(fileName[2], "Term.avi");
+
+for (i = 0; i < 3; i++)
+{
+    i1[i] = i + 1;
+    fileNameLength[i] = strlen(fileName[i]);
+    fileOptions[i] = SQL_FILE_READ;
+    ind[i] = 0;
+}
+
+if (SQLExecute(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, "SQLExecute : ");
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ##### 테이블의 한 개의 LOB을 업데이트
 
 ```
-SQLCHAR fileName[16];SQLLEN fileNameLength = 15;SQLUINTEGER fileOptions = SQL_FILE_READ;SQLLEN ind = 0;.strcpy(query, "UPDATE T1 SET i2=? WHERE i1=1");/* Statement를 준비하고 파일을 바인드한다. */if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPrepare : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}strcpy(fileName, "Terminator2_fix.avi");if (SQLBindFileToParam(stmt, 1, SQL_BLOB, fileName, &fileNameLength, &fileOptions, 16, &ind) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindFileToParam : “);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLExecute(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, "SQLExecute : ");    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLCHAR fileName[16];
+SQLLEN fileNameLength = 15;
+SQLUINTEGER fileOptions = SQL_FILE_READ;
+SQLLEN ind = 0;
+.
+strcpy(query, "UPDATE T1 SET i2=? WHERE i1=1");
+
+/* Statement를 준비하고 파일을 바인드한다. */
+if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPrepare : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+strcpy(fileName, "Terminator2_fix.avi");
+if (SQLBindFileToParam(stmt, 1, SQL_BLOB, fileName, &fileNameLength, &fileOptions, 16, &ind) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindFileToParam : “);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLExecute(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, "SQLExecute : ");
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ### SQLGetLobLength
@@ -6333,7 +6720,11 @@ SQLCHAR fileName[16];SQLLEN fileNameLength = 15;SQLUINTEGER fileOptions = SQL_FI
 #### 구 문
 
 ```
-SQLRETURN SQLGetLobLength(    SQLHSTMT         stmt,    SQLUBIGINT       locator,    SQLSMALLINT      locatorCType,    SQLUINTEGER *    valueLength);
+SQLRETURN SQLGetLobLength(
+    SQLHSTMT         stmt,
+    SQLUBIGINT       locator,
+    SQLSMALLINT      locatorCType,
+    SQLUINTEGER *    valueLength);
 ```
 
 #### 인 자
@@ -6348,7 +6739,10 @@ SQLRETURN SQLGetLobLength(    SQLHSTMT         stmt,    SQLUBIGINT       locator
 #### 결과값
 
 ```
-SQL_SUCCESSSQL_SUCCESS_WITH_INFOSQL_INVALID_HANDLESQL_ERROR
+SQL_SUCCESS
+SQL_SUCCESS_WITH_INFO
+SQL_INVALID_HANDLE
+SQL_ERROR
 ```
 
 #### 설 명
@@ -6379,7 +6773,12 @@ valueLength 인자를 통해 LOB의 길이가 리턴된다.
 #### 관련함수
 
 ```
-SQLBindColSQLBindParameterSQLFetchSQLExecuteSQLGetLobSQLPutLob
+SQLBindCol
+SQLBindParameter
+SQLFetch
+SQLExecute
+SQLGetLob
+SQLPutLob
 ```
 
 #### 예 제
@@ -6393,7 +6792,48 @@ CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 BLOB);
 ##### LOB 데이터를 검색하여 길이 조회
 
 ```
-SQLINTEGER valueLength;SQLUBIGINT lobLoc;...strcpy(query, "SELECT i2 FROM T1 WHERE i1=1");if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLExecDirect : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLBindCol(stmt, 1, SQL_C_BLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindCol : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLFetch(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFetch : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLGetLobLength(stmt, lobLoc, SQL_C_BLOB_LOCATOR, &valueLength) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLGetLobLength : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}printf("SQLGetLobLength success!!!\n");if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFreeLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLINTEGER valueLength;
+SQLUBIGINT lobLoc;
+.
+.
+.
+strcpy(query, "SELECT i2 FROM T1 WHERE i1=1");
+if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLExecDirect : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLBindCol(stmt, 1, SQL_C_BLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindCol : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLFetch(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFetch : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLGetLobLength(stmt, lobLoc, SQL_C_BLOB_LOCATOR, &valueLength) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLGetLobLength : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+printf("SQLGetLobLength success!!!\n");
+
+if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ### SQLGetLob
@@ -6403,7 +6843,16 @@ SQLINTEGER valueLength;SQLUBIGINT lobLoc;...strcpy(query, "SELECT i2 FROM T1 WHE
 #### 구 문
 
 ```
-SQLRETURN SQLGetLob(    SQLHSTMT        stmt,    SQLSMALLINT     locatorCType,    SQLUBIGINT      sourceLocator,    SQLUINTEGER     fromPosition,    SQLUINTEGER     forLength,    SQLSMALLINT     targetCType,    SQLPOINTER      value,    SQLUINTEGER     bufferSize,    SQLUINTEGER *   valueLength);
+SQLRETURN SQLGetLob(
+    SQLHSTMT        stmt,
+    SQLSMALLINT     locatorCType,
+    SQLUBIGINT      sourceLocator,
+    SQLUINTEGER     fromPosition,
+    SQLUINTEGER     forLength,
+    SQLSMALLINT     targetCType,
+    SQLPOINTER      value,
+    SQLUINTEGER     bufferSize,
+    SQLUINTEGER *   valueLength);
 ```
 
 #### 인 자
@@ -6460,7 +6909,67 @@ CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 CLOB);
 ##### SQLGetLob() 함수를 이용하여, LOB 데이터를 애플리케이션 버퍼로 가져온다.
 
 ```
-SQLCHAR buf[1024];SQLINTEGER valueLength, accumLength, forLength, procLength;SQLUBIGINT lobLoc;..strcpy(query, "SELECT i2 FROM T1 WHERE i1=1");if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLExecDirect : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLBindCol(stmt, 1, SQL_C_CLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindCol : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLFetch(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFetch : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLGetLobLength(stmt, lobLoc, SQL_C_CLOB_LOCATOR, &valueLength) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLGetLobLength : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}for (accumLength = 0; accumLength < valueLength; accumLength += procLength){    if (valueLength - accumLength > 256)    {        forLength = 256;    }    else    {        forLength = valueLength - accumLength;    }    if (SQLGetLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, accumLength, forLength, SQL_C_CHAR, buf, 256, &procLength) != SQL_SUCCESS)    {        execute_err(dbc, stmt, “SQLGetLob : ”);        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;    }    printf("%s", buf);}if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFreeLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLCHAR buf[1024];
+SQLINTEGER valueLength, accumLength, forLength, procLength;
+SQLUBIGINT lobLoc;
+.
+.
+strcpy(query, "SELECT i2 FROM T1 WHERE i1=1");
+if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLExecDirect : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLBindCol(stmt, 1, SQL_C_CLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindCol : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLFetch(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFetch : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLGetLobLength(stmt, lobLoc, SQL_C_CLOB_LOCATOR, &valueLength) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLGetLobLength : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+for (accumLength = 0; accumLength < valueLength; accumLength += procLength)
+{
+    if (valueLength - accumLength > 256)
+    {
+        forLength = 256;
+    }
+    else
+    {
+        forLength = valueLength - accumLength;
+    }
+
+    if (SQLGetLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, accumLength, forLength, SQL_C_CHAR, buf, 256, &procLength) != SQL_SUCCESS)
+    {
+        execute_err(dbc, stmt, “SQLGetLob : ”);
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR;
+    }
+
+    printf("%s", buf);
+}
+
+if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ### SQLPutLob
@@ -6470,7 +6979,15 @@ SQLCHAR buf[1024];SQLINTEGER valueLength, accumLength, forLength, procLength;SQL
 #### 구 문
 
 ```
-SQLRETURN SQLPutLob(    SQLHSTMT        stmt,    SQLSMALLINT     locatorCType,    SQLUBIGINT      targetLocator,    SQLUINTEGER     fromPosition,    SQLUINTEGER     forLength,    SQLSMALLINT     sourceCType,    SQLPOINTER      value,    SQLUINTEGER     valueLength);
+SQLRETURN SQLPutLob(
+    SQLHSTMT        stmt,
+    SQLSMALLINT     locatorCType,
+    SQLUBIGINT      targetLocator,
+    SQLUINTEGER     fromPosition,
+    SQLUINTEGER     forLength,
+    SQLSMALLINT     sourceCType,
+    SQLPOINTER      value,
+    SQLUINTEGER     valueLength);
 ```
 
 #### 인 자
@@ -6528,19 +7045,158 @@ CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 CLOB);
 ##### CLOB 칼럼 값이 ‘Ver.Beta’인 레코드 삽입 후 ‘Beta’ 부분을 ‘Gamma’로 치환
 
 ```
-SQLCHAR buf[5];SQLUBIGINT lobLoc;.strcpy(query, "INSERT INTO T1 VALUES (1, 'Ver.Beta')");if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLExecDirect : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}.strcpy(query, "SELECT i2 FROM T1 WHERE i1=1 FOR UPDATE");if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLExecDirect : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLBindCol(stmt, 1, SQL_C_CLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindCol : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLFetch(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFetch : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}memcpy(buf, "Gamma", 5);if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 4, SQL_C_CHAR, buf, 5) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPutLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFreeLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLCHAR buf[5];
+SQLUBIGINT lobLoc;
+.
+strcpy(query, "INSERT INTO T1 VALUES (1, 'Ver.Beta')");
+if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLExecDirect : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+.
+strcpy(query, "SELECT i2 FROM T1 WHERE i1=1 FOR UPDATE");
+if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLExecDirect : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLBindCol(stmt, 1, SQL_C_CLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindCol : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLFetch(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFetch : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+memcpy(buf, "Gamma", 5);
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 4, SQL_C_CHAR, buf, 5) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPutLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ##### CLOB 칼럼 값이 ‘Ver.0.9a’인 레코드 한 개 삽입
 
 ```
-SQLCHAR buf[8];SQLINTEGER lobInd;SQLUBIGINT lobLoc;...strcpy(query, "INSERT INTO T1 VALUES (5, ?)");if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPrepare : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindParameter : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLExecute(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLExecute : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}memcpy(buf, "Ver.0.9a", 8);if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 7) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPutLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}/* ‘Ver.0.9a’에서 ‘0.9’를 ‘1’로 치환 */memcpy(buf, "1", 1);if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 3, SQL_C_CHAR, buf, 1) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPutLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFreeLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLCHAR buf[8];
+SQLINTEGER lobInd;
+SQLUBIGINT lobLoc;
+.
+.
+.
+strcpy(query, "INSERT INTO T1 VALUES (5, ?)");
+if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPrepare : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindParameter : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLExecute(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLExecute : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+memcpy(buf, "Ver.0.9a", 8);
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 7) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPutLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+/* ‘Ver.0.9a’에서 ‘0.9’를 ‘1’로 치환 */
+memcpy(buf, "1", 1);
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 3, SQL_C_CHAR, buf, 1) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPutLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ##### 여러 레코드의 CLOB 칼럼을 일괄적으로 ‘Retail’로 변경
 
 ```
-SQLCHAR buf[6];SQLINTEGER lobInd;SQLUBIGINT lobLoc;...strcpy(query, "UPDATE T1 SET i2=? WHERE i1>=1 AND i1<=100");if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPrepare : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}/* LOB locator 파라미터를 아웃바인드하고 UPDATE 쿼리를 수행하면, 갱신 대상인 LOB 칼럼들이 자동적으로 null로 truncate  */if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLBindParameter : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLExecute(stmt) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLExecute : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}memcpy(buf, “Retail”, 6);if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 6) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLPutLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS){    execute_err(dbc, stmt, “SQLFreeLob : ”);    SQLFreeStmt(stmt, SQL_DROP);    return SQL_ERROR;}
+SQLCHAR buf[6];
+SQLINTEGER lobInd;
+SQLUBIGINT lobLoc;
+.
+.
+.
+strcpy(query, "UPDATE T1 SET i2=? WHERE i1>=1 AND i1<=100");
+if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPrepare : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+/* LOB locator 파라미터를 아웃바인드하고 UPDATE 쿼리를 수행하면, 갱신 대상인 LOB 칼럼들이 자동적으로 null로 truncate  */
+if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLBindParameter : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLExecute(stmt) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLExecute : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+memcpy(buf, “Retail”, 6);
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 6) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLPutLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
+
+if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
+{
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    SQLFreeStmt(stmt, SQL_DROP);
+    return SQL_ERROR;
+}
 ```
 
 ### SQLTrimLob
@@ -6550,7 +7206,11 @@ LOB Locator가 가리키는 LOB 값의 지정한 위치 뒤쪽 부분을 삭제�
 #### 구 문
 
 ```
-SQLRETURN SQLTrimLob(    SQLHSTMT         stmt,    SQLSMALLINT      locatorCType,    SQLUBIGINT       targetLocator,    SQLLEN           fromPosition);
+SQLRETURN SQLTrimLob(
+    SQLHSTMT         stmt,
+    SQLSMALLINT      locatorCType,
+    SQLUBIGINT       targetLocator,
+    SQLLEN           fromPosition);
 ```
 
 #### 인 자
@@ -6654,7 +7314,9 @@ if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 #### 구 문
 
 ```
-SQLRETURN SQLFreeLob (    SQLHSTMT        stmt,    SQLUBIGINT      locator);
+SQLRETURN SQLFreeLob (
+    SQLHSTMT        stmt,
+    SQLUBIGINT      locator);
 ```
 
 #### 인 자
@@ -6864,7 +7526,317 @@ SQLPrepare()를 사용하여 SELECT 문을 수행할 경우, SQLExecute() -\> SQ
 ### Altibase CLI 프로그램 기본 예제
 
 ```
-/*************************************************  파일명 = demo_ex1.cpp***********************************************/#include <sqlcli.h>#include <stdio.h>#include <stdlib.h>#define SQL_LEN 1000#define MSG_LEN 1024SQLHENV  env;  // Environment HandleSQLHDBC  dbc;  // Connection Handleint      conn_flag;SQLRETURN alloc_handle();SQLRETURN db_connect();void free_handle();SQLRETURN execute_select();void execute_err(SQLHDBC aCon, SQLHSTMT aStmt, char* q);int main(){    SQLRETURN    rc;    env = SQL_NULL_HENV;    dbc = SQL_NULL_HDBC;    conn_flag = 0;    /* allocate handle */    rc = alloc_handle();    if ( rc != SQL_SUCCESS )    {        free_handle();        exit(1);    }    /* Connect to Altibase Server */    rc = db_connect();    if ( rc != SQL_SUCCESS )    {        free_handle();        exit(1);    }    rc = execute_select();    if ( rc != SQL_SUCCESS )    {        free_handle();        exit(1);    }    free_handle();}static void print_diagnostic(SQLSMALLINT aHandleType, SQLHANDLE aHandle){    SQLRETURN   rc;    SQLSMALLINT sRecordNo;    SQLCHAR     sSQLSTATE[6];    SQLCHAR     sMessage[2048];    SQLSMALLINT sMessageLength;    SQLINTEGER  sNativeError;    sRecordNo = 1;    while ((rc = SQLGetDiagRec(aHandleType,                               aHandle,                               sRecordNo,                               sSQLSTATE,                               &sNativeError,                               sMessage,                               sizeof(sMessage),                               &sMessageLength)) != SQL_NO_DATA)    {        printf("Diagnostic Record %d\n", sRecordNo);        printf("     SQLSTATE     : %s\n", sSQLSTATE);        printf("     Message text : %s\n", sMessage);        printf("     Message len  : %d\n", sMessageLength);        printf("     Native error : 0x%X\n", sNativeError);        if (rc != SQL_SUCCESS && rc != SQL_SUCCESS_WITH_INFO)        {            break;        }        sRecordNo++;    }}void execute_err(SQLHDBC aCon, SQLHSTMT aStmt, char* q){    printf("Error : %s\n",q);    if (aStmt == SQL_NULL_HSTMT)    {        if (aCon != SQL_NULL_HDBC)        {            print_diagnostic(SQL_HANDLE_DBC, aCon);        }    }    else    {        print_diagnostic(SQL_HANDLE_STMT, aStmt);    }}SQLRETURN alloc_handle(){    /* allocate Environment handle */    if (SQLAllocEnv(&env) != SQL_SUCCESS)    {        printf("SQLAllocEnv error!!\n");        return SQL_ERROR;    }    /* allocate Connection handle */    if (SQLAllocConnect(env, &dbc) != SQL_SUCCESS)    {        printf("SQLAllocConnect error!!\n");        return SQL_ERROR;    }    return SQL_SUCCESS;}void free_handle(){    if ( conn_flag == 1 )    {        /* close connection */        SQLDisconnect( dbc );    }    /* free connection handle */    if ( dbc != NULL )    {        SQLFreeConnect( dbc );    }    if ( env != NULL )    {        SQLFreeEnv( env );    }}SQLRETURN db_connect(){    char    *USERNAME = "SYS";        // user name    char    *PASSWD   = "MANAGER";    // user password    char    *NLS      = "US7ASCII";   // NLS_USE ( KO16KSC5601, US7ASCII )    char     connStr[1024];    sprintf(connStr,            "DSN=127.0.0.1;UID=%s;PWD=%s;CONNTYPE=%d;NLS_USE=%s", /* ;PORT_NO=20300", */            USERNAME, PASSWD, 1, NLS);    /* establish connection */    if (SQLDriverConnect( dbc, NULL, (SQLCHAR *)connStr, SQL_NTS,                          NULL, 0, NULL,                          SQL_DRIVER_NOPROMPT ) != SQL_SUCCESS)    {        execute_err(dbc, SQL_NULL_HSTMT, "SQLDriverConnect");        return SQL_ERROR;    }    conn_flag = 1;    return SQL_SUCCESS;}SQLRETURN execute_select(){    SQLHSTMT     stmt = SQL_NULL_HSTMT;    SQLRETURN    rc;    int          i;    char         query[SQL_LEN];    SQLSMALLINT  columnCount;    char         columnName[50];    SQLSMALLINT  columnNameLength;    SQLSMALLINT  dataType;    SQLSMALLINT  scale;    SQLSMALLINT  nullable;    SQLULEN      columnSize;    void       **columnPtr;    SQLLEN      *columnInd;    /* allocate Statement handle */    if (SQL_ERROR == SQLAllocStmt(dbc, &stmt))    {        printf("SQLAllocStmt error!!\n");        return SQL_ERROR;    }    sprintf(query,"SELECT * FROM DEMO_EX1");    if (SQLExecDirect(stmt, (SQLCHAR *)query, SQL_NTS) != SQL_SUCCESS)    {        execute_err(dbc, stmt, query);        SQLFreeStmt(stmt, SQL_DROP);        return SQL_ERROR;    }    SQLNumResultCols(stmt, &columnCount);    columnPtr = (void**) malloc( sizeof(void*) * columnCount );    columnInd = (SQLLEN*) malloc( sizeof(SQLLEN) * columnCount );    if ( columnPtr == NULL )    {        return SQL_ERROR;    }    for ( i=0; i<columnCount; i++ )    {        SQLDescribeCol(stmt, i+1,                       (SQLCHAR *)columnName, sizeof(columnName), &columnNameLength,                       &dataType, &columnSize, &scale, &nullable);        printf("columnName = %s, nullable = %d\n", columnName, nullable);        switch (dataType)        {        case SQL_CHAR:            printf("%s : CHAR(%d)\n", columnName, columnSize);            columnPtr[i] = (char*) malloc( columnSize + 1 );            SQLBindCol(stmt, i+1, SQL_C_CHAR, columnPtr[i], columnSize+1, &columnInd[i]);            break;        case SQL_VARCHAR:            printf("%s : VARCHAR(%d)\n", columnName, columnSize);            columnPtr[i] = (char*) malloc( columnSize + 1 );            SQLBindCol(stmt, i+1, SQL_C_CHAR, columnPtr[i], columnSize+1, &columnInd[i]);            break;        case SQL_INTEGER:            printf("%s : INTEGER\n", columnName);            columnPtr[i] = (int*) malloc( sizeof(int) );            SQLBindCol(stmt, i+1, SQL_C_SLONG, columnPtr[i], 0, &columnInd[i]);            break;        case SQL_SMALLINT:            printf("%s : SMALLINT\n", columnName);            columnPtr[i] = (short*) malloc( sizeof(short) );            SQLBindCol(stmt, i+1, SQL_C_SSHORT, columnPtr[i], 0, &columnInd[i]);            break;        case SQL_NUMERIC:            printf("%s : NUMERIC(%d,%d)\n", columnName, columnSize, scale);            columnPtr[i] = (double*) malloc( sizeof(double) );            SQLBindCol(stmt, i+1, SQL_C_DOUBLE, columnPtr[i], 0, &columnInd[i]);            break;        case SQL_TYPE_TIMESTAMP:            printf("%s : DATE\n", columnName);            columnPtr[i] = (SQL_TIMESTAMP_STRUCT*) malloc( sizeof(SQL_TIMESTAMP_STRUCT) );            SQLBindCol(stmt, i+1, SQL_C_TYPE_TIMESTAMP, columnPtr[i], 0, &columnInd[i]);            break;        }    }    /* fetches next rowset of data from the result set and print to stdout */    printf("==========================================================================\n");    while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)    {        if ( rc != SQL_SUCCESS )        {            execute_err(dbc, stmt, query);            break;        }        for ( i=0; i<columnCount; i++ )        {            SQLDescribeCol(stmt, i+1,                           NULL, 0, NULL,                           &dataType, NULL, NULL, NULL);            if ( columnInd[i] == SQL_NULL_DATA )            {                printf("NULL\t");                continue;            }            switch (dataType)            {            case SQL_CHAR:            case SQL_VARCHAR:                printf("%s\t", columnPtr[i]);                break;            case SQL_INTEGER:                printf("%d\t", *(int*)columnPtr[i]);                break;            case SQL_SMALLINT:                printf("%d\t", *(short*)columnPtr[i]);                break;            case SQL_NUMERIC:                printf("%10.3f\t", *(double*)columnPtr[i]);                break;            case SQL_TYPE_TIMESTAMP:                printf("%4d/%02d/%02d %02d:%02d:%02d\t",                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->year,                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->month,                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->day,                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->hour,                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->minute,                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->second);                break;            }        }        printf("\n");    }    SQLFreeStmt(stmt, SQL_DROP);    for ( i=0; i<columnCount; i++ )    {        free( columnPtr[i] );    }    free( columnPtr );    free( columnInd );    return SQL_SUCCESS;}
+/***********************************************
+**  파일명 = demo_ex1.cpp
+***********************************************/
+#include <sqlcli.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+#define SQL_LEN 1000
+#define MSG_LEN 1024
+
+SQLHENV  env;  // Environment Handle
+SQLHDBC  dbc;  // Connection Handle
+int      conn_flag;
+
+SQLRETURN alloc_handle();
+SQLRETURN db_connect();
+void free_handle();
+
+SQLRETURN execute_select();
+void execute_err(SQLHDBC aCon, SQLHSTMT aStmt, char* q);
+
+int main()
+{
+    SQLRETURN    rc;
+
+    env = SQL_NULL_HENV;
+    dbc = SQL_NULL_HDBC;
+    conn_flag = 0;
+
+    /* allocate handle */
+    rc = alloc_handle();
+    if ( rc != SQL_SUCCESS )
+    {
+        free_handle();
+        exit(1);
+    }
+
+    /* Connect to Altibase Server */
+    rc = db_connect();
+    if ( rc != SQL_SUCCESS )
+    {
+        free_handle();
+        exit(1);
+    }
+
+    rc = execute_select();
+    if ( rc != SQL_SUCCESS )
+    {
+        free_handle();
+        exit(1);
+    }
+
+    free_handle();
+}
+
+
+static void print_diagnostic(SQLSMALLINT aHandleType, SQLHANDLE aHandle)
+{
+    SQLRETURN   rc;
+    SQLSMALLINT sRecordNo;
+    SQLCHAR     sSQLSTATE[6];
+    SQLCHAR     sMessage[2048];
+    SQLSMALLINT sMessageLength;
+    SQLINTEGER  sNativeError;
+
+    sRecordNo = 1;
+
+    while ((rc = SQLGetDiagRec(aHandleType,
+                               aHandle,
+                               sRecordNo,
+                               sSQLSTATE,
+                               &sNativeError,
+                               sMessage,
+                               sizeof(sMessage),
+                               &sMessageLength)) != SQL_NO_DATA)
+    {
+        printf("Diagnostic Record %d\n", sRecordNo);
+        printf("     SQLSTATE     : %s\n", sSQLSTATE);
+        printf("     Message text : %s\n", sMessage);
+        printf("     Message len  : %d\n", sMessageLength);
+        printf("     Native error : 0x%X\n", sNativeError);
+
+        if (rc != SQL_SUCCESS && rc != SQL_SUCCESS_WITH_INFO)
+        {
+            break;
+        }
+
+        sRecordNo++;
+    }
+}
+
+void execute_err(SQLHDBC aCon, SQLHSTMT aStmt, char* q)
+{
+    printf("Error : %s\n",q);
+
+    if (aStmt == SQL_NULL_HSTMT)
+    {
+        if (aCon != SQL_NULL_HDBC)
+        {
+            print_diagnostic(SQL_HANDLE_DBC, aCon);
+        }
+    }
+    else
+    {
+        print_diagnostic(SQL_HANDLE_STMT, aStmt);
+    }
+}
+
+SQLRETURN alloc_handle()
+{
+    /* allocate Environment handle */
+    if (SQLAllocEnv(&env) != SQL_SUCCESS)
+    {
+        printf("SQLAllocEnv error!!\n");
+        return SQL_ERROR;
+    }
+
+    /* allocate Connection handle */
+    if (SQLAllocConnect(env, &dbc) != SQL_SUCCESS)
+    {
+        printf("SQLAllocConnect error!!\n");
+        return SQL_ERROR;
+    }
+    return SQL_SUCCESS;
+}
+
+void free_handle()
+{
+    if ( conn_flag == 1 )
+    {
+        /* close connection */
+        SQLDisconnect( dbc );
+    }
+    /* free connection handle */
+    if ( dbc != NULL )
+    {
+        SQLFreeConnect( dbc );
+    }
+    if ( env != NULL )
+    {
+        SQLFreeEnv( env );
+    }
+}
+
+SQLRETURN db_connect()
+{
+    char    *USERNAME = "SYS";        // user name
+    char    *PASSWD   = "MANAGER";    // user password
+    char    *NLS      = "US7ASCII";   // NLS_USE ( KO16KSC5601, US7ASCII )
+    char     connStr[1024];
+
+    sprintf(connStr,
+            "DSN=127.0.0.1;UID=%s;PWD=%s;CONNTYPE=%d;NLS_USE=%s", /* ;PORT_NO=20300", */
+            USERNAME, PASSWD, 1, NLS);
+
+    /* establish connection */
+    if (SQLDriverConnect( dbc, NULL, (SQLCHAR *)connStr, SQL_NTS,
+                          NULL, 0, NULL,
+                          SQL_DRIVER_NOPROMPT ) != SQL_SUCCESS)
+    {
+        execute_err(dbc, SQL_NULL_HSTMT, "SQLDriverConnect");
+        return SQL_ERROR;
+    }
+
+    conn_flag = 1;
+
+    return SQL_SUCCESS;
+}
+
+SQLRETURN execute_select()
+{
+    SQLHSTMT     stmt = SQL_NULL_HSTMT;
+    SQLRETURN    rc;
+    int          i;
+    char         query[SQL_LEN];
+
+    SQLSMALLINT  columnCount;
+    char         columnName[50];
+    SQLSMALLINT  columnNameLength;
+    SQLSMALLINT  dataType;
+    SQLSMALLINT  scale;
+    SQLSMALLINT  nullable;
+    SQLULEN      columnSize;
+
+    void       **columnPtr;
+    SQLLEN      *columnInd;
+
+    /* allocate Statement handle */
+    if (SQL_ERROR == SQLAllocStmt(dbc, &stmt))
+    {
+        printf("SQLAllocStmt error!!\n");
+        return SQL_ERROR;
+    }
+
+    sprintf(query,"SELECT * FROM DEMO_EX1");
+    if (SQLExecDirect(stmt, (SQLCHAR *)query, SQL_NTS) != SQL_SUCCESS)
+    {
+        execute_err(dbc, stmt, query);
+        SQLFreeStmt(stmt, SQL_DROP);
+        return SQL_ERROR;
+    }
+
+    SQLNumResultCols(stmt, &columnCount);
+    columnPtr = (void**) malloc( sizeof(void*) * columnCount );
+    columnInd = (SQLLEN*) malloc( sizeof(SQLLEN) * columnCount );
+    if ( columnPtr == NULL )
+    {
+        return SQL_ERROR;
+    }
+
+    for ( i=0; i<columnCount; i++ )
+    {
+        SQLDescribeCol(stmt, i+1,
+                       (SQLCHAR *)columnName, sizeof(columnName), &columnNameLength,
+                       &dataType, &columnSize, &scale, &nullable);
+        printf("columnName = %s, nullable = %d\n", columnName, nullable);
+        switch (dataType)
+        {
+        case SQL_CHAR:
+            printf("%s : CHAR(%d)\n", columnName, columnSize);
+            columnPtr[i] = (char*) malloc( columnSize + 1 );
+            SQLBindCol(stmt, i+1, SQL_C_CHAR, columnPtr[i], columnSize+1, &columnInd[i]);
+            break;
+        case SQL_VARCHAR:
+            printf("%s : VARCHAR(%d)\n", columnName, columnSize);
+            columnPtr[i] = (char*) malloc( columnSize + 1 );
+            SQLBindCol(stmt, i+1, SQL_C_CHAR, columnPtr[i], columnSize+1, &columnInd[i]);
+            break;
+        case SQL_INTEGER:
+            printf("%s : INTEGER\n", columnName);
+            columnPtr[i] = (int*) malloc( sizeof(int) );
+            SQLBindCol(stmt, i+1, SQL_C_SLONG, columnPtr[i], 0, &columnInd[i]);
+            break;
+        case SQL_SMALLINT:
+            printf("%s : SMALLINT\n", columnName);
+            columnPtr[i] = (short*) malloc( sizeof(short) );
+            SQLBindCol(stmt, i+1, SQL_C_SSHORT, columnPtr[i], 0, &columnInd[i]);
+            break;
+        case SQL_NUMERIC:
+            printf("%s : NUMERIC(%d,%d)\n", columnName, columnSize, scale);
+            columnPtr[i] = (double*) malloc( sizeof(double) );
+            SQLBindCol(stmt, i+1, SQL_C_DOUBLE, columnPtr[i], 0, &columnInd[i]);
+            break;
+        case SQL_TYPE_TIMESTAMP:
+            printf("%s : DATE\n", columnName);
+            columnPtr[i] = (SQL_TIMESTAMP_STRUCT*) malloc( sizeof(SQL_TIMESTAMP_STRUCT) );
+            SQLBindCol(stmt, i+1, SQL_C_TYPE_TIMESTAMP, columnPtr[i], 0, &columnInd[i]);
+            break;
+        }
+    }
+
+    /* fetches next rowset of data from the result set and print to stdout */
+    printf("==========================================================================\n");
+    while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)
+    {
+        if ( rc != SQL_SUCCESS )
+        {
+            execute_err(dbc, stmt, query);
+            break;
+        }
+        for ( i=0; i<columnCount; i++ )
+        {
+            SQLDescribeCol(stmt, i+1,
+                           NULL, 0, NULL,
+                           &dataType, NULL, NULL, NULL);
+            if ( columnInd[i] == SQL_NULL_DATA )
+            {
+                printf("NULL\t");
+                continue;
+            }
+            switch (dataType)
+            {
+            case SQL_CHAR:
+            case SQL_VARCHAR:
+                printf("%s\t", columnPtr[i]);
+                break;
+            case SQL_INTEGER:
+                printf("%d\t", *(int*)columnPtr[i]);
+                break;
+            case SQL_SMALLINT:
+                printf("%d\t", *(short*)columnPtr[i]);
+                break;
+            case SQL_NUMERIC:
+                printf("%10.3f\t", *(double*)columnPtr[i]);
+                break;
+            case SQL_TYPE_TIMESTAMP:
+                printf("%4d/%02d/%02d %02d:%02d:%02d\t",
+                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->year,
+                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->month,
+                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->day,
+                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->hour,
+                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->minute,
+                        ((SQL_TIMESTAMP_STRUCT*)columnPtr[i])->second);
+                break;
+            }
+        }
+        printf("\n");
+    }
+
+    SQLFreeStmt(stmt, SQL_DROP);
+
+    for ( i=0; i<columnCount; i++ )
+    {
+        free( columnPtr[i] );
+    }
+    free( columnPtr );
+    free( columnInd );
+
+    return SQL_SUCCESS;
+}
 ```
 
 ### 메타 정보 검색 프로그램 예제
@@ -7521,30 +8493,30 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 
 
 |                    | SQL_C_CHAR | SQL_C_WCHAR | SQL_C_BIT | SQL_C_STINYINT | SQL_C_UTINYINT | SQL_C_SBIGINT | SQL_C_UBIGINT | SQL_C_SSHORT | SQL_C_USHORT | SQL_C_SLONG | SQL_C_ULONG | SQL_C_FLOAT | SQL_C_DOUBLE | SQL_C_BINARY | SQL_C_TYPE_DATE | SQL_C_TYPE_TIME | SQL_C_TYPE_TIMESTAMP | SQL_C_BYTES | SQL_C_NIBBLE |
-| ------------------ | ---------- | ----------- | --------- | -------------- | -------------- | ------------- | ------------- | ------------ | ------------ | ----------- | ----------- | ----------- | ------------ | ------------ | --------------- | --------------- | -------------------- | ----------- | ------------ |
-| SQL_CHAR           | \#         |             | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_VARCHAR        | \#         |             | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_WCHAR          |            | \#          | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_WVARCHAR       |            | \#          | ○         | ○              | ○              |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             |              |
-| SQL_DECIMAL        | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_NUMERIC        | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_SMALLINT       | ○          |             | ○         | ○              | ○              | ○             | ○             | \#           | ○            | ○           | ○           | ○           | ○            | ○            |                 |                 |                      |             |              |
+| ------------------ | :--------: | :---------: | :-------: | :------------: | :------------: | :-----------: | :-----------: | :----------: | :----------: | :---------: | :---------: | :---------: | :----------: | :----------: | :-------------: | :-------------: | :------------------: | :---------: | :----------: |
+| SQL_CHAR           |     \#     |             |     ○     |       ○        |       ○        |               |               |              |              |             |             |             |              |      ○       |                 |                 |                      |             |              |
+| SQL_VARCHAR        |     \#     |             |     ○     |       ○        |       ○        |               |               |              |              |             |             |             |              |      ○       |                 |                 |                      |             |              |
+| SQL_WCHAR          |            |     \#      |     ○     |       ○        |       ○        |               |               |              |              |             |             |             |              |      ○       |                 |                 |                      |             |              |
+| SQL_WVARCHAR       |            |     \#      |     ○     |       ○        |       ○        |               |               |              |              |             |             |             |              |      ○       |                 |                 |                      |             |              |
+| SQL_DECIMAL        |     \#     |             |     ○     |       ○        |       ○        |       ○       |       ○       |      ○       |      ○       |      ○      |      ○      |     \#      |      ○       |      ○       |                 |                 |                      |             |              |
+| SQL_NUMERIC        |     \#     |             |     ○     |       ○        |       ○        |       ○       |       ○       |      ○       |      ○       |      ○      |      ○      |     \#      |      ○       |      ○       |                 |                 |                      |             |              |
+| SQL_SMALLINT       |     ○      |             |     ○     |       ○        |       ○        |       ○       |       ○       |      \#      |      ○       |      ○      |      ○      |      ○      |      ○       |      ○       |                 |                 |                      |             |              |
 | (signed)           |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |
-| SQL_INTEGER        | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | \#          | ○           | ○           | ○            | ○            |                 |                 |                      |             |              |
+| SQL_INTEGER        |     ○      |             |     ○     |       ○        |       ○        |       ○       |       ○       |      ○       |      ○       |     \#      |      ○      |      ○      |      ○       |      ○       |                 |                 |                      |             |              |
 | (signed)           |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |
-| SQL_BIGINT         | ○          |             | ○         | ○              | ○              | \#            | ○             | ○            | ○            | ○           | ○           | ○           | ○            | ○            |                 |                 |                      |             |              |
+| SQL_BIGINT         |     ○      |             |     ○     |       ○        |       ○        |      \#       |       ○       |      ○       |      ○       |      ○      |      ○      |      ○      |      ○       |      ○       |                 |                 |                      |             |              |
 | (signed)           |            |             |           |                |                |               |               |              |              |             |             |             |              |              |                 |                 |                      |             |              |
-| SQL_REAL           | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_FLOAT          | \#         |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | \#          | ○            | ○            |                 |                 |                      |             |              |
-| SQL_DOUBLE         | ○          |             | ○         | ○              | ○              | ○             | ○             | ○            | ○            | ○           | ○           | ○           | \#           | ○            |                 |                 |                      |             |              |
-| SQL_BINARY         | ○          |             |           |                |                |               |               |              |              |             |             |             |              | \#           |                 |                 |                      |             |              |
-| SQL_TYPE_DATE      | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            | \#              |                 | ○                    |             |              |
-| SQL_TYPE_TIME      | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 | \#              | ○                    |             |              |
-| SQL_TYPE_TIMESTAMP | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            | ○               | ○               | \#                   |             |              |
-| SQL_INTERVAL       | ○          |             |           |                |                |               |               |              |              |             |             | ○           | \#           | ○            |                 |                 |                      |             |              |
-| SQL_BYTES          | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 |                 |                      | \#          |              |
-| SQL_NIBBLE         | ○          |             |           |                |                |               |               |              |              |             |             |             |              | ○            |                 |                 |                      |             | \#           |
-| SQL_GEOMETRY       |            |             |           |                |                |               |               |              |              |             |             |             |              | \#           |                 |                 |                      |             |              |
+| SQL_REAL           |     ○      |             |     ○     |       ○        |       ○        |       ○       |       ○       |      ○       |      ○       |      ○      |      ○      |     \#      |      ○       |      ○       |                 |                 |                      |             |              |
+| SQL_FLOAT          |     \#     |             |     ○     |       ○        |       ○        |       ○       |       ○       |      ○       |      ○       |      ○      |      ○      |     \#      |      ○       |      ○       |                 |                 |                      |             |              |
+| SQL_DOUBLE         |     ○      |             |     ○     |       ○        |       ○        |       ○       |       ○       |      ○       |      ○       |      ○      |      ○      |      ○      |      \#      |      ○       |                 |                 |                      |             |              |
+| SQL_BINARY         |     ○      |             |           |                |                |               |               |              |              |             |             |             |              |      \#      |                 |                 |                      |             |              |
+| SQL_TYPE_DATE      |     ○      |             |           |                |                |               |               |              |              |             |             |             |              |      ○       |       \#        |                 |          ○           |             |              |
+| SQL_TYPE_TIME      |     ○      |             |           |                |                |               |               |              |              |             |             |             |              |      ○       |                 |       \#        |          ○           |             |              |
+| SQL_TYPE_TIMESTAMP |     ○      |             |           |                |                |               |               |              |              |             |             |             |              |      ○       |        ○        |        ○        |          \#          |             |              |
+| SQL_INTERVAL       |     ○      |             |           |                |                |               |               |              |              |             |             |      ○      |      \#      |      ○       |                 |                 |                      |             |              |
+| SQL_BYTES          |     ○      |             |           |                |                |               |               |              |              |             |             |             |              |      ○       |                 |                 |                      |     \#      |              |
+| SQL_NIBBLE         |     ○      |             |           |                |                |               |               |              |              |             |             |             |              |      ○       |                 |                 |                      |             |      \#      |
+| SQL_GEOMETRY       |            |             |           |                |                |               |               |              |              |             |             |             |              |      \#      |                 |                 |                      |             |              |
 
 \# : Default conversion
 
@@ -7557,26 +8529,26 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 
 
 |                      | SQL_CHAR | SQL_VARCHAR | SQL_WCHAR | SQL_WVARCHAR | SQL_DECIMAL | SQL_NUMERIC | SQL_SMALLINT(signed) | SQL_INTEGER(signed) | SQL_BIGINT(signed) | SQL_REAL | SQL_FLOAT | SQL_DOUBLE | SQL_BINARY | SQL_DATE | SQL_INTERVAL | SQL_BYTES | SQL_NIBBLE | SQL_GEOMETRY |
-| -------------------- | -------- | ----------- | --------- | ------------ | ----------- | ----------- | -------------------- | ------------------- | ------------------ | -------- | --------- | ---------- | ---------- | -------- | ------------ | --------- | ---------- | ------------ |
-| SQL_C_CHAR           | \#       | \#          |           |              | \#          | \#          | ○                    | ○                   | ○                  | ○        | ○         | ○          | ○          | ○        |              | ○         | ○          |              |
-| SQL_C_WCHAR          |          |             | \#        | \#           |             |             |                      |                     |                    |          |           |            |            |          |              |           |            |              |
-| SQL_C_BIT            | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_STINYINT       | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_UTINYINT       | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_SBIGINT        | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | \#                 | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_UBIGINT        | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_SSHORT         | ○        | ○           | ○         | ○            | ○           | ○           | \#                   | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_USHORT         | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_SLONG          | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | \#                  | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_ULONG          | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_FLOAT          | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | \#       | ○         | ○          |            |          |              |           |            |              |
-| SQL_C_DOUBLE         | ○        | ○           | ○         | ○            | ○           | ○           | ○                    | ○                   | ○                  | ○        | \#        | \#         |            |          |              |           |            |              |
-| SQL_C_BINARY         | ○        | ○           | ○         | ○            |             |             |                      |                     |                    |          |           |            | \#         |          |              |           |            | ○            |
+| -------------------- | :------: | :---------: | :-------: | :----------: | :---------: | :---------: | :------------------: | :-----------------: | :----------------: | :------: | :-------: | :--------: | :--------: | :------: | :----------: | :-------: | :--------: | :----------: |
+| SQL_C_CHAR           |    \#    |     \#      |           |              |     \#      |     \#      |          ○           |          ○          |         ○          |    ○     |     ○     |     ○      |     ○      |    ○     |              |     ○     |     ○      |              |
+| SQL_C_WCHAR          |          |             |    \#     |      \#      |             |             |                      |                     |                    |          |           |            |            |          |              |           |            |              |
+| SQL_C_BIT            |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_STINYINT       |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_UTINYINT       |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_SBIGINT        |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         \#         |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_UBIGINT        |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_SSHORT         |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          \#          |          ○          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_USHORT         |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_SLONG          |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |         \#          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_ULONG          |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    ○     |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_FLOAT          |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    \#    |     ○     |     ○      |            |          |              |           |            |              |
+| SQL_C_DOUBLE         |    ○     |      ○      |     ○     |      ○       |      ○      |      ○      |          ○           |          ○          |         ○          |    ○     |    \#     |     \#     |            |          |              |           |            |              |
+| SQL_C_BINARY         |    ○     |      ○      |     ○     |      ○       |             |             |                      |                     |                    |          |           |            |     \#     |          |              |           |            |      ○       |
 | SQL_C_TYPE_DATE      |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |          |              |           |            |              |
-| SQL_C_TYPE_TIME      |          |             |           |              |             |             |                      |                     |                    |          |           |            |            | ○        |              |           |            |              |
-| SQL_C_TYPE_TIMESTAMP |          |             |           |              |             |             |                      |                     |                    |          |           |            |            | ○        |              |           |            |              |
-| SQL_C_BYTES          |          |             |           |              |             |             |                      |                     |                    |          |           |            |            | ○        |              | \#        |            |              |
-| SQL_C_NIBBLE         |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |          |              |           | \#         |              |
+| SQL_C_TYPE_TIME      |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |    ○     |              |           |            |              |
+| SQL_C_TYPE_TIMESTAMP |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |    ○     |              |           |            |              |
+| SQL_C_BYTES          |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |    ○     |              |    \#     |            |              |
+| SQL_C_NIBBLE         |          |             |           |              |             |             |                      |                     |                    |          |           |            |            |          |              |           |     \#     |              |
 
 \# : Default conversion
 
