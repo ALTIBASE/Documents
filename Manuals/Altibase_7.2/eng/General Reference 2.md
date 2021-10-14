@@ -9879,12 +9879,20 @@ This is the number of attempts to execute statements that do not affect the plan
 
 ### V\$SQL_PLAN_CACHE_PCO
 
-This view displays information about plan cache objects registered in the SQL Plan Cache.
+This view displays information about plan cache objects registered in the SQL Plan Cache. PCO is an object that contains information about SQL statement, execution plan and plan environment. It inhances query efficiency by sharing the execution plan between the sessions when executing the statement. There are two types of PCO, which is Parent PCO and Child PCO.
+
+- Parent PCO
+
+  PCO that has information to compare two SQL statements and manage them. Each SQL statement has different Parent PCO.
+
+- Child PCO
+
+  PCO that manages plan environment, which affects the execution plan, to compare them. For the same SQL statement different execution plans can be generated due to different plan environment such as user, NLS(National Language Support), statistics. Child PCO stores information about plan environment, execution plan and size of execution plan when PCO was created. It requires Parent PCO and one Parent PCO can have multiple Child PCOs.
 
 | Column name     | Type        | Description                                                  |
 | --------------- | ----------- | ------------------------------------------------------------ |
-| SQL_TEXT_ID     | VARCHAR(64) | The identifier of the SQL text object containing the plan cache object |
-| PCO_ID          | INTEGER     | The identifier of the plan cache object in the SQL text object |
+| SQL_TEXT_ID     | VARCHAR(64) | The identifier of Parant PCO                                 |
+| PCO_ID          | INTEGER     | The identifier of Child PCO                                  |
 | CREATE_REASON   | VARCHAR(28) | The reason the plan cache object was created                 |
 | HIT_COUNT       | INTEGER     | The number of times the plan cache object has been referred to |
 | REBUILD_COUNT   | INTEGER     | The number of times the plan cache object has been rebuilt   |
@@ -9929,21 +9937,24 @@ This is the number of times the plan cache object has been recompiled.
 
 This is the status of the plan of the plan cache object. It can have the following values:
 
--   NOT_READY  
-    This is the state in which a plan and environment have not yet been assigned to the plan cache object.
-
 -   READY  
-    This is the state in which a plan and environment have been assigned to the plan cache object.
+    This is the state in which SQL statement, execution plan and plan environment have been assigned to the plan cache object.
 
--   HARD-PREPARE-NEED  
-    This is the state in which Hard Prepare (forcible plan creation) is necessary because the statement does not affect the plan cache or because there is insufficient plan cache area.
-    
 -   OLD_PLAN  
     This is the state in which the plan is not valid and will not be used in the future.
 
 ##### LRU_REGION
 
-The region of the plan in the LRU list, which can be HOT_REGION or COLD_REGION.
+Hot-Cold LRU list is a data structure that manages PCO replacement policy. The size of SQL Plan Cache is fixed by SQL_
+PLAN_CACHE_SIZE, Altibase server's property, and only limited number of PCO can be registered. This column indicates which region does PCO belong to.
+
+- HOT_REGION
+
+  Frequently used PCO
+
+- COLD_REGION
+
+  Less frequently used PCO
 
 ##### PLAN_SIZE
 
@@ -9964,13 +9975,13 @@ This indicates the keep status of plan cache object and can have the following:
 
 ###  V\$SQL_PLAN_CACHE_SQLTEXT
 
-This view displays information about SQL statements registered in the SQL Plan Cache.
+This view displays information about Parent PCO.
 
 | Column name            | Type           | Description                                                  |
 | ---------------------- | -------------- | ------------------------------------------------------------ |
-| SQL_TEXT_ID            | VARCHAR(64)    | The identifier of the SQL statement in the SQL Plan Cache    |
+| SQL_TEXT_ID            | VARCHAR(64)    | The identifier of Parent PCO                                 |
 | SQL_TEXT               | VARCHAR(16384) | The SQL statements                                           |
-| CHILD_PCO_COUNT        | INTEGER        | The number of Child Plan Cache objects                       |
+| CHILD_PCO_COUNT        | INTEGER        | The number of Child PCO created under Parent PCO             |
 | CHILD_PCO_CREATE_COUNT | INTEGER        | The number of Child Plan Cache objects that have been created |
 | PLAN_CACHE_KEEP        | VARCHAR(6)     | The keep status of the Plan Cache object corresponding to SQL_TEXT_ID |
 
@@ -10202,11 +10213,11 @@ This is the time taken to find an appropriate plan cache object in the SQL Plan 
 
 ##### SQL_CACHE_TEXT_ID
 
-This is the identifier of the SQL Cache Text object when searching for a plan object in the SQL Plan Cache.
+This is the identifier of a Parent PCO registered in SQL Plan Cache. SQL statements that is not registered in SQL Plan Cache or using NO_PLAN_CACHE hint will be queried as NO_SQL_CACHE_STMT.
 
 ##### SQL_CACHE_PCO_ID
 
-This is the object identifier of a shared plan cache in the SQL Cache Text object. 
+This is the object identifier of a Child PCO registered in SQL Plan Cache.
 
 ##### OPTIMIZER
 
