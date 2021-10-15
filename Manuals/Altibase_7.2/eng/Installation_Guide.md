@@ -323,7 +323,6 @@ It is recommended to use a dedicated line when using the replication feature.
 
 
 
-
 ### Altibase Package Installer
 
 #### Basic Steps for Installing Altibase
