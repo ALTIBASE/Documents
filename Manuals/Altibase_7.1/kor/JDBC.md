@@ -1221,7 +1221,7 @@ CallableStatement는 저장 프로시저 또는 저장 함수 호출에 주로 �
 예제이다.
 
 ```
-CallableStatement sCallStmt = Connection.prepareCall("{call p1(?, ?)");
+CallableStatement sCallStmt = Connection.prepareCall("{call p1(?, ?)}");
 sCallStmt.setInt(1, 1);
 sCallStmt.registerOutParameter(2, Types.VARCHAR);
 sCallStmt.execute();
