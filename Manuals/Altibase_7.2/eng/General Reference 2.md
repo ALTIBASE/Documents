@@ -10213,7 +10213,7 @@ This is the time taken to find an appropriate plan cache object in the SQL Plan 
 
 ##### SQL_CACHE_TEXT_ID
 
-This is the identifier of a Parent PCO registered in SQL Plan Cache. SQL statements that is not registered in SQL Plan Cache or using NO_PLAN_CACHE hint will be queried as NO_SQL_CACHE_STMT.
+This is the identifier of a Parent PCO. However, DDL statements and DCL statements which are not registered in SQL Plan Cache and statements using NO_PLAN_CACHE hint will be queried as NO_SQL_CACHE_STMT.
 
 ##### SQL_CACHE_PCO_ID
 

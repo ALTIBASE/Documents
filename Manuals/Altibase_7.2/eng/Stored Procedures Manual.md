@@ -1624,6 +1624,8 @@ A block can be broadly divided into a declaration section, a block body and an e
 
 To comment out all or part of a single line, place two hyphen characters (“--”) at the beginning of the text to be commented out. To comment out multiple lines, place the C-style delimiters “/*” and “*/” around the text to be commented out. 
 
+Stored procedure block can be used as an anonymous block independently.
+
 In this chapter, the variable assignment statements, which can be used within the declaration section and block body, and the SELECT INTO, assignment statements, LABEL, PRINT and RETURN statements, which can be used only within the block body, will be described. 
 
 Information on the use of control flow statements, cursor-related statements and exception handlers in stored procedures can be found in subsequent chapters. For information on general SQL statements, please refer to the *SQL Reference.*

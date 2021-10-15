@@ -10665,7 +10665,7 @@ Prepare 과정에서 SQL 문장과 plan 생성 시 필요한 각종 변수들을
 
 ##### SQL_CACHE_TEXT_ID
 
-SQL Plan Cache에 등록된 Parent PCO 식별자를 나타낸다. SQL Plan Cache에 등록되지 않은 SQL 문장이나 NO_PLAN_CACHE 힌트를 사용한 SQL 문장의 경우 NO_SQL_CACHE_STMT로 조회된다.
+SQL Plan Cache에 등록된 Parent PCO 식별자를 나타낸다. 단, SQL Plan Cache에 등록되지 않은 DDL문과 DCL문 그리고 NO_PLAN_CACHE 힌트를 사용한 SQL문의 경우 NO_SQL_CACHE_STMT로 조회된다.  
 
 ##### SQL_CACHE_PCO_ID
 
