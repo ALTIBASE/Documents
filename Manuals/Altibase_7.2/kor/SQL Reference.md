@@ -7670,7 +7670,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **create_table ::=**
 
-![CREATE_TABLE_2](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/CREATE_TABLE_2.gif)
+![CREATE_TABLE_2](media/SQL/CREATE_TABLE_2.gif)
 
 [table_constraint
 ::=](#table_constraint), [temporary_attributes_clause
@@ -7685,37 +7685,37 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **column_definition ::=**
 
-![column_definition_image113](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/column_definition_image113.gif)
+![column_definition_image113](media/SQL/column_definition_image113.gif)
 
 **encrypt_clause::=**
 
-![encrypt_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/encrypt_clause.gif)
+![encrypt_clause](media/SQL/encrypt_clause.gif)
 
 **variable_clause::=**
 
-![variable_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/variable_clause.gif)
+![variable_clause](media/SQL/variable_clause.gif)
 
 **in_row_clause::=**
 
-![in_row_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/in_row_clause.gif)
+![in_row_clause](media/SQL/in_row_clause.gif)
 
 **default_clause::=**
 
-![default_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/default_clause.gif)
+![default_clause](media/SQL/default_clause.gif)
 
 **column_constraint ::=**
 
-![column_constraint_image114](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/column_constraint_image114.gif)
+![column_constraint_image114](media/SQL/column_constraint_image114.gif)
 
 **unique_clause ::=**
 
-![unique_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/unique_clause.gif)
+![unique_clause](media/SQL/unique_clause.gif)
 
 **unique_specification ::=**
 
 
 
-![unique_specification](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/unique_specification.gif)
+![unique_specification](media/SQL/unique_specification.gif)
 
 
 
@@ -7723,44 +7723,44 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **sort_order_clause ::=**
 
-![sort_order_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/sort_order_clause.gif)
+![sort_order_clause](media/SQL/sort_order_clause.gif)
 
 **directkey_clause ::=**
 
-![directkey_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/directkey_clause.gif)
+![directkey_clause](media/SQL/directkey_clause.gif)
 
 **using_index_clause ::=**
 
-![using_index_clause_image117](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/using_index_clause_image117.gif)
+![using_index_clause_image117](media/SQL/using_index_clause_image117.gif)
 
 **index_attribute_clause ::=**
 
-![index_attribute_clause_image118](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/index_attribute_clause_image118.gif)
+![index_attribute_clause_image118](media/SQL/index_attribute_clause_image118.gif)
 
 [memory_index_attributes ::=](#memory_index_attributes), [disk_index_attributes
 ::=](#disk_index_attributes)
 
 **references_clause::=**
 
-![references_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/references_clause.gif)
+![references_clause](media/SQL/references_clause.gif)
 
 **check_clause ::=**
 
-![check_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/check_clause.gif)
+![check_clause](media/SQL/check_clause.gif)
 
 <a name="table_constraint"><a/>
 
 **table_constraint ::=**
 
-![table_constraint](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/table_constraint.gif)
+![table_constraint](media/SQL/table_constraint.gif)
 
 **table_unique_clause ::=**
 
-![table_unique_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/table_unique_clause.gif)
+![table_unique_clause](media/SQL/table_unique_clause.gif)
 
 **referential_constraint ::=**
 
-![referential_constraint](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/referential_constraint.gif)
+![referential_constraint](media/SQL/referential_constraint.gif)
 
 [references_clause ::=](#references_clause)
 
@@ -7768,7 +7768,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **temporary_attributes_clause ::=**
 
-![temporary_attributes_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/temporary_attributes_clause.gif)
+![temporary_attributes_clause](media/SQL/temporary_attributes_clause.gif)
 
 
 
@@ -7776,28 +7776,28 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **table_partitioning_clause ::=**
 
-![table_partitioning_clause_image123](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/table_partitioning_clause_image123.gif)
+![table_partitioning_clause_image123](media/SQL/table_partitioning_clause_image123.gif)
 
 **range_partitioning ::=**
 
-![range_partitioning_image124](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/range_partitioning_image124.gif)
+![range_partitioning_image124](media/SQL/range_partitioning_image124.gif)
 
 **partition_default_clause ::=**
 
-![partition_default](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/partition_default.gif)
+![partition_default](media/SQL/partition_default.gif)
 
 <a name="table_partition_description"><a/>
 
 **table_partition_description ::=**
 
-![TABLE_PARTITION_DESCRIPTION_2](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/TABLE_PARTITION_DESCRIPTION_2.gif)
+![TABLE_PARTITION_DESCRIPTION_2](media/SQL/TABLE_PARTITION_DESCRIPTION_2.gif)
 
 [lob_column_properties ::=](#lob_column_properties)*,* [access_mode_clause
 ::=](#access_mode_clause_CREATETALBE)
 
 **partition_range_clause ::=**
 
-![partition_range_clause_image126](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/partition_range_clause_image126.gif)
+![partition_range_clause_image126](media/SQL/partition_range_clause_image126.gif)
 
 [table_partition_description ::=](#table_partition_description)
 
@@ -7805,7 +7805,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **hash_partitioning ::=**
 
-![hash_paritioning_image126_1](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/hash_paritioning_image126_1.gif)
+![hash_paritioning_image126_1](media/SQL/hash_paritioning_image126_1.gif)
 
 [table_partition_description ::=](#table_partition_description)
 
@@ -7815,7 +7815,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **list_partitioning ::=**
 
-![list_partitioning_image127](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/list_partitioning_image127.gif)
+![list_partitioning_image127](media/SQL/list_partitioning_image127.gif)
 
 [partition_default_clause ::=](#partition_default_clause)
 
@@ -7823,7 +7823,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 
 
-![table_list_clause_image128](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/table_list_clause_image128.gif)
+![table_list_clause_image128](media/SQL/table_list_clause_image128.gif)
 
 
 
@@ -7831,7 +7831,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **row_movement_clause ::=**
 
-![row_movement_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/row_movement_clause.gif)
+![row_movement_clause](media/SQL/row_movement_clause.gif)
 
 
 
@@ -7839,13 +7839,13 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **access_mode_clause ::=**
 
-![ACCESS_MODE_CLAUSE_](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/ACCESS_MODE_CLAUSE_.gif)
+![ACCESS_MODE_CLAUSE_](media/SQL/ACCESS_MODE_CLAUSE_.gif)
 
 <a name="tablespace_clause"><a/>
 
 **tablespace_clause ::=**
 
-![tablespace_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/tablespace_clause.gif)
+![tablespace_clause](media/SQL/tablespace_clause.gif)
 
 <a name="physical_attributes_clause"><a/>
 
@@ -7853,17 +7853,17 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **physical_attributes_clause ::=**
 
-![physical_attributes_clause_image130_1](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/physical_attributes_clause_image130_1.gif)
+![physical_attributes_clause_image130_1](media/SQL/physical_attributes_clause_image130_1.gif)
 
 **storage_clause ::=**
 
-![storage_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/storage_clause.gif)
+![storage_clause](media/SQL/storage_clause.gif)
 
 <a name="log_compression_clause"><a/>
 
 **log_compression_clause ::=**
 
-![log_compression_clause_image130_2](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/log_compression_clause_image130_2.gif)
+![log_compression_clause_image130_2](media/SQL/log_compression_clause_image130_2.gif)
 
 
 
@@ -7871,33 +7871,33 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **logging_clause ::=**
 
-![logging_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/logging_clause.gif)
+![logging_clause](media/SQL/logging_clause.gif)
 
 <a name="parallel_clause"><a/>
 
 **parallel_clause::=**
 
-![PARALLEL_CLAUSE](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/PARALLEL_CLAUSE.gif)
+![PARALLEL_CLAUSE](media/SQL/PARALLEL_CLAUSE.gif)
 
 <a name="table_compression_clause"><a/>
 
 **table_compression_clause ::=**
 
-![table_compression](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/table_compression.gif)
+![table_compression](media/SQL/table_compression.gif)
 
 <a name="lob_column_properties"><a/>
 
 **lob_column_properties ::=**
 
-![lob_column_properties_image133](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/lob_column_properties_image133.gif)
+![lob_column_properties_image133](media/SQL/lob_column_properties_image133.gif)
 
 **LOB_storage_clause ::=**
 
-![lob_storage_clause_image134](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/lob_storage_clause_image134.gif)
+![lob_storage_clause_image134](media/SQL/lob_storage_clause_image134.gif)
 
 **lob_attributes ::=**
 
-![lob_attribute](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/lob_attribute.gif)
+![lob_attribute](media/SQL/lob_attribute.gif)
 
 #### 전제 조건
 
@@ -8119,7 +8119,7 @@ PARTITION BY RANGE (product_id)
 
 
 
-![create_table_lob](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_table_lob.gif)
+![create_table_lob](media/SQL/create_table_lob.gif)
 
 
 
@@ -8679,19 +8679,19 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 **create_disk_tablespace ::=**
 
-![create_disk_tablespace_image137](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_disk_tablespace_image137.gif)
+![create_disk_tablespace_image137](media/SQL/create_disk_tablespace_image137.gif)
 
 **datafile_spec ::=**
 
-![datafile_spec](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/datafile_spec.gif)
+![datafile_spec](media/SQL/datafile_spec.gif)
 
 **autoextend_clause ::=**
 
-![autoextend_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/autoextend_clause.gif)
+![autoextend_clause](media/SQL/autoextend_clause.gif)
 
 **maxsize_clause ::=**
 
-![maxsize_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/maxsize_clause.gif)
+![maxsize_clause](media/SQL/maxsize_clause.gif)
 
 #### 전제 조건
 
@@ -8820,27 +8820,27 @@ Create success.
 
 **create_memory_tablespace ::=**
 
-![create_memory_tablespace_image140](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_memory_tablespace_image140.gif)
+![create_memory_tablespace_image140](media/SQL/create_memory_tablespace_image140.gif)
 
 **initsize_clause ::=**
 
-![initsize_clause_image141](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/initsize_clause_image141.gif)
+![initsize_clause_image141](media/SQL/initsize_clause_image141.gif)
 
 **autoextend_clause ::=**
 
-![autoextend_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/autoextend_clause.gif)
+![autoextend_clause](media/SQL/autoextend_clause.gif)
 
 **maxsize_clause ::=**
 
-![maxsize_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/maxsize_clause.gif)
+![maxsize_clause](media/SQL/maxsize_clause.gif)
 
 **checkpoint_path_clause ::=**
 
-![checkpoint_path_clause_image143](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/checkpoint_path_clause_image143.gif)
+![checkpoint_path_clause_image143](media/SQL/checkpoint_path_clause_image143.gif)
 
 **splitsize_clause ::=**
 
-![splitsize_clause_image144](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/splitsize_clause_image144.gif)
+![splitsize_clause_image144](media/SQL/splitsize_clause_image144.gif)
 
 #### 전제 조건
 
@@ -8968,19 +8968,19 @@ Create success.
 
 **create_tablespace ::=**
 
-![create_tablespace_image145](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_tablespace_image145.gif)
+![create_tablespace_image145](media/SQL/create_tablespace_image145.gif)
 
 **initsize_clause ::=**
 
-![initsize_clause_image141](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/initsize_clause_image141.gif)
+![initsize_clause_image141](media/SQL/initsize_clause_image141.gif)
 
 **autoextend_clause ::=**
 
-![autoextend_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/autoextend_clause.gif)
+![autoextend_clause](media/SQL/autoextend_clause.gif)
 
 **maxsize_clause ::=**
 
-![maxsize_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/maxsize_clause.gif)
+![maxsize_clause](media/SQL/maxsize_clause.gif)
 
 #### 전제 조건
 
@@ -9074,15 +9074,15 @@ Create success.
 
 **create_temporary_tablespace ::=**
 
-![create_temporary_tablespace_image148](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_temporary_tablespace_image148.gif)
+![create_temporary_tablespace_image148](media/SQL/create_temporary_tablespace_image148.gif)
 
 **datafile_spec ::=**
 
-![datafile_spec](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/datafile_spec.gif)
+![datafile_spec](media/SQL/datafile_spec.gif)
 
 **autoexetend_clause ::=**
 
-![autoextend_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/autoextend_clause.gif)
+![autoextend_clause](media/SQL/autoextend_clause.gif)
 
 #### 전제 조건
 
@@ -9121,31 +9121,31 @@ Create success.
 
 **create_trigger ::=**
 
-![create_trigger](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_trigger.gif)
+![create_trigger](media/SQL/create_trigger.gif)
 
 **simple_dml_trigger ::=**
 
-![simple_dml_trigger_image151](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/simple_dml_trigger_image151.gif)
+![simple_dml_trigger_image151](media/SQL/simple_dml_trigger_image151.gif)
 
 **trigger_event ::=**
 
-![trigger_event_image152](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/trigger_event_image152.gif)
+![trigger_event_image152](media/SQL/trigger_event_image152.gif)
 
 **referencing_clause ::=**
 
-![referencing_clause_image152_1](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/referencing_clause_image152_1.gif)
+![referencing_clause_image152_1](media/SQL/referencing_clause_image152_1.gif)
 
 **trigger_action::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/9c08ef3d3a9a235c54020897664f1e76.png)
+![](media/SQL/9c08ef3d3a9a235c54020897664f1e76.png)
 
 **psm_body::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/9bdcf9256b030ef2f125cae49db1e626.jpg)
+![](media/SQL/9bdcf9256b030ef2f125cae49db1e626.jpg)
 
 **instead_of_dml_trigger::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/15bb3089ca8a5848774adf787ad4e5ed.png)
+![](media/SQL/15bb3089ca8a5848774adf787ad4e5ed.png)
 
 #### 전제 조건
 
@@ -9407,13 +9407,13 @@ ID SCORE
 
 **create_user ::=**
 
-![create_user_image155](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_user_image155.gif)
+![create_user_image155](media/SQL/create_user_image155.gif)
 
 **<a name="password_parameters"><a/>**
 
 **password_parameters ::=**
 
-![password_parameters](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/password_parameters.gif)
+![password_parameters](media/SQL/password_parameters.gif)
 
 #### 전제 조건
 
@@ -9568,11 +9568,11 @@ iSQL> CREATE USER rose4 IDENTIFIED BY rose4
 
 **create_view ::=**
 
-![create_view_image156](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_view_image156.gif)
+![create_view_image156](media/SQL/create_view_image156.gif)
 
 **query_restriction_clause ::=**
 
-![query_restriction_clause_image157](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/query_restriction_clause_image157.gif)
+![query_restriction_clause_image157](media/SQL/query_restriction_clause_image157.gif)
 
 #### 전제 조건
 
@@ -9686,7 +9686,7 @@ Sandra                Hammond               Saeed                 Pahlavi
 
 **create_materialized_view ::=**
 
-![create_mview](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/create_mview.gif)
+![create_mview](media/SQL/create_mview.gif)
 
 [table_partitioning_clause ::=](#table_partitioning_clause), [tablespace_clause
 ::=](#tablespace_clause), [logging_clause ::=](#logging_clause),
@@ -9694,17 +9694,17 @@ Sandra                Hammond               Saeed                 Pahlavi
 
 **physical_attributes_clause ::=**
 
-![physical_attributes_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/physical_attributes_clause.gif)
+![physical_attributes_clause](media/SQL/physical_attributes_clause.gif)
 
 [storage_clause ::=](#storage_clause)
 
 **build_clause ::=**
 
-![build_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/build_clause.gif)
+![build_clause](media/SQL/build_clause.gif)
 
 **refresh_clause ::=**
 
-![refresh_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/refresh_clause.gif)
+![refresh_clause](media/SQL/refresh_clause.gif)
 
 #### 전제 조건
 
@@ -9795,13 +9795,13 @@ CREATE MATERIALIZED VIEW mv1 ASSELECT * FROM employees;
 
 **disjoin_table ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/112a655747996d5a7aa626adb1927e8a.png)
+![](media/SQL/112a655747996d5a7aa626adb1927e8a.png)
 
 
 
 **partition_to_table_clause ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/cf5d8b45fc1e7f0af96650019286c30e.png)
+![](media/SQL/cf5d8b45fc1e7f0af96650019286c30e.png)
 
 #### 전제 조건
 
@@ -9865,7 +9865,7 @@ Disjoin success.
 
 **drop_database ::=**
 
-![drop_database_image158](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_database_image158.gif)
+![drop_database_image158](media/SQL/drop_database_image158.gif)
 
 #### 전제 조건
 
@@ -9909,7 +9909,7 @@ Drop success.
 
 **drop_directory ::=**
 
-![drop_directory_image160](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_directory_image160.gif)
+![drop_directory_image160](media/SQL/drop_directory_image160.gif)
 
 #### 전제 조건
 
@@ -9940,7 +9940,7 @@ Drop success.
 
 **drop_index ::=**
 
-![drop_index_image161](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_index_image161.gif)
+![drop_index_image161](media/SQL/drop_index_image161.gif)
 
 #### 전제 조건
 
@@ -9975,7 +9975,7 @@ Drop success.
 
 **drop_job ::=**
 
-![drop_job](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_job.gif)
+![drop_job](media/SQL/drop_job.gif)
 
 #### 전제 조건
 
@@ -10006,7 +10006,7 @@ Drop success.
 
 **drop_queue ::=**
 
-![drop_queue_image162](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_queue_image162.gif)
+![drop_queue_image162](media/SQL/drop_queue_image162.gif)
 
 #### 전제 조건
 
@@ -10032,7 +10032,7 @@ iSQL> DROP QUEUE Q1;
 
 **drop_replication ::=**
 
-![drop_replication_image163](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_replication_image163.gif)
+![drop_replication_image163](media/SQL/drop_replication_image163.gif)
 
 #### 전제 조건
 
@@ -10066,7 +10066,7 @@ iSQL> DROP REPLICATION rep1;
 
 **drop_role ::=**
 
-![drop_role](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_role.gif)
+![drop_role](media/SQL/drop_role.gif)
 
 #### 전제 조건
 
@@ -10097,7 +10097,7 @@ Drop success.
 
 **drop_sequence ::=**
 
-![drop_sequence_image164](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_sequence_image164.gif)
+![drop_sequence_image164](media/SQL/drop_sequence_image164.gif)
 
 #### 전제 조건
 
@@ -10132,7 +10132,7 @@ Drop success.
 
 **drop_synonym ::=**
 
-![drop_synonym](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_synonym.gif)
+![drop_synonym](media/SQL/drop_synonym.gif)
 
 #### 전제 조건
 
@@ -10180,7 +10180,7 @@ iSQL> DROP PUBLIC SYNONYM dept;
 
 **drop_table ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/3b6b6558264ad2e958e72fe192ae417a.png)
+![](media/SQL/3b6b6558264ad2e958e72fe192ae417a.png)
 
 #### 전제 조건
 
@@ -10220,7 +10220,7 @@ iSQL> DROP TABLE employees;
 
 **drop_tablespace ::=**
 
-![drop_tablespace_image167](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_tablespace_image167.gif)
+![drop_tablespace_image167](media/SQL/drop_tablespace_image167.gif)
 
 #### 전제 조건
 
@@ -10303,7 +10303,7 @@ iSQL> DROP TABLESPACE user_data INCLUDING CONTENTS CASCADE CONSTRAINTS;Drop succ
 
 **drop_trigger ::=**
 
-![drop_trigger_image168](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_trigger_image168.gif)
+![drop_trigger_image168](media/SQL/drop_trigger_image168.gif)
 
 #### 전제 조건
 
@@ -10337,7 +10337,7 @@ iSQL> DROP TRIGGER del_trigger;Drop success.
 
 **drop_user ::=**
 
-![drop_user_image169](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_user_image169.gif)
+![drop_user_image169](media/SQL/drop_user_image169.gif)
 
 #### 전제 조건
 
@@ -10381,7 +10381,7 @@ Drop success.
 
 **drop_view ::=**
 
-![drop_view_image170](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_view_image170.gif)
+![drop_view_image170](media/SQL/drop_view_image170.gif)
 
 #### 전제 조건
 
@@ -10416,7 +10416,7 @@ Drop success.
 
 **drop_mview ::=**
 
-![drop_mview](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/drop_mview.gif)
+![drop_mview](media/SQL/drop_mview.gif)
 
 #### 전제 조건
 
@@ -10456,7 +10456,7 @@ DROP MATERIALIZED VIEW mv1;
 
 **flashback_table::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/af48066754b43e83d3e54d7fe20abdae.png)
+![](media/SQL/af48066754b43e83d3e54d7fe20abdae.png)
 
 #### 전제 조건
 
@@ -10486,15 +10486,15 @@ DROP MATERIALIZED VIEW mv1;
 
 **grant ::=**
 
-![grant_image171](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/grant_image171.gif)
+![grant_image171](media/SQL/grant_image171.gif)
 
 **grant_system_privilege ::=**
 
-![grant_system_privilege](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/grant_system_privilege.gif)
+![grant_system_privilege](media/SQL/grant_system_privilege.gif)
 
 **grant_object_privilege ::=**
 
-![grant_object_privilege](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/grant_object_privilege.gif)
+![grant_object_privilege](media/SQL/grant_object_privilege.gif)
 
 #### 전제 조건
 
@@ -11243,7 +11243,7 @@ T1.I1
 
 **purge_table::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/bdce75dd2f142620aa1120b6035f7c67.png)
+![](media/SQL/bdce75dd2f142620aa1120b6035f7c67.png)
 
 #### 전제 조건
 
@@ -11284,7 +11284,7 @@ Purge success.
 
 **rename ::=**
 
-![rename](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/rename.gif)
+![rename](media/SQL/rename.gif)
 
 #### 전제 조건
 
@@ -11334,15 +11334,15 @@ Alter success.
 
 **revoke ::=**
 
-![revoke_image175](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/revoke_image175.gif)
+![revoke_image175](media/SQL/revoke_image175.gif)
 
 **revoke_system_privilege ::=**
 
-![REVOKE_SYSTEM_PRIVILEGE](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/REVOKE_SYSTEM_PRIVILEGE.gif)
+![REVOKE_SYSTEM_PRIVILEGE](media/SQL/REVOKE_SYSTEM_PRIVILEGE.gif)
 
 **revoke_object_privilege ::=**
 
-![REVOKE_OBJECT_PRIVILEGE](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/REVOKE_OBJECT_PRIVILEGE.gif)
+![REVOKE_OBJECT_PRIVILEGE](media/SQL/REVOKE_OBJECT_PRIVILEGE.gif)
 
 #### 전제 조건
 
@@ -11555,7 +11555,7 @@ iSQL> delete from user01.t1 where i1=3;
 
 **truncate ::=**
 
-![truncate_image178](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/truncate_image178.gif)
+![truncate_image178](media/SQL/truncate_image178.gif)
 
 #### 전제 조건
 
@@ -11607,29 +11607,29 @@ Truncate success.
 
 **delete ::=**
 
-![delete_image179](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/delete_image179.gif)
+![delete_image179](media/SQL/delete_image179.gif)
 
 **from_clause ::=**
 
-![from_clause_image180](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/from_clause_image180.gif)
+![from_clause_image180](media/SQL/from_clause_image180.gif)
 
 **where_clause ::=**
 
-![where_clause_image181](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/where_clause_image181.gif)
+![where_clause_image181](media/SQL/where_clause_image181.gif)
 
 <a name="returning_clause"><a/>
 
 **returning_clause ::=**
 
-![returning_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/returning_clause.gif)
+![returning_clause](media/SQL/returning_clause.gif)
 
 **limit_clause ::=**
 
-![limit_clause_](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/limit_clause_.gif)
+![limit_clause_](media/SQL/limit_clause_.gif)
 
 **multiple_delete ::=**
 
-![multiple_delete](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/multiple_delete.gif)
+![multiple_delete](media/SQL/multiple_delete.gif)
 
 [tbl_ref ::=](#tbl_ref)
 
@@ -11832,36 +11832,36 @@ V2                   VARCHAR(30)          nikita
 
 **insert ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/a45155edc3025bff4fdd2260e889e4ab.png)
+![](media/SQL/a45155edc3025bff4fdd2260e889e4ab.png)
 
 
 
 **single_table_insert ::=**
 
-![single_table_insert](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/single_table_insert.gif)
+![single_table_insert](media/SQL/single_table_insert.gif)
 
 [returning_clause ::=](#returning_clause),
 [subquery ::=](#subquery)
 
 **table_clause ::=**
 
-![table_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/table_clause.gif)
+![table_clause](media/SQL/table_clause.gif)
 
 [subquery ::=](#subquery)
 
 **multi_table_insert ::=**
 
-![multi_table_insert](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/multi_table_insert.gif)
+![multi_table_insert](media/SQL/multi_table_insert.gif)
 
 [subquery ::=](#subquery)
 
 **values_clause ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/5234b9cafb6bc0a5d51f4c4824c484dd.png)
+![](media/SQL/5234b9cafb6bc0a5d51f4c4824c484dd.png)
 
 **wait_clause ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/140182321afa39fb9ded6e62d0300e32.png)
+![](media/SQL/140182321afa39fb9ded6e62d0300e32.png)
 
 #### 전제 조건
 
@@ -12114,7 +12114,7 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO
 
 **lock_table ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/lock_table_partition.png)
+![](media/SQL/lock_table_partition.png)
 
 #### 전제 조건
 
@@ -12483,39 +12483,39 @@ lock_mode에 명시한 잠금 모드로 특정한 모드 내에서 테이블 잠
 
 **select ::=**
 
-![select](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/select.gif)
+![select](media/SQL/select.gif)
 
 [for_update_clause
 ::=](#for_update_clause)
 
 **with_clause ::=**
 
-![with_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/with_clause.gif)
+![with_clause](media/SQL/with_clause.gif)
 
 <a name="subquery"><a/>
 
 **subquery ::=**
 
-![subquery](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/subquery.gif)
+![subquery](media/SQL/subquery.gif)
 
 [limit_clause ::=](#limit_clause)
 
 **select_clause ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/77d1a3feb68a0257346ff3590901be12.png)
+![](media/SQL/77d1a3feb68a0257346ff3590901be12.png)
 
 [hierarchical_query_clause ::=](#hierarchical_query_clause), [group_by_clause
 ::=](#group_by_clause)
 
 **select_list ::=**
 
-![select_list](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/select_list.gif)
+![select_list](media/SQL/select_list.gif)
 
 <a name="tbl_reference"><a/>
 
 **tbl_reference ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/e71b7bc2eebb6dec22a57132da33f80c.png)
+![](media/SQL/e71b7bc2eebb6dec22a57132da33f80c.png)
 
 [joined_table ::=](#joined_table)
 
@@ -12523,97 +12523,97 @@ lock_mode에 명시한 잠금 모드로 특정한 모드 내에서 테이블 잠
 
 **single_table ::=**
 
-![single_table_150611](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/single_table_150611.gif)
+![single_table_150611](media/SQL/single_table_150611.gif)
 
 **pivot_clause ::=**
 
-![pivot_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/pivot_clause.gif)
+![pivot_clause](media/SQL/pivot_clause.gif)
 
 <a name="pivot_for_clause"><a/>
 
 **pivot_for_clause ::=**
 
-![pivot_for_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/pivot_for_clause.gif)
+![pivot_for_clause](media/SQL/pivot_for_clause.gif)
 
 **pivot_in_clause ::=**
 
-![pivot_in_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/pivot_in_clause.gif)
+![pivot_in_clause](media/SQL/pivot_in_clause.gif)
 
 **unpivot_clause ::=**
 
-![unpivot_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/unpivot_clause.gif)
+![unpivot_clause](media/SQL/unpivot_clause.gif)
 
 [pivot_for_clause ::=](#pivot_for_clause)
 
 **unpivot_in_clause ::=**
 
-![unpivot_in_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/unpivot_in_clause.gif)
+![unpivot_in_clause](media/SQL/unpivot_in_clause.gif)
 
 <a name="joined_table"><a/>
 
 **joined_table ::=**
 
-![joined_table](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/joined_table.gif)
+![joined_table](media/SQL/joined_table.gif)
 
 [tbl_reference ::=](#tbl_reference), [single_table ::=](#single_table),
 
 **join_type ::=**
 
-![join_type_image199](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/join_type_image199.gif)
+![join_type_image199](media/SQL/join_type_image199.gif)
 
 **apply_type ::=**
 
-![apply_type](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/apply_type.gif)
+![apply_type](media/SQL/apply_type.gif)
 
 <a name="where_clause"><a/>
 
 **where_clause ::=**
 
-![where_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/where_clause.gif)
+![where_clause](media/SQL/where_clause.gif)
 
 <a name="hierarchical_query_clause"><a/>
 
 **hierarchical_query_clause ::=**
 
-![hierarchical_query_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/hierarchical_query_clause.gif)
+![hierarchical_query_clause](media/SQL/hierarchical_query_clause.gif)
 
 <a name="group_by_clause"><a/>
 
 **group_by_clause ::=**
 
-![group_by_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/group_by_clause.gif)
+![group_by_clause](media/SQL/group_by_clause.gif)
 
 **rollup_cube_clause ::=**
 
-![rollup_cube_list](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/rollup_cube_list.gif)
+![rollup_cube_list](media/SQL/rollup_cube_list.gif)
 
 **grouping_sets_clause ::=**
 
-![grouping_sets_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/grouping_sets_clause.gif)
+![grouping_sets_clause](media/SQL/grouping_sets_clause.gif)
 
 **grouping_expression_list ::=**
 
-![grouping_expr_list](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/grouping_expr_list.gif)
+![grouping_expr_list](media/SQL/grouping_expr_list.gif)
 
 **expression_list ::=**
 
-![expr_list](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/expr_list.gif)
+![expr_list](media/SQL/expr_list.gif)
 
 **order_by_clause ::=**
 
-![order_by_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/order_by_clause.gif)
+![order_by_clause](media/SQL/order_by_clause.gif)
 
 <a name="imit_clause"><a/>
 
 **limit_clause ::=**
 
-![limit_clause_](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/limit_clause_.gif)
+![limit_clause_](media/SQL/limit_clause_.gif)
 
 <a name="for_update_clause"><a/>
 
 **for_update_clause ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/f241bd3f3359d8cb294e30715f7b2724.png)
+![](media/SQL/f241bd3f3359d8cb294e30715f7b2724.png)
 
 #### 전제 조건
 
@@ -13436,7 +13436,7 @@ ID          PARENT      LEVEL
 11 rows selected.
 ```
 
-![hier_kor](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/hier_kor.gif)
+![hier_kor](media/SQL/hier_kor.gif)
 
 [그림 4‑1] 계층적 구조 데이터
 
@@ -14460,39 +14460,39 @@ C1          C2
 
 **update ::=**
 
-![update_image229](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/update_image229.gif)
+![update_image229](media/SQL/update_image229.gif)
 
 [returning_clause ::=](#returning_clause)
 
 **set_clause_list ::=**
 
-![set_clause_list_image230](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/set_clause_list_image230.gif)
+![set_clause_list_image230](media/SQL/set_clause_list_image230.gif)
 
 
 
 **where_clause ::=**
 
-![where_clause_image181](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/where_clause_image181.gif)
+![where_clause_image181](media/SQL/where_clause_image181.gif)
 
 **limit_clause ::=**
 
-![limit_clause_](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/limit_clause_.gif)
+![limit_clause_](media/SQL/limit_clause_.gif)
 
 **multiple_update ::=**
 
-![multiple_update](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/multiple_update.gif)
+![multiple_update](media/SQL/multiple_update.gif)
 
 **tbl_ref ::=**
 
-![multiple_update2](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/tbl_ref.gif)
+![multiple_update2](media/SQL/tbl_ref.gif)
 
 **one_table ::=**
 
-![multiple_update3](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/one_table.gif)
+![multiple_update3](media/SQL/one_table.gif)
 
 **join_table ::=**
 
-![multiple_update4](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/join_table.gif)
+![multiple_update4](media/SQL/join_table.gif)
 
 #### 전제 조건
 
@@ -14803,18 +14803,18 @@ UPDATE employees e, departments d SET salary=4000 WHERE e.dno = d.dno and d.dnam
 
 **move ::=**
 
-![move_image238](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/move_image238.gif)
+![move_image238](media/SQL/move_image238.gif)
 
 [where_clause ::=](#where_clause), [limit_clause
 ::=](#limit_clause)
 
 **column_commalist ::=**
 
-![column_commalist_image239](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/column_commalist_image239.gif)
+![column_commalist_image239](media/SQL/column_commalist_image239.gif)
 
 **expression_commalist ::=**
 
-![expression_commalist_image240](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/expression_commalist_image240.gif)
+![expression_commalist_image240](media/SQL/expression_commalist_image240.gif)
 
 #### 전제 조건
 
@@ -14880,23 +14880,23 @@ iSQL> MOVE INTO T1 FROM T2(I1, I2, I3);
 
 **merge ::=**
 
-![merge](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/merge.gif)
+![merge](media/SQL/merge.gif)
 
 **merge_operation_spec ::=**
 
-![merge_operation_spec](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/merge_operation_spec.gif)
+![merge_operation_spec](media/SQL/merge_operation_spec.gif)
 
 **matched_update_clause ::=**
 
-![merge_matched_update_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/merge_matched_update_clause.gif)
+![merge_matched_update_clause](media/SQL/merge_matched_update_clause.gif)
 
 **not_matched_insert_clause::=**
 
-![merge_not_matched_insert_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/merge_not_matched_insert_clause.gif)
+![merge_not_matched_insert_clause](media/SQL/merge_not_matched_insert_clause.gif)
 
 **no_rows_insert_clause ::=**
 
-![merge_no_rows_insert_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/merge_no_rows_insert_clause.gif)
+![merge_no_rows_insert_clause](media/SQL/merge_no_rows_insert_clause.gif)
 
 #### 전제 조건
 
@@ -15101,11 +15101,11 @@ EMPNO       LASTNAME
 
 **enqueue ::=**
 
-![enqueue_image242](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/enqueue_image242.gif)
+![enqueue_image242](media/SQL/enqueue_image242.gif)
 
 **values_clause ::=**
 
-![values_clause_image243](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/values_clause_image243.gif)
+![values_clause_image243](media/SQL/values_clause_image243.gif)
 
 #### 설명
 
@@ -15135,11 +15135,11 @@ ENQUEUE INTO Q1(message,corrid) VALUES ('This is a message', 237);
 
 **dequeue ::=**
 
-![dequeue_image244](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/dequeue_image244.gif)
+![dequeue_image244](media/SQL/dequeue_image244.gif)
 
 **fifo_option ::=**
 
-![fifo_image244](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/fifo_image244.gif)
+![fifo_image244](media/SQL/fifo_image244.gif)
 
 #### 설명
 
@@ -15181,7 +15181,7 @@ DEQUEUE MESSAGE, CORRID FROM Q1 WHERE CORRID=237;
 
 **alter_replication_dcl ::=**
 
-![alter_replication_dcl](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/alter_replication_dcl.gif)
+![alter_replication_dcl](media/SQL/alter_replication_dcl.gif)
 
 #### 설명
 
@@ -15219,21 +15219,21 @@ CREATE REPLICATION 구문으로 이중화 생성 후 이중화의 동작을 제�
 
 **alter_session::=**
 
-![alter_session_image246](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/alter_session_image246.gif)
+![alter_session_image246](media/SQL/alter_session_image246.gif)
 
 [set_transaction_clause::=](#set_transaction)
 
 **alter_session_set_clause::=**
 
-![alter_session_set_clause_image247](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/alter_session_set_clause_image247.gif)
+![alter_session_set_clause_image247](media/SQL/alter_session_set_clause_image247.gif)
 
 **replication_mode_set_clause::=**
 
-![replication_mode_set_clause_image248](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/replication_mode_set_clause_image248.gif)
+![replication_mode_set_clause_image248](media/SQL/replication_mode_set_clause_image248.gif)
 
 **dblink_session_close_clause::=**
 
-![dblink_session_close_clause_image249](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/dblink_session_close_clause_image249.gif)
+![dblink_session_close_clause_image249](media/SQL/dblink_session_close_clause_image249.gif)
 
 #### 설명
 
@@ -15277,11 +15277,11 @@ iSQL> ALTER SESSION CLOSE DATABASE LINK ALL;
 
 **alter_system ::=**
 
-![alter_system](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/alter_system.gif)
+![alter_system](media/SQL/alter_system.gif)
 
 **alter_system_set_clause ::=**
 
-![alter_session_set_clause_image247](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/alter_session_set_clause_image247.gif)
+![alter_session_set_clause_image247](media/SQL/alter_session_set_clause_image247.gif)
 
 #### 설명
 
@@ -15359,23 +15359,23 @@ iSQL> ALTER SYSTEM ARCHIVE LOG START;
 
 **audit ::=**
 
-![audit](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/audit.gif)
+![audit](media/SQL/audit.gif)
 
 **audit_operation_clause ::=**
 
-![audit_operation_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/audit_operation_clause.gif)
+![audit_operation_clause](media/SQL/audit_operation_clause.gif)
 
 **by_clause ::=**
 
-![audit_by_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/audit_by_clause.gif)
+![audit_by_clause](media/SQL/audit_by_clause.gif)
 
 **audit_object_clause ::=**
 
-![audit_object_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/audit_object_clause.gif)
+![audit_object_clause](media/SQL/audit_object_clause.gif)
 
 **ddl_clause ::=**
 
-![audit_ddl_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/audit_ddl_clause.gif)
+![audit_ddl_clause](media/SQL/audit_ddl_clause.gif)
 
 #### 전제 조건
 
@@ -15522,7 +15522,7 @@ Audit success.
 
 **commit::=**
 
-![commit_image252](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/commit_image252.gif)
+![commit_image252](media/SQL/commit_image252.gif)
 
 #### 설명
 
@@ -15561,15 +15561,15 @@ Commit success.
 
 **delaudit ::=**
 
-![delaudit](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/delaudit.gif)
+![delaudit](media/SQL/delaudit.gif)
 
 **delaudit_user_clause ::=**
 
-![delaudit_user_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/delaudit_user_clause.gif)
+![delaudit_user_clause](media/SQL/delaudit_user_clause.gif)
 
 **delaudit_object_clause ::=**
 
-![delaudit_object_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/delaudit_object_clause.gif)
+![delaudit_object_clause](media/SQL/delaudit_object_clause.gif)
 
 #### 전제 조건
 
@@ -15629,23 +15629,23 @@ Audit success.
 
 **noaudit ::=**
 
-![noaudit](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/noaudit.gif)
+![noaudit](media/SQL/noaudit.gif)
 
 **audit_operation_clause ::=**
 
-![noaudit_operation_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/noaudit_operation_clause.gif)
+![noaudit_operation_clause](media/SQL/noaudit_operation_clause.gif)
 
 **by_clause ::=**
 
-![noaudit_by_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/noaudit_by_clause.gif)
+![noaudit_by_clause](media/SQL/noaudit_by_clause.gif)
 
 **audit_object_clause ::=**
 
-![noaudit_object_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/noaudit_object_clause.gif)
+![noaudit_object_clause](media/SQL/noaudit_object_clause.gif)
 
 **ddl_clause ::=**
 
-![audit_ddl_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/audit_ddl_clause.gif)
+![audit_ddl_clause](media/SQL/audit_ddl_clause.gif)
 
 #### 전제 조건
 
@@ -15726,7 +15726,7 @@ Audit success.
 
 **savepoint::=**
 
-![savepoint_image253](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/savepoint_image253.gif)
+![savepoint_image253](media/SQL/savepoint_image253.gif)
 
 #### 설명
 
@@ -15779,7 +15779,7 @@ Commit success.
 
 **rollback ::=**
 
-![rollback_image253](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/rollback_image253.gif)
+![rollback_image253](media/SQL/rollback_image253.gif)
 
 #### 설명
 
@@ -15899,7 +15899,7 @@ Commit success.
 
 **set_transaction ::=**
 
-![set_transaction_image255](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/set_transaction_image255.gif)
+![set_transaction_image255](media/SQL/set_transaction_image255.gif)
 
 #### 설명
 
@@ -16344,7 +16344,7 @@ COVAR_POP(ENO,SALARY)
 
 ##### 구문
 
-![cume_dist_with_group](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/cume_dist_with_group.gif)
+![cume_dist_with_group](media/SQL/cume_dist_with_group.gif)
 
 [window_order_clause::=](#window_order_clause)
 
@@ -16395,7 +16395,7 @@ CUME_DIST(1500) within group (order by SAL
 
 ##### 구문
 
-![first_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/first_clause.gif)
+![first_clause](media/SQL/first_clause.gif)
 
 ##### 설명
 
@@ -16478,7 +16478,7 @@ Davenport
 
 ##### 구문
 
-![last_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/last_clause.gif)
+![last_clause](media/SQL/last_clause.gif)
 
 ##### 설명
 
@@ -16568,7 +16568,7 @@ MIN(PRICE)
 
 ##### 구문
 
-![percent_rank_with_group](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/percent_rank_with_group.gif)
+![percent_rank_with_group](media/SQL/percent_rank_with_group.gif)
 
 [window_order_clause::=](#window_order_clause)
 
@@ -16620,7 +16620,7 @@ RNK
 
 ##### 구문 
 
-![stats_one_way_anova](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/stats_one_way_anova.gif)
+![stats_one_way_anova](media/SQL/stats_one_way_anova.gif)
 
 ##### 설명
 
@@ -16977,25 +16977,25 @@ Altibase는 버전 6.3.1부터 아래의 윈도우 함수를 지원한다.
 
 **window_function ::=**
 
-![window_funtion](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/window_funtion.gif)
+![window_funtion](media/SQL/window_funtion.gif)
 
 **window_specification ::=**
 
-![window_specification](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/window_specification.gif)
+![window_specification](media/SQL/window_specification.gif)
 
 **window_partition_clause ::=**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/c757b5e78596fe30326cd3b8207e582e.png)
+![](media/SQL/c757b5e78596fe30326cd3b8207e582e.png)
 
 <a name="window_order_clause"><a/>
 
 **window_order_clause ::=**
 
-![window_order_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/window_order_clause.gif)
+![window_order_clause](media/SQL/window_order_clause.gif)
 
 **window_frame_clause ::=**
 
-![window_frame_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/window_frame_clause.gif)
+![window_frame_clause](media/SQL/window_frame_clause.gif)
 
 #### 설명
 
@@ -17257,7 +17257,7 @@ LEAD 함수와 동일하다.
 
 ##### 구문 
 
-![listagg](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/listagg.gif)
+![listagg](media/SQL/listagg.gif)
 
 ##### 설명
 
@@ -17394,7 +17394,7 @@ NTH_VALUE 함수와 동일하다.
 
 ##### 구문
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/6f2150471eaa21981888a7750e6f7ff1.png)
+![](media/SQL/6f2150471eaa21981888a7750e6f7ff1.png)
 
 [window_partition_clause::=](#window_partition_clause)
 
@@ -17439,7 +17439,7 @@ William                           3
 
 ##### 구문 
 
-![percentile_cont](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/percentile_cont.gif)
+![percentile_cont](media/SQL/percentile_cont.gif)
 
 ##### 설명 
 
@@ -17511,7 +17511,7 @@ EMPNO median asc cont median desc cont
 
 ##### 구문 
 
-![percentile_disc](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/percentile_disc.gif)
+![percentile_disc](media/SQL/percentile_disc.gif)
 
 ##### 설명
 
@@ -17583,7 +17583,7 @@ EMPNO median asc cont median desc cont
 
 ##### 구문
 
-![rank_with_group](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/rank_with_group.gif)
+![rank_with_group](media/SQL/rank_with_group.gif)
 
 [window_order_clause::=](#window_order_clause)
 
@@ -17635,7 +17635,7 @@ RNK
 
 ##### 구문
 
-![ratio_to_report](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/ratio_to_report.gif)
+![ratio_to_report](media/SQL/ratio_to_report.gif)
 
 [window_partition_clause::=](#window_partition_clause)
 
@@ -22136,19 +22136,19 @@ Wang                  Xiong                 manager          NULL
 
 **case**
 
-![case](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/case.gif)
+![case](media/SQL/case.gif)
 
 **simple_case_expr**
 
-![simple_case_expr](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/simple_case_expr.gif)
+![simple_case_expr](media/SQL/simple_case_expr.gif)
 
 **searched_case_expr**
 
-![searched_case_expr](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/searched_case_expr.gif)
+![searched_case_expr](media/SQL/searched_case_expr.gif)
 
 **else_clause**
 
-![else_clause](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/else_clause.gif)
+![else_clause](media/SQL/else_clause.gif)
 
 ##### 설명
 
@@ -23194,7 +23194,7 @@ ID          Path
 
 ##### 구문
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/091919f332dcfd2bb254326b412e7d35.png)
+![](media/SQL/091919f332dcfd2bb254326b412e7d35.png)
 
 ##### 설명
 
@@ -23751,7 +23751,7 @@ F111100001  AU-100                AC0010     10000       100000
 
 **simple_comparison_condition ::=**
 
-![simple_comparison_condition_image260](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/simple_comparison_condition_image260.gif)
+![simple_comparison_condition_image260](media/SQL/simple_comparison_condition_image260.gif)
 
 ##### 설명
 
@@ -23792,7 +23792,7 @@ TM-U950    8000     96200      769600000
 
 **group_comparison_condition ::=**
 
-![group_comparison_condition_image267](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/group_comparison_condition_image267.gif)
+![group_comparison_condition_image267](media/SQL/group_comparison_condition_image267.gif)
 
 ##### 설명
 
@@ -23842,7 +23842,7 @@ ONO                  ORDER_DATE   PROCESSING
 
 **between_condition ::=**
 
-![between_image261](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/between_image261.gif)
+![between_image261](media/SQL/between_image261.gif)
 
 ##### 설명
 
@@ -23876,7 +23876,7 @@ M-T500     5000       1000.54   5002700
 
 **exists_condition ::=**
 
-![exists_image265](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/exists_image265.gif)
+![exists_image265](media/SQL/exists_image265.gif)
 
 ##### 설명
 
@@ -23934,7 +23934,7 @@ No rows selected.
 
 **in_condition ::=**
 
-![in_image262](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/in_image262.gif)
+![in_image262](media/SQL/in_image262.gif)
 
 ##### 설명
 
@@ -23989,7 +23989,7 @@ Sanchez               Estevan
 
 **inlist_condition ::=**
 
-![inlist_operator](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/inlist_operator.gif)
+![inlist_operator](media/SQL/inlist_operator.gif)
 
 ##### 설명
 
@@ -24025,7 +24025,7 @@ DNO         E_FIRSTNAME           E_LASTNAME
 
 **isnull_condition ::=**
 
-![isnull_image264](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/isnull_image264.gif)
+![isnull_image264](media/SQL/isnull_image264.gif)
 
 ##### 설명
 
@@ -24055,7 +24055,7 @@ ENO         E_FIRSTNAME           E_LASTNAME            EMP_JOB
 
 **like_condition ::=**
 
-![like_image263](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/like_image263.gif)
+![like_image263](media/SQL/like_image263.gif)
 
 ##### 설명
 
@@ -24122,7 +24122,7 @@ John
 
 **regexp_like_condition ::=**
 
-![regexp_like_condition](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/regexp_like_condition.gif)
+![regexp_like_condition](media/SQL/regexp_like_condition.gif)
 
 ##### 설명
 
@@ -24169,7 +24169,7 @@ ENO         E_LASTNAME            EMP_JOB
 
 **unique_condition ::=**
 
-![unique_image266](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/SQL/unique_image266.gif)
+![unique_image266](media/SQL/unique_image266.gif)
 
 ##### 설명
 

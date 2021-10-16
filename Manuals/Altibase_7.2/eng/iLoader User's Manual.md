@@ -289,7 +289,7 @@ Note: when uploading data, if the character set of the database is different fro
 
 The client character set can also be set using the NLS_USE option in Form files, - NLS_USE option, variable NLS_USE or in altibase.properties. 
 
-If NLS_USE is not specified using the DATA_NLS_USE, -NLS_USE option, the environment variable ALTIBASE_NLS_USE, or altibase.properties (in descending order of precedence), then US7ASCII is used as the default character set.
+If NLS_USE is not specified using the DATA_NLS_USE(only when in option is applied), -NLS_USE option, the environment variable ALTIBASE_NLS_USE, or altibase.properties (in descending order of precedence), then US7ASCII is used as the default character set.
 
 
 

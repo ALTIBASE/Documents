@@ -1096,7 +1096,7 @@ CallableStatement can be used with an input or output parameter. CallableStateme
 The following is a code example using an IN parameter and an OUT parameter with CallableStatement.
 
 ```
-CallableStatement sCallStmt = connection().prepareCall("{call p1(?, ?)");
+CallableStatement sCallStmt = Connection.prepareCall("{call p1(?,?)}");
 sCallStmt.setInt(1, 1);
 sCallStmt.registerOutParameter(2, Types.VARCHAR);
 sCallStmt.execute();
@@ -1518,7 +1518,7 @@ END;
 The following is an example of a code which uses multiple result sets returned by a call to a PSM in a JDBC application.
 
 ```
-CallableStatement sCallStmt = connection().prepareCall("{call p1()}");
+CallableStatement sCallStmt = Connection.prepareCall("{call p1()}");
 sCallStmt.execute();
 ResultSet sRs = null;
 ResultSetMetaData sRsMd = null;
@@ -2143,7 +2143,7 @@ When using the Atomic Batch feature in Altibase, the following restrictions appl
 
 ```
 ......
-Connection con = sConn = DriverManager.getConnection(aConnectionStr, mProps);
+Connection con = DriverManager.getConnection(aConnectionStr, mProps);
 Statement stmt = con.createStatement();
  
 try
@@ -2279,7 +2279,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 InputStream sInputStream = ...
 long sLength = ...
 ... 
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
 ...
 sPstmt.setBinaryStream(1, sInputStream, sLength);
 ...
@@ -2294,7 +2294,7 @@ sPstmt.execute();
 ```
 byte[] sBuf = ...
 ... 
-PreparedStatement sPstmt = connection().prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
  
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2318,7 +2318,7 @@ sPstmt.execute();
 ```
 java.sql.Blob sBlob = ...
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
 VALUES (?)");
 ...
 sPstmt.setBlob(1, sBlob);
@@ -2334,7 +2334,7 @@ sPstmt.execute();
 ```
 java.sql.Blob sBlob = ...
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
 VALUES (?)");
 ...
 sPstmt.setObject(1, sBlob);
@@ -2350,7 +2350,7 @@ sPstmt.execute();
 ```
 java.sql.Blob sBlob = ...
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
 VALUES (?)");
 ...
 sPstmt.setObject(1, sBlob);
@@ -2377,7 +2377,7 @@ CREATE TABLE BLOB_TABLE ( BLOB_COLUMN BLOB );
 InputStream sInputStream = ...
 long sLength = ...
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
  
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2400,7 +2400,7 @@ java.sql.Blob sBlob = ...
  
 ...
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2422,7 +2422,7 @@ while(sRs.next())
 ```
 java.sql.Blob sBlob = ...
 ...  
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2445,7 +2445,7 @@ java.sql.Blob sBlob = ...
  
 ...
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2467,7 +2467,7 @@ while(sRs.next())
 byte[] sBytes = new byte[sLength];
 ...
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE FOR UPDATE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE FOR UPDATE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2489,7 +2489,7 @@ while(sRs.next())
 
 ```
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN
 FROM BLOB_TABLE");
 ResultSet sRs = sPstmt.executeQuery();
 while(sRs.next())
@@ -2507,7 +2507,7 @@ while(sRs.next())
 
 ```
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN
 FROM BLOB_TABLE");
 ResultSet sRs = sPstmt.executeQuery();
 while(sRs.next())
@@ -2528,7 +2528,7 @@ while(sRs.next())
 ...
 final int sReadLength = 100;
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2610,7 +2610,7 @@ char[] sBuf = ...
   
 ...
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
   
 ResultSet sRs = sPstmt.executeQuery();
   
@@ -2637,7 +2637,7 @@ sPstmt.execute();
 ```
 java.sql.Clob sClob = ...
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
 VALUES (?)");
 ...
 sPstmt.setClob(1, sClob);
@@ -2653,7 +2653,7 @@ sPstmt.execute();
 ```
 java.sql.Clob sClob = ...
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
 VALUES (?)");
 ...
 sPstmt.setObject(1, sClob);
@@ -2669,7 +2669,7 @@ sPstmt.execute();
 ```
 java.sql.Clob sClob = ...
 ...
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
 VALUES (?)");
 ...
 sPstmt.setObject(1, sClob, AltibaseTypes.Clob);
@@ -2698,7 +2698,7 @@ long sLength = ... // The length of source from which Reader is linked
  
 ...
  
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
  
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2722,7 +2722,7 @@ java.sql.Clob sClob = ...
  
 ...
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2746,7 +2746,7 @@ java.sql.Clob sClob = ...
  
 ...
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2770,7 +2770,7 @@ java.sql.Clob sClob = ...
  
 ...
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2793,7 +2793,7 @@ while(sRs.next())
 ...
  
 String sStr = ... ; 
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE FOR UPDATE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE FOR UPDATE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2816,7 +2816,7 @@ while(sRs.next())
 
 ```
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2835,7 +2835,7 @@ while(sRs.next())
 
 ```
 ...  
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2857,7 +2857,7 @@ while(sRs.next())
 ...
 final int sReadLength = 100;
   
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
