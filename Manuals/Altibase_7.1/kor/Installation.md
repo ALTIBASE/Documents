@@ -1823,7 +1823,7 @@ Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고�
 
 ### Red Hat Enterprise Linux 8
 
-RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. Altibase 7.1.0.x.x 이상에서는 인스톨러가 설치시 자동으로 $ALTIBASE_HOME/lib 디렉토리에 심볼릭 링크를 생성하므로 사용자가 생성할 필요 없다. 
+RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. Altibase 7.1.0.6.3 이상에서는 인스톨러가 설치시 자동으로 $ALTIBASE_HOME/lib 디렉토리에 심볼릭 링크를 생성하므로 사용자가 생성할 필요 없다. 
 이전 버전이거나 인스톨러에 의한 심블릭링크가 생성되지 않았으면 다음과 같은 방법으로 심볼릭 링크를 생성한다. 
 
 
