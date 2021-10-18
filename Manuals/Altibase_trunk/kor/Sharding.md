@@ -1019,8 +1019,6 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 #### Global DDL 이 가능한 DDL 목록
 - table
   - truncate table
-  - replace table
-    - shard object는 안 됨
   - create table
     - create ddl as select 는 안됨
   - drop table
@@ -1039,8 +1037,6 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
       - out place: 두 개의 새 파티션 모두 기존 파티션과 이름이 다른 경우
   - truncate partition
   - access partition
-  - replace partition
-    - shard object는 안 됨
 - column
   - add column
     - traling null 이어야함
