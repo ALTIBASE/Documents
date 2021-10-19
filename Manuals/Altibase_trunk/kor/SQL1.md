@@ -2935,8 +2935,8 @@ Alter success.
 
 *DELETE [ON|OFF]*
 
-DELETE ON 인 경우 큐에 DELETE 구문을 사용할 수 있다.
-DELETE OFF 인 경우 큐에 DELETE 구문을 사용할 수 없으며, DEQUEUE 병렬 수행할때 성능이 향상된다.
+DELETE ON 은 큐 테이블에 DELETE 문 사용을 허용한다.
+DELETE OFF 은 큐 테이블에 DELETE 문 사용을 허용하지 않는다. 이 경우 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다.
 
 ### ALTER REPLICATION 
 
@@ -6527,11 +6527,10 @@ Create success.
 
 *DELETE [ON|OFF]*
 
-큐에 DELETE 구문을 수행할지 여부를 결정하는 절이다.
-ON인 경우 큐에 DELETE 구문을 사용할 수 있다.
-OFF인 경우 큐에 DELETE 구문을 사용할 수 없고 DEQUEUE 병렬 수행할 때 성능이 향상된다.
-DELETE 구문을 생략했다면 DELETE ON과 동일한 큐로 생성된다.
-큐의 상태는 V\$QUEUE_DELETE_OFF를 통해 확인 할 수 있다.(자세한 설명은 *General Reference*를 참고한다.)
+큐 테이블에 DELETE 문 허용 여부를 결정하는 절이다.
+ON은 큐 테이블에 DELTE 문을 허용한다. OFF는 큐 테이블에 DELETE 문을 허용하지 않는다. 이 경우 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다.
+DELETE 절을 생략하면 DELETE ON으로 큐 테이블을 생성한다.
+DELETE 문을 허용하지 않는 큐 테이블은 V$QUEUE_DELETE_OFF에서 확인할 수 있다.
 
 #### 주의사항
 
@@ -6573,7 +6572,7 @@ abc         1           99.999
 1 row selected.
 ```
 
-\<질의\> 메시지의 길이가 최대 40이고, DELETE 구문을 사용할 수 없는 Q3이라는 이름의 큐를 생성하라.
+\<질의\> 메시지의 길이가 최대 40이고, DELETE 문을 허용하지 않는 Q3이라는 이름의 큐 테이블을 생성하라.
 
 ```
 iSQL> CREATE QUEUE Q3(40) DELETE OFF;
