@@ -891,17 +891,15 @@ Manual*, *Precompiler User's Manual*을 각각 참조하고, 나머지 유틸리
 conf 디렉토리에는 아래의 파일들이 존재한다.
 
 -   altibase_user.env: Altibase 운영을 위한 환경변수 설정 파일
-
 -   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한
     설명은 *General Reference*를 참조하기 바란다.
-
 -   license: Altibase 라이선스 파일
-
 -   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한
     설명은 *General Reference*를 참조하기 바란다.
-
 -   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은
     *Utilities Manual*을 참조하기 바란다.
+-   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 *Utilities Manual*을 
+    참조하기 바란다.
 
 #### dbs 디렉토리
 
@@ -4963,7 +4961,7 @@ CREATE [DISK/MEMORY/VOLATILE] [DATA/TEMPORARY] TABLESPACE
 
 (4) 메모리 테이블스페이스 속성
 
-(5) 휘발성 테이블스페이스 속성;
+(5) 휘발성 테이블스페이스 속성
 
 테이블스페이스에 저장된 객체의 크기 및 접근 빈도수와 같은 특성을 고려해서
 메모리, 디스크, 또는 휘발성 테이블스페이스의 생성 여부를 결정해야 한다.
@@ -4990,10 +4988,10 @@ CREATE [DISK/MEMORY/VOLATILE] [DATA/TEMPORARY] TABLESPACE
 갖는다.
 
 ```
-DATAFILE [①데이터 파일절
-AUTOEXTEND [②자동확장절 
-MAXSIZE [③최대크기절] ] ] 
-EXTENTSIZE [④익스텐트사이즈절]
+DATAFILE ①데이터 파일절
+AUTOEXTEND ②자동확장절 
+MAXSIZE ③최대크기절   
+EXTENTSIZE ④익스텐트사이즈절
 ```
 
 각 데이터 파일은 다음과 같은 속성을 가질 수 있다.
@@ -5052,10 +5050,10 @@ EXTENTSIZE {{integer [K/M/G]}/{UNLIMITED}}
 갖는다.
 
 ```
-TEMPFILE {①임시 파일절}
-AUTOEXTED [②자동확장절
-MAXSIZE [③최대크기절] ]
-EXTENDSIZE [④익스텐트사이즈절]
+TEMPFILE ①임시 파일절
+AUTOEXTED ②자동확장절
+MAXSIZE ③최대크기절 
+EXTENDSIZE ④익스텐트사이즈절
 ```
 
 각 임시 파일은 다음과 같은 속성을 가질 수 있다.
@@ -5251,9 +5249,9 @@ Ex.1) 세개의 데이터 파일을 가지는 디스크 데이터 테이블스�
 
 ```
 iSQL> CREATE DISK DATA TABLESPACE user_data DATAFILE
-‘/tmp/tbs1.user’ SIZE 10M AUTOEXTEND ON NEXT 1M MAXSIZE 1G,
-‘/tmp/tbs2.user’ SIZE 10M AUTOEXTEND ON NEXT 1M MAXSIZE 500M,
-‘/tmp/tbs3.user’ SIZE 10M AUTOEXTEND ON NEXT 1M MAXSIZE 1G;
+'/tmp/tbs1.user' SIZE 10M AUTOEXTEND ON NEXT 1M MAXSIZE 1G,
+'/tmp/tbs2.user' SIZE 10M AUTOEXTEND ON NEXT 1M MAXSIZE 500M,
+'/tmp/tbs3.user' SIZE 10M AUTOEXTEND ON NEXT 1M MAXSIZE 1G;
 Create success.
 ```
 

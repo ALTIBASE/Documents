@@ -103,6 +103,8 @@
 
 - ### [Altibase 3rd Party Connector Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/3rdPartyConnector.md)	
 
+- ### [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/altiShapeLoader.md)
+
 
 ## Message
 

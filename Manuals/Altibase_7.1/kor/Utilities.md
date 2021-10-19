@@ -774,7 +774,7 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
 
 -   대상 데이터베이스에 SSL 접속을 원한다면 프로퍼티 파일에 SSL 관련 프로퍼티를
     설정해야 한다. 자세한 설명은 aexport 프로퍼티 절의 SSL_ENABLE 프로퍼티를 참조하기 바란다.
- 
+
 #### aexport 프로퍼티
 
 ##### aexport 프로퍼티 설정
@@ -1467,6 +1467,11 @@ MOSO 불일치에 대한 SU정책을 지정. 해당 레코드의 Slave DB에서 
 
 운영하기 위한 쓰레드의 개수를 지정한다. 작업하려는 쓰레드의 개수를 제한 없이
 사용하려면 “-1”을 명시한다.
+
+##### COUNT_TO_COMMIT
+
+변경된 데이터(Insert, Delete, or Update)를 몇 건 단위로 커밋할 것인가를 나타내는 
+단위 옵션이다. 기본값은 1000건 단위로 커밋한다.
 
 ##### FILE_MODE_MAX_ARRAY
 
@@ -3639,10 +3644,7 @@ Error Message Reference 참조
 
 #### 개요
 
-SYSDBA 모드 접속을 위한 SYS 사용자의 암호를 변경한다. 데이터베이스 상에서 ALTER
-USER 문으로 암호를 변경하는 경우, 이 커맨드로 한 번 더 암호 변경 작업을 해야
-한다. ALTER USER 문으로만 암호를 변경했을 경우, 데이터베이스 구동, 종료 등
-SYSDBA 작업을 했을 때 오류가 발생하게 된다.
+altipasswd는 $ALTIBASE_HOME/conf/syspassword 파일을 변경한다. 데이터베이스가 서비스 상태가 아닐때는 SYSDBA 옵션으로 iSQL을 구동하여 관리자 작업을 수행하는데, 이때 syspassword 파일을 읽어 sys 계정의 패스워드를 체크한다. 따라서, 데이터베이스 상에서 ALTER USER 문으로 sys 암호를 변경하는 경우, altipasswd로 syspassword 파일의 암호도 동일하게 변경해야 한다. 데이터베이스내의 sys 암호와 syspassword 암호가 동일하게 유지되지 않으면, 데이터베이스 구동, 종료 등 SYSDBA 작업을 할 때 오류가 발생하게 된다.
 
 ```
 altipasswd

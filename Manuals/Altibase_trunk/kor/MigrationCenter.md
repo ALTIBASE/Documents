@@ -394,7 +394,7 @@ Altibase가 대상 데이터베이스일 경우 마이그레이션이 가능한 
 
 -   CUBRID: 8.4.1\~9.3.5(ISO-8859-1, UTF-8 charset)
 
--   Tibero: 5\~6
+-   Tibero: 4sp1~6
 
 ##### Oracle이 대상 데이터베이스인 경우
 

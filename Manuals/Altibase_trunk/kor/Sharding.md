@@ -20,6 +20,7 @@
     - [Multiple Error Handling](#multiple-error-handling)
     - [Sharding Built-in Function](#sharding-built-in-function)
     - [Sharding Tuning](#sharding-tuning)
+  - [Global DDL](#global-ddl)
   - [SHARD DDL](#shard-ddl)
     - [ADD](#add)
     - [DROP](#drop)
@@ -27,6 +28,7 @@
     - [JOIN](#join)
     - [FAILOVER](#failover)
     - [FAILBACK](#failback)
+    - [FAILBACK SYNC](#failback-sync)
     - [MOVE](#move)
   - [Altibase Sharding Package](#altibase-sharding-package)
     - [DBMS_SHARD](#dbms_shard)
@@ -247,10 +249,10 @@ Altibase Sharding 시스템은 단일 장애점(SPOF: single point of failure)�
 ![](media/Sharding/sharding_replication_view.png)
 
 #### 알티베이스 샤딩의 업무 적용 범위
-- shared nothing 환경에서 여러대의 서버를 모두 active 용도로 사용하여,
+- 서버대수 증가에 따라 성능이 선형적으로 증가해야 하고,
 - 트랜잭션 ACID(Atomicity, Consistency, Isolation, and Durability)가 보장되어야 하고,
-- 데이터 유실없는 HA(High Availability)가 보장되어야 하는,
-- OLTP(Online Transaction Processing) 처리를 주로 하는 업무 
+- 데이터 유실없는 고가용성(High Availability)가 보장되어야 하는,
+- OLTP(Online Transaction Processing) 시스템  
 
 #### 최적 경로의 쿼리 수행을 통한 분산 트랜잭션의 우수한 성능
 하나의 샤드 트랜잭션내의 다양한 쿼리들은 개별적으로 최적의 경로로 수행될 수 있어서, 분산 트랜잭션의 성능이 우수하다.
@@ -427,11 +429,6 @@ non-shard DML 처리를 위한 분산 질의 처리기이다. 해당 DML의 대�
   - DBMS_SHARD.SET_SHARD_PROCEDURE_SHARDKEY(...)
   - DBMS_SHARD.SET_SHARD_PROCEDURE_SOLO(...)
   - DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE(...)
-
-#### sharded sequence
-Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
-- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
-- 동일 Node내에서는 순서는 보장한다.
 
 #### 샤드키(shard key)
 - 샤드키 테이블에 대한 샤드키는 데이터를 분산하는 기준이 되는 테이블의 컬럼이다.
@@ -783,16 +780,15 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 -   AUTO_COMMIT은 0(non-autocommit)만 지원한다.
 
 #### DDL 제약사항
-- 샤딩관련 객체에 대한 DDL을 수행할 수 없습니다.
-- 이때 샤딩관련 객체에는, 
-  - 샤드 테이블
+- 아래의 샤딩관련 객체에는 DDL을 수행할 수 없습니다. 
   - 샤드 테이블에 대해서 k-safety 복제를 위하여 자동 생성되는 백업 테이블
-  - 샤드 테이블 및 백업 테이블에 대한 인덱스
+  - 백업 테이블에 대한 인덱스
   - 샤드 프로시져
   - 샤드 테이블의 k-safety 복제를 위하여 자동 생성되는 이중화객체
 - 샤딩관련 객체에 DDL을 수행하기 위해서는, 샤딩객체에서 설정해제하고, DDL을 한 이후에 다시 샤딩객체로 설정하여야 합니다.
 - 예외적으로 아래의 DDL은, 샤딩객체에서 설정해제하지 않고 수행할 수 있도록, 허용되어 있습니다.
   - 이중화객체에 대한 FLUSH 구문
+- 단, 샤드 테이블 및 샤드 테이블에 대한 인덱스 객체에는 global DDL 기능을 이용하여 DDL을 수행할 수 있습니다.
 
 #### 미지원 기능
 - global unique constraint
@@ -819,6 +815,7 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
 - move
 - merge
 - table function
+- set transaction
 
 #### 미지원 PSM 기능
 본 매뉴얼의 PSM Restriction 항목을 참고한다.
@@ -1011,6 +1008,54 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 - 샤딩에서는 인덱스 힌트를 통해서 결과 레코드들의 순서를 보장하는 기능은 사용할 수 없다.
   - 단, 단일노드 쿼리인 경우에는 인덱스 힌트를 통해서 결과 레코드들의 순서를 보장할 수 있다. (이 경우에도, 샤드 실행계획을 보고, 최종 실행노드에서 수행되는 쿼리에 해당 인덱스 힌트가 들어 있는지 확인해야 한다.)
 
+## Global DDL
+- Sharding 환경에서 DDL 수행시 샤딩 클러스터의 모든 노드로 DDL 을 실행하는 기능이다.
+- 모든 노드에서 DDL 수행이 성공하면 commit 되지만, 그렇지 않으면 rollback 된다.
+
+#### ALTER SESSION SET GLOBAL_DDL = value
+- Sharding 환경에서만 GLOBAL_DDL 세션 프로퍼티 변경이 가능하다.
+- GLOBAL_DDL 세션 프로퍼티는 0 과 1 이 가능하며, 1로 설정한 상태에서 수행되는 DDL은 모든 노드로 전송된다.
+
+#### Global DDL 이 가능한 DDL 목록
+- table
+  - truncate table
+  - create table
+    - create ddl as select 는 안됨
+  - drop table
+    - shard object는 안 됨
+  - access table
+- partiton (global non partitioned index 가 없어야 함)
+  - drop partition
+    - shard object는 안 됨
+  - merge partition
+    - shard object는 안 됨
+  - split partition
+    - k-safety > 0 은 미지원
+    - right in-place split partition만 지원됨
+      - left in-place: 두 개의 새 파티션 중 첫 번째 파티션이 기존 파티션의 이름과 같은 경우
+      - right in-place : 두 개의 새 파티션 중 두 번째 파티션이 기존 파티션의 이름과 같은 경우
+      - out place: 두 개의 새 파티션 모두 기존 파티션과 이름이 다른 경우
+  - truncate partition
+  - access partition
+- column
+  - add column
+    - traling null 이어야함
+    - not null 속성이 없어야함
+    - check 속성이 없어야함
+    - hidden column 이 아니어야함
+    - primary key, unique, local unique 속성이 없어야함
+    - timestamp type 아니어야함
+  - drop column
+  - alter column
+    - not null
+    - nullable
+- constraints
+  - rename constraint
+  - drop constraint
+- index
+  - create index
+  - drop index
+ 
 ## SHARD DDL
 - Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다.
 - SYS 사용자만 수행할 수 있다.
@@ -1078,10 +1123,11 @@ ALTER DATABASE SHARD DROP "target_node_name" FORCE ;
 
 #### 설명
 - failover 된 노드가 영구장애가 발생하여, 이 노드로 failback을 시킬 수 없는 경우에 해당 노드를 강제로 샤딩 클러스터에서 제거하기 위한 기능이다.
-- 비정상종료되었으나 failover가 되지 않은 노드가 존재하는 상황에서는 어떤 노드이든 DROP FORCE를 할 수 없다.
+- 비정상종료되었으나 failover가 되지 않은 노드가 존재하는 상황에서는 어떤 노드를 DROP FORCE 구문으로 제거할 수 없다.
   - 이런 노드들을 먼저 FAILOVER shard DDL을 이용하여 failover를 시킨 후에만, DROP FORCE shard DDL을 수행할 수 있다.
 - 사용자의 shutdown 명령어에 의해 shutdown된 노드이지만, 영구장애가 발생하여, JOIN shard DDL을 할 수 없는 경우에도, 먼저 FAILOVER shard DDL을 이용하여 failover를 시킨 후에만, DROP FORCE shard DDL을 수행할 수 있다.
-- DROP FORCE shard DDL은 제거될 노드에서는 수행할 수 없다.
+- DROP FORCE 구문은 가장 최근에 failover 된 노드를 대상으로만 수행할 수 있다.
+- DROP FORCE 구문은 제거될 노드 자신에서는 수행할 수 없다. 정상적인 노드에서 수행하여 다른 어떤 노드를 강제로 제거할 수 있다. 
 
 ### JOIN
 
@@ -1132,12 +1178,25 @@ ALTER DATABASE SHARD FAILBACK ;
 
 #### 설명
 본 구문을 수행하는 노드를 샤딩 클러스터에 다시 failback 시키기 위한 구문이다.
+- 장애가 발생하여 자동으로 failover 된 노드를 failback 시킬 수 있다.
+- 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드를 failback 시킬 수 있다.
+- 비정상종료되었으나 failover가 되지 않은 노드가 존재하는 상황에서는 FAILBACK 구문을 수행할 수 없다.
+  - 이런 노드들을 먼저 FAILOVER 구문을 이용하여 failover를 시킨 후에만, FAILBACK 구문을 수행할 수 있다.
+- FAILBACK 구문은 가장 최근에 failover 된 노드에서만 수행할 수 있다.
+- 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 FAILBACK 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
 
-본 구문의 수행 노드는 아래 노드들이 대상이 된다.
-- 장애가 발생하여 자동으로 failover 된 노드
-- 사용자가 수동으로 failover 구문을 수행하여 failover 된 노드
-  - 비정상종료되었으나 failover가 되지 않은 노드가 있다면, 해당 노드를 먼저 FAILOVER shard DDL을 이용하여, failover를 시켜야만, FAILBACK shard DDL을 수행할 수 있다.
-- 단, 사용자의 shutdown 명령어에 의해 shutdown된 노드에서는 failback 구문을 수행할 수 없다. 이 경우에는 JOIN 구문을 이용하여 샤딩 클러스터에 재 참여하여야 한다.
+### FAILBACK SYNC
+
+#### 구문
+ALTER DATABASE SHARD FAILBACK SYNC ;
+
+#### 설명
+FAILBACK SYNC 구문은 아래 사항을 제외하고, 나머지는 일반 FAILBACK 구문과 동일하다.
+- failover시에 시스템 내부적으로 역이중화를 생성하여, failback시에 failover 이후에 변경된 데이터만 다시 failback 되는 노드로 반영하도록 되어 있다.
+- 그러나, k-safety를 초과하여 연속 failover가 발생하였거나, failover 된 노드중에 DROP FORCE 구문으로 제거된 노드가 존재하는 경우에는, 변경 데이타만 반영하는것이 불가능하게 된다.
+- 이 경우에 FAILBACK SYNC 구문을 사용해야만 하고, 전체 데이터를 모두 복제하여 failback 노드의 데이터를 구성하게 된다.
+- DROP FORCE 구문으로 어떤 노드를 제거하기 전에 failover 된 노드를 대상으로 failback 할때는 FAILBACK SYNC 구문을 사용해야 한다.
+- DROP FORCE 구문으로 어떤 노드를 제거한 후에 신규로 failover 된 노드를 대상으로 failback 할때는 일반 FAILBACK 구문을 사용하면 된다.
 
 ### MOVE
 
