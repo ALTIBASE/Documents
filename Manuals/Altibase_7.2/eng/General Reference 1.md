@@ -5077,7 +5077,7 @@ String
 
 ##### Attributes
 
-Read-Only, Multiple Values
+Read-Only
 
 ##### Range
 
@@ -7839,7 +7839,7 @@ Read-Write, Single Value
 
 ##### Range
 
-[6.1.1.0.6 \| 6.1.1.0.7 \| 6.3.1.0.1 \| 6.5.1.0.0\| 7.1.0.0.0]
+[6.1.1.0.6 \| 6.1.1.0.7 \| 6.3.1.0.1 \| 6.5.1.0.0\| 7.1.0.0.0| 7.2.0.0.0]
 
 ##### Description
 
