@@ -2933,6 +2933,11 @@ Alter success.
 
 큐의 MSGID를 초기화한다.
 
+*DELETE [ON|OFF]*
+
+DELETE ON 은 큐 테이블에 DELETE 문 사용을 허용한다.
+DELETE OFF 은 큐 테이블에 DELETE 문 사용을 허용하지 않는다. 이 경우 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다.
+
 ### ALTER REPLICATION 
 
 #### 구문
@@ -6520,6 +6525,13 @@ Create success.
 큐 테이블에 저장 가능한 최대 레코드 수를 지정한다. 지정 가능한 값의 범위는 1에서
 4294967295(232-1)이며, 생략할 경우 기본값은 최대값인 4294967295이다.
 
+*DELETE [ON|OFF]*
+
+큐 테이블에 DELETE 문 허용 여부를 결정하는 절이다.
+ON은 큐 테이블에 DELTE 문을 허용한다. OFF는 큐 테이블에 DELETE 문을 허용하지 않는다. 이 경우 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다.
+DELETE 절을 생략하면 DELETE ON으로 큐 테이블을 생성한다.
+DELETE 문을 허용하지 않는 큐 테이블은 V$QUEUE_DELETE_OFF에서 확인할 수 있다.
+
 #### 주의사항
 
 - 큐 생성시에 데이터베이스 내부적으로 “큐 이름”+ “_NEXT_MSG_ID”라는 명칭의 테이블 객체가 생성된다. 따라서 생성 하고자 하는 큐의 이름 또는 “큐 이름”+ “_NEXT_MSG_ID”과 동일한 이름의 테이블, 뷰, 시퀀스, 시노님, 또는 저장 프로시저가 이미 존재하는 경우에 에러가 발생한다.
@@ -6560,7 +6572,12 @@ abc         1           99.999
 1 row selected.
 ```
 
+\<질의\> 메시지의 길이가 최대 40이고, DELETE 문을 허용하지 않는 Q3이라는 이름의 큐 테이블을 생성하라.
 
+```
+iSQL> CREATE QUEUE Q3(40) DELETE OFF;
+Create success.
+```
 
 ### CREATE REPLICATION 
 

@@ -1221,7 +1221,7 @@ CallableStatement는 저장 프로시저 또는 저장 함수 호출에 주로 �
 예제이다.
 
 ```
-CallableStatement sCallStmt = connection().prepareCall("{call p1(?, ?)");
+CallableStatement sCallStmt = Connection.prepareCall("{call p1(?, ?)}");
 sCallStmt.setInt(1, 1);
 sCallStmt.registerOutParameter(2, Types.VARCHAR);
 sCallStmt.execute();
@@ -2404,7 +2404,7 @@ Altibase에서 Atomic Batch 기능을 사용할 때 아래의 제약 사항이 �
 
 ```
 ......
-Connection con = sConn = DriverManager.getConnection(aConnectionStr, mProps);
+Connection con = sConn DriverManager.getConnection(aConnectionStr, mProps);
 Statement stmt = con.createStatement();
  
 try
@@ -2550,7 +2550,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 InputStream sInputStream = ...
 long sLength = ...
 ... 
-PreparedStatement sPstmt = connection().prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
+PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
 ...
 sPstmt.setBinaryStream(1, sInputStream, sLength);
 ...
@@ -2574,7 +2574,7 @@ import Altibase.jdbc.driver.AltibasePreparedStatement;
 ```
 byte[] sBuf = ...
 ... 
-PreparedStatement sPstmt = connection().prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
+PreparedStatement sPstmt = Connection.prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
  
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -3964,6 +3964,11 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | 인터페이스명                                   | spec ver | 지원여부  | Details                                |      예외 처리                  |
 |-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
 | REF_CURSOR                                    | 4.2      |    X     | 아웃바운드 파라메터로 ref cursor사용불가  |                                |
+
+### java.sql.DriverAction
+| 인터페이스명                                   | spec ver | 지원여부  | Details                                |      예외 처리                  |
+|-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
+| deregister()                                  |  4.2     |    x     | deregister()를 통한 자원해제는 지원하지 않음  |                            |
 
 ### java.sql.SQLTypes
 알티베이스 JDBC 드라이버는 java.sql.SQLTypes 인터페이스를 구현하고 있는 AltibaseJDBCType을 지원한다.
