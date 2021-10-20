@@ -1521,17 +1521,18 @@ Altibase에서 이중화 대상인 테이블에 대하여 DDL 문의 실행이 �
 
 ```
 CREATE TABLE book(  
-  isbn   CHAR(10) CONSTRAINT const1 PRIMARY,
-  title        VARCHAR(50),
-  author     VARCHAR(30),
-  edition     INTEGER DEFAULT 1,
-  publishingyear INTEGER,
-  price      NUMBER(10,2),  
-  pubcode  CHAR(4)) MAXROWS 2 TABLESPACE user_data;
+isbn            CHAR(10) CONSTRAINT const1 PRIMARY,
+title           VARCHAR(50),
+author          VARCHAR(30),
+edition         INTEGER     DEFAULT 1,
+publishingyear  INTEGER,
+price           NUMBER(10,2),  
+pubcode         CHAR(4)
+) MAXROWS 2 TABLESPACE user_data;
 
 CREATE TABLE dept_c002
-  AS SELECT * FROM employees
-  WHERE dno = 4002;
+    AS SELECT * FROM employees
+ WHERE dno = 4002;
 ```
 
 ##### 메모리 테이블에서 칼럼 정의 시 주의 사항
