@@ -1,4 +1,4 @@
-**Table of Contents**
+**1Table of Contents**
 
 - [Administrator’s Manual](#administrators-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -1521,7 +1521,7 @@ Altibase에서 이중화 대상인 테이블에 대하여 DDL 문의 실행이 �
 
 ```
 CREATE TABLE book(  
-isbn            CHAR(10) CONSTRAINT const1 PRIMARY,
+isbn            CHAR(10) CONSTRAINT const1 PRIMARY KEY,
 title           VARCHAR(50),
 author          VARCHAR(30),
 edition         INTEGER     DEFAULT 1,
@@ -2455,7 +2455,7 @@ Altibase는 연속된 숫자 값 생성자로써 시퀀스 (sequence) 객체를 
 
 -   [sequence 이름].CURRVAL은 시퀀스의 현재 값을 구하기 위해 사용된다.
 
-시퀀스 생성 후 그 시퀀스에 대해서 최초로 수행하는 연산이 [sequence 이름].CURRVA일 수 없다. [sequence 이름].CURRVA을 사용하기 위해서는 시퀀스 생성 이후 반드시 [sequence 이름].NEXTVAL을 먼저 사용해야 한다.
+시퀀스 생성 후 그 시퀀스에 대해서 최초로 수행하는 연산이 [sequence 이름].CURRVAL일 수 없다. [sequence 이름].CURRVAL을 사용하기 위해서는 시퀀스 생성 이후 반드시 [sequence 이름].NEXTVAL을 먼저 사용해야 한다.
 
 시퀀스의 다음 값에 접근할 때마다 시퀀스의 값은 내부적으로 명시한 증감분 (increment by)만큼 증가한다. 시퀀스의 증감분은 시퀀스 생성시 명시적으로 그 값이 주어지지 않는 경우 기본적으로 1이다.
 
@@ -4188,7 +4188,7 @@ Ex.2) 메모리 데이터 테이블스페이스를 생성한다.
 ```
 iSQL> CREATE MEMORY DATA TABLESPACE user_data SIZE 12M
 AUTOEXTEND ON  NEXT 4M MAXSIZE 500M
-CHECKPOINT PATH ‘/tmp/checkpoint_image_path1’,  ‘/tmp/checkpoint_image_path2’ SPLIT EACH
+CHECKPOINT PATH '/tmp/checkpoint_image_path1',  '/tmp/checkpoint_image_path2' SPLIT EACH
 12M;
 Create success.
 ```
@@ -5511,7 +5511,7 @@ V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES
 
 파티션드 객체는 다수의 테이블스페이스에 걸쳐 저장될 수 있다. 이는 [그림 7-1]으로 설명된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-1.png)
+![](media/Admin/7-1.png)
 
 [그림 7‑1] 테이블스페이스, 파티션드 객체 및 논파티션드 객체의 관계
 
@@ -5519,7 +5519,7 @@ V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES
 
 이러한 다수의 테이블스페이스에 존재하는 파티션을 하나의 객체로 인식하게 만드는 것이 파티션드 객체이다. [그림 7-2]는 파티션드 객체의 내부구조를 보여준다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-2.png)
+![](media/Admin/7-2.png)
 
 [그림 7‑2] 파티션드 객체의 내부구조
 
@@ -5569,7 +5569,7 @@ non-partitioned_object ≡ ∑partition ………………… rule1
 - 인덱스 구축 범위  
   파티션드 테이블에는 인덱스를 구축할 수 있다. 그러나 유니온 뷰는 개별 테이블에는 인덱스를 구축할 수 있지만, 유니온 뷰에는 인덱스를 구축할 수 없다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-3.png)
+![](media/Admin/7-3.png)
 
 [그림 7‑3] 파티션드 테이블과 논파티션드 테이블
 
@@ -5595,7 +5595,7 @@ non-partitioned_object ≡ ∑partition ………………… rule1
 
 “논파티션드 인덱스 (non-partitioned index)”는 파티션으로 분할되지 않은 인덱스를 의미하며, “파티션드 인덱스 (partitioned index)”는 파티션드 테이블과 마찬가지로 파티션 조건에 따라 분할된 대용량 인덱스를 의미한다. 이는 [그림 7-4]로 설명된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-4.png)
+![](media/Admin/7-4.png)
 
 [그림 7‑4] 파티션드 인덱스와 논파티션드 인덱스
 
@@ -5608,7 +5608,7 @@ non-partitioned_object ≡ ∑partition ………………… rule1
 - 논프리픽스드 인덱스 (Non-prefixed Index)  
   논프리픽스드 인덱스는 인덱스 키의 첫번째 칼럼이 인덱스 파티션 키의 첫번째 칼럼과 동일하지 않다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-5.png)
+![](media/Admin/7-5.png)
 
 [그림 7‑5] 프리픽스드 인덱스와 논프리픽스드 인덱스의 예
 
@@ -5620,7 +5620,7 @@ non-partitioned_object ≡ ∑partition ………………… rule1
 
 프리픽스드와 논프리픽스드로 구분하는 이유는 유니크 (Unique) 속성과 관련이 있다. 프리픽스드 인덱스의 키는 인덱스 파티션 키와 동일하기 때문에, Altibase 서버는 유니크 검사시 파티션드 인덱스에 속한 모든 파티션들을 검색하지 않고도 유니크 검사를 할 수 있다. 그러나 논프리픽스드 인덱스의 경우에는 Altibase 서버는 파티션드 인덱스에 포함된 모든 파티션들을 검색해야 한다. [그림 7-6]이 이의 예를 보여준다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-6.png)
+![](media/Admin/7-6.png)
 
 [그림 7‑6] 논프리픽스드 인덱스를 이용한 유니크 검사의 예 (불가능함)
 
@@ -5635,7 +5635,7 @@ INSERT INTO TBL_SALES VALUES(9, 1월);
 ##### 글로벌 인덱스와 로컬 인덱스
 
 인덱스는 테이블 파티션 키와 인덱스 파티션 키의 관계에 따라 글로벌 인덱스와 로컬 인덱스로 구분된다. “글로벌 인덱스 (global index)”는 인덱스 파티션 키가 테이블 파티션 키와 일치하지 않는 인덱스를 의미한다 (index_partition_key != table_partition_key). “로컬 인덱스 (local index)”는 인덱스 파티션 키가 테이블 파티션 키와 일치하는 인덱스를 의미한다 (index_partition_key == table_partition_key).
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-7.png)
+![](media/Admin/7-7.png)
 
 [그림 7‑7] 로컬 인덱스와 글로벌 인덱스의 예
 
@@ -5658,7 +5658,7 @@ sales_date에 의해서 정렬되어 있고, 각 인덱스를 어떠한 인덱�
 
 아래 그림은 세 개의 파티션으로 분할되어 있는 tbl_sales 테이블에 인덱스 파티션 키를 지정하지 않고 글로벌 논파티션드 인덱스를 생성하는 것을 보여준다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-8.png)
+![](media/Admin/7-8.png)
 
 [그림 7‑8] 글로벌 논파티션드 인덱스의 예
 
@@ -5666,7 +5666,7 @@ sales_date에 의해서 정렬되어 있고, 각 인덱스를 어떠한 인덱�
 
 지금까지 설명한 인덱스의 종류를 정리하면 아래 그림과 같다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/cdba9650f1626e7cc409038702eb8b1d.png)
+![](media/Admin/cdba9650f1626e7cc409038702eb8b1d.png)
 
 [그림 7‑9] 인덱스의 종류
 
@@ -5737,7 +5737,7 @@ column_domain ≡ ∪partition_condition ……………… rule3
 
 [그림 7-10]에서는 3개의 파티션을 갖는 파티션드 객체를 예를 들어 기본 파티션을 설명하고 있다. 아래 구문에서 사용자는 P1및 P2파티션에 대한 파티션 조건 (partition_condition1, partition_condition2)을 명시하였으며, P3에 대해서 기본 파티션을 선언하였다. 이러한 경우, 삽입되는 레코드가 partition_condition1과 partition_condition2조건에 걸리지 않는다면 P3파티션에 삽입된다. 즉, 기본 파티션은 파티션 키 칼럼이 갖는 전체 도메인에서 사용자가 지정한 파티션 조건들을 뺀 나머지 도메인 부분과 같다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-10.png)
+![](media/Admin/7-10.png)
 
 [그림 7‑10] 기본 파티션 사용 예제
 
@@ -5795,7 +5795,7 @@ PARTITION BY RANGE(sales_date)
 
 위의 예를 그래피컬 방식으로 표현하면 [그림 7-10]과 같다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-11.png)
+![](media/Admin/7-11.png)
 
 [그림 7‑11] 범위 파티션드 테이블의 파티션 영역
 
@@ -5805,7 +5805,7 @@ PARTITION BY RANGE(sales_date)
 
 다음 그림은 두 개 칼럼(i1, i2)으로 구성된 파티션 키를 1차원 형태로 표현한 것이다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-12.png)
+![](media/Admin/7-12.png)
 
 [그림 7‑12] 다중칼럼 파티셔닝의 파티션 영역
 
@@ -5831,7 +5831,7 @@ PARTITION BY RANGE(sales_date, sales_id)
 
 위의 테이블 생성 구문을 그림으로 설명하면 다음과 같다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-13.png)
+![](media/Admin/7-13.png)
 
 [그림 7‑13] SQL 구문 예제의 파티션 영역
 
@@ -5865,8 +5865,7 @@ PARTITION BY RANGE(sales_date, sales_id)
 
 - 인플레이스 분할(In-place Split)  
   기존 파티션의 레코드 일부를 잘라 새로운 파티션에 이동하는 분할 방식으로, 기존 파티션의 내용이 변경된다.  
-  새로운 파티션의 이름이 기존 파티션의 이름과 같고, 새 파티션이 생성될 테이블스페이스를 지정하지 않으면 인플레이스 분할 방식이 사용된다. ([그림
-  7-14] 참조)
+  새로운 파티션의 이름이 기존 파티션의 이름과 같고, 새 파티션이 생성될 테이블스페이스를 지정하지 않으면 인플레이스 분할 방식이 사용된다. ([그림 7-14] 참조)
 - 아웃플레이스 분할(Out-place Split)  
   기존 파티션의 내용은 변경되지 않는다. 대신 새로운 2개의 파티션을 생성하여, 기존 파티션의 레코드를 복사하는 분할 방식이다. 새로운 두 파티션의 이름을 기존 파티션의 이름과 다르게 지정했을 때 이 방식이 사용된다. 새 파티션 중 하나의 이름이 기존 파티션의 이름과 같더라도 그 파티션이 생성될
   테이블스페이스를 지정한 경우에 사용된다. ([그림 7-15] 참조)
@@ -5875,7 +5874,7 @@ PARTITION BY RANGE(sales_date, sales_id)
 
 아웃플레이스 분할시에는 새로운 두 개의 파티션을 생성하고 각각의 파티션에 레코드 삽입 연산이 이루어진다. 인플레이스 분할에서의 레코드에 대한 연산은 이동 연산으로 이는 삽입과 삭제로 구성된다. MVCC 환경에서 레코드 삭제 연산은 레코드 삽입 연산에 비해 성능이 많이 떨어진다. 따라서, 인플레이스 분할은 저장 공간이 부족할 때 효율적이며, 아웃플레이스 분할은 저장 공간이 충분한 MVCC 환경에서 좋은 성능을 나타낸다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-14.png)
+![](media/Admin/7-14.png)
 
 [그림 7‑14] 범위 파티션드 객체에서 인플레이스 분할
 
@@ -5883,7 +5882,7 @@ PARTITION BY RANGE(sales_date, sales_id)
 
 ①새로운 파티션 part_4가 생성되며, ②기존 part_2에서 part_4로의 레코드 이동(MOVE: 삽입 & 삭제)이 진행된다. 마지막으로 ③part_2의 조건이 지정된 조건으로 축소된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-15.png)
+![](media/Admin/7-15.png)
 
 [그림 7‑15] 범위 파티션드 객체에서 아웃플레이스 분할
 
@@ -5896,7 +5895,7 @@ PARTITION BY RANGE(sales_date, sales_id)
 파티션 삭제는 파티션드 객체가 갖는 파티션들 중에 지정된 파티션을 삭제하는 연산이다. 파티션 삭제시 삭제될 파티션이 갖는 모든 레코드와 메타 정보들은
 물리적으로 삭제된다. 또한 삭제된 파티션의 조건은 이웃한 파티션으로 흡수된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-16.png)
+![](media/Admin/7-16.png)
 
 [그림 7‑16] 범위 파티션드 객체에서 파티션 삭제
 
@@ -5915,13 +5914,13 @@ PARTITION BY RANGE(sales_date, sales_id)
 
 인플레이스 합병과 아웃플레이스 합병은 성능과 효율성에서 차이가 날 수 있다. 인플레이스 합병은 새로운 파티션을 생성하지 않고, 레코드 삽입 연산만 하기 때문에 성능면에서 아웃플레이스 합병보다 유리하다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-17.png)
+![](media/Admin/7-17.png)
 
 [그림 7‑17] 범위 파티션드 객체에서의 인플레이스 합병
 
 위의 그림은 4개의 파티션을 갖는 파티션드 객체의 part_2와 part_3를 part_3(old)로 합병하는 것을 보여주고 있다. ①기존 part_3의 조건이 확장되며, ②기존 part_2에서 part_3로의 레코드 삽입이 진행된다. 마지막으로 ③part_2가 물리적으로 삭제된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-18.png)
+![](media/Admin/7-18.png)
 
 [그림 7‑18] 범위 파티션드 객체에서의 아웃플레이스 합병
 
@@ -5964,7 +5963,7 @@ PARTITION BY LIST(sales_city)
 
 위의 예제에서, 테이블은 리스트 파티셔닝으로 분할되어 4개의 파티션을 갖는 파티션드 테이블 part_table이 생성된다. 처음 세 개의 파티션은 특정 도시별로 데이터를 관리하며, part_def라는 기본 파티션은 각 조건에 포함되지 않는 데이터를 관리한다. 이를 그림으로 표현하면 아래와 같다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-19.png)
+![](media/Admin/7-19.png)
 
 [그림 7‑19] 리스트 파티션드 테이블의 파티션 영역
 
@@ -5976,13 +5975,13 @@ PARTITION BY LIST(sales_city)
 
 리스트 파티셔닝은 범위 파티셔닝과 동일하게 인플레이스 분할과 아웃플레이스 분할을 지원한다. 파티션을 분할할 때 지정한 새로운 파티션 중 하나의 이름이 기존 파티션의 이름과 같을 경우, 테이블스페이스 지정 여부에 따라 인플레이스 분할이나 아웃플레이스 분할이 사용된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-20.png)
+![](media/Admin/7-20.png)
 
 [그림 7‑20] 리스트 파티션드 객체에서의 인플레이스 분할
 
 위의 그림에서 보여준 예는 4개의 파티션을 갖는 파티션드 객체에서 part_2를 part_2와 part_4로 분할하는 것을 설명하고 있다. ①새로운 파티션 part_4가 생성되며, ②기존 part_2에서 part_4로의 레코드 이동(MOVE: 삽입&삭제)이 진행된다. 마지막으로 ③part_2의 조건이 지정된 조건으로 축소({‘PUSAN’, ‘JUNJU’} -\> {‘JUNJU’})된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-21.png)
+![](media/Admin/7-21.png)
 
 [그림 7‑21] 리스트 파티션드 객체에서의 아웃플레이스 분할
 
@@ -5992,7 +5991,7 @@ PARTITION BY LIST(sales_city)
 
 리스트 파티션드 객체에서의 파티션 삭제는 범위 파티션드 객체와 유사하며, 다만 삭제될 파티션의 파티션 조건이 이웃 파티션이 아닌 기본 파티션의 조건으로 흡수된다는 점만 다르다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-22.png)
+![](media/Admin/7-22.png)
 
 [그림 7‑22] 리스트 파티션드 객체에서 파티션 삭제
 
@@ -6002,13 +6001,13 @@ PARTITION BY LIST(sales_city)
 
 리스트 파티션드 객체에서의 파티션 합병은 범위 파티션드 객체와 동일하게 인플레이스 합병과 아웃플레이스 합병이 있다. 지정한 새로운 파티션의 이름이 합병할 파티션들 중 하나의 이름과 같을 경우, 테이블스페이스를 지정했는지에 따라 인플레이스 합병이나 아웃플레이스 합병이 사용된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-23.png)
+![](media/Admin/7-23.png)
 
 [그림 7‑23] 리스트 파티션드 객체에서의 인플레이스 합병
 
 위의 그림에서 보여준 예는 4개의 파티션을 갖는 파티션드 객체에서 part_2와 part_3를 part_3(old)로 합병하는 것을 설명하고 있다. ①기존 part_3의 조건이 확장되며, ②기존 part_2에서 part_3로 레코드 삽입이 진행된다. 마지막으로 ③part_2가 물리적으로 삭제된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-24.png)
+![](media/Admin/7-24.png)
 
 [그림 7‑24] 리스트 파티션드 객체에서 아웃플레이스 합병
 
@@ -6051,7 +6050,7 @@ PARTITION BY HASH(sales_id)
 
 위 예제는 해시 파티셔닝을 이용해서 4개의 파티션을 갖는 테이블 part_table이 생성되는 것을 보여준다. 각 파티션은 해시 함수 HASH(sales_id, 4) 에 따라 나누어진 데이터를 관리한다. 위의 예를 도식화하면 [그림7-25]와 같다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-25.png)
+![](media/Admin/7-25.png)
 
 [그림 7‑25] 해시 파티션드 테이블의 파티션 영역
 
@@ -6065,7 +6064,7 @@ PARTITION BY HASH(sales_id)
 
 해시 파티션드 객체에 파티션을 추가하는 것은 해시 키의 개수가 늘어남을 의미한다. 파티션의 추가는 기존의 모든 파티션에 영향을 미치게 된다. 해시 키가 변경되면 테이블의 레코드 전체가 변경된 파티션들로 재구성(reorganization)된다. 아래 그림은 이러한 파티션 추가를 설명하고 있다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-26.png)
+![](media/Admin/7-26.png)
 
 [그림 7‑26] 해시 파티션드 객체의 파티션 추가
 
@@ -6077,7 +6076,7 @@ PARTITION BY HASH(sales_id)
 
 예를 들어 4개의 파티션(part_1, part_2, part_3, part_4)을 갖는 파티션드 객체를 병합하면 part_4가 삭제되고 3개의 파티션(part_1, part_2, part_3)을 갖는 파티션드 객체로 줄어든다. 아래 그림은 이러한 파티션 병합 과정을 설명하고 있다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/2d03ced8c924a0befe76d21cbd694438.png)
+![](media/Admin/2d03ced8c924a0befe76d21cbd694438.png)
 
 [그림 7‑27] 해시 파티션드 객체의 파티션 병합
 
@@ -6302,8 +6301,6 @@ Altibase는 데이터에 대한 동시 접근을 제어하기 위해 잠금을 �
 </tbody>
 </table>
 
-
-
 [표 8‑2] 잠금 모드간의 호환성
 
 ##### 레코드 레벨 잠금 모드(Record Level Lock Modes)
@@ -6331,7 +6328,7 @@ MVCC 동시성 제어 기법은 메모리 테이블스페이스와 디스크 테
 
 MVCC 기법을 사용하는 경우와의 비교를 위해 MVCC 기법을 사용하지 않는 경우에 갱신 구문이 내부적으로 수행되는 방법에 대해 설명한다. 다음 그림은 MVCC 기법이 사용되지 않을 때 갱신 연산으로 인해 한 테이블의 레코드가 어떻게 변하는지를 나타낸다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-1.png)
+![](media/Admin/8-1.png)
 
 [그림 8‑1] MVCC 미 사용시의 트랜잭션 처리
 
@@ -6347,7 +6344,7 @@ Altibase의 메모리 테이블스페이스에서 사용되는 Out-place MVCC �
 
 다음 그림은 Out-place MVCC 기법을 사용하는 경우 갱신 구문의 수행 효과를 보여준다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-2.png)
+![](media/Admin/8-2.png)
 
 [그림 8‑2] MVCC 사용시의 트랜잭션 처리
 
@@ -6367,7 +6364,7 @@ Altibase의 메모리 테이블스페이스에서 사용되는 Out-place MVCC �
 
 다음 그림은 삭제 연산 수행 시 각 레코드 별로 버전을 생성하는 경우와 그렇지 않은 경우에 대해 테이블 내의 공간 활용도를 보여준다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-3.png)
+![](media/Admin/8-3.png)
 
 [그림 8‑3] MVCC 사용시의 삭제 트랜잭션
 
@@ -6387,7 +6384,7 @@ Altibase의 디스크 테이블스페이스에서 사용되는 In-place MVCC 기
 
 최초로 삽입된 레코드인 버전1이 있다고 가정하자. 이 버전이 갱신되어 버전2가 되고, 다시 한번 갱신되어 현재 버전3이 되었을 경우의 상황은 다음 그림과 같이 된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-4.png)
+![](media/Admin/8-4.png)
 
 [그림 8‑4] 디스크 테이블스페이스의 MVCC
 
@@ -6467,7 +6464,7 @@ LOG_BUFFER_TYPE는 변경 로그가 로그 파일에 기록될 때 사용될 로
 
 **트랜잭션이 로그가 디스크에 기록될 때까지 대기하지 않고 커널 로그 버퍼가 사용되는** **경우 (Durability Level 3)**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-5.png)
+![](media/Admin/8-5.png)
 
 [그림 8‑5] 트랜잭션이 로그가 디스크에 기록될 때까지 대기하지 않고 커널 로그 버퍼가 사용되는 경우의 영속성
 
@@ -6475,7 +6472,7 @@ COMMIT_WRITE_WAIT_MODE와 LOG_BUFFER_TYPE를 모두 0으로 설정한다. 영속
 
 **트랜잭션이 로그가 디스크에 기록될 때까지 대기하지 않고 메모리 로그 버퍼가** **사용되는 경우 (Durability Level 2)**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-6.png)
+![](media/Admin/8-6.png)
 
 [그림 8‑6] 트랜잭션이 로그가 디스크에 기록될 때까지 대기하지 않고 메모리 로그 버퍼가 사용되는 경우의 영속성
 
@@ -6483,7 +6480,7 @@ COMMIT_WRITE_WAIT_MODE와 LOG_BUFFER_TYPE를 0과 1로 각각 설정한다. 트�
 
 **트랜잭션이 로그가 디스크에 기록될 때까지 대기하고 커널 로그 버퍼가 사용되는 경우** (Durability Level 4)**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-7.png)
+![](media/Admin/8-7.png)
 
 [그림 8‑7] 트랜잭션이 로그가 디스크에 기록될 때까지 대기하고 커널 로그 버퍼가 사용되는 경우의 영속성
 
@@ -6491,7 +6488,7 @@ COMMIT_WRITE_WAIT_MODE와 LOG_BUFFER_TYPE를 1과 0으로 각각 설정한다. �
 
 **트랜잭션이 로그가 디스크에 기록될 때까지 대기하고 메모리 로그 버퍼가 사용되는** **경우 (Durability Level 5)**
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-8.png)
+![](media/Admin/8-8.png)
 
 [그림 8‑8] 트랜잭션이 로그가 디스크에 기록될 때까지 대기하고 메모리 로그 버퍼가 사용되는 경우의 영속성
 
@@ -6549,7 +6546,7 @@ Altibase의 디스크 DB 체크포인트는 퍼지 체크포인트 방식을 사
 
 아래의 그림은 체크포인트가 발생할 때 Altibase 프로세스 내에서 체크포인트를 수행하는 쓰레드들의 동작을 보여준다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/8-9.png)
+![](media/Admin/8-9.png)
 
 [그림 8‑9] 체크포인트 동작
 
@@ -6619,7 +6616,7 @@ BCB는 버퍼 프레임에 대한 정보를 가지며, 하나의 BCB는 하나�
 
 다음의 그림과 표는 BCB의 구조와 정보를 설명한다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/9-1.png)
+![](media/Admin/9-1.png)
 
 [그림 9‑1] BCB 구조
 
@@ -6648,7 +6645,7 @@ Altibase는 LRU 리스트를 hot-cold 영역으로 나누어 관리하고 있어
 
 버퍼에 페이지가 처음 적재될 때, 이는 mid-point(LRU cold first)에 삽입된다. 새로운 데이터 페이지에 버퍼를 할당할 때, Prepare리스트에 빈 버퍼가 없으면 이 리스트의 마지막(LRU cold last)부터 검색하여 cold 버퍼가 교체된다. 교체되는 버퍼를 “victim”이라고 한다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/9-2.png)
+![](media/Admin/9-2.png)
 
 [그림 9‑2] hot-cold LRU list
 
@@ -6676,7 +6673,7 @@ dirty 버퍼 즉 갱신된 버퍼들은 체크포인트 리스트에 존재하�
 
 다음의 그림은 LRU 리스트, Flush 리스트, Prepare 리스트의 모든 버퍼들이 해시 테이블을 통해 접근이 가능한 것을 나타낸다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/9-3.png)
+![](media/Admin/9-3.png)
 
 [그림 9‑3] 버퍼 풀(Buffer Pool)
 
@@ -6795,7 +6792,7 @@ SQL에 대한 자세한 내용은 *SQL Reference*를 참조하기 바란다.
 
 버퍼 관리자가 요청을 받으면, 먼저 해시 테이블에 해당 BCB가 있는지 검사한다. 요청된 페이지가 이미 버퍼에 적재되어 있다면, 해당 페이지를 기술하는 BCB는 해시 테이블에서 검색될 것이다. 만약 해시 테이블에서 그 BCB를 찾을 수 없다면 페이지는 버퍼에 올라오지 않은 것이므로, 버퍼 관리자느 디스크로부터 페이지를 읽어 버퍼에 적재해야 한다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/9-4.png)
+![](media/Admin/9-4.png)
 
 [그림 9‑4] 해시 테이블 검색
 
@@ -6858,7 +6855,7 @@ LRU list에서 버퍼 교체 대상이 되기 위해서는 다음의 조건을 �
 
 BCB가 확보되면 디스크로부터 페이지를 버퍼에 적재한다. 그러나 디스크에 저장된 페이지는 하드 디스크 이상이나 정전 등의 예상하지 못한 이유로 일부 페이지의 내용이 유실될 수 있다. 이러한 상황을 인식하지 못하면 사용자는 잘못된 데이터를 볼 수 있기 때문에, Altibase 서버는 이를 인식할 수 있어야 한다. 이를 위해 Altibase 서버는 디스크로부터 페이지를 버퍼에 적재한 후 바로 해당 페이지가 무결한지 검사한다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/9-5.png)
+![](media/Admin/9-5.png)
 
 [그림 9‑5] 페이지 검증
 
@@ -6893,7 +6890,7 @@ I/O 버퍼의 페이지들이 디스크에 기록될 때 이 버퍼의 내용은
 
 Altibase에서는 DOUBLE_WRITE_DIRECTORY 프로퍼티를 사용해서 더블 라이트 파일이 저장될 디렉토리가 지정된다. 이 파일은 시스템 구동시 데이터 파일의 정합성을 검증 또는 복구하기 위해 사용되며, 이 파일이 없으면 이 과정은 생략된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/9-6.png)
+![](media/Admin/9-6.png)
 
 [그림 9‑6] 페이지 플러시 과정
 
@@ -7132,7 +7129,7 @@ Altibase는 다음의 복구 유형을 지원한다.
 
 데이터 파일의 매체 복구가 필요한가에 대한 판단은 로그앵커 파일상의 해당 데이터 파일의 버전과 현재 데이터 파일의 버전이 일치하는지 여부에 따라 결정된다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/10-1.png)
+![](media/Admin/10-1.png)
 
 [그림 10‑1] Altibase 복구 절차
 
@@ -7152,7 +7149,7 @@ TRANSITION TO PHASE : PROCESS
 TRANSITION TO PHASE : CONTROL
 Command execute success.
 
-iSQL(sysdba)> alter database recover database;
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 Alter success.
 ```
 
@@ -7184,7 +7181,7 @@ ALTER DATABASE RECOVER DATABASE;
   이용하여 복구를 수행한다.
 
 ```
-ALTER DATABASE RECOVER DATABASE UNTIL TIME‘2007-09-10:17:55:00’;
+ALTER DATABASE RECOVER DATABASE UNTIL TIME '2007-09-10:17:55:00';
 ```
 
 - 특정 온라인 로그 파일이 손상되어 현재 시점까지 데이터베이스를 복원할 수 없는 경우, 다음의 구문을 이용하여 온라인 로그 파일이 손상되기 바로 직전 시점으로 데이터베이스를 복원한다.
@@ -7236,7 +7233,7 @@ $ cp SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs;
 **테이블스페이스의 추가, 삭제 또는 이름 변경 등이 이루어지면, 딕셔너리** **테이블스페이스(SYS_TBS_MEM_DIC)의 백업이나 전체 데이터베이스의 백업이 필요하다.**
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACESYS_TBS_MEM_DIC TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE SYS_TBS_MEM_DIC TO '/backup_dir';
 ```
 
 로그앵커 파일은 데이터베이스 내 테이블스페이스 정보를 포함하고 있으므로, 이는 테이블스페이스 구조가 변경될 때마다 딕셔너리 테이블스페이스와 함께 백업되어야 한다.
@@ -7313,8 +7310,8 @@ iLoader> in –d t1.dat –f t1.fmt
 
 ```
 $ALTIBASE_HOME/conf/altibase.properties 
-MEM_DB_DIR=$ALTIBASE_HOME/dbs0
-MEM_DB_DIR =$ALTIBASE_HOME/dbs1
+MEM_DB_DIR    =$ALTIBASE_HOME/dbs0
+MEM_DB_DIR    =$ALTIBASE_HOME/dbs1
 LOGANCHOR_DIR =$ALTIBASE_HOME/logs
 ```
 
@@ -7353,7 +7350,7 @@ $cp –r /home/backup/temp.dbf   $ALTIBASE_HOME/dbs
 전체 데이터베이스가 /backup_dir 디렉토리에 온라인 백업된다.
 
 ```
-iSQL(sysdba)> alter database backup database to‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 $ ls /backup_dir
 SYS_TBS_MEM_DIC-0-0   
 SYS_TBS_MEM_DATA-0-0
@@ -7370,7 +7367,7 @@ loganchor1
 SYS_TBS_MEM_DIC 데이터 파일 중에서 안정(stable)된 버전이 /backup_dir 디렉토리에 온라인 백업된다.
 
 ```
-iSQL(sysdba)> alter database backup tablespace SYS_TBS_MEM_DIC to ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE SYS_TBS_MEM_DIC TO '/backup_dir';
 $ ls /backup_dir
 SYS_TBS_MEM_DIC-0-0
 ```
@@ -7380,7 +7377,7 @@ SYS_TBS_MEM_DIC-0-0
 모든 로그앵커 파일이 /backup_dir 디렉토리에 온라인 백업된다.
 
 ```
-iSQL(sysdba)> alter database backup loganchor to ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP LOGANCHOR TO '/backup_dir'
 $ ls /backup_dir
 loganchor0 loganchor1 loganchor2
 ```
@@ -7394,20 +7391,20 @@ loganchor0 loganchor1 loganchor2
 메모리 테이블스페이스 데이터 파일은 안정(stable) 버전 데이터 파일인지 확인 후 온라인 백업한다.
 
 ```
-iSQL(sysdba)> alter tablespace USER_MEMORY_TBS begin backup;
-iSQL(sysdba)> select * from v$stable_mem_datafiles;
+iSQL(sysdba)> ALTER TABLESPACE USER_MEMORY_TBS BEGIN BACKUP;
+iSQL(sysdba)> SELECT * FROM V$STABLE_MEM_DATAFILES;
 V$STABLE_MEM_DATAFILES.MEM_DATA_FILE
 ------------------------------
 /altibase_home/dbs/USER_MEM_TBS-0-0
 
 $ cp $ALTIBASE_HOME/dbs/USER_MEMORY_TBS-0-0  /backup_dir/
 
-iSQL(sysdba)> alter tablespace USER_MEMORY_TBS end backup;
-iSQL(sysdba)> alter tablespace USER_DISK_TBS begin backup;
+iSQL(sysdba)> ALTER TABLESPACE USER_MEMORY_TBS END BACKUP;
+iSQL(sysdba)> ALTER TABLESPACE USER_DISK_TBS BEGIN BACKUP;
 
 $ cp $ALTIBASE_HOME/dbs/USER_DISK_TBS.dbf /backup_dir/
 
-iSQL(sysdba)> alter tablespace USER_DISK_TBS end backup;
+iSQL(sysdba)> ALTER TABLESPACE USER_DISK_TBS END BACKUP;
 
 $ ls /backup_dir
 USER_MEMORY_TBS-0-0 USER_DISK_TBS.dbf 
@@ -7507,13 +7504,13 @@ ARCHIVE_DIR과 LOG_DIR프로퍼티에 지정된 디렉토리에 존재하는 로
 CONTROL 구동 단계에서 다음 구문으로 유실된 abc.dbf 파일을 생성한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE‘abc.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'abc.dbf';
 ```
 
 CONTROL 구동 단계에서 다음 구문으로 완전 매체 복구를 수행한다.
 
 ```
-iSQL(sysdba)> alter DATABASE RECOVER DATABASE;
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 ```
 
 #### 매체복구 사례 2
@@ -7596,6 +7593,7 @@ CONTROL 구동 단계에서 USER_DISK_TBS 테이블스페이스의 데이터 파
 iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
 '/disk1/dbs/USER_DISK_TBS01.dbf' TO 
 '/disk2/dbs/USER_DISK_TBS01.dbf';
+
 iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
 '/disk1/dbs/USER_DISK_TBS02.dbf' TO 
 '/disk2/dbs/USER_DISK_TBS02.dbf';
@@ -7636,8 +7634,8 @@ summary 테이블을 복구하기 위해서는 현재 시각에서 3시간 30분
 지난번 백업 시 다음과 같이 전체 데이터베이스를 백업하였다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO‘/backup_dir’;
-iSQL(sysdba)> alter SYSTEM SWITCH LOGFILE;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
+iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
 ```
 
 ##### 복구 절차
@@ -7663,9 +7661,9 @@ SYS_TBS_MEM_DATA-0-2
 3. 백업된 메모리 테이블스페이스는 안정한(stable) 데이터 파일이기 때문에 안정한 버전의 확인 절차 없이 복사하면 된다.
 
 ```
-$ cp  SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs
-$ cp  SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs
-$ cp  SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-0   $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-1   $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-2   $ALTIBASE_HOME/dbs
 $ cp  SYS_TBS_MEM_DATA-0-0  $ALTIBASE_HOME/dbs 
 $ cp  SYS_TBS_MEM_DATA-0-1  $ALTIBASE_HOME/dbs
 $ cp  SYS_TBS_MEM_DATA-0-2  $ALTIBASE_HOME/dbs
@@ -7680,7 +7678,7 @@ $ cp /backup_dir/loganchor* $ALTIBASE_HOME/logs
 5. 불완전 복구에 필요한 아카이브 로그 파일을 아래와 같이 확인한다.
 
 ```
-iSQL(sysdba)> select last_deleted_logfile from v$lfg; 
+iSQL(sysdba)> SELECT last_deleted_logfile FROM V$LFG; 
 LAST_DELETED_LOGFILE 
 -------------------------------------------------------------------------------        
 15021
@@ -7696,13 +7694,13 @@ logfile15361  logfile15362  logfile15363  logfile15364  logfile15365
 8. SYS_TBS_DISK_TEMP는 백업되지 않기 때문에 해당 파일을 만들어 준다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf'
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 ```
 
 9. 불완전 매체 복구를 다음과 같이 수행한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME ‘2007-09-18:14:30:00';
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME '2007-09-18:14:30:00';
 ```
 
 10. 불완전 매체 복구를 수행하였기 때문에 meta 구동 단계로 가면서 resetlogs옵션을 사용하여야 한다.
@@ -7714,7 +7712,7 @@ iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 11. resetlogs를 수행하였기 때문에 데이터베이스 전체 백업을 받는다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO 'backup_dir';
 ```
 
 #### 매체복구 사례 5
@@ -7740,7 +7738,7 @@ iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 resetlogs를 수행하였기 때문에 데이터베이스 전체 백업을 받는다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 ```
 
 #### 매체복구 사례 6
@@ -7752,7 +7750,7 @@ iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
 CONTROL 구동 단계에서 SYS_TBS_DISK_TEMP 테이블스페이스의 유실된 데이터 파일 대신에 새로운 temp001.dbf를 생성한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE  ‘temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 ```
 
 서버를 구동한다.
@@ -7770,7 +7768,7 @@ iSQL(sysdba)> ALTER DATABASE dbname SERVICE;
 마지막 백업 시 다음과 같이 전체 데이터베이스를 백업한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE to ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE to '/backup_dir';
 ```
 
 ##### 복구 절차
@@ -7853,7 +7851,7 @@ iSQL(sysdba)> ALTER DATABASE dbname SERVICE;
 마지막 백업 시 다음과 같이 전체 DB를 백업하였다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 ```
 
 ##### 복구 절차
@@ -7874,7 +7872,7 @@ $ cp /backup_dir/loganchor* /ALTIBASE_HOME/logs;
 SYS_TBS_DISK_TEMP테이블스페이스는 백업되지 않기 때문에 해당 파일을 새로 만들어 준다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ‘temp001.dbf’
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 ```
 
 불완전 미디어 복구를 수행한다.
@@ -7898,7 +7896,7 @@ iSQL(sysdba)> ALTER DATABASE mydb SERVICE;
 로그가 리셋되었기 때문에 전체 데이터베이스의 백업을 수행하는 것이 좋다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’; 
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir'; 
 ```
 
 ## 11.증분 백업과 복구
@@ -8269,7 +8267,7 @@ iSQL(sysdb)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 - 특정 시점으로 불완전 복구
 
 ```
-iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME ’2012-10-31:17:55:00’;
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME '2012-10-31:17:55:00';
 ```
 
 - 유효한 로그가 존재하는 지점까지 불완전 복구
@@ -8375,7 +8373,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 iSQL(sysdba)> STARTUP SERVICE;
 ```
 
@@ -8396,7 +8394,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 iSQL(sysdba)> STARTUP SERVICE;
 ```
 
@@ -8411,8 +8409,8 @@ iSQL(sysdba)> STARTUP SERVICE;
 아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을 사용해서 loganchor와 backupInfo를 복원한다.
 
 ```
-% cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
-% cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
+% cp /backup_dir/TAG_WEDNESDAY/loganchor* $ALTIBASE_HOME/logs
+% cp /backup_dir/TAG_WEDNESDAY/backupinfo $ALTIBASE_HOME/dbs
 ```
 
 loganchor 파일을 과거 버전으로 복원했기 때문에 changeTracking 파일이 더 이상 유효하지 않게 된다. 따라서 아래의 구문으로 서버의 PROCESS 구동 단계에서 변경 추적 기능을 비활성화해서 changeTracking 파일을 삭제하도록 한다.
@@ -8436,7 +8434,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL CANCEL;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 resetlogs를 수행하고 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 iSQL(sysdba)> STARTUP SERVICE;
 ```
@@ -8446,8 +8444,8 @@ iSQL(sysdba)> STARTUP SERVICE;
 아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을 사용해서 loganchor와 backupInfo를 복원한다.
 
 ```
-% cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
-% cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
+% cp /backup_dir/TAG_WEDNESDAY/loganchor* $ALTIBASE_HOME/logs
+% cp /backup_dir/TAG_WEDNESDAY/backupinfo $ALTIBASE_HOME/dbs
 ```
 
 loganchor 파일을 과거 버전으로 복원했기 때문에 changeTracking 파일이 더 이상 유효하지 않게 된다. 따라서 아래의 구문으로 서버의 PROCESS 구동 단계에서 변경 추적 기능을 비활성화해서 changeTracking 파일을 삭제하도록 한다.
@@ -8763,9 +8761,9 @@ SECURITY_MODULE_LIBRARY는 설치된 외부 보안 모듈 라이브러리의 이
 이 프로퍼티들의 값은 ALTER SYSTEM 구문으로 운영 도중에 설정하거나 변경할 수 있다. ALTER SYSTEM 구문으로 변경할 경우, SECURITY_MODULE_LIBRARY에는 파일의 절대 경로를 지정해야 한다.
 
 ```
-ALTER SYSTEM SET SECURITY_MODULE_NAME = 'altibase';
+ALTER SYSTEM SET SECURITY_MODULE_NAME    = 'altibase';
 ALTER SYSTEM SET SECURITY_MODULE_LIBRARY = '/altibase_home/lib/libsecurity.so';
-ALTER SYSTEM SET SECURITY_ECC_POLICY_NAME = 'ecc_policy1';
+ALTER SYSTEM SET SECURITY_ECC_POLICY_NAME= 'ecc_policy1';
 ```
 
 ### 보안 모듈 구동과 데이터 암호화
@@ -8846,7 +8844,7 @@ CREATE TABLE 문으로 칼럼 생성시 암호 칼럼으로 지정하여 생성�
 ##### 구문
 
 ```
-CREATE TABLE table_name (column_name datatype [ENCRYPT USING ‘policy_name’]);
+CREATE TABLE table_name (column_name datatype [ENCRYPT USING 'policy_name']);
 ```
 
 > ##### 주의사항
@@ -8882,7 +8880,7 @@ SSN              CHAR(12) ENCRYPT    FIXED
 ##### 구문
 
 ```
-ALTER TABLE table_name MODIFY (column_name [ENCRYPT USING ‘policy_name’]); 
+ALTER TABLE table_name MODIFY (column_name [ENCRYPT USING 'policy_name']); 
 ```
 
 > ##### 주의사항
@@ -8895,7 +8893,7 @@ ALTER TABLE table_name MODIFY (column_name [ENCRYPT USING ‘policy_name’]);
 질의\> 기존의 t1 테이블의 empID1 칼럼을 보안 정책 policy_ssn을 사용하여 암호 칼럼으로 변경한다.
 
 ```
-ALTER TABLE t1 MODIFY (empID1 ENCRYPT USING ‘policy_ssn’);
+ALTER TABLE t1 MODIFY (empID1 ENCRYPT USING 'policy_ssn');
 ```
 
 #### 암호 칼럼의 해제
@@ -9057,9 +9055,9 @@ ALTER SYSTEM STOP AUDIT;
 아래는 사용자 user1에 대한 감사 조건을 삭제하는 예제이다. DELAUDIT 구문을 실행한 후에, SYS_AUDIT_OPTS_에서 user1에 대한 감사 조건이 삭제된 것을 확인할 수 있다.
 
 ```
-iSQL> DELAUDIT by user1;
+iSQL> DELAUDIT BY user1;
 Audit success.
-iSQL> SELECT * from SYSTEM_.SYS_AUDIT_OPTS_;
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
 No rows selected.
 ```
 
@@ -9088,7 +9086,7 @@ No rows selected.
 객체 감사 조건을 설정하는 구문은 아래와 같다.
 
 ```
-AUDIT operation_comma_listON object_nameBY ACCESS | SESSIONWHENEVER [NOT] SUCCESSFUL;AUDIT operation_comma_list
+AUDIT operation_comma_list ON object_name BY ACCESS | SESSION WHENEVER [NOT] SUCCESSFUL;AUDIT operation_comma_list
 ON object_name
 BY ACCESS | SESSION
 WHENEVER [NOT] SUCCESSFUL;
@@ -9562,7 +9560,7 @@ Altibase 서버에서 수행되는 모든 DDL 구문을 감시하고 로그를 �
 DDL문 감사 조건을 설정하는 구문은 아래와 같다.
 
 ```
-AUDIT DDLBY user_nameWHENEVER [NOT] SUCCESSFUL;
+AUDIT DDL BY user_name WHENEVER [NOT] SUCCESSFUL;
 ```
 
 구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
@@ -9744,7 +9742,8 @@ altiAudit 유틸리티에 대한 상세한 설명은 *Utilities Manual*을 참�
 파일이 존재하는 위치는 기본적으로 \$ALTIBASE_HOME/trc 디렉토리이지만, AUDIT_LOG_DIR 프로퍼티로 변경이 가능하다. 파일 이름의 형식은 다음과 같다.
 
 ```
-alti-[the_epoch_time_sec]-[sequence].aud예제) alti-1366989680-0.aud
+alti-[the_epoch_time_sec]-[sequence].aud
+예제) alti-1366989680-0.aud
 ```
 
 감사 로그는 바이너리 형식으로 파일에 저장되기 때문에, 사용자가 읽을 수 없다. 따라서 사용자는 Altibase가 제공하는 유틸리티 altiAudit을 사용해서 바이너리 형태로 저장된 감사 로그를 텍스트 형태로 출력할 수 있다.
@@ -9821,7 +9820,7 @@ Altibase는 한 개의 LFG만 사용하도록 설정된다. 그리고 LOG_DIR과
 다음은 LFG를 구성한 경우의 Altibase 프로퍼티 파일의 일부를 보여준다.
 
 ```
-LOG_DIR = ?/logs                   # 로그 경로
+LOG_DIR     = ?/logs                   # 로그 경로
 ARCHIVE_DIR = ?/arch_logs          # 아카이브 로그 경로
 ```
 
@@ -9991,7 +9990,7 @@ Altibase 서버가 운영하면서 사용하는 메모리 영역 정보를 성�
 
 일반적인 문제상황 분석(PBT, Problem Tracking) 절차는 다음과 같다.
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/Admin/16-1.png)
+![](media/Admin/16-1.png)
 
 [그림 16‑1] 일반적인 문제 분석 절차
 
@@ -10026,7 +10025,7 @@ Altibase 프로세스가 비정상적으로 종료할 수 있는 원인으로 �
 Altibase 재구동 시 실패할 수 있는 원인으로 다음의 것을 생각해볼수 있다.
 
 - 동일한 서비스 포트 번호(PORT_NO 프로퍼티)를 사용하는 Altibase 프로세스가 이미 존재하는 경우
-- 구동 또는 회복 시 필요한 파일이 없거나 파일에 대한 권한이나 파일 시스템 문제로 인해 접근이 안 되는 경우  
+- 구동 또는 회복 시 필요한 파일이 없거나 파일에 대한 권한이나 파일 시스템 문제로 인해 접근이 안 되는 경우 
   관리자 로그에 파일 접근 관련 에러가 발생한다면 해당 파일들(모든 로그 파일, 모든 로그 앵커 파일, 모든 데이터 파일)이 존재하는지를 확인한다. 파일이 존재하고 접근이 가능함에도 불구하고 에러가 발생한다면 파일이 깨졌을 가능성이 있으며 이 경우 데이터베이스를 새로 생성해야 한다.
 - 시스템 리소스 부족  
   시스템 리소스 부족으로 인해 시스템 구동이 실패했다면, 여러 가지 시스템 리소스 중 어떤 리소스가 부족한지를 확인하여 실제 시스템에 적재되어 있는
