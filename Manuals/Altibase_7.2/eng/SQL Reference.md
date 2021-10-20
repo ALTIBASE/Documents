@@ -1984,7 +1984,7 @@ This hint selects a join method from among the hints excluding the SORT hint.
 
 #### PARALLEL
 
-This hint specifies to execute queries in parallel when scanning partitioned tables. 
+This hint specifies to execute queries in parallel when scanning tables. 
 
 - NOPARALLEL: Does not execute in parallel
 - PARALLEL integer: Executes as many threads in parallel as specified for integer
@@ -5601,7 +5601,9 @@ This is used to specify the name of the tablespace in which the index is to be s
 
 *parallel_clause*
 
-This is a hint for setting the number of threads used to create an index, with the aim of realizing a performance improvement. Altibase determines the optimal number of index creation threads in consideration of the user-defined parallel_factor, which is specified using a hint, the size of the tables for which the indexes are being created, and the amount of available memory at the time the index is created. 
+This is a hint for setting the number of threads used to create an index, with the aim of realizing a performance improvement. Altibase determines the optimal number of index creation threads in consideration of the user-defined parallel_factor, which is specified using a hint, the size of the tables for which the indexes are being created, and the amount of available memory at the time the index is created.
+
+Altibase supports parallel queries scanning tables and including HASH, SORT, GRAG node in execution plan. In case of these nodes, only one parallel thread is generated per node.
 
 The value of parallel_factor can be set within the range from 0 to 512. The default is the number of CPUs in the host on which Altibase is running. Because the number of index creation threads is determined using the above optimized determination method, it is safe to omit parallel_factor. 
 
@@ -6025,6 +6027,14 @@ This is used to specify the port number used by the Receiver thread on the remot
 *USING conn_type [ib_latency]*
 
 The communication method (TCP or InfiniBand) can be set with the remote server. The ib_latency value can be set only when using InfiniBand. To use InfiniBand, the IB_ENABLE property must have a value of 1. 
+
+- conn_type
+
+  communication method with the remote server (TCP / IB)
+
+- ib_latency
+
+  Can only be set when RDMA_LATENCY value of rsocket and conn_type value are IB
 
 *user_name*
 
@@ -7187,7 +7197,7 @@ This is used to specify the number of threads which execute parallel queries. Om
 
 Altibase currently supports only the following types of parallel queries.
 
-- Parallel queries which scan partitioned tables.
+- Parallel queries which scan tables.
 - Parallel queries with HASH, SORT, GRAG nodes in their execution plans. For such nodes, however, only one parallel worker thread is created per node. 
 
 *table_compression_clause*

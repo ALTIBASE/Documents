@@ -9993,6 +9993,7 @@ Altibase에서 제공하는 패키지는 아래와 같다.
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | 삭제(Drop)되어 휴지통에서 관리되고 있는 테이블을 시스템에서 완전히 삭제(Purge)한다. |
 | [DBMS_SQL](#dbms_sql)                                | 동적 SQL을 사용한다.                                         |
 | [DBMS_STATS](#dbms_stats)                            | 통계 정보를 조회 및 변경한다.                                |
+| [DBMS_STANDARD](#DBMS_STANDARD)                      | 다양한 기본 서브 프로그램을 제공한다.                        |
 | [DBMS_UTILITY](#dbms_utility)                        | 다양한 유틸리티 서브프로그램을 제공한다.                     |
 | [STANDARD](#standard)                                | 기본 데이터 타입 외에 PSM내에서 별도의 선언없이 사용할 수 있는 타입을 정의한다. |
 | [UTL_COPYSWAP](#utl_copyswap)                        | Copy & Swap 방식으로 Online DDL을 지원한다.                  |
@@ -12325,7 +12326,179 @@ iSQL> exec proc1;
 Execute success.
 ```
 
+### DBMS_STANDARD
 
+DBMS_STANDARD 패키지는 패키지 이름을 명시하지 않고 사용할 수 있는 다양한 서브 프로그램을 제공한다.
+
+DBMS_STANDARD 패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다.
+
+| 프로시저 및 함수 | 설명                                                         |
+| :--------------- | :----------------------------------------------------------- |
+| DELETING         | Trigger가 DELETE로부터 시작한 것인지를 반환한다.             |
+| INSERTING        | Trigger가 INSERT로부터 시작한 것인지를 반환한다.             |
+| UPDATING         | Trigger가 UPDATE로부터 시작한 것인지를 반환한다.             |
+| UPDATING         | Trigger가 특정 컬럼의 UPDATE로부터 시작한 것인지를 반환한다. |
+
+#### DELETING
+
+Trigger가 DELETE로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.DELETING;
+BOOLEAN variable := DELETING;
+```
+
+##### 결과값
+
+DELETE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+CREATE TABLE T1 (C1 INTEGER); 
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF DELETING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+DELETE FROM T1;
+```
+
+#### INSERTING
+
+Trigger가 INSERT로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.INSERTING;
+BOOLEAN variable := INSERTING;
+```
+
+##### 결과값
+
+INSERT로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+```
+
+#### UPDATING
+
+Trigger가 UPDATE로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING;
+BOOLEAN variable := UPDATING;
+```
+
+##### 결과값
+
+UPDATE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+UPDATE T1 SET C1 = 2;
+```
+
+#### UPDATING
+
+Trigger가 특정 컬럼의 UPDATE로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
+BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
+```
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                  |
+| :------ | :----- | :----------- | :-------------------- |
+| COLNAME | IN     | VARCHAR(128) | 컬럼 이름을 명시한다. |
+
+#####  결과값
+
+특정 컬럼의 UPDATE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING('C1') THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+UPDATE T1 SET C1 = 2;
+```
 
 ### DBMS_STATS
 

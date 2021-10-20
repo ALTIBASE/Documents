@@ -816,7 +816,11 @@ oraAdapter가 구동된 후에 어떤 환경 변수 또는 프로퍼티가 변�
    
    [^1]: REPLICATION_PORT_NO:  이중화 연결을 위해서 지역 서버에서 사용하는 이중화 포트 번호를 명시한다. 이 프로퍼티에 대한 설명은 Starting Guide를 참고하기 바란다.   
 
-2. oraAdapter를 시작하기 전에, Altibase Log Analyzer (ALA)가 사용될 수 있도록 XLog 송신자를 구성해야 한다. XLog 송신자는 Altibase로부터 XLog와 메타 정보를 송신하는 데 사용된다. PROPAGABLE LOGGING을 사용하여 복제한 트랜잭션의 로그를 다른 서버로 전송하기 위해 FOR ANALYSIS PROPAGATION을 사용해야 한다. 다음의 구문은 Altibase내의 sys 사용자가 소유한 테이블 t1의 데이터를 오라클 DB의 scott 사용자가 소유한 테이블 t2로 복제하기 위한 XLog 송신자를 생성한다.
+2. oraAdapter를 시작하기 전에, Altibase Log Analyzer (ALA)가 사용될 수 있도록 XLog 송신자를 구성해야 한다. XLog 송신자는 Altibase로부터 XLog와 메타 정보를 송신하는 데 사용된다. 이중화에 의해 복제된 XLog를 전송하기 위해서는 FOR ANALYSIS PROPAGATION 사용한다.
+   
+   자세한 설명은 Log Analyzer User’s Manual을 참고한다.
+   
+   다음의 구문은 Altibase내의 sys 사용자가 소유한 테이블 t1의 데이터를 오라클 DB의 scott 사용자가 소유한 테이블 t2로 복제하기 위한 XLog 송신자를 생성한다.
    
    ```
    CREATE REPLICATION ala FOR ANALYSIS WITH '127.0.0.1', 25090
@@ -826,21 +830,21 @@ oraAdapter가 구동된 후에 어떤 환경 변수 또는 프로퍼티가 변�
    ![start](media/oraAdapter/start.gif)
    
 3. 이제 oraAdapter를 시작한다. oraAdapter를 직접 실행할 수도 있고, Adapter for Oracle 유틸리티를 사용해서 실행할 수도 있다. Adapter for Oracle 유틸리티를 사용해서 구동하는 방법은 이 장의 “Adapter for Oracle 유틸리티” 절을 참고한다. LINUX 운영체제에서 아래와 같이 oraAdapter를 시작할 수 있다:
-   
+
    ```
    $ cd $ORA_ADAPTER_HOME/bin
    $ ./oraAdapter
    ```
-   
+
 4. oraAdapter가 정상적으로 시작하면 oraAdapter.trc 파일에서 시작 시간 및 메시지를 확인할 수 있다.
-   
+
    ```
    $ cat $ORA_ADAPTER_HOME/trc/oraAdapter.trc
    [2016-07-26 15:53:12] Altibase Adapter started.
    ```
-   
+
 5. Altibase Log Analyzer를 위한 XLog 송신자를 시작한다. 만약 oraAdapter를 구동하기 전에 XLog 송신자를 시작하려고 하면 실패할 것이다. XLog 송신자가 수행되면 oraAdapter와 handshake하여 인증 절차를 확인한다. handshake가 정상적으로 실행되고 oraAdapter가 복제할 준비가 되면 oraAdapter.trc파일에서 준비 완료 메시지를 확인할 수 있다.
-   
+
    ```
    $ cat $ORA_ADAPTER_HOME/trc/oraAdapter.trc
    [2016-07-26 20:52:51] Adapter is ready to process logs.

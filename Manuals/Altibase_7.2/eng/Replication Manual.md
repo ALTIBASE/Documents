@@ -2229,7 +2229,7 @@ When using Embedded SQL, after executing the EXEC SQL command, if sqlca.sqlcode 
 
 The actual method of determining whether Fail-Over has succeeded varies according to the type of client application, as will be explained below.
 
-In case of PDO, if the driver-specific error code is same as PDO::ALTIBASE_FAIL_SUCESS, this means that STF (Service Time Fail-Over) was sucecessful.
+In case of PDO, if the driver-specific error code is same as PDO::ALTIBASE_FAIL_SUCESS, this means that STF (Service Time Fail-Over) was successful.
 
 #### Writing Fail-Over Callback Functions
 

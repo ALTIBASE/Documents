@@ -7,7 +7,7 @@
     - [Log Analyzer](#log-analyzer)
     - [Log Analysis API 사용 방법](#log-analysis-api-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
     - [Log Analysis API 요약](#log-analysis-api-%EC%9A%94%EC%95%BD)
-  - [XLog Sender](#xlog-sender)
+  - [2. XLog Sender](#xlog-sender)
     - [XLog Sender를 위한 SQL구문](#xlog-sender%EB%A5%BC-%EC%9C%84%ED%95%9C-sql%EA%B5%AC%EB%AC%B8)
     - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
     - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
@@ -1034,7 +1034,7 @@ Log Analysis API를 사용 시, 아래의 사항을 주의해야 한다.
 </tbody>
 </table>
 
-XLog Sender
+2. XLog Sender
 -----------
 
 Log Analyzer의 구성요소 중에서 XLog Sender의 사용법을 설명한다.

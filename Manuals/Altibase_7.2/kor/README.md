@@ -6,10 +6,6 @@
 
 - ### [New Features Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/NewFeaturesGuide.md)
 
-
-
-
-
 ## Admin
 
 - ### [Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GettingStarted.md)	
@@ -35,8 +31,6 @@
 - ### [SNMP Agent Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SNMP.md)
 
 - ### [DB Link User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DBLink.md)
-
-
 
 ## Application Development
 
