@@ -7437,8 +7437,6 @@ MY_DEPT.MEMBER
 
 
 
-
-
 **list_partitioning ::=**
 
 ![list_partitioning_image127](media/SQL/list_partitioning_image127.gif)
@@ -7450,6 +7448,16 @@ MY_DEPT.MEMBER
 
 
 ![table_list_clause_image128](media/SQL/table_list_clause_image128.gif)
+
+
+
+**range_using_hash_partitioning ::=**
+
+![range_using_hash_partitioning](media/SQL/range_using_hash_partitioning_image.gif)
+
+[partition_default_clause ::=](#partition_default_clause)
+
+[partition_range_clause ::=](#partition_range_clause)
 
 
 
@@ -7770,9 +7778,7 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 *table_partitioning_clause*
 
 파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시
-파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning) 방법으로
-파티션드 테이블을 생성할 수 있다. 파티션드 테이블을 생성할 때
-*row_movement_clause*도 명시할 수 있다.
+파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning), 해시를 사용한 범위 파티셔닝(range using hash partitioning) 방법으로 파티션드 테이블을 생성할 수 있다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
 
 *range_partitioning*
 
@@ -7859,6 +7865,10 @@ PARTITION BY RANGE (product_id)
 
 각 리스트 파티션은 적어도 1개 이상의 값을 가져야 한다. 한 리스트의 값은 다른
 어떤 리스트에도 있을 수 없다.
+
+*range_using_hash_partitioning*
+
+이 절은 파티션 키 값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 해시 값을 1000으로 MOD 해서 범위를 지정할 수 있다. 1000은 고정값으로 변경이 불가능하고 한 개의 컬럼만 파티션 키값으로 지정할 수 있다. 데이터를 고르게 분포하고자하는 hash partitioning의 장점과 merge 또는 split이 가능한 range partitioning의 장점이 결합된 partitioning이다.
 
 *row_movement_clause*
 
@@ -8469,6 +8479,30 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   ```
 
 
+
+
+- 해시를 사용한 범위 파티셔닝(range using hash partitioning)
+
+  \<질의\> product_id에 따라서 4개의 해시 값을 사용하여 범위 파티션으로 분할되는 테이블을 생성한다.
+  
+```
+  CREATE TABLE range_using_hash_products
+  (
+  	product_id NUMBER(6),
+  	product_name VARCHAR(50),
+  	product_description VARCHAR(2000)
+  )
+PARTITION BY RANGE_USING_HASH (product_id)
+  (
+  	PARTITION p1 VALUES LESS THAN (250),
+  	PARTITION p2 VALUES LESS THAN (500),
+	PARTITION p3 VALUES LESS THAN (750),
+  	PARTITION p4 VALUES DEFAULT
+  ) TABLESPACE SYS_TBS_DISK_DATA;
+  ```
+  
+  
+  
 - 세그먼트 내의 익스텐트 관리 파라미터를 지정한 테이블 생성
 
   \<질의\> 디스크 테이블스페이스인 usertbs에 local_tbl 테이블을 생성한다. 단
