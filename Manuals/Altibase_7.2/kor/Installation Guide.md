@@ -203,7 +203,7 @@ Altibase 패키지 인스톨러 디렉터리의 이름이 APatch이고, 이는 A
 예)
 
 ```
-PRODUCT_SIGNATURE=server-7.1.0-64-release
+PRODUCT_SIGNATURE=server-7.2.0-64-release
 PATCH_VERSION=0_0_0_0
 
 =======  OS INFO  =======
@@ -214,9 +214,9 @@ Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x
 gcc version 4.6.3 (GCC)
 glibc 2.12
 =======  JAVA INFO  =======
-java version "1.5.0_22"
-Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_22-b03)
-Java HotSpot(TM) 64-Bit Server VM (build 1.5.0_22-b03, mixed mode)
+java version "1.8.0_241"
+Java(TM) SE Runtime Environment (build 1.8.0_241-b07)
+Java HotSpot(TM) 64-Bit Server VM (build 25.241-b07, mixed mode)
 ```
 
 #### pkg_patch_x_x_x_x.txt 파일
@@ -225,21 +225,21 @@ Java HotSpot(TM) 64-Bit Server VM (build 1.5.0_22-b03, mixed mode)
 자동 생성된다. 이 파일은 패치를 만들기 위해 수정한 소스 코드의 리비전 번호를
 포함한다.
 
-다음 예제는 베이스 릴리스 7.1.0.0.0 설치 후의 APatch 디렉터리의 내용을 보여준다.
+다음 예제는 베이스 릴리스 7.2.0.0.0 설치 후의 APatch 디렉터리의 내용을 보여준다.
 
 ```
 $ ls
 pkg_patch_0_0_0_0.txt
 ```
 
-다음 예제는 패치7.1.0.0.10 설치 후의 APatch 디렉터리의 내용을 보여준다.
+다음 예제는 패치7.2.0.0.1 설치 후의 APatch 디렉터리의 내용을 보여준다.
 
 ```
 $ls
-pkg_patch_0_0_0_0.txt  pkg_patch_0_0_0_10.txt
+pkg_patch_0_0_0_0.txt  pkg_patch_0_0_0_1.txt
 
-$cat pkg_patch_0_0_0_10.txt
-Repository: /altidev4/tags/altibase_7_1_0_0_10_tag/
+$cat pkg_patch_0_0_0_1.txt
+Repository: /altidev4/branches/altibase_7_2_0_0_0_branch
 Revision: xxxxx
 Last Changed Rev: xxxxx
 ```
@@ -265,30 +265,30 @@ Last Changed Rev: xxxxx
 > 백업되며, 데이터 파일 및 로그 파일과 같이 제품 설치 후에 생성되는 파일은
 > 백업되지 않는다.
 
-아래는 베이스 릴리스 7.1.0.0.0 설치 후의 APatch 디렉터리의 내용을 보여준다.
+아래는 베이스 릴리스 7.2.0.0.0 설치 후의 APatch 디렉터리의 내용을 보여준다.
 
 ```
-altibase_base_install.log  patchinfo
+altibase_base_install.log     patchinfo
 pkg_patch_0_0_0_0.txt	      uninstall-base
 ```
 
-아래는 패치 7.1.0.0.10 적용 후의 APatch 디렉터리의 내용을 보여준다.
+아래는 패치 7.2.0.0.1 적용 후의 APatch 디렉터리의 내용을 보여준다.
 
 ```
-altibase_base_install.log   pkg_patch_0_0_0_10.txt
-uninstall-p0_0_0_10           patchinfo
-rollback-p0_0_0_10/           pkg_patch_0_0_0_0.txt
+altibase_base_install.log     pkg_patch_0_0_0_1.txt
+uninstall-p0_0_0_1            patchinfo
+rollback-p0_0_0_1             pkg_patch_0_0_0_0.txt
 uninstall-base
 ```
 
--   uninstall-base: 베이스 릴리스 7.1.0.0.0 을 언인스톨 하기 위한 실행 파일
+-   uninstall-base: 베이스 릴리스 7.2.0.0.0 을 언인스톨 하기 위한 실행 파일
 
--   rollback-p0_0_0_10: 패치 7.1.0.0.10 이 적용된 파일의 백업이 위치하는
+-   rollback-p0_0_0_1: 패치 7.2.0.0.1 이 적용된 파일의 백업이 위치하는
     디렉터리
 
--   uninstall-p0_0_0_10: 패치 7.1.0.0.10을 삭제하여 패치 설치 이전 버전으로
+-   uninstall-p0_0_0_1: 패치 7.2.0.0.1을 삭제하여 패치 설치 이전 버전으로
     되돌리기 위한 실행파일. 이전 버전으로 되돌리기 위한 파일들은
-    rollback-p0_0_0_10 디렉터리에 저장된다.
+    rollback-p0_0_0_1 디렉터리에 저장된다.
 
 2.패키지 인스톨러를 이용한 제품 설치
 ----------------------------------
@@ -341,28 +341,19 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 >  Altibase 7.2 패치 버전을 명시하지 않은 경우 Altibase 7.2 모든 버전에서 지원한다.
 
 
-|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                          |
-| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :----------------------------------------------------------- |
-| **AIX on IBM Power Systems**                                 |                     |                           |                                                              |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                                              |
-| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | *- AIX 7.2 경우 Altibase 7.1.0.4.7 이상*                     |
-| **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                              |
-| HP-UX 11.31                                                  |          ●          |             ●             |                                                              |
-| **Linux x86-64**[배포판 버전](#footnote-linuxversion)        |                     |                           |                                                              |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
-| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br />                              |
-| **Linux on Power**                                           |                     |                           |                                                              |
-| POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
-| **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.3.6 이상*     |
-| **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
-| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*[제약사항](#footnote-winclnt-limitations ) |
+|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항             |
+| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------ |
+| **Linux x86-64**[배포판 버전](#footnote-linuxversion)        |                     |                           |                                 |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*         |
+| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br /> |
+| **Linux on Power**                                           |                     |                           |                                 |
+| POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*         |
 
 > **<a name="footnote-linuxversion">리눅스 배포판 버전</a>**<br>호환성 테스트를 완료한 Red Hat Enterprise Linux 마이너 버전 정보와 Red Hat Enterprise Linux 이외에 호환성 테스트 된 리눅스 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**<br>RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [A.부록: 설치 전 확인 사항 - Red Hat Enterprise Linux 8](#Red-Hat-Enterprise-Linux-8) 을 확인한다.
 
-> **<a name="footnote-winclnt-limitations">Altibase 7.1 Windows 클라이언트 제약 사항</a>**<br>다음은 Altibase 7.1 Windows 클라이언트에서 지원하지 않는 기능이다.
+> **<a name="footnote-winclnt-limitations">Altibase 7.2 Windows 클라이언트 제약 사항</a>**<br>다음은 Altibase 7.2 Windows 클라이언트에서 지원하지 않는 기능이다.
 >
 > - .NET Data Provider
 > - Altibase C Interface
@@ -405,9 +396,9 @@ Altibase 패키지 인스톨러의 이름은 아래 예에서 보여주는 규�
 
 ```
 예) Altibase 서버 패키지 인스톨러
-altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
+altibase-server-7.2.0.0.0-LINUX-X86-64bit-release.run
 예) Altibase 클라이언트 패키지 인스톨러
-altibase-client-7.1.0.0.0-LINUX-X86-64bit-release.run
+altibase-client-7.2.0.0.0-LINUX-X86-64bit-release.run
 ```
 
 Altibase 서버 패키지와 클라이언트 패키지는 다른 패키지로 분리되어 있다. 그러나
@@ -427,7 +418,7 @@ Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x
 | HP-UX | IA64                         | 11.31 이상      | 64-bit       | 64-bit,      |
 | LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit,      |
 
-Altibase 7.1 은 JDK 1.5이상에서 호환된다.
+Altibase 7.2 은 JDK 1.8이상에서 호환된다.
 
 #### 설치 모드
 
@@ -535,13 +526,13 @@ $ xhost +
 변경해야 실행할 수 있다.
 
 ```
-$ chmod +x altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
+$ chmod +x altibase-server-7.2.0.0.0-LINUX-X86-64bit-release.run
 ```
 
 Altibase 패키지 인스톨러를 실행한다.
 
 ```
-$./altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
+$./altibase-server-7.2.0.0.0-LINUX-X86-64bit-release.run
 ```
 
 설치 모드를 GUI 모드로 설정하였다면, 아래와 같은 시작 패널이 보여진다.
@@ -796,7 +787,7 @@ Step 3: Set Database Directories
 ```
 To change these properties after installation is complete, 
 please modify the following file:
-  /home/hdb71_p/pkg_test/altibase-server-7.2/conf/altibase.properties.
+  /home/hdb72_p/pkg_test/altibase-server-7.2/conf/altibase.properties.
 
 1. Altibase Property Settings:
     Step 1: Basic Database Operation Properties
@@ -834,26 +825,26 @@ please modify the following file:
     The database will not operate properly if any of these directories are removed.
 
     1) Disk database directory: 
-         [/home/hdb71_p/pkg_test/altibase-server-7.2/dbs] 
+         [/home/hdb72_p/pkg_test/altibase-server-7.2/dbs] 
 
     2) Memory database directory:
-         [/home/hdb71_p/pkg_test/altibase-server-7.2/dbs] 
+         [/home/hdb72_p/pkg_test/altibase-server-7.2/dbs] 
 
     3) Archive log directory: 
-         [/home/hdb71_p/pkg_test/altibase-server-7.2/arch_logs] 
+         [/home/hdb72_p/pkg_test/altibase-server-7.2/arch_logs] 
 
     4) Transaction log directory: 
-         [/home/hdb71_p/pkg_test/altibase-server-7.2/logs] 
+         [/home/hdb72_p/pkg_test/altibase-server-7.2/logs] 
 
     5) Log Anchor file directories:
          Directory 1: 
-         [/home/hdb71_p/pkg_test/altibase-server-7.2/logs] 
+         [/home/hdb72_p/pkg_test/altibase-server-7.2/logs] 
 
          Directory 2: 
-         [/home/hdb71_p/pkg_test/altibase-server-7.2/logs] 
+         [/home/hdb72_p/pkg_test/altibase-server-7.2/logs] 
 
          Directory 3: 
-         [/home/hdb71_p/pkg_test/altibase-server-7.2/logs] 
+         [/home/hdb72_p/pkg_test/altibase-server-7.2/logs] 
 ```
 
 이 값들을 확인 후에, “Forward” 를 클릭하면 “Ready to Install” 패널이 아래처럼
@@ -880,14 +871,21 @@ please modify the following file:
 
 ```
 ### altibase_user.env
-ALTIBASE_HOME=/home/hdb71_p/pkg_test/altibase-server-7.2;export ALTIBASE_HOME 
-PATH=${ALTIBASE_HOME}/bin:${PATH};export PATH 
-LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};ex port LD_LIBRARY_PATH 
-CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};e xport CLASSPATH 
+ALTIBASE_HOME=/home/hdb71_p/pkg_test/altibase-server-7.2;
+export ALTIBASE_HOME 
+
+PATH=${ALTIBASE_HOME}/bin:${PATH};
+export PATH 
+
+LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};
+ex port LD_LIBRARY_PATH 
+
+CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};
+export CLASSPATH 
 
 ### .bash_profile 
 # ALTIBASE_ENV 
-. /home/hdb71_p/pkg_test/altibase-server-7.2/conf/altibase_user.env
+. /home/hdb72_p/pkg_test/altibase-server-7.2/conf/altibase_user.env
 ```
 
 아래는 Altibase의 라이선스 키를 입력하는 화면이다. Altibase 패키지 인스톨러는
@@ -937,12 +935,12 @@ Altibase 패키지 인스톨러는 사용자들이 좀 더 쉽게 시스템 커�
 ```
 [  Installation complete  ]
 Please refer to the file listed below to verify the Altibase version.
- /home/hdb71_p/pkg_test/altibase-server-7.2/APatch/patchinfo 
+ /home/hdb72_p/pkg_test/altibase-server-7.2/APatch/patchinfo 
 
 [ Quick Guide to Making Settings in Altibase ] 
 
 1. Set kernel variables using the root user account.
-    run the '/home/hdb71_p/pkg_test/altibase-server-7.2/install/pre_install.sh' file 
+    run the '/home/hdb72_p/pkg_test/altibase-server-7.2/install/pre_install.sh' file 
     - This script helps you make kernel parameter settings.
 
 ================ LINUX ================
@@ -958,7 +956,7 @@ They must be set such that they are suitable for the system configuration.
 
 2. Provide a license.
     Please rename and locate the license file as shown below.
-    /home/hdb71_p/pkg_test/altibase-server-7.2/conf/license 
+    /home/hdb72_p/pkg_test/altibase-server-7.2/conf/license 
 
     If no license file has been issued, or if the license file has expired,
     Altibase services will not start.
@@ -967,16 +965,16 @@ They must be set such that they are suitable for the system configuration.
 
 3. Configure user environment variables (using the user account with 
 which Altibase was installed).
-    Run the '/home/hdb71_p/pkg_test/altibase-server-7.2/install/post_install.sh' file 
+    Run the '/home/hdb72_p/pkg_test/altibase-server-7.2/install/post_install.sh' file 
     under the account with which Altibase was installed.
 
     This script performs necessary post-installation configuration. 
 
-    1) Create the Altibase user environment file and apply it to the user profile.
-         (/home/hdb71_p/pkg_test/altibase-server-7.2/conf/altibase_user.env)
+    1) Create the Altibase user environment file and apply it to the user     profile.
+         (/home/hdb72_p/pkg_test/altibase-server-7.2/conf/altibase_user.env)
     2) Create a database.
 
-         If you selected 'YES' in response to the question about whether to create 
+         If you selected 'YES' in response to the question about whether to    create 
          a database after installation, at "Altibase Property setting step 1", 
          a database will be automatically created.
 
@@ -990,7 +988,7 @@ which Altibase was installed).
     shell> server stop
 
 5. Runs all scripts required for or used with PSM
-Run the '/home/hdb71_p/pkg_test/altibase-server-7.2/packages/catproc.sql' file.
+Run the '/home/hdb72_p/pkg_test/altibase-server-7.2/packages/catproc.sql' file.
 
 6. Connect to the database using iSQL
     shell> isql -s 127.0.0.1 -u SYS -p MANAGER
@@ -1101,13 +1099,13 @@ Altibase가 제공하는 운영 체제별 인스톨러는 "[패키지 인스톨�
 변경해야 실행할 수 있다.
 
 ```
-$ chmod +x altibase-client-7.1.0.0.0-LINUX-X86-64bit-release.run
+$ chmod +x altibase-client-7.2.0.0.0-LINUX-X86-64bit-release.run
 ```
 
 Altibase 패키지 인스톨러를 실행한다.
 
 ```
-$./altibase-client-7.1.0.0.0-LINUX-X86-64bit-release.run
+$./altibase-client-7.2.0.0.0-LINUX-X86-64bit-release.run
 ```
 
 설치 모드를 GUI 모드로 설정하였다면, 아래와 같은 시작 패널이 보여진다.
@@ -1156,7 +1154,7 @@ altibase_user.env 파일은 여기에서는 생성되지 않는다. 새로운 �
 
 ```
 # ALTIBASE_ENV
-export ALTIBASE_HOME=/home/hdb71_p/altibase-client-7.1.0
+export ALTIBASE_HOME=/home/hdb72_p/pkg_test/altibase-client-7.2
 export ALTIBASE_PORT_NO=20300
 export PATH=$ALTIBASE_HOME/bin:$PATH
 export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH}
@@ -1467,8 +1465,6 @@ $./altibase-server-7.2.0.0.1-LINUX-X86-64bit-release.run
 
 #### Altibase 제품 설치
 
-![](media/Installation/6d2b21fbcb5ca41fc3bdfbc8e3fe28ca.png)
-
 ![](media/Installation/ac6d3f947ace6d4e61cb87d657ff69b4.png)
 
 #### 설치 완료
@@ -1503,16 +1499,16 @@ GUI 모드로 패키지 인스톨러를 설치하려면 “Altibase 제품 설�
 변경해야 실행할 수 있다.
 
 ```
-$ chmod +x altibase-client-7.1.0.0.1-LINUX-X86-64bit-release.run
+$ chmod +x altibase-client-7.2.0.0.1-LINUX-X86-64bit-release.run
 ```
 
 Altibase 패키지 인스톨러를 실행한다.
 
 ```
-$./altibase-client-7.1.0.0.1-LINUX-X86-64bit-release.run
+$./altibase-client-7.2.0.0.1-LINUX-X86-64bit-release.run
 ```
 
-설치 모드를 GUI 모드로 설정하였다면, 아래와 같은 시작 패널이 보여진다.
+설치 모드를 GUI 모드로 설정하였다면, 아래와 같은 시작 패널이 보여진다.																								
 
 ![](media/Installation/82bf370be1932e5ac8cde556b8bab26b.png)
 
@@ -1545,6 +1541,8 @@ $./altibase-client-7.1.0.0.1-LINUX-X86-64bit-release.run
 ![](media/Installation/b3ee27959522e9b9f2cb3ab21b484110.png)
 
 #### Altibase 제품 설치
+
+![](media/Installation/altibaseClientPatchInstall.png)
 
 ![](media/Installation/cba69e5fbcd4abe5851c0d9320a4af0e.png)
 
