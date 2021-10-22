@@ -7077,3 +7077,47 @@ Unsigned Integer
 
 Altibase 운영 중에 ALTER SYSTEM 구문으로 이 프로퍼티의 값을 변경할 수 있다.
 
+#### PARALLEL_QUERY_THREAD_MAX
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+시스템 CPU 개수
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1024]
+
+##### 설명
+
+병렬 쿼리에서 사용하는 최대 쓰레드 개수를 지정한다.
+
+#### PARALLEL_QUERY_QUEUE_SIZE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1024
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[4, 1048576]
+
+##### 설명
+
+병렬 큐(Parallel Queue)가 담을 수 있는 최대 row 개수를 지정한다.
+
