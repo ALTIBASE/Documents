@@ -111,7 +111,7 @@
     - [V\$INDEX](#v%5Cindex)
     - [V\$INSTANCE](#v%5Cinstance)
     - [V\$INTERNAL_SESSION](#v%5Cinternal_session)
-  - [3. The Data Dictionary](#3-the-data-dictionary-1)
+    
     - [V\$LATCH](#v%5Clatch)
     - [V\$LIBRARY](#v%5Clibrary)
     - [V\$LFG](#v%5Clfg)
@@ -6342,10 +6342,6 @@ Indicates the value set for the QUERY_REWRITE_ENABLE property in the session. Pl
 
 - FALSE: Disable function-based indexes when converting queries on the Altibase server
 - TRUE: Enable function-based indexes when converting queries on the Altibase server.
-
-
-
-## 3. The Data Dictionary
 
 ### V\$LATCH
 

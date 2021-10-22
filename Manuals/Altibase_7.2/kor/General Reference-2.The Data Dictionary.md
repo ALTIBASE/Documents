@@ -6,6 +6,7 @@
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
   - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
+    
     - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
     - [SYS_AUDIT_](#sys_audit_)
     - [SYS_AUDIT_OPTS_](#sys_audit_opts_)
@@ -117,7 +118,7 @@
     - [V$INDEX](#vindex)
     - [V$INSTANCE](#vinstance)
     - [V$INTERNAL_SESSION](#vinternal_session)
-  - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC-1)
+    
     - [V$LATCH](#vlatch)
     - [V$LIBRARY](#vlibrary)
     - [V$LFG](#vlfg)
@@ -6517,8 +6518,6 @@ Altibase의 DBMS_CONCURRENT_EXEC 패키지에서 생성된 세션에 대한 정�
 
 - FALSE: Altibase 서버에서 쿼리 변환 시에 함수 기반 인덱스 미적용(disable)
 - TRUE: Altibase 서버에서 쿼리 변환 시에 함수 기반 인덱스 적용(enable)
-
-## 3.데이터 딕셔너리
 
 ### V$LATCH
 

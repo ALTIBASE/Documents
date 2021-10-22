@@ -14,11 +14,12 @@
     - [LOB Data Type](#lob-data-type)
     - [Spatial Types](#spatial-types)
   - [2. Altibase Properties](#2-altibase-properties)
+    
     - [Configuration](#configuration)
     - [Properties Overview](#properties-overview)
     - [Database Initialization Properties](#database-initialization-properties)
     - [Performance Properties](#performance-properties)
-  - [2. Altibase Properties](#2-altibase-properties-1)
+    
     - [Session Properties](#session-properties)
     - [Time-out Properties](#time-out-properties)
     - [Tranaction Properties](#tranaction-properties)
@@ -8987,9 +8988,6 @@ This property optimizes the filter in the SCAN PLAN to improve the performance o
 0: Not optimized
 
 1: Optimized
-
-
-## 2. Altibase Properties
 
 ### Session Properties
 

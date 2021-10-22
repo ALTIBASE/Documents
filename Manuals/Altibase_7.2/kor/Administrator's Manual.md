@@ -1,4 +1,4 @@
-**Table of Contents**
+**1Table of Contents**
 
 - [Administrator’s Manual](#administrators-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -1521,7 +1521,7 @@ Altibase에서 이중화 대상인 테이블에 대하여 DDL 문의 실행이 �
 
 ```
 CREATE TABLE book(  
-isbn            CHAR(10) CONSTRAINT const1 PRIMARY,
+isbn            CHAR(10) CONSTRAINT const1 PRIMARY KEY,
 title           VARCHAR(50),
 author          VARCHAR(30),
 edition         INTEGER     DEFAULT 1,
@@ -2455,7 +2455,7 @@ Altibase는 연속된 숫자 값 생성자로써 시퀀스 (sequence) 객체를 
 
 -   [sequence 이름].CURRVAL은 시퀀스의 현재 값을 구하기 위해 사용된다.
 
-시퀀스 생성 후 그 시퀀스에 대해서 최초로 수행하는 연산이 [sequence 이름].CURRVA일 수 없다. [sequence 이름].CURRVA을 사용하기 위해서는 시퀀스 생성 이후 반드시 [sequence 이름].NEXTVAL을 먼저 사용해야 한다.
+시퀀스 생성 후 그 시퀀스에 대해서 최초로 수행하는 연산이 [sequence 이름].CURRVAL일 수 없다. [sequence 이름].CURRVAL을 사용하기 위해서는 시퀀스 생성 이후 반드시 [sequence 이름].NEXTVAL을 먼저 사용해야 한다.
 
 시퀀스의 다음 값에 접근할 때마다 시퀀스의 값은 내부적으로 명시한 증감분 (increment by)만큼 증가한다. 시퀀스의 증감분은 시퀀스 생성시 명시적으로 그 값이 주어지지 않는 경우 기본적으로 1이다.
 
@@ -4188,7 +4188,7 @@ Ex.2) 메모리 데이터 테이블스페이스를 생성한다.
 ```
 iSQL> CREATE MEMORY DATA TABLESPACE user_data SIZE 12M
 AUTOEXTEND ON  NEXT 4M MAXSIZE 500M
-CHECKPOINT PATH ‘/tmp/checkpoint_image_path1’,  ‘/tmp/checkpoint_image_path2’ SPLIT EACH
+CHECKPOINT PATH '/tmp/checkpoint_image_path1',  '/tmp/checkpoint_image_path2' SPLIT EACH
 12M;
 Create success.
 ```
@@ -5867,8 +5867,7 @@ PARTITION BY RANGE(sales_date, sales_id)
 
 - 인플레이스 분할(In-place Split)  
   기존 파티션의 레코드 일부를 잘라 새로운 파티션에 이동하는 분할 방식으로, 기존 파티션의 내용이 변경된다.  
-  새로운 파티션의 이름이 기존 파티션의 이름과 같고, 새 파티션이 생성될 테이블스페이스를 지정하지 않으면 인플레이스 분할 방식이 사용된다. ([그림
-  7-14] 참조)
+  새로운 파티션의 이름이 기존 파티션의 이름과 같고, 새 파티션이 생성될 테이블스페이스를 지정하지 않으면 인플레이스 분할 방식이 사용된다. ([그림 7-14] 참조)
 - 아웃플레이스 분할(Out-place Split)  
   기존 파티션의 내용은 변경되지 않는다. 대신 새로운 2개의 파티션을 생성하여, 기존 파티션의 레코드를 복사하는 분할 방식이다. 새로운 두 파티션의 이름을 기존 파티션의 이름과 다르게 지정했을 때 이 방식이 사용된다. 새 파티션 중 하나의 이름이 기존 파티션의 이름과 같더라도 그 파티션이 생성될
   테이블스페이스를 지정한 경우에 사용된다. ([그림 7-15] 참조)
@@ -6307,8 +6306,6 @@ Altibase는 데이터에 대한 동시 접근을 제어하기 위해 잠금을 �
   </tr>
 </tbody>
 </table>
-
-
 
 [표 8‑2] 잠금 모드간의 호환성
 
@@ -7158,7 +7155,7 @@ TRANSITION TO PHASE : PROCESS
 TRANSITION TO PHASE : CONTROL
 Command execute success.
 
-iSQL(sysdba)> alter database recover database;
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 Alter success.
 ```
 
@@ -7190,7 +7187,7 @@ ALTER DATABASE RECOVER DATABASE;
   이용하여 복구를 수행한다.
 
 ```
-ALTER DATABASE RECOVER DATABASE UNTIL TIME‘2007-09-10:17:55:00’;
+ALTER DATABASE RECOVER DATABASE UNTIL TIME '2007-09-10:17:55:00';
 ```
 
 - 특정 온라인 로그 파일이 손상되어 현재 시점까지 데이터베이스를 복원할 수 없는 경우, 다음의 구문을 이용하여 온라인 로그 파일이 손상되기 바로 직전 시점으로 데이터베이스를 복원한다.
@@ -7242,7 +7239,7 @@ $ cp SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs;
 **테이블스페이스의 추가, 삭제 또는 이름 변경 등이 이루어지면, 딕셔너리** **테이블스페이스(SYS_TBS_MEM_DIC)의 백업이나 전체 데이터베이스의 백업이 필요하다.**
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACESYS_TBS_MEM_DIC TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE SYS_TBS_MEM_DIC TO '/backup_dir';
 ```
 
 로그앵커 파일은 데이터베이스 내 테이블스페이스 정보를 포함하고 있으므로, 이는 테이블스페이스 구조가 변경될 때마다 딕셔너리 테이블스페이스와 함께 백업되어야 한다.
@@ -7319,8 +7316,8 @@ iLoader> in –d t1.dat –f t1.fmt
 
 ```
 $ALTIBASE_HOME/conf/altibase.properties 
-MEM_DB_DIR=$ALTIBASE_HOME/dbs0
-MEM_DB_DIR =$ALTIBASE_HOME/dbs1
+MEM_DB_DIR    =$ALTIBASE_HOME/dbs0
+MEM_DB_DIR    =$ALTIBASE_HOME/dbs1
 LOGANCHOR_DIR =$ALTIBASE_HOME/logs
 ```
 
@@ -7359,7 +7356,7 @@ $cp –r /home/backup/temp.dbf   $ALTIBASE_HOME/dbs
 전체 데이터베이스가 /backup_dir 디렉토리에 온라인 백업된다.
 
 ```
-iSQL(sysdba)> alter database backup database to‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 $ ls /backup_dir
 SYS_TBS_MEM_DIC-0-0   
 SYS_TBS_MEM_DATA-0-0
@@ -7376,7 +7373,7 @@ loganchor1
 SYS_TBS_MEM_DIC 데이터 파일 중에서 안정(stable)된 버전이 /backup_dir 디렉토리에 온라인 백업된다.
 
 ```
-iSQL(sysdba)> alter database backup tablespace SYS_TBS_MEM_DIC to ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE SYS_TBS_MEM_DIC TO '/backup_dir';
 $ ls /backup_dir
 SYS_TBS_MEM_DIC-0-0
 ```
@@ -7386,7 +7383,7 @@ SYS_TBS_MEM_DIC-0-0
 모든 로그앵커 파일이 /backup_dir 디렉토리에 온라인 백업된다.
 
 ```
-iSQL(sysdba)> alter database backup loganchor to ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP LOGANCHOR TO '/backup_dir'
 $ ls /backup_dir
 loganchor0 loganchor1 loganchor2
 ```
@@ -7400,20 +7397,20 @@ loganchor0 loganchor1 loganchor2
 메모리 테이블스페이스 데이터 파일은 안정(stable) 버전 데이터 파일인지 확인 후 온라인 백업한다.
 
 ```
-iSQL(sysdba)> alter tablespace USER_MEMORY_TBS begin backup;
-iSQL(sysdba)> select * from v$stable_mem_datafiles;
+iSQL(sysdba)> ALTER TABLESPACE USER_MEMORY_TBS BEGIN BACKUP;
+iSQL(sysdba)> SELECT * FROM V$STABLE_MEM_DATAFILES;
 V$STABLE_MEM_DATAFILES.MEM_DATA_FILE
 ------------------------------
 /altibase_home/dbs/USER_MEM_TBS-0-0
 
 $ cp $ALTIBASE_HOME/dbs/USER_MEMORY_TBS-0-0  /backup_dir/
 
-iSQL(sysdba)> alter tablespace USER_MEMORY_TBS end backup;
-iSQL(sysdba)> alter tablespace USER_DISK_TBS begin backup;
+iSQL(sysdba)> ALTER TABLESPACE USER_MEMORY_TBS END BACKUP;
+iSQL(sysdba)> ALTER TABLESPACE USER_DISK_TBS BEGIN BACKUP;
 
 $ cp $ALTIBASE_HOME/dbs/USER_DISK_TBS.dbf /backup_dir/
 
-iSQL(sysdba)> alter tablespace USER_DISK_TBS end backup;
+iSQL(sysdba)> ALTER TABLESPACE USER_DISK_TBS END BACKUP;
 
 $ ls /backup_dir
 USER_MEMORY_TBS-0-0 USER_DISK_TBS.dbf 
@@ -7513,13 +7510,13 @@ ARCHIVE_DIR과 LOG_DIR프로퍼티에 지정된 디렉토리에 존재하는 로
 CONTROL 구동 단계에서 다음 구문으로 유실된 abc.dbf 파일을 생성한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE‘abc.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'abc.dbf';
 ```
 
 CONTROL 구동 단계에서 다음 구문으로 완전 매체 복구를 수행한다.
 
 ```
-iSQL(sysdba)> alter DATABASE RECOVER DATABASE;
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 ```
 
 #### 매체복구 사례 2
@@ -7602,6 +7599,7 @@ CONTROL 구동 단계에서 USER_DISK_TBS 테이블스페이스의 데이터 파
 iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
 '/disk1/dbs/USER_DISK_TBS01.dbf' TO 
 '/disk2/dbs/USER_DISK_TBS01.dbf';
+
 iSQL(sysdba)> ALTER DATABASE RENAME DATAFILE 
 '/disk1/dbs/USER_DISK_TBS02.dbf' TO 
 '/disk2/dbs/USER_DISK_TBS02.dbf';
@@ -7642,8 +7640,8 @@ summary 테이블을 복구하기 위해서는 현재 시각에서 3시간 30분
 지난번 백업 시 다음과 같이 전체 데이터베이스를 백업하였다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO‘/backup_dir’;
-iSQL(sysdba)> alter SYSTEM SWITCH LOGFILE;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
+iSQL(sysdba)> ALTER SYSTEM SWITCH LOGFILE;
 ```
 
 ##### 복구 절차
@@ -7669,9 +7667,9 @@ SYS_TBS_MEM_DATA-0-2
 3. 백업된 메모리 테이블스페이스는 안정한(stable) 데이터 파일이기 때문에 안정한 버전의 확인 절차 없이 복사하면 된다.
 
 ```
-$ cp  SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs
-$ cp  SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs
-$ cp  SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-0   $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-1   $ALTIBASE_HOME/dbs
+$ cp  SYS_TBS_MEM_DIC-1-2   $ALTIBASE_HOME/dbs
 $ cp  SYS_TBS_MEM_DATA-0-0  $ALTIBASE_HOME/dbs 
 $ cp  SYS_TBS_MEM_DATA-0-1  $ALTIBASE_HOME/dbs
 $ cp  SYS_TBS_MEM_DATA-0-2  $ALTIBASE_HOME/dbs
@@ -7686,7 +7684,7 @@ $ cp /backup_dir/loganchor* $ALTIBASE_HOME/logs
 5. 불완전 복구에 필요한 아카이브 로그 파일을 아래와 같이 확인한다.
 
 ```
-iSQL(sysdba)> select last_deleted_logfile from v$lfg; 
+iSQL(sysdba)> SELECT last_deleted_logfile FROM V$LFG; 
 LAST_DELETED_LOGFILE 
 -------------------------------------------------------------------------------        
 15021
@@ -7702,13 +7700,13 @@ logfile15361  logfile15362  logfile15363  logfile15364  logfile15365
 8. SYS_TBS_DISK_TEMP는 백업되지 않기 때문에 해당 파일을 만들어 준다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf'
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 ```
 
 9. 불완전 매체 복구를 다음과 같이 수행한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME ‘2007-09-18:14:30:00';
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME '2007-09-18:14:30:00';
 ```
 
 10. 불완전 매체 복구를 수행하였기 때문에 meta 구동 단계로 가면서 resetlogs옵션을 사용하여야 한다.
@@ -7720,7 +7718,7 @@ iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 11. resetlogs를 수행하였기 때문에 데이터베이스 전체 백업을 받는다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO 'backup_dir';
 ```
 
 #### 매체복구 사례 5
@@ -7746,7 +7744,7 @@ iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 resetlogs를 수행하였기 때문에 데이터베이스 전체 백업을 받는다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 ```
 
 #### 매체복구 사례 6
@@ -7758,7 +7756,7 @@ iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
 CONTROL 구동 단계에서 SYS_TBS_DISK_TEMP 테이블스페이스의 유실된 데이터 파일 대신에 새로운 temp001.dbf를 생성한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE  ‘temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 ```
 
 서버를 구동한다.
@@ -7776,7 +7774,7 @@ iSQL(sysdba)> ALTER DATABASE dbname SERVICE;
 마지막 백업 시 다음과 같이 전체 데이터베이스를 백업한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE to ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE to '/backup_dir';
 ```
 
 ##### 복구 절차
@@ -7859,7 +7857,7 @@ iSQL(sysdba)> ALTER DATABASE dbname SERVICE;
 마지막 백업 시 다음과 같이 전체 DB를 백업하였다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
 ```
 
 ##### 복구 절차
@@ -7880,7 +7878,7 @@ $ cp /backup_dir/loganchor* /ALTIBASE_HOME/logs;
 SYS_TBS_DISK_TEMP테이블스페이스는 백업되지 않기 때문에 해당 파일을 새로 만들어 준다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ‘temp001.dbf’
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 ```
 
 불완전 미디어 복구를 수행한다.
@@ -7904,7 +7902,7 @@ iSQL(sysdba)> ALTER DATABASE mydb SERVICE;
 로그가 리셋되었기 때문에 전체 데이터베이스의 백업을 수행하는 것이 좋다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’; 
+iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir'; 
 ```
 
 ## 11.증분 백업과 복구
@@ -8275,7 +8273,7 @@ iSQL(sysdb)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 - 특정 시점으로 불완전 복구
 
 ```
-iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME ’2012-10-31:17:55:00’;
+iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL TIME '2012-10-31:17:55:00';
 ```
 
 - 유효한 로그가 존재하는 지점까지 불완전 복구
@@ -8381,7 +8379,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 iSQL(sysdba)> STARTUP SERVICE;
 ```
 
@@ -8402,7 +8400,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 iSQL(sysdba)> STARTUP SERVICE;
 ```
 
@@ -8417,8 +8415,8 @@ iSQL(sysdba)> STARTUP SERVICE;
 아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을 사용해서 loganchor와 backupInfo를 복원한다.
 
 ```
-% cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
-% cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
+% cp /backup_dir/TAG_WEDNESDAY/loganchor* $ALTIBASE_HOME/logs
+% cp /backup_dir/TAG_WEDNESDAY/backupinfo $ALTIBASE_HOME/dbs
 ```
 
 loganchor 파일을 과거 버전으로 복원했기 때문에 changeTracking 파일이 더 이상 유효하지 않게 된다. 따라서 아래의 구문으로 서버의 PROCESS 구동 단계에서 변경 추적 기능을 비활성화해서 changeTracking 파일을 삭제하도록 한다.
@@ -8442,7 +8440,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE UNTIL CANCEL;
 시스템 임시 테이블스페이스 SYS_TBS_DISK_TEMP를 위한 파일은 백업이 되지 않기 때문에, 수동으로 파일을 생성한 다음 resetlogs를 수행하고 서버를 시작한다.
 
 ```
-iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE ’temp001.dbf’;
+iSQL(sysdba)> ALTER DATABASE CREATE DATAFILE 'temp001.dbf';
 iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 iSQL(sysdba)> STARTUP SERVICE;
 ```
@@ -8452,8 +8450,8 @@ iSQL(sysdba)> STARTUP SERVICE;
 아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을 사용해서 loganchor와 backupInfo를 복원한다.
 
 ```
-% cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
-% cp /backup_dir/TAG_WEDNESDAY/ backupinfo $ALTIBASE_HOME/dbs
+% cp /backup_dir/TAG_WEDNESDAY/loganchor* $ALTIBASE_HOME/logs
+% cp /backup_dir/TAG_WEDNESDAY/backupinfo $ALTIBASE_HOME/dbs
 ```
 
 loganchor 파일을 과거 버전으로 복원했기 때문에 changeTracking 파일이 더 이상 유효하지 않게 된다. 따라서 아래의 구문으로 서버의 PROCESS 구동 단계에서 변경 추적 기능을 비활성화해서 changeTracking 파일을 삭제하도록 한다.
@@ -8769,9 +8767,9 @@ SECURITY_MODULE_LIBRARY는 설치된 외부 보안 모듈 라이브러리의 이
 이 프로퍼티들의 값은 ALTER SYSTEM 구문으로 운영 도중에 설정하거나 변경할 수 있다. ALTER SYSTEM 구문으로 변경할 경우, SECURITY_MODULE_LIBRARY에는 파일의 절대 경로를 지정해야 한다.
 
 ```
-ALTER SYSTEM SET SECURITY_MODULE_NAME = 'altibase';
+ALTER SYSTEM SET SECURITY_MODULE_NAME    = 'altibase';
 ALTER SYSTEM SET SECURITY_MODULE_LIBRARY = '/altibase_home/lib/libsecurity.so';
-ALTER SYSTEM SET SECURITY_ECC_POLICY_NAME = 'ecc_policy1';
+ALTER SYSTEM SET SECURITY_ECC_POLICY_NAME= 'ecc_policy1';
 ```
 
 ### 보안 모듈 구동과 데이터 암호화
@@ -8852,7 +8850,7 @@ CREATE TABLE 문으로 칼럼 생성시 암호 칼럼으로 지정하여 생성�
 ##### 구문
 
 ```
-CREATE TABLE table_name (column_name datatype [ENCRYPT USING ‘policy_name’]);
+CREATE TABLE table_name (column_name datatype [ENCRYPT USING 'policy_name']);
 ```
 
 > ##### 주의사항
@@ -8888,7 +8886,7 @@ SSN              CHAR(12) ENCRYPT    FIXED
 ##### 구문
 
 ```
-ALTER TABLE table_name MODIFY (column_name [ENCRYPT USING ‘policy_name’]); 
+ALTER TABLE table_name MODIFY (column_name [ENCRYPT USING 'policy_name']); 
 ```
 
 > ##### 주의사항
@@ -8901,7 +8899,7 @@ ALTER TABLE table_name MODIFY (column_name [ENCRYPT USING ‘policy_name’]);
 질의\> 기존의 t1 테이블의 empID1 칼럼을 보안 정책 policy_ssn을 사용하여 암호 칼럼으로 변경한다.
 
 ```
-ALTER TABLE t1 MODIFY (empID1 ENCRYPT USING ‘policy_ssn’);
+ALTER TABLE t1 MODIFY (empID1 ENCRYPT USING 'policy_ssn');
 ```
 
 #### 암호 칼럼의 해제
@@ -9063,9 +9061,9 @@ ALTER SYSTEM STOP AUDIT;
 아래는 사용자 user1에 대한 감사 조건을 삭제하는 예제이다. DELAUDIT 구문을 실행한 후에, SYS_AUDIT_OPTS_에서 user1에 대한 감사 조건이 삭제된 것을 확인할 수 있다.
 
 ```
-iSQL> DELAUDIT by user1;
+iSQL> DELAUDIT BY user1;
 Audit success.
-iSQL> SELECT * from SYSTEM_.SYS_AUDIT_OPTS_;
+iSQL> SELECT * FROM SYSTEM_.SYS_AUDIT_OPTS_;
 No rows selected.
 ```
 
@@ -9094,7 +9092,7 @@ No rows selected.
 객체 감사 조건을 설정하는 구문은 아래와 같다.
 
 ```
-AUDIT operation_comma_listON object_nameBY ACCESS | SESSIONWHENEVER [NOT] SUCCESSFUL;AUDIT operation_comma_list
+AUDIT operation_comma_list ON object_name BY ACCESS | SESSION WHENEVER [NOT] SUCCESSFUL;AUDIT operation_comma_list
 ON object_name
 BY ACCESS | SESSION
 WHENEVER [NOT] SUCCESSFUL;
@@ -9568,7 +9566,7 @@ Altibase 서버에서 수행되는 모든 DDL 구문을 감시하고 로그를 �
 DDL문 감사 조건을 설정하는 구문은 아래와 같다.
 
 ```
-AUDIT DDLBY user_nameWHENEVER [NOT] SUCCESSFUL;
+AUDIT DDL BY user_name WHENEVER [NOT] SUCCESSFUL;
 ```
 
 구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
@@ -9750,7 +9748,8 @@ altiAudit 유틸리티에 대한 상세한 설명은 *Utilities Manual*을 참�
 파일이 존재하는 위치는 기본적으로 \$ALTIBASE_HOME/trc 디렉토리이지만, AUDIT_LOG_DIR 프로퍼티로 변경이 가능하다. 파일 이름의 형식은 다음과 같다.
 
 ```
-alti-[the_epoch_time_sec]-[sequence].aud예제) alti-1366989680-0.aud
+alti-[the_epoch_time_sec]-[sequence].aud
+예제) alti-1366989680-0.aud
 ```
 
 감사 로그는 바이너리 형식으로 파일에 저장되기 때문에, 사용자가 읽을 수 없다. 따라서 사용자는 Altibase가 제공하는 유틸리티 altiAudit을 사용해서 바이너리 형태로 저장된 감사 로그를 텍스트 형태로 출력할 수 있다.
@@ -9827,7 +9826,7 @@ Altibase는 한 개의 LFG만 사용하도록 설정된다. 그리고 LOG_DIR과
 다음은 LFG를 구성한 경우의 Altibase 프로퍼티 파일의 일부를 보여준다.
 
 ```
-LOG_DIR = ?/logs                   # 로그 경로
+LOG_DIR     = ?/logs                   # 로그 경로
 ARCHIVE_DIR = ?/arch_logs          # 아카이브 로그 경로
 ```
 
@@ -10032,7 +10031,7 @@ Altibase 프로세스가 비정상적으로 종료할 수 있는 원인으로 �
 Altibase 재구동 시 실패할 수 있는 원인으로 다음의 것을 생각해볼수 있다.
 
 - 동일한 서비스 포트 번호(PORT_NO 프로퍼티)를 사용하는 Altibase 프로세스가 이미 존재하는 경우
-- 구동 또는 회복 시 필요한 파일이 없거나 파일에 대한 권한이나 파일 시스템 문제로 인해 접근이 안 되는 경우  
+- 구동 또는 회복 시 필요한 파일이 없거나 파일에 대한 권한이나 파일 시스템 문제로 인해 접근이 안 되는 경우 
   관리자 로그에 파일 접근 관련 에러가 발생한다면 해당 파일들(모든 로그 파일, 모든 로그 앵커 파일, 모든 데이터 파일)이 존재하는지를 확인한다. 파일이 존재하고 접근이 가능함에도 불구하고 에러가 발생한다면 파일이 깨졌을 가능성이 있으며 이 경우 데이터베이스를 새로 생성해야 한다.
 - 시스템 리소스 부족  
   시스템 리소스 부족으로 인해 시스템 구동이 실패했다면, 여러 가지 시스템 리소스 중 어떤 리소스가 부족한지를 확인하여 실제 시스템에 적재되어 있는
