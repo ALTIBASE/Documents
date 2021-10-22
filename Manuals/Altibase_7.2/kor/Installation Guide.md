@@ -1174,12 +1174,17 @@ export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}
 인스톨러 설치 단계에서 데이터베이스 생성을 하지 않은 경우, 아래와 같이 생성한다.   
 
 - 설치 단계에서 데이터베이스 생성을 위한 프로퍼티를 입력한 경우, $ALTIBASE_HOME/install/post_install.sh 스크립트를 실행하라. 
+  ```
   $ sh post_install.sh dbcreate
-
+  ```
 - 설치 단계에서 데이터베이스 생성을 위한 프로퍼티를 입력하지 않은 경우, server 스크립트를 실행하라.
+  ```
   $ server create utf8 utf8
+  ```
   - 설치단계에서 PSM 사용을 위한 프로퍼티를 입력하지 않은 경우, catproc.sql 을 실행하라. 
+    ```
     $ isql -s 127.0.0.1 -u sys -p manager -silent -f ${ALTIBASE_HOME}/packages/catproc.sql
+    ```
 
 3.Altibase 제거 및 메타 다운그레이드
 ----------------------------------
@@ -1263,8 +1268,8 @@ META_MAJOR_VER META_MINOR_VER META_PATCH_VER
 -------------------------------------------------
 PREV_META_MAJOR_VER PREV_META_MINOR_VER PREV_META_PATCH_VER 
 ----------------------------------------------------------------
-8           5           1          
-8           4           1          
+9           3           1          
+9           3           1          
 1 row selected.
 ```
 
