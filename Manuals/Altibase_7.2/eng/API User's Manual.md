@@ -977,9 +977,9 @@ Altibase.jdbc.driver.AltibaseXAResource
 Altibase.jdbc.driver.AltibaseXID
 ```
 
-The ABXADataSource class is the only one that the user accesses directly. The user does not need to directly access the other classes, as they are implemented in the JTA interface class.
+The AltibaseXADataSource class is the only one that the user accesses directly. The user does not need to directly access the other classes, as they are implemented in the JTA interface class.
 
-1. . Create an ABXADataSource Object
+1. . Create an AltibaseXADataSource Object
 
    ```
    AltibaseXADataSource xaDataSource = new AltibaseXADataSource();
@@ -1249,15 +1249,15 @@ public interface XADataSource
 }
 ```
 
-Altibase.jdbc.driver.ABXADataSource is the class in which the XADataSource interface is implemented, and is included in the JDBC driver provided by Altibase. It is derived from the Altibase.jdbc.driver.ABConnectionPoolDataSource class. The ABConnectionPoolDataSource class is in turn derived from the Altibase.jdbc.driver.DataSource class.
+Altibase.jdbc.driver.AltibaseXADataSource is the class in which the XADataSource interface is implemented, and is included in the JDBC driver provided by Altibase. It is derived from the Altibase.jdbc.driver.AltibaseConnectionPoolDataSource class. The AltibaseConnectionPoolDataSource class is in turn derived from the Altibase.jdbc.driver.DataSource class.
 
-Therefore, the ABXADataSource class includes all the connection properties that the DataSource and ABConnectionPoolDataSource classes have.
+Therefore, the AltibaseXADataSource class includes all the connection properties that the DataSource and AltibaseConnectionPoolDataSource classes have.
 
 ![image19](media/API/image19.gif)
 
-[Figure 4-4] ABXADataSource Class
+[Figure 4-4] AltibaseXADataSource Class
 
-The getXAConnection method of the ABXADataSource class returns an instance of the XAConnection type. Because this is actually an instance of the ABPooledConnection class, the ABPooledConnection class is the implementation of the XAConnection interface. 
+The getXAConnection method of the AltibaseXADataSource class returns an instance of the XAConnection type. Because this is actually an instance of the ABPooledConnection class, the ABPooledConnection class is the implementation of the XAConnection interface. 
 
 An XA data source can be registered in the Java Naming and Directory Interface (JNDI) and used.
 
@@ -1277,7 +1277,7 @@ An XAConnection instance establishes a physical connection to a database. It is 
 
 Altibase.jdbc.driver.ABPooledConnection class is the actual instance of the XAConnection type. 
 
-The getXAResource method of the ABPooledConnection class returns an instance of the ABXAResource object. The getConnection method returns an instance of the ABConnection object.
+The getXAResource method of the ABPooledConnection class returns an instance of the AltibaseXAResource object. The getConnection method returns an instance of the ABConnection object.
 
 ![image20](media/API/image20.gif)
 
@@ -1289,17 +1289,17 @@ Each time an XAConnection instance's getConnection method is called, it returns 
 
 ##### XAResource Interface
 
-The TM uses instances of the ABXAResource object to coordinate all of the transaction branches. An instance of the Altibse.jdbc.driver.ABXAResource type is an instance of the class in which the javax.transaction.xa.XAResource interface is implemented.
+The TM uses instances of the AltibaseXAResource object to coordinate all of the transaction branches. An instance of the Altibse.jdbc.driver.AltibaseXAResource type is an instance of the class in which the javax.transaction.xa.XAResource interface is implemented.
 
 ![image21](media/API/image21.gif)
 
-[Figure 4-6] ABXAResource Class
+[Figure 4-6] AltibaseXAResource Class
 
-Whenever the getXAResource method of the ABPooledConnection class is called, the JDBC driver of Altibase creates and returns an instance of the ABXAResource class, and associates the ABXAResource instance with a Connection instance. This is the Connection object that is used by the transaction branch. 
+Whenever the getXAResource method of the ABPooledConnection class is called, the JDBC driver of Altibase creates and returns an instance of the AltibaseXAResource class, and associates the AltibaseXAResource instance with a Connection instance. This is the Connection object that is used by the transaction branch. 
 
-The ABXAResource class has several methods for controlling a transaction branch of a distributed transaction. 
+The AltibaseXAResource class has several methods for controlling a transaction branch of a distributed transaction. 
 
-A TM receives an instance of the ABXAResource class from a middle-tier component such as an application server. The ABXAResource class exposes the following methods:
+A TM receives an instance of the AltibaseXAResource class from a middle-tier component such as an application server. The AltibaseXAResource class exposes the following methods:
 
 ```
 void start(Xid xid, int flags)
@@ -1327,7 +1327,7 @@ Branch qualifier
 
 In Altibase, the javax.transaction.xa.Xid interface is implemented as the XID class in the Altibase.jdbc.driver package.
 
-> Note: Altibase.jdbc.driver.XID does not need to be used to make ABXAResource calls. Any class in which the javax.transaction.xa.Xid interface is implemented can be used for this.
+> Note: Altibase.jdbc.driver.XID does not need to be used to make AltibaseXAResource calls. Any class in which the javax.transaction.xa.Xid interface is implemented can be used for this.
 
 #### Error Handling
 
