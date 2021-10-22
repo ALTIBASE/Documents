@@ -590,13 +590,13 @@ A parameter can have a default value. If no value is passed to a procedure for a
 
 ##### invoker_rights_clause
 
-When executing a procedure, users can specify whether to refer to an object with the CREATE (DEFINER) permission or to execute the (CURRENT_USER) permission.
+When you execute a procedure, you can specify whether you want to reference the object with the DEFINER authority or with the CURRENT_USER authority. If you omit this clause, execute with the AUTHID DEFINER as default.
 
 -   AUTHID CURRENT_USER  
-    This executes a procedure by referencing an object owned by the user.
+    Execute the procedure by referring to the object owned by the procedure user.
 
 -   AUTHID DEFINER  
-    This executes by the user who created the procedure (DEFINER) by referring to the object of the procedure constructor.
+    Execute the procedure with the DEFINER authority by referring to the object owned by the procedure definer.
 
 ##### declaration_section
 
@@ -1237,13 +1237,13 @@ This function indicates that a function called by an identical parameter value a
 
 ##### invoker_rights_clause
 
-When executing a function, it can be specified whether to refer to the object by the constructor (DEFINER) permission or the executer (CURRENT_USER) permission. If this clause is commited, the fucntion executes with constructor privileges.
+When executing a function, it can be specified whether to refer to the object by the constructor (DEFINER) permission or the executer (CURRENT_USER) permission. If this clause is ommited, the function is executed with the AUTHID DEFINER as default.
 
 -   AUTHID CURRENT_USER  
-    This executes a function by referring to an object owned by the user.
+    Execute the function by referring to the object owned by the function user.
 
 -   AUTHID DEFINER  
-    This executes a function with DEFINER permission by referring to the object of the funciton constructor.
+    Execute the function with the DEFINER authority by referring to the object owned by the function definer.
 
 ##### Declaration Section
 
@@ -6069,7 +6069,7 @@ With dynamic SQL, the user can create queries as desired at runtime and then exe
 
 The following diagram compares the tasks involved in executing static vs. dynamic SQL statements in stored procedures.
 
-![dynamic_sql](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/dynamic_sql.gif)
+![dynamic_sql](media/StoredProcedure/dynamic_sql.gif)
 
 [Figure 8-1] Execution of Static SQL vs. Dynamic SQL
 
@@ -6096,11 +6096,11 @@ This statement is used to dynamically execute a DDL, DCL or DML statement, inclu
 
 #### Syntax
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/execute_imme_statement.gif)
+![](media/StoredProcedure/execute_imme_statement.gif)
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/bulk_collect_clause.gif)
+![](media/StoredProcedure/bulk_collect_clause.gif)
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/dynamic_string.gif)
+![](media/StoredProcedure/dynamic_string.gif)
 
 #### Description
 
@@ -6188,7 +6188,7 @@ This statement is used to initialize a cursor variable (REF CURSOR), execute the
 
 #### Syntax
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/open_for_statement.gif)
+![](media/StoredProcedure/open_for_statement.gif)
 
 #### Description
 
@@ -6309,7 +6309,7 @@ The tasks to perform in the event of a system-defined or user-defined exception 
 
 #### Syntax
 
-![exception_declaration](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/exception_declaration.gif)
+![exception_declaration](media/StoredProcedure/exception_declaration.gif)
 
 #### Description
 
@@ -6334,7 +6334,7 @@ DECLARE
 
 #### Syntax
 
-![raise_statement](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/raise_statement.gif)
+![raise_statement](media/StoredProcedure/raise_statement.gif)
 
 #### Description
 
@@ -6620,13 +6620,13 @@ Execute success.
 
 The scope of SQLCODE and SQLERRM in the above example is illustrated in the following figure:
 
-![sqlcode_sqlerr](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/sqlcode_sqlerr.gif)
+![sqlcode_sqlerr](media/StoredProcedure/sqlcode_sqlerr.gif)
 
 ### Exception Handler
 
 #### Syntax
 
-![exception_handler](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/exception_handler.gif)
+![exception_handler](media/StoredProcedure/exception_handler.gif)
 
 #### Purpose
 
@@ -6796,7 +6796,7 @@ The following pragmas can be used in Altibase. Thorough information on each prag
 
 #### Syntax
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/pragma.gif)
+![](media/StoredProcedure/pragma.gif)
 
 
 
@@ -6804,7 +6804,7 @@ The following pragmas can be used in Altibase. Thorough information on each prag
 
 #### Syntax
 
-![autonomous_pragma](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/autonomous_pragma.gif)
+![autonomous_pragma](media/StoredProcedure/autonomous_pragma.gif)
 
 #### Function
 
@@ -6812,7 +6812,7 @@ Autonomous transaction pragma is used to modify PSM object operation carried out
 
 The PSM object specified with the autonomous transaction pragma independently operates, and it does not share transaction sources with the main transaction. In particular, the autonomous transaction pragma is highly efficient for writing a program which is module-centric or contains high reusability.
 
-![autonomous_pragma_overview](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/autonomous_pragma_overview_eng.png)
+![autonomous_pragma_overview](media/StoredProcedure/autonomous_pragma_overview_eng.png)
 
 The location in which the autonomous transaction pragma should be defined is as follows:
 
@@ -6949,7 +6949,7 @@ C1
 
 #### Syntax
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/exception_pragma.gif)
+![](media/StoredProcedure/exception_pragma.gif)
 
 #### Function
 
@@ -7104,7 +7104,7 @@ The initialization part of the package body is an optional feature, and runs onl
 
 The figure below is a diagram of the structure of the package specification and package body.
 
-![package_structure](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/package_structure_eng.png)
+![package_structure](media/StoredProcedure/package_structure_eng.png)
 
 
 
@@ -7120,23 +7120,23 @@ The figure below is a diagram of the structure of the package specification and 
 
 ##### create_package ::=
 
-![create_package](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/create_package.gif)
+![create_package](media/StoredProcedure/create_package.gif)
 
 ##### invoker_rights_clause::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/invoker_rights_clause.gif)
+![](media/StoredProcedure/invoker_rights_clause.gif)
 
 ##### declare_section ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/package_declare_section.gif)
+![](media/StoredProcedure/package_declare_section.gif)
 
 ##### procedure_declaration ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/package_proc_declare.gif)
+![](media/StoredProcedure/package_proc_declare.gif)
 
 ##### function_declaration ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/package_func_declare.gif)
+![](media/StoredProcedure/package_func_declare.gif)
 
 #### Purpose
 
@@ -7144,13 +7144,13 @@ This statement creates a package specification or substitutes a previously exist
 
 ##### invoker_rights_clause
 
-When executing a package, it can be specified whether to execute with the DEFINER or the CURRENT_USER privileges. If this clause is omitted, the package is run with constructor privileges
+When executing a package, it can be specified whether to execute with the DEFINER or the CURRENT_USER privileges. If this clause is omitted, the package is run with the AUTHID DEFINER as default.
 
 -   AUTHID CURRENT_USER  
-    This executes a package by referencing an object owned by the package user.
+    Executes the package by referring to the object owned by the package user.
 
 -   AUTHID DEFINER  
-    This executes with creator privilege by referring to the object of package creator (DEFINER).
+    Executes the package with the DEFINER authority by referring to the object owned by the package definer.
 
 ##### declare_section
 
@@ -7348,15 +7348,15 @@ Execute success.
 
 ##### create_package_body ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/bba17be9803aaf99425718e2904dbc23.png)
+![](media/StoredProcedure/bba17be9803aaf99425718e2904dbc23.png)
 
 ##### initialize_section::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/e51a2efd35433d8e979a1db1e3991c78.png)
+![](media/StoredProcedure/e51a2efd35433d8e979a1db1e3991c78.png)
 
 ##### declare_section ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/1f6172b78d389960cfa0aa51ccc6edfa.png)
+![](media/StoredProcedure/1f6172b78d389960cfa0aa51ccc6edfa.png)
 
 #### Purpose
 
@@ -7508,7 +7508,7 @@ Create success.
 
 ##### alter_package ::=
 
-![alter_package](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/alter_package.gif)
+![alter_package](media/StoredProcedure/alter_package.gif)
 
 #### Purpose
 
@@ -7538,7 +7538,7 @@ Alter success.
 
 ##### drop_package ::=
 
-![drop_package](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/drop_package.gif)
+![drop_package](media/StoredProcedure/drop_package.gif)
 
 #### Purpose
 
@@ -7562,11 +7562,11 @@ Drop success.
 
 ##### execute_procedure_statement ::=
 
-![execute_procedure](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/execute_procedure.gif)
+![execute_procedure](media/StoredProcedure/execute_procedure.gif)
 
 ##### execute_function_statement ::=
 
-![execute_function](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/execute_function.gif)
+![execute_function](media/StoredProcedure/execute_function.gif)
 
 #### Purpose
 
@@ -7727,7 +7727,7 @@ The system stored procedures and functions listed above are automatically create
 
 The process of managing files using system procedures and functions is illustrated in the following figure:
 
-![file_control](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/eng/media/StoredProcedure/file_control_eng.png)
+![file_control](media/StoredProcedure/file_control_eng.png)
 
 ##### Limitations
 
