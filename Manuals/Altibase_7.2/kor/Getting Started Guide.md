@@ -1827,9 +1827,9 @@ SQLHENV   env;  // Environment를 할당 받을 handle
 SQLHDBC   con;  // Connection을 할당 받을 handle
 SQLHSTMT  hstmt;  // Statement를 할당 받을 handle
 SQLHSTMT  bstmt;  // Statement를 할당 받을 handle
-int          errNo;
-short        msgLength;
-char         errMsg[MSG_LEN];
+int       errNo;
+short     msgLength;
+char      errMsg[MSG_LEN];
 SQLRETURN rc;
 
 /* Main프로그램 - 인자 개수가 5보다 적을 경우 사용법(usage) 출력 */
@@ -1908,12 +1908,12 @@ void conn(char *port, char *conntype)
     if (SQL_ERROR == SQLAllocEnv(&env))
     {
         fprintf(stderr, "SQLAllocEnv error!!\n"); 
-//Environment를 위한 메모리를 할당.
+        //Environment를 위한 메모리를 할당.
         return;
     }
 
     if (SQL_ERROR == SQLAllocConnect(env, &con)) 
-// connection을 위한 메모리를 할당
+    // connection을 위한 메모리를 할당
     {
         fprintf(stderr, "SQLAllocConnect error!!\n");
         SQLFreeEnv(env);
@@ -1922,7 +1922,7 @@ void conn(char *port, char *conntype)
 
     sprintf((char*)connStr, "DSN=127.0.0.1;PORT_NO=%s;UID=SYS;PWD=MANAGER;CONNTYPE=%s", port, conntype);
 
-/* Connection 생성 */
+    /* Connection 생성 */
     if (SQL_ERROR == SQLDriverConnect(con, NULL, (char*)connStr,
 SQL_NTS, NULL, 0, NULL, SQL_DRIVER_NOPROMPT))
     {
@@ -1934,7 +1934,7 @@ SQL_NTS, NULL, 0, NULL, SQL_DRIVER_NOPROMPT))
         SQLFreeEnv(env);
         return;
     }
-/* 각 SQL문을 실행 시 자동으로 반영하지 않는다 */
+    /* 각 SQL문을 실행 시 자동으로 반영하지 않는다 */
     SQLSetConnectAttr(con, SQL_ATTR_AUTOCOMMIT, 
 (void*)SQL_AUTOCOMMIT_OFF, 0);
     if (rc == SQL_ERROR)              
@@ -1950,7 +1950,7 @@ SQL_NTS, NULL, 0, NULL, SQL_DRIVER_NOPROMPT))
     SQLAllocStmt(con, &hstmt);
     SQLAllocStmt(con, &bstmt);
 
-/* DDL문을 직접 수행하며 오류발생시 메시지를 지정서식에 따라 파일로 출력 */
+    /* DDL문을 직접 수행하며 오류발생시 메시지를 지정서식에 따라 파일로 출력 */
     strcpy(query, "drop table t1");   
     rc = SQLExecDirect(hstmt, (char*)query, SQL_NTS);  
     if (rc == SQL_ERROR)
@@ -1961,7 +1961,7 @@ SQL_NTS, NULL, 0, NULL, SQL_DRIVER_NOPROMPT))
 }
     }
 
-/* DDL문을 직접 수행하며 오류발생시 메시지를 지정서식에 따라 파일로 출력 */
+    /* DDL문을 직접 수행하며 오류발생시 메시지를 지정서식에 따라 파일로 출력 */
     strcpy(query, "create table t1(i1 number(6))");
     rc = SQLExecDirect(hstmt, (char*)query, SQL_NTS);
     if (rc == SQL_ERROR)
@@ -2012,7 +2012,7 @@ void sbigint_bigint(int cnt)
 
     prepare();
 
-/* SQL문장에 매개변수(parameter)를 연결시킴 */
+    /* SQL문장에 매개변수(parameter)를 연결시킴 */
     SQLBindParameter(bstmt, 1, SQL_PARAM_INPUT, SQL_C_SBIGINT, 
 SQL_BIGINT, 0, 0, (void*)&i1, 0, &len);
 
@@ -2023,7 +2023,7 @@ SQL_BIGINT, 0, 0, (void*)&i1, 0, &len);
         execute();
     }
 
-/* 트랜잭션을 COMMIT 처리 */
+    /* 트랜잭션을 COMMIT 처리 */
     rc = SQLTransact(NULL, con, SQL_COMMIT); 
 }
 
@@ -2036,7 +2036,7 @@ void slong_integer(int cnt)
 
     prepare();
 
-/* SQL문장에 매개변수(parameter)를 연결시킴 */
+    /* SQL문장에 매개변수(parameter)를 연결시킴 */
     SQLBindParameter(bstmt, 1, SQL_PARAM_INPUT, SQL_C_SLONG, 
 SQL_INTEGER, 0, 0, (void*)&i1, 0, &len);
 
@@ -2047,7 +2047,7 @@ SQL_INTEGER, 0, 0, (void*)&i1, 0, &len);
         execute();
     }
 
-/* 트랜잭션을 COMMIT 처리 */
+    /* 트랜잭션을 COMMIT 처리 */
     SQLTransact(NULL, con, SQL_COMMIT);
 }
 
@@ -2060,7 +2060,7 @@ void char_char(int cnt)
 
     prepare();
 
-/* SQL문장에 매개변수(parameter)를 연결시킴 */
+    /* SQL문장에 매개변수(parameter)를 연결시킴 */
     SQLBindParameter(bstmt, 1, SQL_PARAM_INPUT, SQL_C_CHAR, 
 SQL_CHAR, sizeof(i1)-1, 0, (void*)i1, sizeof(i1), &len);
 
@@ -2071,7 +2071,7 @@ SQL_CHAR, sizeof(i1)-1, 0, (void*)i1, sizeof(i1), &len);
         execute();
     }
 
-/* 트랜잭션을 COMMIT 처리 */
+    /* 트랜잭션을 COMMIT 처리 */
     SQLTransact(NULL, con, SQL_COMMIT);
 }
 
@@ -2095,7 +2095,7 @@ SQL_NUMERIC, sizeof(i1)-1, 0, (void*)i1, sizeof(i1),
         execute();
     }
 
-/* 트랜잭션을 COMMIT 처리 */
+    /* 트랜잭션을 COMMIT 처리 */
     SQLTransact(NULL, con, SQL_COMMIT);
 }
 
@@ -2118,7 +2118,7 @@ SQL_DOUBLE, 0, 0, (void*)&i1, 0, &len);
         execute();
     }
 
-/* 트랜잭션을 COMMIT 처리 */
+    /* 트랜잭션을 COMMIT 처리 */
     SQLTransact(NULL, con, SQL_COMMIT);
 }
 ```
@@ -2132,7 +2132,7 @@ $ make test
 $ ./test 3 20300 1 100
 
 BIGINT - START TIME :  [16:43:48]
-BIGINT - END TIME :  [16:43:49]
+BIGINT - END TIME   :  [16:43:49]
 ```
 
 
@@ -2154,18 +2154,12 @@ Altibase 서버와 연결을 설정하기 위해, 먼저 드라이버를 로드�
 jdbc:Altibase://hostname:portnum/databasename
 ```
 
-
-
 1. JDBC 드라이버를 로드할 때에는 프로그램 내에서 다음과 같은 코드로 JDBC
      드라이버를 등록하여 사용한다.
 
      ```
-     Class.forName(“Altibase.jdbc.driver.AltibaseDriver”)
+     Class.forName("Altibase.jdbc.driver.AltibaseDriver")
      ```
-
-
-
-
 
 2. Altibase의 URL을 제공하고, URL과 연결을 시도하기 위한 일반적인 방법으로
      다음과 같다. (데이터베이스에 로그인 하기 위한 id가 "SYS"이고, 패스워드가
@@ -2173,7 +2167,7 @@ jdbc:Altibase://hostname:portnum/databasename
 
      ```
       String url = "jdbc:Altibase://127.0.0.1:20300/mydb";
-      Connection con = DriverManager.getConnection(url, “SYS”, “MANAGER”);
+      Connection con = DriverManager.getConnection(url, "SYS", "MANAGER");
      ```
 
 
@@ -2217,11 +2211,11 @@ class JdbcTest
             System.exit(1);
         }
     
-        String port = args[0];
-        String url = "jdbc:Altibase://127.0.0.1:" + port + "/mydb";
-        String user = "SYS";
+        String port   = args[0];
+        String url    = "jdbc:Altibase://127.0.0.1:" + port + "/mydb";
+        String user   = "SYS";
         String passwd = "MANAGER";
-        String enc = "US7ASCII";
+        String enc    = "US7ASCII";
     
         props.put("user", user);
         props.put("password", passwd);
@@ -2386,8 +2380,6 @@ Usage  :  apre [<options>] <filename>
 
 ```
 
-
-
 #### 멀티 쓰레드 프로그램
 
 C/C++ Precompiler는 멀티 쓰레드 프로그램을 지원한다. 멀티 쓰레드 프로그래밍시
@@ -2451,9 +2443,9 @@ int main()
     s_dno = 1000;
 
     EXEC SQL DELETE FROM EMPLOYEES 
-                WHERE ENO > :s_eno 
-AND DNO > :s_dno 
-AND EMP_JOB LIKE 'P%';
+              WHERE ENO > :s_eno 
+              AND DNO > :s_dno 
+              AND EMP_JOB LIKE 'P%';
 
     printf("-----------------------------------------------\n");
     printf("[Scalar Host Variables]                                           \n");
@@ -2479,8 +2471,6 @@ AND EMP_JOB LIKE 'P%';
     }
 }
 ```
-
-
 
 ##### 실행결과 
 
