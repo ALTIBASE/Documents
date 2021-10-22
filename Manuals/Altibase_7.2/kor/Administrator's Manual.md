@@ -83,7 +83,7 @@
   - [15.Altibase 튜닝](#15altibase-%ED%8A%9C%EB%8B%9D)
     - [로그 파일 그룹](#%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EA%B7%B8%EB%A3%B9)
     - [그룹 커밋](#%EA%B7%B8%EB%A3%B9-%EC%BB%A4%EB%B0%8B)
-  - [Altibase 진단 모니터링](#altibase-%EC%A7%84%EB%8B%A8-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
+  - [16.Altibase 진단 모니터링](#altibase-%EC%A7%84%EB%8B%A8-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
     - [Altibase 모니터링](#altibase-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
     - [Altibase 문제상황 분석](#altibase-%EB%AC%B8%EC%A0%9C%EC%83%81%ED%99%A9-%EB%B6%84%EC%84%9D)
   - [A.부록: Trace Log](#a%EB%B6%80%EB%A1%9D-trace-log)
@@ -5768,7 +5768,9 @@ column_domain ≡ ∪partition_condition ……………… rule3
 
 범위 파티셔닝(range partitioning)은 분할할 때 날짜(DATE) 타입을 많이 이용하며, 이력 데이터(historical data)를 다루는 분야에서 사용된다.
 
-파티션 정의시 사용할 수 있는 유일한 파티션 조건은 ‘LESS THAN’이다. 기본 파티션은 ‘DEFAULT’ 절을 사용해서 정의할 수 있다.
+파티션 정의시 사용할 수 있는 유일한 파티션 조건은 ‘LESS THAN’이다. 기본 파티션은 'DEFAULT' 절 사용으로 정의할 수 있으며 생략할 수 있다.
+
+기본 파티션이 있는 파티션드 테이블에 기본 테이블을 삭제할 수 없고, 기본 파티션이 없는 파티션드 테이블에 기본 테이블을 추가할 수 없기 때문에 범위 파티셔닝 테이블을 생성 시 주의가 필요하다.
 
 다음은 범위 파티셔닝의 예제이다.
 
@@ -5935,6 +5937,10 @@ PARTITION BY RANGE(sales_date, sales_id)
 ###### 파티션 레코드 삭제(TRUNCATE PARTITION)
 
 파티션 레코드 삭제는 파티션 조건이 변경되지 않으며, 파티션에 저장되어 있는 모든 레코드들이 삭제된다.
+
+###### 파티션 추가(ADD PARTITION)
+
+파티션 추가는 한 개의 파티션을 추가하는 기능으로 기본 파티션이 생략된 범위 파티션드 테이블에서 사용할 수 있다.
 
 #### 리스트 파티셔닝
 
@@ -9925,7 +9931,7 @@ V\$LFG성능 뷰의 그룹 커밋 관련 통계값들은 다음과 같다.
   반면, 이 프로퍼티의 값이 너무 크면 디스크 I/O를 대기하는 트랜잭션들이 디스크 I/O가 가능한지의 여부를 체크하는 횟수가 줄어들게 되며, CPU사용율이 낮아지게 된다. 하지만 디스크 I/O 가능 여부를 체크하기까지의 대기시간이 길어져서 개별 트랜잭션의 커밋에 대한 응답시간은 길어진다.  
   DBA는 이 프로퍼티의 값을 변경할 때, Unix의 top 명령으로 Altibase 프로세스의 CPU 사용율을 모니터링하거나 개별 트랜잭션의 응답시간의 평균값을 측정하는 방법으로 이 프로퍼티 값을 최적의 값으로 설정할 수 있다.
 
-## Altibase 진단 모니터링
+## 16. Altibase 진단 모니터링
 
 이 장에서는 Altibase 데이터베이스의 운영 상태를 확인하고 분석하는 방법에 대해 설명한다.
 

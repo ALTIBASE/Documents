@@ -6120,7 +6120,7 @@ DROP TYPESET my_typeset;
 
 아래 다이어그램은 정적 SQL과 동적 SQL이 포함된 저장 프로시저를 생성하고 실행할 때 Altibase 내부에서 이를 수행하는 과정을 비교하고 있다.
 
-![dynamic_sql](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/dynamic_sql.gif)
+![dynamic_sql](media/StoredProcedure/dynamic_sql.gif)
 
 [그림 8‑1] 정적 SQL과 동적 SQL의 실행 과정 비교
 
@@ -6152,11 +6152,11 @@ DROP TYPESET my_typeset;
 
 #### 구문
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/execute_imme_statement.gif)
+![](media/StoredProcedure/execute_imme_statement.gif)
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/bulk_collect_clause.gif)
+![](media/StoredProcedure/bulk_collect_clause.gif)
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/dynamic_string.gif)
+![](media/StoredProcedure/dynamic_string.gif)
 
 #### 설명
 
@@ -6244,7 +6244,7 @@ EXECUTE IMMEDIATE dynamic_string 구문은 해당 질의문을 Direct-Execute �
 
 #### 구문
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/open_for_statement.gif)
+![](media/StoredProcedure/open_for_statement.gif)
 
 #### 설명
 
@@ -6362,7 +6362,7 @@ BEGIN
 
 #### 구문
 
-![exception_declaration](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/exception_declaration.gif)
+![exception_declaration](media/StoredProcedure/exception_declaration.gif)
 
 #### 설명
 
@@ -6387,7 +6387,7 @@ DECLARE
 
 #### 구문
 
-![raise_statement](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/raise_statement.gif)
+![raise_statement](media/StoredProcedure/raise_statement.gif)
 
 #### 설명
 
@@ -6680,13 +6680,13 @@ Execute success.
 
 이를 도식화하면 SQLCODE, SQLERRM의 범위는 다음과 같음을 알 수 있다.
 
-![sqlcode_sqlerr](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/sqlcode_sqlerr.gif)
+![sqlcode_sqlerr](media/StoredProcedure/sqlcode_sqlerr.gif)
 
 ### Exception Handler
 
 #### 구문
 
-![exception_handler](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/exception_handler.gif)
+![exception_handler](media/StoredProcedure/exception_handler.gif)
 
 #### 기능
 
@@ -6857,7 +6857,7 @@ Altibase에서 사용할 수 있는 프라그마는 아래와 같다. 각각의 
 
 #### 구문
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/pragma.gif)
+![](media/StoredProcedure/pragma.gif)
 
 
 
@@ -6865,7 +6865,7 @@ Altibase에서 사용할 수 있는 프라그마는 아래와 같다. 각각의 
 
 #### 구문
 
-![autonomous_pragma](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/autonomous_pragma.gif)
+![autonomous_pragma](media/StoredProcedure/autonomous_pragma.gif)
 
 #### 기능
 
@@ -6873,7 +6873,7 @@ Altibase에서 사용할 수 있는 프라그마는 아래와 같다. 각각의 
 
 자율 트랜잭션 프라그마가 설정된 PSM 객체는 독립적으로 동작하여 주 트랜잭션과 자원을 공유하지 않는다. 따라서 락, 커밋, 복구 등의 동작이 독립적으로 수행된다. 자율 트랜잭션 프라그마는 모듈 중심 또는 재사용성이 높은 프로그램을 작성할 때 유용하다.
 
-![autonomous_pragma_overview](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/autonomous_pragma_overview.gif)
+![autonomous_pragma_overview](media/StoredProcedure/autonomous_pragma_overview.gif)
 
 자율 트랜잭션 프라그마를 정의할 수 있는 위치는 아래와 같다.
 
@@ -7013,7 +7013,7 @@ C1
 
 #### 구문
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/exception_pragma.gif)
+![](media/StoredProcedure/exception_pragma.gif)
 
 #### 기능
 
@@ -7170,7 +7170,7 @@ at "SYS.PROC2", line 6]
 
 아래 그림은 패키지 스펙과 바디의 구조를 도식화한 것이다.
 
-![package_structure](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/package_structure.gif)
+![package_structure](media/StoredProcedure/package_structure.gif)
 
 
 
@@ -7186,23 +7186,23 @@ at "SYS.PROC2", line 6]
 
 ##### create_package ::=
 
-![create_package](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/create_package.gif)
+![create_package](media/StoredProcedure/create_package.gif)
 
 ##### invoker_rights_clause::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/invoker_rights_clause.gif)
+![](media/StoredProcedure/invoker_rights_clause.gif)
 
 ##### declare_section ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/package_declare_section.gif)
+![](media/StoredProcedure/package_declare_section.gif)
 
 ##### procedure_declaration ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/package_proc_declare.gif)
+![](media/StoredProcedure/package_proc_declare.gif)
 
 ##### function_declaration ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/package_func_declare.gif)
+![](media/StoredProcedure/package_func_declare.gif)
 
 #### 기능
 
@@ -7414,17 +7414,17 @@ Execute success.
 
 ##### create_package_body ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/bba17be9803aaf99425718e2904dbc23.png)
+![](media/StoredProcedure/bba17be9803aaf99425718e2904dbc23.png)
 
 
 
 ##### initialize_section::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/e51a2efd35433d8e979a1db1e3991c78.png)
+![](media/StoredProcedure/e51a2efd35433d8e979a1db1e3991c78.png)
 
 ##### declare_section ::=
 
-![](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/1f6172b78d389960cfa0aa51ccc6edfa.png)
+![](media/StoredProcedure/1f6172b78d389960cfa0aa51ccc6edfa.png)
 
 #### 기능
 
@@ -7578,7 +7578,7 @@ Create success.
 
 ##### alter_package ::=
 
-![alter_package](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/alter_package.gif)
+![alter_package](media/StoredProcedure/alter_package.gif)
 
 #### 기능
 
@@ -7608,7 +7608,7 @@ Alter success.
 
 ##### drop_package ::=
 
-![drop_package](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/drop_package.gif)
+![drop_package](media/StoredProcedure/drop_package.gif)
 
 #### 기능
 
@@ -7632,11 +7632,11 @@ Drop success.
 
 ##### execute_procedure_statement ::=
 
-![execute_procedure](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/execute_procedure.gif)
+![execute_procedure](media/StoredProcedure/execute_procedure.gif)
 
 ##### execute_function_statement ::=
 
-![execute_function](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/execute_function.gif)
+![execute_function](media/StoredProcedure/execute_function.gif)
 
 #### 기능
 
@@ -7798,7 +7798,7 @@ Altibase는 저장 프로시저 및 저장 함수 내에서 파일 제어와 관
 
 이러한 시스템 프로시저 및 함수를 사용한 파일 제어 작업은 다음 그림과 같이 표현된다.
 
-![file_control](D:/work/tw/haeinnmin/ALTIBASE/Documents/Manuals/Altibase_7.2/kor/media/StoredProcedure/file_control.gif)
+![file_control](media/StoredProcedure/file_control.gif)
 
 ##### 주의사항
 
@@ -12776,8 +12776,7 @@ END;
 
 UTL_COPYSWAP 패키지는 테이블 스키마 복사, 데이터 복제, 테이블 교환 인터페이스를 제공한다.
 
-UTL_COPYSWAP 패키지를 구성하는 프로시저와 함수는 아래의 표와 같다.
-UTL_COPYSWAP을 사용하기 위한 전제 조건은 CHECK_PRECONDITION의 설명을 참고한다.
+UTL_COPYSWAP 패키지를 구성하는 프로시저와 함수는 아래의 표와 같다. UTL_COPYSWAP을 사용하기 위한 전제 조건은 CHECK_PRECONDITION의 설명을 참고한다.
 
 | 프로시저 및 함수     | 설명                                                         |
 | -------------------- | ------------------------------------------------------------ |
@@ -13149,6 +13148,7 @@ iSQL> alter table t1 add constraint pk_t1 primary key(i1) using index local
     partition  pk_p3 on p3 tablespace SYS_TBS_DISK_DATA
 );
 Alter success.
+
 iSQL> INSERT INTO T1 VALUES ( 15, 15 );
 1 row inserted.
 iSQL> ALTER SESSION SET AUTOCOMMIT = FALSE;

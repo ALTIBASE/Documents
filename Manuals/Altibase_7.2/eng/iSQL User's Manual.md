@@ -3204,6 +3204,33 @@ iSQL> / -> Re-execute the most recent command(HISTORY;))
 iSQL> 2/ -> Execute Command number 2 in history list(SELECT * FROM book;)
 ```
 
+#### History Logging
+
+It saves the commands executed interactively in isql to a file when you exit the program. Enabling this function loads previous commands stored in the file when iSQL is restarted. Therefore, you can access and execute previous commands by pressing the arrow keys(↑).
+
+To use the history save function, you need to set the ISQL_HIST_FILE environment variable.
+
+```
+$ export ISQL_HIST_FILE=~/.isql_history
+```
+
+To not use the history save function, unset the ISQL_HIST_FILE environment variable.
+
+```
+$ unset ISQL_HIST_FILE
+```
+
+##### Default Value
+
+Not used
+
+##### Constraints
+
+- This is possible if you can see commands that were previously executed by pressing the up arrow key(↑) in isql on UNIX.
+- Up to 100 interactive commands can be stored.
+
+Be careful with file access management because [[b1\]](#_msocom_1) sensitive information such as user passwords can be also recorded in the file by user.
+
 
 
 #### Shell Commands
