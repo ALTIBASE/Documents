@@ -66,7 +66,7 @@ Altibase Administration Administrator’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -92,7 +92,7 @@ A large database object that has been partitioned is called a “partitioned obj
 
 #### Partitioned Objects and Non-Partitioned Objects
 
-When an end-user accesses a partitioned object, the user cannot perceive any difference from a non-partitioned object. That is, from the user's perspective, both partitioned and non-partitioned objects are recognized as database objects, and it is not apparent whether a particular object has been partitioned. This allows the user to execute queries or DML statements (i.e. insert, delete and update records) in the same way regardless of the partition of the object
+When an end-user accesses a partitioned object, the user cannot perceive any difference from a non-partitioned object. That is, from the user's perspective, both partitioned and non-partitioned objects are recognized as database objects, and it is not apparent whether a particular object has been partitioned. This allows the user to execute queries or DML statements (i.e. insert, delete and update records) in the same way regardless of the partition of the object.
 
 The differences between partitioned objects and non-partitioned objects in terms of database structure are as follows.
 
@@ -259,7 +259,7 @@ Figure 7-8 Example of a global non-partitioned index
 
 [Figure 7-9] shows the types of indexes that have been examined so far:
 
-![](media/Admin/Admin_eng.1.42.7.jpg.png)
+![](media/Admin/cdba9650f1626e7cc409038702eb8b1d.png)
 
 [Figure 7-9] Types of Indexes
 
@@ -389,7 +389,7 @@ In the example above, the part_table table is created and range-partitioned into
 
 [Figure 7-11] shows the above example in graphical form:
 
-![](media/Admin/Admin_eng.1.44.1.jpg.png)
+![](media/Admin/7-11.png)
 
 [Figure 7-11] Partition Areas of a Range-Partitioned Table
 
@@ -504,7 +504,7 @@ The figure above illustrates an example in which a partition called part_2 is dr
 
 MERGE PARTITION is an operation of merging two specified partitions among a partitioned object into one partition. The partitions to be merged must be neighboring partitions. The MERGE PARTITION operation can be conducted in one of two ways: In-Place Merge and Out-Place Merge. 
 
-- In-place Merge 
+- In-place Merge  
   As two existing partitions are merged into one of the partitions, the records from the other partition are inserted into it. This method is used when the names of the new partition and one of the existing partitions are the same and the tablespace in which the new partition is to be created is not specified. Please refer to [Figure 7-17].
 - Out-place Merge  
   A new partition is created and the records in the existing partitions are copied into the new partition. This method is used when the name of the new partition is different from the names of the existing partitions. Additionally, even if the name of the new partition is the same as that of one of the existing partitions, this method is used if the tablespace in which the new partition is to be created is specified. Please refer to [Figure 7-18].
@@ -1562,10 +1562,9 @@ Altibase supports the following types of backup operations:
 - Logical Backup  
   Utility backup
   
-- Physical Backup
-  
-  Offline backup 
-  Oneline backup
+- Physical Backup  
+  Offline backup  
+  Online backup
 
 When logical backup is performed using the aexport or iLoader utility, script files for creating tables, indexes and files in which table records are written are created.
 
@@ -1810,7 +1809,7 @@ When recovery is performed, only the data files should be restored from backup c
 
 One such special case is the case where a user accidentally deletes a tablespace using the DROP TABLESPACE command. Because there are no data pertaining to the dropped tablespace in the current log anchor files at that time, it is acceptable to restore log anchor files from backup copies. 
 
-**When recovering a data file of a memory tablespace, the stable memory data file must be used to restore the other memory data file. **
+**When recovering a data file of a memory tablespace, the stable memory data file must be used to restore the other memory data file.**
 
 Because ping-pong checkpointing is used for memory tablespaces in Altibase, two data files pertaining to each memory tablespace are maintained on disk. A pair of data files, in which the same image is saved, is stored in a location set using the MEM_DB_DIR property. Both data files must exist in order for Altibase to operate normally. At any particular point in time, the memory tablespace is only using one of these data files.
 
@@ -1847,7 +1846,7 @@ Because log anchor files include information about the tablespaces in a database
 iSQL(sysdba)> ALTER DATABASE BACKUP LOGANCHOR TO 'anchor_path';
 ```
 
-**Altibase encounters the following problems when the database is backed up and restored with a replicated database. **
+**Altibase encounters the following problems when the database is backed up and restored with a replicated database.**
 
 If a database backed up on one server is restored on another server, there might be problems to use replication after Altibase recovery because the network addresses are different.
 
@@ -2236,7 +2235,7 @@ Suppose that the database is operating in archivelog mode and that a user accide
 - The time when the table was dropped: September 18, 2007, 15:00 
 - The current time: September 18, 2007, 18:00
 
-In order to recover the summary table, it will be necessary to perform incomplete media recovery to restore the database to its state at 14:30 on September 18, which is 3.5 hours before the current time.
+In order to recover the summary table, it will be necessary to perform incomplete media recovery to restore the database to its state at 14:30, 2007, on September 18, which is 3.5 hours before the current time.
 
 ##### Backup Procedure
 
@@ -3086,7 +3085,7 @@ iSQL(sysdba)> ALTER DATABASE MYDB META RESETLOGS;
 iSQL(sysdba)> STARTUP SERVICE;
 ```
 
-### 11.4 Managing Backup Files
+### Managing Backup Files
 
 Unlike full backups, backup files generated from incremental backups are managed by the Altibase server, instead of the DBA.
 
@@ -4564,7 +4563,7 @@ Meta tables and performance views are used to check the operation status of Alti
 
 The major entities to be monitored are as follows:
 
-**Session and Statements **
+**Session and Statements**
 
 Information on currently connected sessions can be checked using performance views while Altibase is running. Multiple statements can be assigned to a single session<sup>8</sup>. Session properties can be set differently for each session.
 
@@ -4585,7 +4584,7 @@ Information about the entire database and each tablespace, table and index, can 
 - SYS_TABLES_: Information on tables
 - _SYS_INDICES_: Information on indexes
 
-**Memory Usage **
+**Memory Usage**
 
 Information on the memory areas used by Altibase while it is running can also be checked using performance views. This includes information about the amount of memory used for memory tablespace data (including old versions of records) storage, index storage space, temporary areas for use in processing queries, session information storage space, the memory buffer pool, and the like
 

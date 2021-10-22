@@ -40,7 +40,7 @@ Altibase Administration Installation Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.
 
@@ -125,14 +125,14 @@ When you need immediate assistance regarding technical issues, please contact Al
 
 Thank you. We appreciate your feedback and suggestions.
 
-1. About the Altibase Package Installer
+## 1. About the Altibase Package Installer
 ------------------------
 
-This Altibase Package Installer is a Java-based installer that lets you easily install Altibase products such as the database server, client components, tools, and so forth.
+This Altibase Package Installer is a Java-based installer that lets users easily install Altibase products such as the database server, client components, tools, and so forth.
 
 ### Altibase Home
 
-When you install Altibase with the Altibase Package Installer, a home directory and APatch directory are generated.
+When installing Altibase with the Altibase Package Installer, a home directory and APatch directory are generated.
 
 The Altibase home directory is the default directory wherein Altibase software is installed.
 
@@ -254,7 +254,7 @@ uninstall-base
 -   rollback-p0_0_0_10: the directory that contains backups of the files patched with 7.1.0.0.10.
 -   uninstall-p0_0_0_10: the executable file needed to delete the patch 7.1.0.0.10 and rollback to the previous version. These files are stored in the rollback-p0_0_0_10 directory.
 
-2. Installing Products with the Altibase Package Installer
+## 2. Installing Products with the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
@@ -424,7 +424,7 @@ $ setenv DISPLAY <machine name>:0.0
 
 \<machine_name\> is the IP address or host name of the computer that is to display the Altibase Package Installer process. Use the serene command for Shell or set export DISPLAY=\<machine name\>:0.0 for Korn Shell.
 
-If you want to allow the Altibase Package Installer to run in GUI mode at a remote location other than the host computer, run the following command on the remote computer: 
+In order to allow the Altibase Package Installer to run in GUI mode at a remote location other than the host computer, run the following command on the remote computer: 
 
 ```
 $ xhost +
@@ -438,7 +438,7 @@ To run the Altibase Package Installerm a suer needs to download the Package Inst
 $ chmod +x altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
 ```
 
-Run the Altibase Package Installer
+Run the Altibase Package Installer.
 
 ```
 $./altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
@@ -954,7 +954,7 @@ To start the Altibase Package Installer in GUI mode, please refer to [Set the In
 
 #### Starting the Altibase Package Installation
 
-To run the ALtibase Package Installer, users must download the Package Installer and then change the permissions of the file by using chmod. 
+To run the ALtibase Package Installer, the user must download the Package Installer and then change the permissions of the file by using chmod. 
 
 ```
 $ chmod +x altibase-client-7.1.0.0.0-LINUX-X86-64bit-release.run
@@ -1019,7 +1019,7 @@ export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}
 
 If you have not applied new environment variables to your shell during the above procedure, do it now. For more detailed information, please refer to [*Installing the Altibase Client Product*](#installing-the-altibase-client-product).
 
-3. Uninstalling Altibase and Meta Downgrade
+## 3. Uninstalling Altibase and Meta Downgrade
 ----------------------------------
 
 This chapter explains how to uninstall an installed or meta downgrade the installed product.
@@ -1093,7 +1093,7 @@ For meta downgrade-able version, perform the meta downgrade with the following s
 $ server downgrade
 ```
 
-> \* Note: User must shut down the server (server stop) before performing the meta downgrade. If the user does perform this without shutting down the server, then the following error with occur: 
+> \* Note: The user must shut down the server (server stop) before performing the meta downgrade. If the user does perform this without shutting down the server, then the following error with occur: 
 
 ```
 $ server downgrade
@@ -1148,7 +1148,7 @@ Run the Patch Uninstaller to remove the patch
 >
 > After performing a server downgrade, the user must delete the patch. If the server is run without deleting the patch, the meta upgrade will occur because the meta version has been modified to the previous version. 
 
-4. Patching Products With the Altibase Package Installer
+## 4. Patching Products With the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
@@ -1487,7 +1487,7 @@ lru_file_repage = 0 (AIX 5.2 ML4 or higher)
 strict_maxclient = 0
 ```
 
-###### Posix AIO의 설정
+###### Configuration of Posix AIO
 
 AIX provides the Posix A/O interfaces for improved disk I/O improvement which must be manually activated. However, from AIX 6.1 and higher, the interfaces are activated by default.
 
@@ -1592,5 +1592,5 @@ There is a bug in glibc that could cause deadlock due to race conditions such as
 
 #### AIX
 
- When using Altibase on AIX, memory usage increases (hearpmin library bug). In this case, C/C++ compilers of the appropriate version must be patched from the IBM Support Portal (http://www-01.ibm.com/support/docview.wss?uid=swg21110831 ).
+When using Altibase on AIX, memory usage increases (hearpmin library bug). In this case, C/C++ compilers of the appropriate version must be patched from the IBM Support Portal (http://www-01.ibm.com/support/docview.wss?uid=swg21110831 ).
 

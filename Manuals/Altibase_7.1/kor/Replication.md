@@ -1225,7 +1225,7 @@ CREATE [LAZY|EAGER] REPLICATION replication_name
 [FOR ANALYSIS | FOR PROPAGABLE LOGGING | FOR PROPAGATION | FOR ANALYSIS PROPAGATION] 
 [AS MASTER|AS SLAVE] 
 [OPTIONS options_name [option_name ... ] ] 
-WITH { ‘remote_host_ip’, remote_host_ port_no [USING conn_type [ib_latency]]} 
+WITH { ‘remote_host_ip’ | 'remote_host_name', remote_host_ port_no [USING conn_type [ib_latency]]} 
 ...
 FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
 [,FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
@@ -1269,8 +1269,8 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
   0, 1과 2, 또는 2와 1. 다른 조합은 실패할 것이다. (0: 지정하지 않은 경우, 1:
   Master, 2: Slave)
 
-- ***remote_host_ip***  
-  원격 서버의 IP 주소값
+- ***remote_host_ip | remote_host_name***  
+  원격 서버의 IP 주소값 이나 호스트 이름
 
 - ***remote_host_port_no***  
   원격 서버 수신 쓰레드의 포트 번호. 즉, 원격 서버의 Altibase 프로퍼티의
@@ -1604,7 +1604,7 @@ REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값에 따라 지원하는 DDL 문이 
 다음은 REPLICATION_DDL_ENABLE_LEVEL의 값이 0일 때 지원하는 DDL 문이다.
 
 ```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
 
 ALTER TABLE table_name DROP COLUMN column_name;
 
@@ -1614,19 +1614,17 @@ ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
 
 ALTER TABLE table_name ALTER TABLESPACE;
 
-ALTER TABLE table_name TRUNCATE PARTITION TRUNCATE TABLE table_name;
+ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
 
-ALTER TABLE table_name SPLIT PARTITION partition_name(condition) INTO
-( PARTITION partition_name
-   PARTITION partition_name);
+ALTER TABLE table_name TRUNCATE PARTITION partition_name;
 
-ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
+ALTER TABLE table_name REPLACE table_name;
 
-ALTER TABLE table_name DROP PARTITION partiton_name; 
+ALTER TABLE table_name REPLACE table_name PARTITION partition_name ;
 
 TRUNCATE TABLE table_name;
 
-CREATE INDEX index_name ON table_name (column_name);
+CREATE INDEX index_name ON table_name ( column_name );
 
 DROP INDEX index_name;
 ```
@@ -1634,32 +1632,42 @@ DROP INDEX index_name;
 REPLICATION_DDL_ENABLE_LEVEL의 값이 1일 때 지원하는 DDL 문은 아래와 같다.
 
 ```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE NOT NULL);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
 
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE UNIQUE);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
 
-ALTER TABLE table_name ALTER COLUMN (column_name NOT NULL);
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
 
-ALTER TABLE table_name ALTER COLUMN (column_name NULL);
+ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
 
-ALTER TABLE table_name MODIFY COLUMN (column_name DATA_TYPE);
+ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
 
-ALTER TABLE table_name MODIFY COLUMN (column_name NULL);
+ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
 
-ALTER TABLE table_name MODIFY COLUMN (column_name NOT NULL);
+ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
 
-ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능) 
+ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
 
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
+ALTER TABLE table_name SPLIT PARTITION partition_name ( condition ) INTO ( PARTITION partition_name PARTITION partition_name );
 
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name) LOCAL;
+ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
+
+ALTER TABLE table_name DROP PARTITION partiton_name; 
+
+ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능 ) 
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name ) LOCAL;
+
+ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
 
 ALTER TABLE table_name DROP CONSTRAINT constraint_name; 
  ( Unique, Local Unique가 있는 것도 삭제 가능 )
 
-CREATE UNIQUE INDEX index_name ON table_name (column_name);
+CREATE UNIQUE INDEX index_name ON table_name ( column_name );
 
-CREATE INDEX index_name ON table_name (expression);
+CREATE INDEX index_name ON table_name ( expression );
 
 DROP INDEX index_name; ( unique, function-base 인덱스가 있는 것도 삭제 가능 )
 ```
@@ -1670,17 +1678,18 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 문 실행이 가능�
 실행을 하기 위해서는 우선 프로퍼티를 다음과 같이 설정해야 한다.
 
 -   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
-
+-   REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 LEVEL에 맞게 설정한다.
 -   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를
     NONE 이외의 값으로 설정한다.
+-   이중화 대상인 테이블에 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을 수행하려면, 
+    원격 서버에 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 1로 설정한다.   
+    대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다. 
+    또한 지역 서버와 원격 서버의 파티션에 이중화 격차가 발생할 수 있으므로, 
+    데이터가 다른지 여부를 확인하여야 한다.
 
--   이중화 대상인 테이블에 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을
-    수행하려면, 대상 테이블을 LOCK TABLE...UNTIL NEXT DDL 구문으로 잠금 설정해야
-    한다. 또한 지역 서버와 원격 서버의 파티션에 이중화 격차가 발생할 수
-    있으므로, 데이터가 다른지 여부를 확인하여야 한다.
-
-이중화 대상인 파티션을 SPLIT, MERGE, DROP 하여 새로 생성된 파티션은 자동으로
-지역 서버와 원격 서버에 동일한 이름의 파티션이 추가되거나 제거된다.
+이중화 대상인 파티션을 SPLIT, MERGE, DROP시 원격 서버에도 동일한 이름으로 파티션을 생성 하거나 
+삭제 하여야 하며, 새로 생성된 되거나 삭제된 파티션은 자동으로 이중화 대상인 파티션으로 추가되거나 
+제거된다.
 
 #### 제약사항
 
@@ -1694,11 +1703,9 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
 -   ALTER TABLE table_name ADD COLUMN  
     외래 키를 추가할 수 없다.  
     압축 컬럼을 추가할 수 없다.
-
 -   ALTER TABLE table_name DROP COLUMN  
     프라이머리 키를 삭제할 수 없다.  
     압축 컬럼을 삭제할 수 없다.
-
 -   ALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
     이중화가 구동 중에 수행할 수 없다.  
     해당 테이블을 잠금 설정(LOCK TABLE)한다.  
@@ -1706,9 +1713,8 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
     이중화 격차를 해소하기 위해 DDL을 수행하기 전에 이중화의 FLUSH ALL 옵션을
     수행한다.  
     MERGE 대상이 되는 파티션은 모두 이중화 객체에 존재해야 한다.  
-    DROP PARTITION은 이중화 객체에 2개 이상의 파티션이나 테이블이 있어야 수행할
-    수 있다.
-
+    DROP PARTITION은 이중화 객체에 2개 이상의 파티션이나 테이블이 있어야 수행할 수 있다.  
+    매뉴얼의 처리 순서와 다르게 처리할 경우 데이터 불일치가 발생할 수 있다.
 -   TRUNCATE TABLE  
     압축 컬럼을 가지지 않는 테이블에 한해서 지원된다.
 
@@ -1733,32 +1739,42 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
 Alter success.
 ```
 
-파티션 P2에 있는 테이블 T1을 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+- 테이블 T1에 있는 파티션 P2를 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+
 
 ```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 1;
+(Local SYS User)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> AUTOCOMMIT OFF;
+iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
 iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
-       INTO (PARTITION P3, PARTITION P4 ); 
-```
-
-파티션 P2, P3에 있는 테이블 T1을 파티션 P23으로 합쳐서 생성한다 (MERGE TABLE).
-
-```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );
+(Remote SYS User)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> AUTOCOMMIT OFF;
+iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
-```
-
-파티션 P1을 제거한다 (DROP TABLE).
-
-```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );
+(Local SYS User)
+iSQL> ALTER REPLICATION REP1 START;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
+(Local SYS User)
+iSQL> AUTOCOMMIT ON;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+(Remote SYS User)
+iSQL> AUTOCOMMIT ON;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;
 ```
 
 ### 이중화 대상 테이블에 DDL 복제 실행
@@ -1783,6 +1799,7 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 -   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를 NONE 이외의 값으로 설정한다.
 -   DDL 을 수행하는 이중화 지역 서버 Session 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
 -   DDL 을 전송받는 이중화 원격 서버 System 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+-   삼중화 이상인 구조에서는 DDL을 전송받는 이중화 원격 서버 System 의 REPLICATION_SQL_APPLY_ENABLE 프로퍼티 값을 1로 설정한다.
 
 
 #### 제약사항
@@ -1799,6 +1816,8 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 -   하나의 이중화로 동시에 두개 이상의 DDL 복제는 할 수 없다.
 -   서로 다른 노드에서 하나의 노드로 동일한 테이블에 대해 DDL 복제는 할 수 없다.
 -   DDL 복제를 수행하는 이중화에 포함된 테이블에 다른 DDL 복제를 수행할 수 없다.
+-   삼중화 이상인 구조에서는 DDL을 전송받는 이중화 원격 서버들간에 갭이 없어야 하며, 
+    갭이 있을 경우 데이터 불일치가 발생할 수 있다.
 
 지원하는 DDL에 따라 제약사항이 다음과 같다.
 
@@ -1850,23 +1869,54 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
 Alter success.
 ```
 
-파티션 P2에 있는 테이블 T1을 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+삼중화 대상 테이블이 t1이고 t1에 컬럼이 c1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 복제 실행을 아래와 같이 사용한다.
+
+-   ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL ) 을 실행한다.
 
 ```
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
-       INTO (PARTITION P3, PARTITION P4 ); 
-```
-
-파티션 P2, P3에 있는 테이블 T1을 파티션 P23으로 합쳐서 생성한다 (MERGE TABLE).
-
-```
-iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
-```
-
-파티션 P1을 제거한다 (DROP TABLE).
-
-```
-iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+(Remote1 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+(Remote2 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+(Remote1 Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+(Remote2 Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+(Local Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );
+(Remote1 Table Owner)
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+iSQL> SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+(Remote2 Table Owner)
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+iSQL> SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+(Remote1 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+(Remote2 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 ```
 
 ### SQL 반영 모드
@@ -1908,14 +1958,11 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 설정할 때에는 수행중인 이중화를 종료해야 한다.
 
 -   복구 옵션(Recovery Option)
-
 -   [오프라인 옵션](#오프라인-옵션offline-option)(Offline Option)
-
 -   이중화 갭 해소 옵션(Replication Gapless Option)
-
 -   병렬 적용자 옵션(Parallel Applier Option)
-
 -   이중화 트랜잭션 그룹 옵션(Replicated Transaction Grouping Option)
+-   메타 로깅 옵션(Meta Logging Option)
 
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 컬럼 값을 통해서
 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
@@ -2206,6 +2253,26 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 
 -   LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
 
+#### 메타 로깅 옵션 (Meta Logging Option)
+
+##### 구문
+
+```
+CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
+```
+
+##### 설명
+
+이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
+미전송 로그를 읽어 올때 필요한 메타 정보를 파일로 남기는 옵션이다.
+파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
+
+자세한 설명은 *Adapter for JDBC User’s Manual, Adapter for Oracle User’s Manual*을 참고한다.
+
+##### 제약사항
+
+-   ANALYSIS로 이중화를 생성할때만 사용할 수 있다.
+
 ### 다중 IP 네트워크 환경에서의 이중화 
 
 다중 IP 네트워크 환경에서의 이중화가 지원된다. 즉, 물리적인 두 개 이상의
@@ -2215,40 +2282,41 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 
 ```
 CREATE REPLICATION replication_name {as master|as slave} 
-WITH 'remotehostip', remoteportno 'remotehostip', remoteportno …
+WITH 'remote_host_ip' | 'remote_host_name', remote_port_no 
+     'remote_host_ip' | 'remote_host_name', remote_port_no …
 FROM user.localtableA TO user.remotetableA,
 FROM user.localtableB TO user.remotetableB, …, 
 FROM user.localtableC TO user.remotetableC;
 
 ALTER REPLICATION replication_name
-ADD HOST ‘remote_host_ip‘, remote_port_no [USING conn_type [ib_latency]];
+ADD HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no [USING conn_type [ib_latency]];
 
 ALTER REPLICATION replication_name
-DROP HOST ‘remotehostip‘, remoteportno;
+DROP HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
 
 ALTER REPLICATION replication_name
-SET HOST ‘remotehostip‘, remoteportno;
+SET HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
 ```
 
 #### 설명
 
 시스템의 높은 가용성을 보장하고 신속한 장애 극복을 위하여 이중화 객체를 생성할
-때 다수의 물리적인 IP 주소를 부여할 수 있다. 즉, 이중화를 시작하면 송신 쓰레드는
-첫 번째 IP 주소를 이용하여 peer에 접속하며 이중화 작업을 수행하는데, 만약 이러한
+때 다수의 물리적인 IP 주소나 호스트 이름을 부여할 수 있다. 즉, 이중화를 시작하면 송신 쓰레드는
+첫 번째 IP 주소나 호스트 이름을 이용하여 peer에 접속하며 이중화 작업을 수행하는데, 만약 이러한
 작업 과정에서 문제가 발생하면, 송신 쓰레드는 해당 연결에 대해 접속을 해제하고
-나머지 IP 주소에 연결을 다시 시도하여 통신을 수행한다.
+나머지 IP 주소나 호스트명으로 연결을 다시 시도하여 통신을 수행한다.
 
 -   CREATE REPLICATION  
-    이중화 객체의 이름을 지정하고 WITH 절에는 이중화 상대 서버의 IP주소와 상대
-    서버 이중화 수신자의 서비스 포트를 다중으로 컴마 없이 리스트로 명시한다.
+    이중화 객체의 이름을 지정하고 WITH 절에는 이중화 상대 서버의 IP주소나 호스트 이름과 
+    상대 서버 이중화 수신자의 서비스 포트를 다중으로 컴마 없이 리스트로 명시한다.
     FROM 절에는 지역 서버의 대상 테이블 소유자와 테이블 명을 TO 절에는 원격
     서버의 대상 테이블 소유자와 테이블 명을 명시하며 콤마 리스트로 여러 개의
     테이블을 지정할 수 있다.
 
 -   ALTER REPLICATION (ADD HOST):  
     호스트를 추가한다. 이중화 중지 후 호스트를 추가 할 수 있다. 이 구문 수행
-    후에, 송신 쓰레드는 호스트를 추가 하기 전에 사용하던 IP 주소에 다시 연결을
-    시도한다.
+    후에, 송신 쓰레드는 호스트를 추가 하기 전에 사용하던 IP 주소나 호스트 이름으로
+    다시 연결을 시도한다.
 
 -   *conn_type*  
     원격 서버와의 통신 방법(TCP/ InfiniBand)이며, 기본값은 TCP이다.
@@ -2258,12 +2326,12 @@ SET HOST ‘remotehostip‘, remoteportno;
 
 -   ALTER REPLICATION (DROP HOST) :  
     호스트를 제거한다. 이중화 중지 후 호스트를 제거 할 수 있다. 이 구문 수행
-    후에, 송신 쓰레드는 맨 처음 IP 주소로 연결을 시도한다.
+    후에, 송신 쓰레드는 맨 처음 IP 주소나 호스트 이름으로 연결을 시도한다.
 
 -   ALTER REPLICATION (SET HOST) :  
     특정 호스트를 현재 호스트로 지정한다. 이중화 중지 후 호스트를 지정 할 수
-    있다. 이 구문 수행 후에, 송신 쓰레드는 현재 지정된 호스트의 IP 주소로 연결을
-    시도한다.
+    있다. 이 구문 수행 후에, 송신 쓰레드는 현재 지정된 호스트의 IP 주소나 이름으로
+    연결을 시도한다.
 
 #### 예제
 
@@ -3843,7 +3911,6 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 >     값부터 시작되므로 키 값 사이에 공백이 발생할 수 있다.
 >
 > -   이중화 재생성과 시퀀스 재생성 및 변경은 모든 서버에 동일하게 적용해야 한다.
->
 
 #### 예제
 

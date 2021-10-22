@@ -60,7 +60,7 @@ Altibase Administration Administrator’s Manual
 
 Release 7.1
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
 prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
@@ -424,16 +424,6 @@ Altibase provides log-based database replication to realize both high availabili
 
 Altibase also provides a load-balancing feature. In the replicated Altibase database environment, user transactions can be divided into two or more groups. Each group of transactions is executed on a corresponding server, and changes on one server are reflected on the other servers automatically. In this way, data consistency between the servers is ensured.
 
-#### Altibase Sharding
-
-Altibase introduces sharding technology  to Altibase, which improves storage capacity and throughput timely, enability distributed processing of large databases. 
-
-Altibase Sharding can use both client-side and server-side sharding. In particular, client-side sharding can be applied by replacing only shard-specific libraries without modifying existing applications or SQL.
-
-In addition, Altibase supports server-side sharding, allowing users to choose client-side sharding to improve application performance, or server-side sharding for compatibility.
-
-Please refer to the "*Altibase Sharding Guide*" for more detailed information.
-
 #### Client-Server Protocol
 
 When running Altibase in a client-server architecture, a user can select and use a client-server protocol suitable for the configuration of the application system. The communication protocols that Altibase supports are TCP/IP, IPC, IPCDA and Unix domain socket.
@@ -448,7 +438,7 @@ For more detailed information on server and client communication, please refer t
 
 #### **Database Space**
 
-An Altibase database consists of all of the data in the database stored in one or more tablespaces. The tablespaces are divided into memory tablespaces and disk tablespaces. 
+Altibase database consists of all of the data in the database stored in one or more tablespaces. The tablespaces are divided into memory tablespaces and disk tablespaces. 
 
 Besides the system tablespace (which is created by Altibase), a user can add memory and disk tablespaces.
 
@@ -507,6 +497,7 @@ The load balancer detects the overload of each services, add or remove service t
 Altibase creates and manages service threads for query processing and pools them in the Service Thread Pool. The number of service threads that are created corresponds to the user config- uration at the time the server was started.
 
 **Service Thread**
+
 The service thread processes queries and returns the result to the client. When the Altibase server starts up, Altibase creates and stores as many service threads in the service thread pool as specified in the configuration (altibase.properties) information. 
 
 **Checkpoint Thread**
@@ -519,7 +510,7 @@ The session management thread monitors the status of the connected session betwe
 
 **Garbage Collection Thread (Ager)
 
-Using MVCC can cause old and unnecessary data to remain in memory. As soon as some data becomes unnecessary, the garbage collection thread recovers memory space so that it can be reused, in order to maximize the efficiency of memory usage. The garbage collection thread is also called the ager.
+Using the MVCC can cause old and unnecessary data to remain in memory. As soon as some data becomes unnecessary, the garbage collection thread recovers memory space so that it can be reused, in order to maximize the efficiency of memory usage. The garbage collection thread is also called the ager.
 
 **Log Flush Thread**
 
@@ -538,7 +529,7 @@ The Archievelog thread regularly copies online log files to a predefined destina
 
 #### Physical Database Structure
 
-An Altibase database physically consists of log anchor files, log files, and data files.
+Altibase database physically consists of log anchor files, log files, and data files.
 
 **Log Anchor Files**
 
@@ -1039,7 +1030,7 @@ In the Process phase, use the CREATE DATABASE command to create a database as sh
 
 For more detailed information on using the CREATE DATABASE statement, please refer to the *SQL Reference*.
 
- In the following example, a database is created using the default options:
+In the following example, a database is created using the default options:
 
 ```
 iSQL> create database mydb initsize=50M noarchivelog character set ksc5601 national character set utf16;
@@ -1296,7 +1287,7 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 $
 ```
 
-5. Objects and Privileges
+## 5. Objects and Privileges
 -------------------------
 
 This chapter describes how to manage objects and privileges in Altibase.
@@ -1321,7 +1312,7 @@ This is described in detail in the "Tables" section below.
 
 When a table data are divided into pieces(each pice is called a partition) and stored them in different table spaces, this table is called a partitioned table. For large tables, partitioned tables can make data management much easier.
 
-More detailed information about partitioned tables, please refer to "Chapter 7: Partitioned Objects",
+More detailed information about partitioned tables, please refer to "Chapter 7: Partitioned Objects".
 
 ##### Partitioned Indexes
 
@@ -2416,7 +2407,7 @@ DROP MATERIALIZED VIEW avg_sal;
 
 Data of the materialized view can be deleted by using the TRUNCATE TABLE statement.
 
-#### Data Manipul
+#### Data Manipulation
 
 Altibase only supports SELECT for materialized views.
 
@@ -2430,17 +2421,16 @@ The following SQL statements are provided for the materialized view. For more de
 
 -   DROP MATERIALIZED VIEW
 
-- #### Truncating Materialized Views
+For the matrialized view, the following SQL statements are provided for table where the actual data is contained, and refer to the SQL Rerence for more detailed information.
 
-  Data of the materialized view can be deleted by using the TRUNCATE TABLE statement.
+-   ALTER TABLE
 
-  #### Data Manipul
+-   TRUNCATE TABLE
 
-  Altibase only support SELECT for materialized views.
+-   LOCK TABLE
 
-  #### Related SQL Statements
+-   SELECT
 
-  The following SQL statements are provided for the materialized view. For more detailed information, please refer to *SQL Reference*
 
 ### Sequences
 
@@ -2795,7 +2785,7 @@ The following trigger constituents determine when a trigger fires, whether it fi
     This is the SQL statement that causes the trigger to fire when executed.
 
 -   Trigger condition (WHEN Clause) 
-    This is a SQL condition that must be satisfied to fire the trigger.
+    This is the SQL condition that must be satisfied to fire the trigger.
 
 -   Trigger Action  
     This is the body of the stored procedure that the trigger executes when the trigger condition is TRUE.
@@ -2914,7 +2904,7 @@ Alter success.
 
 #### Creating Jobs
 
-With the CREATE JOB statement, a JOB can be created and the stored procedure to be executed, the point in time of execution, the interval after which it is to be executed and etc. can also be set. If the user name of the procedure to be registered is omitted, the SYS user is assumed by Objects and Privileges 81 default.
+With the CREATE JOB statement, a JOB can be created and the stored procedure to be executed, the point in time of execution, the interval after which it is to be executed and the execution cycle. If the user name of the procedure to be registered is omitted, it is regarded as the SYS user.
 
 When a JOB is created, it is in the DISABLE state by default. In order to operate the JOB according to the execution cycle, it must be changed to the ENABLE state.
 
@@ -3543,7 +3533,7 @@ A memory tablespace is a tablespace in which all data are stored in memory. The 
 
 Memory tablespaces are closely related to checkpoint image files. [Figure 6-6] shows the relationship between a memory table space, tables, and checkpoint image files. 
 
-![](6-5_Eng.png)
+![](media/Admin/6-6_Eng.png)
 
 [Figure 6-6] The Relationship between a Memory Tablespace , Tables and Checkpoint Image Files
 
@@ -3629,8 +3619,8 @@ A disk tablespace is a tablespace for storing disk-based objects. It is intended
 
 Altibase tablespaces can also be classified depending on what data are stored in them as follows: 
 
--   The Dictionary Tablespace 
--   The Undo Tablespace 
+-   Dictionary Tablespace 
+-   Undo Tablespace 
 -   Temporary Tablespace 
 -   Data Tablespace
 
@@ -3832,7 +3822,7 @@ In Altibase, information about the undo tablespace and the space in the undo tab
 
 The undo tablespace is created when the database is created. Because it is a system tablespace, only one undo tablespace can exist. If the undo tablespace does not exist, the server will fail to start up, and an error message will be written to the boot log.
 
-In the undo tablespace, transaction segments (TSS segments and undo segments) are managed. The user can change the number of transaction segments using the TRANSACTION_SEGMENT_COUNT property. The numbers of TSS segments and undo segments that are created, respectively, equal the number specified by the user in this property. If the TRANSACTION_SEGMENT_COUNT property is set to 255, 255 TSS segments and 255 undo segments are created every time the server is started up
+In the undo tablespace, transaction segments (TSS segments and undo segments) are managed. The user can change the number of transaction segments using the TRANSACTION_SEGMENT_COUNT property. The numbers of TSS segments and undo segments that are created, respectively, equal the number specified by the user in this property. If the TRANSACTION_SEGMENT_COUNT property is set to 255, 255 TSS segments and 255 undo segments are created every time the server is started up.
 
 If this property is changed to other values to specify a different number of transaction segments, that number of segments will be created the next time the server is restarted.
 
@@ -4447,7 +4437,7 @@ The term "tablespace online backup" refers to backup that is conducted while the
 
 [Figure 6-14] The Concepts of Media Recovery
 
-![](media/Admin/6-14_Eng.jpg)
+![](media/Admin/6-14_Eng.png)
 
 -   If data file xyz, which exists in a disk tablespace, is damaged, it can be restored using a data file that was previously created during a hot backup. A memory tablespace can be recovered using a checkpoint image file that was previously created during a hot backup. 
 -   On the basis of the final checkpoint SCN (140) and recovery LSN (32:010), which are written in the header of the data file that was created during the backup, the file can be restored to the current final checkpoint SCN (200). 
@@ -4973,7 +4963,7 @@ The required undo table size can generally be approximated by the following form
 
 -   Size of Undo Tablespace = 
   
-    Long-Term Transaction Time (sec) x (the number of undo pages allocated per second + the number of TSS pages allocated per second) x page size (8kB)
+    Long-Term Transaction Time (sec) x (the number of undo pages allocated per second + the number of TSS pages allocated per second) x page size (8KB)
 
 In this example, if the executing time of a long-term transaction is 600 seconds (10 minutes) and 1000 undo pages and 24 TSS pages are allocated per second, then 10 x 60 x (1000 + 24) x 8K = 4800 MB, which requires about 4.7G of the undo tablespace.
 
@@ -5224,7 +5214,7 @@ In this schema, column C1 and column C2 are fixed-length columns, whereas column
 
 -   If the size of the data in the column C3 is 200 bytes
 
-[Total Length of One Record] = 34 + (1+32) + (3+1024) + (3+200) = 1297 Bytes
+[Total Length of One Record] = 34 + (1+32) + (3+1024) + (3+200) = 1295 Bytes
 
 -   If the size of the data in 
 
@@ -5396,11 +5386,13 @@ tablespace user_data02;
 
 -   Row Size and Total Data Size
 
-Row Size: 34[Header] + (1+8) + (1+130) + (1+4) + (1+8) = 188 bytes Total Size of Data: [ 188 ] * 1,000,000 data = 179.29 Megabytes
+Row Size: 34[Header] + (1+8) + (1+130) + (1+4) + (1+8) = 188 bytes 
+Total Size of Data: [ 188 ] * 1,000,000 data = 179.29 Megabytes
 
 -   Index Size
 
-Index Size for one Row: 10[Header] + (1+8)[C1] = 19 bytes Total Index Size: 19 * 1,000,000 data = 18.12 Megabytes
+Index Size for one Row: 10[Header] + (1+8)[C1] = 19 bytes 
+Total Index Size: 19 * 1,000,000 data = 18.12 Megabytes
 
 -   Total Amount of Disk Space Occupied by TEST001
 

@@ -7,11 +7,10 @@
     - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
     - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
   - [릴리스 정보](#%EB%A6%B4%EB%A6%AC%EC%8A%A4-%EC%A0%95%EB%B3%B4)
-    - [2.1 새로운 기능](#21-%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
-      - [2.1.1 Altibase Sharding 2.0](#211-altibase-sharding-20)
-      - [2.1.2 메타 다운그레이드](#212-%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
-      - [2.1.3 기능 개선](#213-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
-        - [2.1.3.1 SQL 확장](#2131-sql-%ED%99%95%EC%9E%A5)
+    - [새로운 기능](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
+      - [메타 다운그레이드](#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
+      - [기능 개선](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
+        - [SQL 확장](#sql-%ED%99%95%EC%9E%A5)
           - [파티션 변환(Partition Exchange) DDL 지원](#%ED%8C%8C%ED%8B%B0%EC%85%98-%EB%B3%80%ED%99%98partition-exchange-ddl-%EC%A7%80%EC%9B%90)
           - [테이블의 테이블스페이스 변경](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EB%B3%80%EA%B2%BD)
           - [하이브리드 파티션드 테이블(Hybrid Partitioned Table) 지원](#%ED%95%98%EC%9D%B4%EB%B8%8C%EB%A6%AC%EB%93%9C-%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%ED%85%8C%EC%9D%B4%EB%B8%94hybrid-partitioned-table-%EC%A7%80%EC%9B%90)
@@ -28,17 +27,17 @@
           - [날짜형 데이터 형식 지원](#%EB%82%A0%EC%A7%9C%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%98%95%EC%8B%9D-%EC%A7%80%EC%9B%90)
           - [공간 함수 REVERSE , MAKEENVELOPE 추가](#%EA%B3%B5%EA%B0%84-%ED%95%A8%EC%88%98-reverse--makeenvelope-%EC%B6%94%EA%B0%80)
           - [숫자 함수(Numeric Function) 추가](#%EC%88%AB%EC%9E%90-%ED%95%A8%EC%88%98numeric-function-%EC%B6%94%EA%B0%80)
-        - [2.1.3.2 이중화 기능개선](#2132-%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EA%B0%9C%EC%84%A0)
+        - [이중화 기능개선](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EA%B0%9C%EC%84%A0)
           - [이중화 제약 조건 완화](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%9C%EC%95%BD-%EC%A1%B0%EA%B1%B4-%EC%99%84%ED%99%94)
           - [SQL 반영 모드 (SQL APPLY MODE)](#sql-%EB%B0%98%EC%98%81-%EB%AA%A8%EB%93%9C-sql-apply-mode)
           - [이중화 대상 테이블에 수행 가능한 DDL 추가](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-%EC%88%98%ED%96%89-%EA%B0%80%EB%8A%A5%ED%95%9C-ddl-%EC%B6%94%EA%B0%80)
-        - [2.1.3.3 DBLink Two-Phase Commit (2PC) Level 지원 및 기능개선](#2133-dblink-two-phase-commit-2pc-level-%EC%A7%80%EC%9B%90-%EB%B0%8F-%EA%B8%B0%EB%8A%A5%EA%B0%9C%EC%84%A0)
+        - [DBLink Two-Phase Commit (2PC) Level 지원 및 기능개선](#dblink-two-phase-commit-2pc-level-%EC%A7%80%EC%9B%90-%EB%B0%8F-%EA%B8%B0%EB%8A%A5%EA%B0%9C%EC%84%A0)
           - [Two-Phase Commit(2PC) Level 지원](#two-phase-commit2pc-level-%EC%A7%80%EC%9B%90)
           - [DBLink 에서 일괄처리(Batch) 지원 REMOTE 함수](#dblink-%EC%97%90%EC%84%9C-%EC%9D%BC%EA%B4%84%EC%B2%98%EB%A6%ACbatch-%EC%A7%80%EC%9B%90-remote-%ED%95%A8%EC%88%98)
-        - [2.1.3.4 응용 프로그램 개발 인터페이스 확장 및 개선](#2134-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%ED%99%95%EC%9E%A5-%EB%B0%8F-%EA%B0%9C%EC%84%A0)
+        - [응용 프로그램 개발 인터페이스 확장 및 개선](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%ED%99%95%EC%9E%A5-%EB%B0%8F-%EA%B0%9C%EC%84%A0)
           - [PDO 드라이버 지원](#pdo-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%A7%80%EC%9B%90)
           - [내장 SQL에서 FOR절에서 FETCH 구문 지원](#%EB%82%B4%EC%9E%A5-sql%EC%97%90%EC%84%9C-for%EC%A0%88%EC%97%90%EC%84%9C-fetch-%EA%B5%AC%EB%AC%B8-%EC%A7%80%EC%9B%90)
-        - [2.1.3.5 내장 패키지 및 함수](#2135-%EB%82%B4%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%8F-%ED%95%A8%EC%88%98)
+        - [내장 패키지 및 함수](#%EB%82%B4%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%8F-%ED%95%A8%EC%88%98)
           - [저장 프로시저에서 AUTHID 지원](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%97%90%EC%84%9C-authid-%EC%A7%80%EC%9B%90)
           - [STANDARD시스템 패키지 제공](#standard%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
           - [UTL_COPYSWAP 시스템 패키지 제공](#utl_copyswap-%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
@@ -50,10 +49,9 @@
           - [패키지 서브프로그램 다중정의(overloading) 지원](#%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%84%9C%EB%B8%8C%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%8B%A4%EC%A4%91%EC%A0%95%EC%9D%98overloading-%EC%A7%80%EC%9B%90)
           - [PSM 문자형 데이터 크기 결정](#psm-%EB%AC%B8%EC%9E%90%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%81%AC%EA%B8%B0-%EA%B2%B0%EC%A0%95)
           - [PRAGMA AUTONOMOUS_TRANSACTION, PRAGMA EXCEPTION_INIT 구문 지원](#pragma-autonomous_transaction-pragma-exception_init-%EA%B5%AC%EB%AC%B8-%EC%A7%80%EC%9B%90)
-        - [2.1.3.6 클라이언트 툴](#2136-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%88%B4)
+        - [클라이언트 툴](#%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%88%B4)
           - [JDBC Adapter 지원](#jdbc-adapter-%EC%A7%80%EC%9B%90)
           - [SQuirreL SQL 클라이언트 연동](#squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%97%B0%EB%8F%99)
-          - [Shard Manager 지원](#shard-manager-%EC%A7%80%EC%9B%90)
           - [altimon.sh 개선](#altimonsh-%EA%B0%9C%EC%84%A0)
           - [iSQL 호스트 변수 선언에서 INPUT/OUTPUT 타입관련 동작 변경](#isql-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EC%97%90%EC%84%9C-inputoutput-%ED%83%80%EC%9E%85%EA%B4%80%EB%A0%A8-%EB%8F%99%EC%9E%91-%EB%B3%80%EA%B2%BD)
           - [isql 명령어 추가](#isql-%EB%AA%85%EB%A0%B9%EC%96%B4-%EC%B6%94%EA%B0%80)
@@ -62,8 +60,8 @@
           - [dataCompJ 추가](#datacompj-%EC%B6%94%EA%B0%80)
           - [비동기 prefetch 속성 추가](#%EB%B9%84%EB%8F%99%EA%B8%B0-prefetch-%EC%86%8D%EC%84%B1-%EC%B6%94%EA%B0%80)
           - [aexport 프로퍼티 추가](#aexport-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%B6%94%EA%B0%80)
-      - [2.1.4 효율성](#214-%ED%9A%A8%EC%9C%A8%EC%84%B1)
-        - [2.1.4.1 서버 성능 향상](#2141-%EC%84%9C%EB%B2%84-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81)
+      - [효율성](#%ED%9A%A8%EC%9C%A8%EC%84%B1)
+        - [서버 성능 향상](#%EC%84%9C%EB%B2%84-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81)
           - [디스크 버퍼 매니저의 성능 개선](#%EB%94%94%EC%8A%A4%ED%81%AC-%EB%B2%84%ED%8D%BC-%EB%A7%A4%EB%8B%88%EC%A0%80%EC%9D%98-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
           - [메모리 Fetch 성능 개선](#%EB%A9%94%EB%AA%A8%EB%A6%AC-fetch-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
           - [Result Cache 지원](#result-cache-%EC%A7%80%EC%9B%90)
@@ -72,15 +70,15 @@
           - [실행 계획의 지연 기능](#%EC%8B%A4%ED%96%89-%EA%B3%84%ED%9A%8D%EC%9D%98-%EC%A7%80%EC%97%B0-%EA%B8%B0%EB%8A%A5)
           - [IPCDA 프로토콜 지원](#ipcda-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C-%EC%A7%80%EC%9B%90)
           - [ACCESS LIST 관리 확장](#access-list-%EA%B4%80%EB%A6%AC-%ED%99%95%EC%9E%A5)
-        - [2.1.4.2 자원 효율성](#2142-%EC%9E%90%EC%9B%90-%ED%9A%A8%EC%9C%A8%EC%84%B1)
+        - [자원 효율성](#%EC%9E%90%EC%9B%90-%ED%9A%A8%EC%9C%A8%EC%84%B1)
           - [Mempool 메모리 사용 개선](#mempool-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%82%AC%EC%9A%A9-%EA%B0%9C%EC%84%A0)
           - [쓰레드 재사용](#%EC%93%B0%EB%A0%88%EB%93%9C-%EC%9E%AC%EC%82%AC%EC%9A%A9)
           - [Startup Index Rebuild 과정의 CPU 사용률 개선](#startup-index-rebuild-%EA%B3%BC%EC%A0%95%EC%9D%98-cpu-%EC%82%AC%EC%9A%A9%EB%A5%A0-%EA%B0%9C%EC%84%A0)
           - [메모리 인덱스 재구성(Reorganization) 지원](#%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EC%9E%AC%EA%B5%AC%EC%84%B1reorganization-%EC%A7%80%EC%9B%90)
-      - [2.1.5 고가용성](#215-%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
+      - [고가용성](#%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
         - [Query Execution 안정성 개선](#query-execution-%EC%95%88%EC%A0%95%EC%84%B1-%EA%B0%9C%EC%84%A0)
-      - [2.1.6 기타](#216-%EA%B8%B0%ED%83%80)
-        - [2.1.6.1 그 외 변경사항](#2161-%EA%B7%B8-%EC%99%B8-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
+      - [기타](#%EA%B8%B0%ED%83%80)
+        - [그 외 변경사항](#%EA%B7%B8-%EC%99%B8-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
           - [동적 SQL의 메소드4추가](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C4%EC%B6%94%EA%B0%80)
           - [Hibernate와 연동지원](#hibernate%EC%99%80-%EC%97%B0%EB%8F%99%EC%A7%80%EC%9B%90)
           - [로드밸런서(Load Balancer) 로깅(Logging) 기능 추가](#%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9Cload-balancer-%EB%A1%9C%EA%B9%85logging-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
@@ -90,14 +88,13 @@
           - [DataPort 기능 제거](#dataport-%EA%B8%B0%EB%8A%A5-%EC%A0%9C%EA%B1%B0)
           - [재해 복구(Disaster Recovery) 기능 제거](#%EC%9E%AC%ED%95%B4-%EB%B3%B5%EA%B5%ACdisaster-recovery-%EA%B8%B0%EB%8A%A5-%EC%A0%9C%EA%B1%B0)
           - [공유 메모리 기능 미지원](#%EA%B3%B5%EC%9C%A0-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B8%B0%EB%8A%A5-%EB%AF%B8%EC%A7%80%EC%9B%90)
-    - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
+    - [변경 사항](#%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
       - [데이터베이스 버전](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B2%84%EC%A0%84)
       - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
         - [데이터베이스 바이너리 버전](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC-%EB%B2%84%EC%A0%84)
         - [통신 프로토콜 버전](#%ED%86%B5%EC%8B%A0-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C-%EB%B2%84%EC%A0%84)
         - [메타 버전](#%EB%A9%94%ED%83%80-%EB%B2%84%EC%A0%84)
         - [이중화 프로토콜 버전](#%EC%9D%B4%EC%A4%91%ED%99%94-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C-%EB%B2%84%EC%A0%84)
-        - [샤딩 버전](#%EC%83%A4%EB%94%A9-%EB%B2%84%EC%A0%84)
       - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
         - [새로운 프로퍼티](#%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
         - [변경된 프로퍼티](#%EB%B3%80%EA%B2%BD%EB%90%9C-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
@@ -106,8 +103,8 @@
       - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
         - [새로운 성능 뷰](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
         - [수정된 성능 뷰](#%EC%88%98%EC%A0%95%EB%90%9C-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-    - [2.3 패키지](#23-%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [2.4 다운로드](#24-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
+    - [패키지](#%ED%8C%A8%ED%82%A4%EC%A7%80)
+    - [다운로드](#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
       - [Package](#package)
       - [Manual](#manual)
       - [설치](#%EC%84%A4%EC%B9%98)
@@ -160,21 +157,9 @@ Altibase 7.1.0.1.2는 아래 표에 나열된 운영체제와 플랫폼 상에�
 릴리스 정보
 -----------
 
-### 2.1 새로운 기능
+### 새로운 기능
 
-#### 	2.1.1 Altibase Sharding 2.0
-
-Altibase 7.1부터 Altibase Sharding 기능을 제공한다. Altibase Sharding은
-Altibase에 샤딩 기술을 도입하여, 저장 용량과 시간당 처리량을 향상시키고,
-대용량의 데이터베이스를 분산처리 할 수 있게 한다. Altibase Sharding은 하이브리드
-샤딩으로, 기존의 SQL을 분석하여 자동으로 클라이언트 측 샤딩이나 서버측 샤딩으로
-수행할 것인지를 분석하여 경로를 최적화 한다. Altibase Sharding은 다양한
-분산방식과 분산객체, 유틸리티를 지원하고 있으며, 다양한 업무에 적용할 수 있다.
-기존의 SQL을 수정하지 않고, 샤드 전용 라이브러리만 교체하는 것으로 Altibase
-Sharding을 쉽게 적용할 수 있다. 뿐만 아니라, 기존 응용프로그램을 전혀 수정하지
-않은 상태에서도 서버 측 샤딩을 적용할 수 있다.
-
-#### 2.1.2 메타 다운그레이드
+#### 메타 다운그레이드
 
 기존에는 메타버전이 다른 경우에 패치를 롤백하려면, 롤백하려는 버전의 메타로
 수동으로 재구성한 다음, 패치 롤백을 수행해야 했다. Altibase 7.1.0.1.2부터는
@@ -185,9 +170,9 @@ Sharding을 쉽게 적용할 수 있다. 뿐만 아니라, 기존 응용프로�
 % server downgrade
 ```
 
-#### 2.1.3 기능 개선
+#### 기능 개선
 
-##### 2.1.3.1 SQL 확장
+##### SQL 확장
 
 ###### 파티션 변환(Partition Exchange) DDL 지원
 
@@ -327,7 +312,7 @@ ROUND(date), TRUNC(date) 등의 날짜 함수에서 아래의 날짜형 데이�
 * NUMSHIFT
 * NUMXOR
 
-##### 2.1.3.2 이중화 기능개선
+##### 이중화 기능개선
 
 ###### 이중화 제약 조건 완화
 
@@ -355,7 +340,7 @@ REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 추가하여, DDL 구문 수행을R
 >
 >  또한, 이중화가 EAGER모드로 실행 중일 때도 DDL문을 실행할 수 없다.
 
-##### 2.1.3.3 DBLink Two-Phase Commit (2PC) Level 지원 및 기능개선
+##### DBLink Two-Phase Commit (2PC) Level 지원 및 기능개선
 
 ###### Two-Phase Commit(2PC) Level 지원
 
@@ -393,7 +378,7 @@ DBLINK_GLOBAL_TRANSACTION_LEVEL프로퍼티를 Two-Phase Commit Level로 설정�
 - REMOTE_GET_RESULT_COUNT_BATCH
 - REMOTE_GET_RESULT_BATCH
 
-##### 2.1.3.4 응용 프로그램 개발 인터페이스 확장 및 개선
+##### 응용 프로그램 개발 인터페이스 확장 및 개선
 
 ###### PDO 드라이버 지원
 
@@ -403,7 +388,7 @@ PHP 응용프로그램에서 Altibase와 연동을 위하여 Altibase PDO 드라
 
 내장 SQL 문에서 호스트배열을 사용할 때 FOR절에서 FETCH 구문을 사용할 수 있다.
 
-##### 2.1.3.5 내장 패키지 및 함수
+##### 내장 패키지 및 함수
 
 ###### 저장 프로시저에서 AUTHID 지원
 
@@ -541,7 +526,7 @@ Fetch 구문에서 BULK COLLECT INTO기능을 지원한다. 또한 limit 기능�
 * PRAGMA AUTONOMOUS_TRANSACTION : 자율 트랜잭션 프라그마. PSM 객체가 트랜잭션 내에서 동작하는 방식을 변경할 수 있다.
 * PRAGMA EXCEPTION_INIT : 예외 초기화 프라그마. 사용자가 예외 변수를 Altibase의 에러코드로 초기화 할 수 있는 기능이다.
 
-##### 2.1.3.6 클라이언트 툴
+##### 클라이언트 툴
 
 ###### JDBC Adapter 지원
 
@@ -556,13 +541,6 @@ ALA(Altibase Log Analysis API) 와 JDBC(Java DataBase Connectivity) 를 이용�
 
 DB 객체 브라우징과 SQL 수행을 위한 오픈소스 제품인 SQuirreL SQL 클라이언트를
 Altibase와 연동하여 사용할 수 있다.
-
-###### Shard Manager 지원
-
-Shard Manager는 Altibase Sharding의 데이터 노드와 샤드 객체에 대한 구성 및
-관리를 돕는 도구이다. Altibase Sharding은 다수의 데이터베이스로 구성되기 때문에,
-각 데이터베이스와 객체를 관리하는 데에 많은 비용이 들 수 있다. 이런 환경에서,
-사용자는 Shard Manager를 사용하여 업무 효율성을 향상시킬 수 있다
 
 ###### altimon.sh 개선
 
@@ -615,9 +593,9 @@ aexport 유틸리티의 프로퍼티들이 아래와 같이 추가되었다.
 * ILOADER_ERRORS  
 * ILOADER_PARALLEL
 
-#### 2.1.4 효율성
+#### 효율성
 
-##### 2.1.4.1 서버 성능 향상
+##### 서버 성능 향상
 
 ###### 디스크 버퍼 매니저의 성능 개선
 
@@ -678,7 +656,7 @@ IPCDA(Inter Process Communication Direct Attach)는 Altibase에서 제공하는 
 외부 파일에 기술된 IP 패킷의 접근 및 차단을 허용할 수 있도록 ACCESS_LIST_FILE
 프로퍼티를 추가하였다
 
-##### 2.1.4.2 자원 효율성
+##### 자원 효율성
 
 ###### Mempool 메모리 사용 개선
 
@@ -713,15 +691,15 @@ Job Thread, Queue 의 내부 알고리즘 개선으로 인덱스 재빌드시 CP
 
 > 메모리 B-tree인덱스만 사용할 수 있다.
 
-#### 2.1.5 고가용성
+#### 고가용성
 
 ##### Query Execution 안정성 개선
 
 Query Execution 단계에서의 안정성이 개선되었다.
 
-#### 2.1.6 기타
+#### 기타
 
-##### 2.1.6.1 그 외 변경사항
+##### 그 외 변경사항
 
 ###### 동적 SQL의 메소드4추가
 
@@ -773,7 +751,7 @@ Altibase 7.1부터 윈도우용 서버 및 클라이언트를 지원하지 않�
 공유 메모리(Shared Memory) 모드를 7.1부터 지원하지 않는다. 공유 메모리를
 지원하는 관리 도구 'shmutil' 및 프로퍼티를 삭제한다
 
-### 2.2 변경 사항
+### 변경 사항
 
 DBA와 개발자가 알아야 할 추가, 변경, 및 제거된 기능을 아래에서 설명한다.
 
@@ -781,10 +759,10 @@ DBA와 개발자가 알아야 할 추가, 변경, 및 제거된 기능을 아래
 
 데이터베이스 구성 요소 별 버전
 
-| Altibase 버전 | 데이터베이스 바이너리 버전 | 통신 프로토콜 버전 | 메타 버전 | 이중화 프로토콜 버전 | 샤딩 버전 |
-| ------------- | -------------------------- | ------------------ | --------- | -------------------- | --------- |
-| 6.5.1         | 6.3.1                      | 7.1.3              | 8.1.1     | 7.4.2                | \-        |
-| 7.1.0.1.2     | 6.5.1                      | 7.1.6              | 8.5.1     | 7.4.2                | 2.0.0     |
+| Altibase 버전 | 데이터베이스 바이너리 버전 | 통신 프로토콜 버전 | 메타 버전 | 이중화 프로토콜 버전 |
+| ------------- | -------------------------- | ------------------ | --------- | -------------------- |
+| 6.5.1         | 6.3.1                      | 7.1.3              | 8.1.1     | 7.4.2                |
+| 7.1.0.1.2     | 6.5.1                      | 7.1.6              | 8.5.1     | 7.4.2                |
 
 #### 호환성
 
@@ -823,18 +801,6 @@ DBA와 개발자가 알아야 할 추가, 변경, 및 제거된 기능을 아래
 |---------------|----------------------|
 | 6.5.1         | 7.4.2                |
 | 7.1.0.1.2     | 7.4.2                |
-
-##### 샤딩 버전
-
-Altibase 7.1부터 샤딩 기능을 제공한다.
-
-> 주의사항:
->
-> 알티베이스 샤딩 프로토콜 및 메타는 상위, 하위 호환성을 보장하지 않는다. 즉, 샤딩 버전이 다른 경우 재구성해야 한다.
-
-| Altibase 버전 | 샤딩 버전 |
-|---------------|-----------|
-| 7.1.0.1.2     | 2.0.0     |
 
 #### 프로퍼티
 
@@ -1094,7 +1060,7 @@ Altibase 7.1.0.1.2 에서는 아래의 프로퍼티들이 추가, 변경, 삭제
 | --------------- | ------------------------------------------------------------ |
 | ISOLATION_LEVEL | 추가됨 (INTEGER) </br>트랜잭션의 격리 수준(isolation level)</br>0: READ COMMITED</br> 1: REPEATABLE READ </br> 2: SERIALIZABLE |
 
-### 2.3 패키지
+### 패키지
 
 | OS    | CPU                       | Archive Name                                                                                                             |
 |-------|---------------------------|--------------------------------------------------------------------------------------------------------------------------|
@@ -1109,7 +1075,7 @@ Altibase 7.1.0.1.2 에서는 아래의 프로퍼티들이 추가, 변경, 삭제
 |       | PowerPCLE (Little Endian) | altibase- server-7.1.0.1.2-LINUX-POWERPCLE-64bit-release.run                                                             |
 |       |                           | altibase- client-7.1.0.1.2-LINUX-POWERPCLE-64bit-release.run                                                             |
 
-### 2.4 다운로드
+### 다운로드
 
 #### Package
 

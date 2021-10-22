@@ -1398,7 +1398,7 @@ The size can be specified in kB (kilobytes, expressed as “K”), MB (megabytes
 
 *UNLIMITED*
 
-This is used to indicate that there is no upper limit to the size to which the tablespace can increase
+This is used to indicate that there is no upper limit to the size to which the tablespace can increase.
 
 If this option is used, the tablespace will automatically increase in size up to the point at which the total size of all memory tablespaces and all volatile tablespaces in the system reaches the size specified in the MEM_MAX_DB_SIZE property in the altibase.properties file.
 
@@ -1572,7 +1572,7 @@ The REFERENCING clause has the following restrictions:
 
 The trigger action clause consists of the following three parts:
 
-- Action granularity: Determines the unit (row or statement) by which the trigger operates
+- Action granularity: Determines the unit (row or statement) by which the trigger operates.
 - Action WHEN condition: Optionally used to set an additional condition to determine whether the trigger will fire.
 - Action body: Determines what the trigger actually does. 
 
@@ -1959,7 +1959,7 @@ If the query on which a view is based contains an expression without an alias, a
 
 *subquery*
 
-This is used to specify the text of a query that identifies rows and columns in the base table(s) to display in the view
+This is used to specify the text of a query that identifies rows and columns in the base table(s) to display in the view.
 
 *WITH READ ONLY*
 
@@ -2472,7 +2472,7 @@ Drop success.
 
 Only the SYS user, the owner of the schema containing the , and the users with the DROP ANY SYNONYM privilege can execute the DROP SYNONYM statement.
 
-In addition, only the SYS user and users with the DROP PUBLIC SYNONYM system privilege can drop public synonyms
+In addition, only the SYS user and users with the DROP PUBLIC SYNONYM system privilege can drop public synonyms.
 
 #### Description
 
@@ -2865,7 +2865,7 @@ This is used to specify the name of the system access privilege that will be gra
 
 *role*
 
-This is used to specify the name of the role to be granted
+This is used to specify the name of the role to be granted.
 
 -   A role cannot be granted to another role or PUBLIC.
 
@@ -3017,7 +3017,7 @@ The WITH GRANT OPTION is used to enable the grantee to grant the object privileg
 >   
 >-   In order to grant object access privileges, it is necessary to be the SYS user, the owner of the object, or a user to whom the relevant object access privileges have been granted with the WITH GRANT OPTION.
 >   
-> -   • The owner of an object automatically has all privileges for the object.
+> -  The owner of an object automatically has all privileges for the object.
 >
 
 The following query can be used to display all of the object privileges supported in Altibase.

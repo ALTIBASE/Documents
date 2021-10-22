@@ -3113,6 +3113,349 @@ Success create function
 Success drop function
 ```
 
+### 배열 타입의 호스트 변수 사용
+
+EXECUTE문에서 저장 프로시저의 인자 타입이 배열일 경우 배열 타입의 호스트 변수와 매칭하여 사용 할 수 있다.
+
+저장 프로시저의 인자 타입이 배열이란 아래와 같은 경우를 말한다.
+
+예)
+
+```
+CREATE OR REPLACE PACKAGE PSM_PKG
+AS
+TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
+TYPE PSM_ICOL IS TABLE OF INTEGER  INDEX BY INTEGER;
+TYPE PSM_LCOL IS TABLE OF BIGINT   INDEX BY INTEGER;
+TYPE PSM_RCOL IS TABLE OF REAL     INDEX BY INTEGER;
+TYPE PSM_DCOL IS TABLE OF DOUBLE   INDEX BY INTEGER;
+END;
+/
+ 
+CREATE OR REPLACE PROCEDURE PSM3_1(scol in PSM_PKG.PSM_SCOL,
+                                   icol in PSM_PKG.PSM_ICOL,
+                                   lcol in PSM_PKG.PSM_LCOL,
+                                   rcol in PSM_PKG.PSM_RCOL,
+                                   dcol in PSM_PKG.PSM_DCOL)
+AS
+i integer;
+BEGIN
+    EXECUTE IMMEDIATE 'TRUNCATE TABLE PSM_TABLE';
+    i := scol.first();
+    LOOP
+        IF i IS null
+            THEN
+            exit;
+        ELSE
+            INSERT INTO PSM_TABLE (SCOL, ICOL, LCOL, RCOL, DCOL)
+            VALUES (scol(i), icol(i), lcol(i), rcol(i), dcol(i));
+            i := scol.next(i);
+        END IF;
+    END LOOP;
+END;
+/
+```
+
+#### 배열타입의 종류
+
+저장 프로시저의 따라, IN, OUT, INOUT, 호스트 변수, 배열 호스트 변수를 사용 할 수 있다.
+
+아래는 프로시저의 인자 타입이 배열인 경우에 사용 가능한 데이터 타입이다.
+
+| **C type** | **SQL type** |
+| ---------- | ------------ |
+| short      | SQL_SMALLINT |
+| int        | SQL_INTEGER  |
+| long       | SQL_BIGINT   |
+| float      | SQL_REAL     |
+| double     | SQL_DOUBLE   |
+
+#### 제한사항
+
+프로시저의 인자 타입이 배열인 경우에는 C type과 SQL Type을 동일하게 매칭하여 사용해야 한다.
+
+##### C type과 SQL Type이 다를 경우 에러가 발생한다.
+
+예)
+
+```
+create or replace package pkg1
+as
+type typ1 is table of smallint index by integer;
+end;
+/
+create or replace procedure proc1( a out pkg1.typ1 ) return integer
+as
+begin
+select * bulk collect into a from t1 order by c1;
+end;
+/
+ 
+EXEC SQL BEGIN DECLARE SECTION;
+char usr[10];                  
+char pwd[10];                  
+char conn_opt[1024];           
+double array1[array_size];                
+EXEC SQL END DECLARE SECTION;  
+ 
+EXEC SQL EXECUTE                        
+BEGIN                                   
+    proc1(:array1 out);
+END;                                    
+END-EXEC;     
+ 
+결과
+Error : [-331900] The apre type and psm array type do not match.
+```
+
+##### 구조체를 host variable로 사용할 수 없다.
+
+예)
+
+```
+typedef struct argx { float c1; float c2; } argx;
+ 
+EXEC SQL BEGIN DECLARE SECTION;
+argx args2[10];
+EXEC SQL END DECLARE SECTION;  
+ 
+EXEC SQL EXECUTE     
+BEGIN 
+    proc1(:args2);
+END; 
+END-EXEC;
+```
+
+##### 2차원 배열을 host variable로 사용할 수 없다.
+
+예)
+
+```
+EXEC SQL BEGIN DECLARE SECTION;
+float args2[10][10];
+EXEC SQL END DECLARE SECTION; 
+  
+EXEC SQL EXECUTE     
+BEGIN 
+    proc1(:args2);
+END; 
+END-EXEC;
+```
+
+#### 예제
+
+다음은 인자 타입이 배열인 저장 프로시저를 사용하는 예를 보여준다.
+
+<schema.sql>
+
+```
+CREATE OR REPLACE PACKAGE PSM_PKG
+AS
+TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
+TYPE PSM_ICOL IS TABLE OF INTEGER  INDEX BY INTEGER;
+TYPE PSM_LCOL IS TABLE OF BIGINT   INDEX BY INTEGER;
+TYPE PSM_RCOL IS TABLE OF REAL     INDEX BY INTEGER;
+TYPE PSM_DCOL IS TABLE OF DOUBLE   INDEX BY INTEGER;
+END;
+/
+ 
+CREATE OR REPLACE PROCEDURE PSM3_1(scol in PSM_PKG.PSM_SCOL,
+                                   icol in PSM_PKG.PSM_ICOL,
+                                   lcol in PSM_PKG.PSM_LCOL,
+                                   rcol in PSM_PKG.PSM_RCOL,
+                                   dcol in PSM_PKG.PSM_DCOL)
+AS
+i integer;
+BEGIN
+    EXECUTE IMMEDIATE 'TRUNCATE TABLE PSM_TABLE';
+    i := scol.first();
+    LOOP
+        IF i IS null
+            THEN
+            exit;
+        ELSE
+            INSERT INTO PSM_TABLE (SCOL, ICOL, LCOL, RCOL, DCOL)
+            VALUES (scol(i), icol(i), lcol(i), rcol(i), dcol(i));
+            i := scol.next(i);
+        END IF;
+    END LOOP;
+END;
+/
+ 
+CREATE OR REPLACE PROCEDURE PSM4(scol out PSM_PKG.PSM_SCOL)
+AS
+BEGIN
+    scol(1) := 1;
+    scol(2) := 2;
+    scol(3) := null;
+    scol(4) := 3;
+    scol(5) := 4;
+END;
+/
+```
+
+<예제 프로그램 : psm3.sc>
+
+```
+/* declare host variables */
+EXEC SQL BEGIN DECLARE SECTION;
+char usr[10];
+char pwd[10];
+char conn_opt[1024];
+short    sCol[ARRAY_SIZE];
+int      iCol[ARRAY_SIZE];
+long     lCol[ARRAY_SIZE];
+float    fCol[ARRAY_SIZE];
+double   dCol[ARRAY_SIZE];
+EXEC SQL END DECLARE SECTION;
+ 
+for (i = 0; i < ARRAY_SIZE; i++ )
+{
+    sCol[i] = i + 1;
+    iCol[i] = i + 10;
+    lCol[i] = i + 100;
+    fCol[i] = i + 1.1;
+    dCol[i] = i + 1.01;
+}
+/* execute procedure */
+EXEC SQL EXECUTE
+BEGIN
+    PSM3_1(:sCol in,
+           :iCol in,
+           :lCol in,
+           :fCol in,
+           :dCol in);
+END;
+END-EXEC;
+```
+
+다음은 out parameter 결과 값에 null 값이 포함되어 있는 경우의 예를 보여준다.
+
+<예제 프로그램 : psm4.sc>
+
+```
+/* declare host variables */
+EXEC SQL BEGIN DECLARE SECTION;
+char usr[10];
+char pwd[10];
+char conn_opt[1024];
+short    sCol[ARRAY_SIZE];
+EXEC SQL END DECLARE SECTION;
+ 
+for (i = 0; i < ARRAY_SIZE; i++ )
+{
+    sCol[i] = 0;
+}
+/* execute procedure */
+EXEC SQL EXECUTE
+BEGIN
+    PSM4(:sCol out);
+END;
+END-EXEC;
+ 
+if( SQLCODE == (int)-331898)
+{
+    printf("sCol \n");
+    for(i=0; i < ARRAY_SIZE; i++)
+    {
+        if( APRE_SHORT_IS_NULL(sCol[i]) == true )
+        {
+            printf("NULL\n");
+        }
+        else
+        {
+            printf("%d\n", sCol[i]);
+        }
+    }
+}
+```
+
+#### 예제 프로그램
+
+**psm3.sc**
+
+$ALTIBASE_HOME/sample/APRE/psm3.sc 참고
+
+$ is -f schema/schema.sql
+
+$ make psm3
+
+$ ./psm3
+
+**실행결과**
+
+<SQL/PSM 3>
+
+\------------------------------------------------------------------
+
+[Execute Procedure]
+
+\------------------------------------------------------------------
+
+Success execute procedure PSM3_1
+
+ 
+
+\------------------------------------------------------------------
+
+[Execute Procedure]
+
+\------------------------------------------------------------------
+
+Success execute procedure PSM3_2
+
+ 
+
+sCol    iCol    lCol    fCol    dCol
+
+1      10     100     1.100000  1.010000
+
+2      11     101     2.100000  2.010000
+
+3      12     102     3.100000  3.010000
+
+4      13     103     4.100000  4.010000
+
+5      14     104     5.100000  5.010000
+
+psm4.sc
+
+$ALTIBASE_HOME/sample/APRE/psm4.sc 참고
+
+$ is -f schema/schema.sql
+
+$ make psm4
+
+$ ./psm4
+
+**실행결과**
+
+<SQL/PSM 4>
+
+\------------------------------------------------------------------
+
+[Execute Procedure]
+
+\------------------------------------------------------------------
+
+Error : [-331898] The fetched result contains a NULL value. or Fetch column value is NULL.
+
+ 
+
+sCol
+
+1
+
+2
+
+NULL
+
+3
+
+4
+
+
+
 ## 12.다중 연결 프로그램
 
 ### 개요
@@ -5210,9 +5553,9 @@ Altibase 설치에 대한 자세한 설명은 *Installation Guide* 를 참조하
 \$ALTIBASE_HOME/sample/APRE 디렉토리에 포함된 Makefile을 이용하여 실행 파일을
 만들 수 있다.
 
-예제 프로그램에 포함된 Makefile은 gmake rule로 작성되었으므로 반드시 gmake를
-설치 후 사용해야 한다. 그렇지 않으면 Makefile을 사용하여 실행 파일을 생성시
-오류가 발생한다.
+> **주의사항**
+>
+> 예제 프로그램에 포함된 Makefile은 gmake rule로 작성되었으므로 반드시 gmake를 설치 후 사용해야 한다. 그렇지 않으면 Makefile을 사용하여 실행 파일을 생성시 오류가 발생한다.
 
 ##### 컴파일
 
@@ -5254,10 +5597,7 @@ $ ./delete
 7 rows deleted
 ```
 
-> ##### 주의사항
->
-> sample에서 제공하는 makefile은
->
+
 
 ### 예제 프로그램의 테이블 정보
 

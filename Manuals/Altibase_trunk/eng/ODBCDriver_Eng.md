@@ -28,9 +28,9 @@ Altibase® Application Development
 
 Altibase Application Development ODBC User\'s Manual
 
-Release 7.1 (August 29th, 2019)
+Release 7.1 (June 3rd, 2021)
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners. 
 
@@ -112,7 +112,7 @@ As the Altibase ODBC driver is built upon Altibase CLI, you can refer to the Alt
 
 ### Data Type
 
-For mored detailed information on on the mapping relationship between SQL data type and ODBC data type supported by Altibase, please refer to “B. Appendix: Data Types” in Altibase CLI User’s Manual.
+For more detailed information on on the mapping relationship between SQL data type and ODBC data type supported by Altibase, please refer to “B. Appendix: Data Types” in Altibase CLI User’s Manual.
 
 ### ODBC API
 
@@ -213,7 +213,7 @@ libaltibase\_odbc-64bit-ul64.so: SQLLEN size is 64 bits
 
 The reason why two drivers are included in the 64-bit package is as follows. The size of the SQLLEN type is defined by 64-bit ODBC Driver Managers as 64 bits. However, as unixODBC (one of the ODBC Driver Managers available for use in Unix-like operating systems) defines the size of the SQLLEN type to 32 or 64 bits, depending on the version and compile option, Altibase provides two drivers to offer a wide range of support. When using unixODBC, it is recommended that you select the driver that matches the SQLLEN size.
 
-When installing the 32-bit package, the following file is installed to $ALTIBASE\_HOME/lib
+When installing the 32-bit package, the following file is installed to $ALTIBASE\_HOME/lib.
 
 ```
 libaltibase_odbc.so
@@ -500,7 +500,7 @@ This section describes  how to handle LOB data using the Altibase ODBC driver wi
 
 The Altibase LOB Locator requires that LOB data is handled in a session in non-autocommit mode. For more detailed information, please refer to Chapter 3. LOB Interface in the Altibase CLI User's Manual.
 
-You must also set the LongDataCompat property to ON in the connection string as follows:
+The user must also set the LongDataCompat property to ON in the connection string as follows:
 
 ```
 "DSN=ALTIBASE;LongDataCompat=ON"

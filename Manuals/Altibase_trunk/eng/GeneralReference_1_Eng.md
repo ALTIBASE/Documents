@@ -30,7 +30,7 @@ Altibase Administration General Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -823,7 +823,7 @@ NUMBER [(precision, scale)]
 
 ##### Description
 
-This is an alias of the NUMERIC data type. However, when precision and scale are not defined, they are the same as for the FLOAT data type.
+This is an alias of the NUMERIC data type. However, when precision and scale are not defined, they are the same as for the FLOAT data type. The FLOAT data type is rounded to the 39th digit.
 
 #### NUMERIC
 
@@ -1100,7 +1100,7 @@ Returns the decimal character(the value set for the NLS_NUMERIC_CHARACTER proper
 
 ###### Restriction
 
- Only one decimal character can be included when specifying a number format model.
+Only one decimal character can be included when specifying a number format model.
 
 ###### Example
 
@@ -1675,7 +1675,7 @@ TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD
 
 ###### Description
 
-Returns the name of the month in upper case in abbreviated form ( JAN, FEB, MAR, …).
+Returns the name of the month in upper case in abbreviated form. ( JAN, FEB, MAR, …)
 
 ###### Example
 
@@ -1946,7 +1946,7 @@ TO_CHAR ( '28-DEC-1980', 'W' )
 
 ###### Description
 
-This displays which week of the year it is (1~52 or 1~53) depending on ISO 8601. The start of the week is Monday, and the first week includes the first Thursday (January, 4th) of the year.
+This displays which week of the year it is (1\~52 or 1\~53) depending on ISO 8601. The start of the week is Monday, and the first week includes the first Thursday (January, 4th) of the year.
 
 This element cannot be used with the TO_DATE function.
 
@@ -2072,7 +2072,7 @@ DATE_FORMAT
 
 ##### RR, RRRR, YY, YYYY Comparison
 
-obtain the actual year, which can range from 2000 to 2099.
+Obtains the actual year, which can range from 2000 to 2099.
 
 - [YYYY]: The number is treated as a year, without change.
 
@@ -2468,7 +2468,7 @@ The second method is dynamic, meaning that configuration changes can be made eve
 
 The third method of configuring the Altibase environment is through the use of operating system environment variables. Like the method involving the altibase.properties file, this configuration method is also static. Properties that are read-only or that can only have a single value can be set in this way. After specifying the environment variable as ALTIBASE_property_name, it will be necessary to reboot the database server in order to implement the changes.
 
-Here is an example
+Here is an example.
 
 ```
 $ export ALTIBASE_DEFAULT_DATE_FORMAT=YYYY/MM/DD
@@ -2511,8 +2511,6 @@ The property file for configuring the Altibase server is called "altibase.proper
 - C/C++ external procedure agent properties
 - User account security properties
 - Other properties
-
-For more detailed information on Altibase Sharding properties, please refer to the properties chapter of "Altibase Sharding Guide" manual.
 
 The following table lists all Altibase properties. For reference, each group in the table has the following meaning:
 
@@ -3234,7 +3232,8 @@ The values in the “Alter Level” column have the following meaning:
           <td>BOTH</td>
       </tr>
        <tr>
-      	<td>TOTAL_WA_SIZE</td>
+      	<td>
+         </td>
           <td>SYSTEM</td>
       </tr>
        <tr>
@@ -4397,7 +4396,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This indicates the number of prepare lists. The greater this value is, the less prepare list lock contention there is among transactions
+This indicates the number of prepare lists. The greater this value is, the less prepare list lock contention there is among transactions.
 
 #### BULKIO_PAGE_COUNT_FOR_DIRECT_PATH_INSERT (Unit: count)
 
@@ -4767,7 +4766,7 @@ None
 
 ##### Description
 
-This specifies the directory in which double-write files are saved. Multiple values can be saved for this property, according to the value specified in DOUBLE_WRITE_DIRECTORY_COUNT
+This specifies the directory in which double-write files are saved. Multiple values can be saved for this property, according to the value specified in DOUBLE_WRITE_DIRECTORY_COUNT.
 
 #### DOUBLE_WRITE_DIRECTORY_COUNT
 
@@ -4833,7 +4832,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. You can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database
+This property specifies the number of pages by which to increase the size of the memory database. An Expand Chunk is a unit that can extend a page in a memory database. The user can set it when you create the database, and if you want to change the number of pages, you need to regenerate the database.
 
 #### LOB_OBJECT_BUFFER_SIZE (Unit: byte)
 
@@ -5089,7 +5088,7 @@ This property specifies the size, in bytes, of a log file. When an active log fi
 
 > \* Restriction
 >
-> - In order to perform offline replication, this property must be set the same on the local (active) server and the remote (standby) server
+> - In order to perform offline replication, this property must be set the same on the local (active) server and the remote (standby) server.
 > 
 
 #### MAX_CLIENT
@@ -5260,7 +5259,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property sets the default column size, in bytes, when LOB type data are stored directly in memory tables
+This property sets the default column size, in bytes, when LOB type data are stored directly in memory tables.
 
 When data are entered into a LOB data type column, if the data length is smaller or the same as the value specified here, they are saved in a fixed amount of area, whereas if the data are larger than this value, they are saved in a variable area. This property pertains only to memory tables, and has no effect on how disk tables are managed. 
 
@@ -5288,7 +5287,7 @@ Read-Write, Single Value
 
 This property sets the default column size, in bytes, when the variable type data are stored directly in memory tables. When data are entered into the variable type column, if the data length is smaller or the same as the value specified here, they are saved in a fixed amount of area, whereas if the data are arger than this value, they are saved in a variable area. This property pertains only to memory tables, and has no effect on how disk tables are managed. 
 
-For more detailed information about the IN ROW clause, please refer to Chapter1: Data Types
+For more detailed information about the IN ROW clause, please refer to Chapter1: Data Types.
 
 #### MEM_SIZE_CLASS_COUNT (Unit: count)
 
@@ -5400,7 +5399,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the minimum number of free pages that each table must maintain on its own list of free pages
+This property specifies the minimum number of free pages that each table must maintain on its own list of free pages.
 
 #### MIN_TASK_COUNT_FOR_THREAD_LIVE
 
@@ -5550,7 +5549,7 @@ If the recycle bin contains a table, the table can be queried or recovered/dropp
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. 
 
-0 : Disable(default) - The table is dropped from the database
+0 : Disable(default) - The table is dropped from the database.
 
 1 : Enable - The table is moved to the recycle bin.
 
@@ -5890,7 +5889,7 @@ Read-Only, Single Value
 
 This specifies the maximum size, in bytes, of the data file (temp001.dbf) that is allocated when SYS_TBS_DISK_TEMP is created. 
 
-The value of this property must be at least as great as that of SYS_TEMP_FILE_INIT_SIZE. The minimum possible value is 64kB. Moreover, if the maximum size is not specified when a temporary data file is added to SYS_TBS_DISK_TEMP, the size specified here is the default maximum size
+The value of this property must be at least as great as that of SYS_TEMP_FILE_INIT_SIZE. The minimum possible value is 64kB. Moreover, if the maximum size is not specified when a temporary data file is added to SYS_TBS_DISK_TEMP, the size specified here is the default maximum size.
 
 #### SYS_TEMP_FILE_NEXT_SIZE (Unit: byte)
 
@@ -6148,7 +6147,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property sets the initial size, in bytes, of a user-defined data file that is created or added to a user disk data tablespace. The default value specified here is used if no initial size is specified
+This property sets the initial size, in bytes, of a user-defined data file that is created or added to a user disk data tablespace. The default value specified here is used if no initial size is specified.
 
 #### USER_DATA_FILE_MAX_SIZE (Unit: byte)
 
@@ -6478,7 +6477,7 @@ Read-Write, Single Value
 
 When checkpointing, a given number of dirty pages can be separated and saved to disk. When this happens, this property specifies the number of dirty pages that are saved to disk at one time. If this is set to 0, all of the dirty pages are saved to the disk database at one time. 
 
-This property can be changed using the ALTER SYSTEM statement while Altibase is running
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
 #### CHECKPOINT_BULK_WRITE_SLEEP_SEC (Unit: second)
 
@@ -6963,7 +6962,7 @@ Read-Write, Single Value
 
 This property limits the number of bytes of memory that can be used to execute a single query statement. 
 
-This property can be changed using the ALTER SYSTEM statement during system operation
+This property can be changed using the ALTER SYSTEM statement during system operation.
 
 #### EXECUTOR_FAST_SIMPLE_QUERY
 
@@ -6989,7 +6988,7 @@ This property prints a simple query plan; it optimizes the execution plan of sim
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. 
 
-0: Uses the SIMPLE QUERY PLAN
+0: Uses the SIMPLE QUERY PLAN.
 
 1: Uses the SIMPLE QUERY PLAN on a memory table.
 
@@ -7270,7 +7269,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[0, 30]
+[0, 50]
 
 ##### Description
 
@@ -7284,7 +7283,7 @@ Unsigned Integer
 
 ##### Range
 
-30
+50
 
 ##### Attributes
 
@@ -7292,7 +7291,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[0, 30]
+[0, 50]
 
 ##### Description
 
@@ -7320,7 +7319,7 @@ Read-Only, Single Value
 
 This property pertains to group commit.
 
-A record is kept of the last time point at which disk I/O was performed for writing logs to disk to commit transactions. Logs are written to disk after the number of microseconds specified in this property has passed since that time point
+A record is kept of the last time point at which disk I/O was performed for writing logs to disk to commit transactions. Logs are written to disk after the number of microseconds specified in this property has passed since that time point.
 
 In this way, multiple transactions can be collectively committed to disk at the same time, and the required disk I/O can all be performed at once.
 
@@ -7498,7 +7497,7 @@ Read-Write, Single Value
 
 ##### Description
 
-If the length of the flush list becomes equal to or greater than the percentage of the total buffer size specified by this value, replacement flushing occurs. At this time, all update buffers in the flush list are flushed
+If the length of the flush list becomes equal to or greater than the percentage of the total buffer size specified by this value, replacement flushing occurs. At this time, all update buffers in the flush list are flushed.
 
 #### LOW_PREPARE_PCT (Unit: percentage)
 
@@ -7591,7 +7590,7 @@ This property is highly efficient to use for inserting numerous reverse index ke
 
 0: The memory index keys are not redistributed.
 
-1: Teh memory index keys are redistributed (Default value)
+1: The memory index keys are redistributed (Default value).
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
@@ -7667,7 +7666,7 @@ Read-Write, Single Value
 
 This is the maximum number of multiplex threads.
 
-If the capacity of existing threads is exceeded, new threads are automatically added. However, because performance can suffer if new threads are continually created, care must be taken to set this property appropriately
+If the capacity of existing threads is exceeded, new threads are automatically added. However, because performance can suffer if new threads are continually created, care must be taken to set this property appropriately.
 
 Nevertheless, when queuing (QUEUE) is used, a number of threads exceeding the value specified by this property can be created.
 
@@ -7886,7 +7885,7 @@ Read-Only, Single Value
 
 This property configures whether or not to set a constraint on the memory. Internal enhancement can be expected when monitoring information of Altibase system
 
-0: (Not apply) : There is no constraints on the memory
+0: (Not apply) : There is no constraints on the memory.
 
 1: {Apply, Default Value) : Memory constraints exist. If the value of EXECUTE_STMT_MEMORY_MAXIMUM exceeds, query execution fails.
 
@@ -8560,7 +8559,7 @@ Read-Only, Single Value
 
 This property controls the lock level of a table partition lock. This property is available for use only if the TABLE_LOCK_ENABLE is set to 1.
 
-0: Table partition lock is supported. If the partition lock is used, the simultaneity is enhanced when using a query statement executing per a partition, such as ALTER TABLE…TRUNCATE PARTITION
+0: Table partition lock is supported. If the partition lock is used, the simultaneity is enhanced when using a query statement executing per a partition, such as ALTER TABLE…TRUNCATE PARTITION.
 
 1: This does not support the table partition lock, it is identical with the lock on a non-partitioned table of a partitioned table. DML performance is much more improved due to the reduced lock count.
 
@@ -8773,7 +8772,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property specifies how to measure the wait time for wait events and the time required for SQL operation
+This property specifies how to measure the wait time for wait events and the time required for SQL operation.
 
 1: The time measurement thread measures the time at regular intervals specified in the property TIMER_THREAD_RESOLUTION.
 
@@ -8836,7 +8835,7 @@ This property sets whether to save the execution plan of the final result using 
 
 2: DISK – cache the final result of queries using only disk tables
 
-3: ALL – cache the final result of queries regardless of the table type.
+3: ALL – cache the final result of queries regardless of the table type
 
 The value of this property can be changed using the ALTER SYSTEM or ALTER SESSION statement while Altibase is running.
 
@@ -8860,9 +8859,35 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the maximum size of memory available for allocation for sorting or hashing operations
+This property specifies the maximum size of memory available for allocation for sorting or hashing operations.
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. The response to a request for alteration is immediately returned, however, the altered value is not actually applied to the server until the temporary table in use is nonexistent. For further information about temporary tables, please refer to the description of the TEMP_MAX_PAGE_COUNT property.
+
+#### INIT_TOTAL_WA_SIZE (Unit: bytes)
+
+##### Data Type
+
+Unsigned Long
+
+##### Default Value
+
+128MB
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[512K, 2<sup>64</sup>-1]
+
+##### Description
+
+Specifies the amount of memory to be allocated in advance for sorting or hashing.
+
+If it is larger than TOTAL_WA_SIZE, only TOTAL_WA_SIZE is created.
+
+The value of this property can be changed by using the ALTER SYSTEM statemen when Altibase is running
 
 #### TOUCH_TIME_INTERVAL (Unit: second)
 

@@ -54,7 +54,7 @@ Altibase Administration Performance Tunning Guide
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -1330,9 +1330,9 @@ Altibase denotes this as the “key filter processing method” as well. This me
 
 However, performance improvement is limited to disk tables as memory table indexes do not store key values. 
 
-The filter processing method is used for predicates on which indexes cannot be used. It directly reads data and compares it. If multiple filters must be used to process a WHERE clause predicate, the optimizer compares the estimated cost for each filter and processes filters by lowest price, so that filters are processed with minimum cost. 
+The filter processing method is used for predicates on which indexes cannot be used. It directly reads data and compares it. If multiple filters must be used to process a WHERE clause predicate, the optimizer compares the estimated cost for each filter and processes filters by lowest price, so that filters are processed with the minimum cost. 
 
-The following example shows a query using an index full scan and its execution plan
+The following example shows a query using an index full scan and its execution plan.
 
 ```
 CREATE TABLE t1(c1 INT, c2 CHAR(10)) 
@@ -1450,7 +1450,7 @@ In the above example, key range processing can only be performed on the first pr
 
 As described above, for composite indexes, only the predicates that appear in the same order as the order of the key columns (without any missing columns) can be evaluated using key range processing, and only if those predicates use equality operations. 
 
-If the following type of query is frequently executed and you wish to add an index, you should add an index that can be used to its maximum.
+If the following type of query is frequently executed, and in order to add an index, the user should add an index that can be used to its maximum.
 
 ```
 WHERE i1 > 0 AND i2 = 1
@@ -2043,7 +2043,7 @@ Whether the index can be used is determined by the predicate format. An index ca
 
 [Table 3-3] Predicate Formats and Index Availability
 
-As described above, you can only use indexes by writing the proper predicates. You should be especially careful that the column value is neither converted nor altered. 
+As described above, you can only use indexes by writing the proper predicates. The user should be especially careful that the column value is neither converted nor altered. 
 
 For more detailed information about data types and data conversions for indexes, please refer to Indexes and Data Types.
 
@@ -2164,7 +2164,7 @@ For example, the shortest conversion path will be between the FLOAT and VARCHAR 
 
 The following figure shows data type conversion paths.
 
-![data_type_conversion_path_kor](media/TuningGuide/TuningGuide_eng.1.18.1.jpg)
+![data_type_conversion_path_kor](media/TuningGuide/data_type_conversion_path_kor.gif)
 
 [Figure 3-2] Data Type Conversion Paths
 
@@ -2222,7 +2222,7 @@ AND T3.m3 = T4.x3;
 
 The join relationships in the above query can be expressed as follows:
 
-![join_kor](media/TuningGuide/TuningGuide_eng.1.18.2.jpg)
+![join_kor](media/TuningGuide/join_kor.gif)
 
 By evaluating only the cost of join relationships when determining the join order, the optimizer prevents tables without direct join relationships, (e.g., tables T1 and T4) from being chosen to be joined first. 
 
@@ -2234,7 +2234,7 @@ The optimizer uses the join relationships generated above to determine the order
 
 The way that the join order is determined is to choose the joins with the highest selectivity to be processed first. Then, these joins are again sorted by efficiency. However, this join relationship order is not the actual join order. The actual join order is finally set when the joining method is determined. 
 
-![join_order_kor](media/TuningGuide/TuningGuide_eng.1.18.3.jpg)
+![join_order_kor](media/TuningGuide/join_order_kor.gif)
 
 [Figure 3-3] Join Ordering
 
@@ -3151,7 +3151,7 @@ Fedorov
 
 This section provides an example and briefly explains how to interpret a plan tree. The explain plan is determined by following the entire plan tree wherein plan nodes are connected in tree form.
 
-![plan_tree_kor](media/TuningGuide/TuningGuide_eng.1.24.2.jpg)
+![plan_tree_kor](media/TuningGuide/plan_tree_kor.gif)
 
 Each individual node in the execution plan tree is displayed as one row. The further the node is indented from the left (the further it is located towards the right), the lower the node is and it is executed faster than other nodes.
 
@@ -3163,7 +3163,7 @@ In the above example, the node that accesses the database first is the SCAN node
 
 The following figure shows the execution plan described above in tree diagram form.
 
-![fetch_path_kor](media/TuningGuide/TuningGuide_eng.1.24.3.jpg)
+![fetch_path_kor](media/TuningGuide/fetch_path_kor.gif)
 
 [Figure 4-1] Sequence in which Records are Requested and Fetched
 
@@ -5221,9 +5221,9 @@ Well-built statistics play an important role when the optimizer determines the m
 -   Database system statistics
 
     -   The average time spent reading a single page 
--   The average time spent reading multiple pages 
+    -   The average time spent reading multiple pages 
     -   The average time spent hashing 
--   The average time spent comparing
+    -   The average time spent comparing
 
 ### Managing Statistics
 
@@ -5256,13 +5256,19 @@ The user can manually set statistics for objects or the system using the followi
 
 For more detailed information about each stored procedure, please refer to DBMS Stats in the Stored Procedures Manual.
 
+### Auto Stats
+
+#### Inquirying Statistical Information
+
+The collected statistics are stored in the V$DMBS_STATS performance view. For more information on \V$DBMS_STATS performance view, refer to the *General Reference*.
+
 #### Restrictions
 
 For the system statistics, it is recommended to collect only once after starting the Altibase server with a certain amout of load (repeating FULL SCAN and INDEX SCAN). Otherwise, some statistical values may not be measured correctly.
 
 Because objects and data in the database are constantly changing, users need to update statistics periodically to optimize queries. It is recommended to collect the table statistics monthly if when there are many data changes.
 
-6. SQL Hints
+## 6. SQL Hints
 --------
 
 This chapter describes SQL hints taht let the user to change the execution plan of an SQL statement. 
@@ -5540,7 +5546,7 @@ Incorrect usage example:
 
 - EXISTS must be unnested using a inner/semi-join; however, an anti-join hint is used.
   
-```
+  ```
   SELECT * FROM T1 WHERE EXISTS ( SELECT /*+HASH_AJ*/ * FROM T2  WHERE T2.a1 = T1.i1 );
   ```
 
@@ -5593,7 +5599,7 @@ A function of delaying execution is provided. The execution of hierarchy, sortin
 
 -   DELAY: Activation in delaying execution of the execution plan.
 
-7. SQL Plan Cache
+## 7. SQL Plan Cache
 --------------
 
 This chapter describes the concepts and features of Altibase's SQL Plan Cache and Result Cache features.

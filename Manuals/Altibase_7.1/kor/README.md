@@ -1,5 +1,7 @@
 # Altibase 7.1 Korean manuals
 
+이 매뉴얼은 7.1.0.4.7 기준으로 업데이트 되었습니다.
+
 ## New Features
 
 - ### [New Features Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/NewFeaturesGuide.md)
@@ -33,8 +35,6 @@
 - ### [SNMP Agent Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SNMP.md)
 
 - ### [DB Link User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DBLink.md)
-
-- ### [Altibase Sharding Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Sharding.md)
 
 
 
@@ -102,6 +102,8 @@
 - ### [Hadoop Connector User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/HadoopConnector.md)	
 
 - ### [Altibase 3rd Party Connector Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/3rdPartyConnector.md)	
+
+- ### [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/altiShapeLoader.md)
 
 
 ## Message

@@ -566,20 +566,6 @@ Altibase는 부하 분산(load balancing) 기능도 제공한다. Altibase의 �
 내용은 이중화를 통해서 상대편 서버에 반영됨으로써 복제된 데이터베이스의
 일관성(consistency)을 보장할 수 있다.
 
-#### Altibase Sharding
-
-Altibase Sharding은 Altibase에 샤딩 기술을 도입함으로써 저장 용량과 시간당
-처리량을 향상시켜 대용량의 데이터베이스를 분산 처리할 수 있도록 한 기능이다.
-
-Altibase Sharding은 클라이언트측 샤딩과 서버측 샤딩을 모두 사용할 수 있다. 특히
-클라이언트측 샤딩은 기존의 응용프로그램 또는 SQL을 수정하지 않고, 샤드 전용
-라이브러리만 교체하는 것으로 적용할 수 있다.
-
-또한 서버측 샤딩도 지원함으로써 사용자가 응용프로그램의 성능을 향상시키기 위해
-클라이언트측 샤딩을 선택하거나, 호환성을 위해 서버측 샤딩으로 선택할 수 있다.
-
-자세한 정보는 Altibase Sharding Guide를 참조하기 바란다.
-
 #### 클라이언트-서버 프로토콜
 
 Altibase를 클라이언트-서버 구조로 운영할 때, 사용자는 응용 시스템의 구성에
@@ -905,17 +891,15 @@ Manual*, *Precompiler User's Manual*을 각각 참조하고, 나머지 유틸리
 conf 디렉토리에는 아래의 파일들이 존재한다.
 
 -   altibase_user.env: Altibase 운영을 위한 환경변수 설정 파일
-
 -   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한
     설명은 *General Reference*를 참조하기 바란다.
-
 -   license: Altibase 라이선스 파일
-
 -   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한
     설명은 *General Reference*를 참조하기 바란다.
-
 -   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은
     *Utilities Manual*을 참조하기 바란다.
+-   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 *Utilities Manual*을 
+    참조하기 바란다.
 
 #### dbs 디렉토리
 
@@ -2660,7 +2644,7 @@ B+-Tree는 인덱스의 최하위 레벨에 존재하는 리프 노드 (Leaf Nod
 
 R-Tree인덱스를 사용하여 대상 객체 검색시 Altibase는 다음의 과정을 수행한다.
 
-1.  각 공간 객체를 감싸는 최소 사각형인 MBR (Minimum Bounding Rectagle)을
+1.  각 공간 객체를 감싸는 최소 사각형인 MBR (Minimum Bounding Rectangle)을
     이용하여 일차로 조건 필터링 (Filtering)을 수행한다.
 
 2.  이 결과로 남은 객체에 대해 정확한 인덱스 검색 조건을 체크하는 리파인먼트

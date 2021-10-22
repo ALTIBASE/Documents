@@ -43,6 +43,7 @@
     - [sqlca](#sqlca)
     - [SQLCODE](#sqlcode)
     - [SQLSTATE](#sqlstate)
+    - [GET DIAGNOSTICS](#get-diagnostics)
     - [WHENEVER문](#whenever%EB%AC%B8)
     - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-1)
 
@@ -3229,7 +3230,7 @@ typedef struct tagSQL_NUMERIC_STRUCT
 
 s_price를 입력 또는 출력 호스트 변수로 사용하는 예이다.
 
-\< 예제 프로그램 : date.sc \>
+\< 예제 프로그램 : numeric.sc \>
 
 ```
 /* declare host variables */
@@ -5494,6 +5495,111 @@ char SQLSTATE[6];
 -   HY010 – OPEN 되지 않은 커서를 FETCH 하는 경우
 
 -   HY090 – 지시자 변수의 값이 유효하지 않은 경우
+
+### GET DIAGNOSTICS
+- GET DIAGNOSTICS 문은 GET DIAGNOSTICS 문을 제외한 바로 전에 수행된 SQL문에 대한 진단 정보를 제공한다.
+- 이전에 수행된 SQL문이 여러 개의 에러를 발생한 경우에 sqlca는 첫 번째 에러에 대한 진단 정보만 제공하는 반면, GET DIAGNOSTICS 문은 모든 에러에  대한 진단 정보를 제공한다.
+
+#### 구문
+```
+EXEC SQL GET [ CURRENT ] DIAGNOSTICS
+{
+    statement_information
+  | condition_information
+}
+
+statement_information:
+    statement_information_item [, statement_information_item] ...
+
+statement_information_item:
+    <:host_var1> = statement_information_item_name
+
+statement_information_item_name: {
+    NUMBER
+  | ROW_COUNT
+}
+
+condittion_information:
+    CONDITION condition_number condition_information_item [, condition_information_item] ...
+
+condition_number
+    <:host_var2 | integer>
+
+condition_information_item:
+    <:host_var3> = condition_information_item_name
+
+condition_information_item_name: {
+    RETURNED_SQLCODE
+  | RETURNED_SQLSTATE
+  | MESSAGE_TEXT
+  | ROW_NUMBER
+  | COLUMN_NUMBER
+}
+```
+
+#### 인자
+<:host_var1>
+- 지정된 statement_information_item의 값을 받아오는 호스트 변수이다.
+- 호스트 변수의 데이터 타입은 아래 설명의 "진단 항목별 호스트 변수의 데이터 타입" 표에 지정된 타입이어야 한다.
+- 만약 진단 정보가 없다면 GET DIAGNOTICS 수행 후 호스트 변수는 디폴트로 셋팅된다. 숫자형일 경우 0, 문자형일 경우 empty string이다.
+
+statement_information_item_name
+- NUMBER: 앞서 수행된 SQL문이 반환한 에러의 갯수
+- ROW_COUNT: 앞서 수행된 SQL문이 INSERT, UPDATE, DELETE인 경우 영향의 받은 로우의 갯수
+
+condition_number
+- 이 값은 진단 정보를 식별하기 위해 사용된다. 이 값이 1이면 첫 번째 진단 정보, 2이면 두 번째 진단 정보를 가리킨다. literal 또는 32 bit 정수 타입의 호스트 변수를 사용해야 하며 그렇지 않은 경우 에러가 발생한다. 
+- 0 이하의 값 또는 진단 정보 갯수보다 큰 값을 지정하면 에러가 발생한다.
+- 호스트 변수를 쓸 때 indicator 변수는 허용되지 않는다.
+
+<:host_var3>
+- condition_number로 지정한 진단 레코드에서 지정된 condition_information_item의 값을 받아오는 호스트 변수이다.
+- 호스트 변수의 데이터 타입은 아래 설명의 "진단 항목별 호스트 변수의 데이터 타입" 표에 지정된 타입이어야 한다. 그렇지 않을 경우 application 런타임 에러가 발생할 수 있다.
+- indicator 변수가 제공되면 값의 길이가 indicator 변수에 반환된다.
+- 만약 진단 정보가 없다면 GET DIAGNOTICS 수행 후 호스트 변수는 디폴트로 셋팅된다. 숫자형일 경우 0, 문자형일 경우 empty string이다.
+
+condition_information_item_name
+- RETURNED_SQLCODE: 진단 정보와 연관된 SQLCODE
+- RETURNED_SQLSTATE: 진단 정보와 연관된 SQLSTATE
+- MESSAGE_TEXT: 진단 정보와 연관된 에러 메시지
+- ROW_NUMBER: 진단 정보와 연관된 로우의 번호. array binding을 사용해서 SQL문을 수행한 경우 사용될 수 있다.
+- COLUMN_NUMBER: 진단 정보와 연관된 컬럼 또는 파라미터 번호.
+
+#### 설명
+- 진단 정보는 두 가지 영역 - 명령문 정보(statement information), 조건 정보(condition information) 로 제공된다.
+- SQL 문 실행 후 명령문 실행에 대한 정보는 명령문 정보로 제공되며, SQL문 실행이 성공하지 않은 경우 적어도 하나의 조건 정보가 제공된다. 명령문 정보에서 NUMBER 항목으로 가져온 값이 조건 정보의 갯수이다. 
+- sqlca, SQLCODE, SQLSTATE의 사용에는 아무런 영향을 미치지 않는다.
+
+#### 진단 항목별 호스트 변수의 데이터 타입
+진단 정보를 받아오는 호스트 변수의 데이터 타입은 요청된 진단 항목의 데이터 타입과 호환되어야 한다.
+- Statement Information
+  - NUMBER: INTEGER
+  - ROW_COUNT: INTEGER
+- Condition Information
+  - RETURNED_SQLCODE: INTEGER
+  - RETURNED_SQLSTATE: CHAR(5)
+  - MESSAGE_TEXT: VARCHAR(2048)
+  - ROW_NUMBER: INTEGER
+  - COLUMN_NUMBER: INTEGER
+
+#### 예제
+여러 개의 에러가 발생한 경우 GET DIAGNOSTICS 문을 사용하는 예제이다.
+```
+int numErrors;
+int retSqlcode;
+char retSqlstate[6];
+char message[2048];
+ 
+EXEC SQL INSERT ...
+EXEC SQL GET DIAGNOSTICS :numErrors = NUMBER;
+for ( i=1;i <= numErrors;i++)
+{
+    EXEC SQL GET DIAGNOSTICS CONDITION :i 
+            :retSqlcode = RETURNED_SQLCODE,
+            :retSqlstate = RETURNED_SQLSTATE,
+            :message = MESSAGE_TEXT;
+}
+```
 
 ### WHENEVER문
 

@@ -510,9 +510,27 @@ altibase.properties 순이며 설정되지 않았을 경우에는 데이터베�
 주의) 서버 캐릭터 셋과 ALTIBASE_NLS_USE에 설정한 값이 다를 경우에는 정상적으로
 동작하지 않을 수 있다. 반드시 적절한 값을 설정할 것을 권장한다.
 
+##### ALTIBASE_UT_FILE_PERMISSION
 
+aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공통 환경변수이다. 
+값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
 
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export ALTIBASE_UT_FILE_PERMISSION=600
 
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
+
+예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다. 
+aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+
+##### AEXPORT_FILE_PERMISSION
+
+aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+
+예) user:rw,  group:--,  other:--로 설정하는 경우, 
+export AEXPORT_FILE_PERMISSION=600 
 
 ### aexport사용방법
 
@@ -755,28 +773,8 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
     그대로 적용된다.
 
 -   대상 데이터베이스에 SSL 접속을 원한다면 프로퍼티 파일에 SSL 관련 프로퍼티를
-    설정해야 한다. 자세한 설명은 aexport 프로퍼티 절의 ILOADER_ARRAY  
-    ILOADER_ARRAY = *count* (기본값: 1)  
-    iLoader로 데이터를 다운로드 또는 업로드 할 때 한 번에 처리할 row 개수를
-    지정한다.
+    설정해야 한다. 자세한 설명은 aexport 프로퍼티 절의 SSL_ENABLE 프로퍼티를 참조하기 바란다.
 
--   ILOADER**\_**COMMIT  
-    ILOADER**\_**COMMIT = *count* (기본값: 1000)  
-    iLoader로 데이터를 업로드할 때 커밋할 단위(개수)를 지정한다. 이 프로퍼티로
-    -commit옵션의 값을 지정할 수 있다.
-
--   ILOADER_PARALLEL  
-    ILOADER_PARALLEL = *count* (기본값: 1)  
-    iLoader로 데이터를 다운로드 또는 업로드 할 때 병렬로 처리할 쓰레드 개수를
-    지정한다.
-
--   ILOADER_ASYNC_PREFETCH  
-    ILOADER_ASYNC_PREFETCH = OFF\|ON\|AUTO (기본값 OFF)  
-    iLoader로 데이터를 다운로드할 때 비동기 prefetch 동작을 설정한다. 자세한
-    설명은 iLoader User's Manual의  
-    '-async_prefetch' 옵션을 참고하기 바란다.
-
--   SSL_ENABLE 프로퍼티를 참조하기 바란다.
 
 
 
@@ -804,7 +802,6 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     스크립트를 실행하여 대상 데이터베이스에 스키마를 만들고 데이터를 입력한다.
     스키마 생성 스크립트와 데이터 입력 스크립트는 aexport를 실행하지 않고 쉘
     프롬프트에서 수동으로 실행할 수도 있다.
-
 -   EXECUTE  
     생성한 스크립트를 자동으로 수행할 것인지 여부를 설정한다.  
     EXECUTE = ON/OFF  
@@ -813,7 +810,6 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     ISQL_INDEX, ISQL_FOREIGN_KEY, ISQL_REPL, ISQL_REFRESH_MVIEW, 그리고
     ISQL_ALT_TBL 프로퍼티로 설정된다.  
     OFF일 경우 스크립트를 생성하기만 하고 실행하지는 않는다.
-
 -   INVALID_SCRIPT  
     이 프로퍼티는 유효하지 않은 객체들을 생성하는 SQL 스크립트를 하나의 스크립트
     파일에 모을 것인지 여부를 결정한다.  
@@ -822,7 +818,6 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     프로시저를 생성하는 모든 SQL 스크립트를 포함한다.  
     OFF이면, 유효하지 않은 각 객체를 생성하는 SQL 스크립트가 따로 생성된다. 즉,
     유효한 객체와 같은 방식으로 다뤄진다.
-
 -   TWO_PHASE_SCRIPT  
     이 프로퍼티는 객체 생성 스크립트를 두 개의 스크립트 파일로 나눠서 생성할
     것인지를 결정한다.  
@@ -831,7 +826,6 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     파일만이 생성된다: ALL_OBJECT.sql, ALL_OBJECT_CONSTRAINS.sql,
     ALL_OBJECT.sql, run_is.sh, run_is_con.sh  
     OFF이면, 각 객체를 생성하는 SQL 스크립트 파일을 따로 생성한다.
-
 -   CRT_TBS_USER_MODE  
     CRT_TBS_USER_MODE = ON/OFF (기본값: OFF)  
     사용자 모드에서 테이블스페이스 생성 구문을 추출할 것인지 여부를 결정한다.  
@@ -839,24 +833,20 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     테이블스페이스를 생성하는 SQL문을 추출한다. 사용자 관련 테이블스페이스는
     기본 테이블스페이스, 기본 임시 테이블스페이스, 접근 가능 여부가 설정된
     테이블스페이스이다.
-
 -   INDEX  
     INDEX = ON/OFF  
     대상 데이터베이스에 스키마 구성 시 인덱스 포함여부를 결정한다. 데이터 로딩
     후에 인덱스를 생성하고자 할 경우 이 프로퍼티를 ON으로 설정한다.
     TWO_PHASE_SCRIPT프로퍼티는 OFF일 때 제대로 동작한다.
-
 -   USER_PASSWORD  
     USER_PASSWORD = *password*  
     원본 데이터베이스에서 추출된 사용자를 대상 데이터베이스에 생성할 때 사용할
     암호를 지정한다. (aexport는 사용자 객체 추출 시 사용자의 암호를 알 수 없기
     때문에 수동 설정이 필요하다.) 이 프로퍼티가 설정되어 있지 않을 경우 각
     사용자의 암호를 묻는 프롬프트가 나타난다.
-
 -   VIEW_FORCE  
     VIEW_FORCE = ON/OFF  
     ON이면, 뷰의 기본 테이블 등이 존재하지 않아도 뷰를 강제로 생성한다.
-
 -   DROP  
     생성 스크립트 내부에 DROP 구문을 포함할 것인지 여부를 결정한다.  
     DROP = ON/OFF  
@@ -865,64 +855,53 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     때문에 사용에 주의를 요한다.  
     주의) 객체 모드로 실행하면, 이 프로퍼티 값에 상관없이 DROP 구문이 생성되지
     않는다.
-
 -   ILOADER_OUT  
     ILOADER_OUT = *run_il_out.sh*  
     원 데이터베이스에서 데이터를 추출하기 위해 생성되는 쉘 스크립트 파일명을
     설정한다. OPERATION 프로퍼티를 OUT으로 설정할 경우에 사용된다.
-
 -   ILOADER_IN  
     ILOADER_IN = *run_il_in.sh*  
     대상 데이터베이스에 데이터 로딩을 위해 사용될 쉘 스크립트의 파일명을
     설정한다.
-
 -   ISQL  
     ISQL = *run_is.sh*  
     대상 데이터베이스에 데이터베이스 스키마를 구성하기 위한 SQL 스크립트를
     실행하는 쉘 스크립트 파일의 이름을 설정한다.
-
 -   ISQL_CON  
     ISQL\_ CON = *run_is_con.sh*  
     대상 데이터베이스에 인덱스, 외래키, 트리거와 이중화 객체를 생성하는 SQL
     스크립트를 실행하는 쉘 스크립트 파일의 이름을 설정한다. TWO_PHASE_SCRIPT
     프로퍼티가 ON일 때 사용된다.
-
 -   ISQL_INDEX  
     ISQL_INDEX = *run_is_index.sh*  
     대상 데이터베이스에 인덱스를 생성하는 SQL 스크립트를 실행하는 쉘 스크립트
     파일의 이름을 설정한다. 이 프로퍼티를 설정하지 않으면 쉘 스크립트 파일은
     생성되지 않는다.
-
 -   ISQL_FOREIGN_KEY  
     ISQL\_ FOREIGN_KEY = *run_is_fk.sh*  
     대상 데이터베이스에 외래키 생성하는 SQL 스크립트를 실행하는 쉘 스크립트
     파일의 이름을 설정한다. 이 프로퍼티를 설정하지 않으면 쉘 스크립트 파일은
     생성되지 않는다.
-
 -   ISQL_REPL  
     ISQL_REPL = *run_is_repl.sh*  
     대상 데이터베이스에 이중화를 생성하기 위한 쉘 스크립트의 파일명을 설정한다.
     이 프로퍼티를 설정하지 않으면 쉘 스크립트 파일은 생성되지 않는다.
-
 -   COLLECT_DBMS_STATS  
     이 프로퍼티는 사용자의 테이블, 칼럼, 인덱스의 통계 정보를 추출할지 여부를
     결정한다.  
     COLLECT_DBMS_STATS = ON/OFF  
     기본값은 OFF이며 통계 정보를 추출하지 않는다. 이 프로퍼티의 값을 ON으로 할
     경우 통계 정보를 추출하도록 한다.
-
 -   ISQL_REFERSH_MVIEW  
     ISQL_REFERSH_MVIEW = *run_is_refresh_mview.sh*  
     대상 데이터베이스의 Materialized View를 리프레쉬하는 SQL 스크립트를 실행하는
     쉘 스크립트 파일의 이름을 설정한다. 이 프로퍼티를 설정하지 않으면, 쉘
     스크립트 파일이 생성되지 않는다.
-
 -   ISQL_ALT_TBL  
     ISQL_ALT_TBL = *run_is_alt_tbl.sh*  
     대상 데이터베이스의 테이블과 파티션에 대한 접근 모드를 변경하는 SQL
     스크립트를 실행하는 쉘 스크립트 파일의 이름을 설정한다. 이 프로퍼티를
     설정하지 않으면, 쉘 스크립트 파일이 생성되지 않는다.
-
 -   ILOADER_FIELD_TERM  
     ILOADER_FIELD_TERM = *field_term*  
     테이블의 데이터를 텍스트로 다운로드 할 때 사용할 필드 구분자를 설정한다.
@@ -930,14 +909,12 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     큰 따옴표(“”)로 에워싸여서 출력된다.  
     주의) 프로퍼티 파일 내에서 \# 문자를 구분자로 사용할 경우, \# 이하를
     주석으로 처리하기 때문에, \#는 구분자로 사용할 수 없다.
-
 -   ILOADER_ROW_TERM  
     ILOADER\_ ROW \_TERM = *row_term*  
     테이블 데이터를 텍스트로 내릴 때 사용할 레코드 구분자를 설정한다. 설정하지
     않을 경우 기본값은 \<LF\>이다.  
     주의) 프로퍼티 파일 내에서 \# 문자를 구분자로 사용할 경우, \# 이하를
     주석으로 처리하기 때문에, \#는 구분자로 사용할 수 없다.
-
 -   ILOADER_PARTITION  
     이 프로퍼티는 파티션 생성을 위한 SQL 스크립트와 쉘 스크립트를 만들 것인지를
     결정한다.  
@@ -953,34 +930,28 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     non-partitioned 테이블에 입력한다.  
     ILOADER 관련 프로퍼티에 대한 더 자세한 설명은 *iLoader User’s Manual* 을
     참고하기 바란다.
-
 -   ILOADER_ERRORS  
     ILOADER_ERRORS = *count* (기본값: 50)  
     iLoader로 데이터를 업로드할 때 허용 가능한 최대 에러 개수를 지정한다. 이
     프로퍼티의 기본값은 50이며, 0으로 설정하면 발생하는 에러 개수와 무관하게
     업로드가 계속 실행된다.
-
 -   ILOADER_ARRAY  
     ILOADER_ARRAY = *count* (기본값: 1)  
     iLoader로 데이터를 다운로드 또는 업로드 할 때 한 번에 처리할 row 개수를
     지정한다.
-
 -   ILOADER**\_**COMMIT  
     ILOADER**\_**COMMIT = *count* (기본값: 1000)  
     iLoader로 데이터를 업로드할 때 커밋할 단위(개수)를 지정한다. 이 프로퍼티로
     -commit옵션의 값을 지정할 수 있다.
-
 -   ILOADER_PARALLEL  
     ILOADER_PARALLEL = *count* (기본값: 1)  
     iLoader로 데이터를 다운로드 또는 업로드 할 때 병렬로 처리할 쓰레드 개수를
     지정한다.
-
 -   ILOADER_ASYNC_PREFETCH  
     ILOADER_ASYNC_PREFETCH = OFF\|ON\|AUTO (기본값 OFF)  
     iLoader로 데이터를 다운로드할 때 비동기 prefetch 동작을 설정한다. 자세한
     설명은 iLoader User's Manual의  
     '-async_prefetch' 옵션을 참고하기 바란다.
-
 -   SSL_ENABLE  
     대상 데이터베이스에 SSL 프로토콜로 접속할 것인지 여부를 지정한다.  
     SSL_ENABLE = ON/OFF  
@@ -990,6 +961,10 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     SSL_CIPHER, SSL_VERIFY)로 명시할 수 있다. 각 프로퍼티의 역할은 aexport 접속
     파라미터와 동일하므로 해당 절을 참조한다. SSL_ENABLE 프로퍼티 설정에 대한
     예제는 SSL 프로퍼티 설정을 참고한다.
+-   ILOADER_GEOM = WKB
+    iLoader로 공간 데이터를 다운로드 할 때, 공간 데이터를 Well-Known Binary (WKB) 
+    포맷으로 처리하도록 지정하는 옵션이다.
+    run_il_out.sh 파일에 -geom WKB 옵션이 추가된다.
 
 
 
@@ -1473,6 +1448,11 @@ MOSO 불일치에 대한 SU정책을 지정. 해당 레코드의 Slave DB에서 
 운영하기 위한 쓰레드의 개수를 지정한다. 작업하려는 쓰레드의 개수를 제한 없이
 사용하려면 “-1”을 명시한다.
 
+##### COUNT_TO_COMMIT
+
+변경된 데이터(Insert, Delete, or Update)를 몇 건 단위로 커밋할 것인가를 나타내는 
+단위 옵션이다. 기본값은 1000건 단위로 커밋한다.
+
 ##### FILE_MODE_MAX_ARRAY
 
 이 값이 1보다 크면 작업 대상 테이블의 데이터를 파일에 저장한 후, 파일의 데이터에
@@ -1488,6 +1468,45 @@ csv 형식으로 파일에 저장한다.
 
 예) FILE_MODE_MAX_ARRAY = 1000
 
+##### DIFF LOG 옵션
+
+DIFF는 Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주요 키(Primary Key)를 
+기준으로 레코드 값을 비교하여 실행 결과 파일에 기록하는 작업이다. 네가지 유형의 레코드 
+비교 결과를 실행 결과 파일에 기록 여부를 설정할 수 있도록 각각의 프로퍼티를 제공한다.
+
+프로퍼티 값은 “ON”, “OFF”를 가질 수 있으며, “ON”이면 기록하고, “OFF”이면 기록
+하지 않는다. 프로퍼티를 지정하지 않으면 기본값에 따라 동작한다.
+
+1. ###### LOG_EQ_MOSO
+
+   PK를 포함한 모든 컬럼의 값이 일치하는 레코드 (EQ_MOSO)를 실행 결과 파일에 
+   기록할 지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "OFF"로 동작한다.
+
+   이 옵션은 대용량 테이블을 비교할 때, 실행 결과 파일 용량이 커질 수 있으므로 주의해서 
+   사용해야 한다.
+
+2. ###### LOG_DF_MOSO
+
+   PK는 동일하지만 나머지 컬럼값 중 하나라도 일치하는 않는 레코드 (DF_MOSO)를 
+   실행 결과 파일에 기록할 지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
+
+3. ###### LOG_MOSX
+
+   Master DB에는 있으나, Slave DB에는 없는 레코드 (MOSX) 를 실행 결과 파일에 기록할 
+   지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
+
+4. ###### LOG_MXSO
+
+   Master DB에는 없지만, Slave DB에는 있는 레코드 (MXSO) 를 실행 결과 파일에 기록할 
+   지 결정하는 프로퍼티이다. 
+
+   프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
 #### TABLES 그룹 
 
 실행 대상이 되는 테이블에 관련된 정보를 정의한다. 이 그룹은 실행 대상이 되는
@@ -1587,6 +1606,7 @@ Fetch Rec In Slave : 2
 MOSX = DF, Count :          1
 MXSO = DF, Count :          0
 MOSO = DF, Count :          1
+MOSO = EQ, Count :          1
 
  SCAN TPS:   20547.95
      Time:       0.00 sec
@@ -3282,11 +3302,11 @@ altiMon은 주로 OS 정보와 DB 정보를 모니터링하며, 자세한 설명
 altiMon은 OS 정보를 수집하기 위해 C언어로 작성된 PICL 라이브러리를 사용한다.
 PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
-| OS    | CPU          | Version                      | PICL Library                |
-|-------|--------------|------------------------------|-----------------------------|
-| AIX   | ppc64        | OS Version 5.3, 6.1, 7.1     | aix-ppc64-5.so              |
-| HP-UX | ia64         | IA64                         | hpux-ia64-11.sl             |
-| LINUX | X86_64 ppc64 | OS Version 2.6 glibc 2.5이상 | linux-x64.so linux-ppc64.so |
+| OS    | CPU              | Version                      | PICL Library                |
+|-------|------------------|------------------------------|-----------------------------|
+| AIX   | ppc64            | OS Version 5.3, 6.1, 7.1     | aix-ppc64-5.so              |
+| HP-UX | ia64             | IA64                         | hpux-ia64-11.sl             |
+| LINUX | X86_64 ppc64(le) | OS Version 2.6 glibc 2.5이상 | linux-x64.so linux-ppc64.so |
 
 지원하지 않는 OS 버전에서 아래 방법으로 하위 버전용 PICL이 동작하는지를 확인한 후에 사용할 수도 있다.
 
@@ -3355,7 +3375,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 | \<NLS\>                                                 | 필수      | NLS_USE                                                      |
 | \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                               |
 | \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                 |
-| <ConnectionProperties>                                  | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br /><ConnectionProperties><br />login_timeout=3;fetch_timeout=60<br /></ConnectionProperties> |
+| \<ConnectionProperties\>                                | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
 
 ##### Metrics.xml
 
@@ -3603,10 +3623,7 @@ Error Message Reference 참조
 
 #### 개요
 
-SYSDBA 모드 접속을 위한 SYS 사용자의 암호를 변경한다. 데이터베이스 상에서 ALTER
-USER 문으로 암호를 변경하는 경우, 이 커맨드로 한 번 더 암호 변경 작업을 해야
-한다. ALTER USER 문으로만 암호를 변경했을 경우, 데이터베이스 구동, 종료 등
-SYSDBA 작업을 했을 때 오류가 발생하게 된다.
+altipasswd는 $ALTIBASE_HOME/conf/syspassword 파일을 변경한다. 데이터베이스가 서비스 상태가 아닐때는 SYSDBA 옵션으로 iSQL을 구동하여 관리자 작업을 수행하는데, 이때 syspassword 파일을 읽어 sys 계정의 패스워드를 체크한다. 따라서, 데이터베이스 상에서 ALTER USER 문으로 sys 암호를 변경하는 경우, altipasswd로 syspassword 파일의 암호도 동일하게 변경해야 한다. 데이터베이스내의 sys 암호와 syspassword 암호가 동일하게 유지되지 않으면, 데이터베이스 구동, 종료 등 SYSDBA 작업을 할 때 오류가 발생하게 된다.
 
 ```
 altipasswd
@@ -4860,7 +4877,7 @@ Altibase 서버가 비정상 종료될 때 \$ALTIBASE_HOME/trc 디렉토리에 �
 
 ```
 dumptrc [-h |[-p file_path][-c [-s]]
-[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] |-f |-v]
+[-a|-i file_name [-i file_name]..|-e file_name [-e file_name]..] [-n file_count] [-x] |-f |-v]
 ```
 
 
@@ -4871,18 +4888,19 @@ dumptrc [-h |[-p file_path][-c [-s]]
 
 #### 파라미터
 
-| 파라미터 | 설명                                                                                                                                                                                                                                               |
-|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| \-h      | 도움말을 출력한다. 파라미터를 생략하거나 다른 파라미터와 중복하여 사용할 경우 도움말이 우선한다.                                                                                                                                                   |
-| \-p      | 트레이스 로그 파일을 가져오는 경로를 지정한다. 경로를 지정하지 않으면 기본적으로 \$ALTIBASE_HOME/trc 디렉토리의 로그 파일을 가져온다.                                                                                                              |
+| 파라미터 | 설명                                                         |
+| -------- | ------------------------------------------------------------ |
+| \-h      | 도움말을 출력한다. 파라미터를 생략하거나 다른 파라미터와 중복하여 사용할 경우 도움말이 우선한다. |
+| \-p      | 트레이스 로그 파일을 가져오는 경로를 지정한다. 경로를 지정하지 않으면 기본적으로 \$ALTIBASE_HOME/trc 디렉토리의 로그 파일을 가져온다. |
 | \-c      | altibase_error.log에 기록된 ALTIBASE 프로세스 콜 스택을 사용자가 식별할 수 있는 함수명으로 변환하여 출력한다. 콜 스택의 주소를 함수명으로 변경하지 않으려면 -s 옵션를 사용한다. 파라미터 -a, -i, -e, -n과 함께 사용하지 않으면 콜 스택만 기록된다. |
-| \-s      | 트레이스 로그에 기록된 콜 스택만을 출력하고 함수명으로 변경하지 않는다.                                                                                                                                                                            |
-| \-a      | 트레이스 로그 파일의 전부를 정렬하여 출력한다.                                                                                                                                                                                                     |
-| \-i      | 지정하는 트레이스 로그 파일을 출력한다. 복수의 로그 파일이 출력 가능하다. '-e' 파라미터와 함께 사용할 수 없다.                                                                                                                                     |
-| \-e      | 지정한 트레이스 로그 파일을 제외한 모든 파일을 출력한다. 반복하여 복수의 로그 파일을 제거할 수 있으며, '-i' 파라미터와 함께 사용할 수 없다.                                                                                                        |
-| \-n      | 한 번에 출력할 로그의 개수를 지정한다. 1\~127개의 로그를 출력할 수 있으며, 지정하지 않으면 10개의 로그가 출력된다.                                                                                                                                 |
-| \-f      | 트레이스 로그 파일이 기록될 때마다 추가되는 로그 메세지를 출력한다.                                                                                                                                                                                |
-| \-v      | dumptrc의 버전을 출력한다.                                                                                                                                                                                                                         |
+| \-s      | 트레이스 로그에 기록된 콜 스택만을 출력하고 함수명으로 변경하지 않는다. |
+| \-a      | 트레이스 로그 파일의 전부를 정렬하여 출력한다.               |
+| \-i      | 지정하는 트레이스 로그 파일을 출력한다. 복수의 로그 파일이 출력 가능하다. '-e' 파라미터와 함께 사용할 수 없다. |
+| \-e      | 지정한 트레이스 로그 파일을 제외한 모든 파일을 출력한다. 반복하여 복수의 로그 파일을 제거할 수 있으며, '-i' 파라미터와 함께 사용할 수 없다. |
+| \-n      | 한 번에 출력할 로그의 개수를 지정한다. 1\~127개의 로그를 출력할 수 있으며, 지정하지 않으면 10개의 로그가 출력된다. |
+| \-f      | 트레이스 로그 파일이 기록될 때마다 추가되는 로그 메세지를 출력한다. |
+| -x       | altibase버전과 dumptrc버전이 틀린 경우도 콜 스택을 출력한다. |
+| \-v      | dumptrc의 버전을 출력한다.                                   |
 
 #### 설명
 
@@ -4930,8 +4948,7 @@ Altibase 기술서비스 팀에 송부하면, 보다 빨리 문제를 해결할 
 
 #### 주의 사항
 
-dumptrc가 정상적으로 동작하려면, Altibase의 실행 파일의 버전과 dumptrc의 버전이
-동일해야 정확한 콜 스택 정보를 확인할 수 있다.
+ Altibase의 실행 파일의 버전과 dumptrc의 버전이 동일해야 정확한 콜 스택 정보를 확인할 수 있다.버전이 틀릴 경우는 잘못된 값이 나올 수 있기 때문에 기본적으로 경고메시지를 보여주고 콜 스택을 출력하지 않는다. 버전이 틀릴때도 강제로 콜스택을 출력하기 위해서는 -x옵션을 사용하면 된다.
 
 #### 사용예
 

@@ -1027,7 +1027,7 @@ REMOTE_EXECUTE_IMMEDIATE( 'link1', 'alter table t1 add constraint const1 unique(
 Altibase 데이터베이스 링크는 JDBC 인터페이스를 사용하므로, JDBC v3.0에 명세화된
 표준 데이터 타입을 지원한다.
 
-아래 그림은 지역 서버인 Altibase와 AltiLiker 사이의 데이터 타입 변환과
+아래 그림은 지역 서버인 Altibase와 AltiLinker 사이의 데이터 타입 변환과
 AltiLinker와 각 이기종 데이터베이스의 JDBC 드라이버간의 데이터 타입 변환이
 어떻게 이루어지는지를 보여준다.
 
@@ -1739,28 +1739,37 @@ c2 칼럼 값을 구하는 저장 프로시저를 생성하라. 단, c1 칼럼 �
 파라미터 바인딩을 사용하라.
 
 ```
-CREATE OR REPLACE PROCEDURE proc1 AS
+EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 INTEGER, c2 FLOAT(38))');
+
+EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(20, 30.001)');
+
+CREATE OR REPLACE PROCEDURE proc1()
+AS
     statement_id    BIGINT;
     row_cnt         INTEGER;
     result          INTEGER;
     col_value       FLOAT(38);
- 
+
 BEGIN
-    statement_id := REMOTE_ALLOC_STATEMENT( 'link1', 'select c2 from t1 where c1 = ?' );
-     
+    statement_id  := REMOTE_ALLOC_STATEMENT('link1', 'SELECT * FROM t1 where c1 = ?');
+
     result := REMOTE_BIND_VARIABLE( 'link1', statement_id, 1, '20' );
- 
-    IF result > 0 THEN
-        result := REMOTE_EXECUTE_STATEMENT( 'link1', statement_id );
- 
+
+    IF result >= 0 THEN
+        result := REMOTE_EXECUTE_STATEMENT('link1', statement_id );
+
         LOOP
             result := REMOTE_NEXT_ROW( 'link1', statement_id );
             EXIT WHEN result < 0;
- 
-            col_value := REMOTE_GET_COLUMN_VALUE_FLOAT( 'link1', statement_id, 1, 38 );
+
+            col_value := REMOTE_GET_COLUMN_VALUE_FLOAT( 'link1', statement_id, 2, 38 );
+            SYSTEM_.PRINTLN(col_value);
         END LOOP;
- 
-        result := REMOTE_FREE_STATEMENT( 'link1', statement_id );
+
+        result := REMOTE_FREE_STATEMENT('link1', statement_id);
+        IF result < 0 THEN
+            SYSTEM_.PRINTLN('Free failed');
+        END IF;
     END IF;
 END;
 /
@@ -2721,7 +2730,7 @@ JVM(Java Virtual Machine) 상에서 AltiLinker를 위해 JVM bit를 지정한다
 
 ##### 값의 범위
 
-[8MB, 512MB]
+[128MB, 4096MB]
 
 ##### 설명
 
@@ -2736,7 +2745,7 @@ JVM(Java Virtual Machine) 상에서 AltiLinker를 위해 할당하는 메모리 
 
 ##### 값의 범위
 
-[16MB, 512MB]
+[32MB, 32768MB]
 
 ##### 설명
 

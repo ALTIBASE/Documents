@@ -54,7 +54,7 @@ Altibase Application Development SQL Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
@@ -440,13 +440,13 @@ Database objects are named using identifiers that follow these rules:
   - The following non-schema objects also have their own namespace:  
     Users, Replication objects, Tablespaces, Directory objects.
 
-For mroe detailed information about Altibase objects, please refer to the *Administrator's Manual*.
+For more detailed information about Altibase objects, please refer to the *Administrator's Manual*.
 
 ##### Passwords
 
 Altibase uses passowrd authentication. This means that the user has to enter a password when logging into the database.
 
-The password the user uses to connect to Altibase also has similar constraints as the object name: characters for passwords are A~Z, a~z, 0~9, _, and $. In addition, Altibase's reserved words cannot be in passwords. The first character must be a letter or _. The maximum length of the password is 40 bytes.
+The password the user uses to connect to Altibase also has similar constraints as the object name: characters for passwords are A\~Z, a\~z, 0~9, _, and $. In addition, Altibase's reserved words cannot be in passwords. The first character must be a letter or _. The maximum length of the password is 40 bytes.
 
 Altibase automatically converts lowercase passwords to uppercase by default. However, you can create a case sensitive password by setting the value of CASE_SENSITIVE_PASSWORD to 1, and then enclosing the password in quotation marks, when creating a user with the CREATE USER statement. If you omit the quotation marks, the database will convert the string to uppercase, even if the value of CASE_SENSITIVE_PASSWORD is 1.
 
@@ -1337,7 +1337,7 @@ Users can specify multiple hints in a single comment by separating them with bla
 
 For more detailed information about each hint, please refer to the next section. 
 
-For more detailed information about using hints for query tuning, please refer to the Performance Tuning Guide. 
+For more detailed information about using hints for query tuning, please refer to the *Performance Tuning Guide*. 
 
 #### Examples
 
@@ -1673,13 +1673,13 @@ If this hint is specified, the optimizer creates an execution plan that most eff
 
 This hint specifies that the full table scan will be performed for the specified table.
 
-![full scan](media/SQL/full scan.gif)
+![full scan](Manuals/Altibase_trunk/eng/media/SQL/full scan.gif)
 
 #### GROUP BUCKET COUNT
 
 This hint specifies the number of hash buckets for the GROUP-AGGREGATION and AGGREGATION execution nodes. 
 
-![group bucket count](media/SQL/group bucket count.gif)
+![group bucket count](Manuals/Altibase_trunk/eng/media/SQL/group bucket count.gif)
 
 #### GROUP_HASH
 
@@ -1703,7 +1703,7 @@ If this hint is specified, a nested subquery uses a hash join to perform an anti
 
 This hint specifies the number of hash buckets for the HASH and DISTINCT execution nodes. 
 
-![hash bucket count](media/SQL/hash bucket count.gif)
+![hash bucket count](Manuals/Altibase_trunk/eng/media/SQL/hash bucket count.gif)
 
 #### HASH_SJ
 
@@ -1751,7 +1751,7 @@ This hint performs the same action equivalent to the INDEX DESC hint.
 
 #### INVERSE_JOIN
 
-If this hint is specified, a nested subquery uses an inverse join[^1] to perform either an anti-join or a semi-join. You need to specify this hint within the subquery. 
+If this hint is specified, a nested subquery uses an inverse join[^1] to perform either an anti-join or a semi-join. The user needs to specify this hint within the subquery. 
 
 [^1]: 1An inverse join can be either an inverse index nested loop join, an inverse hash join, or an inverse sort join. For more detailed information about inverse joins, please refer to the *Performance Tuning Guide*.
 
@@ -1835,7 +1835,7 @@ This hint can be used with other hints that force semi-joins or anti-joins. For 
 
 #### NO_MERGE
 
-메인 쿼리와 인라인 뷰 쿼리를 하나의 쿼리로 병합하지 않도록 지시하는 힌트이다.
+This hint instructs not to merge the main query and inline view query into one query.
 
 ![no_merge](media/SQL/no_merge.gif)
 
@@ -1865,8 +1865,7 @@ If a hint is specified while the SERIAL_EXECUTE_MODE property is enabled, it wil
 
 #### NO_TRANSITIVE_PRED
 
-조건절 이행을 배제하는 힌트이다. 조건절 이행에 대해서는 "Performance Tuning
-Guide \> 3장 쿼리 옵티마이저 \> 쿼리 변환 > 조건절 이행"을 참고한다. This hint specifies that predicate transitivity is not to be allowed. For more detailed information about predicate transitivity, please refer to the *Performance Tuning Guide* in Chapter 3: Query Optimizer.
+This hint specifies that predicate transitivity is not to be allowed. For more detailed information about predicate transitivity, please refer to the *Performance Tuning Guide* in Chapter 3: Query Optimizer.
 
 ![no_transitive_pred](media/SQL/no_transitive_pred.gif)
 
@@ -2800,7 +2799,7 @@ This is used to remove a table from a replication object. A table can be removed
 
 *FLUSH*
 
-Please refer to the ALTER REPLICATION clause of the Datat Control Statement.
+Please refer to the ALTER REPLICATION clause of the Data Control Statement.
 
 *SET HOST*
 
@@ -2827,7 +2826,7 @@ There are several points that users working with replication must keep in mind b
 
 ##### Start execution of the repl1 replication object 
 
-\<Query\> Send the data on the local server data to the remote server, and start replication
+\<Query\> Send the data on the local server data to the remote server, and start replication.
 
 ```
 iSQL> ALTER REPLICATION rep1 SYNC;
@@ -2958,7 +2957,7 @@ For detailed more information about sequences, please refer to the description o
 
 #### Examples
 
-\<\Query\> Change the sequence seq1 so that the minimum value is 0, the maximum value is 100, and increments by 1.
+\<Query\> Change the sequence seq1 so that the minimum value is 0, the maximum value is 100, and increments by 1.
 
 ```
 iSQL> ALTER SEQUENCE seq1
@@ -3238,7 +3237,7 @@ Please refer to the parallel clause description of CREATE TABLE.
 - PCTFREE Clause  
   This is used to change the percentage of free space that is reserved for future use when updating records that have already been saved in pages. 
   
-  An ALTER TABLE statement containing the alter_table_segment_attribute_clause, which is used to change segment attributes, can be executed while Altibase is running. However, the changes will not be immediately applied in all of the pages in the segment; rather, each table page will be changed individually the next time the page is accessed
+  An ALTER TABLE statement containing the alter_table_segment_attribute_clause, which is used to change segment attributes, can be executed while Altibase is running. However, the changes will not be immediately applied in all of the pages in the segment; rather, each table page will be changed individually the next time the page is accessed.
   
 - PCTUSED Clause  
   This is used to change the threshold below which the amount of used space in a page must decrease in order for the page to return to the state in which records can be inserted.
@@ -3246,7 +3245,7 @@ Please refer to the parallel clause description of CREATE TABLE.
 - INITRANS Clause  
   This is used to change the initial number of TTS (Touched Transaction Slots). 
   
-- MAXTRANS 절  
+- MAXTRANS Clause  
   This is used to change the maximum number of TTS (Touched Transaction Slots).
 
 *storage_clause*
@@ -3370,7 +3369,7 @@ The following table shows which data types can be changed into which data types.
 
   - Character data type --> Numeric data type  
     Character data should consist only of numbers and decimal points  
-    Character data must be within the rage of numeric data types.
+    Character data must be within the rage of numeric data types
   - Character data type --> Character data type  
     The column size must be greater than or equal to the length of the data type before the change
   - Numeric data type --\> Character data type  
@@ -3379,7 +3378,7 @@ The following table shows which data types can be changed into which data types.
     The data must be within the range of the numeric data type users want to change.
   - Character data type --> Data date type  
     The data before the change should stored as a date  
-    The data format must match the DEFAULT_DATE_FORMAT property.
+    The data format must match the DEFAULT_DATE_FORMAT property
   - Date data type --> Character data type 
     When converted to the character type, it is changed to DEFAULT_DATE_FORMAT
 
@@ -3956,7 +3955,7 @@ PARTITION BY HASH (I1)
 
 
 
-##### Addint Partitions
+##### Adding Partitions
 
 \<Query\>  Add a new partition to a hash-partitioned table
 
@@ -5511,7 +5510,7 @@ The following data types support direct key indexes.
 - INITRANS Clause  
   This is used to set the initial number of TTS (Touched Transaction Slots). The default is 8.
 - MAXTRANS Clause  
-  This is used to set the maximum number of TTS (Touched Transaction Slots). The default is 30.
+  This is used to set the maximum number of TTS (Touched Transaction Slots). The default is 50.
 
 *TABLESPACE Clause*
 
@@ -6098,15 +6097,15 @@ This is the value by which the sequence increments. The default value is 1. The 
 
 *MAXVALUE*
 
-This is the maximum value of the sequence. This can be set to any value between -9223372036854775807 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 9223372036854775806. If the value for INCREMENT BY is less than 0, the default value is -1.
+This is the maximum value of the sequence. This can be set to any value between -9223372036854775805 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 9223372036854775806. If the value for INCREMENT BY is less than 0, the default value is -1.
 
 *MINVALUE*
 
-This is the minimum value of the sequence. This can be set to any value between -9223372036854775807 and 9223372036854775806. If the value for INCREMENT BY is more than 0, the default value is 1. If the value for INCREMENT BY is less than 0, the default value is -9223372036854775807.
+This is the minimum value of the sequence. This can be set to any value between -9223372036854775806 and 9223372036854775805. If the value for INCREMENT BY is more than 0, the default value is 1. If the value for INCREMENT BY is less than 0, the default value is -9223372036854775806.
 
 *CYCLE*
 
-This clause is used to ensure that the sequence will continue to generate values when it reaches the value specified using MAXVALUE or MINVALUE. The sequence cycles again from the minimum value in the case of an ascending sequence, or from the maximum value in the case of a descending sequence
+This clause is used to ensure that the sequence will continue to generate values when it reaches the value specified using MAXVALUE or MINVALUE. The sequence cycles again from the minimum value in the case of an ascending sequence, or from the maximum value in the case of a descending sequence.
 
 *CACHE*
 
@@ -6155,7 +6154,7 @@ iSQL> select * from v$seq;
 
 This command displays information about all sequence objects that have been created. Unlike Select * from seq, querying the performance view allows information about other users' sequences to be viewed. For more information on the performance view V$SEQ, please refer to the section of the Data Dictionary that explains performance views in the *General Reference.*
 
-\<Query\> Create a sequence named seq1 that begins at 13, increments by 3, and has a minimum value of 0 and no maximum value
+\<Query\> Create a sequence named seq1 that begins at 13, increments by 3, and has a minimum value of 0 and no maximum value.
 
 ```
 iSQL> CREATE SEQUENCE seq1
@@ -6235,7 +6234,7 @@ SEQ1.CURRVAL
 1 row selected.
 ```
 
-\<Query\> Change the value in column i1 to the next value of the sequence, which is 0
+\<Query\> Change the value in column i1 to the next value of the sequence, which is 0.
 
 ```
 iSQL> UPDATE SEQTBL SET i1 = seq1.NEXTVAL;
@@ -6339,7 +6338,7 @@ iSQL> CREATE SEQUENCE seq2;
 Create success.
 ```
 
-\<Query\> Output information on all sequences created by user1
+\<Query\> Output information on all sequences created by user1.
 
 ```
 iSQL> SELECT * FROM SEQ;
@@ -6460,7 +6459,7 @@ When creating a PRIVATE synonym, it is possible to specify the name of the owner
 
 *synonym_name*
 
-If there is a table, view, sequence, stored procedure, stored function or another synonym that has the same name as the synonym to be created, an error will be raised. Because synonyms occupy the same namespace as these object types, the name for the synonym must be unique within the schema in which it is created. Refer to "Rules for Object Names"  for more information onf specifying names.
+If there is a table, view, sequence, stored procedure, stored function,or another synonym that has the same name as the synonym to be created, an error will be raised. Because synonyms occupy the same namespace as these object types, the name for the synonym must be unique within the schema in which it is created. Refer to "Rules for Object Names"  for more information onf specifying names.
 
 *FOR clause*
 
@@ -6849,7 +6848,7 @@ A unique constraint and a primary key constraint cannot both be defined for the 
 
   This clause specifies an integrity rule that applies to the target column. Only the target column can be referenced within the condition of the column_constraint clause. The following limitations concern the conditions of CHECK constraints:
   
-- Subqueries, sequences, all pseudo columns, such as LEVEL, ROWNUM, etc., and non-deterministic SQL functions, such as SYSDATE, USER_ID, etc., cannot be included. 
+  - Subqueries, sequences, all pseudo columns, such as LEVEL, ROWNUM, etc., and non-deterministic SQL functions, such as SYSDATE, USER_ID, etc., cannot be included. 
   - The PRIOR operator cannot be used. 
   - LOB type data cannot be used.
   
@@ -6933,7 +6932,7 @@ ENO INTEGER PRIMARY KEY,
   
   In order to enforce the referential integrity of this option, the target column must be nullable. 
 
-  For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
+For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
   
   ```
 CREATE TABLE employees (
@@ -7068,7 +7067,7 @@ This clause is used to specify the PCTFREE, PCTUSED, INITRANS, and MAXTRANS. If 
   This option must be set to an integer value ranging from 0 to 99, representing the percentage. If this value is not set, the default PCTUSED value is 40. This option only applies to pages that have been assigned to tables.
 - INITRANS Clause  
   This clause is used to set the initial number of TTS (Touched Transaction Slots). The default value is 2.
-- MAXTRANS 절  
+- MAXTRANS Clause  
   This clause is used to set the maximum number of TTS (Touched Transaction Slots), to which the number of TTS can increase. The default value is 120.
 
 > Note: 
@@ -7245,7 +7244,7 @@ Create the following tables:
 
   ```
   iSQL> INSERT INTO tbl_timestamp VALUES(DEFAULT, 2, '02-FEB-01', Byte'A1111002');
-1 row inserted.
+  1 row inserted.
   iSQL> UPDATE tbl_timestamp SET i1 = DEFAULT, i2 = 102, i3 = '02-FEB-02', i4 = Byte'B1111002' WHERE i2 = 2;
   1 row updated.
   iSQL> SELECT * FROM tbl_timestamp;
@@ -7255,7 +7254,7 @@ Create the following tables:
   1 row selected.
   ```
   
-  Similarly, if the user does not specify a TIMESTAMP value when performing an INSERT or UPDATE operation on a TIMESTAMP column, the system time at which the operation is performed will be used to perform the INSERT or UPDATE operation.
+Similarly, if the user does not specify a TIMESTAMP value when performing an INSERT or UPDATE operation on a TIMESTAMP column, the system time at which the operation is performed will be used to perform the INSERT or UPDATE operation.
   
 ```
   iSQL> INSERT INTO tbl_timestamp(i2, i3, i4) VALUES(4, '02-APR-01', Byte'C1111002');
@@ -7499,7 +7498,7 @@ iSQL> CREATE TABLE inventory(
   
   ```
   CREATE TABLE list_customers 
-( 
+  ( 
   	customer_id	NUMBER(6), 
   	cust_first_name	VARCHAR(20), 
   	cust_last_name	VARCHAR(20), 
@@ -7542,7 +7541,7 @@ iSQL> CREATE TABLE inventory(
   \<Query\> Create a table in which the LOB data is stored in separate tablespaces; specifically, in which the LOB data in the image1 column is stored in the lob_data1 tablespace and the LOB data in the image2 column is stored in the lob_data2 tablespace. CREATE TABLE lob_products
   
   ```
-CREATE TABLE lob_products 
+  CREATE TABLE lob_products 
   (
     product_id integer, 
     image1 BLOB, 
