@@ -9092,7 +9092,7 @@ No rows selected.
 객체 감사 조건을 설정하는 구문은 아래와 같다.
 
 ```
-AUDIT operation_comma_list ON object_name BY ACCESS | SESSION WHENEVER [NOT] SUCCESSFUL;AUDIT operation_comma_list
+AUDIT operation_comma_list
 ON object_name
 BY ACCESS | SESSION
 WHENEVER [NOT] SUCCESSFUL;
