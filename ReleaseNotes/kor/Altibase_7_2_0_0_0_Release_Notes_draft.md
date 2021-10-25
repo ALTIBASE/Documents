@@ -45,7 +45,9 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 ### 2.1 새로운 기능
 
-- #### **JDBC** **API Specification 4.2** 지원
+- #### **JDBC** **API Specification 4.2** 지원 (PROJ-2707)
+
+  JDBC API Specification 4.2 지원으로 인한 변경 사항은 여기에서 확인하라.
 
   - **Auto-loading of JDBC driver class**
 
@@ -83,58 +85,129 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
     JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
 
-**변경 사항**
+- #### altiComp 커밋 카운트 설정 기능 추가
 
-​	Altibase JDBC 4.2는 Altibase JDBC 3.0 에 대해 하위호환성을 보장하지만 일부 인터페이스의 경우 JDBC API Specification 4.2 에 따라 동작이 변경되었다.
+  사용자 정의 커밋 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT 가 추가되었다. 관련 내용은 [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities.md#count_to_commit) 에서 확인할 수 있다.
 
-###### 	미지원 기능에 대한 예외 처리 클래스가 SQLException에서 SQLFeatureNotSupportedException으로 변경
+- #### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
 
-​	다음 인터페이스에 대한 예외 처리 클래스가 SQLFeatureNotSupportedException로 변경되었다. SQLFeatureNotSupportedException은 SQLException의 하위 클래스이므로 기존 사용자 프로그램은 수정없이 그대로 동작한다.
+  큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다.
 
-- Altibase.jdbc.driver.AltibaseConnection
-  - setTypeMap(Map)
+  DELETE OFF로 DELETE 문을 허용하지 않으면 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다. 구문 사용 방법은 [Altibase 7.2 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL1.md#create-queue) 을 참고한다. 
 
-- Altibase.jdbc.driver.AltibaseStatement
-  - setCursorName(String)
+  성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/GeneralReference_4.md#vqueue_delete_off)가 추가되었다. 
 
-- Altibase.jdbc.driver.AltibasePreparedStatement
-  - setArray(int, Array)
-  - setRef(int, Ref)
-  - setURL(int, URL)
-  - setUnicodeStream(int, InputStream, int)
+- #### APRE SQL_NUMERIC_STRUCT 배열 처리 기능 추가 ?
 
-- Altibase.jdbc.driver.Blob
-  - position(Blob, long)
-  - position(byte[], long)
-- Altibase.jdbc.driver.Clob
-  - position(Clob, long)
-  - position(String, long)
+- #### 범위 파티션드 객체에 파티션 추가 연산 추가
 
-- Altibase.jdbc.driver.CallableStatement
-  - getArray(int)
-  - getObject(int, Map)
-  - getRef(int)
-  - getURL(int)
+  범위 파티셔드 테이블에 파티션 추가(ADD PARTITION) 구문을 지원한다. 이 기능 추가로 기본 파티션 없는 범위 파티션드 테이블 생성이 가능하다. 
 
-- Altibase.jdbc.driver.AltibaseDatabaseMetaData
-  - getColumnPrivileges(String, String, String, String)
-  - getUDTs(String, String, String, int[])
+  **Altibase 7.2 에서 범위 파티션드 테이블 생성 시 주의 사항**
 
-- Altibase.jdbc.driver.AltibaseResultSet
-  - getCursorName()
-  - getArray(int)
-  - getObject(int, Map)
-  - getRef(int)
-  - getURL(int)
-  - getUnicodeStream(int)
-  - updateArray(int, Array)
-  - updateRef(int, Ref)
+  - Altibase 7.2 에서는 기본 파티션이 없는 범위 파티션드 테이블을 생성할 수 있다. 
+
+    기본 파티션이 없는 범위 파티션드 테이블을 생성하면 SYS_TABLE_PARTITIONS_에서 PARTITION_NAME 이 없는 파티션이 추가로 생성된다. 
+
+  - 범위 파티션드 객체에서 파티션 추가는 기본 파티션이 없는 범위 파티션드 테이블에서만 사용할 수 있다.
+
+  - 기본 파티션이 없는 범위 파티션드 테이블은 기본 파티션 추가 연산을 수행할 수 없다.
+
+  - 기본 파티션이 있는 범위 파티션드 테이블은 기본 파티션 삭제 연산을 수행할 수 없다.
+
+  - 기본 파티션이 없는 범위 파티션드 테이블은 파티션 키로 널(NULL) 값을 사용할 수 없다.
+
+  - 기본 파티션이 없는 범위 파티션드 테이블은 CONJOIN/DISJOIN 구문을 사용할 수 없다.
+
+  - 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
+
+### 2.2 성능 및 안정성 향상
+
+- #### OLTP Scalability 성능 향상(TASK-7073)
+
+  ###### Linux x86-64 CPU 코어 수 24코어 이상에서 조회 트랜잭션 성능 저하 현상 개선
+
+  ###### 로깅 구조를 개선하여 메모리 DB 삭제(DELETE) 트랜잭션 성능 향상
+
+  ###### In-place MVCC 동작 방식을 개선하여 디스크 DB 변경 트랜잭션 성능 향상
+
+  ###### 테이블 잠금(TABLE LOCK) 병목 개선
+
+  ###### INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거하여 성능 향상
+
+  ###### 온라인 로그파일 압축 시 메모리 할당/해제 병목 개선
+
+  - Altibase 운용 중 기본 메모리 사용이 증가합니다. 
+    V$MEMSTAT의 Storage_Memory_Recovery 항목으로 이전 버전과 증가량을 확인할 수 있습니다. 
+    메모리 증가량은 TRANSACTION_TABLE_SIZE에 영향을 받습니다. TRANSACTION_TABLE_SIZE 기본값 1024 경우 약 32MB 증가, 최대값 16384 경우 약 500M 증가합니다. 
+  - Altibase 서버 프로퍼티 추가 (2개 모두 히든 프로퍼티)
+    - LOG_COMP_RESOURCE_REUSE
+      - 기존 방식 유지 : LOG_COMP_RESOURCE_REUSE = 0
+    - COMP_RES_TUNE_SIZE
+
+  ###### Volatile DB 트랜잭션 성능 향상
+
+  - 커밋 병목 및 가비지 콜렉션 쓰레드 병목 개선
+
+  ###### 트랜잭션 커밋 후 테이블 정보 업데이트 병목 개선
+
+  ###### Memory DB 트랜잭션 성능 향상
+
+  - 디스크 읽기를 유발하는 함수의 병목을 제거하여 성능 향상
+  - Group Commit Log 기능 추가
+
+- #### 언두 테이블스페이스 재사용 안정성 향상
+
+  디스크 인덱스와 언두 테이블스페이스의 불필요한 관계를 제거하여 버그 발생 위험 요소 제거
+
+  프로퍼티 값 변경 사유는?
+
+  INDEX_INITTRANS : MAX값 30 -> 50
+  INDEX_MAXTRANS : 디폴트,MAX값 : 30 -> 50
+
+- #### PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선
+
+- #### 트랜잭션 로그 기록 성능 향상(TASK-6983)
+
+- #### 서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선
+
+  조걸절(WHERE 또는 HAVING 절)에서 사용한 서브쿼리의 인라인 뷰에 ORDER BY절을 사용한 SQL에서 특정 조건을 만족하는 경우 불필요한 SORT 작업을 제거하여 성능 향상
+
+  실행 계획 변화 : SUBQUERY FILTER 안에 SORT 플랜 노드
+
+  SQL 사용 예
+
+  ```sql
+  SELECT *
+    FROM T1
+   WHERE I1 IN (SELECT /*+ NO_UNNEST */I1
+                  FROM (SELECT *
+                          FROM T2
+                         ORDER BY I2, I3));
+  ```
+
+- #### Scalar subquery 성능 개선
+
+  Scalar subquery의 결과가 단일 레코드인지 확인하는 과정에서 발생하는 오버헤드 제거하여 access cost를 줄임
+
+- #### 트랜잭션 로그 기록 성능 향상(TASK-6983)
+
+  로그 압축 알고리즘을 압축 속도가 빠른 LZ4 로 변경하였다.
+
+- #### 휘발성/비휘발성 메모리 DB 트랜잭션 성능 향상
+
+  메모리 테이블 객체 식별자 추적 단계를 간소화하여 휘발성/비휘발성 메모리 DB 트랜잭션 성능 향상
+
+- #### 이중화 성능 향상
+
+  - 압축 로그에서 이중화에 필요한 로그만 압축 해제하는 기능 추가하여 이중화 Sender 성능 향상
+  - xLog 압축 알고리즘을 LZO에서 LZ4로 변경하여 압축 성능 향상
 
 #### 2.1.3 기능 개선
 
 ##### 2.1.3.1 SQL 확장
 
-###### ~~anonymous block -매뉴얼 없음(PROJ-2708)~~ (7.1 에 반영되었음. 7.1.0.2.3)
+###### ~~anonymous block -매뉴얼 없음(PROJ-2708)~~ (7.1 반영되었음. 7.1.0.2.3)
 
 ###### ~~C/C++ External Procedure의 internal mode procedure 지원 (PROJ-2717)~~ 7.1에 이미 반영. 7.1.0.3.3
 
@@ -160,7 +233,7 @@ CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence �
 
 ##### 2.1.3.2 Spatial SQL 개선
 
-###### SRID(Spatial Reference Identifier) interface 지원
+###### ~~SRID(Spatial Reference Identifier) interface 지원~~ (PROJ-2422) 7.1 에 이미 반영. 7.1.0.4.0
 
 ###### GEOMETRY 데이터타입 표현방법 추가
 
@@ -190,7 +263,7 @@ SRID 지원에 따라, 아래의 공간함수가 추가되었다.
 
 ##### 2.1.3.3 이중화 기능개선
 
-###### 이중화 대상 테이블에 DDL 복제 기능 추가(PROJ-2677)
+###### ~~이중화 대상 테이블에 DDL 복제 기능 추가(PROJ-2677)~~ 7.1에 이미 반영. 7.1.0.1.4
 
 이중화를 통하여 DDL 동기화(Synchronization)를 허용합니다. 이 기능을 사용하기 위해서는 각노드의 REPLICATION_DDL_SYNC 프로퍼티를 1로 설정해야 합니다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/GeneralReference_2.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/GeneralReference_2.md#replication_ddl_enable_level)이 동일해야 합니다.
 
@@ -367,6 +440,76 @@ ALA protocol 변경
 ### 2.2 변경 사항
 
 DBA와 개발자가 알아야 할 추가, 변경, 및 제거된 기능을 아래에서 설명한다.
+
+#### Altibase JDBC 4.2 변경 사항
+
+Altibase JDBC 4.2는 Altibase JDBC 3.0 에 대해 하위 호환성을 보장하지만 일부 인터페이스의 경우 JDBC API Specification 4.2에 따라 동작이 변경되었다.
+
+###### 미지원 기능에 대한 예외 처리 클래스 변경
+
+다음 인터페이스에 대한 예외 처리 클래스가 SQLException에서 SQLFeatureNotSupportedException으로 변경되었다. SQLFeatureNotSupportedException은 SQLException의 하위 클래스이므로 기존 사용자 프로그램은 수정없이 그대로 동작한다.
+
+- Altibase.jdbc.driver.AltibaseConnection
+  - setTypeMap(Map)
+
+- Altibase.jdbc.driver.AltibaseStatement
+  - setCursorName(String)
+
+- Altibase.jdbc.driver.AltibasePreparedStatement
+  - setArray(int, Array) 
+  - setRef(int, Ref)
+  - setURL(int, URL)
+  - setUnicodeStream(int, InputStream, int)
+
+- Altibase.jdbc.driver.Blob
+  - position(Blob, long)
+  - position(byte[], long)
+- Altibase.jdbc.driver.Clob
+  - position(Clob, long)
+  - position(String, long)
+
+- Altibase.jdbc.driver.CallableStatement
+  - getArray(int)
+  - getObject(int, Map)
+  - getRef(int)
+  - getURL(int)
+
+- Altibase.jdbc.driver.AltibaseDatabaseMetaData
+  - getColumnPrivileges(String, String, String, String)
+  - getUDTs(String, String, String, int[])
+
+- Altibase.jdbc.driver.AltibaseResultSet
+  - getCursorName()
+  - getArray(int)
+  - getObject(int, Map)
+  - getRef(int)
+  - getURL(int)
+  - getUnicodeStream(int)
+  - updateArray(int, Array)
+  - updateRef(int, Ref)
+
+###### DatabaseMetaData의 일부 인터페이스 결과에 항목 추가
+
+getProcedures(), getProcedureColumns(), getFunctions(), getFunctionColumns() 인터페이스 결과에 SPECIFIC_NAME 컬럼이 추가되었다. 
+
+Altibase JDBC 7.2 에서 SPECIFIC_NAME은 다음과 같은 형태로 구현하였다.
+
+```java
+ProcName(FuncName) + '_' + ouid
+```
+
+###### 연결 속성 기본값 변경
+
+- reuse_resultset 
+- lob_null_select 
+
+###### JDBC 4.2만을 위한 JDBC 속성 추가
+
+- getprocedures_return_functions
+
+###### CLIENT_TYPE 변경
+
+- v$session 뷰의 CLIENT_TYPE이 NEW_JDBC 에서 NEW_JDBC42로 변경됨.
 
 #### 데이터베이스 버전
 
