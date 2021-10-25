@@ -1074,8 +1074,7 @@ Altibase 프로세스가 비정상적으로 종료하는 시점의 작업 메모
 
 ##### altibase_sm.log 
 
-저장관리자 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는
-파일들이다.
+저장관리자 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
 ##### altibase_rp.log
 
@@ -1083,8 +1082,11 @@ Altibase 프로세스가 비정상적으로 종료하는 시점의 작업 메모
 
 ##### altibase_qp.log
 
-질의 처리 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는
-파일들이다.
+질의 처리 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
+
+##### altibase_job.log
+
+JOB 에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는파일들이다.
 
 ##### altibase_mm.log
 
@@ -1104,8 +1106,7 @@ SNMP에서  발생하는 경고 메시지나 트레이스 메시지 등이 기�
 
 ##### altibase_dk.log
 
-데이터베이스 링크 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는
-파일들이다.
+데이터베이스 링크 모듈에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는 파일들이다.
 
 ##### altibase_ipc.log
 
@@ -1117,8 +1118,7 @@ IPCDA로 접속 시 생성된 자원(resource)들에 대한 정보가 기록되�
 
 ##### altibase_xa.log
 
-XA 인터페이스를 이용해서 Altibase에 수행되는 글로벌 트랜잭션에서 발생하는 경고
-메시지나 트레이스 메시지 등이 기록되는 파일이다.
+XA 인터페이스를 이용해서 Altibase에 수행되는 글로벌 트랜잭션에서 발생하는 경고 메시지나 트레이스 메시지 등이 기록되는 파일이다.
 
 ##### killCheckServer.log
 
@@ -1126,8 +1126,7 @@ killCheckServer 유틸리티의 실행 결과가 기록되는 파일이다.
 
 ### 실행 바이너리
 
-여기에 설명된 외의 이들 바이너리 파일에 대한 더 자세한 정보는 *Utilities
-Manual*을 참고하기 바란다..
+여기에 설명된 외의 이들 바이너리 파일에 대한 더 자세한 정보는 *Utilities Manual*을 참고하기 바란다..
 
 #### aexport
 
@@ -3673,26 +3672,24 @@ DROP JOB job1;
 
 마지막으로 실행된 JOB의 프로시저 수행이 실패했다면, 그 에러 코드가 SYS_JOBS\_
 메타 테이블의 ERROR_CODE 칼럼에 저장된다. 그리고 에러 메시지 등의 자세한 정보는
-QP_MSGLOG_FILE 프로퍼티에 설정된 트레이스 로그 파일(기본:
-\$ALTIBASE_HOME/trc/altibase_qp.log)로 저장된다. 단, QP모듈에 대한 TRCLEVEL 2가
+JOB_MSGLOG_FILE 프로퍼티에 설정된 트레이스 로그 파일(기본:
+\$ALTIBASE_HOME/trc/altibase_job.log)로 저장된다. 단, JOB에 대한 TRCLEVEL 1이
 설정되어 있는 경우에만 트레이스 로그가 기록되므로, 아래의 쿼리를 이용해서
-TRCLEVEL 2의 FLAG를 확인하도록 한다.
+TRCLEVEL 1의 FLAG를 확인하도록 한다.
 
 ```
-iSQL> SELECT * from V$TRACELOG 
-WHERE MODULE_NAME='QP' AND DESCRIPTION!='---';
-MODULE_NAME  TRCLEVEL    FLAG      POWLEVEL             DESCRIPTION
-----------------------------------------------------------------------------------
-QP        1           X         1                    PSM Error Line Trace Log
-QP        2           O         2                    DDL Trace Log
-QP        99          SUM       2                    Total Sum of Trace Log Values
+iSQL> SELECT * from V$TRACELOG WHERE MODULE_NAME = 'JOB' AND DESCRIPTION != '---';
+V$TRACELOG.MODULE_NAME  V$TRACELOG.TRCLEVEL V$TRACELOG.FLAG  V$TRACELOG.POWLEVEL  V$TRACELOG.DESCRIPTION                       
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+JOB               1           O         1                    JOB Trace Log
+...
+JOB               99          SUM       1                    Total Sum of Trace Log Values
 ```
 
-만약, TRCLEVEL 2의 FLAG가 ‘X’이면, 아래의 구문으로 트레이스 로깅 레벨을 변경할
-수 있다.
+만약, TRCLEVEL 2의 FLAG가 ‘X’이면, 아래의 구문으로 트레이스 로깅 레벨을 변경할 수 있다.
 
 ```
-ALTER SYSTEM SET qp_msglog_flag = <기존값 + 2>;
+ALTER SYSTEM SET job_msglog_flag = <기존값 + 2>;
 ```
 
 기존 값은 TRCLEVEL 칼럼 값이 99인 레코드의 POWLEVEL 칼럼 값을 조회해서 확인할 수
@@ -6889,6 +6886,6 @@ SYSTEM_.SYS_TBS_USERS_
 또한 다음의 성능 뷰를 통해 사용자들이 사용하는 데이터베이스의 크기, 사용량, 상태
 등의 정보를 확인할 수 있다.
 
-```
+```al
 V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES 
 ```

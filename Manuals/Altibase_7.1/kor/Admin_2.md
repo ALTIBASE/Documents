@@ -5862,6 +5862,7 @@ Altibase 관리자 로그란 \$ALTIBASE_HOME/trc 디렉토리에 생성되고 �
 - altibase_id.log
 - altibase_mt.log
 - altibase_qp.log
+- altibase_job.log
 - altibase_rp.log
 - altibase_sm.log
 
