@@ -8785,17 +8785,22 @@ ID : 6 NAME : MHJEONG
 
 CONNECT_TYPE은 내부적으로 TCP 소켓 관련 정보를 저장하고 있으나, 사용자가 내부 데이터에는 접근할 수 없다.
 
-##### CONNECTY_TYPE의 함수
+##### CONNECT_TYPE의 함수
 
 저장 프로시저 내에서 CONNECT_TYPE의 지역 변수들은 아래 함수의 인자 또는 반환 값으로 사용될 수 있다.
 
-| 함수명           | 설명                                                         |
-| ---------------- | ------------------------------------------------------------ |
-| CLOSEALL_CONNECT | 세션에 연결된 모든 접속 핸들을 닫는다.                       |
-| CLOSE_CONNECT    | 세션에 연결된 접속 핸들을 닫는다.                            |
-| IS_CONNECTED     | CONNECT_TYPE의 접속 핸들이 연결된 상태를 확인한다.           |
-| OPEN_CONNECT     | 읽기 또는 쓰기의 목적으로 파일을 연다.                       |
-| WRITE_RAW        | RAW(VARBYTE) 타입의 자료를 접속된 핸들을 통해 네트워크에 전송한다. |
+| 함수명              | 설명                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| CLOSEALL_CONNECT    | 세션에 연결된 모든 접속 핸들을 닫는다.                       |
+| CLOSE_CONNECT       | 세션에 연결된 접속 핸들을 닫는다.                            |
+| IS_CONNECTED        | CONNECT_TYPE의 접속 핸들이 연결된 상태를 확인한다.           |
+| OPEN_CONNECT        | 읽기 또는 쓰기의 목적으로 파일을 연다.                       |
+| WRITE_RAW           | RAW(VARBYTE) 타입의 자료를 접속된 핸들을 통해 네트워크에 전송한다. |
+| CHECK_CONNECT_STATE | 현재 연결의 상태와 변경하기 원하는 상태를 비교하여, 상태변이가 가능한지 검사한다. |
+| CHECK_CONNECT_REPLY | 접속 핸들의 프로토콜에 적합하게 응답 메시지를 검사한다.      |
+| SEND_TEXT           | VARCHAR 타입의 데이터를 원격 서버에  전송한다.               |
+| RECV_TEXT           | 원격 서버에서 VARCHAR 타입의 데이터를 수신한다.              |
+| WRITE_RAW_VALUE     | RAW 타입의 VALUE 데이터를 원격 서버에 전송한다.              |
 
 #### CLOSEALL_CONNECT
 
