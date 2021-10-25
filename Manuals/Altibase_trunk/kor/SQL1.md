@@ -7806,8 +7806,7 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 
 *table_partitioning_clause*
 
-파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시
-파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning), 해시를 사용한 범위 파티셔닝(range using hash partitioning) 방법으로 파티션드 테이블을 생성할 수 있다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
+파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시 파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning), 해시를 사용한 범위 파티셔닝(range using hash partitioning) 방법으로 파티션드 테이블을 생성한다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
 
 *range_partitioning*
 
@@ -7932,7 +7931,7 @@ PARTITION BY RANGE (product_id)
 
 *range_using_hash_partitioning*
 
-이 절은 파티션 키 값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 해시 값을 1000으로 MOD 해서 범위를 지정할 수 있다. 1000은 고정값으로 변경이 불가능하고 한 개의 컬럼만 파티션 키값으로 지정할 수 있다. 데이터를 고르게 분포하고자하는 hash partitioning의 장점과 merge 또는 split이 가능한 range partition의 장점이 결합된 partitioning이다.
+이 절은 파티션 키값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 파티션 키는 단일 컬럼으로 지정하며 해시 값을 1000으로 나눈 나머지(mod) 값으로 범위를 지정한다. 1000은 고정값으로 변경할 수 없다. 데이터를 고르게 분포하는 해시 파티셔닝의 장점과 합병, 분할이 가능한 범위 파티셔닝의 장점을 결합한 파티셔닝이다.
 
 *row_movement_clause*
 
