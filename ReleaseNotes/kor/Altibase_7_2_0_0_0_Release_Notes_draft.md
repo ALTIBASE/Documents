@@ -23,7 +23,7 @@ Altibase 7.2.0.0.1 Release Notes
 
 
 
-시스템 요구사항
+1. 시스템 요구사항
 ---------------
 
 ### 하드웨어 최저 사양
@@ -44,22 +44,20 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 >
 > Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 
-릴리스 정보
+2. 릴리스 정보
 -----------
 
 ### 2.1 새로운 기능
 
-#### 	2.1.1 **JDBC** **API Specification 4.2** 지원
+- #### **JDBC** **API Specification 4.2** 지원
 
-##### 추가 기능
+  - **Auto-loading of JDBC driver class**
 
-###### 	Auto-loading of JDBC driver class
+    명시적으로 Class.forName() 클래스를 로딩할 필요없이 META-INF/services/java.sql.Driver 파일을 이용한 자동 드라이버 로딩 기능 지원
 
-​	명시적으로 Class.forName() 클래스를 로딩할 필요없이 META-INF/services/java.sql.Driver 파일을 이용한 자동 드라이버 로딩 기능 지원
+  - Wrapper Pattern Support
 
-###### 	Wrapper Pattern Support
-
-​	프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스 지원
+    프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스 지원
 
 ###### 	National Character Set Support
 
