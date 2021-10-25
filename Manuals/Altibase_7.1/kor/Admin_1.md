@@ -6886,6 +6886,6 @@ SYSTEM_.SYS_TBS_USERS_
 또한 다음의 성능 뷰를 통해 사용자들이 사용하는 데이터베이스의 크기, 사용량, 상태
 등의 정보를 확인할 수 있다.
 
-```al
+```
 V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES 
 ```
