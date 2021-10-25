@@ -21,10 +21,7 @@
 Altibase 7.2.0.0.1 Release Notes
 ===============================
 
-
-
-1. 시스템 요구사항
----------------
+## 1. 시스템 요구사항
 
 ### 하드웨어 최저 사양
 
@@ -44,8 +41,7 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 >
 > Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 
-2. 릴리스 정보
------------
+## 2. 릴리스 정보
 
 ### 2.1 새로운 기능
 
@@ -55,37 +51,37 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
     명시적으로 Class.forName() 클래스를 로딩할 필요없이 META-INF/services/java.sql.Driver 파일을 이용한 자동 드라이버 로딩 기능 지원
 
-  - Wrapper Pattern Support
+  - **Wrapper Pattern Support**
 
     프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스 지원
 
-###### 	National Character Set Support
+  - **National Character Set Support**
 
-​	JDBC 4.0 스펙인 표준 다국어 처리 인터페이스 지원
+    JDBC 4.0 스펙인 표준 다국어 처리 인터페이스 지원
 
-###### 	Aborting Connections
+  - **Aborting Connections**
 
-​	비동기적으로 데이터베이스와의 물리적 연결을 종료하는 Connection.abort() 인터페이스 지원
+    비동기적으로 데이터베이스와의 물리적 연결을 종료하는 Connection.abort() 인터페이스 지원
 
-###### 	Standard Socket Network Timeout API Support
+  - **Standard Socket Network Timeout API Support**
 
-​	데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인퍼페이스 Connection.setNetworkTimeout() 지원
+    데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인퍼페이스Connection.setNetworkTimeout() 지원
 
-###### 	Connection Management Enhancements
+  - **Connection Management Enhancements**
 
-​	 Validation Query없이 Connection 객체에서 유효성 검사를 수행하는 Connection.isValid() 지원
+    Validation Query없이 Connection 객체에서 유효성 검사를 수행하는 Connection.isValid() 지원
 
-###### 	Large Update Counts Support
+  - **Large Update Counts Support**
 
-​	대용량 레코드 업데이트를 위한 executeLargeUpdate(), executeLargeBatch() 지원
+    대용량 레코드 업데이트를 위한 executeLargeUpdate(), executeLargeBatch() 지원
 
-###### 	Set Client Information Support
+  - **Set Client Information Support**
 
-​	Connection.setClientInfo()를 이용한 클라이언트 어플리케이션 속성(name) 설정 지원
+    Connection.setClientInfo()를 이용한 클라이언트 어플리케이션 속성(name) 설정 지원
 
-###### 	java.sql.SQLType interface Support
+  - **java.sql.SQLType interface Support**
 
-​	JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
+    JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
 
 **변경 사항**
 
