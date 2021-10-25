@@ -18,7 +18,7 @@
 
 
 
-Altibase 7.2.0.0.0 Release Notes
+Altibase 7.2.0.0.1 Release Notes
 ===============================
 
 
@@ -34,53 +34,133 @@ Altibase 7.2.0.0.0 Release Notes
 
 ### 운영 체제 및 플랫폼
 
-Altibase 7.2.0.0.0는 아래 표에 나열된 운영체제와 플랫폼 상에서 운영 가능하다.
+Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에서 운영 가능하다.
 
-| OS          | CPU                                 | Version               | Bit (Server) | Bit (Client) |
-| ----------- | ----------------------------------- | --------------------- | ------------ | ------------ |
-| AIX         | PowerPC                             | 6.1 tl09 and higher   | 64-bit       | 64-bit       |
-| HP-UX       | IA64                                | 11.31 and higher      | 64-bit       | 64-bit       |
-| LINUX       | x86-64 (GNU glibc 2.12 and higher)  | redhat 6.0 and higher | 64-bit       | 64-bit       |
-| Power Linux | PowerPC (GNU glibc 2.12 and higher) | redhat 6.5 and higher | 64-bit       | 64-bit       |
-| Power Linux | PowerPC8(LE) (GNU glibc 2.17)       | Redhat 7.2            | 64-bit       | 64-bit       |
+| OS    | CPU    | Version                                                      | CPU 비트 수 | 시스템 요구사항                                              |
+| ----- | ------ | ------------------------------------------------------------ | :---------: | :----------------------------------------------------------- |
+| LINUX | x86-64 | Red Hat Enterprise Linux 6<br />Red Hat Enterprise Linux 7<br />Red Hat Enterprise Linux 8 |   64-bit    | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
 
-> Java 버전: Altibase 7.2는 JDK 1.8 이상에서 호환된다.
+> Altibase 서버/클라이언트 모두 64-bit 만 지원한다.
 >
+> Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 
 릴리스 정보
 -----------
 
 ### 2.1 새로운 기능
 
-#### 	2.1.1 Altibase Sharding 3.0
+#### 	2.1.1 **JDBC** **API Specification 4.2** 지원
 
-#### 2.1.2 JDBC 4.2 Spec 지원
+##### 추가 기능
+
+###### 	Auto-loading of JDBC driver class
+
+​	명시적으로 Class.forName() 클래스를 로딩할 필요없이 META-INF/services/java.sql.Driver 파일을 이용한 자동 드라이버 로딩 기능 지원
+
+###### 	Wrapper Pattern Support
+
+​	프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스 지원
+
+###### 	National Character Set Support
+
+​	JDBC 4.0 스펙인 표준 다국어 처리 인터페이스 지원
+
+###### 	Aborting Connections
+
+​	비동기적으로 데이터베이스와의 물리적 연결을 종료하는 Connection.abort() 인터페이스 지원
+
+###### 	Standard Socket Network Timeout API Support
+
+​	데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인퍼페이스 Connection.setNetworkTimeout() 지원
+
+###### 	Connection Management Enhancements
+
+​	 Validation Query없이 Connection 객체에서 유효성 검사를 수행하는 Connection.isValid() 지원
+
+###### 	Large Update Counts Support
+
+​	대용량 레코드 업데이트를 위한 executeLargeUpdate(), executeLargeBatch() 지원
+
+###### 	Set Client Information Support
+
+​	Connection.setClientInfo()를 이용한 클라이언트 어플리케이션 속성(name) 설정 지원
+
+###### 	java.sql.SQLType interface Support
+
+​	JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
+
+**변경 사항**
+
+​	Altibase JDBC 4.2는 Altibase JDBC 3.0 에 대해 하위호환성을 보장하지만 일부 인터페이스의 경우 JDBC API Specification 4.2 에 따라 동작이 변경되었다.
+
+###### 	미지원 기능에 대한 예외 처리 클래스가 SQLException에서 SQLFeatureNotSupportedException으로 변경
+
+​	다음 인터페이스에 대한 예외 처리 클래스가 SQLFeatureNotSupportedException로 변경되었다. SQLFeatureNotSupportedException은 SQLException의 하위 클래스이므로 기존 사용자 프로그램은 수정없이 그대로 동작한다.
+
+- Altibase.jdbc.driver.AltibaseConnection
+  - setTypeMap(Map)
+
+- Altibase.jdbc.driver.AltibaseStatement
+  - setCursorName(String)
+
+- Altibase.jdbc.driver.AltibasePreparedStatement
+  - setArray(int, Array)
+  - setRef(int, Ref)
+  - setURL(int, URL)
+  - setUnicodeStream(int, InputStream, int)
+
+- Altibase.jdbc.driver.Blob
+  - position(Blob, long)
+  - position(byte[], long)
+- Altibase.jdbc.driver.Clob
+  - position(Clob, long)
+  - position(String, long)
+
+- Altibase.jdbc.driver.CallableStatement
+  - getArray(int)
+  - getObject(int, Map)
+  - getRef(int)
+  - getURL(int)
+
+- Altibase.jdbc.driver.AltibaseDatabaseMetaData
+  - getColumnPrivileges(String, String, String, String)
+  - getUDTs(String, String, String, int[])
+
+- Altibase.jdbc.driver.AltibaseResultSet
+  - getCursorName()
+  - getArray(int)
+  - getObject(int, Map)
+  - getRef(int)
+  - getURL(int)
+  - getUnicodeStream(int)
+  - updateArray(int, Array)
+  - updateRef(int, Ref)
 
 #### 2.1.3 기능 개선
 
 ##### 2.1.3.1 SQL 확장
 
-###### anonymous block -매뉴얼 없음(PROJ-2708)
+###### ~~anonymous block -매뉴얼 없음(PROJ-2708)~~ (7.1 에 반영되었음. 7.1.0.2.3)
 
-###### C/C++ External Procedure의 internal mode procedure 지원
+###### ~~C/C++ External Procedure의 internal mode procedure 지원 (PROJ-2717)~~ 7.1에 이미 반영. 7.1.0.3.3
 
 External procedure는 external procedure agent process를 통해서 외부 library를 load하고, server process와 external procedure agent간의 통신을 통해서 외부 함수를 호출합니다. Internal mode procedure는 외부 library를 server process가 직접 load하고, 외부 함수를 직접 호출하여 external procedure에 비해서 빠르게 동작합니다.
 
-###### multiple table update, delete
+###### ~~multiple table update, delete~~ (trunk에만 반영. 7.2에 반영되지 않음 : BUG-47432)
 
 multiple update, delete 구문을 지원합니다. 자세한 내용은 SQL 매뉴얼- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL3.md#delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL3.md#update) 을 참고하시기 바랍니다.
 
-###### memory partition simple query
+###### ~~memory partition simple query (PROJ-2705)~~ trunk에만 반영. 7.2에 반영되지 않음
 
 기존에는 memory table에 대해서만 simple query 최적화를 지원하였으나, memory partition table 의 경우도 지원하도록 수정하였습니다.
 
-###### fetch across rollback
+###### ~~fetch across rollback (PROJ-2694)~~ 6.5.1.5.0, 7.1.0.1.3 에 이미 반영
 
 CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 제공합니다.
 
-###### 계층형 쿼리(Hierarchy Query) 조인 지원 (PROJ-2509)
+###### ~~계층형 쿼리(Hierarchy Query) 조인 지원 (PROJ-2509)~~ trunk에만 반영
 
-###### RANGE_USING_HASH partition 지원
+###### ~~RANGE_USING_HASH partition 지원~~ 7.1에 이미 반영 (7.1.0.1.4)
 
 파티션드 객체에 RANGE_USING_HASH PARTITION 이 추가되었습니다. 해시를 사용한 범위 파티셔닝(RANGE_USING_HASH PARTITION)은 해당 해시(hash) 값을 기준으로 범위(range)를 정해서 분할하는 방법입니다.
 
