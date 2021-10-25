@@ -7119,5 +7119,4 @@ Unsigned Integer
 
 ##### 설명
 
-병렬 큐(Parallel Queue)가 담을 수 있는 최대 row 개수를 지정한다.
-
+병렬 큐(Parallel Queue)가 담을 수 있는 최대 로우(row) 수를 지정한다.

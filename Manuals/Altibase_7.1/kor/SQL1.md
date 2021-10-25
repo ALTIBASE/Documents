@@ -2049,7 +2049,7 @@ SORT를 제외한 힌트 중에 조인방법이 선택된다
 
 #### PARALLEL
 
-파티션드 테이블을 스캔할 때 병렬 질의를 설정할 수 있는 힌트이다.
+일반 테이블 또는 파티션드 테이블을 스캔할 때 병렬 질의를 설정할 수 있는 힌트이다.
 
 - NOPARALLEL: 병렬로 처리하지 않는다.
 - PARALLEL integer: integer에 명시된 개수만큼의 쓰레드가 병렬로 처리한다.
@@ -7437,8 +7437,6 @@ MY_DEPT.MEMBER
 
 
 
-
-
 **list_partitioning ::=**
 
 ![list_partitioning_image127](media/SQL/list_partitioning_image127.gif)
@@ -7450,6 +7448,16 @@ MY_DEPT.MEMBER
 
 
 ![table_list_clause_image128](media/SQL/table_list_clause_image128.gif)
+
+
+
+**range_using_hash_partitioning ::=**
+
+![range_using_hash_partitioning](media/SQL/range_using_hash_partitioning_image.gif)
+
+[partition_default_clause ::=](#partition_default_clause)
+
+[partition_range_clause ::=](#partition_range_clause)
 
 
 
@@ -7769,10 +7777,7 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 
 *table_partitioning_clause*
 
-파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시
-파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning) 방법으로
-파티션드 테이블을 생성할 수 있다. 파티션드 테이블을 생성할 때
-*row_movement_clause*도 명시할 수 있다.
+파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시 파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning), 해시를 사용한 범위 파티셔닝(range using hash partitioning) 방법으로 파티션드 테이블을 생성한다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
 
 *range_partitioning*
 
@@ -7859,6 +7864,10 @@ PARTITION BY RANGE (product_id)
 
 각 리스트 파티션은 적어도 1개 이상의 값을 가져야 한다. 한 리스트의 값은 다른
 어떤 리스트에도 있을 수 없다.
+
+*range_using_hash_partitioning*
+
+이 절은 파티션 키값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 파티션 키는 단일 컬럼으로 지정하며 해시 값을 1000으로 나눈 나머지(mod) 값으로 범위를 지정한다. 1000은 고정값으로 변경할 수 없다. 데이터를 고르게 분포하는 해시 파티셔닝의 장점과 합병, 분할이 가능한 범위 파티셔닝의 장점을 결합한 파티셔닝이다.
 
 *row_movement_clause*
 
@@ -7986,7 +7995,8 @@ PCTFREE, PCTUSED, INITRANS 및 MAXTRANS를 지정하는 절이다. 이 절이 �
 
 현재 Altibase는 아래와 같은 병렬 질의만 지원한다.
 
-- 파티션드 테이블을 스캔하는 병렬 질의
+- 파티션드 테이블을 스캔하는 병렬 질의.
+- 일반 테이블을 스캔하는 병렬 질의. 단, 테이블 전체를 스캔(full scan)하지 않는 쿼리, 서브쿼리, 반복 실행되는 경우 병렬 수행이 불가능하다.
 - 실행 계획에 HASH, SORT, GRAG 노드가 포함되는 병렬 질의. 단, 이러한 노드의
   경우에는 각 노드당 병렬 작업 쓰레드가 한 개씩만 생성된다.
 
@@ -8468,6 +8478,30 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   LOB(image2) STORE AS ( TABLESPACE lob_data2 );
   ```
 
+
+
+
+- 해시를 사용한 범위 파티셔닝(range using hash partitioning)
+
+  \<질의\> product_id에 따라서 4개의 해시 값을 사용하여 범위 파티션으로 분할되는 테이블을 생성한다.
+  
+```
+  CREATE TABLE range_using_hash_products
+  (
+  	product_id NUMBER(6),
+  	product_name VARCHAR(50),
+  	product_description VARCHAR(2000)
+  )
+PARTITION BY RANGE_USING_HASH (product_id)
+  (
+  	PARTITION p1 VALUES LESS THAN (250),
+  	PARTITION p2 VALUES LESS THAN (500),
+	PARTITION p3 VALUES LESS THAN (750),
+  	PARTITION p4 VALUES DEFAULT
+  ) TABLESPACE SYS_TBS_DISK_DATA;
+```
+
+  
 
 - 세그먼트 내의 익스텐트 관리 파라미터를 지정한 테이블 생성
 
