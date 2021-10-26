@@ -1778,7 +1778,7 @@ DECLARE, BEGIN, EXCEPTION 등의 키워드 뒤에는 세미콜론을 사용하�
 이를 익명 블록(anonymous block)라고 하며 아래와 같은 특징이 있다.
 
 - PSM 객체를 생성 및 데이터베이스에 저장하지 않는다.
-- 익명 블록의 바디에 RETURN 구문을 제외한 모두 구문을 사용할 수 있다.
+- RETURN 절의 값을 반환하지 않는다.
 - 저장 프로시저와 달리 IN, OUT, INOUT 바인드 변수(BIND Variable)를 사용할 수 있다.
 
 ```
