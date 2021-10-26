@@ -2864,7 +2864,7 @@ The following is an example of using the SQL_NUMERIC_STRUCT type
 
 This example uses s_price as an input or output host variable.
 
-\< Sample Program : date.sc \>
+\< Sample Program : numeric.sc \>
 
 ```
 /* declare host variables */

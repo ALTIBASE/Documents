@@ -5804,7 +5804,7 @@ The following operations are supported on partitions created by each partitionin
 | Operation | Partitions created by Range Partitioning | Partitions created by List Partitioning | Partitions created by Hash Partitioning |
 | --------- | ---------------------------------------- | --------------------------------------- | --------------------------------------- |
 | Alter     | ○                                        | ○                                       | ○                                       |
-| Add       | X                                        | X                                       | ○                                       |
+| Add       | △ ( conditionally allowed )              | X                                       | ○                                       |
 | Coalesce  | X                                        | X                                       | ○                                       |
 | Drop      | ○                                        | ○                                       | X                                       |
 | Merge     | ○                                        | ○                                       | X                                       |
