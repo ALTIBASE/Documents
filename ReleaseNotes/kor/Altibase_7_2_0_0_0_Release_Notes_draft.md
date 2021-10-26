@@ -1,24 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Altibase 7.2.0.0.1 Release Notes](#altibase-72001-release-notes)
-  - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
-    - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
-    - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
-  - [새로운 기능](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
-  - [성능 및 안정성 향상](#%EC%84%B1%EB%8A%A5-%EB%B0%8F-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
-    - [OLTP Scalability 성능 향상(TASK-7073)](#oltp-scalability-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81task-7073)
-    - [언두 테이블스페이스 재사용 안정성 향상](#%EC%96%B8%EB%91%90-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
-    - [PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선](#partitioned-table%EC%97%90-%EB%8C%80%ED%95%9C-limit-for-update-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
-    - [트랜잭션 로그 기록 성능 향상(TASK-6983)](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EB%A1%9C%EA%B7%B8-%EA%B8%B0%EB%A1%9D-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81task-6983)
-    - [서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선](#%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC%EC%9D%98-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%97%90-order-by%EC%A0%88-%EC%82%AC%EC%9A%A9-%EC%8B%9C-sql-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
-    - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
-    - [2.3 패키지](#23-%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [2.4 다운로드](#24-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 Altibase 7.2.0.0.1 Release Notes
 ===============================
 
@@ -46,123 +25,121 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 ## 새로운 기능
 
-- ### **JDBC** **API Specification 4.2** 부분 지원 (PROJ-2707)
+### **JDBC** **API Specification 4.2** 부분 지원 (PROJ-2707)
 
-  JDBC API Specification 4.2 지원으로 인한 변경 사항은 여기에서 확인하라.
+JDBC API Specification 4.2 지원으로 인한 변경 사항은 여기에서 확인하라.
 
-  - **Auto-loading of JDBC driver class**
+- **Auto-loading of JDBC driver class**
 
-    명시적으로 Class.forName() 클래스를 로딩할 필요없이 META-INF/services/java.sql.Driver 파일을 이용한 자동 드라이버 로딩 기능 지원
+  명시적으로 Class.forName() 클래스를 로딩할 필요없이 META-INF/services/java.sql.Driver 파일을 이용한 자동 드라이버 로딩 기능 지원
 
-  - **Wrapper Pattern Support**
+- **Wrapper Pattern Support**
 
-    프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스를 지원한다. 커넥션풀 등에서 생성하는 프록시 객체에서 JDBC 객체를 획득할 수 있다.
+  프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스를 지원한다. 커넥션풀 등에서 생성하는 프록시 객체에서 JDBC 객체를 획득할 수 있다.
 
-    ```java
-    try (Connection sWrappedCon = dbPool.getConnection()) {
-        if (sWrappedCon.isWrapperFor(AltibaseConnection.class)) {
-            AltibaseConnection connection = sWrappedCon.unwrap(AltibaseConnection.class);
-            ...
-            ...
-    }
-    ```
+  ```java
+  try (Connection sWrappedCon = dbPool.getConnection()) {
+      if (sWrappedCon.isWrapperFor(AltibaseConnection.class)) {
+          AltibaseConnection connection = sWrappedCon.unwrap(AltibaseConnection.class);
+          ...
+          ...
+  }
+  ```
 
-  - **National Character Set Support**
+- **National Character Set Support**
 
-    JDBC 4.0 스펙인 표준 다국어 처리 인터페이스 지원
+  JDBC 4.0 스펙인 표준 다국어 처리 인터페이스 지원
 
-  - **Aborting Connections**
+- **Aborting Connections**
 
-    비동기적으로 데이터베이스와의 물리적 연결을 종료하는 Connection.abort() 인터페이스 지원
+  비동기적으로 데이터베이스와의 물리적 연결을 종료하는 Connection.abort() 인터페이스 지원
 
-  - **Standard Socket Network Timeout API Support**
+- **Standard Socket Network Timeout API Support**
 
-    데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인퍼페이스Connection.setNetworkTimeout() 지원
+  데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인퍼페이스Connection.setNetworkTimeout() 지원
 
-  - **Connection Management Enhancements**
+- **Connection Management Enhancements**
 
-    Validation Query없이 Connection 객체에서 유효성 검사를 수행하는 Connection.isValid() 지원
+  Validation Query없이 Connection 객체에서 유효성 검사를 수행하는 Connection.isValid() 지원
 
-  - **Large Update Counts Support**
+- **Large Update Counts Support**
 
-    대용량 레코드 업데이트를 위한 executeLargeUpdate(), executeLargeBatch() 지원
+  대용량 레코드 업데이트를 위한 executeLargeUpdate(), executeLargeBatch() 지원
 
-  - **Set Client Information Support**
+- **Set Client Information Support**
 
-    Connection.setClientInfo()를 이용한 클라이언트 어플리케이션 속성(name) 설정 지원
+  Connection.setClientInfo()를 이용한 클라이언트 어플리케이션 속성(name) 설정 지원
 
-  - **java.sql.SQLType interface Support**
+- **java.sql.SQLType interface Support**
 
-    JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
+  JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
 
-- ### altiComp 커밋 카운트 설정 기능 추가
+### altiComp 커밋 카운트 설정 기능 추가
 
-  커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities.md#count_to_commit) 에서 확인할 수 있다.
+커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities.md#count_to_commit) 에서 확인할 수 있다.
 
-- ### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
+### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
 
-  큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다.
+큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다.
 
-  DELETE OFF로 DELETE 문을 허용하지 않으면 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다. 구문 사용 방법은 [Altibase 7.2 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL1.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/GeneralReference_4.md#vqueue_delete_off)가 추가되었다. 
+DELETE OFF로 DELETE 문을 허용하지 않으면 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다. 구문 사용 방법은 [Altibase 7.2 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL1.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/GeneralReference_4.md#vqueue_delete_off)가 추가되었다. 
 
-- ### APRE SQL_NUMERIC_STRUCT 배열 처리 기능 추가 ?
+### APRE SQL_NUMERIC_STRUCT 배열 처리 기능 추가 ?
 
-- #### 범위 파티션드 객체에 파티션 추가 연산 추가
+### 범위 파티션드 객체에 파티션 추가 연산 추가
 
-  범위 파티셔드 테이블에 파티션 추가(ADD PARTITION) 구문을 지원한다. 이 기능 추가로 기본 파티션 없는 범위 파티션드 테이블 생성이 가능하다. 
+범위 파티셔드 테이블에 파티션 추가(ADD PARTITION) 구문을 지원한다. 이 기능 추가로 기본 파티션 없는 범위 파티션드 테이블 생성이 가능하다. 
 
-  **Altibase 7.2 에서 범위 파티션드 테이블 생성 시 주의 사항**
+**Altibase 7.2 에서 범위 파티션드 테이블 생성 시 주의 사항**
 
-  - Altibase 7.2 에서는 기본 파티션이 없는 범위 파티션드 테이블을 생성할 수 있다. 
+- Altibase 7.2 에서는 기본 파티션이 없는 범위 파티션드 테이블을 생성할 수 있다. 
 
-    참고로 기본 파티션이 없는 범위 파티션드 테이블을 생성하면 SYS_TABLE_PARTITIONS_에서 PARTITION_NAME 이 없는 파티션이 추가로 생성된다. 
+  참고로 기본 파티션이 없는 범위 파티션드 테이블을 생성하면 SYS_TABLE_PARTITIONS_에서 PARTITION_NAME 이 없는 파티션이 추가로 생성된다. 
 
-  - 범위 파티션드 객체에서 파티션 추가는 기본 파티션이 없는 범위 파티션드 테이블에서만 사용할 수 있다.
+- 범위 파티션드 객체에서 파티션 추가는 기본 파티션이 없는 범위 파티션드 테이블에서만 사용할 수 있다.
 
-  - 기본 파티션이 없는 범위 파티션드 테이블은 기본 파티션 추가 연산을 수행할 수 없다.
+- 기본 파티션이 없는 범위 파티션드 테이블은 기본 파티션 추가 연산을 수행할 수 없다.
 
-  - 기본 파티션이 있는 범위 파티션드 테이블은 기본 파티션 삭제 연산을 수행할 수 없다.
+- 기본 파티션이 있는 범위 파티션드 테이블은 기본 파티션 삭제 연산을 수행할 수 없다.
 
-  - 기본 파티션이 없는 범위 파티션드 테이블은 파티션 키로 널(NULL) 값을 사용할 수 없다.
+- 기본 파티션이 없는 범위 파티션드 테이블은 파티션 키로 널(NULL) 값을 사용할 수 없다.
 
-  - 기본 파티션이 없는 범위 파티션드 테이블은 CONJOIN/DISJOIN 구문을 사용할 수 없다.
+- 기본 파티션이 없는 범위 파티션드 테이블은 CONJOIN/DISJOIN 구문을 사용할 수 없다.
 
-  - 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
+- 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
+
+  
 
 ## 성능 및 안정성 향상
 
 ### OLTP Scalability 성능 향상(TASK-7073)
 
-#### 	Linux x86-64 CPU 코어 수 24코어 이상에서 조회 트랜잭션 성능 저하 현상 개선
+- Linux x86-64 CPU 코어 수 24코어 이상에서 조회 트랜잭션 성능 저하 현상 개선
 
-#### 	로깅 구조를 개선하여 메모리 DB 삭제(DELETE) 트랜잭션 성능 향상
+- 로깅 구조를 개선하여 메모리 DB 삭제(DELETE) 트랜잭션 성능 향상
 
-#### 	In-place MVCC 동작 방식을 개선하여 디스크 DB 변경 트랜잭션 성능 향상
+- In-place MVCC 동작 방식을 개선하여 디스크 DB 변경 트랜잭션 성능 향상
 
-##### 테이블 잠금(TABLE LOCK) 병목 개선
+- 테이블 잠금(TABLE LOCK) 병목 개선
 
-##### INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거하여 성능 향상
+- INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거하여 성능 향상
 
-###### 온라인 로그파일 압축 시 메모리 할당/해제 병목 개선
+- 온라인 로그파일 압축 시 메모리 할당/해제 병목 개선
+  - Altibase 운용 중 기본 메모리 사용이 증가합니다. 
+    V$MEMSTAT의 Storage_Memory_Recovery 항목으로 이전 버전과 증가량을 확인할 수 있습니다. 
+    메모리 증가량은 TRANSACTION_TABLE_SIZE에 영향을 받습니다. TRANSACTION_TABLE_SIZE 기본값 1024 경우 약 32MB 증가, 최대값 16384 경우 약 500M 증가합니다. 
 
-- Altibase 운용 중 기본 메모리 사용이 증가합니다. 
-  V$MEMSTAT의 Storage_Memory_Recovery 항목으로 이전 버전과 증가량을 확인할 수 있습니다. 
-  메모리 증가량은 TRANSACTION_TABLE_SIZE에 영향을 받습니다. TRANSACTION_TABLE_SIZE 기본값 1024 경우 약 32MB 증가, 최대값 16384 경우 약 500M 증가합니다. 
-- Altibase 서버 프로퍼티 추가 (2개 모두 히든 프로퍼티)
-  - LOG_COMP_RESOURCE_REUSE
-    - 기존 방식 유지 : LOG_COMP_RESOURCE_REUSE = 0
-  - COMP_RES_TUNE_SIZE
+    
 
-###### Volatile DB 트랜잭션 성능 향상
+- Volatile DB 트랜잭션 성능 향상
 
 - 커밋 병목 및 가비지 콜렉션 쓰레드 병목 개선
 
-###### 트랜잭션 커밋 후 테이블 정보 업데이트 병목 개선
+  - 트랜잭션 커밋 후 테이블 정보 업데이트 병목 개선
 
-###### Memory DB 트랜잭션 성능 향상
-
-- 디스크 읽기를 유발하는 함수의 병목을 제거하여 성능 향상
-- Group Commit Log 기능 추가
+- Memory DB 트랜잭션 성능 향상
+  - 디스크 읽기를 유발하는 함수의 병목을 제거하여 성능 향상
+  - Group Commit Log 기능 추가
 
 ### 언두 테이블스페이스 재사용 안정성 향상
 
@@ -191,15 +168,6 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
   ```
 
 이 영향을 받는 SQL은 실행 계획이 SUBQUERY FILTER 안에 SORT 플랜 노드 없어진다.
-
-```sql
-SELECT *
-  FROM T1
- WHERE I1 IN (SELECT /*+ NO_UNNEST */I1
-                FROM (SELECT *
-                        FROM T2
-                       ORDER BY I2, I3));
-```
 
 - #### Scalar subquery 성능 개선
 
