@@ -1,3 +1,29 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Altibase 7.2.0.0.1 Release Notes](#altibase-72001-release-notes)
+  - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+    - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
+    - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
+  - [새로운 기능](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
+    - [**JDBC** **API Specification 4.2** 부분 지원 (PROJ-2707)](#jdbc-api-specification-42-%EB%B6%80%EB%B6%84-%EC%A7%80%EC%9B%90-proj-2707)
+    - [altiComp 커밋 카운트 설정 기능 추가](#alticomp-%EC%BB%A4%EB%B0%8B-%EC%B9%B4%EC%9A%B4%ED%8A%B8-%EC%84%A4%EC%A0%95-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80)
+    - [CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가](#create-queue-%EB%B0%8F-alter-queue-%EA%B5%AC%EB%AC%B8%EC%97%90-delete-%EC%A0%88-%EC%B6%94%EA%B0%80)
+    - [APRE SQL_NUMERIC_STRUCT 배열 처리 기능 추가 ?](#apre-sql_numeric_struct-%EB%B0%B0%EC%97%B4-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80-)
+    - [범위 파티션드 객체에 파티션 추가 연산 추가](#%EB%B2%94%EC%9C%84-%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4%EC%97%90-%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%B6%94%EA%B0%80-%EC%97%B0%EC%82%B0-%EC%B6%94%EA%B0%80)
+  - [성능 및 안정성 향상](#%EC%84%B1%EB%8A%A5-%EB%B0%8F-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
+    - [OLTP Scalability 성능 향상(TASK-7073)](#oltp-scalability-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81task-7073)
+    - [언두 테이블스페이스 재사용 안정성 향상](#%EC%96%B8%EB%91%90-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
+    - [PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선](#partitioned-table%EC%97%90-%EB%8C%80%ED%95%9C-limit-for-update-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
+    - [트랜잭션 로그 기록 성능 향상(TASK-6983)](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EB%A1%9C%EA%B7%B8-%EA%B8%B0%EB%A1%9D-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81task-6983)
+    - [서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선](#%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC%EC%9D%98-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%97%90-order-by%EC%A0%88-%EC%82%AC%EC%9A%A9-%EC%8B%9C-sql-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
+    - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
+    - [2.3 패키지](#23-%ED%8C%A8%ED%82%A4%EC%A7%80)
+    - [2.4 다운로드](#24-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 Altibase 7.2.0.0.1 Release Notes
 ===============================
 
