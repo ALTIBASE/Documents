@@ -3673,8 +3673,7 @@ DROP JOB job1;
 마지막으로 실행된 JOB의 프로시저 수행이 실패했다면, 그 에러 코드가 SYS_JOBS\_
 메타 테이블의 ERROR_CODE 칼럼에 저장된다. 그리고 에러 메시지 등의 자세한 정보는
 JOB_MSGLOG_FILE 프로퍼티에 설정된 트레이스 로그 파일(기본:
-\$ALTIBASE_HOME/trc/altibase_job.log)로 저장된다. 단, JOB에 대한 TRCLEVEL 1이
-설정되어 있는 경우에만 트레이스 로그가 기록되므로, 아래의 쿼리를 이용해서
+\$ALTIBASE_HOME/trc/altibase_job.log)로 저장된다. 단, JOB에 대한 TRCLEVEL 1이 설정되어 있는 경우에만 트레이스 로그가 기록되므로, 아래의 쿼리를 이용해서
 TRCLEVEL 1의 FLAG를 확인하도록 한다.
 
 ```
