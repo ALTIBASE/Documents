@@ -2,17 +2,58 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Altibase 7.2.0.0.0 Release Notes](#altibase-72000-release-notes)
+- [Altibase 7.2.0.0.1 Release Notes](#altibase-72001-release-notes)
   - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
     - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
     - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
   - [릴리스 정보](#%EB%A6%B4%EB%A6%AC%EC%8A%A4-%EC%A0%95%EB%B3%B4)
-    - [2.1 새로운 기능](#21-%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
+  - [새로운 기능](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
+    - [2.2 성능 및 안정성 향상](#22-%EC%84%B1%EB%8A%A5-%EB%B0%8F-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
+      - [2.1.3 기능 개선](#213-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
+        - [2.1.3.1 SQL 확장](#2131-sql-%ED%99%95%EC%9E%A5)
+        - [2.1.3.2 Spatial SQL 개선](#2132-spatial-sql-%EA%B0%9C%EC%84%A0)
+        - [2.1.3.3 이중화 기능개선](#2133-%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EA%B0%9C%EC%84%A0)
+        - [2.1.3.4 응용 프로그램 개발 인터페이스 확장 및 개선](#2134-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%ED%99%95%EC%9E%A5-%EB%B0%8F-%EA%B0%9C%EC%84%A0)
+        - [2.1.3.5 내장 패키지 및 함수](#2135-%EB%82%B4%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%8F-%ED%95%A8%EC%88%98)
+        - [2.1.3.6 클라이언트 툴](#2136-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%88%B4)
+      - [2.1.4 효율성](#214-%ED%9A%A8%EC%9C%A8%EC%84%B1)
+        - [2.1.4.1 서버 성능 향상](#2141-%EC%84%9C%EB%B2%84-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81)
+        - [2.1.4.2 자원 효율성](#2142-%EC%9E%90%EC%9B%90-%ED%9A%A8%EC%9C%A8%EC%84%B1)
+      - [2.1.5 고가용성](#215-%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
+        - [DDL PVO 안정성 개선](#ddl-pvo-%EC%95%88%EC%A0%95%EC%84%B1-%EA%B0%9C%EC%84%A0)
+      - [2.1.6 기타](#216-%EA%B8%B0%ED%83%80)
+        - [2.1.6.1 그 외 변경사항](#2161-%EA%B7%B8-%EC%99%B8-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
     - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
+      - [Altibase JDBC 4.2 변경 사항](#altibase-jdbc-42-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
+      - [데이터베이스 버전](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B2%84%EC%A0%84)
+      - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+        - [데이터베이스 바이너리 버전](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC-%EB%B2%84%EC%A0%84)
+        - [통신 프로토콜 버전](#%ED%86%B5%EC%8B%A0-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C-%EB%B2%84%EC%A0%84)
+        - [메타 버전](#%EB%A9%94%ED%83%80-%EB%B2%84%EC%A0%84)
+        - [이중화 프로토콜 버전](#%EC%9D%B4%EC%A4%91%ED%99%94-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C-%EB%B2%84%EC%A0%84)
+        - [샤딩 버전](#%EC%83%A4%EB%94%A9-%EB%B2%84%EC%A0%84)
+      - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+        - [새로운 프로퍼티](#%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+        - [변경된 프로퍼티](#%EB%B3%80%EA%B2%BD%EB%90%9C-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+        - [삭제된 프로퍼티](#%EC%82%AD%EC%A0%9C%EB%90%9C-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+      - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
+        - [새로운 메타테이블](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EB%A9%94%ED%83%80%ED%85%8C%EC%9D%B4%EB%B8%94)
+        - [변경된 메타테이블](#%EB%B3%80%EA%B2%BD%EB%90%9C-%EB%A9%94%ED%83%80%ED%85%8C%EC%9D%B4%EB%B8%94)
+        - [삭제된 메타테이블](#%EC%82%AD%EC%A0%9C%EB%90%9C-%EB%A9%94%ED%83%80%ED%85%8C%EC%9D%B4%EB%B8%94)
+      - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+        - [새로운 성능 뷰](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+        - [수정된 성능 뷰](#%EC%88%98%EC%A0%95%EB%90%9C-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
     - [2.3 패키지](#23-%ED%8C%A8%ED%82%A4%EC%A7%80)
     - [2.4 다운로드](#24-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
+      - [Package](#package)
+      - [Manual](#manual)
+      - [설치](#%EC%84%A4%EC%B9%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
+
+
 
 
 
@@ -21,7 +62,7 @@
 Altibase 7.2.0.0.1 Release Notes
 ===============================
 
-## 1. 시스템 요구사항
+## 시스템 요구사항
 
 ### 하드웨어 최저 사양
 
@@ -33,7 +74,7 @@ Altibase 7.2.0.0.1 Release Notes
 
 Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에서 운영 가능하다.
 
-| OS    | CPU    | Version                                                      | CPU 비트 수 | 시스템 요구사항                                              |
+| OS    | CPU    | 리눅스 배포판 버전                                           | CPU 비트 수 | 시스템 요구사항                                              |
 | ----- | ------ | ------------------------------------------------------------ | :---------: | :----------------------------------------------------------- |
 | LINUX | x86-64 | Red Hat Enterprise Linux 6<br />Red Hat Enterprise Linux 7<br />Red Hat Enterprise Linux 8 |   64-bit    | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
 
@@ -41,11 +82,11 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 >
 > Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 
-## 2. 릴리스 정보
+## 릴리스 정보
 
-### 2.1 새로운 기능
+## 새로운 기능
 
-- #### **JDBC** **API Specification 4.2** 지원 (PROJ-2707)
+- ### **JDBC** **API Specification 4.2** 부분 지원 (PROJ-2707)
 
   JDBC API Specification 4.2 지원으로 인한 변경 사항은 여기에서 확인하라.
 
@@ -55,7 +96,16 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
   - **Wrapper Pattern Support**
 
-    프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스 지원
+    프록시에서 구현 객체에 대한 참조를 얻는 JDBC 4.0 표준 인터페이스를 지원한다. 커넥션풀 등에서 생성하는 프록시 객체에서 JDBC 객체를 획득할 수 있다.
+
+    ```java
+    try (Connection sWrappedCon = dbPool.getConnection()) {
+        if (sWrappedCon.isWrapperFor(AltibaseConnection.class)) {
+            AltibaseConnection connection = sWrappedCon.unwrap(AltibaseConnection.class);
+            ...
+            ...
+    }
+    ```
 
   - **National Character Set Support**
 
@@ -85,19 +135,17 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
     JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
 
-- #### altiComp 커밋 카운트 설정 기능 추가
+- ### altiComp 커밋 카운트 설정 기능 추가
 
-  사용자 정의 커밋 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT 가 추가되었다. 관련 내용은 [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities.md#count_to_commit) 에서 확인할 수 있다.
+  커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities.md#count_to_commit) 에서 확인할 수 있다.
 
-- #### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
+- ### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
 
   큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다.
 
-  DELETE OFF로 DELETE 문을 허용하지 않으면 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다. 구문 사용 방법은 [Altibase 7.2 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL1.md#create-queue) 을 참고한다. 
+  DELETE OFF로 DELETE 문을 허용하지 않으면 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다. 구문 사용 방법은 [Altibase 7.2 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL1.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/GeneralReference_4.md#vqueue_delete_off)가 추가되었다. 
 
-  성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/GeneralReference_4.md#vqueue_delete_off)가 추가되었다. 
-
-- #### APRE SQL_NUMERIC_STRUCT 배열 처리 기능 추가 ?
+- ### APRE SQL_NUMERIC_STRUCT 배열 처리 기능 추가 ?
 
 - #### 범위 파티션드 객체에 파티션 추가 연산 추가
 
@@ -107,7 +155,7 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
   - Altibase 7.2 에서는 기본 파티션이 없는 범위 파티션드 테이블을 생성할 수 있다. 
 
-    기본 파티션이 없는 범위 파티션드 테이블을 생성하면 SYS_TABLE_PARTITIONS_에서 PARTITION_NAME 이 없는 파티션이 추가로 생성된다. 
+    참고로 기본 파티션이 없는 범위 파티션드 테이블을 생성하면 SYS_TABLE_PARTITIONS_에서 PARTITION_NAME 이 없는 파티션이 추가로 생성된다. 
 
   - 범위 파티션드 객체에서 파티션 추가는 기본 파티션이 없는 범위 파티션드 테이블에서만 사용할 수 있다.
 
@@ -125,15 +173,15 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 - #### OLTP Scalability 성능 향상(TASK-7073)
 
-  ###### Linux x86-64 CPU 코어 수 24코어 이상에서 조회 트랜잭션 성능 저하 현상 개선
+  ##### Linux x86-64 CPU 코어 수 24코어 이상에서 조회 트랜잭션 성능 저하 현상 개선
 
-  ###### 로깅 구조를 개선하여 메모리 DB 삭제(DELETE) 트랜잭션 성능 향상
+  ##### 로깅 구조를 개선하여 메모리 DB 삭제(DELETE) 트랜잭션 성능 향상
 
-  ###### In-place MVCC 동작 방식을 개선하여 디스크 DB 변경 트랜잭션 성능 향상
+  ##### In-place MVCC 동작 방식을 개선하여 디스크 DB 변경 트랜잭션 성능 향상
 
-  ###### 테이블 잠금(TABLE LOCK) 병목 개선
+  ##### 테이블 잠금(TABLE LOCK) 병목 개선
 
-  ###### INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거하여 성능 향상
+  ##### INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거하여 성능 향상
 
   ###### 온라인 로그파일 압축 시 메모리 할당/해제 병목 개선
 
@@ -158,12 +206,10 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 - #### 언두 테이블스페이스 재사용 안정성 향상
 
-  디스크 인덱스와 언두 테이블스페이스의 불필요한 관계를 제거하여 버그 발생 위험 요소 제거
+  디스크 인덱스와 언두 테이블스페이스의 불필요한 관계를 제거하여 버그 발생 위험 요소 제거하였다. 디스크 페이지 공간 효율 개선으로 관련 프로퍼티들의 기본값 및 최대값이 변경되었다. 
 
-  프로퍼티 값 변경 사유는?
-
-  INDEX_INITTRANS : MAX값 30 -> 50
-  INDEX_MAXTRANS : 디폴트,MAX값 : 30 -> 50
+  - INDEX_INITTRANS 최대값이 30에서 50으로 변경
+  - INDEX_MAXTRANS 기본값과 최대값이 30에서 50으로 변경
 
 - #### PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선
 
@@ -173,9 +219,18 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
   조걸절(WHERE 또는 HAVING 절)에서 사용한 서브쿼리의 인라인 뷰에 ORDER BY절을 사용한 SQL에서 특정 조건을 만족하는 경우 불필요한 SORT 작업을 제거하여 성능 향상
 
-  실행 계획 변화 : SUBQUERY FILTER 안에 SORT 플랜 노드
+  - SQL 사용 예
 
-  SQL 사용 예
+    ```sql
+    SELECT *
+      FROM T1
+     WHERE I1 IN (SELECT /*+ NO_UNNEST */I1
+                    FROM (SELECT *
+                            FROM T2
+                           ORDER BY I2, I3));
+    ```
+
+  이 영향을 받는 SQL은 실행 계획이 SUBQUERY FILTER 안에 SORT 플랜 노드 없어진다.
 
   ```sql
   SELECT *
@@ -509,7 +564,7 @@ ProcName(FuncName) + '_' + ouid
 
 ###### CLIENT_TYPE 변경
 
-- v$session 뷰의 CLIENT_TYPE이 NEW_JDBC 에서 NEW_JDBC42로 변경됨.
+- v$session 뷰의 CLIENT_TYPE이 NEW_JDBC 에서 NEW_JDBC42로 변경되었다.
 
 #### 데이터베이스 버전
 
@@ -571,48 +626,26 @@ Altibase 7.2.0.0.0 에서는 아래의 프로퍼티들이 추가, 변경, 삭제
 
 ##### 새로운 프로퍼티
 
--   GLOBAL_TRANSACTION_LEVEL
--   IB_CONCHKSPIN
+-   REPLICATION_GAP_UNIT
+-   JOB_MSGLOG_FILE
+-   JOB_MSGLOG_SIZE
+-   JOB_MSGLOG_COUNT
+-   JOB_MSGLOG_FLAG
 -   IB_ENABLE
--   IB_LATENCY
--   IB_LISTENER_DISABLE
--   IB_MAX_LISTEN
 -   IB_PORT_NO
--   INIT_TOTAL_WA_SIZE
--   MATHEMATICS_TEMP_MEMORY_MAXIMUM
+-   IB_MAX_LISTEN
+-   IB_LISTENER_DISABLE
+-   IB_LATENCY
+-   IB_CONCHKSPIN
 -   REPLICATION_DDL_SYNC
 -   REPLICATION_DDL_SYNC_TIMEOUT
--   REPLICATION_GAP_UNIT
--   REPLICATION_IB_LATENCY
 -   REPLICATION_IB_PORT_NO
--   REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
--   REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
--   INDOUBT_FETCH_METHOD
--   INDOUBT_FETCH_TIMEOUT
--   SD_MSGLOG_COUNT
--   SD_MSGLOG_FILE
--   SD_MSGLOG_FLAG
--   SD_MSGLOG_SIZE
+-   REPLICATION_IB_LATENCY
+-   MATHEMATICS_TEMP_MEMORY_MAXIMUM
 -   SERIAL_EXECUTE_MODE
--   SHARD_ENABLE
--   SHARD_ADMIN_MODE
--   SHARD_AGGREGATION_TRANSFORM_ENABLE
--   SHARD_DDL_LOCK_TIMEOUT
--   SHARD_DDL_LOCK_TRY_COUNT
--   SHARD_INTERNAL_CONN_ATTR_CONNECTION_TIMEOUT
--   SHARD_INTERNAL_CONN_ATTR_LOGIN_TIMEOUT
--   SHARD_INTERNAL_CONN_ATTR_RETRY_COUNT
--   SHARD_INTERNAL_CONN_ATTR_RETRY_DELAY
--   SHARD_STATEMENT_RETRY
--   SHARD_TRANSFORM_MODE
--   SHARED_TRANS_HASH_BUCKET_COUNT
--   TRCLOG_DETAIL_SHARD
--   VERSIONING_MIN_TIME
--   XLOGFILE_DIR
--   XLOGFILE_PREPARE_COUNT
--   XLOGFILE_REMOVE_INTERVAL
--   XLOGFILE_REMOVE_INTERVAL_BY_FILE_CREATE
--   XLOGFILE_SIZE
+-   REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
+-   DISK_HASH_COST_METHOD
+-   INIT_TOTAL_WA_SIZE
 
 ##### 변경된 프로퍼티
 
