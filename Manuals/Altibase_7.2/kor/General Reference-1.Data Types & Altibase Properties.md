@@ -13854,7 +13854,7 @@ Unsigned Integer
 
 원격 데이터베이스의 AUTOCOMMIT 모드를 지정한다.
 
-DBLINKE_GLOBAL_TRANSACTION_LEVEL을 0으로 설정한 경우에만 이 프로퍼티가 적용된다.
+DBLINK_GLOBAL_TRANSACTION_LEVEL을 0으로 설정한 경우에만 이 프로퍼티가 적용된다.
 
 0: autocommit-off
 
