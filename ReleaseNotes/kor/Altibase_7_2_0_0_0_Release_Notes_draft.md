@@ -6,58 +6,18 @@
   - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
     - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
     - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
-  - [릴리스 정보](#%EB%A6%B4%EB%A6%AC%EC%8A%A4-%EC%A0%95%EB%B3%B4)
   - [새로운 기능](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
-    - [2.2 성능 및 안정성 향상](#22-%EC%84%B1%EB%8A%A5-%EB%B0%8F-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
-      - [2.1.3 기능 개선](#213-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
-        - [2.1.3.1 SQL 확장](#2131-sql-%ED%99%95%EC%9E%A5)
-        - [2.1.3.2 Spatial SQL 개선](#2132-spatial-sql-%EA%B0%9C%EC%84%A0)
-        - [2.1.3.3 이중화 기능개선](#2133-%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EA%B0%9C%EC%84%A0)
-        - [2.1.3.4 응용 프로그램 개발 인터페이스 확장 및 개선](#2134-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%ED%99%95%EC%9E%A5-%EB%B0%8F-%EA%B0%9C%EC%84%A0)
-        - [2.1.3.5 내장 패키지 및 함수](#2135-%EB%82%B4%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%8F-%ED%95%A8%EC%88%98)
-        - [2.1.3.6 클라이언트 툴](#2136-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%88%B4)
-      - [2.1.4 효율성](#214-%ED%9A%A8%EC%9C%A8%EC%84%B1)
-        - [2.1.4.1 서버 성능 향상](#2141-%EC%84%9C%EB%B2%84-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81)
-        - [2.1.4.2 자원 효율성](#2142-%EC%9E%90%EC%9B%90-%ED%9A%A8%EC%9C%A8%EC%84%B1)
-      - [2.1.5 고가용성](#215-%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
-        - [DDL PVO 안정성 개선](#ddl-pvo-%EC%95%88%EC%A0%95%EC%84%B1-%EA%B0%9C%EC%84%A0)
-      - [2.1.6 기타](#216-%EA%B8%B0%ED%83%80)
-        - [2.1.6.1 그 외 변경사항](#2161-%EA%B7%B8-%EC%99%B8-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
+  - [성능 및 안정성 향상](#%EC%84%B1%EB%8A%A5-%EB%B0%8F-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
+    - [OLTP Scalability 성능 향상(TASK-7073)](#oltp-scalability-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81task-7073)
+    - [언두 테이블스페이스 재사용 안정성 향상](#%EC%96%B8%EB%91%90-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
+    - [PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선](#partitioned-table%EC%97%90-%EB%8C%80%ED%95%9C-limit-for-update-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
+    - [트랜잭션 로그 기록 성능 향상(TASK-6983)](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EB%A1%9C%EA%B7%B8-%EA%B8%B0%EB%A1%9D-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81task-6983)
+    - [서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선](#%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC%EC%9D%98-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%97%90-order-by%EC%A0%88-%EC%82%AC%EC%9A%A9-%EC%8B%9C-sql-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
     - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
-      - [Altibase JDBC 4.2 변경 사항](#altibase-jdbc-42-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
-      - [데이터베이스 버전](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B2%84%EC%A0%84)
-      - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-        - [데이터베이스 바이너리 버전](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC-%EB%B2%84%EC%A0%84)
-        - [통신 프로토콜 버전](#%ED%86%B5%EC%8B%A0-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C-%EB%B2%84%EC%A0%84)
-        - [메타 버전](#%EB%A9%94%ED%83%80-%EB%B2%84%EC%A0%84)
-        - [이중화 프로토콜 버전](#%EC%9D%B4%EC%A4%91%ED%99%94-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C-%EB%B2%84%EC%A0%84)
-        - [샤딩 버전](#%EC%83%A4%EB%94%A9-%EB%B2%84%EC%A0%84)
-      - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-        - [새로운 프로퍼티](#%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-        - [변경된 프로퍼티](#%EB%B3%80%EA%B2%BD%EB%90%9C-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-        - [삭제된 프로퍼티](#%EC%82%AD%EC%A0%9C%EB%90%9C-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-      - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-        - [새로운 메타테이블](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EB%A9%94%ED%83%80%ED%85%8C%EC%9D%B4%EB%B8%94)
-        - [변경된 메타테이블](#%EB%B3%80%EA%B2%BD%EB%90%9C-%EB%A9%94%ED%83%80%ED%85%8C%EC%9D%B4%EB%B8%94)
-        - [삭제된 메타테이블](#%EC%82%AD%EC%A0%9C%EB%90%9C-%EB%A9%94%ED%83%80%ED%85%8C%EC%9D%B4%EB%B8%94)
-      - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-        - [새로운 성능 뷰](#%EC%83%88%EB%A1%9C%EC%9A%B4-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-        - [수정된 성능 뷰](#%EC%88%98%EC%A0%95%EB%90%9C-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
     - [2.3 패키지](#23-%ED%8C%A8%ED%82%A4%EC%A7%80)
     - [2.4 다운로드](#24-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
-      - [Package](#package)
-      - [Manual](#manual)
-      - [설치](#%EC%84%A4%EC%B9%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-
-
-
-
-
-
 
 Altibase 7.2.0.0.1 Release Notes
 ===============================
@@ -82,7 +42,7 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 >
 > Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 
-## 릴리스 정보
+#### 릴리스 정보
 
 ## 새로운 기능
 
@@ -169,68 +129,57 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
   - 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
 
-### 2.2 성능 및 안정성 향상
+## 성능 및 안정성 향상
 
-- #### OLTP Scalability 성능 향상(TASK-7073)
+### OLTP Scalability 성능 향상(TASK-7073)
 
-  ##### Linux x86-64 CPU 코어 수 24코어 이상에서 조회 트랜잭션 성능 저하 현상 개선
+#### 	Linux x86-64 CPU 코어 수 24코어 이상에서 조회 트랜잭션 성능 저하 현상 개선
 
-  ##### 로깅 구조를 개선하여 메모리 DB 삭제(DELETE) 트랜잭션 성능 향상
+#### 	로깅 구조를 개선하여 메모리 DB 삭제(DELETE) 트랜잭션 성능 향상
 
-  ##### In-place MVCC 동작 방식을 개선하여 디스크 DB 변경 트랜잭션 성능 향상
+#### 	In-place MVCC 동작 방식을 개선하여 디스크 DB 변경 트랜잭션 성능 향상
 
-  ##### 테이블 잠금(TABLE LOCK) 병목 개선
+##### 테이블 잠금(TABLE LOCK) 병목 개선
 
-  ##### INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거하여 성능 향상
+##### INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거하여 성능 향상
 
-  ###### 온라인 로그파일 압축 시 메모리 할당/해제 병목 개선
+###### 온라인 로그파일 압축 시 메모리 할당/해제 병목 개선
 
-  - Altibase 운용 중 기본 메모리 사용이 증가합니다. 
-    V$MEMSTAT의 Storage_Memory_Recovery 항목으로 이전 버전과 증가량을 확인할 수 있습니다. 
-    메모리 증가량은 TRANSACTION_TABLE_SIZE에 영향을 받습니다. TRANSACTION_TABLE_SIZE 기본값 1024 경우 약 32MB 증가, 최대값 16384 경우 약 500M 증가합니다. 
-  - Altibase 서버 프로퍼티 추가 (2개 모두 히든 프로퍼티)
-    - LOG_COMP_RESOURCE_REUSE
-      - 기존 방식 유지 : LOG_COMP_RESOURCE_REUSE = 0
-    - COMP_RES_TUNE_SIZE
+- Altibase 운용 중 기본 메모리 사용이 증가합니다. 
+  V$MEMSTAT의 Storage_Memory_Recovery 항목으로 이전 버전과 증가량을 확인할 수 있습니다. 
+  메모리 증가량은 TRANSACTION_TABLE_SIZE에 영향을 받습니다. TRANSACTION_TABLE_SIZE 기본값 1024 경우 약 32MB 증가, 최대값 16384 경우 약 500M 증가합니다. 
+- Altibase 서버 프로퍼티 추가 (2개 모두 히든 프로퍼티)
+  - LOG_COMP_RESOURCE_REUSE
+    - 기존 방식 유지 : LOG_COMP_RESOURCE_REUSE = 0
+  - COMP_RES_TUNE_SIZE
 
-  ###### Volatile DB 트랜잭션 성능 향상
+###### Volatile DB 트랜잭션 성능 향상
 
-  - 커밋 병목 및 가비지 콜렉션 쓰레드 병목 개선
+- 커밋 병목 및 가비지 콜렉션 쓰레드 병목 개선
 
-  ###### 트랜잭션 커밋 후 테이블 정보 업데이트 병목 개선
+###### 트랜잭션 커밋 후 테이블 정보 업데이트 병목 개선
 
-  ###### Memory DB 트랜잭션 성능 향상
+###### Memory DB 트랜잭션 성능 향상
 
-  - 디스크 읽기를 유발하는 함수의 병목을 제거하여 성능 향상
-  - Group Commit Log 기능 추가
+- 디스크 읽기를 유발하는 함수의 병목을 제거하여 성능 향상
+- Group Commit Log 기능 추가
 
-- #### 언두 테이블스페이스 재사용 안정성 향상
+### 언두 테이블스페이스 재사용 안정성 향상
 
-  디스크 인덱스와 언두 테이블스페이스의 불필요한 관계를 제거하여 버그 발생 위험 요소 제거하였다. 디스크 페이지 공간 효율 개선으로 관련 프로퍼티들의 기본값 및 최대값이 변경되었다. 
+디스크 인덱스와 언두 테이블스페이스의 불필요한 관계를 제거하여 버그 발생 위험 요소 제거하였다. 디스크 페이지 공간 효율 개선으로 관련 프로퍼티들의 기본값 및 최대값이 변경되었다. 
 
-  - INDEX_INITTRANS 최대값이 30에서 50으로 변경
-  - INDEX_MAXTRANS 기본값과 최대값이 30에서 50으로 변경
+- INDEX_INITTRANS 최대값이 30에서 50으로 변경
+- INDEX_MAXTRANS 기본값과 최대값이 30에서 50으로 변경
 
-- #### PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선
+### PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선
 
-- #### 트랜잭션 로그 기록 성능 향상(TASK-6983)
+### 트랜잭션 로그 기록 성능 향상(TASK-6983)
 
-- #### 서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선
+### 서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선
 
-  조걸절(WHERE 또는 HAVING 절)에서 사용한 서브쿼리의 인라인 뷰에 ORDER BY절을 사용한 SQL에서 특정 조건을 만족하는 경우 불필요한 SORT 작업을 제거하여 성능 향상
+조걸절(WHERE 또는 HAVING 절)에서 사용한 서브쿼리의 인라인 뷰에 ORDER BY절을 사용한 SQL에서 특정 조건을 만족하는 경우 불필요한 SORT 작업을 제거하여 성능 향상
 
-  - SQL 사용 예
-
-    ```sql
-    SELECT *
-      FROM T1
-     WHERE I1 IN (SELECT /*+ NO_UNNEST */I1
-                    FROM (SELECT *
-                            FROM T2
-                           ORDER BY I2, I3));
-    ```
-
-  이 영향을 받는 SQL은 실행 계획이 SUBQUERY FILTER 안에 SORT 플랜 노드 없어진다.
+- SQL 사용 예
 
   ```sql
   SELECT *
@@ -240,6 +189,17 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
                           FROM T2
                          ORDER BY I2, I3));
   ```
+
+이 영향을 받는 SQL은 실행 계획이 SUBQUERY FILTER 안에 SORT 플랜 노드 없어진다.
+
+```sql
+SELECT *
+  FROM T1
+ WHERE I1 IN (SELECT /*+ NO_UNNEST */I1
+                FROM (SELECT *
+                        FROM T2
+                       ORDER BY I2, I3));
+```
 
 - #### Scalar subquery 성능 개선
 
