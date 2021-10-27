@@ -4881,7 +4881,7 @@ Unsigned Integer
 
 ##### 기본값
 
-0
+2
 
 ##### 속성
 
@@ -6837,7 +6837,7 @@ Unsigned Long
 
 ##### 기본값
 
-1G
+2G
 
 ##### 속성
 
@@ -7153,7 +7153,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 30]
+[0, 50]
 
 ##### 설명
 
@@ -7167,7 +7167,7 @@ Unsigned Integer
 
 ##### 기본값
 
-30
+50
 
 ##### 속성
 
@@ -7175,7 +7175,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 30]
+[0, 50]
 
 ##### 설명
 
@@ -13853,7 +13853,7 @@ Unsigned Integer
 
 원격 데이터베이스의 AUTOCOMMIT 모드를 지정한다.
 
-DBLINKE_GLOBAL_TRANSACTION_LEVEL을 0으로 설정한 경우에만 이 프로퍼티가 적용된다.
+DBLINK_GLOBAL_TRANSACTION_LEVEL을 0으로 설정한 경우에만 이 프로퍼티가 적용된다.
 
 0: autocommit-off
 
@@ -14698,7 +14698,7 @@ Unsigned Integer
 
 ##### 기본값
 
-32767
+32000
 
 ##### 속성
 
@@ -14750,7 +14750,7 @@ Unsigned Integer
 
 ##### 기본값
 
-16383
+16000
 
 ##### 속성
 
@@ -14775,7 +14775,7 @@ Unsigned Integer
 
 ##### 기본값
 
-10921
+10666
 
 ##### 속성
 
@@ -14800,7 +14800,7 @@ Unsigned Integer
 
 ##### 기본값
 
-16383
+16000
 
 ##### 속성
 
@@ -14825,7 +14825,7 @@ Unsigned Integer
 
 ##### 기본값
 
-10921
+10666
 
 ##### 속성
 
@@ -14882,7 +14882,7 @@ Unsigned Integer
 
 ##### 기본값
 
-32767
+32000
 
 ##### 속성
 
