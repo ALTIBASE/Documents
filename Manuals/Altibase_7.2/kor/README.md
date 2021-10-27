@@ -4,7 +4,7 @@
 
 ## New Features
 
-- ### New [Features](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/New%20Features%20Guide.md) Guide
+- ### [New Features Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/New%20Features%20Guide.md)
 
 ## Admin
 
