@@ -1,3 +1,121 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [General Reference](#general-reference)
+  - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
+    - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
+    - [SYS_AUDIT\_](#sys_audit%5C_)
+    - [SYS_AUDIT_OPTS\_](#sys_audit_opts%5C_)
+    - [SYS_COLUMNS\_](#sys_columns%5C_)
+    - [SYS_COMMENTS\_](#sys_comments%5C_)
+    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables%5C_)
+    - [SYS_CONSTRAINTS\_](#sys_constraints%5C_)
+    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns%5C_)
+    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related%5C_)
+    - [SYS_DATABASE\_](#sys_database%5C_)
+    - [SYS_DATABASE_LINKS\_](#sys_database_links%5C_)
+    - [SYS_DIRECTORIES\_](#sys_directories%5C_)
+    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns%5C_)
+    - [SYS_GRANT_OBJECT\_](#sys_grant_object%5C_)
+    - [SYS_GRANT_SYSTEM\_](#sys_grant_system%5C_)
+    - [SYS_INDEX_COLUMNS\_](#sys_index_columns%5C_)
+    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions%5C_)
+    - [SYS_INDEX_RELATED\_](#sys_index_related%5C_)
+    - [SYS_INDICES\_](#sys_indices%5C_)
+    - [SYS_JOBS\_](#sys_jobs%5C_)
+    - [SYS_LIBRARIES\_](#sys_libraries%5C_)
+    - [SYS_LOBS\_](#sys_lobs%5C_)
+    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views%5C_)
+    - [SYS_PACKAGES\_](#sys_packages%5C_)
+    - [SYS_PACKAGE_PARAS\_](#sys_package_paras%5C_)
+    - [SYS_PACKAGE_PARSE\_](#sys_package_parse%5C_)
+    - [SYS_PACKAGE_RELATED\_](#sys_package_related%5C_)
+    - [SYS_PART_INDICES\_](#sys_part_indices%5C_)
+    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns%5C_)
+    - [SYS_PART_LOBS\_](#sys_part_lobs%5C_)
+    - [SYS_PART_TABLES\_](#sys_part_tables%5C_)
+    - [SYS_PASSWORD_HISTORY\_](#sys_password_history%5C_)
+    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits%5C_)
+    - [SYS_PRIVILEGES\_](#sys_privileges%5C_)
+    - [SYS_PROCEDURES\_](#sys_procedures%5C_)
+    - [SYS_PROC_PARAS\_](#sys_proc_paras%5C_)
+    - [SYS_PROC_PARSE\_](#sys_proc_parse%5C_)
+    - [SYS_PROC_RELATED\_](#sys_proc_related%5C_)
+    - [SYS_RECYCLEBIN\_](#sys_recyclebin%5C_)
+    - [SYS_REPLICATIONS\_](#sys_replications%5C_)
+    - [SYS_REPL_HOSTS\_](#sys_repl_hosts%5C_)
+    - [SYS_REPL_ITEMS\_](#sys_repl_items%5C_)
+    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir%5C_)
+    - [SYS_REPL_OLD_CHECKS\_](#sys_repl_old_checks%5C_)
+    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
+    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns%5C_)
+    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns%5C_)
+    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices%5C_)
+    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items%5C_)
+    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos%5C_)
+    - [SYS_SECURITY\_](#sys_security%5C_)
+    - [SYS_SYNONYMS\_](#sys_synonyms%5C_)
+    - [SYS_TABLES\_](#sys_tables%5C_)
+    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions%5C_)
+    - [SYS_TABLE_SIZE\_](#sys_table_size%5C_)
+    - [SYS_TBS_USERS\_](#sys_tbs_users%5C_)
+    - [SYS_TRIGGERS\_](#sys_triggers%5C_)
+    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables%5C_)
+    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings%5C_)
+    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns%5C_)
+    - [SYS_USERS\_](#sys_users%5C_)
+    - [DBA_USERS\_](#dba_users%5C_)
+    - [SYS_USER_ROLES\_](#sys_user_roles%5C_)
+    - [SYS_VIEWS\_](#sys_views%5C_)
+    - [SYS_VIEW_PARSE\_](#sys_view_parse%5C_)
+    - [SYS_VIEW_RELATED\_](#sys_view_related%5C_)
+    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans%5C_)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+    - [V\$ACCESS_LIST](#v%5Caccess_list)
+    - [V\$ALLCOLUMN](#v%5Callcolumn)
+    - [V\$ARCHIVE](#v%5Carchive)
+    - [V\$BACKUP_INFO](#v%5Cbackup_info)
+    - [V\$BUFFPAGEINFO](#v%5Cbuffpageinfo)
+    - [V\$BUFFPOOL_STAT](#v%5Cbuffpool_stat)
+    - [V\$CATALOG](#v%5Ccatalog)
+    - [V\$DATABASE](#v%5Cdatabase)
+    - [V\$DATAFILES](#v%5Cdatafiles)
+    - [V\$DATATYPE](#v%5Cdatatype)
+    - [V\$DBA_2PC_PENDING](#v%5Cdba_2pc_pending)
+    - [V\$DBLINK_ALTILINKER_STATUS](#v%5Cdblink_altilinker_status)
+    - [V\$DBLINK_DATABASE_LINK_INFO](#v%5Cdblink_database_link_info)
+    - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#v%5Cdblink_global_transaction_info)
+    - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#v%5Cdblink_linker_control_session_info)
+    - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#v%5Cdblink_linker_data_session_info)
+    - [V\$DBLINK_LINKER_SESSION_INFO](#v%5Cdblink_linker_session_info)
+    - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#v%5Cdblink_notifier_transaction_info)
+    - [V\$DBLINK_REMOTE_STATEMENT_INFO](#v%5Cdblink_remote_statement_info)
+    - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#v%5Cdblink_remote_transaction_info)
+    - [V\$DBMS_STATS](#v%5Cdbms_stats)
+    - [V\$DB_FREEPAGELISTS](#v%5Cdb_freepagelists)
+    - [V\$DB_PROTOCOL](#v%5Cdb_protocol)
+    - [V\$DIRECT_PATH_INSERT](#v%5Cdirect_path_insert)
+    - [V\$DISKTBL_INFO](#v%5Cdisktbl_info)
+    - [V\$DISK_BTREE_HEADER](#v%5Cdisk_btree_header)
+    - [V\$DISK_TEMP_INFO](#v%5Cdisk_temp_info)
+    - [V\$DISK_TEMP_STAT](#v%5Cdisk_temp_stat)
+    - [V\$DISK_UNDO_USAGE](#v%5Cdisk_undo_usage)
+    - [V\$DR_CONNECTION_INFO](#v%5Cdr_connection_info)
+    - [V\$DR_GAP](#v%5Cdr_gap)
+    - [V\$DR_SERVERS](#v%5Cdr_servers)
+    - [V\$DR_STATUS](#v%5Cdr_status)
+    - [V\$EVENT_NAME](#v%5Cevent_name)
+    - [V\$EXTPROC_AGENT](#v%5Cextproc_agent)
+    - [V\$FILESTAT](#v%5Cfilestat)
+    - [V\$FLUSHER](#v%5Cflusher)
+    - [V\$FLUSHINFO](#v%5Cflushinfo)
+    - [V\$INDEX](#v%5Cindex)
+    - [V\$INSTANCE](#v%5Cinstance)
+    - [V\$INTERNAL_SESSION](#v%5Cinternal_session)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 
 - [General Reference](#general-reference)
@@ -824,7 +942,7 @@ SYS_CONSTRAINTS\_ 메타 테이블의 한 CONSTRAINT_ID 값과 동일할 것이�
 
 ##### CHECK_CONDITION
 
-사용자가 Check 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
+사용자가 CHECK 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
 나타낸다.
 
 ##### VALIDATED
@@ -2727,8 +2845,7 @@ OPTIONS
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### HOST_IP
 
@@ -2785,8 +2902,7 @@ SYS_REPLICATIONS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
@@ -2861,8 +2977,7 @@ SYS_TABLES_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름이다. SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### LFG_ID
 
@@ -2871,6 +2986,96 @@ REPLICATION_NAME 값과 동일하다.
 ##### PATH
 
 로그 파일이 저장되는 시스템 내의 절대 경로를 나타낸다.
+
+### SYS_REPL_OLD_CHECKS\_
+
+이중화 송신 쓰레드가 복제중인 이중화 대상 칼럼 중 CHECK 제약조건에 대한 정보를 가진 메타 테이블이다. 
+
+| Column name      | Type          | Description                  |
+| ---------------- | ------------- | ---------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | 이중화 이름                  |
+| TABLE_OID        | BIGINT        | 테이블 객체 식별자           |
+| CONSTRAINT_ID    | INTEGER       | Check 제약조건 식별자        |
+| CHECK_NAME       | VARCHAR(40)   | Check 제약조건 이름          |
+| CONDITION        | VARCHAR(4000) | Check 제약조건의 조건 문자열 |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+
+##### TABLE_OID
+
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
+
+##### CONSTRAINT_ID
+
+이중화 송신 쓰레드가 처리 중인 CHECK 제약조건 식별자로 SYS_CONSTRAINTS_ 메타 테이블에서 같은 컬럼으로 확인할 수 있다.
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+##### CHECK_NAME
+
+이중화 송신 쓰레드가 현재 사용중인 CHECK 제약조건 이름으로  SYS_CONSTRAINTS_ 메타 테이블의 CONSTRAINT_NAME과 일치한다. 
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+##### CONDITION
+
+이중화 송신 쓰레드가 현재 사용중인 CHECK 제약조건의 조건 문자열로  SYS_CONSTRAINTS_ 메타 테이블의 CHECK_CONDITION과 일치한다.  
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+#### 참조 테이블
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+```
+
+### SYS_REPL_OLD_CHECK_COLUMNS_
+
+이중화 송신 쓰레드가 복제 중인 이중화 대상 칼럼에 설정된 CHECK 제약조건에 대한 정보를 가진 메타 테이블이다.
+
+| Column name      | Type        | Description                       |
+| ---------------- | ----------- | --------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | 이중화 이름                       |
+| TABLE_OID        | BIGINT      | 테이블 객체 식별자                |
+| CONSTRAINT_ID    | INTEGER     | Check 제약조건 식별자             |
+| COLUMN_ID        | INTEGER     | Check 제약조건을 갖는 칼럼 식별자 |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+
+##### TABLE_OID
+
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
+
+##### CONSTRAINT_ID
+
+이중화 송신 쓰레드가 처리 중인 CHECK 제약 조건 식별자로 SYS_CONSTRAINTS_ 메타 테이블의 CONSTRAINT_ID와 일치한다. 
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+##### COLUMN_ID
+
+이중화 송신 쓰레드가 처리 중인 CHECK 제약조건을 갖는 칼럼 식별자로 SYS_COLUMNS\_ 메타 테이블의 COLUMN_ID와 일치한다.  
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_COLUMNS\_ 에서 조회할 수 없다.
+
+#### 참조 테이블
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+SYS_COLUMNS_
+```
 
 ### SYS_REPL_OLD_COLUMNS\_
 
@@ -2904,13 +3109,11 @@ REPLICATION_NAME 값과 동일하다.
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름이다. SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
-이중화 송신 쓰레드가 현재 사용중인 이중화 대상 테이블의 식별자이다. SYS_TABLES\_
-메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
 
 ##### COLUMN_NAME
 
@@ -3014,13 +3217,11 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
-이중화 송신 쓰레드가 현재 복제중인 이중화 대상 테이블의 식별자이다. SYS_TABLES\_
-메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
 
 ##### INDEX_ID
 
@@ -3066,13 +3267,11 @@ SYS_REPL_OLD_INDICES_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
-이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 테이블의 식별자이다.
-SYS_TABLES\_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
 
 ##### INDEX_ID
 
@@ -3134,13 +3333,11 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
-이중화 송신 쓰레드가 현재 복제중인 이중화 대상 테이블의 식별자이다. SYS_TABLES\_
-메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
 
 ##### USER_NAME
 
@@ -3214,8 +3411,7 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### OLD_TABLE_OID
 
@@ -3241,8 +3437,7 @@ REPLICATION_NAME 값과 동일하다.
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### MASTER_BEGIN_SN
 
