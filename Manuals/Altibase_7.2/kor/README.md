@@ -35,7 +35,7 @@
 
 - ### [Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md)	
 
-- ### [C/C++ External Procedures Manual](hhttps://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/External%20Procedures%20Manual.md)
+- ### [C/C++ External Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/External%20Procedures%20Manual.md)
 
 - ### [Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Precompiler%20User's%20Manual.md)
 

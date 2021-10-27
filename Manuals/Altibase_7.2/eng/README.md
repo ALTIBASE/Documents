@@ -4,7 +4,7 @@ This manual is updated for 7.2.0.0.1.
 
 ## New Features
 
-- ### New Features Guide(https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/New%20Features%20Guide.md)
+- ### [New Features Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/New%20Features%20Guide.md)
 
 ## Admin
 
@@ -35,7 +35,7 @@ This manual is updated for 7.2.0.0.1.
 
 - ### [Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Stored%20Procedures%20Manual.md)	
 
-- ### [C/C++ External Procedures Manual](hhttps://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/External%20Procedures%20Manual.md)
+- ### [C/C++ External Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/External%20Procedures%20Manual.md)
 
 - ### [Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Precompiler%20User's%20Manual.md)
 
@@ -77,8 +77,6 @@ This manual is updated for 7.2.0.0.1.
 - ### [Hadoop Connector User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Hadoop%20Connector%20User's%20Manual.md)	
 
 - ### [Altibase 3rd Party Connector Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Altibase%203rd%20Party%20Connector%20Guide.md)	
-
-- ### [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/altiShapeLoader.md)
 
 
 ## Message
