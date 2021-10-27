@@ -4,8 +4,8 @@
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
   - [1.aexport](#1aexport)
-    - [aexport소개](#aexport%EC%86%8C%EA%B0%9C)
-    - [aexport사용방법](#aexport%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
+    - [aexport 소개](#aexport%EC%86%8C%EA%B0%9C)
+    - [aexport 사용 방법](#aexport%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
   - [2.altiComp](#2alticomp)
     - [altiComp 소개](#alticomp-%EC%86%8C%EA%B0%9C)
     - [altiComp 사용 방법](#alticomp-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
@@ -463,7 +463,7 @@ aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값�
 예) user:rw,  group:--,  other:--로 설정하는 경우, 
 export AEXPORT_FILE_PERMISSION=600 
 
-### aexport사용방법
+### aexport 사용 방법
 
 #### 구문
 
@@ -1277,6 +1277,7 @@ DIFF는 Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주�
 
    Master DB에는 없지만, Slave DB에는 있는 레코드 (MXSO) 를 실행 결과 파일에 기록할 지 결정하는 프로퍼티이다. 
    
+
 프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
 
 #### TABLES 그룹 
