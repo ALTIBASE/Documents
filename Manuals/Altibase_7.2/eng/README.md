@@ -78,8 +78,6 @@ This manual is updated for 7.2.0.0.1.
 
 - ### [Altibase 3rd Party Connector Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Altibase%203rd%20Party%20Connector%20Guide.md)	
 
-- ### [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/altiShapeLoader.md)
-
 
 ## Message
 
