@@ -1823,7 +1823,9 @@ Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고�
 
 ### Red Hat Enterprise Linux 8
 
-RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 이 작업 root 권한이 필요하다.
+RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. Altibase 7.1.0.6.3 이상에서는 Altibase 패키지 인스톨러에서 $ALTIBASE_HOME/lib 디렉토리에 심볼릭 링크를 생성하므로 사용자가 생성할 필요 없다.
+libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같은 방법으로 심볼릭 링크를 생성한다. 
+
 
 1. ncurses와 tinfo 라이브러리 파일을 확인한다.
 
@@ -1837,19 +1839,19 @@ RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so
    -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo 라이브러리 파일
    ```
 
-2. libncurses.so.5, libtinfo.so.5 파일이 없는 경우 심볼릭 링크를 생성한다.
+2. libncurses.so.5, libtinfo.so.5 파일이 없는 경우 $ALTIBASE_HOME/lib에 심볼릭 링크를 생성한다.
 
    ```bash
-   % ln -s /usr/lib64/libncurses.so.6.1 /usr/lib64/libncurses.so.5
-   % ln -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5
+   % ln -s /usr/lib64/libncurses.so.6.1 $ALTIBASE_HOME/lib/libncurses.so.5
+   % ln -s /usr/lib64/libtinfo.so.6.1 $ALTIBASE_HOME/lib/libtinfo.so.5
    ```
 
 3. 생성한 심볼릭 링크를 확인한다.
 
    ```bash
-   % ls -l /usr/lib64/ | grep -e libncurses.so.5 -e libtinfo.so.5
-   lrwxrwxrwx   1 root root       17 May  7 16:44 libncurses.so.5 -> libncurses.so.6.1*
-   lrwxrwxrwx   1 root root       15 May  7 16:51 libtinfo.so.5 -> libtinfo.so.6.1*
+   % ls -l $ALTIBASE_HOME/lib | grep -e libncurses.so.5 -e libtinfo.so.5
+   lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
+   lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
 
 
