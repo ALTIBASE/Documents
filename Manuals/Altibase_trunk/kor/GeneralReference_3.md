@@ -46,6 +46,8 @@
     - [SYS_REPL_ITEMS\_](#sys_repl_items_)
     - [SYS_REPL_ITEM_REPLACE_HISTORY\_](#sys_repl_item_replace_history_)
     - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
+    - [SYS_REPL_OLD_CHECKS\_](#sys_repl_old_checks%5C_)
+    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
     - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
     - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
     - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
