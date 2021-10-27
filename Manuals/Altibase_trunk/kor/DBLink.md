@@ -2742,11 +2742,11 @@ JVM(Java Virtual Machine) 상에서 AltiLinker를 위해 할당하는 메모리 
 
 ##### 기본값
 
-512 MBytes
+4096 MBytes
 
 ##### 값의 범위
 
-[32MB, 32768MB]
+[512MB, 32768MB]
 
 ##### 설명
 
