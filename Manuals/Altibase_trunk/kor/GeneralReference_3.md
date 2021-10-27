@@ -828,7 +828,7 @@ SYS_CONSTRAINTS\_ 메타 테이블의 한 CONSTRAINT_ID 값과 동일할 것이�
 
 ##### CHECK_CONDITION
 
-사용자가 Check 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
+사용자가 CHECK 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
 나타낸다.
 
 ##### VALIDATED
@@ -2732,8 +2732,7 @@ OPTIONS
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### HOST_IP
 
@@ -2791,8 +2790,7 @@ SYS_REPLICATIONS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
@@ -2872,7 +2870,7 @@ SYS_TABLES_
 #### 칼럼 정보
 
 ##### REPLICATION_NAME
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한 REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### USER_NAME
 이중화 대상 테이블 소유자의 사용자 이름으로, SYS_USERS\_ 메타 테이블의 한 USER_NAME 값과 동일하다.
@@ -2912,8 +2910,7 @@ SYS_TABLE_PARTITIONS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름이다. SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### LFG_ID
 
@@ -2922,6 +2919,98 @@ REPLICATION_NAME 값과 동일하다.
 ##### PATH
 
 로그 파일이 저장되는 시스템 내의 절대 경로를 나타낸다.
+
+### SYS_REPL_OLD_CHECKS\_
+
+이중화 송신 쓰레드가 복제중인 이중화 대상 칼럼 중 CHECK 제약조건에 대한 정보를 가진 메타 테이블이다. 
+
+| Column name      | Type          | Description                  |
+| ---------------- | ------------- | ---------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | 이중화 이름                  |
+| TABLE_OID        | BIGINT        | 테이블 객체 식별자           |
+| CONSTRAINT_ID    | INTEGER       | CHECK 제약조건 식별자        |
+| CHECK_NAME       | VARCHAR(40)   | CHECK 제약조건 이름          |
+| CONDITION        | VARCHAR(4000) | CHECK 제약조건의 조건 문자열 |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+
+##### TABLE_OID
+
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
+
+##### CONSTRAINT_ID
+
+이중화 송신 쓰레드가 처리 중인 CHECK 제약조건 식별자로 SYS_CONSTRAINTS_ 메타 테이블에서 같은 컬럼으로 확인할 수 있다.
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+##### CHECK_NAME
+
+이중화 송신 쓰레드가 현재 사용중인 CHECK 제약조건 이름으로  SYS_CONSTRAINTS_ 메타 테이블의 CONSTRAINT_NAME과 일치한다. 
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+##### CONDITION
+
+이중화 송신 쓰레드가 현재 사용중인 CHECK 제약조건의 조건 문자열로  SYS_CONSTRAINTS_ 메타 테이블의 CHECK_CONDITION과 일치한다.  
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+#### 참조 테이블
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+```
+
+### SYS_REPL_OLD_CHECK_COLUMNS_
+
+이중화 송신 쓰레드가 복제 중인 이중화 대상 칼럼에 설정된 CHECK 제약조건에 대한 정보를 가진 메타 테이블이다.
+
+| Column name      | Type        | Description                       |
+| ---------------- | ----------- | --------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | 이중화 이름                       |
+| TABLE_OID        | BIGINT      | 테이블 객체 식별자                |
+| CONSTRAINT_ID    | INTEGER     | CHECK 제약조건 식별자             |
+| COLUMN_ID        | INTEGER     | CHECK 제약조건을 갖는 칼럼 식별자 |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+
+##### TABLE_OID
+
+이중화 송신 쓰레드가 처리 중인 테이블 객체 식별자이다. 이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 이 테이블이 존재하지 않는다면 SYS_TABLES_ 메타 테이블에서 조회할 수 없다.
+
+##### CONSTRAINT_ID
+
+이중화 송신 쓰레드가 처리 중인 CHECK 제약조건 식별자로 SYS_CONSTRAINTS_ 메타 테이블의 CONSTRAINT_ID와 일치한다. 
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_CONSTRAINTS_에서 조회할 수 없다.
+
+##### COLUMN_ID
+
+이중화 송신 쓰레드가 처리 중인 CHECK 제약조건을 갖는 칼럼 식별자로 SYS_COLUMNS\_ 메타 테이블의 COLUMN_ID와 일치한다.  
+
+이중화 송신 쓰레드가 이중화 로그를 처리 중인 시점에 해당 CHECK 제약조건이 삭제된 경우 SYS_COLUMNS\_ 에서 조회할 수 없다.
+
+#### 참조 테이블
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+SYS_COLUMNS_
+```
+
+### 
 
 ### SYS_REPL_OLD_COLUMNS\_
 
@@ -2955,8 +3044,7 @@ REPLICATION_NAME 값과 동일하다.
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름이다. SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
@@ -3065,8 +3153,7 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
@@ -3117,8 +3204,7 @@ SYS_REPL_OLD_INDICES_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
@@ -3192,8 +3278,7 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### TABLE_OID
 
@@ -3304,8 +3389,7 @@ V$TABLESPACES
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### OLD_TABLE_OID
 
@@ -3331,8 +3415,7 @@ REPLICATION_NAME 값과 동일하다.
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로, SYS_REPLICATIONS\_ 메타 테이블의 한
-REPLICATION_NAME 값과 동일하다.
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
 
 ##### MASTER_BEGIN_SN
 
