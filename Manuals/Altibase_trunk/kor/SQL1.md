@@ -6443,21 +6443,14 @@ JOB에 대한 설명을 기술할 수 있다.
 
 아래는 JOB을 사용하는 관리자가 염두에 두어야 할 사항들이다.
 
-- 입출력 모드가 OUT 또는 INOUT인 인자를 가진 저장 프로시저는 JOB에 등록될 수
-  없다.
-- 작업 스케줄러에 의해 JOB이 실행되려면 JOB_SCHEDULER_ENABLE 프로퍼티가
-  1이어야 하며, JOB_THREAD_COUNT 프로퍼티가 0보다 커야 한다.
-- JOB으로 수행되는 프로시저에서 오류가 발생하는 경우, QP_MSGLOG_FILE
-  프로퍼티에 설정된 트레이스 로그 파일(기본:
-  \$ALTIBASE_HOME/trc/altibase_qp.log)로 에러 메시지 등의 로그가 저장된다.
-- 프로시저 내에 SYSTEM_.PRINTLN 같은 출력 함수가 사용된 경우, QP_MSGLOG_FILE
-  프로퍼티에 설정된 트레이스 로그 파일(기본:
-  \$ALTIBASE_HOME/trc/altibase_qp.log)로 출력 내용이 기록된다.
+- 입출력 모드가 OUT 또는 INOUT인 인자를 가진 저장 프로시저는 JOB에 등록될 수 없다.
+- 작업 스케줄러가 JOB을 실행하려면 JOB_SCHEDULER_ENABLE 프로퍼티가 1이고 JOB_THREAD_COUNT 프로퍼티 값이 0보다 커야 한다.
+- JOB에서 수행한 프로시저에서 오류가 발생한 경우, JOB_MSGLOG_FILE 프로퍼티에 설정한 트레이스 로그 파일(기본: $ALTIBASE_HOME/trc/altibase_job.log)에 에러 메시지 등의 로그를 기록한다.
+- 프로시저에서 SYSTEM_.PRINTLN 같은 출력 함수를 사용한 경우, JOB_MSGLOG_FILE 프로퍼티에 설정한 트레이스 로그 파일(기본: $ALTIBASE_HOME/trc/altibase_job.log)에 출력 내용을 기록한다.
 
 #### 예제
 
-\<질의\> 현재부터 시작되어 한 달에 한 번 주기로 proc1 프로시저를 실행하는 job1을
-생성하라 (job1의 상태는 DISABLE이다).
+\<질의\> 현재부터 시작되어 한 달에 한 번 주기로 proc1 프로시저를 실행하는 job1을 생성하라 (job1의 상태는 DISABLE이다).
 
 ```
 iSQL> CREATE JOB job1 EXEC proc1 START sysdate INTERVAL 1 MONTH;
@@ -8563,10 +8556,10 @@ PARTITION BY RANGE_USING_HASH (product_id)
 	PARTITION p3 VALUES LESS THAN (750),
   	PARTITION p4 VALUES DEFAULT
   ) TABLESPACE SYS_TBS_DISK_DATA;
-  ```
+```
+
   
-  
-  
+
 - 세그먼트 내의 익스텐트 관리 파라미터를 지정한 테이블 생성
 
   \<질의\> 디스크 테이블스페이스인 usertbs에 local_tbl 테이블을 생성한다. 단
