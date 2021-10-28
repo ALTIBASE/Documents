@@ -3728,6 +3728,14 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>REPLICATION_DDL_ENABLE_LEVEL</td>
+          <td></td>
+      </tr>
+      <tr>
+      	<td>REPLICATION_DDL_SYNC</td>
+          <td>SYSTEM</td>
+      </tr>
+      <tr>
+      	<td>REPLICATION_DDL_SYNC_TIMEOUT</td>
           <td rowspan="2"></td>
       </tr>
       <tr>
