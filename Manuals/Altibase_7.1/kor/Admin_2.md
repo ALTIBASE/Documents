@@ -5854,14 +5854,13 @@ Altibase 서버가 운영하면서 사용하는 메모리 영역 정보를 성�
 
 [그림 16‑1] 일반적인 문제 분석 절차
 
-Altibase 관리자 로그란 \$ALTIBASE_HOME/trc 디렉토리에 생성되고 유지되는 “\*.log”
-이름을 가지는 파일의 텍스트 로그이다. 이 디렉토리에는 다음의 트레이스 로그
-파일들이 있다.
+Altibase 관리자 로그란 \$ALTIBASE_HOME/trc 디렉토리에 생성되고 유지되는 “\*.log” 이름을 가지는 파일의 텍스트 로그이다. 이 디렉토리에는 다음의 트레이스 로그 파일들이 있다.
 
 - altibase_boot.log
 - altibase_id.log
 - altibase_mt.log
 - altibase_qp.log
+- altibase_job.log
 - altibase_rp.log
 - altibase_sm.log
 

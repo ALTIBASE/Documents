@@ -4909,35 +4909,21 @@ dumptrc [-h |[-p file_path][-c [-s]]
 \$ALTIBASE_HOME/trc 디렉터리에 기록되는 아래의 파일들을 사용할 수 있다.
 
 -   ERROR : altibase_error.log
-
 -   SERVER : altibase_boot.log
-
 -   SM : altibase_sm.log
-
 -   RP : altibase_rp.log
-
 -   QP : altibase_qp.log
-
+-   JOB : altibase_job.log
 -   DK : altibase_dk.log
-
 -   DR : altibase_dr.log
-
 -   XA : altibase_xa.log
-
 -   MM : altibase_mm.log
-
 -   RP_CONFLICT : altibase_rp_conflict.log
-
 -   DUMP : altibase_dump.log
-
 -   TRC : altibase_trace.log
-
 -   SNMP : altibase_snmp.log
-
 -   CM : altibase_cm.log
-
 -   MISC : altibase_misc.log
-
 -   SD : altibase_sd.log
 
 만약 \$ALTIBASE_HOME/trc가 아닌 다른 경로에 있는 트레이스 로그 파일을 출력할
