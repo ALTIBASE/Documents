@@ -243,7 +243,7 @@ semaphore group exists.
 
 **Cause:** Failed to invoke the mutex_unlock() system function.
 
-**Action: ** Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x0001B ( 27) idERR_FATAL_idc_CLOSE_FAILED Unable to close the communication channel**
 
