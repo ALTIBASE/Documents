@@ -4,7 +4,6 @@
 
 - [Altibase 7.1.0.6.2 Patch Notes](#altibase-71062-patch-notes)
   - [New Features](#new-features)
-    - [BUG-49233 JDBC 4.2 스펙이 적용된 JDBC Driver에서 미지원 기능 호출 시 예외 처리 클래스를 SQLFeatureNotSupportedException 으로 변경합니다.](#bug-49233jdbc-42-%EC%8A%A4%ED%8E%99%EC%9D%B4-%EC%A0%81%EC%9A%A9%EB%90%9C-jdbc-driver%EC%97%90%EC%84%9C-%EB%AF%B8%EC%A7%80%EC%9B%90-%EA%B8%B0%EB%8A%A5-%ED%98%B8%EC%B6%9C-%EC%8B%9C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC-%ED%81%B4%EB%9E%98%EC%8A%A4%EB%A5%BC-sqlfeaturenotsupportedexception-%EC%9C%BC%EB%A1%9C-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49332 이중화 중 네트워크 패킷 변조로 xLog가 수정되었을 때 Altibase 서버 비정상 종료 발생 가능성을 방어합니다.](#bug-49332%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A4%91-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%8C%A8%ED%82%B7-%EB%B3%80%EC%A1%B0%EB%A1%9C-xlog%EA%B0%80-%EC%88%98%EC%A0%95%EB%90%98%EC%97%88%EC%9D%84-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%EB%B0%9C%EC%83%9D-%EA%B0%80%EB%8A%A5%EC%84%B1%EC%9D%84-%EB%B0%A9%EC%96%B4%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-49266 트랜잭션 처리 함수에 존재하는 메모리 초기화 오류를 수정합니다.](#bug-49266%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%B2%98%EB%A6%AC-%ED%95%A8%EC%88%98%EC%97%90-%EC%A1%B4%EC%9E%AC%ED%95%98%EB%8A%94-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%B4%88%EA%B8%B0%ED%99%94-%EC%98%A4%EB%A5%98%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -26,45 +25,6 @@ Altibase 7.1.0.6.2 Patch Notes
 
 New Features
 ------------
-
-### BUG-49233 JDBC 4.2 스펙이 적용된 JDBC Driver에서 미지원 기능 호출 시 예외 처리 클래스를 SQLFeatureNotSupportedException 으로 변경합니다.
-
--   **module** : mm-jdbc
-
--   **Category** : Functionalit
-
--   **재현 빈도** : Always
-
--   **설명** :  JDBC 4.2 스펙이 적용된 JDBC Driver에서 미지원 기능 호출 시 예외 처리 클래스를 SQLFeatureNotSupportedException 으로 변경합니다.
-    
-- **재현 방법**
-
-  - **재현 절차**
-
-    ```java
-    Connection sConn = getConnection();sConn.setTypeMap(new HashMap());
-    ```
-
-  - **수행 결과**
-
-    ```java
-    Exception in thread "main" java.sql.SQLException: Unsupported feature: User defined type
-    ```
-
-  -   **예상 결과**
-
-      ```java
-      Exception in thread "main" java.sql.SQLFeatureNotSupportedException: User defined type
-      ```
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-49332 이중화 중 네트워크 패킷 변조로 xLog가 수정되었을 때 Altibase 서버 비정상 종료 발생 가능성을 방어합니다.
 
