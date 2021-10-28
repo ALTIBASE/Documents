@@ -1714,6 +1714,37 @@ DECLARE, BEGIN, EXCEPTION 등의 키워드 뒤에는 세미콜론을 사용하�
 붙이고, 여러 행을 주석 처리 할 경우는 ‘/\*’와 ‘\*/’ 사이에 주석 처리할 문장이
 놓이도록 작성한다.
 
+저장 프로시저 헤더 없이 독립적으로 저장 프로시저 블록을 사용할 수 있으며, 이를 익명 블록(anonymous block)라고 한다.
+익명 블록은 7.1.0.2.3 버전부터 지원하며 아래와 같은 특징이 있다.
+
+- PSM 객체를 생성 및 데이터베이스에 저장하지 않는다.
+- RETURN 절의 값을 반환하지 않는다.
+- 저장 프로시저와 달리 IN, OUT, INOUT 바인드 변수(BIND Variable)를 사용할 수 있다.
+
+```
+iSQL> VAR OUT1 OUTPUT INTEGER;
+iSQL> VAR INOUT1 INOUTPUT INTEGER;
+iSQL> EXEC :INOUT1 := 1;
+
+iSQL> DECLARE
+    VAR1 INTEGER;
+BEGIN
+    VAR1 := :INOUT1;
+    :OUT1 := VAR1;
+    :INOUT1 := VAR1 + 1;
+END;
+/
+Execute success.
+
+iSQL> PRINT VAR;
+[ HOST VARIABLE ]
+-------------------------------------------------------
+NAME                 TYPE                 VALUE
+-------------------------------------------------------
+OUT1                 INTEGER              1
+INOUT1               INTEGER              2
+```
+
 이 장에서는 선언부와 블록 바디에 사용할 수 있는 구문 중 SELECT INTO문, 변수
 할당문, LABEL문, PRINT문, RETURN문에 대해서 설명한다.
 
