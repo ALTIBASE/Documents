@@ -399,11 +399,8 @@ This property specifies the port number for XLog collector to receive XLog. This
 
 -   Range: 0 \~ 65535
 
--   0: The adapter waits until the sender of the ALA replication object attempts to connect.
+-   0: The adapter waits until the sender of the ALA replication object attempts to connect.(Depends on the value of the REPLICATION_SENDER_SLEEP_TIMEOUT attribute of the Altibase server).
 
-
-(Depends on the value of the REPLICATION_SENDER_SLEEP_TIMEOUT attribute of the Altibase server).
-    
 -   1 or more: Adapter attempts to connect directly to the replication sender with the corresponding port number
 
 ##### ALA_RECEIVE_XLOG_TIMEOUT (Unit: Second)

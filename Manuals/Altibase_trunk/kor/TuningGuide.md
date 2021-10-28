@@ -4820,13 +4820,14 @@ PROJECT ( COLUMN_COUNT: 5, TUPLE_SIZE: 40, COST: 0.30 )
 ##### 출력 형식
 
 ```
-LEFT-OUTER-JOIN ( METHOD: method, COST: cost )
+LEFT-OUTER-JOIN ( METHOD: method, SKIP RIGHT COUNT: count, COST: cost )
 ```
 
-| 항목   | 설명      |
-|--------|-----------|
-| METHOD | 조인 방법 |
-| COST   | 추산 비용 |
+| 항목             | 설명                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| METHOD           | 조인 방법                                                    |
+| SKIP RIGHT COUNT | 오른쪽 읽기 skip 횟수<br/>- TRCLOG_DETAIL_INFORMATION = 1 일 때 출력<br/>- skip 횟수가 '0'인 경우 출력하지 않음 |
+| COST             | 추산 비용                                                    |
 
 [표 4‑10] LEFT-OUTER-JOIN 노드의 정보
 

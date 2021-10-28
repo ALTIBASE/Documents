@@ -3230,7 +3230,7 @@ typedef struct tagSQL_NUMERIC_STRUCT
 
 s_price를 입력 또는 출력 호스트 변수로 사용하는 예이다.
 
-\< 예제 프로그램 : date.sc \>
+\< 예제 프로그램 : numeric.sc \>
 
 ```
 /* declare host variables */

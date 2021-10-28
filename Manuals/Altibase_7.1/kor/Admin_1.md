@@ -4961,7 +4961,7 @@ CREATE [DISK/MEMORY/VOLATILE] [DATA/TEMPORARY] TABLESPACE
 
 (4) 메모리 테이블스페이스 속성
 
-(5) 휘발성 테이블스페이스 속성;
+(5) 휘발성 테이블스페이스 속성
 
 테이블스페이스에 저장된 객체의 크기 및 접근 빈도수와 같은 특성을 고려해서
 메모리, 디스크, 또는 휘발성 테이블스페이스의 생성 여부를 결정해야 한다.
@@ -4988,10 +4988,10 @@ CREATE [DISK/MEMORY/VOLATILE] [DATA/TEMPORARY] TABLESPACE
 갖는다.
 
 ```
-DATAFILE [①데이터 파일절
-AUTOEXTEND [②자동확장절 
-MAXSIZE [③최대크기절] ] ] 
-EXTENTSIZE [④익스텐트사이즈절]
+DATAFILE ①데이터 파일절
+AUTOEXTEND ②자동확장절 
+MAXSIZE ③최대크기절   
+EXTENTSIZE ④익스텐트사이즈절
 ```
 
 각 데이터 파일은 다음과 같은 속성을 가질 수 있다.
@@ -5050,10 +5050,10 @@ EXTENTSIZE {{integer [K/M/G]}/{UNLIMITED}}
 갖는다.
 
 ```
-TEMPFILE {①임시 파일절}
-AUTOEXTED [②자동확장절
-MAXSIZE [③최대크기절] ]
-EXTENDSIZE [④익스텐트사이즈절]
+TEMPFILE ①임시 파일절
+AUTOEXTED ②자동확장절
+MAXSIZE ③최대크기절 
+EXTENDSIZE ④익스텐트사이즈절
 ```
 
 각 임시 파일은 다음과 같은 속성을 가질 수 있다.

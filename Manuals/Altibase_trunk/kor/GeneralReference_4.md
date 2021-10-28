@@ -29,6 +29,7 @@
     - [V\$PROCINFO](#vprocinfo)
     - [V\$PROCTEXT](#vproctext)
     - [V\$PROPERTY](#vproperty)
+    - [V\$QUEUE_DELETE_OFF](#vqueue_delete_off)
     - [V\$REPEXEC](#vrepexec)
     - [V\$REPGAP](#vrepgap)
     - [V\$REPGAP_PARALLEL](#vrepgap_parallel)
@@ -1335,6 +1336,20 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 실제 설정된 프로퍼티의 값을 나타낸다.
 
+### <a name="vqueue_delete_off"><a/>V\$QUEUE_DELETE_OFF	
+
+DELETE 문을 허용하지 않는 큐 테이블을 보여준다. CREATE QUEUE 또는 ALTER QUEUE 에서 DELETE OFF 절을 사용한 경우 해당 큐 테이블에 DELETE 문을 허용하지 않는다.
+
+| Column name | Type       | Description                                     |
+| ----------- | ---------- | ----------------------------------------------- |
+| TABLE_OID   | BIGINT     | 테이블 객체 식별자                              |
+
+#### 칼럼 정보
+
+##### TABLE_OID
+
+테이블 식별자로 SYS_TABLES_메타 테이블의 한 TABLE_OID 값과 동일하다.
+	
 ### <a name="vrepexec"><a/>V\$REPEXEC
 
 이중화 관리자 정보를 보여준다.

@@ -1327,7 +1327,7 @@ Branch qualifier
 
 In Altibase, the javax.transaction.xa.Xid interface is implemented as the XID class in the Altibase.jdbc.driver package.
 
-> Note: Altibase.jdbc.driver.XID does not need to be used to make AltibaseXAResource calls. Any class in which the javax.transaction.xa.Xid interface is implemented can be used for this.
+> Note: Altibase.jdbc.driver.AltibaseXID does not need to be used to make AltibaseXAResource calls. Any class in which the javax.transaction.xa.Xid interface is implemented can be used for this.
 
 #### Error Handling
 
