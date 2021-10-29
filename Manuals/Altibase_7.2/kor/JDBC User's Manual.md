@@ -81,10 +81,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ### 이 매뉴얼에 대하여
 
-이 매뉴얼은 Altibase가 제공하는 JDBC 드라이버의 사용법에 대해 설명한다.
-Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우에 따라서 사양에서
-벗어난 방식으로 동작한다. JDBC를 이용해서 애플리케이션을 작성하기 전에, 본
-매뉴얼을 참고하여 JDBC 사양과 다른 부분에 대한 지식을 습득할 것을 권고한다.
+이 매뉴얼은 Altibase가 제공하는 JDBC 드라이버의 사용법에 대해 설명한다. Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우에 따라서 사양에서 벗어난 방식으로 동작한다. JDBC를 이용해서 애플리케이션을 작성하기 전에, 본 매뉴얼을 참고하여 JDBC 사양과 다른 부분에 대한 지식을 습득할 것을 권고한다.
 
 #### 대상 사용자
 
@@ -119,35 +116,24 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
--   제 1장 시작하기  
+-   제 1장 시작하기
     이 장에서는 Altibase의 JDBC 드라이버를 이용하는 기본적인 방법을 기술한다.
-
--   제 2 장 기본 기능  
-    이 장에서는 Altibase의 JDBC 드라이버를 사용해서 데이터베이스의 객체를 다루는
-    기본적인 방법을 설명한다.
-
--   제 3 장 고급 기능  
-    이 장에서는 Altibase의 JDBC 드라이버가 제공하는 보다 향상된 기능과 그
-    사용법을 설명한다.
-
--   제 4 장 Tips & Recommendation  
+-   제 2 장 기본 기능
+    이 장에서는 Altibase의 JDBC 드라이버를 사용해서 데이터베이스의 객체를 다루는 기본적인 방법을 설명한다.
+-   제 3 장 고급 기능
+    이 장에서는 Altibase의 JDBC 드라이버가 제공하는 보다 향상된 기능과 그 사용법을 설명한다.
+-   제 4 장 Tips & Recommendation
     이 장은 Altibase의 JDBC 드라이버를 효율적으로 사용하기 위한 방법을 제시한다.
-
--   제 5장 에러 메시지  
-    이 장은 Altibase의 JDBC 드라이버를 사용하면서 발생할 수 있는 SQL State를
-    기술한다.
-
--   제 6장 JDBC 4.2 API References  
+-   제 5장 에러 메시지
+    이 장은 Altibase의 JDBC 드라이버를 사용하면서 발생할 수 있는 SQL State를 기술한다.
+-   제 6장 JDBC 4.2 API References
     이 장은 Altibase의 JDBC 드라이버가 지원하는 JDBC 4.2 스펙 API에 대해 기술한다.
-
--   부록 A. 데이터 타입 맵핑  
-    Altibase의 데이터 타입과 JDBC 표준 데이터 타입, Java 데이터 타입간에 호환
-    여부를 기술한다.
+-   부록 A. 데이터 타입 맵핑
+    Altibase의 데이터 타입과 JDBC 표준 데이터 타입, Java 데이터 타입간에 호환 여부를 기술한다.
 
 #### 문서화 규칙
 
-이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이
-매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
+이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이 매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
 
 여기서 설명하는 규칙은 다음과 같다.
 
@@ -174,21 +160,20 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 ##### 샘플 코드 규칙
 
-코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어
-설명한다.
+코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어 설명한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
-| 규칙         | 의미                                                                                | 예제                                                                                                         |
-|--------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| [ ]          | 선택 항목을 표시                                                                    | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                                                                     |
-| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시                               | { ENABLE \| DISABLE \| COMPILE }                                                                             |
-| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                                           | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                            |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시                           | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                                                   | EXEC :p1 := 1; acc NUMBER(11,2);                                                                             |
-| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치         | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;                                                    |
-| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                                  |
-| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                              | DESC SYSTEM_.SYS_INDICES_;                                                                                   |
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } <br />[ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; <br />ENAME  <br />----------------------- <br />SWNO  <br />HJNO  <br />HSCHOI  <br />. . . <br />20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; <br />acc NUMBER(11,2);                       |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; <br />CONNECT *userID*/*password*; |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### 관련 자료
 
@@ -202,9 +187,7 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 #### Altibase는 여러분의 의견을 환영합니다.
 
-이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은 다음
-버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래 내용과 함께
-고객서비스포털(http://support.altibase.com/kr/ )로 보내주시기 바랍니다.
+이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은 다음 버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래 내용과 함께 고객서비스포털(http://support.altibase.com/kr/ )로 보내주시기 바랍니다.
 
 -   사용 중인 매뉴얼의 이름과 버전
 
@@ -212,10 +195,7 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 -   사용자의 성함, 주소, 전화번호
 
-이 외에도 Altibase 기술지원 설명서의 오류와 누락된 부분 및 기타 기술적인
-문제들에 대해서 이 주소로 보내주시면 정성껏 처리하겠습니다. 또한, 기술적인
-부분과 관련하여 즉각적인 도움이 필요한 경우에도 고객서비스포털을 통해 서비스를
-요청하시기 바랍니다.
+이 외에도 Altibase 기술지원 설명서의 오류와 누락된 부분 및 기타 기술적인 문제들에 대해서 이 주소로 보내주시면 정성껏 처리하겠습니다. 또한, 기술적인 부분과 관련하여 즉각적인 도움이 필요한 경우에도 고객서비스포털을 통해 서비스를 요청하시기 바랍니다.
 
 여러분의 의견에 항상 감사드립니다.
 
@@ -226,65 +206,41 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 ### JDBC 드라이버 설치
 
-Altibase 홈페이지 (www.altibase.com )에서 다운로드 받은 Altibase 패키지를
-다운로드 하여 설치한다.
+Altibase 홈페이지 ([www.altibase.com](http://www.altibase.com/) )에서 다운로드 받은 Altibase 패키지를 다운로드 하여 설치한다.
 
-Altibase JDBC 드라이버는 패키지를 설치한 후, \$ALTIBASE_HOME/lib 디렉토리에서
-찾을 수 있다.
+Altibase JDBC 드라이버는 패키지를 설치한 후, $ALTIBASE_HOME/lib 디렉토리에서 찾을 수 있다.
 
 #### 버전 호환성
 
-Altibase 7.2 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 스펙을
-준수(일부 기능 제외)한다. 또한 하위 버전의 자바를 사용하는 사용자를 위해 JDBC 3.0 
-스펙을 구현한 드라이버도 함께 지원한다. JDBC 4.2 스펙용 JDBC 드라이버를
-사용하기 위해서는 JRE 1.8 이상이 필요하며 알티베이스 JDBC에서 지원하는 JDBC 4.2
-스펙 API는 JDBC 4.2 API References를 참조하면 된다.
+Altibase 7.2 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 스펙을 준수(일부 기능 제외)한다. 또한, JRE 1.8 이상에서 정상적으로 동작한다. 알티베이스 JDBC에서 지원하는 JDBC 4.2 스펙 API는 JDBC 4.2 API References를 참조하면 된다.
 
 #### JDBC 드라이버 버전 확인
 
 설치된 JDBC 드라이버의 버전과 드라이버가 컴파일된 JDK 버전을 아래와 같이 확인할
 수 있다.
 
-##### JDBC 4.2 지원 드라이버 확인
-```
-$ java -jar $ALTIBASE_HOME/lib/Altibase42.jar
-Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 4.2 compiled with JDK 5, JDK 8(sharding included)
-```
-
-##### JDBC 3.0 지원 드라이버 확인
 ```
 $ java -jar $ALTIBASE_HOME/lib/Altibase.jar
-Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 3.0 compiled with JDK 5(sharding included)
+Altibase 7.2.0.0.1 with CMP 7.1.7 for JDBC 4.2 compiled with JDK 8
 ```
 
 
 
 #### CLASSPATH 설정
 
-Altibase JDBC를 사용하려면 Altibase JDBC 드라이버를 CLASSPATH 환경변수에
-추가해야 한다. 이때 사용하고자 하는 JDBC 4.2 또는 3.0 스펙에 따라 각각 
-Altibase42.jar, Altibase.jar 파일을 클래스패스에 추가하면 된다.
+Altibase JDBC를 사용하려면 Altibase JDBC 드라이버를 CLASSPATH 환경변수에 추가해야 한다.
 
-Altibase는 로깅 기능을 지원하지 않는 Altibase.jar 파일과 지원하는 Altibase_t.jar
-파일을 함께 제공하고 있지만 JDBC 4.2 스펙용 로깅 드라이버는 공식적으로 지원하지 않는다.
+Altibase는 로깅 기능을 지원하지 않는 Altibase.jar 파일과 지원하는 Altibase_t.jar 파일을 함께 제공한다.
 
 ex) 유닉스 환경에서 bash 쉘을 사용하는 경우
 
-JDBC 3.0 용 드라이버
 ```
 $ export CLASSPATH=$ALTIBASE_HOME/lib/Altibase.jar:.:$CLASSPATH
-```
-JDBC 4.2 용 드라이버
-```
-$ export CLASSPATH=$ALTIBASE_HOME/lib/Altibase42.jar:.:$CLASSPATH
 ```
 
 #### LD_LIBRARY_PATH 설정
 
-비동기적 prefetch의 auto-tuning 기능을 사용할 경우에는 JNI 모듈이 필요하며
-libaltijext.so 파일이 위치한 디렉토리를 LD_LIBRARY_PATH 환경변수에 추가하여야
-한다. JNI 모듈을 로딩하는데 실패하더라도 auto-tuning 이외의 기능은 정상
-동작한다.
+비동기적 prefetch의 auto-tuning 기능을 사용할 경우에는 JNI 모듈이 필요하며 libaltijext.so 파일이 위치한 디렉토리를 LD_LIBRARY_PATH 환경변수에 추가하여야 한다. JNI 모듈을 로딩하는데 실패하더라도 auto-tuning 이외의 기능은 정상 동작한다.
 
 ex) 유닉스 환경에서 bash 쉘을 사용하는 경우
 
@@ -298,8 +254,7 @@ $ export LD_LIBRARY_PATH=$ALTIBASE_HOME/lib:.:$LD_LIBRARY_PATH
 
 ### 데이터베이스에 연결하기
 
-이 절에서는 JDBC로 Altibase 서버에 연결하는 기본적인 방법을 프로그램 코드로
-설명한다.
+이 절에서는 JDBC로 Altibase 서버에 연결하는 기본적인 방법을 프로그램 코드로 설명한다.
 
 #### 드라이버 로딩
 
@@ -307,13 +262,13 @@ Altibase JDBC 드라이버의 Driver 클래스를 로딩하고, 드라이버를 
 
 1. DriverManager에 Altibase JDBC 드라이버를 등록한다.
 
-   ```
+   ```java
    Class.forName(“Altibase.jdbc.driver.AltibaseDriver”);
    ```
 
 2. 연결 URL을 사용해서 DriverManger에서 드라이버를 획득할 수 있다.
 
-   ```
+   ```java
    String sURL = "jdbc:Altibase://localhost:20300/mydb";
    Driver sDriver = DriverManager.getDriver( sURL );
    ```
@@ -321,10 +276,9 @@ Altibase JDBC 드라이버의 Driver 클래스를 로딩하고, 드라이버를 
 
 #### 연결 정보 설정
 
-Properties 객체를 사용해서 다수의 연결 정보를 드라이버에 전달할 수 있다. 다음은
-Properties 객체에 연결 속성을 셋팅하는 코드 예제이다.
+Properties 객체를 사용해서 다수의 연결 정보를 드라이버에 전달할 수 있다. 다음은 Properties 객체에 연결 속성을 셋팅하는 코드 예제이다.
 
-```
+```java
 Properties sProps = new Properties();
 sProps.put("user", "SYS");
 sProps.put("password", "MANAGER");
@@ -332,18 +286,15 @@ sProps.put("password", "MANAGER");
 
 #### 데이터베이스에 접속
 
-연결 URL과 연결 정보를 사용해서 데이터베이스에 접속할 수 있다. 다음은
-데이터베이스에 연결하고 Connection 객체를 획득하는 코드 예제이다.
+연결 URL과 연결 정보를 사용해서 데이터베이스에 접속할 수 있다. 다음은 데이터베이스에 연결하고 Connection 객체를 획득하는 코드 예제이다.
 
-```
+```java
 Connection sCon = sDriver.connect(sURL, sProps);
 ```
 
-
-
 위의 connect 메소드의 인자로 사용되는 연결 URL의 형식은 아래와 같다.
 
-```
+```java
 jdbc:Altibase://server_ip:server_port/dbname
 ```
 
@@ -351,7 +302,7 @@ jdbc:Altibase://server_ip:server_port/dbname
 
 #### 예제
 
-```
+```java
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -384,22 +335,19 @@ $ java ConnectionExample
 
 ### 연결 정보
 
-이 절에서는 Altibase에 접속할 때 사용 가능한 연결 속성들의 정보를 기술하고, 연결
-속성을 설정하는 방법에 대해 설명한다.
+이 절에서는 Altibase에 접속할 때 사용 가능한 연결 속성들의 정보를 기술하고, 연결 속성을 설정하는 방법에 대해 설명한다.
 
 #### 연결 속성 설정하기
 
-데이터베이스 접속에 필요한 연결 속성을 Properties 객체에 설정하거나 연결 URL에
-명시할 수 있다.
+데이터베이스 접속에 필요한 연결 속성을 Properties 객체에 설정하거나 연결 URL에 명시할 수 있다.
 
 ##### 연결 URL 사용하기
 
-연결 URL 끝에 "?"를 붙이고 그 뒤에 "*key*=*value*" 형식으로 프로퍼티 값을 지정할
-수 있다. 여러 개의 프로퍼티를 입력할 때는 "&"로 연결하면 된다.
+연결 URL 끝에 "?"를 붙이고 그 뒤에 "*key*=*value*" 형식으로 프로퍼티 값을 지정할 수 있다. 여러 개의 프로퍼티를 입력할 때는 "&"로 연결하면 된다.
 
 다음은 연결 URL의 예제이다.
 
-```
+```java
 "jdbc:Altibase://localhost:20300/mydb?fetch_enough=0&time_zone=DB_TZ"
 ```
 
@@ -409,7 +357,7 @@ Properties 객체를 생성하고 키와 값을 입력한 다음, 연결 정보�
 
 아래는 Properties 객체를 사용하는 예제이다.
 
-```
+```java
 Properties sProps = new Properties();
 sProps.put("fetch_enough", "30");
 sProps.put("time_zone", "DB_TZ");
@@ -423,24 +371,18 @@ Connection sCon = DriverManager.getConnection( sURL, sProps );
 
 #### 연결 속성 정보
 
-Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다. 각 속성에 대한
-기술에는 다음의 항목들이 포함된다.
+Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다. 각 속성에 대한 기술에는 다음의 항목들이 포함된다.
 
--   기본값: 명시하지 않을 경우 기본적으로 사용되는 값
-
--   값의 범위: 지정 가능한 값
-
--   필수 여부: 반드시 지정해야 하는지 여부
-
--   설정 범위: 설정한 속성이 시스템 전체에 영향을 미치는지 또는 해당 세션에만
-    영향을 미치는지 여부
-
--   설명: 속성에 대한 설명
+- 기본값: 명시하지 않을 경우 기본적으로 사용되는 값
+- 값의 범위: 지정 가능한 값
+- 필수 여부: 반드시 지정해야 하는지 여부
+- 설정 범위: 설정한 속성이 시스템 전체에 영향을 미치는지 또는 해당 세션에만 영향을 미치는지 여부
+- 설명: 속성에 대한 설명
 
 ##### alternateservers
 
 | 기본값    |                                                              |
-| --------- | ------------------------------------------------------------ |
+| :-------- | ------------------------------------------------------------ |
 | 값의 범위 | [ host_name:port_number[/dbname][, host_name:port_number[/dbname] ]* |
 | 필수 여부 | No                                                           |
 | 설정 범위 |                                                              |
@@ -527,7 +469,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 ##### ciphersuite_list
 
 | 기본값   |[JRE가 지원하는 모든 cipher suite list](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html)를 참조한다. |
-|-----------|---------------------------------------------------------------------------------------------------------------------------------------|
+|-----------|:--------------------------------------------------------------------------------------------------------------------------------------|
 | 값의 범위 | 임의의 문자열                                                                                                                         |
 | 필수 여부 | No                                                                                                                                    |
 | 설정 범위 | N/A                                                                                                                                   |
@@ -673,7 +615,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [0 - 2147483647]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
-| 설명      | 현재 세션의 FetchSize를 설정한다. <br />한 번의 Fetch 연산으로 서버에서 한 번에 가져올 행의 개수를 의미한다. <br />이 값이 0이면, JDBC 드라이버는 한 네트워크 패킷에 담을 수 있는 최대 크기만큼 <br />서버로부터 데이터를 가지고 온다. |
+| 설명      | 현재 세션의 FetchSize를 설정한다.<br/>한 번의 Fetch 연산으로 서버에서 한 번에 가져올 행의 개수를 의미한다.<br/>이 값이 0이면, JDBC 드라이버는 한 네트워크 패킷에 담을 수 있는 최대 크기만큼<br/>서버로부터 데이터를 가지고 온다. |
 
 ##### fetch_timeout
 
@@ -728,6 +670,22 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
 | 설명      | KeyStore의 경로를 지정한다. <br />KeyStore는 개인 인증서와 공개 인증서를 가지고 있다. |
+
+| 기본값    | N/A                         |
+| --------- | --------------------------- |
+| 값의 범위 | 임의의 문자열               |
+| 필수 여부 | No                          |
+| 설정 범위 | N/A                         |
+| 설명      | KeyStore의 경로를 지정한다. |
+
+##### loadbalance
+
+| 기본값    | off                                                          |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [ on \| off ]                                                |
+| 필수 여부 | No                                                           |
+| 설정 범위 |                                                              |
+| 설명      | 이 값이 on 인 경우에, 최초 접속시 접속가능 서버중 랜덤으로 접속시도한다. 그리고, session time failover시에는 접속되어있었던 서버에 먼저 접속 시도, 그 후 기존 접속 서버는 제외하고, 랜덤으로 접속시도 한다. |
 
 ##### lob_cache_threshold
 
@@ -830,9 +788,9 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 
 ##### reuse_resultset
 
-| 기본값    |      false                                                   |
+| 기본값    | true                                                         |
 | --------- | ------------------------------------------------------------ |
-| 값의 범위 |  [true \| false]                                              |
+| 값의 범위 | [true \| false]                                              |
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
 | 설명      | 같은 PreparedStatement로 부터 executeQuery()를 할때 생성되는 ResultSet을 재사용할 지 여부 |
@@ -943,16 +901,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()<br>의 결과에 function 객체도 포함할지 지정한다. 해당 값을 false로 설정하면 function 객체<br>정보를 얻기 위해서 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 별도로 사용해야 한다.<br> JDBC spec. 4.2를 지원하는 Altibase42.jar 에서만 효과가 있으며 Altibase.jar에서는 설정해도 효과가 없다.|
+| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()<br/>의 결과에 function 객체도 포함할지 지정한다. 해당 값을 false로 설정하면 function 객체<br/>정보를 얻기 위해서 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 별도로 사용해야 한다. |
 
 ### Statement와 ResultSet 다루기
 
-이 절에서는 JDBC로 Altibase 서버에 연결해서 SQL문을 실행하는 기본적인 방법을
-코드 예제로 설명한다. 편의상 exception 처리는 생략한다.
+이 절에서는 JDBC로 Altibase 서버에 연결해서 SQL문을 실행하는 기본적인 방법을 코드 예제로 설명한다. 편의상 exception 처리는 생략한다.
 
 #### 예제
 
-```
+```java
 import java.util.Properties;
 import java.sql.*;
 
@@ -1056,48 +1013,34 @@ sStmt.close();
 
 ### JDBC Connection Failover
 
-여러 개의 Altibase 서버를 운영하는 환경에서 한 서버의 종료 또는 네트워크 장애
-등으로 인해 Altibase JDBC 드라이버를 사용해서 구현한 응용프로그램의 서비스가
-불가능해질 수 있다.
+여러 개의 Altibase 서버를 운영하는 환경에서 한 서버의 종료 또는 네트워크 장애 등으로 인해 Altibase JDBC 드라이버를 사용해서 구현한 응용프로그램의 서비스가 불가능해질 수 있다.
 
-이런 장애 상황이 발생하면, 장애가 발생한 서버로 접속하던 클라이언트는 장애
-상황을 감지하고, 자동으로 다른 서버로 접속해서 실행 중이던 명령(Statement)들을
-처리할 수 있는데 이를 Fail-Over라고 한다.
+이런 장애 상황이 발생하면, 장애가 발생한 서버로 접속하던 클라이언트는 장애 상황을 감지하고, 자동으로 다른 서버로 접속해서 실행 중이던 명령(Statement)들을 처리할 수 있는데 이를 Fail-Over라고 한다.
 
-JDBC 애플리케이션에서 Fail-Over 기능을 사용하는 방법은 *Replication Manual* 의
-4장을 참고하기 바란다.
+JDBC 애플리케이션에서 Fail-Over 기능을 사용하는 방법은 *Replication Manual* 의 4장을 참고하기 바란다.
 
 2.기본 기능
 ---------
 
-Altibase JDBC 드라이버를 사용해서 데이터베이스의 객체를 다루는 기본 방법은 JDBC
-표준 인터페이스를 사용하는 방법과 다르지 않다.
+Altibase JDBC 드라이버를 사용해서 데이터베이스의 객체를 다루는 기본 방법은 JDBC 표준 인터페이스를 사용하는 방법과 다르지 않다.
 
-이 장에서는 IPv6 주소를 사용해서 데이터베이스 서버에 접속하는 방법과 JDBC 응용
-프로그램에서 사용할 수 있는 세 가지 Statement를 비교 설명한다.
+이 장에서는 IPv6 주소를 사용해서 데이터베이스 서버에 접속하는 방법과 JDBC 응용 프로그램에서 사용할 수 있는 세 가지 Statement를 비교 설명한다.
 
 ### IPv6 접속
 
-Altibase의 JDBC 드라이버는 JDBC URL에 IPv6 주소와 IPv6 주소로 바뀌어지는
-호스트명의 사용을 지원한다.
+Altibase의 JDBC 드라이버는 JDBC URL에 IPv6 주소와 IPv6 주소로 바뀌어지는 호스트명의 사용을 지원한다.
 
 #### 개요
 
-URL에 IPv6 주소를 명시하려면, 사각 괄호 (“[ ]”)로 주소를 에워싸야 한다. 예를
-들어 localhost를 IP주소로 지정할 때, IPv4 주소 127.0.0.1를 쓸 때는 괄호를
-사용하지 않는다. 반면 IPv6 주소 [::1]를 사용하려면 괄호를 반드시 사용해야 한다.
-IPv6 주소 표기법에 대한 자세한 설명은 *Administrator’s Manual*을 참고하기
-바란다.
+URL에 IPv6 주소를 명시하려면, 사각 괄호 (“[ ]”)로 주소를 에워싸야 한다. 예를 들어 localhost를 IP주소로 지정할 때, IPv4 주소 127.0.0.1를 쓸 때는 괄호를 사용하지 않는다. 반면 IPv6 주소 [::1]를 사용하려면 괄호를 반드시 사용해야 한다. IPv6 주소 표기법에 대한 자세한 설명은 *Administrator’s Manual*을 참고하기 바란다.
 
 #### 전제 조건
 
 ##### java.net.preferIPv4Stack
 
-IPv6 주소를 사용해서 접속하려면, 클라이언트 실행시 java.net.preferIPv4Stack
-속성을 FALSE로 지정해야 한다.
+IPv6 주소를 사용해서 접속하려면, 클라이언트 실행시 java.net.preferIPv4Stack 속성을 FALSE로 지정해야 한다.
 
-이 속성을 TRUE로 지정하면, 클라이언트 응용프로그램은 IPv6 주소를 사용해서
-데이터베이스 서버에 접속할 수 없다.
+이 속성을 TRUE로 지정하면, 클라이언트 응용프로그램은 IPv6 주소를 사용해서 데이터베이스 서버에 접속할 수 없다.
 
 ```
 $ java -Djava.net.preferIPv4Stack=false sample [::1]
@@ -1105,50 +1048,39 @@ $ java -Djava.net.preferIPv4Stack=false sample [::1]
 
 ##### java.net.preferIPv6Addresses
 
-java.net.preferIPv6Addresses 속성은 TRUE 또는 FALSE 어느 것을 지정하여도
-Altibase JDBC 드라이버에 아무런 영향을 주지 않는다.
+java.net.preferIPv6Addresses 속성은 TRUE 또는 FALSE 어느 것을 지정하여도 Altibase JDBC 드라이버에 아무런 영향을 주지 않는다.
 
 ##### PREFER_IPV6
 
-URL의 server_ip 속성에 호스트명을 입력하면, PREFER_IPV6 속성에 지정한 값에 따라
-JDBC 드라이버가 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다.
+URL의 server_ip 속성에 호스트명을 입력하면, PREFER_IPV6 속성에 지정한 값에 따라 JDBC 드라이버가 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다.
 
-이 속성이 TRUE이고 server_ip프로퍼티에 호스트명이 입력되면, 클라이언트
-응용프로그램은 먼저 호스트명을 IPv6주소로 바꾼다.
+이 속성이 TRUE이고 server_ip프로퍼티에 호스트명이 입력되면, 클라이언트 응용프로그램은 먼저 호스트명을 IPv6주소로 바꾼다.
 
-그러나 이 속성을 생략하거나 FALSE로 설정하면, 클라이언트 응용프로그램은 먼저
-호스트명을 IPv4주소로 바꾼다.
+그러나 이 속성을 생략하거나 FALSE로 설정하면, 클라이언트 응용프로그램은 먼저 호스트명을 IPv4주소로 바꾼다.
 
-클라이언트 응용프로그램이 처음 접속에 실패하면, 처음과 다른 버전의 IP 주소를
-사용해서 접속을 다시 시도할 것이다.
+클라이언트 응용프로그램이 처음 접속에 실패하면, 처음과 다른 버전의 IP 주소를 사용해서 접속을 다시 시도할 것이다.
 
 #### 사용법
 
 IPv6 포맷의 IP 주소의 경우 주소값 그대로 지정할 수 있다.
 
-호스트명을 JDBC 드라이버가 IPv4 주소로 변환할지 IPv6주소로 변환할 것인지는
-PREFER_IPV6 속성에 지정할 수 있다.
+호스트명을 JDBC 드라이버가 IPv4 주소로 변환할지 IPv6주소로 변환할 것인지는 PREFER_IPV6 속성에 지정할 수 있다.
 
-```
+```java
 Properties sProps = new Properties();
 ...
 sProps.put( "PREFER_IPV6", "FALSE");
 ```
 
-위와 같이 PREFER_IPV6 속성을 FALSE로 지정하면, JDBC 드라이버는 호스트명을 IPv4
-주소형으로 변환한다. 만약 PREFER_IPV6 속성이 TRUE이고 호스트명이 주어지면,
-클라이언트 응용프로그램은 먼저 호스트명을 IPv6주소로 바꾼다.
+위와 같이 PREFER_IPV6 속성을 FALSE로 지정하면, JDBC 드라이버는 호스트명을 IPv4 주소형으로 변환한다. 만약 PREFER_IPV6 속성이 TRUE이고 호스트명이 주어지면, 클라이언트 응용프로그램은 먼저 호스트명을 IPv6주소로 바꾼다.
 
-이 속성을 생략하거나 FALSE로 설정하면, 클라이언트 응용프로그램은 먼저 호스트명을
-IPv4주소로 바꾼다. JDBC드라이버의 기본 동작은 호스트명을 IPv4주소로 바꿔서
-시도하는 것이다.
+이 속성을 생략하거나 FALSE로 설정하면, 클라이언트 응용프로그램은 먼저 호스트명을 IPv4주소로 바꾼다. JDBC드라이버의 기본 동작은 호스트명을 IPv4주소로 바꿔서 시도하는 것이다.
 
-클라이언트 응용프로그램이 선호하는 버전의 IP주소를 사용해서 처음 접속에
-실패하면, 다른 버전의 IP주소를 사용해서 접속을 재시도한다.
+클라이언트 응용프로그램이 선호하는 버전의 IP주소를 사용해서 처음 접속에 실패하면, 다른 버전의 IP주소를 사용해서 접속을 재시도한다.
 
 #### 예제
 
-```
+```java
 Connection sCon = null;
 Properties sProps = new Properties();
  
@@ -1164,15 +1096,13 @@ Connection sCon = DriverManager.getConnection( sURL, sProps );
 
 ### Statement, PreparedStatement 및 CallableStatement
 
-JDBC에는 직접 SQL 구문 실행 여부 또는 SQL문에 IN/OUT 파라미터 사용 여부에 따라
-사용 가능한 명령문(Statement) 객체가 따로 존재한다. 아래는 각 Statement별
-PREPARE 가능 여부와 입/출력 파라미터 사용 가능 여부를 표로 나타낸 것이다.
+JDBC에는 직접 SQL 구문 실행 여부 또는 SQL문에 IN/OUT 파라미터 사용 여부에 따라 사용 가능한 명령문(Statement) 객체가 따로 존재한다. 아래는 각 Statement별 PREPARE 가능 여부와 입/출력 파라미터 사용 가능 여부를 표로 나타낸 것이다.
 
 |                   | PREPARE | IN 파라미터 | OUT 파라미터 |
-|-------------------|---------|-------------|--------------|
-| Statement         | X       | X           | X            |
-| PreparedStatement | O       | O           | X            |
-| CallableStatement | O       | O           | O            |
+| ----------------- | :-----: | :---------: | :----------: |
+| Statement         |    X    |      X      |      X       |
+| PreparedStatement |    O    |      O      |      X       |
+| CallableStatement |    O    |      O      |      O       |
 
 
 
@@ -1184,23 +1114,17 @@ Statement는 정적인 SQL문을 직접 수행할 때 주로 사용된다.
 
 #### PreparedStatement
 
-PreparedStatement는 SQL구문을 먼저 준비(PREPARE)해 두고, 수행하고자 할 때 주로
-사용된다. 같은 구문을 여러 번 수행할 때, Statement 대신 PreparedStatement를
-사용하면 성능 향상을 기대할 수 있다.
+PreparedStatement는 SQL구문을 먼저 준비(PREPARE)해 두고, 수행하고자 할 때 주로 사용된다. 같은 구문을 여러 번 수행할 때, Statement 대신 PreparedStatement를 사용하면 성능 향상을 기대할 수 있다.
 
-Altibase JDBC 드라이버는 PreparedStatement 객체가 생성될 때 서버에서 구문을
-PREPARE할 것을 지시한다. 이 때 서버가 PREPARE에 실패하면 에러를 반환하고, JDBC
-드라이버는 예외를 던진다.
+Altibase JDBC 드라이버는 PreparedStatement 객체가 생성될 때 서버에서 구문을 PREPARE할 것을 지시한다. 이 때 서버가 PREPARE에 실패하면 에러를 반환하고, JDBC 드라이버는 예외를 던진다.
 
-PreparedStatement의 경우 Statement와 달리 입력 파라미터를 사용할 수 있다.
-파라미터는 SQL문 내에서 "?" 문자로 나타내며, setXXX() 메소드를 이용해서 값을
-설정할 수 있다.
+PreparedStatement의 경우 Statement와 달리 입력 파라미터를 사용할 수 있다. 파라미터는 SQL문 내에서 "?" 문자로 나타내며, setXXX() 메소드를 이용해서 값을 설정할 수 있다.
 
 ##### 예제
 
 아래는 IN 파라미터와 함께 PreparedStatement를 사용하는 코드 예제이다.
 
-```
+```java
 PreparedStatement sPrepStmt = sConn.prepareCall("INSERT INTO t1 VALUES (?, ?)");
 sPrepStmt.setInt(1, 1);
 sPrepStmt.setString(2, "string-value");
@@ -1212,15 +1136,13 @@ sPrepStmt.close();
 
 #### CallableStatement
 
-CallableStatement는 입력 또는 출력 파라미터를 함께 사용할 수 있다.
-CallableStatement는 저장 프로시저 또는 저장 함수 호출에 주로 사용된다.
+CallableStatement는 입력 또는 출력 파라미터를 함께 사용할 수 있다. CallableStatement는 저장 프로시저 또는 저장 함수 호출에 주로 사용된다.
 
 ##### 예제
 
-아래는 입력 파라미터와 출력 파라미터를 함께 CallableStatement를 사용하는 코드
-예제이다.
+아래는 입력 파라미터와 출력 파라미터를 함께 CallableStatement를 사용하는 코드 예제이다.
 
-```
+```java
 CallableStatement sCallStmt = Connection.prepareCall(("{call p1(?,?)}");
 sCallStmt.setInt(1, 1);
 sCallStmt.registerOutParameter(2, Types.VARCHAR);
@@ -1236,27 +1158,22 @@ sCallStmt.close();
 
 ### 내셔널 캐릭터 셋 사용 
 
-여기에서는 JDBC에서 NCHAR 및 NVARCHAR 타입 같은 유니코드 타입에 내셔널 캐릭터
-문자열을 사용하는 방법을 설명한다.
+여기에서는 JDBC에서 NCHAR 및 NVARCHAR 타입 같은 유니코드 타입에 내셔널 캐릭터 문자열을 사용하는 방법을 설명한다.
 
 #### 데이터 조회 및 변경
 
-JDBC를 이용하여 NCHAR, NVARCHAR 타입의 데이터를 조회 및 변경하는 방법은 CHAR,
-VARCHAR 타입과 동일하다. 즉 CHAR 타입에서 사용했던 getString, setString 등의
-메소드를 그대로 사용하면 된다.
+JDBC를 이용하여 NCHAR, NVARCHAR 타입의 데이터를 조회 및 변경하는 방법은 CHAR, VARCHAR 타입과 동일하다. 즉 CHAR 타입에서 사용했던 getString, setString 등의 메소드를 그대로 사용하면 된다.
 
 #### 상수 문자열 사용
 
 SQL 구문에서 내셔널 캐릭터를 가지는 상수 문자열을 사용하는 방법은 다음과 같다.
 
--   서버와 연결할 때 NcharLiteralReplace 속성을 true로 설정한다.
-
--   내셔널 캐릭터의 문자열을 SQL 구문에서 상수 문자열로 사용하기 위해서는 해당
-    문자열 바로 앞에 ‘N’을 붙인다.
+- 서버와 연결할 때 NcharLiteralReplace 속성을 true로 설정한다.
+- 내셔널 캐릭터의 문자열을 SQL 구문에서 상수 문자열로 사용하기 위해서는 해당 문자열 바로 앞에 ‘N’을 붙인다.
 
 ##### 예제
 
-```
+```java
 // create table t1 (c1 nvarchar(1000)); 
 Properties sProps; 
 sProps.put( "user", "SYS"); 
@@ -1279,25 +1196,19 @@ ResultSet sRS = sStmt.executeQuery( "select * from t1 where c1 like N'%가나%'"
 
 ### 자동 생성 키
 
-자동 생성 키(Auto-generated Keys)란 테이블의 각 행을 유일하게 가리킬 수 있는
-값으로, 데이터베이스에서 자동으로 생성된다.
+자동 생성 키(Auto-generated Keys)란 테이블의 각 행을 유일하게 가리킬 수 있는 값으로, 데이터베이스에서 자동으로 생성된다.
 
-Altibase에서는 시퀀스(sequence)로 자동 생성 키 역할을 할 수 있다. 이 절에서는
-JDBC에서 자동 생성 키 값을 얻는 방법을 설명한다.
+Altibase에서는 시퀀스(sequence)로 자동 생성 키 역할을 할 수 있다. 이 절에서는 JDBC에서 자동 생성 키 값을 얻는 방법을 설명한다.
 
 #### 사용법
 
-자동 생성 키를 얻기 위해서 먼저 어떤 칼럼에 대해 자동 생성된 키를 얻을 것인지를
-명시하는 메소드를 사용해서 Statement 객체를 실행한다. 그리고 getGeneratedKeys()
-메소드로 자동 생성된 키의 결과셋을 가져올 수 있다.
+자동 생성 키를 얻기 위해서 먼저 어떤 칼럼에 대해 자동 생성된 키를 얻을 것인지를 명시하는 메소드를 사용해서 Statement 객체를 실행한다. 그리고 getGeneratedKeys() 메소드로 자동 생성된 키의 결과셋을 가져올 수 있다.
 
-또는 어떤 칼럼이 자동 생성된 키 값을 얻을 것인지를 명시하는 메소드를 사용해서
-PreparedStatement 객체를 생성하고 실행한 다음, getGeneratedKeys() 메소드로 자동
-생성된 키의 결과셋을 가져올 수 있다.
+또는 어떤 칼럼이 자동 생성된 키 값을 얻을 것인지를 명시하는 메소드를 사용해서 PreparedStatement 객체를 생성하고 실행한 다음, getGeneratedKeys() 메소드로 자동 생성된 키의 결과셋을 가져올 수 있다.
 
 다음은 자동으로 생성된 키를 가져올 수 있는 SQL문을 실행하는 Statement의 메소드들이다.
 
-```
+```java
 public boolean execute(String aSql, int aAutoGeneratedKeys) throws SQLException; 
 public boolean execute(String aSql, int[] aColumnIndexes) throws SQLException; 
 public boolean execute(String aSql, String[] aColumnNames) throws SQLException;
@@ -1305,7 +1216,7 @@ public boolean execute(String aSql, String[] aColumnNames) throws SQLException;
 
 다음은 자동으로 생성된 키를 가져올 수 있는 PreparedStatement 객체를 생성하는 Connection의 메소드들이다.
 
-```
+```java
 public PreparedStatement prepareStatement(String aSql, int aAutoGeneratedKeys) throws SQLException; 
 public PreparedStatement prepareStatement(String aSql, int[] aColumnIndexes) throws SQLException; 
 public PreparedStatement prepareStatement(String aSql, String[] aColumnNames) throws SQLException;
@@ -1313,7 +1224,7 @@ public PreparedStatement prepareStatement(String aSql, String[] aColumnNames) th
 
 위의 두 가지 방법 중 하나를 사용해서 SQL문을 실행한 후, Statement의 아래 메소드를 이용해서 자동 생성된 키를 ResultSet 객체로 얻을 수 있다.
 
-```
+```java
 public ResultSet getGeneratedKeys() throws SQLException;
 ```
 
@@ -1323,10 +1234,8 @@ public ResultSet getGeneratedKeys() throws SQLException;
 
 Altibase에서 자동으로 생성된 키를 얻을 때 아래의 제약 사항이 있다.
 
--   단순 INSERT 문에 대해서만 지원한다.
-
--   Altibase는 AUTO INCREMENT 속성의 칼럼을 지원하지 않기 때문에, 오직
-    시퀀스로부터만 자동 생성 키를 얻을 수 있다.
+- 단순 INSERT 문에 대해서만 지원한다.
+- Altibase는 AUTO INCREMENT 속성의 칼럼을 지원하지 않기 때문에, 오직 시퀀스로부터만 자동 생성 키를 얻을 수 있다.
 
 다음은 자동 생성 키를 얻을 수 있는 SQL문의 예제이다.
 
@@ -1347,7 +1256,7 @@ EXEC p1;
 
 #### 예제
 
-```
+```java
 sStmt.executeUpdate(sQstr, Statement.RETURN_GENERATED_KEYS);
 ResultSet sKeys = sStmt.getGeneratedKeys();
 while (sKeys.next())
@@ -1364,33 +1273,29 @@ sStmt.close();
 
 ### 타임아웃
 
-이 절에서는 Altibase 서버와 연결된 클라이언트 세션에서 발생할 수 있는 타임아웃을
-설명하고, 타임아웃과 관련된 프로퍼티를 설정하는 방법을 코드 예제로 보여준다.
+이 절에서는 Altibase 서버와 연결된 클라이언트 세션에서 발생할 수 있는 타임아웃을 설명하고, 타임아웃과 관련된 프로퍼티를 설정하는 방법을 코드 예제로 보여준다.
 
 #### 로그인 타임아웃
 
-Connection 객체의 connect 메소드를 호출한 후, 서버로부터 응답을 받을 때까지
-대기하는 최대 시간을 초과할 때 발생하는 타임아웃이다. 대기하는 최대 시간을
-설정하는 속성은 login_timeout이며, 설정 값의 단위는 초(second)이다.
+Connection 객체의 connect 메소드를 호출한 후, 서버로부터 응답을 받을 때까지 대기하는 최대 시간을 초과할 때 발생하는 타임아웃이다. 대기하는 최대 시간을 설정하는 속성은 login_timeout이며, 설정 값의 단위는 초(second)이다.
 
 ##### 코드 예제
 
 아래는 속성을 설정하는 두 가지 방법을 코드 예제로 보여준다.
 
-1. 타임아웃 속성을 추가한 Properties 객체를 사용해서 Connection 객체를
-   생성한다.
-
-   ```
+1. 타임아웃 속성을 추가한 Properties 객체를 사용해서 Connection 객체를 생성한다.
+   
+   ```java
    Properties sProps = new Properties();
    ...
    sProps("login_timeout", "100");
    ...
    Connection sCon = DriverManager.getConnection( sUrl, sProps );
    ```
-
+   
 2. 타임아웃 속성을 명시한 연결 URL을 사용해서 Connection 객체를 생성한다.
 
-   ```
+   ```java
    String sUrl = "jdbc:Altibase://localhost:20300/mydb?login_timeout=100";
    Connection sCon = DriverManager.getConnection( sUrl );
    ```
@@ -1398,9 +1303,7 @@ Connection 객체의 connect 메소드를 호출한 후, 서버로부터 응답�
 
 #### 응답 타임아웃
 
-Altibase 서버로부터 응답을 기다리는 최대 시간을 초과할 때 발생하는 타임아웃이다.
-대기하는 최대 시간을 설정하는 속성은 response_timeout이며, 설정 값의 단위는
-초(second)이다.
+Altibase 서버로부터 응답을 기다리는 최대 시간을 초과할 때 발생하는 타임아웃이다. 대기하는 최대 시간을 설정하는 속성은 response_timeout이며, 설정 값의 단위는 초(second)이다.
 
 이 값은 서버와 통신하는 모든 메소드 호출에 적용된다.
 
@@ -1408,20 +1311,19 @@ Altibase 서버로부터 응답을 기다리는 최대 시간을 초과할 때 �
 
 아래는 응답 타임아웃의 속성을 설정하는 방법을 코드 예제로 보여준다.
 
-1. 타임아웃 속성을 추가한 Properties 객체를 사용해서 Connection 객체를
-   생성한다.
-
-   ```
+1. 타임아웃 속성을 추가한 Properties 객체를 사용해서 Connection 객체를 생성한다.
+   
+   ```java
    Properties sProps = new Properties();
    ...
    sProps("response_timeout", "100");
    ...
    Connection sCon = DriverManager.getConnection( sUrl, sProps );
    ```
-
+   
 2. 타임아웃 속성을 명시한 연결 URL을 사용해서 Connection 객체를 생성한다.
 
-   ```
+   ```java
    String sUrl = "jdbc:Altibase://localhost:20300/mydb?response_timeout=100";
    Connection sCon = DriverManager.getConnection( sUrl );
    ```
@@ -1442,15 +1344,13 @@ Altibase 서버로부터 응답을 기다리는 최대 시간을 초과할 때 �
 
 ### DataSource
 
-Altibase JDBC 드라이버는 연결 설정을 담고 있는 파일을 사용해서 데이터베이스에
-접속하는 방법을 제공한다. 이 때 설정 파일에 포함되어 있는 데이터베이스 서버로의
-연결 정보들의 집합을 DataSource라고 한다.
+Altibase JDBC 드라이버는 연결 설정을 담고 있는 파일을 사용해서 데이터베이스에 접속하는 방법을 제공한다. 이 때 설정 파일에 포함되어 있는 데이터베이스 서버로의 연결 정보들의 집합을 DataSource라고 한다.
 
 #### DataSource 설정 방법
 
 DataSource는 altibase_cli.ini 파일에 아래의 형식으로 설정한다.
 
-```
+```ini
 # comment
  
 [ datasource_name ]
@@ -1460,8 +1360,7 @@ User=sys
 Password=manager
 ```
 
-만약 더 추가할 연결 속성이 있다면, “*key*=*value*” 형태의 문자열을 줄 단위로
-적으면 된다.
+만약 더 추가할 연결 속성이 있다면, “*key*=*value*” 형태의 문자열을 줄 단위로 적으면 된다.
 
 JDBC 드라이버는 아래 순서의 경로대로 altibase_cli.ini 파일을 찾는다.
 
@@ -1473,12 +1372,11 @@ JDBC 드라이버는 아래 순서의 경로대로 altibase_cli.ini 파일을 �
 
 #### DataSource를 이용한 접속
 
-DataSource를 사용해서 서버에 접속하려면, IP 주소와 포트 번호 대신에
-altibase_cli.ini 파일에 명시한 DSN(DataSource Name)을 연결 URL에 명시하면 된다.
+DataSource를 사용해서 서버에 접속하려면, IP 주소와 포트 번호 대신에 altibase_cli.ini 파일에 명시한 DSN(DataSource Name)을 연결 URL에 명시하면 된다.
 
 다음은 DSN을 이용한 연결 URL의 예제이다.
 
-```
+```java
 jdbc:Altibase://datasource_name
 jdbc:Altibase://datasource_name:20301
 jdbc:Altibase://datasource_name:20301?sys=user&password=pwd
@@ -1490,9 +1388,7 @@ jdbc:Altibase://datasource_name:20301?sys=user&password=pwd
 
 다음의 방법으로 연결 풀 (Connection Pool)을 설정하고 관리할 수 있다.
 
--   AltibaseConnectionPoolDataSource 사용: WAS에서 연결 풀을 사용할 때, 이
-    클래스를 WAS의 JDBC연결 풀 설정에서 지정한다. 6.3.1 버전 이하의 Altibase
-    JDBC 드라이버에서 이 클래스의 이름은 ABConnectionPoolDataSource였다.
+-   AltibaseConnectionPoolDataSource 사용: WAS에서 연결 풀을 사용할 때, 이 클래스를 WAS의 JDBC연결 풀 설정에서 지정한다. 6.3.1 버전 이하의 Altibase JDBC 드라이버에서 이 클래스의 이름은 ABConnectionPoolDataSource였다.
 
 AltibaseConnectionPoolDataSource에서 설정하는 속성 정보는 아래와 같다.
 
@@ -1516,7 +1412,7 @@ Altibase는 아래의 웹 애플리케이션 서버와 함께 사용할 수 있�
 
   - Code example
 
-    ```
+    ```java
     Context initContext = new InitialContext();
     Context envContext  = (Context)initContext.lookup("java:/comp/env");
     DataSource ds = (DataSource)envContext.lookup("jdbc/altihdb");
@@ -1528,19 +1424,17 @@ Altibase는 아래의 웹 애플리케이션 서버와 함께 사용할 수 있�
 
 -   Jeus 6.x
 
-웹 애플리케이션 서버에서 JDBC 드라이버와 연결 풀을 설정하고 사용하는 방법에
-대해서는 각각의 제품별 매뉴얼을 참조하기 바란다.
+웹 애플리케이션 서버에서 JDBC 드라이버와 연결 풀을 설정하고 사용하는 방법에 대해서는 각각의 제품별 매뉴얼을 참조하기 바란다.
 
 ##### Tomcat 8.x
 
-Apache Tomcat의 설치 및 설정 방법에 대한 자세한 내용은
-<http://tomcat.apache.org/tomcat-8.0-doc/index.html>를 참조하기 바란다.
+Apache Tomcat의 설치 및 설정 방법에 대한 자세한 내용은 <http://tomcat.apache.org/tomcat-8.0-doc/index.html>를 참조하기 바란다.
 
 ###### Context configuration
 
 아래와 같이 Context에 JNDI DataSource를 추가한다.
 
-```
+```java
 <Context>
 
     
@@ -1557,7 +1451,7 @@ Apache Tomcat의 설치 및 설정 방법에 대한 자세한 내용은
 
 ###### web.xml configuration
 
-```
+```xml
 <!----- web.xml ----->
 <resource-ref>
  <description>Altibase Datasource example</description>
@@ -1571,7 +1465,7 @@ Apache Tomcat의 설치 및 설정 방법에 대한 자세한 내용은
 
 ###### Code example
 
-```
+```javascript
 Context initContext = new InitialContext();
 Context envContext  = (Context)initContext.lookup("java:/comp/env");
 DataSource ds = (DataSource)envContext.lookup("jdbc/altihdb");
@@ -1604,7 +1498,7 @@ Altibase를 위한 설정 옵션은 아래와 같다.
 
 \$JEUS_HOME/config/JeusMain.xml 파일의 \<data-source\> 요소를 편집하여 연결 풀을 설정한다.
 
-```
+```xml
 <!------ JeusMain.xml ----->
 <resource>
     <data-source>
@@ -1655,13 +1549,11 @@ Altibase를 위한 설정 옵션은 아래와 같다.
 
 ### Multiple ResultSet
 
-Altibase용 PSM(저장 프로시저 및 저장 함수)은 여러 개의 결과셋을 클라이언트에
-반환할 수 있다. 이 절에서는 여러 개의 결과셋을 반환하는 PSM의 예제를 가지고,
-JDBC 애플리케이션에서 이러한 결과셋들을 다루는 방법을 코드 예제로 살펴본다.
+Altibase용 PSM(저장 프로시저 및 저장 함수)은 여러 개의 결과셋을 클라이언트에 반환할 수 있다. 이 절에서는 여러 개의 결과셋을 반환하는 PSM의 예제를 가지고, JDBC 애플리케이션에서 이러한 결과셋들을 다루는 방법을 코드 예제로 살펴본다.
 
 다음은 여러 개의 결과셋을 반환하는 PSM 예제이다.
 
-```
+```java
 CREATE TYPESET my_type
 AS
     TYPE my_cur IS REF CURSOR;
@@ -1675,10 +1567,9 @@ BEGIN
 END;
 ```
 
-다음은 JDBC 애플리케이션에서 PSM 호출로 반환된 여러 개의 결과셋들을 다루는 코드
-예제이다.
+다음은 JDBC 애플리케이션에서 PSM 호출로 반환된 여러 개의 결과셋들을 다루는 코드 예제이다.
 
-```
+```java
 CallableStatement sCallStmt = Connection.prepareCall("{call p1()}");
 sCallStmt.execute();
 ResultSet sRs = null;
@@ -1712,23 +1603,16 @@ sCallStmt.close();
 
 #### Failover란
 
-Failover란 데이터베이스 서버에 장애가 발생하여 연결이 끊어졌을 때,
-애플리케이션이 즉시 다른 서버로 연결을 생성하여 기존에 수행하던 작업을 계속하는
-기능을 말한다.
+Failover란 데이터베이스 서버에 장애가 발생하여 연결이 끊어졌을 때, 애플리케이션이 즉시 다른 서버로 연결을 생성하여 기존에 수행하던 작업을 계속하는 기능을 말한다.
 
 Failover는 아래 두 가지 방식으로 동작할 수 있다.
 
--   CTF(Connection Time Failover)  
-    데이터베이스로의 접속 시도를 실패한 경우, 다른 서버로 접속을 재시도하는 동작
-    방식이다. CTF는 Connection 객체의 connect 메소드를 호출할 때 발생할 수 있다.
+- CTF(Connection Time Failover)
+  데이터베이스로의 접속 시도를 실패한 경우, 다른 서버로 접속을 재시도하는 동작 방식이다. CTF는 Connection 객체의 connect 메소드를 호출할 때 발생할 수 있다.
+- STF(Session Time Failover)
+  SQL문을 수행하여 서버로부터 결과를 받기 전에 연결 오류가 발생한 경우, 다른 서버로 접속하여 사용자가 지정한 작업을 계속하는 동작 방식이다. STF는 connect를 제외한 서버와 통신을 하는 모든 메소드 수행 시에 발생할 수 있다.
 
--   STF(Session Time Failover)  
-    SQL문을 수행하여 서버로부터 결과를 받기 전에 연결 오류가 발생한 경우, 다른
-    서버로 접속하여 사용자가 지정한 작업을 계속하는 동작 방식이다. STF는
-    connect를 제외한 서버와 통신을 하는 모든 메소드 수행 시에 발생할 수 있다.
-
-Failover에 대한 자세한 내용은 *Replication Manual*의 “Failover”장을 참고하도록
-한다.
+Failover에 대한 자세한 내용은 *Replication Manual*의 “Failover”장을 참고하도록 한다.
 
 #### 사용 방법
 
@@ -1738,7 +1622,7 @@ Failover에 대한 자세한 내용은 *Replication Manual*의 “Failover”장
 
 Properties 객체에 아래의 속성을 추가해서 CTF 기능을 사용할 수 있다.
 
-```
+```java
 Properties sProps = new Properties();
 sProps.put("alternateservers", "database1:20300, database2:20300");
 sProps.put("connectionretrycount", "5");
@@ -1750,18 +1634,13 @@ sProps.put("sessionfailover", "off");
 
 ##### STF
 
-CTF 기능을 설정하는 속성에 추가로 "SessionFailover=on"을 설정해서 STF 기능을
-사용할 수 있다.
+CTF 기능을 설정하는 속성에 추가로 "SessionFailover=on"을 설정해서 STF 기능을 사용할 수 있다.
 
-데이터베이스 서버로 접속을 시도하는 것을 제외한 통신 상황에서, 클라이언트가
-서버의 장애를 감지하면 먼저 CTF 과정을 수행하여 접속을 복원한다. 그 다음,
-클라이언트는 사용자가 등록한 콜백 함수를 수행한 후에, 사용자가 Failover 발생을
-인지할 수 있도록 Failover Success Exception을 발생시킨다. 이 때 모든 서버로
-Failover가 실패하면 드라이버는 원래 발생했던 Exception을 던진다.
+데이터베이스 서버로 접속을 시도하는 것을 제외한 통신 상황에서, 클라이언트가 서버의 장애를 감지하면 먼저 CTF 과정을 수행하여 접속을 복원한다. 그 다음, 클라이언트는 사용자가 등록한 콜백 함수를 수행한 후에, 사용자가 Failover 발생을 인지할 수 있도록 Failover Success Exception을 발생시킨다. 이 때 모든 서버로 Failover가 실패하면 드라이버는 원래 발생했던 Exception을 던진다.
 
 아래는 사용자가 작성해야 할 Failover 콜백 함수를 위한 인터페이스이다.
 
-```
+```java
 public interface AltibaseFailoverCallback
 {
     public final static class Event
@@ -1781,10 +1660,9 @@ public interface AltibaseFailoverCallback
 };
 ```
 
-다음은 사용자가 Failover 콜백 함수를 등록하고 해제하는 과정을 보여주는 코드
-예제이다.
+다음은 사용자가 Failover 콜백 함수를 등록하고 해제하는 과정을 보여주는 코드 예제이다.
 
-```
+```java
 public class  UserDefinedFailoverCallback implements AltibaseFailoverCallback
 {
     ...
@@ -1801,9 +1679,7 @@ public class  UserDefinedFailoverCallback implements AltibaseFailoverCallback
 }
 ```
 
-위의 AltibaseFailoverCallback 인터페이스에 포함된 Event 상수는 사용자가 작성한
-Failover 콜백 함수가 JDBC 드라이버에 의해 호출될 때, 콜백 함수의 세 번째 인자인
-aFailoverEvent로 전달된다. 각 Event 상수의 의미는 다음과 같다.
+위의 AltibaseFailoverCallback 인터페이스에 포함된 Event 상수는 사용자가 작성한 Failover 콜백 함수가 JDBC 드라이버에 의해 호출될 때, 콜백 함수의 세 번째 인자인 aFailoverEvent로 전달된다. 각 Event 상수의 의미는 다음과 같다.
 
 -   Event.BEGIN: Session Failover가 시작됨
 
@@ -1811,33 +1687,23 @@ aFailoverEvent로 전달된다. 각 Event 상수의 의미는 다음과 같다.
 
 -   Event.ABORT: Session Failover가 실패하였음
 
-AltibaseFailoverCallback 인터페이스에 포함된 Result 상수는 사용자가 작성하는
-콜백 함수에서 반환할 수 있는 값들이다. 콜백 함수에서 Result 상수 이외의 값을
-반환하면 Failover가 정상적으로 동작하지 않는다.
+AltibaseFailoverCallback 인터페이스에 포함된 Result 상수는 사용자가 작성하는 콜백 함수에서 반환할 수 있는 값들이다. 콜백 함수에서 Result 상수 이외의 값을 반환하면 Failover가 정상적으로 동작하지 않는다.
 
--   Result.GO: 콜백 함수에서 이 상수값이 반환되면, JDBC 드라이버는 STF의 다음
-    과정을 계속해서 진행한다.
+-   Result.GO: 콜백 함수에서 이 상수값이 반환되면, JDBC 드라이버는 STF의 다음 과정을 계속해서 진행한다.
+-   Result.QUIT: 콜백 함수에서 이 상수값이 반환되면, JDBC 드라이버는 STF 과정을 종료한다.
 
--   Result.QUIT: 콜백 함수에서 이 상수값이 반환되면, JDBC 드라이버는 STF 과정을
-    종료한다.
+다음은 사용자가 작성하는 Failover 콜백 함수의 두 번째 인자로 사용할 수 있는 객체의 코드 예제이다.
 
-다음은 사용자가 작성하는 Failover 콜백 함수의 두 번째 인자로 사용할 수 있는
-객체의 코드 예제이다.
-
-```
+```java
 public class UserDefinedAppContext
 {
     // User Defined Code
 }
 ```
 
-사용자가 구현한 애플리케이션의 정보를 STF 과정에서 사용할 필요가 있는 경우,
-Failover 콜백 함수를 등록하면서 콜백 함수에 전달될 객체를 지정할 수 있다. 콜백
-함수를 등록하는 registerFailoverCallback 메소드의 두 번째 인자로 이 객체를
-지정하면, 실제로 콜백 함수가 호출될 때 이 객체가 전달된다. 다음은 이런 과정을
-코드로 나타낸 예제이다.
+사용자가 구현한 애플리케이션의 정보를 STF 과정에서 사용할 필요가 있는 경우, Failover 콜백 함수를 등록하면서 콜백 함수에 전달될 객체를 지정할 수 있다. 콜백 함수를 등록하는 registerFailoverCallback 메소드의 두 번째 인자로 이 객체를 지정하면, 실제로 콜백 함수가 호출될 때 이 객체가 전달된다. 다음은 이런 과정을 코드로 나타낸 예제이다.
 
-```
+```java
 // 사용자 정의 콜백 함수 객체 생성
 UserDefinedFailoverCallback sCallback = new UserDefinedFailoverCallback();
 // 사용자 정의 애플리케이션 정보 객체 생성
@@ -1862,10 +1728,9 @@ Connection sCon = DriverManager.getConnection(sURL, sProp);
 
 STF를 위한 콜백 함수를 구현하는 코드 예제이다.
 
-아래의 예제는 여러 가지 경우를 무시한 단순 코드이므로, 사용자 애플리케이션에서
-그대로 사용할 수 없음을 주의해야 한다.
+아래의 예제는 여러 가지 경우를 무시한 단순 코드이므로, 사용자 애플리케이션에서 그대로 사용할 수 없음을 주의해야 한다.
 
-```
+```java
 public class MyFailoverCallback implements AltibaseFailoverCallback
 {
     public int failoverCallback(Connection aConnection, Object aAppContext,int aFailoverEvent)
@@ -1928,12 +1793,9 @@ public class MyFailoverCallback implements AltibaseFailoverCallback
 }
 ```
 
-다음은 STF 성공 여부를 확인하는 코드 예제이다. STF가 성공했는지 실패했는지를
-판단하는 방법은 SQLException의 ErrorCode가 Validation.FAILOVER_SUCCESS와
-일치하는지 확인하는 것이다. while loop 내에 Failover 검증 코드를 삽입한 이유는
-Failover가 성공하더라도 이전에 수행중이던 작업은 다시 수행해야 하기 때문이다.
+다음은 STF 성공 여부를 확인하는 코드 예제이다. STF가 성공했는지 실패했는지를 판단하는 방법은 SQLException의 ErrorCode가 Validation.FAILOVER_SUCCESS와 일치하는지 확인하는 것이다. while loop 내에 Failover 검증 코드를 삽입한 이유는 Failover가 성공하더라도 이전에 수행중이던 작업은 다시 수행해야 하기 때문이다.
 
-```
+```java
 // 반드시 수행하려던 작업을 재수행할 수 있도록 구현해야 한다.
 // 이 경우에는 while loop를 사용하였다.
 while (true)
@@ -1965,12 +1827,9 @@ while (true)
 
 ### JDBC Escapes
 
-JDBC 스펙은 데이터베이스 제품들에 대해 벤더 특유의 SQL 문법을 JDBC
-애플리케이션이 인식할 수 있도록 escape 문법을 제공한다. 즉, escape 문법이 포함된
-SQL문에 대해서는 JDBC 드라이버가 자신의 데이터베이스에 맞는 SQL문으로 변환한다.
+JDBC 스펙은 데이터베이스 제품들에 대해 벤더 특유의 SQL 문법을 JDBC 애플리케이션이 인식할 수 있도록 escape 문법을 제공한다. 즉, escape 문법이 포함된 SQL문에 대해서는 JDBC 드라이버가 자신의 데이터베이스에 맞는 SQL문으로 변환한다.
 
-아래는 JDBC 스펙에서 지원하는 escape가 포함된 SQL문과 Altibase JDBC 드라이버가
-이것을 Altibase용으로 변환한 SQL문을 정리한 표이다.
+아래는 JDBC 스펙에서 지원하는 escape가 포함된 SQL문과 Altibase JDBC 드라이버가 이것을 Altibase용으로 변환한 SQL문을 정리한 표이다.
 
 <table>
 <tbody>
@@ -2077,17 +1936,15 @@ SQL문에 대해서는 JDBC 드라이버가 자신의 데이터베이스에 맞�
 
 ### ResultSet 사용하기
 
-이 절은 Altibase JDBC 드라이버가 지원하는 ResultSet의 유형과 그 사용법을
-설명한다.
+이 절은 Altibase JDBC 드라이버가 지원하는 ResultSet의 유형과 그 사용법을 설명한다.
 
 #### ResultSet 생성
 
-결과셋은 데이터베이스에 대해 쿼리문을 실행할 때 생성되며, JDBC의 ResultSet
-객체에 대응한다.
+결과셋은 데이터베이스에 대해 쿼리문을 실행할 때 생성되며, JDBC의 ResultSet 객체에 대응한다.
 
 다음은 JDBC에서 ResultSet 객체를 생성하는 메소드들이다.
 
-```
+```java
 public Statement createStatement(int aResultSetType, int aResultSetConcurrency) throws SQLException;
  
 public Statement createStatement(int aResultSetType, int aResultSetConcurrency, int aResultSetHoldability) throws SQLException;
@@ -2105,97 +1962,70 @@ public CallableStatement prepareCall(String aSql, int aResultSetType, int aResul
 
 #### ResultSet의 유형
 
-JDBC의 ResultSet 객체는 결과셋 내에서 현재 형을 가리키는 커서를 관리하고
-유지한다. 기본적인 ResultSet 객체의 커서는 업데이트가 불가능하고 순방향으로만
-이동하는 커서이지만, 옵션을 사용해서 스크롤 가능하고 업데이트 가능한 ResultSet
-객체를 생성할 수 있다.
+JDBC의 ResultSet 객체는 결과셋 내에서 현재 형을 가리키는 커서를 관리하고 유지한다. 기본적인 ResultSet 객체의 커서는 업데이트가 불가능하고 순방향으로만 이동하는 커서이지만, 옵션을 사용해서 스크롤 가능하고 업데이트 가능한 ResultSet 객체를 생성할 수 있다.
 
 다음은 사용자가 지정 가능한 ResultSet 객체의 유형이다.
 
--   TYPE_FORWARD_ONLY  
-    스크롤이 불가능하며, 커서를 순방향으로만 이동할 수 있다. 데이터베이스
-    서버에서 커서가 열리는 시점에 결과셋의 데이터가 결정된다.
-
--   TYPE_SCROLL_INSENSITIVE  
-    스크롤이 가능하므로, 커서를 순방향, 역방향, 또는 위치를 지정해서 이동할 수
-    있다. 데이터베이스 서버에서 커서가 열리는 시점에 결과셋의 데이터가 결정된다.
-    서버에서 가져온 결과셋을 클라이언트에 누적해서 캐시하므로 메모리 사용량이
-    증가할 수 있다.
-
--   TYPE_SCROLL_SENSITIVE  
-    스크롤이 가능하므로, 커서를 순방향, 역방향, 또는 위치를 지정해서 이동할 수
-    있다. 데이터베이스 서버에서 커서가 열리는 시점에 결과셋이 결정되지만, 결과셋
-    내의 데이터는 클라이언트가 가져오거나 갱신하는 시점에 결정된다.
-    서버에서 가져온 결과셋을 클라이언트에 누적해서 캐시하므로 메모리 사용량이
-    증가할 수 있다.
+- TYPE_FORWARD_ONLY
+  스크롤이 불가능하며, 커서를 순방향으로만 이동할 수 있다. 데이터베이스 서버에서 커서가 열리는 시점에 결과셋의 데이터가 결정된다.
+- TYPE_SCROLL_INSENSITIVE
+  스크롤이 가능하므로, 커서를 순방향, 역방향, 또는 위치를 지정해서 이동할 수 있다. 데이터베이스 서버에서 커서가 열리는 시점에 결과셋의 데이터가 결정된다. 서버에서 가져온 결과셋을 클라이언트에 누적해서 캐시하므로 메모리 사용량이 증가할 수 있다.
+- TYPE_SCROLL_SENSITIVE
+  스크롤이 가능하므로, 커서를 순방향, 역방향, 또는 위치를 지정해서 이동할 수 있다. 데이터베이스 서버에서 커서가 열리는 시점에 결과셋이 결정되지만, 결과셋 내의 데이터는 클라이언트가 가져오거나 갱신하는 시점에 결정된다. 서버에서 가져온 결과셋을 클라이언트에 누적해서 캐시하므로 메모리 사용량이 증가할 수 있다.
 
 #### Concurrency
 
-ResultSet 객체를 통한 업데이트 허용 여부를 결정하는 옵션이다. 아래의 두 가지
-상수 중 하나를 사용할 수 있다.
+ResultSet 객체를 통한 업데이트 허용 여부를 결정하는 옵션이다. 아래의 두 가지 상수 중 하나를 사용할 수 있다.
 
--   CONCUR_READ_ONLY  
-    업데이트를 허용하지 않는다. 기본값이다.
-
--   CONCUR_UPDATABLE  
-    ResultSet 객체를 이용한 업데이트를 허용한다.
+- CONCUR_READ_ONLY
+  업데이트를 허용하지 않는다. 기본값이다.
+- CONCUR_UPDATABLE
+  ResultSet 객체를 이용한 업데이트를 허용한다.
 
 #### Holdability
 
-트랜잭션 커밋 후에도 ResultSet 객체를 유지할 것인지를 결정하는 옵션이다. 아래 두
-가지 상수 중 하나를 사용하면 된다.
+트랜잭션 커밋 후에도 ResultSet 객체를 유지할 것인지를 결정하는 옵션이다. 아래 두 가지 상수 중 하나를 사용하면 된다.
 
--   CLOSE_CURSORS_AT_COMMIT  
-    트랜잭션이 커밋 될 때, 커서가 닫힌다.
-
--   HOLD_CURSORS_OVER_COMMIT  
-    트랜잭션을 커밋하더라도 커서는 유지된다. 커서가 열린 후 한 번이라도
-    트랜잭션이 커밋되었다면, 그 커서는 이 후의 commit. rollback 수행에도 계속
-    유지된다. 하지만 커서가 열린 후 한 번도 커밋을 하지 않았다면, 트랜잭션이
-    rollback될 때 그 커서는 닫힌다.
+- CLOSE_CURSORS_AT_COMMIT
+  트랜잭션이 커밋 될 때, 커서가 닫힌다.
+- HOLD_CURSORS_OVER_COMMIT
+  트랜잭션을 커밋하더라도 커서는 유지된다. 커서가 열린 후 한 번이라도 트랜잭션이 커밋되었다면, 그 커서는 이 후의 commit. rollback 수행에도 계속 유지된다. 하지만 커서가 열린 후 한 번도 커밋을 하지 않았다면, 트랜잭션이 rollback될 때 그 커서는 닫힌다.
 
 ##### 주의사항
 
--   ResultSet 객체를 위해 JDBC 드라이버가 클라이언트에 FetchSize에 설정된
-    개수만큼 행을 캐시하고 있으므로, 커서가 닫히더라도 캐시에 남아있는 데이터는
-    애플리케이션에서 가져갈 수 있다. 만약 커서가 닫힌 걸 애플리케이션에서 바로
-    감지하고 싶다면, FetchSize를 1로 설정하면 된다.
+-   ResultSet 객체를 위해 JDBC 드라이버가 클라이언트에 FetchSize에 설정된 개수만큼 행을 캐시하고 있으므로, 커서가 닫히더라도 캐시에 남아있는 데이터는 애플리케이션에서 가져갈 수 있다. 만약 커서가 닫힌 걸 애플리케이션에서 바로 감지하고 싶다면, FetchSize를 1로 설정하면 된다.
+    
+-   Altibase JDBC 드라이버의 Holdability 기본값은 CLOSE_CURSORS_AT_COMMIT으로, JDBC 스펙의 기본값인 HOLD_CURSORS_OVER_COMMIT와 다르다.
+    Holdability가 HOLD_CURSORS_OVER_COMMIT인 세션에서는 setAutoCommit() 메소드로 자동커밋 모드를 변경하기 전에 열려 있는 ResultSet 객체를 반드시 닫아야 한다. 아래는 오류가 발생하는 예제 코드이다.
 
-- Altibase JDBC 드라이버의 Holdability 기본값은 CLOSE_CURSORS_AT_COMMIT으로,
-  JDBC 스펙의 기본값인 HOLD_CURSORS_OVER_COMMIT와 다르다.  
-  Holdability가 HOLD_CURSORS_OVER_COMMIT인 세션에서는 setAutoCommit() 메소드로
-  자동커밋 모드를 변경하기 전에 열려 있는 ResultSet 객체를 반드시 닫아야 한다.
-  아래는 오류가 발생하는 예제 코드이다.
-
-  ```
-  sCon = getConnection();
-  sStmt = sCon.createStatement();
-  byte[] br;
-  byte[] bb = new byte[48];
-  for(byte i = 0; i < bb.length;i++) bb[i] = i;
-  
-  sCon.setAutoCommit(false);
-  
-  sStmt.executeUpdate("insert into Varbinary_Tab values(null)");
-  sCon.commit();
-  
-  sPreStmt = sCon.prepareStatement("update Varbinary_Tab set VARBINARY_VAL=?");
-  sPreStmt.setObject(1, bb, java.sql.Types.VARBINARY);
-  sPreStmt.executeUpdate();
-  
-  sRS = sStmt.executeQuery("Select VARBINARY_VAL from Varbinary_Tab");
-  sRS.next();
-  br = sRS.getBytes(1);
-  
-  sCon.commit();
-  sCon.setAutoCommit(true); -> (1)
-  
-  ```
-
+    ```java
+    sCon = getConnection();
+    sStmt = sCon.createStatement();
+    byte[] br;
+    byte[] bb = new byte[48];
+    for(byte i = 0; i < bb.length;i++) bb[i] = i;
+    
+    sCon.setAutoCommit(false);
+    
+    sStmt.executeUpdate("insert into Varbinary_Tab values(null)");
+    sCon.commit();
+    
+    sPreStmt = sCon.prepareStatement("update Varbinary_Tab set VARBINARY_VAL=?");
+    sPreStmt.setObject(1, bb, java.sql.Types.VARBINARY);
+    sPreStmt.executeUpdate();
+    
+    sRS = sStmt.executeQuery("Select VARBINARY_VAL from Varbinary_Tab");
+    sRS.next();
+    br = sRS.getBytes(1);
+    
+    sCon.commit();
+    sCon.setAutoCommit(true);   // (1)
+    
+    ```
 
 (1)에서 다음과 같은 exception이 발생한다.
 
-```
+```java
 java.sql.SQLException: Several statements still open
     at Altibase.jdbc.driver.ex.Error.processServerError(Error.java:320)
     at Altibase.jdbc.driver.AltibaseConnection.setAutoCommit(AltibaseConnection.java:988)
@@ -2209,14 +2039,11 @@ java.sql.SQLException: Several statements still open
 
 exception이 발생하지 않게 하려면 의 sCon.setAutoCommit(true)에 앞서 sRs.close()를 호출해야 한다.
 
--   ?  :  Holdability 유형이 HOLD_CURSORS_OVER_COMMIT인 ResultSet 객체를 사용하기
-    위해서는 클라이언트 세션이 Non-Autocommit 모드이거나 clientside_auto_commit
-    연결 속성이 on으로 설정되어야 한다. 
-    clientside_auto_commit 연결 속성을 on으로 설정하면, Holdability 유형이 자동으로 HOLD_CURSORS_OVER_COMMIT으로 변경된다.
+-   ? : Holdability 유형이 HOLD_CURSORS_OVER_COMMIT인 ResultSet 객체를 사용하기 위해서는 클라이언트 세션이 Non-Autocommit 모드이거나 clientside_auto_commit 연결 속성이 on으로 설정되어야 한다. clientside_auto_commit 연결 속성을 on으로 설정하면, Holdability 유형이 자동으로 HOLD_CURSORS_OVER_COMMIT으로 변경된다.
 
 ##### 예제
 
-```
+```java
 Statement sUpdStmt = sConn.prepareStatement("UPDATE t1 SET val = ? WHERE id = ?");
 Statement sSelStmt = sConn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 ResultSet sRS = sSelStmt.executeQuery("SELECT * FROM t1");
@@ -2234,38 +2061,24 @@ sRS.close();
 
 #### 제약 사항
 
-Updatable ResultSet 또는 Scrollable ResultSet을 사용하기 위해서는 결과셋을
-가져오는 SELECT 쿼리문에 다음의 제약 사항이 있다.
+Updatable ResultSet 또는 Scrollable ResultSet을 사용하기 위해서는 결과셋을 가져오는 SELECT 쿼리문에 다음의 제약 사항이 있다.
 
 업데이트가 가능한 결과셋을 사용하기 위해서는,
 
--   FROM 절에 한 개의 테이블만 지정할 수 있다.
-
--   SELECT 리스트에 순수 칼럼만 지정할 수 있다. 수식 또는 함수가 포함될 수 없다.
-    그리고, NOT NULL 제약조건이 있으면서 DEFAULT값이 없는 칼럼은 SELECT 리스트에
-    반드시 포함되어야 한다.
+- FROM 절에 한 개의 테이블만 지정할 수 있다.
+- SELECT 리스트에 순수 칼럼만 지정할 수 있다. 수식 또는 함수가 포함될 수 없다. 그리고, NOT NULL 제약조건이 있으면서 DEFAULT값이 없는 칼럼은 SELECT 리스트에 반드시 포함되어야 한다.
 
 Scrollable-Sensitive 결과셋을 사용하기 위해서는,
 
 -   FROM 절에 한 개의 테이블만 지정할 수 있다.
 
-PSM을 수행하는 경우에는 기본 유형의 ResultSet 객체만 사용할 수 있다. 만약 
-사용자가 기본 유형이 아닌 옵션을 지정하면, 그 옵션은 무시된다.
+PSM을 수행하는 경우에는 기본 유형의 ResultSet 객체만 사용할 수 있다. 만약 사용자가 기본 유형이 아닌 옵션을 지정하면, 그 옵션은 무시된다.
 
-CONCUR_UPDATABLE하고 TYPE_SCROLL_SENSITIVE한 ResultSet 객체는 JDBC 드라이버
-내부적으로 한 개의 Statement를 더 사용하기 때문에, Statement 개수 제약에 더 일찍
-도달할 수 있다. 따라서 이러한 유형의 결과셋을 많이 사용하는 경우에는 Statement의
-최대 개수를 설정해야 한다.
+CONCUR_UPDATABLE하고 TYPE_SCROLL_SENSITIVE한 ResultSet 객체는 JDBC 드라이버 내부적으로 한 개의 Statement를 더 사용하기 때문에, Statement 개수 제약에 더 일찍 도달할 수 있다. 따라서 이러한 유형의 결과셋을 많이 사용하는 경우에는 Statement의 최대 개수를 설정해야 한다.
 
-업데이트가 가능하고 스크롤이 가능한 결과셋은 많은 데이터를 포함하고 있으므로,
-일반적으로 순방향 전용의 결과셋에 비해 메모리 사용량이 높다. 따라서 결과셋이 큰
-경우에는 메모리가 부족할 수 있으므로, 이러한 유형을 사용하지 않기를 권장한다.
+업데이트가 가능하고 스크롤이 가능한 결과셋은 많은 데이터를 포함하고 있으므로, 일반적으로 순방향 전용의 결과셋에 비해 메모리 사용량이 높다. 따라서 결과셋이 큰 경우에는 메모리가 부족할 수 있으므로, 이러한 유형을 사용하지 않기를 권장한다.
 
-ResultSet 객체의 특성은 위에서 설명한 ResultSet 유형, concurrency 유형, 및
-holdability 유형으로 결정된다. 사용자는 이들 세 값을 임의의 조합으로 지정할 수
-있지만, 결과셋을 만드는 쿼리문에 따라 사용자가 지정한 조합이 허용되지 않을 수도
-있다. 이 경우 드라이버는 예외를 발생하지 않고 가능한 조합으로 변환한다. 즉,
-아래와 같이 왼쪽 유형이 불가능한 경우 오른쪽 유형으로 자동 변환한다.
+ResultSet 객체의 특성은 위에서 설명한 ResultSet 유형, concurrency 유형, 및 holdability 유형으로 결정된다. 사용자는 이들 세 값을 임의의 조합으로 지정할 수 있지만, 결과셋을 만드는 쿼리문에 따라 사용자가 지정한 조합이 허용되지 않을 수도 있다. 이 경우 드라이버는 예외를 발생하지 않고 가능한 조합으로 변환한다. 즉, 아래와 같이 왼쪽 유형이 불가능한 경우 오른쪽 유형으로 자동 변환한다.
 
 -   TYPE_SCROLL_SENSITIVE → TYPE_SCROLL_INSENSITIVE
 
@@ -2275,21 +2088,15 @@ holdability 유형으로 결정된다. 사용자는 이들 세 값을 임의의 
 
 이렇게 내부적으로 변환이 발생하면, 경고를 통해 변환 발생 여부를 확인할 수 있다.
 
-ResultSet 객체의 유형이 TYPE_SCROLL_INSENSITIVE, TYPE_SCROLL_SENSITIVE인 경우 메모리 사용량
-증가로 인해 ResultSet의 결과가 349,502건으로 제한되어 있다.
-이 값을 초과할 경우 Dynamic array cursor overflow 에러가 발생할 수 있다.
+ResultSet 객체의 유형이 TYPE_SCROLL_INSENSITIVE, TYPE_SCROLL_SENSITIVE인 경우 메모리 사용량 증가로 인해 ResultSet의 결과가 349,502건으로 제한되어 있다. 이 값을 초과할 경우 Dynamic array cursor overflow 에러가 발생할 수 있다.
 
 #### Hole 감지
 
-TYPE_SCROLL_SENSITIVE 유형의 ResultSet 객체는 fetch할 때 서버로부터 최신
-데이터를 가져온다. 따라서 커서가 열리는 순간에는 보였던 처음의 행이 스크롤
-되면서 안 보일 수 있다. 예를 들어, ResultSet 객체에 있던 행이 다른 Statement를
-통해 지워진다면, 그 행은 ResultSet 객체에서 더 이상 볼 수 없게 된다. 이렇게 볼
-수 없게 된 행을 Hole이라고 한다.
+TYPE_SCROLL_SENSITIVE 유형의 ResultSet 객체는 fetch할 때 서버로부터 최신 데이터를 가져온다. 따라서 커서가 열리는 순간에는 보였던 처음의 행이 스크롤 되면서 안 보일 수 있다. 예를 들어, ResultSet 객체에 있던 행이 다른 Statement를 통해 지워진다면, 그 행은 ResultSet 객체에서 더 이상 볼 수 없게 된다. 이렇게 볼 수 없게 된 행을 Hole이라고 한다.
 
 아래는 JDBC에서 Hole을 검출하는 코드 예제이다.
 
-```
+```java
 while (sRS.next())
 {
     if (sRS.rowDeleted())
@@ -2303,8 +2110,7 @@ while (sRS.next())
 }
 ```
 
-Hole에서는 유효한 데이터를 얻을 수 없으며, Hole에 해당하는 ResultSet의 반환값은
-다음 중 하나이다: 
+Hole에서는 유효한 데이터를 얻을 수 없으며, Hole에 해당하는 ResultSet의 반환값은 다음 중 하나이다:
 
 - SQL 데이터형의 NULL
 
@@ -2317,36 +2123,21 @@ Hole에서는 유효한 데이터를 얻을 수 없으며, Hole에 해당하는 
   #### Fetch Size
 
 
-Altibase JDBC 드라이버는 성능 향상을 위해, ResultSet 객체를 위한 데이터를
-서버로부터 가져올 때 한 행씩 가져오는 대신에 여러 행을 한번에 가져와서
-클라이언트에 캐시한다. 이것을 prefetch라고 하며, Statement객체의 setFetchSize()
-메소드를 이용해서 한번에 가져오는 행의 개수를 설정할 수 있다.
+Altibase JDBC 드라이버는 성능 향상을 위해, ResultSet 객체를 위한 데이터를 서버로부터 가져올 때 한 행씩 가져오는 대신에 여러 행을 한번에 가져와서 클라이언트에 캐시한다. 이것을 prefetch라고 하며, Statement객체의 setFetchSize() 메소드를 이용해서 한번에 가져오는 행의 개수를 설정할 수 있다.
 
-```
+```java
 public void setFetchSize(int aRows) throws SQLException;
 ```
 
-Altibase JDBC 드라이버에서는 0에서 2147483647까지의 값으로 설정할 수 있다. JDBC
-스펙에는 이 범위를 벗어난 값을 지정할 때 Exception을 발생하도록 되어 있지만,
-Altibase JDBC 드라이버는 편의상 예외를 발생하지 않고 무시한다.
+Altibase JDBC 드라이버에서는 0에서 2147483647까지의 값으로 설정할 수 있다. JDBC 스펙에는 이 범위를 벗어난 값을 지정할 때 Exception을 발생하도록 되어 있지만, Altibase JDBC 드라이버는 편의상 예외를 발생하지 않고 무시한다.
 
-0을 설정하면, Altibase 서버가 클라이언트로 한번에 반환할 크기를 스스로 결정한다.
-이 경우, 한 행의 크기에 따라 반환되는 행의 개수가 달라질 것이다.
+0을 설정하면, Altibase 서버가 클라이언트로 한번에 반환할 크기를 스스로 결정한다. 이 경우, 한 행의 크기에 따라 반환되는 행의 개수가 달라질 것이다.
 
-FetchSize 값은 Scroll-Sensitive 결과셋에서 특히 중요하다. 사용자가
-Scroll-Sensitive 결과셋으로부터 데이터를 가져갈 때, 드라이버는 prefetch한 것을
-우선으로 반환한다. 그러므로, 데이터베이스의 데이터가 갱신되었더라도, 그 행이
-prefetch한 캐시에 존재하는 한 캐시의 데이터가 사용자에게 반환된다. 사용자가
-데이터베이스의 최신 데이터를 보기 원한다면, FetchSize를 1로 하면 된다. 그러나
-이런 설정은 서버로부터 데이터를 가져오는 빈도수를 높여 성능을 떨어뜨릴 수 있다.
+FetchSize 값은 Scroll-Sensitive 결과셋에서 특히 중요하다. 사용자가 Scroll-Sensitive 결과셋으로부터 데이터를 가져갈 때, 드라이버는 prefetch한 것을 우선으로 반환한다. 그러므로, 데이터베이스의 데이터가 갱신되었더라도, 그 행이 prefetch한 캐시에 존재하는 한 캐시의 데이터가 사용자에게 반환된다. 사용자가 데이터베이스의 최신 데이터를 보기 원한다면, FetchSize를 1로 하면 된다. 그러나 이런 설정은 서버로부터 데이터를 가져오는 빈도수를 높여 성능을 떨어뜨릴 수 있다.
 
 #### Refreshing Rows
 
-ResultSet 객체의 refreshRow() 메소드를 사용하면, SELECT문을 실행하지 않고서도
-서버로부터 이미 가져온 데이터를 다시 가져올 수 있다. refreshRow() 메소드는 현재
-행을 기준으로 FetchSize에 설정된 행 개수만큼 가져온다. 그러므로 이 메소드를
-사용하기 위해서는, 커서가 결과셋에서 어떤 행이라도 가리키고 있는 상태이어야
-한다.
+ResultSet 객체의 refreshRow() 메소드를 사용하면, SELECT문을 실행하지 않고서도 서버로부터 이미 가져온 데이터를 다시 가져올 수 있다. refreshRow() 메소드는 현재 행을 기준으로 FetchSize에 설정된 행 개수만큼 가져온다. 그러므로 이 메소드를 사용하기 위해서는, 커서가 결과셋에서 어떤 행이라도 가리키고 있는 상태이어야 한다.
 
 이 메소드는 ResultSet 객체의 유형이 다음과 같을 때 동작한다.
 
@@ -2354,33 +2145,27 @@ ResultSet 객체의 refreshRow() 메소드를 사용하면, SELECT문을 실행�
 
 -   TYPE_SCROLL_SENSITIVE & CONCUR_READ_ONLY
 
-TYPE_FORWARD_ONLY일 경우에는 이 메소드를 호출하면 예외가 발생하고,
-TYPE_SCROLL_INSENSITIVE일 경우에는 아무런 동작도 일어나지 않는다.
+TYPE_FORWARD_ONLY일 경우에는 이 메소드를 호출하면 예외가 발생하고, TYPE_SCROLL_INSENSITIVE일 경우에는 아무런 동작도 일어나지 않는다.
 
 ### Atomic Batch
 
-알티베이스 JDBC 드라이버는 Atomic Batch 기능을 제공하여, 일괄처리(Batch)의
-원자성을 보장할 뿐 아니라 대용량의 데이터 삽입을 빠르게 처리할 수 있도록
-지원한다.
+알티베이스 JDBC 드라이버는 Atomic Batch 기능을 제공하여, 일괄처리(Batch)의 원자성을 보장할 뿐 아니라 대용량의 데이터 삽입을 빠르게 처리할 수 있도록 지원한다.
 
-이 절에서는 알티베이스 JDBC 드라이버가 지원하는 Atomic Batch 사용법에 대하여
-설명한다.
+이 절에서는 알티베이스 JDBC 드라이버가 지원하는 Atomic Batch 사용법에 대하여 설명한다.
 
 #### 사용법
 
-Atomic Batch 기능을 사용하기 위해서 우선 자바 프로그래밍에서 PreparedStatement
-객체를 생성하여 AltibasePreparedStatement 클래스 타입으로 캐스팅한다.
+Atomic Batch 기능을 사용하기 위해서 우선 자바 프로그래밍에서 PreparedStatement 객체를 생성하여 AltibasePreparedStatement 클래스 타입으로 캐스팅한다.
 
 다음은 Atomic Batch 기능을 사용하기 위해 호출하는 setAtomicBatch() 메소드이다.
 
-```
+```java
 public void setAtomicBatch(boolean aValue) throws SQLException
 ```
 
-Atomic Batch가 PreparedStatement 객체에 설정되었는지 여부를 확인하려면
-getAtomicBatch() 메소드를 호출한다.
+Atomic Batch가 PreparedStatement 객체에 설정되었는지 여부를 확인하려면 getAtomicBatch() 메소드를 호출한다.
 
-```
+```java
 public boolean getAtomicBatch()
 ```
 
@@ -2390,19 +2175,15 @@ public boolean getAtomicBatch()
 
 Altibase에서 Atomic Batch 기능을 사용할 때 아래의 제약 사항이 있다.
 
--   단순 INSERT 문에 대해서만 지원한다. 복합 INSERT 문이나 UPDATE, DELETE 등의
-    DML 문에 대한 정합성을 보장하지 못한다.
-
--   트리거가 동작할 때 수행 단위가 Each Statement일 경우 트리거는 한 번만
-    동작한다.
-
+-   단순 INSERT 문에 대해서만 지원한다. 복합 INSERT 문이나 UPDATE, DELETE 등의 DML 문에 대한 정합성을 보장하지 못한다.
+-   트리거가 동작할 때 수행 단위가 Each Statement일 경우 트리거는 한 번만 동작한다.
 -   SYSDATE는 1번만 동작한다.
 
 
 
 #### 예제
 
-```
+```java
 ......
 Connection con = DriverManager.getConnection(aConnectionStr, mProps);
 Statement stmt = con.createStatement();
@@ -2439,8 +2220,7 @@ catch (SQLException e)
 
 ### Date, Time, Timestamp
 
-이 절은 날짜형 데이터 타입인 Date, Time, 및 Timestamp 각각의 의미와, Altibase
-JDBC 드라이버에서 지원하는 데이터 변환 범위를 설명한다.
+이 절은 날짜형 데이터 타입인 Date, Time, 및 Timestamp 각각의 의미와, Altibase JDBC 드라이버에서 지원하는 데이터 변환 범위를 설명한다.
 
 #### 의미
 
@@ -2452,8 +2232,7 @@ JDBC 드라이버에서 지원하는 데이터 변환 범위를 설명한다.
 
 #### 변환 표
 
-아래의 표는 setObject 메소드에 전달되는 객체의 타입에 따라 Altibase JDBC
-드라이버가 처리하는 형식을 보여준다.
+아래의 표는 setObject 메소드에 전달되는 객체의 타입에 따라 Altibase JDBC 드라이버가 처리하는 형식을 보여준다.
 
 | 전달객체                   | String                                                       | Date                                                         | Time                                      | Timestamp                  |
 | -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------------------- | -------------------------- |
@@ -2477,27 +2256,21 @@ getDate(), getTime(), 및 getTimestamp() 메소드를 사용해서 가져오는 
 
 ### GEOMETRY
 
-이 절은 Altibase가 제공하는 GEOMETY 타입의 데이터를 JDBC 애플리케이션에서
-조작하는 방법을 설명한다.
+아래는 데이터베이스에 저장되어 있는 DATE 타입의 값(1234-01-23 12:23:34.567123)을 getDate(), getTime(), 및 getTimestamp() 메소드를 사용해서 가져오는 값을 보여준다.
 
 #### 사용 방법
 
-Altibase JDBC 애플리케이션에서는 GEOMETRY 타입의 데이터에 대해 byte 배열을
-사용해서 조작할 수 있다.
+Altibase JDBC 애플리케이션에서는 GEOMETRY 타입의 데이터에 대해 byte 배열을 사용해서 조작할 수 있다.
 
-PreparedStatement의 IN 파라미터를 사용해서 데이터베이스의 GEOMETRY 타입 칼럼에
-데이터(NULL 포함)를 삽입하는 경우, AltibaseTypes.GEOMETRY 상수를 사용해서 데이터
-타입을 반드시 명시해야 한다.
+PreparedStatement의 IN 파라미터를 사용해서 데이터베이스의 GEOMETRY 타입 칼럼에 데이터(NULL 포함)를 삽입하는 경우, AltibaseTypes.GEOMETRY 상수를 사용해서 데이터 타입을 반드시 명시해야 한다.
 
-쿼리문에 직접 GEOMETRY 타입의 데이터를 표기하는 방법은 *Spatial SQL Reference*를
-참고하도록 한다.
+쿼리문에 직접 GEOMETRY 타입의 데이터를 표기하는 방법은 *Spatial SQL Reference*를 참고하도록 한다.
 
 #### 예제
 
-다음은 JDBC 애플리케이션에서 GEOMETRY 타입의 칼럼에 데이터를 삽입하는 코드
-예제이다.
+다음은 JDBC 애플리케이션에서 GEOMETRY 타입의 칼럼에 데이터를 삽입하는 코드 예제이다.
 
-```
+```java
 int sSize = ... ;
 byte[] sGeometryData = new byte[sSize];
  
@@ -2513,22 +2286,16 @@ sPstmt.executeQuery();
 
 ### LOB
 
-이 절은 Altibase가 제공하는 LOB 타입의 데이터를 JDBC 애플리케이션에서 조작하는
-방법을 설명한다.
+이 절은 Altibase가 제공하는 LOB 타입의 데이터를 JDBC 애플리케이션에서 조작하는 방법을 설명한다.
 
 #### 전제 조건
 
--   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 4GB-1byte의
-    최대 크기를 가질 수 있다. 단, JDK 1.6 이상에서만 가능하다.
+-   Altibase가 지원하는 LOB 데이터 타입은 BLOB 및 CLOB이 있으며, 각각 4GB-1byte의 최대 크기를 가질 수 있다. 단, JDK 1.6 이상에서만 가능하다.
 
-LOB 데이터를 정상적으로 다루기 위해서는 세션의 autocommit 모드가 아래의 조건 중
-하나를 만족해야 한다.
+LOB 데이터를 정상적으로 다루기 위해서는 세션의 autocommit 모드가 아래의 조건 중 하나를 만족해야 한다.
 
--   Connection 객체의 setAutoCommit(false)을 사용해서 세션의 자동커밋을
-    해제(disable)하고 사용자가 수동으로 트랜잭션을 제어해야 한다.
-
--   Clientside_auto_commit을 on으로 지정하여 JDBC 드라이버가 트랜잭션의
-    자동커밋을 제어하도록 한다.
+- Connection 객체의 setAutoCommit(false)을 사용해서 세션의 자동커밋을 해제(disable)하고 사용자가 수동으로 트랜잭션을 제어해야 한다.
+- Clientside_auto_commit을 on으로 지정하여 JDBC 드라이버가 트랜잭션의 자동커밋을 제어하도록 한다.
 
 #### BLOB 사용하기
 
@@ -2546,7 +2313,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 
 ###### setBinaryStream 메소드와 InputStream객체 사용
 
-```
+```java
 InputStream sInputStream = ...
 long sLength = ...
 ... 
@@ -2560,7 +2327,7 @@ sPstmt.execute();
 
 JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 타입으로 캐스팅 하면 long 타입의 길이 변수로 정의된 setBinaryStream() 메소드를 호출할 수 있다.
 
-```
+```java
 import Altibase.jdbc.driver.AltibasePreparedStatement;
 ...
 ((AltibasePreparedStatement)sPstmt).setBinaryStream(1, sInputStream, sLength);
@@ -2571,7 +2338,7 @@ import Altibase.jdbc.driver.AltibasePreparedStatement;
 
 ###### setBinaryStream 메소드와 OutputStream객체 사용
 
-```
+```java
 byte[] sBuf = ...
 ... 
 PreparedStatement sPstmt = Connection.prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
@@ -2595,7 +2362,7 @@ sPstmt.execute();
 
 ###### setBlob 메소드와 Blob 객체 사용
 
-```
+```java
 java.sql.Blob sBlob = ...
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
@@ -2611,7 +2378,7 @@ sPstmt.execute();
 
 ###### setObject 메소드와 Blob 객체 사용
 
-```
+```java
 java.sql.Blob sBlob = ...
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
@@ -2627,7 +2394,7 @@ sPstmt.execute();
 
 ###### setObject 메소드에 SQL 타입 지정
 
-```
+```java
 java.sql.Blob sBlob = ...
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
@@ -2653,7 +2420,7 @@ CREATE TABLE BLOB_TABLE ( BLOB_COLUMN BLOB );
 
 ###### updateBinaryStream 메소드와 InputStream 객체 사용
 
-```
+```java
 InputStream sInputStream = ...
 long sLength = ...
 ...
@@ -2675,7 +2442,7 @@ while(sRs.next())
 
 ###### updateBlob 메소드와 Blob 객체 사용
 
-```
+```java
 java.sql.Blob sBlob = ...
  
 ...
@@ -2699,7 +2466,7 @@ while(sRs.next())
 
 ###### updateObject 메소드와 Blob 객체 사용
 
-```
+```java
 java.sql.Blob sBlob = ...
 ...  
 PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
@@ -2720,7 +2487,7 @@ while(sRs.next())
 
 ###### updateObject 메소드에 SQL 타입 지정
 
-```
+```java
 java.sql.Blob sBlob = ...
  
 ...
@@ -2743,7 +2510,7 @@ while(sRs.next())
 
 ##### SELECT … FOR UPDATE 구문으로 BLOB 데이터 갱신
 
-```
+```java
 byte[] sBytes = new byte[sLength];
 ...
   
@@ -2767,7 +2534,7 @@ while(sRs.next())
 
 ###### getBinaryStream 메소드와 InputStream 객체 사용
 
-```
+```java
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN
 FROM BLOB_TABLE");
@@ -2785,7 +2552,7 @@ while(sRs.next())
 
 ###### getBlob 메소드와 InputStream 객체 사용
 
-```
+```java
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("SELECT BLOB_COLUMN
 FROM BLOB_TABLE");
@@ -2804,7 +2571,7 @@ while(sRs.next())
 
 ###### getBlob 메소드와 byte 배열 사용
 
-```
+```java
 ...
 final int sReadLength = 100;
   
@@ -2837,7 +2604,7 @@ while(sRs.next())
 
 ###### Truncation
 
-```
+```java
 Statement sStmt = ...
  
 ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1 FOR UPDATE");
@@ -2874,7 +2641,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 
 ###### setCharacterStream 메소드와 Reader 객체 사용
 
-```
+```java
 Reader sReader = ...
 long sLength = ...
 ...
@@ -2889,7 +2656,7 @@ sPstmt.execute();
 
 JDK 1.5에서는 sPstmt를 AltibasePreparedStatement 타입으로 캐스팅 하면 long 타입의 길이 변수로 정의된 setCharacterStream() 메소드를 호출할 수 있다.
 
-```
+```java
 import Altibase.jdbc.driver.AltibasePreparedStatement;
 ...
 ((AltibasePreparedStatement)sPstmt).setCharacterStream(1, sReader, sLength);
@@ -2900,7 +2667,7 @@ import Altibase.jdbc.driver.AltibasePreparedStatement;
 
 ###### setCharacterStream 메소드와 Writer 객체 사용
 
-```
+```java
 char[] sBuf = ...
   
 ...
@@ -2929,7 +2696,7 @@ sPstmt.execute();
 
 ###### setClob 메소드와 Clob 객체 사용
 
-```
+```java
 java.sql.Clob sClob = ...
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
@@ -2945,7 +2712,7 @@ sPstmt.execute();
 
 ###### setObject 메소드와 Clob 객체 사용
 
-```
+```java
 java.sql.Clob sClob = ...
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
@@ -2961,7 +2728,7 @@ sPstmt.execute();
 
 ###### setObject 메소드에 SQL 타입 지정
 
-```
+```java
 java.sql.Clob sClob = ...
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE
@@ -2979,7 +2746,7 @@ sPstmt.execute();
 
 다음은 예제에서 사용되는 테이블을 생성하는 구문이다.
 
-```
+```java
 CREATE TABLE CLOB_TABLE ( CLOB_COLUMN CLOB );
 ```
 
@@ -2987,7 +2754,7 @@ CREATE TABLE CLOB_TABLE ( CLOB_COLUMN CLOB );
 
 ###### updateCharacterStream 메소드와 Reader 객체 사용
 
-```
+```java
 Reader sReader = ...
 long sLength = ... // The length of source from which Reader is linked
  
@@ -3012,7 +2779,7 @@ while(sRs.next())
 
 ###### updateClob 메소드와 Clob 객체 사용
 
-```
+```java
 java.sql.Clob sClob = ...
  
 ...
@@ -3036,7 +2803,7 @@ while(sRs.next())
 
 ###### updateObject 메소드와 Clob 객체 사용
 
-```
+```java
 java.sql.Clob sClob = ...
  
 ...
@@ -3060,7 +2827,7 @@ while(sRs.next())
 
 ###### updateObject 메소드에 SQL 타입 지정
 
-```
+```java
 java.sql.Clob sClob = ...
  
 ...
@@ -3084,7 +2851,7 @@ while(sRs.next())
 
 ##### SELECT … FOR UPDATE 구문으로 CLOB 데이터 삽입
 
-```
+```java
 ...
  
 String sStr = ... ; 
@@ -3109,7 +2876,7 @@ while(sRs.next())
 
 ###### getCharacterStream 메소드와 Reader 객체 사용
 
-```
+```java
 ...
 PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
@@ -3128,7 +2895,7 @@ while(sRs.next())
 
 ###### getClob 메소드와 Reader 객체 사용
 
-```
+```java
 ...  
 PreparedStatement sPstmt = Connection.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
@@ -3148,7 +2915,7 @@ while(sRs.next())
 
 ###### getClob 메소드와 String 객체 사용
 
-```
+```java
 ...
 final int sReadLength = 100;
   
@@ -3181,7 +2948,7 @@ while(sRs.next())
 
 ###### **Truncation**
 
-```
+```java
 Statement sStmt = ...
  
 ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1 FOR UPDATE");
@@ -3204,13 +2971,11 @@ while(sRs.next())
 
 #### 자원 해제하기
 
-많은 수의 LOB 객체를 사용해서 데이터를 획득하는 JDBC 애플리케이션의 경우, 반드시
-획득한 LOB 객체를 해제하여야 한다. 또한 트랜잭션을 커밋하는 것과 상관없이 LOB
-객체는 명시적으로 해제되어야 한다.
+많은 수의 LOB 객체를 사용해서 데이터를 획득하는 JDBC 애플리케이션의 경우, 반드시 획득한 LOB 객체를 해제하여야 한다. 또한 트랜잭션을 커밋하는 것과 상관없이 LOB 객체는 명시적으로 해제되어야 한다.
 
 아래는 Blob 객체를 해제하는 코드 예제이다.
 
-```
+```java
 ...
 Blob sBlob = sRs.getBlob(1);
 // Freeing Lob Locator
@@ -3218,12 +2983,11 @@ Blob sBlob = sRs.getBlob(1);
 ...
 ```
 
-Blob 객체를 free 메소드로 해제하면, 대응하는 Lob Locator가 서버에서 해제되므로
-그 객체에 대해서는 더이상 연산 수행이 불가능하다.
+Blob 객체를 free 메소드로 해제하면, 대응하는 Lob Locator가 서버에서 해제되므로 그 객체에 대해서는 더이상 연산 수행이 불가능하다.
 
 아래는 Clob 객체를 해제하는 코드 예제이다.
 
-```
+```java
 ...
 Clob sClob = sRs.getClob(1);
 // Freeing Lob Locator
@@ -3231,12 +2995,11 @@ Clob sClob = sRs.getClob(1);
 ...
 ```
 
-Clob 객체도 Blob과 마찬가지로 free 메소드로 해제하면, 대응하는 Lob Locator가
-서버에서 해제되므로 그 객체에 대해서는 더 이상 연산 수행이 불가능하다.
+Clob 객체도 Blob과 마찬가지로 free 메소드로 해제하면, 대응하는 Lob Locator가 서버에서 해제되므로 그 객체에 대해서는 더 이상 연산 수행이 불가능하다.
 
 아래는 BlobInputStream 객체와 BlobOutputStream 객체를 해제하는 코드 예제이다.
 
-```
+```java
 InputStream sInputStream = sRs.getBinaryStream(1);
  
 // Freeing Lob Locator
@@ -3255,13 +3018,11 @@ OutputStream sOutputStream = sBlob.setBinaryStream(1);
 
 ```
 
-BlobInputStream 또는 BlobOutputStream 객체를 freeLocator 메소드로 해제하면,
-대응하는 Lob Locator가 서버에서 해제되므로 그 객체에 대해서는 더이상 연산 수행이
-불가능하다.
+BlobInputStream 또는 BlobOutputStream 객체를 freeLocator 메소드로 해제하면, 대응하는 Lob Locator가 서버에서 해제되므로 그 객체에 대해서는 더이상 연산 수행이 불가능하다.
 
 아래는 ClobReader 객체와 ClobWriter 객체를 해제하는 코드 예제이다.
 
-```
+```java
 Reader sClobReader = sRs.getCharacterStream(1);
  
 // Freeing Lob Locator
@@ -3280,20 +3041,15 @@ Writer sClobWriter = sClob.setCharacterStream(1);
 
 ```
 
-ClobReader 또는 ClobWriter 객체를 freeLocator 메소드로 해제하면, 대응하는 Lob
-Locator가 서버에서 해제되므로 그 객체에 대해서는 더이상 연산 수행이 불가능하다.
+ClobReader 또는 ClobWriter 객체를 freeLocator 메소드로 해제하면, 대응하는 Lob Locator가 서버에서 해제되므로 그 객체에 대해서는 더이상 연산 수행이 불가능하다.
 
 #### 제약 사항
 
-clientside_auto_commit을 on으로 지정하여 JDBC 드라이버가 트랜잭션의 자동커밋을
-제어하도록 하여도 LOB 데이터를 다루는 것에는 아래와 같은 제약이 여전히 존재한다.
+clientside_auto_commit을 on으로 지정하여 JDBC 드라이버가 트랜잭션의 자동커밋을 제어하도록 하여도 LOB 데이터를 다루는 것에는 아래와 같은 제약이 여전히 존재한다.
 
-ResultSet 객체(커서)를 통해 가져온 LOB 데이터를 커서가 닫히기 전에 다른
-Statement의 executeUpdate() 메소드에 사용하면 Lob locator가 사라지기 때문에 그
-커서로부터 더 이상의 fetch가 불가능해진다. 아래는 이러한 오류 상황이 발생할 수
-있는 예제 코드이다.
+ResultSet 객체(커서)를 통해 가져온 LOB 데이터를 커서가 닫히기 전에 다른 Statement의 executeUpdate() 메소드에 사용하면 Lob locator가 사라지기 때문에 그 커서로부터 더 이상의 fetch가 불가능해진다. 아래는 이러한 오류 상황이 발생할 수 있는 예제 코드이다.
 
-```
+```java
 PreparedStatement sPreStmt =
     sCon.prepareStatement( "INSERT INTO TEST_TEXT " +
                            "VALUES ( ?, ?, ?, ? )" );
@@ -3325,36 +3081,25 @@ while ( sRS.next() ) -> (2)
 }
 ```
 
-(1): ResultSet sRS가 열려 있는 상태에서 sPreStmt.executeUpdate()를 호출하면, JDBC
-드라이버가 트랜잭션을 자동으로 commit하면서 sClob의 Lob locator가 사라진다.
+(1): ResultSet sRS가 열려 있는 상태에서 sPreStmt.executeUpdate()를 호출하면, JDBC 드라이버가 트랜잭션을 자동으로 commit하면서 sClob의 Lob locator가 사라진다.
 
 (2): Lob locator가 사라졌으므로 sRs.next()에서 exception이 발생할 수 있다.
 
-따라서, 이러한 로직에서 LOB 데이터를 다룰 때는 먼저 setAutoCommit(false)를
-호출하여 세션의 자동커밋을 해제해야 한다.
+따라서, 이러한 로직에서 LOB 데이터를 다룰 때는 먼저 setAutoCommit(false)를 호출하여 세션의 자동커밋을 해제해야 한다
 
 ### Autocommit 제어
 
-Altibase JDBC 애플리케이션에서는 auto_commit 연결 속성 또는 JDBC Connection
-객체의 setAutoCommit 메소드를 사용해서 세션의 자동커밋(autocommit) 모드를 정할
-수 있다. 사용자가 auto_commit=true 또는 setAutoCommit(true) 메소드를 사용해서
-자동커밋을 설정(enable)하면, Altibase 서버가 트랜잭션을 자동으로 커밋한다.
+Altibase JDBC 애플리케이션에서는 auto_commit 연결 속성 또는 JDBC Connection 객체의 setAutoCommit 메소드를 사용해서 세션의 자동커밋(autocommit) 모드를 정할 수 있다. 사용자가 auto_commit=true 또는 setAutoCommit(true) 메소드를 사용해서 자동커밋을 설정(enable)하면, Altibase 서버가 트랜잭션을 자동으로 커밋한다.
 
-연결 속성 clientside_auto_commit을 이용해서 자동커밋 모드를 설정할 수도 있다.
-연결 속성 clientside_auto_commit을 on으로 지정하면, Altibase 서버 대신에 JDBC
-드라이버가 트랜잭션을 자동으로 커밋한다.
+연결 속성 clientside_auto_commit을 이용해서 자동커밋 모드를 설정할 수도 있다. 연결 속성 clientside_auto_commit을 on으로 지정하면, Altibase 서버 대신에 JDBC 드라이버가 트랜잭션을 자동으로 커밋한다.
 
-clientside_auto_commit을 off로 설정한 경우에는 세션의 자동커밋 모드가
-setAutoCommit 메소드에 의해 결정된다.
+clientside_auto_commit을 off로 설정한 경우에는 세션의 자동커밋 모드가 setAutoCommit 메소드에 의해 결정된다.
 
 세션의 자동커밋을 해제(disable)하려면 setAutoCommit(false)을 호출하면 된다.
 
-clientside_auto_commit=on인 세션에서도 setAutoCommit(false)을 호출하면
-자동커밋은 해제되며, JDBC 드라이버의 자동 커밋 모드로 전환하려면
-setAutoCommit(true)를 호출하면 된다.
+clientside_auto_commit=on인 세션에서도 setAutoCommit(false)을 호출하면 자동커밋은 해제되며, JDBC 드라이버의 자동 커밋 모드로 전환하려면 setAutoCommit(true)를 호출하면 된다.
 
-자동커밋이 해제되면, 사용자가 commit() 또는 rollback() 메소드를 사용해서
-트랜잭션을 수동으로 커밋하거나 롤백해야 한다.
+자동커밋이 해제되면, 사용자가 commit() 또는 rollback() 메소드를 사용해서 트랜잭션을 수동으로 커밋하거나 롤백해야 한다.
 
 자동커밋 모드를 설정하고 해제하는 방법을 정리하면 아래의 표와 같다.
 
@@ -3366,30 +3111,23 @@ setAutoCommit(true)를 호출하면 된다.
 
 ### BIT, VARBIT
 
-이 절은 BIT, VARBIT 타입의 데이터를 JDBC 애플리케이션에서 조작하는 방법과
-주의사항을 설명한다.
+이 절은 BIT, VARBIT 타입의 데이터를 JDBC 애플리케이션에서 조작하는 방법과 주의사항을 설명한다.
 
 #### 사용 방법
 
-Altibase JDBC 애플리케이션에서는 Java BitSet 클래스를 사용하여 BIT, VARBIT
-타입의 데이터를 조작할 수 있다.
+Altibase JDBC 애플리케이션에서는 Java BitSet 클래스를 사용하여 BIT, VARBIT 타입의 데이터를 조작할 수 있다.
 
-PreparedStatement의 IN 파라미터를 사용할 때는 Types.BIT로 타입을 지정하거나,
-지정하지 않을 때에는 BitSet 또는 문자열로 값을 지정할 수 있다.
+PreparedStatement의 IN 파라미터를 사용할 때는 Types.BIT로 타입을 지정하거나, 지정하지 않을 때에는 BitSet 또는 문자열로 값을 지정할 수 있다.
 
 #### 주의사항
 
-비트가 '0'으로 끝나는 BIT, VARBIT 값을 만들려면, 특정 길이의 비트 값으로 구성할
-수 있는 AltibaseBitSet 클래스 또는 문자열의 값을 사용해야 한다. Java BitSet은
-어떤 비트를 set()했는지 기억하도록 구현된 것으로, 0으로 구성된 특정 길이의 BIT
-값은 만들 수 없기 때문이다.
+비트가 '0'으로 끝나는 BIT, VARBIT 값을 만들려면, 특정 길이의 비트 값으로 구성할 수 있는 AltibaseBitSet 클래스 또는 문자열의 값을 사용해야 한다. Java BitSet은 어떤 비트를 set()했는지 기억하도록 구현된 것으로, 0으로 구성된 특정 길이의 BIT 값은 만들 수 없기 때문이다.
 
 #### 예제
 
-다음은 JDBC 애플리케이션에서 BIT, VARBIT 타입의 칼럼에 데이터를 삽입하는 코드
-예제이다.
+다음은 JDBC 애플리케이션에서 BIT, VARBIT 타입의 칼럼에 데이터를 삽입하는 코드 예제이다.
 
-```
+```java
 ...
 BitSet sBitSet1 = new BitSet();
 sBitSet1.set(1);
@@ -3410,20 +3148,15 @@ sPstmt.executeUpdate();
 
 ### JDBC 로깅
 
-JDBC 로깅(JDBC Logging)은 Altibase JDBC 드라이버에서 발생하는 각종 로그를
-기록하는 것을 의미하며, java.util.logging 패키지를 이용하여 관련된 로그를 기록할
-수 있다. 이 절에서는 JDBC 로깅을 하기 위한 설정 방법 및 사용법을 설명한다.
+JDBC 로깅(JDBC Logging)은 Altibase JDBC 드라이버에서 발생하는 각종 로그를 기록하는 것을 의미하며, java.util.logging 패키지를 이용하여 관련된 로그를 기록할 수 있다. 이 절에서는 JDBC 로깅을 하기 위한 설정 방법 및 사용법을 설명한다.
 
 #### JDBC 로깅 설정 방법
 
-JDBC 드라이버로부터 로그를 남기려면 로깅 기능이 추가된 JDBC jar 파일을 사용해야
-한다. 그리고 ALTIBASE_JDBC_TRACE 환경 변수에서 로깅 기능을 활성화한 후 사용하면
-된다.
+JDBC 드라이버로부터 로그를 남기려면 로깅 기능이 추가된 JDBC jar 파일을 사용해야 한다. 그리고 ALTIBASE_JDBC_TRACE 환경 변수에서 로깅 기능을 활성화한 후 사용하면 된다.
 
 ##### JRE버전
 
-JRE 1.5 이상이 설치되어야 JDBC 로깅을 사용할 수 있으며, 이외의 라이브러리는
-필요하지 않다.
+JRE 1.5 이상이 설치되어야 JDBC 로깅을 사용할 수 있으며, 이외의 라이브러리는 필요하지 않다.
 
 ##### CLASSPATH 설정
 
@@ -3439,10 +3172,7 @@ export CLASSPATH=$ALTIBASE_HOME/lib/Altibase_t.jar:.:$CLASSPATH
 
 ##### 로깅 활성화
 
-JVM 파라미터를 이용하여 ALTIBASE_JDBC_TRACE 환경 변수를 아래와 같이 TRUE로
-설정하면, 클라이언트의 프로그램 수정 없이 글로벌하게 로깅 기능이 활성화된다.
-그러나 ALTIBASE_JDBC_TRACE의 변경 값을 적용하려면, 클라이언트 프로그램을
-재시작해야 한다.
+JVM 파라미터를 이용하여 ALTIBASE_JDBC_TRACE 환경 변수를 아래와 같이 TRUE로 설정하면, 클라이언트의 프로그램 수정 없이 글로벌하게 로깅 기능이 활성화된다. 그러나 ALTIBASE_JDBC_TRACE의 변경 값을 적용하려면, 클라이언트 프로그램을 재시작해야 한다.
 
 ```
 java -DALTIBASE_JDBC_TRACE=true ...
@@ -3454,21 +3184,17 @@ java -DALTIBASE_JDBC_TRACE=true ...
 
 ##### java.util.logging 파일 설정
 
-java.util.logging 설정은 \$JRE_HOME/lib/logging.properties 파일에서 설정하거나,
-아래와 같이 java.util.logging.config.file를 이용하여 별도로 설정할 수 있다.
+java.util.logging 설정은 $JRE_HOME/lib/logging.properties 파일에서 설정하거나, 아래와 같이 java.util.logging.config.file를 이용하여 별도로 설정할 수 있다.
 
 ```
 java -Djava.util.logging.config.file=$ALTIBASE_HOME/sample/JDBC/Logging/logging.properties -DALTIBASE_JDBC_TRACE=true ...
 ```
 
-알티베이스는 \$ALTIBASE_HOME/sample/JDBC/Logging 디렉토리에 logging.properties
-샘플 파일을 제공하고 있으며, 이를 참조하여 사용하거나, 직접 설정 파일을 생성하여
-Djava.util.logging.config.file 프로퍼티를 통해 사용하면 된다.
+알티베이스는 $ALTIBASE_HOME/sample/JDBC/Logging 디렉토리에 logging.properties 샘플 파일을 제공하고 있으며, 이를 참조하여 사용하거나, 직접 설정 파일을 생성하여 Djava.util.logging.config.file 프로퍼티를 통해 사용하면 된다.
 
 ##### Logger의 종류
 
-로거는 트리 구조로 구성되어 있으며 부분별로 로그의 양이나 셋팅을 조절할 때
-사용한다. 알티베이스 JDBC 드라이버에서 지원하는 Logger의 종류는 아래와 같다.
+로거는 트리 구조로 구성되어 있으며 부분별로 로그의 양이나 셋팅을 조절할 때 사용한다. 알티베이스 JDBC 드라이버에서 지원하는 Logger의 종류는 아래와 같다.
 
 | Logger                 | 설명                                                                                 |
 |------------------------|--------------------------------------------------------------------------------------|
@@ -3481,10 +3207,7 @@ Djava.util.logging.config.file 프로퍼티를 통해 사용하면 된다.
 
 ##### Logger 레벨
 
-logger에 레벨을 설정하면 보다 상세하게 로그의 양을 조절할 수 있다. 알티베이스
-JDBC 드라이버에서 제공하는 레벨은 아래와 같으며, SEVERE에서 FINEST으로 갈수록
-상세한 로그를 남긴다. CONFIG레벨을 설정하면 SEVERE, WARNING, INFO, CONFIG 레벨의
-로그들이 남는다.
+logger에 레벨을 설정하면 보다 상세하게 로그의 양을 조절할 수 있다. 알티베이스 JDBC 드라이버에서 제공하는 레벨은 아래와 같으며, SEVERE에서 FINEST으로 갈수록 상세한 로그를 남긴다. CONFIG레벨을 설정하면 SEVERE, WARNING, INFO, CONFIG 레벨의 로그들이 남는다.
 
 | Logger 레벨 | 설명                                                         |
 | ----------- | ------------------------------------------------------------ |
@@ -3498,14 +3221,13 @@ JDBC 드라이버에서 제공하는 레벨은 아래와 같으며, SEVERE에서
 
 ##### logging.properties 
 
-다음은 로그 레벨을 CONFIG로 하고, 네트워크 패킷 로그를 남기는 샘플
-logging.properties이며, \$ALTIBASE_HOME/sample/JDBC/Logging/logging.properties
-에서도 내용을 참조할 수 있다.
+다음은 로그 레벨을 CONFIG로 하고, 네트워크 패킷 로그를 남기는 샘플 logging.properties이며, $ALTIBASE_HOME/sample/JDBC/Logging/logging.properties 에서도 내용을 참조할 수 있다.
 
-```
-handlers= java.util.logging.FileHandler, java.util.logging.ConsoleHandler --> 기본적인 handler로 FileHandler와 ConsoleHandler를 추가한다.
+```bash
+handlers= java.util.logging.FileHandler, java.util.logging.ConsoleHandler 
+     # 기본적인 handler로 FileHandler와 ConsoleHandler를 추가한다.
  
-.level = CONFIG --> 루트 logger 레벨을 CONFIG로 셋팅한다.
+.level = CONFIG  # 루트 logger 레벨을 CONFIG로 셋팅한다.
  
 # default file output is in same directory.
 java.util.logging.FileHandler.level = CONFIG
@@ -3514,25 +3236,31 @@ java.util.logging.FileHandler.limit = 10000000
 java.util.logging.FileHandler.count = 1
 java.util.logging.FileHandler.append = false
 java.util.logging.FileHandler.formatter = Altibase.jdbc.driver.logging.SingleLineFormatter
- --> java.util.logging.FileHandler의 기본셋팅을 설정하는 부분이다. sql정보만 보면 되기때문에 FileHandler의 레벨을 CONFIG으로 설정했다.
+     # java.util.logging.FileHandler의 기본셋팅을 설정하는 부분이다. sql정보만 보면 되기때문에 FileHandler의 레벨을 CONFIG으로 설정했다.
 
 java.util.logging.ConsoleHandler.level = CONFIG
 java.util.logging.ConsoleHandler.formatter = Altibase.jdbc.driver.logging.SingleLineFormatter
- --> java.util.logging.ConsoleHandler를 설정하는 부분이다. 로그를 한 줄로 출력하기 위해 SingleLineFormatter를 사용했다.
+     # java.util.logging.ConsoleHandler를 설정하는 부분이다. 로그를 한 줄로 출력하기 위해 SingleLineFormatter를 사용했다.
  
 altibase.jdbc.level = CONFIG
 altibase.jdbc.rowset.level = SEVERE
 altibase.jdbc.cm.level = FINEST
 altibase.jdbc.cm.handlers = Altibase.jdbc.driver.logging.MultipleFileHandler
-#altibase.jdbc.cm.handlers = java.util.logging.FileHandler
- --> altibase jdbc logger를 설정하는 부분으로 레코드 셋의 정보는 제외해야 하기 때문에 rowset의 레벨을 SEVERE로 설정했다. 네트워크 패킷 정보는 로그로 남겨야 하기 때문에 cm의 레벨을 FINEST로 설정했다. 또한 네트워크 패킷같은 경우 세션별로 파일을 별도 저장하기 위해 handler로 MultipleFileHandler를 사용했다.
+     # altibase.jdbc.cm.handlers = java.util.logging.FileHandler
+     # altibase jdbc logger를 설정하는 부분으로 레코드 셋의 정보는 제외해야 하기 때문에 
+     # rowset의 레벨을 SEVERE로 설정했다. 
+     # 네트워크 패킷 정보는 로그로 남겨야 하기 때문에 cm의 레벨을 FINEST로 설정했다. 
+     # 또한 네트워크 패킷같은 경우 세션별로 파일을 별도 저장하기 위해 
+     # handler로 MultipleFileHandler를 사용했다.
  
 Altibase.jdbc.driver.logging.MultipleFileHandler.level = FINEST
 Altibase.jdbc.driver.logging.MultipleFileHandler.pattern = ./jdbc_net_%s.log
 Altibase.jdbc.driver.logging.MultipleFileHandler.limit = 10000000
 Altibase.jdbc.driver.logging.MultipleFileHandler.count = 1
 Altibase.jdbc.driver.logging.MultipleFileHandler.formatter = java.util.logging.XMLFormatter
---> MultipleFileHandler를 설정하는 부분으로 pattern에 jdbc_net_%s.log를 사용해 세션의 아이디별로 파일이 생성되도록 설정했다. 또한 formatter로 XMLFormatter를 사용해 XML형태의 파일에 로그가 생성되도록 설정했다.
+     # MultipleFileHandler를 설정하는 부분으로 pattern에 jdbc_net_%s.log를 사용해 세션의 
+     # 아이디별로 파일이 생성되도록 설정했다. 
+     # 또한 formatter로 XMLFormatter를 사용해 XML형태의 파일에 로그가 생성되도록 설정했다.
 
 ```
 ### Hibernate
@@ -3541,27 +3269,23 @@ Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설�
 AltibaseDialect.class 를 지정해야 한다.
 
 #### AltibaseDialect
-Hibernate 가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class 를 포함하지 않기 때문에
-AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가
-제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은
-Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
+Hibernate 가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class 를 포함하지 않기 때문에 AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법 (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
 #### Lob 관련 속성
-Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이 
-null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null 이더라도 Lob 관련 객체가
-리턴되었기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것이 권장된다.
+Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이 null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null이더라도 Lob관련 객체가 리턴되었기 때문에 다음 JDBC연결 속성을 통해 제어가 가능하다.
 
 ##### lob_null_select
-| 기본값    | on                                                           |
+| 기본값    | off                                                        |
 |----------|---------------------------------------------------------------|
 | 값의 범위 | [on \| off ]                                                 |
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
 | 설명     | lob 컬럼값이 null 일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
-##### 예제 
-lob_null_select 값이 off 인 경우 다음과 같이 getBlob(), getClob()을 한 후 null 처리를 해줘야 한다.
-```
+##### 예제
+
+lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다.
+
+```java
 Blob sBlob = sRs.getBlob();
 if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
 {
@@ -3587,15 +3311,15 @@ SQL 실행 계획을 문자열로 가져오는 기능을 비표준 API로 제공
 
 #### 인자
 
-|                 속성                 | 속성값 |                             내용                             |
-| :----------------------------------: | :----: | :----------------------------------------------------------: |
+| 속성                                 | 속성값 | 내용                                                         |
+| :----------------------------------- | :----: | :----------------------------------------------------------- |
 | AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | SELECT 문 실행 후 Plan Tree 정보는 보여주지 않고 결과 레코드만 보여준다. |
-|  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | SELECT 문 실행 후 결과 레코드와 함께 Plan Tree의 정보를 보여준다. Plan tree에는 레코드 접근 횟수 및 튜플이 점유한 메모리 양, 비용 등이 출력된다. |
+| AltibaseConnection.EXPLAIN_PLAN_ON   |   1    | SELECT 문 실행 후 결과 레코드와 함께 Plan Tree의 정보를 보여준다. Plan tree에는 레코드 접근 횟수 및 튜플이 점유한 메모리 양, 비용 등이 출력된다. |
 | AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | SELECT 문 실행 후 결과 레코드와 함께 Plan Tree의 정보를 보여준다. EXPLAN PLAN = ONLY인 경우 질의 실행 없이 실행 계획만 생성하므로, ACCESS 항목과 같이 실제 실행 후 그 값이 결정되는 항목들은 물음표(“??”)로 표시된다. |
 
 #### 코드 예제
 
-```
+```java
 AltibaseConnection sConn = (AltibaseConnection)DriverManager.getConnection(sURL, sProps);
 sConn.setExplainPlan(AltibaseConnection.EXPLAIN_PLAN_ONLY);
 AltibaseStatement  sStmt = (AltibaseStatement)sConn.prepareStatement("SELECT sysdate FROM dual");
@@ -3620,35 +3344,22 @@ PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
 
 ### 성능을 위한 팁
 
-아래는 JDBC 애플리케이션의 성능을 향상시키기 위해 염두에 두어야 할 몇 가지
-사항이다.
+아래는 JDBC 애플리케이션의 성능을 향상시키기 위해 염두에 두어야 할 몇 가지 사항이다.
 
--   JDBC 애플리케이션에서 LOB 데이터를 조작할 때에는 Stream 또는 Writer 객체를
-    사용할 것을 권장한다. 만약 사용할 LOB 데이터의 크기가 8192바이트 이하일
-    경우, Lob_Cache_Threshhold 연결 속성을 적절한 값으로 설정하도록 한다.
-
--   하나의 Connection 객체에 한 가지 작업을 수행할 것을 권장한다. 예를 들어, 한
-    Connection 객체에 여러 개의 Statement 객체를 생성하여 작업을 수행하면 성능
-    저하가 발생할 수도 있다.
-
--   Connection 객체의 생성, 소멸이 빈번할 경우, 미들웨어(WAS)에서 제공하는
-    Connection Pool을 사용할 것을 권장한다. Connection을 맺고 끊는 작업은 다른
-    연산에 비해 비교적 비용이 크기 때문이다.
+- JDBC 애플리케이션에서 LOB 데이터를 조작할 때에는 Stream 또는 Writer 객체를 사용할 것을 권장한다. 만약 사용할 LOB 데이터의 크기가 8192바이트 이하일 경우, Lob_Cache_Threshhold 연결 속성을 적절한 값으로 설정하도록 한다.
+- 하나의 Connection 객체에 한 가지 작업을 수행할 것을 권장한다. 예를 들어, 한 Connection 객체에 여러 개의 Statement 객체를 생성하여 작업을 수행하면 성능 저하가 발생할 수도 있다.
+- Connection 객체의 생성, 소멸이 빈번할 경우, 미들웨어(WAS)에서 제공하는 Connection Pool을 사용할 것을 권장한다. Connection을 맺고 끊는 작업은 다른 연산에 비해 비교적 비용이 크기 때문이다.
 
 5.에러 메시지
 -----------
 
-이 장은 Altibase JDBC 드라이버를 사용하면서 발생할 수 있는 오류의 SQL State를
-기술한다.
+이 장은 Altibase JDBC 드라이버를 사용하면서 발생할 수 있는 오류의 SQL State를 기술한다.
 
 ### SQL States
 
-SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개의 문자와 그 뒤에
-서브클래스를 나타내는 3개의 문자로 이루어진다. 클래스는 상태를 나타내고
-서브클래스는 세부 상태를 나타낸다.
+SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개의 문자와 그 뒤에 서브클래스를 나타내는 3개의 문자로 이루어진다. 클래스는 상태를 나타내고 서브클래스는 세부 상태를 나타낸다.
 
-아래는 Altibase JDBC 드라이버에서 발생할 수 있는 SQLState의 종류와 그 의미를
-간략하게 정리한 표이다.
+아래는 Altibase JDBC 드라이버에서 발생할 수 있는 SQLState의 종류와 그 의미를 간략하게 정리한 표이다.
 
 | Condition                             | Class | Subcondition                                                                                             | Subclass |
 |---------------------------------------|-------|----------------------------------------------------------------------------------------------------------|----------|
@@ -3986,13 +3697,11 @@ JDBC spec 4.2를 지원하는 Altibase42.jar 에서는 다음과 같이 Java8 Ti
 A.부록: 데이터 타입 맵핑
 ----------------------
 
-이 부록은 Altibase의 데이터 타입과 JDBC 표준 데이터 타입, Java 데이터 타입간에
-호환 여부를 기술한다.
+이 부록은 Altibase의 데이터 타입과 JDBC 표준 데이터 타입, Java 데이터 타입간에 호환 여부를 기술한다.
 
 ### 데이터 타입 맵핑
 
-아래의 표는 JDBC 데이터 타입, Altibase JDBC의 데이터 타입, 및 Java 언어의 타입
-간에 기본적으로 맵핑되는 관계를 보여준다.
+아래의 표는 JDBC 데이터 타입, Altibase JDBC의 데이터 타입, 및 Java 언어의 타입 간에 기본적으로 맵핑되는 관계를 보여준다.
 
 | JDBC 타입     | Altibase 타입 | Java 타입  |
 |---------------|---------------|------------|
@@ -4084,3 +3793,4 @@ A.부록: 데이터 타입 맵핑
 | getString          | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         | ○    | ○    | ○         |      |      |
 | getTime            |          |         |        |      |       |        |                 |     | ○            | ○           |        |                         | ○    | ○    | ○         |      |      |
 | getTimestamp       |          |         |        |      |       |        |                 |     | ○            | ○           |        |                         | ○    | ○    | ○         |      |      |
+
