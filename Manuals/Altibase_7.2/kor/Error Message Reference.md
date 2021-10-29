@@ -324,7 +324,9 @@ close that process or select a different port.
 **Action:** Please send a bug report to the vendor.
 
 **0x0002B ( 43) idERR_FATAL_SIGMASK_ERROR Unable to mask the signal**
+
 **Cause:** Failed to invoke the pthread_sigmask() system function.
+
 **Action:** Please send a bug report to the vendor.
 
 **0x0002C ( 44) idERR_FATAL_FILE_OPEN Unable to open a file [\<0%s\>]**
@@ -523,6 +525,12 @@ errors.
 
 **Action:** Check the error number from the altibase_boot.log file and take
 appropriate action.
+
+**0x000B0 (    176) idERR_FATAL_SysShmDt Failed to invoke the shmdt() system function** 
+
+**Cause:** The system failed to detach a shared memory region from a process.
+
+**Action:** Please send a bug report to the vendor.
 
 **0x000B1 ( 177) idERR_FATAL_Shm_No_Permission No permission for the shared
 memory database**
@@ -1073,7 +1081,7 @@ open in write or append mode.
 
 **Cause:** The message to be processed is too long.
 
-**Action:** Make the message length shorter than 2\^61.
+**Action:** Make the message length shorter than 2^61.
 
 **0x01066 ( 4198) idERR_ABORT_idp_Value_Convert_Error The property [\<0%s\>]
 value [\<1%s\>] cannot be converted.**
@@ -1756,6 +1764,8 @@ detected in the memory manager. [\<0%s\>]**
 server. Check the error number from the trace log and contact Altibase’s Support
 Center (http://support.altibase.com).
 
+#Server Internal Message
+
 ### IGNORE
 
 **0x02000 ( 8192) idERR_IGNORE_NoError No ID module error**
@@ -1892,8 +1902,6 @@ affinity on a process.**
 **Cause:** The CPU number is invalid.
 
 **Action:** This message can be disregarded.
-
-\# Server Internal Message
 
 2.SM Error Code
 ---------------
@@ -2204,6 +2212,12 @@ disabled.**
 **Action:** Check the value of the LOGGING_LEVEL and whether a transaction was
 aborted.
 
+**#131, smERR_ABORT_PARALLEL_INDEX_BUILD = The system failed to build an index.**
+
+**Cause:** The system failed to build an index.
+
+**Action:** Check the atibase _boot.log file.
+
 **0x10085 ( 65669) smERR_FATAL_CannotOpenDir The system failed to open the
 directory. ( Directory Name : \<0%s\> )**
 
@@ -2224,6 +2238,12 @@ directory.**
 
 **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
+
+**#139, smERR_ABORT_ArchiveLog = Archive log file backup failure**
+
+**Cause:** The archive log file backup has failed.
+
+**Action:** Check the error number from the trace log and contact Altibase¡¯s Support Center(http://support.altibase.com).
 
 **0x1008D ( 65677) smERR_FATAL_NotFoundDataFile The data file containing page
 [\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
@@ -3062,7 +3082,7 @@ needed.
 
 **Action:** Start up in the meta phase using the RESETLOGS option.
 
-**0x110A4 ( 69796) smERR_ABORT_BACKUP_GOING Backup in progress. Wait until the
+**0x110A4 ( 69796) smERR_ABORT_BACKUP_GOING Backup in progress. Please Wait until the
 current backup is completed.**
 
 **Cause:** It is impossible to switch logfiles while a backup is in progress.
@@ -5992,6 +6012,12 @@ database, but failed.
 
 **Action:** Start the remote database.
 
+**#15,rpERR_IGNORE_RP_SENDER_STOP_OLD = [Sender] Stop sender thread <0%s>:<1%d> at [<2%ld>], Restart SN[<3%ld>]** 
+
+**Cause:** The sender thread was stopped either normally or abnormally due to a failure in the network.
+
+**Action:** This error is not attributable to Altibase.
+
 **0x61010 ( 397328) rpERR_ABORT_RP_SENDER_START [Sender] Failed to start the
 sender thread**
 
@@ -7062,6 +7088,18 @@ and restart. If a network error has occurred, increase
 REPLICATION_RECOVERY_REQUEST_TIMEOUT, and restart replication. If connection
 fails, check the error number from the trace log and contact Altibase’s Support
 Center (http://support.altibase.com).
+
+**#174,rpERR_ABORT_ARRANGE_XLOG = XLog arrangement failed.**
+
+**Cause:** Internal server error
+
+**Action:** Please send a bug report to the vendor.
+
+**#175,rpERR_ABORT_CONVERT_SIZE = Size conversion operation failed.**
+
+**Cause:** Internal server error.
+
+**Action:** Please send a bug report to the vendor.
 
 **0x610B0 ( 397488) rpERR_ABORT_MISMATCH_OLD_ITEMS_COUNT Old items count
 mismatch (\<0%d\>:\<1%d\>)**
@@ -12548,6 +12586,12 @@ referential constraints.
 
 **Action:** Check the referential constraints that are related to the table.
 
+**0x311C6 ( 201158) qpERR_ABORT_QMX_CANNOT_SET_TIMESTAMP Unable to set the TIMESTAMP value.** 
+
+**Cause:** The system failed to set the TIMESTAMP value.
+
+**Action:** Please send a bug report to the vendor.
+
 **0x313D6 ( 201686) qpERR_ABORT_QMX_TABLE_PARTITION_ACCESS_DENIED Unable to
 update table or partition \<0%s\>**
 
@@ -16444,11 +16488,15 @@ Support Center (http://support.altibase.com).
 **0x40054 ( 262228) mmERR_FATAL_THREAD_CONDITION_DESTROY Failed to invoke the
 cond_destroy() system function**
 
-**Cause:** Use of invalid condition value. This is an OS (system call error or
-library function) error.
+**Cause:** Use of invalid condition value.
 
-**Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+**Action:** Please send a bug report to the vendor.
+
+**# 86,mmERR_ABORT_CLIENT_CLOSED = Unable to send data to client.**
+
+**Cause:** Client socket already closed.
+
+**Action:**  Please send a bug report to the vendor.
 
 **0x40060 ( 262240) mmERR_FATAL_OSFileSizeLimit_ERROR The maximum file size of
 the OS is less than that specified in the property. Decrease the file size
@@ -16495,6 +16543,12 @@ due to a system limitation.
 **Cause:** Password file open error.
 
 **Action:** Check your environment.
+
+**# 134,mmERR_FATAL_CRYPT_NOT_SUPPORTED =  Unsupported encryption scheme.**
+
+**Cause:** Internal server error
+
+**Action:** Please send a bug report to the vendor.
 
 **0x400B9 ( 262329) mmERR_FATAL_ThrCondWait Failed to invoke the cond_wait() system function.**
 
@@ -16573,12 +16627,24 @@ server.
 
 **Action:** Verify the version of library that is used by the client.
 
+**#52,mmERR_ABORT_INVALID_STATE_ERROR  = Unsupported communication protocol**
+
+**Cause:** Code based on an unsupported protocol has been found.
+
+**Action:** Please send a bug report to the vendor
+
 **0x41035 ( 266293) mmERR_ABORT_ALREADY_CONNECT_ERROR Already connected to a
 session**
 
 **Cause:** A new connection has been requested to an already connected session.
 
 **Action:** Verify the client code.
+
+**#56,mmERR_ABORT_INVALID_STATEMENT_ID = The value of the statement ID exceeds the maximum value.**
+
+**Cause:** The ID number for a SQL statement exceeds the maximum value.
+
+**Action:** Please send a bug report to the vendor.
 
 **0x41039 ( 266297) mmERR_ABORT_INSUFFICIENT_QUERY_ERROR SQL statement too
 short**
@@ -16601,6 +16667,12 @@ fetch request**
 **Cause:** An invalid SQL statement fetch request has been detected.
 
 **Action:** Verify the SQL statement from the client.
+
+**#61,mmERR_ABORT_LARGE_FETCH_BUFFER_ERROR =  Too much fetched data**
+
+**Cause:** The size of a row exceeds the size of the communication buffer.
+
+**Action:** Increase the CM_BUF_SIZE property value so that it is larger than the maximum record size and restart the database.
 
 **0x4103F ( 266303) mmERR_ABORT_TOO_MANY_STATEMENT There are too many allocated statements.**
 
@@ -17261,6 +17333,12 @@ SYSDBA not allowed**
 
 **Action:** Set the REMOTE_SYSDBA_ENABLE property to 1.
 
+**#202,mmERR_ABORT_LinkerExistAlready = A linker process is already running**
+
+**Cause:** A linker process is already running.
+
+**Action:** Check the status of the linker process.
+
 **0x410CB ( 266443) mmERR_ABORT_MMC_NOT_SUPPORT_REPL_MODE This replication mode is not supported at the session level.**
 
 **Cause:** The replication modes (EAGER, ACKED, LAZY) do not pertain to
@@ -17876,8 +17954,7 @@ property value.
 **Cause:** Failed to invoke the mutex_() system function.
 
 **Action:** Contact Altibase's Support Center (http://support.altibase.com).
-
-# MT not used
+#MT not used
 
 **#34, HY001, ulERR_ABORT_Mtc_InitailizeClient_Error = mtc::initializeForClient() function call error**
 
@@ -18364,6 +18441,12 @@ The string is too long to be used as an attribute value.**
 
 **Action:** Check the length of the provided string.
 
+**#130, HY024, ulERR_ABORT_ATTRIBUTE_VALUE_OUT_OF_RANGE = Invalid attribute value. The provided attribute value is too big or too small.**
+
+**Cause:** Invalid attribute value.
+
+**Action:** Check the value for the attribute and specify an appropriate value.
+
 **0x51083 ( 331907) ulERR_ABORT_INCONSISTENT_NIBBLE_PRECISION_AND_BUFFER_SIZE
 Invalid parameter value. The SQL_NIBBLE data structure precision field value
 exceeds the specified buffer size.**
@@ -18615,7 +18698,8 @@ buffer type : type id \<0%d\> cannot be used as a LOB source buffer.**
 **Cause:** An invalid buffer type was used.
 
 **Action:** Check the buffer type.
-#317, 01000, ulERR_IGNORE_LOB_SIZE_OVER_2G = The size of the LOB data is excessive.
+
+**#317, 01000, ulERR_IGNORE_LOB_SIZE_OVER_2G = The size of the LOB data is excessive.**
 
 **0x5113E ( 332094) ulERR_ABORT_VALIDATE_INVALID_LENGTH Invalid data value**
 
@@ -18794,7 +18878,7 @@ error information.**
 
 **Action:** Contact Altibase’s Support Center (http://support.altibase.com).
 
-# Updatable Scrollable Cursor
+**Updatable Scrollable Cursor**
 
 **0x51201 ( 332289) ulERR_ABORT_INVALID_BOOKMARK_VALUE Invalid bookmark value**
 
@@ -18837,7 +18921,7 @@ columns in derived table does not match column list**
 **Action:** Check if the column is unbound, read-only, or if the
 length/indicator value is SQL_COLUMN_IGNORE.
 
-# SSL
+**SSL**
 
 **0x5120C ( 332300) ulERR_ABORT_SSL_OPERATION_FAILURE SSL operation failure.
 \<0%s\>**
@@ -18880,6 +18964,8 @@ variable has been set.**
 **Action:** Set the port with a connection string or the ALTIBASE_SSL_PORT_NO
 environment variable.
 
+ **IPCD**
+
 **0x51210 ( 332304) ulERR_ABORT_IPCDA_MESSAGE_TOO_LONG Exceeding message size
 for maximum size of IPCDA buffer(\<0%d\>).**
 
@@ -18905,7 +18991,7 @@ for maximum size of IPCDA buffer(\<0%d\>).**
 
 **Action:** Use another connection type.
 
-#For Shard
+**For Shard**
 
 **0x51214 ( 332308) ulERR_ABORT_SHARD_ERROR The \<0%s\> of client-side sharding
 failed due to the following reason: \<1%s\>**
@@ -18975,7 +19061,7 @@ number.
 
 **Action:** Check the attribute.
 
-#IB
+**IB**
 
 **0x5121A ( 332314) ulERR_ABORT_INVALID_ALTIBASE_IB_PORT_NO Connection string
 does not have PORT_NO, and environment variable ALTIBASE_IB_PORT_NO does not
@@ -20643,14 +20729,6 @@ server.**
 the trace log and contact Altibase's Support Center
 (http://support.altibase.com).
 
-**#203, HY000, utERR_ABORT_AUDIT_Plugin_Load_Error = Failed to load the Oracle handle <0%s>**
-
-** ERROR: Plugin load error
-
-**Cause:** Failed to load the Oracle handle.
-
-**Action:**	
-
 **0x910CA ( 594122) utERR_ABORT_AUDIT_Create_Instance_Error Failed to create
 object \<0%s\>**
 
@@ -20658,6 +20736,14 @@ object \<0%s\>**
 
 **Action:** Verify that there is enough memory to run the application. If
 necessary, make more memory available for the application.
+
+**#203, HY000, utERR_ABORT_AUDIT_Plugin_Load_Error = Failed to load the Oracle handle <0%s>**
+
+** ERROR: Plugin load error
+
+**Cause:** Failed to load the Oracle handle.
+
+**Action:**	
 
 **0x910CC ( 594124) utERR_ABORT_AUDIT_Check_Log_File_Error Failed to open the
 log file \<0%s\>**
