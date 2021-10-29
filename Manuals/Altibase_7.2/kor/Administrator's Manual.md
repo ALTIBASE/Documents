@@ -6122,6 +6122,41 @@ PARTITION BY HASH(sales_id)
 
 파티션 조건은 변경되지 않으며, 파티션에 저장되어 있는 모든 레코드들이 삭제된다.
 
+#### 해시를 사용한 범위 파티셔닝
+
+해시를 사용한 범위 파티셔닝(range using hash partitioning)은 객체를 파티션 키의 해시(hash)값을 기준으로 범위를 지정하여 분할하는 방법이다. 파티션 키는  단일 컬럼만 가능하다. 해시를 사용한 범위 파티셔닝은 데이터의 고른 부하 분배와 관리의 용이성을 위해 사용되는 방법이다.
+
+해시 파티셔닝과 달리 해시를 사용한 범위 파티셔닝은 파티션 분할, 삭제, 합병이 가능하고 파티션 추가, 병합(coalesce)은 지원하지 않는다.
+
+기본 동작은 범위 파티션과 같으며 기본 파티션을 지원한다. 다만 파티션 키는 단일 컬럼만 가능하고 해시 값의 범위(range)를 0 보다 크고 1000보다 작은 값만 설정할 수 있다.
+
+다음은 해시를 사용한 범위 파티셔닝의 예제이다.
+
+```
+CREATE TABLE part_table
+(
+    sales_date        DATE,
+    sales_id          NUMBER,
+    sales_city        VARCHAR(20),
+    ....
+) 
+PARTITION BY RANGE_USING_HASH(sales_id)
+(
+    PARTITION part_1 VALUES LESS THAN ( 250 ),
+    PARTITION part_2 VALUES LESS THAN ( 500 ),
+    PARTITION part_3 VALUES LESS THAN ( 750 ),
+    PARTITION part_def VALUES DEFAULT
+) TABLESPACE SYS_TBS_DISK_DATA;
+```
+
+위의 테이블 생성 구문을 그림으로 설명하면 다음과 같다.
+
+![](media/Admin/7-28.png)
+
+[그림 7‑28] 해시 값을 사용한 범위 파티션드 테이블의 파티션 영역
+
+해시를 사용한 범위 파티션드 객체에 대한 연산은 범위 파티션드 객체와 같다.
+
 ## 8.트랜잭션 관리
 
 사용자 트랜잭션의 동시성을 제어하고 데이터의 일관성을 유지하는 것이 데이터베이스의 가장 기본적인 기능의 하나다. 이장에서는 Altibase의 트랜잭션 관리 기능에 대해서 알아보자.
