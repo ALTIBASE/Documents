@@ -336,27 +336,22 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 ### 지원 플랫폼
 
->  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*<br>*Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
+>  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*<br>
 >
 >  Altibase 7.2 패치 버전을 명시하지 않은 경우 Altibase 7.2 모든 버전에서 지원한다.
 
 
-|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항             |
-| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------ |
-| **Linux x86-64**[배포판 버전](#footnote-linuxversion)        |                     |                           |                                 |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*         |
-| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br /> |
-| **Linux on Power**                                           |                     |                           |                                 |
-| POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*         |
+|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                          |
+| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :----------------------------------------------------------- |
+| **Linux x86-64**[배포판 버전](#footnote-linuxversion)        |                     |                           |                                                              |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8) |          ●          |             ●             | *- GNU glibc 2.12 이상*<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
 
-> **<a name="footnote-linuxversion">리눅스 배포판 버전</a>**<br>호환성 테스트를 완료한 Red Hat Enterprise Linux 마이너 버전 정보와 Red Hat Enterprise Linux 이외에 호환성 테스트 된 리눅스 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
+> **<a name="footnote-linuxversion">리눅스 배포판 버전</a>**<br>
+>
+> Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
+> Red Hat Enterprise Linux 이외에 호환성 테스트 된 리눅스 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**<br>RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [A.부록: 설치 전 확인 사항 - Red Hat Enterprise Linux 8](#Red-Hat-Enterprise-Linux-8) 을 확인한다.
-
-> **<a name="footnote-winclnt-limitations">Altibase 7.2 Windows 클라이언트 제약 사항</a>**<br>다음은 Altibase 7.2 Windows 클라이언트에서 지원하지 않는 기능이다.
->
-> - .NET Data Provider
-> - Altibase C Interface
 
 ### Altibase 패키지 인스톨러
 
@@ -1836,7 +1831,9 @@ Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고�
 
 ### Red Hat Enterprise Linux 8
 
-RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 이 작업 root 권한이 필요하다.
+RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. Altibase 7.2  Altibase 패키지 인스톨러에서 $ALTIBASE_HOME/lib 디렉토리에 심볼릭 링크를 생성하므로 사용자가 생성할 필요 없다. 
+
+libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같은 방법으로 심볼릭 링크를 생성한다.
 
 1. ncurses와 tinfo 라이브러리 파일을 확인한다.
 
@@ -1853,16 +1850,16 @@ RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so
 2. libncurses.so.5, libtinfo.so.5 파일이 없는 경우 심볼릭 링크를 생성한다.
 
    ```bash
-   % ln -s /usr/lib64/libncurses.so.6.1 /usr/lib64/libncurses.so.5
-   % ln -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5
+   % ln -s /usr/lib64/libncurses.so.6.1 $ALTIBASE_HOME/lib/libncurses.so.5
+   % ln -s /usr/lib64/libtinfo.so.6.1 $ALTIBASE_HOME/lib/libtinfo.so.5
    ```
 
 3. 생성한 심볼릭 링크를 확인한다.
 
    ```bash
-   % ls -l /usr/lib64/ | grep -e libncurses.so.5 -e libtinfo.so.5
-   lrwxrwxrwx   1 root root       17 May  7 16:44 libncurses.so.5 -> libncurses.so.6.1*
-   lrwxrwxrwx   1 root root       15 May  7 16:51 libtinfo.so.5 -> libtinfo.so.6.1*
+   % ls -l $ALTIBASE_HOME/lib | grep -e libncurses.so.5 -e libtinfo.so.5
+   lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
+   lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
 
 
@@ -1876,7 +1873,7 @@ RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so
 
   ```bash
   % server create utf8 utf8
-  /home/dev02/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
+  /home/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
   ```
 
 - RHEL 8 에서 ncurses (tinfo 포함) 라이브러리 버전이 6.1 로 변경되었다. Altibase 는 ncurses 5 버전 파일을 필요로 한다. 
