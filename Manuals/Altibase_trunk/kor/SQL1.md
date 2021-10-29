@@ -7803,10 +7803,7 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 
 *range_partitioning*
 
-범위 파티션드 테이블 생성시 파티션 키 값의 범위를 명시하는 절이다. 주로 DATE
-자료형에 많이 사용된다. 사용자가 지정한 값을 기준으로 테이블이 분할되기 때문에,
-파티션별로 데이터의 고른 분포는 보장되지 않는다. 각 파티션의 범위는 그 범위의
-최대값을 설정함으로써 결정된다.
+범위 파티션드 테이블 생성시 파티션 키 값의 범위를 명시하는 절이다. 주로 DATE 자료형에 많이 사용된다. 사용자가 지정한 값을 기준으로 테이블이 분할되기 때문에, 파티션별로 데이터의 고른 분포는 보장되지 않는다. 각 파티션의 범위는 그 범위의 최대값을 설정함으로써 결정된다.
 
 명시된 범위 외의 모든 값과 NULL은 기본 파티션(default partition)에 속하게 된다.
 여러 칼럼들의 조합으로 파티션 키를 정의할 수 있다.
@@ -7814,36 +7811,42 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 범위 파티션드 테이블 생성시 기본 파티션 절은 생략할 수 있다.
 기본 파티션 절이 생략된 경우에만 ALTER TABLE ADD PARTITION 구문을 사용할 수 있다.
 
-> 주의 : 
->
-> - 기본 파티션을 추가 또는 삭제할 수 없습니다. 즉, ATLER TABLE ADD , DROP PARTITION 구문을 지원하지 않습니다. 범위 파티션테이블을 생성시 주의해야한다.
->
-> - 파티션 키 컬럼의 값으로 NULL을 삽입해야 하는 경우 기본파티션이 반드시 있어야한다.
->
-> - 기본 파티션이 없는 경우  CONJOIN/DISJOIN 구문을 지원하지 않습니다.
+###### 범위 파티션드 테이블 생성 시 주의 사항
 
-> 참고 : 기본 파티션 절을 생략한 경우 SYS_TABLE_PARTITIONS_에 이름이 ""(NULL)인 파티션이 생성된다.
+- 기본 파티션이 없는 범위 파티션드 테이블을 생성할 수 있다.
+- 범위 파티션드 객체에서 파티션 추가는 기본 파티션이 없는 범위 파티션드 테이블에서만 사용할 수 있다.
+- 기본 파티션이 없는 범위 파티션드 테이블은 기본 파티션 추가 연산을 수행할 수 없다.
+- 기본 파티션이 있는 범위 파티션드 테이블은 기본 파티션 삭제 연산을 수행할 수 없다.
+- 기본 파티션이 없는 범위 파티션드 테이블은 CONJOIN/DISJOIN 구문을 사용할 수 없다.
+- 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
+
+> 기본 파티션이 없는 범위 파티션드 테이블을 생성하면 SYS_TABLE_PARTITIONS_에서 PARTITION_NAME 이 없는 파티션이 추가로 생성된다.
 >
-> ```
-> CREATE TABLE t1 ( i1 INT, i2 INT)
-> PARTITION BY RANGE ( i1 )
-> ( PARTITION p1 VALUES LESS THAN (10),
->   PARTITION p2 VALUES LESS THAN (20)
-> );
+> ```sql
+> iSQL> CREATE TABLE t1 
+>       ( 
+>         i1 INT, 
+>         i2 INT
+>       ) 
+>       PARTITION BY RANGE ( i1 ) 
+>       ( 
+>         PARTITION p1 VALUES LESS THAN (10), 
+>         PARTITION p2 VALUES LESS THAN (20) 
+>       );
 > 
-> SELECT PARTITION_NAME as p_name
->  , PARTITION_MIN_VALUE as min
->  , PARTITION_MAX_VALUE as max
-> FROM SYSTEM_.SYS_TABLES_ T,
->  SYSTEM_.SYS_TABLE_PARTITIONS_ p
-> WHERE T.USER_ID = 2 
->  AND T.TABLE_NAME = 'T1'
->  AND T.TABLE_ID = P.TABLE_ID;
-> P_NAME  MIN     MAX
-> ----------------------------
-> P1              10
-> P2      10      20
->         20
+> iSQL> SELECT PARTITION_NAME as p_name
+>            , PARTITION_MIN_VALUE as min
+>            , PARTITION_MAX_VALUE as max
+>         FROM SYSTEM_.SYS_TABLES_ T
+>            , SYSTEM_.SYS_TABLE_PARTITIONS_ p
+>        WHERE T.USER_ID = 2 
+>          AND T.TABLE_NAME = 'T1'
+>          AND T.TABLE_ID = P.TABLE_ID;
+> P_NAME      MIN         MAX         
+> ----------------------------------------
+> P1                      10          
+> P2          10          20          
+>             20                      
 > 3 rows selected.
 > ```
 
@@ -8582,7 +8585,6 @@ PARTITION BY RANGE_USING_HASH (product_id)
                       STORAGE ( INITEXTENTS 3 MINEXTENTS 3 MAXEXTENTS 100 );
   Create success.
   ```
-
 
 
 
