@@ -3156,6 +3156,8 @@ iSQL> ALTER SEQUENCE seq1 ENABLE SYNC TABLE;
 
 ![image56_add_table_partition](media/SQL/image56_add_table_partition.gif)
 
+[partition_range_clause ::=](#partition_range_clause) 
+
 **alter_partition ::=**
 
 ![alter_partition](media/SQL/alter_partition.gif)
@@ -3362,7 +3364,18 @@ CREATE TABLE의 parallel_clause 설명을 참고한다.
 
 *add_table_partition*
 
-이는 파티션드 테이블에 파티션을 추가하는 절이다. 이 절은 해시 파티션드 테이블에만 사용할 수 있다. 기존 파티션들에 로컬 인덱스가 이미 생성되어 있는 경우, 추가된 파티션에도 로컬 인덱스가 자동으로 생성된다. 이 때 로컬 인덱스의 이름은 시스템에 의해 자동으로 결정되고, 그 인덱스는 새로 추가된 파티션과 같은 테이블스페이스에 저장된다.
+이는 파티션드 테이블에 한 개의 파티션을 추가하는 절이다. 이 절은 해시 파티션드 테이블 또는 기본 파티션이 생략된 범위 파티션드 테이블에만 사용할 수 있다.
+
+partition_spec 절은 해시 파티션드 테이블에만 사용할 수 있다.
+
+partition_range_clause 절은 범위 파티션드 테이블에만 사용할 수 있으며, 범위 파티션드 테이블의 마지막 범위의 파티션을 추가하는 구문이다. SPLIT 파티션 연산과 다르게 데이터가 이동하지 않기 때문에 DML문과의 동시성을 보장할 수 있다.
+
+기존 파티션들에 로컬 인덱스가 이미 생성되어 있는 경우, 추가된 파티션에도 로컬 인덱스가 자동으로 생성된다. 이 때 로컬 인덱스의 이름은 시스템에 의해 자동으로 결정되고, 그 인덱스는 새로 추가된 파티션과 같은 테이블스페이스에 저장된다.
+
+> 주의
+>
+> - 범위 파티션드 테이블의 기본 파티션을 추가 할 수 없다.
+> - 범위 파티션드 테이블의 범위 중간에 파티션을 추가할 수 없다. SPLIT 파티션 연산을 사용해야한다.
 
 *partition_spec*
 
@@ -6779,7 +6792,7 @@ MY_DEPT.MEMBER
 
 **range_partitioning ::=**
 
-![range_partitioning_image124](media/SQL/range_partitioning_image124.gif)
+![range_partitioning_image124](media/SQL/image124_2.gif)
 
 **partition_default_clause ::=**
 
@@ -6823,6 +6836,16 @@ MY_DEPT.MEMBER
 
 
 ![table_list_clause_image128](media/SQL/table_list_clause_image128.gif)
+
+
+
+**range_using_hash_partitioning ::=**
+
+![range_using_hash_partitioning](media/SQL/range_using_hash_partitioning_image.gif)
+
+[partition_default_clause ::=](#partition_default_clause)
+
+[partition_range_clause ::=](#partition_range_clause)
 
 
 
@@ -7075,13 +7098,54 @@ PRIMARY KEY, UNIQUE 또는 LOCALUNIQUE 제약을 명시할 경우, 자동으로 
 
 *table_partitioning_clause*
 
-파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시 파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning) 방법으로 파티션드 테이블을 생성할 수 있다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
+파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시 파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning), 해시를 사용한 범위 파티셔닝(range using hash partitioning) 방법으로 파티션드 테이블을 생성한다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
 
 *range_partitioning*
 
 범위 파티션드 테이블 생성시 파티션 키 값의 범위를 명시하는 절이다. 주로 DATE 자료형에 많이 사용된다. 사용자가 지정한 값을 기준으로 테이블이 분할되기 때문에, 파티션별로 데이터의 고른 분포는 보장되지 않는다. 각 파티션의 범위는 그 범위의 최대값을 설정함으로써 결정된다.
 
-명시된 범위 외의 모든 값과 NULL은 기본 파티션(default partition)에 속하게 된다. 기본 파티션 절은 생략할 수 없다. 여러 칼럼들의 조합으로 파티션 키를 정의할 수 있다.
+명시된 범위 외의 모든 값과 NULL은 기본 파티션(default partition)에 속하게 된다. 여러 칼럼들의 조합으로 파티션 키를 정의할 수 있다.
+
+범위 파티션드 테이블 생성시 기본 파티션 절은 생략할 수 있다. 기본 파티션 절이 생략된 경우에만 ALTER TABLE ADD PARTITION 구문을 사용할 수 있다.
+
+###### 범위 파티션드 테이블 생성 시 주의 사항
+
+- 기본 파티션이 없는 범위 파티션드 테이블을 생성할 수 있다.
+- 범위 파티션드 객체에서 파티션 추가는 기본 파티션이 없는 범위 파티션드 테이블에서만 사용할 수 있다.
+- 기본 파티션이 없는 범위 파티션드 테이블은 기본 파티션 추가 연산을 수행할 수 없다.
+- 기본 파티션이 있는 범위 파티션드 테이블은 기본 파티션 삭제 연산을 수행할 수 없다.
+- 기본 파티션이 없는 범위 파티션드 테이블은 CONJOIN/DISJOIN 구문을 사용할 수 없다.
+- 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
+
+> 기본 파티션이 없는 범위 파티션드 테이블을 생성하면 SYS_TABLE_PARTITIONS_에서 PARTITION_NAME 이 없는 파티션이 추가로 생성된다.
+>
+> ```sql
+> iSQL> CREATE TABLE t1 
+>       ( 
+>         i1 INT, 
+>         i2 INT
+>       ) 
+>       PARTITION BY RANGE ( i1 ) 
+>       ( 
+>         PARTITION p1 VALUES LESS THAN (10), 
+>         PARTITION p2 VALUES LESS THAN (20) 
+>       );
+> 
+> iSQL> SELECT PARTITION_NAME as p_name
+>            , PARTITION_MIN_VALUE as min
+>            , PARTITION_MAX_VALUE as max
+>         FROM SYSTEM_.SYS_TABLES_ T
+>            , SYSTEM_.SYS_TABLE_PARTITIONS_ p
+>        WHERE T.USER_ID = 2 
+>          AND T.TABLE_NAME = 'T1'
+>          AND T.TABLE_ID = P.TABLE_ID;
+> P_NAME      MIN         MAX         
+> ----------------------------------------
+> P1                      10          
+> P2          10          20          
+>             20                      
+> 3 rows selected.
+> ```
 
 *table_partition_description*
 
@@ -7139,6 +7203,10 @@ PARTITION BY RANGE (product_id)
 *partition_list_clause*
 
 각 리스트 파티션은 적어도 1개 이상의 값을 가져야 한다. 한 리스트의 값은 다른 어떤 리스트에도 있을 수 없다.
+
+*range_using_hash_partitioning*
+
+이 절은 파티션 키값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 파티션 키는 단일 컬럼으로 지정하며 해시 값을 1000으로 나눈 나머지(mod) 값으로 범위를 지정한다. 1000은 고정값으로 변경할 수 없다. 데이터를 고르게 분포하는 해시 파티셔닝의 장점과 합병, 분할이 가능한 범위 파티셔닝의 장점을 결합한 파티셔닝이다.
 
 *row_movement_clause*
 
@@ -7651,6 +7719,26 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   LOB(image2) STORE AS ( TABLESPACE lob_data2 );
   ```
 
+- 해시를 사용한 범위 파티셔닝(range using hash partitioning)
+
+  <질의> product_id에 따라서 4개의 해시 값을 사용하여 범위 파티션으로 분할되는 테이블을 생성한다.
+  
+  ```
+  CREATE TABLE range_using_hash_products
+  (
+   product_id NUMBER(6),
+   product_name VARCHAR(50),
+   product_description VARCHAR(2000)
+  )
+  PARTITION BY RANGE_USING_HASH (product_id)
+  (
+   PARTITION p1 VALUES LESS THAN (250),
+   PARTITION p2 VALUES LESS THAN (500),
+   PARTITION p3 VALUES LESS THAN (750),
+   PARTITION p4 VALUES DEFAULT
+  ) TABLESPACE SYS_TBS_DISK_DATA;
+  ```
+  
 - 세그먼트 내의 익스텐트 관리 파라미터를 지정한 테이블 생성
 
   \<질의\> 디스크 테이블스페이스인 usertbs에 local_tbl 테이블을 생성한다. 단 테이블 생성시 익스텐트 10개를 할당하고 세그먼트 확장시마다 1개씩 확장하도록 한다.
