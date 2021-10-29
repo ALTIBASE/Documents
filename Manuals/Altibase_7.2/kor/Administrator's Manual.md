@@ -1,4 +1,4 @@
-**1Table of Contents**
+**Table of Contents**
 
 - [Administrator’s Manual](#administrators-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
