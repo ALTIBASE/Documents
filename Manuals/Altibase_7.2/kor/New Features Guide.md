@@ -220,7 +220,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 
 #### 서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선
 
-조걸절(WHERE, HAVING 절)에서 사용한 서브쿼리의 인라인뷰에 ORDER BY절이 있는 경우 OBYE(Order By Elimination, 불필요한 ORDER BY 제거) 쿼리 변환을 적용하여 SQL 성능이 향상되었다.
+조건절(WHERE, HAVING 절)에서 사용한 서브쿼리의 인라인뷰에 ORDER BY절이 있는 경우 OBYE(Order By Elimination, 불필요한 ORDER BY 제거) 쿼리 변환을 적용하여 SQL 성능이 향상되었다.
 
 - SQL 사용 예
 
