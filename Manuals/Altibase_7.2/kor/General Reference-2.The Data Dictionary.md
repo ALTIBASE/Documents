@@ -6,7 +6,6 @@
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
   - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
-    
     - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
     - [SYS_AUDIT_](#sys_audit_)
     - [SYS_AUDIT_OPTS_](#sys_audit_opts_)
@@ -50,6 +49,8 @@
     - [SYS_REPL_HOSTS_](#sys_repl_hosts_)
     - [SYS_REPL_ITEMS_](#sys_repl_items_)
     - [SYS_REPL_OFFLINE_DIR_](#sys_repl_offline_dir_)
+    - [SYS_REPL_OLD_CHECKS_](#sys_repl_old_checks_)
+    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
     - [SYS_REPL_OLD_COLUMNS_](#sys_repl_old_columns_)
     - [SYS_REPL_OLD_INDEX_COLUMNS_](#sys_repl_old_index_columns_)
     - [SYS_REPL_OLD_INDICES_](#sys_repl_old_indices_)
@@ -118,7 +119,6 @@
     - [V$INDEX](#vindex)
     - [V$INSTANCE](#vinstance)
     - [V$INTERNAL_SESSION](#vinternal_session)
-    
     - [V$LATCH](#vlatch)
     - [V$LIBRARY](#vlibrary)
     - [V$LFG](#vlfg)
@@ -145,7 +145,7 @@
     - [V$PROCINFO](#vprocinfo)
     - [V$PROCTEXT](#vproctext)
     - [V$PROPERTY](#vproperty)
-    - [V\$QUEUE_DELETE_OFF](#vqueue_delete_off)
+    - [V$QUEUE_DELETE_OFF](#vqueue_delete_off)
     - [V$REPEXEC](#vrepexec)
     - [V$REPGAP](#vrepgap)
     - [V$REPGAP_PARALLEL](#vrepgap_parallel)
