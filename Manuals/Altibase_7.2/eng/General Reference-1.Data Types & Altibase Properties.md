@@ -14,7 +14,6 @@
     - [LOB Data Type](#lob-data-type)
     - [Spatial Types](#spatial-types)
   - [2. Altibase Properties](#2-altibase-properties)
-    
     - [Configuration](#configuration)
     - [Properties Overview](#properties-overview)
     - [Database Initialization Properties](#database-initialization-properties)
@@ -3536,7 +3535,15 @@ The values in the “Alter Level” column have the following meaning:
       </tr>
       <tr>
       	<td>REPLICATION_DDL_ENABLE_LEVEL</td>
-          <td rowspan="2"></td>
+       		 <td></td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_DDL_SYNC</td>
+            <td>SYSTEM</td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_DDL_SYNC_TIMEOUT</td>
+         		<td rowspan="2"></td>
       </tr>
       <tr>
       	<td>REPLICATION_EAGER_PARALLEL_FACTOR</td>
@@ -9107,7 +9114,7 @@ Unsigned Integer
 
 ##### Default
 
-10485760 (10MB)
+3145728 (3M)
 
 ##### Attributes
 
@@ -9115,7 +9122,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[1048576, 134217728]
+[1048576, 134217728] (1M, 128M)
 
 ##### Description
 
@@ -10778,6 +10785,7 @@ This property determines the range of DDL statements that can be used for the re
 
 - REPLICATION_DDL_ENABLE_LEVEL = 0
 
+```
 ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
 
 ALTER TABLE table_name DROP COLUMN column_name;
@@ -10793,9 +10801,13 @@ TRUNCATE TABLE table_name;
 CREATE INDEX index_name ON table_name ( column_name );
 
 DROP INDEX index_name; -- for Normal Index
+```
+
+
 
 - REPLICATION_DDL_ENABLE_LEVEL = 1
 
+```
 ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
 
 ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
@@ -10823,6 +10835,9 @@ ALTER TABLE table_name DROP CONSTRAINT constraint_name; ( Unique, Local Unique )
 CREATE UNIQUE INDEX index_name ON table_name ( column_name );
 
 CREATE INDEX index_name ON table_name ( expression );
+
+
+```
 
 DROP INDEX index_name; ( unique, function-base indexes can be deleted. )
 
