@@ -1802,33 +1802,18 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하�
 
 모든 DDL 복제에 대해 제약사항은 다음과 같다.
 
-- **이중화 프로토콜 버전(replication protocol version) 세 자리(Major, Minor, Patch)가 모두 같아야 한다.**
-
-  이중화 프로토콜 버전은 2가지 방법으로 확인할 수 있다. 
-
-  1. SELECT REPL_PROTOCOL_VERSION FROM V$VERSION;
-  2. altibase -v
-
-- 이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
-
-- 이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
-
-- DDL 복제를 수행하는 테이블(파티션)명과 유저명이 이중화 지역서버, 원격서버 모두 동일해야 한다.
-
-- DDL 복제를 수행하는 이중화 지역, 원격 서버 모두 이중화가 시작되어 있어야 한다.
-
-- Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
-
-- Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
-
-- 하나의 이중화로 동시에 두개 이상의 DDL 복제는 할 수 없다.
-
-- 서로 다른 노드에서 하나의 노드로 동일한 테이블에 대해 DDL 복제는 할 수 없다.
-
-- DDL 복제를 수행하는 이중화에 포함된 테이블에 다른 DDL 복제를 수행할 수 없다.
-
--   삼중화 이상인 구조에서는 DDL을 전송받는 이중화 원격 서버들간에 갭이 없어야 하며, 갭이 있을 경우 데이터 불일치가 발생할 수 있다.
-    
+-   이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
+-   이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
+-   DDL 복제를 수행하는 테이블(파티션)명과 유저명이 이중화 지역서버, 원격서버 모두 동일해야 한다.
+-   DDL 복제를 수행하는 이중화 지역, 원격 서버 모두 이중화가 시작되어 있어야 한다.
+-   Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
+-   Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
+-   Patch 버전까지 동일해야 DDL 복제가 가능하다.
+-   하나의 이중화로 동시에 두개 이상의 DDL 복제는 할 수 없다.
+-   서로 다른 노드에서 하나의 노드로 동일한 테이블에 대해 DDL 복제는 할 수 없다.
+-   DDL 복제를 수행하는 이중화에 포함된 테이블에 다른 DDL 복제를 수행할 수 없다.
+-   삼중화 이상인 구조에서는 DDL을 전송받는 이중화 원격 서버들간에 갭이 없어야 하며, 
+    갭이 있을 경우 데이터 불일치가 발생할 수 있다.
 
 지원하는 DDL에 따라 제약사항이 다음과 같다.
 
@@ -2068,12 +2053,12 @@ Standby 서버가 오프라인 옵션으로 Active 서버의 로그 파일에 �
 
 ##### 제약사항
 
-- LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
+-   LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
 
 -   압축 테이블을 이중화 대상으로 가지는 replication 객체에 대해서는 오프라인
     이중화를 지원하지 않는다.
 
-- 복구 옵션과 동시에 사용할 수 없다.
+-   복구 옵션과 동시에 사용할 수 없다.
 
 -   오프라인 이중화가 시작하는 시점에 동일한 이중화 이름을 가진 수신
     쓰레드(Receiver)는 종료된 상태여야 한다. 만약 해당 수신 쓰레드가 동작 중일
@@ -2096,25 +2081,6 @@ Standby 서버가 오프라인 옵션으로 Active 서버의 로그 파일에 �
 -   두 데이터베이스 서버의 SM버전, OS, OS비트수 (32또는 64) 또는 로그 파일의
     크기가 서로 다르면, 오프라인으로 이중화를 시작하거나 오프라인 옵션으로
     이중화 객체를 생성할 때 실패한다.
-    
-- **Altibase 버전 및 이기종 간 오프라인 옵션 호환성**
-
-  호환성 조건을 만족하지 않으면 오프라인 이중화를 시작하거나 오프라인 옵션으로 이중화 객체 생성 시 실패한다.
-
-  - 바이너리 데이터베이스 버전(binary db version)이 Major, Minor, Patch 모두 같아야 한다. 
-
-    바이너리 데이터베이스 버전은 2가지 방법으로 확인할 수 있다. 
-
-    1. SELECT SM_VERSION FROM V$VERSION;
-    2. altibase -v
-
-  - 로그 파일 크기(LOG_FILE_SIZE)가 동일해야 한다.
-
-    로그 파일 크기는 SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'LOG_FILE_SIZE'; 로 확인한다. 
-
-  - 이기종 간 오프라인 이중화는 지원하지 않는다. OS와 CPU 타입 및 CPU 비트 수가 같아야 한다.
-
-  
 
 ##### 예제
 
@@ -2565,22 +2531,28 @@ REP1                                      1
 *General Reference*를 참조한다.
 
 -   REPLICATION_ACK_XLOG_COUNT
+-   REPLICATION_ALLOW_DUPLICATE_HOSTS
 -   REPLICATION_BEFORE_IMAGE_LOG_ENABLE
 -   REPLICATION_COMMIT_WRITE_WAIT_MODE
 -   REPLICATION_CONNECT_RECEIVE_TIMEOUT
 -   REPLICATION_CONNECT_TIMEOUT
 -   REPLICATION_DDL_ENABLE
+-   REPLICATION_DDL_ENABLE_LEVEL
 -   REPLICATION_DDL_SYNC
 -   REPLICATION_DDL_SYNC_TIMEOUT
 -   REPLICATION_EAGER_PARALLEL_FACTOR
 -   REPLICATION_EAGER_RECEIVER_MAX_ERROR_COUNT
 -   REPLICATION_FAILBACK_INCREMENTAL_SYNC
+-   REPLICATION_GAP_UNIT
 -   REPLICATION_GAPLESS_ALLOW_TIME
 -   REPLICATION_GAPLESS_MAX_WAIT_TIME
 -   REPLICATION_GROUPING_TRANSACTION_MAX_COUNT
 -   REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE
+-   REPLICATION_HBT_CONNECT_WAIT_TIME
 -   REPLICATION_HBT_DETECT_HIGHWATER_MARK
 -   REPLICATION_HBT_DETECT_TIME
+-   REPLICATION_IB_LATENCY
+-   REPLICATION_IB_PORT_NO
 -   REPLICATION_INSERT_REPLACE
 -   REPLICATION_KEEP_ALIVE_CNT
 -   REPLICATION_LOCK_TIMEOUT
@@ -2599,10 +2571,14 @@ REP1                                      1
 -   REPLICATION_RECOVERY_MAX_TIME
 -   REPLICATION_SENDER_AUTO_START
 -   REPLICATION_SENDER_COMPRESS_XLOG
+-   REPLICATION_SENDER_ENCRYPT_XLOG
+-   REPLICATION_SENDER_SEND_TIMEOUT
 -   REPLICATION_SENDER_SLEEP_TIME
 -   REPLICATION_SENDER_SLEEP_TIMEOUT
 -   REPLICATION_SENDER_START_AFTER_GIVING_UP
 -   REPLICATION_SERVER_FAILBACK_MAX_TIME
+-   REPLICATION_SQL_APPLY_ENABLE
+-   REPLICATION_SYNC_APPLY_METHOD
 -   REPLICATION_SYNC_LOCK_TIMEOUT
 -   REPLICATION_SYNC_LOG
 -   REPLICATION_SYNC_TUPLE_COUNT

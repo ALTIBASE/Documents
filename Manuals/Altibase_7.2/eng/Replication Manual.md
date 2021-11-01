@@ -871,7 +871,7 @@ The following constraints apply to replication in EAGER mode.
   
 -   Data can be lost if the server abnormally terminates before a committed XLog is applied on disk in EAGER mode. To prevent data loss, specify the recovery option or adjust the values for commit-related properties (COMMIT_WRITE_WAIT_MODE, REPLICATION_COMMIT_WRITE_WAIT_MODE, and REPLICATION_SYNC_LOG)
   
--   SQL reflection mode is not available for replication in theEAGER mode.
+-   SQL reflection mode is not available for replication in the EAGER mode.
 
 #### Partitioned Table Constraints
 
@@ -1493,7 +1493,7 @@ iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 
 ### SQL Reflection Mode
 
-When the information of meta of local server and remote is different. Log can be converted to SQL and reflected on a remote server. When reflecting to a remote server in SQL mode, the following conditions are possible:
+When the information of meta of local server and remote is different. XLog can be converted to SQL and reflected on a remote server. When reflecting to a remote server in SQL mode, the following conditions are possible:
 
 -   REPLICATION_SQL_APPLY_ENABLE : 1
 
@@ -1986,22 +1986,28 @@ REP1                                      1
 To use replication, the Altibase properties file should be modified to suit the purposes of the user. The following properties are described in the *General Reference Manual*.
 
 -   REPLICATION_ACK_XLOG_COUNT
+-   REPLICATION_ALLOW_DUPLICATE_HOSTS
 -   REPLICATION_BEFORE_IMAGE_LOG_ENABLE
 -   REPLICATION_COMMIT_WRITE_WAIT_MODE
 -   REPLICATION_CONNECT_RECEIVE_TIMEOUT
 -   REPLICATION_CONNECT_TIMEOUT
 -   REPLICATION_DDL_ENABLE
+-   REPLICATION_DDL_ENABLE_LEVEL
 -   REPLICATION_DDL_SYNC
 -   REPLICATION_DDL_SYNC_TIMEOUT
 -   REPLICATION_EAGER_PARALLEL_FACTOR
 -   REPLICATION_EAGER_RECEIVER_MAX_ERROR_COUNT
 -   REPLICATION_FAILBACK_INCREMENTAL_SYNC
+-   REPLICATION_GAP_UNIT
 -   REPLICATION_GAPLESS_ALLOW_TIME
 -   REPLICATION_GAPLESS_MAX_WAIT_TIME
 -   REPLICATION_GROUPING_TRANSACTION_MAX_COUNT
 -   REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE
+-   REPLICATION_HBT_CONNECT_WAIT_TIME
 -   REPLICATION_HBT_DETECT_HIGHWATER_MARK
 -   REPLICATION_HBT_DETECT_TIME
+-   REPLICATION_IB_LATENCY
+-   REPLICATION_IB_PORT_NO
 -   REPLICATION_INSERT_REPLACE
 -   REPLICATION_KEEP_ALIVE_CNT
 -   REPLICATION_LOCK_TIMEOUT
@@ -2020,10 +2026,14 @@ To use replication, the Altibase properties file should be modified to suit the 
 -   REPLICATION_RECOVERY_MAX_TIME
 -   REPLICATION_SENDER_AUTO_START
 -   REPLICATION_SENDER_COMPRESS_XLOG
+-   REPLICATION_SENDER_ENCRYPT_XLOG
+-   REPLICATION_SENDER_SEND_TIMEOUT
 -   REPLICATION_SENDER_SLEEP_TIME
 -   REPLICATION_SENDER_SLEEP_TIMEOUT
 -   REPLICATION_SENDER_START_AFTER_GIVING_UP
 -   REPLICATION_SERVER_FAILBACK_MAX_TIME
+-   REPLICATION_SQL_APPLY_ENABLE
+-   REPLICATION_SYNC_APPLY_METHOD
 -   REPLICATION_SYNC_LOCK_TIMEOUT
 -   REPLICATION_SYNC_LOG
 -   REPLICATION_SYNC_TUPLE_COUNT
