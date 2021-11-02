@@ -505,15 +505,13 @@ Altibase 7.2.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 -   GLOBAL_TRANSACTION_LEVEL
 
-</br>
+
 
 #### 메타 테이블
 
 ##### 새로운 메타테이블
 
 * [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
-
-</br>
 
 #### 성능 뷰
 
@@ -526,16 +524,12 @@ Altibase 7.2.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 </br>
 
-</br>
-
 ### 패키지
 
 | OS    | CPU    | 서버/클라이언트     | 패키지 인스톨러 이름                                  |
 | ----- | ------ | ------------------- | ----------------------------------------------------- |
 | LINUX | x86-64 | Altibase 서버       | altibase-server-7.2.0.0.1-LINUX-X86-64bit-release.run |
 |       |        | Altibase 클라이언트 | altibase-client-7.2.0.0.1-LINUX-X86-64bit-release.run |
-
-</br>
 
 </br>
 
