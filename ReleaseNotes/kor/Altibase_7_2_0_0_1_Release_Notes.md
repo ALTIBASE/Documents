@@ -40,7 +40,9 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 > Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>
 >Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 
+</br>
 
+</br>
 
 ## 릴리스 정보
 
@@ -74,7 +76,7 @@ DELETE OFF로 DELETE 문을 허용하지 않으면 DELETE 문을 허용한 경�
 
 - 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
 
-  
+</br>
 
 #### 기능 개선 - 응용 프로그램 개발 인터페이스
 
@@ -165,7 +167,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
   }
   ```
 
-
+</br>
 
 #### 기능 개선 - 유틸리티
 
@@ -173,7 +175,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 
 커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#count_to_commit) 에서 확인할 수 있다.
 
-
+</br>
 
 #### Altibase 서버 성능 및 안정성 향상
 
@@ -211,6 +213,36 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 
 ##### PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선
 
+파티션드 테이블에 대한 LIMIT 연산 시 불필요한 범위 읽기 연산을 제거하여 성능을 개선하였다.
+
+아래 조건을 모두 만족하는 경우에 성능 향상이 있다. 
+
+- LIMIT 절의 START VALUE가 1인 경우
+
+  ```sql
+  -- START VALUE가 1 의 예
+  SELECT * FROM T1 LIMIT 1;      -- 내부적으로 limit start 1, count 1
+  SELECT * FROM T1 LIMIT 100     -- 내부적으로 limit start 1, count 100
+  SELECT * FROM T1 LIMIT 1, 30   -- 내부적으로 limit start 1, count 30
+  ```
+
+- PROJECT 하위 노드가 파티션드 테이블의 각각의 파티션에 대한 스캔을 관리하는 노드(PARTITION-COORDINATOR) 이며
+
+- PARTITION-COORDINATOR 노드의 모든 노드가 SCAN 인 경우 
+
+조건을 모두 만족하는 실행 계획은 아래와 같은 형태이다. 
+
+```sql
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 8, COST: 467.05 )
+ PARTITION-COORDINATOR ( TABLE: SYS.T1, PARTITION: 4/4, FULL SCAN, ACCESS: 1, COST: 467.05 )
+  SCAN ( PARTITION: P4, FULL SCAN, ACCESS: 0, COST: 116.76 )
+  SCAN ( PARTITION: P3, FULL SCAN, ACCESS: 0, COST: 116.76 )
+  SCAN ( PARTITION: P2, FULL SCAN, ACCESS: 0, COST: 116.76 )
+  SCAN ( PARTITION: P1, FULL SCAN, ACCESS: 1, COST: 116.76 )
+------------------------------------------------------------
+```
+
 ##### 서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선
 
 조건절(WHERE, HAVING 절)에서 사용한 서브쿼리의 인라인뷰에 ORDER BY절이 있는 경우 OBYE(Order By Elimination, 불필요한 ORDER BY 제거) 쿼리 변환을 적용하여 SQL 성능이 향상되었다.
@@ -232,7 +264,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 
 스칼라 서브쿼리 결과가 단일 레코드인지 확인 과정에서 발생하는 오버헤드를 제거하여 성능을 개선하였다.
 
-
+</br>
 
 #### Altibase 이중화 성능 향상
 
@@ -241,7 +273,9 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 - 압축 로그에서 이중화에 필요한 로그만 압축 해제하는 기능 추가
 - xLog 압축 알고리즘을 LZO에서 LZ4로 변경
 
+</br>
 
+</br>
 
 ### 변경 사항 및 호환성 이슈
 
@@ -322,6 +356,8 @@ ProcName(FuncName) + '_' + ouid
 
 Altibase 7.2 JDBC 세션의 CLIENT_TYPE은 NEW_JDBC42이다. Altibase 7.2 JDBC Driver 를 이용하여 컴파일 또는 실행한 경우 V$SESSION의 CLIENT_TYPE 값은 NEW_JDBC42 로 조회해야 한다.
 
+</br>
+
 #### Altibase 이중화 호환성
 
 ##### Altibase 7.1 과 Altibase 7.2 양방향 이중화 제약 사항
@@ -335,6 +371,8 @@ DDL 복제는 이중화 프로토콜 버전(replication protocol version) 세 �
 ##### Altibase 6.5.1 과 Altibase 7.2 양방향 이중화 제약 사항
 
 Altibase 이중화 하위 호환성 보장에 따라 Altibase 6.5.1와  Altibase 7.2 간 단방향 및 양방향 LAZY 모드 이중화는 가능하다. 단, 이중화 대상 테이블에 공간 데이터 타입 컬럼이 있는 경우 Altibase 7.2 에서 Altibase 6.5.1 로 이중화하는 경우 SRID 값을 가진 데이터를 Altibase 6.5.1 로 동기화할 수 없다.
+
+</br>
 
 #### SQL 결과 및 실행 계획 변화
 
@@ -350,11 +388,13 @@ Altibase 이중화 하위 호환성 보장에 따라 Altibase 6.5.1와  Altibase
 
   이 영향을 받는 SQL에서 실행 계획이 변경될 수 있다.
 
+</br>
+
 #### Altibase 서버 기본 메모리 사용 증가
 
 트랜잭션 로그파일 압축 시 메모리 할당/해제 병목 개선의 영향으로 Altibase 서버의 기본 메모리 사용이 증가한다.  V$MEMSTAT의 Storage_Memory_Recovery 항목으로 이전 버전과 증가량을 확인할 수 있다. 메모리 증가량은 TRANSACTION_TABLE_SIZE에 영향을 받는다. TRANSACTION_TABLE_SIZE 기본값 1024 경우 약 32MB 증가, 최대값 16384 경우 약 500M 증가한다.
 
-
+</br>
 
 #### 에러 메시지 변경
 
@@ -365,7 +405,7 @@ iSQL> CREATE QUEUE Q1 ( 7 ) TABLESPACE SYS_TBS_DISK_DATA;
 [ERR-314AA : Failed to create queue table in disk tablespace.]
 ```
 
-
+</br>
 
 #### 데이터베이스 버전
 
@@ -375,6 +415,8 @@ iSQL> CREATE QUEUE Q1 ( 7 ) TABLESPACE SYS_TBS_DISK_DATA;
 | :-----------: | :------------------------: | :-------: | :----------------: | :------------------: |
 |   7.1.0.5.8   |           6.5.1            |   8.9.1   |       7.1.7        |        7.4.6         |
 |   7.2.0.0.1   |           7.2.0            |   8.9.1   |       7.1.7        |        7.4.8         |
+
+</br>
 
 #### 호환성
 
@@ -407,11 +449,11 @@ Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 �
 > DDL 복제는 이중화 프로토콜 버전 세 자리가 모두 일치해야하므로 하위 호환성을 보장하지 않는다.
 > 오프라인 이중화를 포함한 이중화 부가기능은 하위 호환성을 보장하지 않는다.
 
-
+</br>
 
 #### Altibase 서버 프로퍼티
 
-Altibase 7.2.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티들이다. 각 프로퍼티에 대한 자세한 내용은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General Reference-1.Data Types %26 Altibase Properties.md)를 참고하기 바란다.
+Altibase 7.2.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티들이다. 각 프로퍼티에 대한 자세한 내용은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)를 참고하기 바란다.
 
 ##### 새로운 프로퍼티
 
@@ -463,11 +505,15 @@ Altibase 7.2.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 -   GLOBAL_TRANSACTION_LEVEL
 
+</br>
+
 #### 메타 테이블
 
 ##### 새로운 메타테이블
 
 * [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
+
+</br>
 
 #### 성능 뷰
 
@@ -478,7 +524,9 @@ Altibase 7.2.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
 -   [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
 
+</br>
 
+</br>
 
 ### 패키지
 
@@ -487,7 +535,9 @@ Altibase 7.2.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 | LINUX | x86-64 | Altibase 서버       | altibase-server-7.2.0.0.1-LINUX-X86-64bit-release.run |
 |       |        | Altibase 클라이언트 | altibase-client-7.2.0.0.1-LINUX-X86-64bit-release.run |
 
+</br>
 
+</br>
 
 ### 다운로드
 
@@ -497,9 +547,9 @@ http://support.altibase.com
 
 #### Manual
 
-https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/README.md
+[Altibase 7.2 Manuals](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/README.md)
 
 #### 설치
 
-[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation.md) 참고
+[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation.md) 
 
