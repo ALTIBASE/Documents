@@ -226,7 +226,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
                          ORDER BY I2, I3));
   ```
   
-  > *이 영향을 받는 SQL의 실행 계획에 변화가 있다. SUBQUERY FILTER 안에 SORT 플랜 노드 없어진다.*
+  > *이 영향을 받는 SQL의 실행 계획이 변경된다. 'SUBQUERY FILTER 안에 SORT 플랜 노드 없어진다.*
 
 ##### 스칼라 서브쿼리(Scalar subquery) 성능 개선
 
