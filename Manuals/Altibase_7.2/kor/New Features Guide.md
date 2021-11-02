@@ -81,7 +81,7 @@ DELETE OFF로 DELETE 문을 허용하지 않으면 DELETE 문을 허용한 경�
 
 - 범위 파티션드 테이블이 이중화 대상 테이블인 경우 파티션 추가 연산을 수행할 수 없다.
 
-  
+</br>
 
 #### 응용 프로그램 개발 인터페이스
 
@@ -172,7 +172,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
   }
   ```
 
-
+</br>
 
 #### 유틸리티
 
@@ -180,7 +180,9 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 
 커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities.md#count_to_commit) 에서 확인할 수 있다.
 
+</br>
 
+</br>
 
 ### 성능 및 안정성 향상
 
@@ -218,6 +220,36 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 
 #### PARTITIONED TABLE에 대한 LIMIT FOR UPDATE 성능 개선
 
+파티션드 테이블에 대한 LIMIT 연산 시 불필요한 범위 읽기 연산을 제거하여 성능을 개선하였다.
+
+아래 조건을 모두 만족하는 경우에 성능 향상이 있다. 
+
+- LIMIT 절의 START VALUE가 1인 경우
+
+  ```sql
+  -- START VALUE가 1 의 예
+  SELECT * FROM T1 LIMIT 1;      -- 내부적으로 limit start 1, count 1
+  SELECT * FROM T1 LIMIT 100     -- 내부적으로 limit start 1, count 100
+  SELECT * FROM T1 LIMIT 1, 30   -- 내부적으로 limit start 1, count 30
+  ```
+
+- PROJECT 하위 노드가 파티션드 테이블의 각각의 파티션에 대한 스캔을 관리하는 노드(PARTITION-COORDINATOR) 이며
+
+- PARTITION-COORDINATOR 노드의 모든 노드가 SCAN 인 경우 
+
+조건을 모두 만족하는 실행 계획은 아래와 같은 형태이다. 
+
+```sql
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 8, COST: 467.05 )
+ PARTITION-COORDINATOR ( TABLE: SYS.T1, PARTITION: 4/4, FULL SCAN, ACCESS: 1, COST: 467.05 )
+  SCAN ( PARTITION: P4, FULL SCAN, ACCESS: 0, COST: 116.76 )
+  SCAN ( PARTITION: P3, FULL SCAN, ACCESS: 0, COST: 116.76 )
+  SCAN ( PARTITION: P2, FULL SCAN, ACCESS: 0, COST: 116.76 )
+  SCAN ( PARTITION: P1, FULL SCAN, ACCESS: 1, COST: 116.76 )
+------------------------------------------------------------
+```
+
 #### 서브쿼리의 인라인 뷰에 ORDER BY절 사용 시 SQL 성능 개선
 
 조건절(WHERE, HAVING 절)에서 사용한 서브쿼리의 인라인뷰에 ORDER BY절이 있는 경우 OBYE(Order By Elimination, 불필요한 ORDER BY 제거) 쿼리 변환을 적용하여 SQL 성능이 향상되었다.
@@ -239,7 +271,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 
 스칼라 서브쿼리 결과가 단일 레코드인지 확인 과정에서 발생하는 오버헤드를 제거하여 성능을 개선하였다.
 
-
+</br>
 
 #### Altibase 이중화 성능 향상
 
@@ -248,7 +280,9 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.2 에서도 대부분 �
 - 압축 로그에서 이중화에 필요한 로그만 압축 해제하는 기능 추가
 - xLog 압축 알고리즘을 LZO에서 LZ4로 변경
 
+</br>
 
+</br>
 
 ### 기타
 
