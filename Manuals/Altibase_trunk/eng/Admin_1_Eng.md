@@ -13,7 +13,7 @@
     - [Executable Binaries](#%EC%8B%A4%ED%96%89-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC)
     - [Altibase Libraries](#altibase-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
   - [3. 
-  ](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
+    ](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
     - [Creating a Database](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
   - [4. Altibase Startup and Shutdown](#4altibase-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
     - [Startup Procedure](#altibase-%EA%B5%AC%EB%8F%99)
@@ -3504,7 +3504,7 @@ Figure 6-4 The Structure of a Page in Disk Tablespace
     This area contains information that is necessary depending on the type of page.
 
 -   Free Space
-  
+
 
 This area is used to save new data.
     
@@ -4218,7 +4218,7 @@ INCLUDING CONTENTS AND DATAFILES
 
 Specifying the INCLUDING CONTENTS clause deletes the records and keys of an object, but not the data files themselves. Therefore, in order to delete the data files, the AND DATAFILES clause must also be used. The AND DATAFILES clause is a subclause of the INCLUDING CONTENTS clause. If it is used, when dropping a disk tablespace, all of the data files in the tablespace are physically deleted. 
 
-If it is specified when dropping a memory tablespace, all of the checkpoint image files for the memory tablespace are physically deleted, whereas an error will occur if it is specified when dropping a volatile tablespace.
+If it is specified when dropping a memory tablespace, all of the checkpoint image files for the memory tablespace are physically deleted.
 
 ##### CASCADE CONSTRAINTS Clause
 
