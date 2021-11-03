@@ -38,7 +38,6 @@
     - [CREATE SEQUENCE](#create-sequence)
     - [CREATE SYNONYM](#create-synonym)
     - [CREATE TABLE](#create-table)
-    - [CREATE TABLE](#create-table-1)
     - [CREATE DISK TABLESPACE](#create-disk-tablespace)
     - [CREATE MEMORY TABLESPACE](#create-memory-tablespace)
     - [CREATE VOLATILE TABLESPACE](#create-volatile-tablespace)
