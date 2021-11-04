@@ -8196,7 +8196,7 @@ CREATE VIEW v_r40022 AS SELECT **SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'),
 
 ##### 해결방법
 
-OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 2가지 경우로 나눌 수
+OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3가지 경우로 나눌 수
 있다.
 
 ###### \<Java heap space\>
@@ -8552,6 +8552,28 @@ MS-SQL에서 외래키가 중복 생성되어 있는 경우, Altibase에서는 �
 
 Run 단계 수행 후 생성된 리포트의 Missing 탭에서 이관에 실패한 외래키를 확인할 수
 있다.
+
+#### 오류 메세지 'The server selected protocol version TLS10 is not accepted by client preferences'와 함께 서버 접속이 실패한다.
+
+##### 원인
+
+Migration Center를 구동하는데 사용한 Java Runtime Environment (JRE) 의 기본 TLS 버전이 1.2 이상으로 변경되었는데, MS-SQL 서버에서 해당 TLS 버전을 지원하지 않아서 발생한 오류이다.
+
+##### 해결방법
+
+$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. 아래 그림에서 java.security.org가 수정 전 파일이고, java.security가 수정된 파일이다.
+
+```bash
+$ diff java.security.org java.security
+720c720
+< jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
+---
+> jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, \
+```
+
+TLS 1.2 이상 버전을 의무적으로 사용해야 한다면, 아래 사이트를 참조하여 Windows, MS-SQL 서버, MS-SQL JDBC 드라이버 파일을 업데이트 해야 한다.
+
+https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe
 
 
 

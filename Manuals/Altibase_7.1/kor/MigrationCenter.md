@@ -8197,7 +8197,7 @@ CREATE VIEW v_r40022 AS SELECT **SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'),
 
 ##### 해결방법
 
-OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 2가지 경우로 나눌 수
+OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3가지 경우로 나눌 수
 있다.
 
 ###### \<Java heap space\>
@@ -8223,10 +8223,14 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 2�
 
 ###### \<PermGen space\>
 
-1.  실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
+1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
+2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션
+   '-XX:MaxPermSize'의 값을 기존 값보다 높게 설정한다.
 
-2.  JVM 내 permanent generation space의 최대 크기를 정하는 옵션
-    '-XX:MaxPermSize'의 값을 기존 값보다 높게 설정한다.
+
+
+
+
 
 ###### \<Metaspace\>
 
@@ -8420,6 +8424,25 @@ Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접
 대상 데이터베이스인 Altibase에 휘발성 테이블스페이스를 생성하고 접근 권한을
 부여한 뒤, 다시 reconcile 단계를 수행한다.
 
+#### 데이터 이관 중에 SQLException: Protocol violation(프로토콜 위반)이 발생한다.
+
+##### 원인
+
+통신 중에 OOM 에러가 발생하여 이를 분실하고, 프로토콜 위반 에러를 반환하였다.
+
+##### 해결방법
+
+프로그램이 사용할 수 있는 최대 메모리 크기를 높인다.
+
+1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
+2. JVM 내 heap 최대 크기를 정하는 옵션 '-Xmx'의 값을 기존 값보다 높게 수정한다.
+
+##### 참고
+
+- https://stackoverflow.com/questions/29372626/sqlexception-protocol-violation-in-oracle
+
+- https://stackoverflow.com/questions/18227868/protocol-violation-oracle-jdbc-driver-issue?rq=1
+
 #### 데이터 이관 중에 OutOfMemoryError가 발생한 이후에 여러 다양한 SQLException 들이 발생할 수 있다.
 
 대량의 데이터 이관 중에 오라클에서 fetch 또는 bind 관련 SQLException이 여러 건 발생하는 경우가 있다. 이런 경우, 테이블 모드에서 해당 테이블 한 개만 이관해서 성공한다면, OOM으로 인한 오류를 의심해 볼 수 있다.
@@ -8535,6 +8558,29 @@ MS-SQL에서 외래키가 중복 생성되어 있는 경우, Altibase에서는 �
 
 Run 단계 수행 후 생성된 리포트의 Missing 탭에서 이관에 실패한 외래키를 확인할 수
 있다.
+
+#### 오류 메세지 'The server selected protocol version TLS10 is not accepted by client preferences'와 함께 서버 접속이 실패한다.
+
+##### 원인
+
+Migration Center를 구동하는데 사용한 Java Runtime Environment (JRE) 의 기본 TLS 버전이 1.2 이상으로 변경되었는데, MS-SQL 서버에서 해당 TLS 버전을 지원하지 않아서 발생한 오류이다.
+
+##### 해결방법
+
+$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. 아래 그림에서 java.security.org가 수정 전 파일이고, java.security가 수정된 파일이다.
+
+```bash
+$ diff java.security.org java.security
+720c720
+< jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
+---
+> jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, \
+```
+
+TLS 1.2 이상 버전을 의무적으로 사용해야 한다면, 아래 사이트를 참조하여 Windows, MS-SQL 서버, MS-SQL JDBC 드라이버 파일을 업데이트 해야 한다.
+
+https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe
+
 
 
 
