@@ -6186,9 +6186,9 @@ Create success.
 ```
 
 \<질의 3\>테이블 employees의 eno 칼럼에 오름차순으로 B+tree 인덱스 emp_idx3를
-생성하라. 이미 사원 테이블의 eno칼럼에 PRIMARY KEY가 존재하기 때문에 인덱스
+생성하라. 이미 사원 테이블의 eno칼럼을 오름차순으로 정렬한 PRIMARY KEY가 존재하기 때문에 인덱스
 emp_idx3를 생성하기 전에 기본키 제약을 삭제해야 한다. 그렇지 않으면, 다음 오류가
-발생할 것이다:
+발생할 것이다.
 
 ```
 ERR-3104C: Duplicate key columns in an index
