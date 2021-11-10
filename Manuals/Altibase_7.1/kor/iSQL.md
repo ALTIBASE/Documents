@@ -1760,7 +1760,7 @@ iSQL> /		 -> SELECT * FROM book; 문이 실행된 것을 볼 수 있다.
 #### DML문 저장
 
 INSERT, UPDATE, DELETE, MOVE 등의 DML문 실행시 이를
-\$ALTIBASE_HOME/trc/isql_query.log에 기록한다.
+\$ALTIBASE_HOME/trc/isql_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.
 
 이 기능을 설정하려면 SET QUERYLOGGING을 ON으로 하고, 해제하려면 OFF하면 된다.
 
