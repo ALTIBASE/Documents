@@ -4474,7 +4474,7 @@ DATEDIFF 함수에 사용 가능한 *date_field_name*은 다음과 같다.
 DATEDIFF 함수가 반환하는 값의 범위는 *date_field_name*의 값에 따라서 한정되어
 있다. *date_field_name*이 ‘MICROSECOND’일 때는 *enddate* 에서 *startdate*을 뺀
 값이 30일 이내여야 한다. 그리고 초를 나타내는 ‘SECOND’일 경우에 *enddate* 와
-*startdate*의 차는 68년이다. 이 범위를 초과하면 에러가 발생한다.
+*startdate*의 차는 밀리초로 변환 시 2185574400이며 대략적으로 69년이다. 이 범위를 초과하면 에러가 발생한다.
 
 이 함수의 반환 데이터 타입은 BIGINT이다.
 
