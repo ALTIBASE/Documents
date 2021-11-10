@@ -98,7 +98,7 @@
 
 Altibase® Administration
 
-Administrator’s Manual 1
+Administrator’s Manual
 ======================
 
 ![](media/Admin/e5cfb3761673686d093a3b00c062fe7a.png)
@@ -4262,7 +4262,7 @@ INCLUDING CONTENTS AND DATAFILES
 
 Specifying the INCLUDING CONTENTS clause deletes the records and keys of an object, but not the data files themselves. Therefore, in order to delete the data files, the AND DATAFILES clause must also be used. The AND DATAFILES clause is a subclause of the INCLUDING CONTENTS clause. If it is used, when dropping a disk tablespace, all of the data files in the tablespace are physically deleted. 
 
-If it is specified when dropping a memory tablespace, all of the checkpoint image files for the memory tablespace are physically deleted, whereas an error will occur if it is specified when dropping a volatile tablespace.
+If it is specified when dropping a memory tablespace, all of the checkpoint image files for the memory tablespace are physically deleted.
 
 ##### CASCADE CONSTRAINTS Clause
 

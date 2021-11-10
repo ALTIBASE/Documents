@@ -2302,7 +2302,7 @@ This is used to specify JVM bit for AltiLinker on JVM (Java Virtual Machine).
 
 ##### Range
 
-[8MB, 512MB]
+[128MB, 4096MB]
 
 ##### Description
 
@@ -2312,11 +2312,11 @@ This property specifies the initial size, in bytes, of the memory pool allocated
 
 ##### Default Value
 
-512 MBytes
+4096 MBytes
 
 ##### Range
 
-[16MB, 512MB]
+[512MB, 32768MB]
 
 ##### Description
 

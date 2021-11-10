@@ -34,9 +34,15 @@
     - [Hibernate](#hibernate)
     - [SQL Plan](#sql-plan)
   - [4. Tips & Recommendation](#4-tips--recommendation)
+    
     - [Tips for Better Performance](#tips-for-better-performance)
+    
+  - 5. [Error Messages](#5-error-messages)
+
     - [SQL States](#sql-states)
+
   - [Appendix A. Data Type Mapping](#appendix-a-data-type-mapping)
+    
     - [Data Type Mapping](#data-type-mapping)
     - [Converting Java Data Types to Database Data Types](#converting-java-data-types-to-database-data-types)
     - [Converting Database Data Types to Java Data Types](#converting-database-data-types-to-java-data-types)

@@ -38,7 +38,6 @@
     - [CREATE SEQUENCE](#create-sequence)
     - [CREATE SYNONYM](#create-synonym)
     - [CREATE TABLE](#create-table)
-    - [CREATE TABLE](#create-table-1)
     - [CREATE DISK TABLESPACE](#create-disk-tablespace)
     - [CREATE MEMORY TABLESPACE](#create-memory-tablespace)
     - [CREATE VOLATILE TABLESPACE](#create-volatile-tablespace)
@@ -1992,7 +1991,7 @@ SORT를 제외한 힌트 중에 조인방법이 선택된다
 
 #### PARALLEL
 
-테이블을 스캔할 때 병렬 질의를 설정할 수 있는 힌트이다.
+일반 테이블 또는 파티션드 테이블을 스캔할 때 병렬 질의를 설정할 수 있는 힌트이다.
 
 - NOPARALLEL: 병렬로 처리하지 않는다.
 - PARALLEL integer: integer에 명시된 개수만큼의 쓰레드가 병렬로 처리한다.
@@ -3468,7 +3467,7 @@ SRID는 4바이트 범위 내의 정수를 사용할 수 있다. 만약 SRID의 
 - ###### 자료형 변경시 전제 조건
 
   - 문자형 데이터 타입 --\> 숫자형 데이터 타입  
-    문자형 데이터가 숫자와 소숫점으로만 구성되어야 한다.  
+    문자형 데이터가 숫자와 소수점으로만 구성되어야 한다.  
     문자형 데이터가 숫자형 데이터 타입의 범위 내에 있어야 한다.
   - 문자형 데이터 타입 --\> 문자형 데이터 타입  
     변경 전 데이터 타입의 길이보다 칼럼의 크기가 크거나 같아야 한다.
@@ -7217,7 +7216,8 @@ PCTFREE, PCTUSED, INITRANS 및 MAXTRANS를 지정하는 절이다. 이 절이 �
 
 현재 Altibase는 아래와 같은 병렬 질의만 지원한다.
 
-- 파티션드 테이블을 스캔하는 병렬 질의
+- 파티션드 테이블을 스캔하는 병렬 질의.
+- 일반 테이블을 스캔하는 병렬 질의. 단, 테이블 전체를 스캔(full scan)하지 않는 쿼리, 서브쿼리, 반복 실행되는 경우 병렬 수행이 불가능하다. 
 - 실행 계획에 HASH, SORT, GRAG 노드가 포함되는 병렬 질의. 단, 이러한 노드의 경우에는 각 노드당 병렬 작업 쓰레드가 한 개씩만 생성된다.
 
 *table_compression_clause*

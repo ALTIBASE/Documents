@@ -1,4 +1,4 @@
-**Table of Contents**  
+**dTable of Contents**  
 
 - [SQL Reference](#sql-reference)
   - [Preface](#preface)
@@ -38,7 +38,6 @@
     - [CREATE SEQUENCE](#create-sequence)
     - [CREATE SYNONYM](#create-synonym)
     - [CREATE TABLE](#create-table)
-    - [CREATE TABLE](#create-table-1)
     - [CREATE DISK TABLESPACE](#create-disk-tablespace)
     - [CREATE MEMORY TABLESPACE](#create-memory-tablespace)
     - [CREATE VOLATILE TABLESPACE](#create-volatile-tablespace)
@@ -16115,7 +16114,7 @@ SQL functions can be broadly classified into the categories set forth in the fol
 | Date Functions                        | These functions perform a task on an input date/time value and return a character string, a numerical value, or a date/time value. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE |
 | Conversion Functions                  | These functions convert an input character, numeric or date/time value and return a character, numeric or date/time value. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, TO_RAW, UNIX_TO_DATE |
 | Encryption Functions                  | These functions are used to perform DES encryption and decryption on strings. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
-| Other Functions                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
+| Other Functions                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT etc. |
 
 ### Aggregate Functions
 
@@ -22942,7 +22941,7 @@ The USER_LOCK_REQUEST is a function allowing a user to request a lock by definin
 
 -   3: Parameter error
 
--   4: User lock has been successfully requested witht the same ID
+-   4: User lock has been successfully requested with the same ID
 
 ##### Example
 

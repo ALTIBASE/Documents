@@ -3410,7 +3410,15 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>REPLICATION_DDL_ENABLE_LEVEL</td>
-          <td rowspan="2"></td>
+       		 <td></td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_DDL_SYNC</td>
+            <td>SYSTEM</td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_DDL_SYNC_TIMEOUT</td>
+          	<td rowspan="2"></td>
       </tr>
       <tr>
       	<td>REPLICATION_EAGER_PARALLEL_FACTOR</td>
@@ -7924,7 +7932,7 @@ Unsigned Integer
 
 ##### 기본값
 
-CPU 개수
+시스템 CPU 개수
 
 ##### 속성
 
@@ -7932,11 +7940,11 @@ CPU 개수
 
 ##### 값의 범위
 
-[1, 1024]
+[0, 1024]
 
 ##### 설명
 
-Altibase 서버가 병렬 질의를 처리하기 위해 생성할 수 있는 최대한의 작업 쓰레드 개수를 명시한다. 이 프로퍼티를 명시하지 않을 경우 기본값은 시스템의 CPU 개수(N)로 설정된다.
+병렬 쿼리에서 사용하는 최대 쓰레드 개수를 지정한다.
 
 Altibase 운영 중 ALTER SYSTEM문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
@@ -7952,7 +7960,7 @@ Unsigned Integer
 
 ##### 속성
 
-변경 가능 전용, 단일 값
+변경 가능, 단일 값
 
 ##### 값의 범위
 
@@ -7960,7 +7968,7 @@ Unsigned Integer
 
 ##### 설명
 
-Altibase 서버가 병렬 질의를 처리할 때, PARALLEL-QUEUE(PRLQ) 노드에서 데이터를 임시로 저장할 큐의 크기를 지정하는 프로퍼티이다.
+병렬 큐(Parallel Queue)가 담을 수 있는 최대 로우(row) 수를 지정한다.
 
 Altibase 운영 중 ALTER SYSTEM문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
