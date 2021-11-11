@@ -8225,7 +8225,7 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
 
 1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
 2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션
-   '-XX:MaxPermSize'의 값을 기존 값보다 높게 설정한다.
+   '-XX:MaxPermSize'의 값을 기존 값보다 크게 설정한다.
 
 
 
@@ -8432,10 +8432,10 @@ Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접
 
 ##### 해결방법
 
-프로그램이 사용할 수 있는 최대 메모리 크기를 높인다.
+프로그램이 사용할 수 있는 최대 메모리 크기를 키운다.
 
 1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
-2. JVM 내 heap 최대 크기를 정하는 옵션 '-Xmx'의 값을 기존 값보다 높게 수정한다.
+2. JVM 내 heap 최대 크기를 정하는 옵션 '-Xmx'의 값을 기존 값보다 크게 수정한다.
 
 ##### 참고
 
@@ -8567,7 +8567,7 @@ Migration Center를 구동하는데 사용한 Java Runtime Environment (JRE) 의
 
 ##### 해결방법
 
-$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. 아래 그림에서 java.security.org가 수정 전 파일이고, java.security가 수정된 파일이다.
+$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. java.security.org가 수정 전 파일이고, java.security가 수정된 파일이다.
 
 ```bash
 $ diff java.security.org java.security
