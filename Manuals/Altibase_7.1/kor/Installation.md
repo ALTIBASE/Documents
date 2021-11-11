@@ -890,8 +890,11 @@ CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};export CLASSPATH
 . /home/hdb71_p/pkg_test/altibase-server-7.1/conf/altibase_user.env
 ```
 
-아래는 Altibase의 라이선스 키를 입력하는 화면이다. Altibase 패키지 인스톨러는
-라이선스 키를 입력하는 다음 세 가지 방법을 제공한다.
+아래는 Altibase의 라이선스 키를 입력하는 화면이다.
+
+Altibase 라이선스를 발급받는 방법은 라이선스의 종류에 따라 다르다. Enterprise Edition 라이선스는 고객에게 라이선스 발급에 필요한 정보를 받아 Altibase에서 발급해서 전달한다. Trial 라이센스는 http://support.altibase.com 에 접속하여 다운로드 탭 아래의 License 발급에서 발급 가능하다. 
+
+Altibase 패키지 인스톨러는 라이선스 키를 입력하는 다음 세 가지 방법을 제공한다.
 
 -   라이선스 키를 직접 입력
 
