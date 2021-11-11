@@ -8196,7 +8196,7 @@ CREATE VIEW v_r40022 AS SELECT **SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'),
 
 ##### 해결방법
 
-OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 2가지 경우로 나눌 수
+OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3가지 경우로 나눌 수
 있다.
 
 ###### \<Java heap space\>
@@ -8224,8 +8224,7 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 2�
 
 1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
 2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션
-   '-XX:MaxPermSize'의 값을 기존 값보다 높게 설정한다.
-
+   '-XX:MaxPermSize'의 값을 기존 값보다 크게 설정한다.
 ###### \<Metaspace\>
 
 사용중인 JVM의 버전이 Java 8 이상인 경우, Metaspace의 공간 부족이 원인일 수 있다. Java 8부터 구현된 Metaspace는 PermGen (permanent generation space)의 대체제이다.
@@ -8426,10 +8425,10 @@ Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접
 
 ##### 해결방법
 
-프로그램이 사용할 수 있는 최대 메모리 크기를 높인다.
+프로그램이 사용할 수 있는 최대 메모리 크기를 키운다.
 
 1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
-2. JVM 내 heap 최대 크기를 정하는 옵션 '-Xmx'의 값을 기존 값보다 높게 수정한다.
+2. JVM 내 heap 최대 크기를 정하는 옵션 '-Xmx'의 값을 기존 값보다 크게 수정한다.
 
 ##### 참고
 
@@ -8552,6 +8551,28 @@ MS-SQL에서 외래키가 중복 생성되어 있는 경우, Altibase에서는 �
 
 Run 단계 수행 후 생성된 리포트의 Missing 탭에서 이관에 실패한 외래키를 확인할 수
 있다.
+
+#### 오류 메세지 'The server selected protocol version TLS10 is not accepted by client preferences'와 함께 서버 접속이 실패한다.
+
+##### 원인
+
+Migration Center를 구동하는데 사용한 Java Runtime Environment (JRE) 의 기본 TLS 버전이 1.2 이상으로 변경되었는데, MS-SQL 서버에서 해당 TLS 버전을 지원하지 않아서 발생한 오류이다.
+
+##### 해결방법
+
+$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. java.security.org가 수정 전 파일이고, java.security가 수정된 파일이다.
+
+```bash
+$ diff java.security.org java.security
+720c720
+< jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
+---
+> jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, \
+```
+
+TLS 1.2 이상 버전을 의무적으로 사용해야 한다면, 아래 사이트를 참조하여 Windows, MS-SQL 서버, MS-SQL JDBC 드라이버 파일을 업데이트 해야 한다.
+
+https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe
 
 
 
