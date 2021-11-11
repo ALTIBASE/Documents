@@ -505,7 +505,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
      </TR>
      <TR>
          <TD>DML문을 파일로 저장</TD><TD>SET QUERYLOGGING ON;<BR>SET QUERYLOGGING OFF;
-</TD><TD>INSERT, UPDATE, DELTE, MOVE 등의 DML문 실행 시 이를 $ALTIBASE_HOME/trc/isql_query.log에 기록한다.</TD>
+</TD><TD>INSERT, UPDATE, DELTE, MOVE 등의 DML문 실행 시 이를 $ALTIBASE_HOME/trc/isql_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.</TD>
      </TR>
      <TR>
          <TD ROWSPAN="3">질의문 편집</TD><TD>ED[IT]</TD><TD>가장 최근에 실행된 질의문을 편집한다.</TD>
@@ -686,6 +686,7 @@ iSQL 상에서 두 가지 수행 방법에 대한 결과에는 차이가 없으�
           <TD>도움말</TD> <TD>HELP;<BR>HELP INDEX;<BR>HELP EXIT;</TD> <TD>도움말 사용법<BR>명령어 리스트 출력<BR>EXIT 명령어에 대한 설명</TD>
        </TR>          
 </table>         
+
 
 
 
