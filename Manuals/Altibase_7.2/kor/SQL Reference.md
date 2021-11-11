@@ -3595,7 +3595,7 @@ ACCESS *access_mode_clause*
 
 *alter_table_tablespace*
 
-테이블의 테이블스페이스를 변경할 수 있으며, 기존 테이블에 생성한 인덱스와 LOB 칼럼도 함께 이동할 수 있다. 이 때 파티션드 테이블 여부에 따라 레코드 이동과 컬럼 속성의 변경이 묵시적으로 수행될 수 있다.
+테이블의 테이블스페이스를 변경할 수 있으며, 기존 테이블에 생성한 인덱스와 LOB 칼럼도 함께 이동할 수 있다. 이 때 파티션드 테이블 여부에 따라 레코드 이동과 컬럼 속성의 변경이 묵시적으로 수행될 수 있다. 단, 임시 테이블(Temporary Table)은 테이블스페이스를 변경할 수 없다.
 
 - ###### 논파티션드 테이블의 경우
 
@@ -5679,7 +5679,7 @@ iSQL> CREATE UNIQUE INDEX emp_idx2
 Create success.
 ```
 
-\<질의 3\>테이블 employees의 eno 칼럼에 오름차순으로 B+tree 인덱스 emp_idx3를 생성하라. 이미 사원 테이블의 eno칼럼에 PRIMARY KEY가 존재하기 때문에 인덱스 emp_idx3를 생성하기 전에 기본키 제약을 삭제해야 한다. 그렇지 않으면, 다음 오류가 발생할 것이다:
+\<질의 3\>테이블 employees의 eno 칼럼에 오름차순으로 B+tree 인덱스 emp_idx3를 생성하라. 이미 사원 테이블의 eno칼럼을 오름차순으로 정렬한 PRIMARY KEY가 존재하기 때문에 인덱스 emp_idx3를 생성하기 전에 기본키 제약을 삭제해야 한다. 그렇지 않으면, 다음 오류가 발생할 것이다.
 
 ```
 ERR-3104C: Duplicate key columns in an index
@@ -15166,12 +15166,12 @@ SQL 함수는 크게 다음의 표처럼 분류된다.
 
 | 함수 구분                       | 설명                                                         |
 | ------------------------------- | :----------------------------------------------------------- |
-| 집계 함수 (Aggregate functions) | 질의의 결과를 그룹별로 하나의 결과를 반환하는 함수이다. 이 함수는 select_list, ORDER BY, HAVING 절에 올 수 있다.<br />**집계 함수**<br/>AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, CUME_DIST, FIRST, GROUP_CONCAT, LAST, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, PERCENT_RANK, RANK, STATS_ONE_WAY_ANOVA, STDDEV, STDDEV_POP, STDDEV_SAMP, SUM, VARIANCE, VAR_POP, VAR_SAMP |
-| 윈도우 함수 (Window functions)  | 그룹을 기반으로 하여 집계 값을 계산한다. 그룹은 OVER 절 아래의 PARTITION BY 및 ROWS/RANGE 하위 절에 의해 정의된다. <br />**집계(Aggregate) 윈도우 함수**<br/>AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, RATIO_TO_REPORT, STDDEV, SUM, VARIANCE, GROUP_CONCAT <br />**순위(Ranking) 윈도우 함수**<br/>RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD,NTILE, FIRST, LAST <br /><br />**행 순서 관련 윈도우 함수**<br/>FIRST_VALUE, LAST_VALUE, NTH_VALUE |
+| 집계 함수 (Aggregate functions) | 질의의 결과를 그룹별로 하나의 결과를 반환하는 함수이다. 이 함수는 select_list, ORDER BY, HAVING 절에 올 수 있다.<br />**집계 함수**<br/>AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, CUME_DIST, FIRST, GROUP_CONCAT, LAST, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, PERCENT_RANK, RANK, STATS_ONE_WAY_ANOVA, STDDEV, STDDEV_POP, STDDEV_SAMP, SUM, VARIANCE, VAR_POP, VAR_SAMP, MEDIAN |
+| 윈도우 함수 (Window functions)  | 그룹을 기반으로 하여 집계 값을 계산한다. 그룹은 OVER 절 아래의 PARTITION BY 및 ROWS/RANGE 하위 절에 의해 정의된다. <br />**집계(Aggregate) 윈도우 함수**<br/>AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, RATIO_TO_REPORT, STDDEV, SUM, VARIANCE, GROUP_CONCAT, MEDIAN <br />**순위(Ranking) 윈도우 함수**<br/>RANK, DENSE_RANK, ROW_NUMBER, LAG, LAG_IGNORE_NULLS, LEAD, LEAD_IGNORE_NULLS, NTILE, FIRST, LAST, <br /><br />**행 순서 관련 윈도우 함수**<br/>FIRST_VALUE, FIRST_VALUE_IGNORE_NULLS, LAST_VALUE, LAST_VALUE_IGNORE_NULLS, NTH_VALUE, NTH_VALUE_IGNORE_NULLS |
 | 숫자 함수                       | 숫자 입력 값에 대한 작업을 수행하고 숫자 값을 반환한다. <br />ABS, ACOS, ASIN, ATAN, ATAN2, CEIL, COS, COSH, EXP, FLOOR, ISNUMERIC, LN, LOG, MOD, NUMAND, NUMOR, NUMSHIFT, NUMXOR, POWER, RAND, RANDOM, ROUND, SIGN, SIN, SINH, SQRT, TAN, TANH, TRUNC, BITAND, BITOR, BITXOR, BITNOT |
 | 문자 함수                       | 문자열 입력 값에 대한 작업을 수행하고 문자열이나 숫자 값을 반환한다. <br />**문자열 반환 함수**<br/>CHR, CHOSUNG, CONCAT, DIGITS, INITCAP, LOWER, LPAD, LTRIM, NCHR, PKCS7PAD16, PKCS7UNPAD16, RANDOM_STRING, REGEXP_COUNT, REGEXP_REPLACE, REPLICATE, REPLACE2, REVERSE_STR, RPAD, RTRIM, STUFF, SUBSTRB(SUBSTRING), TRANSLATE, TRIM, UPPER <br />**숫자 값 반환 함수**<br/>ASCII, CHAR_LENGTH(CHARACTER_LENGTH,LENGTH), DIGEST,INSTR(POSITION, INSTRB), OCTET_LENGTH(LENGTHB), REGEXP_INSTR, REGEXP_SUBSTR, SIZEOF |
-| 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE |
-| 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, 날짜/시간, 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, TO_RAW, UNIX_TO_DATE |
+| 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE, ROUND, TRUNC |
+| 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, 날짜/시간, 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, UNIX_TO_DATE |
 | 암호화 함수                     | 문자열에 대해 암호화와 복호화를 수행한다. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
 | 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
 
@@ -15529,6 +15529,34 @@ iSQL> SELECT MAX(price) FROM goods;
 MAX(PRICE)  
 --------------
 100000      
+1 row selected.
+```
+
+
+
+#### MEDIAN
+
+##### 구문
+
+```
+MEDIAN ([ALL | DISTINCT] expression)
+```
+
+
+
+##### 설명
+
+입력된 *expression*중에서 중간 값(middle value; interpolated value)을 구하는 함수이다.
+
+##### 예제
+
+\<질의\> 상품 테이블의 중간 가격을 출력하라.
+
+```
+iSQL> SELECT MEDIAN(price) FROM goods;
+MEDIAN(PRICE)
+----------------
+9916.49
 1 row selected.
 ```
 
@@ -15957,11 +15985,11 @@ row selected.
 Altibase는 버전 6.3.1부터 아래의 윈도우 함수를 지원한다.
 
 -   집계(Aggregate) 윈도우 함수: AVG, COUNT, MAX, MIN, STDDEV, SUM, VARIANCE,
-    GROUP_CONCAT, RATIO_TO_REPORT
+    GROUP_CONCAT, RATIO_TO_REPORT 등
 
--   순위(Ranking) 윈도우 함수: RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD, NTILE
+-   순위(Ranking) 윈도우 함수: RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD, NTILE 등
 
--   행 순서 관련 윈도우 함수: FIRST_VALUE, LAST_VALUE, NTH_VALUE
+-   행 순서 관련 윈도우 함수: FIRST_VALUE, LAST_VALUE, NTH_VALUE 등
 
 집계 윈도우 함수는 한 파티션 내에서 칼럼 값들의 합계 또는 평균을 구하는 계산을 수행한다. Altibase는 "집계 함수" 절에서 기술한 모든 집계 함수를 윈도우 함수로 사용하는 것을 지원한다(CUME_DIST, PERCENT_RANK는 예외). 집계 함수는 일반적으로 그룹 별로 한 개의 결과 행을 반환하지만, 윈도우 함수에서 사용될 때는 결과 값이 행 별로 반환된다.
 
@@ -17464,7 +17492,7 @@ RANDOM(100)
 
 
 
-#### ROUND
+#### ROUND (number)
 
 ##### 구문
 
@@ -17611,7 +17639,7 @@ SINH (n)
 iSQL> SELECT SINH(1) Hyperbolic_sine_of_1 FROM dual;
 HYPERBOLIC_SINE_OF_1 
 -----------------------
-1.175201    
+1.1752011936438      
 1 row selected.
 ```
 
@@ -17637,9 +17665,9 @@ SQRT 함수는 *n*의 제곱근을 반환한다. *n*은 음수가 아니어야 �
 
 ```
 iSQL> SELECT SQRT(10) FROM dual;
-SQRT(10)    
---------------
-3.162278    
+SQRT(10)
+-------------------------
+3.16227766016838   
 1 row selected.
 ```
 
@@ -17850,14 +17878,11 @@ TO_CHAR( BITNOT( BIT'01010101' ) )
 
 - ##### 문자 값을 반환하는 문자 함수
 
-  CHR, CONCAT, DIGITS, INITCAP, LOWER, LPAD, LTRIM, NCHR, PKCS7PAD16,
-  PKCS7UNPAD16,RANDOM_STRING, REPLICATE, REPLACE2, REVERSE_STR, RPAD, RTRIM,
-  STUFF, SUBSTRB(SUBSTRING), TRANSLATE, TRIM, UPPER
-
+  CHR, CHOSUNG, CONCAT, DIGITS, INITCAP, LOWER, LPAD, LTRIM, NCHR, PKCS7PAD16, PKCS7UNPAD16, RANDOM_STRING, REGEXP_COUNT, REGEXP_REPLACE, REPLICATE, REPLACE2, REVERSE_STR, RPAD, RTRIM, STUFF, SUBSTRB(SUBSTR, SUBSTRING), TRANSLATE, TRIM, UPPER
+  
 - ##### 숫자 값을 반환하는 문자 함수
 
-  ASCII, INSTR(POSITION), CHAR_LENGTH(CHARACTER_LENGTH, LENGTH), INSTRB,
-  OCTET_LENGTH(LENGTHB), SIZEOF
+  ASCII, CHAR_LENGTH(CHARACTER_LENGTH,LENGTH), DIGEST,INSTR(POSITION, INSTRB), OCTET_LENGTH(LENGTHB), REGEXP_INSTR, REGEXP_SUBSTR, SIZEOF
 
 #### ASCII
 
@@ -17912,7 +17937,7 @@ m_lastname VARCHAR(20),
 m_firstname VARCHAR(20),
 address VARCHAR(60));
 INSERT INTO managers VALUES(1, 'Jones', 'Davey', '3101 N. Wabash Ave. Brooklyn, NY');
-INSERT INTO managers VALUES(15, 'Min', 'Sujin', ' 서울 마포구 아현 1');
+INSERT INTO managers VALUES(15, 'Min', 'Sujin', '서울 마포구 아현 1');
 
 iSQL> SELECT CHAR_LENGTH(address) FROM managers;
 CHAR_LENGTH (ADDRESS)
@@ -18056,7 +18081,7 @@ DIGITS (n)
 
 ```
 CREATE TABLE T1 (I1 SMALLINT, I2 INTEGER, I3 BIGINT);
-NSERT INTO T1 VALUES (357, 12, 5000);
+INSERT INTO T1 VALUES (357, 12, 5000);
 
 iSQL> SELECT DIGITS(I1), DIGITS(I2), DIGITS(I3) FROM T1;
 DIGITS(I1)  DIGITS(I2)  DIGITS(I3)           
@@ -18087,9 +18112,9 @@ INITCAP (expr)
 
 ```
 iSQL> SELECT INITCAP ('the soap') Capital FROM dual;
-CAPITAL   
+CAPITAL
 ------------
-The soap  
+The Soap  
 1 row selected.
 ```
 
@@ -19290,7 +19315,7 @@ DATEDIFF 함수에 사용 가능한 *date_field_name*은 다음과 같다.
 
 -   MICROSECOND
 
-DATEDIFF 함수가 반환하는 값의 범위는 *date_field_name*의 값에 따라서 한정되어 있다. *date_field_name*이 ‘MICROSECOND’일 때는 *enddate* 에서 *startdate*을 뺀 값이 30일 이내여야 한다. 그리고 초를 나타내는 ‘SECOND’일 경우에 *enddate* 와 *startdate*의 차는 68년이다. 이 범위를 초과하면 에러가 발생한다.
+DATEDIFF 함수가 반환하는 값의 범위는 *date_field_name*의 값에 따라서 한정되어 있다. *date_field_name*이 ‘MICROSECOND’일 때는 *enddate* 에서 *startdate*을 뺀 값이 30일 이내여야 한다. 그리고 초를 나타내는 ‘SECOND’일 경우에 *enddate* 와 *startdate*의 차는 평년(365일)을 기준으로 68년이다. 이 범위를 초과하면 에러가 발생한다.
 
 이 함수의 반환 데이터 타입은 BIGINT이다.
 
@@ -19467,7 +19492,7 @@ MONTHS
 
 <a name="round-1"><a/>
 
-#### ROUND 
+#### ROUND (date)
 
 ##### 구문
 
@@ -19537,7 +19562,7 @@ LAST_DAY(TO_DATE('15-DEC-2001'))
 \<질의\> 사원들이 입사한 달의 마지막 일을 출력하라.
 
 ```
-iSQL> SELECT LAST_DAY(join_date ) FROM employee;
+iSQL> SELECT LAST_DAY(join_date ) FROM employees;
 LAST_DAY(JOIN_DATE ) 
 -----------------------
                      
@@ -20038,7 +20063,7 @@ OCT_TO_NUM (expr)
 
 ##### 설명
 
-이 함수는 *expr*을 8진수로 변환한다. *expr*은 0에서 7까지의 숫자로 이루어진 최대 길이 11인 문자열이어야 한다.
+이 함수는 *expr*을 10진수로 변환한다. *expr*은 0에서 7까지의 숫자로 이루어진 최대 길이 11인 문자열이어야 한다.
 
 반환형은 INTEGER이다.
 
@@ -21635,7 +21660,7 @@ MSG_DROP_QUEUE(key)
 
 ##### 설명
 
-이 함수는 명시한 key값을 가진 메시지 큐를 삭제한다. 메시지 큐가 정상적으로 삭제되면 0을 반환하고, 메시지 큐가 없거나 시스템 콜이 패하면 1을 반환한다. 반환 값의 타입은 INTEGER이다.
+이 함수는 명시한 key값을 가진 메시지 큐를 삭제한다. 메시지 큐가 정상적으로 삭제되면 0을 반환하고, 메시지 큐가 없거나 시스템 콜이 실패하면 1을 반환한다. 반환 값의 타입은 INTEGER이다.
 
 ##### 예제
 
@@ -21691,7 +21716,7 @@ MSG_RCV_QUEUE(key)
 
 ##### 설명
 
-이 함수는 명시한 key값을 가진 메시지 큐의 메시지를 수신(Dequeue)한다. 메시지가 정상적으로 수신되면 메시지를 반환하며, 메시지가 없거나 시스템 콜이 실패하면 1을 반환한다. 반환 값의 타입은 VARBYTE이다.
+이 함수는 명시한 key값을 가진 메시지 큐의 메시지를 수신(Dequeue)한다. 메시지가 정상적으로 수신되면 메시지를 반환하며, 메시지가 없거나 시스템 콜이 실패하면 NULL을 반환한다. 반환 값의 타입은 VARBYTE이다.
 
 ##### 예제
 
@@ -21934,7 +21959,7 @@ Multicast IP 주소는 예약된 Multicast group을 제외한 225.0.0.0\~238.0.0
 | \< 32  | 동일 사이트(SITE)로 제한, 조직이나 부서로 제한됨.            |
 | \< 64  | 동일 지역(Region)으로 제한.                                  |
 | \< 128 | 동일 대륙으로 제한.                                          |
-| \< 255 | 무제한, 전세계.                                              |
+| ≤ 255  | 무제한, 전세계.                                              |
 
 반환값은 전송된 메시지의 길이를 나타내는 INTEGER형이다.
 

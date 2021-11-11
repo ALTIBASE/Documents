@@ -187,12 +187,12 @@ Altibase에서 지원하는 데이타형은 다음과 같다.
     </tr>
     <tr>
     	<td>CHAR(M)</td>
-        <td>1 ~ 32000</td>
+        <td>0 ~ 32000</td>
         <td>M + 2</td>
     </tr>
     <tr>
     	<td>VARCHAR(M)</td>
-        <td>1 ~ 32000</td>
+        <td>0 ~ 32000</td>
         <td>length + 2, 여기서
 입력 값이 가변영역에 저장되면, length = L
 입력 값이 고정영역에 저장되면, length = M
@@ -200,8 +200,8 @@ Altibase에서 지원하는 데이타형은 다음과 같다.
     </tr>
      <tr>
     	<td>NCHAR(M)</td>
-        <td>1~16000(UTF16)
-1~10666(UTF8)
+        <td>0~16000(UTF16)
+0~10666(UTF8)
 </td>
         <td>M*2 + 2(UTF16)
 M*3 + 2(UTF8)
@@ -209,8 +209,8 @@ M*3 + 2(UTF8)
     </tr>
      <tr>
     	<td>NVARCHAR(M)</td>
-        <td>1~16000(UTF16)
-1~10666(UTF8)
+        <td>0~16000(UTF16)
+0~10666(UTF8)
 </td>
         <td>length*2 + 2(UTF16)
 length*3 + 2(UTF8)
@@ -244,12 +244,12 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     </tr>
     <tr>
         <td>NUMERIC(p)</td>
-        <td>1 ~ 38</td>
+        <td>0 ~ 38</td>
         <td>0</td>
     </tr>
     <tr>
         <td>NUMERIC(p,s)</td>
-        <td>1 ~ 38</td>
+        <td>0 ~ 38</td>
         <td>-84 ~ 128</td>
     </tr>
     <tr>
@@ -259,22 +259,22 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     </tr>
     <tr>
         <td>DECIMAL(p)</td>
-        <td>1 ~ 38</td>
+        <td>0 ~ 38</td>
         <td>0</td>
     </tr>
     <tr>
         <td>DECIMAL(p,s)</td>
-        <td>1 ~ 38</td>
+        <td>0 ~ 38</td>
         <td>-84 ~ 128</td>
     </tr>
     <tr>     
         <td>NUMBER(p)</td>
-        <td>1 ~ 38</td>
+        <td>0 ~ 38</td>
         <td>0</td>
     </tr>
       <tr>     
         <td>NUMBER(p,s)</td>
-        <td>1 ~ 38</td>
+        <td>0 ~ 38</td>
         <td>-84 ~ 128</td>
     </tr>
     <tr>
@@ -291,7 +291,7 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     </tr>
     <tr>
     	<td>FLOAT(p)</td>
-        <td>1 ~ 38</td>
+        <td>0 ~ 38</td>
         <td>X</td>
     </tr>
     <tr>
@@ -394,22 +394,22 @@ long long
     </tr>
     <tr>
     	<td>BYTE</td>
-        <td>1~32000</td>
+        <td>0~32000</td>
         <td>M + 2</td>
     </tr>
      <tr>
     	<td>NIBBLE</td>
-        <td>1~254</td>
+        <td>0~254</td>
         <td>M/2 + 1</td>
     </tr>
      <tr>
     	<td>BIT</td>
-        <td>1~64000</td>
+        <td>0~64000</td>
         <td>M/8 + 4</td>
     </tr>
     <tr>
     	<td>VARBIT</td>
-        <td>1~64000</td>
+        <td>0~64000</td>
         <td>length/8 + 4, 여기서
 입력 값이 가변영역에 저장되면, length = L
 입력 값이 고정영역에 저장되면, length = M
