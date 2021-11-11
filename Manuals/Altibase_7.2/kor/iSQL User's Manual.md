@@ -469,7 +469,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>접속해제</TD><TD>DISCONNECT;</TD><TD>현재 세션을 종료하고 서버와의 연결을 끊는다.</TD>
      </TR>
      <TR>
-         <TD rowspan="4">데이터베이스 객체 정보 조회</TD><TD>성능 뷰 목록 보기</TD><TD>ELECT * FROM V$TAB;</TD><TD>시스템이 제공하는 모든 성능 뷰 목록을 보여준다. 이 명령어는 iSQL에서만 사용가능 하다.</TD>
+         <TD rowspan="4">데이터베이스 객체 정보 조회</TD><TD>성능 뷰 목록 보기</TD><TD>SELECT * FROM V$TAB;</TD><TD>시스템이 제공하는 모든 성능 뷰 목록을 보여준다. 이 명령어는 iSQL에서만 사용가능 하다.</TD>
      </TR>
      <TR>
          <TD>테이블 목록 보기</TD><TD>SELECT * FROM TAB;</TD><TD>현재 생성된 테이블의 목록을 보여준다. 이 명령어는 iSQL에서만 사용가능 하다.</TD>
@@ -536,7 +536,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SET HEADING ON;<BR>SET HEADING OFF;</TD> <TD>select 결과 출력 시 헤더 출력 유무<BR>기본값: ON</TD>
      </TR>
      <TR>
-         <TD>SET COLSIZE N;</TD> <TD>CHAR, VARCHAR 타입 칼럼의 결과를 표시할 자릿수 설정</TD>
+         <TD>SET COLSIZE N;</TD> <TD>CHAR, VARCHAR 타입 칼럼의 결과를 표시할 자릿수 설정.<BR>COLSIZE가 LINESIZE에 우선하여 적용된다.</TD>
      </TR>
      <TR>
          <TD>SET NUM[WIDTH] N;</TD> <TD>NUMERIC, DECIMAL, NUMBER, FLOAT 타입의 SELECT 결과를 표시할 자릿수 설정.<BR>기본값: 11</TD>
@@ -1760,7 +1760,7 @@ iSQL> /		 -> SELECT * FROM book; 문이 실행된 것을 볼 수 있다.
 #### DML문 저장
 
 INSERT, UPDATE, DELETE, MOVE 등의 DML문 실행시 이를
-\$ALTIBASE_HOME/trc/isql_query.log에 기록한다.
+\$ALTIBASE_HOME/trc/isql_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.
 
 이 기능을 설정하려면 SET QUERYLOGGING을 ON으로 하고, 해제하려면 OFF하면 된다.
 
