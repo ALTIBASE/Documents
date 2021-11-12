@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
+**Table of Contents**  
 
 - [Replication Manual](#replication-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -20,6 +20,7 @@
     - [이중화 시작, 종료와 변경 (ALTER REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8B%9C%EC%9E%91-%EC%A2%85%EB%A3%8C%EC%99%80-%EB%B3%80%EA%B2%BD-alter-replication)
     - [이중화 삭제 (DROP REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AD%EC%A0%9C-drop-replication)
     - [이중화 대상 테이블에 DDL 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89)
+    - [이중화 대상 테이블에 DDL 복제 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%96%89)
     - [SQL 반영 모드](#sql-%EB%B0%98%EC%98%81-%EB%AA%A8%EB%93%9C)
     - [이중화 부가기능](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5)
     - [다중 IP 네트워크 환경에서의 이중화](#%EB%8B%A4%EC%A4%91-ip-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94)
@@ -37,6 +38,8 @@
     - [Replication FAQ](#replication-faq)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 
 Altibase® Administration
 

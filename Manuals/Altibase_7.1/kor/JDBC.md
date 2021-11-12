@@ -2404,7 +2404,7 @@ Altibase에서 Atomic Batch 기능을 사용할 때 아래의 제약 사항이 �
 
 ```
 ......
-Connection con = sConn DriverManager.getConnection(aConnectionStr, mProps);
+Connection con = DriverManager.getConnection(aConnectionStr, mProps);
 Statement stmt = con.createStatement();
  
 try
