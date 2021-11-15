@@ -536,7 +536,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SET HEADING ON;<BR>SET HEADING OFF;</TD> <TD>select 결과 출력 시 헤더 출력 유무<BR>기본값: ON</TD>
      </TR>
      <TR>
-         <TD>SET COLSIZE N;</TD> <TD>CHAR, VARCHAR 타입 칼럼의 결과를 표시할 자릿수 설정</TD>
+         <TD>SET COLSIZE N;</TD> <TD>CHAR, VARCHAR 타입 칼럼의 결과를 표시할 자릿수 설정.<BR>COLSIZE가 LINESIZE에 우선하여 적용된다.</TD>
      </TR>
      <TR>
          <TD>SET NUM[WIDTH] N;</TD> <TD>NUMERIC, DECIMAL, NUMBER, FLOAT 타입의 SELECT 결과를 표시할 자릿수 설정.<BR>기본값: 11</TD>

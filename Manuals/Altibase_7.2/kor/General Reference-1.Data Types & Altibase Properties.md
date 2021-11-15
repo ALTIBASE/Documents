@@ -178,10 +178,10 @@ Altibase에서 지원하는 데이타형은 다음과 같다.
 | M: 정의된 칼럼 길이 L: 입력 문자열의 길이 |                              |                                                              |
 | ----------------------------------------- | ---------------------------- | ------------------------------------------------------------ |
 | 타 입                                     | Length                       | Size                                                         |
-| CHAR(M)                                   | 1 ~ 32000                    | M + 2                                                        |
-| VARCHAR(M)                                | 1 ~ 32000                    | length + 2, 여기서 입력 값이 가변영역에 저장되면, length = L 입력 값이 고정영역에 저장되면, length = M |
-| NCHAR(M)                                  | 1~16000(UTF16) 1~10666(UTF8) | M*2 + 2(UTF16) M*3 + 2(UTF8)                                 |
-| NVARCHAR(M)                               | 1~16000(UTF16) 1~10666(UTF8) | length*2 + 2(UTF16) length*3 + 2(UTF8) 여기서: 입력 값이 가변영역에 저장되면, length = L 입력 값이 고정영역에 저장되면, length = M |
+| CHAR(M)                                   | 0 ~ 32000                    | M + 2                                                        |
+| VARCHAR(M)                                | 0 ~ 32000                    | length + 2, 여기서 입력 값이 가변영역에 저장되면, length = L 입력 값이 고정영역에 저장되면, length = M |
+| NCHAR(M)                                  | 0~16000(UTF16) 0~10666(UTF8) | M*2 + 2(UTF16) M*3 + 2(UTF8)                                 |
+| NVARCHAR(M)                               | 0~16000(UTF16) 0~10666(UTF8) | length*2 + 2(UTF16) length*3 + 2(UTF8) 여기서: 입력 값이 가변영역에 저장되면, length = L 입력 값이 고정영역에 저장되면, length = M |
 
 NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩된 문자열의 최대 길이는 UTF8로 인코딩된 문자열의 최대 길이와 다르다.
 
@@ -190,16 +190,16 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
 | Non-native   | 타 입               | Precision   | Scale               | Size (bytes)                                                 | 비 고 |
 | ------------ | ------------------- | ----------- | ------------------- | ------------------------------------------------------------ | ----- |
 | NUMERIC      | 38                  | 0           | 3+((precision)+2)/2 | *고정 소수점 숫자 *DECIMAL은 NUMERIC과 동일한 데이터 타입이다. |       |
-| NUMERIC(p)   | 1 ~ 38              | 0           |                     |                                                              |       |
-| NUMERIC(p,s) | 1 ~ 38              | -84 ~ 128   |                     |                                                              |       |
+| NUMERIC(p)   | 0 ~ 38              | 0           |                     |                                                              |       |
+| NUMERIC(p,s) | 0 ~ 38              | -84 ~ 128   |                     |                                                              |       |
 | DECIMAL      | 38                  | 0           |                     |                                                              |       |
-| DECIMAL(p)   | 1 ~ 38              | 0           |                     |                                                              |       |
-| DECIMAL(p,s) | 1 ~ 38              | -84 ~ 128   |                     |                                                              |       |
-| NUMBER(p)    | 1 ~ 38              | 0           |                     |                                                              |       |
-| NUMBER(p,s)  | 1 ~ 38              | -84 ~ 128   |                     |                                                              |       |
+| DECIMAL(p)   | 0 ~ 38              | 0           |                     |                                                              |       |
+| DECIMAL(p,s) | 0 ~ 38              | -84 ~ 128   |                     |                                                              |       |
+| NUMBER(p)    | 0 ~ 38              | 0           |                     |                                                              |       |
+| NUMBER(p,s)  | 0 ~ 38              | -84 ~ 128   |                     |                                                              |       |
 | NUMBER       | 38                  | X           | 3+((precision)+2)/2 | *부동 소수점 숫자                                            |       |
 | FLOAT        | 38                  | X           |                     |                                                              |       |
-| FLOAT(p)     | 1 ~ 38              | X           |                     |                                                              |       |
+| FLOAT(p)     | 0 ~ 38              | X           |                     |                                                              |       |
 | Native       | 타입                | 호환 C Type | Size(bytes)         | 비고                                                         |       |
 | DOUBLE       | double              | 8           | *부동 소수점 숫자   |                                                              |       |
 | REAL         | float               | 4           |                     |                                                              |       |
@@ -265,26 +265,26 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     <tr>
     	<td>BLOB/CLOB</td>
         <td></td>
-        <td>1~4294967295</td>
+        <td>0~4294967295</td>
     </tr>
     <tr>
     	<td>BYTE</td>
-        <td>1~32000</td>
+        <td>0~32000</td>
         <td>M + 2</td>
     </tr>
      <tr>
     	<td>NIBBLE</td>
-        <td>1~254</td>
+        <td>0~254</td>
         <td>M/2 + 1</td>
     </tr>
      <tr>
     	<td>BIT</td>
-        <td>1~64000</td>
+        <td>0~64000</td>
         <td>M/8 + 4</td>
     </tr>
     <tr>
     	<td>VARBIT</td>
-        <td>1~64000</td>
+        <td>0~64000</td>
         <td>length/8 + 4, 여기서
 입력 값이 가변영역에 저장되면, length = L
 입력 값이 고정영역에 저장되면, length = M
