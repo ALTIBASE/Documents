@@ -1643,15 +1643,14 @@ SUNDAY
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( '28-DEC-1980', 'DD' ) FROM dual;
 TO_CHAR ( '28-DEC-1980', 'DD' )  
 -----------------------------------
 28      
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE( '1980-12-28', 'YYYY-MM-DD') FROM dual;
 TO_DATE( '1980-12-28', 'YYYY-MM-DD') 
 ---------------------------------------
@@ -1766,15 +1765,14 @@ TO_CHAR( TO_DATE ( '08-12-28 05:30:29', 'R
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( TO_DATE( '1980-12-28 17:30:29', 'YYYY-MM-DD HH:MI:SS' ), 'HH' ) FROM dual;
 TO_CHAR ( TO_DATE( '1980-12-28 17:30:29'  
 --------------------------------------------
 17      
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD HH:MI:SS' ) FROM dual;
 TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD 
 -------------------------------------------
@@ -1790,15 +1788,14 @@ TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( TO_DATE( '1980-12-28 17:30:29', 'YYYY-MM-DD HH:MI:SS' ), 'HH' ) FROM dual;
 TO_CHAR ( TO_DATE( '1980-12-28 17:30:29'  
 --------------------------------------------
 17      
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD HH:MI:SS' ) FROM dual;
 TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD 
 -------------------------------------------
@@ -1830,15 +1827,14 @@ DEC
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( '28-DEC-1980', 'Month' ) FROM dual;
 TO_CHAR ( '28-DEC-1980', 'Month' )  
 --------------------------------------
 December         
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '05-APRIL-28 14:30:29', 'RR-MONTH-DD HH:MI:SS' ) FROM dual;
 TO_DATE ( '05-APRIL-28 14:30:29', 'RR-MO 
 -------------------------------------------
@@ -1872,15 +1868,14 @@ TO_CHAR ( '28-DEC-1980', 'Q' )
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( '28-DEC-1980', 'RM' ) FROM dual;
 TO_CHAR ( '28-DEC-1980', 'RM' )  
 -----------------------------------
 XII     
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ('28-V-1980', 'DD-RM-YYYY') FROM dual;
 TO_DATE ('28-V-1980', 'DD-RM-YYYY') 
 --------------------------------------
@@ -1898,15 +1893,14 @@ TO_DATE ('28-V-1980', 'DD-RM-YYYY')
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( '28-DEC-80', 'RR' ) FROM dual;
 TO_CHAR ( '28-DEC-80', 'RR' )  
 ---------------------------------
 80      
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '28-DEC-80', 'DD-MON-RR' ) FROM dual;
 TO_DATE ( '28-DEC-80', 'DD-MON-RR' ) 
 ---------------------------------------
@@ -1948,15 +1942,14 @@ TO_CHAR ( '28-DEC-1980', 'DD-MON-RRRR' )
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( TO_DATE( '1980-12-28 17:30:29', 'YYYY-MM-DD HH:MI:SS' ), 'HH' ) FROM dual;
 TO_CHAR ( TO_DATE( '1980-12-28 17:30:29'  
 --------------------------------------------
 17      
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD HH:MI:SS' ) FROM dual;
 TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD 
 -------------------------------------------
@@ -1972,15 +1965,14 @@ TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( TO_DATE( '1980-12-28 17:30:29', 'YYYY-MM-DD HH24:MI:SS' ), 'SSSSS' ) FROM dual;
 TO_CHAR ( TO_DATE( '1980-12-28 17:30:29'  
 --------------------------------------------
 62940            
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE('1980-12-28 12345', 'YYYY-MM-DD SSSSS') FROM dual;
 TO_DATE('1980-12-28 12345', 'YYYY-MM-DD  
 -------------------------------------------
@@ -2019,15 +2011,14 @@ TO_CHAR ( TO_DATE('1980-12-28 123456', '
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR (SYSDATE, 'SSSSSSSS') FROM dual;
 TO_CHAR (SYSDATE, 'SSSSSSSS')  
 ---------------------------------
 48987403                  
 1 row selected.  
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '12.345678', 'SS.SSSSSS') FROM dual;
 TO_DATE ( '12.345678', 'SS.SSSSSS') 
 --------------------------------------
@@ -2173,15 +2164,14 @@ TO_CHAR ( DATE'01-JAN-0000' - 1, 'SYYYY-MM
 
 ###### 예제
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( '28-DEC-1980', 'YYYY' ) FROM dual;
 TO_CHAR ( '28-DEC-1980', 'YYYY' )  
 -------------------------------------
 1980          
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '28-DEC-1980', 'DD-MON-YYYY' ) FROM dual;
 TO_DATE ( '28-DEC-1980', 'DD-MON-YYYY' ) 
 -------------------------------------------
@@ -2198,15 +2188,14 @@ TO_DATE ( '28-DEC-1980', 'DD-MON-YYYY' )
 
 ###### 예제1
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> SELECT TO_CHAR ( '28-DEC-1980', 'YY' ) FROM dual;
 TO_CHAR ( '28-DEC-1980', 'YY' )  
 -----------------------------------
 80      
 1 row selected.
 
+-- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
 iSQL> SELECT TO_DATE ( '28-DEC-80', 'DD-MON-YY' ) FROM dual;
 TO_DATE ( '28-DEC-80', 'DD-MON-YY' ) 
 ---------------------------------------
@@ -2216,9 +2205,7 @@ TO_DATE ( '28-DEC-80', 'DD-MON-YY' )
 
 ###### 예제2
 
-- TO_CHAR 함수의 경우 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
-
-```
+```sql
 iSQL> CREATE TABLE timetbl(i1 INTEGER, t1 DATE, etc VARCHAR(10));
 Create success.
 
