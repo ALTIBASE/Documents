@@ -41,6 +41,7 @@
   - [DBMS_RANDOM](#dbms_random)
   - [DBMS_RECYCLEBIN 패키지](#dbms_recyclebin-%ED%8C%A8%ED%82%A4%EC%A7%80)
   - [DBMS_SQL](#dbms_sql)
+  - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
   - [DBMS_STATS](#dbms_stats)
   - [DBMS_UTILITY](#dbms_utility)
   - [STANDARD](#standard)
@@ -6593,6 +6594,102 @@ Execute success.
 
 
 
+### DBMS_SQL_PLAN_CACHE
+
+DBMS_SQL_PLAN_CACHE 패키지는 SQL Plan Cache내 Plan을 keep / unkeep 할 수 있는 기능을 제공한다.
+
+| 프로시저 및 함수 | 설명                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| KEEP_PLAN        | SQL Plan Cache에서 제거되지 않도록 SQL Plan Cache 에 유지 시킨다. |
+| UNKEEP_PLAN      | KEEP_PLAN 상태를 해제하며 victim으로 선정되어 SQL Plan Cache에서 제거될 수 있는 상태가 된다. |
+
+
+
+#### KEEP_PLAN
+
+SQL Plan Cache에서 제거되지 않도록 SQL Plan Cache 에 유지 시킨다.
+KEEP을 하면 SQL_TEXT_ID에 해당하는 모든 CHILD PCO는 KEEP 된다. 
+KEEP 한 플랜은 UNKEEP을 해야만 해제된다. 단 Rebuild로 인해 invalid 한 plan이 되면 UNKEEP 상태로 전환된다.
+
+##### 구문
+
+```
+DBMS_SQL_PLAN_CACHE.KEEP_PLAN(sql_text_id);
+```
+
+
+
+##### 파라미터
+
+| 이름        | 입출력 | 데이터 타입 | 설명                                   |
+| ----------- | ------ | ----------- | -------------------------------------- |
+| sql_text_id | IN     | VARCHAR(64) | SQL Plan Cache내에서 SQL 문장의 식별자 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+iSQL> select sql_text_id from v$sql_plan_cache_sqltext where sql_text like 'select count%';  
+SQL_TEXT_ID
+------------------------
+00510
+1 rows selected.
+
+iSQL> exec dbms_sql_plan_cache.keep_plan('00510');
+Execute success.
+```
+
+
+
+#### UNKEEP_PLAN
+
+KEEP_PLAN 상태를 해제하며 victim으로 선정되어 SQL Plan Cache에서 제거될 수 있는 상태가 된다.
+
+
+##### 구문
+
+```
+DBMS_SQL_PLAN_CACHE.unKEEP_PLAN(sql_text_id);
+```
+
+
+
+##### 파라미터
+
+| 이름        | 입출력 | 데이터 타입 | 설명                                   |
+| ----------- | ------ | ----------- | -------------------------------------- |
+| sql_text_id | IN     | VARCHAR(64) | SQL Plan Cache내에서 SQL 문장의 식별자 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+iSQL> select sql_text_id from v$sql_plan_cache_sqltext where plan_cache_keep = 'KEEP';
+SQL_TEXT_ID
+------------------------
+00510
+1 row selected.
+
+iSQL> exec dbms_sql_plan_cache.unkeep_plan('00510');
+Execute success.
+```
+
+
+
 ### DBMS_STATS
 
 DBMS_STATS 패키지는 통계 정보를 조회 및 변경할 수 있는 인터페이스를 제공한다.
@@ -9026,5 +9123,4 @@ ID : 4    NAME : KKSHIM
 ID : 5    NAME : CSKIM
 ID : 6    NAME : KDHONG
 ```
-
 
