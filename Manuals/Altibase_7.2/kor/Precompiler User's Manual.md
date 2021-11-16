@@ -9634,7 +9634,7 @@ $ ./delete
 
 ### 예제 프로그램의 테이블 정보
 
-*SQL Reference* 의 부록A를 참조하세요.
+*Getting Started Guide* 의 *3. Altibase로 작업하기* 아래 *샘플 스키마*를 참조하세요.
 
 ## E. 부록: FAQ
 
