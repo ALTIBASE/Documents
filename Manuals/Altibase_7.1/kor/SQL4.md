@@ -7598,11 +7598,11 @@ ID          Path
 
 ##### 설명
 
-이 함수는 현재 세션에 접속한 환경 정보(context)를 namespace로 하여 관련된 파라미터의 결과값을 반환한다. 해당 함수는 설치형 PSM을 별도로 설치하여야 사용 가능하다. 설치형 PSM은 아래와 같이 $ALTIBASE_HOME/packages/sys_context.sql과 $ALTIBASE_HOME/packages/sys_context.plb을 iSQL로 실행하면 설치된다.
+이 함수는 현재 세션에 접속한 환경 정보(context)를 namespace로 하여 관련된 파라미터의 결과값을 반환한다. 해당 함수는 Altibase 내장 저장 함수로, $ALTIBASE_HOME/packages 디렉터리 아래에 있는 sys_context.sql, sys_context.plb 스크립트를 차례로 실행하여 생성해야 사용할 수 있다.
 
 ```
-$ isql -s localhost -u sys -p manager -f $ALTIBASE_HOME/packages/sys_context.sql
-$ isql -s localhost -u sys -p manager -f $ALTIBASE_HOME/packages/sys_context.plb
+$ isql -u sys -f $ALTIBASE_HOME/packages/sys_context.sql
+$ isql -u sys -f $ALTIBASE_HOME/packages/sys_context.plb
 ```
 
 ##### 파라미터
