@@ -91,7 +91,7 @@ resource consumption.
 
 Features that have been added, deleted or updated in Migration Center are listed and explained below.
 
-* Bundled JRE version in Migration Center is updated from 7 to 8 in order to support Altibase 7.2 JDBC which requires JRE 8 at minimum.
+* Bundled JRE version in Migration Center is updated from 7 to 8 in order to support Altibase 7.2 JDBC that requires JRE 8 or higher.
 
 #### 2.2.1 Version Updates
 
