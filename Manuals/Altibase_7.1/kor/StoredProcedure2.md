@@ -6656,7 +6656,7 @@ KEEP_PLAN 상태를 해제하며 victim으로 선정되어 SQL Plan Cache에서 
 ##### 구문
 
 ```
-DBMS_SQL_PLAN_CACHE.unKEEP_PLAN(sql_text_id);
+DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN(sql_text_id);
 ```
 
 
