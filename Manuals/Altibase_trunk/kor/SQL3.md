@@ -4581,7 +4581,7 @@ Commit success.
 
 **rollback ::=**
 
-![rollback_image253](media/SQL/rollback_image253.gif)
+![rollback_image253](media/SQL/rollback.JPG)
 
 #### 설명
 
