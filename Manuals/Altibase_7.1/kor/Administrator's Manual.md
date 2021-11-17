@@ -5089,7 +5089,7 @@ EXTENTSIZE {{integer [K/M/G]}/{UNLIMITED}}
 TEMPFILE ①임시 파일절
 AUTOEXTEND ②자동확장절
 MAXSIZE ③최대크기절 
-EXTENDSIZE ④익스텐트사이즈절
+EXTENTSIZE ④익스텐트사이즈절
 ```
 
 각 임시 파일은 다음과 같은 속성을 가질 수 있다.
