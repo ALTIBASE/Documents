@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+**Table of Contents**
 
 - [Stored Procedures Manual](#stored-procedures-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -98,15 +98,20 @@
     - [DBMS_RECYCLEBIN 패키지](#dbms_recyclebin-%ED%8C%A8%ED%82%A4%EC%A7%80)
     - [DBMS_SQL](#dbms_sql)
     - [DBMS_STATS](#dbms_stats)
+    - [DBMS_STANDARD](#dbms_standard)
     - [DBMS_UTILITY](#dbms_utility)
     - [STANDARD](#standard)
+    - [SYS_SPATIAL](#sys_spatial)
     - [UTL_COPYSWAP](#utl_copyswap)
     - [UTL_FILE](#utl_file)
     - [UTL_RAW](#utl_raw)
+    - [UTL_SMTP](#utl_smtp)
     - [UTL_TCP](#utl_tcp)
   - [A.부록: 예제](#a%EB%B6%80%EB%A1%9D-%EC%98%88%EC%A0%9C)
     - [저장 프로시저 예제](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%98%88%EC%A0%9C)
     - [파일 제어 예제](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4-%EC%98%88%EC%A0%9C)
+    - [UTL_SMTP 예제](#utl_smtp-%EC%98%88%EC%A0%9C)
+    - [SENDMAIL DAEMON 확인 예제](#sendmail-daemon-%ED%99%95%EC%9D%B8-%EC%98%88%EC%A0%9C)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -9371,18 +9376,43 @@ ID : 6 NAME : MHJEONG
 CONNECT_TYPE은 내부적으로 TCP 소켓 관련 정보를 저장하고 있으나, 사용자가 내부
 데이터에는 접근할 수 없다.
 
-##### CONNECTY_TYPE의 함수
+##### CONNECT_TYPE의 함수
 
 저장 프로시저 내에서 CONNECT_TYPE의 지역 변수들은 아래 함수의 인자 또는 반환
 값으로 사용될 수 있다.
 
-| 함수명           | 설명                                                               |
-|------------------|--------------------------------------------------------------------|
-| CLOSEALL_CONNECT | 세션에 연결된 모든 접속 핸들을 닫는다.                             |
-| CLOSE_CONNECT    | 세션에 연결된 접속 핸들을 닫는다.                                  |
-| IS_CONNECTED     | CONNECT_TYPE의 접속 핸들이 연결된 상태를 확인한다.                 |
-| OPEN_CONNECT     | 읽기 또는 쓰기의 목적으로 파일을 연다.                             |
-| WRITE_RAW        | RAW(VARBYTE) 타입의 자료를 접속된 핸들을 통해 네트워크에 전송한다. |
+| 함수명              | 설명                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| CLOSEALL_CONNECT    | 세션에 연결된 모든 접속 핸들을 닫는다.                       |
+| CLOSE_CONNECT       | 세션에 연결된 접속 핸들을 닫는다.                            |
+| IS_CONNECTED        | CONNECT_TYPE의 접속 핸들이 연결된 상태를 확인한다.           |
+| OPEN_CONNECT        | 읽기 또는 쓰기의 목적으로 파일을 연다.                       |
+| WRITE_RAW           | RAW(VARBYTE) 타입의 자료를 접속된 핸들을 통해 네트워크에 전송한다. |
+| CHECK_CONNECT_STATE | 현재 연결의 상태와 변경하기 원하는 상태를 비교하여, 상태변이가 가능한지 검사한다. |
+| CHECK_CONNECT_REPLY | 접속 핸들의 프로토콜에 적합하게 응답 메시지를 검사한다.      |
+| SEND_TEXT           | VARCHAR 타입의 데이터를 원격 서버에 전송한다.                |
+| RECV_TEXT           | 원격 서버에서 VARCHAR 타입의 데이터를 수신한다.              |
+| WRITE_RAW_VALUE     | RAW 타입의 VALUE 데이터를 원격 서버에 전송한다.              |
+
+##### TCP 접속 제어 연결 상태
+
+| 연결 상태  | 식별값 |
+| :--------- | :----- |
+| NO CONNECT | 0      |
+| CONNECTED  | 1      |
+| SMTP HELO  | 2      |
+| SMTP MAIL  | 3      |
+| SMTP RCPT  | 4      |
+| SMTP OPEN  | 5      |
+| SMTP DATA  | 6      |
+| SMTP CRLF  | 7      |
+
+##### TCP 접속 제어 프로토콜 타입
+
+| 프로토콜 타입 | 식별값 |
+| :------------ | :----- |
+| SMTP          | 1      |
+
 
 #### CLOSEALL_CONNECT
 
@@ -9611,6 +9641,252 @@ BEGIN
     V2 := WRITE_RAW(V1, TO_RAW('MESSAGE'), RAW_SIZEOF('MESSAGE'));
     V2 := CLOSE_CONNECT(V1);
 END;
+```
+
+
+
+#### CHECK_CONNECT_STATE 
+
+현재 연결의 상태와 변경하기 원하는 상태를 비교하여, 상태변이가 가능한지 검사한다.
+
+##### 구문
+
+```
+INTEGER variable := 
+CHECK_CONNECT_STATE(
+  c IN CONNECT_TYPE,
+  next_state IN INTEGER );
+```
+
+
+
+##### 파라미터
+
+| 이름       | 입출력 | 데이터 타입  | 설명                      |
+| :--------- | :----- | :----------- | :------------------------ |
+| c          | IN     | CONNECT_TYPE | 원격 서버의 접속 핸들     |
+| next_state | IN     | INTEGER      | 변경하기 원하는 상태의 값 |
+
+##### 결과값
+
+성공적으로 수행하면 0을 반환한다.
+
+##### 예외
+
+현재 연결 상태에서 원하는 상태로 변경을 지원하지 않을 때, UNSUPPORTED_STATE 예외가 발생한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1은 Connected 상태
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+
+
+#### CHECK_CONNECT_REPLY
+
+현재 연결의 프로토콜에 적합한 응답 결과인지 검사한다.
+
+##### 구문
+
+```
+INTEGER variable := 
+CHECK_CONNECT_REPLY(
+  protocol_type IN INTEGER,
+  reply IN VARCHAR(65534) );
+```
+
+
+
+##### 파라미터
+
+| 이름          | 입출력 | 데이터 타입    | 설명            |
+| :------------ | :----- | :------------- | :-------------- |
+| protocol_type | IN     | INTEGER        | 프로토콜 타입   |
+| reply         | IN     | VARCHAR(65534) | 응답받은 메세지 |
+
+##### 결과값
+
+성공적으로 수행하면 0을 반환한다.
+
+##### 예외
+
+지원하지 않는 프로토콜 타입을 사용할 때 응답의 내용이 오류 또는 에러인 경우에 SMTP_REPLY_ERROR 예외가 발생한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+    V3 VARCHAR(65534);
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1은 Connected 상태
+    IF ( V2 > 0 ) THEN
+        V3 := RECV_TEXT( V1, 100 );
+        V2 := CHECK_CONNECT_REPLY( 1, V3 ); --# 1은 SMTP
+    END IF;
+END;
+/
+```
+
+
+
+#### SEND_TEXT
+
+VARCHAR 타입의 자료를 접속된 핸들을 통해 네트워크에 전송하는 함수이다.
+
+##### 구문
+
+```
+INTEGER variable := 
+SEND_TEXT( 
+  c IN CONNECT_TYPE,
+  data IN VARCHAR(65534),
+  length IN INTEGER ); 
+```
+
+
+
+##### 파라미터
+
+| 이름   | 입출력 | 데이터 타입    | 설명                  |
+| :----- | :----- | :------------- | :-------------------- |
+| c      | IN     | CONNECT_TYPE   | 원격 서버의 접속 핸들 |
+| data   | IN     | VARCHAR(65534) | 전송할 데이터         |
+| length | IN     | INTEGER        | 전송할 데이터의 길이  |
+
+##### 결과값
+
+성공적으로 수행할 경우, 네크워크로 전송된 데이터의 길이를 반환한다.
+
+##### 예외
+
+수행시 오류가 발생하면 -1을 반환한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := SEND_TEXT( V1, 'HELO 127.0.0.1' || CHR( 13 ) || CHR( 10 ), 16 );
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+
+
+#### RECV_TEXT
+
+접속된 핸들을 통해 네트워크로 VARCHAR 타입의 자료를 전송받는 함수이다.
+
+##### 구문
+
+```
+VARCHAR variable := 
+RECV_TEXT( 
+  c IN CONNECT_TYPE,
+  length IN INTEGER );
+```
+
+
+
+##### 파라미터
+
+| 이름   | 입출력 | 데이터 타입  | 설명                        |
+| :----- | :----- | :----------- | :-------------------------- |
+| c      | IN     | CONNECT_TYPE | 원격 서버의 접속 핸들       |
+| length | IN     | INTEGER      | 전송받을 응답 데이터의 길이 |
+
+##### 결과값
+
+성공적으로 수행할 경우, 네크워크로 받은 VARCHAR 데이터를 반환한다.
+
+##### 예외
+
+수행시 오류가 발생하면 null 를 반환한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+    V3 VARCHAR(65534);
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := SEND_TEXT( V1, 'HELO 127.0.0.1'  || CHR( 13 ) || CHR( 10 ), 16 );
+    V3 := RECV_TEXT( V1, 100 );
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+
+
+#### WRITE_RAW_VALUE
+
+RAW 타입의 VALUE 데이터를 접속된 핸들을 통해 네트워크에 전송하는 함수이다.
+
+##### 구문
+
+```
+INTEGER variable := 
+WRITE_RAW_VALUE(
+  c IN CONNECT_TYPE,
+  data IN RAW(65534),
+  length IN INTEGER );
+```
+
+
+
+##### 파라미터
+
+| 이름   | 입출력 | 데이터 타입  | 설명                  |
+| :----- | :----- | :----------- | :-------------------- |
+| c      | IN     | CONNECT_TYPE | 원격 서버의 접속 핸들 |
+| data   | IN     | RAW(65534)   | 전송할 데이터         |
+| length | IN     | INTEGER      | 전송할 데이터의 길이  |
+
+##### 결과값
+
+성공적으로 수행할 경우, 네크워크로 전송된 데이터의 길이를 반환한다.
+
+##### 예외
+
+수행시 오류가 발생하면 -1을 반환한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+    V3 VARCHAR(65534);
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := WRITE_RAW_VALUE( V1, TO_RAW( 'HELO 127.0.0.1'  || CHR( 13 ) || CHR( 10 ) ), 16 );
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
 ```
 
 
@@ -10609,11 +10885,14 @@ Altibase에서 제공하는 패키지는 아래와 같다.
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | 삭제(Drop)되어 휴지통에서 관리되고 있는 테이블을 시스템에서 완전히 삭제(Purge)한다. |
 | [DBMS_SQL](#dbms_sql)                                | 동적 SQL을 사용한다.                                         |
 | [DBMS_STATS](#dbms_stats)                            | 통계 정보를 조회 및 변경한다.                                |
+| [DBMS_STANDARD](#dbms_standard)                      | 다양한 기본 서브프로그램을 제공한다.                         |
 | [DBMS_UTILITY](#dbms_utility)                        | 다양한 유틸리티 서브프로그램을 제공한다.                     |
 | [STANDARD](#standard)                                | 기본 데이터 타입 외에 PSM내에서 별도의 선언없이 사용할 수 있는 타입을 정의한다. |
+| [SYS_SPATIAL](#sys_spatial)                          | Geometry에 관련 서브프로그램을 제공한다.                     |
 | [UTL_COPYSWAP](#utl_copyswap)                        | Copy & Swap 방식으로 Online DDL을 지원한다.                  |
 | [UTL_FILE](#standard)                                | 운영 체제에서 관리하는 텍스트 파일을 읽고(Read) 쓴다(Write). |
 | [UTL_RAW](#utl_raw)                                  | RAW(VARBYTE) 타입의 데이터를 다른 데이터 타입으로 변환한다.  |
+| [UTL_SMTP](#utl_smtp)                                | SMTP 서버로 EMAIL을 전송하도록, SMTP 프로토콜을 수행한다.    |
 | [UTL_TCP](#utl_tcp)                                  | 저장 프로시저에서 TCP 접속을 제어한다.                       |
 
 ### DBMS_APPLICATION_INFO 
@@ -13148,6 +13427,227 @@ Execute success.
 
 
 
+### DBMS_STANDARD
+
+DBMS_STANDARD 패키지는 패키지 이름을 명시하지 않고 사용할 수 있는 다양한 서브 프로그램을 제공한다. DBMS_STANDARD 패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다.
+
+| 프로시저 및 함수   | 설명                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| DELETING           | Trigger가 DELETE로부터 시작한 것인지를 반환한다.             |
+| INSERTING          | Trigger가 INSERT로부터 시작한 것인지를 반환한다.             |
+| UPDATING           | Trigger가 UPDATE로부터 시작한 것인지를 반환한다.             |
+| UPDATING (colname) | Trigger가 특정 컬럼의 UPDATE로부터 시작한 것인지를 반환한다. |
+
+#### DELETING
+
+Trigger가 DELETE로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.DELETING;
+BOOLEAN variable := DELETING;
+```
+
+
+
+##### 결과값
+
+DELETE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+예제
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP ( C1 VARCHAR(10) );
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF DELETING THEN
+  INSERT INTO TMP VALUES ('DELETE');
+ END IF;
+END;
+/
+
+iSQL> DELETE FROM T1;
+1 row deleted.
+iSQL> SELECT & FROM TMP;
+1 row selected.
+```
+
+
+
+#### INSERTING
+
+Trigger가 INSERT로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.INSERTING;
+BOOLEAN variable := INSERTING;
+```
+
+
+
+##### 결과값
+
+INSERT로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE INSERT ON T1
+FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  INSERT INTO TMP VALUES ('INSERT');
+ END IF;
+END;
+/
+
+iSQL> INSERT INTO T1 VALUES(2);
+1 row inserted.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+INSERT
+1 row selected.
+```
+
+
+
+#### UPDATING
+
+Trigger가 UPDATE로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING;
+BOOLEAN variable := UPDATING;
+```
+
+
+
+##### 결과값
+
+UPDATE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+(CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING THEN
+  INSERT INTO TMP VALUES ('UPDATE');
+ END IF;
+END;
+/ 
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE
+1 row selected.
+```
+
+
+
+#### UPDATING (colname)
+
+Trigger가 특정 컬럼의 UPDATE로부터 시작한 것인지를 반환한다.
+
+##### 구문
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
+BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                  |
+| :------ | :----- | :----------- | :-------------------- |
+| COLNAME | IN     | VARCHAR(128) | 컬럼 이름을 명시한다. |
+
+##### 결과값
+
+특정 컬럼의 UPDATE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+
+##### 예외
+
+예외를 발생시키지 않는다.
+
+##### 예제
+
+```
+CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1, 2);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING('C1') THEN
+  INSERT INTO TMP VALUES ('UPDATE-C1');
+ELSE
+ INSERT INTO TMP VALUES ('OTHER');
+ END IF;
+END;
+/
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+1 row selected.
+iSQL> UPDATE T1 SET C2 = 3;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+OTHER
+2 rows selected.
+```
+
+ 
+
 ### DBMS_UTILITY
 
 DBMS_UTILITY 패키지는 다양한 유틸리티 서브프로그램을 제공한다. DBMS_UTILITY
@@ -13283,6 +13783,20 @@ CLOSE CUR1;
 END;
 /
 ```
+
+
+
+### SYS_SPATIAL
+
+Spatial에 관련한 서브프로그램을 제공한다.
+
+SYS_SPATIAL 패키지를 구성하는 프로시저와 함수는 아래 표와 같다.
+각 프로시저의 자세한 내용은 *Spatial SQL Reference* 의 'C.부록: Geometry 참조테이블 > 관련 저장 프로시저' 절의 설명을 참고한다.
+
+| 프로시저 및 함수       | 설명                                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| ADD_SPATIAL_REF_SYS    | SPATIAL_REF_SYS_ 테이블에 Spatial Reference System 메타데이터를 등록한다. |
+| DELETE_SPATIAL_REF_SYS | SPATIAL_REF_SYS_ 테이블에 Spatial Reference System 메타데이터를 삭제한다. |
 
 
 
@@ -14641,6 +15155,485 @@ CAST(UTL_RAW.SUBSTR('0102030405',1,2) as R
 
 
 
+### UTL_SMTP
+
+UTL_SMTP 패키지는 SMTP 서버로 EMAIL을 전송하도록, SMTP 프로토콜을 수행할 수 있다.
+UTL_SMTP 패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다.
+
+| 프로시저 및 함수 | 설명                                                         |
+| :--------------- | :----------------------------------------------------------- |
+| OPEN_CONNECTION  | TCP 소켓을 생성하여, SMTP 서버에 접속한다.                   |
+| HELO             | SMTP 프로토콜의 초기화인 HELO domain 명령어를 전송한다.      |
+| MAIL             | SMTP 프로토콜의 송신자 설정인 MAIL FROM:\<reverse-path>명령어를 전송한다. |
+| RCPT             | SMTP 프로토콜의 수신자 설정인 RCPT TO:\<forward-path>명령어를 전송한다. |
+| OPEN_DATA        | SMTP 프로토콜의 데이터 전송 시작인 DATA 명령어를 전송한다.   |
+| WRITE_DATA       | SMTP 프로토콜으로 데이터를 전송한다.                         |
+| WRITE_RAW_DATA   | SMTP 프로토콜으로 RAW 데이터를 전송한다.                     |
+| CLOSE_DATA       | SMTP 프로토콜의 데이터 전송 종료인 \<CRLF> . \<CRLF>를 전송한다. |
+| QUIT             | SMTP 프로토콜의 QUIT 명령어로 연결을 종료한다.               |
+
+ 
+
+#### OPEN_CONNECTION
+
+TCP 소켓을 생성하고, 입력한 IP와 PORT로 SMTP 서버에 접속한다.
+
+##### 구문
+
+```
+UTL_SMTP.OPEN_CONNECTION (
+  host IN VARCHAR(64),
+  port IN INTEGER DEFAULT 25,
+  tx_timeout IN INTEGER DEFAULT NULL );
+```
+
+
+
+##### 파라미터
+
+| 이름       | 입출력 | 데이터 타입 | 설명                                          |
+| :--------- | :----- | :---------- | :-------------------------------------------- |
+| host       | IN     | VARCHAR(64) | SMTP 서버의 IP 주소                           |
+| port       | IN     | INTEGER     | SMTP 서버의 포트 번호                         |
+| tx_timeout | IN     | INTEGER     | 호환성을 위한 파라마터이며, 이 값은 무시된다. |
+
+##### 결과값
+
+성공적으로 수행할 경우, CONNECT_TYPE인 접속 핸들을 반환한다.
+
+##### 예외
+
+수행에 실패하는 경우, CONNECT_TYPE은 NULL값으로 반환한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+ 
+
+#### HELO
+
+연결된 SMTP 서버로 HELO domain 명령어를 전송하여, 초기화 핸드 셰이킹를 수행한다.
+
+##### 구문
+
+```
+UTL_SMTP.HELO (
+  c IN OUT CONNECT_TYPE,
+  domain IN VARCHAR(64) );
+```
+
+
+
+##### 파라미터
+
+| 이름   | 입출력 | 데이터 타입  | 설명                  |
+| :----- | :----- | :----------- | :-------------------- |
+| c      | IN OUT | CONNECT_TYPE | SMTP 서버의 접속 핸들 |
+| domain | IN     | VARCHAR(64)  | 도메인 이름           |
+
+##### 결과값
+
+SMTP 서버의 응답 코드와 메시지를 포함한 VARCHAR 타입의 결과값을 반환한다.
+서버 접속에 실패하는 경우 NULL값으로 반환한다.
+
+##### 예외
+
+SMTP 서버에서 실패인 응답 코드를 받거나, SMTP 프로토콜 위반 시에 예외가 발생한다.
+HELO 함수를 호출하기 전에 OPEN_CONNECTION 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+ 
+
+#### MAIL
+
+연결된 SMTP 서버로 MAIL FORM:\<reverse-path> 명령어를 전송하여, 송신자를 지정한다.
+
+##### 구문
+
+```
+UTL_SMTP.MAIL (
+  c IN OUT CONNECT_TYPE,
+  sender IN VARCHAR(256),
+  parameters IN VARCHAR DEFAULT NULL );
+```
+
+
+
+##### 파라미터
+
+| 이름       | 입출력 | 데이터 타입  | 설명                                          |
+| :--------- | :----- | :----------- | :-------------------------------------------- |
+| c          | IN OUT | CONNECT_TYPE | SMTP 서버의 접속 핸들                         |
+| sender     | IN     | VARCHAR(256) | 송신자의 주소                                 |
+| parameters | IN     | VARCHAR      | 호환성을 위한 파라마터이며, 이 값은 무시된다. |
+
+##### 결과값
+
+SMTP 서버의 응답 코드와 메시지를 포함한 VARCHAR 타입의 결과값을 반환한다.
+서버 접속에 실패하는 경우 NULL값으로 반환한다.
+
+##### 예외
+
+SMTP 서버에서 실패인 응답 코드를 받거나, SMTP 프로토콜 위반 시에 예외가 발생한다.
+MAIL 함수를 호출하기 전에 HELO 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, 'test@test.com', null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+ 
+
+#### RCPT
+
+연결된 SMTP 서버로 RCPT TO:\<forward-path> 명령어를 전송하여, 수신자를 지정한다.
+
+##### 구문
+
+```
+UTL_SMTP.RCPT (
+  c IN OUT CONNECT_TYPE,
+  recipient IN VARCHAR(256),
+  parameters IN VARCHAR DEFAULT NULL );
+```
+
+
+
+##### 파라미터
+
+| 이름       | 입출력 | 데이터 타입  | 설명                                          |
+| :--------- | :----- | :----------- | :-------------------------------------------- |
+| c          | IN OUT | CONNECT_TYPE | SMTP 서버의 접속 핸들                         |
+| recipient  | IN     | VARCHAR(256) | 수신자의 주소                                 |
+| parameters | IN     | VARCHAR      | 호환성을 위한 파라마터이며, 이 값은 무시된다. |
+
+##### 결과값
+
+SMTP 서버의 응답 코드와 메시지를 포함한 VARCHAR 타입의 결과값을 반환한다.
+서버 접속에 실패하는 경우 NULL값으로 반환한다.
+
+##### 예외
+
+SMTP 서버에서 실패인 응답 코드를 받거나, SMTP 프로토콜 위반 시에 예외가 발생한다.
+RCPT 함수를 호출하기 전에 MAIL 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+ 
+
+#### OPEN_DATA
+
+연결된 SMTP 서버로 DATA 명령어를 전송하여, 데이터 전송을 시작한다.
+
+##### 구문
+
+```
+UTL_SMTP.DATA (
+  c IN OUT CONNECT_TYPE,
+  body IN VARCHAR DEFAULT NULL );
+```
+
+
+
+##### 파라미터
+
+| 이름 | 입출력 | 데이터 타입  | 설명                                          |
+| :--- | :----- | :----------- | :-------------------------------------------- |
+| c    | IN OUT | CONNECT_TYPE | SMTP 서버의 접속 핸들                         |
+| body | IN     | VARCHAR      | 호환성을 위한 파라마터이며, 이 값은 무시된다. |
+
+##### 결과값
+
+SMTP 서버의 응답 코드와 메시지를 포함한 VARCHAR 타입의 결과값을 반환한다.
+서버 접속에 실패하는 경우 NULL값으로 반환한다.
+
+##### 예외
+
+SMTP 서버에서 실패인 응답 코드를 받거나, SMTP 프로토콜 위반 시에 예외가 발생한다.
+DATA 함수를 호출하기 전에 RCPT 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+ 
+
+#### WRITE_DATA
+
+연결된 SMTP 서버로 데이터 전송을 한다.
+
+##### 구문
+
+```
+UTL_SMTP.WRITE_DATA (
+  c IN OUT CONNECT_TYPE,
+  data IN VARCHAR(65534) );
+```
+
+
+
+##### 파라미터
+
+| 이름 | 입출력 | 데이터 타입    | 설명                  |
+| :--- | :----- | :------------- | :-------------------- |
+| c    | IN OUT | CONNECT_TYPE   | SMTP 서버의 접속 핸들 |
+| data | IN     | VARCHAR(65534) | 전송할 데이터         |
+
+##### 결과값
+
+성공적을 수행할 경우, 전송한 데이터의 길이를 반환한다. 실패하면 -1을 반환한다.
+
+##### 예외
+
+SMTP 프로토콜 위반 시에 예외가 발생한다.
+WRITE_DATA 함수를 호출하기 전에 OPEN_DATA 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_DATA( V1, 'test' );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+ 
+
+#### WRITE_RAW_DATA
+
+연결된 SMTP 서버로 RAW 데이터 전송을 한다.
+
+##### 구문
+
+```
+UTL_SMTP.WRITE_DATA (
+  c IN OUT CONNECT_TYPE,
+  data IN RAW(65534) );
+```
+
+
+
+##### 파라미터
+
+| 이름 | 입출력 | 데이터 타입  | 설명                  |
+| :--- | :----- | :----------- | :-------------------- |
+| c    | IN OUT | CONNECT_TYPE | SMTP 서버의 접속 핸들 |
+| data | IN     | RAW(65534)   | 전송할 RAW 데이터     |
+
+##### 결과값
+
+성공적을 수행할 경우, 전송한 데이터의 길이를 반환한다. 실패하면 -1을 반환한다.
+
+##### 예외
+
+SMTP 프로토콜 위반 시에 예외가 발생한다.
+WRITE_RAW_DATA 함수를 호출하기 전에 OPEN_DATA 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_RAW_DATA( V1, TO_RAW( 'test' ) );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+
+
+#### CLOSE_DATA
+
+연결된 SMTP 서버로 \<CRLF>.\<CRLF> 명령어를 전송하여, 데이터 전송을 종료한다.
+
+##### 구문
+
+```
+UTL_SMTP.CLOSE_DATA (
+  c IN OUT CONNECT_TYPE );
+```
+
+
+
+##### 파라미터
+
+| 이름 | 입출력 | 데이터 타입  | 설명                  |
+| :--- | :----- | :----------- | :-------------------- |
+| c    | IN OUT | CONNECT_TYPE | SMTP 서버의 접속 핸들 |
+
+##### 결과값
+
+SMTP 서버의 응답 코드와 메시지를 포함한 VARCHAR 타입의 결과값을 반환한다.
+서버 접속에 실패하는 경우 NULL값으로 반환한다.
+
+##### 예외
+
+SMTP 서버에서 실패인 응답 코드를 받거나, SMTP 프로토콜 위반 시에 예외가 발생한다.
+CLOSE_DATA 함수를 호출하기 전에 OPEN_DATA 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_RAW_DATA( V1, TO_RAW( 'test' ) );
+  V3 := SMTP.CLOSE_DATA( V1 );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+ 
+
+#### QUIT
+
+연결된 SMTP 서버로 QUIT 명령어를 전송하여, SMTP 세션과 SMTP 서버와의 연결을 종료한다.
+
+##### 구문
+
+```
+UTL_SMTP.QUIT (
+  c IN OUT CONNECT_TYPE );
+```
+
+
+
+##### 파라미터
+
+| 이름 | 입출력 | 데이터 타입  | 설명                  |
+| :--- | :----- | :----------- | :-------------------- |
+| c    | IN OUT | CONNECT_TYPE | SMTP 서버의 접속 핸들 |
+
+##### 결과값
+
+SMTP 서버의 응답 코드와 메시지를 포함한 VARCHAR 타입의 결과값을 반환한다.
+서버 접속에 실패하는 경우 NULL값으로 반환한다.
+
+##### 예외
+
+SMTP 서버에서 실패인 응답 코드를 받거나, SMTP 프로토콜 위반 시에 예외가 발생한다.
+QUIT 함수를 호출하기 전에 OPEN_CONNECTION 함수를 호출해야 한다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_RAW_DATA( V1, TO_RAW( 'test' ) );
+  V3 := SMTP.CLOSE_DATA( V1 );
+  V3 := SMTP.QUIT( V1 );
+END;
+/
+```
+
+
+
 ### UTL_TCP
 
 UTL_TCP 패키지는 저장 프로시저에서 TCP 접속을 제어한다. UTL_TCP 패키지를
@@ -15439,5 +16432,81 @@ ID : 3    NAME : WSKIM
 ID : 4    NAME : KKSHIM
 ID : 5    NAME : CSKIM
 ID : 6    NAME : KDHONG
+```
+
+
+
+### UTL_SMTP 예제
+
+##### 상황
+
+터미널과 알티베이스 서버의 캐릭터 셋이 EUC-KR이며,
+첨부 파일과 캐릭터셋 UFT-8으로 변환해서 한글 텍스트를 메일로 전성하려 한다.
+첨부 파일은 utl_smtp.sql 의 압축이며, 이진값 텍스트으로 보내고 있다.
+
+##### 예제
+
+```
+CREATE OR REPLACE PROCEDURE TEST2()
+AS
+    c CONNECT_TYPE;
+    r VARCHAR(512);
+BEGIN
+    c := UTL_SMTP.OPEN_CONNECTION( '127.0.0.1', '25', NULL );
+    r := UTL_SMTP.HELO( c, '127.0.0.1' );
+    r := UTL_SMTP.MAIL( c, 'test@test.com' );
+    r := UTL_SMTP.RCPT( c, '[test@test.com](mailto:test@test.com)');
+    r := UTL_SMTP.OPEN_DATA( c );
+    UTL_SMTP.WRITE_DATA( c, 'MIME-Version: 1.0' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Type: multipart/mixed; boundary="0A1B2C3D4E5F"' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, '--0A1B2C3D4E5F' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Type: text/plain; charset=utf-8' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Transfer-Encoding: 7bit' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Disposition: inline' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_RAW_DATA( c, to_raw(convert('Subject: 가나다','utf8')) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_RAW_DATA( c, to_raw(convert('가나다','utf8')) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, '--0A1B2C3D4E5F' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Type: application/octet-stream; name="test.zip"' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Transfer-Encoding: base64' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Disposition: attachment; filename="test.zip"' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, base64_encode_str( '504B03041403000008004E7AA24AD7949D9F9E010000500500000C00000075746C5F736D74702E73716CBD545D4FF23014BEEFAF3897607CF5054543B8AAA5207176A4762A57A46E8D3419EB6C8B1FFFDE4D5DC6F08390184F76757A9EAFD36D877BBF5308F68098FCC5EAFB85874EBFDFFFD7FDDF39DD079C7A7D279D2A4E6D6EACF4DA64602C68EFC0ADEE9C4EB4B45AB9839201A729BC3138B0CA29FBA892B2FF2B758810E1140B0A21074EA7012614A6985CE03185954FE76EE973C057088D2246C42464607295CD6393652A2E6DB760619C87F79A30B8C69C9C63DE3A396EEF23F8B68AD435A878041D53FE13C03FCFBD5E2AB3F26B0018D2118E02012C0A0268234E45C4199090314AC45CCCA674B0667DA152D382B8D26D0E7E124FCC52EA6C3354A552377B9D6E7B5DA540A5B5CA761DA7B244D98DF5757B279FF7974B2B975E59574F3657B0DD9C8D73BF8B39AB629D6B95F9BF30F7F66A25D2CBC2E1A6B36FD1531E123A8C388527ABBDAAF05BC3D555221AB7DCEB1D1517FD15B9954F3B0B344538BEA9041AD9E3D438B56BF81AFEB0D27E072065C301FAFAE38FCE820981AB190BD9ECB2FE078C8A19F7E20EAAC6008D396602E82D255149C11AC720C20FAAC2E52B504B01023F031403000008004E7AA24AD7949D9F9E010000500500000C0000000000000000002080B4810000000075746C5F736D74702E73716C504B050600000000010001003A000000C80100000000' ) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, '--0A1B2C3D4E5F--' || CHR(13) || CHR(10) );
+    r := UTL_SMTP.CLOSE_DATA( c );
+    r := UTL_SMTP.QUIT( c );
+END;
+ /
+```
+
+
+
+### SENDMAIL DAEMON 확인 예제
+
+#### 상황
+
+UTL_SMTP 패키지를 사용하기 전에,
+E-MAIL를 전송하는 E-MAIL Server의 Sendmail Daemon을 확인하고자 한다.
+
+#### 예제
+
+터미널에서 아래의 명령어를 수행한다.
+
+1. telnet ip_address 25
+2. helo ip_address
+3. quit
+
+아래의 예제는 현재 E-Mail Server에 접속된 터미널에서 수행한 것이다.
+
+```
+$ telnet 127.0.0.1 25
+...
+2xx ...
+helo 127.0.0.1
+2xx ...
+quit
+2xx ...
 ```
 
