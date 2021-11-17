@@ -5087,7 +5087,7 @@ EXTENTSIZE {{integer [K/M/G]}/{UNLIMITED}}
 
 ```
 TEMPFILE ①임시 파일절
-AUTOEXTED ②자동확장절
+AUTOEXTEND ②자동확장절
 MAXSIZE ③최대크기절 
 EXTENDSIZE ④익스텐트사이즈절
 ```
@@ -5146,7 +5146,7 @@ EXTENTSIZE integer [K/M/G]
 
 ```
 SIZE {①초기 크기절} 
-AUTOEXTED [②자동확장절 
+AUTOEXTEND [②자동확장절 
 MAXSIZE [③최대크기절] ]
 CHECKPOINT PATH [④체크포인트 이미지 경로절]
 ```
@@ -5225,7 +5225,7 @@ SPLIT EACH integer [K/M/G]
 
 ```
 SIZE {①초기 크기절} 
-AUTOEXTED [②자동확장절 
+AUTOEXTEND [②자동확장절 
 MAXSIZE [③최대크기절] ]
 ```
 
