@@ -105,7 +105,7 @@
 
 Altibase® Application Development
 
-# CLI User's Manaul
+# CLI User's Manual
 
 ![](media/CLI/e5cfb3761673686d093a3b00c062fe7a.png)
 
