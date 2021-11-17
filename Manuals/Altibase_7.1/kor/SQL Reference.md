@@ -21595,7 +21595,7 @@ ROUND (date [, date_field_name])
 iSQL> SELECT ROUND ( TO_DATE('27-DEC-1980', 'DD-MON-YYYY'), 'YEAR') FROM dual;
 ROUND ( TO_DATE('27-DEC-1980', 'DD-MON-Y
 -------------------------------------------
-1981/01/01 00:00:00
+01-JAN-1981  
 1 row selected.
 ```
 
@@ -21624,7 +21624,7 @@ DATE이다.
 iSQL> SELECT LAST_DAY(TO_DATE('15-DEC-2001')) FROM dual;
 LAST_DAY(TO_DATE('15-DEC-2001')) 
 -----------------------------------
-2001/12/31 00:00:00  
+31-DEC-2001   
 1 row selected.
 ```
 
@@ -21634,9 +21634,8 @@ LAST_DAY(TO_DATE('15-DEC-2001'))
 iSQL> SELECT LAST_DAY(join_date ) FROM employees;
 LAST_DAY(JOIN_DATE ) 
 -----------------------
-                     
-1999/11/30 00:00:00  
-2000/01/31 00:00:00
+30-NOV-2009  
+31-JAN-2010 
 .
 .
 . 
@@ -21836,7 +21835,7 @@ iSQL> SELECT TRUNC(SYSDATE) FROM DUAL;
 <결과>
 TRUNC(SYSDATE)       
 -----------------------
-2005/07/19 00:00:00  
+17-NOV-2021   
 1 row selected.
 ```
 
@@ -21847,7 +21846,7 @@ iSQL> SELECT TRUNC(TO_DATE('2005-JUL-19','YYYY-MON-DD'), 'YEAR') New_Year FROM D
 <결과>
 NEW_YEAR             
 -----------------------
-2005/01/01 00:00:00  
+01-JAN-2005  
 1 row selected.
 ```
 
