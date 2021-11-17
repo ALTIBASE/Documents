@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+
 
 - [Replication Manual](#replication-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -37,7 +35,7 @@
   - [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
     - [Replication FAQ](#replication-faq)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 
 

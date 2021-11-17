@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Monitoring API Developer's Guide](#monitoring-api-developers-guide)
@@ -52,7 +51,7 @@
     - [sample_9.c](#sample_9c)
     - [sample_10.c](#sample_10c)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 
