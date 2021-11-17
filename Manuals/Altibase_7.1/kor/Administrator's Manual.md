@@ -1,6 +1,5 @@
 
 
-
 - [Administrator’s Manual](#administrators-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
@@ -43,7 +42,6 @@
     - [테이블스페이스 관리](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B4%80%EB%A6%AC)
     - [테이블스페이스 사용 예제](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
     - [테이블스페이스 공간 관리](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B3%B5%EA%B0%84-%EA%B4%80%EB%A6%AC)
-  
   - [7.파티션드 객체](#7%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
     - [파티셔닝 정의](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EC%A0%95%EC%9D%98)
     - [파티션드 객체](#%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
@@ -92,8 +90,6 @@
     - [Trace Log](#trace-log)
   - [B.부록: Altibase 최대치](#b%EB%B6%80%EB%A1%9D-altibase-%EC%B5%9C%EB%8C%80%EC%B9%98)
     - [Altibase 객체들의 최대값](#altibase-%EA%B0%9D%EC%B2%B4%EB%93%A4%EC%9D%98-%EC%B5%9C%EB%8C%80%EA%B0%92)
-
-
 
 Altibase® Administration
 
