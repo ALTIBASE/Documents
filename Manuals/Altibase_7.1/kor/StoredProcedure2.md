@@ -6596,20 +6596,21 @@ Execute success.
 
 ### DBMS_SQL_PLAN_CACHE
 
-DBMS_SQL_PLAN_CACHE 패키지는 SQL Plan Cache내 Plan을 keep / unkeep 할 수 있는 기능을 제공한다.
+DBMS_SQL_PLAN_CACHE 패키지는 특정 실행 계획(Execution Plan)을 SQL Plan Cache에 유지하거나 삭제하는 기능을 하는 다음 2가지의 저장 프로시저를 제공한다.
 
 | 프로시저 및 함수 | 설명                                                         |
 | ---------------- | ------------------------------------------------------------ |
-| KEEP_PLAN        | SQL Plan Cache에서 제거되지 않도록 SQL Plan Cache 에 유지 시킨다. |
-| UNKEEP_PLAN      | KEEP_PLAN 상태를 해제하며 victim으로 선정되어 SQL Plan Cache에서 제거될 수 있는 상태가 된다. |
+| KEEP_PLAN        | 지정한 실행 계획을 SQL Plan Cache에서 삭제하지 않고 유지한다. |
+| UNKEEP_PLAN      | KEEP_PLAN 저장 프로시저로 등록한 실행 계획을 해제한다. 해제된 실행 계획은 체크-인(check-in) 방식에 따라 SQL Plan Cache에서 삭제될 수 있다. |
 
 
 
 #### KEEP_PLAN
 
-SQL Plan Cache에서 제거되지 않도록 SQL Plan Cache 에 유지 시킨다.
-KEEP을 하면 SQL_TEXT_ID에 해당하는 모든 CHILD PCO는 KEEP 된다. 
-KEEP 한 플랜은 UNKEEP을 해야만 해제된다. 단 Rebuild로 인해 invalid 한 plan이 되면 UNKEEP 상태로 전환된다.
+입력 파라미터로 받은 실행 계획을 SQL Plan Cache 교체 대상에서 제외하고 SQL Plan Cache에 KEEP 상태로 유지한다. 단, 실행 계획이 리빌드(Rebuild)등으로 유효하지 않은 상태(Invalid)가 되면 UNKEEP 상태로 변경한다. 
+실행 계획을 KEEP 상태로 유지하려는 SQL 문의 SQL_TEXT_ID는 V$SQL_PLAN_CACHE_SQLTEXT 에서 SQL_TEXT_ID, SQL_TEXT 컬럼으로 확인할 수 있다. 이 SQL_TEXT_ID를 Parent PCO로 갖는 모든 Child PCO 모두 KEEP 상태를 유지한다.
+Parent PCO의 KEEP 상태는 V$SQL_PLAN_CACHE_SQLTEXT 성능 뷰 PLAN_CACHE_KEEP 컬럼으로 확인할 수 있으며 Child PCO 경우 V$SQL_PLAN_CACHE_PCO 성능 뷰 PLAN_CACHE_KEEP 컬럼으로 확인할 수 있다.
+실행 계획의 KEEP 상태를 해제하려면 UNKEEP_PLAN 저장 프로시저를 사용한다.
 
 ##### 구문
 
@@ -6636,13 +6637,13 @@ DBMS_SQL_PLAN_CACHE.KEEP_PLAN(sql_text_id);
 ##### 예제
 
 ```
-iSQL> select sql_text_id from v$sql_plan_cache_sqltext where sql_text like 'select count%';  
+iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE SQL_TEXT LIKE 'select count%';
 SQL_TEXT_ID
 ------------------------
 00510
 1 rows selected.
 
-iSQL> exec dbms_sql_plan_cache.keep_plan('00510');
+iSQL> EXEC DBMS_SQL_PLAN_CACHE.KEEP_PLAN('00510');
 Execute success.
 ```
 
@@ -6650,7 +6651,7 @@ Execute success.
 
 #### UNKEEP_PLAN
 
-KEEP_PLAN 상태를 해제하며 victim으로 선정되어 SQL Plan Cache에서 제거될 수 있는 상태가 된다.
+입력 파라미터로 받은 실행 계획의 KEEP 상태를 해제한다. 해제된 실행 계획은 SQL Plan Cache 관리 정책, 체크-인(check-in) 방식에 따라 SQL Plan Cache에서 삭제될 수 있다.
 
 
 ##### 구문
@@ -6678,13 +6679,13 @@ DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN(sql_text_id);
 ##### 예제
 
 ```
-iSQL> select sql_text_id from v$sql_plan_cache_sqltext where plan_cache_keep = 'KEEP';
+iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE PLAN_CACHE_KEEP = 'KEEP';
 SQL_TEXT_ID
 ------------------------
 00510
 1 row selected.
 
-iSQL> exec dbms_sql_plan_cache.unkeep_plan('00510');
+iSQL> EXEC DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN('00510');
 Execute success.
 ```
 
