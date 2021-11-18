@@ -416,6 +416,7 @@ The units for logs are as below:
 - -: Logs are not written. 
 - S: Logs are written in the unit of sessions. 
 - A: Logs are written in the unit of accesses.
+- T: Logs are written regardless the unit of session or accesses.
 
 The following examples show values of the SYS_AUDIT_OPTS_ view after auditing conditions are enabled.
 
