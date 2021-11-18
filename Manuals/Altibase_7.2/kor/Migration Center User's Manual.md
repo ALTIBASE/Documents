@@ -73,7 +73,7 @@ Migration Center User's Manual
 
 Altibase Tools & Utilities Migration Center User's Manual
 
-Release 7.2
+Release 7.9
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -5399,9 +5399,9 @@ Altibase버전에 적용됨을 의미한다.
 
   TYPE rt_nn IS RECORD (c1 **NATURAL**);
 
-  TYPE tt_1 IS TABLE OF **TIMESTAMP(3)** INDEX BY VARCHAR2(10);
+  TYPE tt_1 IS TABLE OF **TIMESTAMP(3)** INDEX BY **VARCHAR2(10)**;
 
-  TYPE tt_2 IS TABLE OF **TIMESTAMP(3) WITH TIME ZONE** INDEX BY VARCHAR2(10);
+  TYPE tt_2 IS TABLE OF **TIMESTAMP(3) WITH TIME ZONE** INDEX BY **VARCHAR2(10)**;
 
   BEGIN
 
@@ -5409,7 +5409,7 @@ Altibase버전에 적용됨을 의미한다.
 
   END;
 
-- 변환된 SQL 문장:
+- 변환된 SQL 문장: Altibase 7.1.0 미만 버전
 
   CREATE OR REPLACE FUNCTION func1(a1 **VARCHAR(65534)**)
 
@@ -5419,21 +5419,47 @@ Altibase버전에 적용됨을 의미한다.
 
   m_binary_double **DOUBLE**;
 
-  m_number **NUMBER** := 1234;
+  m_number **NUMBER (10)**:= 1234;
 
   TYPE rt_n IS RECORD (c1 **INTEGER**);
 
   TYPE rt_nn IS RECORD (c1 **INTEGER**);
 
-  TYPE tt_1 IS TABLE OF **DATE** INDEX BY VARCHAR2(10);
+  TYPE tt_1 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
 
-  TYPE tt_2 IS TABLE OF **DATE** INDEX BY VARCHAR2(10);
+  TYPE tt_2 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
 
   BEGIN
 
   RETURN a1;
 
   END;
+  
+-   변환된 SQL 문장:  Altibase 7.1.0 이상 버전
+
+    CREATE OR REPLACE FUNCTION func1(a1 **VARCHAR**)
+
+    RETURN **VARCHAR**
+
+    IS
+
+    m_binary_double **DOUBLE;**
+
+    m_number **NUMBER (10)**:= 1234;
+
+    TYPE rt_n IS RECORD (c1 **INTEGER**);
+
+    TYPE rt_nn IS RECORD (c1 **INTEGER**);
+
+    TYPE tt_1 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
+
+    TYPE tt_2 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
+
+    BEGIN
+
+    RETURN a1;
+
+    END;
 
 #### RULE-30002
 
@@ -6565,7 +6591,7 @@ Altibase버전에 적용됨을 의미한다.
 
   curr_date DATE := SYSDATE;
 
-  TYPE at_city IS TABLE OF **curr_date%TYPE INDEX BY VARCHAR(65534)**;
+  TYPE at_city IS TABLE OF **curr_date%TYPE INDEX BY VARCHAR(100)**;
 
   v_cityList at_city;
 

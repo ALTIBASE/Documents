@@ -72,9 +72,9 @@ Migration Center User's Manual
 
 Altibase Tools & Utilities Migration Center User's Manual
 
-Release 7.6
+Release 7.9
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
 무단으로 복제 또는 전용할 수 없습니다.
@@ -5398,9 +5398,9 @@ Altibase버전에 적용됨을 의미한다.
 
   TYPE rt_nn IS RECORD (c1 **NATURAL**);
 
-  TYPE tt_1 IS TABLE OF **TIMESTAMP(3)** INDEX BY VARCHAR2(10);
+  TYPE tt_1 IS TABLE OF **TIMESTAMP(3)** INDEX BY **VARCHAR2(10)**;
 
-  TYPE tt_2 IS TABLE OF **TIMESTAMP(3) WITH TIME ZONE** INDEX BY VARCHAR2(10);
+  TYPE tt_2 IS TABLE OF **TIMESTAMP(3) WITH TIME ZONE** INDEX BY **VARCHAR2(10)**;
 
   BEGIN
 
@@ -5408,7 +5408,7 @@ Altibase버전에 적용됨을 의미한다.
 
   END;
 
-- 변환된 SQL 문장:
+- 변환된 SQL 문장: Altibase 7.1.0 미만 버전
 
   CREATE OR REPLACE FUNCTION func1(a1 **VARCHAR(65534)**)
 
@@ -5418,21 +5418,47 @@ Altibase버전에 적용됨을 의미한다.
 
   m_binary_double **DOUBLE**;
 
-  m_number **NUMBER** := 1234;
+  m_number **NUMBER (10)**:= 1234;
 
   TYPE rt_n IS RECORD (c1 **INTEGER**);
 
   TYPE rt_nn IS RECORD (c1 **INTEGER**);
 
-  TYPE tt_1 IS TABLE OF **DATE** INDEX BY VARCHAR2(10);
+  TYPE tt_1 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
 
-  TYPE tt_2 IS TABLE OF **DATE** INDEX BY VARCHAR2(10);
+  TYPE tt_2 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
 
   BEGIN
 
   RETURN a1;
 
   END;
+  
+-   변환된 SQL 문장:  Altibase 7.1.0 이상 버전
+
+    CREATE OR REPLACE FUNCTION func1(a1 **VARCHAR**)
+
+    RETURN **VARCHAR**
+
+    IS
+
+    m_binary_double **DOUBLE;**
+
+    m_number **NUMBER (10)**:= 1234;
+
+    TYPE rt_n IS RECORD (c1 **INTEGER**);
+
+    TYPE rt_nn IS RECORD (c1 **INTEGER**);
+
+    TYPE tt_1 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
+
+    TYPE tt_2 IS TABLE OF **DATE** INDEX BY **VARCHAR(10);**
+
+    BEGIN
+
+    RETURN a1;
+
+    END;
 
 #### RULE-30002
 
@@ -6564,7 +6590,7 @@ Altibase버전에 적용됨을 의미한다.
 
   curr_date DATE := SYSDATE;
 
-  TYPE at_city IS TABLE OF **curr_date%TYPE INDEX BY VARCHAR(65534)**;
+  TYPE at_city IS TABLE OF **curr_date%TYPE INDEX BY VARCHAR(100)**;
 
   v_cityList at_city;
 
@@ -8226,11 +8252,6 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
 2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션
    '-XX:MaxPermSize'의 값을 기존 값보다 크게 설정한다.
 
-
-
-
-
-
 ###### \<Metaspace\>
 
 사용중인 JVM의 버전이 Java 8 이상인 경우, Metaspace의 공간 부족이 원인일 수 있다. Java 8부터 구현된 Metaspace는 PermGen (permanent generation space)의 대체제이다.
@@ -8579,8 +8600,6 @@ $ diff java.security.org java.security
 TLS 1.2 이상 버전을 의무적으로 사용해야 한다면, 아래 사이트를 참조하여 Windows, MS-SQL 서버, MS-SQL JDBC 드라이버 파일을 업데이트 해야 한다.
 
 https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe
-
-
 
 
 ### Altibase
