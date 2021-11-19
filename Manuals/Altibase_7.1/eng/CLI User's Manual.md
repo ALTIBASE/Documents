@@ -111,7 +111,7 @@ Altibase® Application Development
 
 ![](media/CLI/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Altibase Application Development Altibase CLI User's Manaul
+Altibase Application Development Altibase CLI User's Manual
 
 Release 7.1
 
