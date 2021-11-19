@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
 
 - [Stored Procedures Manual](#stored-procedures-manual)
   - [Preface](#preface)
@@ -58,8 +56,6 @@
     - [Overview](#overview-5)
     - [CREATE TYPESET](#create-typeset)
     - [DROP TYPESET](#drop-typeset)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -4109,7 +4105,7 @@ The use of the GOTO statement is limited as follows:
 - When used within an IF or CASE block, it cannot be used to transfer control from one of the alternative execution paths, that is, one of the statement blocks preceded by a THEN, ELS(E)IF, ELSE or WHEN statement, to another. If this is attempted, an error will occur when attempting to compile the procedure, as seen below:
   
   ```
-CREATE OR REPLACE PROCEDURE PROC1
+  CREATE OR REPLACE PROCEDURE PROC1
   AS
       V1 INTEGER;
   BEGIN
@@ -5588,7 +5584,7 @@ Create a stored procedure that uses a REF CURSOR
    ```
 
 2. Create the user-defined type MY_CUR, which is a REF CURSOR, and create a typeset called MY_TYPE containing type MY_CUR
-  
+
 ```
    CREATE TYPESET MY_TYPE
    AS
@@ -5598,7 +5594,7 @@ Create a stored procedure that uses a REF CURSOR
 ```
 
 3. Create the stored procedure PROC1, which has two OUT parameters, P1 and P2, of type MY_CUR, and one IN parameter, SAL, of type INTEGER.
-  
+
 ```
    CREATE OR REPLACE PROCEDURE PROC1 (P1 OUT MY_TYPE.MY_CUR, P2 OUT MY_TYPE.MY_CUR, SAL IN INTEGER)
    AS
@@ -6007,5 +6003,4 @@ Remove a typeset named my_typeset.
 ```
 DROP TYPESET my_typeset;
 ```
-
 

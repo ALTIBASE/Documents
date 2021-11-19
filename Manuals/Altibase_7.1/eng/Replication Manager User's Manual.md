@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Replication Manager User’s Manual](#replication-manager-users-manual)
   - [Preface](#preface)
@@ -27,8 +26,6 @@
         - [Managing Extra Host IP](#managing-extra-host-ip)
         - [Removing a Database Connection](#removing-a-database-connection)
     - [Detailed Usage: Embedded Help](#detailed-usage-embedded-help)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -292,7 +289,7 @@ To import the JDBC driver, do the following:
 1. Click on the "JDBC driver manager" icon in the toolbar to open the "JDBC driver manager" dialog box.
   
 2. In this dialog box, click on the "+" icon on the right to open the "Import JDBC driver file" dialog box, as shown below.
-  
+
 
 ![5d9de880b8ffcff76f8f2fed4b5f50cf](media/ReplicationManager/5d9de880b8ffcff76f8f2fed4b5f50cf.png)
 

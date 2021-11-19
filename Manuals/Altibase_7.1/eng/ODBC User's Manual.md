@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [ODBC User\'s Manual](#odbc-user%5Cs-manual)
@@ -17,13 +16,13 @@
     - [Basic Programming Example](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%98%88%EC%A0%9C)
     - [Example of Using LOB](#lob-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 
 # ODBC User\'s Manual
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/ODBCDriver/image1.png)
+![](media/ODBCDriver/image1.png)
 
 
 Altibase Application Development ODBC User\'s Manual
@@ -237,11 +236,11 @@ In order to use the ODBC driver in Unix, you must first install the ODBC Driver 
 
 For an ODBC application to obtain access to the database, the DSN of the database must be added. The following dialog box appearswhen you click “Add” on the [Data Source(ODBC)] User DSN or System DSN tab. Then, select ODBC driver and click “Finish”.
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/ODBCDriver/image2.png)
+![](media/ODBCDriver/image2.png)
 
 When the “Altibase Connection Config” window appears, enter the following.
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/ODBCDriver/image3.png)
+![](media/ODBCDriver/image3.png)
 
 -   Windows DSN Name: Enter the data source name
 
@@ -492,7 +491,7 @@ If the user executes the exe file generated after compiling in Visual C++, the f
 
 
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/ODBCDriver/image5.png)
+![](media/ODBCDriver/image5.png)
 
 ### Example of Using LOB
 

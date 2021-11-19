@@ -11264,7 +11264,7 @@ $ ./delete
 
 ### 예제 프로그램의 테이블 정보
 
-*SQL Reference* 의 부록A를 참조하세요.
+*General Reference-2.The Data Dictionary* 의 *4.샘플 스키마*를 참조하세요.
 
 ## E. 부록: FAQ
 

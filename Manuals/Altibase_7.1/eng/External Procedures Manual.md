@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [C/C++ External Procedures Manual](#cc-external-procedures-manual)
@@ -22,7 +21,7 @@
     - [DROP FUNCTION](#drop-function)
     - [EXECUTE](#execute)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 

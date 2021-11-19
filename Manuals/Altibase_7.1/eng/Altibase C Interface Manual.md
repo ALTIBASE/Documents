@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Altibase C Interface Manual](#altibase-c-interface-manual)
@@ -85,7 +84,7 @@
     - [Overview](#overview-1)
     - [How to Use Failover](#how-to-use-failover)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 

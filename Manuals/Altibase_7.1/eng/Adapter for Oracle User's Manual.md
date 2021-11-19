@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Adapter for Oracle User’s Manual](#adapter-for-oracle-users-manual)
@@ -23,7 +22,7 @@
   - [Appendix B: DDL order when using oraAdapter](#appendix-b-ddl-order-when-using-oraadapter)
     - [DDL execution order when using oraAdapter](#ddl-execution-order-when-using-oraadapter)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tool & Utilities
 
@@ -281,7 +280,7 @@ The oraAdapter installer can be executed in GUI mode if suitable display setting
 3. The next dialog is for choosing the directory in which oraAdapter is to be installed. By default, a directory called "oraAdapter" will be created within the home directory of the user performing the installation
   
 4. To use oraAdapter, Altibase Log Analyzer (ALA) property settings should be as follows.
-  
+
 
 ALA_SENDER_IP: This is the IP address of the server on which Altibase is installed. It is set to 127.0.0.1 by default, assuming that Altibase and oraAdapter are operating on the same server.
 
@@ -336,7 +335,7 @@ ORACLE_ARRAY_DML_MAX_SIZE: “Array DML” means grouping multiple DML statement
 9. After the user has verified the property settings in the confirmation dialog box, the user is ready to install oraAdapter. Click "Next" to continue.
 
 10. While oraAdapter is being installed, the following two environment variables are set. Note that in order for the system to make use of the two new environment variables, it will be necessary to log out and log back in.
-  
+
 
 ORA_ADAPTER_HOME: this environment variable is added with the oraAdapter home directory that was specified earlier during the installation process
     

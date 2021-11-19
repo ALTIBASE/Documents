@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Altibase SSL/TLS User's Guide](#altibase-ssltls-users-guide)
@@ -16,7 +15,7 @@
   - [Appendix A: SSL Sample](#appendix-a-ssl-sample)
     - [Sample Using SSL Connection in JDBC](#sample-using-ssl-connection-in-jdbc)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tools & Utilities
 
@@ -794,5 +793,4 @@ class SslSimpleSQL
     }
 }
 ```
-
 

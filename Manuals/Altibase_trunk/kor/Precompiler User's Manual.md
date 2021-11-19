@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**  
 
 - [Precompiler User’s Manual](#precompiler-users-manual)
@@ -95,8 +94,6 @@
     - [예제 프로그램의 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
   - [E. 부록: FAQ](#e-%EB%B6%80%EB%A1%9D-faq)
     - [Precompiler FAQ](#precompiler-faq)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -11380,7 +11377,7 @@ $ ./delete
 
 ### 예제 프로그램의 테이블 정보
 
-*SQL Reference* 의 부록A를 참조하세요.
+*General Reference-2.The Data Dictionary* 의 *4.샘플 스키마*를 참조하세요.
 
 ## E. 부록: FAQ
 

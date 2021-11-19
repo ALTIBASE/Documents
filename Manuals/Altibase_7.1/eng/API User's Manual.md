@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Application Program Interface User’s Manual](#application-program-interface-users-manual)
   - [Preface](#preface)
@@ -31,9 +30,7 @@
     - [CheckServer API Data Structure](#checkserver-api-data-structure)
     - [CheckServer API](#checkserver-api)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- 
 
 Altibase® Application Development
 
@@ -894,7 +891,7 @@ This section describes the basic procedures for using ODBC, APRE and JDBC in an 
 9.  xa_commit  
     Commit the transaction.
 10.  SQLDisconnect  
-   In ODBC, change the internal state of the connection to unconnected. However, the connection created by the actual XA is retained.
+      In ODBC, change the internal state of the connection to unconnected. However, the connection created by the actual XA is retained.
 11.  xa_close  
     Terminate xa connection.
 
@@ -1921,9 +1918,9 @@ The iLoader API provides the following two structures for use in logging the pro
   ​                                                                                                                                                                
   
   | Member         | Description                                                  |
-| -------------- | ------------------------------------------------------------ |
+  | -------------- | ------------------------------------------------------------ |
   | tableName      | This is the name of the table being uploaded or downloaded.  |
-| totalCount     | This is the total number of rows for which an upload or download attempt has been made. |
+  | totalCount     | This is the total number of rows for which an upload or download attempt has been made. |
   | loadCount      | This is the total number of rows that have been successfully uploaded or downloaded. |
   | errorCount     | This is the number of rows that could not be uploaded or downloaded due to the occurrence of an error. Note that when an error occurs, this count does not include the current error. That is, it is a count of all errors preceding the current error. |
   | record         | When an error occurs, this indicates the position of the record that could not be uploaded or downloaded. |
