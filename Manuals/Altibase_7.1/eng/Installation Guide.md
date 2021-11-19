@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Installation Guide](#installation-guide)
@@ -29,7 +28,7 @@
     - [Checking Disk Configuration](#checking-disk-configuration)
     - [OS Patch](#os-patch)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Administration
 

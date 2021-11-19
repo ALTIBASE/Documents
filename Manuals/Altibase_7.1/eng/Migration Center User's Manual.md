@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Migration Center User's Manual](#migration-center-users-manual)
   - [Preface](#preface)
@@ -58,8 +57,6 @@
     - [Informix](#informix)
     - [MySQL](#mysql)
     - [TimesTen](#timesten)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -527,13 +524,13 @@ Double-click the “migcenter.bat” icon in the Migration Center folder on Micr
     2.  Connection Name: A unique database connection name to be used for Migration Center projects
     
     3.  IP: The Internet Protocol (IP) address of the database server
-  
+    
     4.  Port: The port number of the database server or SSL port number of the Altibase server
-  
+    
     5.  User: The valid user ID for the database
-  
+    
     6.  Password: The password corresponding to the user ID for the database.
-  
+    
     7.  JDBC Driver:  The JDBC driver path to be used to connect to the database.
         
     8.  Encoding: The default character set used on the client.
@@ -870,9 +867,9 @@ Internally, this process consists of three steps to avoid database object depend
     2.  Constraints: Migrates constraints, namely unique, primary key, foreign key, and check constraints
     
     3.  Index: Migrates index objects
-  
+    
     4.  Synonym: Migrates private synonym objects
-  
+    
     5.  Procedures, functions, materialized views, views, typesets and triggers: Depends on the database management system and its version
 
 

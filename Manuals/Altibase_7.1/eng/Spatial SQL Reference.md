@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Spatial SQL Reference](#spatial-sql-reference)
@@ -37,7 +36,7 @@
     - [Geometry Reference Tables](#geometry-reference-tables)
     - [Related Stored Procedures](#related-stored-procedures)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 

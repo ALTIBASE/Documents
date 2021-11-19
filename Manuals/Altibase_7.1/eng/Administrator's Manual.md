@@ -1,6 +1,6 @@
 
 
-- [Administrator’s Manual 1](#administrators-manual-1)
+- [Administrator’s Manual](#administrators-manual-1)
   - [Preface](#preface)
   - [1. Introduction](#1-introduction)
     - [Hybrid DBMS Concept](#hybrid-dbms-concept)

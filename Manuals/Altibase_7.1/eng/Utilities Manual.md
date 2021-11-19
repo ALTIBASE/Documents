@@ -1,6 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 - [Utilities Manual](#utilities-manual)
   - [Preface](#preface)
     - [About This Manual](#about-this-manual)
@@ -38,7 +35,7 @@
     - [killCheckServer](#killcheckserver)
     - [server](#server)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tools & Utilities
 
@@ -1877,7 +1874,7 @@ The following restrictions should be considered when selecting comparison target
 2.  The unsupported data type is automatically excluded from the comparison targets. (e.g., the binary type such as LOB)
   
 3.  There should be at least more than one column which can compare values other than a primary key.
-  
+
 -   (Example 1) table1 (c1 int, c2 int, c3 CLOB, primary key (c1, c2))  
   (Example 2) table1 (c1 int, c2 int, c3 varchar(100), primary key (c1, c2))  
 

@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Adapter for JDBC User’s Manual](#adapter-for-jdbc-users-manual)
@@ -22,7 +21,7 @@
   - [Appendix A: FAQ](#appendix-a-faq)
   - [Appendix B: DDL execution order when using the jdbcAdapter](#appendix-b-ddl-execution-order-when-using-the-jdbcadapter)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tool & Utilities
 
@@ -400,7 +399,7 @@ This property specifies the port number for XLog collector to receive XLog. This
 -   Range: 0 \~ 65535
 
 -   0: The adapter waits until the sender of the ALA replication object attempts to connect.
-  
+
 
 (Depends on the value of the REPLICATION_SENDER_SLEEP_TIMEOUT attribute of the Altibase server).
     

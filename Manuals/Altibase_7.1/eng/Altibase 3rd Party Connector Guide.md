@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Altibase 3rd Party Connector Guide](#altibase-3rd-party-connector-guide)
   - [Preface](#preface)
@@ -19,7 +18,7 @@
     - [Configuration](#configuration)
     - [Examples](#examples)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 
