@@ -89,8 +89,6 @@
   - [Appendix B. Altibase Limitations](#appendix-b-altibase-limitations)
     - [Maximum Altibase Values](#maximum-altibase-values)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 
 
 Altibase® Administration

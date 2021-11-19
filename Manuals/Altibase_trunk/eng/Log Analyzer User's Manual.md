@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+  
 
 - [Log Analyzer User’s Manual](#log-analyzer-users-manual)
   - [Preface](#preface)
@@ -61,10 +59,6 @@
     - [Error Code Table](#error-code-table)
   - [Appendix B. Sample Code](#appendix-b-sample-code)
     - [Sample Code: Replication to Altibase DBMS](#sample-code-replication-to-altibase-dbms)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
 
 Altibase® Application Development
 
@@ -5674,5 +5668,4 @@ void printAlaErr(ALA_ErrorMgr * aErrorMgr)
     printf("ALA Error : %d, %s\n", sErrorCode, sErrorMessage);
 }
 ```
-
 

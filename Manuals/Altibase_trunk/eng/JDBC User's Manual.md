@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents** 
+
 
 - [JDBC User’s Manual](#jdbc-users-manual)
   - [Preface](#preface)
@@ -40,7 +38,7 @@
     - [Converting Java Data Types to Database Data Types](#converting-java-data-types-to-database-data-types)
     - [Converting Database Data Types to Java Data Types](#converting-database-data-types-to-java-data-types)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 
@@ -1235,7 +1233,7 @@ A login timeout occurs when a connect method of a Connection object is called an
 The following are code examples which show two ways to set the login_timeout property.
 
 1. Create a Connection object with the Properties object to which the timeout property has been added.
-  
+
 ```
    Properties sProps = new Properties();
    ...
@@ -1263,7 +1261,7 @@ This value is applied to all methods which communicate with the server.
 The following are code examples which show different ways to set the response_timeout property
 
 1. Create a Connection object with a Properties object to which the timeout property has been added.
-  
+
 ```
    Properties sProps = new Properties();
    ...
@@ -1947,7 +1945,7 @@ This option determines whether or not to retain the ResultSet object after the t
 ##### Notes
 
 -   Since the JDBC driver caches as many number of rows as the value set for FetchSize for the ResultSet object on the client, data left in the cache can be retrieved by the application, even if the cursor is closed. If you want the application to immediately detect that the cursor has been closed, set FetchSize to 1.
-  
+
 
 * The default value of Holdability for the Altibase JDBC driver is CLOSE_CURSORS_AT_COMMIT, and is different from the default value for the JDBC specification, HOLD_CURSORS_OVER_COMMIT.  
 

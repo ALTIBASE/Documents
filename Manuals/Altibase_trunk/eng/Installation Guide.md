@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Installation Guide](#installation-guide)
@@ -27,7 +26,7 @@
     - [Checking DISK Configuration](#%EB%94%94%EC%8A%A4%ED%81%AC-%EA%B5%AC%EC%84%B1-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8)
     - [OS Patch](#os-patch)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Administration
 
@@ -907,14 +906,14 @@ After successful installation, a user needs to:
   
 ```
   $ server create utf8 utf8
-  ```
-  
+```
+
 - If properties for using PSM were not set during the installation, execute the catproc.sql script.
   
 ```
   $ isql -s 127.0.0.1 -u sys -p manager -silent -f
   ${ALTIBASE_HOME}/packages/catproc.sql
-  ```
+```
 
 ### Installing Altibase Client Products
 
@@ -1575,8 +1574,8 @@ It is advised to set the HTP option to never in order to run the Altibase operat
    .....
    kernel /vmlinuz-2.6.32-220.el6.x86_64 ro root=UUID=067b9803-90ca-4875-a018-ff043adde1ed rd_NO_LUKS LANG=ko_KR.UTF-8 rd_NO_MD quiet rhgb crashkernel=128M  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_LVM rd_NO_DM transparent_hugepage=never
    ......
-   ```
-   
+```
+
 2. Reboot the system.
 
 3. Confirm whether the THP option is never or not. 

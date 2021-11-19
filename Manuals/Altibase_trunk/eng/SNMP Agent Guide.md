@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [SNMP Agent Guide](#snmp-agent-guide)
@@ -27,7 +26,7 @@
   - [Appendix B. Troubleshooting](#appendix-b-troubleshooting)
     - [FAQ](#faq)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Administration
 
