@@ -337,9 +337,9 @@ isql
   옵션을 사용할 수 있다. 서버가 구동되어 있지 않다면, iSQL은 idle 인스턴스로
   접속할 것이며, 그 상태에서 서버를 구동할 수 있다.
 - -KEEP_SYSDBA
-  사용자가 -sysdba 옵션으로 관리자 모드로 접속 시, 서버 구동 후에는 서비스 
-  세션으로 재접속 된다. -keep_sydba 옵션은 서버 구동 후 서비스 세션으로 
-  재접속하지 않고 관리자 모드를 유지하게 한다. 
+  사용자가 -sysdba 옵션으로 관리자 모드로 접속 시, 서버 구동 후에는 서비스
+  세션으로 재접속 된다. -keep_sydba 옵션은 서버 구동 후 서비스 세션으로
+  재접속하지 않고 관리자 모드를 유지하게 한다.
 - -UNIXDOMAIN-FILEPATH *filepath*  
   유닉스 환경에서 서버와 클라이언트가 유닉스 도메인 소켓으로 접속할 때
   (ISQL_CONNECTION=UNIX), ALTIBASE_HOME이 서로 다르다면 유닉스 도메인의 소켓
@@ -517,7 +517,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>2ED[IT] 또는 2 ED[IT]</TD><TD>히스토리 목록에 있는 번호가 2인 질의문을 편집한다.</TD>
      </TR>
       <TR>
-     <TD ROWSPAN="41">출력 옵션 제어</TD><TD ROWSPAN="11">Select 결과 포맷팅</TD><TD>SET LINESIZE 100;</TD><TD>select 결과 출력 시 디스플레이 되는 한 라인의 사이즈를 설정한다. 10 에서 32767 사이의 값이어야 한다.<BR>기본값: 80</TD>
+     <TD ROWSPAN="43">출력 옵션 제어</TD><TD ROWSPAN="11">Select 결과 포맷팅</TD><TD>SET LINESIZE 100;</TD><TD>select 결과 출력 시 디스플레이 되는 한 라인의 사이즈를 설정한다. 10 에서 32767 사이의 값이어야 한다.<BR>기본값: 80</TD>
      </TR>
      <TR>
          <TD>SET LOBSIZE 10;</TD><TD>CLOB 칼럼을 출력 시 디스플레이 되는 데이터의 길이를 설정한다. <BR>기본값: 80</TD>
@@ -584,7 +584,10 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SELECT 결과 출력 방향</TD><TD>SET VERTICAL ON;<BR>SET VERTICAL OFF;</TD><TD>레코드를 조회할 때 이 값을 ON으로 설정하면, SELECT의 결과가 세로로 보여진다.<BR>기본값: OFF</TD>
      </TR>
      <TR>
-         <TD ROWSPAN="19">iSQL 화면 설정 값 보기</TD><TD>SHOW LINESIZE</TD><TD>현재의 LINESIZE 값을 보여준다.</TD>
+         <TD>FULLNAME 출력 유무</TD><TD>SET FULLNAME ON;<BR>SET FULLNAME OFF;</TD><TD>FULLNAME이 OFF 상태이면 40 바이트보다 긴 이름은 잘려서 표시된다. DESC, SELECT * FROM TAB, SELCT * FROM SEQ 에서 전체 이름을 표시하기 위해서는 ON 설정한다.<BR>기본값 : OFF </TD>
+     </TR>
+     <TR>
+         <TD ROWSPAN="20">iSQL 화면 설정 값 보기</TD><TD>SHOW LINESIZE</TD><TD>현재의 LINESIZE 값을 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW COLSIZE</TD><TD>현재의 COLSIZE 값을 보여준다.</TD>
@@ -636,6 +639,9 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
      </TR>
      <TR>
          <TD>SHOW VERTICAL</TD><TD>현재의 SELECT 결과가 세로로 출력되는지 여부를 보여준다.</TD>
+     </TR>
+     <TR>
+         <TD>SHOW FULLNAME</TD><TD>현재 FULLNAME 설정 여부를 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW ALL</TD><TD>현재 세션의 화면 설정 값을 보여준다.</TD>
@@ -864,10 +870,10 @@ aexport, iLoader, iSQL이 생성하는 파일들의 권한을 설정하는 공�
 
 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
 
-예) user:rw,  group:--,  other:--로 설정하는 경우, 
+예) user:rw,  group:--,  other:--로 설정하는 경우,
 export ALTIBASE_UT_FILE_PERMISSION=600
 
-ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
+ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우,
 ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
 
 예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
@@ -878,7 +884,7 @@ iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선�
 
 iSQL이 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
 
-예) user:rw,  group:--,  other:--로 설정하는 경우, 
+예) user:rw,  group:--,  other:--로 설정하는 경우,
 export ISQL_FILE_PERMISSION=600
 
 ### 개인별 iSQL 환경 설정
@@ -2818,6 +2824,8 @@ iSQL> SHOW ECHO
 Echo : OFF
 iSQL> SHOW FEEDBACK
 Feedback : 1
+iSQL> SHOW FULLNAME
+FullName : Off
 iSQL> SHOW ALL
 User      : SYS
 ColSize   : 0
@@ -3474,7 +3482,7 @@ NCHAR 및 NVARCHAR 타입의 내셔널 캐릭터 상수 문자를 사용하기 �
   $ export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE =1
   ```
 
-     
+
 
 - SQL 구문에서 NCHAR 타입 상수 문자열을 사용하기 위해 해당 문자열 바로 앞에
   “N”을 붙여 사용한다.
