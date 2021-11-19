@@ -41,7 +41,7 @@
 
 - ### [C/C++ External Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/External%20Procedures%20Manual.md)
 
-- ### [Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Precompiler%20User's%20Manual.md)
+- ### [Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Precompiler%20User%E2%80%99s%20Manual.md)
 
 - ### [CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/CLI%20User's%20Manual.md)
 
@@ -81,8 +81,6 @@
 - ### [Hadoop Connector User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Hadoop%20Connector%20User's%20Manual.md)	
 
 - ### [Altibase 3rd Party Connector Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Altibase%203rd%20Party%20Connector%20Guide.md)	
-
-- ### [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/altiShapeLoader.md)
 
 
 ## Message
