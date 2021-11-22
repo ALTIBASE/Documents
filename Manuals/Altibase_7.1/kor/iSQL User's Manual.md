@@ -584,7 +584,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SELECT 결과 출력 방향</TD><TD>SET VERTICAL ON;<BR>SET VERTICAL OFF;</TD><TD>레코드를 조회할 때 이 값을 ON으로 설정하면, SELECT의 결과가 세로로 보여진다.<BR>기본값: OFF</TD>
      </TR>
      <TR>
-         <TD>FULLNAME 출력 유무</TD><TD>SET FULLNAME ON;<BR>SET FULLNAME OFF;</TD><TD>FULLNAME이 OFF 상태이면 40 바이트보다 긴 이름은 잘려서 표시된다. DESC, SELECT * FROM TAB, SELCT * FROM SEQ 에서 전체 이름을 표시하기 위해서는 ON 설정한다.<BR>기본값 : OFF </TD>
+         <TD>FULLNAME 출력 유무</TD><TD>SET FULLNAME ON;<BR>SET FULLNAME OFF;</TD><TD>FULLNAME이 OFF 상태이면 DESC, SELECT * FROM TAB, SELCT * FROM SEQ 수행 시 40 바이트보다 긴 객체 이름은 뒷부분이 '...'로 표시된다. 최대 128 바이트까지 표시하기 위해서는 ON으로 설정한다.<BR>기본값 : OFF </TD>
      </TR>
      <TR>
          <TD ROWSPAN="20">iSQL 화면 설정 값 보기</TD><TD>SHOW LINESIZE</TD><TD>현재의 LINESIZE 값을 보여준다.</TD>
