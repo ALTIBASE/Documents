@@ -336,7 +336,9 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 ### 지원 플랫폼
 
->  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*<br>*Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
+>  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<sup>[32-bit 클라이언트](#32-bits-client)</sup>*<br>
+>
+>  *Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
 >
 >  Altibase 7.1 패치 버전을 명시하지 않은 경우 Altibase 7.1 모든 버전에서 지원한다.
 
@@ -348,15 +350,15 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 | AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | *- AIX 7.2 경우 Altibase 7.1.0.4.7 이상*                     |
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                              |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                                              |
-| **Linux x86-64**[배포판 버전](#footnote-linuxversion)        |                     |                           |                                                              |
+| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |                     |                           |                                                              |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
-| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br />                              |
+| Red Hat Enterprise Linux 8<sup>[설치 전 확인](#footnote-rhel8)</sup> |                     |                           | *- GNU glibc 2.12 이상*  <br />                              |
 | **Linux on Power**                                           |                     |                           |                                                              |
 | POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
 | POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.3.6 이상*     |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
-| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*[제약사항](#footnote-winclnt-limitations ) |
+| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*<sup>[제약사항](#footnote-winclnt-limitations)</sup> |
 
 > **<a name="footnote-linuxversion">리눅스 배포판 버전</a>**<br>호환성 테스트를 완료한 Red Hat Enterprise Linux 마이너 버전 정보와 Red Hat Enterprise Linu 이외에 호환성 테스트 된 리눅스 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
 
@@ -366,6 +368,8 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 >
 > - .NET Data Provider
 > - Altibase C Interface
+>
+> **<a name="32-bits-client">32비트 클라이언트</a>**<br>Windows 환경에서 32비트 개발 환경이 필요한 경우 Altibase 6.5.1 32비트 클라이언트를 이용할 수 있다.
 
 ### Altibase 패키지 인스톨러
 
