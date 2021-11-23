@@ -4,7 +4,7 @@
 
 - [Altibase 7.1.0.6.5 Patch Notes](#altibase-71065-patch-notes)
   - [New Features](#new-features)
-    - [BUG-49330 집합 연산자를 포함한 WITH 절 또는 VIEW 의 실행 계획 개선합니다.](#bug-49330%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%ED%8F%AC%ED%95%A8%ED%95%9C-with-%EC%A0%88-%EB%98%90%EB%8A%94-view-%EC%9D%98-%EC%8B%A4%ED%96%89-%EA%B3%84%ED%9A%8D-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49330 집합 연산자를 포함한 WITH 절 또는 VIEW 의 실행 계획을 개선합니다.](#bug-49330%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%ED%8F%AC%ED%95%A8%ED%95%9C-with-%EC%A0%88-%EB%98%90%EB%8A%94-view-%EC%9D%98-%EC%8B%A4%ED%96%89-%EA%B3%84%ED%9A%8D%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49398 DDL 복제 실행 시 테이블 잠금 획득 실패 또는 교착 상태(deadlock)를 사유로 일시적으로 DDL 수행이 실패하는 경우 재시도하는 기능을 추가합니다.](#bug-49398ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%96%89-%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%9E%A0%EA%B8%88-%ED%9A%8D%EB%93%9D-%EC%8B%A4%ED%8C%A8-%EB%98%90%EB%8A%94-%EA%B5%90%EC%B0%A9-%EC%83%81%ED%83%9Cdeadlock%EB%A5%BC-%EC%82%AC%EC%9C%A0%EB%A1%9C-%EC%9D%BC%EC%8B%9C%EC%A0%81%EC%9C%BC%EB%A1%9C-ddl-%EC%88%98%ED%96%89%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-%EC%9E%AC%EC%8B%9C%EB%8F%84%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-48756 AUTOCOMMIT OFF 모드에서 메타 테이블을 조회하는 SQL 문 수행 후 일반 테이블을 접근하는 SQL 문 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-48756autocommit-off-%EB%AA%A8%EB%93%9C%EC%97%90%EC%84%9C-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EC%A1%B0%ED%9A%8C%ED%95%98%EB%8A%94-sql-%EB%AC%B8-%EC%88%98%ED%96%89-%ED%9B%84-%EC%9D%BC%EB%B0%98-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EC%A0%91%EA%B7%BC%ED%95%98%EB%8A%94-sql-%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
@@ -17,6 +17,8 @@
     - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 
 Altibase 7.1.0.6.5 Patch Notes
 ==============================
