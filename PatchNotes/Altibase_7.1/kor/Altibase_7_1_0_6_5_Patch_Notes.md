@@ -225,22 +225,14 @@ Fixed Bugs
 ### BUG-49141 이중화 객체 관련한 DDL문 유효성 검사에서 사용하는 메모리 관리자를 올바르게 변경합니다.
 
 -   **module** : rp
-
 -   **Category** : Memory Error
-
 -   **재현 빈도** : Always
-
 -   **설명** : 이중화 객체 관련한 DDL문 유효성 검사에서 사용하는 메모리 관리자를 올바르게 변경합니다. 아래의 DDL문 수행 시 메모리 사용량 표시가 V\$MEMSTAT의 Query\_Execute에서 Query\_Prepare로 변경됩니다.
     - CREATE REPLICATION 
-    
     - ALTER REPLICATION *replication\_name* ADD TABLE
-    
-    - ALTER REPLICATION *replication\_name* DROP TABLE
-    
+    - ALTER REPLICATION *replication\_name* DROP TABLE
     - ALTER REPLICATION *replication\_name* SYNC
-    
-    - DROP REPLICATION
-    
+    - DROP REPLICATION
 -   **재현 방법**
 
     -   **재현 절차**
@@ -248,9 +240,7 @@ Fixed Bugs
     -   **수행 결과**
 
     -   **예상 결과**
-
 -   **Workaround**
-
 -   **변경사항**
 
     -   Performance view
