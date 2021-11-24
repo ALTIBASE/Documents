@@ -2619,8 +2619,7 @@ CLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### 설명
 
-CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 4GB-1byte 크기
-크기까지 저장 가능하다.
+CLOB은 문자형 대용량 데이타를 저장하기 위한 문자형 데이타 타입으로, 4GB-1byte 크기까지 저장 가능하다.
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과
 “IN ROW 절”을 참고한다.
