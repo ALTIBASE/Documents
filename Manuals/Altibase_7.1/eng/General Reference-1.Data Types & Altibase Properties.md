@@ -2369,7 +2369,7 @@ iSQL> INSERT INTO T1 VALUES ( VARBIT'1', VARBIT'1234' );
 
 #### Overview
 
-The LOB (which stands for Large Object) data type is for holding large amounts of data. Up to 2 GB can be stored in one column of LOB data. Unlike other data types, the length of a LOB column does not need to be specified when a table is created. Additionally, more than one LOB type column can be defined in a table.
+The LOB (which stands for Large Object) data type is for holding large amounts of data. Up to 4GB-1byte can be stored in one column of LOB data. Unlike other data types, the length of a LOB column does not need to be specified when a table is created. Additionally, more than one LOB type column can be defined in a table.
 
 The LOB data type is divided into the Binary Large Object (BLOB) type, which is for holding binary data such as image and video files, and the Character Large Object (CLOB) type, which is for holding string data.
 
@@ -2419,7 +2419,7 @@ BLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### Description
 
-BLOB is a binary data type that can vary in length up to 4GB-1bye and is intedned for use in storing large amounts of binary data.
+BLOB is a binary data type that can vary in length up to 4GB-1byte and is intedned for use in storing large amounts of binary data.
 
 For more detailed information about the FIXED and VARIABLE clauses, please refer to the "FIXED/VARIABLE OPTIONS" and "IN ROW Clauses" sections above.
 
@@ -2437,7 +2437,7 @@ CLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### Description
 
-CLOB is a character data type that can vary in length up to 4GB-bye  and is intended for use in storing large amounts of character data.
+CLOB is a character data type that can vary in length up to 4GB-1byte  and is intended for use in storing large amounts of character data.
 
 For more detailed information about the FIXED and VARIABLE clauses, please refer to the "FIXED/VARIABLE OPTIONS" and "IN ROW Clauses" sections above.
 
