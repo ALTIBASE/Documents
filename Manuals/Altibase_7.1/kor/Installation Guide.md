@@ -336,7 +336,9 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 ### 지원 플랫폼
 
->  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*<br>*Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
+>  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<sup>[32-bit 클라이언트](#32-bits-client)</sup>*<br>
+>
+>  *Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
 >
 >  Altibase 7.1 패치 버전을 명시하지 않은 경우 Altibase 7.1 모든 버전에서 지원한다.
 
@@ -348,17 +350,17 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 | AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | *- AIX 7.2 경우 Altibase 7.1.0.4.7 이상*                     |
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                              |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                                              |
-| **Linux x86-64**[배포판 버전](#footnote-linuxversion)        |                     |                           |                                                              |
+| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |                     |                           |                                                              |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
-| Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 이상*  <br />                              |
+| Red Hat Enterprise Linux 8<sup>[설치 전 확인](#footnote-rhel8)</sup> |                     |                           | *- GNU glibc 2.12 이상*  <br />                              |
 | **Linux on Power**                                           |                     |                           |                                                              |
 | POWER7 Red Hat Enterprise Linux 6<br/>POWER7 Red Hat Enterprise Linux 7<br />POWER8 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
 | POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.3.6 이상*     |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
-| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*[제약사항](#footnote-winclnt-limitations ) |
+| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*<sup>[제약사항](#footnote-winclnt-limitations)</sup> |
 
-> **<a name="footnote-linuxversion">리눅스 배포판 버전</a>**<br>호환성 테스트를 완료한 Red Hat Enterprise Linux 마이너 버전 정보와 Red Hat Enterprise Linu 이외에 호환성 테스트 된 리눅스 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
+> **<a name="footnote-linuxversion">Linux 배포판 버전</a>**<br>호환성 테스트를 완료한 Red Hat Enterprise Linux 마이너 버전 정보와 Red Hat Enterprise Linux 이외에 호환성 테스트 된 Linux 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) 페이지를 참고한다. 
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**<br>RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. 자세한 설명은 [A.부록: 설치 전 확인 사항 - Red Hat Enterprise Linux 8](#Red-Hat-Enterprise-Linux-8) 을 확인한다.
 
@@ -366,6 +368,8 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 >
 > - .NET Data Provider
 > - Altibase C Interface
+>
+> **<a name="32-bits-client">32비트 클라이언트</a>**<br>Windows 환경에서 32비트 개발 환경이 필요한 경우 Altibase 6.5.1 32비트 클라이언트를 이용할 수 있다.
 
 ### Altibase 패키지 인스톨러
 
@@ -1742,7 +1746,7 @@ RedHat 7.2 이상에서는 /etc/systemd/loginid.conf에서 RemoveIPC 설정값�
 
 공유 메모리 및 세마포어는 HP-UX와 동일하게 설정한다.
 
-단, 리눅스 커널 버전이 2.5 이상이 아닐 경우 IPC접속을 사용하는 세션이 갑자기
+단, Linux 커널 버전이 2.5 이상이 아닐 경우 IPC접속을 사용하는 세션이 갑자기
 단절되는 현상이 발생할 수 있다.
 
 서버 부팅 시 자동으로 커널 파라미터가 설정되게 하려면, /etc/rc.d/rc.local 파일
@@ -1769,7 +1773,7 @@ RedHat 7.2 이상의 버전에서는 RemoveIPC 설정값을 ‘no’로 설정�
 
 THP(Transparent Huge Pages)는 메모리 페이지의 크기를 증가시킴으로써,
 TLB(Translation Lookaside Buffer)를 조회하는 비용을 줄이기 위한 목적으로
-리눅스에서 제공하는 메모리 관리 시스템이다. 하지만 원래 의도와 달리 메모리 할당
+Linux에서 제공하는 메모리 관리 시스템이다. 하지만 원래 의도와 달리 메모리 할당
 지연 및 단편화를 유발하여 오히려 시스템 성능이 저하되는 경우가 많다.
 
 Altibase를 사용하기 위해 THP 옵션을 비활성화(never)로 해야 한다.
@@ -1795,7 +1799,7 @@ THP 설정 확인 방법은 아래와 같다.
    $ cat /sys/kernel/mm/transparent_hugepage/enabled
    ```
 
-2. 레드햇 리눅스에서는 아래 명령을 실행한다
+2. 레드햇 Linux에서는 아래 명령을 실행한다
 
    ```
    $ cat /sys/kernel/mm/redhat_transparent_hugepage/enabled
