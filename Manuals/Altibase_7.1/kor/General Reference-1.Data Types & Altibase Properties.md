@@ -1978,7 +1978,7 @@ TO_DATE ( '05-12-28 14:30:29', 'RR-MM-DD
 iSQL> SELECT TO_CHAR ( TO_DATE( '1980-12-28 17:30:29', 'YYYY-MM-DD HH24:MI:SS' ), 'SSSSS' ) FROM dual;
 TO_CHAR ( TO_DATE( '1980-12-28 17:30:29'  
 --------------------------------------------
-62940            
+63029     
 1 row selected.
 
 -- 아래 출력은 DEFAULT_DATE_FORMAT 프로퍼티가 YYYY/MM/DD HH:MI:SS 일 때 예이다.
