@@ -24,7 +24,11 @@
 |                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                          |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :----------------------------------------------------------- |
 | **Linux x86-64**                                             |                     |                           |                                                              |
-| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br/>Oracle Linux 8.x |          ●          |             ●             | *- GNU glibc 2.12 이상*<br />- Altibase JDBC Driver : JRE 1.8 이상 |
+| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br/>Oracle Linux 8.x |          ●          |             ●             | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
+| **Linux on Power**                                           |                     |                           |                                                              |
+| POWER7 Red Hat Enterprise Linux 6                            |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
 
 
 

@@ -336,15 +336,19 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 ### 지원 플랫폼
 
->  *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*<br>
+>  Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>
 >
 >  Altibase 7.2 패치 버전을 명시하지 않은 경우 Altibase 7.2 모든 버전에서 지원한다.
 
 
 |                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                          |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :----------------------------------------------------------- |
-| **Linux x86-64**[배포판 버전](#footnote-linuxversion)        |                     |                           |                                                              |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8[설치 전 참고](#footnote-rhel8) |          ●          |             ●             | *- GNU glibc 2.12 이상*<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |                     |                           |                                                              |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8<sup>[설치 전 참고](#footnote-rhel8)</sup> |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **Linux on Power**                                           |                     |                           |                                                              |
+| POWER7 Red Hat Enterprise Linux 6                            |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
 
 > **<a name="footnote-linuxversion">리눅스 배포판 버전</a>**<br>
 >
