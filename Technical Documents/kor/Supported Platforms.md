@@ -16,7 +16,7 @@
 
 ## Altibase 7.2
 
->  *Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.*<br>
+>  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>
 >
 >  **Ubuntu, Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
@@ -24,19 +24,19 @@
 |                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                          |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :----------------------------------------------------------- |
 | **Linux x86-64**                                             |                     |                           |                                                              |
-| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br/>Oracle Linux 8.x |          ●          |             ●             | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
+| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x <br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br/>Oracle Linux 8.x |          ●          |             ●             | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
 | **Linux on Power**                                           |                     |                           |                                                              |
-| POWER7 Red Hat Enterprise Linux 6                            |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| POWER7 Red Hat Enterprise Linux 6.x                          |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| POWER8(LE) Red Hat Enterprise Linux 7.x                      |          ●          |             ●             | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
 
 
 
 ## Altibase 7.1
 
->  *Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.*<br>*Microsoft Windows 는 Altibase 클라이언트만 지원합니다.*
+>  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원합니다.
 >
->  *Altibase 7.1 패치 버전을 명시하지 않은 경우 Altibase 7.1 모든 버전에서 지원함을 의미합니다.*
+>  Altibase 7.1 패치 버전을 명시하지 않은 경우 Altibase 7.1 모든 버전에서 지원함을 의미합니다.
 >
 >  **Ubuntu, Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
@@ -61,9 +61,9 @@
 
 ## Altibase 6.5.1
 
-> *Altibase 서버는 64비트만 지원합니다.*
+> Altibase 서버는 64비트만 지원합니다.
 >
-> *Altibase 6.5.1 패치 버전을 명시하지 않은 경우 Altibase 6.5.1 모든 버전에서 지원함을 의미합니다.*
+> Altibase 6.5.1 패치 버전을 명시하지 않은 경우 Altibase 6.5.1 모든 버전에서 지원함을 의미합니다.
 >
 > **Ubuntu, Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
