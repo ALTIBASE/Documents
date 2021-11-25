@@ -9720,7 +9720,7 @@ CHECK_CONNECT_REPLY(
 
 ##### 예외
 
-지원하지 않는 프로토콜 타입을 사용할 때 응답의 내용이 오류 또는 에러인 경우에 SMTP_REPLY_ERROR 예외가 발생한다.
+지원하지 않는 프로토콜 타입을 사용하거나 응답의 내용이 에러인 경우 SMTP_REPLY_ERROR 예외가 발생한다.
 
 ##### 예제
 
@@ -13433,10 +13433,10 @@ DBMS_STANDARD 패키지는 패키지 이름을 명시하지 않고 사용할 수
 
 | 프로시저 및 함수   | 설명                                                         |
 | ------------------ | ------------------------------------------------------------ |
-| DELETING           | Trigger가 DELETE로부터 시작한 것인지를 반환한다.             |
-| INSERTING          | Trigger가 INSERT로부터 시작한 것인지를 반환한다.             |
-| UPDATING           | Trigger가 UPDATE로부터 시작한 것인지를 반환한다.             |
-| UPDATING (colname) | Trigger가 특정 컬럼의 UPDATE로부터 시작한 것인지를 반환한다. |
+| DELETING           | Trigger가 DELETE로부터 시작한 것인지 여부를 반환한다.        |
+| INSERTING          | Trigger가 INSERT로부터 시작한 것인지 여부를 반환한다.        |
+| UPDATING           | Trigger가 UPDATE로부터 시작한 것인지 여부를 반환한다.        |
+| UPDATING (colname) | Trigger가 특정 컬럼의 UPDATE로부터 시작한 것인지 여부를 반환한다. |
 
 #### DELETING
 
