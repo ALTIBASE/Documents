@@ -71,21 +71,20 @@ Importing shapefile means inserting spatial data information such as coordinate 
 
 altiShapeLoader is based on the following open-source libraries. The licenses are distributed in a text file format along with altiShapeLoader.
 
-| Library                                   | Version | Open Source License                                          |
-| ----------------------------------------- | ------- | ------------------------------------------------------------ |
-| GeoTools                                  | 22.5    | Homepage: https://geotools.org/ License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
-| EPSG Authority Service Using HSQL Databas | 22.5    | Homepage:http://hsqldb.org/ License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
-| Apache Commons IO                         | 2.6     | Homepage: http://commons.apache.org/proper/commons-io/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons CLI                        | 1.3.1   | Homepage: [http://https://commons.apache.org/proper/commons-cli/](http://https//commons.apache.org/proper/commons-cli/) License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache log4j                              | 1.2.16  | Homepage: https://logging.apache.org/log4j/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-
-
+| Library              | Version | Open Source License                                          |
+| -------------------- | ------- | ------------------------------------------------------------ |
+| GeoTools             | 25.1    | Homepage: https://geotools.org/ <br />License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
+| hsqldb               | 1.8.0.1 | Homepage: http://hsqldb.org/ <br />License: Based on BSD(http://hsqldb.org/web/hsqlLicense.html) |
+| Apache Commons IO    | 2.6     | Homepage: http://commons.apache.org/proper/commons-io/ <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache Commons CLI   | 1.3.1   | Homepage: [http://https://commons.apache.org/proper/commons-cli/](http://https//commons.apache.org/proper/commons-cli/) <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache Commons lang3 | 1.3.1   | Homepage: https://commons.apache.org/proper/commons-lang/ <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache log4j         | 1.2.16  | Homepage: https://logging.apache.org/log4j/ <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 
 ## 4. Packages
 
-| Archive Name                                     |
-| ------------------------------------------------ |
-| altiShapeLoader1.0.zip altiShapeLoader1.0.tar.gz |
+| Archive Name                                         |
+| ---------------------------------------------------- |
+| altiShapeLoader1.0.zip<br/>altiShapeLoader1.0.tar.gz |
 
 
 
