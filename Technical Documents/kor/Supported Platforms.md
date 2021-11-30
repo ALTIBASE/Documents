@@ -51,7 +51,7 @@
 | **Linux x86-64**                                             |                     |                           |                                                          |
 | Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x<br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.1<br/>CentOS 8.2<br/>CentOS 8.3<br /><br />Oracle Linux 6.5<br/>Oracle Linux 6.6<br/>Oracle Linux 7.1<br/>Oracle Linux 7.2<br/>Oracle Linux 7.4<br />Oracle Linux 7.9<br />Oracle Linux 8.4 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
 | **Linux on Power**                                           |                     |                           |                                                          |
-| POWER7 Red Hat Enterprise Linux 6.5<br/>POWER8 Red Hat Enterprise Linux 7.1 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
+| POWER7 Red Hat Enterprise Linux 6.5                          |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                          |
 | POWER8(LE) Red Hat Enterprise Linux 7.2                      |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.3.6 이상* |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                                          |

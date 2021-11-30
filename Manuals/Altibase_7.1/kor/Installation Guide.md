@@ -354,7 +354,7 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
 | Red Hat Enterprise Linux 8<sup>[설치 전 확인](#footnote-rhel8)</sup> |                     |                           | *- GNU glibc 2.12 이상*  <br />                              |
 | **Linux on Power**                                           |                     |                           |                                                              |
-| POWER7 Red Hat Enterprise Linux 6<br/>POWER8 Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
+| POWER7 Red Hat Enterprise Linux 6                            |          ●          |             ●             | *- GNU glibc 2.12 이상*                                      |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
 | POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.3.6 이상*     |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
