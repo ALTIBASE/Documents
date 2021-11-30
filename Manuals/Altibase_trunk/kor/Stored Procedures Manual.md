@@ -13429,7 +13429,7 @@ Execute success.
 
 ### DBMS_STANDARD
 
-DBMS_STANDARD 패키지는 패키지 이름을 명시하지 않고 사용할 수 있는 다양한 서브 프로그램을 제공한다. DBMS_STANDARD 패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다.
+DBMS_STANDARD 패키지는 패키지 이름을 명시하지 않고 사용할 수 있는 다양한 서브 프로그램을 제공한다. DBMS_STANDARD 패키지를 구성하는 프로시저와 함수는 아래의 표와 같다.
 
 | 프로시저 및 함수   | 설명                                                         |
 | ------------------ | ------------------------------------------------------------ |
@@ -13453,7 +13453,7 @@ BOOLEAN variable := DELETING;
 
 ##### 결과값
 
-DELETE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+trigger가 DELETE로부터 시작한 경우 TRUE를 반환한다.
 
 ##### 예외
 
@@ -13499,7 +13499,7 @@ BOOLEAN variable := INSERTING;
 
 ##### 결과값
 
-INSERT로부터 trigger가 시작한 경우 TRUE를 반환한다.
+trigger가 INSERT로부터 시작한 경우 TRUE를 반환한다.
 
 ##### 예외
 
@@ -13547,7 +13547,7 @@ BOOLEAN variable := UPDATING;
 
 ##### 결과값
 
-UPDATE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+trigger가 UPDATE로부터 시작한 경우 TRUE를 반환한다.
 
 ##### 예외
 
@@ -13603,7 +13603,7 @@ BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
 
 ##### 결과값
 
-특정 컬럼의 UPDATE로부터 trigger가 시작한 경우 TRUE를 반환한다.
+trigger가 특정 컬럼의 UPDATE로부터 시작한 경우 TRUE를 반환한다.
 
 ##### 예외
 
@@ -13651,7 +13651,7 @@ OTHER
 ### DBMS_UTILITY
 
 DBMS_UTILITY 패키지는 다양한 유틸리티 서브프로그램을 제공한다. DBMS_UTILITY
-패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다.
+패키지를 구성하는 프로시저와 함수는 아래의 표와 같다.
 
 | 프로시저 및 함수       | 설명                                                  |
 |------------------------|-------------------------------------------------------|
