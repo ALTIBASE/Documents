@@ -16,8 +16,6 @@
     - [5.2 Manual](#52-manual)
     - [5.3 Installation](#53-installation)
 
-
-
 # altiShapeLoader Release Notes
 
 **(Oct. 15, 2021)**
@@ -96,7 +94,7 @@ http://support.altibase.com/kr/product
 
 ### 5.2 Manual
 
-[altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/altiShapeLoader User's Manual.md)
+https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/altiShapeLoader.md
 
 ### 5.3 Installation
 
