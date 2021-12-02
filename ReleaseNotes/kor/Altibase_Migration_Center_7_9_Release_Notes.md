@@ -86,6 +86,7 @@ resource consumption.
 | BUG-47409 | Composite index including a PK column in the source DB is excluded <br/>from the migration target with an error in the build phase. |
 | BUG-48340 | If the table name includes underscore, the table column <br/>with a similar name is also included. |
 | BUG-48672 | As of Altibase 7.2, the warning window should not appear <br/>even if there is no default partition in the range partition table. |
+| BUG-49467 | Support TimesTen 11.2.1.9.10 to Altibase migration |
 
 ### 2.2 Changes
 
