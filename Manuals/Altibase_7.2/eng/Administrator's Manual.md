@@ -1,17 +1,15 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
 
-- [Administrator’s Manual 1](#administrators-manual-1)
+
+- [Administrator’s Manual](#administrators-manual)
   - [Preface](#preface)
   - [1. Introduction](#1-introduction)
     - [Hybrid DBMS Concept](#hybrid-dbms-concept)
     - [Altibase Features](#altibase-features)
     - [Structure of Altibase](#structure-of-altibase)
   - [2. Altibase Components](#2-altibase-components)
-    - [**Altibase Directories**](#altibase-directories)
-    - [**Executable Binaries**](#executable-binaries)
-    - [**Altibase Libraries**](#altibase-libraries)
+    - [Altibase Directories](#altibase-directories)
+    - [Executable Binaries](#executable-binaries)
+    - [Altibase Libraries](#altibase-libraries)
   - [3. Creating a Database](#3-creating-a-database)
     - [Creating a Database](#creating-a-database)
   - [4. Startup and Shutdown](#4-startup-and-shutdown)
@@ -91,8 +89,6 @@
     - [Using Application Trace Logs](#using-application-trace-logs)
   - [Appendix B. Altibase Limitations](#appendix-b-altibase-limitations)
     - [Maximum Altibase Values](#maximum-altibase-values)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -647,25 +643,33 @@ This file contains error messages related to the data storage management module,
 
 This chapter describes the major components of Altibase. After installing the Altibase package, the user can check out components such as the binary section and the programming library section.
 
-### **Altibase Directories**
+### Altibase Directories
 
 When Altibase is installed, the following directories are created. The location of the Altibase home directory is saved in the environment variable ALTIBASE_HOME. The bin, conf, lib, include, msg, dbs, logs, sample, install, altiComp, trc, admin and arch_logs directories can all be found in this directory.
 
 This section describes the purpose and contents of each of these directories.
 
+#### APatch Directory
+
+This directory contains information about Altibase product which was installed by Altibase package installer.
+
 #### admin Directory
 
 This directory contains the adminview.sql script file, which creates views related to Altibase system information, as well as other script files for creating stored procedures that are used to view information related to tables, stored procedures, and replication objects.
-
-#### arch_logs Directory
-
-This is the directory containing backup log files for recovery. The location and name of this directory must be specified in the altibase.properties file.
 
 #### altiComp Directory
 
 This directory contains sample script files for the altiComp feature which synchronizes mismatching data during replication.
 
 For more detailed information about the altiComp utility, please refer to the *Utilities Manual*.
+
+#### altiMon Directory
+
+This directory contains xml configuration files, shell scripts, sql files, log directories required to run altiMon(Altibase Monitoring Daemon). For more information about the subdirectories, please refer to the *Utilities Manual*.
+
+#### arch_logs Directory
+
+This directory contains backup log files for recovery. The location and name of this directory must be specified in the altibase.properties file.
 
 #### bin Directory
 
@@ -763,7 +767,7 @@ This is the Altibase ODBC driver that can be used in Unix-like operating systems
 #### logs Directory
 
 This directory contains log anchor files and log files.
-The location and name of this directory must be specified in the altibase.properties file. The log anchor file name and the log file name are automatically set by Altibase. However, in order to be prepared in the event of an error in the file system containing the log anchor files, it is nevertheless recommended that the relevant properties be changed, and that individual log anchor files be located on different file systems.
+The location and name of this directory must be specified in the altibase.properties file. The log anchor file name and the log file name are automatically set by Altibase. However, in order to be prepared in the event of an error in the file system containing the log anchor files, it is nevertheless recommended that the relevant properties be changed, and that individual log anchor files be located on different file systems. do_not_remove_log_files, never_remove_log_files are dummy files preventing log files from getting deleted.
 
 #### msg Directory
 
@@ -801,11 +805,19 @@ This file contains error messages pertaining to the Altibase database link modul
 
 This file contains error messages pertaining to function execution or data types.
 
+#### packages Directory
+
+This directory contains system defined stored packages and catproc.sql file which is a package creating script. For more information about the subdirectories, please refer to the Altibase Stored Packages in *Stored Procedures Manual*.
+
 #### sample Directory
 
 This directory contains sample Altibase applications.
 
 It contains source code and Makefiles for programs written using the JDBC, ODBC, and C/C++ Precompiler libraries.
+
+#### thirdparty
+
+This directory contains scripts or libraries required to connect to 3rd parties.
 
 #### trc Directory
 
@@ -875,7 +887,7 @@ Warnings and trace messages pertaining to the global transactions processed on A
 
 Execution results of the killCheckServer utility are written to this file.
 
-### **Executable Binaries**
+### Executable Binaries
 
 For more detailed information on these binary files other than those described here, please refer to the *Utilities Manual*
 
@@ -945,7 +957,7 @@ This application is used for precompiling applications written in C/C++ that con
 
 For more detailed information on this tool, please refer to the *Precompiler User’s Manual*.
 
-### **Altibase Libraries**
+### Altibase Libraries
 
 The following are the components required when developing application programs using Altibase:
 
