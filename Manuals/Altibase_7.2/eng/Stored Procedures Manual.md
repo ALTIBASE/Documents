@@ -1624,7 +1624,35 @@ A block can be broadly divided into a declaration section, a block body and an e
 
 To comment out all or part of a single line, place two hyphen characters (“--”) at the beginning of the text to be commented out. To comment out multiple lines, place the C-style delimiters “/*” and “*/” around the text to be commented out. 
 
-Stored procedure block can be used as an anonymous block independently.
+Stored procedure block can be used independently without header. This is called anonymous block. Anonymous block is supported from Altibase 7.1.0.2.3 and has features as follows.
+
+- Does not create or store PSM object in database.
+- Does not return the value of RETURN clause.
+- Unlike the stored procedure, it can use IN, OUT, INOUT BIND variables.
+
+```
+iSQL> VAR OUT1 OUTPUT INTEGER;
+iSQL> VAR INOUT1 INOUTPUT INTEGER;
+iSQL> EXEC :INOUT1 := 1;
+
+iSQL> DECLARE
+    VAR1 INTEGER;
+BEGIN
+    VAR1 := :INOUT1;
+    :OUT1 := VAR1;
+    :INOUT1 := VAR1 + 1;
+END;
+/
+Execute success.
+
+iSQL> PRINT VAR;
+[ HOST VARIABLE ]
+-------------------------------------------------------
+NAME                 TYPE                 VALUE
+-------------------------------------------------------
+OUT1                 INTEGER              1
+INOUT1               INTEGER              2
+```
 
 In this chapter, the variable assignment statements, which can be used within the declaration section and block body, and the SELECT INTO, assignment statements, LABEL, PRINT and RETURN statements, which can be used only within the block body, will be described. 
 
