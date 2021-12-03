@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Spatial SQL Reference](#spatial-sql-reference)
@@ -36,8 +35,6 @@
   - [Appendix C. Geometry Reference Tables](#appendix-c-geometry-reference-tables)
     - [Geometry Reference Tables](#geometry-reference-tables)
     - [Related Stored Procedures](#related-stored-procedures)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Altibase® Application Development
 
@@ -2095,6 +2092,50 @@ F1          ISRING(F2)
 1 row selected.
 ```
 
+#### ST_ISCOLLECTION
+
+##### Syntax
+
+```
+ST_ISCOLLECTION( GEOMETRY )
+```
+
+##### Description
+
+인자로 받은 공간 객체가 Multi\*이거나 GeometryCollection이면 1을 반환하고, 
+그렇지 않으면 0을 반환한다.
+
+This function returns 1 if the spatial object type, which is the parameter, is Multi* or GeometryCollection. If not, 0 is returned.
+
+
+##### Return Type
+
+```
+INTEGER
+```
+
+##### Example
+
+```
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'POINT(1 1)'); 
+ST_ISCOLLECTION(GEOMETRY'POINT(1 1)') 
+----------------------------------------
+0           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)');
+ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)') 
+---------------------------------------------
+1           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(2 2, 3 3))');  
+ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTIO 
+---------------------------------------------
+1           
+1 row selected.
+```
+
 #### NUMPOINTS
 
 ##### Syntax
@@ -2902,7 +2943,7 @@ F1          SRID(F2)
 ##### Syntax
 
 ```
-GEOMFROMTEXT( WKT)
+GEOMFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -2938,6 +2979,12 @@ GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )
 
 iSQL> INSERT INTO TB3 VALUES (102, GEOMFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10))'));
 [ERR-A101A : Parsing error of well-known-text]
+
+iSQL> SELECT ASEWKT(GEOMFROMTEXT('POINT(1 1)', 100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;POINT(1 1)
+1 row selected.
 ```
 
 #### POINTFROMTEXT
@@ -2945,7 +2992,7 @@ iSQL> INSERT INTO TB3 VALUES (102, GEOMFROMTEXT('POLYGON((10 10, 10 20, 20 20, 2
 ##### Syntax
 
 ```
-POINTFROMTEXT( WKT )
+POINTFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -2980,6 +3027,12 @@ POINT(10 10)
 
 iSQL> INSERT INTO TB3 VALUES (103, POINTFROMTEXT('GEOMETRYCOLLECTION( POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(POINTFROMTEXT('POINT(1 1)', 100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;POINT(1 1)
+1 row selected.
 ```
 
 #### LINEFROMTEXT 
@@ -2987,7 +3040,7 @@ iSQL> INSERT INTO TB3 VALUES (103, POINTFROMTEXT('GEOMETRYCOLLECTION( POINT(10 1
 ##### Syntax
 
 ```
-LINEFROMTEXT( WKT )
+LINEFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3022,6 +3075,12 @@ LINESTRING(10 10, 20 20, 30 40)
 
 iSQL> INSERT INTO TB3 VALUES (104, LINEFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(LINEFROMTEXT('LINESTRING(10 10, 20 20, 30 40)', 100) ) FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;LINESTRING(10 10, 20 20, 30 40)
+1 row selected.
 ```
 
 #### POLYFROMTEXT
@@ -3029,7 +3088,7 @@ iSQL> INSERT INTO TB3 VALUES (104, LINEFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20
 ##### Syntax
 
 ```
-POLYFROMTEXT( WKT )
+POLYFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3064,14 +3123,80 @@ POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
 
 iSQL> INSERT INTO TB3 VALUES (105, POLYFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> INSERT INTO TB3 VALUES (120, POLYFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID          ASEWKT(OBJ)
+---------------------------------------------------------------------------------------------------------------------
+104         SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+120         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+2 rows selected.
+
+iSQL> SELECT ASEWKT(POLYFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+1 row selected.
 ```
+
+#### ST_POLYGONFROMTEXT
+
+##### Syntax
+
+```
+ST_POLYGONFROMTEXT( TEXT[, srid] )
+```
+
+##### Description
+
+This function accepts a spatial object in WKT (Well-known Text) format or EWKT(Extended Well-Known Text) as input and creates and outputs a GEOMETRY object whose subtype is POLYGON.
+
+This function returns NULL if the value of the WKT argument is NULL.
+
+Unlike POLYFROMTEXT, if the WKT or EWKT describes a GEOMETRY subtype other than POLYGON object, this function returns NULL.
+
+If the syntax of the input WKT or EWKT is not valid, it outputs an error.
+
+It can specify the created object’s SRID. In case it is not specified, if the input was WKT the SRID of the object will be 0 or if the input was EWKT, it will be the same as EWKT’S SRID.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> INSERT INTO TB3 VALUES (121, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (122, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (123, ST_POLYGONFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (124, ST_POLYGONFROMTEXT('SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID     ASEWKT(OBJ)
+-------------------------------------------------------------------------------------------------------------
+121     SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+122     SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+123
+124     SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+4 rows selected.
+```
+
+
 
 #### MPOINTFROMTEXT
 
 ##### Syntax
 
 ```
-MPOINTFROMTEXT( WKT )
+MPOINTFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3106,6 +3231,12 @@ MULTIPOINT(10 10, 20 20)
 
 iSQL> INSERT INTO TB3 VALUES (106, MPOINTFROMTEXT('LINESTRING(10 10, 20 20, 30 40)'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT( MPOINTFROMTEXT('MULTIPOINT(10 10, 20 20)', 100) ) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;MULTIPOINT(10 10, 20 20)
+1 row selected.
 ```
 
 #### MLINEFROMTEXT
@@ -3113,7 +3244,7 @@ iSQL> INSERT INTO TB3 VALUES (106, MPOINTFROMTEXT('LINESTRING(10 10, 20 20, 30 4
 ##### Syntax
 
 ```
-MLINEFROMTEXT( WKT )
+MLINEFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3147,6 +3278,12 @@ MULTILINESTRING((10 10, 20 20), (15 15, 30 15))
 1 row selected.
 iSQL> INSERT INTO TB3 VALUES (107, MLINEFROMTEXT('POINT(10 10)'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(MLINEFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))', 100))AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;MULTILINESTRING((10 10, 20 20), (15 15, 30 15))
+1 row selected.
 ```
 
 #### MPOLYFROMTEXT
@@ -3154,7 +3291,7 @@ iSQL> INSERT INTO TB3 VALUES (107, MLINEFROMTEXT('POINT(10 10)'));
 ##### Syntax
 
 ```
-MPOLYFROMTEXT( WKT )
+MPOLYFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3187,6 +3324,12 @@ MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60
 
 iSQL> INSERT INTO TB3 VALUES (108, MPOLYFROMTEXT('MULTIPOINT(10 10, 20 20)'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(MPOLYFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))',100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))
+1 row selected.
 ```
 
 #### GEOMCOLLFROMTEXT
@@ -3194,7 +3337,7 @@ iSQL> INSERT INTO TB3 VALUES (108, MPOLYFROMTEXT('MULTIPOINT(10 10, 20 20)'));
 ##### Syntax
 
 ```
-GEOMCOLLFROMTEXT( WKT )
+GEOMCOLLFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3229,7 +3372,52 @@ GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )
 
 iSQL> INSERT INTO TB3 VALUES (109, GEOMCOLLFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(GEOMCOLLFROMTEXT('GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))',100)) AS OBJ FROM DUAL;
+OBJ
+---------------------------------------------
+SRID=100;GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )
+1 row selected.
 ```
+
+#### ST_GEOMETRY
+
+##### Syntax
+
+```
+ST_GEOMETRY( WKT )
+```
+
+##### Description
+
+This function accepts a spatial object in WKT (Well-known Text) format as input and creates and outputs a GEOMETRY object. 
+
+It allows any spatial objects that can be expressed in WKT.
+
+If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY object that is not included in GEOMETRY object collection, this function outputs an error.
+
+This function returns NULL if the value of the WKT argument is NULL. The SRID of the created object is 0.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> INSERT INTO TB3 VALUES (110, ST_GEOMETRY('MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASTEXT(OBJ) FROM TB3 WHERE ID = 110;
+ID       ASTEXT(OBJ)
+-----------------------------------------------------------------------------------------------
+110      MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))
+1 row selected.
+```
+
+
 
 #### GEOMFROMWKB
 
@@ -3290,6 +3478,34 @@ If the input WKB information describes a GEOMETRY subtype other than a LINESTRIN
 ```
 GEOMETRY
 ```
+
+#### ST_LINESTRINGFROMWKB
+
+##### Syntax
+
+```
+ST_LINESTRINGFROMWKB( WKB[, SRID] )
+```
+
+##### Description
+
+This function accepts a spatial object in WKB(Well-Known Binary) format or EWKB(Extended Well-Known Binary)  format and its SRID as input and creates and outputs a GEOMETRY object whose subtype is POLYGON.
+
+This function returns NULL if the value of the WKB argument or the value of the SRID is NULL.
+
+Unlike LINEFROMWKB, if the WKB or EWKB describes a GEOMETRY subtype other than line string, NULL is returned.
+
+If the syntax of the input WKB or EWKB is not valid, it outputs an error.
+
+If the SRID is not specified, the SRID of the created object is 0.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+
 
 #### POLYFROMWKB
 
@@ -3584,6 +3800,8 @@ GEOMETRY object is created by receiving spatial objects in the form of EWKB (Ext
 GEOMETRY
 ```
 
+#### 
+
 #### ST_MAKELINE
 
 ##### Syntax
@@ -3621,6 +3839,239 @@ GEOM
 LINESTRING(1 1, 2 2, 3 3, 4 4, 5 5)                 
 1 row selected.
 ```
+
+#### ST_MAKEPOLYGON
+
+##### Syntax
+
+```
+ST_MAKEPOLYGON( GEOMETRY )
+```
+
+##### Description
+
+This function accepts a LineString object as input and creates and outputs a GEOMETRY object whose subtype is POLYGON. Here LineString should be Ring format.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOLYGON( GEOMETRY'LINESTRING( 0 0, 1 1, 1 0, 0 0 ) ' ) ) AS GEOM FROM DUAL; 
+GEOM                                                                                                                                
+------------------------------------------------------
+POLYGON((0 0, 1 1, 1 0, 0 0))                                                                                                                   
+1 row selected.
+```
+
+#### ST_POLYGON
+
+##### Syntax
+
+```
+ST_POLYGON( GEOMETRY, SRID )
+```
+
+##### Description
+
+This function is similar to ST_MAKEPOLYGON. This function accepts a LineString object or SRID as input and creates and outputs a GEOMETRY object whose subtype is POLYGON.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+Example
+
+```
+iSQL> SELECT ST_ASEWKT( ST_POLYGON( GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 2 ) ', 4326 ) ) AS GEOM FROM DUAL;
+GEOM                                                                                                                               
+-----------------------------------------------------
+SRID=4326;POLYGON((2 2, 3 2, 3 3, 2 3, 2 2))                                                                                                           
+1 row selected.
+```
+
+#### ST_COLLECT
+
+##### Syntax
+
+```
+ST_COLLECT( GEOMETRY1, GEOMETRY2 );
+```
+
+##### Description
+
+This function accepts Geometry objects as input and creates and outputs a GeometryCollection object. If the input type is the same, the result value is Multi*. If it is not, the result is GeometryCollection.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'POINT( 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+-----------------------------------------------------------------------------------
+MULTIPOINT(1 1, 2 2)                               
+1 row selected. 
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'LINESTRING( 1 1, 2 2 )', GEOMETRY'LINESTRING( 3 3, 4 4 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+MULTILINESTRING((1 1, 2 2), (3 3, 4 4))                     
+1 row selected.
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POLYGON( ( 0 0, 1 1, 1 0, 0 0 ) )', GEOMETRY'POLYGON( ( 10 10, 2 2, 2 0, 10 10 ) )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+MULTIPOLYGON(((0 0, 1 1, 1 0, 0 0)), ((10 10, 2 2, 2 0, 10 10)))         
+1 row selected.
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'LINESTRING( 1 1, 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+GEOMETRYCOLLECTION( POINT(1 1) , LINESTRING(1 1, 2 2) )             
+1 row selected.
+```
+
+#### ST_MAKEENVELOPE
+
+##### Syntax
+
+```
+ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
+```
+
+##### Description
+
+This function returns POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ) which is the result of the ENVELOPE function that accepts LINESTRING( X1 Y1, X2 Y2 ) that is constituted of 4 Double type parameters as input. If the SRID was specified in advance, the created object will have the same SRID. If the SRID wasn’t specified, the created object’s SRID will be 0.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138 ) ) AS POL FROM DUAL;
+POL
+------------------------------------------------------------------------------------------------------
+SRID=0;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138, 104 ) ) AS POL FROM DUAL;
+POL
+------------------------------------------------------------------------------------------------------
+SRID=104;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+```
+
+#### ST_REVERSE
+
+##### Syntax
+
+```
+ST_REVERSE(GEOMETRY)
+```
+
+##### Description
+
+This function changes the spatial object’s points in reverse order. If the spatial object is EMPTY it returns NULL. If it is a point, it returns the same spatial object as the input while as if it was multiple spatial objects it changes the each object’s point in reverse order.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_REVERSE(GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 4 )') ) AS LS FROM DUAL;
+LS
+------------------------------------------------------------------------------------
+LINESTRING(2 4, 2 3, 3 3, 3 2, 2 2)
+1 row selected.
+```
+
+#### ST_TRANSFORM
+
+##### Syntax
+
+```
+GEOMETRY ST_Transform( GEOMETRY, INTEGER to_srid );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, INTEGER to_srid );
+```
+
+##### Description
+
+This function creates new GEOMETRY object by converting the input coordination. Input/output coordination can be SRID format or PROF4TEXT format.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Constraints
+
+This function can only be used in Linux operating system.
+
+If one of the input elements is NULL, NULL is returned.
+
+In case the input GEOMETRY object is EMPTY, EMPTY GEOMETRY object is returned.
+
+If the input and output SRID is identical, returned GEOMETRY object and input GEOMETRY object will be identical as well.
+
+In case the input was SRID coordinate system, there should be SRID’s Spatial Reference System meta data which can be found in SPATIAL_REF_SYS table.
+
+PROJ4TEXT is only supported in PROJ library version 4 format.
+
+If the output coordinate system is PROJ4TEXT, the returned GEOMETRY object’s SRID is 0.
+
+If the input coordinate system is PROJ4TEXT and GEOMETRY object’s SRID is 0, the returned GEOMETRY object’s SRID is 0.
+
+##### Example
+
+```
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), 4326 )) as geometry;
+GEOMETRY                                                                                                                             
+-------------------------------------------------------------------------------------------
+SRID=4326;POINT(127.0246 37.5326)                                                                                                                 
+1 row selected.
+
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                             
+-------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
+1 row selected.
+
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                             
+--------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
+1 row selected.
+
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', 4326 )) as geometry;
+GEOMETRY                                                                                                                              
+--------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
+1 row selected.
+```
+
+ 
 
 #### Dimensionally Extended Nine Intersection Model(DE－9IM) 
 
