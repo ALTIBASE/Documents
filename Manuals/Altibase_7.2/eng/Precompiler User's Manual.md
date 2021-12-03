@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents** 
+
 
 - [Precompiler User’s Manual](#precompiler-users-manual)
   - [Preface](#preface)
@@ -93,8 +91,6 @@
     - [Table Information of the Example Programs](#table-information-of-the-example-programs)
   - [Appendix E. FAQ](#appendix-e-faq)
     - [Precompiler FAQ](#precompiler-faq)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -7887,6 +7883,352 @@ Success create function
 ------------------------------------------------------
 Success drop function
 ```
+
+### Using Array-Type Host Variables
+
+In the EXECUTE statement, when the parameter of the stored procedure is an array-type, it can be used by matching with an array-type host variable.
+
+The array-type parameter of storage procedures refers to the following.
+
+#### Example
+
+```
+CREATE OR REPLACE PACKAGE PSM_PKG
+AS
+TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
+TYPE PSM_ICOL IS TABLE OF INTEGER  INDEX BY INTEGER;
+TYPE PSM_LCOL IS TABLE OF BIGINT   INDEX BY INTEGER;
+TYPE PSM_RCOL IS TABLE OF REAL     INDEX BY INTEGER;
+TYPE PSM_DCOL IS TABLE OF DOUBLE   INDEX BY INTEGER;
+END;
+/
+ 
+CREATE OR REPLACE PROCEDURE PSM3_1(scol in PSM_PKG.PSM_SCOL,
+                                   icol in PSM_PKG.PSM_ICOL,
+                                   lcol in PSM_PKG.PSM_LCOL,
+                                   rcol in PSM_PKG.PSM_RCOL,
+                                   dcol in PSM_PKG.PSM_DCOL)
+AS
+i integer;
+BEGIN
+    EXECUTE IMMEDIATE 'TRUNCATE TABLE PSM_TABLE';
+    i := scol.first();
+    LOOP
+        IF i IS null
+            THEN
+            exit;
+        ELSE
+            INSERT INTO PSM_TABLE (SCOL, ICOL, LCOL, RCOL, DCOL)
+            VALUES (scol(i), icol(i), lcol(i), rcol(i), dcol(i));
+            i := scol.next(i);
+        END IF;
+    END LOOP;
+END;
+/
+```
+
+#### Array Types
+
+Depending on the store procedure, IN, OUT, INOUT, host variables, array-type host variables can be used.
+
+The following is the data types that can be used when the parameter of the procedure is array-type.
+
+| **C type** | **SQL type** |
+| ---------- | ------------ |
+| short      | SQL_SMALLINT |
+| int        | SQL_INTEGER  |
+| long       | SQL_BIGINT   |
+| float      | SQL_REAL     |
+| double     | SQL_DOUBLE   |
+
+#### Limitations
+
+When the parameter of a procedure is an array-type, C type and SQL type should be matched.
+
+##### An error occurs when C type and SQL type is not matched.
+
+Example)
+
+```
+create or replace package pkg1
+as
+type typ1 is table of smallint index by integer;
+end;
+/
+create or replace procedure proc1( a out pkg1.typ1 ) return integer
+as
+begin
+select * bulk collect into a from t1 order by c1;
+end;
+/
+ 
+EXEC SQL BEGIN DECLARE SECTION;
+char usr[10];                  
+char pwd[10];                  
+char conn_opt[1024];           
+double array1[array_size];                
+EXEC SQL END DECLARE SECTION;  
+ 
+EXEC SQL EXECUTE                        
+BEGIN                                   
+    proc1(:array1 out);
+END;                                    
+END-EXEC;     
+ 
+Result
+Error : [-331900] The apre type and psm array type do not match.
+```
+
+##### Structures cannot be used as a host variable.
+
+Example)
+
+```
+typedef struct argx { float c1; float c2; } argx;
+ 
+EXEC SQL BEGIN DECLARE SECTION;
+argx args2[10];
+EXEC SQL END DECLARE SECTION;  
+ 
+EXEC SQL EXECUTE     
+BEGIN 
+    proc1(:args2);
+END; 
+END-EXEC;
+```
+
+##### Two-dimensional array cannot be used as a host variable.
+
+Example)
+
+```
+EXEC SQL BEGIN DECLARE SECTION;
+float args2[10][10];
+EXEC SQL END DECLARE SECTION; 
+  
+EXEC SQL EXECUTE     
+BEGIN 
+    proc1(:args2);
+END; 
+END-EXEC;
+```
+
+#### Example
+
+The below demonstrates how to use a stored procedure which’s parameter is array-type.
+
+<schema.sql>
+
+```
+CREATE OR REPLACE PACKAGE PSM_PKG
+AS
+TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
+TYPE PSM_ICOL IS TABLE OF INTEGER  INDEX BY INTEGER;
+TYPE PSM_LCOL IS TABLE OF BIGINT   INDEX BY INTEGER;
+TYPE PSM_RCOL IS TABLE OF REAL     INDEX BY INTEGER;
+TYPE PSM_DCOL IS TABLE OF DOUBLE   INDEX BY INTEGER;
+END;
+/
+ 
+CREATE OR REPLACE PROCEDURE PSM3_1(scol in PSM_PKG.PSM_SCOL,
+                                   icol in PSM_PKG.PSM_ICOL,
+                                   lcol in PSM_PKG.PSM_LCOL,
+                                   rcol in PSM_PKG.PSM_RCOL,
+                                   dcol in PSM_PKG.PSM_DCOL)
+AS
+i integer;
+BEGIN
+    EXECUTE IMMEDIATE 'TRUNCATE TABLE PSM_TABLE';
+    i := scol.first();
+    LOOP
+        IF i IS null
+            THEN
+            exit;
+        ELSE
+            INSERT INTO PSM_TABLE (SCOL, ICOL, LCOL, RCOL, DCOL)
+            VALUES (scol(i), icol(i), lcol(i), rcol(i), dcol(i));
+            i := scol.next(i);
+        END IF;
+    END LOOP;
+END;
+/
+ 
+CREATE OR REPLACE PROCEDURE PSM4(scol out PSM_PKG.PSM_SCOL)
+AS
+BEGIN
+    scol(1) := 1;
+    scol(2) := 2;
+    scol(3) := null;
+    scol(4) := 3;
+    scol(5) := 4;
+END;
+/
+```
+
+\<Sample Program: psm3.sc>
+
+```
+/* declare host variables */
+EXEC SQL BEGIN DECLARE SECTION;
+char usr[10];
+char pwd[10];
+char conn_opt[1024];
+short    sCol[ARRAY_SIZE];
+int      iCol[ARRAY_SIZE];
+long     lCol[ARRAY_SIZE];
+float    fCol[ARRAY_SIZE];
+double   dCol[ARRAY_SIZE];
+EXEC SQL END DECLARE SECTION;
+ 
+for (i = 0; i < ARRAY_SIZE; i++ )
+{
+    sCol[i] = i + 1;
+    iCol[i] = i + 10;
+    lCol[i] = i + 100;
+    fCol[i] = i + 1.1;
+    dCol[i] = i + 1.01;
+}
+/* execute procedure */
+EXEC SQL EXECUTE
+BEGIN
+    PSM3_1(:sCol in,
+           :iCol in,
+           :lCol in,
+           :fCol in,
+           :dCol in);
+END;
+END-EXEC;
+ 
+```
+
+The following shows an example of a case where a null value is included in the OUT parameter result value.
+
+\<Sample Program: psm4.sc>
+
+```
+/* declare host variables */
+EXEC SQL BEGIN DECLARE SECTION;
+char usr[10];
+char pwd[10];
+char conn_opt[1024];
+short    sCol[ARRAY_SIZE];
+EXEC SQL END DECLARE SECTION;
+ 
+for (i = 0; i < ARRAY_SIZE; i++ )
+{
+    sCol[i] = 0;
+}
+/* execute procedure */
+EXEC SQL EXECUTE
+BEGIN
+    PSM4(:sCol out);
+END;
+END-EXEC;
+ 
+if( SQLCODE == (int)-331898)
+{
+    printf("sCol \n");
+    for(i=0; i < ARRAY_SIZE; i++)
+    {
+        if( APRE_SHORT_IS_NULL(sCol[i]) == true )
+        {
+            printf("NULL\n");
+        }
+        else
+        {
+            printf("%d\n", sCol[i]);
+        }
+    }
+}
+```
+
+#### Sample Programs
+
+**psm3.sc**
+
+This sample program can be found at $ALTIBASE_HOME/sample/APRE/psm3.sc
+
+```
+$ is -f schema/schema.sql
+
+$ make psm3
+
+$ ./psm3
+```
+
+**Result**
+
+```
+<SQL/PSM 3>
+
+\------------------------------------------------------------------
+
+[Execute Procedure]
+
+\------------------------------------------------------------------
+
+Success execute procedure PSM3_1
+
+\------------------------------------------------------------------
+
+[Execute Procedure]
+
+\------------------------------------------------------------------
+
+Success execute procedure PSM3_2
+
+sCol iCol lCol fCol dCol
+
+1 10 100 1.100000 1.010000
+
+2 11 101 2.100000 2.010000
+
+3 12 102 3.100000 3.010000
+
+4 13 103 4.100000 4.010000
+
+5 14 104 5.100000 5.010000
+```
+
+##### psm4.sc
+
+This sample program can be found at $ALTIBASE_HOME/sample/APRE/psm4.sc
+
+```
+$ is -f schema/schema.sql
+
+$ make psm4
+
+$ ./psm4
+```
+
+**Result**
+
+```
+<SQL/PSM 4>
+
+\------------------------------------------------------------------
+
+[Execute Procedure]
+
+\------------------------------------------------------------------
+
+Error : [-331898] The fetched result contains a NULL value. or Fetch column value is NULL.
+
+sCol
+
+1
+
+2
+
+NULL
+
+3
+
+4
+```
+
+ 
 
 ## 12. Applications with Multiple Database Connections
 
