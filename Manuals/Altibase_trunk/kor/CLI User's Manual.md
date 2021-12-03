@@ -10465,6 +10465,51 @@ SQLDescribeCol()을 호출하면 SQL type으로 SQL_DATE가 반환됐다.
 따라서 Altibase 5의 Altibase CLI를 사용할 때에는 ODBC 3.0의 타입 상수인
 SQL_TYPE_DATE, SQL_TYPE_TIME, SQL_TYPE_TIMESTAMP를 사용하기를 권장한다.
 
+#### SQL_NUMERIC_STRUCT
+
+이 타입 사용 시 좀 더 정확한 NUMERIC 데이터를 전달할 수 있다. 
+
+이 타입의 구조는 다음과 같다. 
+
+```
+typedef struct tagSQL_NUMERIC_STRUCT
+{
+	SQLCHAR		precision;
+	SQLSCHAR	scale;
+	SQLCHAR		sign;	/* 1=pos 0=neg */
+	SQLCHAR		val[SQL_MAX_NUMERIC_LEN];
+} SQL_NUMERIC_STRUCT;
+```
+
+SQLCHAR val의 경우 little endian byte order를 기반으로 데이터가 처리되며 이는 ODBC 표준을 준수한다.
+
+< ODBC 표준 문서중 >
+
+```
+/*
+      Set up the SQL_NUMERIC_STRUCT, NumStr, to hold "123.45".
+
+      First, we need to scale 123.45 to an integer: 12345
+      One way to switch the bytes is to convert 12345 to Hex:  0x3039
+      Since the least significant byte will be stored starting from the
+      leftmost byte, "0x3039" will be stored as "0x3930".
+
+      The precision and scale fields are not used for input to the driver,
+      only for output from the driver. The precision and scale will be set
+      in the application parameter descriptor later.
+*/ 
+
+NumStr.sign = 1;   /* 1 if positive, 2 if negative */ 
+
+memset (NumStr.val, 0, 16);
+NumStr.val [0] = 0x39;
+NumStr.val [1] = 0x30;
+```
+
+따라서 big endian OS를 사용하는경우에는 SQLCHAR val 셋팅시 주의가 필요하다.
+
+
+
 #### LOB
 
 ##### 데이터 타입

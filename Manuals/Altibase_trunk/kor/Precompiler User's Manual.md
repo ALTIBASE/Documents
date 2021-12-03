@@ -7,7 +7,7 @@
   - [1.C/C++ 전처리기 소개](#1cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0-%EC%86%8C%EA%B0%9C)
     - [C/C++ 전처리기](#cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0)
     - [명령행 옵션](#%EB%AA%85%EB%A0%B9%ED%96%89-%EC%98%B5%EC%85%98)
-    - [내장 SQL문을 이용한 프로그램 작성 순서 및 방법](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%88%9C%EC%84%9C-%EB%B0%8F-%EB%B0%A9%EB%B2%95)
+    - [내장 SQL문을 이용한 프로그램 작성_순서 및 방법](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%88%9C%EC%84%9C-%EB%B0%8F-%EB%B0%A9%EB%B2%95)
   - [2.호스트 변수와 지시자 변수](#2%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98)
     - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
     - [호스트 변수 분류](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%B6%84%EB%A5%98)
@@ -3272,6 +3272,33 @@ typedef struct tagSQL_NUMERIC_STRUCT
 } SQL_NUMERIC_STRUCT;
 ```
 
+SQLCHAR val의 경우 little endian byte order를 기반으로 데이터가 처리되며 이는 ODBC 표준을 준수한다.
+
+<ODBC 표준 문서 발췌>
+
+```
+/*
+      Set up the SQL_NUMERIC_STRUCT, NumStr, to hold "123.45".
+
+      First, we need to scale 123.45 to an integer: 12345
+      One way to switch the bytes is to convert 12345 to Hex:  0x3039
+      Since the least significant byte will be stored starting from the
+      leftmost byte, "0x3039" will be stored as "0x3930".
+
+      The precision and scale fields are not used for input to the driver,
+      only for output from the driver. The precision and scale will be set
+      in the application parameter descriptor later.
+*/ 
+
+NumStr.sign = 1;   /* 1 if positive, 2 if negative */ 
+
+memset (NumStr.val, 0, 16);
+NumStr.val [0] = 0x39;
+NumStr.val [1] = 0x30;
+```
+
+따라서 big endian OS를 사용하는경우에는 SQLCHAR val 셋팅시 주의가 필요하다.
+
 ##### 예제
 
 다음은 SQL_NUMERIC_STRUCT 타입의 사용 예를 보여준다.
@@ -3290,8 +3317,6 @@ int                  s_stock;
 SQL_NUMERIC_STRUCT   s_price;
 EXEC SQL END DECLARE SECTION;
 
-int s_price_val = 0;
-
 /* use scalar host variables */
 strcpy(s_gno, "F111100002");
 strcpy(s_gname, "XX-101");
@@ -3303,8 +3328,9 @@ memset(&s_price, 0, sizeof(s_price));
 s_price.precision = 4;
 s_price.scale = 1;
 s_price.sign = 1;
-s_price_val = 1234;
-memcpy(&s_price.val, &s_price_val, sizeof(int));
+/* set value 1234 to little endian */
+s_price.val[0] = 0xD2;
+s_price.val[1] = 0x04;
 
 printf("------------------------------------------------------------------\n");
 printf("[SQL_NUMERIC_STRUCT Insert]\n");
