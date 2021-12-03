@@ -5813,16 +5813,16 @@ Range partitioning is a method of partitioning an object based on a range of par
 
 The following operations are supported on partitions created by each partitioning method:
 
-| Operation | Partitions created by Range Partitioning | Partitions created by List Partitioning | Partitions created by Hash Partitioning |
-| --------- | ---------------------------------------- | --------------------------------------- | --------------------------------------- |
-| Alter     | ○                                        | ○                                       | ○                                       |
-| Add       | △ ( conditionally allowed )              | X                                       | ○                                       |
-| Coalesce  | X                                        | X                                       | ○                                       |
-| Drop      | ○                                        | ○                                       | X                                       |
-| Merge     | ○                                        | ○                                       | X                                       |
-| Rename    | ○                                        | ○                                       | ○                                       |
-| Split     | ○                                        | ○                                       | X                                       |
-| Truncate  | ○                                        | ○                                       | ○                                       |
+| Operation | Partitions created by Range Partitioning | Partitions created by List Partitioning | Partitions created by Hash Partitioning | **Partitions created by Range Partitioning using Hash** |
+| --------- | ---------------------------------------- | --------------------------------------- | --------------------------------------- | ------------------------------------------------------- |
+| Alter     | ○                                        | ○                                       | ○                                       | ○                                                       |
+| Add       | △ (conditionally allowed)                | X                                       | ○                                       | X                                                       |
+| Coalesce  | X                                        | X                                       | ○                                       | X                                                       |
+| Drop      | ○                                        | ○                                       | X                                       | ○                                                       |
+| Merge     | ○                                        | ○                                       | X                                       | ○                                                       |
+| Rename    | ○                                        | ○                                       | ○                                       | ○                                                       |
+| Split     | ○                                        | ○                                       | X                                       | ○                                                       |
+| Truncate  | ○                                        | ○                                       | ○                                       | ○                                                       |
 
 [Table 7-3] Operations Supported for Partitionss
 

@@ -7093,7 +7093,7 @@ PRIMARY KEY, UNIQUE 또는 LOCALUNIQUE 제약을 명시할 경우, 자동으로 
 
 *table_partitioning_clause*
 
-파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시 파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning), 해시를 사용한 범위 파티셔닝(range using hash partitioning) 방법으로 파티션드 테이블을 생성할 수 있다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
+파티션드 테이블을 생성하는 절이다. 범위 파티셔닝(range partitioning), 해시 파티셔닝(hash partitioning), 리스트 파티셔닝(list partitioning), 해시를 사용한 범위 파티셔닝(range partitioning using hash) 방법으로 파티션드 테이블을 생성할 수 있다. 파티션드 테이블을 생성할 때 *row_movement_clause*도 명시할 수 있다.
 
 *range_partitioning*
 
@@ -7716,7 +7716,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   LOB(image2) STORE AS ( TABLESPACE lob_data2 );
   ```
 
-- 해시를 사용한 범위 파티셔닝(range using hash partitioning)
+- 해시를 사용한 범위 파티셔닝(range partitioning using hash)
 
   <질의> product_id에 따라서 4개의 해시 값을 사용하여 범위 파티션으로 분할되는 테이블을 생성한다.
 

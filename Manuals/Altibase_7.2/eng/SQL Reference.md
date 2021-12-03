@@ -1,4 +1,4 @@
-**dTable of Contents**  
+
 
 - [SQL Reference](#sql-reference)
   - [Preface](#preface)
@@ -1983,7 +1983,7 @@ This hint selects a join method from among the hints excluding the SORT hint.
 
 #### PARALLEL
 
-This hint specifies to execute queries in parallel when scanning tables. 
+This hint specifies to execute queries in parallel when scanning normal tables and partitioned tables. 
 
 - NOPARALLEL: Does not execute in parallel
 - PARALLEL integer: Executes as many threads in parallel as specified for integer
@@ -3289,16 +3289,16 @@ The ALTER TABLE statement can modify the attributes of partitioned tables. The c
 
 The following table shows whether each statement can be used with range-, list- and hash-partitioned tables.
 
-|          | Range-Partitioned Tables | List-Partitioned Tables | Hash-Partitioned Tables |
-| -------- | ------------------------ | ----------------------- | ----------------------- |
-| ALTER    | ○                        | ○                       | ○                       |
-| ADD      | X                        | X                       | ○                       |
-| COALESCE | X                        | X                       | ○                       |
-| DROP     | ○                        | ○                       | X                       |
-| MERGE    | ○                        | ○                       | X                       |
-| RENAME   | ○                        | ○                       | ○                       |
-| SLIP     | ○                        | ○                       | X                       |
-| TRUNCATE | ○                        | ○                       | ○                       |
+|          | Range-Partitioned Tables | List-Partitioned Tables | Hash-Partitioned Tables | Hash using range-partitioned Tables |
+| -------- | :----------------------: | :---------------------: | :---------------------: | :---------------------------------: |
+| ALTER    |            ○             |            ○            |            ○            |                  ○                  |
+| ADD      |     △ (conditional)      |            X            |            ○            |                  X                  |
+| COALESCE |            X             |            X            |            ○            |                  X                  |
+| DROP     |            ○             |            ○            |            X            |                  ○                  |
+| MERGE    |            ○             |            ○            |            X            |                  ○                  |
+| RENAME   |            ○             |            ○            |            ○            |                  ○                  |
+| SLIP     |            ○             |            ○            |            X            |                  ○                  |
+| TRUNCATE |            ○             |            ○            |            ○            |                  ○                  |
 
 [Table 3-1] Operations Supported for Use with Different Partitioning Methods
 
@@ -3345,7 +3345,18 @@ This is used to set parameters for managing extents in segments.
 
 *add_table_partition*
 
-This clause can add a partition into a partitioned table and it can be also used in hash-partitioned tables. The local indexes are automatically created in added partitions as well if the local indexes are already created in the existing partitions. At this point, names are automatically determined by the system, and the indexes are stored into tablespace where the newly added partitions located.
+This clause can add a partition into a partitioned table. It can be only used in hash-partitioned tables and range-partitioned tables where default partition is omitted.
+
+partition_spec clause can only be used in hash-partitioned tables.
+
+partition_range_clause can only be used in range-partitioned tables and it adds a partition to the last range of the table. Unlike SPLIT partition operation the data is not transferred, so it ensures the concurrency of DML statements.
+
+The local indexes are automatically created in added partitions as well if the local indexes are already created in the existing partitions. At this point, names are automatically determined by the system, and the indexes are stored into tablespace where the newly added partitions located.
+
+> Restriction
+>
+> - This clause cannot add default partition of range-partitioned table.
+> - This clause cannot add partition in the middle of the range-partitioned table. The user must use SPLIT partition operation in this case.
 
 *partition_spec*
 
@@ -6634,1034 +6645,6 @@ MY_DEPT.MEMBER
 
 
 
-### CREATE TABLE
-
-#### Syntax
-
-**create_table ::=**
-
-![CREATE_TABLE_2](media/SQL/CREATE_TABLE_2.gif)
-
-[table_constraint
-::=](#table_constraint), [temporary_attributes_clause
-::=](#temporary_attributes_clause),
-[table_partitioning_clause](#table_partitioning_clause), [access_mode_clause
-::=](#access_mode_clause_CREATETALBE), [physical_attributes_clause
-::=](#create_table_physical_attributes_clause), [log_compression_clause
-::=](#log_compression_clause), [logging_clause ::=](#logging_clause),
-[parallel_clause::=](#parallel_clause), [table_compression_clause
-::=](#table_compression_clause), [lob_column_properties
-::=](#lob_column_properties)
-
-**column_definition ::=**
-
-![column_definition_image113](media/SQL/column_definition_image113.gif)
-
-**encrypt_clause::=**
-
-![encrypt_clause](media/SQL/encrypt_clause.gif)
-
-**variable_clause::=**
-
-![variable_clause](media/SQL/variable_clause.gif)
-
-**in_row_clause::=**
-
-![in_row_clause](media/SQL/in_row_clause.gif)
-
-**default_clause::=**
-
-![default_clause](media/SQL/default_clause.gif)
-
-**column_constraint ::=**
-
-![column_constraint_image114](media/SQL/column_constraint_image114.gif)
-
-**unique_clause ::=**
-
-![unique_clause](media/SQL/unique_clause.gif)
-
-**unique_specification ::=**
-
-
-
-![unique_specification](media/SQL/unique_specification.gif)
-
-
-
-
-
-**sort_order_clause ::=**
-
-![sort_order_clause](media/SQL/sort_order_clause.gif)
-
-**directkey_clause ::=**
-
-![directkey_clause](media/SQL/directkey_clause.gif)
-
-**using_index_clause ::=**
-
-![using_index_clause_image117](media/SQL/using_index_clause_image117.gif)
-
-**index_attribute_clause ::=**
-
-![index_attribute_clause_image118](media/SQL/index_attribute_clause_image118.gif)
-
-[memory_index_attributes ::=](#memory_index_attributes), [disk_index_attributes
-::=](#disk_index_attributes)
-
-**references_clause::=**
-
-![references_clause](media/SQL/references_clause.gif)
-
-**check_clause ::=**
-
-![check_clause](media/SQL/check_clause.gif)
-
-<a name="table_constraint"><a/>
-
-**table_constraint ::=**
-
-![table_constraint](media/SQL/table_constraint.gif)
-
-**table_unique_clause ::=**
-
-![table_unique_clause](media/SQL/table_unique_clause.gif)
-
-**referential_constraint ::=**
-
-![referential_constraint](media/SQL/referential_constraint.gif)
-
-[references_clause ::=](#references_clause)
-
-<a name="temporary_attributes_clause"><a/>
-
-**temporary_attributes_clause ::=**
-
-![temporary_attributes_clause](media/SQL/temporary_attributes_clause.gif)
-
-
-
-<a name="table_partitioning_clause"><a/>
-
-**table_partitioning_clause ::=**
-
-![table_partitioning_clause_image123](media/SQL/table_partitioning_clause_image123.gif)
-
-**range_partitioning ::=**
-
-![range_partitioning_image124](media/SQL/range_partitioning_image124.gif)
-
-**partition_default_clause ::=**
-
-![partition_default](media/SQL/partition_default.gif)
-
-<a name="table_partition_description"><a/>
-
-**table_partition_description ::=**
-
-![TABLE_PARTITION_DESCRIPTION_2](media/SQL/TABLE_PARTITION_DESCRIPTION_2.gif)
-
-[lob_column_properties ::=](#lob_column_properties)*,* [access_mode_clause
-::=](#access_mode_clause_CREATETALBE)
-
-**partition_range_clause ::=**
-
-![partition_range_clause_image126](media/SQL/partition_range_clause_image126.gif)
-
-[table_partition_description ::=](#table_partition_description)
-
-
-
-**hash_partitioning ::=**
-
-![hash_paritioning_image126_1](media/SQL/hash_paritioning_image126_1.gif)
-
-[table_partition_description ::=](#table_partition_description)
-
-
-
-
-
-**list_partitioning ::=**
-
-![list_partitioning_image127](media/SQL/list_partitioning_image127.gif)
-
-[partition_default_clause ::=](#partition_default_clause)
-
-**partition_list_clause ::=**
-
-
-
-![table_list_clause_image128](media/SQL/table_list_clause_image128.gif)
-
-
-
-<a name="row_movement_clause"><a/>
-
-**row_movement_clause ::=**
-
-![row_movement_clause](media/SQL/row_movement_clause.gif)
-
-
-
-<a name="access_mode_clause_CREATETALBE)"><a/>
-
-**access_mode_clause ::=**
-
-![ACCESS_MODE_CLAUSE_](media/SQL/ACCESS_MODE_CLAUSE_.gif)
-
-<a name="tablespace_clause"><a/>
-
-**tablespace_clause ::=**
-
-![tablespace_clause](media/SQL/tablespace_clause.gif)
-
-<a name="physical_attributes_clause"><a/>
-
-<a name="create_table_physical_attributes_clause"><a/>
-
-**physical_attributes_clause ::=**
-
-![physical_attributes_clause_image130_1](media/SQL/physical_attributes_clause_image130_1.gif)
-
-**storage_clause ::=**
-
-![storage_clause](media/SQL/storage_clause.gif)
-
-<a name="log_compression_clause"><a/>
-
-**log_compression_clause ::=**
-
-![log_compression_clause_image130_2](media/SQL/log_compression_clause_image130_2.gif)
-
-
-
-<a name="logging_clause"><a/>
-
-**logging_clause ::=**
-
-![logging_clause](media/SQL/logging_clause.gif)
-
-<a name="parallel_clause"><a/>
-
-**parallel_clause::=**
-
-![PARALLEL_CLAUSE](media/SQL/PARALLEL_CLAUSE.gif)
-
-<a name="table_compression_clause"><a/>
-
-**table_compression_clause ::=**
-
-![table_compression](media/SQL/table_compression.gif)
-
-<a name="lob_column_properties"><a/>
-
-**lob_column_properties ::=**
-
-![lob_column_properties_image133](media/SQL/lob_column_properties_image133.gif)
-
-**LOB_storage_clause ::=**
-
-![lob_storage_clause_image134](media/SQL/lob_storage_clause_image134.gif)
-
-**lob_attributes ::=**
-
-![lob_attribute](media/SQL/lob_attribute.gif)
-
-#### Prerequisites 
-
-At least one of the following conditions must be met: 
-
-- The SYS user
-- Users have the CREATE TABLE or CREATE ANY TABLE system privilege in order to create table in their schema 
-- Users have the CREATE ANY TABLE system privilege in order to create table in another user's schema.
-
-#### Description
-
-This command is used to create a new table with the specified name. 
-
-*[GLOBAL] TEMPORARY*
-
-[GLOBAL] TEMPORARY specifies the table as a temporary table. There is no difference whether or not GLOBAL is specified; it can be omitted. Table definitions created in this manner are visible to all sessions; however, temporary table data is private to the session that inserts data into the table. 
-
-When the user first creates a temporary table, only meta data of the table is stored in the data dictionary and space for table data is not allocated; table segment space is allocated when the first DML statement is operated on the table. Temporary table definitions persist in the database as do regular table definitions; however, table segments for temporary tables and all temporary table data are session-specific or transaction-specific. With the ON COMMIT keyword, the user can specify whether table segments and data are session-level or transaction-level. For more detailed information, refer to the temporary_attributes_clause below. 
-
-For session-specific temporary tables, DDL operations(ALTER TABLE, DROP TABLE, CREATE INDEX, etc) are permitted only if a session is not bound to the temporary table. For transaction-specific temporary tables, DDL operations are permitted, regardless of whether or not a transaction is bound to the temporary table. However, Altibase internally commits before operating DDL statements; therefore, table data disappears after DDL statements are operated on temporary tables.
-
-- Restriction on temporary tables:
-  - Partitioning is impossible for temporary tables.
-  - Foreign keys cannot be specified for temporary tables.
-  - Only volatile tablespace can be specified for TABLESPACE of the lob_storage_clause for temporary tables.
-  - Temporary tables can only be stored on volatile tablespace.
-  - Distributed transactions are not supported for temporary tables.
-
-*user_name*
-
-This is used to set the owner of the table. If it is omitted, Altibase will create the table in the schema of the user connected via the current session.
-
-*tbl_name*
-
-This is used to specify the name of the table to be created. Refer to "[Rules for Object Names](#object_name)" for more information on specifying names.
-
-*column_definition*
-
-- DEFAULT  
-  If no DEFAULT clause is specified for a column, the initial value for each row in the column is NULL.
-- TIMESTAMP  
-  A TIMESTAMP column is handled like other data types in many respects. When the data type of a column is specified as TIMESTAMP in a CREATE TABLE statement, a TIMESTAMP value having a size of 8 bytes is generated internally. However, because the value of a TIMESTAMP column is determined by the system, no DEFAULT value can be expressly specified. Furthermore, only one TIMESTAMP column can be created for one table.
-
-*column_constraint*
-
-This is used to specify the constraint for a column when a new table is created. A constraint name can be expressly specified by the user. The LOCALUNIQUE constraint is intended for use with partitioned tables.
-
-- PRIMARY KEY
-
-  The value(s) on which a primary key is based must be unique in the table. Additionally, none of the columns which a primary key is based can contain NULL values. Only one primary key can be defined in each table. A primary key can be created on the basis of up to 32 columns. 
-  
-- UNIQUE
-
-  A UNIQUE constraint prohibits multiple rows from having the same value in the same column (or combination of columns). However, NULL values are allowed. 
-  
-
-A unique constraint and a primary key constraint cannot both be defined for the same column or combination of columns in one table. Additionally, only one unique constraint can be defined for a column or combination of columns. However, these limitations do not pertain to other columns or combinations of columns within the same table. A unique constraint can be created for a combination of up to 32 columns. 
-
-- LOCALUNIQUE
-
-  This keyword specifies that each local index must satisfy the UNIQUE constraint.
-
-- (NOT) NULL
-
-  This keyword specifies that the corresponding column can(cannot) contain NULL values.
-
-- CHECK
-
-  This clause specifies an integrity rule that applies to the target column. Only the target column can be referenced within the condition of the column_constraint clause. The following limitations concern the conditions of CHECK constraints:
-  
-  - Subqueries, sequences, all pseudo columns, such as LEVEL, ROWNUM, etc., and non-deterministic SQL functions, such as SYSDATE, USER_ID, etc., cannot be included. 
-  - The PRIOR operator cannot be used. 
-  - LOB type data cannot be used.
-  
-- Referential integrity
-
-- TIMESTAMP
-
-
-
-*directkey_clause*
-
-Creates a direct key index. For more detailed information about direct key indexes, please refer to CREATE INDEX.
-
-*check_clause*
-
-This clause specifies the condition that the value for each record of the table must satisfy. The results of the condition must be evaluated to either TRUE, FALSE or NULL. 
-
-This clause is valid as the column constraint or the table constraint.
-
-*table_constraint*
-
-This is used to specify the constraint for combination of columns or one column. The following table constraints exist:
-
-- PRIMARY KEY
-- UNIQUE
-- LOCALUNIQUE
-- CHECK
-- Referential integrity
-
-*using_index_clause*
-
-This is used to specify the tablespace in which to store an index that is created to support a constraint. 
-
-If any of the PRIMARY KEY, UNIQUE or LOCALUNIQUE constraints are specified, the tablespace in which to store the index of the local index for each index partition can be specified. For more information, please refer to *index_partitioning_clause* in the description of the CREATE INDEX statement
-
-*references_clause*
-
-This clause is used to define a foreign key. The referenced key, that is, the key that resides in another table and is referenced by a foreign key, must either have the UNIQUE constraint applied to it, or be the PRIMARY KEY for the table in which it resides. If the columns of a referenced key are not specified, the primary key for that table is automatically taken as the referenced key
-
-- NO ACTION
-
-  This is the default behavior for checking referential integrity. 
-  
-  Normally, when an INSERT, UPDATE, or DELETE operation is performed on a so-called “parent table”, that is, a table that contains a referenced key, the operation is performed only after an integrity check is performed on any so-called “child tables”, that is, tables containing foreign keys that reference the referenced key. The NO ACTION option prevents parent rows from being altered if integrity checking fails, and outputs an error instead. 
-  
-
-In this example, when an attempt is made to delete a department from the departments table, if the department code is referenced by a record in the employees table, the delete attempt will fail and an error will be raised.
-
-  ```
-  CREATE TABLE employees (
-ENO INTEGER PRIMARY KEY, 
-  DNO INTEGER, 
-  NAME CHAR(10), 
-  FOREIGN KEY(DNO) REFERENCES 
-  departments(DNO) ON DELETE NO ACTION ); 
-  ```
-
-
-
-
-- ON DELETE CASCADE
-
-  This option stipulates that if a row in the parent table is deleted, all rows in child tables that have foreign keys that reference this row will also be deleted.
-  
-
-For example, if the table employees is created as follows, when a department from the table departments is tried to be deleted, all rows referencing this department number in the table employees are also deleted.
-
-  ```
-  CREATE TABLE employees (
-ENO INTEGER PRIMARY KEY, 
-  DNO INTEGER, 
-  NAME CHAR(10), 
-  FOREIGN KEY(DNO) REFERENCES 
-  departments (DNO) ON DELETE CASCADE ); 
-  ```
-
-
-- ON DELETE SET NULL
-
-  This option specifies for every foreign key column value in the child table referencing a row in the parent table to be set to NULL, if the given row is deleted. 
-  
-  In order to enforce the referential integrity of this option, the target column must be nullable. 
-
-For example, consider the case where the user creates the table employees that references the table departments and then deletes a certain department from the table departments. All the column values of the table employees referencing the deleted department number will be modified to NULL. 
-
-  ```
-CREATE TABLE employees (
-  ENO INTEGER PRIMARY KEY, 
-  DNO SMALLINT, 
-  NAME CHAR(10), 
-  CONSTRAINT dno_fk FOREIGN KEY (dno) REFERENCES 
-  departments (dno) ON DELETE SET NULL ); 
-  ```
-
-
-
-
-*MAXROWS*
-
-This is used to specify the maximum number of records that can be entered into a table. If an attempt is made to insert records such that the total number of records would be more than that specified using MAXROWS, the insert attempt will fail and an error will be returned. The MAXROWS clause cannot be specified with the table_partitioning_clause clause.
-
-*temporary_attributes_clause*
-
-This clause specifies whether the temporary table is transaction-specific or session-specific. The following two options are available:
-
-*ON COMMIT DELETE ROWS*
-
-This creates a transaction-specific temporary table. The transaction that first inserts data into the temporary table is bound to the temporary table. Transaction-level binding is unbound with the execution of the COMMIT or ROLLBACK statement. If the transaction is committed, Altibase truncates the temporary table.
-
-*ON COMMIT PRESERVE ROWS*
-
-This creates a session-specific temporary table. A session is bound to the temporary table when data is first inserted into the temporary table in the session. This binding is unbound when the session is terminated or TRUNCATE is operated on the table in the session. If the user terminates the session, Altibase truncates the session bound temporary table.
-
-*table_partitioning_clause*
-
-This is used to create a partitioned table. A partitioned table can be range-partitioned, hash-partitioned or list-partitioned. row_movement_clause can also be specified when a partitioned table is created.
-
-*range_partitioning*
-
-This specifies that the table will be partitioned based on ranges of partition key values. It is primarily used with the DATE data type. Because the table is partitioned based on user-specified values, there is no guarantee that the data will be uniformly distributed among the partitions. The range of each partition is determined by setting the maximum value of its range. 
-
-Any values exceeding all of the specified ranges, along with any NULL values, will be saved in the default partition. The default partition clause cannot be omitted. A partition key can be defined on the basis of multiple columns.
-
-*table_partition_description*
-
-The tablespace for a partition can be specified. Additionally, if the table contains one or more LOB columns, the attributes for each LOB column can be specified separately. The data access mode for the partition can also be set. 
-
-If the tablespace statement is omitted, the partition will be stored in the default tablespace for the table. 
-
-Additionally, if the tablespace in which to store a LOB column is not specified, the LOB data will be stored in the tablespace for the partition. 
-
-In the following example, the default tablespace for the user is tbs_05.
-
-```
-CREATE TABLE print_media_demo
-( 
-	product_id INTEGER,
-	ad_photo BLOB,
-	ad_print BLOB,
-	ad_composite BLOB
-)
-PARTITION BY RANGE (product_id)
-(
-	PARTITION p1 VALUES LESS THAN (3000) TABLESPACE tbs_01 
-	LOB (ad_photo) STORE AS (TABLESPACE tbs_02 ),
-	PARTITION p2 VALUES DEFAULT 
-	LOB (ad_composite) STORE AS (TABLESPACE tbs_03)
-) TABLESPACE tbs_04;
-```
-
-
-
-Partition p1 will be stored in the tbs_01 tablespace because this was expressly specified. However, the ad_photo column for this partition will be stored in the tbs_02 tablespace. Because no tablespace was specified for partition p2, which is the default partition, it will be stored in tablespace tbs_04, where table T1 resides. If no tablespace for the table is specified either, it will be stored in the default tablespace, which is tbs_05. 
-
-This is illustrated in the following diagram:
-
-
-
-![create_table_lob](media/SQL/create_table_lob.gif)
-
-
-
-*partition_range_clause*
-
-This is used to specify the noninclusive upper limit for a range partition. This value must not be set to the same value as that of any other partition.
-
-*hash_partitioning*
-
-This specifies that the table will be partitioned based on hash values corresponding to partition key values. This partitioning scheme is suitable for situations in which the data must be distributed uniformly among the partitions. A partition key can be defined on the basis of multiple columns.
-
-*list_partitioning*
-
-This specifies that the table will be partitioned based on sets of values. The default partition cannot be omitted because any values not specified as belonging to another partition are automatically included in this partition. 
-
-When a new partition is defined, the values specified as belonging to that partition are removed from the default partition. This is because values cannot be specified as belonging to more than one partition. Additionally, the partition key for a list-partitioned table can be defined only on the basis of a single column.
-
-*partition_list_clause*
-
-The list that defines each list partition must comprise at least one value. A value in one list must not be present in any other list.
-
-*row_movement_clause*
-
-When a record in a partitioned table is updated in a way that changes the data in a column on which the partition key is defined such that the record (row) must be moved to another partition, this clause determines whether to move the record automatically or raise an error. If this clause is omitted, the DISABLE ROW MOVEMENT option (i.e. raise an error) is set by default.
-
-*CREATE TABLE … AS SELECT*
-
-When creating a table, to copy column attributes and data from other tables into the new table, use the CREATE TABLE ... AS SELECT statement. The number of columns in the new table cannot be set differently from the number of columns retrieved by the AS SELECT clause. Additionally, the data types of the new columns cannot be expressly set, as they are set the same as the original columns from which the data are retrieved.
-
-If no column names are specified for the new table, the names of the original columns will be used as the column names for the new table. If the name of the search target is in the form of an expression, an alias must be provided. This alias will becomes the name of the column in the new table.
-
-*access_mode_clause*
-
-This sets the data access mode. A mode can be chosen among Read-Only, Read/Write and Read/Append modes and on omission, the Read/Write mode is set by default.
-
-> Note: Even if the data access mode for the table or partition is set to ‘Read-Only’ or ‘Read/Append’, copying data through replication, TRUNCATE statement execution, and LOB column alteration are allowed.
-
-*tablespace_clause*
-
-This clause is used to set the tablespace in which to save the table. 
-
-If this clause is omitted, the table will be saved in the DEFAULT TABLESPACE of the user in whose schema the table is being created. The user's DEFAULT TABLESPACE was specified when the user was created. If no DEFAULT TABLESPACE has been specified for the user, the table will be created in the SYSTEM MEMORY DEFAULT TABLESPACE.
-
-If a UNIQUE or PRIMARY KEY constraint is specified in the CREATE TABLE statement, the index supporting the constraint will be saved in the tablespace in which the table is saved.
-
-*physical_attributes_clause*
-
-This clause is used to specify the PCTFREE, PCTUSED, INITRANS, and MAXTRANS. If this clause is specified for a partitioned table, the PCTFREE and PCTUSED values will apply to all of the partitions in the table.
-
-- PCTFREE Clause  
-  This is used to specify the amount of free space that is reserved for use in updating records that have already been saved in a page. Additional records can only be saved into the portion of the page that is not reserved in this way. This value represents the percentage of free space in the page.  
-  For example, for a table in which PCTFREE is set to 20, records can only be inserted into 80% of the space in each page, and the remaining 20% of the page is reserved for use in updating existing records. This value is only meaningful for disk-based tables.  
-  This option must be set to an integer value ranging from 0 to 99, representing the percentage. If this value is not set, the default PCTFREE value is 10. This option only applies to pages that have been assigned to tables.
-- PCTUSED Clause  
-  This is the threshold below which the amount of used space in a page must decrease in order for the page to return to the state in which records can be saved in it again. When the amount of free space in a page falls below the percentage specified in PCTFREE, it becomes impossible to save new records in the page. At this time it is permissible only to update and delete existing records. Once subsequent update or delete operations reduce the percentage of used space in the page below the threshold specified by PCTUSED, it becomes possible to save new records in the page again.  
-  For example, assuming that PCTUSED has been set to 40, once the percentage of unused space in a page has decreased below the limit specified using PCTFREE (i.e. when the percentage of used space increases beyond 100 - PCTFREE), no more records are saved in that page until the percentage of used space falls to 39%. In other words, new records can be saved in the page only after the percentage of used space falls below 40%. This option only applies to disk-based tables.  
-  This option must be set to an integer value ranging from 0 to 99, representing the percentage. If this value is not set, the default PCTUSED value is 40. This option only applies to pages that have been assigned to tables.
-- INITRANS Clause  
-  This clause is used to set the initial number of TTS (Touched Transaction Slots). The default value is 2.
-- MAXTRANS Clause  
-  This clause is used to set the maximum number of TTS (Touched Transaction Slots), to which the number of TTS can increase. The default value is 120.
-
-> Note: 
->
-> PCTFREE and PCTUSED are used together to optimize performance as follows. In this example, assume that PCTFREE has been set to 20 and PCTUSED to 40. 
-> 
->20% of each page that is allocated to a table is reserved for use in updating existing records. New records can only be saved in the page until the remaining 80% of the space in the page has been filled. 
-> 
-> At this point, no more new records can be saved in the page. The only operations that can be performed are update and delete operations on records that already exist in the page. 20% of the page has been reserved for update operation. If enough records are deleted for the amount of used space in the page to fall below 40%, it becomes possible to save new records in the page again. 
->
-> The values of PCTFREE and PCTUSED are used in this way to determine in a cyclical manner how the space in pages is used.
-
-*storage_clause*
-
-This clause is used to set storage parameters for managin extents in segments. 
-
-- INITEXTENTS Clause  
-  This is used to set the number of extents that are initially allocated when a segment is created. If this is not specified, one extent is allocated by default.
-- NEXTEXTENTS Clause  
-  This is used to set the number of extents that are added to a segment every time the segment is increased in size. If this is not specified, the default value is 1.
-- MINEXTENTS Clause  
-  This is used to set the minimum number of extents in a segment. If this is not specified, the default value is 1.
-- MAXEXTENTS Clause  
-  This is used to set the maximum number of extents in a segment. If this is not specified, there is no upper limit.
-
-*LOB_storage_clause*
-
-In a disk table, LOB column data can be stored in a tablespace other than that in which the table containing the LOB column is stored. However, in a memory table, LOB column data cannot be stored separately from the rest of the table; that is, they can only be stored in the same tablespace as the table.
-
-*parallel_clause*
-
-This is used to specify the number of threads which execute parallel queries. Omitting this clause is equivalent to specifying NOPARALLEL.
-
-- NOPARALLEL : Does not execute queries in parallel.
-- PARALLEL *integer* : Specification of integer indicates the number of threads to execute queries in parallel. A value from 1~65535 is valid for specification. PARALLEL 1 is equivalent to NOPARALLEL
-
-Altibase currently supports only the following types of parallel queries.
-
-- Parallel queries which scan tables.
-- Parallel queries with HASH, SORT, GRAG nodes in their execution plans. For such nodes, however, only one parallel worker thread is created per node. 
-
-*table_compression_clause*
-
-This specifies each of the names of the columns to be compressed with the use of commas. The maximum number of rows that can be inserted to the dictionary table, which is automatically generated for each compressed column, is specified in the MAXROWS clause. On omission, the default value is the same as for normal tables, 2<sup>64</sup>-1.
-
-The execution of table creation and data insertion in one statement by specifying this clause and subquery in the CREATE TABLE statement is not supported. 
-
-The following table shows the data types valid for compression and the minimum size for each type
-
-| Data Type                | Minimum Size |
-| ------------------------ | ------------ |
-| CHAR, VARCHAR, BYTE      | 6            |
-| NCHAR, NVARCHAR (UTF-8)  | 6            |
-| NCHAR, NVARCHAR (UTF-16) | 3            |
-| NIBBLE                   | 13           |
-| BIT, VARBIT              | 25           |
-| DATE                     |              |
-
-#### Consideration
-
-What follows are general considerations to keep in mind when creating tables:
-
-- If columns are created larger than their maximum allowable size or smaller than their minimum allowable size, an error occurs. The maximum and minimum sizes vary depending on the data type. 
-- The maximum number of columns in one table is 1024. 
-- A maximum of one primary key can be defined for a table. 
-- For a foreign key constraint, the foreign key and the referenced key must have the same 
-  number of columns. For a foreign key constraint, corresponding columns in the foreign key and the referenced key must have the same data types.
-- The total number of indexes, primary keys and unique keys cannot exceed 1024.
-- When executing a CREATE TABLE ... AS SELECT statement, if the names of the columns to create are specified, the number column names must be the same as the number of columns retrieved using the AS SELECT clause.
-- When executing a CREATE TABLE ... AS SELECT statement, when the column name is not specified in the CREATE TABLE statement and the name of the column to be retrieved is provided in the form of an expression, an alias name must be specified for the purpose of determining the name of the column in the new table.
-- The MAXROWS clause is not supported for use with partitioned tables. 
-- For range- and hash-partitioned tables, up to 32 columns can be specified as partition key columns. (This is the same as the upper limit on the number of index columns when an index is created.) 
-- In the event of a system or media fault, the consistency of an index that was created using the NOLOGGING (FORCE/NOFORCE) option cannot be guaranteed. After an index becomes inconsistent, the error message indicating that the index is inconsistent will be raised when the index is accessed. To fix this error, locate the inconsistent index, drop it, and create it again. The consistency of an index can be checked using the V$DISK_BTREE_HEADER performance view. 
-- Just as when executing the CREATE INDEX statement, the tablespace in which a local partitioned index is saved cannot be specified. 
-- The CHECK constraint cannot be specified for the CREATE TABLE … AS SELECT statement. 
-- Columns with the PRIMARY KEY, UNIQUE and TIME STAMP constraints cannot be compressed.
-
-#### Examples
-
-##### Creating Tables
-
-Create the following tables: 
-
-- Table name: employees  
-  Columns: employee number, employee first and last name, position, telephone number, department number, salary, gender, birthday, hiring date, and status.
-  
-```
-  iSQL> CREATE TABLE employees(
-    eno INTEGER PRIMARY KEY,
-    e_lastname CHAR(20) NOT NULL, 
-    e_firstname CHAR(20) NOT NULL,
-    emp_job VARCHAR(15),
-    emp_tel CHAR(15),
-    dno SMALLINT,
-    salary NUMBER(10,2) DEFAULT 0,
-    sex CHAR(1) CHECK(sex IN ('M', 'F')),
-    birth CHAR(6),
-    join_date DATE,
-    status CHAR(1) DEFAULT 'H');
-  Create success.
-```
-
-
-
-
-- Table name: orders  
-  Columns: order number, order date, salesperson, customer number, product number, quantity, estimated delivery date, and status.
-  
-```
-  iSQL> CREATE TABLE orders(
-    ono BIGINT,
-    order_date DATE,
-    eno INTEGER NOT NULL,
-    cno BIGINT NOT NULL,
-    gno CHAR(10) NOT NULL,
-    qty INTEGER DEFAULT 1,
-    arrival_date DATE,
-    processing CHAR(1) DEFAULT '0', PRIMARY KEY(ono, order_date));
-  Create success.
-```
-
-
-
-
-- Using CREATE TABLE … AS SELECT   
-  Create a new table called dept_1002 and copy the column attributes and data that meet the condition shown from the employees table.
-  
-```
-  iSQL> CREATE TABLE dept_1002
-    AS SELECT * FROM employees
-    WHERE dno = 1002;
-  Create success.
-```
-
-
-
-
-- Create a table that has a TIMESTAMP type column.
-
-  ```
-  iSQL> CREATE TABLE tbl_timestamp(
-  i1 TIMESTAMP CONSTRAINT const2 PRIMARY KEY, 
-  i2 INTEGER,
-  i3 DATE,
-  i4 Byte(8));
-  Create success.
-  ```
-
-  The attributes of the table tbl_timestamp are as shown below. 
-
-  ```
-  [ TABLESPACE : SYS_TBS_MEM_DATA ]
-  [ ATTRIBUTE ]                                                         
-  ------------------------------------------------------------------------------
-  NAME                                     TYPE                        IS NULL 
-  ------------------------------------------------------------------------------
-  I1                                       TIMESTAMP       FIXED       NOT NULL
-  I2                                       INTEGER         FIXED       
-  I3                                       DATE            FIXED       
-  I4                                       BYTE(8)         FIXED       
-  [ INDEX ]                                                       
-  ------------------------------------------------------------------------------
-  NAME                                     TYPE     IS UNIQUE     COLUMN
-  ------------------------------------------------------------------------------
-  CONST2                                   BTREE    UNIQUE        I1 ASC
-  [ PRIMARY KEY ]                                                 
-  ------------------------------------------------------------------------------
-  I1
-  ```
-
-  The way to distinguish between i4, which explicitly declares the Byte (8) data type, and i1, which is a TIMESTAMP data type column, is to check whether the colum type is TIMESTAMP by querying the SYS_CONSTRAINTS_ and SYS_CONSTRAINT_COLUMNs_ meta tables.
-  
-  > Note: If the DEFAULT keyword is used for a timestamp column when performing an INSERT or UPDATE operation, the system time at which the operation is performed will be written to the TIMESTAMP column.
-
-  ```
-  iSQL> INSERT INTO tbl_timestamp VALUES(DEFAULT, 2, '02-FEB-01', Byte'A1111002');
-  1 row inserted.
-  iSQL> UPDATE tbl_timestamp SET i1 = DEFAULT, i2 = 102, i3 = '02-FEB-02', i4 = Byte'B1111002' WHERE i2 = 2;
-  1 row updated.
-  iSQL> SELECT * FROM tbl_timestamp;
-  I1                I2          I3           I4
-  ------------------------------------------------------------------
-  4E3778C900037AE9  102         02-FEB-2002  B111100200000000
-  1 row selected.
-  ```
-  
-  Similarly, if the user does not specify a TIMESTAMP value when performing an INSERT or UPDATE operation on a TIMESTAMP column, the system time at which the operation is performed will be used to perform the INSERT or UPDATE operation.
-  
-```
-  iSQL> INSERT INTO tbl_timestamp(i2, i3, i4) VALUES(4, '02-APR-01', Byte'C1111002');
-  1 row inserted.
-iSQL> UPDATE tbl_timestamp SET i2=104, i3='02-APR-02', i4=BYTE'D1111002' WHERE i2=4;
-  1 row updated.
-  iSQL> SELECT * FROM tbl_timestamp;
-  I1                I2          I3           I4
-  ------------------------------------------------------------------
-  4E3778C900037AE9  102         02-FEB-2002  B111100200000000
-  4E37794900083702  104         02-APR-2002  D111100200000000
-  2 rows selected.
-```
-
-
-
-
-- Creating and Using Temporary Tables
-
-  \<Query\> After creating a temporary table and inserting data in a session, the data is retrieved in that session and no data is retrieved in the other sessions. 
-  
-```
-  iSQL> create volatile tablespace my_vol_tbs size 12M autoextend on maxsize 1G; 
-  Create success. 
-  iSQL> create temporary table t1(i1 integer, i2 varchar(10)) on commit delete rows tablespace my_vol_tbs; 
-  Create success. 
-  iSQL> create temporary table t2(i1 integer, i2 varchar(10)) on commit preserve rows tablespace my_vol_tbs; 
-  Create success. 
-  iSQL> desc t2; 
-  [ TABLESPACE : MY_VOL_TBS ] 
-  [ ATTRIBUTE ]                                                         
-  ------------------------------------------------------------------------------ 
-  NAME                                     TYPE                        IS NULL 
-  ------------------------------------------------------------------------------ 
-  I1                                       INTEGER         FIXED       
-  I2                                       VARCHAR(10)     FIXED       
-  T2 has no index 
-  T2 has no primary key 
-  iSQL> alter table t2 add constraint t2_pk primary key (i1); 
-  Alter success. 
-  iSQL> insert into t2 values (1, 'abc'); 
-  1 row inserted. 
-  iSQL> insert into t2 values (2, 'def'); 
-  1 row inserted. 
-  iSQL> select * from t2; 
-  I1          I2          
-  --------------------------- 
-  1           abc         
-  2           def         
-  2 rows selected. 
-  iSQL> connect sys/manager; 
-  Connect success. 
-  iSQL> select * from t2; 
-  I1          I2          
-  --------------------------- 
-  No rows selected.
-```
-
-
-
-
-- Create a table in the tablespace specified in the query
-
-  \<Query\>  Create table tbl1 in the user uare1's schema. (Assume that no default tablespace was specified when this user was created.)
-  
-```
-  iSQL> CONNECT uare1/rose1;
-  Connect success.
-  iSQL> CREATE TABLE tbl1(
-      i1 INTEGER,
-      i2 VARCHAR(3));
-  Create success.
-```
-
-> Note: The table will be created in the system memory default tablesapce when no default tablespace has been defined for the user. 
-
-  \<Query\> Create the books and inventory tables in the user_data tablespace, which is the default tablespace for the user. 
-
-  books columns: book number, book name, author, edition, publication year, price, and publication code (can contain a maximum of two rows).
-
-inventory columns: subscription number, book number, store code, purchase date, quantity, and a character to indicate whether the item has been paid for.
-
-  ```
-iSQL> CREATE TABLE books(
-    isbn CHAR(10) CONSTRAINT const1 PRIMARY KEY,
-  title VARCHAR(50),
-    author VARCHAR(30),
-    edition INTEGER DEFAULT 1,
-    publishingyear INTEGER,
-    price NUMBER(10,2),
-  pubcode CHAR(4)) MAXROWS 2
-  TABLESPACE user_data;
-  Create success.
-  
-  iSQL> CREATE TABLE inventory(
-    subscriptionid CHAR(10) PRIMARY KEY,
-    isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES books (isbn),
-    storecode CHAR(4),
-    purchasedate DATE,
-    quantity INTEGER,
-  paid CHAR(1))
-  TABLESPACE user_data;
-  Create success.
-  ```
-
-  Or
-
-  ```
-iSQL> CREATE TABLE inventory(
-    subscriptionid CHAR(10),
-  isbn CHAR(10),
-    storecode CHAR(4),
-    purchasedate DATE,
-    quantity INTEGER,
-    paid CHAR(1),
-    PRIMARY KEY(subscriptionid),
-  CONSTRAINT fk_isbn FOREIGN KEY(isbn) REFERENCES books(isbn))
-  TABLESPACE user_data;
-  Create success.
-  ```
-
-
-- Creating a Table with a Direct Key Index
-
-  \<Query\> Create an id(INTEGER) column in the tab1 table with the UNIQUE constraint and create a direct key index on it.
-  
-```
-  iSQL> CREATE TABLE tab1 (id UNIQUE DIRECTKEY );
-  Create success.
-```
-
-
-
-
-- Specifying Tablespaces for Index Partitions
-
-  \<Query\> Create the partitioned table T1 having the UNIQUE constraint on column I1.
-
-  ```
-  CREATE TABLE T1 
-  ( 
-    I1 INTEGER UNIQUE USING INDEX LOCAL
-    (
-      PARTITION P1_UNIQUE ON P1 TABLESPACE TBS3,
-      PARTITION P2_UNIQUE ON P2 TABLESPACE TBS2,
-      PARTITION P3_UNIQUE ON P3 TABLESPACE TBS1
-    )
-  )
-  PARTITION BY RANGE (I1)
-  ( 
-    PARTITION P1 VALUES LESS THAN (100),
-    PARTITION P2 VALUES LESS THAN (200) TABLESPACE MEM_TBS1,
-    PARTITION P3 VALUES DEFAULT TABLESPACE MEM_TBS2 
-  ) TABLESPACE SYS_TBS_DISK_DATA;
-  ```
-
-
-
-
-- Range Partitioning
-
-  \<Query 1\> Create the table range_sales, partitioning the year 2006 into respective quarters as shown below.
-  
-```
-  CREATE TABLE range_sales
-  ( 
-    prod_id NUMBER(6),
-    cust_id NUMBER,
-    time_id DATE
-  ) 
-  PARTITION BY RANGE (time_id)
-  (
-    PARTITION Q1_2006 VALUES LESS THAN (TO_DATE('01-APR-2006')),
-    PARTITION Q2_2006 VALUES LESS THAN (TO_DATE('01-JUL-2006')),
-    PARTITION Q3_2006 VALUES LESS THAN (TO_DATE('01-OCT-2006')),
-    PARTITION Q4_2006 VALUES LESS THAN (TO_DATE('01-JAN-2007')),
-    PARTITION DEF VALUES DEFAULT 
-  ) TABLESPACE SYS_TBS_DISK_DATA;
-```
-
-
-
-  \<Query 2\> Create a partitioned table, specifying the tablespace for some of the partitions
-
-  ```
-  CREATE TABLE T1 
-  ( 
-    I1 INTEGER, 
-    I2 INTEGER 
-  )
-  PARTITION BY RANGE (I1)
-  ( 
-    PARTITION P1 VALUES LESS THAN (100),
-    PARTITION P2 VALUES LESS THAN (200) TABLESPACE TBS1,
-    PARTITION P3 VALUES DEFAULT TABLESPACE TBS2 
-  ) TABLESPACE SYS_TBS_DISK_DATA;
-  ```
-
-
-
-  \<Query 3\> Create a partitioned table in which multiple columns are used as the partition key.
-
-  ```
-  CREATE TABLE T1 
-  ( 
-    I1 DATE, 
-    I2 INTEGER 
-  )
-  PARTITION BY RANGE (I1, I2)
-  ( 
-    PARTITION P1 VALUES LESS THAN (TO_DATE('01-JUL-2006'), 100),
-    PARTITION P2 VALUES LESS THAN (TO_DATE('01-JAN-2007'), 200),
-    PARTITION P3 VALUES DEFAULT 
-  ) TABLESPACE SYS_TBS_DISK_DATA;
-  ```
-
-
-
-  \<Query 4\> Create a partitioned table in which the data is moved automatically when required.
-
-  ```
-  CREATE TABLE T1 
-  ( 
-    I1 INTEGER, 
-    I2 INTEGER 
-  )
-  PARTITION BY LIST (I1)
-  ( 
-    PARTITION P1 VALUES (100, 200),
-    PARTITION P2 VALUES (150, 250),
-    PARTITION P3 VALUES DEFAULT 
-  ) ENABLE ROW MOVEMENT TABLESPACE SYS_TBS_DISK_DATA;
-  ```
-
-
-
-
-- List Partitioning
-
-  \<Query\>  Create the table list_customers, which is list-partitioned on the basis of the nls_territory column into the asia partition for the values 'CHINA' and 'THAILAND', the europe partition for the values 'GERMANY', 'ITALY' and 'SWITZERLAND', the west partition for the value 'AMERICA', the east partition for the value 'INDIA', and the default partition for any other values.
-  
-  ```
-  CREATE TABLE list_customers 
-  ( 
-  	customer_id	NUMBER(6), 
-  	cust_first_name	VARCHAR(20), 
-  	cust_last_name	VARCHAR(20), 
-  	nls_territory	VARCHAR(30), 
-  	cust_email	VARCHAR(30)
-  )
-  PARTITION BY LIST (nls_territory) 
-  (
-  	PARTITION asia VALUES ('CHINA', 'THAILAND'),
-  	PARTITION europe VALUES ('GERMANY', 'ITALY', 'SWITZERLAND'),
-  	PARTITION west VALUES ('AMERICA'),
-  	PARTITION east VALUES ('INDIA'),
-  	PARTITION rest VALUES DEFAULT 
-  ) TABLESPACE SYS_TBS_DISK_DATA;
-  ```
-
-
-
-
-- Hash Partitioning
-
-  \<Query\> Create a table that is hash-partitioned into 4 partitions based on product_id. CREATE TABLE hash_products.
-
-  ```
-  CREATE TABLE hash_products 
-  ( 
-  	product_id		NUMBER(6), 
-  	product_name		VARCHAR(50), 
-  	product_description 	VARCHAR(2000) 
-  )
-  PARTITION BY HASH (product_id)
-  ( 
-  	PARTITION p1, 
-  	PARTITION p2, 
-  	PARTITION p3, 
-  	PARTITION p4 
-  ) TABLESPACE SYS_TBS_DISK_DATA;
-  ```
-
-  \<Query\> Create a table in which the LOB data is stored in separate tablespaces; specifically, in which the LOB data in the image1 column is stored in the lob_data1 tablespace and the LOB data in the image2 column is stored in the lob_data2 tablespace. CREATE TABLE lob_products
-  
-  ```
-  CREATE TABLE lob_products 
-  (
-    product_id integer, 
-    image1 BLOB, 
-    image2 BLOB
-  ) TABLESPACE SYS_TBS_DISK_DATA
-  LOB(image1) STORE AS ( TABLESPACE lob_data1 )
-  LOB(image2) STORE AS ( TABLESPACE lob_data2 );
-  ```
-
-
-- Creating a Table in which the Extents in the Segment are Managed 
-
-  \<Query\>  Create the table local_tbl in the usertbs disk tablespace. Allocate 10 extents to the table when it is created and specify that 1 extent is to be added whenever the size of the table needs to be increased.
-  
-```
-  iSQL> CREATE TABLE local_tbl (i1 INTEGER, i2 VARCHAR(32) ) 
-                      TABLESPACE usertbs
-                      STORAGE ( INITEXTENTS 10 NEXTEXTENTS 1 );
-  Create success.
-```
-
-\<Query\> Create the table local_tbl in the usertbs disk tablespace. Specify that the minimum number of extents in the table is 3, which is the same number that are allocated to the table when it is created, and limit the maximum number of extents to 100.
-
-  ```
-  iSQL> CREATE TABLE local_tbl ( i1 INTEGER, i2 VARCHAR(32) ) 
-                    TABLESPACE usertbs
-                      STORAGE ( INITEXTENTS 3 MINEXTENTS 3 MAXEXTENTS 100 );
-  Create success.
-  ```
-
 
 
 ### CREATE TABLE
@@ -7770,17 +6753,13 @@ iSQL> CREATE TABLE inventory(
 
 ![temporary_attributes_clause](media/SQL/temporary_attributes_clause.gif)
 
-
-
-<a name="table_partitioning_clause"><a/>
-
 **table_partitioning_clause ::=**
 
 ![table_partitioning_clause_image123](media/SQL/table_partitioning_clause_image123.gif)
 
 **range_partitioning ::=**
 
-![range_partitioning_image124](media/SQL/range_partitioning_image124.gif)
+![range_partitioning_image124](media/SQL/range_partitioning_image124_2.gif)
 
 **partition_default_clause ::=**
 
@@ -7828,6 +6807,14 @@ iSQL> CREATE TABLE inventory(
 
 
 <a name="row_movement_clause"><a/>
+
+**range_using_hash_partitioning ::=**
+
+![range_using_hash_partitioning](/Users/haein/Documents/altibase/GitHub/Documents/Manuals/Altibase_7.2/kor/media/SQL/range_using_hash_partitioning_image.gif)
+
+[partition_default_clause ::=](#partition_default_clause)
+
+[partition_range_clause ::=](#partition_range_clause)
 
 **row_movement_clause ::=**
 
@@ -8081,13 +7068,52 @@ This creates a session-specific temporary table. A session is bound to the tempo
 
 *table_partitioning_clause*
 
-This is used to create a partitioned table. A partitioned table can be range-partitioned, hash-partitioned or list-partitioned. row_movement_clause can also be specified when a partitioned table is created.
+This clause creates partitioned table. The partitioned table can be range-partitioned, hash-partitioned, list-partitioned or range partitioned using hash. row_movement_clause can also be specified when a partitioned table is created.
 
 *range_partitioning*
 
-This specifies that the table will be partitioned based on ranges of partition key values. It is primarily used with the DATE data type. Because the table is partitioned based on user-specified values, there is no guarantee that the data will be uniformly distributed among the partitions. The range of each partition is determined by setting the maximum value of its range.
+This clause specifies the range of the partition key value when range-partitioned table is created. It is primarily used with the DATE data type. It cannot be ensured that the data will be uniformly distributed among the partitions because the table is partitioned based on user-specified values. The range of each partition is determined by setting the maximum value of its range.
 
-Any values exceeding all of the specified ranges, along with any NULL values, will be saved in the default partition. The default partition clause cannot be omitted. A partition key can be defined on the basis of multiple columns.
+Any values exceeding all of the specified ranges, along with any NULL values, will be saved in the default partition. A partition key can be defined on the basis of multiple columns.
+
+###### Restrictions on creating range-partitioned table
+
+- Can create range-partitioned table without default partition.
+- Can only add new partitions into range-partitioned table without default partition.
+- Range-partitioned tables without default partition cannot perform an operation adding default partitions.
+- Range-partitioned tables without default partition cannot perform an operation deleting default partitions.
+- Range-partitioned tables without default partition cannot use CONJOIN/DISJOIN statement.
+- In case range-partitioned table is replication target table, it cannot perform an operation adding partitions.
+
+> When range-partitioned table without default partition is created, a new partition which does not have PARTITION_NAME under SYS_TABLE_PARTITIONS_ is created.
+>
+> ```
+> iSQL> CREATE TABLE t1 
+>    ( 
+>      i1 INT, 
+>      i2 INT
+>    ) 
+>    PARTITION BY RANGE ( i1 ) 
+>    ( 
+>      PARTITION p1 VALUES LESS THAN (10), 
+>      PARTITION p2 VALUES LESS THAN (20) 
+>    );
+> 
+> iSQL> SELECT PARTITION_NAME as p_name
+>         , PARTITION_MIN_VALUE as min
+>         , PARTITION_MAX_VALUE as max
+>      FROM SYSTEM_.SYS_TABLES_ T
+>         , SYSTEM_.SYS_TABLE_PARTITIONS_ p
+>     WHERE T.USER_ID = 2 
+>       AND T.TABLE_NAME = 'T1'
+>       AND T.TABLE_ID = P.TABLE_ID;
+> P_NAME      MIN         MAX         
+> ----------------------------------------
+> P1                      10          
+> P2          10          20          
+>          20                      
+> 3 rows selected.
+> ```
 
 *table_partition_description*
 
@@ -8219,6 +7245,11 @@ Currently, Altibase only support the following parallel queries:
 
 - Parallel queries which scan partitioned tables. 
 - Parallel queries with HASH, SORT, GRAG nodes in their execution plans. For such nodes, however, only one parallel worker thread is created per node. 
+
+Altibase currently supports the following types of parallel queries only:
+
+- Parallel queries which scan partitioned tables.
+- Parallel queries which scan normal tables. However, query that does not fully scan the table, subquery, or query that fully scan the table repeatedly(ex, NL join) are not supported. Parallel queries with HASH, SORT, GRAG nodes in their execution plans. For such nodes, however, only one parallel worker thread is created per node.
 
 *table_compression_clause*
 
@@ -8631,9 +7662,30 @@ PARTITION BY HASH (product_id)
   LOB(image2) STORE AS ( TABLESPACE lob_data2 );
   ```
 
+- Range partitioning using hash
+
+<Query\> Create a table that is range-partitioned using 4 hash values based on product_id.
+
+```
+CREATE TABLE range_using_hash_products
+(
+ product_id NUMBER(6),
+ product_name VARCHAR(50),
+ product_description VARCHAR(2000)
+)
+PARTITION BY RANGE_USING_HASH (product_id)
+(
+ PARTITION p1 VALUES LESS THAN (250),
+ PARTITION p2 VALUES LESS THAN (500),
+ PARTITION p3 VALUES LESS THAN (750),
+ PARTITION p4 VALUES DEFAULT
+) TABLESPACE SYS_TBS_DISK_DATA;
+```
+
 - Creating a Table in which the Extents in the Segment are Managed 
 
   <Query\> Create the table local_tbl in the usertbs disk tablespace. Allocate 10 extents to the table when it is created and specify that 1 extent is to be added whenever the size of the table needs to be increased.
+
 ```
   iSQL> CREATE TABLE local_tbl (i1 INTEGER, i2 VARCHAR(32) ) 
                       TABLESPACE usertbs
