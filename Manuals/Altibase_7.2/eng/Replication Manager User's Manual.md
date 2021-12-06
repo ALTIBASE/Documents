@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Replication Manager User’s Manual](#replication-manager-users-manual)
   - [Preface](#preface)
@@ -27,8 +26,6 @@
         - [Managing Extra Host IP](#managing-extra-host-ip)
         - [Removing a Database Connection](#removing-a-database-connection)
     - [Detailed Usage: Embedded Help](#detailed-usage-embedded-help)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 

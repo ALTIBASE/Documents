@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Altibase SSL/TLS User's Guide](#altibase-ssltls-users-guide)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -15,7 +14,7 @@
   - [A.부록: SSL Sample](#a%EB%B6%80%EB%A1%9D-ssl-sample)
     - [JDBC를 이용한 SSL 통신 샘플](#jdbc%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-ssl-%ED%86%B5%EC%8B%A0-%EC%83%98%ED%94%8C)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tools & Utilities
 

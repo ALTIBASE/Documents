@@ -39,8 +39,6 @@
     - [Converting Java Data Types to Database Data Types](#converting-java-data-types-to-database-data-types)
     - [Converting Database Data Types to Java Data Types](#converting-database-data-types-to-java-data-types)
 
-
-
 Altibase® Application Development
 
 JDBC User’s Manual

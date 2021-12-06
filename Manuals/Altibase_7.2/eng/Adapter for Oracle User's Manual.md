@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Adapter for Oracle User’s Manual](#adapter-for-oracle-users-manual)
@@ -23,7 +22,7 @@
   - [Appendix B: DDL order when using oraAdapter](#appendix-b-ddl-order-when-using-oraadapter)
     - [DDL execution order when using oraAdapter](#ddl-execution-order-when-using-oraadapter)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tool & Utilities
 

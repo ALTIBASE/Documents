@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [iSQL User’s Manual](#isql-users-manual)
   - [Preface](#preface)
@@ -28,7 +27,7 @@
     - [Convenient User Functions](#convenient-user-functions)
     - [Using National Character Sets](#using-national-character-sets)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tools & Utilities
 

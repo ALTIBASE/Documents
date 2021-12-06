@@ -1,7 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
-
 - [General Reference](#general-reference)
   - [3. The Data Dictionary](#3-the-data-dictionary)
     - [Meta Tables](#meta-tables)
@@ -208,10 +204,6 @@
   - [4. Sample Schema](#4-sample-schema)
     - [Information about the Sample Schema](#information-about-the-sample-schema)
     - [E-R Entity-Relationship (ER) Diagram and Sample Data](#e-r-entity-relationship-er-diagram-and-sample-data)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
 
 
 

@@ -1,4 +1,4 @@
-**Table of Contents**  
+
 
 - [Stored Procedures Manual](#stored-procedures-manual)
   - [Preface](#preface)

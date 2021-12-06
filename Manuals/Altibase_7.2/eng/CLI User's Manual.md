@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+
 
 - [CLI User's Manaul](#cli-users-manaul)
   - [Preface](#preface)
@@ -105,8 +103,6 @@
   - [Appendix D. Upgrade](#appendix-d-upgrade)
     - [Data Type](#data-type)
     - [Other Changes](#other-changes)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 

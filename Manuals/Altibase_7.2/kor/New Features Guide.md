@@ -1,16 +1,8 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
-
 - [New Features Guide](#new-features-guide)
   - [Altibase 7.2.0.0.1의 새로운 기능 및 특징](#altibase-72001%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5-%EB%B0%8F-%ED%8A%B9%EC%A7%95)
     - [기능 개선](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
     - [성능 및 안정성 향상](#%EC%84%B1%EB%8A%A5-%EB%B0%8F-%EC%95%88%EC%A0%95%EC%84%B1-%ED%96%A5%EC%83%81)
     - [기타](#%EA%B8%B0%ED%83%80)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
 
 
 

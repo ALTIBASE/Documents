@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Migration Center User's Manual](#migration-center-users-manual)
   - [Preface](#preface)
@@ -58,8 +57,6 @@
     - [Informix](#informix)
     - [MySQL](#mysql)
     - [TimesTen](#timesten)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 

@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Altibase Heartbeat User's Guide](#altibase-heartbeat-users-guide)
@@ -20,7 +19,7 @@
     - [Failover and Failback](#failover-and-failback)
     - [Logging](#logging)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tool & Utilities
 

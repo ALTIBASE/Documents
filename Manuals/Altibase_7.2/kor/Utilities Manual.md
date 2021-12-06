@@ -37,8 +37,6 @@
     - [killCheckServer](#killcheckserver)
     - [server](#server)
 
-
-
 Altibase® Tools & Utilities
 
 Utilities Manual

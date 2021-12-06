@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Altibase Hadoop Connector User's Manual](#altibase-hadoop-connector-users-manual)
@@ -21,7 +20,7 @@
   - [A.부록: 데이터 타입](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
     - [지원되는 데이터 타입](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tools & Utilities
 

@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [ODBC User\'s Manual](#odbc-user%5Cs-manual)
@@ -17,7 +16,7 @@
     - [Basic Programming Example](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%98%88%EC%A0%9C)
     - [Example of Using LOB](#lob-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 

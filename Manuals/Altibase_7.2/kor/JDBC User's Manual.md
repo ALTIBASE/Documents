@@ -40,10 +40,6 @@
     - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
     - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
 
-
-
-
-
 Altibase® Application Development
 
 JDBC User’s Manual

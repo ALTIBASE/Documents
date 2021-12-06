@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Altibase C Interface Manual](#altibase-c-interface-manual)
@@ -85,7 +84,7 @@
     - [개요](#%EA%B0%9C%EC%9A%94-1)
     - [사용법](#%EC%82%AC%EC%9A%A9%EB%B2%95)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 

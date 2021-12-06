@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Altibase Hadoop Connector User's Manual](#altibase-hadoop-connector-users-manual)
@@ -20,7 +19,7 @@
   - [Appendix A: Data Types](#appendix-a-data-types)
     - [Supported Data Type](#supported-data-type)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tools & Utilities
 

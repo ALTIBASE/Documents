@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+
 
 - [General Reference](#general-reference)
   - [Preface](#preface)
@@ -32,8 +30,6 @@
     - [C/C++ External Procedure Agent Properties](#cc-external-procedure-agent-properties)
     - [Account Security Properties](#account-security-properties)
     - [Other Properties](#other-properties)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 

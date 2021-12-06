@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Adapter for JDBC User’s Manual](#adapter-for-jdbc-users-manual)
@@ -22,7 +21,7 @@
   - [Appendix A: FAQ](#appendix-a-faq)
   - [Appendix B: DDL execution order when using the jdbcAdapter](#appendix-b-ddl-execution-order-when-using-the-jdbcadapter)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Tool & Utilities
 

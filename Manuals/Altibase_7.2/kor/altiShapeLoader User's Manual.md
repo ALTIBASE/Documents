@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+
 
 - [altiShapeLoader User's Manual](#altishapeloader-users-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -26,14 +24,6 @@
   - [4. 데이터 타입 변환](#4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
     - [가져오기 데이터 타입 변환](#%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
     - [내보내기 데이터 타입 변환](#%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-
-
-
-
 
 
 Altibase® Tools & Utilities
