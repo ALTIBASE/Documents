@@ -691,11 +691,12 @@ For more detailed information about other utilities, please refer to the *Utilit
 
 This directory contains the following files:
 
--   aexport.properties: the configuration file for aexport. For more detailed  information on the configurable properties, please refer to the *Utilities Manual*.
--   altibase.properties: the configuration file for Altibase. For more detailed  information on the configurable properties, please refer to the *General Reference*.
+-   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *Utilities Manual*.
+-   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *General Reference*.
 -   altibase_user.env: the file for setting the environment variables necessary for running Altibase
 -   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *General Reference*
 -   license: the Altibase license file
+-   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *Utilities Manual*.
 
 #### dbs Directory
 
