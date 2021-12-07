@@ -9940,6 +9940,7 @@ Altibase provides the system-defined Stored packages as follows.
 | [DBMS_RANDOM](#dbms_random)                          | Creates arbitrary numbers.                                   |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | Can completely purge the tables which has been dropped and managed in the recycle bin. |
 | [DBMS_SQL](#dbms_sql)                                | Provides procedures and functions utilizing dynamic SQL.     |
+| [DBMS_STANDARD](#dbms_standard)                      | Provides default sub programs                                |
 | [DBMS_STATS](#dbms_stats)                            | Package views and modifies the stats information             |
 | [DBMS_UTILITY](#dbms_utility)                        | Provides various utility subprograms.                        |
 | [STANDARD](#standard)                                | In addition to the basic data types, it defines the types that can be used without declaration in PSM. |
@@ -12271,6 +12272,180 @@ Create success.
 iSQL> exec proc1;
 0
 Execute success.
+```
+
+### DBMS_STANDARD
+
+DBMS_STANDARD package provides various sub programs that can be used without specifying the name of the package.
+
+The procedures and functions comprising the DBMS_STANDARD package are in the following table below. 
+
+| Procedures/Functions | Description                                                  |
+| :------------------- | :----------------------------------------------------------- |
+| DELETING             | Returns whether the trigger started from DELETE.             |
+| INSERTING            | Returns whether the trigger started from INSERT.             |
+| UPDATING             | Returns whether the trigger started from UPDATE.             |
+| UPDATING             | Returns whether the trigger started from a specific column's UPDATE. |
+
+#### DELETING
+
+Returns whether the trigger started from DELETE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.DELETING;
+BOOLEAN variable := DELETING;
+```
+
+##### Result Value
+
+If the trigger started from DELETE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF DELETING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+DELETE FROM T1;
+```
+
+#### INSERTING
+
+Returns whether the trigger started from INSERT.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.INSERTING;
+BOOLEAN variable := INSERTING;
+```
+
+##### Result Value
+
+If the trigger started from INSERT, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER); 
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+```
+
+#### UPDATING
+
+Returns whether the trigger started from UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING;
+BOOLEAN variable := UPDATING;
+```
+
+##### Result Value
+
+If the trigger started from UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+UPDATE T1 SET C1 = 2;
+```
+
+#### UPDATING
+
+Returns whether the trigger started from a specific column's UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
+BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
+```
+
+##### Parameter
+
+| Name    | In/Output | Data Type    | Description                      |
+| :------ | :-------- | :----------- | :------------------------------- |
+| COLNAME | IN        | VARCHAR(128) | Specifies the name of the column |
+
+##### Result Value
+
+If the trigger started from a specific coulmn's UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER); 
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING('C1') THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+UPDATE T1 SET C1 = 2;
 ```
 
 
