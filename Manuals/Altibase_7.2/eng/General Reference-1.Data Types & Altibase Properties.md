@@ -7291,7 +7291,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[0, 30]
+[0, 50]
 
 ##### Description
 
@@ -7305,7 +7305,7 @@ Unsigned Integer
 
 ##### Range
 
-30
+50
 
 ##### Attributes
 
@@ -7313,7 +7313,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[0, 30]
+[0, 50]
 
 ##### Description
 
