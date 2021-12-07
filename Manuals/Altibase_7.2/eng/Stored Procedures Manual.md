@@ -12454,7 +12454,7 @@ UPDATE T1 SET C1 = 2;
 
 The DBMS_STATS package provides an interface which can view and modifies the stats information. By using stored procedures and functions, the stats information can be established and updated, also it can configure or delete the stats information for each column, index, and table or per each system
 
-The procedures and functions comprised of the DBMS_STATS package are in the following table below. Refer to DBMS Stats of *Stored Procedures Manual* for in-depth information on each procedure and function.
+The procedures and functions comprising the DBMS_STATS package are in the following table below. Refer to DBMS Stats of *Stored Procedures Manual* for in-depth information on each procedure and function.
 
 | Procedures/Functions  | Description                                                  |
 | --------------------- | ------------------------------------------------------------ |
@@ -13238,7 +13238,7 @@ iSQL> SELECT COUNT(*) FROM T1_COPY;
 
 The UTL_FILE package enables writing and reading by accessing the text tiles which are managed by the operation system.
 
-The procedures and functions which are comprised of the UTL_FILE package are listed in the following table below.
+The procedures and functions which are comprising the UTL_FILE package are listed in the following table below.
 
 | Procedures/Functions | Description                                                  |
 | -------------------- | ------------------------------------------------------------ |
@@ -13663,7 +13663,7 @@ The PUT_LINE might cause the following system-defined exceptions.
 
 The UTL_RAW package is a function which can convert or control RAW(VARBYTE) type data into a different data type. 
 
-The procedures and functions which are comprised of the UTL_RAW package are listed in the following table below.
+The procedures and functions which are comprising the UTL_RAW package are listed in the following table below.
 
 | Procedures/Functions     | Description                                                  |
 | ------------------------ | ------------------------------------------------------------ |
