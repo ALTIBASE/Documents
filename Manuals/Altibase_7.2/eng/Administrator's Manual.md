@@ -669,7 +669,7 @@ This directory contains xml configuration files, shell scripts, sql files, log d
 
 #### arch_logs Directory
 
-This directory contains Log Files backed up for recovery. The location and name of this directory must be specified in the altibase.properties file.
+This directory contains archive log file. The location and name of this directory must be specified in the altibase.properties file.
 
 #### bin Directory
 
