@@ -651,7 +651,7 @@ This section describes the purpose and contents of each of these directories.
 
 #### APatch Directory
 
-This directory contains information about Altibase product which was installed by Altibase package installer.
+This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the [Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Installation%20Guide.md#apatch-directory)
 
 #### admin Directory
 
@@ -665,11 +665,11 @@ For more detailed information about the altiComp utility, please refer to the *U
 
 #### altiMon Directory
 
-This directory contains xml configuration files, shell scripts, sql files, log directories required to run altiMon(Altibase Monitoring Daemon). For more information about the subdirectories, please refer to the *Utilities Manual*.
+This directory contains xml configuration files, shell scripts, sql files, log directories required to run altiMon(Altibase Monitoring Daemon). For more information about the subdirectories, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#altimon)*.
 
 #### arch_logs Directory
 
-This directory contains backup log files for recovery. The location and name of this directory must be specified in the altibase.properties file.
+This directory contains Log Files backed up for recovery. The location and name of this directory must be specified in the altibase.properties file.
 
 #### bin Directory
 
@@ -691,12 +691,13 @@ For more detailed information about other utilities, please refer to the *Utilit
 
 This directory contains the following files:
 
--   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *Utilities Manual*.
--   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *General Reference*.
 -   altibase_user.env: the file for setting the environment variables necessary for running Altibase
--   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *General Reference*
+
+-   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *[General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2-altibase-properties)*.
 -   license: the Altibase license file
--   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *Utilities Manual*.
+-   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *[General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#database-link-properties)*
+-   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#list-of-aexport-properties)*.
+-   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#altipasswd)*.
 
 #### dbs Directory
 
@@ -808,7 +809,7 @@ This file contains error messages pertaining to function execution or data types
 
 #### packages Directory
 
-This directory contains system defined stored packages and catproc.sql file which is a package creating script. For more information about the subdirectories, please refer to the Altibase Stored Packages in *Stored Procedures Manual*.
+This directory contains system defined stored packages and catproc.sql file which is a script used to create the packages at once. For more information about the system defined stored packages, please refer to the Altibase Stored Packages in *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Stored%20Procedures%20Manual.md#13-altibase-system-defined-stored-packages)*.
 
 #### sample Directory
 
@@ -818,7 +819,7 @@ It contains source code and Makefiles for programs written using the JDBC, ODBC,
 
 #### thirdparty
 
-This directory contains scripts or libraries required to connect to 3rd parties.
+This directory contains scripts or libraries required when using 3rd parties.
 
 #### trc Directory
 

@@ -8,7 +8,7 @@
     - [Altibase 특징](#altibase-%ED%8A%B9%EC%A7%95)
     - [Altibase 구조](#altibase-%EA%B5%AC%EC%A1%B0)
   - [2.Altibase 구성요소](#2altibase-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C)
-    - [Altibase 디렉토리](#altibase-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC)
+    - [Altibase 디렉터리](#altibase-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC)
     - [실행 바이너리](#%EC%8B%A4%ED%96%89-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC)
     - [Altibase 라이브러리](#altibase-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
   - [3.데이터베이스 생성](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
@@ -621,39 +621,40 @@ Altibase 서버의 환경 설정을 위한 파일이며 Altibase 서버의 운�
 
 이 장에서는 Altibase의 주요 구성요소에 대해서 설명한다. 사용자는 Altibase 패키지 설치 후에 실행 바이너리 부문과 프로그래밍 라이브러리 부문 등의 구성요소에 대해서 확인할 수 있다.
 
-### Altibase 디렉토리
+### Altibase 디렉터리
 
-Altibase를 설치하면 다음의 디렉토리가 생성된다. Altibase의 홈 디렉토리는 환경 변수 ALTIBASE_HOME에 지정된다. 홈 디렉토리는 bin, conf, lib, include, msg, dbs, logs, sample, install, altiComp, trc, admin, 그리고 arch_logs 디렉토리를 포함하고 있다.
+Altibase를 설치하면 다음의 디렉터리가 생성된다. Altibase의 홈 디렉터리는 환경 변수 ALTIBASE_HOME에 지정된다. 홈 디렉터리는 bin, conf, lib, include, msg, dbs, logs, sample, install, altiComp, trc, admin, 그리고 arch_logs 디렉터리를 포함하고 있다.
 
-각 디렉토리의 역할과 포함하는 내용에 관하여 설명한다.
+각 디렉터리의 역할과 포함하는 내용에 관하여 설명한다.
 
-#### APatch 디렉토리
+#### APatch 디렉터리
 
-Altibase 패키지 인스톨러를 이용해서 설치한 Altibase 제품에 대한 정보가 존재하는 디렉토리이다.
+Altibase 설치 및 패치 정보를 가지고 있는 디렉터리이다. Altibase 제품을 빌드한 환경 정보, 설치 과정에서 기록된 로그, 패치 롤백 시 필요한 파일들이 있다. 보다 자세한 내용은 [Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation Guide.md#apatch-디렉터리) 를 참고한다.
 
-#### admin 디렉토리
+#### admin 디렉터리
 
-Altibase의 시스템 정보와 관련된 view를 생성하는 adminview.sql 파일과 프로시져, 테이블 정보를 볼 수 있는 프로시져를 생성하는 SQL 파일들이다.
+이 디렉터리에는 세션 정보, 테이블, 인덱스, 뷰, 이중화 등 데이터베이스 객체 정보를 쉽게 조회할 수 있게 도와주는 뷰와 저장 프로시저를 생성하는 스크립트들이 있다.
+또한 Altibase 서버 부하 발생 시 Altibase 상태를 모니터링하기 위한 스크립트들도 있다.
 
-#### altiComp 디렉토리
+#### altiComp 디렉터리
 
-이중화 동작 시 발생한 데이터베이스간의 데이터 불일치를 해결하는 Altibase 유틸리티인 altiComp의 예제 스크립트 파일이 들어있는 디렉토리이다.
+이중화 동작 시 발생한 데이터베이스간의 데이터 불일치를 해결하는 Altibase 유틸리티인 altiComp의 예제 스크립트 파일이 들어있는 디렉터리이다.
 
 자세한 설명은 *Utilities Manual의 altiComp를* 참조한다.
 
-#### altiMon 디렉토리
+#### altiMon 디렉터리
 
-altiMon(Altibase Monitoring Daemon) 실행에 필요한 xml 설정 파일, 쉘 스크립트 및 sql 파일, 로그 디렉토리가 존재한다. 하위 디렉토리에 관한 설명은 Utilities Manual에 altiMon을 참조한다.
+altiMon(Altibase Monitoring Daemon) 실행에 필요한 xml 설정 파일, 쉘 스크립트 및 sql 파일, 로그 디렉터리가 존재한다. 하위 디렉터리에 관한 설명은 Utilities Manual에 altiMon을 참조한다.
 
-#### arch_logs 디렉토리
+#### arch_logs 디렉터리
 
-복구를 위해 로그 파일을 백업하는 백업 디렉토리이다. 이 디렉토리의 위치 및 디렉토리 이름은 프로퍼티 파일에 명시할 수 있다.
+복구를 위해 로그 파일을 백업하는 백업 디렉터리이다. 이 디렉터리의 위치 및 디렉터리 이름은 프로퍼티 파일에 명시할 수 있다.
 
-#### bin 디렉토리
+#### bin 디렉터리
 
-Altibase의 실행 파일을 포함한 Altibase 관리도구와 사용자 지원 도구들의 실행 파일이 존재하는 디렉토리이다.
+Altibase의 실행 파일을 포함한 Altibase 관리도구와 사용자 지원 도구들의 실행 파일이 존재하는 디렉터리이다.
 
-bin 디렉토리에는 다음과 같은 파일이 존재한다.
+bin 디렉터리에는 다음과 같은 파일이 존재한다.
 
 ```
 aexport, altiAudit, altibase, altierr, altimon.sh, altipasswd, altiPofile,
@@ -663,28 +664,28 @@ isql, killCheckServer, server, apre
 
 iloader, isql, apre에 대한 자세한 설명은 *iLoader User's Manual*, *iSQL User's Manual*, *Precompiler User's Manual*을 각각 참조하고, 나머지 유틸리티에 대한 자세한 설명은 *Utilities Manual*을 참조한다.
 
-#### conf 디렉토리
+#### conf 디렉터리
 
-conf 디렉토리에는 아래의 파일들이 존재한다.
+conf 디렉터리에는 아래의 파일들이 존재한다.
 
 -   altibase_user.env: Altibase 운영을 위한 환경변수 설정 파일
--   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 *General Reference*를 참조하기 바란다.
+-   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 *[General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)*를 참조하기 바란다.
 -   license: Altibase 라이선스 파일
--   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 *General Reference*를 참조하기 바란다.
--   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 Utilities Manual*을 참조하기 바란다.
--   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 *Utilities Manual*을 참조하기 바란다.
+-   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 *[General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)*를 참조하기 바란다.
+-   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#aexport-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)*을 참조하기 바란다.
+-   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#altipasswd)*을 참조하기 바란다.
 
-#### dbs 디렉토리
+#### dbs 디렉터리
 
-기본 프로퍼티를 이용할 경우 데이터베이스의 파일들이 생성되는 디렉토리이다. 이 디렉토리의 위치 및 디렉토리 명은 프로퍼티에 명시되어 있다.
+기본 프로퍼티를 이용할 경우 데이터베이스의 파일들이 생성되는 디렉터리이다. 이 디렉터리의 위치 및 디렉터리 명은 프로퍼티에 명시되어 있다.
 
 SYS_TBS_MEM_DATA 파일에는 기본으로 생성되는 시스템 메모리 테이블스페이스가, SYS_TBS_MEM_DIC 파일에는 메타 테이블이, system001.dbf 파일에는 기본으로 생성되는 디스크 테이블스페이스, temp001.dbf 파일에는 쿼리 수행 시 필요한 임시 결과들이 저장된다.
 
 undo001.dbf 파일에는 SQL문 수행과 복구에 필요한 이전 이미지 정보들이 저장된다. .dwf 파일은 더블 라이트 버퍼 파일로서 디스크 페이지가 임시로 저장된다.
 
-#### include 디렉토리
+#### include 디렉터리
 
-Altibase CLI 라이브러리 등을 이용하여 응용 프로그램을 작성할 때 필요한 헤더 파일을 수록한 디렉토리이다.
+Altibase CLI 라이브러리 등을 이용하여 응용 프로그램을 작성할 때 필요한 헤더 파일을 수록한 디렉터리이다.
 
 ##### alaAPI.h
 
@@ -706,13 +707,13 @@ ODBC 응용 프로그램 개발시 필요한 기초 데이터 타입에 대한 �
 
 C/C++ 전처리기(Precompiler)로 응용 프로그램 개발시 오류 처리 SQL 문장 구조에 대한 정보를 담고 있다.
 
-#### install 디렉토리
+#### install 디렉터리
 
 Altibase 응용프로그램 작성에 필요한 makefile을 위한 매크로 설정 등이 포함된 altibase_env.mk 파일과 README 파일이 있다.
 
-#### lib 디렉토리
+#### lib 디렉터리
 
-응용 프로그램 작성에 필요한 라이브러리를 수록한 디렉토리이며 다음과 같은 파일을 갖고있다. 각각의 라이브러리를 이용하여 응용 프로그램을 작성하는 방법은 *Getting Started Guide*에서 설명한다.
+응용 프로그램 작성에 필요한 라이브러리를 수록한 디렉터리이며 다음과 같은 파일을 갖고있다. 각각의 라이브러리를 이용하여 응용 프로그램을 작성하는 방법은 *Getting Started Guide*에서 설명한다.
 
 ##### Altibase.jar
 
@@ -744,15 +745,15 @@ Altibase ACI 애플리케이션 작성을 위한 라이브러리이다. 자세�
     
 -   libsesc.a: 하위 호환성을 위해 제공되며, libapre.a와 동일하다.
 
-#### logs 디렉토리
+#### logs 디렉터리
 
-로그앵커 파일들과 로그 파일들이 존재하는 디렉토리다.
+로그앵커 파일들과 로그 파일들이 존재하는 디렉터리다.
 
-이 디렉토리의 위치 및 디렉토리 명은 프로퍼티 파일에 명시할 수 있다. 로그앵커 파일명과 로그 파일명은 Altibase 시스템에 의해 자동으로 결정된다. 로그 앵커를 가진 파일 시스템의 오류에 대비하기 위해서는 프로퍼티를 변경하여 여러 개의 로그 앵커 파일들을 각각 서로 다른 파일 시스템에 두어 관리하는 것이 좋다. do_not_remove_log_files, never_remove_log_files는 로그 파일 삭제 방지를 위한 더미 파일이다.
+이 디렉터리의 위치 및 디렉터리 명은 프로퍼티 파일에 명시할 수 있다. 로그앵커 파일명과 로그 파일명은 Altibase 시스템에 의해 자동으로 결정된다. 로그 앵커를 가진 파일 시스템의 오류에 대비하기 위해서는 프로퍼티를 변경하여 여러 개의 로그 앵커 파일들을 각각 서로 다른 파일 시스템에 두어 관리하는 것이 좋다. do_not_remove_log_files, never_remove_log_files는 로그 파일 삭제 방지를 위한 더미 파일이다.
 
-#### msg 디렉토리
+#### msg 디렉터리
 
-오류 메시지를 수록한 파일들을 포함하는 디렉토리다. 다음과 같은 파일이 있다. 각 모듈에 대해 US7ASCII와 KO16KSC5601 캐릭터셋용의 두 메시지 파일이 존재하지만, 파일 안의 오류 메시지는 동일하게 영문만 제공된다.
+오류 메시지를 수록한 파일들을 포함하는 디렉터리다. 다음과 같은 파일이 있다. 각 모듈에 대해 US7ASCII와 KO16KSC5601 캐릭터셋용의 두 메시지 파일이 존재하지만, 파일 안의 오류 메시지는 동일하게 영문만 제공된다.
 
 ##### E_SM_US7ASCII.msb
 
@@ -786,13 +787,13 @@ Altibase 데이터베이스 링크 모듈에서 발생할 수 있는 오류 메�
 
 함수 실행이나 데이터 타입과 관련된 오류 메시지를 수록한 파일이다.
 
-#### packages 디렉토리
+#### packages 디렉터리
 
-Altibase에서 기본으로 제공하는 시스템 정의 저장 패키지들이 존재하는 디렉터리이다. 패키지 생성 스크립트 catproc.sql 파일을 포함한다. 이외 하위 디렉터토리에 관한 설명은 Stored Procedures Manual의 Altibase 저장 패키지를 참조한다.
+시스템 정의 저장 패키지를 생성하는 스크립트들이 있는 디렉토리이다. catproc.sql 파일은 시스템 정의 저장 패키지들을 일괄적으로 생성해주는 스크립트이다. 시스템 정의 저장 패키지에 관한 설명은 [Altibase 7.2 Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored Procedures Manual.md#시스템-정의-저장-패키지) 을 참고한다.
 
-#### sample 디렉토리
+#### sample 디렉터리
 
-Altibase의 응용 프로그램을 샘플로 제공한 디렉토리다.
+Altibase의 응용 프로그램을 샘플로 제공한 디렉터리다.
 
 JDBC, CLI, C/C++ 전처리기(precompiler) 라이브러리를 이용하여 작성된 프로그램과 Makefile이 수록되어 있다.
 
@@ -800,7 +801,7 @@ JDBC, CLI, C/C++ 전처리기(precompiler) 라이브러리를 이용하여 작�
 
 3rd party 연동 시 필요한 스크립트 또는 라이브러리들이 존재한다.
 
-#### trc 디렉토리
+#### trc 디렉터리
 
 Altibase 운영 상태를 기록한 파일들이 존재한다. 서버내의 각 모듈은 해당하는 트레이스 파일에 기록한다.
 
@@ -965,7 +966,7 @@ Altibase의 데이터베이스는 데이터의 논리적 저장 단위인 테이
 
 Altibase의 데이터베이스는 여러 개의 테이블스페이스로 구성된다. 테이블스페이스는 그 사용처와 데이터를 저장하는 방법에 따라서 여러 종류로 분류된다.
 
-CREATE DATABASE 구문을 실행하면, 체크포인트 이미지와 데이터 파일이 기본으로 $ALTIBASE_HOME/dbs/ 디렉토리에 생성된다.
+CREATE DATABASE 구문을 실행하면, 체크포인트 이미지와 데이터 파일이 기본으로 $ALTIBASE_HOME/dbs/ 디렉터리에 생성된다.
 
 > Note: 사용자가 테이블스페이스를 생성하거나 테이블스페이스에 파일을 추가할 때 명시하는 파일의 확장자와 파일의 경로에는 제한이 없다.
 
@@ -1094,39 +1095,39 @@ CREATE DATABASE 구문을 수행할 때 지정하지 않은 속성들은 Altibas
 
 아래 표에 나열한 데이터베이스 초기화와 관련된 Altibase 프로퍼티에 대해 완벽히 이해하기 바란다.
 
-| 프로퍼티 이름                     | 설명                                                                                           | 기본값 |
-|-----------------------------------|------------------------------------------------------------------------------------------------|--------|
-| DB_NAME                           | 생성할 데이터베이스의 이름                                                                     | mydb   |
-| MEM_DB_DIR                        | 데이터베이스 파일들이 위치할 디렉토리.                                                         | ?/dbs  |
-| SERVER_MSGLOG_DIR                 | Altibase 운용 중 발생되는 서버의 메시지를 기록하는 파일(altibase_boot.log)이 위치하는 디렉토리 | ?/trc  |
-| MEM_MAX_DB_SIZE                   | 전체 메모리 테이블스페이스들의 최대 크기                                                       | 4G     |
-| LOGANCHOR_DIR                     | 로그 앵커 파일들이 위치할 디렉토리. 최대 3개까지 지정할 수 있다                                | ?/logs |
-| LOG_DIR                           | 로그 파일들이 위치할 디렉토리                                                                  | ?/logs |
-| LOG_FILE_SIZE                     | 로그 파일 하나의 크기                                                                          | 10M    |
-| EXPAND_CHUNK_PAGE_COUNT           | 한 번에 할당하는 메모리 테이블스페이스 페이지의 개수                                           | 3200   |
-| TEMP_PAGE_CHUNK_COUNT             | 한 번에 할당하는 메모리 테이블스페이스 임시 페이지의 개수                                      | 128    |
-| SYS_DATA_TBS_EXTENT_SIZE          | 시스템 데이터 테이블스페이스의 익스텐트 한 개의 크기                                           | 256K   |
-| SYS_DATA_FILE_INIT_SIZE           | CREATE DATABASE 구문 실행 시 생성되는 시스템 테이블스페이스를 위한 데이터 파일의 최초 크기     | 100M   |
-| SYS_DATA_FILE_MAX_SIZE            | 시스템 테이블스페이스의 데이터 파일의 최대 크기                                                | 2G     |
-| SYS_DATA_FILE_NEXT_SIZE           | 시스템 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기                               | 1M     |
-| SYS_TEMP_TBS_EXTENT_SIZE          | 임시 테이블스페이스의 익스텐트 한 개의 크기                                                    | 256K   |
-| SYS_TEMP_FILE_INIT_SIZE           | CREATE DATABASE 실행 시 생성되는 임시 테이블스페이스를 위한 데이터 파일의 최초 크기            | 100M   |
-| SYS_TEMP_FILE_MAX_SIZE            | 임시 테이블스페이스의 데이터 파일의 최대 크기                                                  | 2G     |
-| SYS_TEMP_FILE_NEXT_SIZE           | 임시 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기                                 | 1M     |
-| SYS_UNDO_TBS_EXTENT_SIZE          | 언두 테이블스페이스의 익스텐트 한 개의 크기                                                    | 128K   |
-| SYS_UNDO_FILE_INIT_SIZE           | CREATE DATABASE 실행 시 생성되는 언두 테이블스페이스를 위한 데이터 파일의 최초 크기            | 100M   |
-| SYS_UNDO_FILE_MAX_SIZE            | 언두 테이블스페이스의 데이터 파일의 최대 크기                                                  | 2G     |
-| SYS_UNDO_FILE_NEXT_SIZE           | 언두 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기                                 | 1M     |
-| USER_DATA_TBS_EXTENT_SIZE         | 사용자 데이터 테이블스페이스의 익스텐트 한 개의 크기                                           | 256K   |
-| USER \_DATA_FILE_INIT_SIZE        | CREATE DATABASE 실행 시 생성되는 사용자 테이블스페이스를 위한 데이터 파일의 최초 크기          | 100M   |
-| USER_DATA_FILE_MAX_SIZE           | 사용자 데이터 테이블스페이스의 데이터 파일의 최대 크기                                         | 2G     |
-| USER \_DATA_FILE_NEXT_SIZE        | 사용자 데이터 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기                        | 1M     |
-| USER_TEMP_TBS_EXTENT_SIZE         | 사용자 임시 테이블스페이스의 익스텐트 한 개의 크기                                             | 256K   |
-| USER_TEMP_FILE_INIT_SIZE          | CREATE DATABASE 실행 시 생성되는 사용자 임시 테이블스페이스의 데이터 파일의 최초 크기          | 100M   |
-| USER_TEMP_FILE_MAX_SIZE           | 사용자 임시 테이블스페이스의 데이터 파일의 최대 크기                                           | 2G     |
-| USER_TEMP_FILE_NEXT_SIZE          | 사용자 임시 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기                          | 1M     |
-| ADD_EXTENT_NUM_FROM_TBS_TO_SEG    | 세그먼트가 확장될 때 새로 할당되는 익스텐트의 개수                                             | 1      |
-| ADD_EXTENT_NUM_FROM_SYSTEM_TO_TBS | 테이블스페이스가 확장될 때 새로 할당되는 익스텐트의 개수                                       | 4      |
+| 프로퍼티 이름                     | 설명                                                         | 기본값 |
+| --------------------------------- | ------------------------------------------------------------ | ------ |
+| DB_NAME                           | 생성할 데이터베이스의 이름                                   | mydb   |
+| MEM_DB_DIR                        | 데이터베이스 파일들이 위치할 디렉터리.                       | ?/dbs  |
+| SERVER_MSGLOG_DIR                 | Altibase 운용 중 발생되는 서버의 메시지를 기록하는 파일(altibase_boot.log)이 위치하는 디렉터리 | ?/trc  |
+| MEM_MAX_DB_SIZE                   | 전체 메모리 테이블스페이스들의 최대 크기                     | 4G     |
+| LOGANCHOR_DIR                     | 로그 앵커 파일들이 위치할 디렉터리. 최대 3개까지 지정할 수 있다 | ?/logs |
+| LOG_DIR                           | 로그 파일들이 위치할 디렉터리                                | ?/logs |
+| LOG_FILE_SIZE                     | 로그 파일 하나의 크기                                        | 10M    |
+| EXPAND_CHUNK_PAGE_COUNT           | 한 번에 할당하는 메모리 테이블스페이스 페이지의 개수         | 3200   |
+| TEMP_PAGE_CHUNK_COUNT             | 한 번에 할당하는 메모리 테이블스페이스 임시 페이지의 개수    | 128    |
+| SYS_DATA_TBS_EXTENT_SIZE          | 시스템 데이터 테이블스페이스의 익스텐트 한 개의 크기         | 256K   |
+| SYS_DATA_FILE_INIT_SIZE           | CREATE DATABASE 구문 실행 시 생성되는 시스템 테이블스페이스를 위한 데이터 파일의 최초 크기 | 100M   |
+| SYS_DATA_FILE_MAX_SIZE            | 시스템 테이블스페이스의 데이터 파일의 최대 크기              | 2G     |
+| SYS_DATA_FILE_NEXT_SIZE           | 시스템 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기 | 1M     |
+| SYS_TEMP_TBS_EXTENT_SIZE          | 임시 테이블스페이스의 익스텐트 한 개의 크기                  | 256K   |
+| SYS_TEMP_FILE_INIT_SIZE           | CREATE DATABASE 실행 시 생성되는 임시 테이블스페이스를 위한 데이터 파일의 최초 크기 | 100M   |
+| SYS_TEMP_FILE_MAX_SIZE            | 임시 테이블스페이스의 데이터 파일의 최대 크기                | 2G     |
+| SYS_TEMP_FILE_NEXT_SIZE           | 임시 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기 | 1M     |
+| SYS_UNDO_TBS_EXTENT_SIZE          | 언두 테이블스페이스의 익스텐트 한 개의 크기                  | 128K   |
+| SYS_UNDO_FILE_INIT_SIZE           | CREATE DATABASE 실행 시 생성되는 언두 테이블스페이스를 위한 데이터 파일의 최초 크기 | 100M   |
+| SYS_UNDO_FILE_MAX_SIZE            | 언두 테이블스페이스의 데이터 파일의 최대 크기                | 2G     |
+| SYS_UNDO_FILE_NEXT_SIZE           | 언두 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기 | 1M     |
+| USER_DATA_TBS_EXTENT_SIZE         | 사용자 데이터 테이블스페이스의 익스텐트 한 개의 크기         | 256K   |
+| USER \_DATA_FILE_INIT_SIZE        | CREATE DATABASE 실행 시 생성되는 사용자 테이블스페이스를 위한 데이터 파일의 최초 크기 | 100M   |
+| USER_DATA_FILE_MAX_SIZE           | 사용자 데이터 테이블스페이스의 데이터 파일의 최대 크기       | 2G     |
+| USER \_DATA_FILE_NEXT_SIZE        | 사용자 데이터 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기 | 1M     |
+| USER_TEMP_TBS_EXTENT_SIZE         | 사용자 임시 테이블스페이스의 익스텐트 한 개의 크기           | 256K   |
+| USER_TEMP_FILE_INIT_SIZE          | CREATE DATABASE 실행 시 생성되는 사용자 임시 테이블스페이스의 데이터 파일의 최초 크기 | 100M   |
+| USER_TEMP_FILE_MAX_SIZE           | 사용자 임시 테이블스페이스의 데이터 파일의 최대 크기         | 2G     |
+| USER_TEMP_FILE_NEXT_SIZE          | 사용자 임시 테이블스페이스의 데이터 파일이 자동 확장될 때의 확장 크기 | 1M     |
+| ADD_EXTENT_NUM_FROM_TBS_TO_SEG    | 세그먼트가 확장될 때 새로 할당되는 익스텐트의 개수           | 1      |
+| ADD_EXTENT_NUM_FROM_SYSTEM_TO_TBS | 테이블스페이스가 확장될 때 새로 할당되는 익스텐트의 개수     | 4      |
 
 프로퍼티에 대한 보다 자세한 내용은 *General Reference*를 참조하기 바란다.
 
@@ -1435,11 +1436,11 @@ Altibase는 유일 키를 생성하기 위한 키생성자인 시퀀스를 제�
 
 특정 스키마에 소속되지 않고 전체 데이터베이스 수준에서 관리되는 객체를 비스키마 객체라고 한다. Altibase는 다음과 같은 비스키마 객체를 제공한다.
 
-##### 디렉토리 (Directory) 
+##### 디렉터리 (Directory) 
 
-저장프로시저의 파일 제어 기능은 운영 체제의 텍스트 파일에 대한 읽기 및 쓰기 기능을 제공한다. 이 기능을 이용하여 사용자는 저장프로시저 실행에 대한 별도의 메시지 등을 파일에 남길 수도 있으며, 파일로 결과를 보고하거나 파일로부터 데이터를 읽어와 테이블에 삽입하는 등 다양한 작업을 수행할 수 있다. 디렉토리 객체는 이러한 저장프로시저에서 접근하는 파일들이 저장되어 있는 디렉토리에 대한 정보를 관리하는데 사용된다.
+저장프로시저의 파일 제어 기능은 운영 체제의 텍스트 파일에 대한 읽기 및 쓰기 기능을 제공한다. 이 기능을 이용하여 사용자는 저장프로시저 실행에 대한 별도의 메시지 등을 파일에 남길 수도 있으며, 파일로 결과를 보고하거나 파일로부터 데이터를 읽어와 테이블에 삽입하는 등 다양한 작업을 수행할 수 있다. 디렉터리 객체는 이러한 저장프로시저에서 접근하는 파일들이 저장되어 있는 디렉터리에 대한 정보를 관리하는데 사용된다.
 
-디렉토리 객체에 대한 자세한 기능은 *SQL Reference*를 참고한다.
+디렉터리 객체에 대한 자세한 기능은 *SQL Reference*를 참고한다.
 
 저장프로시저 내에서의 파일 제어 방법은 *Stored Procedures Manual*을 참고한다.
 
@@ -3722,7 +3723,7 @@ Altibase가 데이터베이스의 저장 공간을 관리할 때 사용하는 �
 -   TTL (Touched Transaction Layer)  
     이 영역은 MVCC (Multi-Version Concurrency Control) 관련 정보를 가지고 있다.
 
--   슬롯 디렉토리 (Slot Directory)  
+-   슬롯 디렉터리 (Slot Directory)  
     이 영역은 로우가 저장된 페이지 내에서의 위치 (offset)에 대한 정보를 가지고 있다.
     
 -   빈 공간 (Free Space)  
@@ -4385,7 +4386,7 @@ ALTER TABLESPACE {테이블스페이스 이름}
 ###### 체크포인트 경로 추가절
 
 ```
-ADD CHECKPOINT PATH {디렉토리 경로}
+ADD CHECKPOINT PATH {디렉터리 경로}
 ```
 
 체크포인트 이미지 경로를 추가적으로 설정한다.
@@ -4393,7 +4394,7 @@ ADD CHECKPOINT PATH {디렉토리 경로}
 ###### 체크포인트 경로 삭제절
 
 ```
-DROP CHECKPOINT PATH {디렉토리 경로}
+DROP CHECKPOINT PATH {디렉터리 경로}
 ```
 
 기존 체크포인트 이미지 경로를 삭제한다.
@@ -4401,8 +4402,8 @@ DROP CHECKPOINT PATH {디렉토리 경로}
 ###### 체크포인트 경로 변경절
 
 ```
-RENAME CHECKPOINT PATH {기존 디렉토리 경로} 
-        TO {새로운 디렉토리 경로}
+RENAME CHECKPOINT PATH {기존 디렉터리 경로} 
+        TO {새로운 디렉터리 경로}
 ```
 
 기존 체크포인트 이미지 경로를 새로운 경로로 변경한다.
@@ -4511,7 +4512,7 @@ Create success.
 
 또한 체크포인트 경로는 기본적으로 MEM_DB_DIR 프로퍼티에 지정한 하나 혹은 그 이상의 체크포인트 경로가 새로 생성된 테이블스페이스을 위한 체크포인트 경로로 사용된다.
 
-altibase.properties 에 아래의 예처럼 두 개의 체크포인트 경로가 명시되어 있다고 가정하자. MEM_DB_DIR프로퍼티의 값이 Altibase 홈 디렉토리 아래의 dbs1와 dbs2, 두 개로 지정되어 있다.
+altibase.properties 에 아래의 예처럼 두 개의 체크포인트 경로가 명시되어 있다고 가정하자. MEM_DB_DIR프로퍼티의 값이 Altibase 홈 디렉터리 아래의 dbs1와 dbs2, 두 개로 지정되어 있다.
 
 ```
 # altibase.properties
@@ -4535,7 +4536,7 @@ CHECKPOINT_PATH
 2 rows selected.
 ```
 
-우선, 체크포인트 경로 안의 파일들을 살펴보자. dbs1 디렉토리 내에 다음과 같이 6개의 파일이 존재하는 것을 볼 수 있다.
+우선, 체크포인트 경로 안의 파일들을 살펴보자. dbs1 디렉터리 내에 다음과 같이 6개의 파일이 존재하는 것을 볼 수 있다.
 
 ```
 SYS_TBS_MEM_DATA-0-0 
@@ -4645,7 +4646,7 @@ iSQL(sysdba)> startup control
 
 만약 테이블스페이스의 데이터가 빈번하게 변경되어 체크포인트시 디스크 I/O의 양이 증가했다면, 이는 다음과 같이 기존의 체크포인트 경로와 물리적으로 다른 디스크에 새로운 체크포인트 경로를 추가해서 경감시킬 수 있다.
 
-USER_MEM_TBS에 /new_disk/dbs3경로를 새로 추가해보자. 우선, 추가하고자 하는 체크포인트 경로와 디렉토리를 생성하고, Altibase 프로세스가 해당 디렉토리에 쓰기와 실행권한을 가지도록 권한을 설정해야 한다. Altibase 프로세스를 수행하는 운영체제의 사용자 계정이 altibase라고 가정한다.
+USER_MEM_TBS에 /new_disk/dbs3경로를 새로 추가해보자. 우선, 추가하고자 하는 체크포인트 경로와 디렉터리를 생성하고, Altibase 프로세스가 해당 디렉터리에 쓰기와 실행권한을 가지도록 권한을 설정해야 한다. Altibase 프로세스를 수행하는 운영체제의 사용자 계정이 altibase라고 가정한다.
 
 ```
 $ su - root
@@ -4669,11 +4670,11 @@ Alter success.
 
 이 절에서는 메모리 테이블스페이스의 체크포인트 경로를 변경하는 절차에 대해 알아본다. 메모리 테이블스페이스를 위한 체크포인트는 컨트롤(CONTROL) 구동 단계에서만 설정이 가능하다. 앞서 ‘메모리 테이블스페이스에 체크포인트 경로 추가’절에서 알아본 것과 같이 우선 Altibase 서버를 종료 시킨 후에 컨트롤 단계까지 Altibase를 기동한다.
 
-본 예제는 기존의 체크포인트 경로인 Altibase 홈 디렉토리 아래의 dbs1을 새로 설치한 디스크인 /new_disk로 옮기는 절차를 보여준다.
+본 예제는 기존의 체크포인트 경로인 Altibase 홈 디렉터리 아래의 dbs1을 새로 설치한 디스크인 /new_disk로 옮기는 절차를 보여준다.
 
 체크포인트 경로를 변경하기 위해서는 기존의 체크포인트 경로를 절대경로로 정확히 입력해 주어야 한다. 컨트롤 단계에서 테이블스페이스의 체크포인트 경로를 보는 방법은 위의 ‘메모리 테이블스페이스에 체크포인트 경로 추가’절을 참고한다.
 
-체크포인트 경로를 변경할 때에는 체크포인트 경로를 추가할때와 마찬가지로 다음과 같이 변경할 체크포인트 경로와 디렉토리를 DBA가 직접 생성하고, 그 디렉토리에 대한 쓰기 및 실행 권한을 Altibase 프로세스를 실행하는 OS 사용자 계정에 부여해야 한다. Altibase 프로세스를 실행하는 사용자 계정이 altibase라고 가정한다.
+체크포인트 경로를 변경할 때에는 체크포인트 경로를 추가할때와 마찬가지로 다음과 같이 변경할 체크포인트 경로와 디렉터리를 DBA가 직접 생성하고, 그 디렉터리에 대한 쓰기 및 실행 권한을 Altibase 프로세스를 실행하는 OS 사용자 계정에 부여해야 한다. Altibase 프로세스를 실행하는 사용자 계정이 altibase라고 가정한다.
 
 ```
 $ su - root
@@ -4689,7 +4690,7 @@ RENAME CHECKPOINT PATH '/opt/altibase_home/dbs1' TO '/new_disk/dbs1';
 Alter success.
 ```
 
-마지막으로 기존의 Altibase 홈 디렉토리의 dbs1안의 USER_MEM_TBS 테이블스페이스의 체크포인트 이미지들을 모두 /new_disk/dbs1으로 옮겨주어야 한다.
+마지막으로 기존의 Altibase 홈 디렉터리의 dbs1안의 USER_MEM_TBS 테이블스페이스의 체크포인트 이미지들을 모두 /new_disk/dbs1으로 옮겨주어야 한다.
 
 ```
 $ mv $ALTIBASE_HOME/dbs1/USER_MEM_TBS* /new_disk/dbs1
@@ -4699,11 +4700,11 @@ $ mv $ALTIBASE_HOME/dbs1/USER_MEM_TBS* /new_disk/dbs1
 
 이 절에서는 메모리 테이블스페이스의 체크포인트 경로를 제거하는 절차에 대해 알아본다. 메모리 테이블스페이스를 위한 체크포인트는 컨트롤(CONTROL) 구동 단계에서만 설정이 가능하다. 앞서 ‘메모리 테이블스페이스에 체크포인트 경로 추가’절에서 알아본 것과 같이 우선 Altibase 서버를 종료 시킨 후 컨트롤 단계까지 Altibase를 기동한다.
 
-본 예제는 기존의 체크포인트 경로인 Altibase 홈 디렉토리의 dbs2를 제거하는 절차를 보여준다.
+본 예제는 기존의 체크포인트 경로인 Altibase 홈 디렉터리의 dbs2를 제거하는 절차를 보여준다.
 
 체크포인트 경로를 변경하기 위해서는 기존의 체크포인트 경로를 절대경로로 정확히 입력해 주어야 한다. 컨트롤 단계에서 테이블스페이스에 속한 체크포인트 경로를 보는 방법은 위의 ‘메모리 테이블스페이스에 체크포인트 경로 추가’절을 참고한다
 
-이제, 다음과 같이 DROP CHECKPOINT PATH 명령을 이용하여 Altibase 홈 디렉토리의 dbs2라는 체크포인트 경로를 제거할 수 있다.
+이제, 다음과 같이 DROP CHECKPOINT PATH 명령을 이용하여 Altibase 홈 디렉터리의 dbs2라는 체크포인트 경로를 제거할 수 있다.
 
 ```
 iSQL(sysdba)>  ALTER TABLESPACE USER_MEM_TBS 
@@ -4711,7 +4712,7 @@ DROP CHECKPOINT PATH '/opt/altibase_home/dbs2'
 Alter success.
 ```
 
-마지막으로 기존의 Altibase 홈 디렉토리의 dbs2안의 USER_MEM_TBS 테이블스페이스를 위한 체크포인트 이미지들을 USER_MEM_TBS의 다른 체크포인트 경로중 하나로 옮겨주어야 한다.
+마지막으로 기존의 Altibase 홈 디렉터리의 dbs2안의 USER_MEM_TBS 테이블스페이스를 위한 체크포인트 이미지들을 USER_MEM_TBS의 다른 체크포인트 경로중 하나로 옮겨주어야 한다.
 
 ```
 $ mv $ALTIBASE_HOME/dbs2/USER_MEM_TBS* /new_disk/dbs1
@@ -6955,7 +6956,7 @@ I/O 버퍼의 페이지들이 디스크에 기록될 때 이 버퍼의 내용은
 
 이처럼 디스크에 두 번 기록하는 이유는 페이지를 디스크에 기록하는 중에 시스템 장애가 발생하면 디스크에는 부분 쓰기(partial write)된 페이지가 남게 되는데 이는 복구가 불가능하기 때문이다. 일관성이 깨진 페이지에 대해서는 리두 로그(redo log)로도 복구가 불가능하다.
 
-Altibase에서는 DOUBLE_WRITE_DIRECTORY 프로퍼티를 사용해서 더블 라이트 파일이 저장될 디렉토리가 지정된다. 이 파일은 시스템 구동시 데이터 파일의 정합성을 검증 또는 복구하기 위해 사용되며, 이 파일이 없으면 이 과정은 생략된다.
+Altibase에서는 DOUBLE_WRITE_DIRECTORY 프로퍼티를 사용해서 더블 라이트 파일이 저장될 디렉터리가 지정된다. 이 파일은 시스템 구동시 데이터 파일의 정합성을 검증 또는 복구하기 위해 사용되며, 이 파일이 없으면 이 과정은 생략된다.
 
 ![](media/Admin/9-6.png)
 
@@ -7115,7 +7116,7 @@ iSQL> alter tablespace SYS_TBS_DISK_DATA end backup;
 
 데이터에 대한 모든 변경이 기록된 온라인 로그 파일들이 관리되는 방법에 따라 데이터베이스는 아카이브 로그(archivelog) 모드 또는 노-아카이브 로그(noarchivelog) 모드로 운영된다.
 
-아카이브 로그 모드에서는 한 로그 파일이 다 차서 새 로그 파일로 교체되면 이전 로그 파일은 아카이브 디렉토리로 복사된다. 아카이브 로그 디렉토리는 $ALTIBASE_HOME/conf/altibase.properties 파일에 ARCHIVE_DIR 프러퍼티로 지정된다.
+아카이브 로그 모드에서는 한 로그 파일이 다 차서 새 로그 파일로 교체되면 이전 로그 파일은 아카이브 디렉터리로 복사된다. 아카이브 로그 디렉터리는 $ALTIBASE_HOME/conf/altibase.properties 파일에 ARCHIVE_DIR 프러퍼티로 지정된다.
 
 노-아카이브 로그 모드에서는 이 로그 파일들이 체크포인트 시에 지워진다.
 
@@ -7369,9 +7370,9 @@ iLoader> in –d t1.dat –f t1.fmt
 
 모든 테이블스페이스의 데이터 파일들, 로그 파일, 및 로그 앵커 파일 모두를 운영체제의 복사 명령어 (UNIX의 경우 cp)를 이용하여 백업한다. Altibase에서는 메모리 데이터 파일 뿐만 아니라 디스크 관련 테이블스페이스의 데이터 파일들과 로그 앵커파일이 백업되어야 한다.
 
-메모리 테이블스페이스 데이터 파일 저장 위치는 Altibase 프로퍼티 파일인 \$ALTIBASE_HOME/conf/altibase.properties 파일 내에 MEM_DB_DIR으로 설정된다. 메모리 테이블스페이스의 데이터 파일을 백업하려면 MEM_DB_DIR 디렉토리를 모두 복사해야 한다.
+메모리 테이블스페이스 데이터 파일 저장 위치는 Altibase 프로퍼티 파일인 \$ALTIBASE_HOME/conf/altibase.properties 파일 내에 MEM_DB_DIR으로 설정된다. 메모리 테이블스페이스의 데이터 파일을 백업하려면 MEM_DB_DIR 디렉터리를 모두 복사해야 한다.
 
-로그 앵커 파일의 위치는 \$ALTIBASE_HOME/conf/altibase.properties 파일 내에 LOGANCHOR_DIR 프로퍼티로 설정된다. 로그 앵커 파일을 백업하려면 LOGANCHOR_DIR 디렉토리의 파일들을 복사해야 한다. 그리고 데이터 딕셔너리를 참조하여 디스크 테이블스페이스의 데이터 파일들을 복사해야 한다.
+로그 앵커 파일의 위치는 \$ALTIBASE_HOME/conf/altibase.properties 파일 내에 LOGANCHOR_DIR 프로퍼티로 설정된다. 로그 앵커 파일을 백업하려면 LOGANCHOR_DIR 디렉터리의 파일들을 복사해야 한다. 그리고 데이터 딕셔너리를 참조하여 디스크 테이블스페이스의 데이터 파일들을 복사해야 한다.
 
 예제)
 
@@ -7414,7 +7415,7 @@ $cp –r /home/backup/temp.dbf   $ALTIBASE_HOME/dbs
 
 ##### 데이터베이스 단위 온라인 백업
 
-전체 데이터베이스가 /backup_dir 디렉토리에 온라인 백업된다.
+전체 데이터베이스가 /backup_dir 디렉터리에 온라인 백업된다.
 
 ```
 iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO '/backup_dir';
@@ -7431,7 +7432,7 @@ loganchor1
 
 ##### 테이블스페이스 단위 온라인 백업
 
-SYS_TBS_MEM_DIC 데이터 파일 중에서 안정(stable)된 버전이 /backup_dir 디렉토리에 온라인 백업된다.
+SYS_TBS_MEM_DIC 데이터 파일 중에서 안정(stable)된 버전이 /backup_dir 디렉터리에 온라인 백업된다.
 
 ```
 iSQL(sysdba)> ALTER DATABASE BACKUP TABLESPACE SYS_TBS_MEM_DIC TO '/backup_dir';
@@ -7441,7 +7442,7 @@ SYS_TBS_MEM_DIC-0-0
 
 ##### 로그앵커 온라인 백업
 
-모든 로그앵커 파일이 /backup_dir 디렉토리에 온라인 백업된다.
+모든 로그앵커 파일이 /backup_dir 디렉터리에 온라인 백업된다.
 
 ```
 iSQL(sysdba)> ALTER DATABASE BACKUP LOGANCHOR TO '/backup_dir'
@@ -7562,11 +7563,11 @@ Update And Flush Count   	 [ 316 ]
 New Tablespace ID        	 [ 8 ]
 ```
 
-ARCHIVE_DIR 프로퍼티에 정의된 디렉토리에 logfile18320부터 logfile20344까지 존재하는지 확인한다. 만약 존재하지 않는다면, 아카이브 로그파일을 백업 저장 장치로부터 ARCHIVE_DIR 프로퍼티에 지정된 디렉토리로 복사한다.
+ARCHIVE_DIR 프로퍼티에 정의된 디렉터리에 logfile18320부터 logfile20344까지 존재하는지 확인한다. 만약 존재하지 않는다면, 아카이브 로그파일을 백업 저장 장치로부터 ARCHIVE_DIR 프로퍼티에 지정된 디렉터리로 복사한다.
 
-logfile20345 이후의 로그 파일은 모두 LOG_DIR 프로퍼티에 지정된 디렉토리에 존재하는 온라인 로그 파일이다. 즉, logfile18320부터 logfile20345까지의 로그 파일들은 유실된 abc.dbf 를 완전 복구하기 위해 반드시 필요하다.
+logfile20345 이후의 로그 파일은 모두 LOG_DIR 프로퍼티에 지정된 디렉터리에 존재하는 온라인 로그 파일이다. 즉, logfile18320부터 logfile20345까지의 로그 파일들은 유실된 abc.dbf 를 완전 복구하기 위해 반드시 필요하다.
 
-ARCHIVE_DIR과 LOG_DIR프로퍼티에 지정된 디렉토리에 존재하는 로그 파일의 중복으로 인해 발생되는 디스크 공간 낭비를 제거하기 위해서, Altibase가 직접 ARCHIVE_DIR프로퍼티에 지정된 디렉토리의 로그 파일을 읽는다.
+ARCHIVE_DIR과 LOG_DIR프로퍼티에 지정된 디렉터리에 존재하는 로그 파일의 중복으로 인해 발생되는 디스크 공간 낭비를 제거하기 위해서, Altibase가 직접 ARCHIVE_DIR프로퍼티에 지정된 디렉터리의 로그 파일을 읽는다.
 
 CONTROL 구동 단계에서 다음 구문으로 유실된 abc.dbf 파일을 생성한다.
 
@@ -7599,7 +7600,7 @@ USER_DISK_TBS01.dbf USER_DISK_TBS02.dbf USER_DISK_TBS03.dbf
 
 ##### 복구 절차
 
-완전 복구에 필요한 아카이브 로그 파일을 확인 확인한 후, 아카이브 디렉토리로 해당 파일들을 복사한다. 필요한 아카이브 로그 파일을 확인하는 방법은 복구될 데이터 파일의 헤더에 있는 정보를 참조하는 것이다. 헤더 정보는 dumpddf 유틸리티를 이용하여 다음과 같이 확인해 볼 수 있다.
+완전 복구에 필요한 아카이브 로그 파일을 확인 확인한 후, 아카이브 디렉터리로 해당 파일들을 복사한다. 필요한 아카이브 로그 파일을 확인하는 방법은 복구될 데이터 파일의 헤더에 있는 정보를 참조하는 것이다. 헤더 정보는 dumpddf 유틸리티를 이용하여 다음과 같이 확인해 볼 수 있다.
 
 ```
 $ dumpddf -m -f USER_DISK_TBS01.dbf
@@ -7614,7 +7615,7 @@ Create LSN        [ 0, 657403 ]
 
 위 결과는 백업된 데이터 파일을 이용하여 데이터베이스를 복원하려면 아카이브 로그 파일 logfile4 이후 파일들을 필요로 함을 나타낸다.
 
-backup_dir디렉토리의 데이터 파일 백업을 USER_DISK_TBS테이블스페이스의 데이터 파일이 원래 있었던 \$ALTIBASE_HOME/dbs/ 디렉토리에 복사한다.
+backup_dir디렉터리의 데이터 파일 백업을 USER_DISK_TBS테이블스페이스의 데이터 파일이 원래 있었던 \$ALTIBASE_HOME/dbs/ 디렉터리에 복사한다.
 
 ```
 $ cp /backup_dir/*.dbf  $ALTIBASE_HOME/dbs;
@@ -7648,7 +7649,7 @@ USER_DISK_TBS01.dbf USER_DISK_TBS02.dbf
 
 ##### 복구 절차
 
-완전 복구에 필요한 아카이브 로그 파일을 확인하고, 아카이브 디렉토리로 해당 파일들을 복사한다.backup_dir디렉토리에 있는 USER_DISK_TBS테이블스페이스의 백업 파일들을 온전한 /disk2파일 시스템으로 복사한다.
+완전 복구에 필요한 아카이브 로그 파일을 확인하고, 아카이브 디렉터리로 해당 파일들을 복사한다.backup_dir디렉터리에 있는 USER_DISK_TBS테이블스페이스의 백업 파일들을 온전한 /disk2파일 시스템으로 복사한다.
 
 ```
 $ cp /backup_dir/*.dbf /disk2/dbs;
@@ -7757,7 +7758,7 @@ LAST_DELETED_LOGFILE
 logfile15361  logfile15362  logfile15363  logfile15364  logfile15365
 ```
 
-7. 위 결과에 의해 logfile15021 다음 파일인 logfile15022부터 logs에 없는 logfile15360번까지  모두 ARCHIVE_DIR 프로퍼티에 지정된 디렉토리 (혹은 백업 장치)로부터 LOG_DIR 프로퍼티에 지정된 디렉토리에 복사한다. 불완전 매체 복구는 완전 복구와 달리 로그 파일 중복이 불가피하게 허용된다.
+7. 위 결과에 의해 logfile15021 다음 파일인 logfile15022부터 logs에 없는 logfile15360번까지  모두 ARCHIVE_DIR 프로퍼티에 지정된 디렉터리 (혹은 백업 장치)로부터 LOG_DIR 프로퍼티에 지정된 디렉터리에 복사한다. 불완전 매체 복구는 완전 복구와 달리 로그 파일 중복이 불가피하게 허용된다.
 8. SYS_TBS_DISK_TEMP는 백업되지 않기 때문에 해당 파일을 만들어 준다.
 
 ```
@@ -7840,7 +7841,7 @@ iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE to '/backup_dir';
 
 ##### 복구 절차
 
-완전 복구에 필요한 아카이브 로그 파일을 확인한 후, 아카이브 디렉토리로 해당 파일들을 복사한다. 필요한 아카이브 로그 파일을 확인하는 방법은 복구될 데이터 파일의 헤더에 있는 정보를 참조하는 것이다. 헤더 정보는 dumpdb 유틸리티를 이용하여 다음과 같이 확인할 수 있다
+완전 복구에 필요한 아카이브 로그 파일을 확인한 후, 아카이브 디렉터리로 해당 파일들을 복사한다. 필요한 아카이브 로그 파일을 확인하는 방법은 복구될 데이터 파일의 헤더에 있는 정보를 참조하는 것이다. 헤더 정보는 dumpdb 유틸리티를 이용하여 다음과 같이 확인할 수 있다
 
 ```
 % dumpdb -j 0 -f SYS_TBS_MEM_DIC-0-0
@@ -8036,7 +8037,7 @@ Altibase는 증분 백업 또는 전체 백업으로 유실 또는 손상된 데
 iSQL(sysdba)> ALTER DATABASE ENABLE INCREMENTAL CHUNK CHANGE TRACKING;
 ```
 
-이 구문은 오직 SERVICE 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적 기능을 활성화하면, \$ALTIBASE_HOME/dbs 디렉토리에 변경 추적 파일과 backupInfo 파일이 생성된다.
+이 구문은 오직 SERVICE 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적 기능을 활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에 변경 추적 파일과 backupInfo 파일이 생성된다.
 
 페이지 변경 추적 기능을 비활성화하려면 아래의 구문을 사용하라.
 
@@ -8044,7 +8045,7 @@ iSQL(sysdba)> ALTER DATABASE ENABLE INCREMENTAL CHUNK CHANGE TRACKING;
 iSQL(sysdba)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 ```
 
-이 구문은 모든 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적 기능을 비활성화하면, \$ALTIBASE_HOME/dbs 디렉토리에서 변경 추적 파일이 삭제된다.
+이 구문은 모든 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적 기능을 비활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에서 변경 추적 파일이 삭제된다.
 
 > 주의: 페이지 변경 추적 기능을 활성화하더라도 실제로는 변경된 페이지를 바로 추적하지 않는다. 변경 페이지 추적은 레벨 0 백업이 수행될 때 시작한다.
 
@@ -8052,7 +8053,7 @@ iSQL(sysdba)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 
 이 파일에는 변경된 페이지의 정보가 비트맵으로 저장된다. 이 파일은 증분 백업을 수행하기 위해 필수적으로 필요하다.
 
-changeTracking 파일은 \$ALTIBASE_HOME/dbs 디렉토리에 위치한다.
+changeTracking 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 
 > 주의:
 >
@@ -8065,7 +8066,7 @@ changeTracking 파일은 \$ALTIBASE_HOME/dbs 디렉토리에 위치한다.
 
 backupInfo 파일은 매체 복원(Media Restore) 시에 복원해야 할 백업 파일의 순서를 파악할 수 있는 정보를 제공한다. 만약 backupInfo 파일이 존재하지 않으면, 백업 파일이 존재하더라도 복구가 불가능하다.
 
-backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉토리에 위치한다.
+backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 
 > 주의: backupInfo 파일에는 증분 백업이 수행된 일시 순으로 백업 정보가 저장된다. backupInfo 파일이 소실되면 소실된 시점 이전에 생성된 증분 백업 파일은 더 이상 사용이 불가능하다. 따라서 증분 백업을 수행하면 backupInfo파일도 자동으로 백업된다.
 
@@ -8313,7 +8314,7 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 
 이 절은 증분 백업을 이용한 데이터베이스 복구 절차를 개략적으로 살펴본다. 먼저 changeTracking 파일과 backupinfo 파일의 복원 방법을 살펴본 후, 데이터베이스 복구 방법을 설명한다.
 
-매체(Media)에 장애가 발생하여 \$ALTIBASE_HOME/dbs 디렉토리에 changeTracking 파일 또는 backupInfo 파일이 소실되면, 서버를 CONTROL 구동 단계로 시작할 수 없다. 이 경우 서버를 PROCESS 구동 단계로 시작하여 changeTracking 파일과 backupinfo 파일에 대해 다음과 같은 작업을 수행해야 한다.
+매체(Media)에 장애가 발생하여 \$ALTIBASE_HOME/dbs 디렉터리에 changeTracking 파일 또는 backupInfo 파일이 소실되면, 서버를 CONTROL 구동 단계로 시작할 수 없다. 이 경우 서버를 PROCESS 구동 단계로 시작하여 changeTracking 파일과 backupinfo 파일에 대해 다음과 같은 작업을 수행해야 한다.
 
 - changeTracking 파일  
   이 파일은 매체 복원에는 필요하지 않다. 따라서 아래의 구문을 실행하여 서버가 더 이상 changeTracking 파일을 검사하지 않도록 해야 한다.
@@ -9012,7 +9013,7 @@ ALTER TABLE t1 MODIFY (empID1 DECRYPT);
   감사될 조건을 추가할 수 있도록 제공되는 SQL구문이다. 관리자는 이 구문을 사용해서 감사될 SQL문과 객체들을 지정할 수 있다.
 - altiAudit  
   Altibase 서버가 기록한 감사 로그를 사용자가 읽을 수 있는 텍스트 형태로 출력해 주는 도구이다. 알티베이스는 바이너리 형태의 감사 로그를
-  \$ALTIBASE_HOME/bin 디렉토리에 위치에 저장하고, 시스로그(syslog)는 /var/log에 저장한다. 감사 로그를 syslog로 설정할 때에는 AUDIT_OUTPUT_METHOD 프로퍼티의 값을 변경후 서버를 재시작한다.
+  \$ALTIBASE_HOME/bin 디렉터리에 위치에 저장하고, 시스로그(syslog)는 /var/log에 저장한다. 감사 로그를 syslog로 설정할 때에는 AUDIT_OUTPUT_METHOD 프로퍼티의 값을 변경후 서버를 재시작한다.
 
 ### 관련 메타 테이블과 프로퍼티
 
@@ -9806,7 +9807,7 @@ altiAudit 유틸리티에 대한 상세한 설명은 *Utilities Manual*을 참�
 
 #### 바이너리 레코드 감사 결과 확인
 
-파일이 존재하는 위치는 기본적으로 \$ALTIBASE_HOME/trc 디렉토리이지만, AUDIT_LOG_DIR 프로퍼티로 변경이 가능하다. 파일 이름의 형식은 다음과 같다.
+파일이 존재하는 위치는 기본적으로 \$ALTIBASE_HOME/trc 디렉터리이지만, AUDIT_LOG_DIR 프로퍼티로 변경이 가능하다. 파일 이름의 형식은 다음과 같다.
 
 ```
 alti-[the_epoch_time_sec]-[sequence].aud
@@ -9845,7 +9846,7 @@ Oct 27 09:22:19 mmj altibase: [AUDIT]SYS,1,127.0.0.1,CLI-64LE,isql,DDL,1,65537,1
 
 #### 로그 파일 그룹의 개념
 
-Altibase는 기본적으로 로그파일들을 LOG_DIR프로퍼티에 설정된 하나의 디렉토리에서 관리한다. 그리고 그 로그파일들 중 오직 하나의 로그파일에 데이터베이스 서버 운영 중에 발생하는 로그가 기록된다. 트랜잭션의 영속성(Durability)보장을 위해서 로깅은 필수적이다.
+Altibase는 기본적으로 로그파일들을 LOG_DIR프로퍼티에 설정된 하나의 디렉터리에서 관리한다. 그리고 그 로그파일들 중 오직 하나의 로그파일에 데이터베이스 서버 운영 중에 발생하는 로그가 기록된다. 트랜잭션의 영속성(Durability)보장을 위해서 로깅은 필수적이다.
 
 이와 같이 하나의 로그 경로, 즉 여러 개의 로그파일을 지니는 로깅 시스템의 최소 단위를 로그파일그룹(Log File Group, LFG)이라고 칭한다. 앞으로는 설명의 편의를 위하여 로그파일그룹을 간략하게 LFG라고 통칭한다.
 
@@ -9854,9 +9855,9 @@ Altibase는 기본적으로 로그파일들을 LOG_DIR프로퍼티에 설정된 
 LFG는 다음과 같은 구성 요소를 지닌다.
 
 - 로그 파일 경로 (LOG_DIR 프로퍼티)  
-  LOG_DIR 프로퍼티는 로그 파일이 저장되는 디렉토리 경로를 지정한다. 이 디렉토리는 하나 혹은 그 이상의 로그 파일들이 존재한다. Altibase는 그 중 오직 하나의 로그파일에만 로그를 기록할 수 있다.
+  LOG_DIR 프로퍼티는 로그 파일이 저장되는 디렉터리 경로를 지정한다. 이 디렉터리는 하나 혹은 그 이상의 로그 파일들이 존재한다. Altibase는 그 중 오직 하나의 로그파일에만 로그를 기록할 수 있다.
 - 아카이브 로그 파일 경로 (ARCHIVE_DIR 프로퍼티)  
-  데이터베이스가 아카이브로그 모드로 운영중이라면, LOG_DIR 프로퍼티에 지정된 디렉토리에 위치하는 기록이 완료된 로그파일들은 ARCHIVE_DIR 프로퍼티에 지정된 디렉토리로 복사된다. 이러한 아카이브 로그파일은 데이터베이스 복구와 백업을
+  데이터베이스가 아카이브로그 모드로 운영중이라면, LOG_DIR 프로퍼티에 지정된 디렉터리에 위치하는 기록이 완료된 로그파일들은 ARCHIVE_DIR 프로퍼티에 지정된 디렉터리로 복사된다. 이러한 아카이브 로그파일은 데이터베이스 복구와 백업을
   위해 사용된다.  
   이 프로퍼티의 수는 LOG_DIR프로퍼티의 수와 정확히 일치해야 한다. 아울러, LOG_DIR 프로퍼티가 여러 개인 경우 ARCHIVE_DIR 프로퍼티들은 LOG_DIR 프로퍼티 값과 순서대로 1:1로 매핑되도록 기술해야 한다.
 
@@ -9891,7 +9892,7 @@ LOG_DIR     = ?/logs                   # 로그 경로
 ARCHIVE_DIR = ?/arch_logs          # 아카이브 로그 경로
 ```
 
-물음표(“?”)는 Altibase 홈(\$ALTIBASE_HOME) 디렉토리를 나타내므로, 로그가 기록되는 경로는 \$ALTIBASE_HOME/logs가 된다.
+물음표(“?”)는 Altibase 홈(\$ALTIBASE_HOME) 디렉터리를 나타내므로, 로그가 기록되는 경로는 \$ALTIBASE_HOME/logs가 된다.
 
 데이터베이스를 생성한 후 로그 경로 안의 내용을 살펴보면 다음과 같이 logfile0부터 logfile2까지 세 개의 로그파일이 존재하는 것을 볼 수 있다. 이들 중 오직 하나의 로그파일에만 트랜잭션이 데이터베이스에 변경을 가하면서 발생하는 로그가 기록된다.
 
@@ -10061,7 +10062,7 @@ Altibase 서버가 운영하면서 사용하는 메모리 영역 정보를 성�
 
 [그림 16‑1] 일반적인 문제 분석 절차
 
-Altibase 관리자 로그란 \$ALTIBASE_HOME/trc 디렉토리에 생성되고 유지되는 “\*.log” 이름을 가지는 파일의 텍스트 로그이다. 이 디렉토리에는 다음의 트레이스 로그 파일들이 있다.
+Altibase 관리자 로그란 \$ALTIBASE_HOME/trc 디렉터리에 생성되고 유지되는 “\*.log” 이름을 가지는 파일의 텍스트 로그이다. 이 디렉터리에는 다음의 트레이스 로그 파일들이 있다.
 
 - altibase_boot.log
 - altibase_id.log
@@ -10124,13 +10125,13 @@ Altibase가 운영 중에 사용하는 디스크 공간은 다음과 같다.
 - 로그 파일 저장 공간
 - 각 테이블스페이스 파일 저장 공간
 
-Altibase 운영 중에 액티브 로그와 아카이브 로그가 지속적으로 생성되며, 액티브 로그 파일은 Altibase 프로퍼티 파일(altibase.properties)에서 LOG_DIR프로퍼티에 설정된 디렉토리에 저장이 되고, 아카이브 로그 파일은 데이터베이스가 아카이브 로그 모드로 운영될 경우 자동으로 ARCHIVE_DIR 프로퍼티에 설정된 디렉토리에 저장된다. 액티브 로그의 경우는 디스크 공간이 부족하여 더 이상 로그 저장이 불가능해지면 Altibase가 멈추게 된다. 이런 경우 로그 파일과 로그 앵커파일을 지우게 되면 복구가 불가능해지므로 해당 파일 시스템의 크기를 늘리거나 이외에 다른 불필요한 파일을 삭제하여 디스크 공간을 확보해야 한다. 아카이브 로그의 경우에는 설정 파일의 ARCHIVE_FULL_ACTION 프로퍼티 항목의 설정값이 0인 경우 아카이브 로그를 저장하지 않고 계속 운영되게 되며, 1인 경우 해당 파일 시스템의 가용공간이 확보될 때까지 Altibase가 멈춰있게 된다.
+Altibase 운영 중에 액티브 로그와 아카이브 로그가 지속적으로 생성되며, 액티브 로그 파일은 Altibase 프로퍼티 파일(altibase.properties)에서 LOG_DIR프로퍼티에 설정된 디렉터리에 저장이 되고, 아카이브 로그 파일은 데이터베이스가 아카이브 로그 모드로 운영될 경우 자동으로 ARCHIVE_DIR 프로퍼티에 설정된 디렉터리에 저장된다. 액티브 로그의 경우는 디스크 공간이 부족하여 더 이상 로그 저장이 불가능해지면 Altibase가 멈추게 된다. 이런 경우 로그 파일과 로그 앵커파일을 지우게 되면 복구가 불가능해지므로 해당 파일 시스템의 크기를 늘리거나 이외에 다른 불필요한 파일을 삭제하여 디스크 공간을 확보해야 한다. 아카이브 로그의 경우에는 설정 파일의 ARCHIVE_FULL_ACTION 프로퍼티 항목의 설정값이 0인 경우 아카이브 로그를 저장하지 않고 계속 운영되게 되며, 1인 경우 해당 파일 시스템의 가용공간이 확보될 때까지 Altibase가 멈춰있게 된다.
 
-LOG_DIR 프로퍼티에 지정된 디렉토리에 로그 파일의 개수가 많아져 로그 저장 공간이 부족해 진 경우 먼저 관리자 로그 파일을 확인하여 체크포인트가 정상적으로 이루어지고 있는지를 확인해야 하며, Altibase 프로퍼티 파일 내에 CHECKPOINT_INTERVAL_IN_SEC 프로퍼티와 CHECKPOINT_INTERVAL_IN_LOG 프로퍼티의 설정이 적절한지 확인하여야 한다. 만일 체크포인트가 정상적으로 이루어 지고 있음에도 불구하고 아카이브 로그 파일들이 LOG_DIR 프로퍼티에 지정된 디렉토리에 계속 남아 있다면 이중화 전송 상태를 확인해 본다. 이중화 전송이 계속 밀리고 있거나 전송 불가능 상태라면 로그 파일들은 아카이브 되지 않거나 지워지지 않아서 LOG_DIR 프로퍼티에 지정된 디렉토리에 계속 보관되므로 로그 저장 공간이 부족해 질 수 있다.
+LOG_DIR 프로퍼티에 지정된 디렉터리에 로그 파일의 개수가 많아져 로그 저장 공간이 부족해 진 경우 먼저 관리자 로그 파일을 확인하여 체크포인트가 정상적으로 이루어지고 있는지를 확인해야 하며, Altibase 프로퍼티 파일 내에 CHECKPOINT_INTERVAL_IN_SEC 프로퍼티와 CHECKPOINT_INTERVAL_IN_LOG 프로퍼티의 설정이 적절한지 확인하여야 한다. 만일 체크포인트가 정상적으로 이루어 지고 있음에도 불구하고 아카이브 로그 파일들이 LOG_DIR 프로퍼티에 지정된 디렉터리에 계속 남아 있다면 이중화 전송 상태를 확인해 본다. 이중화 전송이 계속 밀리고 있거나 전송 불가능 상태라면 로그 파일들은 아카이브 되지 않거나 지워지지 않아서 LOG_DIR 프로퍼티에 지정된 디렉터리에 계속 보관되므로 로그 저장 공간이 부족해 질 수 있다.
 
 이중화 관련 문제 해결 방법은 다음에 나올 "[이중화 문제](#이중화-문제)"에서 좀 더 자세히 설명하기로 한다.
 
-메모리 테이블스페이스와 각 시스템 테이블스페이스는 설정 파일내의 MEM_DB_DIR 프로퍼티에 설정된 디렉토리에 저장된다. 테이블스페이스 관련 디스크 부족 현상이라면 이 부분 또는 사용자가 생성한 테이블스페이스 파일이 저장된 공간을 확인해야 한다. 테이블스페이스를 저장하는 파일 시스템은 최소 해당 테이블스페이스가 증가되는 크기 이상의 여유 공간이 있어야 한다.
+메모리 테이블스페이스와 각 시스템 테이블스페이스는 설정 파일내의 MEM_DB_DIR 프로퍼티에 설정된 디렉터리에 저장된다. 테이블스페이스 관련 디스크 부족 현상이라면 이 부분 또는 사용자가 생성한 테이블스페이스 파일이 저장된 공간을 확인해야 한다. 테이블스페이스를 저장하는 파일 시스템은 최소 해당 테이블스페이스가 증가되는 크기 이상의 여유 공간이 있어야 한다.
 
 메모리 테이블스페이스의 저장 공간은 체크포인트가 수행될 때 실제로 디스크에 기록이 되기 때문에 메모리 상에 존재하는 테이블스페이스 크기 이상의 디스크 여유 공간이 필요하다.
 
@@ -10182,9 +10183,9 @@ Altibase가 처음 가동된 이후에 일정 기간 동안은 임시 메모리 
 
 이중화 관련 문제가 발생했다면 먼저 관리자 로그 파일에 이중화 관련 에러 메시지가 기록되어 있는지 확인하고 해당 내용을 전문 엔지니어에게 전달해야 한다.
 
-한쪽 시스템에 장애가 발생하고 장애 상황이 장시간 지속되면 이중화 데이터 전송을 하지 못하여 로그 저장 디렉토리의 가용 공간이 부족해 지는 현상이 발생한다. 따라서 단시간 내에 문제 해결이 어려울 경우에는 이중화를 중단하고 이중화 객체를 삭제하여 현재 운영중인 시스템에 문제가 생기지 않도록 하는 것을 고려해야 한다. 이런 경우 장애 상황이 해제된 이후 장애 발생 시스템의 데이터 복구 작업이 추가적으로 필요하다. 데이터 복구 방법으로는 iLoader 도구를 이용하는 방법과 이중화를 SYNC 모드로 구동하는 방법이 있다.
+한쪽 시스템에 장애가 발생하고 장애 상황이 장시간 지속되면 이중화 데이터 전송을 하지 못하여 로그 저장 디렉터리의 가용 공간이 부족해 지는 현상이 발생한다. 따라서 단시간 내에 문제 해결이 어려울 경우에는 이중화를 중단하고 이중화 객체를 삭제하여 현재 운영중인 시스템에 문제가 생기지 않도록 하는 것을 고려해야 한다. 이런 경우 장애 상황이 해제된 이후 장애 발생 시스템의 데이터 복구 작업이 추가적으로 필요하다. 데이터 복구 방법으로는 iLoader 도구를 이용하는 방법과 이중화를 SYNC 모드로 구동하는 방법이 있다.
 
-만일 이중화 객체 삭제가 어려운 경우 로그 저장 디렉토리의 가용 공간을 지속적으로 확인하여 모자란 경우 확보를 해주어야 한다.
+만일 이중화 객체 삭제가 어려운 경우 로그 저장 디렉터리의 가용 공간을 지속적으로 확인하여 모자란 경우 확보를 해주어야 한다.
 
 마찬가지로 이중화 네트워크 라인에 문제가 발생했다던지 이중화에 문제가 생겨 장시간 이중화가 연결되지 못하는 경우에도 동일한 조치가 필요하다.
 
