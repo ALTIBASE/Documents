@@ -1,73 +1,73 @@
 - [General Reference](#general-reference)
   - [3. The Data Dictionary](#3-the-data-dictionary)
     - [Meta Tables](#meta-tables)
-    - [SYS_AUDIT\_](#sys_audit%5C_)
-    - [SYS_AUDIT_OPTS\_](#sys_audit_opts%5C_)
-    - [SYS_COLUMNS\_](#sys_columns%5C_)
-    - [SYS_COMMENTS\_](#sys_comments%5C_)
-    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables%5C_)
-    - [SYS_CONSTRAINTS\_](#sys_constraints%5C_)
-    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns%5C_)
-    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related%5C_)
-    - [SYS_DATABASE\_](#sys_database%5C_)
-    - [SYS_DATABASE_LINKS\_](#sys_database_links%5C_)
-    - [SYS_DIRECTORIES\_](#sys_directories%5C_)
-    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns%5C_)
-    - [SYS_GRANT_OBJECT\_](#sys_grant_object%5C_)
-    - [SYS_GRANT_SYSTEM\_](#sys_grant_system%5C_)
-    - [SYS_INDEX_COLUMNS\_](#sys_index_columns%5C_)
-    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions%5C_)
-    - [SYS_INDEX_RELATED\_](#sys_index_related%5C_)
-    - [SYS_INDICES\_](#sys_indices%5C_)
-    - [SYS_JOBS\_](#sys_jobs%5C_)
-    - [SYS_LIBRARIES\_](#sys_libraries%5C_)
-    - [SYS_LOBS\_](#sys_lobs%5C_)
-    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views%5C_)
-    - [SYS_PACKAGES\_](#sys_packages%5C_)
-    - [SYS_PACKAGE_PARAS\_](#sys_package_paras%5C_)
-    - [SYS_PACKAGE_PARSE\_](#sys_package_parse%5C_)
-    - [SYS_PACKAGE_RELATED\_](#sys_package_related%5C_)
-    - [SYS_PART_INDICES\_](#sys_part_indices%5C_)
-    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns%5C_)
-    - [SYS_PART_LOBS\_](#sys_part_lobs%5C_)
-    - [SYS_PART_TABLES\_](#sys_part_tables%5C_)
-    - [SYS_PASSWORD_HISTORY\_](#sys_password_history%5C_)
-    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits%5C_)
-    - [SYS_PRIVILEGES\_](#sys_privileges%5C_)
-    - [SYS_PROCEDURES\_](#sys_procedures%5C_)
-    - [SYS_PROC_PARAS\_](#sys_proc_paras%5C_)
-    - [SYS_PROC_PARSE\_](#sys_proc_parse%5C_)
-    - [SYS_PROC_RELATED\_](#sys_proc_related%5C_)
-    - [SYS_RECYCLEBIN\_](#sys_recyclebin%5C_)
-    - [SYS_REPLICATIONS\_](#sys_replications%5C_)
-    - [SYS_REPL_HOSTS\_](#sys_repl_hosts%5C_)
-    - [SYS_REPL_ITEMS\_](#sys_repl_items%5C_)
-    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir%5C_)
+    - [SYS_AUDIT\_](#sys_audit_)
+    - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
+    - [SYS_COLUMNS\_](#sys_columns_)
+    - [SYS_COMMENTS\_](#sys_comments_)
+    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables_)
+    - [SYS_CONSTRAINTS\_](#sys_constraints_)
+    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns_)
+    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related_)
+    - [SYS_DATABASE\_](#sys_database_)
+    - [SYS_DATABASE_LINKS\_](#sys_database_links_)
+    - [SYS_DIRECTORIES\_](#sys_directories_)
+    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns_)
+    - [SYS_GRANT_OBJECT\_](#sys_grant_object_)
+    - [SYS_GRANT_SYSTEM\_](#sys_grant_system_)
+    - [SYS_INDEX_COLUMNS\_](#sys_index_columns_)
+    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions_)
+    - [SYS_INDEX_RELATED\_](#sys_index_related_)
+    - [SYS_INDICES\_](#sys_indices_)
+    - [SYS_JOBS\_](#sys_jobs_)
+    - [SYS_LIBRARIES\_](#sys_libraries_)
+    - [SYS_LOBS\_](#sys_lobs_)
+    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views_)
+    - [SYS_PACKAGES\_](#sys_packages_)
+    - [SYS_PACKAGE_PARAS\_](#sys_package_paras_)
+    - [SYS_PACKAGE_PARSE\_](#sys_package_parse_)
+    - [SYS_PACKAGE_RELATED\_](#sys_package_related_)
+    - [SYS_PART_INDICES\_](#sys_part_indices_)
+    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns_)
+    - [SYS_PART_LOBS\_](#sys_part_lobs_)
+    - [SYS_PART_TABLES\_](#sys_part_tables_)
+    - [SYS_PASSWORD_HISTORY\_](#sys_password_history_)
+    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits_)
+    - [SYS_PRIVILEGES\_](#sys_privileges_)
+    - [SYS_PROCEDURES\_](#sys_procedures_)
+    - [SYS_PROC_PARAS\_](#sys_proc_paras_)
+    - [SYS_PROC_PARSE\_](#sys_proc_parse_)
+    - [SYS_PROC_RELATED\_](#sys_proc_related_)
+    - [SYS_RECYCLEBIN\_](#sys_recyclebin_)
+    - [SYS_REPLICATIONS\_](#sys_replications_)
+    - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
+    - [SYS_REPL_ITEMS\_](#sys_repl_items_)
+    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
     - [SYS_REPL_OLD_CHECKS_](#sys_repl_old_checks_)
     - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
-    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns%5C_)
-    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns%5C_)
-    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices%5C_)
-    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items%5C_)
+    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
+    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
+    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
+    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
     - [SYS_REPL_TABLE_OID_IN_USE_](#sys_repl_table_oid_in_use_)
-    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos%5C_)
-    - [SYS_SECURITY\_](#sys_security%5C_)
-    - [SYS_SYNONYMS\_](#sys_synonyms%5C_)
-    - [SYS_TABLES\_](#sys_tables%5C_)
-    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions%5C_)
-    - [SYS_TABLE_SIZE\_](#sys_table_size%5C_)
-    - [SYS_TBS_USERS\_](#sys_tbs_users%5C_)
-    - [SYS_TRIGGERS\_](#sys_triggers%5C_)
-    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables%5C_)
-    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings%5C_)
-    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns%5C_)
-    - [SYS_USERS\_](#sys_users%5C_)
-    - [DBA_USERS\_](#dba_users%5C_)
-    - [SYS_USER_ROLES\_](#sys_user_roles%5C_)
-    - [SYS_VIEWS\_](#sys_views%5C_)
-    - [SYS_VIEW_PARSE\_](#sys_view_parse%5C_)
-    - [SYS_VIEW_RELATED\_](#sys_view_related%5C_)
-    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans%5C_)
+    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
+    - [SYS_SECURITY\_](#sys_security_)
+    - [SYS_SYNONYMS\_](#sys_synonyms_)
+    - [SYS_TABLES\_](#sys_tables_)
+    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions_)
+    - [SYS_TABLE_SIZE\_](#sys_table_size_)
+    - [SYS_TBS_USERS\_](#sys_tbs_users_)
+    - [SYS_TRIGGERS\_](#sys_triggers_)
+    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables_)
+    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings_)
+    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns_)
+    - [SYS_USERS\_](#sys_users_)
+    - [DBA_USERS\_](#dba_users_)
+    - [SYS_USER_ROLES\_](#sys_user_roles_)
+    - [SYS_VIEWS\_](#sys_views_)
+    - [SYS_VIEW_PARSE\_](#sys_view_parse_)
+    - [SYS_VIEW_RELATED\_](#sys_view_related_)
+    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
     - [SYS_GEOMETRIES_](#sys_geometries_)
     - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
     - [USER_SRS_](#user_srs_)
@@ -334,9 +334,9 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_VIEW_PARSE\_             | This table contains the actual text of statements used to create views. |
 | SYS_VIEW_RELATED\_           | This table contains information about objects accessed by views. |
 | SYS_XA_HEAURISTIC_TRANS_     | This table contains information about global transactions.   |
-| SYS_GEOMETRIES_              | This table contains information about tables that contains GEOMETRY columns. |
-| SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; Synonym to GEOMETRY_COLUMNS |
-| USER_SRS_                    | This table contains information about SRS(Spatial Reference System); Synonym to SPATIAL_REF_SYS |
+| SYS_GEOMETRIES_              | This table contains information about tables that have GEOMETRY columns. |
+| SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; Synonym of GEOMETRY_COLUMNS |
+| USER_SRS_                    | This table contains information about SRS(Spatial Reference System); Synonym of SPATIAL_REF_SYS |
 
 ##### Unsupported Meta Tables
 
@@ -4004,6 +4004,44 @@ This is the branch qualifier of the global transaction.
 ##### STATUS
 
 This is the status of the global transaction. 
+
+### SYS_GEOMETRIES_
+
+This is a meta table that contains information about tables that have GEOMETRY columns.
+
+| Column name     | Type     | Description                                      |
+| --------------- | -------- | ------------------------------------------------ |
+| USER_ID         | INTERGER | The identifier of the user                       |
+| TABLE_ID        | INTERGER | The table identifier                             |
+| COLUMN_ID       | INTERGER | The column identifier                            |
+| COORD_DIMENSION | INTERGER | The dimension of the GEOMETRY object             |
+| SRID            | INTERGER | The spatial reference identifier in the database |
+
+### SYS_GEOMETRY_COLUMNS_
+
+This meta table is used to manage and specify SRID in the GEOMETRY column. The synonym of this meta tble is GEOMETRY_COLUMNS_.
+
+| Column name       | Type         | Description                                      |
+| ----------------- | ------------ | ------------------------------------------------ |
+| F_TABLE_SCHEMA    | VARCHAR(128) | The name of the owner of the table               |
+| F_TABLE_NAME      | VARCHAR(128) | The name of the table                            |
+| F_GEOMETRY_COLUMN | VARCHAR(128) | The name of the column                           |
+| COORD_DIMENSION   | INTERGER     | The dimension of the GEOMETRY object             |
+| SRID              | INTERGER     | The spatial reference identifier in the database |
+
+### USER_SRS_
+
+This meta table is used to manage information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
+
+To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/haeinnmin/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md).
+
+| Column name | Type          | Description                                                  |
+| ----------- | ------------- | ------------------------------------------------------------ |
+| SRID        | INTEGER       | The spatial reference identifier in the database             |
+| AUTH_NAME   | VARCHAR(256)  | The standard name                                            |
+| AUTH_SRID   | INTEGER       | The standard Spatial Reference Identifier                    |
+| SRTEXT      | VARCHAR(2048) | The description of the Spatial Reference System in OGC-WKT form |
+| PROJ4TEXT   | VARCHAR(2048) | The information for used in PROJ4                            |
 
 ### Performance Views
 
