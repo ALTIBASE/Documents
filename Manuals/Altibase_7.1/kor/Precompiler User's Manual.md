@@ -3252,7 +3252,7 @@ WHERE ENO = 5;
 
 ##### SQL_NUMERIC_STRUCT 
 
-이 타입 사용 시 NUMERIC 데이터를 전달할 수 있다. 
+이 타입 사용 시 좀 더 정확한 NUMERIC 데이터를 전달할 수 있다. 
 
 이 타입의 구조는 다음과 같다. 
 
@@ -3265,6 +3265,10 @@ typedef struct tagSQL_NUMERIC_STRUCT
 	SQLCHAR		val[SQL_MAX_NUMERIC_LEN];
 } SQL_NUMERIC_STRUCT;
 ```
+
+이 구조체 참조시에 SQLCHAR val는 little endian byte order를 기반으로 데이터가 처리된다.
+
+따라서 big endian OS를 사용하는경우에도 little endian byte order로 세팅해 줘야 된다.
 
 ##### 예제
 
@@ -3284,8 +3288,6 @@ int                  s_stock;
 SQL_NUMERIC_STRUCT   s_price;
 EXEC SQL END DECLARE SECTION;
 
-int s_price_val = 0;
-
 /* use scalar host variables */
 strcpy(s_gno, "F111100002");
 strcpy(s_gname, "XX-101");
@@ -3297,8 +3299,9 @@ memset(&s_price, 0, sizeof(s_price));
 s_price.precision = 4;
 s_price.scale = 1;
 s_price.sign = 1;
-s_price_val = 1234;
-memcpy(&s_price.val, &s_price_val, sizeof(int));
+/* set value 1234 to little endian */
+s_price.val[0] = 0xD2;
+s_price.val[1] = 0x04;
 
 printf("------------------------------------------------------------------\n");
 printf("[SQL_NUMERIC_STRUCT Insert]\n");
