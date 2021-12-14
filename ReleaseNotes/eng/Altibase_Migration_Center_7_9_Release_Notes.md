@@ -25,7 +25,7 @@ Altibase Migration Center 7.9 Release Notes
 
 **(Nov. 11, 2021)**
 
-1. Abstract
+## 1. Abstract
 
 ---------------
 
@@ -178,7 +178,7 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 #### 2.5.2 Manual
 
-[Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/Migration%20Center%20User's%20Manual.md)
+[Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Migration%20Center%20User's%20Manual.md)
 
 #### 2.5.3 Installation
 
