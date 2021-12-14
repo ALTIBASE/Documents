@@ -1,89 +1,93 @@
+- altiShapeLoader Release Notes
+  - 1\. 개요
+    - [1.1 시스템 요구사항](#1.1 시스템 요구사항)
+  - 2\. 릴리즈 정보
+    - [2.1 버전](#2.1 버전)
+    - [2.2 새로운 기능](#2.2 새로운 기능)
+    - [2.3 수정된 버그](#2.3 수정된 버그)
+    - [2.4 프로퍼티](#2.4 프로퍼티)
+    - [2.5 에러 메시지](#2.5 에러 메시지)
+  - [3. 사용된 오픈소스 라이브러리](#3. 사용된 오픈소스 라이브러리)
+  - [4. 패키지](#4. 패키지)
+  - 5\. 다운로드
+    - [5.1 패키지](#5.1 패키지)
+    - [5.2 매뉴얼](#5.2 매뉴얼)
+    - [5.3 설치](#5.3 설치)
 
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [altiShapeLoader Release Notes](#altishapeloader-release-notes)
-  - [1. Release Information](#1-release-information)
-    - [1.1 Version](#11-version)
-    - [1.2 New Features](#12-new-features)
-    - [1.3  Bug-Fixes](#13--bug-fixes)
-    - [1.4 Properties](#14-properties)
-    - [1.5 Error Messages](#15-error-messages)
-  - [2. Open Source Libraries Used](#2-open-source-libraries-used)
-  - [3 Packages](#3-packages)
-  - [4 Downloads](#4-downloads)
-    - [4.1 Packages](#41-packages)
-    - [4.2 Manual](#42-manual)
-    - [4.3 Installation](#43-installation)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-</br>
-
-</br>
-
-</br>
-
-altiShapeLoader Release Notes
-===============================
+# altiShapeLoader Release Notes
 
 **(Oct. 15, 2021)**
 
+## 1. 개요
 
+altiShapeLoader는 shapefile 내보내기와 불러오기를 위한 도구로, Java를 기반으로 한 오픈소스 라이브러리인 GeoTools를 사용하여 작성되었다.
 
-## 1. Release Information
+Shapefile을 불러오기는 좌표 정보, 속성 정보와 같은 공간 데이터 정보를 Shapefile로부터 알티베이스 데이터베이스 테이블에 삽입하는 것을 의미한다. Shapefile 내보내기는 알티베이스 데이터베이스 테이블에 저장된 공간 데이터 정보를 사용하여 Shapefile을 생성하는 것을 의미한다.
 
-### 1.1 Version
+### 1.1 시스템 요구사항
+
+#### 하드웨어 요구사항
+
+- 메인 메모리: 최소 512MB, 4GB 이상 권장
+- 디스크: 설치를 위해 최소 20MB 이상의 여유 공간 필요
+
+#### 소프트웨어 요구사항
+
+- Java: Oracle, OpenJDK 또는 IBM Java Runtime Environment 8 또는 그 이상
+
+#### 지원하는 플랫폼
+
+- 64bit OS Java에서 설치 및 실행 가능
+
+#### 호환 가능한 알티베이스 버전
+
+- Altibase 7.1 또는 그 이상
+
+## 2. 릴리즈 정보
+
+### 2.1 버전
 
 - 1.0
 
-### 	1.2 New Features
+### 2.2 새로운 기능
 
-* First release
+- 해당 릴리즈가 첫번째 릴리즈이다.
 
-### 1.3  Bug-Fixes
+### 2.3 수정된 버그
 
-NONE
+### 2.4 프로퍼티
 
-### 1.4 Properties
+### 2.5 에러 메시지
 
-NONE
+## 3. 사용된 오픈소스 라이브러리
 
-### 1.5 Error Messages
+altiShapeLoader는 아래의 오픈소스 라이브러리에 기반한다. 라이선스는 텍스트 파일 형식으로 altiShapeLoader와 함께 제공된다.
 
-NONE
+| Library              | Version | Open Source License                                          |
+| -------------------- | ------- | ------------------------------------------------------------ |
+| GeoTools             | 25.1    | Homepage: https://geotools.org/ License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
+| hsqldb               | 1.8.0.1 | Homepage: http://hsqldb.org/ License: Based on BSD(http://hsqldb.org/web/hsqlLicense.html) |
+| Apache Commons IO    | 2.6     | Homepage: http://commons.apache.org/proper/commons-io/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache Commons CLI   | 1.3.1   | Homepage: [http://https://commons.apache.org/proper/commons-cli/](http://https//commons.apache.org/proper/commons-cli/) License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache Commons lang3 | 1.3.1   | Homepage: https://commons.apache.org/proper/commons-lang/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache log4j         | 1.2.16  | Homepage: https://logging.apache.org/log4j/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 
-## 2. Open Source Libraries Used
+## 4. 패키지
 
-altiShapeLoader is based on the following open-source libraries. The licenses are distributed in a text file format along with altiShapeLoader.
+| Archive Name                                     |
+| ------------------------------------------------ |
+| altiShapeLoader1.0.zip altiShapeLoader1.0.tar.gz |
 
-| Library                                   | Version | Open Source License                                          |
-| ----------------------------------------- | ------- | ------------------------------------------------------------ |
-| GeoTools                                  | 25.1    | Homepage: https://geotools.org/<br/>License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
-| hsqldb                                    | 1.8.0.1 | Homepage: http://hsqldb.org/<br/>License: Based on BSD(http://hsqldb.org/web/hsqlLicense.html) |
-| Apache Commons IO                         | 2.6     | Homepage: http://commons.apache.org/proper/commons-io/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons CLI                        | 1.3.1   | Homepage: http://https://commons.apache.org/proper/commons-cli/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons lang3                      | 1.3.1   | Homepage: https://commons.apache.org/proper/commons-lang/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache log4j                              | 1.2.16  | Homepage: https://logging.apache.org/log4j/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+## 5. 다운로드
 
-## 3 Packages
+### 5.1 패키지
 
-| Archive Name                                         |
-| ---------------------------------------------------- |
-| altiShapeLoader1.0.zip<br/>altiShapeLoader1.0.tar.gz |
+http://support.altibase.com/kr/product
 
-## 4 Downloads
-
-### 4.1 Packages
-
-<http://support.altibase.com>
-
-### 4.2 Manual
+### 5.2 매뉴얼
 
 https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/altiShapeLoader.md
 
-### 4.3 Installation
+### 5.3 설치
 
-Please refer to the altiShapeLoader User's Manual.
+altiShapeLoader User's Manual를 참고하라.
