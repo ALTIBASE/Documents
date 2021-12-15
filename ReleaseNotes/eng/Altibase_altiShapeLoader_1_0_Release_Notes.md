@@ -12,7 +12,6 @@
   - [5. Downloads](#5-downloads)
     - [5.1 Packages](#51-packages)
     - [5.2 Manual](#52-manual)
-    - [5.3 Installation](#53-installation)
 
 # altiShapeLoader Release Notes
 
@@ -87,7 +86,3 @@ http://support.altibase.com/kr/product
 ### 5.2 Manual
 
 [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/altiShapeLoader%20User's%20Manual.md)
-
-### 5.3 Installation
-
-Please refer to the altiShapeLoader User's Manual.
