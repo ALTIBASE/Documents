@@ -66,6 +66,7 @@ Migration Center는 데이터베이스 마이그레이션을 위한 도구로서
 | BUG-48340 | 테이블 이름에 밑줄(_)이 포함된 경우 유사한 이름을 가진 테이블 컬럼도 포함된다. |
 | BUG-48672 | Altibase 7.2부터 범위 파티션드 테이블에 기본 파티션이 없더라도 경고창이 나타나지 않는다. |
 | BUG-49467 | TimesTen 11.2.1.9.10으로부터 알티베이스로의 마이그레이션을 지원한다. |
+| BUG-49499 | [CVE-2021-44228](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q) 보안 문제로 log4j를 2.15.0 버전으로 업그레이드해야 한다. |
 
 ### 2.2 변경사항
 
@@ -83,10 +84,10 @@ Migration Center 버전
 
 #### 2.2.2 데이터베이스 호환성
 
-##### 도착 데이터베이스: Altibase
+##### 대상 데이터베이스: Altibase
 
 - 원본 데이터베이스
-  - Altibase : Altibase 4.3.9 혹은 그 이상
+  - Altibase : Altibase 4.3.9 이상 버전
   - ORACLE : Oracle 9i ~ 11g
   - MS-SQL : MS-SQL 2005-2012
   - MySQL : MySQL 5.0 ~ 5.5
@@ -94,15 +95,15 @@ Migration Center 버전
   - TimesTen : TimesTen 7.0, TimesTen 11.2
   - CUBRID : CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
   - Tibero : Tibero 4 sp1, 5 ~ 6
-- 도착 데이터베이스
+- 대상 데이터베이스
   - Altibase : Altibase 5.5.1 혹은 그 이상
 
-##### 도착 데이터베이스: Oracle
+##### 대상 데이터베이스: Oracle
 
 - 원본 데이터베이스
   - Altibase : Altibase 4.3.9 혹은 그 이상
 
-- 도착 데이터베이스
+- 대상 데이터베이스
   - ORACLE : Oracle 10g ~ 11g
 
 #### 2.2.3 프로퍼티
@@ -158,8 +159,8 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 #### 2.5.2 매뉴얼
 
-https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/MigrationCenter.md
+https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/Migration%20Center%20User's%20Manual.md
 
 #### 2.5.3 설치
 
-Migration Center User's Manual를 참고하라.
+Migration Center User's Manual를 참고한다.

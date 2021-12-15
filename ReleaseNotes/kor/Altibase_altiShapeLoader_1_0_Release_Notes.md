@@ -33,7 +33,7 @@ Shapefile을 불러오기는 좌표 정보, 속성 정보와 같은 공간 데�
 
 #### 소프트웨어 요구사항
 
-- Java: Oracle, OpenJDK 또는 IBM Java Runtime Environment 8 또는 그 이상
+- Java: Oracle, OpenJDK 또는 IBM Java Runtime Environment 8 이상 버전
 
 #### 지원하는 플랫폼
 
@@ -41,7 +41,7 @@ Shapefile을 불러오기는 좌표 정보, 속성 정보와 같은 공간 데�
 
 #### 호환 가능한 알티베이스 버전
 
-- Altibase 7.1 또는 그 이상
+- Altibase 7.1 이상 버전
 
 ## 2. 릴리즈 정보
 
@@ -70,7 +70,7 @@ altiShapeLoader는 아래의 오픈소스 라이브러리에 기반한다. 라�
 | Apache Commons IO    | 2.6     | Homepage: http://commons.apache.org/proper/commons-io/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 | Apache Commons CLI   | 1.3.1   | Homepage: [http://https://commons.apache.org/proper/commons-cli/](http://https//commons.apache.org/proper/commons-cli/) License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 | Apache Commons lang3 | 1.3.1   | Homepage: https://commons.apache.org/proper/commons-lang/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache log4j         | 1.2.16  | Homepage: https://logging.apache.org/log4j/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache log4j         | 2.15.0  | Homepage: https://logging.apache.org/log4j/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 
 ## 4. 패키지
 
@@ -86,8 +86,8 @@ http://support.altibase.com/kr/product
 
 ### 5.2 매뉴얼
 
-https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/altiShapeLoader.md
+https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/altiShapeLoader%20User's%20Manual.md
 
 ### 5.3 설치
 
-altiShapeLoader User's Manual를 참고하라.
+altiShapeLoader User's Manual를 참고한다.
