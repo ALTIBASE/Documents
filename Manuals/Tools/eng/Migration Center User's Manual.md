@@ -287,7 +287,7 @@ If Altibase is the target database, the source database that can be migrated is 
 
 ###### Destination Database
 
-- Altibase 5.5.1 or later
+- Altibase 6.5.1 or later
 
 ###### Source Database
 
