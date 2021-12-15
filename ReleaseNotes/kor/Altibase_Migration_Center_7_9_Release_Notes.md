@@ -1,13 +1,13 @@
 - Altibase Migration Center 7.9 Release Notes
   - 1\. 개요
-    - [1.1 시스템 요구사항](#1.1 시스템 요구사항)
-    - [1.2 지원하는 OS 및 플랫폼](#1.2 지원하는 OS 및 플랫폼)
+    - [1.1 시스템 요구사항](#11-시스템-요구사항)
+    - [1.2 지원하는 OS 및 플랫폼](#12-지원하는-os-및-플랫폼)
   - 2\. 릴리즈 정보
-    - [2.1 Altibase Migration Center 7.9](#2.1 Altibase Migration Center 7.9)
-    - [2.2 변경사항](#2.2 변경사항)
-    - [2.3 사용된 오픈소스 라이브러리 / 로열티 프리 이미지](#2.3 사용된 오픈소스 라이브러리 / 로열티 프리 이미지)
-    - [2.4 패키지](#2.4 패키지)
-    - [2.5 다운로드](#2.5 다운로드)
+    - [2.1 Altibase Migration Center 7.9](#21-altibase-migration-center-79)
+    - [2.2 변경사항](#22-변경사항)
+    - [2.3 사용된 오픈소스 라이브러리 / 로열티 프리 이미지](#23-사용된-오픈소스-라이브러리--로열티-프리-이미지)
+    - [2.4 패키지](#24-패키지)
+    - [2.5 다운로드](#25-다운로드)
 
 # Altibase Migration Center 7.9 Release Notes
 
@@ -15,48 +15,44 @@
 
 ## 1. 개요
 
-------
+-----
 
 ### 1.1 시스템 요구사항
 
-#### 하드웨어 최소 사양 : GUI 모드
+#### 하드웨어 최소 사양
 
-- 프로세서: 800MHz Pentium III 혹은 그 이상
-- 메모리: 512 MB 혹은 그 이상
-- 디스크: 150MB 혹은 그 이상의 여유공간
-- 화면 해상도: 1024 * 768 픽셀 혹은 그 이상
-
-#### 하드웨어 최소 사양 : CLI 모드
-
-- 프로세서: CPU 1개 혹은 그 이상
-- 메모리: 512 MB 혹은 그 이상
-- 디스크: 150MB 혹은 그 이상의 여유공간
+|             |        GUI 모드         | CLI 모드 |
+| ----------- | :---------------------: | :------: |
+| 프로세서    | 800MHz Pentium III 이상 |   좌동   |
+| 메모리      |       512 MB 이상       |   좌동   |
+| 디스크      |   150MB 이상 여유공간   |   좌동   |
+| 화면 해상도 |  1024 * 768 픽셀 이상   |    -     |
 
 ### 1.2 지원하는 OS 및 플랫폼
 
-| Mode     | JRE                         | OS Graphic Library |
-| -------- | --------------------------- | ------------------ |
-| GUI mode | Sun or IBM Java 5 or higher | Required           |
-| CLI mode | Sun of IBM Java 5 or higher | Not required       |
+| Mode | JRE                      | OS Graphic Library |
+| ---- | ------------------------ | ------------------ |
+| GUI  | Sun 또는 IBM Java 5 이상 | 필수               |
+| CLI  | Sun 또는 IBM Java 5 이상 | 필수는 아님        |
 
-Migration Center는 클라이언트의 하드웨어나 OS가 아닌 JAVA Runtime Environment (JRE)에 의존하는 완전히 Java를 기반으로 하는 클라이언트 어플리케이션이다. 단, Migration Center를 GUI 모드로 실행하기 위해 그래픽 라이브러리나 OS의 추가적인 지원을 필요로 한다.
+Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로, 클라이언트의 하드웨어나 OS 대신 JAVA Runtime Environment (JRE)에 의존한다. 단, Migration Center를 GUI 모드로 실행하기 위해 운영 체제의 그래픽 라이브러리에 대한 추가 지원이 필요하다.
 
 ## 2. 릴리즈 정보
 
 ### 2.1 Altibase Migration Center 7.9
 
-Migration Center는 데이터베이스 마이그레이션을 위한 도구로서, 사용자가 편리하게 써드파티 데이터베이스를 알티베이스 데이터베이스 또는 외부 파일로 이동하거나 알티베이스 데이터베이스를 오라클 데이터베이스로 이전하도록 한다. 보통 데이터베이스 마이그레이션은 수동으로 진행할 경우 복잡하고 시간이 많이 소요되며 에러가 발생하는 불편함이 있다. 이를 개선하기 위해 Migration Center는 사용자가 GUI 모드에서 마우스 클릭 몇 번만으로 효율적으로 데이터베이스 마이그레이션이 가능하게 한다. 이에 더하여, 자원 사용을 최적화히기 위해 CLI 모드 또한 지원한다.
+Migration Center는 데이터베이스 마이그레이션을 위한 도구로서, 사용자가 편리하게 써드파티 데이터베이스를 알티베이스 데이터베이스 또는 외부 파일로 이관하거나 알티베이스 데이터베이스를 오라클 데이터베이스로 이관하도록 한다. 보통 데이터베이스 마이그레이션은 수동으로 진행할 경우 복잡하고 시간이 많이 소요되며 휴먼 에러가 발생하는 불편함이 있다. 이를 효율화하기 위해 Migration Center는 GUI 모드에서 마우스 클릭 몇 번만으로 데이터베이스 마이그레이션을 가능하게 한다. 이에 더하여, 자원 사용을 최적화하기 위해 CLI 모드도 지원한다.
 
 #### 2.1.1 새로운 기능
 
-- Tibero 4 sp1로부터의 데이터베이스 이전 지원
+- 원본 데이터베이스로 Tibero 4 sp1 지원
 - OpenJDK12 지원
 
 #### 2.1.2 수정된 버그
 
 | PK        | SYNOPSIS                                                     |
 | --------- | ------------------------------------------------------------ |
-| BUG-47352 | Reconcile 중 파티션드 테이블 변환 단계에서 변경사항 일부가 Next 또는 Back 후에 돌아오면 휘발된다. |
+| BUG-47352 | Reconcile 중 파티션드 테이블 변환 단계에서 변경사항 일부가 Next 또는 Back 후에 돌아오면 유지되지 않는다. |
 | BUG-47372 | PSM 내부 지역 변수의 타입 변환 방식을 개선해야 한다.         |
 | BUG-47376 | 원본 데이터베이스가 Altibase 7 이상일 경우 dbms_metadata 패키지를 이용해서 원본 DDL을 지원한다. |
 | BUG-47381 | Synonym 참조 대상 객체가 빌드 대상이 아닐 시 Reconcile 단계에서 hang이 발생한다. |
@@ -72,7 +68,7 @@ Migration Center는 데이터베이스 마이그레이션을 위한 도구로서
 
 Migration Center에 추가, 삭제 또는 변경된 기능들은 다음과 같다.
 
-- JRE 8 혹은 그 이상을 요구하는 Altibase 7.2 JDBC를 지원하기 위해 Migration Center에 포함된 JRE 버전이 7에서 8로 업데이트되었다.
+- JRE 8 이상을 요구하는 Altibase 7.2 JDBC를 지원하기 위해 Migration Center에 포함된 JRE 버전이 7에서 8로 업데이트되었다.
 
 #### 2.2.1 버전 업데이트
 
@@ -96,12 +92,12 @@ Migration Center 버전
   - CUBRID : CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
   - Tibero : Tibero 4 sp1, 5 ~ 6
 - 대상 데이터베이스
-  - Altibase : Altibase 5.5.1 혹은 그 이상
+  - Altibase : Altibase 6.5.1 이상 버전
 
 ##### 대상 데이터베이스: Oracle
 
 - 원본 데이터베이스
-  - Altibase : Altibase 4.3.9 혹은 그 이상
+  - Altibase : Altibase 4.3.9 이상 버전
 
 - 대상 데이터베이스
   - ORACLE : Oracle 10g ~ 11g
@@ -115,8 +111,6 @@ Migration Center 버전
 없음
 
 ### 2.3 사용된 오픈소스 라이브러리 / 로열티 프리 이미지
-
-Migration Center is based on the following open-source libraries. The licenses are distributed in a text file format along with Migration Center.
 
 Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라이선스는 텍스트 파일 형식으로 Migration Center와 함께 제공된다.
 
@@ -147,9 +141,9 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 ### 2.4 패키지
 
-| JRE                         | Archive Name                                     |
-| --------------------------- | ------------------------------------------------ |
-| Sun or IBM Java 5 or higher | MigrationCenter7.9.zip MigrationCenter7.9.tar.gz |
+| JRE                      | Archive Name                                     |
+| ------------------------ | ------------------------------------------------ |
+| Sun 또는 IBM Java 5 이상 | MigrationCenter7.9.zip MigrationCenter7.9.tar.gz |
 
 ### 2.5 다운로드
 
