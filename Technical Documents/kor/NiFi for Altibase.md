@@ -72,12 +72,14 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
 ## NiFi 설치 및 구동
 
 -   [NiFi 설치파일 다운로드](https://nifi.apache.org/download.html) 한다.
+
 -   다운로드 받은 파일을 특정 디렉토리에 압축 해제하면 설치가 완료된다.
+
 -   구동 전 Web UI 접근을 가능하기 위해 $NIFI_HOME/conf/nifi.properties 에 다음 내용을 수정한다. (port 번호는 중복 사용되지 않도록 수정해야한다.)
-```
-nifi.web.http.host=
-nifi.web.http.port=8000
-```
+    ```
+    nifi.web.http.host=
+    nifi.web.http.port=8000
+    ```
 -   구동 및 종료
     -   Linux
         -   nifi.sh start  
@@ -126,14 +128,17 @@ nifi.web.http.port=8000
 ## NiFi에서 Altibase 사용을 위한 설정
 
 -   Altibase jdbc driver를 $NIFI_HOME/lib에 복사하고 적용을 위해 NiFi를 재구동 한다.
+
 -   NiFi 에서 Altibase 사용을 위해서는 Controller Service를 통해 Altibase에 접속할 수 있는 Connection Pool을 만들어줘야 된다.
 -   Controller Service는, Controller Service를 등록할 수 있는 Processor의 속성을 통해 등록한다.
   - 다음은 GenerateTableFetch Processor의 Property중 Database Connection Pooling Service 등록을 통해 Altibase의 Controller Serivce 를 등록하는 예이다.
+
       - Create new service... 를 클릭한다.
       ![](Images/NiFi/GenerateTableFetch.png)
       - Controller Service Name을 입력 후 CREATE 버튼을 클릭한다.
       ![](Images/NiFi/AddControllerService.png)
       - Create이후 세 번째 컬럼에 생성된 화살표를 클릭한다.
+
       - Controller Service의 속성을 설정하기 위해 톱니바퀴 아이콘 클릭한다.
       - Altibase DB 접속을 위해 PROPERTIES 탭 선택 후 아래의 정보를 입력 후 APPLY 버튼을 클릭한다.
         - Database Connection URL : jdbc:Altibase://***host_ip:port_no/database_name***
