@@ -89,9 +89,8 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
           NiFi home: /home/altibase/NiFi/nifi-1.12.1
           Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
           ```
-          Start 상태 확인
+          Start 상태 확인 : $NIFI_HOME/logs/nifi-app.log 파일에 아래 메세지가 보이면 start 된 상태이며, 해당 URL를 통해 브라우저로 접속 가능하다.
           ```
-          >$NIFI_HOME/logs/nifi-app.log 파일에 아래 메세지가 보이면 start 된 상태이며, 해당 URL를 통해 브라우저로 접속 가능하다.
           2021-12-15 17:49:17,732 INFO [main] org.apache.nifi.web.server.JettyServer NiFi has started. The UI is available at the following URLs:
           2021-12-15 17:49:17,732 INFO [main] org.apache.nifi.web.server.JettyServer http://192.168.204.129:8000/nifi
           2021-12-15 17:49:17,732 INFO [main] org.apache.nifi.web.server.JettyServer http://172.17.0.1:8000/nifi
