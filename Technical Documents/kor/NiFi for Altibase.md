@@ -18,7 +18,7 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
 
 -   FlowFile
     -   NiFi에서 처리되는 기본 단위이며 Attributes + Content 로 구성되어 있다.
-    -   디스크에 저장되는 물리 파일이라기 보다는 메모리상 존재하는 객체에 가까운 의미이다. (디스크에 저장되기도 함)
+    -   디스크에 저장되는 물리 파일이라기 보다는 메모리상 존재하는 객체에 가까운 의미이다.
 -   Processor
     -   Data Flow를 제어하는 기본 단위이며 FlowFile을 처리한다.
     -   NiFi 자체에 수 많은 Processor가 내장되어 있어 용도에 맞게 사용한다.
@@ -33,8 +33,8 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
 
 -   JDK 1.8 이상 설치가 필요하다. ([NiFi release note 참고](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes))
 -   NiFi 1.12 버전 포함 하위 버전 사용을 권장 한다.
-    -   NiFi 1.13 부터는 Lob 처리 방식이 기존 하위 버전에서 사용하는 setObject()로 처리하지 않고 Connection.createBLOB() / Connection.createCLOB() 방식으로 처리하는데, 현 Atlibase JDBC 드라이버는 해당 메서드를 지원하지 않아 Lob 처리 시 오류가 발생한다.
-    ※ Altibase의 JDBC 드라이버는 4.2 Spec을 지원하나 Full Spec을 지원하지 않으며 일부 주요 Spec을 구현한 상태이다.
+    -   NiFi 1.13 부터는 Lob 처리 방식이 기존 하위 버전에서 사용하는 setObject() 로 처리하지 않고 Connection.createBLOB(), Connection.createCLOB() 으로 처리하는데, 현 Atlibase JDBC 드라이버는 해당 기능 지원하지 않아 Lob 처리 시 오류가 발생한다.
+-   NiFi에서 JDBC 4.0 Spec 이상의 기능을 사용하고 있기 때문에 해당 기능을 지원하는 Altibase JDBC 드라이버를 선택하여 사용해야 한다.
 
       <table>
       <colgroup>
@@ -44,25 +44,26 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
       <thead>
       <tr class="header">
       <th><strong>Altibase 버전</strong></th>
-      <th><strong>JDBC 4.2 Spec 지원에 따른 사용 가능 여부</strong></th>
+      <th><strong>JDBC Spec 지원에 따른 사용 가능 여부</strong></th>
       </tr>
       </thead>
       <tbody>
       <tr class="odd">
       <td>6.5 이하</td>
-      <td>해당 Spec을 지원하지 않기 때문에 사용할 수 없음. (JDBC 3.0 Spec)</td>
+      <td>해당 Spec을 지원하지 않기 때문에 사용할 수 없다. (JDBC 3.0 Spec)</td>
       </tr>
       <tr class="even">
       <td>7.1</td>
-      <td>7.1.0.5.6 버전부터 JDBC 4.2 Spec을 지원하는 Altibase42.jar 파일을 제공함<br />
-      $ALTIBASE_HOME/lib/Altibase.jar 대신 Altibase42.jar 를 사용해야 함</td>
+      <td>7.1.0.5.6 버전부터 JDBC 4.2 Spec을 지원하는 Altibase42.jar 파일을 별도 제공한다.<br />
+      따라서 $ALTIBASE_HOME/lib/Altibase.jar 대신 Altibase42.jar 를 사용해야 한다.</td>
       </tr>
       <tr class="odd">
       <td>7.2</td>
-      <td>4.2 Spec을 지원하기 때문에 $ALTIBASE_HOME/lib/Altibase.jar을 사용</td>
+      <td>4.2 Spec을 지원하기 때문에 $ALTIBASE_HOME/lib/Altibase.jar을 사용한다.</td>
       </tr>
       </tbody>
       </table>
+      ※ Altibase의 JDBC 드라이버는 4.2 Spec을 지원하나 Full Spec을 지원하지 않으며 일부 주요 Spec을 구현한 상태이다.
 
 
 ## NiFi 설치 및 구동
