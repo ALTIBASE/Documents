@@ -116,11 +116,11 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
           2021-12-15 17:51:22,291 INFO \[main\] org.apache.nifi.bootstrap.Command NiFi has finished shutting down.
           ```
     -   Windows
-        -   run-nifi.bat 수행하면 다음과 같은 메세지를 출력하며 최종 기동 여부는 $NIFI_HOME/logs/nifi-app.log 로 확인한다.
+      -   run-nifi.bat 수행하면 다음과 같은 메세지를 출력하며 최종 기동 여부는 $NIFI_HOME/logs/nifi-app.log 로 확인한다.
         ```
         > 2021-12-08 13:28:57,145 INFO \[main\] org.apache.nifi.bootstrap.Command Launched Apache NiFi with Process ID 2840
         ```
-        -   종료는 Console 창에서 Ctrl+C 를 누른다.
+      -   종료는 Console 창에서 Ctrl+C 를 누른다.
 -   $NIFI_HOME/logs/nifi-app.log 에서 오류 여부 등의 로그를 확인할 수 있다.
 -   Web UI 접속
     -   웹브라우저를 통해 위 'Start 상태 확인' 내용에 있는 URL 로 접속할 수 있다.
