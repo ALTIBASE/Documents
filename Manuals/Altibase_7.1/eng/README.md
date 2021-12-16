@@ -71,7 +71,7 @@
 
 - ### [Altibase 3rd Party Connector Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Altibase%203rd%20Party%20Connector%20Guide.md)
 
-- ### [Altibase Heartbeat User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Toos/eng/Altibase%20Heartbeat%20User's%20Guide.md)
+- ### [Altibase Heartbeat User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Altibase%20Heartbeat%20User's%20Guide.md)
 
 - ### [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/altiShapeLoader%20User's%20Manual.md)
 
