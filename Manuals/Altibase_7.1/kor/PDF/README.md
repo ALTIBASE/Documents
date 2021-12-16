@@ -53,19 +53,19 @@
 
 ## Version-dependent Tools
 
-- ### [Adapter for JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Adapter%20for%20JDBC%20User's%20Manual.pdf)
+- ### [Adapter for JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20JDBC%20User's%20Manual.pdf)
 
-- ### [Adapter for Oracle User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Adapter%20for%20Oracle%20User's%20Manual.pdf)
+- ### [Adapter for Oracle User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20Oracle%20User's%20Manual.pdf)
 
-- ### [Altibase SSL/TLS User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Altibase%20SSL%20TLS%20User's%20Guide.pdf)
+- ### [Altibase SSL/TLS User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Altibase%20SSL%20TLS%20User's%20Guide.pdf)
 
-- ### [Hadoop Connector User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Hadoop%20Connector%20User's%20Manual.pdf)
+- ### [Hadoop Connector User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Hadoop%20Connector%20User's%20Manual.pdf)
 
-- ### [iLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/iLoader%20User's%20Manual.pdf)
+- ### [iLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iLoader%20User's%20Manual.pdf)
 
-- ### [iSQL User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/iSQL%20User's%20Manual.pdf)
+- ### [iSQL User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/iSQL%20User's%20Manual.pdf)
 
-- ### [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.pdf)
+- ### [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Utilities%20Manual.pdf)
 
 ## Tools
 
