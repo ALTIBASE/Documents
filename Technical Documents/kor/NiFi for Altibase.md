@@ -19,11 +19,14 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
 -   FlowFile
     -   NiFi에서 처리되는 기본 단위이며 Attributes + Content 로 구성되어 있다.
     -   디스크에 저장되는 물리 파일이라기 보다는 메모리상 존재하는 객체에 가까운 의미이다.
+
 -   Processor
     -   Data Flow를 제어하는 기본 단위이며 FlowFile을 처리한다.
     -   NiFi 자체에 수 많은 Processor가 내장되어 있어 용도에 맞게 사용한다.
+
 -   Connection
     -   Processor간 연결을 설정한다.
+
 -   Controller Service
     -   Processor가 필요에 따라 사용할 수 있도록 정보를 제공하는 공용 리소스이다.
     -   예를 들어, DB Connection은 Controller Service 통해 설정하여 여러 Processor에서 사용된다.
@@ -33,7 +36,7 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
 
 -   JDK 1.8 이상 설치가 필요하다. ([NiFi release note 참고](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes))
 -   NiFi 1.12 버전 포함 하위 버전 사용을 권장 한다.
-    -   NiFi 1.13 부터는 Lob 처리 방식이 기존 하위 버전에서 사용하는 setObject() 로 처리하지 않고 Connection.createBLOB(), Connection.createCLOB() 으로 처리하는데, 현 Atlibase JDBC 드라이버는 해당 기능 지원하지 않아 Lob 처리 시 오류가 발생한다.
+    -   NiFi 1.13 부터는 Lob 처리 방식이 기존 하위 버전에서 사용하는 setObject() 로 처리하지 않고 Connection.createBLOB(), Connection.createCLOB() 으로 처리하는데, 현 Atlibase JDBC 드라이버는 해당 기능을 지원하지 않아 Lob 처리 시 오류가 발생한다.
 -   NiFi에서 JDBC 4.0 Spec 이상의 기능을 사용하고 있기 때문에 해당 기능을 지원하는 Altibase JDBC 드라이버를 선택하여 사용해야 한다.
 
       <table>
@@ -44,7 +47,7 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
       <thead>
       <tr class="header">
       <th><strong>Altibase 버전</strong></th>
-      <th><strong>JDBC Spec 지원에 따른 사용 가능 여부</strong></th>
+      <th><strong>JDBC Spec 지원에 따른 사용 방법</strong></th>
       </tr>
       </thead>
       <tbody>
@@ -70,7 +73,7 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
 
 -   [NiFi 설치파일 다운로드](https://nifi.apache.org/download.html) 한다.
 -   다운로드 받은 파일을 특정 디렉토리에 압축 해제하면 설치가 완료된다.
--   구동 전 Web UI 접근 가능하기 위해 $NIFI_HOME/conf/nifi.properties 에 다음 내용을 수정한다. (port 번호는 중복 사용되지 않도록 수정한다.)
+-   구동 전 Web UI 접근을 가능하기 위해 $NIFI_HOME/conf/nifi.properties 에 다음 내용을 수정한다. (port 번호는 중복 사용되지 않도록 수정해야한다.)
 ```
 nifi.web.http.host=
 nifi.web.http.port=8000
@@ -109,38 +112,38 @@ nifi.web.http.port=8000
           2021-12-15 17:51:20,277 INFO \[main\] org.apache.nifi.bootstrap.Command Waiting for Apache NiFi to finish shutting down...
           2021-12-15 17:51:22,291 INFO \[main\] org.apache.nifi.bootstrap.Command NiFi has finished shutting down.
           ```
--   Windows
-    -   run-nifi.bat 수행하면 다음과 같은 메세지 출력하며 Start 진행 되며, 최종 기동 여부는 $NIFI_HOME/logs/nifi-app.log 로 확인한다.
-      ```
-      > 2021-12-08 13:28:57,145 INFO \[main\] org.apache.nifi.bootstrap.Command Launched Apache NiFi with Process ID 2840
-      ```
-    -   종료는 console 창에서 Ctrl + C를 누른다.
+    -   Windows
+      -   run-nifi.bat 수행하면 다음과 같은 메세지를 출력하며 최종 기동 여부는 $NIFI_HOME/logs/nifi-app.log 로 확인한다.
+        ```
+        > 2021-12-08 13:28:57,145 INFO \[main\] org.apache.nifi.bootstrap.Command Launched Apache NiFi with Process ID 2840
+        ```
+      -   종료는 Console 창에서 Ctrl+C 를 누른다.
 -   $NIFI_HOME/logs/nifi-app.log 에서 오류 여부 등의 로그를 확인할 수 있다.
 -   Web UI 접속
-    -   웹브라우저를 통해 위 'Start 상태 확인' 내용에 있는 URL 로 접속한다.
+    -   웹브라우저를 통해 위 'Start 상태 확인' 내용에 있는 URL 로 접속할 수 있다.
 
 
 ## NiFi에서 Altibase 사용을 위한 설정
 
--   Altibase jdbc driver를 $NIFI_HOME/lib에 복사한다. 복사 이후 적용을 위해 NiFi를 재구동 한다.
--   NiFi 에서 Altibase를 사용하기 위해서는 Controller Service를 통해 Altibase에 접속할 수 있는 Connection Pool을 만들어 설정해줘야 된다.
--   Controller Service는 Controller Service를 등록할 수 있는 Processor의 속성을 통해 등록한다.
+-   Altibase jdbc driver를 $NIFI_HOME/lib에 복사하고 적용을 위해 NiFi를 재구동 한다.
+-   NiFi 에서 Altibase 사용을 위해서는 Controller Service를 통해 Altibase에 접속할 수 있는 Connection Pool을 만들어줘야 된다.
+-   Controller Service는, Controller Service를 등록할 수 있는 Processor의 속성을 통해 등록한다.
   - 다음은 GenerateTableFetch Processor의 Property중 Database Connection Pooling Service 등록을 통해 Altibase의 Controller Serivce 를 등록하는 예이다.
-      - Create new service... 클릭한다.
+      - Create new service... 를 클릭한다.
       ![](Images/NiFi/GenerateTableFetch.png)
       - Controller Service Name을 입력 후 CREATE 버튼을 클릭한다.
       ![](Images/NiFi/AddControllerService.png)
       - Create이후 세 번째 컬럼에 생성된 화살표를 클릭한다.
-      - Controller Serivce의 속성을 설정하기 위해 톱니바퀴 아이콘 클릭한다.
-      - Altibase DB 접속을 위해 PROPERTIES 탭 선택 후 아래의 정보를 입력 후 APPLY 클릭한다.
+      - Controller Service의 속성을 설정하기 위해 톱니바퀴 아이콘 클릭한다.
+      - Altibase DB 접속을 위해 PROPERTIES 탭 선택 후 아래의 정보를 입력 후 APPLY 버튼을 클릭한다.
         - Database Connection URL : jdbc:Altibase://***host_ip:port_no/database_name***
         - Database Driver Class Name : Altibase.jdbc.driver.AltibaseDriver
         - Database Driver Location : Altibase JDBC 드라이버 위치
         - Databsse User : 사용자 계정
         - Password : 사용자 패스워드
         ![](Images/NiFi/ConfigureControllerService.png)
-      - Controller Service 목록 화면의 번개 아이콘을 클릭하여 Controller Serivce를 Enable 시킨다.
-  - 등록된 Controller Service는 이후 다른 Processor에서도 선택하여 사용 가능하다.
+      - APPLY 버튼 클릭 후 돌아온 Controller Service 목록 화면에서 번개 아이콘을 클릭하여 Controller Serivce를 Enable 시킨다.
+  - 등록한 Controller Service는 다른 Processor에서도 선택하여 사용 가능하다.
 
 
 
