@@ -30,7 +30,7 @@ NiFi에서 Altibase 사용을 위한 설정 방법을 설명한다.
 -   Controller Service
     -   Processor가 필요에 따라 사용할 수 있도록 정보를 제공하는 공용 리소스이다.
     -   예를 들어, DB Connection은 Controller Service 통해 설정하여 여러 Processor에서 사용된다.
--   기타 NiFi 홈페이지 참조 : [Link](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#terminology)
+-   기타 NiFi 홈페이지를 참조한다. (https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#terminology)
 
 ## Altibase 사용을 위한 제약사항
 
