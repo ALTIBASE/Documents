@@ -1,5 +1,3 @@
-
-
 - [altiShapeLoader Release Notes](#altishapeloader-release-notes)
   - [1. Overview](#1-overview)
     - [1.1 System Requirements](#11-system-requirements)
@@ -13,8 +11,6 @@
   - [4. Packages](#4-packages)
   - [5. Downloads](#5-downloads)
     - [5.1 Packages](#51-packages)
-    - [5.2 Manual](#52-manual)
-    - [5.3 Installation](#53-installation)
 
 # altiShapeLoader Release Notes
 
@@ -45,8 +41,6 @@ Importing shapefile means inserting spatial data information such as coordinate 
 
 - Altibase 7.1 or higher
 
-
-
 ## 2. Release Information
 
 ### 2.1 Version
@@ -63,8 +57,6 @@ Importing shapefile means inserting spatial data information such as coordinate 
 
 ### 2.5 Error Messages
 
-
-
 ## 3. Open Source Libraries Used
 
 altiShapeLoader is based on the following open-source libraries. The licenses are distributed in a text file format along with altiShapeLoader.
@@ -76,7 +68,7 @@ altiShapeLoader is based on the following open-source libraries. The licenses ar
 | Apache Commons IO    |   2.6   | Homepage: http://commons.apache.org/proper/commons-io/ <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 | Apache Commons CLI   |  1.3.1  | Homepage: [http://https://commons.apache.org/proper/commons-cli/](http://https//commons.apache.org/proper/commons-cli/) <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 | Apache Commons lang3 |  1.3.1  | Homepage: https://commons.apache.org/proper/commons-lang/ <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache log4j         | 1.2.16  | Homepage: https://logging.apache.org/log4j/ <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache log4j         | 2.15.0  | Homepage: https://logging.apache.org/log4j/ <br />License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 
 ## 4. Packages
 
@@ -84,18 +76,8 @@ altiShapeLoader is based on the following open-source libraries. The licenses ar
 | ---------------------------------------------------- |
 | altiShapeLoader1.0.zip<br/>altiShapeLoader1.0.tar.gz |
 
-
-
 ## 5. Downloads
 
 ### 5.1 Packages
 
 http://support.altibase.com/kr/product
-
-### 5.2 Manual
-
-https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/altiShapeLoader.md
-
-### 5.3 Installation
-
-Please refer to the altiShapeLoader User's Manual.
