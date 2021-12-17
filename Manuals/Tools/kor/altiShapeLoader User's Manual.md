@@ -230,8 +230,7 @@ altiShapeLoader 디렉터리 내 파일 구성은 아래와 같다.
 -rw-r--r-- 1 altibase altibase   798 2021-10-08 11:27 epsg.properties
 drwxr-xr-x 2 altibase altibase  4096 2021-10-08 11:27 lib
 drwxr-xr-x 2 altibase altibase  4096 2021-10-08 11:27 license
--rw-r--r-- 1 altibase altibase   560 2021-10-08 11:27 log4j.cli.properties
--rw-r--r-- 1 altibase altibase     6 2021-10-08 11:27 version.info
+-rw-r--r-- 1 altibase altibase   560 2021-10-08 11:27 log4j2.xml
 ```
 
 ##### 실행 파일

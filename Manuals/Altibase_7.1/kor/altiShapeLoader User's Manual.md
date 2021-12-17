@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+
 
 - [altiShapeLoader User's Manual](#altishapeloader-users-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -27,12 +25,6 @@
     - [가져오기 데이터 타입 변환](#%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
     - [내보내기 데이터 타입 변환](#%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-
-
-
 
 
 
@@ -47,7 +39,7 @@ altiShapeLoader User's Manual
 
 Altibase Tools & Utilities altiShapeLoader User's Manual
 
-Release 7.2
+Release 7.1
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -337,7 +329,6 @@ SELECT * FROM SPATIAL_REF_SYS;
 SYS_SPATIAL.ADD_SPATIAL_REF_SYS 사용 방법은 Spatial SQL Reference 매뉴얼을 참고한다.
 
 - [Altibase 7.1 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
-- [Altibase 7.2 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
 
 
 
