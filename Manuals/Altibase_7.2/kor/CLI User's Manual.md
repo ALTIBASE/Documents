@@ -8483,7 +8483,7 @@ C 데이터 타입은 *type* 인자와 함께 SQLBindCol()과 SQLGetData()에 �
 | SQL_C_TYPE_TIME      | SQL_TIME_STRUCT      | struct tagTIME_STRUCT { SQLSMALLINT hour; SQLSMALLINT minute; SQLSMALLINT second; } TIME_STRUCT |
 | SQL_C_TYPE_TIMESTAMP | SQL_TIMESTAMP_STRUCT | struct tagTIMESTAMP_STRUCT {SQLSMALLINT year; SQLSMALLINT month; SQLSMALLINT day; SQLSMALLINT hour; SQLSMALLINT minute; SQLSMALLINT second; SQLINTEGER fraction; **}** TIMESTAMP_STRUCT; |
 | SQL_C_NIBBLE         | SQL_NIBBLE_STRUCT    | struct tagNIBBLE_STRUCT { SQLCHAR length; SQLCHAR value[1]; } NIBBLE_STRUCT |
-| SQL_C_NUMERIC        | SQL_NUMERIC_STRUCT   | struct tagSQL_NUMERIC_STRUCT{SQLCHAR precision; SQLSCHAR scale; SQLCHAR sign; SQLCHAR val[SQL_MAX_NUMERIC_LEN]; } SQL_NUMERIC_STRUCT; |
+| SQL_C_NUMERIC        | SQL_NUMERIC_STRUCT   | struct tagSQL_NUMERIC_STRUCT{SQLCHAR precision; SQLSCHAR scale; SQLCHAR sign; SQLCHAR val[SQL_MAX_NUMERIC_LEN]; } SQL_NUMERIC_STRUCT;<br /><br />SQLCHAR val는 little endian 기반으로 처리된다. 따라서 big endian OS를 사용하는경우에도 little endian byte order로 세팅해 줘야 된다. |
 
 ### SQL 데이터형을 C 데이터형으로 변환하기
 
