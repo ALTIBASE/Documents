@@ -15,8 +15,6 @@
 
 ## 1. 개요
 
------
-
 ### 1.1 시스템 요구사항
 
 #### 하드웨어 최소 사양
@@ -33,9 +31,9 @@
 | Mode | JRE                      | OS Graphic Library |
 | ---- | ------------------------ | ------------------ |
 | GUI  | Sun 또는 IBM Java 5 이상 | 필수               |
-| CLI  | Sun 또는 IBM Java 5 이상 | 필수는 아님        |
+| CLI  | Sun 또는 IBM Java 5 이상 | 필수 아님          |
 
-Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로, 클라이언트의 하드웨어나 OS 대신 JAVA Runtime Environment (JRE)에 의존한다. 단, Migration Center를 GUI 모드로 실행하기 위해 운영 체제의 그래픽 라이브러리에 대한 추가 지원이 필요하다.
+Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로, 클라이언트의 하드웨어나 OS보다 JAVA Runtime Environment (JRE)에 의존한다. 단, Migration Center를 GUI 모드로 실행하기 위해 운영 체제의 그래픽 라이브러리에 대한 추가 지원이 필요하다.
 
 ## 2. 릴리즈 정보
 
@@ -118,17 +116,17 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 | Library                    | Open Source License                                          |
 | -------------------------- | ------------------------------------------------------------ |
-| Apache Commons Codec       | Homepage: http://commons.apache.org/codec/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons Lang        | Homepage: http://commons.apache.org/proper/commons-lang/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons Mathematics | Homepage: http://commons.apache.org/math/  License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons IO          | Homepage: http://commons.apache.org/proper/commons-io/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Java Help System           | Homepage: http://javahelp.java.net/ License: GPL linking exception(http://en.wikipedia.org/wiki/GPL_linking_exception) |
-| JDOM                       | Homepage: http://www.jdom.org/ License: Apache-style Open Source License(http://www.jdom.org/docs/faq.html#a0030) |
-| JUniversalChardet          | Homepage: http://wwwarchive.mozilla.org/projects/intl/UniversalCharsetDetection.html License: Mozilla Public License Version 1.1(http://www.mozilla.org/MPL/1.1/) |
-| JGraphT                    | Homepage: http://jgrapht.org/ License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
-| Log4J                      | Homepage: http://logging.apache.org/index.html License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| OpenCSV                    | Homepage: http://opencsv.sourceforge.net/ License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Oracle JDBC Driver         | Homepage: [http://www.oracle.com](http://www.oracle.com/) License: OTN(http://www.oracle.com/technetwork/licenses/distribution-license152002.html) |
+| Apache Commons Codec       | Homepage: http://commons.apache.org/codec/ <br>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache Commons Lang        | Homepage: http://commons.apache.org/proper/commons-lang/ <br>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache Commons Mathematics | Homepage: http://commons.apache.org/math/  <br>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Apache Commons IO          | Homepage: http://commons.apache.org/proper/commons-io/ <br>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Java Help System           | Homepage: http://javahelp.java.net/ <br>License: GPL linking exception(http://en.wikipedia.org/wiki/GPL_linking_exception) |
+| JDOM                       | Homepage: http://www.jdom.org/ <br>License: Apache-style Open Source License(http://www.jdom.org/docs/faq.html#a0030) |
+| JUniversalChardet          | Homepage: http://wwwarchive.mozilla.org/projects/intl/UniversalCharsetDetection.html <br>License: Mozilla Public License Version 1.1(http://www.mozilla.org/MPL/1.1/) |
+| JGraphT                    | Homepage: http://jgrapht.org/ <br>License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
+| Log4J                      | Homepage: http://logging.apache.org/index.html <br>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| OpenCSV                    | Homepage: http://opencsv.sourceforge.net/ <br>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
+| Oracle JDBC Driver         | Homepage: [http://www.oracle.com](http://www.oracle.com/) <br>License: OTN(http://www.oracle.com/technetwork/licenses/distribution-license152002.html) |
 
 - 로열티 프리 이미지
 
@@ -153,8 +151,8 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 #### 2.5.2 매뉴얼
 
-https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/Migration%20Center%20User's%20Manual.md
+[Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/Migration%20Center%20User's%20Manual.md)
 
 #### 2.5.3 설치
 
-Migration Center User's Manual를 참고한다.
+Migration Center User's Manual을 참고한다.

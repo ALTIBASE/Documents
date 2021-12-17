@@ -11,7 +11,6 @@
   - [4. Packages](#4-packages)
   - [5. Downloads](#5-downloads)
     - [5.1 Packages](#51-packages)
-    - [5.2 Manual](#52-manual)
 
 # altiShapeLoader Release Notes
 
@@ -82,7 +81,3 @@ altiShapeLoader is based on the following open-source libraries. The licenses ar
 ### 5.1 Packages
 
 http://support.altibase.com/kr/product
-
-### 5.2 Manual
-
-[altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/altiShapeLoader%20User's%20Manual.md)
