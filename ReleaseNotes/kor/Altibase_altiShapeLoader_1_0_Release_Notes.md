@@ -1,7 +1,7 @@
 - altiShapeLoader Release Notes
-  - 1\. 개요
+  - [1\. 개요](#1-개요)
     - [1.1 시스템 요구사항](#11-시스템-요구사항)
-  - 2\. 릴리즈 정보
+  - [2. 릴리즈 정보](#2-릴리즈-정보)
     - [2.1 버전](#21-버전)
     - [2.2 새로운 기능](#22-새로운-기능)
     - [2.3 수정된 버그](#23-수정된-버그)
@@ -9,7 +9,7 @@
     - [2.5 에러 메시지](#25-에러-메시지)
   - [3. 사용된 오픈소스 라이브러리](#3-사용된-오픈소스-라이브러리)
   - [4. 패키지](#4-패키지)
-  - 5\. 다운로드
+  - [5\. 다운로드](#5-다운로드)
     - [5.1 패키지](#51-패키지)
     - [5.2 매뉴얼](#52-매뉴얼)
     - [5.3 설치](#53-설치)
@@ -86,7 +86,7 @@ http://support.altibase.com/kr/product
 
 ### 5.2 매뉴얼
 
-https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/altiShapeLoader%20User's%20Manual.md
+[https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/altiShapeLoader%20User's%20Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/altiShapeLoader%20User's%20Manual.md)
 
 ### 5.3 설치
 
