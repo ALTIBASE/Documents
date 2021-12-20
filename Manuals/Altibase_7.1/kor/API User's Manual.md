@@ -20,12 +20,12 @@
   - [4.iLoader API](#3iloader-api)
      - [iLoader API 개요](#iloader-api-%EA%B0%9C%EC%9A%94)
      - [iLoader API 사용](#iloader-api-%EC%82%AC%EC%9A%A9)
-     - [iLoader API 데이타 구조체](#iloader-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
+     - [iLoader API 데이터 구조체](#iloader-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
      - [iLoader API](#iloader-api)
   - [5.CheckServer API](#5checkserver-api)
      - [CheckServer API 개요](#checkserver-api-%EA%B0%9C%EC%9A%94)
      - [CheckServer API 사용](#checkserver-api-%EC%82%AC%EC%9A%A9)
-     - [CheckServer API 데이타 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
+     - [CheckServer API 데이터 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
      - [CheckServer API](#checkserver-api)
 
 
