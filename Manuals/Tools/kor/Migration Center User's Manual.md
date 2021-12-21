@@ -8681,12 +8681,12 @@ TimesTen Type 2 JDBC가 native 라이브러리를 로딩하는데 실패하였�
 
 서버에 등록된 DSN을 DSN 칸에 입력한다.
 
-#### 연결정보 등록/수정 중, “Test” 버튼 클릭 시 오류 메시지 'Problems with loading native library/missing methods: Native Library /path/libttJdbcCS.so already loaded in another classloader'가 출력된다.
+#### 데이터베이스 연결 등록 및 수정 화면에서, “Test” 버튼 클릭 시 오류 메시지 'Problems with loading native library/missing methods: Native Library /path/libttJdbcCS.so already loaded in another classloader' 오류 메시지가 발생한다.
 
 ##### 원인
 
-Native library를 사용하는 TimesTen type 2 JDBC driver를 이미 한번 로딩한 상태에서 다시 so 파일을 로딩할 때 Java classloader가 발생키는 예외상황이다. 예를 들어, 연결 테스트를 한번 수행한 후 다른 JDBC 파일을 선택하여 다시 테스트할 때 발생가능하다. Java Native Interface specification에 따르면 native library는 한번만 로딩가능하다. https://docs.oracle.com/javase/1.5.0/docs/guide/jni/spec/invocation.html#library_version
+Native library를 사용하는 TimesTen type 2 JDBC driver를 로딩한 상태에서 so 파일을 다시 로딩할 때 Java classloader에서 발생하는 예외상황이다. 예를 들어, 연결 테스트를 수행한 후 다른 JDBC Driver를 선택하여 다시 테스트할 때 발생한다. Java Native Interface (JNI) specification에 따르면 native library는 한번만 로딩할 수 있다. 참고: https://docs.oracle.com/javase/1.5.0/docs/guide/jni/spec/invocation.html#library_version
 
 ##### 해결방법
 
-마이그레이션 센터를 완전히 종료 후 재시작하여 연결정보를 등록/수정한다.
+마이그레이션 센터를 완전히 종료 후 재시작하여 데이터베이스 연결 등록을 하거나 연결 정보를 수정한다.
