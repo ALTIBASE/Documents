@@ -8681,7 +8681,7 @@ TimesTen Type 2 JDBC가 native 라이브러리를 로딩하는데 실패하였�
 
 서버에 등록된 DSN을 DSN 칸에 입력한다.
 
-#### 데이터베이스 연결 등록 및 수정 화면에서, “Test” 버튼 클릭 시 오류 메시지 'Problems with loading native library/missing methods: Native Library /path/libttJdbcCS.so already loaded in another classloader' 오류 메시지가 발생한다.
+#### 데이터베이스 연결 등록 및 수정 화면에서, “Test” 버튼 클릭 시 'Problems with loading native library/missing methods: Native Library /path/libttJdbcCS.so already loaded in another classloader' 오류 메시지가 발생한다.
 
 ##### 원인
 
