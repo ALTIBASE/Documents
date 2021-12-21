@@ -355,20 +355,20 @@ Altibase provides the following GIS-related meta tables. Their names begin with 
 
 ### SYS_AUDIT\_
 
-This meta table stores information about the operation status of the audit.
+SYS_AUDIT describes the operation status of the audit.
 
-| Column name | Type    | Description                                                  |
-| ----------- | ------- | ------------------------------------------------------------ |
-| IS_STARTED  | INTEGER | Whether or not auditing is being executed                    |
-| START_TIME  | DATE    | The time at which auditing started                           |
-| STOP_TIME   | DATE    | The time at which auditing stopped                           |
-| RELOAD_TIME | DATE    | The time at which the auditing conditions were applied to the server |
+| Column name | Type    | Description                                                 |
+| ----------- | ------- | ----------------------------------------------------------- |
+| IS_STARTED  | INTEGER | Indicates whether the auditing is being executed            |
+| START_TIME  | DATE    | The time auditing has started                               |
+| STOP_TIME   | DATE    | The time auditing has stopped                               |
+| RELOAD_TIME | DATE    | The time the auditing conditions were applied to the server |
 
 #### Column Information
 
 ##### IS_STARTED
 
-Indicates whether or not auditing is currently being performed. 
+Indicates whether the auditing is being executed.
 
 0: Auditing is currently not being performed. 
 
@@ -376,22 +376,22 @@ Indicates whether or not auditing is currently being performed.
 
 ##### START_TIME
 
-Indicates the time at which auditing started.
+Indicates the time auditing has started.
 
 ##### STOP_TIME
 
-Indicates the time at which auditing stopped.
+Indicates the time auditing has stopped.
 
 ##### RELOAD_TIME
 
-Indicates the time at which altered auditing conditions were applied to the Altibase server. The value of this column is updated for the occasions below:
+Indicates the time altered auditing conditions were applied to the Altibase server. The value of this column is updated for the occasions below:
 
 - When the DBA has started auditing, using the ALTER SYSTEM START AUDIT statement. 
 - When the DBA has applied altered auditing conditions to auditing, using the ALTER SYSTEM RELOAD AUDIT statement.
 
 ### SYS_AUDIT_OPTS\_
 
-This meta view stores auditing conditions. The base table of this view is the SYS_AUDIT_ALL_OPTS_ meta table.
+SYS_AUDIT_OPTS\_ describes auditing conditions. The base table of this view is the SYS_AUDIT_ALL_OPTS_ meta table.
 
 <table>
     <tr>
@@ -513,16 +513,16 @@ This is the type of the target object, which is one of the following:
 
 ##### XXX_OP
 
-This is the units for logs of operation statements. Before '/' is the unit for logs of successful executions, and after is the unit for logs of failed executions. 
+This indicates the unit of logs written about the operation statement. Left of '/' is the unit of logs of successful executions, and right is the unit of logs of failed executions. 
 
-The units for logs are as below:
+Following letters each indicate the unit of logs:
 
-- -: Logs are not written. 
-- S: Logs are written in the unit of sessions. 
-- A: Logs are written in the unit of accesses.
-- T: Logs are written regardless the unit of session or accesses.
+- -: No logs are written. 
+- S: Logs are written in unit of sessions. 
+- A: Logs are written in unit of accesses.
+- T: Logs are written regardless of the unit of session or accesses.
 
-The following examples show values of the SYS_AUDIT_OPTS_ view after auditing conditions are enabled.
+The following examples show values of the SYS_AUDIT_OPTS_ after setting auditing conditions.
 
 ```
 iSQL> AUDIT insert, select, update, delete on friends BY SESSION WHENEVER SUCCESSFUL;
@@ -582,28 +582,28 @@ DDL_OP : -/T
 
 ### SYS_COLUMNS\_
 
-Information about columns defined in all tables, virtual columns in all views, and virtual columns in all sequences is stored in this meta table.
+SYS_COLUMNS\_ describes columns defined in tables, virtual columns in views, and virtual columns in sequences.
 
 | Column name      | Type          | Description                                                  |
 | ---------------- | ------------- | ------------------------------------------------------------ |
 | COLUMN_ID        | INTEGER       | The column identifier                                        |
 | DATA_TYPE        | INTEGER       | The data type                                                |
 | LANG_ID          | INTEGER       | The language identifier                                      |
-| OFFSET           | BIGINT        | The offset of the column within the record                   |
-| SIZE             | BIGINT        | The physical length of the column within the record          |
+| OFFSET           | BIGINT        | The offset of the column in the record                       |
+| SIZE             | BIGINT        | The physical length of the column in the record              |
 | USER_ID          | INTEGER       | The user identifier                                          |
 | TABLE_ID         | INTEGER       | The table identifier                                         |
 | PRECISION        | INTEGER       | The specified precision of the column                        |
 | SCALE            | INTEGER       | The specified scale of the column                            |
 | COLUMN_ORDER     | INTEGER       | The position of the column in the table                      |
 | COLUMN_NAME      | VARCHAR(128)  | The name of the column                                       |
-| IS_NULLABLE      | CHAR(1)       | Whether NULL is permitted. T: can be NULL F: cannot be NULL  |
+| IS_NULLABLE      | CHAR(1)       | Whether NULL is permitted. <br>T: permitted NULL F: is not permitted |
 | DEFAULT_VAL      | VARCHAR(4000) | The default value or expression                              |
-| STORE_TYPE       | CHAR(1)       | The column storage type V: variable type F: fixed type L: LOB column |
-| IN_ROW_SIZE      | INTEGER       | The length of data that can be saved in a fixed area when data are saved in a variable-length column in a memory table |
+| STORE_TYPE       | CHAR(1)       | The column storage type <br>V: variable type F: fixed type L: LOB column |
+| IN_ROW_SIZE      | INTEGER       | The maximum length of data that can be saved in a fixed area when data are saved in a variable-length column in a memory table |
 | REPL_CONDITION   | INTEGER       | Deprecated                                                   |
-| IS_HIDDEN        | CHAR(1)       | Whether the column is hidden or not T: hidden column F: public column |
-| IS_KEY_PRESERVED | CHAR(1)       | Whether or not the column is modifiable T: Modifiable F: Unmodifiable |
+| IS_HIDDEN        | CHAR(1)       | Indicates whether the column is hidden <br>T: hidden column F: public column |
+| IS_KEY_PRESERVED | CHAR(1)       | Indicates whether the column is modifiable <br>T: Modifiable F: Unmodifiable |
 
 #### Column Information
 
@@ -643,11 +643,11 @@ For more information about data types, please refer to Chapter1: Data Types.
 
 ##### LANG_ID
 
-A column that contains the language properties for character data types (CHAR, VARCHAR).
+Column that contains language properties of character data types (CHAR, VARCHAR).
 
 ##### OFFSET
 
-This indicates the physical starting point of a column within a record. The offset and size of a column are used to calculate the physical storage size of a record.
+This indicates the physical starting point of a column in the record. The offset and size of a column are used to calculate the physical storage size of a record.
 
 ##### SIZE
 
@@ -663,17 +663,17 @@ This corresponds to a TABLE_ID value in the SYS_TABLES_ meta table, and identifi
 
 ##### PRECISION
 
-This is the precision of the data type, and is either defined by the user or corresponds to the default value for the system. In the case of a character data type, it corresponds to the length of the character data type set by the user.
+This is the precision of the data type, and is either defined by the user or the system by default. In case of character data type, it corresponds to the length of the character data type set by the user.
 
 ##### SCALE
 
-This is the scale of the data type, and is either defined by the user or corresponds to the default value for the system. This value is not used with some data types. 
+This is the scale of the data type, and is either defined by the user or the system by default. Some data types do not use this value. 
 
 ##### COLUMN_ORDER
 
-This is the order in which columns appear in a table. 
+This is the order columns appear in the table. 
 
-The order in which the columns are stated in a CREATE TABLE statement determines the order in which they are created, and thus their position in the table. If a column is added using an ALTER TABLE statement, the newly created column will be the last column in the table.
+The columns are created according to the order in which it is stated in the CREATE TABLE statement, and thus their position in the table is determined accordingly. If a column is added using ALTER TABLE statement, the newly created column will be the last column in the table.
 
 ##### COLUMN_NAME
 
@@ -683,19 +683,19 @@ This is the name specified when a user creates a table or adds a column to the t
 
 Indicates whether NULL is allowed in the column.
 
-When creating a column, the user can explicitly specify whether to allow NULL for the column. If not specified, NULL is allowed by default.
+When creating a column, the user can explicitly specify whether to allow NULL for the column. If it is not specified, NULL is allowed by default.
 
 ##### DEFAULT_VAL
 
-The default value the user specified in the column is displayed.
+Displays default value the user specified in the column.
 
-If the column is a hidden column added automatically due to the creation of a function-based index, the formula used to create the function-based index is stored.
+If the column is a hidden column added automatically by creating function-based index, the formula used to create the function-based index is stored.
 
 ##### STORE_TYPE
 
 When physically storing a column, it can either be written as part of a record, or it can be saved on another page, in which case only the location of the data is stored in the record. 
 
-If the physical storage size of a column is too big, or if the size of the column varies frequently for individual records, the column can be stored on another page by using the VARIABLE option when defining the column. This option is generally used for VARCHAR types where the character strings in a column are long. 
+If the physical storage size of a column is too big, or if the size of the column of each record changes frequently, the column can be stored on another page by using the VARIABLE option when defining the column. This option is generally used for VARCHAR types where the character strings in a column are long. 
 
 This column indicates whether the VARIABLE option is used.
 
