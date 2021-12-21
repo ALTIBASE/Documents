@@ -116,22 +116,15 @@ Fixed Bugs
     수정하였습니다.
     
     - **발생 조건**
-    
-      1. CREATE TEMPORARY TABLESPACE 구문 수행 시 
-    
-            - EXTENTSIZE 절에 512K 아닌 값을 사용하거나 
-    
-    
-            - Altibase 서버 프로퍼티 SYS\_TEMP\_TBS\_EXTENT\_SIZE 또는 USER\_TEMP\_TBS\_EXTENT\_SIZE 값이 512K가 아닌 값으로 설정된 경우
-    
-
-      2) 본 버그는 BUG-48369가 반영된 Altibase 7.1.0.5.1 이상에서 발생합니다.
-    
+      - CREATE TEMPORARY TABLESPACE 구문 수행 시 
+        - EXTENTSIZE 절에 512K 아닌 값을 사용하거나 
+        - Altibase 서버 프로퍼티 SYS\_TEMP\_TBS\_EXTENT\_SIZE 또는 USER\_TEMP\_TBS\_EXTENT\_SIZE 값이 512K가 아닌 값으로 설정된 경
+      - 본 버그는 BUG-48369가 반영된 Altibase 7.1.0.5.1 이상에서 발생합니다.
     
     - **현상**
     
       디스크 임시 테이블스페이스를 사용하는 SQL 수행 시 Altibase 서버가 비정상 종료하며 트레이스 로그 altibase\_error.log에 아래와 같은 로그가 남습니다. 
-    
+
       ```bash
       IDE_ASSERT( sExtDesc.mLength == SDT_WAEXTENT_PAGECOUNT )
       ```
