@@ -71,8 +71,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Rare
 
--   **설명** : 디스크 인덱스 테이블스페이스 공간이 부족한 상황에서 디스크 테이블에 변경 트랜잭션 발생 시 Altibase 서버가 비정상
-    종료하는 현상을 수정합니다.
+-   **설명** : 디스크 인덱스 테이블스페이스 공간이 부족한 상황에서 디스크 테이블에 변경 트랜잭션 발생 시 Altibase 서버가 비정상 종료하는 현상을 수정합니다.
     
     본 버그로 인한 Altibase 서버 비정상 종료 발생 시 altibase\_error.log 에 아래와 같은 로그가 남습니다.
     
@@ -112,8 +111,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : 디스크 임시 테이블스페이스의 익스텐트(extent)크기가 512K가 아닌 경우 Altibase 서버가 비정상 종료하는 현상을
-    수정하였습니다.
+-   **설명** : 디스크 임시 테이블스페이스의 익스텐트(extent)크기가 512K가 아닌 경우 Altibase 서버가 비정상 종료하는 현상을 수정하였습니다.
     
     - **발생 조건**
       - CREATE TEMPORARY TABLESPACE 구문 수행 시 
@@ -124,7 +122,7 @@ Fixed Bugs
     - **현상**
     
       디스크 임시 테이블스페이스를 사용하는 SQL 수행 시 Altibase 서버가 비정상 종료하며 트레이스 로그 altibase\_error.log에 아래와 같은 로그가 남습니다. 
-
+    
       ```bash
       IDE_ASSERT( sExtDesc.mLength == SDT_WAEXTENT_PAGECOUNT )
       ```
