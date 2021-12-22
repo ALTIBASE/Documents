@@ -7,6 +7,8 @@
 
 
 
+
+
 ## 개요
 
 -   Apache NiFi (이하 NiFi) 에서 Altibase 사용을 위한 설정 방법을 설명한다.
@@ -147,13 +149,13 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
 1. Altibase JDBC 드라이버를 $NIFI_HOME/lib에 복사한다.
 
-   1.1 Altibase 7.1
+   - Altibase 7.1
 
-   $ALTIBASE_HOME/lib/Altibase42.jar를 사용한다. (※ Altibase 7.1.0.5.6 버전부터 JDBC API Specification 4.2을 부분 지원하는 JDBC 드라이버를 추가로 제공한다)
+     $ALTIBASE_HOME/lib/Altibase42.jar를 사용한다. (※ Altibase 7.1.0.5.6 버전부터 JDBC API Specification 4.2을 부분 지원하는 JDBC 드라이버를 추가로 제공한다)
 
-   1.2 Altibase 7.2
+   - Altibase 7.2
 
-   $ALTIBASE_HOME/lib/Altibase.jar를 사용한다.
+     $ALTIBASE_HOME/lib/Altibase.jar를 사용한다.
 
 2. 적용을 위해 NiFi를 재구동 한다.
 
@@ -165,16 +167,20 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
    <img src="Images/NiFi/GenerateTableFetch.png" align=left>
 
+   
+
    3.2 Controller Service Name을 입력 후 CREATE 버튼을 클릭한다.
 
    <img src="Images/NiFi/AddControllerService.png" align=left>
 
+   
+
    3.3 Create이후 세 번째 컬럼에 생성된 화살표를 클릭한다.
 
    3.4 Controller Service의 속성을 설정하기 위해 톱니바퀴 아이콘을 클릭한다.
-
+   
    3.5 Altibase DB 접속을 위해 PROPERTIES 탭 선택 후 아래의 정보를 입력 후 APPLY 버튼을 클릭한다.
-
+   
    - Database Connection URL : jdbc:Altibase://***host_ip:port_no/database_name***
      -  32k 보다 큰 CLOB을 처리하기 위해서는 아래와 같이 force_clob_bind=true 옵션을 적용한다.
      jdbc:Altibase://*host_ip:port_no/database_name*?**force_clob_bind=true**
@@ -188,7 +194,9 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
    - Password : 사용자 패스워드
 
      <img src="Images/NiFi/ConfigureControllerService.png" align=left>
-
+     
+     
+   
    3-6. APPLY 버튼 클릭 후 돌아온 Controller Service 목록 화면에서 번개 아이콘을 클릭하여 Controller Serivce를 Enable 시킨다. 
-
+   
    
