@@ -63,7 +63,7 @@ Migration Center is a database migration tool which enables users to migrate a t
 | BUG-48340 | If the table name includes underscore, the table column with a similar name is also included. |
 | BUG-48672 | As of Altibase 7.2, the warning window should not appear even if there is no default partition in the range partition table. |
 | BUG-49467 | Support TimesTen 11.2.1.9.10 to Altibase migration           |
-| BUG-49449 | Upgrade log4j version to 2.17.0 due to its security issue    |
+| BUG-49499 | Upgrade log4j version to 2.17.0 due to its security issue    |
 
 ### 2.2 Changes
 
