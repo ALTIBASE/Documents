@@ -169,6 +169,7 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
    3.2 Controller Service Name을 입력 후 CREATE 버튼을 클릭한다.
    ![](Images/NiFi/AddControllerService.png)
 
+
    3.3 Create이후 세 번째 컬럼에 생성된 화살표를 클릭한다.
 
    3.4 Controller Service의 속성을 설정하기 위해 톱니바퀴 아이콘을 클릭한다.
