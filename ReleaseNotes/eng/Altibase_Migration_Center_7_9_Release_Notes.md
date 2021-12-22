@@ -149,7 +149,7 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 | JRE                         | Archive Name                                         |
 | --------------------------- | ---------------------------------------------------- |
-| Sun or IBM Java 5 or higher | MigrationCenter7.9.zip<br/>MigrationCenter7.9.tar.gz |
+| Sun or IBM Java 8 or higher | MigrationCenter7.9.zip<br/>MigrationCenter7.9.tar.gz |
 
 ### 2.5 Downloads
 
