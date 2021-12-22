@@ -237,14 +237,6 @@ drwxr-xr-x 2 altibase altibase  4096 2021-10-08 11:27 license
 
 altiShapeLoader를 실행하는 서버가 Windows 환경인 경우 altiShapeLoader.bat 을 이용하고 Unix/Linux 환경인 경우 altiShapeLoader.sh를 이용한다.
 
-Unix/Linux 환경인 경우 실행 파일에 실행 권한을 추가한다. 
-
-```
-$ chmod 774 altiShapeLoader.sh
-$ ls -l altiShapeLoader.sh
--rwxrwxr-- 1 altibase altibase 867 Oct  8 11:27 altiShapeLoader.sh*
-```
-
 #### altiShapeLoader 환경 설정
 
 ##### JAVA_HOME 환경 변수
