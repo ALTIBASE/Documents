@@ -164,10 +164,13 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
    다음은 GenerateTableFetch Processor의 Property중 Database Connection Pooling Service 등록을 통해 Altibase의 Controller Serivce 를 등록하는 예이다.
 
    3.1 Create new service... 를 클릭한다.
-   ![](Images/NiFi/GenerateTableFetch.png)
+   ![<](Images/NiFi/GenerateTableFetch.png)
 
    3.2 Controller Service Name을 입력 후 CREATE 버튼을 클릭한다.
-   ![](Images/NiFi/AddControllerService.png)
+   
+   ![<](Images/NiFi/AddControllerService.png)
+   
+   
 
 
    3.3 Create이후 세 번째 컬럼에 생성된 화살표를 클릭한다.
@@ -187,6 +190,6 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
    - Databsse User : 사용자 계정
 
    - Password : 사용자 패스워드
-      ![](Images/NiFi/ConfigureControllerService.png)
+      ![<](Images/NiFi/ConfigureControllerService.png)
 
    3-6. APPLY 버튼 클릭 후 돌아온 Controller Service 목록 화면에서 번개 아이콘을 클릭하여 Controller Serivce를 Enable 시킨다.
