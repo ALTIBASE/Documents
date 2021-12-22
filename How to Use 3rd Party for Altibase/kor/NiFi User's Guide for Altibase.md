@@ -19,11 +19,11 @@
 
 - NiFi는 시스템 간 데이터 플로우 자동화를 위해 만들어진 아파치 재단 소프트웨어 프로젝트이다. 자세한 내용은 NiFi 홈페이지를 참고한다. (<https://nifi.apache.org/>)
 
-  
+
 
 ### NiFi 구성요소 
 
-아래 구성요소는 본 문서 내용 전달을 위해 필요한 부분으로, 기타 NiFi의 상세 구성 요소들은 NiFi 홈페이지를 참고한다. 
+아래 구성요소는 본 문서 내용 전달을 위해 필요한 부분으로, 기타 NiFi의 상세 구성 요소들은 NiFi 홈페이지를 참고한다.
 
 -   FlowFile
     -   NiFi에서 처리되는 기본 단위이며 Attributes + Content 로 구성되어 있다.
@@ -38,12 +38,12 @@
 
 -   Controller Service
     - Processor가 필요에 따라 사용할 수 있도록 정보를 제공하는 공용 리소스이다.
-    
+
     - 예를 들어, DB Connection은 Controller Service 통해 설정하여 여러 Processor에서 사용된다.
-    
-      
-    
-    
+
+
+
+
 
 ## NiFi 설치
 
@@ -55,7 +55,7 @@
 
 -   LOB 데이터 타입이 없는 경우 NiFi 설치 버전에 제약이 없다.
 
-    
+
 
 ### 소프트웨어 요구사항
 
@@ -77,7 +77,7 @@
    nifi.web.http.port=8000
    ```
 
-   
+
 
 
 
@@ -140,9 +140,9 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
 - 웹브라우저를 통해 위 '구동 상태 확인' 내용에 있는 URL 로 접속할 수 있다.
 
-  
 
-  
+
+
 
 
 ## NiFi에서 Altibase 사용을 위한 설정
@@ -161,30 +161,24 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
 3. NiFi의  Controller Service를 통해 Altibase 커넥션 풀(Connection Pool) 생성한다.
    Controller Service는, Controller Service를 등록할 수 있는 Processor의 속성을 통해 등록하며 등록한 Controller Service는 다른 Processor에서도 선택하여 사용 가능하다.
-   다음은 GenerateTableFetch Processor의 Property중 Database Connection Pooling Service 등록을 통해 Altibase의 Controller Serivce 를 등록하는 예이다. 
+   다음은 GenerateTableFetch Processor의 Property중 Database Connection Pooling Service 등록을 통해 Altibase의 Controller Serivce 를 등록하는 예이다.
 
    3.1 Create new service... 를 클릭한다.
-
-   <img src="Images/NiFi/GenerateTableFetch.png" align=left>
-
-   
+   ![](Images/NiFi/GenerateTableFetch.png)
 
    3.2 Controller Service Name을 입력 후 CREATE 버튼을 클릭한다.
-
-   <img src="Images/NiFi/AddControllerService.png" align=left>
-
-   
+   ![](Images/NiFi/AddControllerService.png)
 
    3.3 Create이후 세 번째 컬럼에 생성된 화살표를 클릭한다.
 
    3.4 Controller Service의 속성을 설정하기 위해 톱니바퀴 아이콘을 클릭한다.
-   
+
    3.5 Altibase DB 접속을 위해 PROPERTIES 탭 선택 후 아래의 정보를 입력 후 APPLY 버튼을 클릭한다.
-   
+
    - Database Connection URL : jdbc:Altibase://***host_ip:port_no/database_name***
      -  32k 보다 큰 CLOB을 처리하기 위해서는 아래와 같이 force_clob_bind=true 옵션을 적용한다.
      jdbc:Altibase://*host_ip:port_no/database_name*?**force_clob_bind=true**
-     
+
    - Database Driver Class Name : Altibase.jdbc.driver.AltibaseDriver
 
    - Database Driver Location : Altibase JDBC 드라이버가 위치하는 디렉토리
@@ -192,11 +186,6 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
    - Databsse User : 사용자 계정
 
    - Password : 사용자 패스워드
+      ![](Images/NiFi/ConfigureControllerService.png)
 
-     <img src="Images/NiFi/ConfigureControllerService.png" align=left>
-     
-     
-   
-   3-6. APPLY 버튼 클릭 후 돌아온 Controller Service 목록 화면에서 번개 아이콘을 클릭하여 Controller Serivce를 Enable 시킨다. 
-   
-   
+   3-6. APPLY 버튼 클릭 후 돌아온 Controller Service 목록 화면에서 번개 아이콘을 클릭하여 Controller Serivce를 Enable 시킨다.
