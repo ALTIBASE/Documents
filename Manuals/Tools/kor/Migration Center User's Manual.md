@@ -340,15 +340,15 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
 
 #### 소프트웨어 요구 사항
 
-- Oracle 또는 IBM Java 5 이상의 JRE
+- Oracle 또는 IBM Java 8 이상의 JRE
 
 Migration Center는 GUI 모드의 경우 스윙(Swing)을 사용하는 순수 자바
 애플리케이션이다. 이는 사용자의 하드웨어 및 운영 체제에 상관없이 대부분
 독립적으로 실행되지만, 오라클 자바 런타임 환경(JRE)에 의존적이다. 오라클 또는
-IBM Java 5 이상의 JRE를 설치할 것을 권장한다. GUI 모드로 Migration Center를
+IBM Java 8 이상의 JRE를 설치할 것을 권장한다. GUI 모드로 Migration Center를
 실행하려면, 사용자의 환경이 자바 스윙을 지원해야 한다.
 
-Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE7과 함께 번들되었다.
+Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8과 함께 번들되었다.
 그러므로 64비트 버전의 윈도우 사용자는 JRE에 대해 신경 쓸 필요가 없다. 그러나,
 다른 운영 체제 사용자는 JRE 및 관련 환경 변수를 알맞게 설정해야 한다.
 
@@ -418,10 +418,10 @@ Connector/J 파일, Informix JDBC 드라이버 파일, TimesTen의 JDBC 드라�
    사용해야 한다.
 
 2. SQL Server 2008, 2008 R2, 2012를 위한 JDBC 드라이버는 아래 링크에서 내려받아
-   사용할 수 있다. Migration Center는 JDBC 드라이버 버전 6.0와 JRE 7 환경에서
+   사용할 수 있다. Migration Center는 JDBC 드라이버 버전 6.0와 JRE 8 환경에서
    테스트 되었기 때문에, 동일한 드라이버 버전과 JRE 버전을 사용할 것을
    권장한다. 또한 SQL Server JDBC 드라이버는 JRE 7 이상을 요구하기 때문에,
-   Linux O/S에서는 JAVA_HOME 환경 변수의 값을 JRE 7 버전 이상이 설치된 경로로
+   Linux O/S에서는 JAVA_HOME 환경 변수의 값을 JRE 7 이상이 설치된 경로로
    설정해야 한다. 6.0 외의 JDBC 드라이버 버전을 사용하고자 할 때는, Microsoft
    JDBC Driver for SQL Server Support Matrix에서 드라이버 버전, 호환 SQL Server
    버전, 그리고 지원 가능한 JRE 버전을 확인해야 한다.  
@@ -8454,7 +8454,7 @@ JRE를 통해 실행되는데, 실행 장비의 운영체제가 Windows 이고 �
 ##### 해결방법
 
 실행 파일 migcenter.bat를 편집기로 열어, 환경변수 JAVA_HOME의 값을 장비에 기존에
-설치된 JRE 위치로 변경해야 한다. 변경할 JRE는 반드시 Java SE 5.0 이상이어야
+설치된 JRE 위치로 변경해야 한다. 변경할 JRE는 반드시 8 이상이어야
 한다.
 
 #### 오류 메시지 'Unable to insert (or update) NULL into NOT NULL column.'와 함께 데이터 이관에 실패한다.
