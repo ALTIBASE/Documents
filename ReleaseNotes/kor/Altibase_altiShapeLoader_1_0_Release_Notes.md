@@ -74,9 +74,9 @@ altiShapeLoader는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 ## 4. 패키지
 
-| Archive Name                                     |
-| ------------------------------------------------ |
-| altiShapeLoader1.0.zip altiShapeLoader1.0.tar.gz |
+| Archive Name                                       |
+| -------------------------------------------------- |
+| altiShapeLoader-1.0.zip altiShapeLoader-1.0.tar.gz |
 
 ## 5. 다운로드
 

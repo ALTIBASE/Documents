@@ -72,9 +72,9 @@ altiShapeLoader is based on the following open-source libraries. The licenses ar
 
 ## 4. Packages
 
-| Archive Name                                         |
-| ---------------------------------------------------- |
-| altiShapeLoader1.0.zip<br/>altiShapeLoader1.0.tar.gz |
+| Archive Name                                           |
+| ------------------------------------------------------ |
+| altiShapeLoader-1.0.zip<br/>altiShapeLoader-1.0.tar.gz |
 
 ## 5. Downloads
 
