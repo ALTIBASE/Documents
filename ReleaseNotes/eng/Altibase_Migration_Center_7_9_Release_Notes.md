@@ -14,7 +14,7 @@
 Altibase Migration Center 7.9 Release Notes
 ===============================
 
-**(Nov. 11, 2021)**
+**(Dec. 31, 2021)**
 
 ## 1. Abstract
 
@@ -33,8 +33,8 @@ Altibase Migration Center 7.9 Release Notes
 
 | Mode | JRE                         | OS Graphic Library |
 | ---- | --------------------------- | ------------------ |
-| GUI  | Sun or IBM Java 5 or higher | Required           |
-| CLI  | Sun or IBM Java 5 or higher | Not required       |
+| GUI  | Sun or IBM Java 8 or higher | Required           |
+| CLI  | Sun or IBM Java 8 or higher | Not required       |
 
 Migration Center is a pure Java-based client application relying on the JAVA Runtime Environment (JRE) instead of the client's hardware or an operating system. In order to execute Migration Center in the GUI mode, however, additional support for the graphic library of operating system is required.
 
@@ -55,7 +55,7 @@ Migration Center is a database migration tool which enables users to migrate a t
 | :-------- | :----------------------------------------------------------- |
 | BUG-47352 | Changes in "Partitioned Table Conversion" during the reconcile phase are not kept when returning after next or previous step |
 | BUG-47372 | Need to improve type conversion method for local variables in PSM |
-| BUG-47376 | Support source DDL with ALTIBASE dbms_metadata since 7       |
+| BUG-47376 | Support source DDL with dbms_metadata since Altibase 7       |
 | BUG-47381 | If the object referenced by a synonym is not a build target, hang occurs in the reconcile stage. |
 | BUG-47402 | Support TimesTen direct connection                           |
 | BUG-47408 | Reserved words allowed as column names must be excluded from _poc autoconversion. |
@@ -63,12 +63,13 @@ Migration Center is a database migration tool which enables users to migrate a t
 | BUG-48340 | If the table name includes underscore, the table column with a similar name is also included. |
 | BUG-48672 | As of Altibase 7.2, the warning window should not appear even if there is no default partition in the range partition table. |
 | BUG-49467 | Support TimesTen 11.2.1.9.10 to Altibase migration           |
-| BUG-49449 | Upgrade log4j version to 2.15.0 due to [CVE-2021-44228](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q) security issue |
+| BUG-49499 | Upgrade log4j version to 2.17.0 due to its security issue    |
 
 ### 2.2 Changes
 
 Features that have been added, deleted or updated in Migration Center are listed and explained below.
 
+* Due to security issues, log4j has been updated to the latest version, and the minimum JRE version for running Migration Center is changed from 1.5 to 8.
 * Bundled JRE version in Migration Center is updated from 7 to 8 in order to support Altibase 7.2 JDBC that requires JRE 8 or higher.
 
 #### 2.2.1 Version Updates
@@ -87,7 +88,7 @@ Migration Center Version
   
   * Altibase : Altibase 4.3.9 or higher
   * ORACLE : Oracle 9i ~ 11g
-  * MS-SQL :  MS-SQL 2005-2012
+  * MS-SQL :  MS-SQL 2005 ~ 2012
   * MySQL : MySQL 5.0 ~ 5.5
   * Informix : Informix 11.50
   * TimesTen : TimesTen 7.0, TimesTen 11.2
@@ -148,7 +149,7 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 | JRE                         | Archive Name                                         |
 | --------------------------- | ---------------------------------------------------- |
-| Sun or IBM Java 5 or higher | MigrationCenter7.9.zip<br/>MigrationCenter7.9.tar.gz |
+| Sun or IBM Java 8 or higher | MigrationCenter7.9.zip<br/>MigrationCenter7.9.tar.gz |
 
 ### 2.5 Downloads
 
