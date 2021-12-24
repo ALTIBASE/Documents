@@ -2,7 +2,7 @@
 
 
 
--   [기요](#Tableau)
+-   [개요](#Tableau)
 -   [소프트웨어 설치 요구사항](#소프트웨어-설치-요구사항)
 -   [Tableau에서 Altibase 사용을 위한 설정](#Tableau에서-Altibase-사용을-위한-설정)
 
@@ -53,7 +53,7 @@ Tableau Desktop에서 Altibase 사용을 위한 JDBC 설정을 설명한다.
 
 3. Tableau 구동 -> 연결 -> 서버에 연결 -> 자세히... -> 기타 데이터베이스(JDBC) 를 클릭한다.
 
-   ![<](Images\Tableau\tableau_entry.png)
+   ![<](.Images/Tableau/tableau_entry.png)
 
 4. 아래 항목을 입력하여 로그인 한다.
 
@@ -65,12 +65,12 @@ Tableau Desktop에서 Altibase 사용을 위한 JDBC 설정을 설명한다.
 
    -   속성 파일 : Altibase JDBC 드라이버 파일 명 선택 (아래 이미지는 Altibase 7.1 접속 예이다)
 
-       ![<](Images\Tableau\tableau_connection.png)
+       ![<](Images/Tableau/tableau_connection.png)
 
 5. 로그인 후 아래 화면이 출력 되며, '데이터베이스 선택'에서 대상 데이터베이스를 선택 -> 스키마 선택으로 Tableau를 사용한다.
 
 
-   ![](Images\Tableau\tableau_main.png)
+   ![](Images/Tableau/tableau_main.png)
 
 
 
