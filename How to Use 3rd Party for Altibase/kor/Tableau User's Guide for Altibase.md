@@ -61,7 +61,7 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 
    -   암호 : 사용자 패스워드
 
-   -   속성 파일 : Altibase JDBC 드라이버를 선택 (아래 이미지는 Altibase 7.1 접속 예이다)
+   -   속성 파일 : Altibase JDBC 드라이버를 선택 (아래 이미지는 Altibase 7.1 접속 예이다.)
 
        ![<](Images/Tableau/tableau_connection.png)
 
