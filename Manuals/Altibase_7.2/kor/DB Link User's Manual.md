@@ -1258,7 +1258,7 @@ NLS_BYTE_PER_CHAR은 0~3 으로 설정할 수 있다.
 
 - 지역/원격 서버의 캐릭터 셋의 char/varchar 의 LENGTH 단위가 byte인 경우
 
-| 지역 캐릭터 셋  | 1 character 크기 | 지역 캐릭터 셋  | 1 character 크기 |
+| 지역 캐릭터 셋  | 1 character 크기 | 원격 캐릭터 셋  | 1 character 크기 |
 |--------------|----------------|--------------|-----------------|
 | ASCII        | 1              | ASCII        | 1               |
 | MS949        | 2              | MS949        | 2               |
