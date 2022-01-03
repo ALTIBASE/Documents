@@ -1125,6 +1125,8 @@ AltiLinker와 각 이기종 데이터베이스의 JDBC 드라이버간의 데이
 
 -   Altibase 프로퍼티 파일 설정
 
+-   문자 집합(Character Set)
+
 #### JRE 설치
 
 AltiLinker는 JRE 1.5 버전 이상에서 동작하는 자바 응용 프로그램이므로,
@@ -1185,8 +1187,11 @@ TARGETS 프로퍼티에는 AltiLinker가 원격 데이터베이스 서버에 접
 
 -   XADATASOURCE_CLASS_URL_SETTER_NAME: XADataSource의 URL을 설정(Set), setURL로
     설정 가능
+    
+-   NLS_BYTE_PER_CHAR : 원격 데이터베이스 서버 캐릭터셋의 char/varchar 의 단위와 크기를 지정
 
 위 항목 중 첫 번째와 두 번째 항목은 프로퍼티 파일에 반드시 명시되어야 한다.
+마지막 항목은 미지정시 0으로 설정되며 프로퍼티 파일에 명시만 가능하고,
 나머지 항목은 프로퍼티 파일에 명시하거나 데이터베이스 링크 객체를 생성하는
 시점에 입력할 수 있다. 프로퍼티 파일보다 데이터베이스 링크 객체 생성 시점에
 명시한 사용자 이름과 암호가 우선적으로 사용된다.
@@ -1204,6 +1209,7 @@ TARGETS = (
      PASSWORD = "manager"
      XADATASOURCE_CLASS_NAME= "Altibase.jdbc.driver.AltibaseXADataSource"
      XADATASOURCE_URL_SETTER_NAME = "setURL"
+     NLS_BYTE_PER_CHAR = 1
   ),
   (
      NAME = ..
@@ -1225,6 +1231,205 @@ DBLINK_ENABLE 프로퍼티를 1로 설정해야 한다.
 
 데이터베이스 링크와 관련된 프로퍼티에 대한 자세한 내용은 *General Reference*의
 데이터베이스 링크 관련 프로퍼티를 참고한다.
+
+
+#### 문자 집합(Character Set)
+
+알티베이스의 char/varchar 타입의 LENGTH는 고정형 byte 단위이지만, 타 DBMS의 경우 byte/character 단위로 선택할 수 있는 경우가 있다. (ex> oracle의 NLS_LENGTH_SEMANTICS 참고)
+
+데이터 손실을 막기 위해 altilinker에서 원격 서버의 char, varchar의 LENGTH 단위를 보수적으로 character 단위로 가정하고 지역 의 Character Set에 맞춰서 길이를 변환한다.
+
+예를 들어 로컬 서버의 캐릭터 셋이 MS949이고, dblink로 가져온 원격 서버의 char/varchar 컬럼의 길이(LENGTH)가 10으로 선언되어있다면,
+
+MS949에서 한 글자를 2byte로 표현하므로 (10 * 2) 20byte 로 길이를 변환한다.
+
+dblink.conf 의 target/NLS_BYTE_PER_CHAR 프로퍼티로 원격 서버의 char/varchar의 단위와 크기를 고려하여 설정할 수 있다.
+
+NLS_BYTE_PER_CHAR은 0~3 으로 설정할 수 있다.
+
+0이 기본값이며 지역 서버의 캐릭터 셋이 한 문자를 표현하는 데 필요한 byte 크기와 원격 서버에서 가져온 char/varchar 컬럼의 길이(LENGTH)를 곱해 변환한다.
+
+지역 서버의 캐릭터 셋의 char/varchar의 LENGTH 1의 크기가 원격 서버의 캐릭터 셋의 char/varchar의 LENGTH 1의 크기보다 클 때, 원격 서버의 글자 수에 따라 변환 과정에서 크기 초과로 에러 발생할 수 있다.
+
+
+ **1로 설정 해야 하는 경우**
+
+- 원격 서버 캐릭터 셋의 char/varchar의 LENGTH 1이 1byte인 경우(ASCII)
+
+- 지역/원격 서버의 캐릭터 셋의 char/varchar 의 LENGTH 단위가 byte인 경우
+
+| 지역 캐릭터 셋  | 1 character 크기 | 지역 캐릭터 셋  | 1 character 크기 |
+|--------------|----------------|--------------|-----------------|
+| ASCII        | 1              | ASCII        | 1               |
+| MS949        | 2              | MS949        | 2               |
+| MS949        | 2              | KSC5601      | 2               |
+| MS949        | 2              | UTF-8        | 3               |
+| UTF-8        | 3              | UTF-8        | 3               |
+
+예제
+```
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(40), c2 integer)');
+Execute success.
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''한글 테스트'', 3)');
+Execute success.
+iSQL> SELECT * FROM T1@link1;
+C1                              C2
+-----------------------------------------------
+한글 테스트                     3
+1 row selected.
+
+iSQL> CREATE TABLE T1 ( C1 CHAR( 40 ), c2 integer );
+Create success.
+
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+            AS
+            CURSOR CUR1 IS
+            SELECT * FROM REMOTE_TABLE(link1,'SELECT * FROM T1 ORDER BY C2');
+        BEGIN
+            FOR M IN CUR1
+            LOOP
+                INSERT INTO T1 VALUES(M.C1, M.C2);
+        END LOOP;
+        END;
+        /
+Create success.
+
+
+iSQL> EXEC PROC1;
+Execute success.
+iSQL> SELECT C1 FROM T1 ORDER BY C2;
+C1
+----------------------------------
+한글 테스트
+1 row1 selected.
+```
+
+
+**2로 설정 해야 하는 경우**
+
+- 원격 서버 캐릭터 셋의 char/varchar 의 단위가 character이고, char/varchar의 LENGTH 1이 2byte 인 경우
+
+지역 캐릭터 셋 MS949, 원격 타사 DBMS 캐릭터 셋 MS949로 character 단위의 컬럼 생성 예제
+
+```
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(20 char), c2 integer)');
+Execute success.
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''일이삼사오육칠팔구십'', 3)');
+Execute success.
+iSQL> SELECT * FROM T1@link1;
+C1 C2
+---------------------------------------------------------
+일이삼사오육칠팔구십 3
+1 row selected.
+ 
+iSQL> CREATE TABLE T1 ( C1 CHAR( 40 ), c2 integer );
+Create success.
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+ AS
+ CURSOR CUR1 IS
+ SELECT * FROM REMOTE_TABLE(link1,'SELECT * FROM T1 ORDER BY C2');
+ BEGIN
+ FOR M IN CUR1
+ LOOP
+ INSERT INTO T1 VALUES(M.C1, M.C2);
+ END LOOP;
+ END;
+ /
+Create success.
+ 
+iSQL> EXEC PROC1;
+Execute success.
+iSQL> SELECT C1 FROM T1 ORDER BY C2;
+C1
+--------------------------------------------
+일이삼사오육칠팔구십
+1 row selected.
+```
+
+
+**3으로 설정 해야 하는 경우**
+
+- 원격 서버 캐릭터 셋의 char/varchar 의 단위가 character이고, char/varchar의 LENGTH 1이 3byte 인 경우
+
+예제
+```
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(20 char), c2 integer)');
+Execute success.
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''일이삼사오육칠팔구십'', 3)');
+Execute success.
+iSQL> SELECT * FROM T1@link1;
+C1 C2
+---------------------------------------------------------
+일이삼사오육칠팔구십 3
+1 row selected.
+ 
+iSQL> CREATE TABLE T1 ( C1 CHAR( 60 ), c2 integer );
+Create success.
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+ AS
+ CURSOR CUR1 IS
+ SELECT * FROM REMOTE_TABLE(link1,'SELECT * FROM T1 ORDER BY C2');
+ BEGIN
+ FOR M IN CUR1
+ LOOP
+ INSERT INTO T1 VALUES(M.C1, M.C2);
+ END LOOP;
+ END;
+ /
+Create success.
+ 
+iSQL> EXEC PROC1;
+Execute success.
+iSQL> SELECT C1 FROM T1 ORDER BY C2;
+C1
+--------------------------------------------
+일이삼사오육칠팔구십
+1 row selected.
+```
+
+
+**지역 서버의 캐릭터 셋의 char/varchar의 LENGTH 1의 크기가 원격 서버의 캐릭터 셋의 char/varchar의 LENGTH 1의 크기보다 클 때, 원격 서버의 글자 수에 따라 변환 과정에서 크기 초과로 에러 발생하는 예제**
+
+지역 서버 : UTF8  (3byte)
+원격 서버 : MS989 (2byte)
+
+```
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(40), c2 integer)');
+Execute success.
+ 
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''일이삼사오육칠팔구십일이삼사오'', 3)');
+Execute success.
+
+iSQL> CREATE TABLE T1 ( C1 CHAR( 40 ), c2 integer );
+Create success.
+
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+            AS
+            CURSOR CUR1 IS
+            SELECT * FROM REMOTE_TABLE(link1,'SELECT * FROM T1 ORDER BY C2');
+        BEGIN
+            FOR M IN CUR1
+            LOOP
+                INSERT INTO T1 VALUES(M.C1, M.C2);
+        END LOOP;
+        END;
+        /
+Create success.
+
+iSQL> SELECT * FROM T1@link1;
+[ERR-C106A : Internal error occurs. (convertNonNullValue : Target data size is biger than column buffer size).]
+
+$T1> EXEC PROC1;
+[ERR-C106A : Internal error occurs. (convertNonNullValue : Target data size is biger than column buffer size).
+In PROC1
+0006 :             FOR M IN CUR1
+                  ^
+0007 :             LOOP
+0008 :                 INSERT INTO T1 VALUES(M.C1, M.C2);
+0009 :         END LOOP;
+                       ^
+]
+```
 
 4.데이터베이스 링크 사용법
 ------------------------
@@ -2642,6 +2847,8 @@ dblink.conf 파일은 AltiLinker를 위한 프로퍼티 파일이다. 이 파일
 
 -   TARGETS/XADATASOURCE_URL_SETTER_NAME
 
+-   TARGETS/NLS_BYTE_PER_CHAR
+
 다음은 dblink.conf 파일의 예제이다.
 
 ```
@@ -2675,6 +2882,7 @@ TARGETS = (
     CONNECTION_URL = "jdbc:oracle:thin:@dbdm.altibase.in:1521:ORCL"
     USER = "new_dblink"
     PASSWORD = "new_dblink"
+    NLS_BYTE_PER_CHAR = 1
 ),
 (
     NAME = "alti2"
@@ -3053,3 +3261,25 @@ XADataSource클래스 이름을 설정한다,
 ##### 설명
 
 XADataSource의 URL을 설정하는 함수이다.
+
+#### TARGETS/NLS_BYTE_PER_CHAR
+
+##### 기본값
+
+0
+
+##### 값의 범위
+
+[0, 3]
+
+##### 설명
+
+원격 서버 캐릭터 셋의 char/varchar의 단위와 크기를 고려하여 설정할 수 있다.
+
+0으로 지정 시 원격 서버의 char/varchar 의 1 length를 1 character로 가정하고, 로컬 서버 캐릭터 셋의 1 length 의 byte 크기와 dblink로 가져온 원격 서버의 char/varchar 컬럼의 길이를 곱해서 변환한다.
+
+원격 서버 캐릭터 셋의 char/varchar 단위가 byte 라면 이 값을 1로 설정한다.
+
+만약 원격 서버 캐릭터 셋의 char/varchar 단위가 character 라면, 이 값을 원격 서버 캐릭터 셋의 1 length의 byte 크기로 설정한다.
+
+각 값에 대한 설명과 예제는 환경설정 - 문자 집합(Character Set) 부분을 참고한다.

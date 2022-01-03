@@ -11,7 +11,7 @@
 
 # Altibase Migration Center 7.9 Release Notes
 
-**(Nov. 11, 2021)**
+**(Dec. 31, 2021)**
 
 ## 1. 개요
 
@@ -30,8 +30,8 @@
 
 | Mode | JRE                      | OS Graphic Library |
 | ---- | ------------------------ | ------------------ |
-| GUI  | Sun 또는 IBM Java 5 이상 | 필수               |
-| CLI  | Sun 또는 IBM Java 5 이상 | 필수 아님          |
+| GUI  | Sun 또는 IBM Java 8 이상 | 필수               |
+| CLI  | Sun 또는 IBM Java 8 이상 | 필수 아님          |
 
 Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로, 클라이언트의 하드웨어나 OS보다 JAVA Runtime Environment (JRE)에 의존한다. 단, Migration Center를 GUI 모드로 실행하기 위해 운영 체제의 그래픽 라이브러리에 대한 추가 지원이 필요하다.
 
@@ -60,12 +60,13 @@ Migration Center는 데이터베이스 마이그레이션을 위한 도구로서
 | BUG-48340 | 테이블 이름에 밑줄(_)이 포함된 경우 유사한 이름을 가진 테이블 컬럼도 포함된다. |
 | BUG-48672 | Altibase 7.2부터 범위 파티션드 테이블에 기본 파티션이 없더라도 경고창이 나타나지 않는다. |
 | BUG-49467 | TimesTen 11.2.1.9.10으로부터 알티베이스로의 마이그레이션을 지원한다. |
-| BUG-49499 | [CVE-2021-44228](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q) 보안 문제로 log4j를 2.15.0 버전으로 업그레이드해야 한다. |
+| BUG-49499 | log4j 보안 문제로 2.17.0 버전으로 업그레이드 한다.           |
 
 ### 2.2 변경사항
 
 Migration Center에 추가, 삭제 또는 변경된 기능들은 다음과 같다.
 
+- 보안 문제로 log4j 최신 버전으로 업데이트되어 Migration Center를 구동하기 위한  JRE 최소 버전이 1.5에서 8로 변경되었다.
 - JRE 8 이상을 요구하는 Altibase 7.2 JDBC를 지원하기 위해 Migration Center에 포함된 JRE 버전이 7에서 8로 업데이트되었다.
 
 #### 2.2.1 버전 업데이트
@@ -83,7 +84,7 @@ Migration Center 버전
 - 원본 데이터베이스
   - Altibase : Altibase 4.3.9 이상 버전
   - ORACLE : Oracle 9i ~ 11g
-  - MS-SQL : MS-SQL 2005-2012
+  - MS-SQL : MS-SQL 2005 ~ 2012
   - MySQL : MySQL 5.0 ~ 5.5
   - Informix : Informix 11.50
   - TimesTen : TimesTen 7.0, TimesTen 11.2
@@ -141,7 +142,7 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 | JRE                      | Archive Name                                     |
 | ------------------------ | ------------------------------------------------ |
-| Sun 또는 IBM Java 5 이상 | MigrationCenter7.9.zip MigrationCenter7.9.tar.gz |
+| Sun 또는 IBM Java 8 이상 | MigrationCenter7.9.zip MigrationCenter7.9.tar.gz |
 
 ### 2.5 다운로드
 
