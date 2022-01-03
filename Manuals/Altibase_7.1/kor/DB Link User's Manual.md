@@ -27,7 +27,7 @@
     - [COMMIT FORCE DATABASE LINK](#commit-force-database-link)
     - [ROLLBACK FORCE DATABASE LINK](#rollback-force-database-link)
   - [A.부록: 프로퍼티 및 데이터 딕셔너리](#a%EB%B6%80%EB%A1%9D-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EB%B0%8F-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
-    - [DB Link 관련 데이터 딕셔너리](#db-link-%EA%B4%80%EB%A0%A8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
+    - [DB Link 관련 데이터 딕셔너리](#a부록-프로퍼티-및-데이터-딕셔너리)
     - [프로퍼티 파일](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%ED%8C%8C%EC%9D%BC)
     - [AltiLinker 프로퍼티](#altilinker-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
 
@@ -1162,42 +1162,52 @@ AltiLinker 프로퍼티 파일은 \$ALTIBASE_HOME/conf 아래에 dblink.conf 파
 
 -   ALTILINKER_ENABLE
 
+    AltiLinker 프로세스를 활성화하기 위해서는 ALTILINKER_ENABLE 프로퍼티의 값을 1로 설정해야 한다. 
+
 -   ALTILINKER_PORT_NO
 
--   TARGETS
-
-AltiLinker 프로세스를 활성화하기 위해서는 ALTILINKER_ENABLE 프로퍼티의 값을 1로
-설정해야 한다. ALTILINKER_PORT_NO 프로퍼티에는 AltiLinker의 TCP 대기(listen)
-포트 번호를 지정한다.
-
-TARGETS 프로퍼티에는 AltiLinker가 원격 데이터베이스 서버에 접속하는데 필요한
-연결 정보가 아래와 같은 하위 프로퍼티로 설정된다.
-
--   NAME : 접속할 원격 데이터베이스 서버의 이름
-
--   JDBC_DRIVER: JDBC 드라이버 파일의 절대 경로
-
--   CONNECTION_URL: 접속할 원격 데이터베이스 서버의 연결 URL
-
--   USER: 원격 데이터베이스 서버에 접속할 사용자 이름
-
--   PASSWORD: 원격 데이터베이스 서버에 접속할 사용자의 암호
-
--   XADATASOURCE_CLASS_NAME: XADataSource클래스 이름,
-    Altibase.jdbc.driver.AltibaseXADataSource에 위치
-
--   XADATASOURCE_CLASS_URL_SETTER_NAME: XADataSource의 URL을 설정(Set), setURL로
-    설정 가능
+    ALTILINKER_PORT_NO 프로퍼티에는 AltiLinker의 TCP 대기(listen) 포트 번호를 지정한다.
     
--   NLS_BYTE_PER_CHAR : 원격 데이터베이스의 CHAR와 VARCHAR 데이터 타입의 단위와 크기를 지정한다. 이 프로퍼티는 원격 데이터베이스 서버 캐릭터셋을 고려하여 설정한다.
+AltiLinker 프로퍼티에 관한 보다 자세한 내용은 "[A. 부록: 데이터 딕셔너리 및 프로퍼티](#a부록-프로퍼티-및-데이터-딕셔너리)"를 참고하기 바란다.- TARGETS
 
-NAME,JDBC_DRIVER, CONNECTION_URL은 프로퍼티 파일에 반드시 명시해야 한다.
-USER,PASSWORD는 AltiLinker 프로퍼티 파일이나 데이터베이스 링크 객체를 생성할 때 입력할 수 있으며 데이터베이스 링크 객체 생성 시점에 명시한 설정을 우선한다.
-나머지 항목은 프로퍼티 파일에만 명시할 수 있으며 NLS_BYTE_PER_CHAR는 지정하지 않으면 0으로 설정된다.
+    TARGETS 프로퍼티에는 AltiLinker가 원격 데이터베이스 서버에 접속하는데 필요한 연결 정보가 아래와 같은 하위 프로퍼티로 설정된다.
 
-TARGETS 프로퍼티는 아래의 형식으로 설정할 수 있다. 이 프로퍼티에는 복수 개의
-원격 서버를 명시할 수 있다.
+    - NAME
 
+      접속할 원격 데이터베이스 서버의 이름
+
+    - CONNECTION_URL
+
+      접속할 원격 데이터베이스 서버의 연결 URL
+
+    - USER
+
+      원격 데이터베이스 서버에 접속할 사용자 이름
+
+    - PASSWORD
+
+      원격 데이터베이스 서버에 접속할 사용자의 암호
+
+    - XADATASOURCE_CLASS_NAME
+
+      XADataSource클래스 이름, Altibase.jdbc.driver.AltibaseXADataSource에 위치
+
+    - XADATASOURCE_CLASS_URL_SETTER_NAME
+
+      XADataSource의 URL을 설정(Set), setURL로 설정 가능
+
+    - NLS_BYTE_PER_CHAR
+
+      원격 데이터베이스의 CHAR와 VARCHAR 데이터 타입의 단위와 크기를 지정한다. 이 프로퍼티는 원격 데이터베이스 서버 캐릭터셋을 고려하여 설정한다. 설정하지 않으면 0으로 설정된다.
+
+    NAME, JDBC_DRIVER, CONNECTION_URL은 AltiLinker 프로퍼티 파일에 반드시 명시해야 한다. 
+
+    USER, PASSWORD는 AltiLinker 프로퍼티 파일이나 데이터베이스 링크 객체를 생성할 때 입력할 수 있으며 나머지 항목들은 AltiLinker 프로퍼티 파일에만 명시할 수 있다. 
+
+    데이터베이스 링크 객체 생성 시점에 명시한 설정이 AltiLinker 프로퍼티 파일 설정보다 우선한다.
+
+    TARGETS 프로퍼티는 아래의 형식으로 설정할 수 있다. 이 프로퍼티에는 복수 개의 원격 서버를 명시할 수 있다.
+    
 ```
 TARGETS = (
   (
@@ -1218,7 +1228,7 @@ TARGETS = (
 )
 ```
 
-대한 자세한 내용은 "A. 부록: 데이터 딕셔너리 및 프로퍼티"를 참고하기 바란다.
+AltiLinker 프로퍼티에 관한 보다 자세한 내용은 "[A. 부록: 데이터 딕셔너리 및 프로퍼티](#a부록-프로퍼티-및-데이터-딕셔너리)"를 참고하기 바란다.
 
 
 #### 문자 집합(Character Set)
@@ -1286,6 +1296,7 @@ DBLINK_ENABLE 프로퍼티를 1로 설정해야 한다.
 데이터베이스 링크와 관련된 프로퍼티에 대한 자세한 내용은 *General Reference*의
 데이터베이스 링크 관련 프로퍼티를 참고한다.
 
+A. 부록: 데이터 딕셔너리 및 프로퍼티
 4.데이터베이스 링크 사용법
 ------------------------
 
@@ -2587,7 +2598,7 @@ ROLLBACK FORCE DATABASE LINK;
 iSQL> ROLLBACk FORCE DATABASE LINK;
 ```
 
-## A.부록: 프로퍼티 및 데이터 딕셔너리
+## A. 부록: 데이터 딕셔너리 및 프로퍼티
 
 이 부록은 데이터베이스 링크와 관련하여 사용되는 각종 프로퍼티 및 데이터
 딕셔너리를 기술한다.
@@ -3128,34 +3139,38 @@ XADataSource의 URL을 설정하는 함수이다.
 
 ##### 설명
 
-원격 서버 캐릭터셋의 문자형 데이터 타입 중 CHAR와 VARCHAR의 단위와 크기를 고려하여 설정할 수 있다.
+원격 서버 의 문자형 데이터 타입 중 CHAR와 VARCHAR의 단위와 크기를 고려하여 설정한다.
 
-알티베이스의 문자형 데이터 타입 중 CHAR와 VARCHAR의 길이는 고정형 바이트 단위이지만, 타 DBMS에서 바이트(BYTE) 또는 캐릭터(CHAR) 단위로 선택 가능한 경우가 있다. (예 oracle의 NLS_LENGTH_SEMANTICS )
+알티베이스의 CHAR와 VARCHAR 데이터 타입의 길이는 고정형 바이트 단위이지만, 타 DBMS에서 바이트(BYTE) 또는 캐릭터(CHAR) 단위로 선택 가능한 경우가 있다. (예. Oracle의 NLS_LENGTH_SEMANTICS )
 
-AltiLinker는 데이터 손실을 막기 위해 원격 서버의 CHAR와 VARCHAR 데이터 타입의 단위를 보수적으로 캐릭터(CHAR) 단위로 가정하고 지역 서버의 캐릭터셋에 맞춰 길이를 변환한다.
+이 값을 설정하지 않으면 AltiLinker는 데이터 손실을 막기 위해 원격 서버의 CHAR와 VARCHAR 데이터 타입의 단위를 보수적으로 캐릭터(CHAR) 단위로 가정하고 지역 서버의 캐릭터셋에 맞춰 길이를 변환한다. 예를 들어 지역 서버의 캐릭터셋이 MS949이고 원격 서버의 CHAR, VARCHAR 데이터 타입의 길이(size)가 10으로 선언되어 있다면, MS949에서 한 글자를 2바이트로 표현하므로 10*2=20바이트로 길이를 변환한다.
 
-예를 들어 지역 서버의 캐릭터셋이 MS949이고 원격 서버의 CHAR, VARCHAR 데이터 타입의 길이(size)가 10으로 선언되어 있다면, MS949에서 한 글자를 2바이트로 표현하므로 10*2=20바이트로 길이를 변환한다.
+원격 서버가 알티베이스 이거나, CHAR와 VARCHAR 데이터 타입의 단위가 바이트(BYTE) 인 경우 이 값을 1로 설정한다.
+자세한 설명은 아래를 참고한다.
+
+ **0으로 설정 하는 경우 (기본값)**
+
+아래 두 조건을 만족하는 경우 0으로 설정한다. 
+
+- 원격 서버의 문자형 데이터 타입 중 CHAR와 VARCHAR의 길이 단위가 캐릭터(CHAR) 인 경우
+
+  - Oracle 경우, VARCHAR2(10 CHAR)
+
+- 지역 서버 캐릭터셋과 원격 서버 캐릭터셋이 같거나, CHAR와 VARCHAR의 한 글자 크기가 같은 경우
+
+  | 지역 서버 캐릭터셋 | 1 글자 크기 | 원격 서버 캐릭터셋 | 1 글자 크기 |
+  | :----------------: | :---------: | :----------------: | :---------: |
+  |       ASCII        |      1      |       ASCII        |      1      |
+  |       MS949        |      2      |       MS949        |      2      |
+  |       MS949        |      2      |      KSC5601       |      2      |
+  |       UTF-8        |      3      |       UTF-8        |      3      |
+
+예제) 지역 서버와 원격 서버의 캐릭터셋이 MS949이고 원격 서버에서 캐릭터(CHAR) 단위의 컬럼 생성
 
 
- **0로 설정 해야 하는 경우 (기본값)**
-
-아래 두 조건은 만족하는 경우
-
-- 원격 서버 캐릭터셋의 문자형 데이터 타입 중 CHAR와 VARCHAR의 길이 단위가 캐릭터(CHAR) 인 경우
-
-- 지역 서버 캐릭터셋과 원격 서버 캐릭터셋이 같거나, 문자형 데이터 타입 중 CHAR와 VARCHAR의 한 글자의 크기가 동일한 경우
-
-| 지역 캐릭터셋  | 1 character 크기 | 원격 캐릭터셋  | 1 character 크기 |
-|-------------|----------------|-------------|-----------------|
-| ASCII       | 1              | ASCII       | 1               |
-| MS949       | 2              | MS949       | 2               |
-| MS949       | 2              | KSC5601     | 2               |
-| UTF-8       | 3              | UTF-8       | 3               |
-
-지역 캐릭터셋 MS949, 원격 타사 DBMS 캐릭터셋 MS949로 캐릭터(CHAR) 단위의 컬럼 생성 예제
-
-```
-iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(20 char), c2 integer)');
+```sql
+-- 원격 서버에 캐릭터(CHAR) 단위로 CHAR 데이터 타입 컬럼 생성
+iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(C1 CHAR(20 CHAR), c2 INTEGER)');
 Execute success.
 iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''일이삼사오육칠팔구십'', 3)');
 Execute success.
@@ -3164,8 +3179,8 @@ C1 C2
 ---------------------------------------------------------
 일이삼사오육칠팔구십 3
 1 row selected.
- 
-iSQL> CREATE TABLE T1 ( C1 CHAR( 40 ), c2 integer );
+-- 지역 서버(알티베이스)에 테이블 생성 시 원격 서버 테이블의 스키마를 바이트단위로 계산해서 생성 (원격 컬럼 크기(20) * 한 글자 크기(2) = 40으로 선언)
+iSQL> CREATE TABLE t1 ( c1 CHAR( 40 ), c2 INTEGER );
 Create success.
 iSQL> CREATE OR REPLACE PROCEDURE PROC1
  AS
@@ -3190,14 +3205,14 @@ C1
 ```
 
 
- **1로 설정 해야 하는 경우**
+ **1로 설정 하는 경우**
 
-- 지역/원격 서버 캐릭터셋의 문자형 데이터 타입 중 CHAR와 VARCHAR의 길이 단위가 바이트(BYTE)인 경우
+- 원격 서버의 데이터베이스가 알티베이스인 경우
+- 원격 서버의 CHAR, VARCHAR 데이터 타입의 단위를 BYTE로 생성한 경우
+- 원격 서버의 캐릭터셋이 한 글자 당 1바이트인 경우 (예, ASCII)
 
-- 원격 서버 캐릭터셋의 문자형 데이터 타입 중 CHAR와 VARCHAR의 한 글자의 크기가 1바이트인 경우 
-
-
-| 지역 캐릭터셋  | 1 character 크기 | 원격 캐릭터셋  | 1 character 크기 |
+원격 서버의 CHAR, VARCHAR 데이터 타입의 단위를 BYTE로 생성한 경우 가능한 캐릭터셋 예제
+| 지역 서버 캐릭터셋 | 1 글자 크기 | 원격 서버 캐릭터셋 | 1 글자 크기 |
 |-------------|----------------|-------------|-----------------|
 | ASCII       | 1              | ASCII       | 1               |
 | MS949       | 2              | MS949       | 2               |
@@ -3206,7 +3221,8 @@ C1
 | UTF-8       | 3              | UTF-8       | 3               |
 
 예제
-```
+```sql
+-- 원격 서버에 캐릭터(BYTE) 단위로 CHAR 데이터 타입 컬럼 생성
 iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(40), c2 integer)');
 Execute success.
 iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''한글 테스트'', 3)');
@@ -3216,10 +3232,9 @@ C1                              C2
 -----------------------------------------------
 한글 테스트                     3
 1 row selected.
-
+-- 지역 서버(알티베이스)에 같은 스키마를 가진 테이블 생성
 iSQL> CREATE TABLE T1 ( C1 CHAR( 40 ), c2 integer );
 Create success.
-
 iSQL> CREATE OR REPLACE PROCEDURE PROC1
             AS
             CURSOR CUR1 IS
@@ -3232,8 +3247,6 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
         END;
         /
 Create success.
-
-
 iSQL> EXEC PROC1;
 Execute success.
 iSQL> SELECT C1 FROM T1 ORDER BY C2;
@@ -3243,19 +3256,20 @@ C1
 1 row1 selected.
 ```
 
+**2로 설정 하는 경우**
 
-**2로 설정 해야 하는 경우**
+- 원격 서버의 캐릭터셋이 한 글자 당 2바이트이고 원격 서버의 CHAR, VARCHAR 타입의 단위가 CHAR인 경우
 
-- 원격 서버 캐릭터셋의 문자형 데이터 타입 중 CHAR와 VARCHAR의 단위가 캐릭터(CHAR), 한 글자의 크기가 2바이트 인 경우
+  | 지역 서버 캐릭터셋 | 1 글자 크기 | 원격 서버 캐릭터셋 | 1 글자 크기 |
+  | :----------------: | :---------: | :----------------: | :---------: |
+  |       MS949        |      2      |       MS949        |      2      |
+  |       MS949        |      2      |      KSC5601       |      2      |
 
-| 지역 캐릭터셋  | 1 character 크기 | 원격 캐릭터셋  | 1 character 크기 |
-|-------------|----------------|-------------|-----------------|
-| MS949       | 2              | MS949       | 2               |
-| MS949       | 2              | KSC5601     | 2               |
 
-지역 캐릭터셋 MS949, 원격 타사 DBMS 캐릭터셋 MS949로 character 단위의 컬럼 생성 예제
+예제) 지역 서버와 원격 서버의 캐릭터셋이 MS949이고 CHAR 데이터 타입 단위를 CHAR로 생성
 
-```
+```sql
+-- 원격 서버에 캐릭터(CHAR) 단위로 CHAR 데이터 타입 컬럼 생성
 iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(20 char), c2 integer)');
 Execute success.
 iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''일이삼사오육칠팔구십'', 3)');
@@ -3266,6 +3280,7 @@ C1 C2
 일이삼사오육칠팔구십 3
 1 row selected.
  
+-- 지역 서버(알티베이스)에 테이블 생성 시 원격 서버 테이블의 스키마를 바이트단위로 계산해서 생성 (원격 컬럼 크기(20) * 한 글자 크기(2) = 40으로 선언)
 iSQL> CREATE TABLE T1 ( C1 CHAR( 40 ), c2 integer );
 Create success.
 iSQL> CREATE OR REPLACE PROCEDURE PROC1
@@ -3290,17 +3305,17 @@ C1
 1 row selected.
 ```
 
+**3으로 설정 하는 경우**
 
-**3으로 설정 해야 하는 경우**
+원격 서버의 캐릭터셋이 한 글자 당 3바이트이고 원격 서버의 CHAR, VARCHAR 타입의 단위가 CHAR인 경우
 
-- 원격 서버 캐릭터셋의 문자형 데이터 타입 중 CHAR와 VARCHAR의 단위가 캐릭터(CHAR), 길이 1이 3바이트 인 경우
-
-| 지역 캐릭터셋  | 1 character 크기 | 원격 캐릭터셋  | 1 character 크기 |
-|-------------|----------------|-------------|-----------------|
+| 지역 서버 캐릭터셋 | 1 글자 크기 | 원격 서버 캐릭터셋 | 1 글자 크기 |
+|:-----------:|:--------------:|:-----------:|:---------------:|
 | UTF-8       | 3              | UTF-8       | 3               |
 
 예제
-```
+```sql
+-- 원격 서버에 캐릭터(CHAR) 단위로 CHAR 데이터 타입 컬럼 생성
 iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'CREATE TABLE t1(c1 CHAR(20 char), c2 integer)');
 Execute success.
 iSQL> EXEC REMOTE_EXECUTE_IMMEDIATE('link1', 'INSERT INTO t1 VALUES(''일이삼사오육칠팔구십'', 3)');
@@ -3310,7 +3325,7 @@ C1 C2
 ---------------------------------------------------------
 일이삼사오육칠팔구십 3
 1 row selected.
- 
+-- 지역 서버(알티베이스)에 테이블 생성 시 원격 서버 테이블의 스키마를 바이트단위로 계산해서 생성(원격 컬럼 크기(20) * 한 글자 크기(3) = 60으로 선언)
 iSQL> CREATE TABLE T1 ( C1 CHAR( 60 ), c2 integer );
 Create success.
 iSQL> CREATE OR REPLACE PROCEDURE PROC1
@@ -3334,4 +3349,3 @@ C1
 일이삼사오육칠팔구십
 1 row selected.
 ```
-
