@@ -1,8 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Altibase Migration Center 7.9 Release Notes](#altibase-migration-center-79-release-notes)
   - [1. Abstract](#1-abstract)
@@ -15,44 +11,30 @@
     - [2.4 Packages](#24-packages)
     - [2.5 Downloads](#25-downloads)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-</br>
-
-</br>
-
-</br>
-
 Altibase Migration Center 7.9 Release Notes
 ===============================
 
-**(Nov. 11, 2021)**
+**(Dec. 31, 2021)**
 
 ## 1. Abstract
 
-
-
 ### 1.1 System Requirements
 
-#### Minimum Hardware : GUI Mode
+#### Minimum Hardware
 
-* Computer processor: 800MHz Pentium III or better
-* Computer memory: 512 MB or more
-* Computer disk : 150MB or more free space
-* Screen resolution : 1024 * 768 pixels or higher
-
-#### Minimum Hardware : CLI Mode
-
-- Computer processor: 1 CPU or more
-- Computer memory: 512 MB or more
-- Computer disk : 150MB or more free space
+|                    |           GUI mode           | CLI mode |
+| ------------------ | :--------------------------: | :------: |
+| Computer processor | 800MHz Pentium III or better |  Ditto   |
+| Computer memory    |        512 MB or more        |  Ditto   |
+| Computer disk      |   150MB or more free space   |  Ditto   |
+| Screen resolution  | 1024 * 768 pixels or higher  |    -     |
 
 ### 1.2 Supported Operating Systems and Platforms
 
-| Mode     | JRE                         | OS Graphic Library |
-| -------- | --------------------------- | ------------------ |
-| GUI mode | Sun or IBM Java 5 or higher | Required           |
-| CLI mode | Sun of IBM Java 5 or higher | Not required       |
+| Mode | JRE                         | OS Graphic Library |
+| ---- | --------------------------- | ------------------ |
+| GUI  | Sun or IBM Java 8 or higher | Required           |
+| CLI  | Sun or IBM Java 8 or higher | Not required       |
 
 Migration Center is a pure Java-based client application relying on the JAVA Runtime Environment (JRE) instead of the client's hardware or an operating system. In order to execute Migration Center in the GUI mode, however, additional support for the graphic library of operating system is required.
 
@@ -60,13 +42,7 @@ Migration Center is a pure Java-based client application relying on the JAVA Run
 
 ### 2.1 Altibase Migration Center 7.9
 
-Migration Center is a database migration tool which enables users to migrate a third-party database to
-Altibase database and external files or Altibase database to Oracle database in a convenient manner.
-Typically, the tasks of manual database migration are complicated, time-consuming, and prone to human
-error. In order to relieve such burden, Migration Center can be utilized providing qualified help for users to
-efficiently perform database migration with only a few mouse clicks in the Graphic User Interface (GUI)
-mode. Moreover, it also supports the migration at a Command Line Interface (CLI) mode for optimized
-resource consumption.
+Migration Center is a database migration tool which enables users to migrate a third-party database to Altibase database and external files or Altibase database to Oracle database in a convenient manner. Typically, the tasks of manual database migration are complicated, time-consuming, and prone to human error. In order to relieve such burden, Migration Center can be utilized providing qualified help for users to efficiently perform database migration with only a few mouse clicks in the Graphic User Interface (GUI) mode. Moreover, it also supports the migration at a Command Line Interface (CLI) mode for optimized resource consumption.
 
 #### 2.1.1 New Features
 
@@ -75,23 +51,25 @@ resource consumption.
 
 #### 2.1.2  Bug-Fixes
 
-| PK        | SYNOPSIS                                                                                                                            |
-|:--------- |:----------------------------------------------------------------------------------------------------------------------------------- |
-| BUG-47352 | Changes in "Partitioned Table Conversion" during the reconcile phase <br/>are not kept when returning after next or previous step.  |
-| BUG-47372 | Need to improve type conversion method for local variables in PSM                                                                   |
-| BUG-47376 | Support source DDL with ALTIBASE dbms_metadata since 7                                                                              |
-| BUG-47381 | If the object referenced by a synonym is not a build target, hang occurs <br/>in the reconcile stage.                               |
-| BUG-47402 | Support TimesTen direct connection                                                                                                  |
-| BUG-47408 | Reserved words allowed as column names must be excluded from _poc autoconversion.                                                   |
-| BUG-47409 | Composite index including a PK column in the source DB is excluded <br/>from the migration target with an error in the build phase. |
-| BUG-48340 | If the table name includes underscore, the table column <br/>with a similar name is also included.                                  |
-| BUG-48672 | As of Altibase 7.2, the warning window should not appear <br/>even if there is no default partition in the range partition table.   |
-| BUG-49467 | Support TimesTen 11.2.1.9.10 to Altibase migration                                                                                  |
+| PK        | SYNOPSIS                                                     |
+| :-------- | :----------------------------------------------------------- |
+| BUG-47352 | Changes in "Partitioned Table Conversion" during the reconcile phase are not kept when returning after next or previous step |
+| BUG-47372 | Need to improve type conversion method for local variables in PSM |
+| BUG-47376 | Support source DDL with dbms_metadata since Altibase 7       |
+| BUG-47381 | If the object referenced by a synonym is not a build target, hang occurs in the reconcile stage. |
+| BUG-47402 | Support TimesTen direct connection                           |
+| BUG-47408 | Reserved words allowed as column names must be excluded from _poc autoconversion. |
+| BUG-47409 | Composite index including a PK column in the source DB is excluded from the migration target with an error in the build phase. |
+| BUG-48340 | If the table name includes underscore, the table column with a similar name is also included. |
+| BUG-48672 | As of Altibase 7.2, the warning window should not appear even if there is no default partition in the range partition table. |
+| BUG-49467 | Support TimesTen 11.2.1.9.10 to Altibase migration           |
+| BUG-49499 | Upgrade log4j version to 2.17.0 due to its security issue    |
 
 ### 2.2 Changes
 
 Features that have been added, deleted or updated in Migration Center are listed and explained below.
 
+* Due to security issues, log4j has been updated to the latest version, and the minimum JRE version for running Migration Center is changed from 1.5 to 8.
 * Bundled JRE version in Migration Center is updated from 7 to 8 in order to support Altibase 7.2 JDBC that requires JRE 8 or higher.
 
 #### 2.2.1 Version Updates
@@ -110,7 +88,7 @@ Migration Center Version
   
   * Altibase : Altibase 4.3.9 or higher
   * ORACLE : Oracle 9i ~ 11g
-  * MS-SQL :  MS-SQL 2005-2012
+  * MS-SQL :  MS-SQL 2005 ~ 2012
   * MySQL : MySQL 5.0 ~ 5.5
   * Informix : Informix 11.50
   * TimesTen : TimesTen 7.0, TimesTen 11.2
@@ -119,7 +97,7 @@ Migration Center Version
 
 * Destination Database
   
-  * Altibase : Altibase 5.5.1 or higher
+  * Altibase : Altibase 6.5.1 or higher
 
 ##### Destination Database: Oracle
 
@@ -171,7 +149,7 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 | JRE                         | Archive Name                                         |
 | --------------------------- | ---------------------------------------------------- |
-| Sun or IBM Java 5 or higher | MigrationCenter7.9.zip<br/>MigrationCenter7.9.tar.gz |
+| Sun or IBM Java 8 or higher | MigrationCenter7.9.zip<br/>MigrationCenter7.9.tar.gz |
 
 ### 2.5 Downloads
 

@@ -217,7 +217,7 @@ altiShapeLoader 설치 및 실행에 필요한 시스템 사양과 altiShapeLoad
 
 #### altiShapeLoader 설치
 
-http://support.altibase.com/kr/product 에서 altiShapeLoader.1.0.zip 파일을 다운로드한다. altiShapeLoader를 실행할 곳에서 압축 파일을 해제하고 altiShapeLoader 디렉터리를 확인한다. 
+http://support.altibase.com/kr/product 에서 altiShapeLoader-1.0.zip 파일을 다운로드한다. altiShapeLoader를 실행할 곳에서 압축 파일을 해제하고 altiShapeLoader 디렉터리를 확인한다. 
 
 altiShapeLoader 디렉터리 내 파일 구성은 아래와 같다.
 
@@ -236,14 +236,6 @@ drwxr-xr-x 2 altibase altibase  4096 2021-10-08 11:27 license
 ##### 실행 파일
 
 altiShapeLoader를 실행하는 서버가 Windows 환경인 경우 altiShapeLoader.bat 을 이용하고 Unix/Linux 환경인 경우 altiShapeLoader.sh를 이용한다.
-
-Unix/Linux 환경인 경우 실행 파일에 실행 권한을 추가한다. 
-
-```
-$ chmod 774 altiShapeLoader.sh
-$ ls -l altiShapeLoader.sh
--rwxrwxr-- 1 altibase altibase 867 Oct  8 11:27 altiShapeLoader.sh*
-```
 
 #### altiShapeLoader 환경 설정
 
