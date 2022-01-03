@@ -909,7 +909,7 @@ SYS_INDICES_
 
 ### SYS_CONSTRAINT_COLUMNS_
 
-사용자 테이블에 정의된 모든 제한조건에 관련된 칼럼의 정보를 기록하고 있는 메타 테이블이다.
+사용자 테이블에 정의된 모든 제약조건에 관련된 칼럼의 정보를 기록하고 있는 메타 테이블이다.
 
 | Column name          | Type    | Description                |
 | -------------------- | ------- | -------------------------- |
@@ -1160,7 +1160,7 @@ Heterogeneous Link인지 Homogeneous Link인지를 나타낸다.
 
 ##### GRANTEE_ID
 
-권한을 부여받은 사용자의 식별자로, SYS_USERS_ 메타 테이블의 한 USER_IeovytD 값과 동일하다. 단, 객체 권한을 public에게 부여한 경우, SYS_USERS_ 메타 테이블에 존재하지 않는 USER_ID 값인 "0"이 이 칼럼에 나타난다.
+권한을 부여받은 사용자의 식별자로, SYS_USERS_ 메타 테이블의 한 USER_ID 값과 동일하다. 단, 객체 권한을 public에게 부여한 경우, SYS_USERS_ 메타 테이블에 존재하지 않는 USER_ID 값인 "0"이 이 칼럼에 나타난다.
 
 ##### PRIV_ID
 
@@ -1424,7 +1424,10 @@ SYS_PROCEDURES_
 
 ##### INDEX_TYPE
 
-인덱스 타입을 나타낸다. 1이면 B-TREE 인덱스이고, 2이면 R-TREE 인덱스이다.
+인덱스 타입을 나타낸다.
+
+- 1: B-TREE index
+- 2: R-TREE index
 
 ##### IS_UNIQUE
 
