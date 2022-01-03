@@ -26,9 +26,9 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 -   JDK 1.8 (64bit) 이상
 -   JDBC API Specification 4.0 이상 지원
 -   Type-4 JDBC 드라이버 (Pure Java)
--   자세한 내역은 Tableau 홈페이지 [관련 내용](https://help.tableau.com/current/pro/desktop/en-us/examples_otherdatabases_jdbc.htm)을 참조
+-   자세한 내용은 Tableau 홈페이지 [관련 내용](https://help.tableau.com/current/pro/desktop/en-us/examples_otherdatabases_jdbc.htm)을 참조
 
-### Atlibase
+### Altibase
 
 - JDBC API Specification 4.2을 부분 지원하는 Altibase 7.1.0.5.6 이상 JDBC 드라이버 필요
 
