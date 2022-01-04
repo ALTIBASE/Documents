@@ -27,7 +27,7 @@
     - [일괄처리(Batch) 지원 REMOTE 함수](#%EC%9D%BC%EA%B4%84%EC%B2%98%EB%A6%ACbatch-%EC%A7%80%EC%9B%90-remote-%ED%95%A8%EC%88%98)
     - [COMMIT FORCE DATABASE LINK](#commit-force-database-link)
     - [ROLLBACK FORCE DATABASE LINK](#rollback-force-database-link)
-  - [A.부록: 프로퍼티 및 데이터 딕셔너리](#a부록-프로퍼티-및-데이터-딕셔너리)
+  - [A.부록: 데이터 딕셔너리 및 프로퍼티](a-부록-데이터-딕셔너리-및-프로퍼티)
     - [DB Link 관련 데이터 딕셔너리](#db-link-%EA%B4%80%EB%A0%A8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [프로퍼티 파일](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%ED%8C%8C%EC%9D%BC)
     - [AltiLinker 프로퍼티](#altilinker-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
@@ -1230,7 +1230,7 @@ AltiLinker 프로퍼티 파일은 \$ALTIBASE_HOME/conf 아래에 dblink.conf 파
     )
     ```
 
-    AltiLinker 프로퍼티에 관한 보다 자세한 내용은 "[A. 부록: 데이터 딕셔너리 및 프로퍼티](#a부록-프로퍼티-및-데이터-딕셔너리)"를 참고하기 바란다.
+    AltiLinker 프로퍼티에 관한 보다 자세한 내용은 "[A. 부록: 데이터 딕셔너리 및 프로퍼티](a-부록-데이터-딕셔너리-및-프로퍼티)"를 참고하기 바란다.
 
 #### 문자 집합(Character Set)
 
