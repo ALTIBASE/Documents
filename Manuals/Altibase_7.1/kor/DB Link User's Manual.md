@@ -1168,7 +1168,7 @@ AltiLinker 프로퍼티 파일은 \$ALTIBASE_HOME/conf 아래에 dblink.conf 파
 
     ALTILINKER_PORT_NO 프로퍼티에는 AltiLinker의 TCP 대기(listen) 포트 번호를 지정한다.
     
-AltiLinker 프로퍼티에 관한 보다 자세한 내용은 "[A. 부록: 데이터 딕셔너리 및 프로퍼티](#a부록-프로퍼티-및-데이터-딕셔너리)"를 참고하기 바란다.- TARGETS
+- TARGETS
 
     TARGETS 프로퍼티에는 AltiLinker가 원격 데이터베이스 서버에 접속하는데 필요한 연결 정보가 아래와 같은 하위 프로퍼티로 설정된다.
 
@@ -1296,7 +1296,7 @@ DBLINK_ENABLE 프로퍼티를 1로 설정해야 한다.
 데이터베이스 링크와 관련된 프로퍼티에 대한 자세한 내용은 *General Reference*의
 데이터베이스 링크 관련 프로퍼티를 참고한다.
 
-A. 부록: 데이터 딕셔너리 및 프로퍼티
+
 4.데이터베이스 링크 사용법
 ------------------------
 
