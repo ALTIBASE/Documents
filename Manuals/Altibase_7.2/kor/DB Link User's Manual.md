@@ -2597,7 +2597,7 @@ ROLLBACK FORCE DATABASE LINK;
 iSQL> ROLLBACk FORCE DATABASE LINK;
 ```
 
-## A.부록: 데이터 딕셔너리 및 프로퍼티
+## A. 부록: 데이터 딕셔너리 및 프로퍼티
 
 이 부록은 데이터베이스 링크와 관련하여 사용되는 각종 프로퍼티 및 데이터
 딕셔너리를 기술한다.
