@@ -3179,6 +3179,7 @@ C1 C2
 ---------------------------------------------------------
 일이삼사오육칠팔구십 3
 1 row selected.
+
 -- 지역 서버(알티베이스)에 테이블 생성 시 원격 서버 테이블의 스키마를 바이트단위로 계산해서 생성 (원격 컬럼 크기(20) * 한 글자 크기(2) = 40으로 선언)
 iSQL> CREATE TABLE t1 ( c1 CHAR( 40 ), c2 INTEGER );
 Create success.
@@ -3232,9 +3233,11 @@ C1                              C2
 -----------------------------------------------
 한글 테스트                     3
 1 row selected.
+
 -- 지역 서버(알티베이스)에 같은 스키마를 가진 테이블 생성
 iSQL> CREATE TABLE T1 ( C1 CHAR( 40 ), c2 integer );
 Create success.
+
 iSQL> CREATE OR REPLACE PROCEDURE PROC1
             AS
             CURSOR CUR1 IS
@@ -3247,6 +3250,8 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
         END;
         /
 Create success.
+
+
 iSQL> EXEC PROC1;
 Execute success.
 iSQL> SELECT C1 FROM T1 ORDER BY C2;
@@ -3325,6 +3330,7 @@ C1 C2
 ---------------------------------------------------------
 일이삼사오육칠팔구십 3
 1 row selected.
+
 -- 지역 서버(알티베이스)에 테이블 생성 시 원격 서버 테이블의 스키마를 바이트단위로 계산해서 생성(원격 컬럼 크기(20) * 한 글자 크기(3) = 60으로 선언)
 iSQL> CREATE TABLE T1 ( C1 CHAR( 60 ), c2 integer );
 Create success.
