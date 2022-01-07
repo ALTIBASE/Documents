@@ -1,5 +1,7 @@
 # Altibase 7.1 Patch Notes
 
+- #### Altibase 7.1.0.6.8 Patch Notes [(korean)](https://github.com/ALTIBASE/Documents/blob/patchnotes/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_6_8_Patch_Notes.md) [(pdf)](https://github.com/ALTIBASE/Documents/blob/patchnotes/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_6_8_Patch_Notes.pdf)
+
 - #### Altibase 7.1.0.6.7 Patch Notes [(korean)](https://github.com/ALTIBASE/Documents/blob/patchnotes/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_6_7_Patch_Notes.md) [(pdf)](https://github.com/ALTIBASE/Documents/blob/patchnotes/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_6_7_Patch_Notes.pdf)
 
 - #### Altibase 7.1.0.6.6 Patch Notes [(korean)](https://github.com/ALTIBASE/Documents/blob/patchnotes/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_6_6_Patch_Notes.md) [(pdf)](https://github.com/ALTIBASE/Documents/blob/patchnotes/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_6_6_Patch_Notes.pdf)
