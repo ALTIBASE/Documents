@@ -172,7 +172,7 @@ Fixed Bugs
     
     - 조회한 CHAR/VARCHAR 타입의 데이터를 CURSOR를 사용하여 지역 데이터베이스에 입력
 
-    본 버그에서 지역 서버와 원격 서버 데이터베이스 간 CHAR 또는 VARCHAR 타입의 데이터 길이 변환 방식를 개선하면서 AltiLinker 프로퍼티 [NLS\_BYTE\_PER\_CHAR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB%20Link%20User's%20Manual.md#targetsnls_byte_per_char)를 추가하였습니다. 추가적인 내용은 [[Database Link User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB Link User's Manual.md#database-link-users-manual) - 3.데이터베이스 링크 환경 설정 - 환경 설정 - 문자 집합(Character Set)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB%20Link%20User's%20Manual.md#%EB%AC%B8%EC%9E%90-%EC%A7%91%ED%95%A9character-set) 을 참고하세요.
+    본 버그에서 지역 서버와 원격 서버 데이터베이스 간 CHAR 또는 VARCHAR 타입의 데이터 길이 변환 방식를 개선하면서 AltiLinker 프로퍼티 [NLS\_BYTE\_PER\_CHAR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB%20Link%20User's%20Manual.md#targetsnls_byte_per_char)를 추가하였습니다. 추가적인 내용은 [Database Link User’s Manual - 3.데이터베이스 링크 환경 설정 - 환경 설정 - 문자 집합(Character Set)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB%20Link%20User's%20Manual.md#%EB%AC%B8%EC%9E%90-%EC%A7%91%ED%95%A9character-set) 을 참고하세요.
     
 -   **재현 방법**
 
