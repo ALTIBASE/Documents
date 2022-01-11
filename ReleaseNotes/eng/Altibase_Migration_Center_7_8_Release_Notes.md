@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Altibase Migration Center 7.8 Release Notes](#altibase-migration-center-78-release-notes)
   - [1.Abstract](#1abstract)
@@ -25,8 +25,6 @@ Altibase Migration Center 7.8 Release Notes
 ===============================
 
 **(July 19, 2019)**
-
-
 
 1.Abstract
 ---------------
@@ -67,22 +65,20 @@ efficiently perform database migration with only a few mouse clicks in the Graph
 mode. Moreover, it also supports the migration at a Command Line Interface (CLI) mode for optimized
 resource consumption.
 
-#### 	2.1.1 New Features
+#### 2.1.1 New Features
 
 * Support OpenJDK11
 
 #### 2.1.2  Bug-Fixes
 
-| PK        | SYNOPSIS                                                     |
-| --------- | ------------------------------------------------------------ |
+| PK        | SYNOPSIS                                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------------------- |
 | BUG-44699 | Need to report special object name at reconcile step such as name <br />containing special characters, spaces, etc. |
-| BUG-46912 | Need to handle tablespace of Queue table type during migration |
-| BUG-46933 | Case-sensitive collation query should be executed after opening session |
-| BUG-46947 | Add several missing character sets of Altibase and Oracle    |
-| BUG-46976 | NON-SYS users who have all privileges should be able to access <br />disk tablespace information |
-| BUG-47209 | Need to fix data validation failure between Tibero and Altibase |
-
-
+| BUG-46912 | Need to handle tablespace of Queue table type during migration                                                      |
+| BUG-46933 | Case-sensitive collation query should be executed after opening session                                             |
+| BUG-46947 | Add several missing character sets of Altibase and Oracle                                                           |
+| BUG-46976 | NON-SYS users who have all privileges should be able to access <br />disk tablespace information                    |
+| BUG-47209 | Need to fix data validation failure between Tibero and Altibase                                                     |
 
 ### 2.2 Changes
 
@@ -93,16 +89,15 @@ Features that have been added, deleted or updated in Migration Center are listed
 Migration Center Version
 
 | Altibase Migration Center Version |
-| :-------------------------------: |
-|                7.8                |
-
-
+|:---------------------------------:|
+| 7.8                               |
 
 #### 2.2.2 Database Compatibility
 
 ##### Destination Database: Altibase
 
 * Source Database
+  
   * Altibase : Altibase 4.3.9 or higher
   * ORACLE : Oracle 9i ~ 11g
   * MS-SQL :  MS-SQL 2005-2012
@@ -113,17 +108,17 @@ Migration Center Version
   * Tibero : Tibero 5 ~ 6
 
 * Destination Database
+  
   * Altibase : Altibase 5.5.1 or higher
 
 ##### Destination Database: Oracle
 
 - Source Database
+  
   - Altibase : Altibase 4.3.9 or higher
-
 * Destination Database
+  
   * ORACLE : Oracle 10g ~ 11g
-
-
 
 #### 2.2.3 Properties
 
@@ -139,19 +134,19 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 * Open Source Library
 
-| Library                    | Open Source License                                          |
-| -------------------------- | ------------------------------------------------------------ |
-| Apache Commons Codec       | Homepage: http://commons.apache.org/codec/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons Lang        | Homepage: http://commons.apache.org/proper/commons-lang/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons Mathematics | Homepage: http://commons.apache.org/math/ </br><br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Apache Commons IO          | Homepage: http://commons.apache.org/proper/commons-io/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Java Help System           | Homepage: http://javahelp.java.net/<br/>License: GPL linking exception(http://en.wikipedia.org/wiki/GPL_linking_exception) |
-| JDOM                       | Homepage: http://www.jdom.org/<br/>License: Apache-style Open Source License(http://www.jdom.org/docs/faq.html#a0030) |
+| Library                    | Open Source License                                                                                                                                                   |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Apache Commons Codec       | Homepage: http://commons.apache.org/codec/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                                            |
+| Apache Commons Lang        | Homepage: http://commons.apache.org/proper/commons-lang/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                              |
+| Apache Commons Mathematics | Homepage: http://commons.apache.org/math/ </br><br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                                       |
+| Apache Commons IO          | Homepage: http://commons.apache.org/proper/commons-io/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                                |
+| Java Help System           | Homepage: http://javahelp.java.net/<br/>License: GPL linking exception(http://en.wikipedia.org/wiki/GPL_linking_exception)                                            |
+| JDOM                       | Homepage: http://www.jdom.org/<br/>License: Apache-style Open Source License(http://www.jdom.org/docs/faq.html#a0030)                                                 |
 | JUniversalChardet          | Homepage: http://wwwarchive.mozilla.org/projects/intl/UniversalCharsetDetection.html<br/>License: Mozilla Public License Version 1.1(http://www.mozilla.org/MPL/1.1/) |
-| JGraphT                    | Homepage: http://jgrapht.org/<br/>License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html) |
-| Log4J                      | Homepage: http://logging.apache.org/index.html<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| OpenCSV                    | Homepage: http://opencsv.sourceforge.net/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt) |
-| Oracle JDBC Driver         | Homepage: http://www.oracle.com<br/>License: OTN(http://www.oracle.com/technetwork/licenses/distribution-license152002.html) |
+| JGraphT                    | Homepage: http://jgrapht.org/<br/>License: GNU Lesser General Public License(http://jgrapht.org/LGPL.html)                                                            |
+| Log4J                      | Homepage: http://logging.apache.org/index.html<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                                        |
+| OpenCSV                    | Homepage: http://opencsv.sourceforge.net/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                                             |
+| Oracle JDBC Driver         | Homepage: http://www.oracle.com<br/>License: OTN(http://www.oracle.com/technetwork/licenses/distribution-license152002.html)                                          |
 
 * Royalty-Free Images</br>
 
@@ -176,7 +171,7 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 #### 2.5.2 Manual
 
-[https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Migration%20Center%20User's%20Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Migration Center User's Manual.md)
+[Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Migration%20Center%20User's%20Manual.md)
 
 #### 2.5.3 Installation
 
