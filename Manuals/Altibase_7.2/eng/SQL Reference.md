@@ -1,5 +1,7 @@
 
 
+
+
 - [SQL Reference](#sql-reference)
   - [Preface](#preface)
     - [About This Manual](#about-this-manual)
@@ -6731,8 +6733,6 @@ MY_DEPT.MEMBER
 
 ![check_clause](media/SQL/check_clause.gif)
 
-<a name="table_constraint"><a/>
-
 **table_constraint ::=**
 
 ![table_constraint](media/SQL/table_constraint.gif)
@@ -6746,8 +6746,6 @@ MY_DEPT.MEMBER
 ![referential_constraint](media/SQL/referential_constraint.gif)
 
 [references_clause ::=](#references_clause)
-
-<a name="temporary_attributes_clause"><a/>
 
 **temporary_attributes_clause ::=**
 
@@ -6764,8 +6762,6 @@ MY_DEPT.MEMBER
 **partition_default_clause ::=**
 
 ![partition_default](media/SQL/partition_default.gif)
-
-<a name="table_partition_description"><a/>
 
 **table_partition_description ::=**
 
@@ -6806,8 +6802,6 @@ MY_DEPT.MEMBER
 
 
 
-<a name="row_movement_clause"><a/>
-
 **range_using_hash_partitioning ::=**
 
 ![range_using_hash_partitioning](/Users/haein/Documents/altibase/GitHub/Documents/Manuals/Altibase_7.2/kor/media/SQL/range_using_hash_partitioning_image.gif)
@@ -6822,21 +6816,13 @@ MY_DEPT.MEMBER
 
 
 
-<a name="access_mode_clause_CREATETALBE)"><a/>
-
 **access_mode_clause ::=**
 
 ![ACCESS_MODE_CLAUSE_](media/SQL/ACCESS_MODE_CLAUSE_.gif)
 
-<a name="tablespace_clause"><a/>
-
 **tablespace_clause ::=**
 
 ![tablespace_clause](media/SQL/tablespace_clause.gif)
-
-<a name="physical_attributes_clause"><a/>
-
-<a name="create_table_physical_attributes_clause"><a/>
 
 **physical_attributes_clause ::=**
 
@@ -6846,7 +6832,7 @@ MY_DEPT.MEMBER
 
 ![storage_clause](media/SQL/storage_clause.gif)
 
-<a name="log_compression_clause"><a/>
+
 
 **log_compression_clause ::=**
 
@@ -6854,25 +6840,19 @@ MY_DEPT.MEMBER
 
 
 
-<a name="logging_clause"><a/>
-
 **logging_clause ::=**
 
 ![logging_clause](media/SQL/logging_clause.gif)
-
-<a name="parallel_clause"><a/>
 
 **parallel_clause::=**
 
 ![PARALLEL_CLAUSE](media/SQL/PARALLEL_CLAUSE.gif)
 
-<a name="table_compression_clause"><a/>
-
 **table_compression_clause ::=**
 
 ![table_compression](media/SQL/table_compression.gif)
 
-<a name="lob_column_properties"><a/>
+
 
 **lob_column_properties ::=**
 
@@ -7068,7 +7048,7 @@ This creates a session-specific temporary table. A session is bound to the tempo
 
 *table_partitioning_clause*
 
-This clause creates partitioned table. The partitioned table can be range-partitioned, hash-partitioned, list-partitioned or range partitioned using hash. row_movement_clause can also be specified when a partitioned table is created.
+This clause creates partitioned table. The partitioned table can be range-partitioned, hash-partitioned, list-partitioned or range using hash partitioned. *row_movement_clause* can also be specified when a partitioned table is created.
 
 *range_partitioning*
 
@@ -7165,6 +7145,10 @@ When a new partition is defined, the values specified as belonging to that parti
 *partition_list_clause*
 
 The list that defines each list partition must comprise at least one value. A value in one list must not be present in any other list.
+
+*range_using_hash_partitioning*
+
+This clause specifies the range using the hash value corresponding to the partition key value. Partition key is specified as single column and range is specified by mod value of hash value divided by 1000. 1000 is fixed value so it cannot be changed manually. It is a partitioning method that combines the advantage of hash partitioning, distributing the data evenly, and the advantage of range partitioning, allowing merging and splitting.
 
 *row_movement_clause*
 

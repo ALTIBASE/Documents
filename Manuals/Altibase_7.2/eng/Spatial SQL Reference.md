@@ -3159,7 +3159,7 @@ Unlike POLYFROMTEXT, if the WKT or EWKT describes a GEOMETRY subtype other than 
 
 If the syntax of the input WKT or EWKT is not valid, it outputs an error.
 
-It can specify the created object’s SRID. In case it is not specified, if the input was WKT the SRID of the object will be 0 or if the input was EWKT, it will be the same as EWKT’S SRID.
+It can specify the SRID of the created object. In case it is not specified, if the input was WKT the SRID of the object will be 0 and if the input was EWKT it will be the same as the SRID of EWKT.
 
 ##### Return Type
 
@@ -3850,7 +3850,7 @@ ST_MAKEPOLYGON( GEOMETRY )
 
 ##### Description
 
-This function accepts a LineString object as input and creates and outputs a GEOMETRY object whose subtype is POLYGON. Here LineString should be Ring format.
+This function accepts a LineString object as input and creates and outputs a GEOMETRY object whose subtype is POLYGON. Here, LineString should be in Ring format.
 
 ##### Return Type
 
@@ -3952,7 +3952,7 @@ ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
 
 ##### Description
 
-This function returns POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ) which is the result of the ENVELOPE function that accepts LINESTRING( X1 Y1, X2 Y2 ) that is constituted of 4 Double type parameters as input. If the SRID was specified in advance, the created object will have the same SRID. If the SRID wasn’t specified, the created object’s SRID will be 0.
+This function returns POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ) which is the result of the ENVELOPE function that accepts LINESTRING( X1 Y1, X2 Y2 ) that is constituted of 4 Double type parameters as input. If the SRID was specified in advance, the created object will have the same SRID. If the SRID was not specified, the SRID of the created object will be 0.
 
 ##### Return Type
 
@@ -3986,7 +3986,7 @@ ST_REVERSE(GEOMETRY)
 
 ##### Description
 
-This function changes the spatial object’s points in reverse order. If the spatial object is EMPTY it returns NULL. If it is a point, it returns the same spatial object as the input while as if it was multiple spatial objects it changes the each object’s point in reverse order.
+This function changes the points of the spatial object in reverse order. If the spatial object is EMPTY it returns NULL. If it is a point, it returns the same spatial object as the input while as if it was multiple spatial objects it changes the point of each object in reverse order.
 
 ##### Return Type
 
@@ -4027,21 +4027,22 @@ GEOMETRY
 
 ##### Constraints
 
-This function can only be used in Linux operating system.
+- This function can only be used in Linux operating system.
 
-If one of the input elements is NULL, NULL is returned.
+- If one of the input elements is NULL, NULL is returned.
 
-In case the input GEOMETRY object is EMPTY, EMPTY GEOMETRY object is returned.
+- If input GEOMETRY object is EMPTY, EMPTY GEOMETRY object is returned.
 
-If the input and output SRID is identical, returned GEOMETRY object and input GEOMETRY object will be identical as well.
+- If the input and output SRID is identical, returned GEOMETRY object and input GEOMETRY object will be identical as well.
 
-In case the input was SRID coordinate system, there should be SRID’s Spatial Reference System meta data which can be found in SPATIAL_REF_SYS table.
+- If the input was SRID coordinate system, there should be SRID’s Spatial Reference System meta data which can be found in SPATIAL_REF_SYS table.
 
-PROJ4TEXT is only supported in PROJ library version 4 format.
+- PROJ4TEXT is only supported in PROJ library version 4 format.
 
-If the output coordinate system is PROJ4TEXT, the returned GEOMETRY object’s SRID is 0.
+- If the output coordinate system is PROJ4TEXT, the SRID of the returned GEOMETRY object is 0.
 
-If the input coordinate system is PROJ4TEXT and GEOMETRY object’s SRID is 0, the returned GEOMETRY object’s SRID is 0.
+- If the input coordinate system is PROJ4TEXT and the SRID of the GEOMETRY object is 0, the SRID of the returned GEOMETRY object is 0.
+
 
 ##### Example
 

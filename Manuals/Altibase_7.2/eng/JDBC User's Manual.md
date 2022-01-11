@@ -3411,7 +3411,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | setSchema(String  schema)                               | 4.1      | X                | Does not support schema                                      | Can be just ignored without occurring an error according to spec |
 | getSchema()                                             | 4.1      | X                | Does not support schema                                      | Returns null instead of occurring an error                   |
 | abort(Executor  executor)                               | 4.1      | O                |                                                              |                                                              |
-| setNetworkTimeout(Executor  executor, int milliseconds) | 4.1      | O                | Executor can pass null because socket so timeout is  used internally |                                                              |
+| setNetworkTimeout(Executor  executor, int milliseconds) | 4.1      | O                | Executor can be passed as NULL because socket so timeout is  used internally |                                                              |
 | getNetworkTimeout()                                     | 4.1      | O                | Integrated with JDBC attribute response_timeout              |                                                              |
 
 ### java.sql.Wrapper
