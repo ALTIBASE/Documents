@@ -540,6 +540,9 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
     : 이중화 갭이 발생하였을 때 전송해야 할 복수의 트랜잭션들을 하나의
     트랜잭션처럼 그룹화하여 수신 쓰레드에 로그를 전송하는 기능
 
+-   PROPAGABLE LOGGING  
+    : 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록하는 기능
+
 > #### 주의 사항
 >
 > 알티베이스에서 이중화할 수 있는 객체는 테이블 또는 파티션이며, 양쪽 서버에서
@@ -1996,6 +1999,8 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 
 -   이중화 트랜잭션 그룹 옵션(Replicated Transaction Grouping Option)
 
+-   PROPAGABLE LOGGING 
+
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 컬럼 값을 통해서
 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
 
@@ -2297,6 +2302,26 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 ##### 제약사항
 
 -   LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
+
+#### PROPAGABLE LOGGING 기능
+
+##### 구문
+
+```
+CREATE REPLICATION replication_name FOR PROPAGABLE LOGGING ...;
+ALTER REPLICATION replication_name SET PROPAGABLE LOGGING [ENABLE|DISABLE];
+```
+
+##### 설명
+
+PROPAGABLE LOGGING을 활성화하면, 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록한다.
+
+##### 예제
+
+```
+CREATE REPLICATION replication_name FOR PROPAGABLE LOGGING WITH ...;
+ALTER REPLICATION replication_name SET PROPAGABLE LOGGING ENABLE;
+```
 
 ### 다중 IP 네트워크 환경에서의 이중화 
 
