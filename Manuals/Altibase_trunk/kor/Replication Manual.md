@@ -1999,7 +1999,7 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 
 -   이중화 트랜잭션 그룹 옵션(Replicated Transaction Grouping Option)
 
--   PROPAGABLE LOGGING 
+-   XLog 복제를 위한 로그 기록 기능(PROPAGABLE LOGGING )
 
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 컬럼 값을 통해서
 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
@@ -2318,9 +2318,24 @@ PROPAGABLE LOGGING을 활성화하면, 이중화 수신자가 전송받은 로�
 
 ##### 예제
 
+이중화 이름을 rep1 이라고 가정하고, rep1이 전송받은 XLog를 다시 복제하기 위해 Propagable Logging
+옵션을 사용한다.
+
+-   Propagable Logging 옵션이 있는 이중화를 생성한다.
+
 ```
-CREATE REPLICATION replication_name FOR PROPAGABLE LOGGING WITH ...;
-ALTER REPLICATION replication_name SET PROPAGABLE LOGGING ENABLE;
+iSQL> CREATE REPLICATION rep1 FOR PRROPAGABLE LOGGING 
+WITH '192.168.1.12', 35524
+FROM sys.employees TO sys.employees,
+FROM sys.departments TO sys.departments;;
+CREATE success.
+```
+
+-   Propagable Logging 옵션을 사용한다.
+
+```
+iSQL> ALTER REPLICATION rep1 SET PROPAGABLE LOGGING ENABLE;
+Alter success.
 ```
 
 ### 다중 IP 네트워크 환경에서의 이중화 
