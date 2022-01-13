@@ -179,7 +179,7 @@
     - [V\$SQL_PLAN_CACHE](#v%5Csql_plan_cache)
     - [V\$SQL_PLAN_CACHE_PCO](#v%5Csql_plan_cache_pco)
     - [V\$SQL_PLAN_CACHE_SQLTEXT](#v%5Csql_plan_cache_sqltext)
-    - [<a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES](#a-namevstable_mem_datafilesav%5Cstable_mem_datafiles)
+    - [V\$STABLE_MEM_DATAFILES](#v%5Cstable_mem_datafiles)
     - [V\$STATEMENT](#v%5Cstatement)
     - [V\$STATNAME](#v%5Cstatname)
     - [V\$SYSSTAT](#v%5Csysstat)
@@ -355,20 +355,20 @@ Altibase provides the following GIS-related meta tables. Their names begin with 
 
 ### SYS_AUDIT\_
 
-SYS_AUDIT describes the operation status of the audit.
+This meta table stores information about the operation status of the audit.
 
-| Column name | Type    | Description                                                 |
-| ----------- | ------- | ----------------------------------------------------------- |
-| IS_STARTED  | INTEGER | Indicates whether the auditing is being executed            |
-| START_TIME  | DATE    | The time auditing has started                               |
-| STOP_TIME   | DATE    | The time auditing has stopped                               |
-| RELOAD_TIME | DATE    | The time the auditing conditions were applied to the server |
+| Column name | Type    | Description                                                  |
+| ----------- | ------- | ------------------------------------------------------------ |
+| IS_STARTED  | INTEGER | Whether or not auditing is being executed                    |
+| START_TIME  | DATE    | The time at which auditing started                           |
+| STOP_TIME   | DATE    | The time at which auditing stopped                           |
+| RELOAD_TIME | DATE    | The time at which the auditing conditions were applied to the server |
 
 #### Column Information
 
 ##### IS_STARTED
 
-Indicates whether the auditing is being executed.
+Indicates whether or not auditing is currently being performed. 
 
 0: Auditing is currently not being performed. 
 
@@ -376,22 +376,22 @@ Indicates whether the auditing is being executed.
 
 ##### START_TIME
 
-Indicates the time auditing has started.
+Indicates the time at which auditing started.
 
 ##### STOP_TIME
 
-Indicates the time auditing has stopped.
+Indicates the time at which auditing stopped.
 
 ##### RELOAD_TIME
 
-Indicates the time altered auditing conditions were applied to the Altibase server. The value of this column is updated for the occasions below:
+Indicates the time at which altered auditing conditions were applied to the Altibase server. The value of this column is updated for the occasions below:
 
 - When the DBA has started auditing, using the ALTER SYSTEM START AUDIT statement. 
 - When the DBA has applied altered auditing conditions to auditing, using the ALTER SYSTEM RELOAD AUDIT statement.
 
 ### SYS_AUDIT_OPTS\_
 
-SYS_AUDIT_OPTS\_ describes auditing conditions. The base table of this view is the SYS_AUDIT_ALL_OPTS_ meta table.
+This meta view stores auditing conditions. The base table of this view is the SYS_AUDIT_ALL_OPTS_ meta table.
 
 <table>
     <tr>
@@ -513,16 +513,16 @@ This is the type of the target object, which is one of the following:
 
 ##### XXX_OP
 
-This indicates the unit of logs written about the operation statement. Left of '/' is the unit of logs of successful executions, and right is the unit of logs of failed executions. 
+This is the units for logs of operation statements. Before '/' is the unit for logs of successful executions, and after is the unit for logs of failed executions. 
 
-Following letters each indicate the unit of logs:
+The units for logs are as below:
 
-- -: No logs are written. 
-- S: Logs are written in unit of sessions. 
-- A: Logs are written in unit of accesses.
-- T: Logs are written regardless of the unit of session or accesses.
+- -: Logs are not written. 
+- S: Logs are written in the unit of sessions. 
+- A: Logs are written in the unit of accesses.
+- T: Logs are written regardless the unit of session or accesses.
 
-The following examples show values of the SYS_AUDIT_OPTS_ after setting auditing conditions.
+The following examples show values of the SYS_AUDIT_OPTS_ view after auditing conditions are enabled.
 
 ```
 iSQL> AUDIT insert, select, update, delete on friends BY SESSION WHENEVER SUCCESSFUL;
@@ -582,28 +582,28 @@ DDL_OP : -/T
 
 ### SYS_COLUMNS\_
 
-SYS_COLUMNS\_ describes columns defined in tables, virtual columns in views, and virtual columns in sequences.
+Information about columns defined in all tables, virtual columns in all views, and virtual columns in all sequences is stored in this meta table.
 
 | Column name      | Type          | Description                                                  |
 | ---------------- | ------------- | ------------------------------------------------------------ |
 | COLUMN_ID        | INTEGER       | The column identifier                                        |
 | DATA_TYPE        | INTEGER       | The data type                                                |
 | LANG_ID          | INTEGER       | The language identifier                                      |
-| OFFSET           | BIGINT        | The offset of the column in the record                       |
-| SIZE             | BIGINT        | The physical length of the column in the record              |
+| OFFSET           | BIGINT        | The offset of the column within the record                   |
+| SIZE             | BIGINT        | The physical length of the column within the record          |
 | USER_ID          | INTEGER       | The user identifier                                          |
 | TABLE_ID         | INTEGER       | The table identifier                                         |
 | PRECISION        | INTEGER       | The specified precision of the column                        |
 | SCALE            | INTEGER       | The specified scale of the column                            |
 | COLUMN_ORDER     | INTEGER       | The position of the column in the table                      |
 | COLUMN_NAME      | VARCHAR(128)  | The name of the column                                       |
-| IS_NULLABLE      | CHAR(1)       | Whether NULL is permitted. <br>T: permitted NULL F: is not permitted |
+| IS_NULLABLE      | CHAR(1)       | Whether NULL is permitted. T: can be NULL F: cannot be NULL  |
 | DEFAULT_VAL      | VARCHAR(4000) | The default value or expression                              |
-| STORE_TYPE       | CHAR(1)       | The column storage type <br>V: variable type F: fixed type L: LOB column |
-| IN_ROW_SIZE      | INTEGER       | The maximum length of data that can be saved in a fixed area when data are saved in a variable-length column in a memory table |
+| STORE_TYPE       | CHAR(1)       | The column storage type V: variable type F: fixed type L: LOB column |
+| IN_ROW_SIZE      | INTEGER       | The length of data that can be saved in a fixed area when data are saved in a variable-length column in a memory table |
 | REPL_CONDITION   | INTEGER       | Deprecated                                                   |
-| IS_HIDDEN        | CHAR(1)       | Indicates whether the column is hidden <br>T: hidden column F: public column |
-| IS_KEY_PRESERVED | CHAR(1)       | Indicates whether the column is modifiable <br>T: Modifiable F: Unmodifiable |
+| IS_HIDDEN        | CHAR(1)       | Whether the column is hidden or not T: hidden column F: public column |
+| IS_KEY_PRESERVED | CHAR(1)       | Whether or not the column is modifiable T: Modifiable F: Unmodifiable |
 
 #### Column Information
 
@@ -643,11 +643,11 @@ For more information about data types, please refer to Chapter1: Data Types.
 
 ##### LANG_ID
 
-Column that contains language properties of character data types (CHAR, VARCHAR).
+A column that contains the language properties for character data types (CHAR, VARCHAR).
 
 ##### OFFSET
 
-Indicates the physical starting point of a column in the record. The offset and size of a column are used to calculate the physical storage size of a record.
+This indicates the physical starting point of a column within a record. The offset and size of a column are used to calculate the physical storage size of a record.
 
 ##### SIZE
 
@@ -663,17 +663,17 @@ This corresponds to a TABLE_ID value in the SYS_TABLES_ meta table, and identifi
 
 ##### PRECISION
 
-This is the precision of the data type, and is either defined by the user or the system by default. Character data types correspond to the length of the character data type set by the user.
+This is the precision of the data type, and is either defined by the user or corresponds to the default value for the system. In the case of a character data type, it corresponds to the length of the character data type set by the user.
 
 ##### SCALE
 
-This is the scale of the data type, and is either defined by the user or the system by default. Some data types do not use this value. 
+This is the scale of the data type, and is either defined by the user or corresponds to the default value for the system. This value is not used with some data types. 
 
 ##### COLUMN_ORDER
 
-This is the order columns appear in the table. 
+This is the order in which columns appear in a table. 
 
-The columns are created according to the order in which it is stated in the CREATE TABLE statement, and thus their position in the table is determined accordingly. If a column is added using ALTER TABLE statement, the newly created column will be the last column in the table.
+The order in which the columns are stated in a CREATE TABLE statement determines the order in which they are created, and thus their position in the table. If a column is added using an ALTER TABLE statement, the newly created column will be the last column in the table.
 
 ##### COLUMN_NAME
 
@@ -683,19 +683,19 @@ This is the name specified when a user creates a table or adds a column to the t
 
 Indicates whether NULL is allowed in the column.
 
-When creating a column, the user can explicitly specify whether to allow NULL for the column. If it is not specified, NULL is allowed by default.
+When creating a column, the user can explicitly specify whether to allow NULL for the column. If not specified, NULL is allowed by default.
 
 ##### DEFAULT_VAL
 
-Displays default value the user specified in the column.
+The default value the user specified in the column is displayed.
 
-If the column is a hidden column added automatically by creating function-based index, the formula used to create the function-based index is stored.
+If the column is a hidden column added automatically due to the creation of a function-based index, the formula used to create the function-based index is stored.
 
 ##### STORE_TYPE
 
 When physically storing a column, it can either be written as part of a record, or it can be saved on another page, in which case only the location of the data is stored in the record. 
 
-If the physical storage size of a column is too big, or if the size of the column of each record changes frequently, the column can be stored on another page by using the VARIABLE option when defining the column. This option is generally used for VARCHAR types where the character strings in a column are long. 
+If the physical storage size of a column is too big, or if the size of the column varies frequently for individual records, the column can be stored on another page by using the VARIABLE option when defining the column. This option is generally used for VARCHAR types where the character strings in a column are long. 
 
 This column indicates whether the VARIABLE option is used.
 
@@ -707,14 +707,14 @@ For more information about variable-length columns and the IN ROW clause, please
 
 ##### IS_HIDDEN
 
-Indicates whether the column has hidden properties or not. On the creation of function-based indexes, columns with hidden properties are automatically added to the table. One of the following two values is displayed in this column:
+This indicates whether the column has hidden properties or not. On the creation of function-based indexes, columns with hidden properties are automatically added to the table. One of the following two values is displayed in this column:
 
 - T: Hidden column
 - F: Public column
 
 ##### IS_KEY_PRESERVED
 
-Indicates whether the column of the join view is modifiable with DML statements(INSERT, UPDATE, DELETE). For columns of regular tables, this value is specified as 'T'. For views, this value is specified as 'T' for modifiable columns, and 'F' for unmodifiable columns.
+This indicates whether the column of the join view is modifiable with DML statements(INSERT, UPDATE, DELETE). For columns of regular tables, this value is specified as 'T'; for views, this value is specified as 'T' for modifiable columns, and 'F' for unmodifiable columns.
 
 - T: Modifiable columns
 - F: Unmodifiable columns
@@ -729,7 +729,7 @@ STO_USER_COLUMNS_
 
 ### SYS_COMMENTS\_
 
-SYS_COMMENTS\_ stores comments such as descriptions of user-defined tables, views and associated columns.
+This meta table is for storing comments such as descriptions of user-defined tables, views and associated columns.
 
 | Column name | Type          | Description            |
 | ----------- | ------------- | ---------------------- |
@@ -768,7 +768,7 @@ SYS_COLUMNS_
 
 ### SYS_COMPRESSION_TABLES\_
 
-SYS_COMPRESSION_TABLES\_ stores information about compressed columns.
+This meta table stores information about compressed columns.
 
 | Column name  | Type    | Description                                                  |
 | ------------ | ------- | ------------------------------------------------------------ |
@@ -797,7 +797,7 @@ This is the maximum number of rows that can be inserted to the dictionary table 
 
 ### SYS_CONSTRAINTS\_
 
-SYS_CONSTRAINTS\_ contains information about table constraints.
+This meta table contains information about table constraints.
 
 | Column name         | Type          | Description                                                  |
 | ------------------- | ------------- | ------------------------------------------------------------ |
@@ -808,11 +808,11 @@ SYS_CONSTRAINTS\_ contains information about table constraints.
 | CONSTRAINT_TYPE     | INTEGER       | The type of the constraint                                   |
 | INDEX_ID            | INTEGER       | The identifier of the index used by the constraint           |
 | COLUMN_CNT          | INTEGER       | The number of columns that are associated with the constraint |
-| REFERENCED_TABLE_ID | INTEGER       | The identifier of a table referenced by a FOREIGN KEY constraint |
-| REFERENCED_INDEX_ID | INTEGER       | The identifier of an index referenced by a FOREIGN KEY constraint |
-| DELETE_RULE         | INTEGER       | Whether to perform cascade delete for a FOREIGN KEY constraint <br>0: Do not perform cascade delete <br>1: Perform cascade delete <br>2: Modify SET NULL, columns with dependent foreign key values to NULL |
+| REFERENCED_TABLE_ID | INTEGER       | The identifier of a table referenced in a FOREIGN KEY constraint |
+| REFERENCED_INDEX_ID | INTEGER       | The identifier of an index referenced in a FOREIGN KEY constraint |
+| DELETE_RULE         | INTEGER       | Whether to perform cascade delete for a FOREIGN KEY constraint 0: Do not perform cascade delete 1: perform cascade delete 2: SET NULL, columns with dependent foreign key values are modified to NULL. |
 | CHECK_CONDITION     | VARCHAR(4000) | The character string condition of the CHECK constraint       |
-| VALIDATED           | CHAR(1)       | Whether the constraint applies to all data                   |
+| VALIDATED           | CHAR(1)       | Whether all data conform to the constraint                   |
 
 #### Column Information
 
@@ -834,7 +834,7 @@ This is the name of the constraint.
 
 ##### CONSTRAINT_TYPE
 
-Indicates the type of the constraint. The possible types are as follows:
+This indicates the type of the constraint. The possible types are as follows:
 
 - 0: FOREIGN KEY
 - 1: NOT NULL
@@ -848,19 +848,19 @@ For additional information about each type of constraint, please refer to the de
 
 ##### INDEX_ID
 
-When index is required to define constraints such as UNIQUE or PRIMARY KEY constraints, the system creates an index internally. This is the identifier of that index, and will correspond to an INDEX_ID in the SYS_INDICES_ meta table.
+If an index must be created in order to define constraints such as UNIQUE or PRIMARY KEY constraints, the system creates an index internally. This is the identifier of that index, and will correspond to an INDEX_ID in the SYS_INDICES_ meta table.
 
 ##### COLUMN_CNT
 
-This is the number of columns related to the constraint. For example, for a constraint such as UNIQUE (i1, i2, i3), the value would be 3.
+This is the number of columns associated with the constraint. For example, for a constraint such as UNIQUE (i1, i2, i3), this value would be 3.
 
 ##### REFERENCED_TABLE_ID
 
-This is the identifier of a table referenced by a FOREIGN KEY constraint (not the table for which the constraint is defined). This identifier will correspond to a TABLE_ID value in the SYS_TABLES_ meta table.
+This is the identifier of a table referenced in a FOREIGN KEY constraint (not the table for which the constraint is defined). This identifier will correspond to a TABLE_ID value in the SYS_TABLES_ meta table.
 
 ##### REFERENCED_INDEX_ID
 
-This is the identifier of a UNIQUE or PRIMARY KEY constraint that is required in a table referenced by a FOREIGN KEY constraint. The identifier of this constraint will be the same as a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
+This indicates a UNIQUE or PRIMARY KEY constraint that must exist in a table referenced by a FOREIGN KEY constraint. The identifier of this constraint will be the same as a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table
 
 ##### CHECK_CONDITION
 
@@ -868,7 +868,7 @@ This displays the Integrity Rule defined by the user at CHECK constraint specifi
 
 ##### VALIDATED
 
-This indicates whether the constraint applies to all data.
+This indicates whether all data conform to the constraint. 
 
 #### Reference Tables
 
@@ -880,7 +880,7 @@ SYS_INDICES_
 
 ### SYS_CONSTRAINT_COLUMNS\_
 
-SYS_CONSTRAINT_COLUMNS\_ describes columns related to all constraints defined in user tables.
+This meta table contains information about columns related to all constraints defined in user tables.
 
 | Column name          | Type    | Description                                  |
 | -------------------- | ------- | -------------------------------------------- |
@@ -923,7 +923,7 @@ SYS_COLUMNS_
 
 ### SYS_CONSTRAINT_RELATED\_
 
-SYS_CONSTRAINT_RELATED\_ describes the stored functions referenced by the constraints.
+This meta table contains information about the stored functions referenced by the constraints.
 
 | Column name       | Type         | Description                                                  |
 | ----------------- | ------------ | ------------------------------------------------------------ |
@@ -966,7 +966,7 @@ SYS_PROCEDURES_
 
 ### SYS_DATABASE\_
 
-SYS_DATABASE\_ describes the database name and meta table version information.
+This is the table that contains the database name and meta table version information.
 
 | Column name    | Type          | Description                             |
 | -------------- | ------------- | --------------------------------------- |
@@ -980,23 +980,23 @@ SYS_DATABASE\_ describes the database name and meta table version information.
 
 ##### DB_NAME
 
-The database name specified when creating the database.
+The database name specified when creating the database is saved.
 
 ##### META_MAJOR_VER
 
-This specifies the main version of the meta table. This value increases when a meta table is modified, added or removed. If this version of the database and the corresponding binary version of Altibase do not match, database migration is required.
+This value increases when a meta table is modified, added or removed. If the database version and the corresponding binary version of Altibase do not match, the database must be migrated.
 
 ##### META_MINOR_VER
 
-This specifies the minor version of the meta table. This value increases when schema or the value of the record is modified. If this version of the database does not correspond to the binary version of Altibase, the system internally compares this value and automatically upgrades the meta tables to the higher version.
+This value increases when the contents of one or more meta tables is modified. If the version of the database does not correspond to the current version of Altibase, the system internally compares this value and automatically upgrades the meta tables to the newer version.
 
 ##### META_PATCH_VER
 
-Indicates the patch version of the meta table . 
+This indicates the meta table patch version. 
 
 ### SYS_DATABASE_LINKS\_
 
-SYS_DATABASE_LINKS\_ stores Database Link information.
+This meta table is for storing Database Link information.
 
 | Column name     | Type         | Description                                                  |
 | --------------- | ------------ | ------------------------------------------------------------ |
@@ -1009,8 +1009,8 @@ SYS_DATABASE_LINKS\_ stores Database Link information.
 | REMOTE_USER_PWD | BYTE(40)     | The user password for a remote database                      |
 | LINK_TYPE       | INTEGER      | Indicates whether it is a Heterogeneous Link or a Homogeneous Link. |
 | TARGET_NAME     | VARCHAR(40)  | The name of the remote server which the database link object is to access |
-| CREATED         | DATE         | The date and time the database link object is created        |
-| LAST_DDL_TIME   | DATE         | The last time DDL change occurred to a database link object  |
+| CREATED         | DATE         | The date and time at which the database link object is created |
+| LAST_DDL_TIME   | DATE         | The time at which the database link object was most recently changed using a DDL statement |
 
 #### Column Information
 
@@ -1032,26 +1032,26 @@ This is the name of the Database Link object, which is specified by the user whe
 
 ##### USER_MODE
 
-This indicates the mode to which a remote server is accessed.
+This indicates the mode in which a remote server is accessed.
 
 - 0: DEDICATE USER MODE
 - 1: CURRENT USER MODE (reserved for future use)
 
 ##### REMOTE_USER_ID
 
-This indicates a user account on the remote server, used when accessing the remote database server. 
+This indicates a user account on a remote server, to be used when accessing a remote database server. 
 
 ##### REMOTE_USER_PWD
 
-This is the password for the user account on the remote server, used when accessing the remote database server. The password is encrypted using an encryption algorithm before it is stored. 
+This is the password for the user account on the remote server, to be used when accessing a remote database server. The password is encrypted using an encryption algorithm before it is stored. 
 
 ##### LINK_TYPE
 
-This indicates whether it is a heterogeneous link or a homogeneous link.
+This indicates whether a heterogeneous link or a homogeneous link.
 
 ##### TARGET_NAME
 
-This indicates the name of the remote server the database link object will access.
+This indicates the name of the remote server that the database link object will access.
 
 ##### CREATED
 
@@ -1059,11 +1059,11 @@ This indicates the date when the database link object was created.
 
 ##### LAST_DDL_TIME
 
-This indicates the last time DDL change occurred to a database link object.
+This indicates the last time a DDL change occurred to a database link object.
 
 ### SYS_DIRECTORIES\_
 
-SYS_DIRECTORIES\_ describes directories that are used when files are managed using stored procedures
+This table contains information about directories that are used when files are managed using stored procedures
 
 | Column name    | Type          | Description                                                  |
 | -------------- | ------------- | ------------------------------------------------------------ |
@@ -1098,20 +1098,20 @@ This is the most recent time at which a DDL task was used to change the director
 
 ### SYS_ENCRYPTED_COLUMNS\_
 
-SYS_ENCRYPTED_COLUMNS\_ manages additional security information based on the security settings by each column.
+This is the meta table for managing additional security information based on the security settings for individual columns.
 
 | Column name       | Type         | Description                                                  |
 | ----------------- | ------------ | ------------------------------------------------------------ |
 | USER_ID           | INTEGER      | The identifier of the owner of the table to which the column belongs |
 | TABLE_ID          | INTEGER      | The identifier of the table to which the column belongs      |
 | COLUMN_ID         | INTEGER      | The identifier of the encrypted column                       |
-| ENCRYPT_PRECISION | INTEGER      | The precision of the encrypted column                        |
+| ENCRYPT_PRECISION | INTEGER      | The precision of the column encryption                       |
 | POLICY_NAME       | VARCHAR(16)  | The name of the encryption policy                            |
 | POLICY_CODE       | VARCHAR(128) | The verification code of the encryption policy               |
 
 ### SYS_GRANT_OBJECT\_
 
-SYS_GRANT_OBJECT\_ describes object privileges granted to a user.
+This contains information about object privileges granted to a user.
 
 | Column name       | Type       | Description                                                  |
 | ----------------- | ---------- | ------------------------------------------------------------ |
@@ -1121,7 +1121,7 @@ SYS_GRANT_OBJECT\_ describes object privileges granted to a user.
 | USER_ID           | INTEGER    | The identifier of the owner of the object                    |
 | OBJ_ID            | BIGINT     | The identifier of the object                                 |
 | OBJ_TYPE          | VARCHAR(1) | The type of object                                           |
-| WITH_GRANT_OPTION | INTEGER    | Indicates whether the WITH_GRANT_OPTION is used when object access privileges are granted <br>0: Not used <br>1: Used |
+| WITH_GRANT_OPTION | INTEGER    | Indicates whether the WITH_GRANT_OPTION is used when object access privileges are granted 0: Not used 1: Used |
 
 #### Column Information
 
@@ -1143,13 +1143,13 @@ This is the user ID of the owner of the object for which the privilege has been 
 
 ##### OBJ_ID
 
-This is the ID of the object for which the privilege has been granted. It corresponds to target object ID saved in the appropriate meta table one on one. 
+This is the ID of the object for which the privilege has been granted. It corresponds with one, and only one, target object ID saved in the appropriate meta table. 
 
 If the target object is a table, view or sequence, it is mapped to a TABLE_ID in the SYS_TABLES_ meta table, whereas if it is a stored procedure or stored function, it is mapped to a PROC_OID in the SYS_PROCEDURES_ meta table.
 
 ##### OBJ_TYPE
 
-Followings are the type of the object related to the privilege.
+This is the type of the object related to the privilege.
 
 - A: Stored package
 - D: Directory
@@ -1173,7 +1173,7 @@ SYS_PROCEDURES_
 
 ### SYS_GRANT_SYSTEM\_
 
-SYS_GRANT_SYSTEM\_ describes system privileges granted to users
+This contains information about system privileges granted to users
 
 | Column name | Type    | Description                                                  |
 | ----------- | ------- | ------------------------------------------------------------ |
@@ -1204,7 +1204,7 @@ SYS_PRIVILEGES_
 
 ### SYS_INDEX_COLUMNS\_
 
-SYS_INDEX_COLUMNS\_ describes all columns associated with indexes defined for all tables
+This is the meta table that contains information about all columns associated with indexes defined for all tables
 
 | Column name     | Type    | Description                             |
 | --------------- | ------- | --------------------------------------- |
@@ -1231,7 +1231,7 @@ This is the identifier of the column for which the index was created, and corres
 
 ##### INDEX_COL_ORDER
 
-In case of a composite index, which a single index creates multiple columns, this value indicates the position of the column in the index
+In the case of a composite index, because a single index spans multiple columns, this value indicates the position of the column in the index
 
 ##### SORT_ORDER
 
@@ -1255,7 +1255,7 @@ SYS_INDICES_
 
 ### SYS_INDEX_PARTITIONS\_ 
 
-SYS_INDEX_PARTITIONS\_ manages index partitions.
+This is the meta table for managing index partitions.
 
 | Column name          | Type          | Description                                                  |
 | -------------------- | ------------- | ------------------------------------------------------------ |
@@ -1268,8 +1268,8 @@ SYS_INDEX_PARTITIONS\_ manages index partitions.
 | PARTITION_MIN_VALUE  | VARCHAR(4000) | Reserved for future use                                      |
 | PARTITION_MAX_VALUE  | VARCHAR(4000) | Reserved for future use                                      |
 | TBS_ID               | INTEGER       | The tablespace identifier                                    |
-| CREATED              | DATE          | The date and time the index parition is created              |
-| LAST_DDL_TIME        | DATE          | The last time the index partition was changed using a DDL statement |
+| CREATED              | DATE          | The date and time at which the index parition is created     |
+| LAST_DDL_TIME        | DATE          | The time at which the index partition was most recently changed using a DDL statement |
 
 #### Column Information
 
@@ -1279,7 +1279,7 @@ This is the user identifier of the owner of the index. It corresponds to a USER_
 
 ##### TABLE_ID
 
-This is the identifier of the table in which the index is created. It corresponds to a TABLE_ID value in the SYS_TABLES_ meta table.
+This is the identifier of the table in which the index is created. It is the same as a TABLE_ID value in the SYS_TABLES_ meta table.
 
 ##### INDEX_ID
 
@@ -1312,7 +1312,7 @@ SYS_TABLE_PARTITIONS_
 
 ### SYS_INDEX_RELATED\_
 
-SYS_INDEX_RELATED\_ describes the stored functions on which the function-based indexes are based. 
+This meta table contains information about the stored functions on which the function-based indexes are based. 
 
 | Column name       | Type         | Description                                                  |
 | ----------------- | ------------ | ------------------------------------------------------------ |
@@ -1320,7 +1320,7 @@ SYS_INDEX_RELATED\_ describes the stored functions on which the function-based i
 | TABLE_ID          | INTEGER      | The table identifier                                         |
 | INDEX_ID          | INTEGER      | The index identifier                                         |
 | RELATED_USER_ID   | INTEGER      | The identifier of the owner of the stored function referenced by the index |
-| RELATED_PROC_NAME | VARCHAR(128) | The name of the stored function referenced by the index      |
+| RELATED_PROC_NAME | VARCHAR(128) | ) The name of the stored function referenced by the index    |
 
 #### Column Infomation
 
@@ -1355,7 +1355,7 @@ SYS_PROCEDURES_
 
 ### SYS_INDICES\_
 
-SYS_INDICES\_ describes all indexes defined for all tables.
+This is the meta table that contains information about all indexes defined for all tables.
 
 | Column name    | Type         | Description                                                  |
 | -------------- | ------------ | ------------------------------------------------------------ |
@@ -1364,16 +1364,16 @@ SYS_INDICES\_ describes all indexes defined for all tables.
 | INDEX_ID       | INTEGER      | The index identifier                                         |
 | INDEX_NAME     | VARCHAR(128) | The index name                                               |
 | INDEX_TYPE     | INTEGER      | The index type                                               |
-| IS_UNIQUE      | CHAR(1)      | Indicates whether the use of duplicate key value is allowed  |
+| IS_UNIQUE      | CHAR(1)      | Indicates whether the use of duplicate key values is allowed |
 | COLUMN_CNT     | INTEGER      | The number of columns in the index                           |
 | IS_RANGE       | CHAR(1)      | Indicates whether range scanning is possible using the index |
-| IS_PERS        | CHAR(1)      | Indicates whether to permanently store the index             |
+| IS_PERS        | CHAR(1)      | Indicates whether or not to permanently store the index      |
 | IS_DIRECTKEY   | CHAR(1)      | Indicates whether the index is a direct key index            |
 | TBS_ID         | INTEGER      | The tablespace identifier                                    |
 | IS_PARTITIONED | CHAR(1)      | Indicates whether the index is partitioned                   |
-| INDEX_TABLE_ID | INTEGER      | The identifier for tables created by non-partitioned index of the partitioned table |
+| INDEX_TABLE_ID | INTEGER      | Indicates the identifier for tables created by non-partitioned index of the partitioned table |
 | CREATED        | DATE         | Indicates when the index was created                         |
-| LAST_DDL_TIME  | DATE         | The last time the index was changed using a DDL statement    |
+| LAST_DDL_TIME  | DATE         | The time at which the index was most recently changed using a DDL statement |
 
 #### Column Information
 
@@ -1395,14 +1395,11 @@ This is the name of the index.
 
 ##### INDEX_TYPE
 
-This indicates the index type.
-
-- 1: B-TREE index
-- 2: R-TREE index
+This indicates the index type. A value of 1 indicates a B-TREE index, while a value of 2 indicates an R-TREE index. 
 
 ##### IS_UNIQUE
 
-This indicates whether range scanning is possible using the index.
+This is indicates whether range scanning is possible using the index.
 
 - T: Range scanning is possible.
 - F: Range scanning is not possible.
@@ -1442,36 +1439,36 @@ SYS_TABLES_
 
 ### SYS_JOBS\_
 
-SYS_JOBS\_ describes job objects.
+This meta table stores information about job objects.
 
 | Column name    | Type          | Description                                                  |
 | -------------- | ------------- | ------------------------------------------------------------ |
 | JOB_ID         | INTEGER       | The job identifier                                           |
 | JOB_NAME       | VARCHAR(128)  | The job name                                                 |
 | EXEC_QUERY     | VARCHAR(1000) | The procedure registered for the job                         |
-| START_TIME     | DATE          | The time the job starts                                      |
+| START_TIME     | DATE          | The first time the job starts                                |
 | END_TIME       | DATE          | The time the job ends                                        |
-| INTERVAL       | INTEGER       | The interval in a job                                        |
-| INTERVAL_TYPE  | CHAR(2)       | The unit of the interval in a job (YY, MM, DD, HH, MI)       |
-| STATE          | INTEGER       | The status of the job currently executing. <br>0: Not running <br>1: Is running |
-| LAST_EXEC_TIME | DATE          | The last time the job was executed                           |
-| EXEC_COUNT     | INTEGER       | The amount of time the job was executed                      |
-| ERROR_CODE     | CHAR(7)       | Error code(NULL indicates success.)                          |
-| IS_ENABLE      | CHAR(1)       | Whether it is possible to execute the job in job scheduler. <br>T: Possible<br>F: Impossible |
-| COMMENT        | VARCHAR(4000) | Additional description for the job                           |
+| INTERVAL       | INTEGER       | The interval after which the job is to run                   |
+| INTERVAL_TYPE  | CHAR(2)       | The unit of the interval after which the job is to run(YY, MM, DD, HH, MI) |
+| STATE          | INTEGER       | The status of the job currently executing. 0: Is not running 1: Is running |
+| LAST_EXEC_TIME | DATE          | The last time the job was run                                |
+| EXEC_COUNT     | INTEGER       | Execution frequency of the job                               |
+| ERROR_CODE     | CHAR(7)       | An error code(NULL indicates success.)                       |
+| IS_ENABLE      | CHAR(1)       | The status of job execution in the job scheduler. T: Possible to execute F: Impossible to execute |
+| COMMENT        | VARCHAR(4000) | An additional description for the job                        |
 
 #### Column Information
 
 ##### EXEC_QUERY
 
-This indicates the procedure which is registered in the JOB and will be executed.
+This indicates the procedure which is registered for the JOB and is executed.
 
 ##### INTERVAL_TYPE
 
-This indicates the unit of the interval if it is set for the JOB. If a value exists in the INTERVAL column, this is the unit of the value.
+This indicates the unit of time when an interval is set for the JOB. If a value exists in the INTERVAL column, this is the unit of the value.
 
 - YY: Year
-- MM: Month
+- MM: Mouth
 - DD: Day
 - HH: Hour
 - MI: Minute
@@ -1485,11 +1482,11 @@ This indicates if a JOB is currently being executed or not.
 
 ##### EXEC_COUNT
 
-This indicates how many times registered procedure has been executed since the JOB was created.
+This indicates how many times a registered procedure has been executed since a JOB was created.
 
 ##### ERROR_CODE
 
-The error code displayed when procedure failed for the last time. When succeeded, it displays NULL.
+This indicates the error code displaed if a procedure failed when the las JOB was executed. If succeeds, it is NULL.
 
 ##### IS_ENABLE
 
@@ -1500,11 +1497,11 @@ This indicates the possiblity of job execution in the job scheduler.
 
 ##### COMMENT
 
-This statement is used to describe a JOB. If there is no description, NULL value is queried.
+This statement is used to describe a JOB. If the description is not delineated, NULL values are queried.
 
 ### SYS_LIBRARIES\_
 
-SYS_LIBRARIES\_ describes external library objects.
+This is the meta table that contains information about external library objects.
 
 | Column name   | Type          | Description                                                  |
 | ------------- | ------------- | ------------------------------------------------------------ |
@@ -1514,8 +1511,8 @@ SYS_LIBRARIES\_ describes external library objects.
 | FILE_SPEC     | VARCHAR(4000) | The file path of the dynamic library                         |
 | DYNAMIC       | VARCHAR(1)    | Reserved for future use                                      |
 | STATUS        | VARCHAR(7)    | Reserved for future use                                      |
-| CREATED       | DATE          | The time the library object was created                      |
-| LAST_DDL_TIME | DATE          | The time the library object was changed using a DDL statement for the last time |
+| CREATED       | DATE          | The time at which the library object was created             |
+| LAST_DDL_TIME | DATE          | The time at which the library object was changed using a DDL statement for the last time. |
 
 #### Column Information
 
@@ -1537,7 +1534,7 @@ This is the file path of the dynamic library which the library object points to 
 
 ### SYS_LOBS\_
 
-SYS_LOBS\_ describes LOB columns defined in tables.
+This is the meta table containing information about LOB columns defined in tables.
 
 | Column name    | Type    | Description                                                  |
 | -------------- | ------- | ------------------------------------------------------------ |
@@ -1547,7 +1544,7 @@ SYS_LOBS\_ describes LOB columns defined in tables.
 | TBS_ID         | INTEGER | The tablespace identifier                                    |
 | LOGGING        | CHAR(1) | This field is reserved for future use.                       |
 | BUFFER         | CHAR(1) | This field is reserved for future use.                       |
-| IS_DEFAULT_TBS | CHAR(1) | Indicates whether the tablespace is designated for LOB column storage <br>T: Designated <br>F: Not designated |
+| IS_DEFAULT_TBS | CHAR(1) | Indicates whether a tablespace is designated for LOB column storage T: Specify F: Not to specify |
 
 #### Column Information
 
@@ -1571,8 +1568,8 @@ This is the identifier of the tablespace to which the LOB column belongs.
 
 This indicates whether a tablespace for storing a LOB column was specified by the user when the LOB column was created. 
 
-* T: Designated
-* F: Not designated
+* T: Specify 
+* F Not to specify
 
 For more detailed information, please refer to CREATE TABLE > LOB_STORAGE_CLAUSE statement in the *SQL reference*.
 
@@ -1586,7 +1583,7 @@ SYS_COLUMNS_
 
 ### SYS_MATERIALIZED_VIEWS\_
 
-SYS_MATERIALIZED_VIEWS\_ describes materialized view.
+Materialized view에 대한 정보가 기록된 메타 테이블이다.
 
 | Column name       | Type         | Description                                                  |
 | ----------------- | ------------ | ------------------------------------------------------------ |
@@ -1597,8 +1594,8 @@ SYS_MATERIALIZED_VIEWS\_ describes materialized view.
 | VIEW_ID           | INTEGER      | The view identifier                                          |
 | REFRESH_TYPE      | CHAR(1)      | The refresh type                                             |
 | REFRESH_TIME      | CHAR(1)      | The refresh time                                             |
-| CREATED           | DATE         | The time the table was created                               |
-| LAST_DDL_TIME     | DATE         | The last time the materialized view was changed using a DDL statement |
+| CREATED           | DATE         | The time at which the table was created                      |
+| LAST_DDL_TIME     | DATE         | The time when DDL was most recently used to make changes to a stored procedure |
 | LAST_REFRESH_TIME | DATE         | The last time the materialized view was refreshed            |
 
 #### Column Information
@@ -1625,7 +1622,7 @@ This is the identifier for the view automatically created for the maintenance of
 
 ##### REFRESH_TYPE
 
-Indicates the refresh time of the materialized view.
+This is the value taht indicates the refresh time of the materialized view.
 
 - C: COMPLETE
 - F: FAST
@@ -1633,7 +1630,7 @@ Indicates the refresh time of the materialized view.
 
 ##### REFRESH_TIME
 
-Indicates when to refresh the materialized view.
+This is the value that indicates the refresh time of the materialized view.
 
 - D: ON DEMAND
 - C: ON COMMIT
@@ -1644,11 +1641,11 @@ This is the date and time that the materialized view is created.
 
 ##### LAST_DDL_TIME
 
-This is the date and time the changes on the materialized view were made most recently.
+This is the date and time that the last alterations to the materialized view were made.
 
 ##### LAST_REFERESH_TIME
 
-This is the date and time that the materialized view was refreshed most recently.
+This is the date and time that the materialized view was refreshed lastly.
 
 #### Reference Tables
 
@@ -1661,18 +1658,18 @@ SYS_VIEW_PARSE_
 
 ### SYS_PACKAGES\_
 
-SYS_PACKAGES\_ describes packages.
+This meta table shows information about packages.
 
 | Column name   | Type         | Description                                                  |
 | ------------- | ------------ | ------------------------------------------------------------ |
 | USER_ID       | INTEGER      | The user identifier of the package owner                     |
 | PACKAGE_OID   | BIGINT       | The package identifier                                       |
 | PACKAGE_NAME  | VARCHAR(128) | The package name                                             |
-| PACKAGE_TYPE  | INTEGER      | The package type. Indicates whether it is a package specification or a package body. <br>6: Package specification <br>7: Package body |
-| AUTHID        | INTEGER      | The authority type executing the package <br>0: The definer <br>1: The current user |
-| STATUS        | INTEGER      | The package status. If INVALID, the package is non-executable. <br>0: VALID <br>1: INVALID |
-| CREATED       | DATE         | The time the package was created                             |
-| LAST_DDL_TIME | DATE         | The last time DDL was used to change the package             |
+| PACKAGE_TYPE  | INTEGER      | The package type. Indicates whether it is the package specification or the package body. 6: Package specification 7: Package body |
+| AUTHID        | INTEGER      | The authority to execute the package 0: The definer 1: The current user |
+| STATUS        | INTEGER      | The package status. If INVALID, the package is non-executable. 0: VALID 1: INVALID |
+| CREATED       | DATE         | The time at which the package was created                    |
+| LAST_DDL_TIME | DATE         | The last time at which a DDL task was used to change the package |
 
 #### Column Information
 
@@ -1697,7 +1694,7 @@ This is the value which indicates whether it is the package specification or the
 
 ##### AUTHID
 
-This is the value which indicates authority type executing the package.
+This is the value which indicates authority to execute the package.
 
 - 0: The definer
 - 1: The current user
@@ -1711,11 +1708,11 @@ This is the value which indicates whether or not the package is executable. 0(VA
 
 ##### CREATED
 
-This is the value which indicates the time the package was created.
+This is the value which indicates the time at which the package was created.
 
 ##### LAST_DDL_TIME
 
-This is the value which indicates the last time DDL was used to change the package.
+This is the value which indicates the last time at which a DDL task was used to change the package.
 
 #### Reference Table
 
@@ -1725,7 +1722,7 @@ SYS_USERS_
 
 ### SYS_PACKAGE_PARAS\_
 
-SYS_PACKAGE_PARAS\_ describes subprogram(stored procedures and stored functions) parameters contained in packages.
+This meta table contains information about subprogram(stored procedures and stored functions) parameters contained in packages.
 
 | Column name  | Type          | Description                                                  |
 | ------------ | ------------- | ------------------------------------------------------------ |
@@ -1734,10 +1731,10 @@ SYS_PACKAGE_PARAS\_ describes subprogram(stored procedures and stored functions)
 | PACKAGE_NAME | VARCHAR(128)  | The package name                                             |
 | PACKAGE_OID  | BIGINT        | The package identifier                                       |
 | SUB_ID       | INTEGER       | The subprogram identifier                                    |
-| SUB_TYPE     | INTEGER       | The subprogram type <br>0: Procedure <br>1: Function         |
+| SUB_TYPE     | INTEGER       | The subprogram type 0: Procedure 1: Function                 |
 | PARA_NAME    | VARCHAR(128)  | The name of the subprogram parameter                         |
 | PARA_ORDER   | INTEGER       | The position of the parameter. The first parameter is assigned 1. |
-| INOUT_TYPE   | INTEGER       | Indicates whether the parameter is an Input, Output, or Input/Output parameter |
+| INOUT_TYPE   | INTEGER       | Whether the parameter is an Input, Output, or Input/Output parameter |
 | DATA_TYPE    | INTEGER       | The parameter data type                                      |
 | LANG_ID      | INTEGER       | The language identifier of the parameter type                |
 | SIZE         | INTEGER       | The size of the parameter type                               |
@@ -1765,7 +1762,7 @@ This is the package identifier and is identical to one of the values of PACKAGE_
 
 ##### SUB_ID
 
-This is the subprogram identifier. Inside a package, subprogram identifiers start from 1 and numbers are assigned in the order in which they are written. 
+This is the subprogram identifier. Inside a package, subprogram identifiers start from 1 and are assigned numbers in the order in which they are written. 
 
 ##### SUB_TYPE
 
@@ -1780,7 +1777,7 @@ This is the name of the subprogram parameter.
 
 ##### PARA_ORDER
 
-This is the value which indicates the Nth order in which the given parameter was defined among other parameters.
+This is the value which indicates the nth order in which the given parameter was defined among other parameters.
 
 ##### INOUT_TYPE
 
@@ -1827,14 +1824,14 @@ SYS_PACKAGES_
 
 ### SYS_PACKAGE_PARSE\_
 
-SYS_PACKAGE_PARSE\_ describes the statement text of user-defined packages.
+This meta table contains the statement text of user-defined packages.
 
 | Column name  | Type         | Description                                                  |
 | ------------ | ------------ | ------------------------------------------------------------ |
 | USER_ID      | INTEGER      | The user identifier of the package owner                     |
 | PACKAGE_OID  | BIGINT       | The package identifier                                       |
-| PACKAGE_TYPE | INTEGER      | The package type. Indicates whether it is a package specification or a package body. <br>6: Package specification <br>7: Package body |
-| SEQ_NO       | INTEGER      | The order of the record among multiple records of split and saved statements |
+| PACKAGE_TYPE | INTEGER      | The package type. Indicates whether it is the package specification or the package body. 6: Package specification 7: Package body |
+| SEQ_NO       | INTEGER      | The position of the record among multiple records of split and saved statements |
 | PARSE        | VARCHAR(100) | The statement which was split and saved                      |
 
 #### Column Information
@@ -1856,7 +1853,7 @@ This is the value which indicates whether it is the package specification or the
 
 ##### SEQ_NO
 
-This is the value which indicates the Nth order of each record among multiple records of split and saved package statements in SYS_PACKAGE_PARSE_.
+This is the value which indicates the nth order of each record among multiple records of split and saved package statements in SYS_PACKAGE_PARSE_.
 
 ##### PARSE
 
@@ -1871,7 +1868,7 @@ SYS_PACKAGES_
 
 ### SYS_PACKAGE_RELATED\_
 
-SYS_PACKAGE_RELATED\_ describes tables, sequences, stored procedures, stored functions or views that are accessed by stored procedures and stored functions inside the package.
+This meta table contains information about tables, sequences, stored procedures, stored functions or views that are accessed by stored procedures and stored functions inside the package.
 
 | Column name         | Type         | Description                                                  |
 | ------------------- | ------------ | ------------------------------------------------------------ |
@@ -1915,15 +1912,15 @@ SYS_TABLES_
 
 ### SYS_PART_INDICES\_ 
 
-SYS_PART_INDICES\_ manages partitioned indexes. It contains information about partitioned indexes for which IS_PARTITIONED in SYS_INDICES_ is set to ‘Y’.
+This is the meta table for managing partitioned indexes. It contains information about partitioned indexes for which IS_PARTITIONED in SYS_INDICES_ is set to ‘Y’.
 
-| Column name     | Type    | Description                                         |
-| --------------- | ------- | --------------------------------------------------- |
-| USER_ID         | INTEGER | The user identifier                                 |
-| TABLE_ID        | INTEGER | The table identifier                                |
-| INDEX_ID        | INTEGER | The index identifier                                |
-| PARTITION_TYPE  | INTEGER | The partition type                                  |
-| IS_LOCAL_UNIQUE | CHAR(1) | Indicates whether the index is a local unique index |
+| Column name     | Type    | Description                                        |
+| --------------- | ------- | -------------------------------------------------- |
+| USER_ID         | INTEGER | The user identifier                                |
+| TABLE_ID        | INTEGER | The table identifier                               |
+| INDEX_ID        | INTEGER | The index identifier                               |
+| PARTITION_TYPE  | INTEGER | The partition type                                 |
+| IS_LOCAL_UNIQUE | CHAR(1) | Indicates whether an index is a local unique index |
 
 #### Column Information
 
@@ -1941,14 +1938,14 @@ This is the index identifier. It corresponds to an INDEX_ID value in the SYS_IND
 
 ##### PARTITION_TYPE
 
-This indicates whether the partition type is LOCAL or GLOBAL. However, since the GLOBAL partition type is not supported at present, it is always 0.
+This indicates whether the partition type is LOCAL or GLOBAL. However, because the GLOBAL partition type is not supported at present, it is always 0.
 
 - 0: LOCAL
 - 1: GLOBAL
 
 ##### IS_LOCAL_UNIQUE
 
-This indicates whether the index is a local unique index, and can be ‘T’ or ‘F’. 
+This indicates whether an index is a local unique index, and can be ‘T’ or ‘F’. 
 
 - T: A local unique index
 - F: Not a local unique index
@@ -1963,7 +1960,7 @@ SYS_INDICES_
 
 ### SYS_PART_KEY_COLUMNS\_ 
 
-SYS_PART_KEY_COLUMNS\_ describes the partitioning key columns for the partitioned objects
+This meta table shows information about the partitioning key columns for the partitioned objects
 
 | Column name      | Type    | Description                                                  |
 | ---------------- | ------- | ------------------------------------------------------------ |
@@ -1971,7 +1968,7 @@ SYS_PART_KEY_COLUMNS\_ describes the partitioning key columns for the partitione
 | PARTITION_OBJ_ID | INTEGER | The partitioned object identifier                            |
 | COLUMN_ID        | INTEGER | The column identifier                                        |
 | OBJECT_TYPE      | INTEGER | The object type                                              |
-| PART_COL_ORDER   | INTEGER | The position of the column in the partitioning key (starting from 0) |
+| PART_COL_ORDER   | INTEGER | The position of the column in the partitioning key (starting with 0) |
 
 #### Column Information
 
@@ -1996,7 +1993,7 @@ This identifies the type of the object.
 
 ##### PART_COL_ORDER
 
-This is the position of the column in the partitioning key (starting from 0).
+This is the position of the column in the partitioning key (starting with 0).
 
 #### Reference Tables
 
@@ -2008,7 +2005,7 @@ SYS_COLUMNS_
 
 ### SYS_PART_LOBS\_
 
-SYS_PART_LOBS\_ manages LOB columns for respective partitions.
+This is a meta table for managing LOB columns for respective partitions.
 
 | Column name  | Type    | Description                            |
 | ------------ | ------- | -------------------------------------- |
@@ -2053,7 +2050,7 @@ SYS_COLUMNS_
 
 ### SYS_PART_TABLES\_ 
 
-SYS_PART_TABLES\_ manages partitioned tables. The table information in SYS_PART_TABLES_ is information about partitioned tables for which IS_PARTITIONED in SYS_TABLES_ is set to 'Y'.
+This is the meta table for the management of partitioned tables. The table information in SYS_PART_TABLES_ is information about partitioned tables for which IS_PARTITIONED in SYS_TABLES_ is set to 'Y'.
 
 | Column name         | Type    | Description                                                  |
 | ------------------- | ------- | ------------------------------------------------------------ |
@@ -2083,10 +2080,10 @@ This indicates the partitioning method.
 
 ##### ROW_MOVEMENT
 
-This indicates whether it is allowed for records that have been updated to be moved to other partitions upon the update. 
+This indicates whether it is permissible for records that have been updated to be moved to other partitions when the value of a partition key column is updated. 
 
-- T: Allowed
-- F: Not allowed
+- T: movement of updated records between partition is permitted
+- F: movement of updated records between partition is forbidden
 
 #### Reference Tables
 
@@ -2097,17 +2094,17 @@ SYS_TABLES_
 
 ### SYS_PASSWORD_HISTORY\_
 
-SYS_PASSWORD_HISTORY\_ stores changes made to user passwords that have been assigned a password policy.
+This meta table stores alterations made to user passwords that have been assigned a password policy.
 
-| Column name   | Type         | Description                                     |
-| ------------- | ------------ | ----------------------------------------------- |
-| USER_ID       | INTEGER      | The user identifier                             |
-| PASSWORD      | VARCHAR(256) | The user password                               |
-| PASSWORD_DATE | DATE         | The date changes were made to the user password |
+| Column name   | Type         | Description                                                  |
+| ------------- | ------------ | ------------------------------------------------------------ |
+| USER_ID       | INTEGER      | The user identifier                                          |
+| PASSWORD      | VARCHAR(256) | The user password                                            |
+| PASSWORD_DATE | DATE         | The date one which alterations are made to the user password |
 
 ### SYS_PASSWORD_LIMITS\_
 
-SYS_PASSWORD_LIMITS\_ stores password management policies specified at user creation and current status of the account.
+This meta table stores specified password management policies at user creation and account status quo.
 
 | Column name              | Type         | Description                                                  |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
@@ -2125,7 +2122,7 @@ SYS_PASSWORD_LIMITS\_ stores password management policies specified at user crea
 
 ### SYS_PRIVILEGES\_
 
-SYS_PRIVILEGES\_ describes the types of privileges supported by Altibase. For more detailed information, please refer to the descriptions of database privileges or the GRANT statement in the *SQL Reference*.
+This meta table contains information about the kinds of privileges supported by Altibase. For more detailed information, please refer to the descriptions of database privileges and of the GRANT statement in the Reference
 
 | Column name | Type         | Description              |
 | ----------- | ------------ | ------------------------ |
@@ -2141,7 +2138,7 @@ This is the privilege identifier. It is defined internally by the system.
 
 ##### PRIV_TYPE
 
-This indicates the type of the privilege.
+This indicates the type of privilege.
 
 - 1: Indicates an object privilege
 - 2: Indicates a system privilege
@@ -2152,7 +2149,7 @@ This is the name of the privilege.
 
 ### SYS_PROCEDURES\_
 
-SYS_PROCEDURES\_ stores information about stored procedures and stored functions, such as the stored procedure name, return type, number of parameters, whether it can be executed, etc.
+This table is for storing information about stored procedures and stored functions, such as the stored procedure name, return type, number of parameters, whether it can be executed, etc.
 
 | Column name      | Type         | Description                                                  |
 | ---------------- | ------------ | ------------------------------------------------------------ |
@@ -2160,18 +2157,18 @@ SYS_PROCEDURES\_ stores information about stored procedures and stored functions
 | PROC_OID         | BIGINT       | The identifier of the stored procedure                       |
 | PROC_NAME        | VARCHAR(128) | The name of the stored procedure                             |
 | OBJECT_TYPE      | INTEGER      | Indicates whether the object is a stored procedure, stored function, or type set |
-| STATUS           | INTEGER      | Indicates the status of the object. The object cannot be executed if it is INVALID. <br>0: VALID <br>1: INVALID |
-| AUTHID           | INTEGER      | The authority type to execute the package <br>0: The definer <br>1: The current user |
+| STATUS           | INTEGER      | Indicates the status of the object. The object cannot be executed if it is INVALID. 0: VALID 1: INVALID |
+| AUTHID           | INTEGER      | The authority to execute the package 0: The definer 1: The current user |
 | PARA_NUM         | INTEGER      | The number of parameters for the stored procedure            |
-| RETURN_DATA_TYPE | INTEGER      | The return data type of the stored function                  |
+| RETURN_DATA_TYPE | INTEGER      | The return data type for the stored function                 |
 | RETURN_LANG_ID   | INTEGER      | The return type language identifier                          |
-| RETURN_SIZE      | INTEGER      | The size of the return data type of the stored function      |
-| RETURN_PRECISION | INTEGER      | The precision of the return data type of the stored function |
-| RETURN_SCALE     | INTEGER      | The scale of the return data type of the stored function     |
+| RETURN_SIZE      | INTEGER      | The size of the stored function return data type             |
+| RETURN_PRECISION | INTEGER      | The precision of the stored function return data type        |
+| RETURN_SCALE     | INTEGER      | The size of the stored function return data type             |
 | PARSE_NO         | INTEGER      | The number of records containing statement fragments stored in SYS_PROC_PARSE_ for the procedure |
 | PARSE_LEN        | INTEGER      | The total length of the procedure statement stored in SYS_PROC_PARSE_ |
-| CREATED          | DATE         | The date the object was created                              |
-| LAST_DDL_TIME    | DATE         | The last time DDL was used to change the stored procedure    |
+| CREATED          | DATE         | The date on which the object was created                     |
+| LAST_DDL_TIME    | DATE         | The time when DDL was most recently used to make changes to a stored procedure |
 
 #### Column Information
 
@@ -2197,9 +2194,9 @@ This value allows stored procedures to be distinguished from stored functions. S
 
 ##### STATUS
 
-This value indicates whether a stored procedure or function can be executed. A value of 0 (VALID) indicates that it can be executed.
+This value indicates whether a stored procedure or function may be executed. A value of 0 (VALID) indicates that it can be executed.
 
-If a DDL statement is executed on an object that is accessed by a stored procedure or stored function, the stored procedure or stored function will become invalid. For example, if a new column is added to a table that is accessed by a stored procedure, the stored procedure will need to be re-compiled so it becomes VALID and executable. The status values are as follows:
+If a DDL statement is executed on an object that is accessed by a stored procedure or stored function, the stored procedure or stored function will become invalid. For example, if a new column is added to a table that is accessed by a stored procedure, the stored procedure will need to be re-compiled before it can be deemed VALID and executed. The status values are as follows:
 
 - 0: VALID
 - 1: INVALID
@@ -2249,7 +2246,7 @@ Stored procedure and stored function statements are divided into multiple record
 
 ##### LAST_DDL_TIME
 
-The last time DDL was used to make changes to a stored procedure.
+This is the most recent time at which a DDL statement was used to make changes to a stored procedure.
 
 #### Reference Table
 
@@ -2259,7 +2256,7 @@ SYS_USERS_
 
 ### SYS_PROC_PARAS\_
 
-SYS_PROC_PARAS\_ describes the parameters of stored procedures and stored functions.
+This meta table contains information about the parameters of stored procedures and stored functions.
 
 | Column name | Type          | Description                                                  |
 | ----------- | ------------- | ------------------------------------------------------------ |
@@ -2338,7 +2335,7 @@ SYS_PROCEDURES_
 
 ### SYS_PROC_PARSE\_
 
-SYS_PROC_PARSE\_ contains the text constituting user-defined stored procedures and stored functions.
+This meta table contains the text constituting user-defined stored procedures and stored functions.
 
 | Column name | Type         | Description                                                  |
 | ----------- | ------------ | ------------------------------------------------------------ |
@@ -2359,11 +2356,11 @@ This is the identifier of the stored procedure or the stored function, and corre
 
 ##### SEQ_NO
 
-When the information of a statement for one stored procedure is saved across multiple records in SYS_PROC_PARSE_, this displays the sequential position of an individual record.
+When the information for a statement for one stored procedure is saved across multiple records in SYS_PROC_PARSE_, this is the sequential position of an individual record.
 
 ##### PARSE
 
-This is a line of text belonging to the stored procedure or stored function. An entire statement of a stored procedure can be re-created by retrieving all records that correspond to a single PROC_OID value and combining the PARSE values in the SEQ_NO values order.
+This is a line of text belonging to the stored procedure or stored function. An entire statement of a stored procedure can be re-created by retrieving all records that correspond to a single PROC_OID value and combining the PARSE values in order according to the SEQ_NO values.
 
 #### Reference Tables
 
@@ -2374,7 +2371,7 @@ SYS_PROCEDURES_
 
 ### SYS_PROC_RELATED\_
 
-SYS_PROC_RELATED\_ describes tables, sequences, stored procedures, stored functions, and views accessed by a stored procedure or stored function
+This table contains information about tables, sequences, stored procedures, stored functions, and views accessed by a stored procedure or stored function
 
 | Column name         | Type         | Description                                                  |
 | ------------------- | ------------ | ------------------------------------------------------------ |
@@ -2424,12 +2421,12 @@ SYS_TABLES_
 
 ### SYS_RECYCLEBIN\_
 
-SYS_RECYCLEBIN\_ describes tables in the recycle bin. If the value for the RECYCLEBIN_ENABLE property is set to 1, this table contains information about tables moved to the recycle bin using the DROP statement
+This table contains information about tables in the recycle bin. If the value for the RECYCLEBIN_ENABLE property is set to 1, this table contains information about tables moved to the recycle bin using the DROP statement
 
 | Column name         | Type         | Description                                                  |
 | ------------------- | ------------ | ------------------------------------------------------------ |
 | USER_NAME           | VARCHAR(128) | The table owner                                              |
-| TABLE_NAME          | VARCHAR(128) | The table name generated by the system so the table can be managed in the recycle bin when it is dropped. A table with the same name can be dropped multiple times; new names are generated so that tables can be managed in the recycle bin. |
+| TABLE_NAME          | VARCHAR(128) | The table name generated by the system so that the table can be managed in the recycle bin when it is dropped. A table with the same name can be dropped multiple times; different names are generated so that tables can be managed in the recycle bin. |
 | ORIGINAL_TABLE_NAME | VARCHAR(128) | The table name before it was dropped.                        |
 | TBS_NAME            | VARCHAR(128) | The tablespace name in which the table is saved.             |
 | MEMORY_SIZE         | BIGINT       | The total memory space occupied by the memory table that was dropped. |
@@ -2444,29 +2441,27 @@ This is the table name generated by the system when it is moved to the recycle b
 
 ### SYS_REPLICATIONS\_
 
-SYS_REPLICATIONS\_ contains information related to replication.
+This meta table contains information related to replication.
 
 | Column name              | Type        | Description                                                  |
 | ------------------------ | ----------- | ------------------------------------------------------------ |
 | LAST_USED_HOST_NO        | INTEGER     | The most recently used remote server                         |
 | HOST_COUNT               | INTEGER     | The number of remote servers                                 |
-| IS_STARTED               | INTEGER     | Indicates whether replication has started                    |
+| IS_STARTED               | INTEGER     | Whether replication is active                                |
 | XSN                      | BIGINT      | The Restart SN (Sequence Number), i.e. the SN from which the Sender will resume transmission of XLogs<sup>13</sup> |
 | ITEM_COUNT               | INTEGER     | The number of replication target tables                      |
 | CONFLICT_RESOLUTION      | INTEGER     | The replication conflict resolution method                   |
 | REPL_MODE                | INTEGER     | The default replication mode                                 |
 | ROLE                     | INTEGER     | The role of the sender thread                                |
 | OPTIONS                  | INTEGER     | A flag for additional replication features                   |
-| INVALID_RECOVERY         | INTEGER     | Indicates whether replication recovery is possible           |
-| REMOTE_FAULT_DETECT_TIME | DATE        | The time a fault was detected on a remote server             |
-| GIVE_UP_TIME             | DATE        | The time replication was most recently abandoned             |
+| INVALID_RECOVERY         | INTEGER     | Whether replication recovery is possible                     |
+| REMOTE_FAULT_DETECT_TIME | DATE        | The time at which a fault was detected on a remote server    |
+| GIVE_UP_TIME             | DATE        | The time at which replication was most recently abandoned    |
 | REPLICATION_NAME         | VARCHAR(40) | The name of the replication object                           |
-| GIVE_UP_XSN              | BIGINT      | The XSN replication was most recently abandoned              |
+| GIVE_UP_XSN              | BIGINT      | The XSN at which replication was most recently abandoned     |
 | PARALLEL_APPLIER_COUNT   | INTEGER     | The number of appliers                                       |
 | REMOTE_XSN               | BIGINT      | The most recently processed SN on the remote server.         |
 | APPLIER_INIT_BUFFER_SIZE | BIGINT      | Initial size of applier buffer                               |
-| PEER_REPLICATION_NAME    | VARCHAR(40) | The name of the remote replication when local replication option is used |
-| REMOTE_LAST_DDL_XSN      | BIGINT      | The SN of DDL that was lastly executed on remote server      |
 
 [<sup>13</sup>] SN: The identification number of the log record
 
@@ -2478,7 +2473,7 @@ This is the name of the replication object, and is set by the user when the repl
 
 ##### LAST_USED_HOST_NO
 
-This is the most recently used remote server number, and corresponds to a HOST_NO in the SYS_REPL_HOSTS_ meta table.
+This is the number of the most recently used remote server, and corresponds to a HOST_NO in the SYS_REPL_HOSTS_ meta table.
 
 ##### HOST_COUNT
 
@@ -2486,10 +2481,10 @@ This is the number of remote servers involved in replication, and is equal to th
 
 ##### IS_STARTED
 
-Indicates whether replication has started.
+Indicates whether replication is active.
 
 - 0: suspended
-- 1: replication is active
+- 1: replication active
 
 ##### XSN
 
@@ -2541,8 +2536,6 @@ This flag indicates whether to use the recovery and offline options, which are e
 - 4(00100): Use the gapless option 
 - 8(01000): Use the parallel applier option 
 - 16(10000): Use the replication transaction grouping option
-- 32(00100000): Use the local replication option
-- 64(01000000): Use the meta logging option
 
 ##### INVALID_RECOVERY
 
@@ -2553,11 +2546,11 @@ This value indicates whether recovery using replication is possible.
 
 ##### REMOTE_FAULT_DETECT_TIME
 
-This is the time a fault was detected on a remote server while replication was running.
+This is the time at which a fault was detected on a remote server while replication was running.
 
 ##### GIVE_UP_TIME
 
-This is the time replication was most recently abandoned, i.e. the time the replication sender most recently gave up on replication.
+This is the time at which replication was most recently abandoned, i.e. the time at which the replication Sender most recently gave up on replication.
 
 ##### GIVE_UP_XSN
 
@@ -2569,7 +2562,7 @@ This is the number of parallel applier.
 
 ##### REMOTE_XSN
 
-This is the most recently processed SN on the remote server. When the sender is restarted, the log with the SN smaller than the corresponding REMOTE_XSN is not sent but skipped.
+This is the most recently processed SN on the remote server. When the Sender is restarted, the log with the SN smaller than the corresponding REMOTE_XSN is not sent but skipped.
 
 ##### APPLIER_INIT_BUFFER_SIZE
 
@@ -2599,7 +2592,7 @@ OPTIONS
 
 ### SYS_REPL_HOSTS\_ 
 
-SYS_REPL_HOSTS\_  contains information related to remote servers defined in replication objects.
+This meta table contains information related to remote servers defined in replication objects.
 
 | Column name      | Type        | Description                                      |
 | ---------------- | ----------- | ------------------------------------------------ |
@@ -2648,7 +2641,7 @@ SYS_REPLICATIONS_
 
 ### SYS_REPL_ITEMS\_
 
-SYS_REPL_ITEMS\_ describes replication target tables.
+This meta table contains information about replication target tables.
 
 | Column name           | Type          | Description                                                  |
 | --------------------- | ------------- | ------------------------------------------------------------ |
@@ -2660,7 +2653,7 @@ SYS_REPL_ITEMS\_ describes replication target tables.
 | REMOTE_USER_NAME      | VARCHAR(128)  | The name of a user owning a target table on the remote server |
 | REMOTE_TABLE_NAME     | VARCHAR(128)  | The name of a target table on the remote server              |
 | REMOTE_PARTITION_NAME | VARCHAR(128)  | The name of a partition on the remote server                 |
-| IS_PARTITION          | CHAR(1)       | Indicates whether or not a table is partitioned              |
+| IS_PARTITION          | CHAR(1)       | Whether or not a table is partitioned                        |
 | INVALID_MAX_SN        | BIGINT        | The highest log SN to skip                                   |
 | CONDITION             | VARCHAR(1000) | Deprecated                                                   |
 | REPLICATION_UNIT      | CHAR(1)       | The replication unit                                         |
@@ -2726,7 +2719,7 @@ SYS_TABLES_
 
 ### SYS_REPL_OFFLINE_DIR\_
 
-SYS_REPL_OFFLINE_DIR\_ stores log directory information related to the offline replication option. 
+This meta table stores log directory information related to the offline replication option. 
 
 | Column name      | Type         | Description                          |
 | ---------------- | ------------ | ------------------------------------ |
@@ -2750,15 +2743,15 @@ This is the absolute path in the system where the log file is saved.
 
 ### SYS_REPL_OLD_CHECKS_
 
-SYS_REPL_OLD_CHECKS_ stores information about replication target columns that is being replicated by replication sender thread and has CHECK constraints.
+This meta table is for storing information about replication target columns that is being replicated by replication sender thread and has CHECK constraints.
 
-| Column name      | Type          | Description                                            |
-| :--------------- | ------------- | ------------------------------------------------------ |
-| REPLICATION_NAME | VARCHAR(40)   | The name of the replication object                     |
-| TABLE_OID        | BIGINT        | The object identifier of the table                     |
-| CONSTRAINT_ID    | INTEGER       | The CHECK constraint identifier                        |
-| CHECK_NAME       | VARCHAR(40)   | The name of the CHECK constraint                       |
-| CONDITION        | VARCHAR(4000) | The character string condition of the CHECK constraint |
+| Column name      | Type          | Description                                             |
+| :--------------- | ------------- | ------------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | The name of the replication object                      |
+| TABLE_OID        | BIGINT        | The object identifier of  the table                     |
+| CONSTRAINT_ID    | INTEGER       | The CHECK constraint identifier                         |
+| CHECK_NAME       | VARCHAR(40)   | The name of the CHECK constraint                        |
+| CONDITION        | VARCHAR(4000) | The character string  condition of the CHECK constraint |
 
 #### Column Information
 
@@ -2798,7 +2791,7 @@ SYS_CONSTRAINTS_
 
 ### SYS_REPL_OLD_CHECK_COLUMNS_
 
-SYS_REPL_OLD_CHECK_COLUMNS_ stores information about CHECK constraints on replication target column that replication sender thread is currently processing.
+This meta table is for storing information about CHECK constraints on replication target column that replication sender thread is currently processing.
 
 | Column name      | Type        | Description                                     |
 | ---------------- | ----------- | ----------------------------------------------- |
@@ -2838,7 +2831,7 @@ SYS_COLUMNS_
 
 ### SYS_REPL_OLD_COLUMNS\_
 
-SYS_REPL_OLD_COLUMNS\_ stores information about columns that are currently replicated by the replication sender thread.
+This meta table is for storing information about columns that are currently replicated by the replication Sender thread.
 
 | Column name          | Type          | Description                                                  |
 | -------------------- | ------------- | ------------------------------------------------------------ |
@@ -2848,20 +2841,19 @@ SYS_REPL_OLD_COLUMNS\_ stores information about columns that are currently repli
 | MT_DATATYPE_ID       | INTEGER       | The data type identifier                                     |
 | MT_LANGUAGE_ID       | INTEGER       | The language identifier                                      |
 | MT_FLAG              | INTEGER       | An internal flag                                             |
-| MT_PRECISION         | INTEGER       | The precision                                                |
-| MT_SCALE             | INTEGER       | The scale                                                    |
+| MT_PRECISION         | INTEGER       | The number of digits                                         |
+| MT_SCALE             | INTEGER       | The number of digits to the right of the decimal point       |
 | MT_ENCRYPT_PRECISION | INTEGER       | The number of digits in an encrypted column                  |
 | MT_POLICY_NAME       | VARCHAR(16)   | The name of the policy used for an encrypted column          |
 | SM_ID                | INTEGER       | The column identifier                                        |
 | SM_FLAG              | INTEGER       | An internal flag                                             |
 | SM_OFFSET            | INTEGER       | The internal offset                                          |
-| SM_VARORDER          | INTEGER       | The order of columns stored in a table using variable method. Exceptionally, VARORDER is not given to the geometry data type. (Default : 0) |
-| SM_SIZE              | INTEGER       | The size of the space used internally                        |
+| SM_VARORDER          | INTEGER       | Indicates the order of stored columns by variables method in a table. Exceptionally, VARORDER is not given to the geometry data type. (Default : 0) |
+| SM_SIZE              | INTEGER       | The internal size                                            |
 | SM_DIC_TABLE_OID     | BIGINT        | For a compressed column, the OID of the dictionary table     |
 | SM_COL_SPACE         | INTEGER       | The tablespace identifier                                    |
 | QP_FLAG              | INTEGER       | The internal flag                                            |
 | DEFAULT_VAL          | VARCHAR(4000) | The default value of the column                              |
-| MT_SRID              | INTEGER       | SRID applied to GEOMETRY column                              |
 
 #### Column Information
 
@@ -2871,11 +2863,11 @@ This is the replication name, which is specified by the user. It corresponds to 
 
 ##### TABLE_OID
 
-This is the identifier for a replication target table currently being used by the replication sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
+This is the identifier for a replication target table currently being used by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
 
 ##### COLUMN_NAME
 
-This is the name of a column currently being replicated by the replication sender thread. 
+This is the name of a column currently being replicated by the replication Sender thread. 
 
 ##### MT_DATATYPE_ID
 
@@ -2891,15 +2883,15 @@ This is an internal flag used by Altibase server.
 
 ##### MT_PRECISION
 
-For a numeric type column, this is the precision of the column.
+For a numeric type column, this is the number of digits in the column.
 
 ##### MT_SCALE
 
-For a numeric type column, this is the scale of the column.
+For a numeric type column, this is the number of digits to the right of the decimal point in the column.
 
 ##### MT_ENCRYPT_PRECISION
 
-For an encrypted numeric type column, this is the precision of the column. 
+For an encrypted numeric type column, this is the number of digits in the column. 
 
 ##### MT_POLICY_NAME
 
@@ -2919,11 +2911,11 @@ This is an offset value internally used by Altibase.
 
 ##### SM_VARORDER
 
-This indicates the order of a column among the columns stored using the variable method within a table. Exceptionally, VARORDER is not given to the geometry data type (Default value:0).
+This indicates the order of a column among the columns stored with the variable method within a table. Exceptionally, VARORDER is not given to the geometry data type (Default value:0).
 
 ##### SM_SIZE
 
-This is a size value of the space internally used by Altibase server. 
+This is a size value internally used by Altibase server. 
 
 ##### SM_DIC_TABLE_OID
 
@@ -2951,7 +2943,7 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ### SYS_REPL_OLD_INDEX_COLUMNS\_
 
-SYS_REPL_OLD_INDEX_COLUMNS\_ stores information about columns currently being replicated by the replication sender thread.
+This meta table is for storing information about columns currently being replicated by the replication Sender thread.
 
 | Column name      | Type        | Description                                            |
 | ---------------- | ----------- | ------------------------------------------------------ |
@@ -2970,11 +2962,11 @@ This value corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table
 
 ##### TABLE_OID
 
-This is the identifier of a table currently being replicated by the replication sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
 
 ##### INDEX_ID
 
-This is the identifier of an index currently being replicated by the replication sender thread. 
+This is the identifier of an index currently being replicated by the replication Sender thread. 
 
 ##### KEY_COLUMN_ID
 
@@ -2998,7 +2990,7 @@ SYS_REPL_OLD_INDICES_
 
 ### SYS_REPL_OLD_INDICES\_
 
-SYS_REPL_OLD_INDICES\_ describes indexes currently being replicated by the replication sender thread. 
+This meta table contains information about indexes currently being replicated by the replication Sender thread. 
 
 | Column name      | Type         | Description                                                  |
 | ---------------- | ------------ | ------------------------------------------------------------ |
@@ -3019,15 +3011,15 @@ This is the user-defined replication name. Its value corresponds to a REPLICATIO
 
 ##### TABLE_OID
 
-This is the identifier of a table currently being replicated by the replication sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
 
 ##### INDEX_ID
 
-This is the identifier of an index currently being replicated by the replication sender thread. 
+This is the identifier of an index currently being replicated by the replication Sender thread. 
 
 ##### INDEX_NAME
 
-This is the name of an index currently being replicated by the replication sender thread. 
+This is the name of an index currently being replicated by the replication Sender thread. 
 
 ##### TYPE_ID
 
@@ -3035,15 +3027,15 @@ This is an index type identifier, and is an internal value.
 
 ##### IS_UNIQUE
 
-This indicates whether the index is globally unique. 'Y' signifies that the index is globally unique, and 'N' signifies that it is not globally unique. 
+This indicates whether or not the index is globally unique. 'Y' signifies that the index is globally unique, and 'N' signifies that it is not globally unique. 
 
 ##### IS_LOCAL_UNIQUE
 
-This indicates whether the index is locally unique. 'Y' signifies that it is locally unique, and 'N' means that it is not locally unique.
+This indicates whether or not the index is locally unique. 'Y' signifies that it is locally unique, and 'N' means that it is not locally unique.
 
 ##### IS_RANGE
 
-This indicates whether the index is locally unique. 'Y' signifies that it is locally unique, and 'N' means that it is not locally unique.
+This indicates whether or not the index is locally unique. 'Y' signifies that it is locally unique, and 'N' means that it is not locally unique.
 
 #### Reference Tables
 
@@ -3055,7 +3047,7 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ### SYS_REPL_OLD_ITEMS\_
 
-SYS_REPL_OLD_ITEMS\_ desribes tables currently being replicated by the replication sender thread. 
+This meta table contains information about tables currently being replicated by the replication Sender thread. 
 
 | Column name          | Type         | Description                             |
 | -------------------- | ------------ | --------------------------------------- |
@@ -3074,7 +3066,7 @@ This value corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table
 
 ##### TABLE_OID
 
-This is the identifier of a table currently being replicated by the replication sender thread. Its value may be different from the value of TABLE_OID in the SYS_TABLES_ meta table.
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from the value of TABLE_OID in the SYS_TABLES_ meta table.
 
 ##### USER_NAME
 
@@ -3102,7 +3094,7 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 ### SYS_REPL_TABLE_OID_IN_USE_
 
-SYS_REPL_TABLE_OID_IN_USE_ manages information about TABLE OID of tables included in DDL log but not yet replicated.
+This meta table is for managing information about TABLE OID of tables included in DDL log but not yet replicated.
 
 | Column name      | Type         | Description                                       |
 | ---------------- | ------------ | ------------------------------------------------- |
@@ -3126,7 +3118,7 @@ This is the current object identifier of the table that is included in DDL log n
 
 ### SYS_REPL_RECOVERY_INFOS\_
 
-Log information is written in SYS_REPL_RECOVERY_INFOS\_ for use in recovery of the remote server.
+This is the meta table in which log information is written for use in recovery of the remote server.
 
 | Column name          | Type        | Description                                          |
 | -------------------- | ----------- | ---------------------------------------------------- |
@@ -3144,19 +3136,19 @@ This is the replication object name defined by the user, and corresponds to a RE
 
 ##### MASTER_BEGIN_SN
 
-The starting log number of a master transaction occurred on the remote server.
+The starting log number of a master transaction occurring on a remote server.
 
 ##### MASTER_COMMIT_SN
 
-The final log number of a master transaction occurred on the remote server.
+The final log number of a master transaction occurring on a remote server.
 
 ##### REPLICATED_BEGIN_SN
 
-The starting log number of a replication transaction occurred on the local server.
+The starting log number of a replication transaction occurring on the local server.
 
 ##### REPLICATED_COMMIT_SN
 
-The final log number of a replication transaction occurred on the local server.
+The final log number of a replication transaction occurring on the local server.
 
 #### Reference Table
 
@@ -3166,7 +3158,7 @@ SYS_REPLICATIONS_
 
 ### SYS_SECURITY\_
 
-SYS_SECURITY\_ describes the state of the security module.
+This table contains information about the state of the security module.
 
 | Column name     | Type        | Description                             |
 | --------------- | ----------- | --------------------------------------- |
@@ -3177,11 +3169,11 @@ SYS_SECURITY\_ describes the state of the security module.
 
 This table shows whether a security module authored by a third party is being used.
 
-In the case where a security module authored by a third party is in use, the SYS_SECURITY_ contains information about the properties of the security module, whereas if no such security module is in use, SYS_SECURITY_ will contain no records.
+In the case where a security module authored by a third party is in use, the SYS_SECURITY_ meta table contains information about the properties of the security module, whereas if no such security module is in use, the SYS_SECURITY_ meta table will contain no records.
 
 ### SYS_SYNONYMS\_
 
-SYS_SYNONYMS\_ stores information about synonyms, which provide alias functions for database objects.
+This is the table for storing information about synonyms, which provide alias functions for database objects.
 
 | Column name       | Type         | Description                                                  |
 | ----------------- | ------------ | ------------------------------------------------------------ |
@@ -3189,8 +3181,8 @@ SYS_SYNONYMS\_ stores information about synonyms, which provide alias functions 
 | SYNONYM_NAME      | VARCHAR(128) | The synonym name                                             |
 | OBJECT_OWNER_NAME | VARCHAR(128) | The name of the object owner                                 |
 | OBJECT_NAME       | VARCHAR(128) | The name of the synonym target object                        |
-| CREATED           | DATE         | The time the synonym was created                             |
-| LAST_DDL_TIME     | DATE         | The last time a DDL statement was used to make changes to a synonym |
+| CREATED           | DATE         | The time at which the synonym was created                    |
+| LAST_DDL_TIME     | DATE         | The most recent time at which a DDL statement was used to make changes to a synonym |
 
 #### Column Information
 
@@ -3226,7 +3218,7 @@ SYS_USERS_
 
 ### SYS_TABLES\_
 
-SYS_TABLES\_ contains information about meta tables, user-defined tables, sequences and views.
+This table contains information about meta tables, user-defined tables, sequences and views.
 
 | Column name                | Type         | Description                                                  |
 | -------------------------- | ------------ | ------------------------------------------------------------ |
@@ -3238,7 +3230,7 @@ SYS_TABLES\_ contains information about meta tables, user-defined tables, sequen
 | TABLE_TYPE                 | CHAR(1)      | The object type                                              |
 | REPLICATION_COUNT          | INTEGER      | The number of replications related to the table              |
 | REPLICATION_RECOVERY_COUNT | INTEGER      | The number of replications that use the recovery option and are related to the table |
-| MAXROW                     | BIGINT       | The maximum number of records that can be inserted (0: no limit) |
+| MAXROW                     | BIGINT       | The maximum number of records that can be entered (0: no limit) |
 | TBS_ID                     | INTEGER      | The tablespace identifier                                    |
 | TBS_NAME                   | VARCHAR(128) | The name of the tablespace in which the table is stored      |
 | PCTFREE                    | INTEGER      | See below                                                    |
@@ -3250,12 +3242,12 @@ SYS_TABLES\_ contains information about meta tables, user-defined tables, sequen
 | MINEXTENTS                 | BIGINT       | The minimum number of extents in a table                     |
 | MAXEXTENTS                 | BIGINT       | The maximum number of extents in a table                     |
 | IS_PARTITIONED             | CHAR(1)      | Indicates whether a table is partitioned                     |
-| TEMPORARY                  | CHAR(1)      | Indicates whether the table is a temporary table <br>D: Is a transaction-specific temporary table <br>P: Is a session-specific temporary table <br>N: Is not a temporary table |
+| TEMPORARY                  | CHAR(1)      | Whether or not the table is a temporary table D: Is a transaction-specific temporary table P: Is a session-specific temporary table N: Is not a temporary table |
 | HIDDEN                     | CHAR(1)      | Indicates whether the table has hidden properties            |
 | ACCESS                     | CHAR(1)      | The data access mode for the table                           |
 | PARALLEL_DEGREE            | INTEGER      | The number of threads which execute parallel queries         |
-| CREATED                    | DATE         | The time the table was created                               |
-| LAST_DDL_TIME              | DATE         | The last time the table was changed using a DDL statement    |
+| CREATED                    | DATE         | The time at which the table was created                      |
+| LAST_DDL_TIME              | DATE         | The time at which the table was most recently changed using a DDL statement |
 
 #### Column Information
 
@@ -3290,9 +3282,9 @@ Information not only about tables, but also about sequences, views, etc. is save
 - Q: A queue
 - M: A table automatically created for the maintenance of the data of the materialized view
 - A: A view automatically created for the maintenance of the data of the materialized view
-- G: A table internally used for global index
+- G: An internal table for global index of
 - D: A dictionary table internally used for actually storing compressed column data
-- R: A table that has been dropped and is being managed in the recycle bin
+- R: A table have been dropped and managed in the recycle bin
 ##### REPLICATION_COUNT
 
 This is the number of replication objects associated with the table.
@@ -3317,7 +3309,7 @@ The user can set PCTFREE between 0 and 99 when executing the CREATE TABLE statem
 
 ##### PCTUSED
 
-This is the minimum ratio of the page usage space for going from a state in which only one page can be updated to a state in which it can be inserted again. If the amount of free space falls below the percentage specified in PCTFREE, it will be impossible to insert new records into the page, and it will only be possible to update and delete rows. If subsequent update or delete operations reduce the percentage of used space below the threshold specified by PCTUSED, it will become possible to insert new rows into the page again.
+This is a threshold below which the amount of used space in a page must decrease in order for the page to return to the state in which records can be inserted from the state in which only update operations are possible. If the amount of free space falls below the percentage specified in PCTFREE, it will become impossible to insert new records into the page, and it will only be possible to update and delete rows. If subsequent update or delete operations reduce the percentage of used space below the threshold specified by PCTUSED, it will become possible to insert new rows into the page again
 
 The user can set PCTUSED between 0 and 99 when the CREATE TABLE statement is executed.
 
@@ -3325,7 +3317,7 @@ The user can set PCTUSED between 0 and 99 when the CREATE TABLE statement is exe
 
 ##### INIT_TRANS
 
-This is the number of update transactions that can be simultaneously executed, and is set when a page is created. The actual number of transactions can be increased to the number specified in MAX_TRANS, as long as sufficient page space is available.
+This is the initial number of update transactions that can be simultaneously executed, and is set when a page is created. The actual number of transactions can increase to the number specified in MAX_TRANS, as long as sufficient page space is available.
 
 ##### MAX_TRANS
 
@@ -3333,19 +3325,19 @@ This is the maximum number of update transactions that can be simultaneously exe
 
 ##### INITEXTENTS
 
-This is the number of extents that are available to be allocated when a table is created.
+This denotes the number of extents that are available to be allocated when a table is created.
 
 ##### NEXTEXTENTS
 
-This is the number of additional extents that are available to be allocated when the size of a table is increased.
+This denotes the number of additional extents that are available to be allocated when the size of a table is increased.
 
 ##### MINEXTENTS
 
-This is the minimum number of available extents for a table.
+This denotes the minimum number of available extents for a table.
 
 ##### MAXEXTENTS
 
-This is the maximum number of available extents for a table. 
+This denotes the maximum number of available extents for a table. 
 
 ##### IS_PARTITIONED
 
@@ -3376,7 +3368,7 @@ This is the data access mode for the table. The default mode is W which allows R
 
 - R: Read-Only mode
 - W: Read/Write mode (default mode)
-- A: Read/Add mode. This mode does not allow the alteration/deletion of data.
+- A: Read/Add mode. This mode disallows the alteration/deletion of data.
 
 #### Reference Table
 
@@ -3386,7 +3378,7 @@ SYS_USERS_
 
 ### SYS_TABLE_PARTITIONS\_ 
 
-SYS_TABLE_PARTITIONS\_ manages table partitions. 
+This is a meta table for the management of table partitions. 
 
 | Column name                | Type          | Description                                                  |
 | -------------------------- | ------------- | ------------------------------------------------------------ |
@@ -3403,7 +3395,7 @@ SYS_TABLE_PARTITIONS\_ manages table partitions.
 | REPLICATION_COUNT          | INTEGER       | The number of replication objects related to this partition  |
 | REPLICATION_RECOVERY_COUNT | INTEGER       | The number of replication objects which have enabled the recovery option for this partition |
 | CREATED                    | DATE          | The date and time at which the parition is created           |
-| LAST_DDL_TIME              | DATE          | The last time the partition was changed using a DDL statement |
+| LAST_DDL_TIME              | DATE          | The time at which the partition was most recently changed using a DDL statement |
 
 #### Column Information
 
@@ -3469,7 +3461,7 @@ SYS_PART_TABLES_
 
 ### SYS_TABLE_SIZE\_
 
-SYS_TABLE_SIZE\_ stores information about the actual size of disk and memory tables in the system.
+This table stores information about the actual size of disk and memory tables in the system.
 
 | Column name | Type         | Description                                            |
 | ----------- | ------------ | ------------------------------------------------------ |
@@ -3481,7 +3473,7 @@ SYS_TABLE_SIZE\_ stores information about the actual size of disk and memory tab
 
 ### SYS_TBS_USERS\_
 
-SYS_TBS_USERS\_ contains information about the relationship between users and user-defined tablespaces.
+This meta table contains information about the relationship between users and user-defined tablespaces.
 
 | Column name | Type    | Description                                          |
 | ----------- | ------- | ---------------------------------------------------- |
@@ -3514,7 +3506,7 @@ SYS_USERS_
 
 ### SYS_TRIGGERS\_ 
 
-SYS_TRIGGERS\_ contains default information about triggers.
+This meta table contains default information about triggers.
 
 | Column name       | Type         | Description                                                  |
 | ----------------- | ------------ | ------------------------------------------------------------ |
@@ -3525,14 +3517,14 @@ SYS_TRIGGERS\_ contains default information about triggers.
 | TABLE_ID          | INTEGER      | The table identifier                                         |
 | IS_ENABLE         | INTEGER      | Indicates whether the trigger is enabled                     |
 | EVENT_TIME        | INTEGER      | Indicates when the trigger fires                             |
-| EVENT_TYPE        | INTEGER      | The type of the trigger event                                |
+| EVENT_TYPE        | INTEGER      | The trigger event type                                       |
 | UPDATE_COLUMN_CNT | INTEGER      | The number of columns that can cause a trigger to fire if updated |
 | GRANULARITY       | INTEGER      | The units in which the trigger is executed                   |
-| REF_ROW_CNT       | INTEGER      | The number of ALIASes of a REFERENCING statement             |
+| REF_ROW_CNT       | INTEGER      | The number of ALIASes for a REFERENCING statement            |
 | SUBSTRING_CNT     | INTEGER      | The number of records in which the trigger statement is saved |
-| STRING_LENGTH     | INTEGER      | The total length of the trigger statement                    |
-| CREATED           | DATE         | The time the trigger was created                             |
-| LAST_DDL_TIME     | DATE         | The last time a DDL statement was used to make changes to the trigger |
+| STRING_LENGTH     | INTEGER      | The total length of the trigger statement character string   |
+| CREATED           | DATE         | The time at which the trigger was created                    |
+| LAST_DDL_TIME     | DATE         | The most recent time at which a DDL statement was used to make changes to the trigger |
 
 #### Column Information
 
@@ -3565,7 +3557,7 @@ This value indicates whether or not the trigger is enabled. It can be modified u
 
 ##### EVENT_TIME
 
-This displays when the trigger is fired.
+This displays the time point that the trigger fires.
 
 - 1: BEFORE
 - 2: AFTER
@@ -3573,7 +3565,7 @@ This displays when the trigger is fired.
 
 ##### EVENT_TYPE
 
-This indicates the type of the event that fires the trigger.
+This is the type of the event that causes the trigger to fire.
 
 - 1: INSERT
 - 2: DELETE
@@ -3581,11 +3573,11 @@ This indicates the type of the event that fires the trigger.
 
 ##### UPDATE_COLUMN_CNT
 
-This is the number of columns that fires a trigger when updated. This value is equal to the number of records related to the trigger in the SYS_TRIGGER_UPDATE_COLUMNS_.
+This is the number of columns that cause a trigger to fire when updated. This value is equal to the number of records related to the trigger in the SYS_TRIGGER_UPDATE_COLUMNS_ meta table.
 
 ##### GRANULARITY
 
-This value indicates how often the trigger is fired:
+This value indicates how often the trigger fires:
 
 - 1: FOR EACH ROW
 - 2: FOR EACH STATEMENT
@@ -3611,7 +3603,7 @@ SYS_TABLES_
 
 ### SYS_TRIGGER_DML_TABLES\_
 
-SYS_TRIGGER_DML_TABLES\_ contains information about tables referenced by triggers.
+This meta table contains information about tables referenced by triggers.
 
 | Column name  | Type    | Description                             |
 | ------------ | ------- | --------------------------------------- |
@@ -3651,7 +3643,7 @@ SYS_TRIGGERS_
 
 ### SYS_TRIGGER_STRINGS\_
 
-The trigger statements are saved in SYS_TRIGGER_STRINGS\_.
+This is the meta table in which the trigger statements are saved.
 
 | Column name | Type         | Description                                                 |
 | ----------- | ------------ | ----------------------------------------------------------- |
@@ -3687,7 +3679,7 @@ SYS_TRIGGERS_
 
 ### SYS_TRIGGER_UPDATE_COLUMNS\_
 
-SYS_TRIGGER_UPDATE_COLUMNS\_ contains information about columns that cause triggers to fire when updated.
+This meta table contains information about columns that cause triggers to fire when updated.
 
 | Column name | Type    | Description            |
 | ----------- | ------- | ---------------------- |
@@ -3718,7 +3710,7 @@ SYS_TRIGGERS_
 
 ### SYS_USERS\_
 
-SYS_USERS\_ contains information about database users. 
+This meta table contains information about database users. 
 
 | Column name              | Type         | Description                                                  |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
@@ -3728,23 +3720,23 @@ SYS_USERS\_ contains information about database users.
 | DEFAULT_TBS_ID           | INTEGER      | The default tablespace identifier                            |
 | TEMP_TBS_ID              | INTEGER      | The temporary tablespace identifier                          |
 | ACCOUNT_LOCK             | CHAR(1)      | Whether the account is locked/unlocked N: UNLOCKED L: LOCKED |
-| ACCOUNT_LOCK_DATE        | DATE         | The date the account was locked                              |
-| PASSWORD_LIMIT_FLAG      | CHAR(1)      | Indicates the use of password management policies <br>T: used <br>F: not used |
-| FAILED_LOGIN_ATTEMPTS    | INTEGER      | The maximum number of times login failure is allowed         |
-| FAILED_LOGIN_COUNT       | INTEGER      | The number of times login failed                             |
-| PASSWORD_LOCK_TIME       | INTEGER      | The amount of time needed for a locked account to be released |
+| ACCOUNT_LOCK_DATE        | DATE         | The date on which the account was locked                     |
+| PASSWORD_LIMIT_FLAG      | CHAR(1)      | Indicates the use of password management policies T: used F: not used |
+| FAILED_LOGIN_ATTEMPTS    | INTEGER      | The maximum number of times login failure is permitted       |
+| FAILED_LOGIN_COUNT       | INTEGER      | The number of times login fails                              |
+| PASSWORD_LOCK_TIME       | INTEGER      | The amount of time needed to elapse for a locked account to become unlocked |
 | PASSWORD_EXPIRY_DATE     | DATE         | The password expiry date                                     |
 | PASSWORD_LIFE_TIME       | INTEGER      | The password validity period                                 |
 | PASSWORD_GRACE_TIME      | INTEGER      | The password grace period following expiration               |
-| PASSWORD_REUSE_DATE      | DATE         | The date used passwords becomes available to reuse           |
+| PASSWORD_REUSE_DATE      | DATE         | The date on which identical passwords are available for reuse |
 | PASSWORD_REUSE_TIME      | INTEGER      | Not used                                                     |
 | PASSWORD_REUSE_MAX       | INTEGER      | The number of times identical passwords are available for reuse |
 | PASSWORD_REUSE_COUNT     | INTEGER      | Not used                                                     |
-| PASSWORD_VERIFY_FUNCTION | VARCHAR(128) | The CALLBACK function to verify passwords                    |
-| USER_TYPE                | CHAR(1)      | Indicates the user type <br>U: User <br>R: Role              |
-| DISABLE_TCP              | CHAR(1)      | Availability of TCP connection <br>T: TCP connection is disabled; SSL or IPC is enabled. <br>F: TCP connection is enabled. |
-| CREATED                  | DATE         | The time the database user was created                       |
-| LAST_DDL_TIME            | DATE         | The last time a DDL statement was used to make changes to the user |
+| PASSWORD_VERIFY_FUNCTION | VARCHAR(128) | The CALLBACK function for verifying passwords                |
+| USER_TYPE                | CHAR(1)      | Indicates the user type U: User R: Role                      |
+| DISABLE_TCP              | CHAR(1)      | Availability of TCP connection T: TCP connection is disabled; SSL or IPC is enabled. F: TCP connection is enabled. |
+| CREATED                  | DATE         | The time at which the database user was created              |
+| LAST_DDL_TIME            | DATE         | The most recent time at which a DDL statement was used to make changes to the user |
 
 #### Column Information
 
@@ -3780,7 +3772,7 @@ DBA_USERS_
 
 ### DBA_USERS\_
 
-DBA_USERS\_ records the information of database user and it can only be viewed by the SYS user. Note that the information of tables and columns is identical with the SYS_USERS_.
+This is a meta table which records the information of database user and it can only be viewed by the SYS user. Note that the information of tables and columns is identical with the SYS_USERS_.
 
 | Column name              | Type         | Description                                                  |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
@@ -3789,24 +3781,24 @@ DBA_USERS\_ records the information of database user and it can only be viewed b
 | PASSWORD                 | VARCHAR(256) | The user password                                            |
 | DEFAULT_TBS_ID           | INTEGER      | The default tablespace identifier                            |
 | TEMP_TBS_ID              | INTEGER      | The temporary tablespace identifier                          |
-| ACCOUNT_LOCK             | CHAR(1)      | Indicates whether the account is locked <br>N: UNLOCKED <br>L: LOCKED |
+| ACCOUNT_LOCK             | CHAR(1)      | Indicates whether account is locked N: UNLOCKED L: LOCKED    |
 | ACCOUNT_LOCK_DATE        | DATE         | The data the account was locked                              |
-| PASSWORD_LIMIT_FLAG      | CHAR(1)      | Indicates whether password management policy is used. <br>T: Enable password management policy <br>F: Disable password management policy |
-| FAILED_LOGIN_ATTEMPTS    | INTEGER      | The maximum number of times login failure is allowed         |
-| FAILED_LOGIN_COUNT       | INTEGER      | The number of times login failed                             |
-| PASSWORD_LOCK_TIME       | INTEGER      | The amount of time needed for a locked account to be released |
+| PASSWORD_LIMIT_FLAG      | CHAR(1)      | Indicates whether password management policy is used. T: Enable password management policy F: Disable password management policy |
+| FAILED_LOGIN_ATTEMPTS    | INTEGER      | The maximum number of failed login attempts                  |
+| FAILED_LOGIN_COUNT       | INTEGER      | The login failed count                                       |
+| PASSWORD_LOCK_TIME       | INTEGER      | The amount of time taht must elapse after an account is locked once and then released again |
 | PASSWORD_EXPIRY_DATE     | DATE         | The password expiration date                                 |
-| PASSWORD_LIFE_TIME       | INTEGER      | The password expiration time                                 |
+| PASSWORD_LIFE_TIME       | INTEGER      | The passwrod expiration time                                 |
 | PASSWORD_GRACE_TIME      | INTEGER      | The grace time after password expiration                     |
-| PASSWORD_REUSE_DATE      | DATE         | The date used passwords becomes available to reuse           |
+| PASSWORD_REUSE_DATE      | DATE         | The date when the same password will be reused               |
 | PASSWORD_REUSE_TIME      | INTEGER      | Not used                                                     |
-| PASSWORD_REUSE_MAX       | INTEGER      | The number of times identical passwords are available for reuse |
+| PASSWORD_REUSE_MAX       | INTEGER      | The number of reuse of the same password                     |
 | PASSWORD_REUSE_COUNT     | INTEGER      | Not used                                                     |
-| PASSWORD_VERIFY_FUNCTION | VARCHAR(128) | The CALLBACK function to verify passwords                    |
-| USER_TYPE                | CHAR(1)      | The user type display <br>U: User <br>R: Role                |
-| DISABLE_TCP              | CHAR(1)      | Indicates whether the TCP connection is in use. <br>T: Failed TCP connection, communication only with SSL or IPC <br>F: Allow TCP connection |
+| PASSWORD_VERIFY_FUNCTION | VARCHAR(128) | The Callback function to verify password                     |
+| USER_TYPE                | CHAR(1)      | The user type display U: User R: Role                        |
+| DISABLE_TCP              | CHAR(1)      | Indicates whether or not TCP connection is in use. T: Failed TCP connection, communication only with SSL or IPC F: Allow TCP connection |
 | CREATED                  | DATE         | The time when the database user was created                  |
-| LAST_DDL_TIME            | DATE         | The last time a DDL statement was used to make changes on a user |
+| LAST_DDL_TIME            | DATE         | The time when the last DDL change occurred for a user        |
 
 #### Column Information
 
@@ -3836,7 +3828,7 @@ This indicates to allow or restrict the user's TCP connection
 
 ### SYS_USER_ROLES\_
 
-SYS_USER_ROLES\_ stores information about the roles granted to the user.
+This meta table stores information about the roles granted to the user.
 
 | Column name | Type    | Description                                            |
 | ----------- | ------- | ------------------------------------------------------ |
@@ -3867,7 +3859,7 @@ SYS_TABLES_
 
 ### SYS_VIEWS\_
 
-Basic information about views is stored in the SYS_TABLES_. This meta table contains additional information about views.
+Basic information about views is stored in the SYS_TABLES_ meta table. This meta table contains additional information about views.
 
 | Column name | Type    | Description                                   |
 | ----------- | ------- | --------------------------------------------- |
@@ -3902,13 +3894,13 @@ SYS_TABLES_
 
 ### SYS_VIEW_PARSE\_
 
-SYS_VIEW_PARSE\_ contains the text of view creation statements.
+This meta table contains the text of view creation statements.
 
 | Column name | Type         | Description                                                  |
 | ----------- | ------------ | ------------------------------------------------------------ |
 | USER_ID     | INTEGER      | The identifier of the owner of the view                      |
 | VIEW_ID     | INTEGER      | The identifier of the view                                   |
-| SEQ_NO      | INTEGER      | When a view creating statement text is split and the text is saved as multiple text fragments in SYS_VIEW_PARSE_, this is the position of the record among the records. |
+| SEQ_NO      | INTEGER      | When a view creation statement text is split and the text is saved as multiple text fragments in SYS_VIEW_PARSE_, this is the position of the record among the records. |
 | PARSE       | VARCHAR(100) | A text fragment of the view creation statement               |
 
 #### Column Information
@@ -3938,7 +3930,7 @@ SYS_TABLES_
 
 ### SYS_VIEW_RELATED\_
 
-SYS_VIEW_RELATED\_ contains information about objects accessed by user-defined views.
+This meta table contains information about objects accessed by user-defined views.
 
 | Column name         | Type         | Description                                                  |
 | ------------------- | ------------ | ------------------------------------------------------------ |
@@ -3985,7 +3977,7 @@ SYS_PROCEDURES_
 
 ### SYS_XA_HEURISTIC_TRANS\_
 
-SYS_XA_HEURISTIC_TRANS\_ contains identifiers and information about the status of the database’s global transactions.
+This is a meta table that contains identifiers and information about the status of the database’s global transactions.
 
 | Column name      | Type         | Description                                            |
 | ---------------- | ------------ | ------------------------------------------------------ |
@@ -3993,7 +3985,7 @@ SYS_XA_HEURISTIC_TRANS\_ contains identifiers and information about the status o
 | GLOBAL_TX_ID     | VARCHAR(128) | The identifier of the global transaction               |
 | BRANCH_QUALIFIER | VARCHAR(128) | The branch qualifier of the global transaction         |
 | STATUS           | INTEGER      | The status of the global transaction                   |
-| OCCUR_TIME       | DATE         | The time XA transaction occurred                       |
+| OCCUR_TIME       | DATE         | The time XA transaction occurred.                      |
 
 #### Column Information
 
@@ -4015,7 +4007,7 @@ This is the status of the global transaction.
 
 ### SYS_GEOMETRIES_
 
-SYS_GEOMETRIES_ contains information about tables that have GEOMETRY columns.
+This is a meta table that contains information about tables that have GEOMETRY columns.
 
 | Column name     | Type     | Description                                      |
 | --------------- | -------- | ------------------------------------------------ |
@@ -4027,7 +4019,7 @@ SYS_GEOMETRIES_ contains information about tables that have GEOMETRY columns.
 
 ### SYS_GEOMETRY_COLUMNS_
 
-SYS_GEOMETRY_COLUMNS_ manages and specifies SRID in the GEOMETRY column. The synonym of this meta table is GEOMETRY_COLUMNS_.
+This meta table is used to manage and specify SRID in the GEOMETRY column. The synonym of this meta tble is GEOMETRY_COLUMNS_.
 
 | Column name       | Type         | Description                                      |
 | ----------------- | ------------ | ------------------------------------------------ |
@@ -4039,9 +4031,9 @@ SYS_GEOMETRY_COLUMNS_ manages and specifies SRID in the GEOMETRY column. The syn
 
 ### USER_SRS_
 
-USER_SRS_ manages information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
+This meta table is used to manage information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
 
-To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set the value of SRID and AUTH_SRID the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/haeinnmin/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md).
+To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/haeinnmin/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md).
 
 | Column name | Type          | Description                                                  |
 | ----------- | ------------- | ------------------------------------------------------------ |
@@ -10187,7 +10179,7 @@ This shows the keep status of plan cache object corresponding to SQL_TEXT_ID and
 - UNKEEP
   PLAN can be selected as victim with unkeep status.
 
-### <a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES
+### V\$STABLE_MEM_DATAFILES
 
 This view shows the complete file path of the data files in the database. 
 
