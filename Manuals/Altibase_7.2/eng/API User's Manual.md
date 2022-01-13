@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Application Program Interface User’s Manual](#application-program-interface-users-manual)
   - [Preface](#preface)
@@ -31,9 +30,7 @@
     - [CheckServer API Data Structure](#checkserver-api-data-structure)
     - [CheckServer API](#checkserver-api)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- 
 
 Altibase® Application Development
 
