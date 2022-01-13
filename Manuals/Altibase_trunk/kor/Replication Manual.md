@@ -1363,6 +1363,8 @@ ALTER REPLICATION replication_name ADD TABLE
 FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
 
 ALTER REPLICATION replication_name FLUSH [ALL] [WAIT timeout_sec];
+
+ALTER REPLICATION replication_name SET PROPAGABLE LOGGING [ENABLE|DISABLE];
 ```
 
 #### 전제 조건
@@ -1445,6 +1447,10 @@ SYS 사용자만이 이중화 동작을 변경할 수 있다.
     상대방 서버에 전송 되도록 timeout_sec으로 지정한 시간 (초)만큼 기다린다.
     만약, ALL옵션이 같이 사용되면 Flush를 실행한 세션은 현재 로그가 아닌 가장
     최근 로그까지의 변경 내용이 상대방 서버에 전송 되도록 기다린다.
+
+-   SET PROPAGABLE LOGGING [ENABLE|DISABLE]
+    ENABLE: 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록한다.
+    DISABLE: 이중화 수신자가 전송받은 로그에 대해서는 로그를 기록하지 않는다.
 
 #### 에러코드
 
@@ -1556,6 +1562,14 @@ select rep_name, avg(WAIT_NEW_LOG)/1000000 from x$repsender_statistics where wai
 
 ```
 select rep_name, avg(INSERT_ROW)/1000000 from x$repreceiver_statistics where recv_xlog > 0 group by rep_name order by rep_name;
+```
+
+-   이중화 수신자가 받은 로그를 다시 복제하기 위해 Propagable Logging 기능을
+    활성화하여 로그를 기록한다.
+
+```
+iSQL> ALTER REPLICATION rep1 SET PROPAGABLE LOGGING ENABLE;
+Alter success.
 ```
 
 ### 이중화 삭제 (DROP REPLICATION) 
