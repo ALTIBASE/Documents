@@ -1,4 +1,4 @@
-**Table of Contents**  
+
 
 - [Stored Procedures Manual](#stored-procedures-manual)
   - [Preface](#preface)
@@ -1624,7 +1624,35 @@ A block can be broadly divided into a declaration section, a block body and an e
 
 To comment out all or part of a single line, place two hyphen characters (“--”) at the beginning of the text to be commented out. To comment out multiple lines, place the C-style delimiters “/*” and “*/” around the text to be commented out. 
 
-Stored procedure block can be used as an anonymous block independently.
+Stored procedure block can be used independently without header. This is called anonymous block. Anonymous block is supported from Altibase 7.1.0.2.3 and has features as follows.
+
+- Does not create or store PSM object in database.
+- Does not return the value of RETURN clause.
+- Unlike the stored procedure, it can use IN, OUT, INOUT BIND variables.
+
+```
+iSQL> VAR OUT1 OUTPUT INTEGER;
+iSQL> VAR INOUT1 INOUTPUT INTEGER;
+iSQL> EXEC :INOUT1 := 1;
+
+iSQL> DECLARE
+    VAR1 INTEGER;
+BEGIN
+    VAR1 := :INOUT1;
+    :OUT1 := VAR1;
+    :INOUT1 := VAR1 + 1;
+END;
+/
+Execute success.
+
+iSQL> PRINT VAR;
+[ HOST VARIABLE ]
+-------------------------------------------------------
+NAME                 TYPE                 VALUE
+-------------------------------------------------------
+OUT1                 INTEGER              1
+INOUT1               INTEGER              2
+```
 
 In this chapter, the variable assignment statements, which can be used within the declaration section and block body, and the SELECT INTO, assignment statements, LABEL, PRINT and RETURN statements, which can be used only within the block body, will be described. 
 
@@ -9912,6 +9940,7 @@ Altibase provides the system-defined Stored packages as follows.
 | [DBMS_RANDOM](#dbms_random)                          | Creates arbitrary numbers.                                   |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | Can completely purge the tables which has been dropped and managed in the recycle bin. |
 | [DBMS_SQL](#dbms_sql)                                | Provides procedures and functions utilizing dynamic SQL.     |
+| [DBMS_STANDARD](#dbms_standard)                      | Provides default sub programs                                |
 | [DBMS_STATS](#dbms_stats)                            | Package views and modifies the stats information             |
 | [DBMS_UTILITY](#dbms_utility)                        | Provides various utility subprograms.                        |
 | [STANDARD](#standard)                                | In addition to the basic data types, it defines the types that can be used without declaration in PSM. |
@@ -12245,13 +12274,187 @@ iSQL> exec proc1;
 Execute success.
 ```
 
+### DBMS_STANDARD
+
+DBMS_STANDARD package provides various sub programs that can be used without specifying the name of the package.
+
+The procedures and functions comprising the DBMS_STANDARD package are in the following table below. 
+
+| Procedures/Functions | Description                                                  |
+| :------------------- | :----------------------------------------------------------- |
+| DELETING             | Returns whether the trigger started from DELETE.             |
+| INSERTING            | Returns whether the trigger started from INSERT.             |
+| UPDATING             | Returns whether the trigger started from UPDATE.             |
+| UPDATING             | Returns whether the trigger started from a specific column's UPDATE. |
+
+#### DELETING
+
+Returns whether the trigger started from DELETE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.DELETING;
+BOOLEAN variable := DELETING;
+```
+
+##### Result Value
+
+If the trigger started from DELETE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF DELETING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+DELETE FROM T1;
+```
+
+#### INSERTING
+
+Returns whether the trigger started from INSERT.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.INSERTING;
+BOOLEAN variable := INSERTING;
+```
+
+##### Result Value
+
+If the trigger started from INSERT, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER); 
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+```
+
+#### UPDATING
+
+Returns whether the trigger started from UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING;
+BOOLEAN variable := UPDATING;
+```
+
+##### Result Value
+
+If the trigger started from UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+UPDATE T1 SET C1 = 2;
+```
+
+#### UPDATING
+
+Returns whether the trigger started from a specific column's UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
+BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
+```
+
+##### Parameter
+
+| Name    | In/Output | Data Type    | Description                      |
+| :------ | :-------- | :----------- | :------------------------------- |
+| COLNAME | IN        | VARCHAR(128) | Specifies the name of the column |
+
+##### Result Value
+
+If the trigger started from a specific coulmn's UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER); 
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING('C1') THEN
+  NULL;
+ – DO SOMETHING
+ END IF;
+END;
+/
+
+INSERT INTO T1 VALUES(1);
+UPDATE T1 SET C1 = 2;
+```
+
 
 
 ### DBMS_STATS
 
 The DBMS_STATS package provides an interface which can view and modifies the stats information. By using stored procedures and functions, the stats information can be established and updated, also it can configure or delete the stats information for each column, index, and table or per each system
 
-The procedures and functions comprised of the DBMS_STATS package are in the following table below. Refer to DBMS Stats of *Stored Procedures Manual* for in-depth information on each procedure and function.
+The procedures and functions comprising the DBMS_STATS package are in the following table below. Refer to DBMS Stats of *Stored Procedures Manual* for in-depth information on each procedure and function.
 
 | Procedures/Functions  | Description                                                  |
 | --------------------- | ------------------------------------------------------------ |
@@ -13035,7 +13238,7 @@ iSQL> SELECT COUNT(*) FROM T1_COPY;
 
 The UTL_FILE package enables writing and reading by accessing the text tiles which are managed by the operation system.
 
-The procedures and functions which are comprised of the UTL_FILE package are listed in the following table below.
+The procedures and functions which are comprising the UTL_FILE package are listed in the following table below.
 
 | Procedures/Functions | Description                                                  |
 | -------------------- | ------------------------------------------------------------ |
@@ -13460,7 +13663,7 @@ The PUT_LINE might cause the following system-defined exceptions.
 
 The UTL_RAW package is a function which can convert or control RAW(VARBYTE) type data into a different data type. 
 
-The procedures and functions which are comprised of the UTL_RAW package are listed in the following table below.
+The procedures and functions which are comprising the UTL_RAW package are listed in the following table below.
 
 | Procedures/Functions     | Description                                                  |
 | ------------------------ | ------------------------------------------------------------ |
