@@ -540,9 +540,6 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
     : 이중화 갭이 발생하였을 때 전송해야 할 복수의 트랜잭션들을 하나의
     트랜잭션처럼 그룹화하여 수신 쓰레드에 로그를 전송하는 기능
 
--   PROPAGABLE LOGGING  
-    : 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록하는 기능
-
 > #### 주의 사항
 >
 > 알티베이스에서 이중화할 수 있는 객체는 테이블 또는 파티션이며, 양쪽 서버에서
@@ -1366,6 +1363,8 @@ ALTER REPLICATION replication_name ADD TABLE
 FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
 
 ALTER REPLICATION replication_name FLUSH [ALL] [WAIT timeout_sec];
+
+ALTER REPLICATION replication_name SET PROPAGABLE LOGGING [ENABLE|DISABLE];
 ```
 
 #### 전제 조건
@@ -1448,6 +1447,10 @@ SYS 사용자만이 이중화 동작을 변경할 수 있다.
     상대방 서버에 전송 되도록 timeout_sec으로 지정한 시간 (초)만큼 기다린다.
     만약, ALL옵션이 같이 사용되면 Flush를 실행한 세션은 현재 로그가 아닌 가장
     최근 로그까지의 변경 내용이 상대방 서버에 전송 되도록 기다린다.
+
+-   SET PROPAGABLE LOGGING [ENABLE|DISABLE]
+    ENABLE: 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록한다.
+    DISABLE: 이중화 수신자가 전송받은 로그에 대해서는 로그를 기록하지 않는다.
 
 #### 에러코드
 
@@ -1559,6 +1562,14 @@ select rep_name, avg(WAIT_NEW_LOG)/1000000 from x$repsender_statistics where wai
 
 ```
 select rep_name, avg(INSERT_ROW)/1000000 from x$repreceiver_statistics where recv_xlog > 0 group by rep_name order by rep_name;
+```
+
+-   이중화 수신자가 받은 로그를 다시 복제하기 위해 Propagable Logging 기능을
+    활성화하여 로그를 기록한다.
+
+```
+iSQL> ALTER REPLICATION rep1 SET PROPAGABLE LOGGING ENABLE;
+Alter success.
 ```
 
 ### 이중화 삭제 (DROP REPLICATION) 
@@ -1999,8 +2010,6 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 
 -   이중화 트랜잭션 그룹 옵션(Replicated Transaction Grouping Option)
 
--   XLog 복제를 위한 로그 기록 기능(PROPAGABLE LOGGING )
-
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 컬럼 값을 통해서
 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
 
@@ -2302,41 +2311,6 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 ##### 제약사항
 
 -   LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
-
-#### PROPAGABLE LOGGING 기능
-
-##### 구문
-
-```
-CREATE REPLICATION replication_name FOR PROPAGABLE LOGGING ...;
-ALTER REPLICATION replication_name SET PROPAGABLE LOGGING [ENABLE|DISABLE];
-```
-
-##### 설명
-
-PROPAGABLE LOGGING을 활성화하면, 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록한다.
-
-##### 예제
-
-이중화 이름을 rep1 이라고 가정하고, rep1이 전송받은 XLog를 다시 복제하기 위해 Propagable Logging
-옵션을 사용한다.
-
--   Propagable Logging 옵션이 있는 이중화를 생성한다.
-
-```
-iSQL> CREATE REPLICATION rep1 FOR PRROPAGABLE LOGGING 
-WITH '192.168.1.12', 35524
-FROM sys.employees TO sys.employees,
-FROM sys.departments TO sys.departments;;
-CREATE success.
-```
-
--   Propagable Logging 옵션을 사용한다.
-
-```
-iSQL> ALTER REPLICATION rep1 SET PROPAGABLE LOGGING ENABLE;
-Alter success.
-```
 
 ### 다중 IP 네트워크 환경에서의 이중화 
 
