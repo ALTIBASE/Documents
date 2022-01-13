@@ -69,7 +69,6 @@ Migration Center is a database migration tool which enables users to migrate a t
 
 Features that have been added, deleted or updated in Migration Center are listed and explained below.
 
-* Due to security issues, log4j has been updated to the latest version, and the minimum JRE version for running Migration Center is changed from 1.5 to 8.
 * Bundled JRE version in Migration Center is updated from 7 to 8 in order to support Altibase 7.2 JDBC that requires JRE 8 or higher.
 
 #### 2.2.1 Version Updates

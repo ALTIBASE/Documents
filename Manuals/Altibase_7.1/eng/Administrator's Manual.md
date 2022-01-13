@@ -533,7 +533,7 @@ The main thread creates/shuts down all threads and manage created threads.
 
 ##### Dispatcher
 
-When a client requests a connection, the dispacter connects the requesting client with the service thread that is available in the service thread pool.
+When a client requests a connection, the dispatcher connects the requesting client with the service thread that is available in the service thread pool.
 
 ##### Load Balancer
 

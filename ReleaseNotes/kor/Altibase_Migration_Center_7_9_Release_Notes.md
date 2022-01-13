@@ -62,6 +62,7 @@ Migration Center는 데이터베이스 마이그레이션을 위한 도구로서
 | BUG-49467 | TimesTen 11.2.1.9.10으로부터 알티베이스로의 마이그레이션을 지원한다. |
 | BUG-49499 | log4j 보안 문제로 2.17.1 버전으로 업그레이드 한다.           |
 
+
 ### 2.2 변경사항
 
 Migration Center에 추가, 삭제 또는 변경된 기능들은 다음과 같다.
@@ -157,3 +158,4 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라�
 #### 2.5.3 설치
 
 Migration Center User's Manual을 참고한다.
+
