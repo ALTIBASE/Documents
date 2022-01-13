@@ -1,74 +1,76 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
-
 - [General Reference](#general-reference)
   - [3. The Data Dictionary](#3-the-data-dictionary)
     - [Meta Tables](#meta-tables)
-    - [SYS_AUDIT\_](#sys_audit%5C_)
-    - [SYS_AUDIT_OPTS\_](#sys_audit_opts%5C_)
-    - [SYS_COLUMNS\_](#sys_columns%5C_)
-    - [SYS_COMMENTS\_](#sys_comments%5C_)
-    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables%5C_)
-    - [SYS_CONSTRAINTS\_](#sys_constraints%5C_)
-    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns%5C_)
-    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related%5C_)
-    - [SYS_DATABASE\_](#sys_database%5C_)
-    - [SYS_DATABASE_LINKS\_](#sys_database_links%5C_)
-    - [SYS_DIRECTORIES\_](#sys_directories%5C_)
-    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns%5C_)
-    - [SYS_GRANT_OBJECT\_](#sys_grant_object%5C_)
-    - [SYS_GRANT_SYSTEM\_](#sys_grant_system%5C_)
-    - [SYS_INDEX_COLUMNS\_](#sys_index_columns%5C_)
-    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions%5C_)
-    - [SYS_INDEX_RELATED\_](#sys_index_related%5C_)
-    - [SYS_INDICES\_](#sys_indices%5C_)
-    - [SYS_JOBS\_](#sys_jobs%5C_)
-    - [SYS_LIBRARIES\_](#sys_libraries%5C_)
-    - [SYS_LOBS\_](#sys_lobs%5C_)
-    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views%5C_)
-    - [SYS_PACKAGES\_](#sys_packages%5C_)
-    - [SYS_PACKAGE_PARAS\_](#sys_package_paras%5C_)
-    - [SYS_PACKAGE_PARSE\_](#sys_package_parse%5C_)
-    - [SYS_PACKAGE_RELATED\_](#sys_package_related%5C_)
-    - [SYS_PART_INDICES\_](#sys_part_indices%5C_)
-    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns%5C_)
-    - [SYS_PART_LOBS\_](#sys_part_lobs%5C_)
-    - [SYS_PART_TABLES\_](#sys_part_tables%5C_)
-    - [SYS_PASSWORD_HISTORY\_](#sys_password_history%5C_)
-    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits%5C_)
-    - [SYS_PRIVILEGES\_](#sys_privileges%5C_)
-    - [SYS_PROCEDURES\_](#sys_procedures%5C_)
-    - [SYS_PROC_PARAS\_](#sys_proc_paras%5C_)
-    - [SYS_PROC_PARSE\_](#sys_proc_parse%5C_)
-    - [SYS_PROC_RELATED\_](#sys_proc_related%5C_)
-    - [SYS_RECYCLEBIN\_](#sys_recyclebin%5C_)
-    - [SYS_REPLICATIONS\_](#sys_replications%5C_)
-    - [SYS_REPL_HOSTS\_](#sys_repl_hosts%5C_)
-    - [SYS_REPL_ITEMS\_](#sys_repl_items%5C_)
-    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir%5C_)
-    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns%5C_)
-    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns%5C_)
-    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices%5C_)
-    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items%5C_)
-    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos%5C_)
-    - [SYS_SECURITY\_](#sys_security%5C_)
-    - [SYS_SYNONYMS\_](#sys_synonyms%5C_)
-    - [SYS_TABLES\_](#sys_tables%5C_)
-    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions%5C_)
-    - [SYS_TABLE_SIZE\_](#sys_table_size%5C_)
-    - [SYS_TBS_USERS\_](#sys_tbs_users%5C_)
-    - [SYS_TRIGGERS\_](#sys_triggers%5C_)
-    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables%5C_)
-    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings%5C_)
-    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns%5C_)
-    - [SYS_USERS\_](#sys_users%5C_)
-    - [DBA_USERS\_](#dba_users%5C_)
-    - [SYS_USER_ROLES\_](#sys_user_roles%5C_)
-    - [SYS_VIEWS\_](#sys_views%5C_)
-    - [SYS_VIEW_PARSE\_](#sys_view_parse%5C_)
-    - [SYS_VIEW_RELATED\_](#sys_view_related%5C_)
-    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans%5C_)
+    - [SYS_AUDIT\_](#sys_audit_)
+    - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
+    - [SYS_COLUMNS\_](#sys_columns_)
+    - [SYS_COMMENTS\_](#sys_comments_)
+    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables_)
+    - [SYS_CONSTRAINTS\_](#sys_constraints_)
+    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns_)
+    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related_)
+    - [SYS_DATABASE\_](#sys_database_)
+    - [SYS_DATABASE_LINKS\_](#sys_database_links_)
+    - [SYS_DIRECTORIES\_](#sys_directories_)
+    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns_)
+    - [SYS_GRANT_OBJECT\_](#sys_grant_object_)
+    - [SYS_GRANT_SYSTEM\_](#sys_grant_system_)
+    - [SYS_INDEX_COLUMNS\_](#sys_index_columns_)
+    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions_)
+    - [SYS_INDEX_RELATED\_](#sys_index_related_)
+    - [SYS_INDICES\_](#sys_indices_)
+    - [SYS_JOBS\_](#sys_jobs_)
+    - [SYS_LIBRARIES\_](#sys_libraries_)
+    - [SYS_LOBS\_](#sys_lobs_)
+    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views_)
+    - [SYS_PACKAGES\_](#sys_packages_)
+    - [SYS_PACKAGE_PARAS\_](#sys_package_paras_)
+    - [SYS_PACKAGE_PARSE\_](#sys_package_parse_)
+    - [SYS_PACKAGE_RELATED\_](#sys_package_related_)
+    - [SYS_PART_INDICES\_](#sys_part_indices_)
+    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns_)
+    - [SYS_PART_LOBS\_](#sys_part_lobs_)
+    - [SYS_PART_TABLES\_](#sys_part_tables_)
+    - [SYS_PASSWORD_HISTORY\_](#sys_password_history_)
+    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits_)
+    - [SYS_PRIVILEGES\_](#sys_privileges_)
+    - [SYS_PROCEDURES\_](#sys_procedures_)
+    - [SYS_PROC_PARAS\_](#sys_proc_paras_)
+    - [SYS_PROC_PARSE\_](#sys_proc_parse_)
+    - [SYS_PROC_RELATED\_](#sys_proc_related_)
+    - [SYS_RECYCLEBIN\_](#sys_recyclebin_)
+    - [SYS_REPLICATIONS\_](#sys_replications_)
+    - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
+    - [SYS_REPL_ITEMS\_](#sys_repl_items_)
+    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
+    - [SYS_REPL_OLD_CHECKS_](#sys_repl_old_checks_)
+    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
+    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
+    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
+    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
+    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
+    - [SYS_REPL_TABLE_OID_IN_USE_](#sys_repl_table_oid_in_use_)
+    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
+    - [SYS_SECURITY\_](#sys_security_)
+    - [SYS_SYNONYMS\_](#sys_synonyms_)
+    - [SYS_TABLES\_](#sys_tables_)
+    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions_)
+    - [SYS_TABLE_SIZE\_](#sys_table_size_)
+    - [SYS_TBS_USERS\_](#sys_tbs_users_)
+    - [SYS_TRIGGERS\_](#sys_triggers_)
+    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables_)
+    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings_)
+    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns_)
+    - [SYS_USERS\_](#sys_users_)
+    - [DBA_USERS\_](#dba_users_)
+    - [SYS_USER_ROLES\_](#sys_user_roles_)
+    - [SYS_VIEWS\_](#sys_views_)
+    - [SYS_VIEW_PARSE\_](#sys_view_parse_)
+    - [SYS_VIEW_RELATED\_](#sys_view_related_)
+    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
+    - [SYS_GEOMETRIES_](#sys_geometries_)
+    - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
+    - [USER_SRS_](#user_srs_)
     - [Performance Views](#performance-views)
     - [V\$ACCESS_LIST](#v%5Caccess_list)
     - [V\$ALLCOLUMN](#v%5Callcolumn)
@@ -111,7 +113,6 @@
     - [V\$INDEX](#v%5Cindex)
     - [V\$INSTANCE](#v%5Cinstance)
     - [V\$INTERNAL_SESSION](#v%5Cinternal_session)
-    
     - [V\$LATCH](#v%5Clatch)
     - [V\$LIBRARY](#v%5Clibrary)
     - [V\$LFG](#v%5Clfg)
@@ -178,7 +179,7 @@
     - [V\$SQL_PLAN_CACHE](#v%5Csql_plan_cache)
     - [V\$SQL_PLAN_CACHE_PCO](#v%5Csql_plan_cache_pco)
     - [V\$SQL_PLAN_CACHE_SQLTEXT](#v%5Csql_plan_cache_sqltext)
-    - [<a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES](#a-namevstable_mem_datafilesav%5Cstable_mem_datafiles)
+    - [V\$STABLE_MEM_DATAFILES](#v%5Cstable_mem_datafiles)
     - [V\$STATEMENT](#v%5Cstatement)
     - [V\$STATNAME](#v%5Cstatname)
     - [V\$SYSSTAT](#v%5Csysstat)
@@ -203,10 +204,6 @@
   - [4. Sample Schema](#4-sample-schema)
     - [Information about the Sample Schema](#information-about-the-sample-schema)
     - [E-R Entity-Relationship (ER) Diagram and Sample Data](#e-r-entity-relationship-er-diagram-and-sample-data)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
 
 
 
@@ -312,10 +309,13 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_REPL_HOSTS\_             | This table contains information about replication hosts.     |
 | SYS_REPL_ITEMS\_             | This table contains information about tables to be replicated |
 | SYS_REPL_OFFLINE_DIR\_       | This table contains information about the log directory related to the replication offline option. |
+| SYS_REPL_OLD_CHECKS_         | This table contains information about replication target columns that is being replicated by replication sender thread and has CHECK constraints. |
+| SYS_REPL_OLD_CHECK_COLUMNS_  | This meta table contains information about CHECK constraints on replication target column that replication sender thread is currently processing. |
 | SYS_REPL_OLD_COLUMNS\_       | This table contains information about columns replicated by the replication sender thread. |
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | This table contains information about index columns replicated by the replication sender thread. |
 | SYS_REPL_OLD_INDICES\_       | This table contains information about indexes replicated by the replication sender thread. |
 | SYS_REPL_OLD_ITEMS\_         | This table contains information about the tables replicated by the replication sender thread. |
+| SYS_REPL_TABLE_OID_IN_USE_   | This table contains information about TABLE OID of tables included in DDL log but not yet replicated. |
 | SYS_REPL_RECOVERY_INFOS\_    | This table contains information about logs used by replication for recovery of a remote server. |
 | SYS_SECURITY\_               | This table contains information about the state of the security module. |
 | SYS_SYNONYMS\_               | This table contains information about synonyms.              |
@@ -334,6 +334,9 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_VIEW_PARSE\_             | This table contains the actual text of statements used to create views. |
 | SYS_VIEW_RELATED\_           | This table contains information about objects accessed by views. |
 | SYS_XA_HEAURISTIC_TRANS_     | This table contains information about global transactions.   |
+| SYS_GEOMETRIES_              | This table contains information about tables that have GEOMETRY columns. |
+| SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; Synonym of GEOMETRY_COLUMNS |
+| USER_SRS_                    | This table contains information about SRS(Spatial Reference System); Synonym of SPATIAL_REF_SYS |
 
 ##### Unsupported Meta Tables
 
@@ -2738,6 +2741,94 @@ This is the identifier for the LFG which defalut value is ‘0’.
 
 This is the absolute path in the system where the log file is saved. 
 
+### SYS_REPL_OLD_CHECKS_
+
+This meta table is for storing information about replication target columns that is being replicated by replication sender thread and has CHECK constraints.
+
+| Column name      | Type          | Description                                             |
+| :--------------- | ------------- | ------------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | The name of the replication object                      |
+| TABLE_OID        | BIGINT        | The object identifier of  the table                     |
+| CONSTRAINT_ID    | INTEGER       | The CHECK constraint identifier                         |
+| CHECK_NAME       | VARCHAR(40)   | The name of the CHECK constraint                        |
+| CONDITION        | VARCHAR(4000) | The character string  condition of the CHECK constraint |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the name of the replication object set by the user, and can be found in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication sender thread. Its value may not be found in SYS_TABLES_ meta table if this table does not exist when the replication sender thread is processing replication log.
+
+##### CONSTRAINT_ID
+
+This is the identifier of the CHECK constraint that is being processed by replication sender thread, and corresponds to a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### CHECK_NAME
+
+This is the name of the CHECK constraint that replication sender thread is currently using. It corresponds to a CONSTRAINT_NAME value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### CONDITION
+
+This is the character string condition of the CHECK constraint that replication sender thread is currently using. It corresponds to a CHECK_CONDITION value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+#### Reference Tables
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+```
+
+### SYS_REPL_OLD_CHECK_COLUMNS_
+
+This meta table is for storing information about CHECK constraints on replication target column that replication sender thread is currently processing.
+
+| Column name      | Type        | Description                                     |
+| ---------------- | ----------- | ----------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | The name of the replication object              |
+| TABLE_OID        | BIGINT      | The object identifier of the table              |
+| CONSTRAINT_ID    | INTEGER     | The CHECK constraint identifier                 |
+| COLUMN_ID        | INTEGER     | The column identifier that has CHECK constraint |
+
+#### Column Information 
+
+##### REPLICATION_NAME
+
+This is the name of the replication object set by the user, and can be found in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication sender thread. Its value may not be found in SYS_TABLES_ meta table if this table does not exist when the replication sender thread is processing replication log.
+
+##### CONSTRAINT_ID
+
+This is the identifier of the CHECK constraint that is being processed by replication sender thread, and corresponds to a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### COLUMN_ID
+
+This is the column identifier that is currently being processed by replication sender thread and has CHECK constraint. It corresponds to a COLUMN_ID value in the SYS_COLUMNS_ meta table. Its value cannot be found in SYS_COLUMNS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+#### Reference Tables
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+SYS_COLUMNS_
+```
+
 ### SYS_REPL_OLD_COLUMNS\_
 
 This meta table is for storing information about columns that are currently replicated by the replication Sender thread.
@@ -3000,6 +3091,30 @@ SYS_REPL_OLD_COLUMNS_
 SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
 ```
+
+### SYS_REPL_TABLE_OID_IN_USE_
+
+This meta table is for managing information about TABLE OID of tables included in DDL log but not yet replicated.
+
+| Column name      | Type         | Description                                       |
+| ---------------- | ------------ | ------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40)  | The name of the replication  object               |
+| OLD_TABLE_OID    | BIGINTBIGINT | The old object identifier of the table before DDL |
+| TABLE_OID        | BIGINTBIGINT | The current object identifier of the table        |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the replication name, which is specified by the user. It corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
+
+##### OLD_TABLE_OID
+
+This is the old object identifier of the table that is included in DDL log not yet replicated.
+
+##### TABLE_OID
+
+This is the current object identifier of the table that is included in DDL log not yet replicated. It corresponds to a TABLE_OID in the SYS_REPL_ITEMS_ meta table. 
 
 ### SYS_REPL_RECOVERY_INFOS\_
 
@@ -3890,6 +4005,44 @@ This is the branch qualifier of the global transaction.
 
 This is the status of the global transaction. 
 
+### SYS_GEOMETRIES_
+
+This is a meta table that contains information about tables that have GEOMETRY columns.
+
+| Column name     | Type     | Description                                      |
+| --------------- | -------- | ------------------------------------------------ |
+| USER_ID         | INTERGER | The identifier of the user                       |
+| TABLE_ID        | INTERGER | The table identifier                             |
+| COLUMN_ID       | INTERGER | The column identifier                            |
+| COORD_DIMENSION | INTERGER | The dimension of the GEOMETRY object             |
+| SRID            | INTERGER | The spatial reference identifier in the database |
+
+### SYS_GEOMETRY_COLUMNS_
+
+This meta table is used to manage and specify SRID in the GEOMETRY column. The synonym of this meta tble is GEOMETRY_COLUMNS_.
+
+| Column name       | Type         | Description                                      |
+| ----------------- | ------------ | ------------------------------------------------ |
+| F_TABLE_SCHEMA    | VARCHAR(128) | The name of the owner of the table               |
+| F_TABLE_NAME      | VARCHAR(128) | The name of the table                            |
+| F_GEOMETRY_COLUMN | VARCHAR(128) | The name of the column                           |
+| COORD_DIMENSION   | INTERGER     | The dimension of the GEOMETRY object             |
+| SRID              | INTERGER     | The spatial reference identifier in the database |
+
+### USER_SRS_
+
+This meta table is used to manage information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
+
+To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/haeinnmin/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md).
+
+| Column name | Type          | Description                                                  |
+| ----------- | ------------- | ------------------------------------------------------------ |
+| SRID        | INTEGER       | The spatial reference identifier in the database             |
+| AUTH_NAME   | VARCHAR(256)  | The standard name                                            |
+| AUTH_SRID   | INTEGER       | The standard Spatial Reference Identifier                    |
+| SRTEXT      | VARCHAR(2048) | The description of the Spatial Reference System in OGC-WKT form |
+| PROJ4TEXT   | VARCHAR(2048) | The information for used in PROJ4                            |
+
 ### Performance Views
 
 Performance views are structures that exist in memory but have the form of regular tables, and allow users to monitor internal information about an Altibase system, such as system memory, process status, sessions, buffers, threads, etc. 
@@ -4059,6 +4212,8 @@ This view displays access permission or deny information on specific IP packets 
 | ADDRESS     | VARCHAR(40) | IP address                                     |
 | OPERATION   | VARCHAR(6)  | Access permit or deny status of IP address     |
 | MASK        | VARCHAR(16) | Subnet Mask (IPv4) or prefix big length (IPv6) |
+| LIMIT       | INTEGER     | Maximum number of sessions allowed             |
+| CONNECTED   | INTEGER     | Number of sessions connected                   |
 
 #### **Column Information**
 
@@ -4080,6 +4235,18 @@ OPERATION displays the status of permit or deny of the IP packet address.
 ##### MASK
 
 If the specified address is in IPv4 address notation, subnet mask is described whereas the length of prefix bit is described if the specified address is in IPv6 address notation. Refer to the description delineated in the ACCESS_LIST property.
+
+**LIMIT**
+
+Maximum number of sessions allowed to connect to the IP address specified in ACCESS_LIST as connectable.
+
+If new ACCESS_LIST is added using RELOAD ACCESS LIST while running, the session that is currently connected will not be affected but condition of ACCESS_LIST will be only applied to the new connection requests after the change is made. For example, when the user specifies the value of LIMIT of ACCESS_LIST and performs RELOAD ACCESS LIST, the value of LIMIT is only applied to the new connections after the change is made. In this case, when V$ACCESS_LIST is inquired, the value of CONNECTED can be bigger than the value of LIMIT.
+
+**CONNECTED**
+
+ACCESS_LIST에 해당하는 현재 접속된 세션 개수
+
+Number of sessions that is currently connected in ACCESS_LIST
 
 ### V\$ALLCOLUMN
 
@@ -10012,7 +10179,7 @@ This shows the keep status of plan cache object corresponding to SQL_TEXT_ID and
 - UNKEEP
   PLAN can be selected as victim with unkeep status.
 
-### <a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES
+### V\$STABLE_MEM_DATAFILES
 
 This view shows the complete file path of the data files in the database. 
 
