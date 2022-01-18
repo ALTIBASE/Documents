@@ -869,7 +869,7 @@ jdbcAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수�
 - LOB 데이터 타입은 7.1.0.7.0부터 지원 한다. 
 
 - SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 트랜젝션 단위로 SKIP 여부를 결정하므로
-  이전 DML에서 로그 처리중 에러 발생하거나 프로퍼티에 의해 SKIP된 경우 이후 LOB 컬럼 갱신은 SKIP 된다.
+  이전 DML 처리중 에러가 발생하거나 프로퍼티에 의해 SKIP된 경우 이후 LOB 컬럼 갱신은 SKIP 된다.
   그래서 SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 Commit 후 진행 하는것이 안전하다.
 
 - LOB 데이터 타입이 포함된 Table은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
