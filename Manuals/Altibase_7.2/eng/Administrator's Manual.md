@@ -18,10 +18,10 @@
   - [5. Objects and Privileges](#5-objects-and-privileges)
     - [Database Objects](#database-objects)
     - [Tables](#tables)
-    - [**Temporary Tables**](#temporary-tables)
-    - [**Compressed Tables**](#compressed-tables)
+    - [Temporary Tables](#temporary-tables-2)
+    - [Compressed Tables](#compressed-tables)
     - [Queues](#queues)
-    - [**Constraints**](#constraints)
+    - [Constraints](#constraints-3)
     - [Indexes](#indexes)
     - [View](#view)
     - [Materialized View](#materialized-view)
@@ -651,7 +651,7 @@ This section describes the purpose and contents of each of these directories.
 
 #### APatch Directory
 
-This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the [Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Installation%20Guide.md#apatch-directory)
+This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the [Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Installation%20Guide.md#apatch-directory).
 
 #### admin Directory
 
@@ -1717,7 +1717,7 @@ The following SQL statements are supported for use with tables. For more detaile
 
 -   SELECT
 
-### **Temporary Tables**
+### Temporary Tables
 
 Temporary tables temporarily store data while a session or transaction is running. These tables can improve the execution speed of compound queries. Users should use these tables to temporarily store the result sets of multiple DML operations.
 
@@ -1820,7 +1820,7 @@ The following SQL statements are supported for temporary tables. For more detail
 
 -   SELECT
 
-### **Compressed Tables**
+### Compressed Tables
 
 A compressed table is a table that has a compressed column. If a table is created with a compressed column, the Altibase server automatically creates a dictionary table and a unique index to speed up SELECT operations. The dictionary table is the table that stores data, and a dictionary table is created for each compressed column. If data is inserted into or altered in a compressed column, the actual data is inserted into the dictionary table, whereas pointers (or OIDs) that point to the actual data are stored in compressed columns. Regardless of whether a compressed table is a memory table or a disk table, the dictionary table is generated in memory tablespace.
 
@@ -2009,7 +2009,7 @@ The following SQL statements are provided for use with queue tables. For more de
 
 -   DEQUEUE
 
-### **Constraints**
+### Constraints
 
 Constraints are limitations that control the insertion of data into tables and the changes that can be made to existing data. This section explains the kinds of constraints and how to use them to ensure data consistency.
 

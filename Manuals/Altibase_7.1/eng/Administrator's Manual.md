@@ -21,7 +21,7 @@
     - [Temporary Tables](#temporary-tables-2)
     - [Compressed Tables](#compressed-tables)
     - [Queues](#queues)
-    - [Constraints](#constraints-2)
+    - [Constraints](#constraints-3)
     - [Indexes](#indexes)
     - [View](#view)
     - [Materialized View](#materialized-view)
@@ -645,7 +645,7 @@ This file contains error messages related to the data storage management module,
 
 This chapter describes the major components of Altibase. After installing the Altibase package, the user can check out components such as the binary section and the programming library section.
 
-### **Altibase Directories**
+### Altibase Directories
 
 When Altibase is installed, the following directories are created. The location of the Altibase home directory is saved in the environment variable ALTIBASE_HOME. The bin, conf, lib, include, msg, dbs, logs, sample, install, altiComp, trc, admin and arch_logs directories can all be found in this directory.
 
@@ -657,7 +657,7 @@ This directory contains the adminview.sql script file, which creates views relat
 
 #### arch_logs Directory
 
-This is the directory containing backup log files for recovery. The location and name of this directory must be specified in the altibase.properties file.
+This directory contains archive log file. The location and name of this directory can be specified and changed in the altibase.properties file according to the user environment.
 
 #### altiComp Directory
 
@@ -685,11 +685,12 @@ For more detailed information about other utilities, please refer to the *Utilit
 
 This directory contains the following files:
 
--   aexport.properties: the configuration file for aexport. For more detailed  information on the configurable properties, please refer to the *Utilities Manual*.
--   altibase.properties: the configuration file for Altibase. For more detailed  information on the configurable properties, please refer to the *General Reference*.
 -   altibase_user.env: the file for setting the environment variables necessary for running Altibase
--   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *General Reference*
+-   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2-altibase-properties)*.
 -   license: the Altibase license file
+-   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#database-link-properties)*.
+-   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Utilities%20Manual.md#list-of-aexport-properties)*.
+-   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Utilities%20Manual.md#altipasswd)*.
 
 #### dbs Directory
 
@@ -761,7 +762,7 @@ This is the Altibase ODBC driver that can be used in Unix-like operating systems
 #### logs Directory
 
 This directory contains log anchor files and log files.
-The location and name of this directory must be specified in the altibase.properties file. The log anchor file name and the log file name are automatically set by Altibase. However, in order to be prepared in the event of an error in the file system containing the log anchor files, it is nevertheless recommended that the relevant properties be changed, and that individual log anchor files be located on different file systems.
+The location and name of this directory must be specified in the altibase.properties file. The log anchor file name and the log file name are automatically set by Altibase. However, in order to be prepared in the event of an error in the file system containing the log anchor files, it is nevertheless recommended that the relevant properties be changed, and that individual log anchor files be located on different file systems. do_not_remove_log_files, never_remove_log_files are dummy files preventing log files from getting deleted.
 
 #### msg Directory
 
@@ -798,6 +799,10 @@ This file contains error messages pertaining to the Altibase database link modul
 ##### E_ID_US7ASCII.msb, E_MT_US7ASCII.msb
 
 This file contains error messages pertaining to function execution or data types.
+
+#### packages Directory
+
+This directory contains system defined stored packages and catproc.sql file which is a script used to create the packages at once. For more information about the system defined stored packages, please refer to the Altibase Stored Packages in *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Stored%20Procedures%20Manual.md#13-altibase-system-defined-stored-packages)*.
 
 #### sample Directory
 
