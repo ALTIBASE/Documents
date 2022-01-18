@@ -547,7 +547,7 @@ XLog 콜렉터가 XLog를 수신하기 위해 대기하는 시간을 지정하�
 
 -   기본 값: 300
 
--   범위: 1 – 4294967295
+-   범위: 1 – 4294967294
 
 ##### ALA_REPLICATION_NAME
 
@@ -698,20 +698,22 @@ Altibase에서 실행된 DML 구문들을 데이터를 보낼 대상이 되는 O
 네트워크 비용을 줄임으로써 성능 향상을 가져온다.
 
 -   기본 값: 10
-
 -   범위: 1 – 32767
-
 -   Batch DML을 끄려면, 이 프로퍼티를 1로 지정한다.
+
+단, LOB 데이터 타입이 포함된 테이블인 경우 Batch DML이 동작하지 않을 수 있다.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (단위: 횟수)
 
 레코드를 반영할 때 오류가 발생할 경우 재시도 횟수를 의미한다.
 
 -   기본 값: 0
-
 -   범위: 0 \~ 65535
-
 -   0: 재시도하지 않는다.
+
+단, LOB 관련 XLOG는 오류가 발생할 경우 재시도 대상에서 제외된다.
+LOB 관련 XLOG는 여러개의 XLOG로 구성되어 있기 때문에 에러 발생시
+재시도 할 수 없다. 
 
 ##### OTHER_DATABASE_ERROR_RETRY_INTERVAL (단위: 초)
 
@@ -740,6 +742,9 @@ OTHER_DATABASE_ERROR_RETRY_TIME 간격으로 재시도하였는데도 실패하�
 
 dbms_skip_error_include.list와  dbms_skip_error_exclude.list에 포함되는 에러값은
 SQLSTATE 표준의 에러값이다.
+
+단, LOB 관련 XLOG 처리 중 오류 발생시 해당 프로퍼티 값과 상관 없이
+레코드 반영을 포기하지 않고 Adapter를 종료 한다.
 
 ##### OTHER_DATABASE_SKIP_INSERT
 
@@ -858,6 +863,20 @@ jdbcAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수�
 
 그 외 수행할 수 있는 DDL은 Replication Manual의 '이중화 대상 테이블에 DDL
 실행'을 참조하기 바란다.
+
+#### Lob 데이타 타입 제약 사항
+
+- LOB 데이터 타입은 7.1.0.7.0부터 지원 한다. 
+
+- SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 트랜젝션 단위로 SKIP 여부를 결정하므로
+  이전 DML에서 SKIP되거나 프로퍼티에 의해 SKIP되거나 로그 처리중 에러 발생할 경우 이후 LOB 컬럼 갱신은 SKIP 된다.
+  그래서 SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 Commit 후 진행 하는것이 안전하다.
+
+- LOB 데이터 타입이 포함된 Table은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
+  자세한 내용은 프로퍼티 항목을 참조 하기 바란다.
+  - OTHER_DATABASE_ERROR_RETRY_COUNT 
+  - OTHER_DATABASE_SKIP_ERROR
+  - OTHER_DATABASE_BATCH_DML_MAX_SIZE
 
 ### 구동과 종료
 
