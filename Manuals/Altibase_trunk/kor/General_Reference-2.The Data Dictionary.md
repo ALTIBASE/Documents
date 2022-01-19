@@ -374,7 +374,7 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_XA_HEURISTIC_TRANS\_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
 | SYS_GEOMETRIES\_             | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
 | SYS_GEOMETRY_COLUMNS\_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음  |
-| USER_SRS                     | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음  |
+| USER_SRS_                    | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음  |
 
 ### SYS_AUDIT\_
 

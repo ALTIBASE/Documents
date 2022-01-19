@@ -335,8 +335,8 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_VIEW_RELATED\_           | This table contains information about objects accessed by views. |
 | SYS_XA_HEAURISTIC_TRANS_     | This table contains information about global transactions.   |
 | SYS_GEOMETRIES_              | This table contains information about tables that have GEOMETRY columns. |
-| SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; Synonym of GEOMETRY_COLUMNS |
-| USER_SRS_                    | This table contains information about SRS(Spatial Reference System); Synonym of SPATIAL_REF_SYS |
+| SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; The synonym of this meta table is GEOMETRY_COLUMNS_. |
+| USER_SRS_                    | This table contains information about SRS(Spatial Reference System); The synonym of this meta table is SPATIAL_REF_SYS |
 
 ##### Unsupported Meta Tables
 
@@ -2748,8 +2748,8 @@ This meta table is for storing information about replication target columns that
 | Column name      | Type          | Description                                             |
 | :--------------- | ------------- | ------------------------------------------------------- |
 | REPLICATION_NAME | VARCHAR(40)   | The name of the replication object                      |
-| TABLE_OID        | BIGINT        | The object identifier of  the table                     |
-| CONSTRAINT_ID    | INTEGER       | The CHECK constraint identifier                         |
+| TABLE_OID        | BIGINT        | The identifier of the table object                      |
+| CONSTRAINT_ID    | INTEGER       | The identifier of CHECK constraint                      |
 | CHECK_NAME       | VARCHAR(40)   | The name of the CHECK constraint                        |
 | CONDITION        | VARCHAR(4000) | The character string  condition of the CHECK constraint |
 
@@ -2793,12 +2793,12 @@ SYS_CONSTRAINTS_
 
 This meta table is for storing information about CHECK constraints on replication target column that replication sender thread is currently processing.
 
-| Column name      | Type        | Description                                     |
-| ---------------- | ----------- | ----------------------------------------------- |
-| REPLICATION_NAME | VARCHAR(40) | The name of the replication object              |
-| TABLE_OID        | BIGINT      | The object identifier of the table              |
-| CONSTRAINT_ID    | INTEGER     | The CHECK constraint identifier                 |
-| COLUMN_ID        | INTEGER     | The column identifier that has CHECK constraint |
+| Column name      | Type        | Description                                        |
+| ---------------- | ----------- | -------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | The name of the replication object                 |
+| TABLE_OID        | BIGINT      | The object identifier of the table                 |
+| CONSTRAINT_ID    | INTEGER     | The identifier of CHECK constraint                 |
+| COLUMN_ID        | INTEGER     | The identifier of column that has CHECK constraint |
 
 #### Column Information 
 
@@ -2818,7 +2818,7 @@ Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was remov
 
 ##### COLUMN_ID
 
-This is the column identifier that is currently being processed by replication sender thread and has CHECK constraint. It corresponds to a COLUMN_ID value in the SYS_COLUMNS_ meta table. Its value cannot be found in SYS_COLUMNS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+This is the identifier of the column that is currently being processed by replication sender thread and has CHECK constraint. It corresponds to a COLUMN_ID value in the SYS_COLUMNS_ meta table. Its value cannot be found in SYS_COLUMNS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
 
 #### Reference Tables
 
@@ -4033,7 +4033,7 @@ This meta table is used to manage and specify SRID in the GEOMETRY column. The s
 
 This meta table is used to manage information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
 
-To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/haeinnmin/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md).
+To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/Altibase/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md).
 
 | Column name | Type          | Description                                                  |
 | ----------- | ------------- | ------------------------------------------------------------ |
@@ -4238,15 +4238,13 @@ If the specified address is in IPv4 address notation, subnet mask is described w
 
 **LIMIT**
 
-Maximum number of sessions allowed to connect to the IP address specified in ACCESS_LIST as connectable.
+Maximum number of sessions allowed to connect to Altibase server within the IP address range specified in ACCESS_LIST.
 
 If new ACCESS_LIST is added using RELOAD ACCESS LIST while running, the session that is currently connected will not be affected but condition of ACCESS_LIST will be only applied to the new connection requests after the change is made. For example, when the user specifies the value of LIMIT of ACCESS_LIST and performs RELOAD ACCESS LIST, the value of LIMIT is only applied to the new connections after the change is made. In this case, when V$ACCESS_LIST is inquired, the value of CONNECTED can be bigger than the value of LIMIT.
 
 **CONNECTED**
 
-ACCESS_LIST에 해당하는 현재 접속된 세션 개수
-
-Number of sessions that is currently connected in ACCESS_LIST
+Number of sessions that is currently connected to Altibase server within the IP address range specified in ACCESS_LIST.
 
 ### V\$ALLCOLUMN
 

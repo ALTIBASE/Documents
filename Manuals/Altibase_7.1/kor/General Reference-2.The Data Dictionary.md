@@ -368,7 +368,7 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_XA_HEURISTIC_TRANS\_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
 | SYS_GEOMETRIES_              | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
 | SYS_GEOMETRY_COLUMNS\_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음 |
-| USER_SRS                     | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음 |
+| USER_SRS_                    | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음 |
 
 ### SYS_AUDIT\_
 
@@ -863,7 +863,7 @@ SYS_COLUMNS_
 | REFERENCED_TABLE_ID | INTEGER       | FOREIGN KEY 제약조건으로 참조하는 테이블의 식별자            |
 | REFERENCED_INDEX_ID | INTEGER       | FOREIGN KEY 제약조건으로 참조하는 인덱스의 식별자            |
 | DELETE_RULE         | INTEGER       | FOREIGN KEY 제약조건을 위한 삭제 규칙 0: 종속적으로 삭제하지 않음 1: 종속적으로 삭제 2: SET NULL, 외래 키 관계에 의해 종속되는 칼럼 값을 NULL로 변경 |
-| CHECK_CONDITION     | VARCHAR(4000) | Check 제약조건의 조건 문자열                                 |
+| CHECK_CONDITION     | VARCHAR(4000) | CHECK 제약조건의 조건 문자열                                 |
 | VALIDATED           | CHAR(1)       | 모든 데이터가 제약조건을 따르는지 여부                       |
 
 #### 칼럼 정보
@@ -2978,9 +2978,9 @@ SYS_TABLES_
 | ---------------- | ------------- | ---------------------------- |
 | REPLICATION_NAME | VARCHAR(40)   | 이중화 이름                  |
 | TABLE_OID        | BIGINT        | 테이블 객체 식별자           |
-| CONSTRAINT_ID    | INTEGER       | Check 제약조건 식별자        |
-| CHECK_NAME       | VARCHAR(40)   | Check 제약조건 이름          |
-| CONDITION        | VARCHAR(4000) | Check 제약조건의 조건 문자열 |
+| CONSTRAINT_ID    | INTEGER       | CHECK 제약조건 식별자        |
+| CHECK_NAME       | VARCHAR(40)   | CHECK 제약조건 이름          |
+| CONDITION        | VARCHAR(4000) | CHECK 제약조건의 조건 문자열 |
 
 #### 칼럼 정보
 
@@ -3026,8 +3026,8 @@ SYS_CONSTRAINTS_
 | ---------------- | ----------- | --------------------------------- |
 | REPLICATION_NAME | VARCHAR(40) | 이중화 이름                       |
 | TABLE_OID        | BIGINT      | 테이블 객체 식별자                |
-| CONSTRAINT_ID    | INTEGER     | Check 제약조건 식별자             |
-| COLUMN_ID        | INTEGER     | Check 제약조건을 갖는 칼럼 식별자 |
+| CONSTRAINT_ID    | INTEGER     | CHECK 제약조건 식별자             |
+| COLUMN_ID        | INTEGER     | CHECK 제약조건을 갖는 칼럼 식별자 |
 
 #### 칼럼 정보
 
@@ -9851,7 +9851,7 @@ Altibase 서버가 내부적으로 사용하는 플래그이다.
 | CONSTRAINT_ID    | INTEGER       | 제약조건 식별자              |
 | CONSTRAINT_NAME  | VARCHAR(128)  | 제약조건 이름                |
 | COLUMN_CNT       | INTEGER       | 제약조건에 관련된 칼럼 개수  |
-| CHECK_CONDITION  | VARCHAR(4000) | Check 제약조건의 조건 문자열 |
+| CHECK_CONDITION  | VARCHAR(4000) | CHECK 제약조건의 조건 문자열 |
 
 #### 칼럼 정보
 
@@ -9880,7 +9880,7 @@ Altibase 서버가 내부적으로 사용하는 플래그이다.
 
 ##### CHECK_CONDITION
 
-사용자가 Check 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
+사용자가 CHECK 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
 나타낸다.
 
 ### V\$RESERVED_WORDS
