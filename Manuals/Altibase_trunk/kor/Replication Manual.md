@@ -1711,21 +1711,22 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 문 실행이 가능�
     원격 서버에 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티 값이 0 으로 설정되어 있으면, 지역 서버의 XLog 송신자가 DDL XLog를 읽고 원격 서버와 Handshake 를 수행할때 Handshake 가 실패하고 이중화 전송이 중단된다.  
 -   대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다.
 -   이중화 격차를 제거하기 위하여 ALTER REPLICATION REP_NAME FLUSH ALL 을 수행한다.  
-이중화 격차가 존재하는 상황에서 ALTER REPLICATION REP_NAME FLUSH ALL 을 수행하지 않을 경우, DDL 문 실행 이후 지역 서버와 원격 서버의 이중화 데이터가 달라질 수 있다.  
+이중화 격차가 존재하는 상황에서 ALTER REPLICATION REP_NAME FLUSH ALL 을 수행하지 않을 경우, DDL 문 실행 이후 지역 서버와 원격 서버의 이중화 데이터가 달라질 수 있다.   
 -   지역 서버와 원격 서버에 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION 을 수행한다.
 -   지역 서버의 XLog 송신자가 DDL XLog 를 송신되었음을 보장하기 위하여 ALTER REPLICATION REP_NAME FLUSH ALL 을 수행한다.  
 -   지역 서버의 XLog 송신자가 DDL XLog 송신을 완료한 뒤 원격 서버의 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 값을 0 으로 변경한다.   
     SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION 은 대상 테이블의 REPL_ITEM 갯수를 변경 시키므로, DDL 문 실행 이후 지역 서버의 SYS_REPL_ITEMS_ 와 SYS_REPL_OLD_ITEMS_ 의 ITEM 이 동일하면 XLog 송신자가 DDL XLog 송신을 완료했음을 알 수 있다.   
  
 
-  
+
 이중화 대상인 파티션을 SPLIT, MERGE, DROP시 원격 서버에도 동일한 이름으로 파티션을 생성 하거나 
-삭제 하여야 하며, 새로 생성된 되거나 삭제된 파티션은 자동으로 이중화 대상인 파티션으로 추가되거나 
-제거된다.
+삭제 하여야 하며, 새로 생성 되거나 삭제된 파티션은 자동으로 이중화 대상인 파티션으로 추가되거나 
+제거된다.  
+위의 절차를 순서대로 수행하지 않을 경우, 지역 서버와 원격 서버의 데이터가 서로 달라질 수 있으니 순서를 꼭 지켜야 한다.
 
 <br>
 
-이중화 대상인 테이블에 데이타 타입이 달라지는거나 size, precision, scale 이 달라지는 DDL 문 실행을 하기 위해서는 프로퍼티를 다음과 같이 추가 설정해야 한다.
+이중화 대상인 테이블에 데이타 타입이 달라지거나 size, precision, scale 이 달라지는 DDL 문 실행을 하기 위해서는 프로퍼티를 다음과 같이 추가 설정해야 한다.
 
 -   원격 서버에 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1 로 설정한다.    
     원격 서버에 REPLICATION_SQL_APPLY_ENABLE 프로퍼티 값이 0 으로 설정되어 있으면, 지역 서버의 XLog 송신자가 DDL XLog를 읽고 원격 서버와 Handshake 를 수행할때 Handshake 가 실패하고 이중화 전송이 중단된다.  
@@ -1790,7 +1791,8 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
 Alter success.
 ```
 
-- 테이블 T1에 있는 파티션 P2를 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).
+- 테이블 T1에 있는 파티션 P2를 파티션 P3, P4로 분리하여 생성한다 (SPLIT TABLE).  
+Active - Standby 서버의 사용 예제.
 
 |Local SYS User||Remote SYS User|
 |--------------------------------------|--|--------------------------------------|
@@ -1811,8 +1813,31 @@ Alter success.
 |||iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;|
 
 <br>
+Active - Active 서버의 사용 예제.
 
-- 테이블 T1 의 컬럼 C2 CHAR( 5 ) 의 컬럼 size 를 CHAR( 10 ) 으로 변경한다.  (MODIFY COLUMN).
+|Local SYS User||Remote SYS User|
+|--------------------------------------|--|--------------------------------------|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;|
+|iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 1;||iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 1;|
+|iSQL> ALTER SESSION SET REPLICATION = DEFAULT;||iSQL> ALTER SESSION SET REPLICATION = DEFAULT;|
+|iSQL> AUTOCOMMIT OFF;||iSQL> AUTOCOMMIT OFF;|
+|iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;||iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;|
+|iSQL> ALTER REPLICATION REP1 FLUSH ALL;||iSQL> ALTER REPLICATION REP1 FLUSH ALL;|
+|iSQL> ALTER REPLICATION REP1 STOP;||iSQL> ALTER REPLICATION REP1 STOP;|
+|iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );||iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );|
+|iSQL> ALTER REPLICATION REP1 START;||iSQL> ALTER REPLICATION REP1 START;|
+|iSQL> ALTER REPLICATION REP1 FLUSH ALL;||iSQL> ALTER REPLICATION REP1 FLUSH ALL;|
+|iSQL> AUTOCOMMIT ON;||iSQL> AUTOCOMMIT ON;|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;|
+|iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;||iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;|
+
+<br>
+
+- 테이블 T1 의 컬럼 C2 CHAR( 5 ) 의 컬럼 size 를 CHAR( 10 ) 으로 변경한다.  (MODIFY COLUMN).  
+Active - Standby 서버의 사용 예제.  
+
 
 |Local SYS User||Remote SYS User|
 |--------------------------------------|--|--------------------------------------|
@@ -1825,8 +1850,23 @@ Alter success.
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;|
 |||iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 0;|
+  
 
+Active - Active 서버의 사용 예제. 
+|Local SYS User||Remote SYS User|
+|--------------------------------------|--|--------------------------------------|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;|
+|iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 1;||iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 1;|
+|iSQL> ALTER SESSION SET REPLICATION = DEFAULT;||iSQL> ALTER SESSION SET REPLICATION = DEFAULT;|
+|iSQL> ALTER TABLE T1 MODIFY COLUMN ( C2 CHAR( 10 ) );||iSQL> ALTER TABLE T1 MODIFY COLUMN ( C2 CHAR( 10 ) );|
+|iSQL> ALTER REPLICATION REP1 FLUSH ALL;||iSQL> ALTER REPLICATION REP1 FLUSH ALL;|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
+|iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;|
+|iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 0||iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 0;|
 
+  
+  
 ### 이중화 대상 테이블에 DDL 복제 실행
 
 Altibase가 이중화 대상인 테이블에 대하여 지원하는 DDL을 이중화 원격 서버로 복제할 수 있다.
