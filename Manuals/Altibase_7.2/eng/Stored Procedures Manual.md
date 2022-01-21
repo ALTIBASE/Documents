@@ -1628,7 +1628,7 @@ Stored procedure block can be used independently without header. This is called 
 
 - Does not create or store PSM object in database.
 - Does not return the value of RETURN clause.
-- Unlike the stored procedure, it can use IN, OUT, INOUT BIND variables.
+- Unlike stored procedures, BIND variables for INPUT, OUTPUT, INOUTPUT can be used.
 
 ```
 iSQL> VAR OUT1 OUTPUT INTEGER;
@@ -9940,7 +9940,7 @@ Altibase provides the system-defined Stored packages as follows.
 | [DBMS_RANDOM](#dbms_random)                          | Creates arbitrary numbers.                                   |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | Can completely purge the tables which has been dropped and managed in the recycle bin. |
 | [DBMS_SQL](#dbms_sql)                                | Provides procedures and functions utilizing dynamic SQL.     |
-| [DBMS_STANDARD](#dbms_standard)                      | Provides default sub programs                                |
+| [DBMS_STANDARD](#dbms_standard)                      | Provides various default sub programs                        |
 | [DBMS_STATS](#dbms_stats)                            | Package views and modifies the stats information             |
 | [DBMS_UTILITY](#dbms_utility)                        | Provides various utility subprograms.                        |
 | [STANDARD](#standard)                                | In addition to the basic data types, it defines the types that can be used without declaration in PSM. |
@@ -12310,20 +12310,23 @@ There is no exception.
 
 ```
 CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP ( C1 VARCHAR(10) );
+INSERT INTO T1 VALUES(1);
 
 CREATE OR REPLACE TRIGGER TRIG1
 BEFORE DELETE ON T1
 FOR EACH ROW
 BEGIN
  IF DELETING THEN
-  NULL;
- – DO SOMETHING
+  INSERT INTO TMP VALUES ('DELETE');
  END IF;
 END;
 /
 
-INSERT INTO T1 VALUES(1);
-DELETE FROM T1;
+iSQL> DELETE FROM T1;
+1 row deleted.
+iSQL> SELECT & FROM TMP;
+1 row selected.
 ```
 
 #### INSERTING
@@ -12348,20 +12351,26 @@ There is no exception.
 ##### Example
 
 ```
-CREATE TABLE T1 (C1 INTEGER); 
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
 
 CREATE OR REPLACE TRIGGER TRIG1
-BEFORE DELETE ON T1
+BEFORE INSERT ON T1
 FOR EACH ROW
 BEGIN
  IF INSERTING THEN
-  NULL;
- – DO SOMETHING
+  INSERT INTO TMP VALUES ('INSERT');
  END IF;
 END;
 /
 
-INSERT INTO T1 VALUES(1);
+iSQL> INSERT INTO T1 VALUES(2);
+1 row inserted.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+INSERT
+1 row selected.
 ```
 
 #### UPDATING
@@ -12387,23 +12396,30 @@ There is no exception.
 
 ```
 CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1);
 
 CREATE OR REPLACE TRIGGER TRIG1
-BEFORE DELETE ON T1
+BEFORE UPDATE ON T1
 FOR EACH ROW
 BEGIN
  IF UPDATING THEN
-  NULL;
- – DO SOMETHING
+  INSERT INTO TMP VALUES ('UPDATE');
  END IF;
 END;
 /
 
-INSERT INTO T1 VALUES(1);
-UPDATE T1 SET C1 = 2;
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE
+1 row selected.
 ```
 
-#### UPDATING
+#### UPDATING (columnName)
 
 Returns whether the trigger started from a specific column's UPDATE.
 
@@ -12431,21 +12447,38 @@ There is no exception.
 ##### Example
 
 ```
-CREATE TABLE T1 (C1 INTEGER); 
+CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1, 2);
 
 CREATE OR REPLACE TRIGGER TRIG1
-BEFORE DELETE ON T1
+BEFORE UPDATE ON T1
 FOR EACH ROW
 BEGIN
  IF UPDATING('C1') THEN
-  NULL;
- – DO SOMETHING
+  INSERT INTO TMP VALUES ('UPDATE-C1');
+ELSE
+ INSERT INTO TMP VALUES ('OTHER');
  END IF;
 END;
 /
 
-INSERT INTO T1 VALUES(1);
-UPDATE T1 SET C1 = 2;
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+1 row selected.
+iSQL> UPDATE T1 SET C2 = 3;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+OTHER
+2 rows selected.
 ```
 
 
@@ -12454,7 +12487,7 @@ UPDATE T1 SET C1 = 2;
 
 The DBMS_STATS package provides an interface which can view and modifies the stats information. By using stored procedures and functions, the stats information can be established and updated, also it can configure or delete the stats information for each column, index, and table or per each system
 
-The procedures and functions comprising the DBMS_STATS package are in the following table below. Refer to DBMS Stats of *Stored Procedures Manual* for in-depth information on each procedure and function.
+The procedures and functions comprising the DBMS_STATS package are in the following table below. 
 
 | Procedures/Functions  | Description                                                  |
 | --------------------- | ------------------------------------------------------------ |

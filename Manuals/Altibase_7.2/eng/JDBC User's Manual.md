@@ -33,7 +33,25 @@
     - [SQL Plan](#sql-plan)
   - [4. Tips & Recommendation](#4-tips--recommendation)
     - [Tips for Better Performance](#tips-for-better-performance)
+  - [5. Error Messages](#error-messages)
     - [SQL States](#sql-states)
+  - [6. JDBC 4.2 API References](#jdbc-4.2-api-references)
+    - [java.sql.Connection](#java.sql.connection)
+    - [java.sql.Wrapper](#java.sql.wrapper)
+    - [java.sql.Driver](#java.sql.driver)
+    - [java.sql.Statement](#java.sql.statement)
+    - [java.sql.PreparedStatement](#java.sql.preparedstatement)
+    - [java.sql.CallableStatement](#java.sql.callablestatement)
+    - [java.sql.PooledConnection](#java.sql.pooledconnection)
+    - [java.sql.ResultSet](#java.sql.resultset)
+    - [java.sql.CommonDataSource](#java.sql.commondatasource)
+    - [java.sql.DatabaseMetaData](#java.sql.databasemetadata)
+    - [java.sql.Blob](#java.sql.blob)
+    - [java.sql.Clob](#java.sql.clob)
+    - [java.sql.Types](#java.sql.types)
+    - [java.sql.SQLTypes](#java.sql.sqltypes)
+    - [Java 8 Time API](#java-8-time-api)
+  
   - [Appendix A. Data Type Mapping](#appendix-a-data-type-mapping)
     - [Data Type Mapping](#data-type-mapping)
     - [Converting Java Data Types to Database Data Types](#converting-java-data-types-to-database-data-types)
@@ -3397,8 +3415,8 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                                          | Spec Ver | **Availability** | Details                                                      | Exceptions                                                   |
 | :------------------------------------------------------ | -------- | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| createBlob()                                            | 4.0      | X                | Does not support creating Job object in Connection phase     | SQLFeatureNotSupported error occurred                        |
-| createClob()                                            | 4.0      | X                | Does not support creating Job object in Connection phase     | SQLFeatureNotSupported error occurred                        |
+| createBlob()                                            | 4.0      | X                | Does not support creating LOB object in Connection phase     | SQLFeatureNotSupported error occurred                        |
+| createClob()                                            | 4.0      | X                | Does not support creating LOB object in Connection phase     | SQLFeatureNotSupported error occurred                        |
 | createNClob()                                           | 4.0      | X                | Does not support multinational language for CLOB object      | SQLFeatureNotSupported error occurred                        |
 | createSQLXML()                                          | 4.0      | X                | Does not support SQLXML type                                 | SQLFeatureNotSupported error occurred                        |
 | isValid(int  timeout)                                   | 4.0      | O                |                                                              |                                                              |
@@ -3408,11 +3426,11 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | getClientInfo()                                         | 4.0      | O                | Supports ApplicationName only                                |                                                              |
 | createArrayOf(String  typeName, Object[] elements)      | 4.0      | X                | Does not support Array type                                  | SQLFeatureNotSupported error occurred                        |
 | createStruct(String  typeName, Object[] attributes)     | 4.0      | X                | Does not support Struct type                                 | SQLFeatureNotSupported error occurred                        |
-| setSchema(String  schema)                               | 4.1      | X                | Does not support schema                                      | Can be just ignored without occurring an error according to spec |
+| setSchema(String  schema)                               | 4.1      | X                | Does not support schema                                      | Can be just ignored without occurring an error according to specification |
 | getSchema()                                             | 4.1      | X                | Does not support schema                                      | Returns null instead of occurring an error                   |
 | abort(Executor  executor)                               | 4.1      | O                |                                                              |                                                              |
-| setNetworkTimeout(Executor  executor, int milliseconds) | 4.1      | O                | Executor can be passed as NULL because socket so timeout is  used internally |                                                              |
-| getNetworkTimeout()                                     | 4.1      | O                | Integrated with JDBC attribute response_timeout              |                                                              |
+| setNetworkTimeout(Executor  executor, int milliseconds) | 4.1      | O                | Executor can return NULL since SO_TIMEOUT socket option of TCP/IP connection is used internally |                                                              |
+| getNetworkTimeout()                                     | 4.1      | O                | Synchronised with response_timeout property of JDBC and returns the property value of it |                                                              |
 
 ### java.sql.Wrapper
 
@@ -3457,16 +3475,16 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | ------------------------------------------------------------ | -------- | ------------ | --------------------------- | -------------------------------------- |
 | setRowId(int  parameterIndex, RowId x)                       | 4.0      | X            | Does not support RowId      | SQLFeatureNotSupported  error occurred |
 | setNString(int  parameterIndex, String value)                | 4.0      | O            |                             |                                        |
-| setNClob(int  parameterIndex, NClob value)                   | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNClob(int  parameterIndex, Reader reader)                 | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNClob(int  parameterIndex, Reader reader, long length)    | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
+| setNClob(int  parameterIndex, NClob value)                   | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNClob(int  parameterIndex, Reader reader)                 | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNClob(int  parameterIndex, Reader reader, long length)    | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
 | setClob(int  parameterIndex, Reader reader)                  | 4.0      | O            |                             |                                        |
 | setClob(int  parameterIndex, Reader reader, long length)     | 4.0      | O            |                             |                                        |
 | setBlob(int  parameterIndex, InputStream inputStream)        | 4.0      | O            |                             |                                        |
 | setBlob(int  parameterIndex, InputStream inputStream, long length) | 4.0      | O            |                             |                                        |
 | setSQLXML(int  parameterIndex, SQLXML xmlObject)             | 4.0      | X            | Does not support XML type   | SQLFeatureNotSupported  error occurred |
-| setNCharacterStream(int  parameterIndex, Reader value)       | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNCharacterStream(int  parameterIndex, Reader value, long length) | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
+| setNCharacterStream(int  parameterIndex, Reader value)       | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNCharacterStream(int  parameterIndex, Reader value, long length) | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
 | setAsciiStream(int  parameterIndex, InputStream x)           | 4.0      | O            |                             |                                        |
 | setAsciiStream(int  parameterIndex, InputStream x, long length) | 4.0      | O            |                             |                                        |
 | executeLargeUpdate()                                         | 4.2      | O            |                             |                                        |
@@ -3480,11 +3498,11 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | getRowId(int  parameterIndex)                                | 4.0      | X            | Does not support RowId      | SQLFeatureNotSupported  error occurred |
 | getRowId(String  parameterName)                              | 4.0      | X            | Does not support RowId      | SQLFeatureNotSupported  error occurred |
 | setRowId(String  parameterName, RowId x)                     | 4.0      | X            | Does not support RowId      | SQLFeatureNotSupported  error occurred |
-| getNClob(int  parameterIndex)                                | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| getNClob(String  parameterName)                              | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNClob(String  parameterName, NClob value)                 | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNClob(String  parameterName, Reader reader)               | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNClob(String  parameterName, Reader reader, long length)  | 4.0      | X            | Does not support NClob type | SQLFeatureNotSupported  error occurred |
+| getNClob(int  parameterIndex)                                | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| getNClob(String  parameterName)                              | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNClob(String  parameterName, NClob value)                 | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNClob(String  parameterName, Reader reader)               | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNClob(String  parameterName, Reader reader, long length)  | 4.0      | X            | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
 | setClob(String  parameterName, Clob x)                       | 4.0      | O            |                             |                                        |
 | setClob(String  parameterName, Reader reader)                | 4.0      | O            |                             |                                        |
 | setClob(String  parameterName, Reader reader, long length)   | 4.0      | O            |                             |                                        |
@@ -3537,26 +3555,26 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | updateRowId(String  columnLabel, RowId x)                    | 4.0      | X            | Does  not support RowId      | SQLFeatureNotSupported  error occurred |
 | updateNString(int  columnIndex, String nString)              | 4.0      | O            |                              |                                        |
 | updateNString(String  columnLabel, String nString)           | 4.0      | O            |                              |                                        |
-| updateNClob(int  columnIndex, Reader reader)                 | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNClob(int  columnIndex, Reader reader, long length)    | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNClob(String  columnLabel, Reader reader)              | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNClob(String  columnLabel, Reader reader, long length) | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNClob(int  columnIndex, NClob nClob)                   | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNClob(String  columnLabel, NClob nClob)                | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| getNClob(int  columnIndex)                                   | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| getNClob(String  columnLabel)                                | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
+| updateNClob(int  columnIndex, Reader reader)                 | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNClob(int  columnIndex, Reader reader, long length)    | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNClob(String  columnLabel, Reader reader)              | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNClob(String  columnLabel, Reader reader, long length) | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNClob(int  columnIndex, NClob nClob)                   | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNClob(String  columnLabel, NClob nClob)                | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| getNClob(int  columnIndex)                                   | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| getNClob(String  columnLabel)                                | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
 | getSQLXML(int  columnIndex)                                  | 4.0      | X            | Does not support XML type    | SQLFeatureNotSupported  error occurred |
 | getSQLXML(String  columnLabel)                               | 4.0      | X            | Does not support XML type    | SQLFeatureNotSupported  error occurred |
 | updateSQLXML(int  columnIndex, SQLXML xmlObject)             | 4.0      | X            | Does not support XML type    | SQLFeatureNotSupported  error occurred |
 | updateSQLXML(String  columnLabel, SQLXML xmlObject)          | 4.0      | X            | Does not support XML type    | SQLFeatureNotSupported  error occurred |
 | getNString(int  columnIndex)                                 | 4.0      | O            |                              |                                        |
 | getNString(String  columnLabel)                              | 4.0      | O            |                              |                                        |
-| getNCharacterStream(int  columnIndex)                        | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| getNCharacterStream(String  columnLabel)                     | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNCharacterStream(int  columnIndex, Reader x)           | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNCharacterStream(int  columnIndex, Reader x, long length) | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNCharacterStream(String  columnLabel, Reader reader)   | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
-| updateNCharacterStream(String  columnLabel, Reader reader, long length) | 4.0      | X            | Does  not support NClob type | SQLFeatureNotSupported  error occurred |
+| getNCharacterStream(int  columnIndex)                        | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| getNCharacterStream(String  columnLabel)                     | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNCharacterStream(int  columnIndex, Reader x)           | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNCharacterStream(int  columnIndex, Reader x, long length) | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNCharacterStream(String  columnLabel, Reader reader)   | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| updateNCharacterStream(String  columnLabel, Reader reader, long length) | 4.0      | X            | Does  not support NCLOB type | SQLFeatureNotSupported  error occurred |
 | updateAsciiStream(int  columnIndex, InputStream x)           | 4.0      | O            |                              |                                        |
 | updateAsciiStream(int  columnIndex, InputStream x, long length) | 4.0      | O            |                              |                                        |
 | updateAsciiStream(String  columnLabel, InputStream x)        | 4.0      | O            |                              |                                        |

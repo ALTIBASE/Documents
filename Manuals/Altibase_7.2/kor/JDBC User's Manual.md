@@ -3482,8 +3482,8 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | setSchema(String schema)                                   | 4.1      |    X     | 스키마 지원 안함                                                                    |스펙에 따라 예외는 발생 안하고 그냥 요청이 무시됨 |
 | getSchema()                                                | 4.1      |    X     | 스키마 지원 안함                                                                    |예외는 발생 안하고 null이 리턴됨                |
 | abort(Executor executor)                                   | 4.1      |    O     |                                                                                    |                                            |
-| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | 드라이버 내부적으로 socket so timeout을 이용하기 때문에 executor는 null로 넘겨도 상관없음 |                                            |
-| getNetworkTimeout()                                        | 4.1      |    O     | JDBC 속성 response_timeout과 연동                                                    |                                            |
+| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | Altibase JDBC 드라이버 내부에서 TCP/IP의 SO_TIMEOUT socket 옵션을 이용하기 때문에 Executor는 null을 반환(return)해도 무방 |                                            |
+| getNetworkTimeout()                                        | 4.1      |    O     | JDBC의 response_timeout 속성과 연동하여 해당 속성값을 반환          |                                            |
 
 ### java.sql.Wrapper
 | 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |
