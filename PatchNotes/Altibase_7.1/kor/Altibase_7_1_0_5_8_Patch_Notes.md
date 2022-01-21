@@ -311,10 +311,10 @@ Replication 프로토콜 버전은 변경되지 않았다.
 
 #### 추가된 프로퍼티
 
-- JOB_MSGLOG_FILE
-- JOB_MSGLOG_SIZE
-- JOB_MSGLOG_COUNT 
-- JOB_MSGLOG_FLAG
+- [JOB_MSGLOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_file)
+- [JOB_MSGLOG_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_size%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
+- [JOB_MSGLOG_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_count)
+- [JOB_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_flag)
 
 #### 변경된 프로퍼티
 
@@ -326,6 +326,6 @@ Replication 프로토콜 버전은 변경되지 않았다.
 
 #### 변경된 성능 뷰
 
-- V$TRACELOG
+- [V$TRACELOG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vtracelog)
 
 #### 삭제된 성능 뷰

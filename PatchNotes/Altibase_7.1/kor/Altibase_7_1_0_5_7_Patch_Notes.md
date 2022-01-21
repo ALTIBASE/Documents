@@ -168,7 +168,7 @@ New Features
       - CONNECTED
          ACCESS_LIST에 해당하는 현재 접속된 세션 개수
 
-      보다 자세한 설명은 [General Reference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_3.md#vaccess_list)을 참고해주세요.
+      보다 자세한 설명은 [General Reference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vaccess_list)을 참고해주세요.
 
   -   Property
       -   ACCESS_LIST 변경
@@ -179,7 +179,7 @@ New Features
 
           limit 은 선택 입력 항목으로 ACCESS_LIST에 명시된 접속 가능한 IP 주소 영역에서 허용되는 최대 접속 세션 개수를 지정합니다. 
 
-          보다 자세한 설명은 [General Reference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_2.md#access_list)을 참고해주세요. 
+          보다 자세한 설명은 [General Reference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#access_list)을 참고해주세요. 
 
   - Compile Option
 
@@ -294,27 +294,27 @@ New Features
 
       원격 서버의 이중화 관련 메타 테이블 정보를 확인할 수 있는 성능 뷰 6가지가 추가되었습니다.
 
-      - [V$REPL_REMOTE_META_REPLICATIONS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_replications)
+      - [V$REPL_REMOTE_META_REPLICATIONS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_replications)
         
         원격 서버의 이중화 관련 정보를 기록하고 있는 SYS_REPLICATIONS_ 메타 테이블의 정보를 보여준다.
         
-      - [V$REPL_REMOTE_META_ITEMS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_items)
+      - [V$REPL_REMOTE_META_ITEMS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_items)
 
         원격 서버의 이중화 대상 테이블에 관련된 정보를 가진 SYS_REPL_ITEMS_ 메타 테이블 정보를 보여준다.
 
-      - [V$REPL_REMOTE_META_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_columns)
+      - [V$REPL_REMOTE_META_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_columns)
 
         원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 칼럼의 정보를 가진 SYS_REPL_OLD_COLUMNS_ 메타 테이블 정보를 보여 준다.
 
-      - [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_index_columns)
+      - [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
 
         원격 서버의 이중화 송신 쓰레드가 현재 사용 중인 이중화 대상 인덱스 칼럼의 정보를 가진 SYS_REPL_OLD_INDEX_COLUMNS_ 메타 테이블 정보를 보여 준다.
 
-      - [V$REPL_REMOTE_META_INDICES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_indices)
+      - [V$REPL_REMOTE_META_INDICES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_indices)
 
         원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 정보를 가진 SYS_REPL_OLD_INDICES_ 메타 테이블의 정보를 보여 준다.
 
-      - [V$REPL_REMOTE_META_CHECKS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_checks)
+      - [V$REPL_REMOTE_META_CHECKS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_checks)
 
         원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 테이블의 제약 조건에 관한 정보를 보여 준다.
 
@@ -986,7 +986,7 @@ Replication 프로토콜 버전은 변경되지 않았다.
 
 #### 변경된 프로퍼티
 
-- [ACCESS_LIST](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_2.md#access_list)
+- [ACCESS_LIST](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#access_list)
 
 #### 삭제된 프로퍼티
 
@@ -996,20 +996,20 @@ Replication 프로토콜 버전은 변경되지 않았다.
 
 #### 추가된 성능 뷰
 
-- [V$REPL_REMOTE_META_REPLICATIONS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_replications)
+- [V$REPL_REMOTE_META_REPLICATIONS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_replications)
 
-- [V$REPL_REMOTE_META_ITEMS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_items)
+- [V$REPL_REMOTE_META_ITEMS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_items)
 
-- [V$REPL_REMOTE_META_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_columns)
+- [V$REPL_REMOTE_META_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_columns)
 
-- [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_index_columns)
+- [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
 
-- [V$REPL_REMOTE_META_INDICES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_indices)
+- [V$REPL_REMOTE_META_INDICES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_indices)
 
-- [V$REPL_REMOTE_META_CHECKS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vrepl_remote_meta_checks)
+- [V$REPL_REMOTE_META_CHECKS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_checks)
 
 #### 변경된 성능 뷰
 
-- [V$ACCESS_LIST](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_3.md#vaccess_list)
+- [V$ACCESS_LIST](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vaccess_list)
 
 #### 삭제된 성능 뷰

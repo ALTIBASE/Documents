@@ -41,9 +41,9 @@ New Features
     
     보다 자세한 설명은 JDBC User’s Manual 을 참고하세요.
 
-    - [JDBC User’s Manual - 1.JDBC 시작하기 - JDBC 드라이버 설치](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC.md#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%84%A4%EC%B9%98)
+    - [JDBC User’s Manual - 1.JDBC 시작하기 - JDBC 드라이버 설치](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC%20User's%20Manual.md#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%84%A4%EC%B9%98)
 
-    - [JDBC User’s Manual - 6.JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC.md#6jdbc-42-api-references)
+    - [JDBC User’s Manual - 6.JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references)
 
 -   **재현 방법**
 
@@ -443,9 +443,9 @@ New Features
 
     보다 자세한 설명은 매뉴얼을 참고하세요.
 
-    - [Adapter for Oracle User’s Manual - 3.사용법 - 오프라인 옵션(Offline Option)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/OraAdapter.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
+    - [Adapter for Oracle User’s Manual - 3.사용법 - 오프라인 옵션(Offline Option)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
 
-    - [Adapter for JDBC User’s Manual - 3.사용법 - 오프라인 옵션(Offline Option)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JdbcAdapter.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
+    - [Adapter for JDBC User’s Manual - 3.사용법 - 오프라인 옵션(Offline Option)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
 
 -   **재현 방법**
 

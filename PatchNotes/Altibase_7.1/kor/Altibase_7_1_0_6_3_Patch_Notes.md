@@ -106,7 +106,7 @@ Fixed Bugs
     -   Performance view
         -   V\$QUEUE 성능 뷰 삭제
 
-        - [V\$QUEUE\_DELETE\_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vqueue_delete_off) 추가
+        - [V\$QUEUE\_DELETE\_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off) 추가
     -   Property
     -   Compile Option
     -   Error Code
@@ -265,7 +265,7 @@ Replication 프로토콜 버전은 변경되지 않았다.
 
 #### 추가된 성능 뷰
 
-- [V\$QUEUE\_DELETE\_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_4.md#vqueue_delete_off)
+- [V\$QUEUE\_DELETE\_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
 
 #### 변경된 성능 뷰
 

@@ -39,7 +39,7 @@ Fixed Bugs
     
     하나의 테이블이 여러 이중화 객체에 포함된 경우나 이중화 대상 테이블에 DDL문 수행 시 경합이 발생하며, 이 때 \$ALTIBASE\_HOME/trc/altibase\_rp.log에 아래와 같은 메세지를 출력합니다.
     
-    [2021/10/12 14:31:14 79E][PID:193728]Thread-140046648854272][LWP-194294]
+    \[2021/10/12 14:31:14 79E\]\[PID:193728\]\[Thread-140046648854272][LWP-194294]
     
     ERR-1304c(errno=16) A record has already been updated.
 
