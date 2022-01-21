@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**  
 
 - [General Reference](#general-reference)
@@ -32,7 +31,7 @@
     - [사용자 계정 보안 관련 프로퍼티](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EB%B3%B4%EC%95%88-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [기타 프로퍼티](#%EA%B8%B0%ED%83%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 
 
@@ -3075,8 +3074,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>VOLATILE_MAX_DB_SIZE</td>
       </tr>
       <tr>
-      	<td rowspan="101">P</td>
-          <td rowspan="101"></td>
+      	<td rowspan="102">P</td>
+          <td rowspan="102"></td>
           <td>AGER_WAIT_MAXIMUM</td>
           <td rowspan="2"></td>
       </tr>

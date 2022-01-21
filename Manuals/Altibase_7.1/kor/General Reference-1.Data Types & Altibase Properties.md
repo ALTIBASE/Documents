@@ -3078,8 +3078,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>VOLATILE_MAX_DB_SIZE</td>
       </tr>
       <tr>
-      	<td rowspan="101">P</td>
-          <td rowspan="101"></td>
+      	<td rowspan="102">P</td>
+          <td rowspan="102"></td>
           <td>AGER_WAIT_MAXIMUM</td>
           <td rowspan="2"></td>
       </tr>
@@ -3469,7 +3469,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
        <tr>
       	<td>TRX_UPDATE_MAX_LOGSIZE</td>
           <td>BOTH</td>
-      </tr>
+       </tr>
       <tr>
           <td rowspan="42">S</td>
           <td rowspan="31">일반</td>
@@ -4391,7 +4391,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>PSM_VARCHAR_DEFAULT_PRECISION</td>
       </tr>
       <tr>
-      	<td>QUERY_STACK_SIZE</td>
           <td>BOTH</td>
       </tr>
       <tr>
