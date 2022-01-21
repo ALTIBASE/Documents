@@ -2102,10 +2102,7 @@ ST_ISCOLLECTION( GEOMETRY )
 
 ##### Description
 
-인자로 받은 공간 객체가 Multi\*이거나 GeometryCollection이면 1을 반환하고, 
-그렇지 않으면 0을 반환한다.
-
-This function returns 1 if the spatial object type, which is the parameter, is Multi* or GeometryCollection. If not, 0 is returned.
+This function returns 1 if the spatial object type, which is the parameter, is MULTIPOINT, MULTILINESTRING, MULTIPOLYGON or GEOMETRYCOLLECTION. If not, 0 is returned.
 
 
 ##### Return Type
@@ -2997,7 +2994,7 @@ POINTFROMTEXT( WKT[, srid] )
 
 ##### Description
 
-This function accepts a spatial object in WKT (Well-known Text) format as input and creates and outputs a GEOMETRY object whose subtype is POINT. 
+This function accepts a spatial object in WKT (Well-known Text) format as input and creates a GEOMETRY object whose subtype is POINT. 
 
 If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY subtype other than a POINT, this function outputs an error.
 
@@ -3045,7 +3042,7 @@ LINEFROMTEXT( WKT[, srid] )
 
 ##### Description
 
-This function accepts a spatial object in WKT (Well-known Text) format as input and creates and outputs a GEOMETRY object whose subtype is LINESTRING. 
+This function accepts a spatial object in WKT (Well-known Text) format as input and creates a GEOMETRY object whose subtype is LINESTRING. 
 
 If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY subtype other than a LINESTRING, this function outputs an error. 
 
@@ -3093,9 +3090,9 @@ POLYFROMTEXT( WKT[, srid] )
 
 ##### Description
 
-This function accepts a spatial object in WKT (Well-known Text) format as input and creates and outputs a GEOMETRY object whose subtype is POINT. 
+This function accepts a spatial object in WKT (Well-known Text) format as input and creates a POLYGON object. 
 
-If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY subtype other than a POINT, this function outputs an error. 
+If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY subtype other than POLYGON, this function outputs an error. 
 
 This function returns NULL if the value of the WKT argument is NULL.
 
@@ -3489,15 +3486,15 @@ ST_LINESTRINGFROMWKB( WKB[, SRID] )
 
 ##### Description
 
-This function accepts a spatial object in WKB(Well-Known Binary) format or EWKB(Extended Well-Known Binary)  format and its SRID as input and creates and outputs a GEOMETRY object whose subtype is POLYGON.
+This function accepts a spatial object in WKB(Well-Known Binary) format or EWKB(Extended Well-Known Binary)  format and its SRID as input and creates and outputs a LINESTRING object.
 
-This function returns NULL if the value of the WKB argument or the value of the SRID is NULL.
+This function returns NULL if the value of the WKB or the value of the SRID is NULL.
 
-Unlike LINEFROMWKB, if the WKB or EWKB describes a GEOMETRY subtype other than line string, NULL is returned.
+If the WKB or EWKB describes spatial data type other than LINESTRING, NULL is returned.
 
 If the syntax of the input WKB or EWKB is not valid, it outputs an error.
 
-If the SRID is not specified, the SRID of the created object is 0.
+If the SRID is not specified, the SRID of the created object is the dafault value 0.
 
 ##### Return Type
 
@@ -3850,7 +3847,7 @@ ST_MAKEPOLYGON( GEOMETRY )
 
 ##### Description
 
-This function accepts a LineString object as input and creates and outputs a GEOMETRY object whose subtype is POLYGON. Here, LineString should be in Ring format.
+This function accepts a LineString object as input and creates and outputs a Polygon object. Here, LineString should be in Ring format.
 
 ##### Return Type
 
@@ -3878,7 +3875,7 @@ ST_POLYGON( GEOMETRY, SRID )
 
 ##### Description
 
-This function is similar to ST_MAKEPOLYGON. This function accepts a LineString object or SRID as input and creates and outputs a GEOMETRY object whose subtype is POLYGON.
+This function is similar to ST_MAKEPOLYGON. This function accepts a LINESTRING object or SRID as input and creates a POLYGON object.
 
 ##### Return Type
 
@@ -3906,7 +3903,7 @@ ST_COLLECT( GEOMETRY1, GEOMETRY2 );
 
 ##### Description
 
-This function accepts Geometry objects as input and creates and outputs a GeometryCollection object. If the input type is the same, the result value is Multi*. If it is not, the result is GeometryCollection.
+This function accepts Geometry objects as input and creates and outputs a GeometryCollection object. If the input type is the same, the result value is MULTIPOINT, MULTILINESTRING or MULTIPOLYGON. If it is not, the result is GeometryCollection.
 
 ##### Return Type
 
@@ -4027,7 +4024,7 @@ GEOMETRY
 
 ##### Constraints
 
-- This function can only be used in Linux operating system.
+- This function can only be used in Intel environment on Linux operating system.
 
 - If one of the input elements is NULL, NULL is returned.
 
