@@ -101,10 +101,6 @@
     - [V\$DISK_TEMP_INFO](#vdisk_temp_info)
     - [V\$DISK_TEMP_STAT](#vdisk_temp_stat)
     - [V\$DISK_UNDO_USAGE](#vdisk_undo_usage)
-    - [V\$DR_CONNECTION_INFO](#vdr_connection_info)
-    - [V\$DR_GAP](#vdr_gap)
-    - [V\$DR_SERVERS](#vdr_servers)
-    - [V\$DR_STATUS](#vdr_status)
     - [V\$EVENT_NAME](#vevent_name)
     - [V\$EXTPROC_AGENT](#vextproc_agent)
     - [V\$FILESTAT](#vfilestat)
@@ -139,6 +135,7 @@
     - [V\$PROCINFO](#vprocinfo)
     - [V\$PROCTEXT](#vproctext)
     - [V\$PROPERTY](#vproperty)
+    - [V\$QUEUE_DELETE_OFF](#vqueue_delete_off)
     - [V\$REPEXEC](#vrepexec)
     - [V\$REPGAP](#vrepgap)
     - [V\$REPGAP_PARALLEL](#vrepgap_parallel)
@@ -160,6 +157,12 @@
     - [V\$REPSENDER_TRANSTBL](#vrepsender_transtbl)
     - [V\$REPSENDER_TRANSTBL_PARALLEL](#vrepsender_transtbl_parallel)
     - [V\$REPSYNC](#vrepsync)
+    - [V$REPL_REMOTE_META_REPLICATIONS](#vrepl_remote_meta_replications)
+    - [V$REPL_REMOTE_META_ITEMS](#vrepl_remote_meta_items)
+    - [V$REPL_REMOTE_META_COLUMNS](#vrepl_remote_meta_columns)
+    - [V$REPL_REMOTE_META_INDEX_COLUMNS](#vrepl_remote_meta_index_columns)
+    - [V$REPL_REMOTE_META_INDICES](#vrepl_remote_meta_indices)
+    - [V$REPL_REMOTE_META_CHECKS](#vrepl_remote_meta_checks)
     - [V\$RESERVED_WORDS](#vreserved_words)
     - [V\$SBUFFER_STAT](#vsbuffer_stat)
     - [V\$SEGMENT](#vsegment)
@@ -2748,7 +2751,7 @@ This meta table is for storing information about replication target columns that
 | Column name      | Type          | Description                                             |
 | :--------------- | ------------- | ------------------------------------------------------- |
 | REPLICATION_NAME | VARCHAR(40)   | The name of the replication object                      |
-| TABLE_OID        | BIGINT        | The identifier of the table object                      |
+| TABLE_OID        | BIGINT        | The table object identifier                             |
 | CONSTRAINT_ID    | INTEGER       | The identifier of CHECK constraint                      |
 | CHECK_NAME       | VARCHAR(40)   | The name of the CHECK constraint                        |
 | CONDITION        | VARCHAR(4000) | The character string  condition of the CHECK constraint |
@@ -5832,143 +5835,7 @@ This is the number of extents currently used in undo segments. Because these ext
 
 ##### REUSABLE_EXT_CNT
 
-This is the number of extents that can be reused because they contain undo records that are no longer necessary
-
-### V\$DR_CONNECTION_INFO
-
-This view displays information about the servers currently deployed in the DR environment.
-
-| Column name | Type        | Description                                      |
-| ----------- | ----------- | ------------------------------------------------ |
-| SERVER_NAME | VARCHAR(40) | The server name                                  |
-| SERVER_IP   | VARCHAR(64) | The server IP address                            |
-| SERVER_PORT | INTEGER     | The listening port number of the server listener |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### SERVER_IP
-
-This is the IP address of the server deployed in the DR environment.
-
-##### SERVER_PORT
-
-This is the listening port number of the server listener.
-
-### V\$DR_GAP
-
-This view displays information about the synchronization delays between servers currently deployed in the DR environment.
-
-| Column name  | Type        | Description                                                  |
-| ------------ | ----------- | ------------------------------------------------------------ |
-| SERVER_NAME  | VARCHAR(40) | The server name                                              |
-| CURRENT_SN   | BIGINT      | Active server: The serial number(SN) of the log record currently being transmitted. <br/>Standby server: The serial number(SN) of the log record currently being applied. |
-| SYNCED_SN    | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The serial number of the log record most recently received by the standby server. |
-| SN_GAP       | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The gap between CURRENT_SN of the corresponding active server and SYNCED_SN of the standby server. |
-| APPLY_SN_GAP | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The gap between CURRENT_SN and SYNCED_SN. |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### CURRENT_SN
-
-On the active server, the serial number(SN) of the log record currently being transmitted is displayed. 
-
-On the standby server, the serial number(SN) of the log record currently being applied to the database is displayed
-
-##### SYNCED_SN
-
-On the active server, 0 is always displayed. 
-
-On the standby server, the serial number(SN) of the most recently recieved log record is displayed
-
-##### SN_GAP
-
-On the active server, 0 is always displayed. 
-
-On the standby server, the gap between CURRENT_SN of the corresponding active server and SYNCED_SN of the standby server is displayed.
-
-##### APPLY_SN_GAP
-
-On the active server, 0 is always displayed. 
-
-On the standbyserver, the gap between CURRENT_SN and SYNCED_SN is displayed.
-
-### V\$DR_SERVERS
-
-This view displays information about the servers configured for the DR environment.
-
-| Column name | Type        | Description                                      |
-| ----------- | ----------- | ------------------------------------------------ |
-| SERVER_NAME | VARCHAR(40) | The server name                                  |
-| SERVER_IP   | VARCHAR(64) | The server IP address                            |
-| SERVER_PORT | INTEGER     | The listening port number of the server listener |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### SERVER_IP
-
-This is the IP address of the server configured for the DR environment.
-
-##### SERVER_PORT
-
-This is the listening port number of the server listener.
-
-### V\$DR_STATUS
-
-This view displays information of the current status of the servers deployed in the DR environment.
-
-| Column name    | Type        | Description                              |
-| -------------- | ----------- | ---------------------------------------- |
-| SERVER_NAME    | VARCHAR(40) | The server name                          |
-| CURRENT_MODE   | VARCHAR(7)  | The synchronization mode                 |
-| SERVER_ROLE    | VARCHAR(7)  | The server role                          |
-| SERVER_MODE    | VARCHAR(7)  | The synchronization mode set by the user |
-| SERVER_STATUS  | VARCHAR(8)  | The server status                        |
-| FAILOVER_SN    | BIGINT      | The SN at the time point of failover     |
-| FAILOVER_COUNT | BIGINT      | The number of failovers                  |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### CURRENT_MODE
-
-This is the synchronization mode currently being executed and is displayed as either 'async' or 'sync'. 
-
-All standby servers conform to the synchronization mode of the active server.
-
-##### SERVER_ROLE
-
-This is the role of the server and is displayed as either 'active' or 'standby'.
-
-##### SERVER_MODE
-
-This is the synchronization mode set by the user and is displayed as either 'async' or 'sync'.
-
-##### SERVER_STATUS
-
-This is the current execution mode of the server and is displayed as either 'run', 'stop' or 'Failure Server Repair'.
-
-##### FAILOVER_SN
-
-This is the SN at the time point on which a failover has occurred.
-
-##### FAILOVER_COUNT
-
-This is the SN at the time point on which a failover has occurred.
+This is the number of extents that can be reused because they contain undo records that are no longer necessary.
 
 ### V\$EVENT_NAME
 
@@ -7647,6 +7514,20 @@ This is the maximum value that the property can have.
 
 The actual values set for the property.
 
+### V$QUEUE_DELETE_OFF
+
+This view displays queue tables that does not allow DELETE statements. If DELETE OFF clause is used in CREATE QUEUE or ALTER QUEUE statement, DELETE statement is not allowed on the corresponding queue table.
+
+| Column name | Type   | Description                 |
+| ----------- | ------ | --------------------------- |
+| TABLE_OID   | BIGINT | The table object identifier |
+
+#### Column Information
+
+##### TABLE_OID
+
+This is the table object identifier and corresponds to a TABLE_OID value in the SYS_TABLES_ meta table
+
 ### V\$REPEXEC
 
 This view displays information related to the replication manager.
@@ -8765,7 +8646,343 @@ This is the name of the partition that is the target for synchronization.
 
 When data in replication target tables on the local server are synchronized with those on the remote server, the data are synchronized in batches of records, the size of which is specified in the REPLICATION_SYNC_TUPLE_COUNT property of Altibase. 
 
-While synchronization is underway, this is the number of records that have been synchronized. A value of -1 indicates that synchronization is complete. 
+While synchronization is underway, this is the number of records that have been synchronized. A value of -1 indicates that synchronization is complete.
+
+### V$REPL_REMOTE_META_REPLICATIONS
+
+This view displays information about the receiver's SYS_REPLICATIONS_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name              | Type        | Description                                                  |
+| ------------------------ | ----------- | ------------------------------------------------------------ |
+| REPLICATION_NAME         | VARCHAR(40) | The name of the replication object                           |
+| XSN                      | BIGINT      | The Restart SN (Sequence Number), i.e. the SN from which the Sender will resume transmission of XLogs<sup>13</sup> |
+| ITEM_COUNT               | INTEGER     | The number of replication target tables                      |
+| CONFLICT_RESOLUTION      | INTEGER     | The replication conflict resolution method                   |
+| REPL_MODE                | INTEGER     | The default replication mode                                 |
+| ROLE                     | INTEGER     | The default replication mode                                 |
+| OPTIONS                  | INTEGER     | A flag for additional replication features                   |
+| REMOTE_FAULT_DETECT_TIME | DATE        | The time at which a fault was detected on a remote server    |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the name of the replication object, and is set by the user when the replication object is created.
+
+##### XSN
+
+This indicates the SN from which the sender thread must begin sending logs when replication is started.
+
+##### ITEM_COUNT
+
+This is the number of replication target tables. This number corresponds to the number of records in the SYS_REPL_ITEMS_ meta table for this replication object.
+
+##### CONFLICT_RESOLUTION
+
+This describes the replication conflict resolution method.
+
+- 0: Default
+- 1: Act as the Master server
+- 2: Act as the Slave server
+
+Please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md)* for more detailed information about replication conflict resolution methods.
+
+##### REPL_MODE
+
+This is the default replication mode, which is set when the replication object is created.
+
+- 0: LAZY MODE (Default)
+- 2: EAGER MODE
+
+The default replication mode is used when the ALTER SESSION SET REPLICATION statement is not used to set the replication mode for a session.
+
+For more detailed information about the default replication mode, please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md)*, and for detailed information about the ALTER SESSION SET REPLICATION statement, please refer to the [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/SQL%20Reference.md).
+
+##### ROLE
+
+This indicates the role of the Sender thread.
+
+- 0: Replication
+- 1: Log Analyzer
+- 2: Propagable Logging (Replication propagable logs)
+- 3: Propagation (Send propagable logs)
+
+For more detailed information, please refer to the *[Log Analyzer User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Log%20Analyzer%20User's%20Manual.md)*.
+
+##### OPTIONS
+
+This flag indicates whether to use the recovery and offline options, which are additional replication features. The replication option types are as in the following. Each option is controlled by binary number and expressed as a decimal number. If more than two options are used, the sum of the binary numbers of each option is returned as decimal numbers.
+
+- 0(00000): Do not use the recovery or offline option
+- 1(00001): Use the recovery option 
+- 2(00010): Use the offline option 
+- 4(00100): Use the gapless option 
+- 8(01000): Use the parallel applier option 
+- 16(10000): Use the replication transaction grouping option
+
+##### REMOTE_FAULT_DETECT_TIME
+
+This is the time at which a fault was detected on a remote server while replication was running.
+
+### V$REPL_REMOTE_META_ITEMS
+
+This view displays information about the receiver's SYS_REPL_ITEMS_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name           | Type         | Description                                                  |
+| --------------------- | ------------ | ------------------------------------------------------------ |
+| REPLICATION_NAME      | VARCHAR(40)  | The name of the replication object                           |
+| TABLE_OID             | BIGINT       | The name of the table object                                 |
+| LOCAL_USER_NAME       | VARCHAR(128) | The name of a user who owns the target table on the local server |
+| LOCAL_TABLE_NAME      | VARCHAR(128) | The name of a target table on the local server               |
+| LOCAL_PARTITION_NAME  | VARCHAR(128) | The name of a partition on the local server                  |
+| REMOTE_USER_NAME      | VARCHAR(128) | The name of a user who owns the target table on the remote server |
+| REMOTE_TABLE_NAME     | VARCHAR(128) | The name of a target table on the remote server              |
+| REMOTE_PARTITION_NAME | VARCHAR(128) | The name of a target table on the remote server              |
+| INVALID_MAX_SN        | BIGINT       | The highest log SN to skip                                   |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the name of the replication object, which is defined by the user, and corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier of the replication target table or partition, and corresponds to a TABLE_OID value in the SYS_TABLES_ meta table or a PARTITION_OID value in the SYS_TABLES_PARTITIONS meta table.
+
+##### LOCAL_USER_NAME
+
+This is the name of a user who owns the target table on the local server, and corresponds to a USER_NAME in the SYS_USERS_ meta table.
+
+##### LOCAL_TABLE_NAME
+
+This is name of a target table on the local server, and corresponds to a TABLE_NAME in the SYS_TABLES_ meta table.
+
+##### LOCAL_PARTITION_NAME
+
+This is the name of the replication target partition on the local server.
+
+##### REMOTE_USER_NAME
+
+This is the user name of the owner of the replication target table on the remote server, and corresponds to a USER_NAME in the SYS_USERS_ meta table.
+
+##### REMOTE_TABLE_NAME
+
+This is the name of the replication target table on the remote server, and corresponds to a TABLE_NAME in the SYS_TABLES_ meta table.
+
+##### REMOTE_PARTITION_NAME
+
+This is the name of the replication target partition on the remote server.
+
+##### INVALID_MAX_SN
+
+When DDL statements or Sync operations are executed on replication target tables, the SN most recently recorded is stored here. Table logs up to this SN are skipped when the table is replicated. 
+
+### V$REPL_REMOTE_META_COLUMNS
+
+This view displays information about the receiver's SYS_REPL_OLD_COLUMNS_  meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name          | Type         | Description                                            |
+| -------------------- | ------------ | ------------------------------------------------------ |
+| REPLICATION_NAME     | VARCHAR(40)  | The name of the replication object                     |
+| TABLE_OID            | BIGINT       | The identifier of the table object                     |
+| COLUMN_NAME          | VARCHAR(128) | The column name                                        |
+| MT_DATATYPE_ID       | INTEGER      | The data type identifier                               |
+| MT_LANGUAGE_ID       | INTEGER      | The language identifier                                |
+| MT_FLAG              | INTEGER      | Internal flag                                          |
+| MT_PRECISION         | INTEGER      | The number of digits                                   |
+| MT_SCALE             | INTEGER      | The number of digits to the right of the decimal point |
+| MT_ENCRYPT_PRECISION | INTEGER      | The number of digits in an encrypted column            |
+| MT_POLICY_NAME       | VARCHAR(16)  | The name of the policy used for an encrypted column    |
+| MT_SRID              | INTEGER      | The SRID applied to GEOMETRY column                    |
+| SM_ID                | INTEGER      | The column identifier                                  |
+| SM_FLAG              | INTEGER      | The internal flag                                      |
+| SM_OFFSET            | INTEGER      | The internal offset                                    |
+| SM_SIZE              | INTEGER      | The internal size                                      |
+| QP_FLAG              | INTEGER      | The internal flag                                      |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the replication name, which is specified by the user. It corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
+
+##### COLUMN_NAME
+
+This is the name of a column currently being replicated by the replication Sender thread.
+
+##### MT_DATATYPE_ID
+
+This is the data type identifier, and is an internal value.
+
+##### MT_LANGUAGE_ID
+
+This is the language identifier, and is an internal value.
+
+##### MT_FLAG
+
+This is an internal flag used by Altibase server.
+
+##### MT_PRECISION
+
+For a numeric type column, this is the precision of the column. For a character type column, this is the length of the character data type.
+
+##### MT_SCALE
+
+For a numeric type column, this is the scale of the column.
+
+##### MT_ENCRYPT_PRECISION
+
+For an encrypted numeric type column, this is the precision of the column.
+
+##### MT_POLICY_NAM
+
+For an encrypted column, this is the name of the security policy used on the column.
+
+##### MT_SRID
+
+For a GEOMETRY column, this is the SRID applied to the column.
+
+##### SM_ID
+
+This is the column identifier. Column identifier starts with 0.
+
+##### SM_FLAG
+
+This is a flag used by Altibase internally.
+
+##### SM_OFFSET
+
+This is an offset value used by Altibase internally.
+
+##### SM_SIZE
+
+This is the value of the size used by Altibase server internally.
+
+##### QP_FLAG
+
+This is a flag used by Altibase internally.
+
+### V$REPL_REMOTE_META_INDEX_COLUMNS
+
+This view displays information about the receiver's SYS_REPL_OLD_INDEX_COLUMNS_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name      | Type        | Description                 |
+| ---------------- | ----------- | --------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | The replication name        |
+| TABLE_OID        | BIGINT      | The table object identifier |
+| INDEX_ID         | INTEGER     | The index identifier        |
+| KEY_COLUMN_ID    | INTEGER     | The column identifier       |
+| KEY_COLUMN_FLAG  | INTEGER     | An internal flag            |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This value corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table, and is the user-defined replication name.
+
+##### TABLE_OID
+
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
+
+##### INDEX_ID
+
+This is the identifier of an index currently being replicated by the replication Sender thread.
+
+##### KEY_COLUMN_ID
+
+This is the identifier of the column which the index is composed of.
+
+##### KEY_COLUMN_FLAG
+
+This is an internal flag for the column which the index is composed of.
+
+### V$REPL_REMOTE_META_INDICES
+
+This view displays information about the receiver's SYS_REPL_OLD_INDICES_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name      | Type         | Description                                                  |
+| ---------------- | ------------ | ------------------------------------------------------------ |
+| REPLICATION_NAME | VARCHAR(40)  | The replication name                                         |
+| TABLE_OID        | BIGINT       | The identifier of the table object                           |
+| INDEX_ID         | INTEGER      | The index identifier                                         |
+| INDEX_NAME       | VARCHAR(128) | The index name                                               |
+| TYPE_ID          | INTEGER      | The index type identifier                                    |
+| IS_UNIQUE        | CHAR(1)      | Indicates whether the index is globally unique               |
+| IS_RANGE         | CHAR(1)      | Indicates whether the range scanning is possible using the index |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the user-defined replication name. Its value corresponds to a REPLICATION_NAME value in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
+
+##### INDEX_ID
+
+This is the identifier of an index currently being replicated by the replication Sender thread.
+
+##### INDEX_NAME
+
+This is the name of an index currently being replicated by the replication Sender thread.
+
+##### TYPE_ID
+
+This is an index type identifier, and is an internal value.
+
+##### IS_UNIQUE
+
+This indicates whether or not the index is globally unique. 'Y' signifies that the index is globally unique, and 'N' signifies that it is not globally unique.
+
+##### IS_RANGE
+
+This indicates whether or not the index is locally unique. 'Y' signifies that it is locally unique, and 'N' means that it is not locally unique.
+
+### V$REPL_REMOTE_META_CHECKS
+
+This view displays information about the constraints on the receiver's replication table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name      | Type          | Description                                                  |
+| ---------------- | ------------- | ------------------------------------------------------------ |
+| REPLICATION_NAME | VARCHAR(40)   | The partition name                                           |
+| TABLE_OID        | BIGINT        | The identifier of the table object                           |
+| CONSTRAINT_ID    | INTEGER       | The identifier of the constraint                             |
+| CONSTRAINT_NAME  | VARCHAR(128)  | The name of the constraint                                   |
+| COLUMN_CNT       | INTEGER       | The number of columns related to the constraint              |
+| CHECK_CONDITION  | VARCHAR(4000) | Integrity Rule defined by the user when specifying the CHECK constraint |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the user-defined replication name. Its value corresponds to a REPLICATION_NAME value in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
+
+##### CONSTRAINT_ID
+
+This is a constraint identifier. It is automatically assigned by the system sequence.
+
+##### CONSTRAINT_NAME
+
+This is the name of the constraint.
+
+##### COLUMN_CNT
+
+This is the number of columns related to the constraint. For example, if a constraint such as UNIQUE (i1, i2, i3) is created, the value of this column is 3.
+
+##### CHECK_CONDITION
+
+This displays the Integrity Rule defined by the user when specifying the CHECK constraint.
 
 ### V\$RESERVED_WORDS
 

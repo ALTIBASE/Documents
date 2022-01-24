@@ -97,10 +97,6 @@
     - [V\$DISK_TEMP_INFO](#v%5Cdisk_temp_info)
     - [V\$DISK_TEMP_STAT](#v%5Cdisk_temp_stat)
     - [V\$DISK_UNDO_USAGE](#v%5Cdisk_undo_usage)
-    - [V\$DR_CONNECTION_INFO](#v%5Cdr_connection_info)
-    - [V\$DR_GAP](#v%5Cdr_gap)
-    - [V\$DR_SERVERS](#v%5Cdr_servers)
-    - [V\$DR_STATUS](#v%5Cdr_status)
     - [V\$EVENT_NAME](#v%5Cevent_name)
     - [V\$EXTPROC_AGENT](#v%5Cextproc_agent)
     - [V\$FILESTAT](#v%5Cfilestat)
@@ -2494,7 +2490,7 @@ This describes the replication conflict resolution method.
 - 1: Act as the Master server
 - 2: Act as the Slave server
 
-Please refer to the *Replication Manual* for more detailed information about replication conflict resolution methods.
+Please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md)* for more detailed information about replication conflict resolution methods.
 
 ##### REPL_MODE
 
@@ -2505,7 +2501,7 @@ This is the default replication mode, which is set when the replication object i
 
 The default replication mode is used if the ALTER SESSION SET REPLICATION statement is not used to set the replication mode for a session.
 
-For more detailed information about the default replication mode, please refer to the *Replication Manual*, and for detailed information about the ALTER SESSION SET REPLICATION statement, please refer to the Reference.
+For more detailed information about the default replication mode, please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md)*, and for detailed information about the ALTER SESSION SET REPLICATION statement, please refer to the [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md).
 
 ##### ROLE
 
@@ -2516,7 +2512,7 @@ This indicates the role of the Sender thread.
 - 2: Propagable Logging (Replication propagable logs)
 - 3: Propagation (Send propagable logs)
 
-For more detailed information, please refer to the *Log Analyzer User's Manual*.
+For more detailed information, please refer to the *[Log Analyzer User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Log%20Analyzer%20User's%20Manual.md)*.
 
 ##### OPTIONS
 
@@ -5669,143 +5665,7 @@ This is the number of extents currently used in undo segments. Because these ext
 
 ##### REUSABLE_EXT_CNT
 
-This is the number of extents that can be reused because they contain undo records that are no longer necessary
-
-### V\$DR_CONNECTION_INFO
-
-This view displays information about the servers currently deployed in the DR environment.
-
-| Column name | Type        | Description                                      |
-| ----------- | ----------- | ------------------------------------------------ |
-| SERVER_NAME | VARCHAR(40) | The server name                                  |
-| SERVER_IP   | VARCHAR(64) | The server IP address                            |
-| SERVER_PORT | INTEGER     | The listening port number of the server listener |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### SERVER_IP
-
-This is the IP address of the server deployed in the DR environment.
-
-##### SERVER_PORT
-
-This is the listening port number of the server listener.
-
-### V\$DR_GAP
-
-This view displays information about the synchronization delays between servers currently deployed in the DR environment.
-
-| Column name  | Type        | Description                                                  |
-| ------------ | ----------- | ------------------------------------------------------------ |
-| SERVER_NAME  | VARCHAR(40) | The server name                                              |
-| CURRENT_SN   | BIGINT      | Active server: The serial number(SN) of the log record currently being transmitted. <br/>Standby server: The serial number(SN) of the log record currently being applied. |
-| SYNCED_SN    | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The serial number of the log record most recently received by the standby server. |
-| SN_GAP       | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The gap between CURRENT_SN of the corresponding active server and SYNCED_SN of the standby server. |
-| APPLY_SN_GAP | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The gap between CURRENT_SN and SYNCED_SN. |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### CURRENT_SN
-
-On the active server, the serial number(SN) of the log record currently being transmitted is displayed. 
-
-On the standby server, the serial number(SN) of the log record currently being applied to the database is displayed
-
-##### SYNCED_SN
-
-On the active server, 0 is always displayed. 
-
-On the standby server, the serial number(SN) of the most recently recieved log record is displayed
-
-##### SN_GAP
-
-On the active server, 0 is always displayed. 
-
-On the standby server, the gap between CURRENT_SN of the corresponding active server and SYNCED_SN of the standby server is displayed.
-
-##### APPLY_SN_GAP
-
-On the active server, 0 is always displayed. 
-
-On the standbyserver, the gap between CURRENT_SN and SYNCED_SN is displayed.
-
-### V\$DR_SERVERS
-
-This view displays information about the servers configured for the DR environment.
-
-| Column name | Type        | Description                                      |
-| ----------- | ----------- | ------------------------------------------------ |
-| SERVER_NAME | VARCHAR(40) | The server name                                  |
-| SERVER_IP   | VARCHAR(64) | The server IP address                            |
-| SERVER_PORT | INTEGER     | The listening port number of the server listener |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### SERVER_IP
-
-This is the IP address of the server configured for the DR environment.
-
-##### SERVER_PORT
-
-This is the listening port number of the server listener.
-
-### V\$DR_STATUS
-
-This view displays information of the current status of the servers deployed in the DR environment.
-
-| Column name    | Type        | Description                              |
-| -------------- | ----------- | ---------------------------------------- |
-| SERVER_NAME    | VARCHAR(40) | The server name                          |
-| CURRENT_MODE   | VARCHAR(7)  | The synchronization mode                 |
-| SERVER_ROLE    | VARCHAR(7)  | The server role                          |
-| SERVER_MODE    | VARCHAR(7)  | The synchronization mode set by the user |
-| SERVER_STATUS  | VARCHAR(8)  | The server status                        |
-| FAILOVER_SN    | BIGINT      | The SN at the time point of failover     |
-| FAILOVER_COUNT | BIGINT      | The number of failovers                  |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### CURRENT_MODE
-
-This is the synchronization mode currently being executed and is displayed as either 'async' or 'sync'. 
-
-All standby servers conform to the synchronization mode of the active server.
-
-##### SERVER_ROLE
-
-This is the role of the server and is displayed as either 'active' or 'standby'.
-
-##### SERVER_MODE
-
-This is the synchronization mode set by the user and is displayed as either 'async' or 'sync'.
-
-##### SERVER_STATUS
-
-This is the current execution mode of the server and is displayed as either 'run', 'stop' or 'Failure Server Repair'.
-
-##### FAILOVER_SN
-
-This is the SN at the time point on which a failover has occurred.
-
-##### FAILOVER_COUNT
-
-This is the SN at the time point on which a failover has occurred.
+This is the number of extents that can be reused because they contain undo records that are no longer necessary.
 
 ### V\$EVENT_NAME
 
