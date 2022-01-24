@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**  
 
 - [Altibase 7.2.0.0.1 Release Notes](#altibase-72001-release-notes)
@@ -11,8 +10,6 @@
     - [변경 사항 및 호환성 이슈](#%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD-%EB%B0%8F-%ED%98%B8%ED%99%98%EC%84%B1-%EC%9D%B4%EC%8A%88)
     - [패키지](#%ED%8C%A8%ED%82%A4%EC%A7%80)
     - [다운로드](#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -545,4 +542,4 @@ http://support.altibase.com
 
 #### 설치
 
-[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation.md)
+[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation%20Guide.md)
