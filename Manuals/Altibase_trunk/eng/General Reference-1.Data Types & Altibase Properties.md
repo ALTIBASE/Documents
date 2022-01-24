@@ -11950,7 +11950,7 @@ Unsigned Integer
 
 ##### Default Value
 
-1
+2
 
 ##### Attributes
 
@@ -11966,7 +11966,7 @@ Replication receivers use transactions when copying data and create respective t
 
 If the number of transactions existing in pools falls short, the replication receiver will create new transactions and use them. The transactions thus created are returned to pools after use; if the number of transactions existing at that time is larger than the value specified in this property, the transactions are immediately freed, instead of being returned. 
 
-If set to an excessively large value, it can constrain the number of normal transactions; therefore, an appropriate number of transactions must be specified. This property permits the maximum value of 232 -1; however, the actual maximum value is identical to the value specified in the property of TRANSACTION_TABLE_SIZE. If the user specifies this value to be larger than the value of TRANSACTION_TABLE_SIZE, the value of this property will be internally set as the value of the TRANSACTION_TABLE_SIZE. 
+If set to an excessively large value, it can constrain the number of normal transactions; therefore, an appropriate number of transactions must be specified. This property permits the maximum value of 2³²-1; however, the actual maximum value is identical to the value specified in the property of TRANSACTION_TABLE_SIZE. If the user specifies this value to be larger than the value of TRANSACTION_TABLE_SIZE, the value of this property will be internally set as the value of the TRANSACTION_TABLE_SIZE. 
 
 This property value can be changed while Altibase is running; however, transaction pools are initialized at the creation of replication receiver threads and replication must be restarted for the modified property values to be applied. 
 
