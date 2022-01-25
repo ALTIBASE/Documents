@@ -816,6 +816,10 @@ This directory contains sample Altibase applications.
 
 It contains source code and Makefiles for programs written using the JDBC, ODBC, and C/C++ Precompiler libraries.
 
+#### thirdparty
+
+This directory contains scripts or libraries required when using 3rd parties.
+
 #### trc Directory
 
 This directory contains trace files in which information of Altibase operation is written. Each internal module is written in its corresponding trace file as follows:
