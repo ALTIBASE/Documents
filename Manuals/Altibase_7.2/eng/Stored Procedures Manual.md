@@ -14182,19 +14182,19 @@ CAST(UTL_RAW.SUBSTR('0102030405',1,2) as R
 
 ### UTL_SMTP
 
-UTL_SMTP can execute SMTP protocol for SMTP server to send an E-mail. Procedures and functions comprising UTL_SMTP is as follows.
+UTL_SMTP can execute SMTP for SMTP server to send an E-mail. Procedures and functions comprising UTL_SMTP is as follows.
 
 | Procedures/Functions | Description                                                  |
 | -------------------- | ------------------------------------------------------------ |
 | OPEN_CONNECTION      | Creates TCP socket and connects to SMTP server.              |
-| HELO                 | Sends default command of SMTP protocol, HELO domain.         |
-| MAIL                 | Sends a command of SMTP protocol specifying the sender, MAIL FROM:<reverse-path> |
-| RCPT                 | Sends a command of SMTP protocol specifying the receiver, MAIL FROM:<reverse-path> |
-| OPEN_DATA            | Sends a command of SMTP protocol starting the data transmission, DATA. |
-| WRITE_DATA           | Sends data using SMTP protocol.                              |
-| WRITE_RAW_DATA       | Sends RAW data using SMTP protocol.                          |
-| CLOSE_DATA           | Sends a command of SMTP protocol ending the data transmission, <CRLF> . <CRLF>. |
-| QUIT                 | Sends a command of SMTP protocol ending the connection, QUIT. |
+| HELO                 | Sends default command of SMTP, HELO domain.                  |
+| MAIL                 | Sends a command of SMTP specifying the sender, MAIL FROM:<reverse-path> |
+| RCPT                 | Sends a command of SMTP specifying the receiver, MAIL FROM:<reverse-path> |
+| OPEN_DATA            | Sends a command of SMTP starting the data transmission, DATA. |
+| WRITE_DATA           | Sends data using SMTP.                                       |
+| WRITE_RAW_DATA       | Sends RAW data using SMTP.                                   |
+| CLOSE_DATA           | Sends a command of SMTP ending the data transmission, <CRLF> . <CRLF>. |
+| QUIT                 | Sends a command of SMTP ending the connection, QUIT.         |
 
 #### OPEN_CONNECTION
 
@@ -14264,7 +14264,7 @@ Returns  the VARCHAR type result value including response code and message of th
 
 ##### Exception
 
-Exception occurred when it receives failed response code from the SMTP server or violates the SMTP protocol. OPEN_CONNECTION function has to be called first in order to call the HELO function.
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. OPEN_CONNECTION function has to be called first in order to call the HELO function.
 
 ##### Example
 
@@ -14309,7 +14309,7 @@ Returns  the VARCHAR type result value including response code and message of th
 
 ##### Exception
 
-Exception occurred when it receives failed response code from the SMTP server or violates the SMTP protocol. HELO function has to be called first in order to call the MAIL function.
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. HELO function has to be called first in order to call the MAIL function.
 
 ##### Example
 
@@ -14355,7 +14355,7 @@ Returns  the VARCHAR type result value including response code and message of th
 
 ##### Exception
 
-Exception occurred when it receives failed response code from the SMTP server or violates the SMTP protocol. MAIL function has to be called first in order to call the RCPT function.
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. MAIL function has to be called first in order to call the RCPT function.
 
 ##### Example
 
@@ -14400,7 +14400,7 @@ Returns  the VARCHAR type result value including response code and message of th
 
 ##### Exception
 
-Exception occurred when it receives failed response code from the SMTP server or violates the SMTP protocol. RCPT function has to be called first in order to call the DATA function.
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. RCPT function has to be called first in order to call the DATA function.
 
 ##### Example
 
@@ -14446,7 +14446,7 @@ Returns the length of the transmitted data when succeeded. Returns -1 when faile
 
 ##### Exception
 
-Exception occurred when it violates the SMTP protocol. OPEN_DATA function has to be called first in order to call the WRITE_DATA function.
+Exception occurred when it violates the SMTP. OPEN_DATA function has to be called first in order to call the WRITE_DATA function.
 
 ##### Example
 
@@ -14493,7 +14493,7 @@ Returns the length of the transmitted data when succeeded. Returns -1 when faile
 
 ##### Exception
 
-Exception occurred when it violates the SMTP protocol. OPEN_RAW_DATA function has to be called first in order to call the WRITE_RAW_DATA function.
+Exception occurred when it violates the SMTP. OPEN_RAW_DATA function has to be called first in order to call the WRITE_RAW_DATA function.
 
 ##### Example
 
@@ -14538,7 +14538,7 @@ Returns  the VARCHAR type result value including response code and message of th
 
 ##### Exception
 
-Exception occurred when it receives failed response code from the SMTP server or violates the SMTP protocol. OPEN_DATA function has to be called first in order to call the CLOSE_DATA function.
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. OPEN_DATA function has to be called first in order to call the CLOSE_DATA function.
 
 ##### Example
 
@@ -14584,7 +14584,7 @@ Returns  the VARCHAR type result value including response code and message of th
 
 ##### Exception
 
-Exception occurred when it receives failed response code from the SMTP server or violates the SMTP protocol. OPEN_CONNECTION function has to be called first in order to call the QUIT function.
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. OPEN_CONNECTION function has to be called first in order to call the QUIT function.
 
 ##### 예제
 
