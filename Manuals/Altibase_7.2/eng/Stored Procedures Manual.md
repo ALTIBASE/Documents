@@ -95,12 +95,15 @@
     - [DBMS_RANDOM](#dbms_random)
     - [DBMS_RECYCLEBIN Package](#dbms_recyclebin-package)
     - [DBMS_SQL](#dbms_sql)
+    - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
     - [DBMS_STATS](#dbms_stats)
     - [DBMS_UTILITY](#dbms_utility)
     - [STANDARD](#standard)
+    - [SYS_SPATIAL](#sys_spatial)
     - [UTL_COPYSWAP](#utl_copyswap)
     - [UTL_FILE](#utl_file)
     - [UTL_RAW](#utl_raw)
+    - [UTL_SMTP](#utl_smtp)
     - [UTL_TCP](#utl_tcp)
   - [Appendix A. Examples](#appendix-a-examples)
     - [Stored Procedure Examples](#stored-procedure-examples)
@@ -9940,13 +9943,16 @@ Altibase provides the system-defined Stored packages as follows.
 | [DBMS_RANDOM](#dbms_random)                          | Creates arbitrary numbers.                                   |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | Can completely purge the tables which has been dropped and managed in the recycle bin. |
 | [DBMS_SQL](#dbms_sql)                                | Provides procedures and functions utilizing dynamic SQL.     |
+| [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)          | Provides two stored procedures which keeps or removes the specified execution plan in SQL Plan Cache. |
 | [DBMS_STANDARD](#dbms_standard)                      | Provides various default sub programs                        |
 | [DBMS_STATS](#dbms_stats)                            | Package views and modifies the stats information             |
 | [DBMS_UTILITY](#dbms_utility)                        | Provides various utility subprograms.                        |
 | [STANDARD](#standard)                                | In addition to the basic data types, it defines the types that can be used without declaration in PSM. |
+| [SYS_SPATIAL](#sys_spatial)                          | Provides subprograms related to GEOMETRY.                    |
 | [UTL_COPYSWAP](#utl_copyswap)                        | Online DDL is supported by COPY & SWAP method                |
 | [UTL_FILE](#standard)                                | Can read and write text files managed by an operating system. |
 | [UTL_RAW](#utl_raw)                                  | Can modify or alter RAW(VARBYTE) type data into a different type. |
+| [UTL_SMTP](#utl_smtp)                                | Executes SMTP to send E-mail on SMTP server.                 |
 | [UTL_TCP](#utl_tcp)                                  | Controls TCP access in a stored procedure.                   |
 
 ### DBMS_APPLICATION_INFO 

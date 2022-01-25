@@ -10300,6 +10300,7 @@ Altibase에서 제공하는 패키지는 아래와 같다.
 | [DBMS_RANDOM](#dbms_random)                          | 임의의 숫자를 생성한다.                                      |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | 삭제(Drop)되어 휴지통에서 관리되고 있는 테이블을 시스템에서 완전히 삭제(Purge)한다. |
 | [DBMS_SQL](#dbms_sql)                                | 동적 SQL을 사용한다.                                         |
+| [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)          | 특정 실행 계획(Execution Plan)을 SQL Plan Cache에 유지하거나 삭제하는 기능을 하는 두 가지의 저장 프로시저를 제공한다. |
 | [DBMS_STATS](#dbms_stats)                            | 통계 정보를 조회 및 변경한다.                                |
 | [DBMS_STANDARD](#DBMS_STANDARD)                      | 다양한 기본 서브 프로그램을 제공한다.                        |
 | [DBMS_UTILITY](#dbms_utility)                        | 다양한 유틸리티 서브프로그램을 제공한다.                     |

@@ -1,6 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Spatial SQL Reference](#spatial-sql-reference)
     - [서문](#%EC%84%9C%EB%AC%B8)
@@ -38,7 +35,7 @@
     - [Geometry 참조 테이블](#geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
     - [관련 저장 프로시저](#%EA%B4%80%EB%A0%A8-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 
