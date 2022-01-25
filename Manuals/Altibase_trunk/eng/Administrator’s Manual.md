@@ -649,19 +649,27 @@ When Altibase is installed, the following directories are created. The location 
 
 This section describes the purpose and contents of each of these directories.
 
+#### APatch Directory
+
+This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the [Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Installation%20Guide.md#apatch-directory).
+
 #### admin Directory
 
 This directory contains the adminview.sql script file, which creates views related to Altibase system information, as well as other script files for creating stored procedures that are used to view information related to tables, stored procedures, and replication objects.
-
-#### arch_logs Directory
-
-This directory contains archive log file. The location and name of this directory can be specified and changed in the altibase.properties file according to the user environment.
 
 #### altiComp Directory
 
 This directory contains sample script files for the altiComp feature which synchronizes mismatching data during replication.
 
-For more detailed information about the altiComp utility, please refer to the *Utilities Manual*.
+For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md)*.
+
+#### altiMon Directory
+
+This directory contains xml configuration files, shell scripts, sql files, log directories required to run altiMon(Altibase Monitoring Daemon). For more information about the subdirectories, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#altimon)*.
+
+#### arch_logs Directory
+
+This directory contains archive log file. The location and name of this directory can be specified and changed in the altibase.properties file according to the user environment.
 
 #### bin Directory
 
