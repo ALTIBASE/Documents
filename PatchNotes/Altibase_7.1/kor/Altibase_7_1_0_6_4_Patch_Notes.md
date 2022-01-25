@@ -39,7 +39,7 @@ Fixed Bugs
     
     하나의 테이블이 여러 이중화 객체에 포함된 경우나 이중화 대상 테이블에 DDL문 수행 시 경합이 발생하며, 이 때 \$ALTIBASE\_HOME/trc/altibase\_rp.log에 아래와 같은 메세지를 출력합니다.
     
-    [2021/10/12 14:31:14 79E][PID:193728]Thread-140046648854272][LWP-194294]
+    \[2021/10/12 14:31:14 79E\]\[PID:193728\]\[Thread-140046648854272][LWP-194294]
     
     ERR-1304c(errno=16) A record has already been updated.
 
@@ -328,7 +328,7 @@ Changes
 | :--------------: | :---------------------: | :----------: | :-----------------: | :--------------------------: |
 |    7.1.0.6.4     |          6.5.1          |    8.10.1    |        7.1.7        |            7.4.6             |
 
-> Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+> Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
 
 ### 호환성
 
@@ -342,7 +342,7 @@ Changes
 
 메타 버전은 변경되지 않았다.
 
-> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
+> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
 
 #### CM protocol Version
 
