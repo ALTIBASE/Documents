@@ -1,3 +1,9 @@
+# Altibase 7.1.0.6.8 Patch Notes
+
+<br/>
+
+<br/>
+
 # Table of Contents  
 
 - [New Features](#new-features)
