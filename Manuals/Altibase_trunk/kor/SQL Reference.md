@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**  
 
 - [SQL Reference](#sql-reference)
@@ -121,12 +120,6 @@
     - [그 외의 조건](#%EA%B7%B8-%EC%99%B8%EC%9D%98-%EC%A1%B0%EA%B1%B4)
   - [A.부록: 정규 표현식](#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D)
     - [정규 표현식 지원](#%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D-%EC%A7%80%EC%9B%90)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-
-
 
 
 
@@ -16225,9 +16218,8 @@ BY ACCESS를 지정하면 조건에 부합하는 구문 또는 작업에 대해 
 로그가 기록된다. 예를 들어 BY ACCESS를 지정하여 감사를 진행하면 한 세션에서
 동일한 SQL 구문이 10회 실행된 경우 감사 로그도 10개가 기록된다.
 
-BY SESSION을 지정하면 동일한 세션에서 동일한 SQL 구문이 실행될 때에는 하나의
-감사 로그만 기록된다. 즉 BY SESSION을 지정하여 감사를 진행하면 한 세션에서
-동일한 SQL 구문이 실행될 때 중복해서 로그를 남기지 않는다.
+BY SESSION은 1 prepare - n execute 구조에서 중복 로그를 방지하기 위해 하나의 감사 로그만 기록된다.
+또한 마지막에 수행된 구문의 통계 로그는 해당 구문이 종료되는 시점에 기록된다.
 
 둘 중 하나도 지정하지 않으면 BY SESSION이 디폴트이다.
 
