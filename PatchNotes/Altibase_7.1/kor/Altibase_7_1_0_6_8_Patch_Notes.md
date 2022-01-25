@@ -198,15 +198,11 @@ Fixed Bugs
     본 버그는 아래 조건을 모두 만족할 때 발생합니다.
 
     - DB Link 사용
-
-    - 지역 데이터베이스 캐릭터셋으로 한 글자 크기가 2바이트 이상인 캐릭터셋 사용
-
-    - 지역과 원격 데이터베이스에 CHAR/VARCHAR 데이터 타입을 포함한 동일한 스키마 생성
-    
+    - 지역 데이터베이스 캐릭터셋으로 한 글자 크기가 2바이트 이상인 캐릭터셋 사용
+    - 지역과 원격 데이터베이스에 CHAR/VARCHAR 데이터 타입을 포함한 동일한 스키마 생성
     - 원격 데이터베이스에서 REMOTE\_TABLE 또는 REMOTE\_TABLE\_STORE 키워드를 사용하여 CHAR/VARCHAR 타입의 데이터 조회
-    
     - 조회한 CHAR/VARCHAR 타입의 데이터를 CURSOR를 사용하여 지역 데이터베이스에 입력
-
+    
     본 버그에서 지역 서버와 원격 서버 데이터베이스 간 CHAR 또는 VARCHAR 타입의 데이터 길이 변환 방식를 개선하면서 AltiLinker 프로퍼티 [NLS\_BYTE\_PER\_CHAR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB%20Link%20User's%20Manual.md#targetsnls_byte_per_char)를 추가하였습니다. 추가적인 내용은 [Database Link User’s Manual - 3.데이터베이스 링크 환경 설정 - 환경 설정 - 문자 집합(Character Set)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB%20Link%20User's%20Manual.md#%EB%AC%B8%EC%9E%90-%EC%A7%91%ED%95%A9character-set) 을 참고하세요.
     
 -   **재현 방법**
@@ -259,6 +255,7 @@ Fixed Bugs
     -   Property
         -   AltiLinker 프로퍼티 [TARGETS/NLS\_BYTE\_PER\_CHAR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/DB%20Link%20User's%20Manual.md#targetsnls_byte_per_char) 추가
     -   Compile Option
+    
 -   Error Code
 
 ### BUG-49476 트랜잭션 커밋 수행 시 예외 처리 부족으로 Altibase 서버가 비정상 종료하는 현상을 분석하기 위해 디버그 로그를 추가합니다.
