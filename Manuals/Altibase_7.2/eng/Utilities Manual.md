@@ -2738,7 +2738,7 @@ $ altimon.sh start
 
 ##### Notes
 
-altiMon requires java 1.5 version or above to operate.
+altiMon requires Java 8 version or above to operate.
 
 The user should select the Java version equivalent to the number of bits of the PICL c library. For example, if the PICL c library is linux x64, 64bit Java should be used.
 
