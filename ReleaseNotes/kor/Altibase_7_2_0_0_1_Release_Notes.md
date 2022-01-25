@@ -30,16 +30,24 @@ Altibase 7.2.0.0.1 Release Notes
 
 Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에서 운영 가능하다.
 
-| OS    | CPU    | 리눅스 배포판 버전                                           | CPU 비트 수 | 시스템 요구사항                                              |
-| ----- | ------ | ------------------------------------------------------------ | :---------: | :----------------------------------------------------------- |
-| LINUX | x86-64 | Red Hat Enterprise Linux 6<br />Red Hat Enterprise Linux 7<br />Red Hat Enterprise Linux 8 |   64-bit    | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
-| Linux | PowerPC | Red Hat Enterprise Linux 6
-> Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>
->Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 
-</br>
+|                                                              | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                          |
+| ------------------------------------------------------------ | :-----------: | :-----------------: | :----------------------------------------------------------- |
+| **Linux x86-64**                                             |               |                     |                                                              |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8 |       ●       |          ●          | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **Linux on Power**                                           |               |                     |                                                              |
+| Red Hat Enterprise Linux 6                                   |       ●       |          ●          | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **Linux on Power** **(Little Endian)**                       |               |                     |                                                              |
+| Red Hat Enterprise Linux 7                                   |       ●       |          ●          | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **HP-UX Itanium (IA-64)**                                    |               |                     |                                                              |
+| HP-UX 11.31                                                  |       ●       |          ●          | \- Altibase JDBC Driver : JRE 1.8 이상                       |
+| **Microsoft Windows (x64)**                                  |               |                     |                                                              |
+| Microsoft Windows 2008                                       |       -       |          ●          | \- Altibase JDBC Driver : JRE 1.8 이상                       |
 
-</br>
+> Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원한다.<br/>
+> Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
+
+<br/><br/>
 
 ## 릴리스 정보
 

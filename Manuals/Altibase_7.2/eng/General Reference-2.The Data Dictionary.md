@@ -178,7 +178,7 @@
     - [V\$SQL_PLAN_CACHE](#v%5Csql_plan_cache)
     - [V\$SQL_PLAN_CACHE_PCO](#v%5Csql_plan_cache_pco)
     - [V\$SQL_PLAN_CACHE_SQLTEXT](#v%5Csql_plan_cache_sqltext)
-    - [<a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES](#a-namevstable_mem_datafilesav%5Cstable_mem_datafiles)
+    - [V\$STABLE_MEM_DATAFILES](#a-namevstable_mem_datafilesav%5Cstable_mem_datafiles)
     - [V\$STATEMENT](#v%5Cstatement)
     - [V\$STATNAME](#v%5Cstatname)
     - [V\$SYSSTAT](#v%5Csysstat)

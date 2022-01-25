@@ -16,7 +16,7 @@
 
 ## Altibase 7.2
 
->  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>
+>  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원합니다.
 >
 >  **Ubuntu, Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
@@ -26,9 +26,13 @@
 | **Linux x86-64**                                             |                     |                           |                                                              |
 | Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x <br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br/>Oracle Linux 8.x |          ●          |             ●             | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
 | **Linux on Power**                                           |                     |                           |                                                              |
-| POWER7 Red Hat Enterprise Linux 6.x                          |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| Red Hat Enterprise Linux 6.x                                 |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
-| POWER8(LE) Red Hat Enterprise Linux 7.x                      |          ●          |             ●             | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| Red Hat Enterprise Linux 7.x                                 |          ●          |             ●             | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
+| **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                              |
+| HP-UX 11.31                                                  |          ●          |             ●             | \- Altibase JDBC Driver : JRE 1.8 이상                       |
+| **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
+| Microsoft Windows 2008                                       |          -          |             ●             | \- Altibase JDBC Driver : JRE 1.8 이상                       |
 
 
 
