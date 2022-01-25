@@ -1448,8 +1448,8 @@ SYS 사용자만이 이중화 동작을 변경할 수 있다.
     만약, ALL옵션이 같이 사용되면 Flush를 실행한 세션은 현재 로그가 아닌 가장
     최근 로그까지의 변경 내용이 상대방 서버에 전송 되도록 기다린다.
 
--   SET PROPAGABLE LOGGING [ENABLE|DISABLE]
-    ENABLE: 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록한다.
+-   SET PROPAGABLE LOGGING [ENALBE|DISABLE]  
+    ENABLE: 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록한다.  
     DISABLE: 이중화 수신자가 전송받은 로그에 대해서는 로그를 기록하지 않는다.
 
 #### 에러코드

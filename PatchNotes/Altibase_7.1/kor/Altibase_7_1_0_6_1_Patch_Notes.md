@@ -190,9 +190,9 @@ Fixed Bugs
 
   이 버그에서 메타 테이블(SYS\_REPL\_TABLE\_OID\_IN\_USE\_)이 추가되었습니다.  
 
-  - 참고: [GeneralReference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/GeneralReference_3.md#sys_repl_table_oid_in_use_)
+  - 참고: [GeneralReference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
 
-  이로 인해 메타 버전이 변경되었습니다. 패치 후 롤백이 필요한 경우 [메타 다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 수행해야 합니다.
+  이로 인해 메타 버전이 변경되었습니다. 패치 후 롤백이 필요한 경우 [메타 다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 수행해야 합니다.
 
 - **재현 방법**
 
@@ -680,7 +680,7 @@ Changes
 | :--------------: | :---------------------: | :----------: | :-----------------: | :--------------------------: |
 |    7.1.0.6.1     |          6.5.1          |    8.10.1    |        7.1.7        |            7.4.6             |
 
-> Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+> Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
 
 ### 호환성
 
@@ -694,7 +694,7 @@ Changes
 
 메타 버전이 변경되었다. 
 
-> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
+> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
 
 #### CM protocol Version
 
