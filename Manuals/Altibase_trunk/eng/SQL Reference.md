@@ -14362,7 +14362,7 @@ This specifies auditing the execution of DDL statements on the Altibase server.
 
 If BY ACCESS is specified, an audit log is written for every statement or operation that meets the condition. For example, if auditing is performed with BY ACCESS specified and the same SQL statement is executed ten times in the same session, then ten audit logs are written. 
 
-If BY SESSION is specified, only one audit log is written when the same SQL statement is executed in the same session. For example, if auditing is performed with BY SESSION specified and the same SQL statement is repeatedly executed in the same session, the audit log is not duplicated. 
+If BY SESSION is specified, only one audit log is recorded in 1 prepare - n execute structure to prevent leaving duplicated logs. Also the statistics log of the most recently executed statement will be recorded at the time the statement ends.
 
 When neither is specified, BY SESSION is the default value. 
 
