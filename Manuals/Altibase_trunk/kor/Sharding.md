@@ -1050,12 +1050,42 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
     - not null
     - nullable
 - constraints
+  - add constraint
+  - modify constraint
   - rename constraint
   - drop constraint
 - index
   - create index
   - drop index
- 
+
+#### 샤드 테이블 제약조건 지원범위
+- 사용자는 Global DDL으로 샤드 테이블에 한정된 테이블 제약조건을 생성할 수 있다.
+- 지원하는 테이블 제약조건
+  - unique key
+  - foreign key
+
+##### UNIQUE KEY
+- 제약조건을 한 노드내에서 검증할 수 있는 경우만 허용한다.
+  - 유니크 키를 구성하는 컬럼 대상에 샤드키가 포함되어야 한다.
+
+###### 예제
+```
+iSQL> ALTER TABLE HASH_CHILD ADD CONSTRAINT UK_HASH_CHILD UNIQUE ( SHARD_KEY, COL_1, ... );
+```
+
+##### FOREIGN KEY
+- 제약조건을 한 노드내에서 검증할 수 있는 경우만 허용한다.
+  - 부모 샤드 테이블이 복제 분산 방식이라면, 무조건 허용한다.
+  - 그외의 경우,
+    - 부모와 자식 샤드 테이블의 분산 정보가 서로 동일해야 한다.
+    - 외래키와 참조키를 구성하는 컬럼 대상에 모두 샤드키가 포함되어야 한다.
+    - 외래키와 참조키를 구성하는 샤드키의 위치가 동일해야 한다.
+
+###### 예제
+```
+iSQL> ALTER TABLE CHILD ADD CONSTRAINT FK_HASH_CHILD FOREIGN KEY ( SHARD_KEY, COL_1, ... ) REFERENCES PARENT ( SHARD_KEY, COL_2, ... ); 
+```
+
 ## SHARD DDL
 - Shard DDL은 샤딩 클러스터 시스템의 노드 구성 형상에 영향을 주는 명령어이다.
 - SYS 사용자만 수행할 수 있다.
@@ -1096,6 +1126,18 @@ ALTER DATABASE SHARD ADD ;
 - 샤드 테이블들 및 백업테이블들인 \_BAK_ 테이블들은 모두 생성되어 있되, 비어 있어야 한다.
 - k-safety 복제를 위하여 시스템적으로 관리되는 이중화 객체들(repl_set_~)은 "ALTER DATABASE SHARD ADD;" 구문을 수행하면 자동으로 생성되므로, 미리 생성해 놓으면 안된다.
 - 위의 "신규노드 추가 사전작업"에서 sys_shard 계정에 대한 객체들은 자동 생성되므로, sys_shard 계정의 객체들을 삭제하거나 새로 생성하면 안된다.
+
+새로운 샤드 노드를 추가하기 전에, 기존 샤드 노드에 외래키가 있었다면, 기존 샤드 노드와 동일한 외래키를 미리 생성해 놓아야 한다.
+- 백업테이블들인 \_BAK_ 테이블들에도 동일한 외래키를 미리 생성해 놓아야 한다.
+- 만약 부모 샤드 테이블이 복제 분산 방식이라면, 자식 백업테이블과 부모 샤드 테이블간 외래키를 생성해야 한다
+```
+iSQL> ALTER TABLE HASH_CHILD ADD CONSTRAINT FK_HASH_CHILD FOREIGN KEY ( SHARD_KEY, COL_1, ... ) REFERENCES HASH_PARENT ( SHARD_KEY, COL_2, ... );
+iSQL> ALTER TABLE _BAK_HASH_CHILD ADD CONSTRAINT _BAK_FK_HASH_CHILD FOREIGN KEY ( SHARD_KEY, COL_1, ... ) REFERENCES _BAK_HASH_PARENT ( SHARD_KEY, COL_2, ... );
+```
+```
+iSQL> ALTER TABLE HASH_CHILD ADD CONSTRAINT FK_HASH_CHILD FOREIGN KEY ( SHARD_KEY, COL_1, ... ) REFERENCES CLONE_PARENT ( SHARD_KEY, COL_2, ... );
+iSQL> ALTER TABLE _BAK_HASH_CHILD ADD CONSTRAINT _BAK_FK_HASH_CHILD FOREIGN KEY ( SHARD_KEY, COL_1, ... ) REFERENCES CLONE_PARENT ( SHARD_KEY, COL_2, ... );
+```
 
 샤드 노드를 추가하는 순간 아래와 같은 작업이 내부적으로 수행된다.
 - Zookeeper 에 접속되고, Zookeeper 메타에 추가되는 샤드 노드에 대한 정보가 설정된다.
@@ -1218,6 +1260,21 @@ ALTER DATABASE SHARD MOVE { TABLE ["user_name" . ] "table_name" [ PARTITION {"(p
 #### 예제
 ```
 ALTER DATABASE SHARD MOVE TABLE user1.table1 PARTITION (p1), TABLE user2.soloTable1, TABLE user1.table2 PARTITION (p2), PROCEDURE user1.shardproc1 key ( 123 )  TO NODE4 ;
+```
+
+#### 주의사항
+- 외래키와 참조키를 지닌 샤드 테이블은 부모와 자식 샤드 테이블을 동시에 변경하도록 제약한다.
+- 만약 부모 샤드 테이블이 복제 분산 방식이라면, 자식 샤드 테이블만 변경한다.
+
+#### 예제1
+```
+iSQL> ALTER DATABASE SHARD MOVE TABLE user1.hash.parent PARTITION (p1), TABLE user1.hash.child PARTITION (p1) TO NODE4;
+iSQL> ALTER DATABASE SHARD MOVE TABLE user1.solo.parent, TABLE user1.solo.child TO NODE4;
+```
+#### 예제2
+```
+iSQL> ALTER TABLE user1.hash.child ADD CONSTRAINT fk_hash_child FOREIGN KEY ( shard_key, c1 ) REFERENCES ser1.clone.parent ( shard_key, col_2 );
+iSQL> ALTER DATABASE SHARD MOVE TABLE user1.hash.child TO NODE4;
 ```
 
 ## Altibase Sharding Package
