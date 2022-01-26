@@ -3341,8 +3341,8 @@ PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
 altiMon은 Java 8 이상에서 동작한다.
 
-Java 버전은 PICL c 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL
-c 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
+Java 버전은 PICL C 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL
+C 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
 
 #### altiMon 설정(Configuration)
 
@@ -3361,7 +3361,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 
 | 태그 이름                                               | 필수 여부 | 설명                                                         |
 | ------------------------------------------------------- | --------- | ------------------------------------------------------------ |
-| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL c 라이브러리가 없는 경우에 false로 지정한다. |
+| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL C 라이브러리가 없는 경우에 false로 지정한다. |
 | \<DateFormat\>                                          | 옵션      | 로그 기록시 사용할 날짜 시간 포맷 기본값: yyyy-MM-dd HH:mm:ss 설정 가능한 날짜 형식은 [자바 문서](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html) 참조한다. |
 | \<Interval\>                                            | 옵션      | 데이터 수집 주기. 기본값: 60 (초) \<OSMetric\>또는 \<SQLMetric\> 설정 부분에 Interval을 지정하지 않으면 여기에 설정한 값이 적용된다. 단, \<GroupMetric\>은 영향을 받지 않는다. |
 | \<LogDir\>                                              | 옵션      | 별도의 디스크 사용시 설정하면 된다. 설정하지 않으면 아래의 디렉토리가 기본으로 설정된다. \$ALTIBASE_HOME/altiMon/logs |
