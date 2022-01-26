@@ -3339,7 +3339,7 @@ PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
 ##### 주의사항
 
-altiMon은 java 1.5 이상에서 동작한다.
+altiMon은 Java 8 이상에서 동작한다.
 
 Java 버전은 PICL c 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL
 c 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
