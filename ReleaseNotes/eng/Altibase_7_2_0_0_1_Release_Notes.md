@@ -1,10 +1,10 @@
 **Table of Contents**
 
-- [Altibase 7.2.0.0.1 Release Notes](#altibase-7.2.0.0.1-release-notes)
-  - [System Requirements](#system-requirements)
+- Altibase 7.2.0.0.1 Release Notes
+  - System Requirements
     - [Minimum Hardware Requirements](#minimum-hardware-requirements)
     - [Operating Systems and Platforms](#operating-systems-and-platforms)
-  - [Release Notes](#release-notes)
+  - Release Notes
     - [New Features](#new-features)
     - [Changes](#changes)
     - [Packages](#packages)
@@ -26,7 +26,7 @@ Altibase 7.2.0.0.1 can be run on the operating systems and platforms listed in t
 
 | OS    | CPU     | Version                                                      | Bit    | System Requirement                                           |
 | ----- | ------- | ------------------------------------------------------------ | ------ | ------------------------------------------------------------ |
-| LINUX | x86-64  | Red Hat Enterprise Linux 6 <br>Red Hat Enterprise Linux 7 <br>Red Hat Enterprise Linux 8 | 64-bit | - GNU glibc 2.12 and higher<br> - Altibase JDBC Driver : JRE 1.8 and higher |
+| LINUX | x86-64  | Red Hat Enterprise Linux 6 Red Hat Enterprise Linux 7 Red Hat Enterprise Linux 8 | 64-bit | - GNU glibc 2.12 and higher<br> - Altibase JDBC Driver : JRE 1.8 and higher |
 | Linux | PowerPC | Red Hat Enterprise Linux 6                                   |        |                                                              |
 
 > Both Altibase Server/Client support 64-bit only.
@@ -61,7 +61,7 @@ ADD PARTITION statement on range-partitioned table is supported. Due to this new
 
 - Range-partitioned tables without default partition cannot perform an execution adding default partitions.
 
-- Range-partitioned tables with default partition cannot perform an execution deleting default partitions.
+- Range-partitioned tables without default partition cannot perform an execution deleting default partitions.
 
 - Range-partitioned tables without default partition cannot execute CONJOIN/DISJOIN statement.
 
@@ -73,7 +73,7 @@ ADD PARTITION statement on range-partitioned table is supported. Due to this new
 
 Altibase 7.2 supports JDBC API Specification 4.2 partially.
 
-Altibase 7.2 JDBC Driver can be run on JRE 1.8 and higher. JDBC 4.2 APIs supported by Altibase 7.2 JDBC Driver can be found on [Altibase 7.2 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC%20User's%20Manual.md#6jdbc-42-api-references). Changes or compatibility issues can be found on [changes and compatibility issues regarding Altibase JDBC 4.2](#changes-and-compatibility-issues-regarding-Altibase-JDBC-4.2).
+Altibase 7.2 JDBC Driver can be run on JRE 1.8 and higher. JDBC 4.2 APIs supported by Altibase 7.2 JDBC Driver can be found on [Altibase 7.2 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC User's Manual.md#6jdbc-42-api-references). Changes or compatibility issues can be found on [changes and compatibility issues regarding Altibase JDBC 4.2](#changes-and-compatibility-issues-regarding-Altibase-JDBC-4.2).
 
 - **Auto-loading of JDBC driver class**
 
@@ -83,7 +83,7 @@ Altibase 7.2 JDBC Driver can be run on JRE 1.8 and higher. JDBC 4.2 APIs support
 
   JDBC 4.0 standard interface that gets reference to the implementing object from proxy is supported. JDBC object can be obtained from a proxy object created such as in connection pool.
 
-  ```sql
+  ```
   try (Connection sWrappedCon = dbPool.getConnection()) {
       if (sWrappedCon.isWrapperFor(AltibaseConnection.class)) {
           AltibaseConnection connection = sWrappedCon.unwrap(AltibaseConnection.class);
@@ -124,7 +124,7 @@ Most of the features enhanced at JDK level can also be used in Altibase JDBC 7.2
 
 - Release JDBC resources automatically using Try-with-resources statement
 
-  ```sql
+  ```
   try (Statement stmt = con.createStatement()) {
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
@@ -137,7 +137,7 @@ Most of the features enhanced at JDK level can also be used in Altibase JDBC 7.2
 
 - Use Enhanced for-each loop in SQLException
 
-  ```sql
+  ```
   catch(SQLException ex) {
        for(Throwable e : ex ) {
           LOG.error("Error occurred: " + e);
@@ -147,7 +147,7 @@ Most of the features enhanced at JDK level can also be used in Altibase JDBC 7.2
 
 - Obtain JDBC object from proxy object created such as in connection pool
 
-  ```sql
+  ```
   try (Connection sWrappedCon = dbPool.getConnection()) {
       if (sWrappedCon.isWrapperFor(AltibaseConnection.class)) {
           AltibaseConnection connection = sWrappedCon.unwrap(AltibaseConnection.class);
@@ -162,7 +162,7 @@ Most of the features enhanced at JDK level can also be used in Altibase JDBC 7.2
 
 ##### Specify altiComp commit count
 
-COUNT_TO_COMMIT, a property enabling to specify the commit count, is added. Please refer to [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#count_to_commit) for more detailed information.
+COUNT_TO_COMMIT, a property enabling to specify the commit count, is added. Please refer to [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities Manual.md#count_to_commit) for more detailed information.
 
 
 
@@ -170,7 +170,7 @@ COUNT_TO_COMMIT, a property enabling to specify the commit count, is added. Plea
 
 ##### OLTP Scalability improvement (TASK-7073)
 
-- Performance degradation of reading transaction in Linux x86-64 24-core CPU improved
+- Performance degradation of reading transaction in Linux x86-6476746829 24-core CPU improved
 - Logging structure improved for performance enhancement of DELETE transaction of memory DB
 - In-place MVCC operating mechanism improved for performance enhancement of UPDATE transaction of disk DB
 - Bottleneck of TABLE LOCK improved
@@ -197,7 +197,7 @@ Improved volatile/involatile memory DB transaction performance by simplifying th
 Removed the risk factor for occurring bugs by removing the unnecessary relationship between undo tablespace and disk index. Default value and maximum value of the related properties have changed due to improved disk page space efficiency.
 
 - Maximum value of INDEX_INITTRANS has changed from 30 to 50
-- Default value and maximum value of INDEX_MAXTRANS has changed from 30 to 50
+- Default value of INDEX_MAXTRANS has changed from 30 to 50
 
 ##### LIMIT FOR UPDATE for PARTITIONED TABLE improvement
 
@@ -207,11 +207,11 @@ Performance is enhanced when all of the following conditions are met.
 
 - START VALUE of the LIMIT clause is 1
 
-  ```sql
-  -- Example) START VALUE is 1
-  SELECT * FROM T1 LIMIT 1;      -- internally limit start 1, count 1
-  SELECT * FROM T1 LIMIT 100     -- internally limit start 1, count 100
-  SELECT * FROM T1 LIMIT 1, 30   -- internally limit start 1, count 30
+  ```
+  -- START VALUE가 1 의 예
+  SELECT * FROM T1 LIMIT 1;      -- 내부적으로 limit start 1, count 1
+  SELECT * FROM T1 LIMIT 100     -- 내부적으로 limit start 1, count 100
+  SELECT * FROM T1 LIMIT 1, 30   -- 내부적으로 limit start 1, count 30
   ```
 
 - Subnode of PROJECT is a node that manages scanning for each partition of the partition table (PARTITION-COORDINATOR) and
@@ -220,7 +220,7 @@ Performance is enhanced when all of the following conditions are met.
 
 The form of an execution plan that meets all of the conditions is as below:
 
-```sql
+```
 ------------------------------------------------------------
 PROJECT ( COLUMN_COUNT: 2, TUPLE_SIZE: 8, COST: 467.05 )
  PARTITION-COORDINATOR ( TABLE: SYS.T1, PARTITION: 4/4, FULL SCAN, ACCESS: 1, COST: 467.05 )
@@ -237,7 +237,7 @@ Improved performance by applying OBYE(Order By Elimination, removing unnecessary
 
 - SQL example
 
-  ```sql
+  ```
   SELECT *
     FROM T1
    WHERE I1 IN (SELECT /*+ NO_UNNEST */I1
@@ -250,7 +250,7 @@ Improved performance by applying OBYE(Order By Elimination, removing unnecessary
 
 ##### Scalar subquery performance improvement
 
-Improved performance by removing the overhead occurring when checking whether the result of scalar subquery is a single record.
+Improved performance by removing the overhead occurring when checking whether the result of scalar subquery a is single record.
 
 
 
@@ -271,7 +271,7 @@ The functions added, changed, and removed that DBAs and developers need to under
 
 Altibase JDBC 4.2 supports backward compatibility for Altibase JDBC 3.0, however, for some interfaces the operation has changed according to JDBC API Specification 4.2. 
 
-##### Exception handling class changed for features not supported
+##### New exception handling class for not supported features
 
 Exception handling class for the following interfaces has changed from SQLException to SQLFeatureNotSupportedException. Since SQLFeatureNotSupportedException is a subclass of SQLException, current user programs can be operated without modification.
 
@@ -314,22 +314,22 @@ SPECIFIC_NAME column is added to the result of getProcedures(), getProcedureColu
 
 Altibase JDBC 7.2 has implemented SPECIFIC_NAME as below.
 
-```sql
+```
 ProcName(FuncName) + '_' + ouid
 ```
 
 ##### Connection property default value has changed
 
-- [reuse_resultset](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC%20User's%20Manual.md#reuse_resultset)
+- reuse_resultset
   - Specifies whether to reuse the ResultSet object
   - Default value for Altibase 7.2 is true and reuses the ResultSet object whereas default value for Altibase 7.1 is false and does not reuse the ResultSet object.
-- [lob_null_select](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC%20User's%20Manual.md#lob_null_select)
+- lob_null_select
   - Indicates whether getBlob(), getClob() should return the LOB object when the value of the the LOB column is NULL
   - Default value for Altibase 7.2 is off and does not return the LOB object whereas default value for Altibase 7.1 is on and returns the LOB object.
 
 ##### New connection property for Altibase JDBC 4.2 only
 
-- [getprocedures_return_functions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC%20User's%20Manual.md#getprocedures_return_functions)
+- getprocedures_return_functions
   - Specifies whether to add the result of the function to the result of DatabaseMetaData.getProcedures() and getProcedureColumns(). JDBC API Specification 4.2 standard excludes the function information, however, for client backward compatibility, Altibase JDBC 4.2 keeps it the same as subversion. To exclude the function information following the standard, the value of the property is set to false.
 
 ##### Changed CLIENT_TYPE
@@ -380,7 +380,7 @@ Default memory usage of Altibase server increases due to the improvement of bott
 
 The error message appearing when disk tablespace is chosen when creating a QUEUE has changed from ERR-311E5 : The table is not a memory or volatile table. to as belows.
 
-```sql
+```
 iSQL> CREATE QUEUE Q1 ( 7 ) TABLESPACE SYS_TBS_DISK_DATA;
 [ERR-314AA : Failed to create queue table in disk tablespace.]
 ```
@@ -392,9 +392,9 @@ iSQL> CREATE QUEUE Q1 ( 7 ) TABLESPACE SYS_TBS_DISK_DATA;
 Version by Database Component
 
 | Altibase Version | Database Binary Version | Meta Version | Communication Protocol Version | Replication Protocol Version |
-| :--------------: | :---------------------: | :----------: | :----------------------------: | :--------------------------: |
-|    7.1.0.5.8     |          6.5.1          |    8.9.1     |             7.1.7              |            7.4.6             |
-|    7.2.0.0.1     |          7.2.0          |    8.9.1     |             7.1.7              |            7.4.8             |
+| ---------------- | ----------------------- | ------------ | ------------------------------ | ---------------------------- |
+| 7.1.0.5.8        | 6.5.1                   | 8.9.1        | 7.1.7                          | 7.4.6                        |
+| 7.2.0.0.1        | 7.2.0                   | 8.9.1        | 7.1.7                          | 7.4.8                        |
 
 
 
@@ -430,15 +430,15 @@ Since there are no major version and minor version changes, LAZY mode replicatio
 
 #### Altibase Server Property
 
-Altibase server properties that are added, updated or removed in Altibase 7.2.0.0.1 are as belows. For more detailed information about each properties, please refer to [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md).
+Altibase server properties that are added, updated or removed in Altibase 7.2.0.0.1 are as belows. For more detailed information about each properties, please refer to [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md).
 
 ##### New property
 
-- [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#dblink_global_transaction_level)
+- [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#dblink_global_transaction_level)
 
 ##### Updated properties
 
-- [EXECUTE_STMT_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#execute_stmt_memory_maximum)
+- [EXECUTE_STMT_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#execute_stmt_memory_maximum)
 
   The default value has changed from 1073741824 to 2147483648.
 
@@ -450,31 +450,31 @@ Altibase server properties that are added, updated or removed in Altibase 7.2.0.
 
   The MAX value has changed from 30 to 50.
 
-- [LOCK_MGR_TYPE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#lock_mgr_type)
+- [LOCK_MGR_TYPE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#lock_mgr_type)
 
   The default value has changed from 0 to 2.
 
-- [PSM_CHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_char_default_precision)
+- [PSM_CHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#psm_char_default_precision)
 
   The default value has changed from 32767 to 32000.
 
-- [PSM_NCHAR_UTF16_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nchar_utf16_default_precision)
+- [PSM_NCHAR_UTF16_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#psm_nchar_utf16_default_precision)
 
   The default value has changed from 16383 to 16000.
 
-- [PSM_NCHAR_UTF8_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nchar_utf8_default_precision)
+- [PSM_NCHAR_UTF8_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#psm_nchar_utf8_default_precision)
 
   The default value has changed from 10921 to 10666.
 
-- [PSM_NVARCHAR_UTF16_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nvarchar_utf16_default_precision)
+- [PSM_NVARCHAR_UTF16_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#psm_nvarchar_utf16_default_precision)
 
   The default value has changed from 16383 to 16000.
 
-- [PSM_NVARCHAR_UTF8_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nvarchar_utf8_default_precision)
+- [PSM_NVARCHAR_UTF8_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#psm_nvarchar_utf8_default_precision)
 
   The default value has changed from 10921 to 10666.
 
-- [PSM_VARCHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_varchar_default_precision)
+- [PSM_VARCHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-1.Data Types %26 Altibase Properties.md#psm_varchar_default_precision)
 
   The default value has changed from 32767 to 32000.
 
@@ -486,16 +486,16 @@ Altibase server properties that are added, updated or removed in Altibase 7.2.0.
 
 ##### New meta table
 
-- [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
+- [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-2.The Data Dictionary.md#sys_repl_table_oid_in_use_)
 
 #### Performance View
 
-New performance views as belows are added. For more detailed information about each performance view, please refer to [General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-2.The%20Data%20Dictionary.md).
+New performance views as belows are added. For more detailed information about each performance view, please refer to [General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-2.The Data Dictionary.md).
 
 ##### New performance views
 
-- [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
-- [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
+- [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General Reference-2.The Data Dictionary.md#vrepl_remote_meta_index_columns)
+- [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General Reference-2.The Data Dictionary.md#vqueue_delete_off)
 
 
 
@@ -520,4 +520,4 @@ New performance views as belows are added. For more detailed information about e
 
 #### Installation
 
-[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Installation%20Guide.md)
+[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Installation.md)
