@@ -183,37 +183,59 @@ Fixed Bugs
 
     - **패치 시 주의 사항**
 
-      ALTER REPLICATION ~ ADD TABLE 수행 시 내부 동작 변경으로 ***업 패치 또는 다운 패치 시 이중화 갭이 0인 것을 확인 후 패치 작업을 진행할 것을 권고***합니다.
+      ALTER REPLICATION ~ ADD TABLE 수행 시 내부 동작 변경으로 ***업 패치 또는 다운 패치 시 아래 조건에 해당하는 경우이중화 갭이 0인 것을 확인 후 패치 작업을 진행할 것을 권고***합니다.
+
+      > **패치 작업 시**
+
+      - **주의 사항**
+
+        **아래 조건에 모두 해당하는 작업을 수행한 경우 이중화 갭이 0 인 것을 확인 후 패치 작업을 진행**하는 것을 권고합니다. 
+
+        - REPLICATION_DDL_ENABLE = 1 설정한 이중화 환경
+        - 아래 2가지 작업을 순차적으로 수행한 경우
+          1) 이중화 대상 테이블에 DDL 수행
+          2) ALTER REPLICATION ~ ADD TABLE 수행. (ADD TABLE 대상은 DDL을 수행한 테이블 뿐 아니라 이중화 대상 테이블은 모두 해당)
+          3) Altibase 7.1.0.6.8 이전 버전에서 7.1.0.6.8 이상 버전으로 패치 시
 
       - **이중화 갭 0 을 확인하지 않고 패치한 경우**
 
         이중화 갭 0을 확인하지 않고 패치를 진행하여 문제가 발생하는 경우 이중화 객체 삭제(DROP REPLICATION) 후 이중화 객체를 재생성합니다. 
 
+      > **다운 패치 작업 시** 
+
+      - **주의 사항**
+
+        **아래 조건에 해당하는 작업을 수행한 경우 이중화 갭이 0 인 것을 확인 후 다운 패치 작업을 진행**할 것을 권고합니다.
+
+        - REPLICATION_DDL_ENABLE = 1 설정한 이중화 환경
+        - ALTER REPLICATION ~ ADD TABLE 수행
+        - Altibase 7.1.0.6.8 이상 버전에서 7.1.0.6.8 이전 버전으로 다운 패치 시
+
       - **이중화 갭 0을 확인하지 않고 다운 패치를 진행한 경우**
 
         이중화 갭 0을 확인하지 않고 다운 패치를 진행하여 문제가 발생하는 경우, 2가지 현상으로 나타납니다.
 
-        - **현상 1. Altibase 서버 구동 실패**
+        > **현상 1. Altibase 서버 구동 실패**
 
-          Altibase 구동 과정에서 이중화 송신자와 수신자 간 핸드쉐이킹(handshaking) 실패로 Altibase 서버 구동이 실패할 수 있습니다. 이 때, altibase_rp.log 에 아래와 같은 에러 메시지가 발생할 수 있습니다.
+        Altibase 구동 과정에서 이중화 송신자와 수신자 간 핸드쉐이킹(handshaking) 실패로 Altibase 서버 구동이 실패할 수 있습니다. 이 때, altibase_rp.log 에 아래와 같은 에러 메시지가 발생할 수 있습니다.
 
-          ERR-6100D : [Sender] Failed to handshake with the peer server (The replication's item count does not match [2:1].)
+        ERR-6100D : [Sender] Failed to handshake with the peer server (The replication's item count does not match [2:1].)
 
-          > **조치 방법**
+        - **조치 방법**
 
-          1) REPLICATION_SENDER_AUTO_START = 0 설정
-          2) Altibase 서버 구동
-          3) 이중화의 메타 테이블 SYS_REPL_ITEMS_와 SYS_REPL_OLD_ITEMS_ 을 비교하여 SYS_REPL_OLD_ITEMS_ 에 없는 이중화 테이블을 확인한다. 
-          4) c. 에서 확인한 이중화 대상 테이블을 이중화 객체에서 삭제(DROP TABLE)한다.
-          5) c. 에서 확인한 이중화 대상 테이블을 이중화 객체에 추가(ADD TABLE)한다.
+        1) REPLICATION_SENDER_AUTO_START = 0 설정
+        2) Altibase 서버 구동
+        3) 이중화의 메타 테이블 SYS_REPL_ITEMS_와 SYS_REPL_OLD_ITEMS_ 을 비교하여 SYS_REPL_OLD_ITEMS_ 에 없는 이중화 테이블을 확인한다. 
+        4) c. 에서 확인한 이중화 대상 테이블을 이중화 객체에서 삭제(DROP TABLE)한다.
+        5) c. 에서 확인한 이중화 대상 테이블을 이중화 객체에 추가(ADD TABLE)한다.
 
-        - **현상 2. Altibase 서버 구동 후 이중화 시작 실패**
+        > **현상 2. Altibase 서버 구동 후 이중화 시작 실패**
 
-          > **조치 방법**
+        - **조치 방법**
 
-          1) 이중화의 메타 테이블 SYS_REPL_ITEMS_와 SYS_REPL_OLD_ITEMS_ 을 비교하여 SYS_REPL_OLD_ITEMS_ 에 없는 이중화 테이블을 확인한다. 
-          2) a. 에서 확인한 이중화 대상 테이블을 이중화 객체에서 삭제(DROP TABLE)한다.
-          3) a. 에서 확인한 이중화 대상 테이블을 이중화 객체에 추가(ADD TABLE)한다.
+        1) 이중화의 메타 테이블 SYS_REPL_ITEMS_와 SYS_REPL_OLD_ITEMS_ 을 비교하여 SYS_REPL_OLD_ITEMS_ 에 없는 이중화 테이블을 확인한다. 
+        2) a. 에서 확인한 이중화 대상 테이블을 이중화 객체에서 삭제(DROP TABLE)한다.
+        3) a. 에서 확인한 이중화 대상 테이블을 이중화 객체에 추가(ADD TABLE)한다.
 
 -   **재현 방법**
 
