@@ -1753,11 +1753,8 @@ dataCompJ는 환경파일에 사용자가 지정한 테이블들을 대상으로
 
 ##### 소프트웨어 요구사항
 
--   Oracle database를 Slave DB로 사용하는 경우:  
-    Oracle 또는 IBM Java 5 이상의 Java Runtime Environment (JRE)
-
--   MariaDB를 Slave DB로 사용하는 경우:  
-    Oracle 또는 IBM Java 6 이상의 Java Runtime Environment (JRE)
+-   Oracle, OpenJDK 또는 IBM Java Runtime Environment 8 이상
+    
 
 dataCompJ는 순수 자바 애플리케이션이기 때문에 하드웨어 및 운영 체제에 상관없이 독립적으로 실행되지만, 자바 런타임 환경(JRE)에 의존적이다. 따라서 환경에 맞는 JRE를 설치해야 한다. 또한 설치된 자바의 경로를 가리키는 JAVA_HOME 환경변수가 설정되어 있어야 한다.
 

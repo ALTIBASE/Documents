@@ -2044,11 +2044,8 @@ dataCompJ와 호환되는 데이터베이스 관리 시스템을 열거한다.
 
 ##### 소프트웨어 요구사항
 
--   Oracle database를 Slave DB로 사용하는 경우:  
-    Oracle 또는 IBM Java 5 이상의 Java Runtime Environment (JRE)
-
--   MariaDB를 Slave DB로 사용하는 경우:  
-    Oracle 또는 IBM Java 6 이상의 Java Runtime Environment (JRE)
+-   Oracle, OpenJDK 또는 IBM Java Runtime Environment 8 이상
+    
 
 dataCompJ는 순수 자바 애플리케이션이기 때문에 하드웨어 및 운영 체제에 상관없이
 독립적으로 실행되지만, 자바 런타임 환경(JRE)에 의존적이다. 따라서 환경에 맞는
