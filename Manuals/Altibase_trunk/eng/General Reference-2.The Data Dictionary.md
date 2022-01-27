@@ -45,6 +45,8 @@
     - [SYS_REPL_HOSTS\_](#sys_repl_hosts%5C_)
     - [SYS_REPL_ITEMS\_](#sys_repl_items%5C_)
     - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir%5C_)
+    - [SYS_REPL_OLD_CHECKS_](#sys_repl_old_checks_)
+    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
     - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns%5C_)
     - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns%5C_)
     - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices%5C_)
@@ -302,6 +304,8 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_REPL_HOSTS\_             | This table contains information about replication hosts.     |
 | SYS_REPL_ITEMS\_             | This table contains information about tables to be replicated |
 | SYS_REPL_OFFLINE_DIR\_       | This table contains information about the log directory related to the replication offline option. |
+| SYS_REPL_OLD_CHECKS_         | This table contains information about replication target columns that is being replicated by replication sender thread and has CHECK constraints. |
+| SYS_REPL_OLD_CHECK_COLUMNS_  | This meta table contains information about CHECK constraints on replication target column that replication sender thread is currently processing. |
 | SYS_REPL_OLD_COLUMNS\_       | This table contains information about columns replicated by the replication sender thread. |
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | This table contains information about index columns replicated by the replication sender thread. |
 | SYS_REPL_OLD_INDICES\_       | This table contains information about indexes replicated by the replication sender thread. |
@@ -324,7 +328,7 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_VIEW_PARSE\_             | This table contains the actual text of statements used to create views. |
 | SYS_VIEW_RELATED\_           | This table contains information about objects accessed by views. |
 | SYS_XA_HEAURISTIC_TRANS_     | This table contains information about global transactions.   |
-| USER_SRS                     | Meta table that stores information about Spatial Reference System (SRS), with SPATIAL_REF_SYS as synonym |
+| USER_SRS_                    | Meta table that stores information about Spatial Reference System (SRS), with SPATIAL_REF_SYS as synonym |
 
 ##### Unsupported Meta Tables
 
@@ -2733,6 +2737,94 @@ This is the identifier for the LFG which defalut value is ‘0’.
 ##### PATH
 
 This is the absolute path in the system where the log file is saved. 
+
+### SYS_REPL_OLD_CHECKS_
+
+This meta table is for storing information about replication target columns that is being replicated by replication sender thread and has CHECK constraints.
+
+| Column name      | Type          | Description                                             |
+| :--------------- | ------------- | ------------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | The name of the replication object                      |
+| TABLE_OID        | BIGINT        | The table object identifier                             |
+| CONSTRAINT_ID    | INTEGER       | The identifier of CHECK constraint                      |
+| CHECK_NAME       | VARCHAR(40)   | The name of the CHECK constraint                        |
+| CONDITION        | VARCHAR(4000) | The character string  condition of the CHECK constraint |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the name of the replication object set by the user, and can be found in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication sender thread. Its value may not be found in SYS_TABLES_ meta table if this table does not exist when the replication sender thread is processing replication log.
+
+##### CONSTRAINT_ID
+
+This is the identifier of the CHECK constraint that is being processed by replication sender thread, and corresponds to a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### CHECK_NAME
+
+This is the name of the CHECK constraint that replication sender thread is currently using. It corresponds to a CONSTRAINT_NAME value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### CONDITION
+
+This is the character string condition of the CHECK constraint that replication sender thread is currently using. It corresponds to a CHECK_CONDITION value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+#### Reference Tables
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+```
+
+### SYS_REPL_OLD_CHECK_COLUMNS_
+
+This meta table is for storing information about CHECK constraints on replication target column that replication sender thread is currently processing.
+
+| Column name      | Type        | Description                                        |
+| ---------------- | ----------- | -------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | The name of the replication object                 |
+| TABLE_OID        | BIGINT      | The object identifier of the table                 |
+| CONSTRAINT_ID    | INTEGER     | The identifier of CHECK constraint                 |
+| COLUMN_ID        | INTEGER     | The identifier of column that has CHECK constraint |
+
+#### Column Information 
+
+##### REPLICATION_NAME
+
+This is the name of the replication object set by the user, and can be found in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication sender thread. Its value may not be found in SYS_TABLES_ meta table if this table does not exist when the replication sender thread is processing replication log.
+
+##### CONSTRAINT_ID
+
+This is the identifier of the CHECK constraint that is being processed by replication sender thread, and corresponds to a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### COLUMN_ID
+
+This is the identifier of the column that is currently being processed by replication sender thread and has CHECK constraint. It corresponds to a COLUMN_ID value in the SYS_COLUMNS_ meta table. Its value cannot be found in SYS_COLUMNS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+#### Reference Tables
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+SYS_COLUMNS_
+```
 
 ### SYS_REPL_OLD_COLUMNS\_
 

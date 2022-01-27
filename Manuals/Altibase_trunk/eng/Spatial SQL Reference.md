@@ -3793,21 +3793,21 @@ GEOMETRY
 
 ##### Constraints
 
-This function is only available for Linux operating system in Intel environment.
+- This function can only be used in Linux operating system running on computers from Intel.
 
-If any input argument is NULL, NULL is returned.
+- If one of the input elements is NULL, NULL is returned.
 
-If the input GEOMETRY object is EMPTY, the EMPTY GEOMETRY object is returned.
+- If input GEOMETRY object is EMPTY, EMPTY GEOMETRY object is returned.
 
-If the I/O SRID is the same, the returned GEOMETRY object is the same as the input GEOMETRY object.
+- If the input and output SRID is identical, returned GEOMETRY object and input GEOMETRY object will be identical as well.
 
-When the SRID is input as the input/output coordinate system, the Spatial Reference System metadata of the SRID corresponding to the SPATIAL_REF_SYS table must exist.
+- If the input was SRID coordinate system, there should be SRID’s Spatial Reference System meta data which can be found in SPATIAL_REF_SYS table.
 
-The PROJ4TEXT syntax supports only the PROJ library version 4 format.
+- PROJ4TEXT is only supported in PROJ library version 4 format.
 
-If the output coordinate system is PROJ4TEXT, the SRID of the returned GEOMETRY object is set to 0.
+- If the output coordinate system is PROJ4TEXT, the SRID of the returned GEOMETRY object is 0.
 
-If the input coordinate system is PROJ4TEXT and the SRID of the input GEOMETRY object is 0, the SRID of the returned GEOMETRY object is set to 0.
+- If the input coordinate system is PROJ4TEXT and the SRID of the GEOMETRY object is 0, the SRID of the returned GEOMETRY object is 0.
 
 ##### Example
 

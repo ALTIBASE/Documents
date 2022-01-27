@@ -5826,7 +5826,7 @@ The following operations are supported on partitions created by each partitionin
 | Split     | ○                                        | ○                                       | X                                       | ○                                                       |
 | Truncate  | ○                                        | ○                                       | ○                                       | ○                                                       |
 
-[Table 7-3] Operations Supported for Partitionss
+[Table 7-3] Operations Supported for Partitions
 
 #### Range Partitioning
 
@@ -6159,7 +6159,42 @@ RENAME PARTITION changes the name of a partition without changing the partition 
 
 ###### TRUNCATE PARTITION
 
-TRUNCATE PARTITION deletes all of the records from a partition without changing the partition conditions. 
+TRUNCATE PARTITION deletes all of the records from a partition without changing the partition conditions.
+
+#### Range Partitioning using Hash
+
+Range partitioning using hash is a method of partitioning an object by specifying the range based on the hash value of a partition key. Partition key only allows single column. Range partitioning using hash is typically used for uniform load distribution and manageability.
+
+Unlike hash partitioning, range partitioning using hash supports SPLIT PARTITION, DROP PARTITION, and MERGE PARTITION but not COALESCE PARTITION.
+
+The default execution is same as range partitioning and supports default partition. However, only single columns are allowed for partition key and the range of hash value is 0 to 1000.
+
+The following is an example of range partitioning using hash.
+
+```
+CREATE TABLE part_table
+(
+    sales_date        DATE,
+    sales_id          NUMBER,
+    sales_city        VARCHAR(20),
+    ....
+) 
+PARTITION BY RANGE_USING_HASH(sales_id)
+(
+    PARTITION part_1 VALUES LESS THAN ( 250 ),
+    PARTITION part_2 VALUES LESS THAN ( 500 ),
+    PARTITION part_3 VALUES LESS THAN ( 750 ),
+    PARTITION part_def VALUES DEFAULT
+) TABLESPACE SYS_TBS_DISK_DATA;
+```
+
+The table creating statement above can be shown as figure below.
+
+![](/Users/haein/Documents/altibase/update-eng-manual/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-28.png)
+
+[Figure 7-28] Partition Areas of a Hash using Range Partitioned Table
+
+The operation on hash using range partitioned object is the same as range partitioned object.
 
 ## 8. Managing Transactions
 

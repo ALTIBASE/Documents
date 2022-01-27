@@ -298,79 +298,82 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 
 다음 표는 메타 테이블의 목록이다. 메타 테이블의 이름은 SYS_로 시작한다.
 
-| 메타 테이블 이름             | 설명                                                         |
-| ---------------------------- | ------------------------------------------------------------ |
-| SYS_AUDIT\_                  | 감사의 동작 상태가 저장되는 메타 테이블                      |
-| SYS_AUDIT_OPTS\_             | 감사 조건이 저장되는 메타 뷰. SYS_AUDIT_ALL_OPTS_가 이 뷰의 베이스 메타 테이블이다. |
-| SYS_COLUMNS\_                | 칼럼에 대한 정보를 저장하는 메타 테이블                      |
-| SYS_COMMENTS\_               | 설명을 달기 위한 주석 메타 테이블                            |
-| SYS_COMPRESSION_TABLES\_     | 압축 칼럼에 대한 정보가 저장되는 메타 테이블                 |
-| SYS_CONSTRAINTS\_            | 제약 조건에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_CONSTRAINT_COLUMNS\_     | 제약 조건을 가지는 칼럼에 대한 정보를 저장하는 메타 테이블   |
-| SYS_CONSTRAINT_RELATED\_     | 제약조건(constraints)이 참조하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
-| SYS_DATABASE\_               | 데이터베이스 이름과 버전에 대한 정보를 저장하는 메타 테이블  |
-| SYS_DATABASE_LINKS\_         | 데이터베이스 링크에 대한 정보를 저장하는 메타 테이블         |
-| SYS_DIRECTORIES\_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
-| SYS_DN_USERS\_               | 향후 확장 예정                                               |
-| SYS_DUMMY\_                  | 내부 용도                                                    |
-| SYS_ENCRYPTED_COLUMNS\_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
-| SYS_GRANT_OBJECT\_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_GRANT_SYSTEM\_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
-| SYS_INDEX_COLUMNS\_          | 인덱스 키 칼럼에 대한 정보를 저장하는 메타 테이블            |
-| SYS_INDEX_PARTITIONS\_       | 인덱스 파티션에 대한 정보를 저장하는 메타 테이블             |
-| SYS_INDEX_RELATED\_          | 함수 기반 인덱스가 기반하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
-| SYS_INDICES\_                | 인덱스에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_JOBS\_                   | JOB에 대한 정보를 저장하는 메타 테이블                       |
-| SYS_LIBRARIES\_              | 외부 라이브러리 객체에 대한 정보를 저장하는 메타 테이블      |
-| SYS_LOBS\_                   | LOB 칼럼에 대한 정보를 저장하는 메타 테이블                  |
-| SYS_MATERIALIZED_VIEWS\_     | Materialized view에 대한 정보가 기록되어 있는 메타 테이블    |
-| SYS_PACKAGES\_               | 패키지에 대한 정보가 저장되는 메타 테이블                    |
-| SYS_PACKAGE_PARAS\_          | 패키지에 포함된 서브프로그램(저장 프로시저와 저장 함수)들의 인자 (parameter)들에 대한 정보가 저장되는 메타 테이블 |
-| SYS_PACKAGE_PARSE\_          | 사용자가 정의한 패키지의 구문 텍스트가 저장되는 메타 테이블  |
-| SYS_PACKAGE_RELATED\_        | 패키지 내에 포함된 저장 프로시저와 저장 함수들이 참조하는 테이블, 시퀀스, 저장 프로시저, 저장 함수, 또는 뷰들에 대한 정보가 저장되는 메타 테이블 |
-| SYS_PART_INDICES\_           | 파티션드 인덱스에 대한 정보를 저장하는 메타 테이블           |
-| SYS_PART_KEY_COLUMNS\_       | 파티셔닝 키에 대한 정보를 저장하는 메타 테이블               |
-| SYS_PART_LOBS\_              | 파티션별 LOB 칼럼에 대한 정보를 저장하는 메타 테이블         |
-| SYS_PART_TABLES\_            | 파티션드 테이블에 대한 정보를 저장하는 메타 테이블           |
-| SYS_PASSWORD_HISTORY\_       | 패스워드 관리 정책을 설정한 사용자의 패스워드 변경 내역을 저장하는 메타 테이블 |
-| SYS_PASSWORD_LIMITS\_        | 사용자 생성 시 계정에 대해 지정한 패스워드 관리 정책과 계정의 현재 상태를 저장하는 메타 뷰 |
-| SYS_PRIVILEGES\_             | 권한에 대한 정보를 저장하는 메타 테이블                      |
-| SYS_PROCEDURES\_             | 저장 프로시저 및 함수에 대한 정보를 저장하는 메타 테이블     |
-| SYS_PROC_PARAS\_             | 저장 프로시저 및 함수의 파라미터에 대한 정보를 저장하는 메타 테이블 |
-| SYS_PROC_PARSE\_             | 저장 프로시저 및 함수의 구문에 대한 정보를 저장하는 메타 테이블 |
-| SYS_PROC_RELATED\_           | 저장 프로시저 및 함수가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블 |
-| SYS_RECYCLEBIN\_             | 휴지통에 있는 테이블의 정보를 저장하는 메타 테이블           |
-| SYS_REPLICATIONS\_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_REPL_HOSTS\_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
-| SYS_REPL_ITEMS\_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
-| SYS_REPL_OFFLINE_DIR\_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_COLUMNS\_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_INDEX_COLUMNS\_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_INDICES\_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_ITEMS\_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_RECOVERY_INFOS\_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
-| SYS_SECURITY\_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_SYNONYMS\_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TABLES\_                 | 테이블에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TABLE_PARTITIONS\_       | 테이블의 파티션에 대한 정보를 저장하는 메타 테이블           |
-| SYS_TABLE_SIZE\_             | 시스템에 있는 디스크 테이블과 메모리 테이블의 실제 크기 정보를 저장하는 메타 테이블 |
-| SYS_TBS_USERS\_              | 사용자 정의 테이블스페이스에 대한 사용자 접근 정보를 저장하는 메타 테이블 |
-| SYS_TRIGGERS\_               | 트리거에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TRIGGER_DML_TABLES\_     | 트리거가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블  |
-| SYS_TRIGGER_STRINGS\_        | 트리거 구문을 저장하는 메타 테이블                           |
-| SYS_TRIGGER_UPDATE_COLUMNS\_ | 그 값이 변경될 때마다 트리거를 시작시키는 칼럼들에 대한 정보를 저장하는 메타 테이블 |
-| SYS_USERS\_                  | 사용자에 대한 정보를 저장하는 메타 테이블                    |
-| DBA_USERS\_                  | 사용자에 대한 정보를 저장하는 메타 테이블. SYS 사용자만 조회 가능. |
-| SYS_USER_ROLES\_             | 사용자에게 부여된 롤(Role)에 대한 정보를 저장하는 메타 테이블 |
-| SYS_VIEWS\_                  | 뷰에 대한 정보를 저장하는 메타 테이블                        |
-| SYS_VIEW_PARSE\_             | 뷰 구문을 저장하는 메타 테이블                               |
-| SYS_VIEW_RELATED\_           | 뷰가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블      |
-| SYS_XA_HEURISTIC_TRANS\_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
-| SYS_GEOMETRIES_              | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
-| SYS_GEOMETRY_COLUMNS\_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음 |
-| USER_SRS_                    | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음 |
+| 메타 테이블 이름            | 설명                                                         |
+| --------------------------- | ------------------------------------------------------------ |
+| SYS_AUDIT_                  | 감사의 동작 상태가 저장되는 메타 테이블                      |
+| SYS_AUDIT_OPTS_             | 감사 조건이 저장되는 메타 뷰. SYS_AUDIT_ALL_OPTS_가 이 뷰의 베이스 메타 테이블이다. |
+| SYS_COLUMNS_                | 칼럼에 대한 정보를 저장하는 메타 테이블                      |
+| SYS_COMMENTS_               | 설명을 달기 위한 주석 메타 테이블                            |
+| SYS_COMPRESSION_TABLES_     | 압축 칼럼에 대한 정보가 저장되는 메타 테이블                 |
+| SYS_CONSTRAINTS_            | 제약 조건에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_CONSTRAINT_COLUMNS_     | 제약 조건을 가지는 칼럼에 대한 정보를 저장하는 메타 테이블   |
+| SYS_CONSTRAINT_RELATED_     | 제약조건(constraints)이 참조하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
+| SYS_DATABASE_               | 데이터베이스 이름과 버전에 대한 정보를 저장하는 메타 테이블  |
+| SYS_DATABASE_LINKS_         | 데이터베이스 링크에 대한 정보를 저장하는 메타 테이블         |
+| SYS_DIRECTORIES_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
+| SYS_DN_USERS_               | 향후 확장 예정                                               |
+| SYS_DUMMY_                  | 내부 용도                                                    |
+| SYS_ENCRYPTED_COLUMNS_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
+| SYS_GRANT_OBJECT_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_GRANT_SYSTEM_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
+| SYS_INDEX_COLUMNS_          | 인덱스 키 칼럼에 대한 정보를 저장하는 메타 테이블            |
+| SYS_INDEX_PARTITIONS_       | 인덱스 파티션에 대한 정보를 저장하는 메타 테이블             |
+| SYS_INDEX_RELATED_          | 함수 기반 인덱스가 기반하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
+| SYS_INDICES_                | 인덱스에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_JOBS_                   | JOB에 대한 정보를 저장하는 메타 테이블                       |
+| SYS_LIBRARIES_              | 외부 라이브러리 객체에 대한 정보를 저장하는 메타 테이블      |
+| SYS_LOBS_                   | LOB 칼럼에 대한 정보를 저장하는 메타 테이블                  |
+| SYS_MATERIALIZED_VIEWS_     | Materialized view에 대한 정보가 기록되어 있는 메타 테이블    |
+| SYS_PACKAGES_               | 패키지에 대한 정보가 저장되는 메타 테이블                    |
+| SYS_PACKAGE_PARAS_          | 패키지에 포함된 서브프로그램(저장 프로시저와 저장 함수)들의 인자 (parameter)들에 대한 정보가 저장되는 메타 테이블 |
+| SYS_PACKAGE_PARSE_          | 사용자가 정의한 패키지의 구문 텍스트가 저장되는 메타 테이블  |
+| SYS_PACKAGE_RELATED_        | 패키지 내에 포함된 저장 프로시저와 저장 함수들이 참조하는 테이블, 시퀀스, 저장 프로시저, 저장 함수, 또는 뷰들에 대한 정보가 저장되는 메타 테이블 |
+| SYS_PART_INDICES_           | 파티션드 인덱스에 대한 정보를 저장하는 메타 테이블           |
+| SYS_PART_KEY_COLUMNS_       | 파티셔닝 키에 대한 정보를 저장하는 메타 테이블               |
+| SYS_PART_LOBS_              | 파티션별 LOB 칼럼에 대한 정보를 저장하는 메타 테이블         |
+| SYS_PART_TABLES_            | 파티션드 테이블에 대한 정보를 저장하는 메타 테이블           |
+| SYS_PASSWORD_HISTORY_       | 패스워드 관리 정책을 설정한 사용자의 패스워드 변경 내역을 저장하는 메타 테이블 |
+| SYS_PASSWORD_LIMITS_        | 사용자 생성 시 계정에 대해 지정한 패스워드 관리 정책과 계정의 현재 상태를 저장하는 메타 뷰 |
+| SYS_PRIVILEGES_             | 권한에 대한 정보를 저장하는 메타 테이블                      |
+| SYS_PROCEDURES_             | 저장 프로시저 및 함수에 대한 정보를 저장하는 메타 테이블     |
+| SYS_PROC_PARAS_             | 저장 프로시저 및 함수의 파라미터에 대한 정보를 저장하는 메타 테이블 |
+| SYS_PROC_PARSE_             | 저장 프로시저 및 함수의 구문에 대한 정보를 저장하는 메타 테이블 |
+| SYS_PROC_RELATED_           | 저장 프로시저 및 함수가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_RECYCLEBIN_             | 휴지통에 있는 테이블의 정보를 저장하는 메타 테이블           |
+| SYS_REPLICATIONS_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_REPL_HOSTS_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_ITEMS_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_OFFLINE_DIR_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_CHECKS_        | 이중화 송신 쓰레드가 복제중인 이중화 대상 칼럼 중 CHECK 제약조건에 대한 정보를 가진 메타 테이블 |
+| SYS_REPL_OLD_CHECK_COLUMNS_ | 이중화 송신 쓰레드가 복제 중인 이중화 대상 칼럼에 설정된 CHECK 제약조건에 대한 정보를 가진 메타 테이블 |
+| SYS_REPL_OLD_COLUMNS_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_INDEX_COLUMNS_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_INDICES_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_ITEMS_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_TABLE_OID_IN_USE   | 이중화가 아직 처리하지 않은 DDL 로그에 포함된 테이블의 테이블 객체 식별자(TABLE OID) 정보를 관리하는 메타 테이블 |
+| SYS_REPL_RECOVERY_INFOS_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
+| SYS_SECURITY_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_SYNONYMS_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TABLES_                 | 테이블에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TABLE_PARTITIONS_       | 테이블의 파티션에 대한 정보를 저장하는 메타 테이블           |
+| SYS_TABLE_SIZE_             | 시스템에 있는 디스크 테이블과 메모리 테이블의 실제 크기 정보를 저장하는 메타 테이블 |
+| SYS_TBS_USERS_              | 사용자 정의 테이블스페이스에 대한 사용자 접근 정보를 저장하는 메타 테이블 |
+| SYS_TRIGGERS_               | 트리거에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TRIGGER_DML_TABLES_     | 트리거가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블  |
+| SYS_TRIGGER_STRINGS_        | 트리거 구문을 저장하는 메타 테이블                           |
+| SYS_TRIGGER_UPDATE_COLUMNS_ | 그 값이 변경될 때마다 트리거를 시작시키는 칼럼들에 대한 정보를 저장하는 메타 테이블 |
+| SYS_USERS_                  | 사용자에 대한 정보를 저장하는 메타 테이블                    |
+| DBA_USERS_                  | 사용자에 대한 정보를 저장하는 메타 테이블. SYS 사용자만 조회 가능. |
+| SYS_USER_ROLES_             | 사용자에게 부여된 롤(Role)에 대한 정보를 저장하는 메타 테이블 |
+| SYS_VIEWS_                  | 뷰에 대한 정보를 저장하는 메타 테이블                        |
+| SYS_VIEW_PARSE_             | 뷰 구문을 저장하는 메타 테이블                               |
+| SYS_VIEW_RELATED_           | 뷰가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블      |
+| SYS_XA_HEURISTIC_TRANS_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
+| SYS_GEOMETRIES_             | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
+| SYS_GEOMETRY_COLUMNS_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음 |
+| USER_SRS_                   | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음 |
 
-### SYS_AUDIT\_
+### SYS_AUDIT_
 
 감사(Auditing)의 동작 상태가 기록되는 메타 테이블이다.
 
