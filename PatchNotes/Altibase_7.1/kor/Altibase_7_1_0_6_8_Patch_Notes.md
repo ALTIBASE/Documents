@@ -159,12 +159,10 @@ Fixed Bugs
 
 -   **재현 빈도** : Rare
 
--   **설명** : 
-
--   REPLICATION_DDL_ENABLE = 1 설정한 이중화 환경에서, 아래 2가지 작업을 순차적으로 수행한 이후에 ERR-11058 에러 발생하며 이중화가 중지되는 현상을 수정합니다.  
+-   **설명** : REPLICATION_DDL_ENABLE = 1 설정한 이중화 환경에서, 아래 2가지 작업을 순차적으로 수행한 이후에 ERR-11058 에러 발생하며 이중화 송신자(Sender)가 중지되는 현상을 수정합니다.  
 
     1. 이중화 대상 테이블에 DDL 수행
-    2. ALTER REPLICATION ~ ADD TABLE 수행. (ADD TABLE 대상은 DDL을 수행한 테이블 뿐 아니라 이중화 대상 테이블은 모두 해당)
+    2. ALTER REPLICATION ~ ADD TABLE 수행 (ADD TABLE 대상은 DDL을 수행한 테이블 뿐 아니라 이중화 대상 테이블은 모두 해당)
 
     이 버그 현상 발생 시 altibase_rp.log에 아래와 같은 로그가 출력됩니다. 
 
@@ -172,7 +170,49 @@ Fixed Bugs
     ERR-610f8(errno=0) [Sender] Failed to add a XLog [TID:-1603452059, SN:133280338892, Type:2, Log Type:1, Change Log Type:0]<br/>
     ERR-61014(errno=0) [Sender] Failed to make XLOG in a log file at SN[133280338892]
 
-    이 버그 현상 발생 시 이중화 객체를 DROP 후 재생성해야 합니다. 
+    - **버그 현상 발생 시 조치사항**
+
+      이중화 객체를 삭제(DROP REPLICATION) 후 재생성해야 합니다. 
+
+    - **변경 사항**
+
+      ALTER REPLICATION ~ ADD TABLE 수행 시 내부 동작이 변경되었습니다.
+
+      - 기존 : ALTER REPLICATION ~ ADD TABLE 수행 시 (온라인) 로그 파일에 기록하지 않습니다. 이중화 메타 테이블에 실시간으로 ADD TABLE 정보를 입력합니다. 
+      - 변경 : ALTER REPLICATION ~ ADD TABLE 수행 시 (온라인) 로그 파일에 기록합니다. 로그 파일에 기록된 순서대로 이중화 메타 테이블에 ADD TABLE 정보를 입력합니다.
+
+    - **패치 시 주의 사항**
+
+      ALTER REPLICATION ~ ADD TABLE 수행 시 내부 동작 변경으로 ***업 패치 또는 다운 패치 시 이중화 갭이 0인 것을 확인 후 패치 작업을 진행할 것을 권고***합니다.
+
+      - **이중화 갭 0 을 확인하지 않고 패치한 경우**
+
+        이중화 갭 0을 확인하지 않고 패치를 진행하여 문제가 발생하는 경우 이중화 객체 삭제(DROP REPLICATION) 후 이중화 객체를 재생성합니다. 
+
+      - **이중화 갭 0을 확인하지 않고 다운 패치를 진행한 경우**
+
+        이중화 갭 0을 확인하지 않고 다운 패치를 진행하여 문제가 발생하는 경우, 2가지 현상으로 나타납니다.
+
+        - **현상 1. Altibase 서버 구동 실패**
+
+          Altibase 구동 과정에서 이중화 송신자와 수신자 간 핸드쉐이킹(handshaking) 실패로 Altibase 서버 구동이 실패할 수 있습니다. 이 때, altibase_rp.log 에 아래와 같은 에러 메시지가 발생할 수 있습니다.
+          ERR-6100D : [Sender] Failed to handshake with the peer server (The replication's item count does not match [2:1].)
+
+          > **조치 방법**
+
+          1) REPLICATION_SENDER_AUTO_START = 0 설정
+          2) Altibase 서버 구동
+          3) 이중화의 메타 테이블 SYS_REPL_ITEMS_와 SYS_REPL_OLD_ITEMS_ 을 비교하여 SYS_REPL_OLD_ITEMS_ 에 없는 이중화 테이블을 확인한다. 
+          4) 3)에서 확인한 이중화 대상 테이블을 이중화 객체에서 삭제(DROP TABLE)한다.
+          5) 3)에서 확인한 이중화 대상 테이블을 이중화 객체에 추가(ADD TABLE)한다.
+
+        - **현상 2. Altibase 서버 구동 후 이중화 시작 실패**
+
+          > **조치 방법**
+          >
+          > 1) 이중화의 메타 테이블 SYS_REPL_ITEMS_와 SYS_REPL_OLD_ITEMS_ 을 비교하여 SYS_REPL_OLD_ITEMS_ 에 없는 이중화 테이블을 확인한다. 
+          > 2) 1)에서 확인한 이중화 대상 테이블을 이중화 객체에서 삭제(DROP TABLE)한다.
+          > 3) 1)에서 확인한 이중화 대상 테이블을 이중화 객체에 추가(ADD TABLE)한다.
 
 -   **재현 방법**
 
@@ -183,6 +223,8 @@ Fixed Bugs
     -   **예상 결과**
 
 -   **Workaround**
+
+    이중화 대상 테이블에 DDL 수행 후 이중화 갭이 0인 것을 확인 후 ALTER REPLICATION ~ ADD TABLE 수행합니다.
 
 -   **변경사항**
 
