@@ -196,6 +196,7 @@ Fixed Bugs
         - **현상 1. Altibase 서버 구동 실패**
 
           Altibase 구동 과정에서 이중화 송신자와 수신자 간 핸드쉐이킹(handshaking) 실패로 Altibase 서버 구동이 실패할 수 있습니다. 이 때, altibase_rp.log 에 아래와 같은 에러 메시지가 발생할 수 있습니다.
+
           ERR-6100D : [Sender] Failed to handshake with the peer server (The replication's item count does not match [2:1].)
 
           > **조치 방법**
