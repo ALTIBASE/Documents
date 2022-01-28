@@ -169,7 +169,9 @@ Fixed Bugs
     이 버그 현상 발생 시 altibase_rp.log에 아래와 같은 로그가 출력됩니다.
 
     ERR-11058(errno=0) The row already exists in a unique index.
+
     ERR-610f8(errno=0) [Sender] Failed to add a XLog [TID:-1603452059, SN:133280338892, Type:2, Log Type:1, Change Log Type:0]
+
     ERR-61014(errno=0) [Sender] Failed to make XLOG in a log file at SN[133280338892]
 
     이 버그 현상 발생 시 이중화 객체를 DROP 후 재생성해야 합니다.
