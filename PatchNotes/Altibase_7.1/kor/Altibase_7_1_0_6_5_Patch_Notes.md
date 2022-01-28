@@ -1,6 +1,10 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+# Altibase 7.1.0.6.5 Patch Notes
+
+<br/>
+
+<br/>
+
+# **Table of Contents**  
 
 - [Altibase 7.1.0.6.5 Patch Notes](#altibase-71065-patch-notes)
   - [New Features](#new-features)
@@ -20,11 +24,8 @@
 
 
 
-Altibase 7.1.0.6.5 Patch Notes
-==============================
-
 New Features
-------------
+============
 
 ### BUG-49330 집합 연산자를 포함한 WITH 절 또는 VIEW 의 실행 계획을 개선합니다.
 
@@ -193,7 +194,7 @@ New Features
     -   Error Code
 
 Fixed Bugs
-----------
+==========
 
 ### BUG-48756 AUTOCOMMIT OFF 모드에서 메타 테이블을 조회하는 SQL 문 수행 후 일반 테이블을 접근하는 SQL 문 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.
 
@@ -248,6 +249,53 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+### BUG-49418 날짜시간 함수 DATEDIFF 동작을 매뉴얼 설명에 맞춰 date_field_name가 SECOND 일 때 결과가 2144448000초를 초과하는 경우 에러가 발생하도록 변경합니다.
+
+-   **module** : qp
+
+-   **Category** : Functionality
+
+-   **재현 빈도** : Always
+
+-   **설명** : DATEDIFF함수의 세 번째 인자 *date_field_name*가 SECOND 인 경우, enddate와 startdate의 차가 평년(365일)을 기준으로 68년인 2144448000초를 초과하면 에러가 발생하도록 변경되었습니다. 
+
+    > 참고 : [Altibase 7.1 SQL Reference - DATEDIFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#datediff)
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+        ```sql
+        SELECT DATEDIFF('27-SEP-2005', '30-DEC-2074', 'SECOND') FROM DUAL;
+        ```
+
+    -   **수행 결과**
+
+        ```sql
+        DATEDIFF('27-SEP-2005','30-DEC-2074','SECO 
+        ---------------------------------------------
+        2185574400           
+        1 row selected.
+        ```
+
+    -   **예상 결과**
+
+        ```sql
+        [ERR-2102D : The interval between startdate and enddate exceeded 68 years. 
+        0001 : SELECT DATEDIFF('27-SEP-2005', '30-DEC-2074', 'SECOND') FROM DUAL
+                     ^                                               ^
+        ]
+        ```
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
 ### BUG-49424 지역 서버와 원격 서버 간 이중화 대상 테이블의 컬럼 수가 다른 경우 원격 서버에서 복제 트랜잭션 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : rp
@@ -280,7 +328,7 @@ Fixed Bugs
     -   Error Code
 
 Changes
--------
+=======
 
 ### Version Info
 
