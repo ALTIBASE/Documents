@@ -224,16 +224,10 @@ Fixed Bugs
         - **조치 방법**
 
         1) REPLICATION_SENDER_AUTO_START = 0 설정
-
         2) Altibase 서버 구동
-
         3) 이중화의 메타 테이블 SYS_REPL_ITEMS_와 SYS_REPL_OLD_ITEMS_ 을 비교하여 SYS_REPL_OLD_ITEMS_ 에 없는 이중화 테이블을 확인한다. 
-
         4) c. 에서 확인한 이중화 대상 테이블을 이중화 객체에서 삭제(DROP TABLE)한다.
-
         5) c. 에서 확인한 이중화 대상 테이블을 이중화 객체에 추가(ADD TABLE)한다.
-
-           
 
         > **현상 2. Altibase 서버 구동 후 이중화 시작 실패**
 
