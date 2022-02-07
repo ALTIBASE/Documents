@@ -4024,7 +4024,7 @@ GEOMETRY
 
 ##### Constraints
 
-- This function can only be used in Intel environment on Linux operating system.
+- This function can only be used in Linux operating system running on computers from Intel.
 
 - If one of the input elements is NULL, NULL is returned.
 

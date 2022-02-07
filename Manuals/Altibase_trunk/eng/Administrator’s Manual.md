@@ -5812,24 +5812,24 @@ The default partition must be specified when a partitioned object is created. If
 
 ### Partitioning Methods
 
-Objects can be partitioned in three ways: range partitioning, list partitioning, and hash partitioning
+Objects can be partitioned in three ways: range partitioning, list partitioning, and hash partitioning.
 
-Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values
+Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values.
 
 The following operations are supported on partitions created by each partitioning method:
 
-| Operation | Partitions created by Range Partitioning | Partitions created by List Partitioning | Partitions created by Hash Partitioning |
-| --------- | ---------------------------------------- | --------------------------------------- | --------------------------------------- |
-| Alter     | ○                                        | ○                                       | ○                                       |
-| Add       | X                                        | X                                       | ○                                       |
-| Coalesce  | X                                        | X                                       | ○                                       |
-| Drop      | ○                                        | ○                                       | X                                       |
-| Merge     | ○                                        | ○                                       | X                                       |
-| Rename    | ○                                        | ○                                       | ○                                       |
-| Split     | ○                                        | ○                                       | X                                       |
-| Truncate  | ○                                        | ○                                       | ○                                       |
+| Operation | Partitions created by Range Partitioning | Partitions created by List Partitioning | Partitions created by Hash Partitioning | **Partitions created by Range Partitioning using Hash** |
+| --------- | ---------------------------------------- | --------------------------------------- | --------------------------------------- | ------------------------------------------------------- |
+| Alter     | ○                                        | ○                                       | ○                                       | ○                                                       |
+| Add       | △ (conditionally allowed)                | X                                       | ○                                       | X                                                       |
+| Coalesce  | X                                        | X                                       | ○                                       | X                                                       |
+| Drop      | ○                                        | ○                                       | X                                       | ○                                                       |
+| Merge     | ○                                        | ○                                       | X                                       | ○                                                       |
+| Rename    | ○                                        | ○                                       | ○                                       | ○                                                       |
+| Split     | ○                                        | ○                                       | X                                       | ○                                                       |
+| Truncate  | ○                                        | ○                                       | ○                                       | ○                                                       |
 
-[Table 7-3] Operations Supported for Partitionss
+[Table 7-3] Operations Supported for Partitions
 
 #### Range Partitioning
 
@@ -6093,7 +6093,7 @@ This deletes all of the records from a partition without changing the partition 
 
 Hash partitioning is a method of partitioning an object based on a hash value of a partition key. The partition key can consist of multiple columns. Hash partitioning is typically used for uniform load distribution rather than for manageability
 
-Due to the characteristics of hash functions, hash partitioning is limited to general partition operations. Unlike range partitions and list partitions, SPLIT PARTITION, DROP PARTITION, and MERGE PARTITION cannot be performed on hash partitions; however, operations such as ADD PARTITION and COALESCE PARTITION are supported
+Due to the characteristics of hash functions, hash partitioning is limited to general partition operations. Unlike range partitions and list partitions, SPLIT PARTITION, DROP PARTITION, and MERGE PARTITION cannot be performed on hash partitions; however, operations such as ADD PARTITION and COALESCE PARTITION are supported.
 
 Unlike range partitioning and list partitioning,  there is no default partition in hash partitioning. This is because the hash function can accept any value of the partition key. The location where records having NULL partition key values are inserted depends on the hash value for the NULL data. Although the hash value corresponding to NULL data is constant, different values can be output depending on the data type. The location in which records having NULL partition key values are stored can be different depending on the column type. 
 
@@ -6163,6 +6163,41 @@ RENAME PARTITION changes the name of a partition without changing the partition 
 ###### TRUNCATE PARTITION
 
 TRUNCATE PARTITION deletes all of the records from a partition without changing the partition conditions. 
+
+#### Range Partitioning using Hash
+
+Range partitioning using hash is a method of partitioning an object by specifying the range based on the hash value of a partition key. Partition key only allows single column. Range partitioning using hash is typically used for uniform load distribution and manageability.
+
+Unlike hash partitioning, range partitioning using hash supports SPLIT PARTITION, DROP PARTITION, and MERGE PARTITION but not COALESCE PARTITION.
+
+The default execution is same as range partitioning and supports default partition. However, only single columns are allowed for partition key and the range of hash value is 0 to 1000.
+
+The following is an example of range partitioning using hash.
+
+```
+CREATE TABLE part_table
+(
+    sales_date        DATE,
+    sales_id          NUMBER,
+    sales_city        VARCHAR(20),
+    ....
+) 
+PARTITION BY RANGE_USING_HASH(sales_id)
+(
+    PARTITION part_1 VALUES LESS THAN ( 250 ),
+    PARTITION part_2 VALUES LESS THAN ( 500 ),
+    PARTITION part_3 VALUES LESS THAN ( 750 ),
+    PARTITION part_def VALUES DEFAULT
+) TABLESPACE SYS_TBS_DISK_DATA;
+```
+
+The table creating statement above can be shown as figure below.
+
+![](/Users/haein/Documents/altibase/update-eng-manual/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-28.png)
+
+[Figure 7-28] Partition Areas of a Hash using Range Partitioned Table
+
+The operation on hash using range partitioned object is the same as range partitioned object.
 
 ## 8. Managing Transactions
 

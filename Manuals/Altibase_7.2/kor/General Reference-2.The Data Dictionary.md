@@ -49,7 +49,7 @@
     - [SYS_REPL_HOSTS_](#sys_repl_hosts_)
     - [SYS_REPL_ITEMS_](#sys_repl_items_)
     - [SYS_REPL_OFFLINE_DIR_](#sys_repl_offline_dir_)
-    - [SYS_REPL_OLD_CHECKS](#sys_repl_old_checks_)
+    - [SYS_REPL_OLD_CHECKS_](#sys_repl_old_checks_)
     - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
     - [SYS_REPL_OLD_COLUMNS_](#sys_repl_old_columns_)
     - [SYS_REPL_OLD_INDEX_COLUMNS_](#sys_repl_old_index_columns_)
@@ -437,6 +437,7 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 | SYS_REPL_OLD_INDEX_COLUMNS_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_INDICES_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
 | SYS_REPL_OLD_ITEMS_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_TABLE_OID_IN_USE   | 이중화가 아직 처리하지 않은 DDL 로그에 포함된 테이블의 테이블 객체 식별자(TABLE OID) 정보를 관리하는 메타 테이블 |
 | SYS_REPL_RECOVERY_INFOS_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
 | SYS_SECURITY_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
 | SYS_SYNONYMS_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
@@ -4131,7 +4132,7 @@ GEOMETRY 칼럼에 공간 참조 식별자(SRID, Spatial Reference ID)를 지정
 
 이 메타 테이블의 synonym은 SPATIAL_REF_SYS 이다.
 
-SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록 및 삭제하기 위해서는 SYS_SPATIAL 패키지의 ADD_SPATIAL_REF_SYS, DELETE_SPATIAL_REF_SYS 프로시저를 사용해야한다. 메타 데이터를 등록할 때 SRID와 AUTH_SRID를 동일한 값으로 사용하는것을 권장합니다. 자세한 내용은 *[Spatial Manual](https://github.com/Altibase/Documents/blob/master/Manuals/Altibase_7.2/kor/Spatial%20SQL%20Reference.md)*을 참조한다.
+SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록 및 삭제하기 위해서는 SYS_SPATIAL 패키지의 ADD_SPATIAL_REF_SYS, DELETE_SPATIAL_REF_SYS 프로시저를 사용해야한다. 메타 데이터를 등록할 때 SRID와 AUTH_SRID를 동일한 값으로 사용하는것을 권장합니다. 자세한 내용은 [*Spatial Manual*](https://github.com/Altibase/Documents/blob/master/Manuals/Altibase_7.2/kor/Spatial%20SQL%20Reference.md)을 참조한다.
 
 | Column name | Type          | Description                                           |
 | ----------- | ------------- | ----------------------------------------------------- |

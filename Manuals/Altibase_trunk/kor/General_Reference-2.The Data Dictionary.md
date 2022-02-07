@@ -1,218 +1,215 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  
 
 - [General Reference](#general-reference)
   - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
     - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [SYS_AUDIT\_](#sys_audit%5C_)
-    - [SYS_AUDIT_OPTS\_](#sys_audit_opts%5C_)
-    - [SYS_COLUMNS\_](#sys_columns%5C_)
-    - [SYS_COMMENTS\_](#sys_comments%5C_)
-    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables%5C_)
-    - [SYS_CONSTRAINTS\_](#sys_constraints%5C_)
-    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns%5C_)
-    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related%5C_)
-    - [SYS_DATABASE\_](#sys_database%5C_)
-    - [SYS_DATABASE_LINKS\_](#sys_database_links%5C_)
-    - [SYS_DIRECTORIES\_](#sys_directories%5C_)
-    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns%5C_)
-    - [SYS_GRANT_OBJECT\_](#sys_grant_object%5C_)
-    - [SYS_GRANT_SYSTEM\_](#sys_grant_system%5C_)
-    - [SYS_INDEX_COLUMNS\_](#sys_index_columns%5C_)
-    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions%5C_)
-    - [SYS_INDEX_RELATED\_](#sys_index_related%5C_)
-    - [SYS_INDICES\_](#sys_indices%5C_)
-    - [SYS_JOBS\_](#sys_jobs%5C_)
-    - [SYS_LIBRARIES\_](#sys_libraries%5C_)
-    - [SYS_LOBS\_](#sys_lobs%5C_)
-    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views%5C_)
-    - [SYS_PACKAGES\_](#sys_packages%5C_)
-    - [SYS_PACKAGE_PARAS\_](#sys_package_paras%5C_)
-    - [SYS_PACKAGE_PARSE\_](#sys_package_parse%5C_)
-    - [SYS_PACKAGE_RELATED\_](#sys_package_related%5C_)
-    - [SYS_PART_INDICES\_](#sys_part_indices%5C_)
-    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns%5C_)
-    - [SYS_PART_LOBS\_](#sys_part_lobs%5C_)
-    - [SYS_PART_TABLES\_](#sys_part_tables%5C_)
-    - [SYS_PASSWORD_HISTORY\_](#sys_password_history%5C_)
-    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits%5C_)
-    - [SYS_PRIVILEGES\_](#sys_privileges%5C_)
-    - [SYS_PROCEDURES\_](#sys_procedures%5C_)
-    - [SYS_PROC_PARAS\_](#sys_proc_paras%5C_)
-    - [SYS_PROC_PARSE\_](#sys_proc_parse%5C_)
-    - [SYS_PROC_RELATED\_](#sys_proc_related%5C_)
-    - [SYS_RECYCLEBIN\_](#sys_recyclebin%5C_)
-    - [SYS_REPLICATIONS\_](#sys_replications%5C_)
-    - [SYS_REPL_HOSTS\_](#sys_repl_hosts%5C_)
-    - [SYS_REPL_ITEMS\_](#sys_repl_items%5C_)
-    - [SYS_REPL_ITEM_REPLACE_HISTORY\_](#sys_repl_item_replace_history%5C_)
-    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir%5C_)
-    - [SYS_REPL_OLD_CHECKS\_](#sys_repl_old_checks%5C_)
+    - [SYS_AUDIT\_](#sys_audit_)
+    - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
+    - [SYS_COLUMNS\_](#sys_columns_)
+    - [SYS_COMMENTS\_](#sys_comments_)
+    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables_)
+    - [SYS_CONSTRAINTS\_](#sys_constraints_)
+    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns_)
+    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related_)
+    - [SYS_DATABASE\_](#sys_database_)
+    - [SYS_DATABASE_LINKS\_](#sys_database_links_)
+    - [SYS_DIRECTORIES\_](#sys_directories_)
+    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns_)
+    - [SYS_GRANT_OBJECT\_](#sys_grant_object_)
+    - [SYS_GRANT_SYSTEM\_](#sys_grant_system_)
+    - [SYS_INDEX_COLUMNS\_](#sys_index_columns_)
+    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions_)
+    - [SYS_INDEX_RELATED\_](#sys_index_related_)
+    - [SYS_INDICES\_](#sys_indices_)
+    - [SYS_JOBS\_](#sys_jobs_)
+    - [SYS_LIBRARIES\_](#sys_libraries_)
+    - [SYS_LOBS\_](#sys_lobs_)
+    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views_)
+    - [SYS_PACKAGES\_](#sys_packages_)
+    - [SYS_PACKAGE_PARAS\_](#sys_package_paras_)
+    - [SYS_PACKAGE_PARSE\_](#sys_package_parse_)
+    - [SYS_PACKAGE_RELATED\_](#sys_package_related_)
+    - [SYS_PART_INDICES\_](#sys_part_indices_)
+    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns_)
+    - [SYS_PART_LOBS\_](#sys_part_lobs_)
+    - [SYS_PART_TABLES\_](#sys_part_tables_)
+    - [SYS_PASSWORD_HISTORY\_](#sys_password_history_)
+    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits_)
+    - [SYS_PRIVILEGES\_](#sys_privileges_)
+    - [SYS_PROCEDURES\_](#sys_procedures_)
+    - [SYS_PROC_PARAS\_](#sys_proc_paras_)
+    - [SYS_PROC_PARSE\_](#sys_proc_parse_)
+    - [SYS_PROC_RELATED\_](#sys_proc_related_)
+    - [SYS_RECYCLEBIN\_](#sys_recyclebin_)
+    - [SYS_REPLICATIONS\_](#sys_replications_)
+    - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
+    - [SYS_REPL_ITEMS\_](#sys_repl_items_)
+    - [SYS_REPL_ITEM_REPLACE_HISTORY\_](#sys_repl_item_replace_history_)
+    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
+    - [SYS_REPL_OLD_CHECKS\_](#sys_repl_old_checks_)
     - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
-    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns%5C_)
-    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns%5C_)
-    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices%5C_)
-    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items%5C_)
-    - [SYS_REPL_TABLE_OID_IN_USE\_](#sys_repl_table_oid_in_use%5C_)
-    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos%5C_)
-    - [SYS_SECURITY\_](#sys_security%5C_)
-    - [SYS_SYNONYMS\_](#sys_synonyms%5C_)
-    - [SYS_TABLES\_](#sys_tables%5C_)
-    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions%5C_)
-    - [SYS_TABLE_SIZE\_](#sys_table_size%5C_)
-    - [SYS_TBS_USERS\_](#sys_tbs_users%5C_)
-    - [SYS_TRIGGERS\_](#sys_triggers%5C_)
-    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables%5C_)
-    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings%5C_)
-    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns%5C_)
-    - [SYS_USERS\_](#sys_users%5C_)
-    - [DBA_USERS\_](#dba_users%5C_)
-    - [SYS_USER_ROLES\_](#sys_user_roles%5C_)
-    - [SYS_VIEWS\_](#sys_views%5C_)
-    - [SYS_VIEW_PARSE\_](#sys_view_parse%5C_)
-    - [SYS_VIEW_RELATED\_](#sys_view_related%5C_)
-    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans%5C_)
+    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
+    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
+    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
+    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
+    - [SYS_REPL_TABLE_OID_IN_USE\_](#sys_repl_table_oid_in_use_)
+    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
+    - [SYS_SECURITY\_](#sys_security_)
+    - [SYS_SYNONYMS\_](#sys_synonyms_)
+    - [SYS_TABLES\_](#sys_tables_)
+    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions_)
+    - [SYS_TABLE_SIZE\_](#sys_table_size_)
+    - [SYS_TBS_USERS\_](#sys_tbs_users_)
+    - [SYS_TRIGGERS\_](#sys_triggers_)
+    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables_)
+    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings_)
+    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns_)
+    - [SYS_USERS\_](#sys_users_)
+    - [DBA_USERS\_](#dba_users_)
+    - [SYS_USER_ROLES\_](#sys_user_roles_)
+    - [SYS_VIEWS\_](#sys_views_)
+    - [SYS_VIEW_PARSE\_](#sys_view_parse_)
+    - [SYS_VIEW_RELATED\_](#sys_view_related_)
+    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
     - [SYS_GEOMETRIES_](#sys_geometries_)
     - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
     - [USER_SRS_](#user_srs_)
     - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-    - [V\$ACCESS_LIST](#v%5Caccess_list)
-    - [V\$ALLCOLUMN](#v%5Callcolumn)
-    - [V\$ARCHIVE](#v%5Carchive)
-    - [V\$BACKUP_INFO](#v%5Cbackup_info)
-    - [V\$BUFFPAGEINFO](#v%5Cbuffpageinfo)
-    - [V\$BUFFPOOL_STAT](#v%5Cbuffpool_stat)
-    - [V\$CATALOG](#v%5Ccatalog)
-    - [V\$DATABASE](#v%5Cdatabase)
-    - [V\$DATAFILES](#v%5Cdatafiles)
-    - [V\$DATATYPE](#v%5Cdatatype)
-    - [V\$DBA_2PC_PENDING](#v%5Cdba_2pc_pending)
-    - [V\$DBLINK_ALTILINKER_STATUS](#v%5Cdblink_altilinker_status)
-    - [V\$DBLINK_DATABASE_LINK_INFO](#v%5Cdblink_database_link_info)
-    - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#v%5Cdblink_global_transaction_info)
-    - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#v%5Cdblink_linker_control_session_info)
-    - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#v%5Cdblink_linker_data_session_info)
-    - [V\$DBLINK_LINKER_SESSION_INFO](#v%5Cdblink_linker_session_info)
-    - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#v%5Cdblink_notifier_transaction_info)
-    - [V\$DBLINK_REMOTE_STATEMENT_INFO](#v%5Cdblink_remote_statement_info)
-    - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#v%5Cdblink_remote_transaction_info)
-    - [V\$DBMS_STATS](#v%5Cdbms_stats)
-    - [V\$DB_FREEPAGELISTS](#v%5Cdb_freepagelists)
-    - [V\$DB_PROTOCOL](#v%5Cdb_protocol)
-    - [V\$DIRECT_PATH_INSERT](#v%5Cdirect_path_insert)
-    - [V\$DISKTBL_INFO](#v%5Cdisktbl_info)
-    - [V\$DISK_BTREE_HEADER](#v%5Cdisk_btree_header)
-    - [V\$DISK_TEMP_INFO](#v%5Cdisk_temp_info)
-    - [V\$DISK_TEMP_STAT](#v%5Cdisk_temp_stat)
-    - [V\$DISK_UNDO_USAGE](#v%5Cdisk_undo_usage)
-    - [V\$EVENT_NAME](#v%5Cevent_name)
-    - [V\$EXTPROC_AGENT](#v%5Cextproc_agent)
-    - [V\$FILESTAT](#v%5Cfilestat)
-    - [V\$FLUSHER](#v%5Cflusher)
-    - [V\$FLUSHINFO](#v%5Cflushinfo)
-    - [V\$INDEX](#v%5Cindex)
-    - [V\$INSTANCE](#v%5Cinstance)
-    - [V\$INTERNAL_SESSION](#v%5Cinternal_session)
-  - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC-1)
-    - [<a name="vlatch"><a/>V\$LATCH](#a-namevlatchav%5Clatch)
-    - [<a name="vlibrary"><a/>V\$LIBRARY](#a-namevlibraryav%5Clibrary)
-    - [<a name="vlfg"><a/>V\$LFG](#a-namevlfgav%5Clfg)
-    - [<a name="vlock"><a/>V\$LOCK](#a-namevlockav%5Clock)
-    - [<a name="vlock_statement"><a/>V\$LOCK_STATEMENT](#a-namevlock_statementav%5Clock_statement)
-    - [<a name="vlog"><a/>V\$LOG](#a-namevlogav%5Clog)
-    - [<a name="vlock_wait"><a/>V\$LOCK_WAIT](#a-namevlock_waitav%5Clock_wait)
-    - [<a name="vmemgc"><a/>V\$MEMGC](#a-namevmemgcav%5Cmemgc)
-    - [<a name="vmemstat"><a/>V\$MEMSTAT](#a-namevmemstatav%5Cmemstat)
-    - [<a name="vmemtbl_info"><a/>V\$MEMTBL_INFO](#a-namevmemtbl_infoav%5Cmemtbl_info)
-    - [<a name="vmem_btree_header"><a/>V\$MEM_BTREE_HEADER](#a-namevmem_btree_headerav%5Cmem_btree_header)
-    - [<a name="vmem_btree_nodepool"><a/>V\$MEM_BTREE_NODEPOOL](#a-namevmem_btree_nodepoolav%5Cmem_btree_nodepool)
-    - [<a name="vmem_rtree_header"><a/>V\$MEM_RTREE_HEADER](#a-namevmem_rtree_headerav%5Cmem_rtree_header)
-    - [<a name="vmem_rtree_nodepool"><a/>V\$MEM_RTREE_NODEPOOL](#a-namevmem_rtree_nodepoolav%5Cmem_rtree_nodepool)
-    - [<a name="vmem_tablespaces"><a/>V\$MEM_TABLESPACES](#a-namevmem_tablespacesav%5Cmem_tablespaces)
-    - [<a name="vmem_tablespace_checkpoint_paths"><a/>V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#a-namevmem_tablespace_checkpoint_pathsav%5Cmem_tablespace_checkpoint_paths)
-    - [<a name="vmem_tablespace_status_desc"><a/>V\$MEM_TABLESPACE_STATUS_DESC](#a-namevmem_tablespace_status_descav%5Cmem_tablespace_status_desc)
-    - [<a name="vmutex"><a/>V\$MUTEX](#a-namevmutexav%5Cmutex)
-    - [<a name="vnls_parameters"><a/>V\$NLS_PARAMETERS](#a-namevnls_parametersav%5Cnls_parameters)
-    - [<a name="vnls_territory"><a/>V\$NLS_TERRITORY](#a-namevnls_territoryav%5Cnls_territory)
-    - [<a name="vobsolete_backup_info"><a/>V\$OBSOLETE_BACKUP_INFO](#a-namevobsolete_backup_infoav%5Cobsolete_backup_info)
-    - [<a name="vpkgtext"><a/>V\$PKGTEXT](#a-namevpkgtextav%5Cpkgtext)
-    - [<a name="vplantext"><a/>V\$PLANTEXT](#a-namevplantextav%5Cplantext)
-    - [<a name="vprocinfo"><a/>V\$PROCINFO](#a-namevprocinfoav%5Cprocinfo)
-    - [<a name="vproctext"><a/>V\$PROCTEXT](#a-namevproctextav%5Cproctext)
-    - [<a name="vproperty"><a/>V\$PROPERTY](#a-namevpropertyav%5Cproperty)
-    - [<a name="vqueue_delete_off"><a/>V\$QUEUE_DELETE_OFF](#a-namevqueue_delete_offav%5Cqueue_delete_off)
-    - [<a name="vrepexec"><a/>V\$REPEXEC](#a-namevrepexecav%5Crepexec)
-    - [<a name="vrepgap"><a/>V\$REPGAP](#a-namevrepgapav%5Crepgap)
-    - [<a name="vrepgap_parallel"><a/>V\$REPGAP_PARALLEL](#a-namevrepgap_parallelav%5Crepgap_parallel)
-    - [<a name="vreplogbuffer"><a/>V\$REPLOGBUFFER](#a-namevreplogbufferav%5Creplogbuffer)
-    - [<a name="vrepoffline_status"><a/>V\$REPOFFLINE_STATUS](#a-namevrepoffline_statusav%5Crepoffline_status)
-    - [<a name="vrepreceiver"><a/>V\$REPRECEIVER](#a-namevrepreceiverav%5Crepreceiver)
-    - [<a name="vrepreceiver_column"><a/>V\$REPRECEIVER_COLUMN](#a-namevrepreceiver_columnav%5Crepreceiver_column)
-    - [<a name="vrepreceiver_parallel"><a/>V\$REPRECEIVER_PARALLEL](#a-namevrepreceiver_parallelav%5Crepreceiver_parallel)
-    - [<a name="vrepreceiver_parallel_apply"><a/>V\$REPRECEIVER_PARALLEL_APPLY](#a-namevrepreceiver_parallel_applyav%5Crepreceiver_parallel_apply)
-    - [<a name="vrepreceiver_statistics"><a/>V\$REPRECEIVER_STATISTICS](#a-namevrepreceiver_statisticsav%5Crepreceiver_statistics)
-    - [<a name="vrepreceiver_transtbl"><a/>V\$REPRECEIVER_TRANSTBL](#a-namevrepreceiver_transtblav%5Crepreceiver_transtbl)
-    - [<a name="vrepreceiver_transtbl_parallel"><a/>V\$REPRECEIVER_TRANSTBL_PARALLEL](#a-namevrepreceiver_transtbl_parallelav%5Crepreceiver_transtbl_parallel)
-    - [<a name="vreprecovery"><a/>V\$REPRECOVERY](#a-namevreprecoveryav%5Creprecovery)
-    - [<a name="vrepsender"><a/>V\$REPSENDER](#a-namevrepsenderav%5Crepsender)
-    - [<a name="vrepsender_parallel"><a/>V\$REPSENDER_PARALLEL](#a-namevrepsender_parallelav%5Crepsender_parallel)
-    - [<a name="vrepsender_sent_log_count"><a/>V\$REPSENDER_SENT_LOG_COUNT](#a-namevrepsender_sent_log_countav%5Crepsender_sent_log_count)
-    - [<a name="vrepsender_sent_log_count_parallel"><a/>V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#a-namevrepsender_sent_log_count_parallelav%5Crepsender_sent_log_count_parallel)
-    - [<a name="vrepsender_statistics"><a/>V\$REPSENDER_STATISTICS](#a-namevrepsender_statisticsav%5Crepsender_statistics)
-    - [<a name="vrepsender_transtbl"><a/>V\$REPSENDER_TRANSTBL](#a-namevrepsender_transtblav%5Crepsender_transtbl)
-    - [<a name="vrepsender_transtbl_parallel"><a/>V\$REPSENDER_TRANSTBL_PARALLEL](#a-namevrepsender_transtbl_parallelav%5Crepsender_transtbl_parallel)
-    - [<a name="vrepsync"><a/>V\$REPSYNC](#a-namevrepsyncav%5Crepsync)
-    - [<a name="vreserved_words"><a/>V\$RESERVED_WORDS](#a-namevreserved_wordsav%5Creserved_words)
-    - [<a name="vsbuffer_stat"><a/>V\$SBUFFER_STAT](#a-namevsbuffer_statav%5Csbuffer_stat)
-    - [<a name="vsegment"><a/>V\$SEGMENT](#a-namevsegmentav%5Csegment)
-    - [<a name="vseq"><a/>V\$SEQ](#a-namevseqav%5Cseq)
-    - [<a name="vservice_thread"><a/>V\$SERVICE_THREAD](#a-namevservice_threadav%5Cservice_thread)
-    - [<a name="vservice_thread_mgr"><a/>V\$SERVICE_THREAD_MGR](#a-namevservice_thread_mgrav%5Cservice_thread_mgr)
-    - [<a name="vsession"><a/>V\$SESSION](#a-namevsessionav%5Csession)
-    - [<a name="vsession_event"><a/>V\$SESSION_EVENT](#a-namevsession_eventav%5Csession_event)
-    - [<a name="vsession_wait"><a/>V\$SESSION_WAIT](#a-namevsession_waitav%5Csession_wait)
-    - [<a name="vsession_wait_class"><a/>V\$SESSION_WAIT_CLASS](#a-namevsession_wait_classav%5Csession_wait_class)
-    - [<a name="vsessionmgr"><a/>V\$SESSIONMGR](#a-namevsessionmgrav%5Csessionmgr)
-    - [<a name="vsesstat"><a/>V\$SESSTAT](#a-namevsesstatav%5Csesstat)
-    - [<a name="vsflusher"><a/>V\$SFLUSHER](#a-namevsflusherav%5Csflusher)
-    - [<a name="vsflushinfo"><a/>V\$SFLUSHINFO](#a-namevsflushinfoav%5Csflushinfo)
-    - [<a name="vsnapshot"><a/>V\$SNAPSHOT](#a-namevsnapshotav%5Csnapshot)
-    - [<a name="vsqltext"><a/>V\$SQLTEXT](#a-namevsqltextav%5Csqltext)
-    - [<a name="vsql_plan_cache"><a/>V\$SQL_PLAN_CACHE](#a-namevsql_plan_cacheav%5Csql_plan_cache)
-    - [<a name="vsql_plan_cache_pco"><a/>V\$SQL_PLAN_CACHE_PCO](#a-namevsql_plan_cache_pcoav%5Csql_plan_cache_pco)
-    - [<a name="vsql_plan_cache_sqltext"><a/>V\$SQL_PLAN_CACHE_SQLTEXT](#a-namevsql_plan_cache_sqltextav%5Csql_plan_cache_sqltext)
-    - [<a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES](#a-namevstable_mem_datafilesav%5Cstable_mem_datafiles)
-    - [<a name="vstatement"><a/>V\$STATEMENT](#a-namevstatementav%5Cstatement)
-    - [<a name="vstatname"><a/>V\$STATNAME](#a-namevstatnameav%5Cstatname)
-    - [<a name="vsysstat"><a/>V\$SYSSTAT](#a-namevsysstatav%5Csysstat)
-    - [<a name="vsystem_conflict_page"><a/>V\$SYSTEM_CONFLICT_PAGE](#a-namevsystem_conflict_pageav%5Csystem_conflict_page)
-    - [<a name="vsystem_event"><a/>V\$SYSTEM_EVENT](#a-namevsystem_eventav%5Csystem_event)
-    - [<a name="vsystem_wait_class"><a/>V\$SYSTEM_WAIT_CLASS](#a-namevsystem_wait_classav%5Csystem_wait_class)
-    - [<a name="vsys_license_"><a/>V\$SYS_LICENSE_](#a-namevsys_license_av%5Csys_license_)
-    - [<a name="vtable"><a/>V\$TABLE](#a-namevtableav%5Ctable)
-    - [<a name="vtablespaces"><a/>V\$TABLESPACES](#a-namevtablespacesav%5Ctablespaces)
-    - [<a name="vtime_zone_names"><a/>V\$TIME_ZONE_NAMES](#a-namevtime_zone_namesav%5Ctime_zone_names)
-    - [<a name="vtracelog"><a/>V\$TRACELOG](#a-namevtracelogav%5Ctracelog)
-    - [<a name="vtransaction"><a/>V\$TRANSACTION](#a-namevtransactionav%5Ctransaction)
-    - [<a name="vtransaction_mgr"><a/>V\$TRANSACTION_MGR](#a-namevtransaction_mgrav%5Ctransaction_mgr)
-    - [<a name="vtssegs"><a/>V\$TSSEGS](#a-namevtssegsav%5Ctssegs)
-    - [<a name="vtxsegs"><a/>V\$TXSEGS](#a-namevtxsegsav%5Ctxsegs)
-    - [<a name="vudsegs"><a/>V\$UDSEGS](#a-namevudsegsav%5Cudsegs)
-    - [<a name="vundo_buff_stat"><a/>V\$UNDO_BUFF_STAT](#a-namevundo_buff_statav%5Cundo_buff_stat)
-    - [<a name="vusage"><a/>V\$USAGE](#a-namevusageav%5Cusage)
-    - [<a name="vversion"><a/>V\$VERSION](#a-namevversionav%5Cversion)
-    - [<a name="vvol_tablespaces"><a/>V\$VOL_TABLESPACES](#a-namevvol_tablespacesav%5Cvol_tablespaces)
-    - [<a name="vwait_class_name"><a/>V\$WAIT_CLASS_NAME](#a-namevwait_class_nameav%5Cwait_class_name)
-    - [<a name="vxid"><a/>V\$XID](#a-namevxidav%5Cxid)
+    - [V\$ACCESS_LIST](#vaccess_list)
+    - [V\$ALLCOLUMN](#vallcolumn)
+    - [V\$ARCHIVE](#varchive)
+    - [V\$BACKUP_INFO](#vbackup_info)
+    - [V\$BUFFPAGEINFO](#vbuffpageinfo)
+    - [V\$BUFFPOOL_STAT](#vbuffpool_stat)
+    - [V\$CATALOG](#vcatalog)
+    - [V\$DATABASE](#vdatabase)
+    - [V\$DATAFILES](#vdatafiles)
+    - [V\$DATATYPE](#vdatatype)
+    - [V\$DBA_2PC_PENDING](#vdba_2pc_pending)
+    - [V\$DBLINK_ALTILINKER_STATUS](#vdblink_altilinker_status)
+    - [V\$DBLINK_DATABASE_LINK_INFO](#vdblink_database_link_info)
+    - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#vdblink_global_transaction_info)
+    - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#vdblink_linker_control_session_info)
+    - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#vdblink_linker_data_session_info)
+    - [V\$DBLINK_LINKER_SESSION_INFO](#vdblink_linker_session_info)
+    - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#vdblink_notifier_transaction_info)
+    - [V\$DBLINK_REMOTE_STATEMENT_INFO](#vdblink_remote_statement_info)
+    - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#vdblink_remote_transaction_info)
+    - [V\$DBMS_STATS](#vdbms_stats)
+    - [V\$DB_FREEPAGELISTS](#vdb_freepagelists)
+    - [V\$DB_PROTOCOL](#vdb_protocol)
+    - [V\$DIRECT_PATH_INSERT](#vdirect_path_insert)
+    - [V\$DISKTBL_INFO](#vdisktbl_info)
+    - [V\$DISK_BTREE_HEADER](#vdisk_btree_header)
+    - [V\$DISK_TEMP_INFO](#vdisk_temp_info)
+    - [V\$DISK_TEMP_STAT](#vdisk_temp_stat)
+    - [V\$DISK_UNDO_USAGE](#vdisk_undo_usage)
+    - [V\$EVENT_NAME](#vevent_name)
+    - [V\$EXTPROC_AGENT](#vextproc_agent)
+    - [V\$FILESTAT](#vfilestat)
+    - [V\$FLUSHER](#vflusher)
+    - [V\$FLUSHINFO](#vflushinfo)
+    - [V\$INDEX](#vindex)
+    - [V\$INSTANCE](#vinstance)
+    - [V\$INTERNAL_SESSION](#vinternal_session)
+    - [V\$LATCH](#vlatch )
+    - [V\$LIBRARY](#vlibrary)
+    - [V\$LFG](#vlfg)
+    - [V\$LOCK](#vlock)
+    - [V\$LOCK_STATEMENT](#vlock_statement)
+    - [V\$LOG](#vlog)
+    - [V\$LOCK_WAIT](#vlock_wait)
+    - [V\$MEMGC](#vmemgc)
+    - [V\$MEMSTAT](#vmemstat)
+    - [V\$MEMTBL_INFO](#vmemtbl_info)
+    - [V\$MEM_BTREE_HEADER](#vmem_btree_header)
+    - [V\$MEM_BTREE_NODEPOOL](#vmem_btree_nodepool)
+    - [V\$MEM_RTREE_HEADER](#vmem_rtree_header)
+    - [V\$MEM_RTREE_NODEPOOL](#vmem_rtree_nodepool)
+    - [V\$MEM_TABLESPACES](#vmem_tablespaces)
+    - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#vmem_tablespace_checkpoint_paths)
+    - [V\$MEM_TABLESPACE_STATUS_DESC](#vmem_tablespace_status_desc)
+    - [V\$MUTEX](#vmutex)
+    - [V\$NLS_PARAMETERS](#vnls_parameters)
+    - [V\$NLS_TERRITORY](#vnls_territory)
+    - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
+    - [V\$PKGTEXT](#vpkgtext)
+    - [V\$PLANTEXT](#vplantext)
+    - [V\$PROCINFO](#vprocinfo)
+    - [V\$PROCTEXT](#vproctext)
+    - [V\$PROPERTY](#vproperty)
+    - [V\$QUEUE_DELETE_OFF](#vqueue_delete_off)
+    - [V\$REPEXEC](#vrepexec)
+    - [V\$REPGAP](#vrepgap)
+    - [V\$REPGAP_PARALLEL](#vrepgap_parallel)
+    - [V\$REPLOGBUFFER](#vreplogbuffer)
+    - [V\$REPOFFLINE_STATUS](#vrepoffline_status)
+    - [V\$REPRECEIVER](#vrepreceiver)
+    - [V\$REPRECEIVER_COLUMN](#vrepreceiver_column)
+    - [V\$REPRECEIVER_PARALLEL](#vrepreceiver_parallel)
+    - [V\$REPRECEIVER_PARALLEL_APPLY](#vrepreceiver_parallel_apply)
+    - [V\$REPRECEIVER_STATISTICS](#vrepreceiver_statistics)
+    - [V\$REPRECEIVER_TRANSTBL](#vrepreceiver_transtbl)
+    - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#vrepreceiver_transtbl_parallel)
+    - [V\$REPRECOVERY](#vreprecovery)
+    - [V\$REPSENDER](#vrepsender)
+    - [V\$REPSENDER_PARALLEL](#vrepsender_parallel)
+    - [V\$REPSENDER_SENT_LOG_COUNT](#vrepsender_sent_log_count)
+    - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#vrepsender_sent_log_count_parallel)
+    - [V\$REPSENDER_STATISTICS](#vrepsender_statistics)
+    - [V\$REPSENDER_TRANSTBL](#vrepsender_transtbl)
+    - [V\$REPSENDER_TRANSTBL_PARALLEL](#vrepsender_transtbl_parallel)
+    - [V\$REPSYNC](#vrepsync)
+    - [V$REPL_REMOTE_META_REPLICATIONS](#vrepl_remote_meta_replications)
+    - [V$REPL_REMOTE_META_ITEMS](#vrepl_remote_meta_items)
+    - [V$REPL_REMOTE_META_COLUMNS](#vrepl_remote_meta_columns)
+    - [V$REPL_REMOTE_META_INDEX_COLUMNS](#vrepl_remote_meta_index_columns)
+    - [V$REPL_REMOTE_META_INDICES](#vrepl_remote_meta_indices)
+    - [V$REPL_REMOTE_META_CHECKS](#vrepl_remote_meta_checks)
+    - [V\$RESERVED_WORDS](#vreserved_words)
+    - [V\$SBUFFER_STAT](#vsbuffer_stat)
+    - [V\$SEGMENT](#vsegment)
+    - [V\$SEQ](#vseq)
+    - [V\$SERVICE_THREAD](#vservice_thread)
+    - [V\$SERVICE_THREAD_MGR](#vservice_thread_mgr)
+    - [V\$SESSION](#vsession)
+    - [V\$SESSION_EVENT](#vsession_event)
+    - [V\$SESSION_WAIT](#vsession_wait)
+    - [V\$SESSION_WAIT_CLASS](#vsession_wait_class)
+    - [V\$SESSIONMGR](#vsessionmgr)
+    - [V\$SESSTAT](#vsesstat)
+    - [V\$SFLUSHER](#vsflusher)
+    - [V\$SFLUSHINFO](#vsflushinfo)
+    - [V\$SNAPSHOT](#vsnapshot)
+    - [V\$SQLTEXT](#vsqltext)
+    - [V\$SQL_PLAN_CACHE](#vsql_plan_cache)
+    - [V\$SQL_PLAN_CACHE_PCO](#vsql_plan_cache_pco)
+    - [V\$SQL_PLAN_CACHE_SQLTEXT](#vsql_plan_cache_sqltext)
+    - [V\$STABLE_MEM_DATAFILES](#vstable_mem_datafiles)
+    - [V\$STATEMENT](#vstatement)
+    - [V\$STATNAME](#vstatname)
+    - [V\$SYSSTAT](#vsysstat)
+    - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
+    - [V\$SYSTEM_EVENT](#vsystem_event)
+    - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
+    - [V\$TABLE](#vtable)
+    - [V\$TABLESPACES](#vtablespaces)
+    - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
+    - [V\$TRACELOG](#vtracelog)
+    - [V\$TRANSACTION](#vtransaction)
+    - [V\$TRANSACTION_MGR](#vtransaction_mgr)
+    - [V\$TSSEGS](#vtssegs)
+    - [V\$TXSEGS](#vtxsegs)
+    - [V\$UDSEGS](#vudsegs)
+    - [V\$UNDO_BUFF_STAT](#vundo_buff_stat)
+    - [V\$USAGE](#vusage)
+    - [V\$VERSION](#vversion)
+    - [V\$VOL_TABLESPACES](#vvol_tablespaces)
+    - [V\$WAIT_CLASS_NAME](#vwait_class_name)
+    - [V\$XID](#vxid)
   - [4.샘플 스키마](#4%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
     - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
     - [E-R 다이어그램과 샘플 데이타](#e-r-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8%EA%B3%BC-%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%83%80)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-
 
 
 Altibase® Administration
@@ -301,82 +298,82 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 
 다음 표는 메타 테이블의 목록이다. 메타 테이블의 이름은 SYS_로 시작한다.
 
-| 메타 테이블 이름             | 설명                                                         |
-| ---------------------------- | ------------------------------------------------------------ |
-| SYS_AUDIT\_                  | 감사의 동작 상태가 저장되는 메타 테이블                      |
-| SYS_AUDIT_OPTS\_             | 감사 조건이 저장되는 메타 뷰. SYS_AUDIT_ALL_OPTS_가 이 뷰의 베이스 메타 테이블이다. |
-| SYS_COLUMNS\_                | 칼럼에 대한 정보를 저장하는 메타 테이블                      |
-| SYS_COMMENTS\_               | 설명을 달기 위한 주석 메타 테이블                            |
-| SYS_COMPRESSION_TABLES\_     | 압축 칼럼에 대한 정보가 저장되는 메타 테이블                 |
-| SYS_CONSTRAINTS\_            | 제약 조건에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_CONSTRAINT_COLUMNS\_     | 제약 조건을 가지는 칼럼에 대한 정보를 저장하는 메타 테이블   |
-| SYS_CONSTRAINT_RELATED\_     | 제약조건(constraints)이 참조하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
-| SYS_DATABASE\_               | 데이터베이스 이름과 버전에 대한 정보를 저장하는 메타 테이블  |
-| SYS_DATABASE_LINKS\_         | 데이터베이스 링크에 대한 정보를 저장하는 메타 테이블         |
-| SYS_DIRECTORIES\_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
-| SYS_DN_USERS\_               | 향후 확장 예정                                               |
-| SYS_DUMMY\_                  | 내부 용도                                                    |
-| SYS_ENCRYPTED_COLUMNS\_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
-| SYS_GRANT_OBJECT\_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_GRANT_SYSTEM\_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
-| SYS_INDEX_COLUMNS\_          | 인덱스 키 칼럼에 대한 정보를 저장하는 메타 테이블            |
-| SYS_INDEX_PARTITIONS\_       | 인덱스 파티션에 대한 정보를 저장하는 메타 테이블             |
-| SYS_INDEX_RELATED\_          | 함수 기반 인덱스가 기반하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
-| SYS_INDICES\_                | 인덱스에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_JOBS\_                   | JOB에 대한 정보를 저장하는 메타 테이블                       |
-| SYS_LIBRARIES\_              | 외부 라이브러리 객체에 대한 정보를 저장하는 메타 테이블      |
-| SYS_LOBS\_                   | LOB 칼럼에 대한 정보를 저장하는 메타 테이블                  |
-| SYS_MATERIALIZED_VIEWS\_     | Materialized view에 대한 정보가 기록되어 있는 메타 테이블    |
-| SYS_PACKAGES\_               | 패키지에 대한 정보가 저장되는 메타 테이블                    |
-| SYS_PACKAGE_PARAS\_          | 패키지에 포함된 서브프로그램(저장 프로시저와 저장 함수)들의 인자 (parameter)들에 대한 정보가 저장되는 메타 테이블 |
-| SYS_PACKAGE_PARSE\_          | 사용자가 정의한 패키지의 구문 텍스트가 저장되는 메타 테이블  |
-| SYS_PACKAGE_RELATED\_        | 패키지 내에 포함된 저장 프로시저와 저장 함수들이 참조하는 테이블, 시퀀스, 저장 프로시저, 저장 함수, 또는 뷰들에 대한 정보가 저장되는 메타 테이블 |
-| SYS_PART_INDICES\_           | 파티션드 인덱스에 대한 정보를 저장하는 메타 테이블           |
-| SYS_PART_KEY_COLUMNS\_       | 파티셔닝 키에 대한 정보를 저장하는 메타 테이블               |
-| SYS_PART_LOBS\_              | 파티션별 LOB 칼럼에 대한 정보를 저장하는 메타 테이블         |
-| SYS_PART_TABLES\_            | 파티션드 테이블에 대한 정보를 저장하는 메타 테이블           |
-| SYS_PASSWORD_HISTORY\_       | 패스워드 관리 정책을 설정한 사용자의 패스워드 변경 내역을 저장하는 메타 테이블 |
-| SYS_PASSWORD_LIMITS\_        | 사용자 생성 시 계정에 대해 지정한 패스워드 관리 정책과 계정의 현재 상태를 저장하는 메타 뷰 |
-| SYS_PRIVILEGES\_             | 권한에 대한 정보를 저장하는 메타 테이블                      |
-| SYS_PROCEDURES\_             | 저장 프로시저 및 함수에 대한 정보를 저장하는 메타 테이블     |
-| SYS_PROC_PARAS\_             | 저장 프로시저 및 함수의 파라미터에 대한 정보를 저장하는 메타 테이블 |
-| SYS_PROC_PARSE\_             | 저장 프로시저 및 함수의 구문에 대한 정보를 저장하는 메타 테이블 |
-| SYS_PROC_RELATED\_           | 저장 프로시저 및 함수가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블 |
-| SYS_RECYCLEBIN\_             | 휴지통에 있는 테이블의 정보를 저장하는 메타 테이블           |
-| SYS_REPLICATIONS\_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_REPL_HOSTS\_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
-| SYS_REPL_ITEMS\_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
-| SYS_REPL_ITEMS_HISTORY\_     | 내부 용도                                                    |
-| SYS_REPL_ITEM_REPLACE_HISTORY\_  | 이중화 대상 테이블에 대한 alter table replace 구문이 실행된 이력 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OFFLINE_DIR\_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_COLUMNS\_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_INDEX_COLUMNS\_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_INDICES\_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_ITEMS\_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_RECEIVER\_          | 내부 용도                                                    |
-| SYS_REPL_RECOVERY_INFOS\_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
-| SYS_SECURITY\_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_SYNONYMS\_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TABLES\_                 | 테이블에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TABLE_PARTITIONS\_       | 테이블의 파티션에 대한 정보를 저장하는 메타 테이블           |
-| SYS_TABLE_SIZE\_             | 시스템에 있는 디스크 테이블과 메모리 테이블의 실제 크기 정보를 저장하는 메타 테이블 |
-| SYS_TBS_USERS\_              | 사용자 정의 테이블스페이스에 대한 사용자 접근 정보를 저장하는 메타 테이블 |
-| SYS_TRIGGERS\_               | 트리거에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TRIGGER_DML_TABLES\_     | 트리거가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블  |
-| SYS_TRIGGER_STRINGS\_        | 트리거 구문을 저장하는 메타 테이블                           |
-| SYS_TRIGGER_UPDATE_COLUMNS\_ | 그 값이 변경될 때마다 트리거를 시작시키는 칼럼들에 대한 정보를 저장하는 메타 테이블 |
-| SYS_USERS\_                  | 사용자에 대한 정보를 저장하는 메타 테이블                    |
-| DBA_USERS\_                  | 사용자에 대한 정보를 저장하는 메타 테이블. SYS 사용자만 조회 가능. |
-| SYS_USER_ROLES\_             | 사용자에게 부여된 롤(Role)에 대한 정보를 저장하는 메타 테이블 |
-| SYS_VIEWS\_                  | 뷰에 대한 정보를 저장하는 메타 테이블                        |
-| SYS_VIEW_PARSE\_             | 뷰 구문을 저장하는 메타 테이블                               |
-| SYS_VIEW_RELATED\_           | 뷰가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블      |
-| SYS_XA_HEURISTIC_TRANS\_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
-| SYS_GEOMETRIES\_             | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
-| SYS_GEOMETRY_COLUMNS\_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음  |
-| USER_SRS_                    | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음  |
+| 메타 테이블 이름            | 설명                                                         |
+| --------------------------- | ------------------------------------------------------------ |
+| SYS_AUDIT_                  | 감사의 동작 상태가 저장되는 메타 테이블                      |
+| SYS_AUDIT_OPTS_             | 감사 조건이 저장되는 메타 뷰. SYS_AUDIT_ALL_OPTS_가 이 뷰의 베이스 메타 테이블이다. |
+| SYS_COLUMNS_                | 칼럼에 대한 정보를 저장하는 메타 테이블                      |
+| SYS_COMMENTS_               | 설명을 달기 위한 주석 메타 테이블                            |
+| SYS_COMPRESSION_TABLES_     | 압축 칼럼에 대한 정보가 저장되는 메타 테이블                 |
+| SYS_CONSTRAINTS_            | 제약 조건에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_CONSTRAINT_COLUMNS_     | 제약 조건을 가지는 칼럼에 대한 정보를 저장하는 메타 테이블   |
+| SYS_CONSTRAINT_RELATED_     | 제약조건(constraints)이 참조하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
+| SYS_DATABASE_               | 데이터베이스 이름과 버전에 대한 정보를 저장하는 메타 테이블  |
+| SYS_DATABASE_LINKS_         | 데이터베이스 링크에 대한 정보를 저장하는 메타 테이블         |
+| SYS_DIRECTORIES_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
+| SYS_DN_USERS_               | 향후 확장 예정                                               |
+| SYS_DUMMY_                  | 내부 용도                                                    |
+| SYS_ENCRYPTED_COLUMNS_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
+| SYS_GRANT_OBJECT_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_GRANT_SYSTEM_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
+| SYS_INDEX_COLUMNS_          | 인덱스 키 칼럼에 대한 정보를 저장하는 메타 테이블            |
+| SYS_INDEX_PARTITIONS_       | 인덱스 파티션에 대한 정보를 저장하는 메타 테이블             |
+| SYS_INDEX_RELATED_          | 함수 기반 인덱스가 기반하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
+| SYS_INDICES_                | 인덱스에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_JOBS_                   | JOB에 대한 정보를 저장하는 메타 테이블                       |
+| SYS_LIBRARIES_              | 외부 라이브러리 객체에 대한 정보를 저장하는 메타 테이블      |
+| SYS_LOBS_                   | LOB 칼럼에 대한 정보를 저장하는 메타 테이블                  |
+| SYS_MATERIALIZED_VIEWS_     | Materialized view에 대한 정보가 기록되어 있는 메타 테이블    |
+| SYS_PACKAGES_               | 패키지에 대한 정보가 저장되는 메타 테이블                    |
+| SYS_PACKAGE_PARAS_          | 패키지에 포함된 서브프로그램(저장 프로시저와 저장 함수)들의 인자 (parameter)들에 대한 정보가 저장되는 메타 테이블 |
+| SYS_PACKAGE_PARSE_          | 사용자가 정의한 패키지의 구문 텍스트가 저장되는 메타 테이블  |
+| SYS_PACKAGE_RELATED_        | 패키지 내에 포함된 저장 프로시저와 저장 함수들이 참조하는 테이블, 시퀀스, 저장 프로시저, 저장 함수, 또는 뷰들에 대한 정보가 저장되는 메타 테이블 |
+| SYS_PART_INDICES_           | 파티션드 인덱스에 대한 정보를 저장하는 메타 테이블           |
+| SYS_PART_KEY_COLUMNS_       | 파티셔닝 키에 대한 정보를 저장하는 메타 테이블               |
+| SYS_PART_LOBS_              | 파티션별 LOB 칼럼에 대한 정보를 저장하는 메타 테이블         |
+| SYS_PART_TABLES_            | 파티션드 테이블에 대한 정보를 저장하는 메타 테이블           |
+| SYS_PASSWORD_HISTORY_       | 패스워드 관리 정책을 설정한 사용자의 패스워드 변경 내역을 저장하는 메타 테이블 |
+| SYS_PASSWORD_LIMITS_        | 사용자 생성 시 계정에 대해 지정한 패스워드 관리 정책과 계정의 현재 상태를 저장하는 메타 뷰 |
+| SYS_PRIVILEGES_             | 권한에 대한 정보를 저장하는 메타 테이블                      |
+| SYS_PROCEDURES_             | 저장 프로시저 및 함수에 대한 정보를 저장하는 메타 테이블     |
+| SYS_PROC_PARAS_             | 저장 프로시저 및 함수의 파라미터에 대한 정보를 저장하는 메타 테이블 |
+| SYS_PROC_PARSE_             | 저장 프로시저 및 함수의 구문에 대한 정보를 저장하는 메타 테이블 |
+| SYS_PROC_RELATED_           | 저장 프로시저 및 함수가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_RECYCLEBIN_             | 휴지통에 있는 테이블의 정보를 저장하는 메타 테이블           |
+| SYS_REPLICATIONS_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_REPL_HOSTS_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_ITEMS_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_OFFLINE_DIR_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_CHECKS_        | 이중화 송신 쓰레드가 복제중인 이중화 대상 칼럼 중 CHECK 제약조건에 대한 정보를 가진 메타 테이블 |
+| SYS_REPL_OLD_CHECK_COLUMNS_ | 이중화 송신 쓰레드가 복제 중인 이중화 대상 칼럼에 설정된 CHECK 제약조건에 대한 정보를 가진 메타 테이블 |
+| SYS_REPL_OLD_COLUMNS_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_INDEX_COLUMNS_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_INDICES_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_ITEMS_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_TABLE_OID_IN_USE   | 이중화가 아직 처리하지 않은 DDL 로그에 포함된 테이블의 테이블 객체 식별자(TABLE OID) 정보를 관리하는 메타 테이블 |
+| SYS_REPL_RECOVERY_INFOS_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
+| SYS_SECURITY_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_SYNONYMS_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TABLES_                 | 테이블에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TABLE_PARTITIONS_       | 테이블의 파티션에 대한 정보를 저장하는 메타 테이블           |
+| SYS_TABLE_SIZE_             | 시스템에 있는 디스크 테이블과 메모리 테이블의 실제 크기 정보를 저장하는 메타 테이블 |
+| SYS_TBS_USERS_              | 사용자 정의 테이블스페이스에 대한 사용자 접근 정보를 저장하는 메타 테이블 |
+| SYS_TRIGGERS_               | 트리거에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TRIGGER_DML_TABLES_     | 트리거가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블  |
+| SYS_TRIGGER_STRINGS_        | 트리거 구문을 저장하는 메타 테이블                           |
+| SYS_TRIGGER_UPDATE_COLUMNS_ | 그 값이 변경될 때마다 트리거를 시작시키는 칼럼들에 대한 정보를 저장하는 메타 테이블 |
+| SYS_USERS_                  | 사용자에 대한 정보를 저장하는 메타 테이블                    |
+| DBA_USERS_                  | 사용자에 대한 정보를 저장하는 메타 테이블. SYS 사용자만 조회 가능. |
+| SYS_USER_ROLES_             | 사용자에게 부여된 롤(Role)에 대한 정보를 저장하는 메타 테이블 |
+| SYS_VIEWS_                  | 뷰에 대한 정보를 저장하는 메타 테이블                        |
+| SYS_VIEW_PARSE_             | 뷰 구문을 저장하는 메타 테이블                               |
+| SYS_VIEW_RELATED_           | 뷰가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블      |
+| SYS_XA_HEURISTIC_TRANS_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
+| SYS_GEOMETRIES_             | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
+| SYS_GEOMETRY_COLUMNS_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음 |
+| USER_SRS_                   | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음 |
 
-### SYS_AUDIT\_
+### SYS_AUDIT_
 
 감사(Auditing)의 동작 상태가 기록되는 메타 테이블이다.
 
@@ -7026,11 +7023,7 @@ QUERY_REWRITE_ENABLE 프로퍼티에 대해서는 2장을 참고하라.
 - FALSE: Altibase 서버에서 쿼리 변환 시에 함수 기반 인덱스 미적용(disable)
 - TRUE: Altibase 서버에서 쿼리 변환 시에 함수 기반 인덱스 적용(enable)
 
-
-
-## 3.데이터 딕셔너리
-
-### <a name="vlatch"><a/>V\$LATCH
+### V\$LATCH
 
 버퍼 풀의 BCB 래치 정보를 보여준다. 래치 정보에는 읽기 혹은 쓰기가 시도된
 페이지에 대하여 래치 시도 횟수와 바로 래치를 잡는 횟수, 잡지 못한 횟수 등이
@@ -7048,7 +7041,7 @@ QUERY_REWRITE_ENABLE 프로퍼티에 대해서는 2장을 참고하라.
 | WRITE_MISS         | BIGINT  | 쓰기 래치를 바로 잡지 못한 횟수 |
 | SLEEPS_CNT         | BIGINT  | 래치를 잡기 위하여 sleep한 횟수 |
 
-### <a name="vlibrary"><a/>V\$LIBRARY
+### V\$LIBRARY
 
 C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보를 보여준다.
 라이브러리 정보를 통해서 원하는 라이브러리를 제대로 로드했는지 확인할 수 있다.
@@ -7080,7 +7073,7 @@ C/C++ Internal procedure에서 동적으로 로드한 라이브러리의 정보�
 ##### OPEN_TIME
 동적 라이브러리를 로드한 일시를 나타낸다.
 
-### <a name="vlfg"><a/>V\$LFG
+### V\$LFG
 
 이 뷰는 데이터베이스 관리자가 그룹 커밋의 동작을 모니터링 할 수 있는 통계 정보를
 제공한다. 각 칼럼에 대한 보다 상세한 정보는 이 매뉴얼의 그룹 커밋 부분을
@@ -7199,7 +7192,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 그룹커밋 도중 이 LFG에 속한 트랜잭션들이 실제로 디스크 I/O를 수행한 횟수를
 나타낸다.
 
-### <a name="vlock"><a/>V\$LOCK
+### V\$LOCK
 
 현재 시점에서 데이터베이스의 모든 테이블에 대한 잠금(lock) 노드 정보를 보여준다.
 
@@ -7228,7 +7221,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 | DBF     | 데이터베이스 파일      |
 | UNKNOWN | 객체 유형을 알 수 없음 |
 
-### <a name="vlock_statement"><a/>V\$LOCK_STATEMENT
+### lock_statementV\$LOCK_STATEMENT
 
 잠금 (lock)을 잡고 있는 구문 (statement)과 잠금을 획득하기를 대기하고 있는 구문
 (statement) 정보를 보여준다.
@@ -7249,7 +7242,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 | LOCK_CNT       | INTEGER        | 해당 잠금 노드의 잠금 개수                                   |
 | IS_GRANT       | BIGINT         | 해당 테이블에 대하여 잠금을 잡고 있는지 대기하고 있는지 여부 |
 
-### <a name="vlog"><a/>V\$LOG
+### logV\$LOG
 
 로그 앵커 정보를 보여준다.
 
@@ -7287,7 +7280,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 
 -   NOARCHIVE: 이 모드에서는 불필요한 로그 파일이 삭제된다.
 
-### <a name="vlock_wait"><a/>V\$LOCK_WAIT
+### lock_waitV\$LOCK_WAIT
 
 시스템에서 수행되는 트랜잭션 간의 대기 정보를 나타낸다.
 
@@ -7319,7 +7312,7 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 위에 예제에서, 트랜잭션 2208에 대해서 트랜잭션 1216과 트랜잭션 5344가 현재
 대기하고 있다.
 
-### <a name="vmemgc"><a/>V\$MEMGC
+### memgcV\$MEMGC
 
 메모리 공간 회수 즉, 가비지 콜렉션 (memory garbage collection) 정보를 보여준다.
 
@@ -7363,7 +7356,7 @@ AGING_PROCESSED_OID_CNT는 OID 단위로 계산하기 때문에 10 증가한다.
 ##### THREAD_COUNT
 공간 회수(garbage collection, aging) 쓰레드 개수를 나타낸다.
 
-### <a name="vmemstat"><a/>V\$MEMSTAT
+### memstatV\$MEMSTAT
 
 Altibase 프로세스가 사용하는 메모리의 통계 정보를 보여준다.
 
@@ -7515,7 +7508,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 
 해당 모듈이 보유했던 최대 메모리 크기를 나타낸다.
 
-### <a name="vmemtbl_info"><a/>V\$MEMTBL_INFO
+### V\$MEMTBL_INFO
 
 메모리 테이블의 상태를 보여준다.
 
@@ -7593,7 +7586,7 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 
 삭제가 재시도될 때 이 값이 증가된다
 
-###  <a name="vmem_btree_header"><a/>V\$MEM_BTREE_HEADER
+###  mem_btree_headerV\$MEM_BTREE_HEADER
 
 메모리 BTREE의 헤더 정보를 보여준다.
 
@@ -7651,7 +7644,7 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 인덱스 생성 시 키 값을 사용했는지 레코드 포인터를 사용했는지를 나타낸다. 키
 값으로 생성되었을 경우 'V'를 갖고, 레코드 포인터로 생성되었을 경우 'P'를 갖는다.
 
-### <a name="vmem_btree_nodepool"><a/>V\$MEM_BTREE_NODEPOOL
+### mem_btree_nodepoolV\$MEM_BTREE_NODEPOOL
 
 메모리 BTREE 인덱스를 위한 노드 풀 정보를 보여준다. 해당 노드 풀은 모든 메모리
 BTREE 인덱스의 노드 할당과 반환을 관리한다.
@@ -7704,7 +7697,7 @@ BTREE 인덱스에 할당되지 않고 노드 풀에 남아 있는 노드 수를
 
 삭제 대기중인 BTREE 인덱스에 사용되었던 노드 수를 나타낸다.
 
-### <a name="vmem_rtree_header"><a/>V\$MEM_RTREE_HEADER
+### V\$MEM_RTREE_HEADER
 
 메모리 RTREE 인덱스의 헤더 정보를 보여준다.
 
@@ -7759,7 +7752,7 @@ BTREE 인덱스에 할당되지 않고 노드 풀에 남아 있는 노드 수를
 
 노드 할당에 따른 시스템 부하를 고려하여 미리 할당받은 노드의 개수를 의미한다.
 
-### <a name="vmem_rtree_nodepool"><a/>V\$MEM_RTREE_NODEPOOL
+###V\$MEM_RTREE_NODEPOOL
 
 메모리 RTREE 인덱스를 위한 노드 풀 정보를 보여준다. 해당 노드 풀은 모든 메모리
 RTREE 인덱스의 노드 할당과 반환을 관리한다.
@@ -7812,7 +7805,7 @@ RTREE 인덱스에 할당된 노드의 총 수를 나타낸다.
 
 RTREE 인덱스에서 사용되었던 노드가 삭제 대기중인 노드 수를 나타낸다.
 
-### <a name="vmem_tablespaces"><a/>V\$MEM_TABLESPACES
+### V\$MEM_TABLESPACES
 
 메모리에 생성된 테이블스페이스 정보를 보여준다.
 
@@ -7924,7 +7917,7 @@ Altibase는 데이터베이스 확장 시 디스크에서 파일이 바로 확�
 체크포인트 시에 확장되기 때문에 메모리에 존재하는 데이터베이스 페이지 개수와
 디스크에 존재하는 페이지 개수가 다를 수 있다.
 
-### <a name="vmem_tablespace_checkpoint_paths"><a/>V\$MEM_TABLESPACE_CHECKPOINT_PATHS 
+### V\$MEM_TABLESPACE_CHECKPOINT_PATHS 
 
 특정 테이블스페이스에 대해서 체크포인트 발생 시 변경된 페이지 (Dirty Page)가
 반영되는 데이터베이스 이미지 파일의 위치 즉 디렉터리 경로를 보여준다.
@@ -7934,7 +7927,7 @@ Altibase는 데이터베이스 확장 시 디스크에서 파일이 바로 확�
 | SPACE_ID        | INTEGER      | 테이블스페이스 식별자                             |
 | CHECKPOINT_PATH | VARCHAR(512) | 데이터베이스 이미지 파일들이 위치한 디렉터리 경로 |
 
-### <a name="vmem_tablespace_status_desc"><a/>V\$MEM_TABLESPACE_STATUS_DESC 
+### V\$MEM_TABLESPACE_STATUS_DESC 
 
 메모리 테이블스페이스의 상태를 나타내는 값과 그에 대한 설명을 보여준다. 이 값은
 V\$MEM_TABLESPACES성능 뷰의 SPACE_STATUS칼럼이 가질 수 있는 값이다.
@@ -7970,7 +7963,7 @@ V\$MEM_TABLESPACES성능 뷰의 SPACE_STATUS칼럼이 가질 수 있는 값이�
 | SWITCHING_TO_ONLINE  | 테이블스페이스가 온라인 상태로 바뀌고 있다.                                                                         |
 | BLOCK_BACKUP         | 테이블스페이스에 대해서 백업할 수 없다. 현재 다른 연산을 수행하는 중이므로 백업은 이 연산이 완료된 후에 할 수 있다. |
 
-### <a name="vmutex"><a/>V\$MUTEX
+### V\$MUTEX
 
 Altibase 프로세스에서 사용되고 있는 동시성 제어와 관련된 뮤텍스 통계 정보를
 보여준다.
@@ -7986,7 +7979,7 @@ Altibase 프로세스에서 사용되고 있는 동시성 제어와 관련된 �
 | MAX_LOCK_TIME_US   | BIGINT      | 잠금을 잡고 있던 시간 중 최대 시간 (microseconds) |
 | THREAD_ID          | VARCHAR(64) | 현재 잠금을 잡고 있는 쓰레드 ID                   |
 
-### <a name="vnls_parameters"><a/>V\$NLS_PARAMETERS
+### V\$NLS_PARAMETERS
 
 서버 및 클라이언트의 NLS (National Language Support) 관련 정보를 세션 단위로
 보여준다.
@@ -8055,7 +8048,7 @@ TRUE 또는 FALSE가 나올 수 있다. TURE일 경우에는 클라이언트가 
 집합으로 변환하고, FALSE일 경우에는 검사하지 않고 SQL문 전체를 데이터베이스 문자
 집합으로 변환한다.
 
-### <a name="vnls_territory"><a/>V\$NLS_TERRITORY
+### V\$NLS_TERRITORY
 
 데이터베이스 또는 현재 세션에 설정 가능한 지역의 이름이 저장되어 있는 성능
 뷰이다.
@@ -8064,7 +8057,7 @@ TRUE 또는 FALSE가 나올 수 있다. TURE일 경우에는 클라이언트가 
 |-------------|-------------|-------------------------|
 | NAME        | VARCHAR(40) | 설정 가능한 지역의 이름 |
 
-### <a name="vobsolete_backup_info"><a/>V\$OBSOLETE_BACKUP_INFO
+### V\$OBSOLETE_BACKUP_INFO
 
 더 이상 유지할 필요가 없는 백업에 대한 정보를 보여준다.
 
@@ -8084,7 +8077,7 @@ V\$BACKUP_INFO 성능 뷰의 칼럼 정보를 참고하도록 한다.
 | BACKUP_TAG                     | CHAR(128) | 백업 태그 이름              |
 | BACKUP_FILE                    | CHAR(512) | 백업 파일                   |
 
-### <a name="vpkgtext"><a/>V\$PKGTEXT
+### V\$PKGTEXT
 
 시스템에서 수행되는 패키지의 문자열 정보를 나타낸다.
 
@@ -8109,7 +8102,7 @@ V\$BACKUP_INFO 성능 뷰의 칼럼 정보를 참고하도록 한다.
 
 패키지 텍스트의 일부분인 64바이트 텍스트 조각의 내용을 나타낸다.
 
-### <a name="vplantext"><a/>V\$PLANTEXT
+### V\$PLANTEXT
 
 서버에서 수행되는 SQL의 실행계획 (execution plan) 정보를 나타낸다.
 
@@ -8139,7 +8132,7 @@ statement 식별자를 나타낸다.
 
 실행계획 전체 텍스트의 일부분인 64바이트 텍스트 조각의 내용이다.
 
-### <a name="vprocinfo"><a/>V\$PROCINFO
+### V\$PROCINFO
 | Column name  | Type        | Description                      |
 |--------------|-------------|----------------------------------|
 | PROC_OID     | BIGINT      | 저장 프로시저의 객체 식별자        |
@@ -8168,7 +8161,7 @@ statement 식별자를 나타낸다.
 - shard procedure는 'HASH', 'RANGE', 'LIST', 'CLONE', 'SOLO' 중에 하나가 올 수 있습니다.
 - 일반 procedure는 'NONE' 으로 나옵니다.
 
-###  <a name="vproctext"><a/>V\$PROCTEXT
+###  V\$PROCTEXT
 
 시스템에서 수행되는 저장 프로시저의 문자열 정보를 나타낸다.
 
@@ -8193,7 +8186,7 @@ statement 식별자를 나타낸다.
 
 저장 프로시저 텍스트의 일부분인 64바이트 텍스트 조각의 내용을 나타낸다.
 
-### <a name="vproperty"><a/>V\$PROPERTY
+### V\$PROPERTY
 
 Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
@@ -8240,7 +8233,7 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 실제 설정된 프로퍼티의 값을 나타낸다.
 
-### <a name="vqueue_delete_off"><a/>V\$QUEUE_DELETE_OFF	
+### V\$QUEUE_DELETE_OFF	
 
 DELETE 문을 허용하지 않는 큐 테이블을 보여준다. CREATE QUEUE 또는 ALTER QUEUE 에서 DELETE OFF 절을 사용한 경우 해당 큐 테이블에 DELETE 문을 허용하지 않는다.
 
@@ -8254,7 +8247,7 @@ DELETE 문을 허용하지 않는 큐 테이블을 보여준다. CREATE QUEUE �
 
 테이블 식별자로 SYS_TABLES_메타 테이블의 한 TABLE_OID 값과 동일하다.
 	
-### <a name="vrepexec"><a/>V\$REPEXEC
+### V\$REPEXEC
 
 이중화 관리자 정보를 보여준다.
 
@@ -8278,7 +8271,7 @@ DELETE 문을 허용하지 않는 큐 테이블을 보여준다. CREATE QUEUE �
 
 지역서버에서 생성 가능한 이중화 수신 쓰레드의 최대 개수이다.
 
-### <a name="vrepgap"><a/>V\$REPGAP
+### V\$REPGAP
 
 이중화 송신자의 작업 로그 레코드와 가장 최근 생성된 로그 레코드간의 차이를
 보여준다. 단, 이중화 송신 쓰레드가 동작 중일때만 정보를 보여준다.
@@ -8350,7 +8343,7 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 
 로그 파일 내에서 현재 읽고 있는 위치를 나타낸다.
 
-### <a name="vrepgap_parallel"><a/>V\$REPGAP_PARALLEL
+### V\$REPGAP_PARALLEL
 
 병렬 동작중인 이중화 송신 쓰레드의 작업 로그 레코드와 가장 최근 생성된 로그
 레코드간의 차이를 보여준다. 단, 이 정보는 여러 이중화 송신 쓰레드가 병렬 동작
@@ -8433,7 +8426,7 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 
 한 송신자를 위해 병렬 동작중인 여러 쓰레드 중 하나의 식별자이다.
 
-### <a name="vreplogbuffer"><a/>V\$REPLOGBUFFER
+### V\$REPLOGBUFFER
 
 이중화 송신 쓰레드가 동작 중일 때 이중화 송신자 전용 로그 버퍼의 상태 정보를
 보여준다.
@@ -8464,7 +8457,7 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 
 이중화 전용 로그 버퍼에 저장된 로그 레코드의 식별 번호중 최대값이다.
 
-### <a name="vrepoffline_status"><a/>V\$REPOFFLINE_STATUS
+### V\$REPOFFLINE_STATUS
 
 오프라인 이중화의 수행 상태를 표시한다.
 
@@ -8498,7 +8491,7 @@ BUFFER_MIN_SN과 BUFFER_MAX_SN 사이의 값인지 확인한다.
 표시한다. 이중화가 성공적으로 시작되어 종료되었을 경우 종료된 시각이 설정되고,
 그 외는 0으로 설정된다.
 
-### <a name="vrepreceiver"><a/>V\$REPRECEIVER
+### V\$REPRECEIVER
 
 이중화 수신자의 정보를 보여준다.
 
@@ -8608,7 +8601,7 @@ SQL 반영 모드로 동작하는 테이블의 개수이다.
 병렬 적용자(Parallel Applier) 옵션으로 이중화를 사용할 때, 적용자 쓰레드에
 할당된 XLog의 메모리 총 사용량을 나타낸다. 단위는 byte이다.
 
-### <a name="vrepreceiver_column"><a/>V\$REPRECEIVER_COLUMN
+### V\$REPRECEIVER_COLUMN
 
 이중화 수신자의 이중화 대상 칼럼 정보를 보여준다.
 
@@ -8653,7 +8646,7 @@ TABLE_NAME 값과 일치한다.
 
 -   1: SQL 모드
 
-### <a name="vrepreceiver_parallel"><a/>V\$REPRECEIVER_PARALLEL
+### V\$REPRECEIVER_PARALLEL
 
 병렬 동작중인 이중화 수신 쓰레드의 정보를 보여준다.
 
@@ -8749,7 +8742,7 @@ COMMIT 또는 ROLLBACK과 무관하게 계산된다. 즉 ROLLBACK을 수행해�
 
 동일 이중화 객체에 해당하는 여러 이중화 수신자 중 하나의 식별자이다.
 
-### <a name="vrepreceiver_parallel_apply"><a/>V\$REPRECEIVER_PARALLEL_APPLY 
+### V\$REPRECEIVER_PARALLEL_APPLY 
 
 이중화 수신자의 정보를 보여준다.
 
@@ -8780,7 +8773,7 @@ RECEIVER APPLIER 의 현재 동작 상태를 나타낸다
 
 나머지 칼럼 정보에 대한 자세한 내용은 V\$REPRECEIVER를 참조한다.
 
-### <a name="vrepreceiver_statistics"><a/>V\$REPRECEIVER_STATISTICS
+### V\$REPRECEIVER_STATISTICS
 
 이중화 수신 쓰레드의 작업 별 수행시간에 대해 통계 정보를 보여준다.
 TIMED_STATISTICS 프로퍼티의 값이 1로 설정되어 있을 때만 통계정보가 이 뷰에
@@ -8892,7 +8885,7 @@ LOB 연산 작업 중 FINISH CLOSE LOB CURSOR작업 시간의 누적 값이다.
 
 Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
-### <a name="vrepreceiver_transtbl"><a/>V\$REPRECEIVER_TRANSTBL
+### V\$REPRECEIVER_TRANSTBL
 
 이중화 수신자의 트랜잭션 테이블의 정보를 보여준다.
 
@@ -8920,7 +8913,7 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 원격서버에서 실행중인 트랜잭션의 식별자이다. 이미 실행이 끝났을 수도 있다.
 
-### <a name="vrepreceiver_transtbl_parallel"><a/>V\$REPRECEIVER_TRANSTBL_PARALLEL
+### V\$REPRECEIVER_TRANSTBL_PARALLEL
 
 병렬 동작중인 다중 이중화 수신 쓰레드들의 트랜잭션 테이블 정보를 보여준다.
 
@@ -8951,7 +8944,7 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 병렬 동작중인 여러 이중화 수신 쓰레드들 중 하나의 식별자이다.
 
-### <a name="vreprecovery"><a/>V\$REPRECOVERY
+### V\$REPRECOVERY
 
 이중화를 이용한 복구 정보를 보여준다.
 
@@ -9012,7 +9005,7 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 원격 서버의 복구를 위한 수신 쓰레드가 사용하는 포트번호이다.
 
-### <a name="vrepsender"><a/>V\$REPSENDER
+### V\$REPSENDER
 
 이중화 송신자의 정보를 보여준다.
 
@@ -9138,7 +9131,7 @@ EAGER이다. 이중화 모드에 대한 자세한 설명은 *Replication Manual*
 
 이 외의 경우에는 REPL_MODE의 값과 동일하다.
 
-### <a name="vrepsender_parallel"><a/>V\$REPSENDER_PARALLEL
+### V\$REPSENDER_PARALLEL
 
 병렬 동작중인 이중화 송신 쓰레드들의 정보를 보여준다.
 
@@ -9241,7 +9234,7 @@ EAGER이다. 이중화 모드에 대한 자세한 설명은 *Replication Manual*
 
 병렬 동작중인 여러 이중화 송신 쓰레드들 중 하나의 식별자이다.
 
-### <a name="vrepsender_sent_log_count"><a/>V\$REPSENDER_SENT_LOG_COUNT
+### V\$REPSENDER_SENT_LOG_COUNT
 
 이중화 송신자가 전송한 로그를 DML 타입 별로 분류하여 개수를 보여준다. 이중화
 로그는 이중화 송신자가 시작하면 실시간으로 전송되며, 전송할 때마다 이 성능 뷰의
@@ -9271,7 +9264,7 @@ Eager 모드의 병렬 이중화의 경우, Parent Sender에 대한 정보만 �
 
 V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바란다.
 
-### <a name="vrepsender_sent_log_count_parallel"><a/>V\$REPSENDER_SENT_LOG_COUNT_PARALLEL
+### V\$REPSENDER_SENT_LOG_COUNT_PARALLEL
 
 Eager 모드의 병렬 이중화의 각 이중화 송신 쓰레드가 전송한 로그를 DML 타입 별로
 분류하여 개수를 보여준다. 이중화 로그는 이중화 송신자가 시작하면 실시간으로
@@ -9306,7 +9299,7 @@ V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바�
 
 한 송신자를 위해 병렬 동작중인 여러 쓰레드 중 하나의 식별자이다.
 
-### <a name="vrepsender_statistics"><a/>V\$REPSENDER_STATISTICS
+### V\$REPSENDER_STATISTICS
 
 이중화 송신 쓰레드의 작업 별 수행시간에 대해 통계 정보를 보여준다.
 TIMED_STATISTICS 프로퍼티의 값이 1로 설정되어 있을 때만 통계정보가 이 뷰에
@@ -9374,7 +9367,7 @@ XLog를 수신 쓰레드에 전송하는 데 걸린 시간의 누적 값이다.
 
 수신 쓰레드로부터 받은 ACK값을 분석하는데 걸린 시간의 누적 값이다.
 
-### <a name="vrepsender_transtbl"><a/>V\$REPSENDER_TRANSTBL
+### V\$REPSENDER_TRANSTBL
 
 이중화 송신자의 트랜잭션 테이블의 정보를 보여준다.
 
@@ -9405,7 +9398,7 @@ V\$REPSENDER 성능 뷰의 START_FLAG 칼럼의 설명을 참고한다.
 
 원격서버에서 실행되는 트랜잭션의 식별자이다.
 
-### <a name="vrepsender_transtbl_parallel"><a/>V\$REPSENDER_TRANSTBL_PARALLEL
+### V\$REPSENDER_TRANSTBL_PARALLEL
 
 병렬 동작중인 이중화 송신 쓰레드의 트랜잭션 테이블의 정보를 보여준다.
 
@@ -9441,7 +9434,7 @@ V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바�
 
 병렬 동작중인 여러 이중화 송신 쓰레드들 중 하나의 식별자이다.
 
-### <a name="vrepsync"><a/>V\$REPSYNC
+### V\$REPSYNC
 
 이중화를 사용해서 동기화 중인 테이블의 정보를 보여준다.
 
@@ -9476,7 +9469,7 @@ REPLICATION_SYNC_TUPLE_COUNT 프로퍼티에 설정한 레코드 개수 단위�
 이 칼럼은 이는 동기화 진행 중에는 동기화 된 레코드의 개수를 보여주며, 동기화가
 완료되면 -1을 보여준다.
 
-### <a name="vreserved_words"><a/>V\$RESERVED_WORDS
+### V\$RESERVED_WORDS
 
 SQL에서 사용되는 모든 키워드를 보여준다.
 
@@ -9504,7 +9497,7 @@ SQL에서 사용 되는 키워드의 이름이다.
 
 -   1: 테이블의 칼럼 이름으로 사용할 수 있다.
 
-### <a name="vsbuffer_stat"><a/>V\$SBUFFER_STAT
+### V\$SBUFFER_STAT
 
 보조 버퍼(Secondary Buffer)에 대한 통계 정보를 보여준다.
 
@@ -9605,7 +9598,7 @@ micro-seconds)
 "full 스캔" 수행을 위해 보조 버퍼에서 여러 데이터 페이지들을 동시에 읽을 때의
 초당 읽은 평균 바이트 수이다. (단위: kB/sec)
 
-###  <a name="vsegment"><a/>V\$SEGMENT
+###  V\$SEGMENT
 
 디스크 테이블과 디스크 인덱스를 구성하는 세그먼트의 상태, 종류 및 할당된
 익스텐트의 개수를 보여준다.
@@ -9647,7 +9640,7 @@ micro-seconds)
 
 세그먼트에 할당된 익스텐트의 총 개수이다.
 
-### <a name="vseq"><a/>V\$SEQ
+### V\$SEQ
 
 시퀀스 관련 정보를 보여준다.
 
@@ -9700,7 +9693,7 @@ TABLE_OID 칼럼 값과 일치한다.
 -   NO: 순환 하지 않는다. 만약 시퀀스가 최대값에 도달할 경우 다음 시퀀스 값을
     요청하면, 에러가 발생한다.
 
-### <a name="vservice_thread"><a/>V\$SERVICE_THREAD
+### V\$SERVICE_THREAD
 
 서비스 쓰레드 정보를 보여준다.
 
@@ -9802,7 +9795,7 @@ SHARED 모드에서 DEDICATED 모드로만 전환할 수 있다.
 서비스 쓰레드가 자신의 요청을 처리해 주기를 대기하고 있는 세션의 개수를
 나타낸다.
 
-### <a name="vservice_thread_mgr"><a/>V\$SERVICE_THREAD_MGR
+### V\$SERVICE_THREAD_MGR
 
 서비스 쓰레드가 생성되거나 삭제된 횟수를 누적해서 보여준다.
 
@@ -9825,7 +9818,7 @@ Altibase는 필요에 따라 동적으로 서비스 쓰레드를 추가하거나
 
 서비스 쓰레드가 동적으로 삭제된 횟수의 누적값이다.
 
-### <a name="vsession"><a/>V\$SESSION
+### V\$SESSION
 
 Altibase 내부에 생성된 클라이언트 세션에 대한 정보를 보여준다.
 
@@ -10242,7 +10235,7 @@ DDL 복제를 수행하는 지역 서버를 기준으로 초과값 측정된다.
   클라이언트의 메시지콜백 등록 여부를 알 수 없으며, 서버는 메시지를 클라이언트로 전송한다.
   해당기능이 없는 구버전 클라이언트가 접속한 경우 UNKNOWN 상태를 가진다.
 
-### <a name="vsession_event"><a/>V\$SESSION_EVENT
+### V\$SESSION_EVENT
 
 현재 Altibase에 접속중인 세션별로 모든 대기 이벤트들에 대한 통계 정보(누적치)를
 보여준다.
@@ -10308,7 +10301,7 @@ DDL 복제를 수행하는 지역 서버를 기준으로 초과값 측정된다.
 
 세션에 대기하고 있는 이벤트를 그룹화한 클래스의 이름을 나타낸다.
 
-### <a name="vsession_wait"><a/>V\$SESSION_WAIT
+### V\$SESSION_WAIT
 
 현재 접속된 모든 세션의 대기 이벤트 정보를 보여준다. 그러나 이전에 접속했던
 세션과 관련된 대기 이벤트들의 정보는 제공되지 않는다.
@@ -10356,7 +10349,7 @@ DDL 복제를 수행하는 지역 서버를 기준으로 초과값 측정된다.
 
 해당 이벤트가 대기하고 있는 시간을 나타낸다. (단위: 초)
 
-### <a name="vsession_wait_class"><a/>V\$SESSION_WAIT_CLASS
+### V\$SESSION_WAIT_CLASS
 
 현재 접속된 모든 세션의 대기 이벤트를 분류하여 대기 정보의 누적된 통계치를
 보여준다. 그러나 이전에 접속했던 세션과 관련된 대기 이벤트들의 정보는 제공되지
@@ -10409,7 +10402,7 @@ group by sid, serial, wait_class_id
 order by total_waits desc;
 ```
 
-### <a name="vsessionmgr"><a/>V\$SESSIONMGR
+### V\$SESSIONMGR
 
 세션 통계 정보를 보여준다.
 
@@ -10465,7 +10458,7 @@ Altibase가 구동된 이후에 발생한 갱신(Update) 트랜잭션의 시간 
 Altibase가 구동된 이후에 sysdba에 의해 강제로 연결이 끊긴 세션의 개수를
 나타낸다.
 
-###  <a name="vsesstat"><a/>V\$SESSTAT
+###  V\$SESSTAT
 
 현재 접속된 모든 세션의 통계치를 나타낸다.
 
@@ -10496,7 +10489,7 @@ Altibase가 구동된 이후에 sysdba에 의해 강제로 연결이 끊긴 세�
 
 통계치로 반환된 값을 64비트 정수로 나타낸다.
 
-### <a name="vsflusher"><a/>V\$SFLUSHER 
+### V\$SFLUSHER 
 
 보조 버퍼(Secondary Buffer)의 페이지를 디스크에 플러시 하는 작업에 대한 정보를
 보여준다.
@@ -10663,7 +10656,7 @@ KB/Sec이다.
 임시 페이지를 임시 파일에 쓸 때 초당 기록된 bytes 수의 평균값으로 단위는
 KB/Sec이다.
 
-### <a name="vsflushinfo"><a/>V\$SFLUSHINFO
+### V\$SFLUSHINFO
 
 보조 버퍼(Secondary Buffer)의 플러시 정보를 보여준다.
 
@@ -10715,7 +10708,7 @@ KB/Sec이다.
 
 체크포인트 대상 페이지 중 가장 빠른 recovery LSN을 가진 페이지의 ID를 나타낸다.
 
-### <a name="vsnapshot"><a/>V\$SNAPSHOT
+### V\$SNAPSHOT
 
 스냅샷(SNAPSHOT)의 설정 상태와 메모리, 디스크 언두 테이블스페이스의 사용량을
 보여준다
@@ -10762,7 +10755,7 @@ BEGIN SNAPSHOT 구문이 실행될 때의 디스크 언두 테이블스페이스
 
 현재 디스크 언두 테이블스페이스의 사용량을 백분율로 나타낸다.
 
-### <a name="vsqltext"><a/>V\$SQLTEXT
+### V\$SQLTEXT
 
 서버에서 현재 수행되는 SQL 텍스트 정보를 나타낸다.
 
@@ -10792,7 +10785,7 @@ SQL 텍스트가 실행된 세션의 고유 번호를 나타낸다.
 
 전체 SQL 문의 일부분인 64바이트 단위의 문자열 조각이다.
 
-### <a name="vsql_plan_cache"><a/>V\$SQL_PLAN_CACHE
+### V\$SQL_PLAN_CACHE
 
 SQL Plan Cache의 현재 상태 및 통계 정보를 나타낸다.
 
@@ -10862,7 +10855,7 @@ SQL Plan Cache에 추가된 plan cache 객체의 개수를 의미한다.
 SQL Plan Cache에 저장되지 않는 구문이 발생한 횟수이다. 그 구문은 DDL과
 DCL구문이다.
 
-### <a name="vsql_plan_cache_pco"><a/>V\$SQL_PLAN_CACHE_PCO
+### V\$SQL_PLAN_CACHE_PCO
 
 SQL Plan Cache에 등록된 Plan cache 객체에 대한 정보를 나타낸다.
 
@@ -10951,7 +10944,7 @@ Plan cache 객체의 keep 상태를 나타내며 다음과 같은 값을 가질 
 - UNKEEP
   PLAN이 unkeep 되어 있는 상태로 victim에 선정될 수 있다.
 
-###  <a name="vsql_plan_cache_sqltext"><a/>V\$SQL_PLAN_CACHE_SQLTEXT
+### V\$SQL_PLAN_CACHE_SQLTEXT
 
 SQL Plan Cache에 등록된 SQL 문에 대한 정보를 보여준다.
 
@@ -10999,7 +10992,7 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 - UNKEEP
   PLAN이 unkeep 되어 있는 상태로 victim에 선정될 수 있다.
 
-### <a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES
+### V\$STABLE_MEM_DATAFILES
 
 데이터베이스에 존재하는 데이터 파일의 전체 경로를 보여준다.
 
@@ -11013,7 +11006,7 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 
 데이터베이스에 존재하는 데이터 파일의 전체 경로이다.
 
-### <a name="vstatement"><a/>V\$STATEMENT
+### V\$STATEMENT
 
 현재 연결된 세션 별로 가장 최근 실행된 구문 (statement)에 대한 정보를 보여준다.
 
@@ -11315,7 +11308,7 @@ SQL Cache Text 객체에서 공유 plan cache 객체의 식별자를 나타낸�
 
 대기 시간 (단위: 초)이다.
 
-### <a name="vstatname"><a/>V\$STATNAME
+### V\$STATNAME
 
 이 테이블은 시스템 전체의 통계 정보를 보여주는 V\$SYSSTAT와 각 세션의 통계
 정보를 보여주는 V\$SESSTAT의 통계 정보 일련번호와 이름을 보여준다.
@@ -11475,7 +11468,7 @@ V\$SYSSTATE과 V\$SESSTAT 성능 뷰에서 64비트 정수로 표현된다.
 
 [<sup>15</sup>] elapsed time 단위 : microsecond
 
-###  <a name="vsysstat"><a/>V\$SYSSTAT
+###  sysstatV\$SYSSTAT
 
 시스템 상태를 보여준다. 그러나 상태값은 모든 세션의 정보에 기반하여 3초마다
 갱신되기 때문에, 보여지는 값들은 시간이 지난 값일 수 있다.
@@ -11502,7 +11495,7 @@ V\$SYSSTATE과 V\$SESSTAT 성능 뷰에서 64비트 정수로 표현된다.
 
 통계치 일련 번호에 해당하는 현재 시스템의 값을 64비트 정수로 표현한다.
 
-### <a name="vsystem_conflict_page"><a/>V\$SYSTEM_CONFLICT_PAGE
+### V\$SYSTEM_CONFLICT_PAGE
 
 디스크 버퍼 공간 상에서 페이지간 래치(Latch) 경합에 의한 병목 구간을 분석할 수
 있도록 페이지 타입별로 경합 정보를 보여준다.
@@ -11529,7 +11522,7 @@ TIMED_STATISTICS 프로퍼티가 1로 설정된 경우에만 정보를 수집한
 
 버퍼 페이지의 래치 획득 실패로 인한 대기 시간 (단위: 마이크로 초)을 나타낸다.
 
-### <a name="vsystem_event"><a/>V\$SYSTEM_EVENT
+### system_eventV\$SYSTEM_EVENT
 
 Altibase 구동 후부터 현재까지 대기 이벤트별로 누적된 대기 통계 정보를 보여준다.
 
@@ -11584,7 +11577,7 @@ Altibase 구동 후부터 현재까지 대기 이벤트별로 누적된 대기 �
 
 이벤트를 그룹화한 대기 클래스의 이름이다.
 
-### <a name="vsystem_wait_class"><a/>V\$SYSTEM_WAIT_CLASS
+### V\$SYSTEM_WAIT_CLASS
 
 Altibase 구동 후부터 현재까지의 대기 클래스별로 분류해서 누적된 대기 통계 정보를
 보여준다.
@@ -11647,7 +11640,7 @@ order by 5 desc;
 ```
 
 
-### <a name="vsys_license_"><a/>V\$SYS_LICENSE_
+### V\$SYS_LICENSE_
 
 라이선스 관련 정보를 기록하고 있는 메타 테이블이다.
 
@@ -11788,7 +11781,7 @@ bdw-ex-altibase
 
 
 
-### <a name="vtable"><a/>V\$TABLE
+### V\$TABLE
 
 성능 뷰 리스트를 보여준다.
 
@@ -11812,7 +11805,7 @@ bdw-ex-altibase
 
 해당 성능 뷰가 가진 칼럼의 개수이다.
 
-### <a name="vtablespaces"><a/>V\$TABLESPACES
+### V\$TABLESPACES
 
 테이블스페이스의 정보를 보여준다.
 
@@ -11938,7 +11931,7 @@ CREATE TABLESPACE 구문에 정의된 테이블스페이스의 이름이다.
 
 -   1: LOG COMPRESS 수행한다.
 
-### <a name="vtime_zone_names"><a/>V\$TIME_ZONE_NAMES
+### V\$TIME_ZONE_NAMES
 
 TIME_ZONE 프로퍼티에 설정할 수 있는 지역 이름과 약어 및 UTC 오프셋 값의 목록을
 보여주는 성능 뷰이다.
@@ -11959,7 +11952,7 @@ Asia/Seoul 또는 KST와 같은 타임 존 설정을 위한 지역 이름의 문
 타임 존의 UTC(협정 세계시)로부터의 오프셋 값이다. 예를 들어, Asia/Seoul의 경우
 UTC 오프셋이 +09:00이다.
 
-### <a name="vtracelog"><a/>V\$TRACELOG
+### V\$TRACELOG
 
 데이터베이스 내부 모듈의 수행 내역을 남기는 메시지 로깅 관련 정보를 보여준다.
 
@@ -12103,7 +12096,7 @@ alter system set qp_msglog_flag=3
 alter system set rp_conflict_msglog_flag=4
 ```
 
-### <a name="vtransaction"><a/>V\$TRANSACTION
+### transactionV\$TRANSACTION
 
 트랜잭션 객체의 정보를 보여준다.
 
@@ -12321,7 +12314,7 @@ SCN을 가진다. 이 항목은 현재 해당 트랜잭션에서 메모리 테�
 
 해당 트랜잭션에서 현재까지 언두 완료된 로그 개수 
 
-### <a name="vtransaction_mgr"><a/>V\$TRANSACTION_MGR
+### V\$TRANSACTION_MGR
 
 Altibase 트랜잭션 관리자의 정보를 보여준다.
 
@@ -12356,7 +12349,7 @@ Altibase는 시스템 시작시에 프로퍼티에 지정된 개수의 트랜잭
 - sharding 환경 : VERSIONING_MIN_TIME != 0 이면, min(TXs.MinMemViewSCN, sTimeSCN (주1))
   - min(TXs.MinDskViewSCN , sTimeSCN (주1))
 
-### <a name="vtssegs"><a/>V\$TSSEGS
+### V\$TSSEGS
 
 언두 테이블스페이스에 존재하는 모든 TSS 세그먼트의 목록을 출력한다.
 
@@ -12405,7 +12398,7 @@ TSS 세그먼트의 총 익스텐트 디렉터리의 개수이다.
 
 하나의 익스텐트의 총 페이지의 개수이다.
 
-### <a name="vtxsegs"><a/>V\$TXSEGS
+### V\$TXSEGS
 
 트랜잭션에 바인딩되어 온라인 상태로 있는 세그먼트의 목록을 출력한다.
 
@@ -12481,7 +12474,7 @@ TSS를 할당한 TSS 세그먼트의 익스텐트 RID룰 나타낸다.
 해당 트랜잭션이 갱신때 기록했던 마지막 언두 레코드의 페이지 내에서의 슬롯 번호를
 나타낸다.
 
-### <a name="vudsegs"><a/>V\$UDSEGS
+### V\$UDSEGS
 
 언두 테이블스페이스에 존재하는 모든 언두(UNDO) 세그먼트의 목록을 출력한다.
 
@@ -12530,7 +12523,7 @@ TSS를 할당한 TSS 세그먼트의 익스텐트 RID룰 나타낸다.
 
 하나의 익스텐트의 총 페이지 개수를 나타낸다.
 
-### <a name="vundo_buff_stat"><a/>V\$UNDO_BUFF_STAT
+### V\$UNDO_BUFF_STAT
 
 언두 테이블스페이스의 버퍼 풀 관련 통계 정보를 보여준다.
 
@@ -12565,7 +12558,7 @@ TSS를 할당한 TSS 세그먼트의 익스텐트 RID룰 나타낸다.
 나타낸다. 이 요청에 대해 버퍼 매니저는 버퍼에서 빈 BCB를 확보한 후 페이지를
 초기화 하여 리턴한다. 디스크 I/O는 이 연산에서 발생하지 않는다.
 
-### <a name="vusage"><a/>V\$USAGE
+### V\$USAGE
 
 이 뷰는 데이터베이스에 존재하는 테이블과 인덱스가 사용하는 공간의 양을 보여준다.
 이 뷰로부터 올바른 정보를 읽고 싶다면, 먼저 DBMS Stat 내장 프로시저를 실행해서
@@ -12657,7 +12650,7 @@ T  89648                848                  2128                 0             
 10 rows selected.
 ```
 
-### <a name="vversion"><a/>V\$VERSION
+### V\$VERSION
 
 데이터베이스 버전 관련 정보를 보여준다.
 
@@ -12701,7 +12694,7 @@ Altibase 제품의 버전 정보를 나타낸다.
 
 이중화를 위한 프로토콜 버전을 나타낸다.
 
-### <a name="vvol_tablespaces"><a/>V\$VOL_TABLESPACES
+### V\$VOL_TABLESPACES
 
 메모리에 생성된 휘발성 테이블스페이스 정보를 보여준다.
 
@@ -12750,7 +12743,7 @@ Altibase 제품의 버전 정보를 나타낸다.
 
 테이블스페이스의 빈 (free) 페이지 개수를 나타낸다.
 
-### <a name="vwait_class_name"><a/>V\$WAIT_CLASS_NAME
+### V\$WAIT_CLASS_NAME
 
 Altibase 서버상의 대기 이벤트들을 그룹화하기 위한 정보를 보여준다. 다양한 대기
 이벤트들을 분류하기 위해 상위 개념인 대기 클래스를 사용하며 이 성능뷰를 통하여
@@ -12784,7 +12777,7 @@ Altibase 서버상의 대기 이벤트들을 그룹화하기 위한 정보를 �
 | 7             | System I/O     | 시스템 I/O 관련 대기 이벤트를 포함한다.                                         |
 | 8             | Replication    | 이중화에서 사용하는 대기 이벤트를 포함하는 클래스이다.                          |
 
-### <a name="vxid"><a/>V\$XID
+### V\$XID
 
 DBMS내 분산 트랜잭션의 식별자인 XID의 목록을 보여준다. XA에서 분산 트랜잭션
 식별자는 분산 트랜잭션이 시작될 때 TM (Transaction Manager) 내부에서 생성되며,
