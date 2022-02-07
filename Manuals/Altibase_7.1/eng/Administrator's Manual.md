@@ -651,6 +651,10 @@ When Altibase is installed, the following directories are created. The location 
 
 This section describes the purpose and contents of each of these directories.
 
+#### APatch Directory
+
+This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the [Altibase 7.1 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Installation%20Guide.md#apatch-directory).
+
 #### admin Directory
 
 This directory contains the adminview.sql script file, which creates views related to Altibase system information, as well as other script files for creating stored procedures that are used to view information related to tables, stored procedures, and replication objects.
@@ -809,6 +813,10 @@ This directory contains system defined stored packages and catproc.sql file whic
 This directory contains sample Altibase applications.
 
 It contains source code and Makefiles for programs written using the JDBC, ODBC, and C/C++ Precompiler libraries.
+
+#### thirdparty
+
+This directory contains scripts or libraries required when using 3rd parties.
 
 #### trc Directory
 

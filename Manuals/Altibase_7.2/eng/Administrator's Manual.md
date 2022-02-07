@@ -18,7 +18,7 @@
   - [5. Objects and Privileges](#5-objects-and-privileges)
     - [Database Objects](#database-objects)
     - [Tables](#tables)
-    - [Temporary Tables](#temporary-tables-2)
+    - [Temporary Tables](#temporary-tables-1)
     - [Compressed Tables](#compressed-tables)
     - [Queues](#queues)
     - [Constraints](#constraints-3)
@@ -661,7 +661,7 @@ This directory contains the adminview.sql script file, which creates views relat
 
 This directory contains sample script files for the altiComp feature which synchronizes mismatching data during replication.
 
-For more detailed information about the altiComp utility, please refer to the *Utilities Manual*.
+For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#altimon)*.
 
 #### altiMon Directory
 
@@ -669,7 +669,7 @@ This directory contains xml configuration files, shell scripts, sql files, log d
 
 #### arch_logs Directory
 
-This directory contains archive log file. The location and name of this directory must be specified in the altibase.properties file.
+This directory contains archive log file. The location and name of this directory can be specified and changed in the altibase.properties file according to the user environment.
 
 #### bin Directory
 
