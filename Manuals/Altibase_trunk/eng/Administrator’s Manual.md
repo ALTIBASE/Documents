@@ -661,7 +661,7 @@ This directory contains information about Altibase installation and patches. It 
 
 This directory contains sample script files for the altiComp feature which synchronizes mismatching data during replication.
 
-For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md)*.
+For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#2-alticomp)*.
 
 #### altiMon Directory
 
@@ -683,9 +683,9 @@ altiComp, checkServer, dumpbi, dumpct, dumpdb, dumpddf, dumpla, dumplf, iloader,
 isql, killCheckServer, server, apre
 ```
 
-For more detailed information on iloader, isql and apre, please refer to the *iLoader User's Manual, iSQL User's Manual*, and *Precompiler User's Manual*.
+For more detailed information on iloader, isql and apre, please refer to the *[iLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md), [iSQL User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iSQL%20User's%20Manual.md)*, and *[Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Precompiler%20User%E2%80%99s%20Manual.md)*.
 
-For more detailed information about other utilities, please refer to the *Utilities Manual*.
+For more detailed information about other utilities, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md)*.
 
 #### conf Directory
 
@@ -736,33 +736,33 @@ This directory contains an altibase_env.mk file and a README file that contain m
 
 #### lib Directory
 
-This directory contains an application development library for developing client applications and contains the following files. For more detailed information on how to write applications using these library files, please refer to the *Getting Started Guide*.
+This directory contains an application development library for developing client applications and contains the following files. For more detailed information on how to write applications using these library files, please refer to the *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Getting%20Started%20Guide.md)*.
 
 ##### Altibase.jar
 
-This is the JDBC driver for accessing Altibase via Java applications. This is a Type 4 driver, and is thus a Pure Java driver. For more detailed information, please refer to the *JDBC User’s Manual*.
+This is the JDBC driver for accessing Altibase via Java applications. This is a Type 4 driver, and is thus a Pure Java driver. For more detailed information, please refer to the *[JDBC User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/JDBC%20User's%20Manual.md)*.
 
 ##### libapre.a
 
-This library is needed in order to create embedded SQL programs. For more detailed information on writing embedded SQL programs, please refer to the *Precompiler User’s Manual*.
+This library is needed in order to create embedded SQL programs. For more detailed information on writing embedded SQL programs, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Precompiler%20User%E2%80%99s%20Manual.md)*.
 
 ##### libodbccli.a
 
-This library is used when authoring Altibase CLI applications. For more detailed information, please refer to the *CLI User’s Manual*.
+This library is used when authoring Altibase CLI applications. For more detailed information, please refer to the *[CLI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/CLI%20User's%20Manual.md)*.
 
 ##### libalticapi.a
 
-This library is used when writing Altibase ACI applications. For more detailed information, please refer to the *ACI User’s Manual*.
+This library is used when writing Altibase ACI applications. For more detailed information, please refer to the *[ACI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20C%20Interface%20Manual.md)*.
 
 ##### libaltibase_odbc-64bit-ul64.so
 
-This is the Altibase ODBC driver that can be used in Unix-like operating systems. Depending on the installation package and the operating system, the file extension and file name can be different. For more detailed information, please refer to the *ODBC User’s Manual*.
+This is the Altibase ODBC driver that can be used in Unix-like operating systems. Depending on the installation package and the operating system, the file extension and file name can be different. For more detailed information, please refer to the *[ODBC User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/ODBC%20User's%20Manual.md)*.
 
 ##### Others
 
--   libaltibaseMonitor.a: the library for the Monitoring API of Altibase. Please refer to the *Moni- toring API Developer’s Guide*.
--   libchksvr.a: the library for the CheckServer API of Altibase. Please refer to the *API User’s Manual*.
--   libiloader.a: the library for the Altibase iLoader API. Please refer to the *API User’s Manual*.
+-   libaltibaseMonitor.a: the library for the Monitoring API of Altibase. Please refer to the *[Monitoring API Developer’s Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Monitoring%20API%20Developer's%20Guide.md)*.
+-   libchksvr.a: the library for the CheckServer API of Altibase. Please refer to the *[API User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/API%20User's%20Manual.md)*.
+-   libiloader.a: the library for the Altibase iLoader API. Please refer to the *[API User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/API%20User's%20Manual.md)*.
 -   libsesc.a: this is provided for backward compatibility and is identical to libapre.a.
 
 #### logs Directory
@@ -920,7 +920,7 @@ This tool is for changing the password of the sys account.
 
 The altiComp feature compares the tables of two databases, to print information about mis- matching data and synchronize the databases.
 
-For more detailed information, please refer to the *Utilities Manual*.
+For more detailed information, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#2-alticomp)*.
 
 #### checkServer
 
@@ -937,12 +937,12 @@ This tool outputs and examines the contents of Altibase log files.
 #### iloader
 
 This tool is for uploading and downloading particular database tables.
-For detailed information on this tool, please refer to the *iLoader User’s Manual*.
+For detailed information on this tool, please refer to the *[iLoader User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md)*.
 
 #### isql
 
 This is a tool for interactively executing database queries.
-For more detailed information on this tool, please refer to the *iSQL User’s Manual*.
+For more detailed information on this tool, please refer to the *[iSQL User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iSQL%20User's%20Manual.md)*.
 
 #### killCheckServer
 
@@ -956,7 +956,7 @@ This is a shell script program that is used to start up, shut down, or restart t
 
 This application is used for precompiling applications written in C/C++ that contain embedded SQL statements.
 
-For more detailed information on this tool, please refer to the *Precompiler User’s Manual*.
+For more detailed information on this tool, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Precompiler%20User%E2%80%99s%20Manual.md)*.
 
 ### Altibase Libraries
 
@@ -970,7 +970,7 @@ The following are the components required when developing application programs u
 
 -   Header files for programming
 
-This is explained in detail in the *Getting Started Guide*.
+This is explained in detail in the *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Getting%20Started%20Guide.md)*.
 
 ## 3. Creating a Database
 
