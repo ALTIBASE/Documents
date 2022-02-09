@@ -898,7 +898,7 @@ Altibase를 설치하면 다음의 디렉터리가 생성된다. Altibase의 홈
 
 #### APatch 디렉터리
 
-Altibase 설치에 대한 정보와 패치가 존재하는 디렉터리이다.  Altibase 제품이 설치되었을 때의 환경 정보, 설치 시 기록된 로그와 패치를 롤백하기 위한 파일들도 존재한다. 더 자세한 사항은 [Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation%20Guide.md#apatch-directory)를 참고하기 바란다.
+Altibase 설치에 대한 정보와 패치가 존재하는 디렉터리이다.  Altibase 제품이 설치되었을 때의 환경 정보, 설치 시 기록된 로그와 패치를 롤백하기 위한 파일들도 존재한다. 더 자세한 사항은 [Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Installation%20Guide.md#apatch-directory)를 참고하기 바란다.
 
 #### admin 디렉터리
 
@@ -908,11 +908,11 @@ Altibase의 시스템 정보와 관련된 view를 생성하는 adminview.sql 파
 
 이중화 동작 시 발생한 데이터베이스간의 데이터 불일치를 해결하는 Altibase 유틸리티인 altiComp의 예제 스크립트 파일이 들어있는 디렉터리이다.
 
-자세한 설명은 [Utilities Manual의 altiComp](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#2alticomp)를 참조한다.
+자세한 설명은 [Utilities Manual의 altiComp](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#2alticomp)를 참조한다.
 
 #### altiMon 디렉터리
 
-altiMon(Altibase Monitoring Daemon) 실행에 필요한 xml 설정 파일, 쉘 스크립트 및 sql 파일, 로그 디렉터리가 존재한다. 하위 디렉터리에 관한 설명은 [Utilities Manual에 altiMon](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#altimon)을 참조한다.
+altiMon(Altibase Monitoring Daemon) 실행에 필요한 xml 설정 파일, 쉘 스크립트 및 sql 파일, 로그 디렉터리가 존재한다. 하위 디렉터리에 관한 설명은 [Utilities Manual에 altiMon](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#altimon)을 참조한다.
 
 #### arch_logs 디렉터리
 
@@ -937,11 +937,11 @@ iloader, isql, apre에 대한 자세한 설명은 *iLoader User's Manual*, *iSQL
 conf 디렉터리에는 아래의 파일들이 존재한다.
 
 -   altibase_user.env: Altibase 운영을 위한 환경변수 설정 파일
--   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-프로퍼티)를 참조하기 바란다.
+-   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-프로퍼티)를 참조하기 바란다.
 -   license: Altibase 라이선스 파일
--   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-프로퍼티)를 참조하기 바란다.
--   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md)을 참조하기 바란다.
--   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md)을 참조하기 바란다.
+-   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)를 참조하기 바란다.
+-   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#aexport-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)을 참조하기 바란다.
+-   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#altipasswd)을 참조하기 바란다.
 
 #### dbs 디렉터리
 
@@ -1057,7 +1057,7 @@ Altibase 데이터베이스 링크 모듈에서 발생할 수 있는 오류 메�
 
 #### packages 디렉터리
 
-Altibase에서 기본으로 제공하는 시스템 정의 저장 패키지들이 존재하는 디렉터리이다. 패키지 생성 스크립트 catproc.sql 파일을 포함한다. 이외 하위 디렉터토리에 관한 설명은 [Stored Procedures Manual의 Altibase 저장 패키지](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md#13altibase-저장-패키지)를 참조한다.
+Altibase에서 기본으로 제공하는 시스템 정의 저장 패키지들이 존재하는 디렉터리이다. 패키지 생성 스크립트 catproc.sql 파일을 포함한다. 이외 하위 디렉터토리에 관한 설명은 [Stored Procedures Manual의 Altibase 저장 패키지](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Stored%20Procedures%20Manual.md#13altibase-저장-패키지)를 참조한다.
 
 #### sample 디렉터리
 

@@ -655,7 +655,7 @@ This directory contains information about Altibase installation and patches. It 
 
 #### admin Directory
 
-This directory contains the adminview.sql script file, which creates views related to Altibase system information, as well as other script files for creating stored procedures that are used to view information related to tables, stored procedures, and replication objects.
+This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the [Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Installation%20Guide.md#apatch-directory)
 
 #### altiComp Directory
 
@@ -692,11 +692,11 @@ For more detailed information about other utilities, please refer to the *Utilit
 This directory contains the following files:
 
 -   altibase_user.env: the file for setting the environment variables necessary for running Altibase
--   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2-altibase-properties)*.
+-   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2-altibase-properties)*.
 -   license: the Altibase license file
--   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#database-link-properties)*.
--   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#list-of-aexport-properties)*.
--   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#altipasswd)*.
+-   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#database-link-properties)*.
+-   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#list-of-aexport-properties)*.
+-   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#altipasswd)*.
 
 #### dbs Directory
 
@@ -808,7 +808,7 @@ This file contains error messages pertaining to function execution or data types
 
 #### packages Directory
 
-This directory contains system defined stored packages and catproc.sql file which is a script used to create the packages at once. For more information about the system defined stored packages, please refer to the Altibase Stored Packages in *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Stored%20Procedures%20Manual.md#13-altibase-system-defined-stored-packages)*.
+This directory contains system defined stored packages and catproc.sql file which is a script used to create the packages at once. For more information about the system defined stored packages, please refer to the Altibase Stored Packages in *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md#13-altibase-system-defined-stored-packages)*.
 
 #### sample Directory
 
@@ -6193,7 +6193,7 @@ PARTITION BY RANGE_USING_HASH(sales_id)
 
 The table creating statement above can be shown as figure below.
 
-![](/Users/haein/Documents/altibase/update-eng-manual/Documents/Manuals/Altibase_7.2/kor/media/Admin/7-28.png)
+![](media/Admin/7-28.png)
 
 [Figure 7-28] Partition Areas of a Hash using Range Partitioned Table
 

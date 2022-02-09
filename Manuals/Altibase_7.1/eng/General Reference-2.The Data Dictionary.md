@@ -69,6 +69,9 @@
     - [SYS_VIEW_PARSE\_](#sys_view_parse_)
     - [SYS_VIEW_RELATED\_](#sys_view_related_)
     - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
+    - [SYS_GEOMETRIES_](#sys_geometries_)
+    - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
+    - [USER_SRS_](#user_srs_)
     - [Performance Views](#performance-views)
     - [V\$ACCESS_LIST](#vaccess_list)
     - [V\$ALLCOLUMN](#vallcolumn)
@@ -326,7 +329,10 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_VIEWS\_                  | This table contains information about views.                 |
 | SYS_VIEW_PARSE\_             | This table contains the actual text of statements used to create views. |
 | SYS_VIEW_RELATED\_           | This table contains information about objects accessed by views. |
-| SYS_XA_HEAURISTIC_TRANS_     | This table contains information about global transactions.   |
+| SYS_XA_HEURISTIC_TRANS_      | This table contains information about global transactions.   |
+| SYS_GEOMETRIES_              | This table contains information about tables that have GEOMETRY columns. |
+| SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; The synonym of this meta table is GEOMETRY_COLUMNS_. |
+| USER_SRS_                    | This table contains information about SRS(Spatial Reference System); The synonym of this meta table is SPATIAL_REF_SYS |
 
 ##### Unsupported Meta Tables
 
@@ -3970,6 +3976,44 @@ This is the branch qualifier of the global transaction.
 ##### STATUS
 
 This is the status of the global transaction. 
+
+### SYS_GEOMETRIES_
+
+This is a meta table that contains information about tables that have GEOMETRY columns.
+
+| Column name     | Type     | Description                                      |
+| --------------- | -------- | ------------------------------------------------ |
+| USER_ID         | INTERGER | The identifier of the user                       |
+| TABLE_ID        | INTERGER | The table identifier                             |
+| COLUMN_ID       | INTERGER | The column identifier                            |
+| COORD_DIMENSION | INTERGER | The dimension of the GEOMETRY object             |
+| SRID            | INTERGER | The spatial reference identifier in the database |
+
+### SYS_GEOMETRY_COLUMNS_
+
+This meta table is used to manage and specify SRID in the GEOMETRY column. The synonym of this meta tble is GEOMETRY_COLUMNS_.
+
+| Column name       | Type         | Description                                      |
+| ----------------- | ------------ | ------------------------------------------------ |
+| F_TABLE_SCHEMA    | VARCHAR(128) | The name of the owner of the table               |
+| F_TABLE_NAME      | VARCHAR(128) | The name of the table                            |
+| F_GEOMETRY_COLUMN | VARCHAR(128) | The name of the column                           |
+| COORD_DIMENSION   | INTERGER     | The dimension of the GEOMETRY object             |
+| SRID              | INTERGER     | The spatial reference identifier in the database |
+
+### USER_SRS_
+
+This meta table is used to manage information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
+
+To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/Altibase/Documents/blob/master/Manuals/Altibase_7.1/eng/Spatial%20SQL%20Reference.md).
+
+| Column name | Type          | Description                                                  |
+| ----------- | ------------- | ------------------------------------------------------------ |
+| SRID        | INTEGER       | The spatial reference identifier in the database             |
+| AUTH_NAME   | VARCHAR(256)  | The standard name                                            |
+| AUTH_SRID   | INTEGER       | The standard Spatial Reference Identifier                    |
+| SRTEXT      | VARCHAR(2048) | The description of the Spatial Reference System in OGC-WKT form |
+| PROJ4TEXT   | VARCHAR(2048) | The information for used in PROJ4                            |
 
 ### Performance Views
 

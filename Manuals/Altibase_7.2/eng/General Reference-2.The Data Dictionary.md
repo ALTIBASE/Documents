@@ -336,7 +336,7 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_VIEWS\_                  | This table contains information about views.                 |
 | SYS_VIEW_PARSE\_             | This table contains the actual text of statements used to create views. |
 | SYS_VIEW_RELATED\_           | This table contains information about objects accessed by views. |
-| SYS_XA_HEAURISTIC_TRANS_     | This table contains information about global transactions.   |
+| SYS_XA_HEURISTIC_TRANS_      | This table contains information about global transactions.   |
 | SYS_GEOMETRIES_              | This table contains information about tables that have GEOMETRY columns. |
 | SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; The synonym of this meta table is GEOMETRY_COLUMNS_. |
 | USER_SRS_                    | This table contains information about SRS(Spatial Reference System); The synonym of this meta table is SPATIAL_REF_SYS |
