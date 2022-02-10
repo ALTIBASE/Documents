@@ -1734,13 +1734,14 @@ Altibase는 이중화 대상 테이블에 대하여 DDL 문 실행이 가능하�
 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행시 DDL 문을 포함한 XLog 가 원격 서버에 송신 완료됬음을 알기 위해선, 지역 서버에서 아래 두 SELECT 결과가 같아야 한다.
 
 ```
-SELECT COUNT(*) FROM SYSTEM_.SYS_REPL_ITEMS_ WHERE LOCAL_TABLE_NAME='table_name';
+SELECT COUNT(*) FROM SYSTEM_.SYS_REPL_ITEMS_ WHERE LOCAL_USER_NAME = 'user_name' AND LOCAL_TABLE_NAME =  'table_name';
 
 SELECT COUNT(*)
     FROM
         SYSTEM_.SYS_REPL_OLD_ITEMS_ OLD_ITEM,
         SYSTEM_.SYS_REPL_ITEMS_ NEW_ITEM
     WHERE
+        NEW_ITEM.LOCAL_USER_NAME = 'user_name' AND
         NEW_ITEM.LOCAL_TABLE_NAME = 'table_name' AND
         OLD_ITEM.REPLICATION_NAME = NEW_ITEM.REPLICATION_NAME AND
         OLD_ITEM.TABLE_OID = NEW_ITEM.TABLE_OID AND
