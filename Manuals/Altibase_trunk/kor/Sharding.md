@@ -989,9 +989,9 @@ SHARD_LOCAL 키워드가 적용된 부분 쿼리에 대해서 전역 수행하�
 ##### *NODE* 분산쿼리 키워드
 NODE 분산쿼리 키워드는 인자로 명시한 노드에서 쿼리를 분석 및 변환없이 수행하고, 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다. 사용 가능한 NODE 유형은 다음과 같다.
 -   NODE[META] : 사용자 세션이 접속한 샤드 노드에서 쿼리 분석 및 변환없이 지역수행
--   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드(들)에서 쿼리 분석 및 변환없이 지역수행
+-   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에서 쿼리 분석 및 변환없이 지역수행
 -   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에서 쿼리 분석 및 변환없이 지역수행
--   NODE[DATA_PARTIAL] 또는 NODE[DATA_PARTIAL()] : 모든 샤드 노드(들)에서 쿼리 분석 및 변환없이 전역수행
+-   NODE[DATA_PARTIAL] 또는 NODE[DATA_PARTIAL()] : 모든 샤드 노드들에서 쿼리 분석 및 변환없이 전역수행
 -   NODE[DATA_PARTIAL(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에서 쿼리 분석 및 변환없이 전역수행
 
 샤드 노드별 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다. 아래는 몇가지 사용예이다.
@@ -1002,7 +1002,7 @@ SELECT * FROM NODE[META](SELECT count(*) FROM s1);
 SELECT * FROM NODE[DATA('node1', 'node2')](SELECT count(*) FROM s1);
 SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
 SELECT * FROM NODE[DATA_PARTIAL('node1', 'node2')](SELECT count(*) FROM SHARD_LOCAL(SELECT * FROM s1)); 
-SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM SHARD_LOCAL(SELECT * FROM s1) GROUP BY i1);
+SELECT * FROM NODE[DATA_PARTIAL('node2')](SELECT i1,sum(i1) FROM SHARD_LOCAL(SELECT * FROM s1) GROUP BY i1);
 ```
 
 > ##### 주의 사항
