@@ -1721,7 +1721,7 @@ Altibase는 이중화 대상 테이블에 대하여 DDL 문 실행이 가능하�
 이것은 지역 서버의 이중화 송신자가  DDL 문을 포함한 XLog를 송신하였음을 보장하기 위해서이다.
 8. 지역 서버에서 SYS_REPL_ITEMS_ 와 SYS_REPL_OLD_ITEMS_ 의 레코드 수를 비교한다.
 두 메타 테이블의 데이터가 동일하면 이중화 송신자가  DDL 문을 포함한 XLog 송신을 완료했음을 알 수 있다.
-9. 원격 서버에서 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 0으로 변경한다.
+9. 원격 서버에서 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 0으로 변경한다.  
   
 이중화 대상인 파티션을 SPLIT, MERGE, DROP 시 원격 서버에서도 동일한 이름으로 파티션을 생성하거나 삭제하여야 하나, 새로 생성되거나 삭제된 파티션은 자동으로 이중화 대상인 파티션으로 추가되거나 제거된다.
 
@@ -1839,7 +1839,7 @@ Active - Standby 서버의 사용 예제.
 |iSQL> ALTER REPLICATION REP1 STOP;|||
 | **이중화 정지 확인** |||
 |iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );||iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );|
-|||**DDL 문 수행 완료 확인** |
+| **DDL 문 수행 완료 확인** || **DDL 문 수행 완료 확인** |
 |iSQL> ALTER REPLICATION REP1 START;|||
 |iSQL> ALTER REPLICATION REP1 FLUSH ALL;|||
 | **DDL 문을 포함한 XLog 전송 확인 절차 수행** |||
@@ -1868,7 +1868,7 @@ Active - Standby 서버의 사용 예제.
 | **DDL 문 수행 완료 확인** || **DDL 문 수행 완료 확인** |
 |iSQL> ALTER REPLICATION REP1 START;||iSQL> ALTER REPLICATION REP1 START;|
 |iSQL> ALTER REPLICATION REP1 FLUSH ALL;||iSQL> ALTER REPLICATION REP1 FLUSH ALL;|
-|***DDL 문을 포함한 XLog 전송 확인 절차 수행***||***DDL 문을 포함한 XLog 전송 확인 절차 수행***|
+|**DDL 문을 포함한 XLog 전송 확인 절차 수행**||**DDL 문을 포함한 XLog 전송 확인 절차 수행**|
 |iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;||iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;|
 |iSQL> AUTOCOMMIT ON;||iSQL> AUTOCOMMIT ON;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
@@ -1921,7 +1921,7 @@ Active - Active 서버의 사용 예제.
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;|
 
-
+<br>
   
   
 ### 이중화 대상 테이블에 DDL 복제 실행
