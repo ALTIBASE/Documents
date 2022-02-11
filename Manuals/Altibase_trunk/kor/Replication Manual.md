@@ -1816,7 +1816,7 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
 이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 문
 실행을 아래와 같이 사용한다.
 
--   TRUNCATE TABLE을 실행한다.
+- TRUNCATE TABLE을 실행한다.
 
 |Local SYS User||Local Table Owner|
 |--------------------------------------|--|--------------------------------------|
@@ -1828,6 +1828,7 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
 <br>
 
 - 테이블 T1에 있는 파티션 P2를 파티션 P3, P4로 분리하여 생성한다 (SPLIT PARTITION).  
+
 Active - Standby 서버의 사용 예제.
 
 |Local SYS User||Remote SYS User|
@@ -1854,7 +1855,7 @@ Active - Standby 서버의 사용 예제.
 
 <br>
 
-- Active - Active 서버의 사용 예제.
+Active - Active 서버의 사용 예제.
 
 |Local SYS User||Remote SYS User|
 |--------------------------------------|--|--------------------------------------|
@@ -1880,7 +1881,8 @@ Active - Standby 서버의 사용 예제.
 
 <br>
 
-- 테이블 T1 의 컬럼 C2 CHAR( 5 ) 의 컬럼 size 를 CHAR( 10 ) 으로 변경한다.  (MODIFY COLUMN).  
+- 테이블 T1 의 컬럼 C2 CHAR( 5 ) 의 컬럼 size 를 CHAR( 10 ) 으로 변경한다.  (MODIFY COLUMN).   
+
 Active - Standby 서버의 사용 예제.  
 
 
