@@ -2271,6 +2271,7 @@ GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit의 마지막 commi
 - 0 : shard notifier가 이관받아 처리하지 않는다.
 - 1 : shard notifier가 이관받아 처리한다.
 - two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier 가 이관받아 처리를 한다. DB서버의 비정상 종료도 동반하는 경우에는 failover notifier도 같이 수행된다. 
+- GLOBAL_TRANSACTION_LEVEL을 3 에서 commit 후에, 하위 레벨로 변경시에는 약간의 시차(3초이내)를 두고, DML을 수행하여야 한다. 그렇지 않으면, GLOBAL_TRANSACTION_LEVEL 3 에서 수행한 DML들의 commit 이 지연처리되는 상황에서, 변경된 레코드들을 하위 레벨의 DML에서 읽지 못할 수 있다.
 
 #### SHARD_NOTIFIER_COUNT
 ##### 데이터 타입
