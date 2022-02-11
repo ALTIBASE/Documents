@@ -446,6 +446,9 @@ non-shard DML 처리를 위한 분산 질의 처리기이다. 해당 DML의 대�
 -   SHARD
 -   NODE[META]
 -   NODE[DATA]
+-   NODE[DATA_PARTIAL]
+-   SHARD_PARTIAL
+-   SHARD_LOCAL
 
 #### 샤드 쿼리(shard query)
 샤드 쿼리는 동일한 쿼리를 샤드노드별로 별개로 수행하여 취합한 결과가 하나의 데이터베이스에서 처리한 결과와 동일 할 경우를 지칭한다. 논샤드 쿼리는 샤드 쿼리가 아닌 쿼리를 지칭한다.
@@ -932,8 +935,8 @@ Altibase Sharding 사용자는 iSQL의 Explain Plan 기능을 통해 쿼리가 �
   - 논샤드 쿼리에 대한 샤드 퀴리 변환 최적화 가능 여부(Yes/No)가 표시된다.
 
 #### 분산쿼리 키워드
-분산쿼리 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위를 정해서 쿼리를 수행하게 할 수 있다.
-- 단, 하나의 statement에서는 하나의 분산쿼리 키워드 만 사용할 수 있다.
+분산쿼리 키워드를 이용하여, 임의의 쿼리를 수행할 샤드 노드의 범위와 수행방식을 정해서 쿼리를 수행하게 할 수 있다.
+- 단, SHARD_LOCAL 키워드를 제외한 나머지 키워드는 하나의 statement내에서 하나의 분산쿼리 키워드 만 사용할 수 있다.
 
 ##### 구문
 -   SHARD
@@ -942,12 +945,18 @@ Altibase Sharding 사용자는 iSQL의 Explain Plan 기능을 통해 쿼리가 �
     - SELECT, INSERT, UPDATE, DELETE
 -   NODE[DATA | DATA() | DATA('*node1_name'*, '*node2_name'*...)]
     - SELECT
+-   NODE[DATA_PARTIAL | DATA_PARTIAL() | DATA_PARTIAL('*node1_name'*, '*node2_name'*...)]
+    - SELECT
+-   SHARD_PARTIAL
+    - SELECT
+-   SHARD_LOCAL
+    - SELECT
 
 ![](media/Sharding/79bcb8f6b5cb10cc7a7b816363aa709f.jpg)
 
 **shard_keyword_clause::=**
 
-![](media/Sharding/d15e35752ab4fd66496232e1d1e055a1.jpg)
+![](media/Sharding/bug-45986-new-img_2.jpg)
 
 ##### *SHARD* 분산쿼리 키워드
 SHARD 분산쿼리 키워드를 사용하면, 쿼리에 존재하는 샤드객체의 분산정의가 존재하는 모든 샤드 노드(들)에 쿼리를 전송하고 수행하여 취합한다. 분산 수행할 수 있는 샤딩객체가 전혀 없을 때는 에러가 발생한다.
@@ -960,11 +969,31 @@ SHARD 분산쿼리 키워드를 사용하면, 쿼리에 존재하는 샤드객�
 -   SELECT i1, sum(cn) FROM SHARD (SELECT i1, count(\*) cn FROM s1 GROUP BY i1);
 -   SELECT \* FROM SHARD (SELECT \* FROM s1 limit 10) limit 10;
 
+##### *SHARD_PARTIAL* 분산쿼리 키워드
+SHARD_PARTIAL 분산쿼리 키워드는 쿼리를 전송받은 노드가 보조적인 샤드 코디네이터로서 전역수행 하도록 명령하는 키워드이다.
+SHARD_PARTIAL 키워드가 적용된 쿼리 구간 내부에는 반드시 SHARD_LOCAL 키워드가 존재해야 한다.
+
+SHARD_PARTIAL 키워드가 적용된 쿼리는 SHARD_LOCAL 키워드가 적용된 부분 쿼리의 분산수행 분석결과에 따라 해당하는 노드(들)에 쿼리를 전송하고,
+해당 쿼리를 전송받은 노드는 SHARD_LOCAL 키워드가 적용된 부분 쿼리에 대해서는 지역 수행하며, 그 외의 부분 쿼리에 대해서는 전역 수행하여 결과를 반환한다.
+
+아래와 같은 쿼리의 수행 시 SHARD_LOCAL 키워드가 적용된 t1이 존재하는 모든 샤드 노드(들)에 SHARD_PARTIAL 키워드가 적용된 쿼리가 전송되고,
+이를 전송받은 노드는 SELECT * FROM t1에 대해서는 지역수행하고, SELECT * FROM t2에 대해서는 전역수행 하여 결과를 반환하게 된다.
+-   SELECT * FROM SHARD_PARTIAL( SELECT * FROM SHARD_LOCAL(SELECT * FROM t1) , t2 );
+
+성능을 위한 쿼리 튜닝의 일환으로 데이터 노드(들)에서 직접 전역수행 할 시 성능상 이점이 있는경우 활용될 수 있다.
+
+##### *SHARD_LOCAL* 분산쿼리 키워드
+SHARD_LOCAL 분산쿼리 키워드는 다른 분산 쿼리 키워드 내에 사용 될 수 있는 키워드로서,
+데이터 노드가 보조적인 샤드 코디네이터 역할을 수행하도록 지시하는 SHARD_PARTIAL 키워드 등과 함께 사용되어
+SHARD_LOCAL 키워드가 적용된 부분 쿼리에 대해서 전역 수행하지 않고, 지역수행 하도록 하는 역할을 한다.
+
 ##### *NODE* 분산쿼리 키워드
 NODE 분산쿼리 키워드는 인자로 명시한 노드에서 쿼리를 분석 및 변환없이 수행하고, 그 수행 결과를 취합한다. 샤드 쿼리 분석기를 통하지 않고 해당 쿼리를 바로 전달한다. 사용 가능한 NODE 유형은 다음과 같다.
--   NODE[META] : 사용자 세션이 접속한 샤드 노드에 대해 쿼리 분석 및 변환없이 수행
--   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에 대해 쿼리 분석 및 변환없이 수행
--   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에 대해 쿼리 분석 및 변환없이 수행
+-   NODE[META] : 사용자 세션이 접속한 샤드 노드에서 쿼리 분석 및 변환없이 지역수행
+-   NODE[DATA] 또는 NODE[DATA()] : 모든 샤드 노드들에서 쿼리 분석 및 변환없이 지역수행
+-   NODE[DATA(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에서 쿼리 분석 및 변환없이 지역수행
+-   NODE[DATA_PARTIAL] 또는 NODE[DATA_PARTIAL()] : 모든 샤드 노드들에서 쿼리 분석 및 변환없이 전역수행
+-   NODE[DATA_PARTIAL(*'node1_name*', *node2_name*',...)] : 명시된 노드(들)에서 쿼리 분석 및 변환없이 전역수행
 
 샤드 노드별 데이터 상태를 확인할 경우에 유용하게 쓰일 수 있다. 아래는 몇가지 사용예이다.
 ```
@@ -973,6 +1002,8 @@ NODE[DATA] SELECT count(*) FROM s1;
 SELECT * FROM NODE[META](SELECT count(*) FROM s1);
 SELECT * FROM NODE[DATA('node1', 'node2')](SELECT count(*) FROM s1);
 SELECT * FROM NODE[DATA('node2')](SELECT i1,sum(i1) FROM s1 GROUP BY i1);
+SELECT * FROM NODE[DATA_PARTIAL('node1', 'node2')](SELECT count(*) FROM SHARD_LOCAL(SELECT * FROM s1)); 
+SELECT * FROM NODE[DATA_PARTIAL('node2')](SELECT i1,sum(i1) FROM SHARD_LOCAL(SELECT * FROM s1) GROUP BY i1);
 ```
 
 > ##### 주의 사항
