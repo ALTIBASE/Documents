@@ -18,7 +18,7 @@
     - [Performance Properties](#performance-properties)
     - [Session Properties](#session-properties)
     - [Time-out Properties](#time-out-properties)
-    - [Tranaction Properties](#tranaction-properties)
+    - [Transaction Properties](#transaction-properties)
     - [Backup and Recovery Properties](#backup-and-recovery-properties)
     - [Replication Properties](#replication-properties)
     - [Network and Security Properties](#network-and-security-properties)
@@ -10015,7 +10015,7 @@ Read-Only, Single Value
 
 When using the Two-Phase Commit Protocol, this property specifies the number of seconds to wait before terminating an entire transaction that has taken a long time and is thus in IN_DOUBT state.
 
-### Tranaction Properties
+### Transaction Properties
 
 #### AUTO_COMMIT
 
