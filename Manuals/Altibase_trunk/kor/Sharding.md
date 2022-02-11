@@ -2252,6 +2252,33 @@ Unsigned Integer
 ##### 설명
 공유 트랜잭션 관리를 위한 자료구조의 Hash 저장소 크기를 설정한다.
 
+#### SHARD_NOTIFIER_2PC
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1
+##### 속성
+읽기 전용, 단일 값
+##### 값의 범위
+[0,1]
+##### 설명
+GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit(2PC)의 마지막 commit 단계를 shard notifier가 이관받아 처리할지 여부이다.
+- 0 : shard notifier가 이관받아 처리하지 않는다.
+- 1 : shard notifier가 이관받아 처리한다.
+
+#### SHARD_NOTIFIER_COUNT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+장비의 CPU 개수
+##### 속성
+읽기 전용, 단일 값
+##### 값의 범위
+[1 ~ 1024]
+##### 설명
+shard notifier의 갯수를 설정한다.
+- SHARD_NOTIFIER_2PC 가 0 일때는 SHARD_NOTIFIER_COUNT는 사용자 설정값은 무시되고, 강제로 1로 설정된다.
+
 #### XLOGFILE_DIR
 ##### 데이터 타입
 String
