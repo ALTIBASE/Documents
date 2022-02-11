@@ -841,6 +841,11 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
     - 샤드노드들을 샤딩 클러스터에 JOIN 시키기 전에, 필수적으로 altipasswd 툴을 이용한 암호 변경작업도 해주어야 합니다. 
 - alter session set replication = false 기능을 사용할 수 없다. 
   - 특정 세션의 DML만 k-safety 복제가 되지 않아, 샤딩 데이타정합성에 위배가 되기 때문이다.
+- DDL_LOCK_TIMEOUT 의 권장값이 3(초) 이다.
+  - altibase.properties.shard 화일에 DDL_LOCK_TIMEOUT = 3 으로 설정되어 있다.
+  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 하기때문에, DDL시에 table lock에 기본적으로 대기 시간이 필요하다.
+  - DDL_LOCK_TIMEOUT 이 0 인 경우에는, DML 후에 관련 테이블에 시차를 두지 않고 바로 DDL을 수행하면, 위의 two phase commit 지연처리 방식으로 인해, 실패하는 경우가 발생할 수 있다.
+
 
 #### 하위 호환성
 -   샤딩 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤딩 기능을 사용할 수 있다.
@@ -2163,7 +2168,7 @@ Shard DDL은 다수의 노드에 DDL을 수행하는 것을 통해서 하나의 
 ##### 데이터 타입
 Unsigned Integer
 ##### 기본값
-200
+20
 ##### 속성
 변경가능, 단일 값
 ##### 값의 범위
@@ -2262,9 +2267,10 @@ Unsigned Integer
 ##### 값의 범위
 [0,1]
 ##### 설명
-GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit(2PC)의 마지막 commit 단계를 shard notifier가 이관받아 처리할지 여부이다.
+GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 할지의 여부이다.
 - 0 : shard notifier가 이관받아 처리하지 않는다.
 - 1 : shard notifier가 이관받아 처리한다.
+- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier 가 이관받아 처리를 한다. DB서버의 비정상 종료도 동반하는 경우에는 failover notifier도 같이 수행된다. 
 
 #### SHARD_NOTIFIER_COUNT
 ##### 데이터 타입
