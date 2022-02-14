@@ -391,7 +391,7 @@ Altibase 서버는 내부적으로 다중 쓰레드 구조를 갖고 있다.
 
 Altibase는 기존의 실시간 데이터베이스 시스템과는 달리 범용성을 추구하는 일환으로 산업 표준 인터페이스를 지원한다. Altibase에서 제공하는 데이터베이스 질의어는 SQL92와 SQL99 표준을 따른다.
 
-프로그래밍 인터페이스로는 CLI, ODBC, JDBC, C/C++ Precompiler 등을 지원하고 있으며, 기존에 작성된 데이터베이스 응용 프로그램을 변환할 필요 없이 그대로 사용할 수 있다. Altibase가 지원하는 SQL에 대한 자세한 내용은 *SQL Reference* 를 참조한다.
+프로그래밍 인터페이스로는 CLI, ODBC, JDBC, C/C++ Precompiler 등을 지원하고 있으며, 기존에 작성된 데이터베이스 응용 프로그램을 변환할 필요 없이 그대로 사용할 수 있다. Altibase가 지원하는 SQL에 대한 자세한 내용은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)* 를 참조한다.
 
 #### 다중버전 기법
 
@@ -429,7 +429,7 @@ Altibase는 최근의 데이터베이스 상태를 안전하게 백업(backup) �
 
 저장 프로시저는 입력 인자, 출력 인자, 입출력 인자를 가지고 바디(body) 내에 정의된 조건에 따라 여러 SQL 문을 한번에 수행하는 데이터베이스 프로시저다.
 
-저장 프로시저의 종류는 리턴값 유무에 따라 프로시저와 함수로 나누어 진다. 자세한 내용은 *Stored Procedures Manual*을 참고한다.
+저장 프로시저의 종류는 리턴값 유무에 따라 프로시저와 함수로 나누어 진다. 자세한 내용은 [*Stored Procedures Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md)을 참고한다.
 
 #### 데드락 감지 (Deadlock Detection)
 
@@ -629,7 +629,7 @@ Altibase를 설치하면 다음의 디렉터리가 생성된다. Altibase의 홈
 
 #### APatch 디렉터리
 
-Altibase 설치에 대한 정보와 패치가 존재하는 디렉터리이다.  Altibase 제품이 설치되었을 때의 환경 정보, 설치 시 기록된 로그와 패치를 롤백하기 위한 파일들도 존재한다. 더 자세한 사항은 [Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation%20Guide.md#apatch-directory)를 참고하기 바란다.
+Altibase 설치에 대한 정보와 패치가 존재하는 디렉터리이다.  Altibase 제품이 설치되었을 때의 환경 정보, 설치 시 기록된 로그와 패치를 롤백하기 위한 파일들도 존재한다. 더 자세한 사항은 [*Altibase 7.2 Installation Guide*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation%20Guide.md#apatch-directory)를 참고하기 바란다.
 
 #### admin 디렉터리
 
@@ -639,11 +639,11 @@ Altibase의 시스템 정보와 관련된 view를 생성하는 adminview.sql 파
 
 이중화 동작 시 발생한 데이터베이스간의 데이터 불일치를 해결하는 Altibase 유틸리티인 altiComp의 예제 스크립트 파일이 들어있는 디렉터리이다.
 
-자세한 설명은 [Utilities Manual의 altiComp](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#2alticomp)를 참조한다.
+자세한 설명은 [*Utilities Manual의 altiComp*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#2alticomp)를 참조한다.
 
 #### altiMon 디렉터리
 
-altiMon(Altibase Monitoring Daemon) 실행에 필요한 xml 설정 파일, 쉘 스크립트 및 sql 파일, 로그 디렉터리가 존재한다. 하위 디렉터리에 관한 설명은 [Utilities Manual에 altiMon](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#altimon)을 참조한다.
+altiMon(Altibase Monitoring Daemon) 실행에 필요한 xml 설정 파일, 쉘 스크립트 및 sql 파일, 로그 디렉터리가 존재한다. 하위 디렉터리에 관한 설명은 [*Utilities Manual에 altiMon*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#altimon)을 참조한다.
 
 #### arch_logs 디렉터리
 
@@ -661,18 +661,19 @@ altiComp, checkServer, dumpbi, dumpct, dumpdb, dumpddf, dumpla, dumplf, iloader,
 isql, killCheckServer, server, apre
 ```
 
-iloader, isql, apre에 대한 자세한 설명은 *iLoader User's Manual*, *iSQL User's Manual*, *Precompiler User's Manual*을 각각 참조하고, 나머지 유틸리티에 대한 자세한 설명은 *Utilities Manual*을 참조한다.
+iloader, isql, apre에 대한 자세한 설명은  *[iLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/iLoader%20User's%20Manual.md)*, *[iSQL User's
+Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/iSQL%20User's%20Manual.md)*, *[Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Precompiler%20User's%20Manual.md)*을 각각 참조하고, 나머지 유틸리티에 대한 자세한 설명은 *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md)*을 참조한다.
 
 #### conf 디렉터리
 
 conf 디렉터리에는 아래의 파일들이 존재한다.
 
 -   altibase_user.env: Altibase 운영을 위한 환경변수 설정 파일
--   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-프로퍼티)를 참조하기 바란다.
+-   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-프로퍼티)를 참조하기 바란다.
 -   license: Altibase 라이선스 파일
--   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)를 참조하기 바란다.
--   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#aexport-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)을 참조하기 바란다.
--   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 [Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#altipasswd)을 참조하기 바란다.
+-   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)를 참조하기 바란다.
+-   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*Utilities Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#aexport-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)을 참조하기 바란다.
+-   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 [*Utilities Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#altipasswd)을 참조하기 바란다.
 
 #### dbs 디렉터리
 
@@ -712,35 +713,35 @@ Altibase 응용프로그램 작성에 필요한 makefile을 위한 매크로 설
 
 #### lib 디렉터리
 
-응용 프로그램 작성에 필요한 라이브러리를 수록한 디렉터리이며 다음과 같은 파일을 갖고있다. 각각의 라이브러리를 이용하여 응용 프로그램을 작성하는 방법은 *Getting Started Guide*에서 설명한다.
+응용 프로그램 작성에 필요한 라이브러리를 수록한 디렉터리이며 다음과 같은 파일을 갖고있다. 각각의 라이브러리를 이용하여 응용 프로그램을 작성하는 방법은 *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Getting%20Started%20Guide.md)*에서 설명한다.
 
 ##### Altibase.jar
 
-Altibase를 자바 응용프로그램에서 사용하기 위한 JDBC 드라이버이다. 순수 자바 언어로 구현된 Type 4 드라이버이다. 자세한 내용은 *JDBC User's Manual*을 참조한다.
+Altibase를 자바 응용프로그램에서 사용하기 위한 JDBC 드라이버이다. 순수 자바 언어로 구현된 Type 4 드라이버이다. 자세한 내용은 *[JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/JDBC%20User's%20Manual.md)*을 참조한다.
 
 ##### libapre.a
 
-내장 SQL 프로그램을 작성할 때 필요한 라이브러리이다. 내장 SQL 프로그램 작성에 관한 자세한 내용은 *Precompiler User’s Manual*을 참조한다.
+내장 SQL 프로그램을 작성할 때 필요한 라이브러리이다. 내장 SQL 프로그램 작성에 관한 자세한 내용은 *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Precompiler%20User's%20Manual.md)*을 참조한다.
 
 ##### libodbccli.a
 
-Altibase CLI 응용프로그램 작성을 위한 라이브러리이다. 자세한 내용은 *CLI User's Manual*을 참조한다.
+Altibase CLI 응용프로그램 작성을 위한 라이브러리이다. 자세한 내용은 *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/CLI%20User's%20Manual.md)*을 참조한다.
 
 ##### libalticapi.a
 
-Altibase ACI 애플리케이션 작성을 위한 라이브러리이다. 자세한 내용은 *ACI User's Manual*을 참조한다.
+Altibase ACI 애플리케이션 작성을 위한 라이브러리이다. 자세한 내용은 *[Altibase C Interface Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Altibase C Interface Manual.md)*을 참조한다.
 
 ##### libaltibase_odbc-64bit-ul64.so
 
-유닉스 계열 운영체제에서 사용할 수 있는 Altibase의 ODBC 드라이버이다. 설치 패키지와 운영 체제에 따라 파일 확장자와 파일 이름이 다를 수 있다. 자세한 내용은 *ODBC User's Manual*을 참조한다.
+유닉스 계열 운영체제에서 사용할 수 있는 Altibase의 ODBC 드라이버이다. 설치 패키지와 운영 체제에 따라 파일 확장자와 파일 이름이 다를 수 있다. 자세한 내용은 *[ODBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/ODBC%20User's%20Manual.md)*을 참조한다.
 
 ##### 그 외
 
--   libchksvr.a: Altibase CheckServer API용 라이브러리. *API User's Manual*을 참조한다.
+-   libchksvr.a: Altibase CheckServer API용 라이브러리. *[API User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/API%20User's%20Manual.md)*을 참조한다.
     
--   libiloader.a: Altibase iLoader API용 라이브러리. *API User's Manual*을 참조한다.
+-   libiloader.a: Altibase iLoader API용 라이브러리. *[API User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/API%20User's%20Manual.md)*을 참조한다.
     
--   libaltibaseMonitor.a: Altibase Monitoring API용 라이브러리. *Monitoring API Developer's Guide*를 참조한다.
+-   libaltibaseMonitor.a: Altibase Monitoring API용 라이브러리. *[Monitoring API Developer's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Monitoring%20API%20Developer's%20Guide.md)*를 참조한다.
     
 -   libsesc.a: 하위 호환성을 위해 제공되며, libapre.a와 동일하다.
 
@@ -788,7 +789,7 @@ Altibase 데이터베이스 링크 모듈에서 발생할 수 있는 오류 메�
 
 #### packages 디렉터리
 
-Altibase에서 기본으로 제공하는 시스템 정의 저장 패키지들이 존재하는 디렉터리이다. 패키지 생성 스크립트 catproc.sql 파일을 포함한다. 이외 하위 디렉터토리에 관한 설명은 [Stored Procedures Manual의 Altibase 저장 패키지](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md#13altibase-저장-패키지)를 참조한다.
+Altibase에서 기본으로 제공하는 시스템 정의 저장 패키지들이 존재하는 디렉터리이다. 패키지 생성 스크립트 catproc.sql 파일을 포함한다. 이외 하위 디렉터토리에 관한 설명은 [*Stored Procedures Manual의 Altibase 저장 패키지*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md#13altibase-저장-패키지)를 참조한다.
 
 #### sample 디렉터리
 
@@ -870,7 +871,7 @@ killCheckServer 유틸리티의 실행 결과가 기록되는 파일이다.
 
 ### 실행 바이너리
 
-여기에 설명된 외의 이들 바이너리 파일에 대한 더 자세한 정보는 *Utilities Manual*을 참고하기 바란다..
+여기에 설명된 외의 이들 바이너리 파일에 대한 더 자세한 정보는 *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md)*을 참고하기 바란다..
 
 #### aexport
 
@@ -900,7 +901,7 @@ sys 계정의 패스워드를 변경하기 위한 도구이다.
 
 altiComp는 두 데이터베이스를 테이블 단위로 비교, 검사하여 불일치하는 정보를 출력하는 기능과 불일치가 발생한 경우 두 데이터베이스를 일치시키는 기능 두 가지를 제공한다.
 
-이에 대한 자세한 내용은 *Utilities Manual*을 참조한다.
+이에 대한 자세한 내용은 *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#2alticomp)*을 참조한다.
 
 #### checkServer
 
@@ -916,11 +917,11 @@ Altibase 로그 파일의 내용을 출력 및 검사한다.
 
 #### iloader
 
-데이터베이스의 특정 테이블을 로드 및 언로드할 수 있는 도구이다. 이 도구에 대한 자세한 내용은 *iLoader User’s Manual*을 참조한다.
+데이터베이스의 특정 테이블을 로드 및 언로드할 수 있는 도구이다. 이 도구에 대한 자세한 내용은 *[iLoader User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/iLoader%20User's%20Manual.md)*을 참조한다.
 
 #### isql
 
-대화형으로 Altibase에 질의를 수행할 수 있는 도구이다. 이 도구에 대한 자세한 내용은 *iSQL User’s Manual*을 참조한다.
+대화형으로 Altibase에 질의를 수행할 수 있는 도구이다. 이 도구에 대한 자세한 내용은 *[iSQL User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/iSQL%20User's%20Manual.md)*을 참조한다.
 
 #### killCheckServer
 
@@ -934,7 +935,7 @@ Altibase의 구동 및 종료, 재시작 등의 동작을 수행할 수 있도�
 
 내장 SQL문을 사용하여 응용 프로그램을 작성한 후, 작성된 응용 프로그램을 전처리(precompile)하기 위한 전처리 실행 파일이다.
 
-자세한 설명은 Precompiler User’s Manual을 참조한다.
+자세한 설명은 *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Precompiler%20User's%20Manual.md)*을 참조한다.
 
 ### Altibase 라이브러리
 
@@ -948,7 +949,7 @@ Altibase의 응용 프로그램을 작성할 때 필요한 구성 요소들로�
 
 -   프로그래밍에 필요한 헤더 파일들
 
-이에 대해서는 Getting Started Guide에서 자세히 설명한다.
+이에 대해서는 *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Getting%20Started%20Guide.md)*에서 자세히 설명한다.
 
 3.데이터베이스 생성
 -----------------
@@ -1007,7 +1008,7 @@ Altibase에서 제공하는 기본 테이블스페이스는 아래와 같다.
 
 Altibase는 이 로그 앵커 파일들을 3개로 유지하며, 데이터베이스 생성 시 로그 파일들과 같은 위치에 생성되지만, 3개의 로그 앵커 파일들을 서로 다른 파일 시스템에 두기를 권장하고 있다. 로그 앵커 파일의 위치에 관련된 프로퍼티는 LOGANCHOR_DIR 이다.
 
-이 프로퍼티에 대한 자세한 설명은 *Getting Started Guide*을 참고하기 바란다.
+이 프로퍼티에 대한 자세한 설명은 *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Getting%20Started%20Guide.md)*을 참고하기 바란다.
 
 #### 데이터베이스 생성 준비
 
@@ -1059,7 +1060,7 @@ Command execute success.
 
 #### 데이터베이스 생성
 
-Process 단계에서 데이터베이스를 생성하기 위한 CREATE DATABASE 명령은 아래와 같이 수행한다. CREATE DATABASE 구문의 자세한 사용법은 *SQL Reference*를 참조한다. 여기서는 기본 옵션을 사용해서 데이터베이스를 생성하는 예를 보여주고 있다.
+Process 단계에서 데이터베이스를 생성하기 위한 CREATE DATABASE 명령은 아래와 같이 수행한다. CREATE DATABASE 구문의 자세한 사용법은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md#create-database)*를 참조한다. 여기서는 기본 옵션을 사용해서 데이터베이스를 생성하는 예를 보여주고 있다.
 
 ```
 iSQL> create database mydb initsize=50M noarchivelog character set ksc5601 national character set utf16;
@@ -1407,7 +1408,7 @@ Altibase는 유일 키를 생성하기 위한 키생성자인 시퀀스를 제�
 
 타입 세트(Type Set)란 저장 프로시저 및 저장 함수에서 사용하는 사용자 정의 타입들을 한 곳에 모아서 관리하도록 해 주는 데이터베이스 객체이다.
 
-이에 대한 보다 자세한 내용은 *Stored Procedures Manual*에서 자세히 설명한다.
+이에 대한 보다 자세한 내용은 *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md)*에서 자세히 설명한다.
 
 ##### 데이터베이스 트리거 (Database Trigger) 
 
@@ -1417,19 +1418,19 @@ Altibase는 유일 키를 생성하기 위한 키생성자인 시퀀스를 제�
 
 데이터베이스 링크는 지역적으로 분리되어 있으나 네트워크로 연결된 데이터 서버들을 연동하여 그 데이터들을 통합해서 하나의 결과를 생성할 수 있게 한다.
 
-이에 대해서는 *Database Link User’s Manual*에 더 자세히 기술되어 있다.
+이에 대해서는 [*DB Link User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/DB%20Link%20User's%20Manual.md)에 더 자세히 기술되어 있다.
 
 ##### 외부 프로시저 및 외부 함수 (External Procedure or Function) 
 
 외부 프로시저 또는 외부 함수 객체는 사용자 정의 C/C++ 함수와 일대일로 대응하는 데이터베이스 객체이다. 사용자 정의 함수의 실행은 외부 프로시저 또는 외부 함수 객체를 통해 이루어진다. 리턴 값을 가지는 여부에 따라 외부 프로시저와 외부 함수로 구별된다.
 
-자세한 내용은 *C/C++ External Procedures Manual*을 참고하도록 한다.
+자세한 내용은 *[C/C++ External Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/External%20Procedures%20Manual.md)*을 참고하도록 한다.
 
 ##### 라이브러리 (Library) 
 
 외부 프로시저와 연결된 사용자 정의 C/C++ 함수를 포함하는 동적 라이브러리 파일을 Altibase 서버가 식별할 수 있도록 해야 한다. 이를 위해 Altibase는 동적 라이브러리 파일에 일대일로 대응하는 라이브러리 객체라는 데이터베이스 객체를 제공한다.
 
-자세한 내용은 *C/C++ External Procedures Manual*을 참고하도록 한다.
+자세한 내용은 *[C/C++ External Procedures Manual](Chttps://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/External%20Procedures%20Manual.md)*을 참고하도록 한다.
 
 #### 비스키마 객체
 
@@ -1439,15 +1440,15 @@ Altibase는 유일 키를 생성하기 위한 키생성자인 시퀀스를 제�
 
 저장프로시저의 파일 제어 기능은 운영 체제의 텍스트 파일에 대한 읽기 및 쓰기 기능을 제공한다. 이 기능을 이용하여 사용자는 저장프로시저 실행에 대한 별도의 메시지 등을 파일에 남길 수도 있으며, 파일로 결과를 보고하거나 파일로부터 데이터를 읽어와 테이블에 삽입하는 등 다양한 작업을 수행할 수 있다. 디렉터리 객체는 이러한 저장프로시저에서 접근하는 파일들이 저장되어 있는 디렉터리에 대한 정보를 관리하는데 사용된다.
 
-디렉터리 객체에 대한 자세한 기능은 *SQL Reference*를 참고한다.
+디렉터리 객체에 대한 자세한 기능은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참고한다.
 
-저장프로시저 내에서의 파일 제어 방법은 *Stored Procedures Manual*을 참고한다.
+저장프로시저 내에서의 파일 제어 방법은 *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md)*을 참고한다.
 
 ##### 이중화 (Replication) 
 
 이중화는 시스템이 자동으로 한 지역서버에서 원격 서버로 데이터를 전송하고 복제하여 다른 서버들간의 테이블 데이터를 동일하게 유지해 줄 수 있도록 하는 객체이다.
 
-이중화 관리에 대해서는 *Replication Manual*을 참조한다.
+이중화 관리에 대해서는 *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)*을 참조한다.
 
 ##### 테이블스페이스 (Tablespace) 
 
@@ -1483,7 +1484,7 @@ Altibase는 유일 키를 생성하기 위한 키생성자인 시퀀스를 제�
 
 데이터 딕셔너리로 알려진 시스템 테이블은, 데이터베이스 객체 정보를 저장하는 메타테이블과 시스템 프로세스 정보를 저장하는 프로세스 테이블로 분류된다. 프로세스 테이블은 다시 고정 테이블 (fixed table)과 성능 뷰 (performance view)로 분류된다.
 
-메타 테이블과 성능 뷰에 대해서는 *General Reference*를 참고한다.
+메타 테이블과 성능 뷰에 대해서는 *[General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md)*를 참고한다.
 
 #### 대용량 메모리 테이블
 
@@ -1525,7 +1526,7 @@ Altibase에서 이중화 대상인 테이블에 대하여 DDL 문의 실행이 �
 
 -   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를 NONE 이외의 값으로 설정한다.
 
-이중화 테이블 관리에 대한 자세한 내용은 *Replication Manual*을 참조한다.
+이중화 테이블 관리에 대한 자세한 내용은 *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)*을 참조한다.
 
 #### 생성
 
@@ -1609,7 +1610,7 @@ ALTER TABLE department
 RENAME COLUMN dno TO dcode;
 ```
 
-ALTER TABLE 문에 대한 자세한 설명은 *SQL Reference*를 참고한다.
+ALTER TABLE 문에 대한 자세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md#alter-table)*를 참고한다.
 
 #### 삭제
 
@@ -1669,7 +1670,7 @@ where col1=:t1_col;<br/>
 
 #### 관련 SQL문
 
-테이블에 대해 다음과 같은 SQL문이 지원된다. 이에 대한 자세한 설명은 *SQL Reference*를 참조한다.
+테이블에 대해 다음과 같은 SQL문이 지원된다. 이에 대한 자세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참조한다.
 
 -   CREATE TABLE
 
@@ -1711,7 +1712,7 @@ where col1=:t1_col;<br/>
 
 #### 생성
 
-임시 테이블 생성은 CREATE [GLOBAL] TEMPORARY TABLE 구문을 사용한다. ON COMMIT 절은 테이블의 데이터가 트랜잭션에 한정되는지 또는 세션에 한정되는지를 지정한다. ON COMMIT 절에 대한 자세한 설명은 *SQL Reference*를 참고하기 바란다.
+임시 테이블 생성은 CREATE [GLOBAL] TEMPORARY TABLE 구문을 사용한다. ON COMMIT 절은 테이블의 데이터가 트랜잭션에 한정되는지 또는 세션에 한정되는지를 지정한다. ON COMMIT 절에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)를 참고하기 바란다.
 
 또한 임시 테이블은 휘발성 테이블스페이스에만 생성이 가능하므로, TABLESPACE 절에 임시 테이블이 생성될 휘발성 테이블스페이스를 지정해야 한다.
 
@@ -1768,7 +1769,7 @@ DROP TABLE temp1;
 
 #### 관련 SQL문
 
-임시 테이블에 대해 다음과 같은 SQL문이 지원된다. 이에 대한 자세한 설명은 *SQL Reference*를 참조한다.
+임시 테이블에 대해 다음과 같은 SQL문이 지원된다. 이에 대한 자세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참조한다.
 
 -   CREATE TABLE
 
@@ -1808,7 +1809,7 @@ DROP TABLE temp1;
 
 #### 생성
 
-압축 테이블 생성은 일반 테이블과 동일하게 CREATE TABLE 구문을 사용한다. 다만 COMPRESS 절에 압축할 칼럼의 이름을 명시한다. COMPRESS 절에 대한 자세한 설명은 *SQL Reference*를 참고하기 바란다.
+압축 테이블 생성은 일반 테이블과 동일하게 CREATE TABLE 구문을 사용한다. 다만 COMPRESS 절에 압축할 칼럼의 이름을 명시한다. COMPRESS 절에 대한 자세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참고하기 바란다.
 
 ##### 예제
 
@@ -1877,7 +1878,7 @@ DROP TABLE temp1;
 
 #### 관련 SQL문
 
-압축 테이블에 대해 다음과 같은 SQL문이 지원된다. 이에 대한 자세한 설명은 *SQL Reference*를 참조한다.
+압축 테이블에 대해 다음과 같은 SQL문이 지원된다. 이에 대한 자세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md)*를 참조한다.
 
 -   CREATE TABLE
 
@@ -1964,7 +1965,7 @@ TRUNCATE TABLE Q1;
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)* 을 참조한다.
 
 -   CREATE QUEUE
 
@@ -2064,7 +2065,7 @@ ALTER TABLE book DROP UNIQUE(bno);
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)* 을 참조한다.
 
 -   CREATE TABLE
 
@@ -2231,7 +2232,7 @@ NOLOGGING 옵션으로 생성된 디스크 테이블 인덱스의 경우 시스�
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md) 을 참조한다.
 
 -   CREATE TABLE
 
@@ -2345,7 +2346,7 @@ ENO         E_LASTNAME            SALARY
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference*을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)을 참조한다.
 
 -   CREATE VIEW
 
@@ -2439,7 +2440,7 @@ Altibase는 materialized view에 대해서 SELECT만 지원한다.
 
 #### 관련 SQL문
 
-Materialized view에 대해 다음과 같은 SQL문을 제공하며, 이에 대한 자세한 설명은 *SQL Reference*을 참조한다.
+Materialized view에 대해 다음과 같은 SQL문을 제공하며, 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)을 참조한다.
 
 -   CREATE MATERIALIZED VIEW
 
@@ -2447,7 +2448,7 @@ Materialized view에 대해 다음과 같은 SQL문을 제공하며, 이에 대�
 
 -   DROP MATERIALIZED VIEW
 
-Materialized view를 위해 실제 데이터가 유지되는 테이블에 대해 다음과 같은 SQL문을 제공하며, 이에 대한 자세한 설명은 *SQL Reference*을 참조한다.
+Materialized view를 위해 실제 데이터가 유지되는 테이블에 대해 다음과 같은 SQL문을 제공하며, 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)을 참조한다.
 
 -   ALTER TABLE
 
@@ -2553,7 +2554,7 @@ DROP SEQUENCE seq1;
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md) 을 참조한다.
 
 -   CREATE SEQUENCE
 
@@ -2601,7 +2602,7 @@ DROP SYNONYM my_dept;
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference*을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)을 참조한다.
 
 -   CREATE SYNONYM
 
@@ -2615,7 +2616,7 @@ DROP SYNONYM my_dept;
 
 또한 이 절에서는 저장 프로시저 관리 방법을 보여주는 간단한 예제를 제공한다.
 
-저장 프로시저의 용어와 개념, 자세한 관리 방법에 대해서는 *Stored Procedures Manual*을 참조한다.
+저장 프로시저의 용어와 개념, 자세한 관리 방법에 대해서는 *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md)*을 참조한다.
 
 #### 종류
 
@@ -2770,7 +2771,7 @@ DROP PROCEDURE proc1;
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *Stored Procedures Manual*을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)을 참조한다.
 
 -   CREATE PROCEDURE
 
@@ -2863,7 +2864,7 @@ DROP TRIGGER del_trigger;
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md) 을 참조한다.
 
 -   CREATE TRIGGER
 
@@ -2871,7 +2872,7 @@ DROP TRIGGER del_trigger;
 
 -   DROP TRIGGER
 
-트리거는 저장 프로시저의 한 종류이므로 트리거 본체(body)에 대해서는 *Stored Procedures Manual*을 참조한다.
+트리거는 저장 프로시저의 한 종류이므로 트리거 본체(body)에 대해서는 *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md)*을 참조한다.
 
 ### 작업(Job)
 
@@ -3011,11 +3012,11 @@ ALTER SYSTEM SET qp_msglog_flag = <기존값 + 2>;
 
 -   JOB_THREAD_QUEUE_SIZE
 
-생성된 JOB에 대한 정보는 SYS_JOBS\_ 메타 테이블에서 확인할 수 있다. 프로퍼티와 메타 테이블에 대한 상세한 설명은 *General Reference*를 참조한다.
+생성된 JOB에 대한 정보는 SYS_JOBS\_ 메타 테이블에서 확인할 수 있다. 프로퍼티와 메타 테이블에 대한 상세한 설명은 *[General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md)*를 참조한다.
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md) 을 참조한다.
 
 -   CREATE JOB
 
@@ -3090,7 +3091,7 @@ DROP USER dlr CASCADE;
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md) 을 참조한다.
 
 -   CREATE USER
 
@@ -3110,7 +3111,7 @@ Altibase는 시스템 권한, 객체 권한 및 롤을 지원한다.
 
 시스템 권한은 일반적으로 DBA가 관리한다. 시스템 권한이 있는 사용자는 데이터베이스에 특정한 작업을 수행하거나 모든 스키마에 있는 객체들에 접근할 수 있다.
 
-Altibase가 지원하는 전체 시스템 접근 권한 목록은 다음과 같다. 각 권한에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+Altibase가 지원하는 전체 시스템 접근 권한 목록은 다음과 같다. 각 권한에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md) 을 참조한다.
 
 <table>
     <tr>
@@ -3421,7 +3422,7 @@ REVOKE DELETE ON sys.employees FROM role2;
 
 #### 관련 SQL문
 
-다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 *SQL Reference* 을 참조한다.
+다음과 같은 SQL문을 제공하며 이에 대한 자세한 설명은 [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md) 을 참조한다.
 
 -   CREATE ROLE
 
@@ -4453,7 +4454,7 @@ ALTER TABLESPACE {테이블스페이스 이름}
 
 #### 테이블스페이스 백업 및 복구
 
-이번 절에서는 테이블스페이스의 온라인/오프라인 백업의 개념 및 특징을 간략히 설명한다. 백업 및 복구에 대한 자세한 설명은 이 매뉴얼의 해당 장과 *Getting Started Guide*을 참고한다.
+이번 절에서는 테이블스페이스의 온라인/오프라인 백업의 개념 및 특징을 간략히 설명한다. 백업 및 복구에 대한 자세한 설명은 이 매뉴얼의 해당 장과 *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Getting%20Started%20Guide.md)*을 참고한다.
 
 ##### 테이블스페이스 온라인 백업 (HOT 백업)
 
@@ -6188,7 +6189,7 @@ PARTITION BY RANGE_USING_HASH(sales_id)
 
 자율 트랜잭션 프라그마(Autonomous_Transaction Pragma) 구문을 사용하면 PSM 객체가 주 트랜잭션과 독립적으로 동작한다. 자율 트랜잭션은 자원을 공유하지 않으므로 락, 커밋, 복구 등의 동작이 독립적으로 수행된다.
 
-자세한 정보는 *Stored Procedures Manual*의 '프라그마'를 참조하기 바란다.
+자세한 정보는 [*Stored Procedures Manual*의 '프라그마'](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Stored%20Procedures%20Manual.md#10%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88pragma)를 참조하기 바란다.
 
 #### 트랜잭션 종료
 
@@ -8687,24 +8688,24 @@ $ isql -s [fe80::221:86ff:fe94:f51f%eth0] -u sys
 Altibase에서 IPv6 지원은 위의 “IPv6 클라이언트/서버 연결” 절의 표에 잘 나타나 있다.
 
 - 서버  
-  IPv6를 사용하려면, altibase.properties 파일에서 NET_CONN_IP_STACK 프로퍼티를 1 또는 2로 설정해야 한다. 이 프로퍼티에 대한 자세한 설명은 *General Reference*를 참고하기 바란다.
+  IPv6를 사용하려면, altibase.properties 파일에서 NET_CONN_IP_STACK 프로퍼티를 1 또는 2로 설정해야 한다. 이 프로퍼티에 대한 자세한 설명은 *[General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#net_conn_ip_stack)*를 참고하기 바란다.
 - 클라이언트  
   IPv6 를 사용해서 접속하려면, DSN 속성을 IPv6 주소로 지정하거나, 또는 DSN 속성은 호스트 이름으로 명시하고 PREFER_IPV6 속성을 TRUE로 지정하면 된다.  
   호스트 이름을 지정할 경우, Altibase 클라이언트는 getaddrinfo() 호출로 반환되는 모든 IP 주소로의 접속을 연결이 성공할 때까지 시도한다. 한 개 이상의 IP 주소가 반환될 경우, Altibase 클라이언트는 PREFER_IPV6 속성에 의한 순서대로 각 IP 주소로의 연결을 시도한다. PREFER_IPV6 속성이 지정되지 않거나 FALSE로 지정한 경우, 먼저 IPv4 주소로 연결을 시도한다. 연결이 실패하면 클라이언트는 반환되었던 IPv6 주소로 접속을 시도할 것이다. PREFER_IPV6 속성을 TRUE로 지정하면, IPv6 주소로 먼저 접속을 시도한다. 이것이 실패하면 클라이언트는 반환되었던 IPv4 주소로의 접속을 시도한다.  
-  PREFER_IPV6 속성에 대한 자세한 설명은 *CLI User's Manual*를 참고하기 바란다.
+  PREFER_IPV6 속성에 대한 자세한 설명은 *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/CLI%20User's%20Manual.md)*를 참고하기 바란다.
 
 #### Unix Domain 소켓
 
 유닉스 플랫폼 상에서 클라이언트와 Altibase 서버가 모두 동인한 장비에 설치되었을 때, 유닉스 도메인 소켓을 통신에 사용할 수 있다. 유닉스 도메인 소켓을 사용하면 TCP/IP 사용시보다 나은 성능을 낼 수 있다. 유닉스 도메인 소켓을 사용하려면, ODBC/CLI 응용 프로그램에서는 CONNTYPE 속성을 지정하고, Altibase 유틸리티에서는 ISQL_CONNECTION 환경 변수를 설정한다.
 
-더 자세한 설명은 *CLI User's Manual* 와 각각의 유틸리티에 대한 매뉴얼을 참고하기 바란다.
+더 자세한 설명은 [*CLI User's Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/CLI%20User's%20Manual.md) 와 각각의 유틸리티에 대한 매뉴얼을 참고하기 바란다.
 
 #### 공유 메모리를 이용한 IPC
 
 이 절에서는 Altibase에서 제공하는 공유 메모리를 이용한 프로세스간 통신(inter-process communication, IPC) 즉, 동시에 실행 중인 프로세스들 사이에서 데이터를 교환하는 방법에 대해서 설명한다. 클라이언트와 Altibase 데이터베이스 서버가 동일한 장비에 설치되어 있는 경우, 이 통신 방법을 사용하면 클라이언트 응용프로그램은 보다 향상된 성능을 보여줄 것이다. 공유 메모리를 이용한 IPC는 최고의 성능을 제공하지만, 메모리를 추가로 더 많이 사용하게 된다. 이 통신 방법을 사용하려면, 먼저 다음을 수행해야 한다:
 
-- altibase.properties 파일에서 관련 서버 프로퍼티를 설정한다. *'General Reference\> 2. ALTIBASE HDB 프로퍼티 \> 세션 관련 프로퍼티'* 를 참고하기 바란다.
-- ODBC/CLI 응용 프로그램에서는 CONNTYPE 속성을 지정하고, iSQL과 iLoader 같은 Altibase 유틸리티에서는 ISQL_CONNECTION 환경 변수를 설정한다. 자세한 설명은 *CLI User's Manua*과 각각의 유틸리티 매뉴얼을 참고하기 바란다.
+- altibase.properties 파일에서 관련 서버 프로퍼티를 설정한다. *[General Reference-1.Data Types & Altibase Properties \> 세션 관련 프로퍼티](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EC%84%B8%EC%85%98-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)* 를 참고하기 바란다.
+- ODBC/CLI 응용 프로그램에서는 CONNTYPE 속성을 지정하고, iSQL과 iLoader 같은 Altibase 유틸리티에서는 ISQL_CONNECTION 환경 변수를 설정한다. 자세한 설명은 *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/CLI%20User's%20Manual.md)*과 각각의 유틸리티 매뉴얼을 참고하기 바란다.
 
 #### IPCDA
 
@@ -8718,7 +8719,7 @@ IPCDA를 이용하여 통신하려면, 먼저 아래의 환경을 설정해야 �
   IPCDA_CHANNEL_COUNT  
   IPCDA_FILEPATH  
   IPCDA_DATABLOCK_SIZE
-- ODBC/CLI 응용 프로그램에서는 CONNTYPE 속성을 지정한다. 자세한 설명은 CLI User's Manual 을 참고하기 바란다.
+- ODBC/CLI 응용 프로그램에서는 CONNTYPE 속성을 지정한다. 자세한 설명은 *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/CLI%20User's%20Manual.md)* 을 참고하기 바란다.
 
 #### SSL/TLS
 
@@ -8732,7 +8733,7 @@ Altibase는 데이터를 암호화 및 복호화하기 위하여 대칭키 알�
 - 서버에서 SSL 통신을 이용하기 위해서는 환경변수로 ALTIBASE_PORT_NO와 ALTIBASE_SSL_PORT_NO 둘 다 정의되어야 한다.
 - Altibase는 SSL 통신을 위해 JDBC와 ODBC를 지원하며, 현재는 리눅스에서만 사용할 수 있다.
 
-Altibase에 SSL/TLS통신을 설정하고 사용하는 방법은 *Altibase SSL/TLS User's Guide*를 참조하기 바란다.
+Altibase에 SSL/TLS통신을 설정하고 사용하는 방법은 *[Altibase SSL/TLS User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Altibase%20SSL%20TLS%20User's%20Guide.md)*를 참조하기 바란다.
 
 ## 13.Altibase의 보안 
 
@@ -9025,7 +9026,7 @@ ALTER TABLE t1 MODIFY (empID1 DECRYPT);
 - SYS_AUDIT_: 감사의 동작 상태가 저장되어 있는 메타 테이블이다.
 - SYS_AUDIT_OPTS_: 감사 조건이 저장되어 있는 뷰이다. 사용자가 지정한 감사 조건들은 이 뷰의 베이스 테이블인 SYS_AUDIT_ALL_OPTS\_ 메타 테이블에 저장되지만, 데이터베이스 관리자에게 필요한 정보만 담고 있는 SYS_AUDIT_OPTS\_ 뷰를 사용할 것을 권장한다.
 
-각 메타 테이블의 칼럼 정보 및 상세한 설명은 *General Reference*를 참고하도록 한다.
+각 메타 테이블의 칼럼 정보 및 상세한 설명은 [*General Reference-2.The Data Dictionary*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md)를 참고하도록 한다.
 
 #### 관련 프로퍼티
 
@@ -9036,13 +9037,13 @@ Altibase 서버가 수집한 감사 정보는 파일에 기록된다. 이 파일
 - AUDIT_OUTPUT_METHOD
 - AUDIT_TAG_NAME_IN_SYSLOG
 
-각 프로퍼티에 대한 상세한 설명은 *General Reference*를 참고하도록 한다.
+각 프로퍼티에 대한 상세한 설명은 *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)*를 참고하도록 한다.
 
 ### 감사 제어 구문
 
 데이터베이스 를 시작 또는 종료하고, 새로 추가한 감사 조건들을 관리하기 위해 다음과 같은 SQL문들이 제공된다.
 
-SQL문에 대한 상세한 설명은 *SQL Reference*를 참고하도록 한다.
+SQL문에 대한 상세한 설명은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참고하도록 한다.
 
 #### 감사 시작
 
@@ -9159,7 +9160,7 @@ BY ACCESS | SESSION
 WHENEVER [NOT] SUCCESSFUL;
 ```
 
-구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
+구문에 대한 자세한 내용은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참고하도록 한다.
 
 ##### 설정 예제
 
@@ -9551,7 +9552,7 @@ BY user_name
 WHENEVER [NOT] SUCCESSFUL;
 ```
 
-구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
+구문에 대한 자세한 내용은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참고하도록 한다.
 
 ##### 해제 예제
 
@@ -9630,7 +9631,7 @@ DDL문 감사 조건을 설정하는 구문은 아래와 같다.
 AUDIT DDL BY user_name WHENEVER [NOT] SUCCESSFUL;
 ```
 
-구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
+구문에 대한 자세한 내용은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참고하도록 한다.
 
 ##### 설정 예제
 
@@ -9710,7 +9711,7 @@ BY user_name
 WHENEVER [NOT] SUCCESSFUL;
 ```
 
-구문에 대한 자세한 내용은 *SQL Reference*를 참고하도록 한다.
+구문에 대한 자세한 내용은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/SQL%20Reference.md)*를 참고하도록 한다.
 
 ##### 해제 예제
 
@@ -9802,7 +9803,7 @@ DDL_OP : -/-
 
 [표 14‑1] 레코드 저장방식 : 바이너리 vs syslog
 
-altiAudit 유틸리티에 대한 상세한 설명은 *Utilities Manual*을 참고하기 바란다.
+altiAudit 유틸리티에 대한 상세한 설명은 *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Utilities%20Manual.md#altiaudit)*을 참고하기 바란다.
 
 #### 바이너리 레코드 감사 결과 확인
 
@@ -9998,7 +9999,7 @@ V\$LFG성능 뷰의 그룹 커밋 관련 통계값들은 다음과 같다.
 
 ### Altibase 모니터링
 
-Altibase 데이터베이스의 운영 상태를 확인하기 위해서 메타 테이블과 성능 뷰를 이용할 수 있다. 메타 테이블과 성능 뷰에 대한 자세한 설명은 *General Reference*의 데이터 딕셔너리 장을 참고한다.
+Altibase 데이터베이스의 운영 상태를 확인하기 위해서 메타 테이블과 성능 뷰를 이용할 수 있다. 메타 테이블과 성능 뷰에 대한 자세한 설명은 [*General Reference-2.The Data Dictionary*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-2.The%20Data%20Dictionary.md)를 참고한다.
 
 모니터링 해야할 주된 개체는 다음과 같다.
 
@@ -10222,7 +10223,7 @@ Altibase가 처음 가동된 이후에 일정 기간 동안은 임시 메모리 
 
 수행 중인 쿼리 중 의심되는 쿼리를 선정하여 실행 계획을 확인하고 문제가 있다면 튜닝을 해야 한다.
 
-쿼리 튜닝에 대한 자세한 내용은 *Performance Tuning Guide*를 참조한다.
+쿼리 튜닝에 대한 자세한 내용은 *[Performance Tuning Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Performance%20Tuning%20Guide.md)*를 참조한다.
 
 위의 두 경우에 해당하지 않는다면 록을 기다리고 있는 상태를 의심할 수 있다. 현재 록 정보를 V\$LOCK 과 V\$LOCK_WAIT 성능 뷰로 확인하고 특정 세션이 불필요하게 록을 획득하고 있는 상태로 지속되고 있다면 해당 세션을 강제로 종료하여 해결할 수 있다.
 
@@ -10234,7 +10235,7 @@ Altibase가 처음 가동된 이후에 일정 기간 동안은 임시 메모리 
 
 이 프로퍼티의 기본 값은 0이며, 위의 정보들을 trace log로 기록하려면 1을 설정한다.
 
-프로퍼티 파일에 명시된 값은 ALTER SYSTEM 문을 이용하여 변경할 수 있다. 프로퍼티에 대한 자세한 설명은 *General Reference*를 참고하기 바란다.
+프로퍼티 파일에 명시된 값은 ALTER SYSTEM 문을 이용하여 변경할 수 있다. 프로퍼티에 대한 자세한 설명은 *[General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#trclog_detail_predicate)*를 참고하기 바란다.
 
 | TRCLOG                  | 설명                                                         |
 | ----------------------- | ------------------------------------------------------------ |
