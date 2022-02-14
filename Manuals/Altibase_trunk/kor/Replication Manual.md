@@ -1711,7 +1711,7 @@ Altibase는 이중화 대상 테이블에 대하여 DDL 문 실행이 가능하�
 
 1. 원격 서버에서 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 1로 설정한다.   
     0 으로 설정되어 있으면 지역 서버의 이중화 송신자가 원격 서버의 이중화 수신자와의 핸드셰이킹(handshaking)에 실패하고 이중화 전송이 중단된다.    
-2. 대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다.  
+2. 지역 서버에서 대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다.  
 3. 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 수행하여 이중화 갭을 해소한다.   
 이중화 갭을 해소하지 않은 경우 지역 서버와 원격 서버 간 데이터 불일치가 발생할 수 있다.
 4. 지역 서버에서 이중화를 정지한다.  
