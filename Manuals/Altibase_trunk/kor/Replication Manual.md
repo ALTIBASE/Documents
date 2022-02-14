@@ -1712,26 +1712,27 @@ Altibase는 이중화 대상 테이블에 대하여 DDL 문 실행이 가능하�
 1. 원격 서버에서 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 1로 설정한다.   
     0 으로 설정되어 있으면 지역 서버의 이중화 송신자가 원격 서버의 이중화 수신자와의 핸드셰이킹(handshaking)에 실패하고 이중화 전송이 중단된다.    
 2. 대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다.  
-3. ALTER REPLICATION rep_name FLUSH ALL 을 수행하여 이중화 갭을 해소한다.   
+3. 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 수행하여 이중화 갭을 해소한다.   
 이중화 갭을 해소하지 않은 경우 지역 서버와 원격 서버 간 데이터 불일치가 발생할 수 있다.
-4. 이중화를 정지한다.  
-5. 지역 서버와 원격 서버에 [SPLIT | MERGE | DROP] PARTITION 을 수행한다.
+4. 지역 서버에서 이중화를 정지한다.  
+5. 지역 서버와 원격 서버에 [SPLIT | MERGE | DROP] PARTITION 을 수행한다.    
+DDL 문은 동일한 파티션 이름으로 지역 서버와 원격 서버에 각각 수행해야 한다. SPLIT 또는 MERGE PARTITION 수행으로 생성되는 새로운 파티션과 DROP PARTITION 수행으로 삭제된 파티션은 자동으로 이중화 대상에서 추가되고 삭제된다.
 6. 지역 서버와 원격 서버의 DDL 문이 실행이 모두 완료된 뒤, 이중화를 시작한다.  
-7. ALTER REPLICATION rep_name FLUSH ALL 을 다시 한 번 수행한다.   
+7. 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 다시 한 번 수행한다.   
 이것은 지역 서버의 이중화 송신자가  DDL 문을 포함한 XLog를 송신하였음을 보장하기 위해서이다.
-8. 지역 서버에서 SYS_REPL_ITEMS_ 와 SYS_REPL_OLD_ITEMS_ 의 레코드 수를 비교한다.
-두 메타 테이블의 데이터가 동일하면 이중화 송신자가  DDL 문을 포함한 XLog 송신을 완료했음을 알 수 있다.
+8. 지역 서버에서 DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인한다.    
+이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 XLog 전송 결과 확인 방법을 통해 DDL 문을 포함한 XLog 송신을 완료했음을 알 수 있다.
 9. 원격 서버에서 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 0으로 변경한다.  
-  
-이중화 대상인 파티션을 SPLIT, MERGE, DROP 시 원격 서버에서도 동일한 이름으로 파티션을 생성하거나 삭제하여야 하나, 새로 생성되거나 삭제된 파티션은 자동으로 이중화 대상인 파티션으로 추가되거나 제거된다.
+
 
 위의 절차를 순서대로 수행하지 않을 경우, 지역 서버와 원격 서버의 데이터가 상이해질 수 있으니 순서를 꼭 지켜야 한다.
 
 <br>
 
-**이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 시 DDL 문을 포함한 XLog 전송 확인 절차**
+**이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 XLog 전송 결과 확인 방법**
 
-이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행시 DDL 문을 포함한 XLog 가 원격 서버에 송신 완료됬음을 알기 위해선, 지역 서버에서 아래 두 SELECT 결과가 같아야 한다.
+다음은 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 지역 서버의 이중화 송신자가 DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인하는 방법이다.    
+지역 서버에서 아래 두 SQL 문을 수행하여 결과가 같은 지 확인한다.   
 
 ```
 SELECT COUNT(*) FROM SYSTEM_.SYS_REPL_ITEMS_ WHERE LOCAL_USER_NAME = 'user_name' AND LOCAL_TABLE_NAME =  'table_name';
@@ -1760,22 +1761,23 @@ SELECT COUNT(*)
 
 1. 원격 서버에서 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1 로 설정한다.   
 0 으로 설정되어 있으면 지역 서버의 이중화 송신자가 원격 서버의 이중화 수신자와의 핸드셰이킹(handshaking)에 실패하고 이중화 전송이 중단된다.
-2. 이중화를 정지한다.  
+2. 지역 서버에서 이중화를 정지한다.  
 3. 지역 서버와 원격 서버에서 DDL 문을 실행한다. 
 4. 지역 서버와 원격 서버의 DDL 문이 실행이 모두 완료된 뒤, 이중화를 시작한다. 
-5. ALTER REPLICATION rep_name FLUSH ALL 을 수행한다.  
+5. 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 수행한다.  
 이것은 지역 서버의 이중화 송신자가  DDL 문을 포함한 XLog를 송신하였음을 보장하기 위해서이다.  
-6. 원격 서버에서 SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROMV$REPRECEIVER 값을 확인한다.    
-SQL_APPLY_TABLE_COUNT 값이 0 이면 지역 서버의 이중화 송신자가 DDL 문을 포함한 XLog 송신을 완료 했음을 알 수 있다.  
+6. 원격 서버에서 DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인한다.    
+이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 XLog 전송 결과 확인 방법을 통해 DDL 문을 포함한 XLog 송신을 완료했음을 알 수 있다.  
 7. 원격 서버에서 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 0으로 변경한다.  
 **1로 설정되어 있으면 SQL 반영 모드로 동작하여 이중화 성능이 저하될 수 있다.**
     
 REPLICATION_SQL_APPLY_ENABLE가 1로 설정되어 있으면 SQL 반영 모드로 동작하여 성능이 저하될 수 있으므로, 먼저 DDL 문을 실행하고 REPLICATION REP_NAME FLUSH ALL 를 이용하여 DDL 문을 포함한 XLog 전송을 완료한 뒤 원격 서버의 REPLICATION_SQL_APPLY_ENABLE 을 0으로 설정한다. 
 
 
-**이중화 대상 테이블에 데이터 타입 및 size, precision, scale 변경 시 DDL 문을 포함한 XLog 전송 확인 절차**
+**이중화 대상 테이블에 데이터 타입 및 size, precision, scale 변경 후 XLog 전송 결과 확인 방법**
 
-이중화 대상 테이블에 데이터 타입 및 size, precision, scale 변경 시 DDL 문을 포함한 XLog 가 원격 서버에 송신 완료됬음을 알기 위해선, 원격 서버에서 아래 SELECT 구문을 실행시켜 SQL_APPLY_TABLE_COUNT 결과값이 0 이여야 한다.
+다음은 이중화 대상 테이블에 데이터 타입 및 size, precision, scale 변경 후 지역 서버의 이중화 송신자가 DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인하는 방법이다.    
+원격 서버에서 아래 SELECT 구문을 실행시켜 SQL_APPLY_TABLE_COUNT 결과값이 0 인지 확인한다.   
 
 ```
 SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
@@ -1800,14 +1802,9 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
 -   ALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
     이중화가 구동 중에 수행할 수 없다.  
     해당 테이블을 잠금 설정(LOCK TABLE)한다.  
-    이중화 대상 테이블은 지역 서버와 원격 서버간의 이중화 갭를 확인해야 한다.
-    이중화 갭를 해소하기 위해 DDL을 수행하기 전에 이중화의 FLUSH ALL 옵션을
-    수행한다.  
     MERGE 대상이 되는 파티션은 모두 이중화 객체에 존재해야 한다.  
     DROP PARTITION은 이중화 객체에 2개 이상의 파티션이나 테이블이 있어야 수행할
-    수 있다.
-    매뉴얼의 처리 순서와 다르게 처리할 경우 데이터 불일치가 발생할 수 있다.
-    
+    수 있다.  
 -   TRUNCATE TABLE  
     압축 컬럼을 가지지 않는 테이블에 한해서 지원된다.
 
@@ -1846,7 +1843,7 @@ Active - Standby 서버의 사용 예제.
 | **DDL 문 수행 완료 확인** || **DDL 문 수행 완료 확인** |
 |iSQL> ALTER REPLICATION REP1 START;|||
 |iSQL> ALTER REPLICATION REP1 FLUSH ALL;|||
-| **DDL 문을 포함한 XLog 전송 확인 절차 수행** |||
+| **DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인** |||
 |||iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;|
 |iSQL> AUTOCOMMIT ON;||iSQL> AUTOCOMMIT ON;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
@@ -1872,7 +1869,7 @@ Active - Active 서버의 사용 예제.
 | **DDL 문 수행 완료 확인** || **DDL 문 수행 완료 확인** |
 |iSQL> ALTER REPLICATION REP1 START;||iSQL> ALTER REPLICATION REP1 START;|
 |iSQL> ALTER REPLICATION REP1 FLUSH ALL;||iSQL> ALTER REPLICATION REP1 FLUSH ALL;|
-|**DDL 문을 포함한 XLog 전송 확인 절차 수행**||**DDL 문을 포함한 XLog 전송 확인 절차 수행**|
+|**DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인**||**DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인**|
 |iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;||iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;|
 |iSQL> AUTOCOMMIT ON;||iSQL> AUTOCOMMIT ON;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
@@ -1898,8 +1895,7 @@ Active - Standby 서버의 사용 예제.
 | **DDL 문 수행 완료 확인** || **DDL 문 수행 완료 확인** |
 |iSQL> ALTER REPLICATION REP1 START;|||
 |iSQL> ALTER REPLICATION REP1 FLUSH ALL;|||
-|||SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;|  
-||| **SQL_APPLY_TABLE_COUNT 가 0 임을 확인** |
+|||**DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인**|  
 |||iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 0;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;|
@@ -1920,8 +1916,7 @@ Active - Active 서버의 사용 예제.
 | **DDL 문 수행 완료 확인** || **DDL 문 수행 완료 확인** |
 |ALTER REPLICATION REP1 START;||ALTER REPLICATION REP1 START;|
 |iSQL> ALTER REPLICATION REP1 FLUSH ALL;||iSQL> ALTER REPLICATION REP1 FLUSH ALL;|
-|SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;||SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;|
-| **SQL_APPLY_TABLE_COUNT 가 0 임을 확인** || **SQL_APPLY_TABLE_COUNT 가 0 임을 확인** |
+|**DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인**||**DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인**|
 |iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 0||iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE= 0;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;|
 |iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;||iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;|
