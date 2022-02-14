@@ -1711,14 +1711,14 @@ Altibase는 이중화 대상 테이블에 대하여 DDL 문 실행이 가능하�
 
 1. 원격 서버에서 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 1로 설정한다.   
     0 으로 설정되어 있으면 지역 서버의 이중화 송신자가 원격 서버의 이중화 수신자와의 핸드셰이킹(handshaking)에 실패하고 이중화 전송이 중단된다.    
-2. 지역 서버에서 대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다.  
+2. 지역 서버에서 대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL '구문을 사용하여' 잠금 설정해야 한다.  
 3. 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 수행하여 이중화 갭을 해소한다.   
 이중화 갭을 해소하지 않은 경우 지역 서버와 원격 서버 간 데이터 불일치가 발생할 수 있다.
 4. 지역 서버에서 이중화를 정지한다.  
 5. 지역 서버와 원격 서버에 [SPLIT | MERGE | DROP] PARTITION 을 수행한다.    
 DDL 문은 동일한 파티션 이름으로 지역 서버와 원격 서버에 각각 수행해야 한다. SPLIT 또는 MERGE PARTITION 수행으로 생성되는 새로운 파티션과 DROP PARTITION 수행으로 삭제된 파티션은 자동으로 이중화 대상에서 추가되고 삭제된다.
 6. 지역 서버와 원격 서버의 DDL 문이 실행이 모두 완료된 뒤, 지역 서버에서 이중화를 시작한다.  
-7. 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 다시 한 번 수행한다.   
+7. 지역 서버에서 지역 서버의 이중화 송신자가 DDL 문을 포함한 XLog를 송신하였음을 보장하기 위해 ALTER REPLICATION rep_name FLUSH ALL 을 다시 한 번 수행한다.   
 이것은 지역 서버의 이중화 송신자가  DDL 문을 포함한 XLog를 송신하였음을 보장하기 위해서이다.
 8. 지역 서버에서 DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인한다.    
 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 XLog 전송 결과 확인 방법을 통해 DDL 문을 포함한 XLog 송신을 완료했음을 알 수 있다.
