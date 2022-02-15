@@ -18,7 +18,7 @@
   - [5. Objects and Privileges](#5-objects-and-privileges)
     - [Database Objects](#database-objects)
     - [Tables](#tables-1)
-    - [Temporary Tables](#temporary-tables-2)
+    - [Temporary Tables](#temporary-tables-1)
     - [Compressed Tables](#compressed-tables)
     - [Queues](#queues)
     - [Constraints](#constraints-3)
