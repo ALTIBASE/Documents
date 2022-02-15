@@ -17,7 +17,7 @@
     - [Shutdown Procedure](#shutdown-procedure)
   - [5. Objects and Privileges](#5-objects-and-privileges)
     - [Database Objects](#database-objects)
-    - [Tables](#tables)
+    - [Tables](#tables-1)
     - [Temporary Tables](#temporary-tables-1)
     - [Compressed Tables](#compressed-tables)
     - [Queues](#queues)
@@ -655,7 +655,7 @@ This directory contains information about Altibase installation and patches. It 
 
 #### admin Directory
 
-This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the *[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Installation%20Guide.md#apatch-directory).*
+This directory contains the adminview.sql script file, which creates views related to Altibase system information, as well as other script files for creating stored procedures that are used to view information related to tables, stored procedures, and replication objects. For more detailed information, please refer to the *[Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Installation%20Guide.md#apatch-directory).*
 
 #### altiComp Directory
 
