@@ -5805,7 +5805,7 @@ The default partition must be specified when a partitioned object is created. If
 
 ### Partitioning Methods
 
-Objects can be partitioned in three ways: range partitioning, list partitioning, and hash partitioning.
+Objects can be partitioned in four ways: range partitioning, list partitioning, hash partitioning and range partitioning using hash.
 
 Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values.
 
