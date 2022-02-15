@@ -51,6 +51,7 @@
     - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
     - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
     - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
+    - [SYS_REPL_TABLE_OID_IN_USE_](#sys_repl_table_oid_in_use_)
     - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
     - [SYS_SECURITY\_](#sys_security_)
     - [SYS_SYNONYMS\_](#sys_synonyms_)
@@ -312,6 +313,7 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | This table contains information about index columns replicated by the replication sender thread. |
 | SYS_REPL_OLD_INDICES\_       | This table contains information about indexes replicated by the replication sender thread. |
 | SYS_REPL_OLD_ITEMS\_         | This table contains information about the tables replicated by the replication sender thread. |
+| SYS_REPL_TABLE_OID_IN_USE_   | This table contains information about TABLE OID of tables included in DDL log but not yet replicated. |
 | SYS_REPL_RECOVERY_INFOS\_    | This table contains information about logs used by replication for recovery of a remote server. |
 | SYS_SECURITY\_               | This table contains information about the state of the security module. |
 | SYS_SYNONYMS\_               | This table contains information about synonyms.              |
@@ -3087,6 +3089,30 @@ SYS_REPL_OLD_COLUMNS_
 SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
 ```
+
+### SYS_REPL_TABLE_OID_IN_USE_
+
+This meta table is for managing information about TABLE OID of tables included in DDL log but not yet replicated.
+
+| Column name      | Type         | Description                                       |
+| ---------------- | ------------ | ------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40)  | The name of the replication  object               |
+| OLD_TABLE_OID    | BIGINTBIGINT | The old object identifier of the table before DDL |
+| TABLE_OID        | BIGINTBIGINT | The current object identifier of the table        |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the replication name, which is specified by the user. It corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
+
+##### OLD_TABLE_OID
+
+This is the old object identifier of the table that is included in DDL log not yet replicated.
+
+##### TABLE_OID
+
+This is the current object identifier of the table that is included in DDL log not yet replicated. It corresponds to a TABLE_OID in the SYS_REPL_ITEMS_ meta table. 
 
 ### SYS_REPL_RECOVERY_INFOS\_
 
