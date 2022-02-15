@@ -1725,14 +1725,14 @@ DDL 문은 동일한 파티션 이름으로 지역 서버와 원격 서버에 �
 9. 원격 서버에서 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 0으로 변경한다.  
 
 
-위의 절차를 순서대로 수행하지 않을 경우, 지역 서버와 원격 서버의 데이터가 상이해질 수 있으니 순서를 꼭 지켜야 한다.
+위의 절차를 순서대로 수행하지 않을 경우, 지역 서버와 원격 서버의 데이터 불일치가 발생할 수 있으니 순서를 꼭 지켜야 한다.
 
 <br>
 
 **이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 XLog 전송 결과 확인 방법**
 
 다음은 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 지역 서버의 이중화 송신자가 DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인하는 방법이다.    
-지역 서버에서 아래 두 SQL 문을 수행하여 결과가 같은 지 확인한다.   
+지역 서버에서 아래 두 SQL 문을 수행하여 결과가 같은지 확인한다.   
 
 ```
 SELECT COUNT(*) FROM SYSTEM_.SYS_REPL_ITEMS_ WHERE LOCAL_USER_NAME = 'user_name' AND LOCAL_TABLE_NAME =  'table_name';
@@ -1763,8 +1763,8 @@ SELECT COUNT(*)
 0 으로 설정되어 있으면 지역 서버의 이중화 송신자가 원격 서버의 이중화 수신자와의 핸드셰이킹(handshaking)에 실패하고 이중화 전송이 중단된다.
 2. 지역 서버에서 이중화를 정지한다.  
 3. 지역 서버와 원격 서버에서 DDL 문을 실행한다. 
-4. 지역 서버와 원격 서버의 DDL 문이 실행이 모두 완료된 뒤, 지역 서버에서 이중화를 시작한다. 
-5. 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 수행한다.  
+4. 지역 서버와 원격 서버에서 DDL 문 실행이 완료되었으면 지역 서버에서 이중화를 시작한다.   
+5. 지역 서버의 이중화 송신자가 DDL 문을 포함한 XLog를 송신하였음을 보장하기 위해 지역 서버에서 ALTER REPLICATION rep_name FLUSH ALL 을 수행한다.    
 이것은 지역 서버의 이중화 송신자가  DDL 문을 포함한 XLog를 송신하였음을 보장하기 위해서이다.  
 6. 원격 서버에서 DDL 문을 포함한 XLog를 원격 서버로 정상적으로 송신하였는지 확인한다.    
 이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 수행 후 XLog 전송 결과 확인 방법을 통해 DDL 문을 포함한 XLog 송신을 완료했음을 알 수 있다.  
