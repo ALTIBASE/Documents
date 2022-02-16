@@ -21,18 +21,18 @@
 >  **Ubuntu, Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
 
-|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항                                          |
-| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :----------------------------------------------------------- |
-| **Linux x86-64**                                             |                     |                           |                                                              |
-| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x <br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br/>Oracle Linux 8.x |          ●          |             ●             | - GNU glibc 2.12 이상<br />- Altibase JDBC Driver : JRE 1.8 이상 |
-| **Linux on Power**                                           |                     |                           |                                                              |
-| Red Hat Enterprise Linux 6.x                                 |          ●          |             ●             | - GNU glibc 2.12 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
-| **Linux on Power** **(Little Endian)**                       |                     |                           |                                                              |
-| Red Hat Enterprise Linux 7.x                                 |          ●          |             ●             | - GNU glibc 2.17 이상<br />\- Altibase JDBC Driver : JRE 1.8 이상 |
-| **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                              |
-| HP-UX 11.31                                                  |          ●          |             ●             | \- Altibase JDBC Driver : JRE 1.8 이상                       |
-| **Microsoft Windows (x64)**                                  |                     |                           |                                                              |
-| Microsoft Windows 2008                                       |          -          |             ●             | \- Altibase JDBC Driver : JRE 1.8 이상                       |
+|                                                              | Altibase 서버<br /> | Altibase 클라이언트<br /> | 소프트웨어 요구사항   |
+| ------------------------------------------------------------ | :-----------------: | :-----------------------: | :-------------------- |
+| **Linux x86-64**                                             |                     |                           |                       |
+| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x <br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br/>Oracle Linux 8.x |          ●          |             ●             | - GNU glibc 2.12 이상 |
+| **Linux on Power**                                           |                     |                           |                       |
+| Red Hat Enterprise Linux 6.x                                 |          ●          |             ●             | - GNU glibc 2.12 이상 |
+| **Linux on Power** **(Little Endian)**                       |                     |                           |                       |
+| Red Hat Enterprise Linux 7.x                                 |          ●          |             ●             | - GNU glibc 2.17 이상 |
+| **HP-UX Itanium (IA-64)**                                    |                     |                           |                       |
+| HP-UX 11.31                                                  |          ●          |             ●             |                       |
+| **Microsoft Windows (x64)**                                  |                     |                           |                       |
+| Microsoft Windows 2008                                       |          -          |             ●             |                       |
 
 
 
