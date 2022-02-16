@@ -1612,11 +1612,8 @@ This section describes system requirement specification for installing dataCompJ
 
 ##### Software Requirements
 
--   When using Oracle database as a slave DB :  
-    Java Runtime Environment (JRE) later than Oracle or IBM Java 5
-
--   When using MariaDB database as a slave DB :  
-    Java Runtime Environment (JRE) later than Oracle or IBM Java 6
+-   Oracle, OpenJDK or IBM Java Runtime Environment 8 or higher
+    
 
 Note that dataCompJ can be performed independently regardless of hardware and operation system since it is a pure JAVA application; however, it is dependent upon the JAVA Runtime Environment (JRE). Therefore, JRE appropriate for the work environment should be installed. Also, the JAVA_HOME environment variable indicating installed JAVA directory should be configured.
 
