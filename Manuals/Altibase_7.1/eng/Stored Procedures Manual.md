@@ -1622,6 +1622,36 @@ A block can be broadly divided into a declaration section, a block body and an e
 
 To comment out all or part of a single line, place two hyphen characters (“--”) at the beginning of the text to be commented out. To comment out multiple lines, place the C-style delimiters “/*” and “*/” around the text to be commented out. 
 
+Stored procedure block can be used independently without header. This is called anonymous block. Anonymous block is supported from Altibase 7.1.0.2.3 and has features as follows.
+
+- Does not create or store PSM object in database.
+- Does not return the value of RETURN clause.
+- Unlike stored procedures, BIND variables for INPUT, OUTPUT, INOUTPUT can be used.
+
+```
+iSQL> VAR OUT1 OUTPUT INTEGER;
+iSQL> VAR INOUT1 INOUTPUT INTEGER;
+iSQL> EXEC :INOUT1 := 1;
+
+iSQL> DECLARE
+    VAR1 INTEGER;
+BEGIN
+    VAR1 := :INOUT1;
+    :OUT1 := VAR1;
+    :INOUT1 := VAR1 + 1;
+END;
+/
+Execute success.
+
+iSQL> PRINT VAR;
+[ HOST VARIABLE ]
+-------------------------------------------------------
+NAME                 TYPE                 VALUE
+-------------------------------------------------------
+OUT1                 INTEGER              1
+INOUT1               INTEGER              2
+```
+
 In this chapter, the variable assignment statements, which can be used within the declaration section and block body, and the SELECT INTO, assignment statements, LABEL, PRINT and RETURN statements, which can be used only within the block body, will be described. 
 
 Information on the use of control flow statements, cursor-related statements and exception handlers in stored procedures can be found in subsequent chapters. For information on general SQL statements, please refer to the *SQL Reference.*
@@ -12251,7 +12281,7 @@ Execute success.
 
 The DBMS_STATS package provides an interface which can view and modifies the stats information. By using stored procedures and functions, the stats information can be established and updated, also it can configure or delete the stats information for each column, index, and table or per each system
 
-The procedures and functions comprised of the DBMS_STATS package are in the following table below. Refer to DBMS Stats of *Stored Procedures Manual* for in-depth information on each procedure and function.
+The procedures and functions comprised of the DBMS_STATS package are in the following table below.
 
 | Procedures/Functions  | Description                                                  |
 | --------------------- | ------------------------------------------------------------ |

@@ -114,13 +114,9 @@
 
 
 
-
-
-
-
 Altibase® Application Development
 
-Stored Procedures Manual
+Stored Procedures Manual 
 ========================
 
 ![](media/StoredProcedure/e5cfb3761673686d093a3b00c062fe7a.png)
@@ -12587,8 +12583,6 @@ iSQL> exec proc1;
 0
 Execute success
 ```
-
-
 
 #### PARSE
 
