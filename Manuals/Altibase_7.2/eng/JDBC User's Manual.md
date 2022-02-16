@@ -33,9 +33,9 @@
     - [SQL Plan](#sql-plan)
   - [4. Tips & Recommendation](#4-tips--recommendation)
     - [Tips for Better Performance](#tips-for-better-performance)
-  - [5. Error Messages](#error-messages)
+  - [5. Error Messages](#5-error-messages)
     - [SQL States](#sql-states)
-  - [6. JDBC 4.2 API References](#jdbc-4.2-api-references)
+  - [6. JDBC 4.2 API References](#6-jdbc-4.2-api-references)
     - [java.sql.Connection](#java.sql.connection)
     - [java.sql.Wrapper](#java.sql.wrapper)
     - [java.sql.Driver](#java.sql.driver)
@@ -3407,7 +3407,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 |                                       |       | XA close failed                                                                                          | F02      |
 |                                       |       | XA recover failed                                                                                        | F03      |
 
-## 6.JDBC 4.2 API References
+## 6. JDBC 4.2 API References
 
 ---
 
@@ -3658,7 +3658,7 @@ Altibase42.jar which supports JDBC 4.2 specification supports JAVA8 Time API by 
 | java.time.OffsetTime     | Not supported      |
 | java.time.OffsetDateTime | Not supported      |
 
- 
+
 
 Appendix A. Data Type Mapping
 ----------------------
