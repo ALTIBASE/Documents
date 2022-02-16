@@ -2383,8 +2383,7 @@ ST_ISCOLLECTION( GEOMETRY )
 
 ##### 설명
 
-인자로 받은 공간 객체가 Multi\*이거나 GeometryCollection이면 1을 반환하고, 
-그렇지 않으면 0을 반환한다. 
+인자로 받은 공간 객체가 MULTIPOINT, MULTILINESTRING, MULTIPOLYGON, GEOMETRYCOLLECTION이면 1을 반환하고, 그렇지 않으면 0을 반환한다. 
 
 
 ##### 반환 타입
@@ -4234,7 +4233,7 @@ ST_COLLECT( GEOMETRY1, GEOMETRY2 );
 
 ##### 설명
 
-Geometry 객체들을 입력 받아 GeometryCollection 객체를 생성한다. 이 때 input type이 동일하면 결과값은 Multi\*가 되고, 동일하지 않으면 GeometryCollection이 된다.
+Geometry 객체들을 입력 받아 GeometryCollection 객체를 생성한다. 이 때 input type이 동일하면 결과값은 MULTIPOINT, MULTILINESTRING, MULTIPOLYGON이 되고, 동일하지 않으면 GeometryCollection이 된다.
 
 ##### 반환 타입
 

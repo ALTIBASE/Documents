@@ -2094,6 +2094,47 @@ F1          ISRING(F2)
 1 row selected.
 ```
 
+#### ST_ISCOLLECTION
+
+##### Syntax
+
+```
+ST_ISCOLLECTION( GEOMETRY )
+```
+
+##### Description
+
+This function returns 1 if the spatial object type, which is the parameter, is MULTIPOINT, MULTILINESTRING, MULTIPOLYGON or GEOMETRYCOLLECTION. If not, 0 is returned.
+
+
+##### Return Type
+
+```
+INTEGER
+```
+
+##### Example
+
+```
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'POINT(1 1)'); 
+ST_ISCOLLECTION(GEOMETRY'POINT(1 1)') 
+----------------------------------------
+0           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)');
+ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)') 
+---------------------------------------------
+1           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(2 2, 3 3))');  
+ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTIO 
+---------------------------------------------
+1           
+1 row selected.
+```
+
 #### NUMPOINTS
 
 ##### Syntax
@@ -3065,6 +3106,54 @@ iSQL> INSERT INTO TB3 VALUES (105, POLYFROMTEXT('MULTILINESTRING((10 10, 20 20),
 [ERR-A1019 : Not applicable object type]
 ```
 
+#### ST_POLYGONFROMTEXT
+
+##### Syntax
+
+```
+ST_POLYGONFROMTEXT( TEXT[, srid] )
+```
+
+##### Description
+
+This function accepts a spatial object in WKT (Well-known Text) format or EWKT(Extended Well-Known Text) as input and creates and outputs a GEOMETRY object whose subtype is POLYGON.
+
+This function returns NULL if the value of the WKT argument is NULL.
+
+Unlike POLYFROMTEXT, if the WKT or EWKT describes a GEOMETRY subtype other than POLYGON object, this function returns NULL.
+
+If the syntax of the input WKT or EWKT is not valid, it outputs an error.
+
+It can specify the SRID of the created object. In case it is not specified, if the input was WKT the SRID of the object will be 0 and if the input was EWKT it will be the same as the SRID of EWKT.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> INSERT INTO TB3 VALUES (121, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (122, ST_POLYGONFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (123, ST_POLYGONFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))'));
+1 row inserted.
+iSQL> INSERT INTO TB3 VALUES (124, ST_POLYGONFROMTEXT('SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASEWKT(OBJ) FROM TB3;
+ID     ASEWKT(OBJ)
+-------------------------------------------------------------------------------------------------------------
+121     SRID=0;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+122     SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+123
+124     SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+4 rows selected.
+```
+
 #### MPOINTFROMTEXT
 
 ##### Syntax
@@ -3230,6 +3319,43 @@ iSQL> INSERT INTO TB3 VALUES (109, GEOMCOLLFROMTEXT('POLYGON((10 10, 10 20, 20 2
 [ERR-A1019 : Not applicable object type]
 ```
 
+#### ST_GEOMETRY
+
+##### Syntax
+
+```
+ST_GEOMETRY( WKT )
+```
+
+##### Description
+
+This function accepts a spatial object in WKT (Well-known Text) format as input and creates and outputs a GEOMETRY object. 
+
+It allows any spatial objects that can be expressed in WKT.
+
+If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY object that is not included in GEOMETRY object collection, this function outputs an error.
+
+This function returns NULL if the value of the WKT argument is NULL. The SRID of the created object is 0.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> INSERT INTO TB3 VALUES (110, ST_GEOMETRY('MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASTEXT(OBJ) FROM TB3 WHERE ID = 110;
+ID       ASTEXT(OBJ)
+-----------------------------------------------------------------------------------------------
+110      MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))
+1 row selected.
+```
+
 #### GEOMFROMWKB
 
 ##### Syntax
@@ -3283,6 +3409,32 @@ LINEFROMWKB( WKB )
 This function accepts a spatial object in WKB (Well-Known Binary) format as input and creates and outputs a GEOMETRY object whose subtype is LINESTRING. 
 
 If the input WKB information describes a GEOMETRY subtype other than a LINESTRING, this function outputs an error.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+#### ST_LINESTRINGFROMWKB
+
+##### Syntax
+
+```
+ST_LINESTRINGFROMWKB( WKB[, SRID] )
+```
+
+##### Description
+
+This function accepts a spatial object in WKB(Well-Known Binary) format or EWKB(Extended Well-Known Binary)  format and its SRID as input and creates and outputs a LINESTRING object.
+
+This function returns NULL if the value of the WKB or the value of the SRID is NULL.
+
+If the WKB or EWKB describes spatial data type other than LINESTRING, NULL is returned.
+
+If the syntax of the input WKB or EWKB is not valid, it outputs an error.
+
+If the SRID is not specified, the SRID of the created object is the dafault value 0.
 
 ##### Return Type
 
@@ -3621,6 +3773,238 @@ LINESTRING(1 1, 2 2, 3 3, 4 4, 5 5)
 1 row selected.
 ```
 
+#### ST_MAKEPOLYGON
+
+##### Syntax
+
+```
+ST_MAKEPOLYGON( GEOMETRY )
+```
+
+##### Description
+
+This function accepts a LineString object as input and creates and outputs a Polygon object. Here, LineString should be in Ring format.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_MAKEPOLYGON( GEOMETRY'LINESTRING( 0 0, 1 1, 1 0, 0 0 ) ' ) ) AS GEOM FROM DUAL; 
+GEOM                                                                                                                                
+------------------------------------------------------
+POLYGON((0 0, 1 1, 1 0, 0 0))                                                                                                                   
+1 row selected.
+```
+
+#### ST_POLYGON
+
+##### Syntax
+
+```
+ST_POLYGON( GEOMETRY, SRID )
+```
+
+##### Description
+
+This function is similar to ST_MAKEPOLYGON. This function accepts a LINESTRING object or SRID as input and creates a POLYGON object.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+Example
+
+```
+iSQL> SELECT ST_ASEWKT( ST_POLYGON( GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 2 ) ', 4326 ) ) AS GEOM FROM DUAL;
+GEOM                                                                                                                               
+-----------------------------------------------------
+SRID=4326;POLYGON((2 2, 3 2, 3 3, 2 3, 2 2))                                                                                                           
+1 row selected.
+```
+
+#### ST_COLLECT
+
+##### Syntax
+
+```
+ST_COLLECT( GEOMETRY1, GEOMETRY2 );
+```
+
+##### Description
+
+This function accepts Geometry objects as input and creates and outputs a GeometryCollection object. If the input type is the same, the result value is MULTIPOINT, MULTILINESTRING or MULTIPOLYGON. If it is not, the result is GeometryCollection.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'POINT( 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+-----------------------------------------------------------------------------------
+MULTIPOINT(1 1, 2 2)                               
+1 row selected. 
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'LINESTRING( 1 1, 2 2 )', GEOMETRY'LINESTRING( 3 3, 4 4 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+MULTILINESTRING((1 1, 2 2), (3 3, 4 4))                     
+1 row selected.
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POLYGON( ( 0 0, 1 1, 1 0, 0 0 ) )', GEOMETRY'POLYGON( ( 10 10, 2 2, 2 0, 10 10 ) )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+MULTIPOLYGON(((0 0, 1 1, 1 0, 0 0)), ((10 10, 2 2, 2 0, 10 10)))         
+1 row selected.
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'LINESTRING( 1 1, 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+GEOMETRYCOLLECTION( POINT(1 1) , LINESTRING(1 1, 2 2) )             
+1 row selected.
+```
+
+#### ST_MAKEENVELOPE
+
+##### Syntax
+
+```
+ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
+```
+
+##### Description
+
+This function returns POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ) which is the result of the ENVELOPE function that accepts LINESTRING( X1 Y1, X2 Y2 ) that is constituted of 4 Double type parameters as input. If the SRID was specified in advance, the created object will have the same SRID. If the SRID was not specified, the SRID of the created object will be 0.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138 ) ) AS POL FROM DUAL;
+POL
+------------------------------------------------------------------------------------------------------
+SRID=0;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+
+iSQL> SELECT ASEWKT( ST_MAKEENVELOPE( 10.9351, 49.3866, 11.201, 49.5138, 104 ) ) AS POL FROM DUAL;
+POL
+------------------------------------------------------------------------------------------------------
+SRID=104;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.5138, 10.9351 49.3866))
+1 row selected.
+```
+
+#### ST_REVERSE
+
+##### Syntax
+
+```
+ST_REVERSE(GEOMETRY)
+```
+
+##### Description
+
+This function changes the points of the spatial object in reverse order. If the spatial object is EMPTY it returns NULL. If it is a point, it returns the same spatial object as the input while as if it was multiple spatial objects it changes the point of each object in reverse order.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_REVERSE(GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 4 )') ) AS LS FROM DUAL;
+LS
+------------------------------------------------------------------------------------
+LINESTRING(2 4, 2 3, 3 3, 3 2, 2 2)
+1 row selected.
+```
+
+#### ST_TRANSFORM
+
+##### Syntax
+
+```
+GEOMETRY ST_Transform( GEOMETRY, INTEGER to_srid );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, VARCHAR to_proj4text );
+GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, INTEGER to_srid );
+```
+
+##### Description
+
+This function creates new GEOMETRY object by converting the input coordination. Input/output coordination can be SRID format or PROF4TEXT format.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Constraints
+
+- This function can only be used in Linux operating system running on computers from Intel.
+
+- If one of the input elements is NULL, NULL is returned.
+
+- If input GEOMETRY object is EMPTY, EMPTY GEOMETRY object is returned.
+
+- If the input and output SRID is identical, returned GEOMETRY object and input GEOMETRY object will be identical as well.
+
+- If the input was SRID coordinate system, there should be SRID’s Spatial Reference System meta data which can be found in SPATIAL_REF_SYS table.
+
+- PROJ4TEXT is only supported in PROJ library version 4 format.
+
+- If the output coordinate system is PROJ4TEXT, the SRID of the returned GEOMETRY object is 0.
+
+- If the input coordinate system is PROJ4TEXT and the SRID of the GEOMETRY object is 0, the SRID of the returned GEOMETRY object is 0.
+
+
+##### Example
+
+```
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), 4326 )) as geometry;
+GEOMETRY                                                                                                                             
+-------------------------------------------------------------------------------------------
+SRID=4326;POINT(127.0246 37.5326)                                                                                                                 
+1 row selected.
+
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                             
+-------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
+1 row selected.
+
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
+GEOMETRY                                                                                                                             
+--------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
+1 row selected.
+
+iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', 4326 )) as geometry;
+GEOMETRY                                                                                                                              
+--------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
+1 row selected.
+```
+
 #### Dimensionally Extended Nine Intersection Model(DE－9IM) 
 
 #### Spatial Relational Operators in the Dimensionally Extended Nine Intersection Model(DE－9IM) 
@@ -3897,9 +4281,54 @@ F1          F1
 8 rows selected.
 ```
 
+#### NOTEQUALS
+
+##### Syntax
+
+```
+NOTEQUALS( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTEQUALS is oppostie to EQUALS.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT a.F1, b.F1 FROM TB1 a, TB1 b WHERE NOTEQUALS(a.F2, b.F2) AND GEOMETRYTYPE(a.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         100
+105         101
+105         102
+105         103
+105         104
+105         106
+105         107
+105         108
+105         109
+106         100
+106         101
+106         102
+106         103
+106         104
+106         105
+106         107
+106         108
+106         109
+18 rows selected.
+```
+
 #### DISJOINT
 
-##### Syntaxx
+##### Syntax
 
 ```
 DISJOINT( GEOMETRY1, GEOMETRY2 )
@@ -4010,6 +4439,53 @@ F1          F1
 7 rows selected.
 ```
 
+#### NOTTOUCHES
+
+##### Syntax
+
+```
+NOTTOUCHES( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTTOUCHES is opposite to TOUCHES.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTTOUCHES(TB1.F2, TB2.F2) AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         200
+105         201
+105         202
+105         203
+105         204
+105         205
+105         206
+105         207
+105         208
+105         209
+106         200
+106         201
+106         202
+106         203
+106         204
+106         205
+106         206
+106         207
+106         208
+106         209
+20 rows selected.
+```
+
 #### CROSSES
 
 ##### Syntax
@@ -4040,6 +4516,53 @@ F1          F1
 1 row selected.
 ```
 
+#### NOTCROSSES
+
+##### Syntax
+
+```
+NOTCROSSES( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTCROSSES is opposite to CROSSES.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT a.F1, b.F1 FROM TB1 a, TB1 b WHERE NOTCROSSES(a.F2, b.F2) AND GEOMETRYTYPE(a.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         100
+105         101
+105         102
+105         103
+105         104
+105         105
+105         106
+105         107
+105         108
+105         109
+106         100
+106         101
+106         102
+106         103
+106         104
+106         105
+106         106
+106         107
+106         108
+106         109
+20 rows selected.
+```
+
 #### WITHIN
 
 ##### Syntax
@@ -4066,6 +4589,52 @@ F1          F1
 ---------------------------
 106         205         
 1 rows selected.
+```
+
+#### NOTWITHIN
+
+##### Syntax
+
+```
+NOTWITHIN( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTWITHIN is opposite to WITHIN.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTWITHIN(TB1.F2, TB2.F2) AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         200
+105         201
+105         202
+105         203
+105         204
+105         205
+105         207
+105         208
+105         209
+106         200
+106         201
+106         202
+106         203
+106         204
+106         205
+106         206
+106         207
+106         208
+106         209
+19 rows selected.
 ```
 
 #### CONTAINS
@@ -4096,6 +4665,43 @@ F1          F1
 1 row selected.
 ```
 
+#### NOTCONTAINS
+
+##### Syntax
+
+```
+NOTCONTAINS( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTCONTAINS is opposite to CONTAINS.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT a.F1, b.F1 FROM TB1 a, TB1 b WHERE NOTCONTAINS(a.F2, b.F2) AND GEOMETRYTYPE(a.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         100
+105         101
+105         102
+105         104
+105         106
+105         107
+105         108
+105         109
+106         100
+106         109
+10 rows selected.
+```
+
 #### OVERLAPS
 
 ##### Syntax
@@ -4123,6 +4729,50 @@ F1          F1
 105         205         
 107         205 
 3 rows selected.
+```
+
+#### NOTOVERLAPS
+
+##### Syntax
+
+```
+NOTOVERLAPS( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTOVERLAPS is opposite to OVERLAPS.
+
+##### Return Tyoe
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTOVERLAPS(TB1.F2, TB2.F2) AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         200
+105         201
+105         202
+105         203
+105         204
+105         205
+105         206
+105         207
+105         208
+105         209
+106         200
+106         201
+106         202
+106         203
+106         204
+106         208
+106         209
+17 rows selected.
 ```
 
 #### RELATE
@@ -4159,6 +4809,44 @@ F1          F1
 105         205 
 107         205 
 3 rows selected.
+```
+
+#### NOTRELATE
+
+##### Syntax
+
+```
+NOTRELATE( GEOMETRY1, GEOMETRY2 , patterns ) 
+```
+
+##### Description
+
+NOTRELATE is opposite to RELATE.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTRELATE(TB1.F2, TB2.F2, 'T*T***T**')  AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         201
+105         202
+105         203
+105         204
+105         205
+105         206
+105         207
+105         208
+105         209
+106         201
+106         209
+11 rows selected.
 ```
 
 #### ISMBRINTERSECTS

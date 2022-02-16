@@ -34,6 +34,20 @@
   - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
     - [SQL States](#sql-states)
   - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
+      - [java.sql.Connection](#java.sql.connection)
+      - [java.sql.Wrapper](#java.sql.wrapper)
+      - [java.sql.Driver](#java.sql.driver)
+      - [java.sql.Statement](#java.sql.statement)
+      - [java.sql.PreparedStatement](#java.sql.preparedstatement)
+      - [java.sql.CallableStatement](#java.sql.callablestatement)
+      - [java.sql.PooledConnection](#java.sql.pooledconnection)
+      - [java.sql.ResultSet](#java.sql.resultset)
+      - [java.sql.CommonDataSource](#java.sql.commondatasource)
+      - [java.sql.DatabaseMetaData](#java.sql.databasemetadata)
+      - [java.sql.Blob](#java.sql.blob)
+      - [java.sql.Clob](#java.sql.clob)
+      - [java.sql.Types](#java.sql.types)
+      - [java.sql.SQLTypes](#java.sql.sqltypes)
       - [Java 8 Time API](#java-8-time-api)
   - [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
     - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
@@ -3763,8 +3777,8 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | setSchema(String schema)                                   | 4.1      |    X     | 스키마 지원 안함                                                                    |스펙에 따라 예외는 발생 안하고 그냥 요청이 무시됨 |
 | getSchema()                                                | 4.1      |    X     | 스키마 지원 안함                                                                    |예외는 발생 안하고 null이 리턴됨                |
 | abort(Executor executor)                                   | 4.1      |    O     |                                                                                    |                                            |
-| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | 드라이버 내부적으로 socket so timeout을 이용하기 때문에 executor는 null로 넘겨도 상관없음 |                                            |
-| getNetworkTimeout()                                        | 4.1      |    O     | JDBC 속성 response_timeout과 연동                                                    |                                            |
+| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | Altibase JDBC 드라이버 내부에서 TCP/IP의 SO_TIMEOUT socket 옵션을 이용하기 때문에 Executor는 null을 반환(return)해도 무방 |                                            |
+| getNetworkTimeout()                                        | 4.1      |    O     | JDBC의 response_timeout 속성과 연동하여 해당 속성값을 반환          |                                            |
 
 ### java.sql.Wrapper
 | 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |

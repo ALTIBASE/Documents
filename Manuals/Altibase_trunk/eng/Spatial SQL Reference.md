@@ -2071,6 +2071,47 @@ F1          ISRING(F2)
 1 row selected.
 ```
 
+#### ST_ISCOLLECTION
+
+##### Syntax
+
+```
+ST_ISCOLLECTION( GEOMETRY )
+```
+
+##### Description
+
+This function returns 1 if the spatial object type, which is the parameter, is MULTIPOINT, MULTILINESTRING, MULTIPOLYGON or GEOMETRYCOLLECTION. If not, 0 is returned.
+
+
+##### Return Type
+
+```
+INTEGER
+```
+
+##### Example
+
+```
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'POINT(1 1)'); 
+ST_ISCOLLECTION(GEOMETRY'POINT(1 1)') 
+----------------------------------------
+0           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)');
+ST_ISCOLLECTION(GEOMETRY'MULTIPOINT(1 1)') 
+---------------------------------------------
+1           
+1 row selected.
+
+iSQL> SELECT ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(2 2, 3 3))');  
+ST_ISCOLLECTION(GEOMETRY'GEOMETRYCOLLECTIO 
+---------------------------------------------
+1           
+1 row selected.
+```
+
 #### NUMPOINTS
 
 ##### Syntax
@@ -4110,9 +4151,54 @@ F1          F1
 8 rows selected.
 ```
 
+#### NOTEQUALS
+
+##### Syntax
+
+```
+NOTEQUALS( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTEQUALS is oppostie to EQUALS.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT a.F1, b.F1 FROM TB1 a, TB1 b WHERE NOTEQUALS(a.F2, b.F2) AND GEOMETRYTYPE(a.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         100
+105         101
+105         102
+105         103
+105         104
+105         106
+105         107
+105         108
+105         109
+106         100
+106         101
+106         102
+106         103
+106         104
+106         105
+106         107
+106         108
+106         109
+18 rows selected.
+```
+
 #### DISJOINT
 
-##### Syntaxx
+##### Syntax
 
 ```
 DISJOINT( GEOMETRY1, GEOMETRY2 )
@@ -4223,6 +4309,53 @@ F1          F1
 7 rows selected.
 ```
 
+#### NOTTOUCHES
+
+##### Syntax
+
+```
+NOTTOUCHES( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTTOUCHES is opposite to TOUCHES.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTTOUCHES(TB1.F2, TB2.F2) AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         200
+105         201
+105         202
+105         203
+105         204
+105         205
+105         206
+105         207
+105         208
+105         209
+106         200
+106         201
+106         202
+106         203
+106         204
+106         205
+106         206
+106         207
+106         208
+106         209
+20 rows selected.
+```
+
 #### CROSSES
 
 ##### Syntax
@@ -4253,6 +4386,53 @@ F1          F1
 1 row selected.
 ```
 
+#### NOTCROSSES
+
+##### Syntax
+
+```
+NOTCROSSES( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTCROSSES is opposite to CROSSES.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT a.F1, b.F1 FROM TB1 a, TB1 b WHERE NOTCROSSES(a.F2, b.F2) AND GEOMETRYTYPE(a.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         100
+105         101
+105         102
+105         103
+105         104
+105         105
+105         106
+105         107
+105         108
+105         109
+106         100
+106         101
+106         102
+106         103
+106         104
+106         105
+106         106
+106         107
+106         108
+106         109
+20 rows selected.
+```
+
 #### WITHIN
 
 ##### Syntax
@@ -4279,6 +4459,52 @@ F1          F1
 ---------------------------
 106         205         
 1 rows selected.
+```
+
+#### NOTWITHIN
+
+##### Syntax
+
+```
+NOTWITHIN( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTWITHIN is opposite to WITHIN.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTWITHIN(TB1.F2, TB2.F2) AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         200
+105         201
+105         202
+105         203
+105         204
+105         205
+105         207
+105         208
+105         209
+106         200
+106         201
+106         202
+106         203
+106         204
+106         205
+106         206
+106         207
+106         208
+106         209
+19 rows selected.
 ```
 
 #### CONTAINS
@@ -4309,6 +4535,43 @@ F1          F1
 1 row selected.
 ```
 
+#### NOTCONTAINS
+
+##### Syntax
+
+```
+NOTCONTAINS( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTCONTAINS is opposite to CONTAINS.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT a.F1, b.F1 FROM TB1 a, TB1 b WHERE NOTCONTAINS(a.F2, b.F2) AND GEOMETRYTYPE(a.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         100
+105         101
+105         102
+105         104
+105         106
+105         107
+105         108
+105         109
+106         100
+106         109
+10 rows selected.
+```
+
 #### OVERLAPS
 
 ##### Syntax
@@ -4336,6 +4599,50 @@ F1          F1
 105         205         
 107         205 
 3 rows selected.
+```
+
+#### NOTOVERLAPS
+
+##### Syntax
+
+```
+NOTOVERLAPS( GEOMETRY1, GEOMETRY2 )
+```
+
+##### Description
+
+NOTOVERLAPS is opposite to OVERLAPS.
+
+##### Return Tyoe
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTOVERLAPS(TB1.F2, TB2.F2) AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         200
+105         201
+105         202
+105         203
+105         204
+105         205
+105         206
+105         207
+105         208
+105         209
+106         200
+106         201
+106         202
+106         203
+106         204
+106         208
+106         209
+17 rows selected.
 ```
 
 #### RELATE
@@ -4372,6 +4679,44 @@ F1          F1
 105         205 
 107         205 
 3 rows selected.
+```
+
+#### NOTRELATE
+
+##### Syntax
+
+```
+NOTRELATE( GEOMETRY1, GEOMETRY2 , patterns ) 
+```
+
+##### Description
+
+NOTRELATE is opposite to RELATE.
+
+##### Return Type
+
+```
+BOOLEAN
+```
+
+##### Example
+
+```
+iSQL> SELECT TB1.F1, TB2.F1 FROM TB1, TB2 WHERE NOTRELATE(TB1.F2, TB2.F2, 'T*T***T**')  AND GEOMETRYTYPE(TB1.F2) = 'POLYGON';
+F1          F1
+---------------------------
+105         201
+105         202
+105         203
+105         204
+105         205
+105         206
+105         207
+105         208
+105         209
+106         201
+106         209
+11 rows selected.
 ```
 
 #### ISMBRINTERSECTS
