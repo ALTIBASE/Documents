@@ -637,11 +637,10 @@ ADAPTER_ERROR_RESTART_COUNT에 지정한 값 만큼 재시도할 때의 간격�
 
 ##### ADAPTER_LOB_TYPE_SUPPORT
 
-LOB 데이터 타입을 지원 할지 여부를 결정하는 프로퍼티이다.
+LOB 데이터 타입의 지원 여부를 결정하는 프로퍼티이다.
 
 -   기본 값: 0
 -   0: LOB 데이타 타입을 지원 하지 않는다.
-
 -   1: LOB 데이타 타입을 지원 한다.
 
 #### 외부 데이타베이스의 프로퍼티
@@ -874,10 +873,10 @@ jdbcAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수�
 그 외 수행할 수 있는 DDL은 Replication Manual의 '이중화 대상 테이블에 DDL
 실행'을 참조하기 바란다.
 
-#### LOB 데이타 타입 제약 사항
+#### LOB 데이터 타입 제약 사항
 
 - LOB 데이터 타입은  Adapter for JDBC 버전 7.1.0.6.9 부터 지원 한다. 
-- LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정 후 사용하여야 합니다. 
+- LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정한다. 
 - SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 트랜잭션 단위로 반영 여부를 결정하므로 이전 DML 처리 중 에러가 발생하거나 프로퍼티에 의해 반영되지 않은 경우 이후 LOB 컬럼 갱신은 반영되지 않는다. 따라서, SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 Commit 후 진행 하는 것이 안전하다.
 - LOB 데이터 타입이 포함된 테이블은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
   자세한 내용은 프로퍼티 항목을 참조하기 바란다.
