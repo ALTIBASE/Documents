@@ -97,6 +97,7 @@
     - [DBMS_SQL](#dbms_sql)
     - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
     - [DBMS_STATS](#dbms_stats)
+    - [DBMS_STANDARD](#dbms_standard)
     - [DBMS_UTILITY](#dbms_utility)
     - [STANDARD](#standard)
     - [SYS_SPATIAL](#sys_spatial)
@@ -108,8 +109,8 @@
   - [Appendix A. Examples](#appendix-a-examples)
     - [Stored Procedure Examples](#stored-procedure-examples)
     - [File Control Example](#file-control-example)
-
-
+    - [UTL_SMTP Example](#utl_smtp-example)
+    - [SENDMAIL DAEMON Example](#sendmail-daemon-example)
 
 
 
@@ -7866,7 +7867,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -8742,17 +8743,41 @@ The CONNECT_TYPE internally contains stored TCP socket information, however, use
 
 The local variables of CONNECT_TYPE in the stored procedures can be treated as parameters or return values of the following functions.
 
-| Function Name    | Description                                                  |
-| ---------------- | ------------------------------------------------------------ |
-| CLOSEALL_CONNECT | Closes all the connection handles connected to a session     |
-| CLOSE_CONNECT    | Closes a connection handle connected to a session            |
-| IS_CONNECTED     | Confirms the connection status of a CONNECT_TYPE connection handle |
-| OPEN_CONNECT     | Opens a file with the purpose of reading or writing          |
-| WRITE_RAW        | Tranmits RAW(VARBYTE) type materials to a network through a connected connection handle |
+| Function Name       | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| CLOSEALL_CONNECT    | Closes all the connection handles connected to the session   |
+| CLOSE_CONNECT       | Closes a connection handle connected to a session            |
+| IS_CONNECTED        | Confirms the connection status of a CONNECT_TYPE connection handle |
+| OPEN_CONNECT        | Opens a file for reading or writing                          |
+| WRITE_RAW           | Transmits RAW(VARBYTE) type data to a network through a connected connection handle |
+| CHECK_CONNECT_STATE | Compares the current connection state and wanted state to see if state mutation is possible |
+| CHECK_CONNECT_REPLY | Checks if the response message is suitable to the connection handle protocol |
+| SEND_TEXT           | Sends the VARCHAR type data to the remote server             |
+| RECV_TEXT           | Receives the VARCHAR type data from the remote server        |
+| WRITE_RAW_VALUE     | Sends the RAW type VALUE data to remote server               |
+
+##### TCP Access Control Connection State
+
+| Connection State | ID Value |
+| ---------------- | -------- |
+| NO CONNECT       | 0        |
+| CONNECTED        | 1        |
+| SMTP HELO        | 2        |
+| SMTP MAIL        | 3        |
+| SMTP RCPT        | 4        |
+| SMTP OPEN        | 5        |
+| SMTP DATA        | 6        |
+| SMTP CRLF        | 7        |
+
+##### TCP Access Control Protocol Type
+
+| Protocol Type | ID Value |
+| ------------- | -------- |
+| SMTP          | 1        |
 
 #### CLOSEALL_CONNECT
 
-The CLOSEALL_CONNECT is a function closing all the connection handle accessed to a current session.
+CLOSEALL_CONNECT closes all the connection handle connected to the current session.
 
 ##### Syntax
 
@@ -8761,15 +8786,13 @@ CONNECT_TYPE variable :=
 CLOSEALL_CONNECT(); 
 ```
 
-
-
 ##### Return Value
 
-0 is returned when successfully executed.
+Returns 0 when succeeded.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -8783,11 +8806,9 @@ END;
 /
 ```
 
-
-
 #### CLOSE_CONNECT
 
-The CLOSE_CONNECT is a function which closes a connection handle accessed to the current session.
+CLOSE_CONNECT closes a connection handle connected to the current session.
 
 ##### Syntax
 
@@ -8797,21 +8818,19 @@ CLOSE_CONNECT(
          coon IN CONNECT_TYPE); 
 ```
 
+##### Parameter
 
+| Name | In/Output | Data Type    | Description       |
+| ---- | --------- | ------------ | ----------------- |
+| coon | IN        | CONNECT_TYPE | Connection handle |
 
-##### Parameters
+##### Return Value
 
-| Name | Input/Output | Data Type    | Descritpion         |
-| ---- | ------------ | ------------ | ------------------- |
-| coon | IN           | CONNECT_TYPE | A connection handle |
-
-##### Return value
-
-0 is returned when successfully executed.
+Returns 0 when succeeded.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -8828,11 +8847,9 @@ END;
 /
 ```
 
-
-
 #### IS_CONNECTED
 
-The CLOSEALL_CONNECT is a function closing all the connection handle accessed to a current session.
+IS_CONNECTED checks the connection state of the CONNECT_TYPE connection handle.
 
 ##### Syntax
 
@@ -8842,17 +8859,15 @@ IS_CONNECTED(
          coon IN CONNECT_TYPE); 
 ```
 
-
-
 ##### Parameter
 
-| Name | Input/Output | Data Type    | Description         |
-| ---- | ------------ | ------------ | ------------------- |
-| coon | IN           | CONNECT_TYPE | A connection handle |
+| Name | In/Output | Data Type    | Description       |
+| ---- | --------- | ------------ | ----------------- |
+| coon | IN        | CONNECT_TYPE | Connection handle |
 
 ##### Return Value
 
-0 is returned when a connection handled is connected; otherwise it returns -1.
+Returns 0 if the connection handle is connected. If it is not connected, it returns -1.
 
 ##### Example
 
@@ -8875,11 +8890,9 @@ END;
 /
 ```
 
-
-
 #### OPEN_CONNECT
 
-The OPEN_CONNECT is a stored function which creates TCP sockets and accesses to the remote server with an inserted IP and PORT.
+OPEN_CONNECT is a stored function which creates TCP sockets and accesses to the remote server with inserted IP and PORT.
 
 ##### Syntax
 
@@ -8892,24 +8905,22 @@ OPEN_CONNECT(
          tx_buffersize IN INTEGER); 
 ```
 
-
-
 ##### Parameters
 
-| Name            | Input/Output | Data Type   | Description                                                  |
-| --------------- | ------------ | ----------- | ------------------------------------------------------------ |
-| ip              | IN           | VARCHAR(64) | The IP address of a remote server                            |
-| port            | IN           | INTEGER     | Port number of a remote server.                              |
-| connect_timeout | IN           | INTEGER     | The time allowing access(microseconds).<br />It waits until it is accessed if 0 or Null is input. |
-| tx_buffersize   | IN           | INTEGER     | The size of transmission buffer can be specified. It can be specified from 2048 to 32767 bytes, Null or the value less than 2048 is specified 2048 bytes. |
+| Name            | In/Output | Data Type   | Description                                                  |
+| --------------- | --------- | ----------- | ------------------------------------------------------------ |
+| ip              | IN        | VARCHAR(64) | IP address of remote server                                  |
+| port            | IN        | INTEGER     | Port number of remote server                                 |
+| connect_timeout | IN        | INTEGER     | The time allowing access(microseconds).<br />Waits until accessed if 0 or Null is input. |
+| tx_buffersize   | IN        | INTEGER     | Specifies the size of transmission buffer. 2048~32767 bytes can be specified and Null or any value less than 2048 is specified as 2048 bytes. |
 
 ##### Return Value
 
-A connection handle of which data type is CONNECT_TYPE would be returned when successfully executed.
+Returns CONNECT_TYPE connection handle when succeeded.
 
-##### Exceptions
+##### Exception
 
-If the connection handle is not normally connected to a network, the CONNECT_TYPE returns NULL values. The connection status can be verified through returned values of the CONNECT_TYPE by using a IS_CONNECTED() function.
+CONNECT_TYPE returns Null Value if the connection handle is not connected to the network properly. Value of CONNECT_TYPE which is return value of IS_CONNECTED() function can be used to check whether it is connected.
 
 ##### Example
 
@@ -8926,11 +8937,9 @@ END;
 /
 ```
 
-
-
 #### WRITE_RAW
 
-This is a function that transfers data of type RAW (VARBYTE) to the network through the connected handle.
+WRITE_RAW sends RAW(VARBYTE) type data to network via connected handle.
 
 ##### Syntax
 
@@ -8942,25 +8951,23 @@ WRITE_RAW (
          length IN INTEGER ); 
 ```
 
-
-
 ##### Parameters
 
-| Name   | Input/Output | Data Type    | Description                                  |
-| ------ | ------------ | ------------ | -------------------------------------------- |
-| coon   | IN           | CONNECT_TYPE | A connection Handle                          |
-| data   | IN           | VARBYTE      | The data which will be transmitted           |
-| length | IN           | INTEGER      | The length of data which will be transmitted |
+| Name   | In/Output | Data Type    | Description               |
+| ------ | --------- | ------------ | ------------------------- |
+| coon   | IN        | CONNECT_TYPE | Connection handle         |
+| data   | IN        | VARBYTE      | Data to be sent           |
+| length | IN        | INTEGER      | Length of data to be sent |
 
 ##### Return Value
 
-The length of data transmitted to a network would be returned when successfully implemented.
+Returns the length of the data sent to network when succeeded.
 
 ##### Exception
 
--1 is returned when an error is incurred during the execution. 
+Returns -1 if an error occurred.
 
-If a connection handle is lost, it can be verified through returning result value of -1 by the IS_CONNECTED() function.
+If the return value of IS_CONNECTED() function is -1, it indicates the connection handle is lost.
 
 ##### Example
 
@@ -8976,7 +8983,231 @@ BEGIN
 END;
 ```
 
+#### CHECK_CONNECT_STATE
 
+CHECK_CONNECT_STATE compares current connection state with the connection state wanted and checks if state mutation is available.
+
+##### Syntax
+
+```
+INTEGER variable := 
+CHECK_CONNECT_STATE(
+  c IN CONNECT_TYPE,
+  next_state IN INTEGER );
+```
+
+##### Parameters
+
+| Name       | In/Output | Data Type    | Description                        |
+| ---------- | --------- | ------------ | ---------------------------------- |
+| c          | IN        | CONNECT_TYPE | Connection handle of remote server |
+| next_state | IN        | INTEGER      | Value of the state wanted          |
+
+##### Return Value
+
+Returns 0 when succeeded.
+
+##### Exception
+
+UNSUPPORTED_STATE error occurs when changing the current connection state to the connection sate wanted is unsuppoerted.
+
+##### Exception
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1은 Connected 상태
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### CHECK_CONNECT_REPLY
+
+Checks if the reply fits the protocol of current connection.
+
+##### Syntax
+
+```
+INTEGER variable := 
+CHECK_CONNECT_REPLY(
+  protocol_type IN INTEGER,
+  reply IN VARCHAR(65534) );
+```
+
+##### Parameters
+
+| Name          | In/Output | Data Type      | Description      |
+| ------------- | --------- | -------------- | ---------------- |
+| protocol_type | IN        | INTEGER        | Protocol type    |
+| reply         | IN        | VARCHAR(65534) | Received message |
+
+##### Return Value
+
+Returns 0 when succeeded.
+
+##### Exception
+
+SMTP_REPLY_ERROR occurs when unsupported protocol is used or the reply contains error.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+    V3 VARCHAR(65534);
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1은 Connected 상태
+    IF ( V2 > 0 ) THEN
+        V3 := RECV_TEXT( V1, 100 );
+        V2 := CHECK_CONNECT_REPLY( 1, V3 ); --# 1은 SMTP
+    END IF;
+END;
+/
+```
+
+#### SEND_TEXT
+
+SEND_TXT sends VARCHAR type data to the connected handle via network.
+
+##### Syntax
+
+```
+INTEGER variable := 
+SEND_TEXT( 
+  c IN CONNECT_TYPE,
+  data IN VARCHAR(65534),
+  length IN INTEGER ); 
+```
+
+##### Parameters
+
+| Name   | In/Output | Data Type      | Description                            |
+| ------ | --------- | -------------- | -------------------------------------- |
+| c      | IN        | CONNECT_TYPE   | Connection handle of the remote server |
+| data   | IN        | VARCHAR(65534) | Data to be sent                        |
+| length | IN        | INTEGER        | The length of the data to be sent      |
+
+##### Return Value
+
+Returns the length of the data sent to the nextwork when succeeded.
+
+##### Exception
+
+Returns -1 when error occurs.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := SEND_TEXT( V1, 'HELO 127.0.0.1' || CHR( 13 ) || CHR( 10 ), 16 );
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### RECV_TEXT
+
+RECV_TEXT receives VARCHAR type data from the connected handle via network.
+
+##### Syntax
+
+```
+VARCHAR variable := 
+RECV_TEXT( 
+  c IN CONNECT_TYPE,
+  length IN INTEGER );
+```
+
+##### Parameters
+
+| Name   | In/Output | Data Type    | Description                           |
+| ------ | --------- | ------------ | ------------------------------------- |
+| c      | IN        | CONNECT_TYPE | Connection handle of remote server    |
+| length | IN        | INTEGER      | The length of the data to be received |
+
+##### Return Value
+
+Returns VARCHAR type data received from the network when succeeded.
+
+##### Exception
+
+Returns Null when error occurs.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+    V3 VARCHAR(65534);
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := SEND_TEXT( V1, 'HELO 127.0.0.1'  || CHR( 13 ) || CHR( 10 ), 16 );
+    V3 := RECV_TEXT( V1, 100 );
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### WRITE_RAW_VALUE
+
+WRITE_RAW_VALUE returns RAW type VALUE data to the network via connection handle.
+
+##### Syntax
+
+```
+INTEGER variable := 
+WRITE_RAW_VALUE(
+  c IN CONNECT_TYPE,
+  data IN RAW(65534),
+  length IN INTEGER );
+```
+
+##### Parameters
+
+| Name   | In/Output | Data Type    | Description                       |
+| ------ | --------- | ------------ | --------------------------------- |
+| c      | IN        | CONNECT_TYPE | Connecion handle of remote server |
+| data   | IN        | RAW(65534)   | Data to be sent                   |
+| length | IN        | INTEGER      | The length of the data to be sent |
+
+##### Return Value
+
+Returns the length of the data sent to the network when succeeded.
+
+##### Exception
+
+Returns -1 when error occurs.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+    V1 CONNECT_TYPE;
+    V2 INTEGER;
+    V3 VARCHAR(65534);
+BEGIN
+    V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
+    V2 := WRITE_RAW_VALUE( V1, TO_RAW( 'HELO 127.0.0.1'  || CHR( 13 ) || CHR( 10 ) ), 16 );
+    V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
 
 ### DBMS Stats
 
@@ -9914,7 +10145,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 
 
@@ -9993,7 +10224,7 @@ The number of records processed by executing a cursor are returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10032,7 +10263,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10072,7 +10303,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10108,7 +10339,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10143,7 +10374,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10193,7 +10424,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception	
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10227,7 +10458,7 @@ None
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10259,7 +10490,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10293,7 +10524,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10328,7 +10559,7 @@ None
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10365,7 +10596,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10404,7 +10635,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10829,7 +11060,7 @@ If successful, the most recently executed Request ID is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -10875,7 +11106,7 @@ If the Request ID does not exist, NULL is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -11082,7 +11313,7 @@ Because it is a stored procedure, there is no result value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### SLEEP2
 
@@ -11109,7 +11340,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ### DBMS_METADATA
 
@@ -11362,7 +11593,7 @@ None
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ### DBMS_OUTPUT
 
@@ -11398,7 +11629,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### PUT
 
@@ -11424,7 +11655,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### PUT_LINE
 
@@ -11450,7 +11681,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ### DBMS_RANDOM
 
@@ -11490,7 +11721,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### SEED
 
@@ -11515,7 +11746,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### STRING
 
@@ -11552,7 +11783,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### VALUE
 
@@ -11579,7 +11810,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### RANDOM
 
@@ -11601,7 +11832,7 @@ On successful execution, it returns a random integer value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -11789,7 +12020,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception. 
+Exception is not occurred. 
 
 ##### Example
 
@@ -11839,7 +12070,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -11891,7 +12122,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -11953,7 +12184,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12007,7 +12238,7 @@ This function returns the number of records by executing a cursor.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12061,7 +12292,7 @@ INTEGER variable:=DBMS_SQL.FETCH_ROWS(c);
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12118,7 +12349,7 @@ True is returned when the cursor is open, and FALSE is returned when the cursor 
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12167,7 +12398,7 @@ Returns the error locaiton.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12211,7 +12442,7 @@ If is successfully executed, the number of cursor is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12259,7 +12490,7 @@ Since it is a stored procedure, there is no result value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12310,7 +12541,7 @@ If the trigger started from DELETE, TRUE is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12352,7 +12583,7 @@ If the trigger started from INSERT, TRUE is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12396,7 +12627,7 @@ If the trigger started from UPDATE, TRUE is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12448,7 +12679,7 @@ If the trigger started from a specific coulmn's UPDATE, TRUE is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12640,7 +12871,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12695,7 +12926,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12705,7 +12936,210 @@ __SYS_IDX_ID_149
 Execute success.
 ```
 
+### DBMS_STANDARD
 
+DBMS_STANDARD package provides various subprograms that can be used without specifying the package name. The procedures and functions organizing the DBMS_STANDARD package are shown in the table below.
+
+| Procedures/Functions | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| DELETING             | Returns whether the trigger started from DELETE.             |
+| INSERTING            | Returns whether the trigger started from INSERT.             |
+| UPDATING             | Returns whether the trigger started from UPDATE.             |
+| UPDATING (colname)   | Returns where the strigger stated from UPDATE of a specific column. |
+
+#### DELETING
+
+Returns whether the trigger started from DELETE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.DELETING;
+BOOLEAN variable := DELETING;
+```
+
+##### Return Value
+
+Returns TRUE if the trigger started from DELETE.
+
+##### Exception
+
+Exception is not occurred.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP ( C1 VARCHAR(10) );
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF DELETING THEN
+  INSERT INTO TMP VALUES ('DELETE');
+ END IF;
+END;
+/
+
+iSQL> DELETE FROM T1;
+1 row deleted.
+iSQL> SELECT & FROM TMP;
+1 row selected.
+```
+
+#### INSERTING
+
+Returns whether the trigger started from INSERT.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.INSERTING;
+BOOLEAN variable := INSERTING;
+```
+
+##### Return Value
+
+Returns TRUE if the trigger started from INSERT.
+
+##### Exception
+
+Exception is not occurred.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE INSERT ON T1
+FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  INSERT INTO TMP VALUES ('INSERT');
+ END IF;
+END;
+/
+
+iSQL> INSERT INTO T1 VALUES(2);
+1 row inserted.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+INSERT
+1 row selected.
+```
+
+#### UPDATING
+
+Returns whether the trigger started from UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING;
+BOOLEAN variable := UPDATING;
+```
+
+##### Return Value
+
+Returns TRUE if the trigger started from UPDATE.
+
+##### Exception
+
+Exception is not occurred.
+
+##### Example
+
+```
+(CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING THEN
+  INSERT INTO TMP VALUES ('UPDATE');
+ END IF;
+END;
+/ 
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE
+1 row selected.
+```
+
+#### UPDATING (colname)
+
+Returns whether the trigger started from UPDATE of a specific column.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
+BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
+```
+
+##### Parameter
+
+| Name    | In/Output | Data Type    | Description                |
+| ------- | --------- | ------------ | -------------------------- |
+| COLNAME | IN        | VARCHAR(128) | Specifies the column name. |
+
+##### Return Value
+
+Returns TRUE if the trigger started from UPDATE of a specific column.
+
+##### Exception
+
+Exception is not occurred.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1, 2);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING('C1') THEN
+  INSERT INTO TMP VALUES ('UPDATE-C1');
+ELSE
+ INSERT INTO TMP VALUES ('OTHER');
+ END IF;
+END;
+/
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+1 row selected.
+iSQL> UPDATE T1 SET C2 = 3;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+OTHER
+2 rows selected.
+```
 
 ### DBMS_UTILITY
 
@@ -12737,7 +13171,7 @@ It returns the stack information at the call point.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -12786,7 +13220,7 @@ It returns the stack information at the point in which an exception was occurred
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -13410,7 +13844,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### FCLOSE_ALL
 
@@ -13689,7 +14123,7 @@ It returns TRUE when it is open, but FALSE is returned when it is closed.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 #### NEW_LINE
 
@@ -13833,7 +14267,7 @@ The entered INTEGER type of data is returned as RAW type.
 
 ##### Exception	
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -13873,7 +14307,7 @@ The entered NUMERIC type of data is returned by converting into RAW type
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -13916,7 +14350,7 @@ The entered RAW type of data is returned as INTEGER type.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -13956,7 +14390,7 @@ The entered RAW type of data is returned as NUMERIC type.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -13996,7 +14430,7 @@ The entered data is returned as RAW type.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -14036,7 +14470,7 @@ The entered data is returned by converting it into VARCHAR type.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -14088,7 +14522,7 @@ The data connected from r1 to r12 is returned.
 
 ##### Exception	
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -14128,7 +14562,7 @@ The length of RAW data, which has been input, is returned.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -14644,7 +15078,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -14683,7 +15117,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -14726,7 +15160,7 @@ UTL_TCP.IS_CONNECT(c IN CONNECT_TYPE);
 
 ##### Exception
 
-There is no exception.
+Exception is not occurred.
 
 ##### Example
 
@@ -15400,3 +15834,71 @@ ID : 5    NAME : CSKIM
 ID : 6    NAME : KDHONG
 ```
 
+### UTL_SMTP Example
+
+##### Case
+
+A mail  has to be sent in Korean text and the character set has to be converted to UTF-8 including the attached files while the character set of terminal and Altibase server are EUC-KR. Attached file is compressed version of utl_smtp.sql and it is sent in binary text.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE TEST2()
+AS
+    c CONNECT_TYPE;
+    r VARCHAR(512);
+BEGIN
+    c := UTL_SMTP.OPEN_CONNECTION( '127.0.0.1', '25', NULL );
+    r := UTL_SMTP.HELO( c, '127.0.0.1' );
+    r := UTL_SMTP.MAIL( c, 'test@test.com' );
+    r := UTL_SMTP.RCPT( c, '[test@test.com](mailto:test@test.com)');
+    r := UTL_SMTP.OPEN_DATA( c );
+    UTL_SMTP.WRITE_DATA( c, 'MIME-Version: 1.0' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Type: multipart/mixed; boundary="0A1B2C3D4E5F"' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, '--0A1B2C3D4E5F' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Type: text/plain; charset=utf-8' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Transfer-Encoding: 7bit' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Disposition: inline' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_RAW_DATA( c, to_raw(convert('Subject: 가나다','utf8')) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_RAW_DATA( c, to_raw(convert('가나다','utf8')) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, '--0A1B2C3D4E5F' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Type: application/octet-stream; name="test.zip"' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Transfer-Encoding: base64' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, 'Content-Disposition: attachment; filename="test.zip"' || CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, base64_encode_str( '504B03041403000008004E7AA24AD7949D9F9E010000500500000C00000075746C5F736D74702E73716CBD545D4FF23014BEEFAF3897607CF5054543B8AAA5207176A4762A57A46E8D3419EB6C8B1FFFDE4D5DC6F08390184F76757A9EAFD36D877BBF5308F68098FCC5EAFB85874EBFDFFFD7FDDF39DD079C7A7D279D2A4E6D6EACF4DA64602C68EFC0ADEE9C4EB4B45AB9839201A729BC3138B0CA29FBA892B2FF2B758810E1140B0A21074EA7012614A6985CE03185954FE76EE973C057088D2246C42464607295CD6393652A2E6DB760619C87F79A30B8C69C9C63DE3A396EEF23F8B68AD435A878041D53FE13C03FCFBD5E2AB3F26B0018D2118E02012C0A0268234E45C4199090314AC45CCCA674B0667DA152D382B8D26D0E7E124FCC52EA6C3354A552377B9D6E7B5DA540A5B5CA761DA7B244D98DF5757B279FF7974B2B975E59574F3657B0DD9C8D73BF8B39AB629D6B95F9BF30F7F66A25D2CBC2E1A6B36FD1531E123A8C388527ABBDAAF05BC3D555221AB7DCEB1D1517FD15B9954F3B0B344538BEA9041AD9E3D438B56BF81AFEB0D27E072065C301FAFAE38FCE820981AB190BD9ECB2FE078C8A19F7E20EAAC6008D396602E82D255149C11AC720C20FAAC2E52B504B01023F031403000008004E7AA24AD7949D9F9E010000500500000C0000000000000000002080B4810000000075746C5F736D74702E73716C504B050600000000010001003A000000C80100000000' ) );
+    UTL_SMTP.WRITE_DATA( c, CHR(13) || CHR(10) );
+    UTL_SMTP.WRITE_DATA( c, '--0A1B2C3D4E5F--' || CHR(13) || CHR(10) );
+    r := UTL_SMTP.CLOSE_DATA( c );
+    r := UTL_SMTP.QUIT( c );
+END;
+ /
+```
+
+### Checking SENDMAIL DAEMON Example
+
+##### Case
+
+Checking SENDMAIL DAEMON of E-mail server which sends E-mails before using UTL_SMTP package.
+
+##### Example
+
+Run the following commands in terminal.
+
+1. telnet ip_address 25
+2. helo ip_address
+3. quit
+
+The example below is run in terminal which is connected to the E-mail server.
+
+```
+$ telnet 127.0.0.1 25
+...
+2xx ...
+helo 127.0.0.1
+2xx ...
+quit
+2xx ...
+```
