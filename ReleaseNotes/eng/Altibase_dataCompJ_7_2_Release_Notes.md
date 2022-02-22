@@ -1,7 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
 - [dataCompJ Release Notes](#datacompj-release-notes)
   - [1. Overview](#1-overview)
     - [1.1 Hardware Requirements](#11-hardware-requirements)
@@ -17,8 +13,6 @@
   - [4. Packages](#4-packages)
   - [5. Downloads](#5-downloads)
     - [5.1 Packages](#51-packages)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # dataCompJ Release Notes
 
@@ -44,6 +38,8 @@ Also, it offers an efficient feature for synchronizing two databases in the even
 | ---- | ----------------------------------------------------------- |
 | CLI  | Oracle, OpenJDK or IBM Java Runtime Environment 8 or higher |
 
+dataCompJ is a pure Java-based client application relying on the JAVA Runtime Environment (JRE) instead of the client's hardware or an operating system.
+
 ## 2. Release Information
 
 ### 2.1 Version
@@ -56,12 +52,12 @@ Also, it offers an efficient feature for synchronizing two databases in the even
 
 ### 2.3 Bug Fixed
 
-| PK        | SYNOPSIS                                                     |
+| PK        | Synopsis                                                     |
 | --------- | ------------------------------------------------------------ |
 | BUG-45222 | Requires handling of user-entered object names enclosed in double quotation marks. |
 | BUG-46675 | Error message for the unsupported DB JDBC URL should be provided more clearly. |
 | BUG-46689 | Need to modify the DB type check routine using the JDBC URL string. |
-| BUG-49501 | dataCompJ log4j upgrade to version 2.17.1 due to security issues. |
+| BUG-49501 | dataCompJ log4j upgraded to version 2.17.1 due to security issues. |
 
 ### 2.4 Database Compatibility
 
