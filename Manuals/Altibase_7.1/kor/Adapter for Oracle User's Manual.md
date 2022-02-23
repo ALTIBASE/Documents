@@ -746,6 +746,8 @@ COMMIT 로그가 디스크에 기록될 때까지 대기할 것인지를 결정�
 “Array DML”은 같은 종류의 여러 개의 DML 구문을 그룹화하는 것을 의미한다. 이는
 네트워크 비용을 줄임으로써 성능 향상을 가져온다.
 
+단, LOB 데이터 타입이 포함된 테이블인 경우 Batch DML이 동작하지 않을 수 있다.
+
 -   기본 값: 10
 
 -   범위: 1 – 32767
@@ -785,6 +787,10 @@ Altibase에서 실행된 DML 구문들을 오라클 DB에도 적용할지 여부
 oraAdapter가 오라클 DB에 레코드를 반영하는 동안 오류가 발생했을 때, 재시도하는
 횟수를 나타낸다.
 
+단, LOB 데이터를 포함한 XLog는 오류가 발생할 경우 재시도 대상에서 제외된다.
+LOB 데이터를 포함한 XLog는 여러 개의 XLog로 구성되어 있기 때문에 에러 발생시
+재시도 할 수 없다.
+
 -   기본값: 0
 
 -   범위: 0 \~ 65535
@@ -807,6 +813,8 @@ ORACLE_ERROR_RETRY_COUNT 프로퍼티에 설정된 횟수만큼 재시도할 때
 oraAdapter가 레코드 반영에 오류가 발생한 이후부터 ORACLE_ERROR_RETRY_COUNT 횟수
 만큼 ORACLE_ERROR_RETRY_INTERVAL 주기로 레코드 반영을 재시도하였는데도 성공하지
 못했을 때, 해당 레코드의 반영 여부를 지정할 수 있다.
+
+단, LOB 관련 XLog 처리 중 오류 발생 시 해당 프로퍼티 값과 상관 없이 레코드 반영을 포기하지 않고 Adapter를 종료한다.
 
 -   기본값: 1
 -   범위: 0, 1
@@ -890,10 +898,16 @@ ADAPTER_ERROR_RESTART_COUNT 프로퍼티에 설정한 횟수만큼 재시도할 
 주기를 나타낸다.
 
 -   기본값: 0
-
 -   범위: 0 \~ 65535
-
 -   0: oraAdapter의 재시도 간격없이 재시도한다.
+
+##### ADAPTER_LOB_TYPE_SUPPORT
+
+LOB 데이터 타입의 지원 여부를 결정하는 프로퍼티이다.
+
+-   기본 값: 0
+-   0: LOB 데이터 타입을 지원하지 않는다.
+-   1: LOB 데이터 타입을 지원한다.
 
 #### 프로퍼티 제약조건
 
@@ -965,6 +979,17 @@ oraAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수행
 
 그 외 수행할 수 있는 DDL은 Replication Manual의 '이중화 대상 테이블에 DDL
 실행'을 참조하기 바란다.
+
+#### LOB 데이터 타입 제약 사항
+
+- LOB 데이터 타입은  Adapter for Oracle 버전 7.1.0.7.0 부터 지원 한다. 
+- LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정한다. 
+- SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 트랜잭션 단위로 반영 여부를 결정하므로 이전 DML 처리 중 에러가 발생하거나 프로퍼티에 의해 반영되지 않은 경우 이후 LOB 컬럼 갱신은 반영되지 않는다. 따라서, SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 Commit 후 진행 하는 것이 안전하다.
+- LOB 데이터 타입이 포함된 테이블은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
+  자세한 내용은 프로퍼티 항목을 참조하기 바란다.
+  - ORACLE_ERROR_RETRY_COUNT 
+  - ORACLE_SKIP_ERROR
+  - ORACLE_ARRAY_DML_MAX_SIZE
 
 ### 구동과 종료
 
