@@ -20,7 +20,11 @@
 
 ## 1. 개요
 
-Altibase dataCompJ는 Altibase 데이터베이스에서 이기종 데이터베이스로 데이터를 복제한 이후, 데이터 정합성 확인과 데이터 불일치를 해소하기 위한 도구이다. dataCompJ는 비교하는 메인 대상 데이터를 Altibase에서 제공하는 Altibase Adapter for Oracle(oraAdapter) 또는 JDBC Adapter를 사용하여 Altibase에서 다른 이기종 데이터베이스로 복제한다. dataCompJ는 Altibase와 다른 이기종 데이터베이스를 테이블 단위로 비교하고 데이터 불일치가 있는 경우 이에 관한 정보를 파일로 출력한다. Altibase dataCompJ의 올바른 사용은 뛰어난 기술적 성능을 통해 효과적인 데이터베이스 관리를 가능하게 한다.
+Altibase dataCompJ는 Altibase 데이터베이스에서 이기종 데이터베이스로 데이터를 복제한 이후, 데이터 정합성 확인과 데이터 불일치를 해소하기 위한 도구이다. dataCompJ는
+데이터 복제 툴로써 Altibase에서 제공하는 Altibase Adapter for Oracle (이하 oraAdapter) 또는 Altibase Adapter for JDBC(이하 jdbcAdapter)를 사용하는 것을 전제한다. dataCompJ는 Altibase와 다른 이기종 데이터베이스를 테이블 단위로 비교하고 데이터 불일치가 있는 경우 이에 관한 정보를 파일로 출력한다. 불일치 데이터를 Slave 데이터베이스에 직접 적용하여 데이터를
+일치시키는 기능 또한 제공한다.
+
+Altibase dataCompJ는 편리한 사용성과 빠른 성능으로 효율적인 이기종 데이터베이스간 데이터 관리 방법을 제공한다.
 
 ### 1.1 하드웨어 요구사항
 
