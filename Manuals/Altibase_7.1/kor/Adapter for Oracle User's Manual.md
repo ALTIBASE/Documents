@@ -746,7 +746,7 @@ COMMIT 로그가 디스크에 기록될 때까지 대기할 것인지를 결정�
 “Array DML”은 같은 종류의 여러 개의 DML 구문을 그룹화하는 것을 의미한다. 이는
 네트워크 비용을 줄임으로써 성능 향상을 가져온다.
 
-단, LOB 데이터 타입이 포함된 테이블인 경우 Batch DML이 동작하지 않을 수 있다.
+단, LOB 데이터 타입이 포함된 테이블인 경우 Array DML이 동작하지 않을 수 있다.
 
 -   기본 값: 10
 
@@ -1093,6 +1093,8 @@ Altibase의 데이터가 오라클 DB에 적용될 때, 데이터의 타입은 �
 | CHAR                | CHAR                 |                                 |
 | VARCHAR             | VARCHAR2             |                                 |
 | NCHAR<br />NVARCHAR | NCHAR<br />NVARCHAR2 |                                 |
+| CLOB                | CLOB                 |                                 |
+| BLOB                | BLOB                 |                                 |
 
 표 3-1 데이터 타입 변환
 
