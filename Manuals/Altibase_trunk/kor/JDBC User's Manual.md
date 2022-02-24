@@ -939,6 +939,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | N/A                                                          |
 | 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()<br>의 결과에 function 객체도 포함할지 지정한다. 해당 값을 false로 설정하면 function 객체<br>정보를 얻기 위해서 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 별도로 사용해야 한다.|
 
+##### batch_setbytes_use_lob
+
+| 기본값    | true                                                         |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [true \| false ]                                             |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | PreparedStatement.setBytes()가 배치형태로 실행되는 경우 blob컬럼을 binary로 처리하지<br/> 않고 lob으로 처리할지 지정한다. blob컬럼 크기가 65534보다 클 경우 binary로는 처리가 되지 않기<br/> 때문에 해당 속성을 true로 설정해야 한다.    |
+
 ### Statement와 ResultSet 다루기
 
 이 절에서는 JDBC로 Altibase 서버에 연결해서 SQL문을 실행하는 기본적인 방법을
