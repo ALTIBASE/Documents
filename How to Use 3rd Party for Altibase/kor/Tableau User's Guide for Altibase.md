@@ -67,22 +67,13 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 
 5. 로그인 후 아래 화면이 출력 되며, '데이터베이스 선택'에서 대상 데이터베이스를 선택 -> 스키마 선택으로 Tableau를 사용한다.
 
+   
 
-   ![](Images/Tableau/tableau_main.png)
+   ![](C:/Users/ALTIBASE/Documents/ALTI_GITHUB/Documents/How%20to%20Use%203rd%20Party%20for%20Altibase/kor/Images/Tableau/tableau_main.png)
 
+6. Server 로 접속한 후 TIMESTAMP_TO_DATE 프로퍼티를 켠다.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   ```
+   iSQL> ALTER SYSTEM SET TIMESTAMP_TO_DATE = 1;
+   Alter success.
+   ```
