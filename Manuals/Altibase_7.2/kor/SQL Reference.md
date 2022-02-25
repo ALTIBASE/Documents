@@ -9762,9 +9762,9 @@ Altibase는 다음과 같은 시스템 접근 권한을 지원한다.
 > ##### 요약 정리
 >
 > -   객체의 소유자란 객체를 생성한 사용자로서, 해당 객체에 대한 모든 객체 권한을 가진다.
->     
+>    
 >-   객체 권한은 객체의 소유자이거나, WITH GRANT OPTION으로 객체 권한을 부여받은 사용자만이 그 객체에 대한 권한을 다른 사용자에게 부여할 수 있다.
->     
+>    
 > -   SYS 사용자가 객체 권한을 부여받지 못하였다면, 권한은 SYS로써 한정될 뿐 다른 사용자에게 권한을 부여할 수 없다.
 
 다음 쿼리로 Altibase에서 지원하는 모든 객체 권한들에 대한 정보를 볼 수 있다.
@@ -19315,6 +19315,50 @@ iSQL> SELECT to_char(current_timestamp,'YYYY MM/DD HH:MI') current_timestamp FRO
 CURRENT_TIMESTAMP
 -----------------------------------------------------
 2013 06/12 15:34
+1 row selected.
+```
+
+#### TIMESTAMPADD
+
+##### 구문
+
+```
+TIMESTAMPADD (date_field_name, number, date)
+```
+
+##### 설명
+
+이 함수는 *date*의 *date_field_name*부분을 *number* 만큼 증가시켜 그 결과를 반환한다. *number*가 정수가 아닐 경우 소수점 이하 부분은 버린 후에 적용한다.
+
+*date_field_name*이 ‘SECOND’일 경우에는 *number*는 68년(2144448000초) 이내의 값이어야 하고, ‘MICROSECOND’일 경우에는 *number*는 30일(2592000000000마이크로초) 이내의 값이어야 한다.
+
+TIMESTAMPADD 함수에 사용할 수 있는 *date_field_name*은 다음과 같으며 예제와 같이 'SQL_TSI_' 접두어를 붙여 사용할 수 도 있다.
+
+| Date Field Name                      | 내용                                           |
+| ------------------------------------ | ---------------------------------------------- |
+| SQL_TSI_YEAR 또는 YEAR               | *date*의 년도에 *number* 만큼을 더한다.        |
+| SQL_TSI_QUARTER 또는 QUARTER         | *date*의 월에 3\**number* 만큼을 더한다.       |
+| SQL_TSI_MONTH 또는 MONTH             | *date*의 월에 *number* 만큼을 더한다.          |
+| SQL_TSI_WEEK 또는 WEEK               | *date*의 일에 7\**number* 만큼을 더한다.       |
+| SQL_TSI_DAY 또는 DAY                 | *date*의 일에 *number* 만큼을 더한다.          |
+| SQL_TSI_HOUR 또는 HOUR               | *date*의 시에 *number* 만큼을 더한다.          |
+| SQL_TSI_MINUTE 또는 MINUTE           | *date*의 분에 *number* 만큼을 더한다.          |
+| SQL_TSI_SECOND 또는 SECOND           | *date*의 초에 *number* 만큼을 더한다.          |
+| SQL_TSI_MICROSECOND 또는 MICROSECOND | *date*의 마이크로 초에 *number* 만큼을 더한다. |
+
+##### 예제
+
+```
+iSQL> ALTER SESSION SET DEFAULT_DATE_FORMAT = 'HH:MI:SS';
+iSQL> SELECT TIMESTAMPADD( SQL_TSI_SECOND, 1, TO_DATE('12:12:00', 'hh24:mi:ss') ) FROM dual;
+TIMESTAMPADD( SQL_TSI_SECOND, 1, TO_DATE('
+---------------------------------------------
+12:12:01
+1 row selected.
+iSQL> SELECT TIMESTAMPADD( MINUTE, 1, TO_DATE('12:12:00', 'hh24:mi:ss') ) FROM dual;
+TIMESTAMPADD( MINUTE, 1, TO_DATE('12:12:00
+---------------------------------------------
+12:13:00
 1 row selected.
 ```
 
