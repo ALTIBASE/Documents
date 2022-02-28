@@ -3000,9 +3000,7 @@ Please refer to the *Altibase Error Message Reference.*
 
 #### About altipasswd
 
-altipasswd changes the password of the SYS user, which is the user provided for accessing the database in SYSDBA mode.  
-
-The password of the SYS user must be changed using both this utility and the ALTER USER SQL statement. If the password of the SYS user is changed using only the ALTER USER statement, an error will occur when SYSDBA tasks, such as starting up and shutting down the database, are performed.
+altipasswd modifies the $ALTIBASE_HOME/conf/syspassword file. When database is not in service status, administrative job is executed by running iSQL with SYSDBA option. In this case, the password of SYS user is verified by reading the syspasswd file. Therefore, when SYS user's password is modified by using ALTER USER SQL statement, password of syspassword file should be equally modified by using altipasswd. If the password of the SYS user and syspassword are not identical, error will occur when SYSDBA tasks, such as starting up and shutting down the database, are performed.
 
 ```
 altipasswd
