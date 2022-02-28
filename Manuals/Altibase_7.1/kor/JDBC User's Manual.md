@@ -952,7 +952,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | 이진 데이터 타입 컬럼 대상으로 PreparedStatement.setBytes()를 배치형태로 실행하면 binary<br/> 타입으로 처리한다. 하지만 blob 컬럼에 삽입할 데이터가 binary 타입이 처리 가능한 최대 크기인 <br/>65,534 바이트를 초과하면 에러가 발생한다. 이런 경우 해당 속성을 true로 설정해 blob 컬럼에 <br/>한해 binary 대신 blob으로 처리하도록 지정해야 한다.    |
+| 설명      | BLOB 타입 컬럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시<br/> 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 처리한다.<br/> BLOB 데이터가 이진 타입이 처리할 수 있는 최대 크기인 65,534바이트를 초과하면 <br/>java.lang.ClassCastException 에러가 발생하므로 이 경우 프로퍼티 값을 true로 설정한다. <br/>false는 이진 타입으로 처리한다.|
 
 ### Statement와 ResultSet 다루기
 
