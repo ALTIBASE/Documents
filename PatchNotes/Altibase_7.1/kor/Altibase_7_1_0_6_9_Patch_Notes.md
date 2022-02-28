@@ -8,18 +8,18 @@ Altibase 7.1.0.6.9 Patch Notes
 # Table of Contents  
 
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-47420 LENGTH()로 LOB 길이 출력 시 Altibase 서버가 비정상 종료하고 디스크 테이블에 LOB 데이터 타입의 최대 크기를 초과하여 입력되는 현상을 수정합니다.](#bug-47420length로-lob-길이-출력-시-altibase-서버가-비정상-종료하고-디스크-테이블에-lob-데이터-타입의-최대-크기를-초과하여-입력되는-현상을-수정합니다)
-  - [BUG-49133 SORT\_AREA\_SIZE 값을 최소값 524288으로 설정하고 TEMP\_HASH\_BUCKET\_DENSITY 설정값을 65이상 설정한 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49133sort_area_size-값을-최소값-524288으로-설정하고-temp_hash_bucket_density-설정값을-65이상-설정한-경우-altibase-서버가-비정상-종료할-수-있습니다)
-  - [BUG-49439 AUDIT disconnect 설정 환경에서 데이터베이스 세션 종료 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49439audit-disconnect-설정-환경에서-데이터베이스-세션-종료-시-altibase-서버가-비정상-종료할-수-있습니다)
-  - [BUG-49473 DBMS\_METADATA 패키지의 GET\_DDL 함수에 시퀀스 객체 지정 시 시퀀스 속성과 다른 MIN, MAX 값을 가진 구문이 추출될 수 있습니다.](#bug-49473dbms_metadata-패키지의-get_ddl-함수에-시퀀스-객체-지정-시-시퀀스-속성과-다른-min-max-값을-가진-구문이-추출될-수-있습니다)
-  - [BUG-49543 디스크 테이블 변경 트랜잭션 수행 중 삭제된 디스크 인덱스 키를 다시 삭제하는 버그로 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49543디스크-테이블-변경-트랜잭션-수행-중-삭제된-디스크-인덱스-키를-다시-삭제하는-버그로-altibase-서버가-비정상-종료할-수-있습니다)
+  - [BUG-47420 LENGTH()로 LOB 길이 출력 시 Altibase 서버가 비정상 종료하고 디스크 테이블에 LOB 데이터 타입의 최대 크기를 초과하여 입력되는 현상을 수정합니다.](#bug-47420-length로-lob-길이-출력-시-altibase-서버가-비정상-종료하고-디스크-테이블에-lob-데이터-타입의-최대-크기를-초과하여-입력되는-현상을-수정합니다)
+  - [BUG-49133 SORT\_AREA\_SIZE 값을 최소값 524288으로 설정하고 TEMP\_HASH\_BUCKET\_DENSITY 설정값을 65이상 설정한 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49133-sort_area_size-값을-최소값-524288으로-설정하고-temp_hash_bucket_density-설정값을-65이상-설정한-경우-altibase-서버가-비정상-종료할-수-있습니다)
+  - [BUG-49439 AUDIT disconnect 설정 환경에서 데이터베이스 세션 종료 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49439-audit-disconnect-설정-환경에서-데이터베이스-세션-종료-시-altibase-서버가-비정상-종료할-수-있습니다)
+  - [BUG-49473 DBMS\_METADATA 패키지의 GET\_DDL 함수에 시퀀스 객체 지정 시 시퀀스 속성과 다른 MIN, MAX 값을 가진 구문이 추출될 수 있습니다.](#bug-49473-dbms_metadata-패키지의-get_ddl-함수에-시퀀스-객체-지정-시-시퀀스-속성과-다른-min-max-값을-가진-구문이-추출될-수-있습니다)
+  - [BUG-49543 디스크 테이블 변경 트랜잭션 수행 중 삭제된 디스크 인덱스 키를 다시 삭제하는 버그로 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49543-디스크-테이블-변경-트랜잭션-수행-중-삭제된-디스크-인덱스-키를-다시-삭제하는-버그로-altibase-서버가-비정상-종료할-수-있습니다)
   - [BUG-49544 언두 테이블스페이스에서 다수의 데이터 파일을 사용하는 경우 파일 확장 시 여유 공간이 있음에도 The tablespace does not have enough free space ( TBS Name : ). 에러가 발생하는 원인 분석을 위한 디버깅 로그를 추가합니다. ](#bug-49544-언두-테이블스페이스에서-다수의-데이터-파일을-사용하는-경우-파일-확장-시-여유-공간이-있음에도-the-tablespace-does-not-have-enough-free-space--tbs-name---에러가-발생하는-원인-분석을-위한-디버깅-로그를-추가합니다)
-  - [BUG-49553 SQL Plan Cache의 PCO(Plan Cache Object 교체 과정에서 해제한 메모리를 다시 해제하는 버그로 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49553sql-plan-cache의-pcoplan-cache-object-교체-과정에서-해제한-메모리를-다시-해제하는-버그로-altibase-서버가-비정상-종료할-수-있습니다)
-  - [BUG-49563 OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값에 영향을 받는 프로퍼티를 추가합니다.](#bug-49563optimizer_feature_enable-프로퍼티-값에-영향을-받는-프로퍼티를-추가합니다)
-  - [BUG-49564 OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값에 영향을 받는 프로퍼티 2개를 추가합니다.](#bug-49564optimizer_feature_enable-프로퍼티-값에-영향을-받는-프로퍼티-2개를-추가합니다)
-  - [BUG-49565 Altibase 서버 구동 중 Refine Memory Table 단계에서 실패할 때 altibase\_error.log에 출력되는 에러 메시지를 보완합니다.](#bug-49565altibase-서버-구동-중-refine-memory-table-단계에서-실패할-때-altibase_errorlog에-출력되는-에러-메시지를-보완합니다)
-  - [BUG-49572 CAST 연산자의 인자가 TIMESTAMP 인 경우 DATE로 변환하여 동작하는 Altibase 서버 프로퍼티를 추가합니다.](#bug-49572cast-연산자의-인자가-timestamp-인-경우-date로-변환하여-동작하는-altibase-서버-프로퍼티를-추가합니다)
-  - [BUG-49576 Adapter for JDBC에서 지원하는 데이터 타입에 LOB을 추가합니다.](#bug-49576adapter-for-jdbc에서-지원하는-데이터-타입에-lob을-추가합니다)
+  - [BUG-49553 SQL Plan Cache의 PCO(Plan Cache Object 교체 과정에서 해제한 메모리를 다시 해제하는 버그로 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49553-sql-plan-cache의-pcoplan-cache-object-교체-과정에서-해제한-메모리를-다시-해제하는-버그로-altibase-서버가-비정상-종료할-수-있습니다)
+  - [BUG-49563 OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값에 영향을 받는 프로퍼티를 추가합니다.](#bug-49563-optimizer_feature_enable-프로퍼티-값에-영향을-받는-프로퍼티를-추가합니다)
+  - [BUG-49564 OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값에 영향을 받는 프로퍼티 2개를 추가합니다.](#bug-49564-optimizer_feature_enable-프로퍼티-값에-영향을-받는-프로퍼티-2개를-추가합니다)
+  - [BUG-49565 Altibase 서버 구동 중 Refine Memory Table 단계에서 실패할 때 altibase\_error.log에 출력되는 에러 메시지를 보완합니다.](#bug-49565-altibase-서버-구동-중-refine-memory-table-단계에서-실패할-때-altibase_errorlog에-출력되는-에러-메시지를-보완합니다)
+  - [BUG-49572 CAST 연산자의 인자가 TIMESTAMP 인 경우 DATE로 변환하여 동작하는 Altibase 서버 프로퍼티를 추가합니다.](#bug-49572-cast-연산자의-인자가-timestamp-인-경우-date로-변환하여-동작하는-altibase-서버-프로퍼티를-추가합니다)
+  - [BUG-49576 Adapter for JDBC에서 지원하는 데이터 타입에 LOB을 추가합니다.](#bug-49576-adapter-for-jdbc에서-지원하는-데이터-타입에-lob을-추가합니다)
 - [Changes](#changes)
   - [Version Info](#version-info)
   - [호환성](#호환성)
@@ -287,7 +287,7 @@ Fixed Bugs
 
 -   **설명** : 언두 테이블스페이스에서 다수의 데이터 파일을 사용하는 경우 파일 확장 시 여유 공간이 있음에도 The tablespace does not have enough free space ( TBS Name : ). 에러가 발생하는 원인 분석을 위한 디버깅 로그를 추가합니다. 
 
-    Failed to expand UndoTBS File.
+    Failed to expand UndoTBS File. <br/>
     UndoTBS FileName : *file_name*, FileID : *file_id*, CurrSize = *curr_size*, NextSize = *next_size*, MaxSize = *max_size*
 
     이 로그는 히든 프로퍼티 __ADDITIONAL_INFO_FOR_UNDOTBS_EXPAND_FAIL을 활성화해야 기록됩니다. (0 : 비활성화, 기본값 1 : 활성화)
