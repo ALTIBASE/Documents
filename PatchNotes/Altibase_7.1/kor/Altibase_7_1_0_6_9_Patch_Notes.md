@@ -276,6 +276,38 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+### BUG-49544 언두 테이블스페이스에서 다수의 데이터 파일을 사용하는 경우 파일 확장 시 여유 공간이 있음에도 The tablespace does not have enough free space ( TBS Name : ). 에러가 발생하는 원인 분석을 위한 디버깅 로그를 추가합니다. 
+
+-   **module** : sm-disk-page
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Frequence
+
+-   **설명** : 언두 테이블스페이스에서 다수의 데이터 파일을 사용하는 경우 파일 확장 시 여유 공간이 있음에도 The tablespace does not have enough free space ( TBS Name : ). 에러가 발생하는 원인 분석을 위한 디버깅 로그를 추가합니다. 
+
+    Failed to expand UndoTBS File.
+    UndoTBS FileName : *file_name*, FileID : *file_id*, CurrSize = *curr_size*, NextSize = *next_size*, MaxSize = *max_size*
+
+    이 로그는 히든 프로퍼티 __ADDITIONAL_INFO_FOR_UNDOTBS_EXPAND_FAIL을 활성화해야 기록됩니다. (0 : 비활성화, 기본값 1 : 활성화)
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
 ### BUG-49553 SQL Plan Cache의 PCO(Plan Cache Object 교체 과정에서 해제한 메모리를 다시 해제하는 버그로 Altibase 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : qp
