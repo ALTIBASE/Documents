@@ -71,9 +71,14 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 
    ![](C:/Users/ALTIBASE/Documents/ALTI_GITHUB/Documents/How%20to%20Use%203rd%20Party%20for%20Altibase/kor/Images/Tableau/tableau_main.png)
 
-6. Server 로 접속한 후 TIMESTAMP_TO_DATE 프로퍼티를 켠다.
+6. 서버에 접속한 후 다음과 같이 수행한다.
 
+   - TIMESTAMP_TO_DATE 프로퍼티를 켠다.
+   - 첨부된 mysql_date_function.sql 을 수행한다.
+   
    ```
+   iSQL> connect sys/manager;
    iSQL> ALTER SYSTEM SET TIMESTAMP_TO_DATE = 1;
    Alter success.
+   iSQL> @mysql_date_function.sql
    ```
