@@ -903,6 +903,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | N/A                                                          |
 | 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()<br/>의 결과에 function 객체도 포함할지 지정한다. 해당 값을 false로 설정하면 function 객체<br/>정보를 얻기 위해서 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 별도로 사용해야 한다. |
 
+##### batch_setbytes_use_lob
+
+| 기본값    | true                                                         |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [true \| false ]                                             |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | BLOB 타입 컬럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시<br/> 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 처리한다.<br/> BLOB 데이터가 이진 타입이 처리할 수 있는 최대 크기인 65,534바이트를 초과하면 <br/>java.lang.ClassCastException 에러가 발생하므로 이 경우 프로퍼티 값을 true로 설정한다. <br/>false는 이진 타입으로 처리한다. |
+
 ### Statement와 ResultSet 다루기
 
 이 절에서는 JDBC로 Altibase 서버에 연결해서 SQL문을 실행하는 기본적인 방법을 코드 예제로 설명한다. 편의상 exception 처리는 생략한다.
