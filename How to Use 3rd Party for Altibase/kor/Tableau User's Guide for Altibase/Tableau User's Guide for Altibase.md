@@ -51,7 +51,7 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 
 3. Tableau 실행 -> 연결 -> 서버에 연결 -> 자세히... -> 기타 데이터베이스(JDBC) 를 클릭한다.
 
-   ![<](Images/Tableau/tableau_entry.png)
+   ![<](Images/tableau_entry.png)
 
 4. 아래 항목을 입력하여 로그인 한다.
 
@@ -63,13 +63,13 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 
    -   속성 파일 : Altibase JDBC 드라이버를 선택 (아래 이미지는 Altibase 7.1 접속 예이다.)
 
-       ![<](Images/Tableau/tableau_connection.png)
+       ![<](Images/tableau_connection.png)
 
 5. 로그인 후 아래 화면이 출력 되며, '데이터베이스 선택'에서 대상 데이터베이스를 선택 -> 스키마 선택으로 Tableau를 사용한다.
 
    
 
-   ![](C:/Users/ALTIBASE/Documents/ALTI_GITHUB/Documents/How%20to%20Use%203rd%20Party%20for%20Altibase/kor/Images/Tableau/tableau_main.png)
+   ![<](Images/tableau_main.png)
 
 6. Altibase 서버에 접속한 후 다음과 같이 수행한다.
 
