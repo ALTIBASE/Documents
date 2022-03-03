@@ -14,13 +14,9 @@ Altibase 7.1.0.7.1 Patch Notes
   - [BUG-49630 \_\_CATALOG\_SLOT\_REUSABLE 기본값을 0으로 변경합니다.](#bug-49630__catalog_slot_reusable-%EA%B8%B0%EB%B3%B8%EA%B0%92%EC%9D%84-0%EC%9C%BC%EB%A1%9C-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
 
 - [Changes](#changes)
-
   - [Version Info](#version-info)
-
   - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-
   - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-
   - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
     
