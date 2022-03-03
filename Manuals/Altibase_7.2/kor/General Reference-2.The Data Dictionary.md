@@ -10278,12 +10278,12 @@ SQL Plan Cache의 현재 상태 및 통계 정보를 나타낸다.
 | CURRENT_HOT_LRU_SIZE     | BIGINT  | LRU 리스트에서 현재 HOT 영역의 크기                          |
 | CURRENT_COLD_LRU_SIZE    | BIGINT  | LRU 리스트에서 현재 COLD 영역의 크기                         |
 | CURRENT_CACHE_SIZE       | BIGINT  | 현재 SQL Plan Cache의 크기 (bytes)                           |
-| CURRENT_CACHE_OBJ_COUNT  | INTEGER | 현재 SQL Plan Cache에 등록된 Plan Cache Object(PCO) 수       |
-| CACHE_HIT_COUNT          | BIGINT  | SQL Plan Cache에 등록된 Plan Cache Object(PCO)의 활용 횟수   |
-| CACHE_MISS_COUNT         | BIGINT  | SQL Plan Cache에서 plan 검색과정에서 Plan Cache Object(PCO)을 못 찾은 횟수 |
-| CACHE_IN_FAIL_COUNT      | BIGINT  | SQL Plan Cache에 새로운 Plan Cache Object(PCO) 삽입 시 cache 최대 크기 제약으로 실패한 횟수 |
-| CACHE_OUT_COUNT          | BIGINT  | SQL Plan Cache에서 제거된 Plan Cache Object(PCO)의 개수      |
-| CACHE_INSERTED_COUNT     | BIGINT  | SQL Plan Cache에 추가된 Plan Cache Object(PCO)의 개수        |
+| CURRENT_CACHE_OBJ_COUNT  | INTEGER | 현재 SQL Plan Cache에 등록된 PCO 수                          |
+| CACHE_HIT_COUNT          | BIGINT  | SQL Plan Cache에 등록된 PCO의 활용 횟수                      |
+| CACHE_MISS_COUNT         | BIGINT  | SQL Plan Cache에서 plan 검색과정에서 PCO를 찾지 못한 횟수    |
+| CACHE_IN_FAIL_COUNT      | BIGINT  | SQL Plan Cache에 새로운 PCO 삽입 시 cache 최대 크기 제약으로 실패한 횟수 |
+| CACHE_OUT_COUNT          | BIGINT  | SQL Plan Cache에서 제거된 PCO의 개수                         |
+| CACHE_INSERTED_COUNT     | BIGINT  | SQL Plan Cache에 추가된 PCO의 개수                           |
 | NONE_CACHE_SQL_TRY_COUNT | BIGINT  | DDL과 DCL 등의 Cache 비대상 구문의 시도 횟수                 |
 
 #### 칼럼 정보
@@ -10294,43 +10294,43 @@ SQL Plan Cache의 최대 크기이다. SQL Plan Cache의 최대 크기를 줄이
 
 ##### CURRENT_HOT_LRU_SIZE
 
-SQL Plan Cache의 LRU 리스트 중에서 빈번하게 참조되는 plan cache 객체는 HOT 영역에서 관리되는데, 그 크기 (byte)를 나타낸다.
+SQL Plan Cache의 LRU 리스트 중에서 빈번하게 참조되는 PCO는 HOT 영역에서 관리되는데, 그 크기 (byte)를 나타낸다.
 
 ##### CURRENT_COLD_LRU_SIZE
 
-SQL Plan Cache의 LRU 리스트 중 자주 참조되지 않은 plan cache 객체는 COLD 영역에서 관리되는데, 그 크기(byte)를 나타낸다.
+SQL Plan Cache의 LRU 리스트 중 자주 참조되지 않은 PCO는 COLD 영역에서 관리되는데, 그 크기(byte)를 나타낸다.
 
 ##### CURRENT_CACHE_SIZE
 
-SQL Plan Cache에 현재 삽입된 plan cache 객체들의 전체 크기(byte)를 나타낸다.
+SQL Plan Cache에 현재 삽입된 PCO들의 전체 크기(byte)를 나타낸다.
 
 ##### CURRENT_CACHE_OBJ_COUNT
 
-SQL Plan Cache에 삽입된 plan cache 객체들의 수를 나타낸다.
+SQL Plan Cache에 삽입된 PCO들의 수를 나타낸다.
 
 ##### CACHE_HIT_COUNT
 
-SQL Plan Cache에 삽입된 plan cache 객체들이 사용된 전체 횟수를 나타낸다.
+SQL Plan Cache에 삽입된 PCO들이 사용된 전체 횟수를 나타낸다.
 
 ##### CACHE_MISS_COUNT
 
-SQL Plan Cache에 없는 plan cache 객체 참조 시도 횟수를 나타낸다.
+SQL Plan Cache에 없는 PCO 참조 시도 횟수를 나타낸다.
 
 ##### CACHE_IN_FAIL_COUNT
 
-Cache의 최대 메모리 크기 제약으로 인해 현재 참조하지 않는 plan cache 객체들을 찾아 cache에서 삭제 및 해제 시도를 수행했음에도 불구하고, plan cache 객체를 삽입 하지 못한 횟수이다.
+Cache의 최대 메모리 크기 제약으로 인해 현재 참조하지 않는 PCO들을 찾아 cache에서 삭제 및 해제 시도를 수행했음에도 불구하고, PCO를 삽입 하지 못한 횟수이다.
 
 ##### CACHE_OUT_COUNT
 
-SQL Plan Cache에 추가되었다가 삭제된 plan cache 객체의 개수를 의미한다.
+SQL Plan Cache에 추가되었다가 삭제된 PCO의 개수를 의미한다.
 
 ##### CACHE_INSERTED_COUNT
 
-SQL Plan Cache에 추가된 plan cache 객체의 개수를 의미한다.
+SQL Plan Cache에 추가된 PCO의 개수를 의미한다.
 
 ##### NONE_CACHE_SQL_TRY_COUNT
 
-SQL Plan Cache에 저장되지 않는 구문이 발생한 횟수이다. 그 구문은 DDL과 DCL구문이다.
+SQL Plan Cache에 저장되지 않는 구문이 발생한 횟수이다. 그 구문은 DDL과 DCL 구문이다.
 
 ### V$SQL_PLAN_CACHE_PCO
 
@@ -10340,34 +10340,32 @@ PCO는 SQL 문장, 실행 계획, Plan Environment 정보를 가진 객체로, S
 
 PCO는 Parent PCO와 Child PCO로 구분된다.
 
-Parent PCO
+##### Parent PCO
 
 SQL 문장과 SQL 문장을 비교, 관리하기를 위한 정보를 가진 PCO이다. Parent PCO는 서로 다른 SQL 문장마다 하나씩 존재한다.     
 
-Child PCO
+##### Child PCO
 
-실행 계획에 영향을 미치는 요소인 Plan Environment를 비교하기 위해 관리하는 PCO이다. 동일한 SQL 문장이라도 사용자, NLS(National Language Support), 통계정보와 같은 Plan Environment에 따라 서로 다른 실행 계획이 생성될 수 있다.  
+실행 계획에 영향을 미치는 요소인 Plan Environment를 비교하기 위해 관리하는 PCO이다. 동일한 SQL 문장이라도 사용자, NLS(National Language Support), 통계정보와 같은 Plan Environment에 따라 서로 다른 실행 계획이 생성될 수 있다.  Child PCO는 PCO 생성 당시의 Plan Environment와 실행 계획, 실행 계획의 크기 정보를 저장한다. 반드시 Parent PCO를 가지며 하나의 Parent PCO는 여러 Child PCO를 가질 수 있다.
 
-Child PCO는 PCO 생성 당시의 Plan Environment와 실행 계획, 실행 계획의 크기 정보를 저장한다. 반드시 Parent PCO를 가지며 하나의 Parent PCO는 여러 Child PCO를 가질 수 있다.
-
-| Column name     | Type        | Description                                     |
-| --------------- | ----------- | ----------------------------------------------- |
-| SQL_TEXT_ID     | VARCHAR(64) | Parent PCO 식별자                               |
-| PCO_ID          | INTEGER     | Child PCO 식별자                                |
-| CREATE_REASON   | VARCHAR(28) | Plan cache 객체를 생성한 이유                   |
-| HIT_COUNT       | INTEGER     | Plan cache 객체 참조 횟수                       |
-| REBUILD_COUNT   | INTEGER     | Plan cache 객체가 rebuild된 횟수                |
-| PLAN_STATE      | VARCHAR(17) | Plan cache 객체의 plan 상태                     |
-| LRU_REGION      | VARCHAR(11) | LRU 리스트에서 Plan cache 객체가 속해 있는 영역 |
-| PLAN_SIZE       | INTEGER     | Plan cache 객체의 plan 크기                     |
-| FIX_COUNT       | INTEGER     | Plan cache 객체를 참조 중인 Statement 수        |
-| PLAN_CACHE_KEEP | VARCHAR(6)  | Plan cache 객체의 Keep 상태                     |
+| Column name     | Type        | Description                         |
+| --------------- | ----------- | ----------------------------------- |
+| SQL_TEXT_ID     | VARCHAR(64) | Parent PCO 식별자                   |
+| PCO_ID          | INTEGER     | Child PCO 식별자                    |
+| CREATE_REASON   | VARCHAR(28) | PCO를 생성한 이유                   |
+| HIT_COUNT       | INTEGER     | PCO 참조 횟수                       |
+| REBUILD_COUNT   | INTEGER     | PCO가 rebuild된 횟수                |
+| PLAN_STATE      | VARCHAR(17) | PCO의 plan 상태                     |
+| LRU_REGION      | VARCHAR(11) | LRU 리스트에서 PCO가 속해 있는 영역 |
+| PLAN_SIZE       | INTEGER     | PCO의 plan 크기                     |
+| FIX_COUNT       | INTEGER     | PCO를 참조 중인 Statement 수        |
+| PLAN_CACHE_KEEP | VARCHAR(6)  | PCO의 Keep 상태                     |
 
 #### 칼럼 정보
 
 ##### SQL_TEXT_ID
 
-Plan Cache 객체가 속해 있는 Parent PCO의 식별자이다.
+Parent PCO의 식별자이다.
 
 ##### PCO_ID
 
@@ -10375,29 +10373,29 @@ Child PCO의 식별자이다.
 
 ##### CREATE_REASON
 
-plan cache 객체를 생성한 이유를 나타내며 다음과 같은 값이 올 수 있다.
+PCO를 생성한 이유이며 다음과 같은 값이 올 수 있다.
 
 - CREATE_BY_CACHE_MISS
-  SQL Plan cache에 필요한 plan cache 객체가 없어서 생성한 경우
+  SQL Plan Cache에 필요한 PCO가 없어서 생성한 경우
 - CREATE_BY_PLAN_INVALIATION
-  prepare 과정중에 SQL Plan Cache에서 plan cache 객체를 찾았지만, Plan에서 참조한 데이터베이스 객체가 유효 상태가 아니어서 새로 생성한 경우
+  Prepare 과정 중에 SQL Plan Cache에서 PCO를 찾았지만, Plan에서 참조한 데이터베이스 객체가 유효 상태가 아니어서 새로 생성한 경우
 - CREATE_BY_PLAN_TOO_OLD
-  execute 과정중에 Plan에서 참조한 객체의 통계 정보의 변경폭이 한계치를 넘었거나, DDL이 발생하여 새로 plan cache 객체를 생성한 경우
+  Execute 과정중에 Plan에서 참조한 객체의 통계 정보의 변경폭이 한계치를 넘었거나, DDL이 발생하여 새로 PCO를 생성한 경우
 
 ##### HIT_COUNT
 
-Plan cache 객체의 참조 횟수를 나타낸다.
+PCO의 참조 횟수를 나타낸다.
 
 ##### REBUILD_COUNT
 
-Plan cache 객체의 plan이 다시 컴파일된 횟수를 나타낸다.
+PCO의 plan이 다시 컴파일된 횟수를 나타낸다.
 
 ##### PLAN_STATE
 
-Plan cache 객체의 plan 상태를 나타내며, 다음과 같은 값을 가질수 있다.
+PCO의 plan 상태를 나타내며, 다음과 같은 값을 가질수 있다.
 
 - READY
-  Plan Cache Object(PCO)에 SQL 문장, 실행 계획(Execution Plan) 및 Plan Environment 가 모두 할당되어 있는 상태
+  PCO에 SQL 문장, 실행 계획(Execution Plan) 및 Plan Environment 가 모두 할당되어 있는 상태
 - OLD_PLAN
   Plan이 유효한 상태가 아니어서 앞으로 사용되지 않는 plan 상태
 
@@ -10415,36 +10413,36 @@ Hot-Cold LRU 리스트는 PCO의 교체 정책을 관리하는 자료 구조이�
 
 ##### PLAN_SIZE
 
-Plan cache 객체의 plan 크기를 나타낸다.
+PCO의 plan 크기를 나타낸다.
 
 ##### FIX_COUNT
 
-Plan cache 객체를 참조 중인 statement 수를 나타낸다. FIX_COUNT가 1 이상이면 victim에 선정되지 않는다.
+PCO를 참조 중인 statement 수를 나타낸다. FIX_COUNT가 1 이상이면 victim에 선정되지 않는다.
 
 ##### PLAN_CACHE_KEEP
 
-Plan cache 객체의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
+PCO의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
 
 - KEEP Plan이 keep 되어 있는 상태로 victim에 선정되지 않는다.
 - UNKEEP PLAN이 unkeep 되어 있는 상태로 victim에 선정될 수 있다.
 
 ### V$SQL_PLAN_CACHE_SQLTEXT
 
-Parent PCO에 관한 정보를 보여준다.
+[Parent PCO](#parent-pco)에 관한 정보를 보여준다.
 
-| Column name            | Type           | Description                                        |
-| ---------------------- | -------------- | -------------------------------------------------- |
-| SQL_TEXT_ID            | VARCHAR(64)    | Parent PCO 식별자                                  |
-| SQL_TEXT               | VARCHAR(16384) | SQL 문장                                           |
-| CHILD_PCO_COUNT        | INTEGER        | Parent PCO에 생성된 Child PCO 수                   |
-| CHILD_PCO_CREATE_COUNT | INTEGER        | 생성된 Child Plan Cache 객체의 개수                |
-| PLAN_CACHE_KEEP        | VARCHAR(6)     | SQL_TEXT_ID에 해당하는 Plan Cache 객체의 Keep 상태 |
+| Column name            | Type           | Description                                      |
+| ---------------------- | -------------- | ------------------------------------------------ |
+| SQL_TEXT_ID            | VARCHAR(64)    | Parent PCO 식별자                                |
+| SQL_TEXT               | VARCHAR(16384) | SQL 문장                                         |
+| CHILD_PCO_COUNT        | INTEGER        | Parent PCO가 현재 가지고 있는 Child PCO의 개수   |
+| CHILD_PCO_CREATE_COUNT | INTEGER        | Parent PCO 내에 지금까지 생성된 Child PCO의 개수 |
+| PLAN_CACHE_KEEP        | VARCHAR(6)     | SQL_TEXT_ID에 해당하는 PCO의 Keep 상태           |
 
 #### 칼럼 정보
 
 ##### SQL_TEXT_ID
 
-SQL Plan Cache내에서 SQL 문장의 식별자이다. 앞의 4자리 숫자는 SQL Plan Cache 내에서 SQL 문장이 저장된 bucket 의 번호를 나타내며, 나머지 숫자는 그 bucket 내에서 SQL 문장의 일련번호를 나타낸다.
+Parent PCO의 식별자이다. 앞의 4자리 숫자는 Parent PCO가 저장된 bucket 의 번호를 나타내며, 나머지 숫자는 그 bucket 내에서 SQL 문장의 일련번호를 나타낸다.
 
 ##### SQL_TEXT
 
@@ -10463,10 +10461,15 @@ Parent PCO 내에 지금까지 생성된 Child PCO의 개수이다. Parent PCO �
 
 ##### PLAN_CACHE_KEEP
 
-SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
+SQL_TEXT_ID에 해당하는 PCO의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
 
-- KEEP PLAN이 keep 되어 있는 상태로 victim에 선정되지 않는다.
-- UNKEEP PLAN이 unkeep 되어 있는 상태로 victim에 선정될 수 있다.
+- KEEP 
+
+  PLAN이 keep 되어 있는 상태로 victim에 선정되지 않는다.
+
+- UNKEEP 
+
+  PLAN이 unkeep 되어 있는 상태로 victim에 선정될 수 있다.
 
 ### V$STABLE_MEM_DATAFILES
 
@@ -10510,8 +10513,8 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 | EXECUTE_TIME              | BIGINT         | 실행 소요 시간                                               |
 | FETCH_TIME                | BIGINT         | Fetch 소요 시간                                              |
 | SOFT_PREPARE_TIME         | BIGINT         | Prepare 과정중 SQL Plan Cache에서 plan 탐색 시간             |
-| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | SQL plan cache 객체의 SQL Text 식별자                        |
-| SQL_CACHE_PCO_ID          | INTEGER        | plan cache 객체의 식별자                                     |
+| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | Parent PCO 식별자 또는 NO_SQL_CACHE_STMT                     |
+| SQL_CACHE_PCO_ID          | INTEGER        | Child PCO 식별자                                             |
 | OPTIMIZER                 | BIGINT         | 최적화 모드                                                  |
 | COST                      | BIGINT         | 최적화 비용                                                  |
 | USED_MEMORY               | BIGINT         | 향후 확장 예정                                               |
@@ -10655,11 +10658,17 @@ Prepare 과정에서 SQL 문장과 plan 생성 시 필요한 각종 변수들을
 
 ##### SQL_CACHE_TEXT_ID
 
-SQL Plan Cache에 등록된 Parent PCO 식별자를 나타낸다. 단, SQL Plan Cache에 등록되지 않은 DDL문과 DCL문 그리고 NO_PLAN_CACHE 힌트를 사용한 SQL문의 경우 NO_SQL_CACHE_STMT로 조회된다.  
+[Parent PCO](#parent-pco) 식별자 또는 NO_SQL_CACHE_STMT 가 올 수 있다.
+
+NO_SQL_CACHE_STMT는 SQL Plan Cache에 등록되지 않은 문장을 의미한다. 다음의 문장들은 SQL Plan Cache에 등록되지 않는다.
+
+- DDL 문장
+- DCL 문장
+- NO_PLAN_CACHE 힌트를 사용한 문장   
 
 ##### SQL_CACHE_PCO_ID
 
-SQL Plan Cache 에 등록된 Child PCO 식별자를 나타낸다.
+SQL Plan Cache 에 등록된 [Child PCO](#child-pco) 식별자를 나타낸다.
 
 ##### OPTIMIZER
 
