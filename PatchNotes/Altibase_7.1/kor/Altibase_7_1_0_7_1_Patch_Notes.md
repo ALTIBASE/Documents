@@ -131,7 +131,7 @@ Altibase 7.1.0.7.1 Patch Notes
 
 -   **재현 빈도** : Always
 
--   **설명** : \_\_CATALOG\_SLOT\_REUSABL 기본값을 0으로 변경합니다.
+-   **설명** : \_\_CATALOG\_SLOT\_REUSABLE 기본값을 0으로 변경합니다.
 
 -   **재현 방법**
     -   **재현 절차**
