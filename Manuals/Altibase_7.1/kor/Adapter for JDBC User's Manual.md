@@ -703,21 +703,22 @@ Altibase에서 실행된 DML 구문들을 데이터를 보낼 대상이 되는 O
 “Batch DML”은 같은 종류인 복수의 DML 구문을 일괄 처리하는 것을 의미한다. 이는
 네트워크 비용을 줄임으로써 성능 향상을 가져온다.
 
-단, LOB 데이터 타입이 포함된 테이블인 경우 Batch DML이 동작하지 않을 수 있다.
-
 -   기본 값: 10
-
 -   범위: 1 – 32767
 
+이 프로퍼티는 다음의 특성을 가진다.
+
+-   OTHER_DATABASE_GROUP_COMMIT 프로퍼티를 켜면 성능이 향상된다.
+-   현재 이 프로퍼티는 INSERT 와 DELETE 구문에만 영향을 준다.
 -   Batch DML을 끄려면, 이 프로퍼티를 1로 지정한다.
+-   Altibase CLI 또는 JDBC에서 LOB 인터페이스를 사용한 경우 Batch DML이 동작하지 않는다.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (단위: 횟수)
 
 레코드를 반영할 때 오류가 발생할 경우 재시도 횟수를 의미한다.
 
 단, LOB 데이터를 포함한 XLog는 오류가 발생할 경우 재시도 대상에서 제외된다.
-LOB 데이터를 포함한 XLog는 여러 개의 XLog로 구성되어 있기 때문에 에러 발생시
-재시도 할 수 없다.
+LOB 데이터를 포함한 XLog는 여러 개의 XLog로 구성되어 있기 때문에 에러 발생 시 재시도 할 수 없다.
 
 -   기본 값: 0
 
@@ -958,7 +959,7 @@ String형으로 변환 하여 적용된다. 단, DATE 타입은 JAVA의 Timestam
 되어 적용 된다.
 
 지원하는 데이터 타입은 FLOAT, NUMERIC, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT,
-DATE, CHAR, VARCHAR, NCHAR, NVARCHAR이다.
+DATE, CHAR, VARCHAR, NCHAR, NVARCHAR, CLOB, BLOB 이다.
 
 ### Adapter for JDBC 유틸리티
 
