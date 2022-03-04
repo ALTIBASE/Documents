@@ -979,6 +979,7 @@ oraAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수행
 #### LOB 데이터 타입 제약 사항
 
 - LOB 데이터 타입은  Adapter for Oracle 버전 7.1.0.7.0 부터 지원 한다. 
+- LOB 데이터 타입은 Oracle 11.2 버전을 지원 한다.
 - LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정한다. 
 - SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 트랜잭션 단위로 반영 여부를 결정하므로 이전 DML 처리 중 에러가 발생하거나 프로퍼티에 의해 반영되지 않은 경우 이후 LOB 컬럼 갱신은 반영되지 않는다. 따라서, SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 Commit 후 진행 하는 것이 안전하다.
 - LOB 데이터 타입이 포함된 테이블은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
