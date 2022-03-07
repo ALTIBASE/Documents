@@ -8715,7 +8715,7 @@ The CONNECT_TYPE internally contains stored TCP socket information, however, use
 
 ##### Functions of CONNECT_TYPE
 
-The local variables of CONNECT_TYPE in the stored procedures can be treated as parameters or return values of the following functions.
+The local variables of CONNECT_TYPE in the stored procedures can be used as parameters or return values of the following functions.
 
 | Function Name       | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
@@ -8732,22 +8732,22 @@ The local variables of CONNECT_TYPE in the stored procedures can be treated as p
 
 ##### TCP Access Control Connection State
 
-| Connection State | ID Value |
-| ---------------- | -------- |
-| NO CONNECT       | 0        |
-| CONNECTED        | 1        |
-| SMTP HELO        | 2        |
-| SMTP MAIL        | 3        |
-| SMTP RCPT        | 4        |
-| SMTP OPEN        | 5        |
-| SMTP DATA        | 6        |
-| SMTP CRLF        | 7        |
+| Connection State | Value |
+| ---------------- | ----- |
+| NO CONNECT       | 0     |
+| CONNECTED        | 1     |
+| SMTP HELO        | 2     |
+| SMTP MAIL        | 3     |
+| SMTP RCPT        | 4     |
+| SMTP OPEN        | 5     |
+| SMTP DATA        | 6     |
+| SMTP CRLF        | 7     |
 
 ##### TCP Access Control Protocol Type
 
-| Protocol Type | ID Value |
-| ------------- | -------- |
-| SMTP          | 1        |
+| Protocol Type | Value |
+| ------------- | ----- |
+| SMTP          | 1     |
 
 #### CLOSEALL_CONNECT
 
@@ -8994,7 +8994,7 @@ AS
     V2 INTEGER;
 BEGIN
     V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
-    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1은 Connected 상태
+    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1 indicates connected state
     V2 := CLOSE_CONNECT( V1 );
 END;
 /
@@ -9038,10 +9038,10 @@ AS
     V3 VARCHAR(65534);
 BEGIN
     V1 := OPEN_CONNECT( '127.0.0.1', 25, null, null );
-    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1은 Connected 상태
+    V2 := CHECK_CONNECT_STATE( V1, 1 ); --# 1 indicates connected state
     IF ( V2 > 0 ) THEN
         V3 := RECV_TEXT( V1, 100 );
-        V2 := CHECK_CONNECT_REPLY( 1, V3 ); --# 1은 SMTP
+        V2 := CHECK_CONNECT_REPLY( 1, V3 ); --# 1 indicates SMTP
     END IF;
 END;
 /
@@ -10148,12 +10148,16 @@ Altibase provides the system-defined Stored packages as follows.
 | [DBMS_RANDOM](#dbms_random)                          | Creates arbitrary numbers.                                   |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | Can completely purge the tables which has been dropped and managed in the recycle bin. |
 | [DBMS_SQL](#dbms_sql)                                | Provides procedures and functions utilizing dynamic SQL.     |
+| [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)          | Provides stored procedures which keeps or removes the specified execution plan in SQL Plan Cache. |
 | [DBMS_STATS](#dbms_stats)                            | Package views and modifies the stats information             |
+| [DBMS_STANDARD](#dbms_standard)                      | Provides various subprograms that can be used without specifying the package name. |
 | [DBMS_UTILITY](#dbms_utility)                        | Provides various utility subprograms.                        |
 | [STANDARD](#standard)                                | In addition to the basic data types, it defines the types that can be used without declaration in PSM. |
+| [SYS_SPATIAL](#sys_spatial)                          | Provides subprograms related to Geometry.                    |
 | [UTL_COPYSWAP](#utl_copyswap)                        | Online DDL is supported by COPY & SWAP method                |
 | [UTL_FILE](#standard)                                | Can read and write text files managed by an operating system. |
 | [UTL_RAW](#utl_raw)                                  | Can modify or alter RAW(VARBYTE) type data into a different type. |
+| [UTL_SMTP](#utl_smtp)                                | Executes SMTP for SMTP server to send an E-mail.             |
 | [UTL_TCP](#utl_tcp)                                  | Controls TCP access in a stored procedure.                   |
 
 ### DBMS_APPLICATION_INFO 
@@ -13040,7 +13044,7 @@ END;
 
 ### SYS_SPATIAL
 
-SYS_SPATIAL provides subprograms related to Spatial.
+SYS_SPATIAL provides subprograms related to Geometry.
 
 Procedures and functions comprising SYS_SPATIAL package is as follows. For more detailed information about each procedure, please refer to [*Related Stored Procedures in Appendix C. Geometry Reference Tables in Spatial SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md#related-stored-procedures).
 
@@ -14391,12 +14395,12 @@ UTL_SMTP can execute SMTP for SMTP server to send an E-mail. Procedures and func
 | -------------------- | ------------------------------------------------------------ |
 | OPEN_CONNECTION      | Creates TCP socket and connects to SMTP server.              |
 | HELO                 | Sends default command of SMTP, HELO domain.                  |
-| MAIL                 | Sends a command of SMTP specifying the sender, MAIL FROM:<reverse-path> |
-| RCPT                 | Sends a command of SMTP specifying the receiver, MAIL FROM:<reverse-path> |
+| MAIL                 | Sends a command of SMTP specifying the sender, MAIL FROM:\<reverse-path> |
+| RCPT                 | Sends a command of SMTP specifying the receiver, MAIL FROM:\<reverse-path> |
 | OPEN_DATA            | Sends a command of SMTP starting the data transmission, DATA. |
 | WRITE_DATA           | Sends data using SMTP.                                       |
 | WRITE_RAW_DATA       | Sends RAW data using SMTP.                                   |
-| CLOSE_DATA           | Sends a command of SMTP ending the data transmission, <CRLF> . <CRLF>. |
+| CLOSE_DATA           | Sends a command of SMTP ending the data transmission, \<CRLF> . \<CRLF>. |
 | QUIT                 | Sends a command of SMTP ending the connection, QUIT.         |
 
 #### OPEN_CONNECTION
@@ -14487,7 +14491,7 @@ END;
 
 #### MAIL
 
-Sends MAIL FORM:<reverse-path> command to the connected SMTP server to specify the sender.
+Sends MAIL FORM:\<reverse-path> command to the connected SMTP server to specify the sender.
 
 ##### Syntax
 
@@ -14533,7 +14537,7 @@ END;
 
 #### RCPT
 
-Sends RCPT TO:<forward-path> command to the connected SMTP server to specify the receiver.
+Sends RCPT TO:\<forward-path> command to the connected SMTP server to specify the receiver.
 
 ##### Syntax
 
@@ -14720,7 +14724,7 @@ END;
 
 #### CLOSE_DATA
 
-Sends <CRLF>.<CRLF> command to the connected SMTP server and ends the data transmission.
+Sends \<CRLF>.\<CRLF> command to the connected SMTP server and ends the data transmission.
 
 ##### Syntax
 
