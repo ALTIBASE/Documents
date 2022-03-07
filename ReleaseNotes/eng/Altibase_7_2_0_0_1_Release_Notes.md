@@ -6,8 +6,8 @@
     - [Operating Systems and Platforms](#operating-systems-and-platforms)
   - [Release Notes](#release-notes)
     - [New Features](#new-features)
-    - [Changes](#changes)
-    - [Packages](#packages)
+    - [Changes and Compatibility Issues](#changes-and-compatibility-issues)
+    - [Package](#package)
     - [Download](#download)
 
 # Altibase 7.2.0.0.1 Release Notes
@@ -24,16 +24,24 @@
 
 Altibase 7.2.0.0.1 can be run on the operating systems and platforms listed in the table below.
 
-| OS    | CPU     | Version                                                      | Bit    | System Requirement                                           |
-| ----- | ------- | ------------------------------------------------------------ | ------ | ------------------------------------------------------------ |
-| LINUX | x86-64  | Red Hat Enterprise Linux 6 <br>Red Hat Enterprise Linux 7 <br>Red Hat Enterprise Linux 8 | 64-bit | - GNU glibc 2.12 and higher<br> - Altibase JDBC Driver : JRE 1.8 and higher |
-| Linux | PowerPC | Red Hat Enterprise Linux 6                                   |        |                                                              |
+|                                                              | Altibase Server | Altibase client | System Requirement          |
+| ------------------------------------------------------------ | --------------- | --------------- | --------------------------- |
+| **Linux x86-64**                                             |                 |                 |                             |
+| Red Hat Enterprise Linux 6 Red Hat Enterprise Linux 7 Red Hat Enterprise Linux 8 | ●               | ●               | - GNU glibc 2.12 and higher |
+| **Linux on Power**                                           |                 |                 |                             |
+| Red Hat Enterprise Linux 6                                   | ●               | ●               | - GNU glibc 2.12 and higher |
+| **Linux on Power** **(Little Endian)**                       |                 |                 |                             |
+| Red Hat Enterprise Linux 7                                   | ●               | ●               | - GNU glibc 2.17 and higher |
+| **HP-UX Itanium (IA-64)**                                    |                 |                 |                             |
+| HP-UX 11.31                                                  | ●               | ●               |                             |
+| **Microsoft Windows (x64)**                                  |                 |                 |                             |
+| Microsoft Windows 2008                                       | -               | ●               |                             |
 
 > Both Altibase Server/Client support 64-bit only.
 >
+> Microsoft Windows supports Altibase Client only.
+>
 > Compatible with Red Hat Enterprise Linux 6, 7, 8 minor release.
-
-
 
 ## Release Notes
 
@@ -73,7 +81,7 @@ ADD PARTITION statement on range-partitioned table is supported. Due to this new
 
 Altibase 7.2 supports JDBC API Specification 4.2 partially.
 
-Altibase 7.2 JDBC Driver can be run on JRE 1.8 and higher. JDBC 4.2 APIs supported by Altibase 7.2 JDBC Driver can be found on [Altibase 7.2 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC%20User's%20Manual.md#6jdbc-42-api-references). Changes or compatibility issues can be found on [changes and compatibility issues regarding Altibase JDBC 4.2](#changes-and-compatibility-issues-regarding-Altibase-JDBC-4.2).
+Altibase 7.2 JDBC Driver can be run on JRE 1.8 and higher. JDBC 4.2 APIs supported by Altibase 7.2 JDBC Driver can be found on [Altibase 7.2 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC%20User's%20Manual.md#6jdbc-42-api-references). Changes or compatibility issues can be found on [changes and compatibility issues regarding Altibase JDBC 4.2](#changes-and-compatibility-issues-regarding-altibase-jdbc-42).
 
 - **Auto-loading of JDBC driver class**
 
@@ -156,15 +164,11 @@ Most of the features enhanced at JDK level can also be used in Altibase JDBC 7.2
   }
   ```
 
-
-
 #### Utilities
 
 ##### Specify altiComp commit count
 
 COUNT_TO_COMMIT, a property enabling to specify the commit count, is added. Please refer to [Altibase 7.2 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#count_to_commit) for more detailed information.
-
-
 
 #### Altibase Server Performance and Stability Improvement
 
@@ -260,8 +264,6 @@ Improved performance by removing the overhead occurring when checking whether th
 
 - New feature decompressing logs required for replication among compressed logs only added
 - Changed the xLog compressing algorithm fron LZO to LZ4
-
-
 
 ### Changes and compatibility issues
 
@@ -374,8 +376,6 @@ Since Altibase replication supports backward compatibility, both unilateral and 
 
 Default memory usage of Altibase server increases due to the improvement of bottleneck of memory allocation/freeing when compressing transaction log file. Previous version and increment can be found by Storage_Memory_Recovery in V$MEMSTAT. Meomry increment is affected by TRANSACTION_TABLE_SIZE. When TRANSACTION_TABLE_SIZE is set to its default value 1024, 32MB increases and when it is set to its maximum value 16384, 500MB increases.
 
-
-
 #### New Error Message
 
 The error message appearing when disk tablespace is chosen when creating a QUEUE has changed from ERR-311E5 : The table is not a memory or volatile table. to as belows.
@@ -385,8 +385,6 @@ iSQL> CREATE QUEUE Q1 ( 7 ) TABLESPACE SYS_TBS_DISK_DATA;
 [ERR-314AA : Failed to create queue table in disk tablespace.]
 ```
 
-
-
 #### Database Version
 
 Version by Database Component
@@ -395,8 +393,6 @@ Version by Database Component
 | :--------------: | :---------------------: | :----------: | :----------------------------: | :--------------------------: |
 |    7.1.0.5.8     |          6.5.1          |    8.9.1     |             7.1.7              |            7.4.6             |
 |    7.2.0.0.1     |          7.2.0          |    8.9.1     |             7.1.7              |            7.4.8             |
-
-
 
 #### Compatibility
 
@@ -425,8 +421,6 @@ Since there are no major version and minor version changes, LAZY mode replicatio
 > Altibase replication backward compatibility means replication can be executed from lower replication protocol version to higher version and it is supported when the top two digits(major and minor version) of replication protocol version are the same. Altibase replication backward compatibility is only supported in LAZY mode replication.
 >
 > EAGER mode replication does not support replication backward compatibility. DDL duplication does not support backward compatibility since all three digits of replication protocol version has to be the same. Replication add-ons including offline replication does not support backward compatibility.
-
-
 
 #### Altibase Server Property
 
@@ -497,16 +491,12 @@ New performance views as belows are added. For more detailed information about e
 - [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
 - [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
 
-
-
 ### Package
 
 | OS    | CPU    | Server/Client   | Package Installer Name                                |
 | ----- | ------ | --------------- | ----------------------------------------------------- |
 | LINUX | x86-64 | Altibase Server | altibase-server-7.2.0.0.1-LINUX-X86-64bit-release.run |
 |       |        | Altibase Client | altibase-client-7.2.0.0.1-LINUX-X86-64bit-release.run |
-
-
 
 ### Download
 
