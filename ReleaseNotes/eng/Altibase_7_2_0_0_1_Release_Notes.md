@@ -81,7 +81,7 @@ ADD PARTITION statement on range-partitioned table is supported. Due to this new
 
 Altibase 7.2 supports JDBC API Specification 4.2 partially.
 
-Altibase 7.2 JDBC Driver can be run on JRE 1.8 and higher. JDBC 4.2 APIs supported by Altibase 7.2 JDBC Driver can be found on [Altibase 7.2 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/JDBC%20User's%20Manual.md#6jdbc-42-api-references). Changes or compatibility issues can be found on [changes and compatibility issues regarding Altibase JDBC 4.2](#changes-and-compatibility-issues-regarding-altibase-jdbc-42).
+Altibase 7.2 JDBC Driver can be run on JRE 1.8 and higher. JDBC 4.2 APIs supported by Altibase 7.2 JDBC Driver can be found on Altibase 7.2 JDBC User's Manual. Changes or compatibility issues can be found on [changes and compatibility issues regarding Altibase JDBC 4.2](#changes-and-compatibility-issues-regarding-altibase-jdbc-42).
 
 - **Auto-loading of JDBC driver class**
 
