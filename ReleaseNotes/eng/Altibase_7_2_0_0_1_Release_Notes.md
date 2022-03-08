@@ -25,17 +25,17 @@
 Altibase 7.2.0.0.1 can be run on the operating systems and platforms listed in the table below.
 
 |                                                              | Altibase Server | Altibase client | System Requirement          |
-| ------------------------------------------------------------ | --------------- | --------------- | --------------------------- |
+| ------------------------------------------------------------ | :-------------: | :-------------: | --------------------------- |
 | **Linux x86-64**                                             |                 |                 |                             |
-| Red Hat Enterprise Linux 6 Red Hat Enterprise Linux 7 Red Hat Enterprise Linux 8 | ●               | ●               | - GNU glibc 2.12 and higher |
+| Red Hat Enterprise Linux 6 <br>Red Hat Enterprise Linux 7 <br>Red Hat Enterprise Linux 8 |        ●        |        ●        | - GNU glibc 2.12 and higher |
 | **Linux on Power**                                           |                 |                 |                             |
-| Red Hat Enterprise Linux 6                                   | ●               | ●               | - GNU glibc 2.12 and higher |
+| Red Hat Enterprise Linux 6                                   |        ●        |        ●        | - GNU glibc 2.12 and higher |
 | **Linux on Power** **(Little Endian)**                       |                 |                 |                             |
-| Red Hat Enterprise Linux 7                                   | ●               | ●               | - GNU glibc 2.17 and higher |
+| Red Hat Enterprise Linux 7                                   |        ●        |        ●        | - GNU glibc 2.17 and higher |
 | **HP-UX Itanium (IA-64)**                                    |                 |                 |                             |
-| HP-UX 11.31                                                  | ●               | ●               |                             |
+| HP-UX 11.31                                                  |        ●        |        ●        |                             |
 | **Microsoft Windows (x64)**                                  |                 |                 |                             |
-| Microsoft Windows 2008                                       | -               | ●               |                             |
+| Microsoft Windows 2008                                       |        -        |        ●        |                             |
 
 > Both Altibase Server/Client support 64-bit only.
 >
