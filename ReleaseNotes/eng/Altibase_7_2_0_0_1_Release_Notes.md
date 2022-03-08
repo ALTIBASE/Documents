@@ -53,7 +53,7 @@ Altibase 7.2.0.0.1 can be run on the operating systems and platforms listed in t
 
 DELETE clause specifying whether to allow DELETE statement in QUEUE table is added.
 
-If DELETE statement is not allowed by DELETE OFF clause, DEQUEUE parallel execution performance is enhanced compared to when it is allowed. Please refer to [Altibase 7.2 SQL Reference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/SQL%20Reference.md#create-queue) for more detailed information about how to use the statement. In relation to this, [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General Reference-2.The Data Dictionary.md#vqueue_delete_off) performance view was added.
+If DELETE statement is not allowed by DELETE OFF clause, DEQUEUE parallel execution performance is enhanced compared to when it is allowed. Please refer to [Altibase 7.2 SQL Reference Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/SQL%20Reference.md#create-queue) for more detailed information about how to use the statement. In relation to this, V$QUEUE_DELETE_OFF performance view was added.
 
 ##### ADD PARTITION supported on range-partitioned object
 
