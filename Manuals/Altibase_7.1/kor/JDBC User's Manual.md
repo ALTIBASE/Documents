@@ -47,6 +47,7 @@
       - [java.sql.Blob](#java.sql.blob)
       - [java.sql.Clob](#java.sql.clob)
       - [java.sql.Types](#java.sql.types)
+      - [java.sql.DriverAction](#javasqldriveraction)
       - [java.sql.SQLTypes](#java.sql.sqltypes)
       - [Java 8 Time API](#java-8-time-api)
   - [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)

@@ -49,6 +49,7 @@
     - [java.sql.Blob](#javasqlblob)
     - [java.sql.Clob](#javasqlclob)
     - [java.sql.Types](#javasqltypes)
+    - [java.sql.DriverAction](#javasqldriveraction)
     - [java.sql.SQLTypes](#javasqlsqltypes)
     - [Java 8 Time API](#java-8-time-api)
   - [Appendix A. Data Type Mapping](#appendix-a-data-type-mapping)
@@ -3636,6 +3637,12 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | Interface name | Specification Version | Supported | Details                                     | Exceptions |
 | -------------- | --------------------- | --------- | ------------------------------------------- | ---------- |
 | REF_CURSOR     | 4.2                   | X         | Cannot use ref cursor as outbound parameter |            |
+
+### java.sql.DriverAction
+
+| Interface name | Specification Version | Supported | Details                                              | Exceptions |
+| -------------- | --------------------- | --------- | ---------------------------------------------------- | ---------- |
+| deregister()   | 4.2                   | x         | Does not support releasing resources by deregister() |            |
 
 ### java.sql.SQLTypes
 
