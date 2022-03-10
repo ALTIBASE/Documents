@@ -73,7 +73,7 @@ dataCompJ는 순수 Java 기반 클라이언트 애플리케이션으로, 하드
 
 dataCompJ는 아래의 오픈소스 라이브러리에 기반한다. 라이선스는 텍스트 파일 형식으로 dataCompJ와 함께 제공된다.
 
-| Library             | Open Source License                                          |
+| 라이브러리          | 오픈소스 라이선스                                            |
 | ------------------- | ------------------------------------------------------------ |
 | Apache Commons CLI  | http://commons.apache.org/proper/commons-cli/<br/>License: Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt) |
 | Apache Commons Lang | http://commons.apache.org/proper/commons-lang/ <br/>License: Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt) |
