@@ -722,7 +722,7 @@ This indicates whether the column of the join view is modifiable with DML statem
 ```
 SYS_USERS_
 SYS_TABLES_
-STO_USER_COLUMNS_
+SYS_GEOMETRIES_
 ```
 
 ### SYS_COMMENTS\_

@@ -5804,7 +5804,7 @@ The default partition must be specified when a partitioned object is created. If
 
 Objects can be partitioned in four ways: range partitioning, list partitioning, hash partitioning and range partitioning using hash.
 
-Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values.
+Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values. Range partitioning using hash partitions by deciding the range according to the hash values that correspond to partition key values.
 
 The following operations are supported on partitions created by each partitioning method:
 
@@ -5825,7 +5825,9 @@ The following operations are supported on partitions created by each partitionin
 
 Range partitioning is commonly used with date data types in situations where it is necessary to manipulate historical data.
 
-The only partition condition that is supported when defining a partition is 'LESS THAN'. Default partitions are supported via the 'DEFAULT' clause.
+The only partition condition that is supported when defining a partition is 'LESS THAN'. 
+
+Default partitions can be defined using 'DEFAULT' clause and also can be omitted. Keep noted when creating a range partitioned table because default table cannot be deleted from the partitioned table with a default partition and default table cannot be added to the partitioned table without default partition.
 
 The following is an example of range partitioning:
 
@@ -6183,7 +6185,7 @@ PARTITION BY RANGE_USING_HASH(sales_id)
 
 The table creating statement above can be shown as figure below.
 
-![](/Users/haein/Documents/altibase/update-eng-manual/Documents/Manuals/Altibase_trunk/eng/media/Admin/7-28.png)
+![](media/Admin/7-28.png)
 
 [Figure 7-28] Partition Areas of a Hash using Range Partitioned Table
 

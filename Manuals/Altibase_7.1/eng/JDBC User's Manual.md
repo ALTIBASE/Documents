@@ -21,7 +21,7 @@
     - [Multiple ResultSet](#multiple-resultset)
     - [JDBC and Failover](#jdbc-and-failover)
     - [JDBC Escapes](#jdbc-escapes)
-    - [RHow to Use ResultSet](#rhow-to-use-resultset)
+    - [How to Use ResultSet](#how-to-use-resultset)
     - [Atomic Batch](#atomic-batch)
     - [Date, Time, Timestamp](#date-time-timestamp)
     - [GEOMETRY](#geometry)
@@ -36,20 +36,20 @@
   - [5. Error Messages](#5-error-messages)
     - [SQL States](#sql-states)
   - [6. JDBC 4.2 API References](#6-jdbc-4.2-api-references)
-    - [java.sql.Connection](#java.sql.connection)
-    - [java.sql.Wrapper](#java.sql.wrapper)
-    - [java.sql.Driver](#java.sql.driver)
-    - [java.sql.Statement](#java.sql.statement)
-    - [java.sql.PreparedStatement](#java.sql.preparedstatement)
-    - [java.sql.CallableStatement](#java.sql.callablestatement)
-    - [java.sql.PooledConnection](#java.sql.pooledconnection)
-    - [java.sql.ResultSet](#java.sql.resultset)
-    - [java.sql.CommonDataSource](#java.sql.commondatasource)
-    - [java.sql.DatabaseMetaData](#java.sql.databasemetadata)
-    - [java.sql.Blob](#java.sql.blob)
-    - [java.sql.Clob](#java.sql.clob)
-    - [java.sql.Types](#java.sql.types)
-    - [java.sql.SQLTypes](#java.sql.sqltypes)
+    - [java.sql.Connection](#javasqlconnection)
+    - [java.sql.Wrapper](#javasqlwrapper)
+    - [java.sql.Driver](#javasqldriver)
+    - [java.sql.Statement](#javasqlstatement)
+    - [java.sql.PreparedStatement](#javasqlpreparedstatement)
+    - [java.sql.CallableStatement](#javasqlcallablestatement)
+    - [java.sql.PooledConnection](#javasqlpooledconnection)
+    - [java.sql.ResultSet](#javasqlresultset)
+    - [java.sql.CommonDataSource](#javasqlcommondatasource)
+    - [java.sql.DatabaseMetaData](#javasqldatabasemetadata)
+    - [java.sql.Blob](#javasqlblob)
+    - [java.sql.Clob](#javasqlclob)
+    - [java.sql.Types](#javasqltypes)
+    - [java.sql.SQLTypes](#javasqlsqltypes)
     - [Java 8 Time API](#java-8-time-api)
   - [Appendix A. Data Type Mapping](#appendix-a-data-type-mapping)
     - [Data Type Mapping](#data-type-mapping)
@@ -1899,7 +1899,7 @@ Altibase</p>
 </table>
 
 
-### RHow to Use ResultSet
+### How to Use ResultSet
 
 This section describes the types of ResultSets supported by the Altibase JDBC driver and how to use them.
 

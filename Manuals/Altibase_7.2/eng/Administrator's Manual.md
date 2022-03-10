@@ -661,7 +661,7 @@ This directory contains the adminview.sql script file, which creates views relat
 
 This directory contains sample script files for the altiComp feature which synchronizes mismatching data during replication.
 
-For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#altimon)*.
+For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Utilities%20Manual.md#2-alticomp)*.
 
 #### altiMon Directory
 
@@ -745,7 +745,7 @@ This is the JDBC driver for accessing Altibase via Java applications. This is a 
 
 ##### libapre.a
 
-This library is needed in order to create embedded SQL programs. For more detailed information on writing embedded SQL programs, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Precompiler%20User%E2%80%99s%20Manual.md)*.
+This library is needed in order to create embedded SQL programs. For more detailed information on writing embedded SQL programs, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Precompiler%20User's%20Manual.md)*.
 
 ##### libodbccli.a
 
@@ -957,7 +957,7 @@ This is a shell script program that is used to start up, shut down, or restart t
 
 This application is used for precompiling applications written in C/C++ that contain embedded SQL statements.
 
-For more detailed information on this tool, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Precompiler%20User%E2%80%99s%20Manual.md)*.
+For more detailed information on this tool, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Precompiler%20User's%20Manual.md)*.
 
 ### Altibase Libraries
 
@@ -5807,7 +5807,7 @@ The default partition must be specified when a partitioned object is created. If
 
 Objects can be partitioned in four ways: range partitioning, list partitioning, hash partitioning and range partitioning using hash.
 
-Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values.
+Range partitioning is a method of partitioning an object based on a range of partition key values. Range partitioning is suitable for data that are distributed across a linear range. In list partitioning, an object is partitioned based on sets of partition key values. List partitioning is useful with data that fall into discrete categories. In hash partitioning, an object is partitioned based on hash values that correspond to partition key values. Range partitioning using hash partitions by deciding the range according to the hash values that correspond to partition key values.
 
 The following operations are supported on partitions created by each partitioning method:
 
@@ -5828,7 +5828,9 @@ The following operations are supported on partitions created by each partitionin
 
 Range partitioning is commonly used with date data types in situations where it is necessary to manipulate historical data.
 
-The only partition condition that is supported when defining a partition is 'LESS THAN'. Default partitions are supported via the 'DEFAULT' clause.
+The only partition condition that is supported when defining a partition is 'LESS THAN'. 
+
+Default partitions can be defined using 'DEFAULT' clause and also can be omitted. Keep noted when creating a range partitioned table because default table cannot be deleted from the partitioned table with a default partition and default table cannot be added to the partitioned table without default partition.
 
 The following is an example of range partitioning:
 
