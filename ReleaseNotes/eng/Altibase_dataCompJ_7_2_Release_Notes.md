@@ -20,11 +20,7 @@
 
 ## 1. Overview
 
- Altibase dataCompJ is a utility designed to guarantee data consistency between two heterogeneous
-databases and resolve data inconsistency if any. The main target data for comparing in dataCompJ is
-replicated data from Altibase to another heterogeneous database using Altibase Adapter for Oracle
-(oraAdapter) or JDBC Adapter provided by Altibase. dataCompJ compares Altibase with another
-heterogeneous database on a table-by-table basis, and outputs information on any inconsistency it detects.
+ Altibase dataCompJ is a utility designed to guarantee data consistency between two heterogeneous databases and resolve data inconsistency if any. The main target data for comparing in dataCompJ is replicated data from Altibase to another heterogeneous database using Altibase Adapter for Oracle (oraAdapter) or JDBC Adapter provided by Altibase. dataCompJ compares Altibase with another heterogeneous database on a table-by-table basis, and outputs information on any inconsistency it detects.
 Also, it offers an efficient feature for synchronizing two databases in the event of data inconsistency. A proper use of Altibase dataCompJ would be a cornerstone of effective data management with advantageous usability along with its advanced technical performance.  
 
 ### 1.1 Hardware Requirements
