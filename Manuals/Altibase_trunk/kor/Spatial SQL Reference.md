@@ -3803,13 +3803,13 @@ ST_LINESTRINGFROMWKB( WKB[, SRID] )
 
 ##### 설명
 
-WKB(Well-Known Binary) 형태 또는 EWKT(Extended Well-Known Text) 형태의 공간 객체와 SRID를 입력 받아 폴리곤 객체를 생성한다.
+WKB(Well-Known Binary) 형태 또는 EWKB(Extended Well-Known Binary) 형태의 공간 객체와 SRID를 입력 받아 LINESTRING 객체를 생성한다.
 
 WKB의 값이 NULL이거나 SRID의 값이 NULL인 경우에는 NULL을 반환한다.
 
-LINEFROMWKB와 달리 라인스트링이 아닌 공간 객체를 표현한 WKT또는 EWKT인 경우에는 NULL을 반환한다.
+LINESTRING이 아닌 공간 데이터 타입을 표현한 WKB 또는 EWKB인 경우에는 NULL을 반환한다.
 
-WKT 형태 또는 EWKT 형태가 문법이 잘못된 경우 에러를 출력한다.
+WKB 형태 또는 EWKB 형태가 문법이 잘못된 경우 에러를 출력한다.
 
 SRID를 입력하지 않으면 생성된 객체의 SRID는 0이다.
 
@@ -4233,7 +4233,7 @@ ST_COLLECT( GEOMETRY1, GEOMETRY2 );
 
 ##### 설명
 
-Geometry 객체들을 입력 받아 GeometryCollection 객체를 생성한다. 이 때 input type이 동일하면 결과값은 MULTIPOINT, MULTILINESTRING, MULTIPOLYGON이 되고, 동일하지 않으면 GeometryCollection이 된다.
+Geometry 객체들을 입력 받아 GeometryCollection 객체를 생성한다. 이때 입력값의 타입이 동일하면 결과값은 MULTIPOINT, MULTILINESTRING, MULTIPOLYGON이 되고, 동일하지 않으면 GeometryCollection이 된다.
 
 ##### 반환 타입
 

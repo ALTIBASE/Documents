@@ -2102,7 +2102,7 @@ ST_ISCOLLECTION( GEOMETRY )
 
 ##### Description
 
-This function returns 1 if the spatial object type, which is the parameter, is MULTIPOINT, MULTILINESTRING, MULTIPOLYGON or GEOMETRYCOLLECTION. If not, 0 is returned.
+This function returns 1 if the spatial object, which is the parameter, is MULTIPOINT, MULTILINESTRING, MULTIPOLYGON or GEOMETRYCOLLECTION. If not, 0 is returned.
 
 
 ##### Return Type
@@ -3148,13 +3148,13 @@ ST_POLYGONFROMTEXT( TEXT[, srid] )
 
 ##### Description
 
-This function accepts a spatial object in WKT (Well-known Text) format or EWKT(Extended Well-Known Text) as input and creates and outputs a GEOMETRY object whose subtype is POLYGON.
+This function accepts a spatial object in WKT (Well-known Text) format or EWKT(Extended Well-Known Text) as input and creates a POLYGON object.
 
-This function returns NULL if the value of the WKT argument is NULL.
+This function returns NULL if the value of the WKT or SRID is NULL.
 
-Unlike POLYFROMTEXT, if the WKT or EWKT describes a GEOMETRY subtype other than POLYGON object, this function returns NULL.
+Unlike POLYFROMTEXT, if the WKT or EWKT describes a spatial object that is not a POLYGON object, this function returns NULL.
 
-If the syntax of the input WKT or EWKT is not valid, it outputs an error.
+If the syntax of the input WKT or EWKT is not valid, an error is occurred.
 
 It can specify the SRID of the created object. In case it is not specified, if the input was WKT the SRID of the object will be 0 and if the input was EWKT it will be the same as the SRID of EWKT.
 
@@ -3385,9 +3385,9 @@ ST_GEOMETRY( WKT )
 
 ##### Description
 
-This function accepts a spatial object in WKT (Well-known Text) format as input and creates and outputs a GEOMETRY object. 
+This function accepts a spatial object in WKT (Well-known Text) format as input and creates a GEOMETRY object. 
 
-It allows any spatial objects that can be expressed in WKT.
+It allows any spatial objects that can be expressed in WKT format.
 
 If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY object that is not included in GEOMETRY object collection, this function outputs an error.
 
@@ -3482,7 +3482,7 @@ ST_LINESTRINGFROMWKB( WKB[, SRID] )
 
 ##### Description
 
-This function accepts a spatial object in WKB(Well-Known Binary) format or EWKB(Extended Well-Known Binary)  format and its SRID as input and creates and outputs a LINESTRING object.
+This function accepts a spatial object in WKB(Well-Known Binary) format or EWKB(Extended Well-Known Binary)  format and its SRID as input and creates a LINESTRING object.
 
 This function returns NULL if the value of the WKB or the value of the SRID is NULL.
 
@@ -3869,7 +3869,7 @@ ST_POLYGON( GEOMETRY, SRID )
 
 ##### Description
 
-This function is similar to ST_MAKEPOLYGON. This function accepts a LINESTRING object or SRID as input and creates a POLYGON object.
+This function is similar to ST_MAKEPOLYGON. This function accepts a LINESTRING object and SRID as input and creates a POLYGON object.
 
 ##### Return Type
 
@@ -3897,7 +3897,7 @@ ST_COLLECT( GEOMETRY1, GEOMETRY2 );
 
 ##### Description
 
-This function accepts Geometry objects as input and creates and outputs a GeometryCollection object. If the input type is the same, the result value is MULTIPOINT, MULTILINESTRING or MULTIPOLYGON. If it is not, the result is GeometryCollection.
+This function accepts Geometry objects as input and creates a GeometryCollection object. If the input type is the same, the result value is MULTIPOINT, MULTILINESTRING or MULTIPOLYGON. If not, the result is GeometryCollection.
 
 ##### Return Type
 
@@ -3977,7 +3977,7 @@ ST_REVERSE(GEOMETRY)
 
 ##### Description
 
-This function changes the points of the spatial object in reverse order. If the spatial object is EMPTY it returns NULL. If it is a point, it returns the same spatial object as the input while as if it was multiple spatial objects it changes the point of each object in reverse order.
+This function changes the points of the spatial object in reverse order. If the spatial object is EMPTY it returns NULL. If it is a point, it returns the same spatial object as the input. If it was multiple spatial objects it changes the point of each object in reverse order.
 
 ##### Return Type
 
@@ -4008,7 +4008,7 @@ GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, INTEGER to_srid );
 
 ##### Description
 
-This function creates new GEOMETRY object by converting the input coordination. Input/output coordination can be SRID format or PROF4TEXT format.
+This function creates new GEOMETRY object by converting the input GEOMETRY object to input coordination. Input/output coordination can be SRID format or PROF4TEXT format.
 
 ##### Return Type
 
@@ -4351,7 +4351,7 @@ NOTEQUALS( GEOMETRY1, GEOMETRY2 )
 
 ##### Description
 
-NOTEQUALS is oppostie to EQUALS.
+NOTEQUALS is opposite to EQUALS.
 
 ##### Return Type
 

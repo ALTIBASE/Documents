@@ -2081,7 +2081,7 @@ ST_ISCOLLECTION( GEOMETRY )
 
 ##### Description
 
-This function returns 1 if the spatial object type, which is the parameter, is MULTIPOINT, MULTILINESTRING, MULTIPOLYGON or GEOMETRYCOLLECTION. If not, 0 is returned.
+This function returns 1 if the spatial object, which is the parameter, is MULTIPOINT, MULTILINESTRING, MULTIPOLYGON or GEOMETRYCOLLECTION. If not, 0 is returned.
 
 
 ##### Return Type
@@ -3119,13 +3119,15 @@ ST_POLYGONFROMTEXT( TEXT[, srid] )
 
 ##### Description
 
-A polygon object is created by receiving spatial objects and SIRDs in the for of Well-Known Text (WKT) or Extended Well known Text (EWKT).
+This function accepts a spatial object in WKT (Well-known Text) format or EWKT(Extended Well-Known Text) as input and creates a POLYGON object.
 
-If the value of WKT is NULL or the value of SRID is NULL, NULL is returned.
+This function returns NULL if the value of the WKT or SRID is NULL.
 
-If the syntax of WKT or EWKT is incorrect, an error is output.
+Unlike POLYFROMTEXT, if the WKT or EWKT describes a spatial object that is not a POLYGON object, this function returns NULL.
 
-If no SRID is entred, the created object's SRID is 0.
+If the syntax of the input WKT or EWKT is not valid, an error is occurred.
+
+It can specify the SRID of the created object. In case it is not specified, if the input was WKT the SRID of the object will be 0 and if the input was EWKT it will be the same as the SRID of EWKT.
 
 ##### Return Type
 
@@ -3320,6 +3322,43 @@ iSQL> INSERT INTO TB3 VALUES (109, GEOMCOLLFROMTEXT('POLYGON((10 10, 10 20, 20 2
 [ERR-A1019 : Not applicable object type]
 ```
 
+#### ST_GEOMETRY
+
+##### Syntax
+
+```
+ST_GEOMETRY( WKT )
+```
+
+##### Description
+
+This function accepts a spatial object in WKT (Well-known Text) format as input and creates a GEOMETRY object. 
+
+It allows any spatial objects that can be expressed in WKT format.
+
+If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY object that is not included in GEOMETRY object collection, this function outputs an error.
+
+This function returns NULL if the value of the WKT argument is NULL. The SRID of the created object is 0.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> INSERT INTO TB3 VALUES (110, ST_GEOMETRY('MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))'));
+1 row inserted.
+
+iSQL> SELECT ID, ASTEXT(OBJ) FROM TB3 WHERE ID = 110;
+ID       ASTEXT(OBJ)
+-----------------------------------------------------------------------------------------------
+110      MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))
+1 row selected.
+```
+
 #### GEOMFROMWKB
 
 ##### Syntax
@@ -3373,6 +3412,32 @@ LINEFROMWKB( WKB )
 This function accepts a spatial object in WKB (Well-Known Binary) format as input and creates and outputs a GEOMETRY object whose subtype is LINESTRING. 
 
 If the input WKB information describes a GEOMETRY subtype other than a LINESTRING, this function outputs an error.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+#### ST_LINESTRINGFROMWKB
+
+##### Syntax
+
+```
+ST_LINESTRINGFROMWKB( WKB[, SRID] )
+```
+
+##### Description
+
+This function accepts a spatial object in WKB(Well-Known Binary) format or EWKB(Extended Well-Known Binary)  format and its SRID as input and creates a LINESTRING object.
+
+This function returns NULL if the value of the WKB or the value of the SRID is NULL.
+
+If the WKB or EWKB describes spatial data type other than LINESTRING, NULL is returned.
+
+If the syntax of the input WKB or EWKB is not valid, it outputs an error.
+
+If the SRID is not specified, the SRID of the created object is the dafault value 0.
 
 ##### Return Type
 
@@ -3726,7 +3791,7 @@ ST_MAKEPOLYGON( GEOMETRY )
 
 ##### Description
 
-This creates a Polygon object by receiving the LineString object. At this time, LineString must be in the form of a ring.
+This function accepts a LineString object as input and creates and outputs a Polygon object. Here, LineString should be in Ring format.
 
 ##### Return Type
 
@@ -3754,7 +3819,7 @@ ST_POLYGON( GEOMETRY, SRID )
 
 ##### Description
 
-Similar to ST_MAKEPLOYGON, this creates Pology object with SRID by receiving LineString and SRID.
+This function is similar to ST_MAKEPOLYGON. This function accepts a LINESTRING object and SRID as input and creates a POLYGON object.
 
 ##### Return Type
 
@@ -3772,6 +3837,52 @@ SRID=4326;POLYGON((2 2, 3 2, 3 3, 2 3, 2 2))
 1 row selected.
 ```
 
+#### ST_COLLECT
+
+##### Syntax
+
+```
+ST_COLLECT( GEOMETRY1, GEOMETRY2 );
+```
+
+##### Description
+
+This function accepts Geometry objects as input and creates a GeometryCollection object. If the input type is the same, the result value is MULTIPOINT, MULTILINESTRING or MULTIPOLYGON. If not, the result is GeometryCollection.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'POINT( 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+-----------------------------------------------------------------------------------
+MULTIPOINT(1 1, 2 2)                               
+1 row selected. 
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'LINESTRING( 1 1, 2 2 )', GEOMETRY'LINESTRING( 3 3, 4 4 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+MULTILINESTRING((1 1, 2 2), (3 3, 4 4))                     
+1 row selected.
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POLYGON( ( 0 0, 1 1, 1 0, 0 0 ) )', GEOMETRY'POLYGON( ( 10 10, 2 2, 2 0, 10 10 ) )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+MULTIPOLYGON(((0 0, 1 1, 1 0, 0 0)), ((10 10, 2 2, 2 0, 10 10)))         
+1 row selected.
+
+iSQL> SELECT ASTEXT( ST_COLLECT( GEOMETRY'POINT( 1 1 )', GEOMETRY'LINESTRING( 1 1, 2 2 )' ) ) AS GEOM FROM DUAL;
+GEOM                                       
+------------------------------------------------------------------------------------
+GEOMETRYCOLLECTION( POINT(1 1) , LINESTRING(1 1, 2 2) )             
+1 row selected.
+```
+
 #### ST_MAKEENVELOPE
 
 ##### Syntax
@@ -3782,10 +3893,8 @@ ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
 
 ##### Description
 
-This returns LINESTRING( X1 Y1, X2 Y2) corresponding to 4 input double variables as POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ), which is the result of ENVELOPE.
 
-
-If an SRID is entered, it is set as the SRID of the created spatial object. If the SRID is not entered, the created spatial object's SRID is 0. 
+This function returns POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 ) which is the result of the ENVELOPE function that accepts LINESTRING( X1 Y1, X2 Y2 ) that is constituted of 4 Double type parameters as input. If the SRID was specified in advance, the created object will have the same SRID. If the SRID was not specified, the SRID of the created object will be 0.
 
 ##### Return Type
 
@@ -3809,6 +3918,34 @@ SRID=104;POLYGON((10.9351 49.3866, 11.201 49.3866, 11.201 49.5138, 10.9351 49.51
 1 row selected.
 ```
 
+#### ST_REVERSE
+
+##### Syntax
+
+```
+ST_REVERSE(GEOMETRY)
+```
+
+##### Description
+
+This function changes the points of the spatial object in reverse order. If the spatial object is EMPTY it returns NULL. If it is a point, it returns the same spatial object as the input. If it is multiple spatial objects it changes the point of each object in reverse order.
+
+##### Return Type
+
+```
+GEOMETRY
+```
+
+##### Example
+
+```
+iSQL> SELECT ASTEXT( ST_REVERSE(GEOMETRY'LINESTRING( 2 2, 3 2, 3 3, 2 3, 2 4 )') ) AS LS FROM DUAL;
+LS
+------------------------------------------------------------------------------------
+LINESTRING(2 4, 2 3, 3 3, 3 2, 2 2)
+1 row selected.
+```
+
 #### ST_TRANSFORM
 
 ##### Syntax
@@ -3822,9 +3959,7 @@ GEOMETRY ST_Transform( GEOMETRY, VARCHAR from_proj4text, INTEGER to_srid );
 
 ##### Description
 
-GEOMETRY object is converted to the input coordinate system and newly created.
-
-The input/output coordinate system can be input as an SRID or PROJ4TEXT string.
+This function creates new GEOMETRY object by converting the input GEOMETRY object to input coordination. Input/output coordination can be SRID format or PROF4TEXT format.
 
 ##### Return Type
 
@@ -4161,7 +4296,7 @@ NOTEQUALS( GEOMETRY1, GEOMETRY2 )
 
 ##### Description
 
-NOTEQUALS is oppostie to EQUALS.
+NOTEQUALS is opposite to EQUALS.
 
 ##### Return Type
 
