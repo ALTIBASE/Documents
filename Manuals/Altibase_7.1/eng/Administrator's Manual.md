@@ -21,7 +21,7 @@
     - [Temporary Tables](#temporary-tables-1)
     - [Compressed Tables](#compressed-tables)
     - [Queues](#queues)
-    - [Constraints](#constraints-3)
+    - [Constraints](#constraints-2)
     - [Indexes](#indexes)
     - [View](#view)
     - [Materialized View](#materialized-view)
