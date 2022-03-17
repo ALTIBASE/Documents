@@ -755,7 +755,7 @@ COMMIT 로그가 디스크에 기록될 때까지 대기할 것인지를 결정�
 -   ORACLE_GROUP_COMMIT 프로퍼티를 켜면 성능이 향상된다.
 -   현재 이 프로퍼티는 INSERT 와 DELETE 구문에만 영향을 준다.
 -   Array DML을 끄려면, 이 프로퍼티를 1로 지정한다.
--   Altibase CLI 또는 JDBC에서 LOB 인터페이스를 사용한 경우 Array DML이 동작하지 않는다.
+-   LOB 인터페이스를 사용하여 LOB 데이터를 변경한 경우 Array DML 기능은 동작하지 않는다.
 
 ##### ORACLE_UPDATE_STATEMENT_CACHE_SIZE
 
@@ -785,7 +785,6 @@ oraAdapter가 오라클 DB에 레코드를 반영하는 동안 오류가 발생�
 횟수를 나타낸다.
 
 단, LOB 데이터를 포함한 XLog는 오류가 발생할 경우 재시도 대상에서 제외된다.
-LOB 데이터를 포함한 XLog는 여러 개의 XLog로 구성되어 있기 때문에 에러 발생 시 재시도 할 수 없다.
 
 -   기본값: 0
 
@@ -979,14 +978,18 @@ oraAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수행
 #### LOB 데이터 타입 제약 사항
 
 - LOB 데이터 타입은  Adapter for Oracle 버전 7.1.0.7.0 부터 지원 한다. 
-- LOB 데이터 타입은 Oracle 11.2 버전을 지원 한다.
+- LOB 데이터 타입은 Oracle 11g이상에서 OCI 호환 여부에 따라 지원 가능하다.
 - LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정한다. 
-- SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 트랜잭션 단위로 반영 여부를 결정하므로 이전 DML 처리 중 에러가 발생하거나 프로퍼티에 의해 반영되지 않은 경우 이후 LOB 컬럼 갱신은 반영되지 않는다. 따라서, SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 Commit 후 진행 하는 것이 안전하다.
 - LOB 데이터 타입이 포함된 테이블은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
   자세한 내용은 프로퍼티 항목을 참조하기 바란다.
   - ORACLE_ERROR_RETRY_COUNT 
   - ORACLE_SKIP_ERROR
   - ORACLE_ARRAY_DML_MAX_SIZE
+- Altibase 서버에서 SELECT FOR UPDATE를 이용한 LOB 데이터 변경은 커밋 이후 수행할 것을 권장한다.
+- 커밋을 수행하지 않으면 아래 상황에서 SELECT FOR UPDATE로 변경한 LOB 데이터가 복제되지 않을 수 있다.
+  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 에러가 발생한 경우
+  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 ORACLE_SKIP_ERROR, ORACLE_SKIP_INSERT, ORACLE_SKIP_UPDATE 프로퍼티에 의해 SKIP이 발생한 경우
+
 
 ### 구동과 종료
 
