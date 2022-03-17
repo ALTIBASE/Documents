@@ -1,3 +1,26 @@
+
+
+- [dataCompJ User's Manual](#datacompj-users-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.dataCompJ 소개](#1datacompj-%EC%86%8C%EA%B0%9C)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
+  - [2.dataCompJ 시작하기](#2datacompj-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
+    - [용어](#%EC%9A%A9%EC%96%B4)
+    - [불일치 레코드(Inconsistent record)](#%EB%B6%88%EC%9D%BC%EC%B9%98-%EB%A0%88%EC%BD%94%EB%93%9Cinconsistent-record)
+    - [일치 정책 (Synchronization policy)](#%EC%9D%BC%EC%B9%98-%EC%A0%95%EC%B1%85-synchronization-policy)
+  - [3.dataCompJ 사용 방법](#3datacompj-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+    - [dataCompJ 실행 방법](#datacompj-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
+    - [dataCompJ 수행 단계](#datacompj-%EC%88%98%ED%96%89-%EB%8B%A8%EA%B3%84)
+    - [dataCompJ 환경파일 설정](#datacompj-%ED%99%98%EA%B2%BD%ED%8C%8C%EC%9D%BC-%EC%84%A4%EC%A0%95)
+  - [4.dataCompJ 기능](#4datacompj-%EA%B8%B0%EB%8A%A5)
+    - [비교(DIFF) 기능](#%EB%B9%84%EA%B5%90diff-%EA%B8%B0%EB%8A%A5)
+    - [일치(SYNC) 기능](#%EC%9D%BC%EC%B9%98sync-%EA%B8%B0%EB%8A%A5)
+  - [A. 부록: 이기종간 데이터 타입 호환 테이블](#a-%EB%B6%80%EB%A1%9D-%EC%9D%B4%EA%B8%B0%EC%A2%85%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%ED%98%B8%ED%99%98-%ED%85%8C%EC%9D%B4%EB%B8%94)
+
+
+
 Altibase® Tools & Utilities
 
 dataCompJ User's Manual
@@ -728,7 +751,7 @@ EX2 테이블은 스키마 이름과 테이블 이름을 사용자가 명시적�
      - Finished : 2016-12-14 17:56:04.593
      - Elapsed  : 0:00:00.076
 ---------------------------------------------------------------------------
-1: SYS.EX1 -> ALTIBASE.EX1
+1: SYS.EX1 -> ALTIBASE.EX1 
  Fetched record count from MASTER:           10
  Fetched record count from SLAVE :           10
 ------------------------------------------------------
