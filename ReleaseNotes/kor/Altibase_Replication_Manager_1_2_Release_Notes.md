@@ -27,15 +27,15 @@ Altibase Replication Manager 1.2 Release Notes
 
 * 프로세서: 800MHz Pentium III 이상
 * 메모리: 512 MB 이상
-* 디스크: 50MB 이상 여유공간 (JRE 제외)
+* 디스크: 50MB 이상 여유공간 (JRE를 위한 별도의 저장 공간 필요)
 * 화면 해상도: 1024 * 768 픽셀 이상
 
 ### 1.2 지원하는 OS 및 플랫폼
 
-| OS                 | CPU  | Windows System | Bit (Client) | JRE         |
-| ------------------ | ---- | -------------- | ------------ | ----------- |
-| Windows XP Vista 7 | x86  | Win32          | 32bit        | Java 6 이상 |
-| LINUX              | x86  | GTK            | 32bit        | Java 6 이상 |
+| OS                 | CPU  | 그래픽 라이브러리 | Bit   | JRE         |
+| ------------------ | ---- | ----------------- | ----- | ----------- |
+| Windows XP Vista 7 | x86  | Win32             | 32bit | Java 6 이상 |
+| LINUX              | x86  | GTK               | 32bit | Java 6 이상 |
 
 ## 2. 릴리즈 정보
 
@@ -61,17 +61,11 @@ Replication Manager에 추가, 삭제 또는 변경된 기능들은 다음과 �
 
 #### 2.2.1 버전 업데이트
 
-Replication Manager 버전
-
-| Altibase Replication Manager 버전 |
-| :-------------------------------- |
-| 1.2                               |
+- Replication Manager 버전: 1.2
 
 #### 2.2.2 호환성
 
-##### Altibase 호환성
-
-- Replication Manager: Altibase 4.3.9 이상 버전
+- Altibase: Altibase 4.3.9 이상
 
 #### 2.2.3 프로퍼티
 
