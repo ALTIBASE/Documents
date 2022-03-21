@@ -1,26 +1,3 @@
-
-
-- [dataCompJ User's Manual](#datacompj-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.dataCompJ 소개](#1datacompj-%EC%86%8C%EA%B0%9C)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
-  - [2.dataCompJ 시작하기](#2datacompj-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
-    - [용어](#%EC%9A%A9%EC%96%B4)
-    - [불일치 레코드(Inconsistent record)](#%EB%B6%88%EC%9D%BC%EC%B9%98-%EB%A0%88%EC%BD%94%EB%93%9Cinconsistent-record)
-    - [일치 정책 (Synchronization policy)](#%EC%9D%BC%EC%B9%98-%EC%A0%95%EC%B1%85-synchronization-policy)
-  - [3.dataCompJ 사용 방법](#3datacompj-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [dataCompJ 실행 방법](#datacompj-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
-    - [dataCompJ 수행 단계](#datacompj-%EC%88%98%ED%96%89-%EB%8B%A8%EA%B3%84)
-    - [dataCompJ 환경파일 설정](#datacompj-%ED%99%98%EA%B2%BD%ED%8C%8C%EC%9D%BC-%EC%84%A4%EC%A0%95)
-  - [4.dataCompJ 기능](#4datacompj-%EA%B8%B0%EB%8A%A5)
-    - [비교(DIFF) 기능](#%EB%B9%84%EA%B5%90diff-%EA%B8%B0%EB%8A%A5)
-    - [일치(SYNC) 기능](#%EC%9D%BC%EC%B9%98sync-%EA%B8%B0%EB%8A%A5)
-  - [A. 부록: 이기종간 데이터 타입 호환 테이블](#a-%EB%B6%80%EB%A1%9D-%EC%9D%B4%EA%B8%B0%EC%A2%85%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%ED%98%B8%ED%99%98-%ED%85%8C%EC%9D%B4%EB%B8%94)
-
-
-
 Altibase® Tools & Utilities
 
 dataCompJ User's Manual
@@ -47,8 +24,33 @@ Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
 homepage: [http://www.altibase.com](http://www.altibase.com/)
 
+
+
+# 목차
+
+- [dataCompJ User's Manual](#datacompj-users-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.dataCompJ 소개](#1datacompj-%EC%86%8C%EA%B0%9C)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
+  - [2.dataCompJ 시작하기](#2datacompj-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
+    - [용어](#%EC%9A%A9%EC%96%B4)
+    - [불일치 레코드(Inconsistent record)](#%EB%B6%88%EC%9D%BC%EC%B9%98-%EB%A0%88%EC%BD%94%EB%93%9Cinconsistent-record)
+    - [일치 정책 (Synchronization policy)](#%EC%9D%BC%EC%B9%98-%EC%A0%95%EC%B1%85-synchronization-policy)
+  - [3.dataCompJ 사용 방법](#3datacompj-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+    - [dataCompJ 실행 방법](#datacompj-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
+    - [dataCompJ 수행 단계](#datacompj-%EC%88%98%ED%96%89-%EB%8B%A8%EA%B3%84)
+    - [dataCompJ 환경파일 설정](#datacompj-%ED%99%98%EA%B2%BD%ED%8C%8C%EC%9D%BC-%EC%84%A4%EC%A0%95)
+  - [4.dataCompJ 기능](#4datacompj-%EA%B8%B0%EB%8A%A5)
+    - [비교(DIFF) 기능](#%EB%B9%84%EA%B5%90diff-%EA%B8%B0%EB%8A%A5)
+    - [일치(SYNC) 기능](#%EC%9D%BC%EC%B9%98sync-%EA%B8%B0%EB%8A%A5)
+  - [A. 부록: 이기종간 데이터 타입 호환 테이블](#a-%EB%B6%80%EB%A1%9D-%EC%9D%B4%EA%B8%B0%EC%A2%85%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%ED%98%B8%ED%99%98-%ED%85%8C%EC%9D%B4%EB%B8%94)
+
+
+
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -179,7 +181,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.dataCompJ 소개
----------------------
+=====================
 
 이 장은 dataCompJ의 특징을 이해하고자 하는 사용자에게 이 도구를 소개하고 설치하는 방법을 설명한다. 이 장은 다음의 절로 구성된다.
 
@@ -205,7 +207,9 @@ dataCompJ는 편리한 사용성과 빠른 성능으로, 효율적인 이기종 
 
 #### 하드웨어 요구 사항
 
-- 
+- CPU: 800MHz 펜티엄 III 이상
+- 메인 메모리: 최소 512MB, 4GB 이상 권장
+- 디스크: 50MB 이상의 여유 공간
 
 #### 소프트웨어 요구 사항
 
@@ -226,7 +230,7 @@ dataCompJ는 순수 Java 기반 클라이언트 애플리케이션으로 하드�
 
 Master/Slave DB의 의미는 ['용어](#용어)'절을 참조한다.
 
-dataCompJ는 Altibase 및 이기종 데이터베이스들과 함께 사용할 수 있다. 데이터베이스 접속을 위해 JDBC 드라이버를 사용하므로, 원본 데이터베이스와 대상 데이터베이스에 호환되는 JDBC 드라이버를 준비하는 것이 중요하다. 사용자 편의를 위해 지원되는 데이터베이스에 적합한 몇 가지 JDBC 드라이버를 dataCompJ와 함께 제공한다.
+dataCompJ는 Altibase 및 이기종 데이터베이스들과 함께 사용할 수 있다. 데이터베이스 접속을 위해 JDBC 드라이버를 사용하므로, 원본 데이터베이스와 대상 데이터베이스에 호환되는 JDBC 드라이버를 준비하는 것이 중요하다. 현재 오라클용 JDBC 드라이버인 ojdbc5.jar를 제공한다.
 
 #### 설치 및 제거
 
@@ -237,7 +241,7 @@ dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에
 dataCompJ를 제거하기 위해서는 dataCompJ가 설치되어 있는 디렉토리를 삭제한다.
 
 2.dataCompJ 시작하기
----------------------
+=====================
 
 이 장은 사용자들이 dataCompJ를 좀 더 능률적이고 효율적으로 실행하는 데 도움이 되는 기본 개념을 소개한다. 이 장은 다음의 절로 구성된다.
 
@@ -312,7 +316,7 @@ INSERT_TO_SLAVE 정책이다. Master 테이블에만 존재하고 Slave
 DELETE_FROM_SLAVE 정책이다. Master 테이블에는 존재하지 않고 Slave 테이블에만 존재하는 레코드를 Slave 테이블에서 삭제(delete)한다.
 
 3.dataCompJ 사용 방법
----------------------
+=====================
 
 이 장은 dataCompJ를 원활하게 실행하기 위한 방법과 dataCompJ의 환경 파일 설정, 설정 시 고려할 점들을 설명한다. 이 장은 다음의 절로 구성된다.
 
@@ -339,7 +343,7 @@ dataCompJ를 Command Line Interface (CLI)에서 수행하기 위한 명령은 �
 
 **dataCompJ_env_file_path**
 
-dataCompJ 환경 파일의 경로를 의미하며 dataCompJ 설치 시 dataCompJ.xml 파일이 기본으로 제공된다.
+dataCompJ 환경 파일의 경로를 의미한다. 기본값은 dataCompJ 설치 시 제공되는 기본 환경 파일인 dataCompJ.xml 파일의 경로이다.
 
 ### dataCompJ 수행 단계
 
@@ -502,7 +506,7 @@ table_name_file_path는 테이블 이름들을 나열한 텍스트 파일의 경
         예제 2에서 '제약 사항 3'을 만족하는 컬럼은 c3 뿐이다. 또한, c3의 데이터 타입이 dataCompJ가 지원하는 varchar 타입이기 때문에 table1에 대한 비교가 가능하다.
 
 4.dataCompJ 기능
----------------------
+=====================
 
 이 장은 dataCompJ의 비교(DIFF) 기능과 일치(SYNC) 기능을 보다 자세히 예제와 함께 설명한다.
 
@@ -1035,7 +1039,7 @@ MXSO    Slave only                            0
 
 ```
 
-## A. 부록: 이기종간 데이터 타입 호환 테이블
+# A. 부록: 이기종간 데이터 타입 호환 테이블
 
 dataCompJ가 지원하는 이기종 데이터베이스 간의 데이터 타입 매핑 테이블이다.
 
@@ -1049,7 +1053,7 @@ dataCompJ가 지원하는 데이터 타입이지만, 비교 대상 테이블의 
 
 -   데이터 비교 자체가 아예 불가능한 타입의 경우 (예를 들어, 정수형과 문자형 데이터 타입간의 비교): 구축(build) 단계에서 호환되지 않는 타입이라는 에러를 리포트 파일(dataCompJ_report.txt)에 출력하고, 실행(run) 단계를 수행하지 않는다.
 
--   비교가 애매한 데이터 타입의 경우 (예를 들어, 정수형과 부동 소수점 형): 구축(build) 단계에서 처리할 수 없으므로, 그대로 실행(run) 단계를 수행한다. 단, 수행 결과에 모든 레코드가 불일치 레코드로 처리된다.
+-   비교는 가능하지만 상이한 데이터 타입의 경우 (예를 들어, 정수형과 부동 소수점 형): 구축(build) 단계에서 처리할 수 없으므로, 그대로 실행(run) 단계를 수행한다. 단, 수행 결과에 모든 레코드가 불일치 레코드로 처리된다.
 
 #### Altibase to Oracle
 
