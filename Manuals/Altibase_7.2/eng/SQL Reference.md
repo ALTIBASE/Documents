@@ -1,4 +1,4 @@
-**dTable of Contents**  
+
 
 - [SQL Reference](#sql-reference)
   - [Preface](#preface)
@@ -9164,7 +9164,7 @@ Choose the INSTEAD OF option to fire the trigger, instead of performing the trig
 
 *trigger_event*
 
-This is an event that changes the data in a table and causes the trigger to fire. Note that in order to preserve database integrity, DML operations that change the data and are initiated by the replication Receiver thread in a replication target table (i.e. a table that is cited in an active replication object) are not treated as a trigger event (i.e. do not fire the trigger on the table).
+This is an event that changes the data in a table and causes the trigger to fire. Note that in order to preserve database integrity, DML operations that change the data and are initiated by the replication Receiver thread in a replication target table (i.e. a table that is cited in an active replication object) are not treated as a trigger event (i.e. do not fire the trigger on the table). Multiple trigger events can be applied to one trigger. *trigger_event* can specify the three following DML statements.
 
 - DELETE  
   The DELETE option specifies that the trigger will fire whenever a DELETE statement removes a row or rows from the table
@@ -9192,9 +9192,9 @@ The REFERENCING clause has the following restrictions:
 - The REFERENCING clause must be used together with the FOR EACH ROW option.
 - The REFERENCING clause must have the following structures so that it can be referred to in the trigger_action clause.
 - {OLD|OLD ROW|OLD ROW AS|OLD AS} alias_name  
-  This indicates the data contained in a record before it is modified. Old values can be referenced in the WHEN clause or in psm_body in trigger_action. It is of course impossible to reference an old value when the trigger event is an INSERT trigger event, because there is no old value.
+  This indicates the data contained in a record before it is modified. Old values can be referenced in the WHEN clause or in psm_body in trigger_action. It has NULL value when the trigger event is an INSERT trigger event, because there is no old value.
 - {NEW\|NEW ROW\|NEW ROW AS\|NEW AS} alias_name  
-  This indicates the data contained in a record after it is modified. Note that when the trigger is a BEFORE trigger, it is possible to change these data in the body of the trigger. It is impossible to reference a new value when the trigger event is a DELETE trigger event, because there is no new value. 
+  This indicates the data contained in a record after it is modified. Note that when the trigger is a BEFORE trigger, it is possible to change these data in the body of the trigger. It has NULL value when the trigger event is a DELETE trigger event and does not affect it, because there is no new value. 
 
 *trigger_action*
 
