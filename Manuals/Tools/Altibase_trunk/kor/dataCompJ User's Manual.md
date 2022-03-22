@@ -1,5 +1,3 @@
-Altibase® Tools & Utilities
-
 dataCompJ User's Manual
 ==============================
 
@@ -192,18 +190,14 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 ### 개요
 
 dataCompJ는 Altibase에서 이기종 데이터베이스로 복제한 데이터를 대상으로 데이터 정합성 확인과 데이터 불일치를 해소하기 위한 도구이다. 테이블 단위로 데이터를 비교하고 데이터 불일치가 있는 경우 이에 관한 정보를 파일로 출력한다. 불일치 데이터를 Slave 데이터베이스에 직접 적용하여 데이터를 일치시키는 기능도 제공한다.
-dataCompJ가 관리하는 데이터는 데이터 복제 도구로 Altibase에서 제공하는 Adapter for Oracle 또는 Adapter for JDBC를 사용하여 복제한 데이터를 전제로 한다.
+
+dataCompJ 작업 대상 데이터는 Altibase에서 제공하는 데이터 복제 도구인 Adapter for Oracle 또는 Adapter for JDBC를 사용하여 복제한 데이터를 대상으로 한다.
 
 dataCompJ는 편리한 사용성과 빠른 성능으로, 효율적인 이기종 데이터베이스 간 데이터 관리 방법을 제공한다.
 
 ### 시스템 요구 사항
 
-이 절은 dataCompJ를 설치하고 실행하기 위해 필요한 시스템 사양에 대해
-설명하고, dataCompJ와 호환되는 데이터베이스 관리 시스템을 열거한다.
-
-- 하드웨어 요구 사항
-- 소프트웨어 요구 사항
-- 호환되는 데이터베이스 시스템
+이 절은 dataCompJ를 설치하고 실행하기 위해 필요한 시스템 사양에 대해 설명하고, dataCompJ와 호환되는 데이터베이스 관리 시스템을 열거한다.
 
 #### 하드웨어 요구 사항
 
@@ -219,11 +213,11 @@ dataCompJ는 순수 Java 기반 클라이언트 애플리케이션으로 하드�
 
 #### 호환되는 데이터베이스 관리 시스템
 
-##### Master 데이터베이스
+##### Master DB
 
 - Altibase: Altibase 5.3.3 이상
 
-##### Slave 데이터베이스
+##### Slave DB
 
 - Oracle: Oracle 9i 이상
 - MariaDB: MariaDB 5.5.x 이상
@@ -234,9 +228,7 @@ dataCompJ는 Altibase 및 이기종 데이터베이스들과 함께 사용할 �
 
 #### 설치 및 제거
 
-dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 이 파일은 실행 파일과 JDBC 드라이버들을 포함한다.
-
-파일의 압축을 해제하면 dataCompJ 설치가 완료된다. 결과로 생긴 디렉토리 안에는 dataCompJCli.sh를 포함해서 JDBC 하위 디렉토리 및 XML 파일이 존재한다. 이 폴더를 원하는 위치로 옮겨 dataCompJ를 사용할 준비를 마친다.
+dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 다운로드받은 압축 파일을 원하는 위치에 해제하면 dataCompJ 설치가 완료된다. 생성된 디렉토리 안에는 실행파일인 dataCompJCli.sh, JDBC 드라이버를 포함한 JDBC 하위 디렉토리 및 XML 기본 환경 파일이 존재한다.
 
 dataCompJ를 제거하기 위해서는 dataCompJ가 설치되어 있는 디렉토리를 삭제한다.
 
@@ -254,8 +246,7 @@ dataCompJ를 제거하기 위해서는 dataCompJ가 설치되어 있는 디렉�
 
 ##### Master DB
 
-비교 대상인 두 이기종 데이터베이스 중 원본 데이터를 가진 Altibase
-데이터베이스이다.
+비교 대상인 두 이기종 데이터베이스 중 원본 데이터를 가진 Altibase 데이터베이스이다.
 
 ##### Slave DB
 
@@ -275,9 +266,7 @@ TablePair 중 사용자가 지정한 Slave DB의 비교 대상 테이블이다.
 
 ### 불일치 레코드(Inconsistent record)
 
-##### 불일치 레코드 
-
-Master 테이블과 Slave 테이블의 주요 키(Primary Key)를 기준으로 컬럼 값이 일치하지 않는 레코드들을 의미한다. 불일치 레코드 종류는 다음과 같이 세 가지 타입이 있다.
+불일치 레코드는 Master 테이블과 Slave 테이블의 주요 키(Primary Key)를 기준으로 컬럼 값이 일치하지 않는 레코드들을 의미한다. 불일치 레코드 종류는 다음과 같이 세 가지 타입이 있다.
 
 ##### MOSO 불일치
 
@@ -308,8 +297,7 @@ UPDATE_TO_SLAVE 정책이다. Master 테이블의 레코드를 기준으로 동�
 
 ##### MOSX 불일치
 
-INSERT_TO_SLAVE 정책이다. Master 테이블에만 존재하고 Slave
-테이블에는 존재하지 않는 레코드를 Slave 테이블에 삽입(insert)한다.
+INSERT_TO_SLAVE 정책이다. Master 테이블에만 존재하고 Slave 테이블에는 존재하지 않는 레코드를 Slave 테이블에 삽입(insert)한다.
 
 ##### MXSO 불일치
 
@@ -318,7 +306,7 @@ DELETE_FROM_SLAVE 정책이다. Master 테이블에는 존재하지 않고 Slave
 3.dataCompJ 사용 방법
 =====================
 
-이 장은 dataCompJ를 원활하게 실행하기 위한 방법과 dataCompJ의 환경 파일 설정, 설정 시 고려할 점들을 설명한다. 이 장은 다음의 절로 구성된다.
+이 장은 dataCompJ를 원활하게 실행하는 방법과 dataCompJ의 환경 파일 설정, 설정 시 고려할 점들을 설명한다. 이 장은 다음의 절로 구성된다.
 
 - 실행 방법
 - 수행 단계
@@ -326,7 +314,7 @@ DELETE_FROM_SLAVE 정책이다. Master 테이블에는 존재하지 않고 Slave
 
 ### dataCompJ 실행 방법
 
-dataCompJ를 Command Line Interface (CLI)에서 수행하기 위한 명령은 다음과 같은 형태이다.
+dataCompJ를 Command Line Interface (CLI)에서 수행하는 명령어는 다음과 같다.
 
 - Linux
 
@@ -351,7 +339,9 @@ dataCompJ는 사용자가 설정한 환경파일을 기반으로 동작하며, �
 
 ##### 구축(Build) 단계
 
-구축 단계는 주어진 환경파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위해 초기 조사를 수행하는 단계이다. 하나의 문제라도 발견되면 이를 리포트 파일(dataCompJ_report.txt)에 출력하며 실행(Run) 단계로 진행되는 것이 중지되고, dataCompJ는 종료된다.
+구축 단계는 주어진 환경파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위해 초기 조사하는 단계이다. 하나의 문제라도 발견되면 이를 리포트 파일(dataCompJ_report.txt)에 출력하며 dataCompJ를 종료한다.
+
+구축 단계는 아래의 차례대로 진행된다.
 
 1.  사용자가 지정한 환경파일을 읽는다.
 
@@ -427,8 +417,7 @@ dataCompJ 수행 시 생성되는 파일들의 encoding 타입을 지정한다.
 ###### \<Diff\>
 
 \<DirPath\>  
-비교(DIFF)를 수행하였을 때 비교 대상 테이블별 결과 CSV 파일이 생성되는
-디렉토리 경로를 지정한다.
+비교(DIFF)를 수행하였을 때 비교 대상 테이블별 결과 CSV 파일이 생성되는 디렉토리 경로를 지정한다.
 
 ###### \<Sync\> 
 
@@ -455,7 +444,7 @@ DIFF/SYNC 수행 시 발견되는 모든 불일치 레코드의 상세 내역을
 
 ###### \<MaxThread\> 
 
-dataCompJ에 할당 가능한 최대 쓰레드 개수이다. 0으로 지정하는 경우, dataCompJ가 해당 머신의 CPU core 개수를 MaxThread으로 할당한다.
+dataCompJ에 할당 가능한 최대 쓰레드 개수이다. 0으로 지정하는 경우, dataCompJ가 수행되는 장비의 CPU core 갯수를 MaxThread 값으로 할당한다.
 
 ##### TablePairs
 
@@ -500,10 +489,10 @@ table_name_file_path는 테이블 이름들을 나열한 텍스트 파일의 경
 
 3.  주요 키(primary key) 외에 값을 비교할 수 있는 컬럼이 적어도 한 개 이상이어야 한다.
 
-    -   (예제 1) table1 (c1 int, c2 int, c3 CLOB, primary key (c1, c2))  
-        (예제 2) table1 (c1 int, c2 int, c3 varchar(100), primary key (c1, c2))  
-        예제 1에서 '제약조건 3'을 만족하는 컬럼은 c3 뿐이다. 단, c3 컬럼의 데이터 타입인 CLOB은 dataCompJ가 지원하지 않기 때문에, '제약 사항 2'를 위반한다. 따라서, table1에 대한 비교는 허용되지 않는다.  
-        예제 2에서 '제약 사항 3'을 만족하는 컬럼은 c3 뿐이다. 또한, c3의 데이터 타입이 dataCompJ가 지원하는 varchar 타입이기 때문에 table1에 대한 비교가 가능하다.
+    (예제 1) table1 (c1 int, c2 int, c3 CLOB, primary key (c1, c2))  
+    (예제 2) table1 (c1 int, c2 int, c3 varchar(100), primary key (c1, c2))  
+    예제 1에서 '제약조건 3'을 만족하는 컬럼은 c3 뿐이다. 단, c3 컬럼의 데이터 타입인 CLOB은 dataCompJ가 지원하지 않기 때문에, '제약 사항 2'를 위반한다. 따라서, table1에 대한 비교는 허용되지 않는다.  
+    예제 2에서 '제약 사항 3'을 만족하는 컬럼은 c3 뿐이다. 또한, c3의 데이터 타입이 dataCompJ가 지원하는 varchar 타입이기 때문에 table1에 대한 비교가 가능하다.
 
 4.dataCompJ 기능
 =====================
@@ -872,8 +861,7 @@ MXSO    Slave only                            0
 #### 환경 파일
 
 dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “SYNC”로 지정한다.
-\<Connections\>와 \<Options\> 항목들은 모두 필수로 기입해야 하며, 대상
-테이블에 대해 \<TablePairs\>에 기술해야 한다.
+\<Connections\>와 \<Options\> 항목들은 모두 필수로 기입해야 하며, 대상 테이블에 대해 \<TablePairs\>에 기술해야 한다.
 
 ###### dataCompJ.xml
 
