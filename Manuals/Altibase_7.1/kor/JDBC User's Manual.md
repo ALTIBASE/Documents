@@ -952,7 +952,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | DatabaseMetaData.getColumns()의 data_type 결과값이 java.sql.Types 값으로 넘어올지 <br>지정한다. 해당 값을 true로 설정하면 jdbc 스펙에 따라 java.sql.Types 값이<br> 넘어오지만 false일 경우 알티베이스 내부 값이 넘어오게 된다.|
+| 설명      | DatabaseMetaData.getColumns()의 DATA_TYPE 컬럼 결과값을 JDBC 스펙에 따른 java.sql.Types<br> 값으로 반환할지, 알티베이스 V$DATATYPE에 정의된 값을 반환할지 지정한다. 해당 값을 true로<br> 설정하면 java.sql.Types에 정의된 값으로 , false로 설정하면 V$DATATYPE에 정의된 데이터 타입 값을<br> 반환한다.|
 
 ##### batch_setbytes_use_lob
 
