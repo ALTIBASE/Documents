@@ -9,7 +9,9 @@
 - [Altibase 7.1](#altibase-71)
 - [Altibase 6.5.1](#altibase-651)
 
+<br/>
 
+<br/>
 
 # Altibase 7.2
 
@@ -37,6 +39,10 @@
 | **Windows**              |              |        |         |               |         |               | - *무관. JRE 8 번들 제공* |
 | **altiShapeLoader 1.0**  |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |                           |
 | **Replication Manager**  |              |        |         |               |         |               | - *무관. JRE 6 번들 제공* |
+
+<br/>
+
+<br/>
 
 # Altibase 7.1
 
@@ -67,7 +73,9 @@
 | **Altibase Hadoop Connector** |   ●    |      ●       |      ●       |        ●         |       -       |    -    |       -       |                                                              |
 | **Replication Manager**       |        |              |              |                  |               |         |               | - *무관. JRE 6 번들 제공*                                    |
 
+<br/>
 
+<br/>
 
 # Altibase 6.5.1
 
