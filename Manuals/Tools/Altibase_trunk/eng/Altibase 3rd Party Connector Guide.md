@@ -299,27 +299,32 @@ add 18 at the end of the JavaVersionChecker line  and save it, and then run the 
 
 #### How to lookup LOB data.
 
-In the SquirreL SQL client, LOB data can be viewed in the SQL window or the Objects window.
+In the SquirreL SQL client, LOB data can be viewed in the SQL tab or the Objects tab.
 
 | SQL                                               | Objects                                               |
 | ------------------------------------------------- | ----------------------------------------------------- |
 | ![](media/3rdPartyConnector/squirrel_lob_sql.jpg) | ![](media/3rdPartyConnector/squirrel_lob_objtree.jpg) |
 
-In the SQL window, the following two tasks are required in order to inquirying LOB data.
+##### Settings for LOB data lookup in SQL tab.
 
-First, change the settings to enable LOB inquiry in the SquirreL SQL client. In 'File -> Global Preferences -> Data Type Constrols tab', check the "Read contents where table is first loaded" option of BLOB or CLOB.
+1. Change the Data Type Controls setting.
+   In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents where table is first loaded" option of BLOB or CLOB 
 
 ![](media/3rdPartyConnector/squirrel_lob_view.jpg)
 
-Second, for Altibase HDB LOB data, transactions must be explicitly managed by changing the autocommit mode to false. To apply this, uncheck the "Auto Commit SQL" checkbox in the 'File -> New Session Properties -> SQL tab' in the SquirreL SQL client.
+2. Change the autocommit mode to false in the session properties.
+   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File -> New Session Properties -> SQL tab.
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
 
-In order to retrieve LOB data from the table object contents in the Objects window, two more tasks are required in addition to the previous two tasks.
+##### Additional required settings when looking up LOB data in the Objects tab
 
-First, the BUG-49546 fixed JDBC file is required. For 7.1 version, after 7.1.0.7.1, and for 7.2 version, after 7.2.0.0.1, JDBC files must be used to connect to the SquirreL SQL client.
+1. Use the Altibase HDB JDBC Driver corresponding to the version below.
+   Altibase 7.1.0.7.2 or higher
+   Altibase 7.2.0.0.2 or higher
 
-Second, the 'getcolumns_return_jdbctype=true' connection attribute introduced in BUG-49546 must be added to the connection string. It can be added in Drivers -> Add Driver to designate a new driver or Aliases to change existing connection information -> Modify the selected Alias.
+2. Add getcolumns_return_jdbctype=true to the JDBC connection properties.
+   It can be changed in Drivers -> Add Driver to designate a new driver, or Aliases -> Modify the selected Alias to add or change existing connection information.
 
 ![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
 
