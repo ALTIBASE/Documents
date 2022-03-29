@@ -8,6 +8,7 @@
     - [SquirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
     - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
     - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
+    - [FAQ](#faq)
   - [2.Hibernate](#2hibernate)
     - [Hibernate](#hibernate)
   - [3.OpenLDAP](#3openldap)
@@ -333,6 +334,52 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 상단의 2개 탭 중 SQL을 선택하여 사용자가 쿼리를 입력하고 실행할 수 있다.
 
 ![](media/3rdPartyConnector/9282c65c5cdf53f32d920ae18dfbe692.jpg)
+
+### FAQ
+
+#### 최신 JDK를 설치 후 SquirreL SQL 클라이언트 실행시 "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above" 메세지와 함께 구동이 실패합니다.  
+
+SquirreL SQL 클라이언트가 최신 Java 버전을 인지하지 못해 발생하는 오류이다.
+
+squirrel-sql.bat 또는 squirrel-sql.sh 파일의 JavaVersionChecker 라인을 찾아 사용할 버전을 추가하면 된다. 예를 들어 OpenJDK 18 버전을 사용할 경우, 수정 전 JavaVersionChecker 라인에 
+
+`$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8`
+
+18을 추가 및 저장 후, SquirreL SQL 클라이언트를 수행하면 정상적으로 구동된다. 
+
+`$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
+
+참조: https://sourceforge.net/p/squirrel-sql/bugs/1347/
+
+#### LOB 데이터 조회가 안됩니다.
+
+SquirreL SQL 클라이언트에서 LOB 데이터는 SQL 창 또는 Objects 창에서 조회가 가능하다.
+
+| SQL                                               | Objects                                               |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| ![](media/3rdPartyConnector/squirrel_lob_sql.jpg) | ![](media/3rdPartyConnector/squirrel_lob_objtree.jpg) |
+
+SQL 창에서 사용자 쿼리를 수행하여 LOB 데이터를 조회하기 위해서는 아래 두 가지 작업이 필요하다.
+
+첫번째, SquirreL SQL 클라이언트에서 LOB 조회가 가능하도록 설정을 변경해야 한다. 'File -> Global Preferences -> Data Type Constrols 탭'에서 BLOB 또는 CLOB의 "Read contents where table is first loaded" 옵션을 체크해야 한다.
+
+![](media/3rdPartyConnector/squirrel_lob_view.jpg)
+
+두번째, 알티베이스 LOB 데이터는 반드시 autocommit 모드를 false로 바꾼 후 명시적으로 트랜잭션을 관리해줘야 한다. 이를 적용하기 위해 SquirreL SQL 클라이언트에서 File -> New Session Properties -> SQL 탭에서 "Auto Commit SQL" 선택창을 해제해야 한다.
+
+![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
+
+
+
+Objects 창의 테이블 객체 Content에서 LOB 데이터를 조회하기 위해서는 앞선 두가지 조치외에도 추가적인 조치가 필요하다. 
+
+첫번째, BUG-49546가 적용된 버전의 JDBC 파일을 사용해야 한다. 7.1은 7.1.0.7.1 이후, 7.2는 7.2.0.0.1 이후 버전의 JDBC 파일을 SquirreL SQL 클라이언트 접속에 이용해야 한다.
+
+두번째, BUG-49546에서 추가된 'getcolumns_return_jdbctype=true' 연결 속성을 접속 문자열에 추가해야 한다. 새로운 드라이버를 지정하는 Drivers -> Add Driver에서 추가 또는 기존 접속 정보를 변경하는 Aliases -> Modify the selected Alias에서 변경 가능하다.
+
+![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
+
+![](media/3rdPartyConnector/squirrel_lob_alias.jpg)
 
 2.Hibernate
 ---------

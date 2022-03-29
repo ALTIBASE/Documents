@@ -8,6 +8,7 @@
     - [Installing SQuirreL SQL Client](#installing-squirrel-sql-client)
     - [Altibase JDBC Driver Registration](#altibase-jdbc-driver-registration)
     - [Integration with Altibase](#integration-with-altibase)
+    - [FAQ](#faq)
   - [2.Hibernate](#2hibernate)
     - [Hibernate](#hibernate)
   - [3.OpenLDAP](#3openldap)
@@ -279,6 +280,50 @@ If the connection is successful, a window consisting of two tabs will open as sh
 By selecting SQL from the two tabs at the top, users can enter and execute queries.
 
 ![](media/3rdPartyConnector/9282c65c5cdf53f32d920ae18dfbe692.jpg)
+
+### FAQ
+
+#### After installing the latest JDK, when running the SquirreL SQL client, it fails with the message "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above". 
+
+This error occurs because the SquirreL SQL client does not recognize the latest Java version.
+
+Find the JavaVersionChecker line in the squirrel-sql.bat or squirrel-sql.sh file and add the version to use. For example, when using OpenJDK 18 version, 
+
+`$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8`
+
+add 18 at the end of the JavaVersionChecker line  and save it, and then run the SquirreL SQL client.
+
+`$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
+
+참조: https://sourceforge.net/p/squirrel-sql/bugs/1347/
+
+#### How to lookup LOB data.
+
+In the SquirreL SQL client, LOB data can be viewed in the SQL window or the Objects window.
+
+| SQL                                               | Objects                                               |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| ![](media/3rdPartyConnector/squirrel_lob_sql.jpg) | ![](media/3rdPartyConnector/squirrel_lob_objtree.jpg) |
+
+In the SQL window, the following two tasks are required in order to inquirying LOB data.
+
+First, change the settings to enable LOB inquiry in the SquirreL SQL client. In 'File -> Global Preferences -> Data Type Constrols tab', check the "Read contents where table is first loaded" option of BLOB or CLOB.
+
+![](media/3rdPartyConnector/squirrel_lob_view.jpg)
+
+Second, for Altibase HDB LOB data, transactions must be explicitly managed by changing the autocommit mode to false. To apply this, uncheck the "Auto Commit SQL" checkbox in the 'File -> New Session Properties -> SQL tab' in the SquirreL SQL client.
+
+![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
+
+In order to retrieve LOB data from the table object contents in the Objects window, two more tasks are required in addition to the previous two tasks.
+
+First, the BUG-49546 fixed JDBC file is required. For 7.1 version, after 7.1.0.7.1, and for 7.2 version, after 7.2.0.0.1, JDBC files must be used to connect to the SquirreL SQL client.
+
+Second, the 'getcolumns_return_jdbctype=true' connection attribute introduced in BUG-49546 must be added to the connection string. It can be added in Drivers -> Add Driver to designate a new driver or Aliases to change existing connection information -> Modify the selected Alias.
+
+![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
+
+![](media/3rdPartyConnector/squirrel_lob_alias.jpg)
 
 2.Hibernate
 ---------
