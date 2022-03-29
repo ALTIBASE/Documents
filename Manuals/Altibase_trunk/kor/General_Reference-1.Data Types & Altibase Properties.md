@@ -3802,6 +3802,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>SYSTEM</td>
       </tr>
       <tr>
+      	<td>REPLICATION_IP</td>
+          <td>NONE</td>
+      </tr>
+      <tr>
           <td>REPLICATION_KEEP_ALIVE_CNT</td>
           <td></td>
       </tr>
@@ -11905,6 +11909,31 @@ Unsigned Integer
 반면에 이 값이 1이면 데이터 충돌은 무시되고 INSERT는 커밋된다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### REPLICATION_IP
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+ANY
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+이중화에 사용할 TCP 전용 IP 를 지정한다.  다중 IP 네트워크 환경이더라도 이 값으로 설정한 IP주소만 이용해서 이중화 통신을 한다.
+이중화 전용 IP를 지정하고 싶지 않다면 ANY로 설정한다.
+TCP를 제외한 다른 통신은 이 값을 무시한다.
+이 값이 유효하지 않으면 altibase 서버 구동에 실패한다. 
 
 #### REPLICATION_KEEP_ALIVE_CNT 
 
