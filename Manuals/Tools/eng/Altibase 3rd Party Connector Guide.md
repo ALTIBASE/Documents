@@ -1,7 +1,7 @@
 - [Altibase 3rd Party Connector Guide](#altibase-3rd-party-connector-guide)
   - [Preface](#preface)
     - [About This Manual](#about-this-manual)
-  - [1.SquirreL SQL Client](#1squirrel-sql-client)
+  - [1.SQuirreL SQL Client](#1squirrel-sql-client)
     - [Installing Altibase Plugin for SQuirreL SQL Client](#installing-altibase-plugin-for-squirrel-sql-client)
     - [Installing and Removing Altibase Plugin](#installing-and-removing-altibase-plugin)
     - [Features of Altibase Plugin](#features-of-altibase-plugin)
@@ -67,7 +67,7 @@ It is recommended for those reading this manual possess the following background
 
 This manual is organized as follows:
 
-- Chapter 1:  SquirreL SQL Client  
+- Chapter 1:  SQuirreL SQL Client  
   This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
 - Chapter 2: Hibernate
@@ -128,7 +128,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-1.SquirreL SQL Client
+1.SQuirreL SQL Client
 -----------------------
 
 This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
@@ -201,7 +201,7 @@ View, Materialized View
 
 #### PSM DDL grammar Support
 
-Altibase PSM DDL grammar is supported in the SQL editor of SQuirreL SQl Client. If altibase.jar is not installed, the SQuirreL SQL Client's own parser fails to parse the Altibase PSM generated DDL.
+Altibase PSM DDL grammar is supported in the SQL editor of SQuirreL SQL Client. If altibase.jar is not installed, the SQuirreL SQL Client's own parser fails to parse the Altibase PSM generated DDL.
 
 ![](media/3rdPartyConnector/a5866d7d28e7835da07f497853b8fbfa.png)
 
@@ -220,7 +220,7 @@ This chapter describes how to install SQuirreL SQL Client.
 
 #### Registration Procedure
 
-1. Double-click "squirrel-sql.bat" in the directory where SquirreL SQL Client is installed to run the program. 
+1. Double-click "squirrel-sql.bat" in the directory where SQuirreL SQL Client is installed to run the program. 
 
 2. Click Driver -> New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows -> View Drivers to activate it. 
 
@@ -283,23 +283,23 @@ By selecting SQL from the two tabs at the top, users can enter and execute queri
 
 ### FAQ
 
-#### After installing the latest JDK, when running the SquirreL SQL client, it fails with the message "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above". 
+#### After installing the latest JDK, when running the SQuirreL SQL client, it fails with the message "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above". 
 
-This error occurs because the SquirreL SQL client does not recognize the latest Java version.
+This error occurs because the SQuirreL SQL client does not recognize the latest Java version.
 
 Find the JavaVersionChecker line in the squirrel-sql.bat or squirrel-sql.sh file and add the version to use. For example, when using OpenJDK 18 version, 
 
 `$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8`
 
-add 18 at the end of the JavaVersionChecker line  and save it, and then run the SquirreL SQL client.
+add '18' at the end of the JavaVersionChecker line just as below and save it, then run the SQuirreL SQL client.
 
 `$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
 
-참조: https://sourceforge.net/p/squirrel-sql/bugs/1347/
+Please refer to https://sourceforge.net/p/squirrel-sql/bugs/1347/
 
 #### How to lookup LOB data.
 
-In the SquirreL SQL client, LOB data can be viewed in the SQL tab or the Objects tab.
+In the SQuirreL SQL client, LOB data can be viewed in the SQL tab or the Objects tab.
 
 | SQL                                               | Objects                                               |
 | ------------------------------------------------- | ----------------------------------------------------- |
@@ -307,12 +307,12 @@ In the SquirreL SQL client, LOB data can be viewed in the SQL tab or the Objects
 
 ##### Settings for LOB data lookup in SQL tab.
 
-1. Change the Data Type Controls setting.
+1. Change the Data Type Controls setting.<br>
    In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents where table is first loaded" option of BLOB or CLOB 
 
 ![](media/3rdPartyConnector/squirrel_lob_view.jpg)
 
-2. Change the autocommit mode to false in the session properties.
+2. Change the autocommit mode to false in the session properties.<br>
    In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File -> New Session Properties -> SQL tab.
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
@@ -320,10 +320,10 @@ In the SquirreL SQL client, LOB data can be viewed in the SQL tab or the Objects
 ##### Additional required settings when looking up LOB data in the Objects tab
 
 1. Use the Altibase HDB JDBC Driver corresponding to the version below.
-   Altibase 7.1.0.7.2 or higher
-   Altibase 7.2.0.0.2 or higher
+   - Altibase 7.1.0.7.2 or higher
+   - Altibase 7.2.0.0.2 or higher
 
-2. Add getcolumns_return_jdbctype=true to the JDBC connection properties.
+2. Add getcolumns_return_jdbctype=true to the JDBC connection properties.<br>
    It can be changed in Drivers -> Add Driver to designate a new driver, or Aliases -> Modify the selected Alias to add or change existing connection information.
 
 ![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)

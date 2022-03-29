@@ -1,11 +1,11 @@
 - [Altibase 3rd Party Connector Guide](#altibase-3rd-party-connector-guide)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.SquirreL SQL 클라이언트](#1squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8)
+  - [1.SQuirreL SQL 클라이언트](#1squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8)
     - [Altibase Plugin for SQuirreL SQL Client 설치](#altibase-plugin-for-squirrel-sql-client-%EC%84%A4%EC%B9%98)
     - [Altibase Plugin 설치 및 제거](#altibase-plugin-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
     - [Altibase Plugin 특징](#altibase-plugin-%ED%8A%B9%EC%A7%95)
-    - [SquirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
+    - [SQuirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
     - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
     - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
     - [FAQ](#faq)
@@ -84,7 +84,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
-- 제 1장 SquirreL SQL 클라이언트  
+- 제 1장 SQuirreL SQL 클라이언트  
   이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을
   설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
 
@@ -153,7 +153,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
-1.SquirreL SQL 클라이언트
+1.SQuirreL SQL 클라이언트
 -----------------------
 
 이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고
@@ -249,13 +249,13 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 ![](media/3rdPartyConnector/a5866d7d28e7835da07f497853b8fbfa.png)
 
-### SquirreL SQL Client 설치
+### SQuirreL SQL Client 설치
 
-이 장에서는 SquirreL SQL Client를 설치하는 방법을 설명한다.
+이 장에서는 SQuirreL SQL Client를 설치하는 방법을 설명한다.
 
 #### 설치 절차
 
-1. 아래 링크에서 자신의 시스템에 설치 가능한 SquirreL SQL Client를 다운받는다.  
+1. 아래 링크에서 자신의 시스템에 설치 가능한 SQuirreL SQL Client를 다운받는다.  
    [http://squirrel-sql.sourceforge.net/#installation](http://squirrel-sql.sourceforge.net/#installation )
 
 2. 다운로드 받은 "squirrel-sql-3.7.1-standard.jar"을 더블 클릭하여 설치를
@@ -265,7 +265,7 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 #### 등록 방법
 
-1. SquirreL SQL Client를 설치한 디렉토리의 "squirrel-sql.bat"를 더블 클릭하여
+1. SQuirreL SQL Client를 설치한 디렉토리의 "squirrel-sql.bat"를 더블 클릭하여
    프로그램을 구동시킨다.
 
 2. Drivers -\> New Driver를 클릭하여 Altibase JDBC driver를 등록한다. Drivers
@@ -337,11 +337,11 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 ### FAQ
 
-#### 최신 JDK 설치 후 SquirreL SQL 클라이언트 실행시 "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above" 메세지와 함께 구동이 실패합니다.  
+#### 최신 JDK 설치 후 SQuirreL SQL 클라이언트 실행시 "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above" 메시지가 표시되며 구동이 실패합니다.
 
-SquirreL SQL 클라이언트가 최신 Java 버전을 인지하지 못해 발생하는 오류이다.
+SQuirreL SQL 클라이언트가 최신 Java 버전을 인지하지 못해 발생하는 오류이다.
 
-squirrel-sql.bat 또는 squirrel-sql.sh 파일에서 JavaVersionChecker 라인을 찾아 사용할 JDK 버전을 추가한다. 예를 들어 OpenJDK 18 버전을 사용할 경우, 수정 전 JavaVersionChecker 라인 끝에 18을 추가 및 저장 후, SquirreL SQL 클라이언트를 수행하면 정상적으로 구동된다. 
+squirrel-sql.bat 또는 squirrel-sql.sh 파일에서 JavaVersionChecker 라인을 찾아 사용할 JDK 버전을 추가한다. 예를 들어 OpenJDK 18 버전을 사용할 경우, JavaVersionChecker 라인 끝에 18을 추가 및 저장 후, SQuirreL SQL 클라이언트를 수행하면 정상적으로 구동된다. 
 
 `$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
 
@@ -349,7 +349,7 @@ squirrel-sql.bat 또는 squirrel-sql.sh 파일에서 JavaVersionChecker 라인�
 
 #### LOB 데이터 조회가 안됩니다.
 
-SquirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭에서 조회할 수 있다.
+SQuirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭에서 조회할 수 있다.
 
 | SQL                                               | Objects                                               |
 | ------------------------------------------------- | ----------------------------------------------------- |
@@ -357,12 +357,12 @@ SquirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭�
 
 ##### SQL 탭에서 LOB 데이터 조회를 위한 설정
 
-1. Data Type Controls 설정을 변경한다.
+1. Data Type Controls 설정을 변경한다.<br>
    'File -> Global Preferences -> Data Type Controls 탭'에서 BLOB 또는 CLOB의 "Read contents where table is first loaded" 옵션을 체크한다.
 
 ![](media/3rdPartyConnector/squirrel_lob_view.jpg)
 
-2. 세션 프로퍼티에서 autocommit 모드를 false로 변경한다.
+2. 세션 프로퍼티에서 autocommit 모드를 false로 변경한다.<br>
    알티베이스에서 LOB 데이터는 반드시 명시적으로 트랜잭션을 관리해야 한다. 이를 적용하기 위해 File -> New Session Properties -> SQL 탭에서 "Auto Commit SQL" 체크 박스를 해제한다.
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
@@ -373,7 +373,7 @@ SquirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭�
    - Altibase 7.1.0.7.2 이상
    - Altibase 7.2.0.0.2 이상
 
-2. JDBC 연결 속성에 getcolumns_return_jdbctype=true를 추가한다.
+2. JDBC 연결 속성에 getcolumns_return_jdbctype=true를 추가한다.<br>
    새로운 드라이버를 지정하는 Drivers -> Add Driver에서 추가 또는 기존 접속 정보를 변경하는 Aliases -> Modify the selected Alias에서 변경할 수 있다.
 
 ![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
