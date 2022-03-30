@@ -181,13 +181,17 @@ New Features
     - REPLICATION_DDL_ENABLE = 1
     
     **DDL 복제 실패 시 재시도 기능 추가**
+    
     DDL 복제 과정에서 테이블 잠금 획득 실패 또는 교착 상태(deadlock)를 사유로 일시적으로 DDL 수행이 실패하는 경우 재시도하는 기능을 추가합니다.
     
     이 버그 반영 전/후 Altibase 7.1 버전 별 동작 차이는 아래와 같습니다. 
     
     - Altibase 7.1.0.6.4 이하
+      
       일시적인 DDL 실패 발생 즉시 DDL 복제를 중단합니다.
+      
     - Altibase 7.1.0.6.5 이상
+      
       일시적인 DDL 실패 발생 시 REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 시간 동안 DDL 복제 실행을 재시도합니다. REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 시간 동안 성공하지 못한 경우 DDL 복제를 중단합니다. 
     
     **이중화 프로토콜 버전 변경**  
