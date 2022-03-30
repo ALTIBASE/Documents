@@ -24,6 +24,7 @@
     - [SQL 반영 모드](#sql-%EB%B0%98%EC%98%81-%EB%AA%A8%EB%93%9C)
     - [이중화 부가기능](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5)
     - [다중 IP 네트워크 환경에서의 이중화](#%EB%8B%A4%EC%A4%91-ip-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94)
+    - [단일 IP를 지정하여 이중화](#%EB%8B%A4%EC%A4%91-ip-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94)
     - [이중화 관련 프로퍼티](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
   - [4.Fail-Over](#4fail-over)
     - [Fail-Over 의 개요](#fail-over-%EC%9D%98-%EA%B0%9C%EC%9A%94)
@@ -2567,6 +2568,95 @@ REP1                                      1
 \<- 새로 지정한 IP 192.168.1.154 와 PORT 번호 30570을 사용해서 연결한 것을
 확인할 수 있다.
 
+
+### 단일 IP를 지정하여 이중화
+
+이중화에서 사용할 전용 IP 주소를 지정할 수 있다. <br/>
+다중 IP 네트워크 환경에서 IP주소가 변경 가능 할 경우 고정된 IP 주소를 이중화 전용으로 설정한다.
+
+#### 설명
+
+다중 IP 네트워크 환경인 경우라도 특정 IP만을 이용해서 이중화를 구성할 수 있다. <br/>
+네트워크 카드가 두 개 이상일때 서비스 통신 라인과 이중화 통신 라인을 완전히 분리 가능하며,  <br/>
+특히 네트워크 환경이 유동적으로 변경되는 환경에서 고정 IP를 지정하는 기능을 통해 이중화 네트워크를 안정적으로 운영할 수 있다. <br/>
+
+예를들어 VIP를 사용하는 등의 이유로 IP 주소가 변경될 가능성이 있다면,  <br/>
+물리 IP 혹은 변경되지 않을 IP 주소를 이중화 전용 IP로 설정하면 안정적으로 이중화를 운영할 수 있다.
+
+이중화 IP 지정은 Altibase 서버 단위로 가능하며, 이중화 객체 단위로 설정할 수 없다.
+
+다음 프로퍼티를 설정 후 Altibase 서버를 구동하면, 이중화 관리자를 초기화할 때 통신에 사용할 IP를 설정한다.
+
+REPLICATION_IP = 192.168.1.xx<br/>
+이 값이 설정된 Altibase 서버에서 송신자 혹은 수신자가 수행되면, 설정된 IP 로만 이중화 통신을 한다.
+
+
+##### 제약사항
+- TCP만 지원하며, IB(Infini Band) 통신은 지원하지 않는다.
+- 호스트 이름으로 설정은 지원하지 않는다.
+- 양쪽 서버에 REPLICATION_IP를 설정하는 경우, 통신 프로토콜은 동일해야한다.<br/>예를들어 지역서버에는 IPV6, 원격서버에는 IPV4로 설정하면 네트워크 오류로 이중화에 실패한다.
+
+##### 주의사항
+- 설정한 IP 주소가 유효하지 않으면 altibase 서버 구동이 실패한다.
+- 지정된 IP주소나 인터페이스에 문제가 발생 시 네트워크 통신에 실패하며, <br/>
+  수신자가 동작하는 서버에 이 값이 설정되어있으면 송신자의 서버에서 HBT로 해당 IP 네트워크 오류를 감지하더라도 <br/>
+  설정된 IP의 네트워크가 복구될 때까지 지속적으로 시도되나 실패하고,  다른 IP로 연결이 불가하기 때문에 이중화가 중단된다.
+
+#### 예제
+
+다음은 2 개의 IP 주소 네트워크 환경인 지역 서버(‘IP: 192.168.1.51,PORT NO: 30570’ , ‘192.168.2.51 PORT NO: 30570’)와 원격 서버(‘IP: 192.168.1.154, PORT NO: 30570’, ‘IP: 192.168.2.154, PORT NO: 30570’)간에 employees 테이블과 departments 테이블에 이중화 생성 후 지역 서버와 원격 서버를 Active-Standby 모드로 이중화를 수행하는 예이다. <br/>양쪽 서버 모두 각각 서버의 네트워크 우선순위는 첫 번째 IP주소이다. REPLICATION_IP를 설정하지 않으면 기본적으로 첫번째 IP로 연결됨을 가정한다.
+
+
+예제 1: 양쪽 서버에서 REPLICATION_IP 지정<br/>
+지역 서버와 원격 서버에 REPLICATION_IP가 설정되어 네트워크 오류가 발생하면 다중 네트워크를 이용한 극복이 불가능하다.  <br/>
+| A서버                                                        | B서버                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 이중화 IP 지정<br/> altibase.properties<br/>REPLICATION_IP = 192.168.2.51<br/>REPLICATION_PORT_NO = 30570<br/> | 이중화 IP 지정<br/> altibase.properties<br/> REPLICATION_IP = 192.168.2.154<br/> REPLICATION_PORT_NO = 30570 |
+| altibase 서버 구동 <br/>server start | altibase 서버 구동 <br/>server start |
+| | |
+| 이중화 생성<br/>iSQL> CREATE REPLICATION rep1<br/> WITH '192.168.2.154',30570<br/> FROM sys.employees TO sys.employees,<br/> FROM sys.departments TO sys.departments;<br/> Create success.<br/> | 이중화 생성<br/> iSQL> CREATE REPLICATION rep1.<br/> WITH '192.168.2.51', 30570.<br/> FROM sys.employees TO sys.employees,.<br/> FROM sys.departments TO sys.departments;.<br/> Create success. |
+| | |
+| iSQL\> alter replication rep1 start;<br/> Alter success.     ||
+| | |
+|이중화 시작후에 이중화 상태를 확인할 수 있다.<br/>송신자는 지정된 IP를 사용해서 peer에 연결한다.<br/>iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from V$REPSENDER;<br/>REP_NAME    : REP1<br/>SENDER_IP   : 192.168.2.51<br/>SENDER_PORT : 13718<br/>PEER_IP     : 192.168.2.154<br/>PEER_PORT   : 30570<br/><br/>1 row selected. | 수신자는 지정된 IP를 사용해서 연결한다.<br/> iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from V$REPRECEIVER;<br/>REP_NAME  : REP1<br/>MY_IP     : 192.168.2.154<br/>MY_PORT   : 30570<br/>PEER_IP   : 192.168.2.51<br/>PEER_PORT : 13718<br/><br/>1 row selected.|
+| | |
+
+
+예제 2: 지역 서버에서 REPLICATION_IP 지정<br/>
+지역 서버만 REPLICATION_IP가 설정되어 원격 서버 네트워크에만 오류가 발생하면 이중화의 다중 네트워크를 이용하여 극복이 가능하다.<br/>
+하지만 지역 서버의 REPLICATION_IP로 설정된 네트워크에 오류가 발생하면 다른 IP를 사용할 수 없어서 이중화가 중단된다.
+
+| A서버                                                        | B서버                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 이중화 IP 지정<br/> altibase.properties<br/>REPLICATION_IP = 192.168.2.51<br/>REPLICATION_PORT_NO = 30570<br/> |  |
+| altibase 서버 구동 <br/>server start | altibase 서버 구동 <br/>server start |
+| | |
+| 이중화 생성<br/>iSQL> CREATE REPLICATION rep1<br/> WITH '192.168.1.154',30570 '192.168.2.154',30570<br/> FROM sys.employees TO sys.employees,<br/> FROM sys.departments TO sys.departments;<br/> Create success.<br/> | 이중화 생성<br/> iSQL> CREATE REPLICATION rep1.<br/> WITH '192.168.2.51', 30570.<br/> FROM sys.employees TO sys.employees,.<br/> FROM sys.departments TO sys.departments;.<br/> Create success. |
+| | |
+| iSQL\> alter replication rep1 start;<br/> Alter success.     ||
+| | |
+|이중화 시작후에 이중화 상태를 확인할 수 있다.<br/>송신자는 지정된 IP(SENDER_IP)를 사용해서<br/> 첫 번째 원격 서버의 주소('192.168.1.154',30570)(PEER_IP)로 peer에 연결한다.<br/>iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from V$REPSENDER;<br/>REP_NAME    : REP1<br/>SENDER_IP   : 192.168.2.51<br/>SENDER_PORT : 13718<br/>PEER_IP     : 192.168.1.154<br/>PEER_PORT   : 30570<br/><br/>1 row selected. | 수신자는 첫 번째 IP를 이용해서 통신한다.<br/> iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from V$REPRECEIVER;<br/>REP_NAME  : REP1<br/>MY_IP     : 192.168.1.154<br/>MY_PORT   : 30570<br/>PEER_IP   : 192.168.2.51<br/>PEER_PORT : 13718<br/><br/>1 row selected.|
+| | |
+| !!!!!!!!!!!!! 네트워크 연결 단절 !!!!!!!!!!!!!!!|
+| | |
+|네트워크 단절 후에 이중화 상태를 확인할 수 있다. <br/>두 번째 원격 서버의 주소('192.168.2.154',30570)를 사용해서 재연결한 것을 볼 수 있다.<br/>iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from V$REPSENDER;<br/>REP_NAME    : REP1<br/>SENDER_IP   : 192.168.2.51<br/>SENDER_PORT : 13718<br/>PEER_IP     : 192.168.2.154<br/>PEER_PORT   : 30570<br/><br/>1 row selected. | 수신자는 두 번째 IP를 이용해서 통신한다.<br/> iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from V$REPRECEIVER;<br/>REP_NAME  : REP1<br/>MY_IP     : 192.168.2.154<br/>MY_PORT   : 30570<br/>PEER_IP   : 192.168.2.51<br/>PEER_PORT : 13718<br/><br/>1 row selected.|
+| | |
+
+
+예제 3: 원격 서버에서 REPLICATION_IP 지정<br/>
+원격 서버에 REPLICATION_IP가 설정되면 원격 서버의 네트워크만 오류가 발생하더라도 이중화의 다중 네트워크를 이용하여 극복이 불가능하다.
+| A서버                                                        | B서버                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+|  | 이중화 IP 지정<br/> altibase.properties<br/> REPLICATION_IP = 192.168.2.154<br/> REPLICATION_PORT_NO = 30570 |
+| altibase 서버 구동 <br/>server start | altibase 서버 구동 <br/>server start |
+| | |
+| 이중화 생성<br/>다중 IP로 이중화를 생성해도 원격 서버에 설정된 REPLICATION_IP 로만 이중화가 가능하다.<br/>iSQL> CREATE REPLICATION rep1<br/> WITH '192.168.1.154',30570 '192.168.2.154',30570<br/> FROM sys.employees TO sys.employees,<br/> FROM sys.departments TO sys.departments;<br/> Create success.<br/> | 이중화 생성<br/> iSQL> CREATE REPLICATION rep1.<br/> WITH '192.168.1.51', 30570.<br/> FROM sys.employees TO sys.employees,.<br/> FROM sys.departments TO sys.departments;.<br/> Create success. |
+| | |
+| iSQL\> alter replication rep1 start;<br/> Alter success.     ||
+| | |
+|이중화 시작후에 이중화 상태를 확인할 수 있다.<br/>송신자는 첫 번째 원격 서버의 주소('192.168.1.154',30570)로 peer에 연결 시도하지만, 접속 실패 후 <br/>두 번째 원격 서버의 주소('192.168.2.154',30570)로 연결한다.<br/>iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from V$REPSENDER;<br/>REP_NAME    : REP1<br/>SENDER_IP   : 192.168.1.51<br/>SENDER_PORT : 13718<br/>PEER_IP     : 192.168.2.154<br/>PEER_PORT   : 30570<br/><br/>1 row selected. | 수신자는 지정된 IP를 사용해서 연결한다.<br/> iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from V$REPRECEIVER;<br/>REP_NAME  : REP1<br/>MY_IP     : 192.168.2.154<br/>MY_PORT   : 30570<br/>PEER_IP   : 192.168.1.51<br/>PEER_PORT : 13718<br/><br/>1 row selected.|
+| | |
+
 ### 이중화 관련 프로퍼티
 
 이중화를 사용하기 위해서는 Altibase 프로퍼티 파일을 사용 목적에 맞게 수정해야
@@ -2597,6 +2687,7 @@ REP1                                      1
 -   REPLICATION_IB_LATENCY
 -   REPLICATION_IB_PORT_NO
 -   REPLICATION_INSERT_REPLACE
+-   REPLICATION_IP
 -   REPLICATION_KEEP_ALIVE_CNT
 -   REPLICATION_LOCK_TIMEOUT
 -   REPLICATION_LOG_BUFFER_SIZE
