@@ -337,7 +337,7 @@ PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
 
 ### FAQ
 
-#### 최신 JDK 설치 후 SQuirreL SQL 클라이언트 실행시 "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above" 메시지가 표시되며 구동이 실패합니다.
+#### 최신 버전의 JDK 설치 후 SQuirreL SQL 클라이언트 실행시 "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above" 메시지가 표시되며 구동이 실패합니다.
 
 SQuirreL SQL 클라이언트가 최신 Java 버전을 인지하지 못해 발생하는 오류이다.
 
