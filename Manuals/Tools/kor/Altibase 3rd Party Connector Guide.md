@@ -355,7 +355,9 @@ SQuirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭�
 | ------------------------------------------------- | ----------------------------------------------------- |
 | ![](media/3rdPartyConnector/squirrel_lob_sql.jpg) | ![](media/3rdPartyConnector/squirrel_lob_objtree.jpg) |
 
-##### SQL 탭에서 LOB 데이터 조회를 위한 설정
+##### SQuirreL SQL 클라이언트에서 LOB 데이터 조회를 위한 설정
+
+이 설정은 LOB 데이터를 SQL 탭에서 조회하거나 Objects 탭에서 조회하거나 공통적으로 필요한 설정이다.
 
 1. Data Type Controls 설정을 변경한다.<br>
    'File -> Global Preferences -> Data Type Controls 탭'에서 BLOB 또는 CLOB의 "Read contents where table is first loaded" 옵션을 체크한다.

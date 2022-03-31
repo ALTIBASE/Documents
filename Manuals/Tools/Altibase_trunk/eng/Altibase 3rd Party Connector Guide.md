@@ -301,7 +301,9 @@ In the SQuirreL SQL client, LOB data can be viewed in the SQL tab or the Objects
 | ------------------------------------------------- | ----------------------------------------------------- |
 | ![](media/3rdPartyConnector/squirrel_lob_sql.jpg) | ![](media/3rdPartyConnector/squirrel_lob_objtree.jpg) |
 
-##### Settings for LOB data lookup in SQL tab.
+##### Settings for LOB data inquiry in SQuirreL SQL client
+
+This setting is a commonly required setting when searching for LOB data in the SQL tab or in the Objects tab.
 
 1. Change the Data Type Controls setting.<br>
    In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents where table is first loaded" option of BLOB or CLOB 
