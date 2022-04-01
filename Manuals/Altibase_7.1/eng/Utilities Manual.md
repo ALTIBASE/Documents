@@ -2699,7 +2699,7 @@ altiMon uses PICL library written in C language in order to collect information 
 | ----- | --------------------- | --------------------------------- | -------------------------------- |
 | AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1          | aix-ppc64-5.so                   |
 | HP-UX | ia64                  | IA64                              | hpux-ia64-11.sl                  |
-| LINUX | X86_64</br> ppc64(le) | OS Version 2 ~ 4</br> glibc 2.5 or later | linux-x64.so </br>linux-ppc64.so |
+| LINUX | X86_64</br> ppc64(le) | OS Version 2.6</br> glibc 2.5 or later | linux-x64.so </br>linux-ppc64.so |
 
 it can also be used after checking whether the PICL for the lower version works on the OS version that is not supported.
 

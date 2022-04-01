@@ -307,7 +307,10 @@ uninstall-base
 
 Altibase를 설치하고 운영하기 위해서 필요한 시스템 요구사항은 다음과 같다.
 
-이 장에서 언급되는 요구사항과 권장사항은 일반적인 용도의 데이터베이스를 가정한 것이다. 따라서 사용자의 데이터베이스 시스템이나 용도에 따라서 달라질 수 있으므로, 시스템 요구사항에 대한 자세한 사항은 Altibase 고객서비스포털( [http://support.altibase.com](http://support.altibase.com/) )로
+이 장에서 언급되는 요구사항과 권장사항은 일반적인 용도의 데이터베이스를 가정한
+것이다. 따라서 사용자의 데이터베이스 시스템이나 용도에 따라서 달라질 수
+있으므로, 시스템 요구사항에 대한 자세한 사항은 Altibase
+고객서비스포털( [http://support.altibase.com](http://support.altibase.com/) )로
 문의한다.
 
 #### 메모리
@@ -320,9 +323,12 @@ Altibase를 설치하고 운영하기 위해서 필요한 시스템 요구사항
 
 #### 하드 디스크
 
-Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스페이스, 트랜잭션 로그 저장과 Altibase 소프트웨어 설치에 필요한 충분한 공간이 있어야 한다. Altibase 소프트웨어와 트랜잭션 로그를 위한 공간은 적어도 각각 1GB 이상이어야 한다.
+Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스페이스, 트랜잭션 로그
+저장과 Altibase 소프트웨어 설치에 필요한 충분한 공간이 있어야 한다. Altibase
+소프트웨어와 트랜잭션 로그를 위한 공간은 적어도 각각 1GB 이상이어야 한다.
 
-원활한 데이터베이스 운영을 위해서는 적어도 12 GB 이상의 디스크 여유 공간을 가지기를 권장한다.
+원활한 데이터베이스 운영을 위해서는 적어도 12 GB 이상의 디스크 여유 공간을
+가지기를 권장한다.
 
 #### 네트워크
 
@@ -337,14 +343,12 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 
 |                                                              | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항   |
 | ------------------------------------------------------------ | :-----------: | :-----------------: | :-------------------- |
-| **AIX on IBM Power Systems**                                 |               |                     |                       |
-| AIX 6.1                                                      |       ●       |          ●          |                       |
 | **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |               |                     |                       |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8<sup>[설치 전 참고](#footnote-rhel8)</sup> |       ●       |          ●          | - GNU glibc 2.12 이상 |
 | **Linux on Power**                                           |               |                     |                       |
-| Red Hat Enterprise Linux 6.5 이상                            |       ●       |          ●          | - GNU glibc 2.12 이상 |
+| Red Hat Enterprise Linux 6                                   |       ●       |          ●          | - GNU glibc 2.12 이상 |
 | **Linux on Power** **(Little Endian)**                       |               |                     |                       |
-| Red Hat Enterprise Linux 7.2 이상                            |       ●       |          ●          | - GNU glibc 2.17 이상 |
+| Red Hat Enterprise Linux 7                                   |       ●       |          ●          | - GNU glibc 2.17 이상 |
 | **HP-UX Itanium (IA-64)**                                    |               |                     |                       |
 | HP-UX 11.31                                                  |       ●       |          ●          |                       |
 | **Microsoft Windows (x64)**                                  |               |                     |                       |

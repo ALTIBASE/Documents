@@ -173,51 +173,9 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **설명** : 
+-   **설명** : DDL 복제 실행 시 테이블 잠금 획득 실패 또는 교착 상태(deadlock)를 사유로 일시적으로 DDL 수행이 실패하는 경우, 재시도하는 기능을 추가합니다. 일시적인 DDL 실패 상황 발생 시 REPLICATION\_DDL\_SYNC\_TIMEOUT 프로퍼티 시간 동안 DDL 복제 실행을 재시도합니다.
     
-    이 버그는 아래 조건을 모두 만족하는 이중화 환경에 적용되는 버그입니다. 
-    
-    - REPLICATION_DDL_SYNC = 1
-    - REPLICATION_DDL_ENABLE = 1
-    
-    **DDL 복제 실패 시 재시도 기능 추가**
-    
-    DDL 복제 과정에서 테이블 잠금 획득 실패 또는 교착 상태(deadlock)를 사유로 일시적으로 DDL 수행이 실패하는 경우 재시도하는 기능을 추가합니다.
-    
-    이 버그 반영 전/후 Altibase 7.1 버전 별 동작 차이는 아래와 같습니다. 
-    
-    - Altibase 7.1.0.6.4 이하
-      
-      일시적인 DDL 실패 발생 즉시 DDL 복제를 중단합니다.
-      
-    - Altibase 7.1.0.6.5 이상
-      
-      일시적인 DDL 실패 발생 시 REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 시간 동안 DDL 복제 실행을 재시도합니다. REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 시간 동안 성공하지 못한 경우 DDL 복제를 중단합니다. 
-    
-    **이중화 프로토콜 버전 변경**  
-    이중화 기능 추가로 이중화 프로토콜 버전의 패치 버전이 7.4.6에서 7.4.7로 변경되었습니다. 
-    DDL 복제 기능은 이중화 대상 서버의 이중화 프로토콜 버전 세 자리가 모두 일치해야 합니다. 
-    
-    **패치 시 주의 사항**
-    
-    패치 작업 시 이중화 DDL 복제 기능을 중단해야 합니다. 
-    
-    Altibase 7.1.0.6.4 이하 버전과 Altibase 7.1.0.6.5 이상 버전 간 이중화 DDL 복제 기능을 사용할 수 없습니다. 
-    이 버그를 모든 이중화 대상 서버에 적용 후 DDL 복제 기능을 사용해야 합니다.
-    
-    이중화 프로토콜 버전이 다른 Altibase 서버 간 이중화 DDL 복제 수행 시 아래와 같은 로그가 기록됩니다. 
-    
-    - Altibase 클라이언트 에러
-    
-      ```
-      ERR-61186 : A DDL synchronization receives the error message from the remote server (REPLICATION_NAME : Different replication protocols).]
-      ```
-    
-    - Altibase 서버 트레이스 로그(altibase_rp.log)
-    
-      ```
-      [DDLSyncManager] DDL sync failure : Different replication protocols 
-      ```
+    이 기능 추가로 이중화 프로토콜 버전의 패치 버전이 7.4.6 에서 7.4.7 로 변경되었습니다. 따라서, DDL 복제 기능 사용하는 경우 이중화 프로토콜 버전 세 자리가 모두 일치해야하므로 이 버그는 모든 이중화 대상 서버에 모두 적용해야 합니다.
     
 -   **재현 방법**
 

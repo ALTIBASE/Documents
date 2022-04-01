@@ -523,16 +523,10 @@ Adapter의 모든 오류에 대한 부가적인 동작을 지정한다.
 ADAPTER_ERROR_RESTART_COUNT에 지정한 값 만큼 재시도할 때의 간격을 지정한다.
 
 -   기본 값: 0
+
 -   범위: 0 \~ 65535
+
 -   0: 간격을 두지않고 바로 재시도한다.
-
-##### ADAPTER_LOB_TYPE_SUPPORT
-
-LOB 데이터 타입의 지원 여부를 결정하는 프로퍼티이다.
-
--   기본 값: 0
--   0: LOB 데이터 타입을 지원하지 않는다.
--   1: LOB 데이터 타입을 지원한다.
 
 #### 외부 데이타베이스의 프로퍼티
 
@@ -590,19 +584,11 @@ Altibase에서 실행된 DML 구문들을 데이터를 보낼 대상이 되는 O
 
 -   범위: 1 – 32767
 
-
-이 프로퍼티는 다음의 특성을 가진다.
-
--   OTHER_DATABASE_GROUP_COMMIT 프로퍼티를 켜면 성능이 향상된다.
--   현재 이 프로퍼티는 INSERT 와 DELETE 구문에만 영향을 준다.
 -   Batch DML을 끄려면, 이 프로퍼티를 1로 지정한다.
--   LOB 인터페이스를 사용하여 LOB 데이터를 변경한 경우 Batch DML 기능은 동작하지 않는다.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (단위: 횟수)
 
 레코드를 반영할 때 오류가 발생할 경우 재시도 횟수를 의미한다.
-
-단, LOB 데이터를 포함한 XLog는 오류가 발생할 경우 재시도 대상에서 제외된다.
 
 -   기본 값: 0
 
@@ -623,8 +609,6 @@ Altibase에서 실행된 DML 구문들을 데이터를 보낼 대상이 되는 O
 ##### OTHER_DATABASE_SKIP_ERROR 
 
 레코드를 반영할 때 오류가 발생하여 OTHER_DATABASE_ERROR_RETRY_COUNT 만큼 OTHER_DATABASE_ERROR_RETRY_TIME 간격으로 재시도하였는데도 실패하면, 해당 레코드의 반영을 포기할 것인지 여부를 지정한다.
-
-단, LOB 관련 XLog 처리 중 오류 발생 시 해당 프로퍼티 값과 상관 없이 레코드 반영을 포기하지 않고 Adapter를 종료한다.
 
 -   기본 값: 1
 -   0: Adapter를 종료하면서 에러메시지를 출력한다. (해당 레코드 반영을 포기하지 않는다.) 단, dbms_skip_error_include.list에 포함된 에러가 발생한 레코드는 반영을 포기하고 다음 레코드부터 반영한다. 
@@ -728,20 +712,6 @@ jdbcAdapter를 사용하기 위해서는 여러가지 제약 조건이 있다. �
 
 그 외 수행할 수 있는 DDL은 Replication Manual의 '이중화 대상 테이블에 DDL 실행'을 참조하기 바란다.
 
-#### LOB 데이터 타입 제약 사항
-
-- LOB 데이터 타입은  Adapter for JDBC 버전 7.1.0.7.0 부터 지원 한다. 
-- LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정한다. 
-- LOB 데이터 타입이 포함된 테이블은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
-  자세한 내용은 프로퍼티 항목을 참조하기 바란다.
-  - OTHER_DATABASE_ERROR_RETRY_COUNT 
-  - OTHER_DATABASE_SKIP_ERROR
-  - OTHER_DATABASE_BATCH_DML_MAX_SIZE
-- Altibase 서버에서 SELECT FOR UPDATE를 이용한 LOB 데이터 변경은 커밋 이후 수행할 것을 권장한다.
-- 커밋을 수행하지 않으면 아래 상황에서 SELECT FOR UPDATE로 변경한 LOB 데이터가 복제되지 않을 수 있다.
-  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 에러가 발생한 경우
-  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 OTHER_DATABASE_SKIP_ERROR, OTHER_DATABASE_SKIP_INSERT, OTHER_DATABASE_SKIP_UPDATE 프로퍼티에 의해 SKIP이 발생한 경우
-
 ### 구동과 종료
 
 이 절에서는 jdbcAdapter를 구동하고 종료하는 방법을 설명한다.
@@ -793,7 +763,7 @@ Alter success.
 
 Altibase의 데이터가 OTHER DATABASE에 JDBC를 이용하여 적용될 때, JAVA의 String형으로 변환 하여 적용된다. 단, DATE 타입은 JAVA의 Timestamp형으로 변환되어 적용 된다.
 
-지원하는 데이터 타입은 FLOAT, NUMERIC, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT, DATE, CHAR, VARCHAR, NCHAR, NVARCHAR, CLOB, BLOB 이다.
+지원하는 데이터 타입은 FLOAT, NUMERIC, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT, DATE, CHAR, VARCHAR, NCHAR, NVARCHAR이다.
 
 ### Adapter for JDBC 유틸리티
 

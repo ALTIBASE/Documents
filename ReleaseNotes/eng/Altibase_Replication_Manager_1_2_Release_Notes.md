@@ -1,4 +1,6 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Altibase Replication Manager 1.2 Release Notes](#altibase-replication-manager-12-release-notes)
   - [1.Abstract](#1abstract)
@@ -11,7 +13,13 @@
     - [2.4 Packages](#24-packages)
     - [2.5 Downloads](#25-downloads)
 
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+</br>
+
+</br>
+
+</br>
 
 Altibase Replication Manager 1.2 Release Notes
 ===============================
@@ -32,10 +40,10 @@ Altibase Replication Manager 1.2 Release Notes
 
 ### 1.2 Supported Operating Systems and Platforms
 
-| OS                 | CPU  | Graphic Library | Bit   | JRE              |
-| ------------------ | ---- | --------------- | ----- | ---------------- |
-| Windows XP Vista 7 | x86  | Win32           | 32bit | Java 6 or higher |
-| LINUX              | x86  | GTK             | 32bit | Java 6 or higher |
+| OS                 | CPU | Windows System | Bit (Client) | JRE              |
+| ------------------ | --- | -------------- | ------------ | ---------------- |
+| Windows XP Vista 7 | x86 | Win32          | 32bit        | Java 6 or higher |
+| LINUX              | x86 | GTK            | 32bit        | Java 6 or higher |
 
 ## 2. Release Information
 
@@ -61,15 +69,25 @@ Listed below are added/updated/deleted functions explanations for Replication Ma
 
 #### 2.2.1 Version Updates
 
-- Replication Manager Version: 1.2
+Replication Manager Version
+
+| Altibase Replication Manager Version |
+|:------------------------------------:|
+| 1.2                                  |
 
 #### 2.2.2 Compatibility
 
-- Altibase Version: Altibase 4.3.9 or higher
+##### Altibase Compatibility
+
+- Replication Manager : Altibase 4.3.9 or higher
 
 #### 2.2.3 Properties
 
+NONE
+
 #### 2.2.4 Error Messages
+
+NONE
 
 ### 2.3 Open Source Libraries
 
