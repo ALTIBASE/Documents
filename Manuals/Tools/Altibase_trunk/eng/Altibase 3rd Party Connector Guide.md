@@ -293,17 +293,17 @@ Find the JavaVersionChecker line in the squirrel-sql.bat or squirrel-sql.sh file
 
 Please refer to https://sourceforge.net/p/squirrel-sql/bugs/1347/
 
-#### How to lookup LOB data.
+#### How to retrieve LOB data.
 
-In the SQuirreL SQL client, LOB data can be viewed in the SQL tab or the Objects tab.
+In the SQuirreL SQL client, LOB data can be retrieved in the SQL tab or the Objects tab.
 
 | SQL                                               | Objects                                               |
 | ------------------------------------------------- | ----------------------------------------------------- |
 | ![](media/3rdPartyConnector/squirrel_lob_sql.jpg) | ![](media/3rdPartyConnector/squirrel_lob_objtree.jpg) |
 
-##### Settings for LOB data inquiry in SQuirreL SQL client
+##### Settings for LOB data retrieval in the SQuirreL SQL client
 
-This setting is a commonly required setting when searching for LOB data in the SQL tab or in the Objects tab.
+This setting is required when retrieving LOB data in the SQL tab or in the Objects tab.
 
 1. Change the Data Type Controls setting.<br>
    In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
@@ -315,7 +315,7 @@ This setting is a commonly required setting when searching for LOB data in the S
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
 
-##### Additional required settings when looking up LOB data in the Objects tab
+##### Additional required settings when retrieving LOB data in the Objects tab
 
 1. Use the Altibase HDB JDBC Driver corresponding to the version below.
    - Altibase 7.1.0.7.2 or higher
