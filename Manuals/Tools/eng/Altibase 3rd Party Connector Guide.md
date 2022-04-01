@@ -303,7 +303,7 @@ In the SQuirreL SQL client, LOB data can be retrieved in the SQL tab or the Obje
 
 ##### Settings for LOB data retrieval in the SQuirreL SQL client
 
-This setting is required when retrieving LOB data in the SQL tab or in the Objects tab.
+The following setting is required to display LOB data in the SQL tab or the Objects tab.
 
 1. Change the Data Type Controls setting.<br>
    In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
