@@ -302,18 +302,12 @@ It is recommended to use a dedicated line when using the replication feature.
 
 |                                                              | Altibase server <br /> | Altibase client <br /> | Software requirements                  |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------- |
-| **AIX on IBM Power Systems** |  |  |  |
-| AIX 6.1 | ● | ● |  |
 | **Linux x86-64**<sup>[Linux distribution](#footnote-linuxversion)</sup> |  |  |  |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8<sup>[Note before installation](#footnote-rhel8)</sup> | ● | ● | - GNU glibc 2.12 or later |
 | **Linux on Power** |  |  |  |
-| Red Hat Enterprise Linux 6.5 or later | ● | ● | - GNU glibc 2.12 or later |
+| POWER7 Red Hat Enterprise Linux 6 | ● | ● | - GNU glibc 2.12 or later |
 | **Linux on Power** **(Little Endian)** |  |  |  |
-| Red Hat Enterprise Linux 7.2 or later | ● | ● | - GNU glibc 2.17 or later |
-| **HP-UX Itanium (IA-64)** |  |  |  |
-| HP-UX 11.31 | ● | ● |  |
-| **Microsoft Windows (x64)** |  |  |  |
-| Microsoft Windows 2008 | \- | ● |  |
+| POWER8(LE) Red Hat Enterprise Linux 7 | ● | ● | - GNU glibc 2.17 or later |
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >

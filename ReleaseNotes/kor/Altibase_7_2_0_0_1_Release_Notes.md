@@ -1,4 +1,5 @@
-
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  
 
 - [Altibase 7.2.0.0.1 Release Notes](#altibase-72001-release-notes)
@@ -10,6 +11,8 @@
     - [변경 사항 및 호환성 이슈](#%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD-%EB%B0%8F-%ED%98%B8%ED%99%98%EC%84%B1-%EC%9D%B4%EC%8A%88)
     - [패키지](#%ED%8C%A8%ED%82%A4%EC%A7%80)
     - [다운로드](#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -33,14 +36,12 @@ Altibase 7.2.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 |                                                              | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항   |
 | ------------------------------------------------------------ | :-----------: | :-----------------: | :-------------------- |
-| **AIX on IBM Power Systems**                                 |               |                     |                       |
-| AIX 6.1                                                      |       ●       |          ●          |                       |
 | **Linux x86-64**                                             |               |                     |                       |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8 |       ●       |          ●          | - GNU glibc 2.12 이상 |
 | **Linux on Power**                                           |               |                     |                       |
-| Red Hat Enterprise Linux 6.5 이상                            |       ●       |          ●          | - GNU glibc 2.12 이상 |
+| Red Hat Enterprise Linux 6                                   |       ●       |          ●          | - GNU glibc 2.12 이상 |
 | **Linux on Power** **(Little Endian)**                       |               |                     |                       |
-| Red Hat Enterprise Linux 7.2 이상                            |       ●       |          ●          | - GNU glibc 2.17 이상 |
+| Red Hat Enterprise Linux 7                                   |       ●       |          ●          | - GNU glibc 2.17 이상 |
 | **HP-UX Itanium (IA-64)**                                    |               |                     |                       |
 | HP-UX 11.31                                                  |       ●       |          ●          |                       |
 | **Microsoft Windows (x64)**                                  |               |                     |                       |
@@ -553,3 +554,4 @@ http://support.altibase.com
 #### 설치
 
 [Altibase 7.2 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Installation%20Guide.md)
+
