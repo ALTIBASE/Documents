@@ -1,11 +1,9 @@
-Altibase® Tools & Utilities
-
 dataCompJ User's Manual
 ==============================
 
 ![](media/dataCompJ/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Altibase Tools & Utilities dataCompJ User's Manual
+Altibase® Tools & Utilities
 
 Release 7.2
 
@@ -20,6 +18,30 @@ This manual contains proprietary information of Altibase Corporation; it is prov
 Customer Service Portal: http://support.altibase.com/en/
 
 Homepage: http://www.altibase.com
+
+
+
+# Table of Contents
+
+- [dataCompJ User's Manual](#datacompj-users-manual)
+  - [Preface](#preface)
+- [1. Introducing dataCompJ](#1-introducing-datacompj)
+  - [Overview](#overview)
+  - [System Requirements](#system-requirements)
+- [2. Getting Started](#2-getting-started)
+  - [Terms for dataCompJ](#terms-for-datacompj)
+  - [Inconsistent Records and Synchronization Policy](#inconsistent-records-and-synchronization-policy)
+  - [Synchronization Policy](#synchronization-policy)
+- [3. How to Use dataCompJ](#3-how-to-use-datacompj)
+  - [How to run dataCompJ](#how-to-run-datacompj)
+  - [Executing dataCompJ](#executing-datacompj)
+  - [Environment File Configuration](#environment-file-configuration)
+- [4. Functions](#4-functions)
+  - [Comparison (DIFF) Function](#comparison-diff-function)
+  - [Synchronization(SYNC) Function](#synchronizationsync-function)
+- [Appendix A: Data Type compatibility table between Other Databases](#appendix-a-data-type-compatibility-table-between-other-databases)
+
+
 
 Preface
 ----
