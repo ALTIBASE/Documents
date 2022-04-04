@@ -82,18 +82,18 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 - 제 1장 dataCompJ 소개  
   이 장은 dataCompJ의 특징을 이해하고자 하는 사용자에게 이 도구를 소개하고 설치하는 방법을 설명한다.
-  
+
 - 제 2장 dataCompJ 시작하기  
   이 장은 사용자들이 dataCompJ를 좀 더 능률적이고 효율적으로 실행하는 데 도움이 되는 기본 개념을 소개한다.
-  
+
 - 제 3장 dataCompJ 사용 방법
-  
+
   이 장은 dataCompJ를 원활하게 실행하기 위한 방법과 dataCompJ의 환경 파일 설정, 설정 시 고려할 점들을 설명한다.
-  
+
 - 제 4장 dataCompJ 기능
-  
+
   이 장은 dataCompJ의 비교(DIFF) 기능과 일치(SYNC) 기능을 보다 자세히 예제와 함께 설명한다.
-  
+
 - A. 부록: 이기종간 데이터 타입 호환 테이블
 
 #### 문서화 규칙
@@ -376,7 +376,7 @@ dataCompJ 환경파일은 크게 [Connections](#connections), [Options](#options
 
 Connections는 Master DB 및 Slave DB에 접속하기 위한 정보를 기록하는 부분이다.
 
-###### \<MasterDB\> 
+###### \<MasterDB\>
 
 Master DB의 접속 정보를 기록한다. Master DB의 종류는 반드시 Altibase 데이터베이스여야 한다. 아래 XML Element는 Master DB의 하위 요소들이다.
 
@@ -398,7 +398,7 @@ Master DB 접속에 사용할 JDBC jar file이 존재하는 경로를 지정한�
 \<BatchSize\>  
 데이터베이스에 INSERT/DELETE/UPDATE와 같은 변경 작업을 수행할 때, 한 번에 수행되는 레코드 개수를 지정한다. 예를 들어 이 항목에 10을 지정하면, 10개 레코드 단위로 INSERT/DELETE/UPDATE를 수행한다. 이 항목은 선택 항목이며, 기본값은 1,000이다.
 
-###### \<SlaveDB\> 
+###### \<SlaveDB\>
 
 Slave DB의 접속 정보를 기록한다. Slave DB의 하위 요소들은 위에서 기술한 [Master DB](#masterdb)의 하위 요소들과 동일하다.
 
@@ -406,11 +406,11 @@ Slave DB의 접속 정보를 기록한다. Slave DB의 하위 요소들은 위�
 
 Options는 dataCompJ의 수행에 필요한 사용자 설정값을 입력하는 부분이다.
 
-###### \<Operation\> 
+###### \<Operation\>
 
 불일치 데이터 처리를 위한 기능을 지정하는 항목으로 비교(DIFF)나 일치(SYNC) 둘 중 하나의 기능을 선택한다.
 
-###### \<FileEncoding\> 
+###### \<FileEncoding\>
 
 dataCompJ 수행 시 생성되는 파일들의 encoding 타입을 지정한다.
 
@@ -419,17 +419,17 @@ dataCompJ 수행 시 생성되는 파일들의 encoding 타입을 지정한다.
 \<DirPath\>  
 비교(DIFF)를 수행하였을 때 비교 대상 테이블별 결과 CSV 파일이 생성되는 디렉토리 경로를 지정한다.
 
-###### \<Sync\> 
+###### \<Sync\>
 
 일치(SYNC) 기능 수행 시 옵션들
 
-\<MOSO UPDATE_TO_SLAVE="true"\>  
+\<MOSO UPDATE_TO_SLAVE="true"/\>  
 MOSO 불일치 데이터 발견 시 Master 테이블 레코드 기준으로 Slave 테이블의 레코드를 업데이트(Update)할지 여부이다. False를 선택하면 MOSO 불일치 데이터를 처리하지 않는다.
 
-\<MOSX INSERT_TO_SLAVE="true"\>  
+\<MOSX INSERT_TO_SLAVE="true"/\>  
 MOSX 불일치 데이터 발견 시 Master 테이블에만 존재하는 레코드를 Slave 테이블에 삽입(Insert)할지 여부이다. False를 선택하면 MOSX 불일치 데이터를 처리하지 않는다.
 
-\<MXSO DELETE_FROM_SLAVE="true"\>  
+\<MXSO DELETE_FROM_SLAVE="true"/\>  
 MXSO 불일치 데이터 발견 시 Master 테이블에 존재하지 않는 Slave 테이블의 레코드를 삭제(Insert)할지 여부이다. False를 선택하면 MXSO 불일치 데이터를 처리하지 않는다.
 
 ###### \<Log\>
@@ -442,7 +442,7 @@ dataCompJ 수행 시 생성되는 로그 파일들의 디렉토리 경로를 지
 \<TraceInconsistentRecord\>  
 DIFF/SYNC 수행 시 발견되는 모든 불일치 레코드의 상세 내역을 dataCompJ_data.log 파일에 기록할지 여부를 True/False 값으로 결정한다.
 
-###### \<MaxThread\> 
+###### \<MaxThread\>
 
 dataCompJ에 할당 가능한 최대 쓰레드 개수이다. 0으로 지정하는 경우, dataCompJ가 수행되는 장비의 CPU core 갯수를 MaxThread 값으로 할당한다.
 
@@ -454,7 +454,7 @@ TablePairs는 비교 대상 테이블들을 기록하는 부분이다. 비교 �
 
 비교 대상인 테이블 이름은 Master DB와 Slave DB 모두에서 허용하는 이름이어야 한다. XML 파일에 있는 테이블 이름에 공백, 특수문자 등이 있거나 대소문자를 구분해야 하는 경우 큰따옴표(")를 사용한다. 예를 들어, 비교 대상 테이블 이름이 SYS schema의 Employee 01이면, 테이블 이름이 공백을 포함하기 때문에 SYS."Employee 01"처럼 테이블 이름에 큰 따옴표를 사용한다.
 
-###### \<TablePair\> 
+###### \<TablePair\>
 
 데이터 비교 대상 단위로 하나의 Master 테이블과 하나의 Slave 테이블로 구성된다. 아래의 XML element는 TablePair의 하위 요소들이다.
 
@@ -530,9 +530,9 @@ dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “DIFF”로 지�
         <Password>altibase</Password>
     </SlaveDB>
 </Connections>
-  
+
 <Options>
-    <Operation>DIFF</Operation> 
+    <Operation>DIFF</Operation>
     <FileEncoding>UTF-8</FileEncoding>
     <Diff>
         <DirPath>./diff/</DirPath>
@@ -548,7 +548,7 @@ dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “DIFF”로 지�
     </Log>
     <MaxThread>0</MaxThread>
 </Options>
-  
+
 <TablePairs>
     <TablePair>
         <MasterTable>EX1</MasterTable>
@@ -606,18 +606,18 @@ $ cat dataCompJ_report.txt
      - Finished : 2016-12-14 16:30:04.357
      - Elapsed  : 0:00:00.691
 --------------------------------------------------------
- 
+
 [ User input information ]
 ...
- 
+
 [ Problematic table(s): 0 ]
- 
+
 [ Candidate table(s) for data comparison: 1 ]
- 
+
 1: SYS.EX1 -> ALTIBASE.EX1
     * SELECT SQL           : SELECT C1,C2,C4 FROM SYS.EX1 ORDER BY C1 ASC
-    * Excluded columns     : 
-    * Where condition      : 
+    * Excluded columns     :
+    * Where condition      :
     * N/A data type columns: C3(CLOB)
 ==========================================================
     Run
@@ -696,7 +696,7 @@ EX2 테이블은 스키마 이름과 테이블 이름을 사용자가 명시적�
     </SlaveDB>
 </Connections>
 <Options>
-    <Operation>DIFF</Operation> 
+    <Operation>DIFF</Operation>
 ...
 </Options>
 <TablePairs>
@@ -721,30 +721,30 @@ EX2 테이블은 스키마 이름과 테이블 이름을 사용자가 명시적�
      - Finished : 2016-12-14 17:06:53.679
      - Elapsed  : 0:00:00.669
 ---------------------------------------------------------------------------
- 
+
 [ User input information ]
 ...
 [ Problematic table(s): 0 ]
- 
+
 [ Candidate table(s) for data comparison: 2 ]
- 
+
 1: SYS.EX1 -> ALTIBASE.EX1
     * SELECT SQL           : SELECT C1,C2,C4 FROM SYS.EX1 ORDER BY C1 ASC
-    * Excluded columns     : 
-    * Where condition      : 
+    * Excluded columns     :
+    * Where condition      :
     * N/A data type columns: C3(CLOB)
 2: SYS.EX2 -> ALTIBASE.EX2
     * SELECT SQL           : SELECT C1,C2,C3 FROM SYS.EX2 ORDER BY C1 ASC
-    * Excluded columns     : 
-    * Where condition      : 
-    * N/A data type columns: 
+    * Excluded columns     :
+    * Where condition      :
+    * N/A data type columns:
 ===========================================================================
     Run
      - Started  : 2016-12-14 17:56:04.516
      - Finished : 2016-12-14 17:56:04.593
      - Elapsed  : 0:00:00.076
 ---------------------------------------------------------------------------
-1: SYS.EX1 -> ALTIBASE.EX1 
+1: SYS.EX1 -> ALTIBASE.EX1
  Fetched record count from MASTER:           10
  Fetched record count from SLAVE :           10
 ------------------------------------------------------
@@ -780,7 +780,7 @@ dataCompJ.xml에 EX1 테이블에 대해 주요 키가 아닌 컬럼들 중 C4 �
 <dataCompJ>
 ...
 <Options>
-    <Operation>DIFF</Operation> 
+    <Operation>DIFF</Operation>
 ...
 </Options>
 <TablePairs>
@@ -807,11 +807,11 @@ dataCompJ.xml에 EX1 테이블에 대해 주요 키가 아닌 컬럼들 중 C4 �
      - Finished : 2016-12-14 17:06:53.679
      - Elapsed  : 0:00:00.669
 ---------------------------------------------------------------------------
- 
+
 [ User input information ]
 ...
 [ Problematic table(s): 0 ]
- 
+
 [ Candidate table(s) for data comparison: 2 ]
 1: SYS.EX1 -> ALTIBASE.EX1
     * SELECT SQL           : SELECT C1,C2 FROM SYS.EX1 WHERE C1 > 5 ORDER BY C1 ASC
@@ -820,9 +820,9 @@ dataCompJ.xml에 EX1 테이블에 대해 주요 키가 아닌 컬럼들 중 C4 �
     * N/A data type columns: C3(CLOB)
 2: SYS.EX2 -> ALTIBASE.EX2
     * SELECT SQL           : SELECT C1,C2,C3 FROM SYS.EX2 ORDER BY C1 ASC
-    * Excluded columns     : 
-    * Where condition      : 
-    * N/A data type columns: 
+    * Excluded columns     :
+    * Where condition      :
+    * N/A data type columns:
 ===========================================================================
     Run
      - Started  : 2016-12-14 17:57:09.895
@@ -883,10 +883,10 @@ dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “SYNC”로 지�
     </SlaveDB>
 </Connections>
 <Options>
-    <Operation>SYNC</Operation> 
+    <Operation>SYNC</Operation>
 ...
 </Options>
-  
+
 <TablePairs>
     <TablePair>
         <MasterTable>EX1</MasterTable>
@@ -933,26 +933,26 @@ $ cat dataCompJ_report.txt
      - Finished : 2016-12-14 18:08:41.076
      - Elapsed  : 0:00:00.676
 ---------------------------------------------------------------------------
- 
+
 [ User input information ]
 ...
 [ Problematic table(s): 0 ]
- 
+
 [ Candidate table(s) for data comparison: 1 ]
- 
+
 1: SYS.EX1 -> ALTIBASE.EX1
     * SELECT SQL           : SELECT C1,C2,C4 FROM SYS.EX1 ORDER BY C1 ASC
     * Excluded columns     :
     * Where condition      :
     * N/A data type columns: C3(CLOB)
- 
+
 ===========================================================================
     Run
      - Started  : 2016-12-14 18:08:41.090
      - Finished : 2016-12-14 18:08:41.654
      - Elapsed  : 0:00:00.564
 ---------------------------------------------------------------------------
- 
+
 1: SYS.EX1 -> ALTIBASE.EX1
  Fetched record count from MASTER:           10
  Fetched record count from SLAVE :           10
@@ -984,7 +984,7 @@ Refer to the following output files for details.
  - dataCompJ_report.txt: Report file to provide summarized execution result.
  - dataCompJ.log: Log file to keep track of detailed program events during execution.
  - dataCompJ_data.log: Log file to keep track of data events during diff/sync operation as well as different record.
- 
+
 $ cat dataCompJ_report.txt
 ==========================================================
     Build
@@ -992,27 +992,27 @@ $ cat dataCompJ_report.txt
      - Finished : 2016-12-14 18:11:55.561
      - Elapsed  : 0:00:00.645
 ---------------------------------------------------------
- 
+
 [ User input information ]
 ...
- 
+
 [ Problematic table(s): 0 ]
- 
+
 [ Candidate table(s) for data comparison: 1 ]
- 
+
 1: SYS.EX1 -> ALTIBASE.EX1
     * SELECT SQL           : SELECT C1,C2,C4 FROM SYS.EX1 ORDER BY C1 ASC
     * Excluded columns     :
     * Where condition      :
     * N/A data type columns: C3(CLOB)
- 
+
 ==========================================================
     Run
      - Started  : 2016-12-14 18:11:55.580
      - Finished : 2016-12-14 18:11:56.190
      - Elapsed  : 0:00:00.610
 ---------------------------------------------------------------------------
- 
+
 1: SYS.EX1 -> ALTIBASE.EX1
  Fetched record count from MASTER:           10
  Fetched record count from SLAVE :           10
