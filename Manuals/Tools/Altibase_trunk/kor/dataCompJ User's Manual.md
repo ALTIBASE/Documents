@@ -3,7 +3,7 @@ dataCompJ User's Manual
 
 ![](media/dataCompJ/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Altibase Tools & Utilities dataCompJ User's Manual
+Altibase® Tools & Utilities
 
 Release 7.2
 
@@ -331,7 +331,7 @@ dataCompJ를 Command Line Interface (CLI)에서 수행하는 명령어는 다음
 
 **dataCompJ_env_file_path**
 
-dataCompJ 환경 파일의 경로를 의미한다. 기본값은 dataCompJ 설치 시 제공되는 기본 환경 파일인 dataCompJ.xml 파일의 경로이다.
+dataCompJ 환경 파일의 경로를 의미하며 필수 옵션이다. dataCompJ 설치 시 함께 제공되는 dataCompJ.xml 파일의 경로를 기본값으로 갖는다. 단, 사용자가 해당 파일을 수정하거나, 임의로 다른 이름의 환경 파일을 작성하여 사용하여도 된다.
 
 ### dataCompJ 수행 단계
 
@@ -341,7 +341,7 @@ dataCompJ는 사용자가 설정한 환경파일을 기반으로 동작하며, �
 
 구축 단계는 주어진 환경파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위해 초기 조사하는 단계이다. 하나의 문제라도 발견되면 이를 리포트 파일(dataCompJ_report.txt)에 출력하며 dataCompJ를 종료한다.
 
-구축 단계는 아래의 차례대로 진행된다.
+구축 단계는 아래의 순서대로 진행된다.
 
 1.  사용자가 지정한 환경파일을 읽는다.
 
@@ -423,13 +423,13 @@ dataCompJ 수행 시 생성되는 파일들의 encoding 타입을 지정한다.
 
 일치(SYNC) 기능 수행 시 옵션들
 
-\<MOSO UPDATE_TO_SLAVE="true"/\>  
+\<MOSO UPDATE_TO_SLAVE="true"\>  
 MOSO 불일치 데이터 발견 시 Master 테이블 레코드 기준으로 Slave 테이블의 레코드를 업데이트(Update)할지 여부이다. False를 선택하면 MOSO 불일치 데이터를 처리하지 않는다.
 
-\<MOSX INSERT_TO_SLAVE="true"/\>  
+\<MOSX INSERT_TO_SLAVE="true"\>  
 MOSX 불일치 데이터 발견 시 Master 테이블에만 존재하는 레코드를 Slave 테이블에 삽입(Insert)할지 여부이다. False를 선택하면 MOSX 불일치 데이터를 처리하지 않는다.
 
-\<MXSO DELETE_FROM_SLAVE="true"/\>  
+\<MXSO DELETE_FROM_SLAVE="true"\>  
 MXSO 불일치 데이터 발견 시 Master 테이블에 존재하지 않는 Slave 테이블의 레코드를 삭제(Insert)할지 여부이다. False를 선택하면 MXSO 불일치 데이터를 처리하지 않는다.
 
 ###### \<Log\>
