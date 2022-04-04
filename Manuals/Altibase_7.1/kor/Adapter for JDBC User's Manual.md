@@ -703,21 +703,21 @@ Altibase에서 실행된 DML 구문들을 데이터를 보낼 대상이 되는 O
 “Batch DML”은 같은 종류인 복수의 DML 구문을 일괄 처리하는 것을 의미한다. 이는
 네트워크 비용을 줄임으로써 성능 향상을 가져온다.
 
-단, LOB 데이터 타입이 포함된 테이블인 경우 Batch DML이 동작하지 않을 수 있다.
-
 -   기본 값: 10
-
 -   범위: 1 – 32767
 
+이 프로퍼티는 다음의 특성을 가진다.
+
+-   OTHER_DATABASE_GROUP_COMMIT 프로퍼티를 켜면 성능이 향상된다.
+-   현재 이 프로퍼티는 INSERT 와 DELETE 구문에만 영향을 준다.
 -   Batch DML을 끄려면, 이 프로퍼티를 1로 지정한다.
+-   LOB 인터페이스를 사용하여 LOB 데이터를 변경한 경우 Batch DML 기능은 동작하지 않는다.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (단위: 횟수)
 
 레코드를 반영할 때 오류가 발생할 경우 재시도 횟수를 의미한다.
 
 단, LOB 데이터를 포함한 XLog는 오류가 발생할 경우 재시도 대상에서 제외된다.
-LOB 데이터를 포함한 XLog는 여러 개의 XLog로 구성되어 있기 때문에 에러 발생시
-재시도 할 수 없다.
 
 -   기본 값: 0
 
@@ -877,12 +877,15 @@ jdbcAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수�
 
 - LOB 데이터 타입은  Adapter for JDBC 버전 7.1.0.6.9 부터 지원 한다. 
 - LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정한다. 
-- SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 트랜잭션 단위로 반영 여부를 결정하므로 이전 DML 처리 중 에러가 발생하거나 프로퍼티에 의해 반영되지 않은 경우 이후 LOB 컬럼 갱신은 반영되지 않는다. 따라서, SELECT ... FOR UPDATE를 이용한 LOB 컬럼 갱신은 Commit 후 진행 하는 것이 안전하다.
 - LOB 데이터 타입이 포함된 테이블은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
   자세한 내용은 프로퍼티 항목을 참조하기 바란다.
   - OTHER_DATABASE_ERROR_RETRY_COUNT 
   - OTHER_DATABASE_SKIP_ERROR
   - OTHER_DATABASE_BATCH_DML_MAX_SIZE
+- Altibase 서버에서 SELECT FOR UPDATE를 이용한 LOB 데이터 변경은 커밋 이후 수행할 것을 권장한다.
+- 커밋을 수행하지 않으면 아래 상황에서 SELECT FOR UPDATE로 변경한 LOB 데이터가 복제되지 않을 수 있다.
+  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 에러가 발생한 경우
+  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 OTHER_DATABASE_SKIP_ERROR, OTHER_DATABASE_SKIP_INSERT, OTHER_DATABASE_SKIP_UPDATE 프로퍼티에 의해 SKIP이 발생한 경우
 
 ### 구동과 종료
 
@@ -958,7 +961,7 @@ String형으로 변환 하여 적용된다. 단, DATE 타입은 JAVA의 Timestam
 되어 적용 된다.
 
 지원하는 데이터 타입은 FLOAT, NUMERIC, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT,
-DATE, CHAR, VARCHAR, NCHAR, NVARCHAR이다.
+DATE, CHAR, VARCHAR, NCHAR, NVARCHAR, CLOB, BLOB 이다.
 
 ### Adapter for JDBC 유틸리티
 
