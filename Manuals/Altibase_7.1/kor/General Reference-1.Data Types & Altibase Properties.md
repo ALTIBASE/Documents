@@ -11626,9 +11626,13 @@ Unsigned Integer
 
 ##### 설명
 
-DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 이중화 지역, 원격 서버 모두 취소된다.
-DDL 복제를 수행하는 이중화 지역서버를 기준으로 Timeout 값이 측정된다.
+DDL 복제를 실행할 때, DDL 수행 시간이 이 프로퍼티에서 설정한 시간을 초과하면 해당 DDL 구문은 지역 서버, 원격 서버에서 모두 롤백 된다. 
+DDL 복제 시 테이블 잠금 획득 실패(DDL_LOCK_TIMEOUT)와 같이 재시도 가능한 에러가 발생하면 이 프로퍼티에서 설정한 시간 동안 DDL 복제를 재시도한다[^REPLICATION_DDL_SYNC_TIMEOUT#1].
+DDL 복제 대상 구문의 수행 시간은 DDL_TIMEOUT 프로퍼티와 REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 중 더 작은 값에 영향을 받는다. 
+
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+
+[^REPLICATION_DDL_SYNC_TIMEOUT#1]: DDL 복제 재시도 기능은 7.1.0.6.5 이상에서 지원된다.
 
 #### REPLICATION_EAGER_PARALLEL_FACTOR
 
