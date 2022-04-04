@@ -411,13 +411,13 @@ This is used to specify the directory path in which a CSV file is created as a r
 
 The followings are options for executing the synchronization(SYNC) function.
 
-\<MOSO UPDATE_TO_SLAVE="true"\>  
+\<MOSO UPDATE_TO_SLAVE="true"/\>  
 This option specifies whether or not to update records in the slave table based on records in the master table if MOSO inconsistent data is detected. If it is set to 'false', the MOSO inconsistent data will not be processed.
 
-\<MOSX INSERT_TO_SLAVE="true"\>  
+\<MOSX INSERT_TO_SLAVE="true"/\>  
 This option specifies whether or not to insert the records which exist only in the master table into the slave table if MOSX inconsistent data is detected. If it is set to 'false', the MOSO inconsistent data will not be processed.
 
-\<MXSO DELETE_FROM_SLAVE="true"\>  
+\<MXSO DELETE_FROM_SLAVE="true"/\>  
 This option specifies whether or not to delete the records in slave table which does not exist in the master table if MXSO inconsistent is detected. If it is set to 'false', the MOSO inconsistent data will not be processed.
 
 ###### \<Log\>
@@ -1064,7 +1064,7 @@ If the column data type of the table to be compared is a data type supported by 
 | NUMERIC  | DECIMAL                                       |                                                              |
 | REAL     | FLOAT                                         |                                                              |
 | DOUBLE   | DOUBLE                                        |                                                              |
-| FLOAT    | N/A                                           | Data type corresponding to Altibase Float type does not exist in MariaDB. |
+| FLOAT    | N/A                                           | Data type corresponding to Altibase FLOAT does not exist in MariaDB. |
 | DATE     | DATE, DATETIME, TIMESTAMP                     | - DATE-DATE: Since MariaDB DATE supports up to YYYY-MM-DD, only the according part is extracted from Altibase DATE and compared.<br>- DATE-DATETIME: Since MariaDB DATETIME supports up to YYYY-MM-DD HH: MM: SS, only the according part is extracted from Altibase DATE and compared.<br>- DATE-TIMESTAMP: Since MariaDB TIMESTAMP supports up to YYYY-MM-DD HH: MM: Microseconds 0-6 (default: 0), only the according part is extracted from Altibase DATE and compared. |
 | CHAR     | CHAR                                          |                                                              |
 | VARCHAR  | VARCHAR, TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT |                                                              |
