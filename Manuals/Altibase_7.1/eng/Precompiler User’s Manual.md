@@ -10431,5 +10431,4 @@ I am running HP-UX 11.0 on an HP L class server.
 
 Change the order in which the -lodbccli and -lapre link options are specified.
 
-[^1]: this this
-
+[^Change the order in which the -lodbccli and -lapre link options are specified.]: this this
