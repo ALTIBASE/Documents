@@ -331,7 +331,7 @@ dataCompJ를 Command Line Interface (CLI)에서 수행하는 명령어는 다음
 
 **dataCompJ_env_file_path**
 
-dataCompJ 환경 파일의 경로를 의미하며 필수 옵션이다. dataCompJ 설치 시 함께 제공되는 dataCompJ.xml 파일의 경로를 기본값으로 갖는다. 단, 사용자가 해당 파일을 수정하거나, 임의로 다른 이름의 환경 파일을 작성하여 사용하여도 된다.
+dataCompJ 환경 파일의 경로를 의미하며 필수 옵션이다. dataCompJ 설치 시 dataCompJ.xml 이라는 환경 파일을 제공한다. 사용자는 이 파일을 이용하거나 새로운 이름의 환경 파일을 사용할 수 있다.
 
 ### dataCompJ 수행 단계
 
