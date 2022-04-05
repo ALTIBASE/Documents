@@ -1753,11 +1753,8 @@ dataCompJ는 환경파일에 사용자가 지정한 테이블들을 대상으로
 
 ##### 소프트웨어 요구사항
 
--   Oracle database를 Slave DB로 사용하는 경우:  
-    Oracle 또는 IBM Java 5 이상의 Java Runtime Environment (JRE)
-
--   MariaDB를 Slave DB로 사용하는 경우:  
-    Oracle 또는 IBM Java 6 이상의 Java Runtime Environment (JRE)
+-   Oracle, OpenJDK 또는 IBM Java Runtime Environment 8 이상
+    
 
 dataCompJ는 순수 자바 애플리케이션이기 때문에 하드웨어 및 운영 체제에 상관없이 독립적으로 실행되지만, 자바 런타임 환경(JRE)에 의존적이다. 따라서 환경에 맞는 JRE를 설치해야 한다. 또한 설치된 자바의 경로를 가리키는 JAVA_HOME 환경변수가 설정되어 있어야 한다.
 
@@ -2865,11 +2862,11 @@ altiMon은 주로 OS 정보와 DB 정보를 모니터링하며, 자세한 설명
 altiMon은 OS 정보를 수집하기 위해 C언어로 작성된 PICL 라이브러리를 사용한다.
 PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
-| OS    | CPU                   | Version                           | PICL Library                     |
-| ----- | --------------------- | --------------------------------- | -------------------------------- |
-| AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1          | aix-ppc64-5.so                   |
-| HP-UX | ia64                  | IA64                              | hpux-ia64-11.sl                  |
-| LINUX | X86_64</br> ppc64(le) | OS Version 2.6</br> glibc 2.5이상 | linux-x64.so </br>linux-ppc64.so |
+| OS    | CPU                   | Version                             | PICL Library                     |
+| ----- | --------------------- | ----------------------------------- | -------------------------------- |
+| AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1            | aix-ppc64-5.so                   |
+| HP-UX | ia64                  | IA64                                | hpux-ia64-11.sl                  |
+| LINUX | X86_64</br> ppc64(le) | OS Version 2 ~ 4</br> glibc 2.5이상 | linux-x64.so </br>linux-ppc64.so |
 
 지원하지 않는 OS 버전에서 아래 방법으로 하위 버전용 PICL이 동작하는지를 확인한 후에 사용할 수도 있다.
 
@@ -2902,7 +2899,7 @@ PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
 
 ##### 주의사항
 
-altiMon은 java 1.5 이상에서 동작한다.
+altiMon은 Java 8 이상에서 동작한다.
 
 Java 버전은 PICL C 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL C 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
 
@@ -2922,7 +2919,7 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 
 | 태그 이름                                               | 필수 여부 | 설명                                                         |
 | ------------------------------------------------------- | --------- | ------------------------------------------------------------ |
-| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL c 라이브러리가 없는 경우에 false로 지정한다. |
+| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL C 라이브러리가 없는 경우에 false로 지정한다. |
 | \<DateFormat\>                                          | 옵션      | 로그 기록시 사용할 날짜 시간 포맷 기본값: yyyy-MM-dd HH:mm:ss 설정 가능한 날짜 형식은 [자바 문서](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html) 참조한다. |
 | \<Interval\>                                            | 옵션      | 데이터 수집 주기. 기본값: 60 (초) \<OSMetric\>또는 \<SQLMetric\> 설정 부분에 Interval을 지정하지 않으면 여기에 설정한 값이 적용된다. 단, \<GroupMetric\>은 영향을 받지 않는다. |
 | \<LogDir\>                                              | 옵션      | 별도의 디스크 사용시 설정하면 된다. 설정하지 않으면 아래의 디렉토리가 기본으로 설정된다. \$ALTIBASE_HOME/altiMon/logs |

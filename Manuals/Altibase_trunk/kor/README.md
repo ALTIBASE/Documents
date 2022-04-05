@@ -1,4 +1,4 @@
-# Altibase Korean manuals(Trunk)
+# Altibase Trunk Korean manuals
 
 ## New Features
 

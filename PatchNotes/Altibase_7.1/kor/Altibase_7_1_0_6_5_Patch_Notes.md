@@ -1,6 +1,10 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+# Altibase 7.1.0.6.5 Patch Notes
+
+<br/>
+
+<br/>
+
+# **Table of Contents**  
 
 - [Altibase 7.1.0.6.5 Patch Notes](#altibase-71065-patch-notes)
   - [New Features](#new-features)
@@ -9,6 +13,7 @@
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-48756 AUTOCOMMIT OFF 모드에서 메타 테이블을 조회하는 SQL 문 수행 후 일반 테이블을 접근하는 SQL 문 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-48756autocommit-off-%EB%AA%A8%EB%93%9C%EC%97%90%EC%84%9C-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EC%A1%B0%ED%9A%8C%ED%95%98%EB%8A%94-sql-%EB%AC%B8-%EC%88%98%ED%96%89-%ED%9B%84-%EC%9D%BC%EB%B0%98-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EC%A0%91%EA%B7%BC%ED%95%98%EB%8A%94-sql-%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-49141 이중화 객체 관련한 DDL문 유효성 검사에서 사용하는 메모리 관리자를 올바르게 변경합니다.](#bug-49141%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B0%9D%EC%B2%B4-%EA%B4%80%EB%A0%A8%ED%95%9C-ddl%EB%AC%B8-%EC%9C%A0%ED%9A%A8%EC%84%B1-%EA%B2%80%EC%82%AC%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%98%AC%EB%B0%94%EB%A5%B4%EA%B2%8C-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49418 날짜시간 함수 DATEDIFF 동작을 매뉴얼 설명에 맞춰 date_field_name가 SECOND 일 때 결과가 2144448000초를 초과하는 경우 에러가 발생하도록 변경합니다.](#bug-49418-날짜시간-함수-datediff-동작을-매뉴얼-설명에-맞춰-date_field_name가-second-일-때-결과가-2144448000초를-초과하는-경우-에러가-발생하도록-변경합니다)
     - [BUG-49424 지역 서버와 원격 서버 간 이중화 대상 테이블의 컬럼 수가 다른 경우 원격 서버에서 복제 트랜잭션 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49424%EC%A7%80%EC%97%AD-%EC%84%9C%EB%B2%84%EC%99%80-%EC%9B%90%EA%B2%A9-%EC%84%9C%EB%B2%84-%EA%B0%84-%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%EC%BB%AC%EB%9F%BC-%EC%88%98%EA%B0%80-%EB%8B%A4%EB%A5%B8-%EA%B2%BD%EC%9A%B0-%EC%9B%90%EA%B2%A9-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-%EB%B3%B5%EC%A0%9C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%88%98%ED%96%89-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
@@ -20,11 +25,8 @@
 
 
 
-Altibase 7.1.0.6.5 Patch Notes
-==============================
-
 New Features
-------------
+============
 
 ### BUG-49330 집합 연산자를 포함한 WITH 절 또는 VIEW 의 실행 계획을 개선합니다.
 
@@ -171,9 +173,51 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **설명** : DDL 복제 실행 시 테이블 잠금 획득 실패 또는 교착 상태(deadlock)를 사유로 일시적으로 DDL 수행이 실패하는 경우, 재시도하는 기능을 추가합니다. 일시적인 DDL 실패 상황 발생 시 REPLICATION\_DDL\_SYNC\_TIMEOUT 프로퍼티 시간 동안 DDL 복제 실행을 재시도합니다.
+-   **설명** : 
     
-    이 기능 추가로 이중화 프로토콜 버전의 패치 버전이 7.4.6 에서 7.4.7 로 변경되었습니다. 따라서, DDL 복제 기능 사용하는 경우 이중화 프로토콜 버전 세 자리가 모두 일치해야하므로 이 버그는 모든 이중화 대상 서버에 모두 적용해야 합니다.
+    이 버그는 아래 조건을 모두 만족하는 이중화 환경에 적용되는 버그입니다. 
+    
+    - REPLICATION_DDL_SYNC = 1
+    - REPLICATION_DDL_ENABLE = 1
+    
+    **DDL 복제 실패 시 재시도 기능 추가**
+    
+    DDL 복제 과정에서 테이블 잠금 획득 실패 또는 교착 상태(deadlock)를 사유로 일시적으로 DDL 수행이 실패하는 경우 재시도하는 기능을 추가합니다.
+    
+    이 버그 반영 전/후 Altibase 7.1 버전 별 동작 차이는 아래와 같습니다. 
+    
+    - Altibase 7.1.0.6.4 이하
+      
+      일시적인 DDL 실패 발생 즉시 DDL 복제를 중단합니다.
+      
+    - Altibase 7.1.0.6.5 이상
+      
+      일시적인 DDL 실패 발생 시 REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 시간 동안 DDL 복제 실행을 재시도합니다. REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 시간 동안 성공하지 못한 경우 DDL 복제를 중단합니다. 
+    
+    **이중화 프로토콜 버전 변경**  
+    이중화 기능 추가로 이중화 프로토콜 버전의 패치 버전이 7.4.6에서 7.4.7로 변경되었습니다. 
+    DDL 복제 기능은 이중화 대상 서버의 이중화 프로토콜 버전 세 자리가 모두 일치해야 합니다. 
+    
+    **패치 시 주의 사항**
+    
+    패치 작업 시 이중화 DDL 복제 기능을 중단해야 합니다. 
+    
+    Altibase 7.1.0.6.4 이하 버전과 Altibase 7.1.0.6.5 이상 버전 간 이중화 DDL 복제 기능을 사용할 수 없습니다. 
+    이 버그를 모든 이중화 대상 서버에 적용 후 DDL 복제 기능을 사용해야 합니다.
+    
+    이중화 프로토콜 버전이 다른 Altibase 서버 간 이중화 DDL 복제 수행 시 아래와 같은 로그가 기록됩니다. 
+    
+    - Altibase 클라이언트 에러
+    
+      ```
+      ERR-61186 : A DDL synchronization receives the error message from the remote server (REPLICATION_NAME : Different replication protocols).]
+      ```
+    
+    - Altibase 서버 트레이스 로그(altibase_rp.log)
+    
+      ```
+      [DDLSyncManager] DDL sync failure : Different replication protocols 
+      ```
     
 -   **재현 방법**
 
@@ -193,7 +237,7 @@ New Features
     -   Error Code
 
 Fixed Bugs
-----------
+==========
 
 ### BUG-48756 AUTOCOMMIT OFF 모드에서 메타 테이블을 조회하는 SQL 문 수행 후 일반 테이블을 접근하는 SQL 문 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.
 
@@ -248,6 +292,53 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+### BUG-49418 날짜시간 함수 DATEDIFF 동작을 매뉴얼 설명에 맞춰 date_field_name가 SECOND 일 때 결과가 2144448000초를 초과하는 경우 에러가 발생하도록 변경합니다.
+
+-   **module** : qp
+
+-   **Category** : Functionality
+
+-   **재현 빈도** : Always
+
+-   **설명** : DATEDIFF함수의 세 번째 인자 *date_field_name*가 SECOND 인 경우, enddate와 startdate의 차가 평년(365일)을 기준으로 68년인 2144448000초를 초과하면 에러가 발생하도록 변경되었습니다. 
+
+    > 참고 : [Altibase 7.1 SQL Reference - DATEDIFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#datediff)
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+        ```sql
+        SELECT DATEDIFF('27-SEP-2005', '30-DEC-2074', 'SECOND') FROM DUAL;
+        ```
+
+    -   **수행 결과**
+
+        ```sql
+        DATEDIFF('27-SEP-2005','30-DEC-2074','SECO 
+        ---------------------------------------------
+        2185574400           
+        1 row selected.
+        ```
+
+    -   **예상 결과**
+
+        ```sql
+        [ERR-2102D : The interval between startdate and enddate exceeded 68 years. 
+        0001 : SELECT DATEDIFF('27-SEP-2005', '30-DEC-2074', 'SECOND') FROM DUAL
+                     ^                                               ^
+        ]
+        ```
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
 ### BUG-49424 지역 서버와 원격 서버 간 이중화 대상 테이블의 컬럼 수가 다른 경우 원격 서버에서 복제 트랜잭션 수행 시 Altibase 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : rp
@@ -280,7 +371,7 @@ Fixed Bugs
     -   Error Code
 
 Changes
--------
+=======
 
 ### Version Info
 

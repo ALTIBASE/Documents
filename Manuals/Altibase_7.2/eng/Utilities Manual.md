@@ -1615,11 +1615,8 @@ This section describes system requirement specification for installing dataCompJ
 
 ##### Software Requirements
 
--   When using Oracle database as a slave DB :  
-    Java Runtime Environment (JRE) later than Oracle or IBM Java 5
-
--   When using MariaDB database as a slave DB :  
-    Java Runtime Environment (JRE) later than Oracle or IBM Java 6
+-   Oracle, OpenJDK or IBM Java Runtime Environment 8 or higher
+    
 
 Note that dataCompJ can be performed independently regardless of hardware and operation system since it is a pure JAVA application; however, it is dependent upon the JAVA Runtime Environment (JRE). Therefore, JRE appropriate for the work environment should be installed. Also, the JAVA_HOME environment variable indicating installed JAVA directory should be configured.
 
@@ -2705,7 +2702,7 @@ altiMon uses PICL library written in C language in order to collect information 
 | ----- | --------------------- | --------------------------------- | -------------------------------- |
 | AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1          | aix-ppc64-5.so                   |
 | HP-UX | ia64                  | IA64                              | hpux-ia64-11.sl                  |
-| LINUX | X86_64</br> ppc64(le) | OS Version 2.6</br> glibc 2.5 or later | linux-x64.so </br>linux-ppc64.so |
+| LINUX | X86_64</br> ppc64(le) | OS Version 2 ~ 4</br> glibc 2.5 or later | linux-x64.so </br>linux-ppc64.so |
 
 it can also be used after checking whether the PICL for the lower version works on the OS version that is not supported.
 
@@ -2738,9 +2735,9 @@ $ altimon.sh start
 
 ##### Notes
 
-altiMon requires java 1.5 version or above to operate.
+altiMon requires Java 8 version or above to operate.
 
-The user should select the Java version equivalent to the number of bits of the PICL c library. For example, if the PICL c library is linux x64, 64bit Java should be used.
+The user should select the Java version equivalent to the number of bits of the PICL C library. For example, if the PICL C library is linux x64, 64bit Java should be used.
 
 #### Setting altiMon Configuration 
 
@@ -2758,7 +2755,7 @@ This file configures Altibase access and altiMon control information.
 
 | Tag Name                                                | Status    | Description                                                  |
 | ------------------------------------------------------- | --------- | ------------------------------------------------------------ |
-| \<Altimon Name='String' monitorOsMetric="true\|false"\> | Mandatory | The monitorOsMetric attribute specifies whether or not to measure the OsMetrics. Default Value: TRUE It should be set to false when there is no PICL c library that can be compatible to the user environment. |
+| \<Altimon Name='String' monitorOsMetric="true\|false"\> | Mandatory | The monitorOsMetric attribute specifies whether or not to measure the OsMetrics. Default Value: TRUE It should be set to false when there is no PICL C library that can be compatible to the user environment. |
 | \<DateFormat\>                                          | Optional  | tag. Date and time format when recording logs. Default Value : yyyy-MM-dd HH:mm:ss Refer to the Java Document for the date format which is available to select. |
 | \<Interval\>                                            | Optional  | Data collection cycle. Default Value : 60(sec) The specified values are applied unless intervals are specified in the  settings, or .However, the  is not affected. |
 | \<LogDir\>                                              | Optional  | tag should be specified when using an extra disk;otherwise, the following directory would be set to default as following: $ALTIBASE_HOME/altiMon/logs |

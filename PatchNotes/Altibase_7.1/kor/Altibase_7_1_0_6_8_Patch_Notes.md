@@ -159,37 +159,37 @@ Fixed Bugs
 
 -   **재현 빈도** : Rare
 
--   **설명** : 
+-   **설명** :
 
--   REPLICATION_DDL_ENABLE = 1 설정한 이중화 환경에서, 아래 2가지 작업을 순차적으로 수행한 이후에 ERR-11058 에러 발생하며 이중화가 중지되는 현상을 수정합니다.  
+-   REPLICATION_DDL_ENABLE = 1 설정한 이중화 환경에서, 아래 2가지 작업을 순차적으로 수행한 이후에 ERR-11058 에러 발생하며 이중화가 중지되는 현상을 수정합니다.
 
     1. 이중화 대상 테이블에 DDL 수행
     2. ALTER REPLICATION ~ ADD TABLE 수행. (ADD TABLE 대상은 DDL을 수행한 테이블 뿐 아니라 이중화 대상 테이블은 모두 해당)
 
-    이 버그 현상 발생 시 altibase_rp.log에 아래와 같은 로그가 출력됩니다. 
+    이 버그 현상 발생 시 altibase_rp.log에 아래와 같은 로그가 출력됩니다.
 
-    ERR-11058(errno=0) The row already exists in a unique index.<br/>
-    ERR-610f8(errno=0) [Sender] Failed to add a XLog [TID:-1603452059, SN:133280338892, Type:2, Log Type:1, Change Log Type:0]<br/>
+    ERR-11058(errno=0) The row already exists in a unique index.
+
+    ERR-610f8(errno=0) [Sender] Failed to add a XLog [TID:-1603452059, SN:133280338892, Type:2, Log Type:1, Change Log Type:0]
+
     ERR-61014(errno=0) [Sender] Failed to make XLOG in a log file at SN[133280338892]
 
-    이 버그 현상 발생 시 이중화 객체를 DROP 후 재생성해야 합니다. 
+    이 버그 현상 발생 시 이중화 객체를 DROP 후 재생성해야 합니다.
 
 -   **재현 방법**
 
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
+    - **재현 절차**
+    - **수행 결과**
+    - **예상 결과**
 
 -   **Workaround**
 
 -   **변경사항**
 
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
+    - Performance view
+    - Property
+    - Compile Option
+    - Error Code
 
 ### BUG-49373 REMOTE\_TABLE 또는 REMOTE\_TABLE\_STORE 키워드로 조회한 CHAR/VARCHAR 타입의 데이터를 로컬 DB에 입력 시 invalid data type length 에러가 발생합니다.
 
