@@ -96,6 +96,7 @@
     - [DBMS_RECYCLEBIN Package](#dbms_recyclebin-package)
     - [DBMS_SQL](#dbms_sql)
     - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
+    - [DBMS_STANDARD](#dbms_standard)
     - [DBMS_STATS](#dbms_stats)
     - [DBMS_UTILITY](#dbms_utility)
     - [STANDARD](#standard)
@@ -12280,6 +12281,89 @@ iSQL> exec proc1;
 Execute success.
 ```
 
+### DBMS_SQL_PLAN_CACHE
+
+DBMS_SQL_PLAC_CACHE provides the two following stored procedures which keeps or removes the specified execution plan in SQL Plan Cache.
+
+| Procedures/Functions | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| KEEP_PLAN            | Keeps the specified execution plan in SQL Plan Cache.        |
+| UNKEEP_PLAN          | Disables the execution plan registered by KEEP_PLAN stored procedure. The disabled execution plan can be removed from SQL Plan Cache by check-in method. |
+
+#### KEEP_PLAN
+
+This procedure excludes the execution plan received as an input parameter from the SQL Plan Cache replacement target and keeps in the KEEP state in SQL Plan Cache. However, when the execution plan becomes invalid for example due to Rebuild,  it is changed to the UNKEEP state. SQL_TEXT_ID of SQL statements that want to keep the execution plan in KEEP state can be found on the SQL_TEXT_ID column and SQL_TEXT column in V$SQL_PLAN_CACHE_SQLTEXT. All Child PCOs which have this SQL_TEXT_ID as Parent PCO maintain a KEEP state. The KEEP status of Parent PCO can be found on the  PLAN_CACHE_KEEP column in V$SQL_PLAN_CACHE_SQLTEXT, and for Child PCO, it can be found on the PLAN_CACHE_KEEP column in V$SQL_PLAN_CACHE_PCO. To release the KEEP state of the execution plan, use the UNKEEP_PLAN storage procedure.
+
+##### Syntax
+
+```
+DBMS_SQL_PLAN_CACHE.KEEP_PLAN(sql_text_id);
+```
+
+##### Parameter
+
+| Name        | In/Output | Data Type   | Description                                       |
+| ----------- | --------- | ----------- | ------------------------------------------------- |
+| sql_text_id | IN        | VARCHAR(64) | The identifier of SQL statement in SQL Plan Cache |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Exception
+
+Does not occur any exceptions.
+
+##### Example
+
+```
+iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE SQL_TEXT LIKE 'select count%';
+SQL_TEXT_ID
+------------------------
+00510
+1 rows selected.
+
+iSQL> EXEC DBMS_SQL_PLAN_CACHE.KEEP_PLAN('00510');
+Execute success.
+```
+
+#### UNKEEP_PLAN
+
+This procedure release the KEEP state of the execution plan received as an input parameter. The released execution plan can be deleted from SQL Plan Cache according to the SQL Plan Cache management policy and check-in method.
+
+##### Syntax
+
+```
+DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN(sql_text_id);
+```
+
+##### Parameter
+
+| Name        | In/Output | Data Type   | Description                                       |
+| ----------- | --------- | ----------- | ------------------------------------------------- |
+| sql_text_id | IN        | VARCHAR(64) | The identifier of SQL statement in SQL Plan Cache |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Exception
+
+Does not occur any exceptions.
+
+##### Example
+
+```
+iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE PLAN_CACHE_KEEP = 'KEEP';
+SQL_TEXT_ID
+------------------------
+00510
+1 row selected.
+
+iSQL> EXEC DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN('00510');
+Execute success.
+```
+
 ### DBMS_STANDARD
 
 DBMS_STANDARD package provides various sub programs that can be used without specifying the name of the package.
@@ -12485,89 +12569,6 @@ TMP.C1
 UPDATE-C1
 OTHER
 2 rows selected.
-```
-
-### DBMS_SQL_PLAN_CACHE
-
-DBMS_SQL_PLAC_CACHE provides the two following stored procedures which keeps or removes the specified execution plan in SQL Plan Cache.
-
-| Procedures/Functions | Description                                                  |
-| -------------------- | ------------------------------------------------------------ |
-| KEEP_PLAN            | Keeps the specified execution plan in SQL Plan Cache.        |
-| UNKEEP_PLAN          | Disables the execution plan registered by KEEP_PLAN stored procedure. The disabled execution plan can be removed from SQL Plan Cache by check-in method. |
-
-#### KEEP_PLAN
-
-This procedure excludes the execution plan received as an input parameter from the SQL Plan Cache replacement target and keeps in the KEEP state in SQL Plan Cache. However, when the execution plan becomes invalid for example due to Rebuild,  it is changed to the UNKEEP state. SQL_TEXT_ID of SQL statements that want to keep the execution plan in KEEP state can be found on the SQL_TEXT_ID column and SQL_TEXT column in V$SQL_PLAN_CACHE_SQLTEXT. All Child PCOs which have this SQL_TEXT_ID as Parent PCO maintain a KEEP state. The KEEP status of Parent PCO can be found on the  PLAN_CACHE_KEEP column in V$SQL_PLAN_CACHE_SQLTEXT, and for Child PCO, it can be found on the PLAN_CACHE_KEEP column in V$SQL_PLAN_CACHE_PCO. To release the KEEP state of the execution plan, use the UNKEEP_PLAN storage procedure.
-
-##### Syntax
-
-```
-DBMS_SQL_PLAN_CACHE.KEEP_PLAN(sql_text_id);
-```
-
-##### Parameter
-
-| Name        | In/Output | Data Type   | Description                                       |
-| ----------- | --------- | ----------- | ------------------------------------------------- |
-| sql_text_id | IN        | VARCHAR(64) | The identifier of SQL statement in SQL Plan Cache |
-
-##### Return Value
-
-Because it is a stored procedure, there is no return value.
-
-##### Exception
-
-Does not occur any exceptions.
-
-##### Example
-
-```
-iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE SQL_TEXT LIKE 'select count%';
-SQL_TEXT_ID
-------------------------
-00510
-1 rows selected.
-
-iSQL> EXEC DBMS_SQL_PLAN_CACHE.KEEP_PLAN('00510');
-Execute success.
-```
-
-#### UNKEEP_PLAN
-
-This procedure release the KEEP state of the execution plan received as an input parameter. The released execution plan can be deleted from SQL Plan Cache according to the SQL Plan Cache management policy and check-in method.
-
-##### Syntax
-
-```
-DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN(sql_text_id);
-```
-
-##### Parameter
-
-| Name        | In/Output | Data Type   | Description                                       |
-| ----------- | --------- | ----------- | ------------------------------------------------- |
-| sql_text_id | IN        | VARCHAR(64) | The identifier of SQL statement in SQL Plan Cache |
-
-##### Return Value
-
-Because it is a stored procedure, there is no return value.
-
-##### Exception
-
-Does not occur any exceptions.
-
-##### Example
-
-```
-iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE PLAN_CACHE_KEEP = 'KEEP';
-SQL_TEXT_ID
-------------------------
-00510
-1 row selected.
-
-iSQL> EXEC DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN('00510');
-Execute success.
 ```
 
 ### DBMS_STATS
@@ -14592,7 +14593,7 @@ Returns  the VARCHAR type result value including response code and message of th
 
 Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. OPEN_CONNECTION function has to be called first in order to call the QUIT function.
 
-##### 예제
+##### Example
 
 ```
 CREATE OR REPLACE PROCEDURE PROC1

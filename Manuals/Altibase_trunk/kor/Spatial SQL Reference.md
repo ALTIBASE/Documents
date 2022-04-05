@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Spatial SQL Reference](#spatial-sql-reference)
@@ -38,7 +37,7 @@
     - [Geometry 참조 테이블](#geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
     - [관련 저장 프로시저](#%EA%B4%80%EB%A0%A8-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 
@@ -4377,25 +4376,28 @@ PROJ4TEXT 문법은 PROJ 라이브러리 버전 4 형식만 지원한다.
 ##### 예제
 
 ```
-iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), 4326 )) as geometry;
-GEOMETRY                                                                                                                                                                                                                                                          
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SRID=4326;POINT(127.0246 37.5326)                                                                                                                                                                                                                                 
+iSQL> SELECT ST_ASEWKT(ST_TRANSFORM(ST_POINTFROMTEXT('POINT(958003.59712966 1948254.75875841)', 5178), 4326 )) AS GEOMETRY;
+GEOMETRY                                                                                                                           
+-------------------------------------------------------------------------------------------
+SRID=4326;POINT(127.0246 37.5326)                                                                                                                 
 1 row selected.
-iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)', 5178), '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
-GEOMETRY                                                                                                                                                                                                                                                          
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+
+iSQL> SELECT ST_ASEWKT(ST_TRANSFORM(ST_POINTFROMTEXT('POINT(958003.59712966 1948254.75875841)', 5178), '+PROJ=LONGLAT +ELLPS=WGS84 +DATUM=WGS84 +NO_DEFS' )) AS GEOMETRY;
+GEOMETRY                                                                                                                             
+-------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
 1 row selected.
-iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' )) as geometry;
-GEOMETRY                                                                                                                                                                                                                                                          
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+
+iSQL> SELECT ST_ASEWKT(ST_TRANSFORM(ST_POINTFROMTEXT('POINT(958003.59712966 1948254.75875841)'), '+PROJ=TMERC +LAT_0=38 +LON_0=127.5 +K=0.9996 +X_0=1000000 +Y_0=2000000 +ELLPS=BESSEL +UNITS=M +NO_DEFS', '+PROJ=LONGLAT +ELLPS=WGS84 +DATUM=WGS84 +NO_DEFS' )) AS GEOMETRY;
+GEOMETRY                                                                                                                             
+--------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
 1 row selected.
-iSQL> select st_asewkt(st_transform(st_pointfromtext('POINT(958003.59712966 1948254.75875841)'), '+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs', 4326 )) as geometry;
-GEOMETRY                                                                                                                                                                                                                                                          
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SRID=0;POINT(127.0246 37.5326)                                                                                                                                                                                                                                    
+
+iSQL> SELECT ST_ASEWKT(ST_TRANSFORM(ST_POINTFROMTEXT('POINT(958003.59712966 1948254.75875841)'), '+PROJ=TMERC +LAT_0=38 +LON_0=127.5 +K=0.9996 +X_0=1000000 +Y_0=2000000 +ELLPS=BESSEL +UNITS=M +NO_DEFS', 4326 )) AS GEOMETRY;
+GEOMETRY                                                                                                                              
+--------------------------------------------------------------------------------------------
+SRID=0;POINT(127.0246 37.5326)                                                                                                                  
 1 row selected.
 ```
 

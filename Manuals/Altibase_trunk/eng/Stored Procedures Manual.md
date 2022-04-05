@@ -95,12 +95,16 @@
     - [DBMS_RANDOM](#dbms_random)
     - [DBMS_RECYCLEBIN Package](#dbms_recyclebin-package)
     - [DBMS_SQL](#dbms_sql)
+    - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
+    - [DBMS_STANDARD](#dbms_standard)
     - [DBMS_STATS](#dbms_stats)
     - [DBMS_UTILITY](#dbms_utility)
     - [STANDARD](#standard)
+    - [SYS_SPATIAL](#sys_spatial)
     - [UTL_COPYSWAP](#utl_copyswap)
     - [UTL_FILE](#utl_file)
     - [UTL_RAW](#utl_raw)
+    - [UTL_SMTP](#utl_smtp)
     - [UTL_TCP](#utl_tcp)
   - [Appendix A. Examples](#appendix-a-examples)
     - [Stored Procedure Examples](#stored-procedure-examples)
@@ -9939,12 +9943,16 @@ Altibase provides the system-defined Stored packages as follows.
 | [DBMS_RANDOM](#dbms_random)                          | Creates arbitrary numbers.                                   |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | Can completely purge the tables which has been dropped and managed in the recycle bin. |
 | [DBMS_SQL](#dbms_sql)                                | Provides procedures and functions utilizing dynamic SQL.     |
+| [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)          | Provides two stored procedures which keeps or removes the specified execution plan in SQL Plan Cache. |
+| [DBMS_STANDARD](#dbms_standard)                      | Provides various default sub programs                        |
 | [DBMS_STATS](#dbms_stats)                            | Package views and modifies the stats information             |
 | [DBMS_UTILITY](#dbms_utility)                        | Provides various utility subprograms.                        |
 | [STANDARD](#standard)                                | In addition to the basic data types, it defines the types that can be used without declaration in PSM. |
+| [SYS_SPATIAL](#sys_spatial)                          | Provides subprograms related to GEOMETRY.                    |
 | [UTL_COPYSWAP](#utl_copyswap)                        | Online DDL is supported by COPY & SWAP method                |
 | [UTL_FILE](#standard)                                | Can read and write text files managed by an operating system. |
 | [UTL_RAW](#utl_raw)                                  | Can modify or alter RAW(VARBYTE) type data into a different type. |
+| [UTL_SMTP](#utl_smtp)                                | Executes SMTP to send E-mail on SMTP server.                 |
 | [UTL_TCP](#utl_tcp)                                  | Controls TCP access in a stored procedure.                   |
 
 ### DBMS_APPLICATION_INFO 
@@ -12275,7 +12283,295 @@ iSQL> exec proc1;
 Execute success.
 ```
 
+### DBMS_SQL_PLAN_CACHE
 
+DBMS_SQL_PLAC_CACHE provides the two following stored procedures which keeps or removes the specified execution plan in SQL Plan Cache.
+
+| Procedures/Functions | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| KEEP_PLAN            | Keeps the specified execution plan in SQL Plan Cache.        |
+| UNKEEP_PLAN          | Disables the execution plan registered by KEEP_PLAN stored procedure. The disabled execution plan can be removed from SQL Plan Cache by check-in method. |
+
+#### KEEP_PLAN
+
+This procedure excludes the execution plan received as an input parameter from the SQL Plan Cache replacement target and keeps in the KEEP state in SQL Plan Cache. However, when the execution plan becomes invalid for example due to Rebuild,  it is changed to the UNKEEP state. SQL_TEXT_ID of SQL statements that want to keep the execution plan in KEEP state can be found on the SQL_TEXT_ID column and SQL_TEXT column in V$SQL_PLAN_CACHE_SQLTEXT. All Child PCOs which have this SQL_TEXT_ID as Parent PCO maintain a KEEP state. The KEEP status of Parent PCO can be found on the  PLAN_CACHE_KEEP column in V$SQL_PLAN_CACHE_SQLTEXT, and for Child PCO, it can be found on the PLAN_CACHE_KEEP column in V$SQL_PLAN_CACHE_PCO. To release the KEEP state of the execution plan, use the UNKEEP_PLAN storage procedure.
+
+##### Syntax
+
+```
+DBMS_SQL_PLAN_CACHE.KEEP_PLAN(sql_text_id);
+```
+
+##### Parameter
+
+| Name        | In/Output | Data Type   | Description                                       |
+| ----------- | --------- | ----------- | ------------------------------------------------- |
+| sql_text_id | IN        | VARCHAR(64) | The identifier of SQL statement in SQL Plan Cache |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Exception
+
+Does not occur any exceptions.
+
+##### Example
+
+```
+iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE SQL_TEXT LIKE 'select count%';
+SQL_TEXT_ID
+------------------------
+00510
+1 rows selected.
+
+iSQL> EXEC DBMS_SQL_PLAN_CACHE.KEEP_PLAN('00510');
+Execute success.
+```
+
+#### UNKEEP_PLAN
+
+This procedure release the KEEP state of the execution plan received as an input parameter. The released execution plan can be deleted from SQL Plan Cache according to the SQL Plan Cache management policy and check-in method.
+
+##### Syntax
+
+```
+DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN(sql_text_id);
+```
+
+##### Parameter
+
+| Name        | In/Output | Data Type   | Description                                       |
+| ----------- | --------- | ----------- | ------------------------------------------------- |
+| sql_text_id | IN        | VARCHAR(64) | The identifier of SQL statement in SQL Plan Cache |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Exception
+
+Does not occur any exceptions.
+
+##### Example
+
+```
+iSQL> SELECT SQL_TEXT_ID FROM V$SQL_PLAN_CACHE_SQLTEXT WHERE PLAN_CACHE_KEEP = 'KEEP';
+SQL_TEXT_ID
+------------------------
+00510
+1 row selected.
+
+iSQL> EXEC DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN('00510');
+Execute success.
+```
+
+### DBMS_STANDARD
+
+DBMS_STANDARD package provides various sub programs that can be used without specifying the name of the package.
+
+The procedures and functions comprising the DBMS_STANDARD package are in the following table below. 
+
+| Procedures/Functions | Description                                                  |
+| :------------------- | :----------------------------------------------------------- |
+| DELETING             | Returns whether the trigger started from DELETE.             |
+| INSERTING            | Returns whether the trigger started from INSERT.             |
+| UPDATING             | Returns whether the trigger started from UPDATE.             |
+| UPDATING             | Returns whether the trigger started from a specific column's UPDATE. |
+
+#### DELETING
+
+Returns whether the trigger started from DELETE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.DELETING;
+BOOLEAN variable := DELETING;
+```
+
+##### Result Value
+
+If the trigger started from DELETE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP ( C1 VARCHAR(10) );
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF DELETING THEN
+  INSERT INTO TMP VALUES ('DELETE');
+ END IF;
+END;
+/
+
+iSQL> DELETE FROM T1;
+1 row deleted.
+iSQL> SELECT & FROM TMP;
+1 row selected.
+```
+
+#### INSERTING
+
+Returns whether the trigger started from INSERT.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.INSERTING;
+BOOLEAN variable := INSERTING;
+```
+
+##### Result Value
+
+If the trigger started from INSERT, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE INSERT ON T1
+FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  INSERT INTO TMP VALUES ('INSERT');
+ END IF;
+END;
+/
+
+iSQL> INSERT INTO T1 VALUES(2);
+1 row inserted.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+INSERT
+1 row selected.
+```
+
+#### UPDATING
+
+Returns whether the trigger started from UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING;
+BOOLEAN variable := UPDATING;
+```
+
+##### Result Value
+
+If the trigger started from UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING THEN
+  INSERT INTO TMP VALUES ('UPDATE');
+ END IF;
+END;
+/
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE
+1 row selected.
+```
+
+#### UPDATING (columnName)
+
+Returns whether the trigger started from a specific column's UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
+BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
+```
+
+##### Parameter
+
+| Name    | In/Output | Data Type    | Description                      |
+| :------ | :-------- | :----------- | :------------------------------- |
+| COLNAME | IN        | VARCHAR(128) | Specifies the name of the column |
+
+##### Result Value
+
+If the trigger started from a specific coulmn's UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1, 2);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING('C1') THEN
+  INSERT INTO TMP VALUES ('UPDATE-C1');
+ELSE
+ INSERT INTO TMP VALUES ('OTHER');
+ END IF;
+END;
+/
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+1 row selected.
+iSQL> UPDATE T1 SET C2 = 3;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+OTHER
+2 rows selected.
+```
 
 ### DBMS_STATS
 
@@ -12548,7 +12844,16 @@ END;
 /
 ```
 
+### SYS_SPATIAL
 
+SYS_SPATIAL provides subprograms related to Spatial.
+
+Procedures and functions comprising SYS_SPATIAL package is as follows. For more detailed information about each procedure, please refer to [*Related Stored Procedures in Appendix C. Geometry Reference Tables in Spatial SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md#related-stored-procedures).
+
+| Procedures/Functions   | Description                                                  |
+| ---------------------- | ------------------------------------------------------------ |
+| ADD_SPATIAL_REF_SYS    | Registers Spatial Reference System meta data in the SPATIAL_REF_SYS_ table. |
+| DELETE_SPATIAL_REF_SYS | Deletes the Spatial Reference System meta data from the SPATIAL_REF_SYS_ table. |
 
 ### UTL_COPYSWAP
 
@@ -13886,7 +14191,431 @@ CAST(UTL_RAW.SUBSTR('0102030405',1,2) as R
 0102  
 ```
 
+### UTL_SMTP
 
+UTL_SMTP can execute SMTP for SMTP server to send an E-mail. Procedures and functions comprising UTL_SMTP is as follows.
+
+| Procedures/Functions | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| OPEN_CONNECTION      | Creates TCP socket and connects to SMTP server.              |
+| HELO                 | Sends default command of SMTP, HELO domain.                  |
+| MAIL                 | Sends a command of SMTP specifying the sender, MAIL FROM:<reverse-path> |
+| RCPT                 | Sends a command of SMTP specifying the receiver, MAIL FROM:<reverse-path> |
+| OPEN_DATA            | Sends a command of SMTP starting the data transmission, DATA. |
+| WRITE_DATA           | Sends data using SMTP.                                       |
+| WRITE_RAW_DATA       | Sends RAW data using SMTP.                                   |
+| CLOSE_DATA           | Sends a command of SMTP ending the data transmission, <CRLF> . <CRLF>. |
+| QUIT                 | Sends a command of SMTP ending the connection, QUIT.         |
+
+#### OPEN_CONNECTION
+
+Creates TCP socket and connects to SMTP server using the inputted IP and PORT.
+
+##### Syntax
+
+```
+UTL_SMTP.OPEN_CONNECTION (
+  host IN VARCHAR(64),
+  port IN INTEGER DEFAULT 25,
+  tx_timeout IN INTEGER DEFAULT NULL );
+```
+
+##### Parameters
+
+| Name       | In/Output | Data type   | Description                                                  |
+| ---------- | --------- | ----------- | ------------------------------------------------------------ |
+| host       | IN        | VARCHAR(64) | IP address of SMTP server                                    |
+| port       | IN        | INTEGER     | Port number of SMTP server                                   |
+| tx_timeout | IN        | INTEGER     | This parameter is for compatibility, the value of this parameter is ignored. |
+
+##### Return Value
+
+CONNECT_TYPE returns connection handle when successed.
+
+##### Exception
+
+CONNECT_TYPE returns NULL when failed.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### HELO
+
+Sends HELO domain command to the connected SMTP server to execute reset handshaking.
+
+##### Syntax
+
+```
+UTL_SMTP.HELO (
+  c IN OUT CONNECT_TYPE,
+  domain IN VARCHAR(64) );
+```
+
+##### Parameters
+
+| Name   | In/Output | Data Type    | Description                      |
+| ------ | --------- | ------------ | -------------------------------- |
+| c      | IN OUT    | CONNECT_TYPE | Connection handle of SMTP server |
+| domain | IN        | VARCHAR(64)  | The domain name                  |
+
+##### Return Value
+
+Returns  the VARCHAR type result value including response code and message of the SMTP server. In case the connection to the server fails, it returns NULL.
+
+##### Exception
+
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. OPEN_CONNECTION function has to be called first in order to call the HELO function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### MAIL
+
+Sends MAIL FORM:<reverse-path> command to the connected SMTP server to specify the sender.
+
+##### Syntax
+
+```
+UTL_SMTP.MAIL (
+  c IN OUT CONNECT_TYPE,
+  sender IN VARCHAR(256),
+  parameters IN VARCHAR DEFAULT NULL );
+```
+
+##### Parameters
+
+| Name       | In/Output | Data Type    | Description                                                  |
+| ---------- | --------- | ------------ | ------------------------------------------------------------ |
+| c          | IN OUT    | CONNECT_TYPE | Connection handle of SMTP server                             |
+| sender     | IN        | VARCHAR(256) | The sender address                                           |
+| parameters | IN        | VARCHAR      | This parameter is for compatibility, the value of this parameter is ignored. |
+
+##### Return Value
+
+Returns  the VARCHAR type result value including response code and message of the SMTP server. In case the connection to the server fails, it returns NULL.
+
+##### Exception
+
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. HELO function has to be called first in order to call the MAIL function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, 'test@test.com', null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### RCPT
+
+Sends RCPT TO:<forward-path> command to the connected SMTP server to specify the receiver.
+
+##### Syntax
+
+```
+UTL_SMTP.RCPT (
+  c IN OUT CONNECT_TYPE,
+  recipient IN VARCHAR(256),
+  parameters IN VARCHAR DEFAULT NULL );
+```
+
+##### Parameters
+
+| Name       | In/Output | Data Type    | Description                                                  |
+| ---------- | --------- | ------------ | ------------------------------------------------------------ |
+| c          | IN OUT    | CONNECT_TYPE | Connection handle of SMTP server                             |
+| recipient  | IN        | VARCHAR(256) | The receiver address                                         |
+| parameters | IN        | VARCHAR      | This parameter is for compatibility, the value of this parameter is ignored. |
+
+##### Return Value
+
+Returns  the VARCHAR type result value including response code and message of the SMTP server. In case the connection to the server fails, it returns NULL.
+
+##### Exception
+
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. MAIL function has to be called first in order to call the RCPT function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### OPEN_DATA
+
+Sends DATA command to the connected SMTP server to start the data transmission.
+
+##### Syntax
+
+```
+UTL_SMTP.DATA (
+  c IN OUT CONNECT_TYPE,
+  body IN VARCHAR DEFAULT NULL );
+```
+
+##### Parameters
+
+| Name | In/Output | Data Type    | Description                                                  |
+| ---- | --------- | ------------ | ------------------------------------------------------------ |
+| c    | IN OUT    | CONNECT_TYPE | Connection handle of SMTP server                             |
+| body | IN        | VARCHAR      | This parameter is for compatibility, the value of this parameter is ignored. |
+
+##### Return Value
+
+Returns  the VARCHAR type result value including response code and message of the SMTP server. In case the connection to the server fails, it returns NULL.
+
+##### Exception
+
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. RCPT function has to be called first in order to call the DATA function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### WRITE_DATA
+
+Transmits the data to the connected SMTP server.
+
+##### Syntax
+
+```
+UTL_SMTP.WRITE_DATA (
+  c IN OUT CONNECT_TYPE,
+  data IN VARCHAR(65534) );
+```
+
+##### Parameters
+
+| Name | In/Output | Data Type      | Description                      |
+| ---- | --------- | -------------- | -------------------------------- |
+| c    | IN OUT    | CONNECT_TYPE   | Connection handle of SMTP server |
+| data | IN        | VARCHAR(65534) | Data to transmit                 |
+
+##### Return Value
+
+Returns the length of the transmitted data when succeeded. Returns -1 when failed.
+
+##### Exception
+
+Exception occurred when it violates the SMTP. OPEN_DATA function has to be called first in order to call the WRITE_DATA function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_DATA( V1, 'test' );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### WRITE_RAW_DATA
+
+Transmits RAW data to the connected SMTP server.
+
+##### Syntax
+
+```
+UTL_SMTP.WRITE_DATA (
+  c IN OUT CONNECT_TYPE,
+  data IN RAW(65534) );
+```
+
+##### Parameters
+
+| Name | In/Output | Data Type    | Description                      |
+| ---- | --------- | ------------ | -------------------------------- |
+| c    | IN OUT    | CONNECT_TYPE | Connection handle of SMTP server |
+| data | IN        | RAW(65534)   | RAW data to transmit             |
+
+##### Return Value
+
+Returns the length of the transmitted data when succeeded. Returns -1 when failed.
+
+##### Exception
+
+Exception occurred when it violates the SMTP. OPEN_RAW_DATA function has to be called first in order to call the WRITE_RAW_DATA function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_RAW_DATA( V1, TO_RAW( 'test' ) );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### CLOSE_DATA
+
+Sends <CRLF>.<CRLF> command to the connected SMTP server and ends the data transmission.
+
+##### Syntax
+
+```
+UTL_SMTP.CLOSE_DATA (
+  c IN OUT CONNECT_TYPE );
+```
+
+##### Parameter
+
+| Name | In/Output | Data Type    | Description                      |
+| ---- | --------- | ------------ | -------------------------------- |
+| c    | IN OUT    | CONNECT_TYPE | Connection handle of SMTP server |
+
+##### Return Value
+
+Returns  the VARCHAR type result value including response code and message of the SMTP server. In case the connection to the server fails, it returns NULL.
+
+##### Exception
+
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. OPEN_DATA function has to be called first in order to call the CLOSE_DATA function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V2 INTEGER;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_RAW_DATA( V1, TO_RAW( 'test' ) );
+  V3 := SMTP.CLOSE_DATA( V1 );
+  V2 := CLOSE_CONNECT( V1 );
+END;
+/
+```
+
+#### QUIT
+
+Sends QUIT command to the connected SMTP server to end the connection between SMTP session and SMTP server.
+
+##### Syntax
+
+```
+UTL_SMTP.QUIT (
+  c IN OUT CONNECT_TYPE );
+```
+
+##### Parameter
+
+| Name | In/Output | Data Type    | Description                      |
+| ---- | --------- | ------------ | -------------------------------- |
+| c    | IN OUT    | CONNECT_TYPE | Connection handle of SMTP server |
+
+##### Return Value
+
+Returns  the VARCHAR type result value including response code and message of the SMTP server. In case the connection to the server fails, it returns NULL.
+
+##### Exception
+
+Exception occurred when it receives failed response code from the SMTP server or violates the SMTP. OPEN_CONNECTION function has to be called first in order to call the QUIT function.
+
+##### Example
+
+```
+CREATE OR REPLACE PROCEDURE PROC1
+AS
+  V1 CONNECT_TYPE;
+  V3 VARCHAR(65534);
+BEGIN
+  V1 := SMTP.OPEN_CONNECTION( '127.0.0.1', 25, null );
+  V3 := SMTP.HELO( V1, '127.0.0.1', null );
+  V3 := SMTP.MAIL( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.RCPT( V1, ['test@test.com](http://nok.altibase.com/mailto:)', null );
+  V3 := SMTP.OPEN_DATA( V1, null );
+  V3 := SMTP.WRITE_RAW_DATA( V1, TO_RAW( 'test' ) );
+  V3 := SMTP.CLOSE_DATA( V1 );
+  V3 := SMTP.QUIT( V1 );
+END;
+/
+```
 
 ### UTL_TCP
 
