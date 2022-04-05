@@ -324,7 +324,7 @@ C:\dataCompJ> dataCompJ.bat -f dataCompJ_env_file_path
 
 ##### dataCompJ_env_file_path
 
-This indicates the file path of dataCompJ environment file, and dataCompJ.xml file is provided as default when installing.
+This indicates the file path of dataCompJ environment file and in a required option. dataCompJ.xml is provided as an environment file when dataCompJ is installed but user can choose to create another file to use an as environment file.
 
 ### Executing dataCompJ
 
