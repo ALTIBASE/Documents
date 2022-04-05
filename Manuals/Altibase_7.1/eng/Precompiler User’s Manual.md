@@ -10429,6 +10429,6 @@ I am running HP-UX 11.0 on an HP L class server.
 
 ##### Answer
 
-Change the order in which the -lodbccli and -lapre link options are specified.
+Change the order in which the -lodbccli and -lapre link options are specified.<a href="#note1" id="note1ref"><sup>1</sup></a>
 
-[^Change the order in which the -lodbccli and -lapre link options are specified.]: this this
+<a id="note1" href="#note1ref"><sup>1</sup></a>Here is the footnote text.
