@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Database Link User’s Manual](#database-link-users-manual)
@@ -32,7 +31,7 @@
     - [Property Files](#property-files)
     - [AltiLinker Properties](#altilinker-properties)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Application Development
 

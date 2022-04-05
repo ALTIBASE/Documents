@@ -4104,13 +4104,14 @@ PROJECT ( COLUMN_COUNT: 5, TUPLE_SIZE: 40, COST: 0.30 )
 ##### Format
 
 ```
-LEFT-OUTER-JOIN ( METHOD: method, COST: cost )
+LEFT-OUTER-JOIN ( METHOD: method, SKIP RIGHT COUNT: count, COST: cost )
 ```
 
-| Item   | Description        |
-| ------ | ------------------ |
-| METHOD | The joining method |
-| COST   | The estimated cost |
+| Item             | Description                                                  |
+| ---------------- | ------------------------------------------------------------ |
+| METHOD           | The joining method                                           |
+| SKIP RIGHT COUNT | The number of skip right count <br>\- Shown when TRCLOG_DETAIL_INFORMATION = 1<br>\- Not shown when skip count is 0 |
+| COST             | The estimated cost                                           |
 
 [Table 4-11] Information of the LEFT-OUTER-JOIN Node
 

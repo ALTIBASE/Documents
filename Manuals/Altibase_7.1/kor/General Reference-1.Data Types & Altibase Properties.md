@@ -3078,8 +3078,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>VOLATILE_MAX_DB_SIZE</td>
       </tr>
       <tr>
-      	<td rowspan="101">P</td>
-          <td rowspan="101"></td>
+      	<td rowspan="102">P</td>
+          <td rowspan="102"></td>
           <td>AGER_WAIT_MAXIMUM</td>
           <td rowspan="2"></td>
       </tr>
@@ -3469,7 +3469,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
        <tr>
       	<td>TRX_UPDATE_MAX_LOGSIZE</td>
           <td>BOTH</td>
-      </tr>
+       </tr>
       <tr>
           <td rowspan="42">S</td>
           <td rowspan="31">일반</td>
@@ -4391,7 +4391,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>PSM_VARCHAR_DEFAULT_PRECISION</td>
       </tr>
       <tr>
-      	<td>QUERY_STACK_SIZE</td>
           <td>BOTH</td>
       </tr>
       <tr>
@@ -12893,7 +12892,7 @@ Unsigned Integer
 않고 바로 해제된다.
 
 이 값을 너무 크게 지정하면, 일반 트랜잭션의 개수에 제한을 줄 수 있으므로 적절한
-값으로 설정해야 한다. 이 프로퍼티에 허용된 최대값은 232-1이지만, 실제 최대값은
+값으로 설정해야 한다. 이 프로퍼티에 허용된 최대값은 2³²-1이지만, 실제 최대값은
 TRANSACTION_TABLE_SIZE 프로퍼티에 지정한 값과 같다. 만약 사용자가 이 값을
 TRANSACTION_TABLE_SIZE의 값보다 크게 지정하면, 내부적으로 이 프로퍼티의 값이
 TRANSACTION_TABLE_SIZE의 값으로 설정된다.

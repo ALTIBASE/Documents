@@ -4104,13 +4104,14 @@ PROJECT ( COLUMN_COUNT: 5, TUPLE_SIZE: 40, COST: 0.30 )
 ##### Format
 
 ```
-LEFT-OUTER-JOIN ( METHOD: method, COST: cost )
+LEFT-OUTER-JOIN ( METHOD: method, SKIP RIGHT COUNT: count, COST: cost )
 ```
 
-| Item   | Description        |
-| ------ | ------------------ |
-| METHOD | The joining method |
-| COST   | The estimated cost |
+| Item             | Description                                                  |
+| ---------------- | ------------------------------------------------------------ |
+| METHOD           | The joining method                                           |
+| SKIP RIGHT COUNT | The number of skip right count <br>\- Shown when TRCLOG_DETAIL_INFORMATION = 1<br>\- Not shown when skip count is 0 |
+| COST             | The estimated cost                                           |
 
 [Table 4-11] Information of the LEFT-OUTER-JOIN Node
 
@@ -5390,18 +5391,19 @@ The hints pertaining to joining methods are processed as described below in orde
   
 - Conflict with ORDERED hint. If the table order specified in an ORDERED hint and that specified in an USE_NL hint contradict each other, the ORDERED hint takes priority.
   
+
 Given the following query: 
-  
+
   ```
   SELECT /*+ ORDERED USE_NL(T2, T1) */
     FROM T1, T2 WHERE T1.i1 = T2.i1;
-```
-  
+  ```
+
 - If more than one joining method hint is specified for the same table, one of those hints is chosen on the basis of cost estimation.
   
 ```
   USE_NL(T1, T2) USE_HASH(T2, T1)
-  ```
+```
 
 
 -   In case of starting with the NO_USE hints, 
@@ -5548,7 +5550,7 @@ Incorrect usage example:
   
 ```
   SELECT * FROM T1 WHERE EXISTS ( SELECT /*+HASH_AJ*/ * FROM T2  WHERE T2.a1 = T1.i1 );
-  ```
+```
 
 
 #### Plan Cache-related Hints
@@ -6048,5 +6050,4 @@ sTargetColumn[1] : [3, 1],sTargetColumn->arg[X, X]
 -----------------------------------------------------------
 * AUTO STATISTICS USED: 2
 ```
-
 

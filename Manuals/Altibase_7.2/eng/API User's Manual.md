@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Application Program Interface User’s Manual](#application-program-interface-users-manual)
   - [Preface](#preface)
@@ -21,7 +20,7 @@
     - [JDBC Distributed Transactions](#jdbc-distributed-transactions)
     - [How to Solve Application Problems Using XA](#how-to-solve-application-problems-using-xa)
   - [4. iLoader API](#4-iloader-api)
-    - [iLoader API 개요](#iloader-api-%EA%B0%9C%EC%9A%94)
+    - [iLoader API Overview](#iloader-api-overview)
     - [Using the iLoader API](#using-the-iloader-api)
     - [iLoader API Data Structures](#iloader-api-data-structures)
     - [iLoader API](#iloader-api)
@@ -31,9 +30,7 @@
     - [CheckServer API Data Structure](#checkserver-api-data-structure)
     - [CheckServer API](#checkserver-api)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- 
 
 Altibase® Application Development
 

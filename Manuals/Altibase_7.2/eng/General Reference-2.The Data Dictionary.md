@@ -1,212 +1,212 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
-
 - [General Reference](#general-reference)
   - [3. The Data Dictionary](#3-the-data-dictionary)
     - [Meta Tables](#meta-tables)
-    - [SYS_AUDIT\_](#sys_audit%5C_)
-    - [SYS_AUDIT_OPTS\_](#sys_audit_opts%5C_)
-    - [SYS_COLUMNS\_](#sys_columns%5C_)
-    - [SYS_COMMENTS\_](#sys_comments%5C_)
-    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables%5C_)
-    - [SYS_CONSTRAINTS\_](#sys_constraints%5C_)
-    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns%5C_)
-    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related%5C_)
-    - [SYS_DATABASE\_](#sys_database%5C_)
-    - [SYS_DATABASE_LINKS\_](#sys_database_links%5C_)
-    - [SYS_DIRECTORIES\_](#sys_directories%5C_)
-    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns%5C_)
-    - [SYS_GRANT_OBJECT\_](#sys_grant_object%5C_)
-    - [SYS_GRANT_SYSTEM\_](#sys_grant_system%5C_)
-    - [SYS_INDEX_COLUMNS\_](#sys_index_columns%5C_)
-    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions%5C_)
-    - [SYS_INDEX_RELATED\_](#sys_index_related%5C_)
-    - [SYS_INDICES\_](#sys_indices%5C_)
-    - [SYS_JOBS\_](#sys_jobs%5C_)
-    - [SYS_LIBRARIES\_](#sys_libraries%5C_)
-    - [SYS_LOBS\_](#sys_lobs%5C_)
-    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views%5C_)
-    - [SYS_PACKAGES\_](#sys_packages%5C_)
-    - [SYS_PACKAGE_PARAS\_](#sys_package_paras%5C_)
-    - [SYS_PACKAGE_PARSE\_](#sys_package_parse%5C_)
-    - [SYS_PACKAGE_RELATED\_](#sys_package_related%5C_)
-    - [SYS_PART_INDICES\_](#sys_part_indices%5C_)
-    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns%5C_)
-    - [SYS_PART_LOBS\_](#sys_part_lobs%5C_)
-    - [SYS_PART_TABLES\_](#sys_part_tables%5C_)
-    - [SYS_PASSWORD_HISTORY\_](#sys_password_history%5C_)
-    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits%5C_)
-    - [SYS_PRIVILEGES\_](#sys_privileges%5C_)
-    - [SYS_PROCEDURES\_](#sys_procedures%5C_)
-    - [SYS_PROC_PARAS\_](#sys_proc_paras%5C_)
-    - [SYS_PROC_PARSE\_](#sys_proc_parse%5C_)
-    - [SYS_PROC_RELATED\_](#sys_proc_related%5C_)
-    - [SYS_RECYCLEBIN\_](#sys_recyclebin%5C_)
-    - [SYS_REPLICATIONS\_](#sys_replications%5C_)
-    - [SYS_REPL_HOSTS\_](#sys_repl_hosts%5C_)
-    - [SYS_REPL_ITEMS\_](#sys_repl_items%5C_)
-    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir%5C_)
-    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns%5C_)
-    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns%5C_)
-    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices%5C_)
-    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items%5C_)
-    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos%5C_)
-    - [SYS_SECURITY\_](#sys_security%5C_)
-    - [SYS_SYNONYMS\_](#sys_synonyms%5C_)
-    - [SYS_TABLES\_](#sys_tables%5C_)
-    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions%5C_)
-    - [SYS_TABLE_SIZE\_](#sys_table_size%5C_)
-    - [SYS_TBS_USERS\_](#sys_tbs_users%5C_)
-    - [SYS_TRIGGERS\_](#sys_triggers%5C_)
-    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables%5C_)
-    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings%5C_)
-    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns%5C_)
-    - [SYS_USERS\_](#sys_users%5C_)
-    - [DBA_USERS\_](#dba_users%5C_)
-    - [SYS_USER_ROLES\_](#sys_user_roles%5C_)
-    - [SYS_VIEWS\_](#sys_views%5C_)
-    - [SYS_VIEW_PARSE\_](#sys_view_parse%5C_)
-    - [SYS_VIEW_RELATED\_](#sys_view_related%5C_)
-    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans%5C_)
+    - [SYS_AUDIT\_](#sys_audit_)
+    - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
+    - [SYS_COLUMNS\_](#sys_columns_)
+    - [SYS_COMMENTS\_](#sys_comments_)
+    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables_)
+    - [SYS_CONSTRAINTS\_](#sys_constraints_)
+    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns_)
+    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related_)
+    - [SYS_DATABASE\_](#sys_database_)
+    - [SYS_DATABASE_LINKS\_](#sys_database_links_)
+    - [SYS_DIRECTORIES\_](#sys_directories_)
+    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns_)
+    - [SYS_GRANT_OBJECT\_](#sys_grant_object_)
+    - [SYS_GRANT_SYSTEM\_](#sys_grant_system_)
+    - [SYS_INDEX_COLUMNS\_](#sys_index_columns_)
+    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions_)
+    - [SYS_INDEX_RELATED\_](#sys_index_related_)
+    - [SYS_INDICES\_](#sys_indices_)
+    - [SYS_JOBS\_](#sys_jobs_)
+    - [SYS_LIBRARIES\_](#sys_libraries_)
+    - [SYS_LOBS\_](#sys_lobs_)
+    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views_)
+    - [SYS_PACKAGES\_](#sys_packages_)
+    - [SYS_PACKAGE_PARAS\_](#sys_package_paras_)
+    - [SYS_PACKAGE_PARSE\_](#sys_package_parse_)
+    - [SYS_PACKAGE_RELATED\_](#sys_package_related_)
+    - [SYS_PART_INDICES\_](#sys_part_indices_)
+    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns_)
+    - [SYS_PART_LOBS\_](#sys_part_lobs_)
+    - [SYS_PART_TABLES\_](#sys_part_tables_)
+    - [SYS_PASSWORD_HISTORY\_](#sys_password_history_)
+    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits_)
+    - [SYS_PRIVILEGES\_](#sys_privileges_)
+    - [SYS_PROCEDURES\_](#sys_procedures_)
+    - [SYS_PROC_PARAS\_](#sys_proc_paras_)
+    - [SYS_PROC_PARSE\_](#sys_proc_parse_)
+    - [SYS_PROC_RELATED\_](#sys_proc_related_)
+    - [SYS_RECYCLEBIN\_](#sys_recyclebin_)
+    - [SYS_REPLICATIONS\_](#sys_replications_)
+    - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
+    - [SYS_REPL_ITEMS\_](#sys_repl_items_)
+    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
+    - [SYS_REPL_OLD_CHECKS_](#sys_repl_old_checks_)
+    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
+    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
+    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
+    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
+    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
+    - [SYS_REPL_TABLE_OID_IN_USE_](#sys_repl_table_oid_in_use_)
+    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
+    - [SYS_SECURITY\_](#sys_security_)
+    - [SYS_SYNONYMS\_](#sys_synonyms_)
+    - [SYS_TABLES\_](#sys_tables_)
+    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions_)
+    - [SYS_TABLE_SIZE\_](#sys_table_size_)
+    - [SYS_TBS_USERS\_](#sys_tbs_users_)
+    - [SYS_TRIGGERS\_](#sys_triggers_)
+    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables_)
+    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings_)
+    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns_)
+    - [SYS_USERS\_](#sys_users_)
+    - [DBA_USERS\_](#dba_users_)
+    - [SYS_USER_ROLES\_](#sys_user_roles_)
+    - [SYS_VIEWS\_](#sys_views_)
+    - [SYS_VIEW_PARSE\_](#sys_view_parse_)
+    - [SYS_VIEW_RELATED\_](#sys_view_related_)
+    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
+    - [SYS_GEOMETRIES_](#sys_geometries_)
+    - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
+    - [USER_SRS_](#user_srs_)
     - [Performance Views](#performance-views)
-    - [V\$ACCESS_LIST](#v%5Caccess_list)
-    - [V\$ALLCOLUMN](#v%5Callcolumn)
-    - [V\$ARCHIVE](#v%5Carchive)
-    - [V\$BACKUP_INFO](#v%5Cbackup_info)
-    - [V\$BUFFPAGEINFO](#v%5Cbuffpageinfo)
-    - [V\$BUFFPOOL_STAT](#v%5Cbuffpool_stat)
-    - [V\$CATALOG](#v%5Ccatalog)
-    - [V\$DATABASE](#v%5Cdatabase)
-    - [V\$DATAFILES](#v%5Cdatafiles)
-    - [V\$DATATYPE](#v%5Cdatatype)
-    - [V\$DBA_2PC_PENDING](#v%5Cdba_2pc_pending)
-    - [V\$DBLINK_ALTILINKER_STATUS](#v%5Cdblink_altilinker_status)
-    - [V\$DBLINK_DATABASE_LINK_INFO](#v%5Cdblink_database_link_info)
-    - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#v%5Cdblink_global_transaction_info)
-    - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#v%5Cdblink_linker_control_session_info)
-    - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#v%5Cdblink_linker_data_session_info)
-    - [V\$DBLINK_LINKER_SESSION_INFO](#v%5Cdblink_linker_session_info)
-    - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#v%5Cdblink_notifier_transaction_info)
-    - [V\$DBLINK_REMOTE_STATEMENT_INFO](#v%5Cdblink_remote_statement_info)
-    - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#v%5Cdblink_remote_transaction_info)
-    - [V\$DBMS_STATS](#v%5Cdbms_stats)
-    - [V\$DB_FREEPAGELISTS](#v%5Cdb_freepagelists)
-    - [V\$DB_PROTOCOL](#v%5Cdb_protocol)
-    - [V\$DIRECT_PATH_INSERT](#v%5Cdirect_path_insert)
-    - [V\$DISKTBL_INFO](#v%5Cdisktbl_info)
-    - [V\$DISK_BTREE_HEADER](#v%5Cdisk_btree_header)
-    - [V\$DISK_TEMP_INFO](#v%5Cdisk_temp_info)
-    - [V\$DISK_TEMP_STAT](#v%5Cdisk_temp_stat)
-    - [V\$DISK_UNDO_USAGE](#v%5Cdisk_undo_usage)
-    - [V\$DR_CONNECTION_INFO](#v%5Cdr_connection_info)
-    - [V\$DR_GAP](#v%5Cdr_gap)
-    - [V\$DR_SERVERS](#v%5Cdr_servers)
-    - [V\$DR_STATUS](#v%5Cdr_status)
-    - [V\$EVENT_NAME](#v%5Cevent_name)
-    - [V\$EXTPROC_AGENT](#v%5Cextproc_agent)
-    - [V\$FILESTAT](#v%5Cfilestat)
-    - [V\$FLUSHER](#v%5Cflusher)
-    - [V\$FLUSHINFO](#v%5Cflushinfo)
-    - [V\$INDEX](#v%5Cindex)
-    - [V\$INSTANCE](#v%5Cinstance)
-    - [V\$INTERNAL_SESSION](#v%5Cinternal_session)
-    
-    - [V\$LATCH](#v%5Clatch)
-    - [V\$LIBRARY](#v%5Clibrary)
-    - [V\$LFG](#v%5Clfg)
-    - [V\$LOCK](#v%5Clock)
-    - [V\$LOCK_STATEMENT](#v%5Clock_statement)
-    - [V\$LOG](#v%5Clog)
-    - [V\$LOCK_WAIT](#v%5Clock_wait)
-    - [V\$MEMGC](#v%5Cmemgc)
-    - [V\$MEMSTAT](#v%5Cmemstat)
-    - [V\$MEMTBL_INFO](#v%5Cmemtbl_info)
-    - [V\$MEM_BTREE_HEADER](#v%5Cmem_btree_header)
-    - [V\$MEM_BTREE_NODEPOOL](#v%5Cmem_btree_nodepool)
-    - [V\$MEM_RTREE_HEADER](#v%5Cmem_rtree_header)
-    - [V\$MEM_RTREE_NODEPOOL](#v%5Cmem_rtree_nodepool)
-    - [V\$MEM_TABLESPACES](#v%5Cmem_tablespaces)
-    - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#v%5Cmem_tablespace_checkpoint_paths)
-    - [V\$MEM_TABLESPACE_STATUS_DESC](#v%5Cmem_tablespace_status_desc)
-    - [V\$MUTEX](#v%5Cmutex)
-    - [V\$NLS_PARAMETERS](#v%5Cnls_parameters)
-    - [V\$NLS_TERRITORY](#v%5Cnls_territory)
-    - [V\$OBSOLETE_BACKUP_INFO](#v%5Cobsolete_backup_info)
-    - [V\$PKGTEXT](#v%5Cpkgtext)
-    - [V\$PLANTEXT](#v%5Cplantext)
-    - [V\$PROCINFO](#v%5Cprocinfo)
-    - [V\$PROCTEXT](#v%5Cproctext)
-    - [V\$PROPERTY](#v%5Cproperty)
-    - [V\$REPEXEC](#v%5Crepexec)
-    - [V\$REPGAP](#v%5Crepgap)
-    - [V\$REPGAP_PARALLEL](#v%5Crepgap_parallel)
-    - [V\$REPLOGBUFFER](#v%5Creplogbuffer)
-    - [V\$REPOFFLINE_STATUS](#v%5Crepoffline_status)
-    - [V\$REPRECEIVER](#v%5Crepreceiver)
-    - [V\$REPRECEIVER_COLUMN](#v%5Crepreceiver_column)
-    - [V\$REPRECEIVER_PARALLEL](#v%5Crepreceiver_parallel)
-    - [V\$REPRECEIVER_PARALLEL_APPLY](#v%5Crepreceiver_parallel_apply)
-    - [V\$REPRECEIVER_STATISTICS](#v%5Crepreceiver_statistics)
-    - [V\$REPRECEIVER_TRANSTBL](#v%5Crepreceiver_transtbl)
-    - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#v%5Crepreceiver_transtbl_parallel)
-    - [V\$REPRECOVERY](#v%5Creprecovery)
-    - [V\$REPSENDER](#v%5Crepsender)
-    - [V\$REPSENDER_PARALLEL](#v%5Crepsender_parallel)
-    - [V\$REPSENDER_SENT_LOG_COUNT](#v%5Crepsender_sent_log_count)
-    - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#v%5Crepsender_sent_log_count_parallel)
-    - [V\$REPSENDER_STATISTICS](#v%5Crepsender_statistics)
-    - [V\$REPSENDER_TRANSTBL](#v%5Crepsender_transtbl)
-    - [V\$REPSENDER_TRANSTBL_PARALLEL](#v%5Crepsender_transtbl_parallel)
-    - [V\$REPSYNC](#v%5Crepsync)
-    - [V\$RESERVED_WORDS](#v%5Creserved_words)
-    - [V\$SBUFFER_STAT](#v%5Csbuffer_stat)
-    - [V\$SEGMENT](#v%5Csegment)
-    - [V\$SEQ](#v%5Cseq)
-    - [V\$SERVICE_THREAD](#v%5Cservice_thread)
-    - [V\$SERVICE_THREAD_MGR](#v%5Cservice_thread_mgr)
-    - [V\$SESSION](#v%5Csession)
-    - [V\$SESSION_EVENT](#v%5Csession_event)
-    - [V\$SESSION_WAIT](#v%5Csession_wait)
-    - [V\$SESSION_WAIT_CLASS](#v%5Csession_wait_class)
-    - [V\$SESSIONMGR](#v%5Csessionmgr)
-    - [V\$SESSTAT](#v%5Csesstat)
-    - [V\$SFLUSHER](#v%5Csflusher)
-    - [V\$SFLUSHINFO](#v%5Csflushinfo)
-    - [V\$SNAPSHOT](#v%5Csnapshot)
-    - [V\$SQLTEXT](#v%5Csqltext)
-    - [V\$SQL_PLAN_CACHE](#v%5Csql_plan_cache)
-    - [V\$SQL_PLAN_CACHE_PCO](#v%5Csql_plan_cache_pco)
-    - [V\$SQL_PLAN_CACHE_SQLTEXT](#v%5Csql_plan_cache_sqltext)
-    - [V\$STABLE_MEM_DATAFILES](#a-namevstable_mem_datafilesav%5Cstable_mem_datafiles)
-    - [V\$STATEMENT](#v%5Cstatement)
-    - [V\$STATNAME](#v%5Cstatname)
-    - [V\$SYSSTAT](#v%5Csysstat)
-    - [V\$SYSTEM_CONFLICT_PAGE](#v%5Csystem_conflict_page)
-    - [V\$SYSTEM_EVENT](#v%5Csystem_event)
-    - [V\$SYSTEM_WAIT_CLASS](#v%5Csystem_wait_class)
-    - [V\$TABLE](#v%5Ctable)
-    - [V\$TABLESPACES](#v%5Ctablespaces)
-    - [V\$TIME_ZONE_NAMES](#v%5Ctime_zone_names)
-    - [V\$TRACELOG](#v%5Ctracelog)
-    - [V\$TRANSACTION](#v%5Ctransaction)
-    - [V\$TRANSACTION_MGR](#v%5Ctransaction_mgr)
-    - [V\$TSSEGS](#v%5Ctssegs)
-    - [V\$TXSEGS](#v%5Ctxsegs)
-    - [V\$UDSEGS](#v%5Cudsegs)
-    - [V\$UNDO_BUFF_STAT](#v%5Cundo_buff_stat)
-    - [V\$USAGE](#v%5Cusage)
-    - [V\$VERSION](#v%5Cversion)
-    - [V\$VOL_TABLESPACES](#v%5Cvol_tablespaces)
-    - [V\$WAIT_CLASS_NAME](#v%5Cwait_class_name)
-    - [V\$XID](#v%5Cxid)
+    - [V\$ACCESS_LIST](#vaccess_list)
+    - [V\$ALLCOLUMN](#vallcolumn)
+    - [V\$ARCHIVE](#varchive)
+    - [V\$BACKUP_INFO](#vbackup_info)
+    - [V\$BUFFPAGEINFO](#vbuffpageinfo)
+    - [V\$BUFFPOOL_STAT](#vbuffpool_stat)
+    - [V\$CATALOG](#vcatalog)
+    - [V\$DATABASE](#vdatabase)
+    - [V\$DATAFILES](#vdatafiles)
+    - [V\$DATATYPE](#vdatatype)
+    - [V\$DBA_2PC_PENDING](#vdba_2pc_pending)
+    - [V\$DBLINK_ALTILINKER_STATUS](#vdblink_altilinker_status)
+    - [V\$DBLINK_DATABASE_LINK_INFO](#vdblink_database_link_info)
+    - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#vdblink_global_transaction_info)
+    - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#vdblink_linker_control_session_info)
+    - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#vdblink_linker_data_session_info)
+    - [V\$DBLINK_LINKER_SESSION_INFO](#vdblink_linker_session_info)
+    - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#vdblink_notifier_transaction_info)
+    - [V\$DBLINK_REMOTE_STATEMENT_INFO](#vdblink_remote_statement_info)
+    - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#vdblink_remote_transaction_info)
+    - [V\$DBMS_STATS](#vdbms_stats)
+    - [V\$DB_FREEPAGELISTS](#vdb_freepagelists)
+    - [V\$DB_PROTOCOL](#vdb_protocol)
+    - [V\$DIRECT_PATH_INSERT](#vdirect_path_insert)
+    - [V\$DISKTBL_INFO](#vdisktbl_info)
+    - [V\$DISK_BTREE_HEADER](#vdisk_btree_header)
+    - [V\$DISK_TEMP_INFO](#vdisk_temp_info)
+    - [V\$DISK_TEMP_STAT](#vdisk_temp_stat)
+    - [V\$DISK_UNDO_USAGE](#vdisk_undo_usage)
+    - [V\$EVENT_NAME](#vevent_name)
+    - [V\$EXTPROC_AGENT](#vextproc_agent)
+    - [V\$FILESTAT](#vfilestat)
+    - [V\$FLUSHER](#vflusher)
+    - [V\$FLUSHINFO](#vflushinfo)
+    - [V\$INDEX](#vindex)
+    - [V\$INSTANCE](#vinstance)
+    - [V\$INTERNAL_SESSION](#vinternal_session)
+    - [V\$LATCH](#vlatch)
+    - [V\$LIBRARY](#vlibrary)
+    - [V\$LFG](#vlfg)
+    - [V\$LOCK](#vlock)
+    - [V\$LOCK_STATEMENT](#vlock_statement)
+    - [V\$LOG](#vlog)
+    - [V\$LOCK_WAIT](#vlock_wait)
+    - [V\$MEMGC](#vmemgc)
+    - [V\$MEMSTAT](#vmemstat)
+    - [V\$MEMTBL_INFO](#vmemtbl_info)
+    - [V\$MEM_BTREE_HEADER](#vmem_btree_header)
+    - [V\$MEM_BTREE_NODEPOOL](#vmem_btree_nodepool)
+    - [V\$MEM_RTREE_HEADER](#vmem_rtree_header)
+    - [V\$MEM_RTREE_NODEPOOL](#vmem_rtree_nodepool)
+    - [V\$MEM_TABLESPACES](#vmem_tablespaces)
+    - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#vmem_tablespace_checkpoint_paths)
+    - [V\$MEM_TABLESPACE_STATUS_DESC](#vmem_tablespace_status_desc)
+    - [V\$MUTEX](#vmutex)
+    - [V\$NLS_PARAMETERS](#vnls_parameters)
+    - [V\$NLS_TERRITORY](#vnls_territory)
+    - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
+    - [V\$PKGTEXT](#vpkgtext)
+    - [V\$PLANTEXT](#vplantext)
+    - [V\$PROCINFO](#vprocinfo)
+    - [V\$PROCTEXT](#vproctext)
+    - [V\$PROPERTY](#vproperty)
+    - [V\$QUEUE_DELETE_OFF](#vqueue_delete_off)
+    - [V\$REPEXEC](#vrepexec)
+    - [V\$REPGAP](#vrepgap)
+    - [V\$REPGAP_PARALLEL](#vrepgap_parallel)
+    - [V\$REPLOGBUFFER](#vreplogbuffer)
+    - [V\$REPOFFLINE_STATUS](#vrepoffline_status)
+    - [V\$REPRECEIVER](#vrepreceiver)
+    - [V\$REPRECEIVER_COLUMN](#vrepreceiver_column)
+    - [V\$REPRECEIVER_PARALLEL](#vrepreceiver_parallel)
+    - [V\$REPRECEIVER_PARALLEL_APPLY](#vrepreceiver_parallel_apply)
+    - [V\$REPRECEIVER_STATISTICS](#vrepreceiver_statistics)
+    - [V\$REPRECEIVER_TRANSTBL](#vrepreceiver_transtbl)
+    - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#vrepreceiver_transtbl_parallel)
+    - [V\$REPRECOVERY](#vreprecovery)
+    - [V\$REPSENDER](#vrepsender)
+    - [V\$REPSENDER_PARALLEL](#vrepsender_parallel)
+    - [V\$REPSENDER_SENT_LOG_COUNT](#vrepsender_sent_log_count)
+    - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#vrepsender_sent_log_count_parallel)
+    - [V\$REPSENDER_STATISTICS](#vrepsender_statistics)
+    - [V\$REPSENDER_TRANSTBL](#vrepsender_transtbl)
+    - [V\$REPSENDER_TRANSTBL_PARALLEL](#vrepsender_transtbl_parallel)
+    - [V\$REPSYNC](#vrepsync)
+    - [V$REPL_REMOTE_META_REPLICATIONS](#vrepl_remote_meta_replications)
+    - [V$REPL_REMOTE_META_ITEMS](#vrepl_remote_meta_items)
+    - [V$REPL_REMOTE_META_COLUMNS](#vrepl_remote_meta_columns)
+    - [V$REPL_REMOTE_META_INDEX_COLUMNS](#vrepl_remote_meta_index_columns)
+    - [V$REPL_REMOTE_META_INDICES](#vrepl_remote_meta_indices)
+    - [V$REPL_REMOTE_META_CHECKS](#vrepl_remote_meta_checks)
+    - [V\$RESERVED_WORDS](#vreserved_words)
+    - [V\$SBUFFER_STAT](#vsbuffer_stat)
+    - [V\$SEGMENT](#vsegment)
+    - [V\$SEQ](#vseq)
+    - [V\$SERVICE_THREAD](#vservice_thread)
+    - [V\$SERVICE_THREAD_MGR](#vservice_thread_mgr)
+    - [V\$SESSION](#vsession)
+    - [V\$SESSION_EVENT](#vsession_event)
+    - [V\$SESSION_WAIT](#vsession_wait)
+    - [V\$SESSION_WAIT_CLASS](#vsession_wait_class)
+    - [V\$SESSIONMGR](#vsessionmgr)
+    - [V\$SESSTAT](#vsesstat)
+    - [V\$SFLUSHER](#vsflusher)
+    - [V\$SFLUSHINFO](#vsflushinfo)
+    - [V\$SNAPSHOT](#vsnapshot)
+    - [V\$SQLTEXT](#vsqltext)
+    - [V\$SQL_PLAN_CACHE](#vsql_plan_cache)
+    - [V\$SQL_PLAN_CACHE_PCO](#vsql_plan_cache_pco)
+    - [V\$SQL_PLAN_CACHE_SQLTEXT](#vsql_plan_cache_sqltext)
+    - [V\$STABLE_MEM_DATAFILES](#vstable_mem_datafiles)
+    - [V\$STATEMENT](#vstatement)
+    - [V\$STATNAME](#vstatname)
+    - [V\$SYSSTAT](#vsysstat)
+    - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
+    - [V\$SYSTEM_EVENT](#vsystem_event)
+    - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
+    - [V\$TABLE](#vtable)
+    - [V\$TABLESPACES](#vtablespaces)
+    - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
+    - [V\$TRACELOG](#vtracelog)
+    - [V\$TRANSACTION](#vtransaction)
+    - [V\$TRANSACTION_MGR](#vtransaction_mgr)
+    - [V\$TSSEGS](#vtssegs)
+    - [V\$TXSEGS](#vtxsegs)
+    - [V\$UDSEGS](#vudsegs)
+    - [V\$UNDO_BUFF_STAT](#vundo_buff_stat)
+    - [V\$USAGE](#vusage)
+    - [V\$VERSION](#vversion)
+    - [V\$VOL_TABLESPACES](#vvol_tablespaces)
+    - [V\$WAIT_CLASS_NAME](#vwait_class_name)
+    - [V\$XID](#vxid)
   - [4. Sample Schema](#4-sample-schema)
     - [Information about the Sample Schema](#information-about-the-sample-schema)
     - [E-R Entity-Relationship (ER) Diagram and Sample Data](#e-r-entity-relationship-er-diagram-and-sample-data)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
 
 
 
@@ -312,10 +312,13 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_REPL_HOSTS\_             | This table contains information about replication hosts.     |
 | SYS_REPL_ITEMS\_             | This table contains information about tables to be replicated |
 | SYS_REPL_OFFLINE_DIR\_       | This table contains information about the log directory related to the replication offline option. |
+| SYS_REPL_OLD_CHECKS_         | This table contains information about replication target columns that is being replicated by replication sender thread and has CHECK constraints. |
+| SYS_REPL_OLD_CHECK_COLUMNS_  | This meta table contains information about CHECK constraints on replication target column that replication sender thread is currently processing. |
 | SYS_REPL_OLD_COLUMNS\_       | This table contains information about columns replicated by the replication sender thread. |
 | SYS_REPL_OLD_INDEX_COLUMNS\_ | This table contains information about index columns replicated by the replication sender thread. |
 | SYS_REPL_OLD_INDICES\_       | This table contains information about indexes replicated by the replication sender thread. |
 | SYS_REPL_OLD_ITEMS\_         | This table contains information about the tables replicated by the replication sender thread. |
+| SYS_REPL_TABLE_OID_IN_USE_   | This table contains information about TABLE OID of tables included in DDL log but not yet replicated. |
 | SYS_REPL_RECOVERY_INFOS\_    | This table contains information about logs used by replication for recovery of a remote server. |
 | SYS_SECURITY\_               | This table contains information about the state of the security module. |
 | SYS_SYNONYMS\_               | This table contains information about synonyms.              |
@@ -333,7 +336,10 @@ This table shows the list of meta tables. Their names start with SYS_.
 | SYS_VIEWS\_                  | This table contains information about views.                 |
 | SYS_VIEW_PARSE\_             | This table contains the actual text of statements used to create views. |
 | SYS_VIEW_RELATED\_           | This table contains information about objects accessed by views. |
-| SYS_XA_HEAURISTIC_TRANS_     | This table contains information about global transactions.   |
+| SYS_XA_HEURISTIC_TRANS_      | This table contains information about global transactions.   |
+| SYS_GEOMETRIES_              | This table contains information about tables that have GEOMETRY columns. |
+| SYS_GEOMETRY_COLUMNS_        | This table contains information about GEOMETRY columns; The synonym of this meta table is GEOMETRY_COLUMNS_. |
+| USER_SRS_                    | This table contains information about SRS(Spatial Reference System); The synonym of this meta table is SPATIAL_REF_SYS |
 
 ##### Unsupported Meta Tables
 
@@ -721,7 +727,7 @@ This indicates whether the column of the join view is modifiable with DML statem
 ```
 SYS_USERS_
 SYS_TABLES_
-STO_USER_COLUMNS_
+SYS_GEOMETRIES_
 ```
 
 ### SYS_COMMENTS\_
@@ -2738,6 +2744,94 @@ This is the identifier for the LFG which defalut value is ‘0’.
 
 This is the absolute path in the system where the log file is saved. 
 
+### SYS_REPL_OLD_CHECKS_
+
+This meta table is for storing information about replication target columns that is being replicated by replication sender thread and has CHECK constraints.
+
+| Column name      | Type          | Description                                             |
+| :--------------- | ------------- | ------------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | The name of the replication object                      |
+| TABLE_OID        | BIGINT        | The table object identifier                             |
+| CONSTRAINT_ID    | INTEGER       | The identifier of CHECK constraint                      |
+| CHECK_NAME       | VARCHAR(40)   | The name of the CHECK constraint                        |
+| CONDITION        | VARCHAR(4000) | The character string  condition of the CHECK constraint |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the name of the replication object set by the user, and can be found in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication sender thread. Its value may not be found in SYS_TABLES_ meta table if this table does not exist when the replication sender thread is processing replication log.
+
+##### CONSTRAINT_ID
+
+This is the identifier of the CHECK constraint that is being processed by replication sender thread, and corresponds to a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### CHECK_NAME
+
+This is the name of the CHECK constraint that replication sender thread is currently using. It corresponds to a CONSTRAINT_NAME value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### CONDITION
+
+This is the character string condition of the CHECK constraint that replication sender thread is currently using. It corresponds to a CHECK_CONDITION value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+#### Reference Tables
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+```
+
+### SYS_REPL_OLD_CHECK_COLUMNS_
+
+This meta table is for storing information about CHECK constraints on replication target column that replication sender thread is currently processing.
+
+| Column name      | Type        | Description                                        |
+| ---------------- | ----------- | -------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | The name of the replication object                 |
+| TABLE_OID        | BIGINT      | The object identifier of the table                 |
+| CONSTRAINT_ID    | INTEGER     | The identifier of CHECK constraint                 |
+| COLUMN_ID        | INTEGER     | The identifier of column that has CHECK constraint |
+
+#### Column Information 
+
+##### REPLICATION_NAME
+
+This is the name of the replication object set by the user, and can be found in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication sender thread. Its value may not be found in SYS_TABLES_ meta table if this table does not exist when the replication sender thread is processing replication log.
+
+##### CONSTRAINT_ID
+
+This is the identifier of the CHECK constraint that is being processed by replication sender thread, and corresponds to a CONSTRAINT_ID value in the SYS_CONSTRAINTS_ meta table.
+
+Its value cannot be found in SYS_CONSTRAINTS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+##### COLUMN_ID
+
+This is the identifier of the column that is currently being processed by replication sender thread and has CHECK constraint. It corresponds to a COLUMN_ID value in the SYS_COLUMNS_ meta table. Its value cannot be found in SYS_COLUMNS_ if this CHECK constraint was removed while the replication sender thread was processing the replication log.
+
+#### Reference Tables
+
+```
+SYS_REPLICATIONS_ 
+SYS_TABLES_
+SYS_CONSTRAINTS_
+SYS_COLUMNS_
+```
+
 ### SYS_REPL_OLD_COLUMNS\_
 
 This meta table is for storing information about columns that are currently replicated by the replication Sender thread.
@@ -3000,6 +3094,30 @@ SYS_REPL_OLD_COLUMNS_
 SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
 ```
+
+### SYS_REPL_TABLE_OID_IN_USE_
+
+This meta table is for managing information about TABLE OID of tables included in DDL log but not yet replicated.
+
+| Column name      | Type         | Description                                       |
+| ---------------- | ------------ | ------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40)  | The name of the replication  object               |
+| OLD_TABLE_OID    | BIGINTBIGINT | The old object identifier of the table before DDL |
+| TABLE_OID        | BIGINTBIGINT | The current object identifier of the table        |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the replication name, which is specified by the user. It corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
+
+##### OLD_TABLE_OID
+
+This is the old object identifier of the table that is included in DDL log not yet replicated.
+
+##### TABLE_OID
+
+This is the current object identifier of the table that is included in DDL log not yet replicated. It corresponds to a TABLE_OID in the SYS_REPL_ITEMS_ meta table. 
 
 ### SYS_REPL_RECOVERY_INFOS\_
 
@@ -3890,6 +4008,44 @@ This is the branch qualifier of the global transaction.
 
 This is the status of the global transaction. 
 
+### SYS_GEOMETRIES_
+
+This is a meta table that contains information about tables that have GEOMETRY columns.
+
+| Column name     | Type     | Description                                      |
+| --------------- | -------- | ------------------------------------------------ |
+| USER_ID         | INTERGER | The identifier of the user                       |
+| TABLE_ID        | INTERGER | The table identifier                             |
+| COLUMN_ID       | INTERGER | The column identifier                            |
+| COORD_DIMENSION | INTERGER | The dimension of the GEOMETRY object             |
+| SRID            | INTERGER | The spatial reference identifier in the database |
+
+### SYS_GEOMETRY_COLUMNS_
+
+This meta table is used to manage and specify SRID in the GEOMETRY column. The synonym of this meta tble is GEOMETRY_COLUMNS_.
+
+| Column name       | Type         | Description                                      |
+| ----------------- | ------------ | ------------------------------------------------ |
+| F_TABLE_SCHEMA    | VARCHAR(128) | The name of the owner of the table               |
+| F_TABLE_NAME      | VARCHAR(128) | The name of the table                            |
+| F_GEOMETRY_COLUMN | VARCHAR(128) | The name of the column                           |
+| COORD_DIMENSION   | INTERGER     | The dimension of the GEOMETRY object             |
+| SRID              | INTERGER     | The spatial reference identifier in the database |
+
+### USER_SRS_
+
+This meta table is used to manage information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
+
+To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/Altibase/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial%20SQL%20Reference.md).
+
+| Column name | Type          | Description                                                  |
+| ----------- | ------------- | ------------------------------------------------------------ |
+| SRID        | INTEGER       | The spatial reference identifier in the database             |
+| AUTH_NAME   | VARCHAR(256)  | The standard name                                            |
+| AUTH_SRID   | INTEGER       | The standard Spatial Reference Identifier                    |
+| SRTEXT      | VARCHAR(2048) | The description of the Spatial Reference System in OGC-WKT form |
+| PROJ4TEXT   | VARCHAR(2048) | The information for used in PROJ4                            |
+
 ### Performance Views
 
 Performance views are structures that exist in memory but have the form of regular tables, and allow users to monitor internal information about an Altibase system, such as system memory, process status, sessions, buffers, threads, etc. 
@@ -4059,6 +4215,8 @@ This view displays access permission or deny information on specific IP packets 
 | ADDRESS     | VARCHAR(40) | IP address                                     |
 | OPERATION   | VARCHAR(6)  | Access permit or deny status of IP address     |
 | MASK        | VARCHAR(16) | Subnet Mask (IPv4) or prefix big length (IPv6) |
+| LIMIT       | INTEGER     | Maximum number of sessions allowed             |
+| CONNECTED   | INTEGER     | Number of sessions connected                   |
 
 #### **Column Information**
 
@@ -4080,6 +4238,16 @@ OPERATION displays the status of permit or deny of the IP packet address.
 ##### MASK
 
 If the specified address is in IPv4 address notation, subnet mask is described whereas the length of prefix bit is described if the specified address is in IPv6 address notation. Refer to the description delineated in the ACCESS_LIST property.
+
+**LIMIT**
+
+Maximum number of sessions allowed to connect to Altibase server within the IP address range specified in ACCESS_LIST.
+
+If new ACCESS_LIST is added using RELOAD ACCESS LIST while running, the session that is currently connected will not be affected but condition of ACCESS_LIST will be only applied to the new connection requests after the change is made. For example, when the user specifies the value of LIMIT of ACCESS_LIST and performs RELOAD ACCESS LIST, the value of LIMIT is only applied to the new connections after the change is made. In this case, when V$ACCESS_LIST is inquired, the value of CONNECTED can be bigger than the value of LIMIT.
+
+**CONNECTED**
+
+Number of sessions that is currently connected to Altibase server within the IP address range specified in ACCESS_LIST.
 
 ### V\$ALLCOLUMN
 
@@ -5667,143 +5835,7 @@ This is the number of extents currently used in undo segments. Because these ext
 
 ##### REUSABLE_EXT_CNT
 
-This is the number of extents that can be reused because they contain undo records that are no longer necessary
-
-### V\$DR_CONNECTION_INFO
-
-This view displays information about the servers currently deployed in the DR environment.
-
-| Column name | Type        | Description                                      |
-| ----------- | ----------- | ------------------------------------------------ |
-| SERVER_NAME | VARCHAR(40) | The server name                                  |
-| SERVER_IP   | VARCHAR(64) | The server IP address                            |
-| SERVER_PORT | INTEGER     | The listening port number of the server listener |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### SERVER_IP
-
-This is the IP address of the server deployed in the DR environment.
-
-##### SERVER_PORT
-
-This is the listening port number of the server listener.
-
-### V\$DR_GAP
-
-This view displays information about the synchronization delays between servers currently deployed in the DR environment.
-
-| Column name  | Type        | Description                                                  |
-| ------------ | ----------- | ------------------------------------------------------------ |
-| SERVER_NAME  | VARCHAR(40) | The server name                                              |
-| CURRENT_SN   | BIGINT      | Active server: The serial number(SN) of the log record currently being transmitted. <br/>Standby server: The serial number(SN) of the log record currently being applied. |
-| SYNCED_SN    | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The serial number of the log record most recently received by the standby server. |
-| SN_GAP       | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The gap between CURRENT_SN of the corresponding active server and SYNCED_SN of the standby server. |
-| APPLY_SN_GAP | BIGINT      | Active server: Always 0. A meaningless value. <br/>Standby server: The gap between CURRENT_SN and SYNCED_SN. |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### CURRENT_SN
-
-On the active server, the serial number(SN) of the log record currently being transmitted is displayed. 
-
-On the standby server, the serial number(SN) of the log record currently being applied to the database is displayed
-
-##### SYNCED_SN
-
-On the active server, 0 is always displayed. 
-
-On the standby server, the serial number(SN) of the most recently recieved log record is displayed
-
-##### SN_GAP
-
-On the active server, 0 is always displayed. 
-
-On the standby server, the gap between CURRENT_SN of the corresponding active server and SYNCED_SN of the standby server is displayed.
-
-##### APPLY_SN_GAP
-
-On the active server, 0 is always displayed. 
-
-On the standbyserver, the gap between CURRENT_SN and SYNCED_SN is displayed.
-
-### V\$DR_SERVERS
-
-This view displays information about the servers configured for the DR environment.
-
-| Column name | Type        | Description                                      |
-| ----------- | ----------- | ------------------------------------------------ |
-| SERVER_NAME | VARCHAR(40) | The server name                                  |
-| SERVER_IP   | VARCHAR(64) | The server IP address                            |
-| SERVER_PORT | INTEGER     | The listening port number of the server listener |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### SERVER_IP
-
-This is the IP address of the server configured for the DR environment.
-
-##### SERVER_PORT
-
-This is the listening port number of the server listener.
-
-### V\$DR_STATUS
-
-This view displays information of the current status of the servers deployed in the DR environment.
-
-| Column name    | Type        | Description                              |
-| -------------- | ----------- | ---------------------------------------- |
-| SERVER_NAME    | VARCHAR(40) | The server name                          |
-| CURRENT_MODE   | VARCHAR(7)  | The synchronization mode                 |
-| SERVER_ROLE    | VARCHAR(7)  | The server role                          |
-| SERVER_MODE    | VARCHAR(7)  | The synchronization mode set by the user |
-| SERVER_STATUS  | VARCHAR(8)  | The server status                        |
-| FAILOVER_SN    | BIGINT      | The SN at the time point of failover     |
-| FAILOVER_COUNT | BIGINT      | The number of failovers                  |
-
-#### Column Information
-
-##### SERVER_NAME
-
-This is the name given to the server deployed in the DR environment.
-
-##### CURRENT_MODE
-
-This is the synchronization mode currently being executed and is displayed as either 'async' or 'sync'. 
-
-All standby servers conform to the synchronization mode of the active server.
-
-##### SERVER_ROLE
-
-This is the role of the server and is displayed as either 'active' or 'standby'.
-
-##### SERVER_MODE
-
-This is the synchronization mode set by the user and is displayed as either 'async' or 'sync'.
-
-##### SERVER_STATUS
-
-This is the current execution mode of the server and is displayed as either 'run', 'stop' or 'Failure Server Repair'.
-
-##### FAILOVER_SN
-
-This is the SN at the time point on which a failover has occurred.
-
-##### FAILOVER_COUNT
-
-This is the SN at the time point on which a failover has occurred.
+This is the number of extents that can be reused because they contain undo records that are no longer necessary.
 
 ### V\$EVENT_NAME
 
@@ -7482,6 +7514,20 @@ This is the maximum value that the property can have.
 
 The actual values set for the property.
 
+### V$QUEUE_DELETE_OFF
+
+This view displays queue tables that does not allow DELETE statements. If DELETE OFF clause is used in CREATE QUEUE or ALTER QUEUE statement, DELETE statement is not allowed on the corresponding queue table.
+
+| Column name | Type   | Description                 |
+| ----------- | ------ | --------------------------- |
+| TABLE_OID   | BIGINT | The table object identifier |
+
+#### Column Information
+
+##### TABLE_OID
+
+This is the table object identifier and corresponds to a TABLE_OID value in the SYS_TABLES_ meta table
+
 ### V\$REPEXEC
 
 This view displays information related to the replication manager.
@@ -8600,7 +8646,343 @@ This is the name of the partition that is the target for synchronization.
 
 When data in replication target tables on the local server are synchronized with those on the remote server, the data are synchronized in batches of records, the size of which is specified in the REPLICATION_SYNC_TUPLE_COUNT property of Altibase. 
 
-While synchronization is underway, this is the number of records that have been synchronized. A value of -1 indicates that synchronization is complete. 
+While synchronization is underway, this is the number of records that have been synchronized. A value of -1 indicates that synchronization is complete.
+
+### V$REPL_REMOTE_META_REPLICATIONS
+
+This view displays information about the receiver's SYS_REPLICATIONS_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name              | Type        | Description                                                  |
+| ------------------------ | ----------- | ------------------------------------------------------------ |
+| REPLICATION_NAME         | VARCHAR(40) | The name of the replication object                           |
+| XSN                      | BIGINT      | The Restart SN (Sequence Number), i.e. the SN from which the Sender will resume transmission of XLogs<sup>13</sup> |
+| ITEM_COUNT               | INTEGER     | The number of replication target tables                      |
+| CONFLICT_RESOLUTION      | INTEGER     | The replication conflict resolution method                   |
+| REPL_MODE                | INTEGER     | The default replication mode                                 |
+| ROLE                     | INTEGER     | The default replication mode                                 |
+| OPTIONS                  | INTEGER     | A flag for additional replication features                   |
+| REMOTE_FAULT_DETECT_TIME | DATE        | The time at which a fault was detected on a remote server    |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the name of the replication object, and is set by the user when the replication object is created.
+
+##### XSN
+
+This indicates the SN from which the sender thread must begin sending logs when replication is started.
+
+##### ITEM_COUNT
+
+This is the number of replication target tables. This number corresponds to the number of records in the SYS_REPL_ITEMS_ meta table for this replication object.
+
+##### CONFLICT_RESOLUTION
+
+This describes the replication conflict resolution method.
+
+- 0: Default
+- 1: Act as the Master server
+- 2: Act as the Slave server
+
+Please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md)* for more detailed information about replication conflict resolution methods.
+
+##### REPL_MODE
+
+This is the default replication mode, which is set when the replication object is created.
+
+- 0: LAZY MODE (Default)
+- 2: EAGER MODE
+
+The default replication mode is used when the ALTER SESSION SET REPLICATION statement is not used to set the replication mode for a session.
+
+For more detailed information about the default replication mode, please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md)*, and for detailed information about the ALTER SESSION SET REPLICATION statement, please refer to the [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/SQL%20Reference.md).
+
+##### ROLE
+
+This indicates the role of the Sender thread.
+
+- 0: Replication
+- 1: Log Analyzer
+- 2: Propagable Logging (Replication propagable logs)
+- 3: Propagation (Send propagable logs)
+
+For more detailed information, please refer to the *[Log Analyzer User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Log%20Analyzer%20User's%20Manual.md)*.
+
+##### OPTIONS
+
+This flag indicates whether to use the recovery and offline options, which are additional replication features. The replication option types are as in the following. Each option is controlled by binary number and expressed as a decimal number. If more than two options are used, the sum of the binary numbers of each option is returned as decimal numbers.
+
+- 0(00000): Do not use the recovery or offline option
+- 1(00001): Use the recovery option 
+- 2(00010): Use the offline option 
+- 4(00100): Use the gapless option 
+- 8(01000): Use the parallel applier option 
+- 16(10000): Use the replication transaction grouping option
+
+##### REMOTE_FAULT_DETECT_TIME
+
+This is the time at which a fault was detected on a remote server while replication was running.
+
+### V$REPL_REMOTE_META_ITEMS
+
+This view displays information about the receiver's SYS_REPL_ITEMS_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name           | Type         | Description                                                  |
+| --------------------- | ------------ | ------------------------------------------------------------ |
+| REPLICATION_NAME      | VARCHAR(40)  | The name of the replication object                           |
+| TABLE_OID             | BIGINT       | The name of the table object                                 |
+| LOCAL_USER_NAME       | VARCHAR(128) | The name of a user who owns the target table on the local server |
+| LOCAL_TABLE_NAME      | VARCHAR(128) | The name of a target table on the local server               |
+| LOCAL_PARTITION_NAME  | VARCHAR(128) | The name of a partition on the local server                  |
+| REMOTE_USER_NAME      | VARCHAR(128) | The name of a user who owns the target table on the remote server |
+| REMOTE_TABLE_NAME     | VARCHAR(128) | The name of a target table on the remote server              |
+| REMOTE_PARTITION_NAME | VARCHAR(128) | The name of a target table on the remote server              |
+| INVALID_MAX_SN        | BIGINT       | The highest log SN to skip                                   |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the name of the replication object, which is defined by the user, and corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier of the replication target table or partition, and corresponds to a TABLE_OID value in the SYS_TABLES_ meta table or a PARTITION_OID value in the SYS_TABLES_PARTITIONS meta table.
+
+##### LOCAL_USER_NAME
+
+This is the name of a user who owns the target table on the local server, and corresponds to a USER_NAME in the SYS_USERS_ meta table.
+
+##### LOCAL_TABLE_NAME
+
+This is name of a target table on the local server, and corresponds to a TABLE_NAME in the SYS_TABLES_ meta table.
+
+##### LOCAL_PARTITION_NAME
+
+This is the name of the replication target partition on the local server.
+
+##### REMOTE_USER_NAME
+
+This is the user name of the owner of the replication target table on the remote server, and corresponds to a USER_NAME in the SYS_USERS_ meta table.
+
+##### REMOTE_TABLE_NAME
+
+This is the name of the replication target table on the remote server, and corresponds to a TABLE_NAME in the SYS_TABLES_ meta table.
+
+##### REMOTE_PARTITION_NAME
+
+This is the name of the replication target partition on the remote server.
+
+##### INVALID_MAX_SN
+
+When DDL statements or Sync operations are executed on replication target tables, the SN most recently recorded is stored here. Table logs up to this SN are skipped when the table is replicated. 
+
+### V$REPL_REMOTE_META_COLUMNS
+
+This view displays information about the receiver's SYS_REPL_OLD_COLUMNS_  meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name          | Type         | Description                                            |
+| -------------------- | ------------ | ------------------------------------------------------ |
+| REPLICATION_NAME     | VARCHAR(40)  | The name of the replication object                     |
+| TABLE_OID            | BIGINT       | The identifier of the table object                     |
+| COLUMN_NAME          | VARCHAR(128) | The column name                                        |
+| MT_DATATYPE_ID       | INTEGER      | The data type identifier                               |
+| MT_LANGUAGE_ID       | INTEGER      | The language identifier                                |
+| MT_FLAG              | INTEGER      | Internal flag                                          |
+| MT_PRECISION         | INTEGER      | The number of digits                                   |
+| MT_SCALE             | INTEGER      | The number of digits to the right of the decimal point |
+| MT_ENCRYPT_PRECISION | INTEGER      | The number of digits in an encrypted column            |
+| MT_POLICY_NAME       | VARCHAR(16)  | The name of the policy used for an encrypted column    |
+| MT_SRID              | INTEGER      | The SRID applied to GEOMETRY column                    |
+| SM_ID                | INTEGER      | The column identifier                                  |
+| SM_FLAG              | INTEGER      | The internal flag                                      |
+| SM_OFFSET            | INTEGER      | The internal offset                                    |
+| SM_SIZE              | INTEGER      | The internal size                                      |
+| QP_FLAG              | INTEGER      | The internal flag                                      |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the replication name, which is specified by the user. It corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier for a replication target table currently being used by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
+
+##### COLUMN_NAME
+
+This is the name of a column currently being replicated by the replication Sender thread.
+
+##### MT_DATATYPE_ID
+
+This is the data type identifier, and is an internal value.
+
+##### MT_LANGUAGE_ID
+
+This is the language identifier, and is an internal value.
+
+##### MT_FLAG
+
+This is an internal flag used by Altibase server.
+
+##### MT_PRECISION
+
+For a numeric type column, this is the precision of the column. For a character type column, this is the length of the character data type.
+
+##### MT_SCALE
+
+For a numeric type column, this is the scale of the column.
+
+##### MT_ENCRYPT_PRECISION
+
+For an encrypted numeric type column, this is the precision of the column.
+
+##### MT_POLICY_NAM
+
+For an encrypted column, this is the name of the security policy used on the column.
+
+##### MT_SRID
+
+For a GEOMETRY column, this is the SRID applied to the column.
+
+##### SM_ID
+
+This is the column identifier. Column identifier starts with 0.
+
+##### SM_FLAG
+
+This is a flag used by Altibase internally.
+
+##### SM_OFFSET
+
+This is an offset value used by Altibase internally.
+
+##### SM_SIZE
+
+This is the value of the size used by Altibase server internally.
+
+##### QP_FLAG
+
+This is a flag used by Altibase internally.
+
+### V$REPL_REMOTE_META_INDEX_COLUMNS
+
+This view displays information about the receiver's SYS_REPL_OLD_INDEX_COLUMNS_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name      | Type        | Description                 |
+| ---------------- | ----------- | --------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | The replication name        |
+| TABLE_OID        | BIGINT      | The table object identifier |
+| INDEX_ID         | INTEGER     | The index identifier        |
+| KEY_COLUMN_ID    | INTEGER     | The column identifier       |
+| KEY_COLUMN_FLAG  | INTEGER     | An internal flag            |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This value corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table, and is the user-defined replication name.
+
+##### TABLE_OID
+
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
+
+##### INDEX_ID
+
+This is the identifier of an index currently being replicated by the replication Sender thread.
+
+##### KEY_COLUMN_ID
+
+This is the identifier of the column which the index is composed of.
+
+##### KEY_COLUMN_FLAG
+
+This is an internal flag for the column which the index is composed of.
+
+### V$REPL_REMOTE_META_INDICES
+
+This view displays information about the receiver's SYS_REPL_OLD_INDICES_ meta table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name      | Type         | Description                                                  |
+| ---------------- | ------------ | ------------------------------------------------------------ |
+| REPLICATION_NAME | VARCHAR(40)  | The replication name                                         |
+| TABLE_OID        | BIGINT       | The identifier of the table object                           |
+| INDEX_ID         | INTEGER      | The index identifier                                         |
+| INDEX_NAME       | VARCHAR(128) | The index name                                               |
+| TYPE_ID          | INTEGER      | The index type identifier                                    |
+| IS_UNIQUE        | CHAR(1)      | Indicates whether the index is globally unique               |
+| IS_RANGE         | CHAR(1)      | Indicates whether the range scanning is possible using the index |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the user-defined replication name. Its value corresponds to a REPLICATION_NAME value in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
+
+##### INDEX_ID
+
+This is the identifier of an index currently being replicated by the replication Sender thread.
+
+##### INDEX_NAME
+
+This is the name of an index currently being replicated by the replication Sender thread.
+
+##### TYPE_ID
+
+This is an index type identifier, and is an internal value.
+
+##### IS_UNIQUE
+
+This indicates whether or not the index is globally unique. 'Y' signifies that the index is globally unique, and 'N' signifies that it is not globally unique.
+
+##### IS_RANGE
+
+This indicates whether or not the index is locally unique. 'Y' signifies that it is locally unique, and 'N' means that it is not locally unique.
+
+### V$REPL_REMOTE_META_CHECKS
+
+This view displays information about the constraints on the receiver's replication table the sender has. It can be found on the server the replication sender thread is running on.
+
+| Column name      | Type          | Description                                                  |
+| ---------------- | ------------- | ------------------------------------------------------------ |
+| REPLICATION_NAME | VARCHAR(40)   | The partition name                                           |
+| TABLE_OID        | BIGINT        | The identifier of the table object                           |
+| CONSTRAINT_ID    | INTEGER       | The identifier of the constraint                             |
+| CONSTRAINT_NAME  | VARCHAR(128)  | The name of the constraint                                   |
+| COLUMN_CNT       | INTEGER       | The number of columns related to the constraint              |
+| CHECK_CONDITION  | VARCHAR(4000) | Integrity Rule defined by the user when specifying the CHECK constraint |
+
+#### Column Information
+
+##### REPLICATION_NAME
+
+This is the user-defined replication name. Its value corresponds to a REPLICATION_NAME value in the SYS_REPLICATIONS_ meta table.
+
+##### TABLE_OID
+
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
+
+##### CONSTRAINT_ID
+
+This is a constraint identifier. It is automatically assigned by the system sequence.
+
+##### CONSTRAINT_NAME
+
+This is the name of the constraint.
+
+##### COLUMN_CNT
+
+This is the number of columns related to the constraint. For example, if a constraint such as UNIQUE (i1, i2, i3) is created, the value of this column is 3.
+
+##### CHECK_CONDITION
+
+This displays the Integrity Rule defined by the user when specifying the CHECK constraint.
 
 ### V\$RESERVED_WORDS
 
@@ -9783,7 +10165,7 @@ The current usage of disk undo tablespace is displayed with the percentage.
 
 ### V\$SQLTEXT
 
-This view displays information about SQL that is currently being executed in the server. 
+This view displays information about SQL text that is currently being executed in the server. 
 
 | Column name | Type        | Description                            |
 | ----------- | ----------- | -------------------------------------- |
@@ -9812,7 +10194,7 @@ This is the actual 64-byte fragment of text constituting part of the SQL stateme
 
 ### V\$SQL_PLAN_CACHE
 
-This view shows the current status of the SQL Plan Cache along with some related statistical 
+This view shows the current status of the SQL Plan Cache along with some related statistical information.
 
 | Column name              | Type    | Description                                                  |
 | ------------------------ | ------- | ------------------------------------------------------------ |
@@ -9820,55 +10202,55 @@ This view shows the current status of the SQL Plan Cache along with some related
 | CURRENT_HOT_LRU_SIZE     | BIGINT  | The current size of the HOT area of an LRU list              |
 | CURRENT_COLD_LRU_SIZE    | BIGINT  | The current size of the COLD area of an LRU list             |
 | CURRENT_CACHE_SIZE       | BIGINT  | The current size of the SQL Plan Cache (in bytes)            |
-| CURRENT_CACHE_OBJ_COUNT  | INTEGER | The number of plan objects currently registered in the SQL Plan Cache |
-| CACHE_HIT_COUNT          | BIGINT  | The usage count of plan cache object registered in SQL Plan Cache |
-| CACHE_MISS_COUNT         | BIGINT  | The number of times a plan object was not found while searching for plans in the SQL Plan Cache |
-| CACHE_IN_FAIL_COUNT      | BIGINT  | The number of failures due to cache maxmium size constraint when inserting new plan object into SQL Plan Cache |
-| CACHE_OUT_COUNT          | BIGINT  | The number of plan objects removed from the SQL Plan Cache   |
-| CACHE_INSERTED_COUNT     | BIGINT  | The number of plan objects added to the SQL Plan Cache       |
+| CURRENT_CACHE_OBJ_COUNT  | INTEGER | The number of PCO currently registered in the SQL Plan Cache |
+| CACHE_HIT_COUNT          | BIGINT  | The usage count of PCO registered in SQL Plan Cache          |
+| CACHE_MISS_COUNT         | BIGINT  | The number of times PCO was not found while searching for plans in the SQL Plan Cache |
+| CACHE_IN_FAIL_COUNT      | BIGINT  | The number of failures due to cache maxmium size constraint when inserting new PCO into SQL Plan Cache |
+| CACHE_OUT_COUNT          | BIGINT  | The number of PCO removed from the SQL Plan Cache            |
+| CACHE_INSERTED_COUNT     | BIGINT  | The number of PCO added to the SQL Plan Cache                |
 | NONE_CACHE_SQL_TRY_COUNT | BIGINT  | The number of attempts by non-cached statements such as DDL and DCL |
 
 #### Column Information
 
 ##### MAX_CACHE_SIZE
 
-This is the maximum size of the SQL Plan Cache. To reduce or increase this maximum size, execute ‘alter system set SQL_PLAN_CACHE_SIZE = ’.
+This is the maximum size of the SQL Plan Cache. To reduce or increase this maximum size, execute ‘ALTER SYSTEM SET SQL_PLAN_CACHE_SIZE = ’.
 
 ##### CURRENT_HOT_LRU_SIZE
 
-The plan cache objects on the SQL Plan Cache LRU list that are frequently referred to are managed in a HOT area, the size of which is expressed in bytes.
+PCOs on the SQL Plan Cache LRU list that are frequently referred to are managed in a HOT area, the size of which is expressed in bytes.
 
 ##### CURRENT_COLD_LRU_SIZE
 
-The plan cache objects on the SQL Plan Cache LRU list that are not frequently referred to are managed in a COLD area, the size of which is expressed in bytes.
+PCOs on the SQL Plan Cache LRU list that are not frequently referred to are managed in a COLD area, the size of which is expressed in bytes.
 
 ##### CURRENT_CACHE_SIZE
 
-This is the total size of plan cache objects that are currently in the SQL Plan Cache.
+This is the total size of PCOs that are currently in the SQL Plan Cache.
 
 ##### CURRENT_CACHE_OBJ_COUNT
 
-This is the number of plan cache objects that are in the SQL Plan Cache.
+This is the number of PCOs that are in the SQL Plan Cache.
 
 ##### CACHE_HIT_COUNT
 
-This is the total number of times that plan cache objects in the SQL Plan Cache have been used.
+This is the total number of times that PCOs in the SQL Plan Cache have been used.
 
 ##### CACHE_MISS_COUNT
 
-This is the number of attempts to refer to plan cache objects that do not exist in the SQL Plan Cache.
+This is the number of attempts to refer to PCOs that do not exist in the SQL Plan Cache.
 
 ##### CACHE_IN_FAIL_COUNT
 
-This is the number of times that a plan cache object could not be inserted into the cache due to the maximum memory size restriction of the cache, even though an attempt was made to delete or remove infrequently consulted plan cache objects from the cache.
+This is the number of times that a PCO could not be inserted into the cache due to the maximum memory size restriction of the cache, although an attempt was made to delete or remove PCOs infrequently refererred from the cache.
 
 ##### CACHE_OUT_COUNT
 
-This is the number of plan cache objects that were deleted from the SQL Plan Cache. 
+This is the number of PCOs that were deleted from the SQL Plan Cache. 
 
 ##### CACHE_INSERTED_COUNT
 
-This is the number of plan cache objects that were added to the SQL Plan Cache. 
+This is the number of PCOs that were added to the SQL Plan Cache. 
 
 ##### NONE_CACHE_SQL_TRY_COUNT
 
@@ -9876,74 +10258,73 @@ This is the number of attempts to execute statements that do not affect the plan
 
 ### V\$SQL_PLAN_CACHE_PCO
 
-This view displays information about plan cache objects registered in the SQL Plan Cache. PCO is an object that contains information about SQL statement, execution plan and plan environment. It inhances query efficiency by sharing the execution plan between the sessions when executing the statement. There are two types of PCO, which is Parent PCO and Child PCO.
+This view displays information about PCOs registered in the SQL Plan Cache. 
 
-- Parent PCO
+PCO is an object that contains information about SQL statement, execution plan and plan environment. It inhances query efficiency by sharing the execution plan between the sessions when executing the statement. There are two types of PCO, which are Parent PCO and Child PCO.
 
-  PCO that has information to compare two SQL statements and manage them. Each SQL statement has different Parent PCO.
+##### Parent PCO
 
-- Child PCO
+PCO that has information to compare two SQL statements and manage them. Each SQL statement has different Parent PCO.
 
-  PCO that manages plan environment, which affects the execution plan, to compare them. For the same SQL statement different execution plans can be generated due to different plan environment such as user, NLS(National Language Support), statistics. Child PCO stores information about plan environment, execution plan and size of execution plan when PCO was created. It requires Parent PCO and one Parent PCO can have multiple Child PCOs.
+##### Child PCO
+
+PCO that manages plan environment, which affects the execution plan, to compare them. For the same SQL statement different execution plans can be generated due to different plan environment such as user, NLS(National Language Support), statistics. Child PCO stores information about plan environment, execution plan and size of execution plan when PCO was created. It requires Parent PCO and one Parent PCO can have multiple Child PCOs.
 
 | Column name     | Type        | Description                                                  |
 | --------------- | ----------- | ------------------------------------------------------------ |
-| SQL_TEXT_ID     | VARCHAR(64) | The identifier of Parant PCO                                 |
+| SQL_TEXT_ID     | VARCHAR(64) | The identifier of Parent PCO                                 |
 | PCO_ID          | INTEGER     | The identifier of Child PCO                                  |
-| CREATE_REASON   | VARCHAR(28) | The reason the plan cache object was created                 |
-| HIT_COUNT       | INTEGER     | The number of times the plan cache object has been referred to |
-| REBUILD_COUNT   | INTEGER     | The number of times the plan cache object has been rebuilt   |
-| PLAN_STATE      | VARCHAR(17) | The state of the plan of the plan cache object               |
+| CREATE_REASON   | VARCHAR(28) | The reason the PCO was created                               |
+| HIT_COUNT       | INTEGER     | The number of times PCO has been referred to                 |
+| REBUILD_COUNT   | INTEGER     | The number of times PCO has been rebuilt                     |
+| PLAN_STATE      | VARCHAR(17) | The plan state of PCO                                        |
 | LRU_REGION      | VARCHAR(11) | The region of the plan in the LRU list, which can be HOT_REGION or COLD_REGION |
-| PLAN_SIZE       | INTEGER     | The state of the plan of the plan cache object               |
-| FIX_COUNT       | INTEGER     | The number of statements referencing the plan cache object   |
+| PLAN_SIZE       | INTEGER     | The plan size of PCO                                         |
+| FIX_COUNT       | INTEGER     | The number of statements referencing the PCO                 |
 | PLAN_CACHE_KEEP | VARCHAR(6)  | The Keep state of plan cache object                          |
 
 #### Column Information
 
 ##### SQL_TEXT_ID
 
-This is the identifier of the SQL text object to which the plan cache object belongs. 
+This is the identifier of the Parent PCO.
 
 ##### PCO_ID
 
-This is the identifier of the plan cache object in the SQL text object.
+This is the identifier of the Child PCO.
 
 ##### CREATE_REASON
 
-This is the reason for creating the plan cache object. It can have the following values:
+This displays the reason why PCO was created and can have the following values:
 
 -   CREATE_BY_CACHE_MISS  
-    The plan cache object was created because no such object existed in the SQL Plan Cache.
-
+    SQL Plan Cache was missing the required PCO.
 -   CREATE_BY_PLAN_INVALIATION  
-    A plan cache object was found in the SQL Plan Cache during PREPARE work, but a new object was created because the database object referred to in the plan was not valid.
-    
+    PCO was found in the SQL Plan Cache during PREPARE stage, but was not valid.
 -   CREATE_BY_PLAN_TOO_OLD  
-    A new plan cache object was created, either because the range of statistical information about objects to which the plan refers has changed excessively, or because a DDL statement was executed
+    The change width of statistical information about objects to which the plan refers has exceeded the limit, or a DDL statement was executed
 
 ##### HIT_COUNT
 
-This is the number of times the plan cache object has been referred to.
+This is the number of times PCO has been referred to.
 
 ##### REBUILD_COUNT
 
-This is the number of times the plan cache object has been recompiled.
+This is the number of times PCO has been recompiled.
 
 ##### PLAN_STATE
 
-This is the status of the plan of the plan cache object. It can have the following values:
+This is the plan state of the PCO and can have the following values:
 
 -   READY  
-    This is the state in which SQL statement, execution plan and plan environment have been assigned to the plan cache object.
+    SQL statement, execution plan and plan environment have been assigned to PCO.
 
 -   OLD_PLAN  
-    This is the state in which the plan is not valid and will not be used in the future.
+    Plan is not valid and will not be used in the future.
 
 ##### LRU_REGION
 
-Hot-Cold LRU list is a data structure that manages PCO replacement policy. The size of SQL Plan Cache is fixed by SQL_
-PLAN_CACHE_SIZE, Altibase server's property, and only limited number of PCO can be registered. This column indicates which region does PCO belong to.
+Hot-Cold LRU list is a data structure that manages PCO replacement policy. The size of SQL Plan Cache is fixed by SQL_PLAN_CACHE_SIZE, Altibase server's property, therefore only limited number of PCO can be registered. This column indicates which region PCO belongs to.
 
 - HOT_REGION
 
@@ -9955,15 +10336,15 @@ PLAN_CACHE_SIZE, Altibase server's property, and only limited number of PCO can 
 
 ##### PLAN_SIZE
 
-This is the plan size of the plan cache object.
+This is the plan size of the PCO.
 
 ##### FIX_COUNT
 
-This shows the number of statements referencing the plan cache object. If FIX_COUNT is 1 or more, no victim is selected.
+This shows the number of statements referencing the PCO. When FIX_COUNT is 1 or more, no victim is selected.
 
 ##### PLAN_CACHE_KEEP
 
-This indicates the keep status of plan cache object and can have the following: 
+This indicates the keep status of PCO and can have following values: 
 
 - KEEP
   PLAN is kept and will not be selected for victims
@@ -9972,36 +10353,36 @@ This indicates the keep status of plan cache object and can have the following:
 
 ###  V\$SQL_PLAN_CACHE_SQLTEXT
 
-This view displays information about Parent PCO.
+This view displays information about [Parent PCO](#parent-pco).
 
 | Column name            | Type           | Description                                                  |
 | ---------------------- | -------------- | ------------------------------------------------------------ |
 | SQL_TEXT_ID            | VARCHAR(64)    | The identifier of Parent PCO                                 |
 | SQL_TEXT               | VARCHAR(16384) | The SQL statements                                           |
-| CHILD_PCO_COUNT        | INTEGER        | The number of Child PCO created under Parent PCO             |
-| CHILD_PCO_CREATE_COUNT | INTEGER        | The number of Child Plan Cache objects that have been created |
-| PLAN_CACHE_KEEP        | VARCHAR(6)     | The keep status of the Plan Cache object corresponding to SQL_TEXT_ID |
+| CHILD_PCO_COUNT        | INTEGER        | The number of Child PCOs Parent PCO currently has            |
+| CHILD_PCO_CREATE_COUNT | INTEGER        | The number of Child PCOs that have been created until now in Parent PCO |
+| PLAN_CACHE_KEEP        | VARCHAR(6)     | The keep status of the PCO corresponding to SQL_TEXT_ID      |
 
 #### Column Information
 
 ##### SQL_TEXT_ID
 
-This is the identifier of the SQL statement in the SQL Plan Cache. The first 4 digits indicate the number of the bucket in which the SQL statement is stored in the SQL Plan Cache. The remaining digits indicate the serial number of the SQL statement in the bucket.
+This is the identifier of the Parent PCO. The first 4 digits indicate the number of the bucket in which the Parent PCO is stored. The following digits indicate the serial number of the SQL statement in the bucket.
 
 ##### SQL_TEXT
 
-This is the actual SQL statement. 
+This is the SQL statement. 
 
 ##### CHILD_PCO_COUNT
 
-This is the number of Child Plan Cache objects that the SQL Text Plan object currently possesses.
+This is the number of Child PCOs that the Parent PCO currently has.
 
 ##### CHILD_PCO_CREATE_COUNT
 
-This is the number of Child Plan Caches that have been created in the SQL Text Plan object so far. New Child Plan Cache objects are created in the SQL Text Plan object in the following two cases:
+This is the number of Child PCOs that have been created in the Parent PCO until now. New Child PCOs are created in the Parent PCO in the two following cases:
 
--   A Child Plan Cache object is created when the SQL statement is the same but the environment in which the plan was created has changed. 
--   A new plan cache object is created when objects that refer to the plan cache object have changed, or when the range of statistical information about objects has changed excessively.
+-   SQL statement is identical with the existing PCO but the environment in which the plan was created has changed. 
+-   Objects that existing PCO refers to have changed, or the change width of statistical information about objects to which the plan refers has exceeded the limit.
 
 ##### PLAN_CACHE_KEEP
 
@@ -10012,7 +10393,7 @@ This shows the keep status of plan cache object corresponding to SQL_TEXT_ID and
 - UNKEEP
   PLAN can be selected as victim with unkeep status.
 
-### <a name="vstable_mem_datafiles"><a/>V\$STABLE_MEM_DATAFILES
+### V\$STABLE_MEM_DATAFILES
 
 This view shows the complete file path of the data files in the database. 
 
@@ -10056,8 +10437,8 @@ This view shows information about the most recently executed query in each curre
 | EXECUTE_TIME              | BIGINT         | The time taken to execute the statement                      |
 | FETCH_TIME                | BIGINT         | The time taken to perform a fetch operation                  |
 | SOFT_PREPARE_TIME         | BIGINT         | The time taken to search for a plan in the SQL Plan Cache during the Prepare process |
-| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | The SQL Text identifier of the SQL plan cache object         |
-| SQL_CACHE_PCO_ID          | INTEGER        | The identifier of the plan cache object                      |
+| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | The identifier of Parent PCO or NO_SQL_CACHE_STMT            |
+| SQL_CACHE_PCO_ID          | INTEGER        | The identifier of Child PCO                                  |
 | OPTIMIZER                 | BIGINT         | The optimization mode                                        |
 | COST                      | BIGINT         | The optimization cost                                        |
 | USED_MEMORY               | BIGINT         | Reserved for future use                                      |
@@ -10210,11 +10591,17 @@ This is the time taken to find an appropriate plan cache object in the SQL Plan 
 
 ##### SQL_CACHE_TEXT_ID
 
-This is the identifier of a Parent PCO. However, DDL statements and DCL statements which are not registered in SQL Plan Cache and statements using NO_PLAN_CACHE hint will be queried as NO_SQL_CACHE_STMT.
+This displays the identifier of a [Parent PCO](#parent-pco) or NO_SQL_CACHE_STMT.
+
+NO_SQL_CACHE_STMT means a statement that is not registered in SQL Plan Cache. The following statements are not registered in SQL Plan Cache.
+
+- DDL statements
+- DCL statements
+- Statements using NO_PLAN_CACHE hint
 
 ##### SQL_CACHE_PCO_ID
 
-This is the object identifier of a Child PCO registered in SQL Plan Cache.
+This is the object identifier of a [Child PCO](#child-pco).
 
 ##### OPTIMIZER
 

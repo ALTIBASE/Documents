@@ -18,7 +18,7 @@
     - [Performance Properties](#performance-properties)
     - [Session Properties](#session-properties)
     - [Time-out Properties](#time-out-properties)
-    - [Tranaction Properties](#tranaction-properties)
+    - [Transaction Properties](#transaction-properties)
     - [Backup and Recovery Properties](#backup-and-recovery-properties)
     - [Replication Properties](#replication-properties)
     - [Network and Security Properties](#network-and-security-properties)
@@ -2867,8 +2867,8 @@ The values in the “Alter Level” column have the following meaning:
       	<td>VOLATILE_MAX_DB_SIZE</td>
       </tr>
       <tr>
-      	<td rowspan="101">P</td>
-          <td rowspan="101"></td>
+      	<td rowspan="102">P</td>
+          <td rowspan="102"></td>
           <td>AGER_WAIT_MAXIMUM</td>
           <td rowspan="2"></td>
       </tr>
@@ -6123,8 +6123,6 @@ This specifies as a percentage the number of page frames of a temporary table on
 
 For example, when the number of temporary page frames is 100 and this value is set to 1, the number of buckets and frames are the same. If this value is set to 2, the number of buckets is 50, half the number of frames, whereas if this value is set to 100, there is only one bucket.
 
-For more detailed information about temporary tables, please refer to the TEMP_MAX_PAGE_COUNT property. 
-
 #### TEMP_PAGE_CHUNK_COUNT 
 
 ##### Data Type
@@ -8637,32 +8635,6 @@ This property specifies the lock level for tablespaces.
 
 The value of this property can be changed using the ALTER SYSTEM or the ALTER SESSION statement while Altibase is running. However, it can only be changed in the absence of activated transactions
 
-#### TEMP_MAX_PAGE_COUNT
-
-##### Data Type
-
-Unsigned Integer
-
-##### Default Value
-
-524288
-
-##### Attributes
-
-Read-Write, Single Value
-
-##### Range
-
-[1024, 2<sup>32</sup>-1]
-
-##### Description
-
-This property specifies the maximum number of pages that one temporary table<sup>8</sup> can use. Since information about the pages allocated to temporary tables is managed within the space specified for the TOTAL_WA_SIZE property, the space available for the server to perform sorting or hashing operations decreases as the value of this property increases.
-
-[<sup>8</sup>] Temporary table: a table which is internally created in the temporary tablespace on the disk for the storage of intermediate results while the server processes a query; the temporary table differs from the user temporary table.
-
-The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running.
-
 #### TEMP_STATS_WATCH_TIME
 
 ##### Data Type
@@ -8683,7 +8655,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the standard time to be registered for statistical information. Among the operations using temporary tables, operations that take longer than the value specified for this property are registered for statistical information. For further information about temporary tables, please refer to the description of the TEMP_MAX_PAGE_COUNT property.
+This property specifies the standard time to be registered for statistical information. Among the operations using temporary tables, operations that take longer than the value specified for this property are registered for statistical information.
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
@@ -8881,7 +8853,7 @@ Read-Write, Single Value
 
 This property specifies the maximum size of memory available for allocation for sorting or hashing operations
 
-The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. The response to a request for alteration is immediately returned, however, the altered value is not actually applied to the server until the temporary table in use is nonexistent. For further information about temporary tables, please refer to the description of the TEMP_MAX_PAGE_COUNT property.
+The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. The response to a request for alteration is immediately returned, however, the altered value is not actually applied to the server until the temporary table in use is nonexistent.
 
 #### TOUCH_TIME_INTERVAL (Unit: second)
 
@@ -10043,7 +10015,7 @@ Read-Only, Single Value
 
 When using the Two-Phase Commit Protocol, this property specifies the number of seconds to wait before terminating an entire transaction that has taken a long time and is thus in IN_DOUBT state.
 
-### Tranaction Properties
+### Transaction Properties
 
 #### AUTO_COMMIT
 
@@ -11968,7 +11940,7 @@ Unsigned Integer
 
 ##### Default Value
 
-1
+2
 
 ##### Attributes
 
@@ -11984,7 +11956,7 @@ Replication receivers use transactions when copying data and create respective t
 
 If the number of transactions existing in pools falls short, the replication receiver will create new transactions and use them. The transactions thus created are returned to pools after use; if the number of transactions existing at that time is larger than the value specified in this property, the transactions are immediately freed, instead of being returned. 
 
-If set to an excessively large value, it can constrain the number of normal transactions; therefore, an appropriate number of transactions must be specified. This property permits the maximum value of 232 -1; however, the actual maximum value is identical to the value specified in the property of TRANSACTION_TABLE_SIZE. If the user specifies this value to be larger than the value of TRANSACTION_TABLE_SIZE, the value of this property will be internally set as the value of the TRANSACTION_TABLE_SIZE. 
+If set to an excessively large value, it can constrain the number of normal transactions; therefore, an appropriate number of transactions must be specified. This property permits the maximum value of 2³²-1; however, the actual maximum value is identical to the value specified in the property of TRANSACTION_TABLE_SIZE. If the user specifies this value to be larger than the value of TRANSACTION_TABLE_SIZE, the value of this property will be internally set as the value of the TRANSACTION_TABLE_SIZE. 
 
 This property value can be changed while Altibase is running; however, transaction pools are initialized at the creation of replication receiver threads and replication must be restarted for the modified property values to be applied. 
 

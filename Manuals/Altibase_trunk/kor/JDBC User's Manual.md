@@ -34,6 +34,21 @@
   - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
     - [SQL States](#sql-states)
   - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
+      - [java.sql.Connection](#java.sql.connection)
+      - [java.sql.Wrapper](#java.sql.wrapper)
+      - [java.sql.Driver](#java.sql.driver)
+      - [java.sql.Statement](#java.sql.statement)
+      - [java.sql.PreparedStatement](#java.sql.preparedstatement)
+      - [java.sql.CallableStatement](#java.sql.callablestatement)
+      - [java.sql.PooledConnection](#java.sql.pooledconnection)
+      - [java.sql.ResultSet](#java.sql.resultset)
+      - [java.sql.CommonDataSource](#java.sql.commondatasource)
+      - [java.sql.DatabaseMetaData](#java.sql.databasemetadata)
+      - [java.sql.Blob](#java.sql.blob)
+      - [java.sql.Clob](#java.sql.clob)
+      - [java.sql.Types](#java.sql.types)
+      - [java.sql.DriverAction](#javasqldriveraction)
+      - [java.sql.SQLTypes](#java.sql.sqltypes)
       - [Java 8 Time API](#java-8-time-api)
   - [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
     - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
@@ -3756,27 +3771,27 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 6.JDBC 4.2 API References
 -----------
 ### java.sql.Connection
-| 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                        |      예외 처리                                 |
+| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                        |      예외 처리                                 |
 |------------------------------------------------------------|----------|----------|-------------------------------------------------------------------------------|------------------------------------------------|
-| createBlob()                                               | 4.0      |    X     | Connection 단계에서의 lob 객체 생성 지원 안함                                        |SQLFeatureNotSupported 예외 발생             |
-| createClob()                                               | 4.0      |    X     | Connection 단계에서의 lob 객체 생성 지원 안함                                        |SQLFeatureNotSupported 예외 발생             |
-| createNClob()                                              | 4.0      |    X     | Clob 객체에 대한 다국어 처리 지원 안함                                               |SQLFeatureNotSupported 예외 발생              |
-| createSQLXML()                                             | 4.0      |    X     | SQLXML 타입 지원 안함                                                              |SQLFeatureNotSupported 예외 발생              |
+| createBlob()                                               | 4.0      |    X     | Connection 단계에서의 LOB 객체 생성 미지원                        |SQLFeatureNotSupported 예외 발생             |
+| createClob()                                               | 4.0      |    X     | Connection 단계에서의 LOB 객체 생성 미지원                                  |SQLFeatureNotSupported 예외 발생             |
+| createNClob()                                              | 4.0      |    X     | Clob 객체에 대한 다국어 처리 미지원                                              |SQLFeatureNotSupported 예외 발생              |
+| createSQLXML()                                             | 4.0      |    X     | SQLXML 타입 미지원                                                              |SQLFeatureNotSupported 예외 발생              |
 | isValid(int timeout)                                       | 4.0      |    O     |                                                                                   |                                             |
 | setClientInfo(String name, String value)                   | 4.0      |    O     | 알티베이스 JDBC는 클라이언트 속성 중 ApplicationName만 지원                           |                                             |
 | setClientInfo(Properties properties)                       | 4.0      |    O     | ApplicationName만 지원                                                             |                                            |
 | getClientInfo(String name)                                 | 4.0      |    O     | ApplicationName만 지원                                                             |                                            |
 | getClientInfo()                                            | 4.0      |    O     | ApplicationName만 지원                                                             |                                            |
-| createArrayOf(String typeName, Object[] elements)          | 4.0      |    X     | Array 타입 지원 안함                                                                |SQLFeatureNotSupported 예외 발생             |
-| createStruct(String typeName, Object[] attributes)         | 4.0      |    X     | Struct 타입 지원 안함                                                               |SQLFeatureNotSupported 예외 발생             |
-| setSchema(String schema)                                   | 4.1      |    X     | 스키마 지원 안함                                                                    |스펙에 따라 예외는 발생 안하고 그냥 요청이 무시됨 |
-| getSchema()                                                | 4.1      |    X     | 스키마 지원 안함                                                                    |예외는 발생 안하고 null이 리턴됨                |
+| createArrayOf(String typeName, Object[] elements)          | 4.0      |    X     | Array 타입 미지원                                                             |SQLFeatureNotSupported 예외 발생             |
+| createStruct(String typeName, Object[] attributes)         | 4.0      |    X     | Struct 타입 미지원                                                             |SQLFeatureNotSupported 예외 발생             |
+| setSchema(String schema)                                   | 4.1      |    X     | 스키마 미지원                                                                  |스펙에 따라 예외는 발생 안하고 그냥 요청이 무시됨 |
+| getSchema()                                                | 4.1      |    X     | 스키마 미지원                                                                  |예외는 발생 안하고 null이 리턴됨                |
 | abort(Executor executor)                                   | 4.1      |    O     |                                                                                    |                                            |
-| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | 드라이버 내부적으로 socket so timeout을 이용하기 때문에 executor는 null로 넘겨도 상관없음 |                                            |
-| getNetworkTimeout()                                        | 4.1      |    O     | JDBC 속성 response_timeout과 연동                                                    |                                            |
+| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | Altibase JDBC 드라이버 내부에서 TCP/IP의 SO_TIMEOUT socket 옵션을 이용하기 때문에 Executor는 null을 반환(return)해도 무방 |                                            |
+| getNetworkTimeout()                                        | 4.1      |    O     | JDBC의 response_timeout 속성과 연동하여 해당 속성값을 반환          |                                            |
 
 ### java.sql.Wrapper
-| 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |
+| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
 |------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
 | unwrap(Class<T> iface)                                     | 4.0      |    O     |                                                                          |                                                      |
 | isWrapperFor(Class<?> iface)                               | 4.0      |    O     |                                                                          |                                                      |
@@ -3791,14 +3806,14 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 - Altibase42DatabaseMetaData
 
 ### java.sql.Driver
-| 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |
+| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
 |------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
 | getParentLogger()                                          | 4.1      |    O     |                                                                          |                                                      |
 
 ### java.sql.Statement
-| 인터페이스명                                                 | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |
+| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
 |------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
-| setPoolable(boolean poolable)                              | 4.0      |    O     | 알티베이스 JDBC에서 직접 Statement Pool은 지원하지 않고 플래그 셋팅만 가능     |                                                      |
+| setPoolable(boolean poolable)                              | 4.0      |    O     | 알티베이스 JDBC에서 직접 Statement Pool은 지원하지 않고 플래그 설정만 가능   |                                                      |
 | isPoolable()                                               | 4.0      |    O     |                                                                          |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
 | isCloseOnCompletion()                                      | 4.1      |    O     |                                                                          |                                                      |
@@ -3809,20 +3824,20 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | getLargeUpdateCount()                                      | 4.2      |    O     |                                                                          |                                                      |
 
 ### java.sql.PreparedStatement
-| 인터페이스명                                                                        | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |
+| 인터페이스명                                                                        | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
 |-----------------------------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
-| setRowId(int parameterIndex, RowId x)                                             | 4.0      |    X     | RowId 지원 안함                                                           | SQLFeatureNotSupported 예외 발생                      |
+| setRowId(int parameterIndex, RowId x)                                             | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
 | setNString(int parameterIndex, String value)                                      | 4.0      |    O     |                                                                          |                                                      |
-| setNClob(int parameterIndex, NClob value)                                         | 4.0      |    X     |  NClob 타입 지원 안함                                                     |  SQLFeatureNotSupported 예외 발생                      |
-| setNClob(int parameterIndex, Reader reader)                                       | 4.0      |    X     |  NClob 타입 지원 안함                                                     |  SQLFeatureNotSupported 예외 발생                      |
-| setNClob(int parameterIndex, Reader reader, long length)                          | 4.0      |    X     |  NClob 타입 지원 안함                                                     |  SQLFeatureNotSupported 예외 발생                      |
+| setNClob(int parameterIndex, NClob value)                                         | 4.0      |    X     |  NCLOB 타입 미지원                                                     |  SQLFeatureNotSupported 예외 발생                      |
+| setNClob(int parameterIndex, Reader reader)                                       | 4.0      |    X     |  NCLOB 타입 미지원                                                     |  SQLFeatureNotSupported 예외 발생                      |
+| setNClob(int parameterIndex, Reader reader, long length)                          | 4.0      |    X     |  NCLOB 타입 미지원                                                     |  SQLFeatureNotSupported 예외 발생                      |
 | setClob(int parameterIndex, Reader reader)                                        | 4.0      |    O     |                                                                         |                                                       |
 | setClob(int parameterIndex, Reader reader, long length)                           | 4.0      |    O     |                                                                         |                                                       |
 | setBlob(int parameterIndex, InputStream inputStream)                              | 4.0      |    O     |                                                                         |                                                       |
 | setBlob(int parameterIndex, InputStream inputStream, long length)                 | 4.0      |    O     |                                                                         |                                                       |
-| setSQLXML(int parameterIndex, SQLXML xmlObject)                                   | 4.0      |    X     |  XML 타입 지원 안함                                                      |   SQLFeatureNotSupported 예외 발생                     |
-| setNCharacterStream(int parameterIndex, Reader value)                             | 4.0      |    X     |  NClob 타입 지원 안함                                                     |  SQLFeatureNotSupported 예외 발생                     |
-| setNCharacterStream(int parameterIndex, Reader value, long length)                | 4.0      |    X     |  NClob 타입 지원 안함                                                     |  SQLFeatureNotSupported 예외 발생                     |
+| setSQLXML(int parameterIndex, SQLXML xmlObject)                                   | 4.0      |    X     |  XML 타입 미지원                                                      |   SQLFeatureNotSupported 예외 발생                     |
+| setNCharacterStream(int parameterIndex, Reader value)                             | 4.0      |    X     |  NCLOB 타입 미지원                                                     |  SQLFeatureNotSupported 예외 발생                     |
+| setNCharacterStream(int parameterIndex, Reader value, long length)                | 4.0      |    X     |  NCLOB 타입 미지원                                                     |  SQLFeatureNotSupported 예외 발생                     |
 | setAsciiStream(int parameterIndex, InputStream x)                                 | 4.0      |    O     |                                                                         |                                                      |
 | setAsciiStream(int parameterIndex, InputStream x, long length)                    | 4.0      |    O     |                                                                         |                                                      |
 | executeLargeUpdate()                                                              | 4.2      |    O     |                                                                         |                                                      |
@@ -3830,32 +3845,32 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | setObject(int parameterIndex, Object x, SQLType targetSqlType, int scaleOrLength) | 4.2      |    O     |                                                      |                                                      |
 
 ### java.sql.CallableStatement
-| 인터페이스명                                                                         | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |
+| 인터페이스명                                                                         | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
 |-------------------------------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
-| getRowId(int parameterIndex)                                                        | 4.0      |    X     | RowId 지원 안함                                                           | SQLFeatureNotSupported 예외 발생                      |
-| getRowId(String parameterName)                                                      | 4.0      |    X     | RowId 지원 안함                                                           | SQLFeatureNotSupported 예외 발생                      |
-| setRowId(String parameterName, RowId x)                                             | 4.0      |    X     | RowId 지원 안함                                                           | SQLFeatureNotSupported 예외 발생                      |
-| getNClob(int parameterIndex)                                                        | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
-| getNClob(String parameterName)                                                      | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
-| setNClob(String parameterName, NClob value)                                         | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
-| setNClob(String parameterName, Reader reader)                                       | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
-| setNClob(String parameterName, Reader reader, long length)                          | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
+| getRowId(int parameterIndex)                                                        | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
+| getRowId(String parameterName)                                                      | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
+| setRowId(String parameterName, RowId x)                                             | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
+| getNClob(int parameterIndex)                                                        | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
+| getNClob(String parameterName)                                                      | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
+| setNClob(String parameterName, NClob value)                                         | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
+| setNClob(String parameterName, Reader reader)                                       | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
+| setNClob(String parameterName, Reader reader, long length)                          | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
 | setClob(String parameterName, Clob x)                                               | 4.0      |    O     |                                                                          |                                                      |
 | setClob(String parameterName, Reader reader)                                        | 4.0      |    O     |                                                                          |                                                      |
 | setClob(String parameterName, Reader reader, long length)                           | 4.0      |    O     |                                                                          |                                                      |
 | setBlob(String parameterName, Blob x)                                               | 4.0      |    O     |                                                                          |                                                      |
 | setBlob(String parameterName, InputStream inputStream)                              | 4.0      |    O     |                                                                          |                                                      |
 | setBlob(String parameterName, InputStream inputStream, long, length)                | 4.0      |    O     |                                                                          |                                                      |
-| setSQLXML(String parameterName, SQLXML xmlObject)                                   | 4.0      |    X     | XML 타입 지원 안함                                                        | SQLFeatureNotSupported 예외 발생                      |
-| getSQLXML(int parameterIndex)                                                       | 4.0      |    X     | XML 타입 지원 안함                                                        | SQLFeatureNotSupported 예외 발생                      |
-| getSQLXML(String parameterName)                                                     | 4.0      |    X     | XML 타입 지원 안함                                                        | SQLFeatureNotSupported 예외 발생                      |
+| setSQLXML(String parameterName, SQLXML xmlObject)                                   | 4.0      |    X     | XML 타입 미지원                                                        | SQLFeatureNotSupported 예외 발생                      |
+| getSQLXML(int parameterIndex)                                                       | 4.0      |    X     | XML 타입 미지원                                                        | SQLFeatureNotSupported 예외 발생                      |
+| getSQLXML(String parameterName)                                                     | 4.0      |    X     | XML 타입 미지원                                                        | SQLFeatureNotSupported 예외 발생                      |
 | getNString(int parameterIndex)                                                      | 4.0      |    O     |                                                                          |                                                      |
 | getNString(String parameterName)                                                    | 4.0      |    O     |                                                                          |                                                      |
 | setNString(String parameterName, String value)                                      | 4.0      |    O     |                                                                          |                                                      |
-| getNCharacterStream(int parameterIndex)                                             | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
-| getNCharacterStream(String parameterName)                                           | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
-| setNCharacterStream(String parameterName, Reader reader)                            | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
-| setNCharacterStream(String parameterName, Reader value, long length                 | 4.0      |    X     | NClob 타입 지원 안함                                                      | SQLFeatureNotSupported 예외 발생                      |
+| getNCharacterStream(int parameterIndex)                                             | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
+| getNCharacterStream(String parameterName)                                           | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
+| setNCharacterStream(String parameterName, Reader reader)                            | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
+| setNCharacterStream(String parameterName, Reader value, long length                 | 4.0      |    X     | NCLOB 타입 미지원                                                      | SQLFeatureNotSupported 예외 발생                      |
 | getCharacterStream(int parameterIndex)                                              | 4.0      |    O     |                                                                          |                                                      |
 | getCharacterStream(String parameterName)                                            | 4.0      |    O     |                                                                          |                                                      |
 | setAsciiStream(String parameterName, InputStream x)                                 | 4.0      |    O     |                                                                          |                                                      |
@@ -3876,40 +3891,40 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | registerOutParameter(String parametername, SQLType sqlType, String typeName)        | 4.2      |    O     |                                                                          |                                                      |
 
 ### java.sql.PooledConnection
-| 인터페이스명                                                     | spec ver | 지원여부  | Details                                                                  |      예외 처리                                        |
+| 인터페이스명                                                     | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
 |----------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
-| addStatementEventListener(StatementEventListener listener)     | 4.0      |    X     | Statement Pool을 자체적으로 지원하지 않기 때문에 동작이 그냥 무시된다.         |                                                      |
-| removeStatementEventListener(StatementEventListener listener)  | 4.0      |    X     | Statement Pool을 자체적으로 지원하지 않기 때문에 동작이 그냥 무시된다.         |                                                      |
+| addStatementEventListener(StatementEventListener listener)     | 4.0      |    X     | Statement Pool을 지원하지 않으므로 동작이 무시됨 |                                                      |
+| removeStatementEventListener(StatementEventListener listener)  | 4.0      |    X     | Statement Pool을 지원하지 않으므로 동작이 무시됨     |                                                      |
 
 ### java.sql.ResultSet
-| 인터페이스명                                                                | spec ver | 지원여부  | Details                            |      예외 처리                                        |
+| 인터페이스명                                                                | Specification Version | 지원여부  | Details                            |      예외 처리                                        |
 |----------------------------------------------------------------------------|----------|----------|------------------------------------|------------------------------------------------------|
-| getRowId(int columnIndex)                                                  | 4.0      |    X     | RowId 지원 안함                     | SQLFeatureNotSupported 예외 발생                      |
-| getRowId(String columnLabel)                                               | 4.0      |    X     | RowId 지원 안함                     | SQLFeatureNotSupported 예외 발생                      |
-| updateRowId(int columnIndex, RowId x)                                      | 4.0      |    X     | RowId 지원 안함                     | SQLFeatureNotSupported 예외 발생                      |
-| updateRowId(String columnLabel, RowId x)                                   | 4.0      |    X     | RowId 지원 안함                     | SQLFeatureNotSupported 예외 발생                      |
+| getRowId(int columnIndex)                                                  | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
+| getRowId(String columnLabel)                                               | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
+| updateRowId(int columnIndex, RowId x)                                      | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
+| updateRowId(String columnLabel, RowId x)                                   | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | updateNString(int columnIndex, String nString)                             | 4.0      |    O     |                                    |                                                      |
 | updateNString(String columnLabel, String nString)                          | 4.0      |    O     |                                    |                                                      |
-| updateNClob(int columnIndex, Reader reader)                                | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNClob(int columnIndex, Reader reader, long length)                   | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNClob(String columnLabel, Reader reader)                             | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNClob(String columnLabel, Reader reader, long length)                | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNClob(int columnIndex, NClob nClob)                                  | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNClob(String columnLabel, NClob nClob)                               | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| getNClob(int columnIndex)                                                  | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| getNClob(String columnLabel)                                               | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| getSQLXML(int columnIndex)                                                 | 4.0      |    X     | XML 타입 지원 안함                  | SQLFeatureNotSupported 예외 발생                      |
-| getSQLXML(String columnLabel)                                              | 4.0      |    X     | XML 타입 지원 안함                  | SQLFeatureNotSupported 예외 발생                      |
-| updateSQLXML(int columnIndex, SQLXML xmlObject)                            | 4.0      |    X     | XML 타입 지원 안함                  | SQLFeatureNotSupported 예외 발생                      |
-| updateSQLXML(String columnLabel, SQLXML xmlObject)                         | 4.0      |    X     | XML 타입 지원 안함                  | SQLFeatureNotSupported 예외 발생                      |
+| updateNClob(int columnIndex, Reader reader)                                | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNClob(int columnIndex, Reader reader, long length)                   | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNClob(String columnLabel, Reader reader)                             | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNClob(String columnLabel, Reader reader, long length)                | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNClob(int columnIndex, NClob nClob)                                  | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNClob(String columnLabel, NClob nClob)                               | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| getNClob(int columnIndex)                                                  | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| getNClob(String columnLabel)                                               | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| getSQLXML(int columnIndex)                                                 | 4.0      |    X     | XML 타입 미지원                  | SQLFeatureNotSupported 예외 발생                      |
+| getSQLXML(String columnLabel)                                              | 4.0      |    X     | XML 타입 미지원                  | SQLFeatureNotSupported 예외 발생                      |
+| updateSQLXML(int columnIndex, SQLXML xmlObject)                            | 4.0      |    X     | XML 타입 미지원                  | SQLFeatureNotSupported 예외 발생                      |
+| updateSQLXML(String columnLabel, SQLXML xmlObject)                         | 4.0      |    X     | XML 타입 미지원                  | SQLFeatureNotSupported 예외 발생                      |
 | getNString(int columnIndex)                                                | 4.0      |    O     |                                    |                                                      |
 | getNString(String columnLabel)                                             | 4.0      |    O     |                                    |                                                      |
-| getNCharacterStream(int columnIndex)                                       | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| getNCharacterStream(String columnLabel)                                    | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNCharacterStream(int columnIndex, Reader x)                          | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNCharacterStream(int columnIndex, Reader x, long length)             | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNCharacterStream(String columnLabel, Reader reader)                  | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
-| updateNCharacterStream(String columnLabel, Reader reader, long length)     | 4.0      |    X     | NClob 타입 지원 안함                | SQLFeatureNotSupported 예외 발생                      |
+| getNCharacterStream(int columnIndex)                                       | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| getNCharacterStream(String columnLabel)                                    | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNCharacterStream(int columnIndex, Reader x)                          | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNCharacterStream(int columnIndex, Reader x, long length)             | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNCharacterStream(String columnLabel, Reader reader)                  | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
+| updateNCharacterStream(String columnLabel, Reader reader, long length)     | 4.0      |    X     | NCLOB 타입 미지원                | SQLFeatureNotSupported 예외 발생                      |
 | updateAsciiStream(int columnIndex, InputStream x)                          | 4.0      |    O     |                                    |                                                      |
 | updateAsciiStream(int columnIndex, InputStream x, long length)             | 4.0      |    O     |                                    |                                                      |
 | updateAsciiStream(String columnLabel, InputStream x)                       | 4.0      |    O     |                                    |                                                      |
@@ -3934,46 +3949,47 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | getObject(String columnLabel, Class<T> type)                               | 4.1      |    O     |                                    |                                                      |
 
 ### javax.sql.CommonDataSource
-| 인터페이스명                                   | spec ver | 지원여부  | Details                            |      예외 처리                  |
+| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
 |-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
 | getParentLogger()                             | 4.1      |    O     |                                    |                                |
 
 ### java.sql.DatabaseMetaData
-| 인터페이스명                                                                                                   | spec ver | 지원여부  | Details                            |      예외 처리                                        |
+| 인터페이스명                                                                                                   | Specification Version | 지원여부  | Details                            |      예외 처리                                        |
 |---------------------------------------------------------------------------------------------------------------|----------|----------|------------------------------------|------------------------------------------------------|
-| getRowIdLifetime()                                                                                            | 4.0      |    X     | RowId 지원 안함                     | SQLFeatureNotSupported 예외 발생                      |
+| getRowIdLifetime()                                                                                            | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | getSchemas(String catalog, String schemaPattern)                                                              | 4.0      |    O     |                                    |                                                      |
-| supportsStoredFunctionsUsingCallSyntax()                                                                      | 4.0      |    X     | false 리턴                          |                                                      |
-| autoCommitFailureClosesAllResultSets()                                                                        | 4.0      |    X     | false 리턴                          |                                                      |
+| supportsStoredFunctionsUsingCallSyntax()                                                                      | 4.0      |    X     | False 리턴                         |                                                      |
+| autoCommitFailureClosesAllResultSets()                                                                        | 4.0      |    X     | False 리턴                         |                                                      |
 | getClientInfoProperties()                                                                                     | 4.0      |    O     | ApplicationName만 지원              |                                                      |
 | getFunctions(String catalog, String schemaPattern, String functionNamePattern)                                | 4.0      |    O     |                                    |                                                      |
 | getFunctionColumns(String catalog, String schemaPattern, String functionNamePattern,String columnNamePattern) | 4.0      |    O     |                                    |                                                      |
 | getPseudoColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern)     | 4.1      |    X     |                                    | SQLFeatureNotSupported 예외 발생                      |
-| generatedKeyAlwaysReturned()                                                                                  | 4.1      |    X     | false 리턴                         |                                                      |
+| generatedKeyAlwaysReturned()                                                                                  | 4.1      |    X     | False 리턴                       |                                                      |
 
 ### java.sql.Blob
-| 인터페이스명                                   | spec ver | 지원여부  | Details                            |      예외 처리                  |
+| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
 |-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
 | getBinaryStream(long pos, long length)        | 4.0      |    O     |                                    |                                |
 
 ### java.sql.Clob
-| 인터페이스명                                   | spec ver | 지원여부  | Details                            |      예외 처리                  |
+| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
 |-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
 | getCharacterStream(long pos, long length)     | 4.0      |    O     |                                    |                                |
 
 ### java.sql.Types
-| 인터페이스명                                   | spec ver | 지원여부  | Details                                |      예외 처리                  |
+| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
 |-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
-| REF_CURSOR                                    | 4.2      |    X     | 아웃바운드 파라메터로 ref cursor사용불가  |                                |
+| REF_CURSOR                                    | 4.2      |    X     | 아웃바운드 파라미터로 ref cursor사용 불가 |                                |
 
 ### java.sql.DriverAction
-| 인터페이스명                                   | spec ver | 지원여부  | Details                                |      예외 처리                  |
+| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
 |-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
 | deregister()                                  |  4.2     |    x     | deregister()를 통한 자원해제는 지원하지 않음  |                            |
 
 ### java.sql.SQLTypes
+
 알티베이스 JDBC 드라이버는 java.sql.SQLTypes 인터페이스를 구현하고 있는 AltibaseJDBCType을 지원한다.
-| 인터페이스명                                   | spec ver | 지원여부  | Details                                |      예외 처리                  |
+| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
 |-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
 | getName()                                     | 4.2      |    O     |                                        |                                |
 | getVendor()                                   | 4.2      |    O     |                                        |                                |
@@ -3986,8 +4002,8 @@ JDBC spec 4.2를 준수하는 알티베이스 JDBC 드라이버는 다음과 같
 | java.time.LocalDate      | java.sql.Date            |
 | java.time.LocalTime      | java.sql.Time            |
 | java.time.LocalDateTime  | java.sql.TimeStamp       |
-| java.time.OffsetTime     | 지원 안함                 |
-| java.time.OffsetDateTime | 지원 안함                 |
+| java.time.OffsetTime     | 미지원                |
+| java.time.OffsetDateTime | 미지원                |
 
 A.부록: 데이터 타입 맵핑
 ----------------------
