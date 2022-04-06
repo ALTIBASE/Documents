@@ -66,7 +66,7 @@ This document is an elementary guide for those unfamiliar with Replication Manag
   
 - Chapter 2: Using Replication Manager  
   
-  This chapter introduces the graphical user interface of Replication Manager. Then, it covers the steps to be taken to connect Replication Manager to Altibase database and describes the detail usage of Replication Manager.
+  This chapter introduces the graphical user interface of Replication Manager. Then, it covers the steps to be taken to connect Replication Manager to Altibase database and describes describes how to use Replication Manager in detail.
 
 #### Documentation Conventions
 
@@ -174,10 +174,6 @@ The major benefits of this tool are:
 
 This section discusses the system requirements for Replication Manager and compatible Altibase version.
 
-- Hardware Requirements
-- Software Requirements
-- Compatible Altibase version
-
 #### Hardware Requirements
 
 1. CPU: 800MHz Pentium or better
@@ -194,14 +190,14 @@ This section discusses the system requirements for Replication Manager and compa
 
 Replication Manager is a Java application, based on Eclipse RCP 3.6.2 technology (http://www.eclipse.org/). Therefore, it will work on any platform on which Eclipse RCP is supported. For additional information, please refer to the supported platform list at http://www.eclipse.org/eclipse/development/readme_eclipse_3.6.2.html. 
 
-At this time, Replication Manager is now distributed in Windows and Linux-compatible packages. It will be packaged for other platforms in the future if demand merits. 
+At this time, Replication Manager is now distributed in Windows and Linux-compatible packages. 
 
 | Package Name                                        | Operating System | Graphic System | JRE              |
 | --------------------------------------------------- | ---------------- | -------------- | ---------------- |
 | ReplicationManager-win32.win32.x86.zip              | Windows          | win32          | JRE 6 included   |
 | ReplicationManager-linux.gtk.x86.zip (JRE included) | Linux            | GTK            | Java 6 or higher |
 
-Since Replication Manager is bundled with the JRE 6 for the Microsoft Windows system, users do not need to install the JRE. However, other operating system users must configure the JRE and related environment variables appropriately.
+Since Replication Manager for the Microsoft Windows system is bundled with the JRE 6, users do not need to install the JRE. However, other operating system users must configure the JRE and related environment variables appropriately to use Java.
 
 #### Compatible Altibase version
 
@@ -229,7 +225,7 @@ This chapter introduces the graphical user interface of Replication Manager. The
 - Connecting to Altibase
 - Working with Replication
 
-### Understanding the User Interface
+### [Understanding the User Interface](#Understanding the User Interface)
 
 This section introduces the overall user interface. It is organized as follows:
 
@@ -374,20 +370,20 @@ When a registered database is no longer in use, you will probably want to remove
 
 ### Working with Replication
 
-This section is intended to describe the detail usage of Replication Manager. It also describes the relationship between panes and objects.
+This section is intended to describe how to use Replication Manager in detail. It also describes the relationship between panes and objects.
 
-Replication Manager takes care of a single base model, which simulates databases and replication-related objects, while providing a various ways of visualizing and manipulating the model through three editable panes. The model is consists of six types of objects as follows:
+Replication Manager takes care of a single base model, which simulates databases and replication-related objects, while providing a various ways of visualizing and manipulating the model through three editable panes. The model consists of six types of objects as follows:
 
-1. Replication Object: It is an object created with the CREATE REPLICATION statement and the common object among panes at Replication Manager. Please refer to "Understanding User Interface" for details.
+1. Replication Object: It is an object created with the CREATE REPLICATION statement and the common object among panes at Replication Manager. Please refer to <a name="Understanding User Interface">"Understanding User Interface"</a>
 2. Replication Target Table Object: This is a table that is designated, using the CREATE REPLICATION or ALTER REPLICATION statement, to be replicated between corresponding replication nodes.
 3. DB Connections Object: It is the root object of "DB Connection" object to manage DB Connection. Also, it is the entry point for "DB Connections" pane.
-4. DB Connection Object: It is a representation of a connection to Altibase DBMS. Please refer to "Understanding User Interface" for details.
+4. DB Connection Object: It is a representation of a connection to Altibase DBMS. Please refer to <a name="Understanding User Interface">"Understanding User Interface"</a> for details.
 5. Replication Pairs Object: It is the root object of "Replication Pair" and the entry point for "Replication Pairs" pane.
-6. Replication Pair Object: It is a pair of corresponding replication objects having the same name, one residing on each of two different nodes. Please refer to "Understanding User Interface" for details.
+6. Replication Pair Object: It is a pair of corresponding replication objects having the same name, one residing on each of two different nodes. Please refer to <a name="Understanding User Interface">"Understanding User Interface"</a>
 
 Some objects in the model are show up few panes for the ease use of Replication Manager.
 
-Even though some objects shared by panes are the same ones, they may provide different functionalities according to the pane. For instance, Replication Object at DB Connections pane provides "Edit Table List" function, but Replication Object at Map pane doesn't. The reason of different functionalities on the same object according to the panes is to align functionalities to its context. At the previous example, editing replication target table list is quite intuitive at the database-centric view, DB Connections pane. On the while, the Map pane, which is intended to give brief overview, is not the right place to edit replication target table list.
+Even though some objects shared by panes are the same ones, they may provide different functionalities according to the pane. For instance, Replication Object at DB Connections pane provides "Edit Table List" function, but Replication Object at Map pane doesn't. This is to align functionalities to its context. In this example, it is more reasonable to edit the replication target table list at the database-centric view, DB Connections pane because the Map pane is intended to give a brief overview.
 
 #### DB Connections pane
 
@@ -399,7 +395,7 @@ DB Connections pane is a database-centric view that represents the relationship 
 - Disconnect all: Disconnect all registered and connected DB Connection
 - Start all: Start all replication objects which are stopped.
 - Stop all: Stop all replication objects which are started.
-- Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to "Replication User's Manual" for details.
+- Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - New DB Connection: Create a new DB Connection.
 
 ##### DB Connection
@@ -411,7 +407,7 @@ DB Connections pane is a database-centric view that represents the relationship 
 - Remove: Remove the selected DB Connection.
 - Start all: Start all replication object which are stopped in the DB Connection.
 - Stop all: Stop all replication objects which are started in the DB Connection.
-- Quick Start all: Quick Start all replication objects which are stopped in the DB Connection. This operation may cause the loss of not yet delivered data. Please refer to "Replication User's Manual" for details.
+- Quick Start all: Quick Start all replication objects which are stopped in the DB Connection. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Create Replication: Create a Replication Object at the DB Connection.
 - Create Full-mesh Replications: Create full-meshed replication objects between selected DB Connections with identical named tables.
 - Join to Full-mesh: Let selected database instance join to already created full-meshed replication objects.
@@ -422,9 +418,9 @@ DB Connections pane is a database-centric view that represents the relationship 
 
 - Start: Start the selected Replication Object.
 - Stop: Stop the selected Replication Object.
-- Quick Start: Quick Start the selected Replication Object. This operation may cause the loss of not yet delivered data. Please refer to "Replication User's Manual" for details.
-- Sync: Sync the selected Replication Object. It is equivalent to perform ALTER REPLICATION ... SYNC ... statement.
-- Sync Only: Sync Only the selected Replication Object. It is equivalent to perform ALTER REPLICATION ... SYNC ONLY ... statement.
+- Quick Start: Quick Start the selected Replication Object. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
+- Sync: Sync the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ... statement.
+- Sync Only: Sync Only the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ONLY ... statement.
 - Drop: Drop the selected Replication Object, which is stopped.
 - Edit Table List: Add/Remove Replication Target Tables in the selected Replication Object, which is stopped.
 - Monitor: Open a monitor dialog for the selected Replication Object and the corresponding Replication Object.
@@ -437,13 +433,13 @@ DB Connections pane is a database-centric view that represents the relationship 
 
 #### Replication Pair pane
 
-Replication Pair pane is a logical view to depicts replication objects in pairs. So, it takes care of four types of objects: Replication Pairs, Replication Pair, Replication Object, and Replication Target Table.
+Replication Pair pane is a logical view depicting replication objects in pairs. It manages four types of objects: Replication Pairs, Replication Pair, Replication Object, and Replication Target Table.
 
 ##### Replication Pairs
 
 - Start all: Start all replication object which are stopped.
 - Stop all: Stop all replication objects which are started.
-- Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to "Replication User's Manual" for details.
+- Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Create Replication Pair: Create a pair of Replication Objects at two distinct DB Connections.
 - Create Full-mesh Replications: Create full-meshed replication objects between selected DB Connections with identical named tables.
 - Collapse All: Collapse the tree to replication pair level.
@@ -454,16 +450,16 @@ Replication Pair pane is a logical view to depicts replication objects in pairs.
 
 - Start all: Start all replication object which are stopped in the Replication Pair.
 - Stop all: Stop all replication objects which are started in the Replication Pair.
-- Quick Start all: Quick Start all replication objects which are stopped in the Replication Pair. This operation may cause the loss of not yet delivered data. Please refer to "Replication User's Manual" for details.
+- Quick Start all: Quick Start all replication objects which are stopped in the Replication Pair. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Drop: Drop Replication Objects in the selected Replication Pair. All Replication Objects should be stopped before using this function.
 
 ##### Replication Object
 
-The same at DB Connections pane.
+The same as DB Connections pane.
 
 ##### Replication Target Table
 
-The same at DB Connections pane.
+The same as DB Connections pane.
 
 #### Map pane
 
@@ -475,13 +471,13 @@ Map pane illustrates the physical layout and status of databases, replication ob
 - Disconnect: Disconnect from the connected database.
 - Start all: Start all replication object which are stopped in the DB Connection.
 - Stop all: Stop all replication objects which are started in the DB Connection.
-- Quick Start all: Quick Start all replication objects which are stopped in the DB Connection. This operation may cause the loss of not yet delivered data. Please refer to "Replication User's Manual" for details.
+- Quick Start all: Quick Start all replication objects which are stopped in the DB Connection. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 
 ##### Replication Object
 
 - Start: Start the selected Replication Object.
 - Stop: Stop the selected Replication Object.
-- Quick Start: Quick Start the selected Replication Object. This operation may cause the loss of not yet delivered data. Please refer to "Replication User's Manual" for details.
+- Quick Start: Quick Start the selected Replication Object. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Sync: Sync the selected Replication Object. It is equivalent to perform ALTER REPLICATION ... SYNC ... statement.
 - Sync Only: Sync Only the selected Replication Object. It is equivalent to perform ALTER REPLICATION ... SYNC ONLY ... statement.
 - Drop: Drop the selected Replication Object, which is stopped.
