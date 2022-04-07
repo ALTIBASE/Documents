@@ -203,7 +203,7 @@ Since Replication Manager for the Microsoft Windows system is bundled with the J
 
 - All supported Altibase versions by internal End of Support (EOS) policy (http://support.altibase.com/en/product)
 
-Replication Manager is able to work with many different versions of Altibase simultaneously. So, it is necessary to import an Altibase JDBC driver that is appropriate for the database to which one is connecting. If a user want to connect to two different Altibase databases, for example, versions 4.3.9.100 and 5.3.3.33 respectively, then the user is required to import two versions of the JDBC driver files into Replication Manager, and to give them different names, for example, "Altibase_4.3.9.100.jar" and "Altibase_5.3.3.33.jar". 
+Replication Manager can work with many different versions of Altibase simultaneously. So, it is necessary to import Altibase JDBC driver that is appropriate for the database to be connected. If a user want to connect to two different Altibase databases, for example, versions 4.3.9.100 and 5.3.3.33 respectively, then the user is required to import two versions of the JDBC driver files into Replication Manager, and to give them different names, for example, "Altibase_4.3.9.100.jar" and "Altibase_5.3.3.33.jar". 
 
 Please refer to <a name="Importing a JDBC Driver File">"Importing a JDBC Driver File"</a>.
 
@@ -478,8 +478,8 @@ Map pane illustrates the physical layout and status of databases, replication ob
 - Start: Start the selected Replication Object.
 - Stop: Stop the selected Replication Object.
 - Quick Start: Quick Start the selected Replication Object. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
-- Sync: Sync the selected Replication Object. It is equivalent to perform ALTER REPLICATION ... SYNC ... statement.
-- Sync Only: Sync Only the selected Replication Object. It is equivalent to perform ALTER REPLICATION ... SYNC ONLY ... statement.
+- Sync: Sync the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ... statement.
+- Sync Only: Sync Only the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ONLY ... statement.
 - Drop: Drop the selected Replication Object, which is stopped.
 - Monitor: Open a monitor dialog for the selected Replication Object and the corresponding Replication Object.
 - Show DDL: Print the schema to generate the selected Replication Object and its related objects, such as table, index, and so on.
