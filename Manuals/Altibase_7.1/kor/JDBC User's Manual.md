@@ -960,6 +960,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | N/A                                                          |
 | 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns()<br>의 결과에 function 객체도 포함할지 지정한다. 해당 값을 false로 설정하면 function 객체<br>정보를 얻기 위해서 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 별도로 사용해야 한다.<br> JDBC spec. 4.2를 지원하는 Altibase42.jar 에서만 효과가 있으며 Altibase.jar에서는 설정해도 효과가 없다.|
 
+##### getcolumns_return_jdbctype
+
+| 기본값    | false                                                         |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [true \| false ]                                             |
+| 필수 여부 | No                                                           |
+| 설정 범위 | N/A                                                          |
+| 설명      | DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA_TYPE 값을 정의한다.<br> true는 JDBC API에서 정의한 java.sql.Types의 SQL 데이터 형식으로 반환하고 false는 V$DATATYPE에<br> 정의된 데이터 타입 형식으로 반환한다.|
+
 ##### batch_setbytes_use_lob
 
 | 기본값    | true                                                         |
