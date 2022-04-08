@@ -62,9 +62,9 @@ This document is an elementary guide for those unfamiliar with Replication Manag
 
 - Chapter 1: Introduction to Replication Manager 
   
-  This chapter provides an overview of Replication Manager and contains information on the prerequisites for installation. It also explains how to install, uninstall and execute Replication Manager. 
+  This chapter provides information on the prerequisites for installation and an overview of Replication Manager. It also explains how to install, uninstall Replication Manager. 
   
-- Chapter 2: Using Replication Manager  
+- Chapter 2: Getting Started 
   
   This chapter introduces the graphical user interface of Replication Manager. Then, it covers the steps to be taken to connect Replication Manager to Altibase database and describes describes how to use Replication Manager in detail.
 
@@ -201,7 +201,7 @@ Since Replication Manager for the Microsoft Windows system is bundled with the J
 
 #### Compatible Altibase version
 
-- All supported Altibase versions by internal End of Support (EOS) policy (http://support.altibase.com/en/product)
+- Altibase: 4.3.9 or higher
 
 Replication Manager can work with many different versions of Altibase simultaneously. So, it is necessary to import Altibase JDBC driver that is appropriate for the database to be connected. If a user want to connect to two different Altibase databases, for example, versions 4.3.9.100 and 5.3.3.33 respectively, then the user is required to import two versions of the JDBC driver files into Replication Manager, and to give them different names, for example, "Altibase_4.3.9.100.jar" and "Altibase_5.3.3.33.jar". 
 
@@ -223,11 +223,13 @@ This chapter introduces the graphical user interface of Replication Manager. The
 
 - Understanding the User Interface
 - Connecting to Altibase
-- Working with Replication
+- Working with Replication Manager
 
 ### [Understanding the User Interface](#Understanding the User Interface)
 
-This section introduces the overall user interface. It is organized as follows:
+This section introduces the overall user interface. 
+
+The user interface of Replication Manager is organized as follows:
 
 ![48deb125f1f8d0bad9072829a57b02c7](media/ReplicationManager/48deb125f1f8d0bad9072829a57b02c7.png)
 
@@ -300,31 +302,17 @@ Alternatively, users can also import a JDBC driver file when performing the "Add
 
 - Basic Information
 
-  - Connection Name: Any name is acceptable, as long as it is unique in Replication Manager.
-  
-  
-    - Password: The password for the SYS user for the database
-  
-  
-    - DB Address: The IP address of the machine on which the database installed
-  
-  
-    - DB Port: The port number with which to access the database
-  
-  
-    - DB Name:  The name of the database
-  
-  
-    - JDBC driver: To use the appropriate version of the JDBC driver file, select the correct imported JDBC driver in the combo box. If the required JDBC driver file has not been imported yet, please import a new JDBC driver by clicking on the "JDBC driver manager" icon.
-  
-
+	- Connection Name: Any name is acceptable, as long as it is unique in Replication Manager.
+	- Password: The password for the SYS user for the database
+	- DB Address: The IP address of the machine on which the database installed
+	- DB Port: The port number with which to access the database
+	- DB Name:  The name of the database  
+	- JDBC driver: To use the appropriate version of the JDBC driver file, select the correct imported JDBC driver in the combo box. If the required JDBC driver file has not been imported yet, please import a new JDBC driver by clicking on the "JDBC driver manager" icon.
 
 - Options
 
   - IP Address Type: Select the appropriate IP address type, IPv4 or IPv6.
-  
-  
-    - NLS for Client: Choose the character set to use when translating data from the DBMS on the client side. (This option is not necessary when connecting to Altibase version 5.3.1 or higher.)
+  - NLS for Client: Choose the character set to use when translating data from the DBMS on the client side. (This option is not necessary when connecting to Altibase version 5.3.1 or higher.)
   
 
 3. Click on the "Connection Test" button to ensure that the connection works as expected. 
@@ -368,7 +356,7 @@ This menu is available regard of you are connected to the database or not. Selec
 
 When a registered database is no longer in use, you will probably want to remove it from the DB Connections panel. To remove a database, select the target database connection. Open the context menu by right-clicking on the database connection to be removed, and then left-click on "Remove" in the context menu.
 
-### Working with Replication
+### Working with Replication Manager
 
 This section is intended to describe how to use Replication Manager in detail. It also describes the relationship between panes and objects.
 
@@ -394,9 +382,12 @@ DB Connections pane is a database-centric view that represents the relationship 
 - Connect all: Connect all registered but not connected DB Connection
 - Disconnect all: Disconnect all registered and connected DB Connection
 - Start all: Start all replication objects which are stopped.
-- Stop all: Stop all replication objects which are started.
+- Stop all: Stop all replication objects which are running.
 - Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - New DB Connection: Create a new DB Connection.
+- Collapse All: Collapse the tree to DB Connection level.
+- Expand to Replication Object: Expand the tree to replication object level.
+- Expand to Replication Table: Expand the tree to replication table level.
 
 ##### DB Connection
 
@@ -406,7 +397,7 @@ DB Connections pane is a database-centric view that represents the relationship 
 - Manage Extra Host IP: Manage the Extra Host IPs of DB Connection
 - Remove: Remove the selected DB Connection.
 - Start all: Start all replication object which are stopped in the DB Connection.
-- Stop all: Stop all replication objects which are started in the DB Connection.
+- Stop all: Stop all replication objects which are running in the DB Connection.
 - Quick Start all: Quick Start all replication objects which are stopped in the DB Connection. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Create Replication: Create a Replication Object at the DB Connection.
 - Create Full-mesh Replications: Create full-meshed replication objects between selected DB Connections with identical named tables.
@@ -438,7 +429,7 @@ Replication Pair pane is a logical view depicting replication objects in pairs. 
 ##### Replication Pairs
 
 - Start all: Start all replication object which are stopped.
-- Stop all: Stop all replication objects which are started.
+- Stop all: Stop all replication objects which are running.
 - Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Create Replication Pair: Create a pair of Replication Objects at two distinct DB Connections.
 - Create Full-mesh Replications: Create full-meshed replication objects between selected DB Connections with identical named tables.
@@ -449,7 +440,7 @@ Replication Pair pane is a logical view depicting replication objects in pairs. 
 ##### Replication Pair
 
 - Start all: Start all replication object which are stopped in the Replication Pair.
-- Stop all: Stop all replication objects which are started in the Replication Pair.
+- Stop all: Stop all replication objects which are running in the Replication Pair.
 - Quick Start all: Quick Start all replication objects which are stopped in the Replication Pair. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Drop: Drop Replication Objects in the selected Replication Pair. All Replication Objects should be stopped before using this function.
 
@@ -470,7 +461,7 @@ Map pane illustrates the physical layout and status of databases, replication ob
 - Connect: Connect to the database with the given properties.
 - Disconnect: Disconnect from the connected database.
 - Start all: Start all replication object which are stopped in the DB Connection.
-- Stop all: Stop all replication objects which are started in the DB Connection.
+- Stop all: Stop all replication objects which are running in the DB Connection.
 - Quick Start all: Quick Start all replication objects which are stopped in the DB Connection. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 
 ##### Replication Object
