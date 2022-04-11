@@ -1,13 +1,12 @@
 - [Replication Manager User’s Manual](#replication-manager-users-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Replication Manager 소개](#1replication-manager-%EC%86%8C%EA%B0%9C)
-    - [Replication Manager 개요](#replication-manager-%EA%B0%9C%EC%9A%94)
-    - [Replication Manager 설치](#replication-manager-%EC%84%A4%EC%B9%98)
-  - [2.Replication Manager 사용하기](#2replication-manager-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
-    - [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)
-    - [시작하기](#%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
-    - [자세한 사용법: 내장 도움말](#%EC%9E%90%EC%84%B8%ED%95%9C-%EC%82%AC%EC%9A%A9%EB%B2%95-%EB%82%B4%EC%9E%A5-%EB%8F%84%EC%9B%80%EB%A7%90)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
+    - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
+    - [[사용자 인터페이스에 대한 이해](#사용자 인터페이스에 대한 이해)](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)
+    - [알티베이스에 연결하기](#%EC%95%8C%ED%8B%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
+    - [Replication Manager 상세 사용법](#replication-manager-%EC%83%81%EC%84%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
 
 Alitbase® Tools & Utilities
 
