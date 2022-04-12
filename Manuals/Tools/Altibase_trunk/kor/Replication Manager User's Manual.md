@@ -508,8 +508,8 @@ Map 창은 데이터베이스와 이중화 객체의 물리적인 배치와 상�
 - Start: 선택한 이중화 객체를 시작한다.
 - Stop: 선택한 이중화 객체를 중지한다.
 - Quick Start: 선택한 이중화 객체에게 "Quick Start"명령을 전송한다. 이 작업은 노드간 전송되지 않은 이중화 작업의 손실을 초래할 수 있다. 상세한 내용은 [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)를 참조한다.
-- Sync: 선택한 이중화 객체간 'Sync' 작업을 수행한다.이는 ALTER REPLICATION ... SYNC ... 구문을 수행하는 것과 동일하다.
-- Sync Only: 선택한 이중화 객체간 'Sync Only' 작업을 수행한다. 이는 ALTER REPLICATION ... SYNC ONLY ... 구문을 수행하는 것과 동일하다.
+- Sync: 선택한 이중화 객체에 'SYNC' 명령을 전송한다. ALTER REPLICATION _replication_name_ SYNC 구문을 수행하는 것과 동일하다.
+- Sync Only: 선택한 이중화 객체에 'SYNC ONLY' 명령을 전송한다. ALTER REPLICATION _replication_name_ SYNC ONLY 구문을 수행하는 것과 동일하다.
 - Drop: 선택한 중지 상태의 이중화 객체를 삭제한다.
 - Monitor: 선택한 이중화 객체를 대상으로 모니터 화면을 연다.
 - Show DDL: 선택한 이중화 객체와 종속 객체 (테이블, 인덱스 등)의 DDL을 표시한다.
