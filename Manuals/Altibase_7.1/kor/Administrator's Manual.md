@@ -9142,7 +9142,7 @@ iSQL> alter tablespace SYS_TBS_DISK_DATA end backup;
   백업과 관련된 모든 로그 파일의 아카이브를 보장한다.
 - 테이블스페이스 단위 백업 (Tablespace-Level Backup)  
   특정 메모리 또는 디스크 테이블스페이스의 모든 데이터 파일을 백업한다.  
-  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티가 900을 초과한다면 세그먼트 헤더 정보를 보관한 파일(txSegEntry.hdr)도 함께 백업한다.
+  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티의 설정값이 900을 초과할 경우 세그먼트 헤더 정보 파일(txSegEntry.hdr)도 함께 백업한다.
   백업과 관련된 로그 파일의 아카이브를 보장하지 않으므로 이들은 DCL 구문을
   사용해서 별도로 아카이브될 필요가 있다.
 
