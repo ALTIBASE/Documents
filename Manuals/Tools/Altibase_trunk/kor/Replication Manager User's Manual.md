@@ -448,7 +448,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 - Create Replication Pair: 동일한 이름을 가진 새로운 이중화 객체를 두개의 DB Connection 양쪽에 만든다. 
 - Drop Replications: DB Connection에 속한 모든 이중화 객체를 삭제한다. 삭제 전 반드시 모든 이중화 객체는 중지되어 있어야 한다.
 
-##### Replication Object
+##### 이중화 객체(Replication Object)
 
 - Start: 선택한 이중화 객체를 시작한다.
 - Stop: 선택한 이중화 객체를 중지한다.
