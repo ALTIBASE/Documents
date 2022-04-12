@@ -326,7 +326,7 @@ JDBC 드라이버를 불러오기 절차이다.
     알맞은 JDBC 드라이버를 선택한다. 필요한 JDBC 드라이버 파일을 아직 불러오지
     않았다면 "JDBC driver manager" 아이콘을 클릭해서 불러온다.
   
-- 선택 사항
+- Options(선택 사항)
 
   - IP Address Type: 알맞는 IP 주소 유형을 선택한다. Replication Manager는 IPv4와 IPv6 주소를 지원한다.
   - NLS for Client: 클라이언트에서 데이터베이스와의 데이터 교환을 위해 사용할
