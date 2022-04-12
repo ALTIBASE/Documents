@@ -318,7 +318,7 @@ JDBC 드라이버를 불러오기 절차이다.
 - Basic information(기본 정보)
 
   - Connection Name: 고유한 커넥션 이름을 입력한다. 최대 10글자로, 알파벳으로 시작해야 하고 알파벳과 숫자를 혼용할 수 있다.
-  - Password: 데이터베이스 SYS 사용자를 위한 암호이다.
+  - Password: 데이터베이스 SYS 사용자의 암호이다.
   - DB Address: 데이터베이스가 설치된 시스템의 IP 주소이다.
   - DB Port: 데이터베이스에 접속할 때 필요한 포트 번호이다.
   - DB Name: 데이터베이스 이름이다.
