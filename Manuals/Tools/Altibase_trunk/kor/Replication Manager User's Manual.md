@@ -72,10 +72,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 이 매뉴얼은 Replication Manager에 익숙지 않은 사용자를 위한 기본적인 가이드로 다음과 같이 구성되어 있다.
 
-- 제 1장 Replication Manager 소개
+- 제 1장 Replication Manager 소개</br>
 
   이 장은 Replication Manager 설치를 위한 필수 선행 요건과 설치, 삭제 방법을 설명한다.
-- 제 2장 시작하기
+- 제 2장 시작하기</br>
 
   이 장은 Replication Manager의 사용자 인터페이스에 관한 소개와 Alitbase 데이터베이스 연결 방법 그리고 상세 사용법에 관해 설명한다.
 
