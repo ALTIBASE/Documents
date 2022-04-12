@@ -418,7 +418,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 
 #### DB Connections 창
 
-"DB Connections" 창은 데이터베이스의 관점에서 데이터베이스와 이중화 객체를 트리 형식으로 표현하며 네가지 객체를 대상으로 작업한다: 데이터베이스 연결 부모 객체, 데이터베이스 연결, 이중화 객체, 이중화 대상 테이블.
+"DB Connections" 창은 데이터베이스에 생성된 이중화 객체 정보를 조회하여 트리 구조로 표현한다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다. 
 
 ##### DB Connections
 
