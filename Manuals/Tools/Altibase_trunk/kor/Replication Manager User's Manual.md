@@ -432,7 +432,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 - Expand to Replication Object: 이중화 객체 단위 레벨까지 트리를 펼친다.
 - Expand to Replication Table: 이중화 대상 테이블 레벨까지 트리를 펼친다.
 
-##### DB Connection
+##### 데이터베이스 연결 (DB Connection) 객체
 
 - Connect: DB Connection 객체에 연결한다.
 - Disconnect: 접속 중인 DB Connection 객체 접속을 끊는다.
