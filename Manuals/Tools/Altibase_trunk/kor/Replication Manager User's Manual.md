@@ -328,10 +328,8 @@ JDBC 드라이버를 불러오기 절차이다.
   
 - Options(선택 사항)
 
-  - IP Address Type: 알맞는 IP 주소 유형을 선택한다. Replication Manager는 IPv4와 IPv6 주소를 지원한다.
-  - NLS for Client: 클라이언트에서 데이터베이스와의 데이터 교환을 위해 사용할
-    문자셋을 선택한다. (이 선택 사항은 Alitbase 5.3.1 이상 버전에 연결할 때는
-    불필요하다.)
+  - IP Address Type: 필요하면 알맞은 IP 주소 유형을 선택한다. Replication Manager는 IPv4와 IPv6 주소를 지원한다.
+  - NLS for Client: Altibase 5.1.1 이하 버전의 경우, Altibase 서버 캐릭터셋을 선택한다. Alitbase 5.3.1 이상 버전에 연결할 때는 선택하지 않아도 무방하다.
 
 3. 연결 성공 여부를 확인하려면 "Connection Test" 버튼을 클릭한다.
 4. 마지막으로 "Save" 버튼을 클릭한다.
@@ -401,7 +399,7 @@ Extra Host IP를 등록하거나 삭제하고 싶은 데이터베이스를 선�
 
 이 절은 Replication Manager 상세 사용법에 대해 기술한다. 또한 창(Pane)과 객체(Object)의 관계에 대해서 설명한다.
 
-Replication Manager는 내부적으로 데이터베이스와 이중화 객체를 시뮬레이션하는 하나의 기본 모델을 대상으로 작업을 한다. 반면, 기본 모델은 사용자 편의성을 위해 편집 가능한 세 개의 창으로 다양하게 표현한다. 기본 모델은 6가지 객체로 이루어져 있다.
+Replication Manager는 데이터베이스와 이중화 객체를 추상화시켜 여섯 가지 객체로 모델링하며, 사용자 편의성을 위해 편집 가능한 세 개(DB Connections, Replication Pair, Map)의 창에 객체들을 표시한다. 여섯 가지 객체는 다음과 같다.
 
 1. 이중화 객체: CREATE REPLICATION 구문으로 생성되는 객체로 Replication Manager의 여러 창에서 공통적으로 사용된다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
 2. 이중화 대상 테이블: CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 노드간 복제되는 테이블이다.
@@ -410,7 +408,7 @@ Replication Manager는 내부적으로 데이터베이스와 이중화 객체를
 5. 이중화 객체 쌍 부모 객체: 이중화 객체들을 자식으로 갖는 추상 객체이다. Replication Manager가 "Replication Pairs" 창에 자동으로 생성하는 객체이다.
 6. 이중화 객체 쌍: 두개의 서로 다른 데이터베이스에 생성되어 대응되는 같은 이름을 가진 이중화 객체의 쌍이다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
 
-어떤 객체들은 여러 창에서 공유되지만, 창 종류에 따라 다른 기능을 제공하는 경우도 있다. 예를 들어, "DB Connections" 창의 이중화 객체는 "Edit Table List" 기능을 제공하지만, "Map" 창에서는 제공하지 않는다. 이는 제공하는 창의 맥락에 따라 기능을 맞추기 때문이다. 데이터베이스 중심의 관점을 제공하는 "DB Connections"에서는 "Edit Table List" 기능을 제공하는 것이 타당하지만, "Map" 창은 데이터베이스와 이중화 객체의 전반적인 개괄을 제공하는 것이 목적이기 때문에 해당 기능을 제공하지 않는다.
+어떤 객체들은 여러 창에서 공유되지만, 창에 따라 제공하는 기능이 다른 경우가 있다. 예를 들어, "DB Connections" 창에서 이중화 객체는 "Edit Table List" 기능을 제공하지만 "Map" 창에서는 제공하지 않는다. 이는 제공하는 창의 목적에 따라 제공하는 기능이 다르기 때문이다. "DB Connections" 창은 데이터베이스 접근하여 이중화 객체를 조회하고 수정하는 기능을 제공하고 "Map" 창은 Replication Manager에 등록된 정보를 토대로 이중화 객체 간의 관계를 그래프로 보여주는 역할을 한다.
 
 #### DB Connections 창
 
