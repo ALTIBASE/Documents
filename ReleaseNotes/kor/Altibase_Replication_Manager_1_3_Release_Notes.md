@@ -17,6 +17,7 @@ Altibase Replication Manager 1.3 Release Notes
 **(April 6, 2022)**
 
 ## 1. 개요
+Replication Manager는 Altibase의 이중화 객체를 편리하게 관리하기 위한 GUI 툴이다.
 
 ### 1.1 시스템 요구사항
 
@@ -34,11 +35,17 @@ Altibase Replication Manager 1.3 Release Notes
 | Windows | x86  | Win32          | 32 bit       | Java 6 이상 |
 | LINUX   | x86  | GTK            | 32 bit       | Java 6 이상 |
 
+### 1.3 소프트웨어 요구사항
+
+Java Development Kit (JDK) 또는 Java Runtime Environment (JRE) 6 이상
+
 ## 2. 릴리즈 정보
 
-### 2.1 Altibase Replication Manager 1.3
+### 2.1 버전
 
-Replication Manager는 Altibase의 이중화 객체를 편리하게 관리하기 위한 GUI 툴이다.
+1.3
+
+
 
 #### 2.1.1 새로운 기능
 
