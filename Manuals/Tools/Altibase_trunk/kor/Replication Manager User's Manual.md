@@ -503,7 +503,7 @@ Map 창은 데이터베이스와 이중화 객체의 물리적인 배치와 상�
 - Stop all:DB Connection 객체에 속한 동작 상태인 모든 이중화 객체를 중지시킨다.
 - Quick Start all: DB Connection 객체에 속한 정지 상태의 모든 이중화 객체에게 "Quick Start"명령을 전송한다. 이 작업은 노드간 전송되지 않은 이중화 작업의 손실을 초래할 수 있다. 상세한 내용은 [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)를 참조한다.
 
-##### Replication Object
+##### 이중화 객체(Replication Object)
 
 - Start: 선택한 이중화 객체를 시작한다.
 - Stop: 선택한 이중화 객체를 중지한다.
