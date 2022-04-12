@@ -461,7 +461,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 - Show DDL: 선택한 이중화 객체와 종속 객체 (테이블, 인덱스 등)의 DDL을 표시한다.
 - Compare DDL: 선택한 두개의 이중화 객체 DDL을 비교한다.
 
-##### Replication Target Table
+##### 이중화 대상 테이블(Replication Target Table) 객체
 
 - Remove: 이중화 객체에서 선택한 테이블을 제거한다. 
 
