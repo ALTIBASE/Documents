@@ -4495,7 +4495,7 @@ Concurency Control) 기법이기 때문에 변경 이전의 이미지를 저장�
 테이블스페이스와 마찬가지로 시스템 운영상 필수적인 시스템 테이블스페이스이다.
 테이블스페이스 단위의 백업이 가능하다.
 
-TRANSACTION_SEGMENT_COUNT 프로퍼티가 900을 초과할 경우 언두 테이블스페이스의 세그먼트 헤더 정보는 별도의 파일(txSegEntry.hdr)에 보관된다. 해당 파일이 있어야 분산 트렌젝션 복구시 기존 언두 테이블스페이스에 접근할 수 있으므로 언두 테이블스페이스를 백업할 경우 해당 파일도 함께 백업해야 한다.
+TRANSACTION_SEGMENT_COUNT 프로퍼티의 설정값이 900을 초과할 경우 언두 테이블스페이스 데이터 파일과 동일한 위치에 txSegEntry.hdr 이라는 파일을 만들어 언두 테이블스페이스의 세그먼트 헤더 정보를 저장한다. 분산 트랜잭션 복구 시, 장애 발생 전 언두 테이블스페이스에 접근하려면 이 파일이 필요하므로 언두 테이블스페이스를 백업할 경우 세그먼트 헤더 정보 파일(txSegEntry.hdr)도 함께 백업해야 한다.
 
 ##### 임시 테이블스페이스
 
@@ -9112,7 +9112,7 @@ iSQL> alter tablespace SYS_TBS_DISK_DATA end backup;
   백업과 관련된 모든 로그 파일의 아카이브를 보장한다.
 - 테이블스페이스 단위 백업 (Tablespace-Level Backup)  
   특정 메모리 또는 디스크 테이블스페이스의 모든 데이터 파일을 백업한다.  
-  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티가 900을 초과한다면 세그먼트 헤더 정보를 보관한 파일(txSegEntry.hdr)도 함께 백업한다.
+  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티의 설정값이 900을 초과할 경우 세그먼트 헤더 정보 파일(txSegEntry.hdr)도 함께 백업한다.
   백업과 관련된 로그 파일의 아카이브를 보장하지 않으므로 이들은 DCL 구문을
   사용해서 별도로 아카이브될 필요가 있다.
 
@@ -9127,7 +9127,7 @@ iSQL> alter tablespace SYS_TBS_DISK_DATA end backup;
   여러 테이블스페이스에 대한 병렬 백업을 수행할 수 있으므로 3rd-Party 백업
   솔루션과의 연동이 가능하다.  
   테이블스페이스 단위 백업만 지원된다.
-  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티가 900을 초과한다면 세그먼트 헤더 정보를 보관한 파일(txSegEntry.hdr)도 함께 백업해야 한다.
+  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티의 설정값이 900을 초과할 경우 세그먼트 헤더 정보 파일(txSegEntry.hdr)도 함께 백업해야 한다.
 
 #### 데이터베이스 모드
 
