@@ -283,7 +283,7 @@ Alitbase와 함께 Replication Manager를 실행할 때의 작업 흐름은 보�
 
 이 절은 JDBC 드라이버 파일의 알맞은 버전을 Replication Manager에 불러오는 방법을 설명한다. 
 
-Replication Manager는 다양한 버전의 알티베이스를 동시에 작업 가능하다. 따라서 연결된 알티베이스 버전에 적합한 JDBC를 Replication Manager에 불러오기 해서 사용해야 한다. 예를 들어 4.3.9.100과 5.3.3.33 버전을 동시에 연결하여 작업하고자 하면, 해당 버전의 JDBC 파일을 불러오기 해야 하며, 이때 "Altibase_4.3.9.100.jar", "Altibase_5.3.3.33.jar"과 같이 각각 적합한 이름을 명명해야 한다. 
+Replication Manager는 다양한 버전의 Altibase 서버를 등록하기 위해 버전에 맞는 JDBC 드라이버 파일을 불러오기 해야 한다. 예를 들어 Altibase 4.3.9.100과 Altibase 5.3.3.33 버전을 동시에 연결하려면 해당 버전의 JDBC 드라이버 파일 불러오기를 수행한다. 이때 Altibase JDBC 드라이버 이름은 "Altibase_4.3.9.100.jar", "Altibase_5.3.3.33.jar"과 같이 각각 버전을 구분할 수 있는 고유한 이름으로 변경해야 한다.
 
 JDBC 드라이버를 불러오기 절차이다.
 
