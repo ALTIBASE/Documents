@@ -315,7 +315,7 @@ JDBC 드라이버를 불러오기 절차이다.
 
 ![f6753230700743fd3fbdf8349161b408](media/ReplicationManager/f6753230700743fd3fbdf8349161b408.png)
 
-- 기본 정보
+- Basic information(기본 정보)
 
   - Connection Name: 최대 10글자의 고유한 커넥션 이름을 입력한다. 이름은 알파벳으로 시작해야 하면 알파벳과 숫자를 혼용가능하다.
   - Password: 데이터베이스 SYS 사용자를 위한 암호이다.
