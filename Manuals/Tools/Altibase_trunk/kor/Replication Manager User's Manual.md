@@ -184,7 +184,7 @@ Replication Manager는 마이크로소프트 윈도우즈와 리눅스용 패키
 
 Replication Manager는 다양한 버전의 알티베이스를 동시에 작업 가능하기 때문에 접속 대상 알티베이스에 적합한 JDBC 드라이버 파일을 사용해야 한다.
 
-상세한 내용은 [JDBC 드라이버 파일 불러오기](#JDBC 드라이버 파일 불러오기)를 참조한다.
+상세한 내용은 [JDBC 드라이버 파일 불러오기](#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%ED%8C%8C%EC%9D%BC-%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0)를 참조한다.
 
 ### 설치 및 제거
 
