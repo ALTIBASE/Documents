@@ -465,7 +465,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 
 - Remove: 이중화 객체에서 선택한 테이블을 제거한다. 
 
-#### Replication Pair pane
+#### Replication Pair 창
 
 'Replication Pair' 창은 데이터베이스 관점이 아니라 이중화 객체 관점에서 보여주기 위한 것으로 이중화 객체 쌍을 기준으로 보여준다. 따라서 이 창은 4개의 객체를 중심으로 표현한다: 이중화 객체 쌍 부모 객체, 이중화 객체 쌍, 이중화 객체, 그리고 이중화 대상 테이블.
 
