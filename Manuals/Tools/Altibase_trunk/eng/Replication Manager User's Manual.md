@@ -62,7 +62,7 @@ This document is an elementary guide for those unfamiliar with Replication Manag
 
 - Chapter 1: Introduction to Replication Manager 
   
-  This chapter provides information on the prerequisites for installation and an overview of Replication Manager. It also explains how to install, uninstall Replication Manager. 
+  This chapter provides information on the prerequisites for installation and an overview of Replication Manager. It also explains how to install and uninstall Replication Manager. 
   
 - Chapter 2: Getting Started 
   
@@ -186,16 +186,16 @@ This section discusses the system requirements for Replication Manager and compa
 
 #### Software Requirements
 
-- Java Development Kit (JDK), or Java Runtime Environment (JRE) 6 or later
-
-Replication Manager is a Java application, based on Eclipse RCP 3.6.2 technology (http://www.eclipse.org/). Therefore, it will work on any platform on which Eclipse RCP is supported. For additional information, please refer to the supported platform list at http://www.eclipse.org/eclipse/development/readme_eclipse_3.6.2.html. 
-
-At this time, Replication Manager is now distributed in Windows and Linux-compatible packages. 
+##### Supported OS and Platforms
+Replication Manager is distributed in Windows and Linux-compatible packages. 
 
 | Package Name                                        | Operating System | Graphic System | JRE              |
-| --------------------------------------------------- | ---------------- | -------------- | ---------------- |
+| :-------------------------------------------------- | :--------------: | :------------: | :-----------: |
 | ReplicationManager-win32.win32.x86.zip              | Windows          | win32          | JRE 6 included   |
 | ReplicationManager-linux.gtk.x86.zip (JRE included) | Linux            | GTK            | Java 6 or higher |
+
+##### Java Requirement
+- Java Development Kit (JDK), or Java Runtime Environment (JRE) 6 or later
 
 Since Replication Manager for the Microsoft Windows system is bundled with the JRE 6, users do not need to install the JRE. However, other operating system users must configure the JRE and related environment variables appropriately to use Java.
 
@@ -203,17 +203,21 @@ Since Replication Manager for the Microsoft Windows system is bundled with the J
 
 - Altibase: 4.3.9 or higher
 
-Replication Manager can work with many different versions of Altibase simultaneously. So, it is necessary to import Altibase JDBC driver that is appropriate for the database to be connected. If a user want to connect to two different Altibase databases, for example, versions 4.3.9.100 and 5.3.3.33 respectively, then the user is required to import two versions of the JDBC driver files into Replication Manager, and to give them different names, for example, "Altibase_4.3.9.100.jar" and "Altibase_5.3.3.33.jar". 
+Since Replication Manager can work with different versions of ALTIBASE HDB at the same time, users must use the JDBC driver file appropriate for the ALTIBASE HDB to which you are connecting.
 
-Please refer to <a name="Importing a JDBC Driver File">"Importing a JDBC Driver File"</a>.
+Please refer to [Importing a JDBC Driver File](#Importing a JDBC Driver File).
 
 ### Installation and Uninstallation
 
-Replication Manager can be downloaded from Altibase Customer Center at http://support.altibase.com/en/product. 
+#### Download
 
-Replication Manager is provided in ZIP file format. 
+Replication Manager can be downloaded from Altibase Customer Center at http://support.altibase.com/en/product. Replication Manager is provided in ZIP file format. 
+
+#### Installation
 
 To install it, simply unzip the file in the desired directory.
+
+#### Uninstallation
 
 To unistall it, simply delete the directory in which Replication Manager is installed. 
 
@@ -225,7 +229,7 @@ This chapter introduces the graphical user interface of Replication Manager. The
 - Connecting to Altibase
 - Working with Replication Manager
 
-### [Understanding the User Interface](#Understanding the User Interface)
+### Understanding the User Interface
 
 This section introduces the overall user interface. 
 
@@ -275,9 +279,11 @@ This section describes, in the form of a tutorial, the basic steps that must be 
 
 Each procedure is conducted as described below.
 
-#### [Importing a JDBC Driver File](#Importing a JDBC Driver File)
+#### Importing a JDBC Driver File
 
 This section describes the steps involved in importing the appropriate version of the JDBC driver file into Replication Manager. 
+
+Replication Manager can work with many different versions of Altibase simultaneously. So, it is necessary to import Altibase JDBC driver that is appropriate for the database to be connected. If a user want to connect to two different Altibase databases, for example, versions 4.3.9.100 and 5.3.3.33 respectively, then the user is required to import two versions of the JDBC driver files into Replication Manager, and to give them different names, for example, "Altibase_4.3.9.100.jar" and "Altibase_5.3.3.33.jar". 
 
 To import a JDBC driver, do the following: 
 
@@ -306,7 +312,7 @@ Alternatively, users can also import a JDBC driver file when performing the "Add
 	- Password: The password for the SYS user for the database
 	- DB Address: The IP address of the machine on which the database installed
 	- DB Port: The port number with which to access the database
-	- DB Name:  The name of the database  
+	- DB Name:  The name of the database
 	- JDBC driver: To use the appropriate version of the JDBC driver file, select the correct imported JDBC driver in the combo box. If the required JDBC driver file has not been imported yet, please import a new JDBC driver by clicking on the "JDBC driver manager" icon.
 
 - Options
@@ -362,12 +368,12 @@ This section is intended to describe how to use Replication Manager in detail. I
 
 Replication Manager takes care of a single base model, which simulates databases and replication-related objects, while providing a various ways of visualizing and manipulating the model through three editable panes. The model consists of six types of objects as follows:
 
-1. Replication Object: It is an object created with the CREATE REPLICATION statement and the common object among panes at Replication Manager. Please refer to <a name="Understanding User Interface">"Understanding User Interface"</a>
+1. Replication Object: It is an object created with the CREATE REPLICATION statement and the common object among panes at Replication Manager. Please refer to [Understanding the User Interface](#Understanding the User Interface)
 2. Replication Target Table Object: This is a table that is designated, using the CREATE REPLICATION or ALTER REPLICATION statement, to be replicated between corresponding replication nodes.
 3. DB Connections Object: It is the root object of "DB Connection" object to manage DB Connection. Also, it is the entry point for "DB Connections" pane.
-4. DB Connection Object: It is a representation of a connection to Altibase DBMS. Please refer to <a name="Understanding User Interface">"Understanding User Interface"</a> for details.
+4. DB Connection Object: It is a representation of a connection to Altibase DBMS. Please refer to [Understanding the User Interface](#Understanding the User Interface) for details.
 5. Replication Pairs Object: It is the root object of "Replication Pair" and the entry point for "Replication Pairs" pane.
-6. Replication Pair Object: It is a pair of corresponding replication objects having the same name, one residing on each of two different nodes. Please refer to <a name="Understanding User Interface">"Understanding User Interface"</a>
+6. Replication Pair Object: It is a pair of corresponding replication objects having the same name, one residing on each of two different nodes. Please refer to [Understanding the User Interface](#Understanding the User Interface)
 
 Some objects in the model are show up few panes for the ease use of Replication Manager.
 
