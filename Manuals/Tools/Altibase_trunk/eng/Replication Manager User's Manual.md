@@ -302,7 +302,7 @@ Alternatively, users can also import a JDBC driver file when performing the "Add
 
 - Basic Information
 
-	- Connection Name: Any name is acceptable, as long as it is unique in Replication Manager.
+	- Connection Name: A unique connection name of up to 10 characters. The name must start with an alphabet, alphabets and numbers can be mixed.
 	- Password: The password for the SYS user for the database
 	- DB Address: The IP address of the machine on which the database installed
 	- DB Port: The port number with which to access the database
