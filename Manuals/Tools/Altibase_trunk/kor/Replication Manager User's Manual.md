@@ -420,7 +420,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 
 "DB Connections" 창은 데이터베이스에 생성된 이중화 객체 정보를 조회하여 트리 구조로 표현한다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다. 
 
-##### DB Connections
+##### 데이터베이스 연결 부모(DB Connections) 객체
 
 - Connect all: 연결되지 않은 모든 DB Connection을 연결한다.
 - Disconnect all: 연결된 모든 DB Connection의 접속을 끊는다.
