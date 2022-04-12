@@ -9157,7 +9157,7 @@ iSQL> alter tablespace SYS_TBS_DISK_DATA end backup;
   여러 테이블스페이스에 대한 병렬 백업을 수행할 수 있으므로 3rd-Party 백업
   솔루션과의 연동이 가능하다.  
   테이블스페이스 단위 백업만 지원된다.
-  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티가 900을 초과한다면 세그먼트 헤더 정보를 보관한 파일(txSegEntry.hdr)도 함께 백업해야 한다.
+  언두 테이블스페이스의 경우 TRANSACTION_SEGMENT_COUNT 프로퍼티의 설정값이 900을 초과할 경우 세그먼트 헤더 정보 파일(txSegEntry.hdr)도 함께 백업해야 한다.
 
 #### 데이터베이스 모드
 
