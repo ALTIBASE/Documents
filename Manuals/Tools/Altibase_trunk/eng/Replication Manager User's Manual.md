@@ -205,7 +205,7 @@ Since Replication Manager for the Microsoft Windows system is bundled with the J
 
 Since Replication Manager can work with different versions of ALTIBASE HDB at the same time, users must use the JDBC driver file appropriate for the ALTIBASE HDB to which you are connecting.
 
-Please refer to [Importing a JDBC Driver File](#Importing a JDBC Driver File).
+Please refer to [Importing a JDBC Driver File](#importing-a-jdbc-driver-file).
 
 ### Installation and Uninstallation
 
