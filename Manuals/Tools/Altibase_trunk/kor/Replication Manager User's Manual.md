@@ -495,7 +495,7 @@ DB Connections 창과 동일한 기능 제공.
 
 Map 창은 데이터베이스와 이중화 객체의 물리적인 배치와 상태 그리고 상호관계를 표시한다. 따라서 데이터베이스 연결과 이중화 객체 두가지를 다룬다.
 
-##### DB Connection
+##### 데이터베이스 연결(DB Connection) 객체
 
 - Connect: DB Connection 객체에 연결한다.
 - Disconnect: 접속 중인 DB Connection 객체 접속을 끊는다.
