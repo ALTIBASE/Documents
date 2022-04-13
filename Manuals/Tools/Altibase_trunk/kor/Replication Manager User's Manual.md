@@ -480,7 +480,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 - Expand to Replication Object: 이중화 객체 단위 레벨까지 트리를 펼친다.
 - Expand to Replication Table: 이중화 대상 테이블 레벨까지 트리를 펼친다.
 
-##### Replication Pair
+##### 이중화 쌍(Replication Pair) 객체
 
 - Start all: 이중화 객체 쌍에서 중지 상태인 이중화 객체를 모두 시작한다.
 - Stop all: 이중화 객체 쌍에서 동작 상태인 이중화 객체를 모두 중지한다.
