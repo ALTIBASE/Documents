@@ -469,7 +469,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 
 'Replication Pair' 창은 이중화 객체를 기준으로 다른 노드에 대응하는 이중화 객체들의 쌍을 트리 구조로 보여준다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다. 
 
-##### Replication Pairs
+##### 이중화 쌍 부모(Replication Pairs) 객체
 
 - Start all: 중지 상태인 모든 이중화 객체를 시작한다.
 - Stop all: Stop 동작 상태인 모든 이중화 객체를 중지한다.
