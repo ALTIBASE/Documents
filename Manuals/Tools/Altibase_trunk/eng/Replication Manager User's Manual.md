@@ -387,7 +387,7 @@ DB Connections pane is a database-centric view that represents the relationship 
 
 - Connect all: Connect all registered but not connected DB Connection
 - Disconnect all: Disconnect all registered and connected DB Connection
-- Start all: Start all replication objects which are stopped.
+- Start all: Start all replication objects  which are stopped or newly created.
 - Stop all: Stop all replication objects which are running.
 - Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - New DB Connection: Create a new DB Connection.
