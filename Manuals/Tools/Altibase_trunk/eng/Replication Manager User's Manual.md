@@ -274,7 +274,7 @@ This section describes, in the form of a tutorial, the basic steps that must be 
 4. Conduct replication administration tasks as required. 
 5. Disconnect from the database. 
 6. Edit DB connection information. 
-7. Manage Extra Host Internet Protocol address (IP address)
+7. Manage Extra Host IP
 8. Remove the database if it is no longer needed.
 
 Each procedure is conducted as described below.
@@ -353,7 +353,7 @@ It will sometimes be necessary to edit database connection information. For exam
 3. The dialog box shown below will appear if the connection test is successful. Click on the "OK".
 4. Finally, click on the "Save" button in the Edit dialog box. 
 
-#### Managing Extra Host Internet Protocol address (IP address)
+#### Managing Extra Host IP
 
 If Altibase is installed on a device with multiple IP addresses and one of these addresses is used as a Remote Host IP when creating a replicaiton object in another Altibase, the IP is either the DB Address of the registered database connection or the Extra Host IP. It must be one. Otherwise, the relationship between the database and the replication object may not be properly displayed in the Map window.
 This menu is available regard of you are connected to the database or not. Select the database you wish to register or delete the Extra Host IP. Right-click on the database to open the context menu and select the "Manage Extra Host IP" item.
@@ -381,9 +381,9 @@ Even though some objects shared by panes are the same ones, they may provide dif
 
 #### DB Connections pane
 
-DB Connections pane is a database-centric view that represents the relationship between databases and replication objects in a tree structure. Therefore, it handles four types of objects: DB Connections, DB Connection, Replication Object, and Replication Target Tables.
+DB Connections pane is a database-centric view that represents the relationship between databases and replication objects in a tree structure. Therefore, it handles four types of objects: DB Connections Object, DB Connection Object, Replication Object, and Replication Target Table Object.
 
-##### DB Connections
+##### DB Connections Object
 
 - Connect all: Connect all registered but not connected DB Connection
 - Disconnect all: Disconnect all registered and connected DB Connection
@@ -395,7 +395,7 @@ DB Connections pane is a database-centric view that represents the relationship 
 - Expand to Replication Object: Expand the tree to replication object level.
 - Expand to Replication Table: Expand the tree to replication table level.
 
-##### DB Connection
+##### DB Connection Object
 
 - Connect: Connect to the database with the given properties.
 - Disconnect: Disconnect from the connected database.
@@ -416,34 +416,34 @@ DB Connections pane is a database-centric view that represents the relationship 
 - Start: Start the selected Replication Object.
 - Stop: Stop the selected Replication Object.
 - Quick Start: Quick Start the selected Replication Object. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
-- Sync: Sync the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ... statement.
-- Sync Only: Sync Only the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ONLY ... statement.
+- Sync: Sync the selected Replication Object. It is equivalent to performing ALTER REPLICATION  _replication_name_ SYNC statement.
+- Sync Only: Sync Only the selected Replication Object. It is equivalent to performing ALTER REPLICATION  _replication_name_ SYNC ONLY statement.
 - Drop: Drop the selected Replication Object, which is stopped.
 - Edit Table List: Add/Remove Replication Target Tables in the selected Replication Object, which is stopped.
 - Monitor: Open a monitor dialog for the selected Replication Object and the corresponding Replication Object.
 - Show DDL: Print the schema to generate the selected Replication Object and its related objects, such as table, index, and so on.
 - Compare DDL: Print the difference of schema between the selected Replication Object and the corresponding Replication Object.
 
-##### Replication Target Table
+##### Replication Target Table Object
 
 - Remove: Remove the selected table from its underlying Replication Object.
 
 #### Replication Pair pane
 
-Replication Pair pane is a logical view depicting replication objects in pairs. It manages four types of objects: Replication Pairs, Replication Pair, Replication Object, and Replication Target Table.
+Replication Pair pane is a logical view depicting replication objects in pairs. It manages four types of objects: Replication Pairs Object, Replication Pair Object, Replication Object, and Replication Target Table.
 
-##### Replication Pairs
+##### Replication Pairs Object
 
 - Start all: Start all replication object which are stopped.
 - Stop all: Stop all replication objects which are running.
 - Quick Start all: Quick Start all replication objects which are stopped. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Create Replication Pair: Create a pair of Replication Objects at two distinct DB Connections.
-- Create Full-mesh Replications: Create full-meshed replication objects between selected DB Connections with identical named tables.
+- Create Full-mesh Replications: Create full-meshed replication objects between selected DB Connections with identical named tables. For example, if four DB Connections are selected, sixteen (2^4) replication objects with the identical name are created.
 - Collapse All: Collapse the tree to replication pair level.
 - Expand to Replication Object: Expand the tree to replication object level.
 - Expand to Replication Table: Expand the tree to replication table level.
 
-##### Replication Pair
+##### Replication Pair Object
 
 - Start all: Start all replication object which are stopped in the Replication Pair.
 - Stop all: Stop all replication objects which are running in the Replication Pair.
@@ -454,15 +454,15 @@ Replication Pair pane is a logical view depicting replication objects in pairs. 
 
 The same as DB Connections pane.
 
-##### Replication Target Table
+##### Replication Target Table Object
 
 The same as DB Connections pane.
 
 #### Map pane
 
-Map pane illustrates the physical layout and status of databases, replication objects, and the relationships therebetween. So, it carries only two types of objects: DB Connection and Replication Object.
+Map pane illustrates the physical layout and status of databases, replication objects, and the relationships therebetween. So, it carries only two types of objects: DB Connection Object and Replication Object.
 
-##### DB Connection
+##### DB Connection Object
 
 - Connect: Connect to the database with the given properties.
 - Disconnect: Disconnect from the connected database.
@@ -475,8 +475,8 @@ Map pane illustrates the physical layout and status of databases, replication ob
 - Start: Start the selected Replication Object.
 - Stop: Stop the selected Replication Object.
 - Quick Start: Quick Start the selected Replication Object. This operation may cause the loss of not yet delivered data. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
-- Sync: Sync the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ... statement.
-- Sync Only: Sync Only the selected Replication Object. It is equivalent to performing ALTER REPLICATION ... SYNC ONLY ... statement.
+- Sync: Sync the selected Replication Object. It is equivalent to performing ALTER REPLICATION  _replication_name_ SYNC statement.
+- Sync Only: Sync Only the selected Replication Object. It is equivalent to performing ALTER REPLICATION  _replication_name_ SYNC ONLY statement.
 - Drop: Drop the selected Replication Object, which is stopped.
 - Monitor: Open a monitor dialog for the selected Replication Object and the corresponding Replication Object.
 - Show DDL: Print the schema to generate the selected Replication Object and its related objects, such as table, index, and so on.

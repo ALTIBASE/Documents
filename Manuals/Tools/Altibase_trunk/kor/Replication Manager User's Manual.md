@@ -453,8 +453,8 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 - Start: 선택한 이중화 객체를 시작한다.
 - Stop: 선택한 이중화 객체를 중지한다.
 - Quick Start: 선택한 이중화 객체에게 "Quick Start"명령을 전송한다. 이 작업은 노드간 전송되지 않은 이중화 작업의 손실을 초래할 수 있다. 상세한 내용은 [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)를 참조한다.
-- Sync: 선택한 이중화 객체간 'Sync' 작업을 수행한다.이는 ALTER REPLICATION ... SYNC ... 구문을 수행하는 것과 동일하다.
-- Sync Only: 선택한 이중화 객체간 'Sync Only' 작업을 수행한다. 이는 ALTER REPLICATION ... SYNC ONLY ... 구문을 수행하는 것과 동일하다.
+- Sync: 선택한 이중화 객체간 'Sync' 작업을 수행한다.이는 ALTER REPLICATION  _replication_name_ SYNC 구문을 수행하는 것과 동일하다.
+- Sync Only: 선택한 이중화 객체간 'Sync Only' 작업을 수행한다. 이는 ALTER REPLICATION  _replication_name_ SYNC ONLY 구문을 수행하는 것과 동일하다.
 - Drop: 선택한 중지 상태의 이중화 객체를 삭제한다.
 - Edit Table List: 선택한 중지 상태의 이중화 객체에서 이중화 대상 테이블을 추가 또는 삭제한다.
 - Monitor: 선택한 이중화 객체를 대상으로 모니터 화면을 연다.
