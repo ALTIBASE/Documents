@@ -487,7 +487,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 - Quick Start all: 이중화 객체 쌍에서 중지 상태인 이중화 객체에게 "Quick Start"명령을 전송한다. 이 작업은 노드간 전송되지 않은 이중화 작업의 손실을 초래할 수 있다. 상세한 내용은 [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)를 참조한다.
 - Drop: 이중화 객체 쌍에 속한 이중화 객체를 삭제한다. 삭제 전 반드시 모든 이중화 객체는 중지되어 있어야 한다.
 
-##### Replication Object
+##### 이중화 객체(Replication Object)
 
 DB Connections 창과 동일한 기능 제공.
 
