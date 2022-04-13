@@ -491,7 +491,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 
 DB Connections 창과 동일한 기능 제공.
 
-##### Replication Target Table
+##### 이중화 대상 테이블(Replication Target Table) 객체
 
 DB Connections 창과 동일한 기능 제공.
 
