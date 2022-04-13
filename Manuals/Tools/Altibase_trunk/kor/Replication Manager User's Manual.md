@@ -467,7 +467,7 @@ CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 
 
 #### Replication Pair 창
 
-'Replication Pair' 창은 데이터베이스 관점이 아니라 이중화 객체 관점에서 보여주기 위한 것으로 이중화 객체 쌍을 기준으로 보여준다. 따라서 이 창은 4개의 객체를 중심으로 표현한다: 이중화 객체 쌍 부모 객체, 이중화 객체 쌍, 이중화 객체, 그리고 이중화 대상 테이블.
+'Replication Pair' 창은 이중화 객체를 기준으로 다른 노드에 대응하는 이중화 객체들의 쌍을 트리 구조로 보여준다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다. 
 
 ##### Replication Pairs
 
