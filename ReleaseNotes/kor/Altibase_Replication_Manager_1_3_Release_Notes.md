@@ -84,8 +84,8 @@ Replication Manager는 아래의 오픈소스 라이브러리와 로열티 프�
 | ----------------- | ------------------------------------------------------------ |
 | balcosqlformatter | Homepage: http://www.igapyon.jp/blanco/blancosqlformatter.html <br/>License: LGPL (http://www.gnu.org/licenses/lgpl-3.0.txt) |
 | Eclipse           | Homepage: http://www.eclipse.org <br/>License: Eclipse Public License (http://www.eclipse.org/legal/epl-v10.html) |
-| JDOM              | Homepage: http://www.jfree.org/jfreechart/) <br/>License: LGPL (http://www.gnu.org/licenses/lgpl-3.0.txt) |
-| JFreeChart        | Homepage: http://www.jfree.org/jfreechart/) <br/>License: LGPL (http://www.gnu.org/licenses/lgpl-3.0.txt) |
+| JDOM              | Homepage: http://www.jdom.org/<br/>License: an Apache-style open source license, with the acknowledgment clause removed (http://www.jdom.org/docs/faq.html#a0030) |
+| JFreeChart        | Homepage: http://www.jfree.org/jfreechart/ <br/>License: LGPL (http://www.gnu.org/licenses/lgpl-3.0.txt) |
 | SLF4J             | Homepage: https://www.slf4j.org/<br/>License: MIT license (https://www.slf4j.org/license.html) |
 
 - 로열티 프리 이미지
