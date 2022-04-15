@@ -73,16 +73,18 @@ This manual contains proprietary information of Altibase Corporation; it is prov
 
 **Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: http://support.altibase.com/en/
+Customer Service Portal: <http://support.altibase.com/en/>
 
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+Homepage: [http://www.altibase.com]
 
 Preface
 ----
 
-This manual describes Adapter for JDBC, an utility replicating modified data in Altibase to other database supporting JDBC.
+This manual describes Migration Center that either directly or indirectly copies generally compatible database objects and data.
 
 #### Audience
 
