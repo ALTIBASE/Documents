@@ -8,7 +8,7 @@ Altibase 7.1.0.7.1 Patch Notes
 # Table of Contents 
 - [New Features](#new-features)
 
-  - [BUG-49617 Adapter for JDBC, Adapter for Oracle에 LOB 데이터 타입 지원 여부를 설정하는 프로퍼티를 추가합니다.](#BUG-49617Adapter-for-JDBC,-Adapter-for-Oracle에-LOB-데이터-타입-지원-여부를-설정하는-프로퍼티를-추가합니다)
+  - [BUG-49617 Adapter for JDBC, Adapter for Oracle에 LOB 데이터 타입 지원 여부를 설정하는 프로퍼티를 추가합니다.](#bug-49617adapter-for-jdbc-adapter-for-oracle에-lob-데이터-타입-지원-여부를-설정하는-프로퍼티를-추가합니다)
 
 - [Fixed Bugs](#fixed-bugs)
 
@@ -47,9 +47,8 @@ Altibase 7.1.0.7.1 Patch Notes
     - 참고
 
       - [Altibase 7.1 Adapter for JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20JDBC%20User's%20Manual.md#adapter_lob_type_support)
-
-      - [Altibase 7.1 Adapter for Oracle User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20Oracle%20User's%20Manual.md#adapter_lob_type_support)
-
+    - [Altibase 7.1 Adapter for Oracle User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20Oracle%20User's%20Manual.md#adapter_lob_type_support)
+    
 -   **재현 방법**
 
     -   **재현 절차**
