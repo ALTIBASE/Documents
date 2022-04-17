@@ -34,7 +34,7 @@ Replication Manager Release Notes
 
 #### Software Requirements
 
-- Java Development Kit (JDK) 또는 Java Runtime Environment (JRE) 6 or higher
+- Java Development Kit (JDK) or Java Runtime Environment (JRE) 6 or higher
 
 #### Supported Operating Systems and Platforms
 
@@ -116,4 +116,3 @@ Replication Manager is based on the following Open Source Libraries and Royalty-
 ### 5.3 Installation
 
 Please refer to the [Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Replication%20Manager%20User's%20Manual.md)
-
