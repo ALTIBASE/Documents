@@ -75,26 +75,20 @@ New Features
 ### BUG-49616 Standard Edition, Enterprise Edition에서 라이센스 발급 기준으로 MEM\_MAX\_DB\_SIZE를 추가합니다.
 
 -   **module** : id
-
 -   **Category** : Enhancement
-
 -   **재현 빈도** : Unknown
-
 -   **설명** : Standard Edition, Enterprise Edition에서 라이센스 발급 기준으로 MEM\_MAX\_DB\_SIZE를 추가합니다. 이 버그에 영향을 받은
     Altibase 버전은 아래와 같습니다.
-    - Altibase 7.1
-
-    - Altibase 6.5.1
-
+    -   Altibase 7.1
+    -   Altibase 6.5.1
+    
 -   **재현 방법**
     -   **재현 절차**
-    
-    -   **수행 결과**
-    
-    -   **예상 결과**
-    
--   **Workaround**
 
+    -   **수행 결과**
+
+    -   **예상 결과**
+-   **Workaround**
 -   **변경사항**
 
     -   Performance view
@@ -116,17 +110,15 @@ New Features
     **ARCHIVE\_FULL\_ACTION 설정 값에 따른 동작 차이**
     
     - ARCHIVE\_FULL\_ACTION = 0 
-      - 변경 전 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지된다. 아카이브로그 쓰레드를 시작하려면
-        사용자가 명시적으로 ALTER SYSTEM ARCHIVE LOG START를 수행해야 한다. 
-      - 변경 후 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지되지 않으며 차례로 다음 로그 파일 백업을
-        시도한다. 백업에 실패한 로그파일은 트레이스 로그(altibase\_sm.log)에 기록한다.
-    
+      - 변경 전 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지된다. 아카이브로그 쓰레드를 시작하려면 사용자가 명시적으로 ALTER SYSTEM ARCHIVE LOG START를 수행해야 합니다.
+      - 변경 후 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지되지 않으며 차례로 다음 로그 파일 백업을 시도합니다. 백업에 실패한 로그파일은 트레이스 로그(altibase\_sm.log)에 기록합니다.
+      
     - ARCHIVE\_FULL\_ACTION = 1 
       - 변경이 없습니다.
     
     - ARCHIVE\_FULL\_ACTION = 2
       - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
-
+    
     **ARCHIVE\_FULL\_ACTION 속성 변경**
 
     읽기 전용에서 변경 가능으로 변경합니다.
@@ -144,7 +136,7 @@ New Features
       iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
       Alter success
       ```
-
+    
     ARCHIVE\_FULL\_ACTION 설정 값에 관한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)에서도 확인할 수 있습니다.
 
 -   **재현 방법**
@@ -186,7 +178,6 @@ New Features
 -   **Workaround**
 
 -   **변경사항**
-
     -   Performance view
     -   Property
     -   Compile Option
@@ -361,13 +352,13 @@ Fixed Bugs
 
     이 버그 반영 이후 현상 발생 시 다음과 같은 에러 메시지를 출력합니다. 
 
-    ```bash
+    ```
     ERR-11069 : Internal server error in the storage manager (fail to delete key - invalid key state)
     ```
 
     또한 디스크 인덱스 키를 다시 삭제 시도하는 원인 분석을 위해 트레이스 로그, altibase\_error.log에 아래와 같은 에러 메시지를 추가적으로 기록합니다.
 
-    ```bash
+    ```
     deleteKeyFromLeafNode() INVALID KEY STATE ( IndexID: IndexID, LeafKey: LeafKey, key state : key state, sequence number : sequence number )
     
     Delete Key by same TX (TID:TID),((smxTrans*)(aMtx->mTrans))->mTransID );
@@ -613,6 +604,8 @@ Fixed Bugs
 
     -   **예상 결과**
 
+        SORT_COUNT 가 줄어듭니다.
+        
         ```sql
         ------------------------------------------------------------
         PROJECT ( COLUMN_COUNT: 5, TUPLE_SIZE: 24, COST: 0.26 )
