@@ -192,17 +192,15 @@ New Features
     **ARCHIVE\_FULL\_ACTION 설정 값에 따른 동작 차이**
     
     - ARCHIVE\_FULL\_ACTION = 0 
-      - 변경 전 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지된다. 아카이브로그 쓰레드를 시작하려면
-        사용자가 명시적으로 ALTER SYSTEM ARCHIVE LOG START를 수행해야 한다. 
-      - 변경 후 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지되지 않으며 차례로 다음 로그 파일 백업을
-        시도한다. 백업에 실패한 로그파일은 트레이스 로그(altibase\_sm.log)에 기록한다.
-    
+      - 변경 전 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지된다. 아카이브로그 쓰레드를 시작하려면 사용자가 명시적으로 ALTER SYSTEM ARCHIVE LOG START를 수행해야 합니다.
+      - 변경 후 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지되지 않으며 차례로 다음 로그 파일 백업을 시도합니다. 백업에 실패한 로그파일은 트레이스 로그(altibase\_sm.log)에 기록합니다.
+      
     - ARCHIVE\_FULL\_ACTION = 1 
       - 변경이 없습니다.
     
     - ARCHIVE\_FULL\_ACTION = 2
       - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
-
+    
     **ARCHIVE\_FULL\_ACTION 속성 변경**
 
     읽기 전용에서 변경 가능으로 변경합니다.
@@ -220,7 +218,7 @@ New Features
       iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
       Alter success
       ```
-
+    
     ARCHIVE\_FULL\_ACTION 설정 값에 관한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)에서도 확인할 수 있습니다.
 
 -   **재현 방법**
@@ -413,6 +411,8 @@ Fixed Bugs
 
     -   **예상 결과**
 
+        SORT_COUNT 가 줄어듭니다.
+        
         ```sql
         ------------------------------------------------------------
         PROJECT ( COLUMN_COUNT: 5, TUPLE_SIZE: 24, COST: 0.26 )
