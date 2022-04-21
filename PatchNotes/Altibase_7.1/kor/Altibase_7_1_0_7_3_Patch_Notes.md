@@ -81,7 +81,6 @@ New Features
     관련 프로퍼티인 TRANSACTION\_SEGMENT\_COUNT의 최댓값과 속성이 변경되었습니다.
     
     - 최댓값이 512에서 16384로 변경되었습니다.
-
     - 프로퍼티의 속성이 '변경 가능'에서 '읽기 전용'으로 변경되었습니다.
 
     TRANSACTION\_SEGMENT\_COUNT 프로퍼티의 설정값이 900을 초과할 경우 언두 테이블스페이스의 세그먼트 헤더 정보를 저장한 별도의 파일(txSegEntry.hdr)이 생성됩니다. 이 파일에 위치는 언두 테이블스페이스의 데이터 파일과 같은 곳에 있으며 변경할 수 없습니다. txSegEntry.hdr에 관한 보다 자세한 내용은 매뉴얼을 참고하시기 바랍니다.
@@ -107,9 +106,7 @@ New Features
     -   Performance view
     
     -   Property
-        -   TRANSACTION\_SEGMENT\_COUNT
-        
-            최대값이 900에서 16384로 증가
+        -   TRANSACTION\_SEGMENT\_COUNT : 최대값이 900에서 16384로 증가
         
     -   Compile Option
     
