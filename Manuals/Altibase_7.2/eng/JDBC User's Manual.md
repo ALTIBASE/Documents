@@ -779,6 +779,15 @@ Chapter 3.</p>
 | Setting Range | The session                                                  |
 | Description   | Sets the maximum waiting time for a response. <br/>For more detailed information, please refer to “Timeout” in Chapter 3. |
 
+##### reuse_resultset
+
+| Defualt Value | true                                                         |
+| ------------- | ------------------------------------------------------------ |
+| Range         | [true \| false]                                              |
+| Mandatory     | No                                                           |
+| Setting Range | The session                                                  |
+| Description   | Speicifies whether to reuse the ResultSet when executeQuery() is executed from the same PreparedStatement. |
+
 ##### sessionfailover
 
 | Default Value | off                                                          |
@@ -877,6 +886,33 @@ Chapter 3.</p>
 | Mandatory     | No                                                           |
 | Setting Range | N/A                                                          |
 | Description   | Specifies whether or not to authenticate the server's CA certificate. <br />If this value is false, the client application will not authenticate the server's CA certificate. |
+
+##### getprocedures_return_functions
+
+| Default Value | true                                                         |
+| ------------- | ------------------------------------------------------------ |
+| Range         | [true \| false ]                                             |
+| Mandatory     | No                                                           |
+| Setting Range | N/A                                                          |
+| Description   | Specifies whether to include function objects in the result of DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns(). When this value is set to false, DatabaseMetaData.getFunctions() and DatabaseMetaData.getFunctionColumns() have to be used seperately to retireve the function objects information. |
+
+##### getcolumns_return_jdbctype
+
+| Default Value | False                                                        |
+| ------------- | ------------------------------------------------------------ |
+| Range         | [true \| false ]                                             |
+| Mandatory     | No                                                           |
+| Setting Range | N/A                                                          |
+| Description   | Specifies the value of DATA_TYPE among the result of DatabaseMetaData.getColumns method. When the value is set to true, it is returned in SQL data type of java.sql.Type specified in JDBC API. When it is set to false, it is returned in data type that is specified in V$DATATYPE. |
+
+##### batch_setbytes_use_lob
+
+| Default Value | true                                                         |
+| ------------- | ------------------------------------------------------------ |
+| Range         | [true \| false ]                                             |
+| Mandatory     | No                                                           |
+| Setting Range | N/A                                                          |
+| Description   | Specifies whether to process in binary type or BLOB type when PreparedStatement.setBytes() is executed by executeBatch() for the BLOB type columns. If the value is set to true, it is processed in BLOB type. In case BLOB data exceed 65,534 bytes which is the maximum size binary data can process, this value has to be set to true because unless java.lang.ClassCastException error occurs. When it is set to false, it is processed in binary type. |
 
 ### Using Statement and ResultSet
 
