@@ -164,8 +164,8 @@ Replication Manager is a graphical tool for managing replication objects on Alti
 
 The major benefits of this tool are:
 
-1. Compatible with multiple versions of Altibase (Altibase 4.3.9 or higher).
-2. Check the status of replication objects and the relationships between them at a glance. 
+1. Compatible with multiple versions of Altibase.
+1. Check the status of replication objects and the relationships between them at a glance. 
 3. Manage replication objects with the click of a mouse.
 4. Check the properties of replication objects and related objects. 
 5. Monitor replication pairs and analyze their status, almost intuitively.
@@ -284,7 +284,7 @@ This section describes the steps involved in importing the appropriate version o
 
 Replication Manager can work with many different versions of Altibase simultaneously. So, it is necessary to import Altibase JDBC driver that is appropriate for the database to be connected. If a user wants to connect to two different Altibase databases, for example, versions 4.3.9.100 and 5.3.3.33 respectively, then the user is required to import two versions of the JDBC driver files into Replication Manager, and to give them different names, for example, "Altibase_4.3.9.100.jar" and "Altibase_5.3.3.33.jar". 
 
-JDBC driver can be downloaded from Altibase Customer Center at http://support.altibase.com/en/product. Since it is provided in tgz file format, unzip and choose the right version of JDBC driver to use.
+It is recommended to copy and use the JDBC driver of the Altibase server to be connected.
 
 To import a JDBC driver, do the following: 
 
@@ -357,7 +357,7 @@ It will sometimes be necessary to edit database connection information. For exam
 #### Managing Extra Host IP
 
 If Altibase is installed on a device with multiple IP addresses and one of these addresses was used as Remote Host IP when creating a replicaiton object in another Altibase, this IP has to be either the DB Address of the registered database connection or Extra Host IP. Otherwise, the relationship between the database and the replication object may not be properly displayed in the Map window.
-This can be executed regardless of the connection status. Select the database you wish to register as Extra Host IP or delete. Right-click on the database to open the context menu and select the "Manage Extra Host IP" item.
+This can be executed regardless of the connection status. Select the database you wish to register or delete the Extra Host IP. Right-click on the database to open the context menu and select the "Manage Extra Host IP" item.
 
 #### Removing a Database Connection
 
@@ -403,11 +403,11 @@ For instance, replication object at DB Connections pane provides "Edit Table Lis
 - Edit: Edit the properties of DB Connection.
 - Manage Extra Host IP: Manage the Extra Host IPs of DB Connection.
 - Remove: Remove the selected DB Connection.
-- Start all: Start all replication object which are stopped and belong to the DB Connection.
-- Stop all: Stop all replication objects which are currently running and belong to the DB Connection.
+- Start all: Start all the replication object which are stopped and belong to the DB Connection.
+- Stop all: Stop all the replication objects which are currently running and belong to the DB Connection.
 - Quick Start all: Quick Start all replication objects which are stopped in the DB Connection. This operation may cause a loss of replication data not yet delivered to another node. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Create Replication: Create a Replication Object at the DB Connection.
-- Create Full-mesh Replications: Create new full-meshed replication object according to the selected DB Connections. For example, if four DB Connections are selected, 16(2⁴) replication objects with the same name are created.
+- Create Full-mesh Replications: Create new full-meshed replication objects according to the selected DB Connections. For example, if four DB Connections are selected, 16(2⁴) replication objects with the same name are created.
 - Join to Full-mesh: Joins selected DB Connections to created full-meshed replication objects.
 - Create Replication Pair: Create a pair of replication objects at both sides of DB Connections.
 - Drop Replications: Delete all the replication objects that belong to DB Connection. All the replication objects should be stopped before executing this function.
@@ -431,7 +431,7 @@ For instance, replication object at DB Connections pane provides "Edit Table Lis
 
 #### Replication Pair pane
 
-Replication Pair pane shows pairs of replication objects corresponding to one another n different node in a tree structure. It manages four types of objects: Replication Pairs Object, Replication Pair Object, Replication Object, and Replication Target Table.
+Replication Pair pane shows pairs of replication objects corresponding to one another in different node in a tree structure. It manages four types of objects: Replication Pairs Object, Replication Pair Object, Replication Object, and Replication Target Table.
 
 ##### Replication Pairs Object
 
@@ -439,7 +439,7 @@ Replication Pair pane shows pairs of replication objects corresponding to one an
 - Stop all: Stop all the replication objects which are currently running.
 - Quick Start all: Quick Start all replication objects which are stopped. This operation may cause a loss of replication data not yet delivered to another node. Please refer to [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Replication%20Manual.md) for details.
 - Create Replication Pair: Create a pair of Replication Objects at both sides of DB Connections.
-- Create Full-mesh Replications: Create new full-meshed replication object according to the selected DB Connections. For example, if four DB Connections are selected, 16(2⁴) replication objects with the same name are created.
+- Create Full-mesh Replications: Create new full-meshed replication objects according to the selected DB Connections. For example, if four DB Connections are selected, 16(2⁴) replication objects with the same name are created.
 - Collapse All: Collapse the tree to replication pair level.
 - Expand to Replication Object: Expand the tree to replication object level.
 - Expand to Replication Table: Expand the tree to replication table level.
