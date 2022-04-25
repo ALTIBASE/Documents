@@ -22,8 +22,7 @@ Release 1.3
 
 Copyright ⓒ 2001~ 2019 Altibase Corp. All Rights Reserved.
 
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이
-무단으로 복제 또는 전용할 수 없습니다.
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.
 
 **㈜알티베이스**
 
@@ -133,7 +132,7 @@ Replication Manager는 Alitbase의 이중화 관리를 위한 GUI 툴이다. Ali
 
 이 도구 사용 시 얻을 수 있는 주요 이점은 다음과 같다:
 
-1. Replication Manager는 Alitbase 4.3.9 이상의 여러 버전과 함께 사용할 수 있다.
+1. Replication Manager는 Alitbase 의 여러 버전과 함께 사용할 수 있다.
 2. 이중화 객체들의 상태와 관계를 한눈에 알 수 있다.
 3. 마우스 클릭 한 번으로 이중화 객체를 관리할 수 있다.
 4. 이중화 객체와 관련된 객체의 속성을 확인할 수 있다.
@@ -260,7 +259,7 @@ Replication Manager의 user interaface는 아래처럼 구성되어 있다.
 
 Replication Manager는 다양한 버전의 Altibase 서버를 등록하기 위해 버전에 맞는 JDBC 드라이버 파일을 불러오기 해야 한다. 예를 들어 Altibase 4.3.9.100과 Altibase 5.3.3.33 버전을 동시에 연결하려면 해당 버전의 JDBC 드라이버 파일 불러오기를 수행한다. 이때 Altibase JDBC 드라이버 이름은 "Altibase_4.3.9.100.jar", "Altibase_5.3.3.33.jar"과 같이 각각 버전을 구분할 수 있는 고유한 이름으로 변경해야 한다.
 
-JDBC 드라이버는 http://support.altibase.com/kr/product에서 내려받을 수 있다. tgz 파일 형식으로 제공하므로 압축을 해제하고 알맞은 버전을 선택하여 사용한다.
+JDBC 드라이버는 접속할 Altibase 서버의 것을 복사해서 사용하기를 권장한다.
 
 JDBC 드라이버를 불러오기 절차이다.
 
