@@ -133,7 +133,7 @@ Replication Manager는 Alitbase의 이중화 관리를 위한 GUI 툴이다. Ali
 
 이 도구 사용 시 얻을 수 있는 주요 이점은 다음과 같다:
 
-1. Replication Manager는 Alitbase 4.3.9 이상의 여러 버전과 함께 사용할 수 있다.
+1. Replication Manager는 Alitbase의 여러 버전과 함께 사용할 수 있다.
 2. 이중화 객체들의 상태와 관계를 한눈에 알 수 있다.
 3. 마우스 클릭 한 번으로 이중화 객체를 관리할 수 있다.
 4. 이중화 객체와 관련된 객체의 속성을 확인할 수 있다.
@@ -157,7 +157,7 @@ Replication Manager는 Alitbase의 이중화 관리를 위한 GUI 툴이다. Ali
 
 ##### 지원하는 OS 및 플랫폼
 
-Replication Manager는 마이크로소프트 윈도우즈와 리눅스용 패키지를 제공한다.
+Replication Manager는 마이크로소프트 윈도우즈와 리눅스용 패키지를 제공한다. 
 
 | Package Name                                        | Operating System | Graphic System | JRE         |
 | :-------------------------------------------------- | :--------------: | :------------: | :-----------: |
@@ -202,19 +202,19 @@ Replication Manager가 설치된 디렉토리를 삭제한다.
 
 ### 사용자 인터페이스에 대한 이해
 
-이 절은 Replication Manager의 사용자 인터페이스를 소개한다.
+이 절은 Replication Manager의 사용자 인터페이스를 소개한다. 
 
 Replication Manager의 user interaface는 아래처럼 구성되어 있다.
 
 ![48deb125f1f8d0bad9072829a57b02c7](media/ReplicationManager/48deb125f1f8d0bad9072829a57b02c7.png)
 
 1. DB Connections: 프로그램의 시작 위치이며, 데이터베이스와 이중화 객체 간의 관계를 트리 구조로 보여주는 데이터베이스 중심의 뷰이다.
-
+   
 2. Replication Pairs: 이중화 개체를 한 쌍으로 표현하여 보여주는 논리적인 뷰이다. 두 개씩 짝지어 같은 이름을 갖고 서로 상호 작용하는 이중화 객체
    그룹을 "이중화 쌍"이라고 부른다.
-
+   
 3. Map: 데이터베이스들과 이중화 객체들, 그리고 서로 간의 관계에 대한 물리적 구성과 상태를 그래프로 형상화한다.
-
+   
 4. Properties: 현재 선택된 객체의 속성을 보여준다. (예. 데이터베이스 연결 또는 이중화 객체)
 
 위의 네 창은 동일한 데이터베이스와 이중화 객체들을 다양한 방법으로 시각화한다. 예를 들어, "Map" 창은 한눈에 이중화 갭을 확인할 수 있는 편리한 방법을 제공한다. "Replication Pairs"창은 이중화가 실행되고 있는 데이터베이스를 고려할 필요 없이 이중화 객체들을 한 쌍으로 다룰 수 있는 간편한 방법을 제공한다. 따라서 이 네 창들은 상호 보완적이다. 예를 들어, "DB Connections" 창에서 이중화 객체를 선택하면 "Replication Pairs"와 "Map" 창에서도 같은 이중화 객체가 선택된다. 또한 선택된 이중화 객체의 속성들은 "Properties" 창에서 보여진다. 다시 말해서 편집 가능한 세 창, "DB Connections", "Replication Pairs" 그리고 "Map" 창들은
@@ -225,13 +225,13 @@ Replication Manager의 user interaface는 아래처럼 구성되어 있다.
 - 데이터베이스 접속을 등록, 해제 그리고 편집할 수 있는 뷰가 있다.
 
 - 연결된 데이터베이스, 이중화 객체 그리고 이중화 대상 테이블에 대한 메타정보를 탐색하기 편리하게 트리 구조로 보여준다.
-
+  
 - 이중화 객체 생성과 삭제, 이중화 시작 그리고 중단하는 것을 포함한 데이터베이스와 이중화 객체를 관리하는 편리한 방법을 제공한다.
 
 "Replication Pairs" 창은 다음과 같은 기능을 제공한다.
 
 - 이중화 객체들의 기반 데이터베이스에 대한 고려 없이 이중화 객체 쌍을 관리하는 편리한 방법을 제공한다.
-
+  
 - 이중화를 시작하고 중단하는 것을 포함한 이중화 객체 관리 방법도 제공한다.
 
 "Map" 창은 다음과 같은 기능을 제공한다.
@@ -256,22 +256,22 @@ Replication Manager의 user interaface는 아래처럼 구성되어 있다.
 
 #### JDBC 드라이버 파일 불러오기
 
-이 절은 JDBC 드라이버 파일의 알맞은 버전을 Replication Manager에 불러오는 방법을 설명한다.
+이 절은 JDBC 드라이버 파일의 알맞은 버전을 Replication Manager에 불러오는 방법을 설명한다. 
 
 Replication Manager는 다양한 버전의 Altibase 서버를 등록하기 위해 버전에 맞는 JDBC 드라이버 파일을 불러오기 해야 한다. 예를 들어 Altibase 4.3.9.100과 Altibase 5.3.3.33 버전을 동시에 연결하려면 해당 버전의 JDBC 드라이버 파일 불러오기를 수행한다. 이때 Altibase JDBC 드라이버 이름은 "Altibase_4.3.9.100.jar", "Altibase_5.3.3.33.jar"과 같이 각각 버전을 구분할 수 있는 고유한 이름으로 변경해야 한다.
 
-JDBC 드라이버는 http://support.altibase.com/kr/product에서 내려받을 수 있다. tgz 파일 형식으로 제공하므로 압축을 해제하고 알맞은 버전을 선택하여 사용한다.
+JDBC 드라이버는 접속할 Altibase 서버의 것을 복사해서 사용하기를 권장한다.
 
 JDBC 드라이버를 불러오기 절차이다.
 
 1. JDBC 드라이버 관리자 대화 상자를 열기 위해 도구 모음에서 "JDBC driver manager" 아이콘을 클릭한다.
-
+   
 2. 이 대화 상자에서 JDBC 드라이버 파일 가져오기 대화 상자를 열기 위해 오른쪽의 “+” 아이콘을 클릭한다.
-
-   ![5d9de880b8ffcff76f8f2fed4b5f50cf](media/ReplicationManager/5d9de880b8ffcff76f8f2fed4b5f50cf.png)
-
+   
+   ![5d9de880b8ffcff76f8f2fed4b5f50cf](media/ReplicationManager/1.png)
+   
 3. 불러올 JDBC 드라이버 파일을 선택한 다음 Replication Manager에서 사용될 파일 이름을 입력한다. 소스 파일은 지정된 디렉토리에 복사되며 지정한 대로 파일 이름이 바뀐다.
-
+   
 4. JDBC 드라이버 관리자 대화상자를 닫는다.
 
 위의 방법 대신에 데이터베이스 연결을 추가할 때 JDBC 드라이버 파일을 불러올 수도 있다.
@@ -282,7 +282,7 @@ JDBC 드라이버를 불러오기 절차이다.
    아이콘에 오른쪽 클릭한 다음 표시되는 콘텍스트 메뉴에서 "New DB Connection" 항목을 클릭한다.
 2. “새로운 데이터베이스 연결” 대화 상자가 표시되면 필드 정보를 아래와 같이 입력한다.
 
-![f6753230700743fd3fbdf8349161b408](media/ReplicationManager/f6753230700743fd3fbdf8349161b408.png)
+![f6753230700743fd3fbdf8349161b408](media/ReplicationManager/2.png)
 
 - Basic information(기본 정보)
 
@@ -292,7 +292,7 @@ JDBC 드라이버를 불러오기 절차이다.
   - DB Port: 데이터베이스에 접속할 때 필요한 포트 번호이다.
   - DB Name: 데이터베이스 이름이다.
   - JDBC driver: JDBC 드라이버 파일의 알맞은 버전을 사용하기 위해 콤보 상자에서 알맞은 JDBC 드라이버를 선택한다. 필요한 JDBC 드라이버 파일을 아직 불러오지 않았다면 "JDBC driver manager" 아이콘을 클릭해서 불러온다.
-
+  
 - Options(선택 사항)
 
   - IP Address Type: 필요하면 알맞은 IP 주소 유형을 선택한다. Replication Manager는 IPv4와 IPv6 주소를 지원한다.
@@ -310,7 +310,7 @@ Alitbase를 설치하고 앞선 두 가지 작업을 마침으로써 데이터�
 데이터베이스에 연결하기 위해 아래와 같은 순서를 따른다.
 
 1. 새로 추가된 데이터베이스 연결을 선택한다. 콘텍스트 메뉴를 표시하기 위해 새로 추가된 데이터베이스에 오른쪽 클릭한 다음 "Connect" 항목을 선택한다. 시스템 환경에 따라 시간이 좀 걸릴 수도 있다.
-
+   
 2. 연결되면 대상 데이터베이스에서 이중화 객체를 확인할 수 있다.
 
 3. 연결에 실패하면 연결하는데 도움이 되는 정보를 보여주는 경고 상자가 표시된다.
@@ -328,9 +328,9 @@ Alitbase를 설치하고 앞선 두 가지 작업을 마침으로써 데이터�
 가끔 데이터베이스 연결 정보를 편집할 필요가 있다. 예를 들어, 데이터베이스를 연결하기 위해 사용된 계정을 변경할 필요가 있을 수 있다. 이 메뉴는 변경하고자 하는 데이터베이스에 연결되지 않았을 때만 가능하다. 데이터베이스 연결 정보를 편집하기 위해서는 네 가지 절차가 있다.
 
 1. 연결 정보를 변경하고 싶은 데이터베이스를 선택한다. 데이터베이스에 오른쪽 클릭하여 콘텍스트 메뉴를 연 다음 "Edit" 항목을 선택한다.
-
+   
 2. 연결 정보를 원하는 대로 변경한다. 연결 성공 여부를 확인하려면 "Connection Test" 버튼을 클릭한다.
-
+   
 3. 연결 테스트가 성공적이면 대화 상자가 표시된다. "OK" 버튼을 클릭한다.
 
 4. 마지막으로 편집 대화 상자에서 "Save" 버튼을 클릭한다.
@@ -373,11 +373,11 @@ Replication Manager는 데이터베이스와 이중화 객체를 추상화시켜
 
   두 개의 서로 다른 데이터베이스에 생성되어 대응되는 같은 이름을 가진 이중화 객체의 쌍이다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
 
-어떤 객체들은 여러 창에서 공유되지만, 창에 따라 제공하는 기능이 다른 경우가 있다. 예를 들어, "Replication Pair" 창에서 이중화 객체는 "Edit Table List" 기능을 제공하지만 "Map" 창에서는 제공하지 않는다. 이는 제공하는 창의 목적에 따라 제공하는 기능이 다르기 때문이다. "Replication Pair" 창은 이중화 객체를 조회하고 관리하기 위한 것이고, "Map" 창은 관리 대상 데이터베이스와 이중화 객체를 그래프로 표현해 전체 시스템 상태 정보를 일목요연하게 제공하기 위한 것이다.
+어떤 객체들은 여러 창에서 공유되지만, 창에 따라 제공하는 기능이 다른 경우가 있다. 예를 들어, "DB Connections" 창에서 이중화 객체는 "Edit Table List" 기능을 제공하지만 "Map" 창에서는 제공하지 않는다. 이는 제공하는 창의 목적에 따라 제공하는 기능이 다르기 때문이다. "DB Connections" 창은 데이터베이스 접근하여 이중화 객체를 조회하고 수정하는 기능을 제공하고 "Map" 창은 Replication Manager에 등록된 정보를 토대로 이중화 객체 간의 관계를 그래프로 보여주는 역할을 한다.
 
 #### DB Connections 창
 
-"DB Connections" 창은 데이터베이스에 생성된 이중화 객체 정보를 조회하여 트리 구조로 표현한다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다.
+"DB Connections" 창은 데이터베이스에 생성된 이중화 객체 정보를 조회하여 트리 구조로 표현한다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다. 
 
 ##### 데이터베이스 연결 부모(DB Connections) 객체
 
@@ -402,9 +402,9 @@ Replication Manager는 데이터베이스와 이중화 객체를 추상화시켜
 - Stop all: DB Connection 객체에 속한 동작 상태인 모든 이중화 객체를 중지시킨다.
 - Quick Start all: DB Connection 객체에 속한 정지 상태의 모든 이중화 객체에게 "Quick Start"명령을 전송한다. 이 작업은 노드간 전송되지 않은 이중화 작업의 손실을 초래할 수 있다. 상세한 내용은 [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)를 참조한다.
 - Create Replication: DB Connection의 대상 데이터베이스에 이중화 객체를 생성한다.
-- Create Full-mesh Replications: 선택한 여러 DB Connection을 대상으로 새로운 완전 메시 이중화 객체를 생성한다. 예를 들어, 4개의 DB Connection를 선택하였으면, 동일한 이름을 가진 16 (2⁴)개의 이중화 객체가 생성된다.
-- Join to Full-mesh: 선택한 여러 DB Connection를 생성된 완전 연결 이중화 객체에 참여시킨다.
-- Create Replication Pair: 동일한 이름을 가진 새로운 이중화 객체를 두개의 DB Connection 양쪽에 만든다.
+- Create Full-mesh Replications: 선택한 여러 DB Connection을 대상으로 새로운 완전 메시 이중화 객체를 생성한다. 예를 들어, 4개의 DB Connection를 선택하였으면, 동일한 이름을 가진 16 (2^4)개의 이중화 객체가 생성된다.
+- Join to Full-mesh: 선택한 여러 DB Connection를 생성된 완전 메시 이중화 객체에 참여시킨다.
+- Create Replication Pair: 동일한 이름을 가진 새로운 이중화 객체를 두개의 DB Connection 양쪽에 만든다. 
 - Drop Replications: DB Connection에 속한 모든 이중화 객체를 삭제한다. 삭제 전 반드시 모든 이중화 객체는 중지되어 있어야 한다.
 
 ##### 이중화 객체(Replication Object)
@@ -422,11 +422,11 @@ Replication Manager는 데이터베이스와 이중화 객체를 추상화시켜
 
 ##### 이중화 대상 테이블(Replication Target Table) 객체
 
-- Remove: 이중화 객체에서 선택한 테이블을 제거한다.
+- Remove: 이중화 객체에서 선택한 테이블을 제거한다. 
 
 #### Replication Pair 창
 
-'Replication Pair' 창은 이중화 객체를 기준으로 다른 노드에 대응하는 이중화 객체들의 쌍을 트리 구조로 보여준다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다.
+'Replication Pair' 창은 이중화 객체를 기준으로 다른 노드에 대응하는 이중화 객체들의 쌍을 트리 구조로 보여준다. 기본 모델의 6가지 객체 중 아래 4개 객체가 이 창의 작업 대상이다. 
 
 ##### 이중화 쌍 부모(Replication Pairs) 객체
 
@@ -434,7 +434,7 @@ Replication Manager는 데이터베이스와 이중화 객체를 추상화시켜
 - Stop all: 동작 상태인 모든 이중화 객체를 중지한다.
 - Quick Start all: 중지 상태인 이중화 객체에게 "Quick Start"명령을 전송한다. 이 작업은 노드간 전송되지 않은 이중화 작업의 손실을 초래할 수 있다. 상세한 내용은 [Replication User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md)를 참조한다.
 - Create Replication Pair: 동일한 이름을 가진 새로운 이중화 객체를 두개의 DB Connection 양쪽에 만든다.
-- Create Full-mesh Replications: 여러 DB Connection을 대상으로 새로운 완전 메시 이중화 객체를 생성한다. 예를 들어, 4개의 DB Connection를 선택하였으면, 동일한 이름을 가진 16 (2⁴)개의 이중화 객체가 생성된다.
+- Create Full-mesh Replications: 여러 DB Connection을 대상으로 새로운 완전 메시 이중화 객체를 생성한다. 예를 들어, 4개의 DB Connection를 선택하였으면, 동일한 이름을 가진 16 (2^4)개의 이중화 객체가 생성된다.
 - Collapse All: 이중화 객체 쌍 단위 레벨로 트리를 접는다.
 - Expand to Replication Object: 이중화 객체 단위 레벨까지 트리를 펼친다.
 - Expand to Replication Table: 이중화 대상 테이블 레벨까지 트리를 펼친다.
@@ -456,7 +456,7 @@ DB Connections 창과 동일한 기능 제공.
 
 #### Map 창
 
-Map 창은 데이터베이스와 이중화 객체의 물리적인 배치와 상태 그리고 상호관계를 표시한다. 기본 모델의 6가지 객체 중 아래 2개 객체가 이 창의 작업 대상이다.
+Map 창은 데이터베이스와 이중화 객체의 물리적인 배치와 상태 그리고 상호관계를 표시한다. 기본 모델의 6가지 객체 중 아래 2개 객체가 이 창의 작업 대상이다. 
 
 ##### 데이터베이스 연결(DB Connection) 객체
 
