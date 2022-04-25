@@ -2029,6 +2029,7 @@ Alter success.
 ##### 구문
 
 ```
+CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dirs' WITH 'remote_ip', remote_port FROM user_name.table_name TO user_name.table_name;
 ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
 ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 ALTER REPLICATION replication_name START WITH OFFLINE;
@@ -2036,14 +2037,24 @@ ALTER REPLICATION replication_name START WITH OFFLINE;
 
 ##### 설명
 
-Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버에서 장애 발생으로 Altibase 서버가 중지되면 Active 서버의 송신자는 XLog 변환 및 전송할 수 없다. 이 때 Standby 서버에서 오프라인 옵션을 사용하여 반영하지 못한 변경 트랜잭션을 Standby 서버에 반영할 수 있다. Standby 서버에서 이중화 객체에 오프라인 옵션을 설정하고 이중화를 시작하면 오프라인 송신자가 시작된다. 오프라인 송신자는 Active 서버의 송신자 역할을 대신하며 이를 오프라인 이중화라고 한다. 단, Active 서버가 Standby 서버 쪽으로 한 번이라도 이중화를 수행한 적이 있는 경우에만 Standby 서버에서 오프라인 옵션을 사용할 수 있다.
+Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버에서 장애 발생으로 Altibase 서버가 중지되면 Active 서버의 송신자는 XLog를 변환할 수 없고 XLog와 이중화 메타 테이블 정보를 전송할 수 없다. 이 때 Standby 서버에서 오프라인 옵션을 사용하여 반영하지 못한 변경 트랜잭션을 Standby 서버에 반영할 수 있다. Standby 서버에서 이중화 객체에 오프라인 옵션을 설정하고 이중화를 시작하면 오프라인 송신자가 시작된다. 오프라인 송신자는 Active 서버의 송신자 역할을 대신하여 수신자와 통신하며 이중화를 수행하게 되는데 이를 오프라인 이중화라고 한다. 단, Active 서버가 Standby 서버 쪽으로 한 번이라도 이중화를 수행한 적이 있는 경우에만 Standby 서버에서 오프라인 옵션을 사용할 수 있다.
+
+-   OPTIONS OFFLINE
+
+    이중화 객체 생성 구문에서 오프라인 옵션을 설정하는 절이다. 
 
 -   log_dir  
-    Active 서버의 로그 파일 경로를 설정한다.
--   START WITH OFFLINE  
-    Standby 서버의 오프라인 송신자가 직접 Active 서버의 로그 파일에 접근하여 오프라인 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로써, Active 서버의 로그 파일에서 반영하지 못한 트랜잭션을 추출하여 XLog로 변환하고 Standby 서버의 수신자에게 XLog를 전송한다. 이중화 수신자가 변경 트랜잭션을 Standby 서버에 반영하면 오프라인 이중화는 바로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다.
+    Active 서버의 로그 파일이 위치한 절대 경로를 설정한다.
+    
+-   SET OFFLINE ENABLE WITH
+
+    오프라인 옵션을 설정하는 절이다. 이중화가 중지된 상태에서만 이 구문을 수행할 수 있다.
+
 -   SET OFFLINE DISABLE  
-    오프라인 이중화를 비활성화한다. 이중화가 중지되어 있는 상태에서만 이 구문을 수행할 수 있다.
+    오프라인 옵션 설정을 오프라인 이중화를 비활성화한다. 이중화가 중지되어 있는 상태에서만 이 구문을 수행할 수 있다.
+
+-   START WITH OFFLINE  
+    수신자와 오프라인 송신자를 시작하고 오프라인 송신자가 직접 Active 서버의 로그 파일에 접근하여 오프라인 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로, Active 서버의 로그 파일에서 반영하지 못한 트랜잭션을 추출하여 XLog로 변환하고 Standby 서버의 수신자에게 XLog와 이중화 메타 테이블 정보를 전송한다. 수신자가 변경 트랜잭션을 Standby 서버에 반영하면 수신자와 오프라인 송신자 모두 중지하고 오프라인 이중화는 바로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다.
 
 아래는 오프라인 옵션의 사용 예시를 도식화한 그림이다.
 
@@ -2053,10 +2064,10 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
 
 ##### 주의 사항
 
-- 오프라인 이중화가 시작하는 시점에 동일한 이중화 이름을 가진 수신 쓰레드(Receiver)는 종료된 상태여야 한다. 만약 해당 수신 쓰레드가 동작 중일 경우에는 이중화 오프라인이 이를 종료시킬 것이다.
-- 오프라인 송신자가 디스크 이상으로 Active 서버의 로그 파일 경로에 접근하지 못할 경우에는 오프라인 이중화가 실패한다.
+- 오프라인 이중화를 시작할 때 같은 이름을 가진 이중화 수신자를 중지된 상태여야 한다. 만약 수신자가 시작 중이라면 오프라인 송신자가 수신자를 종료하고 다시 시작한다. 
+- 디스크 폴트 등으로 오프라인 송신자가 Active 서버의 로그 파일 경로에 접근하지 못할 경우에는 오프라인 이중화가 실패한다.
 - 로그 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제 또는 삭제)할 경우 Altibase 서버 비정상 종료와 같은 문제를 발생시킬 수 있다.
-- Standby 서버를 오프라인 이중화 시작 전에 재구동해서는 안 된다. 왜냐하면 Standby 서버를 재시작하면 Standby 서버에 반영하지 못한 변경 트랜잭션 정보가 사라지기 때문이다.
+- 오프라인 이중화 시작 전에 Standby 서버를 재구동해서는 안 된다. 왜냐하면 Standby 서버를 재시작하면 Standby 서버에 반영하지 못한 변경 트랜잭션 정보가 사라지기 때문이다.
 
 ##### 제약 사항
 
@@ -2098,7 +2109,7 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
 -   오프라인 이중화 수행 시 오프라인 송신자가 접근할 Active 서버의 로그 파일 경로를 설정한다.
 
     ```
-    ALTER REPLICATION REP1 SET OFFLINE ENABLE WITH 'active_server/altibase_home/logs';
+    ALTER REPLICATION REP1 SET OFFLINE ENABLE WITH '/active_server/altibase_home/logs';
     ```
 
 -   오프라인 이중화를 시작한다.
@@ -2107,7 +2118,7 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
     ALTER REPLICATION REP1 START WITH OFFLINE;
     ```
 
--   오프라인 이중화를 비활성화한다.
+-   오프라인 옵션 설정을 비활성화한다.
 
     ```
     ALTER REPLICATION REP1 SET OFFLINE DISABLE;
