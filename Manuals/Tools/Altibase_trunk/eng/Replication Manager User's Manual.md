@@ -292,7 +292,7 @@ To import a JDBC driver, do the following:
 
 2. In this dialog box, click on the "+" icon on the right to open the "Import JDBC driver file" dialog box, as shown below.
 
-![5d9de880b8ffcff76f8f2fed4b5f50cf](media/ReplicationManager/1.png)
+![5d9de880b8ffcff76f8f2fed4b5f50cf](media/ReplicationManager/5d9de880b8ffcff76f8f2fed4b5f50cf.png)
 
 3. Select a JDBC driver file to import and give the file a name to be used in Replication Manager. The source file will be copied into the specified directory and renamed as specified. 
 
@@ -305,7 +305,7 @@ Alternatively, users can also import a JDBC driver file when performing the "Add
 1. Open the "New DB Connection" dialog by clicking on the "New DB Connection" icon in the main toolbar, or by right-clicking on the "DB Connections icon" in the "DB Connections" panel and then left-clicking on the "New DB Connection" item in the context menu that appears.
 2. The "New DB Connection" dialog box shown below will appear. Fill in the input fields as described below.
 
-![f6753230700743fd3fbdf8349161b408](media/ReplicationManager/2.png)
+![f6753230700743fd3fbdf8349161b408](media/ReplicationManager/f6753230700743fd3fbdf8349161b408.png)
 
 - Basic Information
 
@@ -376,13 +376,11 @@ Replication Manager abstracts database and replication objects and models six ob
 5. Replication Pairs Object: It is the root object of "Replication Pair". It is automatically created in "Replication Pairs" pane.
 6. Replication Pair Object: It is a pair of corresponding replication objects having the same name, one residing on each of two different nodes. Please refer to [Understanding the User Interface](#understanding-the-user-interface).
 
-Although some objects are shared in different panes, in some cases the same object provides different functions according to the pane.
-
-For instance, replication object at DB Connections pane provides "Edit Table List" function, but it doesn't at Map pane. This is to align functionalities to its context since "DB Connections" pane accesses the database and reads and edits the replication object while "Map" pane displays the relationship between replication objects base on the information registered in Replication Manager.
+Same objects shared by different panes may provide different functionalities according to the pane. For instance, Replication Object at Replication Pair pane provides "Edit Table List" function, but at Map pane it doesn't. This is to align functionalities to its context. The Replication Pair pane is to manage the replication object, while the Map pane is to provide overall system status information at a glance by showing the target databases and the replication objects as a graph.
 
 #### DB Connections pane
 
-"DB Connections" pane reads information about replication objects created in database and shows in a tree structure. The following four objects among six can be controlled here.
+The "DB Connections" pane displays the information about the replicated object created in the database in a tree structure.
 
 ##### DB Connections Object
 
