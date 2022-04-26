@@ -366,6 +366,10 @@ Altibase 이중화 (Replication)는 운영중인 데이터베이스의 로그를
     동기화 작업 ("ALTER REPLICATION ... SYNC" 또는 "ALTER REPLICATION ... SYNC
     ONLY" 사용)을 수행하는데 여러개의 송신 쓰래드와 수신 쓰래드를 사용하는 것을
     일컫는다. "병렬 이중화"와 혼동하지 말 것.
+    
+    
+    
+    
 
 #### Altibase 이중화 방식
 
@@ -2023,15 +2027,17 @@ Alter success.
 
 ##### 설명
 
-오프라인 옵션은 변경 트랜잭션이 일어나는 Active 서버에서 장애가 발생하여 Altibase 서버가 중지된 상황에서 상대편 이중화 노드로 반영하지 못한 변경 트랜잭션을 동기화하는 기능이다. Altibase 서버가 중지된 이중화 노드의송신자는 XLog를 변환할 수 없으며 XLog와 이중화 메타 테이블 정보를 상대편 이중화 노드로 전송할 수 없다. 이 경우 수신자 역할을 하던 지역 서버에서 이중화 객체에 오프라인 옵션을 설정하고 이중화를 시작하면 오프라인 송신자가 시작된다. 오프라인 송신자는 장애가 발생한 원격 서버의 송신자 역할을 대신하여 지역 서버의 수신자와 통신하며 이중화를 수행하게 되는데 이를 오프라인 이중화라고 한다. 
+이중화 지연 현상이 발생하는 상황에서 송신자 측 이중화 노드에 장애가 발생하여 Altibase 서버가 중지된 경우, 상대편 이중화 노드에서 "오프라인 송신자"를 이용해 반영하지 못한 변경 트랜잭션을 직접 동기화하는 기능이다. 
 
-> 오프라인 이중화에서 원격 서버는 장애가 발생한 Active 서버를 의미하고 지역 서버는 이중화 객체에 오프라인 옵션을 설정하고 오프라인 이중화를 수행하는 이중화 노드를 의미한다. 
+Altibase 서버가 중지되면 송신자도 중지되므로 이중화를 수행할 수 없다. 이 경우 수신자 역할을 하던 지역 서버에서 이중화 객체에 오프라인 옵션을 설정하고 오프라인 송신자를 시작한다. 오프라인 송신자는 원격 서버의 송신자 역할을 대신하여 지역 서버의 수신자와 통신하며 이중화를 수행하게 되는데 이를 오프라인 이중화라고 한다. 
+
+> 오프라인 옵션 설명에서 지역 서버는 이중화 객체에 오프라인 옵션을 설정하고 오프라인 이중화를 수행하는 이중화 노드를 의미하고 원격 서버는 장애가 발생한 이중화 노드를 의미한다.
 
 ##### 구문
 
 ```
-CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' WITH 'remote_ip', remote_port FROM user_name.table_name TO user_name.table_name;
-ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
+CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_file_dir' WITH 'remote_ip', remote_port FROM user_name.table_name TO user_name.table_name;
+ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_file_dir';
 ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 ALTER REPLICATION replication_name START WITH OFFLINE;
 ```
@@ -2040,22 +2046,25 @@ ALTER REPLICATION replication_name START WITH OFFLINE;
 
     이중화 객체 생성 구문에서 오프라인 옵션을 설정하는 절이다. 
 
--   log_dir  
-    장애가 발생하여 Altibase 서버가 중지된 이중화 노드의 로그 파일이 위치한 절대 경로를 설정한다.
+-   log_file_dir
+    
+    장애가 발생한 Altibase 서버에 로그 파일이 위치한 절대 경로를 입력한다.
     
 -   SET OFFLINE ENABLE WITH
 
     이중화 객체 변경 구문에서 오프라인 옵션을 설정하는 절이다. 이중화가 중지된 상태에서 이 구문을 수행할 수 있다.
 
--   SET OFFLINE DISABLE  
+-   SET OFFLINE DISABLE
+
     오프라인 옵션 설정을 삭제한다. 이중화가 중지된 상태에서 이 절을 수행할 수 있다.
 
--   START WITH OFFLINE  
+-   START WITH OFFLINE
+
     수신자와 오프라인 송신자가 시작되고 오프라인 이중화를 수행한다. 
 
-    START WITH OFFLINE 수행 시 지역 서버의 송신자 및 수신자는 중지된 상태여야 한다. 만약 수신자가 시작 중이라면 오프라인 송신자가 수신자를 종료하고 다시 시작한다. 
+    오프라인 송신자는 원격 서버의 로그 파일에 직접 접근하여 로그 파일을 분석하고 수신자에게 XLog를 전송한다. 수신자가 변경 트랜잭션을 반영하면 수신자와 오프라인 송신자 모두 중지하고 오프라인 이중화는 바로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다. 
 
-    오프라인 송신자는 장애가 발생한 Altibase 서버의 로그 파일에 직접 접근하여 로그 파일을 분석하고 지역 서버로 XLog와 이중화 메타 테이블 정보를 전송한다. 수신자가 변경 트랜잭션을 반영하면 수신자와 오프라인 송신자 모두 중지하고 오프라인 이중화는 바로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다. 
+    이 구문 수행 시 지역 서버의 송신자와 수신자는 중지된 상태여야 한다. 만약 수신자가 시작 중이라면 오프라인 송신자가 수신자를 종료하고 다시 시작한다. 
 
 아래는 오프라인 옵션의 사용 예시를 도식화한 그림이다. 그림에서 Standby가 오프라인 옵션을 설정하고 오프라인 이중화를 수행하는 이중화 노드이다.
 
@@ -2073,9 +2082,9 @@ ALTER REPLICATION replication_name START WITH OFFLINE;
 
 - 오프라인 옵션을 설정한 지역 서버는 Altibase 서버 구동 후 원격 서버의 송신자와 통신한 적이 있어야 한다. 
 
-  오프라인 이중화를 시작하려는 지역 서버의 이중화 관리자는 원격 서버에서 보낸 이중화 메타 테이블 정보를 가지고 있어야 지역 서버에서 오프라인 이중화를 수행할 수 있다. 따라서, 이중화 중에 원격 서버의 Altibase 서버가 중지된 상황에서 오프라인 이중화 수행 전에 지역 서버의 Altibase 서버를 재기동하면 안 된다. 
+  지역 서버의 수신자는 원격 서버에서 보낸 이중화 메타 테이블 정보를 가지고 있어야 지역 서버에서 오프라인 이중화를 수행할 수 있다. 따라서, 오프라인 이중화 수행하려면 지역 서버의 Altibase 서버를 재기동하면 안 된다. 
 
-- LAZY 모드 이중화 객체에서 사용할 수 있다.
+- 오프라인 옵션은 LAZY 모드에서만 사용할 수 있다.
 
 -   이중화 대상 테이블에 압축 테이블이 있는 이중화 객체는 오프라인 이중화를 지원하지 않는다.
 
@@ -2089,8 +2098,8 @@ ALTER REPLICATION replication_name START WITH OFFLINE;
 
     바이너리 데이터베이스 버전은 2가지 방법으로 확인할 수 있다. 
 
-    - SELECT SM_VERSION FROM V$VERSION;
-    - altibase -v
+    - iSQL> SELECT SM_VERSION FROM V$VERSION;
+    - $ altibase -v
 
 
   - 로그 파일 크기(LOG_FILE_SIZE)가 동일해야 한다.
