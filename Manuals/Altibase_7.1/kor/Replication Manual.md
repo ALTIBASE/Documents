@@ -512,17 +512,12 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 -   복구 옵션  
     : 이중화를 진행중에 서버가 비정상 종료되면 서버간 데이터가 불일치하는 것을
     방지하기 위해 이중화를 이용한 데이터 복구 기능
-
 -   오프라인 옵션  
-    : Active-Standby 이중화 환경에서 Active 서버에 장애가 발생하면, 오프라인
-    옵션을 사용하여 미전송된 로그를 Standby 서버에 반영할 수 있는 기능
-
+    : 이중화 노드에서 장애가 발생하여 Altibase 서버가 중지된 경우 상대편 이중화 노드에서 오프라인 송신자를 띄워 반영하지 못한 변경 트랜잭션을 동기화하는 기능이다. 
 -   이중화 갭 해소 옵션  
     : 이중화를 수행할 때 발생하는 이중화 갭을 해소하는 기능
-
 -   병렬 적용자 옵션  
     : 송신자로부터 받은 XLog를 수신자가 병렬로 적용할 수 있는 기능
-
 -   이중화 트랜잭션 그룹 옵션  
     : 이중화 갭이 발생하였을 때 전송해야 할 복수의 트랜잭션들을 하나의
     트랜잭션처럼 그룹화하여 수신 쓰레드에 로그를 전송하는 기능
@@ -2026,37 +2021,43 @@ Alter success.
 
 #### 오프라인 옵션(Offline Option)
 
+##### 설명
+
+오프라인 옵션은 변경 트랜잭션이 일어나는 Active 서버에서 장애가 발생하여 Altibase 서버가 중지된 상황에서 상대편 이중화 노드로 반영하지 못한 변경 트랜잭션을 동기화하는 기능이다. Altibase 서버가 중지된 이중화 노드의송신자는 XLog를 변환할 수 없으며 XLog와 이중화 메타 테이블 정보를 상대편 이중화 노드로 전송할 수 없다. 이 경우 수신자 역할을 하던 지역 서버에서 이중화 객체에 오프라인 옵션을 설정하고 이중화를 시작하면 오프라인 송신자가 시작된다. 오프라인 송신자는 장애가 발생한 원격 서버의 송신자 역할을 대신하여 지역 서버의 수신자와 통신하며 이중화를 수행하게 되는데 이를 오프라인 이중화라고 한다. 
+
+> 오프라인 이중화에서 원격 서버는 장애가 발생한 Active 서버를 의미하고 지역 서버는 이중화 객체에 오프라인 옵션을 설정하고 오프라인 이중화를 수행하는 이중화 노드를 의미한다. 
+
 ##### 구문
 
 ```
-CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dirs' WITH 'remote_ip', remote_port FROM user_name.table_name TO user_name.table_name;
+CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' WITH 'remote_ip', remote_port FROM user_name.table_name TO user_name.table_name;
 ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
 ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 ALTER REPLICATION replication_name START WITH OFFLINE;
 ```
-
-##### 설명
-
-Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버에서 장애 발생으로 Altibase 서버가 중지되면 Active 서버의 송신자는 XLog를 변환할 수 없고 XLog와 이중화 메타 테이블 정보를 전송할 수 없다. 이 때 Standby 서버에서 오프라인 옵션을 사용하여 반영하지 못한 변경 트랜잭션을 Standby 서버에 반영할 수 있다. Standby 서버에서 이중화 객체에 오프라인 옵션을 설정하고 이중화를 시작하면 오프라인 송신자가 시작된다. 오프라인 송신자는 Active 서버의 송신자 역할을 대신하여 수신자와 통신하며 이중화를 수행하게 되는데 이를 오프라인 이중화라고 한다. 단, Active 서버가 Standby 서버 쪽으로 한 번이라도 이중화를 수행한 적이 있는 경우에만 Standby 서버에서 오프라인 옵션을 사용할 수 있다.
 
 -   OPTIONS OFFLINE
 
     이중화 객체 생성 구문에서 오프라인 옵션을 설정하는 절이다. 
 
 -   log_dir  
-    Active 서버의 로그 파일이 위치한 절대 경로를 설정한다.
+    장애가 발생하여 Altibase 서버가 중지된 이중화 노드의 로그 파일이 위치한 절대 경로를 설정한다.
     
 -   SET OFFLINE ENABLE WITH
 
-    오프라인 옵션을 설정하는 절이다. 이중화가 중지된 상태에서만 이 구문을 수행할 수 있다.
+    이중화 객체 변경 구문에서 오프라인 옵션을 설정하는 절이다. 이중화가 중지된 상태에서 이 구문을 수행할 수 있다.
 
 -   SET OFFLINE DISABLE  
-    오프라인 옵션 설정을 오프라인 이중화를 비활성화한다. 이중화가 중지되어 있는 상태에서만 이 구문을 수행할 수 있다.
+    오프라인 옵션 설정을 삭제한다. 이중화가 중지된 상태에서 이 절을 수행할 수 있다.
 
 -   START WITH OFFLINE  
-    수신자와 오프라인 송신자를 시작하고 오프라인 송신자가 직접 Active 서버의 로그 파일에 접근하여 오프라인 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로, Active 서버의 로그 파일에서 반영하지 못한 트랜잭션을 추출하여 XLog로 변환하고 Standby 서버의 수신자에게 XLog와 이중화 메타 테이블 정보를 전송한다. 수신자가 변경 트랜잭션을 Standby 서버에 반영하면 수신자와 오프라인 송신자 모두 중지하고 오프라인 이중화는 바로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다.
+    수신자와 오프라인 송신자가 시작되고 오프라인 이중화를 수행한다. 
 
-아래는 오프라인 옵션의 사용 예시를 도식화한 그림이다.
+    START WITH OFFLINE 수행 시 지역 서버의 송신자 및 수신자는 중지된 상태여야 한다. 만약 수신자가 시작 중이라면 오프라인 송신자가 수신자를 종료하고 다시 시작한다. 
+
+    오프라인 송신자는 장애가 발생한 Altibase 서버의 로그 파일에 직접 접근하여 로그 파일을 분석하고 지역 서버로 XLog와 이중화 메타 테이블 정보를 전송한다. 수신자가 변경 트랜잭션을 반영하면 수신자와 오프라인 송신자 모두 중지하고 오프라인 이중화는 바로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다. 
+
+아래는 오프라인 옵션의 사용 예시를 도식화한 그림이다. 그림에서 Standby가 오프라인 옵션을 설정하고 오프라인 이중화를 수행하는 이중화 노드이다.
 
 ![](media/Replication/d012c1e5c4252a5c61e2745ddeb47449.png)
 
@@ -2064,41 +2065,44 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
 
 ##### 주의 사항
 
-- 오프라인 이중화를 시작할 때 같은 이름을 가진 이중화 수신자를 중지된 상태여야 한다. 만약 수신자가 시작 중이라면 오프라인 송신자가 수신자를 종료하고 다시 시작한다. 
-- 디스크 폴트 등으로 오프라인 송신자가 Active 서버의 로그 파일 경로에 접근하지 못할 경우에는 오프라인 이중화가 실패한다.
 - 로그 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제 또는 삭제)할 경우 Altibase 서버 비정상 종료와 같은 문제를 발생시킬 수 있다.
-- 오프라인 이중화 시작 전에 Standby 서버를 재구동해서는 안 된다. 왜냐하면 Standby 서버를 재시작하면 Standby 서버에 반영하지 못한 변경 트랜잭션 정보가 사라지기 때문이다.
 
 ##### 제약 사항
 
-- LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
+- 오프라인 옵션을 설정한 지역 서버에서 장애가 발생한 원격 서버의 로그 파일 경로에 접근이 가능해야 한다. 
 
--   압축 테이블을 이중화 대상으로 가지는 replication 객체에 대해서는 오프라인 이중화를 지원하지 않는다.
-    
-- 복구 옵션과 동시에 사용할 수 없다.
+- 오프라인 옵션을 설정한 지역 서버는 Altibase 서버 구동 후 원격 서버의 송신자와 통신한 적이 있어야 한다. 
 
-- Active 서버와 Standby 서버의 로그 파일 크기는 동일해야 한다. 로그 파일 크기는 데이터베이스 생성 시에 정해지므로 오프라인 옵션을 사용하기 전에 이를 꼭 확인하여야 한다.
+  오프라인 이중화를 시작하려는 지역 서버의 이중화 관리자는 원격 서버에서 보낸 이중화 메타 테이블 정보를 가지고 있어야 지역 서버에서 오프라인 이중화를 수행할 수 있다. 따라서, 이중화 중에 원격 서버의 Altibase 서버가 중지된 상황에서 오프라인 이중화 수행 전에 지역 서버의 Altibase 서버를 재기동하면 안 된다. 
 
-##### Altibase 버전 및 이기종 간 오프라인 옵션 호환성
+- LAZY 모드 이중화 객체에서 사용할 수 있다.
 
-호환성 조건을 만족하지 않으면 오프라인 이중화를 시작하거나 오프라인 옵션으로 이중화 객체 생성 시 실패한다.
+-   이중화 대상 테이블에 압축 테이블이 있는 이중화 객체는 오프라인 이중화를 지원하지 않는다.
 
-- 바이너리 데이터베이스 버전(binary db version)이 Major, Minor, Patch 모두 같아야 한다. 
+- 오프라인 옵션은 복구 옵션과 동시에 사용할 수 없다.
 
-  바이너리 데이터베이스 버전은 2가지 방법으로 확인할 수 있다. 
+- **Altibase 버전 및 이기종 간 오프라인 옵션 호환성**
 
-  1. SELECT SM_VERSION FROM V$VERSION;
-  2. altibase -v
+  호환성 조건을 만족하지 않으면 오프라인 이중화를 시작하거나 오프라인 옵션으로 이중화 객체 생성 시 실패한다.
 
-- 로그 파일 크기(LOG_FILE_SIZE)가 동일해야 한다.
+  - 바이너리 데이터베이스 버전(binary db version)이 Major, Minor, Patch 모두 같아야 한다. 
 
-  로그 파일 크기는 SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'LOG_FILE_SIZE'; 로 확인한다. 
+    바이너리 데이터베이스 버전은 2가지 방법으로 확인할 수 있다. 
 
-- 이기종 간 오프라인 이중화는 지원하지 않는다. OS와 CPU 타입 및 CPU 비트 수가 같아야 한다.
+    - SELECT SM_VERSION FROM V$VERSION;
+    - altibase -v
+
+
+  - 로그 파일 크기(LOG_FILE_SIZE)가 동일해야 한다.
+
+    로그 파일 크기는 SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'LOG_FILE_SIZE'; 로 확인한다. 
+
+
+  - 이기종 간 오프라인 이중화는 지원하지 않는다. OS와 CPU 타입 및 CPU 비트 수가 같아야 한다.
 
 ##### 예제
 
-이중화 이름이 rep1이고, Active 서버의 로그 파일 경로가 /active_server/altibase_home/logs일 때 오프라인 옵션은 아래와 같이 사용된다.
+이중화 객체 이름이 rep1이고, 장애가 발생한 Altibase 서버의 로그 파일 경로가 active_server/altibase_home/logs일 때 오프라인 옵션은 아래와 같이 사용된다.
 
 -   이중화 객체 생성 시 오프라인 옵션을 설정한다.
 
@@ -2106,7 +2110,7 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
     CREATE REPLICATION REP1 OPTIONS OFFLINE '/actiive_server/altibase_home/logs' WITH '127.0.0.1',20300 FROM SYS.A TO SYS.B;
     ```
 
--   오프라인 이중화 수행 시 오프라인 송신자가 접근할 Active 서버의 로그 파일 경로를 설정한다.
+-   이중화 객체에 오프라인 옵션을 설정한다.
 
     ```
     ALTER REPLICATION REP1 SET OFFLINE ENABLE WITH '/active_server/altibase_home/logs';
@@ -2118,7 +2122,7 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
     ALTER REPLICATION REP1 START WITH OFFLINE;
     ```
 
--   오프라인 옵션 설정을 비활성화한다.
+-   오프라인 옵션 설정을 삭제한다.
 
     ```
     ALTER REPLICATION REP1 SET OFFLINE DISABLE;
