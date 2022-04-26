@@ -298,79 +298,82 @@ Altibase 하위 버전에서 상위 버전으로 업그레이드 시 이를 고�
 
 다음 표는 메타 테이블의 목록이다. 메타 테이블의 이름은 SYS_로 시작한다.
 
-| 메타 테이블 이름             | 설명                                                         |
-| ---------------------------- | ------------------------------------------------------------ |
-| SYS_AUDIT\_                  | 감사의 동작 상태가 저장되는 메타 테이블                      |
-| SYS_AUDIT_OPTS\_             | 감사 조건이 저장되는 메타 뷰. SYS_AUDIT_ALL_OPTS_가 이 뷰의 베이스 메타 테이블이다. |
-| SYS_COLUMNS\_                | 칼럼에 대한 정보를 저장하는 메타 테이블                      |
-| SYS_COMMENTS\_               | 설명을 달기 위한 주석 메타 테이블                            |
-| SYS_COMPRESSION_TABLES\_     | 압축 칼럼에 대한 정보가 저장되는 메타 테이블                 |
-| SYS_CONSTRAINTS\_            | 제약 조건에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_CONSTRAINT_COLUMNS\_     | 제약 조건을 가지는 칼럼에 대한 정보를 저장하는 메타 테이블   |
-| SYS_CONSTRAINT_RELATED\_     | 제약조건(constraints)이 참조하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
-| SYS_DATABASE\_               | 데이터베이스 이름과 버전에 대한 정보를 저장하는 메타 테이블  |
-| SYS_DATABASE_LINKS\_         | 데이터베이스 링크에 대한 정보를 저장하는 메타 테이블         |
-| SYS_DIRECTORIES\_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
-| SYS_DN_USERS\_               | 향후 확장 예정                                               |
-| SYS_DUMMY\_                  | 내부 용도                                                    |
-| SYS_ENCRYPTED_COLUMNS\_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
-| SYS_GRANT_OBJECT\_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_GRANT_SYSTEM\_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
-| SYS_INDEX_COLUMNS\_          | 인덱스 키 칼럼에 대한 정보를 저장하는 메타 테이블            |
-| SYS_INDEX_PARTITIONS\_       | 인덱스 파티션에 대한 정보를 저장하는 메타 테이블             |
-| SYS_INDEX_RELATED\_          | 함수 기반 인덱스가 기반하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
-| SYS_INDICES\_                | 인덱스에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_JOBS\_                   | JOB에 대한 정보를 저장하는 메타 테이블                       |
-| SYS_LIBRARIES\_              | 외부 라이브러리 객체에 대한 정보를 저장하는 메타 테이블      |
-| SYS_LOBS\_                   | LOB 칼럼에 대한 정보를 저장하는 메타 테이블                  |
-| SYS_MATERIALIZED_VIEWS\_     | Materialized view에 대한 정보가 기록되어 있는 메타 테이블    |
-| SYS_PACKAGES\_               | 패키지에 대한 정보가 저장되는 메타 테이블                    |
-| SYS_PACKAGE_PARAS\_          | 패키지에 포함된 서브프로그램(저장 프로시저와 저장 함수)들의 인자 (parameter)들에 대한 정보가 저장되는 메타 테이블 |
-| SYS_PACKAGE_PARSE\_          | 사용자가 정의한 패키지의 구문 텍스트가 저장되는 메타 테이블  |
-| SYS_PACKAGE_RELATED\_        | 패키지 내에 포함된 저장 프로시저와 저장 함수들이 참조하는 테이블, 시퀀스, 저장 프로시저, 저장 함수, 또는 뷰들에 대한 정보가 저장되는 메타 테이블 |
-| SYS_PART_INDICES\_           | 파티션드 인덱스에 대한 정보를 저장하는 메타 테이블           |
-| SYS_PART_KEY_COLUMNS\_       | 파티셔닝 키에 대한 정보를 저장하는 메타 테이블               |
-| SYS_PART_LOBS\_              | 파티션별 LOB 칼럼에 대한 정보를 저장하는 메타 테이블         |
-| SYS_PART_TABLES\_            | 파티션드 테이블에 대한 정보를 저장하는 메타 테이블           |
-| SYS_PASSWORD_HISTORY\_       | 패스워드 관리 정책을 설정한 사용자의 패스워드 변경 내역을 저장하는 메타 테이블 |
-| SYS_PASSWORD_LIMITS\_        | 사용자 생성 시 계정에 대해 지정한 패스워드 관리 정책과 계정의 현재 상태를 저장하는 메타 뷰 |
-| SYS_PRIVILEGES\_             | 권한에 대한 정보를 저장하는 메타 테이블                      |
-| SYS_PROCEDURES\_             | 저장 프로시저 및 함수에 대한 정보를 저장하는 메타 테이블     |
-| SYS_PROC_PARAS\_             | 저장 프로시저 및 함수의 파라미터에 대한 정보를 저장하는 메타 테이블 |
-| SYS_PROC_PARSE\_             | 저장 프로시저 및 함수의 구문에 대한 정보를 저장하는 메타 테이블 |
-| SYS_PROC_RELATED\_           | 저장 프로시저 및 함수가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블 |
-| SYS_RECYCLEBIN\_             | 휴지통에 있는 테이블의 정보를 저장하는 메타 테이블           |
-| SYS_REPLICATIONS\_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_REPL_HOSTS\_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
-| SYS_REPL_ITEMS\_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
-| SYS_REPL_OFFLINE_DIR\_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_COLUMNS\_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_INDEX_COLUMNS\_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_INDICES\_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_OLD_ITEMS\_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
-| SYS_REPL_RECOVERY_INFOS\_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
-| SYS_SECURITY\_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
-| SYS_SYNONYMS\_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TABLES\_                 | 테이블에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TABLE_PARTITIONS\_       | 테이블의 파티션에 대한 정보를 저장하는 메타 테이블           |
-| SYS_TABLE_SIZE\_             | 시스템에 있는 디스크 테이블과 메모리 테이블의 실제 크기 정보를 저장하는 메타 테이블 |
-| SYS_TBS_USERS\_              | 사용자 정의 테이블스페이스에 대한 사용자 접근 정보를 저장하는 메타 테이블 |
-| SYS_TRIGGERS\_               | 트리거에 대한 정보를 저장하는 메타 테이블                    |
-| SYS_TRIGGER_DML_TABLES\_     | 트리거가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블  |
-| SYS_TRIGGER_STRINGS\_        | 트리거 구문을 저장하는 메타 테이블                           |
-| SYS_TRIGGER_UPDATE_COLUMNS\_ | 그 값이 변경될 때마다 트리거를 시작시키는 칼럼들에 대한 정보를 저장하는 메타 테이블 |
-| SYS_USERS\_                  | 사용자에 대한 정보를 저장하는 메타 테이블                    |
-| DBA_USERS\_                  | 사용자에 대한 정보를 저장하는 메타 테이블. SYS 사용자만 조회 가능. |
-| SYS_USER_ROLES\_             | 사용자에게 부여된 롤(Role)에 대한 정보를 저장하는 메타 테이블 |
-| SYS_VIEWS\_                  | 뷰에 대한 정보를 저장하는 메타 테이블                        |
-| SYS_VIEW_PARSE\_             | 뷰 구문을 저장하는 메타 테이블                               |
-| SYS_VIEW_RELATED\_           | 뷰가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블      |
-| SYS_XA_HEURISTIC_TRANS\_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
-| SYS_GEOMETRIES_              | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
-| SYS_GEOMETRY_COLUMNS\_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음 |
-| USER_SRS                     | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음 |
+| 메타 테이블 이름            | 설명                                                         |
+| --------------------------- | ------------------------------------------------------------ |
+| SYS_AUDIT_                  | 감사의 동작 상태가 저장되는 메타 테이블                      |
+| SYS_AUDIT_OPTS_             | 감사 조건이 저장되는 메타 뷰. SYS_AUDIT_ALL_OPTS_가 이 뷰의 베이스 메타 테이블이다. |
+| SYS_COLUMNS_                | 칼럼에 대한 정보를 저장하는 메타 테이블                      |
+| SYS_COMMENTS_               | 설명을 달기 위한 주석 메타 테이블                            |
+| SYS_COMPRESSION_TABLES_     | 압축 칼럼에 대한 정보가 저장되는 메타 테이블                 |
+| SYS_CONSTRAINTS_            | 제약 조건에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_CONSTRAINT_COLUMNS_     | 제약 조건을 가지는 칼럼에 대한 정보를 저장하는 메타 테이블   |
+| SYS_CONSTRAINT_RELATED_     | 제약조건(constraints)이 참조하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
+| SYS_DATABASE_               | 데이터베이스 이름과 버전에 대한 정보를 저장하는 메타 테이블  |
+| SYS_DATABASE_LINKS_         | 데이터베이스 링크에 대한 정보를 저장하는 메타 테이블         |
+| SYS_DIRECTORIES_            | 저장프로시저 내 파일 제어용 디렉터리에 대한 정보를 저장하는 메타 테이블 |
+| SYS_DN_USERS_               | 향후 확장 예정                                               |
+| SYS_DUMMY_                  | 내부 용도                                                    |
+| SYS_ENCRYPTED_COLUMNS_      | 보안 설정에 기반한 부가적인 보안 정보를 암호화된 칼럼별로 저장하는 메타 테이블 |
+| SYS_GRANT_OBJECT_           | 객체 권한에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_GRANT_SYSTEM_           | 시스템 권한에 대한 정보를 저장하는 메타 테이블               |
+| SYS_INDEX_COLUMNS_          | 인덱스 키 칼럼에 대한 정보를 저장하는 메타 테이블            |
+| SYS_INDEX_PARTITIONS_       | 인덱스 파티션에 대한 정보를 저장하는 메타 테이블             |
+| SYS_INDEX_RELATED_          | 함수 기반 인덱스가 기반하는 저장 함수에 대한 정보를 저장하는 메타 테이블 |
+| SYS_INDICES_                | 인덱스에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_JOBS_                   | JOB에 대한 정보를 저장하는 메타 테이블                       |
+| SYS_LIBRARIES_              | 외부 라이브러리 객체에 대한 정보를 저장하는 메타 테이블      |
+| SYS_LOBS_                   | LOB 칼럼에 대한 정보를 저장하는 메타 테이블                  |
+| SYS_MATERIALIZED_VIEWS_     | Materialized view에 대한 정보가 기록되어 있는 메타 테이블    |
+| SYS_PACKAGES_               | 패키지에 대한 정보가 저장되는 메타 테이블                    |
+| SYS_PACKAGE_PARAS_          | 패키지에 포함된 서브프로그램(저장 프로시저와 저장 함수)들의 인자 (parameter)들에 대한 정보가 저장되는 메타 테이블 |
+| SYS_PACKAGE_PARSE_          | 사용자가 정의한 패키지의 구문 텍스트가 저장되는 메타 테이블  |
+| SYS_PACKAGE_RELATED_        | 패키지 내에 포함된 저장 프로시저와 저장 함수들이 참조하는 테이블, 시퀀스, 저장 프로시저, 저장 함수, 또는 뷰들에 대한 정보가 저장되는 메타 테이블 |
+| SYS_PART_INDICES_           | 파티션드 인덱스에 대한 정보를 저장하는 메타 테이블           |
+| SYS_PART_KEY_COLUMNS_       | 파티셔닝 키에 대한 정보를 저장하는 메타 테이블               |
+| SYS_PART_LOBS_              | 파티션별 LOB 칼럼에 대한 정보를 저장하는 메타 테이블         |
+| SYS_PART_TABLES_            | 파티션드 테이블에 대한 정보를 저장하는 메타 테이블           |
+| SYS_PASSWORD_HISTORY_       | 패스워드 관리 정책을 설정한 사용자의 패스워드 변경 내역을 저장하는 메타 테이블 |
+| SYS_PASSWORD_LIMITS_        | 사용자 생성 시 계정에 대해 지정한 패스워드 관리 정책과 계정의 현재 상태를 저장하는 메타 뷰 |
+| SYS_PRIVILEGES_             | 권한에 대한 정보를 저장하는 메타 테이블                      |
+| SYS_PROCEDURES_             | 저장 프로시저 및 함수에 대한 정보를 저장하는 메타 테이블     |
+| SYS_PROC_PARAS_             | 저장 프로시저 및 함수의 파라미터에 대한 정보를 저장하는 메타 테이블 |
+| SYS_PROC_PARSE_             | 저장 프로시저 및 함수의 구문에 대한 정보를 저장하는 메타 테이블 |
+| SYS_PROC_RELATED_           | 저장 프로시저 및 함수가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_RECYCLEBIN_             | 휴지통에 있는 테이블의 정보를 저장하는 메타 테이블           |
+| SYS_REPLICATIONS_           | 이중화에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_REPL_HOSTS_             | 이중화 호스트에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_ITEMS_             | 이중화 테이블에 대한 정보를 저장하는 메타 테이블             |
+| SYS_REPL_OFFLINE_DIR_       | 이중화 오프라인 옵션 관련 로그 디렉터리에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_CHECKS_        | 이중화 송신 쓰레드가 복제중인 이중화 대상 칼럼 중 CHECK 제약조건에 대한 정보를 가진 메타 테이블 |
+| SYS_REPL_OLD_CHECK_COLUMNS_ | 이중화 송신 쓰레드가 복제 중인 이중화 대상 칼럼에 설정된 CHECK 제약조건에 대한 정보를 가진 메타 테이블 |
+| SYS_REPL_OLD_COLUMNS_       | 이중화 송신 쓰레드가 이중화하는 칼럼에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_INDEX_COLUMNS_ | 이중화 송신 쓰레드가 이중화하는 인덱스 칼럼에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_INDICES_       | 이중화 송신 쓰레드가 이중화하는 인덱스에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_OLD_ITEMS_         | 이중화 송신 쓰레드가 이중화하는 테이블에 대한 정보를 저장하는 메타 테이블 |
+| SYS_REPL_TABLE_OID_IN_USE_  | 이중화가 아직 처리하지 않은 DDL 로그에 포함된 테이블의 테이블 객체 식별자(TABLE OID) 정보를 관리하는 메타 테이블 |
+| SYS_REPL_RECOVERY_INFOS_    | 원격 서버의 복구를 위한 로그 정보를 저장하는 메타 테이블     |
+| SYS_SECURITY_               | 보안 모듈에 대한 정보를 저장하는 메타 테이블                 |
+| SYS_SYNONYMS_               | 시노님에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TABLES_                 | 테이블에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TABLE_PARTITIONS_       | 테이블의 파티션에 대한 정보를 저장하는 메타 테이블           |
+| SYS_TABLE_SIZE_             | 시스템에 있는 디스크 테이블과 메모리 테이블의 실제 크기 정보를 저장하는 메타 테이블 |
+| SYS_TBS_USERS_              | 사용자 정의 테이블스페이스에 대한 사용자 접근 정보를 저장하는 메타 테이블 |
+| SYS_TRIGGERS_               | 트리거에 대한 정보를 저장하는 메타 테이블                    |
+| SYS_TRIGGER_DML_TABLES_     | 트리거가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블  |
+| SYS_TRIGGER_STRINGS_        | 트리거 구문을 저장하는 메타 테이블                           |
+| SYS_TRIGGER_UPDATE_COLUMNS_ | 그 값이 변경될 때마다 트리거를 시작시키는 칼럼들에 대한 정보를 저장하는 메타 테이블 |
+| SYS_USERS_                  | 사용자에 대한 정보를 저장하는 메타 테이블                    |
+| DBA_USERS_                  | 사용자에 대한 정보를 저장하는 메타 테이블. SYS 사용자만 조회 가능. |
+| SYS_USER_ROLES_             | 사용자에게 부여된 롤(Role)에 대한 정보를 저장하는 메타 테이블 |
+| SYS_VIEWS_                  | 뷰에 대한 정보를 저장하는 메타 테이블                        |
+| SYS_VIEW_PARSE_             | 뷰 구문을 저장하는 메타 테이블                               |
+| SYS_VIEW_RELATED_           | 뷰가 접근하는 테이블에 대한 정보를 저장하는 메타 테이블      |
+| SYS_XA_HEURISTIC_TRANS_     | 글로벌 (global) 트랜잭션에 대한 정보를 저장하는 메타 테이블  |
+| SYS_GEOMETRIES_             | GEOMETRY 칼럼을 보유한 테이블의 정보를 저장하는 메타 테이블  |
+| SYS_GEOMETRY_COLUMNS_       | GEOMETRY 칼럼에 대한 정보를 저장하는 메타 테이블; Synonym으로 GEOMETRY_COLUMNS가 있음 |
+| USER_SRS_                   | 공간 참조 시스템(SRS, Spatial Reference System)에 관한 정보를 저장하는 메타 테이블, Synonym으로 SPATIAL_REF_SYS가 있음 |
 
-### SYS_AUDIT\_
+### SYS_AUDIT_
 
 감사(Auditing)의 동작 상태가 기록되는 메타 테이블이다.
 
@@ -863,7 +866,7 @@ SYS_COLUMNS_
 | REFERENCED_TABLE_ID | INTEGER       | FOREIGN KEY 제약조건으로 참조하는 테이블의 식별자            |
 | REFERENCED_INDEX_ID | INTEGER       | FOREIGN KEY 제약조건으로 참조하는 인덱스의 식별자            |
 | DELETE_RULE         | INTEGER       | FOREIGN KEY 제약조건을 위한 삭제 규칙 0: 종속적으로 삭제하지 않음 1: 종속적으로 삭제 2: SET NULL, 외래 키 관계에 의해 종속되는 칼럼 값을 NULL로 변경 |
-| CHECK_CONDITION     | VARCHAR(4000) | Check 제약조건의 조건 문자열                                 |
+| CHECK_CONDITION     | VARCHAR(4000) | CHECK 제약조건의 조건 문자열                                 |
 | VALIDATED           | CHAR(1)       | 모든 데이터가 제약조건을 따르는지 여부                       |
 
 #### 칼럼 정보
@@ -2978,9 +2981,9 @@ SYS_TABLES_
 | ---------------- | ------------- | ---------------------------- |
 | REPLICATION_NAME | VARCHAR(40)   | 이중화 이름                  |
 | TABLE_OID        | BIGINT        | 테이블 객체 식별자           |
-| CONSTRAINT_ID    | INTEGER       | Check 제약조건 식별자        |
-| CHECK_NAME       | VARCHAR(40)   | Check 제약조건 이름          |
-| CONDITION        | VARCHAR(4000) | Check 제약조건의 조건 문자열 |
+| CONSTRAINT_ID    | INTEGER       | CHECK 제약조건 식별자        |
+| CHECK_NAME       | VARCHAR(40)   | CHECK 제약조건 이름          |
+| CONDITION        | VARCHAR(4000) | CHECK 제약조건의 조건 문자열 |
 
 #### 칼럼 정보
 
@@ -3026,8 +3029,8 @@ SYS_CONSTRAINTS_
 | ---------------- | ----------- | --------------------------------- |
 | REPLICATION_NAME | VARCHAR(40) | 이중화 이름                       |
 | TABLE_OID        | BIGINT      | 테이블 객체 식별자                |
-| CONSTRAINT_ID    | INTEGER     | Check 제약조건 식별자             |
-| COLUMN_ID        | INTEGER     | Check 제약조건을 갖는 칼럼 식별자 |
+| CONSTRAINT_ID    | INTEGER     | CHECK 제약조건 식별자             |
+| COLUMN_ID        | INTEGER     | CHECK 제약조건을 갖는 칼럼 식별자 |
 
 #### 칼럼 정보
 
@@ -9853,7 +9856,7 @@ Altibase 서버가 내부적으로 사용하는 플래그이다.
 | CONSTRAINT_ID    | INTEGER       | 제약조건 식별자              |
 | CONSTRAINT_NAME  | VARCHAR(128)  | 제약조건 이름                |
 | COLUMN_CNT       | INTEGER       | 제약조건에 관련된 칼럼 개수  |
-| CHECK_CONDITION  | VARCHAR(4000) | Check 제약조건의 조건 문자열 |
+| CHECK_CONDITION  | VARCHAR(4000) | CHECK 제약조건의 조건 문자열 |
 
 #### 칼럼 정보
 
@@ -9882,7 +9885,7 @@ Altibase 서버가 내부적으로 사용하는 플래그이다.
 
 ##### CHECK_CONDITION
 
-사용자가 Check 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
+사용자가 CHECK 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을
 나타낸다.
 
 ### V\$RESERVED_WORDS
@@ -11204,155 +11207,159 @@ SQL 텍스트가 실행된 세션의 고유 번호를 나타낸다.
 
 SQL Plan Cache의 현재 상태 및 통계 정보를 나타낸다.
 
-| Column name              | Type    | Description                                                                   |
-|--------------------------|---------|-------------------------------------------------------------------------------|
-| MAX_CACHE_SIZE           | BIGINT  | SQL Plan Cache의 최대 크기 (bytes)                                            |
-| CURRENT_HOT_LRU_SIZE     | BIGINT  | LRU 리스트에서 현재 HOT 영역의 크기                                           |
-| CURRENT_COLD_LRU_SIZE    | BIGINT  | LRU 리스트에서 현재 COLD 영역의 크기                                          |
-| CURRENT_CACHE_SIZE       | BIGINT  | 현재 SQL Plan Cache의 크기 (bytes)                                            |
-| CURRENT_CACHE_OBJ_COUNT  | INTEGER | 현재 SQL Plan Cache에 등록된 plan 객체수                                      |
-| CACHE_HIT_COUNT          | BIGINT  | SQL Plan Cache에 등록된 plan cache 객체의 활용 횟수                           |
-| CACHE_MISS_COUNT         | BIGINT  | SQL Plan Cache에서 plan 검색과정에서 plan 객체을 못찾은 횟수                  |
-| CACHE_IN_FAIL_COUNT      | BIGINT  | SQL Plan Cache에 새로운 plan 객체 삽입시 cache 최대 크기 제약으로 실패한 횟수 |
-| CACHE_OUT_COUNT          | BIGINT  | SQL Plan Cache에서 제거된 plan 객체의 개수                                    |
-| CACHE_INSERTED_COUNT     | BIGINT  | SQL Plan Cache에 추가된 plan 객체의 개수                                      |
-| NONE_CACHE_SQL_TRY_COUNT | BIGINT  | DDL과 DCL 등의 Cache 비대상 구문의 시도 횟수                                  |
+| Column name              | Type    | Description                                                  |
+| ------------------------ | ------- | ------------------------------------------------------------ |
+| MAX_CACHE_SIZE           | BIGINT  | SQL Plan Cache의 최대 크기 (bytes)                           |
+| CURRENT_HOT_LRU_SIZE     | BIGINT  | LRU 리스트에서 현재 HOT 영역의 크기                          |
+| CURRENT_COLD_LRU_SIZE    | BIGINT  | LRU 리스트에서 현재 COLD 영역의 크기                         |
+| CURRENT_CACHE_SIZE       | BIGINT  | 현재 SQL Plan Cache의 크기 (bytes)                           |
+| CURRENT_CACHE_OBJ_COUNT  | INTEGER | 현재 SQL Plan Cache에 등록된 PCO 수                          |
+| CACHE_HIT_COUNT          | BIGINT  | SQL Plan Cache에 등록된 PCO의 활용 횟수                      |
+| CACHE_MISS_COUNT         | BIGINT  | SQL Plan Cache에서 plan 검색과정에서 PCO를 찾지 못한 횟수    |
+| CACHE_IN_FAIL_COUNT      | BIGINT  | SQL Plan Cache에 새로운 PCO 삽입 시 cache 최대 크기 제약으로 실패한 횟수 |
+| CACHE_OUT_COUNT          | BIGINT  | SQL Plan Cache에서 제거된 PCO의 개수                         |
+| CACHE_INSERTED_COUNT     | BIGINT  | SQL Plan Cache에 추가된 PCO의 개수                           |
+| NONE_CACHE_SQL_TRY_COUNT | BIGINT  | DDL과 DCL 등의 Cache 비대상 구문의 시도 횟수                 |
 
 #### 칼럼 정보
 
 ##### MAX_CACHE_SIZE
 
-SQL Plan Cache의 최대 크기이다. SQL Plan Cache의 최대 크기를 줄이거나 늘리기
-위해서는 ‘alter system set SQL_PLAN_CACHE_SIZE = ’ 구문을 실행한다.
+SQL Plan Cache의 최대 크기이다. SQL Plan Cache의 최대 크기를 줄이거나 늘리기 위해서는 ‘alter system set SQL_PLAN_CACHE_SIZE = ’ 구문을 실행한다.
 
 ##### CURRENT_HOT_LRU_SIZE
 
-SQL Plan Cache의 LRU 리스트 중에서 빈번하게 참조되는 plan cache 객체는 HOT
-영역에서 관리되는데, 그 크기 (byte)를 나타낸다.
+SQL Plan Cache의 LRU 리스트 중에서 빈번하게 참조되는 PCO는 HOT 영역에서 관리되는데, 그 크기 (byte)를 나타낸다.
 
 ##### CURRENT_COLD_LRU_SIZE
 
-SQL Plan Cache의 LRU 리스트 중 자주 참조되지 않은 plan cache 객체는 COLD
-영역에서 관리되는데, 그 크기(byte)를 나타낸다.
+SQL Plan Cache의 LRU 리스트 중 자주 참조되지 않은 PCO는 COLD 영역에서 관리되는데, 그 크기(byte)를 나타낸다.
 
 ##### CURRENT_CACHE_SIZE
 
-SQL Plan Cache에 현재 삽입된 plan cache 객체들의 전체 크기(byte)를 나타낸다.
+SQL Plan Cache에 현재 삽입된 PCO들의 전체 크기(byte)를 나타낸다.
 
 ##### CURRENT_CACHE_OBJ_COUNT
 
-SQL Plan Cache에 삽입된 plan cache 객체들의 수를 나타낸다.
+SQL Plan Cache에 삽입된 PCO들의 수를 나타낸다.
 
 ##### CACHE_HIT_COUNT
 
-SQL Plan Cache에 삽입된 plan cache 객체들이 사용된 전체 횟수를 나타낸다.
+SQL Plan Cache에 삽입된 PCO들이 사용된 전체 횟수를 나타낸다.
 
 ##### CACHE_MISS_COUNT
 
-SQL Plan Cache에 없는 plan cache 객체 참조 시도 횟수를 나타낸다.
+SQL Plan Cache에 없는 PCO 참조 시도 횟수를 나타낸다.
 
 ##### CACHE_IN_FAIL_COUNT
 
-Cache의 최대 메모리 크기 제약으로 인해 현재 참조하지 않는 plan cache 객체들을
-찾아 cache에서 삭제 및 해제 시도를 수행했음에도 불구하고, plan cache 객체를 삽입
-하지 못한 횟수이다.
+Cache의 최대 메모리 크기 제약으로 인해 현재 참조하지 않는 PCO들을
+찾아 cache에서 삭제 및 해제 시도를 수행했음에도 불구하고, PCO를 삽입하지 못한 횟수이다.
 
 ##### CACHE_OUT_COUNT
 
-SQL Plan Cache에 추가되었다가 삭제된 plan cache 객체의 개수를 의미한다.
+SQL Plan Cache에 추가되었다가 삭제된 PCO의 개수를 의미한다.
 
 ##### CACHE_INSERTED_COUNT
 
-SQL Plan Cache에 추가된 plan cache 객체의 개수를 의미한다.
+SQL Plan Cache에 추가된 PCO의 개수를 의미한다.
 
 ##### NONE_CACHE_SQL_TRY_COUNT
 
-SQL Plan Cache에 저장되지 않는 구문이 발생한 횟수이다. 그 구문은 DDL과
-DCL구문이다.
+SQL Plan Cache에 저장되지 않는 구문이 발생한 횟수이다. 그 구문은 DDL과 DCL 구문이다.
 
 ### V\$SQL_PLAN_CACHE_PCO
 
-SQL Plan Cache에 등록된 Plan cache 객체에 대한 정보를 나타낸다.
+SQL Plan Cache에 등록된 PCO에 대한 정보를 나타낸다.
 
-| Column name     | Type        | Description                                     |
-| --------------- | ----------- | ----------------------------------------------- |
-| SQL_TEXT_ID     | VARCHAR(64) | Plan 객체가 속한 SQL Text 객체 식별자           |
-| PCO_ID          | INTEGER     | SQL Text 객체 내에서 Plan cache 객체 식별자     |
-| CREATE_REASON   | VARCHAR(28) | Plan cache 객체를 생성한 이유                   |
-| HIT_COUNT       | INTEGER     | Plan cache 객체 참조 횟수                       |
-| REBUILD_COUNT   | INTEGER     | Plan cache 객체가 rebuild된 횟수                |
-| PLAN_STATE      | VARCHAR(17) | Plan cache 객체의 plan 상태                     |
-| LRU_REGION      | VARCHAR(11) | LRU 리스트에서 Plan cache 객체가 속해 있는 영역 |
-| PLAN_SIZE       | INTEGER     | Plan cache 객체의 plan 크기                     |
-| FIX_COUNT       | INTEGER     | Plan cache 객체를 참조 중인 Statement 수        |
-| PLAN_CACHE_KEEP | VARCHAR(6)  | Plan cache 객체의 Keep 상태                     |
+PCO는 SQL 문장, 실행 계획, Plan Environment 정보를 가진 객체로, SQL 문 수행 시 필요한 실행 계획을 세션 간 공유하여 질의 성능을 향상시키는 효과를 가진다.
+
+PCO는 Parent PCO와 Child PCO로 구분된다.
+
+##### Parent PCO
+
+SQL 문장과 SQL 문장을 비교, 관리하기를 위한 정보를 가진 PCO이다. Parent PCO는 서로 다른 SQL 문장마다 하나씩 존재한다.     
+
+##### Child PCO
+
+실행 계획에 영향을 미치는 요소인 Plan Environment를 비교하기 위해 관리하는 PCO이다. 동일한 SQL 문장이라도 사용자, NLS(National Language Support), 통계정보와 같은 Plan Environment에 따라 서로 다른 실행 계획이 생성될 수 있다.  Child PCO는 PCO 생성 당시의 Plan Environment와 실행 계획, 실행 계획의 크기 정보를 저장한다. 반드시 Parent PCO를 가지며 하나의 Parent PCO는 여러 Child PCO를 가질 수 있다.
+
+| Column name     | Type        | Description                         |
+| --------------- | ----------- | ----------------------------------- |
+| SQL_TEXT_ID     | VARCHAR(64) | Parent PCO 식별자                   |
+| PCO_ID          | INTEGER     | Child PCO 식별자                    |
+| CREATE_REASON   | VARCHAR(28) | PCO를 생성한 이유                   |
+| HIT_COUNT       | INTEGER     | PCO 참조 횟수                       |
+| REBUILD_COUNT   | INTEGER     | PCO가 rebuild된 횟수                |
+| PLAN_STATE      | VARCHAR(17) | PCO의 plan 상태                     |
+| LRU_REGION      | VARCHAR(11) | LRU 리스트에서 PCO가 속해 있는 영역 |
+| PLAN_SIZE       | INTEGER     | PCO의 plan 크기                     |
+| FIX_COUNT       | INTEGER     | PCO를 참조 중인 Statement 수        |
+| PLAN_CACHE_KEEP | VARCHAR(6)  | PCO의 Keep 상태                     |
 
 #### 칼럼 정보
 
 ##### SQL_TEXT_ID
 
-Plan Cache 객체가 속해 있는 SQL Text 객체의 식별자이다.
+Parent PCO의 식별자이다.
 
 ##### PCO_ID
 
-SQL Text 객체 내에서 Plan cache 객체의 식별자이다.
+Child PCO의 식별자이다.
 
 ##### CREATE_REASON
 
-plan cache 객체를 생성한 이유를 나타내며 다음과 같은 값이 올 수 있다.
+PCO를 생성한 이유이며 다음과 같은 값이 올 수 있다.
 
 -   CREATE_BY_CACHE_MISS  
-    SQL Plan cache에 필요한 plan cache 객체가 없어서 생성한 경우
+    SQL Plan cache에 필요한 PCO가 없어서 생성한 경우
 
 -   CREATE_BY_PLAN_INVALIATION  
-    prepare 과정중에 SQL Plan Cache에서 plan cache 객체를 찾았지만, Plan에서
-    참조한 데이터베이스 객체가 유효 상태가 아니어서 새로 생성한 경우
-
+    prepare 과정중에 SQL Plan Cache에서 PCO를 찾았지만, Plan에서 참조한 데이터베이스 객체가 유효 상태가 아니어서 새로 생성한 경우
+    
 -   CREATE_BY_PLAN_TOO_OLD  
-    execute 과정중에 Plan에서 참조한 객체의 통계 정보의 변경폭이 한계치를
-    넘었거나, DDL이 발생하여 새로 plan cache 객체를 생성한 경우
+    execute 과정중에 Plan에서 참조한 객체의 통계 정보의 변경폭이 한계치를 넘었거나, DDL이 발생하여 새로 PCO를 생성한 경우
 
 ##### HIT_COUNT
 
-Plan cache 객체의 참조 횟수를 나타낸다.
+PCO의 참조 횟수를 나타낸다.
 
 ##### REBUILD_COUNT
 
-Plan cache 객체의 plan이 다시 컴파일된 횟수를 나타낸다.
+PCO의 plan이 다시 컴파일된 횟수를 나타낸다.
 
 ##### PLAN_STATE
 
-Plan cache 객체의 plan 상태를 나타내며, 다음과 같은 값을 가질수 있다.
+PCO의 plan 상태를 나타내며, 다음과 같은 값을 가질수 있다.
 
--   NOT_READY  
-    plan cache 객체에 아직 plan 및 환경이 할당되어 있지 않는 상태
-
--   READY  
-    plan cache 객체에 plan 및 환경이 모두 할당되어 있는 상태
-
--   HARD-PREPARE-NEED  
-    Plan Cache 비대상 구문이거나 Plan Cache 영역 부족으로 인해 Hard Prepare
-    (강제로 plan 생성)가 필요한 상태
-
--   OLD_PLAN  
-    plan이 유효한 상태가 아니어서 앞으로 사용되지 않는 plan 상태
+-   READY
+    PCO에 SQL 문장, 실행 계획(Execution Plan) 및 Plan Environment 가 모두 할당되어 있는 상태
+-   OLD_PLAN
+    Plan이 유효한 상태가 아니어서 앞으로 사용되지 않는 plan 상태
 
 ##### LRU_REGION
 
-Plan cache 객체가 LRU 리스트에서 어느 영역에 속해 있는지를 나타낸다. 이 칼럼의
-값은 HOT_REGION 또는 COLD_REGION일 수 있다.
+Hot-Cold LRU 리스트는 PCO의 교체 정책을 관리하는 자료 구조이다. SQL Plan Cache는 Altibase 서버 프로퍼티 SQL_PLAN_CACHE_SIZE에 의해 크기가 정해져있어 제한된 수의 PCO가 등록된다. 이 컬럼은 PCO가 Hot-Cold LRU 리스트에서 어느 영역에 속해 있는지를 보여준다.
+
+- HOT_REGION
+
+  사용 빈도가 많은 PCO
+
+- COLD_REGION
+
+  사용 빈도가 적은 PCO
 
 ##### PLAN_SIZE
 
-Plan cache 객체의 plan 크기를 나타낸다.
+PCO의 plan 크기를 나타낸다.
 
 ##### FIX_COUNT
 
-Plan cache 객체를 참조 중인 statement 수를 나타낸다.  FIX_COUNT가 1 이상이면 victim에 선정되지 않는다.
+PCO를 참조 중인 statement 수를 나타낸다.  FIX_COUNT가 1 이상이면 victim에 선정되지 않는다.
 
 ##### PLAN_CACHE_KEEP
 
-Plan cache 객체의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
+PCO의 keep 상태를 나타내며 다음과 같은 값을 가질 수 있다.
 
 - KEEP
   Plan이 keep 되어 있는 상태로 victim에 선정되지 않는다.
@@ -11361,23 +11368,21 @@ Plan cache 객체의 keep 상태를 나타내며 다음과 같은 값을 가질 
 
 ###  V\$SQL_PLAN_CACHE_SQLTEXT
 
-SQL Plan Cache에 등록된 SQL 문에 대한 정보를 보여준다.
+[Parent PCO](#parent-pco)에 대한 정보를 보여준다.
 
-| Column name            | Type           | Description                                        |
-| ---------------------- | -------------- | -------------------------------------------------- |
-| SQL_TEXT_ID            | VARCHAR(64)    | SQL Plan Cache내에서 SQL 문장의 식별자             |
-| SQL_TEXT               | VARCHAR(16384) | SQL 문장                                           |
-| CHILD_PCO_COUNT        | INTEGER        | Child Plan Cache 객체의 수                         |
-| CHILD_PCO_CREATE_COUNT | INTEGER        | 생성된 Child Plan Cache 객체의 개수                |
-| PLAN_CACHE_KEEP        | VARCHAR(6)     | SQL_TEXT_ID에 해당하는 Plan Cache 객체의 Keep 상태 |
+| Column name            | Type           | Description                                      |
+| ---------------------- | -------------- | ------------------------------------------------ |
+| SQL_TEXT_ID            | VARCHAR(64)    | Parent PCO 식별자                                |
+| SQL_TEXT               | VARCHAR(16384) | SQL 문장                                         |
+| CHILD_PCO_COUNT        | INTEGER        | Parent PCO가 현재 가지고 있는 Child PCO의 개수   |
+| CHILD_PCO_CREATE_COUNT | INTEGER        | Parent PCO 내에 지금까지 생성된 Child PCO의 개수 |
+| PLAN_CACHE_KEEP        | VARCHAR(6)     | SQL_TEXT_ID에 해당하는 PCO의 Keep 상태           |
 
 #### 칼럼 정보
 
 ##### SQL_TEXT_ID
 
-SQL Plan Cache내에서 SQL 문장의 식별자이다. 앞의 4자리 숫자는 SQL Plan Cache
-내에서 SQL 문장이 저장된 bucket 의 번호를 나타내며, 나머지 숫자는 그 bucket
-내에서 SQL 문장의 일련번호를 나타낸다.
+Parent PCO의 식별자이다. 앞의 4자리 숫자는 Parent PCO가 저장된 bucket 의 번호를 나타내며, 나머지 숫자는 그 bucket 내에서 SQL 문장의 일련번호를 나타낸다.
 
 ##### SQL_TEXT
 
@@ -11385,18 +11390,16 @@ SQL 문장을 나타낸다.
 
 ##### CHILD_PCO_COUNT
 
-SQL Text plan 객체가 현재 가지고 있는 Child Plan Cache 객체의 수이다.
+Parent PCO가 현재 가지고 있는 Child PCO의 수이다.
 
 ##### CHILD_PCO_CREATE_COUNT
 
-SQL Text Plan 객체내에 지금까지 생성된 Child Plan Cache의 개수이다. SQL Text
-Plan 객체내에 Child Plan Cache 객체가 생성되는 경우는 다음의 2가지이다.
+Parent PCO 내에 지금까지 생성된 Child PCO의 개수이다. Parent PCO 내에 Child PCO가 생성되는 경우는 다음의 2가지이다.
 
--   기존 Plan Cache 객체 중 하나와 SQL문장은 같지만 Plan을 생성한 환경이 맞지
-    않아서 새로운 Child Plan Cache 객체를 생성한다.
-
--   기존 Plan Cache 객체가 참조하는 객체의 변경 또는 객체의 통계 정보의 변경
-    폭이 한계치를 넘는 경우 새로운 Plan Cache 객체를 생성한다.
+-   기존 PCO 중 하나와 SQL문장은 같지만 Plan을 생성한 환경이 맞지 않아서 새로운 Child PCO를 생성한다.
+    
+-   기존 PCO가 참조하는 객체의 변경 또는 객체의 통계 정보의 변경
+    폭이 한계치를 넘는 경우 새로운 Child PCO를 생성한다.
 
 ##### PLAN_CACHE_KEEP
 
@@ -11426,7 +11429,7 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 현재 연결된 세션 별로 가장 최근 실행된 구문 (statement)에 대한 정보를 보여준다.
 
 | Column name               | Type           | Description                                                  |
-|---------------------------|----------------|--------------------------------------------------------------|
+| ------------------------- | -------------- | ------------------------------------------------------------ |
 | ID                        | INTEGER        | 구문 식별자                                                  |
 | PARENT_ID                 | INTEGER        | 부모 구문의 식별자                                           |
 | CURSOR_TYPE               | INTEGER        | 커서의 종류                                                  |
@@ -11449,8 +11452,8 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 | EXECUTE_TIME              | BIGINT         | 실행 소요 시간                                               |
 | FETCH_TIME                | BIGINT         | Fetch 소요 시간                                              |
 | SOFT_PREPARE_TIME         | BIGINT         | Prepare 과정중 SQL Plan Cache에서 plan 탐색 시간             |
-| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | SQL plan cache 객체의 SQL Text 식별자                        |
-| SQL_CACHE_PCO_ID          | INTEGER        | plan cache 객체의 식별자                                     |
+| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | Parent PCO 식별자 또는 NO_SQL_CACHE_STMT                     |
+| SQL_CACHE_PCO_ID          | INTEGER        | Child PCO 식별자                                             |
 | OPTIMIZER                 | BIGINT         | 최적화 모드                                                  |
 | COST                      | BIGINT         | 최적화 비용                                                  |
 | USED_MEMORY               | BIGINT         | 향후 확장 예정                                               |
@@ -11611,12 +11614,17 @@ Cache에서 이에 부합하는 plan 객체를 찾는데 소요된 시간을 나
 
 ##### SQL_CACHE_TEXT_ID
 
-SQL Plan Cache에서 plan 객체를 찾은 경우, SQL Cache Text 객체의 식별자를
-나타낸다.
+[Parent PCO](#parent-pco) 식별자 또는 NO_SQL_CACHE_STMT 가 올 수 있다.
+
+NO_SQL_CACHE_STMT는 SQL Plan Cache에 등록되지 않은 문장을 의미한다. 다음의 문장들은 SQL Plan Cache에 등록되지 않는다.
+
+- DDL 문장
+- DCL 문장
+- NO_PLAN_CACHE 힌트를 사용한 문장   
 
 ##### SQL_CACHE_PCO_ID
 
-SQL Cache Text 객체에서 공유 plan cache 객체의 식별자를 나타낸다.
+SQL Plan Cache 에 등록된 [Child PCO](#child-pco) 식별자를 나타낸다.
 
 ##### OPTIMIZER
 

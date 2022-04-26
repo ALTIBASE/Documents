@@ -1,10 +1,5 @@
 
 
-
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 - [New Features Guide](#new-features-guide)
   - [1.New Features of Altibase Version 7.1.0.1.2](#1new-features-of-altibase-version-71012)
     - [Others](#others)
@@ -31,9 +26,9 @@
     - [High Availability](#high-availability)
     - [Others](#others-6)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- Altibase®
+
+- Altibase® Application Development
 
 New Features Guide
 ==================
@@ -57,10 +52,6 @@ This manual contains proprietary information of Altibase Corporation; it is prov
 Customer Service Portal: http://support.altibase.com/en/
 
 Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-
-
-
 
 
 1.New Features of Altibase Version 7.1.0.1.2

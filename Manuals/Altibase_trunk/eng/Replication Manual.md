@@ -1,38 +1,38 @@
 
 
-
 - [Replication Manual](#replication-manual)
-  - [Preface](#%EC%84%9C%EB%AC%B8)
-    - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1. Replication Overview](#1%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B0%9C%EC%9A%94)
-    - [Introduction](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%86%8C%EA%B0%9C)
-  - [2. Managing Replication](#2%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A6%AC)
-    - [Replication Procedures](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%9C%EC%84%9C)
-    - [Troublshooting](#%EC%97%90%EB%9F%AC-%EB%B0%9C%EC%83%9D%EA%B3%BC-%ED%95%B4%EA%B2%B0)
-    - [Conflict Resolution](#%EC%B6%A9%EB%8F%8C-%ED%95%B4%EA%B2%B0)
-    - [Eager Replication Failback](#eager-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%9E%A5%EC%95%A0-%EB%B3%B5%EA%B5%AC-eager-replication-failback)
-    - [Parallel Replication](#%EB%B3%91%EB%A0%AC-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [Performance View related to Replciation](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A0%A8-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-  - [3. Deploying Replication](#3%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AC%EC%9A%A9)
-    - [Considerations](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
-    - [CREATE REPLICATION](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%83%9D%EC%84%B1-create-replication)
-    - [ALTER REPLICATION](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8B%9C%EC%9E%91-%EC%A2%85%EB%A3%8C%EC%99%80-%EB%B3%80%EA%B2%BD-alter-replication)
-    - [DROP REPLICATION](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AD%EC%A0%9C-drop-replication)
-    - [Executing DDL Statements on Replicaiton Target Tables](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89)
-    - [SQL Reflection Mode](#sql-%EB%B0%98%EC%98%81-%EB%AA%A8%EB%93%9C)
-    - [Extra Features](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5)
-    - [Replication in a Multiple IP Network Environment](#%EB%8B%A4%EC%A4%91-ip-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [Properties](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [4. Fail-Over](#4fail-over)
-    - [Fail-Over Overview](#fail-over-%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [Using Fail-Over](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [JDBC](#jdbc%EC%97%90%EC%84%9C-%EC%BD%9C%EB%B0%B1-%EC%9E%91%EC%84%B1)
+  - [1. Preface](#1-preface)
+    - [About This Manual](#about-this-manual)
+  - [1. Replication Overview](#1-replication-overview)
+    - [Introduction](#introduction)
+  - [2. Managing Replication](#2-managing-replication)
+    - [Replication Procedures](#replication-procedures)
+    - [Troubleshooting](#troubleshooting)
+    - [Conflict Resolution](#conflict-resolution)
+    - [Eager Replication Failback](#eager-replication-failback)
+    - [Parallel Replication](#parallel-replication)
+    - [Performance View related to Replication](#performance-view-related-to-replication)
+  - [3.Deploying Replication](#3deploying-replication)
+    - [Considerations](#considerations)
+    - [CREATE REPLICATION](#create-replication)
+    - [Starting, Stopping and Modifying Replication using “ALTER REPLICATION”](#starting-stopping-and-modifying-replication-using-alter-replication)
+    - [DROP REPLICATION](#drop-replication)
+    - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
+    - [Executing DDL Replication Statements on Replication Target Tables](#executing-ddl-replication-statements-on-replication-target-tables)
+    - [SQL Reflection Mode](#sql-reflection-mode)
+    - [Extra Features](#extra-features)
+    - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
+    - [Replication Related Properties](#replication-related-properties)
+  - [4. Fail-Over](#4-fail-over)
+    - [Fail-Over Overview](#fail-over-overview)
+    - [Callback - JDBC](#callback---jdbc)
+    - [Using Fail-Over](#using-fail-over)
+    - [Writing Callback in JDBC](#writing-callback-in-jdbc)
     - [SQLCLI](#sqlcli)
     - [Embedded SQL](#embedded-sql)
-    - [Create Callback in PDO](#pdo%EC%97%90%EC%84%9C-%EC%BD%9C%EB%B0%B1-%EC%9E%91%EC%84%B1)
-  - [5. Sequence Replication](#5%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [Sequence Replication](#%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-  - [Appendix A. FAQ](#a%EB%B6%80%EB%A1%9D-faq)
+    - [PDO - Callback](#pdo---callback)
+  - [5.Sequence Replication](#5sequence-replication)
+  - [Appendix A. FAQ](#appendix-a-faq)
     - [Replication FAQ](#replication-faq)
 
 
@@ -134,14 +134,14 @@ The following describes the conventions used in the cod examples:
 
 | Rules            | Meaning                                                      | Example                                                      |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ ]              | Indicates optional fields                                    | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
-| { }              | Indicates mandatory fields. Indicates to make sure to select at least one. | { ENABLE \| DISABLE \| COMPILE }                             |
-| \|               | Argument indicating optional or mandatory fields             | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .            | Repetition of the previous argument. Omit the example codes. | SQL\> SELECT ename FROM employee; <br/>ENAME<br/> ------------------------<br/> SWNO<br/> HJNO<br/> HSCHOI<br/> .<br/> .<br/> . <br/>20 rows selected. |
-| Other symbols    | Other symbols                                                | EXEC :p1 := 1; acc NUMBER(11,2);                             |
-| Italicized words | Indicates variable or value taht must be provided by user    | SELECT \* FROM *table_name*;<br/> CONNECT *userID*/*password*; |
-| Lower case words | Problem elements provided by the user such as table names, colum names, file names, etc | SELECT ename FROM employee;                                  |
-| Upper case words | Elements provided by the system or keyword appeared in the syntax | DESC SYSTEM_.SYS_INDICES_;                                   |
+| [ ]              | Indicates an optional item                                   | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }              | Indicates a mandatory field for which one or more items must be selected. | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|               | A delimiter between optional or mandatory arguments.         | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted. | SQL\> SELECT ename FROM employee;<br/> ENAME<br/>  -----------------------<br/> SWNO<br/>  HJNO<br/>  HSCHOI<br/>  .<br/> .<br/> .<br/> 20 rows selected. |
+| Other Symbols    | Symbols other than those shown above are part of the actual code. | EXEC :p1 := 1; acc NUMBER(11,2)                              |
+| Italics          | Statement elements in italics indicate variables and special values specified by the user. | SELECT \* FROM *table_name*; <br/>CONNECT *userID*/*password*; |
+| Lower case words | Indicate program elements set by the user, such as table names, column names, file names, etc. | SELECT ename FROM employee;                                  |
+| Upper case words | Keywords and all elements provided by the system appear in upper case. | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### Related Documents
 
@@ -169,7 +169,7 @@ Include the following information:
 -   Any comments about the manual
 -   Your name, address, and phone number
 
-If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact Altibase's Support Portal (http://altibase.com/support-center/en/).
+If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
 Thank you. We always welcome your feedback and suggestions.
 
@@ -1382,7 +1382,7 @@ iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 ```
 
-### Executing DDL Replication Statements on Replication Target Tables.
+### Executing DDL Replication Statements on Replication Target Tables
 
 The DDL statements that Altibase supports for replication target tables to the replication remote server can be replicated.
 
@@ -1404,19 +1404,27 @@ Altibase can replicate DDL statements for tables taht are subject to be replicat
 -   Set the REPLICATION session property, which can be set with ALTER SESSION SET REPLICATION statemnet, to a value other than NONE.
 -   Set the REPLICATION_DDL_SYNC property value to 1 for the replication local server session that executes DDL.
 -   Set the REPLICATION_DDL_SYNC property value of the replication remote server system that receives DDL to 1.
+-   Set the REPLICATION_SQL_APPLY_ENABLE property value of the replication remote server system that receives DDL in more than triple replication structure to 1.
 
 #### Restrictions
 
+Restrictions for every DDL replication are as follows.
+
+- **All three digits of replication protocol version(Major, Minor, Patch) should be the same.**
+  - Replication protocol version can be found in two ways.
+    1. SELECT REPL_PROTOCOL_VERSION FROM V$VERSION;
+    2. altibase -v
+
 -   DDL replication cannot be executed on a table for which the replication recovery option is specified.
--   DDL replication cannot be executed even when replication is running in EAGER mode. 
--   The table (partition) name and user name for DDL replication must be the same for both the replicaiton local and remote servers.
+-   DDL replication cannot be executed when replication is running in EAGER mode. 
+-   The table (partition) name and user name for DDL replication must be the same for both the local and remote servers.
 -   Replication must be executed for both local and remote servers that execute DDL replication.
 -   When using the propagation option, DDL replication is not allowed.
--   DDL replication cannot be executed if there is a Global Non-Partitioned index when parititioning a table.
--   DDL replication is possible only if the patch version is the same.
+-   When replicating partitioned table, DDL replication cannot be executed if there is a Global Non Partitioned index.
 -   No more than one DDL can be replicated at the same time.
--   DDL replication cannot be performed for the same table from different nodes to one node.
--   DDL replication on table included in a replication that executes DDL replicaiton cannot be executed.
+-   DDL replication cannot be performed on the same table from different nodes to one node.
+-   DDL replication on a table included in a replication that executes DDL replicaiton cannot be executed.
+-   No gaps are allowed between replication remote servers receiving DDL in more than triple replication structure because data incosistency can occur otherwise.
 
 According to the supported DDL, the restrictions are as follows:
 
@@ -1604,15 +1612,38 @@ The below figure is an example of the offline option in use.
 
 ##### Offline Option Restrictions
 
--   This option can only be used when executing replication in LAZY mode.
--   Offline replication is not supported for replication objects which designate compressed tables as replication targets.
--   The offline option cannot be used at the same time as the recovery option.
--   At the moment that offline replication starts, any replication Receiver thread having the same replication_name must be in a stopped state. If such a thread is still running, offline replication will terminate.
--   If the log file directory on the Active Server cannot be accessed due to a disk error, offline replication will fail.
--   The size of the log files on the Active and Standby Servers must be the same. Before the offline option is used, it must be ensured that the size of the log files is the same as the size that was specified at the time that the database was created.
--   If the user changes log files arbitrarily (i.e. renames or deletes them, or copies log files from another system), abnormal shutdown or some other problem may occur.
--   The Standby Server should not be restarted before starting offline replication, because the information used to analyze the logs that could not be received will disappear when starting up the Standby Server.
--   The attempt to start a replication for which the offline option has been enabled or a replication that was created with the offline option will fail if the information about the SM version, OS, the number of OS bits (i.e. 32 or 64), the size of the log files differs between the two database servers
+- This option can only be used when executing replication in LAZY mode.
+
+- Offline replication is not supported for replication objects which designate compressed tables as replication targets.
+
+- The offline option cannot be used at the same time as the recovery option.
+
+- At the moment that offline replication starts, any replication Receiver thread having the same replication_name must be in a stopped state. If such a thread is still running, offline replication will terminate.
+
+- If the log file directory on the Active Server cannot be accessed due to a disk error, offline replication will fail.
+
+- The size of the log files on the Active and Standby Servers must be the same. Before the offline option is used, it must be ensured that the size of the log files is the same as the size that was specified at the time that the database was created.
+
+- If the user changes log files arbitrarily (i.e. renames or deletes them, or copies log files from another system), abnormal shutdown or some other problem may occur.
+
+- The Standby Server should not be restarted before starting offline replication, because the information used to analyze the logs that could not be received will disappear when starting up the Standby Server.
+
+- **Option compatibility beween different Altibase versions or Altibase and heterogeneous database**
+
+  Offline replication or creating replication object with offline option fails if it does not meet the compatibility condition
+
+  - All three digits of the binary DB version (Major, Minor, Patch) should be the same.
+
+    Binary DB version can be found in two ways.
+
+    1. SELECT SM_VERSION FROM V$VERSION;
+    2. altibase -v
+
+  - LOG_FILE_SIZE should be the same.
+
+    Log file size can be found by this following syntax. SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'LOG_FILE_SIZE';
+
+  - Offline replication between heterogeneous databases is not supported. Operating system, CPU type and CPU bit should be the same.
 
 ##### Example
 

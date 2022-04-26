@@ -87,7 +87,6 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
   이 장은 사용자들이 dataCompJ를 좀 더 능률적이고 효율적으로 실행하는 데 도움이 되는 기본 개념을 소개한다.
 
 - 제 3장 dataCompJ 사용 방법
-
   이 장은 dataCompJ를 원활하게 실행하기 위한 방법과 dataCompJ 설정 파일 구성, 설정 시 고려할 점들을 설명한다.
 
 - 제 4장 dataCompJ 기능
@@ -229,7 +228,6 @@ dataCompJ는 Altibase 및 이기종 데이터베이스들과 함께 사용할 �
 #### 설치 및 제거
 
 dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 다운로드받은 압축 파일을 원하는 위치에 해제하면 dataCompJ 설치가 완료된다. 생성된 디렉토리 안에는 실행파일인 dataCompJCli.sh, JDBC 드라이버를 포함한 JDBC 하위 디렉토리 및 XML 기본 설정 파일이 존재한다.
-
 dataCompJ를 제거하기 위해서는 dataCompJ가 설치되어 있는 디렉토리를 삭제한다.
 
 2.dataCompJ 시작하기
@@ -282,8 +280,6 @@ TablePair 중 사용자가 지정한 Slave DB의 비교 대상 테이블이다.
 
 ##### 불일치 레코드 처리
 
-dataCompJ는 불일치 레코드 발견 시 dataCompJ 설정 파일에 기술된 사용자의 선택에 따라 다음의 두 가지 기능을 제공한다.
-
 1.  DIFF: Master 테이블과 Slave 테이블 간의 불일치 레코드를 식별하여 CSV 형식의 파일에 기록한다.
 2.  SYNC: Master 테이블과 Slave 테이블 간의 불일치 레코드를 식별하여 dataCompJ 설정 파일에 기술된 일치 정책에 따라 불일치를 해소한다.
 
@@ -305,7 +301,6 @@ DELETE_FROM_SLAVE 정책이다. Master 테이블에는 존재하지 않고 Slave
 
 3.dataCompJ 사용 방법
 =====================
-
 이 장은 dataCompJ를 원활하게 실행하는 방법과 dataCompJ의 설정 파일 구성, 설정 시 고려할 점들을 설명한다. 이 장은 다음의 절로 구성된다.
 
 - 실행 방법
@@ -365,6 +360,7 @@ dataCompJ를 수행하면 텍스트 형식의 리포트 파일 1개, 로그 파�
 -   dataCompJ.log: 프로그램 수행 시 발생하는 이벤트를 기록하는 로그 파일이다. 프로그램의 상세 수행 이력을 추적하기 위해 사용하는 파일이다.
 -   dataCompJ_data.log: 실행(Run) 단계에서 생성되는 로그 파일로, 사용자가 설정 파일의 \<TraceInconsistentRecord\>를 true로 설정한 경우 비교(DIFF)/일치(SYNC) 수행 시 처리되는 불일치 레코드의 상세 내용을 기록한다.
     불일치 레코드가 많은 경우 대용량의 파일이 생성되고 프로그램의 처리 성능이 저하되기 때문에, 불일치 레코드 처리 내역에 대한 상세 내용이 필요한 경우에만 사용을 권장한다.
+
 
 ### dataCompJ 설정 파일 구성
 
@@ -509,6 +505,7 @@ table_name_file_path는 테이블 이름들을 나열한 텍스트 파일의 경
 #### 설정 파일
 
 dataCompJ 설정파일의 \<Options\> - \<Operation\> 값을 “DIFF”로 지정한다.
+
 \<Connections\>와 \<Options\>의 항목들은 모두 필수로 기입해야 하며, 대상 테이블에 대해 \<TablePairs\>에 기술해야 한다.
 
 ##### dataCompJ.xml
@@ -861,6 +858,7 @@ MXSO    Slave only                            0
 #### 설정 파일
 
 dataCompJ 설정 파일의 \<Options\> - \<Operation\> 값을 “SYNC”로 지정한다.
+
 \<Connections\>와 \<Options\> 항목들은 모두 필수로 기입해야 하며, 대상 테이블에 대해 \<TablePairs\>에 기술해야 한다.
 
 ###### dataCompJ.xml

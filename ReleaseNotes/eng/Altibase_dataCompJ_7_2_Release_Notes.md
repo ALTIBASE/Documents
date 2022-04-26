@@ -25,8 +25,9 @@ Also, it offers an efficient feature for synchronizing two databases in the even
 
 ### 1.1 Hardware Requirements
 
+- CPU: 800 MHz Pentium III or better
 - Main memory: Minimum 512MB, 4GB or more recommended
-- Disk: More than 500MB of free space for installation
+- Disk: More than 50MB of free space for installation
 
 ### 1.2 Supported Operating Systems and Platforms
 

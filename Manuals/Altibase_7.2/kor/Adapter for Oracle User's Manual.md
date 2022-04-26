@@ -628,10 +628,9 @@ COMMIT 로그가 디스크에 기록될 때까지 대기할 것인지를 결정�
 이 프로퍼티는 다음의 특성을 가진다.
 
 -   ORACLE_GROUP_COMMIT 프로퍼티를 켜면 성능이 향상된다.
-
 -   현재 이 프로퍼티는 INSERT 와 DELETE 구문에만 영향을 준다.
-
 -   Array DML을 끄려면, 이 프로퍼티를 1로 지정한다.
+-   LOB 인터페이스를 사용하여 LOB 데이터를 변경한 경우 Array DML 기능은 동작하지 않는다.
 
 ##### ORACLE_UPDATE_STATEMENT_CACHE_SIZE
 
@@ -655,6 +654,8 @@ Altibase에서 실행된 DML 구문들을 오라클 DB에도 적용할지 여부
 
 oraAdapter가 오라클 DB에 레코드를 반영하는 동안 오류가 발생했을 때, 재시도하는 횟수를 나타낸다.
 
+단, LOB 데이터를 포함한 XLog는 오류가 발생할 경우 재시도 대상에서 제외된다.
+
 -   기본값: 0
 
 -   범위: 0 \~ 65535
@@ -674,6 +675,8 @@ ORACLE_ERROR_RETRY_COUNT 프로퍼티에 설정된 횟수만큼 재시도할 때
 ##### ORACLE_SKIP_ERROR
 
 oraAdapter가 레코드 반영에 오류가 발생한 이후부터 ORACLE_ERROR_RETRY_COUNT 횟수만큼 ORACLE_ERROR_RETRY_INTERVAL 주기로 레코드 반영을 재시도하였는데도 성공하지 못했을 때, 해당 레코드의 반영 여부를 지정할 수 있다.
+
+단, LOB 관련 XLog 처리 중 오류 발생 시 해당 프로퍼티 값과 상관 없이 레코드 반영을 포기하지 않고 Adapter를 종료한다.
 
 -   기본값: 1
 -   범위: 0, 1
@@ -742,10 +745,16 @@ oraAdapter가 오라클 DB에 레코드를 반영하는 동안 오류가 발생�
 ADAPTER_ERROR_RESTART_COUNT 프로퍼티에 설정한 횟수만큼 재시도할 때, 재시도 주기를 나타낸다.
 
 -   기본값: 0
-
 -   범위: 0 \~ 65535
-
 -   0: oraAdapter의 재시도 간격없이 재시도한다.
+
+##### ADAPTER_LOB_TYPE_SUPPORT
+
+LOB 데이터 타입의 지원 여부를 결정하는 프로퍼티이다.
+
+-   기본 값: 0
+-   0: LOB 데이터 타입을 지원하지 않는다.
+-   1: LOB 데이터 타입을 지원한다.
 
 #### 프로퍼티 제약조건
 
@@ -799,6 +808,21 @@ oraAdapter를 사용하기 위해서 여러가지 제약 조건이 있다. 이 �
 일반적으로 복제 대상 테이블에 데이타 정의어(DDL)를 수행하면 oraAdapter는 현재 DDL 이전에 발생한 모든 변경 사항을 대상 데이터베이스에 반영한 후 종료된다. oraAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수행하여 테이블 스키마를 동일하게 만든 후 oraAdapter를 재시작하여 복제를 다시 할 수 있다.
 
 그 외 수행할 수 있는 DDL은 Replication Manual의 '이중화 대상 테이블에 DDL 실행'을 참조하기 바란다.
+
+#### LOB 데이터 타입 제약 사항
+
+- LOB 데이터 타입은  Adapter for Oracle 버전 7.1.0.7.0 부터 지원 한다. 
+- LOB 데이터 타입은 Oracle 11g이상에서 OCI 호환 여부에 따라 지원 가능하다.
+- LOB 데이터 타입을 지원하기 위해서는 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티를 1로 설정한다. 
+- LOB 데이터 타입이 포함된 테이블은 아래 3가지 프로퍼티에 대해 제약사항을 가진다.
+  자세한 내용은 프로퍼티 항목을 참조하기 바란다.
+  - ORACLE_ERROR_RETRY_COUNT 
+  - ORACLE_SKIP_ERROR
+  - ORACLE_ARRAY_DML_MAX_SIZE
+- Altibase 서버에서 SELECT FOR UPDATE를 이용한 LOB 데이터 변경은 커밋 이후 수행할 것을 권장한다.
+- 커밋을 수행하지 않으면 아래 상황에서 SELECT FOR UPDATE로 변경한 LOB 데이터가 복제되지 않을 수 있다.
+  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 에러가 발생한 경우
+  - SELECT FOR UPDATE 수행 전에 변경된 데이터 복제 중 ORACLE_SKIP_ERROR, ORACLE_SKIP_INSERT, ORACLE_SKIP_UPDATE 프로퍼티에 의해 SKIP이 발생한 경우
 
 ### 구동과 종료
 
@@ -882,6 +906,8 @@ Altibase의 데이터가 오라클 DB에 적용될 때, 데이터의 타입은 �
 | CHAR                | CHAR                 |                                 |
 | VARCHAR             | VARCHAR2             |                                 |
 | NCHAR<br />NVARCHAR | NCHAR<br />NVARCHAR2 |                                 |
+| CLOB                | CLOB                 |                                 |
+| BLOB                | BLOB                 |                                 |
 
 표 3-1 데이터 타입 변환
 

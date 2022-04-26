@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 
 - [Installation Guide](#installation-guide)
@@ -29,7 +28,7 @@
     - [Checking Disk Configuration](#checking-disk-configuration)
     - [OS Patch](#os-patch)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Altibase® Administration
 
@@ -302,12 +301,18 @@ It is recommended to use a dedicated line when using the replication feature.
 
 |                                                              | Altibase server <br /> | Altibase client <br /> | Software requirements                  |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------- |
+| **AIX on IBM Power Systems** |  |  |  |
+| AIX 6.1 | ● | ● |  |
 | **Linux x86-64**<sup>[Linux distribution](#footnote-linuxversion)</sup> |  |  |  |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8<sup>[Note before installation](#footnote-rhel8)</sup> | ● | ● | - GNU glibc 2.12 or later |
 | **Linux on Power** |  |  |  |
-| POWER7 Red Hat Enterprise Linux 6 | ● | ● | - GNU glibc 2.12 or later |
+| Red Hat Enterprise Linux 6.5 or later | ● | ● | - GNU glibc 2.12 or later |
 | **Linux on Power** **(Little Endian)** |  |  |  |
-| POWER8(LE) Red Hat Enterprise Linux 7 | ● | ● | - GNU glibc 2.17 or later |
+| Red Hat Enterprise Linux 7.2 or later | ● | ● | - GNU glibc 2.17 or later |
+| **HP-UX Itanium (IA-64)** |  |  |  |
+| HP-UX 11.31 | ● | ● |  |
+| **Microsoft Windows (x64)** |  |  |  |
+| Microsoft Windows 2008 | \- | ● |  |
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >

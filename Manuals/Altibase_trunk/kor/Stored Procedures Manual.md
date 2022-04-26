@@ -1,4 +1,3 @@
-
 **Table of Contents**
 
 - [Stored Procedures Manual](#stored-procedures-manual)
@@ -117,7 +116,7 @@
 
 Altibase® Application Development
 
-Stored Procedures Manual 
+Stored Procedures Manual
 ========================
 
 ![](media/StoredProcedure/e5cfb3761673686d093a3b00c062fe7a.png)
@@ -344,7 +343,7 @@ SQL문”을 참고하기 바란다.
 
 #### 저장 프로시저의 종류
 
-##### 저장 프로시저 
+##### 저장 프로시저
 
 저장 프로시저는 SQL구문이나 다른 저장 프로시저 내에서 입력 인자, 출력 인자,
 입출력 인자를 가지고 실행할 수 있다. 저장 프로시저 호출 시, 프로시저의 바디
@@ -353,13 +352,13 @@ SQL문”을 참고하기 바란다.
 값을 전달할 수도 있다. 이는 반환 값을 갖지 않기 때문에 SQL문의 연산식
 (expression) 내에서 피연산자로 사용될 수 없다.
 
-##### 저장 함수 
+##### 저장 함수
 
 값을 반환하는 것만 제외하면 저장 프로시저와 동일하다. 저장 프로시저와 달리
 하나의 반환 값을 가지므로 SQL문의 연산식 (expression)내에서 피연산자로 사용할 수
 있다.
 
-##### 타입 세트 
+##### 타입 세트
 
 저장 프로시저의 사용자 정의 타입들을 정의한 집합이다. 이는 주로 저장
 프로시저끼리 인자 또는 리턴 값으로 사용자 정의 타입을 주고받을 때 사용한다.
@@ -833,7 +832,7 @@ BEGIN
 END;
 /
 
-iSQL> EXEC proc1(15, '250');	
+iSQL> EXEC proc1(15, '250');
 Execute success.
 
 iSQL> SELECT * FROM employees WHERE eno=15;
@@ -875,7 +874,7 @@ Execute success.
 iSQL> PRINT t3;
 NAME                 TYPE                 VALUE
 -----------------------------------------------
-T3                   INTEGER              5 
+T3                   INTEGER              5
 ```
 
 
@@ -1143,7 +1142,7 @@ Execute success.
 
 
 
-### ALTER PROCEDURE 
+### ALTER PROCEDURE
 
 #### 구문
 
@@ -1213,7 +1212,7 @@ T1.I1       T1.I2       T1.I3
 
 
 
-### DROP PROCEDURE 
+### DROP PROCEDURE
 
 #### 구문
 
@@ -1236,7 +1235,7 @@ DROP PROCEDURE proc1;
 
 
 
-### EXECUTE 
+### EXECUTE
 
 #### 구문
 
@@ -1282,7 +1281,7 @@ BEGIN
   INTO current_salary
   FROM employees
   WHERE eno = eid;
-    
+
   UPDATE employees
   SET salary = salary + amount
   WHERE eno = eid;
@@ -1324,7 +1323,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 
 
-### CREATE FUNCTION 
+### CREATE FUNCTION
 
 #### 구문
 
@@ -1480,13 +1479,13 @@ RES                  NUMBER               401
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
- 
+
 iSQL> create or replace function func1 return integer authid current_user as
      cursor cur1 is select c1 from t1;
      var1 integer;
@@ -1498,7 +1497,7 @@ iSQL> create or replace function func1 return integer authid current_user as
      end;
      /
 Create success.
- 
+
 iSQL> select proc_name , object_type , authid
     2 from system_.sys_procedures_
     3 where proc_name = 'FUNC1';
@@ -1518,10 +1517,10 @@ FUNC1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 
@@ -1533,16 +1532,16 @@ iSQL> insert into t1 values ( 100 );
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := func1;
 Execute success.
- 
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              1
- 
- 
+
+
 iSQL> select func1 from dual;
 FUNC1       
 --------------
@@ -1557,18 +1556,18 @@ FUNC1
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := user1.func1;
 Execute success.
- 
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              100
- 
- 
+
+
 iSQL> select user1.func1 from dual;
-USER1.FUNC1 
+USER1.FUNC1
 --------------
 100        
 1 row selected.
@@ -1584,13 +1583,13 @@ USER1.FUNC1
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
- 
+
 iSQL> create or replace function func1 return integer authid definer as
       cursor cur1 is select c1 from t1;
       var1 integer;
@@ -1602,7 +1601,7 @@ iSQL> create or replace function func1 return integer authid definer as
       end;
       /
 Create success.
- 
+
 iSQL> select proc_name , object_type , authid
       from system_.sys_procedures_
       where proc_name ='FUNC1';
@@ -1622,10 +1621,10 @@ FUNC1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 ```
@@ -1636,16 +1635,16 @@ iSQL> insert into t1 values ( 100 );
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := func1;
 Execute success.
- 
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              1
- 
- 
+
+
 iSQL> select func1 from dual;
 FUNC1       
 --------------
@@ -1659,19 +1658,19 @@ FUNC1
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := user1.func1;
 Execute success.
- 
- 
+
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              1
- 
- 
+
+
 iSQL> select user1.func1 from dual;
-USER1.FUNC1 
+USER1.FUNC1
 --------------
 1          
 1 row selected.
@@ -1687,7 +1686,7 @@ USER1.FUNC1
 변경하거나 제거하면, 함수 기반 인덱스가 생성되어 있는 테이블에 대한 DML이 실패할
 수 있으므로 사용자의 주의가 필요하다.
 
-### ALTER FUNCTION 
+### ALTER FUNCTION
 
 #### 구문
 
@@ -1709,7 +1708,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 
 
-### DROP FUNCTION 
+### DROP FUNCTION
 
 #### 구문
 
@@ -1747,7 +1746,7 @@ DROP FUNCTION get_dept_name;
 저장 프로시저와 저장 함수는 한 개 이상의 블록으로 구성된다. 이 장에서는 블록을
 사용해서 저장 프로시저 내에 절차화된 프로그램을 작성하는 방법을 설명한다.
 
-### 저장 프로시저 블록 
+### 저장 프로시저 블록
 
 #### 구문
 
@@ -1759,22 +1758,17 @@ DROP FUNCTION get_dept_name;
 
  ![procedure_sql_statement](media/StoredProcedure/procedure_sql_statement.gif)
 
-블록은 크게 선언부(Declare Section), 블록 바디(Block Body), 예외
-처리부(Exception Handler Section)의 세 부분으로 나뉘어진다.
+블록은 크게 선언부(Declare Section), 블록 바디(Block Body), 예외 처리부(Exception Handler Section)의 세 부분으로 나뉘어진다.
 
-DECLARE, BEGIN, EXCEPTION 등의 키워드 뒤에는 세미콜론을 사용하지 않지만 END 및
-기타 모든 프로시저 내의 명령문 뒤에는 세미콜론이 있어야 한다.
+DECLARE, BEGIN, EXCEPTION 등의 키워드 뒤에는 세미콜론을 사용하지 않지만 END 및 기타 모든 프로시저 내의 명령문 뒤에는 세미콜론이 있어야 한다.
 
-저장 프로시저의 코드에 주석 처리를 할 수 있다. 단일 행 주석에는 ‘--‘를 문장 앞에
-붙이고, 여러 행을 주석 처리 할 경우는 ‘/\*’와 ‘\*/’ 사이에 주석 처리할 문장이
-놓이도록 작성한다.
+저장 프로시저의 코드에 주석 처리를 할 수 있다. 단일 행 주석에는 ‘--‘를 문장 앞에 붙이고, 여러 행을 주석 처리 할 경우는 ‘/\*’와 ‘\*/’ 사이에 주석 처리할 문장이 놓이도록 작성한다.
 
-저장 프로시저 헤더 없이 독립적으로 저장 프로시저 블록을 사용할 수 있다.
-이를 익명 블록(anonymous block)라고 하며 아래와 같은 특징이 있다.
+저장 프로시저 헤더 없이 독립적으로 저장 프로시저 블록을 사용할 수 있다. 이를 익명 블록(anonymous block)라고 한다. 익명 블록은 7.1.0.2.3 버전부터 지원하며 아래와 같은 특징이 있다.
 
 - PSM 객체를 생성 및 데이터베이스에 저장하지 않는다.
 - RETURN 절의 값을 반환하지 않는다.
-- 저장 프로시저와 달리 IN, OUT, INOUT 바인드 변수(BIND Variable)를 사용할 수 있다.
+- 저장 프로시저와 달리 INPUT, OUTPUT, INOUTPUT 용도의 바인드 변수(bind variables)를 사용할 수 있다.
 
 ```
 iSQL> VAR OUT1 OUTPUT INTEGER;
@@ -1807,7 +1801,7 @@ INOUT1               INTEGER              2
 내용은 다음 장에서 순서대로 설명하고 있다. 그 외 SQL문들에 대한 자세한 내용은
 *SQL Reference*을 참조한다.
 
-#### 선언부 
+#### 선언부
 
 선언부는 메인 블록에서는 AS와 BEGIN 키워드 사이에 위치하며, 하위 블록에서는
 DECLARE와 BEGIN 키워드 사이에 위치한다. 해당 블록 내에서 사용하는 지역 변수,
@@ -1816,7 +1810,7 @@ DECLARE와 BEGIN 키워드 사이에 위치한다. 해당 블록 내에서 사�
 이 장에서는 지역 변수만을 설명한다. 커서와 예외 처리는 5장 커서와 9장 예외
 처리에서 각각 설명한다.
 
-#### 블록 바디 
+#### 블록 바디
 
 BEGIN과 END사이의 부분으로 SQL문과 흐름 제어문을 포함한다.
 
@@ -2005,7 +1999,7 @@ dept_rec departments%ROWTYPE
 dept_rec은 레코드 타입의 변수로서 departments 테이블 또는 departments 라는
 이름의 커서와 동일한 레코드 타입을 가지게 된다.
 
-##### 예제 1 
+##### 예제 1
 
 CONSTANT와 %ROWTYPE 을 사용해서 변수를 선언하는 예제이다.
 
@@ -2035,7 +2029,7 @@ INSERT INTO t1 VALUES(1,1,1);
 CREATE OR REPLACE PROCEDURE proc1
 AS
   r1 t1%ROWTYPE;
-BEGIN 
+BEGIN
   INSERT INTO t1 VALUES(3,3,3);
   <<s>>
   DECLARE
@@ -2109,7 +2103,7 @@ Execute success.
 iSQL> SELECT * FROM emp401;
 EMP401.ENO  EMP401.ENAME  EMP401.EMP_JOB   EMP401.JOIN_DATE     
 -----------------------------------------------
-EMP401.LEAVE_DATE    EMP401.SALARY EMP401.DNO  EMP401.FUND 
+EMP401.LEAVE_DATE    EMP401.SALARY EMP401.DNO  EMP401.FUND
 -----------------------------------------------
 10          DKLEE       ENGINEER         2000/07/01 00:00:00  
 2005/01/27 16:26:26  30000000    D001  0           
@@ -2161,7 +2155,7 @@ iSQL> create or replace procedure proc2
         end loop;
       end loop;
     end;
-    / 
+    /
 Create success.
 iSQL> exec proc2;
 1
@@ -2195,7 +2189,7 @@ Execute success.
 
 
 
-### SELECT INTO 
+### SELECT INTO
 
 #### 구문
 
@@ -2257,11 +2251,11 @@ BEGIN
     v1 proc1.r1.i1%TYPE;
     r1 t1%ROWTYPE;
   BEGIN
-    SELECT i1,i2,i3 
-    INTO s.r1.i1, s.r1.i2, s.r1.i3 
+    SELECT i1,i2,i3
+    INTO s.r1.i1, s.r1.i2, s.r1.i3
     FROM t1  
     WHERE i1 = 1;
-      
+
     INSERT INTO t1 VALUES(s.r1.i1, s.r1.i2, s.r1.i3);
   END;
 END;
@@ -2438,7 +2432,7 @@ T3.I1
 
 
 
-##### 예제 5 
+##### 예제 5
 
 ```
 CREATE TABLE delayed_processing(
@@ -2462,7 +2456,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM delayed_processing;
-DELAYED_PROCESSING.CNO  DELAYED_PROCESSING.ORDER_DATE 
+DELAYED_PROCESSING.CNO  DELAYED_PROCESSING.ORDER_DATE
 -----------------------------------------------
 7610011000001  2000/11/29 00:00:00  
 7001011001001  2000/11/29 00:00:00  
@@ -2491,7 +2485,7 @@ BEGIN
   END LOOP;
 END;
 /
- 
+
 iSQL> EXEC proc1();
 v2[1]=1
 v2[2]=2
@@ -2584,10 +2578,10 @@ iSQL> create or replace procedure proc1
 as
   type myintarr is table of integer index by integer;
   type myvarchararr is table of varchar(30) index by integer;
- 
+
   v1 myintarr;
   v2 myvarchararr;
- 
+
 begin
       insert into employees values (1, 'jake') return eno, ename bulk collect into v1, v2;
       for i in v1.first() .. v1.last() loop
@@ -2617,10 +2611,10 @@ iSQL> create or replace procedure proc1
 as
   type myrec is record( i1 integer, i2 varchar(30) );
   type myrecarr is table of myrec index by integer;
- 
+
   r1 myrecarr;
   s1 myrec;
- 
+
 begin
     insert into employees values (1, 'jake') return eno, ename bulk collect into r1;
     for i in r1.first() .. r1.last() loop
@@ -2676,20 +2670,20 @@ iSQL> create or replace procedure proc1
 as
   type myintarr is table of integer index by integer;
   type myvarchararr is table of varchar(30) index by integer;
- 
+
   v1 myintarr;
   v2 myvarchararr;
- 
+
 begin
       delete from employees where eno = 1 return eno, ename bulk collect into v1, v2;
- 
+
       for i in v1.first() .. v1.last() loop
       println( 'v1['||i||']='||v1[i] );
       end loop;
       for i in v2.first() .. v2.last() loop
       println( 'v2['||i||']='||v2[i] );
       end loop;
- 
+
 end;
 /
 Create success.
@@ -2718,10 +2712,10 @@ iSQL> create or replace procedure proc1
 as
   type myrec is record( i1 integer, i2 varchar(30) );
   type myrecarr is table of myrec index by integer;
- 
+
   r1 myrecarr;
   s1 myrec;
- 
+
 begin
     delete from employees where eno = 1 return eno, ename bulk collect into r1;
     for i in r1.first() .. r1.last() loop
@@ -2779,20 +2773,20 @@ iSQL> create or replace procedure proc1
 as
   type myintarr is table of integer index by integer;
   type myvarchararr is table of varchar(30) index by integer;
- 
+
   v1 myintarr;
   v2 myvarchararr;
- 
+
 begin
       update employees set eno = 5, ename = 'mikhaila' where eno = 1 return eno, ename bulk collect into v1, v2;
- 
+
       for i in v1.first() .. v1.last() loop
       println( 'v1['||i||']='||v1[i] );
       end loop;
       for i in v2.first() .. v2.last() loop
       println( 'v2['||i||']='||v2[i] );
       end loop;
- 
+
 end;
 /
 Create success.
@@ -2821,10 +2815,10 @@ iSQL> create or replace procedure proc1
 as
   type myrec is record( i1 integer, i2 varchar(30) );
   type myrecarr is table of myrec index by integer;
- 
+
   r1 myrecarr;
   s1 myrec;
- 
+
 begin
     update employees set eno = 5, ename = 'mikhaila' where eno = 1 return eno, ename bulk collect into r1;
     for i in r1.first() .. r1.last() loop
@@ -2933,7 +2927,7 @@ END;
 
 iSQL> EXEC proc1;
 Execute success.
-iSQL> SELECT * FROM t1; 
+iSQL> SELECT * FROM t1;
 T1.I1       T1.I2       T1.I3       
 ----------------------------------------
 100         100         100         
@@ -3035,7 +3029,7 @@ LABLE문은 저장 프로시저 내부의 특정 위치에 명칭을 지정하�
             V1 := V1 + 1;
              FOR I IN 1 .. 10 LOOP
                   V1 := V1 + 1;
-                  EXIT LABEL1 WHEN V1 = 30; 
+                  EXIT LABEL1 WHEN V1 = 30;
               END LOOP;
         END LOOP;
   END;
@@ -3057,7 +3051,7 @@ LABLE문은 저장 프로시저 내부의 특정 위치에 명칭을 지정하�
             V1 := V1 + 1;
              FOR I IN 1 .. 10 LOOP
                   V1 := V1 + 1;
-                EXIT LABEL1 WHEN V1 = 30; -- ERROR 
+                EXIT LABEL1 WHEN V1 = 30; -- ERROR
             END LOOP;
         END LOOP;
   END;
@@ -3065,7 +3059,7 @@ LABLE문은 저장 프로시저 내부의 특정 위치에 명칭을 지정하�
   ```
 
 
-### PRINT 
+### PRINT
 
 #### 구문
 
@@ -3182,19 +3176,19 @@ iSQL> EXEC showProcedures;
 Proc_Name                           Procedure/Function
 -----------------------------------------------
 
- PRINT                                   Procedure 
- PRINTLN                                 Procedure 
+ PRINT                                   Procedure
+ PRINTLN                                 Procedure
 .
 .
 
- SHOWPROCEDURES                          Procedure 
+ SHOWPROCEDURES                          Procedure
 -----------------------------------------------
 Execute success.
 ```
 
 
 
-### RETURN 
+### RETURN
 
 #### 구문
 
@@ -3231,7 +3225,7 @@ END;
 /
 
 iSQL> SELECT times_half(times_half(8)) FROM t1;
-TIMES_HALF(TIMES_HALF(8)) 
+TIMES_HALF(TIMES_HALF(8))
 ----------------------------
 2           
 1 row selected.
@@ -3259,7 +3253,7 @@ END;
 /
 
 iSQL> SELECT max_all_val FROM t1;
-MAX_ALL_VAL 
+MAX_ALL_VAL
 --------------
 100         
 100         
@@ -3288,7 +3282,7 @@ END;
 /
 
 iSQL> SELECT func_plus_10(i1) FROM t4;
-FUNC_PLUS_10(I1) 
+FUNC_PLUS_10(I1)
 -------------------
 13          
 12          
@@ -3359,7 +3353,7 @@ I1          I2          I3
 12          22          32         
 13          23          33         
 14          24          34         
-15          25          35 
+15          25          35
 5 rows selected.
 
 ```
@@ -3371,31 +3365,31 @@ ORDER 테이블의 행을 삭제할 때, 트리거 내부에서 OLD ROW 레코�
 ```
 CREATE TABLE log_tbl (
   ONO            BIGINT,
-  ORDER_DATE     DATE, 
+  ORDER_DATE     DATE,
   ENO            INTEGER,
   CNO            BIGINT,
   GNO            CHAR(10),
   QTY            INTEGER,
-  ARRIVAL_DATE   DATE, 
+  ARRIVAL_DATE   DATE,
   PROCESSING     CHAR(1) );
- 
+
 CREATE TRIGGER del_trigger
 AFTER DELETE ON orders
 REFERENCING OLD ROW old_row
 FOR EACH ROW
-AS BEGIN 
+AS BEGIN
 INSERT INTO log_tbl VALUES old_row;
 END;
 /
- 
+
 iSQL> DELETE FROM orders WHERE processing = 'D';
 2 rows deleted.
- 
+
 iSQL> SELECT * FROM log_tbl;
 ONO                  ORDER_DATE   ENO         CNO                  
 ------------------------------------------------------------------------
 GNO         QTY         ARRIVAL_DATE PROCESSING  
------------------------------------------------------- 
+------------------------------------------------------
 11290011             29-NOV-2011  12          17                  
 E111100001  1000        05-DEC-2011  D  
 11290100             29-NOV-2011  19          11                 
@@ -3440,10 +3434,10 @@ CREATE OR REPLACE PROCEDURE proc1 as
     idx  INTEGER;
 BEGIN
     SELECT ENO, SALARY BULK COLLECT INTO emps FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
- 
+
     FOR idx IN emps.FIRST() .. emps.LAST() LOOP
         emps[idx].SALARY := emps[idx].SALARY * 1.02;
- 
+
         UPDATE (SELECT ENO, SALARY FROM EMPLOYEES)
             SET ROW = emps[idx]
             WHERE ENO = emps[idx].eno;
@@ -3463,7 +3457,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 2 rows selected.
 iSQL> EXEC PROC1();
 Execute success.
- 
+
 iSQL> SELECT * FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
 ENO         E_LASTNAME            E_FIRSTNAME           EMP_JOB          
 ------------------------------------------------------------------------------
@@ -3511,7 +3505,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 -   NOT EXIST (subquery)
 
-### IF 
+### IF
 
 #### 구문
 
@@ -3722,7 +3716,7 @@ ENO         SUM
 20          13210                
 3 rows selected.
 iSQL> SELECT * FROM payroll;
-PAYROLL.ENO PAYROLL.BONUS 
+PAYROLL.ENO PAYROLL.BONUS
 -----------------------------
 12          500         
 19          1000        
@@ -3733,7 +3727,7 @@ PAYROLL.ENO PAYROLL.BONUS
 
 
 
-### CASE 
+### CASE
 
 #### 구문
 
@@ -3920,7 +3914,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM item;
-ITEM.ID     ITEM.COUNTER 
+ITEM.ID     ITEM.COUNTER
 ----------------------------
 501         1           	
 501         2           
@@ -3933,7 +3927,7 @@ ITEM.ID     ITEM.COUNTER
 
 
 
-### WHILE LOOP 
+### WHILE LOOP
 
 #### 구문
 
@@ -3965,7 +3959,7 @@ BEGIN
     INSERT INTO t1 VALUES (v1, v1, v1);
     IF v1 = 2 THEN
       CONTINUE;
-    END IF; 
+    END IF;
   END LOOP;
 
 END;
@@ -3984,7 +3978,7 @@ T1.I1       T1.I2       T1.I3
 
 
 
-### FOR LOOP 
+### FOR LOOP
 
 #### 구문
 
@@ -4216,7 +4210,7 @@ T6.I1       T6.SUM
 
 
 
-### EXIT 
+### EXIT
 
 #### 구문
 
@@ -4315,7 +4309,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM stock;
-STOCK.GNO   STOCK.STOCK STOCK.PRICE 
+STOCK.GNO   STOCK.STOCK STOCK.PRICE
 ----------------------------------------
 A111100002  100         98000       
 B111100001  780         35800       
@@ -4350,7 +4344,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM stock;
-STOCK.GNO   STOCK.STOCK STOCK.PRICE 
+STOCK.GNO   STOCK.STOCK STOCK.PRICE
 ----------------------------------------
 A111100002  100         98000       
 B111100001  780         35800       
@@ -4362,7 +4356,7 @@ E111100006  900         2338.62
 
 
 
-### CONTINUE 
+### CONTINUE
 
 #### 구문
 
@@ -4423,7 +4417,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM t8;
-T8.I1       T8.MATHPOWER 
+T8.I1       T8.MATHPOWER
 ----------------------------
 7           0           
 20          0           
@@ -4589,7 +4583,7 @@ Execute success.
 
 
 
-### NULL 
+### NULL
 
 #### 구문
 
@@ -4640,7 +4634,7 @@ iSQL> SELECT eno, salary FROM employees WHERE eno = 19;
 ENO         SALARY      
 ---------------------------
 19          1875     
-1 row selected. 
+1 row selected.
 ```
 
 
@@ -4703,7 +4697,7 @@ RECORD 타입 변수에 대한 설명은 6장 사용자 정의 타입으 참고�
 레코드가 존재하지 않을 때까지 LOOP를 반복 수행한다. 커서에 대해서 명시적으로
 OPEN문이나 CLOSE문을 사용할 필요가 없는 경우에 편리한 구문이다.
 
-### CURSOR 
+### CURSOR
 
 #### 구문
 
@@ -4734,12 +4728,12 @@ OPEN, FETCH, CLOSE 및 Cursor FOR LOOP에서 참조할 커서의 이름을 지�
 
 ```
 DECLARE
-  CURSOR c1 IS 
-    SELECT empno, ename, job, sal 
-    FROM emp 
+  CURSOR c1 IS
+    SELECT empno, ename, job, sal
+    FROM emp
     WHERE sal > 2000;
-  CURSOR c2 
-    (low INTEGER DEFAULT 0, 
+  CURSOR c2
+    (low INTEGER DEFAULT 0,
     high INTEGER DEFAULT 99) IS
     SELECT ......;
 ```
@@ -4761,7 +4755,7 @@ AS
 BEGIN
   DECLARE
    CURSOR c1 IS
-     SELECT eno, e_firstname, e_lastname, salary FROM employees 
+     SELECT eno, e_firstname, e_lastname, salary FROM employees
    WHERE salary IS not NULL
    ORDER BY salary desc;
    emp_first CHAR(20);
@@ -4822,9 +4816,9 @@ OPEN 하고자 하는 커서의 이름을 지정한다.
 
 ```
 DECLARE
- CURSOR c1(pname VARCHAR(40), pno INTEGER) IS 
-  SELECT empno, ename, job, sal 
-  FROM emp 
+ CURSOR c1(pname VARCHAR(40), pno INTEGER) IS
+  SELECT empno, ename, job, sal
+  FROM emp
   WHERE eame = pname;
 BEGIN
  OPEN c1;
@@ -4909,16 +4903,16 @@ BEGIN
 END;
 /
 iSQL> SELECT * FROM t2;
-T2.I1      T2.I2      T2.I3 
+T2.I1      T2.I2      T2.I3
 ----------------------------------------
 No rows selected.
 iSQL> EXEC proc1;
 EXECUTE success.
 iSQL> SELECT * FROM t2;
-T2.I1      T2.I2      T2.I3 
+T2.I1      T2.I2      T2.I3
 ----------------------------------------
-1          1          1 
-2          2          2 
+1          1          1
+2          2          2
 2 rows selected.
 ```
 
@@ -5003,7 +4997,7 @@ BEGIN
   LOOP
    FETCH c1 INTO emp_rec;
    EXIT WHEN c1%NOTFOUND;
-   INSERT INTO emp_temp 
+   INSERT INTO emp_temp
    VALUES(emp_rec.eno, emp_rec.e_firstname, emp_rec.e_lastname);
   END LOOP;
   CLOSE c1;
@@ -5095,7 +5089,7 @@ CLOSE c1;
 
 
 
-### Cursor FOR LOOP 
+### Cursor FOR LOOP
 
 #### 구문
 
@@ -5393,7 +5387,7 @@ BEGIN
   LOOP
    FETCH c1 INTO emp_rec;
    EXIT WHEN c1%ROWCOUNT > 10 OR c1%NOTFOUND;
-   INSERT INTO emp_temp 
+   INSERT INTO emp_temp
    VALUES(emp_rec.eno, emp_rec.e_firstname, emp_rec.e_lastname);
   END LOOP;
 
@@ -5458,7 +5452,7 @@ Associative Array는 해시 테이블과 유사하다. Associative Array는 키-
 다음의 문법으로 접근할 수 있다.
 
 ```
-variable_name[index] 또는 variable_name(index) 
+variable_name[index] 또는 variable_name(index)
 ```
 
 키 (*index*)의 데이터 타입은 INTEGER 또는 VARCHAR이어야 한다. Associative
@@ -5510,13 +5504,13 @@ REF CURSOR 타입을 정의한다.
 
 #### 예제
 
-##### 예제1 
+##### 예제1
 
 이름 (VARCHAR(20)), 부서 (INTEGER), 봉급 (NUMBER(8))을 갖는 이름이 employee인
 RECORD 타입을 정의하라.
 
 ```
-DECLARE 
+DECLARE
 TYPE employee IS RECORD( name VARCHAR(20),
  dept  INTEGER,
  salary  NUMBER(8));
@@ -5527,7 +5521,7 @@ BEGIN
 
 
 
-##### 예제2 
+##### 예제2
 
 VARCHAR(20)을 구성 요소로 하고 INTEGER타입을 인덱스로 하는 이름이 namelist인
 Associative Array를 정의하라.
@@ -5543,7 +5537,7 @@ BEGIN
 
 
 
-##### 예제3 
+##### 예제3
 
 사용자 정의 RECORD타입인 employee를 구성 요소로 가지고 VARCHAR(10) 타입을
 인덱스로 하는 employeelist 라는 이름의 Associative Array를 정의하라.
@@ -5616,12 +5610,12 @@ index가 없으면 NULL을 반환한다.
 
 #### 예제
 
-##### 예제1 
+##### 예제1
 
 Associative array변수 V1의 요소를 삭제
 
 ```
-CREATE OR REPLACE PROCEDURE PROC1( 
+CREATE OR REPLACE PROCEDURE PROC1(
     P1 IN VARCHAR(10),
     P2 IN VARCHAR(10) )
 AS
@@ -5633,15 +5627,15 @@ BEGIN
     V1['FSDGADS'] := 1;
     V1['AA'] := 2;
     V1['7G65'] := 3;
-    V1['N887K'] := 4; 
+    V1['N887K'] := 4;
     V1['KU'] := 5;
     V1['34'] := 6;
- 
+
     PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
- 
+
     V2 := V1.DELETE(P1, P2);
     PRINTLN( 'DELETED COUNT IS : '||V2);
-    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() ); 
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
 END;
 /
 ```
@@ -5660,7 +5654,7 @@ Execute success.
 
 
 
-##### 예제2 
+##### 예제2
 
 Associative array변수 V1을 오름차순과 내림차순으로 출력해라.
 
@@ -5692,7 +5686,7 @@ V1_IDX INTEGER;
       V1_IDX := V1.NEXT(V1_IDX);
     END IF;
   END LOOP;
-  
+
   PRINTLN( 'DESCENDING ORDER V1');
 
   V1_IDX := V1.LAST();
@@ -5759,7 +5753,7 @@ L_VALUE := R_VALUE;
 다음 예제와 같이 사용자 정의 타입은 그 내부 구조가 동일하다 하더라도 할당문은
 실패하게 된다.
 
-##### 예제1 
+##### 예제1
 
 RECORD 타입 변수의 할당
 
@@ -5782,8 +5776,8 @@ BEGIN
      v_emp1.name := 'smith';
      v_emp1.job_id := 'RND1069';
      v_emp1.salary := '10000000';
-     
-     v_emp2 := v_emp1;    -- 실패. 
+
+     v_emp2 := v_emp1;    -- 실패.
 ```
 
 두 변수가 같은 내부 구조이지만 각각 다른 타입이므로 할당은 실패한다. 그러나
@@ -5793,7 +5787,7 @@ v_emp2.name := v_emp1.name;
 
 #### RECORD 타입 변수 예제
 
-##### 예제1 
+##### 예제1
 
 사원의 이름, 급여, 부서를 저장하는 RECORD타입의 변수를 생성한다.
 
@@ -5820,7 +5814,7 @@ END;
 
 #### ASSOCIATIVE ARRAY 타입 예제
 
-##### 예제 1 
+##### 예제 1
 
 사원번호가 1에서 20사이에 속한 사원의 이름을 출력한다.
 
@@ -5892,7 +5886,7 @@ v_emp[I].emp_job||' '||
 v_emp[I].salary );
 END LOOP;
 END;
-/ 
+/
 Create success.
 iSQL> EXEC PROC1;
 Chan-seung           Moon                 CEO
@@ -5990,7 +5984,7 @@ SELECT ono BULK COLLECT INTO v_order_array FROM orders WHERE cno = I;
 END LOOP;
 FOR i in 1 .. 5 LOOP
 println ( v_cust_order[I].first_name || ' ' || v_cust_order[I].last_name );
-v_order_array := v_cust_order[I].orders; 
+v_order_array := v_cust_order[I].orders;
 FOR J IN v_order_array.FIRST() .. v_order_array.LAST() LOOP
 PRINTLN ( '   order no : ' || v_order_array[J] );
 END LOOP;
@@ -6055,11 +6049,11 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
    ```
    CREATE TABLE EMP (ENO INTEGER, ENAME CHAR(20), DNO INTEGER);
    CREATE TABLE STAFF (NAME CHAR(20), DEPT CHAR(20), JOB CHAR(20), SALARY INTEGER);
-   
+
    INSERT INTO EMP VALUES (10, 'DULGI PAPA', 100);
    INSERT INTO EMP VALUES (20, 'KUNHAN' , 200);
    INSERT INTO EMP VALUES (30, 'OKASA' , 300);
-   
+
    INSERT INTO STAFF VALUES ('DULGI PAPA' , '100' , 'PAPA', 100);
    INSERT INTO STAFF VALUES ('SHINCHA' , '200' , 'ENGINEER' , 200);
    INSERT INTO STAFF VALUES ('JI HYUNG', '300', '', 0);
@@ -6071,7 +6065,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
    ```
    CREATE TYPESET MY_TYPE
    AS
-     TYPE MY_CUR IS REF CURSOR; 
+     TYPE MY_CUR IS REF CURSOR;
    END;
    /
    ```
@@ -6100,7 +6094,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      SQLCHAR errMsg[MSG_LEN];
      char sql[1000];
      SQLHSTMT     stmt = SQL_NULL_HSTMT;
-   
+
      int sal;
      int sal_len;
      int eno;
@@ -6111,17 +6105,17 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      SQLCHAR name[NAME_LEN+1];
      SQLCHAR dept[DEPT_LEN+1];
      SQLCHAR job[JOB_LEN+1];
-   
+
      int job_ind;
-   
+
      SQLRETURN rc = SQL_SUCCESS;
-   
+
      if (SQL_ERROR == SQLAllocStmt(dbc, &stmt))
      {
          printf("SQLAllocStmt error!!\n");
          return SQL_ERROR;
      }
-   
+
    /* 실행할 SQL 문을 준비 */
      sprintf(sql, "EXEC proc1(?)");
      if ( SQLPrepare(stmt,(SQLCHAR *)sql,SQL_NTS) == SQL_ERROR )
@@ -6132,10 +6126,10 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      {
        printf("SUCCESS: prepare stmt\n");
      }
-   
+
    /* 변수 sal에 100을 할당 */
      sal = 100;
-   
+
      /* SQL 문장에 매개변수(sal)를 연결시킴 */
      if ( SQLBindParameter( stmt,
                             1,
@@ -6154,14 +6148,14 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      {
        printf("SUCCESS: 1 Bind Parameter\n");
      }
-   
+
    /* SQL 문장 실행, 프로시져 PROC1을 실행해서 'SELECT eno, ename, dno FROM emp'의 결과값은 P1에 'SELECT name,dept,job FROM staff WHERE salary > ?'(USING SAL)의 결과값은 P2에 가져온다  */
    if (SQL_ERROR == SQLExecute(stmt))
      {
        printf("ERROR: Execute Procedure\n");
      }
-   
-   /* 'SELECT eno, ename, dno FROM emp'의 결과값을 변수(eno, ename, dno)에 저장 */ 
+
+   /* 'SELECT eno, ename, dno FROM emp'의 결과값을 변수(eno, ename, dno)에 저장 */
      if (SQL_ERROR == SQLBindCol(stmt, 1, SQL_C_SLONG, &eno, 0, (long *)&eno_len))
      {
        printf("ERROR: Bind 1 Column\n");
@@ -6174,7 +6168,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      {
        printf("ERROR: Bind 3 Column\n");
      }
-   
+
    /* P1에 결과값이 있는 동안 결과값을 받아 화면에 출력 */
      while (SQL_SUCCESS == rc)
      {
@@ -6197,7 +6191,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
          }
        }
      }
-   
+
    /* 다음 결과(P2)로 이동 */
      rc = SQLMoreResults(stmt);
      if (SQL_ERROR == rc)
@@ -6206,9 +6200,9 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      }
      else
    {
-   
+
    /* 'SELECT name,dept,job FROM staff WHERE salary > ?'(USING SAL)의 결과값을 변수(name, dept, job)에 저장 */
-   
+
       if (SQL_ERROR == SQLBindCol(stmt, 1, SQL_C_CHAR, name, sizeof(name), NULL))
       {
      printf("ERROR: Bind 1 Column\n");
@@ -6221,7 +6215,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
       {
      printf("ERROR: Bind 3 Column\n");
       }
-   
+
    /* P2에 결과값이 있는 동안 결과값을 받아 화면에 출력 */
       while (SQL_SUCCESS == rc)
       {
@@ -6248,13 +6242,13 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      }
       }
      }
-   
+
      if (SQL_ERROR == SQLFreeStmt( stmt, SQL_DROP ))
      {
        printf("sql free stmt error\n");
      }
    }    
-   
+
    ```
 
 
@@ -6341,7 +6335,7 @@ END;
 
 
 
-##### PROCEDURE 2 
+##### PROCEDURE 2
 
 저장 프로시저 procedure_2의 OUT 인자에 function_3의 반환값을 할당한다.
 
@@ -6411,7 +6405,7 @@ SYS 사용자 또는 CREATE PROCEDURE, CREATE ANY PROCEDURE 시스템 권한을 
 
 #### 예제
 
-##### 예제1 
+##### 예제1
 
 my_typeset이란 이름의 타입 세트를 생성한다.
 
@@ -6428,7 +6422,7 @@ END;
 
 
 
-##### 예제2 
+##### 예제2
 
 my_typeset을 이용하는 프로시저 my_proc1을 생성한다.
 
@@ -6514,7 +6508,7 @@ DROP TYPESET my_typeset;
 
 
 
-### 동적 SQL의 개요 
+### 동적 SQL의 개요
 
 동적 SQL(Dynamic SQL)은 실행 시간에 사용자가 원하는 질의를 만들어서 실행하는
 것이다.
@@ -6580,7 +6574,7 @@ Plan Cache에 저장되고, 반복 호출 시 Plan Cache에서 실행계획을 �
 
 #### 설명
 
-##### dynamic_string 
+##### dynamic_string
 
 실행할 질의문을 가지는 문자열이다.
 
@@ -6618,14 +6612,14 @@ END;
 /
 
 CREATE PROCEDURE insert_table (
-      table_name  VARCHAR(100), 
-      dept_no     NUMBER, 
-      dept_name   VARCHAR(100), 
+      table_name  VARCHAR(100),
+      dept_no     NUMBER,
+      dept_name   VARCHAR(100),
       location    VARCHAR(100))
 AS
       stmt    VARCHAR2(200);
 BEGIN
-   stmt := 'INSERT INTO ' || table_name || 
+   stmt := 'INSERT INTO ' || table_name ||
            ' values (?, ?, ?)';
    EXECUTE IMMEDIATE stmt
            USING dept_no, dept_name, location;
@@ -6666,7 +6660,7 @@ EXECUTE IMMEDIATE dynamic_string 구문은 해당 질의문을 Direct-Execute �
 
 -   DISCONNECT
 
-### OPEN FOR 
+### OPEN FOR
 
 이 구문은 커서변수 (REF CURSOR)를 초기화하고 쿼리를 수행하여 결과 집합을
 결정하는 데 사용된다. 결과 집합의 데이터는 FETCH 문을 사용해서 가져올 수도 있고,
@@ -6679,7 +6673,7 @@ EXECUTE IMMEDIATE dynamic_string 구문은 해당 질의문을 Direct-Execute �
 
 #### 설명
 
-##### cursor_variable_name 
+##### cursor_variable_name
 
 REF CURSOR 타입의 커서 변수의 이름이다.
 
@@ -6688,7 +6682,7 @@ REF CURSOR 타입의 커서 변수의 이름이다.
 select_statement는 실행될 질의문이다. SELECT구문만 사용할 수 있으며 USING 절과
 함께 사용할 수 없다.
 
-##### dynamic_string 
+##### dynamic_string
 
 dynamic_string은 실행될 질의문이다. 문자열 형태의 SELECT 구문만 사용할 수 있다.
 
@@ -6719,12 +6713,12 @@ BEGIN
   LOOP
     FETCH emp_cv INTO emp_rec;
     EXIT WHEN emp_cv%NOTFOUND;
-    PRINTLN('[Name]: ' || emp_rec.e_firstname || emp_rec.e_lastname || 
+    PRINTLN('[Name]: ' || emp_rec.e_firstname || emp_rec.e_lastname ||
             ' [Job Id]: ' || emp_rec.emp_job);
   END LOOP;
   CLOSE emp_cv;
 END;
-/ 
+/
 ```
 
 
@@ -6806,7 +6800,7 @@ BEGIN
 사용자 정의 예외 및 시스템 정의 예외가 발생할 경우 처리할 작업들을 여기에
 정의한다.
 
-### EXCEPTION 
+### EXCEPTION
 
 #### 구문
 
@@ -6832,7 +6826,7 @@ DECLARE
 
 
 
-### RAISE 
+### RAISE
 
 #### 구문
 
@@ -6884,9 +6878,9 @@ END;
 /
 iSQL> EXEC PROC1;
 VALUE ERROR CATCHED. BUT RE-RAISE.        
-[ERR-3116F : Value error 
-0004 :   RAISE VALUE_ERROR; 
-        ^                 ^ 
+[ERR-3116F : Value error
+0004 :   RAISE VALUE_ERROR;
+        ^                 ^
 ]
 ```
 
@@ -6905,12 +6899,12 @@ BEGIN
     WHEN OTHERS THEN
     PRINTLN('EXCEPTION FROM PROC1 CATCHED.');
     PRINTLN('SQLCODE : '||SQLCODE);
-END; 
+END;
 /
 iSQL> EXEC PROC2;
-VALUE ERROR CATCHED. BUT RE-RAISE. 
-EXCEPTION FROM PROC1 CATCHED. 
-SQLCODE : 201071 
+VALUE ERROR CATCHED. BUT RE-RAISE.
+EXCEPTION FROM PROC1 CATCHED.
+SQLCODE : 201071
 Execute success.
 ```
 
@@ -6925,7 +6919,7 @@ Execute success.
 
 ```
 RAISE_APPLICATION_ERROR (
-	errcode INTEGER, 
+	errcode INTEGER,
     errmsg VARCHAR(2047) );
 ```
 
@@ -7076,7 +7070,7 @@ at "SYS.PROC1", line 4]
 
 모든 에러 코드 리스트는 Error Message Reference를 참조한다.
 
-### SQLCODE와 SQLERRM 
+### SQLCODE와 SQLERRM
 
 SQLCODE, SQLERRM은 SQL문 수행 시 발생한 예외에 해당하는 에러코드와 메시지를
 얻어와서 이에 대한 적절한 대응을 하기 위해 Exception Handler에서 사용된다.
@@ -7343,7 +7337,7 @@ Altibase에서 사용할 수 있는 프라그마는 아래와 같다. 각각의 
 
 
 
-### 자율 트랜잭션 프라그마(Autonomous_Transaction Pragma) 
+### 자율 트랜잭션 프라그마(Autonomous_Transaction Pragma)
 
 #### 구문
 
@@ -7702,7 +7696,7 @@ at "SYS.PROC2", line 6]
 
 
 
-### CREATE PACKAGE 
+### CREATE PACKAGE
 
 #### 구문
 
@@ -7776,20 +7770,20 @@ END;
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
-  
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
-  
+
 iSQL> create or replace package pkg1 authid current_user as
      var1 integer;
      procedure sub1;
      end;
      /
 Create success.
- 
+
 iSQL> create or replace package body pkg1 as
      procedure sub1 as
      begin
@@ -7799,7 +7793,7 @@ iSQL> create or replace package body pkg1 as
      end;
      /
 Create success.
- 
+
 iSQL> select package_name , package_type , authid
       from system_.sys_packages_
       where package_name = 'PKG1';
@@ -7821,10 +7815,10 @@ PKG1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 ```
@@ -7858,33 +7852,33 @@ Execute success.
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
- 
- 
+
+
 iSQL> create or replace package pkg1 authid definer as
      var1 integer;
      procedure sub1;
      end;
      /
 Create success.
- 
+
 iSQL> create or replace package body pkg1 as
-    
+
      procedure sub1 as
      begin
      select c1 into var1 from t1;
      println( var1 );
      end;
-    
+
      end;
      /
 Create success.
- 
+
 iSQL> select package_name , package_type , authid
     2 from system_.sys_packages_
     3 where package_name = 'PKG1';
@@ -7906,10 +7900,10 @@ PKG1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 ```
@@ -7981,7 +7975,7 @@ variable, constant, cursor, 및 exception 선언절의 문법은 3장의 "[지�
 ```
 iSQL> select * from system_.sys_packages_ where package_name = 'PKG2';
 No rows selected.
- 
+
 iSQL> create or replace package body pkg2 as
       v1 integer;
       procedure proc1 as
@@ -8092,7 +8086,7 @@ begin
 return 'date';
 end;
 end;
-/ 
+/
 Create success.
 ```
 
@@ -8109,7 +8103,7 @@ Create success.
     서브프로그램이 수행되는 것을 방지하려면 CAST 또는 TO_DATE와 같은 함수로
     데이터 타입을 일치시켜야 한다.
 
-### ALTER PACKAGE 
+### ALTER PACKAGE
 
 #### 구문
 
@@ -8128,20 +8122,20 @@ Create success.
 ```
 iSQL> alter package pkg1 compile;
 Alter success.
- 
+
 iSQL> alter package pkg1 compile specification;
 Alter success.
- 
+
 iSQL> alter package pkg1 compile body;
 Alter success.
- 
+
 iSQL> alter package pkg1 compile package;
 Alter success.
 ```
 
 
 
-### DROP PACKAGE 
+### DROP PACKAGE
 
 #### 구문
 
@@ -8207,7 +8201,7 @@ end;
 
 iSQL> exec pkg1.v1 := pkg1.func1;
 Execute success.
- 
+
 iSQL> exec pkg1.proc1;
 1
 Execute success.
@@ -8412,7 +8406,7 @@ FILE_TYPE은 사용자가 임의로 변수 값을 대입하거나 정보를 읽�
 파일 제어 관련 시스템 프로시저 및 함수들은 인자를 잘못 넘겨 받은 경우
 VALUE_ERROR EXCEPTION을 발생시킨다.
 
-#### FCLOSE 
+#### FCLOSE
 
 열려있는 파일 핸들을 닫고 다시 초기화 하는 기능을 제공하는 저장 프로시저다.
 
@@ -8459,7 +8453,7 @@ END;
 
 
 
-#### FCLOSE_ALL 
+#### FCLOSE_ALL
 
 현재 세션에 열려있는 모든 파일 핸들을 닫는 기능을 제공하는 저장 프로시저다. 저장
 프로시저 수행 중 예외가 발생했을 때에도 파일을 닫기 위해서, 주로 예외 처리 시에
@@ -8622,7 +8616,7 @@ $ cat b.txt
 
 
 
-#### FFLUSH 
+#### FFLUSH
 
 파일에 물리적으로 기록하는 기능을 제공하는 저장 프로시저다.
 
@@ -8685,14 +8679,14 @@ END;
 
 
 
-#### FOPEN 
+#### FOPEN
 
 파일을 열고 파일 핸들을 반환하는 기능을 제공하는 저장 함수이다.
 
 ##### 구문
 
 ```
-FILE_TYPE variable := 
+FILE_TYPE variable :=
 FOPEN (
          location IN VARCHAR(40),
          filename IN VARCHAR(256),
@@ -8747,7 +8741,7 @@ END;
 
 
 
-#### FREMOVE 
+#### FREMOVE
 
 해당 파일을 삭제하는 기능을 제공하는 저장 프로시저다.
 
@@ -8804,7 +8798,7 @@ a.sql       a.txt       schema.sql
 
 
 
-#### FRENAME 
+#### FRENAME
 
 UNIX mv 명령어와 동일한 기능을 가지며, 파일의 이름을 바꾸거나, 다른 위치로
 옮기는 기능을 제공하는 저장 프로시저다.
@@ -8868,7 +8862,7 @@ a.sql       result.txt  schema.sql
 
 
 
-#### GET_LINE 
+#### GET_LINE
 
 해당 파일에서 한 줄씩 읽어오는 기능을 제공하는 저장 프로시저다.
 
@@ -8931,7 +8925,7 @@ Execute success.
 
 
 
-#### IS_OPEN 
+#### IS_OPEN
 
 파일이 열려 있는지 여부를 검사하는 기능을 제공하는 저장 함수다.
 
@@ -8994,7 +8988,7 @@ END;
 
 
 
-#### NEW_LINE 
+#### NEW_LINE
 
 파일에 해당 개수의 개행 문자를 기록하는 기능을 제공하는 저장 프로시저다.
 
@@ -9058,7 +9052,7 @@ $
 
 
 
-#### PUT 
+#### PUT
 
 파일에 문자열을 기록하는 기능을 제공하는 저장 프로시저다.
 
@@ -9117,7 +9111,7 @@ $
 
 
 
-#### PUT_LINE 
+#### PUT_LINE
 
 파일에 문자열을 포함한 한 라인을 기록하는 기능을 제공하는 저장 프로시저다.
 
@@ -9360,7 +9354,7 @@ ID : 6 NAME : MHJEONG
 
 
 
-### TCP 접속 제어 
+### TCP 접속 제어
 
 #### TCP 접속 제어
 
@@ -9417,8 +9411,8 @@ CONNECT_TYPE은 내부적으로 TCP 소켓 관련 정보를 저장하고 있으�
 ##### 구문
 
 ```
-CONNECT_TYPE variable := 
-CLOSEALL_CONNECT(); 
+CONNECT_TYPE variable :=
+CLOSEALL_CONNECT();
 ```
 
 
@@ -9452,9 +9446,9 @@ END;
 ##### 구문
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 CLOSE_CONNECT(
-         coon IN CONNECT_TYPE); 
+         coon IN CONNECT_TYPE);
 ```
 
 
@@ -9497,9 +9491,9 @@ CONNECT_TYPE 접속 핸들의 연결 상태를 확인하는 함수이다.
 ##### 구문
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 IS_CONNECTED(
-         coon IN CONNECT_TYPE); 
+         coon IN CONNECT_TYPE);
 ```
 
 
@@ -9545,12 +9539,12 @@ TCP 소켓을 생성하고, 입력한 IP와 PORT로 원격 서버에 접속하�
 ##### 구문
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 OPEN_CONNECT(
          ip IN VARCHAR(64),
          port IN INTEGER,
          connect_timeout IN INTEGER,
-         tx_buffersize IN INTEGER); 
+         tx_buffersize IN INTEGER);
 ```
 
 
@@ -9598,11 +9592,11 @@ RAW(VARBYTE) 타입의 자료를 접속된 핸들을 통해 네트워크에 전�
 ##### 구문
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 WRITE_RAW (
          coon IN CONNECT_TYPE,
          data IN VARBYTE,
-         length IN INTEGER ); 
+         length IN INTEGER );
 ```
 
 
@@ -9641,14 +9635,14 @@ END;
 
 
 
-#### CHECK_CONNECT_STATE 
+#### CHECK_CONNECT_STATE
 
 현재 연결의 상태와 변경하기 원하는 상태를 비교하여, 상태변이가 가능한지 검사한다.
 
 ##### 구문
 
 ```
-INTEGER variable := 
+INTEGER variable :=
 CHECK_CONNECT_STATE(
   c IN CONNECT_TYPE,
   next_state IN INTEGER );
@@ -9695,7 +9689,7 @@ END;
 ##### 구문
 
 ```
-INTEGER variable := 
+INTEGER variable :=
 CHECK_CONNECT_REPLY(
   protocol_type IN INTEGER,
   reply IN VARCHAR(65534) );
@@ -9746,11 +9740,11 @@ VARCHAR 타입의 자료를 접속된 핸들을 통해 네트워크에 전송하
 ##### 구문
 
 ```
-INTEGER variable := 
-SEND_TEXT( 
+INTEGER variable :=
+SEND_TEXT(
   c IN CONNECT_TYPE,
   data IN VARCHAR(65534),
-  length IN INTEGER ); 
+  length IN INTEGER );
 ```
 
 
@@ -9795,8 +9789,8 @@ END;
 ##### 구문
 
 ```
-VARCHAR variable := 
-RECV_TEXT( 
+VARCHAR variable :=
+RECV_TEXT(
   c IN CONNECT_TYPE,
   length IN INTEGER );
 ```
@@ -9844,7 +9838,7 @@ RAW 타입의 VALUE 데이터를 접속된 핸들을 통해 네트워크에 전�
 ##### 구문
 
 ```
-INTEGER variable := 
+INTEGER variable :=
 WRITE_RAW_VALUE(
   c IN CONNECT_TYPE,
   data IN RAW(65534),
@@ -10031,7 +10025,7 @@ SYSTEM_.SYS_USERS_
 .
 .
 .
-Execute success. 
+Execute success.
 ```
 
 
@@ -10157,7 +10151,7 @@ SET_COLUMN_STATS (
   tabname          VARCHAR(128),
   colname          VARCHAR(128),
   partname         VARCHAR(128) DEFAULT NULL,
-  numdist          BIGINT  DEFAULT NULL, 
+  numdist          BIGINT  DEFAULT NULL,
   numnull          BIGINT  DEFAULT NULL,
   avgclen          BIGINT  DEFAULT NULL,
   minvalue         VARCHAR(48) DEFAULT NULL,
@@ -10289,7 +10283,7 @@ SET_TABLE_STATS (
   ownname         VARCHAR(128),
   tabname         VARCHAR(128),
   partname        VARCHAR(128) DEFAULT NULL,
-  numrow          BIGINT  DEFAULT NULL, 
+  numrow          BIGINT  DEFAULT NULL,
   numblk          BIGINT  DEFAULT NULL,
   avgrlen         BIGINT  DEFAULT NULL,
   onerowreadtime  DOUBLE  DEFAULT NULL,
@@ -10319,7 +10313,7 @@ SET_TABLE_STATS (
 
 ```
 iSQL> EXEC SET_TABLE_STATS('SYS', 'T1', NULL, 1000);
-Execute success. 
+Execute success.
 ```
 
 
@@ -10336,7 +10330,7 @@ GET_COLUMN_STATS (
   tabname          VARCHAR(128),
   colname          VARCHAR(128),
   partname         VARCHAR(128) DEFAULT NULL,
-  numdist          BIGINT, 
+  numdist          BIGINT,
   numnull          BIGINT,
   avgrlen          BIGINT,
   minvalue         VARCHAR(48),
@@ -10463,8 +10457,8 @@ GET_TABLE_STATS (
 ownname          VARCHAR(128),
 tabname          VARCHAR(128),
 partname         VARCHAR(128) DEFAULT NULL,
-numrow            BIGINT, 
-numpage           BIGINT, 
+numrow            BIGINT,
+numpage           BIGINT,
 avgrlen           BIGINT,
 cashedpage       BIGINT,
 onerowreadtime   DOUBLE );
@@ -10572,7 +10566,7 @@ SYSTEM_.SYS_USERS_
 .
 .
 .
-Execute success. 
+Execute success.
 ```
 
 
@@ -10892,7 +10886,7 @@ Altibase에서 제공하는 패키지는 아래와 같다.
 | [UTL_SMTP](#utl_smtp)                                | SMTP 서버로 EMAIL을 전송하도록, SMTP 프로토콜을 수행한다.    |
 | [UTL_TCP](#utl_tcp)                                  | 저장 프로시저에서 TCP 접속을 제어한다.                       |
 
-### DBMS_APPLICATION_INFO 
+### DBMS_APPLICATION_INFO
 
 DBMS_APPLICATION_INFO 패키지는 V\$SESSION 성능 뷰의 값들을 설정하거나 가져와서,
 애플리케이션의 성능을 추적 및 관리한다.
@@ -11411,7 +11405,7 @@ DBMS_CONCURRENT_EXEC 패키지를 사용할 때 제약사항은 다음과 같다
     이용하여 화면에 출력할 수 없다. 출력할 내용은
     \$ALTIBASE_HOME/trc/altibase_qp.log에 저장한다.
 
-#### INITIALIZE 
+#### INITIALIZE
 
 DBMS_CONCURRENT_EXEC 패키지를 초기화하고, 병렬로 처리할 수 있는 프로시저의
 개수를 설정한다. 병렬 처리될 프로시저의 개수를 지정하지 않으면,
@@ -11423,7 +11417,7 @@ CONCURRENT_EXEC_DEGREE_DEFAULT 프로퍼티에 설정된 값이 적용된다. �
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.INITIALIZE (in_degree INTEGER DEFAULT NULL );
 ```
 
@@ -11468,7 +11462,7 @@ DBMS_CONCURRENT_EXEC 패키지에 프로시저 실행을 요청한다.
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.REQUEST(text VARCHAR(8192) );
 ```
 
@@ -11525,7 +11519,7 @@ DBMS_CONCURRENT_EXEC 패키지를 이용하여 병렬로 수행을 요청한 프
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.WAIT_ALL(  );
 ```
 
@@ -11630,7 +11624,7 @@ DBMS_CONCURRENT_EXEC 패키지에서 요청한 프로시저가 동작할 때 발
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.GET_ERROR_COUNT( );
 ```
 
@@ -11682,7 +11676,7 @@ WAIT_ALL 함수를 호출한 다음에 GET_ERROR 함수를 호출한다.
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.GET_ERROR(
      req_id IN INTEGER,
      text OUT VARCHAR(8192),
@@ -11743,7 +11737,7 @@ DBMS_CONCURRENT_EXEC 패키지에서 요청한 ID에 해당하는 프로시저 �
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.PRINT_ERROR(req_id IN INTEGER);
 ```
 
@@ -11797,7 +11791,7 @@ DBMS_CONCURRENT_EXEC 패키지에서 수행을 성공한 마지막 Request_ID를
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.GET_LAST_REQ_ID( );
 ```
 
@@ -11836,7 +11830,7 @@ DBMS_CONCURRENT_EXEC 패키지에서 요청한 프로시저의 실행 구문을 
 ##### 구문
 
 ```
-VARCHAR(8192) variable := 
+VARCHAR(8192) variable :=
   DBMS_CONCURRENT_EXEC.GET_REQ_TEXT(req_id IN INTEGER);
 ```
 
@@ -11885,7 +11879,7 @@ EXEC PRINTLN(DBMS_CONCURRENT_EXEC.GET_REQ_TEXT(:REQ_ID4));
 ##### 구문
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.FINALIZE( );
 ```
 
@@ -11953,7 +11947,7 @@ DBMS_LOCK 관련 프로퍼티를 altibase.properties에 설정할 수 있다.
 ##### 구문
 
 ```
-INTEGER variable := 
+INTEGER variable :=
   DBMS_LOCK.RELEASE(id IN INTEGER);
 ```
 
@@ -11997,12 +11991,12 @@ iSQL> v1 := dbsm_lock.release(0);
 ##### 구문
 
 ```
-INTEGER variable := 
+INTEGER variable :=
   DBMS_LOCK.REQUEST(
-    id IN INTEGER, 
-    lockmode IN INTEGER DEFAULT x_mode, 
-    timeout IN INTEGER DEFAULT MAXWAIT, 
-    release_on_commit IN BOOLEAN DEFAULT FALSE); 
+    id IN INTEGER,
+    lockmode IN INTEGER DEFAULT x_mode,
+    timeout IN INTEGER DEFAULT MAXWAIT,
+    release_on_commit IN BOOLEAN DEFAULT FALSE);
 ```
 
 ##### 파라미터
@@ -12097,7 +12091,7 @@ DBMS_LOCK.SLEEP2(seconds IN INTEGER, microseconds IN INTEGER);
 ### DBMS_METADATA
 
 DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을
-추출하는 기능을 제공한다. 아래는 DBMS_METADATA 패키지를 구성하는 프로시저와 함수를 정리한 표이다. 
+추출하는 기능을 제공한다. 아래는 DBMS_METADATA 패키지를 구성하는 프로시저와 함수를 정리한 표이다.
 
 | 프로시저 및 함수      | 설명                                                   |
 | --------------------- | ------------------------------------------------------ |
@@ -12333,7 +12327,7 @@ exec dbms_metadata.set_transform_param('SQLTERMINATOR', 'T');
 
 #### SHOW_TRANSFORM_PARAMS
 
-현재 설정된 transform parameter 값을 출력한다. 
+현재 설정된 transform parameter 값을 출력한다.
 
 ##### 구문
 
@@ -12638,7 +12632,7 @@ DBMS_RECYCLEBIN 관련 프로퍼티를 altibase.properties에 설정할 수 있�
 
 더 자세한 정보는 *General Reference*를 참고한다.
 
-#### PURGE_USER_RECYCLEBIN 
+#### PURGE_USER_RECYCLEBIN
 
 휴지통에서 관리되고 있는 테이블을 사용자 별로 데이터베이스 시스템에서 완전히
 삭제한다.
@@ -12738,7 +12732,7 @@ EXEC DBMS_RECYCLEBIN.PURGE_ORIGINAL_NAME('TABLE1');
 
 
 
-### DBMS_SQL 
+### DBMS_SQL
 
 DBMS_SQL 패키지는 동적 SQL을 사용하는 프로시저와 함수를 아래와 같이 제공한다.
 
@@ -12815,7 +12809,7 @@ Execute success.
 
 
 
-#### CLOSE_CURSOR 
+#### CLOSE_CURSOR
 
 커서를 닫는다. 커서가 닫히지 않은 경우, 세션이 종료될 때 자동으로 닫힌다.
 
@@ -12860,12 +12854,12 @@ Create success.
 
 iSQL> exec proc1;
 0
-Execute success. 
+Execute success.
 ```
 
 
 
-#### COLUMN_VALUE 
+#### COLUMN_VALUE
 
 커서에서 바인드 변수에 해당하는 칼럼의 값을 가져온다. SELECT 구문에서만
 사용한다.
@@ -12928,7 +12922,7 @@ Execute success.
 
 
 
-#### DEFINE_COLUMN 
+#### DEFINE_COLUMN
 
 커서에서 FETCH될 칼럼의 타입을 정의한다. SELECT 구문에서만 사용한다.
 
@@ -13290,7 +13284,7 @@ DBMS_SQL_PLAN_CACHE 패키지는 특정 실행 계획(Execution Plan)을 SQL Pla
 
 #### KEEP_PLAN
 
-입력 파라미터로 받은 실행 계획을 SQL Plan Cache 교체 대상에서 제외하고 SQL Plan Cache에 KEEP 상태로 유지한다. 단, 실행 계획이 리빌드(Rebuild)등으로 유효하지 않은 상태(Invalid)가 되면 UNKEEP 상태로 변경한다. 
+입력 파라미터로 받은 실행 계획을 SQL Plan Cache 교체 대상에서 제외하고 SQL Plan Cache에 KEEP 상태로 유지한다. 단, 실행 계획이 리빌드(Rebuild)등으로 유효하지 않은 상태(Invalid)가 되면 UNKEEP 상태로 변경한다.
 실행 계획을 KEEP 상태로 유지하려는 SQL 문의 SQL_TEXT_ID는 V$SQL_PLAN_CACHE_SQLTEXT 에서 SQL_TEXT_ID, SQL_TEXT 컬럼으로 확인할 수 있다. 이 SQL_TEXT_ID를 Parent PCO로 갖는 모든 Child PCO 모두 KEEP 상태를 유지한다.
 Parent PCO의 KEEP 상태는 V$SQL_PLAN_CACHE_SQLTEXT 성능 뷰 PLAN_CACHE_KEEP 컬럼으로 확인할 수 있으며 Child PCO 경우 V$SQL_PLAN_CACHE_PCO 성능 뷰 PLAN_CACHE_KEEP 컬럼으로 확인할 수 있다.
 실행 계획의 KEEP 상태를 해제하려면 UNKEEP_PLAN 저장 프로시저를 사용한다.
@@ -13378,9 +13372,7 @@ DBMS_STATS 패키지는 통계 정보를 조회 및 변경할 수 있는 인터�
 저장 프로시저 및 함수를 이용해서 통계 정보를 구축하고 갱신할 수 있으며, 개별의
 칼럼, 인덱스, 테이블 또는 시스템 별로 통계 자료를 설정하거나 삭제할 수 있다.
 
-DBMS_STATS 패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다. 각
-프로시저와 함수에 대한 자세한 설명은 Stored Procedures Manual의 DBMS Stats를
-참조하기 바란다.
+DBMS_STATS 패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다.
 
 | 프로시저 및 함수      | 설명                                                         |
 |-----------------------|--------------------------------------------------------------|
@@ -13453,7 +13445,7 @@ SET_PRIMARY_KEY_STATS (
 ```
 iSQL> EXEC DBMS_STATS.SET_PRIMARY_KEY_STATS( 'SYS', 'T1', 1, 2, 3, 4, 5, 6, TRUE );
 __SYS_IDX_ID_148 c integer;
-Execute success. 
+Execute success.
 ```
 
 
@@ -13655,7 +13647,7 @@ BEGIN
   INSERT INTO TMP VALUES ('UPDATE');
  END IF;
 END;
-/ 
+/
 
 iSQL> UPDATE T1 SET C1 = 2;
 1 row updated.
@@ -13732,7 +13724,7 @@ OTHER
 2 rows selected.
 ```
 
- 
+
 
 ### DBMS_UTILITY
 
@@ -13752,7 +13744,7 @@ DBMS_UTILITY 패키지는 다양한 유틸리티 서브프로그램을 제공한
 ##### 구문
 
 ```
-VARCHAR variable := DBMS_UTILITY.FORMAT_CALL_STACK; 
+VARCHAR variable := DBMS_UTILITY.FORMAT_CALL_STACK;
 ```
 
 
@@ -13794,7 +13786,7 @@ Execute success.
 
 
 
-#### FORMAT_ERROR_BACKTRACE 
+#### FORMAT_ERROR_BACKTRACE
 
 예외가 발생한 시점의 스택 정보를 문자열로 가져오는 함수이다. 예외가 발생하지
 않았다면 NULL 값을 가져온다.
@@ -13802,7 +13794,7 @@ Execute success.
 ##### 구문
 
 ```
-VARCHAR variable := DBMS_UTILITY.FORMAT_ERROR_BACKTRACE; 
+VARCHAR variable := DBMS_UTILITY.FORMAT_ERROR_BACKTRACE;
 ```
 
 
@@ -13838,10 +13830,10 @@ end;
 Create success.
 
 iSQL> exec proc2;
-ERR-21011 : Invalid literal 
+ERR-21011 : Invalid literal
 at "SYS.PROC1", line 5
 at "SYS.PROC2", line 2
-Execute success. 
+Execute success.
 ```
 
 
@@ -13930,8 +13922,8 @@ UTL_COPYSWAP을 사용하기 위한 권한, 세션 프로퍼티, 시스템 프�
 
 ```
 UTL_COPYSWAP.CHECK_PRECONDITION(
-  source_user_name IN VARCHAR(128), 
-  source_table_name IN VARCHAR(128) ); 
+  source_user_name IN VARCHAR(128),
+  source_table_name IN VARCHAR(128) );
 ```
 
 ##### 파라미터
@@ -13990,7 +13982,7 @@ UTL_COPYSWAP.COPY_TABLE_SCHEMA(
   target_user_name IN VARCHAR(128),
   target_table_name IN VARCHAR(128),
   source_user_name IN VARCHAR(128),
-  source_table_name IN VARCHAR(128) ); 
+  source_table_name IN VARCHAR(128) );
 ```
 
 
@@ -14045,7 +14037,7 @@ Replication을 사용하여 데이터를 복제하는 프로시저이다.
 ##### 구문
 
 ```
-UTL_COPYSWAP.REPLICATE_TABLE( 
+UTL_COPYSWAP.REPLICATE_TABLE(
   replication_name IN VARCHAR(35),
   target_user_name IN VARCHAR(128),
   target_table_name IN VARCHAR(128),
@@ -14261,7 +14253,7 @@ partition by range (i1)
 Create success.
 
 iSQL> alter table t1 add constraint pk_t1 primary key(i1) using index local
-( 
+(
     partition  pk_p1 on p1 tablespace SYS_TBS_DISK_DATA,
     partition  pk_p2 on p2 tablespace SYS_TBS_DISK_DATA,
     partition  pk_p3 on p3 tablespace SYS_TBS_DISK_DATA
@@ -14570,9 +14562,9 @@ FFLUSH는 다음의 시스템 정의 예외들을 발생시킬 수 있다.
 
 ```
 UTL_FILE.FOPEN(
-  location IN VARCHAR(40), 
-  filename IN VARCHAR(256), 
-  open_mode IN VARCHAR(4), 
+  location IN VARCHAR(40),
+  filename IN VARCHAR(256),
+  open_mode IN VARCHAR(4),
   max_linesize IN INTEGER DEFAULT NULL);
 ```
 
@@ -14814,7 +14806,7 @@ PUT은 다음의 시스템 정의 예외들을 발생시킬 수 있다.
 ```
 UTL_FILE.PUT_LINE(
   file IN FILE_TYPE,
-  buffer IN VARCHAR(32768) 
+  buffer IN VARCHAR(32768)
   autoflush IN BOOLEAN DEFAULT FALSE);
 ```
 
@@ -14866,7 +14858,7 @@ INTEGER 타입의 데이터를 RAW 타입으로 변환하여 반환하는 함수
 
 ```
 UTL_RAW.CAST_FROM_BINARY_INTEGER(
-  n IN INTEGER, 
+  n IN INTEGER,
   endianess IN INTEGER DEFAULT 1);
 ```
 
@@ -14936,7 +14928,7 @@ iSQL> select utl_raw.cast_from_number(1.123456789) from dual;
 CAST_FROM_NUMBER(1.123456789)
 ------------------------------------------------------------------------------------
 07C1010C22384E5A
-1 row selected. 
+1 row selected.
 ```
 
 
@@ -14949,7 +14941,7 @@ RAW 타입의 데이터를 INTEGER 타입으로 변환하여 반환하는 함수
 
 ```
 UTL_RAW.CAST_TO_BINARY_INTEGER(
-  r IN RAW(8), 
+  r IN RAW(8),
   endianess IN INTEGER DEFAULT 1);
 ```
 
@@ -14976,7 +14968,7 @@ RAW 타입의 40E20100를 INTEGER로 변환하여 출력한다.
 
 ```
 iSQL> select utl_raw.cast_to_binary_integer('40E20100') from dual;
-CAST_TO_BINARY_INTEGER('40E20100') 
+CAST_TO_BINARY_INTEGER('40E20100')
 -------------------------------------
 123456      
 1 row selected.
@@ -15016,7 +15008,7 @@ RAW 타입의 07C1010C22384E5A 데이터를 NUMBER로 변환하여 출력한다.
 
 ```
 iSQL> select utl_raw.cast_to_number('07C1010C22384E5A') from dual;
-CAST_TO_NUMBER('07C1010C22384E5A') 
+CAST_TO_NUMBER('07C1010C22384E5A')
 -------------------------------------
 1.12345679  
 1 row selected.
@@ -15112,17 +15104,17 @@ altibase
 
 ```
 UTL_RAW.CONCAT(
-  r1 IN RAW(32767) DEFAULT NULL, 
-  r2 IN RAW(32767) DEFAULT NULL, 
-  r3 IN RAW(32767) DEFAULT NULL, 
-  r4 IN RAW(32767) DEFAULT NULL, 
-  r5 IN RAW(32767) DEFAULT NULL, 
-  r6 IN RAW(32767) DEFAULT NULL, 
-  r7 IN RAW(32767) DEFAULT NULL, 
-  r8 IN RAW(32767) DEFAULT NULL, 
-  r9 IN RAW(32767) DEFAULT NULL, 
-  r10 IN RAW(32767) DEFAULT NULL, 
-  r11 IN RAW(32767) DEFAULT NULL, 
+  r1 IN RAW(32767) DEFAULT NULL,
+  r2 IN RAW(32767) DEFAULT NULL,
+  r3 IN RAW(32767) DEFAULT NULL,
+  r4 IN RAW(32767) DEFAULT NULL,
+  r5 IN RAW(32767) DEFAULT NULL,
+  r6 IN RAW(32767) DEFAULT NULL,
+  r7 IN RAW(32767) DEFAULT NULL,
+  r8 IN RAW(32767) DEFAULT NULL,
+  r9 IN RAW(32767) DEFAULT NULL,
+  r10 IN RAW(32767) DEFAULT NULL,
+  r11 IN RAW(32767) DEFAULT NULL,
   r12 IN RAW(32767) DEFAULT NULL);
 ```
 
@@ -15188,10 +15180,10 @@ UTL_RAW.LENGTH(r IN RAW(32767));
 
 ```
 iSQL> select utl_raw.length(utl_raw.cast_to_raw('altibase')) from dual;
-LENGTH(UTL_RAW.CAST_TO_RAW('altibase')) 
+LENGTH(UTL_RAW.CAST_TO_RAW('altibase'))
 ------------------------------------------
 12          
-1 row selected. 
+1 row selected.
 ```
 
 
@@ -15204,8 +15196,8 @@ LENGTH(UTL_RAW.CAST_TO_RAW('altibase'))
 
 ```
 UTL_RAW.SUBSTR(
-  r IN RAW(32767), 
-  pos IN INTEGER, 
+  r IN RAW(32767),
+  pos IN INTEGER,
   len IN INTEGER);
 ```
 
@@ -15258,7 +15250,7 @@ UTL_SMTP 패키지를 구성하는 프로시저와 함수는 아래의 표와 �
 | CLOSE_DATA       | SMTP 프로토콜의 데이터 전송 종료인 \<CRLF> . \<CRLF>를 전송한다. |
 | QUIT             | SMTP 프로토콜의 QUIT 명령어로 연결을 종료한다.               |
 
- 
+
 
 #### OPEN_CONNECTION
 
@@ -15305,7 +15297,7 @@ END;
 /
 ```
 
- 
+
 
 #### HELO
 
@@ -15354,7 +15346,7 @@ END;
 /
 ```
 
- 
+
 
 #### MAIL
 
@@ -15406,7 +15398,7 @@ END;
 /
 ```
 
- 
+
 
 #### RCPT
 
@@ -15459,7 +15451,7 @@ END;
 /
 ```
 
- 
+
 
 #### OPEN_DATA
 
@@ -15511,7 +15503,7 @@ END;
 /
 ```
 
- 
+
 
 #### WRITE_DATA
 
@@ -15563,7 +15555,7 @@ END;
 /
 ```
 
- 
+
 
 #### WRITE_RAW_DATA
 
@@ -15667,7 +15659,7 @@ END;
 /
 ```
 
- 
+
 
 #### QUIT
 
@@ -15866,16 +15858,16 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 ```
 UTL_TCP.OPEN_CONNECTION(
-  remote_host IN VARCHAR(64), 
-  remote_port IN INTEGER, 
-  local_host IN VARCHAR(64) DEFAULT NULL, 
-  local_port IN INTEGER DEFAULT NULL, 
-  in_buffer_size IN INTEGER DEF DEFAULT NULL, 
-  out_buffer_size IN INTEGER DEF DEFAULT NULL, 
-  charset IN VARCHAR(16) DEFAULT NULL, 
-  newline IN VARCHAR(2) DEFAULT CRLF, 
-  tx_timeout IN INTEGER DEF DEFAULT NULL, 
-  wallet_path IN VARCHAR(256) DEFAULT NULL, 
+  remote_host IN VARCHAR(64),
+  remote_port IN INTEGER,
+  local_host IN VARCHAR(64) DEFAULT NULL,
+  local_port IN INTEGER DEFAULT NULL,
+  in_buffer_size IN INTEGER DEF DEFAULT NULL,
+  out_buffer_size IN INTEGER DEF DEFAULT NULL,
+  charset IN VARCHAR(16) DEFAULT NULL,
+  newline IN VARCHAR(2) DEFAULT CRLF,
+  tx_timeout IN INTEGER DEF DEFAULT NULL,
+  wallet_path IN VARCHAR(256) DEFAULT NULL,
   wallet_password IN VARCHAR DEFAULT NULL));
 ```
 
@@ -15932,8 +15924,8 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 ```
 UTL_TCP.WRITE_RAW(
-  c IN CONNECT_TYPE, 
-  data IN RAW(65534), 
+  c IN CONNECT_TYPE,
+  data IN RAW(65534),
   len IN INTEGER DEFAULT NULL);
 ```
 
@@ -16008,12 +16000,12 @@ Alter success.
 iSQL> create or replace procedure dumpReplScript
 (p1 varchar(40))
 as
-cursor c1 is 
-select  system_.sys_replications_.replication_name, 
+cursor c1 is
+select  system_.sys_replications_.replication_name,
 system_.sys_replications_.host_ip,
 system_.sys_replications_.port_no,
 system_.SYS_REPLICATIONS_.ITEM_COUNT
-from system_.sys_replications_ 
+from system_.sys_replications_
 where system_.sys_replications_.replication_name = UPPER(P1);
 r_name varchar(40);
 r_ip varchar(40);
@@ -16024,11 +16016,11 @@ r_local_table_name varchar(40);
 r_remote_user_name varchar(40);
 r_remote_table_name varchar(40);
 cursor c2 is
-select system_.SYS_REPL_ITEMS_.LOCAL_USER_NAME,	
+select system_.SYS_REPL_ITEMS_.LOCAL_USER_NAME,
 system_.SYS_REPL_ITEMS_.LOCAL_TABLE_NAME,
 system_.SYS_REPL_ITEMS_.REMOTE_USER_NAME,
-system_.SYS_REPL_ITEMS_.REMOTE_TABLE_NAME 
-from system_.sys_repl_items_ 
+system_.SYS_REPL_ITEMS_.REMOTE_TABLE_NAME
+from system_.sys_repl_items_
 where system_.SYS_REPL_ITEMS_.replication_name = r_name;
 begin
 open c1;
@@ -16046,9 +16038,9 @@ SYSTEM_.PRINT(r_port);
 SYSTEM_.PRINTLN(' ');
 open c2;
         for i in 1 .. r_item_cnt loop
-fetch c2 into r_local_user_name, 
-r_local_table_name, 
-r_remote_user_name, 
+fetch c2 into r_local_user_name,
+r_local_table_name,
+r_remote_user_name,
 r_remote_table_name;
 SYSTEM_.PRINT(' FROM ');
 SYSTEM_.PRINT(r_local_user_name);
@@ -16078,7 +16070,7 @@ dumpReplScript 저장 프로시저를 실행한 출력 결과이다.
 ```
 iSQL> exec dumpReplScript('rep1');
 ----------------------------------------------------------
- CREATE REPLICATION REP1 WITH '192.168.1.60',25524 
+ CREATE REPLICATION REP1 WITH '192.168.1.60',25524
  FROM SYS.DEPARTMENTS TO SYS.DEPARTMENTS,
  FROM SYS.EMPLOYEES TO SYS.EMPLOYEES;
 ----------------------------------------------------------
@@ -16107,8 +16099,8 @@ r_remote_user_name varchar(40);
 r_remote_table_name varchar(40);
 cursor c2 is select system_.SYS_REPL_ITEMS_.LOCAL_USER_NAME, system_.SYS_REPL_ITEMS_.LOCAL_TABLE_NAME, system_.SYS_REPL_ITEMS_.REMOTE_USER_NAME
 system_.SYS_REPL_ITEMS_.REMOTE_TABLE_NAME
-from system_.sys_repl_items_ 
-where system_.SYS_REPL_ITEMS_.replication_name 
+from system_.sys_repl_items_
+where system_.SYS_REPL_ITEMS_.replication_name
 = r_name;
 begin
 open c1;
@@ -16180,15 +16172,15 @@ EXECUTE success.
 어떤 사용자의 테이블을 출력하기 위한 SHOWTABLES 저장 프로시저를 생성한다.
 
 ```
-create or replace procedure SHOWTABLES(p1 in varchar(40)) 
+create or replace procedure SHOWTABLES(p1 in varchar(40))
 as
-cursor c1 is select SYSTEM_.SYS_TABLES_.TABLE_NAME 
-from SYSTEM_.SYS_TABLES_ 
-where SYSTEM_.SYS_TABLES_.USER_ID = 
-(select SYSTEM_.SYS_USERS_.USER_ID 
-from SYSTEM_.SYS_USERS_ 
-where SYSTEM_.SYS_USERS_.USER_NAME = 
-upper(p1) 
+cursor c1 is select SYSTEM_.SYS_TABLES_.TABLE_NAME
+from SYSTEM_.SYS_TABLES_
+where SYSTEM_.SYS_TABLES_.USER_ID =
+(select SYSTEM_.SYS_USERS_.USER_ID
+from SYSTEM_.SYS_USERS_
+where SYSTEM_.SYS_USERS_.USER_NAME =
+upper(p1)
 AND system_.SYS_TABLES_.TABLE_TYPE = 'T');
 v1 CHAR(40);     
 begin
@@ -16233,15 +16225,15 @@ Execute success.
 특정 프로시저의 내용을 출력하는 showProcBody 저장 프로시저를 생성한다.
 
 ```
-create or replace procedure showProcBody(p1 in varchar(40)) 
+create or replace procedure showProcBody(p1 in varchar(40))
 as
 cursor c1 is
     select system_.sys_proc_parse_.parse
     from system_.sys_proc_parse_
     where system_.sys_proc_parse_.proc_oid = (
     select SYSTEM_.sys_procedures_.proc_oid
-    from system_.sys_procedures_ 
-    where SYSTEM_.sys_procedures_.proc_name = upper(p1)) 
+    from system_.sys_procedures_
+    where SYSTEM_.sys_procedures_.proc_name = upper(p1))
 order by system_.sys_proc_parse_.seq_no;
 v1 varchar(4000);
 begin
@@ -16270,7 +16262,7 @@ select system_.sys_proc_parse_.proc_oid, system_.sys_proc_parse_.parse
 from system_.sys_proc_parse_
 where system_.sys_proc_parse_.proc_oid = (
 select SYSTEM_.sys_procedures_.proc_oid
-from system_.sys_procedures_ 
+from system_.sys_procedures_
 where SYSTEM_.sys_procedures_.proc_name = upper('proc1'));
 PROC_OID             
 -----------------------
@@ -16336,7 +16328,7 @@ BEGIN
 END;
 /
 
-iSQL> EXEC OPENCURSOR2(4); 
+iSQL> EXEC OPENCURSOR2(4);
 C1
 --------------
 1
@@ -16382,12 +16374,12 @@ C1
         return SQL_ERROR;
     }
 
-   if (SQL_ERROR == 
+   if (SQL_ERROR ==
 SQLBindCol(stmt, 1, SQL_C_SLONG, &c1, 0, NULL))
    {
      printf("ERROR: Bind 1 Column\n");
    }
-   
+
    while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)
     {
         if ( rc != SQL_SUCCESS )
@@ -16399,14 +16391,14 @@ SQLBindCol(stmt, 1, SQL_C_SLONG, &c1, 0, NULL))
     }
 
     SQLFreeStmt(stmt, SQL_DROP);
-    
-    .... 
-   	
+
+    ....
+
 $ refcursor
 ===========================================================
- Result Set : [ 1 ] 
- Result Set : [ 2 ] 
- Result Set : [ 3 ] 
+ Result Set : [ 1 ]
+ Result Set : [ 2 ]
+ Result Set : [ 3 ]
  Result Set : [ 4 ]
 ```
 
@@ -16595,4 +16587,3 @@ helo 127.0.0.1
 quit
 2xx ...
 ```
-

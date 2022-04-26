@@ -73,16 +73,18 @@ This manual contains proprietary information of Altibase Corporation; it is prov
 
 **Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: http://support.altibase.com/en/
+Customer Service Portal: <http://support.altibase.com/en/>
 
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+Homepage: [http://www.altibase.com]
 
 Preface
 ----
 
-This manual describes Adapter for JDBC, an utility replicating modified data in Altibase to other database supporting JDBC.
+This manual describes Migration Center that either directly or indirectly copies generally compatible database objects and data.
 
 #### Audience
 
@@ -168,16 +170,16 @@ The code examples explain SQL statements, stored procedures, iSQL statements, an
 
 The following table describes the printing conventions used in the code examples.
 
-| Rules            | Meaning                                                                                        | Example                                                                                                 |
-| ---------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [ ]              | Indicates an optional item                                                                     | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                                                                 |
-| { }              | Indicates a mandatory field for which one or more items must be selected.                      | { ENABLE \| DISABLE \| COMPILE }                                                                        |
-| \|               | A delimiter between optional or mandatory arguments.                                           | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                       |
-| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted.        | SQL> SELECT ename FROM employee; ENAME ----------------------- SWNO HJNO HSCHOI . . . 20 rows selected. |
-| Other Symbols    | Symbols other than those shown above are part of the actual code.Other Symbols                 | EXEC :p1 := 1; acc NUMBER(11,2);Symbols other than those shown above are part of the actual code.       |
-| Italics          | Statement elements in italics indicate variables and special values specified by the user.     | SELECT * FROM *table_name*; CONNECT *userID*/*password*;                                                |
-| Lower case words | Indicate program elements set by the user, such as table names, column names, file names, etc. | SELECT ename FROM employee;                                                                             |
-| Upper case words | Keywords and all elements provided by the system appear in upper case.                         | DESC SYSTEM_.SYS_INDICES_;                                                                              |
+| Rules            | Meaning                                                      | Example                                                      |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]              | Indicates an optional item                                   | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }              | Indicates a mandatory field for which one or more items must be selected. | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|               | A delimiter between optional or mandatory arguments.         | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted. | SQL\> SELECT ename FROM employee;<br/> ENAME<br/>  -----------------------<br/> SWNO<br/>  HJNO<br/>  HSCHOI<br/>  .<br/> .<br/> .<br/> 20 rows selected. |
+| Other Symbols    | Symbols other than those shown above are part of the actual code. | EXEC :p1 := 1; acc NUMBER(11,2)                              |
+| Italics          | Statement elements in italics indicate variables and special values specified by the user. | SELECT \* FROM *table_name*; <br/>CONNECT *userID*/*password*; |
+| Lower case words | Indicate program elements set by the user, such as table names, column names, file names, etc. | SELECT ename FROM employee;                                  |
+| Upper case words | Keywords and all elements provided by the system appear in upper case. | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### Related Documentations
 
@@ -215,7 +217,7 @@ Include the following information:
 - Any comments about the manual
 - Your name, address, and phone number
 
-If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact Altibase's Support Portal (http://altibase.com/support-center/en/).
+If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
 Thank you. We always welcome your feedbacks and suggestions.
 

@@ -18,7 +18,7 @@
     - [Performance Properties](#performance-properties)
     - [Session Properties](#session-properties)
     - [Time-out Properties](#time-out-properties)
-    - [Tranaction Properties](#tranaction-properties)
+    - [Transaction Properties](#transaction-properties)
     - [Backup and Recovery Properties](#backup-and-recovery-properties)
     - [Replication Properties](#replication-properties)
     - [Network and Security Properties](#network-and-security-properties)
@@ -123,14 +123,14 @@ The following describes the conventions used in the code examples:
 
 | Rules            | Meaning                                                      | Example                                                      |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ ]              | Indicates optional fields                                    | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
-| { }              | Indicates mandatory fields. Indicates to make sure to select at least one. | { ENABLE \| DISABLE \| COMPILE }                             |
-| \|               | Argument indicating optional or mandatory fields             | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .            | Repetition of the previous argument. Omit the example codes. | SQL\> SELECT ename FROM employee; <br/>ENAME<br/> ------------------------<br/> SWNO<br/> HJNO<br/> HSCHOI<br/> .<br/> .<br/> . <br/>20 rows selected. |
-| Other symbols    | Other symbols                                                | EXEC :p1 := 1; acc NUMBER(11,2);                             |
-| Italicized words | Indicates variable or value taht must be provided by user    | SELECT \* FROM *table_name*;<br/> CONNECT *userID*/*password*; |
-| Lower case words | Problem elements provided by the user such as table names, colum names, file names, etc | SELECT ename FROM employee;                                  |
-| Upper case words | Elements provided by the system or keyword appeared in the syntax | DESC SYSTEM_.SYS_INDICES_;                                   |
+| [ ]              | Indicates an optional item                                   | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }              | Indicates a mandatory field for which one or more items must be selected. | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|               | A delimiter between optional or mandatory arguments.         | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted. | SQL\> SELECT ename FROM employee;<br/> ENAME<br/>  -----------------------<br/> SWNO<br/>  HJNO<br/>  HSCHOI<br/>  .<br/> .<br/> .<br/> 20 rows selected. |
+| Other Symbols    | Symbols other than those shown above are part of the actual code. | EXEC :p1 := 1; acc NUMBER(11,2)                              |
+| Italics          | Statement elements in italics indicate variables and special values specified by the user. | SELECT \* FROM *table_name*; <br/>CONNECT *userID*/*password*; |
+| Lower case words | Indicate program elements set by the user, such as table names, column names, file names, etc. | SELECT ename FROM employee;                                  |
+| Upper case words | Keywords and all elements provided by the system appear in upper case. | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### Related Documents
 
@@ -151,7 +151,7 @@ Include the following information:
 - Any comments about the manual
 - Your name, address, and phone number
 
-If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact Altibase's Support Portal (http://altibase.com/support-center/en/).
+If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
 Thank you. We always welcome your feedback and suggestions.
 
@@ -2867,8 +2867,8 @@ The values in the “Alter Level” column have the following meaning:
       	<td>VOLATILE_MAX_DB_SIZE</td>
       </tr>
       <tr>
-      	<td rowspan="101">P</td>
-          <td rowspan="101"></td>
+      	<td rowspan="102">P</td>
+          <td rowspan="102"></td>
           <td>AGER_WAIT_MAXIMUM</td>
           <td rowspan="2"></td>
       </tr>
@@ -6123,8 +6123,6 @@ This specifies as a percentage the number of page frames of a temporary table on
 
 For example, when the number of temporary page frames is 100 and this value is set to 1, the number of buckets and frames are the same. If this value is set to 2, the number of buckets is 50, half the number of frames, whereas if this value is set to 100, there is only one bucket.
 
-For more detailed information about temporary tables, please refer to the TEMP_MAX_PAGE_COUNT property. 
-
 #### TEMP_PAGE_CHUNK_COUNT 
 
 ##### Data Type
@@ -8637,32 +8635,6 @@ This property specifies the lock level for tablespaces.
 
 The value of this property can be changed using the ALTER SYSTEM or the ALTER SESSION statement while Altibase is running. However, it can only be changed in the absence of activated transactions
 
-#### TEMP_MAX_PAGE_COUNT
-
-##### Data Type
-
-Unsigned Integer
-
-##### Default Value
-
-524288
-
-##### Attributes
-
-Read-Write, Single Value
-
-##### Range
-
-[1024, 2<sup>32</sup>-1]
-
-##### Description
-
-This property specifies the maximum number of pages that one temporary table<sup>8</sup> can use. Since information about the pages allocated to temporary tables is managed within the space specified for the TOTAL_WA_SIZE property, the space available for the server to perform sorting or hashing operations decreases as the value of this property increases.
-
-[<sup>8</sup>] Temporary table: a table which is internally created in the temporary tablespace on the disk for the storage of intermediate results while the server processes a query; the temporary table differs from the user temporary table.
-
-The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running.
-
 #### TEMP_STATS_WATCH_TIME
 
 ##### Data Type
@@ -8683,7 +8655,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the standard time to be registered for statistical information. Among the operations using temporary tables, operations that take longer than the value specified for this property are registered for statistical information. For further information about temporary tables, please refer to the description of the TEMP_MAX_PAGE_COUNT property.
+This property specifies the standard time to be registered for statistical information. Among the operations using temporary tables, operations that take longer than the value specified for this property are registered for statistical information.
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
@@ -8881,7 +8853,7 @@ Read-Write, Single Value
 
 This property specifies the maximum size of memory available for allocation for sorting or hashing operations
 
-The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. The response to a request for alteration is immediately returned, however, the altered value is not actually applied to the server until the temporary table in use is nonexistent. For further information about temporary tables, please refer to the description of the TEMP_MAX_PAGE_COUNT property.
+The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running. The response to a request for alteration is immediately returned, however, the altered value is not actually applied to the server until the temporary table in use is nonexistent.
 
 #### TOUCH_TIME_INTERVAL (Unit: second)
 
@@ -10043,7 +10015,7 @@ Read-Only, Single Value
 
 When using the Two-Phase Commit Protocol, this property specifies the number of seconds to wait before terminating an entire transaction that has taken a long time and is thus in IN_DOUBT state.
 
-### Tranaction Properties
+### Transaction Properties
 
 #### AUTO_COMMIT
 
@@ -11968,7 +11940,7 @@ Unsigned Integer
 
 ##### Default Value
 
-1
+2
 
 ##### Attributes
 
@@ -11984,7 +11956,7 @@ Replication receivers use transactions when copying data and create respective t
 
 If the number of transactions existing in pools falls short, the replication receiver will create new transactions and use them. The transactions thus created are returned to pools after use; if the number of transactions existing at that time is larger than the value specified in this property, the transactions are immediately freed, instead of being returned. 
 
-If set to an excessively large value, it can constrain the number of normal transactions; therefore, an appropriate number of transactions must be specified. This property permits the maximum value of 232 -1; however, the actual maximum value is identical to the value specified in the property of TRANSACTION_TABLE_SIZE. If the user specifies this value to be larger than the value of TRANSACTION_TABLE_SIZE, the value of this property will be internally set as the value of the TRANSACTION_TABLE_SIZE. 
+If set to an excessively large value, it can constrain the number of normal transactions; therefore, an appropriate number of transactions must be specified. This property permits the maximum value of 2³²-1; however, the actual maximum value is identical to the value specified in the property of TRANSACTION_TABLE_SIZE. If the user specifies this value to be larger than the value of TRANSACTION_TABLE_SIZE, the value of this property will be internally set as the value of the TRANSACTION_TABLE_SIZE. 
 
 This property value can be changed while Altibase is running; however, transaction pools are initialized at the creation of replication receiver threads and replication must be restarted for the modified property values to be applied. 
 

@@ -3078,8 +3078,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>VOLATILE_MAX_DB_SIZE</td>
       </tr>
       <tr>
-      	<td rowspan="101">P</td>
-          <td rowspan="101"></td>
+      	<td rowspan="102">P</td>
+          <td rowspan="102"></td>
           <td>AGER_WAIT_MAXIMUM</td>
           <td rowspan="2"></td>
       </tr>
@@ -3469,7 +3469,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
        <tr>
       	<td>TRX_UPDATE_MAX_LOGSIZE</td>
           <td>BOTH</td>
-      </tr>
+       </tr>
       <tr>
           <td rowspan="42">S</td>
           <td rowspan="31">일반</td>
@@ -4391,7 +4391,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>PSM_VARCHAR_DEFAULT_PRECISION</td>
       </tr>
       <tr>
-      	<td>QUERY_STACK_SIZE</td>
           <td>BOTH</td>
       </tr>
       <tr>
@@ -9509,18 +9508,17 @@ Unsigned Integer
 
 ##### 속성
 
-변경 가능, 단일 값
+읽기 전용, 단일 값
 
 ##### 값의 범위
 
-[1, 512]
+[1, 16384]
 
 ##### 설명
 
-서버 구동시 생성되는 트랜잭션 세그먼트(언두 세그먼트와 TSS 세그먼트)의 개수를
-나타낸다.
+언두 테이블스페이스에서 관리하는 트랜잭션 세그먼트의 개수를 나타낸다. 트랜잭션 세그먼트에는 TSS 세그먼트와 언두 세그먼트가 있으며 기본값 256은 TSS 세그먼트 256개, 언두 세그먼트 256개를 의미한다. 트랜잭션 세그먼트는 Altibase 서버 구동 시 생성된다. 트랜잭션 수행 중 트랜잭션 세그먼트가 부족한 경우 altibase_boot.log 에 "TRANSACTION_SEGMENT_COUNT is full" 로그를 남기고 사용 가능한 트랜잭션 세그먼트를 할당받을 때까지 트랜잭션은 대기한다. 
 
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+Altibase 분산 데이터베이스 시스템에서 이 프로퍼티 값을 이전 값보다 작게 설정하기를 원하면 분산 트랜잭션을 모두 종료한 후 Altibase 서버를 중지해야 한다. 정리되지 않은 분산 트랜잭션이 있을 때 현재 값보다 작게 설정하고 Altibase 서버를 재시작한 경우 기존 언두 테이블스페이스의 공간에 접근할 수 없어 Altibase 서버 구동이 실패한다.
 
 #### TRX_UPDATE_MAX_LOGSIZE (단위 : 바이트)
 
@@ -11620,9 +11618,17 @@ Unsigned Integer
 
 ##### 설명
 
-DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 이중화 지역, 원격 서버 모두 취소된다.
-DDL 복제를 수행하는 이중화 지역서버를 기준으로 Timeout 값이 측정된다.
+DDL 문장 실행시간이 이 프로퍼티에서 설정한 시간을 초과하면 해당 DDL 문장은 지역 서버, 원격 서버에서 모두 롤백 된다.
+
+DDL 복제 시 테이블 잠금 획득 실패(DDL_LOCK_TIMEOUT)와 같이 재시도 가능한 에러가 발생하면 이 프로퍼티에서 설정한 시간 동안 DDL 복제를 재시도한다.<sup>[REPLICATION_DDL_SYNC_TIMEOUT#1](#footnote-replication-ddl-sync-timeout-1)</sup>
+
+DDL 복제 대상 구문의 수행 시간은 DDL_TIMEOUT 프로퍼티와 REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 중 더 작은 값에 영향을 받는다. 
+
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+
+> <a name="footnote-replication-ddl-sync-timeout-1">REPLICATION_DDL_SYNC_TIMEOUT#1</a>
+> 
+> DDL 복제 재시도 기능은 7.1.0.6.5 이상에서 지원된다.
 
 #### REPLICATION_EAGER_PARALLEL_FACTOR
 
@@ -12893,7 +12899,7 @@ Unsigned Integer
 않고 바로 해제된다.
 
 이 값을 너무 크게 지정하면, 일반 트랜잭션의 개수에 제한을 줄 수 있으므로 적절한
-값으로 설정해야 한다. 이 프로퍼티에 허용된 최대값은 232-1이지만, 실제 최대값은
+값으로 설정해야 한다. 이 프로퍼티에 허용된 최대값은 2³²-1이지만, 실제 최대값은
 TRANSACTION_TABLE_SIZE 프로퍼티에 지정한 값과 같다. 만약 사용자가 이 값을
 TRANSACTION_TABLE_SIZE의 값보다 크게 지정하면, 내부적으로 이 프로퍼티의 값이
 TRANSACTION_TABLE_SIZE의 값으로 설정된다.

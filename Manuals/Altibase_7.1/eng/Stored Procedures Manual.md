@@ -96,8 +96,8 @@
     - [DBMS_RECYCLEBIN Package](#dbms_recyclebin-package)
     - [DBMS_SQL](#dbms_sql)
     - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
-    - [DBMS_STATS](#dbms_stats)
     - [DBMS_STANDARD](#dbms_standard)
+    - [DBMS_STATS](#dbms_stats)
     - [DBMS_UTILITY](#dbms_utility)
     - [STANDARD](#standard)
     - [SYS_SPATIAL](#sys_spatial)
@@ -116,7 +116,7 @@
 
 Altibase® Application Development
 
-Stored Procedures Manual 
+Stored Procedures Manual
 ========================
 
 ![](media/StoredProcedure/e5cfb3761673686d093a3b00c062fe7a.png)
@@ -167,53 +167,53 @@ It is recommended for those reading this manual possess the following background
 
 #### Organization
 
-This manual is organized as follows: 
+This manual is organized as follows:
 
 -   Chapter 1: Introduction to Stored Procedures  
     This chapter explains the concept and structure of stored procedures, and the notes on using them.
 
--   Chapter 2: SQL Statements for Managing Stored Procedures 
+-   Chapter 2: SQL Statements for Managing Stored Procedures
     This chapter explains the SQL statements that are used to manage stored procedures.
 
 -   Chapter 3: Stored Procedure Blocks  
     This chapter explains the concept of stored procedure blocks, how to define local variables within the body of stored procedures, and which statements can be used in stored procedures
-    
+
 -   Chapter 4: Control Flow Statements  
     This chapter explains the control flow statements that can be used to author a procedural program within the body of a stored procedure.
-    
+
 -   Chapter 5: Using Cursors  
     This chapter explains cursor-related statements, which are used to define and control cursors so that multiple records returned by a SELECT statement can be processed within a stored procedure.
-    
+
 -   Chapter 6: User-Defined Types  
     This chapter explains how to define and use records and associative arrays, which are user-defined types that can be used within stored procedures and functions.
-    
+
 -   Chapter 7: Typesets  
     This chapter explains how to define and use user-defined typesets.
-    
+
 -   Chapter 8: Dynamic SQL  
     This chapter explains dynamic SQL, which enables queries to be created and executed as desired by the user at runtime.
-    
+
 -   Chapter 9: Exception Handlers  
     This chapter explains the exception handler, which handles exceptions when an error occurs while a stored procedure is being executed.
-    
+
 -   Chapter 10: Pragma  
     This chapter describes the pragma which has an impact on exection of stored procedure compile and how to use them.
-    
+
 -   Chapter 11: Stored Packages  
     This chapter describes how to create and use stored packages.
 
 -   Chapter 12: Altibase Stored Procedures and Built-in Function  
     Altibase provides a variety of built-in stored procedures and functions. This chapter introduces these stored procedures and functions and explains their use.
-    
+
 -   Chapter 13: Altibase System-defined Stored Packages  
-    This chapter discusses system-defined stored packages provided by Altibase. 
+    This chapter discusses system-defined stored packages provided by Altibase.
 
 -   Appendix A. Examples  
     This appendix explains the schema and sample program examples used in this manual.
 
 #### Documentation Conventions
 
-This section describes the conventions used in this manual. Understanding these conventions will make it easier to find information in this manual and in the other manuals in the series. 
+This section describes the conventions used in this manual. Understanding these conventions will make it easier to find information in this manual and in the other manuals in the series.
 
 There are two sets of conventions:
 
@@ -244,12 +244,12 @@ The following table describes the printing conventions used in the code examples
 
 | Rules            | Meaning                                                      | Example                                                      |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ ]              | Indicates an optional item                                   | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
+| [ ]              | Indicates an optional item                                   | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
 | { }              | Indicates a mandatory field for which one or more items must be selected. | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|               | A delimiter between optional or mandatory arguments.         | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted. | SQL> SELECT ename FROM employee; ENAME ----------------------- SWNO HJNO HSCHOI . . . 20 rows selected. |
-| Other Symbols    | Symbols other than those shown above are part of the actual code.Other Symbols | EXEC :p1 := 1; acc NUMBER(11,2);Symbols other than those shown above are part of the actual code. |
-| Italics          | Statement elements in italics indicate variables and special values specified by the user. | SELECT * FROM *table_name*; CONNECT *userID*/*password*;     |
+| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted. | SQL\> SELECT ename FROM employee;<br/> ENAME<br/>  -----------------------<br/> SWNO<br/>  HJNO<br/>  HSCHOI<br/>  .<br/> .<br/> .<br/> 20 rows selected. |
+| Other Symbols    | Symbols other than those shown above are part of the actual code. | EXEC :p1 := 1; acc NUMBER(11,2)                              |
+| Italics          | Statement elements in italics indicate variables and special values specified by the user. | SELECT \* FROM *table_name*; <br/>CONNECT *userID*/*password*; |
 | Lower case words | Indicate program elements set by the user, such as table names, column names, file names, etc. | SELECT ename FROM employee;                                  |
 | Upper case words | Keywords and all elements provided by the system appear in upper case. | DESC SYSTEM_.SYS_INDICES_;                                   |
 
@@ -281,7 +281,7 @@ Include the following information:
 - Any comments about the manual
 - Your name, address, and phone number
 
-If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact Altibase's Support Portal (http://altibase.com/support-center/en/).
+If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
 Thank you. We always welcome your feedbacks and suggestions.
 
@@ -293,21 +293,21 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 A stored procedure is a kind of database object that consists of SQL statements, control statements, assignment statements, exception handlers, etc. Stored procedures are created in advance, compiled, and stored in a database, ready for execution. In that state, stored procedures can be simultaneously accessed by multiple SQL statements.
 
-The term “stored procedure” is sometimes used to refer to stored procedures and stored functions collectively. Stored procedures and stored functions differ only in that stored functions return a value to the calling application, whereas stored procedures do not. 
+The term “stored procedure” is sometimes used to refer to stored procedures and stored functions collectively. Stored procedures and stored functions differ only in that stored functions return a value to the calling application, whereas stored procedures do not.
 
 Stored procedures and stored functions can be created using the CREATE PROCEDURE and CREATE FUNCTION statements, respectively. For more information about these statements, please refer to the explanations of the CREATE PROCEDURE and CREATE FUNCTION statements in Chapter2: SQL Statements for Managing Stored Procedures of this manual.
 
 #### Types of Stored Objects
 
-##### Stored Procedures 
+##### Stored Procedures
 
 Stored procedures are called, either by SQL statements or by other stored procedures, using IN parameters, OUT parameters, or IN/-OUT parameters. When a stored procedure is called, procedural statements defined in the body of the procedure are executed. A stored procedure has no return value, but can still pass values to the client or calling routine via OUT or IN/OUT parameters. However, because a stored procedure has no return value, it cannot be used as an operand in an expression in a SQL statement.
 
-##### Stored Functions 
+##### Stored Functions
 
 A stored function is the same as a stored procedure with the exception that it has a return value, and thus can be used as an operand in an expression in a SQL statement.
 
-##### Typesets 
+##### Typesets
 
 A typeset is a set of user-defined types that can be used in stored procedures. They are chiefly used for passing user-defined types between procedures in the form of parameters and return values.
 
@@ -339,7 +339,7 @@ Stored procedures are stored in the database, which means that one user can exec
 
 ##### Integration with SQL
 
-The conditions that are used in the WHERE clause of a SELECT statement can be used as conditions in control flow statements in stored procedures without change. This means that SQL-style functions that are not originally supported for use as conditions in control flow statements in host languages such as C/C++ can now be used. Furthermore, built-in functions that are supported in SQL statements can be used without change in stored procedures. 
+The conditions that are used in the WHERE clause of a SELECT statement can be used as conditions in control flow statements in stored procedures without change. This means that SQL-style functions that are not originally supported for use as conditions in control flow statements in host languages such as C/C++ can now be used. Furthermore, built-in functions that are supported in SQL statements can be used without change in stored procedures.
 
 ##### Error Handling in SQL
 
@@ -351,7 +351,7 @@ Stored procedures are database objects, and thus are permanently stored in the d
 
 ##### Enhanced Security
 
-The altiwrap utility encrypts PSM code programs such as stored procedures and stored functions to prevent them from being exposed. For more detailed information about this utility, please refer to the *Utilities Manual*. Altibase can encrypt the following statements. 
+The altiwrap utility encrypts PSM code programs such as stored procedures and stored functions to prevent them from being exposed. For more detailed information about this utility, please refer to the *Utilities Manual*. Altibase can encrypt the following statements.
 
 -   CREATE [OR REPLACE] PROCEDURE
 
@@ -367,15 +367,15 @@ The altiwrap utility encrypts PSM code programs such as stored procedures and st
 
 ### Structure of Stored Procedures
 
-Stored procedures are a kind of block-structured language. The body of one stored procedure typically consists of several logical blocks. 
+Stored procedures are a kind of block-structured language. The body of one stored procedure typically consists of several logical blocks.
 
-A stored procedure consists of a header and a body. The body of a stored procedure is one large block that consists of a declare section, the actual body of the procedure, and an exception-handling section. The main block can have multiple sub-blocks. 
+A stored procedure consists of a header and a body. The body of a stored procedure is one large block that consists of a declare section, the actual body of the procedure, and an exception-handling section. The main block can have multiple sub-blocks.
 
 The following is an example illustrating the structure of a stored procedure:
 
 ![](media/StoredProcedure/storedprocedure_structure_eng.png)
 
-Block2 is a sub-block of Block1 and can have a structure just like that of Block1, including a DECLARE section, body and an exception-handling section. 
+Block2 is a sub-block of Block1 and can have a structure just like that of Block1, including a DECLARE section, body and an exception-handling section.
 
 A control flow statement is also a block, in that it has an explicit beginning and ending.
 
@@ -399,9 +399,9 @@ Suppose that proc1 contains the commands “Insert Into t1 values (3)” and “
 
 ####  Limitations
 
-COMMIT and ROLLBACK commands can be executed while the cursor is OPEN. However, the user should note that if ROLLBACK is executed while the cursor is OPEN and not yet COMMITTED, the cursor will close. 
+COMMIT and ROLLBACK commands can be executed while the cursor is OPEN. However, the user should note that if ROLLBACK is executed while the cursor is OPEN and not yet COMMITTED, the cursor will close.
 
-Stored functions that are called from within SELECT statements cannot contain INSERT, UPDATE, or DELETE statements. 
+Stored functions that are called from within SELECT statements cannot contain INSERT, UPDATE, or DELETE statements.
 
 In addition, they cannot contain transaction control statements. Stored functions that are called from within INSERT, UPDATE or DELETE statements cannot contain transaction control statements.
 
@@ -475,7 +475,7 @@ The following data types are supported for use with stored procedures:
 
 -   FILE_TYPE  
     FILE_TYPE can be used only in stored procedures, and is used to control files in stored procedures. For more information, please refer to Chapter 11: File Control in this manual.
-    
+
 -   User-defined Types  
     User-defined types can be used only in stored procedures: records and associative arrays are supported for use as user-defined types. For more information, please refer to Chapter 6: User-Defined Types in this manual.
 
@@ -514,7 +514,7 @@ Refer to the *General Reference* for in-depth information on each property.
 
 ##### BOOLEAN Types
 
-A BOOLEAN type is only available for use in stored procedures or stored functions, and can only have the value, TRUE, FALSE or NULL. 
+A BOOLEAN type is only available for use in stored procedures or stored functions, and can only have the value, TRUE, FALSE or NULL.
 
 A BOOLEAN variable can be declared as below.
 
@@ -524,12 +524,12 @@ variable_name BOOLEAN;
 
 As the BOOLEAN type is not compatible with any other SQL data type, it has the following restrictions.
 
--   A BOOLEAN value cannot be input to a table column. 
--   A table column value cannot be fetched into a BOOLEAN variable. 
--   A stored function or built-in function that returns a BOOLEAN type is not available for use in a SQL statement. 
+-   A BOOLEAN value cannot be input to a table column.
+-   A table column value cannot be fetched into a BOOLEAN variable.
+-   A stored function or built-in function that returns a BOOLEAN type is not available for use in a SQL statement.
 -   A BOOLEAN value cannot be passed as the argument of an output function (e.g., PRINT, PUT, etc).
 
-The BOOLEAN type can be used as below. 
+The BOOLEAN type can be used as below.
 
 ```
 done BOOLEAN;
@@ -582,13 +582,13 @@ Arguments may be omitted. If an argument is specified, the name, data type, and 
 
 -   INOUT: an input/output parameter, for which the value is specified when calling the procedure, and which also returns an output value, typically after some operations are performed thereon
 
-If the parameter type is omitted, IN is the default type. If the parameter type is OUT or INOUT, DEFAULT expression cannot be used. 
+If the parameter type is omitted, IN is the default type. If the parameter type is OUT or INOUT, DEFAULT expression cannot be used.
 
-When a stored procedure is executed, values are passed to the stored procedure using IN parameters, and the procedure returns values to the calling routine using OUT parameters. 
+When a stored procedure is executed, values are passed to the stored procedure using IN parameters, and the procedure returns values to the calling routine using OUT parameters.
 
-An IN parameter is handled as a constant within a stored procedure. This means that a value cannot be assigned to an IN parameter within a stored procedure. Additionally, an IN parameter cannot be used in an INTO clause of a SELECT statement. 
+An IN parameter is handled as a constant within a stored procedure. This means that a value cannot be assigned to an IN parameter within a stored procedure. Additionally, an IN parameter cannot be used in an INTO clause of a SELECT statement.
 
-There are two methods of specifying parameters. The first method would be substituting values, and another one is substituting reference values by using NOCOPY option, which only supports the ASSOCIATIVE ARAY type. 
+There are two methods of specifying parameters. The first method would be substituting values, and another one is substituting reference values by using NOCOPY option, which only supports the ASSOCIATIVE ARAY type.
 
 A parameter can have a default value. If no value is passed to a procedure for a parameter that has a default value, this default value will be used.
 
@@ -616,7 +616,7 @@ Please refer to Exception Handlers in this in Chapter 9 of this manual.
 
 ##### Executing the CREATE PROCEDURE Statement
 
-A stored procedure creation statement can be written in advance in a text editor and pasted into iSQL, or can be entered line-by-line directly using iSQL. 
+A stored procedure creation statement can be written in advance in a text editor and pasted into iSQL, or can be entered line-by-line directly using iSQL.
 
 Use a semicolon (“;”) at the end of SQL statements, stored procedure control flow statements, and blocks (“END”).
 
@@ -723,7 +723,7 @@ BEGIN
 END;
 /
 
-iSQL> EXEC proc1(15, '250');	
+iSQL> EXEC proc1(15, '250');
 Execute success.
 
 iSQL> SELECT * FROM employees WHERE eno=15;
@@ -765,7 +765,7 @@ Execute success.
 iSQL> PRINT t3;
 NAME                 TYPE                 VALUE
 -----------------------------------------------
-T3                   INTEGER              5 
+T3                   INTEGER              5
 ```
 
 
@@ -1033,7 +1033,7 @@ Execute success.
 
 
 
-### ALTER PROCEDURE 
+### ALTER PROCEDURE
 
 #### Syntax
 
@@ -1041,11 +1041,11 @@ Execute success.
 
 #### Purpose
 
-A stored procedure can access various database objects, such as tables, views, and sequences, and can also call other stored procedures and stored functions. After a procedure is created, if any of these objects are altered or changed, the stored procedure can enter what is known as an invalid state. 
+A stored procedure can access various database objects, such as tables, views, and sequences, and can also call other stored procedures and stored functions. After a procedure is created, if any of these objects are altered or changed, the stored procedure can enter what is known as an invalid state.
 
-For example, suppose that an index that existed when a stored procedure was created is later deleted. In this case, because the execution plan for a SQL statement in the stored procedure used the index to access a table, it will become impossible to access the table using the stored procedure from the moment the index is deleted. 
+For example, suppose that an index that existed when a stored procedure was created is later deleted. In this case, because the execution plan for a SQL statement in the stored procedure used the index to access a table, it will become impossible to access the table using the stored procedure from the moment the index is deleted.
 
-When an invalid procedure is called, it is automatically and immediately recompiled by the database. However, compiling at run time in this way can cause significant performance issues in some systems. Therefore, it is recommended that procedures be recompiled when they enter an invalid state. 
+When an invalid procedure is called, it is automatically and immediately recompiled by the database. However, compiling at run time in this way can cause significant performance issues in some systems. Therefore, it is recommended that procedures be recompiled when they enter an invalid state.
 
 The ALTER PROCEDURE statement is used to explicitly recompile a stored procedure under these circumstances
 
@@ -1096,7 +1096,7 @@ T1.I1       T1.I2       T1.I3
 
 
 
-### DROP PROCEDURE 
+### DROP PROCEDURE
 
 #### Syntax
 
@@ -1104,9 +1104,9 @@ T1.I1       T1.I2       T1.I3
 
 #### Purpose
 
-This statement removes a stored procedure from the database. 
+This statement removes a stored procedure from the database.
 
-Note that this statement will execute successfully even if there are other stored procedures or stored functions that reference the procedure to be dropped. 
+Note that this statement will execute successfully even if there are other stored procedures or stored functions that reference the procedure to be dropped.
 
 When a stored procedure or stored function attempts to call a stored procedure or stored function that has already been dropped, an error is returned.
 
@@ -1118,7 +1118,7 @@ DROP PROCEDURE proc1;
 
 
 
-### EXECUTE 
+### EXECUTE
 
 #### Syntax
 
@@ -1143,9 +1143,9 @@ This statement is used to execute a stored procedure or stored function.
 The way to deliver a value to parameter is as follows:
 
 -   Position-based: By default, the values are entered according to the position of the defined parameter
-  
+
 -   Name-based : The values are entered the name of the defined parameter and the value after the arrow (=\>). Values can be delivered in any order of parameters.
-  
+
 -   Mixed: Position-based and name-based approaches can be used together. However, the position-based delivery method must be entered first.
 
 #### Example
@@ -1161,7 +1161,7 @@ BEGIN
   INTO current_salary
   FROM employees
   WHERE eno = eid;
-    
+
   UPDATE employees
   SET salary = salary + amount
   WHERE eno = eid;
@@ -1203,7 +1203,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 
 
-### CREATE FUNCTION 
+### CREATE FUNCTION
 
 #### Syntax
 
@@ -1229,7 +1229,7 @@ This statement is used to create a new stored function or replace an existing fu
 
 ##### parameter_declaration
 
-Refer to "parameter_declaration" in the explanation of the CREATE PROCEDURE 
+Refer to "parameter_declaration" in the explanation of the CREATE PROCEDURE
 
 ##### RETURN data_type
 
@@ -1353,13 +1353,13 @@ RES                  NUMBER               401
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
- 
+
 iSQL> create or replace function func1 return integer authid current_user as
      cursor cur1 is select c1 from t1;
      var1 integer;
@@ -1371,7 +1371,7 @@ iSQL> create or replace function func1 return integer authid current_user as
      end;
      /
 Create success.
- 
+
 iSQL> select proc_name , object_type , authid
     2 from system_.sys_procedures_
     3 where proc_name = 'FUNC1';
@@ -1391,10 +1391,10 @@ FUNC1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 
@@ -1406,16 +1406,16 @@ iSQL> insert into t1 values ( 100 );
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := func1;
 Execute success.
- 
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              1
- 
- 
+
+
 iSQL> select func1 from dual;
 FUNC1       
 --------------
@@ -1430,18 +1430,18 @@ FUNC1
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := user1.func1;
 Execute success.
- 
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              100
- 
- 
+
+
 iSQL> select user1.func1 from dual;
-USER1.FUNC1 
+USER1.FUNC1
 --------------
 100        
 1 row selected.
@@ -1457,13 +1457,13 @@ USER1.FUNC1
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
- 
+
 iSQL> create or replace function func1 return integer authid definer as
       cursor cur1 is select c1 from t1;
       var1 integer;
@@ -1475,7 +1475,7 @@ iSQL> create or replace function func1 return integer authid definer as
       end;
       /
 Create success.
- 
+
 iSQL> select proc_name , object_type , authid
       from system_.sys_procedures_
       where proc_name ='FUNC1';
@@ -1495,10 +1495,10 @@ FUNC1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 ```
@@ -1509,16 +1509,16 @@ iSQL> insert into t1 values ( 100 );
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := func1;
 Execute success.
- 
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              1
- 
- 
+
+
 iSQL> select func1 from dual;
 FUNC1       
 --------------
@@ -1532,19 +1532,19 @@ FUNC1
 
 ```
 iSQL> var a integer;
- 
+
 iSQL> exec :a := user1.func1;
 Execute success.
- 
- 
+
+
 iSQL> print a
 NAME                 TYPE                 VALUE
 -------------------------------------------------------
 A                    INTEGER              1
- 
- 
+
+
 iSQL> select user1.func1 from dual;
-USER1.FUNC1 
+USER1.FUNC1
 --------------
 1          
 1 row selected.
@@ -1556,7 +1556,7 @@ USER1.FUNC1
 
 For functions used in constraints or function-based indexes, it is impossible to redefine functions since the return values of functions must not be modified. The user should also note that, if an invoked function within the function which the function-based indexes are built on is altered or deleted, DML operations can fail for the indexed table.
 
-### ALTER FUNCTION 
+### ALTER FUNCTION
 
 #### Syntax
 
@@ -1564,9 +1564,9 @@ For functions used in constraints or function-based indexes, it is impossible to
 
 #### Purpose
 
-As with a stored procedure, a stored function can enter what is known as an invalid state when one or more of the database objects that it references are changed after the function is created. 
+As with a stored procedure, a stored function can enter what is known as an invalid state when one or more of the database objects that it references are changed after the function is created.
 
-In such circumstances, the ALTER FUNCTION statement is used to explicitly recompile the stored function and create an execution plan that is valid and optimized. 
+In such circumstances, the ALTER FUNCTION statement is used to explicitly recompile the stored function and create an execution plan that is valid and optimized.
 
 For a more detailed explanation, please refer to Purpose in the explanation of the ALTER PROCEDURE statement.
 
@@ -1578,7 +1578,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 
 
-### DROP FUNCTION 
+### DROP FUNCTION
 
 #### Syntax
 
@@ -1586,7 +1586,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 #### Purpose
 
-This statement removes a stored function from the database. 
+This statement removes a stored function from the database.
 
 Note that this statement will execute successfully even if there are other stored procedures or stored functions that reference the stored function to be dropped.
 
@@ -1624,11 +1624,41 @@ A stored procedure or function consists of one or more blocks. This chapter desc
 
 A block can be broadly divided into a declaration section, a block body and an exception handler section.
 
- A semicolon (“;”), which indicates the end of a statement, is not used after the DECLARE, BEGIN or EXCEPTION statements, but must be placed after the END statement and other commands in stored procedures. Comments can be used in stored procedures. 
+ A semicolon (“;”), which indicates the end of a statement, is not used after the DECLARE, BEGIN or EXCEPTION statements, but must be placed after the END statement and other commands in stored procedures. Comments can be used in stored procedures.
 
-To comment out all or part of a single line, place two hyphen characters (“--”) at the beginning of the text to be commented out. To comment out multiple lines, place the C-style delimiters “/*” and “*/” around the text to be commented out. 
+To comment out all or part of a single line, place two hyphen characters (“--”) at the beginning of the text to be commented out. To comment out multiple lines, place the C-style delimiters “/*” and “*/” around the text to be commented out.
 
-In this chapter, the variable assignment statements, which can be used within the declaration section and block body, and the SELECT INTO, assignment statements, LABEL, PRINT and RETURN statements, which can be used only within the block body, will be described. 
+Stored procedure block can be used independently without header. This is called anonymous block. Anonymous block is supported from Altibase 7.1.0.2.3 and has features as follows.
+
+- Does not create or store PSM object in database.
+- Does not return the value of RETURN clause.
+- Unlike stored procedures, BIND variables for INPUT, OUTPUT, INOUTPUT can be used.
+
+```
+iSQL> VAR OUT1 OUTPUT INTEGER;
+iSQL> VAR INOUT1 INOUTPUT INTEGER;
+iSQL> EXEC :INOUT1 := 1;
+
+iSQL> DECLARE
+    VAR1 INTEGER;
+BEGIN
+    VAR1 := :INOUT1;
+    :OUT1 := VAR1;
+    :INOUT1 := VAR1 + 1;
+END;
+/
+Execute success.
+
+iSQL> PRINT VAR;
+[ HOST VARIABLE ]
+-------------------------------------------------------
+NAME                 TYPE                 VALUE
+-------------------------------------------------------
+OUT1                 INTEGER              1
+INOUT1               INTEGER              2
+```
+
+In this chapter, the variable assignment statements, which can be used within the declaration section and block body, and the SELECT INTO, assignment statements, LABEL, PRINT and RETURN statements, which can be used only within the block body, will be described.
 
 Information on the use of control flow statements, cursor-related statements and exception handlers in stored procedures can be found in subsequent chapters. For information on general SQL statements, please refer to the *SQL Reference.*
 
@@ -1638,9 +1668,9 @@ The declare section is delimited by the AS and BEGIN keywords for the main block
 
 In this chapter, only local variables will be described. Cursors and exception handlers will be described together with the related statements in Chapter5: Using Cursors and Chapter9: Exception Handlers, respectively.
 
-#### Block Body 
+#### Block Body
 
-The block body is the part between the BEGIN and END keywords. It contains SQL statements and control flow statements. 
+The block body is the part between the BEGIN and END keywords. It contains SQL statements and control flow statements.
 
 The following SQL statements and control flow statements can be used within the block body:
 
@@ -1678,9 +1708,9 @@ The exception handler section is delimited by the EXCEPTION and END keywords. It
 
 ##### variable_name
 
-This is used to specify the name of a variable. 
+This is used to specify the name of a variable.
 
-The name of the variable must be unique within the block in which it is declared. 
+The name of the variable must be unique within the block in which it is declared.
 
 If a column and a variable have the same name, any reference to this name in a SQL statement will be interpreted to mean the column. In the following example, both instances of eno are interpreted to mean the column name, with the undesirable result that all of the records in the employees table will be deleted.
 
@@ -1714,17 +1744,17 @@ Please refer to the Pragma section in chapter 10 of this chapter.
 
 This is used to specify the data type of the variable. The following data types can be used within stored procedures:
 
--   Data types available for use in SQL statements : please refer to Data Types in Chapter 2. 
--   BOOLEAN types: please refer to Data Types in Chapter 2. 
--   Any type which is defined for a column or variable and is referenced using the %TYPE attribute 
--   A RECORD type, comprising multiple columns, referenced using the %ROWTYPE attribute 
+-   Data types available for use in SQL statements : please refer to Data Types in Chapter 2.
+-   BOOLEAN types: please refer to Data Types in Chapter 2.
+-   Any type which is defined for a column or variable and is referenced using the %TYPE attribute
+-   A RECORD type, comprising multiple columns, referenced using the %ROWTYPE attribute
 -   User-defined types: please refer to Chapter6: User-Defined Types.
 
 The %TYPE and %ROWTYPE attributes obviate the necessity to change the code in stored procedures when table definitions change. That is, when the data type of a column in a table is changed, a variable defined using the %TYPE attribute will automatically take on the correct type, without any intervention. This helps realize data independence and lower maintenance expenses.
 
 ##### CONSTANT
 
-This option is used when it is desired to use a particular variable as a constant, so that no other value can be assigned to it within the stored procedure. A variable defined in this way is read-only. 
+This option is used when it is desired to use a particular variable as a constant, so that no other value can be assigned to it within the stored procedure. A variable defined in this way is read-only.
 
 For example, when max_val is declared as shown below, it is handled as a constant having the value of 100, and no other value can be arbitrarily allocated thereto.
 
@@ -1759,9 +1789,9 @@ Please refer to the Exception Delacration section in Chapter 9 in this manual.
 
 ##### Nested Blocks and Variable Scope
 
-The scope of a variable specified in the DECLARE section of a block starts at the BEGIN statement and finishes at the END statement in the block in which it was declared. 
+The scope of a variable specified in the DECLARE section of a block starts at the BEGIN statement and finishes at the END statement in the block in which it was declared.
 
-Suppose that block2 is declared inside block1, and that variables having the same name, v_result, are declared within each block, as shown below. When v_result is referenced outside of block2, the reference is interpreted to mean the variable declared in block1, whereas when v_result is referenced inside block2, it is interpreted to mean the variable declared in block2. 
+Suppose that block2 is declared inside block1, and that variables having the same name, v_result, are declared within each block, as shown below. When v_result is referenced outside of block2, the reference is interpreted to mean the variable declared in block1, whereas when v_result is referenced inside block2, it is interpreted to mean the variable declared in block2.
 
 Meanwhile, both the variable x, which was declared in block1 (the outer block), and the variable y, which was declared in block2 (the inner block), can be referred to in the inner block, but only x can be referred to in the outer block.
 
@@ -1773,7 +1803,7 @@ Meanwhile, both the variable x, which was declared in block1 (the outer block), 
 
 The following are not supported when declaring variables:
 
-* Variables defined within stored procedures cannot have NOT NULL constraints. 
+* Variables defined within stored procedures cannot have NOT NULL constraints.
 
 * Multiple variables cannot be declared at the same time. That is, statements such as the following are not possible:
 
@@ -1832,7 +1862,7 @@ INSERT INTO t1 VALUES(1,1,1);
 CREATE OR REPLACE PROCEDURE proc1
 AS
   r1 t1%ROWTYPE;
-BEGIN 
+BEGIN
   INSERT INTO t1 VALUES(3,3,3);
   <<s>>
   DECLARE
@@ -1906,7 +1936,7 @@ Execute success.
 iSQL> SELECT * FROM emp401;
 EMP401.ENO  EMP401.ENAME  EMP401.EMP_JOB   EMP401.JOIN_DATE     
 -----------------------------------------------
-EMP401.LEAVE_DATE    EMP401.SALARY EMP401.DNO  EMP401.FUND 
+EMP401.LEAVE_DATE    EMP401.SALARY EMP401.DNO  EMP401.FUND
 -----------------------------------------------
 10          DKLEE       ENGINEER         2000/07/01 00:00:00  
 2005/01/27 16:26:26  30000000    D001  0           
@@ -1958,7 +1988,7 @@ iSQL> create or replace procedure proc2
         end loop;
       end loop;
     end;
-    / 
+    /
 Create success.
 iSQL> exec proc2;
 1
@@ -1992,7 +2022,7 @@ Execute success.
 
 
 
-### SELECT INTO 
+### SELECT INTO
 
 #### Syntax
 
@@ -2002,24 +2032,24 @@ Because the syntax of select_list and rest_of_select_statement is the same as fo
 
 #### Purpose
 
-When a stored procedure includes a SELECT statement, the SELECT statement must contain an INTO clause. 
+When a stored procedure includes a SELECT statement, the SELECT statement must contain an INTO clause.
 
-A SELECT statement in a stored procedure or function must retrieve exactly one record. If the statement retrieves zero or multiple records, an error will be raised. 
+A SELECT statement in a stored procedure or function must retrieve exactly one record. If the statement retrieves zero or multiple records, an error will be raised.
 
-The number of columns in select_list in the SELECT clause must be the same as the number of variable_name in the INTO clause. Furthermore, the data types of corresponding columns and variables must be compatible. Similarly, when the %ROWTYPE attribute is used, the number of columns in the %ROWTYPE variable and the number of columns in select_list must be the same, and the data types of corresponding columns must be compatible. 
+The number of columns in select_list in the SELECT clause must be the same as the number of variable_name in the INTO clause. Furthermore, the data types of corresponding columns and variables must be compatible. Similarly, when the %ROWTYPE attribute is used, the number of columns in the %ROWTYPE variable and the number of columns in select_list must be the same, and the data types of corresponding columns must be compatible.
 
 When a standard exception occurs, the stored procedure raises an error. The NO_DATA_FOUND and TOO_MANY_ROW exceptions can be used to handle errors in the block's exception handler section. Please refer to Chapter9: Exception Handlers for more information about handling errors.
 
 
 ##### BULK COLLECT clause
 
-Unlike the INTO clause that returns one record each time, the BULK COLLECT clause returns all of the execution results of the SELECT statement at once. Two types of bind variables as shown below can be specified to follow INTO: 
+Unlike the INTO clause that returns one record each time, the BULK COLLECT clause returns all of the execution results of the SELECT statement at once. Two types of bind variables as shown below can be specified to follow INTO:
 
 -   array_record_name  
-    This specifies the associative array variables of RECORD type that are to store the records that the SELECT statement returns. 
-    
+    This specifies the associative array variables of RECORD type that are to store the records that the SELECT statement returns.
+
 -   array_variable_name  
-    SThis specifies the array variables for each column of the SELECT list. Each data type of the array variables must be compatible with the data type of the corresponding column in the SELECT list, and the number of array variables must equal the number of columns of the SELECT list. 
+    SThis specifies the array variables for each column of the SELECT list. Each data type of the array variables must be compatible with the data type of the corresponding column in the SELECT list, and the number of array variables must equal the number of columns of the SELECT list.
 
 Returning all of the result sets of queries at once using the BULK COLLECT clause is more efficient than returning result rows one at a time using the loop statement.
 
@@ -2042,11 +2072,11 @@ BEGIN
     v1 proc1.r1.i1%TYPE;
     r1 t1%ROWTYPE;
   BEGIN
-    SELECT i1,i2,i3 
-    INTO s.r1.i1, s.r1.i2, s.r1.i3 
+    SELECT i1,i2,i3
+    INTO s.r1.i1, s.r1.i2, s.r1.i3
     FROM t1  
     WHERE i1 = 1;
-      
+
     INSERT INTO t1 VALUES(s.r1.i1, s.r1.i2, s.r1.i3);
   END;
 END;
@@ -2223,7 +2253,7 @@ T3.I1
 
 
 
-##### Example 5 
+##### Example 5
 
 ```
 CREATE TABLE delayed_processing(
@@ -2247,7 +2277,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM delayed_processing;
-DELAYED_PROCESSING.CNO  DELAYED_PROCESSING.ORDER_DATE 
+DELAYED_PROCESSING.CNO  DELAYED_PROCESSING.ORDER_DATE
 -----------------------------------------------
 7610011000001  2000/11/29 00:00:00  
 7001011001001  2000/11/29 00:00:00  
@@ -2276,7 +2306,7 @@ BEGIN
   END LOOP;
 END;
 /
- 
+
 iSQL> EXEC proc1();
 v2[1]=1
 v2[2]=2
@@ -2315,13 +2345,13 @@ This is the name of the RECORD type variable which is to store the row returned 
 
 ##### bulk_collect_clause
 
-Unlike the INTO clause which retrieves one record at a time, the BULK COLLECT clause retrieves all of the rows returned by the statement at once. Two types of bind variables as shown below can be specified to follow INTO: 
+Unlike the INTO clause which retrieves one record at a time, the BULK COLLECT clause retrieves all of the rows returned by the statement at once. Two types of bind variables as shown below can be specified to follow INTO:
 
 -   array_record_name  
     This specifies the associative array variables of RECORD.
 
 -   array_variable_name  
-    This specifies the array variables for each column of the *expr* list. Each data type of the array variables must be compatible with the data type of the corresponding column in the expr list, and the number of array variables must equal the number of columns of the *expr* list. 
+    This specifies the array variables for each column of the *expr* list. Each data type of the array variables must be compatible with the data type of the corresponding column in the expr list, and the number of array variables must equal the number of columns of the *expr* list.
 
 #### Example
 
@@ -2359,10 +2389,10 @@ iSQL> create or replace procedure proc1
 as
   type myintarr is table of integer index by integer;
   type myvarchararr is table of varchar(30) index by integer;
- 
+
   v1 myintarr;
   v2 myvarchararr;
- 
+
 begin
       insert into employees values (1, 'jake') return eno, ename bulk collect into v1, v2;
       for i in v1.first() .. v1.last() loop
@@ -2392,10 +2422,10 @@ iSQL> create or replace procedure proc1
 as
   type myrec is record( i1 integer, i2 varchar(30) );
   type myrecarr is table of myrec index by integer;
- 
+
   r1 myrecarr;
   s1 myrec;
- 
+
 begin
     insert into employees values (1, 'jake') return eno, ename bulk collect into r1;
     for i in r1.first() .. r1.last() loop
@@ -2451,20 +2481,20 @@ iSQL> create or replace procedure proc1
 as
   type myintarr is table of integer index by integer;
   type myvarchararr is table of varchar(30) index by integer;
- 
+
   v1 myintarr;
   v2 myvarchararr;
- 
+
 begin
       delete from employees where eno = 1 return eno, ename bulk collect into v1, v2;
- 
+
       for i in v1.first() .. v1.last() loop
       println( 'v1['||i||']='||v1[i] );
       end loop;
       for i in v2.first() .. v2.last() loop
       println( 'v2['||i||']='||v2[i] );
       end loop;
- 
+
 end;
 /
 Create success.
@@ -2493,10 +2523,10 @@ iSQL> create or replace procedure proc1
 as
   type myrec is record( i1 integer, i2 varchar(30) );
   type myrecarr is table of myrec index by integer;
- 
+
   r1 myrecarr;
   s1 myrec;
- 
+
 begin
     delete from employees where eno = 1 return eno, ename bulk collect into r1;
     for i in r1.first() .. r1.last() loop
@@ -2554,20 +2584,20 @@ iSQL> create or replace procedure proc1
 as
   type myintarr is table of integer index by integer;
   type myvarchararr is table of varchar(30) index by integer;
- 
+
   v1 myintarr;
   v2 myvarchararr;
- 
+
 begin
       update employees set eno = 5, ename = 'mikhaila' where eno = 1 return eno, ename bulk collect into v1, v2;
- 
+
       for i in v1.first() .. v1.last() loop
       println( 'v1['||i||']='||v1[i] );
       end loop;
       for i in v2.first() .. v2.last() loop
       println( 'v2['||i||']='||v2[i] );
       end loop;
- 
+
 end;
 /
 Create success.
@@ -2596,10 +2626,10 @@ iSQL> create or replace procedure proc1
 as
   type myrec is record( i1 integer, i2 varchar(30) );
   type myrecarr is table of myrec index by integer;
- 
+
   r1 myrecarr;
   s1 myrec;
- 
+
 begin
     update employees set eno = 5, ename = 'mikhaila' where eno = 1 return eno, ename bulk collect into r1;
     for i in r1.first() .. r1.last() loop
@@ -2627,7 +2657,7 @@ Execute success.
 
 #### Purpose
 
-These statements are used to assign a value to a local variable or to an OUT or IN/OUT parameter. 
+These statements are used to assign a value to a local variable or to an OUT or IN/OUT parameter.
 
 Values can be assigned to variables and parameters using either of the two following statements:
 
@@ -2707,7 +2737,7 @@ END;
 
 iSQL> EXEC proc1;
 Execute success.
-iSQL> SELECT * FROM t1; 
+iSQL> SELECT * FROM t1;
 T1.I1       T1.I2       T1.I3       
 ----------------------------------------
 100         100         100         
@@ -2727,8 +2757,8 @@ The LABEL statement is used to name a particular point within a stored procedure
 
 User-defined labels are used in the following three situations:
 
--   To limit the scope of multiple variables having the same name, or to overcome ambiguity that occurs when a variable and a column have the same name 
--   To exit a nested loop 
+-   To limit the scope of multiple variables having the same name, or to overcome ambiguity that occurs when a variable and a column have the same name
+-   To exit a nested loop
 -   For use with the GOTO statement
 
 #### Limitations
@@ -2798,7 +2828,7 @@ BEGIN
           V1 := V1 + 1;
            FOR I IN 1 .. 10 LOOP
                 V1 := V1 + 1;
-                EXIT LABEL1 WHEN V1 = 30; 
+                EXIT LABEL1 WHEN V1 = 30;
             END LOOP;
       END LOOP;
 END;
@@ -2819,7 +2849,7 @@ BEGIN
           V1 := V1 + 1;
            FOR I IN 1 .. 10 LOOP
                 V1 := V1 + 1;
-              EXIT LABEL1 WHEN V1 = 30; -- ERROR 
+              EXIT LABEL1 WHEN V1 = 30; -- ERROR
           END LOOP;
       END LOOP;
 END;
@@ -2827,7 +2857,7 @@ END;
 ```
 
 
-### PRINT 
+### PRINT
 
 #### Syntax
 
@@ -2835,7 +2865,7 @@ END;
 
 #### Purpose
 
-The PRINT statement is used to output desired text to the calling client or routine. PRINT is a system procedure that is provided within Altibase, and is typically used for debugging and testing. PRINTLN differs from PRINT only in that it outputs the appropriate newline sequence ( "\n" in Unix) after the string. The owner of PRINT and PRINTLN is the SYSTEM_user. 
+The PRINT statement is used to output desired text to the calling client or routine. PRINT is a system procedure that is provided within Altibase, and is typically used for debugging and testing. PRINTLN differs from PRINT only in that it outputs the appropriate newline sequence ( "\n" in Unix) after the string. The owner of PRINT and PRINTLN is the SYSTEM_user.
 
 It is possible to specify the SYSTEM_ user when using these routines, as follows:
 
@@ -2897,7 +2927,7 @@ Execute success.
 
 ##### Example 3
 
-The following example illustrates how to use a loop with PRINT and PRINTLN to output formatted query results. 
+The following example illustrates how to use a loop with PRINT and PRINTLN to output formatted query results.
 
 ```
 CREATE OR REPLACE PROCEDURE showProcedures
@@ -2933,19 +2963,19 @@ iSQL> EXEC showProcedures;
 Proc_Name                           Procedure/Function
 -----------------------------------------------
 
- PRINT                                   Procedure 
- PRINTLN                                 Procedure 
+ PRINT                                   Procedure
+ PRINTLN                                 Procedure
 .
 .
 
- SHOWPROCEDURES                          Procedure 
+ SHOWPROCEDURES                          Procedure
 -----------------------------------------------
 Execute success.
 ```
 
 
 
-### RETURN 
+### RETURN
 
 #### Syntax
 
@@ -2953,7 +2983,7 @@ Execute success.
 
 #### Purpose
 
-This statement is used to interrupt the execution of a stored procedure. When used with a stored function, it is additionally used to specify the return value. 
+This statement is used to interrupt the execution of a stored procedure. When used with a stored function, it is additionally used to specify the return value.
 
 Because stored procedures do not return values, an error will be raised in response to an attempt to compile a stored procedure that specifies a return value. In contrast, because a function must always return a value, it is necessary to specify a return value when creating a function.
 
@@ -2979,7 +3009,7 @@ END;
 /
 
 iSQL> SELECT times_half(times_half(8)) FROM t1;
-TIMES_HALF(TIMES_HALF(8)) 
+TIMES_HALF(TIMES_HALF(8))
 ----------------------------
 2           
 1 row selected.
@@ -3007,7 +3037,7 @@ END;
 /
 
 iSQL> SELECT max_all_val FROM t1;
-MAX_ALL_VAL 
+MAX_ALL_VAL
 --------------
 100         
 100         
@@ -3036,7 +3066,7 @@ END;
 /
 
 iSQL> SELECT func_plus_10(i1) FROM t4;
-FUNC_PLUS_10(I1) 
+FUNC_PLUS_10(I1)
 -------------------
 13          
 12          
@@ -3047,7 +3077,7 @@ FUNC_PLUS_10(I1)
 
 
 
-### INSERT Extension 
+### INSERT Extension
 
 #### Syntax
 
@@ -3055,7 +3085,7 @@ FUNC_PLUS_10(I1)
 
 #### Purpose
 
-This is a stored procedure extension of the INSERT 
+This is a stored procedure extension of the INSERT
 
 The following example inserts the value of a record type variable when inserting a new record into a table or a specific partition withn a stored procedure.
 
@@ -3107,7 +3137,7 @@ I1          I2          I3
 12          22          32         
 13          23          33         
 14          24          34         
-15          25          35 
+15          25          35
 5 rows selected.
 
 ```
@@ -3119,31 +3149,31 @@ The following example inserts the value of the OLD ROW record type variable into
 ```
 CREATE TABLE log_tbl (
   ONO            BIGINT,
-  ORDER_DATE     DATE, 
+  ORDER_DATE     DATE,
   ENO            INTEGER,
   CNO            BIGINT,
   GNO            CHAR(10),
   QTY            INTEGER,
-  ARRIVAL_DATE   DATE, 
+  ARRIVAL_DATE   DATE,
   PROCESSING     CHAR(1) );
- 
+
 CREATE TRIGGER del_trigger
 AFTER DELETE ON orders
 REFERENCING OLD ROW old_row
 FOR EACH ROW
-AS BEGIN 
+AS BEGIN
 INSERT INTO log_tbl VALUES old_row;
 END;
 /
- 
+
 iSQL> DELETE FROM orders WHERE processing = 'D';
 2 rows deleted.
- 
+
 iSQL> SELECT * FROM log_tbl;
 ONO                  ORDER_DATE   ENO         CNO                  
 ------------------------------------------------------------------------
 GNO         QTY         ARRIVAL_DATE PROCESSING  
------------------------------------------------------- 
+------------------------------------------------------
 11290011             29-NOV-2011  12          17                  
 E111100001  1000        05-DEC-2011  D  
 11290100             29-NOV-2011  19          11                 
@@ -3188,10 +3218,10 @@ CREATE OR REPLACE PROCEDURE proc1 as
     idx  INTEGER;
 BEGIN
     SELECT ENO, SALARY BULK COLLECT INTO emps FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
- 
+
     FOR idx IN emps.FIRST() .. emps.LAST() LOOP
         emps[idx].SALARY := emps[idx].SALARY * 1.02;
- 
+
         UPDATE (SELECT ENO, SALARY FROM EMPLOYEES)
             SET ROW = emps[idx]
             WHERE ENO = emps[idx].eno;
@@ -3211,7 +3241,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 2 rows selected.
 iSQL> EXEC PROC1();
 Execute success.
- 
+
 iSQL> SELECT * FROM EMPLOYEES WHERE EMP_JOB = 'programmer';
 ENO         E_LASTNAME            E_FIRSTNAME           EMP_JOB          
 ------------------------------------------------------------------------------
@@ -3231,7 +3261,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 ### Overview
 
-This chapter describes how to use control flow statements in a stored procedure body. 
+This chapter describes how to use control flow statements in a stored procedure body.
 
 #### Syntax
 
@@ -3239,10 +3269,10 @@ This chapter describes how to use control flow statements in a stored procedure 
 
 Altibase supports the use of the following control flow statements in stored procedures:
 
--   The IF and CASE conditional statements 
--   The LOOP, WHILE and FOR loop constructs, which cause multiple statements to be repeatedly executed 
--   The EXIT and CONTINUE statements, which are used to control the iteration of loops 
--   The NULL statement, which indicates that nothing is to be executed 
+-   The IF and CASE conditional statements
+-   The LOOP, WHILE and FOR loop constructs, which cause multiple statements to be repeatedly executed
+-   The EXIT and CONTINUE statements, which are used to control the iteration of loops
+-   The NULL statement, which indicates that nothing is to be executed
 -   The GOTO statement, which is used to transfer control to a particular point
 
 #### Restrictions
@@ -3253,7 +3283,7 @@ Any expressions containing subqueries cannot be used for condition of IF stateme
 
 -   NOT EXIST (subquery)
 
-### IF 
+### IF
 
 #### Syntax
 
@@ -3269,7 +3299,7 @@ All conditions that are available for use in the WHERE clause of SQL statements 
 
 ##### ELS(E)IF
 
-Use this clause to specify another condition to be checked when the previous IF condition is FALSE. 
+Use this clause to specify another condition to be checked when the previous IF condition is FALSE.
 
 One IF clause can have multiple ELS(E)IF clauses. The ELS(E)IF clause is optional..
 
@@ -3457,7 +3487,7 @@ ENO         SUM
 20          13210                
 3 rows selected.
 iSQL> SELECT * FROM payroll;
-PAYROLL.ENO PAYROLL.BONUS 
+PAYROLL.ENO PAYROLL.BONUS
 -----------------------------
 12          500         
 19          1000        
@@ -3468,7 +3498,7 @@ PAYROLL.ENO PAYROLL.BONUS
 
 
 
-### CASE 
+### CASE
 
 #### Syntax
 
@@ -3476,7 +3506,7 @@ PAYROLL.ENO PAYROLL.BONUS
 
 #### Purpose
 
-CASE is a conditional construct that determines the flow of execution on the basis of the value of some variable. Its functionality is similar to that of the IF statement, however, it is more easily legible. 
+CASE is a conditional construct that determines the flow of execution on the basis of the value of some variable. Its functionality is similar to that of the IF statement, however, it is more easily legible.
 
 As can be seen in the above diagram, the CASE statement can have one of two forms:
 
@@ -3502,7 +3532,7 @@ This is the value with which case_variable is compared. If they are the same, th
 
 ##### ELSE
 
-If none of the WHEN conditions are satisfied in the case of case_statement_1, or if case_variable does not match any when_value in the case of case_statement_2, the statements following the ELSE clause will be executed. 
+If none of the WHEN conditions are satisfied in the case of case_statement_1, or if case_variable does not match any when_value in the case of case_statement_2, the statements following the ELSE clause will be executed.
 
 The ELSE clause can be omitted, and only one ELSE clause can be specified for one CASE construct. If there is no ELSE clause and none of the conditions are satisfied, no statement will be executed.
 
@@ -3620,7 +3650,7 @@ ENO         EMP_JOB          SALARY
 
 #### Purpose
 
-The LOOP construct is used to repeatedly execute a desired statement or series of statements without using a particular condition to control execution. 
+The LOOP construct is used to repeatedly execute a desired statement or series of statements without using a particular condition to control execution.
 
 Bear in mind that using the LOOP construct without an EXIT statement or some other way of exiting the loop can create an infinite loop, which can cause system problems.
 
@@ -3648,7 +3678,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM item;
-ITEM.ID     ITEM.COUNTER 
+ITEM.ID     ITEM.COUNTER
 ----------------------------
 501         1           	
 501         2           
@@ -3661,7 +3691,7 @@ ITEM.ID     ITEM.COUNTER
 
 
 
-### WHILE LOOP 
+### WHILE LOOP
 
 #### Syntax
 
@@ -3691,7 +3721,7 @@ BEGIN
     INSERT INTO t1 VALUES (v1, v1, v1);
     IF v1 = 2 THEN
       CONTINUE;
-    END IF; 
+    END IF;
   END LOOP;
 
 END;
@@ -3710,7 +3740,7 @@ T1.I1       T1.I2       T1.I3
 
 
 
-### FOR LOOP 
+### FOR LOOP
 
 #### Syntax
 
@@ -3730,9 +3760,9 @@ This statement is optionally used to specify that the counter is to decrease fro
 
 ##### lower_bound
 
-This is the minimum value that the counter can have. It must take the form of an integer, or an expression that is compatible with the INTEGER type. 
+This is the minimum value that the counter can have. It must take the form of an integer, or an expression that is compatible with the INTEGER type.
 
-*lower_bound* can be a local variable. Note however that the value of the variable is determined and stored only once, at the beginning of the first iteration of the FOR loop. This means that subsequently changing the value of this local variable during execution of the FOR loop will have no effect on the number of iterations. 
+*lower_bound* can be a local variable. Note however that the value of the variable is determined and stored only once, at the beginning of the first iteration of the FOR loop. This means that subsequently changing the value of this local variable during execution of the FOR loop will have no effect on the number of iterations.
 
 If *lower_bound* is a non-integer number, it is rounded to the nearest integer.
 
@@ -3746,7 +3776,7 @@ As with *lower_bound, upper_bound* can be a local variable, but as the value of 
 
 ##### step_size
 
-*step_size* is used to set the amount by which the value of the counter is incremented or decremented. If it is omitted, 1 is the default value. 
+*step_size* is used to set the amount by which the value of the counter is incremented or decremented. If it is omitted, 1 is the default value.
 
 Note that *step_size* cannot be set to a value less than 1. Additionally, if it is a non-integer number, it is rounded to the nearest integer.
 
@@ -3926,7 +3956,7 @@ T6.I1       T6.SUM
 
 
 
-### EXIT 
+### EXIT
 
 #### Syntax
 
@@ -3934,9 +3964,9 @@ T6.I1       T6.SUM
 
 #### Purpose
 
-The EXIT statement is used to terminate the iteration of a loop. If label_name is specified, iteration of the loop specified using label_name is terminated. If label_name is not specified, iteration of the innermost loop is terminated. 
+The EXIT statement is used to terminate the iteration of a loop. If label_name is specified, iteration of the loop specified using label_name is terminated. If label_name is not specified, iteration of the innermost loop is terminated.
 
-If the EXIT statement is used anywhere other than inside a LOOP, an error will occur. 
+If the EXIT statement is used anywhere other than inside a LOOP, an error will occur.
 
 ```
 <<outer>>
@@ -4019,7 +4049,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM stock;
-STOCK.GNO   STOCK.STOCK STOCK.PRICE 
+STOCK.GNO   STOCK.STOCK STOCK.PRICE
 ----------------------------------------
 A111100002  100         98000       
 B111100001  780         35800       
@@ -4054,7 +4084,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM stock;
-STOCK.GNO   STOCK.STOCK STOCK.PRICE 
+STOCK.GNO   STOCK.STOCK STOCK.PRICE
 ----------------------------------------
 A111100002  100         98000       
 B111100001  780         35800       
@@ -4066,7 +4096,7 @@ E111100006  900         2338.62
 
 
 
-### CONTINUE 
+### CONTINUE
 
 #### Syntax
 
@@ -4080,7 +4110,7 @@ The CONTINUE statement causes subsequent statements in the loop in which it is f
 
 -   FOR
 
--   CURSOR FOR 
+-   CURSOR FOR
 
 If the CONTINUE statement is used anywhere other than inside a loop, an error will occur.
 
@@ -4124,7 +4154,7 @@ END;
 iSQL> EXEC proc1;
 Execute success.
 iSQL> SELECT * FROM t8;
-T8.I1       T8.MATHPOWER 
+T8.I1       T8.MATHPOWER
 ----------------------------
 7           0           
 20          0           
@@ -4181,7 +4211,7 @@ In PROC1
 
 
 - It cannot be used to transfer control from an external block to an internal block. This limitation applies to all BEGIN/END blocks and all loop constructs.
-  
+
 ```
   CREATE OR REPLACE PROCEDURE PROC1
   AS
@@ -4285,7 +4315,7 @@ Execute success.
 
 
 
-### NULL 
+### NULL
 
 #### Syntax
 
@@ -4335,7 +4365,7 @@ iSQL> SELECT eno, salary FROM employees WHERE eno = 19;
 ENO         SALARY      
 ---------------------------
 19          1875     
-1 row selected. 
+1 row selected.
 ```
 
 
@@ -4348,7 +4378,7 @@ This chapter describes how to manage and use cursors.
 
 ### Overview
 
-There are two ways of reading table records within a stored procedure: using the SELECT INTO statement. 
+There are two ways of reading table records within a stored procedure: using the SELECT INTO statement.
 
 The SELECT INTO statement can be used to read only a single record. If more than one record is returned by a SELECT INTO statement, an error will be raised. Therefore, in situations where it can be expected that more than one record will be returned, it is necessary to use a cursor
 
@@ -4382,7 +4412,7 @@ This is the step of releasing the resources allocated to a cursor that is no lon
 
 This is the type of loop that executes all of the OPEN, FETCH, and CLOSE statements. Iteration of the loop continues until there are no more records left to process. This statement is convenient to use because it obviates the need to use explicit OPEN and CLOSE statements.
 
-### CURSOR 
+### CURSOR
 
 #### Syntax
 
@@ -4398,7 +4428,7 @@ This is the name of the cursor, which is referenced in the OPEN, FETCH, CLOSE, a
 
 ##### cursor_parameter_declaration
 
-In cases where it is necessary to use parameters with a cursor's SELECT statement, they can be defined for the cursor in the same way that they are for stored procedures. 
+In cases where it is necessary to use parameters with a cursor's SELECT statement, they can be defined for the cursor in the same way that they are for stored procedures.
 
 The following limitations apply to the use of parameters with cursors:
 
@@ -4412,12 +4442,12 @@ A value is assigned to a cursor parameter using an OPEN CURSOR or CURSOR FOR sta
 
 ```
 DECLARE
-  CURSOR c1 IS 
-    SELECT empno, ename, job, sal 
-    FROM emp 
+  CURSOR c1 IS
+    SELECT empno, ename, job, sal
+    FROM emp
     WHERE sal > 2000;
-  CURSOR c2 
-    (low INTEGER DEFAULT 0, 
+  CURSOR c2
+    (low INTEGER DEFAULT 0,
     high INTEGER DEFAULT 99) IS
     SELECT ......;
 ```
@@ -4439,7 +4469,7 @@ AS
 BEGIN
   DECLARE
    CURSOR c1 IS
-     SELECT eno, e_firstname, e_lastname, salary FROM employees 
+     SELECT eno, e_firstname, e_lastname, salary FROM employees
    WHERE salary IS not NULL
    ORDER BY salary desc;
    emp_first CHAR(20);
@@ -4492,13 +4522,13 @@ A cursor having this name must have been declared in the declare section of the 
 
 Parameters can be optionally specified for a cursor. These parameters can be used in the associated query in place of constants or local variables.
 
-If the cursor has parameters, they are declared as shown below: 
+If the cursor has parameters, they are declared as shown below:
 
 ```
 DECLARE
- CURSOR c1(pname VARCHAR(40), pno INTEGER) IS 
-  SELECT empno, ename, job, sal 
-  FROM emp 
+ CURSOR c1(pname VARCHAR(40), pno INTEGER) IS
+  SELECT empno, ename, job, sal
+  FROM emp
   WHERE eame = pname;
 BEGIN
  OPEN c1;
@@ -4583,16 +4613,16 @@ BEGIN
 END;
 /
 iSQL> SELECT * FROM t2;
-T2.I1      T2.I2      T2.I3 
+T2.I1      T2.I2      T2.I3
 ----------------------------------------
 No rows selected.
 iSQL> EXEC proc1;
 EXECUTE success.
 iSQL> SELECT * FROM t2;
-T2.I1      T2.I2      T2.I3 
+T2.I1      T2.I2      T2.I3
 ----------------------------------------
-1          1          1 
-2          2          2 
+1          1          1
+2          2          2
 2 rows selected.
 ```
 
@@ -4610,12 +4640,12 @@ T2.I1      T2.I2      T2.I3
 
 This statement is used to obtain one row from an open cursor and store the value(s) in the variable(s) specified in the INTO clause of the SELECT statement.
 
-A list of variables that match the column types specified in the cursor's SELECT statement is specified. Alternatively, the name of a RECORD type variable is specified, and the row retrieved from the cursor is saved in the RECORD type variable. 
+A list of variables that match the column types specified in the cursor's SELECT statement is specified. Alternatively, the name of a RECORD type variable is specified, and the row retrieved from the cursor is saved in the RECORD type variable.
 
-The use of RECORD type varialbe in FETCH statement has the following restrictions: 
+The use of RECORD type varialbe in FETCH statement has the following restrictions:
 
--   Only one RECORD type variable can be used to store one retrieved row. 
--   It must be possible to save all of the columns retrieved by the SELECT statement into the RECORD type variable. 
+-   Only one RECORD type variable can be used to store one retrieved row.
+-   It must be possible to save all of the columns retrieved by the SELECT statement into the RECORD type variable.
 -   RECORD type variables cannot be combined with regular variables.
 
 If an attempt is made to fetch results from a cursor that is not open, an INVALID_CURSOR error will occur.
@@ -4626,7 +4656,7 @@ This is the name of the cursor to use to fetch records. A cursor having this nam
 
 ##### record_name
 
-This is used to specify the name of the RECORD type variable into which the cursor's SELECT statement retrieves records. The RECORD type variable that is used must have the same number of columns as the SELECT statement's select list, and the column types must be compatible and specified in the corresponding order. 
+This is used to specify the name of the RECORD type variable into which the cursor's SELECT statement retrieves records. The RECORD type variable that is used must have the same number of columns as the SELECT statement's select list, and the column types must be compatible and specified in the corresponding order.
 
 When retrieving all columns from a table, it is convenient to declare a RECORD type variable using the %ROWTYPE attribute for the table from which the records are to be retrieved.
 
@@ -4664,7 +4694,7 @@ BEGIN
   LOOP
    FETCH c1 INTO emp_rec;
    EXIT WHEN c1%NOTFOUND;
-   INSERT INTO emp_temp 
+   INSERT INTO emp_temp
    VALUES(emp_rec.eno, emp_rec.e_firstname, emp_rec.e_lastname);
   END LOOP;
   CLOSE c1;
@@ -4752,7 +4782,7 @@ CLOSE c1;
 
 
 
-### Cursor FOR LOOP 
+### Cursor FOR LOOP
 
 #### Syntax
 
@@ -5023,7 +5053,7 @@ BEGIN
   LOOP
    FETCH c1 INTO emp_rec;
    EXIT WHEN c1%ROWCOUNT > 10 OR c1%NOTFOUND;
-   INSERT INTO emp_temp 
+   INSERT INTO emp_temp
    VALUES(emp_rec.eno, emp_rec.e_firstname, emp_rec.e_lastname);
   END LOOP;
 
@@ -5072,7 +5102,7 @@ For information on defining RECORD types, please refer to "Defining a User-Defin
 An associative array is similar to a hash table. An associative array is a set of key-value pairs. The keys are unique indexes that are used to locate the associated values with the syntax:
 
 ```
-variable_name[index] 또는 variable_name(index) 
+variable_name[index] 또는 variable_name(index)
 ```
 
 The data type of index can be either VARCHAR or INTEGER. It can be used to combine data items of the same type into a single data item for processing, regardless of the amount of data. For example, suppose that it is desired to process the data pertaining to employees having employee numbers from 1 to 100. These 100 data items can be processed using an associative array.
@@ -5115,12 +5145,12 @@ This clause defines RECORD type, which is comprised of data_type. Any data type 
 
 #### Example
 
-##### Exampl 1 
+##### Exampl 1
 
 Define a RECORD type called employee that consists of the name (VARCHAR(20)), department (INTEGER) and salary (NUMBER(8)) elements.
 
 ```
-DECLARE 
+DECLARE
 TYPE employee IS RECORD( name VARCHAR(20),
  dept  INTEGER,
  salary  NUMBER(8));
@@ -5131,7 +5161,7 @@ BEGIN
 
 
 
-##### Example 2 
+##### Example 2
 
 Define an associative array called “namelist” that uses the VARCHAR(20) type for its elements and has an INTEGER type index.
 
@@ -5146,7 +5176,7 @@ BEGIN
 
 
 
-##### Example 3 
+##### Example 3
 
 Define an associative array called employeelist that uses the employee user-defined record type for its elements and has a VARCHAR(10) type index.
 
@@ -5180,9 +5210,9 @@ This returns the number of elements in an associative array.
 
 ##### DELETE
 
-DELETE() removes all elements and returns the number of elements that were removed. 
+DELETE() removes all elements and returns the number of elements that were removed.
 
-DELETE(n) removes the element whose index is n, and returns the number of element(s) that were removed, i.e. 0 or 1. 
+DELETE(n) removes the element whose index is n, and returns the number of element(s) that were removed, i.e. 0 or 1.
 
 DELETE(m, n) removes all elements whose indexes are in the range from m to n inclusive and returns the number of the elements that were removed. Note that if the value of m is greater than the value of n, then no elements will be removed. If they are the same, then only that element will be removed.
 
@@ -5213,7 +5243,7 @@ PRIOR(n) returns the index number that precedes index n. For associative arrays 
 Delete elements from the associative array variable “V1”.
 
 ```
-CREATE OR REPLACE PROCEDURE PROC1( 
+CREATE OR REPLACE PROCEDURE PROC1(
     P1 IN VARCHAR(10),
     P2 IN VARCHAR(10) )
 AS
@@ -5225,15 +5255,15 @@ BEGIN
     V1['FSDGADS'] := 1;
     V1['AA'] := 2;
     V1['7G65'] := 3;
-    V1['N887K'] := 4; 
+    V1['N887K'] := 4;
     V1['KU'] := 5;
     V1['34'] := 6;
- 
+
     PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
- 
+
     V2 := V1.DELETE(P1, P2);
     PRINTLN( 'DELETED COUNT IS : '||V2);
-    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() ); 
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
 END;
 /
 ```
@@ -5283,7 +5313,7 @@ V1_IDX INTEGER;
       V1_IDX := V1.NEXT(V1_IDX);
     END IF;
   END LOOP;
-  
+
   PRINTLN( 'DESCENDING ORDER V1');
 
   V1_IDX := V1.LAST();
@@ -5369,8 +5399,8 @@ BEGIN
      v_emp1.name := 'smith';
      v_emp1.job_id := 'RND1069';
      v_emp1.salary := '10000000';
-     
-     v_emp2 := v_emp1;    -- failed. 
+
+     v_emp2 := v_emp1;    -- failed.
 ```
 
 Even though the two variables have the same structure, the assignment operation fails because they refer to different user-defined types. However, assignment operations between individual elements whose types match, as shown below, will be successful:
@@ -5379,7 +5409,7 @@ v_emp2.name := v_emp1.name;
 
 #### RECORD Type Variable Example
 
-##### Example 1 
+##### Example 1
 
 Create a RECORD type for storing the name, salary, and department of employees.
 
@@ -5406,7 +5436,7 @@ END;
 
 ####  Associative Array Type Examples
 
-##### Example 1 
+##### Example 1
 
 Output the last names of all employees whose ID numbers range from 1 to 20 inclusive.
 
@@ -5478,7 +5508,7 @@ v_emp[I].emp_job||' '||
 v_emp[I].salary );
 END LOOP;
 END;
-/ 
+/
 Create success.
 iSQL> EXEC PROC1;
 Chan-seung           Moon                 CEO
@@ -5510,7 +5540,7 @@ Execute success.
 
 ##### Example
 
-Create a RECORD type storing the name of employees, and then create a overlapping RECORD type variable storing its type, department, and salary. 
+Create a RECORD type storing the name of employees, and then create a overlapping RECORD type variable storing its type, department, and salary.
 
 ```
 iSQL> CREATE OR REPLACE PROCEDURE PROC1
@@ -5556,7 +5586,7 @@ Execute success.
 
 ##### Example
 
-Create variables of multidimensional associative array type storing the customer name and order number. 
+Create variables of multidimensional associative array type storing the customer name and order number.
 
 ```
 iSQL> CREATE OR REPLACE PROCEDURE PROC1
@@ -5574,7 +5604,7 @@ SELECT ono BULK COLLECT INTO v_order_array FROM orders WHERE cno = I;
 END LOOP;
 FOR i in 1 .. 5 LOOP
 println ( v_cust_order[I].first_name || ' ' || v_cust_order[I].last_name );
-v_order_array := v_cust_order[I].orders; 
+v_order_array := v_cust_order[I].orders;
 FOR J IN v_order_array.FIRST() .. v_order_array.LAST() LOOP
 PRINTLN ( '   order no : ' || v_order_array[J] );
 END LOOP;
@@ -5606,15 +5636,15 @@ Execute success
 
 ### REF CURSOR
 
-A stored procedure can pass a result set, resulting from execution of a SQL statement, to a client using a cursor variable (REF CURSOR). 
+A stored procedure can pass a result set, resulting from execution of a SQL statement, to a client using a cursor variable (REF CURSOR).
 
-Opening a cursor variable with the OPEN FOR statement and then passing the cursor to a client using an OUT parameter makes it possible for the client to access the result set. If multiple cursors are sent, the client can access multiple result sets. Except for the fact that the OPEN FOR statement is used to open a cursor variable, the use of cursor-related statements is the same as for regular cursors. 
+Opening a cursor variable with the OPEN FOR statement and then passing the cursor to a client using an OUT parameter makes it possible for the client to access the result set. If multiple cursors are sent, the client can access multiple result sets. Except for the fact that the OPEN FOR statement is used to open a cursor variable, the use of cursor-related statements is the same as for regular cursors.
 
-A cursor variable can only be passed as an OUT or IN/OUT parameter of a stored procedure. It cannot be returned with the RETURN statement. 
+A cursor variable can only be passed as an OUT or IN/OUT parameter of a stored procedure. It cannot be returned with the RETURN statement.
 
-In order for a client to be able to fetch a result set, a cursor variable must be open when it is passed from the stored procedure to the client. In other words, if the cursor is closed when it is passed, it will be impossible to fetch the result set. 
+In order for a client to be able to fetch a result set, a cursor variable must be open when it is passed from the stored procedure to the client. In other words, if the cursor is closed when it is passed, it will be impossible to fetch the result set.
 
-When an UPDATE or INSERT statement is executed inside a stored procedure, the number of affected records (the affected row count) is not passed to the client. 
+When an UPDATE or INSERT statement is executed inside a stored procedure, the number of affected records (the affected row count) is not passed to the client.
 
 The way that the client receives the result set using the cursor variable varies depending on the type of client. Using a cursor variable to pass the result set to a client is possible only in ODBC and JDBC. It is not possible in embedded SQL (Precompiler, APRE).
 
@@ -5642,7 +5672,7 @@ INSERT INTO STAFF VALUES ('JI HYUNG', '300', '', 0);
 ```
    CREATE TYPESET MY_TYPE
    AS
-     TYPE MY_CUR IS REF CURSOR; 
+     TYPE MY_CUR IS REF CURSOR;
    END;
    /
 ```
@@ -5731,7 +5761,7 @@ if (SQL_ERROR == SQLExecute(stmt))
     printf("ERROR: Execute Procedure\n");
   }
 
-/*  Store the results of 'SELECT eno, ename, dno FROM emp' in variables (eno, ename and dno).  */ 
+/*  Store the results of 'SELECT eno, ename, dno FROM emp' in variables (eno, ename and dno).  */
   if (SQL_ERROR == SQLBindCol(stmt, 1, SQL_C_SLONG, &eno, 0, (long *)&eno_len))
   {
     printf("ERROR: Bind 1 Column\n");
@@ -5833,7 +5863,7 @@ This chapter describes how to define and use typesets.
 
 ### Overview
 
-A typeset is a database object that allows the user-defined types used in stored procedures to be stored and managed in one place. 
+A typeset is a database object that allows the user-defined types used in stored procedures to be stored and managed in one place.
 
 #### Features
 
@@ -5851,7 +5881,7 @@ Typesets can be used to integrate data types into logical units for easier manag
 
 ##### Passing Result Sets to Client Applications
 
-A result set returned by a SQL statement that is executed within a stored procedure can be passed to a client using a REF CURSOR type variable in a typeset. 
+A result set returned by a SQL statement that is executed within a stored procedure can be passed to a client using a REF CURSOR type variable in a typeset.
 
 #### Structure
 
@@ -5899,7 +5929,7 @@ END;
 
 
 
-##### PROCEDURE 2 
+##### PROCEDURE 2
 
 procedure_2 assigns the value returned by function_3 to its OUT parameter.
 
@@ -6063,7 +6093,7 @@ DROP TYPESET my_typeset;
 
 This chapter describes how to use dynamic SQL in stored procedures and functions.
 
-### Overview 
+### Overview
 
 With dynamic SQL, the user can create queries as desired at runtime and then execute them. In static execution, which is the standard way to execute SQL statements in stored procedures, an execution plan for all SQL statements in a stored procedure is created when the stored procedure is executed for the first time. Using dynamic SQL is the only way to execute SQL statements that did not exist when the stored procedure was compiled.
 
@@ -6075,7 +6105,7 @@ The following diagram compares the tasks involved in executing static vs. dynami
 
 [Figure 8-1] Execution of Static SQL vs. Dynamic SQL
 
-[In Figure 8-1, the stored procedure on the left processes the ‘DELETE FROM T1’ statement statically, whereas the stored procedure on the right uses the EXECUTE IMMEDIATE statement to processes the same DELETE statement dynamically at runtime. 
+[In Figure 8-1, the stored procedure on the left processes the ‘DELETE FROM T1’ statement statically, whereas the stored procedure on the right uses the EXECUTE IMMEDIATE statement to processes the same DELETE statement dynamically at runtime.
 
 For the stored procedure on the left side, an execution plan for the DELETE statement is created at the time point that the procedure is executed for the first time, stored in the Plan Cache, queried and executed on repeated invocations. Likewise, an execution plan for the DELETE statement is created at the time point that the procedure is executed for the first time and stored in the Plan Cache for the stored procedure on the right side as well.
 
@@ -6085,9 +6115,9 @@ The advantage of dynamic SQL is that it allows the user to freely change SQL sta
 
 Dynamic SQL is useful in the following cases:
 
--   When the name of the table to be queried can vary during runtime 
--   When it is appropriate to change a query hint depending on the circumstances, or when it is necessary to change a conditional operator for a condition clause 
--   When SQL statements that are used in stored procedures and functions need to be optimized frequently due to the frequent execution of DDL and DML statements 
+-   When the name of the table to be queried can vary during runtime
+-   When it is appropriate to change a query hint depending on the circumstances, or when it is necessary to change a conditional operator for a condition clause
+-   When SQL statements that are used in stored procedures and functions need to be optimized frequently due to the frequent execution of DDL and DML statements
 -   When it is necessary to frequently execute SQL statements for which the execution cost exceeds the optimization cost. When it is desired to create versatile, reusable stored procedures
 
 However, in some situations, using dynamic SQL may realize lower performance than using static SQL. This is attributable to the high cost of creating and deleting statements and binding variables to them. Although the use of dynamic SQL statements permits greater flexibility when designing applications, it may result in reduced performance.
@@ -6106,7 +6136,7 @@ This statement is used to dynamically execute a DDL, DCL or DML statement, inclu
 
 #### Description
 
-##### dynamic_string 
+##### dynamic_string
 
 This is the string containing the query statement to be executed.
 
@@ -6138,14 +6168,14 @@ END;
 /
 
 CREATE PROCEDURE insert_table (
-      table_name  VARCHAR(100), 
-      dept_no     NUMBER, 
-      dept_name   VARCHAR(100), 
+      table_name  VARCHAR(100),
+      dept_no     NUMBER,
+      dept_name   VARCHAR(100),
       location    VARCHAR(100))
 AS
       stmt    VARCHAR2(200);
 BEGIN
-   stmt := 'INSERT INTO ' || table_name || 
+   stmt := 'INSERT INTO ' || table_name ||
            ' values (?, ?, ?)';
    EXECUTE IMMEDIATE stmt
            USING dept_no, dept_name, location;
@@ -6184,7 +6214,7 @@ The following statements are not supported for use with dynamic SQL:
 
 -   DISCONNECT
 
-### OPEN FOR 
+### OPEN FOR
 
 This statement is used to initialize a cursor variable (REF CURSOR), execute the query, and determine the result set, so that data can be retrieved using the FETCH statement or can be passed to a client using stored procedure parameters. The USING clause is used to bind parameters.
 
@@ -6194,7 +6224,7 @@ This statement is used to initialize a cursor variable (REF CURSOR), execute the
 
 #### Description
 
-##### cursor_variable_name 
+##### cursor_variable_name
 
 This is used to specify the name of a REF CURSOR-type cursor variable.
 
@@ -6202,7 +6232,7 @@ This is used to specify the name of a REF CURSOR-type cursor variable.
 
 The select_statement is a query statement which will be executed. No other than the SELECT statement can be used, and it cannot be used along with the USING clause.
 
-##### dynamic_string 
+##### dynamic_string
 
 dynamic_string is the query to be executed. This can only be a SELECT statement in the form of a string.
 
@@ -6214,7 +6244,7 @@ The optional USING clause is used to specify parameters to bind to the SQL state
 
 The following example illustrates how to open a cursor variable within a stored procedure in order to fetch multiple rows resulting from the execution of a dynamic SQL statement.
 
-For information on how to fetch a result set using an open cursor variable in a client program, please refer to the *Precompiler User's Manual*, *ODBC Reference*, and *API User's Manual*. 
+For information on how to fetch a result set using an open cursor variable in a client program, please refer to the *Precompiler User's Manual*, *ODBC Reference*, and *API User's Manual*.
 
 ```
 CREATE OR REPLACE PROCEDURE fetch_employee
@@ -6230,12 +6260,12 @@ BEGIN
   LOOP
     FETCH emp_cv INTO emp_rec;
     EXIT WHEN emp_cv%NOTFOUND;
-    PRINTLN('[Name]: ' || emp_rec.e_firstname || emp_rec.e_lastname || 
+    PRINTLN('[Name]: ' || emp_rec.e_firstname || emp_rec.e_lastname ||
             ' [Job Id]: ' || emp_rec.emp_job);
   END LOOP;
   CLOSE emp_cv;
 END;
-/ 
+/
 ```
 
 
@@ -6260,7 +6290,7 @@ Execeptions supported by stored procedures include
 
 ##### System-Defined Exceptions
 
-System-defined exceptions are already defined within the system, and thus do not need to be declared in the DECLARE section of a stored procedure or block. 
+System-defined exceptions are already defined within the system, and thus do not need to be declared in the DECLARE section of a stored procedure or block.
 
 Some of the system-defined exceptions that can occur within stored procedures are as follows:
 
@@ -6276,7 +6306,7 @@ Some of the system-defined exceptions that can occur within stored procedures ar
 
 User-defined exceptions are expressly declared by the user and intentionally raised using the RAISE statement.
 
-An example is shown below: 
+An example is shown below:
 
 ```
 DECLARE
@@ -6293,7 +6323,7 @@ If a user-defined exception has the same name as a system-defined exception, the
 
 #### Declaring an Exception
 
-The names of system-defined exceptions are defined inside the system, so there is no need to explicitly declare them. 
+The names of system-defined exceptions are defined inside the system, so there is no need to explicitly declare them.
 
 In contrast, user-defined exceptions must be explicitly declared in the DECLARE section of a block or stored procedure.
 
@@ -6307,7 +6337,7 @@ In contrast, user-defined exceptions must be explicitly raised in a stored proce
 
 The tasks to perform in the event of a system-defined or user-defined exception are defined here.
 
-### EXCEPTION 
+### EXCEPTION
 
 #### Syntax
 
@@ -6332,7 +6362,7 @@ DECLARE
 
 
 
-### RAISE 
+### RAISE
 
 #### Syntax
 
@@ -6344,13 +6374,13 @@ This statement is used to expressly raise an exception and pass control to the r
 
 ##### exception_name
 
-The name of the exception to raise is specified here. exception_name must be either the name of an exception declared in the declare section of the block or a system-defined exception. 
+The name of the exception to raise is specified here. exception_name must be either the name of an exception declared in the declare section of the block or a system-defined exception.
 
-If the exception specified here has not been declared, it will be impossible to compile the stored procedure. If the exception has been declared but no corresponding exception handler exists in the exception handler section, execution of the stored procedure will stop and an “unhandled exception” error will be returned. 
+If the exception specified here has not been declared, it will be impossible to compile the stored procedure. If the exception has been declared but no corresponding exception handler exists in the exception handler section, execution of the stored procedure will stop and an “unhandled exception” error will be returned.
 
-User exceptions having the same name can be declared in inner and outer blocks. To avoid ambiguity in such cases, label each block and then reference the appropriate exception by specifying the label before the exception name in the RAISE statement. 
+User exceptions having the same name can be declared in inner and outer blocks. To avoid ambiguity in such cases, label each block and then reference the appropriate exception by specifying the label before the exception name in the RAISE statement.
 
-An exception declared for an outer block can be raised within the handler for an exception declared for an inner block. 
+An exception declared for an outer block can be raised within the handler for an exception declared for an inner block.
 
 An exception name can be omitted only when the RAISE statement is used in the exception handler section, in which case it raises the exception that occurred previously.
 
@@ -6373,9 +6403,9 @@ END;
 /
 iSQL> EXEC PROC1;
 VALUE ERROR CATCHED. BUT RE-RAISE.        
-[ERR-3116F : Value error 
-0004 :   RAISE VALUE_ERROR; 
-        ^                 ^ 
+[ERR-3116F : Value error
+0004 :   RAISE VALUE_ERROR;
+        ^                 ^
 ]
 ```
 
@@ -6394,12 +6424,12 @@ BEGIN
     WHEN OTHERS THEN
     PRINTLN('EXCEPTION FROM PROC1 CATCHED.');
     PRINTLN('SQLCODE : '||SQLCODE);
-END; 
+END;
 /
 iSQL> EXEC PROC2;
-VALUE ERROR CATCHED. BUT RE-RAISE. 
-EXCEPTION FROM PROC1 CATCHED. 
-SQLCODE : 201071 
+VALUE ERROR CATCHED. BUT RE-RAISE.
+EXCEPTION FROM PROC1 CATCHED.
+SQLCODE : 201071
 Execute success.
 ```
 
@@ -6413,7 +6443,7 @@ The use of up to 1001 user-defined error codes, specifically the error codes ran
 
 ```
 RAISE_APPLICATION_ERROR (
-	errcode INTEGER, 
+	errcode INTEGER,
     errmsg VARCHAR(2047) );
 ```
 
@@ -6556,16 +6586,16 @@ For convenience, the most commonly used system-defined exception codes are liste
 
 For the complete list of all error codes, please refer to the *Error Message Reference.*
 
-### SQLCODE and SQLERRM 
+### SQLCODE and SQLERRM
 
 SQLCODE and SQLERRM are used in an exception handler to obtain the error code and message for an exception that occurs during the execution of a SQL statement so that the exception can be responded to in a suitable manner.
 
 The contents of SQLCODE and SQLERRM are set in the following cases:
 
--   When an error occurs during the execution of a stored procedure 
--   When a user-defined exception occurs 
--   When a system-defined exception occurs 
--   When RAISE_APPLICATION_ERROR is used to raise a user-defined error (code and message) 
+-   When an error occurs during the execution of a stored procedure
+-   When a user-defined exception occurs
+-   When a system-defined exception occurs
+-   When RAISE_APPLICATION_ERROR is used to raise a user-defined error (code and message)
 -   When another exception is raised within an exception handler
 
 In all of the above cases, the current contents of SQLCODE and SQLERRM are replaced with the error code and message corresponding to the newly raised exception.
@@ -6632,15 +6662,15 @@ The scope of SQLCODE and SQLERRM in the above example is illustrated in the foll
 
 #### Purpose
 
-Exception handlers are used to specify the actions to take in response to exceptions. 
+Exception handlers are used to specify the actions to take in response to exceptions.
 
 When an exception occurs, Altibase looks for an exception handler to which to pass control. The rules that are followed when looking for an exception handler are as follows:
 
 -   Starting with the current block and progressing successively outwards to blocks that contain the current block, Altibase looks for a handler for the exception. During this process, if an OTHERS exception handler is found in any block, that OTHERS handler will be used to handle the exception.
-  
+
 -   If no exception handler is found even in the outermost block, an “Unhandled Exception” error is raised, and execution of the stored procedure or function stops immediately.
 
-SQLCODE and SQLERRM can be used in an exception handler to check which kind of error occurred and return the related error message. In other words, SQLCODE returns the Altibase error number and SQLERRM returns the corresponding error message. 
+SQLCODE and SQLERRM can be used in an exception handler to check which kind of error occurred and return the related error message. In other words, SQLCODE returns the Altibase error number and SQLERRM returns the corresponding error message.
 
 SQLCODE and SQLERRM cannot be directly used in SQL statements. Instead, assign their values to local variables and use these variables within SQL statements.
 
@@ -6810,7 +6840,7 @@ The following pragmas can be used in Altibase. Thorough information on each prag
 
 #### Function
 
-Autonomous transaction pragma is used to modify PSM object operation carried out within a transaction. The autonomous transaction pragma is configured when compiling PSM object creation. 
+Autonomous transaction pragma is used to modify PSM object operation carried out within a transaction. The autonomous transaction pragma is configured when compiling PSM object creation.
 
 The PSM object specified with the autonomous transaction pragma independently operates, and it does not share transaction sources with the main transaction. In particular, the autonomous transaction pragma is highly efficient for writing a program which is module-centric or contains high reusability.
 
@@ -6818,9 +6848,9 @@ The PSM object specified with the autonomous transaction pragma independently op
 
 The location in which the autonomous transaction pragma should be defined is as follows:
 
--   The top stored procedures 
--   The top stored functions 
--   The top stored package subprograms 
+-   The top stored procedures
+-   The top stored functions
+-   The top stored package subprograms
 -   psm_body of triggers
 
 The differences between Autonomous and nested transactions is as follows:
@@ -6834,7 +6864,7 @@ The differences between Autonomous and nested transactions is as follows:
 
 #### Note
 
-Since autonomous transactions do not share lock, source use, commit dependency with the main transaction, even if the main transaction is rolled back, the contents of the autonomous transaction are not rolled back. 
+Since autonomous transactions do not share lock, source use, commit dependency with the main transaction, even if the main transaction is rolled back, the contents of the autonomous transaction are not rolled back.
 
 A deadlock might be encountered when accessing an object referenced in the main transaction since the autonomous transaction separately operates from the main transaction.
 
@@ -6955,15 +6985,15 @@ C1
 
 #### Function
 
-Excepton initialization pragma enables the user to initialize exception variables with Altibase error codes. 
+Excepton initialization pragma enables the user to initialize exception variables with Altibase error codes.
 
-The user can use the excepton variables initialized by Altibase error codes in place of other handler in the exception handling. 
+The user can use the excepton variables initialized by Altibase error codes in place of other handler in the exception handling.
 
 The location in which exception initialzation pragram can be defined is as follows:
 
--   The declarative part of stored procedures 
--   The declarative part of stored functions 
--   The declarative part of stored package 
+-   The declarative part of stored procedures
+-   The declarative part of stored functions
+-   The declarative part of stored package
 -   The declarative part of stored package subprograms
 
 ##### exception_name
@@ -7080,7 +7110,7 @@ This chapter describes how to create and use stored packages.
 
 A package is a grouped object of user-defined types, variables, constants, subprograms(procedures or functions), cursors and exceptions used for stored procedures. The package is composed of a package specification and a package body. Every package has a specification which defines user-defined types, or declares variables, constants, subprograms(procedures or functions), cursors, and exceptions. Objects declared in this manner can be referenced from outside the package. Moreover, the subprograms of packages can be utilized with overloading. Hence, the package specification is equivalent to the Application Programming Interface (API).
 
-If cursors or subprograms are declared in the package specification, a package body must be created for the given package. The package body must define queries for cursors and code for subprograms. The package body can also declare and define objects; however, objects declared in this manner cannot be referenced from outside the package. 
+If cursors or subprograms are declared in the package specification, a package body must be created for the given package. The package body must define queries for cursors and code for subprograms. The package body can also declare and define objects; however, objects declared in this manner cannot be referenced from outside the package.
 
 The package body can have an initialization part and an exception-handling part. The initialization part runs only once per session, when the package is executed for the first time. The user cannot directly access the package body, and its alteration does not affect the package specification. The package body is the part which is actually processed when a package object is referenced, and the package specification is the part which hides this from the outside. The package is loaded into memory on its first run per session, and is maintained until the given session is terminated.
 
@@ -7088,19 +7118,19 @@ The package body can have an initialization part and an exception-handling part.
 
 -   Modularity  
     Stored packages enable the user to modularize objects associated with a given operation, such as types, variables, constants, cursors, exceptions and subprograms.
-    
+
 -   Easy applicaiton program writing  
     The writing and maintenance of application programs are made easy with modularization.
 
 -   Information security  
     Since the package body is only accessible via the package specification, implementation details can be hidden. Therefore, information can be secured by blocking access to the package body from the outside.
-    
+
 -   Performance enhancement  
     Since the package is loaded into the session on its first run, processing speed is fast for repeated calls made in the same session.
 
 #### Structure
 
-A package is composed of a package specification and a package body. Types, variables, constants, cursors, exceptions, subprograms, etc. can be declared in the declaration section of the package specification and package body; objects declared in the package specification can be further defined in the body. 
+A package is composed of a package specification and a package body. Types, variables, constants, cursors, exceptions, subprograms, etc. can be declared in the declaration section of the package specification and package body; objects declared in the package specification can be further defined in the body.
 
 The initialization part of the package body is an optional feature, and runs only once per session, when the package is executed for the first time. The initialization part is mainly used to set the values of variables declared or referenced inside a package. The package body can also write an exception-handling part.
 
@@ -7116,7 +7146,7 @@ The figure below is a diagram of the structure of the package specification and 
 
 
 
-### CREATE PACKAGE 
+### CREATE PACKAGE
 
 #### Syntax
 
@@ -7184,20 +7214,20 @@ END;
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
-  
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
-  
+
 iSQL> create or replace package pkg1 authid current_user as
      var1 integer;
      procedure sub1;
      end;
      /
 Create success.
- 
+
 iSQL> create or replace package body pkg1 as
      procedure sub1 as
      begin
@@ -7207,7 +7237,7 @@ iSQL> create or replace package body pkg1 as
      end;
      /
 Create success.
- 
+
 iSQL> select package_name , package_type , authid
       from system_.sys_packages_
       where package_name = 'PKG1';
@@ -7229,10 +7259,10 @@ PKG1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 ```
@@ -7266,33 +7296,33 @@ Execute success.
 ```
 iSQL> connect user1/user1;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 1 );
 1 row inserted.
- 
- 
+
+
 iSQL> create or replace package pkg1 authid definer as
      var1 integer;
      procedure sub1;
      end;
      /
 Create success.
- 
+
 iSQL> create or replace package body pkg1 as
-    
+
      procedure sub1 as
      begin
      select c1 into var1 from t1;
      println( var1 );
      end;
-    
+
      end;
      /
 Create success.
- 
+
 iSQL> select package_name , package_type , authid
     2 from system_.sys_packages_
     3 where package_name = 'PKG1';
@@ -7314,10 +7344,10 @@ PKG1
 ```
 iSQL> connect user2/user2;
 Connect success.
- 
+
 iSQL> create table t1( c1 integer );
 Create success.
- 
+
 iSQL> insert into t1 values ( 100 );
 1 row inserted.
 ```
@@ -7383,7 +7413,7 @@ This writes the package initialization and exception-handling parts of the packa
 ```
 iSQL> select * from system_.sys_packages_ where package_name = 'PKG2';
 No rows selected.
- 
+
 iSQL> create or replace package body pkg2 as
       v1 integer;
       procedure proc1 as
@@ -7492,7 +7522,7 @@ begin
 return 'date';
 end;
 end;
-/ 
+/
 Create success.
 ```
 
@@ -7500,11 +7530,11 @@ Create success.
 
 #### Note
 
--   The package specification must be created at first in order to create the package body. 
--   Not a single procedure or function specified in the package specification should be omitted at all and it must be included in the package body. 
+-   The package specification must be created at first in order to create the package body.
+-   Not a single procedure or function specified in the package specification should be omitted at all and it must be included in the package body.
 -   Data types can be matched by using functions, such as CAST and TO_DATE in order to prevent unwanted execution of subprogram with overloading of subprogram package.
 
-### ALTER PACKAGE 
+### ALTER PACKAGE
 
 #### Syntax
 
@@ -7521,20 +7551,20 @@ This statement explicitly recompiles the package specification, the package body
 ```
 iSQL> alter package pkg1 compile;
 Alter success.
- 
+
 iSQL> alter package pkg1 compile specification;
 Alter success.
- 
+
 iSQL> alter package pkg1 compile body;
 Alter success.
- 
+
 iSQL> alter package pkg1 compile package;
 Alter success.
 ```
 
 
 
-### DROP PACKAGE 
+### DROP PACKAGE
 
 #### Syntax
 
@@ -7599,7 +7629,7 @@ end;
 
 iSQL> exec pkg1.v1 := pkg1.func1;
 Execute success.
- 
+
 iSQL> exec pkg1.proc1;
 1
 Execute success.
@@ -7633,9 +7663,9 @@ In order for stored procedures to be able to create and manage text files, it is
 
 ##### Creating a Directory Object
 
-The CREATE DIRECTORY statement is used to create a database object corresponding to each directory in which it is desired to store and maintain files. 
+The CREATE DIRECTORY statement is used to create a database object corresponding to each directory in which it is desired to store and maintain files.
 
-When the CREATE DIRECTORY statement is executed, information about the directory is recorded in the SYS_DIRECTORIES_ meta table. However, this statement does not actually create the physical directory in the file system. Therefore, the user must first manually perform the additional tasks of creating the physical directory and granting suitable permissions for the directory. 
+When the CREATE DIRECTORY statement is executed, information about the directory is recorded in the SYS_DIRECTORIES_ meta table. However, this statement does not actually create the physical directory in the file system. Therefore, the user must first manually perform the additional tasks of creating the physical directory and granting suitable permissions for the directory.
 
 In the CREATE DIRECTORY statement, the user must specify the name and the absolute path of the directory to be accessed by the database.
 
@@ -7665,11 +7695,11 @@ The effect of the above statement will vary depending on whether the alti_dir1 d
 
 ##### Dropping a Directory Object
 
-Directory objects can be removed from the database using the DROP DIRECTORY statement. 
+Directory objects can be removed from the database using the DROP DIRECTORY statement.
 
-Note that the DROP DIRECTORY statement merely removes the directory object from the database. It does not actually delete the physical directory from the file system. 
+Note that the DROP DIRECTORY statement merely removes the directory object from the database. It does not actually delete the physical directory from the file system.
 
-Therefore, the user must manually delete unnecessary directories and files from the file system using operating system commands. 
+Therefore, the user must manually delete unnecessary directories and files from the file system using operating system commands.
 
 The following example shows the use of the DROP DIRECTORY statement to remove a directory object from the database.
 
@@ -7684,13 +7714,13 @@ Drop success.
 
 ##### FILE_TYPE
 
-To enable stored procedures to control files, Altibase support a data type called “FILE_TYPE”. 
+To enable stored procedures to control files, Altibase support a data type called “FILE_TYPE”.
 
-FILE_TYPE contains file identifiers and other information; however, this information is not directly accessible by users. 
+FILE_TYPE contains file identifiers and other information; however, this information is not directly accessible by users.
 
 Local variables having the FILE_TYPE data type can be used within stored procedures as parameters for file control-related system stored procedures and stored functions.
 
-The following is an example of the declaration of a FILE_TYPE variable: 
+The following is an example of the declaration of a FILE_TYPE variable:
 
 ```
 CREATE OR REPLACE PROCEDURE WRITE_T1
@@ -7725,7 +7755,7 @@ Altibase provides the following 12 system stored procedures and stored functions
 | PUT        | Writes a string of text to a file                            |
 | PUT_LINE   | Writes a line of text, followed by a carriage return character or sequence, to a file (=PUT+NEW_LINE) |
 
-The system stored procedures and functions listed above are automatically created in the system when the CREATE DATABASE statement is executed. Additionally, PUBLIC synonyms are defined for these procedures and functions so that any user can use them to handle files within stored procedures. 
+The system stored procedures and functions listed above are automatically created in the system when the CREATE DATABASE statement is executed. Additionally, PUBLIC synonyms are defined for these procedures and functions so that any user can use them to handle files within stored procedures.
 
 The process of managing files using system procedures and functions is illustrated in the following figure:
 
@@ -7763,13 +7793,13 @@ Users cannot read or arbitrarily change the value of a FILE_TYPE variable. FILE_
 
 ###### **File Control-Related System Stored Procedures and Stored Functions**
 
-The system stored procedures and stored functions provided to manage files may generate exceptions other than system exceptions. 
+The system stored procedures and stored functions provided to manage files may generate exceptions other than system exceptions.
 
-For example, when there is not enough disk space, or when there are not enough file handles, system stored procedures and functions will raise unforeseeable errors such as INVALID_OPERATION. 
+For example, when there is not enough disk space, or when there are not enough file handles, system stored procedures and functions will raise unforeseeable errors such as INVALID_OPERATION.
 
 If an invalid parameter is passed to a file control-related system stored procedure or stored function, a VALUE_ERROR exception will occur.
 
-#### FCLOSE 
+#### FCLOSE
 
 This stored procedure closes and reinitializes a file handle
 
@@ -7797,7 +7827,7 @@ This stored procedure never raises an error, even when it is executed on a file 
 
 ##### Example
 
-After executing FOPEN and performing actions on files, FCLOSE is called to close the file handle, as shown below: 
+After executing FOPEN and performing actions on files, FCLOSE is called to close the file handle, as shown below:
 
 ```
 CREATE OR REPLACE PROCEDURE PROC1
@@ -7815,7 +7845,7 @@ END;
 
 
 
-#### FCLOSE_ALL 
+#### FCLOSE_ALL
 
 This stored procedure closes all of the file handles that were opened in the current session. It is commonly used within exception handlers to ensure that files are closed properly even when exceptions are raised within stored procedures.
 
@@ -7974,7 +8004,7 @@ $ cat b.txt
 
 
 
-#### FFLUSH 
+#### FFLUSH
 
 A stored procedure that physically writes data on the file.
 
@@ -7986,7 +8016,7 @@ FFLUSH ( file IN FILE_TYPE );
 
 
 
-##### Parameter	
+##### Parameter
 
 | Name | Input/Output | Data Type | Description   |
 | ---- | ------------ | --------- | ------------- |
@@ -8035,14 +8065,14 @@ END;
 
 
 
-#### FOPEN 
+#### FOPEN
 
 This stored function opens a file and returns a file handle.
 
 ##### Syntax
 
 ```
-FILE_TYPE variable := 
+FILE_TYPE variable :=
 FOPEN (
          location IN VARCHAR(40),
          filename IN VARCHAR(256),
@@ -8079,7 +8109,7 @@ For a detailed explanation of how to handle exceptions, please refer to "Handlin
 
 ##### Example
 
-The following example shows that before a file can be read from or written to, it is first necessary to open the file in the appropriate mode using FOPEN: 
+The following example shows that before a file can be read from or written to, it is first necessary to open the file in the appropriate mode using FOPEN:
 
 ```
 CREATE OR REPLACE PROCEDURE PROC1
@@ -8097,7 +8127,7 @@ END;
 
 
 
-#### FREMOVE 
+#### FREMOVE
 
 This stored procedure deletes the specified file.
 
@@ -8136,7 +8166,7 @@ For a detailed explanation of how to handle exceptions, please refer to "Handlin
 
 ##### Example
 
-The following example shows how to use FREMOVE to delete files: 
+The following example shows how to use FREMOVE to delete files:
 
 ```
 --## Current directory information
@@ -8154,7 +8184,7 @@ a.sql       a.txt       schema.sql
 
 
 
-#### FRENAME 
+#### FRENAME
 
 This stored procedure is used to change the name of a file or move the file to a different location. Its functionality is similar to that of the Unix mv command.
 
@@ -8217,7 +8247,7 @@ a.sql       result.txt  schema.sql
 
 
 
-#### GET_LINE 
+#### GET_LINE
 
 This stored procedure reads one line from the specified file.
 
@@ -8280,7 +8310,7 @@ Execute success.
 
 
 
-#### IS_OPEN 
+#### IS_OPEN
 
 This stored function checks whether or not the specified file is open.
 
@@ -8341,7 +8371,7 @@ END;
 
 
 
-#### NEW_LINE 
+#### NEW_LINE
 
 This store procedure writes an OS-specific carriage return character or sequence the specified number of times in the file.
 
@@ -8355,7 +8385,7 @@ lines IN INTEGER DEFAULT 1 );
 
 
 
-##### Parameters	
+##### Parameters
 
 | Name  | Input/Output | Data Type | Description                                          |
 | ----- | ------------ | --------- | ---------------------------------------------------- |
@@ -8405,7 +8435,7 @@ $
 
 
 
-#### PUT 
+#### PUT
 
 This stored procedure is used to write a character string to a file.
 
@@ -8442,7 +8472,7 @@ For a detailed explanation of how to handle exceptions, please refer to "Handlin
 
 ##### Example
 
-The following example shows how to write text to a file: 
+The following example shows how to write text to a file:
 
 ```
 CREATE OR REPLACE PROCEDURE PROC1
@@ -8464,7 +8494,7 @@ $
 
 
 
-#### PUT_LINE 
+#### PUT_LINE
 
 This stored procedure writes one line of text, including a carriage return character or sequence, to a file.
 
@@ -8594,7 +8624,7 @@ END;
 
 ##### Example 2
 
-The following example shows how to write the contents of the table to a file or read from a file. 
+The following example shows how to write the contents of the table to a file or read from a file.
 
 Create a user and assign suitable privileges to the user.
 
@@ -8705,7 +8735,7 @@ ID : 6 NAME : MHJEONG
 
 ##### Data Type
 
-The CONNECT_TYPE is a data type which is supported in a stored procedure in order to control TCP access. 
+The CONNECT_TYPE is a data type which is supported in a stored procedure in order to control TCP access.
 
 The CONNECT_TYPE internally contains stored TCP socket information, however, users cannot access to the internal data
 
@@ -8752,8 +8782,8 @@ CLOSEALL_CONNECT closes all the connection handle connected to the current sessi
 ##### Syntax
 
 ```
-CONNECT_TYPE variable := 
-CLOSEALL_CONNECT(); 
+CONNECT_TYPE variable :=
+CLOSEALL_CONNECT();
 ```
 
 ##### Return Value
@@ -8783,9 +8813,9 @@ CLOSE_CONNECT closes a connection handle connected to the current session.
 ##### Syntax
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 CLOSE_CONNECT(
-         coon IN CONNECT_TYPE); 
+         coon IN CONNECT_TYPE);
 ```
 
 ##### Parameter
@@ -8824,9 +8854,9 @@ IS_CONNECTED checks the connection state of the CONNECT_TYPE connection handle.
 ##### Syntax
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 IS_CONNECTED(
-         coon IN CONNECT_TYPE); 
+         coon IN CONNECT_TYPE);
 ```
 
 ##### Parameter
@@ -8867,12 +8897,12 @@ OPEN_CONNECT is a stored function which creates TCP sockets and accesses to the 
 ##### Syntax
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 OPEN_CONNECT(
          ip IN VARCHAR(64),
          port IN INTEGER,
          connect_timeout IN INTEGER,
-         tx_buffersize IN INTEGER); 
+         tx_buffersize IN INTEGER);
 ```
 
 ##### Parameters
@@ -8914,11 +8944,11 @@ WRITE_RAW sends RAW(VARBYTE) type data to network via connected handle.
 ##### Syntax
 
 ```
-CONNECT_TYPE variable := 
+CONNECT_TYPE variable :=
 WRITE_RAW (
          coon IN CONNECT_TYPE,
          data IN VARBYTE,
-         length IN INTEGER ); 
+         length IN INTEGER );
 ```
 
 ##### Parameters
@@ -8960,7 +8990,7 @@ CHECK_CONNECT_STATE compares current connection state with the connection state 
 ##### Syntax
 
 ```
-INTEGER variable := 
+INTEGER variable :=
 CHECK_CONNECT_STATE(
   c IN CONNECT_TYPE,
   next_state IN INTEGER );
@@ -9003,7 +9033,7 @@ Checks if the reply fits the protocol of current connection.
 ##### Syntax
 
 ```
-INTEGER variable := 
+INTEGER variable :=
 CHECK_CONNECT_REPLY(
   protocol_type IN INTEGER,
   reply IN VARCHAR(65534) );
@@ -9050,11 +9080,11 @@ SEND_TXT sends VARCHAR type data to the connected handle via network.
 ##### Syntax
 
 ```
-INTEGER variable := 
-SEND_TEXT( 
+INTEGER variable :=
+SEND_TEXT(
   c IN CONNECT_TYPE,
   data IN VARCHAR(65534),
-  length IN INTEGER ); 
+  length IN INTEGER );
 ```
 
 ##### Parameters
@@ -9095,8 +9125,8 @@ RECV_TEXT receives VARCHAR type data from the connected handle via network.
 ##### Syntax
 
 ```
-VARCHAR variable := 
-RECV_TEXT( 
+VARCHAR variable :=
+RECV_TEXT(
   c IN CONNECT_TYPE,
   length IN INTEGER );
 ```
@@ -9140,7 +9170,7 @@ WRITE_RAW_VALUE returns RAW type VALUE data to the network via connection handle
 ##### Syntax
 
 ```
-INTEGER variable := 
+INTEGER variable :=
 WRITE_RAW_VALUE(
   c IN CONNECT_TYPE,
   data IN RAW(65534),
@@ -9207,7 +9237,7 @@ The stored procedures which alter statistics pertaining to individual columns, i
 | SET_INDEX_STATS  | Alters statistics pertaining to a particular index           |
 | SET_COLUMN_STATS | Alters statistics pertaining to columns of a particular table |
 
-The following stored procedures retrieve statistics pertaining to individual columns, indexes, tables, or the system. 
+The following stored procedures retrieve statistics pertaining to individual columns, indexes, tables, or the system.
 
 | Name             | Description                                                  |
 | ---------------- | ------------------------------------------------------------ |
@@ -9216,7 +9246,7 @@ The following stored procedures retrieve statistics pertaining to individual col
 | GET_INDEX_STATS  | Retrieves statistics pertaining to a particular index        |
 | GET_COLUMN_STATS | Retrieves statistics pertaining to columns of a particular table |
 
-The stored procedures which delete or copy statistics pertaining to individual columns, indexes, tables or the system are listed in the following table. 
+The stored procedures which delete or copy statistics pertaining to individual columns, indexes, tables or the system are listed in the following table.
 
 | Name                  | Description                                                  |
 | --------------------- | ------------------------------------------------------------ |
@@ -9230,7 +9260,7 @@ The stored procedures which delete or copy statistics pertaining to individual c
 #### Notes
 
 -   The process of gathering statistics imposes an additional workload on the Altibase server.
--    The statistics that are gathered in this way should be considered approximate. 
+-    The statistics that are gathered in this way should be considered approximate.
 -   After statistics are gathered, Altibase reconstructs the execution plans for all queries that reference any of the objects for which the statistical information was gathered. During this process, the performance of the Altibase server can suffer somewhat
 
 #### COPY_TABLE_STATS
@@ -9311,7 +9341,7 @@ SYSTEM_.SYS_USERS_
 .
 .
 .
-Execute success. 
+Execute success.
 ```
 
 
@@ -9435,7 +9465,7 @@ SET_COLUMN_STATS (
   tabname          VARCHAR(128),
   colname          VARCHAR(128),
   partname         VARCHAR(128) DEFAULT NULL,
-  numdist          BIGINT  DEFAULT NULL, 
+  numdist          BIGINT  DEFAULT NULL,
   numnull          BIGINT  DEFAULT NULL,
   avgclen          BIGINT  DEFAULT NULL,
   minvalue         VARCHAR(48) DEFAULT NULL,
@@ -9566,7 +9596,7 @@ SET_TABLE_STATS (
   ownname         VARCHAR(128),
   tabname         VARCHAR(128),
   partname        VARCHAR(128) DEFAULT NULL,
-  numrow          BIGINT  DEFAULT NULL, 
+  numrow          BIGINT  DEFAULT NULL,
   numblk          BIGINT  DEFAULT NULL,
   avgrlen         BIGINT  DEFAULT NULL,
   onerowreadtime  DOUBLE  DEFAULT NULL,
@@ -9596,7 +9626,7 @@ Because it is a stored procedure, there is no return value.
 
 ```
 iSQL> EXEC SET_TABLE_STATS('SYS', 'T1', NULL, 1000);
-Execute success. 
+Execute success.
 ```
 
 
@@ -9613,7 +9643,7 @@ GET_COLUMN_STATS (
   tabname          VARCHAR(128),
   colname          VARCHAR(128),
   partname         VARCHAR(128) DEFAULT NULL,
-  numdist          BIGINT, 
+  numdist          BIGINT,
   numnull          BIGINT,
   avgrlen          BIGINT,
   minvalue         VARCHAR(48),
@@ -9742,8 +9772,8 @@ GET_TABLE_STATS (
 ownname          VARCHAR(128),
 tabname          VARCHAR(128),
 partname         VARCHAR(128) DEFAULT NULL,
-numrow            BIGINT, 
-numpage           BIGINT, 
+numrow            BIGINT,
+numpage           BIGINT,
 avgrlen           BIGINT,
 cashedpage       BIGINT,
 onerowreadtime   DOUBLE );
@@ -9777,7 +9807,7 @@ Execute success.
 
 #### DELETE_COLUMN_STATS
 
-This procedure deletes statistics pertaining to columns of a table. 
+This procedure deletes statistics pertaining to columns of a table.
 
 ##### Syntax
 
@@ -9830,7 +9860,7 @@ no_invalidate       BOOLEAN DEFAULT FALSE);
 
 
 
-##### Parameters	
+##### Parameters
 
 | Name            | Input/Output | Data Type | Description                                                  |
 | --------------- | ------------ | --------- | ------------------------------------------------------------ |
@@ -9851,7 +9881,7 @@ SYSTEM_.SYS_USERS_
 .
 .
 .
-Execute success. 
+Execute success.
 ```
 
 
@@ -9871,7 +9901,7 @@ no_invalidate        BOOLEAN DEFAULT FALSE);
 
 
 
-##### Parameters	
+##### Parameters
 
 | Name            | Input/Output | Data Type    | Description                                                  |
 | --------------- | ------------ | ------------ | ------------------------------------------------------------ |
@@ -9995,13 +10025,13 @@ REMOVE_XID can raise the following system-defined exceptions.
 
 #### REFRESH_MATERIALIZED_VIEW
 
-This is a stored procedure that reflects the base table data changes to the materialized view. By executing this stored procedure, data of the materialized view is updated accordingly to the base table. 
+This is a stored procedure that reflects the base table data changes to the materialized view. By executing this stored procedure, data of the materialized view is updated accordingly to the base table.
 
 If the user is not the owner of the materialized view to be refreshed, the following privileges are required to execute this stored procedure:
 
 -   ALTER ANY MATERIALIZED VIEW system privilege
 -   SELECT ANY TABLE system privilege or SELECT object privilege of the automatically created view for the materialized view.
--   INSERT ANY TABLE and DELETE ANY TALBE system privileges, or INSERT AND DELETE object privileges of the automatically created view for the materialized view. 
+-   INSERT ANY TABLE and DELETE ANY TALBE system privileges, or INSERT AND DELETE object privileges of the automatically created view for the materialized view.
 
 ##### Syntax
 
@@ -10026,17 +10056,17 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exceptions
 
--   SELECT, DELETE or INSERT failures due to absence of privilege. 
--   Tablespace space deficiency, excess of maximum rows for the materialized view, etc. 
+-   SELECT, DELETE or INSERT failures due to absence of privilege.
+-   Tablespace space deficiency, excess of maximum rows for the materialized view, etc.
 -   Issues related to the following notes.
 
 ##### Notes
 
 Refresh failure can be due to the following reasons:
 
--   The user has altered the definition of the base table or deleted the table. 
--   The user has altered the definition of the table automatically created for the materialized view using the ALTER TABLE statement. 
--   Occurrence of Lock Timeout. 
+-   The user has altered the definition of the base table or deleted the table.
+-   The user has altered the definition of the table automatically created for the materialized view using the ALTER TABLE statement.
+-   Occurrence of Lock Timeout.
 -   Violation of table constraints.
 
 #### SET_CLIENT_INFO
@@ -10104,7 +10134,7 @@ SLEEP (seconds IN INTEGER);
 
 
 
-##### Parameter	
+##### Parameter
 
 | Name      | Input/Output | Data Type | Description                             |
 | --------- | ------------ | --------- | --------------------------------------- |
@@ -10124,7 +10154,7 @@ There is no exception.
 
 --------------------
 
-This chapter discusses system-defined stored packages provided by Altibase. 
+This chapter discusses system-defined stored packages provided by Altibase.
 
 ### System-defined Stored Packages
 
@@ -10145,19 +10175,19 @@ Altibase provides the system-defined Stored packages as follows.
 | [DBMS_RANDOM](#dbms_random)                          | Creates arbitrary numbers.                                   |
 | [DBMS_RECYCLEBIN](#dbms_recyclebin-패키지)           | Can completely purge the tables which has been dropped and managed in the recycle bin. |
 | [DBMS_SQL](#dbms_sql)                                | Provides procedures and functions utilizing dynamic SQL.     |
-| [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)          | Provides stored procedures which keeps or removes the specified execution plan in SQL Plan Cache. |
+| [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)          | Provides two stored procedures which keeps or removes the specified execution plan in SQL Plan Cache. |
+| [DBMS_STANDARD](#dbms_standard)                      | Provides various default sub programs                        |
 | [DBMS_STATS](#dbms_stats)                            | Package views and modifies the stats information             |
-| [DBMS_STANDARD](#dbms_standard)                      | Provides various subprograms that can be used without specifying the package name. |
 | [DBMS_UTILITY](#dbms_utility)                        | Provides various utility subprograms.                        |
 | [STANDARD](#standard)                                | In addition to the basic data types, it defines the types that can be used without declaration in PSM. |
-| [SYS_SPATIAL](#sys_spatial)                          | Provides subprograms related to Geometry.                    |
+| [SYS_SPATIAL](#sys_spatial)                          | Provides subprograms related to GEOMETRY.                    |
 | [UTL_COPYSWAP](#utl_copyswap)                        | Online DDL is supported by COPY & SWAP method                |
-| [UTL_FILE](#standard)                                | Reads and writes text files managed by an operating system.  |
-| [UTL_RAW](#utl_raw)                                  | Modifies or alter RAW(VARBYTE) type data into a different type. |
-| [UTL_SMTP](#utl_smtp)                                | Executes SMTP for SMTP server to send an E-mail.             |
+| [UTL_FILE](#standard)                                | Can read and write text files managed by an operating system. |
+| [UTL_RAW](#utl_raw)                                  | Can modify or alter RAW(VARBYTE) type data into a different type. |
+| [UTL_SMTP](#utl_smtp)                                | Executes SMTP to send E-mail on SMTP server.                 |
 | [UTL_TCP](#utl_tcp)                                  | Controls TCP access in a stored procedure.                   |
 
-### DBMS_APPLICATION_INFO 
+### DBMS_APPLICATION_INFO
 
 The DBMS_APPLICATION_INFO package tracks and manages the performance of the application by setting or getting values for the V\$SESSION performance view.
 
@@ -10191,7 +10221,7 @@ DBMS_APPLICATION_INFO.READ_CLIENT_INFO(client_info OUT VARCHAR(128));
 
 ##### Return Value
 
-The number of records processed by executing a cursor are returned. 
+The number of records processed by executing a cursor are returned.
 
 ##### Exception
 
@@ -10211,7 +10241,7 @@ iSQL> EXEC PRINTLN(:v1);
 
 #### READ_MODULE
 
-The READ_MODULE imports values of MODULE and ACTION specified in the V$SESSION performance view. 
+The READ_MODULE imports values of MODULE and ACTION specified in the V$SESSION performance view.
 
 ##### Syntax
 
@@ -10288,7 +10318,7 @@ iSQL> EXEC DBMS_APPLICATION_INFO.SET_ACTION( 'stop');
 
 #### SET_CLIENT_INFO
 
-The SET_CLIENT_INFO configures the client information which is accessed to V$SESSION performance view. 
+The SET_CLIENT_INFO configures the client information which is accessed to V$SESSION performance view.
 
 ##### Syntax
 
@@ -10314,7 +10344,7 @@ There is no exception.
 
 ##### Example
 
-This sets the client information to test_application. 
+This sets the client information to test_application.
 
 ```
 iSQL> EXEC DBMS_APPLICATION_INFO.SET_CLIENT_INFO('test_application');
@@ -10350,7 +10380,7 @@ There is no exception.
 
 ##### Example
 
-The SET_MODULE procedure modifies the module name of currently running procedure to altibase_module, and sets the status to be running. 
+The SET_MODULE procedure modifies the module name of currently running procedure to altibase_module, and sets the status to be running.
 
 ```
 iSQL> EXEC DBMS_APPLICATION_INFO.SET_MODULE('altibase_module', 'running');
@@ -10394,7 +10424,7 @@ DBMS_ALERT.REGISTER (name);
 
 Because it is a stored procedure, there is no return value.
 
-##### Exception	
+##### Exception
 
 There is no exception.
 
@@ -10408,7 +10438,7 @@ iSQL> EXEC DBMS_ALERT.REGISTER (‘S1’);
 
 #### REMOVE_EVENT
 
-This procedure removes a specific alert. The unregistered alert cannot be able to receive signals. 
+This procedure removes a specific alert. The unregistered alert cannot be able to receive signals.
 
 ##### Syntax
 
@@ -10582,7 +10612,7 @@ EXEC DBMS_ALERT.WAITANY ( :NAME, :MESSAGE, :STATUS, 5 );
 
 #### WAITONE
 
-This procedure awaits a certain alert, and only the registered alerts can receive signals. 
+This procedure awaits a certain alert, and only the registered alerts can receive signals.
 
 ##### Syntax
 
@@ -10623,11 +10653,11 @@ EXEC DBMS_ALERT.WAITONE ( :NAME, :MESSAGE, :STATUS, 5 );
 
 ### DBMS_CONCURRENT_EXEC Package
 
-The DBMS_CONCURRENT_EXEC package allows the concurrent execution of procedures. This is a system-defined package. 
+The DBMS_CONCURRENT_EXEC package allows the concurrent execution of procedures. This is a system-defined package.
 
-#### DBMS_CONCURRENT_EXEC Procedures and Functions 
+#### DBMS_CONCURRENT_EXEC Procedures and Functions
 
-The DBMS_CONCURRENT_EXEC package consists of the following procedures and functions. 
+The DBMS_CONCURRENT_EXEC package consists of the following procedures and functions.
 
 | Procedures/Functions | Description                                                  |
 | -------------------- | ------------------------------------------------------------ |
@@ -10654,26 +10684,26 @@ Properties related to the DBMS_CONCURRENT_EXEC package can be set in the altibas
 
 For more detailed information, please refer to the *General Reference*.
 
-#### Restrictions 
+#### Restrictions
 
-The DBMS_CONCURRENT_EXEC package has the following restrictions. 
+The DBMS_CONCURRENT_EXEC package has the following restrictions.
 
--   Only procedures that do not return results can be executed; functions that do not return results cannot be executed. 
--   Procedures with output parameters cannot be executed. 
--   Procedures or functions cannot make recursive calls. If a recursive call is made, the RECURSIVE_CALL_IS_NOT_ALLOWED exception is raised. 
--   Cannot be used in parallel queries. 
+-   Only procedures that do not return results can be executed; functions that do not return results cannot be executed.
+-   Procedures with output parameters cannot be executed.
+-   Procedures or functions cannot make recursive calls. If a recursive call is made, the RECURSIVE_CALL_IS_NOT_ALLOWED exception is raised.
+-   Cannot be used in parallel queries.
 -   Executed procedures cannot be printed to the screen with PRINT or PRINTLN. Logs are written in $ALTIBASE_HOME/trc/altibase_qp.log.
 
-#### INITIALIZE 
+#### INITIALIZE
 
-INITIALIZE initializes the DBMS_CONCURRENT_EXEC package and sets the number of procedures allowed to be executed in parallel. On omission, the value set for the CONCURRENT_EXEC_DEGREE_DEFAULT property is applied. 
+INITIALIZE initializes the DBMS_CONCURRENT_EXEC package and sets the number of procedures allowed to be executed in parallel. On omission, the value set for the CONCURRENT_EXEC_DEGREE_DEFAULT property is applied.
 
-The maximum number of procedures allowed to be executed in parallel cannot exceed the value set for the CONCURRENT_EXEC_DEGREE_MAX property. If a number of procedures corresponding to CONCURRENT_EXEC_DEGREE_MAX is being executed in another session, 0 is returned and the function does not execute. 
+The maximum number of procedures allowed to be executed in parallel cannot exceed the value set for the CONCURRENT_EXEC_DEGREE_MAX property. If a number of procedures corresponding to CONCURRENT_EXEC_DEGREE_MAX is being executed in another session, 0 is returned and the function does not execute.
 
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.INITIALIZE (in_degree INTEGER DEFAULT NULL );
 ```
 
@@ -10685,7 +10715,7 @@ INTERGER variable :=
 
 ##### Return Value
 
-If successful, the number of procedures (DEGREE) that were set is returned. If the server failed to allocate resources, 0 is returned. 
+If successful, the number of procedures (DEGREE) that were set is returned. If the server failed to allocate resources, 0 is returned.
 
 ##### Exception
 
@@ -10697,7 +10727,7 @@ RECURSIVE_CALL_IS_NOT_ALLOWED
 
 ##### Example
 
-Initialize the DBMS_CONCURRENT_EXEC package and set the number of procedures to be executed in parallel to 4. 
+Initialize the DBMS_CONCURRENT_EXEC package and set the number of procedures to be executed in parallel to 4.
 
 ```
 VARIABLE OUT_DEGREE INTEGER;
@@ -10713,7 +10743,7 @@ REQUEST requests the DBMS_CONCURRENT_EXEC package to execute a procedure.
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.REQUEST(text VARCHAR(8192) );
 ```
 
@@ -10729,9 +10759,9 @@ INTERGER variable :=
 
 If successful, Request ID is returned. Request ID is managed in the DBMS_CONCURRENT_EXEC package.
 
-If unsuccessful, -1 is returned. However, it is still possible to fetch Request ID, and errors can be checked with the GET_ERROR function. 
+If unsuccessful, -1 is returned. However, it is still possible to fetch Request ID, and errors can be checked with the GET_ERROR function.
 
-##### Exception 
+##### Exception
 
 The following exception may occur when a procedure executed in the DBMS_CONCURRENT_EXEC package requests this function.
 
@@ -10743,7 +10773,7 @@ RECURSIVE_CALL_IS_NOT_ALLOWED
 
 ##### Example
 
-Request procedures in the DBMS_CONCURRENT_EXEC package to be executed in parallel. 
+Request procedures in the DBMS_CONCURRENT_EXEC package to be executed in parallel.
 
 ```
 VARIABLE REQ_ID1 INTEGER;
@@ -10765,13 +10795,13 @@ WAIT_ALL waits until the execution of procedures to be executed in parallel are 
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.WAIT_ALL(  );
 ```
 
 ##### Return Value
 
-If successful, 1 is returned. If unsuccessful, -1 is returned. 
+If successful, 1 is returned. If unsuccessful, -1 is returned.
 
 ##### Exception
 
@@ -10804,7 +10834,7 @@ EXEC :RC := DBMS_CONCURRENT_EXEC.WAIT_ALL( );
 
 #### WAIT_REQ
 
-This procedure waits until the operation of a specific procedure being processed in parallel to be completed in the DBMS_CONCURRENT_EXEC package. 
+This procedure waits until the operation of a specific procedure being processed in parallel to be completed in the DBMS_CONCURRENT_EXEC package.
 
 ##### Syntax
 
@@ -10823,7 +10853,7 @@ INTERGER variable :=
 
 ##### Return Value
 
-1 is returned when successfully executed. 
+1 is returned when successfully executed.
 
 If a request ID does not exist, -1 is returned.
 
@@ -10858,20 +10888,20 @@ EXEC :RC := DBMS_CONCURRENT_EXEC.WAIT_REQ(:REQ_ID1);
 
 #### GET_ERROR_COUNT
 
-GET_ERROR_COUNT returns the number of errors that occurred during the execution of a requested procedure. To get an accurate count, call WAIT_ALL and then GET_ERROR_COUNT. 
+GET_ERROR_COUNT returns the number of errors that occurred during the execution of a requested procedure. To get an accurate count, call WAIT_ALL and then GET_ERROR_COUNT.
 
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.GET_ERROR_COUNT( );
 ```
 
 ##### Return Value
 
-If successful, the number of errors is returned. 
+If successful, the number of errors is returned.
 
-0 means that the execution of all requested procedures was successful. 
+0 means that the execution of all requested procedures was successful.
 
 ##### Example
 
@@ -10885,7 +10915,7 @@ RECURSIVE_CALL_IS_NOT_ALLOWED
 
 ##### Example
 
-Get the number of errors that occurred during the execution of a procedure. 
+Get the number of errors that occurred during the execution of a procedure.
 
 ```
 VARIABLE ERR_COUNT INTEGER;
@@ -10906,12 +10936,12 @@ EXEC :ERR_COUNT := DBMS_CONCURRENT_EXEC.GET_ERROR_COUNT( );
 
 #### GET_ERROR
 
-GET_ERROR fetches the syntax, error code, and error message of the procedure corresponding to Request ID. To get accurate information, call WAIT_ALL, and then GET_ERROR. 
+GET_ERROR fetches the syntax, error code, and error message of the procedure corresponding to Request ID. To get accurate information, call WAIT_ALL, and then GET_ERROR.
 
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.GET_ERROR(
      req_id IN INTEGER,
      text OUT VARCHAR(8192),
@@ -10932,9 +10962,9 @@ INTERGER variable :=
 
 ##### Return Value
 
-If successful, Request ID is returned. 
+If successful, Request ID is returned.
 
-If neither Request ID exists nor an error occurred, -1 is returned. 
+If neither Request ID exists nor an error occurred, -1 is returned.
 
 ##### Exception
 
@@ -10948,7 +10978,7 @@ RECURSIVE_CALL_IS_NOT_ALLOWED
 
 ##### Example
 
-Fetch the error that occurred during the execution of a procedure. 
+Fetch the error that occurred during the execution of a procedure.
 
 ```
 VARIABLE RC INTEGER;
@@ -10965,12 +10995,12 @@ EXEC :REQ_ID := DBMS_CONCURRENT_EXEC.GET_ERROR( :REQ_ID, :TEXT, :ERR_CODE, :ERR_
 
 #### PRINT_ERROR
 
-PRINT_ERROR prints the syntax, error code, and error message of the procedure corresponding to Request ID. 
+PRINT_ERROR prints the syntax, error code, and error message of the procedure corresponding to Request ID.
 
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.PRINT_ERROR(req_id IN INTEGER);
 ```
 
@@ -10994,7 +11024,7 @@ RECURSIVE_CALL_IS_NOT_ALLOWED
 
 ##### Example
 
-Print an error that occurred during the execution of a procedure. 
+Print an error that occurred during the execution of a procedure.
 
 ```
 VARIABLE RC INTEGER;
@@ -11017,18 +11047,18 @@ EXEC DBMS_CONCURRENT_EXEC.PRINT_ERROR(:REQ_ID4);
 
 #### GET_LAST_REQ_ID
 
-GET_LAST_REQ_ID returns the most recently executed Request ID that was successful. 
+GET_LAST_REQ_ID returns the most recently executed Request ID that was successful.
 
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.GET_LAST_REQ_ID( );
 ```
 
 ##### Return Value
 
-If successful, the most recently executed Request ID is returned. 
+If successful, the most recently executed Request ID is returned.
 
 ##### Exception
 
@@ -11055,12 +11085,12 @@ EXEC :LAST_REQ_ID := DBMS_CONCURRENT_EXEC.GET_LAST_REQ_ID( );
 
 #### GET_REQ_TEXT
 
-GET_REQ_TEXT returns the syntax of the requested procedure. 
+GET_REQ_TEXT returns the syntax of the requested procedure.
 
 ##### Syntax
 
 ```
-VARCHAR(8192) variable := 
+VARCHAR(8192) variable :=
   DBMS_CONCURRENT_EXEC.GET_REQ_TEXT(req_id IN INTEGER);
 ```
 
@@ -11072,9 +11102,9 @@ VARCHAR(8192) variable :=
 
 ##### Return Value
 
-If successful, the syntax of the procedure is returned. 
+If successful, the syntax of the procedure is returned.
 
-If the Request ID does not exist, NULL is returned. 
+If the Request ID does not exist, NULL is returned.
 
 ##### Exception
 
@@ -11103,12 +11133,12 @@ EXEC PRINTLN(DBMS_CONCURRENT_EXEC.GET_REQ_TEXT(:REQ_ID4));
 
 #### FINALIZE
 
-FINALIZE initializes the DBMS_CONCURRENT_EXEC package and frees used resources. 
+FINALIZE initializes the DBMS_CONCURRENT_EXEC package and frees used resources.
 
 ##### Syntax
 
 ```
-INTERGER variable := 
+INTERGER variable :=
   DBMS_CONCURRENT_EXEC.FINALIZE( );
 ```
 
@@ -11168,12 +11198,12 @@ For more detailed information, please refer to the *General Reference*.
 
 #### RELEASE
 
-The RELEASE is a function which unlocks the user account. 
+The RELEASE is a function which unlocks the user account.
 
 ##### Syntax
 
 ```
-INTEGER variable := 
+INTEGER variable :=
   DBMS_LOCK.RELEASE(id IN INTEGER);
 ```
 
@@ -11212,17 +11242,17 @@ iSQL> v1 := dbsm_lock.release(0);
 
 #### REQUEST
 
-The REQUEST is a function requesting the user lock. 
+The REQUEST is a function requesting the user lock.
 
 ##### Syntax
 
 ```
-INTEGER variable := 
+INTEGER variable :=
   DBMS_LOCK.REQUEST(
-    id IN INTEGER, 
-    lockmode IN INTEGER DEFAULT x_mode, 
-    timeout IN INTEGER DEFAULT MAXWAIT, 
-    release_on_commit IN BOOLEAN DEFAULT FALSE); 
+    id IN INTEGER,
+    lockmode IN INTEGER DEFAULT x_mode,
+    timeout IN INTEGER DEFAULT MAXWAIT,
+    release_on_commit IN BOOLEAN DEFAULT FALSE);
 ```
 
 ##### Parameters
@@ -11515,7 +11545,7 @@ DBMS_METADATA.SET_TRANSFORM_PARAM (
    value         IN CHAR(1));
 ```
 
-##### Parameter	
+##### Parameter
 
 | Name    | In/Output | Data Type   | Description    |
 | ------- | --------- | ----------- | -------------- |
@@ -11569,7 +11599,7 @@ There is no exception.
 
 ### DBMS_OUTPUT
 
-The DBMS_OUTPUT package provides an interface in which the user can print the stored character strings in the buffer to clients. 
+The DBMS_OUTPUT package provides an interface in which the user can print the stored character strings in the buffer to clients.
 
 The procedure and functions comprised of the DBMS_OUTPUT package are as shown in the following table.
 
@@ -11631,7 +11661,7 @@ There is no exception.
 
 #### PUT_LINE
 
-The PUT_LINE is function which outputs by attaching the new-line characters ( \n for Unix) to the character strings printed in the buffer. 
+The PUT_LINE is function which outputs by attaching the new-line characters ( \n for Unix) to the character strings printed in the buffer.
 
 ##### Syntax
 
@@ -11743,13 +11773,13 @@ DBMS_RANDOM.STRING(opt IN CHAR, len IN NUMBER);
 
 *opt* can specifies one of the following parameters listed as below.
 
--   'u', 'U': Create arbitrary capital letters of alphabet. 
--   'l', 'L' : Create arbitrary small letters of alphabet. 
--   'a', 'A' :Create alphabet letters regardless of capital or small letters. 
--   'x', 'X' : Create capital letters of alphabet and numbers 
+-   'u', 'U': Create arbitrary capital letters of alphabet.
+-   'l', 'L' : Create arbitrary small letters of alphabet.
+-   'a', 'A' :Create alphabet letters regardless of capital or small letters.
+-   'x', 'X' : Create capital letters of alphabet and numbers
 -   'p', 'P' : Create all the character strings that can be printable.
 
-*len(gth)* indicates the length of an arbitrary character string and available input rages from 0 to 4000. 
+*len(gth)* indicates the length of an arbitrary character string and available input rages from 0 to 4000.
 
 ##### Return Value
 
@@ -11820,7 +11850,7 @@ iSQL> select dbms_random.random() from dual;
 
 ### DBMS_RECYCLEBIN Package
 
-The DBMS_RECYCLEBIN package allows the user to completely eliminate a table that was dropped and moved to the recycle bin. This feature is provided as a system-defined stored package. 
+The DBMS_RECYCLEBIN package allows the user to completely eliminate a table that was dropped and moved to the recycle bin. This feature is provided as a system-defined stored package.
 
 #### DBMS_RECYCLEBIN Procedures and Functions
 
@@ -11845,7 +11875,7 @@ DBMS_RECYCLEBIN properties can be set in altibase.properties.
 
 For more detailed information, please refer to the *General Reference.*
 
-#### PURGE_USER_RECYCLEBIN 
+#### PURGE_USER_RECYCLEBIN
 
 PURGE_USER_RECYCLEBIN completely eliminates tables in the recycle bin from the database system, for each user
 
@@ -11869,7 +11899,7 @@ EXEC DBMS_RECYCLEBIN.PURGE_USER_RECYCLEBIN;
 
 #### PURGE_ALL_RECYCLEBIN
 
-PURGE_ALL_RECYCLEBIN drops all tables in the recycle bin from the database system. 
+PURGE_ALL_RECYCLEBIN drops all tables in the recycle bin from the database system.
 
 ##### Syntax
 
@@ -11891,7 +11921,7 @@ EXEC DBMS_RECYCLEBIN.PURGE_ALL_RECYCLEBIN;
 
 #### PURGE_TABLESPACE
 
-PURGE_TABLESPACE drops all specified tables in the recycle bin from the system. 
+PURGE_TABLESPACE drops all specified tables in the recycle bin from the system.
 
 ##### Syntax
 
@@ -11918,7 +11948,7 @@ EXEC DBMS_RECYCLEBIN.PURGE_TABLESPACE('TBS_DISK_DATA');
 
 #### PURGE_ORIGINAL_NAME
 
-Drops tables from the recycle bin by the names the tables had before they were dropped. Tables with identical names can be dropped several times, and dropped all at once from the recycle bin. 
+Drops tables from the recycle bin by the names the tables had before they were dropped. Tables with identical names can be dropped several times, and dropped all at once from the recycle bin.
 
 ##### Syntax
 
@@ -11935,7 +11965,7 @@ EXEC DBMS_RECYCLEBIN.PURGE_ORIGINAL_NAME(
 
 ##### Example
 
-Drop all tables that had the name 'TABLE1’ before they were dropped, from the system. 
+Drop all tables that had the name 'TABLE1’ before they were dropped, from the system.
 
 ```
 EXEC DBMS_RECYCLEBIN.PURGE_ORIGINAL_NAME('TABLE1');
@@ -11943,7 +11973,7 @@ EXEC DBMS_RECYCLEBIN.PURGE_ORIGINAL_NAME('TABLE1');
 
 
 
-### DBMS_SQL 
+### DBMS_SQL
 
 The DBMS_SQL provides procedures and functions which utilize dynamic SQL as shown in the table below.
 
@@ -11970,7 +12000,7 @@ For more detailed information, please refer to the *General Reference.*
 
 #### BIND_VARIABLE
 
-The BIND_VARIABLE procedure execute binding of variables which are included in the SQL statement. 
+The BIND_VARIABLE procedure execute binding of variables which are included in the SQL statement.
 
 ##### Syntax
 
@@ -11994,7 +12024,7 @@ Because it is a stored procedure, there is no return value.
 
 ##### Exception
 
-There is no exception. 
+There is no exception.
 
 ##### Example
 
@@ -12020,7 +12050,7 @@ Execute success.
 
 
 
-#### CLOSE_CURSOR 
+#### CLOSE_CURSOR
 
 The CLOSE_CURSOR procedure closes a cursor. If the cursor cannot be closed, it is closed when the session is terminated.
 
@@ -12065,14 +12095,14 @@ Create success.
 
 iSQL> exec proc1;
 0
-Execute success. 
+Execute success.
 ```
 
 
 
-#### COLUMN_VALUE 
+#### COLUMN_VALUE
 
-The COLUMN_VALUE procedure imports the value of a column which is the binding variables of cursor. 
+The COLUMN_VALUE procedure imports the value of a column which is the binding variables of cursor.
 
 ##### Syntax
 
@@ -12132,9 +12162,9 @@ Execute success.
 
 
 
-#### DEFINE_COLUMN 
+#### DEFINE_COLUMN
 
-The DEFINE_COLUMN procedure defines the type of column which will be fetched. It is only used in the SELECT statement. 
+The DEFINE_COLUMN procedure defines the type of column which will be fetched. It is only used in the SELECT statement.
 
 ##### Syntax
 
@@ -12190,7 +12220,7 @@ Execute success.
 
 #### EXECUTE_CURSOR
 
-The EXECUTE_CURSOR function implements a cursor. 
+The EXECUTE_CURSOR function implements a cursor.
 
 ##### Syntax
 
@@ -12244,7 +12274,7 @@ Execute success.
 
 #### FETCH_ROWS
 
-The FETCH_ROWS imports the row which will be fetched in a cursor. It is only used in the SELECT statement. 
+The FETCH_ROWS imports the row which will be fetched in a cursor. It is only used in the SELECT statement.
 
 ##### Syntax
 
@@ -12301,7 +12331,7 @@ Execute success.
 
 #### IS_OPEN
 
-The IS_OPEN is a function which returns the result whether the cursor is open or not. 
+The IS_OPEN is a function which returns the result whether the cursor is open or not.
 
 ##### Syntax
 
@@ -12400,7 +12430,7 @@ Execute success.
 
 #### OPEN_CURSOR
 
-The OPEN_CURSOR opens the cursor. 
+The OPEN_CURSOR opens the cursor.
 
 ##### Syntax
 
@@ -12412,7 +12442,7 @@ INTEGER variable:=DBMS_SQL.OPEN_CURSOR;
 
 ##### Result Value
 
-If is successfully executed, the number of cursor is returned. 
+If is successfully executed, the number of cursor is returned.
 
 ##### Exception
 
@@ -12440,7 +12470,7 @@ Execute success
 
 #### PARSE
 
-The PARSE procedure parses SQL statements. 
+The PARSE procedure parses SQL statements.
 
 ##### Syntax
 
@@ -12568,11 +12598,218 @@ iSQL> EXEC DBMS_SQL_PLAN_CACHE.UNKEEP_PLAN('00510');
 Execute success.
 ```
 
+### DBMS_STANDARD
+
+DBMS_STANDARD package provides various sub programs that can be used without specifying the name of the package.
+
+The procedures and functions comprising the DBMS_STANDARD package are in the following table below.
+
+| Procedures/Functions | Description                                                  |
+| :------------------- | :----------------------------------------------------------- |
+| DELETING             | Returns whether the trigger started from DELETE.             |
+| INSERTING            | Returns whether the trigger started from INSERT.             |
+| UPDATING             | Returns whether the trigger started from UPDATE.             |
+| UPDATING             | Returns whether the trigger started from a specific column's UPDATE. |
+
+#### DELETING
+
+Returns whether the trigger started from DELETE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.DELETING;
+BOOLEAN variable := DELETING;
+```
+
+##### Result Value
+
+If the trigger started from DELETE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP ( C1 VARCHAR(10) );
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE DELETE ON T1
+FOR EACH ROW
+BEGIN
+ IF DELETING THEN
+  INSERT INTO TMP VALUES ('DELETE');
+ END IF;
+END;
+/
+
+iSQL> DELETE FROM T1;
+1 row deleted.
+iSQL> SELECT & FROM TMP;
+1 row selected.
+```
+
+#### INSERTING
+
+Returns whether the trigger started from INSERT.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.INSERTING;
+BOOLEAN variable := INSERTING;
+```
+
+##### Result Value
+
+If the trigger started from INSERT, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE INSERT ON T1
+FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  INSERT INTO TMP VALUES ('INSERT');
+ END IF;
+END;
+/
+
+iSQL> INSERT INTO T1 VALUES(2);
+1 row inserted.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+INSERT
+1 row selected.
+```
+
+#### UPDATING
+
+Returns whether the trigger started from UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING;
+BOOLEAN variable := UPDATING;
+```
+
+##### Result Value
+
+If the trigger started from UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING THEN
+  INSERT INTO TMP VALUES ('UPDATE');
+ END IF;
+END;
+/
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE
+1 row selected.
+```
+
+#### UPDATING (columnName)
+
+Returns whether the trigger started from a specific column's UPDATE.
+
+##### Syntax
+
+```
+BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
+BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
+```
+
+##### Parameter
+
+| Name    | In/Output | Data Type    | Description                      |
+| :------ | :-------- | :----------- | :------------------------------- |
+| COLNAME | IN        | VARCHAR(128) | Specifies the name of the column |
+
+##### Result Value
+
+If the trigger started from a specific coulmn's UPDATE, TRUE is returned.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```
+CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
+CREATE TABLE TMP (C1 VARCHAR(10));
+
+INSERT INTO T1 VALUES(1, 2);
+
+CREATE OR REPLACE TRIGGER TRIG1
+BEFORE UPDATE ON T1
+FOR EACH ROW
+BEGIN
+ IF UPDATING('C1') THEN
+  INSERT INTO TMP VALUES ('UPDATE-C1');
+ELSE
+ INSERT INTO TMP VALUES ('OTHER');
+ END IF;
+END;
+/
+
+iSQL> UPDATE T1 SET C1 = 2;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+1 row selected.
+iSQL> UPDATE T1 SET C2 = 3;
+1 row updated.
+iSQL> SELECT * FROM TMP;
+TMP.C1
+--------------
+UPDATE-C1
+OTHER
+2 rows selected.
+```
+
 ### DBMS_STATS
 
 The DBMS_STATS package provides an interface which can view and modifies the stats information. By using stored procedures and functions, the stats information can be established and updated, also it can configure or delete the stats information for each column, index, and table or per each system
 
-The procedures and functions comprised of the DBMS_STATS package are in the following table below. Refer to DBMS Stats of *Stored Procedures Manual* for in-depth information on each procedure and function.
+The procedures and functions comprised of the DBMS_STATS package are in the following table below.
 
 | Procedures/Functions  | Description                                                  |
 | --------------------- | ------------------------------------------------------------ |
@@ -12645,7 +12882,7 @@ There is no exception.
 ```
 iSQL> EXEC DBMS_STATS.SET_PRIMARY_KEY_STATS( 'SYS', 'T1', 1, 2, 3, 4, 5, 6, TRUE );
 __SYS_IDX_ID_148 c integer;
-Execute success. 
+Execute success.
 ```
 
 
@@ -12703,210 +12940,6 @@ __SYS_IDX_ID_149
 Execute success.
 ```
 
-### DBMS_STANDARD
-
-DBMS_STANDARD package provides various subprograms that can be used without specifying the package name. The procedures and functions organizing the DBMS_STANDARD package are shown in the table below.
-
-| Procedures/Functions | Description                                                  |
-| -------------------- | ------------------------------------------------------------ |
-| DELETING             | Returns whether the trigger started from DELETE.             |
-| INSERTING            | Returns whether the trigger started from INSERT.             |
-| UPDATING             | Returns whether the trigger started from UPDATE.             |
-| UPDATING (colname)   | Returns where the strigger stated from UPDATE of a specific column. |
-
-#### DELETING
-
-Returns whether the trigger started from DELETE.
-
-##### Syntax
-
-```
-BOOLEAN variable := DBMS_STANDARD.DELETING;
-BOOLEAN variable := DELETING;
-```
-
-##### Return Value
-
-Returns TRUE if the trigger started from DELETE.
-
-##### Exception
-
-Exception is not occurred.
-
-##### Example
-
-```
-CREATE TABLE T1 (C1 INTEGER);
-CREATE TABLE TMP ( C1 VARCHAR(10) );
-INSERT INTO T1 VALUES(1);
-
-CREATE OR REPLACE TRIGGER TRIG1
-BEFORE DELETE ON T1
-FOR EACH ROW
-BEGIN
- IF DELETING THEN
-  INSERT INTO TMP VALUES ('DELETE');
- END IF;
-END;
-/
-
-iSQL> DELETE FROM T1;
-1 row deleted.
-iSQL> SELECT & FROM TMP;
-1 row selected.
-```
-
-#### INSERTING
-
-Returns whether the trigger started from INSERT.
-
-##### Syntax
-
-```
-BOOLEAN variable := DBMS_STANDARD.INSERTING;
-BOOLEAN variable := INSERTING;
-```
-
-##### Return Value
-
-Returns TRUE if the trigger started from INSERT.
-
-##### Exception
-
-Exception is not occurred.
-
-##### Example
-
-```
-CREATE TABLE T1 (C1 INTEGER);
-CREATE TABLE TMP (C1 VARCHAR(10));
-
-CREATE OR REPLACE TRIGGER TRIG1
-BEFORE INSERT ON T1
-FOR EACH ROW
-BEGIN
- IF INSERTING THEN
-  INSERT INTO TMP VALUES ('INSERT');
- END IF;
-END;
-/
-
-iSQL> INSERT INTO T1 VALUES(2);
-1 row inserted.
-iSQL> SELECT * FROM TMP;
-TMP.C1
---------------
-INSERT
-1 row selected.
-```
-
-#### UPDATING
-
-Returns whether the trigger started from UPDATE.
-
-##### Syntax
-
-```
-BOOLEAN variable := DBMS_STANDARD.UPDATING;
-BOOLEAN variable := UPDATING;
-```
-
-##### Return Value
-
-Returns TRUE if the trigger started from UPDATE.
-
-##### Exception
-
-Exception is not occurred.
-
-##### Example
-
-```
-(CREATE TABLE T1 (C1 INTEGER);
-CREATE TABLE TMP (C1 VARCHAR(10));
-
-INSERT INTO T1 VALUES(1);
-
-CREATE OR REPLACE TRIGGER TRIG1
-BEFORE UPDATE ON T1
-FOR EACH ROW
-BEGIN
- IF UPDATING THEN
-  INSERT INTO TMP VALUES ('UPDATE');
- END IF;
-END;
-/ 
-
-iSQL> UPDATE T1 SET C1 = 2;
-1 row updated.
-iSQL> SELECT * FROM TMP;
-TMP.C1
---------------
-UPDATE
-1 row selected.
-```
-
-#### UPDATING (colname)
-
-Returns whether the trigger started from UPDATE of a specific column.
-
-##### Syntax
-
-```
-BOOLEAN variable := DBMS_STANDARD.UPDATING(COLNAME IN VARCHAR(128));
-BOOLEAN variable := UPDATING(COLNAME IN VARCHAR(128));
-```
-
-##### Parameter
-
-| Name    | In/Output | Data Type    | Description                |
-| ------- | --------- | ------------ | -------------------------- |
-| COLNAME | IN        | VARCHAR(128) | Specifies the column name. |
-
-##### Return Value
-
-Returns TRUE if the trigger started from UPDATE of a specific column.
-
-##### Exception
-
-Exception is not occurred.
-
-##### Example
-
-```
-CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
-CREATE TABLE TMP (C1 VARCHAR(10));
-
-INSERT INTO T1 VALUES(1, 2);
-
-CREATE OR REPLACE TRIGGER TRIG1
-BEFORE UPDATE ON T1
-FOR EACH ROW
-BEGIN
- IF UPDATING('C1') THEN
-  INSERT INTO TMP VALUES ('UPDATE-C1');
-ELSE
- INSERT INTO TMP VALUES ('OTHER');
- END IF;
-END;
-/
-
-iSQL> UPDATE T1 SET C1 = 2;
-1 row updated.
-iSQL> SELECT * FROM TMP;
-TMP.C1
---------------
-UPDATE-C1
-1 row selected.
-iSQL> UPDATE T1 SET C2 = 3;
-1 row updated.
-iSQL> SELECT * FROM TMP;
-TMP.C1
---------------
-UPDATE-C1
-OTHER
-2 rows selected.
-```
 
 ### DBMS_UTILITY
 
@@ -12922,12 +12955,12 @@ The procedures and functions organizing the DBMS_UTILITY package are provided as
 
 #### FORMAT_CALL_STACK
 
-The FORMAT_CALL_STACK is a function which display stack information at the call point and bring it to a character string. 
+The FORMAT_CALL_STACK is a function which display stack information at the call point and bring it to a character string.
 
 ##### Syntax
 
 ```
-VARCHAR variable := DBMS_UTILITY.FORMAT_CALL_STACK; 
+VARCHAR variable := DBMS_UTILITY.FORMAT_CALL_STACK;
 ```
 
 
@@ -12969,14 +13002,14 @@ Execute success.
 
 
 
-#### FORMAT_ERROR_BACKTRACE 
+#### FORMAT_ERROR_BACKTRACE
 
 The FORMAT_ERROR_BACKTRACE is a function which retrieves stack information at the point in which an exception was occurred. If no exception had been incurred, NULL value would be returned.
 
 ##### Syntax
 
 ```
-VARCHAR variable := DBMS_UTILITY.FORMAT_ERROR_BACKTRACE; 
+VARCHAR variable := DBMS_UTILITY.FORMAT_ERROR_BACKTRACE;
 ```
 
 
@@ -13011,10 +13044,10 @@ end;
 Create success.
 
 iSQL> exec proc2;
-ERR-21011 : Invalid literal 
+ERR-21011 : Invalid literal
 at "SYS.PROC1", line 5
 at "SYS.PROC2", line 2
-Execute success. 
+Execute success.
 ```
 
 
@@ -13057,7 +13090,7 @@ Procedures and functions comprising SYS_SPATIAL package is as follows. For more 
 
 The UTL_COPYSWAP package provides table schema copy, data replication, and table exchange interfaces.
 
-The procedures and functions that make up the UTL_COPYSWAP package are shown in the table below. 
+The procedures and functions that make up the UTL_COPYSWAP package are shown in the table below.
 
 Refer to the the description of CHECK_PRECONDITION for the prerequisites for using UTL_COPYSWAP.
 
@@ -13074,7 +13107,7 @@ Refer to the the description of CHECK_PRECONDITION for the prerequisites for usi
 
 This procedure checks prerequisites such as privileges, session properties, system properties, and replication constraints for using UTL_COPYSWAP.
 
-The prerequisites to be examined are: 
+The prerequisites to be examined are:
 
 -   Privilege  
     Must be the SYS user.
@@ -13096,8 +13129,8 @@ The prerequisites to be examined are:
 
 ```
 UTL_COPYSWAP.CHECK_PRECONDITION(
-  source_user_name IN VARCHAR(128), 
-  source_table_name IN VARCHAR(128) ); 
+  source_user_name IN VARCHAR(128),
+  source_table_name IN VARCHAR(128) );
 ```
 
 ##### Parameters
@@ -13155,7 +13188,7 @@ UTL_COPYSWAP.COPY_TABLE_SCHEMA(
   target_user_name IN VARCHAR(128),
   target_table_name IN VARCHAR(128),
   source_user_name IN VARCHAR(128),
-  source_table_name IN VARCHAR(128) ); 
+  source_table_name IN VARCHAR(128) );
 ```
 
 
@@ -13210,7 +13243,7 @@ The procedure to replicate data using replication.
 ##### Syntax
 
 ```
-UTL_COPYSWAP.REPLICATE_TABLE( 
+UTL_COPYSWAP.REPLICATE_TABLE(
   replication_name IN VARCHAR(35),
   target_user_name IN VARCHAR(128),
   target_table_name IN VARCHAR(128),
@@ -13277,7 +13310,7 @@ COUNT
 
 #### SWAP_TABLE
 
-This is a procedure to complete synchronization using replication and exchange tables. 
+This is a procedure to complete synchronization using replication and exchange tables.
 
 The exchange target is as follows.
 
@@ -13426,7 +13459,7 @@ partition by range (i1)
 Create success.
 
 iSQL> alter table t1 add constraint pk_t1 primary key(i1) using index local
-( 
+(
     partition  pk_p1 on p1 tablespace SYS_TBS_DISK_DATA,
     partition  pk_p2 on p2 tablespace SYS_TBS_DISK_DATA,
     partition  pk_p3 on p3 tablespace SYS_TBS_DISK_DATA
@@ -13557,11 +13590,11 @@ iSQL> SELECT COUNT(*) FROM T1_COPY;
 #### Notes
 
 -   To replicate data using the REPLICATE_TABLE procedure, free space is required in the tablespace in proportion to the size of the source table. Log files created by the REPLICATE_TABLE procedure are not removed by Checkpoint until the REPLICATE_TABLE procedure is terminated.
-  
+
 -   While using the UTL_COPYSWAP package, replication must be able to resolve the DML that applies to the source table. DML that cannot be analyzed in replication may be lost.  
     - When executing DML on the source table, the REPLICATION session property must be TRUE.  
     - If the source table is replication target table, replication must be stopped at the remote server that corresponds to the source table so that replication does not reflect the data in the source table.
-    
+
 -   When dropping a target table using the FINISH procedure, if the RECYCLEBIN_ENABLE property value is 1, then it is moved to the recycle bin.
 
 ### UTL_FILE
@@ -13722,9 +13755,9 @@ The FOPEN procedure opens a file to read or write.
 
 ```
 UTL_FILE.FOPEN(
-  location IN VARCHAR(40), 
-  filename IN VARCHAR(256), 
-  open_mode IN VARCHAR(4), 
+  location IN VARCHAR(40),
+  filename IN VARCHAR(256),
+  open_mode IN VARCHAR(4),
   max_linesize IN INTEGER DEFAULT NULL);
 ```
 
@@ -13854,7 +13887,7 @@ UTL_FILE.GET_LINE(
 | *buffer* | OUT       | VARCHAR(32768) | The buffer to store the every other line from a file.        |
 | *len*    | IN        | INTEGER        | The maximum bytes which can read a line form a file. 1024bytes are read unless otherwise specified. Default Value: NULL |
 
-##### Return Value	
+##### Return Value
 
 Because it is a stored procedure, there is no return value.
 
@@ -13886,7 +13919,7 @@ UTL_FILE.IS_OPEN(file IN FILE_TYPE);
 | ------ | ------ | --------- | --------------- |
 | *file* | IN     | FILE_TYPE | The file handle |
 
-##### Return Value	
+##### Return Value
 
 It returns TRUE when it is open, but FALSE is returned when it is closed.
 
@@ -13919,7 +13952,7 @@ UTL_FILE.NEW_LINE(
 
 Because it is a stored procedure, there is no return value.
 
-##### Exception	
+##### Exception
 
 There is no exception
 
@@ -13965,13 +13998,13 @@ The PUT_LINE is a stored procedure archiving a line including a character string
 ```
 UTL_FILE.PUT_LINE(
   file IN FILE_TYPE,
-  buffer IN VARCHAR(32768) 
+  buffer IN VARCHAR(32768)
   autoflush IN BOOLEAN DEFAULT FALSE);
 ```
 
 
 
-##### Parameters	
+##### Parameters
 
 | Name        | In/Output | Data Type      | Description                                                  |
 | ----------- | --------- | -------------- | ------------------------------------------------------------ |
@@ -13993,7 +14026,7 @@ The PUT_LINE might cause the following system-defined exceptions.
 
 ### UTL_RAW
 
-The UTL_RAW package is a function which can convert or control RAW(VARBYTE) type data into a different data type. 
+The UTL_RAW package is a function which can convert or control RAW(VARBYTE) type data into a different data type.
 
 The procedures and functions which are comprised of the UTL_RAW package are listed in the following table below.
 
@@ -14017,7 +14050,7 @@ The CAST_FROM_BINARY_INTEGER is a function converting INTEGER data type into RAW
 
 ```
 UTL_RAW.CAST_FROM_BINARY_INTEGER(
-  n IN INTEGER, 
+  n IN INTEGER,
   endianess IN INTEGER DEFAULT 1);
 ```
 
@@ -14032,15 +14065,15 @@ UTL_RAW.CAST_FROM_BINARY_INTEGER(
 
 ##### Return Value
 
-The entered INTEGER type of data is returned as RAW type. 
+The entered INTEGER type of data is returned as RAW type.
 
-##### Exception	
+##### Exception
 
 There is no exception.
 
 ##### Example
 
-Output 123456, which is INTEGER type by converting into RAW type. 
+Output 123456, which is INTEGER type by converting into RAW type.
 
 ```
 iSQL> select utl_raw.cast_from_binary_integer(123456) from dual;
@@ -14054,7 +14087,7 @@ CAST_FROM_BINARY_INTEGER(123456)
 
 #### CAST_FROM_NUMBER
 
-The CAST_FROM_NUMBER is a function which returns NEMERIC type of data by converting into RAW type. 
+The CAST_FROM_NUMBER is a function which returns NEMERIC type of data by converting into RAW type.
 
 ##### Syntax
 
@@ -14080,14 +14113,14 @@ There is no exception.
 
 ##### Example
 
-Output NUMBER type data 1.123456789 by converting into RAW type. 
+Output NUMBER type data 1.123456789 by converting into RAW type.
 
 ```
 iSQL> select utl_raw.cast_from_number(1.123456789) from dual;
 CAST_FROM_NUMBER(1.123456789)
 ------------------------------------------------------------------------------------
 07C1010C22384E5A
-1 row selected. 
+1 row selected.
 ```
 
 
@@ -14100,7 +14133,7 @@ The CAST_TO_BINARY_INTEGER is a function which returns RAW type of data by conve
 
 ```
 UTL_RAW.CAST_TO_BINARY_INTEGER(
-  r IN RAW(8), 
+  r IN RAW(8),
   endianess IN INTEGER DEFAULT 1);
 ```
 
@@ -14127,7 +14160,7 @@ Output 40E20100, which is RAW type by converting into INTEGER.
 
 ```
 iSQL> select utl_raw.cast_to_binary_integer('40E20100') from dual;
-CAST_TO_BINARY_INTEGER('40E20100') 
+CAST_TO_BINARY_INTEGER('40E20100')
 -------------------------------------
 123456      
 1 row selected.
@@ -14163,11 +14196,11 @@ There is no exception.
 
 ##### Example
 
-Output RAW type 07C1010C22384E5A by converting NUMBER. 
+Output RAW type 07C1010C22384E5A by converting NUMBER.
 
 ```
 iSQL> select utl_raw.cast_to_number('07C1010C22384E5A') from dual;
-CAST_TO_NUMBER('07C1010C22384E5A') 
+CAST_TO_NUMBER('07C1010C22384E5A')
 -------------------------------------
 1.12345679  
 1 row selected.
@@ -14177,7 +14210,7 @@ CAST_TO_NUMBER('07C1010C22384E5A')
 
 #### CAST_TO_RAW
 
-The CAST_TO_RAW is a function returning VARCHAR type of data by converting into RAW(VARBYTE) type. 
+The CAST_TO_RAW is a function returning VARCHAR type of data by converting into RAW(VARBYTE) type.
 
 ##### Syntax
 
@@ -14263,17 +14296,17 @@ The CONCAT is a function returning the RAW(VARBYTE) data which has been input in
 
 ```
 UTL_RAW.CONCAT(
-  r1 IN RAW(32767) DEFAULT NULL, 
-  r2 IN RAW(32767) DEFAULT NULL, 
-  r3 IN RAW(32767) DEFAULT NULL, 
-  r4 IN RAW(32767) DEFAULT NULL, 
-  r5 IN RAW(32767) DEFAULT NULL, 
-  r6 IN RAW(32767) DEFAULT NULL, 
-  r7 IN RAW(32767) DEFAULT NULL, 
-  r8 IN RAW(32767) DEFAULT NULL, 
-  r9 IN RAW(32767) DEFAULT NULL, 
-  r10 IN RAW(32767) DEFAULT NULL, 
-  r11 IN RAW(32767) DEFAULT NULL, 
+  r1 IN RAW(32767) DEFAULT NULL,
+  r2 IN RAW(32767) DEFAULT NULL,
+  r3 IN RAW(32767) DEFAULT NULL,
+  r4 IN RAW(32767) DEFAULT NULL,
+  r5 IN RAW(32767) DEFAULT NULL,
+  r6 IN RAW(32767) DEFAULT NULL,
+  r7 IN RAW(32767) DEFAULT NULL,
+  r8 IN RAW(32767) DEFAULT NULL,
+  r9 IN RAW(32767) DEFAULT NULL,
+  r10 IN RAW(32767) DEFAULT NULL,
+  r11 IN RAW(32767) DEFAULT NULL,
   r12 IN RAW(32767) DEFAULT NULL);
 ```
 
@@ -14289,7 +14322,7 @@ UTL_RAW.CONCAT(
 
 The data connected from r1 to r12 is returned.
 
-##### Exception	
+##### Exception
 
 There is no exception.
 
@@ -14335,14 +14368,14 @@ There is no exception.
 
 ##### Example
 
-Output characteristic 'altibase' with the length of RAW data type. 
+Output characteristic 'altibase' with the length of RAW data type.
 
 ```
 iSQL> select utl_raw.length(utl_raw.cast_to_raw('altibase')) from dual;
-LENGTH(UTL_RAW.CAST_TO_RAW('altibase')) 
+LENGTH(UTL_RAW.CAST_TO_RAW('altibase'))
 ------------------------------------------
 12          
-1 row selected. 
+1 row selected.
 ```
 
 
@@ -14355,8 +14388,8 @@ The SUBSTR is a function which returns some parts of a character string in RAW t
 
 ```
 UTL_RAW.SUBSTR(
-  r IN RAW(32767), 
-  pos IN INTEGER, 
+  r IN RAW(32767),
+  pos IN INTEGER,
   len IN INTEGER);
 ```
 
@@ -14956,22 +14989,22 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 #### OPEN_CONNECTION
 
-The OPEN_CONNECTION is a procedure which creates a socket in order to access the remote server.1 
+The OPEN_CONNECTION is a procedure which creates a socket in order to access the remote server.1
 
 ##### Syntax
 
 ```
 UTL_TCP.OPEN_CONNECTION(
-  remote_host IN VARCHAR(64), 
-  remote_port IN INTEGER, 
-  local_host IN VARCHAR(64) DEFAULT NULL, 
-  local_port IN INTEGER DEFAULT NULL, 
-  in_buffer_size IN INTEGER DEF DEFAULT NULL, 
-  out_buffer_size IN INTEGER DEF DEFAULT NULL, 
-  charset IN VARCHAR(16) DEFAULT NULL, 
-  newline IN VARCHAR(2) DEFAULT CRLF, 
-  tx_timeout IN INTEGER DEF DEFAULT NULL, 
-  wallet_path IN VARCHAR(256) DEFAULT NULL, 
+  remote_host IN VARCHAR(64),
+  remote_port IN INTEGER,
+  local_host IN VARCHAR(64) DEFAULT NULL,
+  local_port IN INTEGER DEFAULT NULL,
+  in_buffer_size IN INTEGER DEF DEFAULT NULL,
+  out_buffer_size IN INTEGER DEF DEFAULT NULL,
+  charset IN VARCHAR(16) DEFAULT NULL,
+  newline IN VARCHAR(2) DEFAULT CRLF,
+  tx_timeout IN INTEGER DEF DEFAULT NULL,
+  wallet_path IN VARCHAR(256) DEFAULT NULL,
   wallet_password IN VARCHAR DEFAULT NULL));
 ```
 
@@ -15020,14 +15053,14 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 #### WRITE_RAW
 
-The handle accessed to the network transmits the inserted RAW type data to the remote server through the WRITE_RAW function. 
+The handle accessed to the network transmits the inserted RAW type data to the remote server through the WRITE_RAW function.
 
 ##### Syntax
 
 ```
 UTL_TCP.WRITE_RAW(
-  c IN CONNECT_TYPE, 
-  data IN RAW(65534), 
+  c IN CONNECT_TYPE,
+  data IN RAW(65534),
   len IN INTEGER DEFAULT NULL);
 ```
 
@@ -15043,7 +15076,7 @@ UTL_TCP.WRITE_RAW(
 
 ##### Return Value
 
-If successfully executes, the length of data which has been transmitted to the network is returned. If it fails, -1 is returned. 
+If successfully executes, the length of data which has been transmitted to the network is returned. If it fails, -1 is returned.
 
 ##### Exception
 
@@ -15072,7 +15105,7 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 #### Example 1
 
-Create a stored procedure called *dumpReplScript*, which outputs a script for creating a replication object. 
+Create a stored procedure called *dumpReplScript*, which outputs a script for creating a replication object.
 
 The tables to be replicated are the *employees* table and the *departments* table, the local server's IP address and port number are 192.168.1.12 and 35524, and the remote server's IP address and port number are 192.168.1.60 and 25524.
 
@@ -15097,12 +15130,12 @@ Alter success.
 iSQL> create or replace procedure dumpReplScript
 (p1 varchar(40))
 as
-cursor c1 is 
-select  system_.sys_replications_.replication_name, 
+cursor c1 is
+select  system_.sys_replications_.replication_name,
 system_.sys_replications_.host_ip,
 system_.sys_replications_.port_no,
 system_.SYS_REPLICATIONS_.ITEM_COUNT
-from system_.sys_replications_ 
+from system_.sys_replications_
 where system_.sys_replications_.replication_name = UPPER(P1);
 r_name varchar(40);
 r_ip varchar(40);
@@ -15113,11 +15146,11 @@ r_local_table_name varchar(40);
 r_remote_user_name varchar(40);
 r_remote_table_name varchar(40);
 cursor c2 is
-select system_.SYS_REPL_ITEMS_.LOCAL_USER_NAME,	
+select system_.SYS_REPL_ITEMS_.LOCAL_USER_NAME,
 system_.SYS_REPL_ITEMS_.LOCAL_TABLE_NAME,
 system_.SYS_REPL_ITEMS_.REMOTE_USER_NAME,
-system_.SYS_REPL_ITEMS_.REMOTE_TABLE_NAME 
-from system_.sys_repl_items_ 
+system_.SYS_REPL_ITEMS_.REMOTE_TABLE_NAME
+from system_.sys_repl_items_
 where system_.SYS_REPL_ITEMS_.replication_name = r_name;
 begin
 open c1;
@@ -15135,9 +15168,9 @@ SYSTEM_.PRINT(r_port);
 SYSTEM_.PRINTLN(' ');
 open c2;
         for i in 1 .. r_item_cnt loop
-fetch c2 into r_local_user_name, 
-r_local_table_name, 
-r_remote_user_name, 
+fetch c2 into r_local_user_name,
+r_local_table_name,
+r_remote_user_name,
 r_remote_table_name;
 SYSTEM_.PRINT(' FROM ');
 SYSTEM_.PRINT(r_local_user_name);
@@ -15167,7 +15200,7 @@ The following is output by the *dumpReplScript* stored procedure on the local se
 ```
 iSQL> exec dumpReplScript('rep1');
 ----------------------------------------------------------
- CREATE REPLICATION REP1 WITH '192.168.1.60',25524 
+ CREATE REPLICATION REP1 WITH '192.168.1.60',25524
  FROM SYS.DEPARTMENTS TO SYS.DEPARTMENTS,
  FROM SYS.EMPLOYEES TO SYS.EMPLOYEES;
 ----------------------------------------------------------
@@ -15195,8 +15228,8 @@ r_remote_user_name varchar(40);
 r_remote_table_name varchar(40);
 cursor c2 is select system_.SYS_REPL_ITEMS_.LOCAL_USER_NAME, system_.SYS_REPL_ITEMS_.LOCAL_TABLE_NAME, system_.SYS_REPL_ITEMS_.REMOTE_USER_NAME
 system_.SYS_REPL_ITEMS_.REMOTE_TABLE_NAME
-from system_.sys_repl_items_ 
-where system_.SYS_REPL_ITEMS_.replication_name 
+from system_.sys_repl_items_
+where system_.SYS_REPL_ITEMS_.replication_name
 = r_name;
 begin
 open c1;
@@ -15268,15 +15301,15 @@ EXECUTE success.
 Create a stored procedure called *showTables*, which outputs the names of all of a given user's tables.
 
 ```
-create or replace procedure SHOWTABLES(p1 in varchar(40)) 
+create or replace procedure SHOWTABLES(p1 in varchar(40))
 as
-cursor c1 is select SYSTEM_.SYS_TABLES_.TABLE_NAME 
-from SYSTEM_.SYS_TABLES_ 
-where SYSTEM_.SYS_TABLES_.USER_ID = 
-(select SYSTEM_.SYS_USERS_.USER_ID 
-from SYSTEM_.SYS_USERS_ 
-where SYSTEM_.SYS_USERS_.USER_NAME = 
-upper(p1) 
+cursor c1 is select SYSTEM_.SYS_TABLES_.TABLE_NAME
+from SYSTEM_.SYS_TABLES_
+where SYSTEM_.SYS_TABLES_.USER_ID =
+(select SYSTEM_.SYS_USERS_.USER_ID
+from SYSTEM_.SYS_USERS_
+where SYSTEM_.SYS_USERS_.USER_NAME =
+upper(p1)
 AND system_.SYS_TABLES_.TABLE_TYPE = 'T');
 v1 CHAR(40);     
 begin
@@ -15321,15 +15354,15 @@ Execute success.
 Create a stored procedure called *showProcBody*, which outputs the contents of a desired stored procedure
 
 ```
-create or replace procedure showProcBody(p1 in varchar(40)) 
+create or replace procedure showProcBody(p1 in varchar(40))
 as
 cursor c1 is
     select system_.sys_proc_parse_.parse
     from system_.sys_proc_parse_
     where system_.sys_proc_parse_.proc_oid = (
     select SYSTEM_.sys_procedures_.proc_oid
-    from system_.sys_procedures_ 
-    where SYSTEM_.sys_procedures_.proc_name = upper(p1)) 
+    from system_.sys_procedures_
+    where SYSTEM_.sys_procedures_.proc_name = upper(p1))
 order by system_.sys_proc_parse_.seq_no;
 v1 varchar(4000);
 begin
@@ -15358,7 +15391,7 @@ select system_.sys_proc_parse_.proc_oid, system_.sys_proc_parse_.parse
 from system_.sys_proc_parse_
 where system_.sys_proc_parse_.proc_oid = (
 select SYSTEM_.sys_procedures_.proc_oid
-from system_.sys_procedures_ 
+from system_.sys_procedures_
 where SYSTEM_.sys_procedures_.proc_name = upper('proc1'));
 PROC_OID             
 -----------------------
@@ -15422,7 +15455,7 @@ BEGIN
 END;
 /
 
-iSQL> EXEC OPENCURSOR2(4); 
+iSQL> EXEC OPENCURSOR2(4);
 C1
 --------------
 1
@@ -15468,12 +15501,12 @@ C1
         return SQL_ERROR;
     }
 
-   if (SQL_ERROR == 
+   if (SQL_ERROR ==
 SQLBindCol(stmt, 1, SQL_C_SLONG, &c1, 0, NULL))
    {
      printf("ERROR: Bind 1 Column\n");
    }
-   
+
    while ( (rc = SQLFetch(stmt)) != SQL_NO_DATA)
     {
         if ( rc != SQL_SUCCESS )
@@ -15485,14 +15518,14 @@ SQLBindCol(stmt, 1, SQL_C_SLONG, &c1, 0, NULL))
     }
 
     SQLFreeStmt(stmt, SQL_DROP);
-    
-    .... 
-   	
+
+    ....
+
 $ refcursor
 ===========================================================
- Result Set : [ 1 ] 
- Result Set : [ 2 ] 
- Result Set : [ 3 ] 
+ Result Set : [ 1 ]
+ Result Set : [ 2 ]
+ Result Set : [ 3 ]
  Result Set : [ 4 ]
 ```
 
@@ -15671,4 +15704,3 @@ helo 127.0.0.1
 quit
 2xx ...
 ```
-

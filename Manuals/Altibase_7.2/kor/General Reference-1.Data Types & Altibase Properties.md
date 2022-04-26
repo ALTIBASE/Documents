@@ -1,5 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**  
 
 - [General Reference](#general-reference)
@@ -9,7 +8,7 @@
     - [자료형의 개요](#%EC%9E%90%EB%A3%8C%ED%98%95%EC%9D%98-%EA%B0%9C%EC%9A%94)
     - [문자형 데이터 타입](#%EB%AC%B8%EC%9E%90%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
     - [숫자형 데이터 타입](#%EC%88%AB%EC%9E%90%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [날짜형 데이타 타입](#%EB%82%A0%EC%A7%9C%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%83%80-%ED%83%80%EC%9E%85)
+    - [날짜형 데이터 타입](#%EB%82%A0%EC%A7%9C%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%83%80-%ED%83%80%EC%9E%85)
     - [이진 데이터 타입](#%EC%9D%B4%EC%A7%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
     - [LOB 데이타 타입](#lob-%EB%8D%B0%EC%9D%B4%ED%83%80-%ED%83%80%EC%9E%85)
     - [공간 데이터 타입](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
@@ -31,8 +30,6 @@
     - [에이전트 관련 프로퍼티](#%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [사용자 계정 보안 관련 프로퍼티](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EB%B3%B4%EC%95%88-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [기타 프로퍼티](#%EA%B8%B0%ED%83%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -2742,8 +2739,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>VOLATILE_MAX_DB_SIZE</td>
       </tr>
       <tr>
-      	<td rowspan="101">P</td>
-          <td rowspan="101"></td>
+      	<td rowspan="102">P</td>
+          <td rowspan="102"></td>
           <td>AGER_WAIT_MAXIMUM</td>
           <td rowspan="2"></td>
       </tr>
@@ -8779,19 +8776,17 @@ Unsigned Integer
 
 ##### 속성
 
-변경 가능, 단일 값
+읽기 전용, 단일 값
 
 ##### 값의 범위
 
-[1, 512]
+[1, 16384]
 
 ##### 설명
 
-서버 구동시 생성되는 트랜잭션 세그먼트(언두 세그먼트와 TSS 세그먼트)의 개수를 나타낸다.
+언두 테이블스페이스에서 관리하는 트랜잭션 세그먼트의 개수를 나타낸다. 트랜잭션 세그먼트에는 TSS 세그먼트와 언두 세그먼트가 있으며 기본값 256은 TSS 세그먼트 256개, 언두 세그먼트 256개를 의미한다. 트랜잭션 세그먼트는 Altibase 서버 구동 시 생성된다. 트랜잭션 수행 중 트랜잭션 세그먼트가 부족한 경우 altibase_boot.log 에 "TRANSACTION_SEGMENT_COUNT is full" 로그를 남기고 사용 가능한 트랜잭션 세그먼트를 할당받을 때까지 트랜잭션은 대기한다. 
 
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-
+Altibase 분산 데이터베이스 시스템에서 이 프로퍼티 값을 이전 값보다 작게 설정하기를 원하면 분산 트랜잭션을 모두 종료한 후 Altibase 서버를 중지해야 한다. 정리되지 않은 분산 트랜잭션이 있을 때 현재 값보다 작게 설정하고 Altibase 서버를 재시작한 경우 기존 언두 테이블스페이스의 공간에 접근할 수 없어 Altibase 서버 구동이 실패한다.
 
 #### TRX_UPDATE_MAX_LOGSIZE (단위 : 바이트)
 
@@ -10685,7 +10680,13 @@ Unsigned Integer
 
 ##### 설명
 
-DDL 복제의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과하면, 그 구문의 실행은 이중화 지역, 원격 서버 모두 취소된다. DDL 복제를 수행하는 이중화 지역서버를 기준으로 Timeout 값이 측정된다. Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
+DDL 문장 실행시간이 이 프로퍼티에서 설정한 시간을 초과하면 해당 DDL 문장은 지역 서버, 원격 서버에서 모두 롤백 된다.
+
+DDL 복제 시 테이블 잠금 획득 실패(DDL_LOCK_TIMEOUT)와 같이 재시도 가능한 에러가 발생하면 이 프로퍼티에서 설정한 시간 동안 DDL 복제를 재시도한다.
+
+DDL 복제 대상 구문의 수행 시간은 DDL_TIMEOUT 프로퍼티와 REPLICATION_DDL_SYNC_TIMEOUT 프로퍼티 중 더 작은 값에 영향을 받는다. 
+
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
 #### REPLICATION_EAGER_PARALLEL_FACTOR
 
@@ -11809,7 +11810,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 232-1]
+[0, 2³²-1]
 
 ##### 설명
 
@@ -11817,7 +11818,7 @@ Unsigned Integer
 
 만약 풀에 존재하는 트랜잭션의 수가 부족하다면, 이중화 수신자는 새로운 트랜잭션을 생성하여 이를 사용할 것이다. 그리고 사용이 끝난 트랜잭션은 풀에 반환되는데, 이 때 존재하는 트랜잭션의 개수가 이 프로퍼티에 지정된 값보다 크면, 풀에 반환되지 않고 바로 해제된다.
 
-이 값을 너무 크게 지정하면, 일반 트랜잭션의 개수에 제한을 줄 수 있으므로 적절한 값으로 설정해야 한다. 이 프로퍼티에 허용된 최대값은 232-1이지만, 실제 최대값은 TRANSACTION_TABLE_SIZE 프로퍼티에 지정한 값과 같다. 만약 사용자가 이 값을 TRANSACTION_TABLE_SIZE의 값보다 크게 지정하면, 내부적으로 이 프로퍼티의 값이 TRANSACTION_TABLE_SIZE의 값으로 설정된다.
+이 값을 너무 크게 지정하면, 일반 트랜잭션의 개수에 제한을 줄 수 있으므로 적절한 값으로 설정해야 한다. 이 프로퍼티에 허용된 최대값은 2³²-1이지만, 실제 최대값은 TRANSACTION_TABLE_SIZE 프로퍼티에 지정한 값과 같다. 만약 사용자가 이 값을 TRANSACTION_TABLE_SIZE의 값보다 크게 지정하면, 내부적으로 이 프로퍼티의 값이 TRANSACTION_TABLE_SIZE의 값으로 설정된다.
 
 Altibase 구동 중에 이 프로퍼티의 값을 변경할 수 있다. 하지만 이중화 수신 쓰레드 생성시 트랜잭션 풀이 초기화되므로, 이중화를 재시작해야 변경된 프로퍼티의 값이 적용된다.
 

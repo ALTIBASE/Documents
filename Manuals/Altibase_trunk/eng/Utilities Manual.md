@@ -133,12 +133,12 @@ The following table describes the printing conventions used in the code examples
 
 | Rules            | Meaning                                                      | Example                                                      |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ ]              | Indicates an optional item                                   | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
+| [ ]              | Indicates an optional item                                   | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
 | { }              | Indicates a mandatory field for which one or more items must be selected. | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|               | A delimiter between optional or mandatory arguments.         | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted. | SQL> SELECT ename FROM employee; ENAME ----------------------- SWNO HJNO HSCHOI . . . 20 rows selected. |
-| Other Symbols    | Symbols other than those shown above are part of the actual code.Other Symbols | EXEC :p1 := 1; acc NUMBER(11,2);Symbols other than those shown above are part of the actual code. |
-| Italics          | Statement elements in italics indicate variables and special values specified by the user. | SELECT * FROM *table_name*; CONNECT *userID*/*password*;     |
+| . . .            | Indicates that the previous argument is repeated, or that sample code has been omitted. | SQL\> SELECT ename FROM employee;<br/> ENAME<br/>  -----------------------<br/> SWNO<br/>  HJNO<br/>  HSCHOI<br/>  .<br/> .<br/> .<br/> 20 rows selected. |
+| Other Symbols    | Symbols other than those shown above are part of the actual code. | EXEC :p1 := 1; acc NUMBER(11,2)                              |
+| Italics          | Statement elements in italics indicate variables and special values specified by the user. | SELECT \* FROM *table_name*; <br/>CONNECT *userID*/*password*; |
 | Lower case words | Indicate program elements set by the user, such as table names, column names, file names, etc. | SELECT ename FROM employee;                                  |
 | Upper case words | Keywords and all elements provided by the system appear in upper case. | DESC SYSTEM_.SYS_INDICES_;                                   |
 
@@ -166,7 +166,7 @@ Include the following information:
 - Any comments about the manual
 - Your name, address, and phone number
 
-If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact Altibase's Support Portal (http://altibase.com/support-center/en/).
+If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
 Thank you. We always welcome your feedbacks and suggestions.
 
@@ -1795,11 +1795,11 @@ $ altimon.sh stop
 
 altiMon uses PICL library written in C language in order to collect information on operating system. The PICL library is available on the operation systems describe in the chart below. 
 
-| OS    | CPU          | Version                           | PICL Library                |
-| ----- | ------------ | --------------------------------- | --------------------------- |
-| AIX   | ppc64        | OS Version 5.3, 6.1, 7.1          | aix-ppc64-5.so              |
-| HP-UX | ia64         | IA64                              | hpux-ia64-11.sl             |
-| LINUX | X86_64 ppc64 | OS Version 2.6 glibc 2.5 or later | linux-x64.so linux-ppc64.so |
+| OS    | CPU          | Version                                 | PICL Library                |
+| ----- | ------------ | --------------------------------------- | --------------------------- |
+| AIX   | ppc64        | OS Version 5.3, 6.1, 7.1                | aix-ppc64-5.so              |
+| HP-UX | ia64         | IA64                                    | hpux-ia64-11.sl             |
+| LINUX | X86_64 ppc64 | OS Version 2 ~ 4<br> glibc 2.5 or later | linux-x64.so linux-ppc64.so |
 
 it can also be used after checking whether the PICL for the lower version works on the OS version that is not supported.
 
@@ -2093,9 +2093,7 @@ Please refer to the *Altibase Error Message Reference.*
 
 #### About altipasswd
 
-altipasswd changes the password of the SYS user, which is the user provided for accessing the database in SYSDBA mode.  
-
-The password of the SYS user must be changed using both this utility and the ALTER USER SQL statement. If the password of the SYS user is changed using only the ALTER USER statement, an error will occur when SYSDBA tasks, such as starting up and shutting down the database, are performed.
+altipasswd modifies the $ALTIBASE_HOME/conf/syspassword file. When database is not in service status, administrative job is executed by running iSQL with SYSDBA option. In this case, the password of SYS user is verified by reading the syspasswd file. Therefore, when SYS user's password is modified by using ALTER USER SQL statement, password of syspassword file should be equally modified by using altipasswd. If the password of the SYS user and syspassword are not identical, error will occur when SYSDBA tasks, such as starting up and shutting down the database, are performed.
 
 ```
 altipasswd

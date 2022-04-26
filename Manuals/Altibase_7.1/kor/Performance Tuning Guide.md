@@ -4911,25 +4911,22 @@ PROJECT ( COLUMN_COUNT: 5, TUPLE_SIZE: 40, COST: 0.30 )
 ##### 출력 형식
 
 ```
-LEFT-OUTER-JOIN ( METHOD: method, COST: cost )
+LEFT-OUTER-JOIN ( METHOD: method, SKIP RIGHT COUNT: count, COST: cost )
 ```
 
-| 항목   | 설명      |
-|--------|-----------|
-| METHOD | 조인 방법 |
-| COST   | 추산 비용 |
+| 항목             | 설명                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| METHOD           | 조인 방법                                                    |
+| SKIP RIGHT COUNT | 오른쪽 읽기 skip 횟수<br/>\- TRCLOG_DETAIL_INFORMATION = 1 일 때 출력<br/>\- skip 횟수가 '0'인 경우 출력하지 않음 |
+| COST             | 추산 비용                                                    |
 
 [표 4‑10] LEFT-OUTER-JOIN 노드의 정보
 
 ##### 설명
 
-LEFT-OUTER-JOIN 노드는 관계형 모델에서 LEFT OUTER JOIN 연산을 수행하는 노드이다.
-이는 두개의 자식 노드를 가지며, 별도의 중간 결과를 만들지 않으며 자식 노드들의
-수행 흐름을 제어한다.
+LEFT-OUTER-JOIN 노드는 관계형 모델에서 LEFT OUTER JOIN 연산을 수행하는 노드이다. 이는 두개의 자식 노드를 가지며, 별도의 중간 결과를 만들지 않으며 자식 노드들의 수행 흐름을 제어한다.
 
-LEFT-OUTER-JOIN 노드는 일반 조인과 마찬가지로 대부분의 조인 방법에 사용되며,
-이는 JOIN 노드의 예를 참조한다. 여기서는 LEFT-OUTER-JOIN 실행 노드가 사용되는
-간단한 실행 계획 트리만을 살펴본다.
+LEFT-OUTER-JOIN 노드는 일반 조인과 마찬가지로 대부분의 조인 방법에 사용되며, 이는 JOIN 노드의 예를 참조한다. 여기서는 LEFT-OUTER-JOIN 실행 노드가 사용되는 간단한 실행 계획 트리만을 살펴본다.
 
 ![left_outer_join](media/TuningGuide/left_outer_join.gif)
 
@@ -7153,5 +7150,4 @@ sTargetColumn[1] : [3, 1],sTargetColumn->arg[X, X]
 -----------------------------------------------------------
 * AUTO STATISTICS USED: 2
 ```
-
 

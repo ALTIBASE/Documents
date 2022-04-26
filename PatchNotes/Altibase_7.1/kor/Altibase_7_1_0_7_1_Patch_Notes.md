@@ -6,6 +6,8 @@ Altibase 7.1.0.7.1 Patch Notes
 <br/>
 
 # Table of Contents 
+- [New Features](#new-features)
+  - [BUG-49617 Adapter for JDBC, Adapter for Oracle에 LOB 데이터 타입 지원 여부를 설정하는 프로퍼티를 추가합니다.](#bug-49617adapter-for-jdbc-adapter-for-oracle에-lob-데이터-타입-지원-여부를-설정하는-프로퍼티를-추가합니다)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-49610 TO\_DATE 함수에서 날짜 형 데이터 형식으로 FF\#를 사용한 경우 \#보다 작은 자릿수를 허용합니다.](#bug-49610to_date-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-%EB%82%A0%EC%A7%9C-%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%98%95%EC%8B%9D%EC%9C%BC%EB%A1%9C-ff%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EB%B3%B4%EB%8B%A4-%EC%9E%91%EC%9D%80-%EC%9E%90%EB%A6%BF%EC%88%98%EB%A5%BC-%ED%97%88%EC%9A%A9%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49625 TO\_DATE 함수에서 날짜형 데이터 형식으로 SSSSSS를 사용한 경우 잘못된 결과를 반환합니다.](#bug-49625to_date-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-%EB%82%A0%EC%A7%9C%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%98%95%EC%8B%9D%EC%9C%BC%EB%A1%9C-ssssss%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%9E%98%EB%AA%BB%EB%90%9C-%EA%B2%B0%EA%B3%BC%EB%A5%BC-%EB%B0%98%ED%99%98%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -17,6 +19,36 @@ Altibase 7.1.0.7.1 Patch Notes
   - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
     
+
+# New Features
+
+### BUG-49617 Adapter for JDBC, Adapter for Oracle에 LOB 데이터 타입 지원 여부를 설정하는 프로퍼티를 추가합니다. 
+-   **module** : rp-jdbcAdapter, rp-oraAdapter
+-   **Category** : Usability
+-   **재현 빈도** : Always
+-   **설명** :  Adapter for JDBC, Adapter for Oracle에 LOB 데이터 타입 지원 여부를 설정하는 프로퍼티를 추가합니다.
+    - ADAPTER_LOB_TYPE_SUPPORT
+      LOB 데이터 타입의 지원 여부를 설정하는 프로퍼티이다. 
+      - 0: LOB 데이터 타입을 지원하지 않는다. (기본값)
+      - 1: LOB 데이터 타입을 지원한다.
+      jdbcAdapter.conf, oraAdapter.conf 파일 마지막 줄에 ADAPTER_LOB_TYPE_SUPPORT = 0 이 추가되었습니다. LOB 데이터 타입 지원 기능을 사용하려면 값을 1로 변경 후 ADAPTER를 재시작해야 합니다. 
+    - 참고
+      - [Altibase 7.1 Adapter for JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20JDBC%20User's%20Manual.md#adapter_lob_type_support)
+      - [Altibase 7.1 Adapter for Oracle User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20Oracle%20User's%20Manual.md#adapter_lob_type_support)
+    
+-   **재현 방법**
+    -   **재현 절차**
+    -   **수행 결과**
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
 
 #  Fixed Bugs
 
