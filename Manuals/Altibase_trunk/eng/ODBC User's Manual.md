@@ -489,9 +489,7 @@ SQL_C_SLONG, SQL_NUMERIC, 0, 0,
 
 If you run the exe file generated after compiling in Visual C++, you will get the following result.
 
-
-
-![](media/ODBCDriver/image5.png)
+![](media/ODBCDriver/image.png)
 
 ### Example of Using LOB
 
