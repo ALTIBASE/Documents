@@ -3227,7 +3227,7 @@ Alter success.
 
 **sequence_options ::=**
 
-![](media/SQL/f2a803f06b6aa2c6b5ffb8b2412cb04c.png)
+![](media/SQL/sequence_alter_options.gif)
 
 **sync_table_clause ::=**
 
@@ -6852,7 +6852,7 @@ Create success.
 
 **sequence_options ::=**
 
-![sequence_options_create](media/SQL/sequence_options_create.gif)
+![sequence_options_create](media/SQL/sequence_create_options.gif)
 
 **sync_table_clause ::=**
 
