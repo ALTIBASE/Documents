@@ -34,7 +34,9 @@
     - [DBMS_SHARD](#dbms_shard)
     - [DBMS_SHARD_GET_DIAGNOSTICS](#dbms_shard_get_diagnostics)
   - [Stored Procedures](#stored-procedures)
-  - [Sharded Sequence](#sharded-sequence)
+  - [Sequence](#sequence)
+    - [Sharded Sequence](#sharded-sequence)
+    - [Global Sequence](#global-sequence)
   - [Altibase Sharding Property](#altibase-sharding-property)
   - [Altibase Sharding Dictionary](#altibase-sharding-dictionary)
     - [Shard Meta Table](#shard-meta-table)
@@ -1914,7 +1916,7 @@ iSQL> SELECT S4.NEXTVAL;
 10001
 ```
 
-### Global sequence
+### Global Sequence
 - Global sequence는 sharding 환경에서 전 node에 걸쳐서 uniqueness와 sequentiality를 보장한다.
 - Global sequence를 사용할 때 node에 sequence cache 크기 만큼의 sequence number를 관리 노드로부터 미리 확보한다.
   - Sequence의 cache 가 남아있으면 다른 node와 동기화 없이 sequence number를 얻을 수 있다.
