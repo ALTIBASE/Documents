@@ -1929,7 +1929,7 @@ iSQL> SELECT S4.NEXTVAL;
   - Global option을 사용해서 sequence를 생성하면 global sequence를 관리하기 위한 테이블을 생성한다.
 - Global sequence는 sync table option을 지원하지 않는다.
   - Sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Global sequence는 DBMS_SHARD.SET_SHARD_SEQUENCE_GLOBAL 프로시저를 통해서 샤드 객체로 등록해야 사용할 수 있다.
+- Global sequence는 DBMS_SHARD.SET_SHARD_SEQUENCE_GLOBAL 프로시저를 통해서 샤드 객체로 등록한 뒤 사용할 수 있다.
 
 #### 예제1
 
