@@ -1095,6 +1095,11 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 - index
   - create index
   - drop index
+- sequence
+  - create sequence
+    - global sequence만 지원
+  - alter sequence
+    - global sequence만 지원
 
 #### 샤드 테이블 제약조건 지원범위
 - 샤드 테이블에 생성할 수 있는 제약조건은 UNIQUE와 FOREIGN KEY 두 가지이다.
@@ -1923,15 +1928,16 @@ iSQL> SELECT S4.NEXTVAL;
   - Sequence의 cache 크기 만큼 sequence number를 미리 확보하므로 서로 다른 node간에는 sequentiality가 지켜지지 않을 수 있다.
   - 정확한 sequentiality를 원하는 경우 sequence를 생성할 때 nocache 옵션을 사용한다.
     - 단, nocache 옵션을 사용하면 sequence number를 얻을 때마다 동기화가 필요하여 성능이 매우 떨어진다.
+- DBMS_SHARD.SET_SHARD_SEQUENCE_GLOBAL 프로시저를 통해서 샤드 객체로 등록한 뒤 사용할 수 있다.
+- 옵션을 변경하는 것은 GLOBAL_DDL 프로퍼티가 1일 때만 가능하다.
 
 #### 문법
 - 여기서는 global sequence 가 일반 sequence와 다른 부분만을 설명한다.
-- Global sequence는 기존 sequence 문법에서 sequence option 에서 global clause를 추가로 설정한다.
+- Global sequence는 기존 sequence 문법에서 sequence option 에서 global clause를 추가로 지원하는 것을 지칭한다.
   - Sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-  - Global option을 사용해서 sequence를 생성하면 global sequence를 관리하기 위한 테이블을 생성한다.
+  - Global option을 사용해서 sequence를 생성하면 global sequence를 관리하기 위한 테이블을 생성한다. 테이블의 이름은 [sequence 이름]$gsq로 자동 부여된다.
 - Global sequence는 sync table option을 지원하지 않는다.
   - Sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Global sequence는 DBMS_SHARD.SET_SHARD_SEQUENCE_GLOBAL 프로시저를 통해서 샤드 객체로 등록한 뒤 사용할 수 있다.
 
 #### 예제1
 
