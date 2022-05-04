@@ -1058,7 +1058,7 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 - table
   - truncate table
   - create table
-    - create ddl as select 는 안됨
+    - create ddl as select는 안 됨
   - drop table
     - shard object는 안 됨
   - access table
@@ -1077,7 +1077,7 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
   - access partition
 - column
   - add column
-    - traling null 이어야함
+    - trailing null 이어야함
     - not null 속성이 없어야함
     - check 속성이 없어야함
     - hidden column 이 아니어야함
@@ -1095,11 +1095,12 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 - index
   - create index
   - drop index
-- sequence
+- global sequence
   - create sequence
-    - global sequence만 지원
   - alter sequence
-    - global sequence만 지원
+    - shard object만 지원
+  - drop sequence
+    - shard object는 미지원
 
 #### 샤드 테이블 제약조건 지원범위
 - 샤드 테이블에 생성할 수 있는 제약조건은 UNIQUE와 FOREIGN KEY 두 가지이다.
