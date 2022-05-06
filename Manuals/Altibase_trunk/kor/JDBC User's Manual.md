@@ -840,7 +840,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 ##### reuse_resultset
 
 | 기본값    | true                                                         |
-| --------- | ------------------------------------------------------------ |
+| --------- | :----------------------------------------------------------- |
 | 값의 범위 | [true \| false]                                              |
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
@@ -961,7 +961,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      |  DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA_TYPE 값을 정의한다.<br> true는 JDBC API에서 정의한 java.sql.Types의 SQL 데이터 형식으로 반환하고 false는 V$DATATYPE에<br> 정의된 데이터 타입 형식으로 반환한다.|
+| 설명      | DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA_TYPE 값을 정의한다.<br> true는 JDBC API에서 정의한 java.sql.Types의 SQL 데이터 형식으로 반환하고 false는 V$DATATYPE에<br> 정의된 데이터 타입 형식으로 반환한다. |
 
 ##### batch_setbytes_use_lob
 
@@ -1078,8 +1078,6 @@ while(sRs.next())
 sRs.close();
 sStmt.close();
 ```
-
-
 
 ### JDBC Connection Failover
 

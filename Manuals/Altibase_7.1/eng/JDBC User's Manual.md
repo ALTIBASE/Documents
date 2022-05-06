@@ -778,8 +778,8 @@ Chapter 3.</p>
 
 ##### reuse_resultset
 
-| Defualt Value | true                                                         |
-| ------------- | ------------------------------------------------------------ |
+| Defualt Value | false                                                        |
+| ------------- | :----------------------------------------------------------- |
 | Range         | [true \| false]                                              |
 | Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
@@ -887,7 +887,7 @@ Chapter 3.</p>
 ##### getprocedures_return_functions
 
 | Default Value | true                                                         |
-| ------------- | ------------------------------------------------------------ |
+| ------------- | :----------------------------------------------------------- |
 | Range         | [true \| false ]                                             |
 | Mandatory     | No                                                           |
 | Setting Range | N/A                                                          |
@@ -895,8 +895,8 @@ Chapter 3.</p>
 
 ##### getcolumns_return_jdbctype
 
-| Default Value | False                                                        |
-| ------------- | ------------------------------------------------------------ |
+| Default Value | false                                                        |
+| ------------- | :----------------------------------------------------------- |
 | Range         | [true \| false ]                                             |
 | Mandatory     | No                                                           |
 | Setting Range | N/A                                                          |
@@ -905,7 +905,7 @@ Chapter 3.</p>
 ##### batch_setbytes_use_lob
 
 | Default Value | true                                                         |
-| ------------- | ------------------------------------------------------------ |
+| ------------- | :----------------------------------------------------------- |
 | Range         | [true \| false ]                                             |
 | Mandatory     | No                                                           |
 | Setting Range | N/A                                                          |
