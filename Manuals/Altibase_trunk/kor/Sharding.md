@@ -845,11 +845,13 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
   - altibase.properties.shard 화일에 DDL_LOCK_TIMEOUT = 3 으로 설정되어 있다.
   - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 하기때문에, DDL시에 table lock에 기본적으로 대기 시간이 필요하다.
   - DDL_LOCK_TIMEOUT 이 0 인 경우에는, DML 후에 관련 테이블에 시차를 두지 않고 바로 DDL을 수행하면, 위의 two phase commit 지연처리 방식으로 인해, 실패하는 경우가 발생할 수 있다.
-- GLOBAL_TRANSACTION_LEVEL 이 3 인 경우는 count(\*) 최적화를 적용하지 않는다.
+- SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, count(\*) 최적화를 적용하지 않는다.
   - count(\*) 최적화란 실제 레코드들을 확인하지 않고, table header 에 기록된 전체 레코드수를 사용하는 방식을 말한다.
   - count(\*) 최적화에서는 two phase commit pending 상태의 레코드들은 고려되지 않는다.
-  - GLOBAL_TRANSACTION_LEVEL 이 3 이고 SHARD_NOTIFIER_2PC 가 1 인 경우에는 two phase commit 이 지연처리가 되므로, count(\*) 최적화는 적용되면 안된다.
-  - GLOBAL_TRANSACTION_LEVEL 이 2 이하인 경우는 count(\*) 최적화를 적용한다.
+  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, two phase commit 이 지연처리가 되므로, count(\*) 최적화는 적용되면 안된다.
+- SHARD_NOTIFIER_2PC 가 1 인 상태에서, GLOBAL_TRANSACTION_LEVEL 를 3 에서 더 작은 값으로 변경시의 주의사항
+  - GLOBAL_TRANSACTION_LEVEL 가 3 인 상태에서 commit 한 내용을, two phase commit 이 지연처리로 인하여, GLOBAL_TRANSACTION_LEVEL 이 작은 상황에서 순간적으로 보지 못할 수 있다.
+  - NODE[DATA] ALTER SYSTEM SHARD NOTIFIER FLUSH; 구문을 수행하면, GLOBAL_TRANSACTION_LEVEL 가 3 인 상태에서 commit 한 내용을 모두 볼 수 있다. 
 
 #### 하위 호환성
 -   샤딩 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤딩 기능을 사용할 수 있다.
@@ -1790,7 +1792,7 @@ iSQL> SELECT S4.NEXTVAL;
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No<br />No<br />Yes<br />No       | SYSTEM          |
 | SHARD DDL lock 처리 | SHARD_DDL_LOCK_TIMEOUT<br />SHARD_DDL_LOCK_TRY_COUNT | Yes<br />Yes           | SYSTEM, SESSION |
 | 트랜잭션 | GLOBAL_TRANSACTION_LEVEL<br />VERSIONING_MIN_TIME<br />INDOUBT_FETCH_TIMEOUT<br />INDOUBT_FETCH_METHOD<br />SHARD_STATEMENT_RETRY<br />SHARED_TRANS_HASH_BUCKET_COUNT | Yes<br />Yes<br />Yes<br />Yes<br />Yes<br />No | SYSTEM, SESSION |
-| shard notifier | SHARD_NOTIFIER_2PC<br />SHARD_NOTIFIER_COUNT | No<br />No | SYSTEM |
+| shard notifier | SHARD_NOTIFIER_2PC_ENABLE<br />SHARD_NOTIFIER_COUNT<br />SHARD_NOTIFIER_2PC | No<br />No<br />Yes | SYSTEM, SESSION |
 | xlogfile | XLOGFILE_DIR<br />XLOGFILE_PREPARE_COUNT<br />XLOGFILE_SIZE<br />XLOGFILE_REMOVE_INTERVAL<br />XLOGFILE_REMOVE_INTERVAL_BY_FILE_CREATE | No<br />No<br />No<br />Yes<br />Yes | SYSTEM |
 
 
@@ -2262,6 +2264,31 @@ Unsigned Integer
 ##### 설명
 공유 트랜잭션 관리를 위한 자료구조의 Hash 저장소 크기를 설정한다.
 
+#### SHARD_NOTIFIER_2PC_ENABLE
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1
+##### 속성
+읽기 전용, 단일 값
+##### 값의 범위
+[0,1]
+##### 설명
+SHARD_NOTIFIER_2PC 기능을 사용하기 위해서는 SHARD_NOTIFIER_2PC_ENABLE 는 1 이어야 한다.
+
+#### SHARD_NOTIFIER_COUNT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+장비의 CPU 개수
+##### 속성
+읽기 전용, 단일 값
+##### 값의 범위
+[1 ~ 1024]
+##### 설명
+shard notifier의 갯수를 설정한다.
+- SHARD_NOTIFIER_2PC_ENABLE 가 0 일때는 SHARD_NOTIFIER_COUNT 는 강제로 1로 설정된다.
+
 #### SHARD_NOTIFIER_2PC
 ##### 데이터 타입
 Unsigned Integer
@@ -2275,21 +2302,7 @@ Unsigned Integer
 GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 할지의 여부이다.
 - 0 : shard notifier가 이관받아 처리하지 않는다.
 - 1 : shard notifier가 이관받아 처리한다.
-- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier 가 이관받아 처리를 한다. DB서버의 비정상 종료도 동반하는 경우에는 failover notifier도 같이 수행된다. 
-- GLOBAL_TRANSACTION_LEVEL을 3 에서 commit 후에, 하위 레벨로 변경시에는 약간의 시차(3초이내)를 두고, DML을 수행하여야 한다. 그렇지 않으면, GLOBAL_TRANSACTION_LEVEL 3 에서 수행한 DML들의 commit 이 지연처리되는 상황에서, 변경된 레코드들을 하위 레벨의 DML에서 읽지 못할 수 있다.
-
-#### SHARD_NOTIFIER_COUNT
-##### 데이터 타입
-Unsigned Integer
-##### 기본값
-장비의 CPU 개수
-##### 속성
-읽기 전용, 단일 값
-##### 값의 범위
-[1 ~ 1024]
-##### 설명
-shard notifier의 갯수를 설정한다.
-- SHARD_NOTIFIER_2PC 가 0 일때는 SHARD_NOTIFIER_COUNT는 사용자 설정값은 무시되고, 강제로 1로 설정된다.
+- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier 가 이관받아 처리를 한다. DB서버의 비정상 종료도 동반하는 경우에는 failover notifier도 같이 수행된다.
 
 #### XLOGFILE_DIR
 ##### 데이터 타입
