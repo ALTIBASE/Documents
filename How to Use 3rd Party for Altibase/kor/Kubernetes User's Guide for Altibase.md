@@ -1,7 +1,7 @@
 # Kubernetes User's Guide for Altibase
 
 -   [개요](#개요)
--   [Kubernetes 에서 Altibase Pod 생성](#Kubernetes-에서-Altibase-Pod 생성)
+-   [Kubernetes 에서 Altibase Pod 생성](#Kubernetes-에서-Altibase-Pod-생성)
 -   [Persistent Volume 사용](#Persistent-Volume-사용)
 -   [Service 사용](#Service-사용)
 -   [Altibase 이중화](#Altibase-이중화)
@@ -127,7 +127,7 @@ Pod는 일시적이다(Pods are ephemeral). DBMS 특성상 Pod가 종료되더�
 ## Service 사용
 
 
-Pod는 생성될 때마다 ip가 새로 부여되기 때문에 고정된 ip처럼 사용하기 위해서는 Kubernetes의 Service를 사용해야 된다. Service가 생성되면 정적 ip를 얻게되고 Service가 존재하는 동안 해당 ip는 변경되지 않는다. 아래는 Service 중 Nodeport를 사용한 예시이며 기타 다른 Service 유형에 대해서는 Kubernete 홈페이지 내용을 참고한다.
+Pod는 생성될 때마다 ip가 새로 부여되기 때문에 고정된 ip처럼 사용하기 위해서는 Kubernetes의 Service를 사용해야 된다. Service가 생성되면 정적 ip를 얻게되고 Service가 존재하는 동안 해당 ip는 변경되지 않는다. 아래는 Service 중 Nodeport를 사용한 예시이며 기타 다른 Service 유형에 대해서는 Kubernetes 홈페이지 내용을 참고한다.
 
 - Nodeport를 사용하여 Service 를 생성하는 예시
 
