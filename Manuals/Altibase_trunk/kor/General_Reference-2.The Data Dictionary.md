@@ -2052,8 +2052,7 @@ SYS_TABLES_
 
 ### SYS_PART_INDICES\_ 
 
-파티션드 인덱스를 관리하기 위한 메타 테이블이다. SYS_INDICES_의 IS_PARTITIONED가
-‘Y’로 되어 있는 파티션드 인덱스에 대한 정보이다.
+파티션드 인덱스를 관리하기 위한 메타 테이블이다. SYS_INDICES_의 IS_PARTITIONED가 ‘T’로 되어 있는 파티션드 인덱스에 대한 정보이다.
 
 | Column name     | Type    | Description                 |
 | --------------- | ------- | --------------------------- |
@@ -2067,13 +2066,11 @@ SYS_TABLES_
 
 ##### USER_ID
 
-인덱스 소유자의 사용자 식별자로, SYS_USERS\_ 메타 테이블의 한 USER_ID 값과
-동일하다.
+인덱스 소유자의 사용자 식별자로, SYS_USERS\_ 메타 테이블의 한 USER_ID 값과 동일하다.
 
 ##### TABLE_ID
 
-인덱스를 생성한 테이블의 테이블 식별자로, SYS_TABLES\_ 메타 테이블의 한 TABLE_ID
-값과 동일하다.
+인덱스를 생성한 테이블의 테이블 식별자로, SYS_TABLES\_ 메타 테이블의 한 TABLE_ID 값과 동일하다.
 
 ##### INDEX_ID
 
@@ -2081,8 +2078,7 @@ SYS_TABLES_
 
 ##### PARTITION_TYPE
 
-파티션 타입이 지역 (LOCAL)인지 글로벌 (GLOBAL)인지를 나타낸다. 그러나 현재
-글로벌 파티션 타입을 지원하지 않으므로, 이 값은 항상 0이다.
+파티션 타입이 지역 (LOCAL)인지 글로벌 (GLOBAL)인지를 나타낸다. 그러나 현재 글로벌 파티션 타입을 지원하지 않으므로, 이 값은 항상 0이다.
 
 - 0: LOCAL
 - 1: GLOBAL
@@ -2200,9 +2196,8 @@ SYS_COLUMNS_
 
 ### SYS_PART_TABLES\_ 
 
-파티션드 테이블을 관리하기 위한 메타 테이블이다. SYS_PART_TABLE_에 들어가는
-테이블 정보는 SYS_TABLES_에서 IS_PARTITIONED가 ‘Y’로 되어 있는 파티션드 테이블에
-대한 정보이다.
+파티션드 테이블을 관리하기 위한 메타 테이블이다. SYS_PART_TABLE에 들어가는
+테이블 정보는 SYS_TABLES에서 IS_PARTITIONED가 ‘T’로 되어 있는 파티션드 테이블에 대한 정보이다.
 
 | Column name         | Type    | Description                                |
 | ------------------- | ------- | ------------------------------------------ |
@@ -2216,13 +2211,11 @@ SYS_COLUMNS_
 
 ##### USER_ID
 
-인덱스 소유자의 사용자 식별자로, SYS_USERS\_ 메타 테이블의 한 USER_ID 값과
-동일하다.
+인덱스 소유자의 사용자 식별자로, SYS_USERS\_ 메타 테이블의 한 USER_ID 값과 동일하다.
 
 ##### TABLE_ID
 
-인덱스를 생성한 테이블의 테이블 식별자로, SYS_TABLES\_ 메타 테이블의 한 TABLE_ID
-값과 동일하다.
+인덱스를 생성한 테이블의 테이블 식별자로, SYS_TABLES\_ 메타 테이블의 한 TABLE_ID 값과 동일하다.
 
 ##### PARTITION_METHOD
 
@@ -2234,8 +2227,7 @@ SYS_COLUMNS_
 
 ##### ROW_MOVEMENT
 
-파티션 키 칼럼의 값이 갱신 (UPDATE)될 때, 갱신된 레코드를 다른 파티션으로 이동할
-것인지에 대한 허가 여부를 결정하는 것이다.
+파티션 키 칼럼의 값이 갱신 (UPDATE)될 때, 갱신된 레코드를 다른 파티션으로 이동할 것인지에 대한 허가 여부를 결정하는 것이다.
 
 - T: 이동 허가
 - F: 이동 불허가
