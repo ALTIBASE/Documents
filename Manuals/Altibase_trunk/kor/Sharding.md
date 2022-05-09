@@ -1984,13 +1984,13 @@ S1.NEXTVAL
 NOCACHE 옵션을 사용하여 global sequence를 생성하라.
 ```
 -- Create global sequence @node_id = 1
-iSQL > CREATE SEQUENCE S1 GLOBAL;
+iSQL > CREATE SEQUENCE S1 GLOBAL NOCACHE;
 
 -- Create global sequence @node_id = 2
-iSQL > CREATE SEQUENCE S1 GLOBAL;
+iSQL > CREATE SEQUENCE S1 GLOBAL NOCACHE;
 
 -- Create global sequence @node_id = 3
-iSQL > CREATE SEQUENCE S1 GLOBAL;
+iSQL > CREATE SEQUENCE S1 GLOBAL NOCACHE;
 
 
 -- Set global sequence @node_id = 1
