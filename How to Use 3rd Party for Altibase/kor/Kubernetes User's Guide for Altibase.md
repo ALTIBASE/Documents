@@ -1,7 +1,7 @@
 # Kubernetes User's Guide for Altibase
 
 -   [개요](#개요)
--   [Kubernetes 에서 Altibase 컨테이너 배포 (Pod 생성)](#Kubernetes-에서-Altibase-컨테이너-배포-(Pod-생성))
+-   [Kubernetes 에서 Altibase Pod 생성](#Kubernetes-에서-Altibase-Pod 생성)
 -   [Persistent Volume 사용](#Persistent-Volume-사용)
 -   [Service 사용](#Service-사용)
 -   [Altibase 이중화](#Altibase-이중화)
@@ -12,17 +12,16 @@
 
 ## 개요
 
-- Kubernetes 에서 Docker Hub에 등록된 [Altibase 컨테이너 이미지](https://hub.docker.com/r/altibase/altibase) 를 사용하여 Pod 생성을 위한 yaml 샘플을 살펴본다.
+- Kubernetes 에서 Docker Hub에 등록된 [Altibase 컨테이너 이미지](https://hub.docker.com/r/altibase/altibase)를 사용하여 Pod 생성을 위한 yaml 샘플을 살펴본다.
+  - Docker Hub에 등록된 Altibase 컨테이너는 제한된 기능을 갖고 있기 때문에 실 운영 환경 적용에는 부적합 할 수 있다.
 
-- Docker Hub에 등록된 Altibase 컨테이너는 제한된 기능을 갖는 테스트 용으로, 실 운영 환경 적용에는 부적합할 수 있다.
+  - yaml 샘플은 Kubernetes 환경에서 Altibase 컨테이너 기본 동작에 대한 예시로 제공되며 실 운영 환경 적용에는 부적합 할 수 있다.
 
-- yaml 샘플은 Kubernetes 환경에서 Altibase 컨테이너 기본 동작에 대한 예시로 제공되며 실 운영 환경 적용에는 부적합할 수 있다.
-
--   기타 Kubernetes의 세부 기능은 Kubernetes 홈페이지를 참고한다.
-
+- 기타 Kubernetes의 세부 기능은 Kubernetes 홈페이지를 참고한다.
 
 
-## Kubernetes 에서 Altibase 컨테이너 배포 (Pod 생성)
+
+## Kubernetes 에서 Altibase Pod 생성
 
 - Altibase 컨테이너가 포함된 Pod를 직접 생성
 
@@ -80,9 +79,9 @@
 ## Persistent Volume 사용
 
 
-파드는 일시적이다(Pods are ephemeral). DBMS는 특성상 Pod가 종료되더라도 주요 파일은 계속 유지되어야 하기 때문에 Persistent Volume에 생성하여 접근하도록 해야한다. Kubernetes에서는 추상화된 다양한 Persistent Volume을 제공하는데, 아래는 NFS를 사용한 예시이다. 기타 다른 Volume 및 사용법에 대해서는 Kubernete 홈페이지 내용을 참고한다.
+Pod는 일시적이다(Pods are ephemeral). DBMS 특성상 Pod가 종료되더라도 주요 파일은 계속 유지되어야 하기 때문에 Persistent Volume에 생성해야 한다. Kubernetes에서는 추상화된 다양한 Persistent Volume을 제공하는데, 아래는 NFS를 사용한 예시이다. 기타 다른 Volume 및 사용법에 대해서는 Kubernetes 홈페이지 내용을 참고한다.
 
--   NFS Persistent Volume 을 사용하여 DB Data 파일 및 DB Redo Log 파일을 생성하는 예시
+-   NFS Persistent Volume 을 사용하여 DB Data 파일 및 Redo Log 파일을 생성하는 예시
     ```
     apiVersion: apps/v1
     kind: Deployment
@@ -157,7 +156,7 @@ Pod는 생성될 때마다 ip가 새로 부여되기 때문에 고정된 ip처�
 ## Altibase 이중화
 
 
-Pod는 재 생성 시 ip가 새로 부여되기 때문에 Altibase 이중화 생성은 Peer 서버의 remote host ip 대신 remote host name으로 생성해야 한다. Kubernetes 에서는 Pod를 가리키는 Service를 생성함으로써, Pod가 고정된 DNS Name을 갖도록 처리할 수 있어서 해당 Service 이름으로 이중화 객체를 생성해야 된다. 아래는 Deployment를 통한 Pod 생성과 그와 대응되는 Service 생성, 그리고 Altibase 컨테이너에 접속하여 이중화 생성 후 수행여부를 확인하는 예시이다.
+Pod는 재 생성 시 ip가 새로 부여되기 때문에 Altibase 이중화 생성은 Peer 서버의 remote host ip 대신 remote host name으로 생성해야 한다. Kubernetes 에서는 Pod를 가리키는 Service를 생성함으로써, Pod가 고정된 DNS Name을 갖도록 처리할 수 있어서 해당 Service 이름으로 이중화 객체를 생성해야 된다. 아래는 Deployment를 통한 Pod 생성과 그와 대응되는 Service 생성, 그리고 Altibase 컨테이너에 접속하여 이중화 생성 후 수행 여부를 확인하는 예시이다.
 
 1. Deployment를 통한 Pod 생성 yaml 파일
 
