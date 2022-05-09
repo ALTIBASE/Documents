@@ -1,10 +1,10 @@
 # Kubernetes User's Guide for Altibase
 
 -   [개요](#개요)
--   [Kubernetes 에서 Altibase 컨테이너 배포 (Pod 생성)](#Kubernetes 에서 Altibase 컨테이너 배포 (Pod 생성))
--   [Persistent Volume 사용](#Persistent Volume 사용)
--   [Service 사용](#Service 사용)
--   [Altibase 이중화](#Altibase 이중화)
+-   [Kubernetes 에서 Altibase 컨테이너 배포 (Pod 생성)](#Kubernetes-에서-Altibase-컨테이너-배포-(Pod-생성))
+-   [Persistent Volume 사용](#Persistent-Volume-사용)
+-   [Service 사용](#Service-사용)
+-   [Altibase 이중화](#Altibase-이중화)
 
 
 
@@ -102,25 +102,25 @@
           - name: altibase
             image: altibase/altibase
             volumeMounts:
-            - name: altibase-nfs-dbs                          # 아래 쪽의 nfs의 volume과 매칭하기 위한 이름 지정
-              mountPath: /home/altibase/altibase_home/dbs     # pod의 altibase data file 디렉토리 path
-            - name: altibase-nfs-logs                         # 아래 쪽의 nfs의 volume과 매칭하기 위한 이름 지정
-              mountPath: /home/altibase/altibase_home/logs    # pod의 altibase log file 디렉토리 path
+            - name: altibase-nfs-dbs                         # 아래 쪽의 nfs의 volume과 매칭하기 위한 이름 지정
+              mountPath: /home/altibase/altibase_home/dbs    # pod의 altibase data file 디렉토리 path
+            - name: altibase-nfs-logs                        # 아래 쪽의 nfs의 volume과 매칭하기 위한 이름 지정
+              mountPath: /home/altibase/altibase_home/logs   # pod의 altibase log file 디렉토리 path
             ports:
-            - containerPort: 20300                            # altibase에 접속할 수 있는 port 노출
+            - containerPort: 20300                           # altibase에 접속할 수 있는 port 노출
               protocol: TCP
             env:
             - name: MODE
               value: daemon
           volumes:
-          - name: altibase-nfs-dbs                            # 위 쪽의 volumeMounts에서 지정해준, 실제 mount할 이름을 지정 (data file)
-            nfs:                                              # network volume type 중 NFS를 사용
-              server: 192.168.204.139                         # 접근할 수 있는 nfs 서버 ip
-              path: /home/altibase-nfs/node1/dbs              # nfs 서버의 저장될 위치 저정
-          - name: altibase-nfs-logs                           # 위 쪽의 volumeMounts에서 지정해준, 실제 mount할 이름을 지정 (log file)
-            nfs:                                              # network volume type 중 NFS를 사용
-              server: 192.168.204.139                         # 접근할 수 있는 nfs 서버 ip
-              path: /home/altibase-nfs/node1/logs             # nfs 서버의 저장될 위치 저정
+          - name: altibase-nfs-dbs                           # 위 쪽 volumeMounts에서 지정해준, 실제 mount할 이름을 지정 (data file)
+            nfs:                                             # network volume type 중 NFS를 사용
+              server: 192.168.204.139                        # 접근할 수 있는 nfs 서버 ip
+              path: /home/altibase-nfs/node1/dbs             # nfs 서버의 저장될 위치 저정
+          - name: altibase-nfs-logs                          # 위 쪽 volumeMounts에서 지정해준, 실제 mount할 이름을 지정 (log file)
+            nfs:                                             # network volume type 중 NFS를 사용
+              server: 192.168.204.139                        # 접근할 수 있는 nfs 서버 ip
+              path: /home/altibase-nfs/node1/logs            # nfs 서버의 저장될 위치 저정
     ```
 
 
