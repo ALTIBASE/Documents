@@ -938,9 +938,9 @@ Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk
 conf 디렉터리에는 아래의 파일들이 존재한다.
 
 -   altibase_user.env: Altibase 운영을 위한 환경변수 설정 파일
--   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-프로퍼티)를 참조하기 바란다.
+-   altibase.properties: Altibase용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2altibase-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)를 참조하기 바란다.
 -   license: Altibase 라이선스 파일
--   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)를 참조하기 바란다.
+-   dblink.conf: 데이터베이스 링크용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%A7%81%ED%81%AC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)를 참조하기 바란다.
 -   aexport.properties: aexport용 설정 파일. 설정 가능한 프로퍼티에 대한 설명은 [*Utilities Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#aexport-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)을 참조하기 바란다.
 -   syspassword: sys 계정 암호를 기록하는 파일. 사용방법은 [*Utilities Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#altipasswd)을 참조하기 바란다.
 
