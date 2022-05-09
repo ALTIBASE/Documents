@@ -4,7 +4,7 @@
     - [Overview](#overview)
     - [System Requirements](#system-requirements)
     - [Installation and Uninstallation](#installation-and-uninstallation)
-  - [2. Getting Started](#2-getting-started)
+  - [2. How to use Replication Manager](#2-how-to-use-replication-manager)
     - [Understanding the User Interface](#understanding-the-user-interface)
     - [Connecting to Altibase](#connecting-to-altibase)
     - [Working with Replication](#working-with-replication)
@@ -221,7 +221,7 @@ To install it, simply unzip the file in the desired directory.
 
 To unistall it, simply delete the directory in which Replication Manager is installed. 
 
-## 2. Getting Started
+## 2. How to use Replication Manager
 
 This chapter introduces the graphical user interface of Replication Manager. Then, it covers the steps to be taken to connect Replication Manager to Altibase database and describes how to use Replication Manager in detail. It is organized as follows:
 
@@ -343,7 +343,7 @@ If you have followed the preceding steps successfully, you are ready to manage r
 
 #### Disconnecting from the Database
 
-After finishing your work, it is necessary to close the connection with the database. To close a connection with a database, select the target database connection. Open the context menu by right-clicking on the target database, and then choose "Disconnect" from the context menu.
+After finishing your work, it is necessary to close the connection with the database. To close a connection with a database, select the target database connection. Open the context menu by right-clicking on the target database, and then choose "Disconnect".
 
 #### Editing DB Connection Information
 
@@ -369,12 +369,18 @@ This section is intended to describe how to use Replication Manager in detail. I
 
 Replication Manager abstracts database and replication objects and models six objects on that. Various ways of visualizing and manipulating the objects on three editable panes(DB Connections, Replication Pair, Map) are also provided. The six objects are as follows:
 
-1. Replication Object: It is an object created with the CREATE REPLICATION statement and the common object among panes at Replication Manager. Please refer to [Understanding the User Interface](#understanding-the-user-interface).
-2. Replication Target Table Object: This is a table that is designated, using the CREATE REPLICATION or ALTER REPLICATION statement, to be replicated between corresponding replication nodes.
-3. DB Connections Object: It is the root object of "DB Connection" object managing DB Connection. It is automatically created in "DB Connections" pane.
-4. DB Connection Object: It displays Altibase connection. Please refer to [Understanding the User Interface](#understanding-the-user-interface) for detailed information.
-5. Replication Pairs Object: It is the root object of "Replication Pair". It is automatically created in "Replication Pairs" pane.
-6. Replication Pair Object: It is a pair of corresponding replication objects having the same name, one residing on each of two different nodes. Please refer to [Understanding the User Interface](#understanding-the-user-interface).
+1. Replication Object
+   It is an object created with the CREATE REPLICATION statement and the common object among panes at Replication Manager. Please refer to [Understanding the User Interface](#understanding-the-user-interface).
+2. Replication Target Table Object
+   This is a table that is designated, using the CREATE REPLICATION or ALTER REPLICATION statement, to be replicated between corresponding replication nodes.
+3. DB Connections Object
+   It is the root object of "DB Connection" object managing DB Connection. It is automatically created in "DB Connections" pane.
+4. DB Connection Object
+   It displays Altibase connection. Please refer to [Understanding the User Interface](#understanding-the-user-interface) for detailed information.
+5. Replication Pairs Object
+   It is the root object of "Replication Pair". It is automatically created in "Replication Pairs" pane.
+6. Replication Pair Object
+   It is a pair of corresponding replication objects having the same name, one residing on each of two different nodes. Please refer to [Understanding the User Interface](#understanding-the-user-interface).
 
 Same objects shared by different panes may provide different functionalities according to the pane. For instance, Replication Object at Replication Pair pane provides "Edit Table List" function, but at Map pane it doesn't. This is to align functionalities to its context. The Replication Pair pane is to manage the replication object, while the Map pane is to provide overall system status information at a glance by showing the target databases and the replication objects as a graph.
 

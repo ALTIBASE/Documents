@@ -4,7 +4,7 @@
     - [개요](#%EA%B0%9C%EC%9A%94)
     - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
     - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-  - [2.시작하기](#2%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
+  - [2.사용 방법](#2사용-방법)
     - [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)
     - [알티베이스에 연결하기](#%EC%95%8C%ED%8B%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
     - [Replication Manager 상세 사용법](#replication-manager-%EC%83%81%EC%84%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
@@ -191,7 +191,7 @@ Replication Manager는 공식 Altibase 고객서비스포털 http://support.alti
 
 Replication Manager가 설치된 디렉토리를 삭제한다.
 
-## 2.시작하기
+## 2.사용 방법
 
 이 장은 Replication Manager의 사용자 인터페이스를 소개한다. 이후 Altibase에 연결하는 법을 설명한 뒤 Replication Manager 상세 사용법에 대해 설명한다. 이 장은 다음과 같이 구성된다.
 
@@ -348,29 +348,29 @@ Altibase가 여러 개의 IP 주소를 가진 장비에 설치되어 있고, 다
 
 Replication Manager는 데이터베이스와 이중화 객체를 추상화시켜 여섯 가지 객체로 모델링하며, 사용자 편의성을 위해 편집 가능한 세 개(DB Connections, Replication Pair, Map)의 창에 객체들을 표시한다. 여섯 가지 객체는 다음과 같다.
 
-1. 이중화 객체((Replication Object)
+1. 이중화 객체((Replication Object)\
 
-  CREATE REPLICATION 구문으로 생성되는 객체로 Replication Manager의 여러 창에서 공통적으로 사용된다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
+   CREATE REPLICATION 구문으로 생성되는 객체로 Replication Manager의 여러 창에서 공통적으로 사용된다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
 
 2. 이중화 대상 테이블(Replication Target Table) 객체
 
-  CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 노드 간 복제되는 테이블이다.
+   CREATE REPLICATION 또는 ALTER REPLICATION 구문으로 지정되어 이중화 노드 간 복제되는 테이블이다.
 
 3. 데이터베이스 연결 부모(DB Connections) 객체
 
-  데이터베이스 연결(DB Connection)  객체를 자식으로 갖는 추상 객체이다. "DB Connections" 창에서 자동으로 생성하는 객체이다.
+   데이터베이스 연결(DB Connection)  객체를 자식으로 갖는 추상 객체이다. "DB Connections" 창에서 자동으로 생성하는 객체이다.
 
 4. 데이터베이스 연결(DB Connection) 객체
 
-  알티베이스 연결을 나타내기 위한 객체이다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
+   알티베이스 연결을 나타내기 위한 객체이다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
 
 5. 이중화 쌍 부모(Replication Pairs) 객체
 
-  이중화(Replication) 객체들을 자식으로 갖는 추상 객체이다. "Replication Pairs" 창에서 자동으로 생성하는 객체이다.
+   이중화(Replication) 객체들을 자식으로 갖는 추상 객체이다. "Replication Pairs" 창에서 자동으로 생성하는 객체이다.
 
 6. 이중화 쌍(Replication Pair) 객체
 
-  두 개의 서로 다른 데이터베이스에 생성되어 대응되는 같은 이름을 가진 이중화 객체의 쌍이다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
+   두 개의 서로 다른 데이터베이스에 생성되어 대응되는 같은 이름을 가진 이중화 객체의 쌍이다. 상세한 내용은 [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)를 참조한다.
 
 어떤 객체들은 여러 창에서 공유되지만, 창에 따라 제공하는 기능이 다른 경우가 있다. 예를 들어, "Replication Pair" 창에서 이중화 객체는 "Edit Table List" 기능을 제공하지만 "Map" 창에서는 제공하지 않는다. 이는 제공하는 창의 목적에 따라 제공하는 기능이 다르기 때문이다. "Replication Pair" 창은 이중화 객체를 조회하고 관리하기 위한 것이고, "Map" 창은 관리 대상 데이터베이스와 이중화 객체를 그래프로 표현해 전체 시스템 상태 정보를 일목요연하게 제공하기 위한 것이다.
 
