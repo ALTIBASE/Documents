@@ -321,7 +321,7 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 리스트 분산은 샤드 키 값을 특정값과 일치하는지 확인하여 분산하는 방식이다. 
 
 아래는 도시명을 이용한 임의의 리스트 분산 설정한 예시이다.
--   { record(x) \| (shard key value of x) = ‘서울’ } -\> 샤드 노드1
+-   { record(x) \| (shard key value of x) = ‘서울’ } -\> 샤드 노드 1
 -   { record(x) \| (shard key value of x) = ‘부산’ } -\> 샤드 노드 2
 -   { record(x) \| (shard key value of x) = ‘대구’ } -\> 샤드 노드 3
 
@@ -1332,10 +1332,10 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 - SET_SHARD_PROCEDURE_SHARDKEY: 샤드키 프로시저 샤드객체로 등록한다.
 - SET_SHARD_PROCEDURE_SOLO: 솔로 프로시저 샤드객체로 등록한다.
 - SET_SHARD_PROCEDURE_CLONE: 클론 프로시저 샤드객체로 등록한다.
-- SET_SHARD_SEQUENCE_GLOBAL  : 글로벌 시퀀스 샤드객체로 등록한다.
+- SET_SHARD_SEQUENCE_GLOBAL: 글로벌 시퀀스 샤드객체로 등록한다.
 - UNSET_SHARD_TABLE: 샤드 테이블을 해제한다.
 - UNSET_SHARD_PROCEDURE: 샤드 프로시저를 해제한다.
-- UNSET_SHARD_SEQUENCE : 글로벌 시퀀스를 해제한다.
+- UNSET_SHARD_SEQUENCE: 글로벌 시퀀스를 해제한다.
 
 #### CREATE_META
 ##### 구문
@@ -1641,9 +1641,9 @@ SET_SHARD_SEQUENCE_GLOBAL(
 ```
 
 ##### 파라미터
-- user_name : 시퀀스 소유자의 이름
-- sequence_name : 시퀀스 이름
-- node_name : 시퀀스 관리 테이블이 존재할 노드 이름
+- user_name: 시퀀스 소유자의 이름
+- sequence_name: 시퀀스 이름
+- node_name: 시퀀스 관리 테이블이 존재할 노드 이름
 
 ###### 설명
 글로벌 시퀀스를 샤드객체로 등록한다.
@@ -1717,8 +1717,8 @@ UNSET_SHARD_SEQUENCE(
 ```
 
 ##### 파라미터
-- user_name : 시퀀스 소유자의 이름
-- sequence_name : 시퀀스 이름
+- user_name: 시퀀스 소유자의 이름
+- sequence_name: 시퀀스 이름
 
 ##### 설명
 글로벌 시퀀스를 해제한다.
@@ -1860,23 +1860,23 @@ END;
 ```
 
 ## Sequence
-Sharding 환경에서는 기존 sequence 외에 sharded sequence와 global sequence를 추가로 제공한다.
-Sharding 환경에서는 sequence의 CURRVAL을 지원하지 않는다.
+Sharding 환경에서는 기존 시퀀스 외에 sharded sequence와 global sequence를 추가로 제공한다.
+Sharding 환경에서는 시퀀스의 CURRVAL을 지원하지 않는다.
 
 ### Sharded Sequence
 - Sharded sequence는 sharding 환경에서 unique number generator 역할을 한다.
-- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않는다.
-- 동일 Node내에서는 순서를 보장한다.
-- node_id 를 prefix 로 사용하여 uniqueness를 제공한다. 그러므로, node_id 가 재사용되면 uniqueness 가 깨질 수 있다.
+- 전 노드에 걸쳐서 유일성(uniqueness)는 보장하지만, 연속성(sequentiality)는 보장하지 않는다.
+- 동일 노드 내에서는 순서를 보장한다.
+- node_id 를 prefix 로 사용하여 유일성을 제공한다. 그러므로, node_id 를 재사용하면 유일성이 깨질 수 있다.
 - node_id 는 1~9200 사이의 값을 가질 수 있다.
 
 #### 문법
-- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다.
-- Sharded sequence는 기존 sequence 문법에서 sequence option 에서 shard clause를 추가로 지원하는 것을 지칭한다.
-  - sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Sharded sequence는 sync table option을 지원하지 않는다.
-  - sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Sharded sequence의 shard clause
+- 여기서는 sharded sequence 가 일반 시퀀스와 다른 부분을 설명한다.
+- Sharded sequence는 기존 시퀀스 문법에서 시퀀스 옵션에서 SHARD clause를 추가로 지원하는 것을 지칭한다.
+  - 시퀀스 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
+- Sharded sequence는 SYNC TABLE 옵션을 지원하지 않는다.
+  - SYNC TABLE 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
+- Sharded sequence의 SHARD clause
   - SHARD
     - FIXED 혹은 VARIABLE을 지정하지 않으면, FIXED 가 기본으로 지정된다.
   - SHARD FIXED
@@ -1923,22 +1923,22 @@ iSQL> SELECT S4.NEXTVAL;
 ```
 
 ### Global Sequence
-- Global sequence는 sharding 환경에서 전 node에 걸쳐서 uniqueness와 sequentiality를 보장한다.
-- Global sequence를 사용할 때 node에 sequence cache 크기 만큼의 sequence number를 관리 노드로부터 미리 확보한다.
-  - Sequence의 cache 가 남아있으면 다른 node와 동기화 없이 sequence number를 얻을 수 있다.
-  - Sequence의 cache 크기 만큼 sequence number를 미리 확보하므로 서로 다른 node간에는 sequentiality가 지켜지지 않을 수 있다.
-  - 정확한 sequentiality를 원하는 경우 sequence를 생성할 때 nocache 옵션을 사용한다.
-    - 단, nocache 옵션을 사용하면 sequence number를 얻을 때마다 동기화가 필요하여 성능이 매우 떨어진다.
+- Global sequence는 sharding 환경에서 전 노드에 걸쳐서 유일성과 연속성을 보장한다.
+- Global sequence를 사용할 때 노드에 시퀀스 캐시 크기 만큼의 시퀀스 값을 관리 노드로부터 미리 확보한다.
+  - 시퀀스의 캐시가 남아있으면 다른 노드와 동기화 없이 시퀀스 값을 얻을 수 있다.
+  - 시퀀스의 캐시 크기 만큼 시퀀스 값을 미리 확보하므로 서로 다른 노드간에는 연속성이 지켜지지 않을 수 있다.
+  - 정확한 연속성을 원하는 경우 시퀀스를 생성할 때 NOCACHE 옵션을 사용한다.
+    - 단, NOCACHE 옵션을 사용하면 시퀀스 값을 얻을 때마다 동기화가 필요하여 성능이 매우 떨어진다.
 - DBMS_SHARD.SET_SHARD_SEQUENCE_GLOBAL 프로시저를 통해서 샤드 객체로 등록한 뒤 사용할 수 있다.
 - 옵션을 변경하는 것은 GLOBAL_DDL 프로퍼티가 1일 때만 가능하다.
 
 #### 문법
-- 여기서는 global sequence 가 일반 sequence와 다른 부분만을 설명한다.
-- Global sequence는 기존 sequence 문법에서 sequence option 에서 global clause를 추가로 지원하는 것을 지칭한다.
-  - Sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-  - Global option을 사용해서 sequence를 생성하면 global sequence를 관리하기 위한 테이블을 생성한다. 테이블의 이름은 [sequence 이름]$gsq로 자동 부여된다.
-- Global sequence는 sync table option을 지원하지 않는다.
-  - Sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
+- 여기서는 global sequence 가 일반 시퀀스와 다른 부분을 설명한다.
+- Global sequence는 기존 시퀀스 문법에서 시퀀스 옵션에서 GLOBAL clause를 추가로 지원하는 것을 지칭한다.
+  - 시퀀스 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
+  - GLOBAL 옵션을 사용해서 시퀀스를 생성하면 global sequence를 관리하기 위한 테이블을 생성한다. 테이블의 이름은 [sequence 이름]$gsq로 자동 부여된다.
+- Global sequence는 SYNC TABLE 옵션을 지원하지 않는다.
+  - SYNC TABLE 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
 
 #### 예제1
 
