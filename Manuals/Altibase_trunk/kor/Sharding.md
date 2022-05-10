@@ -1335,7 +1335,7 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 - SET_SHARD_SEQUENCE_GLOBAL: 글로벌 시퀀스 샤드객체로 등록한다.
 - UNSET_SHARD_TABLE: 샤드 테이블을 해제한다.
 - UNSET_SHARD_PROCEDURE: 샤드 프로시저를 해제한다.
-- UNSET_SHARD_SEQUENCE: 글로벌 시퀀스를 해제한다.
+- UNSET_SHARD_SEQUENCE: 글로벌 시퀀스를 샤드객체에서 해제한다.
 
 #### CREATE_META
 ##### 구문
@@ -1647,7 +1647,7 @@ SET_SHARD_SEQUENCE_GLOBAL(
 
 ###### 설명
 글로벌 시퀀스를 샤드객체로 등록한다.
-- Global option으로 생성한 시퀀스만 샤드 객체로 등록할 수 있다.
+- Global option으로 생성한 시퀀스만 샤드객체로 등록할 수 있다.
 - 본 프로시저 수행시 각 노드의 샤드로 등록할 시퀀스에 LOCK을 잡는다.
 - 본 프로시저 수행시 시퀀스 관리 테이블의 row를 모두 삭제하고 시퀀스를 관리하는 노드에 row를 새로 만든다. 
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
@@ -1721,9 +1721,9 @@ UNSET_SHARD_SEQUENCE(
 - sequence_name: 시퀀스 이름
 
 ##### 설명
-글로벌 시퀀스를 해제한다.
+글로벌 시퀀스를 샤드객체에서 해제한다.
 - 글로벌 시퀀스를 삭제하지 않는다.
-- 본 프로시저 수행시 각 노드의 샤드 해제 할 시퀀스에 LOCK을 잡는다.
+- 본 프로시저 수행시 각 노드의 샤드객체에서 해제 할 시퀀스에 LOCK을 잡는다.
 - 본 프로시저 수행시 시퀀스 관리 테이블의 row를 모두 삭제한다.
 - 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
 - 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
