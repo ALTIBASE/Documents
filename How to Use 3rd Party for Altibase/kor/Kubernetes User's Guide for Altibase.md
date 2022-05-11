@@ -154,29 +154,154 @@ spec:
 
 파드는 재 생성 시 IP가 새로 부여되기 때문에 Altibase 이중화 생성은 Peer 서버의 원격 호스트 IP 대신 원격 호스트 네임으로 생성해야 한다. 쿠버네티스 에서는 파드를 가리키는 서비스를 생성함으로써, 파드가 고정된 DNS 이름을 갖도록 처리할 수 있어서 해당 서비스 이름으로 이중화 객체를 생성해야 된다. 아래는 디플로이먼트를 통한 파드 생성과 그와 대응되는 서비스 생성, 그리고 Altibase 컨테이너에 접속하여 이중화 생성 후 수행 여부를 확인하는 예시이다.
 
-1. 디플로이먼트를 사용하여 파드를 생성하는 YAML 파일
+1. 디플로이먼트를 사용하여 2개의 파드를 생성하는 YAML 파일
 
-| 디플로이먼트 1                                               | 디플로이먼트 2                                               |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| apiVersion: apps/v1<br/>kind: Deployment<br/>metadata:<br/>　name: altibase-deploy-vol-node1<br/>spec:<br/>　replicas: 1<br/>　selector:<br/>　　matchLabels:<br/>　　　app: altibase-node1<br/>　template:<br/>　　metadata:<br/>　　　labels:<br/>　　　　app: altibase-node1<br/>　　spec:<br/>　　　containers:<br/>　　　- name: altibase<br/>　　　　image: altibase/altibase<br/>　　　　volumeMounts:<br/>　　　　- name: altibase-nfs-dbs<br/>　　　　　mountPath: /home/altibase/altibase_home/dbs<br/>　　　　- name: altibase-nfs-logs<br/>　　　　　mountPath: /home/altibase/altibase_home/logs<br/>　　　　ports:<br/>　　　　- containerPort: 20300<br/>　　　　　protocol: TCP<br/>　　　　- containerPort: 20301<br/>　　　　　protocol: TCP<br/>　　　　env:<br/>　　　　- name: MODE<br/>　　　　　value: replication<br/>　　　　- name: **SLAVE_REP_PORT** # 이중화 활성화<br/>　　　　　value: **"20301"** # 사용할 이중화 포트<br/>　　　volumes:<br/>　　　- name: altibase-nfs-dbs<br/>　　　　nfs:<br/>　　　　　server: 192.168.204.139<br/>　　　　　path: /home/altibase-nfs/node1/dbs<br/>　　　- name: altibase-nfs-logs<br/>　　　　nfs:<br/>　　　　　server: 192.168.204.139<br/>　　　　　path: /home/altibase-nfs/node1/logs | apiVersion: apps/v1<br/>kind: Deployment<br/>metadata:<br/>  name: altibase-deploy-vol-node2<br/>spec:<br/>  replicas: 1<br/>  selector:<br/>    matchLabels:<br/>      app: altibase-node2<br/>  template:<br/>    metadata:<br/>      labels:<br/>        app: altibase-node2<br/>    spec:<br/>      containers:<br/>      - name: altibase<br/>        image: altibase/altibase<br/>        volumeMounts:<br/>        - name: altibase-nfs-dbs<br/>          mountPath: /home/altibase/altibase_home/dbs<br/>        - name: altibase-nfs-logs<br/>          mountPath: /home/altibase/altibase_home/logs<br/>        ports:<br/>        - containerPort: 20300<br/>          protocol: TCP<br/>        - containerPort: 20301<br/>          protocol: TCP<br/>        env:<br/>        - name: MODE<br/>          value: replication<br/>        - name: **SLAVE_REP_PORT**<br/>          value: **"20301"**<br/>      volumes:<br/>      - name: altibase-nfs-dbs<br/>        nfs:<br/>          server: 192.168.204.139<br/>          path: /home/altibase-nfs/node2/dbs<br/>      - name: altibase-nfs-logs<br/>        nfs:<br/>          server: 192.168.204.139<br/>          path: /home/altibase-nfs/node2/logs |
+   ```
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: altibase-deploy-vol-node1
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: altibase-node1
+     template:
+       metadata:
+         labels:
+           app: altibase-node1
+       spec:
+         containers:
+         - name: altibase
+           image: altibase/altibase
+           volumeMounts:
+           - name: altibase-nfs-dbs
+             mountPath: /home/altibase/altibase_home/dbs
+           - name: altibase-nfs-logs
+             mountPath: /home/altibase/altibase_home/logs
+           ports:
+           - containerPort: 20300
+             protocol: TCP
+           - containerPort: 20301
+             protocol: TCP
+           env:
+           - name: MODE
+             value: replication
+           - name: SLAVE_REP_PORT  # 이중화 활성화
+             value: "20301"        # 사용할 이중화 포트
+         volumes:
+         - name: altibase-nfs-dbs
+           nfs:
+             server: 192.168.204.139
+             path: /home/altibase-nfs/node1/dbs
+         - name: altibase-nfs-logs
+           nfs:
+             server: 192.168.204.139
+             path: /home/altibase-nfs/node1/logs
+   
+   ---
+   
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: altibase-deploy-vol-node2
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: altibase-node2
+     template:
+       metadata:
+         labels:
+           app: altibase-node2
+       spec:
+         containers:
+         - name: altibase
+           image: altibase/altibase
+           volumeMounts:
+           - name: altibase-nfs-dbs
+             mountPath: /home/altibase/altibase_home/dbs
+           - name: altibase-nfs-logs
+             mountPath: /home/altibase/altibase_home/logs
+           ports:
+           - containerPort: 20300
+             protocol: TCP
+           - containerPort: 20301
+             protocol: TCP
+           env:
+           - name: MODE
+             value: replication
+           - name: SLAVE_REP_PORT
+             value: "20301"
+         volumes:
+         - name: altibase-nfs-dbs
+           nfs:
+             server: 192.168.204.139
+             path: /home/altibase-nfs/node2/dbs
+         - name: altibase-nfs-logs
+           nfs:
+             server: 192.168.204.139
+             path: /home/altibase-nfs/node2/logs
+   ```
 
-2. 서비스를 생성하는 YAML 파일
 
-| 서비스 1                                                     | 서비스 2                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| apiVersion: v1<br/>kind: Service<br/>metadata:<br/>  labels:<br/>    app: altibase<br/>  name: **altibase-svc-node1**<br/>spec:<br/>  type: NodePort<br/>  ports:<br/>  - name: service-port<br/>    port: 20300<br/>    targetPort: 20300<br/>    nodePort: 30001<br/>  - name: replication-port<br/>    port: 20301<br/>    targetPort: 20301<br/>  selector:<br/>    app: altibase-node1 | apiVersion: v1<br/>kind: Service<br/>metadata:<br/>  labels:<br/>    app: altibase<br/>  name: **altibase-svc-node2**<br/>spec:<br/>  type: NodePort<br/>  ports:<br/>  - name: service-port<br/>    port: 20300<br/>    targetPort: 20300<br/>    nodePort: 30002<br/>  - name: replication-port<br/>    port: 20301<br/>    targetPort: 20301<br/>  selector:<br/>    app: altibase-node2 |
+2. 생성된 파드와 대응되는 2개의 서비스를 생성하는 YAML 파일
+
+   ```
+   apiVersion: v1
+   kind: Service
+   metadata:
+     labels:
+       app: altibase
+     name: altibase-svc-node1
+   spec:
+     type: NodePort
+     ports:
+     - name: service-port
+       port: 20300
+       targetPort: 20300
+       nodePort: 30001
+     - name: replication-port
+       port: 20301
+       targetPort: 20301
+     selector:
+       app: altibase-node1
+   
+   ---
+   
+   apiVersion: v1
+   kind: Service
+   metadata:
+     labels:
+       app: altibase
+     name: altibase-svc-node2
+   spec:
+     type: NodePort
+     ports:
+     - name: service-port
+       port: 20300
+       targetPort: 20300
+       nodePort: 30002
+     - name: replication-port
+       port: 20301
+       targetPort: 20301
+     selector:
+       app: altibase-node2
+   ```
+
 
 3. 각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성
 
-| **파드 1의 Altibase 컨테이너**                               | 파드 2의 Altibase 컨테이너                                   |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| -- 이중화 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node2'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; | -- 이중화 대상 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node1'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; |
+   | **파드 1의 Altibase 컨테이너**                               | 파드 2의 Altibase 컨테이너                                   |
+   | ------------------------------------------------------------ | ------------------------------------------------------------ |
+   | -- 이중화 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node2'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; | -- 이중화 대상 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node1'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; |
+
 
 4. 이중화 작동 확인
 
-| **파드 1의 Altibase 컨테이너**                               | 파드 2 Altibase 컨테이너                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| iSQL> insert into t1 values (1, 1);<br/>1 row inserted.      |                                                              |
-| iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. |
-|                                                              | iSQL> insert into t1 values (2, 2);<br/>1 row inserted.      |
-| iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. |
+   | **파드 1의 Altibase 컨테이너**                               | 파드 2 Altibase 컨테이너                                     |
+   | ------------------------------------------------------------ | ------------------------------------------------------------ |
+   | iSQL> insert into t1 values (1, 1);<br/>1 row inserted.      |                                                              |
+   | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. |
+   |                                                              | iSQL> insert into t1 values (2, 2);<br/>1 row inserted.      |
+   | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. |
