@@ -473,6 +473,25 @@ spec:
 
 ##### 3. 파드와 서비스 배포 및 확인
 
+```yaml
+$ kubectl create -f deploy.yaml
+$ kubectl create -f service.yaml
+```
+
+생성된 파드와 서비스 상태를 확인한다.  
+
+```yaml
+hscho@k8s-node1:~/work/git-test$ k get pod,service -o wide
+NAME                                             READY   STATUS    RESTARTS   AGE     IP               NODE        NOMINATED NODE   READINESS GATES
+pod/altibase-deploy-vol-node1-74d75695c4-6x277   1/1     Running   0          2m24s   172.16.107.204   k8s-node3   <none>           <none>
+pod/altibase-deploy-vol-node2-677b65857-j4xk9    1/1     Running   0          2m24s   172.16.169.147   k8s-node2   <none>           <none>
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                           AGE    SELECTOR
+service/altibase-svc-node1   NodePort    10.108.204.186   <none>        20300:30001/TCP,20301:30866/TCP   2m6s   app=altibase-node1
+service/altibase-svc-node2   NodePort    10.100.131.203   <none>        20300:30002/TCP,20301:31783/TCP   2m6s   app=altibase-node2
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP                           4m6s   <none>
+```
+
 ##### 4. 이중화 상태 및 동작 확인
 
 각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성
