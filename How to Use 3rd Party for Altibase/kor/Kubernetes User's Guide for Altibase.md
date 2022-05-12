@@ -569,7 +569,7 @@ service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP 
 
 ##### 5. 이중화 동작 확인
 
-<table style="border-collapse: collapse; width: 121.504%; height: 206px;" border="">
+<table style="height: 206px; width: 121.504%; border-collapse: collapse; border-style: dashed;">
 <tbody>
 <tr style="height: 36px;">
 <td style="width: 27.8481%; height: 18px;">&nbsp;</td>
