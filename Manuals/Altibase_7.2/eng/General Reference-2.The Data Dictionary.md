@@ -1915,7 +1915,7 @@ SYS_TABLES_
 
 ### SYS_PART_INDICES\_ 
 
-This is the meta table for managing partitioned indexes. It contains information about partitioned indexes for which IS_PARTITIONED in SYS_INDICES_ is set to ‘Y’.
+This is the meta table for managing partitioned indexes. It contains information about partitioned indexes for which IS_PARTITIONED in SYS_INDICES_ is set to ‘T’.
 
 | Column name     | Type    | Description                                        |
 | --------------- | ------- | -------------------------------------------------- |
@@ -2053,7 +2053,7 @@ SYS_COLUMNS_
 
 ### SYS_PART_TABLES\_ 
 
-This is the meta table for the management of partitioned tables. The table information in SYS_PART_TABLES_ is information about partitioned tables for which IS_PARTITIONED in SYS_TABLES_ is set to 'Y'.
+This is the meta table for the management of partitioned tables. The table information in SYS_PART_TABLES_ is information about partitioned tables for which IS_PARTITIONED in SYS_TABLES_ is set to 'T'.
 
 | Column name         | Type    | Description                                                  |
 | ------------------- | ------- | ------------------------------------------------------------ |
