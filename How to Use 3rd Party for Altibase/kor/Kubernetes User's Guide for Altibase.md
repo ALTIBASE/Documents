@@ -554,7 +554,7 @@ service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP 
 <td style="width: 60.4812%; height: 18px;"><strong>파드 altibase-node2의 Altibase 컨테이너</strong></td>
 </tr>
 <tr style="height: 36px;">
-<td style="width: 27.8481%; height: 18px;"><strong>이중화 테이블 생성&nbsp&nbsp&nbsp&nbsp&nbsp</strong></td>
+<td style="width: 27.8481%; height: 18px;"><strong>이중화 테이블 생성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
 <td style="width: 35.2527%; height: 18px;">CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</td>
 <td style="width: 60.4812%; height: 18px;">CREATE TABLE t1<br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</td>
 </tr>
