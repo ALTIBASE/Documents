@@ -540,7 +540,7 @@ service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP 
 
 각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성
 
-<table style="border-collapse: collapse; width: 121.504%; height: 206px;" border="1">
+<table style="border-collapse: collapse; width: 153.479%; height: 208px;" border="1">
 <tbody>
 <tr style="height: 36px;">
 <td style="width: 27.8481%; height: 18px;">&nbsp;</td>
