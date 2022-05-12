@@ -9,10 +9,10 @@
 -   [개요](#개요)
 -   [파드 생성 및 사용하기](#파드-생성-및-사용하기)
     -   [Altibase 파드 생성](#Altibase-파드-생성)
-    -   [퍼시스턴트 볼륨(Persistent Volume 사용)](#퍼시스턴트 볼륨-Persistent-Volume-사용)
-    -   [서비스(Service) 사용](#서비스-service-사용)
+    -   [퍼시스턴트 볼륨(Persistent Volume 사용)](퍼시스턴트-볼륨persistent-volume-사용하기)
+    -   [서비스(Service) 사용](#서비스service-사용하기)
 
--   [파드를 사용하여 Altibase 이중화 하기](#파드를-사용하여-Altibase-이중화-하기)
+-   [파드를 사용하여 Altibase 이중화 하기](#파드를-사용하여-altibase-이중화하기)
 
 
 
@@ -289,9 +289,7 @@ spec:
 $ kubectl create -f altibase_pod_svc.yaml
 ```
 
-생성된 파드와 서비스 상태를 확인한다.
-
-altibase-service 서비스에 고정 IP 10.98.64.213이 할당되었다. 
+생성된 파드와 서비스 상태를 확인한다. altibase-service 서비스에 고정 IP 10.98.64.213이 할당되었다. 
 
 ```yaml
 $ kubectl get pod,service -o wide
@@ -330,9 +328,11 @@ iSQL>
 
 디플로이먼트, 서비스,  컨피그맵을 이용하여 Altibase 이중화 객체 생성 방법을 설명한다. 파드는 생성할 때마다 동적 IP가 부여되기 때문에 Altibase 이중화 생성 구문에 원격 서버의 IP 대신 호스트 네임을 사용한다.  
 
-아래는 디플로이먼트로 고정된 DNS 이름을 갖는 파드 생성 및 파드를 가리키는 서비스 생성 그리고 Altibase 서버에 접속하여 이중화 객체를 생성하고 수행 여부를 확인하는 예시이다. 파드는 생성할 때마다 동적 IP가 부여되기 때문에 Altibase 이중화 생성 구문에 원격 서버의 IP 대신 호스트 네임을 사용한 예이다.
+아래는 디플로이먼트로 고정된 DNS 이름을 갖는 파드 생성 및 파드를 가리키는 서비스 생성하고 Altibase 서버에 접속하여 이중화 객체를 생성하고 수행 여부를 확인하는 예시이다. 파드는 생성할 때마다 동적 IP가 부여되기 때문에 Altibase 이중화 생성 구문에 원격 서버의 IP 대신 호스트 네임을 사용한 예이다.
 
 ##### 1. yaml 파일 작성
+
+***NoK랑 예제가 다름. 확인 후 재작성***
 
 디플로이먼트를 사용하여 2개의 파드를 생성한다. 
 
@@ -425,64 +425,71 @@ spec:
           path: /home/altibase-nfs/node2/logs
 ```
 
+2. ##### 서비스를 생성하는 yaml 작성
 
-2. 생성된 파드와 대응되는 2개의 서비스를 생성하는 YAML 파일
+생성된 파드와 대응되는 2개의 서비스를 생성하는 YAML 파일
 
-   ```
-   apiVersion: v1
-   kind: Service
-   metadata:
-     labels:
-       app: altibase
-     name: altibase-svc-node1
-   spec:
-     type: NodePort
-     ports:
-     - name: service-port
-       port: 20300
-       targetPort: 20300
-       nodePort: 30001
-     - name: replication-port
-       port: 20301
-       targetPort: 20301
-     selector:
-       app: altibase-node1
-   
-   ---
-   
-   apiVersion: v1
-   kind: Service
-   metadata:
-     labels:
-       app: altibase
-     name: altibase-svc-node2
-   spec:
-     type: NodePort
-     ports:
-     - name: service-port
-       port: 20300
-       targetPort: 20300
-       nodePort: 30002
-     - name: replication-port
-       port: 20301
-       targetPort: 20301
-     selector:
-       app: altibase-node2
-   ```
+```
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: altibase
+  name: altibase-svc-node1
+spec:
+  type: NodePort
+  ports:
+  - name: service-port
+    port: 20300
+    targetPort: 20300
+    nodePort: 30001
+  - name: replication-port
+    port: 20301
+    targetPort: 20301
+  selector:
+    app: altibase-node1
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: altibase
+  name: altibase-svc-node2
+spec:
+  type: NodePort
+  ports:
+  - name: service-port
+    port: 20300
+    targetPort: 20300
+    nodePort: 30002
+  - name: replication-port
+    port: 20301
+    targetPort: 20301
+  selector:
+    app: altibase-node2
+```
+
+##### 3. 파드와 서비스 배포 및 확인
+
+##### 4. 이중화 상태 및 동작 확인
+
+각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성
+
+| **파드 1의 Altibase 컨테이너**                               | 파드 2의 Altibase 컨테이너                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| -- 이중화 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node2'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; | -- 이중화 대상 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node1'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; |
 
 
-3. 각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성
 
-   | **파드 1의 Altibase 컨테이너**                               | 파드 2의 Altibase 컨테이너                                   |
-   | ------------------------------------------------------------ | ------------------------------------------------------------ |
-   | -- 이중화 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node2'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; | -- 이중화 대상 테이블 생성<br />create table t1 (c1 integer primary key, c2 integer);<br/><br />-- 이중화 객체 생성<br />CREATE REPLICATION rep1 WITH **'altibase-svc-node1'**, 20301 FROM sys.t1 TO sys.t1;<br/><br />-- 이중화 Start<br />alter replication rep1 start; |
+| **파드 1의 Altibase 컨테이너**                               | 파드 2 Altibase 컨테이너                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| iSQL> INSERT INTO t1 VALUES(1, 1);<br/>1 row inserted.       |                                                              |
+| iSQL> SELECT * FROM t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. | iSQL> SELECT * FROM t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. |
+|                                                              | iSQL> INSERT INTO t1 VALUES (2, 2);<br/>1 row inserted.      |
+| iSQL> SELECT * FROM t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. | iSQL> SELECT * FROM t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. |
 
+##### 5. 이중화 노드 추가
 
-4. 이중화 작동 확인
-
-   | **파드 1의 Altibase 컨테이너**                               | 파드 2 Altibase 컨테이너                                     |
-   | ------------------------------------------------------------ | ------------------------------------------------------------ |
-   | iSQL> insert into t1 values (1, 1);<br/>1 row inserted.      |                                                              |
-   | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>1 rows selected. |
-   |                                                              | iSQL> insert into t1 values (2, 2);<br/>1 row inserted.      |
-   | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. | iSQL> select * from t1;<br/>C1     C2<br/>\---------------------------<br/>1      1<br/>2      2<br/>2 rows selected. |
+##### 6. 이중화 노드 삭제
