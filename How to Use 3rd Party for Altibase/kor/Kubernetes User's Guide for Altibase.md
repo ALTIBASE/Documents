@@ -9,7 +9,7 @@
 -   [개요](#개요)
 -   [파드 생성 및 사용하기](#파드-생성-및-사용하기)
     -   [Altibase 파드 생성](#Altibase-파드-생성)
-    -   [퍼시스턴트 볼륨(Persistent Volume 사용)](퍼시스턴트-볼륨persistent-volume-사용하기)
+    -   [퍼시스턴트 볼륨(Persistent Volume) 사용](#퍼시스턴트-볼륨persistent-volume-사용)
     -   [서비스(Service) 사용](#서비스service-사용하기)
 
 -   [파드를 사용하여 Altibase 이중화 하기](#파드를-사용하여-altibase-이중화하기)
@@ -158,7 +158,7 @@ iSQL> SELECT * FROM TAB;
 
 #### 
 
-## 퍼시스턴트 볼륨(Persistent Volume) 사용하기
+## 퍼시스턴트 볼륨(Persistent Volume) 사용
 
 파드가 임의의 이유로 종료되어 새로 생성할 경우 기존 파드 내부에 저장되어 있던 모든 데이터는 휘발된다. 파드의 종료 여부와 상관없이 데이터를 보존하기 위해 쿠버네티스는 데이터를 저장하는 외장 디스크를 추상화 한 다양한 종류의 [볼륨(Volume)](https://kubernetes.io/ko/docs/concepts/storage/volumes/)을 제공한다. 볼륨에 대한 설명과 자세한 사용법에 대해서는 [Kubernetes 홈페이지](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)를 참고한다.
 
