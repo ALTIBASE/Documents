@@ -549,18 +549,18 @@ service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP 
 </tr>
 <tr style="height: 36px;">
 <td style="width: 27.8481%; height: 18px; text-align: left;"><strong>이중화 테이블 생성</strong></td>
-<td style="width: 33.5583%; height: 18px;">CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</td>
-<td style="width: 34.3429%; height: 18px;">CREATE TABLE t1<br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</td>
+<td style="width: 35.2527%; height: 18px;">CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</td>
+<td style="width: 60.4812%; height: 18px;">CREATE TABLE t1<br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 27.8481%; height: 18px; text-align: left;"><strong>이중화 객체 생성</strong></td>
-<td style="width: 33.5583%; height: 18px;"><span class="md-plain md-expand">CREATE REPLICATION rep1 <br />&nbsp; &nbsp;WITH </span><span class="md-pair-s "><strong><span class="md-plain">'altibase-svc-node2'</span></strong></span><span class="md-plain md-expand">, 20301 <br />&nbsp; &nbsp;FROM sys.t1 TO sys.t1;</span></td>
-<td style="width: 34.3429%; height: 18px;">CREATE REPLICATION rep1 <br />&nbsp; &nbsp;WITH '<strong>altibase-svc-node1</strong>', 20301 <br />&nbsp; &nbsp;FROM sys.t1 TO sys.t1;</td>
+<td style="width: 35.2527%; height: 18px;"><span class="md-plain md-expand">CREATE REPLICATION rep1 <br />&nbsp; &nbsp;WITH </span><span class="md-pair-s "><strong><span class="md-plain">'altibase-svc-node2'</span></strong></span><span class="md-plain md-expand">, 20301 <br />&nbsp; &nbsp;FROM sys.t1 TO sys.t1;</span></td>
+<td style="width: 60.4812%; height: 18px;">CREATE REPLICATION rep1 <br />&nbsp; &nbsp;WITH '<strong>altibase-svc-node1</strong>', 20301 <br />&nbsp; &nbsp;FROM sys.t1 TO sys.t1;</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 27.8481%; height: 18px; text-align: left;"><strong>이중화 시작</strong></td>
-<td style="width: 33.5583%; height: 18px;">ALTER REPLICATION rep1 START;</td>
-<td style="width: 34.3429%; height: 18px;">ALTER REPLICATION rep1 START;</td>
+<td style="width: 35.2527%; height: 18px;">ALTER REPLICATION rep1 START;</td>
+<td style="width: 60.4812%; height: 18px;">ALTER REPLICATION rep1 START;</td>
 </tr>
 </tbody>
 </table>
