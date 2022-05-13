@@ -117,7 +117,7 @@ metadata:
   name: altibase-pod                   # 파드 이름 설정
 spec:
   containers:
-  - image: altibase/altibase           # 컨테이너에서 실행한 도커 허브 이미지
+  - image: altibase/altibase           # 컨테이너에서 실행할 도커 허브 이미지
     name: altibase
     ports:
     - containerPort: 20300             # 컨테이너 외부로 노출할 Altibase 서비스 포트
@@ -165,9 +165,9 @@ iSQL> SELECT * FROM TAB;
 
 ## 볼륨(Volume) 사용
 
-파드의  특징 중 하나는 반영속성이다. 파드가 임의의 이유로 종료되어 새로 생성할 경우 기존 파드에 저장되어 있는 모든 데이터는 휘발된다. 파드의 종료 여부와 상관없이 데이터를 보존하기 위해 쿠버네티스는 외장 디스크를 추상화 한 다양한 종류의 [볼륨(Volume)](https://kubernetes.io/ko/docs/concepts/storage/volumes/)을 제공한다. 볼륨에 대한 설명과 자세한 사용법에 대해서는 [Kubernetes 홈페이지](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)를 참고한다.
+파드의  특징 중 하나는 반영속성이다. 파드가 임의의 이유로 종료되어 새로 생성될 경우 기존 파드에 저장되어 있는 모든 데이터는 휘발된다. 파드의 종료 여부와 상관없이 데이터를 보존하기 위해 쿠버네티스는 외장 디스크를 추상화 한 다양한 종류의 [볼륨(Volume)](https://kubernetes.io/ko/docs/concepts/storage/volumes/)을 제공한다. 볼륨에 대한 설명과 자세한 사용법에 대해서는 [Kubernetes 홈페이지](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)를 참고한다.
 
-다음은 [NFS (Network File System)](https://kubernetes.io/ko/docs/concepts/storage/volumes/#nfs) 볼륨에 DB 데이터 파일과 온라인 로그 파일의 경로를 설정한 YAML 파일 예시이다. 
+다음은 [NFS (Network File System)](https://kubernetes.io/ko/docs/concepts/storage/volumes/#nfs) 볼륨에 DB 데이터 파일과 온라인 로그 파일의 경로를 설정한 YAML 파일 예시이다. (※ 디스크 접근을 위한 NFS는 사전 설정 되어 있어야 된다.)
 
 ##### 1. YAML 파일 작성
 
@@ -235,7 +235,7 @@ altibase-deploy-vol-node1-7599dcb85b-75jwp   1/1     Running   0          9s    
 
 ## 서비스(Service) 사용하기
 
-파드는 파드 고유의 IP를 가지긴 하지만 클러스터 내부용 IP이며 디플로이먼트가 파드를 재생성할 때마다 동적 IP를 할당받는다. 쿠버네티스는 이렇게 동적으로 변하는 포드에 고정된 방법으로 접근하기 위해서 [서비스(Service)](https://kubernetes.io/ko/docs/concepts/services-networking/service/) 리소스를 제공한다. 서비스를 생성하면 정적 IP가 할당되고 고유한 DNS 이름을 사용할 수 있으며 서비스가 존재하는 동안 변경되지 않는다. 
+파드는 파드 고유의 IP를 가지긴 하지만 클러스터 내부용 IP이며 디플로이먼트가 파드를 재생성할 때마다 동적 IP를 할당받는다. 쿠버네티스는 이렇게 동적으로 변하는 파드에 고정된 방법으로 접근하기 위해서 [서비스(Service)](https://kubernetes.io/ko/docs/concepts/services-networking/service/) 리소스를 제공한다. 서비스를 생성하면 정적 IP가 할당되고 고유한 DNS 이름을 사용할 수 있으며 서비스가 존재하는 동안 변경되지 않는다. 
 
 다음은 한 개의 서비스와 Altibase 파드 2개를 생성하고 고정 IP를 이용해 한 노드에서 다른 노드의 Altibase 서버에 접속한 예이다.
 
@@ -362,7 +362,7 @@ iSQL>
 
 디플로이먼트, 서비스를 이용하여 Altibase 이중화 노드 구성 방법을 설명한다. 파드는 생성할 때마다 동적 IP를 할당받기 때문에 Altibase 이중화 생성 구문에 원격 서버의 IP 대신 호스트 네임을 사용한다.  
 
-아래는 디플로이먼트로 고정된 DNS 이름을 갖는 파드 생성 및 파드를 가리키는 서비스 생성하고 Altibase 서버에 접속하여 이중화 객체 생성과 수행 여부를 확인하는 예시이다. 
+아래는 디플로이먼트로 고정된 DNS 이름을 갖는 파드 생성 및 파드를 가리키는 서비스를 생성하고 Altibase 서버에 접속하여 이중화 객체 생성과 수행 여부를 확인하는 예시이다. 
 
 ##### 1. 디플로이먼트를 생성하는 YMAL 파일 작성
 
