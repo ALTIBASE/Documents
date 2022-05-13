@@ -600,6 +600,23 @@ service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP   
 </tbody>
 </table>
 
+|                                    |                                                              |                                                              |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                    | **파드 altibase-node1의 Altibase 컨테이너**                  | 파드 altibase-node2의 Altibase 컨테이너                      |
+| **이중화  테이블 생성**            | CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);  | CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);  |
+| **이중화 객체 생성**               | CREATE REPLICATION rep1 <br />    WITH **'altibase-svc-node2'**, 20301 <br />   FROM sys.t1 TO sys.t1; | CREATE REPLICATION rep1 <br />    WITH **'altibase-svc-node1'**, 20301 <br />   FROM sys.t1 TO sys.t1; |
+| **이중화 시작**                    | ALTER REPLICATION rep1 START;                                | ALTER REPLICATION rep1 START;                                |
+|                                    |                                                              |                                                              |
+|                                    | ****                                                         | ****                                                         |
+| **altibase-node1에서 데이터 입력** | INSERT INTO t1 VALUES(1, 1);                                 |                                                              |
+| **양 서버에서 데이터 확인**        | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>1 row selected. | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>1 row selected. |
+| **altibase-node2에서 데이터 입력** |                                                              | INSERT INTO t1 VALUES (2, 2);                                |
+| **양 서버에서 데이터 확인**        | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>2           2           <br/>2 rows selected. | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>2           2           <br/>2 rows selected. |
+
+
+
+
+
 각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성
 
 |                         | 파드 altibase-node1의 Altibase 컨테이너                      | 파드 altibase-node2의 Altibase 컨테이너                      |
