@@ -534,7 +534,7 @@ service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP   
 
 ##### 5. 이중화 객체 생성 및 이중화 동작 확인
 
-<table border="1" style="height: 220px; width: 122.926%; border-collapse: collapse; border-style: dashed;">
+<table border="1" style="height: 220px; width: 122.926%; border-collapse: collapse;">
 <tbody>
 <tr style="height: 21px;">
 <td style="width: 103.459%; height: 21px;" colspan="3"><strong>이중화 객체 생성<br /></strong>각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성<strong><br /></strong></td>
@@ -600,14 +600,14 @@ service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP   
 </tbody>
 </table>
 
-|                                    |                                                              |                                                              |
+| > 이중화 객체 생성 및 시작         |                                                              |                                                              |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-|                                    | **파드 altibase-node1의 Altibase 컨테이너**                  | 파드 altibase-node2의 Altibase 컨테이너                      |
+|                                    | **파드 altibase-node1의 Altibase 컨테이너**                  | **파드 altibase-node2의 Altibase 컨테이너**                  |
 | **이중화  테이블 생성**            | CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);  | CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);  |
 | **이중화 객체 생성**               | CREATE REPLICATION rep1 <br />    WITH **'altibase-svc-node2'**, 20301 <br />   FROM sys.t1 TO sys.t1; | CREATE REPLICATION rep1 <br />    WITH **'altibase-svc-node1'**, 20301 <br />   FROM sys.t1 TO sys.t1; |
 | **이중화 시작**                    | ALTER REPLICATION rep1 START;                                | ALTER REPLICATION rep1 START;                                |
 |                                    |                                                              |                                                              |
-|                                    | ****                                                         | ****                                                         |
+| **> 이중화 동작 확인**             |                                                              |                                                              |
 | **altibase-node1에서 데이터 입력** | INSERT INTO t1 VALUES(1, 1);                                 |                                                              |
 | **양 서버에서 데이터 확인**        | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>1 row selected. | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>1 row selected. |
 | **altibase-node2에서 데이터 입력** |                                                              | INSERT INTO t1 VALUES (2, 2);                                |
