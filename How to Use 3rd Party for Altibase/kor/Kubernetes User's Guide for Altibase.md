@@ -477,13 +477,14 @@ metadata:
   name: altibase-svc-node1     # 서비스 이름
 spec:
   ports:
-  - name: service-port         
+  - name: service-port
     port: 20300                # 보통 port와 targetport는 같은 값으로 설정
-    nodePort: 30001
+    targetPort: 20300
   - name: replication-port
     port: 20301                # 보통 port와 targetport는 같은 값으로 설정
+    targetPort: 20301
   selector:
-    app: altibase-node1        # 서비스가 요청을 전달할 파드
+    app: altibase-node1        # 서비스가 요청을 전달할 파드  
 
 ---
 
@@ -496,10 +497,11 @@ metadata:
 spec:
   ports:
   - name: service-port
-    port: 20300                # 보통 port와 targetport는 같은 값으로 설정    
-    nodePort: 30002
+    port: 20300                # 보통 port와 targetport는 같은 값으로 설정  
+    targetPort: 20300
   - name: replication-port
     port: 20301                # 보통 port와 targetport는 같은 값으로 설정
+    targetPort: 20301
   selector:
     app: altibase-node2        # 서비스가 요청을 전달할 파드
 ```
