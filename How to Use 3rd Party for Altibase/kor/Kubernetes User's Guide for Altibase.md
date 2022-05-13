@@ -235,7 +235,7 @@ altibase-deploy-vol-node1-7599dcb85b-75jwp   1/1     Running   0          9s    
 
 ## 서비스(Service) 사용하기
 
-파드는 파드 고유의 IP를 가지긴 하지만 클러스터 내부용 IP이며 디플로이먼트가 파드를 재생성할 때마다 동적 IP를 할당받는다. 쿠버네티스는 이러한 문제점을 해결하기 위해 [서비스(Service)](https://kubernetes.io/ko/docs/concepts/services-networking/service/) 리소스를 제공한다. 서비스를 생성하면 정적 IP가 할당되고 고유한 DNS 이름을 사용할 수 있으며 서비스가 존재하는 동안 변경되지 않는다. 
+파드는 파드 고유의 IP를 가지긴 하지만 클러스터 내부용 IP이며 디플로이먼트가 파드를 재생성할 때마다 동적 IP를 할당받는다. 쿠버네티스는 이렇게 동적으로 변하는 포드에 고정된 방법으로 접근하기 위해서 [서비스(Service)](https://kubernetes.io/ko/docs/concepts/services-networking/service/) 리소스를 제공한다. 서비스를 생성하면 정적 IP가 할당되고 고유한 DNS 이름을 사용할 수 있으며 서비스가 존재하는 동안 변경되지 않는다. 
 
 다음은 한 개의 서비스와 Altibase 파드 2개를 생성하고 고정 IP를 이용해 한 노드에서 다른 노드의 Altibase 서버에 접속한 예이다.
 
