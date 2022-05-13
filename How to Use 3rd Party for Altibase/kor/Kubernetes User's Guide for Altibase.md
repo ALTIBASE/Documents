@@ -9,7 +9,7 @@
 -   [개요](#개요)
 -   [파드 생성 및 사용하기](#파드-생성-및-사용하기)
     -   [Altibase 파드 생성](#Altibase-파드-생성)
-    -   [퍼시스턴트 볼륨(Persistent Volume) 사용](#퍼시스턴트-볼륨persistent-volume-사용)
+    -   [볼륨(Volume) 사용](#볼륨volume-사용)
     -   [서비스(Service) 사용](#서비스service-사용하기)
 -   [파드를 사용하여 Altibase 이중화 하기](#파드를-사용하여-altibase-이중화하기)
 
@@ -86,6 +86,7 @@ altibase-deploy-pod   1/1     Running   0          24s   172.16.135.38   node3  
 
 ```bash
 $ kubectl exec -it altibase-deploy-pod -- /bin/bash
+altibase@altibase-pod:~$ . set_altibase.env
 altibase@altibase-pod:~$ is
 -----------------------------------------------------------------
      Altibase Client Query utility.
@@ -126,7 +127,7 @@ spec:
       value: daemon
 ```
 
-> template.spec.containers.env 필드에 Altibase 서버 구동 시 필요한 환경 변수를 추가할 수 있다.  관련 환경 변수는 [Docker Hub 페이지](https://hub.docker.com/r/altibase/altibase)를 참고한다.
+> spec.containers.env 필드에 Altibase 서버 구동 시 필요한 환경 변수를 추가할 수 있다.  관련 환경 변수는 [Docker Hub 페이지](https://hub.docker.com/r/altibase/altibase)를 참고한다.
 
 ##### 2. 파드 생성
 
@@ -148,6 +149,7 @@ altibase-pod   1/1     Running   0          11m   172.16.135.37   node3   <none>
 ```bash
 $ kubectl exec -it altibase-pod -- /bin/bash
 
+altibase@altibase-pod:~$ . set_altibase.env
 altibase@altibase-pod:~$ is
 -----------------------------------------------------------------
      Altibase Client Query utility.
@@ -161,7 +163,7 @@ iSQL> SELECT * FROM TAB;
 
  
 
-## 퍼시스턴트 볼륨(Persistent Volume) 사용
+## 볼륨(Volume) 사용
 
 파드의  특징 중 하나는 반영속성이다. 파드가 임의의 이유로 종료되어 새로 생성할 경우 기존 파드에 저장되어 있는 모든 데이터는 휘발된다. 파드의 종료 여부와 상관없이 데이터를 보존하기 위해 쿠버네티스는 외장 디스크를 추상화 한 다양한 종류의 [볼륨(Volume)](https://kubernetes.io/ko/docs/concepts/storage/volumes/)을 제공한다. 볼륨에 대한 설명과 자세한 사용법에 대해서는 [Kubernetes 홈페이지](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)를 참고한다.
 
@@ -223,17 +225,10 @@ deployment.apps/altibase-deploy-vol-node1 created
 
 ##### 3. 파드 생성 확인
 
-***altibase-deploy-pod-7b799d6b5b-x2bbp  필요없는 것 같음. 확인 필요***
-
-***wide 옵션 사용한 결과 ?*** 
-
-***nfs 설정을 확인할 수 있는 출력 결과로 대체 필요***
-
 ```bash
-$ kubectl get pod
-NAME                                         READY   STATUS    RESTARTS   AGE
-altibase-deploy-pod-7b799d6b5b-x2bbp         1/1     Running   0          71m
-altibase-deploy-vol-node1-7c958dcff6-65trv   1/1     Running   0          30s
+$ kubectl get pod -o wide
+NAME                                         READY   STATUS    RESTARTS   AGE   IP               NODE        NOMINATED NODE   READINESS GATES
+altibase-deploy-vol-node1-7599dcb85b-75jwp   1/1     Running   0          9s    172.16.107.207   k8s-node3   <none>           <none>
 ```
 
 
@@ -350,7 +345,7 @@ altibase-deploy-pod2에서 iSQL을 이용해서 서비스에 할당된 고정IP�
 $ k exec -it altibase-deploy-pod2-579498ccdb-zv2mg -- /bin/bash
 
 [altibase@altibase-pod2 ~] $ . set_altibase.env
-[altibase@altibase-pod2:~$ is -s 10.110.31.65 -port 20300 -u sys -p manager   # 서비스에 할당된 고정IP 사용
+[altibase@altibase-pod2 ~] $ is -s 10.110.31.65 -port 20300 -u sys -p manager   # 서비스에 할당된 고정IP 사용
 -----------------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1.6
@@ -481,15 +476,12 @@ metadata:
     app: altibase
   name: altibase-svc-node1     # 서비스 이름
 spec:
-  type: NodePort
   ports:
   - name: service-port         
     port: 20300                # 보통 port와 targetport는 같은 값으로 설정
-    targetPort: 20300          # 서비스로 들어온 요청을 전달할, 파드가 LISTEN하고 있는 Altibase 서비스 포트
     nodePort: 30001
   - name: replication-port
     port: 20301                # 보통 port와 targetport는 같은 값으로 설정
-    targetPort: 20301          # 서비스로 들어온 요청을 전달할, 파드가 LISTEN하고 있는 Altibase 이중화 포트
   selector:
     app: altibase-node1        # 서비스가 요청을 전달할 파드
 
@@ -502,15 +494,12 @@ metadata:
     app: altibase
   name: altibase-svc-node2     # 서비스 이름
 spec:
-  type: NodePort
   ports:
   - name: service-port
     port: 20300                # 보통 port와 targetport는 같은 값으로 설정    
-    targetPort: 20300          # 서비스로 들어온 요청을 전달할, 파드가 LISTEN하고 있는 Altibase 서비스 포트
     nodePort: 30002
   - name: replication-port
     port: 20301                # 보통 port와 targetport는 같은 값으로 설정
-    targetPort: 20301          # 서비스로 들어온 요청을 전달할, 파드가 LISTEN하고 있는 Altibase 이중화 포트
   selector:
     app: altibase-node2        # 서비스가 요청을 전달할 파드
 ```
@@ -518,22 +507,27 @@ spec:
 ##### 3. 파드와 서비스 생성
 
 ```yaml
-$ kubectl create -f altibase-deploy-pod.yaml
-$ kubectl create -f altibase-service.yaml
+$ kubectl create -f deploy.yaml
+deployment.apps/altibase-deploy-vol-node1 created
+deployment.apps/altibase-deploy-vol-node2 created
+
+$ kubectl create -f service.yaml
+service/altibase-svc-node1 created
+service/altibase-svc-node2 created
 ```
 
 ##### 4. 파드와 서비스 확인
 
 ```yaml
-hscho@k8s-node1:~/work/git-test$ k get pod,service -o wide
+$ kubectl get pod,service -o wide
 NAME                                             READY   STATUS    RESTARTS   AGE     IP               NODE        NOMINATED NODE   READINESS GATES
-pod/altibase-deploy-vol-node1-74d75695c4-6x277   1/1     Running   0          2m24s   172.16.107.204   k8s-node3   <none>           <none>
-pod/altibase-deploy-vol-node2-677b65857-j4xk9    1/1     Running   0          2m24s   172.16.169.147   k8s-node2   <none>           <none>
+pod/altibase-deploy-vol-node1-74d75695c4-q7459   1/1     Running   0          3m12s   172.16.169.150   k8s-node2   <none>           <none>
+pod/altibase-deploy-vol-node2-677b65857-x4hxm    1/1     Running   0          3m12s   172.16.107.208   k8s-node3   <none>           <none>
 
-NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                           AGE    SELECTOR
-service/altibase-svc-node1   NodePort    10.108.204.186   <none>        20300:30001/TCP,20301:30866/TCP   2m6s   app=altibase-node1
-service/altibase-svc-node2   NodePort    10.100.131.203   <none>        20300:30002/TCP,20301:31783/TCP   2m6s   app=altibase-node2
-service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP                           4m6s   <none>
+NAME                         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)               AGE     SELECTOR
+service/altibase-svc-node1   ClusterIP   10.98.138.97   <none>        20300/TCP,20301/TCP   73s     app=altibase-node1
+service/altibase-svc-node2   ClusterIP   10.101.72.3    <none>        20300/TCP,20301/TCP   73s     app=altibase-node2
+service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP               4m32s   <none>
 ```
 
 ##### 4. 이중화 객체 생성
