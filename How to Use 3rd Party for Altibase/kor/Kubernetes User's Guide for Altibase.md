@@ -167,7 +167,7 @@ iSQL> SELECT * FROM TAB;
 
 파드의  특징 중 하나는 반영속성이다. 파드가 임의의 이유로 종료되어 새로 생성될 경우 기존 파드에 저장되어 있는 모든 데이터는 휘발된다. 파드의 종료 여부와 상관없이 데이터를 보존하기 위해 쿠버네티스는 외장 디스크를 추상화 한 다양한 종류의 [볼륨(Volume)](https://kubernetes.io/ko/docs/concepts/storage/volumes/)을 제공한다. 볼륨에 대한 설명과 자세한 사용법에 대해서는 [Kubernetes 홈페이지](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)를 참고한다.
 
-다음은 [NFS (Network File System)](https://kubernetes.io/ko/docs/concepts/storage/volumes/#nfs) 볼륨에 DB 데이터 파일과 온라인 로그 파일의 경로를 설정한 YAML 파일 예시이다. (※ 디스크 접근을 위한 NFS는 사전 설정 되어 있어야 된다.)
+다음은 [NFS (Network File System)](https://kubernetes.io/ko/docs/concepts/storage/volumes/#nfs) 볼륨에 DB 데이터 파일과 온라인 로그 파일의 경로를 설정한 YAML 파일 예시이다. 이 예시는 NFS 서버 설정 후에 진행해야 한다. 
 
 ##### 1. YAML 파일 작성
 
@@ -532,86 +532,9 @@ service/altibase-svc-node2   ClusterIP   10.101.72.3    <none>        20300/TCP,
 service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP               4m32s   <none>
 ```
 
-##### 5. 이중화 객체 생성 및 이중화 동작 확인
+##### 5. 이중화 객체 생성 및 구동
 
-<table border="1" style="height: 220px; width: 122.926%; border-collapse: collapse; border-style: hidden;">
-<tbody>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"></td>
-<td style="width: 36.1736%; height: 21px;"><strong><span md-inline="plain" class="md-plain">파드 altibase-node1의 Altibase 컨테이너</span></strong></td>
-<td style="width: 39.1233%; height: 21px;"><strong>파드 altibase-node2의 Altibase 컨테이너</strong></td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"><strong>이중화 테이블 생성</strong></td>
-<td style="width: 36.1736%; height: 21px;">
-<p>CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</p>
-</td>
-<td style="width: 39.1233%; height: 21px;">
-<p>CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);</p>
-</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"><strong>이중화 객체 생성</strong></td>
-<td style="width: 36.1736%; height: 21px;">
-<p>CREATE REPLICATION rep1 <br />&nbsp; &nbsp;WITH '<strong>altibase-svc-node2</strong>', 20301 <br />&nbsp; &nbsp;FROM sys.t1 TO sys.t1;</p>
-</td>
-<td style="width: 39.1233%; height: 21px;">
-<p>CREATE REPLICATION rep1 <br />&nbsp; &nbsp;WITH '<strong>altibase-svc-node1</strong>', 20301 <br />&nbsp; &nbsp;FROM sys.t1 TO sys.t1;</p>
-</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"><strong>이중화 시작</strong></td>
-<td style="width: 36.1736%; height: 21px;"><span>ALTER REPLICATION rep1 START;</span></td>
-<td style="width: 39.1233%; height: 21px;"><span>ALTER REPLICATION rep1 START;</span></td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 103.459%; height: 21px;" colspan="3" rowspan="2">
-<p></p>
-<p></p>
-</td>
-</tr>
-<tr></tr>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"><strong>altibase-node1에서 데이터 입력</strong></td>
-<td style="width: 36.1736%; height: 21px;"><span> INSERT INTO t1 VALUES(1, 1);</span></td>
-<td style="width: 39.1233%; height: 21px;"></td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"><strong>양 서버에서 데이터 확인</strong></td>
-<td style="width: 36.1736%; height: 21px;">SELECT * FROM t1;<br />C1 C2 <br />---------------------------<br />1 1 <br />1 row selected.</td>
-<td style="width: 39.1233%; height: 21px;">SELECT * FROM t1;<br />C1 C2 <br />---------------------------<br />1 1 <br />1 row selected.</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"><strong>altibase-node2에서 데이터 입력</strong></td>
-<td style="width: 36.1736%; height: 21px;"></td>
-<td style="width: 39.1233%; height: 21px;"><span> INSERT INTO t1 VALUES(2, 2);</span></td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 28.1623%; height: 21px;"><strong>양 서버에서 데이터 확인</strong></td>
-<td style="width: 36.1736%; height: 21px;">SELECT * FROM t1;<br />C1 C2 <br />---------------------------<br />1 1 <br />2 2 <br />2 rows selected.</td>
-<td style="width: 39.1233%; height: 21px;">SELECT * FROM t1;<br />C1 C2 <br />---------------------------<br />1 1 <br />2 2 <br />2 rows selected.</td>
-</tr>
-</tbody>
-</table>
-
-| > 이중화 객체 생성 및 시작         |                                                              |                                                              |
-| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-|                                    | **파드 altibase-node1의 Altibase 컨테이너**                  | **파드 altibase-node2의 Altibase 컨테이너**                  |
-| **이중화  테이블 생성**            | CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);  | CREATE TABLE t1 <br />(c1 INTEGER PRIMARY KEY, c2 INTEGER);  |
-| **이중화 객체 생성**               | CREATE REPLICATION rep1 <br />    WITH **'altibase-svc-node2'**, 20301 <br />   FROM sys.t1 TO sys.t1; | CREATE REPLICATION rep1 <br />    WITH **'altibase-svc-node1'**, 20301 <br />   FROM sys.t1 TO sys.t1; |
-| **이중화 시작**                    | ALTER REPLICATION rep1 START;                                | ALTER REPLICATION rep1 START;                                |
-|                                    |                                                              |                                                              |
-| **> 이중화 동작 확인**             |                                                              |                                                              |
-| **altibase-node1에서 데이터 입력** | INSERT INTO t1 VALUES(1, 1);                                 |                                                              |
-| **양 서버에서 데이터 확인**        | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>1 row selected. | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>1 row selected. |
-| **altibase-node2에서 데이터 입력** |                                                              | INSERT INTO t1 VALUES (2, 2);                                |
-| **양 서버에서 데이터 확인**        | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>2           2           <br/>2 rows selected. | SELECT * FROM t1;<br/>C1          C2          <br/>---------------------------<br/>1           1           <br/>2           2           <br/>2 rows selected. |
-
-
-
-
-
-각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성
+각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성하고 구동한다.
 
 |                         | 파드 altibase-node1의 Altibase 컨테이너                      | 파드 altibase-node2의 Altibase 컨테이너                      |
 | :---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -619,9 +542,9 @@ service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP   
 | **이중화 객체 생성**    | CREATE REPLICATION rep1 WITH **'altibase-svc-node2'**, 20301 FROM sys.t1 TO sys.t1; | CREATE REPLICATION rep1 WITH **'altibase-svc-node1'**, 20301 FROM sys.t1 TO sys.t1; |
 | **이중화 시작**         | ALTER REPLICATION rep1 START;                                | ALTER REPLICATION rep1 START;                                |
 
+##### 6. 이중화 동작 확인
 
-
-##### 5. 이중화 동작 확인
+양 서버에서 데이터를 입력 후 원격 서버에 반영된 데이터를 확인한다.
 
 |                                    | **파드 altibase-node1의 Altibase 컨테이너**                  | 파드 altibase-node2의 Altibase 컨테이너                      |
 | :--------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
