@@ -534,7 +534,7 @@ service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP   
 
 ##### 5. 이중화 객체 생성 및 이중화 동작 확인
 
-<table border="1" style="height: 220px; width: 122.926%; border-collapse: collapse; border-style: none;">
+<table border="1" style="height: 220px; width: 122.926%; border-collapse: collapse; border-style: hidden;">
 <tbody>
 <tr style="height: 21px;">
 <td style="width: 28.1623%; height: 21px;"></td>
