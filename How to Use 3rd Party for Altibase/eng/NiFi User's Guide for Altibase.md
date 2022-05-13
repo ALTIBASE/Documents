@@ -142,11 +142,11 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
    3.1 Click 'Create new service...'
 
-   ![GenerateTableFetch](/Images/NiFi/GenerateTableFetch.png)
+   ![<](Images/NiFi/GenerateTableFetch.png)
 
    3.2 Specify 'Controller Service Name' and click 'CREATE'.
 
-   ![AddControllerService](/Images/NiFi/AddControllerService.png)
+   ![AddControllerService](Images/NiFi/AddControllerService.png)
 
    3.3 Click the arrow created on the third column after creating it.
 
