@@ -534,11 +534,8 @@ service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP   
 
 ##### 5. 이중화 객체 생성 및 이중화 동작 확인
 
-<table border="1" style="height: 220px; width: 122.926%; border-collapse: collapse;">
+<table border="1" style="height: 220px; width: 122.926%; border-collapse: collapse; border-style: none;">
 <tbody>
-<tr style="height: 21px;">
-<td style="width: 103.459%; height: 21px;" colspan="3"><strong>이중화 객체 생성<br /></strong>각각의 파드의 Altibase 컨테이너에서 서비스와 동일한 이름으로 이중화 객체 생성<strong><br /></strong></td>
-</tr>
 <tr style="height: 21px;">
 <td style="width: 28.1623%; height: 21px;"></td>
 <td style="width: 36.1736%; height: 21px;"><strong><span md-inline="plain" class="md-plain">파드 altibase-node1의 Altibase 컨테이너</span></strong></td>
@@ -568,15 +565,12 @@ service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP   
 <td style="width: 39.1233%; height: 21px;"><span>ALTER REPLICATION rep1 START;</span></td>
 </tr>
 <tr style="height: 21px;">
-<td style="width: 103.459%; height: 21px;" colspan="3">
-<h5 cid="n631" mdtype="heading" class="md-end-block md-heading md-focus"><strong><span md-inline="plain" class="md-plain md-expand"><br />이중화 동작 확인</span></strong></h5>
+<td style="width: 103.459%; height: 21px;" colspan="3" rowspan="2">
+<p></p>
+<p></p>
 </td>
 </tr>
-<tr style="height: 10px;">
-<td style="width: 28.1623%; height: 10px;"></td>
-<td style="width: 36.1736%; height: 10px;"><strong><span md-inline="plain" class="md-plain">파드 altibase-node1의</span><span md-inline="plain" class="md-plain"> Altibase 컨테이너</span></strong></td>
-<td style="width: 39.1233%; height: 10px;"><strong>파드 altibase-node2의 Altibase 컨테이너</strong></td>
-</tr>
+<tr></tr>
 <tr style="height: 21px;">
 <td style="width: 28.1623%; height: 21px;"><strong>altibase-node1에서 데이터 입력</strong></td>
 <td style="width: 36.1736%; height: 21px;"><span> INSERT INTO t1 VALUES(1, 1);</span></td>
