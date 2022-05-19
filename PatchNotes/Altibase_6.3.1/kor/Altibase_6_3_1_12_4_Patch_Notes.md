@@ -8,15 +8,15 @@ Altibase 6.3.1.12.4 Patch Notes
 # **Table of Contents**
 
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-49505 복잡도가 높은 SQL문 수행 시 PREPARE\_STMT\_MEMORY\_MAXIMUM 초과로 SQL Plan Cache에 실행 계획을 등록하지 못한 경우 예외 처리를 추가합니다.](#bug-49505%C2%A0%EB%B3%B5%EC%9E%A1%EB%8F%84%EA%B0%80-%EB%86%92%EC%9D%80-sql%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-prepare%5C_stmt%5C_memory%5C_maximum-%EC%B4%88%EA%B3%BC%EB%A1%9C-sql-plan-cache%EC%97%90-%EC%8B%A4%ED%96%89-%EA%B3%84%ED%9A%8D%EC%9D%84-%EB%93%B1%EB%A1%9D%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.](#bug-49636%C2%A0altibase-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-archive%5C_full%5C_action-%EC%84%A4%EC%A0%95-%EA%B0%92%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B8%8C%EB%A1%9C%EA%B7%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%8F%99%EC%9E%91%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49670 SQL Plan cache에 등록된 SQL 문 수행 중 Hard Parsing을 다시 진행할 때 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49670%C2%A0sql-plan-cache%EC%97%90-%EB%93%B1%EB%A1%9D%EB%90%9C-sql-%EB%AC%B8-%EC%88%98%ED%96%89-%EC%A4%91-hard-parsing%EC%9D%84-%EB%8B%A4%EC%8B%9C-%EC%A7%84%ED%96%89%ED%95%A0-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-  - [BUG-49702 WITH 절 또는 인라인 뷰에 집계 함수를 포함한 서브쿼리가 WHERE 절에 사용된 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49702%C2%A0with-%EC%A0%88-%EB%98%90%EB%8A%94-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%97%90-%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98%EB%A5%BC-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC%EA%B0%80-where-%EC%A0%88%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%9C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+  - [BUG-49505 복잡도가 높은 SQL문 수행 시 PREPARE\_STMT\_MEMORY\_MAXIMUM 초과로 SQL Plan Cache에 실행 계획을 등록하지 못한 경우 예외 처리를 추가합니다.](#bug-49505복잡도가-높은-sql문-수행-시-prepare_stmt_memory_maximum-초과로-sql-plan-cache에-실행-계획을-등록하지-못한-경우-예외-처리를-추가합니다)
+  - [BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.](#bug-49636altibase-서버-프로퍼티-archive_full_action-설정-값에-따른-아카이브로그-쓰레드의-동작을-개선합니다)
+  - [BUG-49670 SQL Plan cache에 등록된 SQL 문 수행 중 Hard Parsing을 다시 진행할 때 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49670sql-plan-cache에-등록된-sql-문-수행-중-hard-parsing을-다시-진행할-때-altibase-서버가-비정상-종료할-수-있습니다)
+  - [BUG-49702 WITH 절 또는 인라인 뷰에 집계 함수를 포함한 서브쿼리가 WHERE 절에 사용된 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49702with-절-또는-인라인-뷰에-집계-함수를-포함한-서브쿼리가-where-절에-사용된-경우-altibase-서버가-비정상-종료할-수-있습니다)
 - [Changes](#changes)
   - [Version Info](#version-info)
-  - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-  - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+  - [호환성](#호환성)
+  - [프로퍼티](#프로퍼티)
+  - [성능 뷰](#성능-뷰)
 
 
 
@@ -276,7 +276,7 @@ Changes
 | :--------------: | :---------------------: | :----------: | :-----------------: | :--------------------------: |
 |    6.3.1.12.4    |          6.2.1          |    6.3.1     |        7.1.1        |            7.4.1             |
 
-> Altibase 6.3.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+> Altibase 6.3.1 패치 버전별 히스토리는 [Altibase_6_3_1_Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/Altibase_6_3_1_Version_Histories.md) 에서 확인할 수 있다.
 
 ### 호환성
 
