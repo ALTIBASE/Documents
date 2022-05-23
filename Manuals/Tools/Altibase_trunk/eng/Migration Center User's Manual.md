@@ -299,7 +299,7 @@ If Altibase is the target database, the source database that can be migrated is 
 
 - Microsoft SQL Server: 2005 - 2012
 
-- Oracle MySQL: 5.0 - 5.5
+- Oracle MySQL: 5.0 - 5.7
 
 - Informix: 11.50
 

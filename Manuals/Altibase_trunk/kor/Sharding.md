@@ -34,7 +34,9 @@
     - [DBMS_SHARD](#dbms_shard)
     - [DBMS_SHARD_GET_DIAGNOSTICS](#dbms_shard_get_diagnostics)
   - [Stored Procedures](#stored-procedures)
-  - [Sharded Sequence](#sharded-sequence)
+  - [Sequence](#sequence)
+    - [Sharded Sequence](#sharded-sequence)
+    - [Global Sequence](#global-sequence)
   - [Altibase Sharding Property](#altibase-sharding-property)
   - [Altibase Sharding Dictionary](#altibase-sharding-dictionary)
     - [Shard Meta Table](#shard-meta-table)
@@ -319,7 +321,7 @@ iSQL> SELECT user_id, count(*) FROM table GROUP BY user_id;
 리스트 분산은 샤드 키 값을 특정값과 일치하는지 확인하여 분산하는 방식이다. 
 
 아래는 도시명을 이용한 임의의 리스트 분산 설정한 예시이다.
--   { record(x) \| (shard key value of x) = ‘서울’ } -\> 샤드 노드1
+-   { record(x) \| (shard key value of x) = ‘서울’ } -\> 샤드 노드 1
 -   { record(x) \| (shard key value of x) = ‘부산’ } -\> 샤드 노드 2
 -   { record(x) \| (shard key value of x) = ‘대구’ } -\> 샤드 노드 3
 
@@ -402,6 +404,7 @@ non-shard DML 처리를 위한 분산 질의 처리기이다. 해당 DML의 대�
 -   Table
 -   Procedure
 -   Sharded sequence
+-   Global sequence
 
 #### 샤드 테이블(shard table)
 샤드 테이블은 일반 테이블에 샤드 분산 설정을 한 테이블을 말한다.
@@ -1055,7 +1058,7 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 - table
   - truncate table
   - create table
-    - create ddl as select 는 안됨
+    - create ddl as select는 안 됨
   - drop table
     - shard object는 안 됨
   - access table
@@ -1074,7 +1077,7 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
   - access partition
 - column
   - add column
-    - traling null 이어야함
+    - trailing null 이어야함
     - not null 속성이 없어야함
     - check 속성이 없어야함
     - hidden column 이 아니어야함
@@ -1092,6 +1095,12 @@ JOIN 쿼리에 대하여, 클라이언트 사이드 쿼리로 수행되기 위�
 - index
   - create index
   - drop index
+- global sequence
+  - create sequence
+  - alter sequence
+    - shard object만 지원
+  - drop sequence
+    - shard object는 미지원
 
 #### 샤드 테이블 제약조건 지원범위
 - 샤드 테이블에 생성할 수 있는 제약조건은 UNIQUE와 FOREIGN KEY 두 가지이다.
@@ -1323,8 +1332,10 @@ DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용�
 - SET_SHARD_PROCEDURE_SHARDKEY: 샤드키 프로시저 샤드객체로 등록한다.
 - SET_SHARD_PROCEDURE_SOLO: 솔로 프로시저 샤드객체로 등록한다.
 - SET_SHARD_PROCEDURE_CLONE: 클론 프로시저 샤드객체로 등록한다.
+- SET_SHARD_SEQUENCE_GLOBAL: 글로벌 시퀀스 샤드객체로 등록한다.
 - UNSET_SHARD_TABLE: 샤드 테이블을 해제한다.
 - UNSET_SHARD_PROCEDURE: 샤드 프로시저를 해제한다.
+- UNSET_SHARD_SEQUENCE: 글로벌 시퀀스를 샤드객체에서 해제한다.
 
 #### CREATE_META
 ##### 구문
@@ -1620,6 +1631,33 @@ iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1');
 iSQL> EXEC DBMS_SHARD.SET_SHARD_PROCEDURE_CLONE( 'SYS', 'PROC1', 'Y');
 ```
 
+#### SET_SHARD_SEQUENCE_GLOBAL
+##### 구문
+```
+SET_SHARD_SEQUENCE_GLOBAL(
+  user_name in varchar(128),
+  sequence_name in varchar(128),
+  node_name in varchar(12))
+```
+
+##### 파라미터
+- user_name: 시퀀스 소유자의 이름
+- sequence_name: 시퀀스 이름
+- node_name: 시퀀스 관리 테이블이 존재할 노드 이름
+
+###### 설명
+글로벌 시퀀스를 샤드객체로 등록한다.
+- Global option으로 생성한 시퀀스만 샤드객체로 등록할 수 있다.
+- 본 프로시저 수행시 각 노드의 샤드로 등록할 시퀀스에 LOCK을 잡는다.
+- 본 프로시저 수행시 시퀀스 관리 테이블의 row를 모두 삭제하고 시퀀스를 관리하는 노드에 row를 새로 만든다. 
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
+
+##### 예제
+```
+iSQL> EXEC dbms_shard.set_shard_sequence_global('SYS', 'SEQ1', 'NODE1');
+```
+
 #### UNSET_SHARD_TABLE
 ##### 구문
 ```
@@ -1667,6 +1705,32 @@ DBMS_SHARD.UNSET_SHARD_PROCEDURE(
 ##### 예제
 ```
 iSQL> EXEC dbms_shard.unset_shard_procedure('sys','proc1');
+```
+
+#### UNSET_SHARD_SEQUENCE
+
+##### 구문
+```
+UNSET_SHARD_SEQUENCE(
+  user_name in varchar(128),
+  sequence_name in varchar(128))
+```
+
+##### 파라미터
+- user_name: 시퀀스 소유자의 이름
+- sequence_name: 시퀀스 이름
+
+##### 설명
+글로벌 시퀀스를 샤드객체에서 해제한다.
+- 글로벌 시퀀스를 삭제하지 않는다.
+- 본 프로시저 수행시 각 노드의 샤드객체에서 해제 할 시퀀스에 LOCK을 잡는다.
+- 본 프로시저 수행시 시퀀스 관리 테이블의 row를 모두 삭제한다.
+- 이미 수행중인 트랜잭션이 있는 경우 commit 혹은 rollback 처리 후에 본 프로시저를 수행할 수 있다.
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
+
+##### 예제
+```
+iSQL> EXEC dbms_shard.unset_shard_sequence('SYS', 'SEQ1');
 ```
 
 ### DBMS_SHARD_GET_DIAGNOSTICS
@@ -1795,21 +1859,24 @@ END;
 /
 ```
 
-## Sharded Sequence
-- Sharded sequence는 sharding 환경에서 unique number generator 역할을 합니다.
-- 전 node에 걸쳐서 global uniqueness 는 보장하지만, sequentiality 는 보장하지 않습니다.
-- 동일 Node내에서는 순서는 보장한다.
-- node_id 를 prefix 로 사용하여 uniqueness를 제공한다. 그러므로, node_id 가 재사용되면 uniqueness 가 깨질 수 있습니다.
+## Sequence
+Sharding 환경에서는 기존 시퀀스 외에 sharded sequence와 global sequence를 추가로 제공한다.
+Sharding 환경에서는 시퀀스의 CURRVAL을 지원하지 않는다.
+
+### Sharded Sequence
+- Sharded sequence는 sharding 환경에서 unique number generator 역할을 한다.
+- 전 노드에 걸쳐서 유일성(uniqueness)는 보장하지만, 연속성(sequentiality)는 보장하지 않는다.
+- 동일 노드 내에서는 순서를 보장한다.
+- node_id 를 prefix 로 사용하여 유일성을 제공한다. 그러므로, node_id 를 재사용하면 유일성이 깨질 수 있다.
 - node_id 는 1~9200 사이의 값을 가질 수 있다.
 
 #### 문법
-- 여기서는 sharded sequence 가 일반 sequence 와 다른 부분만을 설명한다.
-- Sharded sequence는 기존 sequence 문법에서 sequence option 에서 shard clause를 추가로 지원하는 것을 지칭한다.
-  - sequence option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Sharded sequence는 sync table option을 지원하지 않는다.
-  - sync table option 에 대한 설명은 SQL 매뉴얼의 sequence 부분을 참고한다.
-- Sharded sequence는 CURRVAL을 지원하지 않는다.
-- Sharded sequence의 shard clause
+- 여기서는 sharded sequence 가 일반 시퀀스와 다른 부분을 설명한다.
+- Sharded sequence는 기존 시퀀스 문법에서 시퀀스 옵션에서 SHARD clause를 추가로 지원하는 것을 지칭한다.
+  - 시퀀스 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
+- Sharded sequence는 SYNC TABLE 옵션을 지원하지 않는다.
+  - SYNC TABLE 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
+- Sharded sequence의 SHARD clause
   - SHARD
     - FIXED 혹은 VARIABLE을 지정하지 않으면, FIXED 가 기본으로 지정된다.
   - SHARD FIXED
@@ -1853,6 +1920,103 @@ iSQL> SELECT S3.NEXTVAL;
 iSQL> CREATE SEQUENCE S4 SHARD VARIABLE MAXVALUE 1000;
 iSQL> SELECT S4.NEXTVAL;
 10001
+```
+
+### Global Sequence
+- Global sequence는 sharding 환경에서 전 노드에 걸쳐서 유일성과 연속성을 보장한다.
+- Global sequence를 사용할 때 노드에 시퀀스 캐시 크기 만큼의 시퀀스 값을 관리 노드로부터 미리 확보한다.
+  - 시퀀스의 캐시가 남아 있으면 다른 노드와 동기화 없이 시퀀스 값을 얻을 수 있다.
+  - 시퀀스의 캐시 크기 만큼 시퀀스 값을 미리 확보하므로 서로 다른 노드간에는 연속성이 지켜지지 않을 수 있다.
+  - 정확한 연속성을 원하는 경우 시퀀스를 생성할 때 NOCACHE 옵션을 사용한다.
+    - 단, NOCACHE 옵션을 사용하면 시퀀스 값을 얻을 때마다 동기화가 필요하여 성능이 매우 떨어진다.
+- DBMS_SHARD.SET_SHARD_SEQUENCE_GLOBAL 프로시저를 통해서 샤드 객체로 등록한 뒤 사용할 수 있다.
+- 옵션을 변경하는 것은 GLOBAL_DDL 프로퍼티가 1일 때만 가능하다.
+
+#### 문법
+- 여기서는 global sequence 가 일반 시퀀스와 다른 부분을 설명한다.
+- Global sequence는 기존 시퀀스 문법에서 시퀀스 옵션에서 GLOBAL clause를 추가로 지원하는 것을 지칭한다.
+  - 시퀀스 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
+  - GLOBAL 옵션을 사용해서 시퀀스를 생성하면 global sequence를 관리하기 위한 테이블을 생성한다. 테이블의 이름은 [sequence 이름]$gsq로 자동 부여된다.
+- Global sequence는 SYNC TABLE 옵션을 지원하지 않는다.
+  - SYNC TABLE 옵션에 대한 설명은 SQL Reference 매뉴얼의 CREATE SEQUENCE 부분을 참고한다.
+
+#### 예제1
+
+기본 옵션으로 global sequence를 생성하라.
+```
+-- Create global sequence @node_id = 1
+iSQL > CREATE SEQUENCE S1 GLOBAL;
+
+-- Create global sequence @node_id = 2
+iSQL > CREATE SEQUENCE S1 GLOBAL;
+
+-- Create global sequence @node_id = 3
+iSQL > CREATE SEQUENCE S1 GLOBAL;
+
+
+-- Set global sequence @node_id = 1
+iSQL> exec dbms_shard.set_shard_sequence_global('SYS', 'S1', 'NODE1');
+Execute success.
+
+-- Get sequence number @node_id = 1
+iSQL> select s1.nextval from dual;
+S1.NEXTVAL
+-----------------------
+1
+1 row selected.
+
+-- Get sequence number @node_id = 2
+iSQL> select s1.nextval from dual;
+S1.NEXTVAL
+-----------------------
+21
+1 row selected.
+
+-- Get sequence number @node_id = 3
+iSQL> select s1.nextval from dual;
+S1.NEXTVAL
+-----------------------
+41
+1 row selected.
+```
+
+#### 예제2
+NOCACHE 옵션을 사용하여 global sequence를 생성하라.
+```
+-- Create global sequence @node_id = 1
+iSQL > CREATE SEQUENCE S1 GLOBAL NOCACHE;
+
+-- Create global sequence @node_id = 2
+iSQL > CREATE SEQUENCE S1 GLOBAL NOCACHE;
+
+-- Create global sequence @node_id = 3
+iSQL > CREATE SEQUENCE S1 GLOBAL NOCACHE;
+
+
+-- Set global sequence @node_id = 1
+iSQL> exec dbms_shard.set_shard_sequence_global('SYS', 'S1', 'NODE1');
+Execute success.
+
+-- Get sequence number @node_id = 1
+iSQL> select s1.nextval from dual;
+S1.NEXTVAL
+-----------------------
+1
+1 row selected.
+
+-- Get sequence number @node_id = 2
+iSQL> select s1.nextval from dual;
+S1.NEXTVAL
+-----------------------
+2
+1 row selected.
+
+-- Get sequence number @node_id = 3
+iSQL> select s1.nextval from dual;
+S1.NEXTVAL
+-----------------------
+3
+1 row selected.
 ```
 
 ## Altibase Sharding Property
