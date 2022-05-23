@@ -71,6 +71,6 @@ This guide is based on the interoperability test with TableauDesktop-64bit-2021-
 
    ![](Images/image-2.png)
 
-6. The below image will be shown after logging in. Now select the database from the list and select Taleau for schema.
+6. The image below will be shown after logging in. Select the database from the list and select Taleau for schema.
 
    ![<](Images/image-3.png)
