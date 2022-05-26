@@ -669,6 +669,14 @@ This directory contains sample script files for the altiComp feature which synch
 
 For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Utilities%20Manual.md#2-alticomp)*.
 
+#### altiMon Directory
+
+This directory contains xml configuration files, shell scripts, sql files, log directories required to run altiMon(Altibase Monitoring Daemon). For more information about the subdirectories, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Utilities%20Manual.md#altimon)*.
+
+#### arch_logs Directory
+
+This directory contains archive log file. The location and name of this directory can be specified and changed in the altibase.properties file according to the user environment.
+
 #### bin Directory
 
 This directory contains the Altibase management tool (including the Altibase executable file) and the executable file for the user support tool.
