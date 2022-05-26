@@ -4241,9 +4241,9 @@ If the specified address is in IPv4 address notation, subnet mask is described w
 
 **LIMIT**
 
-Maximum number of sessions allowed to connect to Altibase server within the IP address range specified in ACCESS_LIST.
+Maximum number of sessions allowed to connect to the IP address specified in ACCESS_LIST as connectable.
 
-If new ACCESS_LIST is added using RELOAD ACCESS LIST while running, the session that is currently connected will not be affected but condition of ACCESS_LIST will be only applied to the new connection requests after the change is made. For example, when the user specifies the value of LIMIT of ACCESS_LIST and performs RELOAD ACCESS LIST, the value of LIMIT is only applied to the new connections after the change is made. In this case, when V$ACCESS_LIST is inquired, the value of CONNECTED can be bigger than the value of LIMIT.
+If new ACCESS_LIST is added using RELOAD ACCESS LIST while running, the session that is currently connected will not be affected. The updated ACCESS_LIST will only be applied to the new connection requests. For example, when the user specifies the value of LIMIT of ACCESS_LIST and executes RELOAD ACCESS LIST, the value of LIMIT is only applied to the connections created after the change is made. In this case, when V$ACCESS_LIST is inquired, the value of CONNECTED can be bigger than the value of LIMIT.
 
 **CONNECTED**
 
