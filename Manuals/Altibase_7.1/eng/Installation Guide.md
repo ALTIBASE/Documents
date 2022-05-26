@@ -320,8 +320,12 @@ It is recommended to use a dedicated line when using the replication feature.
 >
 > For RHEL 8, libncurses.so.5 and libtinfo.so.5 links must be created in order to execute iSQL and iLoader. For more detailed information, refer to [Appendix A. Installation Prerequisites - Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
 
-
-
+> **<a name="footnote-winclnt-limitations">Altibase 7.1 Windows Client Restrictions</a>**
+>
+> The following features are not supported by Altibase 7.1 Windows Client.
+>
+> - .NET Data Provider
+> - Altibase C Interface
 
 ### Altibase Package Installer
 
