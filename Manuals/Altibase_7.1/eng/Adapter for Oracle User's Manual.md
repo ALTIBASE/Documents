@@ -789,9 +789,9 @@ If any environment variables or property settings are changed after oraAdapter h
 
 1. Check whether the Altibase REPLICATION_PORT_NO property1[^1] has been set to a port number that is actually available for use with replication. If it is necessary to change this property setting, it will also be necessary to restart Altibase.
   
-   [^1]: RREPLICATION_PORT_NO specifies the replication port number to use on a local server when the local server establishes a replication connection. For a complete description of this and other Altibase properties, please refer to the General Reference.  
+   [^1]: REPLICATION_PORT_NO specifies the replication port number to use on a local server when the local server establishes a replication connection. For a complete description of this and other Altibase properties, please refer to the General Reference.  
 
-2. Before starting oraAdapter, it is also necessary to configure the XLog Sender so that the Altibase Log Analyzer (ALA) can be used. The XLog Sender is used to send XLogs and Meta information from Altibase.  
+2. Before starting oraAdapter, it is also necessary to configure the XLog Sender so that the Altibase Log Analyzer (ALA) can be used. The XLog Sender is used to send XLogs and Meta information from Altibase. FOR ANALYSIS PROPAGATION is used to send logs from the transactions replicated with PROPAGABLE LOGGING to another server.
    In the following statement, an XLog Sender is created so that the data in table t1, which belongs to the sys user in Altibase, can be replicated to table t2, which belongs to the user scott in the Oracle DB.
 
 ```
