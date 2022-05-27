@@ -3230,8 +3230,6 @@ Not used
 
 Be careful with file access management because [[b1\]](#_msocom_1) sensitive information such as user passwords can be also recorded in the file by user.
 
-
-
 #### Shell Commands
 
 The exclamation point (“!”) is a convenient function that allows direct execution of most shell commands from within iSQL.
@@ -3329,9 +3327,7 @@ The ALTIBASE_NLS_NCHAR_LITERAL_REPLACE environment variable must be set to1.
 $ export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE =1
 ```
 
-   
-
-In order to use NCHAR type data that are encoded differently from the database character set, enter the character “N” in front of the string.
+ In order to use NCHAR type data that are encoded differently from the database character set, enter the character “N” in front of the string.
 
 ```
 iSQL> create table t1 (c1 nvarchar(10));
