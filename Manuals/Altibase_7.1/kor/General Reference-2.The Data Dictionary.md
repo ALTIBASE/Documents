@@ -10465,7 +10465,7 @@ UNIX_ODBC-32BE
 
 -   0: DEFAULT(이중화)
 
--   64: NONE
+-   16: NONE
 
 ##### TRANSACTION_MODE
 

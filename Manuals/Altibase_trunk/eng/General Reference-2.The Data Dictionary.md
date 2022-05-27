@@ -9161,7 +9161,7 @@ This indicates the replication mode for the session.
 
 -   0: DEFAULT(Réplication)
 
--   64: NONE
+-   16: NONE
 
 ##### TRANSACTION_MODE
 
