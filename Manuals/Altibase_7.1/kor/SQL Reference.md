@@ -6563,7 +6563,7 @@ Create success.
 
 *column_definition*
 
-사용자 정의 칼럼을 지정한다.
+사용자 정의 칼럼을 지정한다. CREATE TABLE 의 column_definition을 참고하며, 해당 구문에서 column_constraint, crypt_clasue, timestamp는 지원하지 않는다.
 
 *MAXROWS count*
 
