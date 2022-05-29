@@ -9163,9 +9163,9 @@ This is an event that changes the data in a table and causes the trigger to fire
 - DELETE  
   DELETE option is used to fire the trigger when data in the table are deleted by executing a DELETE statement.
 - INSERT  
-  INSERT option is used to fire the trigger when data are inserted into the table by executing an INSERT statement. If the table has a LOB column, a trigger can be created with the ‘BEFORE INSERT … FOR EACH ROW’ statement. However, an error occurs when the DML statement firing the trigger is executed.
+  INSERT option is used to fire the trigger when data are inserted into the table by executing an INSERT statement. Tables with LOB columns can create a trigger with the ‘BEFORE INSERT … FOR EACH ROW’ statement. However, an error occurs when the DML statement firing the trigger is executed.
 - UPDATE  
-  UPDATE option is used to fire the trigger when data in the table are updated by executing an UPDATE statement. The optional OF clause further specifies that the trigger will fire only when an UPDATE statement changes one of the columns specified therein. If the table has a LOB column, a trigger can be created with the ‘BEFORE UPDATE … FOR EACH ROW’ statement. However, an error occurs when the DML statement firing the trigger is executed.
+  UPDATE option is used to fire the trigger when data in the table are updated by executing an UPDATE statement. The OF clause specifies that the trigger will only be fired when an UPDATE statement changes one of the columns specified therein. Tables with LOB columns can create a trigger with the ‘BEFORE UPDATE … FOR EACH ROW’ statement. However, an error occurs when the DML statement firing the trigger is executed.
 
 *ON table_name*
 
