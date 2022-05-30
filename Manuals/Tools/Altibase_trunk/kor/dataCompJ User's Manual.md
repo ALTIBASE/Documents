@@ -39,7 +39,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
   - [3.dataCompJ 사용 방법](#3datacompj-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
     - [dataCompJ 실행 방법](#datacompj-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
     - [dataCompJ 수행 단계](#datacompj-%EC%88%98%ED%96%89-%EB%8B%A8%EA%B3%84)
-    - [dataCompJ 환경파일 설정](#datacompj-%ED%99%98%EA%B2%BD%ED%8C%8C%EC%9D%BC-%EC%84%A4%EC%A0%95)
+    - [dataCompJ 설정 파일 구성](#dataCompJ-설정-파일-구성)
   - [4.dataCompJ 기능](#4datacompj-%EA%B8%B0%EB%8A%A5)
     - [비교(DIFF) 기능](#%EB%B9%84%EA%B5%90diff-%EA%B8%B0%EB%8A%A5)
     - [일치(SYNC) 기능](#%EC%9D%BC%EC%B9%98sync-%EA%B8%B0%EB%8A%A5)
@@ -87,8 +87,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
   이 장은 사용자들이 dataCompJ를 좀 더 능률적이고 효율적으로 실행하는 데 도움이 되는 기본 개념을 소개한다.
 
 - 제 3장 dataCompJ 사용 방법
-
-  이 장은 dataCompJ를 원활하게 실행하기 위한 방법과 dataCompJ의 환경 파일 설정, 설정 시 고려할 점들을 설명한다.
+  이 장은 dataCompJ를 원활하게 실행하기 위한 방법과 dataCompJ 설정 파일 구성, 설정 시 고려할 점들을 설명한다.
 
 - 제 4장 dataCompJ 기능
 
@@ -228,8 +227,7 @@ dataCompJ는 Altibase 및 이기종 데이터베이스들과 함께 사용할 �
 
 #### 설치 및 제거
 
-dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 다운로드받은 압축 파일을 원하는 위치에 해제하면 dataCompJ 설치가 완료된다. 생성된 디렉토리 안에는 실행파일인 dataCompJCli.sh, JDBC 드라이버를 포함한 JDBC 하위 디렉토리 및 XML 기본 환경 파일이 존재한다.
-
+dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 다운로드받은 압축 파일을 원하는 위치에 해제하면 dataCompJ 설치가 완료된다. 생성된 디렉토리 안에는 실행파일인 dataCompJCli.sh, JDBC 드라이버를 포함한 JDBC 하위 디렉토리 및 XML 기본 설정 파일이 존재한다.
 dataCompJ를 제거하기 위해서는 dataCompJ가 설치되어 있는 디렉토리를 삭제한다.
 
 2.dataCompJ 시작하기
@@ -282,10 +280,8 @@ TablePair 중 사용자가 지정한 Slave DB의 비교 대상 테이블이다.
 
 ##### 불일치 레코드 처리
 
-dataCompJ는 불일치 레코드 발견 시 dataCompJ 환경 파일에 기술된 사용자의 선택에 따라 다음의 두 가지 기능을 제공한다.
-
 1.  DIFF: Master 테이블과 Slave 테이블 간의 불일치 레코드를 식별하여 CSV 형식의 파일에 기록한다.
-2.  SYNC: Master 테이블과 Slave 테이블 간의 불일치 레코드를 식별하여 dataCompJ 환경 파일에 기술된 일치 정책에 따라 불일치를 해소한다.
+2.  SYNC: Master 테이블과 Slave 테이블 간의 불일치 레코드를 식별하여 dataCompJ 설정 파일에 기술된 일치 정책에 따라 불일치를 해소한다.
 
 ### 일치 정책 (Synchronization policy)
 
@@ -305,12 +301,11 @@ DELETE_FROM_SLAVE 정책이다. Master 테이블에는 존재하지 않고 Slave
 
 3.dataCompJ 사용 방법
 =====================
-
-이 장은 dataCompJ를 원활하게 실행하는 방법과 dataCompJ의 환경 파일 설정, 설정 시 고려할 점들을 설명한다. 이 장은 다음의 절로 구성된다.
+이 장은 dataCompJ를 원활하게 실행하는 방법과 dataCompJ의 설정 파일 구성, 설정 시 고려할 점들을 설명한다. 이 장은 다음의 절로 구성된다.
 
 - 실행 방법
 - 수행 단계
-- 환경파일 설정
+- 설정 파일 구성
 
 ### dataCompJ 실행 방법
 
@@ -331,23 +326,23 @@ dataCompJ를 Command Line Interface (CLI)에서 수행하는 명령어는 다음
 
 **dataCompJ_env_file_path**
 
-dataCompJ 환경 파일의 경로를 의미하며 필수 옵션이다. dataCompJ 설치 시 dataCompJ.xml 이라는 환경 파일을 제공한다. 사용자는 이 파일을 이용하거나 새로운 이름의 환경 파일을 사용할 수 있다.
+dataCompJ 설정 파일의 경로를 의미하며 필수 옵션이다. dataCompJ 설치 시 dataCompJ.xml 이라는 설정 파일을 제공한다. 사용자는 이 파일을 이용하거나 새로운 이름의 설정 파일을 사용할 수 있다.
 
 ### dataCompJ 수행 단계
 
-dataCompJ는 사용자가 설정한 환경파일을 기반으로 동작하며, 크게 구축(Build)과 실행(Run)이라는 두 단계를 수행한다.
+dataCompJ는 사용자가 설정한 설정 파일을 기반으로 동작하며, 크게 구축(Build)과 실행(Run)이라는 두 단계를 수행한다.
 
 ##### 구축(Build) 단계
 
-구축 단계는 주어진 환경파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위해 초기 조사하는 단계이다. 하나의 문제라도 발견되면 이를 리포트 파일(dataCompJ_report.txt)에 출력하며 dataCompJ를 종료한다.
+구축 단계는 주어진 설정 파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위해 초기 조사하는 단계이다. 하나의 문제라도 발견되면 이를 리포트 파일(dataCompJ_report.txt)에 출력하며 dataCompJ를 종료한다.
 
 구축 단계는 아래의 순서대로 진행된다.
 
-1.  사용자가 지정한 환경파일을 읽는다.
+1.  사용자가 지정한 설정 파일을 읽는다.
 
-2.  환경파일에 기술된 접속정보가 유효한지 확인한다.
+2.  설정 파일에 기술된 접속정보가 유효한지 확인한다.
 
-3.  환경파일에 기술된 대상 테이블들의 유효성을 검증하기 위해 양쪽 데이터베이스에 접속하여 메타 정보를 확인한다. 테이블 중 어느 한쪽에서라도 문제를 발견하면 리포트 파일에 출력하고 dataCompJ를 종료한다.
+3.  설정 파일에 기술된 대상 테이블들의 유효성을 검증하기 위해 양쪽 데이터베이스에 접속하여 메타 정보를 확인한다. 테이블 중 어느 한쪽에서라도 문제를 발견하면 리포트 파일에 출력하고 dataCompJ를 종료한다.
 
 ##### 실행(Run) 단계
 
@@ -366,11 +361,12 @@ dataCompJ를 수행하면 텍스트 형식의 리포트 파일 1개, 로그 파�
 -   dataCompJ_data.log: 실행(Run) 단계에서 생성되는 로그 파일로, 사용자가 설정 파일의 \<TraceInconsistentRecord\>를 true로 설정한 경우 비교(DIFF)/일치(SYNC) 수행 시 처리되는 불일치 레코드의 상세 내용을 기록한다.
     불일치 레코드가 많은 경우 대용량의 파일이 생성되고 프로그램의 처리 성능이 저하되기 때문에, 불일치 레코드 처리 내역에 대한 상세 내용이 필요한 경우에만 사용을 권장한다.
 
-### dataCompJ 환경파일 설정
 
-dataCompJ를 수행하기 위해서는 환경파일 입력이 필수이다. dataCompJ 설치 시 dataCompJ.xml 라는 파일을 기본 환경 파일로 제공하며, 사용자가 임의의 파일을 작성하여 사용할 수도 있다. 단, dataCompJ.xml에 기술된 XML 규칙에 따라 작성해야 하며 다국어가 포함된 경우 반드시 UTF-8로 인코딩해야 한다.
+### dataCompJ 설정 파일 구성
 
-dataCompJ 환경파일은 크게 [Connections](#connections), [Options](#options), [TablePairs](#tablepairs) 3개 부분으로 구성된다.
+dataCompJ를 수행하기 위해서는 설정 파일 입력이 필수이다. dataCompJ 설치 시 dataCompJ.xml 라는 파일을 기본 설정 파일로 제공하며, 사용자가 임의의 파일을 작성하여 사용할 수도 있다. 단, dataCompJ.xml에 기술된 XML 규칙에 따라 작성해야 하며 다국어가 포함된 경우 반드시 UTF-8로 인코딩해야 한다.
+
+dataCompJ 설정 파일은 크게 [Connections](#connections), [Options](#options), [TablePairs](#tablepairs) 3개 부분으로 구성된다.
 
 ##### Connections
 
@@ -506,9 +502,10 @@ table_name_file_path는 테이블 이름들을 나열한 텍스트 파일의 경
 
 비교(DIFF) 기능은 Master DB와 Slave DB 간의 이기종 복제 작업에서 발생할 수 있는 불일치 레코드들을 식별하고 이들을 파일에 기록하여, 두 데이터베이스 시스템간의 불일치 레코드들을 확인한다.
 
-#### 환경 파일
+#### 설정 파일
 
-dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “DIFF”로 지정한다.
+dataCompJ 설정파일의 \<Options\> - \<Operation\> 값을 “DIFF”로 지정한다.
+
 \<Connections\>와 \<Options\>의 항목들은 모두 필수로 기입해야 하며, 대상 테이블에 대해 \<TablePairs\>에 기술해야 한다.
 
 ##### dataCompJ.xml
@@ -858,9 +855,10 @@ MXSO    Slave only                            0
 
 일치(SYNC)기능은 Master DB와 Slave DB 간의 이기종 복제 작업에서 발생할 수 있는 불일치 레코드들을 식별하여 이를 Slave DB에 적용한다. 두 데이터베이스 시스템의 데이터 동기화(Synchronization)를 손쉽게 할 수 있다.
 
-#### 환경 파일
+#### 설정 파일
 
-dataCompJ 환경 파일의 \<Options\> - \<Operation\> 값을 “SYNC”로 지정한다.
+dataCompJ 설정 파일의 \<Options\> - \<Operation\> 값을 “SYNC”로 지정한다.
+
 \<Connections\>와 \<Options\> 항목들은 모두 필수로 기입해야 하며, 대상 테이블에 대해 \<TablePairs\>에 기술해야 한다.
 
 ###### dataCompJ.xml
