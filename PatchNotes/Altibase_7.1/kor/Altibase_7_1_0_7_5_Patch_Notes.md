@@ -1,5 +1,3 @@
-
-
 # Altibase 7.1.0.7.5 Patch Notes
 
 <br/>
@@ -86,7 +84,9 @@ Fixed Bugs
 
     -   **수행 결과**
 
-            # INTERSECT
+        -   INTERSECT 연산자
+
+            ```
             SELECT /*+ set bucket count (256) hash bucket count (512) */ i1 FROM t1 INTERSECT SELECT i1 FROM t2;
             ------------------------------------------------------------
             PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: 236.82 )
@@ -97,8 +97,11 @@ Fixed Bugs
                PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: 118.08 )
                 SCAN ( TABLE: SYS.T2, FULL SCAN, ACCESS: 0, COST: 116.76 )
             ------------------------------------------------------------
-            # MINUS
-            SELECT /*+ set bucket count (256) hash bucket count (512) */ i1 FROM t1 MINUS SELECT i1 FROM t2;
+            ```
+
+        -   MINUS 연산자
+
+            ```
             SELECT /*+ set bucket count (256) hash bucket count (512) */ i1 FROM t1 MINUS SELECT i1 FROM t2;
             ------------------------------------------------------------
             PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: 236.82 )
@@ -109,10 +112,13 @@ Fixed Bugs
                PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: 118.08 )
                 SCAN ( TABLE: SYS.T2, FULL SCAN, ACCESS: 0, COST: 116.76 )
             -----------------------------------------------------------
+            ```
 
     -   **예상 결과**
 
-            # INTERSECT
+        -   INTERSECT 연산자
+
+            ```
             SELECT /*+ set bucket count (256) hash bucket count (512) */ i1 FROM t1 INTERSECT SELECT i1 FROM t2;
             ------------------------------------------------------------
             PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: 236.82 )
@@ -123,7 +129,11 @@ Fixed Bugs
                PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: 118.08 )
                 SCAN ( TABLE: SYS.T2, FULL SCAN, ACCESS: 0, COST: 116.76 )
             ------------------------------------------------------------
-            # MINUS
+            ```
+
+        -   MINUS 연산자
+
+            ```
             SELECT /*+ set bucket count (256) hash bucket count (512) */ i1 FROM t1 MINUS SELECT i1 FROM t2;
             ------------------------------------------------------------
             PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: BLOCKED )
@@ -134,6 +144,7 @@ Fixed Bugs
                PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 4, COST: BLOCKED )
                 SCAN ( TABLE: SYS.T2, FULL SCAN, ACCESS: 0, COST: BLOCKED )
             ------------------------------------------------------------
+            ```
 
 -   **Workaround**
 
