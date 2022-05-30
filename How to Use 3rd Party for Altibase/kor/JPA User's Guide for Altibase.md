@@ -33,11 +33,11 @@ JPA(Java Persistence API)는 ORM(Object-Reliational Mapping)을 위한 J2EE 스�
 
 1. STS에서 Spring Starter Project로 신규 프로젝트를 생성한다. 
 
-   ![](C:\MyFolder\1.기술문서\altibase manual\Documents\How to Use 3rd Party for Altibase\kor\Images\JPA\spring-starter-01.png)
+   ![](Images/JPA/spring-starter-01.png)
 
 1. Spring Starter Project의 Dependencies에서 Spring Data JPA를 찾아서 선택해 준다. Entity 클래스 작성 편의를 위해 Lombok도 추가한다.
 
-   ![](C:\MyFolder\1.기술문서\altibase manual\Documents\How to Use 3rd Party for Altibase\kor\Images\JPA\spring-starter-02.png)
+   ![](Images/JPA/spring-starter-02.png)
 
 3. Finish 버튼을 클릭하면 Progress 가 활성화되면서 관련 라이브러리를 인터넷을 통해 다운로드 받는다.
 
@@ -101,7 +101,7 @@ STS에서 샘플 소스 작성을 통해 Altibase와의 연계 여부를 확인�
 
 1. STS의 Project -> Peroperties -> Java Build Path -> Libraries -> Add External JARs 클릭하여 Altibase JDBC 드라이버 파일을 추가한다.
 
-   ![](C:\MyFolder\1.기술문서\altibase manual\Documents\How to Use 3rd Party for Altibase\kor\Images\JPA\add-jdbc-driver.png)
+   ![](Images/JPA/add-jdbc-driver.png)
 
 2. src/main/resources/application.properties 파일에 아래 내용을 추가한다.
 
@@ -123,15 +123,15 @@ STS에서 샘플 소스 작성을 통해 Altibase와의 연계 여부를 확인�
 
 3. 아래와 같 Entity 클래스를 작성한다.
 
-   ![](C:\MyFolder\1.기술문서\altibase manual\Documents\How to Use 3rd Party for Altibase\kor\Images\JPA\sample-source.png)
+   ![](Images/JPA/sample-source.png)
 
 4. STS의 Boot Dashboard에서 해당 프로젝트를 선택하고 상단 Start 버튼 클릭하여 수행한다.
 
-   ![](C:\MyFolder\1.기술문서\altibase manual\Documents\How to Use 3rd Party for Altibase\kor\Images\JPA\boot-bashboard.png)
+   ![](Images/JPA/boot-bashboard.png)
 
 5. STS의 Console 창에 결과가 출력된다. application.properties의 spring.jpa.show-sql=true 설정에 의해 메세지 마지막 부분에는 DDL 문장이 출력되어 있다. (출력된 오류는, 시작 시 테이블을 먼저 drop 하는데 초기엔 테이블이 없기 때문에 발생된 오류로 재 수행시 해당 오류는 발생하지 않는다.) 
 
-   ![](C:\MyFolder\1.기술문서\altibase manual\Documents\How to Use 3rd Party for Altibase\kor\Images\JPA\console-result.png)
+   ![](Images/JPA/console-result.png)
 
 6. Altibase의 서버에 접속하여 iSQL로 테이블이 생성되어 있는지 확인하여 연계 여부를 확인한다.
 
