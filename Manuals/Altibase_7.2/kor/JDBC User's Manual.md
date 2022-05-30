@@ -808,7 +808,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false]                                              |
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
-| 설명      | 동일한 PreparedStatement 객체에서 executeQuery() 메소드를 사용하여 ResultSet 객체를 여러 번 생성한 경우 첫 번째 ResultSet 객체를 재사용할 것인지 설정한다. true는 ResultSet 객체를 재사용한다. 먼저 생성한 ResultSet 객체에 close() 메소드를 사용하면 자원이 해제되어 다른 ResultSet 객체 사용 시 오류가 발생한다. 이를 방지하려면 먼저 생성한 ResultSet 객체의 자원을 해제하고 다음 ResultSet 객체를 생성해야 한다. false는 ResultSet 객체를 재사용하지 않는다. |
+| 설명      | 동일한 PreparedStatement 객체에서 executeQuery() 메소드를 사용하여 ResultSet 객체를 여러 번 생성한 경우 첫 번째 ResultSet 객체의 재사용 여부를 설정한다. true는 ResultSet 객체를 재사용한다. 먼저 생성한 ResultSet 객체에 close() 메소드를 사용하면 자원이 해제되어 다른 ResultSet 객체 사용 시 오류가 발생한다. 이를 방지하려면 먼저 생성한 ResultSet 객체의 자원을 해제하고 다음 ResultSet 객체를 생성해야 한다. false는 ResultSet 객체를 재사용하지 않는다. |
 
 ##### sessionfailover
 
@@ -916,7 +916,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns() 메소드가 반환하는 결과에 저장 함수를 포함할지 설정한다. true는 저장 함수를 포함한다. false는 저장 함수를 포함하지 않으므로 저장 함수 정보를 얻으려면 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 사용해야 한다. |
+| 설명      | DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns() 메소드가 반환하는 결과에 저장 함수의 포함 여부를 설정한다. true는 저장 함수를 포함한다. false는 저장 함수를 포함하지 않으므로 저장 함수 정보를 얻으려면 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 사용해야 한다. |
 
 ##### getcolumns_return_jdbctype
 
