@@ -24,7 +24,7 @@
     - [Setting User Resource Limit Values](#setting-user-resource-limit-values)
     - [Setting Kernel Parameters for Different Operating Systems (OS)](#setting-kernel-parameters-for-different-operating-systems-os)
     - [Configuration of THP (Transparent Huge Pages)](#configuration-of-thp-transparent-huge-pages)
-    - [<a name="footnote-rhel8-sharedlibrary">Red Hat Enterprise Linux 8  </a>](#a-namefootnote-rhel8-sharedlibraryred-hat-enterprise-linux-8%C2%A0%C2%A0a)
+    - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
     - [Checking Disk Configuration](#checking-disk-configuration)
     - [OS Patch](#os-patch)
 
@@ -326,6 +326,10 @@ It is recommended to use a dedicated line when using the replication feature.
 >
 > - .NET Data Provider
 > - Altibase C Interface
+>
+> **<a name="32-bits-client">32-bit client</a>**
+>
+> In case 32-bit development environment is required in Windows environment, 32-bit Altibase 6.5.1 client can be used.
 
 ### Altibase Package Installer
 
@@ -1616,7 +1620,7 @@ It is advised to set the HTP option to never in order to run the Altibase operat
 2. Reboot the system.
 3. Confirm whether the THP option is never or not. 
 
-### <a name="footnote-rhel8-sharedlibrary">Red Hat Enterprise Linux 8  </a>
+### Red Hat Enterprise Linux 8
 
 For RHEL 8, libncurses.so.5 and libtinfo.so.5 must be created in order to execute iSQL and iLoader. In order to do this, the user needs root privileges.
 
