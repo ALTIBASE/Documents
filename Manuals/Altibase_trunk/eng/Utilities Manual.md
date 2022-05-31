@@ -1065,8 +1065,6 @@ Example 4) Exclude a certain column from altiComp targets, if a CLOB column exis
 TABLE = EMP
 EXCLUDE = { CCC }
 
-
-
 #### Property Options
 
 Use the following properties to specify information for accessing the local and remote servers, comparison (DIFF) and synchronization (SYNC) tasks, and synchronization policies for inconsistent records. 
@@ -1129,6 +1127,10 @@ This sets the interval between the completion of a SYNC operation on a table and
 ##### MAX_THREAD
 
 This specifies the maximum number of threads that can run concurrently. Set to -1 to specify an unlimited number of threads.
+
+##### COUNT_TO_COMMIT
+
+This specifies the number of changed data(INSERT, DELETE or UPDATE) to be committed at once. The default value is 1000.
 
 ##### FILE_MODE_MAX_ARRAY
 
