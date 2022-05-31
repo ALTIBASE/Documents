@@ -5918,7 +5918,7 @@ This is used to specify how messages are saved. (For more information, please re
 
 *column_definition*
 
-This clause specifies the user-defined column.
+This clause specifies the user-defined column. It refers to CREATE TABLE statement's column_definition and does not support column_constraint, crypt_clasue and timestamp.
 
 *MAXROWS count*
 
