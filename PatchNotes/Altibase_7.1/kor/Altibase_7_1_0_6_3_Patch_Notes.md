@@ -173,10 +173,7 @@ Fixed Bugs
     INSERT INTO CC VALUES(2, 2);
     INSERT INTO DD VALUES(1, 1);
     
-    ALTER SESSION SET EXPLAIN PLAN=ON;
-    ALTER SESSION SET TRCLOG_DETAIL_PREDICATE=1;
-    ALTER SESSION SET TRCLOG_DETAIL_INFORMATION=1;
-    ALTER SYSTEM SET __LEFT_OUTER_SKIP_RIGHT_ENABLE = 0;
+    ALTER SYSTEM SET __LEFT_OUTER_SKIP_RIGHT_ENABLE = 1;
     
     SELECT
            /*+ no_plan_cache LEADING(A) USE_NL(A B C D) */
@@ -187,25 +184,25 @@ Fixed Bugs
            LEFT OUTER JOIN DD D ON D.KEY = A.KEY
            LEFT OUTER JOIN BB K ON K.KEY = D.KEY;
     ```
-
+    
   - **수행 결과**
-
+  
     ```sql
     KEY         VAL
     ---------------------------
-    1           1
+    1           
     1 row selected.
     ```
-
+  
   -   **예상 결과**
-
+  
       ```sql
       KEY         VAL
       ---------------------------
-      1           
+      1           1
       1 row selected.
       ```
-
+  
 - **Workaround**
 
   ```sql

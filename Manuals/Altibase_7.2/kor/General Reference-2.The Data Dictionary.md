@@ -2,10 +2,12 @@
 **Table of Contents**  
 
 - [General Reference](#general-reference)
+  
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  
+  
   - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
-    
     - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
     - [SYS_AUDIT_](#sys_audit_)
     - [SYS_AUDIT_OPTS_](#sys_audit_opts_)
@@ -342,8 +344,6 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 이 외에도 Altibase 기술지원 설명서의 오류와 누락된 부분 및 기타 기술적인 문제들에 대해서 이 주소로 보내주시면 정성껏 처리하겠습니다. 또한, 기술적인 부분과 관련하여 즉각적인 도움이 필요한 경우에도 고객서비스포털을 통해 서비스를 요청하시기 바랍니다.
 
 여러분의 의견에 항상 감사드립니다.
-
-
 
 ## 3.데이터 딕셔너리
 
@@ -1950,7 +1950,7 @@ SYS_TABLES_
 
 ### SYS_PART_INDICES_
 
-파티션드 인덱스를 관리하기 위한 메타 테이블이다. SYS_INDICES_의 IS_PARTITIONED가 ‘Y’로 되어 있는 파티션드 인덱스에 대한 정보이다.
+파티션드 인덱스를 관리하기 위한 메타 테이블이다. SYS_INDICES_의 IS_PARTITIONED가 ‘T’로 되어 있는 파티션드 인덱스에 대한 정보이다.
 
 | Column name     | Type    | Description                 |
 | --------------- | ------- | --------------------------- |
@@ -2090,7 +2090,7 @@ SYS_COLUMNS_
 
 ### SYS_PART_TABLES_
 
-파티션드 테이블을 관리하기 위한 메타 테이블이다. SYS_PART_TABLE_에 들어가는 테이블 정보는 SYS_TABLES_에서 IS_PARTITIONED가 ‘Y’로 되어 있는 파티션드 테이블에 대한 정보이다.
+파티션드 테이블을 관리하기 위한 메타 테이블이다. SYS_PART_TABLE에 들어가는 테이블 정보는 SYS_TABLES에서 IS_PARTITIONED가 ‘T’로 되어 있는 파티션드 테이블에 대한 정보이다.
 
 | Column name         | Type    | Description                                |
 | ------------------- | ------- | ------------------------------------------ |

@@ -374,7 +374,7 @@ Altibase가 대상 데이터베이스일 경우 마이그레이션이 가능한 
 
 - Microsoft SQL Server: 2005 - 2012
 
-- Oracle MySQL: 5.0 - 5.5
+- Oracle MySQL: 5.0 - 5.7
 
 - Informix: 11.50
 
