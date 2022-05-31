@@ -434,7 +434,7 @@ Altibase server properties that are added, updated or removed in Altibase 7.2.0.
 
 ##### Updated properties
 
-- [EXECUTE_STMT_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#execute_stmt_memory_maximum)
+- [EXECUTE_STMT_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#execute_stmt_memory_maximum-unit-byte)
 
   The default value has changed from 1073741824 to 2147483648.
 
