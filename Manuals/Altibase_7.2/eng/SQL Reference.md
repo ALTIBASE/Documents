@@ -2881,6 +2881,10 @@ Please refer to the ALTER REPLICATION clause of the Data Control Statement.
 
 This sets a particular host as the current one. It can be changed while replication is stopped.
 
+*USING conn_type [ib_latency]*
+
+The communication method (TCP or InfiniBand) can be set with the remote server. The ib_latency value can be set only when using InfiniBand. To use InfiniBand, the IB_ENABLE property must have a value of 1.
+
 *alter_replication_set_clause*
 
 This clause allows the user to enable or disable the following options for replication in LAZY mode. 
