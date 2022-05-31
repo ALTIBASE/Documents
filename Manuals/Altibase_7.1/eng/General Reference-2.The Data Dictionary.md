@@ -9154,7 +9154,7 @@ This indicates the isolation level for the session.
 
 This indicates the replication mode for the session.
 
--   0: DEFAULT(Réplication)
+-   0: DEFAULT(Replication)
 
 -   16: NONE
 
