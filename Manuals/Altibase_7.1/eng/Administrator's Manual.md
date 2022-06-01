@@ -2936,7 +2936,7 @@ To end the job scheduler, change the value of the JOB_SCHEDULER_ENABLE property 
 
 -   Job scheduler can only be controlled by the SYS user.
 
--   After changing the value of the JOB_THREAD_COUNT property, restart the server.
+-   After changing the value of the JOB_THREAD_COUNT property, restart the Altibase server.
 
 ##### Example
 
