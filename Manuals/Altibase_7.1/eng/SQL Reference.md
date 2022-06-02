@@ -19011,7 +19011,7 @@ ADD_MONTHS (date, number)
 
 ##### Description
 
-ADD_MONTHS adds the value of the number months to the value of date and returns the result. The number argument can be an integer or any value that can be implicitly converted to an integer. If the value of the date is the last day of a month, it returns the last day of the month after adding the value of number. 
+ADD_MONTHS adds the value of the *number* months to the value of *date* and returns the result. The *number* argument can be an integer or any value that can be implicitly converted to an integer. If the value of the *date* is the last day of a month, it returns the last day of the month after adding the value of *number*. 
 
 ##### Example
 
