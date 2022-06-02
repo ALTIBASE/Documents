@@ -525,15 +525,11 @@ ADLP는 Altibase 서버와 AltiLinker 프로세스 사이에 데이터 교환 �
     DBLINK_GLOBAL_TRANSACTION_LEVEL 프로퍼티를 이 레벨로 설정하면, AltiLinker가
     원격 서버로 연결하는 세션은 기본적으로 autocommit 모드가 OFF로 설정된다.
 
--   2단계 커밋 레벨 (Two-Phase Commit Level): 알티베이스 서버와 이기종
-    데이터베이스 시스템 간의 글로벌 트랜잭션 정합성을 보장하는 2PC 프로토콜을
-    제공한다. DBLINK_GLOBAL_TRANSACTION_LEVEL 프로퍼티를 2(Two-Phase Commit
-    Level)로 설정한 후에 사용할 수 있다. 아래 그림은 2PC Commit Level의 동작을
-    설명한다.
+-   2단계 커밋 레벨 (Two-Phase Commit Level): 알티베이스 서버와 이기종 데이터베이스 시스템 간의 글로벌 트랜잭션 정합성을 보장하는 2단계 커밋 프로토콜을 제공한다. DBLINK_GLOBAL_TRANSACTION_LEVEL 프로퍼티를 2(Two-Phase Commit Level)로 설정한 후에 사용할 수 있다. 아래 그림은 2단계 커밋 레벨의 동작을 설명한다.
 
 ![](media/DBLink/2pcLevel.gif)
 
-[그림 1‑3] 2단계 커밋 레벨(2-PC Commit Level)
+[그림 1‑3] 2단계 커밋 레벨 (Two-Phase Commit Level)
 
 준비 단계(Prepare Phase): 사용자가 커밋을 수행하면 알티베이스는 준비
 로그(prepare log)를 기록하고 준비요청 메시지를 AltiLinker에게 보낸다. 메시지를
