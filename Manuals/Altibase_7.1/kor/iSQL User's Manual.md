@@ -505,7 +505,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
      </TR>
      <TR>
          <TD>DML문을 파일로 저장</TD><TD>SET QUERYLOGGING ON;<BR>SET QUERYLOGGING OFF;
-</TD><TD>INSERT, UPDATE, DELTE, MOVE 등의 DML문 실행 시 이를 $ALTIBASE_HOME/trc/iSQL_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.</TD>
+</TD><TD>INSERT, UPDATE, DELTE, MOVE 등의 DML문 실행 시 이를 $ALTIBASE_HOME/trc/isql_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.</TD>
      </TR>
      <TR>
          <TD ROWSPAN="3">질의문 편집</TD><TD>ED[IT]</TD><TD>가장 최근에 실행된 질의문을 편집한다.</TD>
@@ -602,7 +602,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SHOW PLANCOMMIT</TD><TD>AUTOCOMMIT OFF 모드에서 명령어를 수행할 때 자동으로 커밋되는 여부를 보여준다.</TD>
      </TR>
      <TR>
-         <TD>SHOW QUERYLOGGING</TD><TD>DML 문이 실행될 때 $ALTIBASE_HOME/trc/iSQL_query.log에 기록되는지 여부를 보여준다.</TD>
+         <TD>SHOW QUERYLOGGING</TD><TD>DML 문이 실행될 때 $ALTIBASE_HOME/trc/isql_query.log에 기록되는지 여부를 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW FEEDBACK</TD><TD>현재 설정된 FEEDBACK 값을 보여준다.</TD>
@@ -935,7 +935,7 @@ ROLLBACK TO SAVEPOINT sp1;
 SELECT * FROM savept;
 COMMIT;
 
-$ iSQL
+$ isql
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1013,7 +1013,7 @@ SYS 사용자가 관리자 모드로 iSQL 유틸리티를 사용하기 위해서
 사용자 ID에 특수 문자 또는 공백이 포함된 경우 큰따옴표를 사용해야 한다.
 
 ```
-$ iSQL -U \"user name\"
+$ isql -U \"user name\"
 ```
 
 
@@ -1031,11 +1031,11 @@ iSQL 사용 중 발생하는 에러에 대한 자세한 정보는 Error Message 
 참조하기 바란다.
 
 ```
-$ iSQL -U sys -P manager [-SYSDBA]
+$ isql -U sys -P manager [-SYSDBA]
 ```
 
 ```
-$ iSQL [-sysdba]
+$ isql [-sysdba]
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1068,7 +1068,7 @@ Altibase를 구동시키기 위해서는 데이터베이스 생성 시와 마찬
 *Administrator’s Manual* 제2장 Altibase 구동 및 종료의 내용을 참조한다.
 
 ```
-$ iSQL –s 127.0.0.1 –u sys –p manager –sysdba
+$ isql –s 127.0.0.1 –u sys –p manager –sysdba
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1160,7 +1160,7 @@ nls: NLS=character_set
   연결을 시도할 때는 CONNECT *userID*/*password* [AS SYSDBA];를 수행한다.
 
 ```
-$ iSQL
+$ isql
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1235,9 +1235,9 @@ SYS		SYSTBL		TABLE
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ iSQL -s localhost -u sys -p MANAGER
+$ isql -s localhost -u sys -p MANAGER
 or
-$ iSQL -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
+$ isql -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 ```
 
 
@@ -1253,11 +1253,11 @@ $ iSQL -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ iSQL -s localhost -u sys -p MANAGER \
+$ isql -s localhost -u sys -p MANAGER \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
 or
-$ iSQL -s localhost -u sys -p MANAGER \
+$ isql -s localhost -u sys -p MANAGER \
 -ssl_verify -ssl_ca ~/cert/ca-cert.pem \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
@@ -1761,12 +1761,12 @@ iSQL> /		 -> SELECT * FROM book; 문이 실행된 것을 볼 수 있다.
 #### DML문 저장
 
 INSERT, UPDATE, DELETE, MOVE 등의 DML문 실행시 이를
-\$ALTIBASE_HOME/trc/iSQL_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.
+\$ALTIBASE_HOME/trc/isql_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.
 
 이 기능을 설정하려면 SET QUERYLOGGING을 ON으로 하고, 해제하려면 OFF하면 된다.
 
 ```
-iSQL> SET QUERYLOGGING ON;	-> 이후의 모든 DML 문이 $ALTIBASE_HOME/trc/iSQL_query.log에 저장된다.
+iSQL> SET QUERYLOGGING ON;	-> 이후의 모든 DML 문이 $ALTIBASE_HOME/trc/isql_query.log에 저장된다.
 iSQL> CREATE TABLE T1 ( I1 INTEGER );
 Create success.
 iSQL> INSERT INTO T1 VALUES ( 1 );
@@ -1784,7 +1784,7 @@ iSQL> DROP TABLE T1;
 Drop success.
 iSQL> EXIT
 
-% cat $ALTIBASE_HOME/trc/iSQL_query.log	-> SET QUERYLOGGING ON으로 실행한 후의 DML을 확인할 수 있다.
+% cat $ALTIBASE_HOME/trc/isql_query.log	-> SET QUERYLOGGING ON으로 실행한 후의 DML을 확인할 수 있다.
 [2009/09/16 10:36:14] [127.0.0.1:25310 SYS] INSERT INTO T1 VALUES ( 1 )
 [2009/09/16 10:36:31] [127.0.0.1:25310 SYS] UPDATE T1 SET I1 = 2
 [2009/09/16 10:36:37] [127.0.0.1:25310 SYS] DELETE FROM T1

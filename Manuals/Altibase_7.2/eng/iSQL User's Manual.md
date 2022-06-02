@@ -483,7 +483,7 @@ file</TD><TD>SET QUERYLOGGING ON;<BR>SET QUERYLOGGING OFF;
 </TD><TD>This writes executed DML statements,
 such as INSERT, UPDATE, DELETE
 and MOVE, in
-$ALTIBASE_HOME/trc/iSQL_query.log. </TD>
+$ALTIBASE_HOME/trc/isql_query.log. </TD>
      </TR>
      <TR>
          <TD ROWSPAN="3">Edit query
@@ -634,7 +634,7 @@ or OFF.</TD>
      <TR>
          <TD>SHOW QUERYLOGGING</TD><TD>DML Shows whether DML statements wil be
 written to
-ALTIBASE_HOME/trc/iSQL_query.log
+ALTIBASE_HOME/trc/isql_query.log
 when executed.</TD>
      </TR>
      <TR>
@@ -918,7 +918,7 @@ ROLLBACK TO SAVEPOINT sp1;
 SELECT * FROM savept;
 COMMIT;
 
-$ iSQL
+$ isql
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -987,7 +987,7 @@ In order for the SYS user to use iSQL as an administrator, the SYSDBA option is 
 -SYSDAB option should be used in order for the SYS user to use iSQL as an administrator. The SYSDBA option can be also used for remote access. Use double quotation marks if the user ID contains special characters or spaces.
 
 ```
-$ iSQL -U \"user name\"
+$ isql -U \"user name\"
 ```
 
 
@@ -1002,11 +1002,11 @@ For detailed information on system privileges, please refer to the *Altibase SQL
 For detailed information on errors that may arise during iSQL execution, please refer to the *Altibase Error Message Reference.*
 
 ```
-$ iSQL -U sys -P manager [-SYSDBA]
+$ isql -U sys -P manager [-SYSDBA]
 ```
 
 ```
-$ iSQL [-sysdba]
+$ isql [-sysdba]
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -1037,7 +1037,7 @@ To start up Altibase, iSQL must first be launched with the -sysdba option, in th
 The following is an example of the use of iSQL to start up Altibase. For more information on starting up Altibase, please refer to the *Altibase Administrators’ Manual Chapter 4: Startup and Shutdown.*
 
 ```
-$ iSQL –s 127.0.0.1 –u sys –p manager –sysdba
+$ isql –s 127.0.0.1 –u sys –p manager –sysdba
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -1123,7 +1123,7 @@ Connect success.
   If CONNECT fails, the previous session is terminated and the connection with the server is closed. In other words, the result of all SQL statements executed thereafter will be a “Not connected”   message. Execute “CONNECT userID/password [AS SYSDBA]” to attempt to re-establish a connection with the server.
 
 ```
-$ iSQL
+$ isql
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -1194,9 +1194,9 @@ Enable the -ssl_verify option and specify the location of the CA certificate fil
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ iSQL -s localhost -u sys -p MANAGER
+$ isql -s localhost -u sys -p MANAGER
 or
-$ iSQL -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
+$ isql -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 ```
 
 
@@ -1209,11 +1209,11 @@ Enable the -ssl_verify option and specify the location of the CA certificate fil
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ iSQL -s localhost -u sys -p MANAGER \
+$ isql -s localhost -u sys -p MANAGER \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
 or
-$ iSQL -s localhost -u sys -p MANAGER \
+$ isql -s localhost -u sys -p MANAGER \
 -ssl_verify -ssl_ca ~/cert/ca-cert.pem \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
@@ -1662,13 +1662,13 @@ iSQL> /		 -> The results of execution of SELECT * FROM book; can be seen.
 
 #### Saving DML Statements
 
-Executed DML statements such as INSERT, UPDATE, DELETE and MOVE are saved in $ALTIBASE_HOME/trc/iSQL_query.log. 
+Executed DML statements such as INSERT, UPDATE, DELETE and MOVE are saved in $ALTIBASE_HOME/trc/isql_query.log. 
 
 Specify SET QUERYLOGGING ON to use this functionality and OFF to disable it.
 
 ```
 iSQL> SET QUERYLOGGING ON;	-> From this point on, all executed DML statements will be
-saved in $ALTIBASE_HOME/trc/iSQL_query.log. 
+saved in $ALTIBASE_HOME/trc/isql_query.log. 
 iSQL> CREATE TABLE T1 ( I1 INTEGER );
 Create success.
 iSQL> INSERT INTO T1 VALUES ( 1 );
@@ -1686,7 +1686,7 @@ iSQL> DROP TABLE T1;
 Drop success.
 iSQL> EXIT
 
-% cat $ALTIBASE_HOME/trc/iSQL_query.log	-> All queries executed since SET QUERYLOGGING ON
+% cat $ALTIBASE_HOME/trc/isql_query.log	-> All queries executed since SET QUERYLOGGING ON
 was executed can be observed.
 [2009/09/16 10:36:14] [127.0.0.1:25310 SYS] INSERT INTO T1 VALUES ( 1 )
 [2009/09/16 10:36:31] [127.0.0.1:25310 SYS] UPDATE T1 SET I1 = 2
