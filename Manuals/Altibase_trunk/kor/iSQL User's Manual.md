@@ -1,14 +1,14 @@
-- [iSQL User’s Manual](#isql-users-manual)
+- [iSQL User’s Manual](#iSQL-users-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.iSQL 이용방법](#1isql-%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95)
-    - [iSQL의 개요](#isql%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [iSQL 설정](#isql-%EC%84%A4%EC%A0%95)
-    - [iSQL 커맨드 라인 옵션](#isql-%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
-    - [iSQL 명령어](#isql-%EB%AA%85%EB%A0%B9%EC%96%B4)
-    - [iSQL 관련 환경변수](#isql-%EA%B4%80%EB%A0%A8-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98)
-    - [개인별 iSQL 환경 설정](#%EA%B0%9C%EC%9D%B8%EB%B3%84-isql-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-  - [2.iSQL 사용 예](#2isql-%EC%82%AC%EC%9A%A9-%EC%98%88)
+  - [1.iSQL 이용방법](#1iSQL-%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95)
+    - [iSQL의 개요](#iSQL%EC%9D%98-%EA%B0%9C%EC%9A%94)
+    - [iSQL 설정](#iSQL-%EC%84%A4%EC%A0%95)
+    - [iSQL 커맨드 라인 옵션](#iSQL-%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
+    - [iSQL 명령어](#iSQL-%EB%AA%85%EB%A0%B9%EC%96%B4)
+    - [iSQL 관련 환경변수](#iSQL-%EA%B4%80%EB%A0%A8-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98)
+    - [개인별 iSQL 환경 설정](#%EA%B0%9C%EC%9D%B8%EB%B3%84-iSQL-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+  - [2.iSQL 사용 예](#2iSQL-%EC%82%AC%EC%9A%A9-%EC%98%88)
     - [로그인](#%EB%A1%9C%EA%B7%B8%EC%9D%B8)
     - [Altibase의 구동 및 종료](#altibase%EC%9D%98-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
     - [접속 연결 및 해제](#%EC%A0%91%EC%86%8D-%EC%97%B0%EA%B2%B0-%EB%B0%8F-%ED%95%B4%EC%A0%9C)
@@ -17,7 +17,7 @@
     - [파일 관리](#%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
     - [SELECT 결과 포맷팅](#select-%EA%B2%B0%EA%B3%BC-%ED%8F%AC%EB%A7%B7%ED%8C%85)
     - [출력 옵션](#%EC%B6%9C%EB%A0%A5-%EC%98%B5%EC%85%98)
-    - [iSQL 화면 설정 보기](#isql-%ED%99%94%EB%A9%B4-%EC%84%A4%EC%A0%95-%EB%B3%B4%EA%B8%B0)
+    - [iSQL 화면 설정 보기](#iSQL-%ED%99%94%EB%A9%B4-%EC%84%A4%EC%A0%95-%EB%B3%B4%EA%B8%B0)
     - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
     - [PREPARE SQL문 수행](#prepare-sql%EB%AC%B8-%EC%88%98%ED%96%89)
     - [프로시저 생성과 실행 및 삭제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
@@ -295,7 +295,7 @@ iSQL을 실행하기 위해서는 반드시 Altibase 서버를 먼저 구동 시
 대문자 또는 소문자 모두 사용할 수 있다.
 
 ```
-isql
+iSQL
 [-H]
 [-S server_name]
 [-PORT port_no]
@@ -396,10 +396,10 @@ isql
   -S 옵션으로 호스트 이름을 입력했을 때, 접속할 IP 주소의 버전을
   결정하는 옵션이다.  
   이 옵션을 명시하면, 호스트 이름을 IPv6 주소로 바꾸어 접속한다.  
-  이 옵션을 명시하지 않으면, isql은 IPv4 주소로 접속한다.  
+  이 옵션을 명시하지 않으면, iSQL은 IPv4 주소로 접속한다.  
   선호하는 버전의 IP 주소로의 접속이 실패하면, 다른 IP 버전 주소로 접속을 다시
   시도한다.  
-  예를 들어, -S 옵션에 “localhost”를 입력하고 이 옵션을 명시하면, isql 은
+  예를 들어, -S 옵션에 “localhost”를 입력하고 이 옵션을 명시하면, iSQL 은
   처음에 IPv6 주소인 [::1]로 접속하고, 이 접속이 실패하면 IPv4 주소인
   127.0.0.1로 접속을 다시 시도한다.
 - -TIME_ZONE *timezone*  
@@ -443,7 +443,7 @@ iSQL 각각의 명령에 대해 설명하였다.
         <TH>분류</TH><TH>종류</TH><TH>명령어</TH><TH>설명</TH>
     </TR>
     <TR>
-        <TD rowspan="3">iSQL 구동 및 종료</TD><TD>구동</TD> <TD>$ isql [option]</TD> <TD>쉘 상에서 이 명령어를 수행하면 iSQL이 구동된다. 사용 가능한 옵션에 대해서는 iSQL 커맨드 라인 옵션 절의 내용을 참조한다.</TD>
+        <TD rowspan="3">iSQL 구동 및 종료</TD><TD>구동</TD> <TD>$ iSQL [option]</TD> <TD>쉘 상에서 이 명령어를 수행하면 iSQL이 구동된다. 사용 가능한 옵션에 대해서는 iSQL 커맨드 라인 옵션 절의 내용을 참조한다.</TD>
     </TR>
      <TR>
         <TD>프롬프트</TD> <TD>iSQL></TD> <TD>iSQL 프롬프트로 명령어 입력 후 ENTER 키를 입력한다.</TD>
@@ -505,7 +505,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
      </TR>
      <TR>
          <TD>DML문을 파일로 저장</TD><TD>SET QUERYLOGGING ON;<BR>SET QUERYLOGGING OFF;
-</TD><TD>INSERT, UPDATE, DELTE, MOVE 등의 DML문 실행 시 이를 $ALTIBASE_HOME/trc/isql_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.</TD>
+</TD><TD>INSERT, UPDATE, DELTE, MOVE 등의 DML문 실행 시 이를 $ALTIBASE_HOME/trc/iSQL_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.</TD>
      </TR>
      <TR>
          <TD ROWSPAN="3">질의문 편집</TD><TD>ED[IT]</TD><TD>가장 최근에 실행된 질의문을 편집한다.</TD>
@@ -608,7 +608,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SHOW PLANCOMMIT</TD><TD>AUTOCOMMIT OFF 모드에서 명령어를 수행할 때 자동으로 커밋되는 여부를 보여준다.</TD>
      </TR>
      <TR>
-         <TD>SHOW QUERYLOGGING</TD><TD>DML 문이 실행될 때 $ALTIBASE_HOME/trc/isql_query.log에 기록되는지 여부를 보여준다.</TD>
+         <TD>SHOW QUERYLOGGING</TD><TD>DML 문이 실행될 때 $ALTIBASE_HOME/trc/iSQL_query.log에 기록되는지 여부를 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW FEEDBACK</TD><TD>현재 설정된 FEEDBACK 값을 보여준다.</TD>
@@ -941,7 +941,7 @@ ROLLBACK TO SAVEPOINT sp1;
 SELECT * FROM savept;
 COMMIT;
 
-$ isql
+$ iSQL
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1005,9 +1005,9 @@ iSQL 유틸리티를 사용하기 위해서는 먼저 로그인 과정을 거쳐
 있다.
 
 ```
-isql -U userID -P password [-SYSDBA]
+iSQL -U userID -P password [-SYSDBA]
 또는
-isql [-SYSDBA]
+iSQL [-SYSDBA]
 ```
 
 서버와 연결하기 위한 부가 정보로는 서버 이름(-S), 사용자 ID(-U), 패스워드(-P)가
@@ -1019,7 +1019,7 @@ SYS 사용자가 관리자 모드로 iSQL 유틸리티를 사용하기 위해서
 사용자 ID에 특수 문자 또는 공백이 포함된 경우 큰따옴표를 사용해야 한다.
 
 ```
-$ isql -U \"user name\"
+$ iSQL -U \"user name\"
 ```
 
 
@@ -1037,11 +1037,11 @@ iSQL 사용 중 발생하는 에러에 대한 자세한 정보는 Error Message 
 참조하기 바란다.
 
 ```
-$ isql -U sys -P manager [-SYSDBA]
+$ iSQL -U sys -P manager [-SYSDBA]
 ```
 
 ```
-$ isql [-sysdba]
+$ iSQL [-sysdba]
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1064,17 +1064,17 @@ Altibase의 구동 및 종료는 iSQL을 사용해 수행한다.
 
 #### Altibase 구동
 
-Altibase를 구동시키기 위해서는 데이터베이스 생성 시와 마찬가지로 우선 isql을
+Altibase를 구동시키기 위해서는 데이터베이스 생성 시와 마찬가지로 우선 iSQL을
 –sysdba 옵션으로 띄워야 한다.
 
->  Altibase의 startup 명령어는 Altibase(isql 포함)를 설치한 유닉스 계정으로만
+>  Altibase의 startup 명령어는 Altibase(iSQL 포함)를 설치한 유닉스 계정으로만
 > 수행이 가능하다.
 
 다음은 iSQL를 이용한 Altibase 구동 예제이며 Altibase 구동에 대한 자세한 설명은
 *Administrator’s Manual* 제2장 Altibase 구동 및 종료의 내용을 참조한다.
 
 ```
-$ isql –s 127.0.0.1 –u sys –p manager –sysdba
+$ iSQL –s 127.0.0.1 –u sys –p manager –sysdba
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1166,7 +1166,7 @@ nls: NLS=character_set
   연결을 시도할 때는 CONNECT *userID*/*password* [AS SYSDBA];를 수행한다.
 
 ```
-$ isql
+$ iSQL
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.1.0.1
@@ -1241,9 +1241,9 @@ SYS		SYSTBL		TABLE
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ isql -s localhost -u sys -p MANAGER
+$ iSQL -s localhost -u sys -p MANAGER
 or
-$ isql -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
+$ iSQL -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 ```
 
 
@@ -1259,11 +1259,11 @@ $ isql -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ isql -s localhost -u sys -p MANAGER \
+$ iSQL -s localhost -u sys -p MANAGER \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
 or
-$ isql -s localhost -u sys -p MANAGER \
+$ iSQL -s localhost -u sys -p MANAGER \
 -ssl_verify -ssl_ca ~/cert/ca-cert.pem \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
@@ -1308,7 +1308,7 @@ Connect success.
 입력해야 한다 .
 
 ```
-isql -s localhost -port 20300 /NOLOG
+iSQL -s localhost -port 20300 /NOLOG
 ```
 
 iSQL을 구동한 후 SQL 구문을 수행하려면, CONNECT 명령어로 대상 데이터베이스
@@ -1767,12 +1767,12 @@ iSQL> /		 -> SELECT * FROM book; 문이 실행된 것을 볼 수 있다.
 #### DML문 저장
 
 INSERT, UPDATE, DELETE, MOVE 등의 DML문 실행시 이를
-\$ALTIBASE_HOME/trc/isql_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.
+\$ALTIBASE_HOME/trc/iSQL_query.log에 기록한다. 단, DML문 중 SELECT를 실행한 경우에는 로그에 기록되지 않는다.
 
 이 기능을 설정하려면 SET QUERYLOGGING을 ON으로 하고, 해제하려면 OFF하면 된다.
 
 ```
-iSQL> SET QUERYLOGGING ON;	-> 이후의 모든 DML 문이 $ALTIBASE_HOME/trc/isql_query.log에 저장된다.
+iSQL> SET QUERYLOGGING ON;	-> 이후의 모든 DML 문이 $ALTIBASE_HOME/trc/iSQL_query.log에 저장된다.
 iSQL> CREATE TABLE T1 ( I1 INTEGER );
 Create success.
 iSQL> INSERT INTO T1 VALUES ( 1 );
@@ -1790,7 +1790,7 @@ iSQL> DROP TABLE T1;
 Drop success.
 iSQL> EXIT
 
-% cat $ALTIBASE_HOME/trc/isql_query.log	-> SET QUERYLOGGING ON으로 실행한 후의 DML을 확인할 수 있다.
+% cat $ALTIBASE_HOME/trc/iSQL_query.log	-> SET QUERYLOGGING ON으로 실행한 후의 DML을 확인할 수 있다.
 [2009/09/16 10:36:14] [127.0.0.1:25310 SYS] INSERT INTO T1 VALUES ( 1 )
 [2009/09/16 10:36:31] [127.0.0.1:25310 SYS] UPDATE T1 SET I1 = 2
 [2009/09/16 10:36:37] [127.0.0.1:25310 SYS] DELETE FROM T1
@@ -1868,7 +1868,7 @@ SELECT * FROM employees;
 편집 후 (employees를 orders로 변경)
 
 ```
-iSQL> h 		<- 현재 isql buffer에 있는 히스토리 목록
+iSQL> h 		<- 현재 iSQL buffer에 있는 히스토리 목록
 1  : SELECT * FROM customers;
 2  : SELECT * FROM employees;
  : SELECT * FROM orders;
@@ -3379,30 +3379,30 @@ iSQL> 2/		->  history 목록의  2번에 해당하는 명령(SELECT * FROM book;
 
 #### 히스토리 저장
 
-isql에서 대화식(interactive)으로 실행한 명령어들을 프로그램 종료 시 파일로 자동 저장하는 기능이다. 이 기능을 활성화시키면 iSQL 재구동시 파일에 저장된 이전 명령어들이 자동으로 로딩되기 때문에, 사용자가 화살표 키를 눌러서 이전 명령어에 접근 및 실행할 수 있다.
+iSQL에서 실행한 명령어들을 iSQL 종료 시 파일로 자동 저장하는 기능이다. 이 기능을 활성화시키면 iSQL 재실행 시 파일에 저장된 이전 명령어들이 자동으로 로딩되기 때문에, 사용자가 화살표 키를 눌러서 이전 명령어에 접근 및 실행할 수 있다.
 
-히스토리 저장 기능을 사용하기 위해서는 ISQL_HIST_FILE 환경변수를 설정해야 한다.
+히스토리 저장 기능을 사용하려면 ISQL_HIST_FILE 환경변수를 설정하고 iSQL을 실행해야 한다. 
 
 ```
-$ export ISQL_HIST_FILE=~/.isql_history
+$ export ISQL_HIST_FILE=~/.iSQL_history
 ```
 
-히스토리 저장 기능을 끄기 위해서는 ISQL_HIST_FILE 환경변수를 해제한다.
+히스토리 저장 기능을 끄기 위해서는 ISQL_HIST_FILE 환경변수를 삭제한다.
 
 ```
 $ unset ISQL_HIST_FILE
 ```
 
-##### 기본값
+##### 기본값
 
 사용 안 함
 
 ##### 제약 사항
 
-- UNIX 환경의 isql에서 위 화살표 키(↑)를 눌러서 이전에 실행한 명령어들을 볼 수 있는 경우에만 사용 가능
-- 대화식 명령어만 최대 100개까지 저장 가능
+- 명령 프롬프트나 쉘 프롬프트에서 키보드 방향키를 이용해 이전 명령어를 확인할 수 있는 경우에 사용 가능
+- 최대 100개 저장 가능
 
-사용자가 대화식으로 입력한 모든 정보가 파일에 기록되기 때문에 사용자 암호 같은 민감한 정보도 기록될 수 있으므로 파일 접근 관리에 유의해야 한다.
+사용자가 iSQL 프롬프트에서 입력한 모든 명령어가 파일에 저장되기 때문에 데이터베이스 사용자 암호 같은 민감한 정보도 유출될 수 있으므로 파일 접근 관리에 유의해야 한다.
 
 #### 쉘 명령
 

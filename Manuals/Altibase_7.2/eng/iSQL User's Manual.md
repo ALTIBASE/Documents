@@ -1,17 +1,17 @@
 
 
-- [iSQL User’s Manual](#isql-users-manual)
+- [iSQL User’s Manual](#iSQL-users-manual)
   - [Preface](#preface)
     - [About This Manual](#about-this-manual)
-  - [1. Using iSQL](#1-using-isql)
-    - [iSQL Overview](#isql-overview)
-    - [Setting up iSQL](#setting-up-isql)
-    - [iSQL Command-Line Options](#isql-command-line-options)
-    - [iSQL Commands](#isql-commands)
-    - [iSQL Environment Variables](#isql-environment-variables)
-    - [Personalizing iSQL](#personalizing-isql)
-  - [2. Examples of iSQL in Use](#2-examples-of-isql-in-use)
-    - [Logging In to iSQL](#logging-in-to-isql)
+  - [1. Using iSQL](#1-using-iSQL)
+    - [iSQL Overview](#iSQL-overview)
+    - [Setting up iSQL](#setting-up-iSQL)
+    - [iSQL Command-Line Options](#iSQL-command-line-options)
+    - [iSQL Commands](#iSQL-commands)
+    - [iSQL Environment Variables](#iSQL-environment-variables)
+    - [Personalizing iSQL](#personalizing-iSQL)
+  - [2. Examples of iSQL in Use](#2-examples-of-iSQL-in-use)
+    - [Logging In to iSQL](#logging-in-to-iSQL)
     - [Starting Up and Shutting Down Altibase](#starting-up-and-shutting-down-altibase)
     - [Connecting and Disconnecting](#connecting-and-disconnecting)
     - [Retrieving Information Related to the Database and Database Objects](#retrieving-information-related-to-the-database-and-database-objects)
@@ -19,7 +19,7 @@
     - [File Management](#file-management)
     - [Formatting SELECT Query Results](#formatting-select-query-results)
     - [Setting Output Options](#setting-output-options)
-    - [Viewing iSQL Display Settings](#viewing-isql-display-settings)
+    - [Viewing iSQL Display Settings](#viewing-iSQL-display-settings)
     - [Host Variables](#host-variables)
     - [Executing Prepared SQL Statements](#executing-prepared-sql-statements)
     - [Creating, Executing, and Dropping Stored Procedures](#creating-executing-and-dropping-stored-procedures)
@@ -246,7 +246,7 @@ In order to ensure stable iSQL operation, we recommend that the following enviro
 The Altibase server must be started before iSQL is executed. The following options are case-insensitive.
 
 ```
-isql
+iSQL
 [-H]
 [-S server_name]
 [-PORT port_no]
@@ -336,8 +336,8 @@ isql
   
 - -prefer_ipv6
   This option determines the IP address to be connected first when a host name is given for the -s option.  
-  If this option is specified and a host name is given for the -s option, this means that resolving the host name to the IPv6 address is prefered. If this option is omitted, isql connects to the IPv4 address by default. If it fails to connect to the prefered IP version address, an attempt is made to connect using the other IP version address.  
-  For example, when localhost is given for the -s option and this option is specified, isql first tries to connect to the [::1] IPv6 address. If this attempt fails, isql proceeds to connect to the 127.0.0.1 IPv4 address.
+  If this option is specified and a host name is given for the -s option, this means that resolving the host name to the IPv6 address is prefered. If this option is omitted, iSQL connects to the IPv4 address by default. If it fails to connect to the prefered IP version address, an attempt is made to connect using the other IP version address.  
+  For example, when localhost is given for the -s option and this option is specified, iSQL first tries to connect to the [::1] IPv6 address. If this attempt fails, iSQL proceeds to connect to the 127.0.0.1 IPv4 address.
   
 - -TIME_ZONE *timezone*  
   This option sets the time zone of the client. If DB_TZ is specified for this option, the time zone is defaulted to that of the database server. Time zone names like Asia/Seoul, abbreviations such as KST and UTC offset values as +09:00 are valid for specification.  
@@ -375,7 +375,7 @@ When iSQL is started, an iSQL command prompt will appear, and when iSQL commands
     </TR>
     <TR>
         <TD rowspan="3">iSQL startup
-and shutdown</TD><TD>Startup</TD> <TD>$ isql [option]</TD> <TD>If you execute this command in a shell,
+and shutdown</TD><TD>Startup</TD> <TD>$ iSQL [option]</TD> <TD>If you execute this command in a shell,
 iSQL will start up. For information on
 the available options, please refer to the
 iSQL Command-Line Options section.</TD>
@@ -483,7 +483,7 @@ file</TD><TD>SET QUERYLOGGING ON;<BR>SET QUERYLOGGING OFF;
 </TD><TD>This writes executed DML statements,
 such as INSERT, UPDATE, DELETE
 and MOVE, in
-$ALTIBASE_HOME/trc/isql_query.log. </TD>
+$ALTIBASE_HOME/trc/iSQL_query.log. </TD>
      </TR>
      <TR>
          <TD ROWSPAN="3">Edit query
@@ -634,7 +634,7 @@ or OFF.</TD>
      <TR>
          <TD>SHOW QUERYLOGGING</TD><TD>DML Shows whether DML statements wil be
 written to
-ALTIBASE_HOME/trc/isql_query.log
+ALTIBASE_HOME/trc/iSQL_query.log
 when executed.</TD>
      </TR>
      <TR>
@@ -918,7 +918,7 @@ ROLLBACK TO SAVEPOINT sp1;
 SELECT * FROM savept;
 COMMIT;
 
-$ isql
+$ iSQL
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -975,9 +975,9 @@ This chapter describes several examples of the use of iSQL to manipulate databas
 To use iSQL, users must first be logged in. Connection information may be input directly via a command line, or via the iSQL input prompt.
 
 ```
-isql -U userID -P password [-SYSDBA]
+iSQL -U userID -P password [-SYSDBA]
 or
-isql [-SYSDBA]
+iSQL [-SYSDBA]
 ```
 
 Additional information necessary for connection with the server is the server name (-S), user ID (-U), and password (-P). The user ID and password are not case-sensitive. 
@@ -987,7 +987,7 @@ In order for the SYS user to use iSQL as an administrator, the SYSDBA option is 
 -SYSDAB option should be used in order for the SYS user to use iSQL as an administrator. The SYSDBA option can be also used for remote access. Use double quotation marks if the user ID contains special characters or spaces.
 
 ```
-$ isql -U \"user name\"
+$ iSQL -U \"user name\"
 ```
 
 
@@ -1002,11 +1002,11 @@ For detailed information on system privileges, please refer to the *Altibase SQL
 For detailed information on errors that may arise during iSQL execution, please refer to the *Altibase Error Message Reference.*
 
 ```
-$ isql -U sys -P manager [-SYSDBA]
+$ iSQL -U sys -P manager [-SYSDBA]
 ```
 
 ```
-$ isql [-sysdba]
+$ iSQL [-sysdba]
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -1037,7 +1037,7 @@ To start up Altibase, iSQL must first be launched with the -sysdba option, in th
 The following is an example of the use of iSQL to start up Altibase. For more information on starting up Altibase, please refer to the *Altibase Administrators’ Manual Chapter 4: Startup and Shutdown.*
 
 ```
-$ isql –s 127.0.0.1 –u sys –p manager –sysdba
+$ iSQL –s 127.0.0.1 –u sys –p manager –sysdba
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -1123,7 +1123,7 @@ Connect success.
   If CONNECT fails, the previous session is terminated and the connection with the server is closed. In other words, the result of all SQL statements executed thereafter will be a “Not connected”   message. Execute “CONNECT userID/password [AS SYSDBA]” to attempt to re-establish a connection with the server.
 
 ```
-$ isql
+$ iSQL
 -------------------------------------------------------
      Altibase Client Query utility.
      Release Version 7.2.0.0.1
@@ -1194,9 +1194,9 @@ Enable the -ssl_verify option and specify the location of the CA certificate fil
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ isql -s localhost -u sys -p MANAGER
+$ iSQL -s localhost -u sys -p MANAGER
 or
-$ isql -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
+$ iSQL -s localhost -u sys -p MANAGER -ssl_verify -ssl_ca ~/cert/ca-cert.pem
 ```
 
 
@@ -1209,11 +1209,11 @@ Enable the -ssl_verify option and specify the location of the CA certificate fil
 
 ```
 $ export ISQL_CONNECTION=SSL
-$ isql -s localhost -u sys -p MANAGER \
+$ iSQL -s localhost -u sys -p MANAGER \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
 or
-$ isql -s localhost -u sys -p MANAGER \
+$ iSQL -s localhost -u sys -p MANAGER \
 -ssl_verify -ssl_ca ~/cert/ca-cert.pem \
 -ssl_cert ~/cert/client-cert.pem \
 -ssl_key ~/cert/client-key.pem
@@ -1254,7 +1254,7 @@ Connect success.
 The /NOLOG option allows the user to execute iSQL without connecting to the database. The server IP address and port number must be specified to use this option. 
 
 ```
-isql -s localhost -port 20300 /NOLOG
+iSQL -s localhost -port 20300 /NOLOG
 ```
 
 Once iSQL is running, enter the database user ID and password with the CONNECT command to connect to the database, and then execute a SQL statement. 
@@ -1662,13 +1662,13 @@ iSQL> /		 -> The results of execution of SELECT * FROM book; can be seen.
 
 #### Saving DML Statements
 
-Executed DML statements such as INSERT, UPDATE, DELETE and MOVE are saved in $ALTIBASE_HOME/trc/isql_query.log. 
+Executed DML statements such as INSERT, UPDATE, DELETE and MOVE are saved in $ALTIBASE_HOME/trc/iSQL_query.log. 
 
 Specify SET QUERYLOGGING ON to use this functionality and OFF to disable it.
 
 ```
 iSQL> SET QUERYLOGGING ON;	-> From this point on, all executed DML statements will be
-saved in $ALTIBASE_HOME/trc/isql_query.log. 
+saved in $ALTIBASE_HOME/trc/iSQL_query.log. 
 iSQL> CREATE TABLE T1 ( I1 INTEGER );
 Create success.
 iSQL> INSERT INTO T1 VALUES ( 1 );
@@ -1686,7 +1686,7 @@ iSQL> DROP TABLE T1;
 Drop success.
 iSQL> EXIT
 
-% cat $ALTIBASE_HOME/trc/isql_query.log	-> All queries executed since SET QUERYLOGGING ON
+% cat $ALTIBASE_HOME/trc/iSQL_query.log	-> All queries executed since SET QUERYLOGGING ON
 was executed can be observed.
 [2009/09/16 10:36:14] [127.0.0.1:25310 SYS] INSERT INTO T1 VALUES ( 1 )
 [2009/09/16 10:36:31] [127.0.0.1:25310 SYS] UPDATE T1 SET I1 = 2
@@ -1759,7 +1759,7 @@ SELECT * FROM employees;
 After editing (employees was replaced with orders)
 
 ```
-iSQL> h 		<- The history list currently in the isql buffer 
+iSQL> h 		<- The history list currently in the iSQL buffer 
 1  : SELECT * FROM customers;
 2  : SELECT * FROM employees;
  : SELECT * FROM orders;
@@ -3205,15 +3205,15 @@ iSQL> 2/ -> Execute Command number 2 in history list(SELECT * FROM book;)
 
 #### History Logging
 
-It saves the commands executed interactively in isql to a file when you exit the program. Enabling this function loads previous commands stored in the file when iSQL is restarted. Therefore, you can access and execute previous commands by pressing the arrow keys(↑).
+It saves the commands executed in iSQL to a file when you exit iSQL. Enabling this function loads previous commands stored in the file when iSQL is restarted. Therefore, previous commands are accessible and executable by using the arrow keys on the keyboard.
 
-To use the history save function, you need to set the ISQL_HIST_FILE environment variable.
+To use the history logging function, ISQL_HIST_FILE environment variable should be set and iSQL has to be restarted.
 
 ```
-$ export ISQL_HIST_FILE=~/.isql_history
+$ export ISQL_HIST_FILE=~/.iSQL_history
 ```
 
-To not use the history save function, unset the ISQL_HIST_FILE environment variable.
+To turn off the history logging function, delete the ISQL_HIST_FILE environment variable.
 
 ```
 $ unset ISQL_HIST_FILE
@@ -3225,10 +3225,10 @@ Not used
 
 ##### Constraints
 
-- This is possible if you can see commands that were previously executed by pressing the up arrow key(↑) in isql on UNIX.
-- Up to 100 interactive commands can be stored.
+- This function can only be used  when previous commands are accessible by using the arrow keys on command prompt or shell prompt.
+- Maximum 100 commands can be stored.
 
-Be careful with file access management because [[b1\]](#_msocom_1) sensitive information such as user passwords can be also recorded in the file by user.
+File access control should be well taken care of when this function is used since every command the user entered is stored in the file, including sensitive information such as user passwords.
 
 #### Shell Commands
 
