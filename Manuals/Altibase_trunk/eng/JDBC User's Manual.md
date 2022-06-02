@@ -11,7 +11,7 @@
     - [JDBC Connection Failover](#jdbc-connection-failover)
   - [2. Basic Functions](#2-basic-functions)
     - [IPv6 Connectivity](#ipv6-connectivity)
-    - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-%EB%B0%8F-callablestatement)
+    - [Statement, PreparedStatement and CallableStatement](#statement-preparedstatement-and-callablestatement)
     - [Using the National Character Set](#using-the-national-character-set)
   - [3. Advanced Functions](#3-advanced-functions)
     - [Auto-generated Keys](#auto-generated-keys)
@@ -779,6 +779,15 @@ Chapter 3.</p>
 | Setting Range | The session                                                  |
 | Description   | Sets the maximum waiting time for a response. <br/>For more detailed information, please refer to “Timeout” in Chapter 3. |
 
+##### reuse_resultset
+
+| Defualt Value | true                                                         |
+| ------------- | ------------------------------------------------------------ |
+| Range         | [true \| false]                                              |
+| Mandatory     | No                                                           |
+| Setting Range | The session                                                  |
+| Description   | Specifies whether to reuse the ResultSet object when multiple ResultSet objects were created by executeQuery() method on the same PreparedStatement object. When it is set to true, it reuses the ResultSet object. When close() method is used on the first newly created ResultSet object, the resourse is released and an error occurs when another ResultSet object is used.  To prevent this, the next ResultSet object has to be created after the resource of the first ResultSet object is released. When it is set to false, ResultSet object will not be reused. |
+
 ##### sessionfailover
 
 | Default Value | off                                                          |
@@ -877,6 +886,33 @@ Chapter 3.</p>
 | Mandatory     | No                                                           |
 | Setting Range | N/A                                                          |
 | Description   | Specifies whether or not to authenticate the server's CA certificate. <br />If this value is false, the client application will not authenticate the server's CA certificate. |
+
+##### getprocedures_return_functions
+
+| Default Value | true                                                         |
+| ------------- | ------------------------------------------------------------ |
+| Range         | [true \| false ]                                             |
+| Mandatory     | No                                                           |
+| Setting Range | N/A                                                          |
+| Description   | Specifies whether to include stored procedures in the result DatabaseMetaData.getProcedures() and DatabaseMetaData.getProcedureColumns() methods return. When this value is set to true, it includes stored procedures. When this value is set to false, stored procedures are not included. Hence, DatabaseMetaData.getFunctions() and DatabaseMetaData.getFunctionColumns() have to be used separately to retrieve the stored procedures information. |
+
+##### getcolumns_return_jdbctype
+
+| Default Value | false                                                        |
+| ------------- | :----------------------------------------------------------- |
+| Range         | [true \| false ]                                             |
+| Mandatory     | No                                                           |
+| Setting Range | N/A                                                          |
+| Description   | Specifies the value of DATA_TYPE among the result of DatabaseMetaData.getColumns method. When the value is set to true, it is returned in SQL data type of java.sql.Type specified in JDBC API. When it is set to false, it is returned in data type that is specified in V$DATATYPE. |
+
+##### batch_setbytes_use_lob
+
+| Default Value | true                                                         |
+| ------------- | :----------------------------------------------------------- |
+| Range         | [true \| false ]                                             |
+| Mandatory     | No                                                           |
+| Setting Range | N/A                                                          |
+| Description   | Specifies whether to process in binary type or BLOB type when PreparedStatement.setBytes() is executed by executeBatch() for the BLOB type columns. If the value is set to true, it is processed in BLOB type. In case BLOB data exceed 65,534 bytes which is the maximum size binary data can process, this value has to be set to true because unless java.lang.ClassCastException error occurs. When it is set to false, it is processed in binary type. |
 
 ### Using Statement and ResultSet
 
@@ -1062,9 +1098,7 @@ String sURL = “jdbc:Altibase://localhost:20300/mydb";
 Connection sCon = DriverManager.getConnection( sURL, sProps );
 ```
 
-
-
-### Statement, PreparedStatement 및 CallableStatement
+### Statement, PreparedStatement and CallableStatement
 
 Depending on whether or not an in/out parameter is used in a SQL statement or whether or not a SQL statement is directly executed, different Statement objects are available for use in JDBC. The following table shows whether or not the PREPARE function and in/output parameters are available for use for each Statement.
 
@@ -1073,8 +1107,6 @@ Depending on whether or not an in/out parameter is used in a SQL statement or wh
 | Statement         | X       | X            | X             |
 | PreparedStatement | O       | O            | X             |
 | CallableStatement | O       | O            | O             |
-
-
 
 #### Statement
 
@@ -1100,8 +1132,6 @@ sPrepStmt.execute();
 sPrepStmt.close();
 ```
 
-
-
 #### CallableStatement
 
 CallableStatement can be used with an input or output parameter. CallableStatement is mainly used for calling a stored procedure or a stored function.
@@ -1121,8 +1151,6 @@ String sOutVal = sCallStmt.getString(2);
  
 sCallStmt.close();
 ```
-
-
 
 ### Using the National Character Set 
 

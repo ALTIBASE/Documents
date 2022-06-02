@@ -3131,6 +3131,10 @@ DROP TABLE
 
 특정 호스트를 현재 호스트로 지정한다. 이중화를 중지한 상태에서 변경 가능하다.
 
+*USING conn_type [ib_latency]*
+
+원격 서버와의 통신방법(TCP 또는 InfiniBand)을 설정할 수 있다. 인피니밴드를 사용할 경우에만 ib_latency 값을 설정할 수 있다. 인피니밴드를 사용하려면 IB_ENABLE 프로퍼티 값이 1이어야 한다.
+
 *alter_replication_set_clause*
 
 이 절은 이중화 객체가 LAZY로 설정되어 있고 이중화를 중지한 상태에서 아래의
@@ -6563,7 +6567,7 @@ Create success.
 
 *column_definition*
 
-사용자 정의 칼럼을 지정한다.
+사용자 정의 칼럼을 지정한다. CREATE TABLE 의 column_definition을 참고하며, 해당 구문에서 column_constraint, crypt_clasue, timestamp는 지원하지 않는다.
 
 *MAXROWS count*
 

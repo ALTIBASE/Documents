@@ -31,6 +31,7 @@
     - [killCheckServer](#killcheckserver)
     - [server](#server)
 
+
 Altibase® Tools & Utilities
 
 Utilities Manual
@@ -1127,6 +1128,10 @@ This sets the interval between the completion of a SYNC operation on a table and
 ##### MAX_THREAD
 
 This specifies the maximum number of threads that can run concurrently. Set to -1 to specify an unlimited number of threads.
+
+##### COUNT_TO_COMMIT
+
+This specifies the number of changed data(INSERT, DELETE or UPDATE) to be committed at once. The default value is 1000.
 
 ##### FILE_MODE_MAX_ARRAY
 

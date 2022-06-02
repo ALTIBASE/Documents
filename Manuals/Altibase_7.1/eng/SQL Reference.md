@@ -2885,6 +2885,10 @@ Please refer to the ALTER REPLICATION clause of the Data Control Statement.
 
 This sets a particular host as the current one. It can be changed while replication is stopped.
 
+*USING conn_type [ib_latency]*
+
+The communication method (TCP or InfiniBand) can be set with the remote server. The ib_latency value can be set only when using InfiniBand. To use InfiniBand, the IB_ENABLE property must have a value of 1.
+
 *alter_replication_set_clause*
 
 This clause allows the user to enable or disable the following options for replication in LAZY mode. 
@@ -5920,7 +5924,7 @@ This is used to specify how messages are saved. (For more information, please re
 
 *column_definition*
 
-This clause specifies the user-defined column.
+This clause specifies the user-defined column. It refers to CREATE TABLE statement's column_definition and does not support column_constraint, crypt_clasue and timestamp.
 
 *MAXROWS count*
 
