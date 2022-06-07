@@ -1319,27 +1319,28 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 마이그레이션 대상이 되는 원본 데이터베이스의 객체와 테이블의 데이터가 저장하려는
 데이터베이스(Altibase)로 직접 마이그레이션된다.
 
-| 이름                                                                     | 설명                                                                                                                |
-| ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Migration Target                                                       | 마이그레이션될 대상: <br />\* Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />\* Object: 데이터베이스 객체만                               |
-| Execution Thread                                                       | 데이터를 마이그레이션 하기 위해 동시에 사용할 쓰레드의 최대 개수                                                                              |
-| Object Options: Foreign Key Migration                                  | 외래 키 제약 조건을 마이그레이션 할지 여부                                                                                          |
-| Object Options: PSM Migration                                          | 프로시저, 함수, materialized view, 뷰, typeset, 및 트리거를 마이그레이션 할지 여부                                                      |
-| Object Options: Drop Existing Objects                                  | 데이터를 복사하기 전에 모든 대상 데이터베이스 객체를 대상 데이터베이스에서 삭제하고 생성할지 여부를 지정                                                        |
-| Object Options: Keep Partition Table                                   | 파티션드 테이블을 논파티션드 테이블로 변경할지 여부를 지정                                                                                  |
-| Object Options: Use Double-quoted Identifier                           | 스키마와 객체 이름에 큰 따옴표를 사용할 지 여부를 지정                                                                                   |
-| Object Options: Postfix for reserved word                              | Altibase의 예약어와 충돌할 경우, 원본 데이터베이스의 데이터베이스 객체 이름 뒤에 자동으로 붙을 사용자 정의 단어를 지정                                           |
-| Object Options: Remove FORCE from View DDL                             | View 생성 구문에서 'FORCE' 키워드를 강제로 제거할지 여부를 지정                                                                         |
-| Data Options: Batch Execution                                          | 고성능을 위해 JDBC 배치 입력을 사용할지 여부를 지정                                                                                   |
-| Data Options: Batch Size                                               | JDBC 배치 입력 사용시 배치 크기를 지정                                                                                          |
-| Data Options: Log Insert-failed Data                                   | DB2DB 마이그레이션 중에 삽입 실패한 데이터를 기록할 지 여부를 지정. 이 옵션은 배치 수행 옵션이 비활성화 되어 있는 경우에만 사용할 수 있다.                               |
-| Data Files: File Encoding                                              | 스크립트 파일과 데이터 파일 출력에 사용될 인코딩 문자 집합을 지정                                                                             |
-| Data Validation Options : Operation                                    | 검증 단계에서 수행할 연산 <br />\* DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />\* FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
-| Data Validation Options : Write to CSV                                 | 불일치 데이터를 CSV 파일로 내려쓸 지 여부                                                                                         |
-| Data Validation Options : Include LOB                                  | 불일치 데이터를 CSV 파일로 내려쓸 때 LOB 데이터를 포함할지 여부                                                                           |
-| Data Validation Options : Data Sampling                                | 샘플링 데이터에 한해서 데이터 검증할 지 여부                                                                                         |
-| Data Validation Options : Percent Sampling (exact counting)            | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정. 구축 단계에서 Exact Counting Method를 선택한 경우에 이 옵션이 사용된다.                                |
-| Data Validation Options : Record Count Sampling (approximate counting) | 테이블에서 샘플링할 레코드의 개수를 지정. 구축 단계에서 Approximate Counting Method를 선택한 경우에 이 옵션이 사용된다.                                  |
+| 이름                                                         | 설명                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Migration Target                                             | 마이그레이션될 대상: <br />\* Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />\* Object: 데이터베이스 객체만 |
+| Execution Thread                                             | 데이터를 마이그레이션 하기 위해 동시에 사용할 쓰레드의 최대 개수 |
+| Object Options: Foreign Key Migration                        | 외래 키 제약 조건을 마이그레이션 할지 여부                   |
+| Object Options: PSM Migration                                | 프로시저, 함수, materialized view, 뷰, typeset, 및 트리거를 마이그레이션 할지 여부 |
+| Object Options: Drop Existing Objects                        | 데이터를 복사하기 전에 모든 대상 데이터베이스 객체를 대상 데이터베이스에서 삭제하고 생성할지 여부를 지정 |
+| Object Options: Keep Partition Table                         | 파티션드 테이블을 논파티션드 테이블로 변경할지 여부를 지정   |
+| Object Options: Use Double-quoted Identifier                 | 스키마와 객체 이름에 큰 따옴표를 사용할 지 여부를 지정       |
+| Object Options: Postfix for reserved word                    | Altibase의 예약어와 충돌할 경우, 원본 데이터베이스의 데이터베이스 객체 이름 뒤에 자동으로 붙을 사용자 정의 단어를 지정 |
+| Object Options: Remove FORCE from View DDL                   | View 생성 구문에서 'FORCE' 키워드를 강제로 제거할지 여부를 지정 |
+| Data Options: Batch Execution                                | 고성능을 위해 JDBC 배치 입력을 사용할지 여부를 지정          |
+| Data Options: Batch Size                                     | JDBC 배치 입력 사용시 배치 크기를 지정                       |
+| Data Options: Batch LOB type                                 | BLOB, CLOB 데이터 타입을 배치 처리할지 여부를 지정. 데이터 크기가 큰 경우 메모리 초과 (OOM)등의 문제가 발생 가능하고, TimesTen 등 일부 DBMS 벤더는 해당 기능을 지원하지 않는 경우도 있으므로 주의해서 사용해야 한다. |
+| Data Options: Log Insert-failed Data                         | DB2DB 마이그레이션 중에 삽입 실패한 데이터를 기록할 지 여부를 지정. 이 옵션은 배치 수행 옵션이 비활성화 되어 있는 경우에만 사용할 수 있다. |
+| Data Files: File Encoding                                    | 스크립트 파일과 데이터 파일 출력에 사용될 인코딩 문자 집합을 지정 |
+| Data Validation Options : Operation                          | 검증 단계에서 수행할 연산 <br />\* DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />\* FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
+| Data Validation Options : Write to CSV                       | 불일치 데이터를 CSV 파일로 내려쓸 지 여부                    |
+| Data Validation Options : Include LOB                        | 불일치 데이터를 CSV 파일로 내려쓸 때 LOB 데이터를 포함할지 여부 |
+| Data Validation Options : Data Sampling                      | 샘플링 데이터에 한해서 데이터 검증할 지 여부                 |
+| Data Validation Options : Percent Sampling (exact counting)  | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정. 구축 단계에서 Exact Counting Method를 선택한 경우에 이 옵션이 사용된다. |
+| Data Validation Options : Record Count Sampling (approximate counting) | 테이블에서 샘플링할 레코드의 개수를 지정. 구축 단계에서 Approximate Counting Method를 선택한 경우에 이 옵션이 사용된다. |
 
 ### DB to File 마이그레이션 옵션
 
