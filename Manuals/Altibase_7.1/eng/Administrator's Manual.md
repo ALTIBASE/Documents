@@ -29,7 +29,7 @@
     - [Synonyms](#synonyms)
     - [Stored Procedures and Functions](#stored-procedures-and-functions)
     - [Triggers](#triggers)
-    - [Jobs](#jobs)
+    - [Jobs](#jobs-1)
     - [Database Users](#database-users)
     - [Privileges and Roles](#privileges-and-roles)
   - [6. Managing Tablespaces](#6-managing-tablespaces)
@@ -1507,8 +1507,6 @@ A JOB is the addition of an execution schedule to a stored procedure. The stored
 
 The creation, alteration, and deletion of the JOB, and the management of the job scheduler is only enabled for the SYS user.
 
-
-
 ### Tables
 
 Tables are the basic units of data storage in an Altibase database. They are constructed of columns and contain multiple rows. This section defines the terminology related to tables and explains the concepts and methods pertaining to table management.
@@ -2946,7 +2944,7 @@ To end the job scheduler, change the value of the JOB_SCHEDULER_ENABLE property 
 
 -   Job scheduler can only be controlled by the SYS user.
 
--   JOB_THREAD_COUNT  After changing the value of the JOB_THREAD_COUNT property, restart the server.
+-   After changing the value of the JOB_THREAD_COUNT property, restart the Altibase server.
 
 ##### Example
 
@@ -2966,7 +2964,7 @@ Alter success.
 
 #### Creating Jobs
 
-With the CREATE JOB statement, a JOB can be created and the stored procedure to be executed, the point in time of execution, the interval after which it is to be executed and etc. can also be set. If the user name of the procedure to be registered is omitted, the SYS user is assumed by Objects and Privileges 81 default.
+A JOB can be created using CREATE JOB statement. Here, the stored procedure to be executed, when to execute and the interval time of execution can be specified. If the user name of the procedure to be registered is omitted, it is assumed as SYS user by default.
 
 When a JOB is created, it is in the DISABLE state by default. In order to operate the JOB according to the execution cycle, it must be changed to the ENABLE state.
 
