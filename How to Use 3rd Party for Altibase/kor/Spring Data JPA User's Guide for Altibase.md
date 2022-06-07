@@ -33,8 +33,6 @@ JPA(Java Persistence API)는 ORM(Object-Reliational Mapping)을 위한 J2EE 스�
 
 <br/>
 
-
-
 # 스프링 부트를 이용한 Spring Data JPA 프로젝트 생성
 
 #### 1. 스프링 부트 프로젝트 생성
@@ -45,19 +43,17 @@ File 메뉴 -> New -> Spring Starter Project를 선택하고 프로젝트 설정
 
 #### 2. Spring Starter Project Dependencies 추가
 
-Spring Starter Project Dependencies는 스프링 부트에서 특정 기능을 사용하는데 필요한 필수 라이브러리의 묶음이다. 여기서 Spring Data JPA를 선택한다. 샘플 코드 작성 편의를 위해 Lombok도 추가한다.
+Spring Starter Project Dependencies는 스프링 부트에서 특정 기능을 사용하는 데 필요한 필수 라이브러리의 묶음이다. 여기서 Spring Data JPA를 선택한다. 샘플 코드 작성 편의를 위해 Lombok도 추가한다.
 
 <img src="Images/JPA/new_spring_starter_project_dependencies.png"/>
 
 #### 3. Finish 버튼 클릭
 
-Finish 버튼을 클릭하면 Progress가 활성화되면서 관련 라이브러리를 내려받는다. 프로젝트 생성 후, pom.xml 에서 의존성 라이브러리가 가 추가된 것을 확인할 수 있다. 
+Finish 버튼을 클릭하면 Progress가 활성화되면서 관련 라이브러리를 내려받는다. 프로젝트 생성 후, pom.xml 에서 의존성 라이브러리가 추가된 것을 확인할 수 있다. 
 
 <img src="Images/JPA/pom_xml.png"/>
 
 <br/>
-
-
 
 # Altibase Dialect 클래스 파일 추가
 
@@ -133,23 +129,25 @@ jar -cvfm hibernate-core-x.x.x.Final.jar META-INF/MANIFEST.MF .
 
 생성한 JAR 파일을 2번에서 확인한 라이브러리 위치에 복사한다.
 
-
+<br/>
 
 # Altibase JDBC 드라이버 설정
 
 #### Altibase JDBC 드라이버 준비
 
-Altibase 서버에서 Altibase JDBC 드라이버를 STS를 실행하는 서버의 임의의 경로에 내려받는다. Altibase JDBC 드라이버는 Altibase.jar 이고 이 파일은 Altibase 서버가 설치된 경로 아래 lib 디렉토리에 존재한다. 
+Altibase 서버에서 Altibase JDBC 드라이버를 STS를 실행하는 서버의 임의의 경로에 내려받는다. Altibase JDBC 드라이버는 Altibase.jar이고 이 파일은 Altibase 서버가 설치된 경로 아래 lib 디렉터리에 존재한다. 
 
 #### Altibase JDBC 드라이버 파일 추가
 
-STS 메뉴에서 Project -> Properties -> Java Build Path -> Libraries -> Add External JARs 를 클릭하여 Altibase JDBC 드라이버 파일을 추가한다.
+Project -> Properties -> Java Build Path -> Libraries -> Add External JARs 를 클릭하여 Altibase JDBC 드라이버 파일을 추가한다.
 
 ![](Images/JPA/java_build_path_window.png)
 
-# 샘플 코드 생성
+<br/>
 
-샘플 소스를 작성하여 Altibase와의 연동 여부를 확인한다.
+# 예제 코드 생성
+
+예제 코드를 작성하여 Altibase와의 연동 여부를 확인한다.
 
 #### application.properties 설정
 
@@ -175,9 +173,9 @@ spring.jpa.hibernate.ddl-auto=create
 spring.jpa.show-sql=true
 ```
 
-#### 샘플 코드 작성을 위한 패키지 생성
+#### 예제 코드 작성을 위한 패키지 생성
 
-New -> Package 를 클릭하여 패키지를 생성한다.
+New -> Package를 클릭하여 entity 패키지를 생성한다.
 
 ![](Images/JPA/new_java_package_window.png)
 
@@ -185,11 +183,11 @@ New -> Package 를 클릭하여 패키지를 생성한다.
 
 #### 클래스 생성
 
-위에서 생성한 Entity 패키지에서 New -> Class 를 클릭하여 entity 클래스를 생성한다. 
+위에서 생성한 entity 패키지에서 New -> Class를 클릭하여 Account 클래스를 생성한다. 
 
 ![](Images/JPA/new_java_class_window.png)
 
-#### 샘플 코드 작성
+#### 예제 코드 작성
 
 아래와 같이 Account 클래스를 작성한다.
 
@@ -225,6 +223,8 @@ public class Account {
     private String password;
 }
 ```
+
+<br/>
 
 # Altibase 연동 확인
 
