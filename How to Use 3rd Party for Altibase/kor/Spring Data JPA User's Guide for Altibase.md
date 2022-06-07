@@ -41,19 +41,19 @@ JPA(Java Persistence API)는 ORM(Object-Reliational Mapping)을 위한 J2EE 스�
 
 # 스프링 부트를 이용한 Spring Data JPA 프로젝트 생성
 
-## 1. 스프링 부트 프로젝트 생성
+#### 1. 스프링 부트 프로젝트 생성
 
 File 메뉴 -> New -> Spring Starter Project를 선택하고 프로젝트 설정 정보를 정의한다. Name과 Group, Package 등 입력하고 Next 버튼을 클릭한다.
 
 <img src="Images/JPA/new_spring_starter_project_window.png"/>
 
-## 2. Spring Starter Project Dependencies 추가
+#### 2. Spring Starter Project Dependencies 추가
 
 Spring Starter Project Dependencies는 스프링 부트에서 특정 기능을 사용하는데 필요한 필수 라이브러리의 묶음이다. 여기서 Spring Data JPA를 선택한다. 샘플 코드 작성 편의를 위해 Lombok도 추가한다.
 
 <img src="Images/JPA/new_spring_starter_project_dependencies.png"/>
 
-## 3. Finish 버튼 클릭
+#### 3. Finish 버튼 클릭
 
 Finish 버튼을 클릭하면 Progress가 활성화되면서 관련 라이브러리를 내려받는다. 프로젝트 생성 후, pom.xml 에서 의존성 라이브러리가 가 추가된 것을 확인할 수 있다. 
 
@@ -67,7 +67,7 @@ Finish 버튼을 클릭하면 Progress가 활성화되면서 관련 라이브러
 
 Spring Data JPA는 기본 JPA 구현 공급자로 하이버네이트를 사용한다. 하이버네이트는 Altibase를 위한 Dialect 클래스를 제공하지 않으므로 사용자가 직접 컴파일하여 hibernate-core 라이브러리에 추가해야 한다.
 
-## 1. Altibase Dialect Java 소스 다운로드
+#### 1. Altibase Dialect Java 소스 다운로드
 
 Hibernate 버전에 해당하는 [Altibase Dialect Java 소스](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md#altibasedialectjava-compile)를 내려받는다.
 
@@ -77,7 +77,7 @@ Hibernate 버전에 해당하는 [Altibase Dialect Java 소스](https://github.c
 ./SequenceInformationExtractorAltibaseDatabaseImpl.java
 ```
 
-## 2. hibernate-core 라이브러리 파일 위치 확인
+#### 2. hibernate-core 라이브러리 파일 위치 확인
 
 hibernate-core 라이브러리 파일 위치를 확인한다.
 
@@ -93,7 +93,7 @@ hibernate-core 라이브러리 파일 위치를 확인한다.
   $ $HOME/.gradle/caches/modules-2/files-2.1/org.hibernate/x.x.x-Final/라이브러리_파일_해쉬_값/hibernate-core-x.x.x.Final.jar
   ```
 
-## 3. hibernate-core-x.x.x.Final.jar 압축 해제
+#### 3. hibernate-core-x.x.x.Final.jar 압축 해제
 
 Altibase Dialect Java 소스가 있는 디렉터리에서 hibernate-core-x.x.x.Final.jar 파일 압축을 해제한다.
 
@@ -101,7 +101,7 @@ Altibase Dialect Java 소스가 있는 디렉터리에서 hibernate-core-x.x.x.F
 jar xvf hibernate-core-x.x.x.Final.jar
 ```
 
-## 4. Altibase Dialect 컴파일
+#### 4. Altibase Dialect 컴파일
 
 Altibase Dialect 파일들을 다음 순서로 컴파일한다.
 
@@ -111,7 +111,7 @@ javac -d . -cp . AltibaseLimitHandler.java
 javac -d . -cp . AltibaseDialect.java
 ```
 
-## 5. 클래스 파일 생성 확인
+#### 5. 클래스 파일 생성 확인
 
 컴파일이 완료되면 현재 디렉터리 아래에 다음과 같이 클래스 파일이 생성된다.
 
@@ -121,11 +121,11 @@ javac -d . -cp . AltibaseDialect.java
 ./org/hibernate/dialect/AltibaseDialect.class
 ```
 
-## 6. Altibase Dialet Java 소스(*.java) 삭제
+#### 6. Altibase Dialet Java 소스(*.java) 삭제
 
 Altibase Dialet Java 소스가 jar 파일에 포함되지 않도록 *.java 파일들을 삭제하거나 다른 디렉터리로 이동한다.
 
-## 7. hibernate-core-x.x.x.Final.jar 파일 생성
+#### 7. hibernate-core-x.x.x.Final.jar 파일 생성
 
 hibernate-core-x.x.x.Final.jar 파일을 다시 생성한다.
 
@@ -133,7 +133,7 @@ hibernate-core-x.x.x.Final.jar 파일을 다시 생성한다.
 jar -cvfm hibernate-core-x.x.x.Final.jar META-INF/MANIFEST.MF .
 ```
 
-## 8. hibernate-core-x.x.x.Final.jar 파일 복사
+#### 8. hibernate-core-x.x.x.Final.jar 파일 복사
 
 생성한 JAR 파일을 2번에서 확인한 라이브러리 위치에 복사한다.
 
@@ -141,11 +141,11 @@ jar -cvfm hibernate-core-x.x.x.Final.jar META-INF/MANIFEST.MF .
 
 # Altibase JDBC 드라이버 설정
 
-## Altibase JDBC 드라이버 준비
+#### Altibase JDBC 드라이버 준비
 
 Altibase 서버에서 Altibase JDBC 드라이버를 STS를 실행하는 서버의 임의의 경로에 내려받는다. Altibase JDBC 드라이버는 Altibase.jar 이고 이 파일은 Altibase 서버가 설치된 경로 아래 lib 디렉토리에 존재한다. 
 
-## Altibase JDBC 드라이버 파일 추가
+#### Altibase JDBC 드라이버 파일 추가
 
 STS 메뉴에서 Project -> Properties -> Java Build Path -> Libraries -> Add External JARs 를 클릭하여 Altibase JDBC 드라이버 파일을 추가한다.
 
@@ -155,7 +155,7 @@ STS 메뉴에서 Project -> Properties -> Java Build Path -> Libraries -> Add Ex
 
 샘플 소스를 작성하여 Altibase와의 연동 여부를 확인한다.
 
-## application.properties 설정
+#### application.properties 설정
 
 src/main/resources/application.properties 파일에 Altibase 서버 접속 정보를 추가한다.
 
@@ -179,7 +179,7 @@ spring.jpa.hibernate.ddl-auto=create
 spring.jpa.show-sql=true
 ```
 
-## 샘플 코드 작성을 위한 패키지 생성
+#### 샘플 코드 작성을 위한 패키지 생성
 
 New -> Package 를 클릭하여 패키지를 생성한다.
 
@@ -187,13 +187,13 @@ New -> Package 를 클릭하여 패키지를 생성한다.
 
 
 
-## 클래스 생성
+#### 클래스 생성
 
 위에서 생성한 Entity 패키지에서 New -> Class 를 클릭하여 entity 클래스를 생성한다. 
 
 ![](Images/JPA/new_java_class_window.png)
 
-## 샘플 코드 작성
+#### 샘플 코드 작성
 
 아래와 같이 Account 클래스를 작성한다.
 
@@ -232,7 +232,7 @@ public class Account {
 
 # Altibase 연동 확인
 
-## Start 버튼 클릭
+#### Start 버튼 클릭
 
 Boot Dashboard에서 해당하는 프로젝트를 선택하고 (Re)Start 버튼을 클릭한다.
 
@@ -240,7 +240,7 @@ Boot Dashboard에서 해당하는 프로젝트를 선택하고 (Re)Start 버튼�
 
 
 
-## 프로젝트 수행 결과 확인
+#### 프로젝트 수행 결과 확인
 
 Console 창에서 프로젝트 수행 결과를 확인한다.  
 
@@ -248,7 +248,7 @@ Console 창에서 프로젝트 수행 결과를 확인한다.
 
 
 
-## 테이블 생성 확인
+#### 테이블 생성 확인
 
 iSQL로 Altibase 서버에 접속하여 테이블의 생성 여부를 확인한다.
 
