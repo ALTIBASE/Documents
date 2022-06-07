@@ -25,7 +25,7 @@ STS(Spring Tool Suite) 에서 Spring Data JPA를 이용하여 Altibase 서버와
 
 #### JPA 와 Spring Data JPA
 
-JPA(Java Persistence API)는 ORM(Object-Reliational Mapping)을 위한 J2EE 스펙으로, 자바 어플리케이션에서 관계형 데이터베이스를 사용하는 방식을 정의한 인터페이스이다. JPA라는 명세서의 구현체로 Hibernate, DataNucleus, EclipseLink 등이 있다. Spring Data JPA는 Spring에서 제공하는 모듈로, Hibernate와 같은 구현체들을 추상화하여 개발자가 JPA를 더 쉽고 편하게 사용할 수 있게 도와준다.
+JPA(Java Persistence API)는 ORM(Object-Reliational Mapping)을 위한 J2EE 스펙으로, 자바 어플리케이션에서 관계형 데이터베이스를 사용하는 방식을 정의한 인터페이스이다. JPA라는 명세서의 구현체로 하이버네이트(Hibernate), 이클립스링크(EclipseLink), DataNucleus 등이 있다. Spring Data JPA는 Spring에서 제공하는 모듈로, JPA 구현체들을 추상화하여 개발자가 JPA를 더 쉽고 편하게 사용할 수 있게 도와준다.
 
 
 
@@ -35,13 +35,13 @@ JPA(Java Persistence API)는 ORM(Object-Reliational Mapping)을 위한 J2EE 스�
 
 Spring Starter Project로 프로젝트를 생성한다. 
 
-![](Images/JPA/spring-starter-01.png)
+<img src="Images/JPA/spring-starter-project.png" style="zoom:80%;" />
 
 #### 2. New Spring Starter Project Dependencies
 
 Spring Data JPA를 선택한다. Entity 클래스 작성 편의를 위해 Lombok도 추가한다.
 
-![](Images/JPA/spring-starter-02.png)
+<img src="Images/JPA/new-spring-starter-project-dependencies.png" style="zoom:80%;" />
 
 #### 3. Finish 버튼 클릭
 
@@ -75,7 +75,7 @@ hibernate-core 라이브러리 파일 위치를 확인한다.
 
 #### 3. hibernate-core-x.x.x.Final.jar 압축 해제
 
-Altibase Dialect Java 소스가 있는 디렉토리에서 hibernate-core-x.x.x.Final.jar 파일의 압축을 해제한다.
+Altibase Dialect Java 소스가 있는 디렉터리에서 hibernate-core-x.x.x.Final.jar 파일의 압축을 해제한다.
 
 #### 4. Altibase Dialect 컴파일
 
@@ -89,7 +89,7 @@ javac -d . -cp . AltibaseDialect.java
 
 ### 5. 클래스 파일 생성 확인
 
-컴파일이 완료되면 현재 디렉토리 아래에 다음과 같은 클래스 파일이 생성된다.
+컴파일이 완료되면 현재 디렉터리 아래에 다음과 같은 클래스 파일이 생성된다.
 
 ```
 ./org/hibernate/tool/schema/extract/internal/SequenceInformationExtractorAltibaseDatabaseImpl.class
@@ -99,7 +99,7 @@ javac -d . -cp . AltibaseDialect.java
 
 #### 6. Altibase Dialet Java 소스(*.java) 삭제
 
-Altibase Dialet Java 소스(*.java)가 jar 파일에 포함되지 않도록 삭제하거나 다른 디렉토리로 이동한다.
+Altibase Dialet Java 소스(*.java)가 jar 파일에 포함되지 않도록 삭제하거나 다른 디렉터리로 이동한다.
 
 #### 7. hibernate-core-x.x.x.Final.jar 파일 생성
 
@@ -129,6 +129,8 @@ STS 메뉴에서 Project -> Properties -> Java Build Path -> Libraries -> Add Ex
 
 src/main/resources/application.properties 파일에 아래 내용을 추가한다.
 
+![](Images/JPA/application.properties.png)
+
 ```
 # Altibase DB
 spring.datasource.driver-class-name=Altibase.jdbc.driver.AltibaseDriver
@@ -155,7 +157,9 @@ spring.jpa.show-sql=true
 
 Boot Dashboard에서 해당하는 프로젝트를 선택하고 상단의 Start 버튼을 클릭한다.
 
-![](Images/JPA/boot-bashboard.png)
+![](Images/JPA/boot-dashboard-2.png)
+
+![](Images/JPA/boot-dashboard.png)
 
 #### 프로젝트 수행 결과 확인
 
@@ -167,7 +171,7 @@ Console 창에서 프로젝트 수행 결과를 확인한다.
 
 #### 테이블 생성 확인
 
-iSQL로 Altibase 서버에 접속하여 테이블이 생성되었는지 확인한다.
+iSQL로 Altibase 서버에 접속하여 테이블의 생성 여부를 확인한다.
 
 ```
 iSQL> desc account;
