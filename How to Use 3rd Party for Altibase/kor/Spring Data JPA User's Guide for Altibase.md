@@ -14,11 +14,7 @@
 - [샘플 코드 생성](#%EC%83%98%ED%94%8C-%EC%BD%94%EB%93%9C-%EC%83%9D%EC%84%B1)
 - [Altibase 연동 확인](#altibase-%EC%97%B0%EB%8F%99-%ED%99%95%EC%9D%B8)
 
-
-
-
-
-
+<br/>
 
 # 개요
 
@@ -35,7 +31,7 @@ JPA(Java Persistence API)는 ORM(Object-Reliational Mapping)을 위한 J2EE 스�
 - Java 17
 - Altibase 서버 및 JDBC 드라이버 버전 7.1.0.7.5 
 
-
+<br/>
 
 
 
