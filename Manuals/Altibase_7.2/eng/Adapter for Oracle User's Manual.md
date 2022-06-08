@@ -747,9 +747,9 @@ There are various constraints in using oraAdapter(or oraAdapter). If the followi
 
 #### Data Constraints
 
--   A primary key must exist in the table which will be replicated. 
--   There should be no modifications on the primary key which will be replicated. 
--   The tables in both servers which will be replicated ought to have a column type, sequence, a primary key, and NOT NULL constraint that are identical or compatible from each other.
+-   Primary key is required in the table to be replicated.
+-   To be replicated, primary key of the table cannot be modified.
+-   Tables to be replicated on both servers must have the same order and primary key constraints.
 
 #### Connection Constraints
 
