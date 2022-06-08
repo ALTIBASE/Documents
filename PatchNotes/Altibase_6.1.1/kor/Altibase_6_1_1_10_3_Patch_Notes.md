@@ -1,19 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Altibase 6.1.1.10.3 Patch Notes](#altibase-611103-patch-notes)
-- [Fixed Bugs](#fixed-bugs)
-    - [BUG-49283 UNIQUE INSERT 수행 시 LOCK WAIT 상황에서 V\$SESSION\_WAIT에 no wait event가 발생합니다. wait event가 수집되지 않습니다.](#bug-49283%C2%A0unique-insert-%EC%88%98%ED%96%89-%EC%8B%9C-lock-wait-%EC%83%81%ED%99%A9%EC%97%90%EC%84%9C-v%5Csession%5C_wait%EC%97%90-no-wait-event%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4-wait-event%EA%B0%80-%EC%88%98%EC%A7%91%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49673 가비지 콜렉션(Ager) 수행 시 Delete Thread가 삭제한 오래된 버전의 데이터를 삭제 대상으로 잘못 판단하여 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49673%C2%A0%EA%B0%80%EB%B9%84%EC%A7%80-%EC%BD%9C%EB%A0%89%EC%85%98ager-%EC%88%98%ED%96%89-%EC%8B%9C-delete-thread%EA%B0%80-%EC%82%AD%EC%A0%9C%ED%95%9C-%EC%98%A4%EB%9E%98%EB%90%9C-%EB%B2%84%EC%A0%84%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%82%AD%EC%A0%9C-%EB%8C%80%EC%83%81%EC%9C%BC%EB%A1%9C-%EC%9E%98%EB%AA%BB-%ED%8C%90%EB%8B%A8%ED%95%98%EC%97%AC-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-- [Changes](#changes)
-    - [Version Info](#version-info)
-    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Altibase 6.1.1.10.3 Patch Notes
 
 <br/>
@@ -23,13 +7,13 @@
 # Table of Contents 
 
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-49283 UNIQUE INSERT 수행 시 LOCK WAIT 상황에서 V\$SESSION\_WAIT에 no wait event가 발생합니다. wait event가 수집되지 않습니다.](#bug-49283%C2%A0unique-insert-%EC%88%98%ED%96%89-%EC%8B%9C-lock-wait-%EC%83%81%ED%99%A9%EC%97%90%EC%84%9C-v%5Csession%5C_wait%EC%97%90-no-wait-event%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4-wait-event%EA%B0%80-%EC%88%98%EC%A7%91%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
-  - [BUG-49673 가비지 콜렉션(Ager) 수행 시 Delete Thread가 삭제한 오래된 버전의 데이터를 삭제 대상으로 잘못 판단하여 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49673%C2%A0%EA%B0%80%EB%B9%84%EC%A7%80-%EC%BD%9C%EB%A0%89%EC%85%98ager-%EC%88%98%ED%96%89-%EC%8B%9C-delete-thread%EA%B0%80-%EC%82%AD%EC%A0%9C%ED%95%9C-%EC%98%A4%EB%9E%98%EB%90%9C-%EB%B2%84%EC%A0%84%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%82%AD%EC%A0%9C-%EB%8C%80%EC%83%81%EC%9C%BC%EB%A1%9C-%EC%9E%98%EB%AA%BB-%ED%8C%90%EB%8B%A8%ED%95%98%EC%97%AC-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+  - [BUG-49283 UNIQUE INSERT 수행 시 LOCK WAIT 상황에서 V\$SESSION\_WAIT에 no wait event가 발생합니다. wait event가 수집되지 않습니다.](#bug-49283unique-insert-수행-시-lock-wait-상황에서-vsession_wait에-no-wait-event가-발생합니다-wait-event가-수집되지-않습니다)
+  - [BUG-49673 가비지 콜렉션(Ager) 수행 시 Delete Thread가 삭제한 오래된 버전의 데이터를 삭제 대상으로 잘못 판단하여 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49673가비지-콜렉션ager-수행-시-delete-thread가-삭제한-오래된-버전의-데이터를-삭제-대상으로-잘못-판단하여-altibase-서버가-비정상-종료할-수-있습니다)
 - [Changes](#changes)
   - [Version Info](#version-info)
-  - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-  - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+  - [호환성](#호환성)
+  - [프로퍼티](#프로퍼티)
+  - [성능 뷰](#성능-뷰)
 
 <br/>
 
@@ -151,7 +135,7 @@ Fixed Bugs
     
       - 1 : Altibase 서버 비정상 종료 방지 및 디버깅 로그 출력 적용
     
-    - **기본값 **
+    - **기본값**
     
       0
     
