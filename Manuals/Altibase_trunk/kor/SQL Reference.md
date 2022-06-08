@@ -3132,6 +3132,10 @@ DROP TABLE
 
 특정 호스트를 현재 호스트로 지정한다. 이중화를 중지한 상태에서 변경 가능하다.
 
+*USING conn_type [ib_latency]*
+
+원격 서버와의 통신방법(TCP 또는 InfiniBand)을 설정할 수 있다. 인피니밴드를 사용할 경우에만 ib_latency 값을 설정할 수 있다. 인피니밴드를 사용하려면 IB_ENABLE 프로퍼티 값이 1이어야 한다.
+
 *alter_replication_set_clause*
 
 이 절은 이중화 객체가 LAZY로 설정되어 있고 이중화를 중지한 상태에서 아래의
@@ -6618,7 +6622,7 @@ Create success.
 
 *column_definition*
 
-사용자 정의 칼럼을 지정한다.
+사용자 정의 칼럼을 지정한다. CREATE TABLE 의 column_definition을 참고하며, 해당 구문에서 column_constraint, crypt_clasue, timestamp는 지원하지 않는다.
 
 *MAXROWS count*
 
@@ -7522,8 +7526,6 @@ MY_DEPT.MEMBER
 
 ![check_clause](media/SQL/check_clause.gif)
 
-<a name="table_constraint"><a/>
-
 **table_constraint ::=**
 
 ![table_constraint](media/SQL/table_constraint.gif)
@@ -7538,15 +7540,9 @@ MY_DEPT.MEMBER
 
 [references_clause ::=](#references_clause)
 
-<a name="temporary_attributes_clause"><a/>
-
 **temporary_attributes_clause ::=**
 
 ![temporary_attributes_clause](media/SQL/temporary_attributes_clause.gif)
-
-
-
-<a name="table_partitioning_clause"><a/>
 
 **table_partitioning_clause ::=**
 
@@ -7560,8 +7556,6 @@ MY_DEPT.MEMBER
 
 ![partition_default](media/SQL/partition_default.gif)
 
-<a name="table_partition_description"><a/>
-
 **table_partition_description ::=**
 
 ![TABLE_PARTITION_DESCRIPTION_2](media/SQL/TABLE_PARTITION_DESCRIPTION_2.gif)
@@ -7569,23 +7563,17 @@ MY_DEPT.MEMBER
 [lob_column_properties ::=](#lob_column_properties)*,* [access_mode_clause
 ::=](#access_mode_clause_CREATETALBE)
 
-<a name="partition_range_clause"></a>
-
 **partition_range_clause ::=**
 
 ![partition_range_clause_image126](media/SQL/partition_range_clause_image126.gif)
 
 [table_partition_description ::=](#table_partition_description)
 
-
-
 **hash_partitioning ::=**
 
 ![hash_paritioning_image126_1](media/SQL/hash_paritioning_image126_1.gif)
 
 [table_partition_description ::=](#table_partition_description)
-
-
 
 **list_partitioning ::=**
 
@@ -7595,13 +7583,9 @@ MY_DEPT.MEMBER
 
 **partition_list_clause ::=**
 
-
-
 ![table_list_clause_image128](media/SQL/table_list_clause_image128.gif)
 
-
-
-**range_using_hash_partitioning ::=**
+**range_partitioning_using_hash ::=**
 
 ![range_using_hash_partitioning](media/SQL/range_using_hash_partitioning_image.gif)
 
@@ -7609,31 +7593,17 @@ MY_DEPT.MEMBER
 
 [partition_range_clause ::=](#partition_range_clause)
 
-
-
-<a name="row_movement_clause"><a/>
-
 **row_movement_clause ::=**
 
 ![row_movement_clause](media/SQL/row_movement_clause.gif)
-
-
-
-<a name="access_mode_clause_CREATETALBE)"><a/>
 
 **access_mode_clause ::=**
 
 ![ACCESS_MODE_CLAUSE_](media/SQL/ACCESS_MODE_CLAUSE_.gif)
 
-<a name="tablespace_clause"><a/>
-
 **tablespace_clause ::=**
 
 ![tablespace_clause](media/SQL/tablespace_clause.gif)
-
-<a name="physical_attributes_clause"><a/>
-
-<a name="create_table_physical_attributes_clause"><a/>
 
 **physical_attributes_clause ::=**
 
@@ -7643,33 +7613,21 @@ MY_DEPT.MEMBER
 
 ![storage_clause](media/SQL/storage_clause.gif)
 
-<a name="log_compression_clause"><a/>
-
 **log_compression_clause ::=**
 
 ![log_compression_clause_image130_2](media/SQL/log_compression_clause_image130_2.gif)
-
-
-
-<a name="logging_clause"><a/>
 
 **logging_clause ::=**
 
 ![logging_clause](media/SQL/logging_clause.gif)
 
-<a name="parallel_clause"><a/>
-
 **parallel_clause::=**
 
 ![PARALLEL_CLAUSE](media/SQL/PARALLEL_CLAUSE.gif)
 
-<a name="table_compression_clause"><a/>
-
 **table_compression_clause ::=**
 
 ![table_compression](media/SQL/table_compression.gif)
-
-<a name="lob_column_properties"><a/>
 
 **lob_column_properties ::=**
 
@@ -7795,8 +7753,6 @@ DML 작업이 수행되는 순간에 테이블 세그먼트를 위한 공간이 
 
 - TIMESTAMP
 
-
-
 *directkey_clause*
 
 이 절은 Direct Key 인덱스를 생성시 사용할 수 있다. Direct Key 인덱스에 대한
@@ -7857,8 +7813,6 @@ key)는 그 테이블에서 유니크 제약조건에 해당하거나 그 테이
   ```
 
 
-
-
 - ON DELETE CASCADE
 
   이는 부모 테이블의 행이 삭제되면 외래 키 값을 가진 자식 테이블에서 이 행을
@@ -7896,9 +7850,6 @@ key)는 그 테이블에서 유니크 제약조건에 해당하거나 그 테이
   CONSTRAINT dno_fk FOREIGN KEY (dno) REFERENCES 
   departments (dno) ON DELETE SET NULL ); 
   ```
-
-
-
 
 *MAXROWS*
 
@@ -8009,8 +7960,6 @@ PARTITION BY RANGE (product_id)
 ) TABLESPACE tbs_04;
 ```
 
-
-
 파티션 p1의 테이블스페이스는 명시적으로 지정되었으므로 tbs_01테이블스페이스에
 저장된다. 그리고 해당 파티션의 ad_photo 컬럼은 tbs_02테이블스페이스에 저장된다.
 기본 파티션인 p2의 테이블스페이스는 지정되지 않았으므로 print_media_demo
@@ -8020,11 +7969,7 @@ PARTITION BY RANGE (product_id)
 
 위의 설명을 그림으로 나타내면 다음과 같다.
 
-
-
 ![create_table_lob](media/SQL/create_table_lob.gif)
-
-
 
 *partition_range_clause*
 
@@ -8045,15 +7990,14 @@ PARTITION BY RANGE (product_id)
 
 기본 파티션에 속해 있던 값들의 집합으로 새로운 파티션을 추가하면 기본
 파티션에서는 그 값이 제거될 것이다. 각 파티션이 가질 수 있는 값들은 서로 중복될
-수 없기 때문이다. 리스트 파티션드 테이블을 위한 파티션 키는 단일 칼럼에만 정의될
+수 없기 때문이다. 리스트 파티션드 테이블을 위한 파티션 키는 단일 컬럼에만 정의될
 수 있다.
 
 *partition_list_clause*
 
-각 리스트 파티션은 적어도 1개 이상의 값을 가져야 한다. 한 리스트의 값은 다른
-어떤 리스트에도 있을 수 없다.
+각 리스트 파티션은 적어도 1개 이상의 값을 가져야 한다. 한 리스트의 값은 다른 어떤 리스트에도 있을 수 없다.
 
-*range_using_hash_partitioning*
+*range_partitioning_using_hash*
 
 이 절은 파티션 키값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 파티션 키는 단일 컬럼으로 지정하며 해시 값을 1000으로 나눈 나머지(mod) 값으로 범위를 지정한다. 1000은 고정값으로 변경할 수 없다. 데이터를 고르게 분포하는 해시 파티셔닝의 장점과 합병, 분할이 가능한 범위 파티셔닝의 장점을 결합한 파티셔닝이다.
 
@@ -9342,16 +9286,12 @@ DML문이 실행될 때 오류가 발생한다.
 *trigger_event*로 다음의 세 가지 유형의 DML문을 지정할 수 있다.
 
 - DELETE  
-  해당 테이블의 데이터를 삭제하는 DELETE 구문 수행 시 트리거 동작이 유발된다.
+  해당 테이블의 데이터를 삭제하는 DELETE 구문 수행 시 트리거가 동작한다.
 - INSERT  
-  해당 테이블에 데이터를 삽입하는 INSERT 구문 수행 시 트리거 동작이 유발된다.
-  하지만 LOB 칼럼이 있는 테이블에는 'BEFORE INSERT ... FOR EACH ROW' 구문으로
-  트리거를 생성할 수는 있으나, 트리거의 동작을 유발하는 DML문이 실행될 때
-  오류가 발생한다.
+  해당 테이블에 데이터를 삽입하는 INSERT 구문 수행 시 트리거가 동작한다. LOB 칼럼이 있는 테이블은 'BEFORE INSERT ... FOR EACH ROW' 구문으로 트리거를 생성할 수 있으나, 트리거의 동작을 유발하는 DML 문이 실행될 때 오류가 발생한다.
 - UPDATE  
-  해당 테이블의 데이터를 변경하는 UPDATE 구문 수행 시 트리거 동작이 유발된다.
-  UPDATE 트리거 이벤트에 OF 절을 사용할 경우 OF 절에 명시된 컬럼이 변경될
-  경우에만 트리거를 동작시킨다.
+  해당 테이블의 데이터를 변경하는 UPDATE 구문 수행 시 트리거가 동작한다.
+  UPDATE 트리거 이벤트에 OF 절을 사용하면 OF 절에 명시된 컬럼이 변경될 때만 트리거가 동작한다. LOB 칼럼이 있는 테이블은 'BEFORE UPDATE ... FOR EACH ROW' 구문으로 트리거를 생성할 수 있으나, 트리거의 동작을 유발하는 DML 문이 실행될 때 오류가 발생한다.
 
 *ON table_name*
 
