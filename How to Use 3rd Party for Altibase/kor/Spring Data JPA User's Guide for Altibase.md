@@ -135,7 +135,7 @@ jar -cvfm hibernate-core-x.x.x.Final.jar META-INF/MANIFEST.MF .
 
 #### Altibase JDBC 드라이버 준비
 
-Altibase 서버에서 Altibase JDBC 드라이버를 STS를 실행하는 서버의 임의의 경로에 내려받는다. Altibase JDBC 드라이버는 Altibase.jar이고 이 파일은 Altibase 서버가 설치된 경로 아래 lib 디렉터리에 존재한다. 
+사용자가 지정한 경로에 Altibase JDBC 드라이버를 내려받는다. Altibase JDBC 드라이버는 Altibase.jar이고 이 파일은 Altibase 서버가 설치된 경로 아래 lib 디렉터리에 존재한다. 
 
 #### Altibase JDBC 드라이버 파일 추가
 
