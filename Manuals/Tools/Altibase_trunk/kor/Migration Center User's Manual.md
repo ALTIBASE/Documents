@@ -1340,7 +1340,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
 | Write to CSV                                 | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
-| Include LOB                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터 포함할 것인지 설정한다. |
+| Include LOB                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터를 포함할 것인지 설정한다. |
 | Data Sampling                                | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플링 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
 | Percent Sampling (exact counting)            | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 영향을 받는 옵션이다. |
 | Record Count Sampling (approximate counting) | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 영향을 받는 옵션이다. |
