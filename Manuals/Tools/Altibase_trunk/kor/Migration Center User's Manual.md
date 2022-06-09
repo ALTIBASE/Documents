@@ -1321,7 +1321,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 
 | 이름                                         | 설명                                                         |
 | :------------------------------------------- | :----------------------------------------------------------- |
-| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 멀티 스레드 최대 개수를 설정한다. Migration Target 옵션이 Object&Data 경우에 영향받는다. *설정할 수 있는 범위는?* |
+| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 멀티 스레드 최대 개수를 설정한다. Migration Target 옵션이 Object&Data 경우에 영향받는다. 기본 설정은 마이그레이션 센터를 실행하는 서버의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
 | Migration Target                             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
 | **Object Options**                           |                                                              |
 | Foreign Key Migration                        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
