@@ -1321,7 +1321,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 
 | 이름                                         | 설명                                                         |
 | :------------------------------------------- | :----------------------------------------------------------- |
-| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 멀티 스레드 최대 개수를 설정한다. Migration Target 옵션이 Object&Data 경우에 영향받는다. 기본 설정은 마이그레이션 센터를 실행하는 서버의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
+| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 멀티 스레드 최대 개수를 설정한다. 기본 설정은 마이그레이션 센터를 실행하는 서버의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
 | Migration Target                             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
 | **Object Options**                           |                                                              |
 | Foreign Key Migration                        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
@@ -1335,12 +1335,12 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 | Batch Execution                              | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
 | Batch Size                                   | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
 | Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes를 선택하면 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있으며, TimesTen 등 이 기능을 지원하지 않는 일부 DBMS에서 예외가 발생할 수 있다. 기본 설정은 No이다. |
-| Log Insert-failed Data                       | DB to DB 마이그레이션 중 입력 실패한 레코드를 로그 파일에 기록 여부를 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
+| Log Insert-failed Data                       | DB to DB 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
 | File Encoding                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본 설정은 UTF8이다. |
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
-| Write to CSV                                 | 불일치 데이터를 CSV 파일에 기록 여부를 설정한다.             |
-| Include LOB                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터 포함 여부를 설정한다. |
+| Write to CSV                                 | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
+| Include LOB                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터 포함할 것인지 설정한다. |
 | Data Sampling                                | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플링 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
 | Percent Sampling (exact counting)            | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 영향을 받는 옵션이다. |
 | Record Count Sampling (approximate counting) | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 영향을 받는 옵션이다. |
@@ -1355,7 +1355,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 
 | 이름                         | 설명                                                         |
 | ---------------------------- | ------------------------------------------------------------ |
-| Execution Thread             | 데이터 마이그레이션 실행 시 수행할 멀티 스레드 최대 개수를 설정한다. Migration Target 옵션이 Object&Data 경우에 영향받는다. *설정할 수 있는 범위는?* |
+| Execution Thread             | 데이터 마이그레이션 실행 시 수행할 멀티 스레드 최대 개수를 설정한다. 기본 설정은 마이그레이션 센터를 실행하는 서버의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
 | Migration Target             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
 | **Object Options**           |                                                              |
 | Foreign Key Migration        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
