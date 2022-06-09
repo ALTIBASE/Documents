@@ -2198,7 +2198,7 @@ Server=192.168.3.51;Port=20300;AlternateServers=(192.168.3.54:20300,192.168.3.53
 
 AlternateServer indicates servers to which connection can be made in the event of a fault, and is expressed in the form (IP Address1:Port1, IP Address2:Port2,...).
 
-ConnectionRetryDelay is the number of repeated connection attempts when a connection to an available server fails. It can be omitted, and the default value is 1.
+ConnectionRetryCount is the number of repeated connection attempts when a connection to an available server fails. It can be omitted, and the default value is 1.
 
 ConnectionRetryDelay is the number of seconds to wait before attempting to reconnect if an available server connection fails. It can be omitted, and the default value is 1.
 
@@ -2641,7 +2641,7 @@ SQLUINTEGER aFailOverEvent)
 
     switch(aFailOverEvent)
     {
-        case ALTIBASE_FO_BEGIN:                      // Fail-Over시작이다.
+        case ALTIBASE_FO_BEGIN:                      // Start Fail-Over
             break;
         case ALTIBASE_FO_END:
             sRetCode = SQLAllocStmt( aDBC,&sStmt);

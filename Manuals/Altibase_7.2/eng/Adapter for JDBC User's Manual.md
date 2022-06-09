@@ -638,10 +638,9 @@ There are several constraints in order to properly use jdbcAdapter. jdbcAdapter 
 
 #### Data Constraints
 
--   The primary key must exist in the table to be replicated.
+-   Primary key is required in the table to be replicated.
 
--   There should be no modification to the primary key of the table to be replicated.
-
+-   To be replicated, primary key of the table cannot be modified.
 -   Tables to be replicated on both servers must have the same order and primary key constraints.
 
 #### Connection Constraints

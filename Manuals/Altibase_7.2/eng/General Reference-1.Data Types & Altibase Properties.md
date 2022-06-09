@@ -7290,7 +7290,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[0, 30]
+[0, 50]
 
 ##### Description
 
@@ -7302,9 +7302,9 @@ This property indicates the initial number of TTS (Touched Transaction Slots) in
 
 Unsigned Integer
 
-##### Range
+##### Default Value
 
-30
+50
 
 ##### Attributes
 
@@ -7312,7 +7312,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[0, 30]
+[0, 50]
 
 ##### Description
 
