@@ -2808,7 +2808,7 @@ SQL statements executed in iSQL are usually executed according to the so-called 
 
 In Direct Execution, syntax analysis, validity testing, optimization and execution of a query are all performed at once. However, in Prepared Execution, only the syntax analysis, validity testing, and optimization of the query are performed to set up an execution plan for the query, which is then executed when requested by the client. When creating an application that uses ODBC, the Prepared Execution method is typically used, and is more advantageous in terms of speed when a SQL statement is to be repeatedly executed using host variable binding. 
 
-In iSQL, the difference between these two methods lies only in whether variables are used or not; there is no advantage in terms of speed.
+In iSQL, the difference between these two methods lies only in whether variables are used or not; there is no advantage in terms of speed. However, when it is executed in Prepared Execution, the printed graph and the execution plan may contain different information. The graph shows the plan up until the optimization phase, whereas execution plan shows the plan once the actual value is applied to the variable.
 
 #### Prepared SQL Statements
 
@@ -3328,8 +3328,6 @@ The ALTIBASE_NLS_NCHAR_LITERAL_REPLACE environment variable must be set to1.
 ```
 $ export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE =1
 ```
-
-   
 
 In order to use NCHAR type data that are encoded differently from the database character set, enter the character “N” in front of the string.
 

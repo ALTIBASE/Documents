@@ -2885,6 +2885,10 @@ Please refer to the ALTER REPLICATION clause of the Data Control Statement.
 
 This sets a particular host as the current one. It can be changed while replication is stopped.
 
+*USING conn_type [ib_latency]*
+
+The communication method (TCP or InfiniBand) can be set with the remote server. The ib_latency value can be set only when using InfiniBand. To use InfiniBand, the IB_ENABLE property must have a value of 1.
+
 *alter_replication_set_clause*
 
 This clause allows the user to enable or disable the following options for replication in LAZY mode. 
@@ -5922,7 +5926,7 @@ This is used to specify how messages are saved. (For more information, please re
 
 *column_definition*
 
-This clause specifies the user-defined column.
+This clause specifies the user-defined column. It refers to CREATE TABLE statement's column_definition and does not support column_constraint, crypt_clasue and timestamp.
 
 *MAXROWS count*
 
@@ -8127,11 +8131,11 @@ Choose the INSTEAD OF option to fire the trigger, instead of performing the trig
 This is an event that changes the data in a table and causes the trigger to fire. Note that in order to preserve database integrity, DML operations that change the data and are initiated by the replication Receiver thread in a replication target table (i.e. a table that is cited in an active replication object) are not treated as a trigger event (i.e. do not fire the trigger on the table). Multiple trigger events can be applied to one trigger. *trigger_event* can specify the three following DML statements.
 
 - DELETE  
-  The DELETE option specifies that the trigger will fire whenever a DELETE statement removes a row or rows from the table
+  DELETE option is used to fire the trigger when data in the table are deleted by executing a DELETE statement.
 - INSERT  
-  The INSERT option specifies that the trigger will fire whenever an INSERT statement inserts data into the table. If the table has a LOB column, a trigger can be created with the ‘BEFORE INSERT … FOR EACH ROW’ statement on the table; however, an error is raised when the triggering DML statement is executed.
+  INSERT option is used to fire the trigger when data are inserted into the table by executing an INSERT statement. Tables with LOB columns can create a trigger with the ‘BEFORE INSERT … FOR EACH ROW’ statement. However, an error occurs when the DML statement firing the trigger is executed.
 - UPDATE  
-  The UPDATE option specifies that the trigger will fire whenever an UPDATE statement changes data in the table. The optional OF clause further specifies that the trigger will fire only when an UPDATE statement changes one of the columns specified therein.
+  UPDATE option is used to fire the trigger when data in the table are updated by executing an UPDATE statement. The OF clause specifies that the trigger will only be fired when an UPDATE statement changes one of the columns specified therein. Tables with LOB columns can create a trigger with the ‘BEFORE UPDATE … FOR EACH ROW’ statement. However, an error occurs when the DML statement firing the trigger is executed.
 
 *ON table_name*
 
@@ -18980,11 +18984,9 @@ For more information on the DATE data type and the datetime format model, which 
 ADD_MONTHS (date, number)
 ```
 
-
-
 ##### Description
 
-ADD_MONTHS adds n months to date and returns the result. The n argument can be an integer or any value that can be implicitly converted to an integer.
+ADD_MONTHS adds the value of the *number* months to the value of *date* and returns the result. The *number* argument can be an integer or any value that can be implicitly converted to an integer. If the value of the *date* is the last day of a month, it returns the last day of the month after adding the value of *number*. 
 
 ##### Example
 

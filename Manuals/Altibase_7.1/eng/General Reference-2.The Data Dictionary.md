@@ -4210,6 +4210,8 @@ This view displays access permission or deny information on specific IP packets 
 | ADDRESS     | VARCHAR(40) | IP address                                     |
 | OPERATION   | VARCHAR(6)  | Access permit or deny status of IP address     |
 | MASK        | VARCHAR(16) | Subnet Mask (IPv4) or prefix big length (IPv6) |
+| LIMIT       | INTEGER     | Maximum number of sessions allowed             |
+| CONNECTED   | INTEGER     | Number of sessions connected                   |
 
 #### **Column Information**
 
@@ -4231,6 +4233,16 @@ OPERATION displays the status of permit or deny of the IP packet address.
 ##### MASK
 
 If the specified address is in IPv4 address notation, subnet mask is described whereas the length of prefix bit is described if the specified address is in IPv6 address notation. Refer to the description delineated in the ACCESS_LIST property.
+
+**LIMIT**
+
+Maximum number of sessions allowed to connect to the Altibase server within the IP address range specified in ACCESS_LIST.
+
+If new ACCESS_LIST is added using RELOAD ACCESS LIST while running, the session that is currently connected will not be affected. The updated ACCESS_LIST will only be applied to the new connection requests. For example, when the user specifies the value of LIMIT of ACCESS_LIST and executes RELOAD ACCESS LIST, the value of LIMIT is only applied to the connections created after the change is made. In this case, when V$ACCESS_LIST is inquired, the value of CONNECTED can be bigger than the value of LIMIT.
+
+**CONNECTED**
+
+Number of sessions that is currently connected in ACCESS_LIST.
 
 ### V\$ALLCOLUMN
 
@@ -9154,9 +9166,9 @@ This indicates the isolation level for the session.
 
 This indicates the replication mode for the session.
 
--   0: DEFAULT(Réplication)
+-   0: DEFAULT(Replication)
 
--   64: NONE
+-   16: NONE
 
 ##### TRANSACTION_MODE
 

@@ -383,9 +383,9 @@ To complete a global transaction, transactions on every server(local and remote)
     For the Simple Transaction Commit Level to operate, the database system making up the remote node must support setting the auto-commit mode to OFF.  
     When the DBLINK_GLOBAL_TRANSACTION_LEVEL property is set to this level, autocommit mode is set to OFF by default for the session which AltiLinker connects to the remote server.
     
--   Two-Phase Commit Level: This feature provides the 2PC protocol which ensures interoperable compatibility of the global transaction between Altibase server and other database system. This feature is available after setting the DBLINK_GLOBAL_TRANSACTION_LEVEL property with two-phase commit level, and the 2PC operation commit Level is demonstrated in the following figure below.![](media/DBLink/2pcLevel.gif)
+-   Two-Phase Commit Level: This feature provides the Two-Phase Commit protocol which ensures interoperable compatibility of the global transaction between Altibase server and other database system. This feature is available after setting the DBLINK_GLOBAL_TRANSACTION_LEVEL property to 2(Two-Phase Commit). The Two-Phase Commit process is demonstrated in the figure below.![](media/DBLink/2pcLevel.gif)
 
-[Figure 1‑3] Two-Phase Commit Level(2-PC Commit Level)
+[Figure 1‑3] Two-Phase Commit Level
 
 Prepare Phase: Altibase writes prepare log after the user has executed a commit, and sends a requesting message to AltiLinker for preparation. Then, the AltiLinker receives the message, and sends a preparation message to all the participants related to the global transactions. After the participants have been prepared, AltiLinker delivers a ready message for system to Altibase, which has received results from all the participants, in order to perform the next phase.
 
@@ -2303,7 +2303,7 @@ This is used to specify JVM bit for AltiLinker on JVM (Java Virtual Machine).
 
 ##### Range
 
-[8MB, 512MB]
+[128MB, 4096MB]
 
 ##### Description
 
@@ -2313,11 +2313,11 @@ This property specifies the initial size, in bytes, of the memory pool allocated
 
 ##### Default Value
 
-512 MBytes
+4096 MBytes
 
 ##### Range
 
-[16MB, 512MB]
+[512MB, 32768MB]
 
 ##### Description
 
