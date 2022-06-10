@@ -49,7 +49,7 @@ Spring Starter Project Dependencies는 스프링 부트에서 특정 기능을 �
 
 #### 3. Finish 버튼 클릭
 
-Finish 버튼을 클릭하면 Progress가 활성화되면서 관련 라이브러리를 내려받는다. 프로젝트 생성 후, pom.xml 에서 의존성 라이브러리가 추가된 것을 확인할 수 있다. 
+Finish 버튼을 클릭하면 Progress가 활성화되면서 관련 라이브러리를 내려받는다. 프로젝트 생성 후, 빌드 정보 파일에서 의존성 라이브러리가 추가된 것을 확인할 수 있다. 아래 이미지는 Maven 타입의 프로젝트의 pom.xml 예시이다. 
 
 <img src="Images/JPA/pom_xml.png"/>
 
