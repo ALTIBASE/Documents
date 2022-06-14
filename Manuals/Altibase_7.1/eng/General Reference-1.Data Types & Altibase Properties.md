@@ -3499,8 +3499,8 @@ The values in the “Alter Level” column have the following meaning:
           <td>SYSTEM</td>
       </tr>
       <tr>
-      	<td rowspan="53">R</td>
-          <td rowspan="53"></td>
+      	<td rowspan="55">R</td>
+          <td rowspan="55"></td>
           <td>REPLICATION_ACK_XLOG_COUNT</td>
           <td></td>
       </tr>
@@ -3530,6 +3530,14 @@ The values in the “Alter Level” column have the following meaning:
       </tr>
       <tr>
       	<td>REPLICATION_DDL_ENABLE_LEVEL</td>
+          <td></td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_DDL_SYNC</td>
+            <td>SYSTEM</td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_DDL_SYNC_TIMEOUT</td>
           <td rowspan="2"></td>
       </tr>
       <tr>

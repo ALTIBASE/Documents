@@ -3370,8 +3370,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>SYSTEM</td>
       </tr>
       <tr>
-      	<td rowspan="53">R</td>
-          <td rowspan="53"></td>
+      	<td rowspan="55">R</td>
+          <td rowspan="55"></td>
           <td>REPLICATION_ACK_XLOG_COUNT</td>
           <td></td>
       </tr>

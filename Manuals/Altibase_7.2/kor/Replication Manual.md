@@ -1,6 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+
 
 - [Replication Manual](#replication-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
@@ -36,8 +34,6 @@
     - [시퀀스 이중화](#%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
   - [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
     - [Replication FAQ](#replication-faq)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -2585,7 +2581,6 @@ REP1                                      1
 -   REPLICATION_GAPLESS_MAX_WAIT_TIME
 -   REPLICATION_GROUPING_TRANSACTION_MAX_COUNT
 -   REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE
--   REPLICATION_HBT_CONNECT_WAIT_TIME
 -   REPLICATION_HBT_DETECT_HIGHWATER_MARK
 -   REPLICATION_HBT_DETECT_TIME
 -   REPLICATION_IB_LATENCY

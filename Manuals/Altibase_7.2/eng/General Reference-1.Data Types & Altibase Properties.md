@@ -1,4 +1,3 @@
-
 **Table of Contents**  
 
 - [General Reference](#general-reference)
@@ -13,7 +12,6 @@
     - [LOB Data Type](#lob-data-type)
     - [Spatial Types](#spatial-types)
   - [2. Altibase Properties](#2-altibase-properties)
-    
     - [Configuration](#configuration)
     - [Properties Overview](#properties-overview)
     - [Database Initialization Properties](#database-initialization-properties)
@@ -3502,8 +3500,8 @@ The values in the “Alter Level” column have the following meaning:
           <td>SYSTEM</td>
       </tr>
       <tr>
-      	<td rowspan="53">R</td>
-          <td rowspan="53"></td>
+      	<td rowspan="55">R</td>
+          <td rowspan="55"></td>
           <td>REPLICATION_ACK_XLOG_COUNT</td>
           <td></td>
       </tr>
@@ -3529,11 +3527,19 @@ The values in the “Alter Level” column have the following meaning:
       </tr>
       <tr>
       	<td>REPLICATION_DDL_ENABLE</td>
-          <td>SYSTEM</td>
+            <td>SYSTEM</td>
       </tr>
       <tr>
-      	<td>REPLICATION_DDL_ENABLE_LEVEL</td>
-          <td rowspan="2"></td>
+          <td>REPLICATION_DDL_ENABLE_LEVEL</td>
+            <td></td>
+      </tr>
+      <tr>
+        	<td>REPLICATION_DDL_SYNC</td>
+            <td>SYSTEM</td>
+      </tr>
+      <tr>
+        	<td>REPLICATION_DDL_SYNC_TIMEOUT</td>
+            <td rowspan="2"></td>
       </tr>
       <tr>
       	<td>REPLICATION_EAGER_PARALLEL_FACTOR</td>
@@ -3559,28 +3565,28 @@ The values in the “Alter Level” column have the following meaning:
           <td>SYSTEM</td>
       </tr>
       <tr>
-      	<td>REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE</td>
+        <td>REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE</td>
           <td>SYSTEM</td>
       </tr>
       <tr>
       	<td>REPLICATION_GROUPING_TRANSACTION_MAX_COUNT</td>
-          <td>SYSTEM</td>
+            <td>SYSTEM</td>
       </tr>
       <tr>
       	<td>REPLICATION_HBT_CONNECT_WAIT_TIME</td>
-          <td>SYSTEM</td>
+            <td>SYSTEM</td>
       </tr>
       <tr>
       	<td>REPLICATION_HBT_DETECT_HIGHWATER_MARK</td>
-          <td>SYSTEM</td>
+            <td>SYSTEM</td>
       </tr>
       <tr>
       	<td>REPLICATION_HBT_DETECT_TIME</td>
-          <td>SYSTEM</td>
+            <td>SYSTEM</td>
       </tr>
       <tr>
       	<td>REPLICATION_IB_LATENCY</td>
-          <td rowspan="2"></td>
+            <td rowspan="2"></td>
       </tr>
       <tr>
       	<td>REPLICATION_IB_PORT_NO</td>
@@ -3692,22 +3698,22 @@ The values in the “Alter Level” column have the following meaning:
       	<td>REPLICATION_SYNC_LOG</td>
           <td></td>
       </tr>
-      <tr>
-      	<td>REPLICATION_SYNC_TUPLE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_TIMESTAMP_RESOLUTION</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_TRANSACTION_POOL_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-           <td>REPLICATION_UPDATE_REPLACE</td>
-           <td>SYSTEM</td>
-      </tr>
+          <tr>
+        	<td>REPLICATION_SYNC_TUPLE_COUNT</td>
+            <td>SYSTEM</td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_TIMESTAMP_RESOLUTION</td>
+            <td>SYSTEM</td>
+        </tr>
+        <tr>
+        	<td>REPLICATION_TRANSACTION_POOL_SIZE</td>
+            <td>SYSTEM</td>
+        </tr>
+        <tr>
+             <td>REPLICATION_UPDATE_REPLACE</td>
+             <td>SYSTEM</td>
+        </tr>
       <tr>
           <td rowspan="26">NM</td>
           <td rowspan="26"></td>
