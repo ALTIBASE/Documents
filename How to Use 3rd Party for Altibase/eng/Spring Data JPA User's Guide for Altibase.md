@@ -2,19 +2,25 @@
 
 # Table of Contents
 
-- Create Spring Data JPA Project with Spring Boot
-- Add Altibase Dialect Class File
-- Altibase JDBC Driver Setting
-- Create Sample Code
-- Check the Connection with Altibase Server
+- [Create Spring Data JPA Project with Spring Boot](#create-spring-data-jpa-project-with-spring-boot)
+
+- [Add Altibase Dialect Class File](#add-altibase-dialect-class-file)
+
+- [Altibase JDBC Driver Setting](#altibase-jdbc-driver-setting)
+
+- [Create Sample Code](#create-sample-code)
+
+- [Check the Connection with Altibase Server](#check-the-connection-with-altibase-server)
+
+  
 
 # Introduction
 
-This guide demonstrates how to connect to Altibase Server with Spring Data JPA using Spring Boot project on STS(Spring Tool Suite).
+This guide demonstrates how to connect to Altibase Server using Spring Data JPA with Spring Boot project on STS(Spring Tool Suite).
 
 #### JPA and Spring Data JPA
 
-JPA(Java Persistence API) is J2EE specification for ORM(Object-Reliational Mapping), an interface defining how to use the relational database in java application. Several implementations of JPA are available such as Hibernate, EclipseLink and DataNucleus. Spring Data JPA is a module provided by Spring which abstractifies JPA implementations and makes it easier to use JPA.
+JPA(Java Persistence API) is a J2EE specification for ORM(Object-Reliational Mapping), an interface defining how to use the relational database in java application. Several implementations of JPA are available such as Hibernate, EclipseLink and DataNucleus. Spring Data JPA is a module provided by Spring which abstracts JPA implementations therefore makes it easier to use JPA.
 
 This guide is written based on the versions below.
 
@@ -27,19 +33,19 @@ This guide is written based on the versions below.
 
 #### 1. Create Spring Boot Project
 
-Click File -> New -> Spring Starter Project and define the project setting information. Insert relevant information such as Name, Group and Package and click Next.
+Click File -> New -> Spring Starter Project and fill in the project information such as name, group and package. Then, click Next.
 
 <img src="Images/JPA/new_spring_starter_project_window.png"/>
 
 #### 2. Add Spring Starter Project Dependencies
 
-Spring Starter Project Dependencies is a set of essential libraries required to use certain features in Spring Boot. Select Spring Data JPA and add Lombok to make writing the sample code easier.
+Spring Starter Project Dependencies is a set of essential libraries required to use certain features in Spring Boot. Select Spring Data JPA and add Lombok to write the sample code easier.
 
 <img src="Images/JPA/new_spring_starter_project_dependencies.png"/>
 
 #### 3. Click Finish
 
-When Finish button is clicked, Progress is enabled and related libraries are downloaded. After creating the project, the user can see the dependency libraries are added in build information file. The image below shows an example of Maven type's project, pom.xml.
+When Finish button is clicked, Progress is enabled and relevant libraries are downloaded. After creating the project, the user can see the dependency libraries are added in build information file. The image below shows an example of Maven type's project, pom.xml.
 
 <img src="Images/JPA/pom_xml.png"/>
 
@@ -73,7 +79,7 @@ Download the appropriate [Altibase Dialect Java Source](https://github.com/ALTIB
 
 #### 3. Decompress hibernate-core-x.x.x.Final.jar File
 
-Decompress the hibernate-core-x.x.x.Final.jar file in the directory where Altibase Dialect Java Source is located.
+Decompress hibernate-core-x.x.x.Final.jar file in the directory where Altibase Dialect Java Source is located.
 
 ```bash
 jar xvf hibernate-core-x.x.x.Final.jar
@@ -91,7 +97,7 @@ javac -d . -cp . AltibaseDialect.java
 
 #### 5. Check if the Class File is created
 
-When successfully compiled, the class file as follows is created under the current directory.
+When successfully compiled, the class files as follows are created under the current directory.
 
 ```bash
 ./org/hibernate/tool/schema/extract/internal/SequenceInformationExtractorAltibaseDatabaseImpl.class
@@ -119,7 +125,7 @@ Copy and paste the created JAR file to the library path from instruction # 2.
 
 #### Prepare Altibase JDBC Driver
 
-Download the Altibase JDBC driver to the path the user specified. Altibae JDBC driver is Altibase.jar and this file exists in the lib directory where Altibase server is installed.
+Download the Altibase JDBC driver to the path of user's choice. Altibase JDBC driver is Altibase.jar and this file exists in the lib directory where Altibase server is installed.
 
 #### Add Altibase JDBC Driver File
 
@@ -129,13 +135,13 @@ Click Project -> Properties -> Java Build Path -> Libraries -> Add External JARs
 
 # Create Sample Code
 
-Create sample code to check the connection with Altibase.
+Create sample code to check the connection with Altibase Server.
 
 #### Configure application.properties
 
 Add Altibase server connection information to the src/main/resources/application.properties file.
 
-![](/Users/haein/Desktop/Documents/How to Use 3rd Party for Altibase/kor/Images/JPA/application_properties_window.png)
+![](Images/JPA/application_properties_window.png)
 
 ```
 # Altibase DB
