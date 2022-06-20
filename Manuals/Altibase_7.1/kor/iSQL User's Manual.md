@@ -3377,7 +3377,7 @@ iSQL에서 실행한 명령어들을 iSQL 종료 시 파일로 자동 저장하�
 히스토리 저장 기능을 사용하려면 ISQL_HIST_FILE 환경변수를 설정하고 iSQL을 실행해야 한다. 
 
 ```
-$ export ISQL_HIST_FILE=~/.iSQL_history
+$ export ISQL_HIST_FILE=~/.isql_history
 ```
 
 히스토리 저장 기능을 끄기 위해서는 ISQL_HIST_FILE 환경변수를 삭제한다.
