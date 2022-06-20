@@ -1,7 +1,4 @@
-
-
-Altibase 7.1.0.7.6 Patch Notes
-==============================
+# Altibase 7.1.0.7.6 Patch Notes
 
 <br/>
 
@@ -10,7 +7,7 @@ Altibase 7.1.0.7.6 Patch Notes
 # **Table of Contents** 
 
 - [New Features](#new-features)
-  - [BUG-49645 이중화 송신자에게 고정 IP 주소를 할당하는 기능을 추가합니다.](#bug-49645%EC%9D%B4%EC%A4%91%ED%99%94-%EC%86%A1%EC%8B%A0%EC%9E%90%EC%97%90%EA%B2%8C-%EA%B3%A0%EC%A0%95-ip-%EC%A3%BC%EC%86%8C%EB%A5%BC-%ED%95%A0%EB%8B%B9%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49645 이중화 송신자에게 고정 IP 주소를 할당하는 기능을 추가합니다.](#bug-49645이중화-송신자에게-고정-ip-주소를-할당하는-기능을-추가합니다)
   - [BUG-49747 Altibase 7 이상에서 Altibase 6.3.1 옵티마이저와 동일한 비용 계산식을 설정하는 기능을 추가합니다.](#bug-49747altibase-7-%EC%9D%B4%EC%83%81%EC%97%90%EC%84%9C-altibase-631-%EC%98%B5%ED%8B%B0%EB%A7%88%EC%9D%B4%EC%A0%80%EC%99%80-%EB%8F%99%EC%9D%BC%ED%95%9C-%EB%B9%84%EC%9A%A9-%EA%B3%84%EC%82%B0%EC%8B%9D%EC%9D%84-%EC%84%A4%EC%A0%95%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-49451 저장 프로시저 바디에서 사용한 SQL 문의 LOOP 절에 호스트 변수 또는 지역 변수 사용 시 ERR-31248 : Mismatched bind column count 에러가 발생합니다.](#bug-49451%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B0%94%EB%94%94%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%9C-sql-%EB%AC%B8%EC%9D%98-loop-%EC%A0%88%EC%97%90-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%98%90%EB%8A%94-%EC%A7%80%EC%97%AD-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%8B%9C-err-31248--mismatched-bind-column-count-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -219,11 +216,11 @@ Fixed Bugs
 
     -   **예상 결과**
 
-            정상적으로 파라메터 메타 데이터 조회. Spring JDBC 경우, spring.jdbc.getParameterType.ignore값을 true로 설정하지 않아도 됨.
+        정상적으로 파라메터 메타 데이터 조회되고 Spring JDBC 경우, spring.jdbc.getParameterType.ignore값을 true로 설정하지 않아도 됩니다. 
 
 -   **Workaround**
 
-        Spring JDBC 경우, spring.jdbc.getParameterType.ignore 값을 true로 설정
+    Spring JDBC 경우, spring.jdbc.getParameterType.ignore 값을 true로 설정합니다.
 
 -   **변경사항**
 
@@ -319,20 +316,29 @@ Fixed Bugs
 -   **변경사항**
 
     -   Performance view
+    
     -   Property
+    
     -   Compile Option
+    
     -   Error Code
         -   에러 메시지가 추가되었습니다.
-            -   0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>_META_NEW.bin, <2%s>_META_OLD.bin ) 
-                \# *Cause:
-                \# - Sender meta files do not exist or are invalid.
-                \# *Action:
-                \# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
-            -   0x611B4 ( 397748) rpERR_ABORT_ERR_NO_VALID_SNFILE Invalid Restart SN files. (Replication name: <0%s>, File name: <1%s>_SN_NEW.bin, <2%s>_SN_OLD.bin ) 
-                \# *Cause:
-                \# - Restart SN files do not exist or are invalid.
-                \# *Action:
-                \# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+            
+            ```
+            0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>META_NEW.bin, <2%s>META_OLD.bin ) 
+            # *Cause:
+            # - Sender meta files do not exist or are invalid.
+            # *Action:
+            # - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+            ```
+            
+            ```
+            0x611B4 ( 397748) rpERR_ABORT_ERR_NO_VALID_SNFILE Invalid Restart SN files. (Replication name: <0%s>, File name: <1%s>SN_NEW.bin, <2%s>SN_OLD.bin ) 
+            # *Cause:
+            # - Restart SN files do not exist or are invalid.
+            # *Action:
+            # - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+            ```
 
 ### BUG-49718 비활성화 상태의 인덱스에 인덱스 통계 정보를 설정할 때 예외 처리를 추가합니다.
 
@@ -590,7 +596,7 @@ Changes
 
 메타 버전은 변경되지 않았다.
 
-> 패치를 롤백하려는 경우, [메타다운그레이드]([https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation Guide.md#메타-다운그레이드meta-downgrade))를 참고한다.
+> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
 
 #### CM protocol Version
 
