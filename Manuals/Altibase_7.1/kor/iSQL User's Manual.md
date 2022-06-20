@@ -443,7 +443,7 @@ iSQL 각각의 명령에 대해 설명하였다.
         <TH>분류</TH><TH>종류</TH><TH>명령어</TH><TH>설명</TH>
     </TR>
     <TR>
-        <TD rowspan="3">iSQL 구동 및 종료</TD><TD>구동</TD> <TD>$ iSQL [option]</TD> <TD>쉘 상에서 이 명령어를 수행하면 iSQL이 구동된다. 사용 가능한 옵션에 대해서는 iSQL 커맨드 라인 옵션 절의 내용을 참조한다.</TD>
+        <TD rowspan="3">iSQL 구동 및 종료</TD><TD>구동</TD> <TD>$ isql [option]</TD> <TD>쉘 상에서 이 명령어를 수행하면 iSQL이 구동된다. 사용 가능한 옵션에 대해서는 iSQL 커맨드 라인 옵션 절의 내용을 참조한다.</TD>
     </TR>
      <TR>
         <TD>프롬프트</TD> <TD>iSQL></TD> <TD>iSQL 프롬프트로 명령어 입력 후 ENTER 키를 입력한다.</TD>
