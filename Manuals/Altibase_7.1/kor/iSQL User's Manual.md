@@ -999,7 +999,7 @@ iSQL 유틸리티를 사용하기 위해서는 먼저 로그인 과정을 거쳐
 있다.
 
 ```
-iSQL -U userID -P password [-SYSDBA]
+isql -U userID -P password [-SYSDBA]
 또는
 iSQL [-SYSDBA]
 ```
