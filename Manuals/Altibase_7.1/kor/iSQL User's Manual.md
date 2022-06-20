@@ -1302,7 +1302,7 @@ Connect success.
 입력해야 한다 .
 
 ```
-iSQL -s localhost -port 20300 /NOLOG
+isql -s localhost -port 20300 /NOLOG
 ```
 
 iSQL을 구동한 후 SQL 구문을 수행하려면, CONNECT 명령어로 대상 데이터베이스
