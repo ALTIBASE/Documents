@@ -295,7 +295,7 @@ iSQL을 실행하기 위해서는 반드시 Altibase 서버를 먼저 구동 시
 대문자 또는 소문자 모두 사용할 수 있다.
 
 ```
-iSQL
+isql
 [-H]
 [-S server_name]
 [-PORT port_no]
@@ -443,7 +443,7 @@ iSQL 각각의 명령에 대해 설명하였다.
         <TH>분류</TH><TH>종류</TH><TH>명령어</TH><TH>설명</TH>
     </TR>
     <TR>
-        <TD rowspan="3">iSQL 구동 및 종료</TD><TD>구동</TD> <TD>$ iSQL [option]</TD> <TD>쉘 상에서 이 명령어를 수행하면 iSQL이 구동된다. 사용 가능한 옵션에 대해서는 iSQL 커맨드 라인 옵션 절의 내용을 참조한다.</TD>
+        <TD rowspan="3">iSQL 구동 및 종료</TD><TD>구동</TD> <TD>$ isql [option]</TD> <TD>쉘 상에서 이 명령어를 수행하면 iSQL이 구동된다. 사용 가능한 옵션에 대해서는 iSQL 커맨드 라인 옵션 절의 내용을 참조한다.</TD>
     </TR>
      <TR>
         <TD>프롬프트</TD> <TD>iSQL></TD> <TD>iSQL 프롬프트로 명령어 입력 후 ENTER 키를 입력한다.</TD>
@@ -686,6 +686,7 @@ iSQL 상에서 두 가지 수행 방법에 대한 결과에는 차이가 없으�
           <TD>도움말</TD> <TD>HELP;<BR>HELP INDEX;<BR>HELP EXIT;</TD> <TD>도움말 사용법<BR>명령어 리스트 출력<BR>EXIT 명령어에 대한 설명</TD>
        </TR>          
 </table>         
+
 
 
 
@@ -999,9 +1000,9 @@ iSQL 유틸리티를 사용하기 위해서는 먼저 로그인 과정을 거쳐
 있다.
 
 ```
-iSQL -U userID -P password [-SYSDBA]
+isql -U userID -P password [-SYSDBA]
 또는
-iSQL [-SYSDBA]
+isql [-SYSDBA]
 ```
 
 서버와 연결하기 위한 부가 정보로는 서버 이름(-S), 사용자 ID(-U), 패스워드(-P)가
@@ -1302,7 +1303,7 @@ Connect success.
 입력해야 한다 .
 
 ```
-iSQL -s localhost -port 20300 /NOLOG
+isql -s localhost -port 20300 /NOLOG
 ```
 
 iSQL을 구동한 후 SQL 구문을 수행하려면, CONNECT 명령어로 대상 데이터베이스
@@ -3377,7 +3378,7 @@ iSQL에서 실행한 명령어들을 iSQL 종료 시 파일로 자동 저장하�
 히스토리 저장 기능을 사용하려면 ISQL_HIST_FILE 환경변수를 설정하고 iSQL을 실행해야 한다. 
 
 ```
-$ export ISQL_HIST_FILE=~/.iSQL_history
+$ export ISQL_HIST_FILE=~/.isql_history
 ```
 
 히스토리 저장 기능을 끄기 위해서는 ISQL_HIST_FILE 환경변수를 삭제한다.

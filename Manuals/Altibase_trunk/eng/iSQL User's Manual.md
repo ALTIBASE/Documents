@@ -244,7 +244,7 @@ In order to ensure stable iSQL operation, we recommend that the following enviro
 The Altibase server must be started before iSQL is executed. The following options are case-insensitive.
 
 ```
-iSQL
+isql
 [-H]
 [-S server_name]
 [-PORT port_no]
@@ -373,7 +373,7 @@ When iSQL is started, an iSQL command prompt will appear, and when iSQL commands
     </TR>
     <TR>
         <TD rowspan="3">iSQL startup
-and shutdown</TD><TD>Startup</TD> <TD>$ iSQL [option]</TD> <TD>If you execute this command in a shell,
+and shutdown</TD><TD>Startup</TD> <TD>$ isql [option]</TD> <TD>If you execute this command in a shell,
 iSQL will start up. For information on
 the available options, please refer to the
 iSQL Command-Line Options section.</TD>
@@ -746,6 +746,7 @@ describes (e.g.) the EXIT command, respectively.</TD>
 
 
 
+
 ###  iSQL Environment Variables
 
 #### ALTIBASE_HOME
@@ -974,9 +975,9 @@ This chapter describes several examples of the use of iSQL to manipulate databas
 To use iSQL, users must first be logged in. Connection information may be input directly via a command line, or via the iSQL input prompt.
 
 ```
-iSQL -U userID -P password [-SYSDBA]
+isql -U userID -P password [-SYSDBA]
 or
-iSQL [-SYSDBA]
+isql [-SYSDBA]
 ```
 
 Additional information necessary for connection with the server is the server name (-S), user ID (-U), and password (-P). The user ID and password are not case-sensitive. 
@@ -1253,7 +1254,7 @@ Connect success.
 The /NOLOG option allows the user to execute iSQL without connecting to the database. The server IP address and port number must be specified to use this option. 
 
 ```
-iSQL -s localhost -port 20300 /NOLOG
+isql -s localhost -port 20300 /NOLOG
 ```
 
 Once iSQL is running, enter the database user ID and password with the CONNECT command to connect to the database, and then execute a SQL statement. 
@@ -3209,7 +3210,7 @@ It saves the commands executed in iSQL to a file when you exit iSQL. Enabling th
 To use the history logging function, ISQL_HIST_FILE environment variable should be set and iSQL has to be restarted.
 
 ```
-$ export ISQL_HIST_FILE=~/.iSQL_history
+$ export ISQL_HIST_FILE=~/.isql_history
 ```
 
 To turn off the history logging function, delete the ISQL_HIST_FILE environment variable.
