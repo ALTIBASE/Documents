@@ -389,15 +389,33 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : SQL 반영 모드 및 오프라인 이중화에서 이중화 대상 테이블 간 PRIMARY KEY가 다름에도 성공하는 다음 2가지 상황에 예외 처리를 추가합니다.
+-   **설명** : 이중화 대상 테이블 간 PRIMARY KEY가 다름에도 성공하는 다음 2가지 상황에 예외 처리를 추가합니다.
     
-    - SQL 반영 모드(REPLICATION\_SQL\_APPLY\_ENABLE = 1)에서 이중화를 시작한 경우
-
-    - Adapter에서 BUILD OFFLINE META를 수행한 경우 
+    - SQL 반영 모드(REPLICATION_SQL_APPLY_ENABLE = 1)에서 이중화를 시작한 경우
+    - Adapter에서 BUILD OFFLINE META를 수행한 경우
     
-    이 버그 반영 후에는 [ERR-6100D : [Sender] Failed to handshake with the peer server (The index column ID of the replicated table does not match. [*local\_table\_name*(Name:*local\_index\_name*, ID:*local\_index\_id*):*remote\_table\_name*(Name:*remote\_index\_name*, ID:*remote\_index\_id*)].)] 에러가 발생합니다.
+    이 버그 반영 후에는 아래와 같은 에러 메시지가 발생합니다.
     
-    이 버그는 지역 서버 및 원격 서버 모두를 패치해야 적용됩니다.
+    - SQL 반영 모드에서 이중화 시작한 경우 예
+    
+      - 이중화 송신자 측
+    
+        - 이중화 시작 시 
+    
+          [ERR-6100D : [Sender] Failed to handshake with the peer server (The index column ID of the replicated table does not match. [*local_table_name*(Name:*local_index_name*, ID:*local_column_order*):*remote_table_name*(Name:*remote_index_name*, ID:*remote_column_order*)].)] 에러가 발생합니다.
+    
+        - 송신자 측 altibase_rp.log
+          - ERR-6209b(errno=11) Replication meta is different
+    
+      - 이중화 수신자 측 altibase_rp.log
+    
+        ERR-610de(errno=11) NOT NULL constraints of the replicated table's column does not match. [*remote_table_name*.*remote_column_name*(*remote_column_attribute_flag*):*local_table_name*.*local_column_name*(*local_column_attribute_flag*)].
+    
+        ERR-610e8(errno=11) The index column ID of the replicated table does not match. [*remote_table_name*(Name:*remote_index_name*, ID:*remote_column_order*):*local_table_name*(Name:*local_index_name*, ID:*local_column_order*)].
+    
+        ERR-61031(errno=11) [Receiver] Meta information does not match
+    
+    이 버그는 지역 서버 및 원격 서버 모두를 패치해야 적용됩니다. 
     
 -   **재현 방법**
 
