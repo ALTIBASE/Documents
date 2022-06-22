@@ -1,17 +1,17 @@
 
 
-- [iSQL User’s Manual](#isql-users-manual)
+- [iSQL User’s Manual](#iSQL-users-manual)
   - [Preface](#preface)
     - [About This Manual](#about-this-manual)
-  - [1. Using iSQL](#1-using-isql)
-    - [iSQL Overview](#isql-overview)
-    - [Setting up iSQL](#setting-up-isql)
-    - [iSQL Command-Line Options](#isql-command-line-options)
-    - [iSQL Commands](#isql-commands)
-    - [iSQL Environment Variables](#isql-environment-variables)
-    - [Personalizing iSQL](#personalizing-isql)
-  - [2. Examples of iSQL in Use](#2-examples-of-isql-in-use)
-    - [Logging In to iSQL](#logging-in-to-isql)
+  - [1. Using iSQL](#1-using-iSQL)
+    - [iSQL Overview](#iSQL-overview)
+    - [Setting up iSQL](#setting-up-iSQL)
+    - [iSQL Command-Line Options](#iSQL-command-line-options)
+    - [iSQL Commands](#iSQL-commands)
+    - [iSQL Environment Variables](#iSQL-environment-variables)
+    - [Personalizing iSQL](#personalizing-iSQL)
+  - [2. Examples of iSQL in Use](#2-examples-of-iSQL-in-use)
+    - [Logging In to iSQL](#logging-in-to-iSQL)
     - [Starting Up and Shutting Down Altibase](#starting-up-and-shutting-down-altibase)
     - [Connecting and Disconnecting](#connecting-and-disconnecting)
     - [Retrieving Information Related to the Database and Database Objects](#retrieving-information-related-to-the-database-and-database-objects)
@@ -19,7 +19,7 @@
     - [File Management](#file-management)
     - [Formatting SELECT Query Results](#formatting-select-query-results)
     - [Setting Output Options](#setting-output-options)
-    - [Viewing iSQL Display Settings](#viewing-isql-display-settings)
+    - [Viewing iSQL Display Settings](#viewing-iSQL-display-settings)
     - [Host Variables](#host-variables)
     - [Executing Prepared SQL Statements](#executing-prepared-sql-statements)
     - [Creating, Executing, and Dropping Stored Procedures](#creating-executing-and-dropping-stored-procedures)
@@ -334,8 +334,8 @@ isql
   
 - -prefer_ipv6
   This option determines the IP address to be connected first when a host name is given for the -s option.  
-  If this option is specified and a host name is given for the -s option, this means that resolving the host name to the IPv6 address is prefered. If this option is omitted, isql connects to the IPv4 address by default. If it fails to connect to the prefered IP version address, an attempt is made to connect using the other IP version address.  
-  For example, when localhost is given for the -s option and this option is specified, isql first tries to connect to the [::1] IPv6 address. If this attempt fails, isql proceeds to connect to the 127.0.0.1 IPv4 address.
+  If this option is specified and a host name is given for the -s option, this means that resolving the host name to the IPv6 address is prefered. If this option is omitted, iSQL connects to the IPv4 address by default. If it fails to connect to the prefered IP version address, an attempt is made to connect using the other IP version address.  
+  For example, when localhost is given for the -s option and this option is specified, iSQL first tries to connect to the [::1] IPv6 address. If this attempt fails, iSQL proceeds to connect to the 127.0.0.1 IPv4 address.
   
 - -TIME_ZONE *timezone*  
   This option sets the time zone of the client. If DB_TZ is specified for this option, the time zone is defaulted to that of the database server. Time zone names like Asia/Seoul, abbreviations such as KST and UTC offset values as +09:00 are valid for specification.  
@@ -742,6 +742,7 @@ help, outputs a list of commands, and
 describes (e.g.) the EXIT command, respectively.</TD>
        </TR>          
 </table>         
+
 
 
 
@@ -1758,7 +1759,7 @@ SELECT * FROM employees;
 After editing (employees was replaced with orders)
 
 ```
-iSQL> h 		<- The history list currently in the isql buffer 
+iSQL> h 		<- The history list currently in the iSQL buffer 
 1  : SELECT * FROM customers;
 2  : SELECT * FROM employees;
  : SELECT * FROM orders;
@@ -3202,7 +3203,32 @@ iSQL> / -> Re-execute the most recent command(HISTORY;))
 iSQL> 2/ -> Execute Command number 2 in history list(SELECT * FROM book;)
 ```
 
+#### History Logging
 
+It saves the commands executed in iSQL to a file when you exit iSQL. Enabling this function loads previous commands stored in the file when iSQL is restarted. Therefore, previous commands are accessible and executable by using the arrow keys on the keyboard.
+
+To use the history logging function, ISQL_HIST_FILE environment variable should be set and iSQL has to be restarted.
+
+```
+$ export ISQL_HIST_FILE=~/.isql_history
+```
+
+To turn off the history logging function, delete the ISQL_HIST_FILE environment variable.
+
+```
+$ unset ISQL_HIST_FILE
+```
+
+##### Default Value
+
+Not used
+
+##### Constraints
+
+- This function can only be used  when previous commands are accessible by using the arrow keys on command prompt or shell prompt.
+- Maximum 100 commands can be stored.
+
+File access control should be well taken care of when this function is used since every command the user entered is stored in the file, including sensitive information such as user passwords.
 
 #### Shell Commands
 
