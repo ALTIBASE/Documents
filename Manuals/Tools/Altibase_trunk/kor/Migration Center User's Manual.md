@@ -8505,6 +8505,20 @@ TLS 1.2 이상 버전을 의무적으로 사용해야 한다면, 아래 사이�
 
 https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe
 
+#### 오류 메시지 'javax/xml/bind/DatatypeConverter'와 함께 데이터베이스 접속에 실패한다.
+
+##### 원인
+
+사용 중인 MS-SQL JDBC driver가 참조하고자 하는 javax.xml.bind.DatatypeConveter를 자바 기본 모듈에서 찾지 못해서 발생하는 오류이다.
+
+ java.xml.bind 모듈은 Java 9 버전부터 자바 기본 모듈에서 deprecated 되었고, Java 11 버전부터는 완전히 삭제되었다. 상세 내용은 아래 사이트를 참고한다.
+
+https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-F640FA9D-FB66-4D85-AD2B-D931174C09A3
+
+##### 해결방법
+
+자바 실행환경 버전에 맞는 MS-SQL JDBC driver 파일을 이용해 데이터베이스에 접속해야 한다. 예를 들어 Java 11 환경에서는 mssql-jdbc-7.2.2.jre11.jar 파일을 사용해야 한다.
+
 ### Altibase
 
 #### 버전 5.1.5 이하의 Altibase를 이관할 때, 문자가 깨진다.
