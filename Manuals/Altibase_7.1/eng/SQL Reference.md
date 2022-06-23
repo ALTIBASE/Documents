@@ -6624,8 +6624,6 @@ MY_DEPT.MEMBER
 1 row selected.
 ```
 
-
-
 ### CREATE TABLE
 
 #### Syntax
@@ -6675,13 +6673,7 @@ MY_DEPT.MEMBER
 
 **unique_specification ::=**
 
-
-
 ![unique_specification](media/SQL/unique_specification.gif)
-
-
-
-
 
 **sort_order_clause ::=**
 
@@ -6710,8 +6702,6 @@ MY_DEPT.MEMBER
 
 ![check_clause](media/SQL/check_clause.gif)
 
-<a name="table_constraint"><a/>
-
 **table_constraint ::=**
 
 ![table_constraint](media/SQL/table_constraint.gif)
@@ -6726,15 +6716,9 @@ MY_DEPT.MEMBER
 
 [references_clause ::=](#references_clause)
 
-<a name="temporary_attributes_clause"><a/>
-
 **temporary_attributes_clause ::=**
 
 ![temporary_attributes_clause](media/SQL/temporary_attributes_clause.gif)
-
-
-
-<a name="table_partitioning_clause"><a/>
 
 **table_partitioning_clause ::=**
 
@@ -6747,8 +6731,6 @@ MY_DEPT.MEMBER
 **partition_default_clause ::=**
 
 ![partition_default](media/SQL/partition_default.gif)
-
-<a name="table_partition_description"><a/>
 
 **table_partition_description ::=**
 
@@ -6763,17 +6745,11 @@ MY_DEPT.MEMBER
 
 [table_partition_description ::=](#table_partition_description)
 
-
-
 **hash_partitioning ::=**
 
 ![hash_paritioning_image126_1](media/SQL/hash_paritioning_image126_1.gif)
 
 [table_partition_description ::=](#table_partition_description)
-
-
-
-
 
 **list_partitioning ::=**
 
@@ -6783,35 +6759,23 @@ MY_DEPT.MEMBER
 
 **partition_list_clause ::=**
 
-
-
 ![table_list_clause_image128](media/SQL/table_list_clause_image128.gif)
 
+**range_partitioning_using_hash ::=**
 
-
-<a name="row_movement_clause"><a/>
+![range_using_hash_partitioning](media/SQL/range_using_hash_partitioning_image.gif)
 
 **row_movement_clause ::=**
 
 ![row_movement_clause](media/SQL/row_movement_clause.gif)
 
-
-
-<a name="access_mode_clause_CREATETALBE)"><a/>
-
 **access_mode_clause ::=**
 
 ![ACCESS_MODE_CLAUSE_](media/SQL/ACCESS_MODE_CLAUSE_.gif)
 
-<a name="tablespace_clause"><a/>
-
 **tablespace_clause ::=**
 
 ![tablespace_clause](media/SQL/tablespace_clause.gif)
-
-<a name="physical_attributes_clause"><a/>
-
-<a name="create_table_physical_attributes_clause"><a/>
 
 **physical_attributes_clause ::=**
 
@@ -6821,33 +6785,21 @@ MY_DEPT.MEMBER
 
 ![storage_clause](media/SQL/storage_clause.gif)
 
-<a name="log_compression_clause"><a/>
-
 **log_compression_clause ::=**
 
 ![log_compression_clause_image130_2](media/SQL/log_compression_clause_image130_2.gif)
-
-
-
-<a name="logging_clause"><a/>
 
 **logging_clause ::=**
 
 ![logging_clause](media/SQL/logging_clause.gif)
 
-<a name="parallel_clause"><a/>
-
 **parallel_clause::=**
 
 ![PARALLEL_CLAUSE](media/SQL/PARALLEL_CLAUSE.gif)
 
-<a name="table_compression_clause"><a/>
-
 **table_compression_clause ::=**
 
 ![table_compression](media/SQL/table_compression.gif)
-
-<a name="lob_column_properties"><a/>
 
 **lob_column_properties ::=**
 
@@ -6938,8 +6890,6 @@ A unique constraint and a primary key constraint cannot both be defined for the 
 
 - TIMESTAMP
 
-
-
 *directkey_clause*
 
 Creates a direct key index. For more detailed information about direct key indexes, please refer to CREATE INDEX.
@@ -6989,8 +6939,6 @@ ENO INTEGER PRIMARY KEY,
   ```
 
 
-
-
 - ON DELETE CASCADE
 
   This option stipulates that if a row in the parent table is deleted, all rows in child tables that have foreign keys that reference this row will also be deleted.
@@ -7024,9 +6972,6 @@ CREATE TABLE employees (
   CONSTRAINT dno_fk FOREIGN KEY (dno) REFERENCES 
   departments (dno) ON DELETE SET NULL ); 
   ```
-
-
-
 
 *MAXROWS*
 
@@ -7081,17 +7026,11 @@ PARTITION BY RANGE (product_id)
 ) TABLESPACE tbs_04;
 ```
 
-
-
 Partition p1 will be stored in the tbs_01 tablespace because this was expressly specified. However, the ad_photo column for this partition will be stored in the tbs_02 tablespace. Because no tablespace was specified for partition p2, which is the default partition, it will be stored in tablespace tbs_04, where table T1 resides. If no tablespace for the table is specified either, it will be stored in the default tablespace, which is tbs_05. 
 
 This is illustrated in the following diagram:
 
-
-
 ![create_table_lob](media/SQL/create_table_lob.gif)
-
-
 
 *partition_range_clause*
 
@@ -7110,6 +7049,10 @@ When a new partition is defined, the values specified as belonging to that parti
 *partition_list_clause*
 
 The list that defines each list partition must comprise at least one value. A value in one list must not be present in any other list.
+
+*range_partitioning_using_hash*
+
+This specifies the range based on the hash values corresponding to the partition key values. Partition keys can be defined with single column and the range is specified by the value of the remainder(mod) of the hash value when divided by 1000. 1000 is a fixed value. It is a partitioning method combining the advantage of hash partitioning which distributes data evenly and the advantage of range partitioning which can merge and split data.
 
 *row_movement_clause*
 
