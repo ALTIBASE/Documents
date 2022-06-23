@@ -8517,7 +8517,7 @@ https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-F640FA9D-FB66-4D85-A
 
 ##### 해결방법
 
-자바 실행환경 버전에 맞는 MS-SQL JDBC driver 파일을 이용해 데이터베이스에 접속해야 한다. 예를 들어 Java 11 환경에서는 mssql-jdbc-7.2.2.jre11.jar 파일을 사용해야 한다.
+자바 실행환경 버전에 맞는 MS-SQL JDBC driver 파일을 이용해 데이터베이스에 접속해야 한다. 예를 들어 Java 11 환경에서는 mssql-jdbc-x.x.x.jre11.jar 파일을 사용해야 한다.
 
 ### Altibase
 
