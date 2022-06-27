@@ -4924,9 +4924,9 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies intervals (Unit: second) for detecting a deadlock in the spin mode.
+This property specifies intervals (Unit: second) for detecting a deadlock in the spin lock mode.
 
-(This property is no longer supported due to the deprecation of the spin mode from Altibase 7.1.0.3.2.)
+(This property is no longer supported due to the deprecation of the spin lock mode from Altibase 7.1.0.3.2.)
 
 #### LOCK_MGR_MAX_SLEEP (Unit: microsecond)
 
@@ -4948,8 +4948,8 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the maximum sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode. 
-(This property is no longer supported due to the deprecation of the spin mode from Altibase 7.1.0.3.2.)
+This property specifies the maximum sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin lock mode. 
+(This property is no longer supported due to the deprecation of the spin lock mode from Altibase 7.1.0.3.2.)
 
 #### LOCK_MGR_MIN_SLEEP (Unit: microsecond)
 
@@ -4971,8 +4971,8 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin mode. 
-(This property is no longer supported due to the deprecation of the spin mode from Altibase 7.1.0.3.2.)
+This property specifies the sleep time(Unit: microsecond) when obtaining a lock fails even after retrying for the number of reattempt times in a spin lock mode. 
+(This property is no longer supported due to the deprecation of the spin lock mode from Altibase 7.1.0.3.2.)
 
 #### LOCK_MGR_SPIN_COUNT (Unit: frequency)
 
@@ -4994,8 +4994,8 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the reattempt counts for a case which fails to obtain a lock in a spin mode.
-(This property is no longer supported due to the deprecation of the spin mode from Altibase 7.1.0.3.2.)
+This property specifies the reattempt counts for a case which fails to obtain a lock in a spin lock mode.
+(This property is no longer supported due to the deprecation of the spin lock mode from Altibase 7.1.0.3.2.)
 
 #### LOCK_MGR_TYPE 
 
