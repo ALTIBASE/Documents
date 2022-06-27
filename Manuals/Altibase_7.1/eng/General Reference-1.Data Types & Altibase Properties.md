@@ -5016,7 +5016,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property is used to select a table lock manager type and it cannot be modified during the server operation.
+This property is used to choose the table lock manager type. This value cannot be modified while the server is running.
 
 0: Mutex mode
 
