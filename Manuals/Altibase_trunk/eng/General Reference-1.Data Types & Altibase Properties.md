@@ -2557,8 +2557,8 @@ The values in the “Alter Level” column have the following meaning:
           <th>Alter Level</th>
       </tr>
       <tr>
-      	<td rowspan="90">D</td>
-          <td rowspan="90"></td>
+      	<td rowspan="85">D</td>
+          <td rowspan="85"></td>
           <td>BUFFER_AREA_CHUNK_SIZE</td>
           <td></td>
       </tr>
@@ -2654,26 +2654,6 @@ The values in the “Alter Level” column have the following meaning:
       </tr>
       <tr>
       	<td>LOCK_MGR_CACHE_NODE</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_DETECTDEADLOCK_INTERVAL</td>
-          <td>SYSTEM</td>
-      </tr>   
-      <tr>
-      	<td>LOCK_MGR_MAX_SLEEP</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_MIN_SLEEP</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_SPIN_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_TYPE</td>
-          <td rowspan="8"></td>
       </tr>
       <tr>
       	<td>LOCK_NODE_CACHE_COUNT</td>

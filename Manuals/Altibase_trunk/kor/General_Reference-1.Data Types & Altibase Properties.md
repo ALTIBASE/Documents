@@ -2765,8 +2765,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <th>변경 레벨</th>
       </tr>
       <tr>
-      	<td rowspan="90">D</td>
-          <td rowspan="90"></td>
+      	<td rowspan="85">D</td>
+          <td rowspan="85"></td>
           <td>BUFFER_AREA_CHUNK_SIZE</td>
           <td></td>
       </tr>
@@ -2862,26 +2862,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>LOCK_MGR_CACHE_NODE</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_DETECTDEADLOCK_INTERVAL</td>
-          <td>SYSTEM</td>
-      </tr>   
-      <tr>
-      	<td>LOCK_MGR_MAX_SLEEP</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_MIN_SLEEP</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_SPIN_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_TYPE</td>
-          <td rowspan="8"></td>
       </tr>
       <tr>
       	<td>LOCK_NODE_CACHE_COUNT</td>
