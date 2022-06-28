@@ -10294,6 +10294,12 @@ backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 > 사용이 불가능하다. 따라서 증분 백업을 수행하면 backupInfo파일도 자동으로
 > 백업된다.
 
+backupinfo manager를 disable시키고 backupinfo파일을 삭제하려면 아래의 구문을 사용하라.
+
+iSQL(sysdba)> alter database remove backup info file;
+
+이 구문은 Process 단계에서 sysdba 권한으로 수행이 가능하다. backupinfo파일을 삭제하면 기존에 백업된 모든 incremental backup파일들을 사용할수 없다.
+
 #### 증분 백업 예제
 
 데이터베이스와 테이블스페이스 단위로 레벨 0 증분 백업과 레벨 1 증분 백업을
