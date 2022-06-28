@@ -4798,7 +4798,7 @@ Unsigned Integer
 
 Spin lock 모드에서 데드락을 검출하는 간격을 명시한다.
 
-(Spin lock 모드의 지원을 중단하여 해당 프로퍼티 또한 지원하지 않는다.)
+(Spin lock 모드가 삭제되어 해당 프로퍼티 또한 지원하지 않는다.)
 
 #### LOCK_MGR_MAX_SLEEP (단위 : 마이크로 초)
 
@@ -4822,7 +4822,7 @@ Unsigned Integer
 
 Spin lock 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에 sleep하는 최대 시간을 명시한다.
 
-(Spin lock 모드의 지원을 중단하여 해당 프로퍼티 또한 지원하지 않는다.)
+(Spin lock 모드가 삭제되어 해당 프로퍼티 또한 지원하지 않는다.)
 
 #### LOCK_MGR_MIN_SLEEP (단위 : 마이크로 초)
 
@@ -4846,7 +4846,7 @@ Unsigned Integer
 
 Spin lock 모드에서 재시도 회수만큼 시도했음에도 불구하고 Lock 획득에 실패한 경우에 sleep하는 시간을 명시한다.
 
-(Spin lock 모드의 지원을 중단하여 해당 프로퍼티 또한 지원하지 않는다.)
+(Spin lock 모드가 삭제되어 해당 프로퍼티 또한 지원하지 않는다.)
 
 #### LOCK_MGR_SPIN_COUNT (단위: 회수)
 
@@ -4870,7 +4870,7 @@ Unsigned Integer
 
 Spin lock 모드에서 Lock 획득에 실패했을 경우 재시도 회수를 명시한다.
 
-(Spin lock 모드의 지원을 중단하여 해당 프로퍼티 또한 지원하지 않는다.)
+(Spin lock 모드가 삭제되어 해당 프로퍼티 또한 지원하지 않는다.)
 
 #### LOCK_MGR_TYPE
 
