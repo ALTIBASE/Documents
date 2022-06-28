@@ -847,13 +847,13 @@ The tables below show data type conversions between Altibase and a shapefile. Th
 ### Converting Exporting Data Types
 
 | Data Type | Altibase                                               | dBASE field (precision) | Note                                                         |
-| :-------: | :----------------------------------------------------- | :---------------------: | :----------------------------------------------------------- |
-|  NUMBER   | SMALLINT, INTEGER, BIGINT                              |         NUMBER          | Precision will be specified according to the Altibase data type and the scale is 0. |
-|  NUMBER   | REAL, NUMBER, NUMERIC, DOUBLE, FLOAT                   |         NUMBER          | Specifies the precision and the scale according to the Altibase data type. |
-| CHARACTER | CHAR, VARCHAR                                          |        CHARACTER        | The maximum value of dBASE character is 255.                 |
-| CHARACTER | NCHAR, NVARCHAR                                        |       Unsupported       | -                                                            |
-|   DATE    | DATE                                                   |          DATE           | Altibase supports TIME.<br />dBASE does not support TIME.    |
-|  BINARY   | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB |       Unsupported       | -                                                            |
+| :-------: | :----------------------------------------------------- | :---------------------- | :----------------------------------------------------------- |
+|  NUMBER   | SMALLINT, INTEGER, BIGINT                              | NUMBER                  | Precision will be specified according to the Altibase data type and the scale is 0. |
+|  NUMBER   | REAL, NUMBER, NUMERIC, DOUBLE, FLOAT                   | NUMBER                  | Specifies the precision and the scale according to the Altibase data type. |
+| CHARACTER | CHAR, VARCHAR                                          | CHARACTER               | The maximum value of dBASE character is 255.                 |
+| CHARACTER | NCHAR, NVARCHAR                                        | Unsupported             | -                                                            |
+|   DATE    | DATE                                                   | DATE                    | Altibase supports TIME.<br />dBASE does not support TIME.    |
+|  BINARY   | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB | Unsupported             | -                                                            |
 
 ---
 
