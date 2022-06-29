@@ -9666,23 +9666,23 @@ iSQL(sysdba)> SELECT NAME,  CREATE_LSN_LFGID,  CREATE_LSN_FILENO FROM V$DATAFILE
 loganchor의 내용을 확인한다.
 
 ```
-$ dumpla loganchor0
+$  dumpla loganchor0
 [LOGANCHOR HEADER]
-Binary DB Version        	 [ 5.3.3 ]                               
-Archivelog Mode          	 [ Archivelog ]    
-Transaction Segment Entry Count [ 256 ]
-Begin Checkpoint LSN     	 [ 20345, 469859 ]                    
-End Checkpoint LSN       	 [ 20345, 470300 ]                    
-Disk Redo LSN            	 [ 20345, 469859 ]                    
-LSN for Recovery from Replication [ NULL ]
-Server Status            	 [ SERVER SHUTDOWN ]                     
-End LSN                  	 [ 20345,470341 ]                     
-Media Recovery LSN [ 20345, 469859 ]
-ResetLog LSN             	 [ 4294967295, 4294967295 ]  
-Last Created Logfile Num 	 [ 20350 ]                               
-Delete Logfile(s) Range  	 [ 20333 ~ 20344 ]                       
-Update And Flush Count   	 [ 316 ]                                 
-New Tablespace ID        	 [ 8 ]
+Binary DB Version        	          [ 5.3.3 ]                      
+Archivelog Mode                    	  [ Archivelog ]    
+Transaction Segment Entry Count       [ 256 ]
+Begin Checkpoint LSN     	          [ 20345, 469859 ]               
+End Checkpoint LSN       	          [ 20345, 470300 ]               
+Disk Redo LSN            	          [ 20345, 469859 ]              
+LSN for Recovery from Replication     [ NULL ]
+Server Status            	          [ SERVER SHUTDOWN ]            
+End LSN                               [ 20345,470341 ]              
+Media Recovery LSN                    [ 20345, 469859 ]
+ResetLog LSN             	          [ 4294967295, 4294967295 ]  
+Last Created Logfile Num 	          [ 20350 ]                       
+Delete Logfile(s) Range  	          [ 20333 ~ 20344 ]               
+Update And Flush Count   	          [ 316 ]                        
+New Tablespace ID        	          [ 8 ]
 ```
 
 ARCHIVE_DIR 프로퍼티에 정의된 디렉터리에 logfile18320부터 logfile20344까지
