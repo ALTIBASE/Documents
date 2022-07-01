@@ -851,7 +851,6 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
   - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, two phase commit 이 지연처리가 되므로, count(\*) 최적화는 적용되면 안된다.
 - SHARD_NOTIFIER_2PC 가 1 인 상태에서, GLOBAL_TRANSACTION_LEVEL 를 3 에서 더 작은 값으로 변경시의 주의사항
   - GLOBAL_TRANSACTION_LEVEL 가 3 인 상태에서 commit 한 내용을, two phase commit 이 지연처리로 인하여, GLOBAL_TRANSACTION_LEVEL 이 작은 상황에서 순간적으로 보지 못할 수 있다.
-  - NODE[DATA] ALTER SYSTEM SHARD NOTIFIER FLUSH; 구문을 수행하면, GLOBAL_TRANSACTION_LEVEL 가 3 인 상태에서 commit 한 내용을 모두 볼 수 있다. 
 
 #### 하위 호환성
 -   샤딩 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤딩 기능을 사용할 수 있다.
@@ -1792,7 +1791,7 @@ iSQL> SELECT S4.NEXTVAL;
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No<br />No<br />Yes<br />No       | SYSTEM          |
 | SHARD DDL lock 처리 | SHARD_DDL_LOCK_TIMEOUT<br />SHARD_DDL_LOCK_TRY_COUNT | Yes<br />Yes           | SYSTEM, SESSION |
 | 트랜잭션 | GLOBAL_TRANSACTION_LEVEL<br />VERSIONING_MIN_TIME<br />INDOUBT_FETCH_TIMEOUT<br />INDOUBT_FETCH_METHOD<br />SHARD_STATEMENT_RETRY<br />SHARED_TRANS_HASH_BUCKET_COUNT | Yes<br />Yes<br />Yes<br />Yes<br />Yes<br />No | SYSTEM, SESSION |
-| shard notifier | SHARD_NOTIFIER_2PC_ENABLE<br />SHARD_NOTIFIER_COUNT<br />SHARD_NOTIFIER_2PC | No<br />No<br />Yes | SYSTEM, SESSION |
+| shard notifier | SHARD_NOTIFIER_2PC<br />SHARD_NOTIFIER_ACTIVE_COUNT<br />SHARD_NOTIFIER_MAX_COUNT | Yes<br />Yes<br />No | SYSTEM, SESSION<br />SYSTEM<br />SYSTEM |
 | xlogfile | XLOGFILE_DIR<br />XLOGFILE_PREPARE_COUNT<br />XLOGFILE_SIZE<br />XLOGFILE_REMOVE_INTERVAL<br />XLOGFILE_REMOVE_INTERVAL_BY_FILE_CREATE | No<br />No<br />No<br />Yes<br />Yes | SYSTEM |
 
 
