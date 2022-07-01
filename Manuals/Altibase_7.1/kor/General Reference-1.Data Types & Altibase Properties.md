@@ -16471,3 +16471,36 @@ Unsigned Integer
 ##### 설명
 
 병렬 큐(Parallel Queue)가 담을 수 있는 최대 로우(row) 수를 지정한다.
+
+#### REGEXP_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+정규식 처리 방식을 설정하는 프로퍼티이다.
+
+* 0: 기존 방식인 POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE) 사용
+* 1: PCRE2 라이브러리 사용
+
+프로퍼티 값을 1로 설정하면 다음과 같은 제약이 따른다.
+
+* Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8 에서만 지원한다.
+
+Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+PCRE2 라이브러리에 대한 자세한 내용은 PCRE2 홈페이지( https://www.pcre.org/ )를 참조한다.
