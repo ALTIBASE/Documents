@@ -1,3 +1,32 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Adapter for Oracle User’s Manual](#adapter-for-oracle-users-manual)
+  - [서문](#%EC%84%9C%EB%AC%B8)
+    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [1.소개](#1%EC%86%8C%EA%B0%9C)
+    - [Adapter for Oracle](#adapter-for-oracle)
+  - [2.설치와 설정](#2%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95)
+    - [설치전 작업](#%EC%84%A4%EC%B9%98%EC%A0%84-%EC%9E%91%EC%97%85)
+    - [설치](#%EC%84%A4%EC%B9%98)
+    - [설치 후 작업](#%EC%84%A4%EC%B9%98-%ED%9B%84-%EC%9E%91%EC%97%85)
+    - [설정](#%EC%84%A4%EC%A0%95)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+  - [3.사용법](#3%EC%82%AC%EC%9A%A9%EB%B2%95)
+    - [oraAdapter 제약조건](#oraadapter-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
+    - [구동과 종료](#%EA%B5%AC%EB%8F%99%EA%B3%BC-%EC%A2%85%EB%A3%8C)
+    - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    - [Adapter for Oracle 유틸리티](#adapter-for-oracle-%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0)
+    - [커맨드 라인 옵션](#%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
+    - [오프라인 옵션(Offline Option)](#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
+  - [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
+    - [FAQ](#faq)
+  - [B.부록: oraAdapter 사용시 DDL 순서](#b%EB%B6%80%EB%A1%9D-oraadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%9C%EC%84%9C)
+    - [oraAdapter 사용시 DDL 수행 순서](#oraadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%98%ED%96%89-%EC%88%9C%EC%84%9C)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 - [Adapter for Oracle User’s Manual](#adapter-for-oracle-users-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
@@ -1244,6 +1273,84 @@ $./oraAdapter -v
 Altibase Adapter for Oracle version 5.5.1.1.2
 ...
 ```
+
+### 오프라인 옵션(Offline Option)
+
+#### 구문
+
+```
+CREATE REPLICATION ala_replication_name FOR ANALYSIS OPTIONS META_LOGGING 
+                   WITH 'remote_host_ip', remote_host_port_no 
+                   FROM user_name.table_name TO user_name.table_name;                   
+ALTER REPLICATION ala_replication_name SET OFFLINE ENABLE WITH 'log_dir';
+ALTER REPLICATION ala_replication_name SET OFFLINE DISABLE;
+ALTER REPLICATION ala_replication_name BUILD OFFLINE META [AT SN(sn)];
+ALTER REPLICATION ala_replication_name RESET OFFLINE META;
+ALTER REPLICATION ala_replication_name START WITH OFFLINE;
+```
+
+#### 설명
+
+OraAdapter를 이용하여 Alitbase에서 변경된 데이타를 오라클 데이터베이스에 적용하는 환경에서, 서비스를 제공하는 Altibase 서버에서 장애가 발생하면 오라클 서버에 적용하지 못한 로그를  전송할 수 없게 된다. 이때 Altibase 서버에 META_LOGGING Option을 수행 중이고, Altibase 서버와 동일한 데이터베이스 구성을 가진 Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Alitbase 서버의 로그 파일에 직접 접근하여 미전송 로그를 가져와서 오라클 데이터베이스에 반영할 수 있다.
+
+-   META_LOGGING
+    이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 미전송 로그를 읽어 올때 필요한 메타 정보를 구성할 수 있게 한다.
+    파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
+-   SET OFFLINE ENABLE WITH 'log_dir'  
+    오프라인 이중화 옵션을 사용할 수 있도록 설정한다. 이중화가 중지되어 있는 상태에서만 이 구문을 수행할 수 있다. 장애가 발생한 Altibase 서버의 로그 파일 경로를 설정하여 Standby 서버가 직접 로그 파일에 접근하도록 한다.
+-   SET OFFLINE DISABLE  
+    오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는 상태에서만 이 구문을 수행할 수 있다.
+-   BUILD OFFLINE META
+    설정된 로그 파일 경로의 ala_meta_files 폴더에서 메타 파일과 SN 파일을 읽어 오프라인 이중화에 필요한 메타 정보를 구성한다.
+-   RESET OFFLINE META
+    BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을때 초기화한다.
+-   START WITH OFFLINE  
+    설정된 오프라인 경로를 이용하여 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로써, 미전송된 로그를 모두 반영한 후 바로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다.
+
+#### 제약사항
+
+- 이중화 메타정보 파일 읽기, 쓰기 기능은 ALA만 사용 할수 있다.
+- Offline OraAdapter을 수행할 서버의 ALA 객체 이름은 Active 서버의 ALA 객체 이름과 동일해야 한다. 
+- 압축 테이블을 이중화 대상으로 가지는 ALA객체에 대해서는 Offline OraAdapter를 지원하지 않는다.
+- Offline OraAdapter가 디스크 이상으로 Active서버의 로그 파일과 메타 파일 경로에 접근하지 못할 경우에는 실패한다.
+- Active 서버와 Standby 서버의 로그 파일 크기는 동일해야 한다. 로그 파일 크기는 데이터베이스 생성 시에 정해지므로 오프라인 옵션을 사용하기 전에 이를 꼭 확인하여야 한다.
+- 로그 파일과 메타 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우 비정상 종료와 같은 문제를 발생시킬 수 있다.
+- Standby 서버에 BUILD OFFLINE META 수행 후 재 구동할 경우 로그를 분석하는데 사용할 Remote Meta 정보가 사라지기 때문에 BUILD OFFLINE META를 다시 수행 해야 한다. 
+- META_LOGGING Option을 사용할 경우 ALA도 이중화와 동일하게 갭을 Archive 로그로 처리 하지 않는다.
+- 두 데이터베이스 서버의 SM버전, OS, OS비트수 (32또는 64) 또는 로그 파일의 크기가 서로 다르면, Offline OraAdapter를 시작하거나 오프라인 옵션으로 ALA 객체를 생성할 때 실패한다.
+
+#### 예제
+
+| No                                          | Active Server                                                | Standby Server                                               | Oracle                                                 |
+| ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------ |
+| 1. 스키마 생성                              | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20)); |
+| 2. 이중화 생성                              | CREATE REPLICATION ALA FOR ANALYSIS OPTIONS META_LOGGING<br/>WITH 'adapter_ip', adapter_port<br/>FROM SYS.T1 to SYS.T1; | CREATE REPLICATION ALA FOR ANALYSIS <br/>WITH 'adapter_ip', adapter_port<br/>FROM SYS.T1 to SYS.T1; |                                                        |
+| 3. Active 서버oraAdapter 시작               | $oaUtility start                                             |                                                              |                                                        |
+| 4. Active 서버 이중화 시작                  | ALTER REPLICATION ALA START;                                 |                                                              |                                                        |
+| 5.  Active 서버 장애 발생                   | 장애 발생                                                    |                                                              |                                                        |
+| 6. Standby 서버 oraAdapter 시작             |                                                              | $oaUtility start                                             |                                                        |
+| 7. Standby 서버 이중화에 오프라인 옵션 설정 |                                                              | ALTER REPLICATION ALA <br/>SET OFFLINE ENABLE WITH 'active_home/logs' |                                                        |
+| 8. 오프라인 메타 정보 구성                  |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
+| 9. 오프라인 이중화 시작                     |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
+
+#### 이중화 GAP에 DDL이 포함되어 있을 경우 처리 예제
+
+| No                                                  | Active Server                                                | Standby Server                                               | Oracle                                                 |
+| --------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------ |
+| 1. 스키마 생성                                      | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20)); |
+| 2. 이중화 생성                                      | CREATE REPLICATION ALA FOR ANALYSIS OPTIONS META_LOGGING<br/>WITH 'adapter_ip', adapter_port<br/>FROM SYS.T1 to SYS.T1; | CREATE REPLICATION ALA FOR ANALYSIS <br/>WITH 'adapter_ip', adapter_port<br/>FROM SYS.T1 to SYS.T1; |                                                        |
+| 3. Active 서버oraAdapter 시작                       | $oaUtility start                                             |                                                              |                                                        |
+| 4. Active 서버 이중화 시작                          | ALTER REPLICATION ALA START;                                 |                                                              |                                                        |
+| 5. Active 서버 DDL                                  | DDL                                                          |                                                              |                                                        |
+| 6.  Active 서버 장애 발생                           | 장애 발생                                                    |                                                              |                                                        |
+| 7. Standby 서버 oraAdapter 시작                     |                                                              | $oaUtility start                                             |                                                        |
+| 8. 이중화에 오프라인 옵션 설정                      |                                                              | ALTER REPLICATION ALA <br/>SET OFFLINE ENABLE WITH 'active_home/logs' |                                                        |
+| 9. 오프라인 메타 정보 구성                          |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
+| 10. 오프라인 이중화 시작                            |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
+| 11. DDL 로그로 인해 <br />오프라인 이중화 에러 발생 |                                                              | [ERR-611B6 : Offline ALA Sender read DDL log.]               |                                                        |
+| 12. Oracle에 DDL                                    |                                                              |                                                              | DDL                                                    |
+| 13. Standby 서버 oraAdapter 재 시작                 |                                                              | $oaUtility start                                             |                                                        |
+| 14. 오프라인 이중화 재 시작                         |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 
 
 
