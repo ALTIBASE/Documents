@@ -119,6 +119,9 @@
     - [그 외의 조건](#%EA%B7%B8-%EC%99%B8%EC%9D%98-%EC%A1%B0%EA%B1%B4)
   - [A.부록: 정규 표현식](#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D)
     - [정규 표현식 지원](#%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D-%EC%A7%80%EC%9B%90)
+    - [정규식 라이브러리 설정 변경 방법](#%EC%A0%95%EA%B7%9C%EC%8B%9D-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%84%A4%EC%A0%95-%EB%B3%80%EA%B2%BD-%EB%B0%A9%EB%B2%95)
+    - [정규식 라이브러리 설정 확인 방법](#%EC%A0%95%EA%B7%9C%EC%8B%9D-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%84%A4%EC%A0%95-%ED%99%95%EC%9D%B8-%EB%B0%A9%EB%B2%95)	
+    - [정규식 라이브러리 문법 차이점](#%EC%A0%95%EA%B7%9C%EC%8B%9D-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%AC%B8%EB%B2%95-%EC%B0%A8%EC%9D%B4%EC%A0%90)
 
 
 
@@ -25529,9 +25532,11 @@ A.부록: 정규 표현식
 ### 정규 표현식 지원
 
 정규 표현식(regular expression)이란 텍스트 패턴을 기술하기 위한 표기법으로, 하나
-이상의 문자열과 메타문자(metacharacter)로 구성된다. Altibase는 POSIX Basic
-Regular Expression (BRE)과 Extended Regular Expression(ERE)의 일부를 지원한다.
-Altibase가 지원하는 정규 표현식은 아래와 같은 제약 사항과 특징이 있다.
+이상의 문자열과 메타문자(metacharacter)로 구성된다. Altibase는 자체 
+정규식 라이브러리 또는 PCRE2 라이브러리를 사용하여 정규 표현식을 지원한다.
+기본 값으로 Altibase 자체 정규식 라이브러리를 사용하며, 해당 라이브러리는 POSIX 
+Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)의 일부를 지원한다.
+Altibase 자체 정규식 라이브러리에서 지원하는 정규 표현식은 아래와 같은 제약 사항과 특징이 있다.
 
 -   멀티바이트 문자를 지원하지 않는다.
 
@@ -25684,3 +25689,114 @@ Altibase가 지원하는 정규 표현식은 아래와 같은 제약 사항과 �
 </tr>
 </tbody>
 </table>
+
+### 정규식 라이브러리 설정 변경 방법
+
+다음 쿼리로 현재 시스템의 정규식 라이브러리 설정을 변경할 수 있다. 변경된 설정을 적용하려면 세션 재접속이 필요할 수 있다.
+
+`ALTER SYSTEM SET REGEXP_MODE=1;`
+
+다음 쿼리로 현재 세션의 설정을 변경 할 수 있다.
+
+`ALTER SESSION SET REGEXP_MODE=1;`
+
+### 정규식 라이브러리 설정 확인 방법
+
+아래와 같이 두 가지 방법으로 설정이 올바르게 적용되었는지 여부를 확인 할 수 있다.
+
+* 차이점이 존재하는 정규식 문법을 사용하여 확인
+* 올바르지 않은 정규식 문법 사용 시 에러 메세지 출력으로 확인
+	
+### 정규식 라이브러리 문법 차이점
+
+PCRE2 라이브러리를 사용할 때의  차이점을 다음과 같이 표로 정리한다.
+	
+<table>
+  <tbody>
+    <tr>
+      <th>변경 문법</th>
+      <th>기존 문법의 예</th>
+      <th>변경 문법의 예</th>
+    </tr>
+    <tr>
+      <td>
+        <p>POSIX 문자열 클래스</p>
+        <p>(POSIX character class)</p>
+      </td>
+      <td>
+`SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');
+SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');`
+      </td>
+      <td>
+`SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:punct:+');
+SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:lower:+');`
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">
+        <p>POSIX 동등 클래스</p>
+        <p>(POSIX collating element or equivalence class)</p>
+      </td>
+      <td colspan="1">
+`SELECT I1 FROM T1 WHERE REGEXP_LIKE( I1, '[=A=]' );`
+      </td>
+      <td colspan="1">지원하지 않음</td>
+    </tr>
+    <tr>
+      <td colspan="1">
+`SELECT I1 FROM T1 WHERE REGEXP_LIKE( I1, '[A-[.CH.' );`
+      </td>
+      <td colspan="1">지원하지 않음</td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>역참조</p>
+        <p>(Backreference)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(알티(베이스)7) 데이터\2');
+SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(알티(?<BASE>베이스)7) 데이터(?P=BASE)');`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>전방 탐색</p>
+        <p>(Lookahead)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'알티.*(?=데이터베이스)');
+SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'알티.*(?!데이터베이스)');`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>후방 탐색</p>
+        <p>(Lookbehind)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<=알티베이스7) 데이터베이스');
+SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<!알티베이스7) 데이터베이스');`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>조건부 정규 표현식</p>
+        <p>(Conditional pattern)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT REGEXP_SUBSTR(I2,'(?(?=알티베이스)알티베이스7|데이터베이스)') FROM T1;`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>문자 속성 정규 표현식</p>
+        <p>(Character with the xx property)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT REGEXP_SUBSTR(I2,'\P{HANGUL}+') FROM T1;`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+PCRE2 라이브러리에서 지원하는 정규식 문법에 대한 자세한 내용은 PCRE2 패턴 매뉴얼 페이지( https://www.pcre.org/current/doc/html/pcre2pattern.html )를 참조한다.
