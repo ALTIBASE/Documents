@@ -2263,30 +2263,32 @@ Unsigned Integer
 ##### 설명
 공유 트랜잭션 관리를 위한 자료구조의 Hash 저장소 크기를 설정한다.
 
-#### SHARD_NOTIFIER_2PC_ENABLE
+#### SHARD_NOTIFIER_MAX_COUNT
 ##### 데이터 타입
 Unsigned Integer
 ##### 기본값
-1
-##### 속성
-읽기 전용, 단일 값
-##### 값의 범위
-[0,1]
-##### 설명
-SHARD_NOTIFIER_2PC 기능을 사용하기 위해서는 SHARD_NOTIFIER_2PC_ENABLE 는 1 이어야 한다.
-
-#### SHARD_NOTIFIER_COUNT
-##### 데이터 타입
-Unsigned Integer
-##### 기본값
-장비의 CPU 개수
+장비의 CPU 개수, 단, 64 이상이면 64를 기본값으로 한다.
 ##### 속성
 읽기 전용, 단일 값
 ##### 값의 범위
 [1 ~ 1024]
 ##### 설명
-shard notifier의 갯수를 설정한다.
-- SHARD_NOTIFIER_2PC_ENABLE 가 0 일때는 SHARD_NOTIFIER_COUNT 는 강제로 1로 설정된다.
+SHARD_NOTIFIER thread의 최대 갯수를 지정한다.
+
+#### SHARD_NOTIFIER_ACTIVE_COUNT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+장비의 CPU 개수, 단, 64 이상이면 64를 기본값으로 한다.
+##### 속성
+변경 가능, 단일 값
+##### 값의 범위
+[1 ~ 1024]
+##### 설명
+SHARD_NOTIFIER_MAX_COUNT 의 한도내에서 실제로 동작하는 shard notifier의 갯수를 설정한다.
+- 구동시 SHARD_NOTIFIER_MAX_COUNT 보다 큰 값이면, 자동으로 SHARD_NOTIFIER_MAX_COUNT 로 맞추어 준다.
+  - 단, 사용자가 명시적으로 SHARD_NOTIFIER_ACTIVE_COUNT를 설정해준 경우에는 자동조정하지 않고, 에러를 발생시킨다.
+- 운영중 SHARD_NOTIFIER_MAX_COUNT 보다 큰 값으로 설정하려고 하면, 에러를 발생시킨다.
 
 #### SHARD_NOTIFIER_2PC
 ##### 데이터 타입
@@ -2294,14 +2296,14 @@ Unsigned Integer
 ##### 기본값
 1
 ##### 속성
-읽기 전용, 단일 값
+변경 가능, 단일 값
 ##### 값의 범위
 [0,1]
 ##### 설명
 GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 할지의 여부이다.
-- 0 : shard notifier가 이관받아 처리하지 않는다.
-- 1 : shard notifier가 이관받아 처리한다.
-- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier 가 이관받아 처리를 한다. DB서버의 비정상 종료도 동반하는 경우에는 failover notifier도 같이 수행된다.
+- 0 : shard notifier로 이관하지 않는다.
+- 1 : shard notifier로 이관하여 처리한다.
+- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier 로 이관하여 처리를 한다. DB서버의 비정상 종료도 동반하는 경우에는 failover notifier도 같이 수행된다.
 
 #### XLOGFILE_DIR
 ##### 데이터 타입
