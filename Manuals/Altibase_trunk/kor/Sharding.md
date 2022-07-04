@@ -1435,6 +1435,9 @@ DBMS_SHARD.SET_REPLICATION(
 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하고, 이중화 병렬 적용자는 3 으로 설정한다.
 ```
 iSQL> EXEC DBMS_SHARD.SET_REPLICATION(2, 'consistent', 3);
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(1, 'consistent', 3);
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(0, 'consistent', 3);
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(0);
 ```
 #### SET_SHARD_TABLE_SHARDKEY
 ##### 구문
