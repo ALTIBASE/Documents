@@ -843,12 +843,12 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
   - 특정 세션의 DML만 k-safety 복제가 되지 않아, 샤딩 데이타정합성에 위배가 되기 때문이다.
 - DDL_LOCK_TIMEOUT 의 권장값이 3(초) 이다.
   - altibase.properties.shard 화일에 DDL_LOCK_TIMEOUT = 3 으로 설정되어 있다.
-  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 하기때문에, DDL시에 table lock에 기본적으로 대기 시간이 필요하다.
+  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 하기때문에, DDL시에 table lock에 기본적으로 대기 시간이 필요하다.
   - DDL_LOCK_TIMEOUT 이 0 인 경우에는, DML 후에 관련 테이블에 시차를 두지 않고 바로 DDL을 수행하면, 위의 two phase commit 지연처리 방식으로 인해, 실패하는 경우가 발생할 수 있다.
-- SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, count(\*) 최적화를 적용하지 않는다.
+- SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 이 3 인 경우에, count(\*) 최적화를 적용하지 않는다.
   - count(\*) 최적화란 실제 레코드들을 확인하지 않고, table header 에 기록된 전체 레코드수를 사용하는 방식을 말한다.
-  - count(\*) 최적화에서는 two phase commit pending 상태의 레코드들은 고려되지 않는다.
-  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 가 3 인 경우에, two phase commit 이 지연처리가 되므로, count(\*) 최적화는 적용되면 안된다.
+  - count(\*) 최적화에서 two phase commit pending 상태의 레코드들은 고려되지 않는다.
+  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 이 3 인 경우에, two phase commit 이 지연처리가 되므로, count(\*) 최적화를 적용할 수 없다.
 - SHARD_NOTIFIER_2PC 가 1 인 상태에서, GLOBAL_TRANSACTION_LEVEL 를 3 에서 더 작은 값으로 변경시의 주의사항
   - GLOBAL_TRANSACTION_LEVEL 가 3 인 상태에서 commit 한 내용을, two phase commit 이 지연처리로 인하여, GLOBAL_TRANSACTION_LEVEL 이 작은 상황에서 순간적으로 보지 못할 수 있다.
 
