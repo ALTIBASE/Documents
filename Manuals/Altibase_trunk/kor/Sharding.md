@@ -2300,10 +2300,10 @@ Unsigned Integer
 ##### 값의 범위
 [0,1]
 ##### 설명
-GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 할지의 여부이다.
+GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier에 이관하여 지연처리를 할지의 여부이다.
 - 0 : shard notifier로 이관하지 않는다.
 - 1 : shard notifier로 이관하여 처리한다.
-- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier 로 이관하여 처리를 한다. DB서버의 비정상 종료도 동반하는 경우에는 failover notifier도 같이 수행된다.
+- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier로 이관하여 처리를 한다. DB서버의 비정상 종료를 동반하는 경우에는 failover notifier도 같이 수행된다.
 
 #### XLOGFILE_DIR
 ##### 데이터 타입
