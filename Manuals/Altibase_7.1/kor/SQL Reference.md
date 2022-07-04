@@ -25789,7 +25789,7 @@ SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<!알티베이스7) 데이터베이스'
 </table>
 
 
-PCRE2 라이브러리의 정규 표현식 문법에 대한 자세한 내용은 PCRE2 패턴 매뉴얼 페이지( https://www.pcre.org/current/doc/html/pcre2pattern.html )를 참조한다.
+PCRE2 라이브러리의 정규 표현식 문법에 대한 자세한 내용은 [PCRE2 패턴 매뉴얼 페이지](https://www.pcre.org/current/doc/html/pcre2pattern.html)를 참조한다.
 
 ### 정규 표현식 라이브러리 설정 변경 방법
 
