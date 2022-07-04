@@ -25532,11 +25532,11 @@ A.부록: 정규 표현식
 ### 정규 표현식 지원
 
 정규 표현식(regular expression)이란 텍스트 패턴을 기술하기 위한 표기법으로, 하나
-이상의 문자열과 메타문자(metacharacter)로 구성된다. Altibase는 자체 
-정규식 라이브러리 또는 PCRE2 라이브러리를 사용하여 정규 표현식을 지원한다.
-기본 값으로 Altibase 자체 정규식 라이브러리를 사용하며, 해당 라이브러리는 POSIX 
-Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)의 일부를 지원한다.
-Altibase 자체 정규식 라이브러리에서 지원하는 정규 표현식은 아래와 같은 제약 사항과 특징이 있다.
+이상의 문자열과 메타문자(metacharacter)로 구성된다. Altibase는 POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)의 일부를 지원하는 Altibase 정규 표현식 라이브러리와 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리를 지원한다. 사용자는 이 두 가지 정규 표현식 라이브러리 중 하나를 선택하여 사용할 수 있다. 
+
+#### Altibase 정규 표현식 라이브러리
+
+Altibase 정규 표현식 라이브러리의 정규 표현식은 아래와 같은 제약 사항과 특징이 있다.
 
 -   멀티바이트 문자를 지원하지 않는다.
 
@@ -25549,7 +25549,7 @@ Altibase 자체 정규식 라이브러리에서 지원하는 정규 표현식은
 
 -   이스케이프(Escape) 문자를 지원한다.
 
-아래는 문자 클래스를 정리한 표이다.
+아래는 Altibase 정규 표현식 라이브러리에서 지원하는 정규 표현식의 문자 클래스를 정리한 표이다. 
 
 | 문자 클래스 | 축약형 | 설명                                                                                         |
 |-------------|--------|----------------------------------------------------------------------------------------------|
@@ -25576,8 +25576,7 @@ Altibase 자체 정규식 라이브러리에서 지원하는 정규 표현식은
 |             | \\b    | 낱말 경계                                                                                    |
 |             | \\B    | \\b를 제외한 모든 문자                                                                       |
 
-아래는 Altibase에서 정규 표현식에 사용할 수 있는 특수 문자들과 그 의미를 정리한
-표이다.
+다음은 Altibase 정규 표현식 라이브러리의 정규 표현식에 사용할 수 있는 특수 문자들과 그 의미를 정리한 표이다.
 
 <table>
 <tbody>
@@ -25689,34 +25688,25 @@ Altibase 자체 정규식 라이브러리에서 지원하는 정규 표현식은
 </tr>
 </tbody>
 </table>
+#### 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리
 
-### 정규식 라이브러리 설정 변경 방법
+PCRE2 라이브러리는 Altibase 7.1.0.7.7부터 지원하며 PCRE2 라이브러리의 버전은 10.40 이다.
 
-다음 쿼리로 현재 시스템의 정규식 라이브러리 설정을 변경할 수 있다. 변경된 설정을 적용하려면 세션 재접속이 필요할 수 있다.
+**PCRE2 라이브러리 제약 사항**
 
-`ALTER SYSTEM SET REGEXP_MODE=1;`
+- Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8에서만 지원한다. 
+- Altibase 정규 표현식 라이브러리의 정규 표현식과 문법 차이가 있다. 
 
-다음 쿼리로 현재 세션의 설정을 변경 할 수 있다.
+### 정규 표현식 라이브러리 문법 차이점
 
-`ALTER SESSION SET REGEXP_MODE=1;`
+ Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리의 정규 표현식 차이점을 나타내는 표이다.
 
-### 정규식 라이브러리 설정 확인 방법
-
-아래와 같이 두 가지 방법으로 설정이 올바르게 적용되었는지 여부를 확인 할 수 있다.
-
-* 차이점이 존재하는 정규식 문법을 사용하여 확인
-* 올바르지 않은 정규식 문법 사용 시 에러 메세지 출력으로 확인
-	
-### 정규식 라이브러리 문법 차이점
-
-PCRE2 라이브러리를 사용할 때의  차이점을 다음과 같이 표로 정리한다.
-	
 <table>
   <tbody>
     <tr>
-      <th>변경 문법</th>
-      <th>기존 문법의 예</th>
-      <th>변경 문법의 예</th>
+      <th>정규 표현식 문법</th>
+      <th>Altibase 정규 표현식 라이브러리의 정규 표현식 문법 예</th>
+      <th>PCRE2 라이브러리의 정규 표현식 문법 예</th>
     </tr>
     <tr>
       <td>
@@ -25799,4 +25789,25 @@ SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<!알티베이스7) 데이터베이스'
   </tbody>
 </table>
 
-PCRE2 라이브러리에서 지원하는 정규식 문법에 대한 자세한 내용은 PCRE2 패턴 매뉴얼 페이지( https://www.pcre.org/current/doc/html/pcre2pattern.html )를 참조한다.
+
+PCRE2 라이브러리의 정규 표현식 문법에 대한 자세한 내용은 PCRE2 패턴 매뉴얼 페이지( https://www.pcre.org/current/doc/html/pcre2pattern.html )를 참조한다.
+
+### 정규 표현식 라이브러리 설정 변경 방법
+
+Altibase 는 2가지 정규 표현식 라이브러리를 제공하므로 사용자는 Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리 중 하나를 선택하여 사용해야 한다. Altibase 기본 설정은 Altibase 정규 표현식 라이브러리이므로 PCRE2 라이브러리를 사용하고 싶으면 다음 질의문으로 정규식 라이브러리 설정을 변경해야 한다. 
+
+- Altibase 서버 구동 상태에서 시스템 단위 변경
+
+  변경된 설정을 적용하려면 세션을 재접속해야 한다. 
+
+  `ALTER SYSTEM SET REGEXP_MODE=1;`
+
+- Altibase 서버 구동 상태에서 세션 단위 변경
+
+  `ALTER SESSION SET REGEXP_MODE=1;`
+
+- Altibase 서버에 영구적으로 변경
+
+  altibase.properties 파일에 REGEXP_MODE=1 추가하고 Altibase 서버 재시작 
+
+

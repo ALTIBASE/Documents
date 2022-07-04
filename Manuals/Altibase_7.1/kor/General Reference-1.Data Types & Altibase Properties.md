@@ -16492,15 +16492,16 @@ Unsigned Integer
 
 ##### 설명
 
-정규식 처리 방식을 설정하는 프로퍼티이다.
+정규 표현식 처리 방식을 설정하는 프로퍼티로, 설정 값의 의미는 아래와 같다.
 
-* 0: 기존 방식인 POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE) 사용
-* 1: PCRE2 라이브러리 사용
+* 0
 
-프로퍼티 값을 1로 설정하면 다음과 같은 제약이 따른다.
+  POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)을 일부 지원하는 Altibase 정규 표현식 라이브러리.
 
-* Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8 에서만 지원한다.
+* 1
 
-Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+  펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리. 
 
-PCRE2 라이브러리에 대한 자세한 내용은 PCRE2 홈페이지( https://www.pcre.org/ )를 참조한다.
+  Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8에서만 지원한다. Altibase 정규 표현식 라이브러리의 정규 표현식과 문법 차이가 있다. 관련 설명은 SQL Reference 매뉴얼을 참고한다. 
+
+  PCRE2 라이브러리에 대한 자세한 내용은 PCRE2 홈페이지( https://www.pcre.org/ )를 참조한다.
