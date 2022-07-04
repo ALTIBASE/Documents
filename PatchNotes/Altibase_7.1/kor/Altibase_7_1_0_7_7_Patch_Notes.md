@@ -182,7 +182,7 @@ Fixed Bugs
     
     Altibase 기존 정규 표현식 라이브러리와 일부 기능에서 문법 차이가 있습니다. 
     
-    보다 자세한 내용은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL Reference.md#a부록-정규-표현식) 매뉴얼을 참고하시기 바랍니다.
+    보다 자세한 내용은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고하시기 바랍니다.
     
     Altibase 에서 사용한 PCRE2 라이브러리의 버전은 10.40 입니다. PCRE2 라이브러리에 대한 자세한 내용은 [PCRE2 홈페이지](https://www.pcre.org/)를 참조하세요. 
     
