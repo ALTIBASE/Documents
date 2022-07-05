@@ -9,18 +9,18 @@
 
 ## Introduction
 
-- This guide provides information on how to use Altibase in Apache NiFi (hereinafter NiFi ).
+This guide provides information on how to use Altibase in Apache NiFi (hereinafter NiFi ).
 
 ### What is NiFi?
 
-- NiFi is a software project from the Apache Software Foundation designed to automate the flow of data between software systems. For more information, please refer to the [NiFi website](https://nifi.apache.org/).
+NiFi is a software project from the Apache Software Foundation designed to automate the flow of data between software systems. For more information, please refer to the [NiFi website](https://nifi.apache.org/).
 
 ### NiFi Components
 
 Below are the components of NiFi required to deliver the instructions in this document. Further details about other NiFi components can be found on the NiFi website.
 
 - FlowFile
-  - It represents a single piece of data in NiFi and it is consisted of two components: FlowFile Attributes and FlowFile Content.
+  - It represents a single piece of data in NiFi and it is consisted of two components: Attributes and Content.
   - It is more of an object that exists in memory rather than a physical file stored on disk.
 - Processor
   - It is the basic blocks of controlling a Data Flow. It routes, transforms, or extracts information from FlowFiles.
@@ -28,7 +28,7 @@ Below are the components of NiFi required to deliver the instructions in this do
 - Connection
   - It provides the linkage between processors.
 - Controller Service
-  - It is shared resources that provide information processor needs according to the occasion.
+  - It is a set of shared resources that provide information processor needs based on the requirement.
   - For example, DB connection is used by multiple processors via controller service.
 
 ## Installing NiFi
@@ -53,7 +53,7 @@ Below are the components of NiFi required to deliver the instructions in this do
 
 2. Simply uncompress the file in the desired directory to install NiFi.
 
-3. Modify the following properties in $NIFI_HOME/conf/nifi.properties to allow Web UI to access. (Same port number cannot be used twice)
+3. Modify the following properties in $NIFI_HOME/conf/nifi.properties to enable Web UI access. (Same port number cannot be used twice)
 
    ```
    nifi.web.http.host=
@@ -73,7 +73,7 @@ NiFi home: /home/altibase/NiFi/nifi-1.12.1
 Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 ```
 
-How to check the status to see if it is running: If the message below can be found in the $NIFI_HOME/logs/nifi-app.log file, NiFi is running and the browser can be accessed via the URL shown.
+How to check if it is running: If the message below can be found in the $NIFI_HOME/logs/nifi-app.log file, NiFi is running and the Web UI can be accessed via this URL in the web browser.
 
 ```
 2021-12-15 17:49:17,732 INFO [main] org.apache.nifi.web.server.JettyServer NiFi has started. The UI is available at the following URLs:
@@ -108,19 +108,19 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
 #### Starting
 
-- The following message is printed when run-nifi.bat is executed, but the actual running status can be found at $NIFI_HOME/logs/nifi-app.log.
+The following message is printed when run-nifi.bat is executed, but the actual running status can be found at $NIFI_HOME/logs/nifi-app.log.
 
-  ```
-  > 2021-12-08 13:28:57,145 INFO \[main\] org.apache.nifi.bootstrap.Command Launched Apache NiFi with Process ID 2840
-  ```
+```
+> 2021-12-08 13:28:57,145 INFO \[main\] org.apache.nifi.bootstrap.Command Launched Apache NiFi with Process ID 2840
+```
 
 #### Stopping
 
-- To stop NiFi, press Ctrl+C.
+To stop NiFi, press Ctrl+C.
 
 ### Accessing Web UI
 
-- The URL above can be accessed via a web browser.
+The Web UI can be accessed via this URL in the web browser.
 
 ## How to Use Altibase in NiFi
 
@@ -136,7 +136,9 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
 2. Restart NiFi to apply the JDBC driver.
 
-3. Create Altibase connection pool via NiFi's controller service. Controller service can be registered using the processor's properties which are applicable. The registered contoller service can be used by other processors when chosen.
+3. Create Altibase connection pool via NiFi's controller service. 
+
+   Controller service can be registered using the processor's properties which are applicable. The registered contoller service can be used by other processors when chosen.
 
    Below is an example registering Altibase's controller service by registering one of GenerateTableFetch Processor's properties, Database Connection Pooling Service.
 

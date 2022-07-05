@@ -1,5 +1,9 @@
 # Spring Data JPA User's Guide for Altibase
 
+
+
+
+
 # Table of Contents
 
 - [Create Spring Data JPA Project with Spring Boot](#create-spring-data-jpa-project-with-spring-boot)
@@ -51,7 +55,7 @@ When Finish button is clicked, Progress is enabled and relevant libraries are do
 
 # Add Altibase Dialect Class File
 
-By default Spring uses Hibernate as the default JPA vendor. However, since Hibernate does not provide Dialect class for Altibase, the user has to manually compile and add to hibernate-core library.
+Spring uses Hibernate as the default JPA vendor. However, since Hibernate does not provide Dialect class for Altibase, the user has to manually compile and add to hibernate-core library.
 
 #### 1. Download Altibase Dialect Java Source
 

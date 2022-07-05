@@ -11,7 +11,7 @@
 
 # Introduction
 
-Kubernetes is an open-source container orchestration system for automating software Deployment, scaling, and management. A Pod is the smallest execution unit in Kubernetes. This guide provides information on how to create an Altibase Pod using [Altibase container image](https://hub.docker.com/r/altibase/altibase) registered at Docker Hub and use it in the Kubernetes v1.20.4 environment. Please refer to the [Altibase Docker Guide](https://aid.altibase.com/display/arch/3.+Altibase+Docker+Image) for information on how to create Altibase docker image and the [Kubernetes website](https://kubernetes.io) for other Kubernetes features.
+Kubernetes is an open-source container orchestration system that automates software deployment, scaling, and management. A Pod is the smallest execution unit in Kubernetes. This guide provides information on how to create an Altibase Pod using [Altibase container image](https://hub.docker.com/r/altibase/altibase) registered at Docker Hub and use it in the Kubernetes v1.20.4 environment. Please refer to the [Altibase Docker Guide](https://aid.altibase.com/display/arch/3.+Altibase+Docker+Image) for information on how to create Altibase docker image and the [Kubernetes website](https://kubernetes.io) for other Kubernetes features.
 
 # Creating and Using Pod
 
@@ -305,6 +305,8 @@ $ kubectl create -f altibase_Pod_svc.yaml
 
 ##### 3. Check Pod and Service Status
 
+Static IP address 10.110.31.65 is allocated to altibase-service.
+
 ```
 $ kubectl get Pod,Service -o wide
 NAME                                        READY   STATUS    RESTARTS   AGE     IP               NODE        NOMINATED NODE   READINESS GATES
@@ -338,9 +340,9 @@ iSQL>
 
 # Altibase Replication Using Pod
 
-This section covers how to consist Altibase node using Deployment and Service. Since a new dynamic IP is assigned every time Pod is created, remote host name is used in syntax creating Altibase replication instead of remote server IP address.
+This section covers how to consist Altibase replication node using Deployment and Service. Since a dynamic IP is assigned every time Pod is created, remote host name is used in syntax creating Altibase replication instead of remote server IP address.
 
-The example demonstrates creating Pod which has a static DNS name using Deployment and Service which points the Pod, connecting to Altibase server to create replication object and checking the replication status.
+The following is an example of creating Pod which has a static DNS name using Deployment and Service which points this Pod, then connecting to Altibase server to create replication object and checking the replication status.
 
 ##### 1. Write YAML file creating Deployment
 
@@ -512,7 +514,7 @@ Service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP
 
 ##### 5. Create and Start Replication Object
 
-Create a replication object on each Pod's Altibase container with the same name as the Service and start it.
+Create a replication object with the same name as the Service on each Pod's Altibase container and start it.
 
 |                           | altibase-node1 Pod's Altibase container                      | altibase-node2 Pod's Altibase container                      |
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
