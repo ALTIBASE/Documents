@@ -857,6 +857,11 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
   - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 이 3 인 경우에, two phase commit 이 지연처리가 되므로, count(\*) 최적화를 적용할 수 없다.
 - SHARD_NOTIFIER_2PC 가 1 인 상태에서, GLOBAL_TRANSACTION_LEVEL 를 3 에서 더 작은 값으로 변경시의 주의사항
   - GLOBAL_TRANSACTION_LEVEL 가 3 인 상태에서 commit 한 내용을, two phase commit 이 지연처리로 인하여, GLOBAL_TRANSACTION_LEVEL 이 작은 상황에서 순간적으로 보지 못할 수 있다.
+- 샤딩 환경에서 Non-shard query 의 Cost 예측
+  - 코디네이터 노드에 존재하는 테이블, 파티션에만 한정하여, 사용자가 GATHER_TABLE_STATS 프로시저로 수집한 Table Cost를 이용한다.
+  - 그외의 코디네이터 노드에 존재하지 않는 테이블, 파티션은 기본값 Cost를 이용한다.
+  - 그리고 원격지에서 수행할 쿼리에 대하여 코디네이터가 Shard Graph의 하위 Graph를 생성하여 Cost를 예측한다.
+  - 예측 결과물은 Shard Graph 상위의 Plan 수행 방안으로 결정하는데 이용되며, 생성된 하위 Graph는 동작없이 무시된다.
 
 #### 하위 호환성
 -   샤딩 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤딩 기능을 사용할 수 있다.
