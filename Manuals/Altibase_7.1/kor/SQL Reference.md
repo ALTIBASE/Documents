@@ -119,6 +119,8 @@
     - [그 외의 조건](#%EA%B7%B8-%EC%99%B8%EC%9D%98-%EC%A1%B0%EA%B1%B4)
   - [A.부록: 정규 표현식](#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D)
     - [정규 표현식 지원](#%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D-%EC%A7%80%EC%9B%90)
+    - [정규 표현식 라이브러리 문법 차이점](#정규-표현식-라이브러리-문법-차이점)
+    - [정규 표현식 라이브러리 설정 변경 방법](#정규-표현식-라이브러리-설정-변경-방법)
 
 
 
@@ -25528,10 +25530,11 @@ A.부록: 정규 표현식
 
 ### 정규 표현식 지원
 
-정규 표현식(regular expression)이란 텍스트 패턴을 기술하기 위한 표기법으로, 하나
-이상의 문자열과 메타문자(metacharacter)로 구성된다. Altibase는 POSIX Basic
-Regular Expression (BRE)과 Extended Regular Expression(ERE)의 일부를 지원한다.
-Altibase가 지원하는 정규 표현식은 아래와 같은 제약 사항과 특징이 있다.
+정규 표현식(regular expression)이란 텍스트 패턴을 기술하기 위한 표기법으로, 하나 이상의 문자열과 메타문자(metacharacter)로 구성된다. Altibase는 POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)의 일부를 지원하는 Altibase 정규 표현식 라이브러리와 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리를 지원한다. 사용자는 이 두 가지 정규 표현식 라이브러리 중 하나를 선택하여 사용할 수 있다. 
+
+#### Altibase 정규 표현식 라이브러리
+
+Altibase 정규 표현식 라이브러리의 정규 표현식은 아래와 같은 제약 사항과 특징이 있다.
 
 -   멀티바이트 문자를 지원하지 않는다.
 
@@ -25539,40 +25542,38 @@ Altibase가 지원하는 정규 표현식은 아래와 같은 제약 사항과 �
 
 -   전방 탐색(lookahead, ?=)과 후방 탐색(lookbehind, ?\<=)을 지원하지 않는다.
 
--   (?(condition)B\|C)와 같은 조건부 정규 표현식(conditional regular
-    expression)을 지원하지 않는다.
-
+-   (?(condition)B\|C)와 같은 조건부 정규 표현식(conditional regular expression)을 지원하지 않는다.
+    
 -   이스케이프(Escape) 문자를 지원한다.
 
-아래는 문자 클래스를 정리한 표이다.
+아래는 Altibase 정규 표현식 라이브러리에서 지원하는 정규 표현식의 문자 클래스를 정리한 표이다. 
 
-| 문자 클래스 | 축약형 | 설명                                                                                         |
-|-------------|--------|----------------------------------------------------------------------------------------------|
-| [:alnum:]   |        | 알파벳과 숫자                                                                                |
-| [:alpha:]   | \\a    | 알파벳 문자                                                                                  |
-| [:blank:]   |        | 스페이스나 탭                                                                                |
-| [:cntrl:]   | \\c    | ASCII 127번 문자와 31번 이하의 문자                                                          |
-| [:digit:]   | \\d    | 숫자                                                                                         |
-| [:graph:]   |        | 스페이스를 제외하고 'print' 항목과 같음.                                                     |
-| [:lower:]   | \\l    | 알파벳 소문자                                                                                |
-| [:print:]   |        | 아스키코드에서 32에서 126 까지의 출력 가능한 문자                                            |
-| [:punct:]   | \\p    | 출력 가능한 ASCII 문자들(32에서 126) 중에서 스페이스, 숫자, 알파벳 문자를 제외한 구두점 기호 |
-| [:space:]   | \\s    | 출력되지 않는 공백 문자(space, carriage return, newline, vertical tab, form feed) 등         |
-| [:upper:]   | \\u    | 알파벳 대문자                                                                                |
-| [:word:]    | \\w    | 알파벳, 숫자, \_                                                                             |
-| [:xdigit:]  | \\x    | 16진수 숫자, 0-9, a-f, A-F                                                                   |
-|             | \\A    | \\a를 제외한 모든 문자                                                                       |
-|             | \\W    | \\w를 제외한 모든 문자                                                                       |
-|             | \\S    | \\s를 제외한 모든 문자                                                                       |
-|             | \\D    | \\d를 제외한 모든 문자                                                                       |
-|             | \\X    | \\x를 제외한 모든 문자                                                                       |
-|             | \\C    | \\c를 제외한 모든 문자                                                                       |
-|             | \\P    | \\p를 제외한 모든 문자                                                                       |
-|             | \\b    | 낱말 경계                                                                                    |
-|             | \\B    | \\b를 제외한 모든 문자                                                                       |
+| 문자 클래스 | 축약형 | 설명                                                         |
+| ----------- | ------ | ------------------------------------------------------------ |
+| [:alnum:]   |        | 알파벳과 숫자                                                |
+| [:alpha:]   | \\a    | 알파벳 문자                                                  |
+| [:blank:]   |        | 스페이스나 탭                                                |
+| [:cntrl:]   | \\c    | 아스키 코드에서 127번 문자와 31번 이하의 문자                |
+| [:digit:]   | \\d    | 숫자                                                         |
+| [:graph:]   |        | 아스키 코드 33에서 126까지 출력 가능한 문자에서 공백 문자를 제외한 문자 |
+| [:lower:]   | \\l    | 알파벳 소문자                                                |
+| [:print:]   |        | 아스키 코드 32에서 126까지 출력 가능한 문자에서 제어 문자를 제외한 문자 |
+| [:punct:]   | \\p    | 아스키 코드 32에서 126까지 출력 가능한 문자에서 공백, 숫자, 알파벳 문자를 제외한 구두점 기호 |
+| [:space:]   | \\s    | 출력되지 않는 공백 문자(space, carriage return, newline, vertical tab, form feed) 등 |
+| [:upper:]   | \\u    | 알파벳 대문자                                                |
+| [:word:]    | \\w    | 알파벳, 숫자, \_                                             |
+| [:xdigit:]  | \\x    | 16진수 숫자, 0-9, a-f, A-F                                   |
+|             | \\A    | \\a를 제외한 모든 문자                                       |
+|             | \\W    | \\w를 제외한 모든 문자                                       |
+|             | \\S    | \\s를 제외한 모든 문자                                       |
+|             | \\D    | \\d를 제외한 모든 문자                                       |
+|             | \\X    | \\x를 제외한 모든 문자                                       |
+|             | \\C    | \\c를 제외한 모든 문자                                       |
+|             | \\P    | \\p를 제외한 모든 문자                                       |
+|             | \\b    | 낱말 경계                                                    |
+|             | \\B    | \\b를 제외한 모든 문자                                       |
 
-아래는 Altibase에서 정규 표현식에 사용할 수 있는 특수 문자들과 그 의미를 정리한
-표이다.
+다음은 Altibase 정규 표현식 라이브러리의 정규 표현식에 사용할 수 있는 특수 문자들과 그 의미를 정리한 표이다.
 
 <table>
 <tbody>
@@ -25684,3 +25685,128 @@ Altibase가 지원하는 정규 표현식은 아래와 같은 제약 사항과 �
 </tr>
 </tbody>
 </table>
+
+
+#### 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리
+
+PCRE2 라이브러리는 Altibase 7.1.0.7.7부터 지원하며 PCRE2 라이브러리의 버전은 10.40 이다.
+
+**PCRE2 라이브러리 제약 사항**
+
+- Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8인 경우에만 지원한다.
+- Altibase 정규 표현식 라이브러리의 정규 표현식과 문법 차이가 있다. 
+
+### 정규 표현식 라이브러리 문법 차이점
+
+ Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리의 정규 표현식 차이점을 나타내는 표이다.
+
+<table>
+  <tbody>
+    <tr>
+      <th>정규 표현식 문법</th>
+      <th>Altibase 정규 표현식 라이브러리의 정규 표현식 문법 예</th>
+      <th>PCRE2 라이브러리의 정규 표현식 문법 예</th>
+    </tr>
+    <tr>
+      <td>
+        <p>POSIX 문자열 클래스</p>
+        <p>(POSIX character class)</p>
+      </td>
+      <td>
+`SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');
+SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');`
+      </td>
+      <td>
+`SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:punct:+');
+SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:lower:+');`
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">
+        <p>POSIX 동등 클래스</p>
+        <p>(POSIX collating element or equivalence class)</p>
+      </td>
+      <td colspan="1">
+`SELECT I1 FROM T1 WHERE REGEXP_LIKE( I1, '[=A=]' );`
+      </td>
+      <td colspan="1">지원하지 않음</td>
+    </tr>
+    <tr>
+      <td colspan="1">
+`SELECT I1 FROM T1 WHERE REGEXP_LIKE( I1, '[A-[.CH.' );`
+      </td>
+      <td colspan="1">지원하지 않음</td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>역참조</p>
+        <p>(Backreference)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(알티(베이스)7) 데이터\2');
+SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(알티(?<BASE>베이스)7) 데이터(?P=BASE)');`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>전방 탐색</p>
+        <p>(Lookahead)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'알티.*(?=데이터베이스)');
+SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'알티.*(?!데이터베이스)');`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>후방 탐색</p>
+        <p>(Lookbehind)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<=알티베이스7) 데이터베이스');
+SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<!알티베이스7) 데이터베이스');`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>조건부 정규 표현식</p>
+        <p>(Conditional pattern)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT REGEXP_SUBSTR(I2,'(?(?=알티베이스)알티베이스7|데이터베이스)') FROM T1;`
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <p>문자 속성 정규 표현식</p>
+        <p>(Character with the xx property)</p>
+      </td>
+      <td colspan="1">지원하지 않음</td>
+      <td colspan="1">`SELECT REGEXP_SUBSTR(I2,'\P{HANGUL}+') FROM T1;`
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+PCRE2 라이브러리의 정규 표현식 문법에 대한 자세한 내용은 [PCRE2 패턴 매뉴얼 페이지](https://www.pcre.org/current/doc/html/pcre2pattern.html)를 참조한다.
+
+### 정규 표현식 라이브러리 설정 변경 방법
+
+Altibase는 Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리를 제공하므로 사용자는 두 가지 라이브러리 중 하나를 선택하여 사용해야 한다. Altibase 정규 표현식 라이브러리가 기본 라이브러리로 설정되어 있으므로 PCRE2 라이브러리를 사용하고 싶다면 다음 구문으로 정규 표현식 라이브러리 설정을 변경해야 한다.
+
+- Altibase 서버 구동 상태에서 시스템 단위 변경
+
+  변경된 설정을 적용하려면 세션을 재접속해야 한다. 
+
+  `ALTER SYSTEM SET REGEXP_MODE=1;`
+
+- Altibase 서버 구동 상태에서 세션 단위 변경
+
+  `ALTER SESSION SET REGEXP_MODE=1;`
+
+- Altibase 서버에 영구적으로 변경
+
+  altibase.properties 파일에 REGEXP_MODE=1 추가하고 Altibase 서버 재시작 
+
+
