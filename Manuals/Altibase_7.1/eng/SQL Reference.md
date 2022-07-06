@@ -23105,7 +23105,7 @@ This section explains the regular expressions supported by Altibase.
 
 ### Regular Expression Support
 
-Regular expressions are a syntax convention for writing text patterns and consist of one or more character strings and metacharacters. Altibase supports Altibase Regular Expression Library that supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE) partially, and Perl Compatible Regular Expressions (PCRE2) library. The user can choose the library for the regular expression between the two.
+Regular expressions are a syntax convention for writing text patterns and consist of one or more character strings and metacharacters. Altibase supports Altibase Regular Expression Library that supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE) partially, and Perl Compatible Regular Expressions (PCRE2) library. The library to be used for the regular expressions can be chosen by the user between the two.
 
 #### Altibase Regular Expression Library
 
@@ -23274,7 +23274,7 @@ PCRE2 Library is supported from Altibase 7.1.0.7.7 and the PCRE2 Library version
 **PCRE2 Library Limitations** 
 
 - This library is only supported when Altibase server character set is  US7ASCII or UTF-8.
-- There are syntax differences compared to the Altibase Regular Expression Library.
+- There are syntax differences with the Altibase Regular Expression Library.
 
 ### Syntax Differences between the two Regular Expression Libraries
 
@@ -23365,7 +23365,7 @@ For more details about the regular expression syntax of the PCRE2 Library, pleas
 
 ### Altering the Regular Expression Library
 
-Since Altibase provides Altibase Regular Expression Library and PCRE2 Library, the one to be used for the regular expressions has to be chosen between the two. Altibase Regular Expression Library is set as the default, so in case the user wishes to use PCRE2 Library, regular expression library must be altered with the following statement.
+Since Altibase provides Altibase Regular Expression Library and PCRE2 Library, the library to be used for the regular expressions has to be chosen between the two. The default library is Altibase Regular Expression Library. Therefore, in case the user wishes to use PCRE2 Library, regular expression library must be altered with the following statements.
 
 - Alter the regular expression library for the system when Altibase server is running
 

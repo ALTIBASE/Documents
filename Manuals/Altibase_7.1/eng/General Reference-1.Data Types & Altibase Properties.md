@@ -15167,7 +15167,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the library that will be used for regular expression. Each value indicates the following.
+This property specifies the library that will be used for the regular expressions. Each value indicates the following.
 
 - 0
 
@@ -15177,6 +15177,6 @@ This property specifies the library that will be used for regular expression. Ea
 
   Perl Compatible Regular Expressions (PCRE2) Library
 
-  This library is only supported when the Altibase server character set is US7ASCII or UTF-8. There is a difference in syntax with Altibase Regular Expression Library. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](#https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/SQL%20Reference.md#appendix-a-regular-expressions)
+  This library is only supported when the Altibase server character set is US7ASCII or UTF-8. There are syntax differences with Altibase Regular Expression Library. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](#https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/SQL%20Reference.md#appendix-a-regular-expressions).
 
-  For more information about the PCRE2 library, please refer to the [PCRE2 Homepage](https://www.pcre.org/).
+  For more information about the PCRE2 library, please refer to [PCRE2 Homepage](https://www.pcre.org/).
