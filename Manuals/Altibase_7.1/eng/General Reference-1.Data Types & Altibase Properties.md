@@ -15147,3 +15147,36 @@ This property specifies the size of the VARCHAR type that the SYS_CONNECT_BY_PAT
 
 This property can be modified using the ALTER SYSTEM statement while Altibase is running.
 
+#### REGEXP_MODE
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 1]
+
+##### Description
+
+This property specifies the library that will be used for regular expression. Each value indicates the following.
+
+- 0
+
+  Altibase Regular Expression Library that supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression(ERE) partially
+
+- 1
+
+  Perl Compatible Regular Expressions (PCRE2) Library
+
+  This library is only supported when the Altibase server character set is US7ASCII or UTF-8. There is a difference in syntax with Altibase Regular Expression Library. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](#https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/SQL%20Reference.md#appendix-a-regular-expressions)
+
+  For more information about the PCRE2 library, please refer to the [PCRE2 Homepage](https://www.pcre.org/).
