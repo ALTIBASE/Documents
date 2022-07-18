@@ -24,7 +24,6 @@
   - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
 # New Features
-
 ### BUG-49782 Altibase 7 이상에서 Altibase 6.3.1 옵티마이저와 유사한 실행 계획을 생성하는 기능을 추가합니다.
 
 -   **module** : qp
@@ -56,8 +55,7 @@
     -   Compile Option
     -   Error Code
 
-Fixed Bugs
-==========
+# Fixed Bugs
 
 ### BUG-48012 GEOMFROMTEXT 함수와 같은 ST\_GEOMETRYFROMTEXT 함수를 추가합니다. 두 함수에서 WKT의 값이 NULL이면 NULL을 반환하도록 변경합니다.
 
