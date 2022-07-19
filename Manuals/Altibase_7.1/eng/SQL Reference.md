@@ -23126,10 +23126,10 @@ The following table describes character classes.
 | [:blank:]       |           | Space or tab character                                       |
 | [:cntrl:]       | \\c       | Any non-printing ASCII control chracter (i.e. 127, 0~31)     |
 | [:digit:]       | \\d       | Any numeric digit                                            |
-| [:graph:]       |           | Any printing ASCII character (i.e. 32~126) other than the space |
+| [:graph:]       |           | Characters printable in ASCII code from 32 to 126 except the space character |
 | [:lower:]       | \\l       | Any alphabet in lowercase                                    |
-| [:print:]       |           | Any printing ASCII character (i.e. 32~126) other than the control characters |
-| [:punct:]       | \\p       | Any punctuation character among ASCII printing characters (32~126), other than the space, numeric digits and alphabetic character |
+| [:print:]       |           | Characters printable in ASCII code from 32 to 126            |
+| [:punct:]       | \\p       | Characters printable in ASCII code from 32 to 126 except the space character, numeric digits and alphabetic characte |
 | [:space:]       | \\s       | Any non-printing space character (e.g., a space, carriage return, newline, vertical tab, form feed, etc.) |
 | [:upper:]       | \\u       | Any alphabetic character in uppercase                        |
 | [:word:]        | \\w       | The alphabetic character, numeric digit and underscore "_"   |
