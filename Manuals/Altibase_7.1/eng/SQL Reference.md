@@ -23267,7 +23267,7 @@ complex regular expression.</p>
 </tr>
 </tbody>
 </table>
-#### Perl Compatible Regular Expressions (PCRE2) Library
+#### 
 
 PCRE2 Library is supported from Altibase 7.1.0.7.7 and the PCRE2 Library version is 10.40.
 
