@@ -10,3 +10,4 @@
 
 - ### [Replication Manager User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Replication%20Manager%20User's%20Manual.md)
 
+- ### [dataCompJ User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/dataCompJ%20User's%20Manual.md)
