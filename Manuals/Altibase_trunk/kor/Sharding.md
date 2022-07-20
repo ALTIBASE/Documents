@@ -1845,9 +1845,7 @@ nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)
 - 동일 트랜잭션내에서 global procedure를 호출하기전에 user session이 아닌 다른 노드에서 commit되지 않은 트랜잭션이 있는 경우에는, global procedure에서 DCL, DDL을 수행할 수 없다.
   - global procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하여야 한다.
 - autonomous transaction pragma 를 지원하지 않는다.
-- 분산실행되는 query또는 procedure에서 package global variable을 지원하지 않는다.
-  - 단, CONSTANT 속성이 있는 경우는 분산실행 되더라도 동일한 값을 갖는것이 보장되므로, 분산실행에 사용될 수 있다.
-  - global procedure에서 쿼리내부가 아닌곳에서 package global variable을 사용하는 것은 지원한다.
+- package global variable 은 세션에 저장되는데, 샤딩은 사용자 입장의 논리적인 하나의 세션이, 내부적으로는 user/coordinator/library 세가지 종류의 세션들로 이루어져 있습니다. 이 내부적인 세션들간에 package global variable이 공유되지 않습니다.
 - PSM 내의 SELECT clause 에 PSM 변수 사용 시에는 cast 함수를 씌워서 PSM 변수에 대한 data type을 명시적으로 지정하는 work around 사용이 필요합니다.
   - ex.) SELECT cast(psm_var1 as integer) INTO v1 FROM t1 WHERE i1 = 1; 
 
