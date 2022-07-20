@@ -519,6 +519,10 @@ Fixed Bugs
 
 -   **설명** : LOB 칼럼을 포함한 테이블에 BEFORE UPDATE 트리거 수행 시 Altibase 서버가 비정상 종료하는 현상을 수정하고 BEFORE UPDATE 트리거에 LOB 컬럼 관련한 제약 사항을 추가합니다.
     
+    `LOB 칼럼이 있는 테이블은 'BEFORE UPDATE ... FOR EACH ROW' 구문으로 트리거를 생성할 수 있으나, 트리거의 동작을 유발하는 DML 문이 실행될 때 오류가 발생한다.`
+    
+    위 제약 사항은 [Altibase 7.1 SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#create-trigger) 매뉴얼을 참고하시기 바랍니다.
+    
 -   **재현 방법**
 
     -   **재현 절차**
