@@ -84,6 +84,7 @@ Fixed Bugs
       `batch_setbytes_use_lob`
     
     - **설명**
+    
       `BLOB 타입 컬럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 false는 이진 타입으로 처리한다.`
     
     batch_setbytes_use_lob의 기본값은 true로, 기존 동작을 유지하고 싶으면 batch_setbytes_use_lob=false를 추가하고 재컴파일 해야 합니다.  관련 설명은 [JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC%20User's%20Manual.md#batch_setbytes_use_lob) 에서도 확인할 수 있습니다.
