@@ -75,11 +75,19 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : LOB 데이터 타입를 포함한 setBytes()를 executeBatch()로 실행하는 경우 java.lang.ClassCastException:
-    Altibase.jdbc.driver.datatype.ListBufferHandle 에러가 발생하는 현상을 수정합니다.
+-   **설명** : BLOB 타입 컬럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시 java.lang.ClassCastException: Altibase.jdbc.driver.datatype.ListBufferHandle 에러가 발생합니다. 이 현상은 BLOB 데이터가 이진 타입이 처리할 수 있는 최대 크기인 65,534 바이트를 초과할 때 발생하는 것으로, 이진 타입 대신 BLOB 타입으로 처리하도록 변경합니다. 
     
-    setBytes()를 executeBatch()로 실행하면 바이너리 타입으로 처리하는데 BLOB으로 처리할 수 있는 JDBC 연결 속성 BATCH\_SETBYTES\_USE\_LOB을 추가합니다. 보다 자세한 설명은 [JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC%20User's%20Manual.md#batch_setbytes_use_lob) 에서 확인할 수 있습니다.
-
+    변경 동작을 원치 않을 경우 기존 동작을 유지할 수 있도록 JDBC 드라이버 연결 속성을 추가합니다. 
+    
+    - **JDBC 드라이버 연결 속성**
+    
+      `batch_setbytes_use_lob`
+    
+    - **설명**
+      `BLOB 타입 컬럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 false는 이진 타입으로 처리한다.`
+    
+    batch_setbytes_use_lob의 기본값은 true로, 기존 동작을 유지하고 싶으면 batch_setbytes_use_lob=false를 추가하고 재컴파일 해야 합니다.  관련 설명은 [JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC%20User's%20Manual.md#batch_setbytes_use_lob) 에서도 확인할 수 있습니다.
+    
 -   **재현 방법**
 
     -   **재현 절차**
