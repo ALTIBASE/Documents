@@ -9,13 +9,10 @@ Altibase 7.1.0.7.2 Patch Notes
 
 - [Altibase 7.1.0.7.2 Patch Notes](#altibase-71072-patch-notes)
 - [New Features](#new-features)
-  - [BUG-49546 DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의하는 연결 속성 getcolumns\_return\_jdbctype을 추가합니다.](#bug-49546databasemetadatagetcolumns-%EB%A9%94%EC%84%9C%EB%93%9C%EC%9D%98-%EB%B0%98%ED%99%98-%EA%B2%B0%EA%B3%BC-%EC%A4%91-data_type%EC%9D%98-%EA%B0%92%EC%9D%84-%EC%A0%95%EC%9D%98%ED%95%98%EB%8A%94-%EC%97%B0%EA%B2%B0-%EC%86%8D%EC%84%B1-getcolumns_return_jdbctype%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49567 Adapter for Oracle에서 지원하는 데이터 타입에 LOB을 추가합니다.](#bug-49567adapter-for-oracle%EC%97%90%EC%84%9C-%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%97%90-lob%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49616 Altibase 7.1 Standard Edition, Enterprise Edition에서 라이센스 발급 기준으로 MEM\_MAX\_DB\_SIZE를 추가합니다.](#bug-49616altibase-71-standard-edition-enterprise-edition%EC%97%90%EC%84%9C-%EB%9D%BC%EC%9D%B4%EC%84%BC%EC%8A%A4-%EB%B0%9C%EA%B8%89-%EA%B8%B0%EC%A4%80%EC%9C%BC%EB%A1%9C-mem_max_db_size%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.](#bug-49636altibase-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-archive_full_action-%EC%84%A4%EC%A0%95-%EA%B0%92%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B8%8C%EB%A1%9C%EA%B7%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%8F%99%EC%9E%91%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49647 Ubuntu 16, Ubuntu 18에서 altiMon 실행 시 com.altibase.picl.LibLoader.OsNotSupportedException 에러가 발생합니다.](#bug-49647ubuntu-16-ubuntu-18%EC%97%90%EC%84%9C-altimon-%EC%8B%A4%ED%96%89-%EC%8B%9C-comaltibasepicllibloaderosnotsupportedexception-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.](#bug-49655%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%B0%8F-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9-%EC%A4%91%EC%9D%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%88%98%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-xsegment%EC%97%90-total_used_page_cnt-%EC%BB%AC%EB%9F%BC%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
+  - [BUG-49546 DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의하는 연결 속성 getcolumns\_return\_jdbctype을 추가합니다.](#bug-49546databasemetadatagetcolumns-%EB%A9%94%EC%84%9C%EB%93%9C%EC%9D%98-%EB%B0%98%ED%99%98-%EA%B2%B0%EA%B3%BC-%EC%A4%91-data_type%EC%9D%98-%EA%B0%92%EC%9D%84-%EC%A0%95%EC%9D%98%ED%95%98%EB%8A%94-%EC%97%B0%EA%B2%B0-%EC%86%8D%EC%84%B1-getcolumns_return_jdbctype%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49549 파티션드 테이블에 사용한 집계 함수가 병렬 수행될 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49549%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98%EA%B0%80-%EB%B3%91%EB%A0%AC-%EC%88%98%ED%96%89%EB%90%A0-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [BUG-49559 복합 인덱스가 있는 테이블에 ROW\_NUMBER 함수를 사용한 경우 중복된 정렬 작업을 제거하여 SQL 수행 성능을 개선합니다.](#bug-49559%EB%B3%B5%ED%95%A9-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EA%B0%80-%EC%9E%88%EB%8A%94-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-row_number-%ED%95%A8%EC%88%98%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%A4%91%EB%B3%B5%EB%90%9C-%EC%A0%95%EB%A0%AC-%EC%9E%91%EC%97%85%EC%9D%84-%EC%A0%9C%EA%B1%B0%ED%95%98%EC%97%AC-sql-%EC%88%98%ED%96%89-%EC%84%B1%EB%8A%A5%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49601 User Defined Type을 지원하지 않을 때 DatabaseMetaData.getUDTs()에서 SQLFeatureNotSupported 예외 대신 빈 ResultSet을 반환하도록 변경합니다.](#bug-49601user-defined-type%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%98%EC%A7%80-%EC%95%8A%EC%9D%84-%EB%95%8C-databasemetadatagetudts%EC%97%90%EC%84%9C-sqlfeaturenotsupported-%EC%98%88%EC%99%B8-%EB%8C%80%EC%8B%A0-%EB%B9%88-resultset%EC%9D%84-%EB%B0%98%ED%99%98%ED%95%98%EB%8F%84%EB%A1%9D-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -27,6 +24,10 @@ Altibase 7.1.0.7.2 Patch Notes
   - [BUG-49620 NVL_EQUAL(expr1, exp2, expr3)에서 expr1에 인덱스가 존재하고 expr2의 컬럼의 데이터 타입이 expr1과 다른 경우 테이블 스캔 방식을 변경하여 제품의 안정성을 향상합니다.](#bug-49620nvl_equalexpr1-exp2-expr3%EC%97%90%EC%84%9C-expr1%EC%97%90-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EA%B0%80-%EC%A1%B4%EC%9E%AC%ED%95%98%EA%B3%A0-expr2%EC%9D%98-%EC%BB%AC%EB%9F%BC%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%B4-expr1%EA%B3%BC-%EB%8B%A4%EB%A5%B8-%EA%B2%BD%EC%9A%B0-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%8A%A4%EC%BA%94-%EB%B0%A9%EC%8B%9D%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%98%EC%97%AC-%EC%A0%9C%ED%92%88%EC%9D%98-%EC%95%88%EC%A0%95%EC%84%B1%EC%9D%84-%ED%96%A5%EC%83%81%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49632 반환 데이터 타입이 LOB인 저장 함수가 ORDER BY/GROUP BY/윈도우 함수의 PARTITION BY 하위절에 사용될 때 예외 처리를 변경하여 제품의 안정성을 향상합니다.](#bug-49632%EB%B0%98%ED%99%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%B4-lob%EC%9D%B8-%EC%A0%80%EC%9E%A5-%ED%95%A8%EC%88%98%EA%B0%80-order-bygroup-by%EC%9C%88%EB%8F%84%EC%9A%B0-%ED%95%A8%EC%88%98%EC%9D%98-partition-by-%ED%95%98%EC%9C%84%EC%A0%88%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%A0-%EB%95%8C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%98%EC%97%AC-%EC%A0%9C%ED%92%88%EC%9D%98-%EC%95%88%EC%A0%95%EC%84%B1%EC%9D%84-%ED%96%A5%EC%83%81%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49633 집계 함수에 DISTINCT 키워드를 사용한 SQL 수행 시 DISTINCT 처리를 위한 메모리 과다 사용으로 SQL 수행 성능이 하락합니다.](#bug-49633%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98%EC%97%90-distinct-%ED%82%A4%EC%9B%8C%EB%93%9C%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-sql-%EC%88%98%ED%96%89-%EC%8B%9C-distinct-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B3%BC%EB%8B%A4-%EC%82%AC%EC%9A%A9%EC%9C%BC%EB%A1%9C-sql-%EC%88%98%ED%96%89-%EC%84%B1%EB%8A%A5%EC%9D%B4-%ED%95%98%EB%9D%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.](#bug-49636altibase-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-archive_full_action-%EC%84%A4%EC%A0%95-%EA%B0%92%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B8%8C%EB%A1%9C%EA%B7%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%8F%99%EC%9E%91%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49647 Ubuntu 16, Ubuntu 18에서 altiMon 실행 시 com.altibase.picl.LibLoader.OsNotSupportedException 에러가 발생합니다.](#bug-49647ubuntu-16-ubuntu-18%EC%97%90%EC%84%9C-altimon-%EC%8B%A4%ED%96%89-%EC%8B%9C-comaltibasepicllibloaderosnotsupportedexception-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.](#bug-49655%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%B0%8F-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9-%EC%A4%91%EC%9D%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%88%98%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-xsegment%EC%97%90-total_used_page_cnt-%EC%BB%AC%EB%9F%BC%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+  
 - [Changes](#changes)
   - [Version Info](#version-info)
   - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -37,80 +38,6 @@ Altibase 7.1.0.7.2 Patch Notes
 
 New Features
 ============
-
-### BUG-49546 DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의하는 연결 속성 getcolumns\_return\_jdbctype을 추가합니다.
-
--   **module** : mm-jdbc
-
--   **Category** : Functional Error
-
--   **재현 빈도** : Always
-
--   **설명** : DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의하는 연결 속성 [getcolumns\_return\_jdbctype](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC%20User's%20Manual.md#getcolumns_return_jdbctype)을 추가합니다.
-    
-    - 연결 속성 이름
-
-      getcolumns\_return\_jdbctype
-
-    - 설명
-
-      DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의한다.
-
-      true는 JDBC API에서 정의한 java.sql.Types의 SQL 데이터 형식으로 반환하고 false는 V\$DATATYPE에 정의된 데이터 타입 형식으로 반환한다.  
-    
-    - 기본값
-    
-      false
-    
-    본 버그를 적용하려면 Altibase JDBC 드라이버를 Altibase 7.1.0.7.2 이상으로 패치하고 연결 속성 getcolumns_return_jdbctype을 추가해야 합니다. 
-    
--   **재현 방법**
-
-    -   **재현 절차**
-
-        ```sql
-        iSQL> CREATE TABLE T1 (C1 CLOB, C2 BLOB);
-        ```
-
-        ```java
-        Connection sConn = getConnection("20300");
-        DatabaseMetaData sMeta = sConn.getMetaData();
-        ResultSet sRs = sMeta.getColumns(null, "SYS", "T1", "%");
-        while (sRs.next())
-        {
-            String sColumName = sRs.getString("COLUMN_NAME");
-            String sDataType = sRs.getString("DATA_TYPE");
-            System.out.println("COLUMN_NAME==>" + sColumName);
-            System.out.println("DATA_TYPE==>" + sDataType);
-        }
-        ```
-
-    -   **수행 결과**
-
-        ```java
-        COLUMN_NAME==>C1
-        DATA_TYPE==>40
-        COLUMN_NAME==>C2
-        DATA_TYPE==>30
-        ```
-
-    -   **예상 결과**
-
-        ```java
-        COLUMN_NAME==>C1
-        DATA_TYPE==>2005
-        COLUMN_NAME==>C2
-        DATA_TYPE==>2004
-        ```
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-49567 Adapter for Oracle에서 지원하는 데이터 타입에 LOB을 추가합니다.
 
@@ -178,125 +105,82 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.
-
--   **module** : sm
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **설명** : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 
-    개선합니다.
-    
-    **ARCHIVE\_FULL\_ACTION 설정 값에 따른 동작 차이**
-    
-    - ARCHIVE\_FULL\_ACTION = 0 
-      - 변경 전 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지된다. 아카이브로그 쓰레드를 시작하려면 사용자가 명시적으로 ALTER SYSTEM ARCHIVE LOG START를 수행해야 합니다.
-      - 변경 후 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지되지 않으며 차례로 다음 로그 파일 백업을 시도합니다. 백업에 실패한 로그파일은 트레이스 로그(altibase\_sm.log)에 기록합니다.
-      
-    - ARCHIVE\_FULL\_ACTION = 1 
-      - 변경이 없습니다.
-    
-    - ARCHIVE\_FULL\_ACTION = 2
-      - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
-    
-    **ARCHIVE\_FULL\_ACTION 속성 변경**
-
-    읽기 전용에서 변경 가능으로 변경합니다.
-
-    - 변경 전
-
-      ```sql
-      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
-      [ERR-0104E : The property [ARCHIVE_FULL_ACTION] is read-only.]
-      ```
-    
-    - 변경 후
-    
-      ```sql
-      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
-      Alter success
-      ```
-    
-    ARCHIVE\_FULL\_ACTION 설정 값에 관한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)에서도 확인할 수 있습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-49647 Ubuntu 16, Ubuntu 18에서 altiMon 실행 시 com.altibase.picl.LibLoader.OsNotSupportedException 에러가 발생합니다.
-
--   **module** : ux-altiMon
-
--   **Category** : Portability
-
--   **재현 빈도** : Always
-
--   **설명** : Linux kernel 4 미지원으로 Ubuntu 16, Ubuntu 18에서 altiMon 실행 시 com.altibase.picl.LibLoader.OsNotSupportedException 에러가 발생합니다.
-    
-    altiMon에서 Linux kernel 4.x 지원하도록 추가합니다.
-    
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.
-
--   **module** : sm
-
--   **Category** : Other
-
--   **재현 빈도** : Always
-
--   **설명** : 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지 수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT
-    컬럼을 추가합니다. TOTAL\_USED\_PAGE\_CNT 컬럼은 메타 페이지와 FREE 페이지를 제외한 데이터만 있는 페이지 수를 의미합니다.
-    
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
 Fixed Bugs
 ==========
+
+### BUG-49546 DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의하는 연결 속성 getcolumns\_return\_jdbctype을 추가합니다.
+
+-   **module** : mm-jdbc
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의하는 연결 속성 [getcolumns\_return\_jdbctype](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/JDBC%20User's%20Manual.md#getcolumns_return_jdbctype)을 추가합니다.
+
+    - 연결 속성 이름
+
+      getcolumns\_return\_jdbctype
+
+    - 설명
+
+      DatabaseMetaData.getColumns 메서드의 반환 결과 중 DATA\_TYPE의 값을 정의한다.
+
+      true는 JDBC API에서 정의한 java.sql.Types의 SQL 데이터 형식으로 반환하고 false는 V\$DATATYPE에 정의된 데이터 타입 형식으로 반환한다.  
+
+    - 기본값
+
+      false
+
+    본 버그를 적용하려면 Altibase JDBC 드라이버를 Altibase 7.1.0.7.2 이상으로 패치하고 연결 속성 getcolumns_return_jdbctype을 추가해야 합니다. 
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+        ```sql
+        iSQL> CREATE TABLE T1 (C1 CLOB, C2 BLOB);
+        ```
+
+        ```java
+        Connection sConn = getConnection("20300");
+        DatabaseMetaData sMeta = sConn.getMetaData();
+        ResultSet sRs = sMeta.getColumns(null, "SYS", "T1", "%");
+        while (sRs.next())
+        {
+            String sColumName = sRs.getString("COLUMN_NAME");
+            String sDataType = sRs.getString("DATA_TYPE");
+            System.out.println("COLUMN_NAME==>" + sColumName);
+            System.out.println("DATA_TYPE==>" + sDataType);
+        }
+        ```
+
+    -   **수행 결과**
+
+        ```java
+        COLUMN_NAME==>C1
+        DATA_TYPE==>40
+        COLUMN_NAME==>C2
+        DATA_TYPE==>30
+        ```
+
+    -   **예상 결과**
+
+        ```java
+        COLUMN_NAME==>C1
+        DATA_TYPE==>2005
+        COLUMN_NAME==>C2
+        DATA_TYPE==>2004
+        ```
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
 
 ### BUG-49549 파티션드 테이블에 사용한 집계 함수가 병렬 수행될 경우 Altibase 서버가 비정상 종료할 수 있습니다.
 
@@ -906,6 +790,123 @@ Fixed Bugs
     
     \_\_AGGREGATION\_DISTINCT\_BUCKET\_COUNT\_MAX 프로퍼티의 기본값은 102400000 입니다. 운영 중 이보다 작게 설정하기를 원할 경우 ALTER SYSTEM 으로 변경할 수 있습니다. 영구적으로 작은 값을 설정하려면 altibase.properties에 추가한 후 Altibase 서버를 재구동해야 합니다.
     
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.
+
+-   **module** : sm
+
+-   **Category** : Functionality
+
+-   **재현 빈도** : Always
+
+-   **설명** : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 
+    개선합니다.
+
+    **ARCHIVE\_FULL\_ACTION 설정 값에 따른 동작 차이**
+
+    - ARCHIVE\_FULL\_ACTION = 0 
+      - 변경 전 : 디스크 공간 부족 발생으로 로그 파일 백업이 실패하는 경우 백업이 성공할 때까지 대기합니다.
+      - 변경 후 : 디스크 공간 부족 발생으로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase_sm.log)에 기록하고 다음 로그 파일 백업을 시도합니다.
+
+    - ARCHIVE\_FULL\_ACTION = 1 
+      - 변경이 없습니다.
+
+    - ARCHIVE\_FULL\_ACTION = 2
+      - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
+
+    **ARCHIVE\_FULL\_ACTION 속성 변경**
+
+    읽기 전용에서 변경 가능으로 변경합니다.
+
+    - 변경 전
+
+      ```sql
+      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
+      [ERR-0104E : The property [ARCHIVE_FULL_ACTION] is read-only.]
+      ```
+
+    - 변경 후
+
+      ```sql
+      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
+      Alter success
+      ```
+
+    ARCHIVE\_FULL\_ACTION 설정 값에 관한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)에서도 확인할 수 있습니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49647 Ubuntu 16, Ubuntu 18에서 altiMon 실행 시 com.altibase.picl.LibLoader.OsNotSupportedException 에러가 발생합니다.
+
+-   **module** : ux-altiMon
+
+-   **Category** : Portability
+
+-   **재현 빈도** : Always
+
+-   **설명** : Linux kernel 4 미지원으로 Ubuntu 16, Ubuntu 18에서 altiMon 실행 시 com.altibase.picl.LibLoader.OsNotSupportedException 에러가 발생합니다.
+
+    altiMon에서 Linux kernel 4.x 지원하도록 추가합니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.
+
+-   **module** : sm
+
+-   **Category** : Other
+
+-   **재현 빈도** : Always
+
+-   **설명** : 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지 수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT
+    컬럼을 추가합니다. TOTAL\_USED\_PAGE\_CNT 컬럼은 메타 페이지와 FREE 페이지를 제외한 데이터만 있는 페이지 수를 의미합니다.
+
 -   **재현 방법**
 
     -   **재현 절차**

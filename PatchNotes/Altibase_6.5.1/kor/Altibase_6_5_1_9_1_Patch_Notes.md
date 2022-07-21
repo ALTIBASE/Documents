@@ -10,8 +10,6 @@ Altibase 6.5.1.9.1 Patch Notes
 - [New Features](#new-features)
   - [BUG-49563 OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값에 영향을 받는 프로퍼티를 추가합니다.](#bug-49563optimizer_feature_enable-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EA%B0%92%EC%97%90-%EC%98%81%ED%96%A5%EC%9D%84-%EB%B0%9B%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49616 Standard Edition, Enterprise Edition에서 라이센스 발급 기준으로 MEM\_MAX\_DB\_SIZE를 추가합니다.](#bug-49616standard-edition-enterprise-edition%EC%97%90%EC%84%9C-%EB%9D%BC%EC%9D%B4%EC%84%BC%EC%8A%A4-%EB%B0%9C%EA%B8%89-%EA%B8%B0%EC%A4%80%EC%9C%BC%EB%A1%9C-mem_max_db_size%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.](#bug-49636altibase-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-archive_full_action-%EC%84%A4%EC%A0%95-%EA%B0%92%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B8%8C%EB%A1%9C%EA%B7%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%8F%99%EC%9E%91%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.](#bug-49655%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%B0%8F-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9-%EC%A4%91%EC%9D%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%88%98%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-xsegment%EC%97%90-total_used_page_cnt-%EC%BB%AC%EB%9F%BC%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-47420 LENGTH()로 LOB 길이 출력 시 Altibase 서버가 비정상 종료하고 디스크 테이블에 LOB 데이터 타입의 최대 크기를 초과하여 입력되는 현상을 수정합니다.](#bug-47420length%EB%A1%9C-lob-%EA%B8%B8%EC%9D%B4-%EC%B6%9C%EB%A0%A5-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EA%B3%A0-%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%98-%EC%B5%9C%EB%8C%80-%ED%81%AC%EA%B8%B0%EB%A5%BC-%EC%B4%88%EA%B3%BC%ED%95%98%EC%97%AC-%EC%9E%85%EB%A0%A5%EB%90%98%EB%8A%94-%ED%98%84%EC%83%81%EC%9D%84-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49423 SQL PLAN CACHE 처리 시 statement 객체가 정리되지 않은 경우 Altibase 서버가 비정상 종료하거나 CPU 사용률이 증가할 수 있습니다.](#bug-49423sql-plan-cache-%EC%B2%98%EB%A6%AC-%EC%8B%9C-statement-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%80-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EA%B1%B0%EB%82%98-cpu-%EC%82%AC%EC%9A%A9%EB%A5%A0%EC%9D%B4-%EC%A6%9D%EA%B0%80%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
@@ -29,7 +27,9 @@ Altibase 6.5.1.9.1 Patch Notes
   - [BUG-49620 NVL\_EQUAL(expr1, exp2, expr3)에서 expr1에 인덱스가 존재하고 expr2의 컬럼의 데이터 타입이 expr1과 다른 경우 테이블 스캔 방식을 변경하여 제품의 안정성을 향상합니다.](#bug-49620nvl_equalexpr1-exp2-expr3%EC%97%90%EC%84%9C-expr1%EC%97%90-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EA%B0%80-%EC%A1%B4%EC%9E%AC%ED%95%98%EA%B3%A0-expr2%EC%9D%98-%EC%BB%AC%EB%9F%BC%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%B4-expr1%EA%B3%BC-%EB%8B%A4%EB%A5%B8-%EA%B2%BD%EC%9A%B0-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%8A%A4%EC%BA%94-%EB%B0%A9%EC%8B%9D%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%98%EC%97%AC-%EC%A0%9C%ED%92%88%EC%9D%98-%EC%95%88%EC%A0%95%EC%84%B1%EC%9D%84-%ED%96%A5%EC%83%81%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49625 TO\_DATE 함수에서 날짜형 데이터 형식으로 SSSSSS를 사용한 경우 잘못된 결과를 반환합니다.](#bug-49625to_date-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-%EB%82%A0%EC%A7%9C%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%98%95%EC%8B%9D%EC%9C%BC%EB%A1%9C-ssssss%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%9E%98%EB%AA%BB%EB%90%9C-%EA%B2%B0%EA%B3%BC%EB%A5%BC-%EB%B0%98%ED%99%98%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49632 반환 데이터 타입이 LOB인 저장 함수가 ORDER BY/GROUP BY/윈도우 함수의 PARTITION BY 하위절에 사용될 때 예외 처리를 변경하여 제품의 안정성을 향상합니다.](#bug-49632%EB%B0%98%ED%99%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%B4-lob%EC%9D%B8-%EC%A0%80%EC%9E%A5-%ED%95%A8%EC%88%98%EA%B0%80-order-bygroup-by%EC%9C%88%EB%8F%84%EC%9A%B0-%ED%95%A8%EC%88%98%EC%9D%98-partition-by-%ED%95%98%EC%9C%84%EC%A0%88%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%A0-%EB%95%8C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%98%EC%97%AC-%EC%A0%9C%ED%92%88%EC%9D%98-%EC%95%88%EC%A0%95%EC%84%B1%EC%9D%84-%ED%96%A5%EC%83%81%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.](#bug-49636altibase-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-archive_full_action-%EC%84%A4%EC%A0%95-%EA%B0%92%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B8%8C%EB%A1%9C%EA%B7%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%8F%99%EC%9E%91%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49649 LOB 컬럼을 포함한 복제 트랜잭션 수행 시 Unable to find record in \~ 에러가 발생한 경우 수신자(Receiver)가 중지됩니다.](#bug-49649lob-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EB%B3%B5%EC%A0%9C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%88%98%ED%96%89-%EC%8B%9C-unable-to-find-record-in--%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%88%98%EC%8B%A0%EC%9E%90receiver%EA%B0%80-%EC%A4%91%EC%A7%80%EB%90%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.](#bug-49655%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%B0%8F-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9-%EC%A4%91%EC%9D%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%88%98%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-xsegment%EC%97%90-total_used_page_cnt-%EC%BB%AC%EB%9F%BC%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Changes](#changes)
   - [Version Info](#version-info)
   - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -91,93 +91,6 @@ New Features
 -   **Workaround**
 -   **변경사항**
 
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.
-
--   **module** : sm
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **설명** : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을
-    개선합니다.
-    
-    **ARCHIVE\_FULL\_ACTION 설정 값에 따른 동작 차이**
-    
-    - ARCHIVE\_FULL\_ACTION = 0 
-      - 변경 전 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지된다. 아카이브로그 쓰레드를 시작하려면 사용자가 명시적으로 ALTER SYSTEM ARCHIVE LOG START를 수행해야 합니다.
-      - 변경 후 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지되지 않으며 차례로 다음 로그 파일 백업을 시도합니다. 백업에 실패한 로그파일은 트레이스 로그(altibase\_sm.log)에 기록합니다.
-      
-    - ARCHIVE\_FULL\_ACTION = 1 
-      - 변경이 없습니다.
-    
-    - ARCHIVE\_FULL\_ACTION = 2
-      - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
-    
-    **ARCHIVE\_FULL\_ACTION 속성 변경**
-
-    읽기 전용에서 변경 가능으로 변경합니다.
-
-    - 변경 전
-
-      ```sql
-      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
-      [ERR-0104E : The property [ARCHIVE_FULL_ACTION] is read-only.]
-      ```
-    
-    - 변경 후
-    
-      ```sql
-      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
-      Alter success
-      ```
-    
-    ARCHIVE\_FULL\_ACTION 설정 값에 관한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)에서도 확인할 수 있습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.
-
--   **module** : sm
-
--   **Category** : Other
-
--   **재현 빈도** : Always
-
--   **설명** : 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지 수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다. TOTAL\_USED\_PAGE\_CNT 컬럼은 메타 페이지와 FREE 페이지를 제외한
-    데이터만 있는 페이지 수를 의미합니다.
-    
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
     -   Performance view
     -   Property
     -   Compile Option
@@ -948,6 +861,66 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+### BUG-49636 Altibase 서버 프로퍼티 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.
+
+-   **module** : sm
+
+-   **Category** : Functionality
+
+-   **재현 빈도** : Always
+
+-   **설명** : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을
+    개선합니다.
+
+    **ARCHIVE\_FULL\_ACTION 설정 값에 따른 동작 차이**
+
+    - ARCHIVE\_FULL\_ACTION = 0 
+      - 변경 전 : 디스크 공간 부족 발생으로 로그 파일 백업이 실패하는 경우 백업이 성공할 때까지 대기합니다.
+      - 변경 후 : 디스크 공간 부족 발생으로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase_sm.log)에 기록하고 다음 로그 파일 백업을 시도합니다.
+
+    - ARCHIVE\_FULL\_ACTION = 1 
+      - 변경이 없습니다.
+
+    - ARCHIVE\_FULL\_ACTION = 2
+      - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
+
+    **ARCHIVE\_FULL\_ACTION 속성 변경**
+
+    읽기 전용에서 변경 가능으로 변경합니다.
+
+    - 변경 전
+
+      ```sql
+      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
+      [ERR-0104E : The property [ARCHIVE_FULL_ACTION] is read-only.]
+      ```
+
+    - 변경 후
+
+      ```sql
+      iSQL> ALTER SYSTEM SET ARCHIVE_FULL_ACTION = 2;
+      Alter success
+      ```
+
+    ARCHIVE\_FULL\_ACTION 설정 값에 관한 설명은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)에서도 확인할 수 있습니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
 ### BUG-49649 LOB 컬럼을 포함한 복제 트랜잭션 수행 시 Unable to find record in \~ 에러가 발생한 경우 수신자(Receiver)가 중지됩니다.
 
 -   **module** : rp-receiver
@@ -1019,6 +992,33 @@ Fixed Bugs
 
 -   **변경사항**
 
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49655 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다.
+
+-   **module** : sm
+
+-   **Category** : Other
+
+-   **재현 빈도** : Always
+
+-   **설명** : 디스크 테이블 및 디스크 인덱스에서 사용 중인 데이터 페이지 수를 조회할 수 있도록 X\$SEGMENT에 TOTAL\_USED\_PAGE\_CNT 컬럼을 추가합니다. TOTAL\_USED\_PAGE\_CNT 컬럼은 메타 페이지와 FREE 페이지를 제외한
+    데이터만 있는 페이지 수를 의미합니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
     -   Performance view
     -   Property
     -   Compile Option
