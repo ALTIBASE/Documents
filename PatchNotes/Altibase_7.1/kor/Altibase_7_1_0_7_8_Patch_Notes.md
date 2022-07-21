@@ -10,7 +10,7 @@
   - [BUG-49782 Altibase 7 이상에서 Altibase 6.3.1 옵티마이저와 유사한 실행 계획을 생성하는 기능을 추가합니다.](#bug-49782altibase-7-%EC%9D%B4%EC%83%81%EC%97%90%EC%84%9C-altibase-631-%EC%98%B5%ED%8B%B0%EB%A7%88%EC%9D%B4%EC%A0%80%EC%99%80-%EC%9C%A0%EC%82%AC%ED%95%9C-%EC%8B%A4%ED%96%89-%EA%B3%84%ED%9A%8D%EC%9D%84-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
 
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-48012 GEOMFROMTEXT 함수와 같은 ST\_GEOMETRYFROMTEXT 함수를 추가합니다. 두 함수에서 WKT의 값이 NULL이면 NULL을 반환하도록 변경합니다.](#bug-48012geomfromtext-%ED%95%A8%EC%88%98%EC%99%80-%EA%B0%99%EC%9D%80-st_geometryfromtext-%ED%95%A8%EC%88%98%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4-%EB%91%90-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-wkt%EC%9D%98-%EA%B0%92%EC%9D%B4-null%EC%9D%B4%EB%A9%B4-null%EC%9D%84-%EB%B0%98%ED%99%98%ED%95%98%EB%8F%84%EB%A1%9D-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-48012 GEOMFROMTEXT 함수와 같은 ST\_GEOMETRYFROMTEXT 함수를 추가합니다. 두 함수에서 WKT의 값이 NULL이면 NULL을 반환하도록 변경합니다.](#bug-48012geomfromtext-함수와-같은-st_geometryfromtext-함수를-추가합니다-두-함수에서-srid의-값이-null이면-null을-반환하도록-변경합니다)
   - [BUG-49730 널 데이터가 저장된 LOB 컬럼을 두 개 이상 가진 테이블에 UPDATE문 수행 시 Adapter가 비정상 종료합니다.](#bug-49730%EB%84%90-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EC%A0%80%EC%9E%A5%EB%90%9C-lob-%EC%BB%AC%EB%9F%BC%EC%9D%84-%EB%91%90-%EA%B0%9C-%EC%9D%B4%EC%83%81-%EA%B0%80%EC%A7%84-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-update%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-adapter%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49743 Altibase 서버 구동 시 리빌드되지 않은 인덱스 접근 시 Altibase 서버가 비정상 종료합니다.](#bug-49743altibase-%EC%84%9C%EB%B2%84-%EA%B5%AC%EB%8F%99-%EC%8B%9C-%EB%A6%AC%EB%B9%8C%EB%93%9C%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%80-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EC%A0%91%EA%B7%BC-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49763 디스크 테이블 조회 중 대상 테이블의 컬럼 정보 문제로 Altibase 서버가 비정상 종료하는 원인을 분석하기 위한 예외 처리를 추가합니다.](#bug-49763%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A1%B0%ED%9A%8C-%EC%A4%91-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%EC%BB%AC%EB%9F%BC-%EC%A0%95%EB%B3%B4-%EB%AC%B8%EC%A0%9C%EB%A1%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EB%8A%94-%EC%9B%90%EC%9D%B8%EC%9D%84-%EB%B6%84%EC%84%9D%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -57,7 +57,7 @@
 
 # Fixed Bugs
 
-### BUG-48012 GEOMFROMTEXT 함수와 같은 ST\_GEOMETRYFROMTEXT 함수를 추가합니다. 두 함수에서 WKT의 값이 NULL이면 NULL을 반환하도록 변경합니다.
+### BUG-48012 GEOMFROMTEXT 함수와 같은 ST\_GEOMETRYFROMTEXT 함수를 추가합니다. 두 함수에서 SRID의 값이 NULL이면 NULL을 반환하도록 변경합니다.
 
 -   **module** : st-function
 
@@ -65,7 +65,9 @@
 
 -   **재현 빈도** : Always
 
--   **설명** : GEOMFROMTEXT 함수와 같은 ST\_GEOMETRYFROMTEXT 함수를 추가합니다. 두 함수에서 WKT의 값이 NULL이면 NULL을 반환하도록 변경합니다. SQL 수행 결과 차이는 수행 결과와 예상 결과 항목을 참고하세요.
+-   **설명** : GEOMFROMTEXT 함수와 같은 ST\_GEOMETRYFROMTEXT 함수를 추가합니다. 두 함수에서 SRID의 값이 NULL이면 NULL을 반환하도록 변경합니다. 
+    
+    버그 반영 전/후 조건에 맞는 질의문 수행 시 결과가 달라집니다. 수행 결과 차이는 수행 결과와 예상 결과 항목을 참고하세요.
     
 -   **재현 방법**
 
