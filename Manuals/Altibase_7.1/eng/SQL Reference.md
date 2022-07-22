@@ -23270,9 +23270,9 @@ complex regular expression.</p>
 
 #### Perl Compatible Regular Expressions (PCRE2) Library
 
-PCRE2 Library is supported from Altibase 7.1.0.7.7 and the PCRE2 Library version is 10.40.
+Perl Compatible Regular Expressions Library is supported from Altibase 7.1.0.7.7 and the Perl Compatible Regular Expressions Library version is 10.40. This library supports searching in Korean which is not supported by Altibase Regular Expression Library and new search features such as backreferences, lookaheads, etc. are added.
 
-**PCRE2 Library Limitations** 
+**Perl Compatible Regular Expressions Library Limitations** 
 
 - This library is only supported when Altibase server character set is  US7ASCII or UTF-8.
 - There are syntax differences with the Altibase Regular Expression Library.
@@ -23286,15 +23286,15 @@ The table below shows the differences in syntax between the two regular expressi
     <tr>
       <th>Regular Expression Syntax</th>
       <th>Example of Regular Expression Syntax of Altibase Regular Expression Library</th>
-      <th>Example of Regular Expression Syntax of PCRE2 Library</th>
+      <th>Example of Regular Expression Syntax of Perl Compatible Regular Expressions Library</th>
     </tr>
     <tr>
       <td>
         <p>POSIX character class</p>
       </td>
       <td>
-`SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');
-SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');`
+SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');
+<br\></br\>SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');`
       </td>
       <td>
 `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:punct:+');
@@ -23362,11 +23362,12 @@ SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<!ALTIBASE7) DATABASE');`
   </tbody>
 </table>
 
-For more details about the regular expression syntax of the PCRE2 Library, please refer to the [PCRE2 pattern manual page](https://www.pcre.org/current/doc/html/pcre2pattern.html).
+
+For more details about the regular expression syntax of the Perl Compatible Regular Expressions Library, please refer to the [Perl Compatible Regular Expressions Library pattern manual page](https://www.pcre.org/current/doc/html/pcre2pattern.html).
 
 ### Altering the Regular Expression Library
 
-Since Altibase provides Altibase Regular Expression Library and PCRE2 Library, the library to be used for the regular expressions has to be chosen between the two. The default library is Altibase Regular Expression Library. Therefore, in case the user wishes to use PCRE2 Library, regular expression library must be altered with the following statements.
+Since Altibase provides Altibase Regular Expression Library and Perl Compatible Regular Expressions Library, the library to be used for the regular expressions has to be chosen between the two. The default library is Altibase Regular Expression Library. Therefore, in case the user wishes to use Perl Compatible Regular Expressions Library, regular expression library must be altered with the following statements.
 
 - Alter the regular expression library for the system when Altibase server is running
 
