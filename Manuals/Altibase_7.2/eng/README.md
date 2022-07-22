@@ -81,6 +81,8 @@ This manual is updated for 7.2.0.0.1.
 
 - ### [Replication Manager User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/eng/Replication%20Manager%20User's%20Manual.md)
 
+- ### [dataCompJ User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/eng/dataCompJ%20User's%20Manual.md)
+
 ## Message
 
 - ### [Error Message Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Error%20Message%20Reference.md)

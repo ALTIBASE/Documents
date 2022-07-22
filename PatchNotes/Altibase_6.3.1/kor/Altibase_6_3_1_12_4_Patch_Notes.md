@@ -96,26 +96,25 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을
-    개선합니다.
+-   **설명** : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 ARCHIVE\_FULL\_ACTION 설정 값에 따른 아카이브로그 쓰레드의 동작을 개선합니다.
     
     **ARCHIVE\_FULL\_ACTION 설정 값에 따른 동작 차이**
     
     - ARCHIVE\_FULL\_ACTION = 0 
     
-      - 변경 전 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지됩니다. 아카이브로그 쓰레드를 시작하려면 사용자가 명시적으로 ALTER SYSTEM ARCHIVE LOG START를 수행해야 합니다.
+      - 변경 전 : 디스크 공간 부족 발생으로 로그 파일 백업이 실패하는 경우 백업이 성공할 때까지 대기합니다.
     
-      - 변경 후 : 디스크 공간 부족으로 로그 파일 백업이 실패하는 경우 아카이브로그 쓰레드가 중지되지 않으며 차례로 다음 로그 파일 백업을 시도합니다. 백업에 실패한 로그파일은 트레이스 로그(altibase\_sm.log)에 기록합니다.
+      - 변경 후 : 디스크 공간 부족 발생으로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase_sm.log)에 기록하고 다음 로그 파일 백업을 시도합니다.
     
     - ARCHIVE\_FULL\_ACTION = 1 
     
       변경이 없습니다.
     
     - ARCHIVE\_FULL\_ACTION = 2
-
-      - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
-
     
+      - 설정값 2가 추가되었습니다. 디스크 공간 부족 실패 외에 다른 이유로 로그 파일 백업이 실패하는 경우 트레이스 로그(altibase\_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도합니다.
+    
+
     **ARCHIVE\_FULL\_ACTION 속성 변경**
     
     읽기 전용에서 변경 가능으로 변경합니다.
@@ -134,9 +133,8 @@ Fixed Bugs
       Alter success.
       ```
     
-      
     
-    ARCHIVE\_FULL\_ACTION 설정 값에 관한 보다 자세한 설명은 [Altibase 7.1 General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase\_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md\#archive\_full\_action)에서 확인할 수 있습니다. Altibase 6.3.1 매뉴얼은 업데이트되지 않아 Altibase 7.1 매뉴얼로 안내합니다. 
+    ARCHIVE\_FULL\_ACTION 설정 값에 관한 보다 자세한 설명은 [Altibase 7.1 General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase\_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md\#archive\_full\_action)에서 확인할 수 있습니다. Altibase 6.3.1 매뉴얼은 유지 보수하지 않으니Altibase 7.1 매뉴얼을 참고하시기 바랍니다.
     
 -   **재현 방법**
 

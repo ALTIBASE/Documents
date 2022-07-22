@@ -847,6 +847,21 @@ Zookeeper에 샤딩 클러스터 메타 데이터를 아래와 같이 관리한�
     - 샤드노드들을 샤딩 클러스터에 JOIN 시키기 전에, 필수적으로 altipasswd 툴을 이용한 암호 변경작업도 해주어야 합니다. 
 - alter session set replication = false 기능을 사용할 수 없다. 
   - 특정 세션의 DML만 k-safety 복제가 되지 않아, 샤딩 데이타정합성에 위배가 되기 때문이다.
+- DDL_LOCK_TIMEOUT 의 권장값이 3(초) 이다.
+  - altibase.properties.shard 화일에 DDL_LOCK_TIMEOUT = 3 으로 설정되어 있다.
+  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier가 이관받아 지연처리를 하기때문에, DDL시에 table lock에 기본적으로 대기 시간이 필요하다.
+  - DDL_LOCK_TIMEOUT 이 0 인 경우에는, DML 후에 관련 테이블에 시차를 두지 않고 바로 DDL을 수행하면, 위의 two phase commit 지연처리 방식으로 인해, 실패하는 경우가 발생할 수 있다.
+- SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 이 3 인 경우에, count(\*) 최적화를 적용하지 않는다.
+  - count(\*) 최적화란 실제 레코드들을 확인하지 않고, table header 에 기록된 전체 레코드수를 사용하는 방식을 말한다.
+  - count(\*) 최적화에서 two phase commit pending 상태의 레코드들은 고려되지 않는다.
+  - SHARD_NOTIFIER_2PC 가 1 이고 GLOBAL_TRANSACTION_LEVEL 이 3 인 경우에, two phase commit 이 지연처리가 되므로, count(\*) 최적화를 적용할 수 없다.
+- SHARD_NOTIFIER_2PC 가 1 인 상태에서, GLOBAL_TRANSACTION_LEVEL 를 3 에서 더 작은 값으로 변경시의 주의사항
+  - GLOBAL_TRANSACTION_LEVEL 가 3 인 상태에서 commit 한 내용을, two phase commit 이 지연처리로 인하여, GLOBAL_TRANSACTION_LEVEL 이 작은 상황에서 순간적으로 보지 못할 수 있다.
+- 샤딩 환경에서 Non-shard query 의 Cost 예측
+  - 코디네이터 노드에 존재하는 테이블, 파티션에만 한정하여, 사용자가 GATHER_TABLE_STATS 프로시저로 수집한 Table Cost를 이용한다.
+  - 그외의 코디네이터 노드에 존재하지 않는 테이블, 파티션은 기본값 Cost를 이용한다.
+  - 그리고 원격지에서 수행할 쿼리에 대하여 코디네이터가 Shard Graph의 하위 Graph를 생성하여 Cost를 예측한다.
+  - 예측 결과물은 Shard Graph 상위의 Plan 수행 방안으로 결정하는데 이용되며, 생성된 하위 Graph는 동작없이 무시된다.
 
 #### 하위 호환성
 -   샤딩 기능은 하위 호환성을 갖지 않는다. 샤드 버전이 동일한 서버, 클라이언트에 대해서만 샤딩 기능을 사용할 수 있다.
@@ -1418,12 +1433,16 @@ DBMS_SHARD.SET_REPLICATION(
 
 ##### 설명
 샤딩 클러스터 시스템에서 사용할 복제 정보를 입력한다.
-- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.  
+- 본 프로시저는 수행 성공하면 자동으로 commit 되며, 수행 실패하면 자동으로 rollback 된다.
+- k_safety 가 0 인 경우에는 replication_mode 인자와 parallel_count 인자는 무시된다.
 
 ##### 예제
 샤딩 클러스터 시스템에서 2개의 복제본을 유지하고 동기복제 방식을 사용하고, 이중화 병렬 적용자는 3 으로 설정한다.
 ```
 iSQL> EXEC DBMS_SHARD.SET_REPLICATION(2, 'consistent', 3);
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(1, 'consistent', 3);
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(0, 'consistent', 3);
+iSQL> EXEC DBMS_SHARD.SET_REPLICATION(0);
 ```
 #### SET_SHARD_TABLE_SHARDKEY
 ##### 구문
@@ -1826,9 +1845,7 @@ nodeid 를 인자로 하여 특정 노드에서 발생한 error의 순번(seqno)
 - 동일 트랜잭션내에서 global procedure를 호출하기전에 user session이 아닌 다른 노드에서 commit되지 않은 트랜잭션이 있는 경우에는, global procedure에서 DCL, DDL을 수행할 수 없다.
   - global procedure에서 DCL, DDL을 실행하는 것이 필요할 때는, 해당 procedure를 호출하기 전에 commit을 수행하여야 한다.
 - autonomous transaction pragma 를 지원하지 않는다.
-- 분산실행되는 query또는 procedure에서 package global variable을 지원하지 않는다.
-  - 단, CONSTANT 속성이 있는 경우는 분산실행 되더라도 동일한 값을 갖는것이 보장되므로, 분산실행에 사용될 수 있다.
-  - global procedure에서 쿼리내부가 아닌곳에서 package global variable을 사용하는 것은 지원한다.
+- package global variable 은 세션에 저장되는데, 샤딩은 사용자 입장의 논리적인 하나의 세션이, 내부적으로는 user/coordinator/library 세가지 종류의 세션들로 이루어져 있습니다. 이 내부적인 세션들간에 package global variable이 공유되지 않습니다.
 - PSM 내의 SELECT clause 에 PSM 변수 사용 시에는 cast 함수를 씌워서 PSM 변수에 대한 data type을 명시적으로 지정하는 work around 사용이 필요합니다.
   - ex.) SELECT cast(psm_var1 as integer) INTO v1 FROM t1 WHERE i1 = 1; 
 
@@ -2031,6 +2048,7 @@ S1.NEXTVAL
 | 메시지 로그 | SD_MSGLOG_COUNT <br />SD_MSGLOG_FILE<br />SD_MSGLOG_FLAG<br />SD_MSGLOG_SIZE | No<br />No<br />Yes<br />No       | SYSTEM          |
 | SHARD DDL lock 처리 | SHARD_DDL_LOCK_TIMEOUT<br />SHARD_DDL_LOCK_TRY_COUNT | Yes<br />Yes           | SYSTEM, SESSION |
 | 트랜잭션 | GLOBAL_TRANSACTION_LEVEL<br />VERSIONING_MIN_TIME<br />INDOUBT_FETCH_TIMEOUT<br />INDOUBT_FETCH_METHOD<br />SHARD_STATEMENT_RETRY<br />SHARED_TRANS_HASH_BUCKET_COUNT | Yes<br />Yes<br />Yes<br />Yes<br />Yes<br />No | SYSTEM, SESSION |
+| shard notifier | SHARD_NOTIFIER_2PC<br />SHARD_NOTIFIER_ACTIVE_COUNT<br />SHARD_NOTIFIER_MAX_COUNT | Yes<br />Yes<br />No | SYSTEM, SESSION<br />SYSTEM<br />SYSTEM |
 | xlogfile | XLOGFILE_DIR<br />XLOGFILE_PREPARE_COUNT<br />XLOGFILE_SIZE<br />XLOGFILE_REMOVE_INTERVAL<br />XLOGFILE_REMOVE_INTERVAL_BY_FILE_CREATE | No<br />No<br />No<br />Yes<br />Yes | SYSTEM |
 
 
@@ -2413,7 +2431,7 @@ Shard DDL은 다수의 노드에 DDL을 수행하는 것을 통해서 하나의 
 ##### 데이터 타입
 Unsigned Integer
 ##### 기본값
-200
+20
 ##### 속성
 변경가능, 단일 값
 ##### 값의 범위
@@ -2501,6 +2519,48 @@ Unsigned Integer
 [16,16384]
 ##### 설명
 공유 트랜잭션 관리를 위한 자료구조의 Hash 저장소 크기를 설정한다.
+
+#### SHARD_NOTIFIER_MAX_COUNT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+장비의 CPU 개수, 단, 64 이상이면 64를 기본값으로 한다.
+##### 속성
+읽기 전용, 단일 값
+##### 값의 범위
+[1 ~ 1024]
+##### 설명
+SHARD_NOTIFIER thread의 최대 갯수를 지정한다.
+
+#### SHARD_NOTIFIER_ACTIVE_COUNT
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+장비의 CPU 개수, 단, 64 이상이면 64를 기본값으로 한다.
+##### 속성
+변경 가능, 단일 값
+##### 값의 범위
+[1 ~ 1024]
+##### 설명
+SHARD_NOTIFIER_MAX_COUNT 의 한도내에서 실제로 동작하는 shard notifier의 갯수를 설정한다.
+- 구동시 SHARD_NOTIFIER_MAX_COUNT 보다 큰 값이면, 자동으로 SHARD_NOTIFIER_MAX_COUNT 로 맞추어 준다.
+  - 단, 사용자가 명시적으로 SHARD_NOTIFIER_ACTIVE_COUNT를 설정해준 경우에는 자동조정하지 않고, 에러를 발생시킨다.
+- 운영중 SHARD_NOTIFIER_MAX_COUNT 보다 큰 값으로 설정하려고 하면, 에러를 발생시킨다.
+
+#### SHARD_NOTIFIER_2PC
+##### 데이터 타입
+Unsigned Integer
+##### 기본값
+1
+##### 속성
+변경 가능, 단일 값
+##### 값의 범위
+[0,1]
+##### 설명
+GLOBAL_TRANSACTION_LEVEL이 3 인 경우에, two phase commit의 마지막 commit 단계를 shard notifier에 이관하여 지연처리를 할지의 여부이다.
+- 0 : shard notifier로 이관하지 않는다.
+- 1 : shard notifier로 이관하여 처리한다.
+- two phase commit의 마지막 commit 단계에서 네트웍 문제 및 기타 비정상 상황으로 인하여, 마지막 commit을 참여노드(들)에게 전송하지 못하는 경우에는, 본 속성의 설정값과 상관없이 shard notifier로 이관하여 처리를 한다. DB서버의 비정상 종료를 동반하는 경우에는 failover notifier도 같이 수행된다.
 
 #### XLOGFILE_DIR
 ##### 데이터 타입

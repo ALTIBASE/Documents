@@ -11,13 +11,13 @@
 
 ## 개요
 
--   Apache NiFi (이하 NiFi) 에서 Altibase 사용을 위한 설정 방법을 설명한다.
+Apache NiFi (이하 NiFi) 에서 Altibase 사용을 위한 설정 방법을 설명한다.
 
 
 
 ### NiFi 란?
 
-- NiFi는 시스템 간 데이터 플로우 자동화를 위해 만들어진 아파치 재단 소프트웨어 프로젝트이다. 자세한 내용은 NiFi 홈페이지를 참고한다. (<https://nifi.apache.org/>)
+NiFi는 시스템 간 데이터 플로우 자동화를 위해 만들어진 아파치 재단 소프트웨어 프로젝트이다. 자세한 내용은 NiFi 홈페이지를 참고한다. (<https://nifi.apache.org/>)
 
 
 
@@ -30,8 +30,8 @@
     -   디스크에 저장되는 물리 파일이라기 보다는 메모리상 존재하는 객체에 가까운 의미이다.
 
 -   Processor
-    -   Data Flow를 제어하는 기본 단위이며 FlowFile을 처리한다.
-    -   NiFi 자체에 수 많은 Processor가 내장되어 있어 용도에 맞게 사용한다.
+    -   Data Flow를 제어하는 기본 단위이며 FlowFile을 수집, 변형하거나 FlowFile로부터 정보를 추출한다.
+    -   NiFi 자체에 각각 다른 기능을 하는 수 많은 Processor가 내장되어 있으므로 사용자는 용도에 맞는 Processor를 사용한다.
 
 -   Connection
     -   Processor간 연결을 설정한다.
@@ -127,18 +127,18 @@ Bootstrap Config File: /home/altibase/NiFi/nifi-1.12.1/conf/bootstrap.conf
 
 #### 구동
 
--   run-nifi.bat 수행하면 다음과 같은 메세지를 출력하며 최종 구동 여부는 $NIFI_HOME/logs/nifi-app.log 로 확인한다.
-    ```
-    > 2021-12-08 13:28:57,145 INFO \[main\] org.apache.nifi.bootstrap.Command Launched Apache NiFi with Process ID 2840
-    ```
+run-nifi.bat 수행하면 다음과 같은 메세지를 출력하며 최종 구동 여부는 $NIFI_HOME/logs/nifi-app.log 로 확인한다.
+```
+> 2021-12-08 13:28:57,145 INFO \[main\] org.apache.nifi.bootstrap.Command Launched Apache NiFi with Process ID 2840
+```
 
 #### 중지
 
--   종료는 Console 창에서 Ctrl+C 를 누른다.
+종료는 Console 창에서 Ctrl+C 를 누른다.
 
 ### Web UI 접속
 
-- 웹브라우저를 통해 위 '구동 상태 확인' 내용에 있는 URL 로 접속할 수 있다.
+웹브라우저를 통해 위 '구동 상태 확인' 내용에 있는 URL 로 접속할 수 있다.
 
 
 
