@@ -2286,7 +2286,7 @@ Unsigned Integer
 
 ##### 값의 범위
 
-[0, 15]
+[0, 63]
 
 ##### 설명
 
@@ -2298,6 +2298,8 @@ Altibase Sharding 환경에서 쿼리의 Limit, Selection, Projection 최적화 
 - Selection 최적화 변환 기능 켜짐은 2 ( 이진수 표현 0b0010 )
 - Projection 최적화 변환 기능 켜짐은 4 ( 이진수 표현 0b0100 )
 - Out reference predicate 최적화 변환 기능 켜짐은 8 ( 이진수 표현 0b1000 )
+- Shard join grouping 최적화 변환 기능 켜짐은 16 ( 이진수 표현 0b0001 0000 )
+  - Shard join grouping with result cache 최적화 변환 기능 켜짐은 48 ( 이진수 표현 b0011 0000 )
 
 위 값에 조합으로 제어된다.
 
@@ -2321,6 +2323,17 @@ SHARD_TRANSFORM_MODE = 2;
 -> SELECT A.I1 FROM SHARD( SELECT * FROM T1 as A WHERE ( ( A.I1 > 0 ) ) ) A, SHARD( SELECT * FROM T1 as B ) B WHERE A.I1 > 0;
 SHARD_TRANSFORM_MODE = 4;
 -> SELECT A.I1 FROM SHARD( SELECT SYS.A.I1 AS I1 FROM T1 as A ) A, SHARD( SELECT NULL FROM T1 as B ) B WHERE A.I1 > 0;
+```
+
+SELECT * FROM T1 A, T1 B, T1 C WHERE A.I1 = C.I1;
+
+```
+SHARD_TRANSFORM_MODE = 0;
+-> SELECT * FROM SHARD( SELECT * FROM T1 ) A, SHARD( SELECT * FROM T1 ) B, SHARD( SELECT * FROM T1 ) C WHERE A.I1 = C.I1
+SHARD_TRANSFORM_MODE = 16;
+-> SELECT * FROM SHARD( SELECT * FROM T1 A, T1 C  WHERE A.I1 = C.I1 ), SHARD( SELECT * FROM T1 ) B;
+SHARD_TRANSFORM_MODE = 48;
+-> SELECT * FROM SHARD( SELECT /*+ TOP_RESULT_CACHE */ * FROM T1 A, T1 C WHERE A.I1 = C.I1 ), SHARD( SELECT * FROM T1 ) B;
 ```
 
 > 주의 사항
