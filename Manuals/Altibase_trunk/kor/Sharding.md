@@ -1333,7 +1333,22 @@ iSQL> ALTER TABLE user1.hash.child ADD CONSTRAINT fk_hash_child FOREIGN KEY ( sh
 iSQL> ALTER DATABASE SHARD MOVE TABLE user1.hash.child TO NODE4;
 ```
 
+### REORGANIZE
+
+#### 구문
+
+ALTER DATABASE SHARD SHARD REORGANIZE ;
+
+#### 설명
+
+- 클러스터 시스템이 비정상 상황일 때 현재 노드 정보를 바탕으로 정상 상태로 회복하기 위한 구문.
+- 어느 한 NODE의 FAILBACK 실패로 DROP FORCE가 수행되면 클러스터 시스템이 일시적으로 NODE들의 ADD/DROP을 허용하지 않는 NODE와 REPLICASET간의 불일치 상태가 되게 되는데 해당 상황을 해소하고 시스템을 정상 상태로 되돌릴 수 있다.
+- DROP FORCE가 수행되지 않더라도 FAILOVER 수행 후 FAILBACK을 하지 않고 REORGANIZE를 수행할 수 있다. REORGANIZE 수행 시 정상 서비스 중인 노드 정보만을 가지고 복제본을 재정비하여 정상 상황으로 되돌릴 수 있다.
+- 단, Failover 되지 않은 비정상 노드가 있을 경우에는 수행되지 않는다. 
+- DROP FORCE를 통해 어느 곳에서도 서비스하지 않는 데이터 영역이 있다면 해당 데이터 영역은 데이터가 없는 것으로 간주되어 REORGANIZE를 수행한 노드에서 제공하게된다. 
+
 ## Altibase Sharding Package
+
 ### DBMS_SHARD
 DBMS_SHARD 패키지는 Altibase Sharding의 샤드 설정과 관리에 사용한다.
 - DBMS_SHARD 패키지의 프로시저들은 global transaction level 2 이상에서만 수행할 수 있다.
