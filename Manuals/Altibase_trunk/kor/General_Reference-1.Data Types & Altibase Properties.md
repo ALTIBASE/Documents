@@ -4,6 +4,7 @@
 - [General Reference](#general-reference)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+    
   - [1.자료형](#1%EC%9E%90%EB%A3%8C%ED%98%95)
     - [자료형의 개요](#%EC%9E%90%EB%A3%8C%ED%98%95%EC%9D%98-%EA%B0%9C%EC%9A%94)
     - [문자형 데이터 타입](#%EB%AC%B8%EC%9E%90%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
@@ -12,12 +13,13 @@
     - [이진 데이터 타입](#%EC%9D%B4%EC%A7%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
     - [LOB 데이타 타입](#lob-%EB%8D%B0%EC%9D%B4%ED%83%80-%ED%83%80%EC%9E%85)
     - [공간 데이터 타입](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+    
   - [2.Altibase 프로퍼티](#2altibase-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [환경 설정 방법](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95)
     - [프로퍼티 요약](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%9A%94%EC%95%BD)
     - [데이터베이스 초기화 프로퍼티](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%B4%88%EA%B8%B0%ED%99%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [성능 관련 프로퍼티](#%EC%84%B1%EB%8A%A5-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [2.Altibase 프로퍼티](#2altibase-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-1)
+    
     - [세션 관련 프로퍼티](#%EC%84%B8%EC%85%98-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [타임아웃 관련 프로퍼티](#%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [트랜잭션 관련 프로퍼티](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
@@ -3447,8 +3449,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>BOTH</td>
       </tr>
       <tr>
-          <td rowspan="42">S</td>
-          <td rowspan="31">일반</td>
+          <td rowspan="46">S</td>
+          <td rowspan="35">일반</td>
           <td>CM_DISCONN_DETECT_TIME</td>
           <td></td>
       </tr>
@@ -3466,13 +3468,19 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>DEFAULT_THREAD_STACK_SIZE</td>
-          <td rowspan="4"></td>
+          <td rowspan="6"></td>
       </tr>
       <tr>
       	<td>IPC_CHANNEL_COUNT</td>
       </tr>
       <tr>
       	<td>IPC_FILEPATH</td>
+      </tr>
+       <tr>
+      	<td>IPC_SEM_KEY</td>
+      </tr>
+       <tr>
+      	<td>IPC_SHM_KEY</td>
       </tr>
       <tr>
       	<td>IPCDA_CHANNEL_COUNT</td>
@@ -3483,8 +3491,14 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>IPCDA_FILEPATH</td>
-          <td rowspan="2"></td>
+          <td rowspan="3"></td>
       </tr>
+       <tr>
+      	<td>IPCDA_SEM_KEY</td>
+      </tr>
+       <tr>
+      	<td>IPCDA_SHM_KEY</td>
+      </tr>    
       <tr>
       	<td>MAX_LISTEN</td>
       </tr>
@@ -9429,9 +9443,6 @@ Unsigned Integer
 
 1: 최적화함
 
-
-## 2.Altibase 프로퍼티
-
 ### 세션 관련 프로퍼티
 
 Altibase는 클라이언트-서버 구조로 사용 가능하며 세션 연결 프로퍼티는
@@ -9633,6 +9644,54 @@ Altibase 서버가 유닉스 환경에서 IPC 방식으로 클라이언트와 �
 서버를 구동하면 \$ALTIBASE_HOME/trc 디렉토리 아래에 cm-ipc로 소켓 파일이
 생성되며, 이 파일은 삭제되지 않도록 주의해야 한다.
 
+#### IPC_SEM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPC에서 사용하는 세마포어의 키 값을 특정 키 값으로 설정하기 위해 사용하는 프로퍼티이다. 설정한 키 값이 이미 사용중이면 DB 구동은 실패한다.
+설정한 키 값을 기준으로 IPC_CHANNEL_COUNT + 1 (+1은 sysdba용 채널) 만큼의 연속된 키를 사용한다.
+예를 들어 IPC_SEM_KEY=10000, IPC_CHANNEL_COUNT=1000인 경우 10000~11000을 세마포어 키 값으로 사용한다.
+기본값 0은 알티베이스 PID를 기준으로 해당 키 값을 자동으로 생성한다.
+
+#### IPC_SHM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPC에서 사용하는 공유 메모리의 키 값을 특정 키 값으로 설정하기 위해 사용하는 프로퍼티이다. 설정한 키 값이 이미 사용중이면 DB 구동은 실패한다.
+기본값 0은 알티베이스 PID를 기준으로 해당 키 값을 자동으로 생성한다.
+
 #### IPCDA_CHANNEL_COUNT
 
 ##### 데이터 타입
@@ -9717,6 +9776,55 @@ Altibase 서버가 유닉스 환경에서 IPCDA 방식으로 클라이언트와 
 
 서버를 구동하면 \$ALTIBASE_HOME/trc 디렉토리 아래에 cm-ipcda로 소켓 파일이
 생성되며, 이 파일은 삭제되지 않도록 주의해야 한다.
+
+#### IPCDA_SEM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPCDA에서 사용하는 세마포어의 키 값을 특정 키 값으로 설정하기 위해 사용하는 프로퍼티이다. 설정한 키 값이 이미 사용중이면 DB 구동은 실패한다.
+설정한 키 값을 기준으로 IPCDA_CHANNEL_COUNT 만큼의 연속된 키를 사용한다.
+예를 들어 IPCDA_SEM_KEY=10000, IPCDA_CHANNEL_COUNT=1000인 경우 10000~10999를 세마포어 키 값으로 사용한다.
+기본값 0은 알티베이스 PID를 기준으로 해당 키 값을 자동으로 생성한다.
+
+#### IPCDA_SHM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPCDA에서 사용하는 공유메모리의 키 값을 특정 키 값으로 설정하기 위해 사용하는 프로퍼티이다. 설정한 키 값이 이미 사용중이면 DB 구동은 실패한다.
+설정한 키 값을 기준으로 2개의 연속된 키를 사용한다. 예를 들어 IPCDA_SHM_KEY=10000인 경우 10000, 10001을 공유메모리 키 값으로 사용한다.
+기본값 0은 알티베이스 PID를 기준으로 해당 키 값을 자동으로 생성한다.
 
 #### MAX_LISTEN
 
