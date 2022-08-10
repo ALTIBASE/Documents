@@ -25555,10 +25555,10 @@ Altibase 정규 표현식 라이브러리의 정규 표현식은 아래와 같�
 | [:blank:]   |        | 스페이스나 탭                                                |
 | [:cntrl:]   | \\c    | 아스키 코드에서 127번 문자와 31번 이하의 문자                |
 | [:digit:]   | \\d    | 숫자                                                         |
-| [:graph:]   |        | 아스키 코드 33에서 126까지 출력 가능한 문자에서 공백 문자를 제외한 문자 |
+| [:graph:]   |        | 아스키 코드에서 출력할 수 있는 문자 32 ~ 126 중, 공백 문자(32)를 제외한 문자 |
 | [:lower:]   | \\l    | 알파벳 소문자                                                |
-| [:print:]   |        | 아스키 코드 32에서 126까지 출력 가능한 문자에서 제어 문자를 제외한 문자 |
-| [:punct:]   | \\p    | 아스키 코드 32에서 126까지 출력 가능한 문자에서 공백, 숫자, 알파벳 문자를 제외한 구두점 기호 |
+| [:print:]   |        | 아스키 코드에서 출력할 수 있는 문자 32 ~ 126                 |
+| [:punct:]   | \\p    | 아스키 코드에서 출력할 수 있는 문자 32 ~ 126 중, 공백 문자, 숫자, 알파벳을 제외한 문자 |
 | [:space:]   | \\s    | 출력되지 않는 공백 문자(space, carriage return, newline, vertical tab, form feed) 등 |
 | [:upper:]   | \\u    | 알파벳 대문자                                                |
 | [:word:]    | \\w    | 알파벳, 숫자, \_                                             |
@@ -25687,25 +25687,26 @@ Altibase 정규 표현식 라이브러리의 정규 표현식은 아래와 같�
 </table>
 
 
+
 #### 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리
 
-PCRE2 라이브러리는 Altibase 7.1.0.7.7부터 지원하며 PCRE2 라이브러리의 버전은 10.40 이다.
+펄 호환 정규 표현식 라이브러리는 Altibase 7.1.0.7.7부터 지원하며 펄 호환 정규 표현식 라이브러리의 버전은 10.40 이다. Altibase 정규 표현식 라이브러리에서 지원하지 않는 한글 검색이 가능하며 역참조, 전방 탐색 등 검색 기능이 추가되었다.
 
-**PCRE2 라이브러리 제약 사항**
+**펄 호환 정규 표현식 라이브러리 제약 사항**
 
 - Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8인 경우에만 지원한다.
 - Altibase 정규 표현식 라이브러리의 정규 표현식과 문법 차이가 있다. 
 
 ### 정규 표현식 라이브러리 문법 차이점
 
- Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리의 정규 표현식 차이점을 나타내는 표이다.
+ Altibase 정규 표현식 라이브러리와 펄 호환 정규 표현식 라이브러리의 정규 표현식 차이점을 나타내는 표이다.
 
 <table>
   <tbody>
     <tr>
       <th>정규 표현식 문법</th>
       <th>Altibase 정규 표현식 라이브러리의 정규 표현식 문법 예</th>
-      <th>PCRE2 라이브러리의 정규 표현식 문법 예</th>
+      <th>펄 호환 정규 표현식 라이브러리의 정규 표현식 문법 예</th>
     </tr>
     <tr>
       <td>
@@ -25713,8 +25714,8 @@ PCRE2 라이브러리는 Altibase 7.1.0.7.7부터 지원하며 PCRE2 라이브�
         <p>(POSIX character class)</p>
       </td>
       <td>
-`SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');
-SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');`
+SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');
+<br/></br/>SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');
       </td>
       <td>
 `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:punct:+');
@@ -25788,12 +25789,11 @@ SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<!알티베이스7) 데이터베이스'
   </tbody>
 </table>
 
-
-PCRE2 라이브러리의 정규 표현식 문법에 대한 자세한 내용은 [PCRE2 패턴 매뉴얼 페이지](https://www.pcre.org/current/doc/html/pcre2pattern.html)를 참조한다.
+펄 호환 정규 표현식 라이브러리의 정규 표현식 문법에 대한 자세한 내용은 [펄 호환 정규 표현식 패턴 매뉴얼 페이지](https://www.pcre.org/current/doc/html/pcre2pattern.html)를 참조한다.
 
 ### 정규 표현식 라이브러리 설정 변경 방법
 
-Altibase는 Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리를 제공하므로 사용자는 두 가지 라이브러리 중 하나를 선택하여 사용해야 한다. Altibase 정규 표현식 라이브러리가 기본 라이브러리로 설정되어 있으므로 PCRE2 라이브러리를 사용하고 싶다면 다음 구문으로 정규 표현식 라이브러리 설정을 변경해야 한다.
+Altibase는 Altibase 정규 표현식 라이브러리와 펄 호환 정규 표현식 라이브러리를 제공하므로 사용자는 두 가지 라이브러리 중 하나를 선택하여 사용해야 한다. Altibase 정규 표현식 라이브러리가 기본 라이브러리로 설정되어 있으므로 펄 호환 정규 표현식 라이브러리를 사용하고 싶다면 다음 구문으로 정규 표현식 라이브러리 설정을 변경해야 한다.
 
 - Altibase 서버 구동 상태에서 시스템 단위 변경
 
@@ -25808,5 +25808,4 @@ Altibase는 Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리�
 - Altibase 서버에 영구적으로 변경
 
   altibase.properties 파일에 REGEXP_MODE=1 추가하고 Altibase 서버 재시작 
-
 
