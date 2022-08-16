@@ -19830,6 +19830,18 @@ non-blocking mode.
 
 **Action:** Contact Altibase's Support Center (http://support.altibase.com).
 
+**0x710C6 ( 463046) cmERR_ABORT_SHMGET_ERROR_WITH_KEY A system call error occurred while creating shared memory for <0%s>. [key : <1%u>]** 
+
+**Cause**: shmget() system call failed.
+
+**Action**: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the shared memory status. If there is a shared memory that has the same key value, remove the shared memory or retry with another key value.
+
+**0x710C7 ( 463047) cmERR_ABORT_SEMGET_ERROR_WITH_KEY A system call error occurred while creating semaphore for <0%s>. [key : <1%u>]** 
+
+**Cause**: semget() system call failed.
+
+**Action**: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key value.
+
 ### IGNORE
 
 **0x72000 ( 466944) cmERR_IGNORE_NoError No CM module error**
