@@ -187,10 +187,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : ALTER REPLICATION replication\_name SYNC TABLE \~ PARTITION 수행 시 이중화 송신자 시작 이전 시점의 로그를 읽는 문제를 수정합니다.
+-   **설명** : ALTER REPLICATION replication\_name SYNC TABLE \~ PARTITION 수행 시 이중화 송신자 시작 이전 시점의 로그를 읽는 문제를 수정합니다. 이 버그 현상 발생 시 이중화 대상 서버 간 데이터가 일치하지 않을 수 있습니다.
     
-    이 버그 현상 발생 시 이중화 대상 서버 간 데이터가 일치하지 않을 수 있습니다.
-
 -   **재현 방법**
 
     -   **재현 절차**
@@ -333,29 +331,24 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : PSM에서 EXECUTE IMMEDIATE 문에 INTO 절을 사용하지 않고 DEQUEUE 문을 수행할 때 ERR-4108A : Queue not found 에러가 발생하는 현상을 수정합니다. 
+-   **설명** : PSM에서 EXECUTE IMMEDIATE 문에 INTO 절을 사용하지 않고 DEQUEUE 문을 수행할 때 ERR-4108A : Queue not found 에러가 발생하는 현상을 수정합니다. 큐가 비어있는 상태에서 버그 발생 조건을 만족하면 세션에서 큐 정보를 삭제하는 문제를 수정하였습니다.
     
-    큐가 비어있는 상태에서 버그 발생 조건을 만족하면 세션에서 큐 정보를 삭제하는 문제를 수정하였습니다.
-
     이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 재현 절차를 참고하세요.
-    
+
     1. 큐 생성
     
     2. PSM 생성
+          - DEQUEUE 문을 동적 SQL로 수행
+          - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
 
-          - DEQUEUE 문을 동적 SQL로 수행
-          
-          
-                - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
-          
     
-    
+
     3) PSM 수행 
-    
+
     4) 임의의 DDL 문 수행
     
     5) PSM 수행
-    
+
 -   **재현 방법**
 
     -   **재현 절차**
