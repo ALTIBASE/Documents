@@ -9668,8 +9668,6 @@ IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 �
 
 기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC_SEM_KEY 값을 기준으로 IPC_SEM_KEY부터 IPC_SEM_KEY + (IPC_CHANNEL_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC_SEM_KEY 값이 10000이고 IPC_CHANNEL_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다. 
 
-IPC 채널은 Altibase 서버 구동 시 생성되며, 세마포어 키가 이미 사용 중이면 Altibase 서버 구동은 실패한다. 
-
 IPC 채널은 Altibase 서버 구동 시 생성되는데, 세마포어 키가 사용 중이거나 다른 이유로 세마포어를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다. 
 
 #### IPC_SHM_KEY
