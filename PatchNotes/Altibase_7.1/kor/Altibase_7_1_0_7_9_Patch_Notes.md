@@ -75,51 +75,43 @@ New Features
     
       -   [IPC_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key)
     
-        - 설명
+        IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
     
-          IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+        기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SEM\_KEY 값을 기준으로 IPC\_SEM\_KEY부터 IPC\_SEM\_KEY + (IPC\_CHANNEL\_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다.
     
-          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SEM\_KEY 값을 기준으로 IPC\_SEM\_KEY부터 IPC\_SEM\_KEY + (IPC\_CHANNEL\_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다.
-    
-        - 속성
-          읽기 전용, 공개
+        속성
+        읽기 전용, 공개
     
       -   [IPC_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_shm_key)
     
-          - 설명
+          IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
     
-            IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SHM\_KEY 값을 공유 메모리 키로 사용한다.
     
-            기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SHM\_KEY 값을 공유 메모리 키로 사용한다.
+          속성
     
-          - 속성
-    
-            읽기 전용, 공개
+          읽기 전용, 공개
     
       -   [IPCDA_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_sem_key)
     
-          -   설명
+          IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
     
-              IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SEM\_KEY 값을 기준으로 IPCDA\_SEM\_KEY부터 IPCDA\_SEM\_KEY + IPC\_CHANNEL\_COUNT만큼의 연속된 세마포어 키를 사용하여
+          IPCDA 채널을 생성한다. 예를 들어 IPCDA\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 10999까지 사용한다.
     
-              기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SEM\_KEY 값을 기준으로 IPCDA\_SEM\_KEY부터 IPCDA\_SEM\_KEY + IPC\_CHANNEL\_COUNT만큼의 연속된 세마포어 키를 사용하여
-              IPCDA 채널을 생성한다. 예를 들어 IPCDA\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 10999까지 사용한다.
+          속성
     
-          -   속성
-    
-              읽기 전용, 공개
+          읽기 전용, 공개
     
       -   [IPCDA_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_shm_key)
     
-        -   설명
+        IPCDA 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
     
-          IPCDA 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+        기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SHM\_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA\_SHM\_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
     
-          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SHM\_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA\_SHM\_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
+        속성
     
-        -   속성
-    
-            읽기 전용, 공개
+        읽기 전용, 공개
     
     -   Compile Option
     
