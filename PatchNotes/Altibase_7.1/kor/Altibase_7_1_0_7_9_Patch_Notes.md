@@ -55,7 +55,7 @@ New Features
 
     IPC와 IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 공유 메모리/세마포어 키가 사용 중이거나 다른 이유로 공유 메모리/세마포어를 생성하지 못하면 Altibase 서버 구동은 실패합니다. 이때, Altibase 서버 트레이스 로그 altibase\_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 합니다.
 
-    프로퍼티 설명은 General Reference-1.Data Types & Altibase Properties 매뉴얼에서 확인할 수 있습니다.
+    프로퍼티 설명은 Altibase 7.1 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key) 매뉴얼에서 확인할 수 있습니다.
     
 -   **재현 방법**
 
@@ -73,80 +73,78 @@ New Features
     
     -   Property
     
-        -   [IPC_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key)
+      -   [IPC_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key)
     
-            - 설명
-              IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
-        
-              기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SEM\_KEY 값을 기준으로 IPC\_SEM\_KEY부터 IPC\_SEM\_KEY + (IPC\_CHANNEL\_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다.
-    
-            - 속성
-          읽기 전용, 공개
-    
-        -   [IPC_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_shm_key)
-        
-            - 설명
-        
-              IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
-        
-              기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SHM\_KEY 값을 공유 메모리 키로 사용한다.
-        
-        - 속성
-    
-          읽기 전용, 공개
-    
-        -   [IPCDA_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_sem_key)
-        
         - 설명
+          IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
     
-          IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SEM\_KEY 값을 기준으로 IPC\_SEM\_KEY부터 IPC\_SEM\_KEY + (IPC\_CHANNEL\_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다.
     
-              기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SEM\_KEY 값을 기준으로 IPCDA\_SEM\_KEY부터 IPCDA\_SEM\_KEY + IPC\_CHANNEL\_COUNT만큼의 연속된 세마포어 키를 사용하여
-              IPCDA 채널을 생성한다. 예를 들어 IPCDA\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 10999까지 사용한다.
+        - 속성
+        읽기 전용, 공개
     
-            - 속성
+      -   [IPC_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_shm_key)
+    
+          - 설명
+    
+            IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+    
+            기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SHM\_KEY 값을 공유 메모리 키로 사용한다.
+    
+          - 속성
+    
+            읽기 전용, 공개
+    
+      -   [IPCDA_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_sem_key)
+    
+          -   설명
+    
+            IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+    
+            기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SEM\_KEY 값을 기준으로 IPCDA\_SEM\_KEY부터 IPCDA\_SEM\_KEY + IPC\_CHANNEL\_COUNT만큼의 연속된 세마포어 키를 사용하여
+            IPCDA 채널을 생성한다. 예를 들어 IPCDA\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 10999까지 사용한다.
+    
+          -   속성
     
               읽기 전용, 공개
-        
-        -   [IPCDA_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_shm_key)
-        
-        - 설명
+    
+      -   [IPCDA_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_shm_key)
+    
+        -   설명
     
           IPCDA 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
     
-              기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SHM\_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA\_SHM\_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
-        
-            - 속성
+          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SHM\_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA\_SHM\_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
     
-              읽기 전용, 공개
+        -   속성
+    
+            읽기 전용, 공개
     
     -   Compile Option
     
     -   Error Code
 
-        에러 메시지 2 가지가 추가되었습니다. 
+      에러 메시지 2 가지가 추가되었습니다. 
 
-        - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 공유 메모리를 생성할 수 없을 때
+      - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 공유 메모리를 생성할 수 없을 때
 
-          ```
-          0x710C6 ( 463046) cmERR_ABORT_SHMGET_ERROR_WITH_KEY A system call error occurred while creating shared memory for
-          <0%s>. [key : <1%u>]
-          # *Cause: shmget() system call failed.
-          # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the shared memory status. If there is a shared memory that has the same key value, remove the shared memory or retry with
-          another key value.
-      ```
+        ```
+        0x710C6 ( 463046) cmERR_ABORT_SHMGET_ERROR_WITH_KEY A system call error occurred while creating shared memory for
+        <0%s>. [key : <1%u>]
+        # *Cause: shmget() system call failed.
+        # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the shared memory status. If there is a shared memory that has the same key value, remove the shared memory or retry with
+        another key value.
+      - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 세마포어를 생성할 수 없을 때
     
-    - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 세마포어를 생성할 수 없을 때
+        ```
+        0x710C7 ( 463047) cmERR_ABORT_SEMGET_ERROR_WITH_KEY A system call error occurred while creating semaphore for
+        <0%s>. [key : <1%u>]
+        # *Cause: semget() system call failed.
+        # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the
+        semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key
+        value.
+        ```
     
-          ```
-          0x710C7 ( 463047) cmERR_ABORT_SEMGET_ERROR_WITH_KEY A system call error occurred while creating semaphore for
-          <0%s>. [key : <1%u>]
-          # *Cause: semget() system call failed.
-          # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the
-          semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key
-          value.
-      ```
-      
       
 
 Fixed Bugs
@@ -341,24 +339,23 @@ Fixed Bugs
 
     이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 재현 절차를 참고하세요.
     
-    
-    
     1. 큐 생성
-
+    
     2. PSM 생성
 
           - DEQUEUE 문을 동적 SQL로 수행
-
+          
+          
+                - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
+          
     
-          - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
     
-
     3) PSM 수행 
-
+    
     4) 임의의 DDL 문 수행
-
+    
     5) PSM 수행
-
+    
 -   **재현 방법**
 
     -   **재현 절차**
