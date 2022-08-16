@@ -54,10 +54,10 @@
   - [13.Database Link Error Code](#13database-link-error-code)
     - [FATAL](#fatal-10)
     - [ABORT](#abort-12)
-    - [**RETRY**](#retry)
+    - [RETRY](#retry-3)
   - [14.Log Analyzer Error Code](#14log-analyzer-error-code)
-    - [**FATAL**](#fatal)
-    - [**ABORT**](#abort)
+    - [FATAL](#fatal-11)
+    - [ABORT](#abort-13)
     - [IGNORE](#ignore-9)
 
 
@@ -19853,6 +19853,18 @@ non-blocking mode.
 **Cause:** Internal error.
 
 **Action:** Contact Altibase's Support Center (http://support.altibase.com).
+
+**0x710C6 ( 463046) cmERR_ABORT_SHMGET_ERROR_WITH_KEY A system call error occurred while creating shared memory for <0%s>. [key : <1%u>]** 
+
+**Cause**: shmget() system call failed.
+
+**Action**: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the shared memory status. If there is a shared memory that has the same key value, remove the shared memory or retry with another key value.
+
+**0x710C7 ( 463047) cmERR_ABORT_SEMGET_ERROR_WITH_KEY A system call error occurred while creating semaphore for <0%s>. [key : <1%u>]** 
+
+**Cause**: semget() system call failed.
+
+**Action**: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key value.
 
 ### IGNORE
 
