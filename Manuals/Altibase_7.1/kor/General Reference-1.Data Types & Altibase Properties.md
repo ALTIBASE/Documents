@@ -3471,8 +3471,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
           <td>BOTH</td>
        </tr>
       <tr>
-          <td rowspan="42">S</td>
-          <td rowspan="31">일반</td>
+          <td rowspan="46">S</td>
+          <td rowspan="35">일반</td>
           <td>CM_DISCONN_DETECT_TIME</td>
           <td></td>
       </tr>
@@ -3490,7 +3490,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>DEFAULT_THREAD_STACK_SIZE</td>
-          <td rowspan="4"></td>
+          <td rowspan="6"></td>
       </tr>
       <tr>
       	<td>IPC_CHANNEL_COUNT</td>
@@ -3498,6 +3498,12 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       <tr>
       	<td>IPC_FILEPATH</td>
       </tr>
+      <tr>
+      	<td>IPC_SEM_KEY</td>
+      </tr>
+      <tr>
+      	<td>IPC_SHM_KEY</td>
+      </tr>    
       <tr>
       	<td>IPCDA_CHANNEL_COUNT</td>
       </tr>
@@ -3507,11 +3513,17 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>IPCDA_FILEPATH</td>
-          <td rowspan="2"></td>
+          <td rowspan="3"></td>
+      </tr>
+      <tr>
+      	<td>IPCDA_SEM_KEY</td>
+      </tr>
+      <tr>
+      	<td>IPCDA_SHM_KEY</td>
       </tr>
       <tr>
       	<td>MAX_LISTEN</td>
-      </tr>
+      </tr>    
       <tr>
           <td>MAX_STATEMENTS_PER_SESSION</td>
           <td>BOTH</td>
@@ -3728,7 +3740,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>REPLICATION_CONNECT_RECEIVE_TIMEOUT</td>
-          <td>SYSTEM</td>
+	        <td>SYSTEM</td>
       </tr>
       <tr>
       	<td>REPLICATION_CONNECT_TIMEOUT</td>
@@ -3740,7 +3752,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       </tr>
       <tr>
       	<td>REPLICATION_DDL_ENABLE_LEVEL</td>
-	 <td></td>
+   <td></td>
       </tr>
       <tr>
       	<td>REPLICATION_DDL_SYNC</td>
@@ -9778,6 +9790,58 @@ Altibase 서버가 유닉스 환경에서 IPC 방식으로 클라이언트와 �
 서버를 구동하면 \$ALTIBASE_HOME/trc 디렉토리 아래에 cm-ipc로 소켓 파일이
 생성되며, 이 파일은 삭제되지 않도록 주의해야 한다.
 
+#### IPC_SEM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다. 
+
+기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC_SEM_KEY 값을 기준으로 IPC_SEM_KEY부터 IPC_SEM_KEY + (IPC_CHANNEL_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC_SEM_KEY 값이 10000이고 IPC_CHANNEL_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다. 
+
+IPC 채널은 Altibase 서버 구동 시 생성되는데, 세마포어 키가 사용 중이거나 다른 이유로 세마포어를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다. 
+
+#### IPC_SHM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다. 
+
+기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC_SHM_KEY 값을 공유 메모리 키로 사용한다. 
+
+IPC 채널은 Altibase 서버 구동 시 생성되는데, 공유 메모리 키가 사용 중이거나 다른 이유로 공유 메모리를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다. 
+
 #### IPCDA_CHANNEL_COUNT
 
 ##### 데이터 타입
@@ -9862,6 +9926,58 @@ Altibase 서버가 유닉스 환경에서 IPCDA 방식으로 클라이언트와 
 
 서버를 구동하면 \$ALTIBASE_HOME/trc 디렉토리 아래에 cm-ipcda로 소켓 파일이
 생성되며, 이 파일은 삭제되지 않도록 주의해야 한다.
+
+#### IPCDA_SEM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다. 
+
+기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA_SEM_KEY 값을 기준으로 IPCDA_SEM_KEY부터 IPCDA_SEM_KEY + IPC_CHANNEL_COUNT만큼의 연속된 세마포어 키를 사용하여 IPCDA 채널을 생성한다. 예를 들어 IPCDA_SEM_KEY 값이 10000이고 IPC_CHANNEL_COUNT 값이 1000이면 세마포어 키로 10000부터 10999까지 사용한다. 
+
+IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 세마포어 키가 사용 중이거나 다른 이유로 세마포어를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다. 
+
+#### IPCDA_SHM_KEY
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 4294967294]
+
+##### 설명
+
+IPCDA 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다. 
+
+기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA_SHM_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA_SHM_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
+
+IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 공유 메모리 키가 사용 중이거나 다른 이유로 공유 메모리를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다.
 
 #### MAX_LISTEN
 
