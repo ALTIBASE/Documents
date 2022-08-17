@@ -1,6 +1,8 @@
-
-
 # Altibase 7.1.0.7.9 Patch Notes
+
+<br/>
+
+<br/>
 
 
 
@@ -19,7 +21,7 @@
   - [BUG-49773 PSM에서 EXECUTE IMMEDIATE 문에 INTO 절을 사용하지 않고 DEQUEUE 문을 수행할 때 ERR-4108A : Queue not found 에러가 발생할 수 있습니다.](#bug-49773psm%EC%97%90%EC%84%9C-execute-immediate-%EB%AC%B8%EC%97%90-into-%EC%A0%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80-%EC%95%8A%EA%B3%A0-dequeue-%EB%AC%B8%EC%9D%84-%EC%88%98%ED%96%89%ED%95%A0-%EB%95%8C-err-4108a--queue-not-found-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [BUG-49779 라이브러리(library) 객체를 변경하면 해당 객체가 사용된 저장 패키지 바디를 컴파일이 필요한 상태로 변경해야 합니다.](#bug-49779%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClibrary-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%98%EB%A9%B4-%ED%95%B4%EB%8B%B9-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EC%82%AC%EC%9A%A9%EB%90%9C-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%94%EB%94%94%EB%A5%BC-%EC%BB%B4%ED%8C%8C%EC%9D%BC%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%9C-%EC%83%81%ED%83%9C%EB%A1%9C-%EB%B3%80%EA%B2%BD%ED%95%B4%EC%95%BC-%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49786 디스크 인덱스 재구성 중 예외가 발생하여 트랜잭션 롤백 수행 시, 비활성화 상태의 인덱스 때문에 발생하는 안정성 문제를 개선합니다.](#bug-49786%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EC%9E%AC%EA%B5%AC%EC%84%B1-%EC%A4%91-%EC%98%88%EC%99%B8%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EC%97%AC-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EB%A1%A4%EB%B0%B1-%EC%88%98%ED%96%89-%EC%8B%9C-%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94-%EC%83%81%ED%83%9C%EC%9D%98-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EB%95%8C%EB%AC%B8%EC%97%90-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-%EC%95%88%EC%A0%95%EC%84%B1-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49796 Altibase 6.5.1 이하 버전의 JDBC 드라이버에서 Altibase 7.1의 성능 뷰 조회 시 That had return update result 에러가 발생합니다.](#bug-49796altibase-651-%EC%9D%B4%ED%95%98-%EB%B2%84%EC%A0%84%EC%9D%98-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84%EC%97%90%EC%84%9C-altibase-71%EC%9D%98-%EC%84%B1%EB%8A%A5-%EB%B7%B0-%EC%A1%B0%ED%9A%8C-%EC%8B%9C-that-had-return-update-result-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49796 Altibase 6.5.1 이하 클라이언트에서 x$와 v$로만 이루어진 Altibase 7.1의 성능 뷰 조회 쿼리 수행 시 That had return update result 에러가 발생할 수 있습니다.](#bug-49796altibase-651-이하-클라이언트에서-x와-v로만-이루어진-altibase-71의-성능-뷰-조회-쿼리-수행-시-that-had-return-update-result-에러가-발생할-수-있습니다)
   - [BUG-49807 해시를 사용한 범위 파티션드 테이블 객체(RANGE\_USING\_HASH) 추출 시 aexport가 비정상 종료할 수 있습니다.](#bug-49807%ED%95%B4%EC%8B%9C%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%B2%94%EC%9C%84-%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EA%B0%9D%EC%B2%B4range_using_hash-%EC%B6%94%EC%B6%9C-%EC%8B%9C-aexport%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [BUG-49813 altierr 수행 시 불필요한 텍스트가 나오는 현상을 수정합니다.](#bug-49813altierr-%EC%88%98%ED%96%89-%EC%8B%9C-%EB%B6%88%ED%95%84%EC%9A%94%ED%95%9C-%ED%85%8D%EC%8A%A4%ED%8A%B8%EA%B0%80-%EB%82%98%EC%98%A4%EB%8A%94-%ED%98%84%EC%83%81%EC%9D%84-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49841 이중화 쌍의 이름이 다른 이중화 객체를 대상으로 BUILD OFFLINE META 구문 수행 시 The primary key column count of the replicated table does not match 에러가 발생합니다.](#bug-49841%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8C%8D%EC%9D%98-%EC%9D%B4%EB%A6%84%EC%9D%B4-%EB%8B%A4%EB%A5%B8-%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EB%8C%80%EC%83%81%EC%9C%BC%EB%A1%9C-build-offline-meta-%EA%B5%AC%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-the-primary-key-column-count-of-the-replicated-table-does-not-match-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -29,7 +31,7 @@
   - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
   - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
-
+<br/>
 
 New Features
 ============
@@ -43,7 +45,7 @@ New Features
 -   **재현 빈도** : Impossible
 
 -   **설명** : IPC 및 IPCDA 채널을 생성하는 데 필요한 공유 메모리와 세마포어의 키를 사용자가 정의한 값으로 설정하는 기능을 추가합니다.
-    사용자는 다음 4가지 프로퍼티를 사용하여 공유 메모리와 세마포어의 키를 설정할 수 있습니다.
+    사용자는 아래 4가지 프로퍼티를 사용하여 공유 메모리와 세마포어의 키를 설정할 수 있습니다.
     
     - IPC\_SEM\_KEY
 
@@ -53,9 +55,9 @@ New Features
 
     - IPCDA\_SHM\_KEY
 
-    IPC와 IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 공유 메모리/세마포어 키가 사용 중이거나 다른 이유로 공유 메모리/세마포어를 생성하지 못하면 Altibase 서버 구동은 실패합니다. 이때, Altibase 서버 트레이스 로그 altibase\_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 합니다.
+    IPC와 IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 프로퍼티로 설정한 공유 메모리/세마포어 키가 사용 중이거나 다른 이유로 공유 메모리/세마포어를 생성하지 못하면 Altibase 서버 구동은 실패합니다. 이때, Altibase 서버 트레이스 로그 altibase\_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 합니다.
 
-    프로퍼티 설명은 Altibase 7.1 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key) 매뉴얼에서 확인할 수 있습니다.
+    프로퍼티 설명은 Altibase 7.1 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key) 매뉴얼에서도 확인할 수 있습니다.
     
 -   **재현 방법**
 
@@ -70,75 +72,56 @@ New Features
 -   **변경사항**
 
     -   Performance view
-    
+
     -   Property
-    
-      -   [IPC_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key)
-    
-        IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
-    
-        기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SEM\_KEY 값을 기준으로 IPC\_SEM\_KEY부터 IPC\_SEM\_KEY + (IPC\_CHANNEL\_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다.
-    
-        속성
-        읽기 전용, 공개
-    
-      -   [IPC_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_shm_key)
-    
-          IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
-    
-          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC\_SHM\_KEY 값을 공유 메모리 키로 사용한다.
-    
-          속성
-    
-          읽기 전용, 공개
-    
-      -   [IPCDA_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_sem_key)
-    
-          IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
-    
-          기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SEM\_KEY 값을 기준으로 IPCDA\_SEM\_KEY부터 IPCDA\_SEM\_KEY + IPC\_CHANNEL\_COUNT만큼의 연속된 세마포어 키를 사용하여
-          IPCDA 채널을 생성한다. 예를 들어 IPCDA\_SEM\_KEY 값이 10000이고 IPC\_CHANNEL\_COUNT 값이 1000이면 세마포어 키로 10000부터 10999까지 사용한다.
-    
-          속성
-    
-          읽기 전용, 공개
-    
-      -   [IPCDA_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_shm_key)
-    
-        IPCDA 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
-    
-        기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA\_SHM\_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA\_SHM\_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
-    
-        속성
-    
-        읽기 전용, 공개
-    
+
+        -   IPC_SEM_KEY
+
+            IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+
+            기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC_SEM_KEY 값을 기준으로 IPC_SEM_KEY부터 IPC_SEM_KEY + (IPC_CHANNEL_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC_SEM_KEY 값이 10000이고 IPC_CHANNEL_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다.
+
+        -   IPC_SHM_KEY
+
+            IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+
+            기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC_SHM_KEY 값을 공유 메모리 키로 사용한다.
+
+        -   IPCDA_SEM_KEY
+
+            IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+
+            기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA_SEM_KEY 값을 기준으로 IPCDA_SEM_KEY부터 IPCDA_SEM_KEY + IPC_CHANNEL_COUNT만큼의 연속된 세마포어 키를 사용하여
+
+        -   IPCDA_SHM_KEY
+
+            IPCDA 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+
+            기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA_SHM_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA_SHM_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
+
     -   Compile Option
-    
+
     -   Error Code
-    
-      에러 메시지 2 가지가 추가되었습니다. 
-    
-      - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 공유 메모리를 생성할 수 없을 때
-    
-        ```
-        0x710C6 ( 463046) cmERR_ABORT_SHMGET_ERROR_WITH_KEY A system call error occurred while creating shared memory for
-        <0%s>. [key : <1%u>]
-        # *Cause: shmget() system call failed.
-        # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the shared memory status. If there is a shared memory that has the same key value, remove the shared memory or retry with
-        another key value.
-      - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 세마포어를 생성할 수 없을 때
-    
-        ```
-        0x710C7 ( 463047) cmERR_ABORT_SEMGET_ERROR_WITH_KEY A system call error occurred while creating semaphore for
-        <0%s>. [key : <1%u>]
-        # *Cause: semget() system call failed.
-        # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the
-        semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key
-        value.
-        ```
-    
-      
+
+        에러 메시지 2가지가 추가되었습니다. 
+
+        - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 공유 메모리를 생성할 수 없을 때
+
+          ```
+          0x710C6 ( 463046) cmERR_ABORT_SHMGET_ERROR_WITH_KEY A system call error occurred while creating shared memory for <0%s>. [key : <1%u>] 
+          # *Cause: shmget() system call failed.
+          # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the shared memory status. If there is a shared memory that has the same key value, remove the shared memory or retry with another key value.
+          ```
+
+        - IPC와 IPCDA 채널 생성 시 Altibase 서버 프로퍼티에 정의된 키로 세마포어를 생성할 수 없을 때
+
+          ```
+          0x710C7 ( 463047) cmERR_ABORT_SEMGET_ERROR_WITH_KEY A system call error occurred while creating semaphore for <0%s>. [key : <1%u>] 
+          # *Cause: semget() system call failed.
+          # *Action: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key value.
+          ```
+
+<br/>
 
 Fixed Bugs
 ==========
@@ -208,12 +191,16 @@ Fixed Bugs
 -   **재현 빈도** : Always
 
 -   **설명** : 다음과 같은 이중화 SET 절에서 예외 발생 시 메모리 누수가 발생할 수 있는 문제를 개선합니다.
-    -   ALTER REPLICATION replication\_name SET PARALLEL '*parallelFactor*'
-    -   ALTER REPLICATION replication\_name SET GROUPING ENABLE/DISABLE
-    -   ALTER REPLICATION replication\_name SET OFFLINE ENABLE WITH 
-    -   ALTER REPLICATION replication\_name SET GAPLESS ENABLE/DISABLE
+    
+    ```
+    - ALTER REPLICATION replication_name SET PARALLEL
+    - ALTER REPLICATION replication_name SET GROUPING ENABLE/DISABLE
+    - ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 
+    - ALTER REPLICATION replication_name SET GAPLESS ENABLE/DISABLE
+    ```
     
 -   **재현 방법**
+    
     -   **재현 절차**
     
     -   **수행 결과**
@@ -478,7 +465,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-49796 Altibase 6.5.1 이하 버전의 JDBC 드라이버에서 Altibase 7.1의 성능 뷰 조회 시 That had return update result 에러가 발생합니다.
+### BUG-49796 Altibase 6.5.1 이하 클라이언트에서 x$와 v$로만 이루어진 Altibase 7.1의 성능 뷰 조회 쿼리 수행 시 That had return update result 에러가 발생할 수 있습니다.
 
 -   **module** : qp
 
@@ -486,7 +473,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : Altibase 6.5.1 이하 버전의 JDBC 드라이버에서 Altibase 7.1의 성능 뷰 조회 시 That had return update result 에러가 발생하는 현상을 수정합니다.
+-   **설명** : Altibase 6.5.1 이하 클라이언트에서 x$와 v$로만 이루어진 Altibase 7.1의 성능 뷰 조회 쿼리 수행 시 That had return update result 에러가 발생하는 현상을 수정합니다. 
     
     Altibase 7.1 서버에서 OPTIMIZER\_PERFORMANCE\_VIEW 프로퍼티 값을 0으로 설정하여 버그 현상을 회피할 수 있습니다. OPTIMIZER\_PERFORMANCE\_VIEW 프로퍼티는 ALTER SYSTEM 문으로 변경할 수 있습니다. 이 프로퍼티 값을 0으로 변경 시 성능 뷰 조회 성능이 느려질  수 있습니다.
 
@@ -627,6 +614,8 @@ Fixed Bugs
     -   Property
     -   Compile Option
     -   Error Code
+
+<br/>
 
 Changes
 =======
