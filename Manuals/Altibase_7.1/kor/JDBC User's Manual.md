@@ -241,56 +241,97 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 ### JDBC 드라이버 설치
 
-Altibase 홈페이지 (www.altibase.com )에서 다운로드 받은 Altibase 패키지를
-다운로드 하여 설치한다.
-
-Altibase JDBC 드라이버는 패키지를 설치한 후, \$ALTIBASE_HOME/lib 디렉토리에서
-찾을 수 있다.
+[Altibase 기술지원포털 홈페이지](http://support.altibase.com/kr/product)에서 Altibase 서버 또는 클라이언트 패키지를 다운로드하고 설치하면 \$ALTIBASE_HOME/lib 디렉토리에  Altibase JDBC 드라이버를 찾을 수 있다.
 
 #### 버전 호환성
 
-Altibase 7.1 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 스펙을
-준수(일부 기능 제외)한다. 또한 하위 버전의 자바를 사용하는 사용자를 위해 JDBC 3.0 
-스펙을 구현한 드라이버도 함께 지원한다. JDBC 4.2 스펙용 JDBC 드라이버를
-사용하기 위해서는 JRE 1.8 이상이 필요하며 알티베이스 JDBC에서 지원하는 JDBC 4.2
-스펙 API는 JDBC 4.2 API References를 참조하면 된다.
+Altibase 7.1 JDBC는 Type 4 pure Java JDBC 드라이버로서, JDBC 3.0 API를 준수한다. Altibase 7.1 JDBC 드라이버를 사용하기 위한 자바 최소 버전은 JRE 1.5이다.
+
+Altibase 7.1은 JDBC 4.2 API를 부분적으로 지원하는 JDBC 드라이버도 제공한다. 이 드라이버는 Altibase 7.1.0.5.6부터 제공하며 파일 이름은 Altibase42.jar이다. Altibase42.jar는 JRE 1.8 이상에서 사용할 수 있으며 지원하는 JDBC 4.2 API는 [JDBC 4.2 API References](#6jdbc-42-api-references)에서 확인할 수 있다.
+
+#### JDBC 드라이버 종류
+
+Altibase 7.1은 5가지 종류의 JDBC 드라이버를 제공한다.
+
+##### Altibase.jar
+Altibase 7.1의 기본 JDBC 드라이버이다.
+
+##### Altibase7_1.jar
+기본 JDBC 드라이버와 동일하지만 드라이버 클래스 이름이 다르다.
+하나의 애플리케이션에서 Altibase 7.1 서버와 또 다른 버전의 Altibase 서버에 동시에 접속할 수 있도록 제공하는 JDBC 드라이버로, 드라이버 클래스 이름은 Altibase7_1.jdbc.driver.AltibaseDriver이다.
+
+다음은 서로 다른 버전의 Altibase 서버에 동시 접속하는 예제이다. 아래 예에서 Altibase.jar는 Altibase 6.5.1 JDBC 드라이버라고 가정한다.
+
+~~~java
+// Altibase 7.1의 멀티 버전 접속 용 JDBC 드라이버 클래스
+Class.forName("Altibase7_1.jdbc.driver.AltibaseDriver");
+
+// Altibase 6.5.1 JDBC 드라이버 클래스
+Class.forName("Altibase.jdbc.driver.AltibaseDriver");
+
+// Altibase 7.1 연결 URL
+String db_url1 = "jdbc:Altibase://192.168.1.111:20300/mydb";
+
+// Altibase 6.5.1 연결 URL
+String db_url2 = "jdbc:Altibase://192.168.1.222:20300/mydb";
+~~~
+
+##### Altibase42.jar
+JDBC 4.2 API를 일부 지원하는 JDBC 드라이버이다.
+
+##### Altibase42_7_1.jar
+JDBC 4.2 API를 일부 지원하는 JDBC 드라이버와 동일하지만 드라이버 클래스 이름이 다르다.
+하나의 애플리케이션에서 Altibase 7.1 서버와 또 다른 버전의 Altibase 서버에 동시에 접속할 수 있도록 제공하는 JDBC 드라이버로, 드라이버 클래스 이름은 Altibase42_7_1.jdbc.driver.AltibaseDriver이다.
+
+##### Altibase_t.jar
+JDBC 로깅 기능을 포함한 드라이버이다. 이 드라이버의 사용 방법은 [JDBC 로깅](#jdbc-로깅)에서 확인할 수 있다. Altibase_t.jar는 JDBC 3.0 API를 지원하는 JDBC 드라이버를 위한 로깅 드라이버이며 JDBC 4.2 API 일부 지원하는 JDBC 드라이버의 로깅 드라이버는 지원하지 않는다.
+
+##### Altibase 7.1 JDBC 드라이버 종류와 특성
+
+다음은 Altibase 7.1에서 제공하는 JDBC 드라이버 종류와 특성을 정리한 표이다.
+
+|JDBC 드라이버 종류|용도|JDBC API|최소 JRE 버전|드라이버 클래스 이름|
+|:--|:---|:--:|:--:|:--|
+|Altibase.jar |Altibase 7.1의 기본 JDBC 드라이버   | 3.0  |1.5   |Altibase.jdbc.driver.AltibaseDriver   |
+|Altibase7_1.jar   |멀티 버전 접속 용 JDBC 3.0 API 드라이버  |3.0   |1.5   |Altibase7_1.jdbc.driver.AltibaseDriver   |
+|Altibase_t.jar   |JDBC 3.0 API 드라이버 용 로깅 드라이버   |3.0   |1.5   |   |
+|Altibase42.jar   |JDBC 4.2 API 부분 지원 드라이버   |4.2 부분 지원   |1.8  |Altibase.jdbc.driver.AltibaseDriver   |
+|Altibase42_7_1.jar   |멀티 버전 접속 용 JDBC 4.2 API 부분 지원 드라이버   |4.2 부분 지원   |1.8   |Altibase7_1.jdbc.driver.AltibaseDriver   |
+
+
 
 #### JDBC 드라이버 버전 확인
 
-설치된 JDBC 드라이버의 버전과 드라이버가 컴파일된 JDK 버전을 아래와 같이 확인할
-수 있다.
+아래는 Altibase JDBC 드라이버의 버전과 해당 드라이버가 컴파일된 JDK 버전을 확인하는 명령어이다.
 
-##### JDBC 4.2 지원 드라이버 확인
-```
-$ java -jar $ALTIBASE_HOME/lib/Altibase42.jar
-Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 4.2 compiled with JDK 5, JDK 8(sharding included)
-```
-
-##### JDBC 3.0 지원 드라이버 확인
-```
+##### JDBC 3.0 API를 지원하는 Altibase 7.1 기본 JDBC 드라이버
+```bash
 $ java -jar $ALTIBASE_HOME/lib/Altibase.jar
 Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 3.0 compiled with JDK 5(sharding included)
 ```
 
+##### JDBC 4.2 API를 부분 지원하는 JDBC 드라이버 버전 확인
 
+```bash
+$ java -jar $ALTIBASE_HOME/lib/Altibase42.jar
+Altibase 7.1.0.5.0 with CMP 7.1.7 for JDBC 4.2 compiled with JDK 5, JDK 8(sharding included)
+```
+
+##### 
 
 #### CLASSPATH 설정
 
-Altibase JDBC를 사용하려면 Altibase JDBC 드라이버를 CLASSPATH 환경변수에
-추가해야 한다. 이때 사용하고자 하는 JDBC 4.2 또는 3.0 스펙에 따라 각각 
-Altibase42.jar, Altibase.jar 파일을 클래스패스에 추가하면 된다.
+Altibase JDBC를 사용하려면 Altibase.jar 또는 Altibase42.jar 파일을 CLASSPATH 환경 변수에 추가해야 한다.
 
-Altibase는 로깅 기능을 지원하지 않는 Altibase.jar 파일과 지원하는 Altibase_t.jar
-파일을 함께 제공하고 있지만 JDBC 4.2 스펙용 로깅 드라이버는 공식적으로 지원하지 않는다.
+다음은 유닉스/리눅스에서 bash 쉘을 사용하는 환경에서 수행하는 예이다.
 
-ex) 유닉스 환경에서 bash 쉘을 사용하는 경우
+##### JDBC 3.0 API를 지원하는 Altibase 7.1 기본 JDBC 드라이버
 
-JDBC 3.0 용 드라이버
-```
+```bash
 $ export CLASSPATH=$ALTIBASE_HOME/lib/Altibase.jar:.:$CLASSPATH
 ```
-JDBC 4.2 용 드라이버
-```
+##### JDBC 4.2 API를 부분 지원하는 Altibase 7.1 JDBC 드라이버
+```bash
 $ export CLASSPATH=$ALTIBASE_HOME/lib/Altibase42.jar:.:$CLASSPATH
 ```
 
@@ -428,9 +469,9 @@ Properties 객체를 생성하고 키와 값을 입력한 다음, 연결 정보�
 Properties sProps = new Properties();
 sProps.put("fetch_enough", "30");
 sProps.put("time_zone", "DB_TZ");
- 
+
 ...
- 
+
 Connection sCon = DriverManager.getConnection( sURL, sProps );
 ```
 
@@ -456,7 +497,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 
 | 기본값    |                                                              |
 | --------- | ------------------------------------------------------------ |
-| 값의 범위 | [ host_name:port_number[/dbname][, host_name:port_number[/dbname] ]* |
+| 값의 범위 | [ host_name:port_number[/dbname] [, host_name:port_number[/dbname] ]* |
 | 필수 여부 | No                                                           |
 | 설정 범위 |                                                              |
 | 설명      | Connection Failover 발생 시 접속할 수 있는 서버들의 리스트이다. <br />사용법은 3장의 "JDBC와 Failover" 절을 참고한다. |
@@ -520,8 +561,8 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 <p>설명</p>
 </td>
 <td>
-<p>prepareStatement()가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수 있다.<br /> 
-이 속성이 ON이면, prepareStatement()가 호출이 되더라도 execute() 메소드가 호출될 때까지 <br /> prepare 요청이 서버로 전송되지 않는다. <br /> 반면에 이 속성이 OFF이면, prepareStatement()가 호출될 때 prepare 요청이 즉시 서버로 전송된다.<br /> 
+<p>prepareStatement()가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수 있다.<br />
+이 속성이 ON이면, prepareStatement()가 호출이 되더라도 execute() 메소드가 호출될 때까지 <br /> prepare 요청이 서버로 전송되지 않는다. <br /> 반면에 이 속성이 OFF이면, prepareStatement()가 호출될 때 prepare 요청이 즉시 서버로 전송된다.<br />
 또한 예외적으로 defer_prepares 속성이 활성화된 상태이더라도 prepareStatement() 뒤에 다음의 메소드들이 호출되면, prepare 요청이 즉시 서버로 전송된다.</p>
 <ul>
 <li>getMetData</li>
@@ -717,7 +758,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 시스템                                                       |
 | 설명      | 2 : TRANSACTION_READ_COMMITTED <br />4 : TRANSACTION_REPEATABLE_READ <br />8: TRANSACTION_SERIALIZABLE |
 
-##### keystore_password 
+##### keystore_password
 
 | 기본값    | N/A                                 |
 | --------- | :---------------------------------- |
@@ -994,36 +1035,36 @@ import java.sql.*;
 String sURL      = "jdbc:Altibase://localhost:20300/mydb";
 String sUser     = "SYS";
 String sPassword = "MANAGER";
- 
+
 Connection sCon = null;
- 
+
 //Set properties for Connection    
 Properties sProps = new Properties();
 sProps.put( "user",     sUser);
 sProps.put( "password", sPassword);
- 
+
 // Load class to register Driver into DriverManager   
 Class.forName("Altibase.jdbc.driver.AltibaseDriver");
- 
+
 // Create a Connection Object
 sCon = DriverManager.getConnection( sURL, sProps );
- 
+
 // Create a Statement Object
 Statement sStmt = sCon.createStatement();
- 
+
 // Execute DDL Type Query
 sStmt.execute("CREATE TABLE TEST ( C1 VARCHAR (10) )");
- 
+
 // Execute Inserting Query
 sStmt.execute("INSERT INTO TEST VALUES ('ABCDE')");
- 
+
 // Execute Selecting Query
 // Get Result Set from the Statement Object
 ResultSet sRs = sStmt.executeQuery("SELECT * FROM TEST");
- 
+
 // Get ResultSetMetaData Object
 ResultSetMetaData sRsMd = sRs.getMetaData();
- 
+
 // Retrieve ResultSet
 while(sRs.next())
 {
@@ -1033,20 +1074,20 @@ while(sRs.next())
         System.out.println(sRs.getObject(i));
     }
 }
- 
+
 // Eliminate ResultSet Resource
 sRs.close();
- 
+
 // Execute Updating Query
 sStmt.execute("UPDATE TEST SET C1 = 'abcde'");
- 
+
 // Execute Selecting Query
 // Get Result Set from the Statement Object
 sRs = sStmt.executeQuery("SELECT * FROM TEST");
- 
+
 // Get ResultSetMetaData Object
 sRsMd = sRs.getMetaData();
- 
+
 // Retrieve ResultSet
 while(sRs.next())
 {
@@ -1056,20 +1097,20 @@ while(sRs.next())
         System.out.println(sRs.getObject(i));
     }
 }
- 
+
 // Eliminate ResultSet Resource
 sRs.close();
- 
+
 // Execute Deleting Query
 sStmt.execute("DELETE FROM TEST");
- 
+
 // Execute Selecting Query
 // Get Result Set from the Statement Object
 sRs = sStmt.executeQuery("SELECT * FROM TEST");
- 
+
 // Get ResultSetMetaData Object
 sRsMd = sRs.getMetaData();
- 
+
 // Retrieve ResultSet
 while(sRs.next())
 {
@@ -1079,7 +1120,7 @@ while(sRs.next())
         System.out.println(sRs.getObject(i));
     }
 }
- 
+
 // Eliminate Resources
 sRs.close();
 sStmt.close();
@@ -1184,11 +1225,11 @@ IPv4주소로 바꾼다. JDBC드라이버의 기본 동작은 호스트명을 IP
 ```
 Connection sCon = null;
 Properties sProps = new Properties();
- 
+
 sProps.put( "user", "SYS");
 sProps.put( "password", "MANAGER");
 sProps.put( "PREFER_IPV6", "FALSE");
- 
+
 String sURL = “jdbc:Altibase://localhost:20300/mydb";
 Connection sCon = DriverManager.getConnection( sURL, sProps );
 ```
@@ -1258,16 +1299,16 @@ CallableStatement sCallStmt = Connection.prepareCall("{call p1(?, ?)}");
 sCallStmt.setInt(1, 1);
 sCallStmt.registerOutParameter(2, Types.VARCHAR);
 sCallStmt.execute();
- 
+
 String sOutVal = sCallStmt.getString(2);
 // todo something ...
- 
+
 sCallStmt.close();
 ```
 
 
 
-### 내셔널 캐릭터 셋 사용 
+### 내셔널 캐릭터 셋 사용
 
 여기에서는 JDBC에서 NCHAR 및 NVARCHAR 타입 같은 유니코드 타입에 내셔널 캐릭터
 문자열을 사용하는 방법을 설명한다.
@@ -1290,15 +1331,15 @@ SQL 구문에서 내셔널 캐릭터를 가지는 상수 문자열을 사용하�
 ##### 예제
 
 ```
-// create table t1 (c1 nvarchar(1000)); 
-Properties sProps; 
-sProps.put( "user", "SYS"); 
-sProps.put( "password", "MANAGER"); 
-sProps.put( "NcharLiteralReplace", "true"); 
-Connection sCon = DriverManager.getConnection( sURL, sProps ); 
+// create table t1 (c1 nvarchar(1000));
+Properties sProps;
+sProps.put( "user", "SYS");
+sProps.put( "password", "MANAGER");
+sProps.put( "NcharLiteralReplace", "true");
+Connection sCon = DriverManager.getConnection( sURL, sProps );
 
-Statement sStmt = sCon.createStatement(); 
-sStmt.execute("insert into t1 values (N'AB가나')"); 
+Statement sStmt = sCon.createStatement();
+sStmt.execute("insert into t1 values (N'AB가나')");
 ResultSet sRS = sStmt.executeQuery( "select * from t1 where c1 like N'%가나%'");
 ```
 
@@ -1331,16 +1372,16 @@ PreparedStatement 객체를 생성하고 실행한 다음, getGeneratedKeys() �
 다음은 자동으로 생성된 키를 가져올 수 있는 SQL문을 실행하는 Statement의 메소드들이다.
 
 ```
-public boolean execute(String aSql, int aAutoGeneratedKeys) throws SQLException; 
-public boolean execute(String aSql, int[] aColumnIndexes) throws SQLException; 
+public boolean execute(String aSql, int aAutoGeneratedKeys) throws SQLException;
+public boolean execute(String aSql, int[] aColumnIndexes) throws SQLException;
 public boolean execute(String aSql, String[] aColumnNames) throws SQLException;
 ```
 
 다음은 자동으로 생성된 키를 가져올 수 있는 PreparedStatement 객체를 생성하는 Connection의 메소드들이다.
 
 ```
-public PreparedStatement prepareStatement(String aSql, int aAutoGeneratedKeys) throws SQLException; 
-public PreparedStatement prepareStatement(String aSql, int[] aColumnIndexes) throws SQLException; 
+public PreparedStatement prepareStatement(String aSql, int aAutoGeneratedKeys) throws SQLException;
+public PreparedStatement prepareStatement(String aSql, int[] aColumnIndexes) throws SQLException;
 public PreparedStatement prepareStatement(String aSql, String[] aColumnNames) throws SQLException;
 ```
 
@@ -1386,7 +1427,7 @@ ResultSet sKeys = sStmt.getGeneratedKeys();
 while (sKeys.next())
 {
     int sKey = sKeys.getInt(1);
- 
+
     // do somethings...
 }
 sKeys.close();
@@ -1485,7 +1526,7 @@ DataSource는 altibase_cli.ini 파일에 아래의 형식으로 설정한다.
 
 ```
 # comment
- 
+
 [ datasource_name ]
 Server=localhost # comment
 Port=20300
@@ -1576,11 +1617,11 @@ Apache Tomcat의 설치 및 설정 방법에 대한 자세한 내용은
 ```
 <Context>
 
-    
+
  <Resource name="jdbc/altihdb" auth="Container" type="javax.sql.DataSource"
  driverClassName="Altibase.jdbc.driver.AltibaseDriver"
- url="jdbc:Altibase://localhost:20300/mydb" 
- username="SYS" password="MANAGER" 
+ url="jdbc:Altibase://localhost:20300/mydb"
+ username="SYS" password="MANAGER"
  maxTotal="100" maxIdle="30" maxWaitMillis="10000" />
 
 </Context>
@@ -1699,7 +1740,7 @@ CREATE TYPESET my_type
 AS
     TYPE my_cur IS REF CURSOR;
 END;
- 
+
 CREATE PROCEDURE p1 (p1 OUT MY_TYPE.MY_CUR, p2 out MY_TYPE.MY_CUR)
 AS
 BEGIN
@@ -1716,12 +1757,12 @@ CallableStatement sCallStmt = connection().prepareCall("{call p1()}");
 sCallStmt.execute();
 ResultSet sRs = null;
 ResultSetMetaData sRsMd = null;
- 
- 
+
+
 do{
     sRs = sCallStmt.getResultSet();
     sRsMd = sRs.getMetaData();
- 
+
     if(sRsMd != null)
     {
         while(sRs.next())
@@ -1821,7 +1862,7 @@ public interface AltibaseFailoverCallback
 public class  UserDefinedFailoverCallback implements AltibaseFailoverCallback
 {
     ...
- 
+
     public int failoverCallback(Connection aConnection,
                                 Object     aAppContext,
                                 int        aFailoverEvent)
@@ -1829,7 +1870,7 @@ public class  UserDefinedFailoverCallback implements AltibaseFailoverCallback
         // User Defined Code
         // Result.GO나 Result.QUIT 중 한 가지 값을 반환해야 함.
     }
- 
+
     ...
 }
 ```
@@ -1875,16 +1916,16 @@ Failover 콜백 함수를 등록하면서 콜백 함수에 전달될 객체를 �
 UserDefinedFailoverCallback sCallback = new UserDefinedFailoverCallback();
 // 사용자 정의 애플리케이션 정보 객체 생성
 UserDefinedAppContext sAppContext = new UserDefinedAppContext();
- 
+
 ...
- 
+
 Connection sCon = DriverManager.getConnection(sURL, sProp);
- 
+
 // 사용자 정의 애플리케이션 객체와 함께 콜백 함수 등록
 ((AltibaseConnection)sCon).registerFailoverCallback(sCallback, sAppContext);
- 
+
 ...
- 
+
 // 콜백 함수 해제
 ((AltibaseConnection)sCon).deregisterFailoverCallback();
 ```
@@ -1905,7 +1946,7 @@ public class MyFailoverCallback implements AltibaseFailoverCallback
     {
         Statement sStmt = null;
         ResultSet sRes = null;
-  
+
         switch (aFailoverEvent)
         {
             // 사용자 어플리케이션의 로직상 Failover 시작 전에 필요한 작업을 진행할 수 있다.
@@ -1929,7 +1970,7 @@ public class MyFailoverCallback implements AltibaseFailoverCallback
                     }
                     return Result.QUIT;
                 }
-  
+
                 try
                 {
                     sRes = sStmt.executeQuery("select 1 from dual");
@@ -2122,15 +2163,15 @@ SQL문에 대해서는 JDBC 드라이버가 자신의 데이터베이스에 맞�
 
 ```
 public Statement createStatement(int aResultSetType, int aResultSetConcurrency) throws SQLException;
- 
+
 public Statement createStatement(int aResultSetType, int aResultSetConcurrency, int aResultSetHoldability) throws SQLException;
- 
+
 public PreparedStatement prepareStatement(String aSql, int aResultSetType, int aResultSetConcurrency) throws SQLException;
- 
+
 public PreparedStatement prepareStatement(String aSql, int aResultSetType, int aResultSetConcurrency, int aResultSetHoldability) throws SQLException;
- 
+
 public CallableStatement prepareCall(String aSql, int aResultSetType, int aResultSetConcurrency) throws SQLException
- 
+
 public CallableStatement prepareCall(String aSql, int aResultSetType, int aResultSetConcurrency, int aResultSetHoldability) throws SQLExc
 ```
 
@@ -2244,7 +2285,7 @@ exception이 발생하지 않게 하려면 의 sCon.setAutoCommit(true)에 앞�
 
 -   ?  :  Holdability 유형이 HOLD_CURSORS_OVER_COMMIT인 ResultSet 객체를 사용하기
     위해서는 클라이언트 세션이 Non-Autocommit 모드이거나 clientside_auto_commit
-    연결 속성이 on으로 설정되어야 한다. 
+    연결 속성이 on으로 설정되어야 한다.
     clientside_auto_commit 연결 속성을 on으로 설정하면, Holdability 유형이 자동으로 HOLD_CURSORS_OVER_COMMIT으로 변경된다.
 
 ##### 예제
@@ -2256,7 +2297,7 @@ ResultSet sRS = sSelStmt.executeQuery("SELECT * FROM t1");
 while (sRS.next())
 {
     // TODO : set parameters
- 
+
     sUpdStmt.execute();
     sConn.commit();
 }
@@ -2282,7 +2323,7 @@ Scrollable-Sensitive 결과셋을 사용하기 위해서는,
 
 -   FROM 절에 한 개의 테이블만 지정할 수 있다.
 
-PSM을 수행하는 경우에는 기본 유형의 ResultSet 객체만 사용할 수 있다. 만약 
+PSM을 수행하는 경우에는 기본 유형의 ResultSet 객체만 사용할 수 있다. 만약
 사용자가 기본 유형이 아닌 옵션을 지정하면, 그 옵션은 무시된다.
 
 CONCUR_UPDATABLE하고 TYPE_SCROLL_SENSITIVE한 ResultSet 객체는 JDBC 드라이버
@@ -2337,7 +2378,7 @@ while (sRS.next())
 ```
 
 Hole에서는 유효한 데이터를 얻을 수 없으며, Hole에 해당하는 ResultSet의 반환값은
-다음 중 하나이다: 
+다음 중 하나이다:
 
 - SQL 데이터형의 NULL
 
@@ -2392,11 +2433,11 @@ TYPE_SCROLL_INSENSITIVE일 경우에는 아무런 동작도 일어나지 않는�
 
 ### Atomic Batch
 
-알티베이스 JDBC 드라이버는 Atomic Batch 기능을 제공하여, 일괄처리(Batch)의
+Altibase JDBC 드라이버는 Atomic Batch 기능을 제공하여, 일괄처리(Batch)의
 원자성을 보장할 뿐 아니라 대용량의 데이터 삽입을 빠르게 처리할 수 있도록
 지원한다.
 
-이 절에서는 알티베이스 JDBC 드라이버가 지원하는 Atomic Batch 사용법에 대하여
+이 절에서는 Altibase JDBC 드라이버가 지원하는 Atomic Batch 사용법에 대하여
 설명한다.
 
 #### 사용법
@@ -2439,20 +2480,20 @@ Altibase에서 Atomic Batch 기능을 사용할 때 아래의 제약 사항이 �
 ......
 Connection con = DriverManager.getConnection(aConnectionStr, mProps);
 Statement stmt = con.createStatement();
- 
+
 try
-{ 
+{
     stmt.execute("Drop table " + TABLE_NAME); } catch (SQLException e) { }
     stmt.execute("create table " + TABLE_NAME + "(c1 VARCHAR (1000))");
- 
+
     PreparedStatement sPrepareStmt = con.prepareStatement("insert into " + TABLE_NAME + " values(?)");
     ((AltibasePreparedStatement)sPrepareStmt).setAtomicBatch(true);
- 
+
     for(int i = 1; i <= MAX_RECORD_CNT; i++)
     {
         sPrepareStmt.setString(1, String.valueOf(i % 50));
         sPrepareStmt.addBatch();
- 
+
         if(i%BATCH_SIZE == 0)
         {
             sPrepareStmt.executeBatch();       
@@ -2460,8 +2501,8 @@ try
         }
     }
     con.commit();
-} 
-catch (SQLException e) 
+}
+catch (SQLException e)
 {
     System.out.println(e.getMessage());
 }
@@ -2533,12 +2574,12 @@ PreparedStatement의 IN 파라미터를 사용해서 데이터베이스의 GEOME
 ```
 int sSize = ... ;
 byte[] sGeometryData = new byte[sSize];
- 
+
 Connection sConn = ... ;
 PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
 sPstmt.setObject(1, sGeometryData, AltibaseTypes.GEOMETRY);
 sPstmt.executeQuery();
- 
+
 ...
 ```
 
@@ -2582,7 +2623,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 ```
 InputStream sInputStream = ...
 long sLength = ...
-... 
+...
 PreparedStatement sPstmt = Connection.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
 ...
 sPstmt.setBinaryStream(1, sInputStream, sLength);
@@ -2606,11 +2647,11 @@ import Altibase.jdbc.driver.AltibasePreparedStatement;
 
 ```
 byte[] sBuf = ...
-... 
+...
 PreparedStatement sPstmt = Connection.prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
- 
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     Blob sBlob = sPstmt.getBlob(1);
@@ -2691,9 +2732,9 @@ InputStream sInputStream = ...
 long sLength = ...
 ...
 PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
- 
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -2710,13 +2751,13 @@ while(sRs.next())
 
 ```
 java.sql.Blob sBlob = ...
- 
+
 ...
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -2724,7 +2765,7 @@ while(sRs.next())
     sRs.updateRow();
     ...
 }
- 
+
 ...
 ```
 
@@ -2736,9 +2777,9 @@ while(sRs.next())
 java.sql.Blob sBlob = ...
 ...  
 PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -2755,13 +2796,13 @@ while(sRs.next())
 
 ```
 java.sql.Blob sBlob = ...
- 
+
 ...
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -2779,11 +2820,11 @@ while(sRs.next())
 ```
 byte[] sBytes = new byte[sLength];
 ...
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE FOR UPDATE");
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -2840,11 +2881,11 @@ while(sRs.next())
 ```
 ...
 final int sReadLength = 100;
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -2860,7 +2901,7 @@ while(sRs.next())
     }
     ...
 }
- 
+
 ...
 ```
 
@@ -2872,20 +2913,20 @@ while(sRs.next())
 
 ```
 Statement sStmt = ...
- 
+
 ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1 FOR UPDATE");
- 
+
 while(sRs.next())
 {
     ...
     int sLength = ... ;
     Blob sBlob = sRs.getBlob(2);
- 
+
     // After executing this method
     // sBlob.length() == sLength
     sBlob.truncate(sLength);
 }
- 
+
 ...
 ```
 
@@ -2935,13 +2976,13 @@ import Altibase.jdbc.driver.AltibasePreparedStatement;
 
 ```
 char[] sBuf = ...
-  
+
 ...
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT * FROM TEST_TABLE FOR UPDATE");
-  
+
 ResultSet sRs = sPstmt.executeQuery();
-  
+
 while(sRs.next())
 {
     Clob sClob = sPstmt.getClob(1);
@@ -2950,11 +2991,11 @@ while(sRs.next())
     sWriter.close();
     ...
 }
-  
+
 ...
-  
+
 sPstmt.execute();
-  
+
 ...
 ```
 
@@ -3023,13 +3064,13 @@ CREATE TABLE CLOB_TABLE ( CLOB_COLUMN CLOB );
 ```
 Reader sReader = ...
 long sLength = ... // The length of source from which Reader is linked
- 
+
 ...
- 
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
- 
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3037,7 +3078,7 @@ while(sRs.next())
     sRs.updateRow();
     ...
 }
- 
+
 ...
 ```
 
@@ -3047,13 +3088,13 @@ while(sRs.next())
 
 ```
 java.sql.Clob sClob = ...
- 
+
 ...
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3061,7 +3102,7 @@ while(sRs.next())
     sRs.updateRow();
     ...
 }
- 
+
 ...
 ```
 
@@ -3071,13 +3112,13 @@ while(sRs.next())
 
 ```
 java.sql.Clob sClob = ...
- 
+
 ...
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3085,7 +3126,7 @@ while(sRs.next())
     sRs.updateRow();
     ...
 }
- 
+
 ...
 ```
 
@@ -3095,13 +3136,13 @@ while(sRs.next())
 
 ```
 java.sql.Clob sClob = ...
- 
+
 ...
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3109,7 +3150,7 @@ while(sRs.next())
     sRs.updateRow();
     ...
 }
- 
+
 ...
 ```
 
@@ -3119,12 +3160,12 @@ while(sRs.next())
 
 ```
 ...
- 
-String sStr = ... ; 
+
+String sStr = ... ;
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE FOR UPDATE");
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3132,7 +3173,7 @@ while(sRs.next())
     sClob.setString(0, sStr);
     ...
 }
- 
+
 ...
 ```
 
@@ -3145,9 +3186,9 @@ while(sRs.next())
 ```
 ...
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3164,9 +3205,9 @@ while(sRs.next())
 ```
 ...  
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3184,11 +3225,11 @@ while(sRs.next())
 ```
 ...
 final int sReadLength = 100;
-  
+
 PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
-  
+
 ResultSet sRs = sPstmt.executeQuery();
- 
+
 while(sRs.next())
 {
     ...
@@ -3204,7 +3245,7 @@ while(sRs.next())
     }
     ...
 }
- 
+
 ...
 ```
 
@@ -3216,20 +3257,20 @@ while(sRs.next())
 
 ```
 Statement sStmt = ...
- 
+
 ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1 FOR UPDATE");
- 
+
 while(sRs.next())
 {
     ...
     int sLength = ... ;
     Clob sClob = sRs.getClob(2);
- 
+
     // After executing this method
     // sClob.length() == sLength
     sClob.truncate(sLength);
 }
- 
+
 ...
 ```
 
@@ -3271,7 +3312,7 @@ Clob 객체도 Blob과 마찬가지로 free 메소드로 해제하면, 대응하
 
 ```
 InputStream sInputStream = sRs.getBinaryStream(1);
- 
+
 // Freeing Lob Locator
 ((Altibase.jdbc.driver.BlobInputStream)sInputStream).freeLocator();
 
@@ -3279,10 +3320,10 @@ InputStream sInputStream = sRs.getBinaryStream(1);
 CallableStatement sCallStmt = aConn.prepareCall("INSERT INTO TEST_TABLE VALUES (?)");
 sCallStmt.registerOutParameter(1, Types.BLOB);
 sCallStmt.execute();
- 
+
 Blob sBlob = sCallStmt.getBlob(1);
 OutputStream sOutputStream = sBlob.setBinaryStream(1);
- 
+
 // Freeing Lob Locator
 ((Altibase.jdbc.driver.BlobOutputStream)sOutputStream).freeLocator();
 
@@ -3296,7 +3337,7 @@ BlobInputStream 또는 BlobOutputStream 객체를 freeLocator 메소드로 해�
 
 ```
 Reader sClobReader = sRs.getCharacterStream(1);
- 
+
 // Freeing Lob Locator
 ((Altibase.jdbc.driver.ClobReader)sClobReader).freeLocator();
 
@@ -3304,10 +3345,10 @@ Reader sClobReader = sRs.getCharacterStream(1);
 CallableStatement sCallStmt = aConn.prepareCall("INSERT INTO TEST_TABLE VALUES (?)");
 sCallStmt.registerOutParameter(1, Types.CLOB);
 sCallStmt.execute();
- 
+
 Clob sClob = sCallStmt.getClob(1);
 Writer sClobWriter = sClob.setCharacterStream(1);
- 
+
 // Freeing Lob Locator
 ((Altibase.jdbc.driver.ClobWriter)sClobWriter).freeLocator();
 
@@ -3501,11 +3542,11 @@ Djava.util.logging.config.file 프로퍼티를 통해 사용하면 된다.
 ##### Logger의 종류
 
 로거는 트리 구조로 구성되어 있으며 부분별로 로그의 양이나 셋팅을 조절할 때
-사용한다. 알티베이스 JDBC 드라이버에서 지원하는 Logger의 종류는 아래와 같다.
+사용한다. Altibase JDBC 드라이버에서 지원하는 Logger의 종류는 아래와 같다.
 
 | Logger                 | 설명                                                                                 |
 |------------------------|--------------------------------------------------------------------------------------|
-| altibase.jdbc          | 알티베이스 JDBC 메시지 (Connection, Statement, PreparedStatement 등의 JDBC API call) |
+| altibase.jdbc          | Altibase JDBC 메시지 (Connection, Statement, PreparedStatement 등의 JDBC API call) |
 | altibase.jdbc.pool     | 커넥션 풀 관련 메시지                                                                |
 | altibase.jdbc.rowset   | ResultSet 관련 메시지                                                                |
 | altibase.jdbc.xa       | xa 관련 메시지                                                                       |
@@ -3529,7 +3570,7 @@ JDBC 드라이버에서 제공하는 레벨은 아래와 같으며, SEVERE에서
 | FINE        | 표준 JDBC API에 진입하고 리턴될 때 해당 인자 값과 반환 값을 로그에 남긴다. API에 진입할 때마다 로그가 남기 때문에 로그의 양이 많아질 수 있으며, Connection이나 Statement가 close되는데 걸린 시간이 추가로 표시된다. |
 | FINEST      | JDBC 드라이버와 알티베이스 서버가 주고 받는 패킷 정보를 로그로 남긴다. 로그의 양이 가장 많다. |
 
-##### logging.properties 
+##### logging.properties
 
 다음은 로그 레벨을 CONFIG로 하고, 네트워크 패킷 로그를 남기는 샘플
 logging.properties이며, \$ALTIBASE_HOME/sample/JDBC/Logging/logging.properties
@@ -3537,9 +3578,9 @@ logging.properties이며, \$ALTIBASE_HOME/sample/JDBC/Logging/logging.properties
 
 ```
 handlers= java.util.logging.FileHandler, java.util.logging.ConsoleHandler --> 기본적인 handler로 FileHandler와 ConsoleHandler를 추가한다.
- 
+
 .level = CONFIG --> 루트 logger 레벨을 CONFIG로 셋팅한다.
- 
+
 # default file output is in same directory.
 java.util.logging.FileHandler.level = CONFIG
 java.util.logging.FileHandler.pattern = ./jdbc_trace.log
@@ -3552,14 +3593,14 @@ java.util.logging.FileHandler.formatter = Altibase.jdbc.driver.logging.SingleLin
 java.util.logging.ConsoleHandler.level = CONFIG
 java.util.logging.ConsoleHandler.formatter = Altibase.jdbc.driver.logging.SingleLineFormatter
  --> java.util.logging.ConsoleHandler를 설정하는 부분이다. 로그를 한 줄로 출력하기 위해 SingleLineFormatter를 사용했다.
- 
+
 altibase.jdbc.level = CONFIG
 altibase.jdbc.rowset.level = SEVERE
 altibase.jdbc.cm.level = FINEST
 altibase.jdbc.cm.handlers = Altibase.jdbc.driver.logging.MultipleFileHandler
 #altibase.jdbc.cm.handlers = java.util.logging.FileHandler
  --> altibase jdbc logger를 설정하는 부분으로 레코드 셋의 정보는 제외해야 하기 때문에 rowset의 레벨을 SEVERE로 설정했다. 네트워크 패킷 정보는 로그로 남겨야 하기 때문에 cm의 레벨을 FINEST로 설정했다. 또한 네트워크 패킷같은 경우 세션별로 파일을 별도 저장하기 위해 handler로 MultipleFileHandler를 사용했다.
- 
+
 Altibase.jdbc.driver.logging.MultipleFileHandler.level = FINEST
 Altibase.jdbc.driver.logging.MultipleFileHandler.pattern = ./jdbc_net_%s.log
 Altibase.jdbc.driver.logging.MultipleFileHandler.limit = 10000000
@@ -3581,7 +3622,7 @@ Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 Altibas
 (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
 #### Lob 관련 속성
-Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이 
+Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
 null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null 이더라도 Lob 관련 객체가
 리턴되었기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것이 권장된다.
 
@@ -3592,7 +3633,7 @@ null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 �
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
 | 설명     | lob 컬럼값이 null 일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
-##### 예제 
+##### 예제
 lob_null_select 값이 off 인 경우 다음과 같이 getBlob(), getClob()을 한 후 null 처리를 해줘야 한다.
 ```
 Blob sBlob = sRs.getBlob();
@@ -3645,7 +3686,7 @@ PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
 ```
 
 
----------------------
+
 4.Tips & Recommendation
 ---------------------
 
@@ -3785,35 +3826,39 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 |                                       |       | XA close failed                                                                                          | F02      |
 |                                       |       | XA recover failed                                                                                        | F03      |
 
-6.JDBC 4.2 API References
------------
+## 6.JDBC 4.2 API References
+
+JDBC 4.2 API를 준수하는 Altibase 7.1 JDBC 드라이버(Altibase42.jar)에서 지원하는 기능과 지원하지 않는 기능을 보여주는 표이다.
+
 ### java.sql.Connection
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                        |      예외 처리                                 |
-|------------------------------------------------------------|----------|----------|-------------------------------------------------------------------------------|------------------------------------------------|
-| createBlob()                                               | 4.0      |    X     | Connection 단계에서의 lob 객체 생성 지원 안함                                        |SQLFeatureNotSupported 예외 발생             |
-| createClob()                                               | 4.0      |    X     | Connection 단계에서의 lob 객체 생성 지원 안함                                        |SQLFeatureNotSupported 예외 발생             |
-| createNClob()                                              | 4.0      |    X     | Clob 객체에 대한 다국어 처리 지원 안함                                               |SQLFeatureNotSupported 예외 발생              |
-| createSQLXML()                                             | 4.0      |    X     | SQLXML 타입 미지원                                                              |SQLFeatureNotSupported 예외 발생              |
+| 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                       |      예외 처리                                 |
+|:------------------------------------------------------------|:----------:|:----------:|:-------------------------------------------------------------------------------|:------------------------------------------------|
+| createBlob()                                               | 4.0      |    X     | Connection 단계에서 BLOB 객체 생성을 지원하지 않음                   |SQLFeatureNotSupported 예외 발생             |
+| createClob()                                               | 4.0      |    X     | Connection 단계에서 CLOB 객체 생성을 지원하지 않음                     |SQLFeatureNotSupported 예외 발생             |
+| createNClob()                                              | 4.0      |    X     | CLOB 객체에 다국어 처리를 지원하지 않음                                    |SQLFeatureNotSupported 예외 발생              |
+| createSQLXML()                                             | 4.0      |    X     | SQLXML 타입을 지원하지 않음                                                      |SQLFeatureNotSupported 예외 발생              |
 | isValid(int timeout)                                       | 4.0      |    O     |                                                                                   |                                             |
-| setClientInfo(String name, String value)                   | 4.0      |    O     | 알티베이스 JDBC는 클라이언트 속성 중 ApplicationName만 지원                           |                                             |
-| setClientInfo(Properties properties)                       | 4.0      |    O     | ApplicationName만 지원                                                             |                                            |
-| getClientInfo(String name)                                 | 4.0      |    O     | ApplicationName만 지원                                                             |                                            |
-| getClientInfo()                                            | 4.0      |    O     | ApplicationName만 지원                                                             |                                            |
-| createArrayOf(String typeName, Object[] elements)          | 4.0      |    X     | Array 타입 지원 안함                                                                |SQLFeatureNotSupported 예외 발생             |
-| createStruct(String typeName, Object[] attributes)         | 4.0      |    X     | Struct 타입 지원 안함                                                               |SQLFeatureNotSupported 예외 발생             |
-| setSchema(String schema)                                   | 4.1      |    X     | 스키마 지원 안함                                                                    |스펙에 따라 예외는 발생 안하고 그냥 요청이 무시됨 |
-| getSchema()                                                | 4.1      |    X     | 스키마 지원 안함                                                                    |예외는 발생 안하고 null이 리턴됨                |
+| setClientInfo(String name, String value)                   | 4.0      |    O     | 클라이언트 속성 중 ApplicationName만 지원                           |                                             |
+| setClientInfo(Properties properties)                       | 4.0      |    O     | 클라이언트 속성 중 ApplicationName만 지원                               |                                            |
+| getClientInfo(String name)                                 | 4.0      |    O     | 클라이언트 속성 중 ApplicationName만 지원                               |                                            |
+| getClientInfo()                                            | 4.0      |    O     | 클라이언트 속성 중 ApplicationName만 지원                               |                                            |
+| createArrayOf(String typeName, Object[] elements)          | 4.0      |    X     | Array 타입을 지원하지 않음                                                       |SQLFeatureNotSupported 예외 발생             |
+| createStruct(String typeName, Object[] attributes)         | 4.0      |    X     | Struct 타입을 지원하지 않음                                                      |SQLFeatureNotSupported 예외 발생             |
+| setSchema(String schema)                                   | 4.1      |    X     | 스키마 지원하지 않음                                                           |JDBC API 버전에 따라 예외가 발생하지 않고 무시됨 |
+| getSchema()                                                | 4.1      |    X     | 스키마 지원하지 않음                                                             |예외가 발생하지 않고 널을 반환함                |
 | abort(Executor executor)                                   | 4.1      |    O     |                                                                                    |                                            |
-| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | Altibase JDBC 드라이버 내부에서 TCP/IP의 SO_TIMEOUT socket 옵션을 이용하기 때문에 Executor는 null을 반환(return)해도 무방 |                                            |
-| getNetworkTimeout()                                        | 4.1      |    O     | JDBC의 response_timeout 속성과 연동하여 해당 속성값을 반환          |                                            |
+| setNetworkTimeout(Executor executor, int milliseconds)     | 4.1      |    O     | Altibase JDBC 드라이버에서 TCP/IP의 SO_TIMEOUT 소켓 옵션을 이용하기 때문에 Executor는 널을 반환해도 무방 |                                            |
+| getNetworkTimeout()                                        | 4.1      |    O     | Altibase JDBC 드라이버의 response_timeout 속성과 연동하여 해당 속성값을 반환 |                                            |
 
 ### java.sql.Wrapper
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+
+| 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                 |      예외 처리                                        |
+|:------------------------------------------------------------|:----------:|:----------:|:--------------------------------------------------------------------------|:------------------------------------------------------|
 | unwrap(Class<T> iface)                                     | 4.0      |    O     |                                                                          |                                                      |
 | isWrapperFor(Class<?> iface)                               | 4.0      |    O     |                                                                          |                                                      |
 
-알티베이스 JDBC 드라이버에서 java.sql.Wrapper 인터페이스를 구현하고 있는 클래스 목록
+다음은 Altibase JDBC 드라이버에서 java.sql.Wrapper 인터페이스를 구현한 클래스 목록이다.
+
 - Altibase42Connection
 - AltibaseStatement
 - AltibaseResultSet
@@ -3823,14 +3868,14 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 - Altibase42DatabaseMetaData
 
 ### java.sql.Driver
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명      | JDBC API 버전 | 지원여부 | 설명 | 예외 처리 |
+|------------------------------------------------------------|:--------:|:--------:|--------------------------------------------------------------------------|------------------------------------------------------|
 | getParentLogger()                                          | 4.1      |    O     |                                                                          |                                                      |
 
 ### java.sql.Statement
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
-| setPoolable(boolean poolable)                              | 4.0      |    O     | 알티베이스 JDBC에서 Statement Pool은 지원하지 않으나 플래그 설정은 가능 |                                                      |
+| 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                               |      예외 처리                                        |
+|------------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
+| setPoolable(boolean poolable)                              | 4.0      |    O     | Altibase JDBC에서 Statement Pool은 지원하지 않으나 플래그 설정은 가능 |                                                      |
 | isPoolable()                                               | 4.0      |    O     |                                                                          |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
 | isCloseOnCompletion()                                      | 4.1      |    O     |                                                                          |                                                      |
@@ -3842,7 +3887,7 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 
 ### java.sql.PreparedStatement
 | 인터페이스명                                                                        | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|-----------------------------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+|-----------------------------------------------------------------------------------|:--------:|:--------:|--------------------------------------------------------------------------|------------------------------------------------------|
 | setRowId(int parameterIndex, RowId x)                                             | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
 | setNString(int parameterIndex, String value)                                      | 4.0      |    O     |                                                                          |                                                      |
 | setNClob(int parameterIndex, NClob value)                                         | 4.0      |    X     |  NCLOB 타입 미지원                                                     |  SQLFeatureNotSupported 예외 발생                      |
@@ -3862,8 +3907,8 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | setObject(int parameterIndex, Object x, SQLType targetSqlType, int scaleOrLength) | 4.2      |    O     |                                                      |                                                      |
 
 ### java.sql.CallableStatement
-| 인터페이스명                                                                         | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|-------------------------------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                                         | JDBC API 버전 | 지원여부  | 설명                                                                 |      예외 처리                                        |
+|-------------------------------------------------------------------------------------|:--------:|:--------:|--------------------------------------------------------------------------|------------------------------------------------------|
 | getRowId(int parameterIndex)                                                        | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
 | getRowId(String parameterName)                                                      | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
 | setRowId(String parameterName, RowId x)                                             | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
@@ -3908,14 +3953,14 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | registerOutParameter(String parametername, SQLType sqlType, String typeName)        | 4.2      |    O     |                                                                          |                                                      |
 
 ### java.sql.PooledConnection
-| 인터페이스명                                                     | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|----------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                     | JDBC API 버전 | 지원여부  | 설명                                                                 |      예외 처리                                        |
+|----------------------------------------------------------------|:--------:|:--------:|--------------------------------------------------------------------------|------------------------------------------------------|
 | addStatementEventListener(StatementEventListener listener)     | 4.0      |    X     | Statement Pool을 지원하지 않으므로 동작이 무시된다.       |                                                      |
 | removeStatementEventListener(StatementEventListener listener)  | 4.0      |    X     | Statement Pool을 지원하지 않으므로 동작이 무시된다.       |                                                      |
 
 ### java.sql.ResultSet
-| 인터페이스명                                                                | Specification Version | 지원여부  | Details                            |      예외 처리                                        |
-|----------------------------------------------------------------------------|----------|----------|------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                                | JDBC API 버전 | 지원여부  | 설명                          |      예외 처리                                        |
+|----------------------------------------------------------------------------|:--------:|:--------:|------------------------------------|------------------------------------------------------|
 | getRowId(int columnIndex)                                                  | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | getRowId(String columnLabel)                                               | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | updateRowId(int columnIndex, RowId x)                                      | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
@@ -3966,13 +4011,13 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | getObject(String columnLabel, Class<T> type)                               | 4.1      |    O     |                                    |                                                      |
 
 ### javax.sql.CommonDataSource
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
-|-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                           |      예외 처리                  |
+|-----------------------------------------------|:--------:|:--------:|------------------------------------|--------------------------------|
 | getParentLogger()                             | 4.1      |    O     |                                    |                                |
 
 ### java.sql.DatabaseMetaData
-| 인터페이스명                                                                                                   | Specification Version | 지원여부  | Details                            |      예외 처리                                        |
-|---------------------------------------------------------------------------------------------------------------|----------|----------|------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                                                                   | JDBC API 버전 | 지원여부  | 설명                          |      예외 처리                                        |
+|---------------------------------------------------------------------------------------------------------------|:--------:|:--------:|------------------------------------|------------------------------------------------------|
 | getRowIdLifetime()                                                                                            | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | getSchemas(String catalog, String schemaPattern)                                                              | 4.0      |    O     |                                    |                                                      |
 | supportsStoredFunctionsUsingCallSyntax()                                                                      | 4.0      |    X     | False 리턴                       |                                                      |
@@ -3984,37 +4029,37 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | generatedKeyAlwaysReturned()                                                                                  | 4.1      |    X     | False 리턴                       |                                                      |
 
 ### java.sql.Blob
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
-|-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                           |      예외 처리                  |
+|-----------------------------------------------|:--------:|:--------:|------------------------------------|--------------------------------|
 | getBinaryStream(long pos, long length)        | 4.0      |    O     |                                    |                                |
 
 ### java.sql.Clob
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
-|-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                          |      예외 처리                  |
+|-----------------------------------------------|:--------:|:--------:|------------------------------------|--------------------------------|
 | getCharacterStream(long pos, long length)     | 4.0      |    O     |                                    |                                |
 
 ### java.sql.Types
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
-|-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                              |      예외 처리                  |
+|-----------------------------------------------|:--------:|:--------:|----------------------------------------|--------------------------------|
 | REF_CURSOR                                    | 4.2      |    X     | 아웃바운드 파라미터로 ref cursor 사용 불가 |                                |
 
 ### java.sql.DriverAction
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
-|-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                              |      예외 처리                  |
+|-----------------------------------------------|:--------:|:--------:|----------------------------------------|--------------------------------|
 | deregister()                                  |  4.2     |    x     | deregister()를 통한 자원 해제 미지원 |                            |
 
 ### java.sql.SQLTypes
-알티베이스 JDBC 드라이버는 java.sql.SQLTypes 인터페이스를 구현하고 있는 AltibaseJDBCType을 지원한다.
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
-|-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
+Altibase JDBC 드라이버는 java.sql.SQLTypes 인터페이스를 구현하고 있는 AltibaseJDBCType을 지원한다.
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                              |      예외 처리                  |
+|-----------------------------------------------|:--------:|:--------:|----------------------------------------|--------------------------------|
 | getName()                                     | 4.2      |    O     |                                        |                                |
 | getVendor()                                   | 4.2      |    O     |                                        |                                |
 | getVendorTypeNumber()                         | 4.2      |    O     |                                        |                                |
 
 ### Java 8 Time API
-JDBC spec 4.2를 지원하는 Altibase42.jar 에서는 다음과 같이 Java8 Time API를 java.sql 타입으로 변환하여 지원한다.
+JDBC 4.2 API를 일부 지원하는 Altibase42.jar 에서는 다음과 같이 Java8 Time API를 java.sql 타입으로 변환하여 지원한다.
 | Java 8 Time Class        | Altibase JDBC            |
-|--------------------------|--------------------------|
+|:-------------------------|:-------------------------|
 | java.time.LocalDate      | java.sql.Date            |
 | java.time.LocalTime      | java.sql.Time            |
 | java.time.LocalDateTime  | java.sql.TimeStamp       |
@@ -4067,56 +4112,56 @@ A.부록: 데이터 타입 맵핑
 
 아래의 표는 setObject 메소드를 사용해서 파라미터에 객체를 설정할 경우, 각 객체별로 어떠한 데이터베이스 데이터입으로 변환이 가능한지 보여준다.
 
-|                    | SMALLINT | INTEGER | BIGINT | REAL | FLOAT | DOUBLE | DECIMAL/NUMERIC | BIT | CHAR | VARCHAR/LONGVARCHAR | BINARY | VARBINARY/LONGVARBINARY | DATE | TIME | TIMESTAMP | BLOB | CLOB |
-|--------------------|----------|---------|--------|------|-------|--------|-----------------|-----|------|---------------------|--------|-------------------------|------|------|-----------|------|------|
-| Array              |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           |      |      |
-| Blob               |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           | ○    |      |
-| Boolean            | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   |        |                         |      |      |           |      |      |
-| byte[]             |          |         |        |      |       |        |                 |     | ○    | ○                   | ○      | ○                       |      |      |           | ○    |      |
-| char[]             | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   | ○      | ○                       | ○    | ○    | ○         |      | ○    |
-| Clob               |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           |      | ○    |
-| Double             | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   |        |                         |      |      |           |      |      |
-| Float              | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   |        |                         |      |      |           |      |      |
-| Integer            | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   |        |                         |      |      |           |      |      |
-| Java class         |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           |      |      |
-| BigDecimal         | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   |        |                         |      |      |           |      |      |
-| java.net.URL       |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           |      |      |
-| java.sql.Date      |          |         |        |      |       |        |                 |     | ○    | ○                   |        |                         | ○    | ○    | ○         |      |      |
-| java.sql.Time      |          |         |        |      |       |        |                 |     | ○    | ○                   |        |                         | ○    | ○    | ○         |      |      |
-| java.sql.Timestamp |          |         |        |      |       |        |                 |     | ○    | ○                   |        |                         | ○    | ○    | ○         |      |      |
-| java.util.BitSet   |          |         |        |      |       |        |                 | ○   |      |                     |        |                         |      |      |           |      |      |
-| Long               | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   |        |                         |      |      |           |      |      |
-| Ref                |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           |      |      |
-| Short              |          | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   |        |                         |      |      |           |      |      |
-| String             | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○    | ○                   | ○      | ○                       | ○    | ○    | ○         |      |      |
-| Struct             |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           |      |      |
-| InputStream        |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           | ○    |      |
-| Reader             |          |         |        |      |       |        |                 |     |      |                     |        |                         |      |      |           |      | ○    |
+|                    | SMALLINT | INTEGER | BIGINT | REAL | FLOAT | DOUBLE | DECIMAL/NUMERIC | BIT  | CHAR | VARCHAR/LONGVARCHAR | BINARY | VARBINARY/LONGVARBINARY | DATE | TIME | TIMESTAMP | BLOB | CLOB |
+| ------------------ | :------: | :-----: | :----: | :--: | :---: | :----: | :-------------: | :--: | :--: | :-----------------: | :----: | :---------------------: | :--: | :--: | :-------: | :--: | :--: |
+| Array              |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |      |      |
+| Blob               |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |  ○   |      |
+| Boolean            |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |        |                         |      |      |           |      |      |
+| byte[]             |          |         |        |      |       |        |                 |      |  ○   |          ○          |   ○    |            ○            |      |      |           |  ○   |      |
+| char[]             |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |   ○    |            ○            |  ○   |  ○   |     ○     |      |  ○   |
+| Clob               |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |      |  ○   |
+| Double             |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |        |                         |      |      |           |      |      |
+| Float              |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |        |                         |      |      |           |      |      |
+| Integer            |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |        |                         |      |      |           |      |      |
+| Java class         |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |      |      |
+| BigDecimal         |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |        |                         |      |      |           |      |      |
+| java.net.URL       |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |      |      |
+| java.sql.Date      |          |         |        |      |       |        |                 |      |  ○   |          ○          |        |                         |  ○   |  ○   |     ○     |      |      |
+| java.sql.Time      |          |         |        |      |       |        |                 |      |  ○   |          ○          |        |                         |  ○   |  ○   |     ○     |      |      |
+| java.sql.Timestamp |          |         |        |      |       |        |                 |      |  ○   |          ○          |        |                         |  ○   |  ○   |     ○     |      |      |
+| java.util.BitSet   |          |         |        |      |       |        |                 |  ○   |      |                     |        |                         |      |      |           |      |      |
+| Long               |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |        |                         |      |      |           |      |      |
+| Ref                |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |      |      |
+| Short              |          |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |        |                         |      |      |           |      |      |
+| String             |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |  ○   |          ○          |   ○    |            ○            |  ○   |  ○   |     ○     |      |      |
+| Struct             |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |      |      |
+| InputStream        |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |  ○   |      |
+| Reader             |          |         |        |      |       |        |                 |      |      |                     |        |                         |      |      |           |      |  ○   |
 
 ### 데이터베이스 데이터형을 Java 데이터형으로 변환하기
 
 아래의 표는 데이터베이스의 각 데이터형에 대해 getXXX 메소드를 사용하여 변환이 가능한지 보여준다.
 
-|                    | SMALLINT | INTEGER | BIGINT | REAL | FLOAT | DOUBLE | DECIMAL/NUMERIC | BIT | CHAR/VARCHAR | LONGVARCHAR | BINARY | VARBINARY/LONGVARBINARY | DATE | TIME | TIMESTAMP | CLOB | BLOB |
-|--------------------|----------|---------|--------|------|-------|--------|-----------------|-----|--------------|-------------|--------|-------------------------|------|------|-----------|------|------|
-| getArray           |          |         |        |      |       |        |                 |     |              |             |        |                         |      |      |           |      |      |
-| getAsciiStream     | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         | ○    | ○    | ○         |      |      |
-| getBigDecimal      | ○        | ○       | ○      | ○    | ○     | ○      | ○               |     | ○            | ○           |        |                         |      |      |           |      |      |
-| getBinaryStream    | ○        |         | ○      | ○    | ○     | ○      | ○               | ○   |              |             | ○      |                         | ○    | ○    | ○         |      |      |
-| getBlob            |          |         |        |      |       |        |                 |     |              |             |        | ○                       |      |      |           | ○    |      |
-| getBoolean         | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         |      |      |           |      |      |
-| getByte            | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         |      |      |           |      |      |
-| getBytes           | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   |              |             | ○      |                         | ○    | ○    | ○         |      |      |
-| getCharacterStream | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         | ○    | ○    | ○         |      |      |
-| getClob            |          |         |        |      |       |        |                 |     |              |             |        |                         |      |      |           | ○    |      |
-| getDate            |          |         |        |      |       |        |                 |     | ○            | ○           |        |                         | ○    | ○    | ○         |      |      |
-| getDouble          | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         |      |      |           |      |      |
-| getFloat           | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         |      |      |           |      |      |
-| getInt             | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         |      |      |           |      |      |
-| getLong            | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         |      |      |           |      |      |
-| getObject          | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      | ○                       | ○    | ○    | ○         | ○    | ○    |
-| getRef             |          |         |        |      |       |        |                 |     |              |             |        |                         |      |      |           |      |      |
-| getShort           | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         |      |      |           |      |      |
-| getString          | ○        | ○       | ○      | ○    | ○     | ○      | ○               | ○   | ○            | ○           | ○      |                         | ○    | ○    | ○         |      |      |
-| getTime            |          |         |        |      |       |        |                 |     | ○            | ○           |        |                         | ○    | ○    | ○         |      |      |
-| getTimestamp       |          |         |        |      |       |        |                 |     | ○            | ○           |        |                         | ○    | ○    | ○         |      |      |
+|                    | SMALLINT | INTEGER | BIGINT | REAL | FLOAT | DOUBLE | DECIMAL/NUMERIC | BIT  | CHAR/VARCHAR | LONGVARCHAR | BINARY | VARBINARY/LONGVARBINARY | DATE | TIME | TIMESTAMP | CLOB | BLOB |
+| ------------------ | :------: | :-----: | :----: | :--: | :---: | :----: | :-------------: | :--: | :----------: | :---------: | :----: | :---------------------: | :--: | :--: | :-------: | :--: | :--: |
+| getArray           |          |         |        |      |       |        |                 |      |              |             |        |                         |      |      |           |      |      |
+| getAsciiStream     |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |  ○   |  ○   |     ○     |      |      |
+| getBigDecimal      |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |      |      ○       |      ○      |        |                         |      |      |           |      |      |
+| getBinaryStream    |    ○     |         |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |              |             |   ○    |                         |  ○   |  ○   |     ○     |      |      |
+| getBlob            |          |         |        |      |       |        |                 |      |              |             |        |            ○            |      |      |           |  ○   |      |
+| getBoolean         |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |      |      |           |      |      |
+| getByte            |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |      |      |           |      |      |
+| getBytes           |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |              |             |   ○    |                         |  ○   |  ○   |     ○     |      |      |
+| getCharacterStream |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |  ○   |  ○   |     ○     |      |      |
+| getClob            |          |         |        |      |       |        |                 |      |              |             |        |                         |      |      |           |  ○   |      |
+| getDate            |          |         |        |      |       |        |                 |      |      ○       |      ○      |        |                         |  ○   |  ○   |     ○     |      |      |
+| getDouble          |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |      |      |           |      |      |
+| getFloat           |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |      |      |           |      |      |
+| getInt             |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |      |      |           |      |      |
+| getLong            |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |      |      |           |      |      |
+| getObject          |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |            ○            |  ○   |  ○   |     ○     |  ○   |  ○   |
+| getRef             |          |         |        |      |       |        |                 |      |              |             |        |                         |      |      |           |      |      |
+| getShort           |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |      |      |           |      |      |
+| getString          |    ○     |    ○    |   ○    |  ○   |   ○   |   ○    |        ○        |  ○   |      ○       |      ○      |   ○    |                         |  ○   |  ○   |     ○     |      |      |
+| getTime            |          |         |        |      |       |        |                 |      |      ○       |      ○      |        |                         |  ○   |  ○   |     ○     |      |      |
+| getTimestamp       |          |         |        |      |       |        |                 |      |      ○       |      ○      |        |                         |  ○   |  ○   |     ○     |      |      |
