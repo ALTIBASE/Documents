@@ -257,16 +257,17 @@ Altibase 7.1은 5가지 종류의 JDBC 드라이버를 제공한다.
 Altibase 7.1의 기본 JDBC 드라이버이다.
 
 ##### Altibase7_1.jar
-기본 JDBC 드라이버와 동일하지만 드라이버 클래스 이름이 다르다.
-하나의 애플리케이션에서 Altibase 7.1 서버와 또 다른 버전의 Altibase 서버에 동시에 접속할 수 있도록 제공하는 JDBC 드라이버로, 드라이버 클래스 이름은 Altibase7_1.jdbc.driver.AltibaseDriver이다.
+기본 JDBC 드라이버와 같지만 드라이버 클래스 이름이 다르다. 이 JDBC 드라이버는 하나의 애플리케이션에서 여러 버전의 Altibase 서버에 접속할 때 사용할 수 있다. 
 
-다음은 서로 다른 버전의 Altibase 서버에 동시 접속하는 예제이다. 아래 예에서 Altibase.jar는 Altibase 6.5.1 JDBC 드라이버라고 가정한다.
+Altibase 각 버전의 기본 JDBC 드라이버 파일 이름과 드라이버 클래스 이름이 같아서 하나의 애플리케이션에서 여러 버전의 Altibase 서버에 접속할 때 Altibase.jar로 Altibase 버전을 구분할 수 없다. 이때, Altibase 7.1 용 JDBC 드라이버로 구별할 수 있게 제공하는 JDBC 드라이버가 Altibase7_1.jar이다. 이 JDBC 드라이버의 드라이버 클래스 이름은 Altibase7_1.jdbc.driver.AltibaseDriver 이다.
+
+다음은 자바 소스에서 Altibase 6.5.1과 Altibase 7.1 서버에 접속하는 예제이다. Altibase.jar는 Altibase 6.5.1 JDBC 드라이버라고 가정한다.
 
 ~~~java
-// Altibase 7.1의 멀티 버전 접속 용 JDBC 드라이버 클래스
-Class.forName("Altibase7_1.jdbc.driver.AltibaseDriver");
+// 멀티 버전 접속 용 Altibase 7.1 JDBC 드라이버 Altibase7_1.jar
+Class.forName("Altibase7_1.jdbc.driver.AltibaseDriver");              
 
-// Altibase 6.5.1 JDBC 드라이버 클래스
+// Altibase 6.5.1 JDBC 드라이버 클래스 Altibase.jar
 Class.forName("Altibase.jdbc.driver.AltibaseDriver");
 
 // Altibase 7.1 연결 URL
@@ -280,8 +281,7 @@ String db_url2 = "jdbc:Altibase://192.168.1.222:20300/mydb";
 JDBC 4.2 API를 일부 지원하는 JDBC 드라이버이다.
 
 ##### Altibase42_7_1.jar
-JDBC 4.2 API를 일부 지원하는 JDBC 드라이버와 동일하지만 드라이버 클래스 이름이 다르다.
-하나의 애플리케이션에서 Altibase 7.1 서버와 또 다른 버전의 Altibase 서버에 동시에 접속할 수 있도록 제공하는 JDBC 드라이버로, 드라이버 클래스 이름은 Altibase42_7_1.jdbc.driver.AltibaseDriver이다.
+JDBC 4.2 API를 일부 지원하는 JDBC 드라이버와 같지만 드라이버 클래스 이름이 다르다. 이 JDBC 드라이버는 하나의 애플리케이션에서 여러 버전의 Altibase 서버에 접속할 때 사용하도록 제공하는 JDBC 드라이버로, 드라이버 클래스 이름은 Altibase42_7_1.jdbc.driver.AltibaseDriver 이다.
 
 ##### Altibase_t.jar
 JDBC 로깅 기능을 포함한 드라이버이다. 이 드라이버의 사용 방법은 [JDBC 로깅](#jdbc-로깅)에서 확인할 수 있다. Altibase_t.jar는 JDBC 3.0 API를 지원하는 JDBC 드라이버를 위한 로깅 드라이버이며 JDBC 4.2 API 일부 지원하는 JDBC 드라이버의 로깅 드라이버는 지원하지 않는다.
