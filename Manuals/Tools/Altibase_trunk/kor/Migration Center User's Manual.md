@@ -2262,59 +2262,27 @@ Altibase버전에 적용됨을 의미한다.
   **/\* WITH CHECK OPTION \*/ /\* [REMOVED] RULE-11001 : 'WITH CHECK OPTION' is
   removed \*/**;
 
-
-
-#### RULE-11001
-
-###### 타입
-
-`REMOVED`
-
-###### 설명
-
-'WITH CHECK OPTION'이 제거되었다.
-
-###### 원본 SQL 문장
-
-```sql
-CREATE OR REPLACE VIEW v1
-AS 
-SELECT * FROM t1
-WITH CHECK OPTION;
-```
-
-###### 변환된 SQL 문장
-
-```sql
-CREATE OR REPLACE VIEW v1
-AS 
-SELECT * FROM t1
-/* WITH CHECK OPTION */ /* [REMOVED] RULE-11001 : 'WITH CHECK OPTION' is removed */;
-```
-
-
-
 #### RULE-11002
 
-- 타입: `REMOVED`
+- 타입: REMOVED
 
 - 설명: 별칭의 제약조건이 제거되었다.
 
 - 원본 SQL 문장:
-  
-  ```sql
-  CREATE OR REPLACE VIEW v1 
-  (a1 UNIQUE)
+
+  CREATE OR REPLACE VIEW v1
+
+  (a1 **UNIQUE**)
+
   AS SELECT c1 FROM t1;
-  ```
 
 - 변환된 SQL 문장:
-  
-  ```sql
+
   CREATE OR REPLACE VIEW v1
-  (a1 /* UNIQUE */ /* [REMOVED] RULE-11002 : Inline constraints are removed*/)
+
+  (a1 **/\* UNIQUE \*/ /\* [REMOVED] RULE-11002 : Inline constraints are removed \*/**)
+
   AS SELECT c1 FROM t1;
-  ```
 
 #### RULE-11003
 
