@@ -2441,7 +2441,7 @@ AS SELECT * FROM t1;
 ~~~sql
 CREATE OR REPLACE /* FORCE */ /* [REMOVED] RULE-11008 : FORCE has been removed */ VIEW v1
 (c1, c2)
-AS SELECT * FROM t1
+AS SELECT * FROM t1;
 ~~~
 
 
