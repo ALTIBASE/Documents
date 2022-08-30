@@ -4,11 +4,12 @@
 
 - [Altibase 7.1.0.6.3 Patch Notes](#altibase-71063-patch-notes)
   - [New Features](#new-features)
-    - [BUG-49274 altiComp에 사용자가 커밋 카운트를 조정하는 프로퍼티를 추가합니다.](#bug-49274alticomp%EC%97%90-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-%EC%BB%A4%EB%B0%8B-%EC%B9%B4%EC%9A%B4%ED%8A%B8%EB%A5%BC-%EC%A1%B0%EC%A0%95%ED%95%98%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-49324 statement 객체가 남은 상태에서 Altibase 비정상 종료 가능성을 회피하기 위해 예외 처리를 추가합니다.](#bug-49324statement-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EB%82%A8%EC%9D%80-%EC%83%81%ED%83%9C%EC%97%90%EC%84%9C-altibase-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%EA%B0%80%EB%8A%A5%EC%84%B1%EC%9D%84-%ED%9A%8C%ED%94%BC%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49274 altiComp에 사용자가 커밋 카운트를 조정하는 프로퍼티를 추가합니다.](#bug-49274alticomp에-사용자가-커밋-카운트를-조정하는-프로퍼티를-추가합니다)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-49354 BUG-49063에서 추가한 V\$QUEUE를 삭제하고 V\$QUEUE\_DELETE\_OFF를 추가합니다.](#bug-49354bug-49063%EC%97%90%EC%84%9C-%EC%B6%94%EA%B0%80%ED%95%9C-vqueue%EB%A5%BC-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B3%A0-vqueue_delete_off%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49324 statement 객체가 남은 상태에서 Altibase 비정상 종료 가능성을 회피하기 위해 예외 처리를 추가합니다.](#bug-49324statement-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EB%82%A8%EC%9D%80-%EC%83%81%ED%83%9C%EC%97%90%EC%84%9C-altibase-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%EA%B0%80%EB%8A%A5%EC%84%B1%EC%9D%84-%ED%9A%8C%ED%94%BC%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49326 RHEL 8에서 Altibase 서버 구동 시 error while loading shared libraries 에러가 발생합니다.](#bug-49326-rhel-8에서-altibase-서버-구동-시-error-while-loading-shared-libraries-에러가-발생합니다)
     - [BUG-49350 aexport 에서 큐(QUEUE) 객체 스키마 추출 시 [ERR-00000 : ] 에러가 발생합니다.](#bug-49350aexport-%EC%97%90%EC%84%9C-%ED%81%90queue-%EA%B0%9D%EC%B2%B4-%EC%8A%A4%ED%82%A4%EB%A7%88-%EC%B6%94%EC%B6%9C-%EC%8B%9C-err-00000---%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49354 BUG-49063에서 추가한 V\$QUEUE를 삭제하고 V\$QUEUE\_DELETE\_OFF를 추가합니다.](#bug-49354bug-49063%EC%97%90%EC%84%9C-%EC%B6%94%EA%B0%80%ED%95%9C-vqueue%EB%A5%BC-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B3%A0-vqueue_delete_off%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49364 최하위 LEFT OUTER JOIN 에서 널 패딩(null padding)이 발생하고 중간 LEFT OUTER JOIN에서 널 패딩이 발생하지 않는 경우 SQL 결과 오류가 발생합니다.](#bug-49364%EC%B5%9C%ED%95%98%EC%9C%84-left-outer-join-%EC%97%90%EC%84%9C-%EB%84%90-%ED%8C%A8%EB%94%A9null-padding%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%98%EA%B3%A0-%EC%A4%91%EA%B0%84-left-outer-join%EC%97%90%EC%84%9C-%EB%84%90-%ED%8C%A8%EB%94%A9%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0-sql-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
@@ -34,7 +35,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **설명** : altiComp에 사용자가 커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT\_TO\_COMMIT를 추가합니다. 
+-   **설명** : altiComp에 사용자가 커밋(commit) 카운트를 설정할 수 있는 프로퍼티 [COUNT\_TO\_COMMIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Utilities%20Manual.md#count_to_commit)을 추가합니다. 
     
 -   **재현 방법**
     -   **재현 절차**
@@ -50,6 +51,9 @@ New Features
     -   Property
     -   Compile Option
     -   Error Code
+
+Fixed Bugs
+----------
 
 ### BUG-49324 statement 객체가 남은 상태에서 Altibase 비정상 종료 가능성을 회피하기 위해 예외 처리를 추가합니다.
 
@@ -60,7 +64,7 @@ New Features
 -   **재현 빈도** : Always
 
 -   **설명** : statement 객체가 남은 상태에서 Altibase 비정상 종료 가능성을 회피하기 위해 예외 처리를 추가합니다.
-    
+
 -   **재현 방법**
 
     -   **재현 절차**
@@ -78,19 +82,19 @@ New Features
     -   Compile Option
     -   Error Code
 
-Fixed Bugs
-----------
+### BUG-49326 RHEL 8에서 Altibase 서버 구동 시 error while loading shared libraries 에러가 발생합니다.
 
-### BUG-49354 BUG-49063에서 추가한 V\$QUEUE를 삭제하고 V\$QUEUE\_DELETE\_OFF를 추가합니다.
+-   **module** : installer
 
--   **module** : sm
-
--   **Category** : Usability
+-   **Category** : Portability
 
 -   **재현 빈도** : Always
 
--   **설명** : BUG-49063 반영 전 생성한 큐(QUEUE) 객체 추출 시 발생한 버그 조치를 위해 V\$QUEUE를 삭제하고 V\$QUEUE\_DELETE\_OFF를 추가합니다.
-    
+-   **설명** : RHEL 8 에서 ncurses (tinfo 포함) 라이브러리 버전이 6.1 로 변경되었습니다. Altibase는 ncurses 5 버전이 필요하기 때문에 RHEL 8에서 Altibase 서버 구동 시 에러가 발생할 수 있습니다. 
+    ncurses 라이브러리는 ncurses 5 ~ ncurses 6.2 까지 소스 레벨의 호환성(API)와 바이너리 호환성 (ABI)를 동시에 보장하므로, Altibase 서버 패키지 인스톨러에서 libncurses.so.5, libtinfo.so.5 파일이 없는 경우 $ALTIBASE_HOME/lib에 심볼릭 링크를 생성합니다. 
+
+    관련 내용은 [Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#red-hat-enterprise-linux-8) 매뉴얼에서도 확인할 수 있습니다. 
+
 -   **재현 방법**
 
     -   **재현 절차**
@@ -104,9 +108,6 @@ Fixed Bugs
 -   **변경사항**
 
     -   Performance view
-        -   V\$QUEUE 성능 뷰 삭제
-
-        - [V\$QUEUE\_DELETE\_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off) 추가
     -   Property
     -   Compile Option
     -   Error Code
@@ -134,6 +135,36 @@ Fixed Bugs
 -   **변경사항**
 
     -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49354 BUG-49063에서 추가한 V\$QUEUE를 삭제하고 V\$QUEUE\_DELETE\_OFF를 추가합니다.
+
+-   **module** : sm
+
+-   **Category** : Usability
+
+-   **재현 빈도** : Always
+
+-   **설명** : BUG-49063 반영 전 생성한 큐(QUEUE) 객체 추출 시 발생한 버그 조치를 위해 V\$QUEUE를 삭제하고 V\$QUEUE\_DELETE\_OFF를 추가합니다.
+    
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+        -   V\$QUEUE 성능 뷰 삭제
+
+        - [V\$QUEUE\_DELETE\_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off) 추가
     -   Property
     -   Compile Option
     -   Error Code
