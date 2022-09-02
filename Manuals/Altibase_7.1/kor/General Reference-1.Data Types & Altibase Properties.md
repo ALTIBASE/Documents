@@ -12660,6 +12660,41 @@ Unsigned Integer
 
 1: 전송 로그를 암호화
 
+#### REPLICATION_SENDER_IP
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+ANY
+
+##### 속성
+
+읽기 전용, 다중 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+이중화 송신자의 IP 주소를 설정하는 프로퍼티이다. 값으로 ANY나 IP 주소를 입력할 수 있다.
+
+기본값 ANY는 이중화 객체를 생성하는 지역 서버의 모든 IP 주소가 이중화 통신에 사용될 수 있으며 OS에서 할당한 IP 주소가 송신자 IP 주소로 사용된다. IP 주소를 값으로 설정하면 원격 서버(수신자)와 통신할 때 설정한 IP 주소만 사용된다. REPLICATION_SENDER_IP = *value*를 추가하여 여러 개의 IP 주소를 설정할 수 있으며 순서대로 송신자 IP 주소로 사용된다. IP 주소는 IPv4, IPv6, IPv6 확장 주소 형태로 입력할 수 있다.
+
+`설정 예시`
+
+~~~bash
+REPLICATION_SENDER_IP = 10.0.0.1
+REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
+~~~
+
+이 프로퍼티는 Altibase 7.1.0.8.0부터 지원하며 이중화 통신 방법이 TCP일 때 적용된다. 
+
+자세한 내용은 *Replication Manual에서 [송신자 IP 주소 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Replication%20Manual.md#송신자-ip-지정)* 설명을 참고한다.
+
 #### REPLICATION_SENDER_SEND_TIMEOUT (단위: 초)
 
 ##### 데이터 타입
@@ -13078,36 +13113,6 @@ START 할 수 있는 프로퍼티이다.
 이 값을 1로 설정하면 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에도 이중화를 START 할 수 있다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-#### REPLICATION_SENDER_IP
-
-##### 데이터 타입
-
-String
-
-##### 기본값
-
-ANY
-
-##### 속성
-
-읽기 전용, 다중 값
-
-##### 값의 범위
-
-없음
-
-##### 설명
-
-이중화 연결에 사용할 지역 서버의 송신자 TCP/IP 주소이다. 이 값을 IP주소로 설정하면 이중화 송신자에서 사용하는 통신 소켓의 지역 IP에 이 값을 할당한다.
-
-기본값 ANY는 지역 서버의 모든 IP 주소가 이중화 통신에 사용될 수 있으며 ANY가 아닌 특정 IP를 설정하면 다중 IP 네트워크 환경이더라도 설정한 IP 주소만 이중화 통신에 사용된다.
-
-다중값으로 설정한 경우 설정된 순서대로 송신자 통신소켓에 지역 IP를 할당한다.
-
-이 설정은 이중화 TCP 통신에 적용된다. 
-
-자세한 내용은 *Replication Manual* 을 참고한다.
 
 ### 네트워크 관련 프로퍼티
 

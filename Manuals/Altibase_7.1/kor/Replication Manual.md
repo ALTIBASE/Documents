@@ -2304,7 +2304,7 @@ CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 
 ### 다중 IP 네트워크 환경에서의 이중화 
 
-다중 IP 네트워크 환경에서의 이중화가 지원된다. 즉, 물리적인 두 개 이상의
+다중 IP 네트워크 환경에서의 이중화가 지원된다. 즉, 물리적인 두 개 이상의 
 네트워크 라인을 가진 두 호스트간의 이중화를 수행할 수 있다.
 
 #### 원격 호스트 지정
@@ -2559,63 +2559,118 @@ REP1                                      1
 \<- 새로 지정한 IP 192.168.1.154 와 PORT 번호 30570을 사용해서 연결한 것을
 확인할 수 있다.
 
-#### 지역 송신자 IP 지정
+#### 송신자 IP 주소 설정
 
-지역 송신자 IP 지정 기능은 이중화 연결에 사용할 지역 서버의 송신자 TCP/IP 주소를 사용자가 지정하는 기능이다. 이 값을 IP주소로 설정하면 이중화 송신자에서 사용하는 통신 소켓의 지역 IP에 이 값을 할당한다.
-
-기본값 ANY는 지역 서버의 모든 IP 주소가 이중화 통신에 사용될 수 있으며 ANY가 아닌 특정 IP를 설정하면 다중 IP 네트워크 환경이더라도 설정한 IP 주소만 이중화 통신에 사용된다.
-
-지역 송신자 IP를 다중값으로 설정한 경우 설정된 순서대로 송신자 통신소켓에 지역 IP를 할당한다.
+송신자 IP 주소 설정은 이중화 연결에 사용할 송신자 IP 주소를 사용자가 지정하는 기능이다. 여러 IP 주소 중 특정 IP 주소를 송신자 IP 주소로 이중화 통신을 원할 때 사용할 수 있다. 이 기능은 Altibase 서버 프로퍼티 [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)를 설정하여 사용하며 Altibase 7.1.0.8.0부터 지원한다.
 
 ##### 사용 방법
 
-altibase.properties 파일에 REPLICATION_SENDER_IP를 순서대로 지정한다.
+1. 지역 서버의 altibase.properties 파일에 REPLICATION_SENDER_IP 프로퍼티를 추가한다. 여기서 지역 서버는 ALTER REPLICATION *replication_name* START 구문으로 이중화를 시작하는 서버를 의미한다.
 
-다중 값 설정이 가능하며, ALTER REPLICATION START 구문 등으로 이중화 sender가 시작하면,
-프로퍼티에 입력된 IP를 처음부터 ROUND-ROBIN(돌아가면서)으로 선택해서 센더 소켓 지역 IP에 사용 함.
+2. 송신자 IP 주소로 사용할 특정 IP 주소를 프로퍼티 값으로 입력한다. 
 
-서버 프로퍼티임으로 모든 이중화 객체에서 동일한 순서로 REPLICATION_SENDER_IP 값을 사용한다.
+   REPLICATION_SENDER_IP를 추가하여 여러 개의 IP 주소를 입력할 수 있다. 다수의 IP 주소를 입력하면, 이중화 시작 시 IP 주소를 순서대로 검사하며 사용할 수 있는 IP 주소를 선택한다. 수신자와 통신이 실패하면 altibase_rp.log에 에러 메시지를 남기고 다음 IP 주소로 재시도한다.
 
-```
-< altibase.properties >
-..
-REPLICATION_SENDER_IP = 192.168.3.1
-REPLICATION_SENDER_IP = 2001:4200:110:1000:700::1137
-REPLICATION_SENDER_IP = ANY
-..
-```
+   `여러 개의 IP 주소 설정 예시`
 
-* 주의사항: REPLICATION_SENDER_IP의 설정에 따라 이중화 Sender가 접속 실패 후 재접속 될 수 있다. (실패 시 에러메시지 altibase_rp.log 에 출력 후 다음 REPLICATION_SENDER_IP로 자동 재시도)
+   ~~~bash
+   $ vi altibase.properties
+   REPLICATION_SENDER_IP = 10.0.0.1
+   REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
+   ~~~
 
-##### 예제
+3. Altibase 서버를 재시작한다.
 
-A 서버의 IP는 192.168.1.11, 192.168.11.11 로 구성되어있으며, B 서버의 IP는 192.168.2.22, 192.168.22.22 로 구성되어있는 경우 REPLICATION_SENDER_IP를 사용하는 예제를 설명한다.
-
-예제에서는  이중화 구성 및 프로퍼티 설정에 따라 망 분리가 되어있는 경우와 망분리가 되어있지 않은 경우에 대해서 설명한다.
-
-망분리가 되어있는 경우는, A 서버의 192.168.1.11과 B 서버의 192.168.2.22 그리고 192.168.11.11와 192.168.22.22가 연결되어있는 가정으로, 
-
-192.168.1.11와 192.168.22.22 그리고 192.168.2.22 와 192.168.11.11 간의 통신은 되지 않는다. 
-
-망분리가 되어있지 않은 경우는 A 서버의 모든 IP와 B 서버의 모든 IP가 서로 통신이 가능하다. 
-
-|                                                              | A 서버                                                       | B 서버                                                       |
-| :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 이중화 구성 및 프로퍼티 설정                                 | **IP**: 192.168.1.11, 192.168.11.11<br />**altibase.properties:** <br /><br />REPLICATION_SENDER_IP = 192.168.1.11<br/>REPLICATION_SENDER_IP = 192.168.11.11<br/>REPLICATION_PORT = 20111 <br /><br />**Replication**:<br />CREATE REPLICATION REP1 WITH '192.168.2.22', 20222 FROM user1.T1 to user1.T1;<br /><br />CREATE REPLICATION REP2 WITH '192.168.22.22', 20222 FROM user1.T2 to user1.T2; | **IP**: 192.168.2.22, 192.168.22.22<br />**altibase.properties**: <br /><br />REPLICATION_SENDER_IP = 192.168.2.22<br/>REPLICATION_SENDER_IP = 192.168.22.22<br/>REPLICATION_PORT = 20222<br /><br />**Replication**:<br />CREATE REPLICATION REP1 WITH '192.168.1.11', 20111 FROM user1.T1 to user1.T1;<br /><br />CREATE REPLICATION REP2 WITH '192.168.11.11', 20111 FROM user1.T2 to user1.T2; |
-| 망분리가 되지않아서 REP2의1.11 -> 22.22 연결이 성공한 경우   | iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from **V$REPSENDER**;<br /><br />REP_NAME : REP1 <br />**SENDER_IP : 192.168.1.11** <br />**SENDER_PORT : 13718** <br />PEER_IP : 192.168.2.22 <br />PEER_PORT : 20222 <br />REP_NAME : REP2 <br />**SENDER_IP : 192.168.1.11** <br />**SENDER_PORT : 13720** <br />PEER_IP : 192.168.22.22 <br />PEER_PORT : 20222 <br />iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from **V$REPRECEIVER**;<br /><br />REP_NAME : REP1 <br />MY_IP : 192.168.1.11 <br />MY_PORT : 20111 <br />**PEER_IP : 192.168.2.22** <br />**PEER_PORT : 24356**<br />REP_NAME : REP2 <br />MY_IP : 192.168.11.11 <br />MY_PORT : 20111 <br />**PEER_IP : 192.168.2.22** <br />**PEER_PORT : 23456** | iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from **V$REPRECEIVER**; <br /><br />REP_NAME : REP1 <br />MY_IP : 192.168.2.22 <br />MY_PORT : 20222 <br />**PEER_IP : 192.168.1.11** <br />**PEER_PORT : 13718**<br />REP_NAME : REP2 <br />MY_IP : 192.168.22.22 <br />MY_PORT : 20222 <br />**PEER_IP : 192.168.1.11** <br />**PEER_PORT : 13720** <br />iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from **V$REPSENDER**;<br /><br />REP_NAME : REP1 <br />**SENDER_IP : 192.168.2.22** **<br />SENDER_PORT : 24356** <br />PEER_IP : 192.168.1.11 <br />PEER_PORT : 20111 <br />REP_NAME : REP2 <br />**SENDER_IP : 192.168.2.22** <br />**SENDER_PORT : 23456** <br />PEER_IP : 192.168.11.11 <br />PEER_PORT : 20111 |
-| 망분리로 인해 REP2의1.11 -> 22.22 연결이 실패한 경우두번째 REPLICATION_SENDER_IP로재접속 한 경우 | iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from **V$REPSENDER**;<br />REP_NAME : REP1 <br />**SENDER_IP : 192.168.1.11** <br />**SENDER_PORT : 13718** <br />PEER_IP : 192.168.2.22 <br />PEER_PORT : 20222 <br />REP_NAME : REP2 <br />**SENDER_IP : 192.168.11.11** <br />**SENDER_PORT : 13720** <br />PEER_IP : 192.168.22.22 <br />PEER_PORT : 20222 <br />iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from **V$REPRECEIVER**;<br />REP_NAME : REP1 <br />MY_IP : 192.168.1.11 <br />MY_PORT : 20111 <br />**PEER_IP : 192.168.2.22** **<br />PEER_PORT : 24356**<br />REP_NAME : REP2 <br />MY_IP : 192.168.11.11 <br />MY_PORT : 20111 <br />**PEER_IP : 192.168.22.22** <br />**PEER_PORT : 23456** | iSQL> SELECT REP_NAME, MY_IP, MY_PORT, PEER_IP, PEER_PORT from **V$REPRECEIVER**; <br />REP_NAME : REP1 <br />MY_IP : 192.168.2.22 <br />MY_PORT : 20222 <br />**PEER_IP : 192.168.1.11** <br />**PEER_PORT : 13718**<br />REP_NAME : REP2 <br />MY_IP : 192.168.22.22 <br />MY_PORT : 20222 <br />**PEER_IP : 192.168.11.11** <br />**PEER_PORT : 13720** <br />iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from **V$REPSENDER**;<br />REP_NAME : REP1 <br />**SENDER_IP : 192.168.2.22** **<br />SENDER_PORT : 24356** <br />PEER_IP : 192.168.1.11 <br />PEER_PORT : 20111 <br />REP_NAME : REP2 <br />**SENDER_IP : 192.168.22.22** <br />**SENDER_PORT : 23456** <br />PEER_IP : 192.168.11.11 <br />PEER_PORT : 20111 |
-
-※ REPLICATION_SENDER_IP가 설정되지 않은 경우 sender 소켓의 지역 IP는 OS에서 자동으로 할당한다.
-
-  REPLICATION_SENDER_IP가 여러개인 경우 경우 네트워크 설정에 의존한다.
+   REPLICATION_SENDER_IP는 읽기 전용 속성으로 변경 값을 적용하려면 Altibase 서버를 재시작해야 한다.
 
 ##### 제약사항
 
- . 이중화 객체 단위로 불가
+- 이중화 통신 방식 TCP에서만 사용할 수 있다.
 
- . TCP 통신만 지원
+- 이중화 객체 단위로 설정할 수 없다. 
 
- . 호스트네임 지원하지 않음
+  REPLICATION_SENDER_IP 프로퍼티는 모든 이중화 객체에 일괄적으로 적용된다. 
+
+- 호스트네임으로 설정할 수 없다. 
+
+  REPLICATION_SENDER_IP 값으로 호스트네임을 입력하면 이중화 시작이 실패한 상태로 Altibase 서버가 구동된다.
+
+##### 사용 예제
+
+IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을 사용하여 이중화를 구성했을 때 망 구성에 따라 송신자 IP 주소가 어떻게 할당되었는지 보여주는 예제이다.
+
+###### - *각 서버의 IP 주소 구성*
+
+`A 서버` : 10.0.0.1, 20.0.0.1
+
+`B 서버` : 10.0.0.2, 20.0.0.2
+
+###### - *이중화 객체 생성*
+
+이중화 포트는 30300이라고 가정한다.
+
+`A 서버`
+
+~~~sql
+CREATE REPLICATION rep1 WITH '10.0.0.2', 30300 FROM user1.t1 to user1.t1;
+CREATE REPLICATION rep2 WITH '20.0.0.2', 30300 FROM user1.t2 to user1.t2;  
+~~~
+
+`B 서버`
+
+~~~sql
+CREATE REPLICATION rep1 WITH '10.0.0.1', 30300 FROM user1.t1 to user1.t1;
+CREATE REPLICATION rep2 WITH '20.0.0.1', 30300 FROM user1.t2 to user1.t2;
+~~~
+
+###### - *REPLICATION_SENDER_IP 설정*
+
+A 서버의 altibase.properties 설정은 아래와 같다.
+
+~~~bash
+REPLICATION_SENDER_IP = 10.0.0.1
+REPLICATION_SENDER_IP = 20.0.0.1
+~~~
+
+###### - *송신자 IP 주소 설정 상태*
+
+A 서버에서 이중화를 시작하고 송신자의 IP 주소를 확인해보자.
+
+`망 분리가 되지 않은 경우`
+
+먼저, A, B 서버의 모든 IP 주소가 서로 통신이 가능한 환경에서 설정된 송신자 IP 주소를 보자. 
+
+이중화 객체 `REP1`, `REP2`의 원격 서버 B (PEER_IP)와 통신할 수 있는 A 서버의 송신자 IP 주소로 10.0.0.1(SENDER_IP)가 선택되었다. REPLICATION_SENDER_IP의 첫 번째 IP 주소로 모두 통신이 가능하여 두 번째 IP 주소가 사용되지 않은 것을 볼 수 있다. 
+
+~~~sql
+-- A 서버 송신자 정보 조회
+iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from V$REPSENDER;
+REP_NAME              SENDER_IP             SENDER_PORT PEER_IP               PEER_PORT   
+------------------------------------------------------------------------------------------------
+REP1                  10.0.0.1              56016       10.0.0.2              30300       
+REP2                  10.0.0.1              56511       20.0.0.2              30300
+2 row selected.
+~~~
+
+`망 분리가 된 경우`
+
+A, B 서버가 10.0.0.x 대역끼리 통신하고  20.0.0.x 대역끼리 통신하도록 망 분리가 되어 있는 환경을 살펴보자.
+
+이중화 객체 `REP1`의 A 서버의 송신자 IP 주소로 10.0.0.1(SENDER_IP)가 선택되었다. 
+
+이중화 객체 `REP2`의 SENDER_IP는 REPLICATION_SENDER_IP의 두 번째 값인 20.0.0.1 이 선택되었다. REPLICATION_SENDER_IP의 첫 번째 값 10.0.0.1로 B 서버의 20.0.0.2와 통신을 시도하였으나 실패하고 두 번째 IP 주소로 재시도하여 선택된 것이다. 
+
+~~~sql
+-- A 서버 송신자 정보 조회
+iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT from V$REPSENDER;
+REP_NAME              SENDER_IP             SENDER_PORT PEER_IP               PEER_PORT   
+------------------------------------------------------------------------------------------------
+REP1                  10.0.0.1              56016       10.0.0.2              30300       
+REP2                  20.0.0.1              56511       20.0.0.2              30300
+2 row selected.
+~~~
+
+
 
 ### 이중화 관련 프로퍼티
 
