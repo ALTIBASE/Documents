@@ -331,7 +331,7 @@ Fixed Bugs
         -   에러 메시지가 추가되었습니다.
 
             ```bash
-에러 메시지가 추가되었습니다.
+            에러 메시지가 추가되었습니다.
             
             0x51099 ( 331929) ulERR_ABORT_LOCK_SEQUENCE_ERR Lock sequence error. 
             # *Cause: invalid Lock call sequence.
@@ -520,7 +520,9 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** : executeQuery 함수를 사용하여 DEQUEUE문 수행 시 NullPointerException 에러가 발생하는 문제를 개선했습니다.
+-   **증상** : executeQuery 함수를 사용하여 DEQUEUE문 수행 시 NullPointerException 에러가 발생하는 문제를 개선했습니다. 
+    
+    이 버그를 적용하려면 Altibase JDBC 드라이버를 7.1.0.4.8 이상으로 패치 해야 합니다.
     
 - **재현 방법**
 
