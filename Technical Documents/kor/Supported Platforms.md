@@ -19,6 +19,7 @@
 
 >  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원합니다.
 >
+>  Linux x86-64 플랫폼에서 RHEL, CentOS, Oracle Linux는 마이너 버전 상관없이 메이저 버전이 동일하면 호환성 보장합니다.
 >  **Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
 
@@ -45,6 +46,7 @@
 >
 >  Altibase 7.1 패치 버전을 명시하지 않은 경우 Altibase 7.1 모든 버전에서 지원함을 의미합니다.
 >
+>  Linux x86-64 플랫폼에서 RHEL, CentOS, Oracle Linux, Rocky Linux는 마이너 버전 상관없이 메이저 버전이 동일하면 호환성 보장합니다.
 >  **Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
 
@@ -56,7 +58,7 @@
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                                          |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                                          |
 | **Linux x86-64**                                             |                     |                           |                                                          |
-| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x<br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.1<br/>CentOS 8.2<br/>CentOS 8.3<br /><br />Oracle Linux 6.5<br/>Oracle Linux 6.6<br/>Oracle Linux 7.1<br/>Oracle Linux 7.2<br/>Oracle Linux 7.4<br />Oracle Linux 7.9<br />Oracle Linux 8.4 |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
+| Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x<br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.1<br/>CentOS 8.2<br/>CentOS 8.3<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br />Oracle Linux 8.x<br /><br />Rocky Linux 8.x |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
 | **Linux on Power**                                           |                     |                           |                                                          |
 | POWER7 Red Hat Enterprise Linux 6.5                          |          ●          |             ●             | *- GNU glibc 2.12 이상*                                  |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                                          |
@@ -75,6 +77,7 @@
 >
 > Altibase 6.5.1 패치 버전을 명시하지 않은 경우 Altibase 6.5.1 모든 버전에서 지원함을 의미합니다.
 >
+> Linux x86-64 플랫폼에서 RHEL, CentOS, Oracle Linux, Rocky Linux는 마이너 버전 상관없이 메이저 버전이 동일하면 호환성 보장합니다.
 > **Ubuntu, Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
 
@@ -85,7 +88,7 @@
 | **HP-UX Itanium (IA-64)** |                     |                                 |                                 |                     |
 | HP-UX 11.31               | ● | ● | ● |                     |
 |**Linux x86-64**|||||
-|Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.8<br/>Red Hat Enterprise Linux 8.x<br /><br />CentOS 6.x<br/>CentOS 7.8<br/>CentOS 8.1<br/>CentOS 8.2<br/>CentOS 8.3<br /><br />Oracle Linux 6.5<br/>Oracle Linux 6.6<br/>Oracle Linux 7.1<br/>Oracle Linux 7.2<br/>Oracle Linux 7.4<br />Oracle Linux 7.9<br />Oracle Linux 8.4|●|●|●|*- glibc 2.12 이상*|
+|Red Hat Enterprise Linux 6.x<br/>Red Hat Enterprise Linux 7.x<br/>Red Hat Enterprise Linux 8.x<br /><br />CentOS 6.x<br/>CentOS 7.x<br/>CentOS 8.x<br /><br />Oracle Linux 6.x<br/>Oracle Linux 7.x<br />Oracle Linux 8.x<br /><br />Rocky Linux 8.x|●|●|●|*- glibc 2.12 이상*|
 |**Linux on Power**|||||
 |POWER7 Red Hat Enterprise Linux 6.5|●|-|●|*- glibc 2.12 이상*|
 |POWER8 Red Hat Enterprise Linux 7.1|●|-|●|*- glibc 2.12 이상*|
