@@ -1,21 +1,33 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents** 
+
+# **Table of Contents** 
 
 - [Altibase 버전 별 지원 플랫폼](#altibase-%EB%B2%84%EC%A0%84-%EB%B3%84-%EC%A7%80%EC%9B%90-%ED%94%8C%EB%9E%AB%ED%8F%BC)
   - [Altibase 7.2](#altibase-72)
+    - [Altibase 서버 및 클라이언트](#altibase-서버-및-클라이언트)
+    - [Adapter for Oracle](#adapter-for-oracle)
   - [Altibase 7.1](#altibase-71)
+    - [Altibase 서버 및 클라이언트](#altibase-서버-및-클라이언트-1)
+    - [Adapter for Oracle](#adapter-for-oracle-1)
   - [Altibase 6.5.1](#altibase-651)
-  
-  
+    - [Altibase 서버 및 클라이언트](#altibase-서버-및-클라이언트-2)
+    - [Adapter for Oracle](#adapter-for-oracle-2)
+
+
+
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<br/>
 
 
 
 # Altibase 버전 별 지원 플랫폼
 
 ## Altibase 7.2
+
+### Altibase 서버 및 클라이언트
 
 >  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원합니다.
 >
@@ -38,9 +50,17 @@
 | **Microsoft Windows (x64)**                                  |                     |                           |                       |
 | Microsoft Windows 2008                                       |          -          |             ●             |                       |
 
+### Adapter for Oracle
 
+- AIX 5.3
+- AIX 6.1
+- Linux
+
+<br/>
 
 ## Altibase 7.1
+
+### Altibase 서버 및 클라이언트
 
 >  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원합니다.
 >
@@ -69,9 +89,17 @@
 | **Microsoft Windows (x64)**                                  |                     |                           |                                                          |
 | Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*                   |
 
+- ### Adapter for Oracle
 
+  - AIX 5.3
+  - AIX 6.1
+  - Linux
+
+  <br/>
 
 ## Altibase 6.5.1
+
+### Altibase 서버 및 클라이언트
 
 > Altibase 서버는 64비트만 지원합니다.
 >
@@ -103,3 +131,10 @@
 |Microsoft Windows 7<br/>Microsoft Windows 8|●|●|●||
 |Microsoft Windows 10|●|●|●|*- Altibase  6.5.1.6.2 이상*|
 
+### Adapter for Oracle
+
+- AIX 5.3
+- AIX 6.1
+- Linux
+- Windows
+- Solaris 10 (Altibase 6.5.1.9.3 이상)
