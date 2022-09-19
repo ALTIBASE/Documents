@@ -53,7 +53,7 @@ Migration Center는 데이터베이스 마이그레이션을 위한 도구로서
 | PK        | SYNOPSIS                                                  |
 | --------- | --------------------------------------------------------- |
 | BUG-49579 | MySQL bit 타입 default 값 변환이 부정확합니다.            |
-| BUG-49595 | Support MySQL 5.6, 5.7 to Altibase migration              |
+| BUG-49595 | 원본 데이터베이스로 MySQL 5.6, 5.7 지원합니다.            |
 | BUG-49731 | LOB 데이터도 배치 처리 가능하도록 옵션을 제공해야 합니다. |
 
 
