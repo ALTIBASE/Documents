@@ -6,17 +6,17 @@
 
 # **Table of Contents** 
 
-- [1. 개요](#1-%EA%B0%9C%EC%9A%94)
+- [1. 개요](#1-개요)
   - [1.1 Altibase Migration Center](11-altibase-migration-center)
   - [1.2 시스템 요구사항](#12-시스템-요구사항)
   - [1.3 호환 가능한 데이터베이스 시스템](13-호환-가능한-데이터베이스-시스템)
-- [2. 릴리즈 정보](#2-%EB%A6%B4%EB%A6%AC%EC%A6%88-%EC%A0%95%EB%B3%B4)
+- [2. 릴리즈 정보](#2-릴리즈-정보)
   - [2.1 새로운 기능](#21-새로운-기능)
   - [2.2 수정된 버그](#22-수정된-버그)
   - [2.4 변경사항](#23-변경사항)
-- [3. 사용된 오픈소스 라이브러리 / 로열티 프리 이미지](#3-%EC%82%AC%EC%9A%A9%EB%90%9C-%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC--%EB%A1%9C%EC%97%B4%ED%8B%B0-%ED%94%84%EB%A6%AC-%EC%9D%B4%EB%AF%B8%EC%A7%80)
-- [4. 패키지](#4-%ED%8C%A8%ED%82%A4%EC%A7%80)
-- [5. 다운로드](#5-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
+- [3. 사용된 오픈소스 라이브러리 / 로열티 프리 이미지](#3-사용된-오픈소스-라이브러리--로열티-프리-이미지)
+- [4. 패키지](#4-패키지)
+- [5. 다운로드](#5-다운로드)
 
 <br/>
 
@@ -30,7 +30,7 @@ Migration Center는 데이터베이스 마이그레이션을 위한 도구로서
 
 ## 1.2 시스템 요구사항
 
-### 1.2.1 하드웨어 최소 사양
+### 하드웨어 최소 사양
 
 Migration Center센터를 실행하기 위한 하드웨어의 최소 사양은 아래와 같다. 
 
@@ -41,11 +41,11 @@ Migration Center센터를 실행하기 위한 하드웨어의 최소 사양은 �
 | 디스크      |   150MB 이상 여유공간   |   좌동   |
 | 화면 해상도 |  1024 * 768 픽셀 이상   |    -     |
 
-### 1.2.2 지원 OS
+### 지원 OS
 
 Migration Center는 소프트웨어 최소 사양을 만족하면 OS 무관하게 실행할 수 있다. 
 
-### 1.2.3 소프트웨어 최소 사양
+### 소프트웨어 최소 사양
 
 Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로, JAVA Runtime Environment (JRE)에 의존한다. 또한  Migration Center를 GUI 모드로 실행하기 위해 운영 체제의 그래픽 라이브러리에 대한 추가 지원이 필요하다.
 
@@ -95,23 +95,15 @@ DB to DB 마이그레이션 옵션에 LOB 데이터의 배치 처리 여부를 �
 
 ## 2.3 변경사항
 
-Migration Center 7.10 에서 삭제되거나 변경된 기능들을 안내한다. 
+Migration Center 7.10 에서 추가, 삭제되거나 변경된 기능들을 안내한다. 
 
-### 2.3.1 버전 업데이트
-
-Migration Center 버전이 7.9 에서 7.10 로 변경되었다.
-
-### 2.3.2 데이터베이스 호환성
+### 데이터베이스 호환성
 
 대상 데이터베이스가 Altibase 일 때, 원본 데이터베이스 MySQL의 지원 버전이 MySQL 5.0 ~ **5.5**에서 MySQL 5.0 ~ **5.7**로 변경되었다. 
 
-### 2.3.3 프로퍼티
+### 마이그레이션 옵션
 
-삭제되거나 변경된 프로퍼티는 없다.
-
-### 2.3.4 에러 메시지
-
-삭제되거나 변경된 에러 메시지는 없다.
+Migration Options 창에 [`Batch LOB type`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#db-to-db-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98) 옵션이 추가되었다.
 
 <br/>
 
