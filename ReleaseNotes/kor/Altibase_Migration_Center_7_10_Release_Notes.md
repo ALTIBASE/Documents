@@ -111,7 +111,7 @@ Migration Options 창에 [`Batch LOB type`](https://github.com/ALTIBASE/Document
 
 ## 3.1 오픈소스 라이브러리
 
-Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라이선스는 텍스트 파일 형식으로 Migration Center와 함께 제공된다.
+Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 각 오픈소스 라이브러리의 라이선스는 doc/license 폴더 아래에 텍스트 파일 형식으로 제공한다. Java Help System은 GPL linking exception으로 라이선스 예외사항에 해당되어 라이선스 파일을 제공하지 않는다.
 
 | Library                                                      | Open Source License                                          |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
