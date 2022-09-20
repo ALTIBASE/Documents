@@ -13,7 +13,6 @@
 - [2. 릴리즈 정보](#2-릴리즈-정보)
   - [2.1 새로운 기능](#21-새로운-기능)
   - [2.2 수정된 버그](#22-수정된-버그)
-  - [2.4 변경사항](#23-변경사항)
 - [3. 사용된 오픈소스 라이브러리 / 로열티 프리 이미지](#3-사용된-오픈소스-라이브러리--로열티-프리-이미지)
 - [4. 패키지](#4-패키지)
 - [5. 다운로드](#5-다운로드)
@@ -58,10 +57,19 @@ Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로,
 
 ## 1.3 호환 가능한 데이터베이스 시스템
 
-| **대상 데이터베이스** | **원본 데이터베이스 종류 및 버전**                           | **대상 데이터베이스 버전** |
-| :-------------------- | :----------------------------------------------------------- | :------------------------- |
-| **Altibase**          | Altibase: 4.3.9 이상<br />CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix: 11.50 <br />Microsoft SQL Server: 2005 ~ 2012<br />Oracle Database: 9i ~ 11g <br />Oracle MySQL: 5.0 ~ 5.7 <br />Oracle TimesTen: 7.0, 11.2 <br />Tibero: 4sp1~6 | Altibase 6.5.1 이상        |
-| **Oracle**            | Altibase: 4.3.9 이상                                         | Oracle Database 10g ~ 11g  |
+Migration Center 7.10 으로 마이그레이션 할 수 있는 데이터베이스 시스템 종류와 버전을 소개한다.
+
+#### 대상 데이터베이스가 Altibase 일 때
+
+| **원본 데이터베이스 종류 및 버전**                           | **대상 데이터베이스 버전** |
+| :----------------------------------------------------------- | :------------------------- |
+| Altibase 4.3.9 이상<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 11g <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 6 | Altibase 6.5.1 이상        |
+
+#### 대상 데이터베이스가 Oracle 일 때
+
+| **원본 데이터베이스 종류 및 버전** | **대상 데이터베이스 버전** |
+| :--------------------------------- | :------------------------- |
+| Altibase 4.3.9 이상                | Oracle Database 10g ~ 11g  |
 
 <br/>
 
@@ -73,7 +81,11 @@ Migration Center 7.10 의 새로운 기능과 수정된 버그 및 변경 사항
 
 ### 원본 데이터베이스로 MySQL 5.6, 5.7 지원
 
-MySQL 5.6, 5.7 에서 Altibase 서버로 Migration Center를 이용해 데이터베이스 객체 및 데이터 이관할 수 있다. (BUG-49595)
+Migration Center를 이용해 MySQL 5.6, 5.7 에서 Altibase 서버로 데이터베이스 객체 및 데이터 이관할 수 있다. 원본 데이터베이스 MySQL의 지원 버전이 MySQL 5.0 ~ **5.5**에서 MySQL 5.0 ~ **5.7**로 변경되었다. (BUG-49595) 
+
+### LOB 데이터의 배치 처리 여부를 설정하는 옵션 추가
+
+DB to DB 마이그레이션 옵션에 LOB 데이터의 배치 처리 여부를 설정하는 [`Batch LOB type`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#db-to-db-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98) 옵션을 추가되었다. 데이터 마이그레이션에서 LOB 데이터의 처리 성능 향상을 위해  이 옵션을 사용할 수 있다. (BUG-49731)
 
 ### OpenJDK18 지원
 
@@ -87,29 +99,11 @@ OpenJDK 18에서 Migration Center 7.10 호환성 검증을 완료하였다. (TAS
 
 MySQL에서 BIT 데이터 타입의 기본값이 DEFAULT b'*val*' 형태로 정의된 DDL을 변환한 문장에서 ERR-2100C : Conversion not applicable. 에러가 발생하는 문제를 수정합니다. DEFAULT *`b'val'`* 일 때 DEFAULT *`VARBIT'val'`* 형태로 변환되도록 수정한다.
 
-### BUG-49731 LOB 데이터의 배치 처리 여부를 설정하는 옵션을 추가합니다.
-
-DB to DB 마이그레이션 옵션에 LOB 데이터의 배치 처리 여부를 설정하는 [`Batch LOB type`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#db-to-db-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98) 옵션을 추가되었다. 데이터 마이그레이션에서 LOB 데이터의 처리 성능 향상을 위해  이 옵션을 사용할 수 있다.
-
-<br/>
-
-## 2.3 변경사항
-
-Migration Center 7.10 에서 추가, 삭제되거나 변경된 기능들을 안내한다. 
-
-### 데이터베이스 호환성
-
-대상 데이터베이스가 Altibase 일 때, 원본 데이터베이스 MySQL의 지원 버전이 MySQL 5.0 ~ **5.5**에서 MySQL 5.0 ~ **5.7**로 변경되었다. 
-
-### 마이그레이션 옵션
-
-Migration Options 창에 [`Batch LOB type`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#db-to-db-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98) 옵션이 추가되었다.
-
 <br/>
 
 # 3. 사용된 오픈소스 라이브러리 / 로열티 프리 이미지
 
-## 3.1 오픈소스 라이브러리
+#### 오픈소스 라이브러리
 
 Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 각 오픈소스 라이브러리의 라이선스는 doc/license 폴더 아래에 텍스트 파일 형식으로 제공한다. Java Help System은 GPL linking exception으로 라이선스 예외사항에 해당되어 라이선스 파일을 제공하지 않는다.
 
@@ -127,7 +121,7 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 각 
 | [OpenCSV](http://opencsv.sourceforge.net/)                   | [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt) |
 | [Oracle JDBC Driver](http://www.oracle.com/)                 | [OTN](http://www.oracle.com/technetwork/licenses/distribution-license152002.html) |
 
-## 3.2 로열티 프리 이미지
+#### 로열티 프리 이미지
 
 | Library                  | Royalty-Free Images                            |
 | :----------------------- | :--------------------------------------------- |
@@ -150,14 +144,14 @@ Migration Center 설치 패키지는 두 가지 형태(.zip, .gz) 파일로 제�
 
 # 5. 다운로드
 
-## 5.1 패키지
+#### 패키지
 
 [http://support.altibase.com](http://support.altibase.com/)
 
-## 5.2 매뉴얼
+#### 매뉴얼
 
 [Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/Migration%20Center%20User's%20Manual.md)
 
-## 5.3 설치
+#### 설치
 
 Migration Center User's Manual을 참고한다.

@@ -61,8 +61,6 @@
     - [MySQL](#mysql-1)
     - [TimesTen](#timesten-1)
 
-
-
 Altibase® Tools & Utilities
 
 Migration Center User's Manual
@@ -72,7 +70,7 @@ Migration Center User's Manual
 
 Altibase Tools & Utilities Migration Center User's Manual
 
-Release 7.9
+Release 7.10
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -376,7 +374,7 @@ Altibase가 대상 데이터베이스일 경우 마이그레이션이 가능한 
 
 - Microsoft SQL Server: 2005 - 2012
 
-- Oracle MySQL: 5.0 - 5.5
+- Oracle MySQL: 5.0 - 5.7
 
 - Informix: 11.50
 
@@ -1333,7 +1331,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 | **Data Options**                             |                                                              |
 | Batch Execution                              | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
 | Batch Size                                   | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
-| Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes를 선택하면 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있으며, TimesTen 등 이 기능을 지원하지 않는 일부 DBMS에서 예외가 발생할 수 있다. 기본 설정은 No이다. |
+| Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
 | Log Insert-failed Data                       | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
 | File Encoding                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
 | **Data Validation Options**                  |                                                              |

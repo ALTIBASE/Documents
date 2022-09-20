@@ -55,10 +55,19 @@ Migration Center is a pure Java-based client application relying on the JAVA Run
 
 ## 1.3 Compatible DBMS
 
-| Source DBMS                                                  | Target DBMS               |
-| ------------------------------------------------------------ | ------------------------- |
-| Altibase: 4.3.9 or higher<br />CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix: 11.50 <br />Microsoft SQL Server: 2005 ~ 2012<br />Oracle Database: 9i ~ 11g <br />Oracle MySQL: 5.0 ~ 5.7 <br />Oracle TimesTen: 7.0, 11.2 <br />Tibero: 4sp1~6 | Altibase 6.5.1 or higher  |
-| Altibase 4.3.9 or higher                                     | Oracle Database 10g ~ 11g |
+This section introduces the DBMSs and versions that can be migrated using Migration Center 7.10.
+
+#### The target DBMS is Altibase
+
+| Source DBMS                                                  | Target DBMS              |
+| ------------------------------------------------------------ | ------------------------ |
+| Altibase 4.3.9 or higher<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 11g <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 6 | Altibase 6.5.1 or higher |
+
+#### The target DBMS is Oracle
+
+| Source DBMS              | Target DBMS               |
+| ------------------------ | ------------------------- |
+| Altibase 4.3.9 or higher | Oracle Database 10g ~ 11g |
 
 <br/>
 
@@ -80,6 +89,8 @@ It is possible to migrate database objects and data from MySQL 5.6, 5.7 to Altib
 
 Migration Center 7.10 compatibility verification has been completed in OpenJDK18. 
 
+<br/>
+
 ## 2.2 Bug-Fixes
 
 ### BUG-47352 Fix incorrect MySQL bit data type default value conversion
@@ -90,7 +101,7 @@ The default value of MySQL BIT data type written with bit-value literals in the 
 
 # 3. Open Source Libraries / Royalty-Free Images Used
 
-- Open Source Library
+#### Open Source Library
 
 Migration Center is based on the following open-source libraries. The licenses are distributed in a text file format along with Migration Center.
 
@@ -108,7 +119,7 @@ Migration Center is based on the following open-source libraries. The licenses a
 | OpenCSV                    | Homepage: http://opencsv.sourceforge.net/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                                             |
 | Oracle JDBC Driver         | Homepage: http://www.oracle.com<br/>License: OTN(http://www.oracle.com/technetwork/licenses/distribution-license152002.html)                                          |
 
-- Royalty-Free Images
+#### Royalty-Free Images
 
 | Library                  | Royalty-Free Images                                 |
 | ------------------------ | --------------------------------------------------- |
@@ -131,14 +142,14 @@ The Migration Center installation package is provided in two types (.zip, .gz) f
 
 # 5. Download
 
-- Package
+#### Package
 
 <http://support.altibase.com>
 
-- Manual
+#### Manual
 
 [Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Migration%20Center%20User's%20Manual.md)
 
-- Installation
+#### Installation
 
-Please refer to the Migration Center User's Manual.
+Please refer to the Migration Center User's Manual.****
