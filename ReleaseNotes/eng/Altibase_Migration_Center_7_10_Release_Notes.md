@@ -1,28 +1,35 @@
-
-
-- [Altibase Migration Center 7.10 Release Notes](#altibase-migration-center-710-release-notes)
-  - [1. Abstract](#1-abstract)
-    - [1.1 System Requirements](#11-system-requirements)
-    - [1.2 Supported Operating Systems and Platforms](#12-supported-operating-systems-and-platforms)
-  - [2. Release Information](#2-release-information)
-    - [2.1 Altibase Migration Center 7.10](#21-altibase-migration-center-710)
-    - [2.2 Changes](#22-changes)
-    - [2.3 Open Source Libraries / Royalty-Free Images Used](#23-open-source-libraries--royalty-free-images-used)
-    - [2.4 Packages](#24-packages)
-    - [2.5 Downloads](#25-downloads)
-
-
-
-Altibase Migration Center 7.10 Release Notes
-===============================
+# Altibase Migration Center 7.10 Release Notes
 
 **(Sept. 19, 2022)**
 
-## 1. Abstract
 
-### 1.1 System Requirements
 
-#### Minimum Hardware
+# **Table of Contents** 
+
+- [1. Abstract](#1-abstract)
+  - [1.1 Altibase Migration Center](#11-altibase-migration-center)
+  - [1.2 System Requirements](#12-system-requirements)
+  - [1.3 Compatible DBMS](#13-compatible-dbms)
+- [2. Release Information](#2-release-information)
+  - [2.1 New Features](#21-new-features)
+  - [2.2 Bug-Fixes](#22-bug-fixes)
+- [3. Open Source Libraries / Royalty-Free Images Used](#3-open-source-libraries--royalty-free-images-used)
+- [4. Packages](#4-packages)
+- [5. Download](#5-download)
+
+<br/>
+
+# 1. Abstract
+
+## 1.1 Altibase Migration Center
+
+Migration Center is a database migration tool which enables users to migrate a third-party database to Altibase database and external files or Altibase database to Oracle database in a convenient manner. Typically, the tasks of manual database migration are complicated, time-consuming, and prone to human error. In order to relieve such burden, Migration Center can be utilized providing qualified help for users to efficiently perform database migration with only a few mouse clicks in the Graphic User Interface (GUI) mode. Moreover, it also supports the migration at a Command Line Interface (CLI) mode for optimized resource consumption.
+
+<br/>
+
+## 1.2 System Requirements
+
+### Minimum Hardware
 
 |                    |           GUI mode           | CLI mode |
 | ------------------ | :--------------------------: | :------: |
@@ -31,89 +38,61 @@ Altibase Migration Center 7.10 Release Notes
 | Computer disk      |   150MB or more free space   |  Ditto   |
 | Screen resolution  | 1024 * 768 pixels or higher  |    -     |
 
-### 1.2 Supported Operating Systems and Platforms
+### Supported Operating Systems
+
+Migration Center can be run regardless of OS if it meets the minimum software specifications.
+
+### Minimum Software
+
+Migration Center is a pure Java-based client application relying on the JAVA Runtime Environment (JRE) instead of the client's hardware or an operating system. In order to execute Migration Center in the GUI mode, however, additional support for the graphic library of operating system is required.
 
 | Mode | JRE                         | OS Graphic Library |
 | ---- | --------------------------- | ------------------ |
 | GUI  | Sun or IBM Java 8 or higher | Required           |
 | CLI  | Sun or IBM Java 8 or higher | Not required       |
 
-Migration Center is a pure Java-based client application relying on the JAVA Runtime Environment (JRE) instead of the client's hardware or an operating system. In order to execute Migration Center in the GUI mode, however, additional support for the graphic library of operating system is required.
+<br/>
 
-## 2. Release Information
+## 1.3 Compatible DBMS
 
-### 2.1 Altibase Migration Center 7.10
+| Source DBMS                                                  | Target DBMS               |
+| ------------------------------------------------------------ | ------------------------- |
+| Altibase: 4.3.9 or higher<br />CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix: 11.50 <br />Microsoft SQL Server: 2005 ~ 2012<br />Oracle Database: 9i ~ 11g <br />Oracle MySQL: 5.0 ~ 5.7 <br />Oracle TimesTen: 7.0, 11.2 <br />Tibero: 4sp1~6 | Altibase 6.5.1 or higher  |
+| Altibase 4.3.9 or higher                                     | Oracle Database 10g ~ 11g |
 
-Migration Center is a database migration tool which enables users to migrate a third-party database to Altibase database and external files or Altibase database to Oracle database in a convenient manner. Typically, the tasks of manual database migration are complicated, time-consuming, and prone to human error. In order to relieve such burden, Migration Center can be utilized providing qualified help for users to efficiently perform database migration with only a few mouse clicks in the Graphic User Interface (GUI) mode. Moreover, it also supports the migration at a Command Line Interface (CLI) mode for optimized resource consumption.
+<br/>
 
-#### 2.1.1 New Features
+# 2. Release Information
 
-* Support MySQL 5.6 and 5.7 as source database
-* Support OpenJDK18
+This section summarizes new features, fixed bugs, and changes in Migration Center.
 
-#### 2.1.2  Bug-Fixes
+## 2.1 New Features
 
-| PK        | SYNOPSIS                                                   |
-| :-------- | :--------------------------------------------------------- |
-| BUG-47352 | Fix incorrect MySQL bit data type default value conversion |
-| BUG-49595 | Support MySQL 5.6, 5.7 to Altibase migration               |
-| BUG-49731 | Enable batch processing of LOB data as an option           |
+### Support MySQL 5.6 and 5.7 as source database
 
-### 2.2 Changes
+It is possible to migrate database objects and data from MySQL 5.6, 5.7 to Altibase DBMS using Migration Center. Supported version of the source database MySQL has been changed from MySQL 5.0 to **5.5** to MySQL 5.0 to **5.7**. (BUG-49595)
 
-Features that have been added, deleted or updated in Migration Center are listed and explained below.
+### Support batch processing of LOB data type during data migration
 
-* N/A
+[`Batch LOB type`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#db-to-db-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98) has been added to DB to DB migration options whether or not to batch processing of LOB data type. This option can be used to improve the data migration performance for LOB data type. (BUG-49731)
 
-#### 2.2.1 Version Updates
+### Support OpenJDK18
 
-Migration Center Version
+Migration Center 7.10 compatibility verification has been completed in OpenJDK18. 
 
-| Altibase Migration Center Version |
-| :-------------------------------: |
-|               7.10                |
+## 2.2 Bug-Fixes
 
-#### 2.2.2 Database Compatibility
+### BUG-47352 Fix incorrect MySQL bit data type default value conversion
 
-##### Destination Database: Altibase
+The default value of MySQL BIT data type written with bit-value literals in the form of b'val' had been incorrectly converted to 'b''val' and caused *ERR-2100C : Conversion not applicable* during schema migration. MySQL's bit-value literals default value *`b'val'`* is to be converted into Altibase *`VARBIT'val'`*.
 
-* Source Database
-  
-  * Altibase : Altibase 4.3.9 or higher
-  * ORACLE : Oracle 9i ~ 11g
-  * MS-SQL :  MS-SQL 2005 ~ 2012
-  * MySQL : MySQL 5.0 ~ 5.7
-  * Informix : Informix 11.50
-  * TimesTen : TimesTen 7.0, TimesTen 11.2
-  * CUBRID : CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
-  * Tibero : Tibero 4 sp1, 5 ~ 6
+<br/>
 
-* Destination Database
-  
-  * Altibase : Altibase 6.5.1 or higher
+# 3. Open Source Libraries / Royalty-Free Images Used
 
-##### Destination Database: Oracle
-
-- Source Database
-  
-  - Altibase : Altibase 4.3.9 or higher
-* Destination Database
-  
-  * ORACLE : Oracle 10g ~ 11g
-
-#### 2.2.3 Properties
-
-NONE
-
-#### 2.2.4 Error Messages
-
-NONE
-
-### 2.3 Open Source Libraries / Royalty-Free Images Used
+- Open Source Library
 
 Migration Center is based on the following open-source libraries. The licenses are distributed in a text file format along with Migration Center.
-
-* Open Source Library
 
 | Library                    | Open Source License                                                                                                                                                   |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -129,7 +108,7 @@ Migration Center is based on the following open-source libraries. The licenses a
 | OpenCSV                    | Homepage: http://opencsv.sourceforge.net/<br/>License: Apache License 2.0(http://www.apache.org/licenses/LICENSE-2.0.txt)                                             |
 | Oracle JDBC Driver         | Homepage: http://www.oracle.com<br/>License: OTN(http://www.oracle.com/technetwork/licenses/distribution-license152002.html)                                          |
 
-* Royalty-Free Images</br>
+- Royalty-Free Images
 
 | Library                  | Royalty-Free Images                                 |
 | ------------------------ | --------------------------------------------------- |
@@ -138,22 +117,28 @@ Migration Center is based on the following open-source libraries. The licenses a
 | fugue-icons-3.2.3-src    | Homepage: http://code.google.com/p/fugue-icons-src/ |
 | Silk Icons 1.3           | Homepage: www.famfamfam.com                         |
 
-### 2.4 Packages
+<br/>
 
-| JRE                         | Archive Name                                           |
-| --------------------------- | ------------------------------------------------------ |
-| Sun or IBM Java 8 or higher | MigrationCenter7.10.zip<br/>MigrationCenter7.10.tar.gz |
+# 4. Packages
 
-### 2.5 Downloads
+The Migration Center installation package is provided in two types (.zip, .gz) files.
 
-#### 2.5.1 Packages
+- MigrationCenter7.10.zip
+
+- MigrationCenter7.10.tar.gz
+
+<br/>
+
+# 5. Download
+
+- Package
 
 <http://support.altibase.com>
 
-#### 2.5.2 Manual
+- Manual
 
 [Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Migration%20Center%20User's%20Manual.md)
 
-#### 2.5.3 Installation
+- Installation
 
 Please refer to the Migration Center User's Manual.
