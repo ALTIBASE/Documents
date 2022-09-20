@@ -10964,30 +10964,6 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_GROUPING_TRANSACTION_MAX_COUNT (단위 : 개)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-5
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[1, 1000]
-
-##### 설명
-
-Ahead Analyzer 쓰레드가 복수의 트랜잭션을 한 번에 최대 몇 개까지 그룹화하여 수신자에 전송할 것인지 정하는 프로퍼티이다.
-
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
 #### REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE (단위 : 개)
 
 ##### 데이터 타입
@@ -11009,6 +10985,30 @@ Unsigned Integer
 ##### 설명
 
 선행 분석(Ahead Analyzer) 쓰레드가 분석을 시작할 때, 송신자(Sender)가 현재 읽는 로그 파일 번호보다 얼마나 큰 번호의 로그 파일을 읽을 것인지 설정한다.
+
+Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### REPLICATION_GROUPING_TRANSACTION_MAX_COUNT (단위 : 개)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+5
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[1, 1000]
+
+##### 설명
+
+Ahead Analyzer 쓰레드가 복수의 트랜잭션을 한 번에 최대 몇 개까지 그룹화하여 수신자에 전송할 것인지 정하는 프로퍼티이다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
@@ -11464,30 +11464,6 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-20000
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[2, 232-1]
-
-##### 설명
-
-Applier 가 다른 Applier 의 Transaction 반영 대기시 시스템 함수인 yield 를 이용하여 대기 하는 횟수.
-
-yield 함수를 사용시 CPU 사용을 하기 때문에 이 횟수 이상 호출 이후에는 CPU자원을 사용안하는 timed_wait 함수를 호출 한다.
-
 #### REPLICATION_RECOVERY_MAX_LOGFILE
 
 ##### 데이터 타입
@@ -11619,6 +11595,41 @@ Unsigned Integer
 0: 전송 로그를 비암호화
 
 1: 전송 로그를 암호화
+
+#### REPLICATION_SENDER_IP
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+ANY
+
+##### 속성
+
+읽기 전용, 다중 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+이중화 송신자의 IP 주소를 설정하는 프로퍼티이다. 값으로 ANY나 IP 주소를 입력할 수 있다.
+
+기본값 ANY는 이중화 객체를 생성하는 지역 서버의 모든 IP 주소가 이중화 통신에 사용될 수 있으며 OS에서 할당한 IP 주소가 송신자 IP 주소로 사용된다. IP 주소를 값으로 설정하면 원격 서버(수신자)와 통신할 때 설정한 IP 주소만 사용된다. REPLICATION_SENDER_IP = *value*를 추가하여 여러 개의 IP 주소를 설정할 수 있으며 순서대로 송신자 IP 주소로 사용된다. IP 주소는 IPv4, IPv6, IPv6 확장 주소 형태로 입력할 수 있다.
+
+`설정 예시`
+
+~~~bash
+REPLICATION_SENDER_IP = 10.0.0.1
+REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
+~~~
+
+이 프로퍼티는 Altibase 7.2.0.0.2부터 지원하며 이중화 통신 방법이 TCP일 때 적용된다. 
+
+자세한 내용은 *Replication Manual*에서 *[송신자 IP 주소 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Replication%20Manual.md#송신자-ip-주소-설정)* 설명을 참고한다.
 
 #### REPLICATION_SENDER_SEND_TIMEOUT (단위: 초)
 
