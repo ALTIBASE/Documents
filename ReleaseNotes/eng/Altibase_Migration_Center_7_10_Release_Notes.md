@@ -83,7 +83,7 @@ It is possible to migrate database objects and data from MySQL 5.6, 5.7 to Altib
 
 ### Support batch processing of LOB data type during data migration
 
-[`Batch LOB type`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#db-to-db-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98) has been added to DB to DB migration options whether or not to batch processing of LOB data type. This option can be used to improve the data migration performance for LOB data type. (BUG-49731)
+[`Batch LOB type`](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/eng/Migration%20Center%20User's%20Manual.md#db-to-db-migration-options) has been added to DB to DB migration options whether or not to batch processing of LOB data type. This option can be used to improve the data migration performance for LOB data type. (BUG-49731)
 
 ### Support OpenJDK18
 
