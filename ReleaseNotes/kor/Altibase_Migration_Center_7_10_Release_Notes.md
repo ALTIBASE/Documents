@@ -137,12 +137,12 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 ## 3.2 로열티 프리 이미지
 
-| Library                  | Royalty-Free Images                                 |
-| :----------------------- | :-------------------------------------------------- |
-| org.eclipse.datatools    | [www.eclipse.org](http://www.eclipse.org/)          |
-| asp.net_commercial_free2 | [www.asp.net](http://www.asp.net/)                  |
-| fugue-icons-3.2.3-src    | Homepage: http://code.google.com/p/fugue-icons-src/ |
-| Silk Icons 1.3           | [www.famfamfam.com](http://www.famfamfam.com/)      |
+| Library                  | Royalty-Free Images                            |
+| :----------------------- | :--------------------------------------------- |
+| org.eclipse.datatools    | [www.eclipse.org](http://www.eclipse.org/)     |
+| asp.net_commercial_free2 | [www.asp.net](http://www.asp.net/)             |
+| fugue-icons-3.2.3-src    | http://code.google.com/p/fugue-icons-src/      |
+| Silk Icons 1.3           | [www.famfamfam.com](http://www.famfamfam.com/) |
 
 <br/>
 
