@@ -12568,8 +12568,6 @@ REPLICATION_SENDER_IP = 10.0.0.1
 REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
 ~~~
 
-이 프로퍼티는 Altibase 7.2.0.0.2부터 지원하며 이중화 통신 방법이 TCP일 때 적용된다. 
-
 자세한 내용은 *Replication Manual에서 [송신자 IP 주소 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Replication%20Manual.md#송신자-ip-주소-설정)* 설명을 참고한다.
 
 

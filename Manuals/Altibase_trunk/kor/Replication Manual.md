@@ -2567,7 +2567,7 @@ REP1                                      1
 
 #### 송신자 IP 주소 설정
 
-송신자 IP 주소 설정은 이중화 연결에 사용할 송신자 IP 주소를 사용자가 지정하는 기능이다. 여러 IP 주소 중 특정 IP 주소를 송신자 IP 주소로 이중화 통신을 원할 때 사용할 수 있다. 이 기능은 Altibase 서버 프로퍼티 [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)를 설정하여 사용하며 Altibase 7.1.0.8.0부터 지원한다.
+송신자 IP 주소 설정은 이중화 연결에 사용할 송신자 IP 주소를 사용자가 지정하는 기능이다. 여러 IP 주소 중 특정 IP 주소를 송신자 IP 주소로 이중화 통신을 원할 때 사용할 수 있다. 이 기능은 Altibase 서버 프로퍼티 [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)를 설정하여 사용한다.
 
 ##### 사용 방법
 
