@@ -2313,7 +2313,9 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 다중 IP 네트워크 환경에서의 이중화가 지원된다. 즉, 물리적인 두 개 이상의
 네트워크 라인을 가진 두 호스트간의 이중화를 수행할 수 있다.
 
-#### 구문
+#### 원격 호스트 지정
+
+##### 구문
 
 ```
 CREATE REPLICATION replication_name {as master|as slave} 
@@ -2333,7 +2335,7 @@ ALTER REPLICATION replication_name
 SET HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
 ```
 
-#### 설명
+##### 설명
 
 시스템의 높은 가용성을 보장하고 신속한 장애 극복을 위하여 이중화 객체를 생성할
 때 다수의 물리적인 IP 주소나 호스트 이름을 부여할 수 있다. 즉, 이중화를 시작하면 송신 쓰레드는
@@ -2368,7 +2370,7 @@ SET HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
     있다. 이 구문 수행 후에, 송신 쓰레드는 현재 지정된 호스트의 IP 주소나 호스트 이름으로
     연결을 시도한다.
 
-#### 예제
+##### 예제
 
 다음은 2개의 IP 주소 네트워크 환경인 지역 서버(IP: 192.168.1.51, PORT NO:
 30570)와 원격 서버(‘IP: 192.168.1.154, PORT NO: 30570’, ‘IP: 192.168.2.154, PORT
@@ -2563,6 +2565,119 @@ REP1                                      1
 \<- 새로 지정한 IP 192.168.1.154 와 PORT 번호 30570을 사용해서 연결한 것을
 확인할 수 있다.
 
+#### 송신자 IP 주소 설정
+
+송신자 IP 주소 설정은 이중화 연결에 사용할 송신자 IP 주소를 사용자가 지정하는 기능이다. 여러 IP 주소 중 특정 IP 주소를 송신자 IP 주소로 이중화 통신을 원할 때 사용할 수 있다. 이 기능은 Altibase 서버 프로퍼티 [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)를 설정하여 사용한다.
+
+##### 사용 방법
+
+1. 지역 서버의 altibase.properties 파일에 REPLICATION_SENDER_IP 프로퍼티를 추가한다. 여기서 지역 서버는 ALTER REPLICATION *replication_name* START 구문으로 이중화를 시작하는 서버를 의미한다.
+
+2. 송신자 IP 주소로 사용할 특정 IP 주소를 프로퍼티 값으로 입력한다. 
+
+   IP 주소는 IPv4, IPv6, IPv6 확장 주소 형태로 입력한다. REPLICATION_SENDER_IP를 추가하여 여러 개의 IP 주소를 입력할 수 있다. 다수의 IP 주소를 입력하면, 이중화 시작 시 IP 주소를 순서대로 검사하며 사용할 수 있는 IP 주소를 선택한다. 수신자와 통신이 실패하면 altibase_rp.log에 에러 메시지를 남기고 다음 IP 주소로 재시도한다.
+
+   *`여러 개의 IP 주소 설정 예시`*
+
+   ~~~bash
+   $ vi altibase.properties
+   REPLICATION_SENDER_IP = 10.0.0.1
+   REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
+   ~~~
+
+3. Altibase 서버를 재시작한다.
+
+   REPLICATION_SENDER_IP는 읽기 전용 속성으로 변경 값을 적용하려면 Altibase 서버를 재시작해야 한다.
+
+##### 제약사항
+
+- 이중화 통신 방식 TCP에서만 사용할 수 있다.
+
+- 이중화 객체 단위로 설정할 수 없다. 
+
+  REPLICATION_SENDER_IP 프로퍼티는 모든 이중화 객체에 일괄적으로 적용된다. 
+
+- 호스트네임으로 설정할 수 없다. 
+
+  IP 주소 형식에 맞지 않는 값을 입력하면 Altibase 서버 구동이 실패한다.
+
+##### 사용 예제
+
+IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을 사용하여 이중화를 구성했을 때 망 구성에 따라 송신자 IP 주소가 어떻게 할당되었는지 보여주는 예제이다.
+
+- ***각 서버의 IP 주소 구성***
+
+  `A 서버` : 10.0.0.1, 20.0.0.1
+
+  `B 서버` : 10.0.0.2, 20.0.0.2
+
+- ***이중화 객체 생성***
+
+  이중화 포트는 30300이라고 가정한다.
+
+  `A 서버`
+
+  ~~~sql
+  CREATE REPLICATION rep1 WITH '10.0.0.2', 30300 FROM user1.t1 TO user1.t1;
+  CREATE REPLICATION rep2 WITH '20.0.0.2', 30300 FROM user1.t2 TO user1.t2;  
+  ~~~
+
+  `B 서버`
+
+  ~~~sql
+  CREATE REPLICATION rep1 WITH '10.0.0.1', 30300 FROM user1.t1 TO user1.t1;
+  CREATE REPLICATION rep2 WITH '20.0.0.1', 30300 FROM user1.t2 TO user1.t2;
+  ~~~
+
+- ***REPLICATION_SENDER_IP 설정***
+
+  A 서버의 altibase.properties 설정은 아래와 같다.
+
+  ~~~bash
+  REPLICATION_SENDER_IP = 10.0.0.1
+  REPLICATION_SENDER_IP = 20.0.0.1
+  ~~~
+
+- ***송신자 IP 주소 설정 상태***
+
+  A 서버에서 이중화를 시작하고 송신자의 IP 주소를 확인해보자.
+
+  `망 분리가 되지 않은 경우`
+
+  먼저, A, B 서버의 모든 IP 주소가 서로 통신이 가능한 환경에서 설정된 송신자 IP 주소를 보자. 
+
+  이중화 객체 REP1, REP2의 원격 서버 B (PEER_IP)와 통신할 수 있는 A 서버의 송신자 IP 주소로 10.0.0.1(SENDER_IP)가 선택되었다. REPLICATION_SENDER_IP의 첫 번째 IP 주소로 모두 통신이 가능하여 두 번째 IP 주소가 사용되지 않은 것을 볼 수 있다. 
+
+  ~~~sql
+  -- A 서버 송신자 정보 조회
+  -- REP1, REP2 모두 SENDER_IP가 REPLICATION_SENDER_IP의 첫 번째 IP 주소가 선택
+  iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT FROM V$REPSENDER;
+  REP_NAME              SENDER_IP             SENDER_PORT PEER_IP               PEER_PORT   
+  ------------------------------------------------------------------------------------------------
+  REP1                  10.0.0.1              56016       10.0.0.2              30300       
+  REP2                  10.0.0.1              56511       20.0.0.2              30300       
+  2 row selected.
+  ~~~
+
+  `망 분리가 된 경우`
+
+  A, B 서버가 10.0.0.x 대역끼리 통신하고  20.0.0.x 대역끼리 통신하도록 망 분리가 되어 있는 환경을 살펴보자.
+
+  이중화 객체 REP1의 A 서버의 송신자 IP 주소로 10.0.0.1(SENDER_IP)가 선택되었고 이중화 객체 REP2의 SENDER_IP는 REPLICATION_SENDER_IP의 두 번째 값인 20.0.0.1 이 선택되었다. REPLICATION_SENDER_IP의 첫 번째 값 10.0.0.1로 B 서버의 20.0.0.2와 통신을 시도하였으나 실패하고 두 번째 IP 주소로 재시도하여 선택된 것이다. 
+
+  ~~~sql
+  -- A 서버 송신자 정보 조회
+  -- REP1의 SENDER_IP는 REPLICATION_SENDER_IP의 첫 번째 IP 주소 선택, REP2의 SENDER_IP는 두 번째 IP 주소 선택
+  iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT FROM V$REPSENDER;
+  REP_NAME              SENDER_IP             SENDER_PORT PEER_IP               PEER_PORT   
+  ------------------------------------------------------------------------------------------------
+  REP1                  10.0.0.1              56016       10.0.0.2              30300       
+  REP2                  20.0.0.1              56511       20.0.0.2              30300
+  2 row selected.
+  ~~~
+
+  
+
 ### 이중화 관련 프로퍼티
 
 이중화를 사용하기 위해서는 Altibase 프로퍼티 파일을 사용 목적에 맞게 수정해야
@@ -2585,8 +2700,8 @@ REP1                                      1
 -   REPLICATION_GAP_UNIT
 -   REPLICATION_GAPLESS_ALLOW_TIME
 -   REPLICATION_GAPLESS_MAX_WAIT_TIME
--   REPLICATION_GROUPING_TRANSACTION_MAX_COUNT
 -   REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE
+-   REPLICATION_GROUPING_TRANSACTION_MAX_COUNT
 -   REPLICATION_HBT_DETECT_HIGHWATER_MARK
 -   REPLICATION_HBT_DETECT_TIME
 -   REPLICATION_IB_LATENCY
@@ -2605,11 +2720,13 @@ REP1                                      1
 -   REPLICATION_RECEIVE_TIMEOUT
 -   REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE
 -   REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE
+-   REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
 -   REPLICATION_RECOVERY_MAX_LOGFILE
 -   REPLICATION_RECOVERY_MAX_TIME
 -   REPLICATION_SENDER_AUTO_START
 -   REPLICATION_SENDER_COMPRESS_XLOG
 -   REPLICATION_SENDER_ENCRYPT_XLOG
+-   REPLICATION_SENDER_IP
 -   REPLICATION_SENDER_SEND_TIMEOUT
 -   REPLICATION_SENDER_SLEEP_TIME
 -   REPLICATION_SENDER_SLEEP_TIMEOUT
@@ -2623,6 +2740,7 @@ REP1                                      1
 -   REPLICATION_TIMESTAMP_RESOLUTION
 -   REPLICATION_TRANSACTION_POOL_SIZE
 -   REPLICATION_UPDATE_REPLACE
+-   REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
 
 4.Fail-Over
 ---------
