@@ -1019,6 +1019,11 @@ diff 명령을 통해 원본과 대상 데이터베이스간 다른 데이터가
 
 - 구축 보고서: 프로젝트 폴더에 HTML 형식으로 원본 및 대상 데이터베이스의 현재
   상태에 기반한 다수의 저장 공간 분석 보고서가 출력된다.
+- 원본 데이터 베이스 객체 SQL 데이터 정의어(DDL) 스크립트: 사용자 편의를 위해, 
+  프로젝트 폴더에 원본 데이터베이스에서 수집 한 객체 생성 SQL 스크립트 파일이 
+  출력된다. 마이그레이션 대상이 아닌 객체를 수동 변환할 때 참조한다.
+  - SrcDbObj_Create.sql: 원본 데이터베이스에서 수집한 객체 생성 SQL
+    스크립트 파일
 
 #### 내부 동작
 
@@ -1083,21 +1088,14 @@ Altibase의 테이블스페이스에 대한 자세한 내용은 각각의 *Admin
 
 - 조정 보고서: 프로젝트 폴더에 마이그레이션 할 데이터베이스 객체 및
   마이그레이션 하는 방법을 명시하는 다수의 보고서가 출력된다.
-
 - SQL 데이터 정의어(DDL) 스크립트: 사용자 편의를 위해, 프로젝트 폴더에 대상
   데이터베이스에 데이터베이스 객체를 생성하고 삭제하는 샘플 SQL 스크립트
   파일이 출력된다. 그러나 이 파일들은 Migration Center의 어느 단계에서도
   사용되지 않는다.
-  
   - DbObj_Create.sql: 마이그레이션 될 데이터베이스 객체를 생성하는 SQL
     스크립트 파일
-  
   - DbObj_Drop.sql: 마이그레이션 될 데이터베이스 객체를 삭제하는 SQL
     스크립트 파일
-  
-  - DbObj_Unsupported.sql: 지원되지 않는 데이터베이스 객체를 생성하는 SQL
-    스크립트 파일
-
 - PL/SQL 변환 보고서: PL/SQL 변환기에서 출력하는 다수의 보고서이다.
   
   - sqlconv.html: 원본과 변환된 PL/SQL의 차이를 비교하는 HTML 형식의 보고서
@@ -1384,73 +1382,73 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 
 ### Altibase to Oracle
 
-| 데이터베이스 객체 유형      | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                                                             |
-| ----------------- | --------------------------- | ---------------------------- | ------------------------------------------------------------------------------ |
-| Table             | O                           | O                            |                                                                                |
-| Primary Key 제약    | O                           | O                            |                                                                                |
-| Unique 제약         | O                           | O                            |                                                                                |
-| Check 제약          | O                           | O                            |                                                                                |
-| Foreign Key 제약    | O                           | O                            |                                                                                |
-| Index             | O                           | O                            |                                                                                |
-| Sequence          | O                           | X                            |                                                                                |
-| Queue             | X                           | X                            | 변환 가능한 객체가 없기 때문에, build 단계에서 자동으로 제외된다.                                       |
-| Private Synonym   | 부분 지원                       | X                            | 다른 schema 내의 객체를 참조하는 시노님도 마이그레이션된다.                                           |
-| Procedure         | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                   |
-| Function          | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                   |
-| Package           | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                   |
-| View              | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                   |
-| Materialized View | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다. 참고로 migration을 위해서는 베이스 테이블에 primary key가 있어야 한다. |
-| Trigger           | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                   |
+| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                                         |
+| ---------------------- | -------------------------------------- | --------------------------------------- | ------------------------------------------------------------ |
+| Table                  | O                                      | O                                       |                                                              |
+| Primary Key 제약       | O                                      | O                                       |                                                              |
+| Unique 제약            | O                                      | O                                       |                                                              |
+| Check 제약             | O                                      | O                                       |                                                              |
+| Foreign Key 제약       | O                                      | O                                       |                                                              |
+| Index                  | O                                      | O                                       |                                                              |
+| Sequence               | O                                      | X                                       |                                                              |
+| Queue                  | X                                      | X                                       | 변환 가능한 객체가 없기 때문에, build 단계에서 자동으로 제외된다. |
+| Private Synonym        | 부분 지원                              | X                                       | 다른 schema 내의 객체를 참조하는 시노님도 마이그레이션된다.  |
+| Procedure              | 부분 지원                              | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Function               | 부분 지원                              | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Package                | 부분 지원                              | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| View                   | 부분 지원                              | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Materialized View      | 부분 지원                              | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다. 참고로 migration을 위해서는 베이스 테이블에 primary key가 있어야 한다. |
+| Trigger                | 부분 지원                              | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
 
 ### CUBRID to Altibase
 
-| 데이터베이스 객체 유형         | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                                                                                                                                                                                                  |
-| -------------------- | --------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Table                | O                           | O                            | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다.                                                                                                                                                                              |
-| Primary Key 제약       | O                           | O                            |                                                                                                                                                                                                                     |
-| Unique 제약            | O                           | O                            |                                                                                                                                                                                                                     |
-| Foreign Key 제약       | O                           | O                            |                                                                                                                                                                                                                     |
-| Index                | O                           | O                            | CUBRID의 Reverse index와 Prefix length index는 Altibase에서 지원하지 않는다. Reverse index는 인덱스 생성시 키 값을 역으로 넣는 방식으로, Altibase 마이그레이션에서 지원하지 않는다. Prefix length index는 키 값의 일정 부분만을 인덱싱하는 기법으로, 마이그레이션시 Altibase의 일반 인덱스로 대체된다. |
-| auto_increment 칼럼 속성 | O                           | O                            | Sequence로 마이그레이션된다.                                                                                                                                                                                                 |
-| Serial               | O                           | X                            | Sequence로 마이그레이션된다.                                                                                                                                                                                                 |
-| Procedure            | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                                                                                                                                                        |
-| Function             | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                                                                                                                                                        |
-| View                 | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                                                                                                                                                        |
-| Trigger              | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.                                                                                                                                                                                        |
+| 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                                         |
+| ------------------------ | -------------------------------------- | --------------------------------------- | ------------------------------------------------------------ |
+| Table                    | O                                      | O                                       | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Primary Key 제약         | O                                      | O                                       |                                                              |
+| Unique 제약              | O                                      | O                                       |                                                              |
+| Foreign Key 제약         | O                                      | O                                       |                                                              |
+| Index                    | O                                      | O                                       | CUBRID의 Reverse index와 Prefix length index는 Altibase에서 지원하지 않는다. Reverse index는 인덱스 생성시 키 값을 역으로 넣는 방식으로, Altibase 마이그레이션에서 지원하지 않는다. Prefix length index는 키 값의 일정 부분만을 인덱싱하는 기법으로, 마이그레이션시 Altibase의 일반 인덱스로 대체된다. |
+| auto_increment 칼럼 속성 | O                                      | O                                       | Sequence로 마이그레이션된다.                                 |
+| Serial                   | O                                      | X                                       | Sequence로 마이그레이션된다.                                 |
+| Procedure                | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Function                 | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| View                     | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Trigger                  | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
 
 ### Informix to Altibase
 
-| 데이터베이스 객체 유형    | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                     |
-| --------------- | --------------------------- | ---------------------------- | -------------------------------------- |
-| Table           | O                           | O                            | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
-| Primary Key 제약  | O                           | O                            |                                        |
-| Unique 제약       | O                           | O                            |                                        |
-| Check 제약        | O                           | O                            |                                        |
-| Foreign Key 제약  | O                           | O                            |                                        |
-| Index           | O                           | O                            |                                        |
-| Serial 칼럼 타입    | O                           | O                            | Sequence로 마이그레이션된다.                    |
-| Sequence        | O                           | X                            |                                        |
-| Private Synonym | 부분 지원                       | X                            | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.   |
-| Procedure       | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| Function        | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| View            | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| Trigger         | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
+| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                                         |
+| ---------------------- | -------------------------------------- | --------------------------------------- | ------------------------------------------------------------ |
+| Table                  | O                                      | O                                       | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Primary Key 제약       | O                                      | O                                       |                                                              |
+| Unique 제약            | O                                      | O                                       |                                                              |
+| Check 제약             | O                                      | O                                       |                                                              |
+| Foreign Key 제약       | O                                      | O                                       |                                                              |
+| Index                  | O                                      | O                                       |                                                              |
+| Serial 칼럼 타입       | O                                      | O                                       | Sequence로 마이그레이션된다.                                 |
+| Sequence               | O                                      | X                                       |                                                              |
+| Private Synonym        | 부분 지원                              | X                                       | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
+| Procedure              | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Function               | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| View                   | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Trigger                | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
 
 ### MySQL to Altibase
 
-| 데이터베이스 객체 유형         | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                     |
-| -------------------- | --------------------------- | ---------------------------- | -------------------------------------- |
-| Table                | O                           | O                            | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
-| Primary Key 제약       | O                           | O                            |                                        |
-| Unique 제약            | O                           | O                            |                                        |
-| Check 제약             | O                           | O                            |                                        |
-| Foreign Key 제약       | O                           | O                            |                                        |
-| Index                | O                           | O                            |                                        |
-| auto_increment 칼럼 속성 | O                           | O                            | Sequence로 마이그레이션된다.                    |
-| Procedure            | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| Function             | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| View                 | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| Trigger              | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
+| 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                                         |
+| ------------------------ | -------------------------------------- | --------------------------------------- | ------------------------------------------------------------ |
+| Table                    | O                                      | O                                       | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Primary Key 제약         | O                                      | O                                       |                                                              |
+| Unique 제약              | O                                      | O                                       |                                                              |
+| Check 제약               | O                                      | O                                       |                                                              |
+| Foreign Key 제약         | O                                      | O                                       |                                                              |
+| Index                    | O                                      | O                                       |                                                              |
+| auto_increment 칼럼 속성 | O                                      | O                                       | Sequence로 마이그레이션된다.                                 |
+| Procedure                | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Function                 | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| View                     | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Trigger                  | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
 
 ### Oracle to Altibase
 
@@ -1473,21 +1471,21 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 
 ### SQL Server to Altibase
 
-| 데이터베이스 객체 유형    | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                     |
-| --------------- | --------------------------- | ---------------------------- | -------------------------------------- |
-| Table           | O                           | O                            | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
-| Primary Key 제약  | O                           | O                            |                                        |
-| Unique 제약       | O                           | O                            |                                        |
-| Check 제약        | O                           | O                            |                                        |
-| Foreign Key 제약  | O                           | O                            |                                        |
-| Index           | O                           | O                            |                                        |
-| Identity 칼럼 속성  | O                           | O                            | Sequence로 마이그레이션된다.                    |
-| Sequence        | O                           | X                            | SQL Server 2012 지원                     |
-| Private Synonym | 부분 지원                       | X                            | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.   |
-| Procedure       | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| Function        | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| View            | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
-| Trigger         | 부분 지원                       | X                            | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.           |
+| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부? | 'Build Table'로 마이그레이션 가능 여부? | 비고                                                         |
+| ---------------------- | -------------------------------------- | --------------------------------------- | ------------------------------------------------------------ |
+| Table                  | O                                      | O                                       | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Primary Key 제약       | O                                      | O                                       |                                                              |
+| Unique 제약            | O                                      | O                                       |                                                              |
+| Check 제약             | O                                      | O                                       |                                                              |
+| Foreign Key 제약       | O                                      | O                                       |                                                              |
+| Index                  | O                                      | O                                       |                                                              |
+| Identity 칼럼 속성     | O                                      | O                                       | Sequence로 마이그레이션된다.                                 |
+| Sequence               | O                                      | X                                       | SQL Server 2012 지원                                         |
+| Private Synonym        | 부분 지원                              | X                                       | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
+| Procedure              | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Function               | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| View                   | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
+| Trigger                | X                                      | X                                       | SrcDbObj_Create.sql 파일을 참조하여 수동 변환이 필요하다.    |
 
 ### TimesTen to Altibase
 
