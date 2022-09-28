@@ -25534,17 +25534,6 @@ A.부록: 정규 표현식
 
 정규 표현식 문법이나 기능은 구현체마다 세부 구현이 다를 수 있으므로 타 DBMS의 정규 표현식 라이브러리나 정규 표현식 라이브러리 버전에 따라 차이가 있을 수 있다.
 
-#### Altibase 정규 표현식 라이브러리
-
-Altibase 정규 표현식 라이브러리의 정규 표현식은 아래와 같은 제약 사항과 특징이 있다.
-여기에서는 Altibase가 지원하는 정규 표현식에 대해서 설명한다.
-
-### 정규 표현식 지원
-
-정규 표현식(regular expression)이란 텍스트 패턴을 기술하기 위한 표기법으로, 하나 이상의 문자열과 메타문자(metacharacter)로 구성된다. Altibase는 POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)의 일부를 지원하는 Altibase 정규 표현식 라이브러리와 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리를 지원한다. 사용자는 이 두 가지 정규 표현식 라이브러리 중 하나를 선택하여 사용할 수 있다. 
-
-정규 표현식 문법이나 기능은 구현체마다 세부 구현이 다를 수 있으므로 타 DBMS의 정규 표현식 라이브러리나 정규 표현식 라이브러리 버전에 따라 차이가 있을 수 있다.
-
 ### 정규 표현식 라이브러리 설정 변경 방법
 
 사용자는 Altibase 정규 표현식 라이브러리와 PCRE2 라이브러리, 두 가지 라이브러리 중 하나를 선택하여 사용해야 한다. Altibase 정규 표현식 라이브러리가 기본 라이브러리로 설정되어 있으므로 PCRE2 라이브러리를 사용하고 싶다면 다음 구문으로 정규 표현식 라이브러리 설정을 변경해야 한다.
@@ -25835,7 +25824,7 @@ M-T102
 AU-100
 8 rows selected.
 ```
-	
+
 문자 클래스
 <table>
   <tbody>
@@ -26065,7 +26054,7 @@ manager
 planner
 3 rows selected.
 ```
-	
+
 \p와 \P 문법에서 사용 가능한 일반적인 캐릭터 속성
 <table>
   <tbody>
@@ -26330,7 +26319,7 @@ EMP_JOB
 manager
 1 row selected.
 ```
-	
+
 그룹화 구문
 <table>
   <tbody>
@@ -26381,7 +26370,7 @@ EMP_JOB
 manager
 1 row selected.
 ```
-	
+
 탐색 구문
 <table>
   <tbody>
@@ -26483,7 +26472,7 @@ REGEXP_INSTR(EMP_JOB,'A(?=N)')
 3
 6 rows selected.
 ```
-	
+
 한정 기호
 <table>
   <tbody>
@@ -26566,7 +26555,7 @@ EMP_JOB
 planner
 1 row selected.
 ```
-	
+
 역참조
 <table>
   <tbody>
@@ -26673,7 +26662,7 @@ webmaster
 manager
 2 rows selected.
 ```
-	
+
 정규식 처리 설정
 <table>
   <tbody>
@@ -26777,7 +26766,7 @@ webmaster
 manager
 2 rows selected.
 ```
-	
+
 그 밖의 PCRE2 라이브러리의 정규 표현식 문법에 대한 자세한 내용은 [PCRE2 패턴 매뉴얼 페이지](https://www.pcre.org/current/doc/html/pcre2pattern.html)를 참고하기 바란다.
 사용 중 발생한 에러는 아래 에러 메세지 목록을 참고하기 바란다.
 	
@@ -27090,4 +27079,3 @@ SELECT * FROM T1 WHERE REGEXP_LIKE(I2,'(?<!알티베이스7) 데이터베이스'
     </tr>
   </tbody>
 </table>
-
