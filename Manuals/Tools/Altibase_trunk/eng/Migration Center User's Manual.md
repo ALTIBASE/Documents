@@ -1192,41 +1192,41 @@ The user can check the default data type mapping and modify the way that data is
 
 #### MySQL to Altibase
 
-| Index | Source                          | Destination    | Issue                                                                                                                                                                           |
-| ----- | ------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | TINYINT                         | SMALLINT       |                                                                                                                                                                                 |
-| 2     | TINYINT UNSIGNED                | SMALLINT       |                                                                                                                                                                                 |
-| 3     | SMALLINT                        | INTEGER        |                                                                                                                                                                                 |
-| 4     | SMALLINT UNSIGNED               | INTEGER        |                                                                                                                                                                                 |
-| 5     | MEDIUMINT                       | INTEGER        |                                                                                                                                                                                 |
-| 6     | MEDIUMINT UNSIGNED              | INTEGER        |                                                                                                                                                                                 |
-| 7     | INT (INTEGER)                   | INTEGER        | Please note that the minimum value of Altibase INT type (-2,147,483,647) is greater than the minimum value of MySQL INT type (- 2,147,483,648).                                 |
-| 8     | INT UNSIGNED                    | BIGINT         |                                                                                                                                                                                 |
+| Index | Source                          | Destination    | Issue                                                        |
+| ----- | ------------------------------- | -------------- | ------------------------------------------------------------ |
+| 1     | TINYINT                         | SMALLINT       |                                                              |
+| 2     | TINYINT UNSIGNED                | SMALLINT       |                                                              |
+| 3     | SMALLINT                        | INTEGER        |                                                              |
+| 4     | SMALLINT UNSIGNED               | INTEGER        |                                                              |
+| 5     | MEDIUMINT                       | INTEGER        |                                                              |
+| 6     | MEDIUMINT UNSIGNED              | INTEGER        |                                                              |
+| 7     | INT (INTEGER)                   | INTEGER        | Please note that the minimum value of Altibase INT type (-2,147,483,647) is greater than the minimum value of MySQL INT type (- 2,147,483,648). |
+| 8     | INT UNSIGNED                    | BIGINT         |                                                              |
 | 9     | BIGINT                          | BIGINT         | Please note that the minimum value of Altibase BIGINTINT type (-9,223,372,036,854,775,807) is greater than the minimum value of MySQL BIGINT type (-9,223,372,036,854,775,808). |
-| 10    | BIGINT UNSIGNED                 | NUMERIC(20,0)  | There is no compatible data type in Altibase for MySQL BIGINT UNSIGNED type, so NUMERIC type is used to prevent any data loss.                                                  |
-| 11    | DECIMAL (NUMERIC)               | VARCHAR(70)    | There is no compatible data type in Altibase for MySQL DECIMAL type, so VARCHAR type is used to prevent any data loss.                                                          |
-| 12    | FLOAT                           | FLOAT          |                                                                                                                                                                                 |
-| 13    | DOUBLE                          | VARCHAR(310)   | There is no compatible data type in Altibase for MySQL DOUBLE type, so VARCHAR type is used to prevent any data loss.                                                           |
-| 14    | BIT                             | VARBIT         |                                                                                                                                                                                 |
-| 15    | DATETIME                        | DATE           | Time parts are set to ‘0'                                                                                                                                                       |
-| 16    | DATE                            | DATE           |                                                                                                                                                                                 |
-| 17    | TIMESTAMP                       | DATE           | Except TIMEZONE                                                                                                                                                                 |
-| 18    | CHAR                            | CHAR           |                                                                                                                                                                                 |
-| 19    | VARCHAR                         | CLOB           | Since the maximum size limit for a MySQL VARCHAR data type(65,536) is larger than an Altibase VARCHAR data type(32,000), it is mapped as a CLOB data type to prevent data loss. |
-| 20    | CHAR with National Character    | NCHAR          |                                                                                                                                                                                 |
-| 21    | VARCHAR with National Character | NVARCHAR       |                                                                                                                                                                                 |
-| 22    | BINARY                          | BYTE           |                                                                                                                                                                                 |
-| 23    | VARBINARY                       | BLOB           |                                                                                                                                                                                 |
-| 24    | TINYBLOB                        | BLOB           |                                                                                                                                                                                 |
-| 25    | MEDIUMBLOB                      | BLOB           |                                                                                                                                                                                 |
-| 26    | BLOB                            | BLOB           |                                                                                                                                                                                 |
-| 27    | LONGBLOB                        | BLOB           |                                                                                                                                                                                 |
-| 28    | TINYTEXT                        | VARCHAR(255)   |                                                                                                                                                                                 |
-| 29    | TEXT                            | CLOB           |                                                                                                                                                                                 |
-| 30    | MEDIUMTEXT                      | CLOB           |                                                                                                                                                                                 |
-| 31    | LONGTEXT                        | CLOB           |                                                                                                                                                                                 |
-| 32    | ENUM                            | VARCHAR(10666) | There is no compatible data type in Altibase for MySQL ENUM type, so VARCHAR is used to prevent data loss.                                                                      |
-| 33    | SET                             | VARCHAR(10666) | There is no compatible data type in Altibase for MySQL SET type, so VARCHAR is used to prevent data loss.                                                                       |
+| 10    | BIGINT UNSIGNED                 | NUMERIC(20,0)  | There is no compatible data type in Altibase for MySQL BIGINT UNSIGNED type, so NUMERIC type is used to prevent any data loss. |
+| 11    | DECIMAL (NUMERIC)               | VARCHAR(70)    | There is no compatible data type in Altibase for MySQL DECIMAL type, so VARCHAR type is used to prevent any data loss. |
+| 12    | FLOAT                           | FLOAT          |                                                              |
+| 13    | DOUBLE                          | VARCHAR(310)   | There is no compatible data type in Altibase for MySQL DOUBLE type, so VARCHAR type is used to prevent any data loss. |
+| 14    | BIT                             | VARBIT         |                                                              |
+| 15    | DATETIME                        | DATE           | Time parts are set to ‘0'                                    |
+| 16    | DATE                            | DATE           |                                                              |
+| 17    | TIMESTAMP                       | DATE           | Except TIMEZONE                                              |
+| 18    | CHAR                            | CHAR           |                                                              |
+| 19    | VARCHAR                         | VARCHAR        | The maximum size limit for a MySQL VARCHAR data type(65,536) is larger than an Altibase VARCHAR data type(32,000). If the size is longer than Altibase max size, it is mapped as a CLOB data type to prevent data loss. |
+| 20    | CHAR with National Character    | NCHAR          |                                                              |
+| 21    | VARCHAR with National Character | NVARCHAR       |                                                              |
+| 22    | BINARY                          | BYTE           |                                                              |
+| 23    | VARBINARY                       | BLOB           |                                                              |
+| 24    | TINYBLOB                        | BLOB           |                                                              |
+| 25    | MEDIUMBLOB                      | BLOB           |                                                              |
+| 26    | BLOB                            | BLOB           |                                                              |
+| 27    | LONGBLOB                        | BLOB           |                                                              |
+| 28    | TINYTEXT                        | VARCHAR(255)   |                                                              |
+| 29    | TEXT                            | CLOB           |                                                              |
+| 30    | MEDIUMTEXT                      | CLOB           |                                                              |
+| 31    | LONGTEXT                        | CLOB           |                                                              |
+| 32    | ENUM                            | VARCHAR(10666) | There is no compatible data type in Altibase for MySQL ENUM type, so VARCHAR is used to prevent data loss. |
+| 33    | SET                             | VARCHAR(10666) | There is no compatible data type in Altibase for MySQL SET type, so VARCHAR is used to prevent data loss. |
 
 #### Informix 11.5 to Altibase
 
