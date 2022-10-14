@@ -1130,7 +1130,7 @@ The user can change the data type mapping table in the reconcile stage as shown 
 
 Right-click in the project tree window and select the Reconcile menu. Or select Reconcile from the Migration menu. You must complete the Build step before you can perform this step.
 
-![](..\kor\media\MigrationCenter\datatypemapping-step-1.png)
+![](../kor/media/MigrationCenter/datatypemapping-step-1.png)
 
 **2. Data Type Mapping**
 
