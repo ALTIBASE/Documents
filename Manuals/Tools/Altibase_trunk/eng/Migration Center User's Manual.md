@@ -1118,9 +1118,9 @@ This section will provide guidlines and explanation in regards to the migratable
 
 ## Appendix C: Data Type Mapping
 
-When mapping data types between heterogeneous databases, the default policy of Migration Center is "minimize data loss". However, even though data may be lost or corrupted, users may want to define their own data type mapping method. To satisfy these needs, the Migration Center provides a way to modify the data type mapping table.
+Migration Center’s policy for mapping data types between heterogeneous databases is to minimize the loss of data. However, the user may wish to customize the way that data is mapped, even if it incurs the loss or corruption of data. To satisfy this requirement, Migration Center also allows the user to edit the data type mapping table.
 
-This chapter explains how to check and change the basic data type mapping table during the project progress of the Migration Center. It also explains the precautions that users need to know in the Migration Center's basic data type mapping table.
+This chapter explains how to check and customize the default data type mapping table during the project progress of the Migration Center. It also explains the precautions that users need to know in the Migration Center's default data type mapping table.
 
 ### Manipulating Data Type Mapping
 
@@ -1134,25 +1134,25 @@ Right-click in the project tree window and select the Reconcile menu. Or select 
 
 **2. Data Type Mapping**
 
-If you select the Reconcile menu, the Reconcile window appears as shown below. In this window, users can view the default data type mapping table of Migration Center and change the data type of the target database in "1. Data Type Mapping". Select the data type you want to change and click the Change button at the bottom right.
+*Reconcile* menu is clicked, the Reconcile window appears as shown below. In this window, users can view the default data type mapping table of Migration Center and change the data type of the target database in "1. Data Type Mapping". Select the data type you want to change and click the *Change* button at the bottom right.
 
 ![](../kor/media/MigrationCenter/datatypemapping-step-2.png)
 
 **3. Change Mapping Type**
 
-When you click the Change button, the following window appears. In the "Change Mapping Type" window, select the data type to change in the Destination DB Data Type. Depending on the data type, enter Precision and Scale if necessary, and click the OK button.
+*Change* button is clicked, the following window appears. In the "Change Mapping Type" window, select the data type to change in the Destination DB Data Type. Depending on the data type, enter Precision and Scale if necessary, and click the *OK* button.
 
 ![](../kor/media/MigrationCenter/datatypemapping-step-3.png)
 
 ### Default Data Type Mapping Tables
 
-Describes the basic data type mapping table between heterogeneous databases and precautions that users should be aware of.
+These tables describe the basic data type mapping tables between heterogeneous databases and precautions that users should be aware of.
 
-Starting with Migration Center 7.11, when the data in the original database exceeds the maximum size of the target database, the data type of the target database is changed to CLOB, which is different from the default mapping table. The target data types are as follows.
+Since Migration Center 7.11, if a table's column length of a source database exceeds the maximum range of the data type mapped to the target database, the data type of the target database can be automatically converted to a data type with a larger range than the default mapping table. For instance, the following data types can be changed to CLOB if necessary in order to minimize data loss.
 - CHAR
 - VARCHAR or VARCHAR2, LVARCHAR, TT_VARCHAR
 
-Prior to Migration Center 7.11, data was migrated with data loss.
+
 
 #### Oracle to Altibase
 
@@ -1160,7 +1160,7 @@ Prior to Migration Center 7.11, data was migrated with data loss.
 | :--: | :------------ | :-------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR            | CHAR type columns defined with character length in Oracle are automatically converted to CHAR type columns with byte length in Altibase, because in Altibase, CHAR type columns can be defined only with byte length. |
 |  2   | NCHAR         | NCHAR           | The explicit sizes of the source and destination NCHAR columns are the same, e.g. NCHAR(10) -> NCHAR(10). <br/>However, in the Oracle JDBC driver, the size of a national character column is defined as the number of bytes used, whereas in the Altibase JDBC driver, the size of a national character column is defined as the number of characters that are stored. Please note that this means that the resultant column in Altibase will be two or three times as large as necessary. |
-|  3   | VARCHAR2      | VARCHAR         | 1. If Oracle's VARCHAR2 data exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Oracle and Altibase data types. Oracle's maximum value for VARCHAR2 is 32,767 bytes, larger than Altibase.<br />For reference, in Oracle 12c or later, when the MAX_STRING_SIZE parameter is EXTENDED, the maximum value for VARCHAR2 is 32,767 bytes.<br />2. VARCHAR2 defined as character length in Oracle is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. |
+|  3   | VARCHAR2      | VARCHAR         | 1. If Oracle's VARCHAR2 legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's CLOB data type. This is to prevent data loss that may occur during migration due to the maximum size difference between Oracle and Altibase data types. Oracle's maximum value for VARCHAR2 is 32,767 bytes, larger than Altibase.<br />For reference, in Oracle 12c or later, when the MAX_STRING_SIZE parameter is EXTENDED, the maximum value for VARCHAR2 is 32,767 bytes.<br />2. VARCHAR2 defined as character length in Oracle is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. |
 |  4   | NVARCHAR2     | NVARCHAR        | The column sizes differ, for the same reason as NCHAR. The potential data loss can be occurred since the maximum size of Oracle NVARCHAR2(32,767 bytes) is greater than that of the Altibase, which is 32,000 bytes.<br />For reference, when Oracle's MAX_STRING_SIZE parameter is EXTENDED and the national character set is UTF8, the maximum size of NVARCHAR2 is 32,767 bytes. |
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMBER          | NUMBER type columns defined without precision and scale in Oracle are converted to the same NUMBER type columns without precision and scale for Altibase. *Both Oracle and Altibase internally handle NUMBER type columns defined without precision and scale as FLOAT type in the database. |
@@ -1230,7 +1230,7 @@ Prior to Migration Center 7.11, data was migrated with data loss.
 |  16  | DATE                            | DATE           |                                                              |
 |  17  | TIMESTAMP                       | DATE           | Except TIMEZONE                                              |
 |  18  | CHAR                            | CHAR           |                                                              |
-|  19  | VARCHAR                         | VARCHAR        | If the MySQL's VARCHAR data exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between MySQL and Altibase data types. MySQL's maximum value for VARCHAR is 65,536 bytes, larger than Altibase. |
+|  19  | VARCHAR                         | VARCHAR        | If the MySQL's VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it  is converted to Altibase's CLOB data type. This is to prevent data loss that may occur during migration due to the maximum size difference between MySQL and Altibase data types. MySQL's maximum value for VARCHAR is 65,536 bytes, larger than Altibase. |
 |  20  | CHAR with National Character    |                | The data type of Altibase varies depending on the character set of MySQL and Altibase. |
 |      |                                 | CHAR           | 1. If the character set of MySQL and Altibase is the same Unicode, it is converted to CHAR.<br />2. Even when MySQL's character set is not Unicode, it is converted to CHAR. |
 |      |                                 | NCHAR          | If the character set of MySQL is Unicode and the character set of Altibase is not Unicode, it is converted to NCHAR. |
@@ -1269,11 +1269,11 @@ Prior to Migration Center 7.11, data was migrated with data loss.
 |  13  | DATE          | DATE        |                                                              |
 |  14  | DATETIME      | DATE        |                                                              |
 |  15  | BOOLEAN       | CHAR(1)     |                                                              |
-|  16  | CHAR          | CHAR        | If Informix's CHAR data exceeds 32,000 bytes, the maximum size of Altibase's CHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Informix and Altibase data types. Informix's maximum value for CHAR is 32,767 bytes, larger than Altibase. |
+|  16  | CHAR          | CHAR        | If Informix's CHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's CHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Informix and Altibase data types. Informix's maximum value for CHAR is 32,767 bytes, larger than Altibase. |
 |  17  | NCHAR         | NCHAR       | The user should note that data loss can occur due to the maximum precision of NCHAR data type at Informix (32,767) being greater than that of Altibase (32,000). |
 |  18  | VARCHAR       | VARCHAR     |                                                              |
 |  19  | NVARCHAR      | NVARCHAR    |                                                              |
-|  20  | LVARCHAR      | VARCHAR     | If Informix's LVARCHAR data exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Informix and Altibase data types. Informix's maximum value for LVARCHAR is 32,767 bytes, larger than Altibase. |
+|  20  | LVARCHAR      | VARCHAR     | If Informix's LVARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Informix and Altibase data types. Informix's maximum value for LVARCHAR is 32,767 bytes, larger than Altibase. |
 |  21  | TEXT          | CLOB        |                                                              |
 |  22  | CLOB          | CLOB        | The user should keep in mind that data loss can occur due to the maximum size of CLOB data type at Informix (4GB) being greater than that of Altibase (2GB). |
 |  23  | BYTE          | BLOB        |                                                              |
@@ -1308,9 +1308,9 @@ Prior to Migration Center 7.11, data was migrated with data loss.
 |  22  | TT_SMALLINT   | SMALLINT        | The potential data loss can be occurred since the minimum TT_SMALLINT size (-32,768) of TimesTen is smaller than the minimum SMALLINT size(-32,767) of Altibase. |
 |  23  | TT_TIMESTAMP  | DATE            | The maximum scale of TT_TIMESTAMP in TimesTen is nanoseconds (7 digits), which is greater than the maximum scale of DATE in Altibase that is microseconds (6 digits); thus, the potential data loss can be occurred. |
 |  24  | TT_TINYINT    | SMALLINT        |                                                              |
-|  25  | TT_VARCHAR    | VARCHAR         | If TimesTen's TT_VARCHAR data exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for TT_VARCHAR is 4,194,304bytes, larger than Altibase. |
+|  25  | TT_VARCHAR    | VARCHAR         | If TimesTen's TT_VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for TT_VARCHAR is 4,194,304bytes, larger than Altibase. |
 |  26  | VARBINARY     | BLOB            |                                                              |
-|  27  | VARCHAR2      | VARCHAR         | 1. If TimesTen's VARCHAR2 data exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for VARCHAR2 is 4,194,304bytes, larger than Altibase.<br />2. VARCHAR2 defined as character length in TimesTen is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. |
+|  27  | VARCHAR2      | VARCHAR         | 1. If TimesTen's VARCHAR2 legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for VARCHAR2 is 4,194,304bytes, larger than Altibase.<br />2. VARCHAR2 defined as character length in TimesTen is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. |
 
 #### CUBRID to Altibase
 
@@ -1327,8 +1327,8 @@ Prior to Migration Center 7.11, data was migrated with data loss.
 |  9   | TIME       | DATE          |                                                              |
 |  10  | TIMESTAMP  | DATE          |                                                              |
 |  11  | DATETIME   | DATE          |                                                              |
-|  12  | CHAR       | CHAR          | If CUBRID's CHAR data exceeds 32,000 bytes, the maximum size of Altibase's CHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for CHAR is 1,073,741,823 bytes, larger than Altibase. |
-|  13  | VARCHAR    | VARCHAR       | If CUBRID's VARCHAR data exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it converts Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for VARCHAR is 1,073,741,823 bytes, larger than Altibase. |
+|  12  | CHAR       | CHAR          | If CUBRID's CHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's CHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for CHAR is 1,073,741,823 bytes, larger than Altibase. |
+|  13  | VARCHAR    | VARCHAR       | If CUBRID's VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for VARCHAR is 1,073,741,823 bytes, larger than Altibase. |
 |  14  | NCHAR      | NCHAR         | Since the maximum size of NCHAR type in CUBRID is 1,073,741,823 bytes, which is greater than that of the Altibase( 16,000bytes), potential data loss can be occurred. |
 |  15  | VARCHAR    | NVARCHAR      | The maximum size of VARCHAR type in CUBRID is 1,073,741,823 bytes and it is greater than the maximum NVARCHAR type of Altibase,which is 16,000 bytes; thus, potential data loss can be occured. |
 |  16  | STRING     | VARCHAR       | The potential data loss can be occured since the maximum VARCHAR size of CUBRID is greater than that of Altiabse, which is 32,000 bytes with the identical data type. |
@@ -1343,9 +1343,9 @@ Prior to Migration Center 7.11, data was migrated with data loss.
 
 |      | Source   | Destination   | Notice                                                       |
 | :--: | :------- | :------------ | :----------------------------------------------------------- |
-|  1   | CHAR     | CHAR          | If Altibase's CHAR data exceeds 2,000 bytes, the maximum size of Oracle's CHAR, it converts Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's CHAR maximum size is 32,000 bytes, which is larger than Oracle. |
+|  1   | CHAR     | CHAR          | If Altibase's CHAR legnth exceeds 2,000 bytes, the maximum size of Oracle's CHAR, it is converted to Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's CHAR maximum size is 32,000 bytes, which is larger than Oracle. |
 |  2   | NCHAR    | NCHAR         | The potential data loss can be occurred since the maximum size of Altibase NCHAR is 32000 bytes and the maximum size of of Oracle NCHAR is 2000 bytes. |
-|  3   | VARCHAR  | VARCHAR2      | If Altibase's VARCHAR data exceeds 2,000 bytes, the maximum size of Oracle's VARCHAR2, it converts Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's VARCHAR maximum size is 32,000 bytes, which is larger than Oracle.<br />For reference, in Oracle 12c or later, when the MAX_STRING_SIZE parameter is STANDARD, the maximum value for VARCHAR2 is 4,000 bytes. |
+|  3   | VARCHAR  | VARCHAR2      | If Altibase's VARCHAR legnth exceeds 2,000 bytes, the maximum size of Oracle's VARCHAR2, it is converted to Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's VARCHAR maximum size is 32,000 bytes, which is larger than Oracle.<br />For reference, in Oracle 12c or later, when the MAX_STRING_SIZE parameter is STANDARD, the maximum value for VARCHAR2 is 4,000 bytes. |
 |  4   | NVARCHAR | NVARCHAR2     | The potential data loss can be occurred since the maximum size of Altibase NVARCHAR is 32000 bytes and the maximum size of of Oracle NVARCHAR is 4000 bytes or characters.<br />For reference, when the MAX_STRING_SIZE parameter is STANDARD and the national character set is UTF8, the maximum value for NVARCHAR2 is 4,000 bytes. |
 |  5   | SMALLINT | NUMBER        |                                                              |
 |  6   | INTEGER  | NUMBER        |                                                              |
