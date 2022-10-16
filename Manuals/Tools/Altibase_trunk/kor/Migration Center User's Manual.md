@@ -1652,10 +1652,10 @@ Migration Center 7.11 이전에는 데이터 손실이 발생한 상태로 데�
 |  18  | CHAR                            | CHAR           |                                                              |
 |  19  | VARCHAR                         | VARCHAR        | MySQL의 VARCHAR 데이터가 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 MySQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. MySQL의 VARCHAR 최대 크기는 65,536바이트로 Altibase보다 크다. |
 |  20  | CHAR with National Character    |                | MySQL와 Altibase의 캐릭터셋에 따라 Altibase의 데이터 타입이 달라진다. |
-|      |                                 | CHAR*(추가)*   | 1. MySQL와 Altibase의 캐릭터셋이 동일한 유니코드이면 CHAR로 변환한다.<br />2. MySQL의 캐릭터넷이 유니코드가 아닐 때도 CHAR로 변환한다. |
+|      |                                 | CHAR*(추가)*   | 1. MySQL와 Altibase의 캐릭터셋이 동일한 유니코드이면 CHAR로 변환한다.<br />2. MySQL의 캐릭터셋이 유니코드가 아닐 때도 CHAR로 변환한다. |
 |      |                                 | NCHAR          | *설명 추가*<br />MySQL의 캐릭터셋이 유니코드이고 Altibase의 캐릭터셋이 유니코드가 아니면 NCHAR로 변환한다. |
 |  21  | VARCHAR with National Character |                | MySQL와 Altibase의 캐릭터셋에 따라 Altibase의 데이터 타입이 달라진다. |
-|      |                                 | VARCHAR(추가)  | 1. MySQL와 Altibase의 캐릭터셋이 동일한 유니코드이면 VARCHAR(또는 CLOB)로 변환한다.<br />2. MySQL의 캐릭터넷이 유니코드가 아닐 때도 VARCHAR(또는 CLOB)로 변환한다. |
+|      |                                 | VARCHAR(추가)  | 1. MySQL와 Altibase의 캐릭터셋이 동일한 유니코드이면 VARCHAR(또는 CLOB)로 변환한다.<br />2. MySQL의 캐릭터셋이 유니코드가 아닐 때도 VARCHAR(또는 CLOB)로 변환한다. |
 |      |                                 | NVARCHAR       | *설명 추가*<br />MySQL의 캐릭터셋이 유니코드이고 Altibase의 캐릭터셋이 유니코드가 아니면 NVARCHAR로 변환한다. |
 |  22  | BINARY                          | BYTE           |                                                              |
 |  23  | VARBINARY                       | BLOB           |                                                              |
