@@ -85,9 +85,9 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 Objects that are not automatically migrated, such as procedures, functions, and views of CUBRID, MySQL, Informix, and MS-SQL , must be converted manually by the user after migration. For user reference, the source database DDL information of the object that is not the target of migration conversion is recorded in two files, SrcDbObj_Create.sql and BuildReport4Unsupported.html.
 
-### BUG-49951 In case of char type with MySQL UTF8 character set, data type and length are converted incorrectly.
+### BUG-49951 In case of CHAR type with MySQL UTF8 character set, data type and length are converted incorrectly.
 
-A VARCHAR column using the MySQL UTF8 character set is converted to NVARCHAR(10666) in the Altibase UTF8 character set. If the source/destination database both use the UTF character set, the data type mapping is changed from VARCHAR -> VARCHAR, and the column size is also modified to be converted considering the source/destination database character set. Also, when the original database char data type column size exceeds the target database column data type maximum size to be converted, it is changed to CLOB instead of char data type to minimize data loss.
+A VARCHAR column using the MySQL UTF8 character set is converted to NVARCHAR(10666) in the Altibase UTF8 character set. If the source/destination database both use the UTF character set, the data type mapping is changed from VARCHAR -> VARCHAR, and the column size is also modified to be converted considering the source/destination database character set. Also, when the original database CHAR-releated (Such as CHAR or VARCHAR) data type column size exceeds the target database column data type maximum size to be converted, it is changed to CLOB instead of CHAR-related data type to minimize data loss.
 
 <br/>
 

@@ -85,11 +85,11 @@ Migration Center 7.11 의 새로운 기능과 수정된 버그 및 변경 사항
 
 ### BUG-49950 마이그레이션 변환 대상이 아닌 객체의 원본 데이터베이스 DDL 정보가 누락됩니다.
 
-CUBRID, MySQL, Informix, MS-SQL 의 Procedure, Function, View와 같은 마이그레이션 자동 변환 대상이 아닌 객체는 사용자가 마이그레이션 이후 수동으로 변환해야 한다. 사용자 참조를 위해 마이그레이션 변환 대상이 아닌 객체의 원본 데이터베이스 DDL 정보를 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 두 개 파일에 기록한다.
+CUBRID, MySQL, Informix, MS-SQL 의 Procedure, Function, View와 같은 마이그레이션 자동 변환 대상이 아닌 객체는 사용자가 마이그레이션 이후 수동으로 변환해야 한다. 사용자 참조를 위해, 마이그레이션 변환 대상이 아닌 객체의 원본 데이터베이스 DDL 정보를 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 두 개 파일에 기록한다.
 
-### BUG-49951 MySQL UTF8 캐릭터셋 DB인 경우 char 타입과 길이가 틀리게 변환됩니다. 
+### BUG-49951 MySQL UTF8 캐릭터셋 DB인 경우 CHAR 타입과 길이가 틀리게 변환됩니다. 
 
-MySQL UTF8 캐릭터셋을 사용하는 VARCHAR 컬럼이 Altibase UTF8 캐릭터셋의 데이터 베이스에서 NVARCHAR(10666)으로 변환된다. 원본/대상 데이터베이스가 둘다 UTF 캐릭터셋을 사용하는 경우, VARCHAR -> VARCHAR로 매핑되게 변경했고,  컬럼 크기도 원본/대상 데이터베이스 캐릭터셋을 고려해서 변환하도록 수정하였다. 또한, 원본 데이터베이스 char 데이터 타입 컬럼 크기가 변환될 대상 데이터베이스 컬럼 데이터 타입 최대 크기를 초과할 때, char 데이터 타입 대신 CLOB으로 변경하여 데이터 손실을 최소화 시킨다.
+MySQL UTF8 캐릭터셋을 사용하는 VARCHAR 컬럼이 Altibase UTF8 캐릭터셋의 데이터 베이스에서 NVARCHAR(10666)으로 변환된다. 원본/대상 데이터베이스가 둘다 UTF 캐릭터셋을 사용하는 경우, VARCHAR -> VARCHAR로 매핑되게 변경했고,  컬럼 크기도 원본/대상 데이터베이스 캐릭터셋을 고려해서 변환하도록 수정하였다. 또한, 원본 데이터베이스 char 데이터 타입 컬럼 크기가 변환될 대상 데이터베이스 컬럼 데이터 타입 최대 크기를 초과할 때, CHAR 데이터 타입 대신 CLOB으로 변경하여 데이터 손실을 최소화 시킨다.
 
 <br/>
 
