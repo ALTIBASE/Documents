@@ -81,13 +81,25 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ## 2.2 Bug-Fixes
 
-### BUG-49950 The source database DDL information for non-migratable objects  is missing.
+### BUG-49950 Could not check creation statement of database object not supported by Migration Center.
 
-Objects that are not automatically migrated, such as procedures, functions, and views of CUBRID, MySQL, Informix, and MS-SQL , must be converted manually by the user after migration. For user reference, the source database DDL information of the object that is not the target of migration conversion is recorded in two files, SrcDbObj_Create.sql and BuildReport4Unsupported.html.
+Objects in the original database that are not supported by Migration Center must be manually converted by the user. From Migration Center 7.11, object creation sentences are recorded in the two files below in the Build phase, so users can refer to these files for conversion.
 
-### BUG-49951 In case of CHAR type with MySQL UTF8 character set, data type and length are converted incorrectly.
+- SrcDbObj_Create.sql
+- BuildReport4Unsupported.html
 
-A VARCHAR column using the MySQL UTF8 character set is converted to NVARCHAR(10666) in the Altibase UTF8 character set. If the source/destination database both use the UTF character set, the data type mapping is changed from VARCHAR -> VARCHAR, and the column size is also modified to be converted considering the source/destination database character set. Also, when the original database CHAR-releated (Such as CHAR or VARCHAR) data type column size exceeds the target database column data type maximum size to be converted, it is changed to CLOB instead of CHAR-related data type to minimize data loss.
+### BUG-49951 The CHAR data type of MySQL is converted to NVARCHAR (10666) when converted to Altibase.
+
+Fix the phenomenon that MySQL's CHAR data type is converted to NVARCHAR(10666) when converted to Altibase. When the character set of a CHAR/VARCHAR column in MySQL is Unicode, the converted data type is determined according to the character set of Altibase.
+
+|                     CHAR/VARCHAR in MySQL | When the character set of Altibase is Unicode | When the character set of Altibase is not Unicode |
+| ----------------------------------------: | :-------------------------------------------: | :-----------------------------------------------: |
+|     **When the character set is Unicode** |                 CHAR/VARCHAR                  |                  NCHAR/NVARCHAR                   |
+| **When the character set is not Unicode** |                 CHAR/VARCHAR                  |                   CHAR/VARCHAR                    |
+
+In addition, if the data of the source database exceeds the maximum size of CHAR or VARCHAR of the target database, the data type of the target database is changed to CLOB. This is to prevent data loss during data migration due to the difference in data type maximum size between the source and target databases.
+
+Related information can also be found in [Migration Center User's Manual-Appendix C: Data Type Mapping-Default Data Type Mapping Tables](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/eng/Migration%20Center%20User's%20Manual.md#default-data-type-mapping-tables)
 
 <br/>
 

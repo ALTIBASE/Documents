@@ -83,13 +83,25 @@ Migration Center 7.11 의 새로운 기능과 수정된 버그 및 변경 사항
 
 ## 2.2 수정된 버그
 
-### BUG-49950 마이그레이션 변환 대상이 아닌 객체의 원본 데이터베이스 DDL 정보가 누락됩니다.
+### BUG-49950 Migration Center에서 지원하지 않는 데이터베이스 객체의 생성 문장을 확인할 수 없습니다.
 
-CUBRID, MySQL, Informix, MS-SQL 의 Procedure, Function, View와 같은 마이그레이션 자동 변환 대상이 아닌 객체는 사용자가 마이그레이션 이후 수동으로 변환해야 한다. 사용자 참조를 위해, 마이그레이션 변환 대상이 아닌 객체의 원본 데이터베이스 DDL 정보를 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 두 개 파일에 기록한다.
+Migration Center에서 지원하지 않는 원본 데이터베이스의 객체는 사용자가 직접 수동으로 변환해야 한다. Migration Center 7.11부터 구축(Build) 단계에서 객체 생성 구문을 아래 두 파일에 기록하고 있으므로 사용자는 이 파일들을 변환 작업에 참고할 수 있다.
 
-### BUG-49951 MySQL UTF8 캐릭터셋 DB인 경우 CHAR 타입과 길이가 틀리게 변환됩니다. 
+- SrcDbObj_Create.sql
+- BuildReport4Unsupported.html
 
-MySQL UTF8 캐릭터셋을 사용하는 VARCHAR 컬럼이 Altibase UTF8 캐릭터셋의 데이터 베이스에서 NVARCHAR(10666)으로 변환된다. 원본/대상 데이터베이스가 둘다 UTF 캐릭터셋을 사용하는 경우, VARCHAR -> VARCHAR로 매핑되게 변경했고,  컬럼 크기도 원본/대상 데이터베이스 캐릭터셋을 고려해서 변환하도록 수정하였다. 또한, 원본 데이터베이스 char 데이터 타입 컬럼 크기가 변환될 대상 데이터베이스 컬럼 데이터 타입 최대 크기를 초과할 때, CHAR 데이터 타입 대신 CLOB으로 변경하여 데이터 손실을 최소화 시킨다.
+### BUG-49951 MySQL의 CHAR 데이터 타입이 Altibase로 변환 시 NVARCHAR(10666)으로 변환됩니다.
+
+MySQL의 CHAR 데이터 타입이 Altibase로 변환 시 NVARCHAR(10666)으로 변환되는 현상을 수정한다. MySQL에서 CHAR/VARCHAR 컬럼의 문자 집합이 유니코드일 때 Altibase의 문자 집합에 따라 변환되는 데이터 타입이 결정된다.
+
+|                      MySQL의 CHAR/VARCHAR | Altibase의 문자 집합이 유니코드일 때 | Altibase의 문자 집합이 유니코드가 아닐 때 |
+| ----------------------------------------: | :----------------------------------: | :---------------------------------------: |
+|      **컬럼의 문자 집합이 유니코드일 때** |             CHAR/VARCHAR             |              NCHAR/NVARCHAR               |
+| **컬럼의 문자 집합이 유니코드가 아닐 때** |             CHAR/VARCHAR             |               CHAR/VARCHAR                |
+
+또한, 원본 데이터베이스의 데이터가 대상 데이터베이스의 CHAR 또는 VARCHAR의 최대 크기를 초과하면 대상 데이터베이스의 데이터 타입을 CLOB으로 변경하도록 수정하였다. 이는 원본, 대상 데이터베이스 간의 데이터 타입 최대 크기 차이로 데이터 마이그레이션 시 데이터 손실을 방지하기 위해서이다. 
+
+관련 내용은 [Migration Center User's Manual-C.부록: 데이터 타입 맵핑-기본 데이터 타입 맵핑 테이블](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#%EA%B8%B0%EB%B3%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)에서도 확인할 수 있다. 
 
 <br/>
 
