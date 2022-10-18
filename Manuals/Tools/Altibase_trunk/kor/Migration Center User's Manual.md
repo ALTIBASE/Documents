@@ -70,7 +70,7 @@ Migration Center User's Manual
 
 Altibase Tools & Utilities Migration Center User's Manual
 
-Release 7.10
+Release 7.11
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
