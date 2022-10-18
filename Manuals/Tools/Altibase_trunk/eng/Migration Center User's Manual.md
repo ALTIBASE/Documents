@@ -1130,19 +1130,19 @@ The user can change the data type mapping table in the reconcile stage as shown 
 
 Right-click in the project tree window and select the Reconcile menu. Or select Reconcile from the Migration menu. You must complete the Build step before you can perform this step.
 
-![](../kor/media/MigrationCenter/datatypemapping-step-1.png)
+![](media/MigrationCenter/datatypemapping-step-1.png)
 
 **2. Data Type Mapping**
 
 *Reconcile* menu is clicked, the Reconcile window appears as shown below. In this window, users can view the default data type mapping table of Migration Center and change the data type of the target database in "1. Data Type Mapping". Select the data type you want to change and click the *Change* button at the bottom right.
 
-![](../kor/media/MigrationCenter/datatypemapping-step-2.png)
+![](media/MigrationCenter/datatypemapping-step-2.png)
 
 **3. Change Mapping Type**
 
 *Change* button is clicked, the following window appears. In the "Change Mapping Type" window, select the data type to change in the Destination DB Data Type. Depending on the data type, enter Precision and Scale if necessary, and click the *OK* button.
 
-![](../kor/media/MigrationCenter/datatypemapping-step-3.png)
+![](media/MigrationCenter/datatypemapping-step-3.png)
 
 ### Default Data Type Mapping Tables
 
