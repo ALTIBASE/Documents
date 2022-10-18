@@ -947,6 +947,11 @@ The stored files can be migrated to the database (Altibase) to be saved using iS
 
 This section will provide guidlines and explanation in regards to the migratable database objects depending on the "build" step.
 
+Objects in the original database that are not supported by Migration Center must be manually converted by the user. From Migration Center 7.11, object creation sentences are recorded in the two files below in the Build phase, so users can refer to these files for conversion.
+
+- SrcDbObj_Create.sql
+- BuildReport4Unsupported.html
+
 ### Altibase to Altibase
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
