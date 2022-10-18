@@ -13,7 +13,7 @@
   - [4. CLI Mode Quick Guide](#4-cli-mode-quick-guide)
     - [Quick Step Guide for CLI User](#quick-step-guide-for-cli-user)
   - [5. Migration Center Internals](#5-migration-center-internals)
-    - [Build Step](#build-step)
+    - [Build Step](#build-step-1)
     - [Reconcile Step](#reconcile-step)
     - [Run Step](#run-step)
     - [Data Validation Step](#data-validation-step)
@@ -1013,7 +1013,7 @@ This section will provide guidlines and explanation in regards to the migratable
 | Check Constraint       |             O              |              O              |                                                              |
 | Foreign Key Constraint |             O              |              O              |                                                              |
 | Index                  |             O              |              O              |                                                              |
-| Serial Column Type     |             O              |              O              |                                                              |
+| Serial Column Type     |             O              |              O              | It is migrated to the sequence.                              |
 | Sequence               |             O              |              X              |                                                              |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
