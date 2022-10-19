@@ -6,7 +6,7 @@
 
 - ### [altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/altiShapeLoader%20User's%20Manual.md)
 
-- ### [Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md)
+- ### [Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md) [(pdf)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/pdf/Migration%20Center%20User's%20Manual.pdf)
 
 - ### [Replication Manager User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Replication%20Manager%20User's%20Manual.md)
 
