@@ -31,12 +31,12 @@ Migration Center is a database migration tool which enables users to migrate a t
 
 ### Minimum Hardware
 
-|                    |           GUI mode           | CLI mode |
-| ------------------ | :--------------------------: | :------: |
-| Computer processor | 800MHz Pentium III or better |  Ditto   |
-| Computer memory    |        512 MB or more        |  Ditto   |
-| Computer disk      |   150MB or more free space   |  Ditto   |
-| Screen resolution  | 1024 * 768 pixels or higher  |    -     |
+|                        |           GUI mode           | CLI mode |
+| ---------------------- | :--------------------------: | :------: |
+| **Computer processor** | 800MHz Pentium III or better |  Ditto   |
+| **Computer memory**    |        512 MB or more        |  Ditto   |
+| **Computer disk**      |   150MB or more free space   |  Ditto   |
+| **Screen resolution**  | 1024 * 768 pixels or higher  |    -     |
 
 ### Supported Operating Systems
 
@@ -65,9 +65,9 @@ This section introduces the DBMSs and versions that can be migrated using Migrat
 
 #### The target DBMS is Oracle
 
-| Source DBMS              | Target DBMS               |
-| ------------------------ | ------------------------- |
-| Altibase 4.3.9 or higher | Oracle Database 10g ~ 11g |
+| Source DBMS | Target DBMS               |
+| ------------------------------------------------------------ | ------------------------- |
+| Altibase 4.3.9 or higher                                     | Oracle Database 10g ~ 11g |
 
 <br/>
 
