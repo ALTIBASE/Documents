@@ -740,9 +740,9 @@ The information gathered in this step is used throughout the entire migration pr
 
 - BuildReport4Unsupported.html
 
-  One of the files summarizing the build results, the generated statements of objects not supported by the Migration Center are recorded. Objects that are not supported by Migration Center must be manually converted by the user, and this file can be referenced for conversion operations.
+  It is one of the files summarizing the build results and shows the CREATE statements of objects not automatically migrated by the Migration Center. Objects that are not supported by Migration Center must be manually converted by the user, and this file can be referenced for conversion operations.
 
-  Unsupported objects depend on the source database and can be found in B.Appendix: Migrantable Database Objects. This file is not created because all objects in Oracle can be migrated to Migration Center. On the other hand, if there are unsupported objects, such as stored procedures, stored functions, views, and trigger objects, such as MySQL, this file is created.
+  Non-automatic migration object types depend on the source database and can be found at [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects). In case of Oracle to Altibase migration, this file is not created because all of Oracle database object types defined in the appendix table are supported for automatic migration. On the other hand, in case of MySQL to Altibase migration, if the source database has any database object type such as stored procedures, stored functions, views, and trigger objects, the CREATE statement of the unsupported database object is recorded at this file for user's reference.
 
 #### Internal Activities
 
@@ -957,7 +957,7 @@ The stored files can be migrated to the database (Altibase) to be saved using iS
 
 This section will provide guidlines and explanation in regards to the migratable database objects depending on the "build" step.
 
-Objects in the original database that are not supported by Migration Center must be manually converted by the user. From Migration Center 7.11, object creation sentences are recorded in the two files below in the Build phase, so users can refer to these files for conversion.
+Objects in the source database that Migration Center does not migrate automatically must be converted manually by the user. Starting with Migration Center 7.11, the CREATE statement of an object is written to the two files below in the Build phase, so users can refer to these files for conversion.
 
 - SrcDbObj_Create.sql
 - BuildReport4Unsupported.html
