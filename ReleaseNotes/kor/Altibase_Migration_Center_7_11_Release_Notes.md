@@ -90,7 +90,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 - SrcDbObj_Create.sql
 - BuildReport4Unsupported.html
 
-### BUG-49951 MySQL의 CHAR 데이터 타입이 Altibase로 변환 시 NVARCHAR(10666)으로 변환됩니다.
+### BUG-49951 MySQL의 Unicode  문자집합 CHAR/VARCHAR 테이블 컬럼이 Altibase로 변환 시 NVARCHAR(10666)으로 변환됩니다.
 
 MySQL의 CHAR 데이터 타입이 Altibase로 변환 시 NVARCHAR(10666)으로 변환되는 현상을 수정한다. MySQL에서 CHAR/VARCHAR 컬럼의 문자 집합이 유니코드일 때 Altibase의 문자 집합에 따라 변환되는 데이터 타입이 결정된다.
 
@@ -99,7 +99,7 @@ MySQL의 CHAR 데이터 타입이 Altibase로 변환 시 NVARCHAR(10666)으로 �
 |      **컬럼의 문자 집합이 유니코드일 때** |             CHAR/VARCHAR             |              NCHAR/NVARCHAR               |
 | **컬럼의 문자 집합이 유니코드가 아닐 때** |             CHAR/VARCHAR             |               CHAR/VARCHAR                |
 
-또한, 원본 데이터베이스의 데이터가 대상 데이터베이스의 CHAR 또는 VARCHAR의 최대 크기를 초과하면 대상 데이터베이스의 데이터 타입을 CLOB으로 변경하도록 수정하였다. 이는 원본, 대상 데이터베이스 간의 데이터 타입 최대 크기 차이로 데이터 마이그레이션 시 데이터 손실을 방지하기 위해서이다. 
+또한, 원본 데이터베이스의  CHAR 또는 VARCHAR 타입의 테이블 컬럼 크기를 대상 데이터베이스의 컬럼 크기 표현단위 (바이트 또는 문자갯수)와 문자집합을 고려해 변환한다. 만약 변환된 크기가 대상 데이터베이스의 CHAR 또는 VARCHAR의 최대 크기를 초과하면 해당 테이블 컬럼의 데이터 타입을 CLOB으로 변경하도록 수정하였다. 이는 원본, 대상 데이터베이스 간의 데이터 타입 최대 크기 차이로 데이터 마이그레이션 시 데이터 손실을 방지하기 위해서이다. 
 
 관련 내용은 [Migration Center User's Manual-C.부록: 데이터 타입 맵핑-기본 데이터 타입 맵핑 테이블](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md#%EA%B8%B0%EB%B3%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)에서도 확인할 수 있다. 
 
