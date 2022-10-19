@@ -740,7 +740,9 @@ The information gathered in this step is used throughout the entire migration pr
 
 - BuildReport4Unsupported.html
 
-  One of the files summarizing the build results, the generated statements of objects not supported by the Migration Center are recorded. Unsupported objects depend on the source database and can be found in B.Appendix: Migrantable Database Objects. This file is not created because all objects in Oracle can be migrated to Migration Center. On the other hand, if there are unsupported objects, such as stored procedures, stored functions, views, and trigger objects, such as MySQL, this file is created.
+  One of the files summarizing the build results, the generated statements of objects not supported by the Migration Center are recorded. Objects that are not supported by Migration Center must be manually converted by the user, and this file can be referenced for conversion operations.
+
+  Unsupported objects depend on the source database and can be found in B.Appendix: Migrantable Database Objects. This file is not created because all objects in Oracle can be migrated to Migration Center. On the other hand, if there are unsupported objects, such as stored procedures, stored functions, views, and trigger objects, such as MySQL, this file is created.
 
 #### Internal Activities
 
