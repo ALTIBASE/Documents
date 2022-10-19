@@ -1152,8 +1152,6 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 - CHAR
 - VARCHAR or VARCHAR2, LVARCHAR, TT_VARCHAR
 
-
-
 #### Oracle to Altibase
 
 |      | Source        | Destination     | Notice                                                       |

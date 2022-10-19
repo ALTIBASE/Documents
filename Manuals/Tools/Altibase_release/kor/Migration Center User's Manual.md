@@ -3,29 +3,29 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Migration Center User's Manual](#migration-center-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Migration Center 소개](#1migration-center-%EC%86%8C%EA%B0%9C)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
-    - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-  - [2.Migration Center 시작하기](#2migration-center-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
-    - [Migration Center 이해하기](#migration-center-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0)
-    - [사용자 인터페이스 이해하기](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0)
-    - [도구](#%EB%8F%84%EA%B5%AC)
-  - [3.GUI 모드 퀵 가이드](#3gui-%EB%AA%A8%EB%93%9C-%ED%80%B5-%EA%B0%80%EC%9D%B4%EB%93%9C)
-    - [단계별 지침](#%EB%8B%A8%EA%B3%84%EB%B3%84-%EC%A7%80%EC%B9%A8)
-  - [4.CLI 모드 퀵 가이드](#4cli-%EB%AA%A8%EB%93%9C-%ED%80%B5-%EA%B0%80%EC%9D%B4%EB%93%9C)
-    - [단계별 지침](#%EB%8B%A8%EA%B3%84%EB%B3%84-%EC%A7%80%EC%B9%A8-1)
-  - [5.Migration Center 내부](#5migration-center-%EB%82%B4%EB%B6%80)
-    - [구축 단계](#%EA%B5%AC%EC%B6%95-%EB%8B%A8%EA%B3%84)
-    - [조정 단계](#%EC%A1%B0%EC%A0%95-%EB%8B%A8%EA%B3%84)
-    - [실행 단계](#%EC%8B%A4%ED%96%89-%EB%8B%A8%EA%B3%84)
-    - [검증 단계](#%EA%B2%80%EC%A6%9D-%EB%8B%A8%EA%B3%84)
-  - [A.부록: 마이그레이션 옵션](#a%EB%B6%80%EB%A1%9D-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98)
-    - [DB to DB 마이그레이션 옵션](#db-to-db-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98)
-    - [DB to File 마이그레이션 옵션](#db-to-file-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EC%98%B5%EC%85%98)
-  - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b%EB%B6%80%EB%A1%9D-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EA%B0%80%EB%8A%A5%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4)
+  - [서문](#서문)
+    - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+  - [1.Migration Center 소개](#1migration-center-소개)
+    - [개요](#개요)
+    - [시스템 요구 사항](#시스템-요구-사항)
+    - [설치 및 제거](#설치-및-제거)
+  - [2.Migration Center 시작하기](#2migration-center-시작하기)
+    - [Migration Center 이해하기](#migration-center-이해하기)
+    - [사용자 인터페이스 이해하기](#사용자-인터페이스-이해하기)
+    - [도구](#도구)
+  - [3.GUI 모드 퀵 가이드](3gui-모드-퀵-가이드)
+    - [단계별 지침](#단계별-지침)
+  - [4.CLI 모드 퀵 가이드](#4cli-모드-퀵-가이드)
+    - [단계별 지침](#단계별-지침-1)
+  - [5.Migration Center 내부](#5migration-center-내부)
+    - [구축 단계](#구축-단계)
+    - [조정 단계](#조정-단계)
+    - [실행 단계](#실행-단계)
+    - [검증 단계](#검증-단계)
+  - [A.부록: 마이그레이션 옵션](#a부록-마이그레이션-옵션)
+    - [DB to DB 마이그레이션 옵션](#db-to-db-마이그레이션-옵션)
+    - [DB to File 마이그레이션 옵션](#db-to-file-마이그레이션-옵션)
+  - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
     - [Altibase to Altibase](#altibase-to-altibase)
     - [Altibase to Oracle](#altibase-to-oracle)
     - [CUBRID to Altibase](#cubrid-to-altibase)
@@ -35,24 +35,24 @@
     - [SQL Server to Altibase](#sql-server-to-altibase)
     - [TimesTen to Altibase](#timesten-to-altibase)
     - [Tibero to Altibase](#tibero-to-altibase)
-  - [C.부록: 데이터 타입 맵핑](#c%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
-    - [데이터 타입 맵핑 조작](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%EC%A1%B0%EC%9E%91)
-    - [기본 데이터 타입 맵핑 테이블](#%EA%B8%B0%EB%B3%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#%EC%9D%B4%EC%A2%85-%EB%AC%B8%EC%9E%90-%EC%A7%91%ED%95%A9%EC%9D%84-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EB%AC%B8%EC%9E%90%ED%98%95-%EC%BB%AC%EB%9F%BC-%EA%B8%B8%EC%9D%B4-%EC%9E%90%EB%8F%99-%EB%B3%B4%EC%A0%95)
-  - [D.부록: 기본값 맵핑](#d%EB%B6%80%EB%A1%9D-%EA%B8%B0%EB%B3%B8%EA%B0%92-%EB%A7%B5%ED%95%91)
-    - [기본값 맵핑 테이블](#%EA%B8%B0%EB%B3%B8%EA%B0%92-%EB%A7%B5%ED%95%91-%ED%85%8C%EC%9D%B4%EB%B8%94)
-  - [E.부록: PSM 변환기 규칙 목록](#e%EB%B6%80%EB%A1%9D-psm-%EB%B3%80%ED%99%98%EA%B8%B0-%EA%B7%9C%EC%B9%99-%EB%AA%A9%EB%A1%9D)
-    - [뷰 변환 규칙](#%EB%B7%B0-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [트리거 변환 규칙](#%ED%8A%B8%EB%A6%AC%EA%B1%B0-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [함수 변환 규칙](#%ED%95%A8%EC%88%98-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [프로시저 변환 규칙](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [Materialized View 변환 규칙](#materialized-view-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [패키지 변환 규칙](#%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [라이브러리 변환 규칙](#%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [DML문 변환 규칙](#dml%EB%AC%B8-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [PSM 변환 규칙](#psm-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-    - [표현 변환 규칙](#%ED%91%9C%ED%98%84-%EB%B3%80%ED%99%98-%EA%B7%9C%EC%B9%99)
-  - [F.부록: FAQ](#f%EB%B6%80%EB%A1%9D-faq)
+  - [C.부록: 데이터 타입 맵핑](#c부록-데이터-타입-맵핑)
+    - [데이터 타입 맵핑 테이블 변경](#데이터-타입-맵핑-테이블-변경)
+    - [기본 데이터 타입 맵핑 테이블](#기본-데이터-타입-맵핑-테이블)
+    - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-컬럼-길이-자동-보정)
+  - [D.부록: 기본값 맵핑](#d부록-기본값-맵핑)
+    - [기본값 맵핑 테이블](#기본값-맵핑-테이블)
+  - [E.부록: PSM 변환기 규칙 목록](#e부록-psm-변환기-규칙-목록)
+    - [뷰 변환 규칙](#뷰-변환-규칙)
+    - [트리거 변환 규칙](#트리거-변환-규칙)
+    - [함수 변환 규칙](#함수-변환-규칙)
+    - [프로시저 변환 규칙](#프로시저-변환-규칙)
+    - [Materialized View 변환 규칙](#materialized-view-변환-규칙)
+    - [패키지 변환 규칙](#패키지-변환-규칙)
+    - [라이브러리 변환 규칙](#라이브러리-변환-규칙)
+    - [DML문 변환 규칙](#dml문-변환-규칙)
+    - [PSM 변환 규칙](#psm-변환-규칙)
+    - [표현 변환 규칙](#표현-변환-규칙)
+  - [F.부록: FAQ](#f부록-faq)
     - [DBMS 공통](#dbms-공통)
     - [Oracle](#oracle-1)
     - [MS-SQL](#ms-sql)
@@ -70,7 +70,7 @@ Migration Center User's Manual
 
 Altibase Tools & Utilities Migration Center User's Manual
 
-Release 7.10
+Release 7.11
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -1534,259 +1534,268 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 
 ## C.부록: 데이터 타입 맵핑
 
-이기종 데이터베이스들 간의 데이터 타입을 맵핑하기 위한 Migration Center 정책은
-"데이터 손실을 최소화하라"이다. 그러나 데이터가 손실되거나 손상되더라도 데이터가
-맵핑되는 방식을 사용자가 정의하길 원하는 상황이 발생할 수도 있다. 이런 요구를
-충족시키기 위해 Migration Center는 데이터 타입 맵핑 테이블을 편집하는 방법도
+이기종 데이터베이스 간의 데이터 타입을 맵핑할 때 Migration Center의 기본 정책은 "데이터 손실을 최소화하라"이다. 하지만 데이터가 손실되거나 손상되더라도 사용자가 데이터 타입 맵핑 방식을 직접 정의하는 것을 원할 수도 있다. 이런 요구를 만족시키기 위해 Migration Center는 데이터 타입 맵핑 테이블을 편집하는 방법을
 제공한다.
 
-이 부록은 기존 프로젝트에 대해 기본 데이터 타입 맵핑을 확인하고 커스터마이징
-하는 방법에 대해 설명한다. 마지막으로 데이터 타입 기본 맵핑 테이블을 제공한다.
+이번 장에서는 Migration Center의 프로젝트 진행 과정에서 기본 데이터 타입 매핑 테이블을 확인하고 변경하는 방법을 설명한다. 또한 Migration Center의 기본 데이터 타입 매핑 테이블에서 사용자가 알아야 할 주의 사항을 설명한다.
 
-- 데이터 타입 맵핑 조작
+### 데이터 타입 맵핑 테이블 변경
 
-- 기본 데이터 타입 맵핑 테이블
+사용자는 아래와 같이 Reconcile 단계에서 데이터 타입의 맵핑 테이블을 변경할 수 있다.
 
-### 데이터 타입 맵핑 조작
+**1. Reconcile(조정)**
 
-사용자는 기본 데이터 타입 맵핑을 확인하고, 아래의 방법을 사용하여 데이터가
-맵핑되는 방식을 수정할 수 있다:
+프로젝트 트리 창에서 마우스 오른쪽 버튼을 클릭하고 Reconcile 메뉴를 선택한다. 또는 Migration 메뉴에서 Reconcile을 선택한다. 이 단계는 Build 단계를 마쳐야 수행할 수 있다.
 
-1. 프로젝트에 대해 조정 단계를 수행하라.
+![](media/MigrationCenter/datatypemapping-step-1.png)
 
-2. 데이터 타입 맵핑 단계에서, 조작할 데이터 타입을 선택한 다음 "Change" 버튼을
-   클릭하라.
+**2. Data Type Mapping**
 
-3. 적절한 새로운 데이터 타입을 지정하고 precision 및 또는 scale 값을 설정하라.
+Reconcile 메뉴를 선택하면 아래와 같이 Reconcile 창이 뜬다. 사용자는 이 창에서 Migration Center의 기본 데이터 타입 매핑 테이블을 확인할 수 있고 "1. Data Type Mapping"에서 대상 데이터베이스의 데이터 타입을 변경할 수 있다. 변경하고 싶은 데이터 타입을 선택하고 오른쪽 하단의 Change 버튼을 클릭한다.
+
+![](media/MigrationCenter/datatypemapping-step-2.png)
+
+**3. Change Mapping Type**
+
+Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창에서 Destination DB Data Type에서 변경할 데이터 타입을 선택한다. 데이터 타입에 따라 필요 시 Precision과 Scale도 입력하고 OK 버튼을 클릭한다. 
+
+![](media/MigrationCenter/datatypemapping-step-3.png)
 
 ### 기본 데이터 타입 맵핑 테이블
 
-#### Oracle 데이터베이스 to Altibase
+이기종 데이터베이스 간의 기본 데이터 타입 매핑 테이블과 사용자가 알아야 할 주의 사항을 설명한다.
 
-| 인덱스 | 소스            | 대상              | 특이 사항                                                                                                                                                                                                                                                                     |
-| --- | ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다.                                                                                                                                                                                   |
-| 2   | NCHAR         | NCHAR           | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) -\> NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
-| 3   | VARCHAR2      | VARCHAR         | 오라클의 VARCHAR2 최대 크기는 32,767 바이트로 Altibase의 VARCHAR 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다.                                                                                 |
-| 4   | NVARCHAR2     | NVARCHAR        | NCHAR와 같은 이유로, 칼럼 크기가 서로 다르다. 또한 오라클의 NVARCHAR2 최대 크기는 32,767 바이트로 Altibase의 NVARCHAR 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다.                                                                                                                                         |
-| 5   | LONG          | CLOB            |                                                                                                                                                                                                                                                                           |
-| 6   | NUMBER        | NUMBER          | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다.                                                                        |
-| 7   | FLOAT         | FLOAT           |                                                                                                                                                                                                                                                                           |
-| 8   | BINARY FLOAT  | FLOAT           |                                                                                                                                                                                                                                                                           |
-| 9   | BINARY DOUBLE | VARCHAR(310)    | Altibase 에는 오라클 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자 형으로 저장된다.                                                                                                                                                                                            |
-| 10  | DATE          | DATE            |                                                                                                                                                                                                                                                                           |
-| 11  | TIMESTAMP     | DATE            | 스케일의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 오라클에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, Altibase에서는 타임스탬프 값의 스케일이 마이크로초(6자리 수)이다.                                                                                                                                                         |
-| 12  | RAW           | BLOB            |                                                                                                                                                                                                                                                                           |
-| 13  | LONG RAW      | BLOB            |                                                                                                                                                                                                                                                                           |
-| 14  | BLOB          | BLOB            |                                                                                                                                                                                                                                                                           |
-| 15  | CLOB          | CLOB            |                                                                                                                                                                                                                                                                           |
-| 16  | NCLOB         | NVARCHAR(10666) | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다.                                                                                                                          |
-| 17  | ROWID         | VARCHAR(18)     |                                                                                                                                                                                                                                                                           |
+Migration Center 7.11부터 원본 데이터베이스의 데이터가 대상 데이터베이스의 최대 크기를 초과하면 대상 데이터베이스의 데이터 유형이 기본 매핑 테이블과 다른 CLOB로 변경된다. 대상 데이터 유형은 다음과 같다.
+
+- CHAR
+- VARCHAR 또는 VARCHAR2, LVARCHAR, TT_VARCHAR 
+
+Migration Center 7.11 이전에는 데이터 손실이 발생한 상태로 데이터를 이관하였다.
+
+#### Oracle to Altibase
+
+|      | 원본          | 대상              | 주의 사항                                                    |
+| :--: | :------------ | :---------------- | :----------------------------------------------------------- |
+|  1   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
+|  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) -\> NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
+|  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
+|  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 칼럼 크기가 서로 다르다.                |
+|  5   | LONG          | CLOB              |                                                              |
+|  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
+|  7   | FLOAT         | FLOAT             |                                                              |
+|  8   | BINARY FLOAT  | FLOAT             |                                                              |
+|  9   | BINARY DOUBLE | VARCHAR(310)      | Altibase 에는 오라클 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자 형으로 저장된다. |
+|  10  | DATE          | DATE              |                                                              |
+|  11  | TIMESTAMP     | DATE              | 스케일의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 오라클에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, Altibase에서는 타임스탬프 값의 스케일이 마이크로초(6자리 수)이다. |
+|  12  | RAW           | BLOB              |                                                              |
+|  13  | LONG RAW      | BLOB              |                                                              |
+|  14  | BLOB          | BLOB              |                                                              |
+|  15  | CLOB          | CLOB              |                                                              |
+|  16  | NCLOB         | NVARCHAR(10666)   | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
+|  17  | ROWID         | VARCHAR(18)       | 오라클의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
 
 #### MS SQL Server to Altibase
 
-| 인덱스 | 소스               | 대상               | 특이 사항                                                                                                                                                |
-| --- | ---------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | BIGINT           | BIGINT           |                                                                                                                                                      |
-| 2   | DECIMAL          | NUMERIC          |                                                                                                                                                      |
-| 3   | INT              | INTEGER          |                                                                                                                                                      |
-| 4   | NUMERIC          | NUMERIC          |                                                                                                                                                      |
-| 5   | SMALLINT         | SMALLINT         |                                                                                                                                                      |
-| 6   | MONEY            | FLOAT            |                                                                                                                                                      |
-| 7   | TINYINT          | SMALLINT         |                                                                                                                                                      |
-| 8   | SMALLINTMONEY    | FLOAT            |                                                                                                                                                      |
-| 9   | BIT              | CHAR(1)          |                                                                                                                                                      |
-| 10  | FLOAT            | VARCHAR(310)     | Altibase에는 SQL Server FLOAT 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR(310)으로 맵핑된다.                                                              |
-| 11  | REAL             | FLOAT            |                                                                                                                                                      |
-| 12  | DATE             | DATE             |                                                                                                                                                      |
-| 13  | DATETIME2        | DATE             | 스케일의 차이로 인해서 시간의 fraction 손실이 발생할 수 있다. SQL Server의 DATETIME2 타입 스케일이 나노초의 100배(7자리 수)인 반면, Altibase에서는 DATE 타입의 스케일이 마이크로초(6자리 수)이다.                |
-| 14  | DATETIME         | DATE             |                                                                                                                                                      |
-| 15  | SMALLDATETIME    | DATE             |                                                                                                                                                      |
-| 16  | CHAR             | CHAR             |                                                                                                                                                      |
-| 17  | TEXT             | CLOB             |                                                                                                                                                      |
-| 18  | VARCHAR          | VARCHAR          |                                                                                                                                                      |
-| 19  | VARCHAR (MAX)    | CLOB             |                                                                                                                                                      |
-| 20  | NVARCHAR         | NVARCHAR         |                                                                                                                                                      |
-| 21  | NVARCHAR (MAX)   | NVARCHAR (10666) | Altibase에는 SQL Server NTEXT 타입과 호환 가능한 데이터 타입이 없다. 최대 크기의 NVARCHAR 타입이 사용된다. 실제 데이터 길이가 최대 NVARCHAR 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
-| 22  | BINARY           | BYTE             |                                                                                                                                                      |
-| 23  | IMAGE            | BLOB             |                                                                                                                                                      |
-| 24  | VARBINARY        | BLOB             |                                                                                                                                                      |
-| 25  | ALLIDENTITY      | NUMERIC(38, 0)   |                                                                                                                                                      |
-| 26  | UNIQUEIDENTIFIER | VARCHAR(40)      | Altibase에는 SQL Server UNIQUEIDENTIFIER 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 방지하기 위해 VARCHAR 타입이 사용된다.                                                    |
-| 27  | SYSNAME          | NVARCHAR (128)   |                                                                                                                                                      |
+|      | 원본             | 대상             | 주의 사항                                                    |
+| :--- | :--------------- | :--------------- | :----------------------------------------------------------- |
+| 1    | BIGINT           | BIGINT           |                                                              |
+| 2    | DECIMAL          | NUMERIC          |                                                              |
+| 3    | INT              | INTEGER          |                                                              |
+| 4    | NUMERIC          | NUMERIC          |                                                              |
+| 5    | SMALLINT         | SMALLINT         |                                                              |
+| 6    | MONEY            | FLOAT            |                                                              |
+| 7    | TINYINT          | SMALLINT         |                                                              |
+| 8    | SMALLMONEY       | FLOAT            |                                                              |
+| 9    | BIT              | CHAR(1)          |                                                              |
+| 10   | FLOAT            | VARCHAR(310)     | Altibase에는 SQL Server FLOAT 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR(310)으로 맵핑된다. |
+| 11   | REAL             | FLOAT            |                                                              |
+| 12   | DATE             | DATE             |                                                              |
+| 13   | DATETIME2        | DATE             | 스케일의 차이로 인해서 시간의 fraction 손실이 발생할 수 있다. SQL Server의 DATETIME2 타입 스케일이 나노초의 100배(7자리 수)인 반면, Altibase에서는 DATE 타입의 스케일이 마이크로초(6자리 수)이다. |
+| 14   | DATETIME         | DATE             |                                                              |
+| 15   | SMALLDATETIME    | DATE             |                                                              |
+| 16   | CHAR             | CHAR             |                                                              |
+| 17   | TEXT             | CLOB             |                                                              |
+| 18   | VARCHAR          | VARCHAR          |                                                              |
+| 19   | VARCHAR (MAX)    | CLOB             |                                                              |
+| 20   | NVARCHAR         | NVARCHAR         |                                                              |
+| 21   | NVARCHAR (MAX)   | NVARCHAR (10666) | Altibase에는 SQL Server NTEXT 타입과 호환 가능한 데이터 타입이 없다. 최대 크기의 NVARCHAR 타입이 사용된다. 실제 데이터 길이가 최대 NVARCHAR 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
+| 22   | BINARY           | BYTE             |                                                              |
+| 23   | IMAGE            | BLOB             |                                                              |
+| 24   | VARBINARY        | BLOB             |                                                              |
+| 25   | ALLIDENTITY      | NUMERIC(38, 0)   |                                                              |
+| 26   | UNIQUEIDENTIFIER | VARCHAR(80)      | Altibase에는 SQL Server UNIQUEIDENTIFIER 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 방지하기 위해 VARCHAR 타입이 사용된다. |
+| 27   | SYSNAME          | NVARCHAR (128)   |                                                              |
 
 #### MySQL to Altibase
 
-| 인덱스 | 소스                              | 대상             | 특이 사항                                                                                                             |
-| --- | ------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| 1   | TINYINT                         | SMALLINT       |                                                                                                                   |
-| 2   | TINYINT UNSIGNED                | SMALLINT       |                                                                                                                   |
-| 3   | SMALLINT                        | INTEGER        |                                                                                                                   |
-| 4   | SMALLINT UNSIGNED               | INTEGER        |                                                                                                                   |
-| 5   | MEDIUMINT                       | INTEGER        |                                                                                                                   |
-| 6   | MEDIUMINT UNSIGNED              | INTEGER        |                                                                                                                   |
-| 7   | INT (INTEGER)                   | INTEGER        | 주의: Altibase의 INT 타입의 최솟값(-2,147,483,647)은 MySQL INT 타입의 최솟값(-2,147,483,648) 보다 크다.                               |
-| 8   | INT UNSIGNED                    | BIGINT         |                                                                                                                   |
-| 9   | BIGINT                          | BIGINT         | 주의: Altibase의 BIGINT 타입의 최솟값(-9,223,372,036,854,775,807)은 MySQL BIGINT 타입의 최솟값(-9,223,372,036,854,775,808) 보다 크다. |
-| 10  | BIGINT UNSIGNED                 | NUMERIC(20,0)  | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다                         |
-| 11  | DECIMAL (NUMERIC)               | VARCHAR(70)    | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다.                                |
-| 12  | FLOAT                           | FLOAT          |                                                                                                                   |
-| 13  | DOUBLE                          | VARCHAR(310)   | Altibase에는 MySQL DOUBLE 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다.                                 |
-| 14  | BIT                             | VARBIT         |                                                                                                                   |
-| 15  | DATETIME                        | DATE           | 시각 부분이 0으로 설정된다.                                                                                                  |
-| 16  | DATE                            | DATE           |                                                                                                                   |
-| 17  | TIMESTAMP                       | DATE           | TIMEZONE 제외                                                                                                       |
-| 18  | CHAR                            | CHAR           |                                                                                                                   |
-| 19  | VARCHAR                         | CLOB           | VARCHAR 타입의 최대 크기는 MySQL(65,536)이 Altibase(32,000)보다 크기 때문에, 데이터 손실을 막기 위해 CLOB 타입으로 맵핑된다.                        |
-| 20  | CHAR with National Character    | NCHAR          |                                                                                                                   |
-| 21  | VARCHAR with National Character | NVARCHAR       |                                                                                                                   |
-| 22  | BINARY                          | BYTE           |                                                                                                                   |
-| 23  | VARBINARY                       | BLOB           |                                                                                                                   |
-| 24  | TINYBLOB                        | BLOB           |                                                                                                                   |
-| 25  | MEDIUMBLOB                      | BLOB           |                                                                                                                   |
-| 26  | BLOB                            | BLOB           |                                                                                                                   |
-| 27  | LONGBLOB                        | BLOB           |                                                                                                                   |
-| 28  | TINYTEXT                        | VARCHAR(255)   |                                                                                                                   |
-| 29  | TEXT                            | CLOB           |                                                                                                                   |
-| 30  | MEDIUMTEXT                      | CLOB           |                                                                                                                   |
-| 31  | LONGTEXT                        | CLOB           |                                                                                                                   |
-| 32  | ENUM                            | VARCHAR(10666) | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다.                                   |
-| 33  | SET                             | VARCHAR(10666) | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다.                                    |
+|      | 원본               | 대상                            | 주의 사항                                                    |
+| :--: | :----------------- | :------------------------------ | :----------------------------------------------------------- |
+|  1   | TINYINT            | SMALLINT                        |                                                              |
+|  2   | TINYINT UNSIGNED   | SMALLINT                        |                                                              |
+|  3   | SMALLINT           | INTEGER                         |                                                              |
+|  4   | SMALLINT UNSIGNED  | INTEGER                         |                                                              |
+|  5   | MEDIUMINT          | INTEGER                         |                                                              |
+|  6   | MEDIUMINT UNSIGNED | INTEGER                         |                                                              |
+|  7   | INT (INTEGER)      | INTEGER                         | 주의: Altibase의 INT 타입의 최솟값(-2,147,483,647)은 MySQL INT 타입의 최솟값(-2,147,483,648) 보다 크다. |
+|  8   | INT UNSIGNED       | BIGINT                          |                                                              |
+|  9   | BIGINT             | BIGINT                          | 주의: Altibase의 BIGINT 타입의 최솟값(-9,223,372,036,854,775,807)은 MySQL BIGINT 타입의 최솟값(-9,223,372,036,854,775,808) 보다 크다. |
+|  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다 |
+|  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  12  | FLOAT              | FLOAT                           |                                                              |
+|  13  | DOUBLE             | VARCHAR(310)                    | Altibase에는 MySQL DOUBLE 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  14  | BIT                | VARBIT                          |                                                              |
+|  15  | DATETIME           | DATE                            | 시각 부분이 0으로 설정된다.                                  |
+|  16  | DATE               | DATE                            |                                                              |
+|  17  | TIMESTAMP          | DATE                            | TIMEZONE 제외                                                |
+|  18  | CHAR               | CHAR 또는 NCHAR                 | MySQL의 CHAR 컬럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 CHAR 컬럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NCHAR |
+|  19  | VARCHAR            | VARCHAR 또는 NVARCHAR 또는 CLOB | MySQL의 VARCHAR 컬럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 VARCHAR 컬럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NVARCHAR<br /><br />MySQL의 VARCHAR 데이터가 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 MySQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. MySQL의 VARCHAR 최대 크기는 65,536바이트로 Altibase보다 크다. |
+|  20  | BINARY             | BYTE                            |                                                              |
+|  21  | VARBINARY          | BLOB                            |                                                              |
+|  22  | TINYBLOB           | BLOB                            |                                                              |
+|  23  | MEDIUMBLOB         | BLOB                            |                                                              |
+|  24  | BLOB               | BLOB                            |                                                              |
+|  25  | LONGBLOB           | BLOB                            |                                                              |
+|  26  | TINYTEXT           | VARCHAR(255)                    |                                                              |
+|  27  | TEXT               | CLOB                            |                                                              |
+|  28  | MEDIUMTEXT         | CLOB                            |                                                              |
+|  29  | LONGTEXT           | CLOB                            |                                                              |
+|  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
 
 #### Informix 11.5 to Altibase
 
-| 인덱스 | 소스            | 대상       | 특이 사항                                                                                              |
-| --- | ------------- | -------- | -------------------------------------------------------------------------------------------------- |
-| 1   | BIGINT        | BIGINT   |                                                                                                    |
-| 2   | INT8          | BIGINT   |                                                                                                    |
-| 3   | INT           | INTEGER  |                                                                                                    |
-| 4   | SMALLINT      | SMALLINT |                                                                                                    |
-| 5   | BIGSERIAL     | BIGINT   |                                                                                                    |
-| 6   | SERIAL8       | BIGINT   |                                                                                                    |
-| 7   | SERIAL        | INTEGER  |                                                                                                    |
-| 8   | FLOAT         | DOUBLE   |                                                                                                    |
-| 9   | REAL          | REAL     |                                                                                                    |
-| 10  | SMALLFLOAT    | REAL     |                                                                                                    |
-| 11  | MONEY         | NUMERIC  |                                                                                                    |
-| 12  | DECIMAL_FLOAT | FLOAT    |                                                                                                    |
-| 13  | DATE          | DATE     |                                                                                                    |
-| 14  | DATETIME      | DATE     |                                                                                                    |
-| 15  | BOOLEAN       | CHAR(1)  |                                                                                                    |
-| 16  | CHAR          | CHAR     | CHAR 데이터 타입의 최대 크기는 Informix(32,767)가 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다.      |
-| 17  | NCHAR         | NCHAR    | NCHAR 데이터 타입의 최대 크기는 Informix(32,767)가 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다.     |
-| 18  | VARCHAR       | VARCHAR  |                                                                                                    |
-| 19  | NVARCHAR      | NVARCHAR |                                                                                                    |
-| 20  | LVARCHAR      | VARCHAR  | Informix의 LVARCHAR 데이터 타입의 최대 크기가 32,767으로 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
-| 21  | TEXT          | CLOB     |                                                                                                    |
-| 22  | CLOB          | CLOB     | CLOB 데이터 타입의 최대 크기는 Informix(4GB)가 Altibase(2GB)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다.            |
-| 23  | BYTE          | BLOB     |                                                                                                    |
-| 24  | BLOB          | BLOB     | BLOB 데이터 타입의 최대 크기는 Informix(4GB)가 Altibase(2GB)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다.            |
-| 25  | INTERVAL      | FLOAT    |                                                                                                    |
+|      | 원본          | 대상              | 주의 사항                                                    |
+| :--: | :------------ | :---------------- | :----------------------------------------------------------- |
+|  1   | BIGINT        | BIGINT            |                                                              |
+|  2   | INT8          | BIGINT            |                                                              |
+|  3   | INT           | INTEGER           |                                                              |
+|  4   | SMALLINT      | SMALLINT          |                                                              |
+|  5   | BIGSERIAL     | BIGINT            |                                                              |
+|  6   | SERIAL8       | BIGINT            |                                                              |
+|  7   | SERIAL        | INTEGER           |                                                              |
+|  8   | FLOAT         | DOUBLE            |                                                              |
+|  9   | REAL          | REAL              |                                                              |
+|  10  | SMALLFLOAT    | REAL              |                                                              |
+|  11  | MONEY         | NUMERIC           |                                                              |
+|  12  | DECIMAL_FLOAT | FLOAT             |                                                              |
+|  13  | DATE          | DATE              |                                                              |
+|  14  | DATETIME      | DATE              |                                                              |
+|  15  | BOOLEAN       | CHAR(1)           |                                                              |
+|  16  | CHAR          | CHAR 또는 CLOB    | Informix의 CHAR 데이터가 Altibase의 CHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 Informix와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Informix의 CHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
+|  17  | NCHAR         | NCHAR             | NCHAR 데이터 타입의 최대 크기는 Informix(32,767)가 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
+|  18  | VARCHAR       | VARCHAR           |                                                              |
+|  19  | NVARCHAR      | NVARCHAR          |                                                              |
+|  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 데이터가 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 Informix와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
+|  21  | TEXT          | CLOB              |                                                              |
+|  22  | CLOB          | CLOB              | CLOB 데이터 타입의 최대 크기는 Informix(4GB)가 Altibase(2GB)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
+|  23  | BYTE          | BLOB              |                                                              |
+|  24  | BLOB          | BLOB              | BLOB 데이터 타입의 최대 크기는 Informix(4GB)가 Altibase(2GB)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
+|  25  | INTERVAL      | NUMBER(38)        |                                                              |
 
 #### TimesTen to Altibase
 
-| 인덱스 | 소스            | 대상              | 특이 사항                                                                                                                                                                                                 |
-| --- | ------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | BINARY        | BLOB            |                                                                                                                                                                                                       |
-| 2   | BINARY_DOUBLE | VARCHAR(310)    |                                                                                                                                                                                                       |
-| 3   | BINARY_FLOAT  | FLOAT           |                                                                                                                                                                                                       |
-| 4   | BLOB          | BLOB            |                                                                                                                                                                                                       |
-| 5   | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 TimesTen에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다.                                                                                                             |
-| 6   | CLOB          | CLOB            |                                                                                                                                                                                                       |
-| 7   | DATE          | DATE            |                                                                                                                                                                                                       |
-| 8   | NCHAR         | NCHAR           |                                                                                                                                                                                                       |
-| 9   | NCLOB         | NVARCHAR(10666) |                                                                                                                                                                                                       |
-| 10  | NUMBER        | NUMBER          |                                                                                                                                                                                                       |
-| 11  | NVARCHAR2     | NVARCHAR        | TimesTen의 VARCHAR2 최대 크기는 2,097,152 바이트로 Altibase의 VARCHAR 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다.                                                                                                |
-| 12  | ROWID         | VARCHAR(18)     |                                                                                                                                                                                                       |
-| 13  | TIME          | DATE            |                                                                                                                                                                                                       |
-| 14  | TIMESTAMP     | DATE            | TimesTen의 TIMESTAMP 최대 스케일이 나노초(9자릿수)로 Altibase의 DATE 최대 스케일 마이크로초(6자릿수)보다 크기 때문에 데이터 손실이 발생할 수 있다.                                                                                                   |
-| 15  | TT_BIGINT     | BIGINT          | TimesTen의 TT_BIGINT 최소 크기는 -9,223,372,036,854,775,808로 Altibase의 BIGINT 최소 크기 -9,223,372,036,854,775,807보다 작기 때문에 데이터 손실이 발생할 수 있다.                                                                   |
-| 16  | TT_CHAR       | CHAR            |                                                                                                                                                                                                       |
-| 17  | TT_DATE       | DATE            |                                                                                                                                                                                                       |
-| 18  | TT_DECIMAL    | NUMBER          | TimesTen의 TT_DECIMAL 최대 크기는 precision(40)으로 Altibase의 NUMBER 최대 크기 precision(38)보다 크기 때문에 데이터 손실이 발생할 수 있다.                                                                                           |
-| 19  | TT_INTEGER    | INTEGER         | TimesTen의 TT_INTEGER 최소 크기는 -2,147,483,648로 Altibase의 INTEGER 최소 크기 -2,147,483,647보다 작기 때문에 데이터 손실이 발생할 수 있다.                                                                                         |
-| 20  | TT_NCHAR      | NCHAR           |                                                                                                                                                                                                       |
-| 21  | TT_NVARCHAR   | NVARCHAR        | TimesTen의 TT_NVARCHAR 최대 크기(2,097,152 바이트)는 Altibase의 NVARCHAR 최대 크기(32,000 바이트)보다 크기 때문에 데이터 손실이 발생할 수 있다.                                                                                           |
-| 22  | TT_SMALLINT   | SMALLINT        | TimesTen의 TT_SMALLINT 최소 크기(-32,768)는 Altibase의 SMALLINT 최소 크기(-32,767)보다 작기 때문에 데이터 손실이 발생할 수 있다.                                                                                                    |
-| 23  | TT_TIMESTAMP  | DATE            | TimesTen의 TT_TIMESTAMP 최대 스케일이 나노초(7자릿수)로 Altibase의 DATE 최대 스케일 마이크로초(6자릿수)보다 크기 때문에 데이터 손실이 발생할 수 있다.                                                                                                |
-| 24  | TT_TINYINT    | SMALLINT        |                                                                                                                                                                                                       |
-| 25  | TT_VARCHAR    | VARCHAR         | TimesTen의 TT_VARCHAR 최대 크기(4,194,304 바이트)는 Altibase의 VARCHAR 최대 크기(32,000 바이트)보다 크기 때문에 데이터 손실이 발생할 수 있다.                                                                                             |
-| 26  | VARBINARY     | BLOB            |                                                                                                                                                                                                       |
-| 27  | VARCHAR2      | VARCHAR         | TimesTen의 VARCHAR2 최대 크기( 4,194,304 바이트)는 Altibase의 VARCHAR 최대 크기(32,000 바이트)보다 크기 때문에 데이터 손실이 발생할 수 있다. Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 TimesTen에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
+|      | 원본          | 대상              | 주의 사항                                                    |
+| :--: | :------------ | :---------------- | :----------------------------------------------------------- |
+|  1   | BINARY        | BLOB              |                                                              |
+|  2   | BINARY_DOUBLE | VARCHAR(310)      |                                                              |
+|  3   | BINARY_FLOAT  | FLOAT             |                                                              |
+|  4   | BLOB          | BLOB              |                                                              |
+|  5   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 TimesTen에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
+|  6   | CLOB          | CLOB              |                                                              |
+|  7   | DATE          | DATE              |                                                              |
+|  8   | NCHAR         | NCHAR             |                                                              |
+|  9   | NCLOB         | NVARCHAR(10666)   |                                                              |
+|  10  | NUMBER        | NUMBER            |                                                              |
+|  11  | NVARCHAR2     | NVARCHAR          | TimesTen의 VARCHAR2 최대 크기는 2,097,152 바이트로 Altibase의 VARCHAR 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  12  | ROWID         | VARCHAR(18)       |                                                              |
+|  13  | TIME          | DATE              |                                                              |
+|  14  | TIMESTAMP     | DATE              | TimesTen의 TIMESTAMP 최대 스케일이 나노초(9자릿수)로 Altibase의 DATE 최대 스케일 마이크로초(6자릿수)보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  15  | TT_BIGINT     | BIGINT            | TimesTen의 TT_BIGINT 최소 크기는 -9,223,372,036,854,775,808로 Altibase의 BIGINT 최소 크기 -9,223,372,036,854,775,807보다 작기 때문에 데이터 손실이 발생할 수 있다. |
+|  16  | TT_CHAR       | CHAR              |                                                              |
+|  17  | TT_DATE       | DATE              |                                                              |
+|  18  | TT_DECIMAL    | NUMBER            | TimesTen의 TT_DECIMAL 최대 크기는 precision(40)으로 Altibase의 NUMBER 최대 크기 precision(38)보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  19  | TT_INTEGER    | INTEGER           | TimesTen의 TT_INTEGER 최소 크기는 -2,147,483,648로 Altibase의 INTEGER 최소 크기 -2,147,483,647보다 작기 때문에 데이터 손실이 발생할 수 있다. |
+|  20  | TT_NCHAR      | NCHAR             |                                                              |
+|  21  | TT_NVARCHAR   | NVARCHAR          | TimesTen의 TT_NVARCHAR 최대 크기(2,097,152 바이트)는 Altibase의 NVARCHAR 최대 크기(32,000 바이트)보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  22  | TT_SMALLINT   | SMALLINT          | TimesTen의 TT_SMALLINT 최소 크기(-32,768)는 Altibase의 SMALLINT 최소 크기(-32,767)보다 작기 때문에 데이터 손실이 발생할 수 있다. |
+|  23  | TT_TIMESTAMP  | DATE              | TimesTen의 TT_TIMESTAMP 최대 스케일이 나노초(7자릿수)로 Altibase의 DATE 최대 스케일 마이크로초(6자릿수)보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  24  | TT_TINYINT    | SMALLINT          |                                                              |
+|  25  | TT_VARCHAR    | VARCHAR 또는 CLOB | TimesTen의 TT_VARCHAR 데이터가 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 TimesTen과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. TimesTen의 TT_VARCHAR 최대 크기는 4,194,304바이트로 Altibase보다 크다. |
+|  26  | VARBINARY     | BLOB              |                                                              |
+|  27  | VARCHAR2      | VARCHAR 또는 CLOB | 1. TimesTen의 VARCHAR2 데이터가 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 TimesTen과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. TimesTen의 VARCHAR2 최대 크기는 4,194,304바이트로 Altibase보다 크다.<br />2. TimesTen에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
 
 #### CUBRID to Altibase
 
-| 인덱스 | 소스         | 대상            | 특이 사항                                                                                                          |
-| --- | ---------- | ------------- | -------------------------------------------------------------------------------------------------------------- |
-| 1   | SHORT      | SMALLINT      | CUBRID의 SHORT 최솟값(-32,768)이 Altibase의 SMALLINT 최솟값(-32,767)보다 작다                                               |
-| 2   | INTEGER    | INTEGER       | CUBRID의 최솟값(-2,147,483,648)이 Altibase의 최솟값(-2,147,483,647)보다 작다.                                               |
-| 3   | BIGINT     | BIGINT        | CUBRID의 최솟값(-9,223,372,036,854,775,808)이 Altibase의 최솟값(-9,223,372,036,854,775,807)보다 작다.                       |
-| 4   | NUMERIC    | NUMERIC       |                                                                                                                |
-| 5   | FLOAT      | REAL          |                                                                                                                |
-| 6   | DOUBLE     | DOUBLE        |                                                                                                                |
-| 7   | MONETARY   | DOUBLE        |                                                                                                                |
-| 8   | DATE       | DATE          |                                                                                                                |
-| 9   | TIME       | DATE          |                                                                                                                |
-| 10  | TIMESTAMP  | DATE          |                                                                                                                |
-| 11  | DATETIME   | DATE          |                                                                                                                |
-| 12  | CHAR       | CHAR          | CUBRID의 CHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 CHAR 타입 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다.        |
-| 13  | VARCHAR    | VARCHAR       | CUBRID의 VARCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다.  |
-| 14  | NCHAR      | NCHAR         | CUBRID의 NCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다.      |
-| 15  | VARCHAR    | NVARCHAR      | CUBRID의 VARCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NVARCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
-| 16  | STRING     | VARCHAR       | CUBRID의 VARCHAR 타입과 동일한 데이터 타입으로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다.              |
-| 17  | BIT        | BLOB          |                                                                                                                |
-| 18  | VARBIT     | BLOB          |                                                                                                                |
-| 19  | BLOB       | BLOB          | CUBRID의 BLOB 최대 길이는 외부 저장소에서 생성 가능한 파일 크기로 Altibase의 BLOB 타입 최대 크기 2GB와 차이가 있으므로, 데이터 손실이 발생할 수 있다.            |
-| 20  | CLOB       | CLOB          | CUBRID의 CLOB 최대 길이는 외부 저장소에서 생성 가능한 파일 크기로 Altibase의 CLOB 타입 최대 크기 2GB와 차이가 있으므로, 데이터 손실이 발생할 수 있다.            |
-| 21  | ENUM       | VARCHAR(3200) | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 열거형 문자열 상수들은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다.                  |
-| 22  | COLLECTION | VARCHAR(3200) | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 COLLECTION 타입은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다.                |
+|      | 원본       | 대상              | 주의 사항                                                    |
+| :--: | :--------- | :---------------- | :----------------------------------------------------------- |
+|  1   | SHORT      | SMALLINT          | CUBRID의 SHORT 최솟값(-32,768)이 Altibase의 SMALLINT 최솟값(-32,767)보다 작다 |
+|  2   | INTEGER    | INTEGER           | CUBRID의 최솟값(-2,147,483,648)이 Altibase의 최솟값(-2,147,483,647)보다 작다. |
+|  3   | BIGINT     | BIGINT            | CUBRID의 최솟값(-9,223,372,036,854,775,808)이 Altibase의 최솟값(-9,223,372,036,854,775,807)보다 작다. |
+|  4   | NUMERIC    | NUMERIC           |                                                              |
+|  5   | FLOAT      | REAL              |                                                              |
+|  6   | DOUBLE     | DOUBLE            |                                                              |
+|  7   | MONETARY   | DOUBLE            |                                                              |
+|  8   | DATE       | DATE              |                                                              |
+|  9   | TIME       | DATE              |                                                              |
+|  10  | TIMESTAMP  | DATE              |                                                              |
+|  11  | DATETIME   | DATE              |                                                              |
+|  12  | CHAR       | CHAR 또는 CLOB    | CUBRID의 CHAR 데이터가 Altibase의 CHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 CUBRID와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. CUBRID의 CHAR 최대 크기는 1,073,741,823바이트로 Altibase보다 크다. |
+|  13  | VARCHAR    | VARCHAR 또는 CLOB | CUBRID의 VARCHAR 데이터가 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 CUBRID와 Altibase 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. CUBRID의 VARCHAR 최대 크기는 1,073,741,823바이트로, Altibase보다 크다. |
+|  14  | NCHAR      | NCHAR             | CUBRID의 NCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  15  | VARCHAR    | NVARCHAR          | CUBRID의 VARCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NVARCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  16  | STRING     | VARCHAR           | CUBRID의 VARCHAR 타입과 동일한 데이터 타입으로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  17  | BIT        | BLOB              |                                                              |
+|  18  | VARBIT     | BLOB              |                                                              |
+|  19  | BLOB       | BLOB              | CUBRID의 BLOB 최대 길이는 외부 저장소에서 생성 가능한 파일 크기로 Altibase의 BLOB 타입 최대 크기 2GB와 차이가 있으므로, 데이터 손실이 발생할 수 있다. |
+|  20  | CLOB       | CLOB              | CUBRID의 CLOB 최대 길이는 외부 저장소에서 생성 가능한 파일 크기로 Altibase의 CLOB 타입 최대 크기 2GB와 차이가 있으므로, 데이터 손실이 발생할 수 있다. |
+|  21  | ENUM       | VARCHAR(3200)     | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 열거형 문자열 상수들은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다. |
+|  22  | COLLECTION | VARCHAR(3200)     | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 COLLECTION 타입은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다. |
 
-#### Altibase to Oracle 데이터베이스
+#### Altibase to Oracle
 
-| 인덱스 | 소스       | 대상            | 특이사항                                                                                                     |
-| --- | -------- | ------------- | -------------------------------------------------------------------------------------------------------- |
-| 1   | CHAR     | CHAR          | Altibase CHAR의 최대 크기는 32000바이트, Oracle CHAR의 최대 크기는 2000 bytes 또는 characters이므로 데이터 손실이 발생할 수 있다.        |
-| 2   | NCHAR    | NCHAR         | Altibase NCHAR의 최대 크기는 32000바이트, Oracle NCHAR의 최대 크기는 2000 bytes이므로 데이터 손실이 발생할 수 있다.                    |
-| 3   | VARCHAR  | VARCHAR2      | Altibase VARCHAR의 최대 크기는 32000바이트, Oracle VARCHAR2의 최대 크기는 4000 bytes 또는 characters이므로 데이터 손실이 발생할 수 있다. |
-| 4   | VARCHAR  | NVARCHAR2     | Altibase NVARCHAR의 최대 크기는 32000바이트, Oracle NVARCHAR의 최대 크기는 4000 bytes이므로 데이터 손실이 발생할 수 있다.              |
-| 5   | SMALLINT | NUMBER        |                                                                                                          |
-| 6   | INTEGER  | NUMBER        |                                                                                                          |
-| 7   | BIGINT   | NUMBER        |                                                                                                          |
-| 8   | REAL     | BINARY_FLOAT  |                                                                                                          |
-| 9   | DOUBLE   | BINARY_DOUBLE |                                                                                                          |
-| 10  | FLOAT    | FLOAT         |                                                                                                          |
-| 11  | NUMERIC  | NUMBER        |                                                                                                          |
-| 12  | DATE     | TIMESTAMP     |                                                                                                          |
-| 13  | BIT      | CHAR          | CHAR의 최대크기는 2000 바이트, BIT는 64000(8000 바이트)이므로 데이터 손실이 발생할 수 있다.                                          |
-| 14  | VARBIT   | VARCHAR2      | VARCHAR2 의 최대크기는 4000 바이트 , VARBIT는 64000(8000 바이트)이므로 데이터 손실이 발생할 수 있다.                                 |
-| 15  | BYTE     | RAW           | BYTE의 최대 크기는 32000, RAW의 최대 크기는 2000 바이트이므로 데이터 손실이 발생할 수 있다.                                            |
-| 16  | VARBYTE  | RAW           | VARBYTE의 최대 크기는 32000, RAW의 최대 크기는 2000 바이트이므로 데이터 손실이 발생할 수 있다.                                         |
-| 17  | NIBBLE   | RAW           |                                                                                                          |
-| 18  | BLOB     | BLOB          |                                                                                                          |
-| 19  | CLOB     | CLOB          |                                                                                                          |
+|      | 원본     | 대상          | 주의 사항                                                    |
+| :--: | :------- | :------------ | :----------------------------------------------------------- |
+|  1   | CHAR     | CHAR          | Altibase의 CHAR 데이터가 Oracle의 CHAR 최대 크기인 2,000바이트(또는 글자)를 초과하면 Oracle의 데이터 타입을 CLOB으로 변환한다. 이는 Altibase와 오라클 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Altibase의 CHAR 최대 크기는 32,000바이트로 오라클의 최대 크기보다 크다. |
+|  2   | NCHAR    | NCHAR         | Altibase NCHAR의 최대 크기는 32000바이트, Oracle NCHAR의 최대 크기는 2000 bytes이므로 데이터 손실이 발생할 수 있다. |
+|  3   | VARCHAR  | VARCHAR2      | Altibase의 VARCHAR 데이터가 Oracle의 VARCHAR2 최대 크기인 4,000바이트(또는 글자)를 초과하면 Oracle의 데이터 타입을 CLOB으로 변환한다. 이는 오라클과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Altibase의 VARCHAR 최대 크기는 32,000바이트로, Oracle보다 크다. |
+|  4   | NVARCHAR | NVARCHAR2     | Altibase NVARCHAR의 최대 크기는 32000바이트, Oracle NVARCHAR2의 최대 크기는 4000 bytes이므로 데이터 손실이 발생할 수 있다. |
+|  5   | SMALLINT | NUMBER        |                                                              |
+|  6   | INTEGER  | NUMBER        |                                                              |
+|  7   | BIGINT   | NUMBER        |                                                              |
+|  8   | REAL     | BINARY_FLOAT  |                                                              |
+|  9   | DOUBLE   | BINARY_DOUBLE |                                                              |
+|  10  | FLOAT    | FLOAT         |                                                              |
+|  11  | NUMERIC  | NUMBER        |                                                              |
+|  12  | DATE     | TIMESTAMP     |                                                              |
+|  13  | BIT      | CHAR          | CHAR의 최대크기는 2,000바이트, BIT는 64,000비트 즉, 8,000바이트이므로 데이터 손실이 발생할 수 있다. |
+|  14  | VARBIT   | VARCHAR2      | VARCHAR2 의 최대크기는 4,000 바이트 , VARBIT는 64,000비트 즉, 8,000바이트이므로 데이터 손실이 발생할 수 있다. |
+|  15  | BYTE     | RAW           | BYTE의 최대 크기는 32,000, RAW의 최대 크기는 2,000 바이트이므로 데이터 손실이 발생할 수 있다. |
+|  16  | VARBYTE  | RAW           | VARBYTE의 최대 크기는 32,000, RAW의 최대 크기는 2,000 바이트이므로 데이터 손실이 발생할 수 있다. |
+|  17  | NIBBLE   | RAW           |                                                              |
+|  18  | BLOB     | BLOB          |                                                              |
+|  19  | CLOB     | CLOB          |                                                              |
 
 #### Tibero to Altibase
 
-| 인덱스 | 소스            | 대상              | 특이사항                                                                                                                                                                                               |
-| --- | ------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다.                                                                                                            |
-| 2   | NCHAR         | NCHAR           |                                                                                                                                                                                                    |
-| 3   | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다.                                                                                                         |
-| 4   | NVARCHAR      | NVARCHAR        |                                                                                                                                                                                                    |
-| 5   | LONG          | CLOB            |                                                                                                                                                                                                    |
-| 6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
-| 7   | BINARY FLOAT  | FLOAT           |                                                                                                                                                                                                    |
-| 8   | BINARY DOUBLE | VARCHAR(310)    | Altibase에는 티베로의 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다.                                                                                                                      |
-| 9   | DATE          | DATE            |                                                                                                                                                                                                    |
-| 10  | TIME          | DATE            |                                                                                                                                                                                                    |
-| 11  | TIMESTAMP     | DATE            | Scale의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 티베로에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, , Altibase에서는 타임스탬프 값의 scale이 마이크로초(6자리 수)이다.                                                                            |
-| 12  | RAW           | BLOB            |                                                                                                                                                                                                    |
-| 13  | LONG RAW      | BLOB            |                                                                                                                                                                                                    |
-| 14  | BLOB          | BLOB            |                                                                                                                                                                                                    |
-| 15  | CLOB          | CLOB            |                                                                                                                                                                                                    |
-| 16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다.                                                   |
-| 17  | ROWID         | VARCHAR(18)     |                                                                                                                                                                                                    |
+|      | 원본          | 대상            | 주의 사항                                                    |
+| :--: | :------------ | --------------- | :----------------------------------------------------------- |
+|  1   | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
+|  2   | NCHAR         | NCHAR           |                                                              |
+|  3   | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
+|  4   | NVARCHAR      | NVARCHAR        |                                                              |
+|  5   | LONG          | CLOB            |                                                              |
+|  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
+|  7   | BINARY FLOAT  | FLOAT           |                                                              |
+|  8   | BINARY DOUBLE | VARCHAR(310)    | Altibase에는 티베로의 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다. |
+|  9   | DATE          | DATE            |                                                              |
+|  10  | TIME          | DATE            |                                                              |
+|  11  | TIMESTAMP     | DATE            | Scale의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 티베로에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, , Altibase에서는 타임스탬프 값의 scale이 마이크로초(6자리 수)이다. |
+|  12  | RAW           | BLOB            |                                                              |
+|  13  | LONG RAW      | BLOB            |                                                              |
+|  14  | BLOB          | BLOB            |                                                              |
+|  15  | CLOB          | CLOB            |                                                              |
+|  16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
+|  17  | ROWID         | VARCHAR(18)     | 티베로의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
 
 ### 이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정
 
