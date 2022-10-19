@@ -730,9 +730,17 @@ The information gathered in this step is used throughout the entire migration pr
 
 #### Output
 
-- Build reports : Several data volume analysis reports based on the current status of the source and destination databases are output in HTML format and stored in the project folder.
-- SQL Data Definition Language (DDL) script : A file in which the database object creation statement (DDL) collected from the original database is saved in the project folder, and the file name is SrcDbObj_Create.sql. This file is intended for user reference only and is not used at any stage of the Migration Center.
-- BuildReport4Unsupported.html : It is one of the files that summarizes the build results, and the statement of creation of objects not supported by the Migration Center is recorded.
+- Build reports
+
+  Several data volume analysis reports based on the current status of the source and destination databases are output in HTML format and stored in the project folder.
+
+- SQL Data Definition Language (DDL) script
+
+  A file containing database object creation statements (DDLs) collected from the source database, whether or not Migration Center is supported, created in the project folder and named SrcDbObj_Create.sql. This file is intended for user reference only and is not used at any stage of the Migration Center.
+
+- BuildReport4Unsupported.html
+
+  One of the files summarizing the build results, the generated statements of objects not supported by the Migration Center are recorded. Unsupported objects depend on the source database and can be found in B.Appendix: Migrantable Database Objects. This file is not created because all objects in Oracle can be migrated to Migration Center. On the other hand, if there are unsupported objects, such as stored procedures, stored functions, views, and trigger objects, such as MySQL, this file is created.
 
 #### Internal Activities
 
