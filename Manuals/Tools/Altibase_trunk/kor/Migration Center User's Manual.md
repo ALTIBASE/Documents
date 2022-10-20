@@ -1099,8 +1099,10 @@ Altibase의 테이블스페이스에 대한 자세한 내용은 각각의 *Admin
   데이터베이스에 데이터베이스 객체를 생성하고 삭제하는 샘플 SQL 스크립트
   파일이 출력된다. 그러나 이 파일들은 Migration Center의 어느 단계에서도
   사용되지 않는다.
-  - DbObj_Create.sql: 마이그레이션 대상인 데이터베이스 객체의 생성 문장을 저장한 스크립트 파일
-  - DbObj_Drop.sql: 마이그레이션 대상인 데이터베이스 객체의 삭제 문장을 저장한 스크립트 파일
+  - DbObj_Create.sql: 마이그레이션 될 데이터베이스 객체를 생성하는 SQL
+    스크립트 파일
+  - DbObj_Drop.sql: 마이그레이션 될 데이터베이스 객체를 삭제하는 SQL
+    스크립트 파일
 - PL/SQL 변환 보고서: PL/SQL 변환기에서 출력하는 다수의 보고서이다.
   
   - sqlconv.html: 원본과 변환된 PL/SQL의 차이를 비교하는 HTML 형식의 보고서
@@ -1551,7 +1553,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 프로젝트 트리 창에서 마우스 오른쪽 버튼을 클릭하고 Reconcile 메뉴를 선택한다. 또는 Migration 메뉴에서 Reconcile을 선택한다. 이 단계는 Build 단계를 마쳐야 수행할 수 있다.
 
-<div  align="left">
+<div align="left">
     <img src="media/MigrationCenter/datatypemapping-step-1.png">
 </div>
 
@@ -1573,14 +1575,12 @@ Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창�
 
 ### 기본 데이터 타입 맵핑 테이블
 
-이기종 데이터베이스 간의 기본 데이터 타입 매핑 테이블과 사용자가 알아야 할 주의 사항을 설명한다.
+이기종 데이터베이스 간의 기본 데이터 타입 매핑 테이블과 사용자가 주의할 사항을 설명한다.
 
-Migration Center 7.11부터 원본 데이터베이스의 데이터가 대상 데이터베이스의 최대 크기를 초과하면 대상 데이터베이스의 데이터 유형이 기본 매핑 테이블과 다른 CLOB로 변경된다. 대상 데이터 유형은 다음과 같다.
+Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타입을 처리할 때, 대상 데이터베이스의 문자 집합과 컬럼 크기 및 단위(바이트 또는 문자)를 고려하여 변환할 컬럼의 크기를 계산한다. 이때 계산된 크기가 대상 데이터베이스에서 정의한 데이터 타입의 최대 크기를 초과하면, CLOB 데이터 타입으로 변경한다. 이는 원본, 대상 데이터베이스 간의 데이터 타입 최대 크기 차이로 데이터 마이그레이션 시 데이터 손실을 최소화 하기 위한 조치이다. 대상 데이터 타입은 다음과 같다.
 
 - CHAR
 - VARCHAR 또는 VARCHAR2, LVARCHAR, TT_VARCHAR 
-
-Migration Center 7.11 이전에는 데이터 손실이 발생한 상태로 데이터를 이관하였다.
 
 #### Oracle to Altibase
 
@@ -1606,35 +1606,35 @@ Migration Center 7.11 이전에는 데이터 손실이 발생한 상태로 데�
 
 #### MS SQL Server to Altibase
 
-|      | 원본 | 대상 | 주의 사항                                                    |
-| :--- | :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 1    | BIGINT                                                       | BIGINT                                                       |                                                              |
-| 2    | DECIMAL                                                      | NUMERIC                                                      |                                                              |
-| 3    | INT                                                          | INTEGER                                                      |                                                              |
-| 4    | NUMERIC                                                      | NUMERIC                                                      |                                                              |
-| 5    | SMALLINT                                                     | SMALLINT                                                     |                                                              |
-| 6    | MONEY                                                        | FLOAT                                                        |                                                              |
-| 7    | TINYINT                                                      | SMALLINT                                                     |                                                              |
-| 8    | SMALLMONEY                                                   | FLOAT                                                        |                                                              |
-| 9    | BIT                                                          | CHAR(1)                                                      |                                                              |
-| 10   | FLOAT                                                        | VARCHAR(310)                                                 | Altibase에는 SQL Server FLOAT 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR(310)으로 맵핑된다. |
-| 11   | REAL                                                         | FLOAT                                                        |                                                              |
-| 12   | DATE                                                         | DATE                                                         |                                                              |
-| 13   | DATETIME2                                                    | DATE                                                         | 스케일의 차이로 인해서 시간의 fraction 손실이 발생할 수 있다. SQL Server의 DATETIME2 타입 스케일이 나노초의 100배(7자리 수)인 반면, Altibase에서는 DATE 타입의 스케일이 마이크로초(6자리 수)이다. |
-| 14   | DATETIME                                                     | DATE                                                         |                                                              |
-| 15   | SMALLDATETIME                                                | DATE                                                         |                                                              |
-| 16   | CHAR                                                         | CHAR                                                         |                                                              |
-| 17   | TEXT                                                         | CLOB                                                         |                                                              |
-| 18   | VARCHAR                                                      | VARCHAR                                                      |                                                              |
-| 19   | VARCHAR (MAX)                                                | CLOB                                                         |                                                              |
-| 20   | NVARCHAR                                                     | NVARCHAR                                                     |                                                              |
-| 21   | NVARCHAR (MAX)                                               | NVARCHAR (10666)                                             | Altibase에는 SQL Server NTEXT 타입과 호환 가능한 데이터 타입이 없다. 최대 크기의 NVARCHAR 타입이 사용된다. 실제 데이터 길이가 최대 NVARCHAR 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
-| 22   | BINARY                                                       | BYTE                                                         |                                                              |
-| 23   | IMAGE                                                        | BLOB                                                         |                                                              |
-| 24   | VARBINARY                                                    | BLOB                                                         |                                                              |
-| 25   | ALLIDENTITY                                                  | NUMERIC(38, 0)                                               |                                                              |
-| 26   | UNIQUEIDENTIFIER                                             | VARCHAR(80)                                                  | Altibase에는 SQL Server UNIQUEIDENTIFIER 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 방지하기 위해 VARCHAR 타입이 사용된다. |
-| 27   | SYSNAME                                                      | NVARCHAR (128)                                               |                                                              |
+|      | 원본             | 대상             | 주의 사항                                                    |
+| :--- | :--------------- | :--------------- | :----------------------------------------------------------- |
+| 1    | BIGINT           | BIGINT           |                                                              |
+| 2    | DECIMAL          | NUMERIC          |                                                              |
+| 3    | INT              | INTEGER          |                                                              |
+| 4    | NUMERIC          | NUMERIC          |                                                              |
+| 5    | SMALLINT         | SMALLINT         |                                                              |
+| 6    | MONEY            | FLOAT            |                                                              |
+| 7    | TINYINT          | SMALLINT         |                                                              |
+| 8    | SMALLMONEY       | FLOAT            |                                                              |
+| 9    | BIT              | CHAR(1)          |                                                              |
+| 10   | FLOAT            | VARCHAR(310)     | Altibase에는 SQL Server FLOAT 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR(310)으로 맵핑된다. |
+| 11   | REAL             | FLOAT            |                                                              |
+| 12   | DATE             | DATE             |                                                              |
+| 13   | DATETIME2        | DATE             | 스케일의 차이로 인해서 시간의 fraction 손실이 발생할 수 있다. SQL Server의 DATETIME2 타입 스케일이 나노초의 100배(7자리 수)인 반면, Altibase에서는 DATE 타입의 스케일이 마이크로초(6자리 수)이다. |
+| 14   | DATETIME         | DATE             |                                                              |
+| 15   | SMALLDATETIME    | DATE             |                                                              |
+| 16   | CHAR             | CHAR             |                                                              |
+| 17   | TEXT             | CLOB             |                                                              |
+| 18   | VARCHAR          | VARCHAR          |                                                              |
+| 19   | VARCHAR (MAX)    | CLOB             |                                                              |
+| 20   | NVARCHAR         | NVARCHAR         |                                                              |
+| 21   | NVARCHAR (MAX)   | NVARCHAR (10666) | Altibase에는 SQL Server NTEXT 타입과 호환 가능한 데이터 타입이 없다. 최대 크기의 NVARCHAR 타입이 사용된다. 실제 데이터 길이가 최대 NVARCHAR 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
+| 22   | BINARY           | BYTE             |                                                              |
+| 23   | IMAGE            | BLOB             |                                                              |
+| 24   | VARBINARY        | BLOB             |                                                              |
+| 25   | ALLIDENTITY      | NUMERIC(38, 0)   |                                                              |
+| 26   | UNIQUEIDENTIFIER | VARCHAR(80)      | Altibase에는 SQL Server UNIQUEIDENTIFIER 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 방지하기 위해 VARCHAR 타입이 사용된다. |
+| 27   | SYSNAME          | NVARCHAR (128)   |                                                              |
 
 #### MySQL to Altibase
 
