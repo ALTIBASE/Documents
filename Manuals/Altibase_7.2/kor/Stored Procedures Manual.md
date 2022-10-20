@@ -4439,7 +4439,7 @@ SELECT INTO문의 경우 결과 레코드의 수는 반드시 한 개여야 하�
 
 커서의 SELECT문을 만족하는 결과 집합으로부터 한 번에 한 레코드씩 가져와서 사용자 변수에 저장한다. 별도의 변수에 각 칼럼을 저장할 수도 있고, 전체 레코드를 %ROWTYPE을 사용해서 정의한 RECORD 타입 변수에 저장할 수도 있다.
 
-RECORD 타입 변수에 대한 설명은 6장 사용자 정의 타입으 참고하기 바란다.
+RECORD 타입 변수에 대한 설명은 [6장 사용자 정의 타입](#6사용자-정의-타입)을 참고하기 바란다.
 
 ##### CLOSE
 
@@ -5742,7 +5742,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      SQLCHAR errMsg[MSG_LEN];
      char sql[1000];
      SQLHSTMT     stmt = SQL_NULL_HSTMT;
-
+   
      int sal;
      int sal_len;
      int eno;
@@ -5753,17 +5753,17 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      SQLCHAR name[NAME_LEN+1];
      SQLCHAR dept[DEPT_LEN+1];
      SQLCHAR job[JOB_LEN+1];
-
+   
      int job_ind;
-
+   
      SQLRETURN rc = SQL_SUCCESS;
-
+   
      if (SQL_ERROR == SQLAllocStmt(dbc, &stmt))
      {
          printf("SQLAllocStmt error!!\n");
          return SQL_ERROR;
      }
-
+   
    /* 실행할 SQL 문을 준비 */
      sprintf(sql, "EXEC proc1(?)");
      if ( SQLPrepare(stmt,(SQLCHAR *)sql,SQL_NTS) == SQL_ERROR )
@@ -5774,10 +5774,10 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      {
        printf("SUCCESS: prepare stmt\n");
      }
-
+   
    /* 변수 sal에 100을 할당 */
      sal = 100;
-
+   
      /* SQL 문장에 매개변수(sal)를 연결시킴 */
      if ( SQLBindParameter( stmt,
                             1,
@@ -5796,13 +5796,13 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      {
        printf("SUCCESS: 1 Bind Parameter\n");
      }
-
+   
    /* SQL 문장 실행, 프로시져 PROC1을 실행해서 'SELECT eno, ename, dno FROM emp'의 결과값은 P1에 'SELECT name,dept,job FROM staff WHERE salary > ?'(USING SAL)의 결과값은 P2에 가져온다  */
    if (SQL_ERROR == SQLExecute(stmt))
      {
        printf("ERROR: Execute Procedure\n");
      }
-
+   
    /* 'SELECT eno, ename, dno FROM emp'의 결과값을 변수(eno, ename, dno)에 저장 */
      if (SQL_ERROR == SQLBindCol(stmt, 1, SQL_C_SLONG, &eno, 0, (long *)&eno_len))
      {
@@ -5816,7 +5816,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      {
        printf("ERROR: Bind 3 Column\n");
      }
-
+   
    /* P1에 결과값이 있는 동안 결과값을 받아 화면에 출력 */
      while (SQL_SUCCESS == rc)
      {
@@ -5839,7 +5839,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
          }
        }
      }
-
+   
    /* 다음 결과(P2)로 이동 */
      rc = SQLMoreResults(stmt);
      if (SQL_ERROR == rc)
@@ -5848,9 +5848,9 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      }
      else
    {
-
+   
    /* 'SELECT name,dept,job FROM staff WHERE salary > ?'(USING SAL)의 결과값을 변수(name, dept, job)에 저장 */
-
+   
       if (SQL_ERROR == SQLBindCol(stmt, 1, SQL_C_CHAR, name, sizeof(name), NULL))
       {
      printf("ERROR: Bind 1 Column\n");
@@ -5863,7 +5863,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
       {
      printf("ERROR: Bind 3 Column\n");
       }
-
+   
    /* P2에 결과값이 있는 동안 결과값을 받아 화면에 출력 */
       while (SQL_SUCCESS == rc)
       {
@@ -5890,13 +5890,13 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
      }
       }
      }
-
+   
      if (SQL_ERROR == SQLFreeStmt( stmt, SQL_DROP ))
      {
        printf("sql free stmt error\n");
      }
    }    
-
+   
    ```
 
 
@@ -9362,7 +9362,7 @@ Altibase는 통계 자료 수집을 위해 다음과 같은 시스템 저장 프
 | GET_INDEX_STATS  | 특정 인덱스에 대한 통계 자료를 조회한다.         |
 | GET_COLUMN_STATS | 특정 테이블의 칼럼에 대한 통계 자료를 조회한다.  |
 
-아래는 개별적인 칼럼, 인덱스, 테이블 또는 시스템 관련 통계 자료를 복사 및 삭제복사하는 저장 프로시저이다.
+아래는 개별적인 칼럼, 인덱스, 테이블 또는 시스템 관련 통계 자료를 복사 및 삭제하는 저장 프로시저이다.
 
 | 이름                  | 설명                                             |
 | --------------------- | ------------------------------------------------ |

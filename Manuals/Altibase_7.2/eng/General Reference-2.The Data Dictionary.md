@@ -2161,7 +2161,7 @@ This table is for storing information about stored procedures and stored functio
 | PROC_NAME        | VARCHAR(128) | The name of the stored procedure                             |
 | OBJECT_TYPE      | INTEGER      | Indicates whether the object is a stored procedure, stored function, or type set |
 | STATUS           | INTEGER      | Indicates the status of the object. The object cannot be executed if it is INVALID. 0: VALID 1: INVALID |
-| AUTHID           | INTEGER      | The authority to execute the package 0: The definer 1: The current user |
+| AUTHID           | INTEGER      | The authority to execute the package <br />- 0: The definer <br />- 1: The current user |
 | PARA_NUM         | INTEGER      | The number of parameters for the stored procedure            |
 | RETURN_DATA_TYPE | INTEGER      | The return data type for the stored function                 |
 | RETURN_LANG_ID   | INTEGER      | The return type language identifier                          |

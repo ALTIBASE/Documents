@@ -5,11 +5,13 @@
 - [CLI User's Manual](#cli-users-manual)
   - [서문](#%EC%84%9C%EB%AC%B8)
     - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+    
   - [1.Altibase CLI 소개](#1altibase-cli-%EC%86%8C%EA%B0%9C)
     - [개요](#%EA%B0%9C%EC%9A%94)
     - [기본 사용법](#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
     - [기본 프로그래밍 순서](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%88%9C%EC%84%9C)
     - [Altibase CLI 애플리케이션 빌드](#altibase-cli-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B9%8C%EB%93%9C)
+    
   - [2.Altibase CLI 함수](#2altibase-cli-%ED%95%A8%EC%88%98)
     - [Altibase CLI API](#altibase-cli-api)
     - [SQLAllocConnect](#sqlallocconnect)
@@ -47,7 +49,7 @@
     - [SQLGetDiagRec](#sqlgetdiagrec)
     - [SQLGetEnvAttr](#sqlgetenvattr)
     - [SQLGetFunctions](#sqlgetfunctions)
-  - [2.Altibase CLI 함수](#2altibase-cli-%ED%95%A8%EC%88%98-1)
+    
     - [SQLGetInfo](#sqlgetinfo)
     - [SQLGetPlan](#sqlgetplan)
     - [SQLGetStmtAttr](#sqlgetstmtattr)
@@ -73,6 +75,7 @@
     - [SQLTablePrivileges](#sqltableprivileges)
     - [SQLTables](#sqltables)
     - [SQLTransact](#sqltransact)
+    
   - [3.LOB 인터페이스](#3lob-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
     - [LOB data types](#lob-data-types)
     - [LOB Function Overview](#lob-function-overview)
@@ -83,25 +86,30 @@
     - [SQLPutLob](#sqlputlob)
     - [SQLTrimLob](#sqltrimlob)
     - [SQLFreeLob](#sqlfreelob)
+    
   - [4.커서 사용](#4%EC%BB%A4%EC%84%9C-%EC%82%AC%EC%9A%A9)
     - [커서 특성](#%EC%BB%A4%EC%84%9C-%ED%8A%B9%EC%84%B1)
     - [암시적 커서 변환](#%EC%95%94%EC%8B%9C%EC%A0%81-%EC%BB%A4%EC%84%9C-%EB%B3%80%ED%99%98)
     - [행 스크롤 및 Fetch](#%ED%96%89-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EB%B0%8F-fetch)
     - [제약 사항](#%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
+    
   - [A.부록: Sample Code](#a%EB%B6%80%EB%A1%9D-sample-code)
     - [프로그래밍 시 각 단계에서 주의할 점](#%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%8B%9C-%EA%B0%81-%EB%8B%A8%EA%B3%84%EC%97%90%EC%84%9C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90)
     - [Altibase CLI 프로그램 기본 예제](#altibase-cli-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%A0%9C)
     - [메타 정보 검색 프로그램 예제](#%EB%A9%94%ED%83%80-%EC%A0%95%EB%B3%B4-%EA%B2%80%EC%83%89-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
     - [프로시저 테스트 프로그램 예제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
+    
   - [B.부록: 데이터형](#b%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
     - [SQL 데이터형](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
     - [C 데이터형](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
     - [SQL 데이터형을 C 데이터형으로 변환하기](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
     - [C 데이터형을 SQL 데이터형으로 변환하기](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
+    
   - [C.부록: 오류 코드](#c%EB%B6%80%EB%A1%9D-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C)
     - [SQLSTATE](#sqlstate)
     - [명령문 상태 전이](#%EB%AA%85%EB%A0%B9%EB%AC%B8-%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4)
     - [상태 전이 테이블](#%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4-%ED%85%8C%EC%9D%B4%EB%B8%94)
+    
   - [D.부록: 업그레이드](#d%EB%B6%80%EB%A1%9D-%EC%97%85%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
     - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
     - [기타 변경사항](#%EA%B8%B0%ED%83%80-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
@@ -4627,10 +4635,6 @@ SQL_FUNC_EXISTS를 이용하여 지원하는 함수를 확인할 수 있다.
 ```
 SQLGetInfo
 ```
-
-
-
-## 2.Altibase CLI 함수
 
 ### SQLGetInfo
 

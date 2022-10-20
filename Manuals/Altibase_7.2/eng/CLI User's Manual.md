@@ -3,11 +3,13 @@
 - [CLI User's Manaul](#cli-users-manaul)
   - [Preface](#preface)
     - [About This Manual](#about-this-manual)
+    
   - [1. Altibase CLI Introduction](#1-altibase-cli-introduction)
     - [Overview](#overview)
     - [Basic Usages](#basic-usages)
     - [Basic Programming Steps](#basic-programming-steps)
     - [Building an Altibase CLI Application](#building-an-altibase-cli-application)
+    
   - [2. Altibase CLI Functions](#2-altibase-cli-functions)
     - [Altibase CLI API](#altibase-cli-api)
     - [SQLAllocConnect](#sqlallocconnect)
@@ -45,7 +47,7 @@
     - [SQLGetDiagRec](#sqlgetdiagrec)
     - [SQLGetEnvAttr](#sqlgetenvattr)
     - [SQLGetFunctions](#sqlgetfunctions)
-  - [2. Altibase CLI Functions](#2-altibase-cli-functions-1)
+    
     - [SQLGetInfo](#sqlgetinfo)
     - [SQLGetPlan](#sqlgetplan)
     - [SQLGetStmtAttr](#sqlgetstmtattr)
@@ -71,6 +73,7 @@
     - [SQLTablePrivileges](#sqltableprivileges)
     - [SQLTables](#sqltables)
     - [SQLTransact](#sqltransact)
+    
   - [3. LOB Interface](#3-lob-interface)
     - [LOB data types](#lob-data-types)
     - [LOB Function Overview](#lob-function-overview)
@@ -81,25 +84,30 @@
     - [SQLPutLob](#sqlputlob)
     - [SQLTrimLob](#sqltrimlob)
     - [SQLFreeLob](#sqlfreelob)
+    
   - [4. Using Cursors](#4-using-cursors)
     - [Cursor Characteristics](#cursor-characteristics)
     - [Implicit Cursor Conversionse](#implicit-cursor-conversionse)
     - [Scrolling and Fetching Rows](#scrolling-and-fetching-rows)
     - [Restrictions](#restrictions)
+    
   - [Appendix A. Sample Codes](#appendix-a-sample-codes)
     - [Programing Considerations](#programing-considerations)
     - [Sample of Simple Basic Program](#sample-of-simple-basic-program)
     - [Sample of Using Metadata](#sample-of-using-metadata)
     - [Example of Procedure Test Program](#example-of-procedure-test-program)
+    
   - [Appendix B. Data Types](#appendix-b-data-types)
     - [SQL Data Types](#sql-data-types)
     - [C Data Types](#c-data-types)
     - [Converting SQL Data into C Data Types](#converting-sql-data-into-c-data-types)
     - [Converting C Data into SQL Data types](#converting-c-data-into-sql-data-types)
+    
   - [Appendix C. Error Codes](#appendix-c-error-codes)
     - [SQLSTATE](#sqlstate)
     - [Statement State Transition-related Errors](#statement-state-transition-related-errors)
     - [State Transition Table](#state-transition-table)
+    
   - [Appendix D. Upgrade](#appendix-d-upgrade)
     - [Data Type](#data-type)
     - [Other Changes](#other-changes)
@@ -4126,10 +4134,6 @@ If using SQL_API_ODBC3_ALL_FUNCTIONS, users should apply pointer of array whose 
 ```
 SQLGetInfo
 ```
-
-
-
-## 2. Altibase CLI Functions
 
 ### SQLGetInfo
 

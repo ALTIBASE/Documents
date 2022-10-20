@@ -4402,7 +4402,7 @@ This statement is used to initialize all of the resources that are necessary in 
 
 The FETCH statement is used to retrieve one record at a time from the set of results that satisfy the cursor’s SELECT statement and store it in one or more variables. Each column can be stored in a separate variable, or the entire row can be stored in a RECORD type variable, typically declared using %ROWTYPE, having the same number and type of fields as the retrieved record.
 
-For an explanation of RECORD type variables, please refer to the Chapter 6: User-Defined Types.
+For an explanation of RECORD type variables, please refer to the Chapter [6: User-Defined Types](#6-user-defined-types).
 
 ##### CLOSE
 
@@ -10083,9 +10083,9 @@ SET_CLIENT_INFO (client_info IN VARCHAR(128));
 
 ##### Parameters
 
-| Name           | Input/Output | Data Type    | Description        |
-| -------------- | ------------ | ------------ | ------------------ |
-| *client_info * | IN           | VARCHAR(128) | Client information |
+| Name          | Input/Output | Data Type    | Description        |
+| ------------- | ------------ | ------------ | ------------------ |
+| *client_info* | IN           | VARCHAR(128) | Client information |
 
 ##### Return Value
 

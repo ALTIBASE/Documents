@@ -2198,7 +2198,7 @@ Altibase가 지원하는 권한의 종류 정보를 기록하는 메타 테이�
 | PROC_NAME        | VARCHAR(128) | 저장 프로시저 이름                                           |
 | OBJECT_TYPE      | INTEGER      | 저장 프로시저, 저장 함수 또는 타입세트 인지를 나타냄         |
 | STATUS           | INTEGER      | 객체의 상태를 나타낸다. INVALID이면 실행 불가능 상태이다. 0: VALID 1: INVALID |
-| AUTHID           | INTEGER      | 프,로시저 또는 함수의 실행자 권한 0: 생성자 권한(DEFINER) 1: 사용자 권한(CURRENT_USER) |
+| AUTHID           | INTEGER      | 프로시저 또는 함수의 실행자 권한 <br />- 0: 생성자 권한(DEFINER)<br />- 1: 사용자 권한(CURRENT_USER) |
 | PARA_NUM         | INTEGER      | 저장 프로시저 파라미터 개수                                  |
 | RETURN_DATA_TYPE | INTEGER      | 저장 함수의 리턴 데이터 타입                                 |
 | RETURN_LANG_ID   | INTEGER      | 리턴 타입 언어 식별자                                        |
