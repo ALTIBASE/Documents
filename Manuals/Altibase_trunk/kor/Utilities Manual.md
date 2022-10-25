@@ -2003,6 +2003,452 @@ MOSO = SU
 3.기타 Utilities
 --------------
 
+## aku
+
+### 개요
+
+aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod) 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행하는 유틸리티이다. *Altibase 7.1.0.8.1 부터 제공한다.*(Altibase 7.1 매뉴얼에 추가)
+
+스테이트풀셋은 데이터베이스처럼 상태 유지가 필요한 애플리케이션을 지원하기 위한 쿠버네티스의 워크로드 컨트롤러 중 하나이며, 스케일링은 파드를 생성하거나 종료하는 것을 의미한다. 파드는 컨테이너들을 담고 있는 쿠버네티스의 리소스이며, 이 컨테이너에 Altibase 서버가 실행된다. 스테이트풀셋에서 스케일 업/다운(scale up/down) 할 때 필요한 작업을 aku를 사용하여 수행할 수 있다. 
+
+###### 스케일 업
+
+기존 파드의 Altibase 서버와 동일한 데이터를 가진 파드를 생성한다.
+
+###### 스케일 다운
+
+파드를 종료할 때 Altibase 서버의 이중화 정보를 초기화한다. 
+
+파드 생성 또는 종료 시점에 위의 작업들을 수행하기 위해서 aku 명령어를 Altibase 도커 이미지의 docker-entrypoint.sh 스크립트나 파드의 명세를 정의하는 yaml 파일에 추가할 수 있다.
+
+### 구성 요소
+
+aku 유틸리티는 aku 실행 파일과 aku 설정 파일로 구성된다. aku를 실행하기 위해서 ALTIBASE_HOME 환경변수가 설정해야 한다.
+
+###### aku 실행 파일
+
+실행 파일의 이름은 aku이며 $ALTIBASE_HOME/bin에 위치한다. 
+
+###### aku 설정 파일
+
+aku를 실행하면 aku 설정 파일을 가장 먼저 읽어 Altibase 데이터 동기화에 필요한 정보를 얻는다. aku 설정 파일의 이름은 aku.conf이며 $ALTIBASE_HOME/conf에 위치해야 한다. Altibase 패키지에 aku.conf.sample 이름의 예제 파일을 제공하므로 aku 실행 파일을 실행하기 전에 이 파일을 참고하여 aku.conf를 생성해야 한다. aku 설정 파일의 내용은 아래와 같다. 
+
+~~~bash
+# aku.conf.sample
+
+AKU_SYS_PASWWORD            = "manager"
+AKU_STS_NAME                = "altibase-sts"
+AKU_SVC_NAME                = "altibase-svc"
+AKU_SERVER_COUNT            = 4
+AKU_QUERY_TIMEOUT           = 1800
+AKU_PORT_NO                 = 20300
+AKU_REPLICATION_PORT_NO     = 20301
+
+REPLICATIONS = (
+    REPLICATION_NAME_PREFIX = "AKU_REP"
+    SYNC_PARALLEL_COUNT     = 3
+    (
+        (
+            USER_NAME       = "SYS"
+            TABLE_NAME      = "T1"
+        ),
+        (
+            USER_NAME       = "SYS"
+            TABLE_NAME      = "T2"
+        ),
+        (
+            USER_NAME       = "SYS"
+            TABLE_NAME      = "T3"
+        )
+    )
+)
+~~~
+
+각 프로퍼티에 대해 살펴보자.
+
+| 프로퍼티 이름                        | 기본값 | 설명                                                         |
+| :----------------------------------- | :----: | :----------------------------------------------------------- |
+| AKU_STS_NAME                         |  없음  | 쿠버네티스 오브젝트 명세에 정의한 스테이트풀셋 이름          |
+| AKU_SVC_NAME                         |  없음  | 쿠버네티스 오브젝트 명세에 정의한 네트워크 서비스를 제공하는 서비스 이름 |
+| AKU_SERVER_COUNT                     |   4    | aku 유틸리티로 동기화할 수 있는 Altibase 서버 최대 수. 쿠버네티스에서 스케일 업할 수 있는 파드 수를 의미하기도 한다.<br />1부터 4까지 설정할 수 있다. |
+| AKU_SYS_PASWWORD                     |  없음  | 데이터베이스 SYS 사용자 패스워드                             |
+| AKU_PORT_NO                          | 20300  | Altibase 서버의 서비스 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
+| AKU_REPLICATION_PORT_NO              | 20301  | Altibase 이중화 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
+|                                      |        |                                                              |
+| AKU_QUERY_TIMEOUT                    |  3600  | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. ALTER REPLICATION 등 aku에서 수행한 SQL의 수행 시간이 이 값을 초과하면 해당 문장은 취소된다. |
+|                                      |        |                                                              |
+| REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사.<br />최대 길이는 37바이트이다. |
+| REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
+| REPLICATIONS/USER_NAME               |  없음  | 이중화 대상 테이블의 소유자 이름.<br />여기에 명시한 데이터베이스 사용자는 `aku -p` 명령을 수행하기 전에 생성해야 한다. |
+| REPLICATIONS/TABLE_NAME              |  없음  | 이중화 대상 테이블 이름.<br />여기에 명시한 테이블은 `aku -p`명령을 수행하기 전에 생성해야 한다. |
+
+> aku 설정 파일 작성 시 주의사항
+
+aku 설정 파일은 주석을 허용하지 않는다. 프로퍼티 앞에 주석을 추가하면 `Cannot parse aku.conf` 에러가 발생한다.
+
+aku 프로퍼티 중 기본값이 없는 프로퍼티를 aku.conf에 명시하지 않으면 `[ERROR] Property [proerty_name] should be specified by configuration.` 에러가 발생한다.
+
+> REPLICATIONS/REPLICATION_NAME_PREFIX
+
+aku에서 생성하는 Altibase 이중화 객체 이름은 *REPLICATION_NAME_PREFIX*_\[*파드번호*]\[*파드번호*\] 규칙으로 생성된다. 쿠버네티스 스테이트풀셋은 *pod_name*\_0, *pod_name*\_1, ..., *pod_name*\_*N*-1 순서로 순차적으로 파드를 생성하며 각 파드는 고유한 순번을 가진다. Altibase 이중화 객체 이름에서 파드 번호는 파드 이름에서 *pod_name*\_ 뒤의 파드 고유의 번호를 의미하며, 이중화 쌍이 되는 파드들의 번호들로 구성된다. 
+
+이해를 돕기 위해 AKU_SERVER_COUNT가 4이고 REPLICATION_NAME_PREFIX가 AKU_REP 일 때, 각 파드에서 생성되는 이중화 객체 이름을 살펴보자. 
+
+- 파드-0 
+  - AKU_REP_01 : *pod_name*-0과 *pod_name*-1의 Altibase 이중화
+  - AKU_REP_02 : *pod_name*-0과 *pod_name*-2의 Altibase 이중화
+  - AKU_REP_03 : *pod_name*-0과 *pod_name*-3의 Altibase 이중화
+- 파드-1
+  - AKU_REP_01 : *pod_name*-0과 *pod_name*-1의 Altibase 이중화
+  - AKU_REP_12 : *pod_name*-1과 *pod_name*-2의 Altibase 이중화
+  - AKU_REP_13 : *pod_name*-1과 *pod_name*-3의 Altibase 이중화
+- 파드-2 
+  - AKU_REP_02 : *pod_name*-0과 *pod_name*-2의 Altibase 이중화
+  - AKU_REP_12 : *pod_name*-1과 *pod_name*-2의 Altibase 이중화
+  - AKU_REP_23 : *pod_name*-2과 *pod_name*-3의 Altibase 이중화
+- 파드-3 
+  - AKU_REP_03 : *pod_name*-0과 *pod_name*-3의 Altibase 이중화
+  - AKU_REP_13 : *pod_name*-1과 *pod_name*-2의 Altibase 이중화
+  - AKU_REP_23 : *pod_name*-2과 *pod_name*-3의 Altibase 이중화
+
+~~~
+⚠️ aku가 생성하는 Altibase 이중화 객체는 사용자가 임의로 생성/삭제/수정하면 안 된다. 
+~~~
+
+
+
+### 구문
+
+~~~sql
+aku { -h | -v | -i | -p {pod_action} }
+~~~
+
+
+
+### 파라미터
+
+###### -h, --help
+
+aku 유틸리티의 사용법을 출력한다. 
+
+###### -v, --version
+
+aku 유틸리티의 버전 정보를 출력한다. aku 유틸리티의 버전은 Altibase 서버와 같은 버전으로 사용하는 것을 권장한다. 
+
+
+###### -i, --info
+
+aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 있는 경우 에러를 출력하며 정상적일 때 아래의 정보를 출력한다.
+
+- Altibase 서버 접속 정보(데이터베이스 사용자, 패스워드, Altibase 서비스 포트)
+- Altibase 이중화 포트
+- 스케일 업 최대 수(최대 파드 수)
+- Altibase 이중화 객체 이름 및 이중화 대상 테이블 정보
+
+###### -p, --pod {pod_action}
+
+스케일링으로 파드를 생성하거나 종료할 때 Altibase에서 수행할 작업을 명시한다. -p 또는 --pod 파라미터 뒤에 start, end, clean 중 하나를 반드시 입력해야 한다. 
+
+- `start`
+
+  Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을 수행한다. 파드를 생성할 때 이용할 수 있다. start 명령의 상세 동작을 살펴보자.
+
+  >  **첫 번째 파드 생성 시**
+
+  ''첫 번째 파드''는 쿠버네티스 스테이트플셋에서 생성한 첫 번째 파드(*pod_name*-0)를 말한다. aku에서는 마스터 파드(Master Pod)라고 부르며 여기서 수행한 aku를 ''MASTER AKU'라고 부르기도 한다. Altibase 이중화 객체는 모든 파드에 생성해야 하므로 스테이트풀셋에서 *pod_name*-0을 생성할 때도 `aku -p start` 명령을 수행해야 한다. 
+
+  1️⃣ aku.conf 파일을 읽는다.
+
+  2️⃣ `AKU_SERVER_COUNT`-1만큼 Altibase 이중화 객체를 생성한다. 만약, 같은 이름의 이중화 객체가 존재한다면 이중화 생성 단계는 생략한다. 
+
+  3️⃣ 이중화 대상 서버인 모드 파드에 접속을 시도한다. 하지만 다른 파드가 생성되기 전이기 때문에 접속 시도 시 에러가 발생한다. 이는 정상적인 동작이다. 
+
+  4️⃣ *pod_name*-0에서 생성한 모든 이중화 객체를 대상으로 `ALTER REPLICATION replication_name START`를 수행한다. 하지만 다른 파드가 생성되기 전이기 때문에 이중화 시작은 실패한다. 다른 파드가 생성되고 이중화를 할 수 있는 준비가 되면 이중화가 시작된다. 이것은 정상적인 동작이다. 
+
+  > **스케일 업(Scale up)**
+
+  스테이트풀셋에서 스케일 업을 하면 파드가 생성된다. aku에서는 이러한 파드에서 수행한 aku를 "SLAVE AKU"로 표현하기도 한다. 하나의 파드는 생성과 종료를 반복할 수 있는데,  파드가 처음 생성될 때와 종료 후 다시 생성될 때 `aku -p start` 동작이 다르다. 아래 *pod_name*-1에서 수행한 예로 `aku -p start` 동작을 살펴보자. 
+
+  1️⃣ aku.conf 파일을 읽는다.
+
+  2️⃣  `AKU_SERVER_COUNT`-1만큼 Altibase 이중화 객체를 생성한다. 만약 *pod_name*-1이 다시 생성된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다. 
+
+  3️⃣ *pod_name*-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다. 만약 *pod_name*-1이 다시 생성된 파드라면 *pod_name*-0과 *pod_name*-1에서 이중화 객체의 XSN 값을 확인하고 둘 중 하나라도 -1이 아니면 이 단계는 생략한다. 
+
+  4️⃣ 이중화 대상 서버인 모드 파드에 접속을 시도한다. 하지만 *pod_name*-0과의 접속만 성공하고 *pod_name*-2, ..., *pod_name*-n은 생성되기 전이기 때문에 접속 에러가 발생한다. 이는 정상적인 동작이다. 
+
+  5️⃣ *pod_name*-1에서 *pod_name*-0으로 이중화 SYNC를 요청한다. 만약 *pod_name*-1이 다시 생성된 파드라면*pod_name*-0과 *pod_name*-1에서 이중화 객체의 XSN 값을 확인하고 둘 중 하나라도 -1이 아니면 이 단계와 다음의 SYNC 수행은 생략한다. 
+
+  6️⃣ *pod_name*-0에서 *pod_name*-1로 이중화 SYNC를 수행한다. 
+
+  7️⃣ *pod_name*-1에서 *pod_name*-0으로 이중화를 시작한다. 
+
+  8️⃣ *pod_name*-1에서 *pod_name*-2, *pod_name*-3으로 이중화를 시작한다. 하지만 *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이중화 시작은 실패한다. *pod_name*-2, *pod_name*-3이 생성되고 이중화를 할 수 있는 준비가 되면 이중화가 시작된다. 이는 정상적인 동작이다. 
+
+  ~~~
+  ⚠️ aku -p start 명령은 Altibase 서버가 정상적으로 시작된 후 수행해야 한다. 
+  ⚠️ 하나의 파드에서 aku -p start 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다.
+  ~~~
+
+- `end`
+
+  Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파드를 종료할 때 이용할 수 있다. 
+
+  1️⃣ 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 이미 삭제된 상태이기 때문에 접속 에러가 발생할 수 있다. 이는 정상적인 동작이다.
+
+  2️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 `ALTER REPLICATION replication_name STOP` 수행을 요청한다.
+
+  3️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 `ALTER REPLICATION replication_name RESET` 수행을 요청한다.
+
+  ~~~
+  ⚠️ akp -p end 명령은 Altibase 서버를 중지하기 전에 수행해야 한다.
+  ⚠️ akp -p end 명령이 정상적으로 완료한 후 파드를 종료해야 한다. 
+  ~~~
+
+- `clean`
+
+  파드에서 Altibase 이중화 객체를 모두 삭제한다. 사용자가 필요시 수행할 수 있다.
+
+### 주의사항
+
+> akp -p end 명령이 완료되기 전에 파드가 종료되었다면
+
+이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 해당 파드가 다시 시작할 때 이중화 객체 생성과 이중화 대상 테이블을 TRUNCATE 하는 작업이 생략되고 이전에 생성한 이중화가 자동으로 시작된다. `akp -p end` 명령이 정상적으로 수행될 때의 출력 결과는 [예시 4](#예시-4)를 확인해 보자.
+
+>  akp -p end 명령이 완료되기 전에 파드가 종료된 상태가 장기간 지속된다면
+
+종료된 파드뿐 아니라 다른 파드에도 이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 다른 파드는 종료된 파드로 이중화 하기 위해 이중화에 필요한 온라인 로그 파일을 삭제하지 않는다. 온라인 로그 파일이 쌓이면 디스크 풀 발생으로 Altibase 서버가 정상적으로 운영되지 못할 수 있다. 따라서 이런 상황을 방지하기 위해  `akp -p end` 명령이 완전히 완료되기 전에 파드가 종료된 상태가 장기간 지속되고 있다면 이중화를 중지하고 이중화 초기화 작업을 진행해야 한다. 
+
+~~~sql
+ALTER REPLICATION replication_name STOP;
+ALTER REPLICATION replication_name RESET;
+~~~
+
+*pod_name*-0과 *pod_name*-1이 운영 중 *pod_name*-1이 `akp -p end` 명령을 정상적으로 수행되지 못하고 종료되었다고 가정해 보자. *pod_name*-0에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회해 보자. 이중화 객체 AKU_REP_01의 XSN 값이 -1이 아닌 것을 볼 수 있다. 이는 이중화 정보가 초기화되지 않은 것을 의미한다. AKU_REP_01은 *pod_name*-0과 *pod_name*-1의 이중화 객체이다. 
+
+~~~sql
+iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
+REPLICATION_NAME                XSN                  
+--------------------------------------------------------
+AKU_REP_03                      -1
+AKU_REP_02                      -1
+AKU_REP_01                      859070110
+No rows selected.
+~~~
+
+*pod_name*-0에서 AKU_REP_01을 중지하고 이중화 객체를 생성한 시점으로 초기화한다. 
+
+~~~sql
+iSQL> ALTER REPLICATION AKU_REP_01 STOP;
+Alter sucess.
+
+iSQL> ALTER REPLICATION AKU_REP_01 RESET;
+Alter sucess.
+~~~
+
+다시 *pod_name*-0에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회해 보자. 이중화 객체 AKU_REP_01의 XSN 값이 -1으로 변경되었다.
+
+~~~sql
+iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
+REPLICATION_NAME                XSN                  
+--------------------------------------------------------
+AKU_REP_03                      -1
+AKU_REP_02                      -1
+AKU_REP_01                      -1
+No rows selected.
+~~~
+
+### 제약사항
+
+aku 유틸리티를 안정적으로 사용하기 위해 쿠버네티스 환경 설정 시 반드시 지켜야 할 조건이다. 
+
+- 쿠버네티스의 워크로드 컨트롤러 중 **스테이트풀셋에서만 사용**해야 한다.
+- **Altibase 서버와 aku는 같은 컨테이너에서 실행**해야 한다.
+- **파드 관리 정책은 OrderedReady** 여야 한다. OrderedReady는 스테이트풀셋의 기본 정책이다.
+- 스케일 업할 수 있는 레플리카는 **최대 4개**이다.
+- 파드 종료 시 aku 수행을 완료할 수 있는 시간을 확보해야 한다. 따라서, 쿠버네티스에서 파드를 강제 종료하는 대기 시간인 terminationGracePeriodSeconds를 충분히 크게 설정해야 한다.
+
+### 사용 예
+
+##### 예시 1
+
+-i 파라미터를 사용하여 aku를 실행한 결과이다. 아래 결과는 [aku 설정 파일](#aku-설정-파일)의 aku.conf.sample로 구성한 aku.conf에서 수행한 예시이다. Server ID가 0인 것은 스테이트풀셋 컨트롤러에서 처음 생성한 파드를 의미한다.
+
+~~~bash
+$ aku -i
+  #########################
+ [ Server ]
+  Server ID        : 0
+  Host             : AKUHOST-0.altibase-svc
+  User             : SYS
+  Password         : manager
+  Port             : 20300
+  Replication Port : 20301
+  Max Server Count : 4
+ #########################
+ [ Replications ]
+ #### Serve[ID:0] Replication list ####
+  Replication Name : AKU_REP_01
+  Replication Name : AKU_REP_02
+  Replication Name : AKU_REP_03
+ #### Serve[ID:1] Replication list ####
+  Replication Name : AKU_REP_01
+  Replication Name : AKU_REP_12
+  Replication Name : AKU_REP_13
+ #### Serve[ID:2] Replication list ####
+  Replication Name : AKU_REP_02
+  Replication Name : AKU_REP_12
+  Replication Name : AKU_REP_23
+ #### Serve[ID:3] Replication list ####
+  Replication Name : AKU_REP_03
+  Replication Name : AKU_REP_13
+  Replication Name : AKU_REP_23
+ #########################
+ [ Replication Items ]
+  User Name        : SYS
+  Table Name       : T1
+ 
+  User Name        : SYS
+  Table Name       : T2
+ 
+  User Name        : SYS
+  Table Name       : T3
+ #########################
+~~~
+
+##### 예시 2
+
+첫 번째 파드(AKUHOST-0)에서 aku -p start를 수행한 예시이다. 
+
+~~~bash
+$ aku -p start
+MASTER AKU Initialize
+[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-1
+  Diagnostic Record 1
+    SQLSTATE     : 08001
+    Message text : Client unable to establish connection. (Failed to invoke the connect() system function, errno=111)
+    Message len  : 98
+    Native error : 0x50032
+[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-2
+  Diagnostic Record 1
+    SQLSTATE     : 08001
+    Message text : Client unable to establish connection. (Failed to invoke the connect() system function, errno=111)
+    Message len  : 98
+    Native error : 0x50032
+[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-3
+  Diagnostic Record 1
+    SQLSTATE     : 08001
+    Message text : Client unable to establish connection. (Failed to invoke the connect() system function, errno=111)
+    Message len  : 98
+    Native error : 0x50032
+[Error][akuExecuteQuery:406] [EXECUTE BY :AKUHOST-0.altibase-svc] [SQL:ALTER REPLICATION AKU_REP_01 START] : Failed to execute sql.
+  Diagnostic Record 1
+    SQLSTATE     : HY000
+    Message text : [Sender] Failed to handshake with the peer server (Handshake Process Error)
+    Message len  : 75
+    Native error : 0x6100D
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_01 Start Failure
+[Error][akuExecuteQuery:406] [EXECUTE BY :AKUHOST-0.altibase-svc] [SQL:ALTER REPLICATION AKU_REP_02 START] : Failed to execute sql.
+  Diagnostic Record 1
+    SQLSTATE     : HY000
+    Message text : [Sender] Failed to handshake with the peer server (Handshake Process Error)
+    Message len  : 75
+    Native error : 0x6100D
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_02 Start Failure
+[Error][akuExecuteQuery:406] [EXECUTE BY :AKUHOST-0.altibase-svc] [SQL:ALTER REPLICATION AKU_REP_03 START] : Failed to execute sql.
+  Diagnostic Record 1
+    SQLSTATE     : HY000
+    Message text : [Sender] Failed to handshake with the peer server (Handshake Process Error)
+    Message len  : 75
+    Native error : 0x6100D
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Start Failure
+~~~
+
+출력 결과를 살펴보자. 
+
+~~~bash
+# aku.conf를 읽어 이중화 객체를 생성한다. 
+# MASTER AKU는 첫 번째 파드에서 수행한 aku를 의미한다. 
+MASTER AKU Initialize
+
+# 다른 파드가 아직 생성되지 않은 상태이므로 첫 번째 파드에서 다른 파드로의 접속이 실패한다.   
+[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-1
+  Diagnostic Record 1
+    SQLSTATE     : 08001
+    Message text : Client unable to establish connection. (Failed to invoke the connect() system function, errno=111)
+    Message len  : 98
+    Native error : 0x50032
+
+# 다른 파드가 아직 생성되지 않은 상태이므로 첫 번째 파드에서 다른 파드로의 이중화 시작이 실패한다.   
+[Error][akuExecuteQuery:406] [EXECUTE BY :AKUHOST-0.altibase-svc] [SQL:ALTER REPLICATION AKU_REP_01 START] : Failed to execute sql.
+  Diagnostic Record 1
+    SQLSTATE     : HY000
+    Message text : [Sender] Failed to handshake with the peer server (Handshake Process Error)
+    Message len  : 75
+    Native error : 0x6100D
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_01 Start Failure
+~~~
+
+##### 예시 3
+
+4번째 파드(AKUHOST-3)에서 aku -p start 명령을 수행한 예시이다. Master Pod는 스테이트풀셋에서 생성한 첫 번째 파드를 의미한다. 
+
+~~~bash~~~
+$ aku -p start
+SLAVE AKU Initialize
+Sync Process Master Pod To My Pod
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Sync Success
+AKUHOST-1.altibase-svc: REPLICAION AKU_REP_13 Start Success
+AKUHOST-2.altibase-svc: REPLICAION AKU_REP_23 Start Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_03 Start Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 Start Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success	
+~~~
+
+출력 결과를 살펴보자. 
+
+~~~bash
+# aku.conf를 읽어 이중화 객체를 생성한다. 
+# SLAVE AKU는 첫 번째 파드가 아닌 파드에서 수행한 aku를 의미한다.
+SLAVE AKU Initialize
+
+# Master Pod는 첫 번째 파드(AKUHOST-0)를 말하며 AKUHOST-0의 데이터를 나의 파드로 동기화하였다.
+Sync Process Master Pod To My Pod
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Sync Success
+
+# AKUHOST-3 파드가 생성되었으므로 AKUHOST-1, AKUHOST-2에서 AKUHOST-3으로 이중화가 시작되었다.    
+AKUHOST-1.altibase-svc: REPLICAION AKU_REP_13 Start Success
+AKUHOST-2.altibase-svc: REPLICAION AKU_REP_23 Start Success
+
+# AKUHOST-3 파드와 다른 파드 간 이중화가 시작되었다.
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_03 Start Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 Start Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success  
+~~~
+
+##### 예시 4
+
+4번째 파드에서 `aku -p end` 명령을 수행할 때의 출력 결과이다. 4번째 파드와 이중화로 연결된 모든 파드에 이중화 중지 및 RESSET 명령이 수행된 것을 볼 수 있다. 
+
+~~~bash
+$ aku -p end
+ SLAVE AKU Initialize
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 STOP Success
+AKUHOST-1.altibase-svc: REPLICAION AKU_REP_13 STOP Success
+AKUHOST-2.altibase-svc: REPLICAION AKU_REP_23 STOP Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_03 STOP Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 STOP Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 STOP Success
+AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 RESET Success
+AKUHOST-1.altibase-svc: REPLICAION AKU_REP_13 RESET Success
+AKUHOST-2.altibase-svc: REPLICAION AKU_REP_23 RESET Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_03 RESET Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 RESET Success
+AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 RESET Success
+~~~
+
+
+
 ### altiAudit
 
 #### 개요
