@@ -2007,9 +2007,11 @@ MOSO = SU
 
 ### 개요
 
-aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod) 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행하는 유틸리티이다. *Altibase 7.1.0.8.1 부터 제공한다.*(Altibase 7.1 매뉴얼에 추가)
+aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod) 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행할 수 있게 도와주는 유틸리티이다. *Altibase 7.1.0.8.1 부터 제공한다.*(Altibase 7.1 매뉴얼에 추가)
 
-스테이트풀셋은 데이터베이스처럼 상태 유지가 필요한 애플리케이션을 지원하기 위한 쿠버네티스의 워크로드 컨트롤러 중 하나이며, 스케일링은 파드를 생성하거나 종료하는 것을 의미한다. 파드는 컨테이너들을 담고 있는 쿠버네티스의 리소스이며, 이 컨테이너에 Altibase 서버가 실행된다. 스테이트풀셋에서 스케일 업/다운(scale up/down) 할 때 필요한 작업을 aku를 사용하여 수행할 수 있다. 
+> 스테이트풀셋은 데이터베이스처럼 상태 유지가 필요한 애플리케이션을 지원하기 위한 쿠버네티스의 워크로드 컨트롤러 중 하나이며, 스케일링은 파드를 생성하거나 종료하는 것을 의미한다. 파드는 컨테이너들을 담고 있는 쿠버네티스의 리소스이며, 이 컨테이너에 Altibase 서버가 실행된다. 
+
+스테이트풀셋에서 스케일 업/다운할 때 아래의 조건에 해당하는 파드를 생성하거나 종료하고자 할 때 aku 유틸리티를 사용할 수 있다. 이때, aku 유틸리티가 Altibase 컨테이너에서 실행되도록 적당한 위치에 명령어를 추가해야 한다.
 
 ###### 스케일 업
 
@@ -2023,11 +2025,11 @@ aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statef
 
 ### 구성 요소
 
-aku 유틸리티는 aku 실행 파일과 aku 설정 파일로 구성된다. aku를 실행하기 위해서 ALTIBASE_HOME 환경변수가 설정해야 한다.
-
+aku 유틸리티는 aku 실행 파일과 aku 설정 파일로 구성된다. 
+> ⚠️ 모든 파드에서 실행하는 aku 실행 파일은 같은 버전을 사용해야 하며 aku 설정 파일 내 파라미터도 같은 값을 가져야 한다. 일반적으로 aku 실행 파일과 aku 설정 파일은 Altibase 컨테이너 이미지에 포함되어 있다. 
 ###### aku 실행 파일
 
-실행 파일의 이름은 aku이며 $ALTIBASE_HOME/bin에 위치한다. 
+실행 파일의 이름은 aku이며 $ALTIBASE_HOME/bin에 위치한다. aku 실행 파일을 실행하기 위해서 환경변수 ALTIBASE_HOME이 설정되어 있어야 한다.
 
 ###### aku 설정 파일
 
@@ -2207,7 +2209,7 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 
 - `clean`
 
-  파드에서 Altibase 이중화 객체를 모두 삭제한다. 사용자가 필요시 수행할 수 있다.
+  파드에서 Altibase 이중화 객체를 모두 삭제한다. 더 이상 파드 간에 동기화를 할 필요가 없을 때 사용한다. 
 
 ### 주의사항
 
@@ -2323,7 +2325,7 @@ $ aku -i
 ~~~bash
 $ aku -p start
 MASTER AKU Initialize
-[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-1
+[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-1.altibase.svc
   Diagnostic Record 1
     SQLSTATE     : 08001
     Message text : Client unable to establish connection. (Failed to invoke the connect() system function, errno=111)
@@ -2372,7 +2374,7 @@ AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Start Failure
 MASTER AKU Initialize
 
 # 다른 파드가 아직 생성되지 않은 상태이므로 첫 번째 파드에서 다른 파드로의 접속이 실패한다.   
-[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-1
+[Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-1.altibase.svc
   Diagnostic Record 1
     SQLSTATE     : 08001
     Message text : Client unable to establish connection. (Failed to invoke the connect() system function, errno=111)
