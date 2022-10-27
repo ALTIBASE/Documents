@@ -2082,7 +2082,7 @@ REPLICATIONS = (
 | REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사.<br />최대 길이는 37바이트이다. |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
 | REPLICATIONS/USER_NAME               |  없음  | 이중화 대상 테이블의 소유자 이름.<br />여기에 명시한 데이터베이스 사용자는 `aku -p` 명령을 수행하기 전에 생성해야 한다. |
-| REPLICATIONS/TABLE_NAME              |  없음  | 이중화 대상 테이블 이름.<br />여기에 명시한 테이블은 `aku -p`명령을 수행하기 전에 생성해야 한다. |
+| REPLICATIONS/TABLE_NAME              |  없음  | 이중화 대상 테이블 이름으로, [테이블](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#테이블-table)과 [파티션드 테이블](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#파티션드-테이블partitioned-table)을 명시할 수 있다. <br />여기에 명시한 테이블은 `aku -p`명령을 수행하기 전에 생성해야 한다. |
 
 > aku 설정 파일 작성 시 주의사항
 
