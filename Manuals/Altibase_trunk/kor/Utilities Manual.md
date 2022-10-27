@@ -2021,7 +2021,6 @@ aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statef
 
 파드를 종료할 때 Altibase 서버의 이중화 정보를 초기화한다. 
 
-파드 생성 또는 종료 시점에 위의 작업들을 수행하기 위해서 aku 명령어를 Altibase 도커 이미지의 docker-entrypoint.sh 스크립트나 파드의 명세를 정의하는 yaml 파일에 추가할 수 있다.
 
 ### 구성 요소
 
@@ -2096,19 +2095,19 @@ aku에서 생성하는 Altibase 이중화 객체 이름은 *REPLICATION_NAME_PRE
 
 이해를 돕기 위해 AKU_SERVER_COUNT가 4이고 REPLICATION_NAME_PREFIX가 AKU_REP 일 때, 각 파드에서 생성되는 이중화 객체 이름을 살펴보자. 
 
-- 파드-0 
+- *pod_name*-0 
   - AKU_REP_01 : *pod_name*-0과 *pod_name*-1의 Altibase 이중화
   - AKU_REP_02 : *pod_name*-0과 *pod_name*-2의 Altibase 이중화
   - AKU_REP_03 : *pod_name*-0과 *pod_name*-3의 Altibase 이중화
-- 파드-1
+- *pod_name*-1
   - AKU_REP_01 : *pod_name*-0과 *pod_name*-1의 Altibase 이중화
   - AKU_REP_12 : *pod_name*-1과 *pod_name*-2의 Altibase 이중화
   - AKU_REP_13 : *pod_name*-1과 *pod_name*-3의 Altibase 이중화
-- 파드-2 
+- *pod_name*-2 
   - AKU_REP_02 : *pod_name*-0과 *pod_name*-2의 Altibase 이중화
   - AKU_REP_12 : *pod_name*-1과 *pod_name*-2의 Altibase 이중화
   - AKU_REP_23 : *pod_name*-2과 *pod_name*-3의 Altibase 이중화
-- 파드-3 
+- *pod_name*-3 
   - AKU_REP_03 : *pod_name*-0과 *pod_name*-3의 Altibase 이중화
   - AKU_REP_13 : *pod_name*-1과 *pod_name*-2의 Altibase 이중화
   - AKU_REP_23 : *pod_name*-2과 *pod_name*-3의 Altibase 이중화
