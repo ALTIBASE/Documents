@@ -2033,7 +2033,7 @@ aku 유틸리티는 aku 실행 파일과 aku 설정 파일로 구성된다.
 
 ###### aku 설정 파일
 
-aku를 실행하면 aku 설정 파일을 가장 먼저 읽어 Altibase 데이터 동기화에 필요한 정보를 얻는다. aku 설정 파일의 이름은 aku.conf이며 $ALTIBASE_HOME/conf에 위치해야 한다. Altibase 패키지에 aku.conf.sample 이름의 예제 파일을 제공하므로 aku 실행 파일을 실행하기 전에 이 파일을 참고하여 aku.conf를 생성해야 한다. aku 설정 파일의 내용은 아래와 같다. 
+aku를 실행하면 aku 설정 파일을 가장 먼저 읽어 Altibase 데이터 동기화에 필요한 정보를 얻는다. aku 설정 파일의 이름은 aku.conf이며 $ALTIBASE_HOME/conf에 위치해야 한다. Altibase 패키지에 aku.conf.sample 이름의 예제 파일을 제공하므로 aku를 실행하기 전에 이 파일을 참고하여 aku.conf를 생성해야 한다. aku 설정 파일의 내용은 아래와 같다. 
 
 ~~~bash
 # aku.conf.sample
