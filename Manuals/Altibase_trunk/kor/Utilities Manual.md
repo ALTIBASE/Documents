@@ -1,17 +1,25 @@
 
 
 - [Utilities Manual](#utilities-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [서문](#서문)
+    - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
   - [1.aexport](#1aexport)
-    - [aexport소개](#aexport%EC%86%8C%EA%B0%9C)
-    - [aexport사용방법](#aexport%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
+    - [aexport소개](#aexport소개)
+    - [aexport사용방법](#aexport사용방법)
   - [2.altiComp](#2alticomp)
-    - [altiComp 소개](#alticomp-%EC%86%8C%EA%B0%9C)
-    - [altiComp 사용 방법](#alticomp-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [비교(DIFF)기능](#%EB%B9%84%EA%B5%90diff%EA%B8%B0%EB%8A%A5)
-    - [일치(SYNC) 기능](#%EC%9D%BC%EC%B9%98sync-%EA%B8%B0%EB%8A%A5)
-  - [3.기타 Utilities](#3%EA%B8%B0%ED%83%80-utilities)
+    - [altiComp 소개](#alticomp-소개)
+    - [altiComp 사용 방법](#alticomp-사용-방법)
+    - [비교(DIFF)기능](#비교diff기능)
+    - [일치(SYNC) 기능](#일치sync-기능)
+  - [3.aku](#3aku)
+    - [개요](#개요-1)
+    - [구성 요소](#구성-요소)
+    - [구문](#구문-1)
+    - [파라미터](#파라미터-1)
+    - [주의사항](#주의사항)
+    - [제약사항](#제약사항)
+    - [사용 예](#사용-예)
+  - [4.기타 Utilities](#4기타-utilities)
     - [altiAudit](#altiaudit)
     - [altibase](#altibase)
     - [altiMon](#altimon)
@@ -2000,10 +2008,7 @@ MOSO = SU
      Time:       0.01 sec
 ```
 
-3.기타 Utilities
---------------
-
-## aku
+## 3.aku
 
 ### 개요
 
@@ -2025,7 +2030,9 @@ aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statef
 ### 구성 요소
 
 aku 유틸리티는 실행 파일과 설정 파일로 구성된다. 
+
 > ⚠️ 모든 파드에서 실행하는 aku 실행 파일은 같은 버전을 사용해야 하며 aku 설정 파일 내 프로퍼티도 같은 값을 가져야 한다. 일반적으로 aku 실행 파일과 aku 설정 파일은 Altibase 컨테이너 이미지에 포함되어 있다. 
+
 ###### aku 실행 파일
 
 실행 파일의 이름은 aku이며 $ALTIBASE_HOME/bin에 위치한다. aku를 실행하려면 먼저 환경변수 ALTIBASE_HOME을 설정해야 한다.
@@ -2173,7 +2180,7 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
   1️⃣ aku.conf 파일을 읽는다.
 
   2️⃣  `AKU_SERVER_COUNT`-1만큼 Altibase 이중화 객체를 생성한다. 만약 *pod_name*-1이 다시 생성된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다. 
-  
+
   3️⃣ 이중화 대상 서버인 모드 파드에 접속을 시도한다. 하지만 *pod_name*-0과의 접속만 성공하고 *pod_name*-2, ..., *pod_name*-n은 생성되기 전이기 때문에 접속 에러가 발생한다. 이는 정상적인 동작이다. 
 
   4️⃣ *pod_name*-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다. 만약 *pod_name*-1이 다시 생성된 파드라면, *pod_name*-0과 *pod_name*-1이 정상적으로 이중화가 가능한 상태인지 확인한다. 이중화를 다시 시작할 수 있는 상태이면 이 단계는 생략하고 다시 시작할 수 없는 상태이면 이 단계를 진행한다.
@@ -2448,7 +2455,8 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 RESET Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 RESET Success
 ~~~
 
-
+4.기타 Utilities
+--------------
 
 ### altiAudit
 
