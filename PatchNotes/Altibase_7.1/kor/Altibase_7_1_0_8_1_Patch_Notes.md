@@ -10,21 +10,21 @@
 # **Table of Contents** 
 
 - [New Features](#new-features)
-  - [BUG-49444 row\_number\_limit 함수가 partition by 절과 함께 사용할때 성능향상이 필요합니다.](#bug-49444row_number_limit-%ED%95%A8%EC%88%98%EA%B0%80-partition-by-%EC%A0%88%EA%B3%BC-%ED%95%A8%EA%BB%98-%EC%82%AC%EC%9A%A9%ED%95%A0%EB%95%8C-%EC%84%B1%EB%8A%A5%ED%96%A5%EC%83%81%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49963 Altibase Kubernetes Utility 반영](#bug-49963altibase-kubernetes-utility-%EB%B0%98%EC%98%81)
+  - [ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과만 조회하는 SQL의 수행 성능을 개선합니다.](#bug-49444row_number--over-partition-by--order-by의-값이-1인-결과만-조회하는-sql의-수행-성능을-개선합니다)
+  - [BUG-49963 aku(Altibase Kubernetes Utility)가 추가되었습니다.](#bug-49963akualtibase-kubernetes-utility가-추가되었습니다)
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-49910 INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 때 INSERT문 실행이 실패했음에도 레코드가 삽입되는 현상을 수정합니다.](#bug-49910insert%EB%AC%B8%EC%9D%98-%EB%B0%94%EC%9D%B8%EB%93%9C-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0%EB%A5%BC-lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%EB%B0%94%EC%9D%B8%EB%93%9C%ED%95%A0-%EB%95%8C-insert%EB%AC%B8-%EC%8B%A4%ED%96%89%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%96%88%EC%9D%8C%EC%97%90%EB%8F%84-%EB%A0%88%EC%BD%94%EB%93%9C%EA%B0%80-%EC%82%BD%EC%9E%85%EB%90%98%EB%8A%94-%ED%98%84%EC%83%81%EC%9D%84-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49911 DatabaseMetaData.getColumns 메소드의 IS\_AUTOINCREMENT, IS\_GENERATEDCOLUMN 컬럼값 반환 시 SQLException: Invalid column name 에러가 발생합니다.](#bug-49911databasemetadatagetcolumns-%EB%A9%94%EC%86%8C%EB%93%9C%EC%9D%98-is_autoincrement-is_generatedcolumn-%EC%BB%AC%EB%9F%BC%EA%B0%92-%EB%B0%98%ED%99%98-%EC%8B%9C-sqlexception-invalid-column-name-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49926 MEMORY\_ALLOCATOR\_TYPE 프로퍼티의 최대값을 변경합니다.](#bug-49926memory_allocator_type-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%9D%98-%EC%B5%9C%EB%8C%80%EA%B0%92%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49939 GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAST 절을 같이 사용할 때 ERR-31001 : SQL syntax error 에러가 발생합니다.](#bug-49939group-by-grouping-sets-%EC%A0%88%EA%B3%BC-order-by-nulls-first-%EC%A0%88-%EB%98%90%EB%8A%94-order-by-nulls-last-%EC%A0%88%EC%9D%84-%EA%B0%99%EC%9D%B4-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-err-31001--sql-syntax-error-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49940 ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정하는 프로퍼티를 추가합니다.](#bug-49940alter-table--add-column-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%BB%AC%EB%9F%BC%EC%9D%98-fixedvariable-%EC%98%B5%EC%85%98%EC%9D%84-%EA%B2%B0%EC%A0%95%ED%95%98%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49946 ado.net에서 PSM 수행 시 DbDataReader.NextResult()에서 잘못된 결과를 반환합니다.](#bug-49946adonet%EC%97%90%EC%84%9C-psm-%EC%88%98%ED%96%89-%EC%8B%9C-dbdatareadernextresult%EC%97%90%EC%84%9C-%EC%9E%98%EB%AA%BB%EB%90%9C-%EA%B2%B0%EA%B3%BC%EB%A5%BC-%EB%B0%98%ED%99%98%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49960 getColumnName()으로 한글로 된 컬럼의 이름을 가져오면 한글이 깨지고 SQLException: Invalid column name 에러가 발생합니다.](#bug-49960getcolumnname%EC%9C%BC%EB%A1%9C-%ED%95%9C%EA%B8%80%EB%A1%9C-%EB%90%9C-%EC%BB%AC%EB%9F%BC%EC%9D%98-%EC%9D%B4%EB%A6%84%EC%9D%84-%EA%B0%80%EC%A0%B8%EC%98%A4%EB%A9%B4-%ED%95%9C%EA%B8%80%EC%9D%B4-%EA%B9%A8%EC%A7%80%EA%B3%A0-sqlexception-invalid-column-name-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49910 INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 때 INSERT문 실행이 실패했음에도 레코드가 삽입되는 현상을 수정합니다.](#bug-49910insert문의-바인드-파라미터를-lob-데이터-타입으로-바인드할-때-insert문-실행이-실패했음에도-레코드가-삽입되는-현상을-수정합니다)
+  - [BUG-49911 DatabaseMetaData.getColumns 메소드의 IS\_AUTOINCREMENT, IS\_GENERATEDCOLUMN 컬럼값 반환 시 SQLException: Invalid column name 에러가 발생합니다.](#bug-49911databasemetadatagetcolumns-메소드의-is_autoincrement-is_generatedcolumn-컬럼값-반환-시-sqlexception-invalid-column-name-에러가-발생합니다)
+  - [BUG-49926 MEMORY\_ALLOCATOR\_TYPE 프로퍼티의 최대값을 변경합니다.](#bug-49926memory_allocator_type-프로퍼티의-최대값을-변경합니다)
+  - [BUG-49939 GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAST 절을 같이 사용할 때 ERR-31001 : SQL syntax error 에러가 발생합니다.](#bug-49939group-by-grouping-sets-절과-order-by-nulls-first-절-또는-order-by-nulls-last-절을-같이-사용할-때-err-31001--sql-syntax-error-에러가-발생합니다)
+  - [BUG-49940 ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정하는 프로퍼티를 추가합니다.](#bug-49940alter-table--add-column-수행-시-컬럼의-fixedvariable-옵션을-결정하는-프로퍼티를-추가합니다)
+  - [BUG-49946 ado.net에서 PSM 수행 시 DbDataReader.NextResult()에서 잘못된 결과를 반환합니다.](#bug-49946adonet에서-psm-수행-시-dbdatareadernextresult에서-잘못된-결과를-반환합니다)
+  - [BUG-49960 getColumnName()으로 한글로 된 컬럼의 이름을 가져오면 한글이 깨지고 SQLException: Invalid column name 에러가 발생합니다.](#bug-49946adonet에서-psm-수행-시-dbdatareadernextresult에서-잘못된-결과를-반환합니다)
 - [Changes](#changes)
   - [Version Info](#version-info)
-  - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-  - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+  - [호환성](#호환성)
+  - [프로퍼티](#프로퍼티)
+  - [성능 뷰](#성능-뷰)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
