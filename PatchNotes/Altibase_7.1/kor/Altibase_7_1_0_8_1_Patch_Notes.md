@@ -10,7 +10,7 @@
 # **Table of Contents** 
 
 - [New Features](#new-features)
-  - [ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과만 조회하는 SQL의 수행 성능을 개선합니다.](#bug-49444row_number--over-partition-by--order-by의-값이-1인-결과만-조회하는-sql의-수행-성능을-개선합니다)
+  - [BUG-49444 ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과를 조회하는 SQL의 수행 성능을 개선합니다.](#bug-49444row_number--over-partition-by--order-by의-값이-1인-결과를-조회하는-sql의-수행-성능을-개선합니다)
   - [BUG-49963 aku(Altibase Kubernetes Utility)가 추가되었습니다.](#bug-49963akualtibase-kubernetes-utility가-추가되었습니다)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-49910 INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 때 INSERT문 실행이 실패했음에도 레코드가 삽입되는 현상을 수정합니다.](#bug-49910insert문의-바인드-파라미터를-lob-데이터-타입으로-바인드할-때-insert문-실행이-실패했음에도-레코드가-삽입되는-현상을-수정합니다)
@@ -31,7 +31,7 @@
 New Features
 ============
 
-### BUG-49444 ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과만 조회하는 SQL의 수행 성능을 개선합니다.
+### BUG-49444 ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과를 조회하는 SQL의 수행 성능을 개선합니다.
 
 #### module
 `qp-select-execute`
@@ -43,7 +43,7 @@ New Features
 `Unknown`
 
 #### 설명
-ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과만 조회하는 SQL의 수행 성능을 개선합니다. SQL이 아래의 조건을 만족할 때 SQL 수행 중 메모리 사용량이 감소하고 수행 성능이 향상됩니다. 
+ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과를 조회하는 SQL의 수행 성능을 개선합니다. SQL이 아래의 조건을 만족할 때 SQL 수행 중 메모리 사용량이 감소하고 수행 성능이 향상됩니다. 
 
 (1) 질의문에 윈도우 함수가 ROW_NUMBER만 사용
 (2) ROW_NUMBER 함수의 OVER 절에 PARTITION BY 절을 사용
@@ -68,7 +68,7 @@ SELECT /*+ NO_PLAN_CACHE */ COUNT(*) FROM ( SELECT **ROW_NUMBER() OVER( PARTITIO
 
 - 설명
 
-  ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ..) 의 값이 1인 결과만 조회할 때 질의 성능 향상을 위한 해시 버킷 크기를 설정한다. 0부터 102400000까지 설정할 수 있으며 0은 질의 성능 향상 기능 비활성화를 의미한다. 이 프로퍼티의 적정 값은 ROW_NUMBER()으로 조회되는 데이터 수이다. 
+  ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ..) 의 값이 1인 결과를 조회할 때 질의 성능 향상을 위한 해시 버킷 크기를 설정한다. 0부터 102400000까지 설정할 수 있으며 0은 질의 성능 향상 기능 비활성화를 의미한다. 이 프로퍼티의 적정 값은 ROW_NUMBER()으로 조회되는 데이터 수이다. 
 
 - 기본값
   0
