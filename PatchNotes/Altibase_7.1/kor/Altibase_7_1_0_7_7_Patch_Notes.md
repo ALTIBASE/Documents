@@ -95,29 +95,17 @@ Fixed Bugs
 
 -   **Workaround**
 
-    이 버그 현상은 다음 2 가지 방법 중 하나로 회피할 수 있습니다. 
+    이 버그 현상은 `TEMP_TBS_MEMORY` 힌트로 회피할 수 있습니다. 
 
-    - **TEMP_TBS_MEMORY 힌트 사용**
-
-      ```sql
-      SELECT /*+ TEMP_TBS_MEMORY */ ROW_NUMBER() OVER(ORDER BY A.I1 DESC) RNUM
-           , TO_CHAR(TO_DATE(A.I1, 'YYYYMMDD'), 'YYYY-MM-DD') AS YYYYMMDD
-           , SUM(A.I2) AS CNT
-        FROM T1 A
-       GROUP BY A.I
-       ORDER BY A.I1 DESC;
-      ```
-
-    - **비공개 프로퍼티 OPTIMIZER_ORDER_BY_ELIMINATION_ENABLE 변경**
-
-      Altibase 6.5.1 이상에서 사용할 수 있는 방법입니다. 질의문 변경 없이 프로퍼티 변경만으로 회피할 수 있습니다. 이 방법은 버그 조건에 만족하는 질의문  뿐 아니라 프로퍼티 영향을 받는 다른 질의문의 실행 계획이 변경으로 질의문의 수행 성능이 저하될 수 있습니다. 
-
-      - 프로퍼티 값 변경 방법 (기본값 1)
-
-        ```sql
-        ALTER SYSTEM SET __OPTIMIZER_ORDER_BY_ELIMINATION_ENABLE = 0 ; 
-        ```
-
+    ```sql
+    SELECT /*+ TEMP_TBS_MEMORY */ ROW_NUMBER() OVER(ORDER BY A.I1 DESC) RNUM
+         , TO_CHAR(TO_DATE(A.I1, 'YYYYMMDD'), 'YYYY-MM-DD') AS YYYYMMDD
+         , SUM(A.I2) AS CNT
+      FROM T1 A
+     GROUP BY A.I
+     ORDER BY A.I1 DESC;
+    ```
+    
 -   **변경사항**
 
     -   Performance view

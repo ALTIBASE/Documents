@@ -8,7 +8,6 @@ Altibase 6.5.1.9.1 Patch Notes
 # **Table of Contents**
 
 - [New Features](#new-features)
-  - [BUG-49563 OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값에 영향을 받는 프로퍼티를 추가합니다.](#bug-49563optimizer_feature_enable-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EA%B0%92%EC%97%90-%EC%98%81%ED%96%A5%EC%9D%84-%EB%B0%9B%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49616 Standard Edition, Enterprise Edition에서 라이센스 발급 기준으로 MEM\_MAX\_DB\_SIZE를 추가합니다.](#bug-49616standard-edition-enterprise-edition%EC%97%90%EC%84%9C-%EB%9D%BC%EC%9D%B4%EC%84%BC%EC%8A%A4-%EB%B0%9C%EA%B8%89-%EA%B8%B0%EC%A4%80%EC%9C%BC%EB%A1%9C-mem_max_db_size%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-47420 LENGTH()로 LOB 길이 출력 시 Altibase 서버가 비정상 종료하고 디스크 테이블에 LOB 데이터 타입의 최대 크기를 초과하여 입력되는 현상을 수정합니다.](#bug-47420length%EB%A1%9C-lob-%EA%B8%B8%EC%9D%B4-%EC%B6%9C%EB%A0%A5-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EA%B3%A0-%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%98-%EC%B5%9C%EB%8C%80-%ED%81%AC%EA%B8%B0%EB%A5%BC-%EC%B4%88%EA%B3%BC%ED%95%98%EC%97%AC-%EC%9E%85%EB%A0%A5%EB%90%98%EB%8A%94-%ED%98%84%EC%83%81%EC%9D%84-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -38,39 +37,6 @@ Altibase 6.5.1.9.1 Patch Notes
 
 New Features
 ============
-
-### BUG-49563 OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값에 영향을 받는 프로퍼티를 추가합니다.
-
--   **module** : qp-dml-pvo
-
--   **Category** : Maintainability
-
--   **재현 빈도** : Unknown
-
--   **설명** : Altibase 6.3.1 옵티마이저와 동일한 옵티마이저 설정을 위해 \_\_OPTIMIZER\_INDEX\_COST\_MODE 프로퍼티의 설정값 2가
-    추가되었습니다. 이 프로퍼티는 히든 프로퍼티로 관련 내용은 매뉴얼에 기록되지 않습니다.
-    
-    OPTIMIZER\_FEATURE\_ENABLE 설정값이 6.3.1.0.1 인 경우 이 프로퍼티의 설정값은 2가 됩니다.
-    
-    OPTIMIZER\_FEATURE\_ENABLE 프로퍼티 값을 6.5.1.0.0 이전 버전으로 설정하여 운영 중인 경우 Altibase 6.5.1.9.1 이전과 실행 계획이 달라질 수 있습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-        
-    -   Compile Option
-    -   Error Code
 
 ### BUG-49616 Standard Edition, Enterprise Edition에서 라이센스 발급 기준으로 MEM\_MAX\_DB\_SIZE를 추가합니다.
 
@@ -411,28 +377,7 @@ Fixed Bugs
 -   이중화 객체에 DDL 수행 시 The table structure has been modified. 에러가 반복되는 경우 altibase\_qp.log에 로그가 과도하게 기록되는 현상을 개선합니다.
 
     The table structure has been modified. 에러는 보통 재시도하면 해결되는 종류의 에러로, 실패 시 재시도를 무한 반복합니다.
-    지속적인 재시도에도 실패하는 경우 실패 처리하는 프로퍼티를 추가합니다. 히든 프로퍼티로 매뉴얼에 설명을 추가하지 않습니다.
-
-    - 이름
-
-      REPLICATION\_DDL\_REBUILD\_ERROR\_MAX\_COUNT
-
-    - 설명
-
-      이중화 객체에 DDL 수행 시 The table structure has been modified. 에러가 반복되는 경우 재시도 횟수를 설정합니다. 설정값을 초과하는 경우 ERR-61069 : Internal server error in replication module (The number of DDL rebuild attempts
-      RPU\_REPLICATION\_DDL\_REBUILD\_ERROR\_MAX\_COUNTT was exceeded.).에러가 발생합니다. 0으로 설정하면 재시도하지 않으며 1 이상 설정 시 설정값만큼 재시도 후 실패 처리합니다. 
-
-    - 값  
-
-      0 \~ 65534
-
-    - 기본값
-
-      10 
-
-    - 속성
-
-      읽기 전용, **비공개**
+    지속적인 재시도에도 실패하는 경우 10번 재시도 후 실패 처리하는 하도록 변경합니다. 
 
 -   **재현 방법**
 

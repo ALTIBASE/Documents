@@ -441,17 +441,8 @@ Fixed Bugs
     - 디스크 템프 테이블 연산 중 HASH 연산 수행
 
     - HASH\_AREA\_SIZE 부족으로 디스크 임시 테이블스페이스을 사용하는 경우
-
-
+    
     > 참고 : 디스크 테이블에 대한 질의 처리 과정에서 SORT/HASH 연산이 필요할 경우 빠른 연산을 위해 메모리에 일정 크기를 할당하여 사용한다. 만약 정해진 크기의 메모리를 모두 사용하고 SORT/HASH 연산을 위한 공간이 추가적으로 필요한 경우 디스크 임시 테이블스페이스를 사용한다.
-    
-    \_\_TEMPDUMP\_LEVEL 프로퍼티 설정값이 1인 경우 이 버그로 인한 현상이 발생하면 altibase\_dump.log에 아래와 같은 에러가 추가로 기록됩니다.
-    
-    ```
-    [DUMP] ERR-110C1(error=11) The data file containing page [page_number] does not exist. ( Tablespace - ID : tablespace_id, Type : tablespace_type )
-    DUMP TEMPTABLEHEADER: ..... 
-    TEMP STATS:  ......
-    ```
 
 -   **재현 방법**
 
