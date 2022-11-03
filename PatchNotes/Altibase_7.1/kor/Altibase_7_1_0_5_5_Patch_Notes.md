@@ -265,10 +265,8 @@ Fixed Bugs
 
   ```sql
   ALTER SESSION SET STACK SIZE = 128;
-  또는
-  ALTER SYSTEM SET __OPTIMIZER_VIEW_TARGET_ENABLE = 0;
   ```
-
+  
 -   **변경사항**
 
     -   Performance view

@@ -10,7 +10,6 @@
 # **Table of Contents** 
 
 - [New Features](#new-features)
-  - [BUG-49444 ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과를 조회하는 SQL의 수행 성능을 개선합니다.](#bug-49444row_number--over-partition-by--order-by의-값이-1인-결과를-조회하는-sql의-수행-성능을-개선합니다)
   - [BUG-49963 aku(Altibase Kubernetes Utility)가 추가되었습니다.](#bug-49963akualtibase-kubernetes-utility가-추가되었습니다)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-49910 INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 때 INSERT문 실행이 실패했음에도 레코드가 삽입되는 현상을 수정합니다.](#bug-49910insert문의-바인드-파라미터를-lob-데이터-타입으로-바인드할-때-insert문-실행이-실패했음에도-레코드가-삽입되는-현상을-수정합니다)
@@ -30,53 +29,6 @@
 
 New Features
 ============
-
-### BUG-49444 ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과를 조회하는 SQL의 수행 성능을 개선합니다.
-
-#### module
-`qp-select-execute`
-
-#### Category
-`Enhancement`
-
-#### 재현 빈도
-`Unknown`
-
-#### 설명
-ROW_NUMBER () OVER (PARTITION BY .. ORDER BY)의 값이 1인 결과를 조회하는 SQL의 수행 성능을 개선합니다. SQL이 아래의 조건을 만족할 때 SQL 수행 중 메모리 사용량이 감소하고 수행 성능이 향상됩니다. 
-
-(1) 질의문에 윈도우 함수가 ROW_NUMBER만 사용
-(2) ROW_NUMBER 함수의 OVER 절에 PARTITION BY 절을 사용
-(3) WHERE 절에 조건이 ROW_NUMBER () OVER (PARTITION BY .. ORDER BY) = 1 일 때
-(4) 질의문의 중간 결과를 저장하는 매체로 메모리를 사용하도록 아래의 조건을 만족해야 한다.
-  \- 대상 테이블이 메모리 테이블일 때 아래 조건을 만족하는 경우
-   \- 질의문에 TEMP_TBS_DISK 힌트를 사용하지 않음
-  \- 대상 테이블이 디스크 테이블일 때 아래 조건을 만족하는 경우
-   \- 질의문에 TEMP_TBS_MEMORY 힌트 사용
-(5) 테이블의 데이터가 많고 PARTITION BY *column_name*의 중복값이 많으면 많을수록
-
-단, 다른 조건을 모두 만족해도 마지막 조건(5)을 만족하지 못하면 SQL 수행 성능이 오히려 저하될 수 있으니 주의해야 합니다.
-
-위의 조건을 만족하는 SQL의 예입니다.
-
-SELECT /*+ NO_PLAN_CACHE */ COUNT(*) FROM ( SELECT **ROW_NUMBER() OVER( PARTITION BY I1 ORDER BY I4 ) RN** FROM BUG_49444 ) **WHERE RN = 1**;
-
-이 버그를 적용하려면 아래의 프로퍼티 값을 변경하거나 ROW_NUMBER BUCKET COUNT (*N*) 힌트를 사용해야 합니다. 프로퍼티는 Altibase 서버 운영 중 ALTER SYSTEM 또는 ALTER SESSION 으로 변경할 수 있습니다. 
-
-- 이름
-  __OPTIMIZER_ROW_NUMBER_BUCKET 
-
-- 설명
-
-  ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ..) 의 값이 1인 결과를 조회할 때 질의 성능 향상을 위한 해시 버킷 크기를 설정한다. 0부터 102400000까지 설정할 수 있으며 0은 질의 성능 향상 기능 비활성화를 의미한다. 이 프로퍼티의 적정 값은 ROW_NUMBER()으로 조회되는 데이터 수이다. 
-
-- 기본값
-  0
-
-- 속성
-  변경 가능, 비공개
-
-__OPTIMIZER_ROW_NUMBER_BUCKET 프로퍼티와 ROW_NUMBER BUCKET COUNT (*N*) 힌트는 비공개 기능으로 매뉴얼에 설명을 추가하지 않습니다.
 
 ### BUG-49963 aku(Altibase Kubernetes Utility)가 추가되었습니다.
 

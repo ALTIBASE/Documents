@@ -140,31 +140,10 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : 이중화 객체에 DDL 수행 시 The table structure has been modified. 에러가 반복되는 경우 altibase\_qp.log에 로그가 과도하게 기록되는 현상을 개선합니다.
+-   **설명** : 이중화 객체에 DDL 수행 시 The table structure has been modified. 에러가 반복되는 경우 altibase\_qp.log에 로그가 과도하게 기록되는 현상을 개선합니다. 
     
-    The table structure has been modified. 에러는 보통 재시도하면 해결되는 종류의 에러로, 실패 시 재시도를 무한 반복합니다.
-    지속적인 재시도에도 실패하는 경우 실패 처리하는 프로퍼티를 추가합니다. 히든 프로퍼티로 매뉴얼에 설명을 추가하지 않습니다.
-    
-    - 이름
-    
-      REPLICATION\_DDL\_REBUILD\_ERROR\_MAX\_COUNT
-
-    - 설명
-
-      이중화 객체에 DDL 수행 시 The table structure has been modified. 에러가 반복되는 경우 재시도 횟수를 설정합니다. 설정값을 초과하는 경우 ERR-61069 : Internal server error in replication module (The number of DDL rebuild attempts
-      RPU\_REPLICATION\_DDL\_REBUILD\_ERROR\_MAX\_COUNTT was exceeded.).에러가 발생합니다. 0으로 설정하면 재시도하지 않으며 1 이상 설정 시 설정값만큼 재시도 후 실패 처리합니다. 
-    
-    - 값  
-    
-      0 \~ 65534
-    
-    - 기본값
-    
-      10 
-    
-    - 속성
-    
-      읽기 전용, **비공개**
+    The table structure has been modified. 에러는 보통 재시도하면 해결되는 종류의 에러로, 실패 시 재시도를 무한 반복하였으나 10회 재시도 후 ERR-61069 : Internal server error in replication module (The number of DDL rebuild attempts
+    RPU\_REPLICATION\_DDL\_REBUILD\_ERROR\_MAX\_COUNTT was exceeded.).에러가 발생시키고 실패 처리하도록 변경하였습니다.
     
 -   **재현 방법**
 
