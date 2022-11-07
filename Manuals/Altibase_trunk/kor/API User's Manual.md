@@ -345,7 +345,7 @@ if ($conn)
 2.PDO 드라이버
 ------------
 
-이 장에서는 Altibase PDO 드라이버를 이용하여 Altibase와 연동하는 방법을
+이 장에서는 Altibase PDO 드라이버를 이용하여 Altibase와 연동하는 방법을 
 설명한다.
 
 Altibase PDO 드라이버(이하 pdo_altibase)는 Altibase 공식 사이트에서 pecl 패키지
@@ -363,9 +363,10 @@ pdo_altibase를 다운로드 후 설치하고 환경을 설정하는 방법을 �
 pdo_altibase를 사용하기 위해서는 pecl 사용환경을 갖춰야 한다. 아래 url에서 pecl
 패키지를 다운로드 한다.
 
-1.  <http://support.altibase.com/kr/product> 으로 이동
-
-2.  PDO_ALTIBASE-1.\*.\*.tgz 다운로드
+- <http://support.altibase.com/kr/product> 으로 이동
+- PDO_ALTIBASE-*.\*.\*.tgz 다운로드
+  - PDO_ALTIBASE-1.\*.\*.tgz : PHP 5.3.3, PHP 7.1.20 버전 용
+  - PDO_ALTIBASE-2.\*.\*.tgz : PHP 8.1.8 버전 용
 
 #### 소프트웨어 요구사항
 
@@ -373,7 +374,7 @@ pdo_altibase를 사용하기 위해서는 pecl 사용환경을 갖춰야 한다.
 
 -   OS : Linux (상세 버전은 Altibase Release Notes 참고)
 
--   PHP : PHP 5.3.3, PHP 7.1.20
+-   PHP : PHP 5.3.3, PHP 7.1.20, PHP 8.1.8
 
 #### 설치
 

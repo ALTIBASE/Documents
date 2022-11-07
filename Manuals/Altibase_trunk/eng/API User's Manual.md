@@ -315,19 +315,18 @@ Here we describes how to download and install pdo_altibase and set environment.
 
 To use pdo_altibase, you have to use pecl environment. Download the pecl package from the url below.
 
-1.  Go to <http://support.altibase.com/en/product> 
+- Go to <http://support.altibase.com/en/product> 
+- Download PDO_ALTIBASE-*.\*.\*.tgz
+  - for PHP 5.3.3, PHP 7.1.20 : PDO_ALTIBASE-1.\*.\*.tgz 
+  - for PHP 8.1.8 : PDO_ALTIBASE-2.\*.\*.tgz
 
-2.  Download PDO_ALTIBASE-1.*.*.tgz
+#### Software requirements
 
-```
-Software requirements
-```
-
--   Altibase : Altibase 6.5.1.5.1 or above
+-   Altibase : Altibase 6.5.1.5.1 or later
 
 -   OS : Linux (Refer the Altibase Release Notes for a detailed version.)
 
--   PHP : PHP 5.3.3, PHP 7.1.20
+-   PHP : PHP 5.3.3, PHP 7.1.20, PHP 8.1.8
 
 #### Installation
 
