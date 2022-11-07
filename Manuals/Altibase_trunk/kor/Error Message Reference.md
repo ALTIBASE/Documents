@@ -59,6 +59,11 @@
     - [FATAL](#fatal-11)
     - [ABORT](#abort-13)
     - [IGNORE](#ignore-9)
+  - [15.Regular Expression Error Code](#15regular-expression-error-code)
+    - [문법 오류](#문법-오류)
+    - [PCRE2 제약 사항](#pcre2-제약-사항)
+    - [유니코드, UTF-8 에러](#유니코드-utf-8-에러)
+    - [PCRE2 라이브러리 내부 오류](#pcre2-라이브러리-내부-오류)
 
 
 
@@ -4995,6 +5000,12 @@ Mathematics Module.
 **Cause:** The SMTP server reply an error message.
 
 **Action:** check an error message.
+
+**0x2106C ( 135276) mtERR_ABORT_PCRE2_UNEXPECTED_ERROR PCRE2 error: <1%s> (occurred in <0%s>)** 
+
+**Cause:** An internal error occurred in PCRE2 library or while executing Altibase internal function.
+
+**Action:** Check the error message and contact Altibase's Support Center (http://support.altibase.com).
 
 ### IGNORE
 
@@ -21214,7 +21225,7 @@ data type supported by ODBC.
 
 PCRE2 호환 모드(REGEXP_MODE=1)에서 정규 표현식 사용 시 발생할 수 있는 에러 메시지를 정리하였다. 
 
-PCRE2 호환 모드에서 만날 수 있는 [0x2106C](#0x2106c) 에러 코드는 아래와 같은 메시지 형식을 갖는다. <1%s>는 PCRE2 라이브러리에서 반환한 메시지이며 <0%s>는 Altibase 에서 해당 에러가 발생한 위치를 의미한다.  
+PCRE2 호환 모드에서 만날 수 있는 0x2106C 에러 코드는 아래와 같은 메시지 형식을 갖는다. <1%s>는 PCRE2 라이브러리에서 반환한 메시지이며 <0%s>는 Altibase 에서 해당 에러가 발생한 위치를 의미한다.  
 
 ~~~sql
 ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)
@@ -21370,9 +21381,7 @@ ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)
 
 > Cause : PCRE2의 제약 사항을 위배하여 발생하는 에러이다. 
 >
-> Action : ?
->
-> 오류 메세지를 참고하여 정규 표현식을 알맞게 수정해주세요. 구체적인 원인 확인이 필요한 경우 Altibase 고객지원 센터로 연락바랍니다.
+> Action : 에러 메시지를 참고하여 정규 표현식을 올바르게 수정한다. 조치가 어렵다면 Altibase 고객지원 센터로 연락한다.
 
 `parentheses are too deeply nested` 
 
@@ -21472,7 +21481,7 @@ ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)
 
 > Cause : PCRE2 라이브러리 내부 동작 수행 중 오류가 발생하였다.
 >
-> Action : 구체적인 원인 확인은 Altibase 고객지원 센터로 연락바랍니다.
+> Action : 구체적인 원인 확인이 필요하다면 Altibase 고객지원 센터로 연락한다.
 
 `internal error: unexpected repeat`
 
@@ -21533,3 +21542,4 @@ ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)
 `callout error code`
 
 `bad serialized data`
+
