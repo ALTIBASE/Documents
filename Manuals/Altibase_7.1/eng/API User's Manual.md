@@ -1,47 +1,17 @@
-
-
-- [Application Program Interface User’s Manual](#application-program-interface-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1.PHP Interface](#1php-interface)
-    - [About the PHP Module of Altibase](#about-the-php-module-of-altibase)
-    - [Installing the ODBC Manager for Integration with PHP](#installing-the-odbc-manager-for-integration-with-php)
-    - [PHP Functions for ODBC Connectivity](#php-functions-for-odbc-connectivity)
-  - [2.PDO Driver](#2pdo-driver)
-    - [Installation and Setup](#installation-and-setup)
-    - [Restrictions and Cautions](#restrictions-and-cautions)
-    - [How to Use](#how-to-use)
-    - [Examples](#examples)
-  - [3. XA Interface](#3-xa-interface)
-    - [XA Interface Overview](#xa-interface-overview)
-    - [The XA Interface](#the-xa-interface)
-    - [Using XA](#using-xa)
-    - [Limitations when using XA](#limitations-when-using-xa)
-    - [JDBC Distributed Transactions](#jdbc-distributed-transactions)
-    - [How to Solve Application Problems Using XA](#how-to-solve-application-problems-using-xa)
-  - [4. iLoader API](#4-iloader-api)
-    - [iLoader API Overview](#iloader-api-overview)
-    - [Using the iLoader API](#using-the-iloader-api)
-    - [iLoader API Data Structures](#iloader-api-data-structures)
-    - [iLoader API](#iloader-api)
-  - [5. CheckServer API](#5-checkserver-api)
-    - [Overview of the CheckServer API](#overview-of-the-checkserver-api)
-    - [Using the CheckServer API](#using-the-checkserver-api)
-    - [CheckServer API Data Structure](#checkserver-api-data-structure)
-    - [CheckServer API](#checkserver-api)
-
-
-
-Altibase® Application Development
-
 Application Program Interface User’s Manual
 ===========================================
 
-![](media/API/e5cfb3761673686d093a3b00c062fe7a.png)
-
-Altibase Application Development Application Program Interface User’s Manual
+Altibase Application Development
 
 Release 7.1
+
+<br/><br/><br/><br/><br/>
+
+<br/><br/><br/><br/><br/>
+
+<br/><br/><br/><br/><br/>
+
+<br/><br/><br/><br/><br/>
 
 Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
@@ -55,16 +25,57 @@ Customer Service Portal: http://support.altibase.com/en/
 
 Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
+<div align="center">
+    <img src="media/API/e5cfb3761673686d093a3b00c062fe7a.png"
+</div>         
+
+
+
+# Table of Contents
+
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1.PHP Interface](#1php-interface)
+  - [About the PHP Module of Altibase](#about-the-php-module-of-altibase)
+  - [Installing the ODBC Manager for Integration with PHP](#installing-the-odbc-manager-for-integration-with-php)
+  - [PHP Functions for ODBC Connectivity](#php-functions-for-odbc-connectivity)
+- [2.PDO Driver](#2pdo-driver)
+  - [Installation and Setup](#installation-and-setup)
+  - [Restrictions and Cautions](#restrictions-and-cautions)
+  - [How to Use](#how-to-use)
+  - [Examples](#examples)
+- [3. XA Interface](#3-xa-interface)
+  - [XA Interface Overview](#xa-interface-overview)
+  - [The XA Interface](#the-xa-interface)
+  - [Using XA](#using-xa)
+  - [Limitations when using XA](#limitations-when-using-xa)
+  - [JDBC Distributed Transactions](#jdbc-distributed-transactions)
+  - [How to Solve Application Problems Using XA](#how-to-solve-application-problems-using-xa)
+- [4. iLoader API](#4-iloader-api)
+  - [iLoader API Overview](#iloader-api-overview)
+  - [Using the iLoader API](#using-the-iloader-api)
+  - [iLoader API Data Structures](#iloader-api-data-structures)
+  - [iLoader API](#iloader-api)
+- [5. CheckServer API](#5-checkserver-api)
+  - [Overview of the CheckServer API](#overview-of-the-checkserver-api)
+  - [Using the CheckServer API](#using-the-checkserver-api)
+  - [CheckServer API Data Structure](#checkserver-api-data-structure)
+  - [CheckServer API](#checkserver-api)
+
+
+
+Altibase® Application Development
+
 
 
 Preface
-----
+====
 
-### About This Manual
+## About This Manual
 
 This manual describes how to use the Altibase API.
 
-#### Audience
+### Audience
 
 This manual has been prepared for the following users of Altibase:
 
@@ -81,7 +92,7 @@ It is recommended for those reading this manual possess the following background
 -   Computer programming experience
 -   Experience in database server management, operating system management, or network administration
 
-#### Organization
+### Organization
 
 This manual is organized as follows:
 
@@ -100,7 +111,7 @@ This manual is organized as follows:
 -   Chapter 5: CheckServer API  
     This chapter introduces the Altibase CheckServer API, which is an application programming interface for creating applications that use function calls to monitor whether the Altibase server has terminated abnormally.
 
-#### Documentation Conventions
+### Documentation Conventions
 
 This section describes the conventions used in this manual. Understanding these conventions will make it easier to find information in this manual and in the other manuals in the series. 
 
@@ -109,7 +120,7 @@ There are two sets of conventions:
 -   Syntax diagram convetions
 -   Sample code conventions
 
-##### Syntax Diagram Conventions
+#### Syntax Diagram Conventions
 
 This manual describes command syntax using diagrams composed of the following elements:
 
@@ -125,7 +136,7 @@ This manual describes command syntax using diagrams composed of the following el
 | [![image8](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
 | [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
 
-##### Sample Code Conventions
+#### Sample Code Conventions
 
 The code examples explain SQL statements, stored procedures, iSQL statements, and other command line syntax.
 
@@ -142,7 +153,7 @@ The following table describes the printing conventions used in the code examples
 | Lower case words | Indicate program elements set by the user, such as table names, column names, file names, etc. | SELECT ename FROM employee;                                  |
 | Upper case words | Keywords and all elements provided by the system appear in upper case. | DESC SYSTEM_.SYS_INDICES_;                                   |
 
-#### Related Documentations
+### Related Documentations
 
 For more detailed information, please refer to the following documents.
 
@@ -164,7 +175,7 @@ For more detailed information, please refer to the following documents.
 
 -   Error Message Reference
 
-#### Altibase Welcomes Your Comments and Feedbacks
+### Altibase Welcomes Your Comments and Feedbacks
 
 Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there is any corrections or classifications that you would find useful.
 
@@ -181,25 +192,25 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 1.PHP Interface
--------------
+=============
 
 This chapter explains how to integrate PHP pages with Altibase using PHP's ODBC functionality.
 
 
 
-### About the PHP Module of Altibase
+## About the PHP Module of Altibase
 
 -   The following data types are supported for use with Altibase and PHP:  
     resource, int, bool, double, float, string, array, HashTable
 -   The port number in db.php, the sample program, must be changed so that it matches the port number that is actually being used on the Altibase server.
 
+<br/>
 
-
-### Installing the ODBC Manager for Integration with PHP
+## Installing the ODBC Manager for Integration with PHP
 
 In order to integrate Altibase with the PHP interface, the ODBC Manager must be installed. This section describes how to install the ODBC Manager in Unix, or Linux environments.
 
-#### The ODBC Manager in Unix and Linux
+### The ODBC Manager in Unix and Linux
 
 In a Unix or Linux environment, complete the following steps to install the ODBC Manager:
 
@@ -252,14 +263,15 @@ odbcinst.ini
    Port = 20300
 ```
 
+<br/>
 
-### PHP Functions for ODBC Connectivity
+## PHP Functions for ODBC Connectivity
 
 Altibase supports all standard ODBC functions, and thus all ODBC functions that are typically used in PHP pages can be used with Altibase without any special considerations. 
 
 For a detailed explanation of the ODBC functions that can be used with PHP, please refer to the official PHP online documentation, which can be found at: http://php.morva.net/manual/en/index.php
 
-#### Sample Test
+### Sample Test
 
 ```
 <?
@@ -299,7 +311,7 @@ if ($conn)
 
 
 2.PDO Driver
-------------
+============
 
 This chapter describes how to use the Altibase PDO driver to interact with Altibase.
 
@@ -307,11 +319,11 @@ The Altibase PDO driver (pdo_altibase) is available as a pecl package from the o
 
 
 
-### Installation and Setup
+## Installation and Setup
 
 Here we describes how to download and install pdo_altibase and set environment.
 
-#### Download
+### Download
 
 To use pdo_altibase, you have to use pecl environment. Download the pecl package from the url below.
 
@@ -320,7 +332,7 @@ To use pdo_altibase, you have to use pecl environment. Download the pecl package
   - for PHP 5.3.3, PHP 7.1.20 : PDO_ALTIBASE-1.\*.\*.tgz 
   - for PHP 8.1.8 : PDO_ALTIBASE-2.\*.\*.tgz
 
-#### Software requirements
+### Software requirements
 
 -   Altibase : Altibase 6.5.1.5.1 or later
 
@@ -328,7 +340,7 @@ To use pdo_altibase, you have to use pecl environment. Download the pecl package
 
 -   PHP : PHP 5.3.3, PHP 7.1.20, PHP 8.1.8
 
-#### Installation
+### Installation
 
 Install pdo_altibase using pecl.
 
@@ -336,7 +348,7 @@ Install pdo_altibase using pecl.
 pecl install PDO_ALTIBASE-1.0.0.tgz
 ```
 
-#### Environment Setup
+### Environment Setup
 
 Add extension usage settings to the configuration file such as php.ini.
 
@@ -344,11 +356,11 @@ Add extension usage settings to the configuration file such as php.ini.
 extension=pdo_altibase.so
 ```
 
+<br/>
 
+## Restrictions and Cautions
 
-### Restrictions and Cautions
-
-#### Restrictions
+### Restrictions
 
 1.  pdo_altibase can not be used with pdo_odbc at the same time. Enabling both extensions can cause unexpected errors.
 2.  The following items in the PDO manual are not supported:
@@ -368,18 +380,18 @@ extension=pdo_altibase.so
 
 3. For other restrictions, refer to parameter bindings, column bindings, and other binding constraints..
 
-#### Cautions
+### Cautions
 
 1.  The default commit mode for pdo_altibase is independent of the server's configuration and is always autocommit. In other words, even if the default server is set to non-autocommit, the commit mode is autocommit by default.
 2.  When closing a pdo object, the task is rolled back unless commit or rollback is specified explicitly.
 3.  When binding an empty string ('') to numeric data types in Altibase DB, for both native types (double, real, bigint, integer, smallint) and non-native types (numeric, decimal, number, float) are entered as NULL
 4.  "Date type value-?" In the query "ERR-21038: Literals in the input do not match the format string." An error occurs. In this case, the date type value includes a date type column and a date type return function.This error occurs because pdo_altibase internally treats strings as numeric values when the Altibase query processor attempts to convert strings to date types when string subtraction is performed on date type values. In this case, replace "?" With "to_number (?)" and etc can be changed explicitly to have a data type other than string.
 
+<br/>
 
+## How to Use
 
-### How to Use
-
-#### DSN Configuration
+### DSN Configuration
 
 The DSN configuration of pdo_altibase is as follows.
 
@@ -390,13 +402,13 @@ The DSN configuration of pdo_altibase is as follows.
 | Port       | Server port number                                           |
 | NLS_USE    | Character set. <br />US7ASCII is the default and the specified value is used when the environment variable ALTIBASE_NLS_USE is set. |
 
-##### Example
+#### Example
 
 ```
 "altibase:Server=127.0.0.1;Port=20333;NLS_USE=US7ASCII"
 ```
 
-#### Connection Attributes
+### Connection Attributes
 
 The following properties are available for PDO :: getAttribute () and PDO :: setAttribute (). See "Restrictions and Cautions" for attributes that are not available.
 
@@ -406,13 +418,13 @@ The following properties are available for PDO :: getAttribute () and PDO :: set
 | PDO::ALTIBASE_EXPLAIN_PLAN    | Whether or not to get a plan of action.<br/>PDO :: ALTIBASE_EXPLAIN_PLAN_OFF: Do not get a plan of action.  <br />PDO :: ALTIBASE_EXPLAIN_PLAN_ON: Obtain the determined performance plan after Prepare and Execution.<br />PDO :: ALTIBASE_EXPLAIN_PLAN_ONLY: After Prepare Obtain the execution plan determined before Execution. <br />For more information, see Using Samples> Checking Action Plans. |
 | PDO::ALTIBASE_DEFER_PROTOCOLS | Prepare and execute the call repeatedly to set the protocol optimization to improve the performance of the program written.   <br />To use this attribute, one connection object should not be shared by multiple threads.  <br />Also, for performance, you need to write a program with a structure that calls prepare once and then calls execute repeatedly.  <br />0 : Do not optimize the protocol (default)   <br />1 : execute related protocol optimization  <br />2 :   execute, close Related protocol optimization  <br /><br /> ex>   $db->setAttribute(PDO::ALTIBASE_DEFER_PROTOCOLS, 1); |
 
-#### Parameter Binding
+### Parameter Binding
 
 pdo_altibase does not support named parameters.
 
 The fourth argument, length, is used only for the current hint and is not treated as a valid value. If length is required, it should be truncated instead of the length argument.
 
-##### Binding Example
+#### Binding Example
 
 ```
 $stmt = $db->prepare("SELECT * FROM t1 WHERE val = ? OR val = ?");
@@ -423,21 +435,21 @@ $stmt->execute();
 
 
 
-#### Column Binding
+### Column Binding
 
 pdo_altibase does not affect the behavior if you specify type and maxlen of bindColumn (). 
 
 Depending on the SQL data type, the value is taken as a binary or string, and the processing follows the PDO operation.
 
-#### Other Binding Constraints
+### Other Binding Constraints
 
 BIT, VARBIT, BYTE, VARBYTE, NIBBLE, LOB, and GEOMETRY types are limited. It is limited to a few queries such as simple INSERT.
 
+<br/>
 
+## Examples
 
-### Examples
-
-#### Connection Setup and Query Execution
+### Connection Setup and Query Execution
 
 ```
 $db = new PDO("altibase:Server=127.0.0.1;Port=20333", "sys", "manager");
@@ -448,7 +460,7 @@ foreach ($db->query("SELECT * FROM dual") as $row) {
 
 
 
-#### DATE Format Setup 
+### DATE Format Setup 
 
 The user can set which string format to use as the default for DATE.
 
@@ -462,7 +474,7 @@ echo $stmt->fetchColumn(), "\n";
 
 
 
-##### Output Result
+#### Output Result
 
 ```
 attr_dateform = YYYY-MM-DD
@@ -471,7 +483,7 @@ attr_dateform = YYYY-MM-DD
 
 
 
-#### Execution Plan Check
+### Execution Plan Check
 
 The PDO object's setAttribute () function can be used to set whether or not to execute the plan.
 
@@ -499,7 +511,7 @@ $stmt = null;
 
 
 
-##### Output Result
+#### Output Result
 
 ```
 attr_plan = 0
@@ -533,7 +545,7 @@ PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 3, COST: 0.01 )
 
 
 
-#### Cursor Holding
+### Cursor Holding
 
 Executiong Commit and Rollback command will still maintain the cursor being fetched.
 
@@ -555,7 +567,7 @@ $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 
 
 
-## 3. XA Interface
+# 3. XA Interface
 
 This chapter explains the general concept of distributed transactions, introduces the XA standard, and describes the XA interface.
 
@@ -563,7 +575,7 @@ This chapter explains the general concept of distributed transactions, introduce
 
 
 
-### XA Interface Overview
+## XA Interface Overview
 
 XA is a standard interface that is used for processing distributed transactions (also known as “global transactions”). It was proposed by The Open Group (formerly X/Open).
 
@@ -571,7 +583,7 @@ A distributed transaction (also known as a “global transaction”) is a transa
 
 XA is a useful construct for applications that process transactions in one or more databases.
 
-#### XA Related Glossary
+### XA Related Glossary
 
 -   Application (AP)  
     An application defines the necessary transactions and the operations that constitute a transaction. An application can be written using, for example, the precompiler or the ODBC CLI.
@@ -602,7 +614,7 @@ XA is a useful construct for applications that process transactions in one or mo
 -   TX Interface  
     An AP (see above) controls a transaction through the TM using the TX interface. An AP does not use the XA interface directly. APs are not aware of the operations of individual transaction branches, and application threads do not participate directly in transaction branch tasks. The branches of a global transaction are managed on behalf of APs by the TM. APs merely request the TM to commit or roll back entire global transactions.
 
-#### XA Structure
+### XA Structure
 
 As shown in the following diagram, the entities involved in a distributed transaction include one or more APs (Applications), the TM (Transaction Manager), and one or more RMs (Resource Managers).
 
@@ -616,7 +628,7 @@ The RMs (i.e. database nodes) then start to process the transaction branches cor
 
 To terminate the transaction, the AP calls the TM via the TX interface. The TM then uses the XA interface to instruct the RMs on which the branches of the distributed transaction are running to either commit or roll back their respective transaction branches.
 
-#### XA and 2PC (Two-Phase Commit)
+### XA and 2PC (Two-Phase Commit)
 
 The XA Interface of Altibase supports 2PC (Two-Phase Commit) transaction processing. Two-phase commit consists of separate prepare and commit steps.
 
@@ -624,7 +636,7 @@ In the prepare step, which is the first step of 2PC, the TM queries all database
 
 In the commit step, which is the second step of 2PC, the TM waits until it has received “prepare” acknowledgements from all RMs. If it receives such acknowledgements from all RMs, it sends an instruction to all RMs to commit the transaction. However, if there is even one RM that has not sent a “prepare” acknowledgement, the TM sends an instruction to all RMs to roll back the transaction.
 
-####  xa_switch_t Structure
+### xa_switch_t Structure
 
 Every RM has a switch that contains various information about the RM, including its entry points. This information is used by the TM. The structure of an RM's switch is known as xa_switch_t. 
 
@@ -651,19 +663,19 @@ struct xa_switch_t {
 
 
 
-#### The XA Library
+### The XA Library
 
 No additional library is required in order for applications to connect to Altibase using the Altibase XA. The required functionality is included in the odbccli library. All that is needed in order to use the XA-related functionality with Altibase is to link the XA-dependent applications with the libodbccli.a library file.
 
 
 
-### The XA Interface
+## The XA Interface
 
 The XA Interface is the two-way interface that sits between the TM and the RMs. This interface consists of xa_ routines, which the TM uses to control RMs so that it can execute global transactions, and ax_ routines, which allow the RMs to make requests to the TM.
 
 Note: Because Altibase does not support dynamic registration, each RM (Altibase database) must be called with xa_start before the start of a transaction.
 
-#### XA Functions
+### XA Functions
 
 In Altibase, the XA-related functions are provided in altibase_xa_switch, which is Altibase's implementation of xa_switch_t
 
@@ -681,7 +693,7 @@ In Altibase, the XA-related functions are provided in altibase_xa_switch, which 
 
 [Table 4‑1] XA Interface
 
-##### xa_open
+#### xa_open
 
 This is used to connect to an RM. 
 
@@ -711,7 +723,7 @@ If flags is not set to any other value, it must be set to the following value:
 
 -   TMNOFLAGS
 
-##### xa_close
+#### xa_close
 
 This terminate the connection with the specified RM.
 
@@ -725,7 +737,7 @@ Note: XA_OK is returned even if xa_close is executed on a connection that is alr
 
 -   TMNOFLAGS
 
-##### xa_start
+#### xa_start
 
 This is used to start the execution of a transaction branch. XID is the identifier of a global transaction. 
 
@@ -750,7 +762,7 @@ flags can be set to one or more of the following values.
 -   TMJOIN  
     This specifies that the transaction branch is to be connected to an existing transaction branch.
 
-##### xa_end
+#### xa_end
 
 This is used to terminate the execution of a transaction branch. 
 
@@ -769,7 +781,7 @@ flags can be set to one or more of the following values:
 -   TMFAIL  
     This is used to specify abnormal termination of a transaction branch. The status of the transaction branch becomes “rollback only”. It can't be used together with TMSUSPEND or TMSUCCESS.
 
-##### xa_rollback
+#### xa_rollback
 
 This is used to roll back the operations performed by the transaction branch. 
 
@@ -785,7 +797,7 @@ flags can be set to one of the following values:
 -   TMNOFLAGS  
     If flags is not set to TMASYNC, it must be set to this value.
 
-##### xa_prepare
+#### xa_prepare
 
 When using the two-phase commit protocol, this is executed before committing or rolling back a transaction
 
@@ -809,7 +821,7 @@ xa_prepare can return the following values:
 -   XA_OK  
     This is returned when the prepare task is performed normally
 
-##### xa_commit
+#### xa_commit
 
 This is used to commit a particular transaction branch. 
 
@@ -825,7 +837,7 @@ flags can be set to either of the following values:
 -   TMNOFLAGS  
     If flags is not set to any other value, it must be set to this value.
 
-##### xa_recover
+#### xa_recover
 
 This obtains a list of the XIDs corresponding to branch transactions that are in a prepared state on an Altibase server. 
 
@@ -846,7 +858,7 @@ flags can be set to one or more of the following values:
 -   TMNOFLAGS  
     XIDs are returned starting at the current cursor position.
 
-##### xa_forget
+#### xa_forget
 
 This instructs the Altibase server (i.e. the RM) to stop managing a heuristically completed transaction branch. 
 
@@ -859,17 +871,17 @@ flags can be set to the following value:
 -   TMNOFLAGS  
     Always set to specify this value.
 
-##### xa_complete
+#### xa_complete
 
 When operating in asynchronous mode, this is used to determine whether to keep waiting for an operation to terminate. This is not supported in Altibase, and thus an error will always be returned.
 
+<br/>
 
-
-### Using XA
+## Using XA
 
 This section describes the basic procedures for using ODBC, APRE and JDBC in an XA environment.
 
-#### ODBC/XA execution order
+### ODBC/XA execution order
 
 1.  xa_open  
     Connect to the specified server.
@@ -894,7 +906,7 @@ This section describes the basic procedures for using ODBC, APRE and JDBC in an 
 11.  xa_close  
     Terminate xa connection.
 
-##### SQLSetConnectAttr
+#### SQLSetConnectAttr
 
 Calling SQLSetConnectAttr enables an XA connection to use an ODBC connection, so that an application can access a distributed transaction via ODBC. 
 
@@ -917,9 +929,9 @@ SQLINTEGER sLen);
     fAttr = SQL_ATTR_ENLIST_IN_XA  
     Make the specified hdbc connection the last XA connection.
 
-#### Embedded SQL
+### Embedded SQL
 
-##### How to Author an Application depending on the Setting of XA_NAME in xa_open
+#### How to Author an Application depending on the Setting of XA_NAME in xa_open
 
 In XA applications, a cursor is valid only for a single transaction. This means that a cursor must be opened after the start of execution of a transaction, and must be closed before the transaction is completed (i.e. committed or rolled back).
 
@@ -963,7 +975,7 @@ EXEC SQL UPDATE emp SET empno = 5;
 
 
 
-#### Executing JDBC/XA
+### Executing JDBC/XA
 
 The XA classes that are defined by the jdbc driver of Altibase are as shown below:
 
@@ -1026,7 +1038,7 @@ The ABXADataSource class is the only one that the user accesses directly. The us
 
 
 
-#### XA Transaction Control
+### XA Transaction Control
 
 This section describes how to control transactions in an Altibase XA environment. 
 
@@ -1052,7 +1064,7 @@ The process of calling the TX and XA interfaces is as shown in the following dia
 
 A TPM (Transaction Processing Monitor) application has a client/server structure in which a client requests a service provided by an application server. Service is divided into logical work units. When Altibase is used as the RM, a logical work unit typically consists of a set of SQL statements. 
 
-##### Example
+#### Example
 
 In the following example, it is assumed that the application server has already logged on to the TPM system.
 
@@ -1106,7 +1118,7 @@ EXEC SQL UPDATE...;
 
 
 
-#### Changing an Existing Application into a TPM Application
+### Changing an Existing Application into a TPM Application
 
 To change an existing application (Precompiler or ODBCCLI application) into a TPM (Transaction Processing Monitor) application that uses the XA library of Altibase, follow the procedure outlined below:
 
@@ -1127,9 +1139,9 @@ To change an existing application (Precompiler or ODBCCLI application) into a TP
 | DISCONNECT                           | tx_close                                 |
 | SET TRANSACTION READ ONLY            | Not allowed                              |
 
+<br/>
 
-
-### Limitations when using XA
+## Limitations when using XA
 
 The use of XA is limited in the following ways: 
 
@@ -1145,57 +1157,57 @@ The use of XA is limited in the following ways:
 
 -   Server shutdown
 
-#### Limitations on Use of SQL
+### Limitations on Use of SQL
 
-##### Rollback and Commit
+#### Rollback and Commit
 
 Because global transactions are managed by the TM, the Altibase transaction control statements COMMIT and ROLLBACK must not be used within an XA application to control global transactions.
 
 Instead, tx_commit and tx_rollback must be used to complete global transactions. This means that the EXEC SQL ROLLBACK and EXEC SQL COMMIT statements can't be used within applications authored using APRE. Similarly, SQLEndTran can't be used within an ODBCCLI application to commit or roll back a transaction.
 
-##### DDL Statements
+#### DDL Statements
 
 Because DDL SQL statements are implicitly committed, they can't be used within XA applications of Altibase.
 
-##### AUTOCOMMIT Session Property
+#### AUTOCOMMIT Session Property
 
 Because global transactions execute in non-autocommit mode, the AUTOCOMMIT property can't be changed using the ALTER SESSION SET AUTOCOMMIT = TRUE statement.
 
-##### SET TRANSACTION
+#### SET TRANSACTION
 
 The Altibase SET TRANSACTION { READ ONLY | READ WRITE | ISOLATION LEVEL ... } data control statement can't be used within an XA application of Altibase.
 
-##### Connection or Disconnection with EXEC SQL Statements
+#### Connection or Disconnection with EXEC SQL Statements
 
 The EXEC SQL CONNECT and EXEC SQL DISCONNECT statements can't be used to establish or terminate connections in applications authored using APRE. 
 
-#### Limitations related to Transaction Branches
+### Limitations related to Transaction Branches
 
 Multiple application threads participate in the execution of a single global transaction. These threads have either *tightly-coupled* or *loosely-coupled* relationship between them.
 
 Threads that have a tightly-coupled relationship share a common resource. In addition, an RM handles a pair of coupled threads as a single entity. The RM must ensure that tightly-coupled threads do not reach a resource deadlock in a transaction branch. However, there is no need to provide this guarantee for loosely-coupled threads. The RM handles loosely-coupled transaction branches as though they were different global transactions.
 
-##### Relationship between XID and Thread 
+#### Relationship between XID and Thread 
 
 If the TM assigns a new XID (branch qualifier) to a thread, this thread has a loosely-coupled relationship with the other threads in the same branch. The RM handles this thread as though it were a separate global transaction.
 
 In contrast, if the TM joins a branch with an XID, that is, assigns an existing XID (branch qualifier) to a thread, the thread has a tightly-coupled relationship with the other threads sharing this branch. The RM regards tightly-coupled threads as one object, and must guarantee that a resource deadlock does not occur between tightly-coupled threads.
 
-#### No Support for Association Migration
+### No Support for Association Migration
 
 Association migration (in which the TM associates a suspended branch with another branch and resumes its execution) is not supported in Altibase.
 
-#### No Support for Asynchronous Calls
+### No Support for Asynchronous Calls
 
 Asynchronous XA calls are not supported in XA applications of Altibase.
 
-#### No Support for Dynamic Registration
+### No Support for Dynamic Registration
 
 The Altibase server does not support dynamic registration. Only static registration is supported. In so-called “dynamic registration”, an RM registers a global transaction with the TM before it starts executing a transaction branch.
 
 In static registration, it is necessary to use xa_start to tell an RM that a transaction has commenced.
 
-#### Server Shutdown
+### Server Shutdown
 
 Suppose that the server terminates abnormally or that the shutdown abort command is executed on the server, and that there are one or more transactions that are in a prepared state at that time. When the server is subsequently restarted, recovery tasks will be performed, after which it will be possible to execute these transactions using the xa_recover statement. 
 
@@ -1203,19 +1215,21 @@ If the server is shut down normally using the shutdown immediate or shutdown nor
 
 In contrast, if there are no prepared transactions when the server is shut down normally, recovery tasks will not be performed when the server is restarted.
 
+<br/>
 
-
-### JDBC Distributed Transactions
+## JDBC Distributed Transactions
 
 Altibase JDBC can be used to implement distributed transactions, as it complies with the OpenXA standards related to connection pooling and distributed transaction processing, as set forth in the JDBC 2.0 extension API. 
 
 The jdbc driver package of Altibase includes classes for realizing all of the distributed transaction processing functionality in accordance with the XA standard.
 
-#### JTA (Java Transaction API) and Application Server 
+### JTA (Java Transaction API) and Application Server 
 
 The method by which an application processes a distributed transaction through an application server is shown in the following figure: 
 
-![image18](media/API/image18.gif)
+<div align="left">
+    <img src="media/API/image18.gif">
+</div>
 
 [Figure 4-3] Distributed Transaction Processing
 
@@ -1227,11 +1241,11 @@ When the resource to which a connection is to be established using the Resource 
 
 The ResourceFactory class is used to create an XAConnection object. In the case of JDBC, the factory that is used to create XAConnection objects is XADataSource. The application server obtains an XAConnection object (for connecting to a DBMS) from the XADataSource factory. The application server then obtains an instance of a connection object (java.sql.Connection), to be used by the application, and an instance of a XAResource object, to be used by the TM, from the XAConnection object.
 
-#### XA Components
+### XA Components
 
 In this section, the standard XA interfaces provided in the JDBC 2.0 Optional Package are explained, along with the Altibase classes in which they are implemented.
 
-##### XADataSource Interface 
+#### XADataSource Interface 
 
 The javax.sql.XADataSource interface is a factory for creating XAConnection objects. This interface's getXAConnection method returns an XAConnection object.
 
@@ -1249,7 +1263,9 @@ Altibase.jdbc.driver.ABXADataSource is the class in which the XADataSource inter
 
 Therefore, the ABXADataSource class includes all the connection properties that the DataSource and ABConnectionPoolDataSource classes have.
 
-![image19](media/API/image19.gif)
+<div align="left">
+    <img src="media/API/image19.gif">
+</div>
 
 [Figure 4-4] ABXADataSource Class
 
@@ -1257,7 +1273,7 @@ The getXAConnection method of the ABXADataSource class returns an instance of th
 
 An XA data source can be registered in the Java Naming and Directory Interface (JNDI) and used.
 
-##### XAConnection Interface
+#### XAConnection Interface
 
 The XAConnection interface is a child interface of the PooledConnection interface. It includes the getConnection, close, addConnectionEventListener and removeConnectionEventListener methods.
 
@@ -1275,7 +1291,9 @@ Altibase.jdbc.driver.ABPooledConnection class is the actual instance of the XACo
 
 The getXAResource method of the ABPooledConnection class returns an instance of the ABXAResource object. The getConnection method returns an instance of the ABConnection object.
 
-![image20](media/API/image20.gif)
+<div align="left">
+    <img src="media/API/image20.gif">
+</div>
 
 [Figure 4-5] ABPooledConnection Class
 
@@ -1283,11 +1301,13 @@ The ABConnection instance returned by the getConnection method acts as a tempora
 
 Each time an XAConnection instance's getConnection method is called, it returns a new instance of a Connection object. At this time, if any previous connection instance that was created by the same XAConnection instance still exists, it is closed. It is nevertheless advisable to explicitly close a previous Connection instance before opening a new one. Calling the close method of an XAConnection instance closes the physical connection to the database.
 
-##### XAResource Interface
+#### XAResource Interface
 
 The TM uses instances of the ABXAResource object to coordinate all of the transaction branches. An instance of the Altibse.jdbc.driver.ABXAResource type is an instance of the class in which the javax.transaction.xa.XAResource interface is implemented.
 
-![image21](media/API/image21.gif)
+<div align="left">
+    <img src="media/API/image21.gif">
+</div>
 
 [Figure 4-6] ABXAResource Class
 
@@ -1309,7 +1329,7 @@ public Xid[] recover(int flag)
 
 For more detailed information, please refer to the description of the javax.transaction.xa.XAResource class in the Java API Specifications.
 
-##### Xid interface
+#### Xid interface
 
 The TM creates instances of the Xid interface and uses them to coordinate the branches of a distributed transaction. Each transaction branch is assigned a unique transaction ID, which includes the following information:
 
@@ -1325,15 +1345,15 @@ In Altibase, the javax.transaction.xa.Xid interface is implemented as the XID cl
 
 > Note: Altibase.jdbc.driver.XID does not need to be used to make ABXAResource calls. Any class in which the javax.transaction.xa.Xid interface is implemented can be used for this.
 
-#### Error Handling
+### Error Handling
 
 When errors occur, XA-related methods throw the ABXAException class. The ABXAException class is a subclass of the javax.transaction.xa.XAException class.
 
 
 
-#### Making XA Settings in Application Servers
+### Making XA Settings in Application Servers
 
-##### Making XA Settings in WebLogic
+#### Making XA Settings in WebLogic
 
 1.  In the WebLogic console, expand Services -> JDBC -> Connection Pools -> Configure a new JDBC Connection Pool, and then enter the required JDBC connection information. 
 
@@ -1348,7 +1368,9 @@ When errors occur, XA-related methods throw the ABXAException class. The ABXAExc
 
 
 
-![image22](media/API/image22.jpeg)
+<div align="left">
+    <img src="media/API/image22.jpeg">
+</div>
 
 [Figure 4-7] Entering JDBC Connection Information
 
@@ -1362,7 +1384,7 @@ When errors occur, XA-related methods throw the ABXAException class. The ABXAExc
 
 [Figure 4-8] Creating a Data Source
 
-#####  Weblogic Application Example
+####  Weblogic Application Example
 
 ```
 // step 1. JNDI Lookup and get UserTransaction Object
@@ -1393,7 +1415,7 @@ DataSource xads1 = (DataSource)ctx.lookup("altiTXDS");
 
 
 
-##### Making XA Settings in JEUS
+#### Making XA Settings in JEUS
 
 Here is how to make the basic settings to create a JDBC data source in JEUS.
 
@@ -1407,11 +1429,13 @@ Here is how to make the basic settings to create a JDBC data source in JEUS.
 
 3.  Enter appropriate values for Database Name, Port Number, Server Name, User and Password
 
-![](media/API/854d2590732a990a589c46dde6517ed7.png)
+<div align="left">
+    <img src="media/API/854d2590732a990a589c46dde6517ed7.png">
+</div>
 
 [Figure 4-9] Setting a Data Source in JEUS
 
-##### JEUS Application Example
+#### JEUS Application Example
 
 ```
 // step 1. JNDI Lookup and get UserTransaction Object
@@ -1443,7 +1467,7 @@ DataSource xads1 = (DataSource)ctx.lookup("altiTXDS");
 
 
 
-#### Example
+### Example
 
 The following example illustrates how to implement distributed transactions using Altibase XA. 
 
@@ -1696,19 +1720,19 @@ class XA4
 }
 ```
 
+<br/>
 
-
-### How to Solve Application Problems Using XA
+## How to Solve Application Problems Using XA
 
 This section explains how to determine the cause of any XA-related errors that may arise.
 
-#### Checking XA Tracking Information
+### Checking XA Tracking Information
 
 The XA library of Altibase records information that is useful for tracing errors in a trace file. If you open this file, you can check information such as error codes and messages.
 
 For example, if xa_open fails, you can use the trace information to find out whether the open string is wrong, whether the Altibase server was not found, or whether the logon failed.
 
-##### XA Trace File Name and Location
+#### XA Trace File Name and Location
 
 ```
 altibase_xa\<XA_NAME\>\<date\>.log 
@@ -1719,7 +1743,7 @@ altibase_xa\<XA_NAME\>\<date\>.log
 
 If the $ALTIBASE_HOME environment variable has been set, this trace file will be created in $ALTIBASE_HOME/trc. If the $ALTIBASE_HOME environment variable has not been set, the trace file will be created in the current directory.
 
-##### Example
+#### Example
 
 ```
 104744.19381.1:
@@ -1730,7 +1754,7 @@ ulxXaOpen : XAER_RMERR : [ERR-4102E] Invalid password
 
 ulxXaOpen is the module name, XAER_RMERR is the XA error code, [ERR-4102E] is the error code returned by the Altibase server, and "invalid password" is the error message returned by the Altibase server.
 
-#### Processing In-doubt Transaction
+### Processing In-doubt Transaction
 
 The TM is responsible for providing functionality for detecting problems that give rise to in-doubt and pending transactions and automatically completing in-doubt transactions. The RM in which the in-doubt or pending transaction is taking place maintains a lock on all resources associated with the prepared transaction until the transaction has been completed and it receives an instruction to commit the transaction.
 
@@ -1747,7 +1771,7 @@ ROLLBACK FORCE 'global_tx_id’;
 
 
 
-##### Example
+#### Example
 
 This example shows how to check the state of in-doubt transactions and manually commit a transaction as desired. 
 
@@ -1764,7 +1788,7 @@ Commit force success.
 
 
 
-#### Checking Heuristically Completed Transactions
+### Checking Heuristically Completed Transactions
 
 It is possible to check information about heuristically completed transactions. A so-called "heuristically completed transaction" is a transaction that is either committed or rolled back at the discretion of the RM after the RM fails to receive a transaction completion instruction (such as commit or rollback) from the TM for whatever reason. 
 
@@ -1772,7 +1796,7 @@ If an in-doubt transaction is forcibly committed or rolled back, it is said to b
 
 To delete this information, call xa_forget after the execution of xa_recover, or execute remove_xid().
 
-##### Example
+#### Example
 
 After the DBA commits an in-doubt transaction, information about the transaction is visible in the SYS_XA_HEURISTIC_TRANS_ meta table.
 
@@ -1805,11 +1829,9 @@ FAEDFAED
 
 
 
-## 4. iLoader API
+# 4. iLoader API
 
------------
-
-### iLoader API Overview
+## iLoader API Overview
 
 The Altibase iLoader API is an application programming interface that lets you create applications that use function calls to download data from, or upload data to, an Altibase database server. Data are downloaded or uploaded in units of tables. The iLoader API provides the same functionality as the iLoader utility. For more information about the iLoader utility, please refer to the *Altibase iLoader User’s Manual*.
 
@@ -1825,11 +1847,11 @@ The following table summarizes the functions available in the iLoader API.
 | altibase_iloader_datain       | Uploads data into a table in a database                      |
 | CallbackFunctionName          | A user-defined callback function                             |
 
+<br/>
 
+## Using the iLoader API
 
-### Using the iLoader API
-
-#### Header Files
+### Header Files
 
 The header file that should be included in the application.
 
@@ -1839,7 +1861,7 @@ $ALTIBASE_HOME/include/iloaderApi.h
 
 
 
-#### Libraries
+### Libraries
 
 The iLoader API library files that are required in order to develop an application that uses the iLoader API reside in the $ALTIBASE_HOME/lib directory. The iLoader API applications must always link with the following libraries:
 
@@ -1850,13 +1872,13 @@ The iLoader API library files that are required in order to develop an applicati
   ```
 
 
-#### Samples
+### Samples
 
 Sample iLoader API applications can be found in the $ALTIBASE_HOME/sample/ILOADERAPI directory.
 
+<br/>
 
-
-### iLoader API Data Structures
+## iLoader API Data Structures
 
 This section describes the C types that are provided for use in applications written using the iLoader API.
 
@@ -1868,7 +1890,7 @@ These types are:
 -   Option Structure
 -   iLoader API Enumerator (enum)
 
-####  iLoader Handle
+###  iLoader Handle
 
 The iLoader handle is an opaque data structure that is defined by the iLoader API library. It is used to store information pertaining to the behavior of applications that use the iLoader API.
 
@@ -1876,7 +1898,7 @@ The iLoader handle is an opaque data structure that is defined by the iLoader AP
     This is an iLoader handle. The iLoader handle is primarily used when downloading data, uploading data and creating FORM files.  
     The iLoader handle is allocated with altibase_iloader_init() and freed with altibase_iloader_final().
 
-#### Error Structure
+### Error Structure
 
 - ALTIBASE_ILOADER_ERROR  
   This structure is used to store information for diagnosing errors that occur during the execution of an application that was written using the iLoader API. This structure is defined as follows:
@@ -1892,7 +1914,7 @@ The iLoader handle is an opaque data structure that is defined by the iLoader AP
 
 
 
-#### Log Structure
+### Log Structure
 
 The iLoader API provides the following two structures for use in logging the progress of an iLoader task:
 
@@ -1955,7 +1977,7 @@ typedef struct ALTIBASE_ILOADER_STATISTIC_LOG
 
    
 
-#### Option Structure
+### Option Structure
 
 - ALTIBASE_ILOADER_OPTION_V1  
   Most of the members of the ALTIBASE_ILOADER_OPTION_V1 structure correspond to iLoader options. The corresponding option is noted in the comment following each member. For detailed information on the iLoader options, please refer to the Altibase *iLoader User’s Manual*.  
@@ -2023,7 +2045,7 @@ typedef struct ALTIBASE_ILOADER_OPTIONS_V1
 
 
 
-#### iLoader API Enumerators (enum)
+### iLoader API Enumerators (enum)
 
 ```
 typedef enum
@@ -2052,10 +2074,10 @@ typedef enum
 
 
 
+<br/>
 
 
-
-### iLoader API
+## iLoader API
 
 This section describes each of the functions in the iLoader API. 
 
@@ -2069,11 +2091,11 @@ The following information is provided for each function.
 -   A list of related functions 
 -   An example of use of the function in code
 
-#### altibase_iloader_datain
+### altibase_iloader_datain
 
 This function is used to upload data into a database table.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_iloader_datain (
@@ -2086,7 +2108,7 @@ int altibase_iloader_datain (
 
 
 
-##### Arguments
+#### Arguments
 
 | Argument    | In/Output | Description                                                  |
 | ----------- | --------- | ------------------------------------------------------------ |
@@ -2096,17 +2118,17 @@ int altibase_iloader_datain (
 | logCallback | Input     | This is the name of a log callback function. It may be a user-defined function. It can be NULL. |
 | error       | Output    | This is the pointer to the error structure in which to return information for diagnosing errors. <br />For more information about the error structure, please refer to iLoader API Data Structures. |
 
-##### Return Values
+#### Return Values
 
 ALTIBASE_ILO_SUCCESS, ALTIBASE_ILO_ERROR, or ALTIBASE_ILO_WARNING
 
 If the overall upload operation succeeded but one or more errors occurred, ALTIBASE_ILO_WARNING is returned.
 
-##### Diagnosis 
+#### Diagnosis 
 
 When altibase_iloader_datain()returns either ALTIBASE_ILO_ERROR or ALTIBASE_ILO_WARNING, the associated error information is returned in error.
 
-##### Description
+#### Description
 
 altibase_iloader_datain() is used to upload data from a file into a database table.
 
@@ -2114,7 +2136,7 @@ The value of the version argument must be ALTIBASE_ILOADER_V1.
 
 If a user-defined log callback function is being used, specify the name of the function in logCallback. Set logCallback to NULL when not using a user-defined log callback function.
 
-##### Related Functions
+#### Related Functions
 
 altibase_iloader_init
 
@@ -2124,7 +2146,7 @@ altibase_iloader_formout
 
 altibase_iloader_final
 
-##### Example
+#### Example
 
 The following example shows how to specify a format file and a data file when uploading data, both when using the iLoader utility directly and when calling the iLoader API from within an application.
 
@@ -2191,11 +2213,11 @@ int main()
 
 
 
-#### altibase_iloader_dataout
+### altibase_iloader_dataout
 
 This function is used to download data from a database table and write the data to a file.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_iloader_dataout (
@@ -2208,7 +2230,7 @@ int altibase_iloader_dataout (
 
 
 
-##### Arguments
+#### Arguments
 
 | Argument    | In/Output | Description                                                  |
 | ----------- | --------- | ------------------------------------------------------------ |
@@ -2218,15 +2240,15 @@ int altibase_iloader_dataout (
 | logCallback | Input     | This is the name of a log callback function. It may be a user-defined function. |
 | error       | Output    | This is the pointer to the diagnostic error structure in which to return information for diagnosing errors. <br />For more information about this structure, please refer to iLoader API Data Structures. |
 
-##### Result Values
+#### Result Values
 
 ALTIBASE_ILO_SUCCESS or ALTIBASE_ILO_ERROR
 
-##### Diagnosis 
+#### Diagnosis 
 
 When altibase_iloader_dataout()returns ALTIBASE_ILO_ERROR, the associated error information is returned in *error.*
 
-##### Description
+#### Description
 
 altibase_iloader_dataout() is used to download data from a database table and write the data to a file. 
 
@@ -2234,7 +2256,7 @@ The value of the version argument must be ALTIBASE_ILOADER_V1.
 
 If a user-defined log callback function is being used, specify the name of the function in logCallback. Set logCallback to NULL when not using a user-defined log callback function.
 
-##### Related Functions
+#### Related Functions
 
 altibase_iloader_init
 
@@ -2244,7 +2266,7 @@ altibase_iloader_formout
 
 altibase_iloader_final
 
-##### Example
+#### Example
 
 The following example shows how to specify a format file and a data file when downloading data, both when using the iLoader utility directly and when calling the iLoader API from within an application.
 
@@ -2311,11 +2333,11 @@ int main()
 
 
 
-#### altibase_iloader_final
+### altibase_iloader_final
 
 This function is used to free a handle and all associated resources.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_iloader_final (ALTIBASE_ILOADER_HANDLE * handle );
@@ -2323,33 +2345,33 @@ int altibase_iloader_final (ALTIBASE_ILOADER_HANDLE * handle );
 
 
 
-##### Syntax
+#### Arguments
 
 | Argument | In/Output | Description                                            |
 | -------- | --------- | ------------------------------------------------------ |
 | handle   | Input     | This is the pointer to the iLoader handle to be freed. |
 
-##### Return Values
+#### Return Values
 
 ALTIBASE_ILO_SUCCESS or ALTIBASE_ILO_ERROR
 
-##### Description	
+#### Description	
 
 altibase_iloader_final() frees the resources associated with the specified iLoader handle. After a handle has been freed, it cannot be used by the application.
 
-##### Related Function
+#### Related Function
 
 altibase_iloader_init
 
-##### Example
+#### Example
 
 Please refer to altibase_iloader_init.
 
-#### altibase_iloader_formout
+### altibase_iloader_formout
 
 This function is used to create a table format file (i.e. FORM file).
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_iloader_formout (
@@ -2361,7 +2383,7 @@ int altibase_iloader_formout (
 
 
 
-##### Arguments	
+#### Arguments	
 
 | Argument | In/Output | Description                                                  |
 | -------- | --------- | ------------------------------------------------------------ |
@@ -2370,15 +2392,15 @@ int altibase_iloader_formout (
 | options  | Input     | This is the pointer to the option structure.                 |
 | error    | Output    | This is the pointer to the error structure in which to return information for diagnosing errors. <br />For more information about this structure, please refer to iLoader API Data Structures. |
 
-##### Return Values
+#### Return Values
 
 ALTIBASE_ILO_SUCCESS or ALTIBASE_ILO_ERROR
 
-##### Diagnosis
+#### Diagnosis
 
 When altibase_iloader_formout()returns ALTIBASE_ILO_ERROR, the associated error information is returned in error.
 
-##### Description
+#### Description
 
 altibase_iloader_formout() is used to create a format file (FORM file) that describes a database table. 
 
@@ -2386,7 +2408,7 @@ This function can be called only after altibase_iloader_init() and altibase_iloa
 
 The value of the version argument must be ALTIBASE_ILOADER_V1.
 
-##### Related Functions
+#### Related Functions
 
 altibase_iloader_init
 
@@ -2398,7 +2420,7 @@ altibase_iloader_dataout
 
 altibase_iloader_final
 
-##### Example
+#### Example
 
 The following example shows how to create a format file that describes table T1, both when using the iLoader utility directly and when calling the iLoader API from within an application.
 
@@ -2464,11 +2486,11 @@ int main()
 
 
 
-#### altibase_iloader_init
+### altibase_iloader_init
 
 This function allocates an iLoader handle.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_iloader_init (ALTIBASE_ILOADER_HANDLE * handle );
@@ -2476,23 +2498,23 @@ int altibase_iloader_init (ALTIBASE_ILOADER_HANDLE * handle );
 
 
 
-##### Argument
+#### Argument
 
 | Argument | In/Output | Description                                                  |
 | -------- | --------- | ------------------------------------------------------------ |
 | handle   | Output    | This is a pointer to a buffer in which the handle to the newly allocated data structure is returned. |
 
-##### Return Values
+#### Return Values
 
 ALTIBASE_ILO_SUCCESS or ALTIBASE_ILO_ERROR
 
-##### Description
+#### Description
 
 altibase_iloader_init() allocates a handle that is used when creating a table format file, downloading data, or uploading data. 
 
 One handle cannot be shared by multiple threads, even if the threads are part of the same process.
 
-##### Related Functions
+#### Related Functions
 
 altibase_iloader_datain
 
@@ -2502,7 +2524,7 @@ altibase_iloader_formout
 
 altibase_iloader_final
 
-##### Example
+#### Example
 
 ```
 int main()
@@ -2529,11 +2551,11 @@ int main()
 
 
 
-#### altibase_iloader_options_init
+### altibase_iloader_options_init
 
 This function initializes an option structure to the default values.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_iloader_options_init (
@@ -2543,36 +2565,36 @@ int altibase_iloader_options_init (
 
 
 
-##### Arguments
+#### Arguments
 
 | Argument | In/Output | Description                                  |
 | -------- | --------- | -------------------------------------------- |
 | handle   | Input     | This is the version of the iLoader API.      |
 | options  | Input     | This is the pointer to the option structure. |
 
-##### Return Values
+#### Return Values
 
 ALTIBASE_ILO_SUCCESS or ALTIBASE_ILO_ERROR
 
-##### Description
+#### Description
 
 altibase_iloader_options_init() initializes an option structure to the default values. For detailed information about the default values, please refer to iLoader API Data Structures and to the *Altibase iLoader User’s Manual.* 
 
 The option structure must be initialized using this function before setting the option structure.
 
-##### Related Function
+#### Related Function
 
 altibase_iloader_init
 
-##### Example
+#### Example
 
 Please refer to the examples for the altibase_iloader_datain and altibase_iloader_dataout function.
 
-#### CallbackFunctionName
+### CallbackFunctionName
 
 This function is a user-defined callback function for handling the log information that is generated during the execution of an applicaiton that uses the iLoader API.
 
-##### Syntax
+#### Syntax
 
 ```
 int CallbackFuncationName (
@@ -2582,18 +2604,18 @@ int CallbackFuncationName (
 
 
 
-##### Arguments
+#### Arguments
 
 | Argument | In/Output | Description                                                  |
 | -------- | --------- | ------------------------------------------------------------ |
 | type     | Input     | This is the type of the log structure to return. It may be either ILO_LOG or ILO_STATISTIC_LOG. |
 | log      | Input     | This is the pointer to the log structure.<br/> Depending on the value of type, this argument will point to an ALTIBASE_ILOADER_LOG structure or to an ALTIBASE_ILOADER_STATISTIC_LOG structure. <br />If type is ILO_LOG, log is a pointer to an ALTIBASE_ILOADER_LOG structure, whereas if type is ILO_STATISTIC_LOG, log is a pointer to an ALTIBASE_ILOADER_STATISTIC_LOG structure. <br />For more information about the structures, please refer to Log Structure. |
 
-##### Return Values
+#### Return Values
 
 If ILO_STATISTIC_LOG is specified for type when a user-defined callback function is called, and the user-defined callback function returns anything other than 0 (zero), execution of the current upload or download task will stop.
 
-##### Description
+#### Description
 
 The Altibase iLoader API has the capability to execute user-specific code in addition to iLoader API calls. This functionality allows users to control execution of their applications based on the contents of iLoader logs. When altibase_iloader_datain() or altibase_iloader_dataout() is called, a callback function, which may be a user-defined function, can be registered. When the callback function is called, it receives the following iLoader log information: the time at which the task started, the total number of rows to be uploaded or downloaded, the number of rows that have been successfully uploaded or downloaded, and the number of rows that could not be uploaded or downloaded due to the occurrence of an error.
 
@@ -2610,13 +2632,13 @@ The application's callback function will be called at the following times:
     - When the value of the arrayCount member of the option structure is greater than 1, a user callback function cannot be called during the execution of an upload task.
     - When the value of the parallelCount member of the option structure is greater than 1, a user callback function may not be called for reasons related to synchronization between multiple threads.
 
-##### Related Functions
+#### Related Functions
 
 altibase_iloader_datain
 
 altibase_iloader_dataout
 
-##### Example
+#### Example
 
 -   Defining user callback
 
@@ -2688,9 +2710,9 @@ altibase_iloader_datain(&handle,
 
 
 
-## 5. CheckServer API
+# 5. CheckServer API
 
-### Overview of the CheckServer API
+## Overview of the CheckServer API
 
 The CheckServer API of Altibase is an application programming interface for creating applications that use function calls to monitor whether the Altibase server has terminated abnormally. The CheckServer API provides the same functionality as the CheckServer utility. For more information about the CheckServer utility, please refer to the *Utilities Manual.*
 
@@ -2703,17 +2725,17 @@ The following table summarizes the CheckServer API functions.
 | altibase_check_server        | This function monitors whether an Altibase server has terminated abnormally. |
 | altibase_check_server_cancel | This function is used to terminate the execution of CheckServer |
 
-####  Restrictions
+###  Restrictions
 
 -   The CheckServer API does not support multi-threaded programs. 
 -   An application that uses the CheckServer API can only be used to monitor an Altibase database server on the local host, i.e. on the same machine as the application. 
 -   Running two or more applications that use the CheckServer API at the same time will cause application errors.
 
+<br/>
 
+## Using the CheckServer API
 
-### Using the CheckServer API
-
-#### Head File
+### Head File
 
 This is a header file that should be included in the application.
 
@@ -2723,33 +2745,33 @@ $ALTIBASE_HOME/include/chksvr.h
 
 
 
-#### The CheckServer Libraries
+### The CheckServer Libraries
 
 The library files that are required in order for applications to use the CheckServer API reside in the $ALTIBASE_HOME/lib directory. Ensure that applications are always linked with the following libraries:
 
 -   UNIX
     libchksvr.a, libaltiutil.a
 
-#### Samples
+### Samples
 
 Sample applications that use the CheckServer API can be found in the $ALTIBASE_HOME/sample/CHECKSERVER directory.
 
+<br/>
 
-
-### CheckServer API Data Structure
+## CheckServer API Data Structure
 
 This section describes the C type that is made available to applications that use the CheckServer API.
 
-#### The CheckServer Handle
+### The CheckServer Handle
 
 The CheckServer handle is an opaque data structure that is defined in the CheckServer API library. It is used to store information pertaining to the behavior of applications that use the CheckServer API.
 
 -   ALTIBASE_CHECKSERVER_HANDLE  
     This is the CheckServer handle. The CheckServer handle is primarily used when monitoring an Altibase server. The CheckServer handle is allocated with altibase_check_server_init() and freed with altibase_check_server_final().
 
+<br/>
 
-
-### CheckServer API
+## CheckServer API
 
 This section describes each of the functions in the CheckServer API.
 
@@ -2764,11 +2786,11 @@ The following information is provided for each function.
 -   A list of related functions 
 -   An example of use of the function in code
 
-#### altibase_check_server
+### altibase_check_server
 
 This function checks whether the Altibase process is running.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_check_server (
@@ -2777,25 +2799,25 @@ ALTIBASE_CHECK_SERVER_HANDLE handle );
 
 
 
-##### Argument	
+#### Argument	
 
 | Argument | In/Output | Description            |
 | -------- | --------- | ---------------------- |
 | handle   | Input     | The CheckServer handle |
 
-##### Return Values
+#### Return Values
 
 ALTIBASE_CS_SERVER_STOPPED, ALTIBASE_CS_ERROR, or ALTIBASE_CS_INVALID_HANDLE
 
 If the Altibase server terminates abnormally, this function returns ALTIBASE_CS_SERVER_STOPPED
 
-##### Description
+#### Description
 
 When CheckServer is started or this function is called, a file named checkserver.pid is created in the $ALTIBASE_HOME/trc directory. The presence of the checkserver.pid file prevents another instance of the CheckServer API application from being started while the current instance is running. Calling altibase_check_server_final() removes this file.
 
 If this function is called while the Altibase server is running, the application that called this function will be nonresponsive until an error occurs, until it is detected that the Altibase server is shutting down, or until altibase_check_server_cancel() is called.
 
-##### Related Function
+#### Related Function
 
 altibase_check_server_init
 
@@ -2803,7 +2825,7 @@ altibase_check_server_final
 
 altibase_check_server_cancel
 
-##### Example
+#### Example
 
 ```
 int main()
@@ -2841,11 +2863,11 @@ int main()
 
 
 
-#### altibase_check_server_final
+### altibase_check_server_final
 
 This function frees a handle and all associated resources.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_check_server_final (
@@ -2854,35 +2876,35 @@ ALTIBASE_CHECK_SERVER_HANDLE * handle );
 
 
 
-##### Argument
+#### Argument
 
 | Argument | In/Output | Description                                                |
 | -------- | --------- | ---------------------------------------------------------- |
 | handle   | Input     | This is the pointer to the CheckServer handle to be freed. |
 
-##### ReturnValues
+#### ReturnValues
 
 ALTIBASE_CS_SUCCESS, ALTIBASE_CS_ERROR, or ALTIBASE_CS_INVALID_HANDLE
 
-##### Description
+#### Description
 
 altibase_check_server_final() frees all resources associated with the specified CheckServer handle.
 
 In addition, this function removes the checkserver.pid file, which was created when altibase_check_server() was called. If the application using the CheckServer API is terminated abnormally using a command such as kill, the checkserver.pid file may be left in the file system. In this case, it will be necessary to manually delete the file before it will be possible to run the CheckServer utility or for the application that uses the CheckServer API to call altibase_check_server().
 
-##### Related Function
+#### Related Function
 
 altibase_check_server_init
 
-##### Example
+#### Example
 
 Refer to altibase_check_server.
 
-#### altibase_check_server_init
+### altibase_check_server_init
 
 This function allocates a CheckServer handle.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_check_server_init (
@@ -2892,18 +2914,18 @@ char * home_dir );
 
 
 
-##### Arguments
+#### Arguments
 
 | Argument | In/Output | Description                                                  |
 | -------- | --------- | ------------------------------------------------------------ |
 | handle   | Output    | This is a pointer to a buffer in which the handle to the newly allocated data structure is returned. |
 | home_dir | Input     | This must be set to the $ALTIBASE_HOME directory.            |
 
-##### Return Values
+#### Return Values
 
 ALTIBASE_CS_SUCCESS or ALTIBASE_CS_ERROR
 
-##### Description 
+#### Description 
 
 This function allocates memory for information related to CheckServer, and passes a pointer to this memory back in *handle. 
 
@@ -2911,19 +2933,19 @@ Only one Altibase server can be monitored by one application that uses the Check
 
 Only one CheckServer handle can be used within one application. Additionally, a CheckServer handle cannot be shared by more than one thread at the same time. 
 
-##### Related Function
+#### Related Function
 
 altibase_check_server
 
-##### Example
+#### Example
 
 Refer to altibase_check_server.
 
-#### altibase_check_server_cancel
+### altibase_check_server_cancel
 
 This function cancels the processing of the altibase_check_server()function associated with the specified handle.
 
-##### Syntax
+#### Syntax
 
 ```
 int altibase_check_server_cancel (
@@ -2932,17 +2954,17 @@ int altibase_check_server_cancel (
 
 
 
-##### Argument	
+#### Argument	
 
 | Argument | In/Output | Description                                    |
 | -------- | --------- | ---------------------------------------------- |
 | handle   | Input     | This is the CheckServer handle to be canceled. |
 
-##### Result Value
+#### Result Value
 
 ALTIBASE_CS_SUCCESS, ALTIBASE_CS_ERROR 또는 ALTIBASE_CS_INVALID_HANDLE
 
-##### Description
+#### Description
 
 In a multithreaded application, one thread can call altibase_check_server_cancel() to cancel the altibase_check_server() function that is running on another thread. If the call to altibase_check_server_cancel() is successful, altibase_check_server() is stopped, and the value ALTIBASE_CS_ABORTED_BY_USER is returned.
 
@@ -2950,10 +2972,10 @@ It might take some time from the time that altibase_check_server_cancel() is cal
 
 Once altibase_check_server_cancel() has been called, if it is called again before altibase_check_server() returns a result, there is no guarantee that either call to altibase_check_server_cancel() will execute correctly.
 
-##### Related Function
+#### Related Function
 
 altibase_check_server
 
-##### Example
+#### Example
 
 Refer to altibase_check_server.
