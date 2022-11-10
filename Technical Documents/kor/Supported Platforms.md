@@ -54,13 +54,13 @@
 | **Microsoft Windows (x64)**                                  |                     |                           |                                                          |
 | Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase 클라이언트 7.1.0.4.5 이상*                   |
 
-- ### Adapter for Oracle
+### Adapter for Oracle
 
-  - AIX 5.3
-  - AIX 6.1
-  - Linux
+- AIX 5.3
+- AIX 6.1
+- Linux
 
-  <br/>
+<br/>
 
 ## Altibase 6.5.1
 
