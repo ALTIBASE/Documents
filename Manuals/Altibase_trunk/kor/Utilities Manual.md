@@ -2735,10 +2735,9 @@ altiMon은 Java 8 이상에서 동작한다.
 Java 버전은 PICL C 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL
 C 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
 
-#### altiMon 설정(Configuration)
+#### altiMon 설정
 
-altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디렉토리에 있는
-아래의 파일들을 설정한다.
+altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디렉토리에 있는 아래의 파일들을 설정한다.
 
 -   [config.xml](#config.xml)
 
@@ -2750,39 +2749,132 @@ altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디�
 
 모니터링 대상인 Altibase의 접속 정보와 altiMon 제어 정보를 설정하는 파일이다.
 
-| 태그 이름                                               | 필수 여부 | 설명                                                         |
-| ------------------------------------------------------- | --------- | ------------------------------------------------------------ |
-| \<Altimon Name='String' monitorOsMetric="true\|false"\> | 필수      | monitorOsMetric 속성은 OsMetric을 측정할 것인지 여부를 지정한다. 기본값: true 사용자 환경과 호환되는 PICL C 라이브러리가 없는 경우에 false로 지정한다. |
-| \<DateFormat\>                                          | 옵션      | 로그 기록시 사용할 날짜 시간 포맷 기본값: yyyy-MM-dd HH:mm:ss 설정 가능한 날짜 형식은 [자바 문서](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html) 참조한다. |
-| \<Interval\>                                            | 옵션      | 데이터 수집 주기. 기본값: 60 (초) \<OSMetric\>또는 \<SQLMetric\> 설정 부분에 Interval을 지정하지 않으면 여기에 설정한 값이 적용된다. 단, \<GroupMetric\>은 영향을 받지 않는다. |
-| \<LogDir\>                                              | 옵션      | 별도의 디스크 사용시 설정하면 된다. 설정하지 않으면 아래의 디렉토리가 기본으로 설정된다. \$ALTIBASE_HOME/altiMon/logs |
-| \<MaintenancePeriod\>                                   | 옵션      | 로그 파일 유지 기간 기본값: 3 (일)                           |
-| \<Target Name='String'\>                                | 필수      | 모니터링 대상 데이터베이스 Name: 이름                        |
-| \<HomeDirectory\>                                       | 옵션      | 알티베이스 홈 디렉토리를 절대 경로로 설정한다. 설정하지 않으면 ALTIBASE_HOME 환경변수 값이 사용된다. |
-| \<DBConnectionWatchdogCycle\>                           | 옵션      | DB connection watchdog 실행 주기 DB connection watchdog은 모니터링 대상인 데이터베이스가 shutdown된 후에 일정 시간을 주기로 데이터베이스에 접속을 시도하여 모니터링을 지속할 수 있도록 한다. 기본값: 60 (초) |
-| \<User\>                                                | 옵션      | 접속 사용자. 설정하지 않으면 SYS 사용자로 접속한다.          |
-| \<Password Encrypted="Yes \| No"\>                      | 필수      | 비밀 번호 Encrypted 속성이 "No"일 때 사용자가 비밀번호를 등록하여도, altimon을 구동하면 Encrypted 속성은 "Yes"로 변경되고 비밀번호도 암호화된다. |
-| \<Port\>                                                | 필수      | 포트 번호                                                    |
-| \<NLS\>                                                 | 필수      | NLS_USE                                                      |
-| \<DbName\>                                              | 옵션      | 데이터베이스 이름 기본값: mydb                               |
-| \<IPv6\>                                                | 옵션      | IPv6 사용 여부 기본값: false                                 |
-| \<ConnectionProperties\>                                | 옵션      | 추가 연결 속성을 지정한다.<br />예)<br />\<ConnectionProperties\><br />login_timeout=3;fetch_timeout=60<br />\</ConnectionProperties\> |
+~~~xml
+$ cat config.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <Altimon Name="rnd1" monitorOsMetric="true">
+        <!--<LogDir>logs</LogDir> -->
+        <DateFormat>yyyy-MM-dd HH:mm:ss</DateFormat>
+        <MaintenancePeriod>3<!-- days --></MaintenancePeriod>
+        <Interval>60<!-- seconds --></Interval>
+        <DBConnectionWatchdogCycle>60<!-- seconds --></DBConnectionWatchdogCycle>
+    </Altimon>
+    <Target Name="Altibase1">
+        <!--<HomeDirectory>/home/altibase/altibase_home</HomeDirectory> -->
+        <!--<User>sys</User> -->
+        <Password Encrypted="No">manager</Password>
+        <Port>20300</Port>
+        <DbName>mydb</DbName>
+        <NLS>KSC5601</NLS>
+        <IPv6>FALSE</IPv6>
+        <ConnectionProperties>login_timeout=3</ConnectionProperties>
+    </Target>
+</configuration>
+~~~
+
+다음은 config.xml 파일에서 사용할 수 있는 XML 요소와 속성 설명이다. 
+
+| XML 요소                                 | XML속성         | 필수 여부 | 설명                                                         |
+| :--------------------------------------- | :-------------- | :-------: | :----------------------------------------------------------- |
+| \<?xml version="1.0" encoding="UTF-8"?\> |                 |           | 파일은 이 요소와 함께 시작해야 한다.                         |
+| \<Altimon …>                             |                 |   필수    |                                                              |
+|                                          | Name            |     ?     | ?                                                            |
+|                                          | monitorOsMetric |     ?     | OS 자원을 모니터링 할 것인지 true 또는 false 로 설정한다. <br />기본값은 true 이다. false는 OS 자원을 모니터링할 필요가 없거나 PICL C 라이브러리가 제공되지 않는 환경에서 설정한다. |
+| \<DateFormat\>                           |                 |   옵션    | altiMon 로그의 날짜 형식을 설정한다.<br />기본값은 yyyy-MM-dd HH:mm:ss 이다. 설정 가능한 날짜 형식은 [자바 SimpleDateFormat 클래스의 날짜 형식](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html)을 참고한다. |
+| \<Interval\>                             |                 |   옵션    | altiMon의 데이터 수집 주기를 설정한다. 단위는 초(second)이다. <br />기본값은 60 이다.  \<OSMetric\>또는 \<SQLMetric\> 요소에서 Interval 속성을 설정하지 않으면 이 값이 적용된다. \<GroupMetric\> 요소에서는 이 값의 영향을 받지 않는다. |
+| \<LogDir\>                               |                 |   옵션    | altiMon 로그 파일이 생성될 경로를 입력한다. 설정하지 않으면 \$ALTIBASE_HOME/altiMon/logs 가 기본값으로 설정된다. |
+| \<MaintenancePeriod\>                    |                 |   옵션    | altiMon 로그 파일 보관 기간을 설정한다. 단위는 일(day)이다.<br />설정하지 않으면 기본값 3이 적용된다. |
+| \<Target ...>                            |                 |   필수    | altiMon에서 모니터링 할 Altibase 서버 정보를 설정한다.       |
+|                                          | Name            |     ?     | ?                                                            |
+| \<HomeDirectory\>                        |                 |   옵션    | Altibase 서버의 홈 디렉토리를 절대 경로로 입력한다. 설정하지 않으면 환경변수 ALTIBASE_HOME 값이 적용된다. |
+| \<DBConnectionWatchdogCycle\>            |                 |   옵션    | Altibase 서버로의 연결 시도 주기를 초(second)단위로 설정한다.  설정하지 않으면 기본값 60이 적용된다.<br />Altibase 서버가 중지되었을 때 altiMon은 일정 시간마다 Altibase 서버에 접속을 시도한다.  주기로 데이터베이스에 접속을 시도하여 모니터링을 지속할 수 있도록 한다. |
+| \<User\>                                 |                 |   옵션    | altiMon에서 Altibase 서버에 접속 시 사용할 데이터베이스 사용자를 입력한다.<br />설정하지 않으면 기본값 SYS 사용자로 접속한다. |
+| \<Password ...>                          |                 |   필수    | 데이터베이스 사용자의 패스워드를 입력한다.                   |
+|                                          | Encrypted       |     ?     | 데이터베이스 사용자의 패스워드를 암호화할 것인지 Yes 또는 No로 설정한다. 이 속성의 값을 "No"로 설정해도 altiMon을 구동하면 "Yes"로 변경된다. |
+| \<Port\>                                 |                 |   필수    | Altibase 서버의 서비스 포트를 입력한다.                      |
+| \<NLS\>                                  |                 |   필수    | 데이터베이스 클라이언트 캐릭터셋을 입력한다.                 |
+| \<DbName\>                               |                 |   옵션    | 데이터베이스 이름을 입력한다. 데이터베이스 이름은 아래 문장으로 확인할 수 있다.<br />`SELECT DB_NAME FROM V$DATABASE; `<br />설정하지 않으면 기본값 mydb 로 설정된다. |
+| \<IPv6\>                                 |                 |   옵션    | IPv6 사용 여부를 Yes 또는 No로 설정한다. 설정하지 않으면 기본값 false가 설정된다. |
+| \<ConnectionProperties\>                 |                 |   옵션    | 추가적으로 설정한 연결 속성을 `연결속성=값;연결속성=값;...` 형식으로 입력한다. <br />예)<br />`<ConnectionProperties>login_timeout=3;fetch_timeout=60</ConnectionProperties>` |
 
 ##### Metrics.xml
 
-사전 정의된 OS Meric, SQL Metric과 사용자 정의된 OS Metric(Command Metric)을
-설정하는 파일이다.
+CPU, 메모리와 같은 OS 자원과 Altibase 서버의 모니터링 항목을 설정하는 파일이다. CommandMetric 요소, OSMetric  요소, SQLMetric 요소로 구성되어 있다. 
 
-| 태그 이름                                                    | 설명                                                         |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| \<OSMetric Name='PROC_CPU_USER' Activate='true' Interval='30' Logging='true'\> | 사전 정의된 OS Metric을 설정한다. 아래의 Predefined OS Metric들을 사용할 수 있다. TOTAL_CPU_USER: 사용자 모드(user mode)에서 CPU 사용률(%) TOTAL_CPU_KERNEL: 커널 모드(kernel mode)에서 CPU 사용률(%) PROC_CPU_USER: 사용자 모드(user mode)에서 Altibase 프로세스의 CPU 사용률(%) PROC_CPU_KERNEL: 커널 모드(kernel mode)에서 Altibase 프로세스의 CPU 사용률(%) TOTAL_MEM_FREE: 사용할 수 있는 메인 메모리(RAM)의 크기(KB) TOTAL_MEM_FREE_PERCENTAGE: 사용할 수 있는 메인 메모리(RAM)의 비율(%) PROC_MEM_USED: Altibase 프로세스가 사용중인 메인 메모리(RSS)의 크기(KB) PROC_MEM_USED_PERCENTAGE:Altibase 프로세스가 사용중인 메인 메모리(RSS)의 비율(%) SWAP_FREE: 사용 가능한 SWAP의 크기(KB) SWAP_FREE_PERCENTAGE: 전체 SWAP 공간에서 사용 가능한 SWAP의 비율(%) DISK_FREE: 지정한 디스크에서 사용되지 않은 디스크의 크기(KB) DISK_FREE_PERCENTAGE: 지정한 디스크에서 사용되지 않은 디스크의 비율(%) DISK_FREE, DISK_FREE_PERCENTAGE는 아래의 태그를 추가해야 하며, 'Disk Name'은 고유한 이름으로 설정해야 한다. <br /><OSMetric Name='DISK_FREE' Activate='true'\> <br /><Disk Name='disk1'\>/home\</Disk\> \</OSMetric\> \<OSMetric Name='DISK_FREE' Activate='true'\> \<Disk Name='disk2'\>/home2\</Disk\> \</OSMetric\> |
-| \<SQLMetric Name='MEM_DATABASE_USAGE' Activate='true' Interval='60' Logging='true'\> | SQL Metric을 설정하며, Name은 필수로 정의해야 한다. <br />Name: metric 이름(필수) <br />Activate: 경고 동작 여부<br />지정 가능한 값은 true 또는 false이며, 기본값은 true이다. Interval: 데이터 수집 주기<br />설정하지 않으면 config.xml에 설정한 값을 따른다. <br />Logging: 데이터 수집 결과를 파일에 로깅할 지 여부를 설정한다. 지정 가능한 값은 true 또는 false이며, 기본값은 true이다. alert 정보만 기록하고 싶을 때는 false로 지정한다. |
-| \<CommandMetric Name='MEM_VSZ' Activate='true' Interval='60' Logging='true'\> | 사용자가 정의하는 OS Metric을 설정한다. 아래의 \<Command\> 태그에 설정한 커맨드 또는 스크립트를 실행하고, stdout으로 출력되는 값을 측정값으로 사용한다. 해당 metric에 alert을 설정하려면, 이 측정값이 숫자여야 한다. |
-| \<Query\>                                                    | 쿼리 설정. SQLMetric일 경우 필수                             |
-| \<Command\>                                                  | 커맨드 또는 스크립트 파일을 설정하며, CommandMetric일 경우 필수이다. 스크립트 파일은 절대 경로 또는 상대 경로로 설정할 수 있다. 상대 경로의 기준은 \$ALTIBASE_HOME/altiMon 디렉토리이다. |
-| \<Alert Activate='true' ComparisonColumn='ALLOC_MEM_MB' ComparisonType='gt'\> | 경고 설정. 옵션. <br />threshold 값과 비교되는 측정값은 숫자여야 한다. <br />Activate: Alert 동작 여부, 옵션. 기본값: true <br />ComparisonColumn: threshold 값을 비교할 대상 칼럼. 옵션. <br />ComparisonType: 비교 연산자. 필수. <br />-eq: is equal to the threshold value <br />-ne: is not equal to the threshold value <br />-gt: is greater than the threshold value <br />-ge: is greater than or equal to the threshold value <br />-lt: is less than the threshold value <br />-le: is less than or equal to the threshold value |
-| \<WarningThreshold Value='500'\> or \<CriticalThreshold Value='800'\> | threshold 값 설정 (critical 또는 warning 두 가지 레벨로 설정 가능) \<Alert Activate= true\>인 경우 필수. <br />Value: threshold 값 |
-| \<ActionScript\>db_usage.sh\</ActionScript\>                 | threshold 값을 벗어난 경우 수행할 스크립트 파일 이름 설정. <br />\$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 해당 스크립트 파일이 있어야 한다.<br />action script 수행시 metric 이름, 레벨 (CRITICAL 또는 WARNING), threshold 값, 측정값이 인자로 전달된다. |
+~~~xml
+% cat Metrics.xml  |more
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Metrics>
+    <!-- CommandMetric 요소 --> 
+    <CommandMetric Name='MEM_VSZ'>
+        <Command>scriptsDir/vsz.sh</Command>
+        <Alert Activate='true' ComparisonType='gt'>
+            <WarningThreshold Value='100000000'>
+                <ActionScript>mem_act.sh</ActionScript>
+            </WarningThreshold>
+        </Alert>
+    </CommandMetric>
+    
+    <!-- OSMetric 요소 --> 
+    <OSMetric Name='PROC_CPU_USER' Activate='true'>
+        <Alert Activate='true' ComparisonType='gt'>
+            <WarningThreshold Value='80' >
+                <ActionScript>cpu_act.sh</ActionScript>
+            </WarningThreshold>
+        </Alert>
+    </OSMetric>
+
+    <!-- SQLMetric 요소 --> 
+    <SQLMetric Name='MEM_DATABASE_USAGE' Activate='true' Interval='30'>
+        <Query>
+            select
+            trunc(mem_alloc_page_count*32/1024, 2) as alloc_mem_mb,
+            trunc(mem_free_page_count*32/1024, 2) as free_mem_mb
+            from v$database
+        </Query>
+        <Alert Activate='true' ComparisonColumn='ALLOC_MEM_MB' ComparisonType='GT'>
+            <CriticalThreshold Value='8000' >
+                <ActionScript>db_usage.sh</ActionScript>
+            </CriticalThreshold>
+        </Alert>
+    </SQLMetric>
+~~~
+
+다음은 Metrics.xml에 설정할 수 있는 XML 요소와 속성에 대한 설명이다.
+
+| XML 요소                                        | XML 속성         | 필수여부 | 설명                                                         |
+| :---------------------------------------------- | :--------------- | :------: | :----------------------------------------------------------- |
+| \<?xml version="1.0" encoding="UTF-8"?\>        |                  |   필수   | 파일은 이 요소와 함께 시작해야 한다.                         |
+| \<Metrics\>                                     |                  |    ?     | ?                                                            |
+| <CommandMetric …>                               |                  |    ?     | 사용자가 정의하는 OS Metric을 설정한다. 아래의 \<Command\> 태그에 설정한 커맨드 또는 스크립트를 실행하고, stdout으로 출력되는 값을 측정값으로 사용한다. 해당 metric에 alert을 설정하려면, 이 측정값이 숫자여야 한다. |
+|                                                 | Name             |    ?     | ?                                                            |
+|                                                 | Activate         |    ?     | ?                                                            |
+|                                                 | Interval         |    ?     | ?                                                            |
+|                                                 | Logging          |    ?     | ?                                                            |
+| \<Command\>                                     |                  |   조건   | CommandMetric 요소에서 필수이다. <br />커맨드 또는 스크립트 파일을 설정하며 스크립트 파일은 절대 경로 또는 상대 경로로 설정할 수 있다. 상대 경로의 기준은 $ALTIBASE_HOME/altiMon 디렉토리이다. |
+| <Alert …>                                       |                  |   선택   | 경고 설정. WarningThreshold Value 과 비교되는 측정값은 숫자여야 한다. |
+|                                                 | Activate         |   선택   | Alert 동작 여부, 기본값: true                                |
+|                                                 | ComparisonColumn |   선택   | WarningThreshold Value를 비교할 대상 칼럼                    |
+|                                                 | ComparisonType   |   필수   | 비교 연산자<br />• -eq: is equal to the threshold value<br/>• -ne: is not equal to the threshold value<br/>• -gt: is greater than the threshold value<br/>• -ge: is greater than or equal to the threshold value<br/>• -lt: is less than the threshold value<br/>• -le: is less than or equal to the threshold value |
+| <WarningThreshold …> 또는 <CriticalThreshold …> |                  |   조건   | threshold 값 설정<br />\<Alert Activate= true\> 요소를 사용했을 때 필수 |
+|                                                 | Activate         |    ?     | ?                                                            |
+|                                                 | Value            |    ?     | threshold 값                                                 |
+| \<ActionScript\>                                |                  |    ?     | threshold 값을 벗어난 경우 수행할 스크립트 파일 이름 설정.<br/>$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 해당 스크립트 파일이 있어야 한다.<br/>action script 수행시 metric 이름, 레벨 (CRITICAL 또는 WARNING), threshold 값, 측정값이 인자로 전달된다. |
+| <OSMetric …>                                    |                  |    ?     | ?                                                            |
+|                                                 | Name             |    ?     | • TOTAL_CPU_USER<br />사용자 모드(user mode)에서 CPU 사용률(%) <br />• TOTAL_CPU_KERNEL<br />커널 모드(kernel mode)에서 CPU 사용률(%) <br />• PROC_CPU_USER<br />사용자 모드(user mode)에서 Altibase 프로세스의 CPU 사용률(%) |
+|                                                 | Activate         |    ?     | ?                                                            |
+|                                                 | Description      |    ?     | ?                                                            |
+| <SQLMetric …>                                   |                  |    ?     | SQL Metric을 설정                                            |
+|                                                 | Name             |    ?     | ?                                                            |
+|                                                 | Activate         |    ?     | 경고 동작 여부. true 또는 false. 기본값은 true이다           |
+|                                                 | Interval         |   선택   | 데이터 수집 주기<br/>설정하지 않으면 config.xml에 설정한 값을 따른다. |
+|                                                 | Logging          |    ?     | 데이터 수집 결과를 파일에 로깅할 지 여부를 설정한다. 지정 가능한 값은 true 또는 false이며, 기본값은 true이다. alert 정보만 기록하고 싶을 때는 false로 지정한다. |
+| \<Query\>                                       |                  |   조건   | 모니터링 쿼리 설정. SQLMetric 요소 안에서 필수               |
+
+> action_scripts 디렉토리  
+> \<ActionScript\> 태그에 설정하는 스크립트 파일은 \$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 위치한다. 예를 들어 \<ActionScript\>db_usage.sh\</ActionScript\>의 'db_usage.sh' 파일은 action_scripts 디렉토리에 있어야 스크립트 파일이 정상적으로 수행된다.
 
 ##### GroupMetrics.xml
 
@@ -2793,110 +2885,38 @@ Group Metric을 정의하는 파일이다. OS Metric, Command Metric과 SQL Metr
 Group Metric으로 수집한 데이터는 일반 Metric 측정값이 \*.log 파일에 저장되는
 것과 달리, CSV 형식의 파일로 저장된다.
 
-| 태그 이름                                   | 설명                                                         |
-| ------------------------------------------- | ------------------------------------------------------------ |
-| \<GroupMetric Name='group1' Interval='30'\> | Group Metric을 설정한다. <br />Name: metric 이름 (필수) <br />Activate: 데이터 수집 여부 (옵션) 지정 가능한 값은 true 또는 false이며, 기본값은 true이다.<br /> Interval: 데이터 수집 주기 (필수) |
-| \<Target MetricName='PROC_CPU_USER'/\>      | Group Metric에 포함될 base metric을 지정한다. <br />MetricName: Metrics.xml에 정의된 OSMetric, Command Metric 또는 SQLMetric의 이름<br />SQL Metric은 반드시 한 건의 SELECT 문의 실행 결과를 가져야 한다. DISK_FREE 또는 DISK_FREE_PERCENTAGE를 target으로 지정하는 경우 'Metric Name'과 'Disk Name'을 '.'으로 연결한 문자열이 MetricName으로 설정돼야 한다. <br />\<Target MetricName='DISK_FREE.disk1'/\> |
-| \<Column Name='LOG_GAP' /\>                 | SQL Metric의 경우 select target들 중에서 Group Metric에 포함하고자 하는 칼럼을 지정한다. <br />이 태그를 지정하지 않으면 모든 select target이 해당 Group Metric에 포함된다. <br />Name: select 쿼리에 사용한 target 칼럼. alias를 지정한 경우 alias로 표기한다. |
-
-##### 기타
-
--   action_scripts 디렉토리  
-    \<ActionScript\> 태그에 설정하는 스크립트 파일은
-    \$ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 위치한다.  
-    예를 들어 \<ActionScript\>db_usage.sh\</ActionScript\>의 'db_usage.sh'
-    파일은 action_scripts 디렉토리에 있어야 스크립트 파일이 정상적으로 수행된다.
-
-#### 사용예
-
-altiMon 설정 파일들에 대한 예제이다.
-
-##### config.xml
-
-```
+~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
- 
-<config>
-    <Altimon Name='rnd1'>
-        <!-- <LogDir>/home/bethy/arugs/logs</LogDir> -->
-        <DateFormat>yyyy-MM-dd HH:mm:ss</DateFormat>
-        <MaintenancePeriod>3</MaintenancePeriod>
-        <Interval>60</Interval>
-    </Altimon>
-    <Target Name='Altibase1'>
-        <HomeDirectory>/home/bethy/work/altibase_trunk/altibase_home</HomeDirectory>
-        <User>sys</User>
-        <Password Encrypted="NO">manager</Password>
-        <Port>20020</Port>
-        <DbName>mydb</DbName>
-        <NLS>KSC5601</NLS>
-        <IPv6>FALSE</IPv6>
-    </Target>
- 
-</config>
-```
 
-
-
-##### OSMetrics.xml
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
- 
-<Metrics>
-  <OSMetric Name='PROC_CPU_USER' Activate='true' Interval='60'>
-    <Alert Activate='true' ComparisonType='gt'>
-        <WarningThreshold Value='80'>
-            <ActionScript>cpu_act.sh</ActionScript>
-        </WarningThreshold>
-    </Alert>
-  </OSMetric>
- 
-  <SQLMetric Name='MEM_DATABASE_USAGE' Activate='true' Interval='30'>
-    <Query>select
-            trunc(mem_alloc_page_count*32/1024, 2) as alloc_mem_mb,
-            trunc(mem_free_page_count*32/1024, 2) as free_mem_mb
-            from v$database</Query>
-    <Alert Activate='true' ComparisonColumn='ALLOC_MEM_MB' ComparisonType='GT'>
-        <CriticalThreshold Value='8000' >
-            <ActionScript>db_usage.sh</ActionScript>
-        </CriticalThreshold>
-    </Alert>
-  </SQLMetric>
- 
-  <CommandMetric Name='MEM_VSZ'>
-    <Command>scriptsDir/vsz.sh</Command>
-    <Alert Activate='true' ComparisonType='gt'>
-        <WarningThreshold Value='100000000'> <!-- in kB -->
-            <ActionScript>mem_act.sh</ActionScript>
-        </WarningThreshold>
-    </Alert>  
-</CommandMetric>
-</Metrics>
-
-```
-
-
-
-##### GroupMetrics.xml
-
-```
 <GroupMetrics>
-    <GroupMetric Name='group1' Interval='30'>
+    <GroupMetric Name='group1' Interval='40'>
         <Target MetricName='TOTAL_CPU_USER'/>
         <Target MetricName='PROC_CPU_USER'/>
         <Target MetricName='LOGFILE_COUNT'>
             <Column Name='LOG_GAP' />
         </Target>
     </GroupMetric>
-    <GroupMetric Name='group2' Interval='60'>
+    
+    <GroupMetric Name='group2' Interval='80'>
         <Target MetricName='PROC_MEM_USED_PERCENTAGE'/>
-        <Target MetricName='MEM_VSZ'/>
-        <Target MetricName='LOGFILE_COUNT'/>
+        <Target MetricName='MEM_TBL_USAGE'/>
     </GroupMetric>
 </GroupMetrics>
+~~~
 
-```
+다음은 GroupMetrics.xml에 설정할 수 있는 XML 요소와 속성에 대한 설명이다.
+
+| XML 요소                                | XML 속성   | 필수여부 | 설명                                                         |
+| :-------------------------------------- | :--------- | :------: | :----------------------------------------------------------- |
+| \<?xml version="1.0" encoding="UTF-8"?> |            |          | 파일은 이 요소와 함께 시작해야 한다.                         |
+| \<GroupMetric ...\>                     |            |    ?     | Group Metric을 설정한다.                                     |
+|                                         | Name       |   필수   | metric 이름                                                  |
+|                                         | Activate   |   선택   | 데이터 수집 여부 (옵션) 지정 가능한 값은 true 또는 false이며, 기본값은 true이다. |
+|                                         | Interval   |   필수   | 데이터 수집 주기 (필수)                                      |
+| \<Target ...\>                          |            |    ?     | Group Metric에 포함될 base metric을 지정한다.                |
+|                                         | MetricName |    ?     | Metrics.xml에 정의된 OSMetric, Command Metric 또는 SQLMetric의 이름.<br />SQL Metric은 반드시 한 건의 SELECT 문의 실행 결과를 가져야 한다. <br />DISK_FREE 또는 DISK_FREE_PERCENTAGE를 target으로 지정하는 경우 'Metric Name'과 'Disk Name'을 '.'으로 연결한 문자열이 MetricName으로 설정돼야 한다.<br />\<Target MetricName='DISK_FREE.disk1'/\> |
+| \<Column ...\>                          |            |   선택   | SQL Metric의 경우 select target들 중에서 Group Metric에 포함하고자 하는 칼럼을 지정한다. 이 요소를 지정하지 않으면 모든 select target이 해당 Group Metric에 포함된다. |
+|                                         | Name       |   선택   | select 쿼리에 사용한 target 칼럼. alias를 지정한 경우 alias로 표기한다. |
 
 
 
