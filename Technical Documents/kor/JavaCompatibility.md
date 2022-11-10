@@ -1,44 +1,32 @@
 # Altibase 버전 별 Java 호환성
 
+<br/>
 
+<br/>
 
 # **Table of Contents** 
 
-- [Altibase 버전 별 Java 호환성](#altibase-%EB%B2%84%EC%A0%84-%EB%B3%84-java-%ED%98%B8%ED%99%98%EC%84%B1)
-- [Altibase 7.2](#altibase-72)
 - [Altibase 7.1](#altibase-71)
 - [Altibase 6.5.1](#altibase-651)
+- [Tools](#tools)
 
 <br/>
 
 <br/>
 
-# Altibase 7.2
+# 개요
 
-### Altibase Server Side
+자바 기반의 Altibase 라이브러리 및 유틸리티의 자바 버전 별 호환성 여부를 안내하는 페이지입니다. 
 
-|             | Java 8 (LTS) | Java 9 | Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항 |
-| ----------- | :----------: | :----: | :-----: | :-----------: | :-----: | :-----------: | --------- |
-| **DB Link** |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |           |
-| **altiMon** |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |           |
+자바 호환성 테스트는 Oracle OpenJDK를 대상으로 진행합니다. Oracle JDK, Oracle OpenJDK, IBM SDK 모두 바이너리 호환성을 보장하고 있으므로 벤더 사 구분 없이 호환성 테스트를 마친 자바 버전만 명시합니다.
 
-### Altibase JDBC Driver
+이 페이지의 표에서 사용한 기호의 의미는 다음과 같습니다. 
 
-|                                          | Java 8 (LTS) | Java 9 | Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항 |
-| ---------------------------------------- | :----------: | :----: | :-----: | :-----------: | :-----: | :-----------: | --------- |
-| **JDBC 4.2 API 부분 지원(Altibase.jar)** |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |           |
+`x` : 지원하지 않는 버전을 의미합니다.
 
-### Tools
+`●` : 호환성 테스트를 완료한 버전을 의미합니다. 
 
-|                          | Java 8 (LTS) | Java 9 | Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항                 |
-| ------------------------ | :----------: | :----: | :-----: | :-----------: | :-----: | :-----------: | ------------------------- |
-| **Adapter for JDBC**     |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |                           |
-| **dataCompJ 7.2**        |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |                           |
-| **Migration Center 7.9** |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |                           |
-| **Linux 및 Unix**        |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |                           |
-| **Windows**              |              |        |         |               |         |               | - *무관. JRE 8 번들 제공* |
-| **altiShapeLoader 1.0**  |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |                           |
-| **Replication Manager**  |              |        |         |               |         |               | - *무관. JRE 6 번들 제공* |
+`-` : 호환성 테스트를 진행하지는 않았으며 호환성 여부는 JDK 하위 호환성 정책에 따릅니다. 해당 버전에 대해 Altibase의 호환성 테스트 결과가 필요한 경우 Altibase로 문의하시기 바랍니다. 
 
 <br/>
 
@@ -48,30 +36,26 @@
 
 ### Altibase Server Side
 
-|             | Java 5 ~ Java 7 | Java 8 (LTS) | Java 9 | Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항                                       |
-| ----------- | :-------------: | :----------: | :----: | :-----: | :-----------: | :-----: | :-----------: | :---------------------------------------------- |
-| **DB Link** |        ●        |      ●       |   ●    |    ●    |       ●       |    ●    |       -       | - *Java 9 이상은 Altibase 7.1.0.2.5 부터 지원*  |
-| **altiMon** |        ●        |      ●       |   ●    |    ●    |       ●       |    ●    |       -       | - *Java 11 이상은 Altibase 7.1.0.2.6 부터 지원* |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 19 |
+| ------------------------------------------------------------ | :----: | :----: | :----: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
+| **altiMon**                                                  |   ●    |   ●    |   ●    |   ●    |   ●    |    ●    |  ●[^1]  |    ●    |      ●       |
+| **Adapter for JDBC**                                         |   x    |   x    |   ●    |   ●    |   ●    |    ●    |  ●[^2]  |    ●    |      ●       |
+| **DB Link**                                                  |   ●    |   ●    |   ●    |   ●    | ●[^3]  |    ●    |    ●    |    ●    |      ●       |
 
-### Altibase JDBC Driver
+[^1]: altiMon에서 Java 11 이상은 Altibase 7.1.0.2.6부터 지원합니다.
+[^2]: Adapter for JDBC에서 Java 11 이상은 Altibase 7.1.0.2.6부터 지원합니다.
+[^3]: DB Link에서 Java 9 이상은 Altibase 7.1.0.2.5부터 지원합니다.
 
-|                                             | Java 5 ~ Java 7 | Java 8 (LTS) | Java 9 | Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항                                       |
-| ------------------------------------------- | --------------- | ------------ | ------ | ------- | ------------- | ------- | ------------- | ----------------------------------------------- |
-| **JDBC 3.0 API 지원 (Altibase.jar)**        | ●               | ●            | ●      | ●       | ●             | ●       | -             | - *Java 11 이상은 Altibase 7.1.0.2.6 부터 지원* |
-| **JDBC 4.2 API 부분 지원 (Altibase42.jar)** |                 | ●            | ●      | ●       | ●             | ●       | -             | - *Altibase 7.1.0.5.6 부터 지원*                |
 
-### Tools
 
-|                               | Java 6 | Java 7 (LTS) | Java 8 (LTS) | Java 9 ~ Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항                                                    |
-| ----------------------------- | :----: | :----------: | :----------: | :--------------: | :-----------: | :-----: | :-----------: | ------------------------------------------------------------ |
-| **Adapter for JDBC**          |        |      ●       |      ●       |        ●         |       ●       |    ●    |       -       | - *Java 11 이상은 Altibase 7.0.1.2.6 부터 지원*              |
-| **dataCompJ 7.2**             |        |              |      ●       |        ●         |       ●       |    ●    |       -       | - *Java 11 이상은 dataComJ 7.1 부터 지원*<br />- *dataCompJ 7.2 부터 최소 버전이 Java 8로 변경됨* |
-| **Migration Center 7.9**      |        |              |              |                  |               |         |               |                                                              |
-| ***Linux 및 Unix***           |        |              |      ●       |        ●         |       ●       |    ●    |       -       | - *Java 11 이상은 Migration Center 7.8 부터 지원*<br />- *Migration Center 7.9 부터 최소 버전이 Java 8로 변경됨* |
-| ***Windows***                 |        |              |              |                  |               |         |               | - *무관. JRE 8 번들 제공*                                    |
-| **altiShapeLoader 1.0**       |        |              |      ●       |        ●         |       ●       |    ●    |       -       |                                                              |
-| **Altibase Hadoop Connector** |   ●    |      ●       |      ●       |        ●         |       -       |    -    |       -       |                                                              |
-| **Replication Manager**       |        |              |              |                  |               |         |               | - *무관. JRE 6 번들 제공*                                    |
+### Altibase JDBC 드라이버
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 ~ Java 7 | Java 8 | Java 9 ~ Java 10 | Java 11[^4] | Java 12 | Java 17 ~ 19 |
+| :----------------------------------------------------------- | :----: | :-------------: | :----: | :--------------: | :---------: | :-----: | :----------: |
+| **Altibase.jar**                                             |   ●    |        ●        |   ●    |        ●         |      ●      |    ●    |      ●       |
+| **Altibase42.jar**                                           |   x    |        x        |   ●    |        ●         |      ●      |    ●    |      ●       |
+
+[^4]: JDBC 3.0 API를 지원하는 JDBC 드라이버(Altibase.jar)에서 Java 11 이상은 Altibase 7.1.0.2.6부터 지원합니다.
 
 <br/>
 
@@ -81,170 +65,42 @@
 
 ### Altibase Server Side
 
-|             | Java 5 ~ Java 7 | Java 8 (LTS) | Java 9 | Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항                                      |
-| ----------- | :-------------: | :----------: | :----: | :-----: | :-----------: | :-----: | :-----------: | :--------------------------------------------- |
-| **DB Link** |        ●        |      ●       |   ●    |    ●    |       ●       |    ●    |       -       | - *Java 9 이상은 Altibase 6.5.1.6.6 부터 지원* |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 ~ Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 19 |
+| ------------------------------------------------------------ | :----: | :-------------: | :----: | :-----: | :-----: | :-----: | :----------: |
+| **DB Link**                                                  |   ●    |        ●        | ●[^5]  |    ●    |    ●    |    ●    |      ●       |
+
+[^5]: DB Link에서 Java 9 이상은 Altibase 6.5.1.6.6부터 지원합니다.
+
+
 
 ### Altibase JDBC Driver
 
-|                                          | **Java 4 ~ Java 7 (LTS) ** | Java 8 (LTS) | Java 9 | Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항 |
-| ---------------------------------------- | :------------------------: | :----------: | :----: | :-----: | :-----------: | :-----: | :-----------: | --------- |
-| **JDBC 4.2 API 부분 지원(Altibase.jar)** |             ●              |      ●       |   ●    |    ●    |       ●       |    ●    |       -       |           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | **Java 4** | Java 5 ~  Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 19 |
+| ------------------------------------------------------------ | :--------: | :--------------: | :----: | :-----: | :-----: | :-----: | :----------: |
+| **JDBC 드라이버**                                            |     ●      |        ●         |   ●    |    ●    |  ●[^6]  |    ●    |      ●       |
 
-### Tools
+[^6]: JDBC 드라이버에서 Java 11 이상은 Altibase 6.5.1.6.6부터 지원합니다.
 
-|                               | Java 6 | Java 7 (LTS) | Java 8 (LTS) | Java 9 ~ Java 10 | Java 11 (LTS) | Java 12 | Java 17 (LTS) | 참고 사항                                                    |
-| ----------------------------- | :----: | :----------: | :----------: | :--------------: | :-----------: | :-----: | :-----------: | ------------------------------------------------------------ |
-| **dataCompJ 7.2**             |        |              |      ●       |        ●         |       ●       |    ●    |       -       | - *Java 11 이상은 dataComJ 7.1 부터 지원*<br />- *dataCompJ 7.2 부터 최소 버전이 Java 8로 변경됨* |
-| **Migration Center 7.9**      |        |              |              |                  |               |         |               |                                                              |
-| ***Linux 및 Unix***           |        |              |      ●       |        ●         |       ●       |    ●    |       -       | - *Java 11 이상은 Migration Center 7.8 부터 지원*<br />- *Migration Center 7.9 부터 최소 버전이 Java 8로 변경됨* |
-| ***Windows***                 |        |              |              |                  |               |         |               | - *무관. JRE 8 번들 제공*                                    |
-| **Altibase Hadoop Connector** |   ●    |      ●       |      ●       |        ●         |       -       |    -    |       -       |                                                              |
-| **Replication Manager**       |        |              |              |                  |               |         |               | - *무관. JRE 6 번들 제공*                                    |
+<br/>
 
-<table style="undefined;table-layout: fixed; width: 1443px;"><colgroup> <col style="width: 25px;" /> <col style="width: 25px;" /> <col style="width: 193px;" /> <col style="width: 98px;" /> <col style="width: 83px;" /> <col style="width: 87px;" /> <col style="width: 113px;" /> <col style="width: 105px;" /> <col style="width: 99px;" /> <col style="width: 99px;" /> <col style="width: 99px;" /> <col style="width: 417px;" /> </colgroup>
-<thead>
-<tr>
-<th colspan="3">&nbsp;</th>
-<th>Java 4</th>
-<th>Java 5</th>
-<th>Java 6</th>
-<th>Java 7 (LTS)</th>
-<th>Java 8 (LTS) ~ Java 10</th>
-<th>Java 11</th>
-<th>Java 12</th>
-<th>Java 17 (LTS)</th>
-<th style="text-align: left;">참고 사항</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="3"><strong>Altibase Server Side</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2"><strong>DB Link</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">-</td>
-<td>- Java 9 이상은 Altibase 6.5.1.6.6 부터 지원</td>
-</tr>
-<tr>
-<td colspan="3"><strong>Altibase JDBC Driver</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2"><strong>JDBC 3.0 API 지원 (Altbase.jar)</strong></td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">-</td>
-<td>- Java 11 이상은 Altibase 6.5.1.6.6 부터 지원</td>
-</tr>
-<tr>
-<td colspan="3"><strong>Tools</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2"><strong>dataCompJ 7.2</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">-</td>
-<td>- Java 11 이상은 dataCompJ 7.1부터 지원<br />- dataCompJ 7.2부터 최소 버전이 Java 8로 변경</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2"><strong>Migration Center 7.9</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">-</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td><strong>Linux 및 Unix</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">-</td>
-<td>- Java 11이상은 Migration Center 7.8부터 지원<br />- Migration Center 7.9부터 최소 버전이 Java 8로 변경</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td><strong>Windows</strong></td>
-<td style="text-align: center;" colspan="8">무관</td>
-<td>- JRE 8 번들 제공</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2"><strong>Altibase Hadoop Connector</strong></td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">&nbsp;</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">●</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">-</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2"><strong>Replication Manager</strong></td>
-<td style="text-align: center;" colspan="8">무관</td>
-<td>- JRE 6 번들 제공</td>
-</tr>
-</tbody>
-</table>
+<br/>
+
+# Tools
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 6 | Java 7 | Java 8 | Java 9 ~ Java 10 | Java 11 | Java 12 | Java 17 | Java 18 |
+| ------------------------------------------------------------ | :----: | :----: | :----: | :--------------: | :-----: | :-----: | :-----: | :-----: |
+| **altiShapeLoader 1.0**                                      |   x    |   x    |   ●    |        ●         |    ●    |    ●    |    -    |    ●    |
+| **Altibase Hadoop Connector**                                |   ●    |   ●    |   ●    |        ●         |    -    |    -    |    -    |    -    |
+| **dataCompJ 7.2**                                            |   x    |   x    | ●[^7]  |        ●         |  ●[^8]  |    ●    |    -    |    ●    |
+| **Migration Center 7.10**                                    |        |        |        |                  |         |         |         |         |
+| &nbsp;&nbsp;&nbsp;&nbsp;**Linux 및 Unix**                    |   x    |   x    | ●[^9]  |        ●         | ●[^10]  |    ●    |    -    |    ●    |
+| &nbsp;&nbsp;&nbsp;&nbsp;**Windows**[^11]                     |        |        |        |                  |         |         |         |         |
+| **Replication Manager**[^11]                                 |        |        |        |                  |         |         |         |         |
+
+[^7]: dataCompJ 7.2부터 최소 자바 버전이 Java 8로 변경되었습니다.
+[^8]: dataCompJ 에서 Java 11 이상은 dataComJ 7.1 부터 지원합니다.
+[^9]: Migration Center 7.9부터 최소 버전이 Java 8로 변경되었습니다.
+[^10]: Migration Center에서 Java 11 이상은 Migration Center 7.8 부터 지원합니다.
+[^11]: Migration Center Windows 용과 Replication Manager는 제품 내에 JRE 번들을 제공하고 있어 자바 버전에 영향을 받지 않습니다.
+
+<br/>
