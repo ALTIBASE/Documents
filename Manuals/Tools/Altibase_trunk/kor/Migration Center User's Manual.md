@@ -384,6 +384,8 @@ Altibase가 대상 데이터베이스일 경우 마이그레이션이 가능한 
 
 - Tibero: 4sp1~6
 
+- PostgreSQL: 9.5.3
+
 ##### Oracle이 대상 데이터베이스인 경우
 
 Oracle이 대상 데이터베이스일 경우 마이그레이션이 가능한 원본 데이터베이스는
@@ -1593,8 +1595,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  5   | LONG          | CLOB              |                                                              |
 |  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
 |  7   | FLOAT         | FLOAT             |                                                              |
-|  8   | BINARY FLOAT  | FLOAT             |                                                              |
-|  9   | BINARY DOUBLE | VARCHAR(310)      | Altibase 에는 오라클 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자 형으로 저장된다. |
+|  8   | BINARY FLOAT  | FLOAT             | +Inf, -Inf, and NaN 값들은 알티베이스에서 표현되지 않기 때문에 마이그레이션 중 손실이 일어날 수 있다. |
+|  9   | BINARY DOUBLE | DOUBLE            | +Inf, -Inf, and NaN 값들은 알티베이스에서 표현되지 않기 때문에 마이그레이션 중 손실이 일어날 수 있다. |
 |  10  | DATE          | DATE              |                                                              |
 |  11  | TIMESTAMP     | DATE              | 스케일의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 오라클에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, Altibase에서는 타임스탬프 값의 스케일이 마이크로초(6자리 수)이다. |
 |  12  | RAW           | BLOB              |                                                              |
@@ -1652,7 +1654,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다 |
 |  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
 |  12  | FLOAT              | FLOAT                           |                                                              |
-|  13  | DOUBLE             | VARCHAR(310)                    | Altibase에는 MySQL DOUBLE 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  13  | DOUBLE             | DOUBLE                          | TODO: BUG-49993                                              |
 |  14  | BIT                | VARBIT                          |                                                              |
 |  15  | DATETIME           | DATE                            | 시각 부분이 0으로 설정된다.                                  |
 |  16  | DATE               | DATE                            |                                                              |
@@ -1806,6 +1808,34 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
 |  17  | ROWID         | VARCHAR(18)     | 티베로의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
+
+#### PostgreSQL to Altibase
+
+|      | 원본     | 대상     | 주의 사항                                                    |
+| :--: | :------- | -------- | :----------------------------------------------------------- |
+|      | SMALLINT | SMALLINT | PostgreSQL 표현 범위 (-32,768 ~ +32,767)에 비해 알티베이스 표현 범위 (-32,767 ~ 32,767)차이로 -32,768 값 데이터 손실이 발생할 수 있다. |
+|      | INTEGER | INTEGER | PostgreSQL 표현 범위 (-2,147,483,648 to +2,147,483,647)에 비해 알티베이스 표현 범위 (-2,147,483,647~ 2,147,483,647) 차이로 -2,147,483,648 값 데이터 손실이 발생할 수 있다. |
+|      | BIGINT | BIGINT | PostgreSQL 표현 범위 (-9,223,372,036,854,775,808 to +9,223,372,036,854,775,807)에 비해 알티베이스 표현 범위 (-9,223,372,036,854,775,807 ~ 9,223,372,036,854,775,807)가  -9,223,372,036,854,775,808 값 데이터 손실이 발생할 수 있다. |
+|              | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL 표현 범위 (Precision: 1 ~ 1,000, , Scale: 0 ~ precision  값)와 알티베이스 표현 범위 (Precision: 1 ~ 38, Scale: -84 ~ 128) 차이로 데이터 손실 가능하다.<br />또한, 알티베이스에서 Infinity, -Infinity, NaN 표현 불가하기 때문에 해당 값들에 대한 데이터 손실 또한 가능하다. |
+|      | REAL | REAL |                                                              |
+|      | DOUBLE PRECISION | DOUBLE |                                                              |
+|      | CHARACTER | CHAR | |
+|      | CHARACTER VARYING | VARCHAR  | PostgreSQL VARCHAR(n)에서 문자형 컬럼 길이 자동 보정된 n 값이  알티베이스 최대치 (32,000)보다 작으면 VARCHAR로, 최대치를 넘어서면 CLOB으로 매핑된다. |
+|      | TEXT | CLOB | PostgreSQL TEXT는 최대 크기가 1GB까지 지원하기 때문에 데이터 손실을 방지하기 위해 CLOB으로 매핑한다.|
+| | boolean | CHAR(1) | Altibase에는 PostgreSQL의 boolean과 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 문자형으로 저장된다. true -> 't', false -> 'f', unknown -> null 값으로 치환된다. |
+|  | date | date | -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03,  292278994-08-17으로 표현된다. 데이터 마이그레이션 수행시 -infinity와 infinity는 알티베이스에서 21506-12-03, 11567-08-17으로 표현된다. |
+|  | time with time zone | date | Altibase에는 time만 표현하는 데이터 타입이 없어 date로 치환된다. time zone 정보는 유실된다. |
+|  | time without time zone | date | Altibase에는 time만 표현하는 데이터 타입이 없어 date로 치환된다. |
+| | timestamp with time zone | date | time zone 정보는 유실된다. infinity와 -infinity는 PostgreSQL의 특수한 값으로 해당 값은 데이터 손실이 가능하다. |
+| | timestamp without time zone | date | infinity와 -infinity는 PostgreSQL의 특수한 값으로 해당 값은 데이터 손실이 가능하다. |
+| | CIDR | VARCHAR(43) | Altibase에는 PostgreSQL의 CIDR과 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 문자형으로 저장된다. |
+| | INET | VARCHAR(43) | Altibase에는 PostgreSQL의 INET과 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 문자형으로 저장된다. |
+| | MACADDR | VARCHAR(17) | Altibase에는 PostgreSQL의 MACADDR와 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 문자형으로 저장된다. |
+| | XML | CLOB | Altibase에는 PostgreSQL의 XML과 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
+| | ENUM | VARCHAR(32000) | Altibase에는 PostgreSQL의 Enum와 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| | ARRAY | VARCHAR(32000) | Altibase에는 PostgreSQL의 Array와 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| | COMPOSITE | VARCHAR(32000) | Altibase에는 PostgreSQL의 Composite와 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+
 
 ### 이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정
 

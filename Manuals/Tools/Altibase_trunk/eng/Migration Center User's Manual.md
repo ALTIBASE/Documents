@@ -1181,8 +1181,8 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMBER          | NUMBER type columns defined without precision and scale in Oracle are converted to the same NUMBER type columns without precision and scale for Altibase. *Both Oracle and Altibase internally handle NUMBER type columns defined without precision and scale as FLOAT type in the database. |
 |  7   | FLOAT         | FLOAT           |                                                              |
-|  8   | BINARY FLOAT  | FLOAT           |                                                              |
-|  9   | BINARY DOUBLE | VARCHAR(310)    | There is no compatible data type in Altibase for the Oracle binary double type, so the data is stored in character form to prevent loss. |
+|  8   | BINARY FLOAT  | FLOAT           | Since +Inf, -Inf, and NaN values are not stored in Altibase's DOUBLE, loss may occur during migration. |
+|  9   | BINARY DOUBLE | DOUBLE          | Since +Inf, -Inf, and NaN values are not stored in Altibase's DOUBLE, loss may occur during migration. |
 |  10  | DATE          | DATE            |                                                              |
 |  11  | TIMESTAMP     | DATE            | A small amount of data loss may occur due to the difference in scale. <br/>In Oracle, the scale of a timestamp value is nanoseconds (9 digits), whereas in Altibase, the scale of a timestamp value is microseconds (6 digits) |
 |  12  | RAW           | BLOB            |                                                              |
@@ -1240,7 +1240,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  10  | BIGINT UNSIGNED                 | NUMERIC(20,0)  | There is no compatible data type in Altibase for MySQL BIGINT UNSIGNED type, so NUMERIC type is used to prevent any data loss. |
 |  11  | DECIMAL (NUMERIC)               | VARCHAR(70)    | There is no compatible data type in Altibase for MySQL DECIMAL type, so VARCHAR type is used to prevent any data loss. |
 |  12  | FLOAT                           | FLOAT          |                                                              |
-|  13  | DOUBLE                          | VARCHAR(310)   | There is no compatible data type in Altibase for MySQL DOUBLE type, so VARCHAR type is used to prevent any data loss. |
+|  13  | DOUBLE                          | DOUBLE         |                                                              |
 |  14  | BIT                             | VARBIT         |                                                              |
 |  15  | DATETIME                        | DATE           | Time parts are set to ‘0'                                    |
 |  16  | DATE                            | DATE           |                                                              |
