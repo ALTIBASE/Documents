@@ -14020,6 +14020,12 @@ empty queue can reset a msgid.**
 **Action:** Check whether the queue is empty, otherwise remove the data from the
 queue.
 
+**0x314AA ( 201898) qpERR_ABORT_QDQ_USE_QUEUE_TABLE_IN_DISK_TABLESPACE Failed to create queue table in disk tablespace.** 
+
+**Cause:** Cannot create queue table in disk tablespace.
+
+**Action:** Create queue table in memory tablespace or volatile tablespace.
+
 ### RETRY
 
 **0x331FE ( 209406) qpERR_REBUILD_QMX_TOO_OLD_PLANTREE The plan tree is too

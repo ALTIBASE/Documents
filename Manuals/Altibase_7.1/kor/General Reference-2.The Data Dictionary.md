@@ -4492,6 +4492,7 @@ iSQL> SELECT * FROM V$TAB;
 | V\$PLANTEXT                           | SQL의 실행 계획 텍스트 정보                                  |
 | V\$PROCTEXT                           | 저장 프로시저의 텍스트 정보                                  |
 | V\$PROPERTY                           | Altibase에 설정된 프로퍼티 정보                              |
+| V$QUEUE_DELETE_OFF                    | DELETE 문을 허용하지 않는 큐 테이블의 객체 식별자(OID) 정보  |
 | V\$REPEXEC                            | 이중화 관리자 정보                                           |
 | V\$REPGAP                             | 이중화 송신자의 작업 로그 레코드와 현재 생성된 최근 로그 레코드간의 차이 정보 |
 | V\$REPGAP_PARALLEL                    | 병렬 수행중인 이중화 송신 쓰레드의 작업 로그 레코드와 현재 생성된 최근 로그 레코드간의 차이 정보 |
@@ -8268,18 +8269,18 @@ Altibase 내부에 설정된 프로퍼티의 정보를 보여준다.
 
 ### V\$QUEUE_DELETE_OFF	
 
-DELETE 문을 허용하지 않는 큐 테이블을 보여준다. CREATE QUEUE 또는 ALTER QUEUE 에서 DELETE OFF 절을 사용한 경우 해당 큐 테이블에 DELETE 문을 허용하지 않는다.
+DELETE 문을 허용하지 않는 큐 테이블의 객체 식별자(OID) 정보를 가지고 있다. CREATE QUEUE 또는 ALTER QUEUE에서 DELETE OFF 절을 사용한 큐 테이블은 DELETE 문을 허용하지 않는다.
 
-| Column name | Type       | Description                                     |
-| ----------- | ---------- | ----------------------------------------------- |
-| TABLE_OID   | BIGINT     | 테이블 객체 식별자                              |
+| Column name | Type   | Description        |
+| ----------- | ------ | ------------------ |
+| TABLE_OID   | BIGINT | 테이블 객체 식별자 |
 
 #### 칼럼 정보
 
 ##### TABLE_OID
 
-테이블 식별자로 SYS_TABLES_메타 테이블의 한 TABLE_OID 값과 동일하다.		
-	
+테이블 객체 식별자로, SYS_TABLES_메타 테이블에서 하나의 TABLE_OID와 일대일로 대응된다.	
+
 ### V\$REPEXEC
 
 이중화 관리자 정보를 보여준다.
