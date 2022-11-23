@@ -1,84 +1,84 @@
-
-
-- [Utilities Manual](#utilities-manual)
-  - [서문](#서문)
-    - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
-  - [1.aexport](#1aexport)
-    - [aexport소개](#aexport소개)
-    - [aexport사용방법](#aexport사용방법)
-  - [2.altiComp](#2alticomp)
-    - [altiComp 소개](#alticomp-소개)
-    - [altiComp 사용 방법](#alticomp-사용-방법)
-    - [비교(DIFF)기능](#비교diff기능)
-    - [일치(SYNC) 기능](#일치sync-기능)
-  - [3.aku](#3aku)
-    - [개요](#개요-1)
-    - [구성 요소](#구성-요소)
-    - [구문](#구문-1)
-    - [파라미터](#파라미터-1)
-    - [주의사항](#주의사항)
-    - [제약사항](#제약사항)
-    - [사용 예](#사용-예)
-  - [4.기타 Utilities](#4기타-utilities)
-    - [altiAudit](#altiaudit)
-    - [altibase](#altibase)
-    - [altiMon](#altimon)
-    - [altierr](#altierr)
-    - [altipasswd](#altipasswd)
-    - [altiProfile](#altiprofile)
-    - [altiwrap](#altiwrap)
-    - [awrite](#awrite)
-    - [checkServer](#checkserver)
-    - [dumpbi](#dumpbi)
-    - [dumpct](#dumpct)
-    - [dumpdb](#dumpdb)
-    - [dumpddf](#dumpddf)
-    - [dumpla](#dumpla)
-    - [dumplf](#dumplf)
-    - [dumptrc](#dumptrc)
-    - [killCheckServer](#killcheckserver)
-    - [server](#server)
-
-
-
-Altibase® Tools & Utilities
-
 Utilities Manual
 ================
 
-![](media/Utilities/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Release 7.1 
 
-Altibase Tools & Utilities Utilities Manual
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
-Release 7.1
+Altibase Tools & Utilities Utilities Manual<br/>
+Copyright ⓒ 2001\~2022 Altibase Corp. All Rights Reserved.<br/>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.
 
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
+<br/>
 
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
+**㈜알티베이스**<br/>
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층<br/>
+전화 : 02-2082-1114<br/>
+팩스 : 02-2082-1099<br/>
+고객서비스포털 : <http://support.altibase.com><br/>
+홈페이지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: [http://www.altibase.com](http://www.altibase.com/)
 
-**㈜알티베이스**
+<br/>
 
-08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+<div align="center">
+    <img src="media/Utilities/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.aexport](#1aexport)
+  - [aexport소개](#aexport소개)
+  - [aexport사용방법](#aexport사용방법)
+- [2.altiComp](#2alticomp)
+  - [altiComp 소개](#alticomp-소개)
+  - [altiComp 사용 방법](#alticomp-사용-방법)
+  - [비교(DIFF)기능](#비교diff기능)
+  - [일치(SYNC) 기능](#일치sync-기능)
+- [3.aku](#3aku)
+  - [개요](#개요-1)
+  - [구성 요소](#구성-요소)
+  - [구문](#구문-1)
+  - [파라미터](#파라미터-1)
+  - [주의사항](#주의사항)
+  - [제약사항](#제약사항)
+  - [사용 예](#사용-예)
+- [4.기타 Utilities](#4기타-utilities)
+  - [altiAudit](#altiaudit)
+  - [altibase](#altibase)
+  - [altiMon](#altimon)
+  - [altierr](#altierr)
+  - [altipasswd](#altipasswd)
+  - [altiProfile](#altiprofile)
+  - [altiwrap](#altiwrap)
+  - [awrite](#awrite)
+  - [checkServer](#checkserver)
+  - [dumpbi](#dumpbi)
+  - [dumpct](#dumpct)
+  - [dumpdb](#dumpdb)
+  - [dumpddf](#dumpddf)
+  - [dumpla](#dumpla)
+  - [dumplf](#dumplf)
+  - [dumptrc](#dumptrc)
+  - [killCheckServer](#killcheckserver)
+  - [server](#server)
+
+
 
 
 
 
 
 서문
-----
+====
 
-### 이 매뉴얼에 대하여
+## 이 매뉴얼에 대하여
 
 이 매뉴얼은 Altibase를 사용하면서 필요한 유틸리티에 대해서 설명한다.
 
-#### 대상 사용자
+### 대상 사용자
 
 이 매뉴얼은 다음과 같은 Altibase 사용자를 대상으로 작성되었다.
 
@@ -102,12 +102,12 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 -   데이터베이스 서버 관리, 운영 체제 관리 또는 네트워크 관리 경험
 
-#### 소프트웨어 환경
+### 소프트웨어 환경
 
 이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에
 작성되었다.
 
-#### 이 매뉴얼의 구성
+### 이 매뉴얼의 구성
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
@@ -126,7 +126,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 -   제 4장 기타 Utilities  
     이 장은 aexport, altiComp, dataCompJ 등을 제외한 나머지 유틸리티에 대해서 설명한다.
 
-#### 문서화 규칙
+### 문서화 규칙
 
 이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이
 매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
@@ -137,7 +137,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 -   샘플 코드 규칙
 
-##### 구문 다이어그램
+### 구문 다이어그램
 
 이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
 설명한다.
@@ -172,7 +172,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 | 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                               |
 | 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                              | DESC SYSTEM_.SYS_INDICES_;                                                                                |
 
-#### 관련 자료
+### 관련 자료
 
 자세한 정보를 위하여 다음 문서 목록을 참조하기 바란다.
 
@@ -186,7 +186,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 -   iLoader User's Manual
 
-#### Altibase는 여러분의 의견을 환영합니다.
+### Altibase는 여러분의 의견을 환영합니다.
 
 이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은 다음
 버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래 내용과 함께
@@ -208,11 +208,11 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 
 1.aexport
--------
+=======
 
-### aexport소개
+## aexport소개
 
-#### 개요
+### 개요
 
 aexport는 Altibase 데이터베이스 간의 자동화된 데이터 마이그레이션(migration)을
 지원하기 위한 도구이다. aexport는 데이터베이스의 논리적인 구조 및 데이터를
@@ -229,7 +229,7 @@ aexport는 데이터베이스의 논리적인 구조를 SQL 스크립트로 변�
 서비스는 하지 않는 상태 즉, 클라이언트 연결이 없을 때 aexport를 사용하기를
 권장한다.
 
-#### aexport 기능 소개
+### aexport 기능 소개
 
 aexport가 추출할 수 있는 데이터베이스 객체 및 구성 요소는 다음과 같다.
 
@@ -409,7 +409,7 @@ aexport에 의해 생성된 모든 파일은 텍스트 파일이기 때문에 �
     생성하는 SQL 스크립트를 포함한다. 또한, ALL_OBJECT_CONSTRATINS.sql을
     실행하는 run_is_con.sh 쉘 스크립트 파일이 생성된다.
 
-#### aexport 설정
+### aexport 설정
 
 aexport는 서버에 접속하기 위해서 다음과 같은 정보가 필요하다.
 
@@ -476,7 +476,7 @@ port_no와 NLS_USE는 환경 변수 또는 서버 설정 파일(altibase.propert
 
 -   PATH: 실행파일이 있는 경로인 \$ALTIBASE_HOME/bin 추가
 
-#### 환경변수
+### 환경변수
 
 ##### ALTIBASE_HOME
 
@@ -534,13 +534,13 @@ aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값�
 예) user:rw,  group:--,  other:--로 설정하는 경우, 
 export AEXPORT_FILE_PERMISSION=600 
 
-### aexport사용방법
+## aexport사용방법
 
-#### 구문
+### 구문
 
 ![](media/Utilities/83e5d3722e9a7c575270c6a6bb5206c2.gif)
 
-#### 파라미터
+### 파라미터
 
 | 파라미터                           | 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 |------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -565,7 +565,7 @@ export AEXPORT_FILE_PERMISSION=600
 
 
 
-#### 수행 절차
+### 수행 절차
 
 aexport를 사용한 데이터베이스 마이그레이션 절차는 크게 다음과 같이 분류된다.
 
@@ -691,7 +691,7 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
 
 
 
-#### 주의 사항
+### 주의 사항
 
 -   SYS 사용자가 아닌 일반 사용자로 aexport를 실행할 경우 해당 사용자가 생성한
     스키마에 대해서만 스크립트를 생성한다.
@@ -741,7 +741,7 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
 
 
 
-#### aexport의 한계
+### aexport의 한계
 
 -   저장 프로시저 생성 시 참조해야 할 저장 프로시저가 미리 생성되어 있지 않으면
     작업이 실패하게 된다. aexport는 저장 프로시저 간의 의존성에 대한 정보에
@@ -768,7 +768,7 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
 
 
 
-#### SSL 접속과 스크립트 파일
+### SSL 접속과 스크립트 파일
 
 -   SSL 접속으로 aexport를 실행하는 경우, 원본 데이터베이스 접속용
     스크립트(run_il_out.sh) 파일에는 aexport를 실행할 때 사용한 SSL 옵션이
@@ -780,7 +780,7 @@ TWO_PHASE_SCRIPT 프로퍼티가 ON일 때,
 
 
 
-#### aexport 프로퍼티
+### aexport 프로퍼티
 
 ##### aexport 프로퍼티 설정
 
@@ -970,7 +970,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
 
 
 
-#### 사용 예제
+### 사용 예제
 
 ##### 전체 DB 모드로 실행
 
@@ -1183,13 +1183,12 @@ SSL_VERIFY = ON  # OFF
 
 
 
-2.altiComp
---------
+# 2.altiComp
 
 이 장은 altiComp 유틸리티의 기능을 소개하고, 불일치하는 데이터를 비교하고
 일치시키는 기능 등을 설명한다.
 
-### altiComp 소개
+## altiComp 소개
 
 Altibase AltiComp 유틸리티의 사용 목적은 두 Altibase 간의 이중화 진행 상태를
 모니터링하고 이중화 중에 발생한 데이터 불일치를 해소하는데 있다.
@@ -1198,7 +1197,7 @@ altiComp은 Altibase 데이터베이스를 또 다른 Altibase 데이터베이�
 비교, 검사하여 불일치 정보를 출력한다. 또한 불일치 데이터가 발생한 경우에는 두
 데이터베이스를 일치시키는 기능도 제공한다.
 
-#### altiComp 용어
+### altiComp 용어
 
 ##### Master Server
 
@@ -1218,7 +1217,7 @@ Master Server의 데이터베이스이다.
 
 Slave Server의 데이터베이스이다.
 
-#### 불일치 레코드(Different Record) 
+### 불일치 레코드(Different Record) 
 
 Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주요 키(Primary Key)를
 기준으로 칼럼 값이 일치하지 않는 레코드를 의미한다.
@@ -1234,7 +1233,7 @@ Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주요 키(P
 -   MXSO 불일치: 특정 레코드가 주요 키를 기준으로 Master DB에는 없고, Slave
     DB에는 있는 경우
 
-#### 일치 정책(Synchronization Policy) 
+### 일치 정책(Synchronization Policy) 
 
 일치 정책은 불일치 레코드를 일치시키는 방법을 명시하는 정책이다. altiComp
 프로그램은 기본적으로 Master DB를 기준 DB로 고정하고, Slave DB를 일치시키는
@@ -1278,12 +1277,12 @@ altiComp 기능 설정, 일치 정책 등의 내용을 포함한다.
 
 
 
-### altiComp 사용 방법
+## altiComp 사용 방법
 
 이 절에서는 altiComp을 실행하기 위한 정보를 기술하는 altiComp 환경 파일을 먼저
 설명하고, 비교(DIFF)와 일치(SYNC) 기능에 대해 설명한다.
 
-#### altiComp 실행 방법
+### altiComp 실행 방법
 
 altiComp 기능을 사용하기 위해서는 먼저 DIFF 또는 SYNC를 수행할 테이블에 대한
 정보를 가지고 있는 altiComp 환경 파일을 만들어야 한다. altiComp 환경 파일은 운용
@@ -1311,7 +1310,7 @@ script_file_name : 환경 파일의 경로명을 포함한 파일 이름
 
 
 
-#### altiComp 프로퍼티 설정
+### altiComp 프로퍼티 설정
 
 비교 또는 일치 작업의 내용을 기술하는 환경 파일로, 각각의 고유한 프로퍼티를
 포함한다. 프로퍼티는 altiComp 유틸리티 실행에 필요한 정보를 기술한다.
@@ -1370,7 +1369,7 @@ EXCLUDE = { CCC }
 
 
 
-#### 프로퍼티 옵션
+### 프로퍼티 옵션
 
 altiComp 유틸리티는 아래의 프로퍼티로 Local Server와 Remote Server의 접속 정보
 및 비교(DIFF) 작업, 일치(SYNC)작업, 불일치 레코드에 대한 일치 정책을 지정할 수
@@ -1509,7 +1508,7 @@ DIFF는 Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주�
    지 결정하는 프로퍼티이다. 
 
    프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
-#### TABLES 그룹 
+### TABLES 그룹 
 
 실행 대상이 되는 테이블에 관련된 정보를 정의한다. 이 그룹은 실행 대상이 되는
 테이블의 개수만큼 기술되어야 하며, 반드시 그룹명은 Master DB의 테이블 이름이어야
@@ -1556,19 +1555,19 @@ Slave의 접속하는 사용자의 스키마 이름과 대상 테이블의 스�
 
 
 
-### 비교(DIFF)기능
+## 비교(DIFF)기능
 
 Master DB와 Slave DB 간의 이중화 작업에서 발생할 수 있는 불일치 레코드를
 식별하여 실행 결과 파일로 생성하는 기능을 가진다.
 
-#### 환경 파일
+### 환경 파일
 
 altiComp 환경 파일의 OPERATION 프로퍼티 값을 “DIFF”로 지정한다.
 
 실행 옵션의 모든 프로퍼티 파일을 기술해야 하며, 테이블 그룹의 WHERE, EXCLUDE,
 TABLE, SCHEMA 프로퍼티를 선택적으로 기술한다.
 
-#### 실행방법
+### 실행방법
 
 비교(DIFF)기능은 다음과 같이 실행한다.
 
@@ -1578,7 +1577,7 @@ $ altiComp -f script_file_name
 
 script_file_name : 환경 파일의 경로명을 포함한 파일 이름
 
-#### 실행결과
+### 실행결과
 
 실행 결과로, 실행결과에 대한 요약 정보를 포함하는 실행 로그 파일과 테이블 별로
 Master Database와 Slave Database의 내용을 비교하여 불일치가 발생한 레코드의
@@ -1642,7 +1641,7 @@ DF[m,n]-> COL_N (Vn_M, Vn_S):PK->{ PCOL_V }
 단, 데이터 타입이 LOB인 칼럼이 있는 레코드의 경우 해당 칼럼의 값이 기록되지
 않는다.
 
-#### 비교(DIFF) 예제
+### 비교(DIFF) 예제
 
 host1의 EMP 테이블과 host2의 EMPLOYEES 테이블, 그리고 host1의 DEPARTMENTS
 테이블과 host2의 DEPARTMENTS 테이블에 대해 비교(DIFF) 기능을 수행하는 예제는
@@ -1723,20 +1722,20 @@ WHERE 프로퍼티 값에 따라, 비교 대상이 되는 EMP 레코드는 “EN
 
 
 
-### 일치(SYNC) 기능
+## 일치(SYNC) 기능
 
 Master DB와 Slave DB 사이의 불일치 레코드를 식별하여 altiComp 환경 파일에 기술된
 일치 정책에 따라 양 방향으로 반영하여 불일치를 해소하고, 실행요약정보와
 에러정보를 포함하는 실행 결과 파일을 생성한다.
 
-#### 환경 파일
+### 환경 파일
 
 altiComp 환경 파일의 OPERATION 프로퍼티 값을 “SYNC”로 지정한다.
 
 실행 옵션의 모든 프로퍼티 파일을 기술해야 하며, 테이블 그룹의 WHERE, EXCLUDE,
 TABLE, SCHEMA 프로퍼티는 선택적으로 기술한다
 
-#### 실행방법
+### 실행방법
 
 일치(SYNC)기능은 다음과 같이 실행한다.
 
@@ -1746,7 +1745,7 @@ $ altiComp -f script_file_name
 
 script_file_name : 환경 파일의 경로명을 포함한 파일 이름
 
-#### 실행결과
+### 실행결과
 
 실행 결과로, 실행의 요약정보를 포함하는 실행 로그 파일과 테이블 별로 Master
 Database와 Slave Database의 내용을 비교하여 불일치가 발생한 레코드에 대한 일치
@@ -1794,7 +1793,7 @@ MXSX =  -, -
 만일 실패한 레코드가 있다면, 해당 레코드는 에러로그 파일에 원인과 레코드 내용이
 출력된다.
 
-#### 일치(SYNC) 예제
+### 일치(SYNC) 예제
 
 불일치 레코드를 해소하기 위한 일치 정책에 관련된 OPERATION와 TABLE을 지정하는
 예제를 제시한다.
@@ -2008,9 +2007,9 @@ MOSO = SU
      Time:       0.01 sec
 ```
 
-## 3.aku
+# 3.aku
 
-### 개요
+## 개요
 
 aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod) 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행할 수 있게 도와주는 유틸리티이다. *Altibase 7.1.0.8.1 부터 제공한다.*(Altibase 7.1 매뉴얼에 추가)
 
@@ -2027,7 +2026,7 @@ aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statef
 파드를 종료할 때 Altibase 서버의 이중화 정보를 초기화한다. 
 
 
-### 구성 요소
+## 구성 요소
 
 aku 유틸리티는 실행 파일과 설정 파일로 구성된다. 
 
@@ -2125,7 +2124,7 @@ aku에서 생성하는 Altibase 이중화 객체 이름은 *REPLICATION_NAME_PRE
 
 
 
-### 구문
+## 구문
 
 ~~~sql
 aku { -h | -v | -i | -p {pod_action} }
@@ -2133,7 +2132,7 @@ aku { -h | -v | -i | -p {pod_action} }
 
 
 
-### 파라미터
+## 파라미터
 
 ###### -h, --help
 
@@ -2217,7 +2216,7 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 
   파드에서 Altibase 이중화 객체를 모두 삭제한다. 더 이상 파드 간에 동기화를 할 필요가 없을 때 사용한다. 
 
-### 주의사항
+## 주의사항
 
 > akp -p end 명령이 완료되기 전에 파드가 종료되었다면
 
@@ -2266,7 +2265,7 @@ AKU_REP_01                      -1
 No rows selected.
 ~~~
 
-### 제약사항
+## 제약사항
 
 aku 유틸리티를 안정적으로 사용하기 위해 쿠버네티스 환경 설정 시 반드시 지켜야 할 조건이다. 
 
@@ -2276,7 +2275,7 @@ aku 유틸리티를 안정적으로 사용하기 위해 쿠버네티스 환경 �
 - 스케일 업할 수 있는 레플리카는 **최대 4개**이다.
 - 파드 종료 시 aku 수행을 완료할 수 있는 시간을 확보해야 한다. 따라서, 쿠버네티스에서 파드를 강제 종료하는 대기 시간인 terminationGracePeriodSeconds를 충분히 크게 설정해야 한다.
 
-### 사용 예
+## 사용 예
 
 ##### 예시 1
 
@@ -2455,21 +2454,19 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 RESET Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 RESET Success
 ~~~
 
-## 4. altiMon
+# 4. altiMon
 
-### 개요
+## 개요
 
-Altibase 서버 상태와 Altibase 서버가 구동 된 OS의 자원 상태를 수집하는 모니터링 유틸리티로, OS 자원 상태를 수집하기 위해 자체 제작한 PICL(Platform Information Collection Library) 라이브러리와 JDBC 드라이버 기반의 자바 애플리케이션이다. altiMon에서 수집한 데이터는 데이터베이스 장애 발생 시 장애 원인을 추적하는데 이용할 수 있다. 
+Altibase 서버 상태와 Altibase 서버가 구동 된 운영체제의 자원 상태를 수집하는 모니터링 유틸리티로, 운영체제의 자원 상태를 수집하기 위해 자체 제작한 PICL(Platform Information Collection Library) 라이브러리와 JDBC 드라이버 기반의 자바 애플리케이션이다. altiMon에서 수집한 데이터는 데이터베이스 장애 발생 시 장애 원인을 추적하는데 이용할 수 있다. 
 
 altiMon의 모니터링 요소는 3가지로 나뉜다. 각 요소에 대한 보다 자세한 것은 [altiMon 설정 - Metrics.xml](#metricsxml)에서 설명한다.
 
-- [OS Metric](#osmetric-요소) : Altibase의 PICL 라이브러리에서 미리 정의된 OS 자원 상태
-- [Command Metric](commanemetric-요소) : 사용자가 정의한 OS 자원 상태
+- [OS Metric](#osmetric-요소) : Altibase의 PICL 라이브러리에서 미리 정의된 운영체제의 자원 상태
+- [Command Metric](commanemetric-요소) : 사용자가 정의한 운영체제의 자원 상태
 - [SQL Metric](sqlmetric-요소) : 사용자가 정의한 Altibase 서버 상태
 
-
-
-### 구문
+## 구문
 
 ~~~bash
 altimon.sh {start | stop}
@@ -2480,7 +2477,7 @@ altimon.sh {start | stop}
 </div>
 
 
-### 파라미터
+## 파라미터
 
 | 파라미터 | 설명         |
 | -------- | ------------ |
@@ -2489,73 +2486,84 @@ altimon.sh {start | stop}
 
 
 
-### 지원 운영체제
+## 시스템 요구사항
 
-altiMon은 OS 정보를 수집하기 위해 C언어로 작성된 PICL 라이브러리를 사용한다.
-PICL 라이브러리를 사용할 수 있는 운영체제는 아래와 같다.
+### 자바
 
-| OS    | CPU                   | Version                            | PICL Library                     |
-| ----- | --------------------- | ---------------------------------- | -------------------------------- |
-| AIX   | ppc64                 | OS Version 5.3, 6.1, 7.1           | aix-ppc64-5.so                   |
-| HP-UX | ia64                  | IA64                               | hpux-ia64-11.sl                  |
-| LINUX | X86_64<br />ppc64(le) | OS Version 2 ~ 4<br> glibc 2.5이상 | linux-x64.so<br />linux-ppc64.so |
+- Oracle, OpenJDK 또는 IBM Java Runtime Environment 8 이상 
+- 64비트 자바
 
-지원하지 않는 OS 버전에서 아래 방법으로 하위 버전용 PICL이 동작하는지를 확인한 후에 사용할 수도 있다.
+### 지원 플랫폼
+
+altiMon의 지원 플랫폼은 PICL 라이브러리를 제공하는 플랫폼에 의존한다. 
+
+| 운영체제                                                     | CPU                     | PICL 라이브러리 |
+| ------------------------------------------------------------ | ----------------------- | --------------- |
+| **AIX**                                                      |                         |                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIX 5.3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIX 6.1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIX 7.1 | PowerPC                 | aix-ppc64-5.so  |
+| **HP-UX**                                                    |                         |                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HP-UX  11.31                   | Itanium (IA-64)         | hpux-ia64-11.sl |
+| **Linux**                                                    |                         |                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Red Hat Enterprise Linux 6.0   | x86-64                  | linux-x64.so    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Red Hat Enterprise Linux 6.5   | PowerPC                 | linux-ppc64.so  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Red Hat Enterprise Linux 7.2   | PowerPC (Little Endian) | linux-ppc64.so  |
+
+AIX 7.3, RHEL 8 등 위 표에 명시되지 않은 운영체제 버전에서 PICL 라이브러리가 동작하는 지 확인하는 방법이다. 
+
+##### PICL 라이브러리의 동작 여부를 확인하는 방법
+
+1️⃣ $ALTIBASE_HOME/altiMon 디렉토리로 이동한다. 
 
   ```bash
 $ cd $ALTIBASE_HOME/altiMon
+  ```
+
+2️⃣ java 명령어로 PICL 라이브러리의 동작 여부를 확인한다.
+
+위 표에서 해당하는 운영체제의 PICL 라이브러리 파일명을 확인하고 아래 명령어를 수행한다. 반드시 $ALTIBASE_HOME/altiMon 디렉토리 아래에서 수행해야 한다. 
+
+~~~bash
 $ java -Dpicl="<picl_lib_file>" -jar lib/com.altibase.picl.jar
-  ```
+~~~
 
-사용예)
+> 수행 예
 
-지원하지 않는 버전의 AIX 운영체제에서 "aix-ppc64-5.so" PICL 라이브러리가 사용 가능한지 검증하고 altimon을 구동하는 절차이다.
+~~~bash
+$ java -Dpicl="linux-x64.so" -jar lib/com.altibase.picl.jar 
+===========================================================
+Platform Information Collection Library-PICL Testing Module
+===========================================================
 
-1. 하위 버전용 PICL의 동작 여부 확인
+Initializing PICL(Platform Information Collection Library)...
+PICL Library : linux-x64.so
 
-  ```bash
-$ cd $ALTIBASE_HOME/altiMon 
-$ java -Dpicl="aix-ppc64-5.so" -jar lib/com.altibase.picl.jar
-  ```
+----------
+Process ID
+----------
+Altibase Process : /home/altibase/altibase_home/bin/altibase
+PID : 5230
+...중략... 
+~~~
 
-2. 정상 동작이 검증된 후 $ALTIBASE_HOME/bin/altimon.sh 파일을 열어서 PICL_LIB 변수에 해당 PICL 파일을 설정한다.
 
-  ```bash
-PICL_LIB=-Dpicl="aix-ppc64-5.so"
-  ```
 
-3. altimon을 구동한다
+## altiMon 시작 및 중지
 
-  ```bash
+### altiMon 시작
+
+1️⃣ JAVA_HOME 환경 변수를 설정한다.
+
+2️⃣ altiMon 시작 명령을 수행한다.
+
+~~~bash
 $ altimon.sh start
-  ```
+~~~
 
-#### 주의사항
-
-altiMon은 Java 8 이상에서 동작한다.
-
-Java 버전은 PICL C 라이브러리의 비트 수와 일치하는 것을 선택한다. 예를 들어 PICL C 라이브러리가 linux-x64.so 인 경우 64 bit Java를 사용해야 한다.
-
-### altiMon 시작 및 중지
-
-#### altiMon 시작
-
-1. JAVA_HOME 환경 변수를 설정한다.
-
-2. 운영 체제에 맞는 명령을 실행한다.
-
-- Unix 계열
-
-  ```bash
-  $ altimon.sh start
-  ```
-
-
-3. 구동을 실패하면, \$ALTIBASE_HOME/altiMon/logs/altimon.log 파일을 확인한다.
+3️⃣ altiMon 시작이 실패하면 \$ALTIBASE_HOME/altiMon/logs/altimon.log 파일을 확인한다.
 
 
 
-#### altiMon 중지
+### altiMon 중지
 
 ~~~bash
 $ altimon.sh stop
@@ -2563,17 +2571,17 @@ $ altimon.sh stop
 
 
 
-### altiMon 설정
+## altiMon 설정
 
 altiMon을 사용하기 위해 \$ALTIBASE_HOME/altiMon 디렉토리의 conf 디렉토리에 있는 아래의 파일들을 설정한다. 설정 파일들은 모두 XML 문서이다.
 
--   [config.xml](#configxml)
+-   [config.xml](#config.xml)
 
--   [Metrics.xml](#metricsxml)
+-   [Metrics.xml](#metrics.xml)
 
--   [GroupMetrics.xml](#groupmetricsxml)
+-   [GroupMetrics.xml](#groupmetrics.xml)
 
-#### config.xml
+### config.xml
 
 altiMon 수행과 관련한 설정과 모니터링 대상인 Altibase 서버의 정보를 설정하는 파일이다. 루트 요소 \<configuration> (또는 \<config>) 태그를 시작으로 Altimon 요소와 Target 요소로 구성되어 있다. 
 
@@ -2607,7 +2615,7 @@ $ cat config.xml
 </configuration>
 ~~~
 
-##### altiMon 실행 설정
+#### altiMon 실행 설정
 
 config.xml에서 <Altimon ...> 요소는 altiMon 로그 출력 형식, 로그 파일 삭제 주기, 모니터링 주기와 같은 altiMon 실행과 관련된 설정을 정의한다. 이 요소는 두 개의 속성과 4개의 하위 요소를 가진다.
 
@@ -2632,7 +2640,7 @@ config.xml에서 <Altimon ...> 요소는 altiMon 로그 출력 형식, 로그 �
 
 
 
-##### Altibase 서버 설정
+#### Altibase 서버 설정
 
 config.xml에서 <Target ...> 요소는 데이터베이스 사용자, 패스워드 등 altiMon으로 모니터링 할 Altibase 서버의 접속 정보를 설정한다. 이 요소는 한 개의 속성과 설정할 수 있는 속성과 8개의 하위 요소를 가진다.
 
@@ -2640,7 +2648,7 @@ config.xml에서 <Target ...> 요소는 데이터베이스 사용자, 패스워�
 
 | 속성 이름                                                    | 설명                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Altibase 서버를 식별하기 위한 고유 이름으로 사용자가 임의로 설정 가능하다. 현재는 별다른 용도가 없으며 추후 기능 확장 시 사용될 예정이다. |
+| Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Altibase 서버를 식별하기 위한 고유 이름으로 사용자가 임의로 설정 가능하다. 현재는 별다른 용도가 없으며 추후 기능 확장 시 사용될 예정이다. |
 
 > **하위 요소**
 
@@ -2652,19 +2660,19 @@ config.xml에서 <Target ...> 요소는 데이터베이스 사용자, 패스워�
 | \<User\>                 | Altibase 서버에 접속할 데이터베이스 사용자를 입력한다. 설정하지 않으면 기본값인 SYS 사용자로 접속한다. |
 | \<Password Encrypted>    | 데이터베이스 사용자의 패스워드를 입력한다.<br />Encrypted 속성은 altiMon을 처음 시작하기 전에 "No" 값으로 설정해야 한다. 이후 altiMon을 시작하면  평문으로 입력한 패스워드가 암호화된 값으로 저장되며 Encrypted 속성의 값이 "Yes"로 변경된다. |
 | \<Port\>                 | Altibase 서버의 서비스 포트를 입력한다.                      |
-| \<NLS\>                  | 데이터베이스 클라이언트 캐릭터셋을 Altibase 서버 캐릭터셋과 같은 값으로 입력한다. |
+| \<NLS\>                  | 데이터베이스 클라이언트 캐릭터셋을 입력한다.                 |
 | \<DbName\>               | 데이터베이스 이름을 입력한다. 설정하지 않으면 기본값 mydb 로 설정된다.<br />데이터베이스 이름은 아래 문장으로 확인할 수 있다.<br />`SELECT DB_NAME FROM V$DATABASE; ` |
 | \<IPv6\>                 | IPv6 사용 여부를 설정한다. true 또는 false 값을 가지며 기본값은 false 이다.  <br />- true  : IPv6를 사용한다. Altibase 서버 프로퍼티 NET_CONN_IP_STACK이 1 또는 2일 때 설정할 수 있다.<br />- false : IPv6를 사용하지 않는다. |
 | \<ConnectionProperties\> | Altibase 서버 접속할 때 추가적인 연결 속성이 필요한 경우 `연결속성=값;연결속성=값;...` 형식으로 입력한다. 사용할 수 있는 연결 속성은 [JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/JDBC%20User's%20Manual.md#%EC%97%B0%EA%B2%B0-%EC%A0%95%EB%B3%B4)을 참고한다.<br />예) `<ConnectionProperties>login_timeout=3;fetch_timeout=60</ConnectionProperties>` |
 
 
 
-#### Metrics.xml
+### Metrics.xml
 
-CPU 및 메모리 사용률 등의 OS 자원과 Altibase 서버의 상태를 감시하기 위한 질의문을 설정하는 파일이다. 루트 요소 \<Metrics> 태그를 시작으로 CommandMetric 요소, OSMetric  요소, SQLMetric 요소로 구성되어 있다. 각 요소는 모니터링 항목에 따라 여러 번 사용할 수 있다.
+CPU 및 메모리 사용률 등의 운영체제 자원과 Altibase 서버의 상태를 감시하기 위한 질의문을 설정하는 파일이다. 루트 요소 \<Metrics> 태그를 시작으로 CommandMetric 요소, OSMetric  요소, SQLMetric 요소로 구성되어 있다. 각 요소는 모니터링 항목에 따라 여러 번 사용할 수 있다.
 
 ~~~xml
-% cat Metrics.xml  |more
+$ cat Metrics.xml | more
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Metrics>
@@ -2682,6 +2690,8 @@ CPU 및 메모리 사용률 등의 OS 자원과 Altibase 서버의 상태를 감
     <CommandMetric></CommandMetric>        
     
     <!-- OSMetric 요소 --> 
+	<OSMetric Name='TOTAL_CPU_USER' Activate='false' Description='TOTAL_CPU_USER'></OSMetric>
+	<OSMetric Name='TOTAL_CPU_KERNEL' Activate='false'></OSMetric>    
     <OSMetric Name='PROC_CPU_USER' Activate='true'>
         <Alert Activate='true' ComparisonType='gt'>
             <WarningThreshold Value='80' >
@@ -2689,8 +2699,6 @@ CPU 및 메모리 사용률 등의 OS 자원과 Altibase 서버의 상태를 감
             </WarningThreshold>
         </Alert>
     </OSMetric>
-    <OSMetric></OSMetric>
-    <OSMetric></OSMetric>    
     
     <!-- SQLMetric 요소 --> 
     <SQLMetric Name='MEM_DATABASE_USAGE' Activate='true' Interval='30'>
@@ -2706,24 +2714,25 @@ CPU 및 메모리 사용률 등의 OS 자원과 Altibase 서버의 상태를 감
             </CriticalThreshold>
         </Alert>
     </SQLMetric>
-    <SQLMetric></SQLMetric>
-    <SQLMetric></SQLMetric>    
+    <SQLMetric Name='MEMSTAT_LIST' Activate='true'>
+        <Query>SELECT * FROM v$MEMSTAT ORDER BY 4 DESC LIMIT 30</Query>
+    </SQLMetric>   
 
 </Metrics>    
 ~~~
 
 
 
-##### 사용자 정의 OS 자원 모니터링(CommandMetric)
+#### 사용자 정의 운영체제 자원 모니터링(CommandMetric)
 
-Metrics.xml에서 <CommandMetric ...> 요소는 사용자가 직접 감시할 OS 자원을 정의할 수 있게 지원하는 모니터링 요소이다. PICL 라이브러리가 필요한 OSMetric 요소를 사용할 수 없는 환경에서 사용자가 직접 OS 명령어로 자원을 감시할 수 있다. OSMetric 요소에서 지원하지 않는 항목을 CommandMetric 요소에 추가할 수도 있다. 
+Metrics.xml에서 <CommandMetric ...> 요소는 사용자가 직접 감시할 운영체제 자원을 정의할 수 있게 지원하는 모니터링 요소이다. PICL 라이브러리가 필요한 OSMetric 요소를 사용할 수 없는 환경에서 사용자가 직접 운영체제 명령어로 자원을 감시할 수 있다. OSMetric 요소에서 지원하지 않는 항목을 CommandMetric 요소에 추가할 수도 있다. 
 
 > **속성**
 
 CommandMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 OSMetric 요소, SQLMetric 요소에서도 동일하게 사용할 수 있다.
 
 | 속성 이름   | 설명                                                         |
-| ----------- | ------------------------------------------------------------ |
+| :---------- | ------------------------------------------------------------ |
 | Name        | CommandMetric 요소는 여러 개 사용할 수 있으며 각 요소를 식별하기 위한 고유 이름을 설정한다. 이 요소의 로그 는 *Name*.log 로 생성된다. |
 | Description | 사용자가 임의의 설명을 기록하기 위한 항목이다.               |
 | Activate    | 해당 CommandMetric 요소를 수집할 것인지 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true  : 해당 CommandMetric 요소를 수집한다.<br />- false : 해당 CommandMetric 요소를 수집하지 않는다. |
@@ -2740,11 +2749,11 @@ CommandMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 O
 
 
 
-##### 미리 정의된 OS 자원 모니터링(OSMetric)
+#### 미리 정의된 운영체제 자원 모니터링(OSMetric)
 
-Metrics.xml에서 <OSMetric ...> 요소는Altibase에서 미리 정의한 OS 자원을 감시하도록 제공하는 모니터링 요소이다. 이 요소를 사용하려면 PICL 라이브러리가 필요하며 altiMon 시작 전에 $ALTIBASE_HOME/bin/altimon.sh 파일에서 PICL_LIB 변수를 설정해야 한다.
+Metrics.xml에서 <OSMetric ...> 요소는Altibase에서 미리 정의한 운영체제 자원을 감시하도록 제공하는 모니터링 요소이다. 
 
-감시 대상인 OS 자원은 아래와 같다. 
+감시 대상인 운영체제 자원은 아래와 같다. 
 
 - CPU
 - 메모리
@@ -2774,7 +2783,7 @@ Metrics.xml에서 <OSMetric ...> 요소는Altibase에서 미리 정의한 OS 자
 
  [공통 하위 요소](#공통-하위-요소)를 참고한다.
 
-##### Altibase 서버 상태 모니터링(SQLMetric)
+#### Altibase 서버 상태 모니터링(SQLMetric)
 
 Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 수 있게 제공하는 모니터링 요소이다.
 
@@ -2792,7 +2801,7 @@ Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 
 
 
 
-##### 공통 하위 요소
+#### 공통 하위 요소
 
 CommandMetric, OSMetric, SQLMetric 요소에서 공통적으로 사용할 수 있는 하위 요소를 설명한다. 각 하위 요소는 아래와 같이 중첩적으로 사용된다. 
 
@@ -2814,7 +2823,7 @@ CommandMetric, OSMetric, SQLMetric 요소에서 공통적으로 사용할 수 �
 |                                                 | Value            | 모니터링 요소의 한계 값을 10진수 숫자로 설정한다.            |
 | \<ActionScript\>                                |                  | <WarningThreshold …> 또는 <CriticalThreshold …>의 하위 요소로, 모니터링 요소의 출력 값이 사용자가 정의한 한계 조건에 해당할 때 수행할 스크립트 파일 이름을 입력한다. 이 파일은 미리 작성되어 있어야 하며 $ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 위치해야 한다. 스크립트 수행 시 각 모니터링 요소의 Name 속성과 alert 종류, 한계 값, 모니터링 요소의 결과 값이 인자로 전달된다. <br />스크립트 수행 결과는 $ALTIBASE_HOME/altiMon/action_logs/*actionscript_name*.log에 기록된다. action_logs의 파일들은 장애 원인 분석에 꼭 필요한 정보가 될 수 있어서 altiMon이 자동으로 삭제하지 않으므로 ***사용자가 직접 관리***해야 한다. |
 
-#### GroupMetrics.xml
+### GroupMetrics.xml
 
 Metrics.xml에 정의한 Command Metric과 OS Metric 그리고 SQL Metric을 사용자가 원하는 항목 별로 조합하여 하나의 파일에 저장하는 기능을 제공한다. GroupMetrics로 수집한 데이터는 $ALTIBASE_HOME/altiMon/logs 디렉토리에 CSV 파일 형식의 *GroupMetricName*.csv 이름으로 저장된다. Metrics.xml은 루트 요소 \<GroupMetrics> 태그를 시작으로 여러 개의 GroupMetric 요소로 구성할 수 있다.
 
@@ -2847,7 +2856,7 @@ GroupMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 OSM
 | --------- | ------------------------------------------------------------ |
 | Name      | GroupMetric을 식별하는 고유한 이름으로 사용자가 임의로 설정 가능하다. 로그 파일 생성 시 이 이름이 사용된다. 예) *group1*.csv |
 | Activate  | GroupMetric 요소를 수집할 것인지 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true  : 해당 CommandMetric 요소를 수집한다.<br />- false : 해당 CommandMetric 요소를 수집하지 않는다. |
-| Interval  | 데이터 수집 주기. 단위는 초(second)이다.<br/><br />***기본값은?*** |
+| Interval  | 데이터 수집 주기. 기본값은 60이며 단위는 초(second)이다.     |
 
 > **하위 요소**
 
@@ -2860,33 +2869,33 @@ GroupMetric 요소 아래에 \<Target MetricName\>, \<Column Name\> 요소가 �
 
 
 
-#### altiMon 로그
+## altiMon 로그
 
 altiMon 로그는 $ALTIBASE_HOME/altiMon/logs 아래에 생성된다. 
 
-##### logs 디렉토리
+### logs 디렉토리
 
 logs 디렉토리에 생성되는 파일은 아래와 같다.
 
-> **altimon.log**  
+##### altimon.log  
 
 altiMon 시작/중지 과정의 로그와 altiMon 수행 중 예외 상황 발생 시 경고 또는 에러 메시지가 기록된다. 
 
-> **alert.log**  
+##### alert.log  
 
 Metrics.xml에서 \<Alert\> 설정에 해당하는 데이터를 기록하는 파일이다.
 
 ~~~bash
 $ cat alert.log 
-WARNING | PROC_CPU_USER | 2022-11-21 17:21:48 | PROC_CPU_USER = [0.61]
-WARNING | PROC_CPU_USER | 2022-11-21 17:22:48 | PROC_CPU_USER = [0]
-WARNING | PROC_CPU_USER | 2022-11-21 17:23:48 | PROC_CPU_USER = [0]
-CRITICAL | DISK_FREE_PERCENTAGE.disk1 | 2022-11-21 17:24:46 | DISK_FREE_PERCENTAGE.disk1 = [30.22]
-WARNING | PROC_CPU_USER | 2022-11-21 17:24:46 | PROC_CPU_USER = [0]
-CRITICAL | DISK_FREE_PERCENTAGE.disk1 | 2022-11-21 17:25:46 | DISK_FREE_PERCENTAGE.disk1 = [30.22]
+WARNING | PROC_CPU_USER | 2022-11-21 17:21:48 | PROC_CPU_USER = [90.61]
+WARNING | PROC_CPU_USER | 2022-11-21 17:22:48 | PROC_CPU_USER = [90]
+WARNING | PROC_CPU_USER | 2022-11-21 17:23:48 | PROC_CPU_USER = [90]
+CRITICAL | DISK_FREE_PERCENTAGE.disk1 | 2022-11-21 17:24:46 | DISK_FREE_PERCENTAGE.disk1 = [99.22]
+WARNING | PROC_CPU_USER | 2022-11-21 17:24:46 | PROC_CPU_USER = [90]
+CRITICAL | DISK_FREE_PERCENTAGE.disk1 | 2022-11-21 17:25:46 | DISK_FREE_PERCENTAGE.disk1 = [99.22]
 ~~~
 
->  **OsMetrics.log**  
+##### OsMetrics.log  
 
 Metrics.xml에서 설정한 OSMetric에 의해 수집된 데이터를 기록하는 파일이다.
 
@@ -2902,7 +2911,7 @@ Metrics.xml에서 설정한 OSMetric에 의해 수집된 데이터를 기록하�
 2022-11-21 20:20:25 | PROC_CPU_USER = [0]
 ~~~
 
-###### [*SQLMetric_Name*].log  
+##### [*SQLMetric_Name*].log  
 
 SQL Metric에 의해 수집된 데이터가 기록된 파일이다.
 
@@ -2923,7 +2932,7 @@ $ more BUFFER_STAT.log
 2022-11-21 13:42:42 |  VICTIM_FAILS = [0] READ_PAGES = [2]
 ~~~
 
->  **[*GroupMetric_Name*].csv**  
+##### [*GroupMetric_Name*].csv  
 
 Group Metric에 의해 수집된 데이터가 Metric별로 csv 파일에 기록된다.
 
@@ -2937,7 +2946,7 @@ $ cat group1.csv
 "2022-11-21 13:42:22","0.69","0","0"
 ~~~
 
->  **report.html**  
+##### report.html  
 
 사용자가 설정한 altiMon 설정을 웹으로 확인할 수 있도록 제공하는 html 파일이다.
 
@@ -2945,18 +2954,19 @@ $ cat group1.csv
     <img src="media/Utilities/altiMon_report_html.png">
 </div>
 
-##### logs/archive 디렉토리
+
+### logs/archive 디렉토리
 
 logs 디렉토리의 altimon.log, \*.csv 제외한 모든 파일이 archive/YYYY-MM-DD 디렉토리로 매일 백업된다. 이 디렉토리 중에서 config.xml의 altiMon 실행 설정에서 \<MaintenancePeriod\>에서 설정한 기간이 지난 디렉토리는 매일 새벽 1시 50분에 삭제된다.
 
-##### logs/csv_backup 디렉토리
+### logs/csv_backup 디렉토리
 
 Group Metric에서 Target 설정이 변경되지 않으면 계속 같은 csv 파일에 데이터가 추가된다. 하지만 Target이 변경되면 기존의 csv 파일은 logs/csv_backup 디렉토리로 백업되고 같은 이름의 파일에 새로운 데이터가 기록된다.
 
 4.기타 Utilities
---------------
+==============
 
-### altiAudit
+## altiAudit
 
 #### 개요
 
@@ -3082,7 +3092,7 @@ into t1 values ('aaaa', 1)"
 | **SQL**                |         |                                                              |
 |                        | 문자열  | 실행된 SQL 구문                                              |
 
-### altibase
+## altibase
 
 #### 개요
 
@@ -3135,7 +3145,7 @@ Administrator’s Manual
 
 iSQL User’s Manual
 
-### altiMon
+## altiMon
 
 #### 개요
 
@@ -3486,7 +3496,7 @@ Group Metric은 설정이 변경되지 않는 한 계속 같은 csv 파일에 �
 경우에는 기존의 csv 파일이 logs/csv_backup 디렉토리로 백업되고 동일한 이름의
 새로운 파일에 데이터가 기록된다.
 
-### altierr
+## altierr
 
 #### 개요
 
@@ -3555,7 +3565,7 @@ $ altierr –w “does not”
 
 Error Message Reference 참조
 
-### altipasswd
+## altipasswd
 
 #### 개요
 
@@ -3589,7 +3599,7 @@ Retype New Password : manager1234
 
 
 
-### altiProfile
+## altiProfile
 
 #### 개요
 
@@ -3830,7 +3840,7 @@ SQL 문에 바인드 되는 변수들에 대한 정보이다.
 
 매 3초마다 V\$MEMSTAT 정보가 출력된다. V\$MEMSTAT의 자세한 내용은 *General Reference*의 성능 뷰 부분을 참고한다.
 
-### altiwrap
+## altiwrap
 
 #### 개요
 
@@ -3927,7 +3937,7 @@ Execute success.
 
 
 
-### awrite
+## awrite
 
 #### 개요
 
@@ -3956,7 +3966,7 @@ write to expand file size to 1GB
 
 
 
-### checkServer
+## checkServer
 
 #### 개요
 
@@ -4024,7 +4034,7 @@ $ checkServer –f restart.sh &
 
 
 
-### dumpbi
+## dumpbi
 
 #### 개요
 
@@ -4085,7 +4095,7 @@ dumpbi는 backupinfo 의 백업 정보를 다음과 같은 섹션으로 구분�
 | Backup Tag                    | 문자열                                                       | 백업 태그 이름                                               |
 | Backup file name              | 문자열                                                       | 백업 파일의 경로와 이름                                      |
 
-### dumpct
+## dumpct
 
 #### 개요
 
@@ -4158,7 +4168,7 @@ dumpct는 changeTracking 파일 내의 변경 추적 정보를 다음과 같은
 | Tablespace ID                 | 0 \~ unsigned short 타입의 최대값 | 데이터파일이 속한 테이블스페이스의 ID   |
 | File ID                       | 0 \~ unsigned short 타입의 최대값 | 데이터파일의 ID                         |
 
-### dumpdb
+## dumpdb
 
 #### 개요
 
@@ -4321,7 +4331,7 @@ Dump complete.
 | Create LSN          | 체크포인트 이미지 생성 시점의 LSN                                                                                                               |
 | DataFileDescSlot ID | 메모리 체크포인트 이미지와 묶여있는 ChangeTracking의 DataFileDescSlot ID                                                                        |
 
-### dumpddf
+## dumpddf
 
 #### 개요
 
@@ -4425,7 +4435,7 @@ DataFileDescSlot ID           [ 1, 2 ]
 
 
 
-### dumpla
+## dumpla
 
 #### 개요
 
@@ -4652,7 +4662,7 @@ backupinfo 파일에 대한 정보를 나타낸다. 내용은 다음과 같다.
 | Backup Directory Path        | 문자열 예) /backup_dir/                | 백업 경로                                             |
 | Backup Info File Name        | 문자열                                 | 백업 정보 파일 이름                                   |
 
-### dumplf
+## dumplf
 
 #### 개요
 
@@ -4804,7 +4814,7 @@ OPTYPE 과 UTYPE 에 가능한 로그 타입 이름
 
 MVCC와 관련된 자세한 설명은 *Administrator’s Manual* 을 참고하기 바란다.
 
-### dumptrc 
+## dumptrc 
 
 #### 개요
 
@@ -5036,7 +5046,7 @@ END-STACK =======================================
 
 
 
-### killCheckServer
+## killCheckServer
 
 #### 개요
 
@@ -5088,7 +5098,7 @@ $ killCheckServer
 
 
 
-### server
+## server
 
 #### 개요
 
