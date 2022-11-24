@@ -1540,6 +1540,24 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 > 참고:  Tibero의 Procedure, Function, View, Materialized View, Trigger는 객체를 마이그레이션하기 위해 Third-Party에서 제공하는 Oracle용 SQL 파서를 사용한다. 따라서, Oracle 문법과 호환되지 않는 Tibero 고유의 문법으로 생성된 객체는 변환과정에서 파싱 에러가 발생가능하며, 이 경우 사용자가 수동으로 문법을 변환해야 한다.
 
+### PostgreSQL to Altibase
+
+| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
+| :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
+| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다.<br />PostgreSQL은 하나의 테이블에 최대 컬럼 갯수가 1,600개인데 반해 Altibase는 1,024로 스키마 마이그레이션 수행시 주의가 필요하다. |
+| Primary Key 제약       |                   O                   |                   O                    |                                                              |
+| Unique 제약            |                   O                   |                   O                    |                                                              |
+| Check 제약             |                   O                   |                   O                    |                                                              |
+| Exclusion 제약         |                   X                   |                   X                    | Altibase는 Exclusion 제약을 지원하지 않아 마이그레이션에서 제외된다. |
+| Foreign Key 제약       |                   O                   |                   O                    | CASCADE, NO ACTION, SET NULL 옵션은 양쪽 모두 동일한 옵션으로 마이그레이션 대상이다.<br />참조하는 FK가 하나라도 있으면 PK 삭제가 허용되지 않는 RESTRICT 옵션은 Altibase Foreign key 옵션이 없을 때 동작과 동일하기 때문에, 해당 옵션은 삭제되어 마이그레이션 된다.<br />PK 삭제시 참조하는 FK가 default 값으로 대체되는 SET DEFAULT 옵션은 Altibase에서 지원하지 않기 때문에 마이그레이션 수행시 SET NULL로 대체된다. |
+| Index                  |                   O                   |                   O                    | 다양한 PostgreSQL 인덱스 타입 중 Altibase에서 지원하는 인덱스 타입(B-tree와 R-tree)만 마이그레이션 된다. |
+| Sequence               |                   O                   |                  O/X                   | PostgreSQL와 Altibase간 두가지 차이점이 있다.<br />첫째, PostgreSQL sequence의 기본 최대값은 9223372036854775807이고 Altibase sequence 최대값은 9223372036854775806으로 지원범위가 다르다. 9223372036854775807값은 마이그레이션 수행시 9223372036854775806으로 강제 변환된다.<br />둘째, PostgreSQL sequence의 기본 cache size는 1이다. 이에 반해 Altibase는 기본 cache size가 1보다 커야 한다는 제약점이 있다. 따라서, PostgreSQL sequence cache size 1인 경우 Altibase 객체 생성문에 cache 구문을 사용하지 않으며, 이 경우 Altibase 기본 cache size (20) 으로 생성된다.<br />테이블 컬럼의 Serial data type을 위해 생성된 Sequence는 'Build Table' 인 경우에도 테이블과 함께 마이그레이션된다. |
+| Procedure              |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Materialized View      |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Trigger                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
 ## C.부록: 데이터 타입 맵핑
 
 이기종 데이터베이스 간의 데이터 타입을 맵핑할 때 Migration Center의 기본 정책은 "데이터 손실을 최소화하라"이다. 하지만 데이터가 손실되거나 손상되더라도 사용자가 데이터 타입 맵핑 방식을 직접 정의하는 것을 원할 수도 있다. 이런 요구를 만족시키기 위해 Migration Center는 데이터 타입 맵핑 테이블을 편집하는 방법을
