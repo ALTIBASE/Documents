@@ -4233,6 +4233,12 @@ operation.
 **Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the
 server.
 
+**0x111B5 (  70069) smERR_ABORT_ERR_LOG_CONSISTENCY Incomplete media recovery aborted due to log consistency failure. ( <0%s> ).** 
+
+**Cause:** A log file has been lost. If Incomplete media recovery continues, data may be lost.
+
+**Action:** Copy a valid log file to [LOG_DIR] or move log files that are not needed for recovery to another directory.
+
 ### IGNORE
 
 **0x12007 ( 73735) smERR_IGNORE_SyncFail Failed to invoke the msync() system
