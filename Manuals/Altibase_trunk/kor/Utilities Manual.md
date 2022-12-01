@@ -2623,18 +2623,18 @@ $ cat config.xml
 </configuration>
 ~~~
 
-#### altiMon 실행 설정
+> #### altiMon 실행 설정
 
 config.xml에서 <Altimon ...> 요소는 altiMon 로그 출력 형식, 로그 파일 삭제 주기, 모니터링 주기와 같은 altiMon 실행과 관련된 설정을 정의한다. 이 요소는 두 개의 속성과 4개의 하위 요소를 가진다.
 
-> **속성**
+**속성**
 
 | 속성 이름                                                    | 설명                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | Name                                                         | 사용자가 임의로 설정하는 altiMon의 고유 이름이다. 현재는 별다른 용도가 없으며 추후 기능 확장 시 사용될 예정이다. |
 | monitorOsMetric&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Metrics.xml 파일에서 OSMetric 요소를 사용할 것인지 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true  : 사용한다. PICL 라이브러리가 필요하다. <br />- false : 사용하지 않는다. OS 자원을 감시할 필요가 없거나 PICL C 라이브러리가 제공되지 않는 환경에서 설정한다. |
 
-> **하위 요소**
+**하위 요소**
 
 아래 표의 태그는 <Altimon ...> 요소 아래에 중첩된 하위 요소로 사용된다.
 
@@ -2648,17 +2648,17 @@ config.xml에서 <Altimon ...> 요소는 altiMon 로그 출력 형식, 로그 �
 
 
 
-#### Altibase 서버 설정
+> ####  Altibase 서버 설정
 
 config.xml에서 <Target ...> 요소는 데이터베이스 사용자, 패스워드 등 altiMon으로 모니터링 할 Altibase 서버의 접속 정보를 설정한다. 이 요소는 한 개의 속성과 설정할 수 있는 속성과 8개의 하위 요소를 가진다.
 
-> **속성**
+**속성**
 
 | 속성 이름                                                    | 설명                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Altibase 서버를 식별하기 위한 고유 이름으로 사용자가 임의로 설정 가능하다. 현재는 별다른 용도가 없으며 추후 기능 확장 시 사용될 예정이다. |
 
-> **하위 요소**
+**하위 요소**
 
 아래 표의 태그는 Target 요소 아래에 중첩된 하위 요소로 사용된다.
 
@@ -2731,11 +2731,11 @@ $ cat Metrics.xml | more
 
 
 
-#### 사용자 정의 운영체제 자원 모니터링(CommandMetric)
+> #### 사용자 정의 운영체제 자원 모니터링(CommandMetric)
 
 Metrics.xml에서 <CommandMetric ...> 요소는 사용자가 직접 감시할 운영체제 자원을 정의할 수 있게 지원하는 모니터링 요소이다. PICL 라이브러리가 필요한 OSMetric 요소를 사용할 수 없는 환경에서 사용자가 직접 운영체제 명령어로 자원을 감시할 수 있다. OSMetric 요소에서 지원하지 않는 항목을 CommandMetric 요소에 추가할 수도 있다. 
 
-> **속성**
+**속성**
 
 CommandMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 OSMetric 요소, SQLMetric 요소에서도 동일하게 사용할 수 있다.
 
@@ -2747,7 +2747,7 @@ CommandMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 O
 | Interval    | 데이터 수집 주기. 단위는 초(second)이다.<br/>설정하지 않으면 config.xml에서 Altimon 요소의 \<Interval> 에 설정한 값을 따른다. |
 | Logging     | 데이터 수집 결과를 파일에 기록할 것인지 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true : 데이터 수집 정보를 파일에 기록한다.<br />- false : 데이터 수집 정보를 파일에 기록하지 않는다. 단, 하위 요소로 <Alert …> 태그가 활성화되었다면, alert 정보는 이 설정과 무관하게 기록된다. |
 
-> **하위 요소**
+**하위 요소**
 
 여러 하위 요소가 있으나 여기서는 CommandMetric 요소에서만 사용할 수 있는 하위 요소를 소개하고 다른 하위 요소는 [공통 하위 요소](#공통-하위-요소) 에서 설명한다.
 
@@ -2757,7 +2757,7 @@ CommandMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 O
 
 
 
-#### 미리 정의된 운영체제 자원 모니터링(OSMetric)
+> ####  미리 정의된 운영체제 자원 모니터링(OSMetric)
 
 Metrics.xml에서 <OSMetric ...> 요소는 PICL 라이브러리에서 미리 정의한 운영체제 자원을 감시하도록 제공하는 모니터링 요소이다. 
 
@@ -2768,7 +2768,7 @@ Metrics.xml에서 <OSMetric ...> 요소는 PICL 라이브러리에서 미리 정
 - 스왑(swap)
 - 디스크
 
-> **속성**
+**속성**
 
 [CommandMetric 요소에서 사용하는 속성](#속성-4)과 동일하다. 다만, Name은 PICL 라이브러리에서 미리 정의한 이름을 사용해야 한다.
 
@@ -2787,19 +2787,19 @@ Metrics.xml에서 <OSMetric ...> 요소는 PICL 라이브러리에서 미리 정
 | DISK_FREE                  | 지정한 디스크에서 사용되지 않은 디스크의 크기(KB). <br />이 값을 사용할 때는 <Disk Name ...> 하위 요소가 반드시 필요하다. |
 | DISK_FREE_PERCENTAGE       | 지정한 디스크에서 사용되지 않은 디스크의 비율(%). <br />이 값을 사용할 때는 <Disk Name ...> 하위 요소가 반드시 필요하다. |
 
-> **하위 요소**
+**하위 요소**
 
  [공통 하위 요소](#공통-하위-요소)를 참고한다.
 
-#### Altibase 서버 상태 모니터링(SQLMetric)
+> #### Altibase 서버 상태 모니터링(SQLMetric)
 
 Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 수 있게 제공하는 모니터링 요소이다.
 
-> **속성**
+**속성**
 
 [CommandMetric 요소에서 사용하는 속성](#속성-4)과 동일하다. 
 
-> **하위 요소**
+**하위 요소**
 
 여러 하위 요소가 있으나 여기서는 SQLMetric 요소에서만 사용할 수 있는 하위 요소를 소개하고 다른 하위 요소는 [공통 하위 요소](#공통-하위-요소)를 참고한다.
 
@@ -2809,7 +2809,7 @@ Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 
 
 
 
-#### 공통 하위 요소
+> #### 공통 하위 요소
 
 CommandMetric, OSMetric, SQLMetric 요소에서 공통적으로 사용할 수 있는 하위 요소를 설명한다. 각 하위 요소는 아래와 같이 중첩적으로 사용된다. 
 
@@ -2856,7 +2856,7 @@ Metrics.xml에 정의한 Command Metric과 OS Metric 그리고 SQL Metric을 사
 
 다음은 GroupMetrics.xml에 설정할 수 있는 XML 요소와 속성에 대한 설명이다.
 
-> **속성**
+**속성**
 
 GroupMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 OSMetric 요소, SQLMetric 요소에서도 동일하게 사용할 수 있다.
 
@@ -2866,7 +2866,7 @@ GroupMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 OSM
 | Activate  | GroupMetric 요소를 수집할 것인지 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true  : 해당 CommandMetric 요소를 수집한다.<br />- false : 해당 CommandMetric 요소를 수집하지 않는다. |
 | Interval  | 데이터 수집 주기. 기본값은 60이며 단위는 초(second)이다.     |
 
-> **하위 요소**
+**하위 요소**
 
 GroupMetric 요소 아래에 \<Target MetricName\>, \<Column Name\> 요소가 중첩적으로 사용된다.
 
