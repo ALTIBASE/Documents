@@ -2696,8 +2696,8 @@ $ cat Metrics.xml | more
     </CommandMetric>    
     
     <!-- OSMetric 요소 --> 
-	<OSMetric Name='TOTAL_CPU_USER' Activate='false' Description='TOTAL_CPU_USER'></OSMetric>
-	<OSMetric Name='TOTAL_CPU_KERNEL' Activate='false'></OSMetric>    
+    <OSMetric Name='TOTAL_CPU_USER' Activate='false' Description='TOTAL_CPU_USER'></OSMetric>
+    <OSMetric Name='TOTAL_CPU_KERNEL' Activate='false'></OSMetric>    
     <OSMetric Name='PROC_CPU_USER' Activate='true'>
         <Alert Activate='true' ComparisonType='gt'>
             <WarningThreshold Value='80' >
@@ -2803,7 +2803,7 @@ Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 
 
 | 태그 이름 | 설명                                                         |
 | :-------- | :----------------------------------------------------------- |
-| \<Query\> | 모니터링 쿼리를 입력한다. 이 쿼리는 반드시 하나의 row를 조회하는 SELECT 문이어야 한다. |
+| \<Query\> | 모니터링 쿼리를 입력한다. 이 쿼리는 반드시 데이터 한 건을 조회하는 SELECT 문이어야 한다. |
 
 
 
