@@ -2506,7 +2506,7 @@ altimon.sh {start | stop}
 altiMon의 지원 플랫폼은 PICL 라이브러리를 제공하는 플랫폼에 의존한다. 
 
 | 운영체제                                                     | CPU                     | PICL 라이브러리 |
-| ------------------------------------------------------------ | ----------------------- | --------------- |
+| :----------------------------------------------------------- | :---------------------- | :-------------- |
 | **AIX**                                                      |                         |                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIX 5.3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIX 6.1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIX 7.1 | PowerPC                 | aix-ppc64-5.so  |
 | **HP-UX**                                                    |                         |                 |
@@ -2693,9 +2693,7 @@ $ cat Metrics.xml | more
                 <ActionScript>mem_act.sh</ActionScript>
             </WarningThreshold>
         </Alert>
-    </CommandMetric>
-    <CommandMetric></CommandMetric>    
-    <CommandMetric></CommandMetric>        
+    </CommandMetric>    
     
     <!-- OSMetric 요소 --> 
 	<OSMetric Name='TOTAL_CPU_USER' Activate='false' Description='TOTAL_CPU_USER'></OSMetric>
@@ -2752,7 +2750,7 @@ CommandMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 O
 여러 하위 요소가 있으나 여기서는 CommandMetric 요소에서만 사용할 수 있는 하위 요소를 소개하고 다른 하위 요소는 [공통 하위 요소](#공통-하위-요소) 에서 설명한다.
 
 | 태그 이름  | 설명                                                         |
-| ---------- | ------------------------------------------------------------ |
+| :--------- | :----------------------------------------------------------- |
 | \<Command> | 수행할 명령어 또는 스크립트 파일 경로를 절대 경로 또는 상대 경로로 입력한다. 상대 경로의 기준은 $ALTIBASE_HOME/altiMon 디렉토리이다. 예를 들어, 절대 경로 입력 방식은 $ALTIBASE_HOME/altiMon/scriptsDir/cpuUsageWithTop.sh이고 상대 경로 입력 방식은 scriptsDir/cpuUsageWithTop.sh만 입력하면 된다.<br />공통 하위 요소 중 <Alert …> 태그를 설정하려면 이 항목의 결과 값이 숫자여야 한다. |
 
 
@@ -2773,7 +2771,7 @@ Metrics.xml에서 <OSMetric ...> 요소는 PICL 라이브러리에서 미리 정
 [CommandMetric 요소에서 사용하는 속성](#속성-4)과 동일하다. 다만, Name은 PICL 라이브러리에서 미리 정의한 이름을 사용해야 한다.
 
 | Name으로 사용할 수 있는 값 | 설명                                                         |
-| -------------------------- | ------------------------------------------------------------ |
+| :------------------------- | :----------------------------------------------------------- |
 | TOTAL_CPU_USER             | 사용자 모드(user mode)에서 CPU 사용률(%)                     |
 | TOTAL_CPU_KERNEL           | 커널 모드(kernel mode)에서 CPU 사용률(%)                     |
 | PROC_CPU_USER              | 사용자 모드(user mode)에서 Altibase 프로세스의 CPU 사용률(%) |
@@ -2804,7 +2802,7 @@ Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 
 여러 하위 요소가 있으나 여기서는 SQLMetric 요소에서만 사용할 수 있는 하위 요소를 소개하고 다른 하위 요소는 [공통 하위 요소](#공통-하위-요소)를 참고한다.
 
 | 태그 이름 | 설명                                                         |
-| --------- | ------------------------------------------------------------ |
+| :-------- | :----------------------------------------------------------- |
 | \<Query\> | 모니터링 쿼리를 입력한다. 이 쿼리는 반드시 하나의 row를 조회하는 SELECT 문이어야 한다. |
 
 
@@ -2822,7 +2820,7 @@ CommandMetric, OSMetric, SQLMetric 요소에서 공통적으로 사용할 수 �
 ~~~
 
 | 태그 이름                                       | 속성 이름        | 설명                                                         |
-| ----------------------------------------------- | ---------------- | ------------------------------------------------------------ |
+| :---------------------------------------------- | :--------------- | :----------------------------------------------------------- |
 | <Alert …>                                       |                  | 이 요소는 선택 항목으로, 모니터링 요소의 출력 값이 사용자가 정의한 한계 설정을 만족할 때 별도의 로그 $ALTIBASE_HOME/altiMon/logs/alert.log에 기록하는 기능이다. |
 |                                                 | Activate         | <Alert …>의 수행 여부를 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true : alert 기능을 사용한다. 하위 요소로 <WarningThreshold …> 또는 <CriticalThreshold …>가 반드시 필요하다. <br />- false : alert 기능을 사용하지 않는다. |
 |                                                 | ComparisonColumn | 이 속성은 ***SQLMetric에서만*** 사용할 수 있다. SQLMetric에서 조회한 컬럼을 입력해야 한다. 컬럼의 값은 <WarningThreshold …> 또는 <CriticalThreshold …>의 Value 속성과 비교 가능한 10진수 숫자여야 한다. |
@@ -2861,7 +2859,7 @@ Metrics.xml에 정의한 Command Metric과 OS Metric 그리고 SQL Metric을 사
 GroupMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 OSMetric 요소, SQLMetric 요소에서도 동일하게 사용할 수 있다.
 
 | 속성 이름 | 설명                                                         |
-| --------- | ------------------------------------------------------------ |
+| :-------- | :----------------------------------------------------------- |
 | Name      | GroupMetric을 식별하는 고유한 이름으로 사용자가 임의로 설정 가능하다. 로그 파일 생성 시 이 이름이 사용된다. 예) *group1*.csv |
 | Activate  | GroupMetric 요소를 수집할 것인지 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true  : 해당 CommandMetric 요소를 수집한다.<br />- false : 해당 CommandMetric 요소를 수집하지 않는다. |
 | Interval  | 데이터 수집 주기. 기본값은 60이며 단위는 초(second)이다.     |
