@@ -4984,6 +4984,18 @@ Mathematics Module.
 
 **Action:** check an error message.
 
+**0x2106A ( 135274) mtERR_ABORT_MAX_MEM_SIZE_EXCEED The memory size allocated for the statement has exceeded the maximum limit ( Name : <0%s>, Wanted Memory Size : <1%lu>, Max size : <2%lu> ).** 
+
+**Cause:** The memory size allocated for the statement has exceeded the maximum limit.
+
+**Action:** Increase the XXXXXXX_MEMORY_MAXIMUM property value...
+
+**0x2106C ( 135276) mtERR_ABORT_PCRE2_UNEXPECTED_ERROR PCRE2 error: <1%s> (occurred in <0%s>)** 
+
+**Cause:** An internal error occurred in PCRE2 library or while executing Altibase internal function.
+
+**Action:** Check the error message and contact Altibase's Support Center (http://support.altibase.com).
+
 ### IGNORE
 
 **0x22000 ( 139264) mtERR_IGNORE_NOERROR Ignore this message.**
