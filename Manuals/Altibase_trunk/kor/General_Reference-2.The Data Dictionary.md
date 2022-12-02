@@ -5643,7 +5643,7 @@ identifier), 글로벌 트랜잭션 식별자 (global transaction identifier) �
 
 ##### STATUS
 
-AltiLinker의 상태를 나타낸다. 값이 1이면 AltiLinker가 정상적으로 수행 중인
+AltiLinker의 상태를 나타낸다. 값이 2이면 AltiLinker가 정상적으로 수행 중인
 상태이다. 그러나 값이 0이면, AltiLinker가 실행되어 있지 않거나 정상적인 수행이
 불가능한 상태이다.
 
