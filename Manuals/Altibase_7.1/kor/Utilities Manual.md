@@ -2883,7 +2883,7 @@ Metrics.xml에 정의한 Command Metric과 OS Metric 그리고 SQL Metric을 사
 GroupMetric 요소에서 사용할 수 있는 속성이다. 이 속성들은 OSMetric 요소, SQLMetric 요소에서도 동일하게 사용할 수 있다.
 
 | 속성 이름 | 설명                                                         |
-| --------- | :----------------------------------------------------------- |
+| :-------- | :----------------------------------------------------------- |
 | Name      | GroupMetric을 식별하는 고유한 이름으로 사용자가 임의로 설정 가능하다. 로그 파일 생성 시 이 이름이 사용된다. 예) *group1*.csv |
 | Activate  | GroupMetric 요소를 수집할 것인지 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true  : 해당 CommandMetric 요소를 수집한다.<br />- false : 해당 CommandMetric 요소를 수집하지 않는다. |
 | Interval  | 데이터 수집 주기. 기본값은 60이며 단위는 초(second)이다.     |
