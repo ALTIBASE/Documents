@@ -5632,7 +5632,7 @@ identifier), 글로벌 트랜잭션 식별자 (global transaction identifier) �
 
 | Column name              | Type         | Description                                                  |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
-| STATUS                   | INTEGER      | AltiLinker의 상태                                            |
+| STATUS                   | INTEGER      | AltiLinker의 상태. 상태에 따른 값이 의미는 [칼럼 정보](#status-5) 참고 |
 | SESSION_COUNT            | INTEGER      | Altibase와 AltiLinker 프로세스 사이의 세션인 링커 세션의 개수 |
 | REMOTE_SESSION_COUNT     | INTEGER      | AltiLinker 프로세스와 원격 서버들 사이의 세션의 개수         |
 | JVM_MEMORY_POOL_MAX_SIZE | INTEGER      | JVM 상에서 AltiLinker를 위해 할당하는 메모리 풀의 최대 크기  |
