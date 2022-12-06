@@ -58,7 +58,7 @@ IPC 및 IPCDA 채널을 생성하는 데 필요한 공유 메모리와 세마포
 
 IPC와 IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 프로퍼티로 설정한 공유 메모리/세마포어 키가 사용 중이거나 다른 이유로 공유 메모리/세마포어를 생성하지 못하면 Altibase 서버 구동은 실패합니다. 이때, Altibase 서버 트레이스 로그 altibase\_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 합니다.
 
-프로퍼티 설명은 Altibase 7.1 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key) 매뉴얼에서 확인하기 바랍니다.
+프로퍼티 설명은 `Altibase 7.1` [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key) 매뉴얼에서 확인하기 바랍니다.
 
 
 #### 변경사항
@@ -138,19 +138,28 @@ MERGE JOIN을 사용한 CREATE AS SELECT 문을 수행한 세션이 SESSION CLOS
 
 -   **재현 절차**
 
-        A 세션
-        CREATE TABLE T1 AS
-        SELECT LEVEL AS C1, CAST('AAAAA' AS VARCHAR(10)) AS T1_CD
-          FROM DUAL CONNECT BY LEVEL <= 7335;
-         CREATE TABLE T2 AS 
-        SELECT LEVEL AS C1, CAST('AAAAA' AS VARCHAR(10)) AS T2_CD
-          FROM DUAL CONNECT BY LEVEL <= 10000;
-         CREATE TABLE T3 AS 
-        SELECT /*+ USE_MERGE (B A) */ A.*, B.T2_CD
-          FROM T1 A INNER JOIN T2 B ON A.T1_CD = B.T2_CD
-           AND B.T2_CD = 'AAAAA';
-        B 세션
-        ALTER DATABASE database_name SESSION CLOSE session_id;
+    - A 세션
+
+      ~~~sql
+      CREATE TABLE T1 AS
+      SELECT LEVEL AS C1, CAST('AAAAA' AS VARCHAR(10)) AS T1_CD
+        FROM DUAL CONNECT BY LEVEL <= 7335;
+        
+       CREATE TABLE T2 AS 
+      SELECT LEVEL AS C1, CAST('AAAAA' AS VARCHAR(10)) AS T2_CD
+        FROM DUAL CONNECT BY LEVEL <= 10000;
+        
+       CREATE TABLE T3 AS 
+      SELECT /*+ USE_MERGE (B A) */ A.*, B.T2_CD
+        FROM T1 A INNER JOIN T2 B ON A.T1_CD = B.T2_CD
+         AND B.T2_CD = 'AAAAA';
+      ~~~
+
+    - B 세션
+
+      ~~~sql
+      ALTER DATABASE database_name SESSION CLOSE session_id;
+      ~~~
 
 -   **수행 결과**
 
@@ -189,7 +198,7 @@ MERGE JOIN을 사용한 CREATE AS SELECT 문을 수행한 세션이 SESSION CLOS
 
 AIX에서, SMO(Structure Modification Operation) 연산을 수행하는 메모리 인덱스에 접근하는 트랜잭션이 있을 때 Altibase 서버가 비정상 종료하는 현상을 수정합니다.
 
-**재현 방법**
+#### 재현 방법
 
 -   **재현 절차**
 
@@ -236,13 +245,13 @@ AIX에서, SMO(Structure Modification Operation) 연산을 수행하는 메모�
 
 - 쿼리 수행 시 디스크 임시 공간 사용
 
->  이 버그 현상을 회피하는 방법은  [Work Around](#) 부분을 확인해주세요.
+>  이 버그 현상을 회피하는 방법은  [Work Around](#workaround-2) 부분을 확인해주세요.
 
 > 패치 시 주의 사항
 >
 > 결괏값 오류를 개선한 버그로, 패치 후 버그 조건에 만족하는 질의문 수행 시 결과가 달라질 수 있습니다.
 
-**재현 방법**
+#### 재현 방법
 
 -   **재현 절차**
 
@@ -326,16 +335,17 @@ SELECT /*+ TEMP_TBS_MEMORY */ ROW_NUMBER() OVER(ORDER BY A.I1 DESC) RNUM
 
 PSM에서 EXECUTE IMMEDIATE 문에 INTO 절을 사용하지 않고 DEQUEUE 문을 수행할 때 ERR-4108A : Queue not found 에러가 발생하는 현상을 수정합니다. 큐가 비어있는 상태에서 버그 발생 조건을 만족하면 세션에서 큐 정보를 삭제하는 문제를 수정하였습니다.
 
-이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 재현 절차를 참고하세요.
+이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 [재현 방법](#재현-방법-4)을 참고하세요.
 
 1. 큐 생성
 
 2. PSM 생성
 
       - DEQUEUE 문을 동적 SQL로 수행
-
-
-      - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
+      
+      
+            - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
+      
 
 
 3) PSM 수행 
