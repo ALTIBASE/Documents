@@ -134,7 +134,7 @@ Fixed Bugs
 #### 설명
 MERGE JOIN을 사용한 CREATE AS SELECT 문을 수행한 세션이 SESSION CLOSE로 강제 종료되지 않는 현상을 수정합니다.
 
--   **재현 방법**
+#### 재현 방법
 
 -   **재현 절차**
 
@@ -335,17 +335,12 @@ SELECT /*+ TEMP_TBS_MEMORY */ ROW_NUMBER() OVER(ORDER BY A.I1 DESC) RNUM
 
 PSM에서 EXECUTE IMMEDIATE 문에 INTO 절을 사용하지 않고 DEQUEUE 문을 수행할 때 ERR-4108A : Queue not found 에러가 발생하는 현상을 수정합니다. 큐가 비어있는 상태에서 버그 발생 조건을 만족하면 세션에서 큐 정보를 삭제하는 문제를 수정하였습니다.
 
-이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 [재현 방법](#재현-방법-4)을 참고하세요.
+이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 [재현 방법](#재현-방법-3)을 참고하세요.
 
 1. 큐 생성
-
 2. PSM 생성
-
-      - DEQUEUE 문을 동적 SQL로 수행
-      
-      
-            - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
-      
+      - DEQUEUE 문을 동적 SQL로 수행
+      - EXECUTE IMMEDIATE 문에 INTO 절 사용하지 않음
 
 
 3) PSM 수행 
