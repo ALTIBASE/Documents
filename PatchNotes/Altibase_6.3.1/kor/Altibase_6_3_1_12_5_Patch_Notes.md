@@ -245,7 +245,7 @@ AIX에서, SMO(Structure Modification Operation) 연산을 수행하는 메모�
 
 - 쿼리 수행 시 디스크 임시 공간 사용
 
->  이 버그 현상을 회피하는 방법은  [Work Around](#workaround-2) 부분을 확인해주세요.
+>  이 버그 현상을 회피하는 방법은 Work Around 부분을 확인해주세요.
 
 > 패치 시 주의 사항
 >
@@ -335,7 +335,7 @@ SELECT /*+ TEMP_TBS_MEMORY */ ROW_NUMBER() OVER(ORDER BY A.I1 DESC) RNUM
 
 PSM에서 EXECUTE IMMEDIATE 문에 INTO 절을 사용하지 않고 DEQUEUE 문을 수행할 때 ERR-4108A : Queue not found 에러가 발생하는 현상을 수정합니다. 큐가 비어있는 상태에서 버그 발생 조건을 만족하면 세션에서 큐 정보를 삭제하는 문제를 수정하였습니다.
 
-이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 [재현 방법](#재현-방법-3)을 참고하세요.
+이 버그는 아래의 순서대로 큐와 PSM을 생성하고 수행할 때 발생합니다. 실제 수행 예시는 재현 방법을 참고하세요.
 
 1. 큐 생성
 2. PSM 생성
@@ -353,28 +353,34 @@ PSM에서 EXECUTE IMMEDIATE 문에 INTO 절을 사용하지 않고 DEQUEUE 문�
 
 -   **재현 절차**
 
-        DROP QUEUE q1;
-        DROP TABLE t1;
-        CREATE QUEUE q1(1000);
-        CREATE OR REPLACE PROCEDURE dq_test ()
-        AS
-            OUT1 VARCHAR(1000);
-        BEGIN
-            EXECUTE IMMEDIATE('DEQUEUE MESSAGE INTO OUT1 FROM q1');
-            PRINTLN(OUT1);
-        END;
-        /
-        EXEC dq_test;
-        CREATE TABLE t1 (c1 INTEGER);
-        EXEC dq_test;
+    ```sql
+    DROP QUEUE q1;
+    DROP TABLE t1;
+    CREATE QUEUE q1(1000);
+    CREATE OR REPLACE PROCEDURE dq_test ()
+    AS
+        OUT1 VARCHAR(1000);
+    BEGIN
+        EXECUTE IMMEDIATE('DEQUEUE MESSAGE INTO OUT1 FROM q1');
+        PRINTLN(OUT1);
+    END;
+    /
+    EXEC dq_test;
+    CREATE TABLE t1 (c1 INTEGER);
+    EXEC dq_test;
+    ```
 
 -   **수행 결과**
 
-        [ERR-4108A : Queue not found
+    ```sql
+    [ERR-4108A : Queue not found
+    ```
 
 -   **예상 결과**
 
-        Execute success.
+    ```sql
+    Execute success.
+    ```
 
 #### Workaround
 
