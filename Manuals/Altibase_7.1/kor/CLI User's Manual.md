@@ -7669,8 +7669,7 @@ fromPosition이 타겟 LOB 값의 끝 위치를 가리키면, value 버퍼의 va
 
 타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의
 인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다.
-타겟 LOB locator가 유효하지 않을 때에는, SQLPutLob() 함수는 SQL_ERROR를
-리턴한다.
+Altibase는 Lob 처리를 위해 Lob Locator를 얻어오기 위한 초기화 과정을 거치는데, 이 과정 중 오류가 발생하면 Partial Rollback이 이뤄져서 초기화 과정이 자동 원복되며 SQLPutLob() 함수는 SQL_ERROR를 리턴한다.
 
 타겟 LOB locator가 NULL인 LOB을 가리킬 경우, SQLPutLob() 함수는 LOB locator가
 길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
