@@ -2053,13 +2053,13 @@ AKU_SYS_PASWWORD            = "manager"
 AKU_STS_NAME                = "altibase-sts"
 AKU_SVC_NAME                = "altibase-svc"
 AKU_SERVER_COUNT            = 4
-AKU_QUERY_TIMEOUT           = 1800
+AKU_QUERY_TIMEOUT           = 3600
 AKU_PORT_NO                 = 20300
 AKU_REPLICATION_PORT_NO     = 20301
 
 REPLICATIONS = (
     REPLICATION_NAME_PREFIX = "AKU_REP"
-    SYNC_PARALLEL_COUNT     = 3
+    SYNC_PARALLEL_COUNT     = 1
     (
         (
             USER_NAME       = "SYS"
