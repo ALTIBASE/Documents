@@ -5087,7 +5087,7 @@ This view shows status information about the AltiLinker process for the database
 
 | Column name              | Type         | Description                                                  |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
-| STATUS                   | INTEGER      | Status of the AltiLinker process. Refer to [Column Information]((#status-4)). |
+| STATUS                   | INTEGER      | Status of the AltiLinker process. Refer to [Column Information](#status-4). |
 | SESSION_COUNT            | INTEGER      | The number of linker sessions, the sessions between Altibase and the Altilinker process. |
 | REMOTE_SESSION_COUNT     | INTEGER      | The number of sessions between the Altilinker process and the remote servers |
 | JVM_MEMORY_POOL_MAX_SIZE | INTEGER      | The maximum size of the memory pool allocated for the AltiLinker on the JVM |
