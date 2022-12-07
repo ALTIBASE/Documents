@@ -5632,7 +5632,7 @@ identifier), 글로벌 트랜잭션 식별자 (global transaction identifier) �
 
 | Column name              | Type         | Description                                                  |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
-| STATUS                   | INTEGER      | AltiLinker의 상태 1: AltiLinker가 정상적으로 수행 중인 상태 0: AltiLinker가 실행되어 있지 않거나 정상적인 수행이 불가능한 상태 |
+| STATUS                   | INTEGER      | AltiLinker의 상태. 값의 의미는 [칼럼 정보](#status-4) 참고.  |
 | SESSION_COUNT            | INTEGER      | Altibase와 AltiLinker 프로세스 사이의 세션인 링커 세션의 개수 |
 | REMOTE_SESSION_COUNT     | INTEGER      | AltiLinker 프로세스와 원격 서버들 사이의 세션의 개수         |
 | JVM_MEMORY_POOL_MAX_SIZE | INTEGER      | JVM 상에서 AltiLinker를 위해 할당하는 메모리 풀의 최대 크기  |
@@ -5643,9 +5643,11 @@ identifier), 글로벌 트랜잭션 식별자 (global transaction identifier) �
 
 ##### STATUS
 
-AltiLinker의 상태를 나타낸다. 값이 1이면 AltiLinker가 정상적으로 수행 중인
-상태이다. 그러나 값이 0이면, AltiLinker가 실행되어 있지 않거나 정상적인 수행이
-불가능한 상태이다.
+AltiLinker 프로세스의 상태를 나타낸다. 
+
+- 0 : AltiLinker 프로세스가 시작되지 않았거나 정상적인 수행이 불가능한 상태이다.
+- 1 : AltiLinker 프로세스가 시작된 상태이다. 
+- 2 : AltiLinker 프로세스와 Altibase 서버 간에 링커 제어 세션(Linker Control Session)이 생성되어 AltiLinker가 정상적으로 수행 중인 상태이다.
 
 ### V\$DBLINK_DATABASE_LINK_INFO
 
