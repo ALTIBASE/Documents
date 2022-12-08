@@ -2187,34 +2187,33 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
   <div align="left">
       <img src="media/Utilities/aku_scale_up_pod_n.jpg"></img>
   </div>
-
   1️⃣ aku.conf 파일을 읽는다.
-
+  
   2️⃣ `AKU_SERVER_COUNT`-1만큼 Altibase 이중화 객체를 생성한다. 만약 *pod_name*-1이 다시 생성된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다.
-
+  
   3️⃣ 이중화 대상 서버인 모드 파드에 접속을 시도한다. 하지만 *pod_name*-0과의 접속만 성공하고 *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 접속 에러가 발생한다. 이는 정상적인 동작이다.
-
+  
   4️⃣ *pod_name*-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다. 만약 이전에 `aku -p end`가 수행되지 않았거나 완료되지 않아 *pod_name*-0과 연결된 이중화 정보가 남아 있다면 이 단계는 생략한다.
-
+  
   5️⃣ *pod_name*-0에게 이중화 SYNC를 요청한다. 만약 이전에 `aku -p end`가 수행되지 않았거나 완료되지 않아 *pod_name*-0과 연결된 이중화 정보가 남아 있다면 이 단계는 생략한다.
-
+  
   6️⃣ *pod_name*-0에서 *pod_name*-1로 이중화 SYNC를 수행한다.
-
+  
   7️⃣ *pod_name*-1에서 *pod_name*-0으로 이중화를 시작한다.
-
+  
   8️⃣ *pod_name*-1에서 *pod_name*-2, *pod_name*-3으로 이중화를 시작한다. 하지만 *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이중화 시작은 실패한다. *pod_name*-2, *pod_name*-3이 생성되고 이중화를 할 수 있는 준비가 되면 이중화가 시작된다. 이는 정상적인 동작이다.
-
+  
   ~~~
   ⚠️ aku -p start 명령은 Altibase 서버가 정상적으로 시작된 후 수행해야 한다. 
   ⚠️ 하나의 파드에서 aku -p start 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다.
   ~~~
-
+  
 - `end`
 
   Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파드를 종료할 때 이용할 수 있다. 
 
   <div align="left">
-      <img src="media/\Utilities/aku_scale_down.jpg"></img>
+      <img src="media/Utilities/aku_scale_down.jpg"></img>
   </div>
 
   1️⃣ 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 이미 삭제된 상태이기 때문에 접속 에러가 발생할 수 있다. 이는 정상적인 동작이다.

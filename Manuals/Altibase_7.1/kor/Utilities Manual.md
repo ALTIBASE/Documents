@@ -2076,13 +2076,13 @@ AKU_SYS_PASWWORD            = "manager"
 AKU_STS_NAME                = "altibase-sts"
 AKU_SVC_NAME                = "altibase-svc"
 AKU_SERVER_COUNT            = 4
-AKU_QUERY_TIMEOUT           = 1800
+AKU_QUERY_TIMEOUT           = 3600
 AKU_PORT_NO                 = 20300
 AKU_REPLICATION_PORT_NO     = 20301
 
 REPLICATIONS = (
     REPLICATION_NAME_PREFIX = "AKU_REP"
-    SYNC_PARALLEL_COUNT     = 3
+    SYNC_PARALLEL_COUNT     = 1
     (
         (
             USER_NAME       = "SYS"
@@ -2110,9 +2110,7 @@ REPLICATIONS = (
 | AKU_SYS_PASWWORD                     |  없음  | 데이터베이스 SYS 사용자 패스워드                             |
 | AKU_PORT_NO                          | 20300  | Altibase 서버의 서비스 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_REPLICATION_PORT_NO              | 20301  | Altibase 이중화 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
-|                                      |        |                                                              |
 | AKU_QUERY_TIMEOUT                    |  3600  | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. ALTER REPLICATION 등 aku에서 수행한 SQL의 수행 시간이 이 값을 초과하면 해당 문장은 취소된다. |
-|                                      |        |                                                              |
 | REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사.<br />최대 길이는 37바이트이다. |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
 | REPLICATIONS/USER_NAME               |  없음  | 이중화 대상 테이블의 소유자 이름.<br />여기에 명시한 데이터베이스 사용자는 `aku -p` 명령을 수행하기 전에 생성해야 한다. |
@@ -2144,7 +2142,7 @@ aku에서 생성하는 Altibase 이중화 객체 이름은 *REPLICATION_NAME_PRE
   - AKU_REP_23 : *pod_name*-2과 *pod_name*-3의 Altibase 이중화
 - *pod_name*-3 
   - AKU_REP_03 : *pod_name*-0과 *pod_name*-3의 Altibase 이중화
-  - AKU_REP_13 : *pod_name*-1과 *pod_name*-2의 Altibase 이중화
+  - AKU_REP_13 : *pod_name*-1과 *pod_name*-3의 Altibase 이중화
   - AKU_REP_23 : *pod_name*-2과 *pod_name*-3의 Altibase 이중화
 
 ~~~
@@ -2193,6 +2191,10 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 
   ''첫 번째 파드''는 쿠버네티스 스테이트플셋에서 생성한 첫 번째 파드(*pod_name*-0)를 말한다. aku에서는 마스터 파드(Master Pod)라고 부르며 여기서 수행한 aku를 ''MASTER AKU'라고 부르기도 한다. Altibase 이중화 객체는 모든 파드에 생성해야 하므로 스테이트풀셋에서 *pod_name*-0을 생성할 때도 `aku -p start` 명령을 수행해야 한다. 
 
+  <div align="left">
+      <img src="media/Utilities/aku_pod_0_only.jpg"></img>
+  </div>
+
   1️⃣ aku.conf 파일을 읽는다.
 
   2️⃣ `AKU_SERVER_COUNT`-1만큼 Altibase 이중화 객체를 생성한다. 만약, 같은 이름의 이중화 객체가 존재한다면 이중화 생성 단계는 생략한다. 
@@ -2205,21 +2207,25 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 
   스테이트풀셋에서 스케일 업을 하면 파드가 생성된다. aku에서는 이러한 파드에서 수행한 aku를 "SLAVE AKU"로 표현하기도 한다. 하나의 파드는 생성과 종료를 반복할 수 있는데,  파드가 처음 생성될 때와 종료 후 다시 생성될 때 `aku -p start` 동작이 다르다. 아래 *pod_name*-1에서 수행한 예로 `aku -p start` 동작을 살펴보자. 
 
+  <div align="left">
+      <img src="media/Utilities/aku_scale_up_pod_n.jpg"></img>
+  </div>
+
   1️⃣ aku.conf 파일을 읽는다.
 
-  2️⃣  `AKU_SERVER_COUNT`-1만큼 Altibase 이중화 객체를 생성한다. 만약 *pod_name*-1이 다시 생성된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다. 
+  2️⃣ `AKU_SERVER_COUNT`-1만큼 Altibase 이중화 객체를 생성한다. 만약 *pod_name*-1이 다시 생성된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다.
 
-  3️⃣ 이중화 대상 서버인 모드 파드에 접속을 시도한다. 하지만 *pod_name*-0과의 접속만 성공하고 *pod_name*-2, ..., *pod_name*-n은 생성되기 전이기 때문에 접속 에러가 발생한다. 이는 정상적인 동작이다. 
+  3️⃣ 이중화 대상 서버인 모드 파드에 접속을 시도한다. 하지만 *pod_name*-0과의 접속만 성공하고 *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 접속 에러가 발생한다. 이는 정상적인 동작이다.
 
-  4️⃣ *pod_name*-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다. 만약 *pod_name*-1이 다시 생성된 파드라면, *pod_name*-0과 *pod_name*-1이 정상적으로 이중화가 가능한 상태인지 확인한다. 이중화를 다시 시작할 수 있는 상태이면 이 단계는 생략하고 다시 시작할 수 없는 상태이면 이 단계를 진행한다.
+  4️⃣ *pod_name*-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다. 만약 이전에 `aku -p end`가 수행되지 않았거나 완료되지 않아 *pod_name*-0과 연결된 이중화 정보가 남아 있다면 이 단계는 생략한다.
 
-  5️⃣ *pod_name*-1에서 *pod_name*-0으로 이중화 SYNC를 요청한다. 만약 *pod_name*-1이 다시 생성된 파드라면, *pod_name*-0과 *pod_name*-1이 정상적으로 이중화가 가능한 상태인지 확인한다. 이중화를 다시 시작할 수 있는 상태이면 이 단계는 생략하고 다시 시작할 수 없는 상태이면 이 단계를 진행한다.
+  5️⃣ *pod_name*-0에게 이중화 SYNC를 요청한다. 만약 이전에 `aku -p end`가 수행되지 않았거나 완료되지 않아 *pod_name*-0과 연결된 이중화 정보가 남아 있다면 이 단계는 생략한다.
 
-  6️⃣ *pod_name*-0에서 *pod_name*-1로 이중화 SYNC를 수행한다. 
+  6️⃣ *pod_name*-0에서 *pod_name*-1로 이중화 SYNC를 수행한다.
 
-  7️⃣ *pod_name*-1에서 *pod_name*-0으로 이중화를 시작한다. 
+  7️⃣ *pod_name*-1에서 *pod_name*-0으로 이중화를 시작한다.
 
-  8️⃣ *pod_name*-1에서 *pod_name*-2, *pod_name*-3으로 이중화를 시작한다. 하지만 *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이중화 시작은 실패한다. *pod_name*-2, *pod_name*-3이 생성되고 이중화를 할 수 있는 준비가 되면 이중화가 시작된다. 이는 정상적인 동작이다. 
+  8️⃣ *pod_name*-1에서 *pod_name*-2, *pod_name*-3으로 이중화를 시작한다. 하지만 *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이중화 시작은 실패한다. *pod_name*-2, *pod_name*-3이 생성되고 이중화를 할 수 있는 준비가 되면 이중화가 시작된다. 이는 정상적인 동작이다.
 
   ~~~
   ⚠️ aku -p start 명령은 Altibase 서버가 정상적으로 시작된 후 수행해야 한다. 
@@ -2229,6 +2235,10 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 - `end`
 
   Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파드를 종료할 때 이용할 수 있다. 
+
+  <div align="left">
+      <img src="media/Utilities/aku_scale_down.jpg"></img>
+  </div>
 
   1️⃣ 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 이미 삭제된 상태이기 때문에 접속 에러가 발생할 수 있다. 이는 정상적인 동작이다.
 
