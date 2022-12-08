@@ -6793,51 +6793,82 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 3.LOB 인터페이스
 --------------
 
-이 장에서는 LOB 데이터를 사용하는데 필요한 함수 및 데이터 타입을 설명한다.
+이 장에서는 CLI에서 LOB 데이터를 처리하는 방식과 LOB 데이터를 사용하는데 필요한 데이터 타입과 관련 함수를 설명한다.
 
-### LOB data types
+### LOB 데이터 처리 방식
 
-다음 [표 3-1]은 LOB을 지원하는 SQL 데이터 타입의 식별자들이다.
+#### LOB 위치 입력기와 자동 커밋 모드 해제
 
-| SQL 식별자 | 데이터 타입 | 설명                                        |
-|------------|-------------|---------------------------------------------|
-| SQL_BLOB   | BLOB        | BLOB은 가변 길이를 가지는 이진 데이터 타입. |
-| SQL_CLOB   | CLOB        | CLOB은 가변 길이를 가지는 데이터 타입.      |
+CLI에서 LOB 데이터를 처리하려면 LOB 위치 입력기가 필요하다. LOB 위치 입력기(LOB Locator)는 LOB 데이터를 가리키는 Altibase 서버의 내부 자료구조로, 하나의 트랜잭션에 종속된다. 
 
-[표 3‑1] SQL 데이터 타입의 식별자
 
-다음 표는 LOB을 지원하는 C 데이터 타입의 식별자이다. 각 식별자에 해당하는 ODBC의
-C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
 
-| C 타입 식별자      | ODBC C 타입 | C 타입 정의      |
-|--------------------|-------------|------------------|
-| SQL_C_BLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64 |
-| SQL_C_CLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64 |
+MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에 위치입력기를 발생시킨 트랜잭션과 수명주기(life-cycle)를 같이 한다. 따라서 LOB 위치입력기를 이용하여 LOB에 대한 연산을 하기 위해서는  connection을 항상 NON-AUTOCOMMIT 모드로 설정하여 사용해야 한다.
 
-[표 3‑2] LOB 지원 C 데이터 타입의 식별자
 
-64비트 정수형의 이름은 플랫폼에 따라 다르다. 위 표에서 사용한 \_int64는 일부
-플랫폼에서 사용되는 64비트 정수형의 이름이다.
 
-CLOB 데이터는 SQL_C_CHAR를, BLOB 데이터는 SQL_C_BINARY를 사용하여 사용자 변수를
-바인딩하도록 한다.
+CLI에서 LOB 데이터를 처리하려면 반드시 NON-AUTOCOMMIT 모드로 설정해야 한다. 
+
+CLI에서 LOB 데이터를 처리할 때 LOB 위치 입력기(Lob locator)를 사용한다. 
+
+#### LOB 데이터 입력 또는 변경
+
+읽기용 LOB 위치 입력기는 SELECT LOB칼럼이름 FROM 테이블 where… 와 select를 수행한 후에 획득된다.
+
+CLI에서
+
+SQLExecute(또는 SQLExecDirect)
+
+SQLPutLob
+
+#### LOB 데이터 조회
+
+쓰기용 LOB 위치입력기는 SELECT LOB칼럼이름 FROM 테이블 where… FOR UPDATE를 수행한 후에 획득된다.
+
+SQLExecute(또는 SQLExecDirect)
+
+SQLGetLob
+
+### LOB 데이터 타입
+
+LOB 데이터 타입을 처리하는데 사용되는 SQL 데이터 타입과 C 데이터 타입을 소개한다.
+
+#### SQL 데이터 타입 
+
+다음은 LOB 데이터 타입을 지원하는 SQL 데이터 타입의 식별자이다.
+
+| SQL 식별자 | Altibase 데이터 타입 | 설명                                        |
+| :--------- | :------------------- | ------------------------------------------- |
+| SQL_BLOB   | BLOB                 | BLOB은 가변 길이를 가지는 이진 데이터 타입. |
+| SQL_CLOB   | CLOB                 | CLOB은 가변 길이를 가지는 데이터 타입.      |
+
+[표 3‑1] LOB 데이터 타입을 지원하는 SQL 데이터 타입의 식별자
+
+#### C 데이터 타입
+
+다음 표는 LOB 데이터 타입을 지원하는 C 데이터 타입의 식별자이다. 각 식별자에 해당하는 ODBC의 C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
+
+| C 타입 식별자      | Altibase 데이터 타입 | ODBC C 타입 | C 타입 정의      |
+| ------------------ | -------------------- | ----------- | ---------------- |
+| SQL_C_BINARY       | BLOB                 | SQLCHAR *   | unsigned char *  |
+| SQL_C_CHAR         | CLOB                 | SQLSCHAR *  | char *           |
+| SQL_C_BLOB_LOCATOR |                      | SQLUBIGINT  | unsigned \_int64 |
+| SQL_C_CLOB_LOCATOR |                      | SQLUBIGINT  | unsigned \_int64 |
+
+[표 3‑2] LOB 데이터 타입을 지원하는 C 데이터 타입의 식별자
+
+> 사용자 변수의 LOB 타입으로 지정된 타입?, 이를테면 SQL_C_BLOB, SQL_C_CLOB은 지원하지 않는다.
+
+>  64비트 정수형의 이름은 플랫폼에 따라 다르다. 위 표에서 사용한 \_int64는 일부 플랫폼에서 사용되는 64비트 정수형의 이름이다.
+
+CLOB 데이터는 SQL_C_CHAR를, BLOB 데이터는 SQL_C_BINARY를 사용하여 사용자 변수를 바인딩한다. 
 
 LOB Locator를 얻고자 한다면, 해당 LOB 칼럼의 타입에 따라서 SQL_C_CLOB_LOCATOR,
 혹은 SQL_C_BLOB_LOCATOR를 적절하게 바인드하면 된다. 여기서 말하는 LOB Locator
 즉, LOB 위치 입력기는 운영체제의 파일 포인터처럼 LOB 데이터를 연산할 때 사용되는
 핸들이다.
 
-읽기용 LOB 위치 입력기는 SELECT LOB칼럼이름 FROM 테이블 where… 와 select를
-수행한 후에 획득된다. 쓰기용 LOB 위치입력기는 SELECT LOB칼럼이름 FROM 테이블
-where… FOR UPDATE를 수행한 후에 획득된다.
 
-LOB 위치입력기는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에
-위치입력기를 발생시킨 트랜잭션과 수명주기(life-cycle)를 같이 한다. 따라서 LOB
-위치입력기를 이용하여 LOB에 대한 연산을 하기 위해서는 connection을 항상
-NON-AUTOCOMMIT 모드로 설정하여 사용해야 한다.
-
-사용자 변수의 LOB 타입으로 지정된 타입, 이를테면 SQL_C_BLOB, SQL_C_CLOB 등은
-따로 존재하지 않음에 유의한다.
 
 ### LOB Function Overview
 
