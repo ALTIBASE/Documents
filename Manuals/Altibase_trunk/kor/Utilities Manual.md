@@ -947,8 +947,8 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     ILOADER_ARRAY = *count* (기본값: 1)  
     iLoader로 데이터를 다운로드 또는 업로드 할 때 한 번에 처리할 row 개수를
     지정한다.
--   ILOADER**\_**COMMIT  
-    ILOADER**\_**COMMIT = *count* (기본값: 1000)  
+-   ILOADER_COMMIT  
+    ILOADER_COMMIT = *count* (기본값: 1000)  
     iLoader로 데이터를 업로드할 때 커밋할 단위(개수)를 지정한다. 이 프로퍼티로
     -commit옵션의 값을 지정할 수 있다.
 -   ILOADER_PARALLEL  
@@ -2215,6 +2215,7 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
   <div align="left">
       <img src="media/Utilities/aku_scale_down.jpg"></img>
   </div>
+
 
   1️⃣ 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 이미 삭제된 상태이기 때문에 접속 에러가 발생할 수 있다. 이는 정상적인 동작이다.
 
