@@ -2399,6 +2399,9 @@ TABLE 문에 지정된다.
         <td >now()</td><td>SYSDATE</td><td></td>
     </tr>
     <tr>
+        <td >statement_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
         <td >transaction_timestamp()</td><td>SYSDATE</td><td></td>
     </tr>
 </table>
