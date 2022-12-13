@@ -1541,7 +1541,6 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 > 참고:  Tibero의 Procedure, Function, View, Materialized View, Trigger는 객체를 마이그레이션하기 위해 Third-Party에서 제공하는 Oracle용 SQL 파서를 사용한다. 따라서, Oracle 문법과 호환되지 않는 Tibero 고유의 문법으로 생성된 객체는 변환과정에서 파싱 에러가 발생가능하며, 이 경우 사용자가 수동으로 문법을 변환해야 한다.
 
 ### PostgreSQL to Altibase
-
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
 | Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다.<br />PostgreSQL은 하나의 테이블에 최대 컬럼 갯수가 1,600개인데 반해 Altibase는 1,024로 스키마 마이그레이션 수행시 주의가 필요하다. |
@@ -1552,7 +1551,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Foreign Key 제약       |                   O                   |                   O                    | CASCADE, NO ACTION, SET NULL 옵션은 양쪽 모두 동일한 옵션으로 마이그레이션 대상이다.<br />참조하는 FK가 하나라도 있으면 PK 삭제가 허용되지 않는 RESTRICT 옵션은 Altibase Foreign key 옵션이 없을 때 동작과 동일하기 때문에, 해당 옵션은 삭제되어 마이그레이션 된다.<br />PK 삭제시 참조하는 FK가 default 값으로 대체되는 SET DEFAULT 옵션은 Altibase에서 지원하지 않기 때문에 마이그레이션 수행시 SET NULL로 대체된다. |
 | Index                  |                   O                   |                   O                    | 다양한 PostgreSQL 인덱스 타입 중 Altibase에서 지원하는 인덱스 타입(B-tree와 R-tree)만 마이그레이션 된다. |
 | Sequence               |                   O                   |                  O/X                   | PostgreSQL와 Altibase간 두가지 차이점이 있다.<br />첫째, PostgreSQL sequence의 기본 최대값은 9223372036854775807이고 Altibase sequence 최대값은 9223372036854775806으로 지원범위가 다르다. 9223372036854775807값은 마이그레이션 수행시 9223372036854775806으로 강제 변환된다.<br />둘째, PostgreSQL sequence의 기본 cache size는 1이다. 이에 반해 Altibase는 기본 cache size가 1보다 커야 한다는 제약점이 있다. 따라서, PostgreSQL sequence cache size 1인 경우 Altibase 객체 생성문에 cache 구문을 사용하지 않으며, 이 경우 Altibase 기본 cache size (20) 으로 생성된다.<br />테이블 컬럼의 Serial data type을 위해 생성된 Sequence는 'Build Table' 인 경우에도 테이블과 함께 마이그레이션된다. |
-| Procedure              |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Procedure              |                                       |                                        | PostgreSQL 11버젼부터 지원                                   |
 | Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Materialized View      |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -2000,6 +1999,53 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 | ZHT16MSWIN950  | 2                        |
 | ZHT32EUC       | 4                        |
 
+##### PostgreSQL
+
+| Character Set  | Max. Bytes Per Character |
+| -------------- | ------------------------ |
+| BIG5           | 2                        |
+| EUC_CN         | 3                        |
+| EUC_JP         | 3                        |
+| EUC_JIS_2004   | 3                        |
+| EUC_KR         | 3                        |
+| EUC_TW         | 3                        |
+| GB18030        | 4                        |
+| GBK            | 2                        |
+| ISO_8859_5     | 1                        |
+| ISO_8859_6     | 1                        |
+| ISO_8859_7     | 1                        |
+| ISO_8859_8     | 1                        |
+| JOHAB          | 3                        |
+| KOI8R          | 1                        |
+| KOI8U          | 1                        |
+| LATIN1         | 1                        |
+| LATIN2         | 1                        |
+| LATIN3         | 1                        |
+| LATIN4         | 1                        |
+| LATIN5         | 1                        |
+| LATIN6         | 1                        |
+| LATIN7         | 1                        |
+| LATIN8         | 1                        |
+| LATIN9         | 1                        |
+| LATIN10        | 1                        |
+| MULE_INTERNAL  | 4                        |
+| SJIS           | 2                        |
+| SHIFT_JIS_2004 | 2                        |
+| SQL_ASCII      | 1                        |
+| UHC            | 2                        |
+| UTF8           | 4                        |
+| WIN866         | 1                        |
+| WIN874         | 1                        |
+| WIN1250        | 1                        |
+| WIN1251        | 1                        |
+| WIN1252        | 1                        |
+| WIN1253        | 1                        |
+| WIN1254        | 1                        |
+| WIN1255        | 1                        |
+| WIN1256        | 1                        |
+| WIN1257        | 1                        |
+| WIN1258        | 1                        |
+
 ## D.부록: 기본값 맵핑
 
 Altibase의 테이블 칼럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
@@ -2293,6 +2339,76 @@ TABLE 문에 지정된다.
 | Tibero의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                    | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT QRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL(  <br />C1  NUMBER (38, 0)  DEFAULT 123,    <br />C2  VARCHAR (50)    DEFAULT 'test',    <br />C3  NUMBER (38, 0),    <br />C4  CHAR (10),    <br />C5  NUMBER (38, 0)  DEFAULT SQRT(144) + 72,   <br />C6  DATE /\* DEFAULT '97/04/21' \*/,    <br />C7  DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'),    <br />C8  VARCHAR (100)   DEFAULT DB_TIMEZONE(),    <br />C9  VARCHAR (100)   DEFAULT SYS_GUID_STR(),<br />C10 VARCHAR (100)   DEFAULT USER_ID(), <br />C11 VARCHAR (100)   DEFAULT USER_NAME() ); |
+
+#### PostgreSQL to Altibase
+
+<table>
+    <tr>        
+        <th>Expression Type</th> <th>원본(PostgreSQL)</th><th>대상(Altibase)</th><th>특이사항</th>
+    </tr>
+    <tr>
+    <td rowspan="18">함수</td>
+        <td>current_role</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >current_schema</td><td>USER_NAME()</td><td></td>
+    </tr> 
+    <tr>
+        <td >current_user</td><td>USER_NAME()</td><td></td>
+    </tr> 
+    <tr>
+        <td >session_user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >ceiling(expression)</td><td>CEIL(number)</td><td></td>
+    </tr>
+    <tr>
+        <td >random()</td><td>RANDOM(0)/2147483647</td><td></td>
+    </tr>
+    <tr>
+        <td >bit_length(string)</td><td>8*OCTET_LENGTH(expr)</td><td></td>
+    </tr>
+    <tr>
+        <td >reverse(str)</td><td>REVERSE_STR(expr)</td><td></td>
+    </tr>
+    <tr>
+        <td >strpos(string, substring)</td><td>INSTR (expr, substring)</td><td></td>
+    </tr>
+    <tr>
+        <td >clock_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_date</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_time</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_timestamp</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >localtime</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >localtimestamp</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >now()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >transaction_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+</table>
+
+
+아래는 변환 예제이다.
+
+| PostgreSQL의 테이블 생성 SQL문                               | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| CREATE TABLE testtbl_4_defval <br />( c1 VARCHAR(50) DEFAULT current_role,<br/>c2 VARCHAR(50) DEFAULT current_schema,<br/>c3 VARCHAR(50) DEFAULT current_user,<br/>c4 VARCHAR(50) DEFAULT session_user,<br/>c5 VARCHAR(50) DEFAULT user,<br/>c6 INTEGER DEFAULT ceiling(-95.3),<br/>c7 DOUBLE PRECISION DEFAULT random(),<br/>c8 INTEGER DEFAULT bit_length('abc'),<br/>c9 VARCHAR(50) DEFAULT reverse('reverse'),<br/>c10 INTEGER DEFAULT strpos('high', 'ig'),<br/>c11 timestamp with time zone DEFAULT clock_timestamp(),<br/>c12 date DEFAULT current_date,<br/>c13 time with time zone DEFAULT current_time,<br/>c14 timestamp with time zone DEFAULT current_timestamp,<br/>c15 time DEFAULT localtime,<br/>c16 timestamp DEFAULT localtimestamp,<br/>c17 timestamp with time zone DEFAULT now(),<br/>c18 timestamp with time zone DEFAULT transaction_timestamp() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 VARCHAR (50) DEFAULT USER_NAME()<br/>,C2 VARCHAR (50) DEFAULT USER_NAME()<br/>,C3 VARCHAR (50) DEFAULT USER_NAME()<br/>,C4 VARCHAR (50) DEFAULT USER_NAME()<br/>,C5 VARCHAR (50) DEFAULT USER_NAME()<br/>,C6 INTEGER  DEFAULT CEIL('-95.3')<br/>,C7 DOUBLE  DEFAULT (RANDOM(0)/2147483647)<br/>,C8 INTEGER  DEFAULT 8*OCTET_LENGTH('abc')<br/>,C9 VARCHAR (50) DEFAULT REVERSE_STR('reverse')<br/>,C10 INTEGER  DEFAULT INSTR('high', 'ig')<br/>,C11 DATE  DEFAULT SYSDATE<br/>,C12 DATE  DEFAULT SYSDATE<br/>,C13 DATE  DEFAULT SYSDATE<br/>,C14 DATE  DEFAULT SYSDATE<br/>,C15 DATE  DEFAULT SYSDATE<br/>,C16 DATE  DEFAULT SYSDATE<br/>,C17 DATE  DEFAULT SYSDATE<br/>,C18 DATE  DEFAULT SYSDATE ); |
 
 ## E.부록: PSM 변환기 규칙 목록
 
