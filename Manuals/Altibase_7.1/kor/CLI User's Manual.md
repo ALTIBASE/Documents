@@ -7672,12 +7672,12 @@ SQLRETURN SQLPutLob(
 | ----------- | ------------- | ---- | ------------------------------------------------------------ |
 | SQLHSTMT    | stmt          | 입력 | 검색된 결과들에 대한 명령문 핸들                             |
 | SQLSMALLINT | locatorCType  | 입력 | 삽입 또는 갱신할 LOB 타입 칼럼의 LOB 위치 입력기를 나타내는 C 데이터 타입 식별자.<br />SQL_C_BLOB_LOCATOR 또는 SQL_C_CLOB_LOCATOR가 올 수 있다. |
-| SQLUBIGINT  | targetLocator | 입력 | 삽입 또는 갱신할 LOB 타입 칼럼의 LOB 위치 입력기             |
+| SQLUBIGINT  | targetLocator | 입력 | LOB 위치 입력기.<br />삽입 또는 갱신할 LOB 타입 칼럼을 의미한다. |
 | SQLUINTEGER | fromPosition  | 입력 | LOB 데이터를 입력 또는 갱신할 시작 위치로, 0부터 시작된다. 단위는 바이트이다. |
-| SQLUINTEGER | forLength     | 입력 | 사용되지 않음 ***? 사용되지 않는게 맞는지? 예제를 보면 의미있는 값 같음.*** |
+| SQLUINTEGER | forLength     | 입력 | 사용되지 않음                                                |
 | SQLSMALLINT | sourceCType   | 입력 | 삽입 또는 갱신할 데이터를 담고 있는 CLI 애플리케이션 버퍼를 나타내는 C 데이터 타입 식별자. <br />BLOB 데이터는 SQL_C_BINARY, CLOB 데이터는 SQL_C_CHAR가 올 수 있다. |
 | SQLPOINTER  | value         | 입력 | CLI 애플리케이션 버퍼를 가리키는 포인터                      |
-| SQLUINTEGER | valueLength   | 입력 | CLI 애플리케이션 버퍼에 저장된 LOB 데이터의 길이. **0 ?** 이상의 값을 설정해야 하며 단위는 바이트이다. SQL_NULL_DATA는 설정할 수 없다. |
+| SQLUINTEGER | valueLength   | 입력 | CLI 애플리케이션 버퍼에 저장된 LOB 데이터의 길이. 1 이상의 값을 설정해야 하며 단위는 바이트이다. SQL_NULL_DATA는 설정할 수 없다. |
 
 #### 결과값
 
@@ -7698,9 +7698,7 @@ SQL_ERROR
 
 ###### LOB 데이터 삽입
 
-LOB 데이터를 삽입하는 것은 길이가 0인 LOB 타입 칼럼의 데이터를 CLI 애플리케이션 버퍼에 담고 있는 데이터로 갱신하는 동작이다. 다시 말하면, fromPosition 인자와 forLength 인자가 모두 0이 되고, value 인자에서 valueLength 인자의 길이 만큼 targetLocator 인자가 가리키는 LOB 타입 칼럼을 갱신한다. 
-
-
+LOB 데이터를 삽입하는 것은 CLI 애플리케이션 버퍼에 담고 있는 데이터를 LOB 타입 칼럼에 갱신하는 동작이다. 이때, 갱신 이전의 LOB 데이터의 길이는 0이다. 다시 말하면, 갱신할 LOB 데이터의 위치와 길이를 의미하는 fromPosition 인자와 forLength 인자가 모두 0이 되고, CLI 애플리케이션 버퍼를 가리키는 value 인자에서 valueLength 인자의 길이 만큼 LOB 데이터가 삽입되는 컬럼은 argetLocator 인자가 가리키는 LOB 타입 칼럼을 갱신한다. 
 
 ###### LOB 데이터 갱신
 
@@ -7792,7 +7790,7 @@ if (SQLFetch(stmt) != SQL_SUCCESS)
 }
 
 memcpy(buf, "Gamma", 5);
-if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 4, SQL_C_CHAR, buf, 5) != SQL_SUCCESS)
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 0, SQL_C_CHAR, buf, 5) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, “SQLPutLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
