@@ -15925,6 +15925,12 @@ found. (SQLTextID = \<0%s\>)**
 
 **Action:** Please contact Altibase's Support Center (http://support.altibase.com).
 
+**0x41109 ( 266505) mmERR_ABORT_IP_ACL_CONNECT_OVER New connection try exceeds ACL limit: ( IP : <0%s>, ACL: <1%s>, Limit : <2%d>, Connected : <3%d> )** 
+
+**Cause:** New connection try aborted because it exceeds access control list (ACL) limit.
+
+**Action:** Change the limit value of the ACCESS_LIST.
+
 ### IGNORE
 
 **0x42000 ( 270336) mmERR_IGNORE_NO_ERROR No main module error**
