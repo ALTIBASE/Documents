@@ -4228,6 +4228,12 @@ operation.
 **Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the
 server.
 
+**0x111BE (  70078) smERR_ABORT_NOT_BUILT_INDEX Failed to scan the index because it was not rebuilt. (Index Name :<0%s>)** 
+
+**Cause:** This index was not rebuilt when the Altibase server was starting up. The value of INDEX_REBUILD_AT_STARTUP property is set to 0.
+
+**Action:** Rebuild this index. Or to rebuild all the indexes, delete INDEX_REBUILD_AT_STARTUP = 0 in altibase.properties and restart the Altibase server.
+
 ### IGNORE
 
 **0x12007 ( 73735) smERR_IGNORE_SyncFail Failed to invoke the msync() system
@@ -4995,6 +5001,12 @@ Mathematics Module.
 **Cause:** The SMTP server reply an error message.
 
 **Action:** check an error message.
+
+**0x2106C ( 135276) mtERR_ABORT_PCRE2_UNEXPECTED_ERROR PCRE2 error: <1%s> (occurred in <0%s>)** 
+
+**Cause:** An internal error occurred in PCRE2 library or while executing Altibase internal function.
+
+**Action:** Check the error message and contact Altibase's Support Center (http://support.altibase.com).
 
 ### IGNORE
 
@@ -7618,6 +7630,26 @@ communicating.
 \# - Set a larger value for the REPLICATION_SENDER_SEND_TIMEOUT property.
 
 \# - Check the peer server or network connection.
+
+**0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>_META_NEW.bin, <2%s>_META_OLD.bin )** 
+
+**Cause:** 
+
+\# - Sender meta files do not exist or are invalid.
+
+**Action:** 
+
+\# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+
+**0x611B4 ( 397748) rpERR_ABORT_ERR_NO_VALID_SNFILE Invalid Restart SN files. (Replication name: <0%s>, File name: <1%s>_SN_NEW.bin, <2%s>_SN_OLD.bin )** 
+
+**Cause:** 
+
+\# - Restart SN files do not exist or are invalid.
+
+**Action:** 
+
+\# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
 
 ### IGNORE
 
@@ -14008,6 +14040,12 @@ empty queue can reset a msgid.**
 
 **Action:** Check whether the queue is empty, otherwise remove the data from the
 queue.
+
+**0x314AD ( 201901) qpERR_ABORT_QMC_INVALID_FUNCTION_BASED_INDEX An error occurred while applying a value with an unexpected data type to the function-based index.** 
+
+**Cause:** The specified value does not match the data type of the function-based index column.
+
+**Action:** Rebuild the function-based index and retry.
 
 ### RETRY
 
