@@ -1,137 +1,32 @@
+# Altibase 7.1.0.6.0 Patch Notes
 
-**Table of Contents**  
+<br/>
 
-- [Altibase 7.1.0.6.0 Patch Notes](#altibase-71060-patch-notes)
-  - [New Features](#new-features)
-    - [BUG-49241 aexport에서 큐 테이블 추출 시 CREATE/ALTER QUEUE 구문에 DELETE ON/OFF 속성을 추가합니다.](#bug-49241aexport%EC%97%90%EC%84%9C-%ED%81%90-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%B6%94%EC%B6%9C-%EC%8B%9C-createalter-queue-%EA%B5%AC%EB%AC%B8%EC%97%90-delete-onoff-%EC%86%8D%EC%84%B1%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-49242 aexport 객체 모드에서 큐(QUEUE) 객체를 추출할 수 있는 기능을 추가합니다.](#bug-49242aexport-%EA%B0%9D%EC%B2%B4-%EB%AA%A8%EB%93%9C%EC%97%90%EC%84%9C-%ED%81%90queue-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%B6%94%EC%B6%9C%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [Fixed Bugs](#fixed-bugs)
-    - [BUG-49063 큐 테이블의 동일 레코드에 DELETE와 DEQUEUE가 동시에 일어날 경우 Altibase 서버가 비정상 종료합니다.](#bug-49063%ED%81%90-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%EB%8F%99%EC%9D%BC-%EB%A0%88%EC%BD%94%EB%93%9C%EC%97%90-delete%EC%99%80-dequeue%EA%B0%80-%EB%8F%99%EC%8B%9C%EC%97%90-%EC%9D%BC%EC%96%B4%EB%82%A0-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-49243 20000바이트 이상의 길이가 긴 SQL문 사용 시 altibase\_error.log 에 콜스택이 출력되지 않습니다.](#bug-4924320000%EB%B0%94%EC%9D%B4%ED%8A%B8-%EC%9D%B4%EC%83%81%EC%9D%98-%EA%B8%B8%EC%9D%B4%EA%B0%80-%EA%B8%B4-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EC%8B%9C-altibase_errorlog-%EC%97%90-%EC%BD%9C%EC%8A%A4%ED%83%9D%EC%9D%B4-%EC%B6%9C%EB%A0%A5%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49271 디스크 테이블을 포함한 트래잭션 처리 중 해시 템프 테이블 재사용 과정에서 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49271%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%ED%8A%B8%EB%9E%98%EC%9E%AD%EC%85%98-%EC%B2%98%EB%A6%AC-%EC%A4%91-%ED%95%B4%EC%8B%9C-%ED%85%9C%ED%94%84-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-  - [Changes](#changes)
+<br/>
+
+
+
+# **Table of Contents** 
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-49063 큐 테이블의 동일 레코드에 DELETE와 DEQUEUE가 동시에 일어날 경우 Altibase 서버가 비정상 종료합니다.](#bug-49063-%ED%81%90-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%EB%8F%99%EC%9D%BC-%EB%A0%88%EC%BD%94%EB%93%9C%EC%97%90-delete%EC%99%80-dequeue%EA%B0%80-%EB%8F%99%EC%8B%9C%EC%97%90-%EC%9D%BC%EC%96%B4%EB%82%A0-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49242 aexport 객체 모드에서 큐(QUEUE) 객체가 추출되지 않습니다.](#bug-49242-aexport-%EA%B0%9D%EC%B2%B4-%EB%AA%A8%EB%93%9C%EC%97%90%EC%84%9C-%ED%81%90queue-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EC%B6%94%EC%B6%9C%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49243 20000바이트 이상의 길이가 긴 SQL문 사용 시 altibase\_error.log 에 콜스택이 출력되지 않습니다.](#bug-49243-20000%EB%B0%94%EC%9D%B4%ED%8A%B8-%EC%9D%B4%EC%83%81%EC%9D%98-%EA%B8%B8%EC%9D%B4%EA%B0%80-%EA%B8%B4-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EC%8B%9C-altibase_errorlog-%EC%97%90-%EC%BD%9C%EC%8A%A4%ED%83%9D%EC%9D%B4-%EC%B6%9C%EB%A0%A5%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49271 디스크 테이블을 포함한 트래잭션 처리 중 해시 템프 테이블 재사용 과정에서 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49271-%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%ED%8A%B8%EB%9E%98%EC%9E%AD%EC%85%98-%EC%B2%98%EB%A6%AC-%EC%A4%91-%ED%95%B4%EC%8B%9C-%ED%85%9C%ED%94%84-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+- [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
     - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
     - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
-
-
-Altibase 7.1.0.6.0 Patch Notes
-==============================
-
-New Features
-----------
-
-### BUG-49241 aexport에서 큐 테이블 추출 시 CREATE/ALTER QUEUE 구문에 DELETE ON/OFF 속성을 추가합니다.
-
-- **module** : ux-aexport
-
-- **Category** : Functionality
-
-- **재현 빈도** : Always
-
-- **설명** : aexport에서 큐 테이블 추출 시 CREATE/ALTER QUEUE 구문에
-  DELETE ON/OFF 속성을 추가합니다.
-
-- **재현 방법**
-
-  - **재현 절차**
-
-    ```sql
-    iSQL> CREATE QUEUE q1(10) DELETE OFF; 
-    
-    $ aexport -s 127.0.0.1 -u sys -p manager
-    
-    iSQL> DROP DEQUEUE q1; 
-    
-    $ run_is.sh
-    
-    iSQL> SELECT Q.DELETE_ON
-            FROM SYSTEM_.SYS_USERS_ U, SYSTEM_.SYS_TABLES_ T, V$QUEUE Q
-           WHERE U.USER_NAME = 'SYS' 
-             AND T.TABLE_NAME = 'Q1' 
-             AND U.USER_ID = T.USER_ID   
-             AND T.TABLE_TYPE = 'Q'  
-             AND T.TABLE_OID = Q.TABLE_OID;
-    ```
-
-  - **수행 결과**
-
-    ```sql
-    DELETE_ON
-    -------------
-    T
-    1 row selected.
-    ```
-
-  - **예상 결과**
-
-    ```sql
-    DELETE_ON
-    -------------
-    F
-    1 row selected.
-    ```
-
-- **Workaround**
-
-- **변경사항**
-
-  -   Performance view
-  -   Property
-  -   Compile Option
-  -   Error Code
-
-### BUG-49242 aexport 객체 모드에서 큐(QUEUE) 객체를 추출할 수 있는 기능을 추가합니다.
-
-- **module** : ux-aexport
-
-- **Category** : Functional Error
-
-- **재현 빈도** : Always
-
-- **설명** : aexport 객체 모드(-object 옵션 사용)에서 큐(QUEUE) 객체를
-  추출할 수 있는 기능을 추가합니다.
-
-- **재현 방법**
-
-  - **재현 절차**
-
-    ```sql
-    iSQL> CREATE QUEUE q1(10);
-    Create success.
-    ```
-
-  - **수행 결과**
-
-    ```bash
-    % aexport -s 127.0.0.1 -u sys -p manager -object sys.q1
-    The SYS.Q1 object not exist
-    ```
-
-  - **예상 결과**
-
-    ```bash
-    % aexport -s 127.0.0.1 -u sys -p manager -object sys.q1
-    ##### QUEUE #####
-    ** "SYS"."Q1"
-    create queue "Q1" (10);
-    ```
-
-- **Workaround**
-
-  -   전체 DB 모드/사용자 모드로 export
-
-- **변경사항**
-
-  -   Performance view
-  -   Property
-  -   Compile Option
-  -   Error Code
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Fixed Bugs
-----------
+==========
 
 ### BUG-49063 큐 테이블의 동일 레코드에 DELETE와 DEQUEUE가 동시에 일어날 경우 Altibase 서버가 비정상 종료합니다.
 
@@ -207,6 +102,52 @@ Fixed Bugs
             -[ERR-311E5 : The table is not a memory or volatile table.]
             +[ERR-3147B : The QUEUE table cannot be used on disk tablespace.]
             ```
+
+### BUG-49242 aexport 객체 모드에서 큐(QUEUE) 객체가 추출되지 않습니다.
+
+- **module** : ux-aexport
+
+- **Category** : Functional Error
+
+- **재현 빈도** : Always
+
+- **설명** : aexport 객체 모드에서 큐(QUEUE) 객체가 추출되지 않는 버그를 수정합니다.
+
+- **재현 방법**
+
+  - **재현 절차**
+
+    ```sql
+    iSQL> CREATE QUEUE q1(10);
+    Create success.
+    ```
+
+  - **수행 결과**
+
+    ```bash
+    % aexport -s 127.0.0.1 -u sys -p manager -object sys.q1
+    The SYS.Q1 object not exist
+    ```
+
+  - **예상 결과**
+
+    ```bash
+    % aexport -s 127.0.0.1 -u sys -p manager -object sys.q1
+    ##### QUEUE #####
+    ** "SYS"."Q1"
+    create queue "Q1" (10);
+    ```
+
+- **Workaround**
+
+  -   전체 DB 모드/사용자 모드로 export
+
+- **변경사항**
+
+  -   Performance view
+  -   Property
+  -   Compile Option
+  -   Error Code
 
 ### BUG-49243 20000바이트 이상의 길이가 긴 SQL문 사용 시 altibase\_error.log 에 콜스택이 출력되지 않습니다.
 
@@ -332,7 +273,7 @@ Fixed Bugs
   -   Error Code
 
 Changes
--------
+=======
 
 ### Version Info
 
