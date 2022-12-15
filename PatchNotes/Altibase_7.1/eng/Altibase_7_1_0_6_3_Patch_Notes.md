@@ -12,13 +12,13 @@ Altibase 7.1.0.6.3 Patch Notes
 
 
 - [New Features](#new-features)
-    - [BUG-49274 Adds a property to altiComp that allows the user to adjust the commit count.](#bug-49274-adds-a-property-to-alticomp-that-allows-the-user-to-adjust-the-commit-count)
+    - [BUG-49274 Adds a property to altiComp that allows the user to adjust the commit count.](#bug-49274adds-a-property-to-alticomp-that-allows-the-user-to-adjust-the-commit-count)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-49324 Exception handling is added to avoid the possibility of abnormal termination of Altibase while the statement object remains.](#bug-49324-exception-handling-is-added-to-avoid-the-possibility-of-abnormal-termination-of-altibase-while-the-statement-object-remains)
+    - [BUG-49324 Exception handling is added to avoid the possibility of abnormal termination of Altibase while the statement object remains.](#bug-49324exception-handling-is-added-to-avoid-the-possibility-of-abnormal-termination-of-altibase-while-the-statement-object-remains)
     - [BUG-49326 An 'error while loading shared libraries' error occurs when running the Altibase server in RHEL 8.](#bug-49326-an-error-while-loading-shared-libraries-error-occurs-when-running-the-altibase-server-in-rhel-8)
-    - [BUG-49350 When extracting the queue (QUEUE) object schema from aexport, an error [ERR-00000:] occurs.](#bug-49350-when-extracting-the-queue-queue-object-schema-from-aexport-an-error-err-00000-occurs)
-    - [BUG-49354 Remove V$QUEUE added in BUG-49063 and add V$QUEUE_DELETE_OFF.](#bug-49354-remove-vqueue-added-in-bug-49063-and-add-vqueue_delete_off)
-    - [BUG-49364 If null padding occurs on the lowest LEFT OUTER JOIN and no null padding occurs on the middle LEFT OUTER JOIN, the SQL results in an error.](#bug-49364-if-null-padding-occurs-on-the-lowest-left-outer-join-and-no-null-padding-occurs-on-the-middle-left-outer-join-the-sql-results-in-an-error)
+    - [BUG-49350 When extracting the queue (QUEUE) object schema from aexport, an error [ERR-00000:] occurs.](#bug-49350when-extracting-the-queue-queue-object-schema-from-aexport-an-error-err-00000-occurs)
+    - [BUG-49354 Remove V$QUEUE added in BUG-49063 and add V$QUEUE_DELETE_OFF.](#bug-49354remove-vqueue-added-in-bug-49063-and-add-vqueue_delete_off)
+    - [BUG-49364 If null padding occurs on the lowest LEFT OUTER JOIN and no null padding occurs on the middle LEFT OUTER JOIN, the SQL results in an error.](#bug-49364if-null-padding-occurs-on-the-lowest-left-outer-join-and-no-null-padding-occurs-on-the-middle-left-outer-join-the-sql-results-in-an-error)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Altibase Server Properties](#altibase-server-properties)

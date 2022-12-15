@@ -13,11 +13,11 @@
 
 
 - [New Features](#new-features)
-    - [BUG-47815 Fixes incorrect setting of trace logging level related to query processing (QP) module and adds logging level related to task scheduler execution.](#bug-47815-fixes-incorrect-setting-of-trace-logging-level-related-to-query-processing-qp-module-and-adds-logging-level-related-to-task-scheduler-execution)
-    - [BUG-49108 Add altibase_job.log for job scheduler execution record.](#bug-49108-add-altibase_joblog-for-job-scheduler-execution-record)
+    - [BUG-47815 Fixes incorrect setting of trace logging level related to query processing (QP) module and adds logging level related to task scheduler execution.](#bug-47815fixes-incorrect-setting-of-trace-logging-level-related-to-query-processing-qp-module-and-adds-logging-level-related-to-task-scheduler-execution)
+    - [BUG-49108 Add altibase_job.log for job scheduler execution record.](#bug-49108add-altibase_joblog-for-job-scheduler-execution-record)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-49122 If the PUBLIC role is deleted, a segmentaion failure error occurs when aexport is executed.](#bug-49122-if-the-public-role-is-deleted-a-segmentaion-failure-error-occurs-when-aexport-is-executed)
-    - [BUG-49136 Altibase server abnormally terminates when executing an INSERT statement for a view created using UNION ALL.](#bug-49136-altibase-server-abnormally-terminates-when-executing-an-insert-statement-for-a-view-created-using-union-all)
+    - [BUG-49122 If the PUBLIC role is deleted, a segmentaion failure error occurs when aexport is executed.](#bug-49122if-the-public-role-is-deleted-a-segmentaion-failure-error-occurs-when-aexport-is-executed)
+    - [BUG-49136 Altibase server abnormally terminates when executing an INSERT statement for a view created using UNION ALL.](#bug-49136altibase-server-abnormally-terminates-when-executing-an-insert-statement-for-a-view-created-using-union-all)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#compatibility)

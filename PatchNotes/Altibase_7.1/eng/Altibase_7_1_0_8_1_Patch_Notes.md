@@ -11,18 +11,18 @@
 
 
 - [New Features](#new-features)
-  - [BUG-49963 Added aku (Altibase Kubernetes Utility).](#bug-49963added-aku-altibase-kubernetes-utility)
+    - [BUG-49963 Added aku (Altibase Kubernetes Utility).](#bug-49963added-aku-altibase-kubernetes-utility)
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-49910 Fixes a phenomenon in which records are inserted even if the INSERT statement execution fails when binding the bind parameter of the INSERT statement to a LOB data type.](#bug-49910fixes-a-phenomenon-in-which-records-are-inserted-even-if-the-insert-statement-execution-fails-when-binding-the-bind-parameter-of-the-insert-statement-to-a-lob-data-type)
-  - [BUG-49911 [SQLException: Invalid column name] error occurs when returning IS_AUTOINCREMENT, IS_GENERATEDCOLUMN column values from the DatabaseMetaData.getColumns method.](#bug-49911sqlexception-invalid-column-name-error-occurs-when-returning-is_autoincrement-is_generatedcolumn-column-values-from-the-databasemetadatagetcolumns-method)
-  - [BUG-49926 Change the maximum value of the MEMORY_ALLOCATOR_TYPE property.](#bug-49926change-the-maximum-value-of-the-memory_allocator_type-property)
-  - [BUG-49939 [ERR-31001: SQL syntax error] error occurs when the GROUP BY GROUPING SETS clause and ORDER BY NULLS FIRST clause or ORDER BY NULLS LAST clause are used together.](#bug-49939err-31001-sql-syntax-error-error-occurs-when-the-group-by-grouping-sets-clause-and-order-by-nulls-first-clause-or-order-by-nulls-last-clause-are-used-together)
-  - [BUG-49940 Adds a property that determines the FIXED/VARIABLE option of a column when ALTER TABLE ~ ADD COLUMN is executed.](#bug-49940adds-a-property-that-determines-the-fixedvariable-option-of-a-column-when-alter-table--add-column-is-executed)
-  - [BUG-49960 If you get the column name in Korean with getColumnName(), the Korean is broken and an SQLException: Invalid column name error occurs.](#bug-49960if-you-get-the-column-name-in-korean-with-getcolumnname-the-korean-is-broken-and-an-sqlexception-invalid-column-name-error-occurs)
+    - [BUG-49910 Fixes a phenomenon in which records are inserted even if the INSERT statement execution fails when binding the bind parameter of the INSERT statement to a LOB data type.](#bug-49910fixes-a-phenomenon-in-which-records-are-inserted-even-if-the-insert-statement-execution-fails-when-binding-the-bind-parameter-of-the-insert-statement-to-a-lob-data-type)
+    - [BUG-49911 [SQLException: Invalid column name] error occurs when returning IS_AUTOINCREMENT, IS_GENERATEDCOLUMN column values from the DatabaseMetaData.getColumns method.](#bug-49911sqlexception-invalid-column-name-error-occurs-when-returning-is_autoincrement-is_generatedcolumn-column-values-from-the-databasemetadatagetcolumns-method)
+    - [BUG-49926 Change the maximum value of the MEMORY_ALLOCATOR_TYPE property.](#bug-49926change-the-maximum-value-of-the-memory_allocator_type-property)
+    - [BUG-49939 [ERR-31001: SQL syntax error] error occurs when the GROUP BY GROUPING SETS clause and ORDER BY NULLS FIRST clause or ORDER BY NULLS LAST clause are used together.](#bug-49939err-31001-sql-syntax-error-error-occurs-when-the-group-by-grouping-sets-clause-and-order-by-nulls-first-clause-or-order-by-nulls-last-clause-are-used-together)
+    - [BUG-49940 Adds a property that determines the FIXED/VARIABLE option of a column when ALTER TABLE ~ ADD COLUMN is executed.](#bug-49940adds-a-property-that-determines-the-fixedvariable-option-of-a-column-when-alter-table--add-column-is-executed)
+    - [BUG-49960 If you get the column name in Korean with getColumnName(), the Korean is broken and an SQLException: Invalid column name error occurs.](#bug-49960if-you-get-the-column-name-in-korean-with-getcolumnname-the-korean-is-broken-and-an-sqlexception-invalid-column-name-error-occurs)
 - [Changes](#changes)
-  - [Version Info](#version-info)
-  - [Altibase Server Properties](#altibase-server-properties)
-  - [Performance Views](#performance-views)
+    - [Version Info](#version-info)
+    - [Altibase Server Properties](#altibase-server-properties)
+    - [Performance Views](#performance-views)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

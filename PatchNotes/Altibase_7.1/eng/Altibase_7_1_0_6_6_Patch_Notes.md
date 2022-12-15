@@ -10,10 +10,11 @@ Altibase 7.1.0.6.6 Patch Notes
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-49039 If there is a disabled index, the Altibase server abnormally terminates when querying V$SEGMENT.](#bug-49039-if-there-is-a-disabled-index-the-altibase-server-abnormally-terminates-when-querying-v$segment)
+    - [BUG-49039 If there is a disabled index, the Altibase server abnormally terminates when querying V$SEGMENT.](#bug-49039if-there-is-a-disabled-index-the-altibase-server-abnormally-terminates-when-querying-vsegment)
     - [BUG-49423 If the statement object is not cleaned up during SQL PLAN CACHE processing, the Altibase server may abnormally terminate or CPU usage may increase.](#bug-49423-if-the-statement-object-is-not-cleaned-up-during-sql-plan-cache-processing-the-altibase-server-may-abnormally-terminate-or-cpu-usage-may-increase)
-    - [BUG-49433 If the statement object is not cleaned up when a transaction is committed, the Altibase server may abnormally terminate.](#bug-49433-if-the-statement-object-is-not-cleaned-up-when-a-transaction-is-committed-the-altibase-server-may-abnormally-terminate)
+    - [BUG-49433 If the statement object is not cleaned up when a transaction is committed, the Altibase server may abnormally terminate.](#bug-49433if-the-statement-object-is-not-cleaned-up-when-a-transaction-is-committed-the-altibase-server-may-abnormally-terminate)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Altibase Server Properties](#altibase-server-properties)

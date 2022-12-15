@@ -13,10 +13,10 @@
 
 
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-49063 If DELETE and DEQUEUE occur simultaneously on the same record in the queue table, the Altibase server abnormally terminates.](#bug-49063-if-delete-and-dequeue-occur-simultaneously-on-the-same-record-in-the-queue-table-the-altibase-server-abnormally-terminates)
-    - [BUG-49242 QUEUE objects are not extracted in aexport object mode.](#bug-49242-queue-objects-are-not-extracted-in-aexport-object-mode)
-    - [BUG-49243 The call stack is not output to the altibase_error.log when using long SQL statements over 20000 bytes in length.](#bug-49243-the-call-stack-is-not-output-to-the-altibase_errorlog-when-using-long-sql-statements-over-20000-bytes-in-length)
-    - [BUG-49271 The Altibase server may abnormally terminate in the process of reusing the hash temp table during transaction processing including disk tables.](#bug-49271-the-altibase-server-may-abnormally-terminate-in-the-process-of-reusing-the-hash-temp-table-during-transaction-processing-including-disk-tables)
+    - [BUG-49063 If DELETE and DEQUEUE occur simultaneously on the same record in the queue table, the Altibase server abnormally terminates.](#bug-49063if-delete-and-dequeue-occur-simultaneously-on-the-same-record-in-the-queue-table-the-altibase-server-abnormally-terminates)
+    - [BUG-49242 QUEUE objects are not extracted in aexport object mode.](#bug-49242queue-objects-are-not-extracted-in-aexport-object-mode)
+    - [BUG-49243 The call stack is not output to the altibase_error.log when using long SQL statements over 20000 bytes in length.](#bug-49243the-call-stack-is-not-output-to-the-altibase_errorlog-when-using-long-sql-statements-over-20000-bytes-in-length)
+    - [BUG-49271 The Altibase server may abnormally terminate in the process of reusing the hash temp table during transaction processing including disk tables.](#bug-49271the-altibase-server-may-abnormally-terminate-in-the-process-of-reusing-the-hash-temp-table-during-transaction-processing-including-disk-tables)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#compatibility)
