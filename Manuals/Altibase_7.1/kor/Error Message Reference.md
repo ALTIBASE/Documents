@@ -4228,6 +4228,12 @@ operation.
 **Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the
 server.
 
+**0x111B5 (  70069) smERR_ABORT_ERR_LOG_CONSISTENCY Incomplete media recovery aborted due to log consistency failure. ( <0%s> ).** 
+
+**Cause:** A log file has been lost. If Incomplete media recovery continues, data may be lost.
+
+**Action:** Copy a valid log file to [LOG_DIR] or move log files that are not needed for recovery to another directory.
+
 **0x111BE (  70078) smERR_ABORT_NOT_BUILT_INDEX Failed to scan the index because it was not rebuilt. (Index Name :<0%s>)** 
 
 **Cause:** This index was not rebuilt when the Altibase server was starting up. The value of INDEX_REBUILD_AT_STARTUP property is set to 0.
@@ -5001,6 +5007,12 @@ Mathematics Module.
 **Cause:** The SMTP server reply an error message.
 
 **Action:** check an error message.
+
+**0x2106A ( 135274) mtERR_ABORT_MAX_MEM_SIZE_EXCEED The memory size allocated for the statement has exceeded the maximum limit ( Name : <0%s>, Wanted Memory Size : <1%lu>, Max size : <2%lu> ).** 
+
+**Cause:** The memory size allocated for the statement has exceeded the maximum limit.
+
+**Action:** Increase the XXXXXXX_MEMORY_MAXIMUM property value...
 
 **0x2106C ( 135276) mtERR_ABORT_PCRE2_UNEXPECTED_ERROR PCRE2 error: <1%s> (occurred in <0%s>)** 
 
