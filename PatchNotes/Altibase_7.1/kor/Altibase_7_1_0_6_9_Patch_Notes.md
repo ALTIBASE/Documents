@@ -142,7 +142,7 @@ Fixed Bugs
 
 ### BUG-49473 DBMS\_METADATA 패키지의 GET\_DDL 함수에 시퀀스 객체 지정 시 시퀀스 속성과 다른 MIN, MAX 값을 가진 구문이 추출될 수 있습니다.
 
--   **module** :
+-   **module** : ux-dbms_metadata
 
 -   **Category** : Functional Error
 
