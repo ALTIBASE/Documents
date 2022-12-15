@@ -4,7 +4,6 @@
 
 - [Altibase 7.1.0.5.7 Patch Notes](#altibase-71057-patch-notes)
   - [New Features](#new-features)
-    - [BUG-48427 Altibase .NET Data Provider에 실행 계획 조회 기능을 추가합니다.](#bug-48427altibase-net-data-provider%EC%97%90-%EC%8B%A4%ED%96%89-%EA%B3%84%ED%9A%8D-%EC%A1%B0%ED%9A%8C-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-48431 deferred prepare 사용 시 불필요한 통신 프로토콜을 최적화하여 성능을 개선하였습니다.](#bug-48431deferred-prepare-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EB%B6%88%ED%95%84%EC%9A%94%ED%95%9C-%ED%86%B5%EC%8B%A0-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C%EC%9D%84-%EC%B5%9C%EC%A0%81%ED%99%94%ED%95%98%EC%97%AC-%EC%84%B1%EB%8A%A5%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%98%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-48515 ACCESS_LIST 프로퍼티에서 동일 IP의 세션 수 제한 기능을 제공합니다.](#bug-48515access%5C_list-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%97%90%EC%84%9C-%EB%8F%99%EC%9D%BC-ip%EC%9D%98-%EC%84%B8%EC%85%98-%EC%88%98-%EC%A0%9C%ED%95%9C-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%A0%9C%EA%B3%B5%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-48618 iSQL 커맨드 라인 옵션 -KEEP_SYSDBA 를 추가합니다.](#bug-48618isql-%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98--keep%5C_sysdba-%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -39,65 +38,6 @@ Altibase 7.1.0.5.7 Patch Notes
 
 New Features
 ------------
-
-### BUG-48427 Altibase .NET Data Provider에 실행 계획 조회 기능을 추가합니다.
-
--   **module** : ux-win-adonet
-
--   **Category** : Enhancement
-
--   **재현 빈도** : Always
-
-- **설명** : Altibase .NET Data Provider에 실행 계획 조회 기능을 추가합니다.
-
-  이 버그를 반영하려면 Altibase.Data.AltibaseClient.dll 을 패치하고 응용 프로그램을 재 컴파일해야 합니다. 
-
-  **사용 방법**
-
-     ADO.net 에서 실행 계획을 조회하기 위해서는 비 표준 인터페이스를 사용해야 한다. 
-
-  1. AltibaseConnection 객체의 비 표준 인터페이스를 사용해 실행 계획 조회 기능을 셋팅한다. 만약 Connection이 ADO.net 표준 인터페이스인 DbConnection 일 경우 AltibaseConnection으로 캐스팅해야 한다.
-
-     ```c#
-     DbConnection sConn = new AltibaseConnection();
-     ((AltibaseConnection)sConn).ExplainPlan = ExplainPlan.PLAN_ON;
-     ```
-
-     이 때 ExplainPlan 함수의 매개변수로는 ExplainPlan enum 값이 들어가야 하며 enum 값의 종류는 다음과 같다.
-
-     - ExplainPlan.PLAN_OFF
-
-     - ExplainPlan.PLAN_ON
-
-     - ExplainPlan.PLAN_ONLY
-
-  2. AltibaseCommand 객체의 비 표준 인터페이스를 이용해 실행 계획 문자열을 가져온다.
-
-     ```c#
-     DbCommand sCommand = sConn.CreateCommand();
-     sCommand.CommandText = aQuery;
-     sCommand.Prepare();
-     sCommand.ExecuteReader();
-     string sPlanText = ((AltibaseCommand)sCommand).GetExplainPlan();
-     Console.WriteLine(sPlanText);
-     ```
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-48431 deferred prepare 사용 시 불필요한 통신 프로토콜을 최적화하여 성능을 개선하였습니다.
 
@@ -518,11 +458,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Rare
 
--   **설명** : 시퀀스 객체 생성/변경에서 CACHE 절을 사용한 경우 시퀀스 사용 시 내부적으로 UPDATE 문을 수행합니다. 이로 인해 사용자가 수행한 조회 트랜잭션이 변경 트랜잭션으로 변경되어 UTRANS_TIMEOUT 에 걸려 세션이 종료하는 현상입니다. 이 현상을 개선하기 위해 \__SEQ_CACHE_UPT_TX_ENABLE 프로퍼티를 추가합니다. 
-    
-    \__SEQ_CACHE_UPT_TX_ENABLE = 0 은 기존과 같이 사용자의 조회 트랜잭션이 변경 트랜잭션으로 바뀌고
-
-    __SEQ_CACHE_UPT_TX_ENABLE = 1 은 별도 트랜잭션으로 관리하여 사용자 트랜잭션에 영향을 주지 않습니다. 
+-   **설명** : 시퀀스 객체 생성/변경에서 CACHE 절을 사용한 경우 시퀀스 사용 시 내부적으로 UPDATE 문을 수행합니다. 이로 인해 사용자가 수행한 조회 트랜잭션이 변경 트랜잭션으로 변경되어 UTRANS_TIMEOUT 에 걸려 세션이 종료하는 현상입니다. 수정된 버그를 적용하려면 비공개 프로퍼티를 적용해야 합니다. 필요한 경우 Altibase 기술 지원 센터에 문의하십시오.
     
 -   **재현 방법**
 
@@ -538,20 +474,7 @@ Fixed Bugs
 
      -   Performance view
      - Property
-       -   __SEQ_CACHE_UPT_TX_ENABLE 프로퍼티 추가
-
-           -   설명
-
-               시퀀스 값 캐시 과정에서 내부적으로 수행하는 UPDATE 문에 대한 처리 동작을 제어한다. 
-
-               0 : 별도의 트랜잭션으로 관리하지 않는다. 사용자 트랜잭션에 영향을 준다.
-
-               1 : 별도의 트랜잭션으로 관리한다. 사용자 트랜잭션에 영향을 주지 않는다.
-               
-           - 기본값 : 0
-           
-           - 속성 : 읽기 전용, 비공개
-
+       
      - Compile Option
      - Error Code
 
@@ -688,7 +611,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : JDBC 커넥션 객체를 close 할 때 예외가 발생한 경우 socket fd(file descriptor)가 정리되지 않고 남아있는 현상을 수정하였습니다. 이 버그를 반영하려면 Altibase JDBC Driver 패치 및 응용 프로그램 재컴파일을 해야합니다. 
+-   **설명** : JDBC 커넥션 객체를 close 할 때 예외가 발생한 경우 socket fd(file descriptor)가 정리되지 않고 남아있는 현상을 수정하였습니다. 이 버그를 반영하려면 Altibase JDBC 드라이버를 패치해야 합니다.
     
 - **재현 방법**
 
@@ -843,7 +766,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Unknown
 
--   **설명** : DISK TEMP TABLE에서 HASH 연산 시 특정 상황에서 Altibase 서버가 비정상 종료하는 현상을 회피하고 원인 분석을 위한 로그를 추가합니다. 이 버그 현상 발생 시 altibase_dump.log 에 아래와 같은 로그가 남게 됩니다.
+-   **설명** : DISK TEMP TABLE에서 HASH 연산 시 특정 상황에서 Altibase 서버가 비정상 종료하는 현상을 회피하고 원인 분석을 위한 로그를 추가합니다. 이 버그 현상 발생 시 altibase_dump.log 에 아래와 같은 로그가 남게 됩니다.  로그를 남기려면 비공개 프로퍼티를 적용해야 합니다. 필요 시 Altibase 기술 지원 센터에 문의하시기 바랍니다.
     
     ```bash
     DUMP HASH WASEGMENT:
@@ -888,25 +811,10 @@ Fixed Bugs
 
     -   Performance view
     -   Property
-        -   __TEMPDUMP_ENABLE 프로퍼티 삭제
-
-        -   __TEMPDUMP_LEVEL 프로퍼티 추가
-
-            -   설명
-
-                DISK TEMP TABLE 관련 로깅 여부 및 로그 레벨을 설정합니다. 
-
-                0 : 로깅 비활성화. 
-
-                1 : 로깅 활성화. 디스크 템프 테이블 헤더 및 상태 정보 출력
-
-            - 기본값 : 0 
-            
-            - 속성 : 변경 가능, 비공개
         
-    -   Compile Option
+-   Compile Option
         
-    - Error Code
+- Error Code
 
 ### BUG-49109 휘발성 테이블에서 가비지 콜렉션 쓰레드(Ager) 동작 중 발생한 Altibase 서버 비정상 종료 원인 분석을 위해 트레이스 로그를 추가합니다.
 
