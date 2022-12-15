@@ -4234,12 +4234,6 @@ server.
 
 **Action:** Copy a valid log file to [LOG_DIR] or move log files that are not needed for recovery to another directory.
 
-**0x111BE (  70078) smERR_ABORT_NOT_BUILT_INDEX Failed to scan the index because it was not rebuilt. (Index Name :<0%s>)** 
-
-**Cause:** This index was not rebuilt when the Altibase server was starting up. The value of INDEX_REBUILD_AT_STARTUP property is set to 0.
-
-**Action:** Rebuild this index. Or to rebuild all the indexes, delete INDEX_REBUILD_AT_STARTUP = 0 in altibase.properties and restart the Altibase server.
-
 ### IGNORE
 
 **0x12007 ( 73735) smERR_IGNORE_SyncFail Failed to invoke the msync() system
