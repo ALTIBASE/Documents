@@ -3,16 +3,16 @@
 **Table of Contents** 
 
 - [Altibase 7.1.0.5.9 Patch Notes](#altibase-71059-patch-notes)
-  - [New Features](#new-features)
-    - [BUG-49213 DDL 복제 실패 시 내부적인 예외 처리를 개선합니다.](#bug-49213ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%8C%A8-%EC%8B%9C-%EB%82%B4%EB%B6%80%EC%A0%81%EC%9D%B8-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Fixed Bugs](#fixed-bugs)
-    - [BUG-49102 파티션 키 2개 이상인 RANGE 파티션드 테이블에 SPLIT PARTITION 수행하고 DBMS Stats 프로시저 COPY_TABLE_STATS를 수행한 경우 간헐적으로 결과 오류가 발생할 수 있습니다.](#bug-49102%ED%8C%8C%ED%8B%B0%EC%85%98-%ED%82%A4-2%EA%B0%9C-%EC%9D%B4%EC%83%81%EC%9D%B8-range-%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-split-partition-%EC%88%98%ED%96%89%ED%95%98%EA%B3%A0-dbms-stats-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-copy_table_stats%EB%A5%BC-%EC%88%98%ED%96%89%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EA%B0%84%ED%97%90%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49155 트레이스 로그 파일 교체 시 동시성 문제가 있습니다.](#bug-49155%ED%8A%B8%EB%A0%88%EC%9D%B4%EC%8A%A4-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EA%B5%90%EC%B2%B4-%EC%8B%9C-%EB%8F%99%EC%8B%9C%EC%84%B1-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49181 이중화 환경에서 DDL 복제 기능 사용 시 DDL문 수행 중 V$REPRECEIVER 조회 시 Altibase 서버가 비정상 종료 할 수 있습니다.](#bug-49181%EC%9D%B4%EC%A4%91%ED%99%94-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-ddl-%EB%B3%B5%EC%A0%9C-%EA%B8%B0%EB%8A%A5-%EC%82%AC%EC%9A%A9-%EC%8B%9C-ddl%EB%AC%B8-%EC%88%98%ED%96%89-%EC%A4%91-vrepreceiver-%EC%A1%B0%ED%9A%8C-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49202 Windows 환경에서 온라인 로그 파일 생성 문제로 Altibase 서버 구동이 실패합니다.](#bug-49202windows-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%EC%98%A8%EB%9D%BC%EC%9D%B8-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EC%83%9D%EC%84%B1-%EB%AC%B8%EC%A0%9C%EB%A1%9C-altibase-%EC%84%9C%EB%B2%84-%EA%B5%AC%EB%8F%99%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-49217 Adapter for JDBC, Adapter for Oracle 에서 INSERT 문 처리 시 컬럼 이름을 명시하여 복제하도록 수정하였습니다.](#bug-49217adapter-for-jdbc-adapter-for-oracle-%EC%97%90%EC%84%9C-insert-%EB%AC%B8-%EC%B2%98%EB%A6%AC-%EC%8B%9C-%EC%BB%AC%EB%9F%BC-%EC%9D%B4%EB%A6%84%EC%9D%84-%EB%AA%85%EC%8B%9C%ED%95%98%EC%97%AC-%EB%B3%B5%EC%A0%9C%ED%95%98%EB%8F%84%EB%A1%9D-%EC%88%98%EC%A0%95%ED%95%98%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49224 이중화 Active-Active 환경에서 DDL 복제 기능 사용 시 원격 서버에서 DDL_LOCK_TIMEOUT에 의해 DDL문이 실패한 경우 지역 서버의 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49224%EC%9D%B4%EC%A4%91%ED%99%94-active-active-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-ddl-%EB%B3%B5%EC%A0%9C-%EA%B8%B0%EB%8A%A5-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EC%9B%90%EA%B2%A9-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-ddl_lock_timeout%EC%97%90-%EC%9D%98%ED%95%B4-ddl%EB%AC%B8%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%A7%80%EC%97%AD-%EC%84%9C%EB%B2%84%EC%9D%98-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49233 JDBC 4.2 스펙이 적용된 JDBC Driver에서 지원하지 않는 기능 호출 시 SQLFeatureNotSupportedException 예외로 처리하도록 수정합니다.](#bug-49233jdbc-42-%EC%8A%A4%ED%8E%99%EC%9D%B4-%EC%A0%81%EC%9A%A9%EB%90%9C-jdbc-driver%EC%97%90%EC%84%9C-%EC%A7%80%EC%9B%90%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B8%B0%EB%8A%A5-%ED%98%B8%EC%B6%9C-%EC%8B%9C-sqlfeaturenotsupportedexception-%EC%98%88%EC%99%B8%EB%A1%9C-%EC%B2%98%EB%A6%AC%ED%95%98%EB%8F%84%EB%A1%9D-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49102 파티션 키 2개 이상인 RANGE 파티션드 테이블에 SPLIT PARTITION 수행하고 DBMS Stats 프로시저 COPY\_TABLE\_STATS를 수행한 경우 간헐적으로 결과 오류가 발생할 수 있습니다.](#bug-49102-%ED%8C%8C%ED%8B%B0%EC%85%98-%ED%82%A4-2%EA%B0%9C-%EC%9D%B4%EC%83%81%EC%9D%B8-range-%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-split-partition-%EC%88%98%ED%96%89%ED%95%98%EA%B3%A0-dbms-stats-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-copy%5C_table%5C_stats%EB%A5%BC-%EC%88%98%ED%96%89%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EA%B0%84%ED%97%90%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49143 JDBC 드라이버의 ping 메소드가 prepared 방식에서도 동작하도록 개선합니다.](#bug-49143-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84%EC%9D%98-ping-%EB%A9%94%EC%86%8C%EB%93%9C%EA%B0%80-prepared-%EB%B0%A9%EC%8B%9D%EC%97%90%EC%84%9C%EB%8F%84-%EB%8F%99%EC%9E%91%ED%95%98%EB%8F%84%EB%A1%9D-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49155 트레이스 로그 파일 교체 시 동시성 문제가 있습니다.](#bug-49155-%ED%8A%B8%EB%A0%88%EC%9D%B4%EC%8A%A4-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EA%B5%90%EC%B2%B4-%EC%8B%9C-%EB%8F%99%EC%8B%9C%EC%84%B1-%EB%AC%B8%EC%A0%9C%EA%B0%80-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49181 이중화 환경에서 DDL 복제 기능 사용 시 DDL문 수행 중 V\$REPRECEIVER 조회 시 Altibase 서버가 비정상 종료 할 수 있습니다.](#bug-49181-%EC%9D%B4%EC%A4%91%ED%99%94-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-ddl-%EB%B3%B5%EC%A0%9C-%EA%B8%B0%EB%8A%A5-%EC%82%AC%EC%9A%A9-%EC%8B%9C-ddl%EB%AC%B8-%EC%88%98%ED%96%89-%EC%A4%91-v%5Crepreceiver-%EC%A1%B0%ED%9A%8C-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49200 메모리 사용 제약 기능이 정상적으로 동작하지 않습니다.](#bug-49200-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%82%AC%EC%9A%A9-%EC%A0%9C%EC%95%BD-%EA%B8%B0%EB%8A%A5%EC%9D%B4-%EC%A0%95%EC%83%81%EC%A0%81%EC%9C%BC%EB%A1%9C-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49213 DDL 복제 실패 시 내부적인 예외 처리를 개선합니다.](#bug-49213-ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%8C%A8-%EC%8B%9C-%EB%82%B4%EB%B6%80%EC%A0%81%EC%9D%B8-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49217 칼럼 이름을 구분하여 데이터를 복제할 수 있도록 Adapter for JDBC, Adapter for Oracle을 개선합니다.](#bug-49217-%EC%B9%BC%EB%9F%BC-%EC%9D%B4%EB%A6%84%EC%9D%84-%EA%B5%AC%EB%B6%84%ED%95%98%EC%97%AC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EB%B3%B5%EC%A0%9C%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-adapter-for-jdbc-adapter-for-oracle%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49224 이중화 Active-Active 환경에서 DDL 복제 기능 사용 시 원격 서버에서 DDL_LOCK_TIMEOUT에 의해 DDL문이 실패한 경우 지역 서버의 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49224-%EC%9D%B4%EC%A4%91%ED%99%94-active-active-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-ddl-%EB%B3%B5%EC%A0%9C-%EA%B8%B0%EB%8A%A5-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EC%9B%90%EA%B2%A9-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-ddl_lock_timeout%EC%97%90-%EC%9D%98%ED%95%B4-ddl%EB%AC%B8%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%A7%80%EC%97%AD-%EC%84%9C%EB%B2%84%EC%9D%98-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49233 JDBC 4.2 스펙이 적용된 JDBC Driver에서 지원하지 않는 기능 호출 시 SQLFeatureNotSupportedException 예외로 처리하도록 수정합니다.](#bug-49233-jdbc-42-%EC%8A%A4%ED%8E%99%EC%9D%B4-%EC%A0%81%EC%9A%A9%EB%90%9C-jdbc-driver%EC%97%90%EC%84%9C-%EC%A7%80%EC%9B%90%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B8%B0%EB%8A%A5-%ED%98%B8%EC%B6%9C-%EC%8B%9C-sqlfeaturenotsupportedexception-%EC%98%88%EC%99%B8%EB%A1%9C-%EC%B2%98%EB%A6%AC%ED%95%98%EB%8F%84%EB%A1%9D-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -23,36 +23,6 @@
 
 Altibase 7.1.0.5.9 Patch Notes
 ==============================
-
-New Features
-------------
-
-### BUG-49213 DDL 복제 실패 시 내부적인 예외 처리를 개선합니다.
-
--   **module** : rp
-
--   **Category** : Functional Error
-
--   **재현 빈도** : Always
-
--   **설명** : DDL 복제 실패 시 내부적인 예외 처리를 개선합니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 Fixed Bugs
 ----------
@@ -151,6 +121,36 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+### BUG-49143 JDBC 드라이버의 ping 메소드가 prepared 방식에서도 동작하도록 개선합니다. 
+
+-   **module** : mm-jdbc
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : JDBC ping 메소드는 Statement.executeQuery()에서 동작합니다.
+    특정 커넥션 풀(예:Tomcat DBCP2)의 경우 validation query가 prepared 방식으로 동작하는 것을 지원하기 위해 prepared 방식에서도 동작하도록 개선합니다. 
+
+    이 버그를 적용하려면 JDBC 드라이버를 패치해야 합니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
 ### BUG-49155 트레이스 로그 파일 교체 시 동시성 문제가 있습니다.
 
 -   **module** : id
@@ -219,41 +219,57 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-49202 Windows 환경에서 온라인 로그 파일 생성 문제로 Altibase 서버 구동이 실패합니다.
+### BUG-49200 메모리 사용 제약 기능이 정상적으로 동작하지 않습니다.
 
--   **module** : sm
+-   **module** : id
 
--   **Category** : Fatal
+-   **Category** : Functional Error
 
 -   **재현 빈도** : Always
 
--   **설명** : Windows 환경에서 온라인 로그 파일 생성 문제로 Altibase
-    서버 구동이 실패하는 현상을 수정합니다.
+-   **설명** : 메모리 사용 제약 기능이 정상적으로 동작하지 않는 버그를 수정합니다. 메모리 테이블을 포함한 SQL 수행 시 메모리 사용량이 적게 측정되어 에러가 발생하지 않는 경우 패치 이후 PREPARE_STMT_MEMORY_MAXIMUM, EXECUTE_STMT_MEMORY_MAXIMUM에 걸려 실패할 수 있습니다.
 
 -   **재현 방법**
-
     -   **재현 절차**
 
-            Windows에서 Altibase 서버 프로세스 강제 종료 후 구동
-
     -   **수행 결과**
-
-            $ALTIBASE_HOME/trc/altibase_sm.log 에 The log file manager thread was aborted and restarted : because of insufficient memory or disk capacity or other problems 메시지가 발생하며 Altibase 서버 구동이 실패합니다. 
 
     -   **예상 결과**
 
 -   **Workaround**
 
-        altibase.properites 파일에 __USE_TEMP_FOR_PREPARE_LOGFILE=0 을 추가하고 Altibase 서버를 구동합니다. 
-
 -   **변경사항**
-
     -   Performance view
     -   Property
     -   Compile Option
     -   Error Code
 
-### BUG-49217 Adapter for JDBC, Adapter for Oracle 에서 INSERT 문 처리 시 컬럼 이름을 명시하여 복제하도록 수정하였습니다.
+### BUG-49213 DDL 복제 실패 시 내부적인 예외 처리를 개선합니다.
+
+-   **module** : rp
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : DDL 복제 실패 시 내부적인 예외 처리를 개선합니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+    
+    -   **수행 결과**
+    
+    -   **예상 결과**
+    
+-   **Workaround**
+
+-   **변경사항**
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49217 칼럼 이름을 구분하여 데이터를 복제할 수 있도록 Adapter for JDBC, Adapter for Oracle을 개선합니다.
 
 -   **module** : rp-jdbcAdapter
 
@@ -261,50 +277,15 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : Adapter for JDBC, Adapter for Oracle 에서 INSERT 문에 처리 시 컬럼 이름을 명시하여 복제하도록 수정하였습니다.
+-   **설명** : 칼럼 이름을 구분하여 데이터를 복제할 수 있도록 Adapter for JDBC, Adapter for Oracle을 개선합니다.
     
-    jdbcAdapter.conf, oraAdapter.conf 에 사용할 수 프로퍼티가 추가되었습니다. 비공개 프로퍼티로 매뉴얼 및 conf 파일에 추가되어 있지 않습니다.
-    
-    **OTHER\_DATABASE\_SET\_COLUMN\_TO\_INSERT 프로퍼티 추가**
-    
-    **설명**
-    
-    Adapter for JDBC 의 INSERT 문 처리 시 컬럼 이름 지정 여부를 설정한다.
-    
-    0 :  INSERT 처리 시 컬럼 이름을 명시하지 않는다. 컬럼 순서가 다른 경우, 데이터 복제가 실패한다. 
-    
-    1 : INSERT 처리 시 컬럼 이름을 명시한다. 컬럼 순서가 다른 경우, 컬럼 이름으로 구분하여 데이터를 복제한다.
-
-    **기본값**
-    
-    1
-    
-    **속성** : 읽기 전용, 비공개
-
-    **ORACLE\_SET\_COLUMN\_TO\_INSERT 프로퍼티 추가**
-
-    **설명**
-
-    Adapter for Oracle 의 INSERT 문 처리 시 컬럼 이름 지정 여부를 설정한다.
-
-    0 : INSERT 처리 시 컬럼 이름을 명시하지 않는다. 컬럼 순서가 다른 경우, 데이터 복제가 실패한다. 
-
-    1 : INSERT 처리 시 컬럼 이름을 명시한다. 컬럼 순서가 다른 경우, 컬럼 이름으로 구분하여 데이터를 복제한다.
-
-    **기본값**
-    
-    1
-    
-    **속성** : 읽기 전용, 비공개
-
 -   **재현 방법**
-
     -   **재현 절차**
-
+    
     -   **수행 결과**
-
+    
     -   **예상 결과**
-
+    
 -   **Workaround**
 
 -   **변경사항**
@@ -364,7 +345,7 @@ Fixed Bugs
 
 -   **설명** : JDBC 4.2 스펙이 적용된 JDBC Driver에서 지원하지 않는 기능
     호출 시 SQLException 대신 SQLFeatureNotSupportedException 예외로
-    처리하도록 수정합니다.
+    처리하도록 수정합니다. 이 버그를 적용하려면 JDBC 드라이버(Altibase42.jar)를 패치해야 합니다.
 
 - **재현 방법**
 
