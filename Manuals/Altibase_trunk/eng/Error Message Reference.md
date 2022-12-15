@@ -14027,6 +14027,12 @@ empty queue can reset a msgid.**
 **Action:** Check whether the queue is empty, otherwise remove the data from the
 queue.
 
+**0x314AA ( 201898) qpERR_ABORT_QDQ_USE_QUEUE_TABLE_IN_DISK_TABLESPACE Failed to create queue table in disk tablespace.**
+
+**Cause:** Cannot create queue table in disk tablespace.
+
+**Action:** Create queue table in memory tablespace or volatile tablespace.
+
 **0x314AD ( 201901) qpERR_ABORT_QMC_INVALID_FUNCTION_BASED_INDEX An error occurred while applying a value with an unexpected data type to the function-based index.** 
 
 **Cause:** The specified value does not match the data type of the function-based index column.
