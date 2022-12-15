@@ -17,7 +17,6 @@
   - [BUG-49926 MEMORY\_ALLOCATOR\_TYPE 프로퍼티의 최대값을 변경합니다.](#bug-49926memory_allocator_type-프로퍼티의-최대값을-변경합니다)
   - [BUG-49939 GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAST 절을 같이 사용할 때 ERR-31001 : SQL syntax error 에러가 발생합니다.](#bug-49939group-by-grouping-sets-절과-order-by-nulls-first-절-또는-order-by-nulls-last-절을-같이-사용할-때-err-31001--sql-syntax-error-에러가-발생합니다)
   - [BUG-49940 ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정하는 프로퍼티를 추가합니다.](#bug-49940alter-table--add-column-수행-시-컬럼의-fixedvariable-옵션을-결정하는-프로퍼티를-추가합니다)
-  - [BUG-49946 ado.net에서 PSM 수행 시 DbDataReader.NextResult()에서 잘못된 결과를 반환합니다.](#bug-49946adonet에서-psm-수행-시-dbdatareadernextresult에서-잘못된-결과를-반환합니다)
   - [BUG-49960 getColumnName()으로 한글로 된 컬럼의 이름을 가져오면 한글이 깨지고 SQLException: Invalid column name 에러가 발생합니다.](#bug-49946adonet에서-psm-수행-시-dbdatareadernextresult에서-잘못된-결과를-반환합니다)
 - [Changes](#changes)
   - [Version Info](#version-info)
@@ -376,44 +375,7 @@ ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정�
 
 이 버그는 메모리 테이블에만 영향이 있습니다.
 
-- 이름
-
-  \_\_FORCE\_VARIABLE\_FOR\_DDL\_COLUMN
-
-- 설명
-
-  메모리 테이블에 ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정합니다.
-  
-  0 : 
-  
-  추가할 컬럼의 크기가 IN ROW 절(?) 또는 MEMORY\_VARIABLE\_COLUMN\_IN\_ROW\_SIZE에서 지정한 크기보다 작거나 같으면 FIXED 컬럼으로 생성하고 실시간 DDL이 동작하지 않습니다.
-  
-  추가할 컬럼의 크기가 IN ROW 절(?) 또는 MEMORY\_VARIABLE\_COLUMN\_IN\_ROW\_SIZE에서 지정한 크기보다 크면 VARIABLE 컬럼으로 생성되고 실시간 DDL이 동작합니다. 
-  
-  실시간 DDL이 동작하지 않으면 Altibase 서버는 ADD COLUMN 작업을 아래와 같이 처리합니다. 
-  
-  - ALTER TABLE ~ ADD COLUMN 수행 시 내부적으로 테이블을 재구성합니다.
-  - ALTER TABLE \~ ADD COLUMN 수행 시 대상 테이블에 X 잠금을 획득하므로 ADD COLUMN이 완료할 때까지 테이블에 접근 할 수 없습니다.
-  - ALTER TABLE \~ ADD COLUMN 수행 시 데이터 크기에 비례하여 메모리 사용량이 증가합니다.
-  
-  1 : 컬럼 크기에 상관없이 무조건 VARIABLE로 컬럼을 생성합니다. ADD COLUMN 수행 시 실시간 DDL이 동작합니다.
-
-  실시간 DDL은 메모리 테이블을 대상으로 다른 트랜잭션에 영향을 주지 않고 ADD COLUMN 작업이 수행되는 것을 말합니다.
-  
-- **기본값**
-
-  1
-
-- **속성**
-
-  읽기 전용, ***비공개***
-
-- **참고 사항**
-
-  이 버그에서 추가된 프로퍼티를 적용하려면 Altibase 서버 설정 파일에 
-  \_\_FORCE\_VARIABLE\_FOR\_DDL\_COLUMN = 1 을 추가하고 Altibase 서버를 재시작해야 합니다. 값을 0으로 변경 시 ADD COLUMN 처리 방식이 변경되는 것을 주의해야 합니다.
-
-이 프로퍼티는 비공개 프로퍼티로 매뉴얼에 설명을 추가하지 않습니다.
+이 버그를 적용하려면 비공개 프로퍼티를 변경해야 합니다. 필요한 경우 Altibase 기술 지원 센터로 문의해주시기 바랍니다.
 
 #### 재현 방법
 
@@ -422,82 +384,6 @@ ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정�
 -   **수행 결과**
 
 -   **예상 결과**
-
-#### Workaround
-
-`없음`
-
-#### 변경사항
-
--   Performance view
--   Property
--   Compile Option
--   Error Code
-
-### BUG-49946 ado.net에서 PSM 수행 시 DbDataReader.NextResult()에서 잘못된 결과를 반환합니다.
-
-#### module
-`ux-win-adonet`
-
-#### Category
-
-`Functional Error`
-
-#### 재현 빈도
-
-`Always`
-
-#### 설명
-
-ado.net에서 PSM 수행 시 DbDataReader.NextResult()에서 잘못된 결과를 반환하는 문제를 수정합니다. 버그 조건을 만족하는 애플리케이션 수행 시 버그 반영 전/후 결과가 달라질 수 있습니다.
-
-#### 재현 방법
-
--   **재현 절차**
-
-    ```basic
-    create table proctest_t1 (c1 integer, c2 varchar(10))
-    insert into proctest_t1 values (11, 'a1')
-    insert into proctest_t1 values (12, 'a2')
-    insert into proctest_t1 values (13, 'a3')
-    create table proctest_t2 (c1 integer, c2 varchar(10))
-    insert into proctest_t2 values (21, 'b1')
-    insert into proctest_t2 values (22, 'b2')
-    insert into proctest_t2 values (23, 'b3')
-    create typeset proctest_type
-    as
-    type proctest_cur is ref cursor;
-    end
-    create procedure proctest_resultsets
-    (p1 out proctest_type.proctest_cur,
-     p2 out proctest_type.proctest_cur)
-    as
-    sql_stmt varchar(200)
-    begin
-    sql_stmt := 'SELECT * FROM proctest_t1';
-     open p1 for sql_stmt;
-     sql_stmt := 'SELECT * FROM proctest_t2';
-     open p2 for sql_stmt;
-    end
-    using (DbCommand sCmd = Connection.CreateCommand())
-    {
-        sCmd.CommandType = CommandType.Text;
-        sCmd.CommandText = "EXEC proctest_resultsets";
-        using (DbDataReader sReader = sCmd.ExecuteReader())
-        {      
-            AssertEquals(true, sReader.NextResult());
-            AssertEquals(false, sReader.NextResult());
-        }
-    }
-    ```
-
--   **수행 결과**
-
-        sReader.NextResult() 결과 false
-
--   **예상 결과**
-
-        sReader.NextResult() 결과 true
 
 #### Workaround
 
