@@ -14543,14 +14543,22 @@ ACCESS_LIST = operation, address, mask
 
 - operation ::= [PERMIT\|DENY]  
   Indicates whether to allow or deny access by an IP packet that matches a validation rule.
-  
+
 - address  
   Indicates the IP address of the packet to validate. It can be in IPv4 or IPv6 address notation.
-  
+
 - mask  
   If the specified address is in IPv4 address notation, mask specifies that only part of the IP address of a packet, the subnet mask, is to be validated. 
-  
+
   If the specified address is in IPv6 address notation, mask gives the length of prefix bits to be compared. An IPv6 address is matched if the specified mask bits of the specified address are equal to the specified mask bits of the originating address of an incoming IP packet.
+
+- limit
+
+  limit is an optional item. Specifies the maximum number of sessions allowed to access the Altibase server from the accessible IP address range specified in ACCESS_LIST.
+
+  If a value is entered in the limit item, limit condition checks are performed on all access requests. Therefore, access is not allowed if the number of access requests from allowed IPs exceeds the limit.  If there is no value in the limit item, the limit condition is not checked.
+
+  If ACCESS_LIST is added with the ALTER SYSTEM RELOAD ACCESS LIST statement while the Altibase server is running, existing connected sessions are not affected, and the ACCESS_LIST condition is applied only to new connection requests after the change. So when retrieving V$ACCESS_LIST, the CONNECTED value may be greater than the LIMIT value.
 
 ##### Validation Rule
 
@@ -14602,6 +14610,14 @@ deny, 0.0.0.0, 0.0.0.0
 deny, ::1, 1
 deny, fe80::, 1
 ```
+
+Limit the number of sessions accessible from the 192.168.3.17 address to 5.
+
+~~~bash
+ACCESS_LIST = permit, 192.168.3.17, 255.255.255.255, 5
+~~~
+
+
 
 **ACCESS_LIST_FILE**
 

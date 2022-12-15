@@ -7,12 +7,12 @@
 # **Table of Contents**  
 
 - [New Features](#new-features)
-  - [BUG-49580 메모리 테이블 또는 휘발성 메모리 테이블에 LOB 데이터 입력 시 과도한 메모리 사용을 개선합니다.](#bug-49580%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%98%90%EB%8A%94-%ED%9C%98%EB%B0%9C%EC%84%B1-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%9E%85%EB%A0%A5-%EC%8B%9C-%EA%B3%BC%EB%8F%84%ED%95%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%82%AC%EC%9A%A9%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49668 동시에 수행할 수 있는 디스크 트랜잭션의 최대 수(TRANSACTION\_SEGMENT\_COUNT 프로퍼티의 최대값)를 512에서 16384로 증가합니다.](#bug-49668%EB%8F%99%EC%8B%9C%EC%97%90-%EC%88%98%ED%96%89%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%94%94%EC%8A%A4%ED%81%AC-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%EC%B5%9C%EB%8C%80-%EC%88%98transaction_segment_count-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%9D%98-%EC%B5%9C%EB%8C%80%EA%B0%92%EB%A5%BC-512%EC%97%90%EC%84%9C-16384%EB%A1%9C-%EC%A6%9D%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-48065 DROP SEQUENCE 구문과 해당 시퀀스에 SELECT 구문을 동시에 수행하는 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-48065drop-sequence-%EA%B5%AC%EB%AC%B8%EA%B3%BC-%ED%95%B4%EB%8B%B9-%EC%8B%9C%ED%80%80%EC%8A%A4%EC%97%90-select-%EA%B5%AC%EB%AC%B8%EC%9D%84-%EB%8F%99%EC%8B%9C%EC%97%90-%EC%88%98%ED%96%89%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [BUG-49505 복잡도가 높은 SQL문 수행 시 PREPARE\_STMT\_MEMORY\_MAXIMUM 초과로 SQL Plan Cache에 실행 계획을 등록하지 못한 경우 예외 처리를 추가합니다.](#bug-49505%EB%B3%B5%EC%9E%A1%EB%8F%84%EA%B0%80-%EB%86%92%EC%9D%80-sql%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-prepare_stmt_memory_maximum-%EC%B4%88%EA%B3%BC%EB%A1%9C-sql-plan-cache%EC%97%90-%EC%8B%A4%ED%96%89-%EA%B3%84%ED%9A%8D%EC%9D%84-%EB%93%B1%EB%A1%9D%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49569 UNION ALL 연산자를 사용한 SELECT 문에서 select\_list 절에 LOB, GEOMETRY 또는 이진 데이터 타입이 사용된 경우 예외 처리를 추가합니다.](#bug-49569union-all-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-select-%EB%AC%B8%EC%97%90%EC%84%9C-select_list-%EC%A0%88%EC%97%90-lob-geometry-%EB%98%90%EB%8A%94-%EC%9D%B4%EC%A7%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%B4-%EC%82%AC%EC%9A%A9%EB%90%9C-%EA%B2%BD%EC%9A%B0-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-49580 메모리 테이블 또는 휘발성 메모리 테이블에 LOB 데이터 입력 시 과도한 메모리 사용을 개선합니다.](#bug-49580%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%98%90%EB%8A%94-%ED%9C%98%EB%B0%9C%EC%84%B1-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%9E%85%EB%A0%A5-%EC%8B%9C-%EA%B3%BC%EB%8F%84%ED%95%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%82%AC%EC%9A%A9%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49649 LOB 컬럼을 포함한 복제 트랜잭션 수행 시 Unable to find record in \~ 에러가 발생한 경우 수신자(Receiver)가 중지됩니다.](#bug-49649lob-%EC%BB%AC%EB%9F%BC%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EB%B3%B5%EC%A0%9C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%88%98%ED%96%89-%EC%8B%9C-unable-to-find-record-in--%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%9C-%EA%B2%BD%EC%9A%B0-%EC%88%98%EC%8B%A0%EC%9E%90receiver%EA%B0%80-%EC%A4%91%EC%A7%80%EB%90%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49654 문자열을 포함한 CHECK 제약조건을 가진 테이블을 대상으로 이중화 객체 생성 후 이중화를 시작하면 ERR-31001 SQL syntax error 에러가 발생합니다.](#bug-49654%EB%AC%B8%EC%9E%90%EC%97%B4%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-check-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4%EC%9D%84-%EA%B0%80%EC%A7%84-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-%EB%8C%80%EC%83%81%EC%9C%BC%EB%A1%9C-%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%9B%84-%EC%9D%B4%EC%A4%91%ED%99%94%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%98%EB%A9%B4-err-31001-sql-syntax-error-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-49661 디스크 임시 테이블스페이스를 사용하는 SQL문 수행 시 특정 상황에서 ERR-11069 : Internal server error in the storage manager ([FAILURE] ERR-110C1(error=11) The data file containing page [129832016] does not exist. 에러가 발생합니다.](#bug-49661%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9E%84%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-sql%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-%ED%8A%B9%EC%A0%95-%EC%83%81%ED%99%A9%EC%97%90%EC%84%9C-err-11069--internal-server-error-in-the-storage-manager-failure-err-110c1error11-the-data-file-containing-page-129832016-does-not-exist-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
@@ -36,37 +36,6 @@
 
 New Features
 ============
-
-### BUG-49580 메모리 테이블 또는 휘발성 메모리 테이블에 LOB 데이터 입력 시 과도한 메모리 사용을 개선합니다.
-
--   **module** : sm-mem-resource
-
--   **Category** : Other
-
--   **재현 빈도** : Always
-
--   **설명** : 메모리 테이블 또는 휘발성 메모리 테이블에 LOB 데이터 입력 시 LOB 정보를 관리하는 런타임 객체에서 메모리를 과도하게 사용하는 현상을 개선합니다.
-    
-    - 이 버그 현상 예시
-
-      4G 크기의 LOB 데이터 입력 시 메모리 196G를 사용합니다. INSERT 진행 중 메모리를 과도하게 사용하다가 트랜잭션 종료 후 반납합니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-49668 동시에 수행할 수 있는 디스크 트랜잭션의 최대 수(TRANSACTION\_SEGMENT\_COUNT 프로퍼티의 최대값)를 512에서 16384로 증가합니다.
 
@@ -276,6 +245,37 @@ Fixed Bugs
     -   **예상 결과**
 
             [ERR-91022 : LOB and GEOMETRY type data cannot be displayed]
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49580 메모리 테이블 또는 휘발성 메모리 테이블에 LOB 데이터 입력 시 과도한 메모리 사용을 개선합니다.
+
+-   **module** : sm-mem-resource
+
+-   **Category** : Other
+
+-   **재현 빈도** : Always
+
+-   **설명** : 메모리 테이블 또는 휘발성 메모리 테이블에 LOB 데이터 입력 시 LOB 정보를 관리하는 런타임 객체에서 메모리를 과도하게 사용하는 현상을 개선합니다.
+
+    - 이 버그 현상 예시
+
+      4G 크기의 LOB 데이터 입력 시 메모리 196G를 사용합니다. INSERT 진행 중 메모리를 과도하게 사용하다가 트랜잭션 종료 후 반납합니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
 
 -   **Workaround**
 

@@ -6790,54 +6790,87 @@ SQLTransact()를 호출한 후에도 명령문 핸들이 유효
 SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 ```
 
-3.LOB 인터페이스
---------------
+## 3.LOB 인터페이스
 
-이 장에서는 LOB 데이터를 사용하는데 필요한 함수 및 데이터 타입을 설명한다.
+이 장에서는 CLI에서 LOB 데이터를 처리하는 방식과 LOB 데이터를 처리하는데 필요한 데이터 타입과 관련 함수를 설명한다.
 
-### LOB data types
+### LOB 데이터 처리 방식
 
-다음 [표 3-1]은 LOB을 지원하는 SQL 데이터 타입의 식별자들이다.
+#### LOB 위치 입력기(LOB Locator)
 
-| SQL 식별자 | 데이터 타입 | 설명                                        |
-|------------|-------------|---------------------------------------------|
-| SQL_BLOB   | BLOB        | BLOB은 가변 길이를 가지는 이진 데이터 타입. |
-| SQL_CLOB   | CLOB        | CLOB은 가변 길이를 가지는 데이터 타입.      |
+LOB 위치 입력기는 LOB 데이터를 가리키는 Altibase 서버의 내부 자료구조로, 하나의 트랜잭션에 종속된다. CLI의 일부 함수에서 LOB 데이터를 처리할 때 LOB 위치 입력기를 사용하기 때문에 LOB 위치 입력기를 이용한 LOB 데이터 처리 방식에 대한 이해가 필요하다. 
 
-[표 3‑1] SQL 데이터 타입의 식별자
+CLI에서 LOB 데이터를 처리하는 과정은 LOB 위치 입력기를 얻는 작업과 LOB 위치 입력기를 이용하여 LOB 데이터를 읽고 쓰는 작업으로 나뉜다. 
 
-다음 표는 LOB을 지원하는 C 데이터 타입의 식별자이다. 각 식별자에 해당하는 ODBC의
-C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
+#### LOB 위치 입력기 얻기
 
-| C 타입 식별자      | ODBC C 타입 | C 타입 정의      |
-|--------------------|-------------|------------------|
-| SQL_C_BLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64 |
-| SQL_C_CLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64 |
+LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다. *더 있을까요?* 
 
-[표 3‑2] LOB 지원 C 데이터 타입의 식별자
+- SQLBindCol
+- SQLFetch
+- SQLBindParameter
+- SQLExecute
 
-64비트 정수형의 이름은 플랫폼에 따라 다르다. 위 표에서 사용한 \_int64는 일부
-플랫폼에서 사용되는 64비트 정수형의 이름이다.
+#### LOB 데이터 읽고 쓰기
 
-CLOB 데이터는 SQL_C_CHAR를, BLOB 데이터는 SQL_C_BINARY를 사용하여 사용자 변수를
-바인딩하도록 한다.
+LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 읽거나 쓸 수 있다. 관련 CLI 함수는 아래와 같다. 
 
-LOB Locator를 얻고자 한다면, 해당 LOB 칼럼의 타입에 따라서 SQL_C_CLOB_LOCATOR,
-혹은 SQL_C_BLOB_LOCATOR를 적절하게 바인드하면 된다. 여기서 말하는 LOB Locator
-즉, LOB 위치 입력기는 운영체제의 파일 포인터처럼 LOB 데이터를 연산할 때 사용되는
-핸들이다.
+- SQLBindFileToParam
+- SQLGetLob
+- SQLGetLobLength
+- SQLPutLob 
+- 등..? 다 적어주면 좋을 듯.. 
 
-읽기용 LOB 위치 입력기는 SELECT LOB칼럼이름 FROM 테이블 where… 와 select를
-수행한 후에 획득된다. 쓰기용 LOB 위치입력기는 SELECT LOB칼럼이름 FROM 테이블
-where… FOR UPDATE를 수행한 후에 획득된다.
+#### 자동 커밋 모드 해제
 
-LOB 위치입력기는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에
-위치입력기를 발생시킨 트랜잭션과 수명주기(life-cycle)를 같이 한다. 따라서 LOB
-위치입력기를 이용하여 LOB에 대한 연산을 하기 위해서는 connection을 항상
-NON-AUTOCOMMIT 모드로 설정하여 사용해야 한다.
+LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
 
-사용자 변수의 LOB 타입으로 지정된 타입, 이를테면 SQL_C_BLOB, SQL_C_CLOB 등은
-따로 존재하지 않음에 유의한다.
+자동 커밋 모드에서 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 각각 하나의 트랜잭션이기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다. 반면, 자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되며 LOB 위치 입력기를 공유할 수 있다. 단, 각 개별 작업의 성공 여부에 따라 트랜잭션을 커밋할 때 SQL 수행 결과가 달라질 수 있음을 주의해야 한다. 
+
+아래 표에서 `결과 1`에서 커밋을 수행하면, LOB 타입 칼럼이 있는 레코드는 LOB 타입 칼럼이 널 값으로 반영된다. LOB 타입 칼럼의 값이 널 상태로 남기지 않으려면 **반드시 트랜잭션을 롤백해야 한다.** 
+
+| 개별 작업 순서 | 개별 작업                           | 결과 1 | 결과 2 |
+| :------------: | :---------------------------------- | :----: | :----: |
+|       1        | LOB 위치 입력기를 얻어오는 CLI 함수 |  성공  |  실패  |
+|       2        | LOB 데이터를 읽고 쓰는 CLI 함수     |  실패  |   -    |
+
+> 만약, LOB 타입 칼럼에 NOT NULL 제약조건이 정의되어 있다면 `결과 2` 상황으로, 에러가 발생하고 부분 롤백되므로 CLI에서 LOB 데이터 처리를 할 수 없다.
+
+### LOB 데이터 타입
+
+LOB 데이터 타입을 처리하는데 사용되는 SQL 데이터 타입과 C 데이터 타입을 소개한다.
+
+#### SQL 데이터 타입 
+
+다음은 LOB 데이터 타입을 지원하는 SQL 데이터 타입의 식별자이다.
+
+| SQL 식별자 | Altibase 데이터 타입 | 설명                                        |
+| :--------- | :------------------- | ------------------------------------------- |
+| SQL_BLOB   | BLOB                 | BLOB은 가변 길이를 가지는 이진 데이터 타입. |
+| SQL_CLOB   | CLOB                 | CLOB은 가변 길이를 가지는 데이터 타입.      |
+
+[표 3‑1] LOB 데이터 타입을 지원하는 SQL 데이터 타입의 식별자
+
+#### C 데이터 타입
+
+다음 표는 LOB 데이터 타입을 지원하는 C 데이터 타입의 식별자이다. 각 식별자에 해당하는 ODBC의 C 데이터 타입과 이 데이터 타입의 정의를 나열한다.
+
+CLOB 데이터는 SQL_C_CHAR를, BLOB 데이터는 SQL_C_BINARY를 사용하여 사용자 변수를 바인딩한다. 
+
+SQL_C_CLOB_LOCATOR과 SQL_C_BLOB_LOCATOR는 LOB 위치 입력기를 얻을 때 사용한다. 
+
+| C 타입 식별자      | Altibase 데이터 타입 | ODBC C 타입 | C 타입 정의     |
+| ------------------ | -------------------- | ----------- | --------------- |
+| SQL_C_BINARY       | BLOB                 | SQLCHAR *   | unsigned char * |
+| SQL_C_CHAR         | CLOB                 | SQLSCHAR *  | char *          |
+| SQL_C_BLOB_LOCATOR |                      | SQLUBIGINT  | unsigned _int64 |
+| SQL_C_CLOB_LOCATOR |                      | SQLUBIGINT  | unsigned _int64 |
+
+[표 3‑2] LOB 데이터 타입을 지원하는 C 데이터 타입의 식별자
+
+> C 타입 식별자로 SQL_C_BLOB, SQL_C_CLOB은 지원하지 않는다.
+
+> 64비트 정수형의 이름은 플랫폼에 따라 다르다. 위 표에서 사용한 _int64는 일부 플랫폼에서 사용되는 64비트 정수형의 이름이다.
 
 ### LOB Function Overview
 
@@ -7111,7 +7144,7 @@ for (i = 0; ; i++)
 }
 ```
 
-### SQLindFileToParam
+### SQLBindFileToParam
 
 SQL 문에서 LOB 데이터 타입을 위해 사용된 매개변수 마커 ‘?’를 파일 또는 파일들에
 바인드시킨다. SQLExecute() 또는 SQLExecDirect()가 호출될 때 자료가 파일에서
@@ -7614,14 +7647,13 @@ if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 
 ### SQLPutLob
 
-이 함수의 동작들은 모두 내부에서 갱신 작업으로 동작한다. 삽입은 길이가 0인 기존
-LOB 데이터를 다른 값으로 갱신하는 동작이다. 갱신은 인자의 값에 따라 기존
-데이터의 지정한 위치부터 다른 값으로 덮어쓰거나 기존 데이터 뒤에 덧붙이는 동작을
-할 수 있다.
+SQLPutLob은 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하는 함수로, LOB 데이터를 삽입하거나 LOB 데이터에서 특정 위치의 값을 다른 값으로 갱신할 때 사용한다. 이 함수를 실행하는 세션은 반드시 자동 커밋 모드를 해제해야 하며, LOB 위치 입력기를 얻는 함수를 먼저 실행해야 한다. 관련 내용은 [LOB 데이터 처리 방식](#lob-데이터-처리-방식)에서 확인할 수 있다. 
+
+> SQLPutLob 함수는 Altibase CLI에서 LOB 데이터를 다루기 위해 제공하는 특수한 함수로, ODBC 표준에는 없다. 
 
 #### 구 문
 
-```
+```c
 SQLRETURN SQLPutLob(
     SQLHSTMT        stmt,
     SQLSMALLINT     locatorCType,
@@ -7635,16 +7667,16 @@ SQLRETURN SQLPutLob(
 
 #### 인 자
 
-| 자료유형    | 인자          | 사용 | 설명                                                                                                           |
-|-------------|---------------|------|----------------------------------------------------------------------------------------------------------------|
-| SQLHSTMT    | stmt          | 입력 | 검색된 결과들에 대한 명령문 핸들                                                                               |
-| SQLSMALLINT | locatorCType  | 입력 | Target LOB Locator의 C 데이터 타입 식별자. SQL_C_BLOB_LOCATOR SQL_C_CLOB_LOCATOR                               |
-| SQLUBIGINT  | targetLocator | 입력 | Target LOB Locator                                                                                             |
-| SQLUINTEGER | fromPosition  | 입력 | LOB 데이터에서 갱신될 시작 위치(바이트 단위)로 0부터 시작된다.                                                 |
-| SQLUINTEGER | forLength     | 입력 | 사용되지 않음                                                                                                  |
-| SQLSMALLINT | sourceCType   | 입력 | value 버퍼의 C 데이터 타입 식별자. SQL_C_BINARY (BLOB인 경우), SQL_C_CHAR (CLOB인 경우)                        |
-| SQLPOINTER  | value         | 입력 | 입력 데이터를 갖고 있는 버퍼를 가리키는 포인터                                                                 |
-| SQLUINTEGER | valueLength   | 입력 | value 버퍼에 입력한 데이터의 길이 (단위: 바이트). 0 이상의 값을 설정해야 하며, SQL_NULL_DATA는 설정할 수 없다. |
+| 자료유형    | 인자          | 사용 | 설명                                                         |
+| ----------- | ------------- | ---- | ------------------------------------------------------------ |
+| SQLHSTMT    | stmt          | 입력 | 검색된 결과들에 대한 명령문 핸들                             |
+| SQLSMALLINT | locatorCType  | 입력 | 삽입 또는 갱신할 LOB 위치 입력기의 C 데이터 타입 식별자.<br />SQL_C_BLOB_LOCATOR 또는 SQL_C_CLOB_LOCATOR가 올 수 있다. |
+| SQLUBIGINT  | targetLocator | 입력 | LOB 위치 입력기.<br />삽입 또는 갱신할 LOB 타입 칼럼을 의미한다. |
+| SQLUINTEGER | fromPosition  | 입력 | LOB 데이터를 삽입 또는 갱신할 시작 위치로, 0부터 시작된다. 단위는 바이트이다. |
+| SQLUINTEGER | forLength     | 입력 | 사용되지 않음                                                |
+| SQLSMALLINT | sourceCType   | 입력 | 삽입 또는 갱신할 데이터를 담고 있는 CLI 애플리케이션 버퍼를 나타내는 C 데이터 타입 식별자. <br /> BLOB 데이터는 SQL_C_BINARY, CLOB 데이터는 SQL_C_CHAR가 올 수 있다. |
+| SQLPOINTER  | value         | 입력 | CLI 애플리케이션 버퍼를 가리키는 포인터                      |
+| SQLUINTEGER | valueLength   | 입력 | CLI 애플리케이션 버퍼에 저장된 LOB 데이터의 길이로, 1부터 시작한다. 단위는 바이트이다. SQL_NULL_DATA는 설정할 수 없다. |
 
 #### 결과값
 
@@ -7657,33 +7689,32 @@ SQL_ERROR
 
 #### 설 명
 
-이 함수는 애플리케이션 버퍼(application data buffer, value 인자)가 담고 있는
-데이터를 타겟 LOB locator(targetLocator 인자)가 가리키는 LOB에 삽입 또는
-갱신한다.
+이 함수는 CLI 애플리케이션 버퍼value에 담긴 LOB 데이터를 LOB 위치 입력기targetLocator가 가리키고 있는 LOB 타입 칼럼에 갱신한다. 이때, 갱신되는 위치는 fromPosition 부터 valueLength 만큼이다. 
 
-이 함수를 실행하면, 서버는 타겟 LOB의 fromPosition 위치부터의 데이터를 value
-버퍼의 valueLength 길이만큼의 데이터로 덮어쓴다. valueLength가 (LOBSize –
-fromPosition)보다 큰 경우, 데이터베이스에서 타겟 LOB의 길이가 늘어난다.
-fromPosition이 타겟 LOB 값의 끝 위치를 가리키면, value 버퍼의 valueLength
-길이만큼의 데이터가 기존 값 뒤에 덧붙여진다.
+###### LOB 데이터 삽입
 
-타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의
-인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다.
-타겟 LOB locator가 유효하지 않을 때에는, SQLPutLob() 함수는 SQL_ERROR를
-리턴한다.
+INSERT 문으로 LOB 데이터를 삽입할 때 이 함수를 사용할 수 있다. 이때, fromPosition은 항상 0이다. 이것은 targetLocator가 길이가 0인 LOB 데이터를 가리키고 있는 것을 의미한다.
 
-타겟 LOB locator가 NULL인 LOB을 가리킬 경우, SQLPutLob() 함수는 LOB locator가
-길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
+###### LOB 데이터 전체 갱신
 
-fromPosition 인자는 호출 시점의 타겟 LOB 길이보다 크면 안 된다. fromPosition
-값이 타겟 LOB 길이보다 크면, SQLPutLob() 함수는 SQL_ERROR를 리턴한다.
+UPDATE 문으로 LOB 타입 칼럼 전체를 갱신할 때 이 함수를 사용할 수 있다. 이 함수의 동작은 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으며 fromPosition도 항상 0이다. 
+
+###### **LOB 데이터 부분 갱신**
+
+SQLPutLob 함수를 사용하여 SQL 문을 사용하지 않고 기존 LOB 데이터에서 특정 위치의 값을 갱신할 수 있다. 이때, LOB 위치 입력기를 얻기 위해 SELECT *LOB_column_name* FROM *table_name* WHERE … FOR UPDATE 문장을 먼저 수행해야 한다. 이 함수의 동작 역시 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으나 fromPosition은 기존 LOB 데이터에서 갱신할 시작 위치를 지정해야 한다. fromPosition에 기존 LOB 데이터의 끝 위치를 지정하면, CLI 애플리케이션 버퍼(value)에 담긴 LOB 데이터가 기존 데이터 뒤에 추가된다. 
+
+###### SQL_ERROR 반환
+
+targetLocator 인자가 유효하지 않을 때 SQL_ERROR를 반환한다. 
+
+fromPosition 인자가 함수 실행 시점의 targetLocator이 가리키는 LOB 타입 칼럼의 길이보다 크면 SQL_ERROR를 반환한다.
 
 #### 진 단
 
-| SQLSTATE | 설명                                | 부연설명                                                                |
-|----------|-------------------------------------|-------------------------------------------------------------------------|
+| SQLSTATE | 설명                                | 부연설명                                                     |
+| -------- | ----------------------------------- | ------------------------------------------------------------ |
 | 08S01    | 통신 회선 장애 (데이터 송수신 실패) | Altibase CLI 드라이버와 DB간에 함수 처리가 완료되기 전에 통신 회선 실패 |
-| HY000    | 일반 오류                           |                                                                         |
+| HY000    | 일반 오류                           |                                                              |
 
 #### 관련함수
 
@@ -7700,124 +7731,129 @@ SQLGetLob
 CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 CLOB);
 ```
 
-##### CLOB 칼럼 값이 ‘Ver.Beta’인 레코드 삽입 후 ‘Beta’ 부분을 ‘Gamma’로 치환
+##### CLOB 칼럼 값이 'Ver.Beta'인 레코드 삽입 후 'Beta' 부분을 'Gamma'로 치환
 
-```
+```c
 SQLCHAR buf[5];
 SQLUBIGINT lobLoc;
 .
+/* CLOB 타입 칼럼에 "Ver.Beta"를 삽입 */
 strcpy(query, "INSERT INTO T1 VALUES (1, 'Ver.Beta')");
 if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLExecDirect : ”);
+    execute_err(dbc, stmt, "SQLExecDirect : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
-.
+/* 아래부터는 SQLPutLob 함수로 'Beta' 부분을 'Gamma'로 치환하는 예제이다. */
+
+/* LOB 위치 입력기를 얻기 위해 SELECT FOR UPDATE 문을 먼저 수행한다. */
 strcpy(query, "SELECT i2 FROM T1 WHERE i1=1 FOR UPDATE");
 if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLExecDirect : ”);
+    execute_err(dbc, stmt, "SQLExecDirect : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLBindCol(stmt, 1, SQL_C_CLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLBindCol : ”);
+    execute_err(dbc, stmt, "SQLBindCol : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFetch(stmt) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLFetch : ”);
+    execute_err(dbc, stmt, "SQLFetch : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 memcpy(buf, "Gamma", 5);
-if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 4, SQL_C_CHAR, buf, 5) != SQL_SUCCESS)
+/* 버퍼buf에 담긴 데이터를 기존 LOB 데이터의 5번째(fromPosition+1) 위치부터 Gamma로 갱신한다. */ 
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 0, SQL_C_CHAR, buf, 5) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLPutLob : ”);
+    execute_err(dbc, stmt, "SQLPutLob : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    execute_err(dbc, stmt, "SQLFreeLob : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 ```
 
-##### CLOB 칼럼 값이 ‘Ver.0.9a’인 레코드 한 개 삽입
 
-```
-SQLCHAR buf[8];
+
+##### CLOB 칼럼 값이 'Hybrid dbms Altibase'인 레코드 삽입 후 'dbms'를 'DBMS'로 치환
+
+~~~c
+SQLCHAR buf[20];
 SQLINTEGER lobInd;
 SQLUBIGINT lobLoc;
-.
-.
-.
+
 strcpy(query, "INSERT INTO T1 VALUES (5, ?)");
 if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLPrepare : ”);
+    execute_err(dbc, stmt, "SQLPrepare : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLBindParameter : ”);
+    execute_err(dbc, stmt, "SQLBindParameter : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLExecute : ”);
+    execute_err(dbc, stmt, "SQLExecute : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
-memcpy(buf, "Ver.0.9a", 8);
-if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 7) != SQL_SUCCESS)
+/* 'Hybrid dbms Altibase' 레코드 삽입 */
+memcpy(buf, "Hybrid dbms Altibase", 20);
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 20) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLPutLob : ”);
+    execute_err(dbc, stmt, "SQLPutLob : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
-/* ‘Ver.0.9a’에서 ‘0.9’를 ‘1’로 치환 */
-memcpy(buf, "1", 1);
-if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 3, SQL_C_CHAR, buf, 1) != SQL_SUCCESS)
+memcpy(buf, "DBMS", 4);
+/* 'Hybrid dbms Altibase'에서 8번째 위치(fromPosition+1)부터 12번째 위치까지 'DBMS'로 치환 */
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 7, 0, SQL_C_CHAR, buf, 4) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLPutLob : ”);
+    execute_err(dbc, stmt, "SQLPutLob : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    execute_err(dbc, stmt, "SQLFreeLob : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
-```
+~~~
 
-##### 여러 레코드의 CLOB 칼럼을 일괄적으로 ‘Retail’로 변경
 
-```
+
+##### 여러 레코드의 CLOB 칼럼을 일괄적으로 'Retail'로 변경
+
+```c
 SQLCHAR buf[6];
 SQLINTEGER lobInd;
 SQLUBIGINT lobLoc;
-.
-.
-.
+
 strcpy(query, "UPDATE T1 SET i2=? WHERE i1>=1 AND i1<=100");
 if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
@@ -7826,17 +7862,18 @@ if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
     return SQL_ERROR;
 }
 
-/* LOB locator 파라미터를 아웃바인드하고 UPDATE 쿼리를 수행하면, 갱신 대상인 LOB 칼럼들이 자동적으로 null로 truncate  */
+
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLBindParameter : ”);
+    execute_err(dbc, stmt, "SQLBindParameter : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
+/* LOB 위치 입력기를 바인딩하고 UPDATE 문을 수행하면, LOB 타입 칼럼이 널(null)로 초기화된다. */
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLExecute : ”);
+    execute_err(dbc, stmt, "SQLExecute : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
@@ -7844,14 +7881,14 @@ if (SQLExecute(stmt) != SQL_SUCCESS)
 memcpy(buf, “Retail”, 6);
 if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 6) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLPutLob : ”);
+    execute_err(dbc, stmt, "SQLPutLob : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, “SQLFreeLob : ”);
+    execute_err(dbc, stmt, "SQLFreeLob : ");
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }

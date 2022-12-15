@@ -7617,6 +7617,26 @@ communicating.
 
 \# - Check the peer server or network connection.
 
+**0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>_META_NEW.bin, <2%s>_META_OLD.bin )** 
+
+**Cause:** 
+
+\# - Sender meta files do not exist or are invalid.
+
+**Action:** 
+
+\# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+
+**0x611B4 ( 397748) rpERR_ABORT_ERR_NO_VALID_SNFILE Invalid Restart SN files. (Replication name: <0%s>, File name: <1%s>_SN_NEW.bin, <2%s>_SN_OLD.bin )** 
+
+**Cause:** 
+
+\# - Restart SN files do not exist or are invalid.
+
+**Action:** 
+
+\# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+
 ### IGNORE
 
 **0x62024 ( 401444) rpERR_IGNORE_RP_SENDER_HASH_INIT [Sender] Failed to
@@ -14007,6 +14027,18 @@ empty queue can reset a msgid.**
 **Action:** Check whether the queue is empty, otherwise remove the data from the
 queue.
 
+**0x314AA ( 201898) qpERR_ABORT_QDQ_USE_QUEUE_TABLE_IN_DISK_TABLESPACE Failed to create queue table in disk tablespace.**
+
+**Cause:** Cannot create queue table in disk tablespace.
+
+**Action:** Create queue table in memory tablespace or volatile tablespace.
+
+**0x314AD ( 201901) qpERR_ABORT_QMC_INVALID_FUNCTION_BASED_INDEX An error occurred while applying a value with an unexpected data type to the function-based index.** 
+
+**Cause:** The specified value does not match the data type of the function-based index column.
+
+**Action:** Rebuild the function-based index and retry.
+
 ### RETRY
 
 **0x331FE ( 209406) qpERR_REBUILD_QMX_TOO_OLD_PLANTREE The plan tree is too
@@ -15921,6 +15953,12 @@ found. (SQLTextID = \<0%s\>)**
 **Cause:** This is an internal error related to unexpected state of shared transaction.
 
 **Action:** Please contact Altibase Support Center (http://support.altibase.com).
+
+**0x41109 ( 266505) mmERR_ABORT_IP_ACL_CONNECT_OVER New connection try exceeds ACL limit: ( IP : <0%s>, ACL: <1%s>, Limit : <2%d>, Connected : <3%d> )** 
+
+**Cause:** New connection try aborted because it exceeds access control list (ACL) limit.
+
+**Action:** Change the limit value of the ACCESS_LIST.
 
 
 ### IGNORE
@@ -19852,6 +19890,18 @@ non-blocking mode.
 **Cause:** Internal error.
 
 **Action:** Contact Altibase Support Center (http://support.altibase.com/en/).
+
+**0x710C6 ( 463046) cmERR_ABORT_SHMGET_ERROR_WITH_KEY A system call error occurred while creating shared memory for <0%s>. [key : <1%u>]** 
+
+**Cause:** shmget() system call failed.
+
+**Action:** Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the shared memory status. If there is a shared memory that has the same key value, remove the shared memory or retry with another key value.
+
+**0x710C7 ( 463047) cmERR_ABORT_SEMGET_ERROR_WITH_KEY A system call error occurred while creating semaphore for <0%s>. [key : <1%u>]** 
+
+**Cause:** semget() system call failed.
+
+**Action:** Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key value.
 
 ### IGNORE
 

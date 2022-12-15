@@ -4,32 +4,32 @@
 
 <br/>
 
+# **Table of Contents** 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-# **Table of Contents** 
 
 - [New Features](#new-features)
-  - [BUG-49963 aku(Altibase Kubernetes Utility)가 추가되었습니다.](#bug-49963akualtibase-kubernetes-utility가-추가되었습니다)
+    - [BUG-49963 Added aku (Altibase Kubernetes Utility).](#bug-49963added-aku-altibase-kubernetes-utility)
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-49910 INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 때 INSERT문 실행이 실패했음에도 레코드가 삽입되는 현상을 수정합니다.](#bug-49910insert문의-바인드-파라미터를-lob-데이터-타입으로-바인드할-때-insert문-실행이-실패했음에도-레코드가-삽입되는-현상을-수정합니다)
-  - [BUG-49911 DatabaseMetaData.getColumns 메소드의 IS\_AUTOINCREMENT, IS\_GENERATEDCOLUMN 컬럼값 반환 시 SQLException: Invalid column name 에러가 발생합니다.](#bug-49911databasemetadatagetcolumns-메소드의-is_autoincrement-is_generatedcolumn-컬럼값-반환-시-sqlexception-invalid-column-name-에러가-발생합니다)
-  - [BUG-49926 MEMORY\_ALLOCATOR\_TYPE 프로퍼티의 최대값을 변경합니다.](#bug-49926memory_allocator_type-프로퍼티의-최대값을-변경합니다)
-  - [BUG-49939 GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAST 절을 같이 사용할 때 ERR-31001 : SQL syntax error 에러가 발생합니다.](#bug-49939group-by-grouping-sets-절과-order-by-nulls-first-절-또는-order-by-nulls-last-절을-같이-사용할-때-err-31001--sql-syntax-error-에러가-발생합니다)
-  - [BUG-49940 ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정하는 프로퍼티를 추가합니다.](#bug-49940alter-table--add-column-수행-시-컬럼의-fixedvariable-옵션을-결정하는-프로퍼티를-추가합니다)
-  - [BUG-49960 getColumnName()으로 한글로 된 컬럼의 이름을 가져오면 한글이 깨지고 SQLException: Invalid column name 에러가 발생합니다.](#bug-49946adonet에서-psm-수행-시-dbdatareadernextresult에서-잘못된-결과를-반환합니다)
+    - [BUG-49910 Fixes a phenomenon in which records are inserted even if the INSERT statement execution fails when binding the bind parameter of the INSERT statement to a LOB data type.](#bug-49910fixes-a-phenomenon-in-which-records-are-inserted-even-if-the-insert-statement-execution-fails-when-binding-the-bind-parameter-of-the-insert-statement-to-a-lob-data-type)
+    - [BUG-49911 [SQLException: Invalid column name] error occurs when returning IS_AUTOINCREMENT, IS_GENERATEDCOLUMN column values from the DatabaseMetaData.getColumns method.](#bug-49911sqlexception-invalid-column-name-error-occurs-when-returning-is_autoincrement-is_generatedcolumn-column-values-from-the-databasemetadatagetcolumns-method)
+    - [BUG-49926 Change the maximum value of the MEMORY_ALLOCATOR_TYPE property.](#bug-49926change-the-maximum-value-of-the-memory_allocator_type-property)
+    - [BUG-49939 [ERR-31001: SQL syntax error] error occurs when the GROUP BY GROUPING SETS clause and ORDER BY NULLS FIRST clause or ORDER BY NULLS LAST clause are used together.](#bug-49939err-31001-sql-syntax-error-error-occurs-when-the-group-by-grouping-sets-clause-and-order-by-nulls-first-clause-or-order-by-nulls-last-clause-are-used-together)
+    - [BUG-49940 Adds a property that determines the FIXED/VARIABLE option of a column when ALTER TABLE ~ ADD COLUMN is executed.](#bug-49940adds-a-property-that-determines-the-fixedvariable-option-of-a-column-when-alter-table--add-column-is-executed)
+    - [BUG-49960 If you get the column name in Korean with getColumnName(), the Korean is broken and an SQLException: Invalid column name error occurs.](#bug-49960if-you-get-the-column-name-in-korean-with-getcolumnname-the-korean-is-broken-and-an-sqlexception-invalid-column-name-error-occurs)
 - [Changes](#changes)
-  - [Version Info](#version-info)
-  - [호환성](#호환성)
-  - [프로퍼티](#프로퍼티)
-  - [성능 뷰](#성능-뷰)
+    - [Version Info](#version-info)
+    - [Altibase Server Properties](#altibase-server-properties)
+    - [Performance Views](#performance-views)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 New Features
 ============
 
-### BUG-49963 aku(Altibase Kubernetes Utility)가 추가되었습니다.
+### BUG-49963 Added aku (Altibase Kubernetes Utility).
 
 #### module
 `rp`
@@ -38,20 +38,20 @@ New Features
 
 `Usability`
 
-#### 재현 빈도
+#### Reproducibility
 
 `Always`
 
-#### 설명
+#### Description
 
-aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod) 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행할 수 있게 도와주는 유틸리티입니다. 보다 자세한 내용은 [Utilities Manual-3.aku](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Utilities%20Manual.md#3aku)를 참고하시기 바랍니다. 
+The Altibase Kubernetes Utility (aku) is a utility that helps you perform tasks such as synchronizing Altibase's data or initializing synchronization information based on pod creation and shutdown when scaling from Kubernetes' Statefulset.
 
 
 
 Fixed Bugs
 ==========
 
-### BUG-49910 INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 때 INSERT문 실행이 실패했음에도 레코드가 삽입되는 현상을 수정합니다.
+### BUG-49910 Fixes a phenomenon in which records are inserted even if the INSERT statement execution fails when binding the bind parameter of the INSERT statement to a LOB data type.
 
 #### module
 `qp-dml-execute`
@@ -60,19 +60,19 @@ Fixed Bugs
 
 `Functional Error`
 
-#### 재현 빈도
+#### Reproducibility
 
 `Always`
 
-#### 설명
+#### Description
 
-INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 때 INSERT 수행이 실패했다는 에러가 발생하지만 실제로는 레코드가 삽입되는 현상을 수정합니다.
+Fixes a phenomenon where, when binding the bind parameter of an INSERT statement to a LOB data type, an error occurs saying that the INSERT execution failed, but the record is actually inserted.
 
-이 버그는 바인드 파라미터의 SQL 데이터 타입을 실제 컬럼의 데이터 타입과 다른 LOB 데이터 타입으로 바인드할 때 발생합니다. 이 버그가 반영된 Altibase 서버 7.1.0.8.1 이상에서 버그 조건에 해당하는 같은 동작 수행 시 SQL 수행 결과가 달라집니다.
+This bug occurs when you bind to a LOB data type where the SQL data type of the bind parameter is different from the data type of the actual column. In Altibase Server 7.1.0.8.1 or later, where this bug is reflected, SQL Actual Results are different when performing the same action corresponding to the bug condition.
 
-#### 재현 방법
+#### How to reproduce this bug
 
--   **재현 절차**
+-   **Reproduction conditions**
 
     ~~~sql
     CREATE TABLE TEST (C1 CHAR(10), C2 CHAR(10));
@@ -133,7 +133,7 @@ INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 �
     
     ```
 
--   **수행 결과**
+-   **Actual Results**
 
     ```bash
     $ demo_ex2
@@ -157,7 +157,7 @@ INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 �
     NAME: NULL
     ```
 
--   **예상 결과**
+-   **Expected Results**
 
     ```bash
     $ demo_ex2
@@ -172,16 +172,16 @@ INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 �
 
 #### Workaround
 
-`없음`
+`none`
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
 -   Compile Option
 -   Error Code
 
-### BUG-49911 DatabaseMetaData.getColumns 메소드의 IS\_AUTOINCREMENT, IS\_GENERATEDCOLUMN 컬럼값 반환 시 SQLException: Invalid column name 에러가 발생합니다.
+### BUG-49911 [SQLException: Invalid column name] error occurs when returning IS_AUTOINCREMENT, IS_GENERATEDCOLUMN column values from the DatabaseMetaData.getColumns method.
 
 #### module
 `mm-jdbc`
@@ -190,48 +190,46 @@ INSERT문의 바인드 파라미터를 LOB 데이터 타입으로 바인드할 �
 
 `Functionality`
 
-#### 재현 빈도
+#### Reproducibility
 
 `Frequence`
 
-#### 설명
+#### Description
 
-DatabaseMetaData.getColumns 메소드의 IS\_AUTOINCREMENT, IS\_GENERATEDCOLUMN 컬럼값 반환 시 SQLException: Invalid column name 에러가 발생하는 현상을 수정합니다.
+Fix a phenomenon in which [SQLException: Invalid column name] error occurs when returning IS_AUTOINCREMENT, IS_GENERATEDCOLUMN column values of the DatabaseMetaData.getColumns method.
 
-이 버그는 아래 버전에 해당하는 JDBC 드라이버를 사용할 때 발생합니다.
+This bug occurs when using the JDBC driver that corresponds to the version below..
 
-- JDBC 4.2 API를 부분 지원하는 Altibase 7.1 JDBC 드라이버(Altibase42.jar)
+- Altibase 7.1 JDBC driver with partial support for JDBC 4.2 API(Altibase42.jar)
 
-- Altibase 7.2 JDBC 드라이버
+Additionally, this bug has been modified so that the return order of the SPECIFIC_NAME and PROCEDURE_TYPE columns in the return result of the getProcedures() method is returned in the order defined in the JDBC 4.2 API specification. Actual Results may vary depending on the application code. The return order of the SPECIFIC_NAME and PROCEDURE_TYPE columns before and after applying this bug is as follows.
 
-추가로, 이 버그에서는 getProcedures() 메소드의 반환 결과에서 SPECIFIC\_NAME, PROCEDURE\_TYPE 컬럼의 반환 순서를 JDBC 4.2 API 명세에서 정의한 순서대로 반환하도록 수정하였습니다. 애플리케이션 코드에 따라 수행 결과가 달라질 수 있습니다. 이 버그 반영 전/후 SPECIFIC\_NAME, PROCEDURE\_TYPE 컬럼의 반환 순서는 아래와 같습니다.
-
-| 버그 반영 전                                                 | 버그 반영 후                                                 |
+| before bug fix                                               | after bug fix                                                |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | rs.getString(8)  ==\> SPECIFIC\_NAME<br />rs.getString(9)  ==\> PROCEDURE\_TYPE | rs.getString(8)  =\> PROCEDURE\_TYPE<br />rs.getString(9)  =\> SPECIFIC\_NAME |
 
-본 버그를 적용하려면 Altibase JDBC 드라이버를 패치해야 합니다.
+Altibase JDBC driver needs to be patched to apply this bug.
 
-#### 재현 방법
+#### How to reproduce this bug
 
--   **재현 절차**
+-   **Reproduction conditions**
 
--   **수행 결과**
+-   **Actual Results**
 
--   **예상 결과**
+-   **Expected Results**
 
 #### Workaround
 
-`없음`
+`none`
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
 -   Compile Option
 -   Error Code
 
-### BUG-49926 MEMORY\_ALLOCATOR\_TYPE 프로퍼티의 최대값을 변경합니다.
+### BUG-49926 Change the maximum value of the MEMORY_ALLOCATOR_TYPE property.
 
 #### module
 `id`
@@ -240,34 +238,34 @@ DatabaseMetaData.getColumns 메소드의 IS\_AUTOINCREMENT, IS\_GENERATEDCOLUMN 
 
 `Fatal`
 
-#### 재현 빈도
+#### Reproducibility
 
 `Always`
 
-#### 설명
+#### Description
 
-MEMORY\_ALLOCATOR\_TYPE 프로퍼티의 최대값을 1에서 0으로 변경합니다. 이 버그가 적용된 Altibase 서버 7.1.0.8.1 이상에서 Altibase 서버 프로퍼티 파일(altibase.properties)에 MEMORY\_ALLOCATOR\_TYPE=1을 추가한 경우 Altibase 서버 구동 시 Property [MEMORY\_ALLOCATOR\_TYPE] 1 Overflowed the Value Range.(0\~0) 에러가 발생합니다.
+Change the maximum value of the MEMORY_ALLOCATOR_TYPE property from 1 to 0. If MEMORY_ALLOCATOR_TYPE=1 is added to the Altibase server property file (altibase.properties) in Altibase server 7.1.0.8.1 or later to which this bug is applied, [Property [MEMORY_ALLOCATOR_TYPE] 1 Overflowed the Value Range.(0~0) ] error occurs.
 
-#### 재현 방법
+#### How to reproduce this bug
 
--   **재현 절차**
+-   **Reproduction conditions**
 
--   **수행 결과**
+-   **Actual Results**
 
--   **예상 결과**
+-   **Expected Results**
 
 #### Workaround
 
-`없음`
+`none`
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
 -   Compile Option
 -   Error Code
 
-### BUG-49939 GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAST 절을 같이 사용할 때 ERR-31001 : SQL syntax error 에러가 발생합니다.
+### BUG-49939 [ERR-31001: SQL syntax error] error occurs when the GROUP BY GROUPING SETS clause and ORDER BY NULLS FIRST clause or ORDER BY NULLS LAST clause are used together.
 
 #### module
 `qp-select`
@@ -276,17 +274,17 @@ MEMORY\_ALLOCATOR\_TYPE 프로퍼티의 최대값을 1에서 0으로 변경합�
 
 `Functional Error`
 
-#### 재현 빈도
+#### Reproducibility
 
 `Always`
 
-#### 설명
+#### Description
 
-GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAST 절을 같이 사용할 때 ERR-31001 : SQL syntax error 에러가 발생하는 현상을 수정합니다.
+Fixes a phenomenon in which [ERR-31001: SQL syntax error] error occurs when the GROUP BY GROUPING SETS clause and the ORDER BY NULLS FIRST clause or ORDER BY NULLS LAST clause are used together.
 
-#### 재현 방법
+#### How to reproduce this bug
 
--   **재현 절차**
+-   **Reproduction conditions**
 
     ```sql
     DROP TABLE BUG-49939;
@@ -306,7 +304,7 @@ GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAS
      ORDER BY A1.C1 NULLS FIRST, A1.C3 NULLS FIRST;
     ```
 
--   **수행 결과**
+-   **Actual Results**
 
     ```sql
     [ERR-31001 : SQL syntax error 
@@ -318,7 +316,7 @@ GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAS
     ]
     ```
 
--   **예상 결과**
+-   **Expected Results**
 
     ```sql
     C1                    C2                    C3                    
@@ -336,7 +334,7 @@ GROUP BY GROUPING SETS 절과 ORDER BY NULLS FIRST 절 또는 ORDER BY NULLS LAS
 
 #### Workaround
 
-아래와 같이 쿼리를 변환하여 버그를 회피할 수 있습니다.
+You can avoid the bug by transforming your query as below.
 
 ```sql
 SELECT A1.C1, A1.C2, A1.C3
@@ -349,14 +347,14 @@ GROUP BY NULL
 ORDER BY C1 NULLS FIRST, C3 NULLS FIRST;
 ```
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
 -   Compile Option
 -   Error Code
 
-### BUG-49940 ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정하는 프로퍼티를 추가합니다.
+### BUG-49940 Adds a property that determines the FIXED/VARIABLE option of a column when ALTER TABLE ~ ADD COLUMN is executed.
 
 #### module
 `qp-ddl-dcl-execute`
@@ -365,38 +363,38 @@ ORDER BY C1 NULLS FIRST, C3 NULLS FIRST;
 
 `Functional Error`
 
-#### 재현 빈도
+#### Reproducibility
 
 `Always`
 
-#### 설명
+#### Description
 
-ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정하는 프로퍼티를 추가합니다.
+Adds a property that determines the FIXED/VARIABLE option of a column when ALTER TABLE ~ ADD COLUMN is executed.
 
-이 버그는 메모리 테이블에만 영향이 있습니다.
+This bug only affects memory tables.
 
-이 버그를 적용하려면 비공개 프로퍼티를 변경해야 합니다. 필요한 경우 Altibase 기술 지원 센터로 문의해주시기 바랍니다.
+You need to change the private property to apply this bug. If necessary, please contact the Altibase Technical Support Center.
 
-#### 재현 방법
+#### How to reproduce this bug
 
--   **재현 절차**
+-   **Reproduction conditions**
 
--   **수행 결과**
+-   **Actual Results**
 
--   **예상 결과**
+-   **Expected Results**
 
 #### Workaround
 
-`없음`
+`none`
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
 -   Compile Option
 -   Error Code
 
-### BUG-49960 getColumnName()으로 한글로 된 컬럼의 이름을 가져오면 한글이 깨지고 SQLException: Invalid column name 에러가 발생합니다.
+### BUG-49960 If you get the column name in Korean with getColumnName(), the Korean is broken and an SQLException: Invalid column name error occurs.
 
 #### module
 `mm-jdbc`
@@ -405,24 +403,24 @@ ALTER TABLE \~ ADD COLUMN 수행 시 컬럼의 FIXED/VARIABLE 옵션을 결정�
 
 `Functional Error`
 
-#### 재현 빈도
+#### Reproducibility
 
 `Always`
 
-#### 설명
+#### Description
 
-Altibase 서버와 클라이언트의 캐릭터셋이 다를 때 JDBC에서 한글로 된 컬럼의 이름을 가져오면 한글이 깨지는 현상을 수정합니다. 이 버그는 ResultSetMetaData 인터페이스의 다음 메소드들을 사용할 때 영향이 있습니다.
+Fixes a problem where Korean characters are broken when a column name in Korean is retrieved from JDBC when the character sets of the Altibase server and client are different. This bug affects the use of the following methods of the ResultSetMetaData interface.
 
 - getColumnLabel()
 - getColumnName()
 - getSchemaName()
 - getTableName()
 
-본 버그를 적용하려면 Altibase JDBC 드라이버를 패치해야 합니다.
+Altibase JDBC driver needs to be patched to apply this bug.
 
-#### 재현 방법
+#### How to reproduce this bug
 
--   **재현 절차**
+-   **Reproduction conditions**
 
     ~~~bash
     $ export LANG=ko_KR.EUC-KR
@@ -434,7 +432,7 @@ Altibase 서버와 클라이언트의 캐릭터셋이 다를 때 JDBC에서 한�
     ~~~
 
     ```java
-    ### 예제 코드 CharacterSetTest.java 일부
+    ### Sample Code Part of CharacterSetTest.java
     [source encoding = utf8]
     Connection sCon = getAltiConnection();
     Statement sStmt = sCon.createStatement();
@@ -458,7 +456,7 @@ Altibase 서버와 클라이언트의 캐릭터셋이 다를 때 JDBC에서 한�
 
     
 
--   **수행 결과**
+-   **Actual Results**
 
     ```bash
     $ java CharacterSetTest
@@ -473,7 +471,7 @@ Altibase 서버와 클라이언트의 캐릭터셋이 다를 때 JDBC에서 한�
             at CharacterSetTest.main(CharacterSetTest.java:10)
     ```
 
--   **예상 결과**
+-   **Expected Results**
 
     ```bash
     $ java CharacterSetTest
@@ -484,11 +482,11 @@ Altibase 서버와 클라이언트의 캐릭터셋이 다를 때 JDBC에서 한�
 
 #### Workaround
 
-`-Dfile.encoding=euc-kr` 옵션을 사용하여 버그를 회피할 수 있습니다.
+You can work around the bug by using the -Dfile.encoding=euc-kr option.
 
 
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
@@ -504,44 +502,44 @@ Changes
 | :--------------: | :---------------------: | :----------: | :-----------------: | :--------------------------: |
 |    7.1.0.8.1     |          6.5.1          |    8.10.1    |        7.1.7        |            7.4.7             |
 
-> Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+> You can check the module version change history in [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md).
 
-### 호환성
+#### Compatibility
 
 #### Database binary version
 
-데이터베이스 바이너리 버전은 변경되지 않았다.
+The database binary version has not changed.
 
-> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는 데이터베이스를 재구성해야 한다.
+> The database binary version indicates the compatibility of database image files and log files. If this version needs to be patched to a different version, the database must be reorganized.
 
 #### Meta Version
 
-메타 버전은 변경되지 않았다.
+The meta version has not changed.
 
-> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
+> If you want to roll back the patch after patching to a version with a changed meta version, see [Meta Downgrade](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Installation%20Guide.md#meta-downgrade).
 
 #### CM protocol Version
 
-통신 프로토콜 버전은 변경되지 않았다.
+The cm protocol version has not changed.
 
 #### Replication protocol Version
 
-Replication 프로토콜 버전은 변경되지 않았다.
+The replication protocol version has not changed.
 
 
 
-### 프로퍼티
+### Altibase Server Properties
 
-#### 추가된 프로퍼티
+#### Added Properties
 
-#### 변경된 프로퍼티
+#### Changed Properties
 
-#### 삭제된 프로퍼티
+#### Deleted Properties
 
-### 성능 뷰
+### Performance Views
 
-#### 추가된 성능 뷰
+#### Added Performance Views
 
-#### 변경된 성능 뷰
+#### Changed Performance Views
 
-#### 삭제된 성능 뷰
+#### Deleted Performance Views
