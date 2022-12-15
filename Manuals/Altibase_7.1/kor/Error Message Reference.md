@@ -54,11 +54,16 @@
   - [13.Database Link Error Code](#13database-link-error-code)
     - [FATAL](#fatal-10)
     - [ABORT](#abort-12)
-    - [**RETRY**](#retry)
+    - [RETRY](#retry-3)
   - [14.Log Analyzer Error Code](#14log-analyzer-error-code)
-    - [**FATAL**](#fatal)
-    - [**ABORT**](#abort)
+    - [FATAL](#fatal-11)
+    - [ABORT](#abort-13)
     - [IGNORE](#ignore-9)
+  - [15.Regular Expression Error Code](#15regular-expression-error-code)
+    - [문법 오류](#문법-오류)
+    - [PCRE2 제약 사항](#pcre2-제약-사항)
+    - [유니코드, UTF-8 에러](#유니코드-utf-8-에러)
+    - [PCRE2 라이브러리 내부 오류](#pcre2-라이브러리-내부-오류)
 
 
 
@@ -7637,26 +7642,6 @@ communicating.
 
 \# - Check the peer server or network connection.
 
-**0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>_META_NEW.bin, <2%s>_META_OLD.bin )** 
-
-**Cause:** 
-
-\# - Sender meta files do not exist or are invalid.
-
-**Action:** 
-
-\# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
-
-**0x611B4 ( 397748) rpERR_ABORT_ERR_NO_VALID_SNFILE Invalid Restart SN files. (Replication name: <0%s>, File name: <1%s>_SN_NEW.bin, <2%s>_SN_OLD.bin )** 
-
-**Cause:** 
-
-\# - Restart SN files do not exist or are invalid.
-
-**Action:** 
-
-\# - 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
-
 ### IGNORE
 
 **0x62024 ( 401444) rpERR_IGNORE_RP_SENDER_HASH_INIT [Sender] Failed to
@@ -14047,7 +14032,7 @@ empty queue can reset a msgid.**
 **Action:** Check whether the queue is empty, otherwise remove the data from the
 queue.
 
-**0x314AA ( 201898) qpERR_ABORT_QDQ_USE_QUEUE_TABLE_IN_DISK_TABLESPACE Failed to create queue table in disk tablespace.**
+**0x314AA ( 201898) qpERR_ABORT_QDQ_USE_QUEUE_TABLE_IN_DISK_TABLESPACE Failed to create queue table in disk tablespace.** 
 
 **Cause:** Cannot create queue table in disk tablespace.
 
@@ -15950,12 +15935,6 @@ found. (SQLTextID = \<0%s\>)**
 **Cause:** The SQLTextID does not exist.
 
 **Action:** Check whether SQLTextID exists in V\$SQL_PLAN_CACHE_SQLTEXT.
-
-**0x410FD ( 266493) mmERR_ABORT_IP_ACL_CONNECT_OVER New connection try exceeds ACL limit: ( IP : <0%s>, ACL: <1%s>, Limit : <2%d>, Connected : <3%d> )** 
-
-**Cause:** New connection try aborted because it exceeds access control list (ACL) limit.
-
-**Action:** Change the limit value of the ACCESS_LIST.
 
 ### IGNORE
 
@@ -21235,3 +21214,326 @@ supported by ODBC.
 
 **Action:** Refer to the log file specified for ALA_EnableLogging and pass a
 data type supported by ODBC.
+
+## 15.Regular Expression Error Code
+
+PCRE2 호환 모드(REGEXP_MODE=1)에서 정규 표현식 사용 시 발생할 수 있는 에러 메시지를 정리하였다. 
+
+PCRE2 호환 모드에서 만날 수 있는 0x2106C 에러 코드는 아래와 같은 메시지 형식을 갖는다. <1%s>는 PCRE2 라이브러리에서 반환한 메시지이며 <0%s>는 Altibase 에서 해당 에러가 발생한 위치를 의미한다.  
+
+~~~sql
+ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)
+~~~
+
+이 장에서는 0x2106c 에서 코드의 <1%s> 위치에서 확인할 수 있는 메시지를 에러 발생 상황에 따라 분류하였다. 
+
+### 문법 오류
+
+> Cause : PCRE2 호환 모드에서 올바르지 않은 정규 표현식 문법을 사용할 때 발생하는 에러 메시지이다. 
+>
+> Action : SQL Reference 매뉴얼 또는 PCRE2 페이지를 참고하여 문법을 올바르게 수정해야 한다.
+
+`\ at end of pattern` 
+
+`\c at end of pattern` 
+
+`unrecognized character follows \` 
+
+`numbers out of order in {} quantifier` 
+
+`number too big in {} quantifier` 
+
+`missing terminating ] for character class` 
+
+`escape sequence is invalid in character class`
+
+`range out of order in character class`
+
+`quantifier does not follow a repeatable item`
+
+`unrecognized character after (? or (?-`
+
+`POSIX named classes are supported only within a class`
+
+`POSIX collating elements are not supported`
+
+`missing closing parenthesis`
+
+`reference to non-existent subpattern`
+
+`pattern passed as NULL`
+
+`missing ) after (?# comment`
+
+`unmatched closing parenthesis`
+
+`missing closing parenthesis for condition`
+
+`lookbehind assertion is not fixed length`
+
+`\C is not allowed in a lookbehind assertion in UTF-8 mode`
+
+`PCRE2 does not support \\F, \\L, \\l, \\N{name}, \\U, or \\u\`
+
+`number after (?C is greater than 255`
+
+`a relative value of zero is not allowed`
+
+`conditional subpattern contains more than two branches`
+
+`assertion expected after (?( or (?(?C)`
+
+`digit expected after (?+ or (?-\0`
+
+`unknown POSIX class name`
+
+`character code point value in \\x{} or \\o{} is too large`
+
+`closing parenthesis for (?C expected`
+
+`invalid escape sequence in (*VERB) name`
+
+`unrecognized character after (?P`
+
+`syntax error in subpattern name (missing terminator?)`
+
+`two named subpatterns have the same name (PCRE2_DUPNAMES not set)`
+
+`subpattern name must start with a non-digit`
+
+`malformed \\P or \\p sequence`
+
+`invalid range in character class`
+
+`octal value is greater than \\377 in 8-bit non-UTF-8 mode`
+
+`DEFINE subpattern contains more than one branch`
+
+`missing opening brace after \\o`
+
+`\\g is not followed by a braced, angle-bracketed, or quoted name/number or by a plain number`
+
+`(?R (recursive pattern call) must be followed by a closing parenthesis`
+
+`(*VERB) not recognized or malformed`
+
+`subpattern name expected`
+
+`non-octal character in \\o{} (closing brace missing?)`
+
+`different names for subpatterns of the same number are not allowed`
+
+`(*MARK) must have an argument`
+
+`non-hex character in \\x{} (closing brace missing?)`
+
+`\\c must be followed by a printable ASCII character`
+
+`\\k is not followed by a braced, angle-bracketed, or quoted name`
+
+`\\N is not supported in a class`
+
+`disallowed Unicode code point (>= 0xd800 && <= 0xdfff)`
+
+`digits missing in \\x{} or \\o{} or \\N{U+}`
+
+`syntax error or number too big in (?(VERSION condition`
+
+`missing terminating delimiter for callout with string argument`
+
+`unrecognized string delimiter follows (?C`
+
+`invalid hyphen in option setting`
+
+`*(*alpha_assertion) not recognized`
+
+`atomic assertion expected after (?( or (?(?C)`
+
+`\\K is not allowed in lookarounds (but see PCRE2_EXTRA_ALLOW_LOOKAROUND_BSK)`
+
+`invalid syntax`
+
+`non-unique substring name`
+
+`NULL argument passed with non-zero length`
+
+`nested recursion at the same subject position`
+
+`requested value is not available`
+
+`requested value is not set`
+
+`bad escape sequence in replacement string`
+
+`expected closing curly bracket in replacement string`
+
+`bad substitution in replacement string`
+
+`invalid replacement string`
+
+### PCRE2 제약 사항
+
+> Cause : PCRE2의 제약 사항을 위배하여 발생하는 에러이다. 
+>
+> Action : 에러 메시지를 참고하여 정규 표현식을 올바르게 수정한다. 조치가 어렵다면 Altibase 고객지원 센터로 연락한다.
+
+`parentheses are too deeply nested` 
+
+`regular expression is too large`
+
+`failed to allocate heap memory`
+
+`parentheses are too deeply nested (stack check)`
+
+`lookbehind is too complicated`
+
+`subpattern name is too long (maximum ... code units)`
+
+`too many named subpatterns (maximum ...)`
+
+`subpattern number is too big`
+
+`callout string is too long`
+
+`name is too long in (*MARK), (*PRUNE), (*SKIP), or (*THEN)`
+
+`character code point value in \\u.... sequence is too large`
+
+`(?| and/or (?J: or (?x: parentheses are too deeply nested`
+
+`regular expression is too complicated`
+
+`lookbehind assertion is too long`
+
+`pattern string is longer than the limit set by the application`
+
+`too many capturing groups (maximum 65535)`
+
+`match limit exceeded`
+
+`no more memory`
+
+`matching depth limit exceeded`
+
+`too many replacements (more than INT_MAX)`
+
+`heap limit exceeded`
+
+`offset limit set without PCRE2_USE_OFFSET_LIMIT`
+
+`match with end before start or start moved backwards is not supported`
+
+### 유니코드, UTF-8 에러
+
+> Cause : REGEXP_ 로 시작하는 문자 함수나 REGEXP_LIKE 조건 연산자의 입력 문자열이 UTF8 형식을 벗어날 때 발생하는 에러이다.
+>
+> Action : 문자 함수나 REGEXP_LIKE 조건 연산자의 입력 문자열이 UTF-8 데이터인지 확인한다. 
+
+`UTF-8 error: 1 byte missing at end`
+
+`UTF-8 error: 2 bytes missing at end`
+
+`UTF-8 error: 3 bytes missing at end`
+
+`UTF-8 error: 4 bytes missing at end`
+
+`UTF-8 error: 5 bytes missing at end`
+
+`UTF-8 error: byte 2 top bits not 0x80`
+
+`UTF-8 error: byte 3 top bits not 0x80`
+
+`UTF-8 error: byte 4 top bits not 0x80`
+
+`UTF-8 error: byte 5 top bits not 0x80`
+
+`UTF-8 error: byte 6 top bits not 0x80`
+
+`UTF-8 error: 5-byte character is not allowed (RFC 3629)`
+
+`UTF-8 error: 6-byte character is not allowed (RFC 3629)`
+
+`UTF-8 error: code points greater than 0x10ffff are not defined`
+
+`UTF-8 error: code points 0xd800-0xdfff are not defined`
+
+`UTF-8 error: overlong 2-byte sequence`
+
+`UTF-8 error: overlong 3-byte sequence`
+
+`UTF-8 error: overlong 4-byte sequence`
+
+`UTF-8 error: overlong 5-byte sequence`
+
+`UTF-8 error: overlong 6-byte sequence`
+
+`UTF-8 error: isolated byte with 0x80 bit set`
+
+`UTF-8 error: illegal byte (0xfe or 0xff)`
+
+### PCRE2 라이브러리 내부 오류
+
+> Cause : PCRE2 라이브러리 내부 동작 수행 중 오류가 발생하였다.
+>
+> Action : 구체적인 원인 확인이 필요하다면 Altibase 고객지원 센터로 연락한다.
+
+`internal error: unexpected repeat`
+
+`unrecognised compile-time option bit(s)`
+
+`internal error: code overflow`
+
+`internal error in pcre2_study(): should not occur`
+
+`unknown property after \\P or \\p`
+
+`internal error: overran compiling workspace`
+
+`internal error: previously-checked referenced subpattern not found`
+
+`internal error: unknown newline setting`
+
+`obsolete error (should not occur)`
+
+`internal error: parsed pattern overflow`
+
+`internal error: unknown meta code in check_lookbehinds()`
+
+`using UTF is disabled by the application`
+
+`using UCP is disabled by the application`
+
+`internal error: unknown opcode in auto_possessify()`
+
+`using \\C is disabled by the application`
+
+`using \\C is disabled in this PCRE2 library`
+
+`internal error: unknown code in parsed pattern`
+
+`internal error: bad code value in parsed_skip()`
+
+`invalid option bits with PCRE2_LITERAL`
+
+`internal error - pattern overwritten?`
+
+`internal error - duplicate substitution match`
+
+`bad data value`
+
+`patterns do not all use the same character tables`
+
+`magic number missing`
+
+`pattern compiled in wrong mode: 8/16/32-bit error`
+
+`bad offset value`
+
+`bad option value`
+
+`bad offset into UTF string`
+
+`callout error code`
+
+`bad serialized data`
+
