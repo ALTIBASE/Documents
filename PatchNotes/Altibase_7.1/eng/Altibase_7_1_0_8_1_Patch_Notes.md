@@ -79,7 +79,7 @@ This bug occurs when you bind to a LOB data type where the SQL data type of the 
     ~~~
 
     ```c
-    // 예제 코드 demo_ex2.cpp 일부
+    // prart of the demo_ex2.cpp
         /* prepares an SQL string for execution */
         rc = SQLPrepare(stmt, (SQLCHAR *)"INSERT INTO TEST VALUES(?, ?)", SQL_NTS);
         if (!SQL_SUCCEEDED(rc))
