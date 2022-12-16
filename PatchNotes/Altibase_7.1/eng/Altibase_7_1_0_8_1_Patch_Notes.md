@@ -44,7 +44,7 @@ New Features
 
 #### Description
 
-The Altibase Kubernetes Utility (aku) is a utility that helps you perform tasks such as synchronizing Altibase's data or initializing synchronization information based on pod creation and shutdown when scaling from Kubernetes' Statefulset.
+The Altibase Kubernetes Utility (aku) is a utility that helps you perform tasks such as synchronizing Altibase's data or initializing synchronization information based on Pod creation and shutdown when scaling from Kubernetes' Statefulset.
 
 
 
