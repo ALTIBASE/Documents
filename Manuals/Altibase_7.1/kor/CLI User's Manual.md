@@ -6807,10 +6807,8 @@ CLI에서 LOB 데이터를 처리하는 과정은 LOB 위치 입력기를 얻는
 
 LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다. *더 있을까요?* 
 
-- SQLBindCol
-- SQLFetch
-- SQLBindParameter
-- SQLExecute
+- SQLBindCol / SQLFetch
+- SQLBindParameter / SQLExecute
 
 #### LOB 데이터 읽고 쓰기
 
@@ -6847,8 +6845,8 @@ LOB 데이터 타입을 처리하는데 사용되는 SQL 데이터 타입과 C �
 
 | SQL 식별자 | Altibase 데이터 타입 | 설명                                        |
 | :--------- | :------------------- | ------------------------------------------- |
-| SQL_BLOB   | BLOB                 | BLOB은 가변 길이를 가지는 이진 데이터 타입. |
-| SQL_CLOB   | CLOB                 | CLOB은 가변 길이를 가지는 데이터 타입.      |
+| SQL_BLOB   | BLOB                 | BLOB은 가변 길이를 가지는 이진 데이터 타입 |
+| SQL_CLOB   | CLOB                 | CLOB은 가변 길이를 가지는 데이터 타입     |
 
 [표 3‑1] LOB 데이터 타입을 지원하는 SQL 데이터 타입의 식별자
 
@@ -7672,10 +7670,10 @@ SQLRETURN SQLPutLob(
 | ----------- | ------------- | ---- | ------------------------------------------------------------ |
 | SQLHSTMT    | stmt          | 입력 | 검색된 결과들에 대한 명령문 핸들                             |
 | SQLSMALLINT | locatorCType  | 입력 | 삽입 또는 갱신할 LOB 위치 입력기의 C 데이터 타입 식별자.<br />SQL_C_BLOB_LOCATOR 또는 SQL_C_CLOB_LOCATOR가 올 수 있다. |
-| SQLUBIGINT  | targetLocator | 입력 | LOB 위치 입력기.<br />삽입 또는 갱신할 LOB 타입 칼럼을 의미한다. |
-| SQLUINTEGER | fromPosition  | 입력 | LOB 데이터를 삽입 또는 갱신할 시작 위치로, 0부터 시작된다. 단위는 바이트이다. |
+| SQLUBIGINT  | targetLocator | 입력 | LOB 위치 입력기.<br />LOB 데이터를 삽입하는 위치 또는 갱신할 LOB 데이터를 가리킨다. |
+| SQLUINTEGER | fromPosition  | 입력 | LOB 데이터를 삽입 또는 갱신할 시작 위치로, 0부터 시작하며 LOB 데이터를 삽입할 때는 항상 0이다. 단위는 바이트이다. |
 | SQLUINTEGER | forLength     | 입력 | 사용되지 않음                                                |
-| SQLSMALLINT | sourceCType   | 입력 | 삽입 또는 갱신할 데이터를 담고 있는 CLI 애플리케이션 버퍼를 나타내는 C 데이터 타입 식별자. <br /> BLOB 데이터는 SQL_C_BINARY, CLOB 데이터는 SQL_C_CHAR가 올 수 있다. |
+| SQLSMALLINT | sourceCType   | 입력 | CLI 애플리케이션 버퍼를 나타내는 C 데이터 타입 식별자. 이 버퍼는 삽입 또는 갱신할 LOB 데이터를 담고 있다.<br /> BLOB 데이터는 SQL_C_BINARY, CLOB 데이터는 SQL_C_CHAR가 올 수 있다. |
 | SQLPOINTER  | value         | 입력 | CLI 애플리케이션 버퍼를 가리키는 포인터                      |
 | SQLUINTEGER | valueLength   | 입력 | CLI 애플리케이션 버퍼에 저장된 LOB 데이터의 길이로, 1부터 시작한다. 단위는 바이트이다. SQL_NULL_DATA는 설정할 수 없다. |
 
