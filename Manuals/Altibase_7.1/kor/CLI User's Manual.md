@@ -7677,56 +7677,52 @@ CREATE TABLE T1 (i1 INTEGER PRIMARY KEY, i2 CLOB);
 
 ##### CLOB 칼럼 값이 'Ver.Beta'인 레코드 삽입 후 'Beta' 부분을 'Gamma'로 치환
 
-```c
+```
 SQLCHAR buf[5];
 SQLUBIGINT lobLoc;
 .
-/* CLOB 타입 칼럼에 "Ver.Beta"를 삽입 */
 strcpy(query, "INSERT INTO T1 VALUES (1, 'Ver.Beta')");
 if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLExecDirect : ");
+    execute_err(dbc, stmt, “SQLExecDirect : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
-/* 아래부터는 SQLPutLob 함수로 'Beta' 부분을 'Gamma'로 치환하는 예제이다. */
-
-/* LOB 위치 입력기를 얻기 위해 SELECT FOR UPDATE 문을 먼저 수행한다. */
+.
 strcpy(query, "SELECT i2 FROM T1 WHERE i1=1 FOR UPDATE");
 if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLExecDirect : ");
+    execute_err(dbc, stmt, “SQLExecDirect : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLBindCol(stmt, 1, SQL_C_CLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLBindCol : ");
+    execute_err(dbc, stmt, “SQLBindCol : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFetch(stmt) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLFetch : ");
+    execute_err(dbc, stmt, “SQLFetch : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 memcpy(buf, "Gamma", 5);
-/* 버퍼buf에 담긴 데이터를 기존 LOB 데이터의 5번째(fromPosition+1) 위치부터 Gamma로 갱신한다. */ 
-if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 0, SQL_C_CHAR, buf, 5) != SQL_SUCCESS)
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 4, SQL_C_CHAR, buf, 5) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLPutLob : ");
+    execute_err(dbc, stmt, “SQLPutLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLFreeLob : ");
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
@@ -7734,56 +7730,57 @@ if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 
 
 
-##### CLOB 칼럼 값이 'Hybrid dbms Altibase'인 레코드 삽입 후 'dbms'를 'DBMS'로 치환
+##### CLOB 칼럼 값이 ‘Ver.0.9a’인 레코드 한 개 삽입
 
-~~~c
-SQLCHAR buf[20];
+~~~
+SQLCHAR buf[8];
 SQLINTEGER lobInd;
 SQLUBIGINT lobLoc;
-
+.
+.
+.
 strcpy(query, "INSERT INTO T1 VALUES (5, ?)");
 if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLPrepare : ");
+    execute_err(dbc, stmt, “SQLPrepare : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLBindParameter : ");
+    execute_err(dbc, stmt, “SQLBindParameter : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLExecute : ");
+    execute_err(dbc, stmt, “SQLExecute : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
-/* 'Hybrid dbms Altibase' 레코드 삽입 */
-memcpy(buf, "Hybrid dbms Altibase", 20);
-if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 20) != SQL_SUCCESS)
+memcpy(buf, "Ver.0.9a", 8);
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 7) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLPutLob : ");
+    execute_err(dbc, stmt, “SQLPutLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
-memcpy(buf, "DBMS", 4);
-/* 'Hybrid dbms Altibase'에서 8번째 위치(fromPosition+1)부터 12번째 위치까지 'DBMS'로 치환 */
-if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 7, 0, SQL_C_CHAR, buf, 4) != SQL_SUCCESS)
+/* ‘Ver.0.9a’에서 ‘0.9’를 ‘1’로 치환 */
+memcpy(buf, "1", 1);
+if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 4, 3, SQL_C_CHAR, buf, 1) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLPutLob : ");
+    execute_err(dbc, stmt, “SQLPutLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLFreeLob : ");
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
@@ -7793,11 +7790,13 @@ if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 
 ##### 여러 레코드의 CLOB 칼럼을 일괄적으로 'Retail'로 변경
 
-```c
+```
 SQLCHAR buf[6];
 SQLINTEGER lobInd;
 SQLUBIGINT lobLoc;
-
+.
+.
+.
 strcpy(query, "UPDATE T1 SET i2=? WHERE i1>=1 AND i1<=100");
 if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
 {
@@ -7806,18 +7805,17 @@ if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
     return SQL_ERROR;
 }
 
-
+/* LOB locator 파라미터를 아웃바인드하고 UPDATE 쿼리를 수행하면, 갱신 대상인 LOB 칼럼들이 자동적으로 null로 truncate  */
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLBindParameter : ");
+    execute_err(dbc, stmt, “SQLBindParameter : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
-/* LOB 위치 입력기를 바인딩하고 UPDATE 문을 수행하면, LOB 타입 칼럼이 널(null)로 초기화된다. */
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLExecute : ");
+    execute_err(dbc, stmt, “SQLExecute : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
@@ -7825,14 +7823,14 @@ if (SQLExecute(stmt) != SQL_SUCCESS)
 memcpy(buf, “Retail”, 6);
 if (SQLPutLob(stmt, SQL_C_CLOB_LOCATOR, lobLoc, 0, 0, SQL_C_CHAR, buf, 6) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLPutLob : ");
+    execute_err(dbc, stmt, “SQLPutLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
 
 if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 {
-    execute_err(dbc, stmt, "SQLFreeLob : ");
+    execute_err(dbc, stmt, “SQLFreeLob : ”);
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
