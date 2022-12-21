@@ -1547,15 +1547,15 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
-| Exclusion 제약         |                   X                   |                   X                    | Altibase는 Exclusion 제약을 지원하지 않아 마이그레이션에서 제외된다. |
 | Foreign Key 제약       |                   O                   |                   O                    | CASCADE, NO ACTION, SET NULL 옵션은 양쪽 모두 동일한 옵션으로 마이그레이션 대상이다.<br />참조하는 FK가 하나라도 있으면 PK 삭제가 허용되지 않는 RESTRICT 옵션은 Altibase Foreign key 옵션이 없을 때 동작과 동일하기 때문에, 해당 옵션은 삭제되어 마이그레이션 된다.<br />PK 삭제시 참조하는 FK가 default 값으로 대체되는 SET DEFAULT 옵션은 Altibase에서 지원하지 않기 때문에 마이그레이션 수행시 SET NULL로 대체된다. |
-| Index                  |                   O                   |                   O                    | 다양한 PostgreSQL 인덱스 타입 중 Altibase에서 지원하는 인덱스 타입(B-tree와 R-tree)만 마이그레이션 된다. |
-| Sequence               |                   O                   |                  O/X                   | PostgreSQL와 Altibase간 두가지 차이점이 있다.<br />첫째, PostgreSQL sequence의 기본 최대값은 9223372036854775807이고 Altibase sequence 최대값은 9223372036854775806으로 지원범위가 다르다. 9223372036854775807값은 마이그레이션 수행시 9223372036854775806으로 강제 변환된다.<br />둘째, PostgreSQL sequence의 기본 cache size는 1이다. 이에 반해 Altibase는 기본 cache size가 1보다 커야 한다는 제약점이 있다. 따라서, PostgreSQL sequence cache size 1인 경우 Altibase 객체 생성문에 cache 구문을 사용하지 않으며, 이 경우 Altibase 기본 cache size (20) 으로 생성된다.<br />테이블 컬럼의 Serial data type을 위해 생성된 Sequence는 'Build Table' 인 경우에도 테이블과 함께 마이그레이션된다. |
-| Procedure              |                                       |                                        | PostgreSQL 11버젼부터 지원                                   |
+| Index                  |                   O                   |                   O                    | 다양한 PostgreSQL 인덱스 타입 중 Altibase에서 지원하는 인덱스 타입인 B-tree와 R-tree만 마이그레이션 대상이다. |
+| Sequence               |                   O                   |                  O/X                   | PostgreSQL와 Altibase간 두가지 차이점이 있다.<br />첫째, PostgreSQL sequence의 기본 최대값은 9223372036854775807이고 Altibase sequence 최대값은 9223372036854775806으로 지원범위가 다르다. 이에 따라, 9223372036854775807값은 마이그레이션 수행시 9223372036854775806으로 강제 변환된다.<br />둘째, PostgreSQL sequence의 기본 cache size는 1이다. 이에 반해 Altibase는 기본 cache size가 1보다 커야 한다는 제약점이 있다. 따라서, PostgreSQL sequence cache size 1인 경우 Altibase 객체 생성문에 cache 구문을 사용하지 않으며, 이 경우 Altibase 기본 cache size (20) 으로 생성된다.<br /> 'Build Table' 수행시 마이그레이션 대상 테이블 컬럼의 Serial data type을 위해 생성된 Sequence는 테이블과 함께 마이그레이션된다. 이에 반해, 사용자가 명시적으로 생성한 Sequence는 마이그레이션 대상에서 제외된다. |
 | Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Materialized View      |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
+> 참고:  위 테이블에 기록되지 않은 PostgreSQL 객체 (예, Exclusion 제약, Type, Enum 등)는 알티베이스에 대응되는 객체가 없어 마이그레이션 대상에서 제외한다.
 
 ## C.부록: 데이터 타입 맵핑
 
@@ -1838,7 +1838,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |      | DOUBLE PRECISION | DOUBLE | 동일한 데이터 타입 |
 | | MONEY | VARCHAR(30) | Altibase에는 PostgreSQL의 MONEY 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다. 단, MONEY 포멧팅이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)인 경우, Reconcile 시작단계의 데이터 타입 매핑에서 numeric (20,2)로 변경하여 숫자형으로 데이터 마이그레이션 가능하다. |
 |      | CHARACTER | CHAR | 동일한 데이터 타입 |
-|      | CHARACTER VARYING | VARCHAR  | PostgreSQL VARCHAR(n)에서 문자형 컬럼 길이 자동 보정된 n 값이  알티베이스 최대치 (32,000)보다 작으면 VARCHAR로, 최대치를 넘어서면 CLOB으로 매핑된다. |
+|      | CHARACTER VARYING | VARCHAR  | PostgreSQL VARCHAR(n)에서 문자형 컬럼 길이가 자동 보정된 값이  알티베이스 최대치 (32,000)보다 작으면 VARCHAR로, 최대치를 넘어서면 CLOB으로 매핑된다. |
 |      | TEXT | CLOB | PostgreSQL TEXT는 최대 크기가 1GB까지 지원하기 때문에 데이터 손실을 방지하기 위해 CLOB으로 매핑한다.|
 | | BOOLEAN | CHAR(1) | Altibase에는 PostgreSQL의 boolean과 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 문자형으로 저장된다. true -> 't', false -> 'f', unknown -> null 값으로 치환된다. |
 |  | DATE | DATE | -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03,  292278994-08-17으로 표현된다. 데이터 마이그레이션 수행시 -infinity와 infinity는 알티베이스에서 21506-12-03, 11567-08-17으로 표현된다. |
