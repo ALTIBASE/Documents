@@ -115,9 +115,13 @@ SELECT *
 #### module 
 `qp-select`
 
-#### CategoryFatal
+#### Category
 
-#### 재현 빈도 Always
+`Fatal`
+
+#### 재현 빈도 
+
+`Always`
 
 #### 설명
 
