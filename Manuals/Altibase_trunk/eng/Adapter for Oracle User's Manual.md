@@ -914,14 +914,14 @@ To make oaUtility work properly, the user needs to check the following:
 ##### Syntax
 
 ```
-oaUtility {start}
+oaUtility {start [ force ]}
 ```
 
 
 
 ##### Description
 
-This is used to start oraAdapter as a daemon.
+This is used to start oraAdapter as a daemon. The force option starts the oraAdapter without checking for a primary key constraint in the replication target table.
 
 #### oaUtility stop
 
