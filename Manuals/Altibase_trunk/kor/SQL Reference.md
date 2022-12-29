@@ -13348,7 +13348,7 @@ ROLLUP, CUBE, GROUPING SETS는 GROUP BY절이 확장된 것으로써, 여러 개
 - 제약 사항:
   - GROUP BY 절에서 ROLLUP ,CUBE 또는 GROUPING SETS는 한 번만 명시할 수 있다.
   - SELECT 대상에 부질의(subquery)를 인자로 가지는 집계 함수를 사용할 수 없다.
-  - GROUPING SETS가 사용 된 쿼리의 ORDER BY 절에는 window 함수를 사용할 수 없다.
+  - ROLLUP, CUBE 또는 GROUPING SETS과 window 함수를 함께 사용할 수 없다.
   - CUBE절에 최대 15개의 수식을 지정할 수 있다.
   - GROUPING SETS와 중첩 집계 함수를 함께 사용할 수 없다.
 
