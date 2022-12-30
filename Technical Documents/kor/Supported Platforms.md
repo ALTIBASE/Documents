@@ -10,11 +10,11 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Altibase 7.1](#altibase-71)
-  - [Altibase 서버 및 클라이언트](#altibase-서버-및-클라이언트-1)
-  - [Altibase 7.1 Library & Tools](#Altibase-71-Library-&-Tools)
+  - [Altibase 7.1 Server & Client](#altibase-서버-및-클라이언트-1)
+  - [Altibase 7.1 라이브러리 및 툴즈Library & Tools](#altibase-71-library--tools)
 - [Altibase 6.5.1](#altibase-651)
-  - [Altibase 서버 및 클라이언트](#altibase-서버-및-클라이언트-2)
-  - [Adapter for Oracle](#adapter-for-oracle-2)
+  - [Altibase 서버 및 클라이언트](#altibase-서버-및-클라이언트-1)
+  - [Altibase 6.5.1 Library & Tools](#altibase-651-library--tools)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -46,7 +46,7 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 
 # Altibase 7.1
 
-## Altibase 서버 및 클라이언트
+## Altibase 7.1 서버 및 클라이언트
 
 >  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원합니다.
 
@@ -56,7 +56,7 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 
 
 | Altibase 7.1                                                 | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                       |
-| ------------------------------------------------------------ | :-----------: | :-----------------: | :-------------------------------------------------------- |
+| :----------------------------------------------------------- | :-----------: | :-----------------: | :-------------------------------------------------------- |
 | **AIX on IBM Power Systems**                                 |               |                     |                                                           |
 | AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                                                           |
 | AIX 7.1                                                      |       ●       |          ●          |                                                           |
@@ -117,8 +117,8 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 >  **Ubuntu, Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
 
-| Altibase 6.5.1 | Altibase 서버 | Altibase 클라이언트32비트 | Altibase 클라이언트 64비트 | 소프트웨어 요구사항 |
-| ------------------------- | :-----------------: | :-----------------------------: | :-----------------------------: | :------------------ |
+| Altibase 6.5.1 | Altibase 서버 | Altibase 클라이언트<br />32비트 | Altibase 클라이언트 <br />64비트 | 소프트웨어 요구사항 |
+| :------------------------ | :-----------------: | :-----------------------------: | :-----------------------------: | :------------------ |
 | **AIX on IBM Power Systems** |                     |                                 |                                 |                     |
 | AIX 6.1 TL3<br />AIX 6.1  TL9<br />AIX 7.1 |          ●          |                ●                |                ●                |                     |
 | **HP-UX Itanium (IA-64)** |                     |                                 |                                 |                     |
@@ -170,7 +170,7 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 | POWER8(LE) Red Hat Enterprise Linux 7.2                      |                           **-**                           |                       **-**                        |        ●         |       **x**        |                                                              |
 | POWER9(LE) Red Hat Enterprise Linux 7.6                      |                           **-**                           |                         ●                          |        ●         |       **x**        |                                                              |
 | **Sun Sparc**                                                |                                                           |                                                    |                  |                    |                                                              |
-| Solaris 10                                                   |                           **x**                           |                       **x**                        |        ●         |         ●          | - *Adapter for Oracle 6.5.1.9.3 이상*                        |
-| Solaris 11                                                   |                           **x**                           |                       **x**                        |        ●         |         ●          | - *Adapter for JDBC 6.5.1.4.2 이상*<br />- *Adapter for Oracle 6.5.1.9.3 이상* |
+| Solaris 10                                                   |                           **x**                           |                       **x**                        |        ●         |         ●          | - *Adapter for Oracle : 6.5.1.9.3 이상*                      |
+| Solaris 11                                                   |                           **x**                           |                       **x**                        |        ●         |         ●          | - *Adapter for JDBC : 6.5.1.4.2 이상*<br />- *Adapter for Oracle : 6.5.1.9.3 이상* |
 
 <br/>
