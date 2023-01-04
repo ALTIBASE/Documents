@@ -8950,9 +8950,13 @@ END;
 
 #### 제한사항
 
-프로시저의 인자 타입이 배열인 경우에는 C type과 SQL Type을 동일하게 매칭하여 사용해야 한다.
+##### long type의 경우 8byte size만을 지원한다.
+
+long size가 4byte인 linux(32bit), windows 환경의 경우 long(C type)은 지원하지 않는다.
 
 ##### C type과 SQL Type이 다를 경우 에러가 발생한다.
+
+프로시저의 인자 타입이 배열인 경우에는 C type과 SQL Type을 동일하게 매칭하여 사용해야 한다.
 
 예)
 
