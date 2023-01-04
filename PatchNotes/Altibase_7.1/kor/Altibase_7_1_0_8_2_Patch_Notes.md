@@ -29,7 +29,6 @@
   - [BUG-50038 jdbcAdapter 및 oraAdapter 구동에서 예외 상황 발생 시 에러 메시지를 보완합니다.](#bug-50038jdbcadapter-%EB%B0%8F-oraadapter-%EA%B5%AC%EB%8F%99%EC%97%90%EC%84%9C-%EC%98%88%EC%99%B8-%EC%83%81%ED%99%A9-%EB%B0%9C%EC%83%9D-%EC%8B%9C-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80%EB%A5%BC-%EB%B3%B4%EC%99%84%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-50048 aku에 세션 접근 제어 기능을 추가합니다.](#bug-50048aku%EC%97%90-%EC%84%B8%EC%85%98-%EC%A0%91%EA%B7%BC-%EC%A0%9C%EC%96%B4-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-50050 뷰/인라인 뷰에 중복되는 조건식을 제거하는 기능을 추가합니다.](#bug-50050%EB%B7%B0%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%97%90-%EC%A4%91%EB%B3%B5%EB%90%98%EB%8A%94-%EC%A1%B0%EA%B1%B4%EC%8B%9D%EC%9D%84-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50054 ALTER REPLICATION \~ SYNC가 30초 이상 지속하면 HeartBeat 쓰레드에 의해 이중화 SYNC가 실패합니다.](#bug-50054alter-replication--sync%EA%B0%80-30%EC%B4%88-%EC%9D%B4%EC%83%81-%EC%A7%80%EC%86%8D%ED%95%98%EB%A9%B4-heartbeat-%EC%93%B0%EB%A0%88%EB%93%9C%EC%97%90-%EC%9D%98%ED%95%B4-%EC%9D%B4%EC%A4%91%ED%99%94-sync%EA%B0%80-%EC%8B%A4%ED%8C%A8%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Changes](#changes)
   - [Version Info](#version-info)
   - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
