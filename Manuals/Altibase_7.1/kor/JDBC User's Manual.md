@@ -3412,6 +3412,44 @@ while ( sRS.next() ) -> (2)
 따라서, 이러한 로직에서 LOB 데이터를 다룰 때는 먼저 setAutoCommit(false)를
 호출하여 세션의 자동커밋을 해제해야 한다.
 
+#### 임시 LOB
+JDBC 4.2 API를 부분 지원하는 Altibase 7.1 JDBC 드라이버(Altibase42.jar)는 JDBC 4.0의 
+Connection.createBlob(), Connection.createClob()을 통한 임시 LOB 기능을 제공한다. 
+임시 LOB 기능은 LOB 컬럼의 데이터를 바인딩 할 때 주로 사용되며 처음에는 빈 객체가 생성되고 이 후 빈 객체에 
+LOB 데이터를 할당하는 형태로 사용하게 된다.
+단 이때 생성되는 임시 LOB 객체는 드라이버 내부 메모리에 저장되기 때문에 데이터가 매우 클 경우 메모리 부족
+예외가 발생할 수 있다. 따라서 이러한 경우에는 임시 LOB 기능 대신 다른 일반적인 방법을 사용해야 한다.
+또한 드라이버 내부에서 사용하고 있는 객체의 제약으로 인해 임시 LOB 기능은 long 타입을 지원하지 않는다.
+
+##### PreparedStatement.setBlob() 메소드와 임시 blob 객체 사용
+```
+Connection sConn = getConnection();
+java.sql.Blob sBlob = sConn.createBlob();  // create temporary blob object
+sBlob.setBytes(...);  // allocate binary data to blob object
+...
+PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
+sPstmt.setBlob(1, sBlob);
+...
+sPstmt.executeUpdate();
+sBlob.free();
+sPstmt.close();
+...
+```
+##### PreparedStatement.setClob() 메소드와 임시 clob 객체 사용
+```
+Connection sConn = getConnection();
+java.sql.Clob sClob = sConn.createClob();  // create temporary clob object
+sClob.setString(...);    // allocate text data to clob object
+...
+PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
+sPstmt.setClob(1, sClob);
+...
+sPstmt.executeUpdate();
+sClob.free();
+sPstmt.close();
+...
+```
+
 ### Autocommit 제어
 
 Altibase JDBC 애플리케이션에서는 auto_commit 연결 속성 또는 JDBC Connection
@@ -3838,8 +3876,8 @@ JDBC 4.2 API를 준수하는 Altibase 7.1 JDBC 드라이버(Altibase42.jar)에�
 ### java.sql.Connection
 | 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                       |      예외 처리                                 |
 |:------------------------------------------------------------|:----------:|:----------:|:-------------------------------------------------------------------------------|:------------------------------------------------|
-| createBlob()                                               | 4.0      |    X     | Connection 단계에서 BLOB 객체 생성을 지원하지 않음                   |SQLFeatureNotSupported 예외 발생             |
-| createClob()                                               | 4.0      |    X     | Connection 단계에서 CLOB 객체 생성을 지원하지 않음                     |SQLFeatureNotSupported 예외 발생             |
+| createBlob()                                               | 4.0      |    O     |                                                                                   |                                             |
+| createClob()                                               | 4.0      |    O     |                                                                                   |                                             |
 | createNClob()                                              | 4.0      |    X     | CLOB 객체에 다국어 처리를 지원하지 않음                                    |SQLFeatureNotSupported 예외 발생              |
 | createSQLXML()                                             | 4.0      |    X     | SQLXML 타입을 지원하지 않음                                                      |SQLFeatureNotSupported 예외 발생              |
 | isValid(int timeout)                                       | 4.0      |    O     |                                                                                   |                                             |
