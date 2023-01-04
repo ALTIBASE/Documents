@@ -5,6 +5,7 @@
 - [Altibase 7.1.0.6.7 Patch Notes](#altibase-71067-patch-notes)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-49384 REMOTE\_BIND\_VARIABLE 함수에서 널(NULL) 값 바인드 시 ERR-21017 : The argument is not applicable. 에러가 발생합니다.](#bug-49384remote_bind_variable-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-%EB%84%90null-%EA%B0%92-%EB%B0%94%EC%9D%B8%EB%93%9C-%EC%8B%9C-err-21017--the-argument-is-not-applicable-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49412 "PROJ-2751 호스트 변수 최대 갯수 제약 완화" 반영합니다.](#bug-49412proj-2751-호스트-변수-최대-갯수-제약-완화-반영합니다)
     - [BUG-49417 디스크 인덱스 테이블스페이스 공간이 부족한 상황에서 디스크 테이블에 변경 트랜잭션 발생 시 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49417%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B3%B5%EA%B0%84%EC%9D%B4-%EB%B6%80%EC%A1%B1%ED%95%9C-%EC%83%81%ED%99%A9%EC%97%90%EC%84%9C-%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-%EB%B3%80%EA%B2%BD-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EB%B0%9C%EC%83%9D-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-49429 디스크 임시 테이블스페이스의 익스텐트(extent)크기가 512K가 아닌 경우 Altibase 서버가 비정상 종료합니다.](#bug-49429%EB%94%94%EC%8A%A4%ED%81%AC-%EC%9E%84%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%9D%98-%EC%9D%B5%EC%8A%A4%ED%85%90%ED%8A%B8extent%ED%81%AC%EA%B8%B0%EA%B0%80-512k%EA%B0%80-%EC%95%84%EB%8B%8C-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
@@ -53,6 +54,33 @@ Fixed Bugs
   -   **예상 결과**
 
           success
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49412 "PROJ-2751 호스트 변수 최대 갯수 제약 완화" 반영합니다.
+
+-   **module** : qp
+
+-   **Category** : Enhancement
+
+-   **재현 빈도** : Always
+
+-   **설명** : 호스트 변수 사용 갯수가 1024를 초과하는 경우 The number of host variables exceed the maximum limit (1024). 에러 발생하는 현상을 수정하였습니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
 
 -   **Workaround**
 
