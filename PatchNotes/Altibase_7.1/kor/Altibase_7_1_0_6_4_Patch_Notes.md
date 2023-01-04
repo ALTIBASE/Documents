@@ -10,7 +10,6 @@
     - [BUG-49378 DISK TEMP TABLE에서 해시(HASH) 연산 중 Altibase 서버가 비정상 종료하는 현상을 회피하고 원인 분석을 위한 로그를 추가합니다.](#bug-49378disk-temp-table%EC%97%90%EC%84%9C-%ED%95%B4%EC%8B%9Chash-%EC%97%B0%EC%82%B0-%EC%A4%91-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EB%8A%94-%ED%98%84%EC%83%81%EC%9D%84-%ED%9A%8C%ED%94%BC%ED%95%98%EA%B3%A0-%EC%9B%90%EC%9D%B8-%EB%B6%84%EC%84%9D%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%A1%9C%EA%B7%B8%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49402 삼중화 이상의 이중화 환경에서 DDL문 수행 시 ERR-11041 : A deadlock situation has been detected. 에러가 발생할 수 있습니다.](#bug-49402%EC%82%BC%EC%A4%91%ED%99%94-%EC%9D%B4%EC%83%81%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-ddl%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-err-11041--a-deadlock-situation-has-been-detected-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-49408 DDL 복제 기능을 사용하는 이중화 환경에서 지역 서버에서 DDL문이 롤백되는 경우 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-49408ddl-%EB%B3%B5%EC%A0%9C-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EC%9D%B4%EC%A4%91%ED%99%94-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%EC%A7%80%EC%97%AD-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-ddl%EB%AC%B8%EC%9D%B4-%EB%A1%A4%EB%B0%B1%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-49412 "PROJ-2751 호스트 변수 최대 갯수 제약 완화" 반영합니다.](#bug-49412proj-2751-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%B5%9C%EB%8C%80-%EA%B0%AF%EC%88%98-%EC%A0%9C%EC%95%BD-%EC%99%84%ED%99%94-%EB%B0%98%EC%98%81%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49420 DDL문 수행 시 ERR-11058 : The row already exists in a unique index. 에러가 발생합니다.](#bug-49420ddl%EB%AC%B8-%EC%88%98%ED%96%89-%EC%8B%9C-err-11058--the-row-already-exists-in-a-unique-index-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [Changes](#changes)
     - [Version Info](#version-info)
@@ -227,33 +226,6 @@ Fixed Bugs
     1. 이중화 대상 테이블을 포함한 뷰(View), 트리거(Trigger), 저장 프로시저(Stored Procedure), 패키지(Package) 객체 중 하나라도 존재
 
     2. DDL 복제 기능 사용 (Altibase 서버 프로퍼티 REPLICATION\_DDL\_ENABLE 설정값 1)
-    
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-49412 "PROJ-2751 호스트 변수 최대 갯수 제약 완화" 반영합니다.
-
--   **module** : qp
-
--   **Category** : Enhancement
-
--   **재현 빈도** : Always
-
--   **설명** : 호스트 변수 사용 갯수가 1024를 초과하는 경우 The number of host variables exceed the maximum limit (1024). 에러 발생하는 현상을 수정하였습니다.
     
 -   **재현 방법**
 
