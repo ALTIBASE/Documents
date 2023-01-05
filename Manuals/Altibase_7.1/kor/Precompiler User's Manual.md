@@ -8650,7 +8650,7 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
 
 - 출력 인자(OUT) 또는 입출력 공용 인자(IN/OUT)에는 배열 호스트 변수를 사용할 수 없다.
 
-  ~~~sql
+  ~~~c
   EXEC SQL BEGIN DECLARE SECTION;
   int var1[10];
   int var2[10];
@@ -8658,14 +8658,14 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
   EXEC SQL END DECLARE SECTION;
   
   EXEC SQL EXECUTE BEGIN 
-  PROC1(:var1 in, :var2 out, :var3 in out);  # OUT 인자에 배열 호스트 변수를 사용할 수 없다.
+  PROC1(:var1 in, :var2 out, :var3 in out);  // OUT 인자에 배열 호스트 변수를 사용할 수 없다.
   END;
   END-EXEC;
   ~~~
 
 - 저장 함수의 반환 값을 배열 호스트 변수에 저장할 수 없다. 
 
-  ~~~sql
+  ~~~c
   EXEC SQL BEGIN DECLARE SECTION;
   int var1[10];
   int var2[10];
@@ -8673,14 +8673,14 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
   EXEC SQL END DECLARE SECTION;
   
   EXEC SQL EXECUTE BEGIN 
-  :var1 = FUNC1(:var2 in, :var3 in);  # 배열 호스트 변수에 저장 함수의 반환 값을 저장할 수 없다.
+  :var1 = FUNC1(:var2 in, :var3 in); // 배열 호스트 변수에 저장 함수의 반환 값을 저장할 수 없다.
   END;
   END-EXEC;
   ~~~
 
 - 배열 호스트 변수와 배열이 아닌 호스트 변수를 함께 사용할 수 없다.
 
-  ~~~sql
+  ~~~c
   EXEC SQL BEGIN DECLARE SECTION;
   int var1;
   int var2;
@@ -8701,7 +8701,7 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
 
 \< 예제 프로그램 : arrays2.sc \>
 
-```
+```c
 EXEC SQL BEGIN DECLARE SECTION;
 char a_gno[3][10+1];
 char a_gname[3][20+1];
@@ -8745,14 +8745,14 @@ END-EXEC;
 
 - C 데이터형과 SQL 데이터형이 다르면 에러가 발생한다.
 
-  ~~~sql
+  ~~~c
   CREATE OR REPLACE PACKAGE pkg1
   AS
   TYPE type1 IS TABLE OF SMALLINT INDEX BY INTEGER;
   END;
   /
   
-  # 저장 프로시저 출력 인자의 데이터 타입이 SQL_SMALLINT
+  // 저장 프로시저 출력 인자의 데이터 타입이 SQL_SMALLINT
   CREATE OR REPLACE PROCEDURE proc1( a OUT pkg1.type1 ) RETURN INTEGER
   AS
   BEGIN
@@ -8767,27 +8767,27 @@ END-EXEC;
   double array1[array_size];                
   EXEC SQL END DECLARE SECTION;  
   
-  # EXECUTE 문에서 사용한 배열 호스트 변수는 double 형
+  // EXECUTE 문에서 사용한 배열 호스트 변수는 double 형
   EXEC SQL EXECUTE                        
   BEGIN                                   
       proc1(:array1 out);
   END;                                    
   END-EXEC;     
    
-  # 결과
+  // 결과
   Error : [-331900] The apre type and psm array type do not match.
   ~~~
 
 - 호스트 변수가 구조체이면 EXECUTE 문에서 배열 호스트 변수로 사용할 수 없다.
 
-  ~~~sql
+  ~~~c
   typedef struct argx { float c1; float c2; } argx;
    
   EXEC SQL BEGIN DECLARE SECTION;
   argx args2[10];
   EXEC SQL END DECLARE SECTION;  
   
-  # EXECUTE 문에서 구조체인 배열 호스트 변수를 사용할 수 없다.
+  // EXECUTE 문에서 구조체인 배열 호스트 변수를 사용할 수 없다.
   EXEC SQL EXECUTE     
   BEGIN 
       proc1(:args2);
@@ -8797,12 +8797,12 @@ END-EXEC;
 
 - 호스트 변수가 2차원 배열이면 EXECUTE 문에서 배열 호스트 변수로 사용할 수 없다.
 
-  ~~~sql
+  ~~~c
   EXEC SQL BEGIN DECLARE SECTION;
   float args2[10][10];
   EXEC SQL END DECLARE SECTION; 
   
-  # EXECUTE 문에서 2차열 배열인 배열 호스트 변수를 사용할 수 없다.
+  // EXECUTE 문에서 2차열 배열인 배열 호스트 변수를 사용할 수 없다.
   EXEC SQL EXECUTE     
   BEGIN 
       proc1(:args2);
@@ -8816,7 +8816,7 @@ END-EXEC;
 
 >  schema.sql
 
-```sql
+```c
 CREATE OR REPLACE PACKAGE PSM_PKG
 AS
 TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
@@ -8948,7 +8948,7 @@ $ALTIBASE_HOME/sample/APRE/psm1.sc 참고
 
 **실행 결과**
 
-```
+```bash
 $ is –f schema/schema.sql
 $ make psm1
 $ ./psm1
@@ -8975,7 +8975,7 @@ $ALTIBASE_HOME/sample/APRE/psm2.sc 참고
 
 **실행 결과**
 
-```
+```bash
 $ is –f schema/schema.sql
 $ make psm2
 $ ./psm2
@@ -9002,7 +9002,7 @@ $ALTIBASE_HOME/sample/APRE/psm3.sc 참고
 
 **실행 결과**
 
-~~~c
+~~~bash
 $ is -f schema/schema.sql
 $ make psm3
 $ ./psm3
@@ -9031,7 +9031,7 @@ $ALTIBASE_HOME/sample/APRE/psm4.sc 참고
 
 **실행 결과**
 
-~~~c
+~~~bash
 $ is -f schema/schema.sql
 $ make psm4
 $./psm4
