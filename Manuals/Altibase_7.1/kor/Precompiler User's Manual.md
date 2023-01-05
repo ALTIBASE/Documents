@@ -8688,7 +8688,7 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
   EXEC SQL END DECLARE SECTION;
   
   EXEC SQL EXECUTE BEGIN 
-  	PROC1(:var1 in, :var2 in, :var3 in);  (X)
+  	PROC1(:var1 in, :var2 in, :var3 in);
   END;
   END-EXEC;
   ~~~
