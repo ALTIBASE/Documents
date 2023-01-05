@@ -3363,7 +3363,7 @@ Altibase JDBC 드라이버는 JDBC 4.0의 Connection.createBlob(), Connection.cr
 통한 임시 LOB 기능을 제공한다. 임시 LOB 기능은 LOB 컬럼의 데이터를 바인딩 할 때 주로 사용되며 
 처음에는 빈 객체가 생성되고 이 후 빈 객체에 LOB 데이터를 할당하는 형태로 사용하게 된다. 
 단 이때 생성되는 임시 LOB 객체는 드라이버 내부 메모리에 저장되기 때문에 데이터가 매우 클 경우 메모리 부족 
-예외가 발생할 수 있다. 따라서 이러한 경우에는 임시 LOB 기능 대신 다른 일반적인 방법을 사용해야 한다.
+예외가 발생할 수 있다. 따라서 이러한 경우에는 임시 LOB 기능 대신 일반적인 stream 방식을 사용해야 한다.
 또한 드라이버 내부에서 사용하고 있는 객체의 제약으로 인해 임시 LOB 기능은 long 타입을 지원하지 않는다. 
 
 ##### PreparedStatement.setBlob() 메소드와 임시 blob 객체 사용
@@ -3372,7 +3372,7 @@ Connection sConn = getConnection();
 java.sql.Blob sBlob = sConn.createBlob();  // create temporary blob object
 sBlob.setBytes(...);  // allocate binary data to blob object
 ...
-PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
+PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO BLOB_TABLE VALUES (?)");
 sPstmt.setBlob(1, sBlob);
 ...
 sPstmt.executeUpdate();
@@ -3386,7 +3386,7 @@ Connection sConn = getConnection();
 java.sql.Clob sClob = sConn.createClob();  // create temporary clob object
 sClob.setString(...);    // allocate text data to clob object
 ...
-PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO TEST_TABLE VALUES (?)");
+PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO CLOB_TABLE VALUES (?)");
 sPstmt.setClob(1, sClob);
 ...
 sPstmt.executeUpdate();
