@@ -3285,11 +3285,11 @@ while(sRs.next())
 
 #### createBlob(), createClob()을 이용한 LOB 사용
 
-JDBC 4.2 를 부분 지원하는 JDBC 드라이버(Altibase42.jar)에서는 createBlob(), createClob() 메소드를 이용하여 LOB 데이터를 사용할 수 있다. 이 메소드들은 JDBC 4.0 에서 추가된 것으로, Altibase42.jar 버전 *7.1.0.8.3*(?) 이상부터 지원한다. 
+JDBC 4.2를 부분 지원하는 JDBC 드라이버(Altibase42.jar)에서는 createBlob(), createClob() 메소드를 이용하여 LOB 데이터를 사용할 수 있다. 이 메소드들은  Altibase42.jar 버전 7.1.0.8.3 부터 지원한다. 
 
 ##### 장점
 
-JDBC 3.0 을 준수하는 JDBC 드라이버(Altibase.jar)는 LOB 객체를 사용하려면 Statement 객체에서 getClob() 또는 getBlob() 메소드를 사용해 LOB 객체를 획득해야 하지만 Altibase42.jar는 connection 객체에서 빈 LOB 객체를 생성하여 LOB 데이터를 저장할 수 있어서 사용성이 크게 향상되었다. 
+JDBC 3.0을 준수하는 JDBC 드라이버(Altibase.jar)는 LOB 객체를 사용하려면 Statement 객체에서 getBlob() 또는 getClob() 메소드를 사용해 LOB 객체를 획득해야 하지만 Altibase42.jar는 connection 객체에서 빈 LOB 객체를 생성하여 LOB 데이터를 저장할 수 있어서 사용성이 크게 향상되었다. 
 
 > JDBC 3.0 을 준수하는 JDBC 드라이버에서 LOB 객체 사용 예
 
@@ -3342,7 +3342,7 @@ createBlob(), createClob()은 데이터를 포함하지 않은 LOB 객체를 생
 
 ##### BLOB 데이터 입력 예제
 
-createBlob() 메소드로 생성한 BLOB 객체를 사용하여 PreparedStatement.setBlob() 메소드로 BLOB 데이터를 입력하는 예제이다. 
+createBlob() 메소드로 생성한 BLOB 객체와 PreparedStatement.setBlob() 메소드를 사용하여 BLOB 데이터를 입력하는 예제이다.
 
 ```java
 Connection sConn = getConnection();
@@ -3360,7 +3360,7 @@ sPstmt.close();
 
 ##### CLOB 데이터 입력 예제
 
-createClob() 메소드로 생성한 CLOB 객체를 사용하여 PreparedStatement.setClob() 메소드로 CLOB 데이터를 입력하는 예제이다. 
+createClob() 메소드로 생성한 CLOB 객체와 PreparedStatement.setClob() 메소드를 사용하여 CLOB 데이터를 입력하는 예제이다.
 
 ```java
 Connection sConn = getConnection();
@@ -3935,8 +3935,8 @@ JDBC 4.2 API를 준수하는 Altibase 7.1 JDBC 드라이버(Altibase42.jar)에�
 ### java.sql.Connection
 | 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                       |      예외 처리                                 |
 |:------------------------------------------------------------|:----------:|:----------:|:-------------------------------------------------------------------------------|:------------------------------------------------|
-| createBlob()                                               | 4.0      |    O     |                                                                                   |                                             |
-| createClob()                                               | 4.0      |    O     |                                                                                   |                                             |
+| createBlob()                                               | 4.0      |    O     | long 데이터형은 지원하지 않음                                                                                 |                                             |
+| createClob()                                               | 4.0      |    O     | long 데이터형은 지원하지 않음                                                                                  |                                             |
 | createNClob()                                              | 4.0      |    X     | CLOB 객체에 다국어 처리를 지원하지 않음                                    |SQLFeatureNotSupported 예외 발생              |
 | createSQLXML()                                             | 4.0      |    X     | SQLXML 타입을 지원하지 않음                                                      |SQLFeatureNotSupported 예외 발생              |
 | isValid(int timeout)                                       | 4.0      |    O     |                                                                                   |                                             |
