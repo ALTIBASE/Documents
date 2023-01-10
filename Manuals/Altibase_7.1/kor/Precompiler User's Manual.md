@@ -58,9 +58,8 @@
     - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-4)
   - [11.저장 프로시저 처리 SQL문](#11%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
     - [저장 프로시저 처리 SQL문](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-    - [배열 타입의 호스트 변수 사용](#%EB%B0%B0%EC%97%B4-%ED%83%80%EC%9E%85%EC%9D%98-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
+    - [EXECUTE 문에서 배열 호스트 변수 사용](#execute-문에서-배열-호스트-변수-사용)
     - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-5)
-    - [배열 타입의 호스트 변수 사용](#%EB%B0%B0%EC%97%B4-%ED%83%80%EC%9E%85%EC%9D%98-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9-1)
   - [12.다중 연결 프로그램](#12%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
     - [개요](#%EA%B0%9C%EC%9A%94-4)
     - [다중 연결 프로그램에서 내장 SQL문 사용 방법](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
@@ -8699,7 +8698,7 @@ EXECUTE 문에서 배열 호스트 변수를 사용하는 방법은 저장 프�
 
 저장 프로시저의 입력 인자에 배열 호스트 변수를 사용하여 EXECUTE 문을 수행하는 예제이다.
 
-\< 예제 프로그램 : arrays2.sc \>
+> 예제 프로그램 : arrays2.sc
 
 ```c
 EXEC SQL BEGIN DECLARE SECTION;
@@ -8934,11 +8933,9 @@ END;
 END-EXEC;
 ```
 
-다음은 out parameter 결과 값에 null 값이 포함되어 있는 경우의 예를 보여준다. *(이 예제는 여기서 왜 나오는 걸까요?)*
+> 예제 프로그램 : psm4.sc
 
-<예제 프로그램 : psm4.sc>
-
-저장 프로시저 출력 인자의 데이터 타입이 널을 가진 배열일 때, 널을 확인하는 예제이다.
+저장 프로시저 출력 인자가 널을 가진 배열일 때, 널을 확인하는 예제이다.
 
 ```c
 /* declare host variables */
