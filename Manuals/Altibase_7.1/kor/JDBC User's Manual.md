@@ -2730,7 +2730,7 @@ CREATE TABLE BLOB_TABLE ( BLOB_COLUMN BLOB );
 
 
 
-###### 1. InputStream 객체와updateBinaryStream 메소드를 사용한 방법
+###### 1. InputStream 객체와 updateBinaryStream 메소드를 사용한 방법
 
 ```
 InputStream sInputStream = ...
@@ -3137,7 +3137,7 @@ while(sRs.next())
 
 
 
-###### 4. updateObject 메소드에 SQL 타입 지정한 방법
+###### 4. updateObject 메소드에 SQL 타입을 지정한 방법
 
 ```
 java.sql.Clob sClob = ...
@@ -3278,8 +3278,6 @@ while(sRs.next())
 
 ...
 ```
-
-
 
 
 

@@ -249,9 +249,9 @@ Altibase JDBC 드라이버는 패키지를 설치한 후, \$ALTIBASE_HOME/lib �
 
 #### 버전 호환성
 
-Altibase 7.2 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 스펙을
+Altibase 7.2 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 API를
 준수(일부 기능 제외)한다. 또한, JRE 1.8 이상에서 정상적으로 동작한다.
-알티베이스 JDBC에서 지원하는 JDBC 4.2 스펙 API는 JDBC 4.2 API References를 참조하면 된다.
+알티베이스 JDBC에서 지원하는 JDBC 4.2 API는 [JDBC 4.2 API References](#6jdbc-42-api-references)에서 확인할 수 있다.
 
 #### JDBC 드라이버 버전 확인
 
@@ -2569,7 +2569,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 
 
 
-###### setBinaryStream 메소드와 InputStream객체 사용
+###### 1. InputStream 객체와 setBinaryStream 메소드를 사용한 방법
 
 ```
 InputStream sInputStream = ...
@@ -2594,7 +2594,7 @@ import Altibase.jdbc.driver.AltibasePreparedStatement;
 
 
 
-###### setBinaryStream 메소드와 OutputStream객체 사용
+###### 2. OutputStream 객체와 setBinaryStream 메소드를 사용한 방법
 
 ```
 byte[] sBuf = ...
@@ -2618,7 +2618,7 @@ sPstmt.execute();
 
 
 
-###### setBlob 메소드와 Blob 객체 사용
+###### 3. Blob 객체와 setBlob 메소드를 사용한 방법
 
 ```
 java.sql.Blob sBlob = ...
@@ -2634,7 +2634,7 @@ sPstmt.execute();
 
 
 
-###### setObject 메소드와 Blob 객체 사용
+###### 4. Blob 객체와 setObject 메소드를 사용한 방법
 
 ```
 java.sql.Blob sBlob = ...
@@ -2650,7 +2650,7 @@ sPstmt.execute();
 
 
 
-###### setObject 메소드에 SQL 타입 지정
+###### 5. setObject 메소드에 SQL 타입을 지정한 방법
 
 ```
 java.sql.Blob sBlob = ...
@@ -2676,7 +2676,7 @@ CREATE TABLE BLOB_TABLE ( BLOB_COLUMN BLOB );
 
 
 
-###### updateBinaryStream 메소드와 InputStream 객체 사용
+###### 1. InputStream 객체와 updateBinaryStream 메소드를 사용한 방법
 
 ```
 InputStream sInputStream = ...
@@ -2698,7 +2698,7 @@ while(sRs.next())
 
 
 
-###### updateBlob 메소드와 Blob 객체 사용
+###### 2. Blob 객체와 updateBlob 메소드를 사용한 방법
 
 ```
 java.sql.Blob sBlob = ...
@@ -2722,7 +2722,7 @@ while(sRs.next())
 
 
 
-###### updateObject 메소드와 Blob 객체 사용
+###### 3. Blob 객체와 updateObject 메소드를 사용한 방법
 
 ```
 java.sql.Blob sBlob = ...
@@ -2743,7 +2743,7 @@ while(sRs.next())
 
 
 
-###### updateObject 메소드에 SQL 타입 지정
+###### 4. updateObject 메소드에 SQL 타입을 지정한 방법
 
 ```
 java.sql.Blob sBlob = ...
@@ -2790,7 +2790,7 @@ while(sRs.next())
 
 ##### BLOB 데이터 읽기
 
-###### getBinaryStream 메소드와 InputStream 객체 사용
+###### 1. InputStream 객체와 getBinaryStream 메소드를 사용한 방법
 
 ```
 ...
@@ -2808,7 +2808,7 @@ while(sRs.next())
 
 
 
-###### getBlob 메소드와 InputStream 객체 사용
+###### 2. getBlob 메소드와 InputStream 객체를 사용한 방법
 
 ```
 ...
@@ -2827,7 +2827,7 @@ while(sRs.next())
 
 
 
-###### getBlob 메소드와 byte 배열 사용
+###### 3. getBlob 메소드와 byte 배열을 사용한 방법
 
 ```
 ...
@@ -2897,7 +2897,7 @@ CREATE TABLE TEST_TABLE ( C1 BLOB );
 
 
 
-###### setCharacterStream 메소드와 Reader 객체 사용
+###### 1. Reader 객체와 setCharacterStream 메소드를 사용한 방법
 
 ```
 Reader sReader = ...
@@ -2923,7 +2923,7 @@ import Altibase.jdbc.driver.AltibasePreparedStatement;
 
 
 
-###### setCharacterStream 메소드와 Writer 객체 사용
+###### 2. Writer 객체와 setCharacterStream 메소드를 사용한 방법
 
 ```
 char[] sBuf = ...
@@ -2952,7 +2952,7 @@ sPstmt.execute();
 
 
 
-###### setClob 메소드와 Clob 객체 사용
+###### 3. Clob 객체와 setClob 메소드를 사용한 방법
 
 ```
 java.sql.Clob sClob = ...
@@ -2968,7 +2968,7 @@ sPstmt.execute();
 
 
 
-###### setObject 메소드와 Clob 객체 사용
+###### 4. Clob 객체와 setObject 메소드를 사용한 방법
 
 ```
 java.sql.Clob sClob = ...
@@ -2984,7 +2984,7 @@ sPstmt.execute();
 
 
 
-###### setObject 메소드에 SQL 타입 지정
+###### 5. setObject 메소드에 SQL 타입을 지정한 방법
 
 ```
 java.sql.Clob sClob = ...
@@ -3010,7 +3010,7 @@ CREATE TABLE CLOB_TABLE ( CLOB_COLUMN CLOB );
 
 
 
-###### updateCharacterStream 메소드와 Reader 객체 사용
+###### 1. Reader 객체와 updateCharacterStream 메소드를 사용한 방법
 
 ```
 Reader sReader = ...
@@ -3035,7 +3035,7 @@ while(sRs.next())
 
 
 
-###### updateClob 메소드와 Clob 객체 사용
+###### 2. Clob 객체와 updateClob 메소드를 사용한 방법
 
 ```
 java.sql.Clob sClob = ...
@@ -3059,7 +3059,7 @@ while(sRs.next())
 
 
 
-###### updateObject 메소드와 Clob 객체 사용
+###### 3. Clob 객체와 updateObject 메소드를 사용한 방법
 
 ```
 java.sql.Clob sClob = ...
@@ -3083,7 +3083,7 @@ while(sRs.next())
 
 
 
-###### updateObject 메소드에 SQL 타입 지정
+###### 4. updateObject 메소드에 SQL 타입을 지정한 방법
 
 ```
 java.sql.Clob sClob = ...
@@ -3132,7 +3132,7 @@ while(sRs.next())
 
 ##### CLOB 데이터 읽기
 
-###### getCharacterStream 메소드와 Reader 객체 사용
+###### 1. Reader 객체와 getCharacterStream 메소드를 사용한 방법
 
 ```
 ...
@@ -3151,7 +3151,7 @@ while(sRs.next())
 
 
 
-###### getClob 메소드와 Reader 객체 사용
+###### 2. Reader 객체 와 getClob 메소드를 사용한 방법
 
 ```
 ...  
@@ -3171,7 +3171,7 @@ while(sRs.next())
 
 
 
-###### getClob 메소드와 String 객체 사용
+###### 3. getClob 메소드와 String 객체를 사용한 방법
 
 ```
 ...
@@ -3225,7 +3225,98 @@ while(sRs.next())
 ...
 ```
 
+#### createBlob(), createClob()을 이용한 LOB 사용
 
+createBlob(), createClob() 메소드를 이용하여 LOB 데이터를 사용하는 방법을 설명한다.
+
+##### 장점
+
+JDBC 3.0을 준수하는 이전 버전의 JDBC 드라이버는 LOB 객체를 사용하려면 Statement 객체에서 getBlob() 또는 getClob() 메소드를 사용해 LOB 객체를 획득해야 하지만 Altibase 7.3 이상의 JDBC 드라이버는 connection 객체에서 빈 LOB 객체를 생성하여 LOB 데이터를 저장할 수 있어서 사용성이 크게 향상되었다. 
+
+> JDBC 3.0 을 준수하는 JDBC 드라이버에서 LOB 객체 사용 예
+
+~~~java
+Connection sConn = getConnection();
+PreparedStatement sStmt = sConn.prepareStatement("INSERT INTO T1 VALUES (?)");
+File sFile = new File(aFileUrl2);
+FileReader sFileReader = new FileReader(sFile);
+// clob 객체를 바로 사용할 수 없고 setCharacterStream을 사용해야 한다.
+sStmt.setCharacterStream(1, sFileReader, (int)sFile.length());   
+...
+sFile = new File(aFileUrl2);
+FileInputStream sFInStream = new FileInputStream(sFile);
+// blob 객체를 바로 사용할 수 없고 setBinaryStream을 사용해야 한다.
+sStmt.setBinaryStream(1, sFInStream , (int)sFile.length());    
+...
+sStmt.executeUpdate();
+...
+// LOB 객체를 사용하려면 먼저 execute를 수행하여 ResultSet으로부터 LOB 객체를 획득해야 한다.
+Statement sStmt = sConn.createStatement();
+ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1");
+Clob sClob = sRs.getClob(1); 
+...
+~~~
+
+> Altibase 7.3 이상의 JDBC 드라이버에서 LOB 객체 사용 예
+
+~~~java
+Connection sConn = getConnection();
+PreparedStatement sStmt = sConn.prepareStatement("INSERT INTO T1 VALUES (?)");
+ 
+Clob sClob = sConn.createClob();  // Connection 객체에서 빈 CLOB 객체 생성
+String sStr = readFile(blahblah); 
+sClob.setString(1, sStr);         // 빈 CLOB 객체에 데이터 저장
+sStmt.setClob(1, sClob);          // CLOB 객체를 바로 사용할 수 있음.
+... 
+Blob sBlob = sConn.createBlob();
+byte[] sBytes = getBytesFromFile(); 
+sBlob.setBytes(1, sBytes);      // Connection 객체에서 생성한 빈 BLOB 객체에 데이터 저장
+sStmt.setBlob(1, sBlob);        // BLOB 객체를 바로 사용할 수 있음.
+...
+sStmt.executeUpdate();
+~~~
+
+##### 고려 사항
+
+createBlob(), createClob()은 데이터를 포함하지 않은 LOB 객체를 생성한다. 이렇게 생성된 LOB 객체에 LOB 데이터를 저장하고 조작하는 것은 JDBC 드라이버에서 관리한다. 따라서 클라이언트의 처리 성능과 메모리 사용에 영향을 줄 수 있다. LOB 데이터 크기에 따라 메모리 부족(OutOfMemory) 에러가 발생할 수도 있으므로 이때는 일반적인 stream 방식으로 LOB 데이터를 처리해야 한다.
+
+또한 createBlob(), createClob()으로 생성한 LOB 객체는 long 데이터형을 지원하지 않는다.
+
+##### BLOB 데이터 입력 예제
+
+createBlob() 메소드로 생성한 BLOB 객체와 PreparedStatement.setBlob() 메소드를 사용하여 BLOB 데이터를 입력하는 예제이다.
+
+```java
+Connection sConn = getConnection();
+java.sql.Blob sBlob = sConn.createBlob(); // createBlob()으로 빈 BLOB 객체를 생성
+sBlob.setBytes(...);                      // 빈 BLOB 객체에 BLOB 데이터를 할당
+...
+PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO BLOB_TABLE VALUES (?)");
+sPstmt.setBlob(1, sBlob);
+...
+sPstmt.executeUpdate();
+sBlob.free();
+sPstmt.close();
+...
+```
+
+##### CLOB 데이터 입력 예제
+
+createClob() 메소드로 생성한 CLOB 객체와 PreparedStatement.setClob() 메소드를 사용하여 CLOB 데이터를 입력하는 예제이다.
+
+```java
+Connection sConn = getConnection();
+java.sql.Clob sClob = sConn.createClob();  // createClob()으로 빈 CLOB 객체를 생성
+sClob.setString(...);                      // 빈 CLOB 객체에 CLOB 데이터를 할당
+...
+PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO CLOB_TABLE VALUES (?)");
+sPstmt.setClob(1, sClob);
+...
+sPstmt.executeUpdate();
+sClob.free();
+sPstmt.close();
+...
+```
 
 #### 자원 해제하기
 
@@ -3357,43 +3448,6 @@ while ( sRS.next() ) -> (2)
 
 따라서, 이러한 로직에서 LOB 데이터를 다룰 때는 먼저 setAutoCommit(false)를
 호출하여 세션의 자동커밋을 해제해야 한다.
-
-#### 임시 LOB
-Altibase JDBC 드라이버는 JDBC 4.0의 Connection.createBlob(), Connection.createClob()을 
-통한 임시 LOB 기능을 제공한다. 임시 LOB 기능은 LOB 컬럼의 데이터를 바인딩 할 때 주로 사용되며 
-처음에는 빈 객체가 생성되고 이 후 빈 객체에 LOB 데이터를 할당하는 형태로 사용하게 된다. 
-단 이때 생성되는 임시 LOB 객체는 드라이버 내부 메모리에 저장되기 때문에 데이터가 매우 클 경우 메모리 부족 
-예외가 발생할 수 있다. 따라서 이러한 경우에는 임시 LOB 기능 대신 일반적인 stream 방식을 사용해야 한다.
-또한 드라이버 내부에서 사용하고 있는 객체의 제약으로 인해 임시 LOB 기능은 long 타입을 지원하지 않는다. 
-
-##### PreparedStatement.setBlob() 메소드와 임시 blob 객체 사용
-```
-Connection sConn = getConnection();
-java.sql.Blob sBlob = sConn.createBlob();  // create temporary blob object
-sBlob.setBytes(...);  // allocate binary data to blob object
-...
-PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO BLOB_TABLE VALUES (?)");
-sPstmt.setBlob(1, sBlob);
-...
-sPstmt.executeUpdate();
-sBlob.free();
-sPstmt.close();
-...
-```
-##### PreparedStatement.setClob() 메소드와 임시 clob 객체 사용
-```
-Connection sConn = getConnection();
-java.sql.Clob sClob = sConn.createClob();  // create temporary clob object
-sClob.setString(...);    // allocate text data to clob object
-...
-PreparedStatement sPstmt = sConn.prepareStatement("INSERT INTO CLOB_TABLE VALUES (?)");
-sPstmt.setClob(1, sClob);
-...
-sPstmt.executeUpdate();
-sClob.free();
-sPstmt.close();
-...
-```
 
 ### Autocommit 제어
 
@@ -3814,11 +3868,14 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 
 6.JDBC 4.2 API References
 -----------
+
+JDBC 4.2 API를 준수하는 Altibase JDBC 드라이버에서 지원하는 기능과 지원하지 않는 기능을 보여주는 표이다.
+
 ### java.sql.Connection
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                        |      예외 처리                                 |
-|------------------------------------------------------------|----------|----------|-------------------------------------------------------------------------------|------------------------------------------------|
-| createBlob()                                               | 4.0      |    O     |                                                                                   |                                             |
-| createClob()                                               | 4.0      |    O     |                                                                                   |                                             |
+| 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                      |      예외 처리                                 |
+|:-----------------------------------------------------------|:--------:|:--------:|:------------------------------------------------------------------------------|:-----------------------------------------------|
+| createBlob()                                               | 4.0      |    O     | long 데이터형은 지원하지 않음 |                                             |
+| createClob()                                               | 4.0      |    O     | long 데이터형은 지원하지 않음 |                                             |
 | createNClob()                                              | 4.0      |    X     | Clob 객체에 대한 다국어 처리 미지원                                              |SQLFeatureNotSupported 예외 발생              |
 | createSQLXML()                                             | 4.0      |    X     | SQLXML 타입 미지원                                                              |SQLFeatureNotSupported 예외 발생              |
 | isValid(int timeout)                                       | 4.0      |    O     |                                                                                   |                                             |
@@ -3835,8 +3892,8 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | getNetworkTimeout()                                        | 4.1      |    O     | JDBC의 response_timeout 속성과 연동하여 해당 속성값을 반환          |                                            |
 
 ### java.sql.Wrapper
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
+|:-----------------------------------------------------------|:--------:|:--------:|--------------------------------------------------------------------------|------------------------------------------------------|
 | unwrap(Class<T> iface)                                     | 4.0      |    O     |                                                                          |                                                      |
 | isWrapperFor(Class<?> iface)                               | 4.0      |    O     |                                                                          |                                                      |
 
@@ -3850,13 +3907,13 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 - Altibase42DatabaseMetaData
 
 ### java.sql.Driver
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
+|:-----------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
 | getParentLogger()                                          | 4.1      |    O     |                                                                          |                                                      |
 
 ### java.sql.Statement
-| 인터페이스명                                                 | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
+|:-----------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
 | setPoolable(boolean poolable)                              | 4.0      |    O     | 알티베이스 JDBC에서 직접 Statement Pool은 지원하지 않고 플래그 설정만 가능   |                                                      |
 | isPoolable()                                               | 4.0      |    O     |                                                                          |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
@@ -3868,8 +3925,8 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | getLargeUpdateCount()                                      | 4.2      |    O     |                                                                          |                                                      |
 
 ### java.sql.PreparedStatement
-| 인터페이스명                                                                        | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|-----------------------------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                                        | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
+|:----------------------------------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
 | setRowId(int parameterIndex, RowId x)                                             | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
 | setNString(int parameterIndex, String value)                                      | 4.0      |    O     |                                                                          |                                                      |
 | setNClob(int parameterIndex, NClob value)                                         | 4.0      |    X     |  NCLOB 타입 미지원                                                     |  SQLFeatureNotSupported 예외 발생                      |
@@ -3889,8 +3946,8 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | setObject(int parameterIndex, Object x, SQLType targetSqlType, int scaleOrLength) | 4.2      |    O     |                                                      |                                                      |
 
 ### java.sql.CallableStatement
-| 인터페이스명                                                                         | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|-------------------------------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                                         | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
+|:------------------------------------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
 | getRowId(int parameterIndex)                                                        | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
 | getRowId(String parameterName)                                                      | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
 | setRowId(String parameterName, RowId x)                                             | 4.0      |    X     | RowID 미지원                                                           | SQLFeatureNotSupported 예외 발생                      |
@@ -3935,14 +3992,14 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | registerOutParameter(String parametername, SQLType sqlType, String typeName)        | 4.2      |    O     |                                                                          |                                                      |
 
 ### java.sql.PooledConnection
-| 인터페이스명                                                     | Specification Version | 지원여부  | Details                                                                  |      예외 처리                                        |
-|----------------------------------------------------------------|----------|----------|--------------------------------------------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                     | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
+|:---------------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
 | addStatementEventListener(StatementEventListener listener)     | 4.0      |    X     | Statement Pool을 지원하지 않으므로 동작이 무시됨 |                                                      |
 | removeStatementEventListener(StatementEventListener listener)  | 4.0      |    X     | Statement Pool을 지원하지 않으므로 동작이 무시됨     |                                                      |
 
 ### java.sql.ResultSet
-| 인터페이스명                                                                | Specification Version | 지원여부  | Details                            |      예외 처리                                        |
-|----------------------------------------------------------------------------|----------|----------|------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                                | JDBC API 버전 | 지원여부  | 설명                            |      예외 처리                                        |
+|:---------------------------------------------------------------------------|:--------:|:--------:|:-----------------------------------|:-----------------------------------------------------|
 | getRowId(int columnIndex)                                                  | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | getRowId(String columnLabel)                                               | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | updateRowId(int columnIndex, RowId x)                                      | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
@@ -3993,13 +4050,13 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | getObject(String columnLabel, Class<T> type)                               | 4.1      |    O     |                                    |                                                      |
 
 ### javax.sql.CommonDataSource
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
-|-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                            |      예외 처리                  |
+|:----------------------------------------------|:--------:|:--------:|:-----------------------------------|:-------------------------------|
 | getParentLogger()                             | 4.1      |    O     |                                    |                                |
 
 ### java.sql.DatabaseMetaData
-| 인터페이스명                                                                                                   | Specification Version | 지원여부  | Details                            |      예외 처리                                        |
-|---------------------------------------------------------------------------------------------------------------|----------|----------|------------------------------------|------------------------------------------------------|
+| 인터페이스명                                                                                                   | JDBC API 버전 | 지원여부  | 설명                            |      예외 처리                                        |
+|:--------------------------------------------------------------------------------------------------------------|:--------:|:--------:|:-----------------------------------|:-----------------------------------------------------|
 | getRowIdLifetime()                                                                                            | 4.0      |    X     | RowID 미지원                     | SQLFeatureNotSupported 예외 발생                      |
 | getSchemas(String catalog, String schemaPattern)                                                              | 4.0      |    O     |                                    |                                                      |
 | supportsStoredFunctionsUsingCallSyntax()                                                                      | 4.0      |    X     | False 리턴                         |                                                      |
@@ -4011,30 +4068,30 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 | generatedKeyAlwaysReturned()                                                                                  | 4.1      |    X     | False 리턴                       |                                                      |
 
 ### java.sql.Blob
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
-|-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                            |      예외 처리                  |
+|:----------------------------------------------|----------|:--------:|:-----------------------------------|:-------------------------------|
 | getBinaryStream(long pos, long length)        | 4.0      |    O     |                                    |                                |
 
 ### java.sql.Clob
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                            |      예외 처리                  |
-|-----------------------------------------------|----------|----------|------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                            |      예외 처리                  |
+|:----------------------------------------------|:--------:|:--------:|:-----------------------------------|:-------------------------------|
 | getCharacterStream(long pos, long length)     | 4.0      |    O     |                                    |                                |
 
 ### java.sql.Types
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
-|-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                                |      예외 처리                  |
+|:----------------------------------------------|:--------:|:--------:|:---------------------------------------|:-------------------------------|
 | REF_CURSOR                                    | 4.2      |    X     | 아웃바운드 파라미터로 ref cursor사용 불가 |                                |
 
 ### java.sql.DriverAction
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
-|-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                                |      예외 처리                  |
+|:----------------------------------------------|:--------:|:--------:|:---------------------------------------|:-------------------------------|
 | deregister()                                  |  4.2     |    x     | deregister()를 통한 자원해제는 지원하지 않음  |                            |
 
 ### java.sql.SQLTypes
 
 알티베이스 JDBC 드라이버는 java.sql.SQLTypes 인터페이스를 구현하고 있는 AltibaseJDBCType을 지원한다.
-| 인터페이스명                                   | Specification Version | 지원여부  | Details                                |      예외 처리                  |
-|-----------------------------------------------|----------|----------|----------------------------------------|--------------------------------|
+| 인터페이스명                                   | JDBC API 버전 | 지원여부  | 설명                                |      예외 처리                  |
+|:----------------------------------------------|:--------:|:--------:|:---------------------------------------|:-------------------------------|
 | getName()                                     | 4.2      |    O     |                                        |                                |
 | getVendor()                                   | 4.2      |    O     |                                        |                                |
 | getVendorTypeNumber()                         | 4.2      |    O     |                                        |                                |
@@ -4042,7 +4099,7 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 ### Java 8 Time API
 JDBC spec 4.2를 준수하는 알티베이스 JDBC 드라이버는 다음과 같이 Java8 Time API를 java.sql 타입으로 변환하여 지원한다.
 | Java 8 Time Class        | Altibase JDBC            |
-|--------------------------|--------------------------|
+|:-------------------------|:-------------------------|
 | java.time.LocalDate      | java.sql.Date            |
 | java.time.LocalTime      | java.sql.Time            |
 | java.time.LocalDateTime  | java.sql.TimeStamp       |
