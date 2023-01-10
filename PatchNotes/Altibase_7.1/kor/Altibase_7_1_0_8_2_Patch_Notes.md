@@ -28,7 +28,7 @@
   - [BUG-50032 oaUtility 유틸리티에 force 옵션을 추가합니다.](#bug-50032oautility-%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0%EC%97%90-force-%EC%98%B5%EC%85%98%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-50038 jdbcAdapter 및 oraAdapter 구동에서 예외 상황 발생 시 에러 메시지를 보완합니다.](#bug-50038jdbcadapter-%EB%B0%8F-oraadapter-%EA%B5%AC%EB%8F%99%EC%97%90%EC%84%9C-%EC%98%88%EC%99%B8-%EC%83%81%ED%99%A9-%EB%B0%9C%EC%83%9D-%EC%8B%9C-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80%EB%A5%BC-%EB%B3%B4%EC%99%84%ED%95%A9%EB%8B%88%EB%8B%A4)
   - [BUG-50048 aku에 세션 접근 제어 기능을 추가합니다.](#bug-50048aku%EC%97%90-%EC%84%B8%EC%85%98-%EC%A0%91%EA%B7%BC-%EC%A0%9C%EC%96%B4-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50050 뷰/인라인 뷰에 중복되는 조건식을 제거하는 기능을 추가합니다.](#bug-50050%EB%B7%B0%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EB%B7%B0%EC%97%90-%EC%A4%91%EB%B3%B5%EB%90%98%EB%8A%94-%EC%A1%B0%EA%B1%B4%EC%8B%9D%EC%9D%84-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-50050 뷰 또는 인라인 뷰에서 논리 연산 결과에 영향을 미치지 않는 조건을 제거하는 기능을 추가합니다.](#bug-50050뷰-또는-인라인-뷰에서-논리-연산-결과에-영향을-미치지-않는-조건을-제거하는-기능을-추가합니다)
 - [Changes](#changes)
   - [Version Info](#version-info)
   - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -1209,7 +1209,7 @@ SLAVE AKU는 MASTER AKU에게 이중화 SYNC를 요청하기 전에 자신의 �
 
 
 
-### BUG-50050 뷰/인라인 뷰에 중복되는 조건식을 제거하는 기능을 추가합니다.
+### BUG-50050 뷰 또는 인라인 뷰에서 논리 연산 결과에 영향을 미치지 않는 조건을 제거하는 기능을 추가합니다. 
 
 #### module 
 
@@ -1225,14 +1225,12 @@ SLAVE AKU는 MASTER AKU에게 이중화 SYNC를 요청하기 전에 자신의 �
 
 #### 설명
 
-뷰/인라인 뷰에 중복되는 조건식을 제거하는 기능을 추가합니다.
+뷰 또는 인라인 뷰에서 논리 연산 결과에 영향을 미치지 않는 조건을 제거하는 기능을 추가합니다.
 
-뷰/인라인 뷰에서 아래에 해당하는 절에 중복되는 조건식이 있으면 제거됩니다. 이 기능이 적용되면 질의문의 실행 계획이 변경될 수 있습니다.
+뷰 또는 인라인 뷰에서 아래에 해당하는 절에 논리 연산 결과에 영향을 미치지 않는 조건식이 있으면 제거됩니다. 이 기능이 적용되면 질의문의 실행 계획이 변경될 수 있습니다.
 
 - FROM 절의 ON 절
-
 - WHERE 절 (Outer Join 기호 (+)가 있을 때는 제외)
-
 - HAVING 절
 
 Altibase 7.1에서 이 기능을 사용하려면 비공개 프로퍼티 값을 변경하거나 비공개 힌트를 사용해야 합니다. 필요한 경우 Altibase 기술 지원 센터로 문의해주시기 바랍니다.
@@ -1254,14 +1252,13 @@ Altibase 7.1에서 이 기능을 사용하려면 비공개 프로퍼티 값을 �
     ALTER SESSION SET EXPLAIN PLAN = ON;
     
     SELECT *
-      FROM (SELECT /*+  */
-                   A.C1, A.C2, B.C3
+      FROM (SELECT A.C1, A.C2, B.C3
               FROM T1 A, T2 B
              WHERE 0 IS NULL
                 OR 0 = A.C1
                AND A.C1 = B.C1 ) ;
     ```
-
+    
 -   **수행 결과**
 
     ```sql
