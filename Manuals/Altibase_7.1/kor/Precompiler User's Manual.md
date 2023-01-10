@@ -8632,13 +8632,13 @@ END-EXEC;
 
 EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수를 사용할 수 있다. 이는 하나의 EXECUTE 문으로 여러 개의 EXECUTE 문을 실행하는 효과를 주어 저장 프로시저의 실행 성능을 높일 수 있다.
 
-인자의 데이터 타입이 배열일 때와 배열이 아닐 때 EXECUTE 문에서 배열 호스트 변수를 사용하는 방법이 다르므로 상황에 따른 배열 호스트 변수 사용 방법을 설명한다. 
+EXECUTE 문에서 배열 호스트 변수를 사용하는 방법은 저장 프로시저 인자의 데이터 타입이 배열인지 아닌지에 따라 다르다.
 
 #### 저장 프로시저 인자의 데이터 타입이 배열이 아닐 때
 
-먼저, 저장 프로시저 인자의 데이터 타입이 배열이 아닐 때 EXECUTE 문에서 사용할 수 있는 배열 타입과 제한 사항에 대한 설명이다. 
+먼저, 저장 프로시저 인자의 데이터 타입이 배열이 아닐 때 EXECUTE 문에서 사용할 수 있는 배열 호스트 변수의 데이터형과 제한 사항에 대한 설명이다. 
 
-##### 배열 타입의 종류
+##### 배열 호스트 변수로 사용할 수 있는 데이터형
 
 - 숫자형 타입의 배열
 - 문자형 타입의 배열
@@ -8658,7 +8658,7 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
   EXEC SQL END DECLARE SECTION;
   
   EXEC SQL EXECUTE BEGIN 
-  PROC1(:var1 in, :var2 out, :var3 in out);  // OUT 인자에 배열 호스트 변수를 사용할 수 없다.
+  PROC1(:var1 in, :var2 out, :var3 in out);  // 에러 발생. OUT 인자에 배열 호스트 변수를 사용한 예
   END;
   END-EXEC;
   ~~~
@@ -8673,7 +8673,7 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
   EXEC SQL END DECLARE SECTION;
   
   EXEC SQL EXECUTE BEGIN 
-  :var1 = FUNC1(:var2 in, :var3 in); // 배열 호스트 변수에 저장 함수의 반환 값을 저장할 수 없다.
+  :var1 = FUNC1(:var2 in, :var3 in); // 에러 발생. 배열 호스트 변수에 저장 함수의 반환 값을 저장한 예
   END;
   END-EXEC;
   ~~~
@@ -8688,7 +8688,7 @@ EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수�
   EXEC SQL END DECLARE SECTION;
   
   EXEC SQL EXECUTE BEGIN 
-  	PROC1(:var1 in, :var2 in, :var3 in);
+  	PROC1(:var1 in, :var2 in, :var3 in); // 에러 발생. 배열 호스트 변수와 배열이 아닌 호스트 변수를 함께 사용한 예
   END;
   END-EXEC;
   ~~~
@@ -8723,11 +8723,46 @@ END-EXEC;
 
 #### 저장 프로시저 인자의 데이터 타입이 배열일 때
 
-다음은 저장 프로시저에서 인자의 데이터 타입이 배열일 때 EXECUTE 문에서 사용할 수 있는 배열 타입과 제한 사항에 대한 설명이다. 
+다음은 인자의 데이터 타입을 배열로 선언한 저장 프로시저를 EXECUTE 문에서 실행할 때, 배열 호스트 변수로 사용할 수 있는 데이터형과 제한 사항에 대한 설명이다.
 
-##### 배열 타입의 종류
+인자의 데이터 타입을 배열로 선언한 저장 프로시저는 아래와 같은 경우를 말한다.
+~~~c
+CREATE OR REPLACE PACKAGE PSM_PKG
+AS
+TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
+TYPE PSM_ICOL IS TABLE OF INTEGER  INDEX BY INTEGER;
+TYPE PSM_LCOL IS TABLE OF BIGINT   INDEX BY INTEGER;
+TYPE PSM_RCOL IS TABLE OF REAL     INDEX BY INTEGER;
+TYPE PSM_DCOL IS TABLE OF DOUBLE   INDEX BY INTEGER;
+END;
+/
+ 
+CREATE OR REPLACE PROCEDURE PSM3_1(scol in PSM_PKG.PSM_SCOL,
+                                   icol in PSM_PKG.PSM_ICOL,
+                                   lcol in PSM_PKG.PSM_LCOL,
+                                   rcol in PSM_PKG.PSM_RCOL,
+                                   dcol in PSM_PKG.PSM_DCOL)
+AS
+i integer;
+BEGIN
+    EXECUTE IMMEDIATE 'TRUNCATE TABLE PSM_TABLE';
+    i := scol.first();
+    LOOP
+        IF i IS null
+            THEN
+            exit;
+        ELSE
+            INSERT INTO PSM_TABLE (SCOL, ICOL, LCOL, RCOL, DCOL)
+            VALUES (scol(i), icol(i), lcol(i), rcol(i), dcol(i));
+            i := scol.next(i);
+        END IF;
+    END LOOP;
+END;
+/
+~~~
 
-저장 프로시저에 따라 IN, OUT, INOUT, 호스트 변수, 배열 호스트 변수를 사용 할 수 있다. *(필요한 문장인가? 무슨 의미인가?)*
+##### 배열 호스트 변수로 사용할 수 있는 데이터형
+
 
 | C 데이터형 | SQL 데이터형 |
 | :--------- | :----------- |
@@ -8812,7 +8847,7 @@ END-EXEC;
 
 ##### 예제
 
-배열 호스트 변수를 사용하여 배열을 인자의 데이터 타입으로 선언한 저장 프로시저를 EXECUTE 문으로 수행하는 예제이다.
+아래 예제를 위한 스키마이다.
 
 >  schema.sql
 
@@ -8864,6 +8899,8 @@ END;
 
 >  예제 프로그램 : psm3.sc
 
+저장 프로시저 인자의 데이터 타입이 배열일 때, 배열 호스트 변수를 사용하여 EXECUTE 문을 수행하는 일반적인 예제이다.
+
 ```c
 /* declare host variables */
 EXEC SQL BEGIN DECLARE SECTION;
@@ -8900,6 +8937,8 @@ END-EXEC;
 다음은 out parameter 결과 값에 null 값이 포함되어 있는 경우의 예를 보여준다. *(이 예제는 여기서 왜 나오는 걸까요?)*
 
 <예제 프로그램 : psm4.sc>
+
+저장 프로시저 출력 인자의 데이터 타입이 널을 가진 배열일 때, 널을 확인하는 예제이다.
 
 ```c
 /* declare host variables */
