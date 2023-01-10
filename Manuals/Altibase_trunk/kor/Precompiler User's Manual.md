@@ -61,9 +61,8 @@
     - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-4)
   - [11.저장 프로시저 처리 SQL문](#11%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
     - [저장 프로시저 처리 SQL문](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-    - [배열 타입의 호스트 변수 사용](#%EB%B0%B0%EC%97%B4-%ED%83%80%EC%9E%85%EC%9D%98-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
+    - [EXECUTE 문에서 배열 호스트 변수 사용](#execute-문에서-배열-호스트-변수-사용)
     - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-5)
-    - [배열 타입의 호스트 변수 사용](#%EB%B0%B0%EC%97%B4-%ED%83%80%EC%9E%85%EC%9D%98-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9-1)
   - [12.다중 연결 프로그램](#12%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
     - [개요](#%EA%B0%9C%EC%9A%94-4)
     - [다중 연결 프로그램에서 내장 SQL문 사용 방법](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
@@ -8740,82 +8739,80 @@ EXEC SQL EXECUTE
 END-EXEC;
 ```
 
-### 배열 타입의 호스트 변수 사용
+### EXECUTE 문에서 배열 호스트 변수 사용
 
-EXECUTE문에서 배열 호스트 변수를 사용할 수 있다. 배열 호스트 변수를 사용함으로써
-한 번의 EXECUTE문을 수행할 때 배열 크기만큼 여러 번의 EXECUTE문을 수행하는
-효과를 얻고 그로 인해 성능향상을 기대할 수 있다.
+EXECUTE 문으로 저장 프로시저를 실행할 때 배열 호스트 변수를 사용할 수 있다. 이는 하나의 EXECUTE 문으로 여러 개의 EXECUTE 문을 실행하는 효과를 주어 저장 프로시저의 실행 성능을 높일 수 있다.
 
-#### 배열 타입의 종류
+EXECUTE 문에서 배열 호스트 변수를 사용하는 방법은 저장 프로시저 인자의 데이터 타입이 배열인지 아닌지에 따라 다르다.
 
-EXECUTE문에서는 IN 파라미터에만 배열 호스트 변수를 사용할 수 있다.
+#### 저장 프로시저 인자의 데이터 타입이 배열이 아닐 때
 
-다음은 EXECUTE문에서 사용할 수 있는 배열 타입들이다.
+먼저, 저장 프로시저 인자의 데이터 타입이 배열이 아닐 때 EXECUTE 문에서 사용할 수 있는 배열 호스트 변수의 데이터형과 제한 사항에 대한 설명이다. 
 
-- 숫자형, 문자형 타입의 배열
+##### 배열 호스트 변수로 사용할 수 있는 데이터형
+
+- 숫자형 타입의 배열
+- 문자형 타입의 배열
 - 구성 요소가 배열인 구조체
 
-#### 제한 사항
+##### 제한 사항
 
-EXECUTE문에서 배열 호스트 변수 사용 시 몇 가지 제한 사항이 있다. 프로그램 작성
-시 다음의 제한 사항에 유의하여야 한다.
+- 입력 인자(IN)에서만 배열 호스트 변수를 사용할 수 있다.
 
-- OUT 또는 IN/OUT 타입의 파라미터에는 배열 호스트 변수를 사용할 수 없다.
+- 출력 인자(OUT) 또는 입출력 공용 인자(IN/OUT)에는 배열 호스트 변수를 사용할 수 없다.
 
-```
-예) EXEC SQL BEGIN DECLARE SECTION;
-int var1[10];
-int var2[10];
-int var3[10];
-EXEC SQL END DECLARE SECTION;
+  ~~~c
+  EXEC SQL BEGIN DECLARE SECTION;
+  int var1[10];
+  int var2[10];
+  int var3[10];
+  EXEC SQL END DECLARE SECTION;
+  
+  EXEC SQL EXECUTE BEGIN 
+  PROC1(:var1 in, :var2 out, :var3 in out);  // 에러 발생. OUT 인자에 배열 호스트 변수를 사용한 예
+  END;
+  END-EXEC;
+  ~~~
 
-EXEC SQL EXECUTE BEGIN 
-PROC1(:var1 in, :var2 out, :var3 in out);  	(X)
-END;
-END-EXEC;
-```
+- 저장 함수의 반환 값을 배열 호스트 변수에 저장할 수 없다. 
 
-- 저장 함수의 반환 값을 위한 호스트 변수는 배열일 수 없다.
-
-```
-예) EXEC SQL BEGIN DECLARE SECTION;
-int var1[10];
-int var2[10];
-int var3[10];
-EXEC SQL END DECLARE SECTION;
-
-EXEC SQL EXECUTE BEGIN 
-:var1 = FUNC1(:var2 in, :var3 in);  	(X)
-END;
-END-EXEC;
-```
+  ~~~c
+  EXEC SQL BEGIN DECLARE SECTION;
+  int var1[10];
+  int var2[10];
+  int var3[10];
+  EXEC SQL END DECLARE SECTION;
+  
+  EXEC SQL EXECUTE BEGIN 
+  :var1 = FUNC1(:var2 in, :var3 in); // 에러 발생. 배열 호스트 변수에 저장 함수의 반환 값을 저장한 예
+  END;
+  END-EXEC;
+  ~~~
 
 - 배열 호스트 변수와 배열이 아닌 호스트 변수를 함께 사용할 수 없다.
 
-```
-예) EXEC SQL BEGIN DECLARE SECTION;
-int var1;
-int var2;
-int var3[10];
-EXEC SQL END DECLARE SECTION;
+  ~~~c
+  EXEC SQL BEGIN DECLARE SECTION;
+  int var1;
+  int var2;
+  int var3[10];
+  EXEC SQL END DECLARE SECTION;
+  
+  EXEC SQL EXECUTE BEGIN 
+  	PROC1(:var1 in, :var2 in, :var3 in); // 에러 발생. 배열 호스트 변수와 배열이 아닌 호스트 변수를 함께 사용한 예
+  END;
+  END-EXEC;
+  ~~~
 
-EXEC SQL EXECUTE BEGIN 
-	PROC1(:var1 in, :var2 in, :var3 in);  (X)
-END;
-END-EXEC;
-```
+- 위의 마지막 2 가지 제한 사항에 의해 저장 함수를 실행하는 EXECUTE 문에 배열 호스트 변수를 사용할 수 없다.
 
-위의 마지막 2가지 제한사항에 의해 저장 함수 실행문에서는 배열 호스트 변수를
-사용할 수 없다.
+##### 예제
 
-#### 예제
+저장 프로시저의 입력 인자에 배열 호스트 변수를 사용하여 EXECUTE 문을 수행하는 예제이다.
 
-다음은 저장 프로시저 문의 IN 파라미터에 배열 호스트 변수를 사용하는 예를
-보여준다.
+> 예제 프로그램 : arrays2.sc
 
-\< 예제 프로그램 : arrays2.sc \>
-
-```
+```c
 EXEC SQL BEGIN DECLARE SECTION;
 char a_gno[3][10+1];
 char a_gname[3][20+1];
@@ -8835,71 +8832,13 @@ END;
 END-EXEC;
 ```
 
-### 예제 프로그램
+#### 저장 프로시저 인자의 데이터 타입이 배열일 때
 
-##### psm1.sc
+다음은 인자의 데이터 타입을 배열로 선언한 저장 프로시저를 EXECUTE 문에서 실행할 때, 배열 호스트 변수로 사용할 수 있는 데이터형과 제한 사항에 대한 설명이다.
 
-$ALTIBASE_HOME/sample/APRE/psm1.sc 참고
+인자의 데이터 타입을 배열로 선언한 저장 프로시저는 아래와 같은 경우를 말한다.
 
-##### 실행결과
-
-```
-$ is –f schema/schema.sql
-$ make psm1
-$ ./psm1
-<SQL/PSM 1>
-------------------------------------------------------
-[Create Procedure]                                                
-------------------------------------------------------
-Success create procedure
-
-------------------------------------------------------
-[Execute Procedure]                                               
-------------------------------------------------------
-Success execute procedure
-
-------------------------------------------------------
-[Drop Procedure]                                                  
-------------------------------------------------------
-Success drop procedure
-```
-
-##### psm2.sc 
-
-$ALTIBASE_HOME/sample/APRE/psm2.sc 참고
-
-##### 실행결과
-
-```
-$ is –f schema/schema.sql
-$ make psm2
-$ ./psm2
-<SQL/PSM 2>
-------------------------------------------------------
-[Create Function]                                                 
-------------------------------------------------------
-Success create function
-
-------------------------------------------------------
-[Execute Function]                                                
-------------------------------------------------------
-31 rows selected
-
-------------------------------------------------------
-[Drop Function]                                                   
-------------------------------------------------------
-Success drop function
-```
-
-### 배열 타입의 호스트 변수 사용
-
-EXECUTE문에서 저장 프로시저의 인자 타입이 배열일 경우 배열 타입의 호스트 변수와 매칭하여 사용 할 수 있다.
-
-저장 프로시저의 인자 타입이 배열이란 아래와 같은 경우를 말한다.
-
-예)
-
-```
+~~~c
 CREATE OR REPLACE PACKAGE PSM_PKG
 AS
 TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
@@ -8932,101 +8871,102 @@ BEGIN
     END LOOP;
 END;
 /
-```
+~~~
 
-#### 배열타입의 종류
+##### 배열 호스트 변수로 사용할 수 있는 데이터형
 
-저장 프로시저의 따라, IN, OUT, INOUT, 호스트 변수, 배열 호스트 변수를 사용 할 수 있다.
 
-아래는 프로시저의 인자 타입이 배열인 경우에 사용 가능한 데이터 타입이다.
-
-| **C type** | **SQL type** |
-| ---------- | ------------ |
+| C 데이터형 | SQL 데이터형 |
+| :--------- | :----------- |
 | short      | SQL_SMALLINT |
 | int        | SQL_INTEGER  |
 | long       | SQL_BIGINT   |
 | float      | SQL_REAL     |
 | double     | SQL_DOUBLE   |
 
-#### 제한사항
+##### 제한 사항
 
-프로시저의 인자 타입이 배열인 경우에는 C type과 SQL Type을 동일하게 매칭하여 사용해야 한다.
+- long 형은 8바이트만 지원한다.
 
-##### C type과 SQL Type이 다를 경우 에러가 발생한다.
+  long 형의 크기가 4바이트인 아래 OS에서는 long 형을 지원하지 않는다. 
 
-예)
+  - 32비트 Linux
+  - Windows 
 
-```
-create or replace package pkg1
-as
-type typ1 is table of smallint index by integer;
-end;
-/
-create or replace procedure proc1( a out pkg1.typ1 ) return integer
-as
-begin
-select * bulk collect into a from t1 order by c1;
-end;
-/
- 
-EXEC SQL BEGIN DECLARE SECTION;
-char usr[10];                  
-char pwd[10];                  
-char conn_opt[1024];           
-double array1[array_size];                
-EXEC SQL END DECLARE SECTION;  
- 
-EXEC SQL EXECUTE                        
-BEGIN                                   
-    proc1(:array1 out);
-END;                                    
-END-EXEC;     
- 
-결과
-Error : [-331900] The apre type and psm array type do not match.
-```
+- C 데이터형과 SQL 데이터형이 다르면 에러가 발생한다.
 
-##### 구조체를 host variable로 사용할 수 없다.
-
-예)
-
-```
-typedef struct argx { float c1; float c2; } argx;
- 
-EXEC SQL BEGIN DECLARE SECTION;
-argx args2[10];
-EXEC SQL END DECLARE SECTION;  
- 
-EXEC SQL EXECUTE     
-BEGIN 
-    proc1(:args2);
-END; 
-END-EXEC;
-```
-
-##### 2차원 배열을 host variable로 사용할 수 없다.
-
-예)
-
-```
-EXEC SQL BEGIN DECLARE SECTION;
-float args2[10][10];
-EXEC SQL END DECLARE SECTION; 
+  ~~~c
+  CREATE OR REPLACE PACKAGE pkg1
+  AS
+  TYPE type1 IS TABLE OF SMALLINT INDEX BY INTEGER;
+  END;
+  /
   
-EXEC SQL EXECUTE     
-BEGIN 
-    proc1(:args2);
-END; 
-END-EXEC;
-```
+  // 저장 프로시저 출력 인자의 데이터 타입이 SQL_SMALLINT
+  CREATE OR REPLACE PROCEDURE proc1( a OUT pkg1.type1 ) RETURN INTEGER
+  AS
+  BEGIN
+  SELECT * BULK COLLECT INTO a FROM t1 ORDER BY c1;
+  END;
+  /
+   
+  EXEC SQL BEGIN DECLARE SECTION;
+  char usr[10];                  
+  char pwd[10];                  
+  char conn_opt[1024];           
+  double array1[array_size];                
+  EXEC SQL END DECLARE SECTION;  
+  
+  // EXECUTE 문에서 사용한 배열 호스트 변수는 double 형
+  EXEC SQL EXECUTE                        
+  BEGIN                                   
+      proc1(:array1 out);
+  END;                                    
+  END-EXEC;     
+   
+  // 결과
+  Error : [-331900] The apre type and psm array type do not match.
+  ~~~
 
-#### 예제
+- 호스트 변수가 구조체이면 EXECUTE 문에서 배열 호스트 변수로 사용할 수 없다.
 
-다음은 인자 타입이 배열인 저장 프로시저를 사용하는 예를 보여준다.
+  ~~~c
+  typedef struct argx { float c1; float c2; } argx;
+   
+  EXEC SQL BEGIN DECLARE SECTION;
+  argx args2[10];
+  EXEC SQL END DECLARE SECTION;  
+  
+  // EXECUTE 문에서 구조체인 배열 호스트 변수를 사용할 수 없다.
+  EXEC SQL EXECUTE     
+  BEGIN 
+      proc1(:args2);
+  END; 
+  END-EXEC;
+  ~~~
 
-<schema.sql>
+- 호스트 변수가 2차원 배열이면 EXECUTE 문에서 배열 호스트 변수로 사용할 수 없다.
 
-```
+  ~~~c
+  EXEC SQL BEGIN DECLARE SECTION;
+  float args2[10][10];
+  EXEC SQL END DECLARE SECTION; 
+  
+  // EXECUTE 문에서 2차열 배열인 배열 호스트 변수를 사용할 수 없다.
+  EXEC SQL EXECUTE     
+  BEGIN 
+      proc1(:args2);
+  END; 
+  END-EXEC;
+  ~~~
+
+##### 예제
+
+아래 예제를 위한 스키마이다.
+
+>  schema.sql
+
+```c
 CREATE OR REPLACE PACKAGE PSM_PKG
 AS
 TYPE PSM_SCOL IS TABLE OF SMALLINT INDEX BY INTEGER;
@@ -9072,9 +9012,11 @@ END;
 /
 ```
 
-<예제 프로그램 : psm3.sc>
+>  예제 프로그램 : psm3.sc
 
-```
+저장 프로시저 인자의 데이터 타입이 배열일 때, 배열 호스트 변수를 사용하여 EXECUTE 문을 수행하는 일반적인 예제이다.
+
+```c
 /* declare host variables */
 EXEC SQL BEGIN DECLARE SECTION;
 char usr[10];
@@ -9107,11 +9049,11 @@ END;
 END-EXEC;
 ```
 
-다음은 out parameter 결과 값에 null 값이 포함되어 있는 경우의 예를 보여준다.
+> 예제 프로그램 : psm4.sc
 
-<예제 프로그램 : psm4.sc>
+저장 프로시저 출력 인자가 널을 가진 배열일 때, 널을 확인하는 예제이다.
 
-```
+```c
 /* declare host variables */
 EXEC SQL BEGIN DECLARE SECTION;
 char usr[10];
@@ -9148,89 +9090,116 @@ if( SQLCODE == (int)-331898)
 }
 ```
 
-#### 예제 프로그램
 
-**psm3.sc**
+
+### 예제 프로그램
+
+##### psm1.sc
+
+$ALTIBASE_HOME/sample/APRE/psm1.sc 참고
+
+**실행 결과**
+
+```bash
+$ is –f schema/schema.sql
+$ make psm1
+$ ./psm1
+<SQL/PSM 1>
+------------------------------------------------------
+[Create Procedure]                                                
+------------------------------------------------------
+Success create procedure
+
+------------------------------------------------------
+[Execute Procedure]                                               
+------------------------------------------------------
+Success execute procedure
+
+------------------------------------------------------
+[Drop Procedure]                                                  
+------------------------------------------------------
+Success drop procedure
+```
+
+##### psm2.sc 
+
+$ALTIBASE_HOME/sample/APRE/psm2.sc 참고
+
+**실행 결과**
+
+```bash
+$ is –f schema/schema.sql
+$ make psm2
+$ ./psm2
+<SQL/PSM 2>
+------------------------------------------------------
+[Create Function]                                                 
+------------------------------------------------------
+Success create function
+
+------------------------------------------------------
+[Execute Function]                                                
+------------------------------------------------------
+31 rows selected
+
+------------------------------------------------------
+[Drop Function]                                                   
+------------------------------------------------------
+Success drop function
+```
+
+##### psm3.sc
 
 $ALTIBASE_HOME/sample/APRE/psm3.sc 참고
 
+**실행 결과**
+
+~~~bash
 $ is -f schema/schema.sql
-
 $ make psm3
-
 $ ./psm3
-
-**실행결과**
-
 <SQL/PSM 3>
-
-\------------------------------------------------------------------
-
+------------------------------------------------------------------
 [Execute Procedure]
-
-\------------------------------------------------------------------
-
+------------------------------------------------------------------
 Success execute procedure PSM3_1
 
- 
-
-\------------------------------------------------------------------
-
+------------------------------------------------------------------
 [Execute Procedure]
-
-\------------------------------------------------------------------
-
+------------------------------------------------------------------
 Success execute procedure PSM3_2
 
- 
+sCol        iCol        lCol        fCol        dCol 
+1           10          100         1.100000    1.010000
+2           11          101         2.100000    2.010000
+3           12          102         3.100000    3.010000
+4           13          103         4.100000    4.010000
+5           14          104         5.100000    5.010000
+~~~
 
-sCol    iCol    lCol    fCol    dCol
-
-1      10     100     1.100000  1.010000
-
-2      11     101     2.100000  2.010000
-
-3      12     102     3.100000  3.010000
-
-4      13     103     4.100000  4.010000
-
-5      14     104     5.100000  5.010000
-
-psm4.sc
+##### psm4.sc
 
 $ALTIBASE_HOME/sample/APRE/psm4.sc 참고
 
+**실행 결과**
+
+~~~bash
 $ is -f schema/schema.sql
-
 $ make psm4
-
-$ ./psm4
-
-**실행결과**
-
+$./psm4
 <SQL/PSM 4>
-
-\------------------------------------------------------------------
-
+------------------------------------------------------------------
 [Execute Procedure]
-
-\------------------------------------------------------------------
-
+------------------------------------------------------------------
 Error : [-331898] The fetched result contains a NULL value. or Fetch column value is NULL.
 
- 
-
-sCol
-
+sCol 
 1
-
 2
-
 NULL
-
 3
-
 4
+~~~
 
 
 
