@@ -11,8 +11,8 @@ Altibase 6.5.1.9.6 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-50033 adapter를 시작할 때​ ALA 로그 파일을 오픈할 수 없으면 코어 파일이 생성됩니다.](#bug-50033adapter%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%A0-%EB%95%8C%E2%80%8B-ala-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%98%A4%ED%94%88%ED%95%A0-%EC%88%98-%EC%97%86%EC%9C%BC%EB%A9%B4-%EC%BD%94%EC%96%B4-%ED%8C%8C%EC%9D%BC%EC%9D%B4-%EC%83%9D%EC%84%B1%EB%90%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50038 jdbcAdapter 및 oraAdapter 구동에서 예외 상황 발생 시 에러 메시지를 보완합니다.](#bug-50038jdbcadapter-%EB%B0%8F-oraadapter-%EA%B5%AC%EB%8F%99%EC%97%90%EC%84%9C-%EC%98%88%EC%99%B8-%EC%83%81%ED%99%A9-%EB%B0%9C%EC%83%9D-%EC%8B%9C-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80%EB%A5%BC-%EB%B3%B4%EC%99%84%ED%95%A9%EB%8B%88%EB%8B%A4)
+  - [BUG-50033 adapter를 시작할 때 ALA 로그 파일을 오픈할 수 없으면 코어 파일이 생성됩니다.](#bug-50033adapter를-시작할-때-ala-로그-파일을-오픈할-수-없으면-코어-파일이-생성됩니다)
+  - [BUG-50038 jdbcAdapter 및 oraAdapter 구동에서 예외 상황 발생 시 에러 메시지를 보완합니다.](#bug-50038jdbcadapter-및-oraadapter-구동에서-예외-상황-발생-시-에러-메시지를-보완합니다)
 - [Changes](#changes)
   - [Version Info](#version-info)
   - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
