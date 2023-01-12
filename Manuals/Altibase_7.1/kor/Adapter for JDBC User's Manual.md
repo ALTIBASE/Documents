@@ -927,7 +927,7 @@ FROM sys.t1 TO user1.t2;
 
 3. 이제 jdbcAdapter를 시작한다. jdbcAdapter를 직접 실행할 수도 있고, Adapter
    for JDBC 유틸리티를 사용해서 실행할 수도 있다. Adapter for JDBC 유틸리티를
-   사용해서 구동하는 방법은 이 장의 “” 절을 참고한다. LINUX 운영체제에서 아래와
+   사용해서 구동하는 방법은 이 장의 "[Adapter for JDBC 유틸리티](#adapter-for-jdbc-유틸리티)" 절을 참고한다. LINUX 운영체제에서 아래와
    같이 jdbcAdapter를 시작할 수 있다:
 
 ```

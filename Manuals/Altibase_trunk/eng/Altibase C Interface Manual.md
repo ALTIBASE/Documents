@@ -902,7 +902,7 @@ altibase_data_seek() may be used only in conjunction with altibase_store_result(
 ```
 #define QSTR "SELECT last_name, first_name FROM friends"
 
-rc = altibase_qeury(altibase, QSTR);
+rc = altibase_query(altibase, QSTR);
 /* ... check return value ... */
 
 result = altibase_store_result(altibase);
@@ -1630,7 +1630,7 @@ int            i;
 
 /* ... omit ... */
 
-rc = altibase_qeury(altibase, QSTR);
+rc = altibase_query(altibase, QSTR);
 /* ... check return value ... */
 
 result = altibase_use_result(altibase);

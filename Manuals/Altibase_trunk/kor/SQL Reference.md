@@ -2548,7 +2548,7 @@ TABLESPACE 구문을 사용한다.
 \<질의\> ‘MEM-TBS-1’ 이름의 체크포인트 이미지파일을 다시 생성한다.
 
 ```
-iSQL\> ALTER DATABASE CREATE CHECKPOINT IMAGE 'MEM-TBS-1';
+iSQL> ALTER DATABASE CREATE CHECKPOINT IMAGE 'MEM-TBS-1';
 ```
 
 *SESSION CLOSE*
@@ -11174,16 +11174,17 @@ Drop success.
 
 ##### 객체 권한
 
-\<질의1\> 사용자 uare6가 WITH GRANT OPTION으로 employees 테이블에 대한 SELECT와
-DELETE 객체 권한을 부여 받은 후, 같은 권한을 다른 사용자 uare7과 uare8에게
-부여한다.
+\<질의1\> 사용자 uare6가 WITH GRANT OPTION으로 employees 테이블에 대한 SELECT와 DELETE 객체 권한을 부여 받은 후, 같은 권한을 다른 사용자 uare7과 uare8에게 부여한다.
 
-```
+```sql
 iSQL> CREATE USER uare6 IDENTIFIED BY rose6;
 Create success.
 iSQL> GRANT CREATE USER TO uare6;
 Grant success.
-iSQL> @schema.sql
+iSQL> @ ?/sample/APRE/schema/schema
+
+iSQL> CONNECT sys/manager;
+Connect success.
 iSQL> GRANT SELECT, DELETE ON employees TO uare6 WITH GRANT OPTION;
 Grant success.
 iSQL> CONNECT uare6/rose6;
@@ -11210,11 +11211,9 @@ iSQL> GRANT SELECT, DELETE ON sys.employees TO uare8;
 Grant success.
 ```
 
-WITH GRANT OPTION 으로 객체권한을 부여받은 사용자 uare6는 자신이 생성한 사용자
-uare7 뿐만 아니라 원래의 권한 부여자(SYS)가 생성한 사용자 uare8에게도 객체
-권한을 부여할 수 있다.
+WITH GRANT OPTION 으로 객체권한을 부여받은 사용자 uare6는 자신이 생성한 사용자 uare7 뿐만 아니라 원래의 권한 부여자(SYS)가 생성한 사용자 uare8에게도 객체 권한을 부여할 수 있다.
 
-```
+```sql
 iSQL> CONNECT uare8/rose8;
 Connect success.
 iSQL> DELETE FROM sys.employees WHERE eno = 13;
@@ -11226,12 +11225,11 @@ ENO         E_LASTNAME
 No rows selected.
 ```
 
-\<질의 2\> 다음은 사용자에게 시스템 권한, 객체 권한을 부여한 후 각각의 권한을
-해제하는 예제이다.
+\<질의 2\> 다음은 사용자에게 시스템 권한, 객체 권한을 부여한 후 각각의 권한을 해제하는 예제이다.
 
 1. SYS 사용자가 uare9에게 모든 시스템 권한을 부여한다.
 
-   ```
+   ```sql
    iSQL> CONNECT sys/manager;
    Connect success.
    iSQL> CREATE TABLE book(
@@ -11258,21 +11256,18 @@ No rows selected.
    ```
 
 
-2. SYS는 사용자uare9에게 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION
-    으로 부여한다.
+2. SYS는 사용자 uare9에게 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION 으로 부여한다.
 
-  ```
-  iSQL> GRANT REFERENCES ON book TO uare9 WITH GRANT OPTION;
-  Grant success.
-  ```
+   ~~~sql
+   iSQL> GRANT REFERENCES ON book TO uare9 WITH GRANT OPTION;
+   Grant success.
+   ~~~
 
-  사용자uare9은 SYS로부터 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION
-  으로 부여 받았기 때문에, uare9은 다른 사용자(uare10)에게 객체 book에 대해
-  REFERENCES 객체 권한을 부여할 수 있다.
+   사용자 uare9은 SYS로부터 객체 book에 대한 REFERENCES 권한을 WITH GRANT OPTION 으로 부여 받았기 때문에, uare9은 다른 사용자(uare10)에게 객체 book에 대해 REFERENCES 객체 권한을 부여할 수 있다.
 
 3. uare9이 SYS의 객체인 book 테이블에 데이터를 입력한다.
 
-   ```
+   ```sql
    iSQL> CONNECT uare9/rose9;
    Connect success.
    
@@ -11282,52 +11277,35 @@ No rows selected.
    1 row inserted.
    ```
 
-
-
    uare9이 SYS의 객체인 inventory 테이블에 데이터를 입력한다.
 
-   ```
+      ```sql
    iSQL> INSERT INTO sys.inventory VALUES('BORD000002', 'BORD', '12-Jun-2003', 6, 'N');
+   1 row inserted.
    iSQL> INSERT INTO sys.inventory VALUES('MICR000001', 'MICR', '07-Jun-2003', 7, 'N');
    1 row inserted.
-   ```
-
-
+      ```
 
 
 4. uare9이 SYS의 객체인 book 테이블을 조회한다.
 
-   ```
+   ```sql
    iSQL> SELECT * FROM sys.book;
-   BOOK.ISBN   BOOK.TITLE                                          
-   ------------------------------------------------
-   BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
-   ------------------------------------------------
-   BOOK.PUBCODE  
-   ----------------
-   0070521824  Software Engineering                                
-   Roger S. Pressman               4           1982        100000      
-   CHAU  
-   0137378424  Database Processing                                 
-   David M. Kroenke                6           1972        80000       
-   PREN  
+   ISBN                  TITLE                 AUTHOR                EDITION     PUBLISHINGYEAR PRICE       PUBCODE               
+   ---------------------------------------------------------------------------------------------------------------------------------------
+   0070521824            Software Engineering  Roger S. Pressman     4           1982        100000      CHAU                  
+   0137378424            Database Processing   David M. Kroenke      6           1972        80000       PREN                  
    2 rows selected.
    ```
 
-
-
    uare9이 SYS의 객체인 inventory 테이블을 조회한다.
 
-   ```
+      ```sql
    iSQL> SELECT * FROM sys.inventory;
-   INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
-   ------------------------------------------------
-   INVENTORY.QUANTITY INVENTORY.PAID  
-   --------------------------------------
-   BORD000002  BORD  2003/06/12 00:00:00  
-   6           N  
-   MICR000001  MICR  2003/06/07 00:00:00  
-   7           N  
+   SUBSCRIPTIONID        STORECODE             PURCHASEDATE QUANTITY    PAID                  
+   -------------------------------------------------------------------------------------------------
+   BORD000002            BORD                  12-JUN-2003  6           N                     
+   MICR000001            MICR                  07-JUN-2003  7           N                     
    2 rows selected.
    
    iSQL> CREATE TABLE book(
@@ -11348,172 +11326,118 @@ No rows selected.
      quantity INTEGER,
      paid CHAR(1));
    Create success.
+      ```
+
+5. uare9은 SYS로부터 ALL PRIVILEGES를 부여 받았으므로 다른 사용자를 생성할 수 있다.
+
+   ~~~sql
+   iSQL> CREATE USER uare10 IDENTIFIED BY rose10;
+   Create success.
+   ~~~
+
+6. SYS는 uare9에게 REFERENCES 권한을 WITH GRANT OPTION으로 부여했기 때문에, uare9는 다른 사용자(uare10)에게 이 권한을 부여할 수 있다.
+
+   ~~~sql
+   iSQL> GRANT REFERENCES ON sys.book TO uare10;
+   Grant success.
+   ~~~
+
+
+7. GRANT ANY PRIVILEGES를 부여 받은 uare9이 다른 사용자(uare10)에게 시스템 권한을 부여한다.
+
+   ```sql
+   iSQL> GRANT ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY
+   TABLE TO uare10;
+   Grant success.
    ```
 
-5. uare9은 SYS로부터 ALL PRIVILEGES를 부여 받았으므로 다른 사용자를 생성할 수
-    있다.
+8. 사용자 uare10은 ALTER ANY TABLE과 REFERENCE 권한이 있기 때문에, 다른 사용자 소유의 테이블에 제약조건을 추가할 수 있다.
 
-  ```
-  iSQL> CREATE USER uare10 IDENTIFIED BY rose10;
-  Create success.
-  ```
+   ```sql
+   iSQL> CONNECT uare10/rose10;
+   Connect success.
+   iSQL> ALTER TABLE sys.inventory
+     ADD COLUMN (isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES sys.book(isbn));
+   Alter success.
+   ```
 
-6. SYS는 uare9에게 REFERENCES 권한을 WITH GRANT OPTION으로 부여했기 때문에,
-    uare9는 다른 사용자(uare10)에게 이 권한을 부여할 수 있다.
+9. 사용자 uare10은 INSERT ANY TABLE 권한이 있기 때문에, 사용자 uare9가 소유한 테이블에 데이터를 입력할 수 있다.
 
-  ```
-  iSQL> GRANT REFERENCES ON sys.book TO uare10;
-  Grant success.
-  ```
+   ~~~sql
+   iSQL> INSERT INTO uare9.book VALUES('0471316156', 'JAVA and CORBA', 'Robert Orfali', 2, 1998, 50000, 'PREN');
+   1 row inserted.
+   iSQL> INSERT INTO uare9.inventory VALUES('TOWE000001', '0471316156', 'TOWE', '01-Jun-2003', 5, 'N');
+   1 row inserted.
+   ~~~
 
+   사용자 uare10은 INSERT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블에 데이터를 입력할 수 있다.
 
-7. GRANT ANY PRIVILEGES를 부여 받은 uare9이 다른 사용자(uare10)에게 시스템
-    권한을 부여한다.
+     ```sql
+   iSQL> INSERT INTO sys.book VALUES('053494566X', 'Working Classes', 'Robert Orfali', 1, 1999, 80000, 'WILE');
+   1 row inserted.
+   iSQL> INSERT INTO sys.inventory VALUES('MICR000005', 'WILE', '28-JUN-1999', 8, 'N', '053494566X');
+   1 row inserted.
+     ```
 
+10. 사용자 uare10은 SELECT ANY TABLE 권한이 있기 때문에, uare9소유의 테이블을 조회할 수 있다.
 
-
-  ```
-  iSQL> GRANT ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY
-  TABLE TO uare10;
-  Grant success.
-  ```
-
-
-8. 사용자 uare10은 ALTER ANY TABLE과 REFERENCE 권한이 있기 때문에, 다른 사용자
-    소유의 테이블에 제약조건을 추가할 수 있다.
-
-  ```
-  iSQL> CONNECT uare10/rose10;
-  Connect success.
-  iSQL> ALTER TABLE sys.inventory
-    ADD COLUMN (isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES sys.book(isbn));
-  Alter success.
-  ```
-
-
-
-
-9. 사용자 uare10은 INSERT ANY TABLE 권한이 있기 때문에, 사용자 uare9가 소유한
-    테이블에 데이터를 입력할 수 있다.
-
-  ```
-  iSQL> INSERT INTO uare9.book VALUES('0471316156', 'JAVA and CORBA', 'Robert Orfali', 2, 1998, 50000, 'PREN');
-  1 row inserted.
-  iSQL> INSERT INTO uare9.inventory VALUES('TOWE000001', '0471316156', 'TOWE', '01-Jun-2003', 5, 'N');
-  1 row inserted.
-  ```
-
-
-
-  사용자 uare10은 INSERT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블에 데이터를
-  입력할 수 있다.
-
-  ```
-  iSQL> INSERT INTO sys.book VALUES('053494566X', 'Working Classes', 'Robert Orfali', 1, 1999, 80000, 'WILE');
-  1 row inserted.
-  iSQL> INSERT INTO sys.inventory VALUES('MICR000005', 'WILE', '28-JUN-1999', 8, 'N', '053494566X');
-  1 row inserted.
-  ```
-
-
-10. 사용자 uare10은 SELECT ANY TABLE 권한이 있기 때문에, uare9소유의 테이블을
-    조회할 수 있다.
-
-    ```
+    ```sql
     iSQL> SELECT * FROM uare9.book;
-    BOOK.ISBN   BOOK.TITLE                                          
-    ------------------------------------------------
-    BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
-    ------------------------------------------------
-    BOOK.PUBCODE  
-    ----------------
-    0471316156  JAVA and CORBA                                      
-    Robert Orfali                   2           1998        50000       
-    PREN  
+    ISBN                  TITLE                 AUTHOR                EDITION     PUBLISHINGYEAR PRICE       PUBCODE               
+    ---------------------------------------------------------------------------------------------------------------------------------------
+    0471316156            JAVA and CORBA        Robert Orfali         2           1998        50000       PREN  
     1 row selected.
     iSQL> SELECT * FROM uare9.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.ISBN  INVENTORY.STORECODE  
-    ------------------------------------------------
-    INVENTORY.PURCHASEDATE INVENTORY.QUANTITY INVENTORY.PAID  
-    ------------------------------------------------
-    TOWE000001  0471316156  TOWE  
-    2003/06/01 00:00:00  5           N  
+    SUBSCRIPTIONID        ISBN                  STORECODE             PURCHASEDATE QUANTITY    PAID
+    ------------------------------------------------------------------------------------------------------------------------
+    TOWE000001            0471316156            TOWE                  01-JUN-2003  5           N  
     1 row selected.
     ```
 
+    사용자 uare10은 SELECT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블을 조회할 수 있다.
 
-
-    사용자 uare10은 SELECT ANY TABLE 권한이 있기 때문에, SYS소유의 테이블을 조회할
-    수 있다.
-    
-    ```
+    ~~~sql
     iSQL> SELECT * FROM sys.book;
-    BOOK.ISBN   BOOK.TITLE                                          
-    ------------------------------------------------
-    BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
-    ------------------------------------------------
-    BOOK.PUBCODE  
-    ----------------
-    0070521824  Software Engineering                                
-    Roger S. Pressman               4           1982        100000      
-    CHAU  
-    0137378424  Database Processing                                 
-    David M. Kroenke                6           1972        80000       
-    PREN  
-    053494566X  Working Classes                                     
-    Robert Orfali                   1           1999        80000       
-    WILE  
+    ISBN                  TITLE                 AUTHOR                EDITION     PUBLISHINGYEAR PRICE       PUBCODE               
+    ---------------------------------------------------------------------------------------------------------------------------------------
+    0070521824            Software Engineering  Roger S. Pressman     4           1982        100000      CHAU                  
+    0137378424            Database Processing   David M. Kroenke      6           1972        80000       PREN                  
+    053494566X            Working Classes       Robert Orfali         1           1999        80000       WILE  
     3 rows selected.
     iSQL> SELECT * FROM sys.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
-    ------------------------------------------------
-    INVENTORY.QUANTITY INVENTORY.PAID  INVENTORY.ISBN  
-    ------------------------------------------------
-    BORD000002  BORD  2003/06/12 00:00:00  
-    6           N              
-    MICR000001  MICR  2003/06/07 00:00:00  
-    7           N              
-    MICR000005  WILE  1999/06/28 00:00:00  
-    8           N  053494566X  
+    SUBSCRIPTIONID        STORECODE             PURCHASEDATE QUANTITY    PAID                  ISBN
+    ------------------------------------------------------------------------------------------------------------------------
+    BORD000002            BORD                  12-JUN-2003  6           N
+    MICR000001            MICR                  07-JUN-2003  7           N
+    MICR000005            WILE                  28-JUN-1999  8           N                     053494566X  
     3 rows selected.
-    ```
+    ~~~
 
 
-11. 사용자 uare10은 DELETE ANY TABLE 권한이 있기 때문에, SYS와 uare9소유의
-    테이블의 데이터를 삭제할 수 있다.
+11. 사용자 uare10은 DELETE ANY TABLE 권한이 있기 때문에, SYS와 uare9소유의 테이블의 데이터를 삭제할 수 있다.
 
-    ```
+    ```sql
     iSQL> DELETE FROM uare9.inventory WHERE subscriptionid = 'TOWE000001';
     1 row deleted.
     iSQL> SELECT * FROM uare9.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.ISBN  INVENTORY.STORECODE  
-    ------------------------------------------------
-    INVENTORY.PURCHASEDATE INVENTORY.QUANTITY INVENTORY.PAID  
-    ------------------------------------------------
+    SUBSCRIPTIONID        ISBN                  STORECODE             PURCHASEDATE QUANTITY    PAID
+    ------------------------------------------------------------------------------------------------------------------------
     No rows selected.
     
     iSQL> DELETE FROM sys.inventory WHERE subscriptionid = 'MICR000005';
     1 row deleted.
     iSQL> SELECT * FROM sys.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
-    ------------------------------------------------
-    INVENTORY.QUANTITY INVENTORY.PAID  INVENTORY.ISBN  
-    ------------------------------------------------
-    BORD000002  BORD  2003/06/12 00:00:00  
-    6           N              
-    MICR000001  MICR  2003/06/07 00:00:00  
-    7           N              
+    SUBSCRIPTIONID        STORECODE             PURCHASEDATE QUANTITY    PAID                  ISBN
+    ------------------------------------------------------------------------------------------------------------------------
+    BORD000002            BORD                  12-JUN-2003  6           N
+    MICR000001            MICR                  07-JUN-2003  7           N              
     2 rows selected.
-    
     ```
 
 
+12. 사용자 uare9이 REVOKE ALL 구문을 사용하지 않고 uare10으로부터 모든 권한을 해제한다.
 
-
-12. 사용자 uare9이 REVOKE ALL 구문을 사용하지 않고 uare10으로부터 모든 권한을
-    해제한다.
-
-    ```
+    ```sql
     iSQL> CONNECT uare9/rose9;
     Connect success.
     iSQL> REVOKE ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY TABLE FROM uare10;
@@ -11521,22 +11445,17 @@ No rows selected.
     ```
 
 
+13. 사용자 uare10의 REFERENCES 권한과 함께 관련된 참조 무결성 제약조건(referential integrity constraints)도 같이 삭제한다.
 
-
-13. 사용자 uare10의 REFERENCES 권한과 함께 관련된 참조 무결성
-    제약조건(referential integrity constraints)도 같이 삭제한다.
-
-    ```
+    ```sql
     iSQL> REVOKE REFERENCES ON sys.book FROM uare10 CASCADE CONSTRAINTS;
     Revoke success.
     ```
 
 
-
-
 14. 사용자 uare9의 모든 시스템 권한을 해제한다.
 
-    ```
+    ```sql
     iSQL> CONNECT sys/manager;
     Connect success.
     iSQL> REVOKE ALL PRIVILEGES FROM uare9;
@@ -11546,7 +11465,7 @@ No rows selected.
 
 15. 사용자 uare9의 GRANT ANY PRIVILEGES 권한을 해제한다.
 
-    ```
+    ```sql
     iSQL> REVOKE GRANT ANY PRIVILEGES FROM uare9;
     Revoke success.
     ```
@@ -11554,17 +11473,15 @@ No rows selected.
 
 16. 사용자 uare9의 REFERENCES 권한을 해제한다.
 
-    ```
+    ```sql
     iSQL> REVOKE REFERENCES ON book FROM uare9;
     Revoke success.
-    
     ```
 
 
-\<질의 3\> user01의 T1 테이블에 대한 SELECT, UPDATE, INSERT, DELETE 객체 권한을
-alti_role 롤에 부여한다. 그리고 alti_role 롤을 다른 사용자 user02에게 부여한다.
+\<질의 3\> user01의 T1 테이블에 대한 SELECT, UPDATE, INSERT, DELETE 객체 권한을 alti_role 롤에 부여한다. 그리고 alti_role 롤을 다른 사용자 user02에게 부여한다.
 
-```
+```sql
 iSQL> create role alti_role;
 Create success.
 iSQL> create user user01 identified by user01;
@@ -25529,21 +25446,15 @@ ENO         E_FIRSTNAME           E_LASTNAME            EMP_JOB
 
 ##### 설명
 
-LIKE는 패턴 일치 검사 조건으로써, 어떤 문자열이 주어진 패턴(문자열)을
-포함하는지를 검사한다. LIKE 조건은 퍼센트(“%”)와 밑줄(“_”) 문자를 와일드카드
-문자로 사용한다. “%”는 문자열을 나타내고, “_”는 한 문자를 나타낸다.
+LIKE는 패턴 일치 검사 조건으로써, 어떤 문자열이 주어진 패턴(문자열)을 포함하는지를 검사한다. LIKE 조건은 퍼센트("%")와 밑줄(“\_”) 문자를 와일드카드 문자로 사용한다. "%"는 문자열을 나타내고, "\_"는 한 문자를 나타낸다.
 
-그러나 “%” 또는 “_”를 와일드카드 문자가 아닌 실제 문자 “%” 또는 “_”로 사용하려는
-경우에는 이스케이프(ESCAPE) 문자를 사용하면 된다. ESCAPE 키워드 다음에
-이스케이프 문자로 사용할 문자를 명시하고, 패턴 문자열에서 “%” 또는 “_” 앞에 이
-이스케이프 문자를 기술하면, “%” 또는 “_”가 와일드카드 문자로 인식되지 않는다.
+그러나 "%" 또는 "\_"를 와일드카드 문자가 아닌 실제 문자 "%" 또는 "\_"로 사용하려는 경우에는 이스케이프(ESCAPE) 문자를 사용하면 된다. ESCAPE 키워드 다음에 이스케이프 문자로 사용할 문자를 명시하고, 패턴 문자열에서 "%" 또는 "\_" 앞에 이 이스케이프 문자를 기술하면, "%" 또는 "\_"가 와일드카드 문자로 인식되지 않는다.
 
 패턴 문자열의 길이는 최대 4000 바이트로 제한된다.
 
 ##### 예제
 
-\<질의\> 성이 “D”로 시작되는 직원들의 사원번호, 이름, 부서번호, 전화번호
-출력하라.
+\<질의\> 성이 “D”로 시작되는 직원들의 사원번호, 이름, 부서번호, 전화번호를 출력하라.
 
 ```
 iSQL> SELECT eno, e_lastname, e_firstname, dno, emp_tel FROM employees WHERE e_lastname LIKE 'D%';
@@ -25555,7 +25466,7 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO         EMP_TEL
 3 rows selected.
 ```
 
-\<질의\> 부서 이름에 밑줄(_)이 포함된 모든 부서에 대한 정보를 출력하라.
+\<질의\> 부서 이름에 밑줄("\_")이 포함된 모든 부서에 대한 정보를 출력하라.
 
 ```
 iSQL> INSERT INTO departments VALUES(5002, 'USA_HQ', 'Palo Alto', 100);
@@ -25569,8 +25480,7 @@ DNO         DNAME                           DEP_LOCATION  MGR_NO
 
 ```
 
-위 예제에서 백슬래시 (“\\”)가 escape 문자로 정의되었다. 이 escape 문자가
-밑줄(“_”) 앞에 있으므로 밑줄이 와일드카드로 다뤄지지 않는다.
+위 예제에서 백슬래시 ("\\")가 escape 문자로 정의되었다. 이 escape 문자가 밑줄("\_") 앞에 있으므로 밑줄이 와일드카드로 다뤄지지 않는다.
 
 \<질의\> 이름에 “h”가 들어간 모든 사원의 이름을 출력하라.
 
@@ -25602,21 +25512,15 @@ John
 
 ##### 설명
 
-REGEXP_LIKE는 LIKE 검사 조건과 유사하다. LIKE가 단순한 패턴 일치 검사라면,
-REGEXP_LIKE는 정규 표현식 일치 검사를 수행한다. Altibase는 POSIX Basic Regular
-Expression (BRE)을 지원한다. 정규 표현식에 대한 자세한 설명은 "[A.부록: 정규
-표현식](#부록-정규-표현식)"을 참고하라.
+REGEXP_LIKE는 LIKE 검사 조건과 유사하다. LIKE가 단순한 패턴 일치 검사라면, REGEXP_LIKE는 정규 표현식 일치 검사를 수행한다. Altibase는 POSIX Basic Regular Expression (BRE)을 지원한다. 정규 표현식에 대한 자세한 설명은 "[A.부록: 정규 표현식](#부록-정규-표현식)"을 참고하라.
 
-*source_expr*에는 검색 대상이 되는 칼럼이나 문자 표현식이 올 수 있으며,
-일반적으로 CHAR, VARCHAR 같은 문자 타입의 칼럼이 온다.
+*source_expr*에는 검색 대상이 되는 칼럼이나 문자 표현식이 올 수 있으며, 일반적으로 CHAR, VARCHAR 같은 문자 타입의 칼럼이 온다.
 
-*pattern_expr*에는 검색 패턴을 정규 표현식으로 표현한 값이 올 수 있으며,
-일반적으로 문자열이 온다. *pattern_expr*에는 최대 1024바이트까지 입력할 수 있다.
+*pattern_expr*에는 검색 패턴을 정규 표현식으로 표현한 값이 올 수 있으며, 일반적으로 문자열이 온다. *pattern_expr*에는 최대 1024바이트까지 입력할 수 있다.
 
 ##### 예제
 
-\<질의\> 이름의 성이 "D"로 시작되는 직원들의 사원번호, 이름, 부서번호, 전화번호
-출력하라.
+\<질의\> 이름의 성이 "D"로 시작되는 직원들의 사원번호, 이름, 부서번호, 전화번호를 출력하라.
 
 ```
 iSQL> SELECT eno, e_lastname, e_firstname, dno, emp_tel FROM employees WHERE REGEXP_LIKE(e_lastname, '^D');

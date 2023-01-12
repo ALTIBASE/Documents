@@ -2355,7 +2355,7 @@ This statement is available only during the CONTROL phase.
 <Query\> Recreate the lost checkpoint image file MEM-TBS-1.
 
 ```
-iSQL\> ALTER DATABASE CREATE CHECKPOINT IMAGE 'MEM-TBS-1';
+iSQL> ALTER DATABASE CREATE CHECKPOINT IMAGE 'MEM-TBS-1';
 ```
 
 *SESSION CLOSE*
@@ -9759,14 +9759,17 @@ Drop success.
 
 \<Query 1\> In the following example, the SELECT and DELETE object privileges on the table employees are granted to the user uare6 with the WITH GRANT OPTION. This user then passes these privileges on to the uare7 and uare8 users.
 
-```
+```sql
 iSQL> CREATE USER uare6 IDENTIFIED BY rose6;
 Create success.
 iSQL> GRANT CREATE USER TO uare6;
 Grant success.
-iSQL> @schema.sql
+iSQL> @ ?/sample/APRE/schema/schema
+
+iSQL> CONNECT sys/manager;
 iSQL> GRANT SELECT, DELETE ON employees TO uare6 WITH GRANT OPTION;
 Grant success.
+
 iSQL> CONNECT uare6/rose6;
 Connect success.
 iSQL> CREATE USER uare7 IDENTIFIED BY rose7;
@@ -9781,6 +9784,7 @@ iSQL> SELECT eno, e_lastname FROM sys.employees WHERE eno = 12;
 ENO         E_LASTNAME                 
 -------------------------------------
 No rows selected.
+
 iSQL> CONNECT sys/manager;
 Connect success.
 iSQL> CREATE USER uare8 IDENTIFIED BY rose8;
@@ -9793,7 +9797,7 @@ Grant success.
 
 Because the uare6 user was granted object access privileges using the WITH GRANT OPTION, this user can grant these privileges not only to the user uare7, who was created by uare6, but also to the user uare8, who was created by the original grantor (the SYS user).
 
-```
+```sql
 iSQL> CONNECT uare8/rose8;
 Connect success.
 iSQL> DELETE FROM sys.employees WHERE eno = 13;
@@ -9809,7 +9813,7 @@ No rows selected.
 
 1. The SYS user has granted all system privileges to uare9.
 
-   ```
+   ```sql
    iSQL> CONNECT sys/manager;
    Connect success.
    iSQL> CREATE TABLE book(
@@ -9838,16 +9842,16 @@ No rows selected.
 
 2. The SYS user is granting user uare9 the REFERENCES privilege on the object book as the WITH GRANT OPTION.
 
-  ```
-  iSQL> GRANT REFERENCES ON book TO uare9 WITH GRANT OPTION;
-  Grant success.
-  ```
+   ~~~sql
+   iSQL> GRANT REFERENCES ON book TO uare9 WITH GRANT OPTION;
+   Grant success.
+   ~~~
 
-The user uare9 receives the REFERENCES object privilege for the book object from the SYS user with the WITH GRANT OPTION, and thus uare9 is able to grant another user (uare10) the REFERENCES object privilege for the book object.
+   The user uare9 receives the REFERENCES object privilege for the book object from the SYS user with the WITH GRANT OPTION, and thus uare9 is able to grant another user (uare10) the REFERENCES object privilege for the book object.
 
 3. The user uare9 inputs data into the book table, which is owned by the SYS user.
 
-   ```
+   ```sql
    iSQL> CONNECT uare9/rose9;
    Connect success.
    
@@ -9856,53 +9860,37 @@ The user uare9 receives the REFERENCES object privilege for the book object from
    iSQL> INSERT INTO sys.book VALUES ('0137378424', 'Database Processing', 'David M. Kroenke', 6, 1972, 80000, 'PREN');
    1 row inserted.
    ```
-
-
-
-The user uare9 inputs data into the inventory table, which is owned by the SYS user.
-
-   ```
+   
+   The user uare9 inputs data into the inventory table, which is owned by the SYS user.
+   
+      ```sql
    iSQL> INSERT INTO sys.inventory VALUES('BORD000002', 'BORD', '12-Jun-2003', 6, 'N');
+   1 row inserted.
    iSQL> INSERT INTO sys.inventory VALUES('MICR000001', 'MICR', '07-Jun-2003', 7, 'N');
    1 row inserted.
-   ```
-
-
+      ```
+   
 
 
 4. The user uare9 queries the book table, which is owned by the SYS user.
 
-   ```
+   ```sql
    iSQL> SELECT * FROM sys.book;
-   BOOK.ISBN   BOOK.TITLE                                          
-   ------------------------------------------------
-   BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
-   ------------------------------------------------
-   BOOK.PUBCODE  
-   ----------------
-   0070521824  Software Engineering                                
-   Roger S. Pressman               4           1982        100000      
-   CHAU  
-   0137378424  Database Processing                                 
-   David M. Kroenke                6           1972        80000       
-   PREN  
+   ISBN                  TITLE                 AUTHOR                EDITION     PUBLISHINGYEAR PRICE       PUBCODE
+   ----------------------------------------------------------------------------------------------------------------
+   0070521824            Software Engineering  Roger S. Pressman     4           1982        100000      CHAU
+   0137378424            Database Processing   David M. Kroenke      6           1972        80000       PREN
    2 rows selected.
    ```
-
-
-
-The user uare9 queries the inventory table, which is owned by the SYS user.
-
-   ```
+   
+   The user uare9 queries the inventory table, which is owned by the SYS user.
+   
+   ~~~sql
    iSQL> SELECT * FROM sys.inventory;
-   INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
-   ------------------------------------------------
-   INVENTORY.QUANTITY INVENTORY.PAID  
-   --------------------------------------
-   BORD000002  BORD  2003/06/12 00:00:00  
-   6           N  
-   MICR000001  MICR  2003/06/07 00:00:00  
-   7           N  
+   SUBSCRIPTIONID        STORECODE             PURCHASEDATE QUANTITY    PAID                  
+   -------------------------------------------------------------------------------------------------
+   BORD000002            BORD                  12-JUN-2003  6           N                     
+   MICR000001            MICR                  07-JUN-2003  7           N                     
    2 rows selected.
    
    iSQL> CREATE TABLE book(
@@ -9923,183 +9911,141 @@ The user uare9 queries the inventory table, which is owned by the SYS user.
      quantity INTEGER,
      paid CHAR(1));
    Create success.
-   ```
+   ~~~
 
 5. Because the SYS user granted ALL PRIVILEGES to the user uare9, uare9 can create other users.
 
-  ```
-  iSQL> CREATE USER uare10 IDENTIFIED BY rose10;
-  Create success.
-  ```
+   ~~~sql
+   iSQL> CREATE USER uare10 IDENTIFIED BY rose10;
+   Create success.
+   ~~~
 
 6. Because the SYS user granted the REFERENCES privilege to the user uare9 with the WITH GRANT OPTION, uare9 can pass this privilege on to other users.
 
-  ```
-  iSQL> GRANT REFERENCES ON sys.book TO uare10;
-  Grant success.
-  ```
+   ~~~sql
+   iSQL> GRANT REFERENCES ON sys.book TO uare10;
+   Grant success.
+   ~~~
 
 
 7. Because the SYS user granted the GRANT ANY PRIVILEGES privilege to the user uare9, uare9 can grant system privileges to other users.
 
+   ~~~sql
+   iSQL> GRANT ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY
+   TABLE TO uare10;
+   Grant success.
+   ~~~
 
 
-  ```
-  iSQL> GRANT ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY
-  TABLE TO uare10;
-  Grant success.
-  ```
+8. Because the user uare10 has the ALTER ANY TABLE and REFERENCES privileges, uare10 can create a constraint in a table belonging to another user.
 
-
-8. Because the user uare10 has the ALTER ANY TABLE and REFERENCES privileges, uare10 can create a constraint in a table belonging to another user
-
-  ```
-  iSQL> CONNECT uare10/rose10;
-  Connect success.
-  iSQL> ALTER TABLE sys.inventory
-    ADD COLUMN (isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES sys.book(isbn));
-  Alter success.
-  ```
-
-
+   ~~~sql
+   iSQL> CONNECT uare10/rose10;
+   Connect success.
+   iSQL> ALTER TABLE sys.inventory
+     ADD COLUMN (isbn CHAR(10) CONSTRAINT fk_isbn REFERENCES sys.book(isbn));
+   Alter success.
+   ~~~
 
 
 9. Because the user uare10 has the INSERT ANY TABLE privilege, uare10 can enter data into a table belonging to uare9.
 
-  ```
-  iSQL> INSERT INTO uare9.book VALUES('0471316156', 'JAVA and CORBA', 'Robert Orfali', 2, 1998, 50000, 'PREN');
-  1 row inserted.
-  iSQL> INSERT INTO uare9.inventory VALUES('TOWE000001', '0471316156', 'TOWE', '01-Jun-2003', 5, 'N');
-  1 row inserted.
-  ```
+   ~~~sql
+   iSQL> INSERT INTO uare9.book VALUES('0471316156', 'JAVA and CORBA', 'Robert Orfali', 2, 1998, 50000, 'PREN');
+   1 row inserted.
+   iSQL> INSERT INTO uare9.inventory VALUES('TOWE000001', '0471316156', 'TOWE', '01-Jun-2003', 5, 'N');
+   1 row inserted.
+   ~~~
 
+   Because the user uare10 has the INSERT ANY TABLE privilege, uare10 can enter data into a table belonging to the SYS user.
 
-
-Because the user uare10 has the INSERT ANY TABLE privilege, uare10 can enter data into a table belonging to the SYS user..
-
-  ```
-  iSQL> INSERT INTO sys.book VALUES('053494566X', 'Working Classes', 'Robert Orfali', 1, 1999, 80000, 'WILE');
-  1 row inserted.
-  iSQL> INSERT INTO sys.inventory VALUES('MICR000005', 'WILE', '28-JUN-1999', 8, 'N', '053494566X');
-  1 row inserted.
-  ```
+   ~~~sql
+   iSQL> INSERT INTO sys.book VALUES('053494566X', 'Working Classes', 'Robert Orfali', 1, 1999, 80000, 'WILE');
+   1 row inserted.
+   iSQL> INSERT INTO sys.inventory VALUES('MICR000005', 'WILE', '28-JUN-1999', 8, 'N', '053494566X');
+   1 row inserted.
+   ~~~
 
 
 10. Because the user uare10 has the SELECT ANY TABLE privilege, uare10 can query a table belonging to uare9.
 
-```
+    ~~~sql
     iSQL> SELECT * FROM uare9.book;
-    BOOK.ISBN   BOOK.TITLE                                          
-    ------------------------------------------------
-    BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
-    ------------------------------------------------
-    BOOK.PUBCODE  
-    ----------------
-    0471316156  JAVA and CORBA                                      
-    Robert Orfali                   2           1998        50000       
-    PREN  
+    ISBN                  TITLE                 AUTHOR                EDITION     PUBLISHINGYEAR PRICE       PUBCODE
+    ------------------------------------------------------------------------------------------------------------------------
+    0471316156            JAVA and CORBA        Robert Orfali         2           1998        50000       PREN
     1 row selected.
+    
     iSQL> SELECT * FROM uare9.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.ISBN  INVENTORY.STORECODE  
-    ------------------------------------------------
-    INVENTORY.PURCHASEDATE INVENTORY.QUANTITY INVENTORY.PAID  
-    ------------------------------------------------
-    TOWE000001  0471316156  TOWE  
-    2003/06/01 00:00:00  5           N  
+    SUBSCRIPTIONID        ISBN                  STORECODE             PURCHASEDATE QUANTITY    PAID
+    ------------------------------------------------------------------------------------------------------------------------
+    TOWE000001            0471316156            TOWE                  01-JUN-2003  5           N
     1 row selected.
-```
+    ~~~
 
-Because the user uare10 has the SELECT ANY TABLE privilege, uare10 can query a table belonging to the SYS user.
+    Because the user uare10 has the SELECT ANY TABLE privilege, uare10 can query a table belonging to the SYS user.
 
-
-    ```
+    ~~~sql
     iSQL> SELECT * FROM sys.book;
-    BOOK.ISBN   BOOK.TITLE                                          
-    ------------------------------------------------
-    BOOK.AUTHOR                     BOOK.EDITION BOOK.PUBLISHINGYEAR BOOK.PRICE  
-    ------------------------------------------------
-    BOOK.PUBCODE  
-    ----------------
-    0070521824  Software Engineering                                
-    Roger S. Pressman               4           1982        100000      
-    CHAU  
-    0137378424  Database Processing                                 
-    David M. Kroenke                6           1972        80000       
-    PREN  
-    053494566X  Working Classes                                     
-    Robert Orfali                   1           1999        80000       
-    WILE  
+    ISBN                  TITLE                 AUTHOR                EDITION     PUBLISHINGYEAR PRICE       PUBCODE
+    ------------------------------------------------------------------------------------------------------------------
+    0070521824            Software Engineering  Roger S. Pressman     4           1982        100000      CHAU
+    0137378424            Database Processing   David M. Kroenke      6           1972        80000       PREN
+    053494566X            Working Classes       Robert Orfali         1           1999        80000       WILE
     3 rows selected.
+    
     iSQL> SELECT * FROM sys.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
-    ------------------------------------------------
-    INVENTORY.QUANTITY INVENTORY.PAID  INVENTORY.ISBN  
-    ------------------------------------------------
-    BORD000002  BORD  2003/06/12 00:00:00  
-    6           N              
-    MICR000001  MICR  2003/06/07 00:00:00  
-    7           N              
-    MICR000005  WILE  1999/06/28 00:00:00  
-    8           N  053494566X  
+    SUBSCRIPTIONID        STORECODE             PURCHASEDATE QUANTITY    PAID                  ISBN
+    ------------------------------------------------------------------------------------------------------------------------
+    BORD000002            BORD                  12-JUN-2003  6           N
+    MICR000001            MICR                  07-JUN-2003  7           N
+    MICR000005            WILE                  28-JUN-1999  8           N                     053494566X
     3 rows selected.
-    ```
+    ~~~
 
 
 11. Because the user uare10 has the DELETE ANY TABLE privilege, uare10 can delete data from a table belonging to the SYS user.
 
-```
+    ~~~sql
     iSQL> DELETE FROM uare9.inventory WHERE subscriptionid = 'TOWE000001';
     1 row deleted.
     iSQL> SELECT * FROM uare9.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.ISBN  INVENTORY.STORECODE  
-    ------------------------------------------------
-    INVENTORY.PURCHASEDATE INVENTORY.QUANTITY INVENTORY.PAID  
-    ------------------------------------------------
+    SUBSCRIPTIONID        ISBN                  STORECODE             PURCHASEDATE QUANTITY    PAID
+    ------------------------------------------------------------------------------------------------------------------------
     No rows selected.
     
     iSQL> DELETE FROM sys.inventory WHERE subscriptionid = 'MICR000005';
     1 row deleted.
     iSQL> SELECT * FROM sys.inventory;
-    INVENTORY.SUBSCRIPTIONID  INVENTORY.STORECODE  INVENTORY.PURCHASEDATE 
-    ------------------------------------------------
-    INVENTORY.QUANTITY INVENTORY.PAID  INVENTORY.ISBN  
-    ------------------------------------------------
-    BORD000002  BORD  2003/06/12 00:00:00  
-    6           N              
-    MICR000001  MICR  2003/06/07 00:00:00  
-    7           N              
+    SUBSCRIPTIONID        STORECODE             PURCHASEDATE QUANTITY    PAID                  ISBN
+    ------------------------------------------------------------------------------------------------------------------------
+    BORD000002            BORD                  12-JUN-2003  6           N
+    MICR000001            MICR                  07-JUN-2003  7           N
     2 rows selected.
-    
-```
-
-
+    ~~~
 
 
 12. The user uare9 revokes all privileges that uare9 granted to uare10 without executing the REVOKE ALL statement.
 
-```
+    ~~~sql
     iSQL> CONNECT uare9/rose9;
     Connect success.
     iSQL> REVOKE ALTER ANY TABLE, INSERT ANY TABLE, SELECT ANY TABLE, DELETE ANY TABLE FROM uare10;
     Revoke success.
-```
-
-
+    ~~~
 
 
 13. When uare10's REFERENCES privilege is revoked, referential integrity constraints that refer to primary key or unique keys in the sys.book table, which belongs to uare10's schema, are also dropped.
 
-```
+    ~~~sql
     iSQL> REVOKE REFERENCES ON sys.book FROM uare10 CASCADE CONSTRAINTS;
     Revoke success.
-```
-
-
+    ~~~
 
 
 14. All of uare9's system privileges are revoked.
 
-    ```
+    ```sql
     iSQL> CONNECT sys/manager;
     Connect success.
     iSQL> REVOKE ALL PRIVILEGES FROM uare9;
@@ -10109,7 +10055,7 @@ Because the user uare10 has the SELECT ANY TABLE privilege, uare10 can query a t
 
 15. The GRANT ANY PRIVILEGES privilege is revoked from uare9.
 
-    ```
+    ```sql
     iSQL> REVOKE GRANT ANY PRIVILEGES FROM uare9;
     Revoke success.
     ```
@@ -10117,16 +10063,15 @@ Because the user uare10 has the SELECT ANY TABLE privilege, uare10 can query a t
 
 16. The REFERENCES privilege on the book table is revoked from uare9.
 
-    ```
+    ```sql
     iSQL> REVOKE REFERENCES ON book FROM uare9;
     Revoke success.
-    
     ```
 
 
 \<Query 3\> Grant the SELECT, UPDATE, INSER, and DELETE object privileges on the T1 table of user01 to the alti_role. Then, grant the alti_role role to the user user02.
 
-```
+```sql
 iSQL> create role alti_role;
 Create success.
 iSQL> create user user01 identified by user01;
@@ -22964,9 +22909,9 @@ ENO         E_FIRSTNAME           E_LASTNAME            EMP_JOB
 
 ##### Description
 
-LIKE is a pattern-matching condition that is used to determine whether a string contains a given sequence of characters (“pattern”). The percent (“%”) and underscore (“_”) characters are wildcard characters in LIKE conditions. “%” is used to represent a string, while “_” is used to represent a single character. 
+LIKE is a pattern-matching condition that is used to determine whether a string contains a given sequence of characters (“pattern”). The percent ("%") and underscore ("\_") characters are wildcard characters in LIKE conditions. "%" is used to represent a string, while "\_" is used to represent a single character. 
 
-When it is desired to search for the actual characters “%” or “_”, rather than using them as wildcards, use the ESCAPE keyword at the end of the LIKE condition to define an escape character, and then use the escape character in front of “%” or “_” to indicate that it is not to be handled as a wildcard character
+When it is desired to search for the actual characters "%" or "\_", rather than using them as wildcards, use the ESCAPE keyword at the end of the LIKE condition to define an escape character, and then use the escape character in front of "%" or "\_" to indicate that it is not to be handled as a wildcard character
 
 The maximum length for a pattern string is 4000 bytes.
 
@@ -22984,7 +22929,21 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO         EMP_TEL
 3 rows selected.
 ```
 
-In the above example, the backslash (“\”) is defined as an escape character using the ESCAPE option. Using this escape character before the underscore character indicates that the underscore character is not to be handled as a wildcard.
+\<Query\> Display information for all departments that containt an underscore ("\_") in the department name.
+
+```
+iSQL> INSERT INTO departments VALUES(5002, 'USA_HQ', 'Palo Alto', 100);
+1 row inserted.
+iSQL> SELECT * FROM departments
+WHERE dname LIKE '%\_%' ESCAPE '\';
+DNO         DNAME                           DEP_LOCATION  MGR_NO
+---------------------------------------------------------------------------
+5002        USA_HQ                          Palo Alto     100
+1 row selected.
+
+```
+
+In the above example, the backslash ("\\") is defined as an escape character using the ESCAPE option. Using this escape character before the underscore character indicates that the underscore character is not to be handled as a wildcard.
 
 \<Query\> Display the first names of all employees who have the letter “h” in their first names.
 

@@ -5778,7 +5778,7 @@ The execution plan(execution plan, plan tree) of intermediate result should be s
 | MATERIALIZATION   | View, Connect by         |
 | GROUP-AGGREGATION | Group Aggregation        |
 | GROUP-CUBE        | Group by cube            |
-| GROUP_ROLLUP      | Group by rollup          |
+| GROUP-ROLLUP      | Group by rollup          |
 | HASH              | Join                     |
 | SET-DIFFERENCE    | Minus                    |
 | SET-INTERSECT     | Intersect                |
