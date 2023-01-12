@@ -1030,7 +1030,7 @@ altibase_store_result() 호출 이후에만 이 함수를 실행할 수 있다.
 ```
 #define QSTR "SELECT last_name, first_name FROM friends"
 
-rc = altibase_qeury(altibase, QSTR);
+rc = altibase_query(altibase, QSTR);
 /* ... check return value ... */
 
 result = altibase_store_result(altibase);
@@ -1874,7 +1874,7 @@ int            i;
 
 /* ... omit ... */
 
-rc = altibase_qeury(altibase, QSTR);
+rc = altibase_query(altibase, QSTR);
 /* ... check return value ... */
 
 result = altibase_use_result(altibase);

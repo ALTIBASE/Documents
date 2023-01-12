@@ -22929,6 +22929,20 @@ ENO         E_LASTNAME            E_FIRSTNAME           DNO         EMP_TEL
 3 rows selected.
 ```
 
+\<Query\> Display information for all departments that containt an underscore ("\_") in the department name.
+
+```
+iSQL> INSERT INTO departments VALUES(5002, 'USA_HQ', 'Palo Alto', 100);
+1 row inserted.
+iSQL> SELECT * FROM departments
+WHERE dname LIKE '%\_%' ESCAPE '\';
+DNO         DNAME                           DEP_LOCATION  MGR_NO
+---------------------------------------------------------------------------
+5002        USA_HQ                          Palo Alto     100
+1 row selected.
+
+```
+
 In the above example, the backslash ("\\") is defined as an escape character using the ESCAPE option. Using this escape character before the underscore character indicates that the underscore character is not to be handled as a wildcard.
 
 \<Query\> Display the first names of all employees who have the letter “h” in their first names.

@@ -11267,7 +11267,7 @@ No rows selected.
 
 3. uare9이 SYS의 객체인 book 테이블에 데이터를 입력한다.
 
-   ```
+   ```sql
    iSQL> CONNECT uare9/rose9;
    Connect success.
    
@@ -11279,7 +11279,7 @@ No rows selected.
 
    uare9이 SYS의 객체인 inventory 테이블에 데이터를 입력한다.
 
-      ```
+      ```sql
    iSQL> INSERT INTO sys.inventory VALUES('BORD000002', 'BORD', '12-Jun-2003', 6, 'N');
    1 row inserted.
    iSQL> INSERT INTO sys.inventory VALUES('MICR000001', 'MICR', '07-Jun-2003', 7, 'N');

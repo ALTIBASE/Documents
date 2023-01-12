@@ -219,7 +219,7 @@ L : 입력 문자열의 길이</pre>
      <tr>
     	<td>NCHAR(M)</td>
         <td>1 ~ 16000(UTF16)<br>
-0~10666(UTF8)
+1 ~10666(UTF8)
 </td>
         <td>M*2 + 2(UTF16)<br>
 M*3 + 2(UTF8)
@@ -238,6 +238,7 @@ length*3 + 2(UTF8)<br>
 </td>
     </tr>
     </table>
+
 
 NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩된 문자열의 최대
 길이는 UTF8로 인코딩된 문자열의 최대 길이와 다르다.
