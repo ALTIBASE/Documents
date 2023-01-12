@@ -6875,13 +6875,13 @@ Altibase는 중간 결과를 재 사용할 수 있는 Result Cache와 최종 결
 ###### **Result Cache 사용이 가능한 실행계획**
 
 | 실행계획          | 내용                     |
-|-------------------|--------------------------|
+| ----------------- | ------------------------ |
 | SORT              | Order by, Join, Group by |
 | DISTINCT          | Distinct                 |
 | MATERIALIZATION   | View, Connect by         |
 | GROUP-AGGREGATION | Group Aggregation        |
 | GROUP-CUBE        | Group by cube            |
-| GROUP_ROLLUP      | Group by rollup          |
+| GROUP-ROLLUP      | Group by rollup          |
 | HASH              | Join                     |
 | SET-DIFFERENCE    | Minus                    |
 | SET-INTERSECT     | Intersect                |

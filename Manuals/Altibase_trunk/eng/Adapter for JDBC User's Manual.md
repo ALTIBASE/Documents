@@ -700,7 +700,7 @@ FROM sys.t1 TO user1.t2;
 
 ![](media/JdbcAdapter/737c6348cef120d54ff6700f5ed1e795.png)
 
-3. Now, it is time to start jdbcAdapter. jdbcAdapter can be started by executing it directly or by using Adapter for JDBC utility. For more detailed information on how to start jdbcAdapter with the Adapter for JDBC utility, please refer to Adapter for JDBC Utility in this manual. It should be noted that the jdbcsAdapter can be started with the following command in the LINUX operating system. 
+3. Now, it is time to start jdbcAdapter. jdbcAdapter can be started by executing it directly or by using Adapter for JDBC utility. For more detailed information on how to start jdbcAdapter with the Adapter for JDBC utility, please refer to [Adapter for JDBC Utility](#adapter-for-jdbc-utility) in this manual. It should be noted that the jdbcsAdapter can be started with the following command in the LINUX operating system. 
 
 ```
 $ cd $JDBC_ADAPTER_HOME/bin

@@ -1970,7 +1970,7 @@ SQLRETURN  SQLColAttribute (
 | SQLCHAR \*     | charAttributePtr    | Output    | Buffer pointer to store data to be returned when *fieldIdentifier* in *columnNumber* is the character string. If field value is an integer, it is not used. |
 | SQLSMALLINT    | bufferLength        | Input     | The character number of *charAttributePtrIf *charAttributePtr is an integer, this field is ignored. |
 | SQLSMALLINT \* | stringLengthPtr     | Output    | Pointer to a buffer in whih to return the total number of bytes (excluding the null-termination byte) available to return in *charAttributePtr*. |
-| SQLINTEGER \*  | numericAttributePtr | Output    | Pointer of the integer buffer to which the value of *fieldIdentifier* field in *columnNumber* row is returned. |
+| SQLPOINTER*    | numericAttributePtr | Output    | Pointer of the integer buffer to which the value of *fieldIdentifier* field in *columnNumber* row is returned. |
 
 #### Return Values
 

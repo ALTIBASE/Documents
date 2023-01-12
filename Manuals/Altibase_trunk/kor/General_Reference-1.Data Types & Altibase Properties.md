@@ -193,7 +193,8 @@ Altibase에서 지원하는 데이타형은 다음과 같다.
 
 <table>
     <tr>
-    	<td colspan="3">M: 정의된 칼럼 길이<br/>L: 입력 문자열의 길이
+    	<td colspan="3"><pre>M : 정의된 칼럼 길이
+L : 입력 문자열의 길이</pre>
 </td>
     </tr>
     <tr>
@@ -203,39 +204,41 @@ Altibase에서 지원하는 데이타형은 다음과 같다.
     </tr>
     <tr>
     	<td>CHAR(M)</td>
-        <td>0 ~ 32000</td>
+        <td>1 ~ 32000</td>
         <td>M + 2</td>
     </tr>
     <tr>
     	<td>VARCHAR(M)</td>
-        <td>0 ~ 32000</td>
-        <td>length + 2, 여기서
-입력 값이 가변영역에 저장되면, length = L
+        <td>1 ~ 32000</td>
+        <td>length + 2<br>
+여기서<br>
+입력 값이 가변영역에 저장되면, length = L<br>
 입력 값이 고정영역에 저장되면, length = M
 </td>
     </tr>
      <tr>
     	<td>NCHAR(M)</td>
-        <td>0~16000(UTF16)
+        <td>1 ~ 16000(UTF16)<br>
 0~10666(UTF8)
 </td>
-        <td>M*2 + 2(UTF16)
+        <td>M*2 + 2(UTF16)<br>
 M*3 + 2(UTF8)
 </td>
     </tr>
      <tr>
     	<td>NVARCHAR(M)</td>
-        <td>0~16000(UTF16)
-0~10666(UTF8)
+        <td>1 ~ 16000(UTF16)<br>
+1 ~ 10666(UTF8)
 </td>
-        <td>length*2 + 2(UTF16)
-length*3 + 2(UTF8)
-여기서:
-입력 값이 가변영역에 저장되면, length = L
+        <td>length*2 + 2(UTF16)<br>
+length*3 + 2(UTF8)<br>
+여기서:<br>
+입력 값이 가변영역에 저장되면, length = L<br>
 입력 값이 고정영역에 저장되면, length = M
 </td>
     </tr>
     </table>
+
 NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩된 문자열의 최대
 길이는 UTF8로 인코딩된 문자열의 최대 길이와 다르다.
 
@@ -255,17 +258,17 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
         <td>38</td>
         <td>0</td>
         <td rowspan="8">3+((precision)+2)/2</td>
-        <td rowspan="8">*고정 소수점 숫자
+        <td rowspan="8">*고정 소수점 숫자<br>
 *DECIMAL은 NUMERIC과 동일한 데이터 타입이다.</td>
     </tr>
     <tr>
         <td>NUMERIC(p)</td>
-        <td>0 ~ 38</td>
+        <td>1 ~ 38</td>
         <td>0</td>
     </tr>
     <tr>
         <td>NUMERIC(p,s)</td>
-        <td>0 ~ 38</td>
+        <td>1 ~ 38</td>
         <td>-84 ~ 128</td>
     </tr>
     <tr>
@@ -275,22 +278,22 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     </tr>
     <tr>
         <td>DECIMAL(p)</td>
-        <td>0 ~ 38</td>
+        <td>1 ~ 38</td>
         <td>0</td>
     </tr>
     <tr>
         <td>DECIMAL(p,s)</td>
-        <td>0 ~ 38</td>
+        <td>1 ~ 38</td>
         <td>-84 ~ 128</td>
     </tr>
     <tr>     
         <td>NUMBER(p)</td>
-        <td>0 ~ 38</td>
+        <td>1 ~ 38</td>
         <td>0</td>
     </tr>
       <tr>     
         <td>NUMBER(p,s)</td>
-        <td>0 ~ 38</td>
+        <td>1 ~ 38</td>
         <td>-84 ~ 128</td>
     </tr>
     <tr>
@@ -307,7 +310,7 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     </tr>
     <tr>
     	<td>FLOAT(p)</td>
-        <td>0 ~ 38</td>
+        <td>1 ~ 38</td>
         <td>X</td>
     </tr>
     <tr>
@@ -330,8 +333,8 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     </tr>
     <tr>
     	<td>BIGINT</td>
-        <td colspan="2">long 또는
-long long
+        <td colspan="2">long<br>
+또는 long long
 </td>
         <td>8</td>
         <td rowspan="3">*정수형</td>
@@ -347,6 +350,7 @@ long long
         <td>2</td>
     </tr> 
 </table>
+
 
 ###### 예제 
 
@@ -395,7 +399,8 @@ long long
 
 <table>
     <tr>
-    	<td colspan="3">M: 정의된 칼럼 길이<br/>L: 입력 문자열의 길이
+        <td colspan="3"><pre>M : 정의된 칼럼 길이
+L : 입력 문자열의 길이</pre>
 </td>
     </tr>
     <tr>
@@ -406,32 +411,34 @@ long long
     <tr>
     	<td>BLOB/CLOB</td>
         <td></td>
-        <td>1~4294967295</td>
+        <td>1 ~ 4294967295</td>
     </tr>
     <tr>
     	<td>BYTE</td>
-        <td>0~32000</td>
+        <td>1 ~ 32000</td>
         <td>M + 2</td>
     </tr>
      <tr>
     	<td>NIBBLE</td>
-        <td>0~254</td>
+        <td>1 ~ 254</td>
         <td>M/2 + 1</td>
     </tr>
      <tr>
     	<td>BIT</td>
-        <td>0~64000</td>
+        <td>1 ~ 64000</td>
         <td>M/8 + 4</td>
     </tr>
     <tr>
     	<td>VARBIT</td>
-        <td>0~64000</td>
-        <td>length/8 + 4, 여기서
-입력 값이 가변영역에 저장되면, length = L
+        <td>1 ~ 64000</td>
+        <td>length/8 + 4<br>
+여기서<br>
+입력 값이 가변영역에 저장되면, length = L<br>
 입력 값이 고정영역에 저장되면, length = M
 </td>
     </tr>
     </table>
+
 
 **공간 데이타형**
 
@@ -6917,7 +6924,7 @@ Unsigned Integer
 
 ##### 기본값
 
-1
+3
 
 ##### 속성
 
@@ -6929,9 +6936,7 @@ Unsigned Integer
 
 ##### 설명
 
-Altibase 서버의 디스패처(Dispatcher)에서 소켓 감지를 위한 시스템 콜을 선택하는
-프로퍼티이다. 클라이언트의 동시 접속이 1,000개 이상일 때 POLL() 시스템 콜이
-사용되면 성능 향상에 도움이 된다.
+Altibase 서버의 디스패처(Dispatcher)에서 소켓 감지를 위한 시스템 콜을 선택하는 프로퍼티이다. 클라이언트의 동시 접속이 1,000개 이상일 때 POLL() 시스템 콜이 사용되면 성능 향상에 도움이 된다.
 
 - 1: SELECT() 시스템 콜
 - 2: POLL() 시스템 콜; 지원되는 운영시스템에서만 사용이 가능함
