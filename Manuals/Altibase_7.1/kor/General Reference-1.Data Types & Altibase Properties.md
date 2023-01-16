@@ -2643,7 +2643,7 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/V
 
 - LOB 타입 칼럼에 NOT NULL 제약조건을 사용하면 안 된다.
 
-  LOB 타입 칼럼에 NOT NULL 제약조건을 정의할 수 있으나 APRE, CLI, JDBC 애플리케이션에서 LOB 데이터 처리 시 제약조건 위배 에러가 발생한다.
+  LOB 타입 칼럼에 NOT NULL 제약조건을 정의할 수 있으나 APRE, CLI, JDBC 애플리케이션에서 LOB 데이터 처리 시 제약조건 위배 에러가 발생할 수 있다.
 
 ### 공간 데이터 타입
 

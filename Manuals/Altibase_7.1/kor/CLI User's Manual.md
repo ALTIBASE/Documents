@@ -7685,7 +7685,7 @@ SQLRETURN SQLPutLob(
 | SQLHSTMT    | stmt          | 입력 | 검색된 결과들에 대한 명령문 핸들                             |
 | SQLSMALLINT | locatorCType  | 입력 | 삽입 또는 갱신할 LOB 위치 입력기의 C 데이터 타입 식별자.<br />SQL_C_BLOB_LOCATOR 또는 SQL_C_CLOB_LOCATOR가 올 수 있다. |
 | SQLUBIGINT  | targetLocator | 입력 | LOB 위치 입력기.<br />LOB 데이터를 삽입 또는 갱신할 LOB 데이터를 가리킨다. |
-| SQLUINTEGER | fromPosition  | 입력 | LOB 데이터를 삽입 또는 갱신할 시작 위치로, 0부터 시작하며 LOB 데이터를 삽입할 때는 항상 0이다. 단위는 바이트이다. |
+| SQLUINTEGER | fromPosition  | 입력 | LOB 데이터를 삽입 또는 갱신할 시작 위치로, 0부터 시작하며 LOB 데이터를 삽입할 때는 0이어야 한다. 단위는 바이트이다. |
 | SQLUINTEGER | forLength     | 입력 | 사용되지 않음                                                |
 | SQLSMALLINT | sourceCType   | 입력 | CLI 애플리케이션 버퍼를 나타내는 C 데이터 타입 식별자. 이 버퍼는 삽입 또는 갱신할 LOB 데이터를 담고 있다.<br />BLOB 데이터는 SQL_C_BINARY, CLOB 데이터는 SQL_C_CHAR가 올 수 있다. |
 | SQLPOINTER  | value         | 입력 | CLI 애플리케이션 버퍼를 가리키는 포인터                      |
@@ -7706,15 +7706,15 @@ SQL_ERROR
 
 ###### LOB 데이터 삽입
 
-INSERT 문으로 LOB 데이터를 삽입할 때 이 함수를 사용할 수 있다. 이때, fromPosition은 항상 0이다. 이것은 targetLocator가 길이가 0인 LOB 데이터를 가리키는 것을 의미한다.
+INSERT 문으로 LOB 데이터를 삽입할 때 이 함수를 사용할 수 있다. 이때, fromPosition은 0이어야 한다. 이것은 targetLocator가 길이가 0인 LOB 데이터를 가리키는 것을 의미한다.
 
 ###### LOB 데이터 전체 갱신
 
-UPDATE 문으로 LOB 타입 칼럼 전체를 갱신할 때 이 함수를 사용할 수 있다. 이 함수의 동작은 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으며 fromPosition도 항상 0이다. 
+UPDATE 문으로 LOB 타입 칼럼 전체를 갱신할 때 이 함수를 사용할 수 있다. 이 함수의 동작은 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으며 fromPosition도 0이어야 한다. 
 
 ###### **LOB 데이터 부분 갱신**
 
-SQLPutLob 함수를 사용하여 SQL 문을 사용하지 않고 기존 LOB 데이터에서 특정 위치의 값을 갱신할 수 있다. 이때, LOB 위치 입력기를 얻기 위해 SELECT *LOB_column_name* FROM *table_name* WHERE … FOR UPDATE 문장을 먼저 수행해야 한다. 이 함수의 동작 역시 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으나 fromPosition은 기존 LOB 데이터에서 갱신할 시작 위치를 지정해야 한다. fromPosition에 기존 LOB 데이터의 끝 위치를 지정하면, CLI 애플리케이션 버퍼(value)에 담긴 LOB 데이터가 기존 데이터 뒤에 추가된다. 
+SQLPutLob 함수를 사용하여 기존 LOB 데이터에서 특정 위치의 값을 갱신할 수 있다. 이때, LOB 위치 입력기를 얻기 위해 SELECT *LOB_column_name* FROM *table_name* WHERE … FOR UPDATE 문장을 먼저 수행해야 한다. 이 함수의 동작 역시 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으나 fromPosition은 기존 LOB 데이터에서 갱신할 시작 위치를 지정해야 한다. fromPosition에 기존 LOB 데이터의 끝 위치를 지정하면, CLI 애플리케이션 버퍼(value)에 담긴 LOB 데이터가 기존 데이터 뒤에 추가된다. 
 
 ###### SQL_ERROR 반환
 
