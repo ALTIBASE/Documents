@@ -249,10 +249,10 @@ Altibase 이중화 (Replication)는 운영중인 데이터베이스의 로그를
 
 -   **송신자 (Sender):**  
     지역 서버에서 발생한 변경 트랜잭션 정보와 이중화 메타 테이블 정보를 원격 서버로 보내는 쓰레드다. 지역 서버의 로그 파일에서 이중화 대상 테이블에 발생한 변경 트랜잭션 정보를 추출하여 XLog로 변환하고, XLog와 XLog를 해석하기 위해 필요한 이중화 메타 테이블 정보를 원격 서버로 보낸다. 
-    
+
 -   **수신자 (Receiver):**  
     XLog와 이중화 메타 테이블 정보를 수신하는 쓰레드를 일컫는다. 적용자가 없을 경우 상대편 서버로부터 데이터 변경 정보를 가지고 있는 XLog를 받아서 자기 노드의 이중화 대상 객체에 반영하지만, 적용자가 있을 경우 적용자에게 XLog를 전달하여 이중화 대상 객체에 반영한다.
-    
+
 -   **적용자 (Applier):**  
     수신자가 송신자로부터 수신한 XLog를 스토리지 매니저에 반영하는 쓰레드를
     적용자라고 일컫는다. 병렬 적용자 옵션을 설정하지 않은 경우 적용자는 생성되지
@@ -326,7 +326,9 @@ Altibase 이중화 (Replication)는 운영중인 데이터베이스의 로그를
     로그의 식별 번호 사이의 차이이다.
 
 -   **이중화 관리자 (Replication Manager):**  
-    이중화 송신자와 수신자를 구동하거나 종료하는 Altibase 모듈이다.
+    이중화 송신자와 수신자를 시작하거나 종료하는 쓰레드이다.
+
+    수신자 측의 이중화 관리자는 송신자의 메타 정보를 전송받고 자신의 메타 정보와 비교하여 송신자의 핸드쉐이킹 승인 여부를 결정한다. 송신자와 핸드쉐이킹이 성공하면 수신자를 시작하고 자신의 메타 정보를 수신자에게 전달하는 역할을 한다.
 
 -   **이중화 객체 (Replication Object):**  
     CREATE REPLICATION 구문으로 생성하는 객체로, 보통은 다른 노드에 존재하는
@@ -366,10 +368,18 @@ Altibase 이중화 (Replication)는 운영중인 데이터베이스의 로그를
     동기화 작업 ("ALTER REPLICATION ... SYNC" 또는 "ALTER REPLICATION ... SYNC
     ONLY" 사용)을 수행하는데 여러개의 송신 쓰래드와 수신 쓰래드를 사용하는 것을
     일컫는다. "병렬 이중화"와 혼동하지 말 것.
-    
-    
-    
-    
+
+-   **메타 정보**
+
+    이중화와 관련한 메타 테이블 및 부가 정보를 의미한다. 주요 정보는 아래 테이블들의 정보이다. 
+
+    - SYS_REPLICATIONS_
+    - SYS_REPL_OLD_COLUMNS_
+    - SYS_REPL_OLD_INDEX_COLUMNS_
+    - SYS_REPL_OLD_INDICES_
+    - SYS_REPL_OLD_ITEMS_
+
+    송신자는 XLog 생성 및 원격 서버에 핸드쉐이킹을 요청할 때 메타 정보를 이용하고 수신자는  핸드쉐이킹 요청을 승인할 지 결정하기 위해 메타 정보를 이용한다. 
 
 #### Altibase 이중화 방식
 
@@ -1208,7 +1218,7 @@ Eager 모드를 사용하기 위해 다음의 제약 조건을 따른다.
 > 상태가 된다. 이 때 송신 쓰레드가 이중화 로그를 전송할 경우, 수신 쓰레드는 잠금
 > 상태의 대상 테이블에 로그를 반영할 수 없을 것이다.
 
-### 이중화 생성 (CREATE REPLICATION) 
+### 이중화 생성
 
 이중화를 시작하기 전에 이중화에 관련된 정보를 사용해서 이중화 객체를 생성해야
 한다.
@@ -1321,7 +1331,7 @@ iSQL> CREATE REPLICATION rep1
 Create success.
 ```
 
-### 이중화 시작, 종료와 변경 (ALTER REPLICATION) 
+### 이중화 시작, 종료와 변경
 
 #### 구문
 
@@ -1546,7 +1556,7 @@ select rep_name, avg(WAIT_NEW_LOG)/1000000 from x$repsender_statistics where wai
 select rep_name, avg(INSERT_ROW)/1000000 from x$repreceiver_statistics where recv_xlog > 0 group by rep_name order by rep_name;
 ```
 
-### 이중화 삭제 (DROP REPLICATION) 
+### 이중화 삭제
 
 #### 구문
 
@@ -1931,9 +1941,7 @@ iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 ### SQL 반영 모드
 
-지역(local) 서버와 원격(remote) 서버의 메타 정보가 다를 때 원격 서버에 XLog를
-SQL로 변환하여 반영할 수 있다. SQL 모드로 원격 서버에 반영할 때 아래의 조건이면
-가능하다.
+송신자와 수신자의 메타 정보가 다를 때 수신자가 XLog를 SQL로 변환하여 복제 트랜잭션을 수행하는 것을 말한다. SQL 반영 모드는 아래의 조건에 해당될 때 동작한다.
 
 -   REPLICATION_SQL_APPLY_ENABLE : 1
 
@@ -1977,7 +1985,7 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 컬럼 값을 통해서
 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
 
-#### 복구 옵션(Recovery Option)
+#### 복구 옵션
 
 ##### 구문
 
@@ -2023,7 +2031,7 @@ iSQL> ALTER REPLICATION rep1 SET RECOVERY DISABLE;
 Alter success.
 ```
 
-#### 오프라인 옵션(Offline Option)
+#### 오프라인 옵션
 
 ##### 설명
 
@@ -2137,7 +2145,7 @@ ALTER REPLICATION replication_name START WITH OFFLINE;
     ALTER REPLICATION REP1 SET OFFLINE DISABLE;
     ```
 
-#### 이중화 갭 해소 옵션(Replicatoin Gapless Option) 
+#### 이중화 갭 해소 옵션
 
 ##### 구문
 
@@ -2185,7 +2193,7 @@ iSQL> ALTER REPLICATION rep1 SET GAPLESS ENABLE;
 Alter success.
 ```
 
-#### 병렬 적용자 옵션 (Parallel Applier Option)
+#### 병렬 적용자 옵션
 
 ##### 구문
 
@@ -2241,7 +2249,7 @@ iSQL> ALTER REPLICATION replication_name SET PARALLEL receiver_applier_count 100
 
 -   LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
 
-#### 이중화 트랜잭션 그룹 옵션 (Replicated Transaction Grouping Option)
+#### 이중화 트랜잭션 그룹 옵션
 
 ##### 구문
 
@@ -2274,25 +2282,67 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 
 -   LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
 
-#### 메타 로깅 옵션 (Meta Logging Option)
+#### 메타 로깅 옵션
+
+송신자의 이중화 관련 정보를 파일에 기록하는 기능이다. 
+
+Altibase 서버의 데이터를 복제하는 대상이 이중화와 관련한 정보를 가지고 있지 않을 때 송신자가 파일에 남긴 정보를 이용하여 동기화 할 수 있다.
+
+> 현재 메타 로깅 옵션은 Adapter에서 사용하고 있으므로 자세한 설명은 Adapter 매뉴얼을 참고한다.
+>
+> - [Adapter for JDBC User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
+> - [Adapter for Oracle User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
 
 ##### 구문
 
 ```
-CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
+CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING ...;
 ```
 
 ##### 설명
 
-이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
-미전송 로그를 읽어 올때 필요한 메타 정보를 파일로 남기는 옵션이다.
-파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
+- FOR ANALYSIS
 
-자세한 설명은 *Adapter for JDBC User’s Manual, Adapter for Oracle User’s Manual*을 참고한다.
+  OPTIONS META_LOGGING 절은 FOR ANALYSIS 절과 함께 사용한다.
+
+- OPTIONS META_LOGGING
+
+  송신자의 이중화 메타 정보와 송신자가 시작할 때 읽어야 할 로그 파일의 시작 위치를 파일에 저장한다. 이 파일을 각각 '송신자 메타 파일', '재시작 SN 파일'이라 부른다. 파일은 로그 파일 경로 아래 ala_meta_files 디렉토리에 생성된다. 
+
+  - 송신자 메타 파일
+
+    송신자의 이중화 메타 테이블 정보를 가지고 있는 파일로 아래의 이중화와 관련한 메타 테이블의 내용이 주요 구성
+
+    - SYS_REPLICATIONS_
+
+    - SYS_REPL_OLD_COLUMNS_
+
+    - SYS_REPL_OLD_INDEX_COLUMNS_
+
+    - SYS_REPL_OLD_INDICES_
+
+    - SYS_REPL_OLD_ITEMS_
+
+  - 재시작 SN 파일
+
+    적용이 완료된 SM 로그의 SN값을 가지고 있는 파일이다.
+
+  | 파일                            |      |      |
+  | ------------------------------- | ---- | ---- |
+  | *replication_name*_META_NEW.bin |      |      |
+  | *replication_name*_META_OLD.bin |      |      |
+  |                                 |      |      |
+
+  
+
+  - *replication_name*_META_NEW.bin : 
+  - *replication_name*_META_OLD.bin
+  - *replication_name*_SN_NEW.bin
+  - *replication_name*_SN_OLD.bin
 
 ##### 제약사항
 
--   ANALYSIS로 이중화를 생성할때만 사용할 수 있다.
+이 옵션은 FOR ANALYSIS 절을 사용하여 생성한 이중화 객체에만 사용할 수 있다.
 
 ### 다중 IP 네트워크 환경에서의 이중화 
 

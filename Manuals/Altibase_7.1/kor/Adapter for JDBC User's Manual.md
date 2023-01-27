@@ -1055,7 +1055,7 @@ Adapter for JDBC version 7.1.0.0.2
 ...
 ```
 
-### 오프라인 옵션(Offline Option)
+### 오프라인 옵션
 
 #### 구문
 

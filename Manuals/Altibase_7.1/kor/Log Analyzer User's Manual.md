@@ -239,7 +239,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 ### Log Analyzer
 
-Log Analyzer는 DBMS의 Active Log를 기반으로 DML 관련 트랜잭션의 이력을 제공하는
+Log Analyzer는 DBMS의 active 로그 파일을 기반으로 DML 관련 트랜잭션의 이력을 제공하는
 DBMS 내의 모듈, 이 모듈과 통신으로 연결된 외부 모듈, 그리고 사용자가 XLog를
 사용하기 위해 제공되는 API의 집합이다.
 
@@ -250,14 +250,14 @@ DBMS 외부에서 감지 및 처리 등의 용도로 사용할 수 있다.
 
 ##### XLog
 
-XLog는 물리적 로그를 논리적인 형태로 변형시킨 로그이다.
+XLog는 물리적인 active 로그 파일을 논리적인 형태로 변형시킨 로그이다.
 
 사용자가 얻는 DML 관련 트랜잭션의 이력이 XLog이다.
 
 ##### XLog Sender
 
-XLog Sender는 Active Log를 분석하여 XLog를 생성하고 XLog Collector에게 전달하는
-모듈이다.
+XLog Sender는 active 로그 파일을 분석하여 XLog를 생성하고 XLog Collector에게 전달하는
+모듈이다. FOR ANALYSIS 절을 사용하여 생성한 이중화 객체를 시작하면 XLog Sender가 시작된다.
 
 XLog Sender는 Handshake 및 XLog 송신을 능동적으로 수행한다.
 
@@ -294,7 +294,7 @@ Transaction Table은 Transaction의 상태와 추가적인 정보를 보관하�
 
 ##### Restart SN
 
-Restart SN은 XLog Sender가 재시작될 때 읽기 시작할 Active Log의 SN이다.
+Restart SN은 XLog Sender가 재시작될 때 읽기 시작할 active 로그 파일의 SN이다.
 
 ##### SN
 
@@ -309,12 +309,12 @@ Replication은 한 DBMS의 데이터를 다른 DBMS에 복제하는 기능이다
 Replication SYNC는 지역 서버 Replication Table들의 모든 레코드를 원격 서버로
 전송하는 기능이다.
 
-Active Log를 기반으로 Replication을 시작하기 전에, Replication Table의 내용을
+active 로그 파일을 기반으로 Replication을 시작하기 전에, Replication Table의 내용을
 일치시키기 위해 사용한다.
 
 #### Log Analyzer의 동작 방식
 
-XLog Sender는 DBMS 내에 존재하며, Active Log로 XLog를 만들고 XLog와 Meta 정보를
+XLog Sender는 DBMS 내에 존재하며, active 로그 파일로 XLog를 만들고 XLog와 Meta 정보를
 XLog Collector에게 전송한다. XLog Collector는 사용자의 애플리케이션 내에
 존재하며, Log Analysis API를 통해 사용자에게 XLog와 메타 정보를 제공한다.
 
@@ -5932,5 +5932,4 @@ void printAlaErr(ALA_ErrorMgr * aErrorMgr)
     printf("ALA Error : %d, %s\n", sErrorCode, sErrorMessage);
 }
 ```
-
 
