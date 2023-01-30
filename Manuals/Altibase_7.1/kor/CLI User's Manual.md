@@ -73,7 +73,7 @@
     - [LOB 데이터 타입](#lob-데이터-타입)
     - [LOB Function Overview](#lob-function-overview)
     - [SQLBindFileToCol](#sqlbindfiletocol)
-    - [SQLindFileToParam](#sqlindfiletoparam)
+    - [SQLBindFileToParam](#sqlbindfiletoparam)
     - [SQLGetLobLength](#sqlgetloblength)
     - [SQLGetLob](#sqlgetlob)
     - [SQLPutLob](#sqlputlob)
@@ -6795,11 +6795,11 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 
 ## 3.LOB 인터페이스
 
-이 장에서는 CLI에서 LOB 데이터를 처리하는 방식과 LOB 데이터를 처리하는데 필요한 데이터 타입과 관련 함수를 설명한다.
+이 장에서는 CLI에서 LOB 데이터를 처리하는 방식과 LOB 데이터를 처리하는 데 필요한 데이터 타입과 관련 함수를 설명한다.
 
 ### LOB 데이터 처리 방식
 
-##### LOB 위치 입력기(LOB Locator)
+#### LOB 위치 입력기(LOB Locator)
 
 CLI의 일부 함수에서 LOB 데이터를 처리할 때 LOB 위치 입력기를 사용하기 때문에 LOB 위치 입력기를 이용한 LOB 데이터 처리 방식에 대한 이해가 필요하다. 
 
@@ -6807,7 +6807,7 @@ LOB 위치 입력기는 LOB 데이터를 가리키는 Altibase 서버의 내부 
 
 CLI에서 LOB 데이터를 처리하는 과정은 LOB 위치 입력기를 얻는 작업과 LOB 위치 입력기를 이용하여 LOB 데이터를 읽고 쓰는 작업으로 나뉜다. 
 
-##### LOB 위치 입력기 얻기
+#### LOB 위치 입력기 얻기
 
 LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다. 
 
@@ -6817,7 +6817,7 @@ LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다.
 
   > ⚠️ SQLExecute 함수는 INSERT와 UPDATE 문을 실행할 때 LOB 데이터를 널로 초기화한다. 
 
-##### LOB 데이터 읽고 쓰기
+#### LOB 데이터 읽고 쓰기
 
 LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 읽거나 쓸 수 있다. 관련 CLI 함수는 아래와 같다. 
 
@@ -6827,24 +6827,24 @@ LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 �
 - SQLPutLob 
 - SQLTrimLob
 
-##### 자동 커밋 모드 해제
+#### 자동 커밋 모드 해제
 
 LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
 
-자동 커밋 모드에서 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 각각 하나의 트랜잭션이기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다. 반면, 자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되며 LOB 위치 입력기를 공유할 수 있다. 따라서, 각 개별 작업의 성공 여부에 따라 트랜잭션을 커밋할 때 SQL 수행 결과가 달라질 수 있음을 주의해야 한다. 
+자동 커밋 모드에서 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 각각 하나의 트랜잭션이기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다. 반면, 자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되며 LOB 위치 입력기를 공유할 수 있다. 따라서 개별 작업의 성공 여부에 따라 트랜잭션을 커밋할 때 SQL 수행 결과가 달라질 수 있음을 주의해야 한다. 
 
 > **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
 
-이 예시는 LOB 칼럼을 가진 테이블에 INSERT, UPDATE 문을 수행할 때 해당된다.
+이 예시는 LOB 칼럼을 가진 테이블에 INSERT, UPDATE 문을 수행할 때 해당한다.
 
 아래 표의 `결과 1`에서 커밋을 수행하면, LOB 타입 칼럼이 있는 레코드는 LOB 타입 칼럼이 널 값으로 반영될 수 있다. LOB 타입 칼럼의 값이 널 상태로 남기지 않으려면 **반드시 트랜잭션을 롤백해야 한다.** 
 
-LOB 타입 칼럼에 NOT NULL 제약조건이 정의되어 있다면 `결과 2` 상황이 발생할 수 있으며, 이때는 에러가 발생하고 부분 롤백되므로 CLI에서 LOB 데이터 처리를 할 수 없다.
+LOB 타입 칼럼에 NOT NULL 제약조건이 정의되어 있다면 `결과 2` 상황이 발생할 수 있으며, 이때는 에러가 발생하고 부분 롤백 되므로 CLI에서 LOB 데이터 처리를 할 수 없다.
 
-| 개별 작업 순서 | 개별 작업                           |           CLI 함수            | 결과 1 | 결과 2 |
-| :------------: | :---------------------------------- | :---------------------------: | :----: | :----: |
+| 개별 작업 순서 | 개별 작업                           | CLI 함수                      | 결과 1 | 결과 2 |
+| :------------: | :---------------------------------- | :---------------------------- | :----: | :----: |
 |       1        | LOB 위치 입력기를 얻어오는 CLI 함수 | SQLBindParameter / SQLExecute |  성공  |  실패  |
-|       2        | LOB 데이터를 읽고 쓰는 CLI 함수     |           SQLPutLob           |  실패  |   -    |
+|       2        | LOB 데이터를 읽고 쓰는 CLI 함수     | SQLPutLob                     |  실패  |   -    |
 
 ### LOB 데이터 타입
 
@@ -6871,7 +6871,7 @@ CLI에서 LOB 데이터를 사용하기 전에 먼저 Altibase의 LOB 데이터 
 
 CLOB 데이터는 SQL_C_CHAR를, BLOB 데이터는 SQL_C_BINARY를 사용하여 사용자 변수를 바인딩한다. 
 
-SQL_C_CLOB_LOCATOR과 SQL_C_BLOB_LOCATOR는 LOB 위치 입력기를 얻을 때 사용한다. 
+SQL_C_CLOB_LOCATOR와 SQL_C_BLOB_LOCATOR는 LOB 위치 입력기를 얻을 때 사용한다. 
 
 | C 타입 식별자      | Altibase 데이터 타입 | ODBC C 타입 | C 타입 정의      |
 | :----------------- | :------------------: | :---------- | :--------------- |
@@ -6913,31 +6913,22 @@ LOB 데이터를 다루기 위해서 사용되는 함수들은 아래와 같다.
 
 8.  여타 ODBC 의 모든 표준 함수들
 
-위 함수들 중 1 \~ 6번은 Altibase가 LOB 을 다루기 위해 제공하는 특수 함수들로써,
-ODBC 표준에는 없는 함수들이다.
+위 함수 중 1 \~ 6번은 Altibase가 LOB을 다루기 위해 제공하는 특수 함수들로써, ODBC 표준에는 없는 함수들이다.
 
-7, 8 번과 같이 ODBC 스펙에서 정의하는 함수들을 이용해서 데이터베이스의 칼럼
-타입이 LOB 인지의 여부에 무관하게 표준 함수만으로도 LOB 데이터에 접근할 수 있다.
-단, ODBC 표준 함수만을 사용했을 경우, 부분 갱신(partial update), 부분
-검색(partial retrieve) 등의 기능은 사용할 수 없다.
+7, 8번과 같이 ODBC API에서 정의하는 함수들을 이용해서 데이터베이스의 칼럼 타입이 LOB 인지의 여부에 무관하게 표준 함수만으로도 LOB 데이터에 접근할 수 있다. 단, ODBC 표준 함수만을 사용했을 경우, 부분 갱신(partial update), 부분 검색(partial retrieve) 등의 기능은 사용할 수 없다.
 
-만약 사용자가 ODBC driver manager를 이용해서 프로그래밍을 하고자 할 경우에는,
-odbc.ini 파일에 다음과 같은 항목을 추가해야 한다.
+만약 사용자가 ODBC driver manager를 이용해서 프로그래밍하고자 하면, odbc.ini 파일에 다음과 같은 항목을 추가해야 한다.
 
 ```
 LongDataCompat = yes또는
 LongDataCompat = on
 ```
 
-위의 항목을 odbc.ini 파일에 추가했을 경우, SQL_BLOB, SQL_CLOB 과 같은 타입은
-각각 SQL_LONGVARBINARY, SQL_LONGVARCHAR 와 같은 타입으로 변환되어서 사용자에게
-전달된다. 따라서 ODBC driver manager를 사용하더라도 투명하게 LOB 데이터를 다룰
-수 있다.
+위의 항목을 odbc.ini 파일에 추가했을 경우, SQL_BLOB, SQL_CLOB 과 같은 타입은 각각 SQL_LONGVARBINARY, SQL_LONGVARCHAR 와 같은 타입으로 변환되어서 사용자에게 전달된다. 따라서 ODBC driver manager를 사용하더라도 투명하게 LOB 데이터를 다룰 수 있다.
 
 ### SQLBindFileToCol
 
-BLOB 또는 CLOB 데이터 타입에 대해 파일 또는 파일들을 결과 집합의 열에
-바인드한다.
+BLOB 또는 CLOB 데이터 타입에 대해 파일 또는 파일들을 결과 집합의 열에 바인드한다.
 
 #### 구 문
 
@@ -6975,17 +6966,11 @@ SQL_ERROR
 
 #### 설 명
 
-SQLBindFileToCol()은 결과 집합의 LOB 데이터를 파일로 바인드하며, SQLBindCol()은
-애플리케이션 변수(메모리 버퍼)에 바인드한다.
+SQLBindFileToCol()은 결과 집합의 LOB 데이터를 파일로 바인드하며, SQLBindCol()은 애플리케이션 변수(메모리 버퍼)에 바인드한다.
 
-SQLBindFileToCol() 호출 후 SQLFetch()가 호출되면, DBMS의 LOB 데이터가 파일로
-저장되며, valueLength 포인터가 가리키는 버퍼에는 파일에 저장된 데이터의 길이
-(바이트 단위) 가 저장된다. 만약, LOB이 NULL일 경우 valueLength 포인터가 가리키는
-버퍼에는 SQL_NULL_DATA가 저장된다. fileName, fileNameLength, fileOptions 인자의
-값은 SQLFetch() 시 참조되며, 인자의 오류 여부도 FETCH시 보고된다.
+SQLBindFileToCol() 호출 후 SQLFetch()가 호출되면, DBMS의 LOB 데이터가 파일로 저장되며, valueLength 포인터가 가리키는 버퍼에는 파일에 저장된 데이터의 길이 (바이트 단위) 가 저장된다. 만약, LOB이 NULL일 경우 valueLength 포인터가 가리키는 버퍼에는 SQL_NULL_DATA가 저장된다. fileName, fileNameLength, fileOptions 인자의 값은 SQLFetch() 시 참조되며, 인자의 오류 여부도 FETCH시 보고된다.
 
-FETCH 시 한 번에 여러 개의 LOB을 파일로 가져오는 경우, fileName, fileNameLength,
-fileOptions, valueLength 인자는 모두 배열이어야 한다.
+FETCH 시 한 번에 여러 개의 LOB을 파일로 가져오는 경우, fileName, fileNameLength, fileOptions, valueLength 인자는 모두 배열이어야 한다.
 
 #### 진 단
 
@@ -7160,9 +7145,7 @@ for (i = 0; ; i++)
 
 ### SQLBindFileToParam
 
-SQL 문에서 LOB 데이터 타입을 위해 사용된 매개변수 마커 ‘?’를 파일 또는 파일들에
-바인드시킨다. SQLExecute() 또는 SQLExecDirect()가 호출될 때 자료가 파일에서
-데이터베이스 관리 시스템으로 전송된다.
+SQL 문에서 LOB 데이터 타입을 위해 사용된 매개변수 마커 ‘?’를 파일 또는 파일들에 바인드시킨다. SQLExecute() 또는 SQLExecDirect()가 호출될 때 자료가 파일에서 데이터베이스 관리 시스템으로 전송된다.
 
 #### 구 문
 
@@ -7202,23 +7185,13 @@ SQL_ERROR
 
 #### 설 명
 
-SQLBindFileToParam()은 LOB 매개변수 마커를 파일에 바인드시킨다. 매개변수 마커를
-애플리케이션 변수(메모리 버퍼)에 바인드시키고 싶을 경우, SQLBindParameter()를
-사용하면 된다. SQLBindFileToParam(), SQLBindParameter() 중 어느 것이든 가장
-최근에 호출한 바인드 함수에 의한 바인딩만 유효하게 된다.
+SQLBindFileToParam()은 LOB 매개변수 마커를 파일에 바인드시킨다. 매개변수 마커를 애플리케이션 변수(메모리 버퍼)에 바인드시키고 싶을 경우, SQLBindParameter()를 사용하면 된다. SQLBindFileToParam(), SQLBindParameter() 중 어느 것이든 가장 최근에 호출한 바인드 함수에 의한 바인딩만 유효하게 된다.
 
-fileName, fileNameLength, fileOptions, ind 인자의 값은 SQLExecute() 또는
-SQLExecDirect() 시 참조되므로 SQLExecute() 또는 SQLExecDirect() 호출 전에 값을
-설정해주어야 한다. SQLExecute() 또는 SQLExecDirect()가 호출되면, 데이터가
-바인드된 파일로부터 읽혀 DBMS로 전송된다.
+fileName, fileNameLength, fileOptions, ind 인자의 값은 SQLExecute() 또는 SQLExecDirect() 시 참조되므로 SQLExecute() 또는 SQLExecDirect() 호출 전에 값을 설정해주어야 한다. SQLExecute() 또는 SQLExecDirect()가 호출되면, 데이터가 바인드된 파일로부터 읽혀 DBMS로 전송된다.
 
-LOB이 NULL일 경우 ind 포인터가 가리키는 버퍼에 SQL_NULL_DATA를 설정한 후
-SQLExecute() 또는 SQLExecDirect()를 호출한다. 만약, LOB이 NULL이 아닐 경우 ind
-포인터가 가리키는 버퍼에는 0을 설정해야 한다. ind 인자는 NULL 포인터여서는
-안된다.
+LOB이 NULL일 경우 ind 포인터가 가리키는 버퍼에 SQL_NULL_DATA를 설정한 후 SQLExecute() 또는 SQLExecDirect()를 호출한다. 만약, LOB이 NULL이 아닐 경우 ind 포인터가 가리키는 버퍼에는 0을 설정해야 한다. ind 인자는 NULL 포인터여서는 안된다.
 
-파일의 배열을 한 매개변수 마커에 바인드하는 경우, fileName, fileNameLength,
-fileOptions, ind 인자는 모두 배열이어야 한다.
+파일의 배열을 한 매개변수 마커에 바인드하는 경우, fileName, fileNameLength, fileOptions, ind 인자는 모두 배열이어야 한다.
 
 #### 진 단
 
@@ -7416,24 +7389,17 @@ SQL_ERROR
 
 LOB locator가 가리키는 LOB의 길이를 얻기 위해 사용되는 함수이다.
 
-LOB locator는 데이터베이스 내의 LOB을 직접 가리키는(LOB 내에서의 오프셋 아님)
-값이다. LOB locator를 얻는 방법은 두 가지가 존재한다 :
+LOB locator는 데이터베이스 내의 LOB을 직접 가리키는(LOB 내에서의 오프셋 아님) 값이다. LOB locator를 얻는 방법은 두 가지가 존재한다 :
 
-SQLBindCol()이나 SQLGetData() 함수를 통해 SELECT SQL 문의 결과 집합의 LOB
-열로부터 얻을 수 있다.
+SQLBindCol()이나 SQLGetData() 함수를 통해 SELECT SQL 문의 결과 집합의 LOB 열로부터 얻을 수 있다.
 
-이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR,
-혹은, SQL_C_BLOB_LOCATOR 여야 한다.
+이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR, 혹은, SQL_C_BLOB_LOCATOR 여야 한다.
 
 SQLBindParameter() 의 output parameter 를 통해 얻을 수 있다.
 
-이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR,
-혹은, SQL_C_BLOB_LOCATOR 여야 한다.
+이 경우, 사용자가 바인드하는 application buffer type 은 SQL_C_CLOB_LOCATOR, 혹은, SQL_C_BLOB_LOCATOR 여야 한다.
 
-현재의 트랜잭션 도중 얻어진 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수
-없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다. 만약 유효하지
-않은 LOB locator를 인자로 사용할 경우, 본 함수는 SQL_ERROR 를 리턴하며,
-valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
+현재의 트랜잭션 도중 얻어진 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효하게 되기 때문이다. 만약 유효하지 않은 LOB locator를 인자로 사용할 경우, 본 함수는 SQL_ERROR 를 리턴하며, valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
 
 valueLength 인자를 통해 LOB의 길이가 리턴된다.
 
@@ -7512,8 +7478,7 @@ if (SQLFreeLob(stmt, lobLoc) != SQL_SUCCESS)
 
 ### SQLGetLob
 
-트랜잭션이 진행 중에 얻어진 LOB Locator가 가리키는 LOB에서 데이터의 일부분을
-애플리케이션 데이터 버퍼(application data buffer)로 가져온다.
+트랜잭션이 진행 중에 얻어진 LOB Locator가 가리키는 LOB에서 데이터의 일부분을 애플리케이션 데이터 버퍼(application data buffer)로 가져온다.
 
 #### 구 문
 
@@ -7555,21 +7520,14 @@ SQL_ERROR
 
 #### 설 명
 
-sourceLocator가 가리키는 LOB 데이터의 일부분을 서버에서 애플리케이션(application
-data buffer)으로 가져온다. LOB 데이터를 나누어 가져오기 위해 사용된다. LOB의
-전체 길이는 SQLGetLobLength()를 호출하여 얻을 수 있다.
+sourceLocator가 가리키는 LOB 데이터의 일부분을 서버에서 애플리케이션(application data buffer)으로 가져온다. LOB 데이터를 나누어 가져오기 위해 사용된다. LOB의 전체 길이는 SQLGetLobLength()를 호출하여 얻을 수 있다.
 
-sourceLocator가 현재의 트랜잭션 내에서 열린 LOB locator가 아닌 경우 본 함수의
-인자로 사용할 수 없다. 트랜잭션을 종료하면 LOB locator가 무효화되기 때문이다.
-소스 LOB locator가 유효하지 않은 경우, SQLGetLob() 함수는 SQL_ERROR 를 리턴하며,
-value 및 valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
+sourceLocator가 현재의 트랜잭션 내에서 열린 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수 없다. 트랜잭션을 종료하면 LOB locator가 무효화되기 때문이다.
+소스 LOB locator가 유효하지 않은 경우, SQLGetLob() 함수는 SQL_ERROR 를 리턴하며, value 및 valueLength 인자가 가리키는 버퍼는 변경되지 않는다.
 
-sourceLocator가 NULL인 LOB을 가리킬 경우, SQLGetLob() 함수는 LOB locator의
-길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
+sourceLocator가 NULL인 LOB을 가리킬 경우, SQLGetLob() 함수는 LOB locator의 길이가 0인 LOB을 가리키고 있는 경우와 동일하게 동작한다.
 
-SQLGetLob() 호출 결과 반환될 데이터의 크기가 bufferSize의 버퍼 크기보다 클 경우,
-SQLGetLob() 함수는 SQL_SUCCESS_WITH_INFO (SQLSTATE=01004)를 리턴하며, 버퍼에
-반환되는 데이터는 버퍼의 크기에 맞춰 끝부분이 잘린다.
+SQLGetLob() 호출 결과 반환될 데이터의 크기가 bufferSize의 버퍼 크기보다 클 경우, SQLGetLob() 함수는 SQL_SUCCESS_WITH_INFO (SQLSTATE=01004)를 리턴하며, 버퍼에 반환되는 데이터는 버퍼의 크기에 맞춰 끝부분이 잘린다.
 
 #### 진 단
 
@@ -7703,7 +7661,7 @@ SQL_ERROR
 
 #### 설 명
 
-이 함수는 CLI 애플리케이션 버퍼value에 담긴 LOB 데이터를 LOB 위치 입력기targetLocator가 가리키고 있는 LOB 데이터에 갱신한다. 이때, 갱신되는 위치는 fromPosition 부터 valueLength 까지이다. 
+이 함수는 CLI 애플리케이션 버퍼 value에 담긴 LOB 데이터를 LOB 위치 입력기 targetLocator가 가리키고 있는 LOB 데이터에 갱신한다. 이때, 갱신되는 위치는 fromPosition 부터 valueLength 까지이다. 
 
 ###### LOB 데이터 삽입
 
@@ -7715,13 +7673,13 @@ UPDATE 문으로 LOB 타입 칼럼 전체를 갱신할 때 이 함수를 사용�
 
 ###### **LOB 데이터 부분 갱신**
 
-SQLPutLob 함수를 사용하여 기존 LOB 데이터에서 특정 위치의 값을 갱신할 수 있다. 이때, LOB 위치 입력기를 얻기 위해 SELECT *LOB_column_name* FROM *table_name* WHERE … FOR UPDATE 문장을 먼저 수행해야 한다. 이 함수의 동작 역시 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으나 fromPosition은 기존 LOB 데이터에서 갱신할 시작 위치를 지정해야 한다. fromPosition에 기존 LOB 데이터의 끝 위치를 지정하면, CLI 애플리케이션 버퍼(value)에 담긴 LOB 데이터가 기존 데이터 뒤에 추가된다. 
+SQLPutLob 함수를 사용하여 기존 LOB 데이터에서 특정 위치의 값을 갱신할 수 있다. 이때, LOB 위치 입력기를 얻기 위해 SELECT *lob_column_name* FROM *table_name* WHERE … FOR UPDATE 문장을 먼저 수행해야 한다. 이 함수의 동작 역시 [LOB 데이터 삽입](#lob-데이터-삽입) 방식과 같으나 fromPosition은 기존 LOB 데이터에서 갱신할 시작 위치를 지정해야 한다. fromPosition에 기존 LOB 데이터의 끝 위치를 지정하면, CLI 애플리케이션 버퍼(value)에 담긴 LOB 데이터가 기존 데이터 뒤에 추가된다. 
 
 ###### SQL_ERROR 반환
 
 targetLocator 인자가 유효하지 않을 때 SQL_ERROR를 반환한다. 
 
-fromPosition 인자가 함수 실행 시점의 targetLocator이 가리키는 LOB 타입 칼럼의 길이보다 크면 SQL_ERROR를 반환한다.
+fromPosition 인자가 함수 실행 시점의 targetLocator가 가리키는 LOB 타입 칼럼의 길이보다 크면 SQL_ERROR를 반환한다.
 
 #### 진 단
 
@@ -7764,7 +7722,9 @@ if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
     return SQL_ERROR;
 }
 
-/* SQLExecute 함수에서 LOB 위치 입력기를 얻을 수 있도록 SQLBindParameter 함수에서 LOB 위치 입력기 인자를 바인딩한다. */
+/* 
+SQLExecute 함수에서 LOB 위치 입력기를 얻을 수 있도록 SQLBindParameter 함수에서 LOB 위치 입력기 인자를 바인딩한다. 
+*/
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, "SQLBindParameter : ");
@@ -7772,7 +7732,11 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
     return SQL_ERROR;
 }
 
-/* SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 널로 초기화한다. 만약 CLOB 칼럼에 NOT NULL 제약조건이 있으면 이 단계에서 Unable to insert (or update) NULL into NOT NULL column. 에러가 발생한다. */ 
+/* 
+SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 널로 초기화한다. 
+만약 CLOB 칼럼에 NOT NULL 제약조건이 있으면 
+이 단계에서 Unable to insert (or update) NULL into NOT NULL column. 에러가 발생한다. 
+*/ 
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, "SQLExecute : ");
@@ -7826,7 +7790,9 @@ if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
     return SQL_ERROR;
 }
 
-/* SQLExecute 함수에서 LOB 위치 입력기를 얻을 수 있도록 SQLBindParameter 함수에서 LOB 위치 입력기 인자를 바인딩한다. */
+/* 
+SQLExecute 함수에서 LOB 위치 입력기를 얻을 수 있도록 SQLBindParameter 함수에서 LOB 위치 입력기 인자를 바인딩한다. 
+*/
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, "SQLBindParameter : ");
@@ -7834,7 +7800,11 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
     return SQL_ERROR;
 }
 
-/* SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 널로 초기화한다. 만약 CLOB 칼럼에 NOT NULL 제약조건이 있으면 이 단계에서 Unable to insert (or update) NULL into NOT NULL column. 에러가 발생한다. */
+/* 
+SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 널로 초기화한다.
+만약 CLOB 칼럼에 NOT NULL 제약조건이 있으면 
+이 단계에서 Unable to insert (or update) NULL into NOT NULL column. 에러가 발생한다. 
+*/
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, "SQLExecute : ");
@@ -7956,11 +7926,9 @@ SQL_ERROR
 
 #### 설 명
 
-이 함수는 타겟 LOB locator가 가리키는 LOB 값에서 지정한 위치 뒤쪽의 데이터를
-삭제하며, 삭제 후에는 타겟 LOB의 길이가 줄어든다.
+이 함수는 타겟 LOB locator가 가리키는 LOB 값에서 지정한 위치 뒤쪽의 데이터를 삭제하며, 삭제 후에는 타겟 LOB의 길이가 줄어든다.
 
-타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의
-인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효가 되기 때문이다.
+타겟 LOB locator가 현재의 트랜잭션에서 열린 LOB locator가 아닌 경우 본 함수의 인자로 사용할 수 없다. 트랜잭션이 종료하면 LOB locator가 무효가 되기 때문이다.
 타겟 LOB locator가 유효하지 않은 경우, SQLTrimLob() 함수는 SQL_ERROR을 리턴한다.
 
 #### 진 단
@@ -8063,15 +8031,11 @@ SQL_ERROR
 
 #### 설 명
 
-LOB locator로 대표되는 LOB에 대한 조작이 종료되었음을 서버에게 알려준다. 이로
-인해 서버에서 할당된 LOB locator는 해제되며, 그와 관련된 서버의 자원들도
-해제된다.
+LOB locator로 대표되는 LOB에 대한 조작이 종료되었음을 서버에게 알려준다. 이로 인해 서버에서 할당된 LOB locator는 해제되며, 그와 관련된 서버의 자원들도 해제된다.
 
-본 함수는 LOB locator가 가리키는 LOB에 대한 변경 사항을 commit 또는 rollback하지
-않는다.
+본 함수는 LOB locator가 가리키는 LOB에 대한 변경 사항을 commit 또는 rollback하지 않는다.
 
-SQLEndTran()으로 트랜잭션을 종료한 경우, LOB locator는 자동으로 해제되므로 본
-함수를 호출할 필요가 없다.
+SQLEndTran()으로 트랜잭션을 종료한 경우, LOB locator는 자동으로 해제되므로 본 함수를 호출할 필요가 없다.
 
 #### 진 단
 

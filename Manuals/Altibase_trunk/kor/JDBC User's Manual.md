@@ -3358,6 +3358,8 @@ while ( sRS.next() ) -> (2)
 따라서, 이러한 로직에서 LOB 데이터를 다룰 때는 먼저 setAutoCommit(false)를
 호출하여 세션의 자동커밋을 해제해야 한다.
 
+LOB 칼럼에 NOT NULL 제약 조건이 있다면, INSERT와 UPDATE 문을 수행하는 PreparedStatement.execute() 또는 PreparedStatement.executeUpdate()에서 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. JDBC는 LOB 데이터를 처리하기 전에 내부적으로 CLOB 칼럼을 널(null)로 초기화하기 때문이다. 이것은 LOB 데이터 타입의 제약 사항으로, 관련 내용은 [General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD) 매뉴얼에서 확인할 수 있다.
+
 ### Autocommit 제어
 
 Altibase JDBC 애플리케이션에서는 auto_commit 연결 속성 또는 JDBC Connection
