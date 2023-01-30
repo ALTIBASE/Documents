@@ -6833,7 +6833,7 @@ LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LO
 
 자동 커밋 모드에서 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 각각 하나의 트랜잭션이기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다. 반면, 자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되며 LOB 위치 입력기를 공유할 수 있다. 따라서, 각 개별 작업의 성공 여부에 따라 트랜잭션을 커밋할 때 SQL 수행 결과가 달라질 수 있음을 주의해야 한다. 
 
-> **SQL 수행 결과가 달라지는 예시**
+> **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
 
 이 예시는 LOB 칼럼을 가진 테이블에 INSERT, UPDATE 문을 수행할 때 해당된다.
 
@@ -7764,7 +7764,7 @@ if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
     return SQL_ERROR;
 }
 
-/* SQLBindParameter 함수에서 LOB 위치 입력기를 얻는다. */
+/* SQLExecute 함수에서 LOB 위치 입력기를 얻을 수 있도록 SQLBindParameter 함수에서 LOB 위치 입력기 인자를 바인딩한다. */
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, "SQLBindParameter : ");
@@ -7826,7 +7826,7 @@ if (SQLPrepare(stmt, query, SQL_NTS) != SQL_SUCCESS)
     return SQL_ERROR;
 }
 
-/* SQLBindParameter 함수에서 LOB 위치 입력기를 얻는다. */
+/* SQLExecute 함수에서 LOB 위치 입력기를 얻을 수 있도록 SQLBindParameter 함수에서 LOB 위치 입력기 인자를 바인딩한다. */
 if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOCATOR, 0, 0, &lobLoc, 0, &lobInd) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, "SQLBindParameter : ");
@@ -7888,7 +7888,7 @@ if (SQLExecDirect(stmt, query, SQL_NTS) != SQL_SUCCESS)
     SQLFreeStmt(stmt, SQL_DROP);
     return SQL_ERROR;
 }
-/* SQLBindCol 함수에서 LOB 위치 입력기를 얻는다. */ 
+/* SQLFetch 함수에서 LOB 위치 입력기를 얻을 수 있도록 SQLBindCol 함수에서 LOB 위치 입력기 인자를 바인딩한다. */ 
 if (SQLBindCol(stmt, 1, SQL_C_CLOB_LOCATOR, &lobLoc, 0, NULL) != SQL_SUCCESS)
 {
     execute_err(dbc, stmt, "SQLBindCol : ");
