@@ -47,7 +47,6 @@
     - [SQLGetDiagRec](#sqlgetdiagrec)
     - [SQLGetEnvAttr](#sqlgetenvattr)
     - [SQLGetFunctions](#sqlgetfunctions)
-    
     - [SQLGetInfo](#sqlgetinfo)
     - [SQLGetPlan](#sqlgetplan)
     - [SQLGetStmtAttr](#sqlgetstmtattr)
@@ -74,8 +73,8 @@
     - [SQLTables](#sqltables)
     - [SQLTransact](#sqltransact)
   - [3.LOB 인터페이스](#3lob-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-    - [LOB 데이터 처리 방식](#lob-데이터-처리-방식)
-    - [LOB 데이터 타입](#lob-데이터-타입)
+    - [LOB 데이터 처리 방식](#lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D)
+    - [LOB 데이터 타입](#lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
     - [LOB Function Overview](#lob-function-overview)
     - [SQLBindFileToCol](#sqlbindfiletocol)
     - [SQLBindFileToParam](#sqlbindfiletoparam)
