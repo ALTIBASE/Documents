@@ -3395,6 +3395,8 @@ INTO :sel_clob :sel_clob_ind
 FROM T_CLOB;
 ```
 
+> 만약 CLOB 칼럼에 NOT NULL 제약 조건이 있다면, INSERT와 UPDATE 문 수행 시 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. APRE_CLOB 타입은 내부적으로 LOB 데이터를 처리하기 전에 CLOB 칼럼을 널(null)로 초기화하기 때문이다. 이것은 LOB 데이터 타입의 제약 사항으로, 관련 내용은 [General Reference](https://github.com/ALTIBASE/Documents/blob/BUG-50034/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD) 매뉴얼에서 확인할 수 있다.
+
 ##### APRE_BLOB
 
 칼럼 타입이 BLOB 인 경우에만 사용이 가능하다.
@@ -3438,6 +3440,8 @@ EXEC SQL SELECT *
 INTO :sel_blob :sel_blob_ind
 FROM T_BLOB;
 ```
+
+> 만약 BLOB 칼럼에 NOT NULL 제약 조건이 있다면, INSERT와 UPDATE 문 수행 시 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. APRE_BLOB 타입은 LOB 데이터를 처리하기 전에 내부적으로 BLOB 칼럼을 널(null)로 초기화하기 때문이다. 이것은 LOB 데이터 타입의 제약 사항으로, 관련 내용은 [General Reference](https://github.com/ALTIBASE/Documents/blob/BUG-50034/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD) 매뉴얼에서 확인할 수 있다.
 
 ##### APRE_BINARY
 
