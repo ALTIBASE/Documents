@@ -1057,28 +1057,29 @@ Adapter for JDBC version 7.1.0.0.2
 
 ### 오프라인 옵션
 
+오프라인 옵션은 서비스를 제공하는 Altibase 서버에서 장애가 발생하여 Other DB에 적용하지 못한 로그를  전송할 수 없을 때 Alitbase 서버의 로그 파일에 직접 접근하여 미전송 로그를 가져와서 Other DB에 반영하는 기능이다. 
+
+이 기능을 사용하려면 Altibase 서버의 이중화는 메타 로깅 옵션으로 수행 중이어야 하고, 오프라인 옵션을 수행할 Altibase 서버와 동일한 데이터베이스 구성을 가진 Standby 서버가 필요하다. 
+
 #### 구문
 
-```
+```sql
 CREATE REPLICATION ala_replication_name FOR ANALYSIS OPTIONS META_LOGGING 
                    WITH 'remote_host_ip', remote_host_port_no 
                    FROM user_name.table_name TO user_name.table_name;                   
+```
+
+~~~sql
 ALTER REPLICATION ala_replication_name SET OFFLINE ENABLE WITH 'log_dir';
 ALTER REPLICATION ala_replication_name SET OFFLINE DISABLE;
 ALTER REPLICATION ala_replication_name BUILD OFFLINE META [AT SN(sn)];
 ALTER REPLICATION ala_replication_name RESET OFFLINE META;
 ALTER REPLICATION ala_replication_name START WITH OFFLINE;
-```
+~~~
 
 #### 설명
 
-jdbcAdapter를 이용하여 Alitbase에서 변경된 데이타를 Other DB에 적용하는 환경에서,
-서비스를 제공하는 Altibase 서버에서 장애가 발생하면 Other DB에 적용하지 못한 로그를  전송할 수 없게 된다.
-이때 Altibase 서버에 META_LOGGING Option을 수행 중이고, Altibase 서버와 동일한 데이터베이스 구성을 가진
-Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Alitbase 서버의 로그 파일에 직접 접근하여
-미전송 로그를 가져와서 Other DB에 반영할 수 있다.
-
--   META_LOGGING
+-   FOR ANALYSIS OPTIONS META_LOGGING
     이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
     미전송 로그를 읽어 올때 필요한 메타 정보를 구성할 수 있게 한다.
     파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
