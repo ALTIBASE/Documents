@@ -7711,7 +7711,7 @@ Unsigned Integer
 
 ##### Default Value
 
-The number of CPUs in the host
+The number of logical cores
 
 ##### Attributes
 
@@ -7723,7 +7723,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This is the minimum number of shared service threads that Altibase keeps running. The default is the number of CPUs. 
+This is the minimum number of shared service threads that Altibase keeps running. The default is the number of logical cores. 
 
 This parameter cannot be changed after the server has been started..
 
@@ -8048,7 +8048,7 @@ Unsigned Integer
 
 ##### Default Value
 
-2N (N: the number of logical core)
+2N (N: the number of logical cores)
 
 ##### Attributes
 
@@ -8062,7 +8062,7 @@ Read-Only, Single Value
 
 This property controls the number of database refinement and index rebuilding threads that are created to refine the database or rebuild indexes when an Altibase server is restarted.
 
-If this property is commented out, the default system behavior is to generate a number of parallel threads equal to the double of logical core.
+If this property is commented out, the default system behavior is to generate a number of parallel threads equal to the double of logical cores.
 
 #### PARALLEL_QUERY_THREAD_MAX
 
@@ -8072,7 +8072,7 @@ Unsigned Integer
 
 ##### Default Value
 
-The number of CPUs
+The number of logical cores
 
 ##### Attributes
 
@@ -8084,7 +8084,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the maximum number of worker threads that Altibase can create for the execution of parallel queries. On omission, the number of CPUs under the system is set as the default value for this property.
+This property specifies the maximum number of worker threads that Altibase can create for the execution of parallel queries. On omission, the number of logical cores under the system is set as the default value for this property.
 
 The value of this property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
@@ -9037,11 +9037,11 @@ Unsigned Integer
 
 ##### Default Value
 
-The number of CPUs
+The number of logical cores
 
 ##### Attributes
 
-Read-Only, Single Value
+Read-Only, Single ValueTHREAD_CPU_AFFINITY
 
 ##### Range
 
@@ -10870,7 +10870,7 @@ Unsigned Integer
 
 ##### Default Value
 
-The smaller value among 'number of CPUs/2' and '512'
+The smaller value among 'number of logical cores/2' and '512'
 
 ##### Attributes
 
@@ -10886,7 +10886,7 @@ When replication is executed on EAGER mode, multiple Sender threads are operated
 
 When increasing the number of Sender threads with this property, however, the user must note that the order in which the Sender threads send transactions are not guaranteed. For further information about this matter, please refer to the *Replication Manual*.
 
-If this property is not set, the default value is the smaller value among the number of CPUs/2 and 512.
+If this property is not set, the default value is the smaller value among the number of logical cores/2 and 512.
 
 #### REPLICATION_EAGER_RECEIVER_MAX_ERROR_COUNT
 
