@@ -8048,7 +8048,7 @@ Unsigned Integer
 
 ##### Default Value
 
-2N (N: the number of logical core)
+2N (N: the number of logical cores)
 
 ##### Attributes
 
@@ -8062,7 +8062,7 @@ Read-Only, Single Value
 
 This property controls the number of database refinement and index rebuilding threads that are created to refine the database or rebuild indexes when an Altibase server is restarted.
 
-If this property is commented out, the default system behavior is to generate a number of parallel threads equal to the double of logical core.
+If this property is commented out, the default system behavior is to generate a number of parallel threads equal to the double of logical cores.
 
 #### PARALLEL_QUERY_THREAD_MAX
 
@@ -9041,7 +9041,7 @@ The number of logical cores
 
 ##### Attributes
 
-Read-Only, Single Value
+Read-Only, Single ValueTHREAD_CPU_AFFINITY
 
 ##### Range
 
