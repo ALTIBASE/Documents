@@ -1240,7 +1240,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  10  | BIGINT UNSIGNED                 | NUMERIC(20,0)  | There is no compatible data type in Altibase for MySQL BIGINT UNSIGNED type, so NUMERIC type is used to prevent any data loss. |
 |  11  | DECIMAL (NUMERIC)               | VARCHAR(70)    | There is no compatible data type in Altibase for MySQL DECIMAL type, so VARCHAR type is used to prevent any data loss. |
 |  12  | FLOAT                           | FLOAT          |                                                              |
-|  13  | DOUBLE                          | DOUBLE         |                                                              |
+|  13  | DOUBLE                        | VARCHAR(310) | There is no compatible data type in Altibase for MySQL DOUBLE type, so VARCHAR type is used to prevent any data loss. |
 |  14  | BIT                             | VARBIT         |                                                              |
 |  15  | DATETIME                        | DATE           | Time parts are set to ‘0'                                    |
 |  16  | DATE                            | DATE           |                                                              |
