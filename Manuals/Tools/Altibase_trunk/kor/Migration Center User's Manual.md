@@ -2004,7 +2004,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 ##### PostgreSQL
 
 | Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
+| :-------------- | :------------------------: |
 | BIG5           | 2                        |
 | EUC_CN         | 3                        |
 | EUC_JP         | 3                        |
