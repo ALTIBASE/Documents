@@ -198,59 +198,146 @@ Altibase Customer Support(*http://support.altibase.com*).
 
 **Cause:** Failed to invoke the shmat() function.
 
-**Action:** Verify that you have permission to access shared memory. Check the
-error number from the trace log and contact Altibase’s Support Center
-(http://support.altibase.com).
+**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x00013 ( 19) idERR_FATAL_idc_SHM_CTL Unable to delete shared memory**
 
 **Cause:** Failed to invoke the shmctl() function.
 
-**Action:** Verify that you have permission to access shared memory. Check the
-error number from the trace log and contact Altibase’s Support Center
-(http://support.altibase.com).
+**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x00014 ( 20) idERR_FATAL_idc_SEM_CTL Unable to delete a semaphore**
 
 **Cause:** Failed to invoke the semctl() function.
 
-**Action:** Verify that you have permission to access the semaphore. Check the
-error number from the trace log and contact Altibase’s Support Center
-(http://support.altibase.com).
+**Action:** Verify that you have permission to access the semaphore. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x00015 ( 21) idERR_FATAL_idc_SEM_OP Unable to execute operations on a
-semaphore**
+**0x00015 ( 21) idERR_FATAL_idc_SEM_OP Unable to execute operations on a semaphore**
 
 **Cause:** Failed to invoke the semop() function.
 
-**Action:** Check the error number from altibase_boot.log and verify that the
-semaphore group exists.
+**Action:** Check the error number from altibase_boot.log and verify that the semaphore group exists.
 
-**0x0001F ( 31) idERR_FATAL_idc_SVC_INET_BIND_ERROR Unable to bind the INET
-socket.(\<0%d\>)**
+**0x00017 ( 23) idERR_FATAL_idc_CHANNEL_NOT_CREATED Unable to delete the communication channel** 
 
-**Cause:** Failed to invoke the bind() function on the INET socket because the
-port was already in use by another process.
+**Cause:** The system tried to delete an invalid communication channel.
 
-**Action:** Verify that the port is not being used by another process. If it is,
-close that process or select a different port.
+**Action:** Please send a bug report to the vendor.
+
+**0x00018 ( 24) idERR_FATAL_idc_INVALID_CHANNEL_TYPE Unsupported communication channel.** 
+
+*Cause: The system tried to use an unsupported communication channel.
+
+*Action: Please send a bug report to the vendor.
+
+**0x00019 ( 25) idERR_FATAL_idc_MUTEX_LOCK Failed to invoke the mutex_lock() system function** 
+
+*Cause: Failed to invoke the mutex_lock() system function.
+
+*Action: Please send a bug report to the vendor.
+
+**0x0001A ( 26) idERR_FATAL_idc_MUTEX_UNLOCK Failed to invoke the mutex_unlock() system function** 
+
+*Cause: Failed to invoke the mutex_unlock() system function.
+
+*Action: Please send a bug report to the vendor.
+
+**0x0001B ( 27) idERR_FATAL_idc_CLOSE_FAILED Unable to close the communication channel** 
+
+*Cause: Failed to invoke the close() system function.
+
+*Action: Please send a bug report to the vendor.
+
+**0x0001C (     28) idERR_FATAL_idc_SOCKET_SHUTDOWN_FAILED Unable to shut down the communication channel** 
+
+*Cause: Failed to invoke the shutdown() system function.
+
+*Action: Please send a bug report to the vendor.
+
+**0x0001D ( 29) idERR_FATAL_idc_INET_SOCKET_CREATE_FAILED Unable to create an INET socket** 
+
+*Cause: Failed to invoke the socket() function on an INET socket.
+
+*Action: Please send a bug report to the vendor.
+
+**0x0001E ( 30) idERR_FATAL_idc_UNIX_SOCKET_CREATE_FAILED Unable to create a UNIX domain socket**
+
+Cause: Failed to invoke the socket() function on a UNIX domain socket
+
+Action: Please send a bug report to the vendor.
+
+**0x0001F ( 31) idERR_FATAL_idc_SVC_INET_BIND_ERROR Unable to bind the INET socket.(\<0%d\>)**
+
+**Cause:** Failed to invoke the bind() function on the INET socket because the port was already in use by another process.
+
+**Action:** Verify that the port is not being used by another process. If it is, close that process or select a different port.
 
 **0x00020 ( 32) idERR_FATAL_idc_SVC_UNIX_BIND_ERROR Unable to bind the UNIX
 domain socket**
 
-**Cause:** Failed to invoke the bind() function on a UNIX domain socket. The
-port was in use by another process.
+**Cause:** Failed to invoke the bind() function on a UNIX domain socket. The port was in use by another process.
 
-**Action:** Verify that the port is not being used by another process. If it is,
-close that process or select a different port.
+**Action:** Verify that the port is not being used by another process. If it is, close that process or select a different port.
+
+**0x00021 ( 33) idERR_FATAL_idc_SVC_INET_LISTEN_ERROR Failed to invoke the listen() system function** 
+
+**Cause:** Failed to invoke the listen() function on the INET socket
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00022 ( 34) idERR_FATAL_idc_SVC_UNIX_LISTEN_ERROR Unable to invoke the listen() function on the UNIX domain socket **
+
+**Cause:** Failed to invoke the listen() function on the UNIX domain socket
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00023 ( 35) idERR_FATAL_idc_FD_NONBLOCK_FAILED Unable to set the socket to non-blocking mode.** 
+
+**Cause:** Failed to invoke the fcntl() function to set non-blocking mode on a file descriptor.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00024 ( 36) idERR_FATAL_idc_SYS_ACCEPT_FAILED Unable to accept the socket** 
+
+**Cause:** Failed to invoke the accept() system function
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00029 ( 41) idERR_FATAL_idc_SYS_SELECT_FAILED Failed to invoke the select() system function** 
+
+**Cause:** Failed to invoke the select() system function.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x0002A ( 42) idERR_FATAL_WRITELINE_ERROR Unable to communicate with the db admin** 
+
+**Cause:** Failed to invoke the timed_writeline() system function.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x0002B ( 43) idERR_FATAL_SIGMASK_ERROR Unable to mask the signal** 
+
+**Cause:** Failed to invoke the pthread_sigmask() system function.
+
+**Action:** Please send a bug report to the vendor.
 
 **0x0002C ( 44) idERR_FATAL_FILE_OPEN Unable to open a file [\<0%s\>]**
 
-**Cause:** The path of the file is invalid or the storage manager does not have
-permission to open the file.
+**Cause:** The path of the file is invalid or the storage manager does not have permission to open the file.
 
-**Action:** Verify that the path and file name are correct and that you have
-read/write permission for the file.
+**Action:** Verify that the path and file name are correct and that you have read/write permission for the file.
+
+**0x0002D ( 45) idERR_FATAL_THR_NOT_CREATED_BUT_USED No thread object was used.** 
+
+**Cause:** Internal Bug
+
+**Action:** Please send a bug report to the vendor.
+
+**0x0002F ( 47) idERR_FATAL_THR_NOT_STARTED Thread object did not start after <0%u> seconds.** 
+
+**Cause:** Internal Bug
+
+**Action:** Please send a bug report to the vendor.
 
 **0x00032 ( 50) idERR_FATAL_IDU_MEMORY_ALLOCATION Memory allocation failed**
 
@@ -258,21 +345,30 @@ read/write permission for the file.
 
 **Action:** Verify that the system has enough available memory.
 
-**0x00035 ( 53) idERR_FATAL_ThrMutexLock Failed to invoke the mutex_lock()
-system function**
+**0x00033 ( 51) idERR_FATAL_ThrMutexInit Failed to invoke the mutex_init() system function** 
+
+**Cause:** The system failed to initialize a mutex.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00034 ( 52) idERR_FATAL_ThrMutexDestroy Failed to invoke the mutex_destroy() system function** 
+
+**Cause:** The system failed to destroy a mutex.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00035 ( 53) idERR_FATAL_ThrMutexLock Failed to invoke the mutex_lock() system function** 
 
 **Cause:** The system failed to lock a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x00036 ( 54) idERR_FATAL_ThrMutexUnlock Failed to invoke the mutex_unlock()
-system function**
+system function** 
 
 **Cause:** The system failed to unlock a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x0003B ( 59) idERR_FATAL_LongFileName Filename too long**
 
@@ -280,30 +376,59 @@ Support Center (http://support.altibase.com).
 
 **Action:** Shorten the file name.
 
-**0x0003D ( 61) idERR_FATAL_SysOpen Unable to invoke the open() function on
-[\<0%s\>]**
+**0x0003D ( 61) idERR_FATAL_SysOpen Unable to invoke the open() function on [\<0%s\>]** 
 
 **Cause:** The system failed to open the file.
 
-**Action:** Verify that the file exists and that the operating system has not
-already opened the maximum possible number of files.
+**Action:** Verify that the file exists and that the operating system has not already opened the maximum possible number of files.
 
-**0x0003F ( 63) idERR_FATAL_SysRead Unable to invoke the read() function on
-[\<0%s\>]**
+**0x0003E ( 62) idERR_FATAL_SysClose Unable to invoke the close() function on [<0%s>]** 
 
-**Cause:** The system failed to read the file because the disk is physically
-damaged or a bad sector has occurred.
+**Cause:** The system failed to close the file.
 
-**Action:** Execute the fsck command to troubleshoot and fix any filesystem
-errors.
+**Action:** Please send a bug report to the vendor.
 
-**0x00041 ( 65) idERR_FATAL_Sysfstat Unable to invoke the fstat() function on
-[\<0%s\>]**
+**0x0003F ( 63) idERR_FATAL_SysRead Unable to invoke the read() function on [\<0%s\>]**
+
+**Cause:** The system failed to read the file because the disk is physically damaged or a bad sector has occurred.
+
+**Action:** Execute the fsck command to troubleshoot and fix any filesystem errors.
+
+**0x00041 ( 65) idERR_FATAL_Sysfstat Unable to invoke the fstat() function on [\<0%s\>]**
 
 **Cause:** The system failed to call the fstat() function.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+
+**0x00042 ( 66) idERR_FATAL_SyncError Failed to sync a file for [<0%s>].** 
+
+**Cause:** Failed to invoke the sync() function.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00045 ( 69) idERR_FATAL_idm_Sort_Table_Shortage Sort table shortage** 
+
+**Cause:** Too many children in idmModule
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00046 ( 70) idERR_FATAL_idm_Invalid_idmModule Invalid idmModule** 
+
+**Cause:** An invalid idmModule exists.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x0004A ( 74) idERR_FATAL_SysDirectIO Unable to invoke the directio() function on [<0%s>].** 
+
+**Cause:** The system failed to invoke the directio() function on the file
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00064 ( 100) idERR_FATAL_ThrCondWait Failed to invoke the cond_wait() system function** 
+
+**Cause:** The system failed to invoke the cond_wait() function.
+
+**Action:**  Please send a bug report to the vendor.
 
 **0x00065 ( 101) idERR_FATAL_idc_UNIX_PATH_TRUNCATED Unix domain socket path
 truncated.**
@@ -312,55 +437,59 @@ truncated.**
 
 **Action:** The Altibase socket path is too long. Shorten it.
 
-**0x00070 ( 112) idERR_FATAL_DirectIO_Invalid_Argument Invalid argument for
-direct I/O write or read operation on file \<0%s\> (arguments: offset:\<1%lu\>
-buffer:\<2%lu\> size:\<3%lu\>)**
+**0x0006D ( 109) idERR_FATAL_FILE_CLOSE Unable to close a file** 
+
+**Cause:** An invalid File Handle was specified.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x00070 ( 112) idERR_FATAL_DirectIO_Invalid_Argument Invalid argument for direct I/O write or read operation on file \<0%s\> (arguments: offset:\<1%lu\> buffer:\<2%lu\> size:\<3%lu\>)** 
 
 **Cause:** An argument for the direct I/O write or read operation was invalid.
 
-**Action:** Verify that the arguments for the direct I/O read or write operation
-are valid.
+**Action:** Verify that the arguments for the direct I/O read or write operation are valid.
 
-**0x00071 ( 113) idERR_FATAL_WrongDirectIOPageSize The page size for Direct I/O
-should be exactly 512, 1024, 2048, 4096, or 8192.**
+**0x00071 ( 113) idERR_FATAL_WrongDirectIOPageSize The page size for Direct I/O should be exactly 512, 1024, 2048, 4096, or 8192.**
 
 **Cause:** The DIRECT_IO_PAGE_SIZE property is not set to an acceptable value.
 
-**Action:** Set the DIRECT_IO_PAGE_SIZE property to one of 512, 1024(1K),
-2048(2K), 4096(4K), or 8192(8K).
+**Action:** Set the DIRECT_IO_PAGE_SIZE property to one of 512, 1024(1K), 2048(2K), 4096(4K), or 8192(8K).
 
-**0x00072 ( 114) idERR_FATAL_SysSeek Unable to invoke the seek() function on
-[\<0%s\>]**
+**0x00072 ( 114) idERR_FATAL_SysSeek Unable to invoke the seek() function on [\<0%s\>]**
 
-**Cause:** The system failed to change the access position in the file because
-the disk is physically damaged or a bad sector has occurred.
+**Cause:** The system failed to change the access position in the file because the disk is physically damaged or a bad sector has occurred.
 
-**Action:** Execute the fsck command to troubleshoot and fix any filesystem
-errors.
+**Action:** Execute the fsck command to troubleshoot and fix any filesystem errors.
+
+**0x0008C ( 140) idERR_FATAL_MmapFail Failed to invoke the mmap() system function** 
+
+**Cause:** The system failed to map the log file.
+
+**Action:** Please send a bug report to the vendor.
 
 **0x000AD ( 173) idERR_FATAL_THREAD_JOINERROR System error while joining**
 
 **Cause:** The system failed to join a mutex.
 
-**Action:** Check the error number from the altibase_boot.log file and take
-appropriate action.
+**Action:** Check the error number from the altibase_boot.log file and take appropriate action.
 
-**0x000B1 ( 177) idERR_FATAL_Shm_No_Permission No permission for the shared
-memory database**
+**0x000B0 ( 176) idERR_FATAL_SysShmDt Failed to invoke the shmdt() system function** 
 
-**Cause:** A shared memory region has already been created with the same key but
-a different UID.
+**Cause:** The system failed to detach a shared memory region from a process.
 
-**Action:** Please remove the shared memory region, or create a shared memory
-region with another key.
+**Action:** Please send a bug report to the vendor.
 
-**0x000B5 ( 181) idERR_FATAL_PROCESS_CHECK_ALIVE Unable to check if a process is
-alive.**
+**0x000B1 ( 177) idERR_FATAL_Shm_No_Permission No permission for the shared memory database** 
+
+**Cause:** A shared memory region has already been created with the same key but a different UID.
+
+**Action:** Please remove the shared memory region, or create a shared memory region with another key.
+
+**0x000B5 ( 181) idERR_FATAL_PROCESS_CHECK_ALIVE Unable to check if a process is alive.**
 
 **Cause:** Failed to invoke the semctl() function
 
-**Action:** Please verify that you have permission to access the semaphore and
-send a bug report to the vendor.
+**Action:** Please verify that you have permission to access the semaphore and send a bug report to the vendor.
 
 **0x000B6 ( 182) idERR_FATAL_SEM_DELETE Unable to delete the semaphore.**
 
