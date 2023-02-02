@@ -2361,70 +2361,27 @@ TABLE 문에 지정된다.
 
 #### PostgreSQL to Altibase
 
-<table>
-    <tr>        
-        <th>Expression Type</th> <th>원본(PostgreSQL)</th><th>대상(Altibase)</th><th>특이사항</th>
-    </tr>
-    <tr>
-    <td rowspan="18">함수</td>
-        <td>current_role</td><td>USER_NAME()</td><td></td>
-    </tr>
-    <tr>
-        <td >current_schema</td><td>USER_NAME()</td><td></td>
-    </tr> 
-    <tr>
-        <td >current_user</td><td>USER_NAME()</td><td></td>
-    </tr> 
-    <tr>
-        <td >session_user</td><td>USER_NAME()</td><td></td>
-    </tr>
-    <tr>
-        <td >user</td><td>USER_NAME()</td><td></td>
-    </tr>
-    <tr>
-        <td >ceiling(expression)</td><td>CEIL(number)</td><td></td>
-    </tr>
-    <tr>
-        <td >random()</td><td>RANDOM(0)/2147483647</td><td></td>
-    </tr>
-    <tr>
-        <td >bit_length(string)</td><td>8*OCTET_LENGTH(expr)</td><td></td>
-    </tr>
-    <tr>
-        <td >reverse(str)</td><td>REVERSE_STR(expr)</td><td></td>
-    </tr>
-    <tr>
-        <td >strpos(string, substring)</td><td>INSTR (expr, substring)</td><td></td>
-    </tr>
-    <tr>
-        <td >clock_timestamp()</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >current_date</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >current_time</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >current_timestamp</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >localtime</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >localtimestamp</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >now()</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >statement_timestamp()</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >transaction_timestamp()</td><td>SYSDATE</td><td></td>
-    </tr>
-</table>
-
+| Expression Type | 원본(PostgreSQL)          | 대상(Altibase)          | 특이사항 |
+| :-------------- | :------------------------ | :---------------------- | :------- |
+| 함수            | current_role              | USER_NAME()             |          |
+|                 | current_schema            | USER_NAME()             |          |
+|                 | current_user              | USER_NAME()             |          |
+|                 | session_user              | USER_NAME()             |          |
+|                 | user                      | USER_NAME()             |          |
+|                 | ceiling(expression)       | CEIL(number)            |          |
+|                 | random()                  | RANDOM(0)/2147483647    |          |
+|                 | bit_length(string)        | 8*OCTET_LENGTH(expr)    |          |
+|                 | reverse(str)              | REVERSE_STR(expr)       |          |
+|                 | strpos(string, substring) | INSTR (expr, substring) |          |
+|                 | clock_timestamp()         | SYSDATE                 |          |
+|                 | current_date              | SYSDATE                 |          |
+|                 | current_time              | SYSDATE                 |          |
+|                 | current_timestamp         | SYSDATE                 |          |
+|                 | localtime                 | SYSDATE                 |          |
+|                 | localtimestamp            | SYSDATE                 |          |
+|                 | now()                     | SYSDATE                 |          |
+|                 | statement_timestamp()     | SYSDATE                 |          |
+|                 | transaction_timestamp()   | SYSDATE                 |          |
 
 
 아래는 변환 예제이다.
