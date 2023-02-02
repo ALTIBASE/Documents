@@ -1549,15 +1549,19 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
-| Foreign Key 제약       |                   O                   |                   O                    | CASCADE, NO ACTION, SET NULL 옵션은 양쪽 모두 동일한 옵션으로 마이그레이션 대상이다.<br />참조하는 FK가 하나라도 있으면 PK 삭제가 허용되지 않는 RESTRICT 옵션은 Altibase Foreign key 옵션이 없을 때 동작과 동일하기 때문에, 해당 옵션은 삭제되어 마이그레이션 된다.<br />PK 삭제시 참조하는 FK가 default 값으로 대체되는 SET DEFAULT 옵션은 Altibase에서 지원하지 않기 때문에 마이그레이션 수행시 SET NULL로 대체된다. |
-| Index                  |                   O                   |                   O                    | 다양한 PostgreSQL 인덱스 타입 중 Altibase에서 지원하는 인덱스 타입인 B-tree와 R-tree만 마이그레이션 대상이다. |
-| Sequence               |                   O                   |                  O/X                   | PostgreSQL와 Altibase간 두가지 차이점이 있다.<br />첫째, PostgreSQL sequence의 기본 최대값은 9223372036854775807이고 Altibase sequence 최대값은 9223372036854775806으로 지원범위가 다르다. 이에 따라, 9223372036854775807값은 마이그레이션 수행시 9223372036854775806으로 강제 변환된다.<br />둘째, PostgreSQL sequence의 기본 cache size는 1이다. 이에 반해 Altibase는 기본 cache size가 1보다 커야 한다는 제약점이 있다. 따라서, PostgreSQL sequence cache size 1인 경우 Altibase 객체 생성문에 cache 구문을 사용하지 않으며, 이 경우 Altibase 기본 cache size (20) 으로 생성된다.<br /> 'Build Table' 수행시 마이그레이션 대상 테이블 컬럼의 Serial data type을 위해 생성된 Sequence는 테이블과 함께 마이그레이션된다. 이에 반해, 사용자가 명시적으로 생성한 Sequence는 마이그레이션 대상에서 제외된다. |
-| Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
-| View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
-| Materialized View      |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
-| Trigger                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Foreign Key 제약       |                   O                   |                   O                    | CASCADE, NO ACTION, SET NULL 옵션은 양쪽 모두 같은 옵션으로 마이그레이션 대상이다.<br />RESTRICT 옵션은 Altibase에서 Foreign key 옵션이 없을 때와 동작이 같아서, 마이그레이션 시 이 옵션은 삭제된다.<br />SET DEFAULT 옵션은 Altibase에서 지원하지 않기 때문에 마이그레이션 수행 시 SET NULL로 대체된다. |
+| Index                  |                   O                   |                   O                    | PostgreSQL의 다양한 인덱스 타입 중 Altibase에서 지원하는 B-tree와 R-tree만 마이그레이션 대상이다. |
+| Sequence               |                   O                   |                  X                   | PostgreSQ 시퀀스의 최대값의 기본값은 9223372036854775807은 Altibase 시퀀스의 최대값의 기본값 9223372036854775806으로 강제 변환된다.<br/><br/>
 
-> 참고:  위 테이블에 기록되지 않은 PostgreSQL 객체 (예, Exclusion 제약, Type, Enum 등)는 알티베이스에 대응되는 객체가 없어 마이그레이션 대상에서 제외한다.
+PostgreSQL 시퀀스의 cache size가 1이면 Altibase에서 CACHE 절이 삭제되고 Altibase의 기본 cache size 20으로 생성된다.<br/><br/>
+
+'Build Table'에서 사용자가 명시적으로 생성한 시퀀스는 마이그레이션 대상에서 제외되나, 마이그레이션 대상 테이블 칼럼의 Serial data type을 위해 생성된 시퀀스는 테이블과 함께 마이그레이션된다. |
+| Function               |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| View                   |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Materialized View      |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Trigger                |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
+> 참고 : 위 표에 기록되지 않은 PostgreSQL의 객체(예, Exclusion 제약, Type, Enum 등)는 Altibase에 대응되는 객체가 없어 마이그레이션 대상에서 제외한다.
 
 ## C.부록: 데이터 타입 맵핑
 
@@ -1614,8 +1618,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  5   | LONG          | CLOB              |                                                              |
 |  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
 |  7   | FLOAT         | FLOAT             |                                                              |
-|  8   | BINARY FLOAT  | FLOAT             | +Inf, -Inf, and NaN 값들은 알티베이스에서 표현되지 않기 때문에 마이그레이션 중 손실이 일어날 수 있다. |
-|  9   | BINARY DOUBLE | DOUBLE            | +Inf, -Inf, and NaN 값들은 알티베이스에서 표현되지 않기 때문에 마이그레이션 중 손실이 일어날 수 있다. |
+|  8   | BINARY FLOAT  | FLOAT             |                                                              |
+|  9   | BINARY DOUBLE | VARCHAR(310)      | Altibase 에는 오라클 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자 형으로 저장된다. |
 |  10  | DATE          | DATE              |                                                              |
 |  11  | TIMESTAMP     | DATE              | 스케일의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 오라클에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, Altibase에서는 타임스탬프 값의 스케일이 마이크로초(6자리 수)이다. |
 |  12  | RAW           | BLOB              |                                                              |
@@ -1830,45 +1834,47 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 
 #### PostgreSQL to Altibase
 
-|      | 원본     | 대상     | 주의 사항                                                    |
-| :--: | :------- | -------- | :----------------------------------------------------------- |
-|      | SMALLINT | SMALLINT | PostgreSQL 표현 범위 (-32,768 ~ +32,767)에 비해 알티베이스 표현 범위 (-32,767 ~ 32,767)차이로 -32,768 값 데이터 손실이 발생할 수 있다. |
-|      | INTEGER | INTEGER | PostgreSQL 표현 범위 (-2,147,483,648 to +2,147,483,647)에 비해 알티베이스 표현 범위 (-2,147,483,647~ 2,147,483,647) 차이로 -2,147,483,648 값 데이터 손실이 발생할 수 있다. |
-|      | BIGINT | BIGINT | PostgreSQL 표현 범위 (-9,223,372,036,854,775,808 to +9,223,372,036,854,775,807)에 비해 알티베이스 표현 범위 (-9,223,372,036,854,775,807 ~ 9,223,372,036,854,775,807)가  -9,223,372,036,854,775,808 값 데이터 손실이 발생할 수 있다. |
-|              | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL 표현 범위 (Precision: 1 ~ 1,000, , Scale: 0 ~ precision  값)와 알티베이스 표현 범위 (Precision: 1 ~ 38, Scale: -84 ~ 128) 차이로 데이터 손실 가능하다.<br />또한, 알티베이스에서 Infinity, -Infinity, NaN 표현 불가하기 때문에 해당 값들에 대한 데이터 손실 또한 가능하다. |
-|      | REAL | REAL | 동일한 데이터 타입 |
-|      | DOUBLE PRECISION | DOUBLE | 동일한 데이터 타입 |
-| | MONEY | VARCHAR(30) | Altibase에는 PostgreSQL의 MONEY 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다. 단, MONEY 포멧팅이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)인 경우, Reconcile 시작단계의 데이터 타입 매핑에서 numeric (20,2)로 변경하여 숫자형으로 데이터 마이그레이션 가능하다. |
-|      | CHARACTER | CHAR | 동일한 데이터 타입 |
-|      | CHARACTER VARYING | VARCHAR  | PostgreSQL VARCHAR(n)에서 문자형 컬럼 길이가 자동 보정된 값이  알티베이스 최대치 (32,000)보다 작으면 VARCHAR로, 최대치를 넘어서면 CLOB으로 매핑된다. |
-|      | TEXT | CLOB | PostgreSQL TEXT는 최대 크기가 1GB까지 지원하기 때문에 데이터 손실을 방지하기 위해 CLOB으로 매핑한다.|
-| | BOOLEAN | CHAR(1) | Altibase에는 PostgreSQL의 boolean과 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 문자형으로 저장된다. true -> 't', false -> 'f', unknown -> null 값으로 치환된다. |
-|  | DATE | DATE | -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03,  292278994-08-17으로 표현된다. 데이터 마이그레이션 수행시 -infinity와 infinity는 알티베이스에서 21506-12-03, 11567-08-17으로 표현된다. |
-|  | TIME WITH TIME ZONE         | DATE | Altibase에는 time만 표현하는 데이터 타입이 없어 date로 치환된다. time zone 정보는 유실된다. |
-|  | TIME WITHOUT TIME ZONE | DATE | Altibase에는 time만 표현하는 데이터 타입이 없어 date로 치환된다. |
-| | TIMESTAMP WITH TIME ZONE | DATE | time zone 정보는 유실된다. infinity와 -infinity는 PostgreSQL의 특수한 값으로 해당 값은 데이터 마이그레이션시 각각 11567-08-17 08:00:00.0, 21506-12-03 08:00:00.0로 변환된다. |
-| | TIMESTAMP WITHOUT TIME ZONE | DATE | infinity와 -infinity는 PostgreSQL의 특수한 값으로 해당 값은 데이터 마이그레이션시 각각 11567-08-17 08:00:00.0, 21506-12-03 08:00:00.0로 변환된다. |
-| | INTERVAL | VARCHAR(100) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | CIDR | VARCHAR(43) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | INET | VARCHAR(43) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | MACADDR | VARCHAR(17) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | BIT | BIT | PostgreSQL BIT 데이터 타입 최대 컬럼 크기는 83,886,080으로 알티베이스 BIT 최대치인 64,000을 초과한다. 컬럼 크기가 64,000 이하인 경우 BIT 타입으로, 초과하는 경우는 CLOB 타입으로 매핑된다. |
-| | BIT VARYING | VARBIT | PostgreSQL BIT VARYING 데이터 타입 최대 컬럼 크기는 83,886,080으로 알티베이스 VARBIT 최대치인 64,000을 초과한다. 컬럼 크기가 64,000 이하인 경우 VARBIT 타입으로, 초과하는 경우는 CLOB 타입으로 매핑된다. |
-| | XML | CLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB R타입으로 저장된다. |
-| | JSON | CLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
-| | JSONB | BLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 BLOB 타입으로 저장된다. |
-| | ENUM | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | UUID | VARCHAR(36) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | ARRAY | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | COMPOSITE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | RANGE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | POINT | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | LINE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | LSEG | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | BOX | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | PATH | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | POLYGON | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| | CIRCLE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+다음은 PostgreSQL와 Altibase의 데이터 타입의 차이와 마이그레이션 시 주의해야 할 사항을 나타낸 표이다.
+
+|      | PostgreSQL| Altibase| 주의 사항                                                    |
+| :--: | :------- | :-------- | :----------------------------------------------------------- |
+|   1   | SMALLINT | SMALLINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768** ~ 32,767이고 Altibase는 **-32,767** ~ 32,767이다. |
+|   2   | INTEGER | INTEGER | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648** ~ 2,147,483,647이고 Altibase는 **-2,147,483,647** ~ 2,147,483,647이다. |
+|   3   | BIGINT | BIGINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 BIGINT는 -9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807이고 Altibase는 **-9,223,372,036,854,775,807** ~ 9,223,372,036,854,775,807이다. |
+|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1 ~ 1,000, Scale: 0 ~ _precision_ 이고 Altibase는 Precision: 1 ~ 38, Scale: -84 ~ 128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다.|
+|   5   | REAL | REAL |  |
+|   6  | DOUBLE PRECISION | DOUBLE |  |
+|  7   | MONEY | VARCHAR(30) | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다.|
+|  8    | CHARACTER <br/> CHAR | CHAR |  |
+|  9    | CHARACTER VARYING <br/> VARCHAR | VARCHAR 또는 CLOB| PostgreSQL와 Altibase의 문자 집합에 따라 마이그레이션 센터에 의해 자동 보정된 칼럼 길이가 32,000바이트보다 작으면 VARCHAR로, 32,000바이트를 초과하면 CLOB으로 변환한다. 32,000바이트는 Altibase의 VARCHAR 타입의 최대 크기이다. |
+|  10  | TEXT | CLOB | PostgreSQL의 TEXT는 CLOB으로 변환한다.|
+| 11 | BOOLEAN | CHAR(1) | PostgreSQL의 BOOLEAN은 CHAR(1)으로 변환한다. true는 't'로, false는 'f로 변환하여 저장하며 unknown은 널(null)로 저장한다.|
+| 12  | DATE | DATE | PostgreSQL의 DATE에 저장된 -infinity와 infinity는 Altibase에서 각각 21506-12-03, 11567-08-17로 변환된다. 참고로, -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03, 292278994-08-17로 표현된다. |
+| 13 | TIME WITH TIME ZONE         | DATE | Altibase는 시간만 표현하는 데이터 타입이 없어 DATE 타입으로 변환하고 TIME ZONE 정보는 유실된다. |
+|  14 | TIME WITHOUT TIME ZONE | DATE | Altibase는 시간만 표현하는 데이터 타입이 없어 DATE 타입으로 변환한다.  |
+| 15 | TIMESTAMP WITH TIME ZONE | DATE | TIME ZONE 정보는 유실되며, -infinity와 infinity는 Altibase에서 각각 11567-08-17, 21506-12-03 으로 변환된다. |
+| 16 | TIMESTAMP WITHOUT TIME ZONE | DATE | PostgreSQL의 데이터 타입 TIMESTAMP WITHOUT TIME ZONE에 저장된 -infinity와 infinity는 각각 Altibase에서 11567-08-17 08:00:00.0, 21506-12-03 08:00:00.0으로 변환된다.  |
+| 17  | INTERVAL | VARCHAR(100) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 18  | CIDR | VARCHAR(43) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 19  | INET | VARCHAR(43) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 20  | MACADDR | VARCHAR(17) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 21 | BIT | BIT | PostgreSQL의 BIT 칼럼 크기가 64,000비트 이하면 BIT로, 64,000비트를 초과하면 CLOB으로 변환한다. 이는 PostgreSQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. PostgreSQL의 BIT 최대 크기는 83,886,080비트로 Altibase의 64,000비트 보다 크다.|
+| 22 | BIT VARYING | VARBIT 또는 CLOB | PostgreSQL의 BIT VARYING 칼럼 크기가 64,000비트 이하이면 VARBIT 타입으로, 64,000비트를 초과하면 CLOB으로 변환한다. 이는 PostgreSQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. PostgreSQL의 BIT VARYING 최대 크기는 83,886,080비트로 Altibase의 64,000비트 보다 크다. |
+| 23  | XML | CLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
+| 24 | JSON | CLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
+| 25 | JSONB | BLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 BLOB 타입으로 저장된다. |
+| 26 | ENUM | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 27 | UUID | VARCHAR(36) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 28 | ARRAY | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 29 | COMPOSITE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 30 | RANGE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 31 | POINT | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 32 | LINE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 33 | LSEG | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 34 | BOX | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 35 | PATH | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 36 | POLYGON | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 37 | CIRCLE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
 
 
 ### 이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정
