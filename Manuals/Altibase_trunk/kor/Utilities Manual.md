@@ -2056,9 +2056,9 @@ AKU_SERVER_COUNT        = 4
 AKU_QUERY_TIMEOUT       = 3600
 AKU_PORT_NO             = 20300
 AKU_REPLICATION_PORT_NO = 20301
-AKU_FLUSH_AT_END        = 1
-AKU_FLUSH_AT_START = 1
+AKU_FLUSH_AT_START                  = 1
 AKU_FLUSH_TIMEOUT_AT_START = 300
+AKU_FLUSH_AT_END                     = 1
 
 REPLICATIONS = (
     REPLICATION_NAME_PREFIX = "AKU_REP"
@@ -2091,9 +2091,9 @@ REPLICATIONS = (
 | AKU_PORT_NO                          | 20300  | Altibase 서버의 서비스 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_REPLICATION_PORT_NO              | 20301  | Altibase 이중화 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_QUERY_TIMEOUT                    |  3600  | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. ALTER REPLICATION 등 aku에서 수행한 SQL의 수행 시간이 이 값을 초과하면 해당 문장은 취소된다. |
-| AKU_FLUSH_AT_START_VALUE             |   1    | aku -p start시 FLUSH 구문을 통해 이중화 갭 제거 여부<br />1이면 이중화 갭을 제거하며, 0인 경우 제거 없이 시작한다. |
-| AKU_FLUSH_TIMEOUT_AT_START_VALUE     |  300   | AKU_FLUSH_AT_START_VALUE 값이 1일때, 서비스 중인 원격 파드로 부터 이중화 FLUSH를 수행하는 초단위 제한시간<br />0 이면 FLUSH ALL을 수행하며, 1 이상인 경우 FLUSH WAIT AKU_FLUSH_TIMEOUT_AT_START_VALUE를 수행하여 원격 파드로 부터 이중화 데이터를 해당 초 동안 수신한다. |
-| AKU_FLUSH_AT_END_VALUE               |   1    | aku -p end시 Slave Pod에서 종료 전 이중화 갭 제거 여부<br />1 이면 이중화 FLUSH ALL 구문을 통하여 이중화 갭을 제거하며, 0 이면 제거하지 않는다. |
+| AKU_FLUSH_AT_START             |   1    | aku -p start시 FLUSH 구문을 통해 이중화 갭 제거 여부<br />1이면 이중화 갭을 제거하며, 0인 경우 제거 없이 시작한다. |
+| AKU_FLUSH_TIMEOUT_AT_START     |  300   | AKU_FLUSH_AT_START_VALUE 값이 1일때, 서비스 중인 원격 파드로 부터 이중화 FLUSH를 수행하는 초단위 제한시간<br />0 이면 FLUSH ALL을 수행하며, 1 이상인 경우 FLUSH WAIT AKU_FLUSH_TIMEOUT_AT_START_VALUE를 수행하여 원격 파드로 부터 이중화 데이터를 해당 초 동안 수신한다. |
+| AKU_FLUSH_AT_END               |   1    | aku -p end시 Slave Pod에서 종료 전 이중화 갭 제거 여부<br />1 이면 이중화 FLUSH ALL 구문을 통하여 이중화 갭을 제거하며, 0 이면 제거하지 않는다. |
 | REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>*REPLICATION_NAME_PREFIX*_\[*파드번호*]\[*파드번호*\]  형태로 이중화 객체 이름을 생성한다.<sup>[이중화 객체 이름 생성 규칙](#rep_name_rules)</sup> |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
 | REPLICATIONS/USER_NAME               |  없음  | 이중화 대상 테이블의 소유자 이름.<br />여기에 명시한 데이터베이스 사용자는 `aku -p` 명령을 수행하기 전에 생성해야 한다. |
