@@ -35,6 +35,7 @@
     - [SQL Server to Altibase](#sql-server-to-altibase)
     - [TimesTen to Altibase](#timesten-to-altibase)
     - [Tibero to Altibase](#tibero-to-altibase)
+    - [PostgreSQL to Altibase](#postgresql-to-altibase)
   - [C.부록: 데이터 타입 맵핑](#c부록-데이터-타입-맵핑)
     - [데이터 타입 맵핑 테이블 변경](#데이터-타입-맵핑-테이블-변경)
     - [기본 데이터 타입 맵핑 테이블](#기본-데이터-타입-맵핑-테이블)
@@ -70,9 +71,9 @@ Migration Center User's Manual
 
 Altibase Tools & Utilities Migration Center User's Manual
 
-Release 7.11
+Release 7.12
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~2023 Altibase Corp. All Rights Reserved.
 
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
 무단으로 복제 또는 전용할 수 없습니다.
@@ -158,7 +159,7 @@ Center를 사용하는 방법을 기술한다.
 
 - D. 부록: 기본값 맵핑  
   Migration Center가 원본 데이터베이스를 Altibase에 맞춰 변환할 때 상이한
-  테이블 칼럼의 기본값을 변환하기 위한 기본값 맵핑 테이블을 제공한다.
+  테이블 컬럼의 기본값을 변환하기 위한 기본값 맵핑 테이블을 제공한다.
 
 - E. 부록: PSM 변환기 규칙 목록  
   Oracle에서 Altibase로 마이그레이션을 할 때, PSM 변환기가 DDL SQL 문장으로
@@ -182,17 +183,17 @@ Center를 사용하는 방법을 기술한다.
 이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
 설명한다.
 
-| 구성 요소                                       | 의미                                                  |
-| ------------------------------------------- | --------------------------------------------------- |
-| ![image1](media/MigrationCenter/image1.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다.            |
-| ![image2](media/MigrationCenter/image2.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다.    |
+| 구성 요소                                   | 의미                                                         |
+| ------------------------------------------- | ------------------------------------------------------------ |
+| ![image1](media/MigrationCenter/image1.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다. |
+| ![image2](media/MigrationCenter/image2.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다. |
 | ![image3](media/MigrationCenter/image3.gif) | 명령문이 이전 라인으로부터 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 시작한다. |
-| ![image4](media/MigrationCenter/image4.gif) | 명령문이 종료한다.                                          |
-| ![](media/MigrationCenter/image5.gif)       | 필수 항목                                               |
-| ![](media/MigrationCenter/image6.gif)       | 선택적 항목                                              |
-| ![](media/MigrationCenter/image7.gif)       | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.                      |
-| ![](media/MigrationCenter/image8.gif)       | 선택사항이 있는 선택적 항목                                     |
-| ![](media/MigrationCenter/image9.gif)       | 선택적 항목. 여러 항목이 허용된다. 각 반복 앞부분에 콤마가 와야 한다.           |
+| ![image4](media/MigrationCenter/image4.gif) | 명령문이 종료한다.                                           |
+| ![](media/MigrationCenter/image5.gif)       | 필수 항목                                                    |
+| ![](media/MigrationCenter/image6.gif)       | 선택적 항목                                                  |
+| ![](media/MigrationCenter/image7.gif)       | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.          |
+| ![](media/MigrationCenter/image8.gif)       | 선택사항이 있는 선택적 항목                                  |
+| ![](media/MigrationCenter/image9.gif)       | 선택적 항목. 여러 항목이 허용된다. 각 반복 앞부분에 콤마가 와야 한다. |
 
 ##### 샘플 코드 규칙
 
@@ -201,16 +202,16 @@ Center를 사용하는 방법을 기술한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
-| 규칙      | 의미                                                | 예제                                                                                                           |
-| ------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| [ ]     | 선택 항목을 표시                                         | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                                                                     |
-| { }     | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시                   | { ENABLE \| DISABLE \| COMPILE }                                                                             |
-| \|      | 선택 또는 필수 항목 표시의 인자 구분 표시                          | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                            |
-| . . .   | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시                 | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                               | EXEC :p1 := 1; acc NUMBER(11,2);                                                                             |
-| 기울임 꼴   | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치       | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;                                                    |
-| 소문자     | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                                  |
-| 대문자     | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                    | DESC SYSTEM_.SYS_INDICES_;                                                                                   |
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;    |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 컬럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### 관련 자료
 
@@ -383,6 +384,8 @@ Altibase가 대상 데이터베이스일 경우 마이그레이션이 가능한 
 - CUBRID: 8.4.1\~9.3.5(ISO-8859-1, UTF-8 charset)
 
 - Tibero: 4sp1~6
+
+- PostgreSQL: 9.5.3
 
 ##### Oracle이 대상 데이터베이스인 경우
 
@@ -659,15 +662,15 @@ Altibase 고객서비스포털에 고객 등록 정보와 함께 보내기만 �
 1. Migration Center 시작
 
 2. 프로젝트 준비
-   
+
    1. 원본 데이터베이스와 대상 데이터베이스 연결 등록
-   
+
    2. 프로젝트 생성
-   
+
    3. 프로젝트 열기
-   
+
    4. 원본 및 대상 데이터베이스에 연결
-   
+
    5. 마이그레이션 옵션 설정
 
 3. 프로젝트 구축
@@ -692,27 +695,27 @@ Migration Center를 GUI모드로 실행할 수 있다. 유닉스 계열의 운�
    도구 모음에서 "Add Database Connection" 아이콘을 클릭한다.
 
 2. "Add Database Connection" 대화 상자에서 다음의 입력 필드를 채운다.
-   
+
    1. DB Product: 데이터베이스 시스템의 이름.
-   
+
    2. Connection Name: Migration Center 프로젝트에서 사용될 고유한
       데이터베이스 연결 이름
-   
+
    3. IP: 데이터베이스 서버의 IP 주소.
-   
+
    4. Port: 데이터베이스 서버의 포트 번호 또는 Altibase 서버의 SSL 포트 번호
-   
+
    5. User: 데이터베이스에서 유효한 사용자 ID
-   
+
    6. Password: 사용자 ID의 비밀번호
-   
+
    7. JDBC Driver: 데이터베이스에 연결하기 위해 사용될 JDBC 드라이버 파일의
       경로
-   
+
    8. Encoding: 클라이언트가 사용하는 기본 문자 집합(character set)
-   
+
    9. IP Version: 이 연결에 사용될 IP 프로토콜의 버전
-   
+
    10. Property: 이 연결에 사용될 JDBC 드라이버 프로퍼티  
        만약 SSL로 접속할 때에는 아래처럼 ssl_enable=true로 지정하고
        *path_to_keystore, path_to_truststore, password*는 각각의 인증 환경에
@@ -734,7 +737,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
    "Create Project" 아이콘을 클릭한다.
 
 2. "New Project" 대화 상자에서 입력 필드를 채운다:
-   
+
    1. Project Name: Migration Center에서 고유하고 사용자에게 의미 있는
       마이그레이션 프로젝트 이름
    2. Project Path: 마이그레이션 프로젝트 파일을 저장할 폴더 경로이다. 그러나,
@@ -887,9 +890,9 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 사용자들은 아래 과정에 따라 CLI 모드로 쉽게 마이그레이션을 수행할 수 있다.
 
 1. 프로젝트 준비
-   
+
    1. 데이터베이스 연결정보 및 프로젝트 등록
-   
+
    2. 마이그레이션 옵션 설정
 
 2. 프로젝트 구축
@@ -1104,11 +1107,11 @@ Altibase의 테이블스페이스에 대한 자세한 내용은 각각의 *Admin
   - DbObj_Drop.sql: 마이그레이션 될 데이터베이스 객체를 삭제하는 SQL
     스크립트 파일
 - PL/SQL 변환 보고서: PL/SQL 변환기에서 출력하는 다수의 보고서이다.
-  
+
   - sqlconv.html: 원본과 변환된 PL/SQL의 차이를 비교하는 HTML 형식의 보고서
-  
+
   - sqlconv_src.sql: 입력된 PL/SQL문을 텍스트 형식으로 출력하는 보고서
-  
+
   - sqlconv_dest.sql: 변환된 PL/SQL문과 적용된 규칙이 코멘트로 덧붙여져 있는
     텍스트 형식의 보고서
 
@@ -1250,16 +1253,16 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 2. Table & Data: 테이블 객체 및 데이터 마이그레이션
 
 3. PostSchema:
-   
+
    1. Queue: 큐 객체 마이그레이션
-   
+
    2. Constraints: 유니크, 프라이머리 키, 외래 키, 및 check 제약 조건 등의
       제약 조건 마이그레이션
-   
+
    3. Index: 인덱스 객체 마이그레이션
-   
+
    4. Synonym: PRIVATE 시노님 객체 마이그레이션
-   
+
    5. Procedures, Functions, Materialized Views, Views, Typesets 및 Triggers:
       DBMS 및 버전에 따라 상이함
 
@@ -1282,7 +1285,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 - Primary Key 제약조건이 존재하는 테이블에 한해서만 검증 단계를 수행할 수
   있다.
 
-- LOB 칼럼은 데이터 비교 대상에서 제외된다.
+- LOB 컬럼은 데이터 비교 대상에서 제외된다.
 
 #### 출력
 
@@ -1376,7 +1379,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | ------------------------------------------------------------ |
-| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
@@ -1416,12 +1419,12 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :----------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                    |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                    |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약         |                   O                   |                   O                    |                                                              |
 | Unique 제약              |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약         |                   O                   |                   O                    |                                                              |
 | Index                    |                   O                   |                   O                    | CUBRID의 Reverse index와 Prefix length index는 Altibase에서 지원하지 않는다. Reverse index는 인덱스 생성시 키 값을 역으로 넣는 방식으로, Altibase 마이그레이션에서 지원하지 않는다. Prefix length index는 키 값의 일정 부분만을 인덱싱하는 기법으로, 마이그레이션시 Altibase의 일반 인덱스로 대체된다. |
-| auto_increment 칼럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| auto_increment 컬럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Serial                   |                   O                   |                   X                    | Sequence로 마이그레이션된다.                                 |
 | Procedure                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Function                 |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1432,13 +1435,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
 | Index                  |                   O                   |                   O                    |                                                              |
-| Serial 칼럼 타입       |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| Serial 컬럼 타입       |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Sequence               |                   O                   |                   X                    |                                                              |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1450,13 +1453,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :----------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                    |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                    |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약         |                   O                   |                   O                    |                                                              |
 | Unique 제약              |                   O                   |                   O                    |                                                              |
 | Check 제약               |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약         |                   O                   |                   O                    |                                                              |
 | Index                    |                   O                   |                   O                    |                                                              |
-| auto_increment 칼럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| auto_increment 컬럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Procedure                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Function                 |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | View                     |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1466,7 +1469,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다.테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다.테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
@@ -1485,13 +1488,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
 | Index                  |                   O                   |                   O                    |                                                              |
-| Identity 칼럼 속성     |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| Identity 컬럼 속성     |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Sequence               |                   O                   |                   X                    | SQL Server 2012 지원                                         |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1503,7 +1506,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
@@ -1521,12 +1524,12 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | Tibero(원본 데이터베이스)의 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | Tibero(원본 데이터베이스)의 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 칼럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. |
+| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 컬럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. |
 | Sequence               |                   O                   |                   X                    |                                                              |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -1537,6 +1540,28 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Trigger                |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
 
 > 참고:  Tibero의 Procedure, Function, View, Materialized View, Trigger는 객체를 마이그레이션하기 위해 Third-Party에서 제공하는 Oracle용 SQL 파서를 사용한다. 따라서, Oracle 문법과 호환되지 않는 Tibero 고유의 문법으로 생성된 객체는 변환과정에서 파싱 에러가 발생가능하며, 이 경우 사용자가 수동으로 문법을 변환해야 한다.
+
+### PostgreSQL to Altibase
+
+다음은 PostgreSQL에서 Altibase로 마이그레이션할 때 지원하는 데이터베이스 객체와 주의 사항 그리고 지원하지 않는 객체를 설명한 표이다.
+
+| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
+| :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
+| Table                  |                   O                   |                   O                    | 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다.<br />PostgreSQL은 테이블에 생성할 수 있는 최대 컬럼의 개수가 1,600개이고 Altibase는 1,024개이므로, 마이그레이션 수행 시 주의해야 한다. |
+| Primary Key 제약       |                   O                   |                   O                    |                                                              |
+| Unique 제약            |                   O                   |                   O                    |                                                              |
+| Check 제약             |                   O                   |                   O                    |                                                              |
+| Foreign Key 제약       |                   O                   |                   O                    | CASCADE, NO ACTION, SET NULL 옵션은 양쪽 모두 같은 옵션으로 마이그레이션 대상이다.<br />RESTRICT 옵션은 Altibase에서 Foreign key 옵션이 없을 때와 동작이 같아서, 마이그레이션 시 이 옵션은 삭제한다.<br />SET DEFAULT 옵션은 Altibase에서 지원하지 않기 때문에 마이그레이션 수행 시 SET NULL로 변환한다. |
+| Index                  |                   O                   |                   O                    | PostgreSQL의 다양한 인덱스 타입 중 Altibase에서 지원하는 B-tree와 R-tree만 마이그레이션 대상이다. |
+| Sequence               |                   O                   |                   X                    | PostgreSQL 시퀀스의 기본 최댓값 9223372036854775807은 Altibase 시퀀스의 기본 최댓값 9223372036854775806으로 강제 변환한다.<br/>PostgreSQL 시퀀스의 캐시 크기가 1이면 Altibase에서 CACHE 절을 삭제하고 Altibase의 기본 캐시 크기 20으로 생성한다.<br /><br />'Build Table'에서 사용자가 명시적으로 생성한 시퀀스는 마이그레이션 대상에서 제외되나, 마이그레이션 대상 테이블 컬럼의 Serial 데이터 타입을 위해 생성된 시퀀스는 테이블과 함께 마이그레이션된다. |
+| Function               |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| View                   |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Materialized View      |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Trigger                |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
+> 참고 : 위 표에 기록되지 않은 PostgreSQL의 객체(예, Exclusion 제약, Type, Enum 등)는 Altibase에 대응되는 객체가 없어 마이그레이션 대상에서 제외한다.
+
+<br/>
 
 ## C.부록: 데이터 타입 맵핑
 
@@ -1557,6 +1582,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
     <img src="media/MigrationCenter/datatypemapping-step-1.png">
 </div>
 
+
 **2. Data Type Mapping**
 
 Reconcile 메뉴를 선택하면 아래와 같이 Reconcile 창이 뜬다. 사용자는 이 창에서 Migration Center의 기본 데이터 타입 매핑 테이블을 확인할 수 있고 "1. Data Type Mapping"에서 대상 데이터베이스의 데이터 타입을 변경할 수 있다. 변경하고 싶은 데이터 타입을 선택하고 오른쪽 하단의 Change 버튼을 클릭한다.
@@ -1565,6 +1591,7 @@ Reconcile 메뉴를 선택하면 아래와 같이 Reconcile 창이 뜬다. 사�
     <img src="media/MigrationCenter/datatypemapping-step-2.png">
 </div>
 
+
 **3. Change Mapping Type**
 
 Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창에서 Destination DB Data Type에서 변경할 데이터 타입을 선택한다. 데이터 타입에 따라 필요 시 Precision과 Scale도 입력하고 OK 버튼을 클릭한다. 
@@ -1572,6 +1599,7 @@ Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창�
 <div align="left">
     <img src="media/MigrationCenter/datatypemapping-step-3.png">
 </div>
+
 
 ### 기본 데이터 타입 맵핑 테이블
 
@@ -1587,11 +1615,11 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |      | 원본          | 대상              | 주의 사항                                                    |
 | :--: | :------------ | :---------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
-|  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) -\> NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
+|  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 컬럼의 명시적인 크기는 같다(예. NCHAR(10) -\> NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 컬럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 컬럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 컬럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
 |  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
-|  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 칼럼 크기가 서로 다르다.                |
+|  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 컬럼 크기가 서로 다르다.                |
 |  5   | LONG          | CLOB              |                                                              |
-|  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
+|  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 컬럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 컬럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
 |  7   | FLOAT         | FLOAT             |                                                              |
 |  8   | BINARY FLOAT  | FLOAT             |                                                              |
 |  9   | BINARY DOUBLE | VARCHAR(310)      | Altibase 에는 오라클 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자 형으로 저장된다. |
@@ -1652,7 +1680,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다 |
 |  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
 |  12  | FLOAT              | FLOAT                           |                                                              |
-|  13  | DOUBLE             | VARCHAR(310)                    | Altibase에는 MySQL DOUBLE 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  13  | DOUBLE             | DOUBLE                          | TODO: BUG-49993                                              |
 |  14  | BIT                | VARBIT                          |                                                              |
 |  15  | DATETIME           | DATE                            | 시각 부분이 0으로 설정된다.                                  |
 |  16  | DATE               | DATE                            |                                                              |
@@ -1794,7 +1822,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  3   | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
 |  4   | NVARCHAR      | NVARCHAR        |                                                              |
 |  5   | LONG          | CLOB            |                                                              |
-|  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
+|  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 컬럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 컬럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
 |  7   | BINARY FLOAT  | FLOAT           |                                                              |
 |  8   | BINARY DOUBLE | VARCHAR(310)    | Altibase에는 티베로의 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다. |
 |  9   | DATE          | DATE            |                                                              |
@@ -1806,6 +1834,51 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
 |  17  | ROWID         | VARCHAR(18)     | 티베로의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
+
+#### PostgreSQL to Altibase
+
+다음은 PostgreSQL와 Altibase의 데이터 타입의 차이와 마이그레이션 시 주의해야 할 사항을 나타낸 표이다.
+
+|      | PostgreSQL                      | Altibase          | 주의 사항                                                    |
+| :--: | :------------------------------ | :---------------- | :----------------------------------------------------------- |
+|  1   | SMALLINT                        | SMALLINT          | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768** ~ 32,767이고 Altibase는 **-32,767** ~ 32,767이다. |
+|  2   | INTEGER                         | INTEGER           | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648** ~ 2,147,483,647이고 Altibase는 **-2,147,483,647** ~ 2,147,483,647이다. |
+|  3   | BIGINT                          | BIGINT            | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 BIGINT는 **-9,223,372,036,854,775,808** ~ 9,223,372,036,854,775,807이고 Altibase는 **-9,223,372,036,854,775,807** ~ 9,223,372,036,854,775,807이다. |
+|  4   | NUMERIC (DECIMAL)               | NUMERIC           | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1 ~ 1,000, Scale: 0 ~ _precision_ 이고 Altibase는 Precision: 1 ~ 38, Scale: -84 ~ 128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다. |
+|  5   | REAL                            | REAL              |                                                              |
+|  6   | DOUBLE PRECISION                | DOUBLE            |                                                              |
+|  7   | MONEY                           | VARCHAR(30)       | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다. |
+|  8   | CHARACTER <br/> CHAR            | CHAR              |                                                              |
+|  9   | CHARACTER VARYING <br/> VARCHAR | VARCHAR 또는 CLOB | PostgreSQL와 Altibase의 문자 집합에 따라 마이그레이션 센터에 의해 자동 보정된 컬럼 길이가 32,000바이트보다 작으면 VARCHAR로, 32,000바이트를 초과하면 CLOB으로 변환한다. 32,000바이트는 Altibase의 VARCHAR 타입의 최대 크기이다. |
+|  10  | TEXT                            | CLOB              | PostgreSQL의 TEXT는 CLOB으로 변환한다.                       |
+|  11  | BOOLEAN                         | CHAR(1)           | PostgreSQL의 BOOLEAN은 CHAR(1)으로 변환한다. true는 't'로, false는 'f로 변환하여 저장하며 unknown은 널(null)로 저장한다. |
+|  12  | DATE                            | DATE              | PostgreSQL의 DATE에 저장된 -infinity와 infinity는 Altibase에서 각각 21506-12-03, 11567-08-17로 변환된다. 참고로, -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03, 292278994-08-17로 표현된다. |
+|  13  | TIME WITH TIME ZONE             | DATE              | Altibase는 시간만 표현하는 데이터 타입이 없어 DATE 타입으로 변환하고 TIME ZONE 정보는 유실된다. |
+|  14  | TIME WITHOUT TIME ZONE          | DATE              | Altibase는 시간만 표현하는 데이터 타입이 없어 DATE 타입으로 변환한다. |
+|  15  | TIMESTAMP WITH TIME ZONE        | DATE              | TIME ZONE 정보는 유실되며, -infinity와 infinity는 Altibase에서 각각 11567-08-17, 21506-12-03 으로 변환된다. |
+|  16  | TIMESTAMP WITHOUT TIME ZONE     | DATE              | PostgreSQL의 데이터 타입 TIMESTAMP WITHOUT TIME ZONE에 저장된 -infinity와 infinity는 각각 Altibase에서 11567-08-17 08:00:00.0, 21506-12-03 08:00:00.0으로 변환된다. |
+|  17  | INTERVAL                        | VARCHAR(100)      | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  18  | CIDR                            | VARCHAR(43)       | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  19  | INET                            | VARCHAR(43)       | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  20  | MACADDR                         | VARCHAR(17)       | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  21  | BIT                             | BIT               | PostgreSQL의 BIT 컬럼 크기가 64,000비트 이하면 BIT로, 64,000비트를 초과하면 CLOB으로 변환한다. 이는 PostgreSQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. PostgreSQL의 BIT 최대 크기는 83,886,080비트로 Altibase의 64,000비트 보다 크다. |
+|  22  | BIT VARYING                     | VARBIT 또는 CLOB  | PostgreSQL의 BIT VARYING 컬럼 크기가 64,000비트 이하이면 VARBIT 타입으로, 64,000비트를 초과하면 CLOB으로 변환한다. 이는 PostgreSQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. PostgreSQL의 BIT VARYING 최대 크기는 83,886,080비트로 Altibase의 64,000비트 보다 크다. |
+|  23  | XML                             | CLOB              | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
+|  24  | JSON                            | CLOB              | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
+|  25  | JSONB                           | BLOB              | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 BLOB 타입으로 저장된다. |
+|  26  | ENUM                            | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  27  | UUID                            | VARCHAR(36)       | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  28  | ARRAY                           | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  29  | COMPOSITE                       | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  30  | RANGE                           | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  31  | POINT                           | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  32  | LINE                            | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  33  | LSEG                            | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  34  | BOX                             | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  35  | PATH                            | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  36  | POLYGON                         | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+|  37  | CIRCLE                          | VARCHAR(32000)    | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+
 
 ### 이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정
 
@@ -1937,9 +2010,56 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 | ZHT16MSWIN950  | 2                        |
 | ZHT32EUC       | 4                        |
 
+##### PostgreSQL
+
+| Character Set  | Max. Bytes Per Character |
+| :------------- | :----------------------: |
+| BIG5           |            2             |
+| EUC_CN         |            3             |
+| EUC_JP         |            3             |
+| EUC_JIS_2004   |            3             |
+| EUC_KR         |            3             |
+| EUC_TW         |            3             |
+| GB18030        |            4             |
+| GBK            |            2             |
+| ISO_8859_5     |            1             |
+| ISO_8859_6     |            1             |
+| ISO_8859_7     |            1             |
+| ISO_8859_8     |            1             |
+| JOHAB          |            3             |
+| KOI8R          |            1             |
+| KOI8U          |            1             |
+| LATIN1         |            1             |
+| LATIN2         |            1             |
+| LATIN3         |            1             |
+| LATIN4         |            1             |
+| LATIN5         |            1             |
+| LATIN6         |            1             |
+| LATIN7         |            1             |
+| LATIN8         |            1             |
+| LATIN9         |            1             |
+| LATIN10        |            1             |
+| MULE_INTERNAL  |            4             |
+| SJIS           |            2             |
+| SHIFT_JIS_2004 |            2             |
+| SQL_ASCII      |            1             |
+| UHC            |            2             |
+| UTF8           |            4             |
+| WIN866         |            1             |
+| WIN874         |            1             |
+| WIN1250        |            1             |
+| WIN1251        |            1             |
+| WIN1252        |            1             |
+| WIN1253        |            1             |
+| WIN1254        |            1             |
+| WIN1255        |            1             |
+| WIN1256        |            1             |
+| WIN1257        |            1             |
+| WIN1258        |            1             |
+
 ## D.부록: 기본값 맵핑
 
-Altibase의 테이블 칼럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
+Altibase의 테이블 컬럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
 
 하지만 이기종 데이터베이스들 간의 기본값 정책이 일부 상이하여, Migration
 Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스의 값을 Altibase정책에
@@ -1953,7 +2073,7 @@ Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스
 Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 데이터베이스 에 원본
 데이터베이스의 테이블과 동일한 테이블을 생성한다. 이를 위해 원본 데이터베이스의
 테이블 속성과 일치하는 테이블 생성 구문을 먼저 만든다. 이 때 Migration Center는
-원본 테이블의 칼럼 기본값과 동일하게 대상 테이블의 칼럼에 기본값을 설정하려
+원본 테이블의 컬럼 기본값과 동일하게 대상 테이블의 컬럼에 기본값을 설정하려
 한다. 이 절의 맵핑 테이블에 나열된 기본값은 Migration Center가 CREATE TABLE 문
 생성시에 표에 따라 변환하여 지정한다. 그 외의 기본값은 변경 없이 그대로 CREATE
 TABLE 문에 지정된다.
@@ -2009,10 +2129,11 @@ TABLE 문에 지정된다.
     </tr>
 </table>
 
+
 아래는 변환 예제이다.
 
-| 오라클의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                         | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 오라클의 테이블 생성 SQL문                                   | Altibase의 테이블 생성 SQL문                                 |
+| :----------------------------------------------------------- | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME() ); |
 
 #### MS SQL Server to Altibase
@@ -2038,10 +2159,11 @@ TABLE 문에 지정된다.
     </tr>
 </table>
 
+
 아래는 변환 예제이다.
 
-| MS SQL Server의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                              | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                      |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| MS SQL Server의 테이블 생성 SQL문                            | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval <br />( c1 BIT DEFAULT 0, <br />c2 INT DEFAULT 2 + 3, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 NCHAR(10) DEFAULT '', <br />c6 FLOAT DEFAULT sqrt(12 \* 12), <br />c7 DATE DEFAULT 'December 5, 1985', <br />c8 DATE DEFAULT getdate(), <br />c9 DATETIME DEFAULT CURRENT_TIMESTAMP,<br /> c10 INT DEFAULT len('test'), ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 CHAR (1) DEFAULT (0), <br />C2 INTEGER DEFAULT (2)+(3), <br />C3 VARCHAR (50) DEFAULT 'test', <br />C4 INTEGER, <br />C5 NCHAR (10), <br />C6 VARCHAR (310) DEFAULT sqrt((12)\*(12)), <br />C7 DATE /\* DEFAULT 'December 5, 1985' \*/, <br />C8 DATE DEFAULT SYSDATE, <br />C9 DATE DEFAULT SYSDATE, <br />C10 INTEGER DEFAULT LENGTH('test') ); |
 
 #### MySQL to Altibase
@@ -2085,14 +2207,15 @@ TABLE 문에 지정된다.
     </tr>
 </table>
 
-> 참고: MySQL은 테이블의 첫 칼럼의 데이터 타입이 TIMESTAMP인 경우, 사용자가
+
+> 참고: MySQL은 테이블의 첫 컬럼의 데이터 타입이 TIMESTAMP인 경우, 사용자가
 > 기본값을 지정하지 않아도 기본값으로 CURRENT_TIMESTAMP이 자동으로 지정된다.
 > 따라서, 이 경우 기본값이 SYSDATE으로 변환된다. 아래의 예제를 참고하라.
 
 아래는 변환 예제이다.
 
-| MySQL의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                  | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MySQL의 테이블 생성 SQL문                                    | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
 
 #### Informix 11.5 to Altibase
@@ -2115,10 +2238,11 @@ TABLE 문에 지정된다.
     </tr>     
 </table>
 
+
 아래는 변환 예제이다.
 
-| Informix의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                    | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Informix의 테이블 생성 SQL문                                 | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
 
 #### TimesTen to Altibase
@@ -2144,10 +2268,11 @@ TABLE 문에 지정된다.
     </tr>     
 </table>
 
+
 아래는 변환 예제이다.
 
-| TimesTen의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                       | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                            |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| TimesTen의 테이블 생성 SQL문                                 | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR2(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 DATE DEFAULT '1999-12-01', <br />c5 TIMESTAMP DEFAULT '1999-12-01 11:30:21', <br />c6 TIME DEFAULT '11:30:21', <br />c7 VARCHAR(100) DEFAULT UID, <br />c8 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR2(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c5 TIMESTAMP DEFAULT TO_DATE('1999-12-01 11:30:21', 'YYYY-MM-DD HH:MI:SS), <br />c6 TIME DEFAULT TO_DATE('11:30:21', 'HH:MI:SS'), c7 VARCHAR(100) DEFAULT UID, <br />c8 VARCHAR(100) DEFAULT USER ); |
 
 #### CUBRID to Altibase
@@ -2164,10 +2289,11 @@ TABLE 문에 지정된다.
     </tr>     
 </table>
 
+
 아래는 변환 예제이다.
 
-| CUBRID의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CUBRID의 테이블 생성 SQL문                                   | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 CHARACTER VARYING (50) DEFAULT 'test', <br />c3 INTEGER, <br />c4 CHARACTER VARYING (100) DEFAULT 'USER', <br />c5 CHARACTER VARYING (100) DEFAULT 'CURRENT_USER', <br />c6 CHARACTER VARYING(100) DEFAULT ' ', <br />c7 DATE DEFAULT DATE'2008-10-31', <br />c8 TIME DEFAULT TIME'1:15', <br />c9 TIMESTAMP DEFAULT TIMESTAMP'10/31', <br />c10 DATETIME DEFAULT DATETIME'01:15:45 PM 2008-10-31' ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 INTEGER, <br />C4 VARCHAR (100) DEFAULT USER_ID(), <br />C5 VARCHAR (100) DEFAULT USER_ID(), <br />C6 VARCHAR (100) DEFAULT ' ', <br />C7 DATE /\* DEFAULT '10/31/2008' \*/, <br />C8 DATE /\* DEFAULT '01:15:00 AM' \*/, <br />C9 DATE /\* DEFAULT '12:00:00 AM 10/31/2016' \*/, <br />C10 DATE /\* DEFAULT '01:15:45.000 PM 10/31/2008' \*/ ); |
 
 #### Altibase to Oracle
@@ -2193,10 +2319,11 @@ TABLE 문에 지정된다.
     </tr>
 </table>
 
+
 아래는 변환 예제이다.
 
-| Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                           | Oracle의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Altibase의 테이블 생성 SQL문                                 | Oracle의 테이블 생성 SQL문                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval <br />( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM'), <br />c7 VARCHAR(100) DEFAULT DB_TIMEZONE(), <br />c8 VARCHAR(100) DEFAULT SYS_GUID_STR(), <br />c9 VARCHAR(100) DEFAULT USER_ID(), <br />c10 VARCHAR(100) DEFAULT USER_NAME() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 NUMBER (10) DEFAULT 123 ,<br />C2 VARCHAR2 (50) DEFAULT 'test' ,<br />C3 NUMBER (10) ,<br />C4 CHAR (10) ,<br />C5 NUMBER (10) DEFAULT SQRT(144) + 72 ,<br />C6 TIMESTAMP  DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM') ,<br />C7 VARCHAR2 (100) DEFAULT DBTIMEZONE ,<br />C8 VARCHAR2 (100) DEFAULT SYS_GUID() ,<br />C9 VARCHAR2 (100) DEFAULT UID ,<br />C10 VARCHAR2 (100) DEFAULT USER ); |
 
 #### Tibero to Altibase
@@ -2225,11 +2352,43 @@ TABLE 문에 지정된다.
     </tr>
 </table>
 
+
 아래는 변환 예제이다.
 
-| Tibero의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                    | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tibero의 테이블 생성 SQL문                                   | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT QRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL(  <br />C1  NUMBER (38, 0)  DEFAULT 123,    <br />C2  VARCHAR (50)    DEFAULT 'test',    <br />C3  NUMBER (38, 0),    <br />C4  CHAR (10),    <br />C5  NUMBER (38, 0)  DEFAULT SQRT(144) + 72,   <br />C6  DATE /\* DEFAULT '97/04/21' \*/,    <br />C7  DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'),    <br />C8  VARCHAR (100)   DEFAULT DB_TIMEZONE(),    <br />C9  VARCHAR (100)   DEFAULT SYS_GUID_STR(),<br />C10 VARCHAR (100)   DEFAULT USER_ID(), <br />C11 VARCHAR (100)   DEFAULT USER_NAME() ); |
+
+#### PostgreSQL to Altibase
+
+| Expression Type | 원본(PostgreSQL)          | 대상(Altibase)          | 특이사항 |
+| :-------------- | :------------------------ | :---------------------- | :------- |
+| 함수            | current_role              | USER_NAME()             |          |
+|                 | current_schema            | USER_NAME()             |          |
+|                 | current_user              | USER_NAME()             |          |
+|                 | session_user              | USER_NAME()             |          |
+|                 | user                      | USER_NAME()             |          |
+|                 | ceiling(expression)       | CEIL(number)            |          |
+|                 | random()                  | RANDOM(0)/2147483647    |          |
+|                 | bit_length(string)        | 8*OCTET_LENGTH(expr)    |          |
+|                 | reverse(str)              | REVERSE_STR(expr)       |          |
+|                 | strpos(string, substring) | INSTR (expr, substring) |          |
+|                 | clock_timestamp()         | SYSDATE                 |          |
+|                 | current_date              | SYSDATE                 |          |
+|                 | current_time              | SYSDATE                 |          |
+|                 | current_timestamp         | SYSDATE                 |          |
+|                 | localtime                 | SYSDATE                 |          |
+|                 | localtimestamp            | SYSDATE                 |          |
+|                 | now()                     | SYSDATE                 |          |
+|                 | statement_timestamp()     | SYSDATE                 |          |
+|                 | transaction_timestamp()   | SYSDATE                 |          |
+
+
+아래는 변환 예제이다.
+
+| PostgreSQL의 테이블 생성 SQL문                               | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| CREATE TABLE testtbl_4_defval <br />( c1 VARCHAR(50) DEFAULT current_role,<br/>c2 VARCHAR(50) DEFAULT current_schema,<br/>c3 VARCHAR(50) DEFAULT current_user,<br/>c4 VARCHAR(50) DEFAULT session_user,<br/>c5 VARCHAR(50) DEFAULT user,<br/>c6 INTEGER DEFAULT ceiling(-95.3),<br/>c7 DOUBLE PRECISION DEFAULT random(),<br/>c8 INTEGER DEFAULT bit_length('abc'),<br/>c9 VARCHAR(50) DEFAULT reverse('reverse'),<br/>c10 INTEGER DEFAULT strpos('high', 'ig'),<br/>c11 timestamp with time zone DEFAULT clock_timestamp(),<br/>c12 date DEFAULT current_date,<br/>c13 time with time zone DEFAULT current_time,<br/>c14 timestamp with time zone DEFAULT current_timestamp,<br/>c15 time DEFAULT localtime,<br/>c16 timestamp DEFAULT localtimestamp,<br/>c17 timestamp with time zone DEFAULT now(),<br/>c18 timestamp with time zone DEFAULT transaction_timestamp() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 VARCHAR (50) DEFAULT USER_NAME()<br/>,C2 VARCHAR (50) DEFAULT USER_NAME()<br/>,C3 VARCHAR (50) DEFAULT USER_NAME()<br/>,C4 VARCHAR (50) DEFAULT USER_NAME()<br/>,C5 VARCHAR (50) DEFAULT USER_NAME()<br/>,C6 INTEGER  DEFAULT CEIL('-95.3')<br/>,C7 DOUBLE  DEFAULT (RANDOM(0)/2147483647)<br/>,C8 INTEGER  DEFAULT 8*OCTET_LENGTH('abc')<br/>,C9 VARCHAR (50) DEFAULT REVERSE_STR('reverse')<br/>,C10 INTEGER  DEFAULT INSTR('high', 'ig')<br/>,C11 DATE  DEFAULT SYSDATE<br/>,C12 DATE  DEFAULT SYSDATE<br/>,C13 DATE  DEFAULT SYSDATE<br/>,C14 DATE  DEFAULT SYSDATE<br/>,C15 DATE  DEFAULT SYSDATE<br/>,C16 DATE  DEFAULT SYSDATE<br/>,C17 DATE  DEFAULT SYSDATE<br/>,C18 DATE  DEFAULT SYSDATE ); |
 
 ## E.부록: PSM 변환기 규칙 목록
 
@@ -3742,7 +3901,7 @@ PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the paramet
 
 ###### 설명
 
-칼럼 별칭 절과 서브쿼리 사이의 모든 절이 제거되었다.
+컬럼 별칭 절과 서브쿼리 사이의 모든 절이 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -4212,7 +4371,7 @@ END;
 
 ###### 설명
 
-CONNECT_BY_ISCYCLE 의사 칼럼은 수동으로 변환해야 한다.
+CONNECT_BY_ISCYCLE 의사 컬럼은 수동으로 변환해야 한다.
 
 ###### 원본 SQL 문장
 
@@ -7645,13 +7804,13 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
 
 `원인`
 
-마이그레이션 센터가 LOB 칼럼의 NOT NULL 제약조건을 임의로 제거하여 발생하는 현상이다.
+마이그레이션 센터가 LOB 컬럼의 NOT NULL 제약조건을 임의로 제거하여 발생하는 현상이다.
 
 마이그레이션 센터는 파라미터가 포함된 쿼리문(예: insert into tablename values(?,?))을 사용해서 대상 DB에 데이터를 삽입한다.
 
 Altibase는 다른 컬럼과는 달리 LOB 컬럼에 데이터를 입력할 경우에는 먼저 데이터를 null로 초기화한 다음, LOB Locator를 통해 데이터를 받아서 입력하는 두 단계로 처리한다. 따라서 해당 컬럼에 NOT NULL 제약조건이 있다면 데이터를 null로 초기화할 수 없어서 insert가 실패하게 된다.
 
-이런 제약 때문에, 마이그레이션 센터는 LOB 칼럼의 NOT NULL 제약조건을 임의로 제거해서 마이그레이션을 수행한다.
+이런 제약 때문에, 마이그레이션 센터는 LOB 컬럼의 NOT NULL 제약조건을 임의로 제거해서 마이그레이션을 수행한다.
 
 이러한 내용은 아래 매뉴얼에서 확인할 수 있다. (General Reference - 1. 자료형 - LOB 데이타 타입 - 제한사항)
 
