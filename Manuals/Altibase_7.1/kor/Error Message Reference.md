@@ -495,94 +495,105 @@ truncated.**
 
 **Cause:** Failed to invoke the semctl() function
 
-**Action:** Please verify that you have permission to access the semaphore and
-send a bug report to the vendor.
+**Action:** Please verify that you have permission to access the semaphore and send a bug report to the vendor.
 
 **0x000B7 ( 183) idERR_FATAL_SEM_GET Unable to create or get a semaphore.**
 
 **Cause:** Failed to invoke the semop() function
 
-**Action:** Please verify the error number and make sure that the semaphore
-group exists.
+**Action:** Please verify the error number and make sure that the semaphore group exists.
 
 **0x000B9 ( 185) idERR_FATAL_SYSTEM_PROCESS_ALREADY_STARTED [0%s] Process has
 been already started.**
 
-**Cause:** System process which is one of Deamon or WServer has been started
-before this operation.
+**Cause:** System process which is one of Deamon or WServer has been started before this operation.
 
 **Action:** Check the other system process is alive or started.
+
+**0x000BB (    187) idERR_FATAL_WATCHDOG_THEAD_ABNORMAL_EXIT The watchdog thread faced an unexpected error.** 
+
+**Cause:** There is an unexpected error in the watchdog thread.
+
+**Action:** Please send a bug report to the vendor.
 
 **0x000BC ( 188) idERR_FATAL_UNCOMPATIBLE_SHARED_MEMORY The version of the
 shared memory is not compatible with the version of the shared memory manager.
 Shared Memory Version =\> [ Version ID = \<0%s\> ] Shared Memory Manager=\>[
-Version ID = \<1%s\> ]**
+Version ID = \<1%s\> ]** 
 
-**Cause:** The shared memory created before is no compatitle with the current
-shared memory manager.
+**Cause:** The shared memory created before is no compatitle with the current shared memory manager.
 
-**Action:** Please remove shared memory created by Altibase and restart
-Altibase.
+**Action:** Please remove shared memory created by Altibase and restart Altibase.
 
-**0x000C2 ( 194) idERR_FATAL_INVALID_SHM_SEGCOUNT The max number of shared
-memory segments is invalid.**
+**0x000BD (    189) idERR_FATAL_UNDO_PROCESS_BY_WATCH_DOG The undo operation for a dead process is failed.** 
+
+**Cause:** There is an unexpected error in the watchdog undo thread for a dead process.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x000BE (    190) idERR_FATAL_ATTACH_SHARED_MEMORY_MGR The attach operation for a shared memory is failed. **
+
+**Cause:** There is an unexpected error while doing a attach operation of a shared memory.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x000BF (    191) idERR_FATAL_INVALID_SHARED_MEMORY_BLOCK_SIZE The shared memory block size[0%u] is invalid. **
+
+**Cause:** The shared memory block size is invalid.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x000C2 ( 194) idERR_FATAL_INVALID_SHM_SEGCOUNT The max number of shared memory segments is invalid.**
 
 **Cause:** The maximum of the segment count is 0.
 
-**Action:** Check SHM_MAX_SIZE and SHM_CHUNK_SIZE since the number of the max
-shared memory segments is calculated by SHM_MAX_SIZE / SHM_CHUNK_SIZE.
+**Action:** Check SHM_MAX_SIZE and SHM_CHUNK_SIZE since the number of the max shared memory segments is calculated by SHM_MAX_SIZE / SHM_CHUNK_SIZE.
 
-**0x000C5 ( 197) idERR_FATAL_REGISTER_NEW_PROCESS_DISABLED A process can not
-access a database in a shared memory.**
+**0x000C3 (    195) idERR_FATAL_INVALID_ELEMENT_SIZE The number of elements in a chunk of a mempool is invalid.** 
+
+**Cause:** The number of elements in a chunk of a mempool is 0.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x000C5 ( 197) idERR_FATAL_REGISTER_NEW_PROCESS_DISABLED A process can not access a database in a shared memory.**
 
 **Cause:** Database is a invalid state to be accessed by a process.
 
-**Action:** Check the system process is shutting down or the state of a shared
-memory area.
+**Action:** Check the system process is shutting down or the state of a shared memory area.
 
-**0x000C7 ( 199) idERR_FATAL_REMOVE_SYSTEM_SHARED_MEMORY_SEGMENT The remove
-operation of a system shared memory segment is failed.**
+**0x000C7 ( 199) idERR_FATAL_REMOVE_SYSTEM_SHARED_MEMORY_SEGMENT The remove operation of a system shared memory segment is failed.**
 
 **Cause:** There is a process to attach a system shared memory segment.
 
-**Action:** Check if there is a process to attach a system shared memory
-segment.
+**Action:** Check if there is a process to attach a system shared memory segment.
 
-**0x000C8 ( 200) idERR_FATAL_Invalid_SHM_DB_KEY When the SHM_DB_KEY value is 0,
-a shared memory database cannot be used. Set the SHM_DB_KEY property.**
+**0x000C8 ( 200) idERR_FATAL_Invalid_SHM_DB_KEY When the SHM_DB_KEY value is 0, a shared memory database cannot be used. Set the SHM_DB_KEY property.**
 
 **Cause:** SHM_DB_KEY value is 0.
 
 **Action:** Please set the SHM_DB_KEY property.
 
-**0x000CB ( 203) idERR_FATAL_NOT_OWNER_OF_SHARED_MEMORY Try to access a shared
-memory chunk which is not owned: SHMKEY is \<0%d\>.**
+**0x000CB ( 203) idERR_FATAL_NOT_OWNER_OF_SHARED_MEMORY Try to access a shared memory chunk which is not owned: SHMKEY is \<0%d\>.**
 
 **Cause:** Try to access a shared memory chunk which is not owned.
 
-**Action:** Please check if there is already created shared memory associated
-with SHM_DB_KEY.
+**Action:** Please check if there is already created shared memory associated with SHM_DB_KEY.
 
-**0x000CC ( 204) idERR_FATAL_CREATE_SYSTEM_SEGMENT Cannot create the system
-segment.**
+**0x000CC ( 204) idERR_FATAL_CREATE_SYSTEM_SEGMENT Cannot create the system segment.**
 
 **Cause:** Unavailable system resource.
 
 **Action:** Please check your system.
 
-**0x000D2 ( 210) idERR_FATAL_CHANGE_OWNER_OF_SHARED_MEMORY_SEGMENT Cannot change
-the owner of the shared memory segment.**
+**0x000D2 ( 210) idERR_FATAL_CHANGE_OWNER_OF_SHARED_MEMORY_SEGMENT Cannot change the owner of the shared memory segment.**
 
 **Cause:** Failed to invoke the shmctl() function.
 
-**Action:** Verify that you have permission to access shared memory. Check the
-error number from the trace log and contact Altibase's Support Center
-(http://support.altibase.com).
+**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase's Support Center(http://support.altibase.com).
 
 ### ABORT
 
-**0x01001 ( 4097) idERR_ABORT_idnCharacterSetNotFound No character set was
-found.**
+**0x01001 ( 4097) idERR_ABORT_idnCharacterSetNotFound No character set was found.** 
 
 **Cause:** No character set was found.
 
@@ -592,8 +603,7 @@ found.**
 
 **Cause:** An invalid character is being used.
 
-**Action:** Verify that every character in the input string is a valid
-character.
+**Action:** Verify that every character in the input string is a valid character.
 
 **0x01003 ( 4099) idERR_ABORT_idnReachEnd Unexpected end of string**
 
@@ -601,50 +611,53 @@ character.
 
 **Action:** Verify that the form of the string is legal.
 
-**0x01006 ( 4102) idERR_ABORT_idnLikeEscape Invalid use of escape characters in
-LIKE predicate.**
+**0x01004 (   4100) idERR_ABORT_idnNotFound Unable to find a string to search** 
 
-**Cause:** The server has detected the invalid use of escape characters in a
-LIKE predicate.
+**Cause:** The system failed to find a string to search.
 
-**Action:** Verify that the use of escape characters in the LIKE predicate is
-syntactically correct.
+**Action:** Please send a bug report to the vendor.
 
-**0x01007 ( 4103) idERR_ABORT_idaNullValue A NULL value is not allowed for this
-data type.**
+**0x01005 (   4101) idERR_ABORT_idnTooLarge The input string is too long.** 
+
+**Cause:** Internal server error. The input string is too long.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x01006 ( 4102) idERR_ABORT_idnLikeEscape Invalid use of escape characters in LIKE predicate.** 
+
+**Cause:** The server has detected the invalid use of escape characters in a LIKE predicate.
+
+**Action:** Verify that the use of escape characters in the LIKE predicate is syntactically correct.
+
+**0x01007 ( 4103) idERR_ABORT_idaNullValue A NULL value is not allowed for this data type.**
 
 **Cause:** This data type cannot have a NULL value.
 
 **Action:** Verify that there is no NULL value in the field.
 
-**0x01008 ( 4104) idERR_ABORT_idaInvalidNumeric Unable to cast the string to the
-INTEGER type.**
+**0x01008 ( 4104) idERR_ABORT_idaInvalidNumeric Unable to cast the string to the INTEGER type.**
 
 **Cause:** It is impossible to cast the string to the INTEGER type.
 
 **Action:** Change the string appropriately.
 
-**0x01009 ( 4105) idERR_ABORT_idaInvalidNibble Unable to cast the string to the
-NIBBLE type.**
+**0x01009 ( 4105) idERR_ABORT_idaInvalidNibble Unable to cast the string to the NIBBLE type.**
 
 **Cause:** It is impossible to cast the string to the NIBBLE type.
 
 **Action:** Change the string appropriately.
 
-**0x0100A ( 4106) idERR_ABORT_idaInvalidBytes Unable to cast the string to the
-BYTE type.**
+**0x0100A ( 4106) idERR_ABORT_idaInvalidBytes Unable to cast the string to the BYTE type.**
 
 **Cause:** It is impossible to cast the string to the BYTE type.
 
 **Action:** Change the string appropriately.
 
-**0x0100B ( 4107) idERR_ABORT_idaOverflow Value exceeds range supported by
-type**
+**0x0100B ( 4107) idERR_ABORT_idaOverflow Value exceeds range supported by type**
 
 **Cause:** The value is out of the range supported by the type.
 
-**Action:** Change the input value so that it falls within the range of values
-supported by the given type.
+**Action:** Change the input value so that it falls within the range of values supported by the given type.
 
 **0x0100C ( 4108) idERR_ABORT_idaDivideByZero Division by zero**
 
@@ -682,13 +695,11 @@ supported by the given type.
 
 **Action:** Verify that the arguments are valid in context.
 
-**0x01025 ( 4133) idERR_ABORT_idc_MARSHAL_BUFFER_FULL Insufficient communication
-buffer**
+**0x01025 ( 4133) idERR_ABORT_idc_MARSHAL_BUFFER_FULL Insufficient communication buffer**
 
 **Cause:** The communication buffer is not large enough.
 
-**Action:** Verify that the communication buffer size specified in the property
-file is greater than 64kB.
+**Action:** Verify that the communication buffer size specified in the property file is greater than 64kB.
 
 **0x01026 ( 4134) idERR_ABORT_idc_SOCKET_CLOSED Socket communication error**
 
@@ -696,63 +707,59 @@ file is greater than 64kB.
 
 **Action:** Debug the client program.
 
-**0x01027 ( 4135) idERR_ABORT_idc_ERR_FULL_IPC_CHANNEL No remaining IPC channels
-(MAX=\<0%d\>, USED=\<1%d\>, BUFSIZE=\<2%d\>)**
+**0x01027 ( 4135) idERR_ABORT_idc_ERR_FULL_IPC_CHANNEL No remaining IPC channels (MAX=\<0%d\>, USED=\<1%d\>, BUFSIZE=\<2%d\>)**
 
 **Cause:** All IPC channels have been allocated to clients.
 
 **Action:** Use the INET/UNIX Domain channel or create more IPC channels.
 
-**0x01028 ( 4136) idERR_ABORT_idc_SEM_INIT_OP Unable to invoke the semop()
-function as described by system semaphore properties.**
+**0x01028 ( 4136) idERR_ABORT_idc_SEM_INIT_OP Unable to invoke the semop() function as described by system semaphore properties.** 
 
 **Cause:** The semaphore might have been deleted.
 
 **Action:** Verify that the semaphore exists.
 
-**0x01031 ( 4145) idERR_ABORT_IDU_MEMORY_INVALID_STATUS An error has been
-detected in the memory manager.**
+**0x0102E (   4142) idERR_ABORT_THR_CREATE_FAILED Failed to create a thread object.** 
+
+**Cause:** Internal Bug
+
+**Action:** Please send a bug report to the vendor.
+
+**0x01030 (   4144) idERR_ABORT_idc_MARSHAL_FIND_FAIL Unable to find the specified unique marshal id.** 
+
+**Cause:** Internal Bug
+
+**Action:** Please send a bug report to the vendor.
+
+**0x01031 ( 4145) idERR_ABORT_IDU_MEMORY_INVALID_STATUS An error has been detected in the memory manager.**
 
 **Cause:** Internal memory manager error.
 
-**Action:** Set the MEMORY_ALLOCATOR_USE_PRIVATE property to 0 and restart the
-server. For further information about this property, refer to the *General
-Reference*.
+**Action:** Set the MEMORY_ALLOCATOR_USE_PRIVATE property to 0 and restart the server. For further information about this property, refer to the *General Reference*.
 
-**0x0103C ( 4156) idERR_ABORT_SysCreat Unable to invoke the create() function on
-[\<0%s\>]**
+**0x0103C ( 4156) idERR_ABORT_SysCreat Unable to invoke the create() function on [\<0%s\>]**
 
 **Cause:** The system failed to create the file.
 
-**Action:** Verify that the storage manager has sufficient permission for the
-directory in which the file is created.
+**Action:** Verify that the storage manager has sufficient permission for the directory in which the file is created.
 
-**0x01040 ( 4160) idERR_ABORT_SysWrite Unable to invoke the write() function on
-[\<0%s\>]**
+**0x01040 ( 4160) idERR_ABORT_SysWrite Unable to invoke the write() function on [\<0%s\>]**
 
-**Cause:** The system failed to write data to the file due to a physical disk
-failure or a full disk.
+**Cause:** The system failed to write data to the file due to a physical disk failure or a full disk.
 
-**Action:** Execute the fsck command to troubleshoot and fix any filesystem
-errors.
+**Action:** Execute the fsck command to troubleshoot and fix any filesystem errors.
 
-**0x01043 ( 4163) idERR_ABORT_Session_Closed The session has been closed by the
-server**
+**0x01043 ( 4163) idERR_ABORT_Session_Closed The session has been closed by the server**
 
-**Cause:** The session has been closed by the server. This could be the result
-of a session timeout.
+**Cause:** The session has been closed by the server. This could be the result of a session timeout.
 
-**Action:** Check the altibase_boot.log file or other log files. Check the
-properties related to session timeout.
+**Action:** Check the altibase_boot.log file or other log files. Check the properties related to session timeout.
 
-**0x01044 ( 4164) idERR_ABORT_Query_Timeout Client's query exceeded the
-execution time limit.**
+**0x01044 ( 4164) idERR_ABORT_Query_Timeout Client's query exceeded the execution time limit.**
 
 **Cause:** The query ran for too long.
 
-**Action:** Check any properties related to session timeouts, and increase if
-necessary. Check the status of the system if the properties are set
-appropriately.
+**Action:** Check any properties related to session timeouts, and increase if necessary. Check the status of the system if the properties are set appropriately.
 
 **0x01047 ( 4167) idERR_ABORT_idm_Id_Not_Found ID not found.**
 
@@ -760,51 +767,49 @@ appropriately.
 
 **Action:** Verify that the ID is valid.
 
-**0x01048 ( 4168) idERR_ABORT_idm_Unable_To_Get_Attribute Unable to get idm
-attributes**
+**0x01048 ( 4168) idERR_ABORT_idm_Unable_To_Get_Attribute Unable to get idm attributes**
 
 **Cause:** Unable to get idm attributes.
 
 **Action:** Verify the id and attributes.
 
-**0x01049 ( 4169) idERR_ABORT_idm_Unable_To_Set_Attribute Unable to set idm
-attributes**
+**0x01049 ( 4169) idERR_ABORT_idm_Unable_To_Set_Attribute Unable to set idm attributes**
 
 **Cause:** Unable to set idm attributes.
 
 **Action:** Verify the id and attributes.
 
-**0x0104B ( 4171) idERR_ABORT_idp_NameNotFound Unable to find the property name
-[\<0%s\>].**
+**0x0104B ( 4171) idERR_ABORT_idp_NameNotFound Unable to find the property name [\<0%s\>].**
 
 **Cause:** The specified property name is not registered in the system.
 
 **Action:** Check the property name.
 
-**0x0104C ( 4172) idERR_ABORT_idp_RangeOverflow Property value overflow
-[\<0%s\>]**
+**0x0104C ( 4172) idERR_ABORT_idp_RangeOverflow Property value overflow [\<0%s\>]**
 
 **Cause:** The specified property value exceeded the allowable range.
 
-**Action:** Refer to the General Reference, and enter a property value that
-falls within the range.
+**Action:** Refer to the General Reference, and enter a property value that falls within the range.
 
-**0x0104D ( 4173) idERR_ABORT_idp_NoSuchEntry The entry [\<1%d\>] of the
-property [\<0%s\>] does not exist.**
+**0x0104D ( 4173) idERR_ABORT_idp_NoSuchEntry The entry [\<1%d\>] of the property [\<0%s\>] does not exist.**
 
 **Cause:** The specified property entry does not exist.
 
 **Action:** Check whether the property entry exists.
 
-**0x0104E ( 4174) idERR_ABORT_idp_ReadOnlyEntry The property [\<0%s\>] is
-read-only.**
+**0x0104E ( 4174) idERR_ABORT_idp_ReadOnlyEntry The property [\<0%s\>] is read-only.**
 
 **Cause:** The specified property entry cannot be modified.
 
 **Action:** Refer to the specification of the property.
 
-**0x01050 ( 4176) idERR_ABORT_idu_NotFoundLicenseFile License File does not
-exist.**
+**0x0104F (   4175) idERR_ABORT_idp_NotReadOnly The property [<0%s>] is not read-only** 
+
+**Cause:** Internal Error
+
+**Action:** Please send a bug report to the vendor.
+
+**0x01050 ( 4176) idERR_ABORT_idu_NotFoundLicenseFile License File does not exist.**
 
 **Cause:** License file does not exist.
 
@@ -816,13 +821,17 @@ exist.**
 
 **Action:** Verify that the system has enough memory.
 
-**0x01052 ( 4178) idERR_ABORT_SysOpen Unable to invoke the open() function on
-[\<0%s\>]**
+**0x01052 ( 4178) idERR_ABORT_SysOpen Unable to invoke the open() function on [\<0%s\>]**
 
 **Cause:** The system failed to open the file.
 
-**Action:** Verify that the file exists and that the operating system has not
-already opened the maximum possible number of files.
+**Action:** Verify that the file exists and that the operating system has not already opened the maximum possible number of files.
+
+**0x01053 (   4179) idERR_ABORT_SyncError Failed to sync a file for [<0%s>].** 
+
+**Cause:** Failed to invoke the sync() function.
+
+**Action:** Please send a bug report to the vendor
 
 **0x01054 ( 4180) idERR_ABORT_ASYNC_IO_FAILED AIO operation failed [\<0%d\>].**
 
@@ -830,48 +839,39 @@ already opened the maximum possible number of files.
 
 **Action:** - Please check the files on which operation was to occur.
 
-**0x01055 ( 4181) idERR_ABORT_ASYNC_IO_READ_FAILED AIO read operation failed
-[\<0%d\>].**
+**0x01055 ( 4181) idERR_ABORT_ASYNC_IO_READ_FAILED AIO read operation failed [\<0%d\>].**
 
 **Cause:** - The asynchronous I/O read operation failed.
 
 **Action:** - Please check the files to be read.
 
-**0x01056 ( 4182) idERR_ABORT_ASYNC_IO_WRITE_FAILED AIO write operation failed
-[\<0%d\>].**
+**0x01056 ( 4182) idERR_ABORT_ASYNC_IO_WRITE_FAILED AIO write operation failed [\<0%d\>].**
 
 **Cause:** - The asynchronous I/O write operation failed.
 
 **Action:** - Please check the files which could not be written to.
 
-**0x01057 ( 4183) idERR_ABORT_ASYNC_IO_RETURN_FAILED AIO return operation failed
-[\<0%d\>].**
+**0x01057 ( 4183) idERR_ABORT_ASYNC_IO_RETURN_FAILED AIO return operation failed [\<0%d\>].**
 
 **Cause:** - The asynchronous I/O aio_return() operation failed.
 
 **Action:** - Please check the files on which operation was to occur.
 
-**0x01058 ( 4184) idERR_ABORT_DISK_SPACE_EXHAUSTED Failed to create, extend or
-sync a file ( Name : \<0%s\>, Start Offset : \<1%d\>, Write Size : \<2%d\> )**
+**0x01058 ( 4184) idERR_ABORT_DISK_SPACE_EXHAUSTED Failed to create, extend or sync a file ( Name : \<0%s\>, Start Offset : \<1%d\>, Write Size : \<2%d\> )**
 
 **Cause:** The disk space or the user's disk quota has been exhausted.
 
-**Action:** Increase the disk space or the user's quota for the log file, memory
-db file, or disk tablespace datafile.
+**Action:** Increase the disk space or the user's quota for the log file, memory db file, or disk tablespace datafile.
 
-**0x01059 ( 4185) idERR_ABORT_EXCEED_FILE_SIZE_LIMIT Failed to increase size of
-file ( Name : \<0%s\>, Start Offset : \<1%d\>, Write Size : \<2%d\> )**
+**0x01059 ( 4185) idERR_ABORT_EXCEED_FILE_SIZE_LIMIT Failed to increase size of file ( Name : \<0%s\>, Start Offset : \<1%d\>, Write Size : \<2%d\> )**
 
-**Cause:** An attempt to increase the data file size exceeded the file size
-limit of the process or the maximum file size allowed by the operating system.
+**Cause:** An attempt to increase the data file size exceeded the file size limit of the process or the maximum file size allowed by the operating system.
 
 **Action:** Change the system file size limit.
 
-**0x0105A ( 4186) idERR_ABORT_EXCEED_OPEN_FILE_LIMIT Failed to create file( Name
-: \<0%s\>, Start Offset : \<1%d\>, Write size : \<2%d\> )**
+**0x0105A ( 4186) idERR_ABORT_EXCEED_OPEN_FILE_LIMIT Failed to create file( Name : \<0%s\>, Start Offset : \<1%d\>, Write size : \<2%d\> )**
 
-**Cause:** The limit on the total number of open files for the system or the
-maximum number of file descriptors has been reached.
+**Cause:** The limit on the total number of open files for the system or the maximum number of file descriptors has been reached.
 
 **Action:** Close open files that are not in use or change system properties.
 
@@ -879,65 +879,49 @@ maximum number of file descriptors has been reached.
 
 **Cause:** A corresponding directory object does not exist.
 
-**Action:** Correct the directory object parameter or create a corresponding
-directory object with the CREATE DIRECTORY command.
+**Action:** Correct the directory object parameter or create a corresponding directory object with the CREATE DIRECTORY command.
 
 **0x0105C ( 4188) idERR_ABORT_IDU_FILE_INVALID_FILEHANDLE Invalid file handle.**
 
-**Cause:** A file handle was specified for which no corresponding open file
-exists.
+**Cause:** A file handle was specified for which no corresponding open file exists.
 
-**Action:** Verify that the file handle is a value returned from a call to
-FOPEN.
+**Action:** Verify that the file handle is a value returned from a call to FOPEN.
 
-**0x0105D ( 4189) idERR_ABORT_IDU_FILE_INVALID_OPERATION Invalid file
-operation.**
+**0x0105D ( 4189) idERR_ABORT_IDU_FILE_INVALID_OPERATION Invalid file operation.**
 
-**Cause:** An attempt was made to read from a file or directory that does not
-exist, or file or directory access was denied by the operating system.
+**Cause:** An attempt was made to read from a file or directory that does not exist, or file or directory access was denied by the operating system.
 
-**Action:** Verify the file and directory access privileges on the file system,
-and, if reading, verify that the file exists.
+**Action:** Verify the file and directory access privileges on the file system, and, if reading, verify that the file exists.
 
-**0x0105E ( 4190) idERR_ABORT_IDU_FILE_DELETE_FAILED File remove operation
-failed.**
+**0x0105E ( 4190) idERR_ABORT_IDU_FILE_DELETE_FAILED File remove operation failed.**
 
 **Cause:** An attempt to delete a file was refused by the operating system.
 
-**Action:** Verify that the file exists and that delete privileges have been
-granted for the directory and the file.
+**Action:** Verify that the file exists and that delete privileges have been granted for the directory and the file.
 
-**0x0105F ( 4191) idERR_ABORT_IDU_FILE_RENAME_FAILED File rename operation
-failed.**
+**0x0105F ( 4191) idERR_ABORT_IDU_FILE_RENAME_FAILED File rename operation failed.**
 
-**Cause:** A file rename attempt was refused by the operating system, either
-because the source or destination directory does not exist or is inaccessible,
-the source file isn't accessible, or a file with that name already exists.
+**Cause:** A file rename attempt was refused by the operating system, either because the source or destination directory does not exist or is inaccessible, the source file isn't accessible, or a file with that name already exists.
 
-**Action:** Verify that the source file, source directory, and destination
-directory exist and are accessible, and that no file with the desired name
-already exists.
+**Action:** Verify that the source file, source directory, and destination directory exist and are accessible, and that no file with the desired name already exists.
 
 **0x01060 ( 4192) idERR_ABORT_IDU_FILE_NO_DATA_FOUND No data found in file.**
 
 **Cause:** Cannot read any data from the file.
 
-**Action:** Check whether the file is empty or the position has reached
-end-of-file.
+**Action:** Check whether the file is empty or the position has reached end-of-file.
 
 **0x01061 ( 4193) idERR_ABORT_IDU_FILE_READ_ERROR File read error.**
 
 **Cause:** An attempt to read from a file failed.
 
-**Action:** Verify that the file exists, that it is accessible, and that it is
-open in read mode.
+**Action:** Verify that the file exists, that it is accessible, and that it is open in read mode.
 
 **0x01062 ( 4194) idERR_ABORT_IDU_FILE_WRITE_ERROR File write error.**
 
 **Cause:** Failed to write to a file.
 
-**Action:** Verify that the file exists, that it is accessible, and that it is
-open in write or append mode.
+**Action:** Verify that the file exists, that it is accessible, and that it is open in write or append mode.
 
 **0x01063 ( 4195) idERR_ABORT_MESSAGE_OVERFLOW Message too long.**
 
@@ -945,19 +929,15 @@ open in write or append mode.
 
 **Action:** Make the message length shorter than 2\^61.
 
-**0x01066 ( 4198) idERR_ABORT_idp_Value_Convert_Error The property [\<0%s\>]
-value [\<1%s\>] cannot be converted.**
+**0x01066 ( 4198) idERR_ABORT_idp_Value_Convert_Error The property [\<0%s\>] value [\<1%s\>] cannot be converted.**
 
 **Cause:** The data format is invalid.
 
 **Action:** Enter a valid data format.
 
-**0x01067 ( 4199) idERR_ABORT_MAX_MEM_SIZE_EXCEED The memory size allocated for
-the statement has exceeded the maximum limit ( Name : \<0%s\>, Wanted Memory
-Size : \<1%lu\>, Max size : \<2%lu\> ).**
+**0x01067 ( 4199) idERR_ABORT_MAX_MEM_SIZE_EXCEED The memory size allocated for the statement has exceeded the maximum limit ( Name : \<0%s\>, Wanted Memory Size : \<1%lu\>, Max size : \<2%lu\> ).**
 
-**Cause:** The memory size allocated for the statement has exceeded the maximum
-limit.
+**Cause:** The memory size allocated for the statement has exceeded the maximum limit.
 
 **Action:** Increase the XXXXXXX_STMT_MEMORY_MAXIMUM property value.
 
@@ -979,21 +959,17 @@ limit.
 
 **Action:** No action is necessary.
 
-**0x0106B ( 4203) idERR_ABORT_Session_Disconnected The session has been
-disconnected by the client**
+**0x0106B ( 4203) idERR_ABORT_Session_Disconnected The session has been disconnected by the client**
 
 **Cause:** The session has been disconnected by the client.
 
 **Action:** No action is necessary.
 
-**0x0106C ( 4204) idERR_ABORT_Invalid_Profile_State The query profile has
-already been activated. Turn it off first.**
+**0x0106C ( 4204) idERR_ABORT_Invalid_Profile_State The query profile has already been activated. Turn it off first.**
 
 **Cause:** The query profile has already been activated.
 
-**Action:** Query profiling is already enabled so no further action is required.
-However, if the value of the QUERY_PROF_FLAG property must be changed, first set
-the value to 0 and then set it to the desired value.
+**Action:** Query profiling is already enabled so no further action is required. However, if the value of the QUERY_PROF_FLAG property must be changed, first set the value to 0 and then set it to the desired value.
 
 **0x0106F ( 4207) idERR_ABORT_BY_RECOVERY_TEST Recovery Test Abort Error**
 
@@ -1005,125 +981,99 @@ the value to 0 and then set it to the desired value.
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01074 ( 4212) idERR_ABORT_GPKI_API_GetVersion GPKI_API_GetVersion error:
-[\<0%d\>]**
+**0x01074 ( 4212) idERR_ABORT_GPKI_API_GetVersion GPKI_API_GetVersion error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
 **0x01075 ( 4213) idERR_ABORT_GPKI_API_Finish GPKI_API_Finish error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01076 ( 4214) idERR_ABORT_GPKI_STORAGE_ReadCert GPKI_STORAGE_ReadCert error:
-[\<0%d\>]**
+**0x01076 ( 4214) idERR_ABORT_GPKI_STORAGE_ReadCert GPKI_STORAGE_ReadCert error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01077 ( 4215) idERR_ABORT_GPKI_STORAGE_ReadPriKey GPKI_STORAGE_ReadPriKey
-error: [\<0%d\>]**
+**0x01077 ( 4215) idERR_ABORT_GPKI_STORAGE_ReadPriKey GPKI_STORAGE_ReadPriKey error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01078 ( 4216) idERR_ABORT_GPKI_PRIKEY_CheckKeyPair GPKI_PRIKEY_CheckKeyPair
-error: [\<0%d\>]**
+**0x01078 ( 4216) idERR_ABORT_GPKI_PRIKEY_CheckKeyPair GPKI_PRIKEY_CheckKeyPair error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01079 ( 4217) idERR_ABORT_GPKI_CRYPT_GenRandom GPKI_CRYPT_GenRandom error:
-[\<0%d\>]**
+**0x01079 ( 4217) idERR_ABORT_GPKI_CRYPT_GenRandom GPKI_CRYPT_GenRandom error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
 **0x0107A ( 4218) idERR_ABORT_GPKI_VersionMismatched Version mismatch error**
 
 **Cause:** The GPKI module version is different from that of the client.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x0107B ( 4219) idERR_ABORT_GPKI_BINSTR_SetData GPKI_BINSTR_SetData error:
-[\<0%d\>]**
+**0x0107B ( 4219) idERR_ABORT_GPKI_BINSTR_SetData GPKI_BINSTR_SetData error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x0107C ( 4220) idERR_ABORT_GPKI_CMS_MakeSignedAndEnvData
-GPKI_CMS_MakeSignedAndEnvData error: [\<0%d\>]**
+**0x0107C ( 4220) idERR_ABORT_GPKI_CMS_MakeSignedAndEnvData GPKI_CMS_MakeSignedAndEnvData error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x0107D ( 4221) idERR_ABORT_GPKI_CRYPT_GetKeyAndIV GPKI_CRYPT_GetKeyAndIV
-error: [\<0%d\>]**
+**0x0107D ( 4221) idERR_ABORT_GPKI_CRYPT_GetKeyAndIV GPKI_CRYPT_GetKeyAndIV error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
 **0x0107E ( 4222) idERR_ABORT_GPKI_CMS_ProcessSignedAndEnvData
 GPKI_CMS_ProcessSignedAndEnvData error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x0107F ( 4223) idERR_ABORT_GPKI_CERT_Verify GPKI_CERT_Verify error:
-[\<0%d\>]**
+**0x0107F ( 4223) idERR_ABORT_GPKI_CERT_Verify GPKI_CERT_Verify error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
 **0x01080 ( 4224) idERR_ABORT_GPKI_CERT_Load GPKI_CERT_Load error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
 **0x01081 ( 4225) idERR_ABORT_GPKI_CERT_GetSubjectName GPKI_CERT_GetSubjectName
 error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01082 ( 4226) idERR_ABORT_GPKI_CERT_Unload GPKI_CERT_Unload error:
-[\<0%d\>]**
+**0x01082 ( 4226) idERR_ABORT_GPKI_CERT_Unload GPKI_CERT_Unload error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
 **0x01083 ( 4227) idERR_ABORT_GPKI_ValueMismatched Value mismatch error**
 
@@ -1131,21 +1081,23 @@ the GPKI Manual.
 
 **Action:** Check the GPKI module version.
 
-**0x01084 ( 4228) idERR_ABORT_GPKI_CRYPT_Encrypt GPKI_CRYPT_Encrypt error:
-[\<0%d\>]**
+**0x01084 ( 4228) idERR_ABORT_GPKI_CRYPT_Encrypt GPKI_CRYPT_Encrypt error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01086 ( 4230) idERR_ABORT_GPKI_CRYPT_Decrypt GPKI_CRYPT_Decrypt error:
-[\<0%d\>]**
+**0x01086 ( 4230) idERR_ABORT_GPKI_CRYPT_Decrypt GPKI_CRYPT_Decrypt error: [\<0%d\>]**
 
 **Cause:** The GPKI module failed to call the function.
 
-**Action:** Check the error number from the altibase_boot.log file and refer to
-the GPKI Manual.
+**Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
+
+**0x01087 (   4231) idERR_ABORT_GPKI_PlainTextTooLong PlainTextTooLong error** 
+
+**Cause:** The plaintext is too long.
+
+**Action:** Please send a bug report to the vendor.
 
 **0x01088 ( 4232) idERR_ABORT_GPKI_dlopen dlopen error [\<0%s\>]**
 
@@ -1165,8 +1117,7 @@ the GPKI Manual.
 
 **Action:** Check the shared library.
 
-**0x0108B ( 4235) idERR_ABORT_CannotShrinkFile The data file size cannot be
-shrunk.**
+**0x0108B ( 4235) idERR_ABORT_CannotShrinkFile The data file size cannot be shrunk.**
 
 **Cause:** The data file size cannot be shrunk.
 
@@ -1182,94 +1133,85 @@ shrunk.**
 
 **Cause:** Dlclose error.
 
-**Action:** Check the error number from the altibase_boot.log file and take
-appropriate action.
+**Action:** Check the error number from the altibase_boot.log file and take appropriate action.
 
-**0x0108F ( 4239) idERR_ABORT_MODULE_IS_NOT_LOADED [\<0%s\>] module not
-loaded.**
+**0x0108F ( 4239) idERR_ABORT_MODULE_IS_NOT_LOADED [\<0%s\>] module not loaded.**
 
 **Cause:** A module is not loaded.
 
-**Action:** Check the error number from the altibase_boot.log file and take
-appropriate action.
+**Action:** Check the error number from the altibase_boot.log file and take appropriate action.
 
-**0x01090 ( 4240) idERR_ABORT_FINALIZE_ERROR [\<0%s\>] : cannot finalize
-module.**
+**0x01090 ( 4240) idERR_ABORT_FINALIZE_ERROR [\<0%s\>] : cannot finalize module.**
 
 **Cause:** Failed to finalize.
 
-**Action:** Check the error number from the altibase_boot.log file and take
-appropriate action.
+**Action:** Check the error number from the altibase_boot.log file and take appropriate action.
 
-**0x01091 ( 4241) idERR_ABORT_CannotOpenDir The system failed to open the
-directory.**
+**0x01091 ( 4241) idERR_ABORT_CannotOpenDir The system failed to open the directory.**
 
 **Cause:** The system failed to open the directory.
 
-**Action:** Check the error number from the altibase_boot.log file and take
-appropriate action.
+**Action:** Check the error number from the altibase_boot.log file and take appropriate action.
 
 **0x01092 ( 4242) idERR_ABORT_INVALID_CHARACTER character conversion error**
 
-**Cause:** The source data abnormally terminated in the middle of a multibyte
-character.
+**Cause:** The source data abnormally terminated in the middle of a multibyte character.
 
 **Action:** Use a complete multibyte character.
 
-**0x01093 ( 4243) idERR_ABORT_PARTIAL_MULTIBYTE_CHARACTER partial multibyte
-character**
+**0x01093 ( 4243) idERR_ABORT_PARTIAL_MULTIBYTE_CHARACTER partial multibyte character**
 
 **Cause:** A partial multibyte character was found at the end of the input.
 
 **Action:** Use a complete multibyte character.
 
-**0x01095 ( 4245) idERR_ABORT_DATA_LOSS_IN_CONVERSION Character data loss in
-conversion from NCHAR to CHAR**
+**0x01095 ( 4245) idERR_ABORT_DATA_LOSS_IN_CONVERSION Character data loss in conversion from NCHAR to CHAR**
 
-**Cause:** When character set conversion happens between CHAR and NCHAR either
-implicitly or explicitly, some characters are lost due to unmapped characters in
-the destination character set.
+**Cause:** When character set conversion happens between CHAR and NCHAR either implicitly or explicitly, some characters are lost due to unmapped characters in the destination character set.
 
-**Action:** Verify that all characters can be mapped to the destination
-character set, or set NLS_NCHAR_CONV_EXCP to false.
+**Action:** Verify that all characters can be mapped to the destination character set, or set NLS_NCHAR_CONV_EXCP to false.
 
 **0x01096 ( 4246) idERR_ABORT_FILE_OPEN Unable to open a file [\<0%s\>]**
 
-**Cause:** The path or filename is invalid, or the storage manager does not have
-permission to open the file.
+**Cause:** The path or filename is invalid, or the storage manager does not have permission to open the file.
 
-**Action:** Verify that the path and filename are correct and that you have
-read/write permission for the file.
+**Action:** Verify that the path and filename are correct and that you have read/write permission for the file.
 
-**0x01098 ( 4248) idERR_ABORT_idp_Property_NotFound Unable to find the property
-[SID=\<0%s\>, Name=\<%1s\>].**
+**0x01097 (   4247) idERR_ABORT_FILE_CLOSE Unable to close file** 
+
+**Cause:** An invalid file handle was specified.
+
+**Action:** Please send a bug report to the vendor.
+
+**0x01098 ( 4248) idERR_ABORT_idp_Property_NotFound Unable to find the property [SID=\<0%s\>, Name=\<%1s\>].**
 
 **Cause:** The specified property is not registered in the system.
 
 **Action:** Verify that the specified property is registered in the system.
 
-**0x01099 ( 4249) idERR_ABORT_idp_Value_Accept_Error The property [\<0%s\>]
-value [\<1%s\>] is not acceptable.**
+**0x01099 ( 4249) idERR_ABORT_idp_Value_Accept_Error The property [\<0%s\>] value [\<1%s\>] is not acceptable.**
 
 **Cause:** The data format is invalid.
 
 **Action:** Enter a valid data format.
 
-**0x0109A ( 4250) idERR_ABORT_idp_Initialize_Error Property initialization
-failed.**
+**0x0109A ( 4250) idERR_ABORT_idp_Initialize_Error Property initialization failed.**
 
 **Cause:** A property is set to an invalid value.
 
 **Action:** Identify and correct the mis-configured property.
 
-**0x0109B ( 4251) idERR_ABORT_SysSeek Unable to invoke the seek() function on
-[\<0%s\>]**
+**0x0109B ( 4251) idERR_ABORT_SysSeek Unable to invoke the seek() function on [\<0%s\>]**
 
-**Cause:** The system failed to write data to the file due to a physical disk
-failure or a full disk.
+**Cause:** The system failed to write data to the file due to a physical disk failure or a full disk.
 
-**Action:** Execute the fsck command to troubleshoot and fix any filesystem
-errors.
+**Action:** Execute the fsck command to troubleshoot and fix any filesystem errors.
+
+**0x0109C (   4252) idERR_ABORT_ART Error generated by Automatic Recovery Test(ART)** 
+
+**Cause:** Automatic recovery test generated an abort error.
+
+**Action:** You may safely ignore this error.
 
 **0x0109D ( 4253) idERR_ABORT_InsufficientMemory Insufficient memory**
 
@@ -1281,102 +1223,81 @@ errors.
 
 **Cause:** An unexpected internal server error has occurred.
 
-**Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
 
-**0x0109F ( 4255) idERR_ABORT_IDX_LIBRARY_NOT_FOUND Library file for external
-procedure/function not found : \<0%s\>\<1%s\>\<2%s\>**
+**0x0109F ( 4255) idERR_ABORT_IDX_LIBRARY_NOT_FOUND Library file for external procedure/function not found : \<0%s\>\<1%s\>\<2%s\>**
 
 **Cause:** The library file for the external procedure/function was not found.
 
 **Action:** Verify that the specified library file exists in the library path.
 
-**0x010A0 ( 4256) idERR_ABORT_IDX_FUNCTION_NOT_FOUND Function for external
-procedure/function not found**
+**0x010A0 ( 4256) idERR_ABORT_IDX_FUNCTION_NOT_FOUND Function for external procedure/function not found**
 
-**Cause:** A user-defined function for the external procedure/function was not
-found in the library.
+**Cause:** A user-defined function for the external procedure/function was not found in the library.
 
 **Action:** Verify that the specified function exists in the library file.
 
-**0x010A1 ( 4257) idERR_ABORT_IDX_ENTRY_FUNCTION_NOT_FOUND Entry function for
-external procedure/function not found**
+**0x010A1 ( 4257) idERR_ABORT_IDX_ENTRY_FUNCTION_NOT_FOUND Entry function for external procedure/function not found**
 
-**Cause:** An entry function for the external procedure/function was not found
-in the library.
+**Cause:** An entry function for the external procedure/function was not found in the library.
 
 **Action:** Add the entry function to the library file.
 
-**0x010A2 ( 4258) idERR_ABORT_IDX_INVALID_PROPERTY_MANIPULATION Invalid
-manipulation on a parameter property value of a parameter**
+**0x010A2 ( 4258) idERR_ABORT_IDX_INVALID_PROPERTY_MANIPULATION Invalid manipulation on a parameter property value of a parameter**
 
 **Cause:** There was an invalid manipulation of a parameter’s property value.
 
 **Action:** Check the function in the library.
 
-**0x010A3 ( 4259) idERR_ABORT_IDX_AGENT_PROCESS_FAILURE Failed to start an agent
-process**
+**0x010A3 ( 4259) idERR_ABORT_IDX_AGENT_PROCESS_FAILURE Failed to start an agent process**
 
 **Cause:** Failed to create or start an agent.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x010A4 ( 4260) idERR_ABORT_IDX_CALL_PROCEDURE_FAILURE Failed to call external
-procedure/function**
+**0x010A4 ( 4260) idERR_ABORT_IDX_CALL_PROCEDURE_FAILURE Failed to call external procedure/function**
 
 **Cause:** Failed to call the specified external procedure/function.
 
 **Action:** Check the external procedure definition.
 
-**0x010A5 ( 4261) idERR_ABORT_IDX_AGENT_CONNECTION_FAILURE Failed to connect to
-the agent : \<0%s\>**
+**0x010A5 ( 4261) idERR_ABORT_IDX_AGENT_CONNECTION_FAILURE Failed to connect to the agent : \<0%s\>**
 
 **Cause:** Failed to connect to the agent.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x010A6 ( 4262) idERR_ABORT_IDX_AGENT_CONNECTION_LOST Connection to the agent
-has been lost**
+**0x010A6 ( 4262) idERR_ABORT_IDX_AGENT_CONNECTION_LOST Connection to the agent has been lost**
 
 **Cause:** Connection to the agent has been lost.
 
 **Action:** Check the trace logs of the agent.
 
-**0x010A9 ( 4265) idERR_ABORT_DOUBLEFREE Tried to free a memory block already
-freed**
+**0x010A9 ( 4265) idERR_ABORT_DOUBLEFREE Tried to free a memory block already freed**
 
 **Cause:** Thread count has reached the limit.
 
 **Action:** Increase the MAX_THREAD_COUNT property.
 
-**0x010AA ( 4266) idERR_ABORT_DISK_OR_DEVICE_BUSY Disk or device busy ( Name :
-\<0%s\>, Start Offset : \<1%d\>, Write Size : \<2%d\> )**
+**0x010AA ( 4266) idERR_ABORT_DISK_OR_DEVICE_BUSY Disk or device busy ( Name : \<0%s\>, Start Offset : \<1%d\>, Write Size : \<2%d\> )**
 
 **Cause:** The disk space or the user's disk quota has been exhausted.
 
-**Action:** Increase the disk space or the user's quota for the log file, memory
-db file, or disk tablespace datafile.
+**Action:** Increase the disk space or the user's quota for the log file, memory db file, or disk tablespace datafile.
 
-**0x010AE ( 4270) idERR_ABORT_already_created The shared memory region is
-already in use.**
+**0x010AE ( 4270) idERR_ABORT_already_created The shared memory region is already in use.**
 
 **Cause:** The shared memory region is already in use.
 
 **Action:** Please change the shared memory key value to a different value.
 
-**0x010AF ( 4271) idERR_ABORT_SysShmGet Failed to invoke the shmget() system
-function**
+**0x010AF ( 4271) idERR_ABORT_SysShmGet Failed to invoke the shmget() system function**
 
-**Cause:** The system failed to allocate a new shared memory region due to the
-lack of resources on the system.
+**Cause:** The system failed to allocate a new shared memory region due to the lack of resources on the system.
 
-**Action:** Please adjust parameters in order to obtain sufficient shared memory
-resources.
+**Action:** Please adjust parameters in order to obtain sufficient shared memory resources.
 
-**0x010B2 ( 4274) idERR_ABORT_No_More_Shm_Key Unable to find an available shared
-memory key.**
+**0x010B2 ( 4274) idERR_ABORT_No_More_Shm_Key Unable to find an available shared memory key.**
 
 **Cause:** No more shared memory keys are available.
 
@@ -1384,22 +1305,23 @@ memory key.**
 
 **0x010B3 ( 4275) idERR_ABORT_NoMore_SHM_Page Insufficient memory for database**
 
-**Cause:** The system failed to increase the amount of memory because the
-database was created in a shared memory region.
+**Cause:** The system failed to increase the amount of memory because the database was created in a shared memory region.
 
-**Action:** Please shut down the database and make sure that the system has
-sufficient memory using xdbshmutil.
+**Action:** Please shut down the database and make sure that the system has sufficient memory using xdbshmutil.
 
-**0x010B4 ( 4276) idERR_ABORT_Shm_Max_Size A shared memory size consumed excceds
-the size than expected.**
+**0x010B4 ( 4276) idERR_ABORT_Shm_Max_Size A shared memory size consumed excceds the size than expected.**
 
-**Cause:** The shared memory size property value is less than the size which the
-process needs.
+**Cause:** The shared memory size property value is less than the size which the process needs.
 
 **Action:** Please increase the size of the shared memory property.
 
-**0x010C1 ( 4289) idERR_ABORT_LATCH_TIMEOUT Timeout happens while trying to do
-latch.**
+**0x010C0 (   4288) idERR_ABORT_REQUEST_PROCESS_FAILURE The process to deal with a request asked by the current process is dead.** 
+
+**Cause:** The process to deal with a request is dead.
+
+**Action:** Please send a bug report to the vendor
+
+**0x010C1 ( 4289) idERR_ABORT_LATCH_TIMEOUT Timeout happens while trying to do latch.**
 
 **Cause:** There is a thread or process acquiring a latch for long time.
 
@@ -1417,65 +1339,103 @@ latch.**
 
 **Action:** Please check if the thread ID is valid.
 
-**0x010CD ( 4301) idERR_ABORT_SET_LATCH_STACK_OVERFLOW Set latch stack overflow
-happens while trying to lock table.**
+**0x010CD ( 4301) idERR_ABORT_SET_LATCH_STACK_OVERFLOW Set latch stack overflow happens while trying to lock table.**
 
 **Cause:** There are too many table locks acquired in a transaction.
 
-**Action:** Reduce a table count referenced in a transaction (Maximum table
-count in a transaction is 128 in LOCK_MGR_TYPE=1).
+**Action:** Reduce a table count referenced in a transaction (Maximum table count in a transaction is 128 in LOCK_MGR_TYPE=1).
 
-**0x010CF ( 4303) idERR_ABORT_IDX_AGENT_CONNECTION_LOST_WHILE_RECV Connection to
-the agent has been lost while receiving (step : \<0%d\>)**
+**0x010CE (   4302) idERR_ABORT_IDU_MEMORY_DEALLOCATION Memory deallocation failed.** 
+
+**Cause:**  - System call failed.
+
+**Action:** - Please send a bug report to the vendor.
+
+**0x010CF ( 4303) idERR_ABORT_IDX_AGENT_CONNECTION_LOST_WHILE_RECV Connection to the agent has been lost while receiving (step : \<0%d\>)**
 
 **Cause:** Connection to the agent has been lost while receiving.
 
 **Action:** Check the trace logs of the agent.
 
-**0x010D0 ( 4304) idERR_ABORT_IDX_AGENT_CONNECTION_LOST_WHILE_SEND Connection to
-the agent has been lost while sending (step : \<0%d\>)**
+**0x010D0 ( 4304) idERR_ABORT_IDX_AGENT_CONNECTION_LOST_WHILE_SEND Connection to the agent has been lost while sending (step : \<0%d\>)**
 
 **Cause:** Connection to the agent has been lost while sending.
 
 **Action:** Check the trace logs of the agent.
 
-**0x010D1 ( 4305) idERR_ABORT_IDX_AGENT_CONNECTION_LOST_BY_PEER Connection to
-the agent has been lost by peer (step : \<0%d\>, Read Count : \<1%d\>, Buffer
-Size : \<2%d\>)**
+**0x010D1 ( 4305) idERR_ABORT_IDX_AGENT_CONNECTION_LOST_BY_PEER Connection to the agent has been lost by peer (step : \<0%d\>, Read Count : \<1%d\>, Buffer Size : \<2%d\>)**
 
 **Cause:** Connection to the agent has been lost by peer.
 
 **Action:** Check the trace logs of the agent.
 
-**0x010D3 ( 4307) idERR_ABORT_IDU_SHM_INCOMPATIBLE_CONFIG Incompatible changes
-to the shared memory configuration have been detected. Previously =\> [ SHM
-Chunk Size = \<0%u\>, SHM Max Chunk Count = \<1%lu\> ] Now =\> [ SHM Chunk Size
-= \<2%u\>, SHM Max Chunk Count = \<3%lu\> ]**
+**0x010D3 ( 4307) idERR_ABORT_IDU_SHM_INCOMPATIBLE_CONFIG Incompatible changes to the shared memory configuration have been detected. Previously =\> [ SHM Chunk Size = \<0%u\>, SHM Max Chunk Count = \<1%lu\> ] Now =\> [ SHM Chunk Size = \<2%u\>, SHM Max Chunk Count =  <3%lu\> ]**
 
-**Cause:** Some of the shared memory configuration have been changed and the
-changes require the database to be reloaded into the shared memory.
+**Cause:** Some of the shared memory configuration have been changed and the changes require the database to be reloaded into the shared memory.
 
-**Action:** Clear the shared memory by issuing xdbshmutil -e command and start
-the server again.
+**Action:** Clear the shared memory by issuing xdbshmutil -e command and start the server again.
 
-**0x010D4 ( 4308) idERR_ABORT_INVALID_ENCRYPTED_TEXT Malformed or corrupted
-wrapped unit.**
+**0x010D4 ( 4308) idERR_ABORT_INVALID_ENCRYPTED_TEXT Malformed or corrupted wrapped unit.**
 
-**Cause:** The format of the wrapped unit being compiled is not understood by
-the compiler. This may be because the unit was edited or modified after it was
-wrapped.
+**Cause:** The format of the wrapped unit being compiled is not understood by the compiler. This may be because the unit was edited or modified after it was wrapped.
 
 **Action:** Rewrap the unit.
 
-**0x010DD ( 4317) idERR_ABORT_FILENAME_TOO_LONG The filename is too long
-[\<0%s\>]**
+**0x010D5 (   4309) idERR_ABORT_PERSSYS_CREATE_FAILED Could not create persistent system chunk.** 
+
+**Cause:** System chunk of persistent memory manager could not be created.
+
+**Action:** Cleanup shared memory and try again, or change system chunk key.
+
+**0x010D6 (   4310) idERR_ABORT_PERSSYS_MAP_FAILED Could not map persistent system chunk.** 
+
+**Cause:** System chunk of persistent memory manager could not be mapped.
+
+**Action:** Cleanup shared memory and try again, or change system chunk key.
+
+**0x010D7 (   4311) idERR_ABORT_PERS_SHM_FULL Amount of shared memory reached system limit.** 
+
+**Cause:** Amount of shared memory reached system limit.
+
+**Action:** Cleanup shared memory, or modify kernel parameters to increase shared memory limit.
+
+**0x010D8 (   4312) idERR_ABORT_PERS_CLEANUP_FAILED Could not cleanup shared memory chunks.** 
+
+**Cause:** Shared memory cleanup failed.
+
+**Action:** Remove persistent system chunk manually.
+
+**0x010D9 (   4313) idERR_ABORT_PERS_ATTACH_FAILED Could not attach shared memory chunk <0%d>(<1%d>,<2%d>) : <3%d>** 
+
+**Cause:** Shared memory attach data chunk failed.
+
+**Action:** Remove persistent system chunk and try again.
+
+**0x010DA (   4314) idERR_ABORT_PERS_INVALID_CHUNK Chunk <0%d> is invalid.** 
+
+**Cause:** Shared memory attach data chunk failed.
+
+**Action:** Remove persistent system chunk and try again.
+
+**0x010DB (   4315) idERR_ABORT_PERS_INVALID_ADDRESS Could not access \[<0%d>][<1%x>], which is not in \[<2%d>][<3%x>]**
+
+**Cause:** Invalid access of memory
+
+**Action:** Remove persistent system chunk and try again.
+
+**0x010DC (   4316) idERR_ABORT_PERSSYS_NOT_MINE System chunk was created by other user.** 
+
+**Cause:** Other user has created a chunk with SHM_PERS_KEY
+
+**Action:** Change the property SHM_PERS_KEY and try again.
+
+**0x010DD ( 4317) idERR_ABORT_FILENAME_TOO_LONG The filename is too long [\<0%s\>]**
 
 **Cause:** The filename is too long.
 
 **Action:** Shorten the filename.
 
-**0x010DE ( 4318) idERR_ABORT_FILE_ALREADY_EXIST The file already exists
-[\<0%s\>]**
+**0x010DE ( 4318) idERR_ABORT_FILE_ALREADY_EXIST The file already exists [\<0%s\>]**
 
 **Cause:** The file already exists.
 
@@ -1493,48 +1453,35 @@ wrapped.
 
 **Action:** Verify that the path and the filename are correct.
 
-**0x010E1 ( 4321) idERR_ABORT_WRONG_Profile_Flag The value of QUERY_PROF_FLAG
-property exceeds the maximum value(\<0%d\>).**
+**0x010E1 ( 4321) idERR_ABORT_WRONG_Profile_Flag The value of QUERY_PROF_FLAG property exceeds the maximum value(\<0%d\>).**
 
-**Cause:** The current value of QUERY_PROF_FLAG property exceeds the maximum
-value 63.
+**Cause:** The current value of QUERY_PROF_FLAG property exceeds the maximum value 63.
 
-**Action:** Modify the value of QUERY_PROF_FLAG property to be less than or
-equal to 63.
+**Action:** Modify the value of QUERY_PROF_FLAG property to be less than or equal to 63.
 
-**0x010EB ( 4331) idERR_ABORT_NOT_SUPPORT_FALLOCATE The operation is not
-supported by the filesystem(or kernel) (\<0%s\>)**
+**0x010EB ( 4331) idERR_ABORT_NOT_SUPPORT_FALLOCATE The operation is not supported by the filesystem(or kernel) (\<0%s\>)**
 
-**Cause:** The filesystem(or kernel) containing the file does not support this
-operation.
+**Cause:** The filesystem(or kernel) containing the file does not support this operation.
 
-**Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the
-server.
+**Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the server.
 
-**0x010EC ( 4332) idERR_ABORT_Sysfallocate Unable to invoke the fallocate()
-function on [\<0%s\>].**
+**0x010EC ( 4332) idERR_ABORT_Sysfallocate Unable to invoke the fallocate() function on [\<0%s\>].**
 
 **Cause:** The system failed to call the fallocate() function.
 
-**Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the
-server.
+**Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the server.
 
-**0x010ED ( 4333) idERR_ABORT_InternalServerErrorWithString Internal server
-error ( \<0%s\> ).**
+**0x010ED ( 4333) idERR_ABORT_InternalServerErrorWithString Internal server error ( \<0%s\> ).**
 
 **Cause:** An unexpected internal server error has occurred.
 
-**Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
 
-**0x010EE ( 4334) idERR_ABORT_IDU_MEMORY_INVALID_SET_STATUS An error has been
-detected in the memory manager. [\<0%s\>]**
+**0x010EE ( 4334) idERR_ABORT_IDU_MEMORY_INVALID_SET_STATUS An error has been detected in the memory manager. [\<0%s\>]**
 
 **Cause:** Internal memory manager error.
 
-**Action:** Set the MEMORY_ALLOCATOR_USE_PRIVATE property to 0 and restart the
-server. Check the error number from the trace log and contact Altibase’s Support
-Center (http://support.altibase.com).
+**Action:** Set the MEMORY_ALLOCATOR_USE_PRIVATE property to 0 and restart the server. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 ### IGNORE
 
@@ -1544,136 +1491,109 @@ Center (http://support.altibase.com).
 
 **Action:** You may safely ignore this message.
 
-**0x02016 ( 8214) idERR_IGNORE_idc_CHANNEL_OPEN_FAILED Unable to open a
-communication channel because none has been created**
+**0x02016 ( 8214) idERR_IGNORE_idc_CHANNEL_OPEN_FAILED Unable to open a communication channel because none has been created**
 
-**Cause:** Failed to open a communication channel because no communication
-channel has been created yet.
+**Cause:** Failed to open a communication channel because no communication channel has been created yet.
 
 **Action:** Check kernel properties.
 
-**0x0206E ( 8302) idERR_IGNORE_VAR_STRING_APPEND_FORMAT_TOO_LONG VarString
-appendFormat too long**
+**0x0206E ( 8302) idERR_IGNORE_VAR_STRING_APPEND_FORMAT_TOO_LONG VarString appendFormat too long**
 
 **Cause:** VarString appendFormat too long.
 
 **Action:** Internal error.
 
-**0x020A7 ( 8359) idERR_IGNORE_THREAD_CREATEFAIL Thread object cannot be
-created.**
+**0x020A7 ( 8359) idERR_IGNORE_THREAD_CREATEFAIL Thread object cannot be created.**
 
 **Cause:** A thread object cannot be created.
 
 **Action:** Check kernel properties.
 
-**0x020A8 ( 8360) idERR_IGNORE_THREADCOUNT_EXCEEDED The number of Threads has
-reached to maximum count : \<0%d\>**
+**0x020A8 ( 8360) idERR_IGNORE_THREADCOUNT_EXCEEDED The number of Threads has reached to maximum count : \<0%d\>**
 
 **Cause:** Thread count has reached the limit.
 
 **Action:** Increase the MAX_THREAD_COUNT property.
 
-**0x020AB ( 8363) idERR_IGNORE_THREAD_NOTSTARTED Joining a thread that is not
-started**
+**0x020AB ( 8363) idERR_IGNORE_THREAD_NOTSTARTED Joining a thread that is not started**
 
 **Cause:** Trying to join a thread that is not started.
 
-**Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
 
 **0x020AC ( 8364) idERR_IGNORE_THREAD_UNBOUND Joining a detached thread**
 
 **Cause:** Trying to join a thread that is not joinable
 
-**Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
 
-**0x020C4 ( 8388) idERR_IGNORE_FAIL_OPEN_ISQL_PTY_FILE can not to open a file
-that includes the path of pty.**
+**0x020C4 ( 8388) idERR_IGNORE_FAIL_OPEN_ISQL_PTY_FILE can not to open a file that includes the path of pty.**
 
-**Cause:** Failed to can not to open a file that includes the path of xdbisql
-pty.
+**Cause:** Failed to can not to open a file that includes the path of xdbisql pty.
 
 **Action:** This error does not originate with Altibase.
 
-**0x020C6 ( 8390) idERR_IGNORE_FAIL_COMMIT_TRANS_DUE_TO_MAX_ROW Transaction
-faces a error while committing.**
+**0x020C6 ( 8390) idERR_IGNORE_FAIL_COMMIT_TRANS_DUE_TO_MAX_ROW Transaction faces a error while committing.**
 
 **Cause:** The table has more rows than the max row limitation.
 
 **Action:** Check the table's max rows.
 
-**0x020E2 ( 8418) idERR_IGNORE_NO_SUCH_CPUINFO Unable to retrieve CPU
-information (errno:\<0%d\>).**
+**0x020E2 ( 8418) idERR_IGNORE_NO_SUCH_CPUINFO Unable to retrieve CPU information (errno:\<0%d\>).**
 
 **Cause:** CPU affinity configuration is not found.
 
-**Action:** Verify the error number in the trace log and contact Altibase
-Support Center (http://support.altibase.com).
+**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com).
 
-**0x020E3 ( 8419) idERR_IGNORE_EXCEED_NUMA_NODE The NUMA node number [\<0%d\>]
-exceeds the maximum value [\<1%d\>].**
+**0x020E3 ( 8419) idERR_IGNORE_EXCEED_NUMA_NODE The NUMA node number [\<0%d\>] exceeds the maximum value [\<1%d\>].**
 
 **Cause:** The NUMA node number exceeds the maximum value.
 
-**Action:** Verify the NUMA node number and valid range in the trace log and
-contact Altibase Support Center. (http://support.altibase.com).
+**Action:** Verify the NUMA node number and valid range in the trace log and contact Altibase Support Center. (http://support.altibase.com).
 
-**0x020E4 ( 8420) idERR_IGNORE_EXCEED_CPUNO The CPU number [\<0%d\>]/[\<1%d\>]
-exceeded the supported maximum value [\<2%d\>]/[\<3%d\>].**
+**0x020E4 ( 8420) idERR_IGNORE_EXCEED_CPUNO The CPU number [\<0%d\>]/[\<1%d\>] exceeded the supported maximum value [\<2%d\>]/[\<3%d\>].**
 
 **Cause:** The CPU number exceeds the maximum value.
 
-**Action:** Verify the CPU number and valid range in the trace log and contact
-Altibase Support Center. (http://support.altibase.com).
+**Action:** Verify the CPU number and valid range in the trace log and contact Altibase Support Center. (http://support.altibase.com).
 
-**0x020E5 ( 8421) idERR_IGNORE_INVALID_CPUNO Invalid CPU number [\<0%d\>]. The
-Valid range is 0 to \<1%d\>.**
+**0x020E5 ( 8421) idERR_IGNORE_INVALID_CPUNO Invalid CPU number [\<0%d\>]. The Valid range is 0 to \<1%d\>.**
 
 **Cause:** The CPU number is invalid.
 
-**Action:** Verify the CPU number and valid range in the trace log and contact
-Altibase Support Center (http://support.altibase.com).
+**Action:** Verify the CPU number and valid range in the trace log and contact Altibase Support Center (http://support.altibase.com).
 
-**0x020E6 ( 8422) idERR_IGNORE_INVALID_NUMA_NODE_NO Invalid NUMA node number
-[\<0%d\>]. The Valid range is 0 to \<1%d\>.**
+**0x020E6 ( 8422) idERR_IGNORE_INVALID_NUMA_NODE_NO Invalid NUMA node number [\<0%d\>]. The Valid range is 0 to \<1%d\>.**
 
 **Cause:** The NUMA node number is invalid.
 
-**Action:** Verify the NUMA node number and valid range in the trace log and
-contact Altibase Support Center (http://support.altibase.com).
+**Action:** Verify the NUMA node number and valid range in the trace log and contact Altibase Support Center (http://support.altibase.com).
 
-**0x020E7 ( 8423) idERR_IGNORE_BINDTHREAD_FAILED Unable to set CPU affinity
-(errno:\<0%d\>).**
+**0x020E7 ( 8423) idERR_IGNORE_BINDTHREAD_FAILED Unable to set CPU affinity (errno:\<0%d\>).**
 
 **Cause:** The system function failed to bind cpusets on a thread.
 
-**Action:** Verify the error number in the trace log and contact Altibase
-Support Center (http://support.altibase.com).
+**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com).
 
-**0x020E8 ( 8424) idERR_IGNORE_BIND_PROCESS_FAILED Failed to set CPU affinity on
-a process (errno:\<0%d\>).**
+**0x020E8 ( 8424) idERR_IGNORE_BIND_PROCESS_FAILED Failed to set CPU affinity on a process (errno:\<0%d\>).**
 
 **Cause:** The system function failed to bind cpusets on a process.
 
-**Action:** Verify the error number in the trace log and contact Altibase
-Support Center (http://support.altibase.com).
+**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com).
 
-**0x020E9 ( 8425) idERR_IGNORE_UNBINDTHREAD_FAILED Failed to unset CPU affinity
-on a thread.**
+**0x020E9 ( 8425) idERR_IGNORE_UNBINDTHREAD_FAILED Failed to unset CPU affinity on a thread.**
 
 **Cause:** The CPU number is invalid.
 
 **Action:** This message can be disregarded.
 
-**0x020EA ( 8426) idERR_IGNORE_UNBIND_PROCESS_FAILED Failed to unset CPU
-affinity on a process.**
+**0x020EA ( 8426) idERR_IGNORE_UNBIND_PROCESS_FAILED Failed to unset CPU affinity on a process.**
 
 **Cause:** The CPU number is invalid.
 
 **Action:** This message can be disregarded.
 
-\# Server Internal Message
+
 
 2.SM Error Code
 ---------------
@@ -1686,155 +1606,115 @@ affinity on a process.**
 
 **Action:** Terminate unnecessary processes.
 
-**0x10006 ( 65542) smERR_FATAL_MunmapFail Failed to invoke the unmap() system
-function**
+**0x10006 ( 65542) smERR_FATAL_MunmapFail Failed to invoke the unmap() system function**
 
 **Cause:** Insufficient system resources.
 
-**Action:** Verify that there are enough system resources. Check the error
-number from the trace log and contact Altibase's Support Center
-(http://support.altibase.com).
+**Action:** Verify that there are enough system resources. Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
 
-**0x1000A ( 65546) smERR_FATAL_SysShmDt Failed to invoke the shmdt() system
-function**
+**0x1000A ( 65546) smERR_FATAL_SysShmDt Failed to invoke the shmdt() system function**
 
 **Cause:** The system failed to detach a shared memory region from a process.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1000B ( 65547) smERR_FATAL_SysShmCtl Failed to invoke the shmctl() system
-function**
+**0x1000B ( 65547) smERR_FATAL_SysShmCtl Failed to invoke the shmctl() system function**
 
 **Cause:** The system failed to remove shared memory.
 
 **Action:** Change kernel parameters related to shared memory.
 
-**0x1000C ( 65548) smERR_FATAL_Systhrjoin Failed to invoke the thr_join() system
-function**
+**0x1000C ( 65548) smERR_FATAL_Systhrjoin Failed to invoke the thr_join() system function**
 
 **Cause:** The system failed to join threads.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x1000D ( 65549) smERR_FATAL_ThrMutexInit Unable to initialize a mutex.**
 
 **Cause:** The system failed to initialize a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1000E ( 65550) smERR_FATAL_ThrMutexDestroy Failed to invoke the
-mutex_destroy() system function**
+**0x1000E ( 65550) smERR_FATAL_ThrMutexDestroy Failed to invoke the mutex_destroy() system function**
 
 **Cause:** The system failed to remove a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1000F ( 65551) smERR_FATAL_ThrMutexLock Failed to invoke the mutex_lock()
-system function**
+**0x1000F ( 65551) smERR_FATAL_ThrMutexLock Failed to invoke the mutex_lock() system function**
 
 **Cause:** The system failed to lock a mutex.
 
-\# \*Action : Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action :** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x10010 ( 65552) smERR_FATAL_ThrMutexUnlock Failed to invoke the
-mutex_unlock() system function**
+**0x10010 ( 65552) smERR_FATAL_ThrMutexUnlock Failed to invoke the mutex_unlock() system function**
 
 **Cause:** The system failed to unlock a mutex.
 
-\# \*Action : Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action :** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x10011 ( 65553) smERR_FATAL_ThrCondInit Failed to invoke the cond_init()
-system function**
+**0x10011 ( 65553) smERR_FATAL_ThrCondInit Failed to invoke the cond_init() system function**
 
 **Cause:** The system failed to initialize a condition variable.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x10012 ( 65554) smERR_FATAL_ThrCondSignal Failed to invoke the cond_signal()
-system function**
+**0x10012 ( 65554) smERR_FATAL_ThrCondSignal Failed to invoke the cond_signal() system function**
 
 **Cause:** The system failed to signal using a condition variable.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x10013 ( 65555) smERR_FATAL_ThrCondDestroy Failed to invoke the
-cond_destroy() system function**
+**0x10013 ( 65555) smERR_FATAL_ThrCondDestroy Failed to invoke the cond_destroy() system function**
 
 **Cause:** The system failed to remove a condition variable.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x10014 ( 65556) smERR_FATAL_ThrCondWait Failed to invoke the cond_wait()
-system function**
+**0x10014 ( 65556) smERR_FATAL_ThrCondWait Failed to invoke the cond_wait() system function**
 
 **Cause:** Invalid condition value or invalid mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x10019 ( 65561) smERR_FATAL_SysRead Failed to invoke the read() system
-function**
+**0x10019 ( 65561) smERR_FATAL_SysRead Failed to invoke the read() system function**
 
 **Cause:** The system failed to read from the file.
 
 **Action:** Check the file system.
 
-**0x1001A ( 65562) smERR_FATAL_Sysfstat Failed to invoke the fstat() system
-function**
-
-**Cause:** The system failed to invoke the fstat() function.
-
-**Action:** Check the file system.
-
-**0x1001C ( 65564) smERR_FATAL_PageCorrupted A page is corrupt. ( Current Space
-ID : \<0%d\>, Current Page ID : \<1%d\> )**
+**0x1001C ( 65564) smERR_FATAL_PageCorrupted A page is corrupt. ( Current Space ID : \<0%d\>, Current Page ID : \<1%d\> )**
 
 **Cause:** The page was not completely written.
 
-**Action:** Recover the tablespace that contains the corrupt page using backup
-and recovery utilities.
+**Action:** Recover the tablespace that contains the corrupt page using backup and recovery utilities.
 
-**0x10043 ( 65603) smERR_FATAL_WrongLogFileSize The size of the log file is
-wrong \<0%s\>.**
+**0x10043 ( 65603) smERR_FATAL_WrongLogFileSize The size of the log file is wrong \<0%s\>.**
 
 **Cause:** The file system has a problem.
 
 **Action:** Check the file system.
 
-**0x10048 ( 65608) smERR_FATAL_TooLongDBName Database filename too long ( A
-database file name must be shorter than \<0%d\> characters. )**
+**0x10048 ( 65608) smERR_FATAL_TooLongDBName Database filename too long ( A database file name must be shorter than \<0%d\> characters. )**
 
 **Cause:** The database file name is too long.
 
 **Action:** Use a database file name whose length does not exceed the limit.
 
-**0x1004B ( 65611) smERR_FATAL_Shm_No_Permission No permission for the shared
-memory database**
+**0x1004B ( 65611) smERR_FATAL_Shm_No_Permission No permission for the shared memory database**
 
-**Cause:** A shared memory region has already been created with the same key,
-but with a different UID.
+**Cause:** A shared memory region has already been created with the same key, but with a different UID.
 
-**Action:** Remove the shared memory region, or create a shared memory region
-with another key.
+**Action:** Remove the shared memory region, or create a shared memory region with another key.
 
-**0x10050 ( 65616) smERR_FATAL_smnNotSupportedIndex The index type is not
-supported.**
+**0x10050 ( 65616) smERR_FATAL_smnNotSupportedIndex The index type is not supported.**
 
 **Cause:** The index type is not supported.
 
 **Action:** Refer to the list of supported index types.
 
-**0x10052 ( 65618) smERR_FATAL_smiCursorNotOpened The cursor has not been opened
-yet.**
+**0x10052 ( 65618) smERR_FATAL_smiCursorNotOpened The cursor has not been opened yet.**
 
 **Cause:** The cursor has not been opened yet.
 
@@ -1846,24 +1726,19 @@ yet.**
 
 **Action:** Select a row to update or delete.
 
-**0x10057 ( 65623) smERR_FATAL_Uncommitted_Row_Found An uncommitted row was
-found.**
+**0x10057 ( 65623) smERR_FATAL_Uncommitted_Row_Found An uncommitted row was found.**
 
 **Cause:** An uncommitted row was found.
 
-\# \*Action : Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action :** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1005E ( 65630) smERR_FATAL_smiChildStatementExist One or more child
-statements exists.**
+**0x1005E ( 65630) smERR_FATAL_smiChildStatementExist One or more child statements exists.**
 
 **Cause:** A cursor cannot be opened when a child statement exists.
 
 **Action:** Do not open a cursor when a child statement exists.
 
-**0x10063 ( 65635) smERR_FATAL_Overflow_DB_Size The database size is larger than
-specified in the property. (Specified Page Limit=\<0%lu\> : Allocated Page
-Size=\<1%vu\>)**
+**0x10063 ( 65635) smERR_FATAL_Overflow_DB_Size The database size is larger than specified in the property. (Specified Page Limit=\<0%lu\> : Allocated Page Size=\<1%vu\>)**
 
 **Cause:** The database page count is too low.
 
@@ -1875,22 +1750,19 @@ Size=\<1%vu\>)**
 
 **Action:** Verify that the column you are looking for is valid.
 
-**0x1006A ( 65642) smERR_FATAL_Shm_Link_Not_Exist A shared memory link has been
-disconnected. Remove it and try again.**
+**0x1006A ( 65642) smERR_FATAL_Shm_Link_Not_Exist A shared memory link has been disconnected. Remove it and try again.**
 
 **Cause:** One or more shared memory links are not connected.
 
 **Action:** Remove the shared memory regions and try again.
 
-**0x1006B ( 65643) smERR_FATAL_Shm_Link_Invalid_State Invalid shared memory link
-found. Remove it and try again.(key = \<0%d\>)**
+**0x1006B ( 65643) smERR_FATAL_Shm_Link_Invalid_State Invalid shared memory link found. Remove it and try again.(key = \<0%d\>)**
 
 **Cause:** The system failed to link a shared memory region.
 
 **Action:** Remove all of the shared memory regions, and try again.
 
-**0x1006C ( 65644) smERR_FATAL_Shm_Link_Invalid_Version Invalid shared memory
-link version. Remove it and try again (key = \<0%d\>).**
+**0x1006C ( 65644) smERR_FATAL_Shm_Link_Invalid_Version Invalid shared memory link version. Remove it and try again (key = \<0%d\>).**
 
 **Cause:** One or more shared memory links has an invalid version.
 
@@ -1900,64 +1772,52 @@ link version. Remove it and try again (key = \<0%d\>).**
 
 **Cause:** Either another statement already exists or a cursor is already open.
 
-**Action:** Verify that no other statement currently exists. Ensure that cursors
-are opened only once.
+**Action:** Verify that no other statement currently exists. Ensure that cursors are opened only once.
 
-**0x1006F ( 65647) smERR_FATAL_smiCantOpenUpdateCursor Unable to open an update
-cursor.**
+**0x1006F ( 65647) smERR_FATAL_smiCantOpenUpdateCursor Unable to open an update cursor.**
 
 **Cause:** A read-only statement is not allowed to open an update cursor.
 
 **Action:** Verify that an update cursor is not opened in a read-only statement.
 
-**0x10070 ( 65648) smERR_FATAL_smiCantRestartUpdateCursor Unable to restart an
-update cursor.**
+**0x10070 ( 65648) smERR_FATAL_smiCantRestartUpdateCursor Unable to restart an update cursor.**
 
 **Cause:** An update cursor cannot be restarted.
 
 **Action:** Verify that no attempt to restart an update cursor is being made.
 
-**0x1007A ( 65658) smERR_FATAL_smiCantEndStatement_too_many Unable to end the
-statement because it has child statements (The number of child statements is
-[\<0%d\>].)**
+**0x1007A ( 65658) smERR_FATAL_smiCantEndStatement_too_many Unable to end the statement because it has child statements (The number of child statements is [\<0%d\>].)**
 
 **Cause:** The statement has child statements.
 
 **Action:** End all of the child statements.
 
-**0x1007B ( 65659) smERR_FATAL_smiCantEndStatement_not_closed Unable to end the
-statement because it has open cursors.**
+**0x1007B ( 65659) smERR_FATAL_smiCantEndStatement_not_closed Unable to end the statement because it has open cursors.**
 
 **Cause:** The statement has open cursors.
 
 **Action:** Close all of the open cursors.
 
 **0x1007F ( 65663) smERR_FATAL_ShmDB_Signature_Mismatch The DB signature in the
-shared memory region and the backup database file are different. (Backup DB :
-\<0%s\>, Shared DB : \<1%s\>)**
+shared memory region and the backup database file are different. (Backup DB : \<0%s\>, Shared DB : \<1%s\>)**
 
-**Cause:** The shared memory region and the backup database file have different
-timestamps.
+**Cause:** The shared memory region and the backup database file have different timestamps.
 
 **Action:** Remove all of the shared memory regions and try again.
 
-**0x10082 ( 65666) smERR_FATAL_DISABLED_ABORT_IN_LOGGING_LEVEL_0 ABORT is
-disabled.**
+**0x10082 ( 65666) smERR_FATAL_DISABLED_ABORT_IN_LOGGING_LEVEL_0 ABORT is disabled.**
 
 **Cause:** There is no log when LOGGING_LEVEL is set to 0.
 
-**Action:** Check the value of the LOGGING_LEVEL and whether a transaction was
-aborted.
+**Action:** Check the value of the LOGGING_LEVEL and whether a transaction was aborted.
 
-**0x10085 ( 65669) smERR_FATAL_CannotOpenDir The system failed to open the
-directory. ( Directory Name : \<0%s\> )**
+**0x10085 ( 65669) smERR_FATAL_CannotOpenDir The system failed to open the directory. ( Directory Name : \<0%s\> )**
 
 **Cause:** The system failed to invoke the opendir() system function.
 
 **Action:** Check the altibase_error.log file for details.
 
-**0x10086 ( 65670) smERR_FATAL_CannotReadDir The system failed to read the
-directory.**
+**0x10086 ( 65670) smERR_FATAL_CannotReadDir The system failed to read the directory.**
 
 **Cause:** The system failed to invoke the readdir_r() system function.
 
@@ -1967,89 +1827,68 @@ directory.**
 
 **Cause:** The database is inconsistent.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1008D ( 65677) smERR_FATAL_NotFoundDataFile The data file containing page
-[\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
+**0x1008D ( 65677) smERR_FATAL_NotFoundDataFile The data file containing page [\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
 
 **Cause:** The data file does not exist.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1009C ( 65692) smERR_FATAL_INVALID_SHARED_MEMORY_DATABASE When the
-TRANSACTION_DURABILITY_LEVEL value is not 3, a shared memory database cannot be
-used. Set the SHM_DB_KEY property to 0.**
+**0x1009C ( 65692) smERR_FATAL_INVALID_SHARED_MEMORY_DATABASE When the TRANSACTION_DURABILITY_LEVEL value is not 3, a shared memory database cannot be used. Set the SHM_DB_KEY property to 0.**
 
-**Cause:** An attempt was made to use a shared memory database when the
-TRANSACTION_DURABILITY_LEVEL value was not 3.
+**Cause:** An attempt was made to use a shared memory database when the TRANSACTION_DURABILITY_LEVEL value was not 3.
 
-**Action:** Please set the TRANSACTION_DURABILITY_LEVEL value to 3, or set the
-SHM_DB_KEY value to 0.
+**Action:** Please set the TRANSACTION_DURABILITY_LEVEL value to 3, or set the SHM_DB_KEY value to 0.
 
-**0x100BA ( 65722) smERR_FATAL_MISMATCHED_FILENO_IN_LOGFILE Mismatched log file
-NO. The number of the log file(\<0%s\>) was originally \#\<1%d\>, which is
-different from the one indicated by its name, \#\<2%d\>.**
+**0x100BA ( 65722) smERR_FATAL_MISMATCHED_FILENO_IN_LOGFILE Mismatched log file NO. The number of the log file(\<0%s\>) was originally \#\<1%d\>, which is different from the one indicated by its name, \#\<2%d\>.**
 
 **Cause:** The log file has been renamed.
 
-**Action:** Check if the logfile has been renamed, and rename it to its original
-name.
+**Action:** Check if the logfile has been renamed, and rename it to its original name.
 
-**0x100C3 ( 65731) smERR_FATAL_INVALID_MEM_MAX_DB_SIZE MEM_MAX_DB_SIZE(\<0%d\>)
-is less than EXPAND_CHUNK_PAGE_COUNT(\<1%d\>) \* PAGE_SIZE.**
+**0x100C3 ( 65731) smERR_FATAL_INVALID_MEM_MAX_DB_SIZE MEM_MAX_DB_SIZE(\<0%d\>) is less than EXPAND_CHUNK_PAGE_COUNT(\<1%d\>) \* PAGE_SIZE.**
 
 **Cause:** The MEM_MAX_DB_SIZE property value is invalid.
 
 **Action:** Use a larger value for the MEM_MAX_DB_SIZE property.
 
-**0x100D4 ( 65748) smERR_FATAL_TooLongTBSName Tablespace file name too long. (A
-tablespace file name must be shorter than \<0%d\> characters.)**
+**0x100D4 ( 65748) smERR_FATAL_TooLongTBSName Tablespace file name too long. (A tablespace file name must be shorter than \<0%d\> characters.)**
 
 **Cause:** The tablespace file name is too long.
 
 **Action:** Verify that the tablespace file name does not exceed the limit.
 
-**0x100D5 ( 65749) smERR_FATAL_Shm_Link_Invalid_TBSID Invalid shared memory
-linkage tablespace ID. Remove it and try again (Tablespace ID on Shared Memory
-Chunk= \<0%d\>, Expected Tablespace ID on Shared Memory Chunk= \<1%d\>).**
+**0x100D5 ( 65749) smERR_FATAL_Shm_Link_Invalid_TBSID Invalid shared memory linkage tablespace ID. Remove it and try again (Tablespace ID on Shared Memory Chunk= \<0%d\>, Expected Tablespace ID on Shared Memory Chunk= \<1%d\>).**
 
-**Cause:** The tablespace ID and the tablespace ID stored in the tablespace
-header in shared memory are different.
+**Cause:** The tablespace ID and the tablespace ID stored in the tablespace header in shared memory are different.
 
 **Action:** Remove all shared memory regions and restart the server.
 
 **0x100D6 ( 65750)
-smERR_FATAL_INVALID_SHARED_MEMORY_DATABASE_TRIAL_TO_DIFFERENT_RESTORE_MODE
-Invalid Shared Memory. An attempt was made to restore a tablespace in a
-different mode. Remove all shared memory regions and restart Altibase.**
+smERR_FATAL_INVALID_SHARED_MEMORY_DATABASE_TRIAL_TO_DIFFERENT_RESTORE_MODE Invalid Shared Memory. An attempt was made to restore a tablespace in a different mode. Remove all shared memory regions and restart Altibase.**
 
 **Cause:** A shared memory region is invalid.
 
 **Action:** Remove all shared memory regions and try again.
 
-**0x1010C ( 65804) smERR_FATAL_ALLOC_NEW_EXPAND_CHUNK Fatal error during alloc
-new expand chunk**
+**0x1010C ( 65804) smERR_FATAL_ALLOC_NEW_EXPAND_CHUNK Fatal error during alloc new expand chunk**
 
 **Cause:** Insufficient available memory.
 
 **Action:** Verify that there is enough available memory and disk space.
 
-**0x1013A ( 65850) smERR_FATAL_ErrNeedMoreLog There are insufficient logfiles,
-or invalid logfiles at '\<0%s\>'.**
+**0x1013A ( 65850) smERR_FATAL_ErrNeedMoreLog There are insufficient logfiles, or invalid logfiles at '\<0%s\>'.**
 
 **Cause:** There are insufficient or invalid logfiles.
 
 **Action:** Check the logfiles.
 
-**0x10191 ( 65937) smERR_FATAL_PageFlushStopped Failed to flush pages.
-[err:%d]**
+**0x10191 ( 65937) smERR_FATAL_PageFlushStopped Failed to flush pages. [err:%d]**
 
 **Cause:** The secondary flusher has stopped due to an unexpected problem.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x10192 ( 65938) smERR_FATAL_PageReadStopped Failed to read a page.**
 
@@ -2057,31 +1896,25 @@ Support Center (http://support.altibase.com).
 
 **Action:** Check the secondary buffer path.
 
-**0x101AF ( 65967) smERR_FATAL_InvalidLSNOffset Invalid LSN Offset (File
-No=\<0%u\>, Offset=\<1%u\>)**
+**0x101AF ( 65967) smERR_FATAL_InvalidLSNOffset Invalid LSN Offset (File No=\<0%u\>, Offset=\<1%u\>)**
 
 **Cause:** LSN Offset is invalid.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center(http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center(http://support.altibase.com).
 
 ### ABORT
 
-**0x11000 ( 69632) smERR_ABORT_already_created The shared memory region is
-already in use.**
+**0x11000 ( 69632) smERR_ABORT_already_created The shared memory region is already in use.**
 
 **Cause:** The shared memory region is already in use.
 
 **Action:** Change the shared memory key value to a different value.
 
-**0x11001 ( 69633) smERR_ABORT_NoMore_SHM_Page Insufficient memory for
-database**
+**0x11001 ( 69633) smERR_ABORT_NoMore_SHM_Page Insufficient memory for database**
 
-**Cause:** The system failed to increase the amount of memory because the
-database was created in a shared memory region.
+**Cause:** The system failed to increase the amount of memory because the database was created in a shared memory region.
 
-**Action:** Shut down the database and verify that the system has sufficient
-memory using shmutil.
+**Action:** Shut down the database and verify that the system has sufficient memory using shmutil.
 
 **0x11003 ( 69635) smERR_ABORT_FileDelete Unable to delete \<0%s\> file**
 
@@ -2089,22 +1922,17 @@ memory using shmutil.
 
 **Action:** Terminate unnecessary processes.
 
-**0x11008 ( 69640) smERR_ABORT_SysShmGet Failed to invoke the shmget() system
-function**
+**0x11008 ( 69640) smERR_ABORT_SysShmGet Failed to invoke the shmget() system function**
 
-**Cause:** The system failed to allocate a new shared memory region due to the
-lack of resources on the system.
+**Cause:** The system failed to allocate a new shared memory region due to the lack of resources on the system.
 
-**Action:** Adjust parameters in order to obtain sufficient shared memory
-resources.
+**Action:** Adjust parameters in order to obtain sufficient shared memory resources.
 
-**0x11009 ( 69641) smERR_ABORT_SysShmAt Failed to invoke the shmat() system
-function**
+**0x11009 ( 69641) smERR_ABORT_SysShmAt Failed to invoke the shmat() system function**
 
 **Cause:** The system failed to attach a shared memory region to a process.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x11016 ( 69654) smERR_ABORT_NotFoundSavepoint Savepoint not found**
 
@@ -2112,66 +1940,47 @@ Support Center (http://support.altibase.com).
 
 **Action:** Verify that the use of the savepoint is correct.
 
-**0x11018 ( 69656) smERR_ABORT_BACKUP_DISK_INVALID The version of data file for
-backup is not compatible with the version of storage manager. Backup DB =\> [
-Version ID = \<0%s\>, Bit = \<1%d\>, Endian = \<2%s\> LogSize = \<3%lu\>
-Transaction Table Size = \<4%d\> ] Server=\>[ Version ID = \<5%s\>, Bit =
-\<6%d\>, Endian = \<7%s\> LogSize = \<8%lu\> Transaction Table Size = \<9%d\>
-]**
+**0x11018 ( 69656) smERR_ABORT_BACKUP_DISK_INVALID The version of data file for backup is not compatible with the version of storage manager. Backup DB =\> [ Version ID = \<0%s\>, Bit =  <1%d\>, Endian = \<2%s\> LogSize = \<3%lu\> Transaction Table Size = \<4%d\> ] Server=\>[ Version ID = \<5%s\>, Bit = \<6%d\>, Endian = \<7%s\> LogSize = \<8%lu\> Transaction Table Size = \<9%d\> ]**
 
 **Cause:** Database data files are not backwards compatible.
 
-**Action:** Import or export the database, or use a previous version of the
-storage manager that is compatible with the data file.
+**Action:** Import or export the database, or use a previous version of the storage manager that is compatible with the data file.
 
-**0x1101F ( 69663) smERR_ABORT_InvalidAutoExtFileSize The MAXSIZE of the data
-file cannot be less than its current size. ( Request Max Size : \<0%lu\> pages,
-Current Size : \<1%lu\> pages )**
+**0x1101F ( 69663) smERR_ABORT_InvalidAutoExtFileSize The MAXSIZE of the data file cannot be less than its current size. ( Request Max Size : \<0%lu\> pages, Current Size : \<1%lu\> pages )**
 
-**Cause:** The MAXSIZE of the data file is less than the current size of the
-data file.
+**Cause:** The MAXSIZE of the data file is less than the current size of the data file.
 
 **Action:** Set the MAXSIZE of the data file appropriately.
 
-**0x11020 ( 69664) smERR_ABORT_InitExceedMaxFileSize The INITSIZE of the data
-file exceeds the maximum file size. ( Request Init Size : \<0%lu\> pages,
-Maximum File Size : \<1%lu\> pages )**
+**0x11020 ( 69664) smERR_ABORT_InitExceedMaxFileSize The INITSIZE of the data file exceeds the maximum file size. ( Request Init Size : \<0%lu\> pages, Maximum File Size : \<1%lu\> pages )**
 
 **Cause:** The INITSIZE of the data file exceeds the maximum file size.
 
 **Action:** Set the INITSIZE of the data file correctly.
 
-**0x11022 ( 69666) smERR_ABORT_MaxExceedMaxFileSize The MAXSIZE of the data file
-exceeds the maximum file size. ( Request Max Size : \<0%lu\> pages, Maximum File
-Size : \<1%lu\> pages )**
+**0x11022 ( 69666) smERR_ABORT_MaxExceedMaxFileSize The MAXSIZE of the data file exceeds the maximum file size. ( Request Max Size : \<0%lu\> pages, Maximum File Size : \<1%lu\> pages )**
 
 **Cause:** The MAXSIZE of the data file exceeds the maximum file size.
 
 **Action:** Set the MAXSIZE of the data file correctly.
 
-**0x11023 ( 69667) smERR_ABORT_InvalidFilePathABS The data file path is not an
-absolute path.**
+**0x11023 ( 69667) smERR_ABORT_InvalidFilePathABS The data file path is not an absolute path.**
 
 **Cause:** The data file path must be an absolute path.
 
 **Action:** Check the environment variable ALTIBASE_HOME for this account.
 
-**0x11024 ( 69668) smERR_ABORT_InvalidFilePathKeyWord The data file path
-contains special keywords or reserved system keywords.**
+**0x11024 ( 69668) smERR_ABORT_InvalidFilePathKeyWord The data file path contains special keywords or reserved system keywords.**
 
-**Cause:** The data file path contains special keywords or reserved system
-keywords.
+**Cause:** The data file path contains special keywords or reserved system keywords.
 
-**Action:** Verify that the data file path does not contain special keywords or
-reserved system keywords.
+**Action:** Verify that the data file path does not contain special keywords or reserved system keywords.
 
-**0x11025 ( 69669) smERR_ABORT_AlreadyExistFile The data file already exists (
-File Name : \<0%s\> ).**
+**0x11025 ( 69669) smERR_ABORT_AlreadyExistFile The data file already exists ( File Name : \<0%s\> ).**
 
 **Cause:** The data file already exists.
 
-**Action:** Add the 'REUSE' clause to the CREATE statement, or remove the
-existing datafile.
+**Action:** Add the 'REUSE' clause to the CREATE statement, or remove the existing datafile.
 
 **0x11027 ( 69671) smERR_ABORT_NotExistFile The data file does not exist.**
 
@@ -2179,149 +1988,117 @@ existing datafile.
 
 **Action:** Verify that the data file exists.
 
-**0x11028 ( 69672) smERR_ABORT_NoReadPermFile The path[ \<0%s\> ] does not pass
-the test for read permission.**
+**0x11028 ( 69672) smERR_ABORT_NoReadPermFile The path[ \<0%s\> ] does not pass the test for read permission.**
 
 **Cause:** The path does not pass the test for read permission.
 
 **Action:** Grant read permission for the path.
 
-**0x11029 ( 69673) smERR_ABORT_NoWritePermFile The path[ \<0%s\> ] does not pass
-the test for write permission.**
+**0x11029 ( 69673) smERR_ABORT_NoWritePermFile The path[ \<0%s\> ] does not pass the test for write permission.**
 
 **Cause:** The path does not pass the test for write permission.
 
 **Action:** Grant write permission for the path.
 
-**0x1102A ( 69674) smERR_ABORT_NotFoundTableSpaceNodeByName Tablespace node not
-found ( Name : \<0%s\> )**
+**0x1102A ( 69674) smERR_ABORT_NotFoundTableSpaceNodeByName Tablespace node not found ( Name : \<0%s\> )**
 
 **Cause:** The tablespace was not found.
 
 **Action:** Verify that the desired tablespace exists.
 
-**0x1102B ( 69675) smERR_ABORT_NotFoundTableSpaceNode Tablespace node not found
-( ID : \<0%d\> )**
+**0x1102B ( 69675) smERR_ABORT_NotFoundTableSpaceNode Tablespace node not found ( ID : \<0%d\> )**
 
 **Cause:** The tablespace was not found.
 
 **Action:** Verify that the desired tablespace exists.
 
-**0x1102C ( 69676) smERR_ABORT_MustBeDataFileOnlineMode The data file node must
-be in online mode (FID:\<0%d\>).**
+**0x1102C ( 69676) smERR_ABORT_MustBeDataFileOnlineMode The data file node must be in online mode (FID:\<0%d\>).**
 
 **Cause:** The data file node must be in online mode.
 
 **Action:** Change the data file node to online mode and try again.
 
-**0x11030 ( 69680) smERR_ABORT_InvalidExtendFileSize The data file cannot be
-increased in size because the requested size is bigger than the maximum size. (
-Request Size : \<0%lu\> pages, Maximum File size : \<1%lu\> pages )**
+**0x11030 ( 69680) smERR_ABORT_InvalidExtendFileSize The data file cannot be increased in size because the requested size is bigger than the maximum size. ( Request Size : \<0%lu\> pages, Maximum File size : \<1%lu\> pages )**
 
-**Cause:** The datafile cannot be resized to a value that exceeds its maximum
-size.
+**Cause:** The datafile cannot be resized to a value that exceeds its maximum size.
 
-**Action:** Resize the datafile to a size that does not exceed its maximum
-limit.
+**Action:** Resize the datafile to a size that does not exceed its maximum limit.
 
-**0x11031 ( 69681) smERR_ABORT_NotEnoughTableSpaceID Unable to create
-tablespace. (current greatest tablespace ID : \<0%d\>)**
+**0x11031 ( 69681) smERR_ABORT_NotEnoughTableSpaceID Unable to create tablespace. (current greatest tablespace ID : \<0%d\>)**
 
 **Cause:** The number of tablespaces has reached the maximum.
 
 **Action:** Use an existing tablespace or rebuild the database.
 
-**0x11032 ( 69682) smERR_ABORT_AlreadySetAutoExtendMode The attribute of
-AUTOEXTEND mode has already been set. (FID :\<0%d\>)**
+**0x11032 ( 69682) smERR_ABORT_AlreadySetAutoExtendMode The attribute of AUTOEXTEND mode has already been set. (FID :\<0%d\>)**
 
 **Cause:** The AUTOEXTEND mode has already been set.
 
 **Action:** No action is necessary.
 
-**0x11033 ( 69683) smERR_ABORT_forbiddenOpWhileBackup \<0%s\> cannot operate
-while a tablespace is in the process of being backed up.**
+**0x11033 ( 69683) smERR_ABORT_forbiddenOpWhileBackup \<0%s\> cannot operate while a tablespace is in the process of being backed up.**
 
 **Cause:** A tablespace is currently being backed up.
 
 **Action:** Wait until the tablespace backup process finishes.
 
-**0x11034 ( 69684) smERR_ABORT_NotFoundDataFileNode Data file node not found (
-\<0%s\> )**
+**0x11034 ( 69684) smERR_ABORT_NotFoundDataFileNode Data file node not found ( \<0%s\> )**
 
 **Cause:** The data file node was not found.
 
 **Action:** Verify that the data file exists.
 
-**0x11035 ( 69685) smERR_ABORT_NotEnoughFreeSpace The tablespace does not have
-enough free space ( TBS Name :\<0%s\>, Type : \<1%d\>, Used Page Limit : \<2%d\>
-).**
+**0x11035 ( 69685) smERR_ABORT_NotEnoughFreeSpace The tablespace does not have enough free space ( TBS Name :\<0%s\>, Type : \<1%d\>, Used Page Limit : \<2%d\> ).**
 
 **Cause:** The tablespace does not have enough free space.
 
 **Action:** Add a new data file.
 
-**0x11036 ( 69686) smERR_ABORT_CannotRemoveDataFileNode The data file is in
-use.**
+**0x11036 ( 69686) smERR_ABORT_CannotRemoveDataFileNode The data file is in use.**
 
 **Cause:** The data file is in use.
 
 **Action:** No action is necessary.
 
-**0x11037 ( 69687) smERR_ABORT_CannotDropTableSpace Unable to drop
-system-related tablespaces.**
+**0x11037 ( 69687) smERR_ABORT_CannotDropTableSpace Unable to drop system-related tablespaces.**
 
 **Cause:** SYSTEM, UNDO, and SYSTEM TEMP tablespaces cannot be dropped.
 
 **Action:** Verify that the tablespace is not a system tablespace.
 
-**0x11038 ( 69688) smERR_ABORT_CannotOfflineTableSpace Unable to change the
-tablespace to offline mode.**
-
-**Cause:** SYSTEM, UNDO or SYSTEM TEMP tablespaces cannot be offlined.
-
-**Action:** Verify that the tablespace is not a system tablespace.
-
-**0x11039 ( 69689) smERR_ABORT_InvalidLogAnchorFile The log anchor file does not
-exist or is not valid.**
+**0x11039 ( 69689) smERR_ABORT_InvalidLogAnchorFile The log anchor file does not exist or is not valid.**
 
 **Cause:** The loganchor file does not exist or is invalid.
 
 **Action:** Specify the loganchor file directory for the LOGANCHOR_DIR property.
 
-**0x1103E ( 69694) smERR_ABORT_MediaRecoDataFile \<0%s\> is only allowed during
-the control phase.**
+**0x1103E ( 69694) smERR_ABORT_MediaRecoDataFile \<0%s\> is only allowed during the control phase.**
 
-**Cause:** The user tried to execute ALTER DATABASE CREATE data file, or tried
-to rename a file, during the service phase.
+**Cause:** The user tried to execute ALTER DATABASE CREATE data file, or tried to rename a file, during the service phase.
 
 **Action:** Shut down and start up in the control phase.
 
 **0x11041 ( 69697) smERR_ABORT_Aborted A deadlock situation has been detected.**
 
-**Cause:** A deadlock victim transaction has been stopped and terminated due to
-the deadlock resolution scheme.
+**Cause:** A deadlock victim transaction has been stopped and terminated due to the deadlock resolution scheme.
 
 **Action:** The transaction was rolled back. Re-execute the transaction.
 
-**0x11044 ( 69700) smERR_ABORT_SequenceReachMaxValue Sequence upper bound
-exceeded**
+**0x11044 ( 69700) smERR_ABORT_SequenceReachMaxValue Sequence upper bound exceeded**
 
 **Cause:** Sequence upper bound exceeded.
 
 **Action:** Reinitialize the sequence.
 
-**0x11045 ( 69701) smERR_ABORT_SequenceReachMinValue Sequence lower bound
-exceeded**
+**0x11045 ( 69701) smERR_ABORT_SequenceReachMinValue Sequence lower bound exceeded**
 
 **Cause:** Sequence lower bound exceeded.
 
 **Action:** Reinitialize the sequence.
 
-**0x11046 ( 69702) smERR_ABORT_SequenceNotInitialized The sequence has not been
-initialized yet.**
+**0x11046 ( 69702) smERR_ABORT_SequenceNotInitialized The sequence has not been initialized yet.**
 
-**Cause:** An attempt was made to use a sequence that has not been initialized
-yet.
+**Cause:** An attempt was made to use a sequence that has not been initialized yet.
 
 **Action:** Reinitialize the sequence first.
 
@@ -2331,28 +2108,23 @@ yet.
 
 **Action:** Specify a valid directory name.
 
-**0x11049 ( 69705) smERR_ABORT_TooManyPage Too many pages were allocated (
-Maximum Number of Pages=\<0%ld\> ).**
+**0x11049 ( 69705) smERR_ABORT_TooManyPage Too many pages were allocated ( Maximum Number of Pages=\<0%ld\> ).**
 
 **Cause:** The number of pages has exceeded the maximum limit.
 
-**Action:** The system failed to increase the size of the database. Refer to the
-SQL manual.
+**Action:** The system failed to increase the size of the database. Refer to the SQL manual.
 
 **0x1104A ( 69706) smERR_ABORT_smiTraverseNotApplicable Unable to traverse**
 
-**Cause:** Failed to next-traverse a cursor because the cursor was not used in
-the proper order.
+**Cause:** Failed to next-traverse a cursor because the cursor was not used in the proper order.
 
 **Action:** Traverse the cursor in the correct order.
 
-**0x1104D ( 69709) smERR_ABORT_smiUpdateStatementExist An update statement
-already exists.**
+**0x1104D ( 69709) smERR_ABORT_smiUpdateStatementExist An update statement already exists.**
 
 **Cause:** An UPDATE statement already exists.
 
-**Action:** Do not use the savepoint operation when an UPDATE statement exists
-on one of the parent statements.
+**Action:** Do not use the savepoint operation when an UPDATE statement exists on one of the parent statements.
 
 **0x1104E ( 69710) smERR_ABORT_smiStatementExist One or more statements exist.**
 
@@ -2360,113 +2132,91 @@ on one of the parent statements.
 
 **Action:** A transaction operation can be used only when no statements exist.
 
-**0x1104F ( 69711) smERR_ABORT_smiUpdateOverflow Too many update cursors on a
-transaction**
+**0x1104F ( 69711) smERR_ABORT_smiUpdateOverflow Too many update cursors on a transaction**
 
 **Cause:** The number of update cursors on a transaction exceeds the limitation.
 
 **Action:** Roll back the work of the transaction.
 
-**0x11051 ( 69713) smERR_ABORT_smiCursorOpened The cursor has already been
-opened.**
+**0x11051 ( 69713) smERR_ABORT_smiCursorOpened The cursor has already been opened.**
 
 **Cause:** The cursor has already been opened.
 
 **Action:** Open another cursor, or do not open the same cursor twice.
 
-**0x11053 ( 69715) smERR_ABORT_smiWriteNotApplicable The function is not allowed
-to be used in read-only mode.**
+**0x11053 ( 69715) smERR_ABORT_smiWriteNotApplicable The function is not allowed to be used in read-only mode.**
 
 **Cause:** This function cannot be used in read-only mode.
 
 **Action:** Verify that the function can be used in read-only mode.
 
-**0x11058 ( 69720) smERR_ABORT_smnUniqueViolation The row already exists in a
-unique index.**
+**0x11058 ( 69720) smERR_ABORT_smnUniqueViolation The row already exists in a unique index.**
 
 **Cause:** A duplicate key was inserted or updated.
 
-**Action:** Do not insert or update a duplicate key, or drop the unique
-constraint.
+**Action:** Do not insert or update a duplicate key, or drop the unique constraint.
 
-**0x11059 ( 69721) smERR_ABORT_smnNotFoundByIndexName Index type name not
-found**
+**0x11059 ( 69721) smERR_ABORT_smnNotFoundByIndexName Index type name not found**
 
 **Cause:** It is impossible to find the index type name
 
 **Action:** Select an appropriate index.
 
-**0x1105A ( 69722) smERR_ABORT_smcFixedPageSizeError The fixed record size
-exceeds the size of one page.**
+**0x1105A ( 69722) smERR_ABORT_smcFixedPageSizeError The fixed record size exceeds the size of one page.**
 
-**Cause:** A table could not be created because the record size exceeds the size
-of one page.
+**Cause:** A table could not be created because the record size exceeds the size of one page.
 
-**Action:** Create a table for which the record size is less than the size of
-one page.
+**Action:** Create a table for which the record size is less than the size of one page.
 
-**0x1105B ( 69723) smERR_ABORT_smcVarColumnSizeError A variable column size
-exceeds the maximum size for a variable column.**
+**0x1105B ( 69723) smERR_ABORT_smcVarColumnSizeError A variable column size exceeds the maximum size for a variable column.**
 
 **Cause:** A variable column that is larger than a page cannot be created.
 
-**Action:** Reduce the size of the variable column so that it is less than the
-size of one page.
+**Action:** Reduce the size of the variable column so that it is less than the size of one page.
 
-**0x1105C ( 69724) smERR_ABORT_Too_Long_Var_Data A variable data size exceeds
-the maximum size of a variable item.**
+**0x1105C ( 69724) smERR_ABORT_Too_Long_Var_Data A variable data size exceeds the maximum size of a variable item.**
 
 **Cause:** A variable data size exceeds the maximum size of a variable item.
 
 **Action:** Change the variable data's length so that it does not exceed 32KB.
 
-**0x1105D ( 69725) smERR_ABORT_smiCantBeginUpdateStatement Unable to begin a new
-update statement.**
+**0x1105D ( 69725) smERR_ABORT_smiCantBeginUpdateStatement Unable to begin a new update statement.**
 
-**Cause:** Either the statement is read-only, or more than one UPDATE child
-statement has been requested.
+**Cause:** Either the statement is read-only, or more than one UPDATE child statement has been requested.
 
 **Action:** Verify that the request to begin a new UPDATE statement is valid.
 
-**0x1105F ( 69727) smERR_ABORT_smiUpdateSameTable No more than one update cursor
-can be used on a table.**
+**0x1105F ( 69727) smERR_ABORT_smiUpdateSameTable No more than one update cursor can be used on a table.**
 
 **Cause:** Only one update cursor can be used on a table.
 
 **Action:** Do not use more than one update cursor on a table.
 
-**0x11060 ( 69728) smERR_ABORT_Already_Locked A lock has already been acquired
-by another transaction.**
+**0x11060 ( 69728) smERR_ABORT_Already_Locked A lock has already been acquired by another transaction.**
 
 **Cause:** A lock has already been acquired by another transaction.
 
-**Action:** This situation occurs when a user executes a DDL, and a locked item
-has already been modified by another transaction.
+**Action:** This situation occurs when a user executes a DDL, and a locked item has already been modified by another transaction.
 
-**0x11061 ( 69729) smERR_ABORT_Column_Mismatch Unable to alter the table because
-the information does not correspond to the definition of the column.**
+**0x11061 ( 69729) smERR_ABORT_Column_Mismatch Unable to alter the table because the information does not correspond to the definition of the column.**
 
-**Cause:** Table information (e.g. a constraint) cannot be modified because it
-is not in the specified column.
+**Cause:** Table information (e.g. a constraint) cannot be modified because it is not in the specified column.
 
 **Action:** Try again with the correct column and modification information.
 
-**0x11062 ( 69730) smERR_ABORT_Index_Not_Found The index was not found on the
-database.**
+**0x11062 ( 69730) smERR_ABORT_Index_Not_Found The index was not found on the database.**
 
 **Cause:** The index was not found in the database.
 
 **Action:** Verify that the index is correct.
 
-**0x11064 ( 69732) smERR_ABORT_Table_Not_Found The table was not found in the
-database.**
+**0x11064 ( 69732) smERR_ABORT_Table_Not_Found The table was not found in the database.**
 
 **Cause:** The specified table was not found in the database.
 
 **Action:** Verify that the specified table exists in the database.
 
-**0x11065 ( 69733) smERR_ABORT_Maximum_Index_Count The number of indices in the
-table exceeds the limit(\<0%d\>).**
+**0x11065 ( 69733) smERR_ABORT_Maximum_Index_Count The number of indices in the table exceeds the limit(\<0%d\>).**
 
 **Cause:** The number of indices in the table exceeds the limit.
 
@@ -2478,31 +2228,25 @@ table exceeds the limit(\<0%d\>).**
 
 **Action:** Verify that the column ID is correct and create the table again.
 
-**0x11067 ( 69735) smERR_ABORT_Maximum_Column_count Too many columns in a
-table**
+**0x11067 ( 69735) smERR_ABORT_Maximum_Column_count Too many columns in a table**
 
-\# \*Cause : Too many columns were specified in the CREATE/ALTER TABLE
-statement.
+**Cause :** Too many columns were specified in the CREATE/ALTER TABLE statement.
 
 **Action:** Reduce the number of columns to 1024 or less.
 
-**0x11069 ( 69737) smERR_ABORT_INTERNAL_ARG Internal server error in the storage
-manager (\<0%s\>)**
+**0x11069 ( 69737) smERR_ABORT_INTERNAL_ARG Internal server error in the storage manager (\<0%s\>**
 
 **Cause:** Internal server error.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1106D ( 69741) smERR_ABORT_No_More_Shm_Key Unable to find an available
-shared memory key.**
+**0x1106D ( 69741) smERR_ABORT_No_More_Shm_Key Unable to find an available shared memory key.**
 
 **Cause:** No more shared memory keys are available.
 
 **Action:** Remove all of the shared memory regions and try again.
 
-**0x11071 ( 69745) smERR_ABORT_smiNotRootStatement Statement must be the root of
-the statement.**
+**0x11071 ( 69745) smERR_ABORT_smiNotRootStatement Statement must be the root of the statement.**
 
 **Cause:** The statement is not the root of the statement.
 
@@ -2514,20 +2258,17 @@ the statement.**
 
 **Action:** Abort the transaction.
 
-**0x11074 ( 69748) smERR_ABORT_InvalidBackupFile [\<0%s\>] is an invalid backup
-file for the table.**
+**0x11074 ( 69748) smERR_ABORT_InvalidBackupFile [\<0%s\>] is an invalid backup file for the table.**
 
 **Cause:** The table backup file is invalid.
 
 **Action:** Check the database version or backup file.
 
-**0x11075 ( 69749) smERR_ABORT_smcExceedLockTimeWait The transaction has
-exceeded the lock timeout specified by the user.**
+**0x11075 ( 69749) smERR_ABORT_smcExceedLockTimeWait The transaction has exceeded the lock timeout specified by the user.**
 
 **Cause:** The transaction failed to lock the object.
 
-**Action:** Increase the transaction's lock timeout value or check whether the
-data has a transaction with a long-term lock.
+**Action:** Increase the transaction's lock timeout value or check whether the data has a transaction with a long-term lock.
 
 **0x11076 ( 69750) smERR_ABORT_NoExistFile File not found (\<0%s\>)**
 
@@ -2547,8 +2288,7 @@ data has a transaction with a long-term lock.
 
 **Action:** Provide additional disk space.
 
-**0x1107C ( 69756) smERR_ABORT_droped_Sequence The sequence has already been
-dropped.**
+**0x1107C ( 69756) smERR_ABORT_droped_Sequence The sequence has already been dropped.**
 
 **Cause:** The sequence has already been dropped.
 
@@ -2560,8 +2300,7 @@ dropped.**
 
 **Action:** Enable the index associated with the table.
 
-**0x11087 ( 69767) smERR_ABORT_ExceedMaxRows The record count has reached the
-maximum limit.**
+**0x11087 ( 69767) smERR_ABORT_ExceedMaxRows The record count has reached the maximum limit.**
 
 **Cause:** The number of records has reached or exceeded the maximum limit.
 
@@ -2571,8 +2310,7 @@ maximum limit.**
 
 **Cause:** Invalid row SCN
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x11089 ( 69769) smERR_ABORT_INVALID_COLUMN_SIZE Invalid column size**
 
@@ -2586,74 +2324,61 @@ Support Center (http://support.altibase.com).
 
 **Action:** Increase the values of MAXROWS.
 
-**0x1108E ( 69774) smERR_ABORT_NotFoundDataFileNodeByID Data file node not found
-(ID : \<0%d\>)**
+**0x1108E ( 69774) smERR_ABORT_NotFoundDataFileNodeByID Data file node not found (ID : \<0%d\>)**
 
 **Cause:** The data file node does not exist.
 
 **Action:** Check the data file.
 
-**0x1108F ( 69775) smERR_ABORT_CanStartARCH Archive thread cannot be started in
-NO ARCHIVE mode**
+**0x1108F ( 69775) smERR_ABORT_CanStartARCH Archive thread cannot be started in NO ARCHIVE mode**
 
 **Cause:** The user tried to start an archive thread in NO ARCHIVE mode.
 
-**Action:** Shut down, start up to the control phase and then execute the ALTER
-DATABASE ARCHIVELOG statement.
+**Action:** Shut down, start up to the control phase and then execute the ALTER DATABASE ARCHIVELOG statement.
 
-**0x11090 ( 69776) smERR_ABORT_BackupDatafile The system failed to back up
-\<0%s\> \<1%s\> file.**
+**0x11090 ( 69776) smERR_ABORT_BackupDatafile The system failed to back up \<0%s\> \<1%s\> file.**
 
-**Cause:** An error occurred while copying a memory region or a data file of a
-disk tablespace.
+**Cause:** An error occurred while copying a memory region or a data file of a disk tablespace.
 
 **Action:** Check the disk.
 
-**0x11091 ( 69777) smERR_ABORT_DontNeedBackupTempTBS TEMP tablespace backup not
-required.**
+**0x11091 ( 69777) smERR_ABORT_DontNeedBackupTempTBS TEMP tablespace backup not required.**
 
 **Cause:** The user tried to back up the TEMP tablespace.
 
-**Action:** Do not back up the TEMP tablespace. It is unnecessary because the
-TEMP tablespace is initialized whenever the server starts.
+**Action:** Do not back up the TEMP tablespace. It is unnecessary because the TEMP tablespace is initialized whenever the server starts.
 
-**0x11093 ( 69779) smERR_ABORT_WrongStartupPhase Wrong startup phase. proceed to
-the correct startup phase.**
+**0x11093 ( 69779) smERR_ABORT_WrongStartupPhase Wrong startup phase. proceed to the correct startup phase.**
 
 **Cause:** Wrong startup phase. Proceed to the correct startup phase.
 
 **Action:** Proceed to the correct startup phase.
 
-**0x11094 ( 69780) smERR_ABORT_ErrArchiveLogMode Execution impossible in NO
-ARCHIVE mode.**
+**0x11094 ( 69780) smERR_ABORT_ErrArchiveLogMode Execution impossible in NO ARCHIVE mode.**
 
 **Cause:** Restart recovery cannot be performed in noarchivelog mode.
 
 **Action:** To execute restart recovery, switch to archivelog mode.
 
-**0x11095 ( 69781) smERR_ABORT_NeedMediaRecovery Start up in the CONTROL phase
-and then execute a complete media recovery.**
+**0x11095 ( 69781) smERR_ABORT_NeedMediaRecovery Start up in the CONTROL phase and then execute a complete media recovery.**
 
 **Cause:** The data file does not exist or is not valid.
 
 **Action:** Run a complete media recovery in the CONTROL phase.
 
-**0x11098 ( 69784) smERR_ABORT_BackupLogMode \<0%s\> cannot be executed in
-NOARCHIVELOG mode.**
+**0x11098 ( 69784) smERR_ABORT_BackupLogMode \<0%s\> cannot be executed in NOARCHIVELOG mode.**
 
 **Cause:** Restart recovery cannot be performed in noarchivelog mode.
 
 **Action:** To execute restart recovery, switch to archivelog mode.
 
-**0x11099 ( 69785) smERR_ABORT_UseFileInOtherTBS The file name [\<0%s\>] is in
-use by another tablespace.**
+**0x11099 ( 69785) smERR_ABORT_UseFileInOtherTBS The file name [\<0%s\>] is in use by another tablespace.**
 
 **Cause:** The file name is in use by another tablespace.
 
 **Action:** Select another name for the destination file.
 
-**0x1109A ( 69786) smERR_ABORT_SelfCopy Unable to copy the file because the
-source and destination are the same.**
+**0x1109A ( 69786) smERR_ABORT_SelfCopy Unable to copy the file because the source and destination are the same.**
 
 **Cause:** The source and the destination path and filename are the same.
 
@@ -2665,99 +2390,79 @@ source and destination are the same.**
 
 **Action:** No action is necessary.
 
-**0x110A1 ( 69793) smERR_ABORT_InvalidFileHdr Invalid data file header
-{SID:\<0%d\> - FID:\<1%d\>}**
+**0x110A1 ( 69793) smERR_ABORT_InvalidFileHdr Invalid data file header {SID:\<0%d\> - FID:\<1%d\>}**
 
 **Cause:** Invalid data file header
 
 **Action:** Copy a valid data file to [MEM_DB_DIR].
 
-**0x110A2 ( 69794) smERR_ABORT_NeedResetLogs Incomplete media recovery.
-Resetlogs required.**
+**0x110A2 ( 69794) smERR_ABORT_NeedResetLogs Incomplete media recovery. Resetlogs required.**
 
-**Cause:** The media recovery attempt was incomplete because the resetlogs are
-needed.
+**Cause:** The media recovery attempt was incomplete because the resetlogs are needed.
 
 **Action:** Start up in the meta phase using the RESETLOGS option.
 
-**0x110A4 ( 69796) smERR_ABORT_BACKUP_GOING Backup in progress. Wait until the
-current backup is completed.**
+**0x110A4 ( 69796) smERR_ABORT_BACKUP_GOING Backup in progress. Wait until the current backup is completed.**
 
 **Cause:** It is impossible to switch logfiles while a backup is in progress.
 
 **Action:** Wait until the current backup process is completed.
 
-**0x110A5 ( 69797) smERR_ABORT_NotBeginBackup Tablespace : \<0%d\> BACKUP is not
-in progress.**
+**0x110A5 ( 69797) smERR_ABORT_NotBeginBackup Tablespace : \<0%d\> BACKUP is not in progress.**
 
 **Cause:** The tablespace backup has not yet begun.
 
-**Action:** Execute the following statement first: ALTER TABLESPACE
-tablespacename BEGIN BACKUP.
+**Action:** Execute the following statement first: ALTER TABLESPACE tablespacename BEGIN BACKUP.
 
-**0x110A6 ( 69798) smERR_ABORT_NoActiveBeginBackup The backup process is not
-currently underway.**
+**0x110A6 ( 69798) smERR_ABORT_NoActiveBeginBackup The backup process is not currently underway.**
 
 **Cause:** The backup process is not currently underway.
 
-**Action:** Execute the following statement first: ALTER TABLESPACE
-tablespacename BEGIN BACKUP.
+**Action:** Execute the following statement first: ALTER TABLESPACE tablespacename BEGIN BACKUP.
 
-**0x110A8 ( 69800) smERR_ABORT_NoExecutePermFile No execution permission for the
-path [ \<0%s\> ].**
+**0x110A8 ( 69800) smERR_ABORT_NoExecutePermFile No execution permission for the path [ \<0%s\> ].**
 
 **Cause:** File execution is not permitted for this path.
 
 **Action:** Add file execution permission for this path.
 
-**0x110A9 ( 69801) smERR_ABORT_AlreadyBeginBackup The tablespace \<0%d\> backup
-is in the BEGIN state.**
+**0x110A9 ( 69801) smERR_ABORT_AlreadyBeginBackup The tablespace \<0%d\> backup is in the BEGIN state.**
 
 **Cause:** The tablespace backup has already begun.
 
 **Action:** Alter the previously completed backup of the tablespace.
 
-**0x110AA ( 69802) smERR_ABORT_AlreadyExistTableSpaceName Duplicate tablespace
-names [ \<0%s\> ].**
+**0x110AA ( 69802) smERR_ABORT_AlreadyExistTableSpaceName Duplicate tablespace names [ \<0%s\> ].**
 
 **Cause:** Duplicate tablespace names.
 
 **Action:** Check the tablespace names.
 
-**0x110AC ( 69804) smERR_ABORT_TableLockUse X or S table lock is not allowed
-while the TABLE_LOCK_ENABLE property is 0.**
+**0x110AC ( 69804) smERR_ABORT_TableLockUse X or S table lock is not allowed while the TABLE_LOCK_ENABLE property is 0.**
 
-**Cause:** The user tried to execute a DDL command when the TABLE_LOCK_ENABLE
-property was 0.
+**Cause:** The user tried to execute a DDL command when the TABLE_LOCK_ENABLE property was 0.
 
 **Action:** Change the TABLE_LOCK_ENABLE value to 1.
 
-**0x110AD ( 69805) smERR_ABORT_ActiveTransExits The alter system
-TABLE_LOCK_ENABLE can't be executed when an active transaction exists.**
+**0x110AD ( 69805) smERR_ABORT_ActiveTransExits The alter system TABLE_LOCK_ENABLE can't be executed when an active transaction exists.**
 
 **Cause:** A transaction is still active.
 
 **Action:** End all active transactions and try again.
 
-**0x110AF ( 69807) smERR_ABORT_OSFileSizeLimit_ERROR The maximum file size of
-the OS is less than the database file size that was specified in the CREATE
-DATABASE statement ( \<0%lu\> MB ).**
+**0x110AF ( 69807) smERR_ABORT_OSFileSizeLimit_ERROR The maximum file size of the OS is less than the database file size that was specified in the CREATE DATABASE statement ( \<0%lu\> MB ).**
 
-**Cause:** The maximum file size of the OS is less than that specified in the
-property.
+**Cause:** The maximum file size of the OS is less than that specified in the property.
 
 **Action:** Increase the maximum file size of the OS.
 
-**0x110B0 ( 69808) smERR_ABORT_GETLIMIT_ERROR Failed to invoke the getrlimit()
-system function**
+**0x110B0 ( 69808) smERR_ABORT_GETLIMIT_ERROR Failed to invoke the getrlimit() system function**
 
 **Cause:** The system failed to map the log file.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x110B1 ( 69809) smERR_ABORT_CantAllocTrans Unable to allocate a nested
-transaction object**
+**0x110B1 ( 69809) smERR_ABORT_CantAllocTrans Unable to allocate a nested transaction object**
 
 **Cause:** There is no free transaction object available.
 
@@ -2767,47 +2472,27 @@ transaction object**
 
 **Cause:** Database information is invalid.
 
-**Action:** Check the error number from altibase_sm.log and contact Altibase's
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from altibase_sm.log and contact Altibase's Support Center (http://support.altibase.com).
 
-**0x110B3 ( 69811) smERR_ABORT_DIFFERENT_DB_FREE_PAGE_LIST_COUNT Different Page
-List Count. The value of the PAGE_LIST_GROUP_COUNT property is different from
-the one used when createdb was executed. ( current
-PAGE_LIST_GROUP_COUNT:\<0%d\>, createdb's PAGE_LIST_GROUP_COUNT \<1%d\> )**
+**0x110B3 ( 69811) smERR_ABORT_DIFFERENT_DB_FREE_PAGE_LIST_COUNT Different Page List Count. The value of the PAGE_LIST_GROUP_COUNT property is different from the one used when createdb was executed. ( current PAGE_LIST_GROUP_COUNT:\<0%d\>, createdb's PAGE_LIST_GROUP_COUNT \<1%d\> )**
 
-**Cause:** The value of the PAGE_LIST_GROUP_COUNT property is different from the
-one used when createdb was executed.
+**Cause:** The value of the PAGE_LIST_GROUP_COUNT property is different from the one used when createdb was executed.
 
-**Action:** Set the PAGE_LIST_GROUP_COUNT value to exactly the same value
-specified when the database was created.
+**Action:** Set the PAGE_LIST_GROUP_COUNT value to exactly the same value specified when the database was created.
 
-**0x110B4 ( 69812) smERR_ABORT_DIFFERENT_DB_EXPAND_CHUNK_PAGE_COUNT Different
-Expand Chunk Page Count. The value of the EXPAND_CHUNK_PAGE_COUNT property is
-different from the one used when createdb was executed. ( current
-EXPAND_CHUNK_PAGE_COUNT:\<0%d\>, createdb EXPAND_CHUNK_PAGE_COUNT \<1%d\> )**
+**0x110B4 ( 69812) smERR_ABORT_DIFFERENT_DB_EXPAND_CHUNK_PAGE_COUNT Different Expand Chunk Page Count. The value of the EXPAND_CHUNK_PAGE_COUNT property is different from the one used when createdb was executed. ( current EXPAND_CHUNK_PAGE_COUNT:\<0%d\>, createdb EXPAND_CHUNK_PAGE_COUNT \<1%d\> )**
 
-**Cause:** The value of the EXPAND_CHUNK_PAGE_COUNT property is different from
-the one used when createdb was executed.
+**Cause:** The value of the EXPAND_CHUNK_PAGE_COUNT property is different from the one used when createdb was executed.
 
-**Action:** Set the EXPAND_CHUNK_PAGE_COUNT to exactly the same value specified
-when the database was created.
+**Action:** Set the EXPAND_CHUNK_PAGE_COUNT to exactly the same value specified when the database was created.
 
-**0x110B5 ( 69813) smERR_ABORT_TOO_MANY_PER_LIST_PAGE_COUNT_ERROR Too many pages
-in per list page count. ( Change property values to meet the condition
-EXPAND_CHUNK_PAGE_COUNT(\<0%lu\>) is greater than or equal to 2 \*
-PER_LIST_DIST_PAGE_COUNT(\<1%lu\>) \* PAGE_LIST_GROUP_COUNT(\<2%lu\>). )**
+**0x110B5 ( 69813) smERR_ABORT_TOO_MANY_PER_LIST_PAGE_COUNT_ERROR Too many pages in per list page count. ( Change property values to meet the condition EXPAND_CHUNK_PAGE_COUNT(\<0%lu\>) is greater than or equal to 2 \* PER_LIST_DIST_PAGE_COUNT(\<1%lu\>) \* PAGE_LIST_GROUP_COUNT(\<2%lu\>). )**
 
-**Cause:** An expand chunk must have enough pages to be distributed to all
-database free page list at least twice. The user has specified property values
-that does not satisfy this condition, EXPAND_CHUNK_PAGE_COUNT \<= 2 \*
-PER_LIST_DIST_PAGE_COUNT \* PAGE_LIST_GROUP_COUNT.
+**Cause:** An expand chunk must have enough pages to be distributed to all database free page list at least twice. The user has specified property values that does not satisfy this condition, EXPAND_CHUNK_PAGE_COUNT \<= 2 \* PER_LIST_DIST_PAGE_COUNT \* PAGE_LIST_GROUP_COUNT.
 
-**Action:** Change EXPAND_CHUNK_PAGE_COUNT or PER_LIST_DIST_PAGE_COUNT to meet
-the condition EXPAND_CHUNK_PAGE_COUNT \<= 2 \* PER_LIST_DIST_PAGE_COUNT \*
-PAGE_LIST_GROUP_COUNT.
+**Action:** Change EXPAND_CHUNK_PAGE_COUNT or PER_LIST_DIST_PAGE_COUNT to meet the condition EXPAND_CHUNK_PAGE_COUNT \<= 2 \* PER_LIST_DIST_PAGE_COUNT \* PAGE_LIST_GROUP_COUNT.
 
-**0x110B7 ( 69815) smERR_ABORT_InvalidUseResetLog There is no need to use
-resetlog.**
+**0x110B7 ( 69815) smERR_ABORT_InvalidUseResetLog There is no need to use resetlog.**
 
 **Cause:** There is no need to use resetlog.
 
@@ -2817,40 +2502,33 @@ resetlog.**
 
 **Cause:** The system failed to open the log file.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x110C1 ( 69825) smERR_ABORT_NotFoundDataFile The data file containing page
-[\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
+**0x110C1 ( 69825) smERR_ABORT_NotFoundDataFile The data file containing page [\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
 
 **Cause:** The data file does not exist.
 
 **Action:** Verify that the data file exists.
 
-**0x110C4 ( 69828) smERR_ABORT_CannotSpanTransByLobLocator LobLocator cannot
-span the transaction \<0%d\>.**
+**0x110C4 ( 69828) smERR_ABORT_CannotSpanTransByLobLocator LobLocator cannot span the transaction \<0%d\>.**
 
 **Cause:** The transaction pointed to by Loblocator has ended.
 
 **Action:** No action is necessary.
 
-**0x110C5 ( 69829) smERR_ABORT_LobCursorClosed LobCursor already closed \<0%d\>
-,\<1%d\>.**
+**0x110C5 ( 69829) smERR_ABORT_LobCursorClosed LobCursor already closed \<0%d\> ,\<1%d\>.**
 
 **Cause:** An attempt was made to use a lob cursor that was already closed.
 
 **Action:** No action is necessary.
 
-**0x110C6 ( 69830) smERR_ABORT_CanNotModifyLob Cannot modify a lob using a
-read-only LobCursor.**
+**0x110C6 ( 69830) smERR_ABORT_CanNotModifyLob Cannot modify a lob using a read-only LobCursor.**
 
 **Cause:** An attempt was made to modify a lob using a read-only lob cursor.
 
 **Action:** No action is necessary.
 
-**0x110C7 ( 69831) smERR_ABORT_MissMatchedLobTransID While copying a lob,
-mismatched source lob \<0%d\> and destination lob \<1%d\> transaction ID were
-found.**
+**0x110C7 ( 69831) smERR_ABORT_MissMatchedLobTransID While copying a lob, mismatched source lob \<0%d\> and destination lob \<1%d\> transaction ID were found.**
 
 **Cause:** An attempt was made to modify a lob using a read-only lob cursor.
 
@@ -2862,23 +2540,19 @@ found.**
 
 **Action:** Close the lob cursor.
 
-**0x110C9 ( 69833) smERR_ABORT_PrePareWriteProtocol Lob write preparation
-protocol error**
+**0x110C9 ( 69833) smERR_ABORT_PrePareWriteProtocol Lob write preparation protocol error**
 
-**Cause:** Before writing was completed, another attempt to write to the lob was
-made.
+**Cause:** Before writing was completed, another attempt to write to the lob was made.
 
 **Action:** No action is necessary.
 
-**0x110CA ( 69834) smERR_ABORT_FinishWriteProtocol Lob write finish protocol
-error**
+**0x110CA ( 69834) smERR_ABORT_FinishWriteProtocol Lob write finish protocol error**
 
 **Cause:** The lob could not be written to before writing was completed.
 
 **Action:** No action is necessary.
 
-**0x110CB ( 69835) smERR_ABORT_RangeError The lob operation range (\<0%d\> \~
-\<1%d\>) is not in the target range (\<2%d\> \~ \<3%d\>)**
+**0x110CB ( 69835) smERR_ABORT_RangeError The lob operation range (\<0%d\> \~ \<1%d\>) is not in the target range (\<2%d\> \~ \<3%d\>)**
 
 **Cause:** Lob write range error.
 
@@ -2886,277 +2560,208 @@ error**
 
 **0x110CC ( 69836) smERR_ABORT_LobCursorTooOld The lob cursor is too old.**
 
-**Cause:** Because another statement updated the same row, this lob cursor
-became too old.
+**Cause:** Because another statement updated the same row, this lob cursor became too old.
 
 **Action:** Reopen the lob cursor.
 
-**0x110CD ( 69837) smERR_ABORT_InvalidLobStartOffset Lob operation start offset
-[\<0%d\>] \> current lob length [\<1%d\>]**
+**0x110CD ( 69837) smERR_ABORT_InvalidLobStartOffset Lob operation start offset [\<0%d\>] \> current lob length [\<1%d\>]**
 
-**Cause:** While preparing for writing, the operation start offset was found to
-be greater than the current length of the lob.
+**Cause:** While preparing for writing, the operation start offset was found to be greater than the current length of the lob.
 
 **Action:** No action is necessary.
 
-**0x110D0 ( 69840) smERR_ABORT_MaxLobErrorSize The lob size is bigger than the
-maximum lob size**
+**0x110D0 ( 69840) smERR_ABORT_MaxLobErrorSize The lob size is bigger than the maximum lob size**
 
 **Cause:** The lob size is bigger than the maximum lob size.
 
 **Action:** Ensure that the lob size is correct.
 
-**0x110D1 ( 69841) smERR_ABORT_INVALIDE_LOB_CURSOR_MODE If the table cursor is
-read-only, the lob cursor must also be read-only.**
+**0x110D1 ( 69841) smERR_ABORT_INVALIDE_LOB_CURSOR_MODE If the table cursor is read-only, the lob cursor must also be read-only.**
 
 **Cause:** The LOB cursor must be read-only if the table cursor is read-only.
 
 **Action:** Verify that the LOB cursor is read-only.
 
-**0x110D7 ( 69847) smERR_ABORT_INVALID_STARTUP_PHASE_NOT_CONTROL \<0%s\> is only
-allowed during the control phase.**
+**0x110D7 ( 69847) smERR_ABORT_INVALID_STARTUP_PHASE_NOT_CONTROL \<0%s\> is only allowed during the control phase.**
 
-**Cause:** The user tried to execute a statement which may only be executed in
-the CONTROL phase.
+**Cause:** The user tried to execute a statement which may only be executed in the CONTROL phase.
 
 **Action:** Shut down, start up to the CONTROL phase and try again.
 
-**0x110D8 ( 69848) smERR_ABORT_CPATH_NOT_EXIST The checkpoint path '\<0%s\>'
-does not exist.**
+**0x110D8 ( 69848) smERR_ABORT_CPATH_NOT_EXIST The checkpoint path '\<0%s\>' does not exist.**
 
 **Cause:** The user tried to use a checkpoint path that does not exist.
 
 **Action:** Verify that the checkpoint path exists.
 
-**0x110D9 ( 69849) smERR_ABORT_CPATH_NO_READ_PERMISSION The checkpoint path
-'\<0%s\>' does not have READ permission.**
+**0x110D9 ( 69849) smERR_ABORT_CPATH_NO_READ_PERMISSION The checkpoint path '\<0%s\>' does not have READ permission.**
 
-**Cause:** The user tried to use a checkpoint path that does not have READ
-permission.
+**Cause:** The user tried to use a checkpoint path that does not have READ permission.
 
 **Action:** Verify that the checkpoint path has READ permission.
 
-**0x110DA ( 69850) smERR_ABORT_CPATH_NO_WRITE_PERMISSION The checkpoint path
-'\<0%s\>' does not have WRITE permission.**
+**0x110DA ( 69850) smERR_ABORT_CPATH_NO_WRITE_PERMISSION The checkpoint path '\<0%s\>' does not have WRITE permission.**
 
-**Cause:** The user tried to use a checkpoint path that does not have WRITE
-permission.
+**Cause:** The user tried to use a checkpoint path that does not have WRITE permission.
 
 **Action:** Verify that the checkpoint path has WRITE permission.
 
-**0x110DB ( 69851) smERR_ABORT_CPATH_NO_EXEC_PERMISSION The checkpoint path
-'\<0%s\>' does not have EXECUTE permission.**
+**0x110DB ( 69851) smERR_ABORT_CPATH_NO_EXEC_PERMISSION The checkpoint path '\<0%s\>' does not have EXECUTE permission.**
 
-**Cause:** The user tried to use a checkpoint path that does not have EXECUTE
-permission.
+**Cause:** The user tried to use a checkpoint path that does not have EXECUTE permission.
 
 **Action:** Verify that the checkpoint path has EXECUTE permission.
 
-**0x110DC ( 69852) smERR_ABORT_CPATH_NOT_A_DIRECTORY The checkpoint path
-'\<0%s\>' is not a directory.**
+**0x110DC ( 69852) smERR_ABORT_CPATH_NOT_A_DIRECTORY The checkpoint path '\<0%s\>' is not a directory.**
 
 **Cause:** The user tried to use a checkpoint path that is not a directory.
 
 **Action:** Verify that the checkpoint path is a directory.
 
-**0x110DD ( 69853) smERR_ABORT_CPATH_NODE_NOT_EXIST The checkpoint path node
-'\<0%s\>' does not exist.**
+**0x110DD ( 69853) smERR_ABORT_CPATH_NODE_NOT_EXIST The checkpoint path node '\<0%s\>' does not exist.**
 
-**Cause:** The user tried to rename or drop a checkpoint path that does not
-exist.
+**Cause:** The user tried to rename or drop a checkpoint path that does not exist.
 
 **Action:** Verify that the checkpoint path exists.
 
-**0x110DE ( 69854) smERR_ABORT_UNABLE_TO_DROP_LAST_CPATH A tablespace needs at
-least one checkpoint path. Unable to drop the checkpoint path '\<0%s\>'.**
+**0x110DE ( 69854) smERR_ABORT_UNABLE_TO_DROP_LAST_CPATH A tablespace needs at least one checkpoint path. Unable to drop the checkpoint path '\<0%s\>'.**
 
 **Cause:** The user tried to drop the only checkpoint path in the tablespace.
 
 **Action:** Rename the checkpoint path instead of dropping it.
 
-**0x110DF ( 69855) smERR_ABORT_CPATH_ALREADY_EXISTS The checkpoint path node
-'\<0%s\>' already exists.**
+**0x110DF ( 69855) smERR_ABORT_CPATH_ALREADY_EXISTS The checkpoint path node '\<0%s\>' already exists.**
 
 **Cause:** The user tried to add a checkpoint path that already exists.
 
 **Action:** Do not try to add a checkpoint path that already exists.
 
-**0x110E0 ( 69856) smERR_ABORT_ALTER_TBS_AUTOEXTEND_ALREADY_SET The attribute of
-AUTOEXTEND mode has already been set.**
+**0x110E0 ( 69856) smERR_ABORT_ALTER_TBS_AUTOEXTEND_ALREADY_SET The attribute of AUTOEXTEND mode has already been set.**
 
 **Cause:** The AUTOEXTEND mode has already been set.
 
 **Action:** No action is necessary.
 
-**0x110E1 ( 69857) smERR_ABORT_ALTER_TBS_NEXTSIZE_NOT_ALIGNED_TO_CHUNK_SIZE The
-NEXT attribute must be a multiple of the expand chunk size ( \<0%lu\>K )**
+**0x110E1 ( 69857) smERR_ABORT_ALTER_TBS_NEXTSIZE_NOT_ALIGNED_TO_CHUNK_SIZE The NEXT attribute must be a multiple of the expand chunk size ( \<0%lu\>K )**
 
-**Cause:** The NEXT attribute must be a multiple of the expand chunk size. The
-expand chunk size is calculated by EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE
+**Cause:** The NEXT attribute must be a multiple of the expand chunk size. The expand chunk size is calculated by EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE
 
-**Action:** Verify that the NEXT size is aligned to EXPAND_CHUNK_PAGE_COUNT \*
-PAGE_SIZE.
+**Action:** Verify that the NEXT size is aligned to EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE.
 
-**0x110E2 ( 69858) smERR_ABORT_ALTER_TBS_MAXSIZE_LESSTHAN_CURRENT_SIZE The
-MAXSIZE attribute must be greater than or equal to the current size of the
-tablespace ( \<0%lu\>K )**
+**0x110E2 ( 69858) smERR_ABORT_ALTER_TBS_MAXSIZE_LESSTHAN_CURRENT_SIZE The MAXSIZE attribute must be greater than or equal to the current size of the tablespace ( \<0%lu\>K )**
 
-**Cause:** The MAXSIZE attribute is less than the current size of the
-tablespace.
+**Cause:** The MAXSIZE attribute is less than the current size of the tablespace.
 
-**Action:** Verify that the MAXSIZE attribute is greater than or equal to the
-current size of the tablespace.
+**Action:** Verify that the MAXSIZE attribute is greater than or equal to the current size of the tablespace.
 
-**0x110E3 ( 69859) smERR_ABORT_ALTER_TBS_AT_DROPPED_TBS Unable to alter a
-dropped tablespace**
+**0x110E3 ( 69859) smERR_ABORT_ALTER_TBS_AT_DROPPED_TBS Unable to alter a dropped tablespace**
 
 **Cause:** The tablespace was dropped.
 
 **Action:** Verify that the tablespace exists.
 
-**0x110E4 ( 69860) smERR_ABORT_ALTER_TBS_AT_OFFLINE_TBS Unable to alter an
-offline tablespace**
+**0x110E4 ( 69860) smERR_ABORT_ALTER_TBS_AT_OFFLINE_TBS Unable to alter an offline tablespace**
 
 **Cause:** The tablespace is offline.
 
 **Action:** Verify that the tablespace is online before attempting to alter it.
 
-**0x110E5 ( 69861) smERR_ABORT_INVALID_CIMAGE_HEADER Invalid Checkpoint Image
-Header {SID:\<0%d\> - PPID:\<1%d\> - FID:\<2%d\>}**
+**0x110E5 ( 69861) smERR_ABORT_INVALID_CIMAGE_HEADER Invalid Checkpoint Image Header {SID:\<0%d\> - PPID:\<1%d\> - FID:\<2%d\>}**
 
 **Cause:** Invalid Checkpoint Image header.
 
 **Action:** Copy a valid Checkpoint Image to [MEM_DB_DIR].
 
-**0x110E6 ( 69862) smERR_ABORT_DefaultDBFileSizeNotAlignedToChunkSize The value
-of the DEFAULT_MEM_DB_FILE_SIZE property must be a multiple of the expand chunk
-size ( EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE(32K) = \<0%lu\>K )**
+**0x110E6 ( 69862) smERR_ABORT_DefaultDBFileSizeNotAlignedToChunkSize The value of the DEFAULT_MEM_DB_FILE_SIZE property must be a multiple of the expand chunk size ( EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE(32K) = \<0%lu\>K )**
 
-**Cause:** The value of DEFAULT_MEM_DB_FILE_SIZE property is not a multiple of
-the expand chunk size.
+**Cause:** The value of DEFAULT_MEM_DB_FILE_SIZE property is not a multiple of the expand chunk size.
 
-**Action:** Verify that the value of DEFAULT_MEM_DB_FILE_SIZE property is a
-multiple of the expand chunk size.
+**Action:** Verify that the value of DEFAULT_MEM_DB_FILE_SIZE property is a multiple of the expand chunk size.
 
-**0x110E7 ( 69863) smERR_ABORT_CANNOT_ALTER_STATUS_OF_SYSTEM_TABLESPACE Unable
-to change the system tablespace status to OFFLINE or ONLINE.**
+**0x110E7 ( 69863) smERR_ABORT_CANNOT_ALTER_STATUS_OF_SYSTEM_TABLESPACE Unable to change the system tablespace status to OFFLINE or ONLINE.**
 
-**Cause:** It is impossible to alter the status of a system tablespace whose
-type is SYSTEM, UNDO, or SYSTEM TEMP.
+**Cause:** It is impossible to alter the status of a system tablespace whose type is SYSTEM, UNDO, or SYSTEM TEMP.
 
 **Action:** Verify that the tablespace is not a system tablespace.
 
-**0x110E8 ( 69864) smERR_ABORT_CANNOT_ALTER_AUTOEXTEND_DICTIONARY_TABLESPACE
-Unable to alter the AUTOEXTEND mode of the dictionary tablespace.**
+**0x110E8 ( 69864) smERR_ABORT_CANNOT_ALTER_AUTOEXTEND_DICTIONARY_TABLESPACE Unable to alter the AUTOEXTEND mode of the dictionary tablespace.**
 
-**Cause:** It is impossible to alter the AUTOEXTEND mode of the dictionary
-tablespace.
+**Cause:** It is impossible to alter the AUTOEXTEND mode of the dictionary tablespace.
 
 **Action:** Verify that the tablespace is not the dictionary tablespace.
 
 **0x110E9 ( 69865)
-smERR_ABORT_ALTER_TBS_ONOFF_ALLOWED_ONLY_AT_META_SERVICE_PHASE ALTER TABLESPACE
-ONLINE/OFFLINE execution is allowed only during the META/SERVICE phase.**
+smERR_ABORT_ALTER_TBS_ONOFF_ALLOWED_ONLY_AT_META_SERVICE_PHASE ALTER TABLESPACE ONLINE/OFFLINE execution is allowed only during the META/SERVICE phase.**
 
-**Cause:** It is impossible to alter the status of a tablespace during the
-PROCESS or CONTROL phases.
+**Cause:** It is impossible to alter the status of a tablespace during the PROCESS or CONTROL phases.
 
 **Action:** Attempt this action during the META or SERVICE startup phases.
 
-**0x110EA ( 69866) smERR_ABORT_SplitSizeNotAlignedToChunkSize The split size of
-the memory checkpoint image file must be a multiple of the expand chunk size (
-EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE(32K) = \<0%lu\>K )**
+**0x110EA ( 69866) smERR_ABORT_SplitSizeNotAlignedToChunkSize The split size of the memory checkpoint image file must be a multiple of the expand chunk size (EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE(32K) = \<0%lu\>K )**
 
-**Cause:** The split size of the memory checkpoint image file is not a multiple
-of the expand chunk size.
+**Cause:** The split size of the memory checkpoint image file is not a multiple of the expand chunk size.
 
-**Action:** Verify that the split size of the memory checkpoint image file is a
-multiple of the expand chunk size.
+**Action:** Verify that the split size of the memory checkpoint image file is a multiple of the expand chunk size.
 
-**0x110EB ( 69867) smERR_ABORT_INVALID_CIMAGE_FILESPEC_FORMAT Invalid Checkpoint
-Image Filespec Format '\<0%s\>'.**
+**0x110EB ( 69867) smERR_ABORT_INVALID_CIMAGE_FILESPEC_FORMAT Invalid Checkpoint Image Filespec Format '\<0%s\>'.**
 
 **Cause:** Invalid checkpoint image filespec format.
 
 **Action:** Check checkpoint image filespec format.
 
-**0x110EC ( 69868) smERR_ABORT_INPUT_UNSTABLE_CIMAGE The checkpoint image
-'\<0%s\>' is not stable.**
+**0x110EC ( 69868) smERR_ABORT_INPUT_UNSTABLE_CIMAGE The checkpoint image '\<0%s\>' is not stable.**
 
 **Cause:** The user tried to input a checkpoint image that is not stable.
 
 **Action:** Check the loganchor file and input a stable checkpoint image.
 
-**0x110ED ( 69869) smERR_ABORT_ERROR_MEDIA_RECOVERY_TYPE Execute incomplete
-media recovery in the CONTROL phase, or execute a restart recovery.**
+**0x110ED ( 69869) smERR_ABORT_ERROR_MEDIA_RECOVERY_TYPE Execute incomplete media recovery in the CONTROL phase, or execute a restart recovery.**
 
 **Cause:** Either media recovery is complete or unnecessary.
 
 **Action:** Restart normally.
 
-**0x110EE ( 69870) smERR_ABORT_TBSInitSizeNotAlignedToChunkSize The initial size
-of the tablespace must be a multiple of the expand chunk size (
-EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE(32K) = \<0%lu\>K )**
+**0x110EE ( 69870) smERR_ABORT_TBSInitSizeNotAlignedToChunkSize The initial size of the tablespace must be a multiple of the expand chunk size ( EXPAND_CHUNK_PAGE_COUNT \* PAGE_SIZE(32K) = \<0%lu\>K )**
 
-**Cause:** The initial size of the tablespace is not a multiple of the expand
-chunk size.
+**Cause:** The initial size of the tablespace is not a multiple of the expand chunk size.
 
-**Action:** Verify that the initial size of the tablespace is a multiple of the
-expand chunk size.
+**Action:** Verify that the initial size of the tablespace is a multiple of the expand chunk size.
 
-**0x110EF ( 69871) smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_WHEN_AUTO_EXTEND_OFF
-Unable to extend the tablespace(\<0%s\>) when AUTOEXTEND mode is OFF**
+**0x110EF ( 69871) smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_WHEN_AUTO_EXTEND_OFF Unable to extend the tablespace(\<0%s\>) when AUTOEXTEND mode is OFF**
 
-**Cause:** The user tried to extend the tablespace when the AUTOEXTEND mode of
-the tablespace was OFF.
+**Cause:** The user tried to extend the tablespace when the AUTOEXTEND mode of the tablespace was OFF.
 
-**Action:** Use the ALTER TABLESPACE AUTOEXTEND ON statement to set AUTOEXTEND
-mode to ON.
+**Action:** Use the ALTER TABLESPACE AUTOEXTEND ON statement to set AUTOEXTEND mode to ON.
 
-**0x110F0 ( 69872) smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_MEM_MAX_DB_SIZE
-Unable to extend the tablespace (\<0%s\>) because the database would be larger
-than MEM_MAX_DB_SIZE(\<1%lu\>K).**
+**0x110F0 ( 69872) smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_MEM_MAX_DB_SIZE Unable to extend the tablespace (\<0%s\>) because the database would be larger than MEM_MAX_DB_SIZE(\<1%lu\>K).**
 
-**Cause:** The user tried to extend the tablespace, but the size of the database
-would be larger than MEM_MAX_DB_SIZE.
+**Cause:** The user tried to extend the tablespace, but the size of the database would be larger than MEM_MAX_DB_SIZE.
 
 **Action:** Enlarge MEM_MAX_DB_SIZE or drop another tablespace.
 
-**0x110F1 ( 69873) smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_TBS_MAXSIZE
-Unable to extend the tablespace (\<0%s\>) because the current size of the
-tablespace (\<1%lu\>K) would be larger than MAXSIZE (\<2%lu\>K) of the
-tablespace.**
+**0x110F1 ( 69873) smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_TBS_MAXSIZE Unable to extend the tablespace (\<0%s\>) because the current size of the tablespace (\<1%lu\>K) would be larger than MAXSIZE (\<2%lu\>K) of the tablespace.**
 
-**Cause:** The user tried to extend the tablespace, but the size of the
-tablespace would exceed MAXSIZE for the tablespace.
+**Cause:** The user tried to extend the tablespace, but the size of the tablespace would exceed MAXSIZE for the tablespace.
 
-**Action:** Use the ALTER TABLESPACE AUTOEXTEND ON MAXSIZE statement to change
-the MAXSIZE for the tablespace.
+**Action:** Use the ALTER TABLESPACE AUTOEXTEND ON MAXSIZE statement to change the MAXSIZE for the tablespace.
 
-**0x110F3 ( 69875) smERR_ABORT_PAGE_RANGE_ERROR Invalid Page Range. Valid Page
-Range = 1 \~ \<0%d\>.**
+**0x110F3 ( 69875) smERR_ABORT_PAGE_RANGE_ERROR Invalid Page Range. Valid Page Range = 1 \~ \<0%d\>.**
 
 **Cause:** The page range is invalid.
 
 **Action:** Specify a valid page range.
 
-**0x110F4 ( 69876) smERR_ABORT_TABLESPACE_IS_ALREADY_ONLINE The tablespace is
-already in ONLINE mode**
+**0x110F4 ( 69876) smERR_ABORT_TABLESPACE_IS_ALREADY_ONLINE The tablespace is already in ONLINE mode**
 
-**Cause:** The user tried to execute “ALTER TABLESPACE ONLINE” on a tablespace
-that is already in ONLINE mode.
+**Cause:** The user tried to execute “ALTER TABLESPACE ONLINE” on a tablespace that is already in ONLINE mode.
 
-**Action:** Verify that the table space is not in ONLINE mode before attempting
-this action.
+**Action:** Verify that the table space is not in ONLINE mode before attempting this action.
 
-**0x110F5 ( 69877) smERR_ABORT_TABLESPACE_IS_ALREADY_OFFLINE The tablespace is
-already in OFFLINE mode**
+**0x110F5 ( 69877) smERR_ABORT_TABLESPACE_IS_ALREADY_OFFLINE The tablespace is already in OFFLINE mode**
 
-**Cause:** The user tried to execute “ALTER TABLESPACE OFFLINE” on a tablespace
-that is already in OFFLINE mode.
+**Cause:** The user tried to execute “ALTER TABLESPACE OFFLINE” on a tablespace that is already in OFFLINE mode.
 
-**Action:** Verify that the table space is not in OFFLINE mode before attempting
-this action.
+**Action:** Verify that the table space is not in OFFLINE mode before attempting this action.
 
 **0x110F6 ( 69878) smERR_ABORT_DUMP_EMPTY_OBJECT Empty dump object.**
 
@@ -3164,179 +2769,126 @@ this action.
 
 **Action:** Verify that you have set a dump object for the dump table.
 
-**0x110F8 ( 69880) smERR_ABORT_CannotDiscardTableSpace Unable to change the
-tablespace to discard mode.**
+**0x110F8 ( 69880) smERR_ABORT_CannotDiscardTableSpace Unable to change the tablespace to discard mode.**
 
-**Cause:** It is impossible to change the tablespace to discard mode because its
-type is SYSTEM, UNDO or SYSTEM_TEMP.
+**Cause:** It is impossible to change the tablespace to discard mode because its type is SYSTEM, UNDO or SYSTEM_TEMP.
 
 **Action:** Verify that the tablespace is not a system tablespace.
 
-**0x110F9 ( 69881) smERR_ABORT_MEDIA_RECOVERY_IS_NOT_SUPPORT_SHARED_MEMORY Media
-Recovery is not supported by the shared memory version.**
+**0x110F9 ( 69881) smERR_ABORT_MEDIA_RECOVERY_IS_NOT_SUPPORT_SHARED_MEMORY Media Recovery is not supported by the shared memory version.**
 
-**Cause:** ALTER DATABASE RECOVER DATABASE is not supported for shared memory
-versions.
+**Cause:** ALTER DATABASE RECOVER DATABASE is not supported for shared memory versions.
 
 **Action:** Verify that the SHM_DB_KEY property is set to zero.
 
-**0x110FA ( 69882) smERR_ABORT_CannotAllocLogBufferMemory Cannot allocate memory
-for the volatile log buffer.**
+**0x110FA ( 69882) smERR_ABORT_CannotAllocLogBufferMemory Cannot allocate memory for the volatile log buffer.**
 
 **Cause:** Insufficient memory.
 
 **Action:** Retry this statement in autocommit mode.
 
-**0x110FB ( 69883) smERR_ABORT_UNABLE_TO_USE_OFFLINE_TBS Unable to use an
-offline tablespace. (NAME=\<0%s\>)**
+**0x110FB ( 69883) smERR_ABORT_UNABLE_TO_USE_OFFLINE_TBS Unable to use an offline tablespace. (NAME=\<0%s\>)**
 
 **Cause:** The user tried to use an offline tablespace.
 
 **Action:** Execute the ALTER TABLESPACE ONLINE statement and try again.
 
-**0x110FC ( 69884) smERR_ABORT_UNABLE_TO_USE_DISCARDED_TBS Unable to use a
-discarded tablespace. (NAME=\<0%s\>)**
+**0x110FC ( 69884) smERR_ABORT_UNABLE_TO_USE_DISCARDED_TBS Unable to use a discarded tablespace. (NAME=\<0%s\>)**
 
 **Cause:** The user tried to use a discarded tablespace.
 
 **Action:** Execute the DROP TABLESPACE statement and recreate the tablespace.
 
-**0x110FD ( 69885) smERR_ABORT_TBS_ALREADY_DISCARDED The tablespace has already
-been discarded.**
+**0x110FD ( 69885) smERR_ABORT_TBS_ALREADY_DISCARDED The tablespace has already been discarded.**
 
-**Cause:** The user tried to discard a tablespace that has already been
-discarded.
+**Cause:** The user tried to discard a tablespace that has already been discarded.
 
 **Action:** Execute the DROP TABLESPACE statement and recreate the tablespace.
 
-**0x110FE ( 69886) smERR_ABORT_AUTOEXT_ON_UNALLOWED_FOR_USED_UP_FILE The
-autoextend attribute of a data file that has been used up cannot be switched
-on.**
+**0x110FE ( 69886) smERR_ABORT_AUTOEXT_ON_UNALLOWED_FOR_USED_UP_FILE The autoextend attribute of a data file that has been used up cannot be switched on.**
 
-**Cause:** The user tried to turn on the autoextend attribute for a data file
-that has been used up.
+**Cause:** The user tried to turn on the autoextend attribute for a data file that has been used up.
 
 **Action:** Try again with a current or unused data file.
 
-**0x110FF ( 69887) smERR_ABORT_StmtMaxDepthLevel The statement depth has reached
-the maximum level.**
+**0x110FF ( 69887) smERR_ABORT_StmtMaxDepthLevel The statement depth has reached the maximum level.**
 
 **Cause:** The depth of the statement is greater than 255.
 
 **Action:** Investigate the reason for the statement depth.
 
 **0x11100 ( 69888)
-smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_VOLATILE_MAX_DB_SIZE Unable to
-extend the tablespace (\<0%s\>) because the database would be larger than
-VOLATILE_MAX_DB_SIZE (\<1%lu\>K).**
+smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_VOLATILE_MAX_DB_SIZE Unable to extend the tablespace (\<0%s\>) because the database would be larger than VOLATILE_MAX_DB_SIZE (\<1%lu\>K).**
 
-**Cause:** The user tried to extend the tablespace, but the size of the database
-would be larger than VOLATILE_MAX_DB_SIZE.
+**Cause:** The user tried to extend the tablespace, but the size of the database would be larger than VOLATILE_MAX_DB_SIZE.
 
 **Action:** Increase the VOLATILE_MAX_DB_SIZE value or drop another tablespace.
 
-**0x11101 ( 69889) smERR_ABORT_UNABLE_TO_BACKUP_FOR_VOLATILE_TABLESPACE Unable
-to back up a volatile tablespace.**
+**0x11101 ( 69889) smERR_ABORT_UNABLE_TO_BACKUP_FOR_VOLATILE_TABLESPACE Unable to back up a volatile tablespace.**
 
 **Cause:** The user tried to back up a volatile tablespace.
 
 **Action:** It is not necessary to back up volatile tablespaces.
 
-**0x11102 ( 69890) smERR_ABORT_UNABLE_TO_ALTER_ONLINE_CUZ_MEM_MAX_DB_SIZE Unable
-to change the tablespace status (NAME=\<0%s\>, SIZE=\<1%lu\>K) to ONLINE because
-the database would be larger than MEM_MAX_DB_SIZE (\<2%lu\>K). ( Current
-Database Size = \<3%lu\>K )**
+**0x11102 ( 69890) smERR_ABORT_UNABLE_TO_ALTER_ONLINE_CUZ_MEM_MAX_DB_SIZE Unable to change the tablespace status (NAME=\<0%s\>, SIZE=\<1%lu\>K) to ONLINE because the database would be larger than MEM_MAX_DB_SIZE (\<2%lu\>K). ( Current Database Size = \<3%lu\>K )**
 
-**Cause:** The user tried to bring the tablespace online, but the size of the
-database would be larger than MEM_MAX_DB_SIZE.
+**Cause:** The user tried to bring the tablespace online, but the size of the database would be larger than MEM_MAX_DB_SIZE.
 
-**Action:** Increase the MEM_MAX_DB_SIZE value or bring another tablespace
-offline, and try again.
+**Action:** Increase the MEM_MAX_DB_SIZE value or bring another tablespace offline, and try again.
 
-**0x11103 ( 69891) smERR_ABORT_UNABLE_TO_CREATE_CUZ_MEM_MAX_DB_SIZE Unable to
-create the tablespace (NAME=\<0%s\>, SIZE=\<1%lu\>K) because the database would
-be larger than MEM_MAX_DB_SIZE (\<2%lu\>K). ( Current Database Size = \<3%lu\>K
-)**
+**0x11103 ( 69891) smERR_ABORT_UNABLE_TO_CREATE_CUZ_MEM_MAX_DB_SIZE Unable to create the tablespace (NAME=\<0%s\>, SIZE=\<1%lu\>K) because the database would be larger than MEM_MAX_DB_SIZE (\<2%lu\>K). ( Current Database Size = \<3%lu\>K )**
 
-**Cause:** The user tried to create a tablespace, but the size of the database
-would be larger than MEM_MAX_DB_SIZE.
+**Cause:** The user tried to create a tablespace, but the size of the database would be larger than MEM_MAX_DB_SIZE.
 
-**Action:** Increase the MEM_MAX_DB_SIZE value or bring another tablespace
-offline.
+**Action:** Increase the MEM_MAX_DB_SIZE value or bring another tablespace offline.
 
-**0x11104 ( 69892) smERR_ABORT_FileNameIsNullString The length of the filename
-is zero.**
+**0x11104 ( 69892) smERR_ABORT_FileNameIsNullString The length of the filename is zero.**
 
 **Cause:** The filename is an empty string.
 
 **Action:** Enter a valid filename for the file to be created.
 
-**0x11105 ( 69893) smERR_ABORT_InvalidExtendFileSizeOSLimit The data file cannot
-be extended because the requested size is bigger than the OS file limit size. (
-Request Size : \<0%lu\> pages, OS File Limit Size : \<1%lu\> pages )**
+**0x11105 ( 69893) smERR_ABORT_InvalidExtendFileSizeOSLimit The data file cannot be extended because the requested size is bigger than the OS file limit size. ( Request Size : \<0%lu\> pages, OS File Limit Size : \<1%lu\> pages )**
 
 **Cause:** The resize (extend) value is too big.
 
 **Action:** Use a suitable value for the resize action.
 
-**0x11107 ( 69895) smERR_ABORT_UNABLE_TO_CREATE_CUZ_VOL_MAX_DB_SIZE Unable to
-create the tablespace (NAME=\<0%s\>, SIZE=\<1%lu\>K) because the database would
-be larger than VOLATILE_MAX_DB_SIZE(\<2%lu\>K). ( Current Total Volatile
-Tablespace Size = \<3%lu\>K )**
+**0x11107 ( 69895) smERR_ABORT_UNABLE_TO_CREATE_CUZ_VOL_MAX_DB_SIZE Unable to create the tablespace (NAME=\<0%s\>, SIZE=\<1%lu\>K) because the database would be larger than VOLATILE_MAX_DB_SIZE(\<2%lu\>K). ( Current Total Volatile Tablespace Size = \<3%lu\>K )**
 
-**Cause:** The user tried to create the tablespace, but the total size of the
-volatile tablespace would be larger than VOLATILE_MAX_DB_SIZE.
+**Cause:** The user tried to create the tablespace, but the total size of the volatile tablespace would be larger than VOLATILE_MAX_DB_SIZE.
 
-**Action:** Increase the VOLATILE_MAX_DB_SIZE value or drop another volatile
-tablespace.
+**Action:** Increase the VOLATILE_MAX_DB_SIZE value or drop another volatile tablespace.
 
-**0x11108 ( 69896) smERR_ABORT_LogFileSizeNotAlignedToDirectIOPageSize The size
-of the logfile is not aligned to DIRECT_IO_PAGE_SIZE.**
+**0x11108 ( 69896) smERR_ABORT_LogFileSizeNotAlignedToDirectIOPageSize The size of the logfile is not aligned to DIRECT_IO_PAGE_SIZE.**
 
-**Cause:** The size of the logfile is not an exact multiple of
-DIRECT_IO_PAGE_SIZE.
+**Cause:** The size of the logfile is not an exact multiple of DIRECT_IO_PAGE_SIZE.
 
-**Action:** Verify that the size of the logfile is an exact multiple of
-DIRECT_IO_PAGE_SIZE.
+**Action:** Verify that the size of the logfile is an exact multiple of DIRECT_IO_PAGE_SIZE.
 
-**0x11109 ( 69897) smERR_ABORT_MAX_AGER_COUNT_LT_MIN_AGER_COUNT
-MAX_LOGICAL_AGER_COUNT property is less than MIN_LOGICAL_AGER_COUNT property. (
-MAX_LOGICAL_AGER_COUNT=\<0%d\>, MIN_LOGICAL_AGER_COUNT=\<1%d\> )**
+**0x11109 ( 69897) smERR_ABORT_MAX_AGER_COUNT_LT_MIN_AGER_COUNT MAX_LOGICAL_AGER_COUNT property is less than MIN_LOGICAL_AGER_COUNT property. ( MAX_LOGICAL_AGER_COUNT=\<0%d\>, MIN_LOGICAL_AGER_COUNT=\<1%d\> )**
 
-**Cause:** The user has specified a maximum number of logical agers that is less
-than the minimum number of logical agers.
+**Cause:** The user has specified a maximum number of logical agers that is less than the minimum number of logical agers.
 
-**Action:** Verify that the MAX_LOGICAL_AGER_COUNT value is greater than or
-equal to the MIN_LOGICAL_AGER_COUNT value.
+**Action:** Verify that the MAX_LOGICAL_AGER_COUNT value is greater than or equal to the MIN_LOGICAL_AGER_COUNT value.
 
-**0x1110A ( 69898) smERR_ABORT_AGER_COUNT_OUT_OF_MAX_COUNT The
-LOGICAL_AGER_COUNT property value is greater than the MAX_LOGICAL_AGER_COUNT
-property value. ( LOGICAL_AGER_COUNT=\<0%d\>, MAX_LOGICAL_AGER_COUNT=\<1%d\> )**
+**0x1110A ( 69898) smERR_ABORT_AGER_COUNT_OUT_OF_MAX_COUNT The LOGICAL_AGER_COUNT property value is greater than the MAX_LOGICAL_AGER_COUNT property value. ( LOGICAL_AGER_COUNT=\<0%d\>, MAX_LOGICAL_AGER_COUNT=\<1%d\> )**
 
-**Cause:** The LOGICAL_AGER_COUNT property value is greater than the
-MAX_LOGICAL_AGER_COUNT property value.
+**Cause:** The LOGICAL_AGER_COUNT property value is greater than the MAX_LOGICAL_AGER_COUNT property value.
 
-**Action:** Verify the LOGICAL_AGER_COUNT property value is less than or equal
-to the MAX_LOGICAL_AGER_COUNT property value.
+**Action:** Verify the LOGICAL_AGER_COUNT property value is less than or equal to the MAX_LOGICAL_AGER_COUNT property value.
 
-**0x1110B ( 69899) smERR_ABORT_AGER_COUNT_OUT_OF_MIN_COUNT The
-LOGICAL_AGER_COUNT property value is less than the MIN_LOGICAL_AGER_COUNT
-property value. ( LOGICAL_AGER_COUNT=\<0%d\>, MIN_LOGICAL_AGER_COUNT=\<1%d\> )**
+**0x1110B ( 69899) smERR_ABORT_AGER_COUNT_OUT_OF_MIN_COUNT The LOGICAL_AGER_COUNT property value is less than the MIN_LOGICAL_AGER_COUNT property value. ( LOGICAL_AGER_COUNT=\<0%d\>, MIN_LOGICAL_AGER_COUNT=\<1%d\> )**
 
-**Cause:** The LOGICAL_AGER_COUNT property value is less than the
-MIN_LOGICAL_AGER_COUNT property value.
+**Cause:** The LOGICAL_AGER_COUNT property value is less than the MIN_LOGICAL_AGER_COUNT property value.
 
-**Action:** Verify the LOGICAL_AGER_COUNT property value is greater than or
-equal to the MIN_LOGICAL_AGER_COUNT property value.
+**Action:** Verify the LOGICAL_AGER_COUNT property value is greater than or equal to the MIN_LOGICAL_AGER_COUNT property value.
 
-**0x1110D ( 69901) smERR_ABORT_NOT_NULL_VIOLATION Unable to add NOT NULL
-constraint to the specified column because it already contains null values**
+**0x1110D ( 69901) smERR_ABORT_NOT_NULL_VIOLATION Unable to add NOT NULL constraint to the specified column because it already contains null values**
 
-**Cause:** The NOT NULL constraint cannot be added to the specified column
-because it already contains null values.
+**Cause:** The NOT NULL constraint cannot be added to the specified column because it already contains null values.
 
-**Action:** Remove all null values from the column prior to adding the NOT NULL
-constraint.
+**Action:** Remove all null values from the column prior to adding the NOT NULL constraint.
 
 **0x11110 ( 69904) smERR_ABORT_INCONSISTENT_INDEX The index is inconsistent**
 
@@ -3356,50 +2908,41 @@ constraint.
 
 **Action:** Verify that a valid dump object has been used for the dump table.
 
-**0x11115 ( 69909) smERR_ABORT_TBS_ATTR_FLAG_ALREADY_SET The tablespace
-attribute has already been set to the given value.**
+**0x11115 ( 69909) smERR_ABORT_TBS_ATTR_FLAG_ALREADY_SET The tablespace attribute has already been set to the given value.**
 
 **Cause:** The LOG COMPRESS attribute already corresponds to the given value.
 
 **Action:** No action is necessary.
 
-**0x11116 ( 69910) smERR_ABORT_TABLE_ATTR_FLAG_ALREADY_SET The table attribute
-has already been set to the given value.**
+**0x11116 ( 69910) smERR_ABORT_TABLE_ATTR_FLAG_ALREADY_SET The table attribute has already been set to the given value.**
 
 **Cause:** The attribute is already the same as the given value.
 
 **Action:** No action is necessary.
 
-**0x11117 ( 69911) smERR_ABORT_UNABLE_TO_COMPRESS_VOLATILE_TBS_LOG Log
-compression is not supported for volatile tablespaces.**
+**0x11117 ( 69911) smERR_ABORT_UNABLE_TO_COMPRESS_VOLATILE_TBS_LOG Log compression is not supported for volatile tablespaces.**
 
 **Cause:** The user tried to compress a volatile tablespace log.
 
 **Action:** No action is necessary.
 
-**0x11118 ( 69912) smERR_ABORT_TOO_MANY_UPDATE_LOG The update log size
-'\<0%lu\>' is bigger than TRX_UPDATE_MAX_LOGSIZE '\<1%lu\>'**
+**0x11118 ( 69912) smERR_ABORT_TOO_MANY_UPDATE_LOG The update log size '\<0%lu\>' is bigger than TRX_UPDATE_MAX_LOGSIZE '\<1%lu\>'**
 
-**Cause:** The update log size '\<%lu\>' is bigger than TRX_UPDATE_MAX_LOGSIZE
-'\<%lu\>'
+**Cause:** The update log size '\<%lu\>' is bigger than TRX_UPDATE_MAX_LOGSIZE '\<%lu\>'
 
 **Action:** TRX_UPDATE_MAX_LOGSIZE is too small.
 
-**0x1111A ( 69914) smERR_ABORT_Invalid_DataFile_Create_LSN The create LSN
-(\<0%u\>, \<1%u\>, \<2%u\>) of the data file (\<3%s\>) is bigger than the
-restart redo LSN (\<4%u\>, \<5%u\>, \<6%u\>).**
+**0x1111A ( 69914) smERR_ABORT_Invalid_DataFile_Create_LSN The create LSN (\<0%u\>, \<1%u\>, \<2%u\>) of the data file (\<3%s\>) is bigger than the restart redo LSN (\<4%u\>, \<5%u\>, \<6%u\>).**
 
 **Cause:** The data file is invalid.
 
 **Action:** Verify that the data file was backed up correctly.
 
-**0x1111F ( 69919) smERR_ABORT_PageCorrupted A page is corrupt. ( Current Space
-ID : \<0%d\>, Current Page ID : \<1%d\> )**
+**0x1111F ( 69919) smERR_ABORT_PageCorrupted A page is corrupt. ( Current Space ID : \<0%d\>, Current Page ID : \<1%d\> )**
 
 **Cause:** The page was not written completely.
 
-**Action:** Recover the tablespace that contains the corrupt page with backup
-and recovery utilities.
+**Action:** Recover the tablespace that contains the corrupt page with backup and recovery utilities.
 
 **0x11120 ( 69920) smERR_ABORT_INCONSISTENT_TABLE The table is inconsistent.**
 
@@ -3407,223 +2950,180 @@ and recovery utilities.
 
 **Action:** Recreate the table.
 
-**0x11121 ( 69921) smERR_ABORT_CANNOT_ADD_DataFile It is impossible to add any
-more data files.**
+**0x11121 ( 69921) smERR_ABORT_CANNOT_ADD_DataFile It is impossible to add any more data files.**
 
 **Cause:** The number of files has reached the limit.
 
 **Action:** Refrain from attempting this action.
 
-**0x11122 ( 69922) smERR_ABORT_CANT_SHRINK_BELOW_HWM It is impossible to shrink
-this file. ( Request Size : \<0%lu\> pages, Used File Size : \<1%lu\> pages )**
+**0x11122 ( 69922) smERR_ABORT_CANT_SHRINK_BELOW_HWM It is impossible to shrink this file. ( Request Size : \<0%lu\> pages, Used File Size : \<1%lu\> pages )**
 
 **Cause:** An attempt was made to shrink the file below HWM.
 
 **Action:** Refrain from attempting this action.
 
-**0x11123 ( 69923) smERR_ABORT_NOT_ENOUGH_SPACE The tablespace does not have
-enough free space ( TBS Name :\<0%s\> ).**
+**0x11123 ( 69923) smERR_ABORT_NOT_ENOUGH_SPACE The tablespace does not have enough free space ( TBS Name :\<0%s\> ).**
 
 **Cause:** The tablespace does not have enough free space.
 
 **Action:** Add a new data file.
 
 **0x11124 ( 69924) smERR_ABORT_FILE_IS_TOO_SMALL Not even one extent can be
-created. ( Request Init Size : \<0%lu\> pages, Minimum File Size : \<1%lu\>
-pages )**
+created. ( Request Init Size : \<0%lu\> pages, Minimum File Size : \<1%lu\> pages )**
 
 **Cause:** The file is too small for even one extent.
 
 **Action:** Retry with a greater size.
 
-**0x11126 ( 69926) smERR_ABORT_SegmentExceedMaxExtents Max no. of extents
-reached for segment ( TBSID : \<0%u\>, SEGHDR_FID : \<1%u\>, SEGHDR_FPID :
-\<2%u\>, CurrExtCnt : \<3%u\>, MaxExtCnt : \<4%u\> ).**
+**0x11126 ( 69926) smERR_ABORT_SegmentExceedMaxExtents Max no. of extents reached for segment ( TBSID : \<0%u\>, SEGHDR_FID : \<1%u\>, SEGHDR_FPID : \<2%u\>, CurrExtCnt : \<3%u\>, MaxExtCnt : \<4%u\> ).**
 
 **Cause:** The maximum number of extents has been reached for this segment.
 
 **Action:** Increase the MAXEXTENTS value for this segment.
 
-**0x11127 ( 69927) smERR_ABORT_NotExistSegment The segment does not exist or is
-not in a valid state.**
+**0x11127 ( 69927) smERR_ABORT_NotExistSegment The segment does not exist or is not in a valid state.**
 
 **Cause:** The segment does not exist or is not in a valid state.
 
 **Action:** Verify that the segment object is valid.
 
-**0x11128 ( 69928) smERR_ABORT_SHRINK_SIZE_IS_TOO_SMALL The requested size of
-the data file is less than the minimum file size. ( Request Size : \<0%lu\>
-pages, Minimum File Size : \<1%lu\> pages )**
+**0x11128 ( 69928) smERR_ABORT_SHRINK_SIZE_IS_TOO_SMALL The requested size of the data file is less than the minimum file size. ( Request Size : \<0%lu\> pages, Minimum File Size : \<1%lu\> pages )**
 
 **Cause:** The file is too small for even one extent.
 
 **Action:** Increase the file size.
 
-**0x11129 ( 69929) smERR_ABORT_TOO_MANY_DATA_FILE The Tablespace has too many
-data files.**
+**0x11129 ( 69929) smERR_ABORT_TOO_MANY_DATA_FILE The Tablespace has too many data files.**
 
-**Cause:** An attempt was made to create the Tablespace with too many data
-files.
+**Cause:** An attempt was made to create the Tablespace with too many data files.
 
 **Action:** Reduce the number of data files in the Tablespace to 1024 or less.
 
-**0x1112D ( 69933) smERR_ABORT_smiInvalidFlusherID The flusher ID [\<0%d\>] must
-be less than \<1%d\>.**
+**0x1112D ( 69933) smERR_ABORT_smiInvalidFlusherID The flusher ID [\<0%d\>] must be less than \<1%d\>**
 
 **Cause:** The flusher ID is invalid.
 
 **Action:** Check the flusher count.
 
-**0x1112E ( 69934) smERR_ABORT_sdbFlusherNotStarted The flusher [\<0%d\>] was
-not started.**
+**0x1112E ( 69934) smERR_ABORT_sdbFlusherNotStarted The flusher [\<0%d\>] was not started.**
 
 **Cause:** The flusher was not started.
 
 **Action:** Check the flusher status.
 
-**0x1112F ( 69935) smERR_ABORT_sdbFlusherRunning The flusher [\<0%d\>] is
-already running.**
+**0x1112F ( 69935) smERR_ABORT_sdbFlusherRunning The flusher [\<0%d\>] is already running.**
 
 **Cause:** The flusher cannot be started because it is already running.
 
 **Action:** Check the flusher status.
 
-**0x11130 ( 69936) smERR_ABORT_ILLEGAL_REQ_BUFFER_SIZE BUFFER_AREA_SIZE has to
-be larger than current BUFFER_AREA_SIZE.**
+**0x11130 ( 69936) smERR_ABORT_ILLEGAL_REQ_BUFFER_SIZE BUFFER_AREA_SIZE has to be larger than current BUFFER_AREA_SIZE.**
 
-**Cause:** The current version of Altibase doesn't support decreasing the buffer
-area size.
+**Cause:** The current version of Altibase doesn't support decreasing the buffer area size.
 
-**Action:** If you want to decrease the buffer area size, first shut down
-Altibase and set a suitable value for the property. Then start Altibase again.
+**Action:** If you want to decrease the buffer area size, first shut down Altibase and set a suitable value for the property. Then start Altibase again.
 
-**0x11132 ( 69938) smERR_ABORT_INVALID_BUFFER_EXPAND_SIZE \|BUFFER_AREA_SIZE -
-current BUFFER_AREA_SIZE\| must be larger than BUFFER_AREA_CHUNK_SIZE.**
+**0x11132 ( 69938) smERR_ABORT_INVALID_BUFFER_EXPAND_SIZE \|BUFFER_AREA_SIZE - current BUFFER_AREA_SIZE\| must be larger than BUFFER_AREA_CHUNK_SIZE.**
 
-**Cause:** \|BUFFER_AREA_SIZE - current BUFFER_AREA_SIZE\| is smaller than
-BUFFER_AREA_CHUNK_SIZE.
+**Cause:** \|BUFFER_AREA_SIZE - current BUFFER_AREA_SIZE\| is smaller than BUFFER_AREA_CHUNK_SIZE.
 
 **Action:** Enter another value for BUFFER_AREA_SIZE.
 
-**0x11134 ( 69940) smERR_ABORT_Not_Support_function Altibase doesn't support
-this function**
+**0x11134 ( 69940) smERR_ABORT_Not_Support_function Altibase doesn't support this function**
 
 **Cause:** Altibase doesn't support this function.
 
 **Action:** Check the manual.
 
-**0x11135 ( 69941) smERR_ABORT_AlreadyExistLogFile The Log file already
-exists.**
+**0x11135 ( 69941) smERR_ABORT_AlreadyExistLogFile The Log file already exists.**
 
 **Cause:** The Log file already exists.
 
 **Action:** Confirm that you have executed destroydb.
 
-**0x11136 ( 69942) smERR_ABORT_AlreadyExistLogAnchorFile The LogAnchor file
-already exists.**
+**0x11136 ( 69942) smERR_ABORT_AlreadyExistLogAnchorFile The LogAnchor file already exists.**
 
 **Cause:** The LogAnchor file already exists.
 
 **Action:** Confirm that you have executed destroydb.
 
-**0x11137 ( 69943) smERR_ABORT_UseFileInTheTBS The file name [\<0%s\>] is in use
-by the tablespace [\<1%s\>].**
+**0x11137 ( 69943) smERR_ABORT_UseFileInTheTBS The file name [\<0%s\>] is in use by the tablespace [\<1%s\>].**
 
 **Cause:** The file name is in use by a tablespace.
 
 **Action:** Choose another destination file name.
 
-**0x11138 ( 69944) smERR_ABORT_BUFFER_MANAGER_BUSY The buffer area size cannot
-be changed because of transactions.**
+**0x11138 ( 69944) smERR_ABORT_BUFFER_MANAGER_BUSY The buffer area size cannot be changed because of transactions.**
 
 **Cause:** There are currently executing transactions.
 
 **Action:** Try again when the system is not busy.
 
-**0x11139 ( 69945) smERR_ABORT_CannotCreateSegInUndoTBS Cannot create segments
-in an undo tablespace.**
+**0x11139 ( 69945) smERR_ABORT_CannotCreateSegInUndoTBS Cannot create segments in an undo tablespace.**
 
 **Cause:** Cannot create a table or index in an undo tablespace.
 
 **Action:** Use another tablespace.
 
-**0x1113B ( 69947) smERR_ABORT_Datafile_Header_Read_Failure File header not read
-from database file '\<0%s\>'.**
+**0x1113B ( 69947) smERR_ABORT_Datafile_Header_Read_Failure File header not read from database file '\<0%s\>'.**
 
-**Cause:** The DBFile was not found, or the DBFileHdr value in the DBFile could
-not be read.
+**Cause:** The DBFile was not found, or the DBFileHdr value in the DBFile could not be read.
 
 **Action:** Check the DBFile.
 
-**0x1113C ( 69948) smERR_ABORT_Datafile_Header_Write_Failure File header of
-database file '\<0%s\>' not written.**
+**0x1113C ( 69948) smERR_ABORT_Datafile_Header_Write_Failure File header of database file '\<0%s\>' not written.**
 
-**Cause:** The DBFile was not found, or the DBFileHdr was not written in the
-DBFile.
+**Cause:** The DBFile was not found, or the DBFileHdr was not written in the DBFile.
 
 **Action:** Check the DBFile.
 
-**0x1113D ( 69949) smERR_ABORT_NotFoundDataFileByPath Data file not found
-'\<0%s\>'.**
+**0x1113D ( 69949) smERR_ABORT_NotFoundDataFileByPath Data file not found '\<0%s\>'.**
 
 **Cause:** Data file not found.
 
 **Action:** Check the data file.
 
-**0x1113E ( 69950) smERR_ABORT_EXTENT_SIZE_IS_TOO_SMALL An extent size for an
-auto segment space managed tablespace must have at least 5 blocks.**
+**0x1113E ( 69950) smERR_ABORT_EXTENT_SIZE_IS_TOO_SMALL An extent size for an auto segment space managed tablespace must have at least 5 blocks.**
 
-**Cause:** The user tried to create a tablespace with an invalid (too small)
-extent size.
+**Cause:** The user tried to create a tablespace with an invalid (too small) extent size.
 
-**Action:** Create a tablespace with a valid (greater than PAGESIZE \* 5) extent
-size.
+**Action:** Create a tablespace with a valid (greater than PAGESIZE \* 5) extent size.
 
-**0x11140 ( 69952) smERR_ABORT_LogSizeExceedLogFileSize The size of a log record
-exceeds the logfile size ( logfile size \<0%d\> bytes, log record size \<1%d\>
-bytes ).**
+**0x11140 ( 69952) smERR_ABORT_LogSizeExceedLogFileSize The size of a log record exceeds the logfile size ( logfile size \<0%d\> bytes, log record size \<1%d\> bytes ).**
 
 **Cause:** The size of a log record exceeds the logfile size.
 
 **Action:** Change the property to a suitable value and recreate the database.
 
-**0x11141 ( 69953) smERR_ABORT_Invalid_Mtx_LatchStack_Size The mini
-transaction's latchstack size is not 1.**
+**0x11141 ( 69953) smERR_ABORT_Invalid_Mtx_LatchStack_Size The mini transaction's latchstack size is not 1.**
 
 **Cause:** Internal mtx misuse.
 
 **Action:** Send a bug report to the vendor.
 
-**0x11145 ( 69957) smERR_ABORT_AllFlushersStopped You cannot run the DCL command
-because all flushers are stopped.**
+**0x11145 ( 69957) smERR_ABORT_AllFlushersStopped You cannot run the DCL command because all flushers are stopped.**
 
 **Cause:** All flushers are stopped.
 
 **Action:** Start some flushers.
 
-**0x11146 ( 69958) smERR_ABORT_DW_FILE_NOT_FOUND There is no double write
-file.**
+**0x11146 ( 69958) smERR_ABORT_DW_FILE_NOT_FOUND There is no double write file.**
 
 **Cause:** The DOUBLE_WRITE_DIRECTORY property has been modified.
 
 **Action:** Check your properties.
 
-**0x11147 ( 69959) smERR_ABORT_INVALID_LOGFILE Invalid logfile ( File Name :
-\<0%s\> ).**
+**0x11147 ( 69959) smERR_ABORT_INVALID_LOGFILE Invalid logfile ( File Name : \<0%s\> ).**
 
 **Cause:** The log file is invalid.
 
 **Action:** Check the logfile.
 
-**0x11149 ( 69961) smERR_ABORT_WrongVerifyDiskIndexCount The number of
-\__SM_VERIFY_DISK_INDEX_NAME(\<0%d\>) is not
-\__SM_VERIFY_DISK_INDEX_COUNT(\<1%d\>).**
+**0x11149 ( 69961) smERR_ABORT_WrongVerifyDiskIndexCount The number of \__SM_VERIFY_DISK_INDEX_NAME(\<0%d\>) is not __SM_VERIFY_DISK_INDEX_COUNT(\<1%d\>).**
 
-**Cause:** The number of \__SM_VERIFY_DISK_INDEX_NAME is different from
-\__SM_VERIFY_DISK_INDEX_COUNT.
+**Cause:** The number of \__SM_VERIFY_DISK_INDEX_NAME is different from __SM_VERIFY_DISK_INDEX_COUNT.
 
-**Action:** Check \__SM_VERIFY_DISK_INDEX_COUNT and the number of
-\__SM_VERIFY_DISK_INDEX_NAME.
+**Action:** Check \__SM_VERIFY_DISK_INDEX_COUNT and the number of __SM_VERIFY_DISK_INDEX_NAME.
 
 **0x1114A ( 69962) smERR_ABORT_TX_ALLOC Failed to allocate a transaction.**
 
@@ -3631,500 +3131,368 @@ file.**
 
 **Action:** Check the transaction table status.
 
-**0x1114C ( 69964) smERR_ABORT_DROP_CPATH_NOT_YET_MOVED_CIMG_IN_CPATH The
-checkpoint image '\<0%s\>' has not yet been moved from the checkpoint path
-'\<1%s\>'.**
+**0x1114C ( 69964) smERR_ABORT_DROP_CPATH_NOT_YET_MOVED_CIMG_IN_CPATH The checkpoint image '\<0%s\>' has not yet been moved from the checkpoint path '\<1%s\>'.**
 
-**Cause:** An attempt was made to drop a checkpoint path that contains a
-checkpoint image.
+**Cause:** An attempt was made to drop a checkpoint path that contains a checkpoint image.
 
 **Action:** Move the checkpoint image to another checkpoint path.
 
-**0x1114D ( 69965) smERR_ABORT_DML_AFTER_INSERT_APPEND This DML operation is not
-permitted.**
+**0x1114D ( 69965) smERR_ABORT_DML_AFTER_INSERT_APPEND This DML operation is not permitted.**
 
-**Cause:** An attempt was made to execute DML operations during Direct-Path
-INSERT.
+**Cause:** An attempt was made to execute DML operations during Direct-Path INSERT.
 
 **Action:** Execute DML operations after Direct-Path INSERT is Terminated.
 
-**0x1114E ( 69966) smERR_ABORT_NOT_FOUND_LOGFILE No log files could be found in
-the '\<0%s\>' directory.**
+**0x1114E ( 69966) smERR_ABORT_NOT_FOUND_LOGFILE No log files could be found in the '\<0%s\>' directory.**
 
 **Cause:** The specified directory did not contain any log files.
 
 **Action:** Check the specified directory.
 
-**0x1114F ( 69967) smERR_ABORT_EXIST_ACTIVE_TRANS_IN_RECOV Recovery failure.
-Active transactions exist.**
+**0x1114F ( 69967) smERR_ABORT_EXIST_ACTIVE_TRANS_IN_RECOV Recovery failure. Active transactions exist.**
 
-**Cause:** All transactions that were commenced during the startup phase must be
-completed before the recovery phase.
+**Cause:** All transactions that were commenced during the startup phase must be completed before the recovery phase.
 
 **Action:** Check for and end all active transactions during the control phase.
 
-**0x11150 ( 69968) smERR_ABORT_InitSizeExceedMaxSize The INITSIZE of the data
-file exceeds the MAXSIZE of the data file.**
+**0x11150 ( 69968) smERR_ABORT_InitSizeExceedMaxSize The INITSIZE of the data file exceeds the MAXSIZE of the data file.**
 
 **Cause:** The INITSIZE of the data file exceeds the MAXSIZE of the data file.
 
 **Action:** Check the INITSIZE and MAXSIZE of the data file.
 
-**0x11151 ( 69969) smERR_ABORT_InitSizePropExceedMaxSizeProp The value of the
-\<0%s\> property exceeds the value of the \<1%s\> property.**
+**0x11151 ( 69969) smERR_ABORT_InitSizePropExceedMaxSizeProp The value of the \<0%s\> property exceeds the value of the \<1%s\> property.**
 
-**Cause:** The value of the INITSIZE property exceeds the value of the MAXSIZE
-property.
+**Cause:** The value of the INITSIZE property exceeds the value of the MAXSIZE property.
 
 **Action:** Check the properties pertaining to the size of the data file.
 
-**0x11152 ( 69970) smERR_ABORT_MaxSizePropExceedOSLimit The value of the \<0%s\>
-property exceeds the OS file size limit. ( Max Size Property : \<1%lu\>, OS file
-size limit : \<2%lu\> )**
+**0x11152 ( 69970) smERR_ABORT_MaxSizePropExceedOSLimit The value of the \<0%s\> property exceeds the OS file size limit. ( Max Size Property : \<1%lu\>, OS file size limit : \<2%lu\> )**
 
 **Cause:** The MAXSIZE property of the data file exceeds the OS file size limit.
 
 **Action:** Set the MAXSIZE of the data file appropriately.
 
-**0x11153 ( 69971) smERR_ABORT_InitSizeExceedOSLimit The INITSIZE of the data
-file exceeds the OS file size limit. ( Request Init Size : \<0%lu\> pages, OS
-file size limit : \<1%lu\> pages )**
+**0x11153 ( 69971) smERR_ABORT_InitSizeExceedOSLimit The INITSIZE of the data file exceeds the OS file size limit. ( Request Init Size : \<0%lu\> pages, OS file size limit : \<1%lu\> pages )**
 
 **Cause:** The MAXSIZE of the data file exceeds the OS file size limit.
 
 **Action:** Set the MAXSIZE of the data file appropriately.
 
-**0x11154 ( 69972) smERR_ABORT_MaxSizeExceedOSLimit The MAXSIZE of the data file
-exceeds the OS file size limit. ( Request Max Size : \<0%lu\> pages, OS file
-size limit : \<1%lu\> pages )**
+**0x11154 ( 69972) smERR_ABORT_MaxSizeExceedOSLimit The MAXSIZE of the data file exceeds the OS file size limit. ( Request Max Size : \<0%lu\> pages, OS file size limit : \<1%lu\> pages )**
 
 **Cause:** The MAXSIZE of the data file exceeds the OS file size limit.
 
 **Action:** Set the MAXSIZE of the data file appropriately.
 
-**0x11155 ( 69973) smERR_ABORT_InvalidFileSizeOnLogAnchor The file size reported
-for the file \<0%s\> is invalid. ( Init Size : \<1%lu\> pages, Current Size :
-\<2%lu\> pages, Max Size : \<3%lu\> pages, Maximum File Size \<4%lu\> pages )**
+**0x11155 ( 69973) smERR_ABORT_InvalidFileSizeOnLogAnchor The file size reported for the file \<0%s\> is invalid. ( Init Size : \<1%lu\> pages, Current Size : \<2%lu\> pages, Max Size : \<3%lu\> pages, Maximum File Size \<4%lu\> pages )**
 
-**Cause:** Invalid information about the size of a data file is stored in a
-loganchor file.
+**Cause:** Invalid information about the size of a data file is stored in a loganchor file.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x11156 ( 69974) smERR_ABORT_InvalidExtendFileSizeMaxSize The requested size
-of the data file exceeds the MAXSIZE for the data file. ( Requested Size :
-\<0%lu\> pages, Max Size : \<1%lu\> pages )**
+**0x11156 ( 69974) smERR_ABORT_InvalidExtendFileSizeMaxSize The requested size of the data file exceeds the MAXSIZE for the data file. ( Requested Size : \<0%lu\> pages, Max Size : \<1%lu\> pages )**
 
 **Cause:** The specified file size value is too big.
 
 **Action:** Set the value for the file size appropriately.
 
-**0x11157 ( 69975) smERR_ABORT_WRONG_ENTRY_ID
-\__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID '\<0%d\>' exceeds the total
-entry count '\<1%d\>'.**
+**0x11157 ( 69975) smERR_ABORT_WRONG_ENTRY_ID \__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID '\<0%d\>' exceeds the total entry count '\<1%d\>'.**
 
-**Cause:** The entry ID specified in
-\__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID is too high.
+**Cause:** The entry ID specified in \__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID is too high.
 
-**Action:** Set the value of \__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID
-property to a value less than the total entry count.
+**Action:** Set the value of \__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID property to a value less than the total entry count.
 
-**0x11158 ( 69976) smERR_ABORT_NOT_AVAILABLE_ENTRY
-\__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID '\<0%d\>' has already been
-bound in another transaction.**
+**0x11158 ( 69976) smERR_ABORT_NOT_AVAILABLE_ENTRY \__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID '\<0%d\>' has already been bound in another transaction.**
 
-**Cause:** The entry ID specified in
-\__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID has already been bound in
-another transaction.
+**Cause:** The entry ID specified in \__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID has already been bound in another transaction.
 
-**Action:** Retry after a moment, or set the
-\__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID property to another value and
-try again.
+**Action:** Retry after a moment, or set the \__MANUAL_BINDING_TRANSACTION_SEGMENT_BY_ENTRY_ID property to another value and try again.
 
-**0x11159 ( 69977) smERR_ABORT_DATA_PORT_INTERNAL_ERROR Internal import/export
-error.**
+**0x11159 ( 69977) smERR_ABORT_DATA_PORT_INTERNAL_ERROR Internal import/export error.**
 
 **Cause:** Unexpected internal error.
 
 **Action:** Notify Altibase technical support staff.
 
-**0x1115A ( 69978) smERR_ABORT_CORRUPTED_BLOCK A block is corrupt. ( BlockID
-\<0%d\> ).**
+**0x1115A ( 69978) smERR_ABORT_CORRUPTED_BLOCK A block is corrupt. ( BlockID \<0%d\> ).**
 
 **Cause:** A block appears to be corrupt.
 
 **Action:** Check the DataPort file.
 
-**0x1115B ( 69979) smERR_ABORT_VERSION_NOT_SUPPORTED The DataPort file version
-is not supported. ( \<0%d\> \> \<1%d\> ).**
+**0x1115B ( 69979) smERR_ABORT_VERSION_NOT_SUPPORTED The DataPort file version is not supported. ( \<0%d\> \> \<1%d\> ).**
 
 **Cause:** The version of the DataPort file is too high.
 
 **Action:** Check the version of the database and the DataPort file.
 
-**0x1115C ( 69980) smERR_ABORT_CANT_OPEN_FILE Cannot find the file. ( '\<0%s\>'
-).**
+**0x1115C ( 69980) smERR_ABORT_CANT_OPEN_FILE Cannot find the file. ( '\<0%s\>').**
 
 **Cause:** The DataPort file does not exist.
 
 **Action:** Check the DataPort file name and try again.
 
 **0x1115D ( 69981) smERR_ABORT_COLUMN_CHAINING_THRESHOLD_LAGER_THAN_BLOCK_SIZE
-The column-chaining threshold is greater than the maximum size(=BlockSize/2)(
-ColumnChainingThreshold:\<0%d\>, BlockSize:\<1%d\> ).**
+The column-chaining threshold is greater than the maximum size(=BlockSize/2)( ColumnChainingThreshold:\<0%d\>, BlockSize:\<1%d\> ).**
 
-**Cause:** The column-chaining threshold is greater than the maximum
-size(=BlockSize/2).
+**Cause:** The column-chaining threshold is greater than the maximum size(=BlockSize/2).
 
-**Action:** Set the column-chaining threshold to a value less than
-(BlockSize/2).
+**Action:** Set the column-chaining threshold to a value less than (BlockSize/2).
 
-**0x1115E ( 69982) smERR_ABORT_CORRUPTED_HEADER The DataPort file header is
-corrupt.**
+**0x1115E ( 69982) smERR_ABORT_CORRUPTED_HEADER The DataPort file header is corrupt.**
 
 **Cause:** The Dataport file header appears to be corrupt.
 
 **Action:** Check the DataPort file.
 
-**0x1115F ( 69983) smERR_ABORT_CheckpointPathIsNullString The length of the
-checkpoint path is zero.**
+**0x1115F ( 69983) smERR_ABORT_CheckpointPathIsNullString The length of the checkpoint path is zero.**
 
 **Cause:** The value specified for the checkpoint path is a null string.
 
 **Action:** Provide a valid checkpoint path to be created.
 
-**0x11160 ( 69984) smERR_ABORT_InvalidCheckpointPathABS The checkpoint path is
-not an absolute path.**
+**0x11160 ( 69984) smERR_ABORT_InvalidCheckpointPathABS The checkpoint path is not an absolute path.**
 
 **Cause:** The checkpoint path is not an absolute path.
 
 **Action:** Check the ALTIBASE_HOME environment variable for this account.
 
-**0x11161 ( 69985) smERR_ABORT_InvalidCheckpointPathKeyWord The checkpoint path
-contains special keywords or system reserved keywords.**
+**0x11161 ( 69985) smERR_ABORT_InvalidCheckpointPathKeyWord The checkpoint path contains special keywords or system reserved keywords.**
 
-**Cause:** The checkpoint path contains special keywords or system reserved
-keywords.
+**Cause:** The checkpoint path contains special keywords or system reserved keywords.
 
 **Action:** Set the checkpoint path appropriately.
 
-**0x11162 ( 69986) smERR_ABORT_TooLongCheckpointPath The checkpoint path is too
-long \<0%s\> \<1%s\>.**
+**0x11162 ( 69986) smERR_ABORT_TooLongCheckpointPath The checkpoint path is too long \<0%s\> \<1%s\>.**
 
 **Cause:** The checkpoint path is too long.
 
-**Action:** Specify a checkpoint path that is within the allowable length for a
-checkpoint path.
+**Action:** Specify a checkpoint path that is within the allowable length for a checkpoint path.
 
-**0x11163 ( 69987) smERR_ABORT_TooLongFilePath The total length of the file path
-and name is too long \<0%s\> \<1%s\>.**
+**0x11163 ( 69987) smERR_ABORT_TooLongFilePath The total length of the file path and name is too long \<0%s\> \<1%s\>.**
 
 **Cause:** The total length of the file path and name is too long.
 
-**Action:** Specify a file path and/or filename such that the total length of
-the file path and name is within the allowable length.
+**Action:** Specify a file path and/or filename such that the total length of the file path and name is within the allowable length.
 
-**0x11164 ( 69988) smERR_ABORT_AlreadyExistDBFiles The data file(s) already
-exists.**
+**0x11164 ( 69988) smERR_ABORT_AlreadyExistDBFiles The data file(s) already exists.**
 
 **Cause:** The data file(s) already exists.
 
 **Action:** Ensure that you have executed destroydb and try again.
 
-**0x11165 ( 69989) smERR_ABORT_INTERNAL The storage manager experienced an
-internal server error.**
+**0x11165 ( 69989) smERR_ABORT_INTERNAL The storage manager experienced an internal server error.**
 
 **Cause:** Internal server error.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x11166 ( 69990) smERR_ABORT_TRANSACTION_TABLE_SIZE_IS_NOT_POWER_OF_TWO
-TRANSACTION_TABLE_SIZE ['\<0%d\>'] is not a power of two.**
+**0x11166 ( 69990) smERR_ABORT_TRANSACTION_TABLE_SIZE_IS_NOT_POWER_OF_TWO TRANSACTION_TABLE_SIZE ['\<0%d\>'] is not a power of two.**
 
-**Cause:** The value of the TRANSACTION_TABLE_SIZE property is not a power of
-two(=2\^n).
+**Cause:** The value of the TRANSACTION_TABLE_SIZE property is not a power of two(=2^n).
 
-**Action:** Check the altibase.properties file and set the value of
-TRANSACTION_TABLE_SIZE to a power of two (2\^n).
+**Action:** Check the altibase.properties file and set the value of TRANSACTION_TABLE_SIZE to a power of two (2^n).
 
-**0x11167 ( 69991) smERR_ABORT_DB_FILE_SIZE_EXCEEDS_LIMIT The size of the DB
-file(\<0%s\>) exceeds the size specified in the MEM_MAX_DB_SIZE property.**
+**0x11167 ( 69991) smERR_ABORT_DB_FILE_SIZE_EXCEEDS_LIMIT The size of the DB file(\<0%s\>) exceeds the size specified in the MEM_MAX_DB_SIZE property.**
 
-**Cause:** The MEM_MAX_DB_SIZE property is set to a value that is less than the
-current size of the DB file.
+**Cause:** The MEM_MAX_DB_SIZE property is set to a value that is less than the current size of the DB file.
 
-**Action:** Check the altibase.properties file and increase the value of the
-MEM_MAX_DB_SIZE property
+**Action:** Check the altibase.properties file and increase the value of the MEM_MAX_DB_SIZE property
 
-**0x11168 ( 69992) smERR_ABORT_LOG_FILE_MISSING Non-continuous log file numbers.
-( \<0%s\> ).**
+**0x11168 ( 69992) smERR_ABORT_LOG_FILE_MISSING Non-continuous log file numbers. ( \<0%s\> ).**
 
-**Cause:** Either the server failed to remove an old log file, or a current log
-file has been lost for some unknown reason.
+**Cause:** Either the server failed to remove an old log file, or a current log file has been lost for some unknown reason.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x11169 ( 69993) smERR_ABORT_FAILURE_DURABILITY_AT_STARTUP Restart recovery
-aborted to protect database durability.**
+**0x11169 ( 69993) smERR_ABORT_FAILURE_DURABILITY_AT_STARTUP Restart recovery aborted to protect database durability.**
 
-**Cause:** A log file has been lost. If restart recovery continues, DB
-durability and DB objects may be broken.
+**Cause:** A log file has been lost. If restart recovery continues, DB durability and DB objects may be broken.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1116A ( 69994) smERR_ABORT_FAILURE_DRDB_WAL_AT_STARTUP Restart recovery
-aborted due to Write-Ahead-Logging failure.**
+**0x1116A ( 69994) smERR_ABORT_FAILURE_DRDB_WAL_AT_STARTUP Restart recovery aborted due to Write-Ahead-Logging failure.**
 
-**Cause:** The server cannot find a log file that is necessary for restoring a
-DRDB object. If
+**Cause:** The server cannot find a log file that is necessary for restoring a DRDB object. If restart recovery continues, DB consistency may be broken.
 
-restart recovery continues, DB consistency may be broken.
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**0x1116B ( 69995) smERR_ABORT_FAILURE_MRDB_WAL_AT_STARTUP Restart recovery aborted due to Write-Ahead-Logging failure.**
 
-**0x1116B ( 69995) smERR_ABORT_FAILURE_MRDB_WAL_AT_STARTUP Restart recovery
-aborted due to Write-Ahead-Logging failure.**
+**Cause:** The server cannot find a log file that is necessary for restoring an MRDB object. If restart recovery continues, DB consistency may be broken.
 
-**Cause:** The server cannot find a log file that is necessary for restoring an
-MRDB object. If restart recovery continues, DB consistency may be broken.
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**0x1116C ( 69996) smERR_ABORT_INCONSISTENT_DB Access blocked to prevent DB inconsistency from worsening.**
 
-**0x1116C ( 69996) smERR_ABORT_INCONSISTENT_DB Access blocked to prevent DB
-inconsistency from worsening.**
+**Cause:** A SQL statement attempted to access a portion of the DB that is already inconsistent.
 
-**Cause:** A SQL statement attempted to access a portion of the DB that is
-already inconsistent.
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
-
-**0x1116D ( 69997) smERR_ABORT_INCONSISTENT_PAGE A page is inconsistent. (
-Current Space ID : \<0%d\>, Current Page ID : \<1%d\> )**
+**0x1116D ( 69997) smERR_ABORT_INCONSISTENT_PAGE A page is inconsistent. ( Current Space ID : \<0%d\>, Current Page ID : \<1%d\> )**
 
 **Cause:** The page is not consistent.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x1116E ( 69998) smERR_ABORT_ERR_INCONSISTENT_DB_AND_LOG_BUFFER_TYPE Could not
-perform emergency startup due to current LOG_BUFFER_TYPE setting.**
+**0x1116E ( 69998) smERR_ABORT_ERR_INCONSISTENT_DB_AND_LOG_BUFFER_TYPE Could not perform emergency startup due to current LOG_BUFFER_TYPE setting.**
 
-**Cause:** The current log buffer type setting (=0) forcefully records all logs,
-including emergency logs. However, emergency logs must not be recorded.
+**Cause:** The current log buffer type setting (=0) forcefully records all logs, including emergency logs. However, emergency logs must not be recorded.
 
 **Action:** Set the value of the LOG_BUFFER_TYPE property to 1.
 
-**0x1116F ( 69999) smERR_ABORT_LOGFILE_TOO_BIG_WITH_DIRECT_IO The logfile is too
-big. ( \<0%d\> \> \<1%d\> )**
+**0x1116F ( 69999) smERR_ABORT_LOGFILE_TOO_BIG_WITH_DIRECT_IO The logfile is too big. ( \<0%d\> \> \<1%d\> )**
 
 **Cause:** The size of the logfile exceeds the DIRECT I/O limitation.
 
-**Action:** Verify that the logfile is smaller than the DIRECT I/O limitation,
-or set the value of the LOG_IO_TYPE property to 0.
+**Action:** Verify that the logfile is smaller than the DIRECT I/O limitation, or set the value of the LOG_IO_TYPE property to 0.
 
-**0x11171 ( 70001) smERR_ABORT_InvalidChangeTrackingFile The change-tracking
-file is not valid. ( File Name :\<0%s\> )**
+**0x11171 ( 70001) smERR_ABORT_InvalidChangeTrackingFile The change-tracking file is not valid. ( File Name :\<0%s\> )**
 
-**Cause:** The file was corrupted by an abnormal shutdown or some other
-unexpected activity.
+**Cause:** The file was corrupted by an abnormal shutdown or some other unexpected activity.
 
 **Action:** Disable and re-enable the change-tracking manger.
 
-**0x11172 ( 70002) smERR_ABORT_ChangeTrackingState Unexpected change-tracking
-manager state.**
+**0x11172 ( 70002) smERR_ABORT_ChangeTrackingState Unexpected change-tracking manager state.**
 
 **Cause:** The change-tracking manager is already enabled or disabled.
 
 **Action:** Check the state of the change-tracking manager.
 
-**0x11173 ( 70003) smERR_ABORT_ErrUntilTag Can\`t perform media recovery at
-point of backup tag. ( Backup Tag Name :\<0%s\> )**
+**0x11173 ( 70003) smERR_ABORT_ErrUntilTag Can\`t perform media recovery at point of backup tag. ( Backup Tag Name :\<0%s\> )**
 
-**Cause:** An attempt was made to restore the database using an invalid backup
-tag.
+**Cause:** An attempt was made to restore the database using an invalid backup tag.
 
 **Action:** Restore the database using the correct backup tag.
 
-**0x11174 ( 70004) smERR_ABORT_InvalidBackupInfoFile The backup information file
-is not valid. ( File Name :\<0%s\> )**
+**0x11174 ( 70004) smERR_ABORT_InvalidBackupInfoFile The backup information file is not valid. ( File Name :\<0%s\> )**
 
-**Cause:** The file was corrupted by an abnormal shutdown or some other
-unexpected activity.
+**Cause:** The file was corrupted by an abnormal shutdown or some other unexpected activity.
 
 **Action:** Restore the backup information file from a recent backup.
 
-**0x11175 ( 70005) smERR_ABORT_InvalidRestoreTime Can\`t restore database to
-specified point of time**
+**0x11175 ( 70005) smERR_ABORT_InvalidRestoreTime Can\`t restore database to specified point of time**
 
 **Cause:** No backup file predating the specified time exists.
 
 **Action:** Restore the database to a more recent point in time.
 
-**0x11176 ( 70006) smERR_ABORT_NotDefinedIncrementalBackupPath No incremental
-backup path defined**
+**0x11176 ( 70006) smERR_ABORT_NotDefinedIncrementalBackupPath No incremental backup path defined**
 
 **Cause:** No incremental backup path has been defined.
 
 **Action:** Specify an incremental backup directory.
 
-**0x11177 ( 70007) smERR_ABORT_AlreadyExistIncrementalBackupPath Incremental
-backup path already exists (Dir Name :\<0%s\> )**
+**0x11177 ( 70007) smERR_ABORT_AlreadyExistIncrementalBackupPath Incremental backup path already exists (Dir Name :\<0%s\> )**
 
 **Cause:** The incremental backup path already exists.
 
-**Action:** Change the incremental backup directory, or wait and try incremental
-backup again.
+**Action:** Change the incremental backup directory, or wait and try incremental backup again.
 
-**0x11178 ( 70008) smERR_ABORT_BackupInfoState Unexpected Backup Information
-Manager state**
+**0x11178 ( 70008) smERR_ABORT_BackupInfoState Unexpected Backup Information Manager state**
 
 **Cause:** The Backup Information Manager is already enabled or disabled.
 
 **Action:** Check the state of the Backup Information Manager.
 
-**0x11179 ( 70009) smERR_ABORT_AlreadyExistPath Directory already exists (Dir
-Name :\<0%s\> ).**
+**0x11179 ( 70009) smERR_ABORT_AlreadyExistPath Directory already exists (Dir Name :\<0%s\> ).**
 
 **Cause:** The specified directory already exists.
 
-**Action:** Delete or rename the existing directory, or specify a different
-directory.
+**Action:** Delete or rename the existing directory, or specify a different directory.
 
-**0x1117A ( 70010) smERR_ABORT_ThereIsNoDatabaseIncrementalBackup There is no
-incremental database backup.**
+**0x1117A ( 70010) smERR_ABORT_ThereIsNoDatabaseIncrementalBackup There is no incremental database backup.**
 
 **Cause:** An incremental database backup has not been performed.
 
-**Action:** Perform an incremental database backup before restoring the
-database.
+**Action:** Perform an incremental database backup before restoring the database.
 
-**0x1117B ( 70011) smERR_ABORT_ThereIsNoIncrementalBackup There is no
-incremental backup.**
+**0x1117B ( 70011) smERR_ABORT_ThereIsNoIncrementalBackup There is no incremental backup.**
 
 **Cause:** An incremental backup has not been performed.
 
 **Action:** Perform an incremental backup before restoring the database.
 
-**0x1117C ( 70012) smERR_ABORT_FailToCreateDirectory Failed to create directory
-(Dir Name :\<0%s\> )**
+**0x1117C ( 70012) smERR_ABORT_FailToCreateDirectory Failed to create directory (Dir Name :\<0%s\> )**
 
 **Cause:** The specified directory could not be created.
 
 **Action:** Check the directory path or permission.
 
-**0x11180 ( 70016) smERR_ABORT_DuplicateMultiplexDirPath A multiplex directory
-path (\<0%s\>) has been specified more than once**
+**0x11180 ( 70016) smERR_ABORT_DuplicateMultiplexDirPath A multiplex directory path (\<0%s\>) has been specified more than once**
 
-**Cause:** Duplicate multiplex directory path settings exist in
-LOG_MULTIPLEX_DIR and/or ARCHIVE_MULTIPLEX_DIR.
+**Cause:** Duplicate multiplex directory path settings exist in LOG_MULTIPLEX_DIR and/or ARCHIVE_MULTIPLEX_DIR.
 
-**Action:** Check the LOG_MULTIPLEX_DIR and ARCHIVE_MULTIPLEX_DIR property
-settings and remove duplicate paths.
+**Action:** Check the LOG_MULTIPLEX_DIR and ARCHIVE_MULTIPLEX_DIR property settings and remove duplicate paths.
 
-**0x11181 ( 70017) smERR_ABORT_WrongLogMultiplexDirCount Number of
-LOG_MULTIPLEX_DIR(\<0%d\>) directories not equal to
-LOG_MULTIPLEX_COUNT(\<1%d\>)**
+**0x11181 ( 70017) smERR_ABORT_WrongLogMultiplexDirCount Number of LOG_MULTIPLEX_DIR(\<0%d\>) directories not equal to LOG_MULTIPLEX_COUNT(\<1%d\>)**
 
-**Cause:** The number of directories specified using the LOG_MULTIPLEX_DIR
-property is different from the value of LOG_MULTIPLEX_COUNT.
+**Cause:** The number of directories specified using the LOG_MULTIPLEX_DIR property is different from the value of LOG_MULTIPLEX_COUNT.
 
-**Action:** Set the value of LOG_MULTIPLEX_COUNT to the number of directories
-specified using LOG_MULTIPLEX_DIR.
+**Action:** Set the value of LOG_MULTIPLEX_COUNT to the number of directories specified using LOG_MULTIPLEX_DIR.
 
-**0x11182 ( 70018) smERR_ABORT_WrongArchMultiplexDirCount Number of
-ARCH_MULTIPLEX_DIR(\<0%d\>) directories not equal to
-ARCH_MULTIPLEX_COUNT(\<1%d\>)**
+**0x11182 ( 70018) smERR_ABORT_WrongArchMultiplexDirCount Number of ARCH_MULTIPLEX_DIR(\<0%d\>) directories not equal to ARCH_MULTIPLEX_COUNT(\<1%d\>)**
 
-**Cause:** The number of directories specified using the ARCH_MULTIPLEX_DIR
-property is different from the value of ARCH_MULTIPLEX_COUNT.
+**Cause:** The number of directories specified using the ARCH_MULTIPLEX_DIR property is different from the value of ARCH_MULTIPLEX_COUNT.
 
-**Action:** Set the value of ARCH_MULTIPLEX_COUNT to the number of directories
-specified using ARCH_MULTIPLEX_DIR.
+**Action:** Set the value of ARCH_MULTIPLEX_COUNT to the number of directories specified using ARCH_MULTIPLEX_DIR.
 
-**0x11183 ( 70019) smERR_ABORT_NOT_ENOUGH_NEXTENTSIZE Insufficient page
-descriptor area in the temp table.**
-
-**Cause:** There is not enough room in the temporary table for the page
-descriptor information.
-
-**Action:** Increase the value of the TEMP_MAX_PAGE_COUNT property.
-
-**0x11184 ( 70020) smERR_ABORT_NOT_ENOUGH_WORKAREA Insufficient free space in
-work area**
+**0x11184 ( 70020) smERR_ABORT_NOT_ENOUGH_WORKAREA Insufficient free space in work area**
 
 **Cause:** There is not enough free space in the work area.
 
 **Action:** Increase the value of the TOTAL_WA_SIZE property.
 
-**0x11185 ( 70021) smERR_ABORT_INVALID_SORTAREASIZE Insufficient sort area
-space**
+**0x11185 ( 70021) smERR_ABORT_INVALID_SORTAREASIZE Insufficient sort area space**
 
-**Cause:** Cannot manage the page descriptor area due to the decrease in the
-sort area size.
+**Cause:** Cannot manage the page descriptor area due to the decrease in the sort area size.
 
 **Action:** Increase the value of the SORT_AREA_SIZE property.
 
-**0x11186 ( 70022) smERR_ABORT_INVALID_HASHAREASIZE Insufficient hash area
-space**
+**0x11186 ( 70022) smERR_ABORT_INVALID_HASHAREASIZE Insufficient hash area space**
 
-**Cause:** Cannot manage the page descriptor area due to the decrease in the
-hash area size.
+**Cause:** Cannot manage the page descriptor area due to the decrease in the hash area size.
 
 **Action:** Increase the value of the HASH_AREA_SIZE property.
 
-**0x11187 ( 70023) smERR_ABORT_TEMP_FLUSHER_STOPPED Cannot sort or hash because
-all temp flushers are stopped.**
+**0x11187 ( 70023) smERR_ABORT_TEMP_FLUSHER_STOPPED Cannot sort or hash because all temp flushers are stopped.**
 
 **Cause:** The temporary flushers have stopped due to some unexpected problem.
 
-**Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x11188 ( 70024) smERR_ABORT_ALL_INDEX_DISABLED All Indexes are disabled.**
 
-**Cause:** The requested action could not be performed because all of the
-indexes for the table are disabled.
+**Cause:** The requested action could not be performed because all of the indexes for the table are disabled.
 
 **Action:** Enable the index(es) and try again.
 
-**0x11189 ( 70025) smERR_ABORT_PathIsNullString The length of the path is
-zero.**
+**0x11189 ( 70025) smERR_ABORT_PathIsNullString The length of the path is zero.**
 
 **Cause:** The path is an empty string.
 
 **Action:** Provide a valid path to be created.
 
-**0x1118A ( 70026) smERR_ABORT_TablespaceLockUse X or S tablespace lock is not
-allowed while the TABLESPACE_LOCK_ENABLE property is 0.**
+**0x1118A ( 70026) smERR_ABORT_TablespaceLockUse X or S tablespace lock is not allowed while the TABLESPACE_LOCK_ENABLE property is 0.**
 
-**Cause:** The user tried to execute a DDL command when the
-TABLESPACE_LOCK_ENABLE property was 0.
+**Cause:** The user tried to execute a DDL command when the TABLESPACE_LOCK_ENABLE property was 0.
 
 **Action:** Change the TABLESPACE_LOCK_ENABLE value to 1.
 
-**0x1118C ( 70028) smERR_ABORT_sdsFlusherNotStarted The Secondary flusher
-[\<0%d\>] was not started.**
+**0x1118C ( 70028) smERR_ABORT_sdsFlusherNotStarted The Secondary flusher [\<0%d\>] was not started.**
 
 **Cause:** The flusher was not started.
 
 **Action:** Check the secondary flusher status.
 
-**0x1118D ( 70029) smERR_ABORT_sdsFlusherRunning The Secondary flusher [\<0%d\>]
-is already running.**
+**0x1118D ( 70029) smERR_ABORT_sdsFlusherRunning The Secondary flusher [\<0%d\>] is already running.**
 
 **Cause:** The flusher cannot be started because it is already running.
 
 **Action:** Check the secondary flusher status.
 
-**0x1118E ( 70030) smERR_ABORT_AllSecondaryFlushersStopped You cannot run the
-DCL command because all secondary flushers are stopped.**
+**0x1118E ( 70030) smERR_ABORT_AllSecondaryFlushersStopped You cannot run the DCL command because all secondary flushers are stopped.**
 
 **Cause:** All secondary flushers are stopped.
 
@@ -4142,84 +3510,67 @@ DCL command because all secondary flushers are stopped.**
 
 **Action:** Check the secondary buffer.
 
-**0x11193 ( 70035) smERR_ABORT_InvalidSecondaryBufferHdr Invalid Secondary
-Buffer File file header**
+**0x11193 ( 70035) smERR_ABORT_InvalidSecondaryBufferHdr Invalid Secondary Buffer File file header**
 
 **Cause:** Invalid Secondary Buffer File header
 
 **Action:** Copy a valid file to [SECONDARY_BUFFER_FILE_DIRECTORY]
 
-**0x11194 ( 70036) smERR_ABORT_invalid_secondary_buffer_propperty Invalid
-Secondary Buffer property. size=\<0%d\>, PATH = \<1%s\>**
+**0x11194 ( 70036) smERR_ABORT_invalid_secondary_buffer_propperty Invalid Secondary Buffer property. size=\<0%d\>, PATH = \<1%s\>**
 
 **Cause:** The SECONDARY_BUFFER_XXXX property value is invalid.
 
 **Action:** Check the environment variable SECONDARY_BUFFER_XXXX.
 
-**0x11195 ( 70037) smERR_ABORT_service_secondary_buffer_in_recv Recovery
-failure. Secondary Buffer is serving.**
+**0x11195 ( 70037) smERR_ABORT_service_secondary_buffer_in_recv Recovery failure. Secondary Buffer is serving.**
 
 **Cause:** Secondary Buffer service cannot be served before the recovery phase.
 
 **Action:** Check the environment variable SECONDARY_BUFFER_XXXX.
 
-**0x11196 ( 70038) smERR_ABORT_CannotCreateSecondaryBuffer Unable to create
-Secondary Buffer.**
+**0x11196 ( 70038) smERR_ABORT_CannotCreateSecondaryBuffer Unable to create Secondary Buffer.**
 
 **Cause:** A secondary file could not be created.
 
 **Action:** Check the environment variable SECONDARY_BUFFER_XXXX.
 
-**0x11199 ( 70041) smERR_ABORT_Cannot_Perform_Level1_Backup Cannot perform level
-1 backup.**
+**0x11199 ( 70041) smERR_ABORT_Cannot_Perform_Level1_Backup Cannot perform level 1 backup.**
 
 **Cause:** Level 0 backup does not exist.
 
 **Action:** Perform a level 0 backup prior to executing a level 1 backup.
 
-**0x1119A ( 70042) smERR_ABORT_UnableToExecuteAlterTable Unable to execute ALTER
-TABLE on [ TableOID: \<0%lu\> ].**
+**0x1119A ( 70042) smERR_ABORT_UnableToExecuteAlterTable Unable to execute ALTER TABLE on [ TableOID: \<0%lu\> ].**
 
-**Cause:** Another transaction is performing an ALTER TABLE statement on the
-table.
+**Cause:** Another transaction is performing an ALTER TABLE statement on the table.
 
-**Action:** Check whether another transaction is performing an ALTER TABLE
-statement on the table.
+**Action:** Check whether another transaction is performing an ALTER TABLE statement on the table.
 
-**0x1119B ( 70043) smERR_ABORT_TablespaceDoesNotExist Tablespace[ID: %d] does
-not exist.**
+**0x1119B ( 70043) smERR_ABORT_TablespaceDoesNotExist Tablespace[ID: %d] does not exist.**
 
-**Cause:** Tablespace which is written in the SCT_UPDATE_DRDB_CREATE_DBF log
-does not exist in the database.
+**Cause:** Tablespace which is written in the SCT_UPDATE_DRDB_CREATE_DBF log does not exist in the database.
 
 **Action:** Restore with a valid backup file.
 
 **0x1119E ( 70046) smERR_ABORT_SDMOpenFailed Unable to open SDM device.**
 
-**Cause:** Device does not support Smart SSD features or the device path may be
-incorrectly specified.
+**Cause:** Device does not support Smart SSD features or the device path may be incorrectly specified.
 
-**Action:** Check whether the device specified in the configuration file
-supports Smart SSD features and is correct.
+**Action:** Check whether the device specified in the configuration file supports Smart SSD features and is correct.
 
-**0x111A0 ( 70048) smERR_ABORT_Maximum_Column_count_in_temptable Too many
-columns in a temptable**
+**0x111A0 ( 70048) smERR_ABORT_Maximum_Column_count_in_temptable Too many columns in a temptable**
 
 **Cause:** Too many columns in a temptable
 
 **Action:** Cannot use queries based on the disk temp table.
 
-**0x111A1 ( 70049) smERR_ABORT_TooManySlotIndiskTempTable Too many slot in disk
-temp table.**
+**0x111A1 ( 70049) smERR_ABORT_TooManySlotIndiskTempTable Too many slot in disk temp table.**
 
-**Cause:** Cannot manage the page descriptor area bacause value of the
-properties pertaining to the size of the disk temp table is incompatible.
+**Cause:** Cannot manage the page descriptor area bacause value of the properties pertaining to the size of the disk temp table is incompatible.
 
-**Action:** Increase the value of the SORT_AREA_SIZE/HASH_AREA_SIZE property or
-decrease the value of the TEMP_MAX_PAGE_COUNT
+**Action:** Increase the value of the SORT_AREA_SIZE/HASH_AREA_SIZE property or decrease the value of the TEMP_MAX_PAGE_COUNT
 
-**0x111A2 ( 70050) smERR_ABORT_NO_CALLBACK The database link is not
-initialized.**
+**0x111A2 ( 70050) smERR_ABORT_NO_CALLBACK The database link is not initialized.**
 
 **Cause:** No callback functions are registered for the remote table.
 
@@ -4229,144 +3580,127 @@ initialized.**
 
 **Cause:** Invalid slot access.
 
-\#\*Action: Refrain from attempting this action.
+**Action:** Refrain from attempting this action.
 
-**0x111A4 ( 70052) smERR_ABORT_TooSmallDirectKeySize Failed to create a direct
-key index because the column is larger than the available space in the index.**
+**0x111A4 ( 70052) smERR_ABORT_TooSmallDirectKeySize Failed to create a direct key index because the column is larger than the available space in the index.**
 
-**Cause:** The column on which the direct key index is to be created is bigger
-than the maximum size set for the direct key index.
+**Cause:** The column on which the direct key index is to be created is bigger than the maximum size set for the direct key index.
 
 **Action:** Set a larger value for the MAXSIZE option of the direct key index.
 
-**0x111A5 ( 70053) smERR_ABORT_NonDirectKeyOption The DIRECTKEY option is only
-supported for memory B-Tree indexes.**
+**0x111A5 ( 70053) smERR_ABORT_NonDirectKeyOption The DIRECTKEY option is only supported for memory B-Tree indexes.**
 
 **Cause:** The DIRECTKEY option is only supported for memory B-Tree indexes.
 
-**Action:** Create a memory B-Tree index or do not use the DIRECTKEY option for
-this index.
+**Action:** Create a memory B-Tree index or do not use the DIRECTKEY option for this index.
 
-**0x111A6 ( 70054) smERR_ABORT_InvalidDirectKeyMaxSize The value of the MAXSIZE
-option exceeds the maximum limit.**
+**0x111A6 ( 70054) smERR_ABORT_InvalidDirectKeyMaxSize The value of the MAXSIZE option exceeds the maximum limit.**
 
 **Cause:** The maximum size of the direct key index exceeds the limit.
 
-**Action:** Check the maximum size of the direct key index and change it so that
-it is between 8 bytes and one-third of the memory B-Tree node.
+**Action:** Check the maximum size of the direct key index and change it so that it is between 8 bytes and one-third of the memory B-Tree node.
 
-**0x111A7 ( 70055) smERR_ABORT_InvalidDataTypeInDirectKey Direct key indexes do
-not support this data type.**
+**0x111A7 ( 70055) smERR_ABORT_InvalidDataTypeInDirectKey Direct key indexes do not support this data type.**
 
 **Cause:** The direct key index was used for an unsupported data type.
 
-**Action:** Create direct key indexes only on CHAR, VARCHAR, NCHAR, and NVARCHAR
-columns.
+**Action:** Create direct key indexes only on CHAR, VARCHAR, NCHAR, and NVARCHAR columns.
 
-**0x111A8 ( 70056) smERR_ABORT_NoCompressionInDirectKey Direct key indexes do
-not support compressed columns.**
+**0x111A8 ( 70056) smERR_ABORT_NoCompressionInDirectKey Direct key indexes do not support compressed columns.**
 
-**Cause:** An attempt was made to create a direct key index on a compressed
-column.
+**Cause:** An attempt was made to create a direct key index on a compressed column.
 
-**Action:** Either create a memory B-Tree index or do not use the DIRECTKEY
-option for this index.
+**Action:** Either create a memory B-Tree index or do not use the DIRECTKEY option for this index.
 
-**0x111A9 ( 70057) smERR_ABORT_NoDirectKeyOnPartTable Direct key indexes do not
-support partitioned tables.**
+**0x111A9 ( 70057) smERR_ABORT_NoDirectKeyOnPartTable Direct key indexes do not support partitioned tables.**
 
-**Cause:** An attempt was made to create a direct key index on a partitioned
-table.
+**Cause:** An attempt was made to create a direct key index on a partitioned table.
 
-**Action:** Either create a memory B-Tree index or do not use the DIRECTKEY
-option for this index.
+**Action:** Either create a memory B-Tree index or do not use the DIRECTKEY option for this index.
 
-**0x111AA ( 70058) smERR_ABORT_ReorgFail A memory index is failed to
-reorganizate.**
+**0x111AA ( 70058) smERR_ABORT_ReorgFail A memory index is failed to reorganizate.**
 
 **Cause:** The system failed to lock a mutex.
 
 **Action:** Retry the reorganization.
 
-**0x111AB ( 70059) smERR_ABORT_TOO_MANY_TRAVERSAL It takes too long to retrieve
-the index. (TableOID: \<0%lu\>, IndexID: \<1%u\>)**
+**0x111AB ( 70059) smERR_ABORT_TOO_MANY_TRAVERSAL It takes too long to retrieve the index. (TableOID: \<0%lu\>, IndexID: \<1%u\>)**
 
 **Cause:** An index is corrupt.
 
 **Action:** Drop and rebuild the index.
 
-**0x111AC ( 70060) smERR_ABORT_LogFileSizeIsZero OS return Log file size is
-zero. ( \<0%s\> ).**
+**0x111AC ( 70060) smERR_ABORT_LogFileSizeIsZero OS return Log file size is zero. ( \<0%s\> ).**
 
-**Cause:** The log file prepare thread has been failed during a creation of the
-log file or OS error.
+**Cause:** The log file prepare thread has been failed during a creation of the log file or OS error.
 
-**Action:** Check the log files size. If the size of log file exists zero,
-remove its below.
+**Action:** Check the log files size. If the size of log file exists zero, remove its below.
 
-**0x111AD ( 70061) smERR_ABORT_InvalidDatafileHeader The data file '\<0%s\>' has
-an invalid header. : DATABASE SID=\<1%u\>, FID=\<2%u\>, RedoLSN=control[\<3%u\>,
-\<4%u\>], [\<5%u\>, \<6%u\>], CreateLSN=control[\<7%u\>, \<8%u\>], [\<9%u\>,
-\<10%u\>], DBVer=\<11%u\>, CtrVer=\<12%u\>, FileVer=\<13%u\>**
+**0x111AD ( 70061) smERR_ABORT_InvalidDatafileHeader The data file '\<0%s\>' has an invalid header. : DATABASE SID=\<1%u\>, FID=\<2%u\>, RedoLSN=control[\<3%u\>, \<4%u\>], [\<5%u\>, \<6%u\>], CreateLSN=control[\<7%u\>, \<8%u\>], [\<9%u\>, \<10%u\>], DBVer=\<11%u\>, CtrVer=\<12%u\>, FileVer=\<13%u\>**
 
-**Cause:** The data file creation LSN does not match one of the log anchor
-files.
+**Cause:** The data file creation LSN does not match one of the log anchor files.
 
 **Action:** Verify the data file.
 
-**0x111AE ( 70062) smERR_ABORT_InvalidDataFileCreateLSN The create LSN (\<0%u\>,
-\<1%u\>) of the data file (\<2%s\>) is bigger than the restart redo LSN
-(\<3%u\>, \<4%u\>).**
+**0x111AE ( 70062) smERR_ABORT_InvalidDataFileCreateLSN The create LSN (\<0%u\>, \<1%u\>) of the data file (\<2%s\>) is bigger than the restart redo LSN (\<3%u\>, \<4%u\>).**
 
 **Cause:** The data file is invalid.
 
 **Action:** Verify that the data file was backed up correctly.
 
-**0x111B0 ( 70064) smERR_ABORT_NotFoundLog Cannot find the log record (LSN \>=
-\<0%u\>,\<1%u\> ) that is needed in the logfile (\<2%s\>).**
+**0x111B0 ( 70064) smERR_ABORT_NotFoundLog Cannot find the log record (LSN \>= \<0%u\>,\<1%u\> ) that is needed in the logfile (\<2%s\>).**
 
 **Cause:** The log file is invalid.
 
 **Action:** Check the logfile.
 
-**0x111B1 ( 70065) smERR_ABORT_InvalidLog Invalid Log
-(FileNo:\<0%d\>,Offset:\<1%d\>)**
+**0x111B1 ( 70065) smERR_ABORT_InvalidLog Invalid Log (FileNo:\<0%d\>,Offset:\<1%d\>)**
 
 **Cause:** The log file is invalid.
 
 **Action:** Check the logfile.
 
-**0x111B2 ( 70066) smERR_ABORT_InvalidBCB The BCB does not exist or is not
-valid. ( SpaceID:\<0%u\>, PageID:\<1%u\> )**
+**0x111B2 ( 70066) smERR_ABORT_InvalidBCB The BCB does not exist or is not valid. ( SpaceID:\<0%u\>, PageID:\<1%u\> )**
 
 **Cause:** The BCB does not exist or is not valid.
 
 **Action:** Please shut down and restart to rebuild BCB List.
 
-\#
-
-**0x111B3 ( 70067) smERR_ABORT_smnUniqueViolationInReplTrans Unique violation
-caused conflict resolution in replication.**
+**0x111B3 ( 70067) smERR_ABORT_smnUniqueViolationInReplTrans Unique violation caused conflict resolution in replication.**
 
 **Cause:** Unique violation caused conflict resolution on replication.
 
-**Action:** Check the conflict message written on
-\$ALTIBASE_HOME/trc/altibase_rp.log.
+**Action:** Check the conflict message written on \$ALTIBASE_HOME/trc/altibase_rp.log.
 
-**0x111B4 ( 70068) smERR_ABORT_NOT_SUPPORT_FALLOCATE The operation is not
-supported by the filesystem(or kernel).**
+**0x111B4 ( 70068) smERR_ABORT_NOT_SUPPORT_FALLOCATE The operation is not supported by the filesystem(or kernel).**
 
-**Cause:** The filesystem(or kernel) containing the file does not support this
-operation.
+**Cause:** The filesystem(or kernel) containing the file does not support this operation.
 
-**Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the
-server.
+**Action:** Set the LOG_CREATE_METHOD property value to 0 and restart the server.
 
 **0x111B5 (  70069) smERR_ABORT_ERR_LOG_CONSISTENCY Incomplete media recovery aborted due to log consistency failure. ( <0%s> ).** 
 
 **Cause:** A log file has been lost. If Incomplete media recovery continues, data may be lost.
 
 **Action:** Copy a valid log file to [LOG_DIR] or move log files that are not needed for recovery to another directory.
+
+**0x111B6 (  70070) smERR_ABORT_ERR_NOT_USED_LOCK_MGR_TYPE_VALUE LOCK_MGR_TYPE 1 is deprecated.**
+
+**Cause:** Spin lock mode is no longer used.
+
+**Action:** You must change LOCK_MGR_TYPE to 0 or 2.
+
+**0x111BC (  70076) smERR_ABORT_TX_SEGMENT_ENTRY_ALLOC Failed to allocate transaction segment entry. (Entry count:<0%d>)  (TID:<1%d>)**
+
+**Cause:** The number of transaction segments exceeds TRANSACTION_SEGMENT_COUNT
+
+**Action:** Check TRANSACTION_SEGMENT_COUNT 
+
+**0x111BE (  70078) smERR_ABORT_NOT_BUILT_INDEX Failed to scan the index because it was not rebuilt. (Index Name :<0%s>)**
+
+**Cause:** This index was not rebuilt when the Altibase server was starting up. The value of INDEX_REBUILD_AT_STARTUP property is set to 0.
+
+**Action:** Rebuild this index. Or to rebuild all the indexes, delete INDEX_REBUILD_AT_STARTUP = 0 in altibase.properties and restart the Altibase server.
 
 ### IGNORE
 
