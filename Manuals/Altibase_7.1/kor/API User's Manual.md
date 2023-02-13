@@ -66,12 +66,12 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
   - [CheckServer API 사용](#checkserver-api-%EC%82%AC%EC%9A%A9)
   - [CheckServer API 데이터 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
   - [CheckServer API](#checkserver-api)
-- [6.ADO.NET]()
-  - [ADO.NET 소개]()
-  - [Altibase ADO.NET 사용]()
-  - [Altibase ADO.NET 인터페이스]()
-  - [Altibase ADO.NET 데이터 타입]()
-  - [Altibase ADO.NET 예제]()
+- [6..NET Data Provider](6net-data-provider)
+  - [Altibase ADO.NET 소개](#altibase-adonet-소개)
+  - [Altibase ADO.NET 사용](#altibase-adonet-사용)
+  - [Altibase ADO.NET 인터페이스](#altibase-adonet-인터페이스)
+  - [Altibase ADO.NET 데이터 타입](#altibase-adonet-데이터-타입)
+  - [Altibase ADO.NET 예제](#altibase-adonet-예제)
 
 
 
@@ -3085,13 +3085,9 @@ Altibase ADO.NET의 가장 큰 장점은 Altibase 서버 버전을 업그레이�
 #### 요구사항
 
 - Altibase 7.1.0.x.x 이상*(태그가 릴리즈되면 수정해야 함)*
-
 - .NET Core 3.1
-
 - Altibase CLI 라이브러리(예, odbccli_sl.dll)
-
   Altibase ADO.NET은 Altibase CLI 라이브러리를 이용하여 Altibase 서버에 접속하므로 CLI 라이브러리가 필요하다. 
-
   Altibase ADO.NET Nuget 패키지에 기본 포함된 CLI 라이브러리는 아래와 같다.
 
   - Linux x86-64
@@ -3110,15 +3106,21 @@ Altibase ADO.NET Nuget 패키지에 원하는 OS의 CLI 라이브러리가 포�
 
 ###  Altibase ADO.NET 사용
 
+.NET Core 개발자가  Altibase ADO.NET을 사용하여 개발할 때 알아야 할 사용 방법에 대해 설명한다.
+
 #### Altibase ADO.NET 다운로드
 
 [Nuget 사이트](http://nuget.org/)에서 Altibase.Data.AltibaseClient.7.1.0-1.0.nupkg 파일을 다운로드한다.
 
-##### .NET Core 응용 프로그램 컴파일
+
+
+#### .NET Core 응용 프로그램 컴파일
 
 Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 컴파일할 수 있다.
 
-dotnet CLI에서 컴파일하는 방법
+
+
+>  **dotnet CLI에서 컴파일하는 방법**
 
 1. dotnet CLI에서 NuGet 구성 파일의 소스를 조회하는 명령을 수행한다.
 
@@ -3129,7 +3131,7 @@ dotnet CLI에서 컴파일하는 방법
          https://api.nuget.org/v3/index.json
    ~~~
    
-2. 프로젝트 파일 내 \<PackageReference> 항목에 Altibase ADO.NET Nuget 패키지 종속성을 지정합니다. 
+2. 프로젝트 파일 내 \<PackageReference> 항목에 Altibase ADO.NET Nuget 패키지 종속성을 지정한다.
 
    ~~~c#
    <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -3147,7 +3149,7 @@ dotnet CLI에서 컴파일하는 방법
    </Project>
    ~~~
 
-3. 프로젝트를 빌드합니다.
+3. 프로젝트를 빌드한다.
 
    ~~~
    [user@ /] donet build.demo.csproj
@@ -3155,7 +3157,7 @@ dotnet CLI에서 컴파일하는 방법
 
    
 
-##### IDE 환경에서 컴파일하는 방법
+>  **IDE 환경에서 컴파일하는 방법**
 
 IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록하는 방법이다. 아래는 MS Visual Studio에서 수행한 예이다.
 
@@ -3194,20 +3196,13 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 위의 기본 연결 속성 외에 연결 문자열에서 사용할 수 있는 연결 속성을 설명한다. 각 연결 속성의 설명은 아래의 형식으로 작성되어 있다.
 
 - 기본값 : 연결 설정을 명시하지 않았을 때 기본적으로 사용되는 값
-
 - 값의 범위 : 설정 가능한 값
-
 - 필수 여부 : 반드시 설정해야 하는지 여부
-
 - 설정 범위 : 
-
   Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
-
   - 시스템 : 설정한 속성이 다른 세션에 영향을 준다.
   - 세션 : 설정한 속성은 해당 세션에만 영향을 준다.
-
   Altibase 서버에 연결 과정에서 영향을 받는 연결 속성은 'N/A'이라고 표시하였다.
-
 - 설명: 연결 속성에 대한 설명
 
 ###### application name
@@ -3221,49 +3216,31 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 ###### connection life time
 
 - 기본값 : 0
-
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
-
 - 필수 여부 : 선택
-
 - 설정 범위 : 세션
-
 - 설명 : 
-
   연결을 사용하지 않을 때 연결 풀에서 제거할 것인지 설정한다. 단위는 초(sec)이다. 
-
   0은 연결을 제거하지 않고 0이 아니면 설정 값 동안 연결을 사용하지 않으면 연결 풀에서 연결을 제거한다.
 
 ###### connection timeout
 
 - 기본값 : 15
-
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
-
 - 필수 여부 : 선택
-
 - 설정 범위 : N/A
-
 - 설명 : 
-
   Altibase 서버에 대한 연결을 대기하는 시간으로, 단위는 초(sec)이다. 
-
   0은 연결될 때까지 무한정 기다리고 0이 아닌 값은 설정 값 동안 연결되지 않으면 연결이 실패한다.
 
 ###### data source
 
 - 기본값 : 설명 참고
-
 - 값의 범위 : 임의의 문자열
-
 - 필수 여부 : 선택
-
 - 설정 범위 : N/A
-
 - 설명 : 
-
   데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.
-
   - 연결 속성 server의 값이 존재하면, data source의 값은 무시된다.
   - 연결 속성 server의 값이 없고 data source의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
   - 연결 속성 server의 값이 없고 data souce의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
@@ -3279,15 +3256,10 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 ###### enlist 
 
 - 기본값 :  true
-
 - 값의 범위 : [true | false]
-
 - 필수 여부 : 선택
-
 - 설정 범위 : 세션
-
 - 설명 : 암시적 트랜잭션 처리 여부를 설정한다. true는 암시적인 방식으로 false는 명시적인 방식으로 트랜잭션에 참여한다.
-
 
 ###### max pool size
 
@@ -3471,28 +3443,20 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 배열 바인딩할 때 다음 사항을 주의해야 한다.
 
 - ArrayBindCount의 유효 범위는 1부터 65535까지이다. 배열 크기를 무조건 크게 잡는다고 속도가 빨라지는 것은 아니므로 적당한 크기로 바인딩한다.
-
 - CHAR, VARCHAR, BLOB 타입은 배열 단일 요소의 데이터 길이가 ArrayBindSize를 넘으면 에러가 발생한다.
-
 - NCHAR, NVARCHAR 타입은 ArrayBindSize 값을 byte가 아닌 문자 수로 설정해야 한다.
-
 - BLOB 타입은 응응 프로그램에서 배열 타입으로 Object[]를 쓰고, 배열 원소는 byte[]를 사용한다.
-
   - 예시 
-
     ~~~c#
     byte[] var1; 
     byte[] var2; 
     Object[] var = new Object[2] {var1, var2};
     ~~~
-
 - CLOB, BYTE, NIBBLE, BIT, VARBIT, GEOMETRY 타입의 배열 바인딩은 지원하지 않는다.
 
 ##### 제약 사항
 
-출력(Output)이나 입출력 공용 파라미터의 배열 바인딩은 지원하지 않는다.
-
-입력(Input) 파라미터만 배열 바인딩을 지원한다.
+입력(Input) 파라미터만 배열 바인딩을 지원한다. 출력(Output)이나 입출력 공용 파라미터의 배열 바인딩은 지원하지 않는다.
 
 
 
