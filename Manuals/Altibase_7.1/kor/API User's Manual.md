@@ -3122,50 +3122,50 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
 
 >  **dotnet CLI에서 컴파일하는 방법**
 
-1. dotnet CLI에서 NuGet 구성 파일의 소스를 조회하는 명령을 수행한다.
+1️⃣ dotnet CLI에서 NuGet 구성 파일의 소스를 조회하는 명령을 수행한다.
 
-   ~~~c
-   [user@ /] dotnet nuget list source
-   등록된 소스:
-     1.  nuget.org [사용]
-         https://api.nuget.org/v3/index.json
-   ~~~
-   
-2. 프로젝트 파일 내 \<PackageReference> 항목에 Altibase ADO.NET Nuget 패키지 종속성을 지정한다.
+~~~c
+[user@ /] dotnet nuget list source
+등록된 소스:
+  1.  nuget.org [사용]
+      https://api.nuget.org/v3/index.json
+~~~
 
-   ~~~c#
-   <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-     <PropertyGroup>
-       <OutputType>exe</OutputType>
-       <TargetFramework>netcoreapp3.1</TargetFramework>
-     </PropertyGroup>
-     <ItemGroup>
-       /* Altibase ADO.NET Nuget 패키지 종속성을 지정 */
-       <PackageReference Include="Altibase.Data.AltibaseClient" />
-     </ItemGroup>
-     <ItemGroup>
-       <Compile Include="demo.cs" />
-     </ItemGroup>
-   </Project>
-   ~~~
+2️⃣ 프로젝트 파일 내 \<PackageReference> 항목에 Altibase ADO.NET Nuget 패키지 종속성을 지정한다.
 
-3. 프로젝트를 빌드한다.
+~~~c#
+<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    /* Altibase ADO.NET Nuget 패키지 종속성을 지정 */
+    <PackageReference Include="Altibase.Data.AltibaseClient" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="demo.cs" />
+  </ItemGroup>
+</Project>
+~~~
 
-   ~~~
-   [user@ /] donet build.demo.csproj
-   ~~~
+3️⃣ 프로젝트를 빌드한다.
 
-   
+~~~
+[user@ /] donet build.demo.csproj
+~~~
+
+
 
 >  **IDE 환경에서 컴파일하는 방법**
 
 IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록하는 방법이다. 아래는 MS Visual Studio에서 수행한 예이다.
 
-1. 새 프로젝트를 생성한다.
+1️⃣ 새 프로젝트를 생성한다.
 
-   ![img](http://nok.altibase.com/download/attachments/69933904/image2023-1-30%2014%3A15%3A23.png?version=1&modificationDate=1675055723000&api=v2)
+![img](http://nok.altibase.com/download/attachments/69933904/image2023-1-30%2014%3A15%3A23.png?version=1&modificationDate=1675055723000&api=v2)
 
-2. Nuget 패키지 관리자에서 nuget.org 에서 Altibase.Data.AltibaseClient 를 설치한다.
+2️⃣ Nuget 패키지 관리자에서 nuget.org 에서 Altibase.Data.AltibaseClient 를 설치한다.
 
 
 
