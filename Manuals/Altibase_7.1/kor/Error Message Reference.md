@@ -4424,8 +4424,6 @@ Mathematics Module.**
 
 **Action:** check an error message.
 
-
-
 **0x2106A ( 135274) mtERR_ABORT_MAX_MEM_SIZE_EXCEED The memory size allocated for the statement has exceeded the maximum limit ( Name : <0%s>, Wanted Memory Size : <1%lu>, Max size : <2%lu> ).** 
 
 **Cause:** The memory size allocated for the statement has exceeded the maximum limit.
@@ -4459,6 +4457,8 @@ Mathematics Module.**
 **Cause:** The value of the function argument is null.
 
 **Action:** Check your source code and set a value for the function argument.
+
+
 
 4.RP Error Code
 ---------------
@@ -11732,7 +11732,7 @@ package body.
 
 **Action:** Create the package body.
 
-**0x313C3 ( 201667) qpERR_ABORT_QSV_INVALID\_ IDENTIFIER Identifier must be
+**0x313C3 ( 201667) qpERR_ABORT_QSV_INVALID\_IDENTIFIER Identifier must be
 declared. \<0%s\>**
 
 **Cause:** The specified identifier is invalid.
@@ -17265,13 +17265,6 @@ be opened to fetch rows.**
 
 **Action:** Check the sequence of embedded SQL statements.
 
-**0x5106D ( 331885) ulpERR_ABORT_COMP_cannot_exec_inXa_Error Cannot execute DCL
-or DDL in a global transaction.**
-
-**Cause:** Altibase XA cannot execute DCL or DDL SQL statements.
-
-**Action:** Do not use DCL or DDL statements.
-
 **0x5106E ( 331886) ulpERR_ABORT_NCHAR_No_Indicator_Error The NCHAR type value
 must have an indicator.**
 
@@ -17387,6 +17380,8 @@ supported by psm array.
 **Cause:** There is no PSM with the name you specified.
 
 **Action:** Verify the existence of PSM name and try again.
+
+
 
 11.Utilities Error Code
 -----------------------
@@ -18753,6 +18748,8 @@ the maximum length is \<0%d\>.**
 
 **Action:** You can safely ignore this error message.
 
+
+
 12.CM Error Code
 ----------------
 
@@ -19515,6 +19512,8 @@ operation would be blocked**
 **Cause:** A IB rsocket is not ready for this operation
 
 **Action:** You may safely ignore this message.
+
+
 
 13.Database Link Error Code
 ---------------------------
@@ -20374,12 +20373,13 @@ statement to a remote server.
 
 ### **RETRY**
 
-**0xC3035 ( 798773) dkERR_REBUILD_META_IS_DIFFERENT Remote table's meta has
-changed**
+**0xC3035 ( 798773) dkERR_REBUILD_META_IS_DIFFERENT Remote table's meta has changed**
 
 **Cause:** The AltiLinker process is not running.
 
 **Action:** Check if an AltiLinker process is running.
+
+
 
 14.Log Analyzer Error Code
 --------------------------
@@ -20969,6 +20969,8 @@ supported by ODBC.
 
 **Action:** Refer to the log file specified for ALA_EnableLogging and pass a
 data type supported by ODBC.
+
+
 
 ## 15.Regular Expression Error Code
 
