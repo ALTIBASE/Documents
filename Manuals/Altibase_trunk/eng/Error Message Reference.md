@@ -52,14 +52,14 @@
     - [FATAL](#fatal-9)
     - [ABORT](#abort-11)
     - [IGNORE](#ignore-8)
-    - [RETRY](#retry-2)
+    - [RETRY](#retry-4)
   - [13.Database Link Error Code](#13database-link-error-code)
     - [FATAL](#fatal-10)
     - [ABORT](#abort-12)
-    - [RETRY](#retry)
+    - [RETRY](#retry-5)
   - [14.Log Analyzer Error Code](#14log-analyzer-error-code)
-    - [FATAL](#fatal)
-    - [ABORT](#abort)
+    - [FATAL](#fatal-11)
+    - [ABORT](#abort-13)
     - [IGNORE](#ignore-9)
 
 
@@ -177,19 +177,19 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 **Cause:** Failed to invoke the shmat() function.
 
-**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x00013 ( 19) idERR_FATAL_idc_SHM_CTL Unable to delete shared memory**
 
 **Cause:** Failed to invoke the shmctl() function.
 
-**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x00014 ( 20) idERR_FATAL_idc_SEM_CTL Unable to delete a semaphore**
 
 **Cause:** Failed to invoke the semctl() function.
 
-**Action:** Verify that you have permission to access the semaphore. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Verify that you have permission to access the semaphore. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x00015 ( 21) idERR_FATAL_idc_SEM_OP Unable to execute operations on a semaphore**
 
@@ -340,14 +340,14 @@ domain socket**
 
 **Cause:** The system failed to lock a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x00036 ( 54) idERR_FATAL_ThrMutexUnlock Failed to invoke the mutex_unlock()
 system function** 
 
 **Cause:** The system failed to unlock a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x00037 (     55) idERR_FATAL_ThrCondInit Failed to invoke the cond_init() system function**
 
@@ -401,7 +401,7 @@ system function**
 
 **Cause:** The system failed to call the fstat() function.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x00042 ( 66) idERR_FATAL_SyncError Failed to sync a file for [<0%s>].** 
 
@@ -604,7 +604,7 @@ Version ID = \<1%s\> ]**
 
 **Cause:** Failed to invoke the shmctl() function.
 
-**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase's Support Center(http://support.altibase.com).
+**Action:** Verify that you have permission to access shared memory. Check the error number from the trace log and contact Altibase's Support Center(http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -1250,7 +1250,7 @@ error: [\<0%d\>]**
 
 **Cause:** An unexpected internal server error has occurred.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x0109F ( 4255) idERR_ABORT_IDX_LIBRARY_NOT_FOUND Library file for external procedure/function not found : \<0%s\>\<1%s\>\<2%s\>**
 
@@ -1280,7 +1280,7 @@ error: [\<0%d\>]**
 
 **Cause:** Failed to create or start an agent.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x010A4 ( 4260) idERR_ABORT_IDX_CALL_PROCEDURE_FAILURE Failed to call external procedure/function**
 
@@ -1292,7 +1292,7 @@ error: [\<0%d\>]**
 
 **Cause:** Failed to connect to the agent.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x010A6 ( 4262) idERR_ABORT_IDX_AGENT_CONNECTION_LOST Connection to the agent has been lost**
 
@@ -1502,13 +1502,13 @@ error: [\<0%d\>]**
 
 **Cause:** An unexpected internal server error has occurred.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x010EE ( 4334) idERR_ABORT_IDU_MEMORY_INVALID_SET_STATUS An error has been detected in the memory manager. [\<0%s\>]**
 
 **Cause:** Internal memory manager error.
 
-**Action:** Set the MEMORY_ALLOCATOR_USE_PRIVATE property to 0 and restart the server. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Set the MEMORY_ALLOCATOR_USE_PRIVATE property to 0 and restart the server. Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 ### IGNORE
 
@@ -1546,13 +1546,13 @@ error: [\<0%d\>]**
 
 **Cause:** Trying to join a thread that is not started.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x020AC ( 8364) idERR_IGNORE_THREAD_UNBOUND Joining a detached thread**
 
 **Cause:** Trying to join a thread that is not joinable
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x020C4 ( 8388) idERR_IGNORE_FAIL_OPEN_ISQL_PTY_FILE can not to open a file that includes the path of pty.**
 
@@ -1570,43 +1570,43 @@ error: [\<0%d\>]**
 
 **Cause:** CPU affinity configuration is not found.
 
-**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com).
+**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com/en/).
 
 **0x020E3 ( 8419) idERR_IGNORE_EXCEED_NUMA_NODE The NUMA node number [\<0%d\>] exceeds the maximum value [\<1%d\>].**
 
 **Cause:** The NUMA node number exceeds the maximum value.
 
-**Action:** Verify the NUMA node number and valid range in the trace log and contact Altibase Support Center. (http://support.altibase.com).
+**Action:** Verify the NUMA node number and valid range in the trace log and contact Altibase Support Center. (http://support.altibase.com/en/).
 
 **0x020E4 ( 8420) idERR_IGNORE_EXCEED_CPUNO The CPU number [\<0%d\>]/[\<1%d\>] exceeded the supported maximum value [\<2%d\>]/[\<3%d\>].**
 
 **Cause:** The CPU number exceeds the maximum value.
 
-**Action:** Verify the CPU number and valid range in the trace log and contact Altibase Support Center. (http://support.altibase.com).
+**Action:** Verify the CPU number and valid range in the trace log and contact Altibase Support Center. (http://support.altibase.com/en/).
 
 **0x020E5 ( 8421) idERR_IGNORE_INVALID_CPUNO Invalid CPU number [\<0%d\>]. The Valid range is 0 to \<1%d\>.**
 
 **Cause:** The CPU number is invalid.
 
-**Action:** Verify the CPU number and valid range in the trace log and contact Altibase Support Center (http://support.altibase.com).
+**Action:** Verify the CPU number and valid range in the trace log and contact Altibase Support Center (http://support.altibase.com/en/).
 
 **0x020E6 ( 8422) idERR_IGNORE_INVALID_NUMA_NODE_NO Invalid NUMA node number [\<0%d\>]. The Valid range is 0 to \<1%d\>.**
 
 **Cause:** The NUMA node number is invalid.
 
-**Action:** Verify the NUMA node number and valid range in the trace log and contact Altibase Support Center (http://support.altibase.com).
+**Action:** Verify the NUMA node number and valid range in the trace log and contact Altibase Support Center (http://support.altibase.com/en/).
 
 **0x020E7 ( 8423) idERR_IGNORE_BINDTHREAD_FAILED Unable to set CPU affinity (errno:\<0%d\>).**
 
 **Cause:** The system function failed to bind cpusets on a thread.
 
-**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com).
+**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com/en/).
 
 **0x020E8 ( 8424) idERR_IGNORE_BIND_PROCESS_FAILED Failed to set CPU affinity on a process (errno:\<0%d\>).**
 
 **Cause:** The system function failed to bind cpusets on a process.
 
-**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com).
+**Action:** Verify the error number in the trace log and contact Altibase Support Center (http://support.altibase.com/en/).
 
 **0x020E9 ( 8425) idERR_IGNORE_UNBINDTHREAD_FAILED Failed to unset CPU affinity on a thread.**
 
@@ -1640,7 +1640,7 @@ function**
 
 **Action:** Verify that there are enough system resources. Check the error
 number from the trace log and contact Altibase's Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x1000A ( 65546) smERR_FATAL_SysShmDt Failed to invoke the shmdt() system
 function**
@@ -1648,7 +1648,7 @@ function**
 **Cause:** The system failed to detach a shared memory region from a process.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1000B ( 65547) smERR_FATAL_SysShmCtl Failed to invoke the shmctl() system
 function**
@@ -1663,14 +1663,14 @@ function**
 **Cause:** The system failed to join threads.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1000D ( 65549) smERR_FATAL_ThrMutexInit Unable to initialize a mutex.**
 
 **Cause:** The system failed to initialize a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1000E ( 65550) smERR_FATAL_ThrMutexDestroy Failed to invoke the
 mutex_destroy() system function**
@@ -1678,7 +1678,7 @@ mutex_destroy() system function**
 **Cause:** The system failed to remove a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1000F ( 65551) smERR_FATAL_ThrMutexLock Failed to invoke the mutex_lock()
 system function**
@@ -1686,7 +1686,7 @@ system function**
 **Cause:** The system failed to lock a mutex.
 
 \# **Action:** : Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10010 ( 65552) smERR_FATAL_ThrMutexUnlock Failed to invoke the
 mutex_unlock() system function**
@@ -1694,7 +1694,7 @@ mutex_unlock() system function**
 **Cause:** The system failed to unlock a mutex.
 
 \# **Action:** : Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10011 ( 65553) smERR_FATAL_ThrCondInit Failed to invoke the cond_init()
 system function**
@@ -1702,7 +1702,7 @@ system function**
 **Cause:** The system failed to initialize a condition variable.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10012 ( 65554) smERR_FATAL_ThrCondSignal Failed to invoke the cond_signal()
 system function**
@@ -1710,7 +1710,7 @@ system function**
 **Cause:** The system failed to signal using a condition variable.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10013 ( 65555) smERR_FATAL_ThrCondDestroy Failed to invoke the
 cond_destroy() system function**
@@ -1718,7 +1718,7 @@ cond_destroy() system function**
 **Cause:** The system failed to remove a condition variable.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10014 ( 65556) smERR_FATAL_ThrCondWait Failed to invoke the cond_wait()
 system function**
@@ -1726,7 +1726,7 @@ system function**
 **Cause:** Invalid condition value or invalid mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10019 ( 65561) smERR_FATAL_SysRead Failed to invoke the read() system
 function**
@@ -1792,7 +1792,7 @@ found.**
 **Cause:** An uncommitted row was found.
 
 \# **Action:** : Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1005E ( 65630) smERR_FATAL_smiChildStatementExist One or more child
 statements exists.**
@@ -1908,7 +1908,7 @@ directory.**
 **Cause:** The database is inconsistent.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1008D ( 65677) smERR_FATAL_NotFoundDataFile The data file containing page
 [\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
@@ -1916,7 +1916,7 @@ Support Center (http://support.altibase.com).
 **Cause:** The data file does not exist.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1009C ( 65692) smERR_FATAL_INVALID_SHARED_MEMORY_DATABASE When the
 TRANSACTION_DURABILITY_LEVEL value is not 3, a shared memory database cannot be
@@ -1989,7 +1989,7 @@ or invalid logfiles at '\<0%s\>'.**
 **Cause:** The secondary flusher has stopped due to an unexpected problem.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x10192 ( 65938) smERR_FATAL_PageReadStopped Failed to read a page.**
 
@@ -2003,7 +2003,7 @@ No=\<0%u\>, Offset=\<1%u\>)**
 **Cause:** LSN Offset is invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center(http://support.altibase.com).
+Support Center(http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -2044,7 +2044,7 @@ function**
 **Cause:** The system failed to attach a shared memory region to a process.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x11016 ( 69654) smERR_ABORT_NotFoundSavepoint Savepoint not found**
 
@@ -2425,7 +2425,7 @@ manager (\<0%s\>)**
 **Cause:** Internal server error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1106D ( 69741) smERR_ABORT_No_More_Shm_Key Unable to find an available
 shared memory key.**
@@ -2505,7 +2505,7 @@ maximum limit.**
 **Cause:** Invalid row SCN
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x11089 ( 69769) smERR_ABORT_INVALID_COLUMN_SIZE Invalid column size**
 
@@ -2687,7 +2687,7 @@ system function**
 **Cause:** The system failed to map the log file.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x110B1 ( 69809) smERR_ABORT_CantAllocTrans Unable to allocate a nested
 transaction object**
@@ -2701,7 +2701,7 @@ transaction object**
 **Cause:** Database information is invalid.
 
 **Action:** Check the error number from altibase_sm.log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x110B3 ( 69811) smERR_ABORT_DIFFERENT_DB_FREE_PAGE_LIST_COUNT Different Page
 List Count. The value of the PAGE_LIST_GROUP_COUNT property is different from
@@ -2751,7 +2751,7 @@ resetlog.**
 **Cause:** The system failed to open the log file.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x110C1 ( 69825) smERR_ABORT_NotFoundDataFile The data file containing page
 [\<0%d\>] does not exist. ( Tablespace - ID : \<1%d\>, Type : \<2%d\> )**
@@ -3649,7 +3649,7 @@ for the file \<0%s\> is invalid. ( Init Size : \<1%lu\> pages, Current Size :
 loganchor file.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x11156 ( 69974) smERR_ABORT_InvalidExtendFileSizeMaxSize The requested size
 of the data file exceeds the MAXSIZE for the data file. ( Requested Size :
@@ -3777,7 +3777,7 @@ internal server error.**
 **Cause:** Internal server error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x11166 ( 69990) smERR_ABORT_TRANSACTION_TABLE_SIZE_IS_NOT_POWER_OF_TWO
 TRANSACTION_TABLE_SIZE ['\<0%d\>'] is not a power of two.**
@@ -3804,7 +3804,7 @@ MEM_MAX_DB_SIZE property
 file has been lost for some unknown reason.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x11169 ( 69993) smERR_ABORT_FAILURE_DURABILITY_AT_STARTUP Restart recovery
 aborted to protect database durability.**
@@ -3813,7 +3813,7 @@ aborted to protect database durability.**
 durability and DB objects may be broken.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1116A ( 69994) smERR_ABORT_FAILURE_DRDB_WAL_AT_STARTUP Restart recovery
 aborted due to Write-Ahead-Logging failure.**
@@ -3824,7 +3824,7 @@ DRDB object. If
 restart recovery continues, DB consistency may be broken.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1116B ( 69995) smERR_ABORT_FAILURE_MRDB_WAL_AT_STARTUP Restart recovery
 aborted due to Write-Ahead-Logging failure.**
@@ -3833,7 +3833,7 @@ aborted due to Write-Ahead-Logging failure.**
 MRDB object. If restart recovery continues, DB consistency may be broken.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1116C ( 69996) smERR_ABORT_INCONSISTENT_DB Access blocked to prevent DB
 inconsistency from worsening.**
@@ -3842,7 +3842,7 @@ inconsistency from worsening.**
 already inconsistent.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1116D ( 69997) smERR_ABORT_INCONSISTENT_PAGE A page is inconsistent. (
 Current Space ID : \<0%d\>, Current Page ID : \<1%d\> )**
@@ -3850,7 +3850,7 @@ Current Space ID : \<0%d\>, Current Page ID : \<1%d\> )**
 **Cause:** The page is not consistent.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x1116E ( 69998) smERR_ABORT_ERR_INCONSISTENT_DB_AND_LOG_BUFFER_TYPE Could not
 perform emergency startup due to current LOG_BUFFER_TYPE setting.**
@@ -4016,7 +4016,7 @@ all temp flushers are stopped.**
 **Cause:** The temporary flushers have stopped due to some unexpected problem.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x11188 ( 70024) smERR_ABORT_ALL_INDEX_DISABLED All Indexes are disabled.**
 
@@ -4318,7 +4318,7 @@ server.
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x111BB (  70075) smERR_ABORT_INDOUBT_FETCH_TIMEOUT The transaction has exceeded the in-doubt fetch timeout specified by the user due to a prepared transaction. (XID:<0%s>).**
 
@@ -4406,7 +4406,7 @@ been modified**
 
 **Cause:** This error occurs due to a logical programming error.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x20003 ( 131075) mtERR_FATAL_MEMORY_SHORTAGE Out of memory**
 
@@ -4418,7 +4418,7 @@ been modified**
 
 **Cause:** This is a data type conversion error.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x20005 ( 131077) mtERR_FATAL_INCOMPATIBLE_TYPE Incompatible data type \<0%s\>.**
 
@@ -4430,25 +4430,25 @@ been modified**
 
 **Cause:** The conversion path between MT data types exceeds the buffer size.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x20044 ( 131140) mtERR_FATAL_THR_MUTEXINIT Failed to invoke the mutex_init() system function**
 
 **Cause:** The system failed to initialize a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x20045 ( 131141) mtERR_FATAL_THR_MUTEXLOCK Failed to invoke the mutex_lock() system function**
 
 **Cause:** The system failed to lock a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x20046 ( 131142) mtERR_FATAL_THR_MUTEXUNLOCK Failed to invoke the muntex_unlock() system function**
 
 **Cause:** The system failed to unlock a mutex.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -4456,7 +4456,7 @@ been modified**
 
 **Cause:** This error occurs due to a logical programming error.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x21007 ( 135175) mtERR_ABORT_LANGUAGE_MODULE_NOT_FOUND Language module \<0%s\> not found.**
 
@@ -4656,7 +4656,7 @@ statement.
 
 **Cause:** Unable to convert the data type.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x21041 ( 135233) mtERR_ABORT_ONLY_USE_DEC_OR_HEX_IN_DUMP_FUNC Only a decimal or hexadecimal number is allowed.**
 
@@ -4674,7 +4674,7 @@ statement.
 
 **Cause:** The disk page is broken or the meta table has invalid data.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x2104C ( 135244) mtERR_ABORT_ART Error generated by Automatic Recovery Test(ART)**
 
@@ -4704,7 +4704,7 @@ statement.
 
 **Cause:** This error occurs when the REGEXP_MODE property is set to 1.
 
-**Action:** Check the error message and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error message and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x21022 ( 135202) mtERR_ABORT_INVALID_DATE Invalid date literal**
 
@@ -4848,7 +4848,7 @@ statement.
 
 **Cause:** This error occurs due to a logical programming error.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x21047 ( 135239) mtERR_ABORT_NULL_VALUE No NULL value is allowed to be used as the data type.**
 
@@ -5077,7 +5077,7 @@ Mathematics Module.**
 **Cause:** An invalid replication option was set for the replication Sender.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x60071 ( 393329) rpERR_FATAL_ThrCondInit Failed to invoke the cond_init()
 system function**
@@ -5085,7 +5085,7 @@ system function**
 **Cause:** The system failed to invoke the cond_init() function.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x600A2 ( 393378) rpERR_FATAL_ThrCondBroadcast Failed to invoke a system
 function, cond_broadcast(), errno is (\<0%d\>).**
@@ -5103,7 +5103,7 @@ function, cond_broadcast(), errno is (\<0%d\>).**
 **Cause:** The system failed to initialize a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x600B5 ( 393397) rpERR_FATAL_ThrMutexDestroy Failed to invoke the
 mutex_destroy() system function**
@@ -5118,14 +5118,14 @@ crashed.**
 **Cause:** A replication meta table crashed.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x60167 ( 393575) rpERR_FATAL_ThrLatchInit Unable to initialize a latch.**
 
 **Cause:** The system failed to initialize a latch.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -5150,7 +5150,7 @@ information.**
 because the database crashed or an error occurred.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61009 ( 397321) rpERR_ABORT_RP_JOIN_THREAD Unable to join the sender
 thread**
@@ -5158,7 +5158,7 @@ thread**
 **Cause:** The system failed to join the sender thread.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6100A ( 397322) rpERR_ABORT_RP_ALREADY_STARTED The sender has already been
 started.**
@@ -5249,7 +5249,7 @@ to make XLOG in a log file at SN[\<0%lu\>]**
 SN in the log file to an XLog.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61015 ( 397333) rpERR_ABORT_RP_SENDER_CHECK_LOG [Sender] Failed to check a
 physical log at SN[\<0%lu\>]**
@@ -5330,7 +5330,7 @@ insert()**
 **Cause:** The same transaction table slot is being used.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6102A ( 397354) rpERR_ABORT_BIND Bind failure**
 
@@ -5366,7 +5366,7 @@ information**
 **Cause:** The system failed to create metadata.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61031 ( 397361) rpERR_ABORT_META_MISMATCH [Receiver] Meta information does
 not match**
@@ -5375,7 +5375,7 @@ not match**
 information.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61032 ( 397362) rpERR_ABORT_SEND_ACK [Receiver] Failed to send ACK**
 
@@ -5388,7 +5388,7 @@ Support Center (http://support.altibase.com).
 **Cause:** The replication Receiver failed to start an internal transaction.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61034 ( 397364) rpERR_ABORT_TX_COMMIT [Receiver] Transaction commit
 failure**
@@ -5396,7 +5396,7 @@ failure**
 **Cause:** The replication Receiver failed to commit an internal transaction.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61035 ( 397365) rpERR_ABORT_UPDATE_CONFLICT [Receiver] An update conflict
 occurred.**
@@ -5451,7 +5451,7 @@ replication Sender.
 **Action:** Check the replication protocol version between the two nodes. If the
 versions are different, change it to the same version. If the versions are the
 same, check the error number from the trace log and contact Altibase’s Support
-Center (http://support.altibase.com).
+Center (http://support.altibase.com/en/).
 
 **0x61047 ( 397383) rpERR_ABORT_ERROR_RECVXLOG2 [Receiver] \<0%s\> receiver has
 error in recvXLog()**
@@ -5503,7 +5503,7 @@ error in recvXLog()**
 
 **Action:** Restart the replication Sender. If the replication Sender repeatedly
 fails to start, check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61050 ( 397392) rpERR_ABORT_OPEN_LOG_FILE [Sender] Failed to open log file logfile<0%d>.log**
 
@@ -5520,7 +5520,7 @@ Support Center (http://support.altibase.com).
 **Cause:** Internal server error
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61055 ( 397397) rpERR_ABORT_MEMORY_ALLOC Memory allocation failure
 [Function=\<0%s\>, Variable=\<1%s\>]**
@@ -5555,7 +5555,7 @@ run()**
 **Cause:** The replication Receiver failed to add a new transaction.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6105B ( 397403) rpERR_ABORT_ABORT_ERROR_IN_RUN [Receiver] abort error in
 run()**
@@ -5563,7 +5563,7 @@ run()**
 **Cause:** The replication Receiver failed to roll back a transaction.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6105C ( 397404) rpERR_ABORT_COMMIT_ERROR_IN_RUN [Receiver] commit error in
 run()**
@@ -5579,7 +5579,7 @@ replication module (\<0%s\>).**
 **Cause:** Program eror.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6106B ( 397419) rpERR_ABORT_RP_SENDER_SEND_ERROR [Sender] Failed to send
 XLog to peer network**
@@ -5601,7 +5601,7 @@ smiTrans set(savepoint) error in run()**
 **Cause:** The replication Receiver failed to create a savepoint.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6106E ( 397422) rpERR_ABORT_RP_ABORT_SAVEPOINT_ERROR_IN_RUN [Receiver]
 smiTrans abort(savepoint) error in run()**
@@ -5609,7 +5609,7 @@ smiTrans abort(savepoint) error in run()**
 **Cause:** The replication Receiver failed to roll back to a savepoint.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6106F ( 397423) rpERR_ABORT_RP_NOT_DROP_ONE_TABLE You cannot drop only one
 replicated table.**
@@ -5632,7 +5632,7 @@ Current[\<1%ld\>] occurred**
 **Cause:** The restart SN value of the replication Sender is invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61077 ( 397431) rpERR_ABORT_RP_SENDER_UPDATE_XSN [Sender] Failed to update
 XSN**
@@ -5640,7 +5640,7 @@ XSN**
 **Cause:** The replication Sender failed to update the restart SN value.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61078 ( 397432) rpERR_ABORT_RP_TRANSACTION_TABLE_IN_INSERT [Receiver]
 replication transaction table error during insert() operation**
@@ -5649,7 +5649,7 @@ replication transaction table error during insert() operation**
 table.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61079 ( 397433) rpERR_ABORT_RP_FIND_IN_TRANSTABLE_REMOVE [Receiver] find error in transaction table during remove() operation**
 
@@ -5717,7 +5717,7 @@ isn't available [\<0%u\>]**
 **Cause:** Failed to free network memory resources.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61086 ( 397446) rpERR_ABORT_FREE_DISPATCHER [Network] Free dispatcher
 operation failed**
@@ -5725,7 +5725,7 @@ operation failed**
 **Cause:** Failed to free network dispatcher resources.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61087 ( 397447) rpERR_ABORT_SHUTDOWN_LINK [Network] Shutdown link operation
 failed**
@@ -5741,7 +5741,7 @@ failed**
 **Cause:** Failed to close a network socket.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61089 ( 397449) rpERR_ABORT_ALLOC_LINK [Network] Alloc link operation
 failed**
@@ -5872,7 +5872,7 @@ type [\<0%u\>] in sender analysis**
 **Cause:** The XSN read and created by the replication Sender is invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61099 ( 397465) rpERR_ABORT_RECEIVER_INVALID_XLOG_TYPE [Receiver] Invalid
 XLog type [\<0%u\>] in receiver analysis**
@@ -5880,7 +5880,7 @@ XLog type [\<0%u\>] in receiver analysis**
 **Cause:** The replication Receiver received an invalid XLog.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6109A ( 397466) rpERR_ABORT_ITEM_NOT_EXIST [Meta] Replication meta item
 doesn't exist [Replication Name:\<0%s\>]**
@@ -5888,7 +5888,7 @@ doesn't exist [Replication Name:\<0%s\>]**
 **Cause:** The replication metadata item does not exist due to a database error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6109C ( 397468) rpERR_ABORT_CONVERT_ENDIAN Endian conversion operation
 failed**
@@ -5897,7 +5897,7 @@ failed**
 replication.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6109E ( 397470) rpERR_ABORT_NOT_EXIST_TABLE [Receiver] The specified table
 doesn't exist.**
@@ -5947,7 +5947,7 @@ Unexpected replication protocol [\<0%u\>]**
 replication.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610A5 ( 397477) rpERR_ABORT_RECEIVER_TX_NOT_BEGIN [Receiver] Transaction has
 not begun. Received XLog [Type:\<0%d\>, TID:\<1%u\>, SN:\<2%ld\>]**
@@ -5956,7 +5956,7 @@ not begun. Received XLog [Type:\<0%d\>, TID:\<1%u\>, SN:\<2%ld\>]**
 not yet started.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610A6 ( 397478) rpERR_ABORT_LOGBUFFER_ALLOC Replication log buffer memory
 allocation failed.**
@@ -5972,7 +5972,7 @@ to update INVALID MAX SN**
 database error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610A8 ( 397480) rpERR_ABORT_RECOVERY_INFO_EXIST Recovery information already
 exists.**
@@ -6026,7 +6026,7 @@ been terminated. To disable this option, set REPLICATION_RECOVERY_MAX_TIME to 0,
 and restart. If a network error has occurred, increase
 REPLICATION_RECOVERY_REQUEST_TIMEOUT, and restart replication. If connection
 fails, check the error number from the trace log and contact Altibase’s Support
-Center (http://support.altibase.com).
+Center (http://support.altibase.com/en/).
 
 **0x610B0 ( 397488) rpERR_ABORT_MISMATCH_OLD_ITEMS_COUNT Old items count
 mismatch (\<0%d\>:\<1%d\>)**
@@ -6035,7 +6035,7 @@ mismatch (\<0%d\>:\<1%d\>)**
 to a database error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610B2 ( 397490) rpERR_ABORT_CONDITION_COLUMN_IS_NOT_FOUND Condition column
 not found.**
@@ -6057,7 +6057,7 @@ meta [SN=\<0%ld\>, Table OID=\<1%ld\>]**
 metadata due to a database error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610B7 ( 397495) rpERR_ABORT_RECEIVER_NOT_FOUND_PK_COLUMN PK Column not found
 in the meta [SN=\<0%ld\>, Table OID=\<1%ld\>, PK Column Seq=\<2%d\>]**
@@ -6066,7 +6066,7 @@ in the meta [SN=\<0%ld\>, Table OID=\<1%ld\>, PK Column Seq=\<2%d\>]**
 error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610B8 ( 397496) rpERR_ABORT_RECEIVER_NOT_FOUND_COLUMN Column not found in
 the meta [SN=\<0%ld\>, Table OID=\<1%ld\>, Column ID=\<2%d\>]**
@@ -6074,7 +6074,7 @@ the meta [SN=\<0%ld\>, Table OID=\<1%ld\>, Column ID=\<2%d\>]**
 **Cause:** Failed to find the column from metadata due to a database error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610B9 ( 397497) rpERR_ABORT_RP_NOT_DROP_ONE_HOST You cannot drop only one
 host.**
@@ -6090,7 +6090,7 @@ savepoint error in run()**
 **Cause:** The replication receiver failed to abort to the savepoint.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610BB ( 397499) rpERR_ABORT_MISMATCH_OFFLINE_LOG_LFGCOUNT Offline log LFG
 counts do not match.**
@@ -6129,7 +6129,7 @@ meta.**
 **Cause:** Failed to find the column from metadata due to a database error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610C0 ( 397504) rpERR_ABORT_MISMATCH_OFFLINE_LOG_FILESIZE Offline log file
 size does not match.**
@@ -6144,7 +6144,7 @@ size [\<0%s\>]**
 **Cause:** Internal communication logic error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610C2 ( 397506) rpERR_ABORT_RP_NOT_FOUND_OFFMETA The meta information for
 the offline sender cannot be found in memory.**
@@ -6188,7 +6188,7 @@ current analyzing log [SN:\<0%lu\>].**
 **Cause:** The previously analyzed log has an invalid continue flag.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610C7 ( 397511) rpERR_ABORT_RP_OFFLINE_SENDER_ABNORMALLY_EXIT Offline sender
 exits without finishing some jobs.**
@@ -6196,7 +6196,7 @@ exits without finishing some jobs.**
 **Cause:** An offline replication Sender has exited without finishing some jobs.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610C8 ( 397512) rpERR_ABORT_RP_WRONG_OPERATION_TYPE Invalid Operation type
 [\<0%u\>] of replication protocol.**
@@ -6204,7 +6204,7 @@ Support Center (http://support.altibase.com).
 **Cause:** The replication protocol's operation type is invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610C9 ( 397513) rpERR_ABORT_RP_OVERFLOW Size of log record is greater than
 size of replication log buffer.**
@@ -6482,7 +6482,7 @@ abnormal type.**
 **Cause:** The replication Sender type is set to an invalid value.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610F1 ( 397553) rpERR_ABORT_RP_SENDER_UPDATE_REMOTE_FAULT_DETECT_TIME
 [Sender] Failed to update REMOTE_FAULT_DETECT_TIME**
@@ -6491,7 +6491,7 @@ Support Center (http://support.altibase.com).
 SYS_REPLICATIONS\_ meta table due to a database error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610F2 ( 397554) rpERR_ABORT_SENDER_APPLY_ABNORMAL_EXIT [Sender] The apply
 thread exits abnormally.**
@@ -6558,7 +6558,7 @@ Type:\<4%d\>]**
 **Cause:** The replication Sender failed to create an XLog from a log.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610FB ( 397563) rpERR_ABORT_UNEXPECTED_HANDSHAKE_ACK Unexpected replication
 handshake ACK [Result:\<0%u\>]**
@@ -6567,7 +6567,7 @@ handshake ACK [Result:\<0%u\>]**
 the replication Receiver.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610FC ( 397564) rpERR_ABORT_HANDSHAKE_DISCONNECT Disconnection during
 handshaking [\<0%s\>]**
@@ -6583,7 +6583,7 @@ replication \<0%s\>.**
 **Cause:** There is no information about the replication Sender.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x610FE ( 397566) rpERR_ABORT_RPC_REPLICATION_ALREADY_STARTED Replication has
 already started.**
@@ -6711,7 +6711,7 @@ type must be a table. \<0%s\>**
 **Action:**
 
 - Check the error number from the trace log and contact Altibase's Support
-Center (http://support.altibase.com).
+Center (http://support.altibase.com/en/).
 
 **0x6110F ( 397583) rpERR_ABORT_RPC_NOT_EXISTS_USER User not found : \<0%s\>**
 
@@ -6728,7 +6728,7 @@ Center (http://support.altibase.com).
 **Action:**
 
 - Check the error number from the trace log and contact Altibase's Support
-Center (http://support.altibase.com).
+Center (http://support.altibase.com/en/).
 
 **0x61111 ( 397585) rpERR_ABORT_RPC_NOT_EXISTS_TABLE Table not found : \<0%s\>**
 
@@ -6894,7 +6894,7 @@ module (\<0%s\>).**
 error.
 
 \# **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61128 ( 397608) rpERR_ABORT_RPD_TOO_MANY_REPLICATION_OLD_ITEMS Internal
 server error. There are too many old item metas for replication. (\<0%s\>)**
@@ -6903,7 +6903,7 @@ server error. There are too many old item metas for replication. (\<0%s\>)**
 SYS_REPL_OLD_ITEMS_. This is an internal server error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61129 ( 397609) rpERR_ABORT_RPD_NOT_ENOUGH_REPLICATION_OLD_ITEMS Internal
 server error. There are too few old item metas for replication. (\<0%s\>)**
@@ -6912,7 +6912,7 @@ server error. There are too few old item metas for replication. (\<0%s\>)**
 SYS_REPL_OLD_ITEMS_. This is an internal server error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6112A ( 397610) rpERR_ABORT_RPD_NOT_EXIST_REPL_OFFLINE_DIR_PATH Replication
 offline log dir not found.**
@@ -6941,7 +6941,7 @@ Internal server error. Too few offline log dir paths for replication.**
 object.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6112E ( 397614) rpERR_ABORT_RPD_TOO_MANY_REPLICATION_HOSTS Internal server
 error. There are too many hosts for replication.**
@@ -6949,7 +6949,7 @@ error. There are too many hosts for replication.**
 **Cause:** This is an internal error related to metadata of replication hosts.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6112F ( 397615) rpERR_ABORT_RPD_NOT_ENOUGH_REPLICATION_HOSTS Internal server
 error. There are too few hosts for replication.**
@@ -6957,7 +6957,7 @@ error. There are too few hosts for replication.**
 **Cause:** This is an internal error related to metadata of replication hosts.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61130 ( 397616) rpERR_ABORT_RPD_TOO_MANY_REPLICATION_ITEMS Internal server
 error. There are too many tables for replication.**
@@ -6965,7 +6965,7 @@ error. There are too many tables for replication.**
 **Cause:** This is an internal error related to SYS_REPL_ITEMS\_ .
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61131 ( 397617) rpERR_ABORT_RPD_NOT_ENOUGH_REPLICATION_ITEMS Internal server
 error. There are too few tables for replication.**
@@ -6973,7 +6973,7 @@ error. There are too few tables for replication.**
 **Cause:** This is an internal error related to SYS_REPL_ITEMS_.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61132 ( 397618) rpERR_ABORT_RPD_MAXIMUM_OBJECT_NUMBER_EXCEED The number of
 elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
@@ -6989,7 +6989,7 @@ server error. There are too many old column metas for replication. (\<0%s\>,
 **Cause:** This is an internal error related to SYS_REPL_ITEMS_.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61134 ( 397620) rpERR_ABORT_RPD_NOT_ENOUGH_REPLICATION_OLD_COLUMNS Internal
 server error. There are too few old column metas for replication. (\<0%s\>,
@@ -6998,7 +6998,7 @@ server error. There are too few old column metas for replication. (\<0%s\>,
 **Cause:** This is an internal error related to SYS_REPL_ITEMS_.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61135 ( 397621) rpERR_ABORT_RPD_TOO_MANY_REPLICATION_OLD_INDICES Internal
 server error. There are too many old index metas for replication. (\<0%s\>,
@@ -7007,7 +7007,7 @@ server error. There are too many old index metas for replication. (\<0%s\>,
 **Cause:** This is an internal error related to SYS_REPL_ITEMS_.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61136 ( 397622) rpERR_ABORT_RPD_NOT_ENOUGH_REPLICATION_OLD_INDICES Internal
 server error. There are too few old index metas for replication. (\<0%s\>,
@@ -7016,7 +7016,7 @@ server error. There are too few old index metas for replication. (\<0%s\>,
 **Cause:** This is an internal error related to SYS_REPL_ITEMS_.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61137 ( 397623) rpERR_ABORT_RPD_TOO_MANY_REPLICATION_OLD_INDEX_COLS Internal
 server error. There are too many old index column metas for replication.
@@ -7025,7 +7025,7 @@ server error. There are too many old index column metas for replication.
 **Cause:** This is an internal error related to SYS_REPL_ITEMS_.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61138 ( 397624) rpERR_ABORT_RPD_NOT_ENOUGH_REPLICATION_OLD_INDEX_COLS
 Internal server error. There are too few old index column metas for replication.
@@ -7034,7 +7034,7 @@ Internal server error. There are too few old index column metas for replication.
 **Cause:** This is an internal error related to SYS_REPL_ITEMS_.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61139 ( 397625) rpERR_ABORT_RPD_ALREADY_SUPPORT_RECOVERY The table recovery
 is already supported by another replication \<0%s\>**
@@ -7065,7 +7065,7 @@ to be synchronized is invalid.**
 **Cause:** The number of tables to be synchronized is invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x6113D ( 397629) rpERR_ABORT_REBUILD_INDEX Failed to rebuild indexes after
 synchronization operation.**
@@ -7121,7 +7121,7 @@ failed**
 **Cause:** Failed to free network memory resources.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61144 ( 397636) rpERR_ABORT_LOB_TRIM [SmExec] A failure occurred while
 trimming LOB type data**
@@ -7129,7 +7129,7 @@ trimming LOB type data**
 **Cause:** Failed to trim LOB data.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61145 ( 397637)
 rpERR_ABORT_RPC_CANNOT_REPLICATE_TABLE_WITH_COMPRESSED_COLUMN Replication is not
@@ -7146,7 +7146,7 @@ type**
 **Cause:** An invalid communication packet type has been detected.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61147 ( 397639) rpERR_ABORT_CHECK_NAME_NOT_FOUND Check constraint name of
 the replicated table does not exist. [\<0%s\>(Name: \<1%s\>)]**
@@ -7263,7 +7263,7 @@ record to the global index table.**
 duplicating a partition with a global index.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61155 ( 397653) rpERR_ABORT_UPDATE_GLOBAL_INDEX_TABLE Failed to update the
 record to the global index table.**
@@ -7272,7 +7272,7 @@ record to the global index table.**
 duplicating a partition with a global index.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61156 ( 397654) rpERR_ABORT_DELETE_GLOBAL_INDEX_TABLE Failed to delete the
 record from the global index table.**
@@ -7281,7 +7281,7 @@ record from the global index table.**
 duplicating a partition with a global index.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61157 ( 397655) rpERR_ABORT_RPD_OVERFLOW_COUNT_REPL_OFFLINE_DIR_PATH Exceeds
 the maximum number of log directory paths allowed to be specified.**
@@ -7297,7 +7297,7 @@ has been processed, no data should remain in the receive buffer.**
 **Cause:** Already processed data remains in the replication receive buffer.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61159 ( 397657) rpERR_ABORT_REPLICATION_MODE_MISMATCH The replication mode
 does not match. [\<0%u\>:\<1%u\>]**
@@ -7402,7 +7402,7 @@ transaction was waiting after finishing the analysis in the replication with the
 grouping option enabled.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61168 ( 397672) rpERR_ABORT_TRANSACTION_NOT_ACTIVE Transaction is not
 active.**
@@ -7410,7 +7410,7 @@ active.**
 **Cause:** A transaction is not active.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x61169 ( 397673) rpERR_ABORT_SOCKET_OPEN_ERROR Socket Can not be openned.**
 
@@ -7783,7 +7783,7 @@ communicating.
 
 **Cause:** An internal exception occurred from an OS.
 
-**Action:** Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x61190 ( 397712) rpERR_ABORT_PARTITION_COUNT_MISMATCH The partition count of the replicated table does not match [<0%s>(<1%d>):<2%s>(<3%d>)].**
 
@@ -7823,7 +7823,7 @@ communicating.
 
 **Action:** 
 
--  Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com).
+-  Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x61194 ( 397716) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_CONDITIONAL_START_AND_EAGER SYNC CONDITIONAL and START CONDITIONAL clauses are not supported with replication eager mode.**
 
@@ -7853,7 +7853,7 @@ communicating.
 
 **Action:**
 
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x61197 ( 397719) rpERR_ABORT_RPD_TOO_LONG_FILE_PATH A xlogfile full-path is too long. (<0%s>)**
 
@@ -7883,7 +7883,7 @@ communicating.
 
 **Action:**
 
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x6119A ( 397722) rpERR_ABORT_RPD_FLUSHER_THREAD_NOT_ALIVE <0%s> xlogfile flusher thread has been terminated.**
 
@@ -7893,7 +7893,7 @@ communicating.
 
 **Action:**
 
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x6119B ( 397723) rpERR_ABORT_RPN_UNABLE_READ_CONTEXT Invalid read context.**
 
@@ -7903,7 +7903,7 @@ communicating.
 
 **Action:**
 
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x6119C ( 397724) rpERR_ABORT_RPX_FAIL_WRITE_XLOG_IN_XLOGFILE Failed to write xlog into xlogfile.**
 
@@ -7913,7 +7913,7 @@ communicating.
 
 **Action:**
 
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x6119D ( 397725) rpERR_ABORT_RPC_CONSISTENT_MODE_MUST_HAVE_PARALLEL syntax error : PARALLEL APPLIER Option is missing on CREATE CONSISTENT REPLICATION statement.** 
 
@@ -7963,7 +7963,7 @@ communicating.
 
 **Action:**
 
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x611A2 ( 397730) rpERR_ABORT_RPC_CANNOT_FIND_REMOTE_META Cannot find the replication remote metadata.**
 
@@ -8336,7 +8336,7 @@ replication log buffer.**
 **Cause:** The exit flag has been set.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x620EE ( 401646) rpERR_IGNORE_NOT_ACITVE_TX The transaction does not exist in
 transaction table of the sender.**
@@ -8402,7 +8402,7 @@ thread_attr_init() system function**
 **Cause:** The system failed to create a thread attribute.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303DC ( 197596) qpERR_FATAL_THREAD_ATTR_SET_BOUND Failed to invoke the
 thread_attr_setscope() system function**
@@ -8410,7 +8410,7 @@ thread_attr_setscope() system function**
 **Cause:** The system failed to bind a thread attribute.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303DD ( 197597) qpERR_FATAL_THREAD_ATTR_DESTROY Failed to invoke the
 thread_attr_destroy() system function**
@@ -8418,7 +8418,7 @@ thread_attr_destroy() system function**
 **Cause:** The system failed to destroy a thread attribute.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303DF ( 197599) qpERR_FATAL_THREAD_JOIN Failed to invoke the thread_join()
 system function**
@@ -8426,14 +8426,14 @@ system function**
 **Cause:** The system failed to join a thread.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E0 ( 197600) qpERR_FATAL_MUTEX_INIT Unable to initialize a mutex.**
 
 **Cause:** The system failed to initialize a mutex.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E1 ( 197601) qpERR_FATAL_MUTEX_DESTROY Failed to invoke the
 mutex_destroy() system function**
@@ -8441,7 +8441,7 @@ mutex_destroy() system function**
 **Cause:** The system failed to destroy a mutex.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E2 ( 197602) qpERR_FATAL_MUTEX_LOCK Failed to invoke the mutex_lock()
 system function**
@@ -8449,7 +8449,7 @@ system function**
 **Cause:** The system failed to lock a mutex.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E3 ( 197603) qpERR_FATAL_MUTEX_UNLOCK Failed to invoke the mutex_unlock()
 system function**
@@ -8457,7 +8457,7 @@ system function**
 **Cause:** The system failed to unlock a mutex.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E4 ( 197604) qpERR_FATAL_COND_INIT Failed to invoke the cond_init()
 system function**
@@ -8465,7 +8465,7 @@ system function**
 **Cause:** The system failed to initialize a condition variable.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E5 ( 197605) qpERR_FATAL_COND_DESTROY Failed to invoke the cond_destroy()
 system function**
@@ -8473,7 +8473,7 @@ system function**
 **Cause:** The system failed to destroy a condition variable.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E6 ( 197606) qpERR_FATAL_COND_SIGNAL Failed to invoke the cond_signal()
 system function**
@@ -8481,7 +8481,7 @@ system function**
 **Cause:** The system failed to signal using a condition variable.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x303E7 ( 197607) qpERR_FATAL_COND_WAIT Failed to invoke the cond_wait()
 system function**
@@ -8489,7 +8489,7 @@ system function**
 **Cause:** Invalid condition value or invalid mutex.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x30425 ( 197669) qpERR_FATAL_MUTEX_TRYLOCK Failed to invoke the
 mutex_trylock() system function**
@@ -8497,7 +8497,7 @@ mutex_trylock() system function**
 **Cause:** The system failed to lock a mutex.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x30016 ( 196630) qpERR_FATAL_QCM_REPL_META_CRASH A replication meta table crashed.**
 
@@ -8510,7 +8510,7 @@ Support Center (http://support.altibase.com).
 **Cause:** Foreign key not found
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x3018E ( 197006) qpERR_FATAL_QMN_HASH_INSERT Hash Insertion Failure**
 
@@ -8524,7 +8524,7 @@ access.**
 **Cause:** Invalid memory area access
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x30203 ( 197123) qpERR_FATAL_QCU_INVALID_INSERT_LIMIT_PROPERTY Invalid values**
 **for INSERT_LOW_LIMIT and INSERT_HIGH_LIMIT properties.**
@@ -8558,7 +8558,7 @@ thread_create() system function**
 **Cause:** The system failed to create a thread.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x313E8 ( 201704) qpERR_ABORT_BIND_PROCESS Failed to invoke the bind_process()
 system function**
@@ -8566,7 +8566,7 @@ system function**
 **Cause:** System failed to bind cpusets to a process.
 
 **Action:** Check the call stack from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x31455 ( 201813) qpERR_ABORT_FAULT_TOLERATED Failed to work because an
 internal exception occurred from an OS.[Contact Altibase's Support Center]**
@@ -8575,7 +8575,7 @@ internal exception occurred from an OS.[Contact Altibase's Support Center]**
 
 **Action:** Check the error number from the trace log for more detailed
 information. And contact Altibase's Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x31318 ( 201496) qpERR_ABORT_QMC_UNEXPECTED_ERROR Unexpected errors may have
 occurred: \<0%s\>: \<1%s\>**
@@ -8583,7 +8583,7 @@ occurred: \<0%s\>: \<1%s\>**
 **Cause:** Unexpected errors may have occurred.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x314AD ( 201901) qpERR_ABORT_QMC_INVALID_FUNCTION_BASED_INDEX An error occurred while applying a value with an unexpected data type
  to the function-based index.**
@@ -8899,7 +8899,7 @@ index name is correct.
 **Cause:** The meta table crashed.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x31017 ( 200727) qpERR_ABORT_QCM_REPL_NOT_FOUND Replication not found**
 
@@ -8914,7 +8914,7 @@ module (\<0%s\>).**
 **Cause:** Program error
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x31019 ( 200729) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_ITEMS Internal server error. There are too few tables for replication.** 
 
@@ -9512,7 +9512,7 @@ column with the specified data type.**
 **Cause:** The meta database crashed.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x3102A ( 200746) qpERR_ABORT_QDB_REFERENTIAL_CONSTRAINT_EXIST A foreign key
 constraint depends on the table or column.**
@@ -12358,7 +12358,7 @@ access.**
 **Cause:** Invalid memory area access
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x3124D ( 201293) qpERR_ABORT_QMO_EMPTY_DUMP_OBJECT Empty dump object.**
 
@@ -12540,7 +12540,7 @@ exceeded its range (overflow).**
 **Cause:** OwnerDN length overflow.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x312A3 ( 201379) qpERR_ABORT_QRC_INVALID_HOST_IP_PORT The host IP address or
 port number is invalid.**
@@ -12782,7 +12782,7 @@ column.**
 **Cause:** The column is not valid for encryption.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x3130B ( 201483) qpERR_ABORT_QTC_INVALID_ENCRYPTION_DATATYPE Invalid
 encryption datatype.**
@@ -12845,7 +12845,7 @@ during execution.
 performance view single-row subquery during a query execution. You will get a
 result without error if you execute again the same query that produced this
 error. If you meet this error repeatedly, contact Altibase’s Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x31474 ( 201844) qpERR_ABORT_QTC_INVALID_SRID_DATATYPE Fail to specify the Spatial Reference ID(SRID) because a SRID can be set only in the geometry dataype.**
 
@@ -12943,7 +12943,7 @@ record from a hash table**
 
 **Action:**
 
-- Contact Altibase’s Support Center (http://support.altibase.com).
+- Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x31429 ( 201769) qpERR_ABORT_QCU_HASH_TABLE_ADD_FAILED Failed to add a record
 to a hash table**
@@ -12954,7 +12954,7 @@ to a hash table**
 
 **Action:**
 
-- Contact Altibase’s Support Center (http://support.altibase.com).
+- Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x3142A ( 201770) qpERR_ABORT_QCU_USER_LOCK_REQUEST_LIMIT_EXCEED The number of
 requested user locks exceeds the maximum limit.**
@@ -13018,7 +13018,7 @@ process SQL statement**
 has already been freed.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x31248 ( 201288) qpERR_ABORT_BIND_COLUMN_COUNT_MISMATCH Mismatched bind
 column count**
@@ -13715,7 +13715,7 @@ server error (\<0%s\>)**
 **Cause:** Program Error
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x31153 ( 201043) qpERR_ABORT_QSX_ROWTYPE_ON_PARAM_NOT_ALLOWED_ERROR_SQLTEXT
 ROWTYPE is not allowed for a parameter declaration. \<0%s\>**
@@ -14115,7 +14115,7 @@ clause.
 
 **Cause:** Invalid host language array binding protocol.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x3119F ( 201119) qpERR_ABORT_QCC_CANNOT_EXEC_DDL A DDL statement cannot be
 executed. Check the EXEC_DDL_DISABLE property.**
@@ -15009,7 +15009,7 @@ opening or setting the socket.**
 **Cause:** The system failed to open or set the socket.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x3122B ( 201259) qpERR_ABORT_QSF_SENDMSG_FAILED SENDMSG failed due to an
 internal error while doing the actual send.**
@@ -15017,7 +15017,7 @@ internal error while doing the actual send.**
 **Cause:** The system failed to execute the SENDMSG command.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x3125A ( 201306) qpERR_ABORT_QSX_TABLE_MODIFIED The table structure has been
 modified. \<0%s\>**
@@ -15248,7 +15248,7 @@ queue.
 
 **0x3147F ( 201855) qpERR_ABORT_QDSD_ZKC_NOT_SUPPORT_OS This command can be used only Linux.**
 **Cause:** Zookeeper C client only support Linux.
-**Action:** Check OS and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check OS and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x31480 ( 201856) qpERR_ABORT_QDSD_INVALID_SHARD_NODE Invalid shard data node was used.**
 
@@ -15272,7 +15272,7 @@ queue.
 
 **Cause:** Failed to execute remote SQL.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x31487 ( 201863) qpERR_ABORT_QDSD_SYNTAX_ERROR_SHARD_DROP Invalid Syntax : SHARD DROP statement cannot be used with node name. (Node Name : <0%s>).**
 
@@ -15290,7 +15290,7 @@ queue.
 
 **Cause:** Object name for resharding is NULL due to unexpected internal error.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x3148A ( 201866) qpERR_ABORT_QDSD_TOO_FEW_NODES_FOR_RESHARDING Insufficient number of nodes for resharding.**
 
@@ -15314,19 +15314,19 @@ queue.
 
 **Cause:** The number of replica sets for the same SMN must be one for resharding.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x3148E ( 201870) qpERR_ABORT_QDSD_INVALID_REPLICA_SET_INFO Replica set information is invalid.**
 
 **Cause:** Replica set information is invalid.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x3148F ( 201871) qpERR_ABORT_QDSD_TRANSACTION_COMMIT_ERROR Transaction commit fails due to unexpected internal error.**
 
 **Cause:** Transaction commit fails due to unexpected internal error.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x31490 ( 201872) qpERR_ABORT_QDSD_INVALID_PROPERTY_FOR_SHARDING Invalid property value for sharding. <0%s>**
 
@@ -15773,7 +15773,7 @@ occurred.: \<0%s\>: \<1%s\>**
 **Cause:** An unexpected error has occurred.
 
 **Action:** Verify the error number in the trace log file and contact Altibase
-Support Center (http://support.Altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xE113D ( 921917) sdERR_ABORT_REMOTE_COMMIT_FAILED Failed to commit a remote transaction when performing \<1%s\> on remote node \<0%s\>.: \<2%s\>**
 
@@ -15818,7 +15818,7 @@ Support Center (http://support.Altibase.com).
 **Cause:** This error occurs due to a logical programming error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xA1007 ( 659463) stERR_ABORT_LANGUAGE_MODULE_NOT_FOUND Language module
 \<0%s\> not found.**
@@ -16234,7 +16234,7 @@ DBMS are not the expected length**
 **Cause:** The disk page is broken or the meta table has invalid data.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xA1049 ( 659529) stERR_ABORT_INVALID_POLYGON Invalid Polygon**
 
@@ -16256,7 +16256,7 @@ polygon.
 **Cause:** This error occurs due to a logical programming error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xA104C ( 659532) stERR_ABORT_INVALID_POINTS Invalid combination of identical
 points**
@@ -16307,13 +16307,13 @@ object.
 
 **Cause:** An attempt was made to perform an operation on an invalid geometry.
 
-**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0xA1054 ( 659540) stERR_ABORT_GEOS_UNEXPECTED_ERROR <0%s>: <1%s>**
 
 **Cause:** This error occurs when the ST_GEOS_ENABLE property is set to 1.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 ### IGNORE
 
@@ -16343,7 +16343,7 @@ allowed for this system. This is an OS (system call error or library function)
 error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4001B ( 262171) mmERR_FATAL_SETLIMIT_ERROR Failed to invoke the setlimit()
 system function**
@@ -16352,7 +16352,7 @@ system function**
 OS (system call error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4001C ( 262172) mmERR_FATAL_GETLIMIT_ERROR Failed to invoke the getlimit()
 system function**
@@ -16361,7 +16361,7 @@ system function**
 OS (system call error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x40028 ( 262184) mmERR_FATAL_FLOCK_INIT Failed to invoke the flock_init()
 system function [\<0%s\>]**
@@ -16370,7 +16370,7 @@ system function [\<0%s\>]**
 or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4005B ( 262235) mmERR_FATAL_FLOCK_DESTROY Failed to invoke the
 flock_destroy() system function [\<0%s\>]**
@@ -16379,7 +16379,7 @@ flock_destroy() system function [\<0%s\>]**
 error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x40029 ( 262185) mmERR_FATAL_FLOCK_TRYWRLOCK Failed to invoke the
 flock_trywrlock() system function**
@@ -16388,7 +16388,7 @@ flock_trywrlock() system function**
 error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4005D ( 262237) mmERR_FATAL_FLOCK_WRLOCK Failed to invoke the flock_wrlock()
 system function**
@@ -16397,7 +16397,7 @@ system function**
 error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4002A ( 262186) mmERR_FATAL_FLOCK_UNLOCK Failed to invoke the flock_unlock()
 system function**
@@ -16406,7 +16406,7 @@ system function**
 error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x40052 ( 262226) mmERR_FATAL_THREAD_CONDITION_INIT Failed to invoke the
 cond_init() system function**
@@ -16415,7 +16415,7 @@ cond_init() system function**
 error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x40053 ( 262227) mmERR_FATAL_THREAD_CONDITION_SIGNAL Failed to invoke the
 cond_signal() system function**
@@ -16424,7 +16424,7 @@ cond_signal() system function**
 error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x40054 ( 262228) mmERR_FATAL_THREAD_CONDITION_DESTROY Failed to invoke the
 cond_destroy() system function**
@@ -16433,7 +16433,7 @@ cond_destroy() system function**
 library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x40060 ( 262240) mmERR_FATAL_OSFileSizeLimit_ERROR The maximum file size of
 the OS is less than that specified in the property. Decrease the file size
@@ -16451,7 +16451,7 @@ cond_wait() system function**
 (system call error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4006A ( 262250) mmERR_FATAL_THREAD_CONDITION_BROADCAST Failed to invoke the
 cond_broadcast() system function**
@@ -16460,7 +16460,7 @@ cond_broadcast() system function**
 OS (system call error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4006C ( 262252) mmERR_FATAL_SOCKET_CREATE_FAILED Unable to create socket**
 
@@ -16498,14 +16498,14 @@ due to a system limitation.
 **Cause:** The system failed to initialize a mutex.
 
 **Action:** Check the call stack from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x400E6 ( 262374) mmERR_FATAL_LATCH_INIT Unable to initialize a latch.**
 
 **Cause:** The system failed to initialize a latch.
 
 **Action:** Check the call stack from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -16549,7 +16549,7 @@ short**
 
 **Action:** Verify the SQL statement from the client. Check the error number
 from the trace log and contact Altibase’s Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x4103A ( 266298) mmERR_ABORT_INVALID_STATEMENT_STATE_ERROR Invalid statement
 processing request**
@@ -16729,7 +16729,7 @@ ADMIN_MODE.
 programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x41083 ( 266371) mmERR_ABORT_NOT_UPDATE_PROPERTY A specified property does
 not exist or cannot be updated.**
@@ -16768,7 +16768,7 @@ string.
 programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4108C ( 266380) mmERR_ABORT_GETRLIMIT_ERROR Failed to invoke the getrlimit()
 system function**
@@ -16777,7 +16777,7 @@ system function**
 OS (system call error or library function) error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4108D ( 266381) mmERR_ABORT_OSFileSizeLimit_ERROR The maximum file size of
 the OS is less than that specified in the property. Decrease the file size
@@ -16835,7 +16835,7 @@ in protocol**
 programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4109B ( 266395) mmERR_ABORT_SESSION_NOT_CONNECTED Session is not connected**
 
@@ -16843,7 +16843,7 @@ Support Center (http://support.altibase.com).
 exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4109C ( 266396) mmERR_ABORT_INVALID_SESSION_PROPERTY Invalid session
 property**
@@ -16857,7 +16857,7 @@ property**
 **Cause:** Invalid execute option. This is an internal programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x4109E ( 266398) mmERR_ABORT_INVALID_LOB_RANGE Invalid lob range**
 
@@ -16871,7 +16871,7 @@ conversion**
 **Cause:** Invalid data conversion. This is an internal programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410A0 ( 266400) mmERR_ABORT_INVALID_BIND_PARAMETER_NUMBER Invalid bind
 parameter number**
@@ -16879,7 +16879,7 @@ parameter number**
 **Cause:** Invalid number of binding parameters.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410A1 ( 266401) mmERR_ABORT_ADD_TASK_TIMED_OUT Add task timed out**
 
@@ -16887,7 +16887,7 @@ Support Center (http://support.altibase.com).
 internal programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410A2 ( 266402) mmERR_ABORT_NUMERIC_PRECISION_OVERFLOW Numeric precision
 overflow**
@@ -16909,7 +16909,7 @@ free mode**
 internal programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410A6 ( 266406) mmERR_ABORT_UNSUPPORTED_FETCHMOVE Unsupported fetch move
 operation**
@@ -16918,7 +16918,7 @@ operation**
 exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410D2 ( 266450) mmERR_ABORT_FETCH_OUT_OF_SEQ Fetch out of sequence.**
 
@@ -16933,14 +16933,14 @@ number**
 exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410AA ( 266410) mmERR_ABORT_INVALID_XA_OPERATION Invalid XA operation**
 
 **Cause:** Invalid XA operation. This is an internal programming exception.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410AB ( 266411) mmERR_ABORT_NUMERIC_CONVERSION_OVERFLOW Numeric conversion
 overflow**
@@ -16967,7 +16967,7 @@ overflow**
 **Cause:** Precision mismatch.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410B0 ( 266416) mmERR_ABORT_UNSUPPORTED_NETWORK_PROTOCOL Unsupported network
 protocol**
@@ -17121,7 +17121,7 @@ converting from MT source data to CM data.";**
 NULL. This is an internal error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410CD ( 266445) mmERR_ABORT_InvalidMantissaLength "The mantissa length (
 \<0%d\> ) of the source data exceeds the maximum mantissa length.";**
@@ -17129,7 +17129,7 @@ Support Center (http://support.altibase.com).
 **Cause:** Conversion failed because the data type value was invalid.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410CE ( 266446) mmERR_ABORT_InvalidArrayBinds "Array binding is not
 permitted with SELECT statements.";**
@@ -17217,7 +17217,7 @@ iSQL_CONNECTION environment variable).
 
 **Cause:** Failed to get IPv6 information.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x410E7 ( 266471) mmERR_ABORT_VALUE_LENGTH_EXCEED The length of the value set
 for \<0%s\> exceeds the limit ( \<1%d\> ).**
@@ -17249,7 +17249,7 @@ to a host variable [ Param ID = \<0%d\>, Data Type = \<1%d\> ]**
 **Cause:** The data type to be bound is not valid.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x410EB ( 266475) mmERR_ABORT_NO_SESSION_TO_CLOSE The session to close cannot
 be found.**
@@ -17397,7 +17397,7 @@ found. (SQLTextID = \<0%s\>)**
 
 **Cause:** This is an internal error related to unexpected state of shared transaction.
 
-**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Please contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x410FE ( 266494) mmERR_ABORT_SHARD_ADMIN_MODE_ERROR If SHARD_ADMIN_MODE is activated, only the users SYS and SYSTEM_ can connect to the database.**
 
@@ -17445,13 +17445,13 @@ found. (SQLTextID = \<0%s\>)**
 
 **Cause:** This is an internal error.
 
-**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Please contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x41108 ( 266504) mmERR_ABORT_ROLLBACK_ERROR In shard environment, rollback failed.**
 
 **Cause:** This is an internal error.
 
-**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Please contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x41109 ( 266505) mmERR_ABORT_IP_ACL_CONNECT_OVER New connection try exceeds ACL limit: ( IP : <0%s>, ACL: <1%s>, Limit : <2%d>, Connected : <3%d> )**
 
@@ -17469,7 +17469,7 @@ found. (SQLTextID = \<0%s\>)**
 
 **Cause:** Statements that are still open exist.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x4110C ( 266508) mmERR_ABORT_MEMORY_ALLOC_FAILED memory allocation error. <0%s>.**
 
@@ -17487,7 +17487,7 @@ found. (SQLTextID = \<0%s\>)**
 
 **Cause:** The data type to be fetch is not valid.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 ### IGNORE
 
@@ -17558,13 +17558,13 @@ within \<0%d\> day(s).**
 
 **Cause:** The records required for consistent reading are out of date.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x43105 ( 274693) mmERR_REBUILD_SHARD_INTERNAL_SHARD_META_OUT_OF_DATE Shard meta information of session is out of date.**
 
 **Cause:** Shard meta information has been changed.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 9.ODBC Error Code
 -----------------
@@ -17590,7 +17590,7 @@ establish connection.**
 
 **Cause:** Memory has been corrupted.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x50137 ( 327991) ulERR_FATAL_LOB_NOT_OPENED Memory management error. An
 attempt was made to execute an operation on a LOB locator that was not open.
@@ -17599,7 +17599,7 @@ Possible memory corruption in \<0%s\>.**
 **Cause:** The state of the ulnLob structure was not ULN_LOB_ST_OPENED while
 attempting to execute an operation on the ulnLob.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x50139 ( 327993) ulERR_FATAL_LOB_INVALID_STATE Memory management error. The
 LOB function should not be called in this state. Possible memory corruption in
@@ -17607,7 +17607,7 @@ LOB function should not be called in this state. Possible memory corruption in
 
 **Cause:** Failed to call the LOB function using a handle.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -17824,7 +17824,7 @@ callback function does not exist.**
 
 **Cause:** The communication module version and CLI version are not compatible.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x5104F ( 331855) ulERR_ABORT_CM_GENERAL_ERROR Communication link failure. CM
 ErrorCode : 0x\<0%x\>, System errno : \<1%d\>**
@@ -17939,7 +17939,7 @@ missing case in Bindinfo build table, where CTYPE = \<1%d\>, MTYPE = \<2%d\>.**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x51071 ( 331889) ulERR_ABORT_RESTRICTED_DATATYPE_VIOLATION_BOOKMARK
 Restricted data type attribute violation. The ColumnNumber argument was 0, but
@@ -18082,7 +18082,7 @@ the array size.**
 
 **Cause:** Failed to encode the string.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x5108A ( 331914) ulERR_ABORT_ADMIN_ALREADY_RUNNING Another SYSDBA session is
 already running.**
@@ -18399,7 +18399,7 @@ error information.**
 
 **Cause:** Failed to obtain error information.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x51201 ( 332289) ulERR_ABORT_INVALID_BOOKMARK_VALUE Invalid bookmark value**
 
@@ -18567,7 +18567,7 @@ number.
 
 **Cause:** Unexepected error.
 
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x51221 ( 332321) ulERR_ABORT_SHARD_UNSUPPORTED_FUNCTION The <0%s> is not supported in shard client library.**
 
@@ -18670,7 +18670,7 @@ argument.**
 **Cause:** The data returned for an input/output or output parameter was
 truncated.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x52063 ( 335971) ulERR_IGNORE_CONNECTION_STR_IGNORED Connection string pair
 [\<0%s\> = {\<1%s\>};] ignored.**
@@ -18777,35 +18777,35 @@ that there is enough memory.
 
 **Cause:** The system encountered an internal server error.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x51006 ( 331782) ulpERR_ABORT_Latch_Read_Error Latch read error.
 (\<1%s\>:\<0%d\> )**
 
 **Cause:** The system encountered an internal server error.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x51007 ( 331783) ulpERR_ABORT_Latch_Release_Error Latch release error.
 (\<1%s\>:\<0%d\> )**
 
 **Cause:** The system encountered an internal server error.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x51008 ( 331784) ulpERR_ABORT_Latch_Write_Error Latch write error.
 (\<1%s\>:\<0%d\> )**
 
 **Cause:** The system encountered an internal server error.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x51009 ( 331785) ulpERR_ABORT_Latch_Destroy_Error Latch destroy error.
 (\<1%s\>:\<0%d\>)**
 
 **Cause:** The system encountered an internal server error.
 
-**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x5100A ( 331786) ulpERR_ABORT_FILE_CLOSE_ERROR Failed to close file: \<0%s\>,
 errno=\<1%d\>**
@@ -19385,7 +19385,7 @@ meta version.**
 
 **Cause:** Invalid psm array meta version.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x5107C ( 331900) ulpERR_ABORT_Invalid_PSM_Array_Type The apre type and psm
 array type do not match.**
@@ -19450,7 +19450,7 @@ system function**
 
 **Action:** This is possibly a programming error. Check the error number from
 the trace log and contact Altibase's Support Center
-(http://support.altibase.com)
+(http://support.altibase.com/en/)
 
 **0x90121 ( 590113) utERR_FATAL_Signal Signal Operation Error.(\<0%s\>)**
 
@@ -19674,7 +19674,7 @@ state.**
 **Action:** This could be a system problem or programming error. Verify that
 there is no problem with your file system. If there is no such problem, check
 the error number from the trace log and contact Altibase's Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x91020 ( 593952) utERR_ABORT_Not_Connected_Error No Connection State**
 
@@ -20203,7 +20203,7 @@ Connection already initialized!
 
 **Action:** This is possibly a programming error. Check the error number from
 the trace log and contact Altibase's Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x910CA ( 594122) utERR_ABORT_AUDIT_Create_Instance_Error Failed to create
 object \<0%s\>**
@@ -20370,7 +20370,7 @@ ERROR [ MNG ] Join \#%d failure!
 
 **Action:** This is possibly a programming error. Check the error number from
 the trace log and contact Altibase's Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x910DD ( 594141) utERR_ABORT_AUDIT_Connect_TO_Master_Error Failed to connect
 to master \<0%s\> server**
@@ -20414,7 +20414,7 @@ Thread management is failed.
 
 **Action:** This is possibly a programming error. Check the error number from
 the trace log and contact Altibase's Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0x910E2 ( 594146) utERR_ABORT_AUDIT_File_Open_4CSVfile Could not create or
 open the \<0%s\> csv file.**
@@ -20716,7 +20716,7 @@ fetch log directory paths for the replication \<0%s\> in offline mode.**
 mode.
 
 **Action:** This is possibly meta inconsistency. Contact Altibase's Support
-Center (http://support.altibase.com)
+Center (http://support.altibase.com/en/)
 
 **0x9112F ( 594223) utERR_ABORT_INVALID_FMT Invalid file format**
 
@@ -20736,14 +20736,14 @@ read/write permission for the file.
 **Cause:** An invalid file handle was specified.
 
 **Action:** Memory corruption may occur. Check the error number and contact
-Altibase's Support Center (http://support.altibase.com).
+Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x91132 ( 594226) utERR_ABORT_INVALID_HANDLE Invalid Handle**
 
 **Cause:** NULL handle was specified.
 
 **Action:** Memory corruption may occur. Check the error number and contact
-Altibase's Support Center (http://support.altibase.com).
+Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x91135 ( 594229) utERR_ABORT_INVALID_ALTIWRAP_COMMAND Invalid command
 arguments.**
@@ -20787,21 +20787,21 @@ memory**
 **Cause:** Failed to invoke the shmat() function
 
 **Action:** Ensure that you have permission to access the shared memory. Contact
-Altibase’s Support Center (http://support.altibase.com).
+Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x70077 ( 458871) cmERR_FATAL_CMN_SHM_CTL Unable to delete the shared memory**
 
 **Cause:** Failed to invoke the shmctl() function
 
 **Action:** Ensure that you have permission to access the shared memory. Contact
-Altibase’s Support Center (http://support.altibase.com).
+Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x70078 ( 458872) cmERR_FATAL_CMN_SEM_CTL Unable to delete the semaphore**
 
 **Cause:** Failed to invoke the semctl() function
 
 **Action:** Verify that you have permission to access the semaphore. Contact
-Altibase’s Support Center (http://support.altibase.com).
+Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0x70079 ( 458873) cmERR_FATAL_CMN_SEM_OP Unable to execute operations on a
 semaphore**
@@ -20816,7 +20816,7 @@ system function**
 **Cause:** Failed to invoke the mutex_lock() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7007E ( 458878) cmERR_FATAL_CMN_MUTEX_UNLOCK Failed to invoke the
 mutex_unlock() system function**
@@ -20824,7 +20824,7 @@ mutex_unlock() system function**
 **Cause:** Failed to invoke the mutex_unlock() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -20832,45 +20832,45 @@ call error.
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71003 ( 462851) cmERR_ABORT_INVALID_SESSION Invalid session**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71004 ( 462852) cmERR_ABORT_INVALID_OPERATION Invalid operation**
 
 **Cause:** Client version is higher than Server version or internal error occurs while interpreting protocol.
 
 **Action:** Make sure Client version is same or lower than Server version or contact Altibase's Support Center
-               (http://support.altibase.com).
+               (http://support.altibase.com/en/).
 
 **0x71005 ( 462853) cmERR_ABORT_INVALID_LINK_TYPE Invalid link type**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71006 ( 462854) cmERR_ABORT_INVALID_LINK_IMPL Invalid link impl**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71008 ( 462856) cmERR_ABORT_UNSUPPORTED_LINK_IMPL Unsupported link impl**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71009 ( 462857) cmERR_ABORT_UNSUPPORTED_DISPATCHER_IMPL Unsupported
 dispatcher impl**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7100A ( 462858) cmERR_ABORT_SESSION_NOT_ADDED Session not added**
 
@@ -20882,26 +20882,26 @@ dispatcher impl**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7100C ( 462860) cmERR_ABORT_SESSION_DOES_NOT_EXIST Session does not exist**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7100D ( 462861) cmERR_ABORT_SOCKET_ALREADY_OPENED Socket already opened**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7100E ( 462862) cmERR_ABORT_SOCKET_OPEN_ERROR Unable to create a socket**
 
 **Cause:** Failed to invoke the socket() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7100F ( 462863) cmERR_ABORT_BIND_ERROR Unable to bind the socket,
 errno=\<0%u\>**
@@ -20916,20 +20916,20 @@ system function**
 **Cause:** Failed to invoke the listen() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71011 ( 462865) cmERR_ABORT_LINK_LIMIT_REACH Link limit reached**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71012 ( 462866) cmERR_ABORT_LINK_ALREADY_IN_DISPATCHING Link already in
 dispatch**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71013 ( 462867) cmERR_ABORT_TIMED_OUT Timed out**
 
@@ -20943,7 +20943,7 @@ function**
 **Cause:** Failed to invoke the poll() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71015 ( 462869) cmERR_ABORT_SELECT_ERROR Failed to invoke the select()
 system function**
@@ -20951,7 +20951,7 @@ system function**
 **Cause:** Failed to invoke the select() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71016 ( 462870) cmERR_ABORT_ACCEPT_ERROR Failed to invoke the accept()
 system function**
@@ -20959,7 +20959,7 @@ system function**
 **Cause:** Failed to invoke the accept() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71017 ( 462871) cmERR_ABORT_CONNECT_ERROR Failed to invoke the connect()
 system function**
@@ -20967,7 +20967,7 @@ system function**
 **Cause:** Failed to invoke the connect() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71018 ( 462872) cmERR_ABORT_RECV_ERROR Failed to invoke the read() system
 function**
@@ -20975,7 +20975,7 @@ function**
 **Cause:** Failed to invoke the read() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71019 ( 462873) cmERR_ABORT_SEND_ERROR Failed to invoke the write() system
 function**
@@ -20983,7 +20983,7 @@ function**
 **Cause:** Failed to invoke the write() system function. This is a system call
 error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7101A ( 462874) cmERR_ABORT_CONNECTION_CLOSED Connection closed**
 
@@ -21012,84 +21012,84 @@ error.(\<0%s\>)**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7101E ( 462878) cmERR_ABORT_UNKNOWN_MODULE Unknown module**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71021 ( 462881) cmERR_ABORT_INVALID_PROTOCOL_SEQUENCE Invalid protocol
 sequence**
 
 **Cause:** Invalid protocol sequence
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71022 ( 462882) cmERR_ABORT_INVALID_XA_XID_DATA_SIZE Invalid XA XID data
 size**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71023 ( 462883) cmERR_ABORT_MARSHAL_ERROR Protocol marshal error**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71024 ( 462884) cmERR_ABORT_CALLBACK_DOES_NOT_EXIST Callback does not
 exist**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71026 ( 462886) cmERR_ABORT_INCOMPLETE_VARIABLE Incomplete variable**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71027 ( 462887) cmERR_ABORT_VARIABLE_NOT_EMPTY Variable not empty**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71028 ( 462888) cmERR_ABORT_VARIABLE_PIECE_RANGE_MISMATCH Variable piece
 range mismatch**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71029 ( 462889) cmERR_ABORT_VARIABLE_SEQUENCE_SIZE_MISMATCH Variable
 sequence size mismatch**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7102A ( 462890) cmERR_ABORT_INVALID_VARIABLE_TYPE Invalid variable type**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7102B ( 462891) cmERR_ABORT_INVALID_DATATYPE Invalid data type**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7102E ( 462894) cmERR_ABORT_NUMERIC_SIZE_OVERFLOW Numeric data size overflow**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7102F ( 462895) cmERR_ABORT_SOCKET_SET_BLOCKING_FAILED Unable to set the
 socket to blocking mode**
@@ -21097,7 +21097,7 @@ socket to blocking mode**
 **Cause:** Failed to invoke the fcntl() function for setting a socket to
 blocking mode. This is a system call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71030 ( 462896) cmERR_ABORT_SOCKET_SET_NONBLOCKING_FAILED Unable to set the
 socket to non-blocking mode**
@@ -21105,7 +21105,7 @@ socket to non-blocking mode**
 **Cause:** Failed to invoke the fcntl() function for setting a socket to
 non-blocking mode. This is a system call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71032 ( 462898) cmERR_ABORT_SOCKET_SHUTDOWN_FAILED Unable to shut down the
 socket**
@@ -21113,14 +21113,14 @@ socket**
 **Cause:** Failed to invoke the shutdown() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71033 ( 462899) cmERR_ABORT_UNSUPPORTED_LINK_INFO_KEY Unsupported link info
 key**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71034 ( 462900) cmERR_ABORT_GETSOCKNAME_ERROR Failed to invoke the
 getsockname() system function**
@@ -21128,47 +21128,47 @@ getsockname() system function**
 **Cause:** Failed to invoke the getsockname() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71036 ( 462902) cmERR_ABORT_SHARED_POOL_NOT_EXIST Shared pool does not
 exist**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71037 ( 462903) cmERR_ABORT_STRING_OUTPUT_ERROR String output error**
 
 **Cause:** Failed to invoke a string output function, such as printf(). This is
 a system call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7103A ( 462906) cmERR_ABORT_VARIABLE_PIECE_TOO_LARGE Variable piece too
 large**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7103B ( 462907) cmERR_ABORT_VARIABLE_SIZE_MISMATCH Variable size mismatch**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7103C ( 462908) cmERR_ABORT_VARIABLE_RANGE_MISMATCH Variable range
 mismatch**
 
 **Cause:** Variable range mismatch. This is an internal bug.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7108A ( 462986) cmERR_ABORT_CMN_SOCKET_CLOSED Socket communication error**
 
 **Cause:** The socket on the client has already been closed.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7108B ( 462987) cmERR_ABORT_CMN_ERR_FULL_IPC_CHANNEL No more IPC channels
 (MAX=\<0%d\>, USED=\<1%d\>, BUFSIZE=\<2%d\>)**
@@ -21190,7 +21190,7 @@ getaddrinfo() system function: \<0%s\>**
 **Cause:** Failed to invoke the getaddrinfo() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71097 ( 462999) cmERR_ABORT_GETNAMEINFO_ERROR Failed to invoke the
 getnameinfo() system function**
@@ -21198,7 +21198,7 @@ getnameinfo() system function**
 **Cause:** Failed to invoke the getnameinfo() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71098 ( 463000) cmERR_ABORT_SETSOCKOPT_ERROR Failed to invoke the
 setsockopt() system function: \<0%s\>**
@@ -21206,7 +21206,7 @@ setsockopt() system function: \<0%s\>**
 **Cause:** Failed to invoke the setsockopt() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x71099 ( 463001) cmERR_ABORT_CONNECT_INVALIDARG Invalid argument supplied for
 connect()**
@@ -21226,14 +21226,14 @@ packet**
 
 **Cause:** Failed to compress packet data.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7109E ( 463006) cmERR_ABORT_DECOMPRESS_DATA_ERROR Failed to decompress data
 in a packet**
 
 **Cause:** Failed to decompress packet data.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x7109F ( 463007) cmERR_ABORT_UNSUPPORTED_NETWORK_PROTOCOL Unsupported network
 protocol**
@@ -21353,7 +21353,7 @@ getsockopt() system function: \<0%s\>**
 **Cause:** Failed to invoke the getsockopt() system function. This is a system
 call error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710AF ( 463023) cmERR_ABORT_SHARD_VERSION_MISMATCH Mismatched Shard
 version.**
@@ -21368,21 +21368,21 @@ system function.**
 **Cause:** Failed to invoke the system function. This is a system call error.
 
 **Action:** Check the error number from the trace log and contact Altibase's
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x710B1 ( 463025) cmERR_ABORT_IB_RSOCKET_ALREADY_OPENED IB rsocket already
 opened**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710B2 ( 463026) cmERR_ABORT_IB_RSOCKET_OPEN_ERROR Unable to create a IB
 rsocket, errno=\<0%u\>**
 
 **Cause:** Failed to invoke the rsocket() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710B3 ( 463027) cmERR_ABORT_IB_RBIND_ERROR Unable to bind the IB rsocket,
 errno=\<0%u\>**
@@ -21396,28 +21396,28 @@ function**
 
 **Cause:** Failed to invoke the rlisten() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710B5 ( 463029) cmERR_ABORT_IB_RPOLL_ERROR Failed to invoke the rpoll()
 function**
 
 **Cause:** Failed to invoke the rpoll() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710B6 ( 463030) cmERR_ABORT_IB_RSELECT_ERROR Failed to invoke the rselect()
 function**
 
 **Cause:** Failed to invoke the rselect() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710B7 ( 463031) cmERR_ABORT_IB_RACCEPT_ERROR Failed to invoke the raccept()
 function**
 
 **Cause:** Failed to invoke the raccept() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710B8 ( 463032) cmERR_ABORT_IB_RCONNECT_INVALIDARG Invalid argument supplied
 for rconnect()**
@@ -21431,42 +21431,42 @@ rconnect() function, errno=\<0%u\>**
 
 **Cause:** Failed to invoke the rconnect() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710BA ( 463034) cmERR_ABORT_IB_RRECV_ERROR Failed to invoke the rread()
 function**
 
 **Cause:** Failed to invoke the rread() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710BB ( 463035) cmERR_ABORT_IB_RSEND_ERROR Failed to invoke the rwrite()
 function**
 
 **Cause:** Failed to invoke the rwrite() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710BC ( 463036) cmERR_ABORT_IB_RSOCKET_SHUTDOWN_FAILED Unable to shut down
 the socket**
 
 **Cause:** Failed to invoke the rshutdown() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710BD ( 463037) cmERR_ABORT_IB_RSETSOCKOPT_ERROR Failed to invoke the
 rsetsockopt() function: \<0%s\>**
 
 **Cause:** Failed to invoke the rsetsockopt() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710BE ( 463038) cmERR_ABORT_IB_RGETSOCKOPT_ERROR Failed to invoke the
 rgetsockopt() function: \<0%s\>**
 
 **Cause:** Failed to invoke the rgetsockopt() function.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710BF ( 463039) cmERR_ABORT_IB_RSOCKET_SET_BLOCKING_FAILED Unable to set the
 IB rsocket to blocking mode**
@@ -21474,7 +21474,7 @@ IB rsocket to blocking mode**
 **Cause:** Failed to invoke the rfcntl() function for setting a socket to
 blocking mode.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710C0 ( 463040) cmERR_ABORT_IB_RSOCKET_SET_NONBLOCKING_FAILED Unable to set
 the IB rsocket to non-blocking mode**
@@ -21482,26 +21482,26 @@ the IB rsocket to non-blocking mode**
 **Cause:** Failed to invoke the rfcntl() function for setting a socket to
 non-blocking mode.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710C2 ( 463042) cmERR_ABORT_IB_RPOLL_INVALID_DIRECTION Invalid direction:
 \<0%d\>**
 
 **Cause:** Internal error.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710C3 ( 463043) cmERR_ABORT_COMPRESS_DATA_ERROR_WITH_TYPE Failed to compress data in a packet. (compress type : <0%d>)**
 
 **Cause:** Failed to compress packet data.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710C4 ( 463044) cmERR_ABORT_DECOMPRESS_DATA_ERROR_WITH_TYPE Failed to decompress data in a packet. (decompress type : <0%d>)**
 
 **Cause:** Failed to decompress packet data.
 
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Contact Altibase's Support Center (http://support.altibase.com/en/).
 
 **0x710C5 ( 463045) cmERR_ABORT_UNSUPPORTED_BIND_HOSTNAME Unable to bind hostname to the socket. [hostname : <0%s>]** 
 
@@ -21766,7 +21766,7 @@ communication link**
 **Cause:** The network socket was closed.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xC101B ( 790555) dkERR_ABORT_DKS_FREE_CM_BLOCK [Network] Failed to free a
 communication read or write block**
@@ -21781,7 +21781,7 @@ communication link**
 **Cause:** A created link object was freed.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xC101D ( 790557) dkERR_ABORT_DKO_DBLINK_IS_BEING_USED Database link already
 being used**
@@ -21832,14 +21832,14 @@ running.
 
 **Action:** Check the version of the AltiLinker process and Altibase server or
 check the error number from the trace log and contact Altibase’s Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0xC1023 ( 790563) dkERR_ABORT_DKP_TIMEOUT [Network] A timeout occurred**
 
 **Cause:** Network failure.
 
 **Action:** Check network connection or check the error number from the trace
-log and contact Altibase’s Support Center (http://support.altibase.com).
+log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0xC1024 ( 790564) dkERR_ABORT_DKP_ANALYZE_ADLP_HEADER [Network] Failed to
 analyze an ADLP header**
@@ -21847,7 +21847,7 @@ analyze an ADLP header**
 **Cause:** Network failure or wrong protocol version
 
 **Action:** Check network connection or check the error number from the trace
-log and contact Altibase’s Support Center (http://support.altibase.com).
+log and contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0xC1025 ( 790565) dkERR_ABORT_DKP_CMI_SEND [Network] Failed to send a packet**
 
@@ -21855,7 +21855,7 @@ log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **Action:** Check the network connection, whether the AltiLinker process is
 running or check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xC1026 ( 790566) dkERR_ABORT_DKM_ALTILINKER_DISABLED Failed to execute
 Altilinker process**
@@ -21932,7 +21932,7 @@ not prepared to commit**
 **Cause:** Network error or internal malfunction.
 
 **Action:** Check the network and check the error number from the trace log and
-contact Altibase’s Support Center (http://support.altibase.com).
+contact Altibase’s Support Center (http://support.altibase.com/en/).
 
 **0xC1031 ( 790577) dkERR_ABORT_DKM_DBLINK_DISABLED dblink disabled**
 
@@ -22115,7 +22115,7 @@ create remote node session any more**
 
 **Action:** Increase the 'ALTILINKER_REMOTE_NODE_SESSION_COUNT' property or
 check the error number from the trace log and contact Altibase’s Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0xC104B ( 790603) dkERR_ABORT_DKM_INVALID_USER Failed to drop a database link
 by invalid user**
@@ -22166,7 +22166,7 @@ transaction**
 **Cause:** An invalid session ID was passed.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xC1052 ( 790610) dkERR_ABORT_DKA_DO_LINKER_SHUTDOWN_FAILED [Network] Failed
 to shutdown AltiLinker process**
@@ -22175,7 +22175,7 @@ to shutdown AltiLinker process**
 
 **Action:** Verify that the AltiLinker process running. If it is, check the
 error number from the trace log and contact Altibase’s Support Center
-(http://support.altibase.com).
+(http://support.altibase.com/en/).
 
 **0xC1053 ( 790611) dkERR_ABORT_DKM_INVALID_REMOTE_STMT_TYPE Invalid remote
 statement type**
@@ -22227,7 +22227,7 @@ statement information.**
 **Cause:** Internal statement is missing.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0xC105A ( 790618) dkERR_ABORT_DKM_LINKER_DUMP_ERROR Failed to dump altilinker
 information.**
@@ -22430,7 +22430,7 @@ because the global transaction has been terminated.**
 **Cause:** Transaction already exists in the Transaction ID's slot.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5000A ( 327690) ulaERR_FATAL_MUTEX_INITIALIZE Failed to initialize mutex
 [\<0%s\>]**
@@ -22438,7 +22438,7 @@ Support Center (http://support.altibase.com).
 **Cause:** Failed to initialize a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5000B ( 327691) ulaERR_FATAL_MUTEX_DESTROY Failed to destroy mutex
 [\<0%s\>]**
@@ -22446,21 +22446,21 @@ Support Center (http://support.altibase.com).
 **Cause:** Failed to destroy a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5000C ( 327692) ulaERR_FATAL_MUTEX_LOCK Failed to lock mutex [\<0%s\>]**
 
 **Cause:** Failed to lock a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5000D ( 327693) ulaERR_FATAL_MUTEX_UNLOCK Failed to unlock mutex [\<0%s\>]**
 
 **Cause:** Failed to unlock a mutex.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 ### ABORT
 
@@ -22554,7 +22554,7 @@ pool**
 **Cause:** The memory pool for XLogs is exhausted.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5101F ( 331807) ulaERR_ABORT_MEM_POOL_FREE Memory free failure in pool** 
 
@@ -22594,7 +22594,7 @@ pool**
 **Cause:** Failed to free network memory.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x51024 ( 331812) ulaERR_ABORT_PROTOCOL_DIFF Different protocol versions**
 
@@ -22670,7 +22670,7 @@ initialized**
 **Cause:** The transaction table was not initialized.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x51042 ( 331842) ulaERR_ABORT_NO_ENV_VARIABLE Environment variable \<0%s\> is
 not set**
@@ -22700,7 +22700,7 @@ conversion**
 **Cause:** Invalid data source.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x51046 ( 331846) ulaERR_ABORT_NUMERIC_CONVERSION_OVERFLOW Numeric conversion
 overflow**
@@ -22716,7 +22716,7 @@ instance of the memory allocator [\<0%s\>]**
 **Cause:** Failed to instantiate the memory allocator object.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x51048 ( 331848) ulaERR_ABORT_MEM_ALLOC_SET_ATTR Failed to set memory
 allocator attributes [\<0%s\>]**
@@ -22724,7 +22724,7 @@ allocator attributes [\<0%s\>]**
 **Cause:** Failed to set attributes on the memory allocator object.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x51049 ( 331849) ulaERR_ABORT_ALLOC_CM_BLOCK Failed to allocate communication
 block [\<0%s\>]**
@@ -22739,7 +22739,7 @@ block [\<0%s\>]**
 **Cause:** Failed to free memory.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5104B ( 331851) ulaERR_ABORT_INSUFFICIENT_XLOG_POOL ALA XLog Collector
 cannot receive allocable XLog because the XLog in XLog Pool is all consumed.**
@@ -22776,28 +22776,28 @@ file path is correct and that you have permission for the file.
 **Cause:** Failed to close the log file.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52003 ( 335875) ulaERR_IGNORE_LOG_MGR_DESTROY Failed to detroy log manager**
 
 **Cause:** Failed to destroy the Log Manager.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52004 ( 335876) ulaERR_IGNORE_LOG_MGR_LOCK Failed to lock log manager**
 
 **Cause:** Internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52005 ( 335877) ulaERR_IGNORE_LOG_MGR_UNLOCK Failed to unlock log manager**
 
 **Cause:** Internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52007 ( 335879) ulaERR_IGNORE_GEMOETRY_ENDIAN Endian conversion of geometry
 type failed [\<0%s\>, \<1%u\>]**
@@ -22805,7 +22805,7 @@ type failed [\<0%s\>, \<1%u\>]**
 **Cause:** This is an internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52009 ( 335881) ulaERR_IGNORE_NOT_ACTIVE_TX Inactive transaction [\<0%u\>]**
 
@@ -22819,7 +22819,7 @@ empty.**
 **Cause:** Internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5200F ( 335887) ulaERR_IGNORE_PARAMETER_NULL Null parameter [\<0%s\>]**
 
@@ -22858,7 +22858,7 @@ flags [\<0%u\>]**
 **Cause:** The socket type has not been selected.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52026 ( 335910) ulaERR_IGNORE_SOCKET_TYPE_NOT_SUPPORT Socket type not
 supported**
@@ -22938,7 +22938,7 @@ maximum.
 **Cause:** This is an internal error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52037 ( 335927) ulaERR_IGNORE_MTD_ENCODE Failed to encode MTD Module
 [\<0%s\>]**
@@ -22946,7 +22946,7 @@ Support Center (http://support.altibase.com).
 **Cause:** This is an internal error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x52038 ( 335928) ulaERR_IGNORE_CMT_INITIALIZE Failed to initialize CMT** 
 
@@ -22963,7 +22963,7 @@ Support Center (http://support.altibase.com).
 **Cause:** This is an internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5203A ( 335930) ulaERR_IGNORE_DIAG_HEADER_CREATE Failed to create diagnostic
 header**
@@ -22971,7 +22971,7 @@ header**
 **Cause:** This is an internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5203B ( 335931) ulaERR_IGNORE_DIAG_HEADER_DESTROY Failed to destroy
 diagnostic header**
@@ -22979,7 +22979,7 @@ diagnostic header**
 **Cause:** This is an internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5203C ( 335932) ulaERR_IGNORE_MT_TO_CMT_CONVERT Failed to convert MT value
 to CMT value**
@@ -22987,7 +22987,7 @@ to CMT value**
 **Cause:** This is an internal API error.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
-Support Center (http://support.altibase.com).
+Support Center (http://support.altibase.com/en/).
 
 **0x5203D ( 335933) ulaERR_IGNORE_CMT_TO_COLUMN_COPY Failed to copy CMT value to ulnColumn value** 
 
