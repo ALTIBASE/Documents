@@ -73,9 +73,9 @@ Error Message Reference
 
 Altibase Message Error Message Reference
 
-Release 7.1
+Trunk r.94694
 
-Copyright ⓒ 2001\~ 2021 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~ 2023 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is
 provided under a license agreement containing restrictions on use and disclosure
@@ -4160,7 +4160,7 @@ initialized.**
 
 **Cause:** Invalid slot access.
 
-\#\**Action:** Refrain from attempting this action.
+**Action:** Refrain from attempting this action.
 
 **0x111A4 ( 70052) smERR_ABORT_TooSmallDirectKeySize Failed to create a direct
 key index because the column is larger than the available space in the index.**
@@ -5092,11 +5092,11 @@ function, cond_broadcast(), errno is (\<0%d\>).**
 
 **Cause:**
 
-\# - The system failed to invoke the cond_broadcast() function.
+- The system failed to invoke the cond_broadcast() function.
 
 **Action:**
 
-\# - Please send a bug report to the vendor.
+- Please send a bug report to the vendor.
 
 **0x600B4 ( 393396) rpERR_FATAL_ThrMutexInit Unable to initialize a mutex.**
 
@@ -5220,19 +5220,19 @@ connect to the peer server**
 
 **Cause:**
 
-\# - 1. Peer server is not running.
+- 1. Peer server is not running.
 
-\# - 2. IP address or Port number is invalid.
+- 2. IP address or Port number is invalid.
 
-\# - 3. Network is not working.
+- 3. Network is not working.
 
 **Action:**
 
-\# - 1. Confirm peer server is running.
+- 1. Confirm peer server is running.
 
-\# - 2. Verify both IP address and port number are correctly entered.
+- 2. Verify both IP address and port number are correctly entered.
 
-\# - 3. Ensure that network is working normally.
+- 3. Ensure that network is working normally.
 
 **0x61013 ( 397331) rpERR_ABORT_RP_SENDER_DO_REPLICATION [Sender] Replication
 failed**
@@ -5998,11 +5998,11 @@ the maximum limit.
 
 **Action:** Retry after
 
-\# - 1. Increase value of the REPLICATION_MAX_COUNT property.
+- 1. Increase value of the REPLICATION_MAX_COUNT property.
 
-\# - 2. Remove the replication which enables other RECOVERY option.
+- 2. Remove the replication which enables other RECOVERY option.
 
-\# - 3. Disable RECOVERY option.
+- 3. Disable RECOVERY option.
 
 **0x610AC ( 397484) rpERR_ABORT_GIVEUP_RECOVERY_DESTROY [Receiver] Destroy
 \<0%s\> recovery information (recovery info min sn = SN[\<1%ld\>], distance from
@@ -6166,10 +6166,10 @@ found.**
 
 **Cause:**
 
-\# - When the ALTER REPLICATION DROP TABLE statement is executed, the table is
+- When the ALTER REPLICATION DROP TABLE statement is executed, the table is
 not in the replication.
 
-\# - When the ALTER REPLICATION REP START statement is executed, the table on
+- When the ALTER REPLICATION REP START statement is executed, the table on
 the sender (Active) side is not in the receiver (standby).
 
 **Action:** Ensure that the replication table exists on both sides or that the
@@ -6213,9 +6213,9 @@ size of replication log buffer.**
 
 **Action:**
 
-\# - Increase REPLICATION_LOG_BUFFER_SIZE and restart the system.
+- Increase REPLICATION_LOG_BUFFER_SIZE and restart the system.
 
-\# - Find and resolve cause of the delay.
+- Find and resolve cause of the delay.
 
 **0x610CB ( 397515) rpERR_ABORT_REPLICATION_NAME_MISMATCH The replication name
 does not match [\<0%s\>:\<1%s\>].**
@@ -6539,16 +6539,16 @@ record in \<0%s\> function**
 
 **Action:**
 
-\# - Find the conflicted record in altibase_rp.log or altibase_rp_conflict.log
+- Find the conflicted record in altibase_rp.log or altibase_rp_conflict.log
 file and match the data or find and resolve the cause of the conflict (such as
 app logic).
 
-\# - In case that there is no primary key information for the log about conflict
+- In case that there is no primary key information for the log about conflict
 in altibase_rp.log or altibase_rp_conflict.log file, set the third bit of
 RP_MSGLOG_FLAG or the RP_CONFLICT_MSGLOG_FLAG to output the primary key
 information into the log.
 
-\# - It is possible to match the data using tools such as AltiComp if conflict
+- It is possible to match the data using tools such as AltiComp if conflict
 has already occurred.
 
 **0x610F8 ( 397560) rpERR_ABORT_RP_SENDER_ADD_XLOG [Sender] Failed to add a XLog
@@ -6706,11 +6706,11 @@ type must be a table. \<0%s\>**
 
 **Cause:**
 
-\# - The user is not in the meta database.
+- The user is not in the meta database.
 
 **Action:**
 
-\# - Check the error number from the trace log and contact Altibase's Support
+- Check the error number from the trace log and contact Altibase's Support
 Center (http://support.altibase.com).
 
 **0x6110F ( 397583) rpERR_ABORT_RPC_NOT_EXISTS_USER User not found : \<0%s\>**
@@ -6723,11 +6723,11 @@ Center (http://support.altibase.com).
 
 **Cause:**
 
-\# - The table is not in the meta database.
+- The table is not in the meta database.
 
 **Action:**
 
-\# - Check the error number from the trace log and contact Altibase's Support
+- Check the error number from the trace log and contact Altibase's Support
 Center (http://support.altibase.com).
 
 **0x61111 ( 397585) rpERR_ABORT_RPC_NOT_EXISTS_TABLE Table not found : \<0%s\>**
@@ -7542,11 +7542,11 @@ unable to use eager mode when local replication option used.**
 
 **Cause:**
 
-\# - Eager mode does not support local replication option.
+- Eager mode does not support local replication option.
 
 **Action:**
 
-\# - Change replication mode or remove LOCAL option.
+- Change replication mode or remove LOCAL option.
 
 **0x6117C ( 397692) rpERR_ABORT_SELF_REPLICATION_TABLE Self-replication has been
 detected due to duplicate table name.
@@ -7554,22 +7554,22 @@ detected due to duplicate table name.
 
 **Cause:**
 
-\# - The same name is used in the source and target tables.
+- The same name is used in the source and target tables.
 
 **Action:**
 
-\# - Set a different name for the source and target tables.
+- Set a different name for the source and target tables.
 
 **0x6117D ( 397693) rpERR_ABORT_SELF_REPLICATION_NAME Self-replication has been
 detected due to duplicate replication name. [\<0%s\>]**
 
 **Cause:**
 
-\# - Same replication name used for itself and peer replicaiton.
+- Same replication name used for itself and peer replicaiton.
 
 **Action:**
 
-\# - Use different peer replication name from its replication name.
+- Use different peer replication name from its replication name.
 
 **0x6117E ( 397694) rpERR_ABORT_RP_NOT_SUPPORT_CONVERT_APPLY_DATA_TYPE The
 table(\<0%s\>.\<1%s\>:\<2%s\>.\<3%s\>) containing \<4%s\> does not support sql
@@ -7577,11 +7577,11 @@ apply feature.**
 
 **Cause:**
 
-\# - The table containing specific data type does not support sql apply feature.
+- The table containing specific data type does not support sql apply feature.
 
 **Action:**
 
-\# - Please drop specific data type from the table.
+- Please drop specific data type from the table.
 
 **0x6117F ( 397695) rpERR_ABORT_REPLICATION_DDL_ENABLE_LEVEL Cannot execute this
 DDL on a replicated table when the system property REPLICATION_DDL_ENABLE_LEVEL
@@ -7589,23 +7589,23 @@ is \<0%u\>.**
 
 **Cause:**
 
-\# - System property REPLICATION_DDL_ENABLE_LEVEL is not appropriate for this
+- System property REPLICATION_DDL_ENABLE_LEVEL is not appropriate for this
 DDL.
 
 **Action:**
 
-\# - Check the system property REPLICATION_DDL_ENABLE_LEVEL.
+- Check the system property REPLICATION_DDL_ENABLE_LEVEL.
 
 **0x61180 ( 397696) rpERR_ABORT_RPC_DDL_NOT_SUPPORTED_REPLICATED_TABLE This DDL
 is not supported on replicated table.(Cause : \<0%s\>)**
 
 **Cause:**
 
-\# - This DDL is not supported on replicated table.
+- This DDL is not supported on replicated table.
 
 **Action:**
 
-\# - Identify the cause and take appropriate action.
+- Identify the cause and take appropriate action.
 
 **0x61181 ( 397697) rpERR_ABORT_RP_ALREADY_DDL_SYNC Can not perform a DDL
 synchronization because it is currently in progress (Replication name :
@@ -7613,23 +7613,23 @@ synchronization because it is currently in progress (Replication name :
 
 **Cause:**
 
-\# - Can not perform a DDL synchronization because it is currently in progress.
+- Can not perform a DDL synchronization because it is currently in progress.
 
 **Action:**
 
-\# - Retry after finishing the DDL synchronization.
+- Retry after finishing the DDL synchronization.
 
 **0x61182 ( 397698) rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_EAGER Can not execute a
 DDL synchronization on a table using eager mode replication.**
 
 **Cause:**
 
-\# - Can not execute a DDL synchronization for a table using eager mode
+- Can not execute a DDL synchronization for a table using eager mode
 replication.
 
 **Action:**
 
-\# - Change the replication mode in eager mode replication or remove the table
+- Change the replication mode in eager mode replication or remove the table
 in eager mode replication.
 
 **0x61183 ( 397699)
@@ -7638,24 +7638,24 @@ synchronization is not support on a table with global non-partitioned index.**
 
 **Cause:**
 
-\# - A DDL synchronization is not support on a table with global non-partitioned
+- A DDL synchronization is not support on a table with global non-partitioned
 index.
 
 **Action:**
 
-\# - Verify that the table with a global non-paritited index.
+- Verify that the table with a global non-paritited index.
 
 **0x61184 ( 397700) rpERR_ABORT_RP_DDL_SYNC_DISABLE Can not perform the DDL
 synchronization when the value of the REPLICATION_DDL_SYNC property is 0.**
 
 **Cause:**
 
-\# - Can not perform the DDL synchronization when the value of the
+- Can not perform the DDL synchronization when the value of the
 REPLICATION_DDL_SYNC property is 0.
 
 **Action:**
 
-\# - Verify and change the value of the REPLICATION_DDL_SYNC property is 1.
+- Verify and change the value of the REPLICATION_DDL_SYNC property is 1.
 
 **0x61185 ( 397701) rpERR_ABORT_RP_DDL_SYNC_ERROR_AFTER_COMMIT_MSG A DDL
 synchronization is failed after sending commit message. The table schema of the
@@ -7663,44 +7663,44 @@ remote server may have been inconsistent.**
 
 **Cause:**
 
-\# - A DDL synchronization is failed after sending commit message.
+- A DDL synchronization is failed after sending commit message.
 
 **Action:**
 
-\# - Verify that the replication actually commits
+- Verify that the replication actually commits
 
 **0x61186 ( 397702) rpERR_ABORT_RP_DDL_SYNC_RECEIVE_ERROR A DDL synchronization
 receives the error message from the remote server (\<0%s\>).**
 
 **Cause:**
 
-\# - Receive the error message from the remote server.
+- Receive the error message from the remote server.
 
 **Action:**
 
-\# - Perform a DDL synchronization after troubleshooting the remote server.
+- Perform a DDL synchronization after troubleshooting the remote server.
 
 **0x61187 ( 397703) rpERR_ABORT_RP_SENDER_NOT_RUNNING The sender of replication
 \<0%s\> is not running.**
 
 **Cause:**
 
-\# - The sender of replication is not running.
+- The sender of replication is not running.
 
 **Action:**
 
-\# - Restart replication or wait for the replication sender to run.
+- Restart replication or wait for the replication sender to run.
 
 **0x61188 ( 397704) rpERR_ABORT_RP_DDL_SYNC_SQL_LENGTH_ERROR The length of the
 SQL query exceeds the maximum limit (\<0%u\>).**
 
 **Cause:**
 
-\# - The length of the SQL query exceeds the maximum limit.
+- The length of the SQL query exceeds the maximum limit.
 
 **Action:**
 
-\# - Refer to the Replication Manaual for the maximum possible length allowed
+- Refer to the Replication Manaual for the maximum possible length allowed
 for the DDL synchronization query.
 
 **0x61189 ( 397705) rpERR_ABORT_PARENT_AND_CHILD_CONNECT_DIFFERENT Failed to
@@ -7709,11 +7709,11 @@ from DNS server.**
 
 **Cause:**
 
-\# - The parallel senders must be connected by the same IP.
+- The parallel senders must be connected by the same IP.
 
 **Action:**
 
-\# - Verify the DNS server or restart the replication sender. (When you restart
+- Verify the DNS server or restart the replication sender. (When you restart
 the replication, the parallel senders have been connected by the same IP.)
 
 **0x6118A ( 397706) rpERR_ABORT_RPC_ROLE_NOT_SUPPORT_IB InfiniBand(IB) can not
@@ -7721,11 +7721,11 @@ be used with 'FOR ANALYSIS' syntax.**
 
 **Cause:**
 
-\# - InfiniBand(IB) can not be used with 'FOR ANALYSIS' syntax.
+- InfiniBand(IB) can not be used with 'FOR ANALYSIS' syntax.
 
 **Action:**
 
-\# - Check the role of the replication. Do not use the InfiniBand(IB).
+- Check the role of the replication. Do not use the InfiniBand(IB).
 
 **0x6118B ( 397707) rpERR_ABORT_RPC_NOT_DEFAULT_SRID Only the default SRID can be replicated.**
 
@@ -7743,41 +7743,41 @@ synchronization.**
 
 **Cause:**
 
-\# - The propagation option(FOR PROPAGABLE LOGGING/ FOR PROPAGATION) does not
+- The propagation option(FOR PROPAGABLE LOGGING/ FOR PROPAGATION) does not
 support DDL synchronization.
 
 **Action:**
 
-\# - Remove the propagation option.
+- Remove the propagation option.
 
 **0x6118D ( 397709) rpERR_ABORT_HBT_DETECT_PEER_SERVER_ERROR The HeartBeat
 thread(HBT) detects peer server or network error.**
 
 **Cause:**
 
-\# - 1. Peer server is not running.
+- 1. Peer server is not running.
 
-\# - 2. Network is not working.
+- 2. Network is not working.
 
 **Action:**
 
-\# - 1. Confirm peer server is running.
+- 1. Confirm peer server is running.
 
-\# - 2. Ensure that network is working normally.
+- 2. Ensure that network is working normally.
 
 **0x6118E ( 397710) rpERR_ABORT_SEND_TIMEOUT_EXCEED Timeout exceed while the
 replication Sender and Receiver were communicating.**
 
 **Cause:**
 
-\# - A timeout occurred while the replication Sender and Receiver were
+- A timeout occurred while the replication Sender and Receiver were
 communicating.
 
 **Cause:**
 
-\# - Set a larger value for the REPLICATION_SENDER_SEND_TIMEOUT property.
+- Set a larger value for the REPLICATION_SENDER_SEND_TIMEOUT property.
 
-\# - Check the peer server or network connection.
+- Check the peer server or network connection.
 
 **0x6118F ( 397711) rpERR_ABORT_FAULT_TOLERATED Failed to work because an internal exception occurred from an OS.[Contact Altibase's Support Center]**
 
@@ -8277,9 +8277,9 @@ initialize the hash table**
 
 **Cause:**
 
-\# - The replication feature of Altibase could not be used.
+- The replication feature of Altibase could not be used.
 
-\# - Replication was not initialized on startup because the port is not set
+- Replication was not initialized on startup because the port is not set
 correctly.
 
 **Action:** Set the port correctly.
@@ -8297,13 +8297,13 @@ Start... at [\<1%ld\>]**
 
 **Action:**
 
-\# - N/A
+- N/A
 
 **0x62068 ( 401512) rpERR_IGNORE_RP_INIT_SOCK Unable to initialize a socket**
 
 **Cause:** Not enough memory.
 
-\# - Unable to connect to a remote server.
+- Unable to connect to a remote server.
 
 \# **Action:** Check whether the remote server is running and online.
 
@@ -8327,9 +8327,9 @@ replication log buffer.**
 
 **Action:**
 
-\# - Increase REPLICATION_LOG_BUFFER_SIZE and restart the system.
+- Increase REPLICATION_LOG_BUFFER_SIZE and restart the system.
 
-\# - Find and resolve cause of the delay.
+- Find and resolve cause of the delay.
 
 **0x620EB ( 401643) rpERR_IGNORE_EXIT_FLAG_SET Exit flag is set.**
 
@@ -10319,9 +10319,7 @@ indexes, nor triggers can be exchanged.
 **Action:** Verify that the table does not have any constraints, indexes, or
 triggers.
 
-**0x31434 ( 201780) qpERR_ABORT_QDB_JOIN_DISJOIN_NOT_READ_WRITE Not READ/WRITE**
-
-\<0%s\>
+**0x31434 ( 201780) qpERR_ABORT_QDB_JOIN_DISJOIN_NOT_READ_WRITE Not READ/WRITE : <0%s>**
 
 **Cause:** A read only or read append table cannot be conjoined/disjoined
 
@@ -11826,7 +11824,7 @@ ALTER SESSION command.
 **0x3134B ( 201547) qpERR_ABORT_QMV_NOT_SUPPORT_SUBQUERY Unsupported use of
 subquery in RETURNING INTO clause**
 
-\#\**Cause:** A subquery was used in a RETURNING INTO clause.
+**Cause:** A subquery was used in a RETURNING INTO clause.
 
 **Action:** Remove the subquery from the RETURNING INTO clause.
 
@@ -12288,12 +12286,12 @@ storage capacity.**
 
 **Cause:**
 
-\# - The recycle bin has either insufficient memory, or disk, or memory and disk
+- The recycle bin has either insufficient memory, or disk, or memory and disk
 storage capacity.
 
 **Action:**
 
-\# - Empty the recycle bin or increase RECYCLEBIN_MEM_MAX_SIZE, or
+- Empty the recycle bin or increase RECYCLEBIN_MEM_MAX_SIZE, or
 RECYCLEBIN_DISK_MAX_SIZE, or both RECYCLEBIN_MEM_MAX_SIZE and
 RECYCLEBIN_DISK_MAX_SIZE.
 
@@ -12919,55 +12917,55 @@ memory pool**
 
 **Cause:**
 
-\# - Failed to allocate a memory pool.
+- Failed to allocate a memory pool.
 
 **Action:**
 
-\# - Verify that there is enough available memory.
+- Verify that there is enough available memory.
 
 **0x31427 ( 201767) qpERR_ABORT_QCU_HASH_TABLE_ALLOC_FAILED Failed to allocate a
 hash table**
 
 **Cause:**
 
-\# - Failed to allocate a hash table.
+- Failed to allocate a hash table.
 
 **Action:**
 
-\# - Verify that there is enough available memory.
+- Verify that there is enough available memory.
 
 **0x31428 ( 201768) qpERR_ABORT_QCU_HASH_TABLE_FIND_FAILED Failed to find a
 record from a hash table**
 
 **Cause:**
 
-\# - Failed to find a record from a hash table.
+- Failed to find a record from a hash table.
 
 **Action:**
 
-\# - Contact Altibase’s Support Center (http://support.altibase.com).
+- Contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x31429 ( 201769) qpERR_ABORT_QCU_HASH_TABLE_ADD_FAILED Failed to add a record
 to a hash table**
 
 **Cause:**
 
-\# - Failed to add a record to a hash table.
+- Failed to add a record to a hash table.
 
 **Action:**
 
-\# - Contact Altibase’s Support Center (http://support.altibase.com).
+- Contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x3142A ( 201770) qpERR_ABORT_QCU_USER_LOCK_REQUEST_LIMIT_EXCEED The number of
 requested user locks exceeds the maximum limit.**
 
 **Cause:**
 
-\# - The number of requested user locks exceeds the maximum limit.
+- The number of requested user locks exceeds the maximum limit.
 
 **Action:**
 
-\# - Call the USER_LOCK_RELEASE function or change the USER_LOCK_REQUEST_LIMIT
+- Call the USER_LOCK_RELEASE function or change the USER_LOCK_REQUEST_LIMIT
 property value.
 
 **0x31476 ( 201846) qpERR_ABORT_QCU_NOT_SUPPORT_SYSTEM_PROPERTY <0%s> property cannot be changed using ALTER SYSTEM statement.**
@@ -12991,11 +12989,11 @@ variables**
 
 **Cause:**
 
-\# - Buffer full in QCI
+- Buffer full in QCI
 
 **Action:**
 
-\# - Buffer full in QCI
+- Buffer full in QCI
 
 **0x311B8 ( 201144) qpERR_ABORT_QCI_INVALID_HOST_DATA_SIZE Size of data to bind
 to host variable is invalid [ Param ID = \<0%d\>, Data Type = \<1%u\>, Data Size
@@ -15612,7 +15610,7 @@ too long.**
 **Cause:** The shard object name is permitted to contain less than 128
 characters.
 
-\#Action : Verify the length of the object name.
+**Action:** Verify the length of the object name.
 
 **0xE10CD ( 921805) sdERR_ABORT_SDF_SHARD_NODE_NAME_TOO_LONG The name of shard
 data node is too long.**
@@ -17283,10 +17281,10 @@ the access list file : \<0%s\> - \<1%s\>.**
 
 **Action:**
 
-\# - 1. Check to verify whether the file ACCESS_LIST_FILE property leads exists
+- 1. Check to verify whether the file ACCESS_LIST_FILE property leads exists
 or not.
 
-\# - 2. Check the error number in the trace log file.
+- 2. Check the error number in the trace log file.
 
 **0x410EF ( 266479) mmERR_ABORT_EXCEEDED_ACCESS_LIST_COUNT_LIMIT The access list
 file has items exceeding the maximum limit.**
@@ -17307,10 +17305,10 @@ access list.**
 **0x410F1 ( 266481) mmERR_ABORT_INVALID_ACCESS_LIST_VALUE The value of
 ACCESS_LIST is not acceptable : (Line \<0%d\>) \<1%s\>**
 
-\#\**Cause:** The data in the access list file is not compatible with the specified
+**Cause:** The data in the access list file is not compatible with the specified
 ACCESS_LIST format.
 
-\#\**Action:** Modify the data to comply with the ACCESS_LIST format.
+**Action:** Modify the data to comply with the ACCESS_LIST format.
 
 **0x410F2 ( 266482) mmERR_ABORT_INVALID_SNAPSHOT_SCN This is a snapshot SCN
 which cannot execute SELECT.**

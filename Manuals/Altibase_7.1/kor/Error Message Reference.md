@@ -78,7 +78,7 @@ Altibase Message Error Message Reference
 
 Release 7.1
 
-Copyright ⓒ 2001\~ 2018 Altibase Corp. All Rights Reserved.
+Copyright ⓒ 2001\~ 2023 Altibase Corp. All Rights Reserved.
 
 This manual contains proprietary information of Altibase Corporation; it is
 provided under a license agreement containing restrictions on use and disclosure
@@ -6506,7 +6506,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **Cause:** The remote server is a version that does not support geometry SRID.
 
-**Action:** Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com).**
+**Action:** Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com).
 
 **0x61195 ( 397717) rpERR_ABORT_QDB_DDL_SYNC_WITH_LOCK_UNTIL_NEXT_DDL You cannot execute DDL for the replicated table after performing LOCK.. UNTIL NEXT DDL on REPLICATION_DDL_SYNC enable mode.**
 
@@ -6530,7 +6530,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **Cause:** This role does not support the Meta Logging option.
 
-**Action:**Check the options or the role of the replication.
+**Action:** Check the options or the role of the replication.
 
 **0x611B0 ( 397744) rpERR_ABORT_RP_REMOTE_META_EXIST BUILD OFFLINE META is already run.**
 
@@ -6548,7 +6548,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **Cause:** Remote meta is not from building offline meta.
 
-**Action:**Check the role of the replication.
+**Action:** Check the role of the replication.
 
 **0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>\_META_NEW.bin, <2%s>_META_OLD.bin )**
 
@@ -6578,7 +6578,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **Cause:** Reused TABLE OID is included in replication gap.
 
-**Action: **Resolve the replication gap before operating ADD TABLE query.
+**Action:** Resolve the replication gap before operating ADD TABLE query.
 
 **0x611B8 ( 397752) rpERR_ABORT_TX_SEGMENT_ENTRY_ALLOC [Receiver] Transaction updating disk table data failed due to transaction segment allocation failure.**
 
@@ -8609,9 +8609,7 @@ indexes, nor triggers can be exchanged.
 **Action:** Verify that the table does not have any constraints, indexes, or
 triggers.
 
-**0x31434 ( 201780) qpERR_ABORT_QDB_JOIN_DISJOIN_NOT_READ_WRITE Not READ/WRITE**
-
-\<0%s\>
+**0x31434 ( 201780) qpERR_ABORT_QDB_JOIN_DISJOIN_NOT_READ_WRITE Not READ/WRITE : <0%s>**
 
 **Cause:** A read only or read append table cannot be conjoined/disjoined
 
@@ -10070,7 +10068,7 @@ ALTER SESSION command.
 **0x3134B ( 201547) qpERR_ABORT_QMV_NOT_SUPPORT_SUBQUERY Unsupported use of
 subquery in RETURNING INTO clause**
 
-\#\*Cause: A subquery was used in a RETURNING INTO clause.
+**Cause:** A subquery was used in a RETURNING INTO clause.
 
 **Action:** Remove the subquery from the RETURNING INTO clause.
 
@@ -13590,7 +13588,7 @@ too long.**
 **Cause:** The shard object name is permitted to contain less than 128
 characters.
 
-\#Action : Verify the length of the object name.
+**Action:** Verify the length of the object name.
 
 **0xE10CD ( 921805) sdERR_ABORT_SDF_SHARD_NODE_NAME_TOO_LONG The name of shard
 data node is too long.**
@@ -15399,10 +15397,10 @@ access list.**
 **0x410F1 ( 266481) mmERR_ABORT_INVALID_ACCESS_LIST_VALUE The value of
 ACCESS_LIST is not acceptable : (Line \<0%d\>) \<1%s\>**
 
-\#\*Cause: The data in the access list file is not compatible with the specified
+**Cause:** The data in the access list file is not compatible with the specified
 ACCESS_LIST format.
 
-\#**Action:**: Modify the data to comply with the ACCESS_LIST format.
+**Action:** Modify the data to comply with the ACCESS_LIST format.
 
 **0x410F2 ( 266482) mmERR_ABORT_INVALID_SNAPSHOT_SCN This is a snapshot SCN
 which cannot execute SELECT.**
