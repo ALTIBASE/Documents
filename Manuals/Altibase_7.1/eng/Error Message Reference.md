@@ -54,10 +54,10 @@
   - [13.Database Link Error Code](#13database-link-error-code)
     - [FATAL](#fatal-10)
     - [ABORT](#abort-12)
-    - [**RETRY**](#retry)
+    - [RETRY](#retry)
   - [14.Log Analyzer Error Code](#14log-analyzer-error-code)
-    - [**FATAL**](#fatal)
-    - [**ABORT**](#abort)
+    - [FATAL](#fatal)
+    - [ABORT](#abort)
     - [IGNORE](#ignore-9)
 
 

@@ -37,6 +37,7 @@
     - [FATAL](#fatal-6)
     - [ABORT](#abort-7)
     - [IGNORE](#ignore-5)
+    - [RETRY](#retry-3)
   - [9.ODBC Error Code](#9odbc-error-code)
     - [FATAL](#fatal-7)
     - [ABORT](#abort-8)
