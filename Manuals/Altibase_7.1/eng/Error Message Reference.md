@@ -6511,7 +6511,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **0x611AF ( 397743) rpERR_ABORT_RPC_ROLE_NOT_SUPPORT_REPL_META_LOGGING Meta Logging option is supported only ANALYSIS.**
 
-**Cause:**This role does not support the Meta Logging option.
+**Cause:** This role does not support the Meta Logging option.
 
 **Action:**Check the options or the role of the replication.
 
@@ -6523,7 +6523,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **0x611B1 ( 397745) rpERR_ABORT_RP_REMOTE_META_FILE_IS_CORRUPTED Remote meta file is corrupt. (Meta End SN : <0%ld>, Restart SN : <1%ld>)**
 
-**Cause:**The 'replication_name_META_NEW.bin' file is corrupt. Restart SN is more than Meta End SN of 'replication_name_META_OLD.bin' file.
+**Cause:** The 'replication_name_META_NEW.bin' file is corrupt. Restart SN is more than Meta End SN of 'replication_name_META_OLD.bin' file.
 
 **Action:** Run 'ALTER REPLICATION replication_name BUILD OFFLINE META AT SN(sn)' with a value less than Meta End SN.
 
@@ -6535,7 +6535,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>\_META_NEW.bin, <2%s>_META_OLD.bin )**
 
-**Cause:**Sender meta files do not exist or are invalid.
+**Cause:** Sender meta files do not exist or are invalid.
 
 **Action:** BUILD OFFLINE META' failed. Verify the altibase_rp.log.
 
@@ -6562,7 +6562,7 @@ rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL synchroniza
 
 **Cause:** Reused TABLE OID is included in replication gap.
 
-**Action:**Resolve the replication gap before operating ADD TABLE query.
+**Action:** Resolve the replication gap before operating ADD TABLE query.
 
 **0x611B8 ( 397752) rpERR_ABORT_TX_SEGMENT_ENTRY_ALLOC [Receiver] Transaction updating disk table data failed due to transaction segment allocation failure.**
 
@@ -6974,7 +6974,7 @@ ROWTYPE is not allowed for a RETURN clause. \<0%s\>**
 
 **Cause:** The RETURN type of a function is ROWTYPE.
 
-\*Action Do not use ROWTYPE as a RETURN clause.
+**Action:** Do not use ROWTYPE as a RETURN clause.
 
 **0x31186 ( 201094) qpERR_ABORT_QCP_FUNC_NAME_NOT_MATCHED Mismatched function
 name \<0%s\>**
@@ -10512,9 +10512,9 @@ not found for \<0%s\>.**
 **0x313D6 ( 201686) qpERR_ABORT_QMX_TABLE_PARTITION_ACCESS_DENIED Unable to
 update table or partition \<0%s\>**
 
-\*Cause : Update operation is not allowed on the table or partition.
+**Cause:** Update operation is not allowed on the table or partition.
 
-\*Action : Check the access mode of the table or partition.
+**Action:** Check the access mode of the table or partition.
 
 **0x31417 ( 201751) qpERR_ABORT_QDR_NOT_SYS_USER_DISABLE_TCP Only the SYS user
 can enable or disable TCP.**

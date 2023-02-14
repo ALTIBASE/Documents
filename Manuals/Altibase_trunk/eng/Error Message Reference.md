@@ -22,6 +22,7 @@
     - [FATAL](#fatal-3)
     - [ABORT](#abort-3)
     - [IGNORE](#ignore-3)
+    - [RETRY](#retry-1)
   - [5.QP Error Code](#5qp-error-code)
     - [FATAL](#fatal-4)
     - [ABORT](#abort-4)
@@ -54,10 +55,10 @@
   - [13.Database Link Error Code](#13database-link-error-code)
     - [FATAL](#fatal-10)
     - [ABORT](#abort-12)
-    - [**RETRY**](#retry)
+    - [RETRY](#retry)
   - [14.Log Analyzer Error Code](#14log-analyzer-error-code)
-    - [**FATAL**](#fatal)
-    - [**ABORT**](#abort)
+    - [FATAL](#fatal)
+    - [ABORT](#abort)
     - [IGNORE](#ignore-9)
 
 
@@ -1683,7 +1684,7 @@ system function**
 
 **Cause:** The system failed to lock a mutex.
 
-\# \*Action : Check the error number from the trace log and contact Altibase’s
+\# **Action:** : Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
 **0x10010 ( 65552) smERR_FATAL_ThrMutexUnlock Failed to invoke the
@@ -1691,7 +1692,7 @@ mutex_unlock() system function**
 
 **Cause:** The system failed to unlock a mutex.
 
-\# \*Action : Check the error number from the trace log and contact Altibase’s
+\# **Action:** : Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
 **0x10011 ( 65553) smERR_FATAL_ThrCondInit Failed to invoke the cond_init()
@@ -1789,7 +1790,7 @@ found.**
 
 **Cause:** An uncommitted row was found.
 
-\# \*Action : Check the error number from the trace log and contact Altibase’s
+\# **Action:** : Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
 **0x1005E ( 65630) smERR_FATAL_smiChildStatementExist One or more child
@@ -5622,7 +5623,7 @@ table.
 **Cause:** A timeout occurred while the replication Sender and Receiver were
 communicating.
 
-\# \*Action : Set a larger value for the REPLICATION_RECEIVE_TIMEOUT property.
+\# **Action:** : Set a larger value for the REPLICATION_RECEIVE_TIMEOUT property.
 
 **0x61076 ( 397430) rpERR_ABORT_INVALID_XSN [Sender] Invalid XSN[\<0%ld\>] \>
 Current[\<1%ld\>] occurred**
@@ -6891,7 +6892,7 @@ module (\<0%s\>).**
 **Cause:** Failed to execute DML on replication metadata due to a database
 error.
 
-\# \*Action Check the error number from the trace log and contact Altibase’s
+\# **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
 **0x61128 ( 397608) rpERR_ABORT_RPD_TOO_MANY_REPLICATION_OLD_ITEMS Internal
@@ -8303,7 +8304,7 @@ Start... at [\<1%ld\>]**
 
 \# - Unable to connect to a remote server.
 
-\# \*Action Check whether the remote server is running and online.
+\# **Action:** Check whether the remote server is running and online.
 
 **0x62070 ( 401520) rpERR_IGNORE_RP_PROTOCOL_DIFF Different replication
 protocols**
@@ -8670,7 +8671,7 @@ ROWTYPE is not allowed for a RETURN clause. \<0%s\>**
 
 **Cause:** The RETURN type of a function is ROWTYPE.
 
-\*Action Do not use ROWTYPE as a RETURN clause.
+**Action:** Do not use ROWTYPE as a RETURN clause.
 
 **0x31186 ( 201094) qpERR_ABORT_QCP_FUNC_NAME_NOT_MATCHED Mismatched function
 name \<0%s\>**
@@ -8920,7 +8921,7 @@ Support Center (http://support.altibase.com).
 
 - Internal server error
 
-*Action:**
+**Action:**
 
 - Please send a bug report to the vendor.
 
@@ -22409,7 +22410,7 @@ because the global transaction has been terminated.**
 
 - Execute rollback and try again.
 
-### **RETRY**
+### RETRY
 
 **0xC3035 ( 798773) dkERR_REBUILD_META_IS_DIFFERENT Remote table's meta has changed**
 
@@ -22422,7 +22423,7 @@ because the global transaction has been terminated.**
 14.Log Analyzer Error Code
 --------------------------
 
-### **FATAL**
+### FATAL
 
 **0x50008 ( 327688) ulaERR_FATAL_TX_ALREADY_BEGIN Transaction has already begun
 [\<0%u\>:\<1%u\>]**
@@ -22462,7 +22463,7 @@ Support Center (http://support.altibase.com).
 **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
-### **ABORT**
+### ABORT
 
 **0x51006 ( 331782) ulaERR_ABORT_MEMORY_ALLOC Memory allocation failure**
 
