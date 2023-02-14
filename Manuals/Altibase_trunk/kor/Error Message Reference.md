@@ -4705,7 +4705,7 @@ statement.
 
 **0x21069 ( 135273) mtERR_ABORT_INVALID_LENGTH_COLUMN Invalid data type length : <0%s>.**
 
-**Cause:**The data length has been exceeded.
+**Cause:** The data length has been exceeded.
 
 **Action:** Verify that the length of the data is correct.
 
@@ -5196,7 +5196,7 @@ exceeded the maximum limit.
 
 **Action:** Check the maximum number of replication threads.
 
-**0x6100C ( 397324) rpERR_ABORT_RP_RECEIVER_NOT_FOUND The receiver does not exist. **
+**0x6100C ( 397324) rpERR_ABORT_RP_RECEIVER_NOT_FOUND The receiver does not exist.**
 
 **Cause:**
 -  Internal server error

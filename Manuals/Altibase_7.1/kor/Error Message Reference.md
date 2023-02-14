@@ -285,7 +285,7 @@ domain socket**
 
 **Action:** Please send a bug report to the vendor.
 
-**0x00022 ( 34) idERR_FATAL_idc_SVC_UNIX_LISTEN_ERROR Unable to invoke the listen() function on the UNIX domain socket **
+**0x00022 ( 34) idERR_FATAL_idc_SVC_UNIX_LISTEN_ERROR Unable to invoke the listen() function on the UNIX domain socket**
 
 **Cause:** Failed to invoke the listen() function on the UNIX domain socket
 
@@ -567,13 +567,13 @@ Version ID = \<1%s\> ]**
 
 **Action:** Please send a bug report to the vendor.
 
-**0x000BE (    190) idERR_FATAL_ATTACH_SHARED_MEMORY_MGR The attach operation for a shared memory is failed. **
+**0x000BE (    190) idERR_FATAL_ATTACH_SHARED_MEMORY_MGR The attach operation for a shared memory is failed.**
 
 **Cause:** There is an unexpected error while doing a attach operation of a shared memory.
 
 **Action:** Please send a bug report to the vendor.
 
-**0x000BF (    191) idERR_FATAL_INVALID_SHARED_MEMORY_BLOCK_SIZE The shared memory block size[0%u] is invalid. **
+**0x000BF (    191) idERR_FATAL_INVALID_SHARED_MEMORY_BLOCK_SIZE The shared memory block size[0%u] is invalid.**
 
 **Cause:** The shared memory block size is invalid.
 
@@ -4083,7 +4083,7 @@ statement.
 
 **0x21069 ( 135273) mtERR_ABORT_INVALID_LENGTH_COLUMN Invalid data type length : <0%s>.**
 
-**Cause:**The data length has been exceeded.
+**Cause:** The data length has been exceeded.
 
 **Action:** Verify that the length of the data is correct.
 
@@ -4551,7 +4551,7 @@ Mathematics Module.**
 
 **Action:** Check the maximum number of replication threads.
 
-**0x6100C ( 397324) rpERR_ABORT_RP_RECEIVER_NOT_FOUND The receiver does not exist. **
+**0x6100C ( 397324) rpERR_ABORT_RP_RECEIVER_NOT_FOUND The receiver does not exist.**
 
 **Cause:**
 -  Internal server error
@@ -4673,7 +4673,7 @@ Mathematics Module.**
 
 **Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x6102A ( 397354) rpERR_ABORT_BIND Bind failure **
+**0x6102A ( 397354) rpERR_ABORT_BIND Bind failure**
 
 **Cause:**
 -  Network error
@@ -4771,7 +4771,7 @@ Mathematics Module.**
 
 **Action:** Check the network connection.
 
-**0x61048 ( 397384) rpERR_ABORT_RECVXLOG_RUN [Receiver] <0%s> receiver has recvXLog error in run() **
+**0x61048 ( 397384) rpERR_ABORT_RECVXLOG_RUN [Receiver] <0%s> receiver has recvXLog error in run()**
 
 **Cause:**
 -  Unable to read data from the network connection.
@@ -7235,7 +7235,7 @@ module (\<0%s\>).**
 **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
-**0x31019 ( 200729) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_ITEMS Internal server error. There are too few tables for replication. **
+**0x31019 ( 200729) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_ITEMS Internal server error. There are too few tables for replication.**
 
 **Cause:**
 
@@ -7245,7 +7245,7 @@ Support Center (http://support.altibase.com).
 
 - Please send a bug report to the vendor.
 
-**0x3101A ( 200730) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_ITEMS Internal server error. There are too many tables for replication. **
+**0x3101A ( 200730) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_ITEMS Internal server error. There are too many tables for replication.**
 
 **Cause:**
 
@@ -7255,7 +7255,7 @@ Support Center (http://support.altibase.com).
 
 - Please send a bug report to the vendor.
 
-**0x3101B ( 200731) qpERR_ABORT_QCM_MAX_REPLICATION Internal server error. **
+**0x3101B ( 200731) qpERR_ABORT_QCM_MAX_REPLICATION Internal server error.**
 
 **Cause:**
 
@@ -7273,7 +7273,7 @@ locked by other transactions.
 
 **Action:** Check other transactions.
 
-**0x311A6 ( 201126) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_HOSTS Internal server error. There are too few hosts for replication. **
+**0x311A6 ( 201126) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_HOSTS Internal server error. There are too few hosts for replication.**
 
 **Cause:**
 - Internal server error
@@ -7281,7 +7281,7 @@ locked by other transactions.
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x311A7 ( 201127) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_HOSTS Internal server error. There are too many hosts for replication. **
+**0x311A7 ( 201127) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_HOSTS Internal server error. There are too many hosts for replication.**
 
 **Cause:**
 - Internal server error
@@ -7289,7 +7289,7 @@ locked by other transactions.
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x310C9 ( 200905) qpERR_ABORT_RESET_SENDER [REPL manager] Resetting <0%s> sender XSN (sender XSN = SN<1%ld>,current = SN<2%ld>) **
+**0x310C9 ( 200905) qpERR_ABORT_RESET_SENDER [REPL manager] Resetting <0%s> sender XSN (sender XSN = SN<1%ld>,current = SN<2%ld>)**
 
 **Cause:**
 - The system tried to reset the current log file specified by the REPLICATION_MAX_LOGFILE property.
@@ -7366,7 +7366,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 
 **Action:** Reduce the specified number of elements.
 
-**0x312BC ( 201404) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_ITEMS Internal server error. There are too few old item metas for replication. (<0%s>) **
+**0x312BC ( 201404) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_ITEMS Internal server error. There are too few old item metas for replication. (<0%s>)**
 
 **Cause:**
 - Internal server error
@@ -7374,7 +7374,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x312BD ( 201405) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_ITEMS Internal server error. There are too many old item metas for replication. (<0%s>) **
+**0x312BD ( 201405) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_ITEMS Internal server error. There are too many old item metas for replication. (<0%s>)**
 
 **Cause:**
 - Internal server error
@@ -7382,7 +7382,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x312BE ( 201406) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_COLUMNS Internal server error. There are too few old column metas for replication. (<0%s>, <1%lu>) **
+**0x312BE ( 201406) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_COLUMNS Internal server error. There are too few old column metas for replication. (<0%s>, <1%lu>)**
 
 **Cause:**
 - Internal server error
@@ -7390,7 +7390,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x312BF ( 201407) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_COLUMNS Internal server error. There are too many old column metas for replication. (<0%s>, <1%lu>) **
+**0x312BF ( 201407) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_COLUMNS Internal server error. There are too many old column metas for replication. (<0%s>, <1%lu>)**
 
 **Cause:**
 
@@ -7399,7 +7399,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x312C0 ( 201408) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_INDICES Internal server error. There are too few old index metas for replication. (<0%s>, <1%lu>) **
+**0x312C0 ( 201408) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_INDICES Internal server error. There are too few old index metas for replication. (<0%s>, <1%lu>)**
 
 **Cause:**
 - Internal server error
@@ -7407,7 +7407,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x312C1 ( 201409) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_INDICES Internal server error. There are too many old index metas for replication. (<0%s>, <1%lu>) **
+**0x312C1 ( 201409) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_INDICES Internal server error. There are too many old index metas for replication. (<0%s>, <1%lu>)**
 
 **Cause:**
 - Internal server error
@@ -7415,7 +7415,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x312C2 ( 201410) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_INDEX_COLS Internal server error. There are too few old index column metas for replication. (<0%s>, <1%lu>, <2%u>) **
+**0x312C2 ( 201410) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OLD_INDEX_COLS Internal server error. There are too few old index column metas for replication. (<0%s>, <1%lu>, <2%u>)**
 
 **Cause:**
 - Internal server error
@@ -7424,7 +7424,7 @@ elements \<0%s\> exceeds the maximum limit (\<1%ld\>).**
 
 - Please send a bug report to the vendor.
 
-**0x312C3 ( 201411) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_INDEX_COLS Internal server error. There are too many old index column metas for replication. (<0%s>, <1%lu>, <2%u>) **
+**0x312C3 ( 201411) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OLD_INDEX_COLS Internal server error. There are too many old index column metas for replication. (<0%s>, <1%lu>, <2%u>)**
 
 **Cause:**
 - Internal server error
@@ -7490,7 +7490,7 @@ allowed as a replication condition value.**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x312F5 ( 201461) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OFFLINE_DIR_PATH Internal server error. Too few offline log dir paths for replication. **
+**0x312F5 ( 201461) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OFFLINE_DIR_PATH Internal server error. Too few offline log dir paths for replication.**
 
 **Cause:**
 
@@ -7722,7 +7722,7 @@ DDL on a replicated partition.**
 
 **Action:** Verify that the specified partition is not replicated.
 
-**0x31475 ( 201845) qpERR_ABORT_QDB_DDL_SYNC_WITH_LOCK_UNTIL_NEXT_DDL You cannot execute DDL for the replicated table after performing LOCK.. UNTIL NEXT DDL on REPLICATION_DDL_SYNC enable mode. **
+**0x31475 ( 201845) qpERR_ABORT_QDB_DDL_SYNC_WITH_LOCK_UNTIL_NEXT_DDL You cannot execute DDL for the replicated table after performing LOCK.. UNTIL NEXT DDL on REPLICATION_DDL_SYNC enable mode.**
 
 **Cause:** You cannot use the property REPLICATION_DDL_SYNC enable and LOCK.. UNTIL NEX DDL statement on the replicated table.
 
@@ -8065,7 +8065,7 @@ name is already used by the partitioned table \<0%s\>**
 
 **Action:** Check the partition name.
 
-**0x31271 ( 201329) qpERR_ABORT_QDB_DROP_PART_KEY Cannot drop partitioning key **
+**0x31271 ( 201329) qpERR_ABORT_QDB_DROP_PART_KEY Cannot drop partitioning key**
 
 **Cause:**
 - Unable to drop a column that is related to the partitioning key.
@@ -8073,7 +8073,7 @@ name is already used by the partitioned table \<0%s\>**
 **Action:**
 - No Action.
 
-**0x31272 ( 201330) qpERR_ABORT_QDB_MODIFY_MAXROWS_OF_PARTITION Cannot modify maxrows of the partitioned table **
+**0x31272 ( 201330) qpERR_ABORT_QDB_MODIFY_MAXROWS_OF_PARTITION Cannot modify maxrows of the partitioned table**
 
 **Cause:**
 - Unable to modify the maxrows value for the partitioned table.
@@ -8759,7 +8759,7 @@ statement.
 
 **Action:** Remove the synonyms used in the statement.
 
-**0x31460 ( 201824) qpERR_ABORT_QDB_DDL_NOT_SUPPORTED_REPLICATED_TABLE This DDL is not supported on replicated table.(Cause : <0%s>) **
+**0x31460 ( 201824) qpERR_ABORT_QDB_DDL_NOT_SUPPORTED_REPLICATED_TABLE This DDL is not supported on replicated table.(Cause : <0%s>)**
 
 **Cause:** This DDL is not supported on replicated table.
 
@@ -8770,54 +8770,54 @@ statement.
 **Action:** Attempt this action on a normal user table.
 
 
-**0x31462 ( 201826) qpERR_ABORT_QDB_SELF_SWAP_DENIED Unable to swap the same table. **
+**0x31462 ( 201826) qpERR_ABORT_QDB_SELF_SWAP_DENIED Unable to swap the same table.**
 
 **Cause:** The source table and the target table are the same.
 
 **Action:** Change the source table name or the target table name.
 
-**0x31463 ( 201827) qpERR_ABORT_QDB_SWAP_NOT_SUPPORT_REPLICATION_WITH_COMPRESSED_COLUMN Invalid replication with compressed columns. <0%s> **
+**0x31463 ( 201827) qpERR_ABORT_QDB_SWAP_NOT_SUPPORT_REPLICATION_WITH_COMPRESSED_COLUMN Invalid replication with compressed columns. <0%s>**
 
 **Cause:** Swapping DDL does not support a replication with compressed columns.
 
 **Action:** Remove the compressed columns.
 
-**0x31464 ( 201828) qpERR_ABORT_QDB_REPL_PARTITION_METHOD_MISMATCH The partition method of the replicated table does not match. **
+**0x31464 ( 201828) qpERR_ABORT_QDB_REPL_PARTITION_METHOD_MISMATCH The partition method of the replicated table does not match.**
 
 **Cause:** Replicated table partition method mismatch.
 
 **Action:** Check the partition method of the replicated table.
 
-**0x31465 ( 201829) qpERR_ABORT_QDB_REPL_PARTITION_CONDITION_MISMATCH The partition condition of the replicated table does not match. [<0%s>:<1%s>] **
+**0x31465 ( 201829) qpERR_ABORT_QDB_REPL_PARTITION_CONDITION_MISMATCH The partition condition of the replicated table does not match. [<0%s>:<1%s>]**
 
 **Cause:** Replicated table partition condition mismatch.
 
 **Action:** Check the partition condition of the replicated table.
 
-**0x31466 ( 201830) qpERR_ABORT_QDB_REPL_PARTITION_ORDER_MISMATCH The partition order of the replicated table does not match. [<0%s>:<1%s>] **
+**0x31466 ( 201830) qpERR_ABORT_QDB_REPL_PARTITION_ORDER_MISMATCH The partition order of the replicated table does not match. [<0%s>:<1%s>]**
 
 **Cause:** Replicated table partition order mismatch.
 **Action:** Check the partition order of the replicated table.
 
-**0x31467 ( 201831) qpERR_ABORT_QDB_REPL_TABLE_PARTITION_TYPE_MISMATCH The partition type of the replicated table does not match. **
+**0x31467 ( 201831) qpERR_ABORT_QDB_REPL_TABLE_PARTITION_TYPE_MISMATCH The partition type of the replicated table does not match.**
 
 **Cause:** Replicated table partition type mismatch.
 
 **Action:** Check the partition type of the replicated table.
 
-**0x31468 ( 201832) qpERR_ABORT_QDB_REPL_PARTITION_NAME_MISMATCH The partition name of the replicated table does not match. [<0%s>] **
+**0x31468 ( 201832) qpERR_ABORT_QDB_REPL_PARTITION_NAME_MISMATCH The partition name of the replicated table does not match. [<0%s>]**
 
 **Cause:** Replicated table partition name mismatch.
 
 **Action:** Check the partition name of the replicated table.
 
-**0x31469 ( 201833) qpERR_ABORT_QDB_USING_TARGET_NAMES_PREFIX_IS_TOO_LONG USING PREFIX clause is too long. **
+**0x31469 ( 201833) qpERR_ABORT_QDB_USING_TARGET_NAMES_PREFIX_IS_TOO_LONG USING PREFIX clause is too long.**
 
 **Cause:** A generated object name is too long or short
 
 **Action:** Give the prefix a shorter name.
 
-**0x3146A ( 201834) qpERR_ABORT_QDB_SWAP_TABLES_EXIST_IN_SAME_REPLICATION The source table and the target table exist in same replication. <0%s> **
+**0x3146A ( 201834) qpERR_ABORT_QDB_SWAP_TABLES_EXIST_IN_SAME_REPLICATION The source table and the target table exist in same replication. <0%s>**
 
 **Cause:** Swapping DDL does not support the source table and the target table in same replication.
 
@@ -8829,7 +8829,7 @@ statement.
 
 **Action:** Check the owners of the source table and the target table.
 
-**0x3146C ( 201836) qpERR_ABORT_QDB_DROP_COL_UNIQUE_INDEX_WITH_REPLICATED_TBL A column contains an unique index that can not be dropped from a replicated table. **
+**0x3146C ( 201836) qpERR_ABORT_QDB_DROP_COL_UNIQUE_INDEX_WITH_REPLICATED_TBL A column contains an unique index that can not be dropped from a replicated table.**
 
 **Cause:** A column contains an unique index that can not be dropped from a replicated table.
 
@@ -8841,13 +8841,13 @@ statement.
 
 **Action:** Check the partitioning method of the table.
 
-**0x3146F ( 201839) qpERR_ABORT_QDB_REPLACE_DIFFERENT_PARTITION The schema is different between the source partition table and the destination partition table. **
+**0x3146F ( 201839) qpERR_ABORT_QDB_REPLACE_DIFFERENT_PARTITION The schema is different between the source partition table and the destination partition table.**
 
 **Cause:** The user tried to execute a replace DDL command, but does not support different schema in the partitioned table.
 
 **Action:** Verify that the source and target tables have the same schema.
 
-**0x31473 ( 201843) qpERR_ABORT_QDB_INVALID_SRID Cannot change the Spatial Reference ID(SRID). **
+**0x31473 ( 201843) qpERR_ABORT_QDB_INVALID_SRID Cannot change the Spatial Reference ID(SRID).**
 
 **Cause:** There is an invalid Spatial Reference ID(SRID) because the specific row has been SRID.
 
@@ -8882,7 +8882,7 @@ variables**
 
 **Action:** Verify the position of every host variable.
 
-**0x31033 ( 200755) qpERR_ABORT_QCV_UNSUPPORTED Unsupported function <0%s> **
+**0x31033 ( 200755) qpERR_ABORT_QCV_UNSUPPORTED Unsupported function <0%s>**
 
 **Cause:**
 - The function is not supported yet.
@@ -10448,7 +10448,7 @@ clause is not allowed in the function. \<0%s\>**
 
 **Action:** Remove the ORDER BY clause from the statement.
 
-**0x3146D ( 201837) qpERR_ABORT_QCV_NOT_ALLOWED_ANALYTIC An analytic function is not allowed here. <0%s> **
+**0x3146D ( 201837) qpERR_ABORT_QCV_NOT_ALLOWED_ANALYTIC An analytic function is not allowed here. <0%s>**
 
 **Cause:** An analytic function cannot be used here.
 
@@ -10485,7 +10485,7 @@ not found for \<0%s\>.**
 
 **Action:** Check the referential constraints that are related to the table.
 
-**0x311C6 ( 201158) qpERR_ABORT_QMX_CANNOT_SET_TIMESTAMP Unable to set the TIMESTAMP value. **
+**0x311C6 ( 201158) qpERR_ABORT_QMX_CANNOT_SET_TIMESTAMP Unable to set the TIMESTAMP value.**
 
 **Cause:**
 - The system failed to set the TIMESTAMP value.
@@ -11068,7 +11068,7 @@ result without error if you execute again the same query that produced this
 error. If you meet this error repeatedly, contact Altibase’s Support Center
 (http://support.altibase.com).
 
-**0x31474 ( 201844) qpERR_ABORT_QTC_INVALID_SRID_DATATYPE Fail to specify the Spatial Reference ID(SRID) because a SRID can be set only in the geometry dataype. **
+**0x31474 ( 201844) qpERR_ABORT_QTC_INVALID_SRID_DATATYPE Fail to specify the Spatial Reference ID(SRID) because a SRID can be set only in the geometry dataype.**
 
 **Cause:** A Spatial Reference ID(SRID) can be set only in the geometry dataype.
 
@@ -11189,7 +11189,7 @@ requested user locks exceeds the maximum limit.**
 - Call the USER_LOCK_RELEASE function or change the USER_LOCK_REQUEST_LIMIT
 property value.
 
-**0x314AE ( 201902) qpERR_ABORT_QCU_INVALID_OPTIMIZER_VERSION_VALUE Invalid value for __OPTIMIZER_VERSION property. **
+**0x314AE ( 201902) qpERR_ABORT_QCU_INVALID_OPTIMIZER_VERSION_VALUE Invalid value for __OPTIMIZER_VERSION property.**
 
 **Cause:** Specific values are expected for __OPTIMIZER_VERSION property.
 
@@ -11911,7 +11911,7 @@ name.**
 
 **Action:** Check the host variable name.
 
-**0x314B3 ( 201907) qpERR_ABORT_QSV_TOO_HIGH_REFERENCE_DEPTH_ARG1 The number of recursive calls or references depth exceeded <0%d> in the PSM. **
+**0x314B3 ( 201907) qpERR_ABORT_QSV_TOO_HIGH_REFERENCE_DEPTH_ARG1 The number of recursive calls or references depth exceeded <0%d> in the PSM.**
 
 **Cause:** In the process of compiling the PSM, recursive calls or references occurred more than allowed values.
 
@@ -11967,7 +11967,7 @@ function call depth has exceeded \<0%d\>.**
 
 **Action:** Verify that the conditions for the recursive call are valid.
 
-**0x3115B ( 201051) qpERR_ABORT_QSX_COMMIT_USING_QCI A stored procedure or function failed to commit using the QCI interface. **
+**0x3115B ( 201051) qpERR_ABORT_QSX_COMMIT_USING_QCI A stored procedure or function failed to commit using the QCI interface.**
 
 **Cause:**
 - The stored procedure or function failed to commit.
@@ -11976,7 +11976,7 @@ function call depth has exceeded \<0%d\>.**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x3115C ( 201052) qpERR_ABORT_QSX_ROLLBACK_USING_QCI A stored procedure or function could not be rolled back using the QCI interface. **
+**0x3115C ( 201052) qpERR_ABORT_QSX_ROLLBACK_USING_QCI A stored procedure or function could not be rolled back using the QCI interface.**
 
 **Cause:**
 - The stored procedure or function could not be rolled back.
@@ -11985,7 +11985,7 @@ function call depth has exceeded \<0%d\>.**
 **Action:**
 - Please send a bug report to the vendor.
 
-**0x3115E ( 201054) qpERR_ABORT_QSX_SQLTEXT_WRAPPER <0%s> <1%s> **
+**0x3115E ( 201054) qpERR_ABORT_QSX_SQLTEXT_WRAPPER <0%s> <1%s>**
 
 **Cause:**
 
@@ -12303,19 +12303,19 @@ executing the syntax of SELECT, SELECT FOR UPDATE, and DEQUEUE.
 or DEQUEUE; otherwise, do not use the INTO clause and BULK COLLECTION INTO
 clause.
 
-**0x31459 ( 201817) qpERR_ABORT_QSX_INVALID_OBJ_RECOMPILE_FAILED The attempt to recompile the object was aborted. <0%s> <1%s> **
+**0x31459 ( 201817) qpERR_ABORT_QSX_INVALID_OBJ_RECOMPILE_FAILED The attempt to recompile the object was aborted. <0%s> <1%s>**
 
 **Cause:** The attempt to recompile the object failed due to creating an invalid statement.
 
 **Action:** Modify the object creating statement.
 
-**0x31471 ( 201841) qpERR_ABORT_QSX_ARRAY_INDEX_OUT_OF_RANGE Index out of range for host language array. **
+**0x31471 ( 201841) qpERR_ABORT_QSX_ARRAY_INDEX_OUT_OF_RANGE Index out of range for host language array.**
 
 **Cause:** An index in the array is either less than one or greater than the maximum size of the host language array.
 
 **Action:** Verify an index in the array or size of the host language array.
 
-**0x31472 ( 201842) qpERR_ABORT_QSX_INVALID_ARRAY_BINDING_PROTOCOL Invalid host language array binding protocol. **
+**0x31472 ( 201842) qpERR_ABORT_QSX_INVALID_ARRAY_BINDING_PROTOCOL Invalid host language array binding protocol.**
 
 **Cause:** Invalid host language array binding protocol.
 
@@ -12370,7 +12370,7 @@ NO audit condition exists on \<0%s\>**
 
 **Action:** Start auditing first.
 
-**0x3145A ( 201818) qpERR_ABORT_QDC_SNAPSHOT_NOT_IN_SERVICE_PHASE Snapshot cannot be run since the database is in the service phase. **
+**0x3145A ( 201818) qpERR_ABORT_QDC_SNAPSHOT_NOT_IN_SERVICE_PHASE Snapshot cannot be run since the database is in the service phase.**
 
 **Cause:** Snapshot can be running when the database is in the service phase.
 
@@ -13218,7 +13218,7 @@ recursive call to DBMS_CONCURRENT_EXEC package is not allowed.**
 
 **Action:** Do not call recursively to DBMS_CONCURRENT_EXEC package.
 
-**0x3147A ( 201850) qpERR_ABORT_QSF_NO_ROWS_DELETED No rows deleted. **
+**0x3147A ( 201850) qpERR_ABORT_QSF_NO_ROWS_DELETED No rows deleted.**
 
 **Cause:** There is no matching data in USER_SRS_ meta table.
 
@@ -13511,25 +13511,25 @@ between meta node and data node is mismatched.**
 **Action:** Verify the shard version with the altibase-v command to see if the
 version is correct.
 
-**0xE100D ( 921613) sdERR_ABORT_SDM_DUPLICATED_RANGE_VALUE The range value of shard key is duplicated. **
+**0xE100D ( 921613) sdERR_ABORT_SDM_DUPLICATED_RANGE_VALUE The range value of shard key is duplicated.**
 
 **Cause:** The range value of shard key is duplicated.
 
 **Action:** Verify if the range value of shard key is correct.
 
-**0xE100E ( 921614) sdERR_ABORT_SDM_INVALID_META_NODE_INFO Invalid information of shard meta node **
+**0xE100E ( 921614) sdERR_ABORT_SDM_INVALID_META_NODE_INFO Invalid information of shard meta node**
 
 **Cause:** Table SYS_SHARD.LOCAL_META_INFO_ has no record or more than one record.
 
 **Action:** Execute function DBMS_SHARD.RESET_META_NODE_ID to correct the table SYS_SHARD.LOCAL_META_INFO_.
 
-**0xE100F ( 921615) sdERR_ABORT_SDM_SHARD_RANGE_OVERFLOW There is overflow in the number of shard ranges. **
+**0xE100F ( 921615) sdERR_ABORT_SDM_SHARD_RANGE_OVERFLOW There is overflow in the number of shard ranges.**
 
 **Cause:** The shard ranges are exceeded.
 
 **Action:** Refer to the manual to verify the number of permissible shard ranges.
 
-**0xE1010 ( 921616) sdERR_ABORT_SDM_EXIST_REFERENCES_NODE There is an object that references a node. **
+**0xE1010 ( 921616) sdERR_ABORT_SDM_EXIST_REFERENCES_NODE There is an object that references a node.**
 
 **Cause:** There is an object that references a node.
 
@@ -13557,7 +13557,7 @@ value cannot be found.**
 
 **Action:** Verify if the shard key exists.
 
-**0xE1068 ( 921704) sdERR_ABORT_SDA_DATA_NODE_NOT_FOUND The data node corresponding to the shard key cannot be found. **
+**0xE1068 ( 921704) sdERR_ABORT_SDA_DATA_NODE_NOT_FOUND The data node corresponding to the shard key cannot be found.**
 
 **Cause:** The data node that matches the shard key cannot be found due to inappropriate setting of shard tables.
 
@@ -13638,37 +13638,37 @@ shard key \<0%s\> is invalid.**
 **Action:** Refer to the manual to verify the permissible range for the shard
 key.
 
-**0xE10D3 ( 921811) sdERR_ABORT_SDF_INVALID_SUB_SHARD_KEY_NAME Invalid sub-shard key name. **
+**0xE10D3 ( 921811) sdERR_ABORT_SDF_INVALID_SUB_SHARD_KEY_NAME Invalid sub-shard key name.**
 
 **Cause:** Sub-shard key name and shard key name are the same.
 
 **Action:** Verify if the name of sub-shard key is correct.
 
-**0xE10D4 ( 921812) sdERR_ABORT_SDF_UNSUPPORTED_SUB_SHARD_KEY_SPLIT_TYPE The split method of sub-shard key is not supported. **
+**0xE10D4 ( 921812) sdERR_ABORT_SDF_UNSUPPORTED_SUB_SHARD_KEY_SPLIT_TYPE The split method of sub-shard key is not supported.**
 
 **Cause:** Unsupported sub-shard key split method.
 
 **Action:** Verify that the split method of the sub-shard key.
 
-**0xE10D5 ( 921813) sdERR_ABORT_SDF_UNSUPPORTED_SHARD_SPLIT_METHOD_NAME The shard split method is not supported. **
+**0xE10D5 ( 921813) sdERR_ABORT_SDF_UNSUPPORTED_SHARD_SPLIT_METHOD_NAME The shard split method is not supported.**
 
 **Cause:** The shard split method is not supported.
 
 **Action:** Verify that the split method name.
 
-**0xE10D6 ( 921814) sdERR_ABORT_SDF_UNSUPPORTED_META_CONNTYPE The internal(meta) connection type is not supported. : <0%d> **
+**0xE10D6 ( 921814) sdERR_ABORT_SDF_UNSUPPORTED_META_CONNTYPE The internal(meta) connection type is not supported. : <0%d>**
 
 **Cause:** Supported internal connection types are 1, 8.
 
 **Action:** Verify the internal connection type.
 
-**0xE10D7 ( 921815) sdERR_ABORT_SDF_CANNOT_DELETE_CURRENT_SMN The shard meta data as the current SMN can not be deleted. **
+**0xE10D7 ( 921815) sdERR_ABORT_SDF_CANNOT_DELETE_CURRENT_SMN The shard meta data as the current SMN can not be deleted.**
 
 **Cause:** Only the shard meta data with the old shard meta number can be deleted.
 
 **Action:** Check the current shard meta number of SYS_SHARD.GLOBAL_META_INFO_.
 
-**0xE10D8 ( 921816) sdERR_ABORT_SDF_INVALID_META_CHANGE Invalid shard meta change information **
+**0xE10D8 ( 921816) sdERR_ABORT_SDF_INVALID_META_CHANGE Invalid shard meta change information**
 
 **Cause:** The shard meta information that you need is not exist. 
 
@@ -13756,49 +13756,49 @@ failed.**
 
 **Action:** Verify the memory usage.
 
-**0xE1138 ( 921912) sdERR_ABORT_SHARD_XA_LIBRARY_ERROR An error occurred in the library function call when executing <1%s> for shard <0%s>. **
+**0xE1138 ( 921912) sdERR_ABORT_SHARD_XA_LIBRARY_ERROR An error occurred in the library function call when executing <1%s> for shard <0%s>.**
 
 **Cause:** There is an error in library function call of shard xa function
 
 **Action:** Verify the state of shard library.
 
-**0xE1139 ( 921913) sdERR_ABORT_SHARD_LIBRARY_FAILOVER_SUCCESS The <1%s> of server-side failover success.: <0%s> <2%s> **
+**0xE1139 ( 921913) sdERR_ABORT_SHARD_LIBRARY_FAILOVER_SUCCESS The <1%s> of server-side failover success.: <0%s> <2%s>**
 
 **Cause:** Session failover success
 
 **Action:** Re-execute application logic.
 
-**0xE113A ( 921914) sdERR_ABORT_INTERNAL_ALTERNATE_NODE_SETTING_IS_MISSING Alternate shard node <0%s> information is missing from external or internal network settings. **
+**0xE113A ( 921914) sdERR_ABORT_INTERNAL_ALTERNATE_NODE_SETTING_IS_MISSING Alternate shard node <0%s> information is missing from external or internal network settings.**
 
 **Cause:** Alternate shard node information is missing from external or internal network settings.
 
 **Action:** Verify the alternate host IP and port number of the shard node.
 
-**0xE113B ( 921915) sdERR_ABORT_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE Failover is not available. **
+**0xE113B ( 921915) sdERR_ABORT_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE Failover is not available.**
 
 **Cause:** Failed to connect to shard library or coordinates.
 
 **Action:** Check the shard node status or network.
 
-**0xE113C ( 921916) sdERR_ABORT_EXECUTE_NULL_SD_STMT The shard statement cannot be found when performing <1%s> to shard data node <0%s>. **
+**0xE113C ( 921916) sdERR_ABORT_EXECUTE_NULL_SD_STMT The shard statement cannot be found when performing <1%s> to shard data node <0%s>.**
 
 **Cause:** The statement in the shard coordinator does not exist.
 
 **Action:** Verify the statement in the shard coordinator.
 
-**0xE1191 ( 922001) sdERR_ABORT_SDPJ_SYNTAX JSON syntax error **
+**0xE1191 ( 922001) sdERR_ABORT_SDPJ_SYNTAX JSON syntax error**
 
 **Cause:** The unusable reserved words or delimiter inapplicable was used. Or the reserved word cannot be used.
 
 **Action:** Refer to JSON format.
 
-**0xE1192 ( 922002) sdERR_ABORT_SDPJ_ALLOC JSON parsering failed at <0%d>% due to insufficient memory buffer. **
+**0xE1192 ( 922002) sdERR_ABORT_SDPJ_ALLOC JSON parsering failed at <0%d>% due to insufficient memory buffer.**
 
 **Cause:** There is insufficient memory buffer in JSON parser.
 
 **Action:** Verify the memory buffer size.
 
-**0xE1193 ( 922003) sdERR_ABORT_SDPJ_CONVERT Fail to convert the condition to shard analyze information. (<0%s>) **
+**0xE1193 ( 922003) sdERR_ABORT_SDPJ_CONVERT Fail to convert the condition to shard analyze information. (<0%s>)**
 
 **Cause:** The condition does not contain shard information or is incorrect.
 
@@ -13818,37 +13818,37 @@ connection cannot be initialized.**
 
 **Action:** Verify the key range for shard split method.
 
-**0xE1323 ( 922403) sdERR_ABORT_SDI_NOT_EXIST_SHARD_ANALYSIS The result of shard analysis does not exist. **
+**0xE1323 ( 922403) sdERR_ABORT_SDI_NOT_EXIST_SHARD_ANALYSIS The result of shard analysis does not exist.**
 
 **Cause:** The result of shard analysis does not exist.
 
 **Action:** Verify the distribution setting or shard key value.
 
-**0xE1324 ( 922404) sdERR_ABORT_SDI_DATA_NODE_NOT_FOUND The data node corresponding to the shard key cannot be found. **
+**0xE1324 ( 922404) sdERR_ABORT_SDI_DATA_NODE_NOT_FOUND The data node corresponding to the shard key cannot be found.**
 
 **Cause:** The data node that matches the shard key cannot be found due to inappropriate setting of shard tables.
 
 **Action:** Verify the distribution setting or shard key value.
 
-**0xE1325 ( 922405) sdERR_ABORT_SDI_DUPLICATED_NODE_NAME Duplicate node name <0%s> **
+**0xE1325 ( 922405) sdERR_ABORT_SDI_DUPLICATED_NODE_NAME Duplicate node name <0%s>**
 
 **Cause:** Duplicate node name
 
 **Action:** Verify that no duplicate node names are specified.
 
-**0xE1326 ( 922406) sdERR_ABORT_SDI_INVALID_NODE_NAME Invalid node name <0%s> **
+**0xE1326 ( 922406) sdERR_ABORT_SDI_INVALID_NODE_NAME Invalid node name <0%s>**
 
 **Cause:** Invalid node name
 
 **Action:** Verify that the node name is valid.
 
-**0xE1327 ( 922407) sdERR_ABORT_SDI_INVALID_NODE_NAME2 Invalid node name: <0%s> **
+**0xE1327 ( 922407) sdERR_ABORT_SDI_INVALID_NODE_NAME2 Invalid node name: <0%s>**
 
 **Cause:** Invalid node name
 
 **Action:** Verify that the node name is valid.
 
-**0xE1328 ( 922408) sdERR_ABORT_SDI_SHARD_META_PROPAGATION_TIMEOUT Shard meta update propagation timeout. **
+**0xE1328 ( 922408) sdERR_ABORT_SDI_SHARD_META_PROPAGATION_TIMEOUT Shard meta update propagation timeout.**
 
 **Cause:** The changes of the shard meta information are not arrived in time limit.
 
@@ -13868,13 +13868,13 @@ supported and the following error occurs.: \<0%s\> \<1%s\>**
 
 **Action:** Rewrite the shard query.0xE1387
 
-**0xE1387 ( 922503) sdERR_ABORT_UNSUPPORTED_SHARD_DATA_IN_DML The shard keyword is not supported in DML statements **
+**0xE1387 ( 922503) sdERR_ABORT_UNSUPPORTED_SHARD_DATA_IN_DML The shard keyword is not supported in DML statements**
 
 **Cause:** The shard query is invalid.
 
 **Action:** Rewrite the shard query.
 
-**0xE1388 ( 922504) sdERR_ABORT_SHARD_REBUILD_ERROR Shard rebuild error **
+**0xE1388 ( 922504) sdERR_ABORT_SHARD_REBUILD_ERROR Shard rebuild error**
 
 **Cause:** The changes of the shard meta information are not applicable on online.
 
@@ -19465,7 +19465,7 @@ non-blocking mode.
 
 **Action:** Contact Altibase's Support Center (http://support.altibase.com).
 
-**0x710C5 ( 463045) cmERR_ABORT_UNSUPPORTED_BIND_HOSTNAME Unable to bind hostname to the socket. [hostname : <0%s>] **
+**0x710C5 ( 463045) cmERR_ABORT_UNSUPPORTED_BIND_HOSTNAME Unable to bind hostname to the socket. [hostname : <0%s>]**
 
 **Cause:** Binding a hostname to the socket is not supported.
 
@@ -19527,7 +19527,7 @@ operation would be blocked**
 **Action:** Check the error number in the trace log and contact your operating
 system engineer.
 
-**0xC002D ( 786477) dkERR_FATAL_DK_FAILED A fatal error occurred!! This error is very critical. **
+**0xC002D ( 786477) dkERR_FATAL_DK_FAILED A fatal error occurred!! This error is very critical.**
 
 **Cause:**
 
@@ -20311,7 +20311,7 @@ transaction level while global transaction is running.**
 
 **Action:** Please try again after finish global transaction.
 
-**0xC106A ( 790634) dkERR_ABORT_DK_INTERNAL_ERROR Internal error occurs. (<0%s>). **
+**0xC106A ( 790634) dkERR_ABORT_DK_INTERNAL_ERROR Internal error occurs. (<0%s>).**
 
 **Cause:**
 
@@ -20439,7 +20439,7 @@ exist.**
 
 **Action:** Check the Altibase Log Analysis API.
 
-**0x51013 ( 331795) ulaERR_ABORT_NET_INITIALIZE_CONTEXT Failed to initialize network context [<0%s>] **
+**0x51013 ( 331795) ulaERR_ABORT_NET_INITIALIZE_CONTEXT Failed to initialize network context [<0%s>]**
 
 **Cause:**
 
@@ -20476,7 +20476,7 @@ protocol [\<0%s\>]**
 
 **Action:** Check the replication protocol version.
 
-**0x51019 ( 331801) ulaERR_ABORT_NET_FINALIZE_PROTOCOL Failed to finalize network protocol [<0%s>] **
+**0x51019 ( 331801) ulaERR_ABORT_NET_FINALIZE_PROTOCOL Failed to finalize network protocol [<0%s>]**
 
 **Cause:**
 
@@ -20486,7 +20486,7 @@ protocol [\<0%s\>]**
 
 - Please send a bug report to the vendor.
 
-**0x5101A ( 331802) ulaERR_ABORT_NET_FINALIZE_CONTEXT Failed to finalize network context [<0%s>] **
+**0x5101A ( 331802) ulaERR_ABORT_NET_FINALIZE_CONTEXT Failed to finalize network context [<0%s>]**
 
 **Cause:**
 
@@ -20518,7 +20518,7 @@ pool**
 **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
-**0x5101F ( 331807) ulaERR_ABORT_MEM_POOL_FREE Memory free failure in pool **
+**0x5101F ( 331807) ulaERR_ABORT_MEM_POOL_FREE Memory free failure in pool**
 
 **Cause:**
 
@@ -20535,7 +20535,7 @@ pool**
 
 **Action:** Verify that there is enough available memory.
 
-**0x51021 ( 331809) ulaERR_ABORT_MEM_POOL_DESTROY Failed to destroy memory pool **
+**0x51021 ( 331809) ulaERR_ABORT_MEM_POOL_DESTROY Failed to destroy memory pool**
 
 **Cause:**
 
@@ -20878,7 +20878,7 @@ maximum.
 
 **Action:** Check the Altibase Log Analysis API.
 
-**0x52034 ( 335924) ulaERR_IGNORE_API_INITIALIZE Global initialization failed **
+**0x52034 ( 335924) ulaERR_IGNORE_API_INITIALIZE Global initialization failed**
 
 **Cause:**
 
@@ -20910,7 +20910,7 @@ Support Center (http://support.altibase.com).
 **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
-**0x52038 ( 335928) ulaERR_IGNORE_CMT_INITIALIZE Failed to initialize CMT **
+**0x52038 ( 335928) ulaERR_IGNORE_CMT_INITIALIZE Failed to initialize CMT**
 
 **Cause:**
 
@@ -20951,7 +20951,7 @@ to CMT value**
 **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
-**0x5203D ( 335933) ulaERR_IGNORE_CMT_TO_COLUMN_COPY Failed to copy CMT value to ulnColumn value **
+**0x5203D ( 335933) ulaERR_IGNORE_CMT_TO_COLUMN_COPY Failed to copy CMT value to ulnColumn value**
 
 **Cause:**
 
