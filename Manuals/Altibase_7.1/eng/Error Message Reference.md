@@ -201,47 +201,47 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 **Action:** Please send a bug report to the vendor.
 
-**0x00018 ( 24) idERR_FATAL_idc_INVALID_CHANNEL_TYPE Unsupported communication channel.** 
+**0x00018 ( 24) idERR_FATAL_idc_INVALID_CHANNEL_TYPE Unsupported communication channel.**
 
-*Cause: The system tried to use an unsupported communication channel.
+**Cause:** The system tried to use an unsupported communication channel.
 
-*Action: Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x00019 ( 25) idERR_FATAL_idc_MUTEX_LOCK Failed to invoke the mutex_lock() system function** 
 
-*Cause: Failed to invoke the mutex_lock() system function.
+**Cause:** Failed to invoke the mutex_lock() system function.
 
-*Action: Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x0001A ( 26) idERR_FATAL_idc_MUTEX_UNLOCK Failed to invoke the mutex_unlock() system function** 
 
-*Cause: Failed to invoke the mutex_unlock() system function.
+**Cause:** Failed to invoke the mutex_unlock() system function.
 
-*Action: Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x0001B ( 27) idERR_FATAL_idc_CLOSE_FAILED Unable to close the communication channel** 
 
-*Cause: Failed to invoke the close() system function.
+**Cause:** Failed to invoke the close() system function.
 
-*Action: Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x0001C (     28) idERR_FATAL_idc_SOCKET_SHUTDOWN_FAILED Unable to shut down the communication channel** 
 
-*Cause: Failed to invoke the shutdown() system function.
+**Cause:** Failed to invoke the shutdown() system function.
 
-*Action: Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x0001D ( 29) idERR_FATAL_idc_INET_SOCKET_CREATE_FAILED Unable to create an INET socket** 
 
-*Cause: Failed to invoke the socket() function on an INET socket.
+**Cause:** Failed to invoke the socket() function on an INET socket.
 
-*Action: Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x0001E ( 30) idERR_FATAL_idc_UNIX_SOCKET_CREATE_FAILED Unable to create a UNIX domain socket**
 
-Cause: Failed to invoke the socket() function on a UNIX domain socket
+**Cause:** Failed to invoke the socket() function on a UNIX domain socket
 
-Action: Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x0001F ( 31) idERR_FATAL_idc_SVC_INET_BIND_ERROR Unable to bind the INET socket.(\<0%d\>)**
 
@@ -5202,7 +5202,7 @@ Mathematics Module.**
 
 **0x610B9 ( 397497) rpERR_ABORT_RP_NOT_DROP_ONE_HOST You cannot drop only one host.**
 
-Cause: Replication cannot be dropped when only one host is remaining.
+**Cause:** Replication cannot be dropped when only one host is remaining.
 
 **Action:** Drop the replication object, or insert another host and drop the host.
 
@@ -9366,7 +9366,7 @@ qpERR_ABORT_QDX_NOT_ALLOWED_PRIMARY_AND_UNIQUE_KEY_OF_NONE_PREFIXED_INDEX Unable
 to create a primary key or a unique key constraint in the local non-prefixed
 index.**
 
-Cause: The user tried to create a primary key or a unique key constraint in
+**Cause:** The user tried to create a primary key or a unique key constraint in
 the local prefixed index.
 
 **Action:** Do not create a primary key or a unique key constraint in the local
@@ -10085,7 +10085,7 @@ ALTER SESSION command.
 **0x3134B ( 201547) qpERR_ABORT_QMV_NOT_SUPPORT_SUBQUERY Unsupported use of
 subquery in RETURNING INTO clause**
 
-\#\*Cause: A subquery was used in a RETURNING INTO clause.
+\#\**Cause:** A subquery was used in a RETURNING INTO clause.
 
 **Action:** Remove the subquery from the RETURNING INTO clause.
 
@@ -15421,10 +15421,10 @@ access list.**
 **0x410F1 ( 266481) mmERR_ABORT_INVALID_ACCESS_LIST_VALUE The value of
 ACCESS_LIST is not acceptable : (Line \<0%d\>) \<1%s\>**
 
-\#\*Cause: The data in the access list file is not compatible with the specified
+\#\**Cause:** The data in the access list file is not compatible with the specified
 ACCESS_LIST format.
 
-\#\*Action: Modify the data to comply with the ACCESS_LIST format.
+\#\**Action:** Modify the data to comply with the ACCESS_LIST format.
 
 **0x410F2 ( 266482) mmERR_ABORT_INVALID_SNAPSHOT_SCN This is a snapshot SCN
 which cannot execute SELECT.**
@@ -18203,7 +18203,7 @@ the trace log and contact Altibase's Support Center
 **0x910CA ( 594122) utERR_ABORT_AUDIT_Create_Instance_Error Failed to create
 object \<0%s\>**
 
-Cause: The application failed to allocate memory to create an object.
+**Cause:** The application failed to allocate memory to create an object.
 
 **Action:** Verify that there is enough memory to run the application. If
 necessary, make more memory available for the application.
