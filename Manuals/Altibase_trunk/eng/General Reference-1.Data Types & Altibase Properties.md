@@ -15260,3 +15260,19 @@ This property specifies the size of the VARCHAR type that the SYS_CONNECT_BY_PAT
 
 This property can be modified using the ALTER SYSTEM statement while Altibase is running.
 
+This is a property that sets the regular expression mode. Each value indicates the following.
+
+>  **0**
+
+Altibase regular expression mode.
+
+POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE) are partially supported.
+
+> **1**
+
+PCRE2 compatibility mode.
+
+Supports the regular expression syntax of the Perl Compatible Regular Expressions (PCRE2) library.
+
+This mode can be used when the Altibase server character set is US7ASCII or UTF-8, and there is a difference in syntax from Altibase regular expression mode. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md#appendix-a-regular-expressions).
+
