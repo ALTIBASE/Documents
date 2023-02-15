@@ -16744,3 +16744,41 @@ Unsigned Integer
 ##### 설명
 
 병렬 큐(Parallel Queue)가 담을 수 있는 최대 로우(row) 수를 지정한다.
+
+#### REGEXP_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+##### 설명
+
+정규 표현식 모드를 설정하는 프로퍼티로, 설정값의 의미는 아래와 같다.
+
+> **0**
+
+Altibase 정규 표현식 모드.
+
+POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)을 일부 지원한다.
+
+> **1**
+
+PCRE2 호환 모드.
+
+펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리의 정규 표현식 문법을 지원한다.
+
+이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
