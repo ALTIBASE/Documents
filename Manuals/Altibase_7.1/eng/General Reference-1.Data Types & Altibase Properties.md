@@ -15189,16 +15189,18 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the library that will be used for the regular expressions. Each value indicates the following.
+This is a property that sets the regular expression mode. Each value indicates the following.
 
-- 0
+>  **0**
 
-  Altibase Regular Expression Library that supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression(ERE) partially
+Altibase regular expression mode.
 
-- 1
+POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE) are partially supported.
 
-  Perl Compatible Regular Expressions (PCRE2) Library
+> **1**
 
-  This library is only supported when the Altibase server character set is US7ASCII or UTF-8. There are syntax differences with Altibase Regular Expression Library. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/SQL%20Reference.md#appendix-a-regular-expressions).
+PCRE2 compatibility mode.
 
-  For more information about the PCRE2 library, please refer to [PCRE2 Homepage](https://www.pcre.org/).
+Supports the regular expression syntax of the Perl Compatible Regular Expressions (PCRE2) library.
+
+This mode can be used when the Altibase server character set is US7ASCII or UTF-8, and there is a difference in syntax from Altibase regular expression mode. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/SQL%20Reference.md#appendix-a-regular-expressions).
