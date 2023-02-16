@@ -8200,6 +8200,18 @@ MySQL과 Altibase 간 국가별 문자 집합의 글자 당 바이트 수가 서
 
 <br/>
 
+### PostgreSQL
+
+#### 마이그레이션 된 Altibase 시퀀스의 start with값이 기대한 값보다 너무 크게 설정되어 있다.
+
+`원인`
+
+PostgreSQL 시퀀스는 세션단위로 캐싱된다. 마이그레이션 대상 시퀀스를 다른 어플리케이션에서 사용 도중 마이그레이션되면 알티베이스에 생성된 시퀀스의 start with 값이 기대한 값보다 cache_value 횟수* increment_by * 초과 연결된 세션 갯수 값만큼 더 증가한다. 예를 들어 start_value 1, increment_by 1, cache_value 100인 시퀀스 생성 후  select nextval('seq_name')을 수행하면 첫번째 세션에서 1이 출력되지만 두번째 세션에서는 101이 출력된다. 
+
+`해결 방법`
+
+마이그레이션 수행 전 PostgreSQL에 연결된 모든 어플리케이션 연결을 끊어야 한다. 
+
 ### TimesTen
 
 #### 연결정보 등록 중, “Test” 버튼 클릭 시 오류 메시지 'Problems with loading native library/missing methods: no ttJdbcCS in java.library.path'가 출력된다.
