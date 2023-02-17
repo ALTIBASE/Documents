@@ -2122,12 +2122,6 @@ aku에서 생성하는 Altibase 이중화 객체 이름은 *REPLICATION_NAME_PRE
 
 ⚠️ aku가 생성하는 Altibase 이중화 객체는 사용자가 임의로 생성/삭제/수정하면 안 된다. 
 
-> aku 설정 파일 작성 시 주의사항
-
-aku 설정 파일은 주석을 허용하지 않는다. 프로퍼티 앞에 주석을 추가하면 `Cannot parse aku.conf` 에러가 발생한다.
-
-aku 프로퍼티 중 기본값이 없는 프로퍼티를 aku.conf에 명시하지 않으면 `[ERROR] Property [proerty_name] should be specified by configuration.` 에러가 발생한다.
-
 
 
 ## 구문
