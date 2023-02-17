@@ -2017,17 +2017,17 @@ MOSO = SU
 
 ## 개요
 
-aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod) 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행할 수 있게 도와주는 유틸리티이다. *Altibase 7.1.0.8.1 부터 제공한다.*(Altibase 7.1 매뉴얼에 추가)
+aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod) 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행할 수 있게 도와주는 유틸리티이다. 
 
 > 스테이트풀셋은 데이터베이스처럼 상태 유지가 필요한 애플리케이션을 지원하기 위한 쿠버네티스의 워크로드 컨트롤러 중 하나이며, 스케일링은 파드를 생성하거나 종료하는 것을 의미한다. 파드는 컨테이너들을 담고 있는 쿠버네티스의 리소스이며, 이 컨테이너에 Altibase 서버가 실행된다. 
 
 스테이트풀셋에서 스케일 업/다운할 때 아래의 조건에 해당하는 파드를 생성하거나 종료하고자 할 때 aku 유틸리티를 사용할 수 있다. 이때, aku 유틸리티가 Altibase 컨테이너에서 실행되도록 적당한 위치에 명령어를 추가해야 한다.
 
-###### 스케일 업
+#### 스케일 업
 
 기존 파드의 Altibase 서버와 동일한 데이터를 가진 파드를 생성한다.
 
-###### 스케일 다운
+#### 스케일 다운
 
 파드를 종료할 때 Altibase 서버의 이중화 정보를 초기화한다. 
 
@@ -2121,6 +2121,12 @@ aku에서 생성하는 Altibase 이중화 객체 이름은 *REPLICATION_NAME_PRE
 |              | AKU_REP_23       | *pod_name*-2와 *pod_name*-3의 이중화 객체                    |
 
 ⚠️ aku가 생성하는 Altibase 이중화 객체는 사용자가 임의로 생성/삭제/수정하면 안 된다. 
+
+> aku 설정 파일 작성 시 주의사항
+
+aku 설정 파일은 주석을 허용하지 않는다. 프로퍼티 앞에 주석을 추가하면 `Cannot parse aku.conf` 에러가 발생한다.
+
+aku 프로퍼티 중 기본값이 없는 프로퍼티를 aku.conf에 명시하지 않으면 `[ERROR] Property [proerty_name] should be specified by configuration.` 에러가 발생한다.
 
 
 
@@ -2263,8 +2269,6 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 <div align="left">
     <img src="media/Utilities/aku_p_end.jpg"></img>
 </div>
-
-
 1️⃣ 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 이미 삭제된 상태이기 때문에 접속 에러가 발생할 수 있다. 이는 정상적인 동작이다.
 
 2️⃣ 해당 파드의 이중화 객체에 ALTER REPLICATION *replication_name* FLUSH ALL 명령을 수행하여 변경 로그를 모두 전송한다. aku 설정 파일에 AKU_FLUSH_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
@@ -2358,9 +2362,11 @@ aku 유틸리티를 안정적으로 사용하기 위해 쿠버네티스 환경 �
 - 스케일 업할 수 있는 레플리카는 **최대 4개**이다.
 - 파드 종료 시 aku 수행을 완료할 수 있는 시간을 확보해야 한다. 따라서, 쿠버네티스에서 파드를 강제 종료하는 대기 시간인 terminationGracePeriodSeconds를 충분히 크게 설정해야 한다.
 
+<br/>
+
 ## 사용 예
 
-##### 예시 1
+### 예시 1
 
 -i 파라미터를 사용하여 aku를 실행한 결과이다. 아래 결과는 [aku 설정 파일](#aku-설정-파일)의 aku.conf.sample로 구성한 aku.conf에서 수행한 예시이다. Server ID가 0인 것은 스테이트풀셋 컨트롤러에서 처음 생성한 파드를 의미한다.
 
@@ -2406,7 +2412,7 @@ $ aku -i
  #########################
 ~~~
 
-##### 예시 2
+### 예시 2
 
 첫 번째 파드(AKUHOST-0)에서 aku -p start를 수행한 예시이다. 
 
@@ -2479,7 +2485,7 @@ MASTER AKU Initialize
 AKUHOST-0.altibase-svc: REPLICAION AKU_REP_01 Start Failure
 ~~~
 
-##### 예시 3
+### 예시 3
 
 4번째 파드(AKUHOST-3)에서 aku -p start 명령을 수행한 예시이다. Master Pod는 스테이트풀셋에서 생성한 첫 번째 파드를 의미한다. 
 
@@ -2516,7 +2522,7 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 Start Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success  
 ~~~
 
-##### 예시 4
+### 예시 4
 
 4번째 파드에서 `aku -p end` 명령을 수행할 때의 출력 결과이다. 4번째 파드와 이중화로 연결된 모든 파드에 이중화 중지 및 RESET 명령이 수행된 것을 볼 수 있다. 
 
