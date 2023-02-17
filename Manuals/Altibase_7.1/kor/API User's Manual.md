@@ -3566,7 +3566,6 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 | DbDataSourceEnumerator                 |  | 클래스 |  |             |
 | DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator* |                    |
 | DbParameter           | AltibaseParameter            | 메서드 | ResetDbType                                                  |                    |
-|                       |                              | 메서드 | Clone <br />*.NET Core 3.1 API에 clone 메서드는 없음. 확인 필요* |                    |
 | DbParameterCollection | AltibaseParameterCollection  | 메서드 | AddRange                                                     |                    |
 
  
