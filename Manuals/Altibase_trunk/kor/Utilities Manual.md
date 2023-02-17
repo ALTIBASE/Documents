@@ -2092,7 +2092,7 @@ REPLICATIONS = (
 | AKU_REPLICATION_PORT_NO              | 20301  | Altibase 이중화 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_QUERY_TIMEOUT                    |  3600  | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. ALTER REPLICATION 등 aku에서 수행한 SQL의 수행 시간이 이 값을 초과하면 해당 문장은 취소된다. |
 | AKU_FLUSH_AT_START                   |   1    | aku -p start시 FLUSH 명령으로 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 갭을 제거하며, 0이면 제거하지 않고 시작한다. |
-| AKU_FLUSH_TIMEOUT_AT_START           |  300   | AKU_FLUSH_AT_STAT가 1일 때, FLUSH ALL을 수행할 지 FLUSH WAIT을 수행할 지 설정한다. <br />0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time* 을 수행한다. *wait_time*은 이 프로퍼티의 값으로 설정된다. |
+| AKU_FLUSH_TIMEOUT_AT_START           |  300   | FLUSH WAIT 명령의 *wait_time*을 설정한다. AKU_FLUSH_AT_STAT가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
 | AKU_FLUSH_AT_END                     |   1    | 슬레이브 파드에서 aku -p end 명령을 수행할 때 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
 | REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>*REPLICATION_NAME_PREFIX*_\[*파드번호*]\[*파드번호*\]  형태로 이중화 객체 이름을 생성한다.<sup>[이중화 객체 이름 생성 규칙](#rep_name_rules)</sup> |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
@@ -2216,7 +2216,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   
   비정상적으로 종료된 슬레이브 파드에서 aku -p start 를 수행할 때 aku의 동작을 설명한다.
   
-  비정상적으로 종료된 슬레이브 파드는 aku -p end 를 수행하지 않았거나 정상적으로 완료하지 않아 Altibase에 이중화 정보가 남아있는, 즉 이중화 관련 메타 테이블에서 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가진 파드를 말한다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
+  비정상적으로 종료된 슬레이브 파드는 aku -p end 명령을 수행하지 않았거나 정상적으로 완료하지 않아 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
   
   <div align="left">
       <img src="media/Utilities/aku_p_start_aku_flush_at_start_1.jpg"></img>
