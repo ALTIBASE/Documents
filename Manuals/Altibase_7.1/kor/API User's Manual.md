@@ -3076,26 +3076,23 @@ altibase_check_server의 예제를 참고한다.
 
 Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다.
 
-Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사용할 수 있도록 구현하였다. .NET Core 개발자는 ADO.NET을 이용하여 DBMS와 같은 데이터 소스에 접근하여 명령을 수행하고 데이터를 조회하며, 결과를 가공하여 다시 데이터 소스에 반영할 수 있다. 
+Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사용할 수 있도록 구현한 것이다. .NET Core 개발자는 ADO.NET을 이용하여 DBMS와 같은 데이터 소스에 접근하여 명령을 수행하고 데이터를 조회하며, 결과를 가공하여 다시 데이터 소스에 반영할 수 있다. 
 
-Altibase ADO.NET의 가장 큰 장점은 Altibase 서버 버전을 업그레이드 하더라도 Altibase CLI 라이브러리 버전을 Altibase 서버와 같은 버전으로 맞추면 애플리케이션을 변경하지 않고 사용할 수 있다.
 
 마이크로소프트의 ADO.NET에 관한 보다 자세한 내용은 마이크로소프트의 .NET 문서(https://learn.microsoft.com/ko-kr/dotnet/)를 참고한다.
 
 #### 요구사항
+- Altibase CLI 라이브러리(예, odbccli_sl.dll)
+  Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET Nuget 패키지에 포함되어 있다.
+  - Linux x86-64  : libdotnet_sl.so
+  - Windows x64 : dotnet_sl.dll
 
 - Altibase 7.1.0.x.x 이상*(태그가 릴리즈되면 수정해야 함)*
 - .NET Core 3.1
-- Altibase CLI 라이브러리(예, odbccli_sl.dll)
-  Altibase ADO.NET은 Altibase CLI 라이브러리를 이용하여 Altibase 서버에 접속하므로 CLI 라이브러리가 필요하다. 
-  Altibase ADO.NET Nuget 패키지에 기본 포함된 CLI 라이브러리는 아래와 같다.
-
-  - Linux x86-64
-  - Windows
 
 #### 지원 OS
 
-Altibase ADO.NET에서 지원하는 OS는 .NET Core 3.1의 지원 OS와 Altibase 7.1 클라이언트의 지원 OS에서 공통되는 OS 이다.
+Altibase ADO.NET이 지원하는 OS는 .NET Core 3.1의 지원 OS중에서 Altibase 7.1 클라이언트가 지원하는 OS이다.
 
 - [.NET Core 3.1 - Supported OS versions](https://github.com/dotnet/core/blob/main/release-notes/3.1/3.1-supported-os.md#net-core-31---supported-os-versions)
 - [Altibase 7.1 클라이언트의 지원 OS](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71-server--client)
@@ -3110,7 +3107,7 @@ Altibase ADO.NET Nuget 패키지에 원하는 OS의 CLI 라이브러리가 포�
 
 #### Altibase ADO.NET 다운로드
 
-[Nuget 사이트](http://nuget.org/)에서 Altibase.Data.AltibaseClient.7.1.0-1.0.nupkg 파일을 다운로드한다.
+[Nuget 사이트](http://nuget.org/)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
 
 
 
@@ -3122,7 +3119,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
 
 >  **dotnet CLI에서 컴파일하는 방법**
 
-1️⃣ dotnet CLI에서 NuGet 구성 파일의 소스를 조회하는 명령을 수행한다.
+1️⃣ dotnet CLI에서 NuGet 소스를 조회하는 명령을 수행한다.
 
 ~~~c
 [user@ /] dotnet nuget list source
@@ -3152,7 +3149,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
 3️⃣ 프로젝트를 빌드한다.
 
 ~~~
-[user@ /] donet build.demo.csproj
+[user@ /] donet build demo.csproj
 ~~~
 
 
@@ -3165,7 +3162,7 @@ IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록�
 
 ![img](http://nok.altibase.com/download/attachments/69933904/image2023-1-30%2014%3A15%3A23.png?version=1&modificationDate=1675055723000&api=v2)
 
-2️⃣ Nuget 패키지 관리자에서 nuget.org 에서 Altibase.Data.AltibaseClient 를 설치한다.
+2️⃣ Nuget 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
 
 
 
@@ -3202,7 +3199,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
   Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
   - 시스템 : 설정한 속성이 다른 세션에 영향을 준다.
   - 세션 : 설정한 속성은 해당 세션에만 영향을 준다.
-  Altibase 서버에 연결 과정에서 영향을 받는 연결 속성은 'N/A'이라고 표시하였다.
+  - N/A : 이 속성은 Altibase 서버에 연결하는 과정에서만 영향을 받는다.
 - 설명: 연결 속성에 대한 설명
 
 ###### application name
@@ -3367,7 +3364,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 연결은 연결 속성 max pool size의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 connection life time 값을 초과하는 연결이 발생할 때까지 대기한다.
 
-예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 풀에서 회수된다.
+예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
 
 ##### 연결 제거
 
@@ -3443,7 +3440,7 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 배열 바인딩할 때 다음 사항을 주의해야 한다.
 
 - ArrayBindCount의 유효 범위는 1부터 65535까지이다. 배열 크기를 무조건 크게 잡는다고 속도가 빨라지는 것은 아니므로 적당한 크기로 바인딩한다.
-- CHAR, VARCHAR, BLOB 타입은 배열 단일 요소의 데이터 길이가 ArrayBindSize를 넘으면 에러가 발생한다.
+- CHAR, VARCHAR, BLOB 타입은 배열 단일 요소의 데이터 크기가 ArrayBindSize를 넘으면 에러가 발생한다.
 - NCHAR, NVARCHAR 타입은 ArrayBindSize 값을 byte가 아닌 문자 수로 설정해야 한다.
 - BLOB 타입은 응응 프로그램에서 배열 타입으로 Object[]를 쓰고, 배열 원소는 byte[]를 사용한다.
   - 예시 
@@ -3518,12 +3515,10 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 다음은 .NET Core 클래스 중 기본 구현을 그대로 상속받은 API 목록이다. 
 
-| .NET Core API 클래스                                         | Altibase ADO.NET 클래스 | 구분   |                               |
+| ADO.NET API 클래스                                         | Altibase ADO.NET 클래스 | 구분   |                               |
 | :----------------------------------------------------------- | :---------------------- | ------ | ----------------------------- |
 | Dbproviderfactory                                            | *?*                     | 메서드 | CreateCommandBuilder          |
 | Dbproviderfactory                                            |                         | 메서드 | CreateConnectionStringBuilder |
-| Dbproviderfactory                                            |                         | 메서드 | CreateDataSourceEnumerator    |
-| CreatePermission<br />*네임스페이스: [System.Data.Common](https://learn.microsoft.com/ko-kr/dotnet/api/system.data.common?view=netcore-3.1)에서 <br />검색되지 않음. <br />확인 필요* |                         |        |                               |
 | Dbdatareader                                                 | AltibaseDataReader      | 메서드 | GetProviderSpecificFieldType  |
 | Dbdatareader                                                 |                         | 메서드 | GetProviderSpecificValue      |
 | Dbdatareader                                                 |                         | 속성   | VisibleFieldCount             |
@@ -3545,7 +3540,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 아래 표는 Altibase ADO.NET에서 지원하지 않는 인터페이스 목록이다. 지원하지 않는 인터페이스를 사용하면 NotImplementedException에러가 발생한다.
 
-| .NET Core API 클래스  | Altibase ADO.NET 클래스      | 구분   | 구성 요소                                                    |                    |
+| ADO.NET API 클래스  | Altibase ADO.NET 클래스      | 구분   | 구성 요소                                                    |                    |
 | --------------------- | :--------------------------- | :----- | :----------------------------------------------------------- | :----------------- |
 | DbConnection          | AltibaseConnection           | 메서드 | ChangeDatabase                                               |                    |
 |                       |                              | 속성   | DataSource                                                   |                    |
@@ -3568,13 +3563,11 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 |                       |                              | 메서드 | GetBatchedRecordsAffected(int commandIdentifier, out int recordsAffected, out Exception error) |                    |
 |                       |                              | 메서드 | InitializeBatching                                           |                    |
 |                       |                              | 메서드 | TerminateBatching                                            |                    |
-| *???*                 | AltibaseDataSourceEnumerator | 클래스 | *네임스페이스:System.Data.Common에서 검색 안됨* *<br />*지원 안 하는 클래스인데.. Altibase가 붙은 클래스 이름도 이상.. 혹시 아래 메소드가 아닌지??* | *삭제?*            |
-| DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator<br />*기본 메서드를 사용한다고 위에서 설명하고 있는데?? 확인 필요* |                    |
+| DbDataSourceEnumerator                 |  | 클래스 |  |             |
+| DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator* |                    |
 | DbParameter           | AltibaseParameter            | 메서드 | ResetDbType                                                  |                    |
 |                       |                              | 메서드 | Clone <br />*.NET Core 3.1 API에 clone 메서드는 없음. 확인 필요* |                    |
 | DbParameterCollection | AltibaseParameterCollection  | 메서드 | AddRange                                                     |                    |
-| *???*                 | AltibasePermission           | 클래스 | *지원 안 하는 클래스인데.. Altibase가 붙은 클래스 이름도 이상..* *확인 필요* |                    |
-| *???*                 | AltibasePermissionAttribute  | 클래스 | *지원 안 하는 클래스인데.. Altibase가 붙은 클래스 이름도 이상..* *확인 필요* |                    |
 
  
 
