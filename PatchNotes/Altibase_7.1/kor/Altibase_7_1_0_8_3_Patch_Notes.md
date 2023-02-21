@@ -766,7 +766,7 @@ ROLLUP 함수와 집계 함수 그리고 ORDER BY 절을 함께 사용할 때 �
 
 #### module
 
-#### `rp`
+`rp`
 
 #### Category 
 
