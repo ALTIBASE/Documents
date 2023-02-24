@@ -1,88 +1,171 @@
-- [Migration Center User's Manual](#migration-center-users-manual)
-  - [Preface](#preface)
-  - [1. Introduction](#1-introduction)
-    - [Overview](#overview)
-    - [System Requirements](#system-requirements)
-    - [Installation and Uninstallation](#installation-and-uninstallation)
-  - [2. Getting Started](#2-getting-started)
-    - [Understanding Migration Center](#understanding-migration-center)
-    - [Understanding User Interface](#understanding-user-interface)
-    - [Tools](#tools)
-  - [3. GUI Mode Quick Guide](#3-gui-mode-quick-guide)
-    - [Quick Step Guide for GUI User](#quick-step-guide-for-gui-user)
-  - [4. CLI Mode Quick Guide](#4-cli-mode-quick-guide)
-    - [Quick Step Guide for CLI User](#quick-step-guide-for-cli-user)
-  - [5. Migration Center Internals](#5-migration-center-internals)
-    - [Build Step](#build-step-1)
-    - [Reconcile Step](#reconcile-step)
-    - [Run Step](#run-step)
-    - [Data Validation Step](#data-validation-step)
-  - [Appendix A: Migration Options](#appendix-a-migration-options)
-    - [DB to DB Migration Options](#db-to-db-migration-options)
-    - [DB to File Migration Options](#db-to-file-migration-options)
-  - [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects)
-    - [Altibase to Altibase](#altibase-to-altibase)
-    - [Altibase to Oracle](#altibase-to-oracle)
-    - [CUBRID to Altibase](#cubrid-to-altibase)
-    - [Informix to Altibase](#informix-to-altibase)
-    - [MySQL to Altibase](#mysql-to-altibase)
-    - [Oracle to Altibase](#oracle-to-altibase)
-    - [SQL Server to Altibase](#sql-server-to-altibase)
-    - [TimesTen to Altibase](#timesten-to-altibase)
-    - [Tibero to Altibase](#tibero-to-altibase)
-  - [Appendix C: Data Type Mapping](#appendix-c-data-type-mapping)
-    - [Manipulating Data Type Mapping](#manipulating-data-type-mapping)
-    - [Default Data Type Mapping Tables](#default-data-type-mapping-tables)
-    - [Automatic Correction of Character Column Length Considering Heterogeneous Character Set](#automatic-correction-of-character-column-length-considering-heterogeneous-character-set)
-  - [Appendix D: Mapping Default Values](#appendix-d-mapping-default-values)
-    - [Mapping Table for Default Values](#mapping-table-for-default-values)
-  - [Appendix E: PSM Converter Rule List](#appendix-e-psm-converter-rule-list)
-    - [View Conversion Rules](#view-conversion-rules)
-    - [Trigger Conversion Rules](#trigger-conversion-rules)
-    - [Function Conversion Rules](#function-conversion-rules)
-    - [Procedure Conversion Rules](#procedure-conversion-rules)
-    - [Materialized View Conversion Rules](#materialized-view-conversion-rules)
-    - [Package Conversion Rules](#package-conversion-rules)
-    - [Library Conversion Rules](#library-conversion-rules)
-    - [DML Conversion Rules](#dml-conversion-rules)
-    - [PSM Conversion Rules](#psm-conversion-rules)
-    - [Expression Conversion Rules](#expression-conversion-rules)
-  - [Appendix F: FAQ](#appendix-f-faq)
-    - [Common](#common)
-    - [Oracle](#oracle)
-    - [MS-SQL](#ms-sql)
-    - [Altibase](#altibase)
-    - [Informix](#informix)
-    - [MySQL](#mysql)
-    - [TimesTen](#timesten)
-
-Altibase® Tools & Utilities
-
 Migration Center User's Manual
-==============================
+================
 
-![](media/MigrationCenter/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Release 7.11
 
+Alitbase® Tools & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->  
+
+<pre>
 Altibase Tools & Utilities Migration Center User's Manual
-
 Release 7.11
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Customer Service Portal: <http://support.altibase.com/en/>
 
-Homepage: [http://www.altibase.com]
+<br>
+
+# Table Of Contents
+
+- [Preface](#preface)
+- [1. Introduction](#1-introduction)
+  - [Overview](#overview)
+  - [System Requirements](#system-requirements)
+  - [Installation and Uninstallation](#installation-and-uninstallation)
+- [2. Getting Started](#2-getting-started)
+  - [Understanding Migration Center](#understanding-migration-center)
+  - [Understanding User Interface](#understanding-user-interface)
+  - [Tools](#tools)
+- [3. GUI Mode Quick Guide](#3-gui-mode-quick-guide)
+  - [Quick Step Guide for GUI User](#quick-step-guide-for-gui-user)
+- [4. CLI Mode Quick Guide](#4-cli-mode-quick-guide)
+  - [Quick Step Guide for CLI User](#quick-step-guide-for-cli-user)
+- [5. Migration Center Internals](#5-migration-center-internals)
+  - [Build Step](#build-step-1)
+  - [Reconcile Step](#reconcile-step)
+  - [Run Step](#run-step)
+  - [Data Validation Step](#data-validation-step)
+- [Appendix A: Migration Options](#appendix-a-migration-options)
+  - [DB to DB Migration Options](#db-to-db-migration-options)
+  - [DB to File Migration Options](#db-to-file-migration-options)
+- [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects)
+  - [Altibase to Altibase](#altibase-to-altibase)
+  - [Altibase to Oracle](#altibase-to-oracle)
+  - [CUBRID to Altibase](#cubrid-to-altibase)
+  - [Informix to Altibase](#informix-to-altibase)
+  - [MySQL to Altibase](#mysql-to-altibase)
+  - [Oracle to Altibase](#oracle-to-altibase)
+  - [SQL Server to Altibase](#sql-server-to-altibase)
+  - [TimesTen to Altibase](#timesten-to-altibase)
+  - [Tibero to Altibase](#tibero-to-altibase)
+- [Appendix C: Data Type Mapping](#appendix-c-data-type-mapping)
+  - [Manipulating Data Type Mapping](#manipulating-data-type-mapping)
+  - [Default Data Type Mapping Tables](#default-data-type-mapping-tables)
+  - [Automatic Correction of Character Column Length Considering Heterogeneous Character Set](#automatic-correction-of-character-column-length-considering-heterogeneous-character-set)
+- [Appendix D: Mapping Default Values](#appendix-d-mapping-default-values)
+  - [Mapping Table for Default Values](#mapping-table-for-default-values)
+- [Appendix E: PSM Converter Rule List](#appendix-e-psm-converter-rule-list)
+  - [View Conversion Rules](#view-conversion-rules)
+  - [Trigger Conversion Rules](#trigger-conversion-rules)
+  - [Function Conversion Rules](#function-conversion-rules)
+  - [Procedure Conversion Rules](#procedure-conversion-rules)
+  - [Materialized View Conversion Rules](#materialized-view-conversion-rules)
+  - [Package Conversion Rules](#package-conversion-rules)
+  - [Library Conversion Rules](#library-conversion-rules)
+  - [DML Conversion Rules](#dml-conversion-rules)
+  - [PSM Conversion Rules](#psm-conversion-rules)
+  - [Expression Conversion Rules](#expression-conversion-rules)
+- [Appendix F: FAQ](#appendix-f-faq)
+  - [Common](#common)
+  - [Oracle](#oracle)
+  - [MS-SQL](#ms-sql)
+  - [Altibase](#altibase)
+  - [Informix](#informix)
+  - [MySQL](#mysql)
+  - [TimesTen](#timesten)
+
+<br/>
 
 Preface
-----
+====
 
 This manual describes Migration Center that either directly or indirectly copies generally compatible database objects and data.
 
@@ -221,7 +304,9 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction
+<br/>
+
+# 1. Introduction
 
 This chapter introduces Migration Center and explains how to install it. This chapter consists of the following sections:
 
@@ -362,7 +447,9 @@ To install, simply unzip the file. The generated directory contains the projects
 
 To uninstall, simply delete the Migration Center directory.
 
-## 2. Getting Started
+<br/>
+
+# 2. Getting Started
 
 This chapter describes the key concepts in migration, how to use Migration Center in GUI and CLI modes, and tools provided for user convenience.
 
@@ -472,7 +559,9 @@ To execute this tool, select ”PSM Converter for File” from “Tools” in th
 
 To execute this tool, select “Generate Migration Error Report” from “Tools” in the main menu.
 
-## 3. GUI Mode Quick Guide
+<br/>
+
+# 3. GUI Mode Quick Guide
 
 This chapter provides a quick step guide for users new to Migration Center.
 
@@ -627,7 +716,9 @@ The following is a simple guide for using filesync.
 9. The “Data Validation” dialog box appears and filesync is executed. At completion, a “Report” button appears at the bottom.
 10. Check that data difference has been solved in the report.
 
-## 4. CLI Mode Quick Guide
+<br/>
+
+# 4. CLI Mode Quick Guide
 
 This chapter provides a quick step guide for CLI mode users who are new to Migration Center.
 
@@ -711,7 +802,9 @@ To verify the data migrated properly in the "Run" step, input the diff command a
 
 To match the different data between the source and destination databases using the diff command, input filesync command and the path of the target project.
 
-## 5. Migration Center Internals
+<br/>
+
+# 5. Migration Center Internals
 
 This chapter describes the main steps of Migration Center, namely the Build, Reconcile, Run, and Data Validation steps. This chapter consists of the following sections:
 
@@ -895,7 +988,9 @@ Internally, the Data Validation step is executed as below.
 
 The data to be validated is fetched from the source and destination databases and compared. If a difference in data is detected and “Write to CSV” in the “Data Validation Options” submenu is set to “Yes”, the different data is stored in CSV format files in the validation folder. Regardless of the option, summary information is always output to the Data Validation report.
 
-## Appendix A: Migration Options
+<br/>
+
+# Appendix A: Migration Options
 
 Migration Options affect the migration project. They can be edited by selecting the “Migration Option” menu item from the Migration menu in GUI mode. Migration Options can usually be edited right after the project is created.
 
@@ -953,7 +1048,9 @@ The stored files can be migrated to the database (Altibase) to be saved using iS
 | **Data Files**               |                                                              |
 | File Encoding                | Specifies the encoding character set to be used for scripts and data files. |
 
-## Appendix B: Migratable Database Objects
+<br/>
+
+# Appendix B: Migratable Database Objects
 
 This section will provide guidlines and explanation in regards to the migratable database objects depending on the "build" step.
 
@@ -1128,7 +1225,9 @@ Objects in the source database that Migration Center does not migrate automatica
 
 > Note:  MigrationCenter uses the SQL parser for Oracle provided by Third Party to migrate Tibero's Procedure, Function, View, Materialized View, and Trigger objects. Therefore, objects created with Tibero native syntax that is incompatible with Oracle grammar can cause parsing errors during conversion. In this case, the user must manually translate the syntax.
 
-## Appendix C: Data Type Mapping
+<br/>
+
+# Appendix C: Data Type Mapping
 
 Migration Center’s policy for mapping data types between heterogeneous databases is to minimize the loss of data. However, the user may wish to customize the way that data is mapped, even if it incurs the loss or corruption of data. To satisfy this requirement, Migration Center also allows the user to edit the data type mapping table.
 
@@ -1181,8 +1280,8 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMBER          | NUMBER type columns defined without precision and scale in Oracle are converted to the same NUMBER type columns without precision and scale for Altibase. *Both Oracle and Altibase internally handle NUMBER type columns defined without precision and scale as FLOAT type in the database. |
 |  7   | FLOAT         | FLOAT           |                                                              |
-|  8   | BINARY FLOAT  | FLOAT           |                                                              |
-|  9   | BINARY DOUBLE | VARCHAR(310)    | There is no compatible data type in Altibase for the Oracle binary double type, so the data is stored in character form to prevent loss. |
+|  8   | BINARY FLOAT  | FLOAT           |  |
+|  9   | BINARY DOUBLE | VARCHAR(310) | There is no compatible data type in Altibase for the Oracle binary double type, so the data is stored in character form to prevent loss. |
 |  10  | DATE          | DATE            |                                                              |
 |  11  | TIMESTAMP     | DATE            | A small amount of data loss may occur due to the difference in scale. <br/>In Oracle, the scale of a timestamp value is nanoseconds (9 digits), whereas in Altibase, the scale of a timestamp value is microseconds (6 digits) |
 |  12  | RAW           | BLOB            |                                                              |
@@ -1240,7 +1339,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  10  | BIGINT UNSIGNED                 | NUMERIC(20,0)  | There is no compatible data type in Altibase for MySQL BIGINT UNSIGNED type, so NUMERIC type is used to prevent any data loss. |
 |  11  | DECIMAL (NUMERIC)               | VARCHAR(70)    | There is no compatible data type in Altibase for MySQL DECIMAL type, so VARCHAR type is used to prevent any data loss. |
 |  12  | FLOAT                           | FLOAT          |                                                              |
-|  13  | DOUBLE                          | VARCHAR(310)   | There is no compatible data type in Altibase for MySQL DOUBLE type, so VARCHAR type is used to prevent any data loss. |
+|  13  | DOUBLE                        | VARCHAR(310) | There is no compatible data type in Altibase for MySQL DOUBLE type, so VARCHAR type is used to prevent any data loss. |
 |  14  | BIT                             | VARBIT         |                                                              |
 |  15  | DATETIME                        | DATE           | Time parts are set to ‘0'                                    |
 |  16  | DATE                            | DATE           |                                                              |
@@ -1531,7 +1630,9 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 | ZHT16MSWIN950  | 2                        |
 | ZHT32EUC       | 4                        |
 
-## Appendix D: Mapping Default Values
+<br/>
+
+# Appendix D: Mapping Default Values
 
 The default values for Altibase table columns are mostly compatible with the default values for the source database.
 
@@ -1837,7 +1938,9 @@ The following is an example of the conversion.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT QRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL(  <br />C1  NUMBER (38, 0)  DEFAULT 123,    <br />C2  VARCHAR (50)    DEFAULT 'test',    <br />C3  NUMBER (38, 0),    <br />C4  CHAR (10),    <br />C5  NUMBER (38, 0)  DEFAULT SQRT(144) + 72,   <br />C6  DATE /\* DEFAULT '97/04/21' \*/,    <br />C7  DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'),    <br />C8  VARCHAR (100)   DEFAULT DB_TIMEZONE(),    <br />C9  VARCHAR (100)   DEFAULT SYS_GUID_STR(),<br />C10 VARCHAR (100)   DEFAULT USER_ID(), <br />C11 VARCHAR (100)   DEFAULT USER_NAME() ); |
 
-## Appendix E: PSM Converter Rule List
+<br/>
+
+# Appendix E: PSM Converter Rule List
 
 Migration Center provides DDL SQL texts for creating PSM type database objects with the PSM converter for Oracle or TimesTen 11.2 to Altibase Migration.
 
@@ -7694,7 +7797,9 @@ FROM dual;
 CREATE VIEW v_r40022 AS SELECT **SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'),
 0, 100)** FROM dual;
 
-## Appendix F: FAQ
+<br/>
+
+# Appendix F: FAQ
 
 ### Common
 

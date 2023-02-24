@@ -1,51 +1,129 @@
-
-
-
-- [Altibase Hadoop Connector User's Manual](#altibase-hadoop-connector-users-manual)
-  - [Preface](#preface)
-  - [1. Introduction to Altibase Hadoop Connector](#1-introduction-to-altibase-hadoop-connector)
-    - [Background Knowledge](#background-knowledge)
-    - [What is the Altibase Hadoop Connector?](#what-is-the-altibase-hadoop-connector)
-  - [2. Installing the Altibase Hadoop Connector](#2-installing-the-altibase-hadoop-connector)
-    - [Software Requirements](#software-requirements)
-    - [Installing the Altibase Hadoop Connector](#installing-the-altibase-hadoop-connector)
-    - [Executing & Testing](#executing--testing)
-  - [3. Functions](#3-functions)
-    - [Command-line Options](#command-line-options)
-    - [Import](#import)
-    - [Export](#export)
-    - [list-databases](#list-databases)
-    - [list-tables](#list-tables)
-  - [Appendix A: Data Types](#appendix-a-data-types)
-    - [Supported Data Type](#supported-data-type)
-
-
-
-Altibase® Tools & Utilities
-
 Altibase Hadoop Connector User's Manual
 =======================================
 
-![](media/HadoopConnector/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities Altibase Hadoop Connector User's Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+- [1. Introduction to Altibase Hadoop Connector](#1-introduction-to-altibase-hadoop-connector)
+  - [Background Knowledge](#background-knowledge)
+  - [What is the Altibase Hadoop Connector?](#what-is-the-altibase-hadoop-connector)
+- [2. Installing the Altibase Hadoop Connector](#2-installing-the-altibase-hadoop-connector)
+  - [Software Requirements](#software-requirements)
+  - [Installing the Altibase Hadoop Connector](#installing-the-altibase-hadoop-connector)
+  - [Executing & Testing](#executing--testing)
+- [3. Functions](#3-functions)
+  - [Command-line Options](#command-line-options)
+  - [Import](#import)
+  - [Export](#export)
+  - [list-databases](#list-databases)
+  - [list-tables](#list-tables)
+- [Appendix A: Data Types](#appendix-a-data-types)
+  - [Supported Data Type](#supported-data-type)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 About This Manual This manual explains how to use the Altibase Hadoop Connector with Altibase and Hadoop.
 
@@ -137,7 +215,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 
-## 1. Introduction to Altibase Hadoop Connector
+# 1. Introduction to Altibase Hadoop Connector
 
 This chapter introduces the Altibase Hadoop Connector and provides background knowledge.
 
@@ -164,7 +242,7 @@ The Altibase Hadoop Connector enables the efficient transfer of data between Had
 
 The Altibase Hadoop Connector operates on Sqoop and supports nearly all functions provided by it. Also, users that have experience with Sqoop will easily be able to use the Altibase Hadoop Connector, as it uses a command line argument structure similar to Sqoop
 
-## 2. Installing the Altibase Hadoop Connector
+# 2. Installing the Altibase Hadoop Connector
 
 This chapter explains how to install the Altibase Hadoop Connector and required software.
 
@@ -245,7 +323,7 @@ If the following table list is printed out with the log below after execution, i
 
 
 
-## 3. Functions
+# 3. Functions
 
 This chapter explains Altibase Hadoop Connector functions with examples.
 
@@ -496,7 +574,7 @@ The following options can be used with the Sqoop command to retrieve the tables 
 --connection-manager  com.altibase.sqoop.manager.AltibaseManager
 ```
 
-## Appendix A: Data Types
+# Appendix A: Data Types
 
 This appendix describes data types supported by Altibase Hadoop Connector.
 

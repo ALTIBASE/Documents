@@ -1,60 +1,136 @@
+# General Reference-1.Data Types & Altibase Properties
 
-
-- [General Reference](#general-reference)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Data Types](#1-data-types)
-    - [Overview](#overview)
-    - [Character Data Types](#character-data-types)
-    - [Numeric Data Types](#numeric-data-types)
-    - [Date Data Type](#date-data-type)
-    - [Binary Types](#binary-types)
-    - [LOB Data Type](#lob-data-type)
-    - [Spatial Types](#spatial-types)
-  - [2. Altibase Properties](#2-altibase-properties)
-    - [Configuration](#configuration)
-    - [Properties Overview](#properties-overview)
-    - [Database Initialization Properties](#database-initialization-properties)
-    - [Performance Properties](#performance-properties)
-    - [Session Properties](#session-properties)
-    - [Time-out Properties](#time-out-properties)
-    - [Transaction Properties](#transaction-properties)
-    - [Backup and Recovery Properties](#backup-and-recovery-properties)
-    - [Replication Properties](#replication-properties)
-    - [Network and Security Properties](#network-and-security-properties)
-    - [Message Logging Properties](#message-logging-properties)
-    - [Database Link Properties](#database-link-properties)
-    - [Auditing Properties](#auditing-properties)
-    - [C/C++ External Procedure Agent Properties](#cc-external-procedure-agent-properties)
-    - [Account Security Properties](#account-security-properties)
-    - [Other Properties](#other-properties)
-
-
+#### Altibase 7.1
 
 Altibase® Administration
 
-# General Reference
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/GeneralReference/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration General Reference
-
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Data Types](#1-data-types)
+  - [Overview](#overview)
+  - [Character Data Types](#character-data-types)
+  - [Numeric Data Types](#numeric-data-types)
+  - [Date Data Type](#date-data-type)
+  - [Binary Types](#binary-types)
+  - [LOB Data Type](#lob-data-type)
+  - [Spatial Types](#spatial-types)
+- [2. Altibase Properties](#2-altibase-properties)
+  - [Configuration](#configuration)
+  - [Properties Overview](#properties-overview)
+  - [Database Initialization Properties](#database-initialization-properties)
+  - [Performance Properties](#performance-properties)
+  - [Session Properties](#session-properties)
+  - [Time-out Properties](#time-out-properties)
+  - [Transaction Properties](#transaction-properties)
+  - [Backup and Recovery Properties](#backup-and-recovery-properties)
+  - [Replication Properties](#replication-properties)
+  - [Network and Security Properties](#network-and-security-properties)
+  - [Message Logging Properties](#message-logging-properties)
+  - [Database Link Properties](#database-link-properties)
+  - [Auditing Properties](#auditing-properties)
+  - [C/C++ External Procedure Agent Properties](#cc-external-procedure-agent-properties)
+  - [Account Security Properties](#account-security-properties)
+  - [Other Properties](#other-properties)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-## Preface
+# Preface
 
 ### About This Manual
 
@@ -85,10 +161,6 @@ This manual has been organized as follows:
   This chapter explains the data types that are supported in Altibase
 - Chapter 2. Altibase Properties  
   This chapter explains the Altibase properties
-- Chapter 3. The Data Dictionary  
-  This chapter describes the specification of the Altibase data dictionary. The data dictionary of Altibase consists of meta tables, in which information about objects is stored, and the process tables, in which information about processes is stroed.
-- Chapter 4. Sample Schema  
-  This chapter describes the example table information, ER diagram, and sample data.
 
 #### Documentation Conventions
 
@@ -155,7 +227,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedback and suggestions.
 
-## 1. Data Types
+# 1. Data Types
 
 In order to use SQL to store, change, and query the data in a database, it is first necessary to possess a thorough understanding of the available data types. This chapter presents a detailed explanation of the data types supported in Altibase.
 
@@ -2470,7 +2542,7 @@ The only geometry data type that is defined and supported for use with SQL in Al
 
 For more detailed information information about the geometry datatype, please refer to the *Spatial SQL Refernce*.
 
-## 2. Altibase Properties
+# 2. Altibase Properties
 
 Altibase server can be run in various modes. The altibase.properties file is used to set Altibase server environment settings. The altibase.properties file contains all elements related to the operation and adjustment of the Altibase server.
 
@@ -15189,16 +15261,18 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the library that will be used for the regular expressions. Each value indicates the following.
+This is a property that sets the regular expression mode. Each value indicates the following.
 
-- 0
+>  **0**
 
-  Altibase Regular Expression Library that supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression(ERE) partially
+Altibase regular expression mode.
 
-- 1
+POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE) are partially supported.
 
-  Perl Compatible Regular Expressions (PCRE2) Library
+> **1**
 
-  This library is only supported when the Altibase server character set is US7ASCII or UTF-8. There are syntax differences with Altibase Regular Expression Library. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/SQL%20Reference.md#appendix-a-regular-expressions).
+PCRE2 compatibility mode.
 
-  For more information about the PCRE2 library, please refer to [PCRE2 Homepage](https://www.pcre.org/).
+Supports the regular expression syntax of the Perl Compatible Regular Expressions (PCRE2) library.
+
+This mode can be used when the Altibase server character set is US7ASCII or UTF-8, and there is a difference in syntax from Altibase regular expression mode. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/SQL%20Reference.md#appendix-a-regular-expressions).

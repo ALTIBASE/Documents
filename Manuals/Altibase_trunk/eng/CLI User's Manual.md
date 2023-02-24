@@ -1,133 +1,212 @@
+# CLI User's Manual
 
-
-- [CLI User's Manual](#cli-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Altibase CLI Introduction](#1-altibase-cli-introduction)
-    - [Overview](#overview)
-    - [Basic Usages](#basic-usages)
-    - [Basic Programming Steps](#basic-programming-steps)
-    - [Building an Altibase CLI Application](#building-an-altibase-cli-application)
-  - [2. Altibase CLI Functions](#2-altibase-cli-functions)
-    - [Altibase CLI API](#altibase-cli-api)
-    - [SQLAllocConnect](#sqlallocconnect)
-    - [SQLAllocEnv](#sqlallocenv)
-    - [SQLAllocHandle](#sqlallochandle)
-    - [SQLAllocStmt](#sqlallocstmt)
-    - [SQLBindCol](#sqlbindcol)
-    - [SQLBindParameter](#sqlbindparameter)
-    - [SQLBulkOperations](#sqlbulkoperations)
-    - [SQLCancel](#sqlcancel)
-    - [SQLCloseCursor](#sqlclosecursor)
-    - [SQLColAttribute](#sqlcolattribute)
-    - [SQLColumns](#sqlcolumns)
-    - [SQLConnect](#sqlconnect)
-    - [SQLDescribeCol](#sqldescribecol)
-    - [SQLDescribeParam](#sqldescribeparam)
-    - [SQLDisconnect](#sqldisconnect)
-    - [SQLDriverConnect](#sqldriverconnect)
-    - [SQLEndTran](#sqlendtran)
-    - [SQLError](#sqlerror)
-    - [SQLExecDirect](#sqlexecdirect)
-    - [SQLExecute](#sqlexecute)
-    - [SQLFetch](#sqlfetch)
-    - [SQLFetchScroll](#sqlfetchscroll)
-    - [SQLForeignKeys](#sqlforeignkeys)
-    - [SQLFreeConnect](#sqlfreeconnect)
-    - [SQLFreeEnv](#sqlfreeenv)
-    - [SQLFreeHandle](#sqlfreehandle)
-    - [SQLFreeStmt](#sqlfreestmt)
-    - [SQLGetConnectAttr](#sqlgetconnectattr)
-    - [SQLGetData](#sqlgetdata)
-    - [SQLGetDescField](#sqlgetdescfield)
-    - [SQLGetDescRec](#sqlgetdescrec)
-    - [SQLGetDiagField](#sqlgetdiagfield)
-    - [SQLGetDiagRec](#sqlgetdiagrec)
-    - [SQLGetEnvAttr](#sqlgetenvattr)
-    - [SQLGetFunctions](#sqlgetfunctions)
-    - [SQLGetInfo](#sqlgetinfo)
-    - [SQLGetPlan](#sqlgetplan)
-    - [SQLGetStmtAttr](#sqlgetstmtattr)
-    - [SQLGetTypeInfo](#sqlgettypeinfo)
-    - [SQLMoreResults](#sqlmoreresults)
-    - [SQLNativeSql](#sqlnativesql)
-    - [SQLNumParams](#sqlnumparams)
-    - [SQLNumResultCols](#sqlnumresultcols)
-    - [SQLParamData](#sqlparamdata)
-    - [SQLPrepare](#sqlprepare)
-    - [SQLPrimaryKeys](#sqlprimarykeys)
-    - [SQLProcedureColumns](#sqlprocedurecolumns)
-    - [SQLProcedures](#sqlprocedures)
-    - [SQLPutData](#sqlputdata)
-    - [SQLRowCount](#sqlrowcount)
-    - [SQLSetConnectAttr](#sqlsetconnectattr)
-    - [SQLSetDescField](#sqlsetdescfield)
-    - [SQLSetEnvAttr](#sqlsetenvattr)
-    - [SQLSetPos](#sqlsetpos)
-    - [SQLSetStmtAttr](#sqlsetstmtattr)
-    - [SQLSpecialColumns](#sqlspecialcolumns)
-    - [SQLStatistics](#sqlstatistics)
-    - [SQLTablePrivileges](#sqltableprivileges)
-    - [SQLTables](#sqltables)
-    - [SQLTransact](#sqltransact)
-  - [3. LOB Interface](#3-lob-interface)
-    - [LOB data types](#lob-data-types)
-    - [LOB Function Overview](#lob-function-overview)
-    - [SQLBindFileToCol](#sqlbindfiletocol)
-    - [SQLindFileToParam](#sqlindfiletoparam)
-    - [SQLGetLobLength](#sqlgetloblength)
-    - [SQLGetLob](#sqlgetlob)
-    - [SQLPutLob](#sqlputlob)
-    - [SQLTrimLob](#sqltrimlob)
-    - [SQLFreeLob](#sqlfreelob)
-  - [4. Using Cursors](#4-using-cursors)
-    - [Cursor Characteristics](#cursor-characteristics)
-    - [Implicit Cursor Conversionse](#implicit-cursor-conversionse)
-    - [Scrolling and Fetching Rows](#scrolling-and-fetching-rows)
-    - [Restrictions](#restrictions)
-  - [Appendix A. Sample Codes](#appendix-a-sample-codes)
-    - [Programing Considerations](#programing-considerations)
-    - [Sample of Simple Basic Program](#sample-of-simple-basic-program)
-    - [Sample of Using Metadata](#sample-of-using-metadata)
-    - [Example of Procedure Test Program](#example-of-procedure-test-program)
-  - [Appendix B. Data Types](#appendix-b-data-types)
-    - [SQL Data Types](#sql-data-types)
-    - [C Data Types](#c-data-types)
-    - [Converting SQL Data into C Data Types](#converting-sql-data-into-c-data-types)
-    - [Converting C Data into SQL Data types](#converting-c-data-into-sql-data-types)
-  - [Appendix C. Error Codes](#appendix-c-error-codes)
-    - [SQLSTATE](#sqlstate)
-    - [Statement State Transition-related Errors](#statement-state-transition-related-errors)
-    - [State Transition Table](#state-transition-table)
-  - [Appendix D. Upgrade](#appendix-d-upgrade)
-    - [Data Type](#data-type)
-    - [Other Changes](#other-changes)
-
-
+#### Trunk
 
 Altibase® Application Development
 
-# CLI User's Manual
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/CLI/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Altibase CLI User's Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Altibase CLI Introduction](#1-altibase-cli-introduction)
+  - [Overview](#overview)
+  - [Basic Usages](#basic-usages)
+  - [Basic Programming Steps](#basic-programming-steps)
+  - [Building an Altibase CLI Application](#building-an-altibase-cli-application)
+- [2. Altibase CLI Functions](#2-altibase-cli-functions)
+  - [Altibase CLI API](#altibase-cli-api)
+  - [SQLAllocConnect](#sqlallocconnect)
+  - [SQLAllocEnv](#sqlallocenv)
+  - [SQLAllocHandle](#sqlallochandle)
+  - [SQLAllocStmt](#sqlallocstmt)
+  - [SQLBindCol](#sqlbindcol)
+  - [SQLBindParameter](#sqlbindparameter)
+  - [SQLBulkOperations](#sqlbulkoperations)
+  - [SQLCancel](#sqlcancel)
+  - [SQLCloseCursor](#sqlclosecursor)
+  - [SQLColAttribute](#sqlcolattribute)
+  - [SQLColumns](#sqlcolumns)
+  - [SQLConnect](#sqlconnect)
+  - [SQLDescribeCol](#sqldescribecol)
+  - [SQLDescribeParam](#sqldescribeparam)
+  - [SQLDisconnect](#sqldisconnect)
+  - [SQLDriverConnect](#sqldriverconnect)
+  - [SQLEndTran](#sqlendtran)
+  - [SQLError](#sqlerror)
+  - [SQLExecDirect](#sqlexecdirect)
+  - [SQLExecute](#sqlexecute)
+  - [SQLFetch](#sqlfetch)
+  - [SQLFetchScroll](#sqlfetchscroll)
+  - [SQLForeignKeys](#sqlforeignkeys)
+  - [SQLFreeConnect](#sqlfreeconnect)
+  - [SQLFreeEnv](#sqlfreeenv)
+  - [SQLFreeHandle](#sqlfreehandle)
+  - [SQLFreeStmt](#sqlfreestmt)
+  - [SQLGetConnectAttr](#sqlgetconnectattr)
+  - [SQLGetData](#sqlgetdata)
+  - [SQLGetDescField](#sqlgetdescfield)
+  - [SQLGetDescRec](#sqlgetdescrec)
+  - [SQLGetDiagField](#sqlgetdiagfield)
+  - [SQLGetDiagRec](#sqlgetdiagrec)
+  - [SQLGetEnvAttr](#sqlgetenvattr)
+  - [SQLGetFunctions](#sqlgetfunctions)
+  - [SQLGetInfo](#sqlgetinfo)
+  - [SQLGetPlan](#sqlgetplan)
+  - [SQLGetStmtAttr](#sqlgetstmtattr)
+  - [SQLGetTypeInfo](#sqlgettypeinfo)
+  - [SQLMoreResults](#sqlmoreresults)
+  - [SQLNativeSql](#sqlnativesql)
+  - [SQLNumParams](#sqlnumparams)
+  - [SQLNumResultCols](#sqlnumresultcols)
+  - [SQLParamData](#sqlparamdata)
+  - [SQLPrepare](#sqlprepare)
+  - [SQLPrimaryKeys](#sqlprimarykeys)
+  - [SQLProcedureColumns](#sqlprocedurecolumns)
+  - [SQLProcedures](#sqlprocedures)
+  - [SQLPutData](#sqlputdata)
+  - [SQLRowCount](#sqlrowcount)
+  - [SQLSetConnectAttr](#sqlsetconnectattr)
+  - [SQLSetDescField](#sqlsetdescfield)
+  - [SQLSetEnvAttr](#sqlsetenvattr)
+  - [SQLSetPos](#sqlsetpos)
+  - [SQLSetStmtAttr](#sqlsetstmtattr)
+  - [SQLSpecialColumns](#sqlspecialcolumns)
+  - [SQLStatistics](#sqlstatistics)
+  - [SQLTablePrivileges](#sqltableprivileges)
+  - [SQLTables](#sqltables)
+  - [SQLTransact](#sqltransact)
+- [3. LOB Interface](#3-lob-interface)
+  - [LOB data types](#lob-data-types)
+  - [LOB Function Overview](#lob-function-overview)
+  - [SQLBindFileToCol](#sqlbindfiletocol)
+  - [SQLindFileToParam](#sqlindfiletoparam)
+  - [SQLGetLobLength](#sqlgetloblength)
+  - [SQLGetLob](#sqlgetlob)
+  - [SQLPutLob](#sqlputlob)
+  - [SQLTrimLob](#sqltrimlob)
+  - [SQLFreeLob](#sqlfreelob)
+- [4. Using Cursors](#4-using-cursors)
+  - [Cursor Characteristics](#cursor-characteristics)
+  - [Implicit Cursor Conversionse](#implicit-cursor-conversionse)
+  - [Scrolling and Fetching Rows](#scrolling-and-fetching-rows)
+  - [Restrictions](#restrictions)
+- [Appendix A. Sample Codes](#appendix-a-sample-codes)
+  - [Programing Considerations](#programing-considerations)
+  - [Sample of Simple Basic Program](#sample-of-simple-basic-program)
+  - [Sample of Using Metadata](#sample-of-using-metadata)
+  - [Example of Procedure Test Program](#example-of-procedure-test-program)
+- [Appendix B. Data Types](#appendix-b-data-types)
+  - [SQL Data Types](#sql-data-types)
+  - [C Data Types](#c-data-types)
+  - [Converting SQL Data into C Data Types](#converting-sql-data-into-c-data-types)
+  - [Converting C Data into SQL Data types](#converting-c-data-into-sql-data-types)
+- [Appendix C. Error Codes](#appendix-c-error-codes)
+  - [SQLSTATE](#sqlstate)
+  - [Statement State Transition-related Errors](#statement-state-transition-related-errors)
+  - [State Transition Table](#state-transition-table)
+- [Appendix D. Upgrade](#appendix-d-upgrade)
+  - [Data Type](#data-type)
+  - [Other Changes](#other-changes)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-## Preface
+# Preface
 
 ### About This Manual
 
@@ -253,7 +332,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Altibase CLI Introduction
+# 1. Altibase CLI Introduction
 
 This chapter briefly introduces the background of Altibase CLI, how to use it, its programming steps, and more.
 
@@ -492,7 +571,7 @@ When linking, use the following option in the link command.
 -L$ALTIBASE_HOME/lib -lodbccli
 ```
 
-## 2. Altibase CLI Functions
+# 2. Altibase CLI Functions
 
 This chapter describes the specifications of Altibase CLI functions.
 
@@ -2165,7 +2244,7 @@ The following table lists the columns of the result sets.
 | SQL_DATA_TYPE     | 14   | SMALLINT (NOT NULL) | SQL data type                                                |
 | SQL_DATETIME_SUB  | 15   | SMALLINT            | Subtype code for the data type. NULL is returned for other data types. |
 | CHAR_OCTET_LENGTH | 16   | INTEGER             | Maximum digits of the character of binary datatype string. For other data types, NULL will be returned. |
-| ORDINAL_POSITION  | 17   | INTEGER (NOT NULL)  | Column order of the table. The first column number is 1 in the table. |
+| ORDINAL_POSITION  | 17   | INTEGER (NOT NULL)  | <pre>Altibase Application Development Application Program Interface User’s ManualTrunkCopyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of thesoftware is prohibited.<br>All trademarks, registered or otherwise, are the property of their respective owners.<br><b>Altibase Corp</b>10F, Daerung PostTower II,306, Digital-ro, Guro-gu, Seoul 08378, KoreaTelephone : +82-2-2082-1000 Fax       : +82-2-2082-1099Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre> |
 | IS_NULLABLE       | 18   | VARCHAR             | NO : When the column does not include NULL:YES : When the column includes NULL: |
 
 #### Diagnosis		
@@ -6186,7 +6265,7 @@ SQLTransact() may fail while Commit or Rollback is executed due to loss of conne
 SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 ```
 
-## 3. LOB Interface
+# 3. LOB Interface
 
 This chapter describes functions and data types that can be used for handling LOB data.
 
@@ -7344,7 +7423,7 @@ SQLPutLob
 
 Please see the examples of SQLGetLobLength(), SQLGetLob() and SQLPutLob().
 
-## 4. Using Cursors
+# 4. Using Cursors
 
 This chapter explains how to use cursors provided by the Altibase CLI driver.
 
@@ -7462,7 +7541,7 @@ In order to execute positioned updates in a cursor, the following restrictions a
 -   Only regular tables can be specified in the FROM clause. 
 -   Only pure columns can be specified in the SELECT list; neither expressions, nor functions can be included. Columns that have a NOT NULL constraint, but do not have a DEFAULT value must be included in the SELECT list.
 
-## Appendix A. Sample Codes
+# Appendix A. Sample Codes
 
 The following describes notes on programming the client using the Altibase CLI and frequent errors:
 
@@ -8394,7 +8473,7 @@ SQLRETURN execute_proc()
 }
 ```
 
-## Appendix B. Data Types
+# Appendix B. Data Types
 
 This appendix describes the data types of Altibase SQL data types, C data types, and the data conversion.
 
@@ -8531,7 +8610,7 @@ The following table is the list of valid type identifiers for C data type. Also,
 
 *SQL_NUMERIC - For SQL_C_BINARY, it is converted to SQL_NUMERIC_STRUCT.
 
-## Appendix C. Error Codes
+# Appendix C. Error Codes
 
 SQLError returns SQLSTATE values as defined in the X/Open and SQL Access Group SQL CAE specification (1992), and ODBC specifications. SQLSTATE is a five-byte alphanumeric string. This Appendix describes SQLSTATE values for Altibase CLI and ODBC.
 
@@ -9014,7 +9093,7 @@ Cf )
 
 \- P : Prepared NP : Not Prepared
 
-## Appendix D. Upgrade
+# Appendix D. Upgrade
 
 This appendix describes the requirements to make ODBC or Altibase CLI applications for Altibase 4 available for Altibase 5 as follows. 
 

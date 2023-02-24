@@ -1,45 +1,133 @@
-- [Altibase 3rd Party Connector Guide](#altibase-3rd-party-connector-guide)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1.SQuirreL SQL Client](#1squirrel-sql-client)
-    - [Installing Altibase Plugin for SQuirreL SQL Client](#installing-altibase-plugin-for-squirrel-sql-client)
-    - [Installing and Removing Altibase Plugin](#installing-and-removing-altibase-plugin)
-    - [Features of Altibase Plugin](#features-of-altibase-plugin)
-    - [Installing SQuirreL SQL Client](#installing-squirrel-sql-client)
-    - [Altibase JDBC Driver Registration](#altibase-jdbc-driver-registration)
-    - [Integration with Altibase](#integration-with-altibase)
-    - [FAQ](#faq)
-  - [2.Hibernate](#2hibernate)
-    - [Hibernate](#hibernate)
-  - [3.OpenLDAP](#3openldap)
-    - [Introduction to OpenLDAP](#introduction-to-openldap)
-    - [Meta Data Configuration](#meta-data-configuration)
-    - [Configuration](#configuration)
-    - [Examples](#examples)
+Altibase 3rd Party Connector Guide
+================
+
+
 
 Altibase® Application Development
 
-Altibase 3rd Party Connector Guide
-==================================
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/3rdPartyConnector/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Altibase 3rd Party Connector Guide
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+<br>
 
-**Altibase Corp**
+# Table Of Contents
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1.SQuirreL SQL Client](#1squirrel-sql-client)
+  - [Installing Altibase Plugin for SQuirreL SQL Client](#installing-altibase-plugin-for-squirrel-sql-client)
+  - [Installing and Removing Altibase Plugin](#installing-and-removing-altibase-plugin)
+  - [Features of Altibase Plugin](#features-of-altibase-plugin)
+  - [Installing SQuirreL SQL Client](#installing-squirrel-sql-client)
+  - [Altibase JDBC Driver Registration](#altibase-jdbc-driver-registration)
+  - [Integration with Altibase](#integration-with-altibase)
+  - [FAQ](#faq)
+- [2.Hibernate](#2hibernate)
+  - [Hibernate](#hibernate)
+- [3.OpenLDAP](#3openldap)
+  - [Introduction to OpenLDAP](#introduction-to-openldap)
+  - [Meta Data Configuration](#meta-data-configuration)
+  - [Configuration](#configuration)
+  - [Examples](#examples)
 
-Customer Service Portal: http://support.altibase.com/en/
 
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+
+<br>
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -128,8 +216,10 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
+<br>
+
 1.SQuirreL SQL Client
------------------------
+=======================
 
 This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
@@ -328,8 +418,10 @@ The following setting is required to display LOB data in the SQL tab or the Obje
 
 ![](media/3rdPartyConnector/squirrel_lob_alias.jpg)
 
+<br>
+
 2.Hibernate
----------
+=========
 
 ### Hibernate
 
@@ -343,8 +435,10 @@ Because the library provided by Hibernate does not include AltibaseDialect.class
 
 Please refer to [AltibaseDialect Porting Method](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) for detailed information.
 
+<br>
+
 3.OpenLDAP
---------
+========
 
 This chapter describes how to integrate openLDAP with Altibase.
 

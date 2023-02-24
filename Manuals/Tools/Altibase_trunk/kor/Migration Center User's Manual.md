@@ -1,94 +1,175 @@
+Migration Center User's Manual
+================
+
+#### Release 7.11
+
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->
+
+<pre>
+Altibase Tools & Utilities Migration Center User's Manual
+Release 7.11
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
+
+<br>
+
+# 목차
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Migration Center User's Manual](#migration-center-users-manual)
-  - [서문](#서문)
-    - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
-  - [1.Migration Center 소개](#1migration-center-소개)
-    - [개요](#개요)
-    - [시스템 요구 사항](#시스템-요구-사항)
-    - [설치 및 제거](#설치-및-제거)
-  - [2.Migration Center 시작하기](#2migration-center-시작하기)
-    - [Migration Center 이해하기](#migration-center-이해하기)
-    - [사용자 인터페이스 이해하기](#사용자-인터페이스-이해하기)
-    - [도구](#도구)
-  - [3.GUI 모드 퀵 가이드](#3gui-모드-퀵-가이드)
-    - [단계별 지침](#단계별-지침)
-  - [4.CLI 모드 퀵 가이드](#4cli-모드-퀵-가이드)
-    - [단계별 지침](#단계별-지침-1)
-  - [5.Migration Center 내부](#5migration-center-내부)
-    - [구축 단계](#구축-단계)
-    - [조정 단계](#조정-단계)
-    - [실행 단계](#실행-단계)
-    - [검증 단계](#검증-단계)
-  - [A.부록: 마이그레이션 옵션](#a부록-마이그레이션-옵션)
-    - [DB to DB 마이그레이션 옵션](#db-to-db-마이그레이션-옵션)
-    - [DB to File 마이그레이션 옵션](#db-to-file-마이그레이션-옵션)
-  - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
-    - [Altibase to Altibase](#altibase-to-altibase)
-    - [Altibase to Oracle](#altibase-to-oracle)
-    - [CUBRID to Altibase](#cubrid-to-altibase)
-    - [Informix to Altibase](#informix-to-altibase)
-    - [MySQL to Altibase](#mysql-to-altibase)
-    - [Oracle to Altibase](#oracle-to-altibase)
-    - [SQL Server to Altibase](#sql-server-to-altibase)
-    - [TimesTen to Altibase](#timesten-to-altibase)
-    - [Tibero to Altibase](#tibero-to-altibase)
-  - [C.부록: 데이터 타입 맵핑](#c부록-데이터-타입-맵핑)
-    - [데이터 타입 맵핑 테이블 변경](#데이터-타입-맵핑-테이블-변경)
-    - [기본 데이터 타입 맵핑 테이블](#기본-데이터-타입-맵핑-테이블)
-    - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-컬럼-길이-자동-보정)
-  - [D.부록: 기본값 맵핑](#d부록-기본값-맵핑)
-    - [기본값 맵핑 테이블](#기본값-맵핑-테이블)
-  - [E.부록: PSM 변환기 규칙 목록](#e부록-psm-변환기-규칙-목록)
-    - [뷰 변환 규칙](#뷰-변환-규칙)
-    - [트리거 변환 규칙](#트리거-변환-규칙)
-    - [함수 변환 규칙](#함수-변환-규칙)
-    - [프로시저 변환 규칙](#프로시저-변환-규칙)
-    - [Materialized View 변환 규칙](#materialized-view-변환-규칙)
-    - [패키지 변환 규칙](#패키지-변환-규칙)
-    - [라이브러리 변환 규칙](#라이브러리-변환-규칙)
-    - [DML문 변환 규칙](#dml문-변환-규칙)
-    - [PSM 변환 규칙](#psm-변환-규칙)
-    - [표현 변환 규칙](#표현-변환-규칙)
-  - [F.부록: FAQ](#f부록-faq)
-    - [DBMS 공통](#dbms-공통)
-    - [Oracle](#oracle-1)
-    - [MS-SQL](#ms-sql)
-    - [Altibase](#altibase-1)
-    - [Informix](#informix-1)
-    - [MySQL](#mysql-1)
-    - [TimesTen](#timesten-1)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.Migration Center 소개](#1migration-center-소개)
+  - [개요](#개요)
+  - [시스템 요구 사항](#시스템-요구-사항)
+  - [설치 및 제거](#설치-및-제거)
+- [2.Migration Center 시작하기](#2migration-center-시작하기)
+  - [Migration Center 이해하기](#migration-center-이해하기)
+  - [사용자 인터페이스 이해하기](#사용자-인터페이스-이해하기)
+  - [도구](#도구)
+- [3.GUI 모드 퀵 가이드](#3gui-모드-퀵-가이드)
+  - [단계별 지침](#단계별-지침)
+- [4.CLI 모드 퀵 가이드](#4cli-모드-퀵-가이드)
+  - [단계별 지침](#단계별-지침-1)
+- [5.Migration Center 내부](#5migration-center-내부)
+  - [구축 단계](#구축-단계)
+  - [조정 단계](#조정-단계)
+  - [실행 단계](#실행-단계)
+  - [검증 단계](#검증-단계)
+- [A.부록: 마이그레이션 옵션](#a부록-마이그레이션-옵션)
+  - [DB to DB 마이그레이션 옵션](#db-to-db-마이그레이션-옵션)
+  - [DB to File 마이그레이션 옵션](#db-to-file-마이그레이션-옵션)
+- [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
+  - [Altibase to Altibase](#altibase-to-altibase)
+  - [Altibase to Oracle](#altibase-to-oracle)
+  - [CUBRID to Altibase](#cubrid-to-altibase)
+  - [Informix to Altibase](#informix-to-altibase)
+  - [MySQL to Altibase](#mysql-to-altibase)
+  - [Oracle to Altibase](#oracle-to-altibase)
+  - [SQL Server to Altibase](#sql-server-to-altibase)
+  - [TimesTen to Altibase](#timesten-to-altibase)
+  - [Tibero to Altibase](#tibero-to-altibase)
+  - [PostgreSQL to Altibase](#postgresql-to-altibase)
+- [C.부록: 데이터 타입 맵핑](#c부록-데이터-타입-맵핑)
+  - [데이터 타입 맵핑 테이블 변경](#데이터-타입-맵핑-테이블-변경)
+  - [기본 데이터 타입 맵핑 테이블](#기본-데이터-타입-맵핑-테이블)
+  - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-컬럼-길이-자동-보정)
+- [D.부록: 기본값 맵핑](#d부록-기본값-맵핑)
+  - [기본값 맵핑 테이블](#기본값-맵핑-테이블)
+- [E.부록: PSM 변환기 규칙 목록](#e부록-psm-변환기-규칙-목록)
+  - [뷰 변환 규칙](#뷰-변환-규칙)
+  - [트리거 변환 규칙](#트리거-변환-규칙)
+  - [함수 변환 규칙](#함수-변환-규칙)
+  - [프로시저 변환 규칙](#프로시저-변환-규칙)
+  - [Materialized View 변환 규칙](#materialized-view-변환-규칙)
+  - [패키지 변환 규칙](#패키지-변환-규칙)
+  - [라이브러리 변환 규칙](#라이브러리-변환-규칙)
+  - [DML문 변환 규칙](#dml문-변환-규칙)
+  - [PSM 변환 규칙](#psm-변환-규칙)
+  - [표현 변환 규칙](#표현-변환-규칙)
+- [F.부록: FAQ](#f부록-faq)
+  - [DBMS 공통](#dbms-공통)
+  - [Oracle](#oracle-1)
+  - [MS-SQL](#ms-sql)
+  - [Altibase](#altibase-1)
+  - [Informix](#informix-1)
+  - [MySQL](#mysql-1)
+  - [TimesTen](#timesten-1)
 
-Altibase® Tools & Utilities
+<br/>
 
-Migration Center User's Manual
-==============================
 
-![](media/MigrationCenter/e5cfb3761673686d093a3b00c062fe7a.png)
-
-Altibase Tools & Utilities Migration Center User's Manual
-
-Release 7.11
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
-무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
-08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -158,7 +239,7 @@ Center를 사용하는 방법을 기술한다.
 
 - D. 부록: 기본값 맵핑  
   Migration Center가 원본 데이터베이스를 Altibase에 맞춰 변환할 때 상이한
-  테이블 칼럼의 기본값을 변환하기 위한 기본값 맵핑 테이블을 제공한다.
+  테이블 컬럼의 기본값을 변환하기 위한 기본값 맵핑 테이블을 제공한다.
 
 - E. 부록: PSM 변환기 규칙 목록  
   Oracle에서 Altibase로 마이그레이션을 할 때, PSM 변환기가 DDL SQL 문장으로
@@ -201,16 +282,16 @@ Center를 사용하는 방법을 기술한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
-| 규칙      | 의미                                                | 예제                                                                                                           |
-| ------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| [ ]     | 선택 항목을 표시                                         | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                                                                     |
-| { }     | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시                   | { ENABLE \| DISABLE \| COMPILE }                                                                             |
-| \|      | 선택 또는 필수 항목 표시의 인자 구분 표시                          | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                            |
-| . . .   | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시                 | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                               | EXEC :p1 := 1; acc NUMBER(11,2);                                                                             |
-| 기울임 꼴   | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치       | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;                                                    |
-| 소문자     | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                                  |
-| 대문자     | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                    | DESC SYSTEM_.SYS_INDICES_;                                                                                   |
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;    |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 컬럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### 관련 자료
 
@@ -257,8 +338,10 @@ Center를 사용하는 방법을 기술한다.
 
 여러분의 의견에 항상 감사드립니다.
 
+<br/>
+
 1.Migration Center 소개
----------------------
+=====================
 
 이 장은 Migration Center의 특징을 이해하고자 하는 사용자에게 이 도구를 소개하고
 설치하는 방법을 설명한다. 이 장은 다음의 절로 구성된다.
@@ -384,6 +467,8 @@ Altibase가 대상 데이터베이스일 경우 마이그레이션이 가능한 
 
 - Tibero: 4sp1~6
 
+- PostgreSQL: 9.5.3
+
 ##### Oracle이 대상 데이터베이스인 경우
 
 Oracle이 대상 데이터베이스일 경우 마이그레이션이 가능한 원본 데이터베이스는
@@ -460,8 +545,10 @@ Center를 사용할 준비가 되었다.
 Migration Center를 제거하려면, Migration Center가 설치되어 있는 디렉토리를
 삭제하기만 하면 된다.
 
+<br/>
+
 2.Migration Center 시작하기
--------------------------
+=========================
 
 이 장은 먼저 사용자들이 Migration Center를 좀 더 능률적이고 효율적으로 실행하는
 데 도움이 되는 기본 개념을 소개한다. 그런 후에, Migration Center를 GUI모드와 CLI
@@ -645,8 +732,10 @@ Altibase 고객서비스포털에 고객 등록 정보와 함께 보내기만 �
 
 이 툴은 메인 메뉴의 Tools -\> Generate Migration Error Report로 실행할 수 있다.
 
+<br/>
+
 3.GUI 모드 퀵 가이드
-------------------
+==================
 
 이 장은 Migration Center를 처음 접하는 사용자들이 GUI 모드 Migration Center를 각
 단계별로 사용할 수 있도록 간략한 지침을 제공한다.
@@ -876,8 +965,10 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 10. 보고서를 확인해서 데이터의 불일치가 해소되었는지 확인한다.
 
+<br/>
+
 4.CLI 모드 퀵 가이드
-------------------
+==================
 
 이 장은 Migration Center를 처음 접하는 사용자들이 CLI 모드 Migration Center를 각
 단계별로 사용할 수 있도록 간략한 지침을 제공한다.
@@ -983,8 +1074,10 @@ CLI 모드에서는 "조정" 단계의 값을 변경할 수 없다. 예를 들�
 diff 명령을 통해 원본과 대상 데이터베이스간 다른 데이터가 발견되었다면
 "filesync" 기능을 사용해 일치시킬 수 있다.
 
+<br/>
+
 5.Migration Center 내부
----------------------
+=====================
 
 이 장은 Migration Center의 주요 단계인 구축, 조정, 실행 및 검증 단계에 대해
 상세히 설명한다. 이 장은 아래의 절을 포함한다:
@@ -1282,7 +1375,7 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 - Primary Key 제약조건이 존재하는 테이블에 한해서만 검증 단계를 수행할 수
   있다.
 
-- LOB 칼럼은 데이터 비교 대상에서 제외된다.
+- LOB 컬럼은 데이터 비교 대상에서 제외된다.
 
 #### 출력
 
@@ -1307,7 +1400,9 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 형식으로 저장한다. 이 때 옵션에 상관없이 Summary 정보는 검증 보고서에 항상
 기록된다.
 
-## A.부록: 마이그레이션 옵션
+<br/>
+
+# A.부록: 마이그레이션 옵션
 
 마이그레이션 옵션은 마이그레이션 프로젝트에 영향을 미치며, GUI 모드에서 "Migration Option" 메뉴 아이템을 선택해서 편집 가능하다. 마이그레이션 옵션은 대부분 프로젝트가 생성된 직후에 편집할 수 있다.
 
@@ -1363,7 +1458,9 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 | **Data Files**               |                                                              |
 | File Encoding                | 스크립트와 데이터 파일 출력에 사용될 인코딩 문자 집합을 지정한다. |
 
-## B.부록: 마이그레이션 가능한 데이터베이스 객체
+<br/>
+
+# B.부록: 마이그레이션 가능한 데이터베이스 객체
 
 "구축" 방식에 따라 데이터베이스 객체의 이관 여부 및 유의사항을 설명한다.
 
@@ -1376,7 +1473,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | ------------------------------------------------------------ |
-| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
@@ -1416,12 +1513,12 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :----------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                    |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                    |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약         |                   O                   |                   O                    |                                                              |
 | Unique 제약              |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약         |                   O                   |                   O                    |                                                              |
 | Index                    |                   O                   |                   O                    | CUBRID의 Reverse index와 Prefix length index는 Altibase에서 지원하지 않는다. Reverse index는 인덱스 생성시 키 값을 역으로 넣는 방식으로, Altibase 마이그레이션에서 지원하지 않는다. Prefix length index는 키 값의 일정 부분만을 인덱싱하는 기법으로, 마이그레이션시 Altibase의 일반 인덱스로 대체된다. |
-| auto_increment 칼럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| auto_increment 컬럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Serial                   |                   O                   |                   X                    | Sequence로 마이그레이션된다.                                 |
 | Procedure                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Function                 |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1432,13 +1529,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
 | Index                  |                   O                   |                   O                    |                                                              |
-| Serial 칼럼 타입       |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| Serial 컬럼 타입       |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Sequence               |                   O                   |                   X                    |                                                              |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1450,13 +1547,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :----------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                    |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                    |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약         |                   O                   |                   O                    |                                                              |
 | Unique 제약              |                   O                   |                   O                    |                                                              |
 | Check 제약               |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약         |                   O                   |                   O                    |                                                              |
 | Index                    |                   O                   |                   O                    |                                                              |
-| auto_increment 칼럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| auto_increment 컬럼 속성 |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Procedure                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Function                 |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | View                     |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1466,7 +1563,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다.테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다.테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
@@ -1485,13 +1582,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
 | Index                  |                   O                   |                   O                    |                                                              |
-| Identity 칼럼 속성     |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
+| Identity 컬럼 속성     |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
 | Sequence               |                   O                   |                   X                    | SQL Server 2012 지원                                         |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
@@ -1503,7 +1600,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
@@ -1521,12 +1618,12 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | Tibero(원본 데이터베이스)의 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | Tibero(원본 데이터베이스)의 임시 테이블을 Altibase(대상 데이터베이스)로 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 칼럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. |
+| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 컬럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. |
 | Sequence               |                   O                   |                   X                    |                                                              |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -1538,7 +1635,30 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 > 참고:  Tibero의 Procedure, Function, View, Materialized View, Trigger는 객체를 마이그레이션하기 위해 Third-Party에서 제공하는 Oracle용 SQL 파서를 사용한다. 따라서, Oracle 문법과 호환되지 않는 Tibero 고유의 문법으로 생성된 객체는 변환과정에서 파싱 에러가 발생가능하며, 이 경우 사용자가 수동으로 문법을 변환해야 한다.
 
-## C.부록: 데이터 타입 맵핑
+### PostgreSQL to Altibase
+
+다음은 PostgreSQL에서 Altibase로 마이그레이션할 때 지원하는 데이터베이스 객체와 주의 사항 그리고 지원하지 않는 객체를 설명한 표이다.
+| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
+| :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
+| Table                  |                   O                   |                   O                    | 컬럼에 명시된 주석(comment)도 함께 마이그레이션된다.<br />PostgreSQL은 테이블에 생성할 수 있는 최대 컬럼의 개수가 1,600개이고 Altibase는 1,024개이므로, 마이그레이션 수행 시 주의해야 한다. |
+| Primary Key 제약       |                   O                   |                   O                    |                                                              |
+| Unique 제약            |                   O                   |                   O                    |                                                              |
+| Check 제약             |                   O                   |                   O                    |                                                              |
+| Foreign Key 제약       |                   O                   |                   O                    | CASCADE, NO ACTION, SET NULL 옵션은 양쪽 모두 같은 옵션으로 마이그레이션 대상이다.<br />RESTRICT 옵션은 Altibase에서 Foreign key 옵션이 없을 때와 동작이 같아서, 마이그레이션 시 이 옵션은 삭제한다.<br />SET DEFAULT 옵션은 Altibase에서 지원하지 않기 때문에 마이그레이션 수행 시 SET NULL로 변환한다. |
+| Index                  |                   O                   |                   O                    | PostgreSQL의 다양한 인덱스 타입 중 Altibase에서 지원하는 B-tree와 R-tree만 마이그레이션 대상이다. |
+| Sequence               |                   O                   |                  X                   | PostgreSQL 시퀀스의 기본 최댓값 9223372036854775807은 Altibase 시퀀스의 기본 최댓값 9223372036854775806으로 강제 변환한다.<br/>PostgreSQL 시퀀스의 캐시 크기가 1이면 Altibase에서 CACHE 절을 삭제하고 Altibase의 기본 캐시 크기 20으로 생성한다.<br /><br />'Build Table'에서 사용자가 명시적으로 생성한 시퀀스는 마이그레이션 대상에서 제외되나, 마이그레이션 대상 테이블 컬럼의 Serial 데이터 타입을 위해 생성된 시퀀스는 테이블과 함께 마이그레이션된다. |
+| Function               |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| View                   |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Materialized View      |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+| Trigger                |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
+> 참고 : 위 표에 기록되지 않은 PostgreSQL의 객체(예, Exclusion 제약, Type, Enum 등)는 Altibase에 대응되는 객체가 없어 마이그레이션 대상에서 제외한다.
+
+<br/>
+
+<br/>
+
+# C.부록: 데이터 타입 맵핑
 
 이기종 데이터베이스 간의 데이터 타입을 맵핑할 때 Migration Center의 기본 정책은 "데이터 손실을 최소화하라"이다. 하지만 데이터가 손실되거나 손상되더라도 사용자가 데이터 타입 맵핑 방식을 직접 정의하는 것을 원할 수도 있다. 이런 요구를 만족시키기 위해 Migration Center는 데이터 타입 맵핑 테이블을 편집하는 방법을
 제공한다.
@@ -1587,11 +1707,11 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |      | 원본          | 대상              | 주의 사항                                                    |
 | :--: | :------------ | :---------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
-|  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) -\> NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
+|  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 컬럼의 명시적인 크기는 같다(예. NCHAR(10) -\> NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 컬럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 컬럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 컬럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
 |  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
-|  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 칼럼 크기가 서로 다르다.                |
+|  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 컬럼 크기가 서로 다르다.                |
 |  5   | LONG          | CLOB              |                                                              |
-|  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
+|  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 컬럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 컬럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
 |  7   | FLOAT         | FLOAT             |                                                              |
 |  8   | BINARY FLOAT  | FLOAT             |                                                              |
 |  9   | BINARY DOUBLE | VARCHAR(310)      | Altibase 에는 오라클 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자 형으로 저장된다. |
@@ -1652,7 +1772,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다 |
 |  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
 |  12  | FLOAT              | FLOAT                           |                                                              |
-|  13  | DOUBLE             | VARCHAR(310)                    | Altibase에는 MySQL DOUBLE 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  13  | DOUBLE             | DOUBLE                          | TODO: BUG-49993                                              |
 |  14  | BIT                | VARBIT                          |                                                              |
 |  15  | DATETIME           | DATE                            | 시각 부분이 0으로 설정된다.                                  |
 |  16  | DATE               | DATE                            |                                                              |
@@ -1794,7 +1914,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  3   | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
 |  4   | NVARCHAR      | NVARCHAR        |                                                              |
 |  5   | LONG          | CLOB            |                                                              |
-|  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
+|  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 컬럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 컬럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
 |  7   | BINARY FLOAT  | FLOAT           |                                                              |
 |  8   | BINARY DOUBLE | VARCHAR(310)    | Altibase에는 티베로의 BINARY DOUBLE 타입과 호환되는 데이터 타입이 없으므로 데이터 손실을 막기 위해 문자형으로 저장된다. |
 |  9   | DATE          | DATE            |                                                              |
@@ -1806,6 +1926,51 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
 |  17  | ROWID         | VARCHAR(18)     | 티베로의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
+
+#### PostgreSQL to Altibase
+
+다음은 PostgreSQL와 Altibase의 데이터 타입의 차이와 마이그레이션 시 주의해야 할 사항을 나타낸 표이다.
+
+|      | PostgreSQL| Altibase| 주의 사항                                                    |
+| :--: | :------- | :-------- | :----------------------------------------------------------- |
+|   1   | SMALLINT | SMALLINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768** ~ 32,767이고 Altibase는 **-32,767** ~ 32,767이다. |
+|   2   | INTEGER | INTEGER | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648** ~ 2,147,483,647이고 Altibase는 **-2,147,483,647** ~ 2,147,483,647이다. |
+|   3   | BIGINT | BIGINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 BIGINT는 **-9,223,372,036,854,775,808** ~ 9,223,372,036,854,775,807이고 Altibase는 **-9,223,372,036,854,775,807** ~ 9,223,372,036,854,775,807이다. |
+|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1 ~ 1,000, Scale: 0 ~ _precision_ 이고 Altibase는 Precision: 1 ~ 38, Scale: -84 ~ 128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다.|
+|   5   | REAL | REAL |  |
+|   6  | DOUBLE PRECISION | DOUBLE |  |
+|  7   | MONEY | VARCHAR(30) | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다.|
+|  8    | CHARACTER <br/> CHAR | CHAR |  |
+|  9    | CHARACTER VARYING <br/> VARCHAR | VARCHAR 또는 CLOB| PostgreSQL와 Altibase의 문자 집합에 따라 마이그레이션 센터에 의해 자동 보정된 컬럼 길이가 32,000바이트보다 작으면 VARCHAR로, 32,000바이트를 초과하면 CLOB으로 변환한다. 32,000바이트는 Altibase의 VARCHAR 타입의 최대 크기이다. |
+|  10  | TEXT | CLOB | PostgreSQL의 TEXT는 CLOB으로 변환한다.|
+| 11 | BOOLEAN | CHAR(1) | PostgreSQL의 BOOLEAN은 CHAR(1)으로 변환한다. true는 't'로, false는 'f로 변환하여 저장하며 unknown은 널(null)로 저장한다.|
+| 12  | DATE | DATE | PostgreSQL의 DATE에 저장된 -infinity와 infinity는 Altibase에서 각각 21506-12-03, 11567-08-17로 변환된다. 참고로, -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03, 292278994-08-17로 표현된다. |
+| 13 | TIME WITH TIME ZONE         | DATE | Altibase는 시간만 표현하는 데이터 타입이 없어 DATE 타입으로 변환하고 TIME ZONE 정보는 유실된다. |
+|  14 | TIME WITHOUT TIME ZONE | DATE | Altibase는 시간만 표현하는 데이터 타입이 없어 DATE 타입으로 변환한다.  |
+| 15 | TIMESTAMP WITH TIME ZONE | DATE | TIME ZONE 정보는 유실되며, -infinity와 infinity는 Altibase에서 각각 11567-08-17, 21506-12-03 으로 변환된다. |
+| 16 | TIMESTAMP WITHOUT TIME ZONE | DATE | PostgreSQL의 데이터 타입 TIMESTAMP WITHOUT TIME ZONE에 저장된 -infinity와 infinity는 각각 Altibase에서 11567-08-17 08:00:00.0, 21506-12-03 08:00:00.0으로 변환된다.  |
+| 17  | INTERVAL | VARCHAR(100) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 18  | CIDR | VARCHAR(43) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 19  | INET | VARCHAR(43) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 20  | MACADDR | VARCHAR(17) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 21 | BIT | BIT | PostgreSQL의 BIT 컬럼 크기가 64,000비트 이하면 BIT로, 64,000비트를 초과하면 CLOB으로 변환한다. 이는 PostgreSQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. PostgreSQL의 BIT 최대 크기는 83,886,080비트로 Altibase의 64,000비트 보다 크다.|
+| 22 | BIT VARYING | VARBIT 또는 CLOB | PostgreSQL의 BIT VARYING 컬럼 크기가 64,000비트 이하이면 VARBIT 타입으로, 64,000비트를 초과하면 CLOB으로 변환한다. 이는 PostgreSQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. PostgreSQL의 BIT VARYING 최대 크기는 83,886,080비트로 Altibase의 64,000비트 보다 크다. |
+| 23  | XML | CLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
+| 24 | JSON | CLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 CLOB 타입으로 저장된다. |
+| 25 | JSONB | BLOB | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 BLOB 타입으로 저장된다. |
+| 26 | ENUM | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 27 | UUID | VARCHAR(36) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 28 | ARRAY | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 29 | COMPOSITE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 30 | RANGE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 31 | POINT | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 32 | LINE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 33 | LSEG | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 34 | BOX | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 35 | PATH | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 36 | POLYGON | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 37 | CIRCLE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+
 
 ### 이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정
 
@@ -1937,9 +2102,58 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 | ZHT16MSWIN950  | 2                        |
 | ZHT32EUC       | 4                        |
 
-## D.부록: 기본값 맵핑
+##### PostgreSQL
 
-Altibase의 테이블 칼럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
+| Character Set  | Max. Bytes Per Character |
+| :-------------- | :------------------------: |
+| BIG5           | 2                        |
+| EUC_CN         | 3                        |
+| EUC_JP         | 3                        |
+| EUC_JIS_2004   | 3                        |
+| EUC_KR         | 3                        |
+| EUC_TW         | 3                        |
+| GB18030        | 4                        |
+| GBK            | 2                        |
+| ISO_8859_5     | 1                        |
+| ISO_8859_6     | 1                        |
+| ISO_8859_7     | 1                        |
+| ISO_8859_8     | 1                        |
+| JOHAB          | 3                        |
+| KOI8R          | 1                        |
+| KOI8U          | 1                        |
+| LATIN1         | 1                        |
+| LATIN2         | 1                        |
+| LATIN3         | 1                        |
+| LATIN4         | 1                        |
+| LATIN5         | 1                        |
+| LATIN6         | 1                        |
+| LATIN7         | 1                        |
+| LATIN8         | 1                        |
+| LATIN9         | 1                        |
+| LATIN10        | 1                        |
+| MULE_INTERNAL  | 4                        |
+| SJIS           | 2                        |
+| SHIFT_JIS_2004 | 2                        |
+| SQL_ASCII      | 1                        |
+| UHC            | 2                        |
+| UTF8           | 4                        |
+| WIN866         | 1                        |
+| WIN874         | 1                        |
+| WIN1250        | 1                        |
+| WIN1251        | 1                        |
+| WIN1252        | 1                        |
+| WIN1253        | 1                        |
+| WIN1254        | 1                        |
+| WIN1255        | 1                        |
+| WIN1256        | 1                        |
+| WIN1257        | 1                        |
+| WIN1258        | 1                        |
+
+<br/>
+
+# D.부록: 기본값 맵핑
+
+Altibase의 테이블 컬럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
 
 하지만 이기종 데이터베이스들 간의 기본값 정책이 일부 상이하여, Migration
 Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스의 값을 Altibase정책에
@@ -1953,7 +2167,7 @@ Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스
 Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 데이터베이스 에 원본
 데이터베이스의 테이블과 동일한 테이블을 생성한다. 이를 위해 원본 데이터베이스의
 테이블 속성과 일치하는 테이블 생성 구문을 먼저 만든다. 이 때 Migration Center는
-원본 테이블의 칼럼 기본값과 동일하게 대상 테이블의 칼럼에 기본값을 설정하려
+원본 테이블의 컬럼 기본값과 동일하게 대상 테이블의 컬럼에 기본값을 설정하려
 한다. 이 절의 맵핑 테이블에 나열된 기본값은 Migration Center가 CREATE TABLE 문
 생성시에 표에 따라 변환하여 지정한다. 그 외의 기본값은 변경 없이 그대로 CREATE
 TABLE 문에 지정된다.
@@ -2085,7 +2299,7 @@ TABLE 문에 지정된다.
     </tr>
 </table>
 
-> 참고: MySQL은 테이블의 첫 칼럼의 데이터 타입이 TIMESTAMP인 경우, 사용자가
+> 참고: MySQL은 테이블의 첫 컬럼의 데이터 타입이 TIMESTAMP인 경우, 사용자가
 > 기본값을 지정하지 않아도 기본값으로 CURRENT_TIMESTAMP이 자동으로 지정된다.
 > 따라서, 이 경우 기본값이 SYSDATE으로 변환된다. 아래의 예제를 참고하라.
 
@@ -2231,7 +2445,39 @@ TABLE 문에 지정된다.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT QRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL(  <br />C1  NUMBER (38, 0)  DEFAULT 123,    <br />C2  VARCHAR (50)    DEFAULT 'test',    <br />C3  NUMBER (38, 0),    <br />C4  CHAR (10),    <br />C5  NUMBER (38, 0)  DEFAULT SQRT(144) + 72,   <br />C6  DATE /\* DEFAULT '97/04/21' \*/,    <br />C7  DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'),    <br />C8  VARCHAR (100)   DEFAULT DB_TIMEZONE(),    <br />C9  VARCHAR (100)   DEFAULT SYS_GUID_STR(),<br />C10 VARCHAR (100)   DEFAULT USER_ID(), <br />C11 VARCHAR (100)   DEFAULT USER_NAME() ); |
 
-## E.부록: PSM 변환기 규칙 목록
+#### PostgreSQL to Altibase
+
+| Expression Type | 원본(PostgreSQL)          | 대상(Altibase)          | 특이사항 |
+| :-------------- | :------------------------ | :---------------------- | :------- |
+| 함수            | current_role              | USER_NAME()             |          |
+|                 | current_schema            | USER_NAME()             |          |
+|                 | current_user              | USER_NAME()             |          |
+|                 | session_user              | USER_NAME()             |          |
+|                 | user                      | USER_NAME()             |          |
+|                 | ceiling(expression)       | CEIL(number)            |          |
+|                 | random()                  | RANDOM(0)/2147483647    |          |
+|                 | bit_length(string)        | 8*OCTET_LENGTH(expr)    |          |
+|                 | reverse(str)              | REVERSE_STR(expr)       |          |
+|                 | strpos(string, substring) | INSTR (expr, substring) |          |
+|                 | clock_timestamp()         | SYSDATE                 |          |
+|                 | current_date              | SYSDATE                 |          |
+|                 | current_time              | SYSDATE                 |          |
+|                 | current_timestamp         | SYSDATE                 |          |
+|                 | localtime                 | SYSDATE                 |          |
+|                 | localtimestamp            | SYSDATE                 |          |
+|                 | now()                     | SYSDATE                 |          |
+|                 | statement_timestamp()     | SYSDATE                 |          |
+|                 | transaction_timestamp()   | SYSDATE                 |          |
+
+아래는 변환 예제이다.
+
+| PostgreSQL의 테이블 생성 SQL문                               | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| CREATE TABLE testtbl_4_defval <br />( c1 VARCHAR(50) DEFAULT current_role,<br/>c2 VARCHAR(50) DEFAULT current_schema,<br/>c3 VARCHAR(50) DEFAULT current_user,<br/>c4 VARCHAR(50) DEFAULT session_user,<br/>c5 VARCHAR(50) DEFAULT user,<br/>c6 INTEGER DEFAULT ceiling(-95.3),<br/>c7 DOUBLE PRECISION DEFAULT random(),<br/>c8 INTEGER DEFAULT bit_length('abc'),<br/>c9 VARCHAR(50) DEFAULT reverse('reverse'),<br/>c10 INTEGER DEFAULT strpos('high', 'ig'),<br/>c11 timestamp with time zone DEFAULT clock_timestamp(),<br/>c12 date DEFAULT current_date,<br/>c13 time with time zone DEFAULT current_time,<br/>c14 timestamp with time zone DEFAULT current_timestamp,<br/>c15 time DEFAULT localtime,<br/>c16 timestamp DEFAULT localtimestamp,<br/>c17 timestamp with time zone DEFAULT now(),<br/>c18 timestamp with time zone DEFAULT transaction_timestamp() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 VARCHAR (50) DEFAULT USER_NAME()<br/>,C2 VARCHAR (50) DEFAULT USER_NAME()<br/>,C3 VARCHAR (50) DEFAULT USER_NAME()<br/>,C4 VARCHAR (50) DEFAULT USER_NAME()<br/>,C5 VARCHAR (50) DEFAULT USER_NAME()<br/>,C6 INTEGER  DEFAULT CEIL('-95.3')<br/>,C7 DOUBLE  DEFAULT (RANDOM(0)/2147483647)<br/>,C8 INTEGER  DEFAULT 8*OCTET_LENGTH('abc')<br/>,C9 VARCHAR (50) DEFAULT REVERSE_STR('reverse')<br/>,C10 INTEGER  DEFAULT INSTR('high', 'ig')<br/>,C11 DATE  DEFAULT SYSDATE<br/>,C12 DATE  DEFAULT SYSDATE<br/>,C13 DATE  DEFAULT SYSDATE<br/>,C14 DATE  DEFAULT SYSDATE<br/>,C15 DATE  DEFAULT SYSDATE<br/>,C16 DATE  DEFAULT SYSDATE<br/>,C17 DATE  DEFAULT SYSDATE<br/>,C18 DATE  DEFAULT SYSDATE ); |
+
+<br/>
+
+# E.부록: PSM 변환기 규칙 목록
 
 Migration Center는 Oracle 또는 TimesTen 11.2에서 Altibase로 마이그레이션을 할 때, PSM 변환기가 PSM 타입의 데이터베이스 객체를 생성할 수 있는 DDL SQL 문장을 제공한다.
 
@@ -3742,7 +3988,7 @@ PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the paramet
 
 ###### 설명
 
-칼럼 별칭 절과 서브쿼리 사이의 모든 절이 제거되었다.
+컬럼 별칭 절과 서브쿼리 사이의 모든 절이 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -4212,7 +4458,7 @@ END;
 
 ###### 설명
 
-CONNECT_BY_ISCYCLE 의사 칼럼은 수동으로 변환해야 한다.
+CONNECT_BY_ISCYCLE 의사 컬럼은 수동으로 변환해야 한다.
 
 ###### 원본 SQL 문장
 
@@ -7586,7 +7832,9 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
 ~~~
 
-## F.부록: FAQ
+<br/>
+
+# F.부록: FAQ
 
 ### DBMS 공통
 
@@ -7645,13 +7893,13 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
 
 `원인`
 
-마이그레이션 센터가 LOB 칼럼의 NOT NULL 제약조건을 임의로 제거하여 발생하는 현상이다.
+마이그레이션 센터가 LOB 컬럼의 NOT NULL 제약조건을 임의로 제거하여 발생하는 현상이다.
 
 마이그레이션 센터는 파라미터가 포함된 쿼리문(예: insert into tablename values(?,?))을 사용해서 대상 DB에 데이터를 삽입한다.
 
 Altibase는 다른 컬럼과는 달리 LOB 컬럼에 데이터를 입력할 경우에는 먼저 데이터를 null로 초기화한 다음, LOB Locator를 통해 데이터를 받아서 입력하는 두 단계로 처리한다. 따라서 해당 컬럼에 NOT NULL 제약조건이 있다면 데이터를 null로 초기화할 수 없어서 insert가 실패하게 된다.
 
-이런 제약 때문에, 마이그레이션 센터는 LOB 칼럼의 NOT NULL 제약조건을 임의로 제거해서 마이그레이션을 수행한다.
+이런 제약 때문에, 마이그레이션 센터는 LOB 컬럼의 NOT NULL 제약조건을 임의로 제거해서 마이그레이션을 수행한다.
 
 이러한 내용은 아래 매뉴얼에서 확인할 수 있다. (General Reference - 1. 자료형 - LOB 데이타 타입 - 제한사항)
 

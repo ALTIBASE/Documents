@@ -1,76 +1,150 @@
-- [Getting Started Guide](#getting-started-guide)
-  - [Preface](#%EC%84%9C%EB%AC%B8)
-    - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1. Installing Altibase](#1altibase-%EC%84%A4%EC%B9%98)
-    - [The Installation Process](#%EC%84%A4%EC%B9%98-%EA%B3%BC%EC%A0%95)
-    - [Special Consideration](#%EA%B3%A0%EB%A0%A4-%EC%82%AC%ED%95%AD)
-  - [2. Startup and Shutdown Altibase](#2altibase-%EC%8B%A4%ED%96%89%EA%B3%BC-%EC%A2%85%EB%A3%8C)
-    - [Starting Up Altibase](#altibase%EC%9D%98-%EC%8B%A4%ED%96%89)
-    - [Shutting Down Altibase](#altibase%EC%9D%98-%EC%A2%85%EB%A3%8C)
-  - [3. Working with Altibase](#3altibase%EB%A1%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
-    - [Supported SQL Statement](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-sql%EB%AC%B8)
-    - [How to Execute SQL Statements](#sql%EB%AC%B8-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
-    - [Sample Schema](#%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
-  - [4. DB Objects and Privileges](#4%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC)
-    - [Database Objects: An Overview](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
-    - [Privileges: An Overview](#%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC-%EA%B0%9C%EC%9A%94)
-  - [5. Multilingual Features](#5%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-    - [Multilingual Support Overview](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90-%EA%B0%9C%EC%9A%94)
-    - [Character Set Classification for Multilingual Support](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EB%B6%84%EB%A5%98)
-    - [Using Unicode in a Multilingual Database](#%EC%9C%A0%EB%8B%88%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-    - [Environment Settings for a Multilingual Database](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-    - [Considerations when Choosing a Database Character set](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EC%84%A0%ED%83%9D%EC%8B%9C-%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD)
-  - [6. Database Replication](#6%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [Introduction to Replication](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%95%EC%9D%98)
-    - [How Databases are Replicated In Altibase](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B0%A9%EB%B2%95)
-    - [How to Replicate a Database](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [Executing DLL Statements in a Replication Environment](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
-  - [7. Fail-Over](#7fail-over)
-    - [About Fail-Over](#fail-over%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [How to Use Fail-Over](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [8. Backup and Recovery](#8%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
-    - [Backup Policy](#%EB%B0%B1%EC%97%85-%EC%A0%95%EC%B1%85)
-    - [Recovery Policy](#%EB%B3%B5%EA%B5%AC-%EC%A0%95%EC%B1%85)
-  - [9. Developing Altibase Application](#9%EC%9D%91%EC%9A%A9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1)
-    - [Writing Client Application Programs](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EB%B0%A9%EB%B2%95)
-    - [Applications Using Altibase CLI](#altibase-cli%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [Applications Using JDBC](#jdbc%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [Applications Written Using the C/C++ Precompiler](#cc-precompiler%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-
-
-
-Altibase® Administration
-
 Getting Started Guide
 =====================
 
-![](media/GettingStarted/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
+
+Altibase® Administration
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->  
+
+<pre>
 Altibase Administration Getting Started Guide
-
 Release 7.1
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
-prohibited. All trademarks, registered or otherwise, are the property of their respective owners. 
-
-**Altibase Corp**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Customer Service Portal: <http://support.altibase.com/en/>
+<br>
 
-Homepage: [http://www.altibase.com]
+# Table Of Contents
+
+- [Preface](#%EC%84%9C%EB%AC%B8)
+  - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1. Installing Altibase](#1altibase-%EC%84%A4%EC%B9%98)
+  - [The Installation Process](#%EC%84%A4%EC%B9%98-%EA%B3%BC%EC%A0%95)
+  - [Special Consideration](#%EA%B3%A0%EB%A0%A4-%EC%82%AC%ED%95%AD)
+- [2. Startup and Shutdown Altibase](#2altibase-%EC%8B%A4%ED%96%89%EA%B3%BC-%EC%A2%85%EB%A3%8C)
+  - [Starting Up Altibase](#altibase%EC%9D%98-%EC%8B%A4%ED%96%89)
+  - [Shutting Down Altibase](#altibase%EC%9D%98-%EC%A2%85%EB%A3%8C)
+- [3. Working with Altibase](#3altibase%EB%A1%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
+  - [Supported SQL Statement](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-sql%EB%AC%B8)
+  - [How to Execute SQL Statements](#sql%EB%AC%B8-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
+  - [Sample Schema](#%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
+- [4. DB Objects and Privileges](#4%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC)
+  - [Database Objects: An Overview](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
+  - [Privileges: An Overview](#%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC-%EA%B0%9C%EC%9A%94)
+- [5. Multilingual Features](#5%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
+  - [Multilingual Support Overview](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90-%EA%B0%9C%EC%9A%94)
+  - [Character Set Classification for Multilingual Support](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EB%B6%84%EB%A5%98)
+  - [Using Unicode in a Multilingual Database](#%EC%9C%A0%EB%8B%88%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
+  - [Environment Settings for a Multilingual Database](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+  - [Considerations when Choosing a Database Character set](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EC%84%A0%ED%83%9D%EC%8B%9C-%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD)
+- [6. Database Replication](#6%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
+  - [Introduction to Replication](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%95%EC%9D%98)
+  - [How Databases are Replicated In Altibase](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B0%A9%EB%B2%95)
+  - [How to Replicate a Database](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+  - [Executing DLL Statements in a Replication Environment](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+- [7. Fail-Over](#7fail-over)
+  - [About Fail-Over](#fail-over%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [How to Use Fail-Over](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+- [8. Backup and Recovery](#8%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
+  - [Backup Policy](#%EB%B0%B1%EC%97%85-%EC%A0%95%EC%B1%85)
+  - [Recovery Policy](#%EB%B3%B5%EA%B5%AC-%EC%A0%95%EC%B1%85)
+- [9. Developing Altibase Application](#9%EC%9D%91%EC%9A%A9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1)
+  - [Writing Client Application Programs](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EB%B0%A9%EB%B2%95)
+  - [Applications Using Altibase CLI](#altibase-cli%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [Applications Using JDBC](#jdbc%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [Applications Written Using the C/C++ Precompiler](#cc-precompiler%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
 
 
 
 Preface
-----
+====
 
 ## About This Manual
 
@@ -292,7 +366,7 @@ To set system kernel parameters, log in as the root user.
 
 
 
-## 2. Startup and Shutdown Altibase
+# 2. Startup and Shutdown Altibase
 
 --------------------
 
@@ -459,7 +533,7 @@ $
 
 
 
-## 3. Working with Altibase
+# 3. Working with Altibase
 
 -------------------
 
@@ -500,7 +574,7 @@ Many of the examples in this manual are based on those sample schemas. If you wi
 
 For more detailed description of all of the objects and data in the sample schema, please refer to the *General Reference*.
 
-## 4. DB Objects and Privileges
+# 4. DB Objects and Privileges
 
 ------------------------------
 
@@ -722,7 +796,7 @@ However, the privileges of the SYSTEM_ and SYS users cannot be revoked.
 
 
 
-## 5. Multilingual Features
+# 5. Multilingual Features
 
 -----------
 
@@ -1128,7 +1202,7 @@ is a superset of the character sets used by the clients, character conversion wi
 
 
 
-## 6. Database Replication
+# 6. Database Replication
 
 -------------------
 
@@ -1309,7 +1383,7 @@ However, DDL statements that are not allowed in replication should be used after
 
 
 
-## 7. Fail-Over
+# 7. Fail-Over
 ---------
 
 Altibase provides a Fail-Over function to overcome failures and provide service regardless of failures while operating the database system. This chapter describes the functions and usage of Fail-Over supported by Altibase.
@@ -1407,7 +1481,7 @@ environments, please refer to the *Replication Manual*.
 
 
 
-## 8. Backup and Recovery
+# 8. Backup and Recovery
 
 ------------
 
@@ -1453,7 +1527,7 @@ For more detailed information about backup and recovery, please refer to the por
 
 
 
-## 9. Developing Altibase Applications
+# 9. Developing Altibase Applications
 
 -----------------
 

@@ -1,53 +1,130 @@
-
-
-
-- [Adapter for JDBC User’s Manual](#adapter-for-jdbc-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction](#1-introduction)
-    - [Adapter for JDBC](#adapter-for-jdbc)
-  - [2. Installation and Configuration](#2-installation-and-configuration)
-    - [Pre-installation Tasks](#pre-installation-tasks)
-    - [Installation](#installation)
-    - [Post-installation Tasks](#post-installation-tasks)
-    - [Configuration](#configuration)
-    - [Properties](#properties)
-  - [3. Usage Instructions](#3-usage-instructions)
-    - [jdbcAdapter Constraints](#jdbcadapter-constraints)
-    - [Startup and Shutdown](#startup-and-shutdown)
-    - [Data Types](#data-types)
-    - [Adapter for JDBC Utility](#adapter-for-jdbc-utility)
-    - [Command-Line Option](#command-line-option)
-  - [Appendix A: FAQ](#appendix-a-faq)
-  - [Appendix B: DDL execution order when using the jdbcAdapter](#appendix-b-ddl-execution-order-when-using-the-jdbcadapter)
-
-
-
-Altibase® Tool & Utilities
-
 Adapter for JDBC User’s Manual
-==============================
+================
 
-![](media/JdbcAdapter/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
-Altibase Tool & Utilities Adapter for Oracle User’s Manual
+Alitbase® Tools & Utilities
 
-Release 7.1
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: http://support.altibase.com/en/
 
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Tool & Utilities Adapter for JDBC User’s Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
+<br>
+
+# Table Of Contents
+
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction](#1-introduction)
+  - [Adapter for JDBC](#adapter-for-jdbc)
+- [2. Installation and Configuration](#2-installation-and-configuration)
+  - [Pre-installation Tasks](#pre-installation-tasks)
+  - [Installation](#installation)
+  - [Post-installation Tasks](#post-installation-tasks)
+  - [Configuration](#configuration)
+  - [Properties](#properties)
+- [3. Usage Instructions](#3-usage-instructions)
+  - [jdbcAdapter Constraints](#jdbcadapter-constraints)
+  - [Startup and Shutdown](#startup-and-shutdown)
+  - [Data Types](#data-types)
+  - [Adapter for JDBC Utility](#adapter-for-jdbc-utility)
+  - [Command-Line Option](#command-line-option)
+- [Appendix A: FAQ](#appendix-a-faq)
+- [Appendix B: DDL execution order when using the jdbcAdapter](#appendix-b-ddl-execution-order-when-using-the-jdbcadapter)
+
+
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -159,7 +236,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction
+# 1. Introduction
 
 This chapter describes the concept of Adapter for JDBC and the structure of operation in which data changed in Altibase is replicated to other databases.
 
@@ -210,7 +287,7 @@ Handshaking is the task of checking the protocol version and meta data before th
 
 Log Analysis API is an interface provided by Altibase and it is used to implement jdbcAdapter. The API provides XLogs and meta data that are used to interpret the XLogs.
 
-## 2. Installation and Configuration
+# 2. Installation and Configuration
 
 This chapter describes how to install and configure the Adapter for JDBC.
 
@@ -626,7 +703,7 @@ Spaces or tabs cannot be used when setting property values.
 
 Also, in order to use characters including special characters together, the property value must be handled with double quotation marks ("").
 
-## 3. Usage Instructions
+# 3. Usage Instructions
 
 This chapter describes how to use the Adapter for JDBC.
 
@@ -814,7 +891,7 @@ Adapter for JDBC version 7.1.0.0.2
 ...
 ```
 
-## Appendix A: FAQ
+# Appendix A: FAQ
 
 #### What do I have to do after modifying environment variables or properties?
 
@@ -824,7 +901,7 @@ If environment variables or properties are modified after jdbcAdapter has been r
 
 If jdbcAdapter fails to apply data to Altibase DB, only log messages are left and the next data is applied.The log messages are written to a trace log file located in $JDBC_ADAPTER_HOME/trc directory.
 
-## Appendix B: DDL execution order when using the jdbcAdapter
+# Appendix B: DDL execution order when using the jdbcAdapter
 
 When using jdbcAdapter, DDL that is performing replication must be executed in the following order.
 

@@ -1,30 +1,112 @@
 dataCompJ User's Manual
-==============================
+================
 
-![](media/dataCompJ/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Release 7.2
 
-Altibase® Tools & Utilities
+Alitbase® Tools & Utilities
 
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Tools & Utilities dataCompJ User's Manual
 Release 7.2
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: http://www.altibase.com
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
 
-# Table of Contents
+<br>
 
-- [dataCompJ User's Manual](#datacompj-users-manual)
-  - [Preface](#preface)
+# Table Of Contents
+
+- [Preface](#preface)
+
 - [1. Introducing dataCompJ](#1-introducing-datacompj)
   - [Overview](#overview)
   - [System Requirements](#system-requirements)
@@ -41,7 +123,7 @@ Homepage: http://www.altibase.com
   - [Synchronization(SYNC) Function](#synchronizationsync-function)
 - [Appendix A: Data Type compatibility table between Other Databases](#appendix-a-data-type-compatibility-table-between-other-databases)
 
-
+<br>
 
 Preface
 ----
@@ -166,6 +248,8 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
+<br>
+
 # 1. Introducing dataCompJ
 
 This chapter introduces dataCompJ and explains how to install it. This chapter consists of the following sections:
@@ -222,6 +306,8 @@ dataCompJ can be downloaded from the official [Altibase Customer Support portal]
 dataCompJ is installed once dataCompJCli is decompressed. Subdirectory of JDBC including dataCompJCli.sh and XML file exist in the directory created as a result of the decompression.
 
 In order to uninstall dataCompJ, delete the directory in which dataCompJ is installed.
+
+<br>
 
 # 2. Getting Started
 
@@ -293,6 +379,8 @@ This method is used to insert a record, which exists in the master table but not
 ##### MXSO Inconsistency
 
 This method deletes records, which exists only in the slave table, but not in the master table, from the slave table with DELETE_FROM_SLAVE policy.
+
+<br>
 
 # 3. How to Use dataCompJ
 
@@ -483,6 +571,8 @@ The following restrictions should be considered when selecting comparison target
    In the example 1, c3 is the only column satisfying the 'Constraint 3'. However, it infringes 'Constraint 2' since the data type CLOB is not supported by dataCompJ. Therefore, comparison for table 1 is not allowed.
 
    In the enxt example, c3 is the only column satisfying 'Constraint 3' and it is varchar type which is supported by dataCompJ. Thus, the table 1 can be compared.
+
+<br>
 
 # 4. Functions
 
@@ -1020,6 +1110,8 @@ MXSO    Slave only                            0
 ------------------------------------------------------
 
 ```
+
+<br>
 
 # Appendix A: Data Type compatibility table between Other Databases
 

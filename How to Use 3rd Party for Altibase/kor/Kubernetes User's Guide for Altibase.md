@@ -15,13 +15,13 @@
 
 
 
-
+<br>
 
 # 개요
 
 쿠버네티스(Kubernetes)는 컨테이너화된 애플리케이션의 배포, 스케일링 및 관리를 자동화하는 오픈소스 시스템이다. 쿠버네티스에서 이러한 작업을 처리하는 최소 단위는 파드(Pod)이다. 이 문서는 쿠버네티스 v1.20.4 환경에서 도커 허브(Docker Hub)에 등록된 [Altibase 컨테이너 이미지](https://hub.docker.com/r/altibase/altibase)를 이용하여 Altibase 파드를 생성하고 사용하는 가이드를 제시한다. Altibase 도커 이미지 생성은 [Altibase 도커 가이드](https://aid.altibase.com/pages/viewpage.action?pageId=14057660)를, 기타 쿠버네티스의 세부 기능은 [Kubernetes 홈페이지](https://kubernetes.io/ko/)를 참고한다.
 
-
+<br>
 
 # 파드 생성 및 사용하기
 
@@ -356,7 +356,7 @@ ISQL_CONNECTION = TCP, SERVER = 10.98.64.213, PORT_NO = 20300
 iSQL>
 ```
 
-
+<br>
 
 # 파드를 사용하여 Altibase 이중화하기
 

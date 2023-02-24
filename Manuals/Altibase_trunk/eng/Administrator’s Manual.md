@@ -1,128 +1,200 @@
+Administrator’s Manual
+================
 
-
-- [Administrator’s Manual](#administrators-manual)
-  - [1. Introduction](#1-introduction)
-    - [Hybrid DBMS Concept](#hybrid-dbms-concept)
-    - [Altibase Features](#altibase-features)
-    - [Structure of Altibase](#structure-of-altibase)
-  - [2. Altibase Components](#2-altibase-components)
-    - [Altibase Directories](#altibase-directories)
-    - [Executable Binaries](#executable-binaries)
-    - [Altibase Libraries](#altibase-libraries)
-  - [3. Creating a Database](#3-creating-a-database)
-    - [Creating a Database](#creating-a-database)
-  - [4. Startup and Shutdown](#4-startup-and-shutdown)
-    - [Startup Procedure](#startup-procedure)
-    - [Shutdown Procedure](#shutdown-procedure)
-  - [5. Objects and Privileges](#5-objects-and-privileges)
-    - [Database Objects](#database-objects)
-    - [Tables](#tables-1)
-    - [Temporary Tables](#temporary-tables-2)
-    - [Compressed Tables](#compressed-tables)
-    - [Queues](#queues)
-    - [Constraints](#constraints-2)
-    - [Indexes](#indexes)
-    - [View](#view)
-    - [Materialized View](#materialized-view)
-    - [Sequences](#sequences)
-    - [Synonyms](#synonyms)
-    - [Stored Procedures and Functions](#stored-procedures-and-functions)
-    - [Triggers](#triggers)
-    - [Jobs](#jobs-1)
-    - [Database Users](#database-users)
-    - [Privileges and Roles](#privileges-and-roles)
-  - [6. Managing Tablespaces](#6-managing-tablespaces)
-    - [Tablespaces: Definition and Structure](#tablespaces-definition-and-structure)
-    - [Classifying Tablespaces](#classifying-tablespaces)
-    - [Disk Tablespace](#disk-tablespace)
-    - [The Undo Tablespace](#the-undo-tablespace)
-    - [Tablespace States](#tablespace-states)
-    - [Managing Tablespaces](#managing-tablespaces)
-    - [Examples of Tablespace Use](#examples-of-tablespace-use)
-    - [Managing Space in Tablespaces](#managing-space-in-tablespaces)
-  - [7. Paritioned Objects](#7-paritioned-objects)
-    - [What is Partitioning?](#what-is-partitioning)
-    - [Partitioned Objects](#partitioned-objects)
-    - [Partitioned Conditions](#partitioned-conditions)
-    - [Partitioning Methods](#partitioning-methods)
-  - [8. Managing Transactions](#8-managing-transactions)
-    - [Transactions](#transactions)
-    - [Locking](#locking)
-    - [Multi-Version Concurrency Control (MVCC)](#multi-version-concurrency-control-mvcc)
-    - [Transaction Durability](#transaction-durability)
-    - [Checkpointing](#checkpointing)
-  - [9. Database Buffer Manager](#9-database-buffer-manager)
-    - [Structure of the Buffer Manager](#structure-of-the-buffer-manager)
-    - [Managing Database Buffers](#managing-database-buffers)
-    - [Related Database Properties](#related-database-properties)
-    - [Statistics for Buffer Management](#statistics-for-buffer-management)
-  - [10. Backup and Recovery](#10-backup-and-recovery)
-    - [Database Backup](#database-backup)
-    - [Database Recovery](#database-recovery)
-    - [Backup and Recovery Examples](#backup-and-recovery-examples)
-  - [11. Incremental Backup and Recovery](#11-incremental-backup-and-recovery)
-    - [Incremental Backup](#incremental-backup)
-    - [Types of Incremental Backups](#types-of-incremental-backups)
-    - [Media Restoration with Incremental Backups](#media-restoration-with-incremental-backups)
-    - [Managing Backup Files](#managing-backup-files)
-  - [12. Communication Layer](#12-communication-layer)
-    - [Communication Protocol](#communication-protocol)
-  - [13. Securing Data](#13-securing-data)
-    - [Overview](#overview)
-    - [How Security is Organized in Altibase](#how-security-is-organized-in-altibase)
-    - [Integrating a Security Module](#integrating-a-security-module)
-    - [Starting Security Modules and Encrypting Data](#starting-security-modules-and-encrypting-data)
-  - [14. Database Auditing](#14-database-auditing)
-    - [Introduction](#introduction)
-    - [Related Meta Tables and Properties](#related-meta-tables-and-properties)
-    - [Audit Control Statements](#audit-control-statements)
-    - [Audit Condition Statements](#audit-condition-statements)
-    - [Viewing Auditing Results](#viewing-auditing-results)
-  - [15. Tuning Altibase](#15-tuning-altibase)
-    - [Log File Groups](#log-file-groups)
-    - [Group Commit](#group-commit)
-  - [16. DB Diagnostic Monitoring](#16-db-diagnostic-monitoring)
-    - [Monitoring Database Servers](#monitoring-database-servers)
-    - [Troubleshooting Procedures](#troubleshooting-procedures)
-  - [Appendix A. Trace Logs](#appendix-a-trace-logs)
-    - [Using Application Trace Logs](#using-application-trace-logs)
-  - [Appendix B. Altibase Limitations](#appendix-b-altibase-limitations)
-    - [Maximum Altibase Values](#maximum-altibase-values)
-
-
+#### Trunk
 
 Altibase® Administration
 
-Administrator’s Manual
-======================
-
-![](media/Admin/e5cfb3761673686d093a3b00c062fe7a.png)
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Administrator’s Manual
-
-Release 7.1
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is
-prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Customer Service Portal: <http://support.altibase.com/en/>
+<br>
 
-Homepage: [http://www.altibase.com]http://www.altibase.com/)
+# Table Of Contents
+
+- [1. Introduction](#1-introduction)
+  - [Hybrid DBMS Concept](#hybrid-dbms-concept)
+  - [Altibase Features](#altibase-features)
+  - [Structure of Altibase](#structure-of-altibase)
+- [2. Altibase Components](#2-altibase-components)
+  - [Altibase Directories](#altibase-directories)
+  - [Executable Binaries](#executable-binaries)
+  - [Altibase Libraries](#altibase-libraries)
+- [3. Creating a Database](#3-creating-a-database)
+  - [Creating a Database](#creating-a-database)
+- [4. Startup and Shutdown](#4-startup-and-shutdown)
+  - [Startup Procedure](#startup-procedure)
+  - [Shutdown Procedure](#shutdown-procedure)
+- [5. Objects and Privileges](#5-objects-and-privileges)
+  - [Database Objects](#database-objects)
+  - [Tables](#tables-1)
+  - [Temporary Tables](#temporary-tables-2)
+  - [Compressed Tables](#compressed-tables)
+  - [Queues](#queues)
+  - [Constraints](#constraints-2)
+  - [Indexes](#indexes)
+  - [View](#view)
+  - [Materialized View](#materialized-view)
+  - [Sequences](#sequences)
+  - [Synonyms](#synonyms)
+  - [Stored Procedures and Functions](#stored-procedures-and-functions)
+  - [Triggers](#triggers)
+  - [Jobs](#jobs-1)
+  - [Database Users](#database-users)
+  - [Privileges and Roles](#privileges-and-roles)
+- [6. Managing Tablespaces](#6-managing-tablespaces)
+  - [Tablespaces: Definition and Structure](#tablespaces-definition-and-structure)
+  - [Classifying Tablespaces](#classifying-tablespaces)
+  - [Disk Tablespace](#disk-tablespace)
+  - [The Undo Tablespace](#the-undo-tablespace)
+  - [Tablespace States](#tablespace-states)
+  - [Managing Tablespaces](#managing-tablespaces)
+  - [Examples of Tablespace Use](#examples-of-tablespace-use)
+  - [Managing Space in Tablespaces](#managing-space-in-tablespaces)
+- [7. Paritioned Objects](#7-paritioned-objects)
+  - [What is Partitioning?](#what-is-partitioning)
+  - [Partitioned Objects](#partitioned-objects)
+  - [Partitioned Conditions](#partitioned-conditions)
+  - [Partitioning Methods](#partitioning-methods)
+- [8. Managing Transactions](#8-managing-transactions)
+  - [Transactions](#transactions)
+  - [Locking](#locking)
+  - [Multi-Version Concurrency Control (MVCC)](#multi-version-concurrency-control-mvcc)
+  - [Transaction Durability](#transaction-durability)
+  - [Checkpointing](#checkpointing)
+- [9. Database Buffer Manager](#9-database-buffer-manager)
+  - [Structure of the Buffer Manager](#structure-of-the-buffer-manager)
+  - [Managing Database Buffers](#managing-database-buffers)
+  - [Related Database Properties](#related-database-properties)
+  - [Statistics for Buffer Management](#statistics-for-buffer-management)
+- [10. Backup and Recovery](#10-backup-and-recovery)
+  - [Database Backup](#database-backup)
+  - [Database Recovery](#database-recovery)
+  - [Backup and Recovery Examples](#backup-and-recovery-examples)
+- [11. Incremental Backup and Recovery](#11-incremental-backup-and-recovery)
+  - [Incremental Backup](#incremental-backup)
+  - [Types of Incremental Backups](#types-of-incremental-backups)
+  - [Media Restoration with Incremental Backups](#media-restoration-with-incremental-backups)
+  - [Managing Backup Files](#managing-backup-files)
+- [12. Communication Layer](#12-communication-layer)
+  - [Communication Protocol](#communication-protocol)
+- [13. Securing Data](#13-securing-data)
+  - [Overview](#overview)
+  - [How Security is Organized in Altibase](#how-security-is-organized-in-altibase)
+  - [Integrating a Security Module](#integrating-a-security-module)
+  - [Starting Security Modules and Encrypting Data](#starting-security-modules-and-encrypting-data)
+- [14. Database Auditing](#14-database-auditing)
+  - [Introduction](#introduction)
+  - [Related Meta Tables and Properties](#related-meta-tables-and-properties)
+  - [Audit Control Statements](#audit-control-statements)
+  - [Audit Condition Statements](#audit-condition-statements)
+  - [Viewing Auditing Results](#viewing-auditing-results)
+- [15. Tuning Altibase](#15-tuning-altibase)
+  - [Log File Groups](#log-file-groups)
+  - [Group Commit](#group-commit)
+- [16. DB Diagnostic Monitoring](#16-db-diagnostic-monitoring)
+  - [Monitoring Database Servers](#monitoring-database-servers)
+  - [Troubleshooting Procedures](#troubleshooting-procedures)
+- [Appendix A. Trace Logs](#appendix-a-trace-logs)
+  - [Using Application Trace Logs](#using-application-trace-logs)
+- [Appendix B. Altibase Limitations](#appendix-b-altibase-limitations)
+  - [Maximum Altibase Values](#maximum-altibase-values)
 
 
 
 Preface
-----
+====
 
 - ### About This Manual
 
@@ -290,7 +362,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedback and suggestions.
 
-## 1. Introduction
+# 1. Introduction
 
 -------------
 
@@ -635,7 +707,7 @@ This file is the Altibase server environment configuration file, and contains al
 
 This file contains error messages related to the data storage management module, the query processor module, and the Altibase server main module, as well as those related to function execution and data type.
 
-## 2. Altibase Components
+# 2. Altibase Components
 
 -----------------
 
@@ -970,7 +1042,7 @@ The following are the components required when developing application programs u
 
 This is explained in detail in the *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Getting%20Started%20Guide.md)*.
 
-## 3. Creating a Database
+# 3. Creating a Database
 
 -----------------
 
@@ -1159,7 +1231,7 @@ Please fully understand the Altibase properties related to database initializati
 
 For more detailed information about the Altibase properties, please refer to the *[*General Reference-1.Data Types & Altibase Properties.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)*
 
-## 4. Startup and Shutdown
+# 4. Startup and Shutdown
 
 ---------------------
 
@@ -1346,7 +1418,7 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 $
 ```
 
-## 5. Objects and Privileges
+# 5. Objects and Privileges
 -------------------------
 
 This chapter describes how to manage objects and privileges in Altibase.
@@ -3465,7 +3537,7 @@ The following SQL statements are provided for use in managing privileges. For mo
 
 -   REVOKE
 
-## 6. Managing Tablespaces
+# 6. Managing Tablespaces
 
 --------------
 
@@ -5549,7 +5621,7 @@ V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES
 ```
 
 
-## 7. Paritioned Objects
+# 7. Paritioned Objects
 
 ### What is Partitioning?
 
@@ -6197,7 +6269,7 @@ The table creating statement above can be shown as figure below.
 
 The operation on hash using range partitioned object is the same as range partitioned object.
 
-## 8. Managing Transactions
+# 8. Managing Transactions
 
 Concurrency control and data consistency are two of the most fundamental concepts in database management. This chapter describes how to manage transactions in an Altibase database.
 
@@ -6675,7 +6747,7 @@ The following are properties related to checkpointing. For more detailed informa
 - DIRECT_IO_ENABLED
 - DATABASE_IO_TYPE
 
-## 9. Database Buffer Manager
+# 9. Database Buffer Manager
 
 In Altibase, data objects in the disk tablespace must be loaded from disk into memory in order for them to be accessed or updated. Memory that is used temporarily in this way is referred to as a ”buffer”, and in Altibase this memory is collectively called the ”buffer pool”.
 
@@ -7051,7 +7123,7 @@ Hit Ratio = (GET_PAGES + FIX_PAGES - READ_PAGES) / (GET_PAGES + FIX_PAGES)
 iSQL> select hit_ratio from V$BUFFPOOL_STAT;
 ```
 
-## 10. Backup and Recovery
+# 10. Backup and Recovery
 
 This chapter explains the Altibase backup and recovery features which are provided to help prevent the loss of data in the event of unforeseen circumstances such as the loss or damage of a disk or data file, and explains how to manage database backup and recovery tasks.
 
@@ -8019,7 +8091,7 @@ Because the logs have been reset, it is recommended that the entire database be 
 iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’; 
 ```
 
-## 11. Incremental Backup and Recovery
+# 11. Incremental Backup and Recovery
 
 This chapter explains incremental backups and recovery with incremental backups offered by Altibase.
 
@@ -8632,7 +8704,7 @@ iSQL(sysdba)> ALTER DATABASE DELETE OBSOLETE BACKUP FILES;
 
 This statement only deletes the backup files displayed in the V$OBSOLETE_BACKUP_INFO performance view. No files will be deleted if nothing is queried in this performance view. 
 
-## 12. Communication Layer
+# 12. Communication Layer
 
 This chapter describes the methods and protocols involved in establishing a connection between a client application and an Altibase database server.
 
@@ -8782,7 +8854,7 @@ The SSL/TLS feature of Altibase has the following characteristics.
 
 For more detailed information about how to configure and implement SSL/TLS in Altibase, please refer to the *[Altibase SSL/TLS User’s Guide.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20SSL%20TLS%20User's%20Guide.md)* 
 
-## 13. Securing Data 
+# 13. Securing Data 
 
 The chapter covers how to use security modules to develop a database encryption strategy. 
 
@@ -9036,7 +9108,7 @@ Query> Convert the empID1 column in table t1 back into a regular column.
 ALTER TABLE t1 MODIFY (empID1 DECRYPT); 
 ```
 
-## 14. Database Auditing
+# 14. Database Auditing
 
 This chapter describes the auditing feature which tracks and writes logs in real time of statements running on the Altibase server. Basic guidelines on how DBAs administer and manage auditing are provided.
 
@@ -9892,7 +9964,7 @@ $ tail /var/log/user.log
 Oct 27 09:22:19 mmj altibase: [AUDIT]SYS,1,127.0.0.1,CLI-64LE,isql,DDL,1,65537,19905,4,2,1,0,0,0,0,0,0,0,0,0,0,0,"create table t1(i int)"
 ```
 
-## 15. Tuning Altibase
+# 15. Tuning Altibase
 
 This chapter describes the following two features:
 
@@ -10057,7 +10129,7 @@ To optimize the performance of Group Commit, it is necessary to consider both sy
   On the other hand, if this property is set too high, CPU usage will be very low, because transactions do not check whether disk I/O is possible very frequently. However, because the amount of time that a transaction waits before checking whether disk I/O is possible is higher, individual transactions have to wait a longer time to receive a response after being committed.  
   To optimize this property, measure the average response time of individual transactions, and use a tool such as the “top“ system monitor in Unix to monitor the amount of CPU used by the Altibase process when this property is set to different values.
 
-## 16. DB Diagnostic Monitoring
+# 16. DB Diagnostic Monitoring
 
 This chapter explains how to check and analyze the operational status of an Altibase database. 
 
@@ -10294,7 +10366,7 @@ For a detailed explanation of how to tune queries, please refer to [*Performance
 
 If the problem does not seem to have been caused by either of the above two reasons, it is likely that the system is waiting to acquire a lock on a resource. Check the information on currently held locks in the V\$LOCK and V​\$LOCK_WAIT performance views to verify whether any unnecessary locks are being continuously held in any sessions. If this is the case, forcibly terminating the session will solve the problem.
 
-## Appendix A. Trace Logs
+# Appendix A. Trace Logs
 
 ### Using Application Trace Logs
 
@@ -10308,7 +10380,7 @@ The value set in the property file can be overridden using the ALTER SYSTEM stat
 | ----------------------- | ------------------------------------------------------------ |
 | TRCLOG_DETAIL_PREDICATE | When EXPLAIN PLAN is set to ON (or ONLY), information about the status of the predicate portion of the WHERE clause is also output. |
 
-## Appendix B. Altibase Limitations
+# Appendix B. Altibase Limitations
 
 ### Maximum Altibase Values
 

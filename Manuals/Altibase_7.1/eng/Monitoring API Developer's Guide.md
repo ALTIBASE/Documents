@@ -1,81 +1,160 @@
-
-
-
-- [Monitoring API Developer's Guide](#monitoring-api-developers-guide)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction](#1-introduction)
-    - [What is Altibase Monitoring API?](#what-is-altibase-monitoring-api)
-    - [Building an Application](#building-an-application)
-  - [2. Data Types](#2-data-types)
-    - [Data Structures](#data-structures)
-    - [Enumeration Types](#enumeration-types)
-    - [Considerations](#considerations)
-  - [3. Functions](#3-functions)
-    - [ABIInitialize](#abiinitialize)
-    - [ABIFinalize](#abifinalize)
-    - [ABISetProperty](#abisetproperty)
-    - [ABICheckConnection](#abicheckconnection)
-    - [ABIGetVSession](#abigetvsession)
-    - [ABIGetVSessionBySID](#abigetvsessionbysid)
-    - [ABIGetVSysstat](#abigetvsysstat)
-    - [ABIGetVSesstat](#abigetvsesstat)
-    - [ABIGetVSesstatBySID](#abigetvsesstatbysid)
-    - [ABIGetStatName](#abigetstatname)
-    - [ABIGetVSystemEvent](#abigetvsystemevent)
-    - [ABIGetVSessionEvent](#abigetvsessionevent)
-    - [ABIGetVSessionEventBySID](#abigetvsessioneventbysid)
-    - [ABIGetEventName](#abigeteventname)
-    - [ABIGetVSessionWait](#abigetvsessionwait)
-    - [ABIGetVSessionWaitBySID](#abigetvsessionwaitbysid)
-    - [ABIGetSqlText](#abigetsqltext)
-    - [ABIGetLockPairBetweenSessions](#abigetlockpairbetweensessions)
-    - [ABIGetDBInfo](#abigetdbinfo)
-    - [ABIGetReadCount](#abigetreadcount)
-    - [ABIGetSessionCount](#abigetsessioncount)
-    - [ABIGetMaxClientCount](#abigetmaxclientcount)
-    - [ABIGetLockWaitSessionCount](#abigetlockwaitsessioncount)
-    - [ABIGetRepGap](#abigetrepgap)
-    - [ABIGetRepSentLogCount](#abigetrepsentlogcount)
-    - [ABIGetErrorMessage](#abigeterrormessage)
-  - [4. Sample Programs](#4-sample-programs)
-    - [Makefile](#makefile)
-    - [sample_1.c](#sample_1c)
-    - [sample_2.c](#sample_2c)
-    - [sample_3.c](#sample_3c)
-    - [sample_4.c](#sample_4c)
-    - [sample_5.c](#sample_5c)
-    - [sample_6.c](#sample_6c)
-    - [sample_7.c](#sample_7c)
-    - [sample_8.c](#sample_8c)
-    - [sample_9.c](#sample_9c)
-    - [sample_10.c](#sample_10c)
-
-
-
-Altibase® Application Development
-
 Monitoring API Developer's Guide
 ================================
 
-![](media/MonitorAPI/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
 
+Altibase® Application Development
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Monitoring API Developer's Guide
+Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction](#1-introduction)
+  - [What is Altibase Monitoring API?](#what-is-altibase-monitoring-api)
+  - [Building an Application](#building-an-application)
+- [2. Data Types](#2-data-types)
+  - [Data Structures](#data-structures)
+  - [Enumeration Types](#enumeration-types)
+  - [Considerations](#considerations)
+- [3. Functions](#3-functions)
+  - [ABIInitialize](#abiinitialize)
+  - [ABIFinalize](#abifinalize)
+  - [ABISetProperty](#abisetproperty)
+  - [ABICheckConnection](#abicheckconnection)
+  - [ABIGetVSession](#abigetvsession)
+  - [ABIGetVSessionBySID](#abigetvsessionbysid)
+  - [ABIGetVSysstat](#abigetvsysstat)
+  - [ABIGetVSesstat](#abigetvsesstat)
+  - [ABIGetVSesstatBySID](#abigetvsesstatbysid)
+  - [ABIGetStatName](#abigetstatname)
+  - [ABIGetVSystemEvent](#abigetvsystemevent)
+  - [ABIGetVSessionEvent](#abigetvsessionevent)
+  - [ABIGetVSessionEventBySID](#abigetvsessioneventbysid)
+  - [ABIGetEventName](#abigeteventname)
+  - [ABIGetVSessionWait](#abigetvsessionwait)
+  - [ABIGetVSessionWaitBySID](#abigetvsessionwaitbysid)
+  - [ABIGetSqlText](#abigetsqltext)
+  - [ABIGetLockPairBetweenSessions](#abigetlockpairbetweensessions)
+  - [ABIGetDBInfo](#abigetdbinfo)
+  - [ABIGetReadCount](#abigetreadcount)
+  - [ABIGetSessionCount](#abigetsessioncount)
+  - [ABIGetMaxClientCount](#abigetmaxclientcount)
+  - [ABIGetLockWaitSessionCount](#abigetlockwaitsessioncount)
+  - [ABIGetRepGap](#abigetrepgap)
+  - [ABIGetRepSentLogCount](#abigetrepsentlogcount)
+  - [ABIGetErrorMessage](#abigeterrormessage)
+- [4. Sample Programs](#4-sample-programs)
+  - [Makefile](#makefile)
+  - [sample_1.c](#sample_1c)
+  - [sample_2.c](#sample_2c)
+  - [sample_3.c](#sample_3c)
+  - [sample_4.c](#sample_4c)
+  - [sample_5.c](#sample_5c)
+  - [sample_6.c](#sample_6c)
+  - [sample_7.c](#sample_7c)
+  - [sample_8.c](#sample_8c)
+  - [sample_9.c](#sample_9c)
+  - [sample_10.c](#sample_10c)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -186,7 +265,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction
+# 1. Introduction
 
 This chapter discusses Altibase Monitoring API and its features.
 
@@ -265,7 +344,7 @@ The following example compiles the sample.c source file using the gcc and g++ co
 % g++ -o sample sample.o -L$ALTIBASE_HOME/lib -laltibaseMonitor -lodbccli -ldl -lpthread -lcrypt -lrt
 ```
 
-## 2. Data Types
+# 2. Data Types
 
 This chapter discusses data types that can be used with Altibase Monitoring API.
 
@@ -537,7 +616,7 @@ for (int i=0; i<sRowCount; i++)
 } 
 ```
 
-## 3. Functions
+# 3. Functions
 
 This chapter discusses Altibase Monitoring API functions. The following information is provided: 
 
@@ -1415,7 +1494,7 @@ if( sErrCode < 0 )
 }
 ```
 
-## 4. Sample Programs
+# 4. Sample Programs
 
 This chapter provides sample programs in C that were written using Altibase Monitoring API. 
 

@@ -1,94 +1,170 @@
-  
+# Log Analyzer User’s Manual
 
-- [Log Analyzer User’s Manual](#log-analyzer-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Log Analyzer Introduction](#1-log-analyzer-introduction)
-    - [Log Analyzer](#log-analyzer)
-    - [How to Use the Log Analysis API](#how-to-use-the-log-analysis-api)
-    - [Summary of the Log Analysis API](#summary-of-the-log-analysis-api)
-  - [2. XLog Sender](#2-xlog-sender)
-    - [SQL Statements Used to Manage the XLog Sender](#sql-statements-used-to-manage-the-xlog-sender)
-    - [Meta Tables](#meta-tables)
-    - [Performance Views](#performance-views)
-  - [3. Analyzing Logs](#3-analyzing-logs)
-    - [XLog](#xlog)
-    - [Meta Data](#meta-data)
-    - [Altibase Data Types and Internal Structure](#altibase-data-types-and-internal-structure)
-    - [SAVEPOINT](#savepoint)
-  - [4. Log Analysis API](#4-log-analysis-api)
-    - [ALA_InitializeAPI](#ala_initializeapi)
-    - [ALA_DestroyAPI](#ala_destroyapi)
-    - [ALA_EnableLogging](#ala_enablelogging)
-    - [ALA_DisableLogging](#ala_disablelogging)
-    - [ALA_CreateXLogCollector](#ala_createxlogcollector)
-    - [ALA_AddAuthInfo](#ala_addauthinfo)
-    - [ALA_RemoveAuthInfo](#ala_removeauthinfo)
-    - [ALA_SetHandshakeTimeout](#ala_sethandshaketimeout)
-    - [ALA_SetReceiveXLogTimeout](#ala_setreceivexlogtimeout)
-    - [ALA_SetXLogPoolSize](#ala_setxlogpoolsize)
-    - [ALA_Handshake](#ala_handshake)
-    - [ALA_ReceiveXLog](#ala_receivexlog)
-    - [ALA_GetXLog](#ala_getxlog)
-    - [ALA_SendACK](#ala_sendack)
-    - [ALA_FreeXLog](#ala_freexlog)
-    - [ALA_DestroyXLogCollector](#ala_destroyxlogcollector)
-    - [ALA_GetXLogCollectorStatus](#ala_getxlogcollectorstatus)
-    - [ALA_GetXLogHeader](#ala_getxlogheader)
-    - [ALA_GetXLogPrimaryKey](#ala_getxlogprimarykey)
-    - [ALA_GetXLogColumn](#ala_getxlogcolumn)
-    - [ALA_GetXLogSavepoint](#ala_getxlogsavepoint)
-    - [ALA_GetXLogLOB](#ala_getxloglob)
-    - [ALA_GetProtocolVersion](#ala_getprotocolversion)
-    - [ALA_GetReplicationInfo](#ala_getreplicationinfo)
-    - [ALA_GetTableInfo](#ala_gettableinfo)
-    - [ALA_GetTableInfoByName](#ala_gettableinfobyname)
-    - [ALA_GetColumnInfo](#ala_getcolumninfo)
-    - [ALA_GetIndexInfo](#ala_getindexinfo)
-    - [ALA_IsHiddenColumn](#ala_ishiddencolumn)
-    - [ALA_GetInternalNumericInfo](#ala_getinternalnumericinfo)
-    - [ALA_GetAltibaseText](#ala_getaltibasetext)
-    - [ALA_GetAltibaseSQL](#ala_getaltibasesql)
-    - [ALA_GetODBCCValue](#ala_getodbccvalue)
-    - [ALA\_ IsNullValue](#ala%5C_-isnullvalue)
-    - [ALA_ClearErrorMgr](#ala_clearerrormgr)
-    - [ALA_GetErrorCode](#ala_geterrorcode)
-    - [ALA_GetErrorLevel](#ala_geterrorlevel)
-    - [ALA_GetErrorMessage](#ala_geterrormessage)
-  - [Appendix A. Error Codes](#appendix-a-error-codes)
-    - [Error Code Table](#error-code-table)
-  - [Appendix B. Sample Code](#appendix-b-sample-code)
-    - [Sample Code: Replication to Altibase DBMS](#sample-code-replication-to-altibase-dbms)
+#### Trunk
 
 Altibase® Application Development
 
-Log Analyzer User’s Manual
-==========================
-
-![](media/LogAnalyzer/e5cfb3761673686d093a3b00c062fe7a.png)
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Log Analyzer User’s Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Log Analyzer Introduction](#1-log-analyzer-introduction)
+  - [Log Analyzer](#log-analyzer)
+  - [How to Use the Log Analysis API](#how-to-use-the-log-analysis-api)
+  - [Summary of the Log Analysis API](#summary-of-the-log-analysis-api)
+- [2. XLog Sender](#2-xlog-sender)
+  - [SQL Statements Used to Manage the XLog Sender](#sql-statements-used-to-manage-the-xlog-sender)
+  - [Meta Tables](#meta-tables)
+  - [Performance Views](#performance-views)
+- [3. Analyzing Logs](#3-analyzing-logs)
+  - [XLog](#xlog)
+  - [Meta Data](#meta-data)
+  - [Altibase Data Types and Internal Structure](#altibase-data-types-and-internal-structure)
+  - [SAVEPOINT](#savepoint)
+- [4. Log Analysis API](#4-log-analysis-api)
+  - [ALA_InitializeAPI](#ala_initializeapi)
+  - [ALA_DestroyAPI](#ala_destroyapi)
+  - [ALA_EnableLogging](#ala_enablelogging)
+  - [ALA_DisableLogging](#ala_disablelogging)
+  - [ALA_CreateXLogCollector](#ala_createxlogcollector)
+  - [ALA_AddAuthInfo](#ala_addauthinfo)
+  - [ALA_RemoveAuthInfo](#ala_removeauthinfo)
+  - [ALA_SetHandshakeTimeout](#ala_sethandshaketimeout)
+  - [ALA_SetReceiveXLogTimeout](#ala_setreceivexlogtimeout)
+  - [ALA_SetXLogPoolSize](#ala_setxlogpoolsize)
+  - [ALA_Handshake](#ala_handshake)
+  - [ALA_ReceiveXLog](#ala_receivexlog)
+  - [ALA_GetXLog](#ala_getxlog)
+  - [ALA_SendACK](#ala_sendack)
+  - [ALA_FreeXLog](#ala_freexlog)
+  - [ALA_DestroyXLogCollector](#ala_destroyxlogcollector)
+  - [ALA_GetXLogCollectorStatus](#ala_getxlogcollectorstatus)
+  - [ALA_GetXLogHeader](#ala_getxlogheader)
+  - [ALA_GetXLogPrimaryKey](#ala_getxlogprimarykey)
+  - [ALA_GetXLogColumn](#ala_getxlogcolumn)
+  - [ALA_GetXLogSavepoint](#ala_getxlogsavepoint)
+  - [ALA_GetXLogLOB](#ala_getxloglob)
+  - [ALA_GetProtocolVersion](#ala_getprotocolversion)
+  - [ALA_GetReplicationInfo](#ala_getreplicationinfo)
+  - [ALA_GetTableInfo](#ala_gettableinfo)
+  - [ALA_GetTableInfoByName](#ala_gettableinfobyname)
+  - [ALA_GetColumnInfo](#ala_getcolumninfo)
+  - [ALA_GetIndexInfo](#ala_getindexinfo)
+  - [ALA_IsHiddenColumn](#ala_ishiddencolumn)
+  - [ALA_GetInternalNumericInfo](#ala_getinternalnumericinfo)
+  - [ALA_GetAltibaseText](#ala_getaltibasetext)
+  - [ALA_GetAltibaseSQL](#ala_getaltibasesql)
+  - [ALA_GetODBCCValue](#ala_getodbccvalue)
+  - [ALA\_ IsNullValue](#ala%5C_-isnullvalue)
+  - [ALA_ClearErrorMgr](#ala_clearerrormgr)
+  - [ALA_GetErrorCode](#ala_geterrorcode)
+  - [ALA_GetErrorLevel](#ala_geterrorlevel)
+  - [ALA_GetErrorMessage](#ala_geterrormessage)
+- [Appendix A. Error Codes](#appendix-a-error-codes)
+  - [Error Code Table](#error-code-table)
+- [Appendix B. Sample Code](#appendix-b-sample-code)
+  - [Sample Code: Replication to Altibase DBMS](#sample-code-replication-to-altibase-dbms)
 
 
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -204,7 +280,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Log Analyzer Introduction
+# 1. Log Analyzer Introduction
 
 This chapter explains the concept of Log Analyzer and how to use it.
 
@@ -961,7 +1037,7 @@ by the Column ID is a hidden column.</p>
 </table>
 
 
-## 2. XLog Sender
+# 2. XLog Sender
 
 This chapter explains how to use the XLog Sender, which is one of the components of the Altibase Log Analyzer. 
 
@@ -1331,7 +1407,7 @@ This performance view displays information about transaction tables.
 
 This performance view displays information about which log file is currently being read by the XLog Sender.
 
-## 3. Analyzing Logs
+# 3. Analyzing Logs
 
 This chapter describes XLogs, meta data and the Altibase internal data types, all of which are required in order to analyze XLogs. 
 
@@ -2147,7 +2223,7 @@ Each kind of savepoint is managed separately, and savepoint xlogs can be process
 
 
 
-## 4. Log Analysis API
+# 4. Log Analysis API
 
 This chapter describes how to use the Log Analysis API component of the Altibase Log Analyzer. The Log Analysis API is an API that is invoked by a client application. It provides functions for receiving XLogs from an XLog Sender and analyzing them. In the following function descriptions, any argument whose name begins with “aOut” is an output argument. All of the Log Analysis API functions, which are intended for use in the C and C++ languages, are described in detail in this chapter.
 
@@ -4781,7 +4857,7 @@ ALA_GetErrorLevel
 
 Refer to ALA_ClearErrorMgr.
 
-## Appendix A. Error Codes
+# Appendix A. Error Codes
 
 ### Error Code Table
 
@@ -5175,7 +5251,7 @@ network error) has occurred.</p>
 
 
 Appendix B. Sample Code
-------------------
+==================
 
 ### Sample Code: Replication to Altibase DBMS
 

@@ -1,68 +1,136 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Adapter for Oracle User’s Manual](#adapter-for-oracle-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.소개](#1%EC%86%8C%EA%B0%9C)
-    - [Adapter for Oracle](#adapter-for-oracle)
-  - [2.설치와 설정](#2%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95)
-    - [설치전 작업](#%EC%84%A4%EC%B9%98%EC%A0%84-%EC%9E%91%EC%97%85)
-    - [설치](#%EC%84%A4%EC%B9%98)
-    - [설치 후 작업](#%EC%84%A4%EC%B9%98-%ED%9B%84-%EC%9E%91%EC%97%85)
-    - [설정](#%EC%84%A4%EC%A0%95)
-    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [3.사용법](#3%EC%82%AC%EC%9A%A9%EB%B2%95)
-    - [oraAdapter 제약조건](#oraadapter-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
-    - [구동과 종료](#%EA%B5%AC%EB%8F%99%EA%B3%BC-%EC%A2%85%EB%A3%8C)
-    - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [Adapter for Oracle 유틸리티](#adapter-for-oracle-%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0)
-    - [커맨드 라인 옵션](#%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
-    - [오프라인 옵션(Offline Option)](#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
-  - [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
-    - [FAQ](#faq)
-  - [B.부록: oraAdapter 사용시 DDL 순서](#b%EB%B6%80%EB%A1%9D-oraadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%9C%EC%84%9C)
-    - [oraAdapter 사용시 DDL 수행 순서](#oraadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%98%ED%96%89-%EC%88%9C%EC%84%9C)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-
-Altibase® Tool & Utilities
-
 Adapter for Oracle User’s Manual
 ================================
 
-![](media/oraAdapter/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
+
+Altibase® Tool & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tool & Utilities Adapter for Oracle User’s Manual
-
-Release 7.1
-
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+<br>
 
+# 목차
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.소개](#1%EC%86%8C%EA%B0%9C)
+  - [Adapter for Oracle](#adapter-for-oracle)
+- [2.설치와 설정](#2%EC%84%A4%EC%B9%98%EC%99%80-%EC%84%A4%EC%A0%95)
+  - [설치전 작업](#%EC%84%A4%EC%B9%98%EC%A0%84-%EC%9E%91%EC%97%85)
+  - [설치](#%EC%84%A4%EC%B9%98)
+  - [설치 후 작업](#%EC%84%A4%EC%B9%98-%ED%9B%84-%EC%9E%91%EC%97%85)
+  - [설정](#%EC%84%A4%EC%A0%95)
+  - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+- [3.사용법](#3%EC%82%AC%EC%9A%A9%EB%B2%95)
+  - [oraAdapter 제약조건](#oraadapter-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
+  - [구동과 종료](#%EA%B5%AC%EB%8F%99%EA%B3%BC-%EC%A2%85%EB%A3%8C)
+  - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [Adapter for Oracle 유틸리티](#adapter-for-oracle-%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0)
+  - [커맨드 라인 옵션](#%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
+  - [오프라인 옵션(Offline Option)](#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
+- [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
+  - [FAQ](#faq)
+- [B.부록: oraAdapter 사용시 DDL 순서](#b%EB%B6%80%EB%A1%9D-oraadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%9C%EC%84%9C)
+  - [oraAdapter 사용시 DDL 수행 순서](#oraadapter-%EC%82%AC%EC%9A%A9%EC%8B%9C-ddl-%EC%88%98%ED%96%89-%EC%88%9C%EC%84%9C)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -197,7 +265,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.소개
-----
+====
 
 이 장은 Adapter for Oracle 의 개념과 Altibase에서 변경된 데이터가 오라클
 데이터베이스에 쓰여지는 동작 구조를 설명한다.
@@ -278,7 +346,7 @@ Oracle Call Interface (OCI)는 오라클 데이터베이스에 접근하도록 �
 XLog 풀은 XLog 저장을 위해 미리 할당된 메모리 공간이다.
 
 2.설치와 설정
------------
+===========
 
 이 장에서는 Adapter for Oracle을 설치하고 사용환경을 설정하는 방법을 설명한다.
 
@@ -922,7 +990,7 @@ LOB 데이터 타입의 지원 여부를 결정하는 프로퍼티이다.
 
 
 3.사용법
-------
+======
 
 이 장에서는 oraAdapter를 구동하고 종료하는 방법과 Adapter for Oracle을 사용하는
 방법에 대해 자세히 설명한다.
@@ -1333,7 +1401,7 @@ OraAdapter를 이용하여 Alitbase에서 변경된 데이타를 오라클 데�
 
 
 A.부록: FAQ
----------
+=========
 
 ### FAQ
 
@@ -1349,7 +1417,7 @@ oraAdapter가 오라클 DB에 데이터를 쓰는 데 실패하면, 로그 메�
 트레이스 로그 파일에 남습니다.
 
 B.부록: oraAdapter 사용시 DDL 순서
---------------------------------
+================================
 
 ### oraAdapter 사용시 DDL 수행 순서
 

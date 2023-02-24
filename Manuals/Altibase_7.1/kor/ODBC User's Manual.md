@@ -1,51 +1,118 @@
+# ODBC User\'s Manual
 
-
-
-- [ODBC User\'s Manual](#odbc-user%5Cs-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.개요](#1%EA%B0%9C%EC%9A%94)
-    - [소개](#%EC%86%8C%EA%B0%9C)
-    - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [ODBC API](#odbc-api)
-  - [2.설치 및 설정](#2%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)
-    - [설치](#%EC%84%A4%EC%B9%98)
-    - [설정](#%EC%84%A4%EC%A0%95)
-  - [3.ODBC 프로그래밍](#3odbc-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
-    - [연결 문자열 (Connection String)](#%EC%97%B0%EA%B2%B0-%EB%AC%B8%EC%9E%90%EC%97%B4-connection-string)
-    - [기본 프로그래밍 예제](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%98%88%EC%A0%9C)
-    - [LOB 사용 예제](#lob-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
-
-
+#### Altibase 7.1
 
 Altibase® Application Development
 
-# ODBC User\'s Manual
-
-![](media/ODBCDriver/image1.png)
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
-Altibase Application Development ODBC User\'s Manual
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Application Development ODBC User's Manual
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의
-동의 없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+<br>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+# 목차
 
-고객서비스포털: <http://support.altibase.com>
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.개요](#1%EA%B0%9C%EC%9A%94)
+  - [소개](#%EC%86%8C%EA%B0%9C)
+  - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [ODBC API](#odbc-api)
+- [2.설치 및 설정](#2%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)
+  - [설치](#%EC%84%A4%EC%B9%98)
+  - [설정](#%EC%84%A4%EC%A0%95)
+- [3.ODBC 프로그래밍](#3odbc-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
+  - [연결 문자열 (Connection String)](#%EC%97%B0%EA%B2%B0-%EB%AC%B8%EC%9E%90%EC%97%B4-connection-string)
+  - [기본 프로그래밍 예제](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%98%88%EC%A0%9C)
+  - [LOB 사용 예제](#lob-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+<br>
 
-## 서문
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -124,7 +191,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.개요
-----
+====
 
 이 장은 Altibase ODBC 드라이버를 소개한다.
 
@@ -233,7 +300,7 @@ Altibase ODBC 드라이버는 ODBC 3.51 스펙을 준수한다. 아래 표는 �
 | SQLTables           | Core   | O        |          |                                               |
 
 2.설치 및 설정
-------------
+============
 
 이 장은 Altibase ODBC 드라이버를 설치하고 설정하는 방법을 설명한다.
 
@@ -321,7 +388,7 @@ ODBC 애플리케이션에서 접근하려는 데이터베이스에 대한 DSN�
 것을 확인할 수 있다.
 
 3.ODBC 프로그래밍
----------------
+===============
 
 이 장은 Altibase ODBC 드라이버를 사용해서 ODBC 애플리케이션을 작성하는
 방법을 예제와 함께 설명한다.

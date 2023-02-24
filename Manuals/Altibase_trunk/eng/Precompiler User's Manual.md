@@ -1,124 +1,203 @@
-
-
-- [Precompiler User’s Manual](#precompiler-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. The C/C++ Precompiler](#1-the-cc-precompiler)
-    - [Introduction and Concepts](#introduction-and-concepts)
-    - [Command-Line Options](#command-line-options)
-    - [Programming using Embedded SQL Statements](#programming-using-embedded-sql-statements)
-  - [2. Host Variables and Indicator Variables](#2-host-variables-and-indicator-variables)
-    - [Host Variables](#host-variables)
-    - [Classifying Host Variables](#classifying-host-variables)
-    - [Indicator Variables](#indicator-variables)
-    - [Classifying Indicator Variables](#classifying-indicator-variables)
-    - [Meaning of Indicator Variables](#meaning-of-indicator-variables)
-    - [Sample Programs](#sample-programs)
-  - [3. Host Variable Declaration Section](#3-host-variable-declaration-section)
-    - [Host Variable Declaration Section](#host-variable-declaration-section)
-    - [Data Type Definition](#data-type-definition)
-    - [Function Argument Declaration Section](#function-argument-declaration-section)
-  - [4. C Preprocessor](#4-c-preprocessor)
-    - [C Preprocessor Overview](#c-preprocessor-overview)
-    - [C Preprocessor Directives](#c-preprocessor-directives)
-    - [Limitations on the Use of the Preprocessor](#limitations-on-the-use-of-the-preprocessor)
-    - [Preprocessor Example](#preprocessor-example)
-    - [The ALTIBASE_APRE Macro](#the-altibase_apre-macro)
-  - [5. Host Variable Data Types](#5-host-variable-data-types)
-    - [Overview](#overview)
-    - [Fundamental C/C++ Data Types](#fundamental-cc-data-types)
-    - [Extended APRE Data Types](#extended-apre-data-types)
-    - [Column and Host Variable Type Conversion](#column-and-host-variable-type-conversion)
-  - [6. Embedded SQL Statements](#6-embedded-sql-statements)
-    - [Overview](#overview-1)
-    - [Connection related SQL statements](#connection-related-sql-statements)
-    - [Using DDL and DML in Embedded SQL Statements](#using-ddl-and-dml-in-embedded-sql-statements)
-    - [Using Other Embedded SQL Statements](#using-other-embedded-sql-statements)
-    - [OPTION Statements](#option-statements)
-  - [7. Handling Runtime Errors](#7-handling-runtime-errors)
-    - [Overview](#overview-2)
-    - [sqlca](#sqlca)
-    - [SQLCODE](#sqlcode)
-    - [SQLSTATE](#sqlstate)
-    - [WHENEVER Statement](#whenever-statement)
-    - [Sample Programs](#sample-programs-1)
-  - [8. Using Cursor](#8-using-cursor)
-    - [Overview](#overview-3)
-    - [Cursor-Related SQL Statements](#cursor-related-sql-statements)
-    - [Reusing a Cursor Name](#reusing-a-cursor-name)
-    - [Sample Programs](#sample-programs-2)
-  - [9. Using Arrays in Embedded SQL Statements](#9-using-arrays-in-embedded-sql-statements)
-    - [Overview](#overview-4)
-    - [Using Host Array Variables in Embedded SQL Statements](#using-host-array-variables-in-embedded-sql-statements)
-    - [sqlca.sqlerrd](#sqlcasqlerrd)
-    - [Limitations on the Use of Array-Type Host Variables](#limitations-on-the-use-of-array-type-host-variables)
-    - [Structures and Arrays](#structures-and-arrays)
-    - [Sample Programs](#sample-programs-3)
-  - [10. Dynamic SQL Statements](#10-dynamic-sql-statements)
-    - [Static versus Dynamic SQL Statements](#static-versus-dynamic-sql-statements)
-    - [Using Dynamic SQL Statements](#using-dynamic-sql-statements)
-    - [Sample Programs](#sample-programs-4)
-  - [11. Using Stored Procedures in C/C++](#11-using-stored-procedures-in-cc)
-    - [Using Stored Procedures](#using-stored-procedures)
-    - [Using Array-Type Host Variables with the EXECUTE Statement](#using-array-type-host-variables-with-the-execute-statement)
-    - [Sample Programs](#sample-programs-5)
-  - [12. Applications with Multiple Database Connections](#12-applications-with-multiple-database-connections)
-    - [Overview](#overview-5)
-    - [SQL Statements for Multi-Connections](#sql-statements-for-multi-connections)
-    - [Using Stored Procedures in Multiple-Connection Applications](#using-stored-procedures-in-multiple-connection-applications)
-    - [Sample Programs](#sample-programs-6)
-  - [13. Multithreaded Applications](#13-multithreaded-applications)
-    - [Multithreaded Applications](#multithreaded-applications)
-    - [Sample Program](#sample-program)
-  - [14. Error Codes and Messages](#14-error-codes-and-messages)
-    - [Precompiler Errors](#precompiler-errors)
-  - [Appendix A. Using Files and LOBs](#appendix-a-using-files-and-lobs)
-    - [Output Host Variables and Files](#output-host-variables-and-files)
-    - [Input Host Variables](#input-host-variables)
-  - [B. Appendix B. Porting Pro*C Applications to APRE](#b-appendix-b-porting-proc-applications-to-apre)
-    - [Datatypes](#datatypes)
-    - [Embedded Functions](#embedded-functions)
-    - [Managing Database Connections](#managing-database-connections)
-    - [Host Variables](#host-variables-1)
-    - [Using Embedded SQL Statements](#using-embedded-sql-statements)
-    - [Execution Results and Status Codes](#execution-results-and-status-codes)
-    - [Commit Mode](#commit-mode)
-    - [Sample Programs](#sample-programs-7)
-  - [Appendix C. The Method 4 of Dynamic SQL](#appendix-c-the-method-4-of-dynamic-sql)
-    - [SQLDA structure Data type](#sqlda-structure-data-type)
-  - [Appendix D. Sample Applications](#appendix-d-sample-applications)
-    - [Executing the Sample Applications](#executing-the-sample-applications)
-    - [Table Information of the Example Programs](#table-information-of-the-example-programs)
-  - [Appendix E. FAQ](#appendix-e-faq)
-    - [Precompiler FAQ](#precompiler-faq)
-
-
-
-Altibase® Application Development
-
 Precompiler User’s Manual
 =========================
 
-![](media/Precompiler/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Application Development
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Precompiler User’s Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. The C/C++ Precompiler](#1-the-cc-precompiler)
+  - [Introduction and Concepts](#introduction-and-concepts)
+  - [Command-Line Options](#command-line-options)
+  - [Programming using Embedded SQL Statements](#programming-using-embedded-sql-statements)
+- [2. Host Variables and Indicator Variables](#2-host-variables-and-indicator-variables)
+  - [Host Variables](#host-variables)
+  - [Classifying Host Variables](#classifying-host-variables)
+  - [Indicator Variables](#indicator-variables)
+  - [Classifying Indicator Variables](#classifying-indicator-variables)
+  - [Meaning of Indicator Variables](#meaning-of-indicator-variables)
+  - [Sample Programs](#sample-programs)
+- [3. Host Variable Declaration Section](#3-host-variable-declaration-section)
+  - [Host Variable Declaration Section](#host-variable-declaration-section)
+  - [Data Type Definition](#data-type-definition)
+  - [Function Argument Declaration Section](#function-argument-declaration-section)
+- [4. C Preprocessor](#4-c-preprocessor)
+  - [C Preprocessor Overview](#c-preprocessor-overview)
+  - [C Preprocessor Directives](#c-preprocessor-directives)
+  - [Limitations on the Use of the Preprocessor](#limitations-on-the-use-of-the-preprocessor)
+  - [Preprocessor Example](#preprocessor-example)
+  - [The ALTIBASE_APRE Macro](#the-altibase_apre-macro)
+- [5. Host Variable Data Types](#5-host-variable-data-types)
+  - [Overview](#overview)
+  - [Fundamental C/C++ Data Types](#fundamental-cc-data-types)
+  - [Extended APRE Data Types](#extended-apre-data-types)
+  - [Column and Host Variable Type Conversion](#column-and-host-variable-type-conversion)
+- [6. Embedded SQL Statements](#6-embedded-sql-statements)
+  - [Overview](#overview-1)
+  - [Connection related SQL statements](#connection-related-sql-statements)
+  - [Using DDL and DML in Embedded SQL Statements](#using-ddl-and-dml-in-embedded-sql-statements)
+  - [Using Other Embedded SQL Statements](#using-other-embedded-sql-statements)
+  - [OPTION Statements](#option-statements)
+- [7. Handling Runtime Errors](#7-handling-runtime-errors)
+  - [Overview](#overview-2)
+  - [sqlca](#sqlca)
+  - [SQLCODE](#sqlcode)
+  - [SQLSTATE](#sqlstate)
+  - [WHENEVER Statement](#whenever-statement)
+  - [Sample Programs](#sample-programs-1)
+- [8. Using Cursor](#8-using-cursor)
+  - [Overview](#overview-3)
+  - [Cursor-Related SQL Statements](#cursor-related-sql-statements)
+  - [Reusing a Cursor Name](#reusing-a-cursor-name)
+  - [Sample Programs](#sample-programs-2)
+- [9. Using Arrays in Embedded SQL Statements](#9-using-arrays-in-embedded-sql-statements)
+  - [Overview](#overview-4)
+  - [Using Host Array Variables in Embedded SQL Statements](#using-host-array-variables-in-embedded-sql-statements)
+  - [sqlca.sqlerrd](#sqlcasqlerrd)
+  - [Limitations on the Use of Array-Type Host Variables](#limitations-on-the-use-of-array-type-host-variables)
+  - [Structures and Arrays](#structures-and-arrays)
+  - [Sample Programs](#sample-programs-3)
+- [10. Dynamic SQL Statements](#10-dynamic-sql-statements)
+  - [Static versus Dynamic SQL Statements](#static-versus-dynamic-sql-statements)
+  - [Using Dynamic SQL Statements](#using-dynamic-sql-statements)
+  - [Sample Programs](#sample-programs-4)
+- [11. Using Stored Procedures in C/C++](#11-using-stored-procedures-in-cc)
+  - [Using Stored Procedures](#using-stored-procedures)
+  - [Using Array-Type Host Variables with the EXECUTE Statement](#using-array-type-host-variables-with-the-execute-statement)
+  - [Sample Programs](#sample-programs-5)
+- [12. Applications with Multiple Database Connections](#12-applications-with-multiple-database-connections)
+  - [Overview](#overview-5)
+  - [SQL Statements for Multi-Connections](#sql-statements-for-multi-connections)
+  - [Using Stored Procedures in Multiple-Connection Applications](#using-stored-procedures-in-multiple-connection-applications)
+  - [Sample Programs](#sample-programs-6)
+- [13. Multithreaded Applications](#13-multithreaded-applications)
+  - [Multithreaded Applications](#multithreaded-applications)
+  - [Sample Program](#sample-program)
+- [14. Error Codes and Messages](#14-error-codes-and-messages)
+  - [Precompiler Errors](#precompiler-errors)
+- [Appendix A. Using Files and LOBs](#appendix-a-using-files-and-lobs)
+  - [Output Host Variables and Files](#output-host-variables-and-files)
+  - [Input Host Variables](#input-host-variables)
+- [Appendix B. Porting Pro*C Applications to APRE](#appendix-b-porting-proc-applications-to-apre)
+  - [Datatypes](#datatypes)
+  - [Embedded Functions](#embedded-functions)
+  - [Managing Database Connections](#managing-database-connections)
+  - [Host Variables](#host-variables-1)
+  - [Using Embedded SQL Statements](#using-embedded-sql-statements)
+  - [Execution Results and Status Codes](#execution-results-and-status-codes)
+  - [Commit Mode](#commit-mode)
+  - [Sample Programs](#sample-programs-7)
+- [Appendix C. The Method 4 of Dynamic SQL](#appendix-c-the-method-4-of-dynamic-sql)
+  - [SQLDA structure Data type](#sqlda-structure-data-type)
+- [Appendix D. Sample Applications](#appendix-d-sample-applications)
+  - [Executing the Sample Applications](#executing-the-sample-applications)
+  - [Table Information of the Example Programs](#table-information-of-the-example-programs)
+- [Appendix E. FAQ](#appendix-e-faq)
+  - [Precompiler FAQ](#precompiler-faq)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -275,7 +354,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. The C/C++ Precompiler
+# 1. The C/C++ Precompiler
 
 -------------------
 
@@ -925,7 +1004,7 @@ In the following example, the connect1.sc file is precompiled:
 $ apre connect1.sc
 ```
 
-## 2. Host Variables and Indicator Variables
+# 2. Host Variables and Indicator Variables
 
 -------------------------
 
@@ -1596,7 +1675,7 @@ d_arrival_date2 = NULL
 
 
 
-## 3. Host Variable Declaration Section
+# 3. Host Variable Declaration Section
 
 ------------------
 
@@ -1788,7 +1867,7 @@ $ ./argument
 
 
 
-## 4. C Preprocessor
+# 4. C Preprocessor
 
 --------------
 
@@ -2268,7 +2347,7 @@ cc -I/home/project/include ... test.c
 
 
 
-## 5. Host Variable Data Types
+# 5. Host Variable Data Types
 
 -----------------------
 
@@ -3624,7 +3703,7 @@ Therefore, although the lack of type conversion means that performance will like
 
 
 
-## 6. Embedded SQL Statements
+# 6. Embedded SQL Statements
 
 ----------
 
@@ -4786,7 +4865,7 @@ The following example shows how to set the THREADS OPTION to TRUE using the OPTI
 EXEC SQL OPTION (THREADS=TRUE); 
 ```
 
-## 7. Handling Runtime Errors 
+# 7. Handling Runtime Errors 
 
 --------------------
 
@@ -5142,7 +5221,7 @@ DNO      DNAME                          DEP_LOCATION       MGR_NO
 
 
 
-## 8. Using Cursor
+# 8. Using Cursor
 
 ### Overview
 
@@ -5548,7 +5627,7 @@ ENO     DNO      SALARY
 Success close release cursor
 ```
 
-## 9. Using Arrays in Embedded SQL Statements
+# 9. Using Arrays in Embedded SQL Statements
 
 ### Overview
 
@@ -6545,7 +6624,7 @@ Error : [-594092] Returns too many rows
 Success execute procedure
 ```
 
-## 10. Dynamic SQL Statements
+# 10. Dynamic SQL Statements
 
 ### Static versus Dynamic SQL Statements
 
@@ -7375,7 +7454,7 @@ iSQL> select * from DEPARTMENTS
 iSQL> exit
 ```
 
-## 11. Using Stored Procedures in C/C++
+# 11. Using Stored Procedures in C/C++
 
 ### Using Stored Procedures
 
@@ -7885,7 +7964,7 @@ Success create function
 Success drop function
 ```
 
-## 12. Applications with Multiple Database Connections
+# 12. Applications with Multiple Database Connections
 
 ### Overview
 
@@ -8437,7 +8516,7 @@ Success drop procedure
 Success drop procedure 
 ```
 
-## 13. Multithreaded Applications
+# 13. Multithreaded Applications
 
 ### Multithreaded Applications
 
@@ -8523,7 +8602,7 @@ ORDER_DATE              ENO   GNO
 2000/12/30 00:00:00     12    F111100001 
 ```
 
-## 14. Error Codes and Messages
+# 14. Error Codes and Messages
 
 ### Precompiler Errors
 
@@ -8688,7 +8767,7 @@ H: This indicates that the error occurred when performing a task other than thos
 | 706L       | READ ONLY option does is supported yet.            |
 | 707L       | ALTER COMPACT option is not supported yet.         |
 
-## Appendix A. Using Files and LOBs
+# Appendix A. Using Files and LOBs
 
 This appendix explains how to use the file system with the BLOB and CLOB data types, so that data in files can be inserted into tables, or so that data from tables can be written to files.
 
@@ -8784,7 +8863,7 @@ EXEC SQL INSERT INTO T_LOB
 VALUES(:sI1, BLOB_FILE :sI2FName OPTION :sI2FOpt INDICATOR :sI2Ind); 
 ```
 
-## B. Appendix B. Porting Pro*C Applications to APRE
+# Appendix B. Porting Pro*C Applications to APRE
 
 Refer to this appendix when converting an application that was written using Oracle Pro*C/C++ so that it can be compiled using the Altibase C/C++ Precompiler.
 
@@ -9779,7 +9858,7 @@ exit(0);
 }
 ```
 
-## Appendix C. The Method 4 of Dynamic SQL
+# Appendix C. The Method 4 of Dynamic SQL
 
 This appendix should be thoroughly comprehended and referred especially when utilizing the method 4 of dynamic SQL since it can insert a value for parameter marker at a time of executing a program. 
 
@@ -9844,7 +9923,7 @@ int F; /* number of analyzed columns */
 | SQLDA_TYPE_TIME         | 22   | SQL_TIME_STRUCT        |
 | SQLDA_TYPE_TIMESTAMP    | 23   | SQL_TIMESTAMP_STRUCT   |
 
-## Appendix D. Sample Applications
+# Appendix D. Sample Applications
 
 This Appendix gives the location of the sample programs used in the manual.
 
@@ -9948,7 +10027,7 @@ $ ./delete
 
 Please refer to Appendix A in the *SQL Reference*.
 
-## Appendix E. FAQ
+# Appendix E. FAQ
 
 ### Precompiler FAQ
 

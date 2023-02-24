@@ -1,164 +1,231 @@
+SQL Reference
+================
 
-
-- [SQL Reference](#sql-reference)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Altibase SQL 소개](#1altibase-sql-%EC%86%8C%EA%B0%9C)
-    - [SQL 개요](#sql-%EA%B0%9C%EC%9A%94)
-    - [SQL문 분류](#sql%EB%AC%B8-%EB%B6%84%EB%A5%98)
-  - [2.Altibase SQL 기본](#2altibase-sql-%EA%B8%B0%EB%B3%B8)
-    - [주석](#%EC%A3%BC%EC%84%9D)
-    - [Altibase 객체 (Object)](#altibase-%EA%B0%9D%EC%B2%B4-object)
-    - [힌트 구문](#%ED%9E%8C%ED%8A%B8-%EA%B5%AC%EB%AC%B8)
-    - [힌트 목록](#%ED%9E%8C%ED%8A%B8-%EB%AA%A9%EB%A1%9D)
-  - [3.데이터 정의어](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%9D%98%EC%96%B4)
-    - [ALTER DATABASE](#alter-database)
-    - [ALTER DATABASE LINKER](#alter-database-linker)
-    - [ALTER INDEX](#alter-index)
-    - [ALTER JOB](#alter-job)
-    - [ALTER QUEUE](#alter-queue)
-    - [ALTER REPLICATION](#alter-replication)
-    - [ALTER SEQUENCE](#alter-sequence)
-    - [ALTER TABLE](#alter-table)
-    - [ALTER TABLESPACE](#alter-tablespace)
-    - [ALTER TRIGGER](#alter-trigger)
-    - [ALTER USER](#alter-user)
-    - [ALTER VIEW](#alter-view)
-    - [ALTER MATERIALIZED VIEW](#alter-materialized-view)
-    - [COMMENT](#comment)
-    - [CONJOIN TABLE](#conjoin-table)
-    - [CREATE DATABASE](#create-database)
-    - [CREATE DATABASE LINK](#create-database-link)
-    - [CREATE DIRECTORY](#create-directory)
-    - [CREATE INDEX](#create-index)
-    - [CREATE JOB](#create-job)
-    - [CREATE QUEUE](#create-queue)
-    - [CREATE REPLICATION](#create-replication)
-    - [CREATE ROLE](#create-role)
-    - [CREATE SEQUENCE](#create-sequence)
-    - [CREATE SYNONYM](#create-synonym)
-    - [CREATE TABLE](#create-table)
-    - [CREATE DISK TABLESPACE](#create-disk-tablespace)
-    - [CREATE MEMORY TABLESPACE](#create-memory-tablespace)
-    - [CREATE VOLATILE TABLESPACE](#create-volatile-tablespace)
-    - [CREATE TEMPORARY TABLESPACE](#create-temporary-tablespace)
-    - [CREATE TRIGGER](#create-trigger)
-    - [CREATE USER](#create-user)
-    - [CREATE VIEW](#create-view)
-    - [CREATE MATERIALIZED VIEW](#create-materialized-view)
-    - [DISJOIN TABLE](#disjoin-table)
-    - [DROP DATABASE](#drop-database)
-    - [DROP DATABASE LINK](#drop-database-link)
-    - [DROP DIRECTORY](#drop-directory)
-    - [DROP INDEX](#drop-index)
-    - [DROP JOB](#drop-job)
-    - [DROP QUEUE](#drop-queue)
-    - [DROP REPLICATION](#drop-replication)
-    - [DROP ROLE](#drop-role)
-    - [DROP SEQUENCE](#drop-sequence)
-    - [DROP SYNONYM](#drop-synonym)
-    - [DROP TABLE](#drop-table)
-    - [DROP TABLESPACE](#drop-tablespace)
-    - [DROP TRIGGER](#drop-trigger)
-    - [DROP USER](#drop-user)
-    - [DROP VIEW](#drop-view)
-    - [DROP MATERIALIZED VIEW](#drop-materialized-view)
-    - [FLASHBACK TABLE](#flashback-table)
-    - [GRANT](#grant)
-    - [PURGE TABLE](#purge-table)
-    - [RENAME TABLE](#rename-table)
-    - [REVOKE](#revoke)
-    - [TRUNCATE TABLE](#truncate-table)
-  - [4.데이터 조작어](#4%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A1%B0%EC%9E%91%EC%96%B4)
-    - [DELETE](#delete)
-    - [INSERT](#insert)
-    - [LOCK TABLE](#lock-table)
-    - [SELECT](#select)
-    - [UPDATE](#update)
-    - [MOVE](#move)
-    - [MERGE](#merge)
-    - [ENQUEUE](#enqueue)
-    - [DEQUEUE](#dequeue)
-  - [5.데이터 제어어](#5%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%9C%EC%96%B4%EC%96%B4)
-    - [ALTER REPLICATION](#alter-replication-1)
-    - [ALTER SESSION](#alter-session)
-    - [ALTER SYSTEM](#alter-system)
-    - [AUDIT](#audit)
-    - [COMMIT](#commit)
-    - [DELAUDIT](#delaudit)
-    - [NOAUDIT](#noaudit)
-    - [SAVEPOINT](#savepoint)
-    - [ROLLBACK](#rollback)
-    - [SET TRANSACTION](#set-transaction)
-  - [6.집합 연산자](#6%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [UNION](#union)
-    - [UNION ALL](#union-all)
-    - [INTERSECT](#intersect)
-    - [MINUS](#minus)
-    - [연산 순서](#%EC%97%B0%EC%82%B0-%EC%88%9C%EC%84%9C)
-  - [7.SQL 함수](#7sql-%ED%95%A8%EC%88%98)
-    - [SQL 함수 소개](#sql-%ED%95%A8%EC%88%98-%EC%86%8C%EA%B0%9C)
-    - [집계 함수](#%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98)
-    - [윈도우(분석) 함수](#%EC%9C%88%EB%8F%84%EC%9A%B0%EB%B6%84%EC%84%9D-%ED%95%A8%EC%88%98)
-    - [숫자 함수](#%EC%88%AB%EC%9E%90-%ED%95%A8%EC%88%98)
-    - [문자 함수](#%EB%AC%B8%EC%9E%90-%ED%95%A8%EC%88%98)
-    - [날짜시간 함수](#%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84-%ED%95%A8%EC%88%98)
-    - [변환 함수](#%EB%B3%80%ED%99%98-%ED%95%A8%EC%88%98)
-    - [암호화 함수](#%EC%95%94%ED%98%B8%ED%99%94-%ED%95%A8%EC%88%98)
-    - [기타 함수](#%EA%B8%B0%ED%83%80-%ED%95%A8%EC%88%98)
-  - [8.산술 연산자](#8%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [산술 연산자](#%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [단항 연산자](#%EB%8B%A8%ED%95%AD-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [이항 연산자](#%EC%9D%B4%ED%95%AD-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [연결 연산자](#%EC%97%B0%EA%B2%B0-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [CAST 연산자](#cast-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [9.조건 연산자](#9%EC%A1%B0%EA%B1%B4-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [SQL 조건의 개요](#sql-%EC%A1%B0%EA%B1%B4%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [논리 연산자](#%EB%85%BC%EB%A6%AC-%EC%97%B0%EC%82%B0%EC%9E%90)
-    - [비교조건](#%EB%B9%84%EA%B5%90%EC%A1%B0%EA%B1%B4)
-    - [그 외의 조건](#%EA%B7%B8-%EC%99%B8%EC%9D%98-%EC%A1%B0%EA%B1%B4)
-  - [A.부록: 정규 표현식](#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D)
-    - [정규 표현식](#정규-표현식)
-    - [정규 표현식 모드 설정 방법](#정규-표현식-모드-설정-방법)
-    - [Altibase 정규 표현식 모드](#altibase-정규-표현식-모드)
-    - [PCRE2 호환 모드](#pcre2-호환-모드)
-    - [정규 표현식 모드 별 문법 차이점](#정규-표현식-모드-별-문법-차이점)
-    - [정규 표현식 에러 메시지](#정규-표현식-에러-메시지)
-
-
+#### Altibase 7.1
 
 Altibase® Application Development
 
-# SQL Reference
-
-![](media/SQL/e5cfb3761673686d093a3b00c062fe7a.png)
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development SQL Reference
-
 Release 7.1
-
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
-무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+<br>
 
+# 목차
 
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Altibase SQL 소개](#1altibase-sql-%EC%86%8C%EA%B0%9C)
+  - [SQL 개요](#sql-%EA%B0%9C%EC%9A%94)
+  - [SQL문 분류](#sql%EB%AC%B8-%EB%B6%84%EB%A5%98)
+- [2.Altibase SQL 기본](#2altibase-sql-%EA%B8%B0%EB%B3%B8)
+  - [주석](#%EC%A3%BC%EC%84%9D)
+  - [Altibase 객체 (Object)](#altibase-%EA%B0%9D%EC%B2%B4-object)
+  - [힌트 구문](#%ED%9E%8C%ED%8A%B8-%EA%B5%AC%EB%AC%B8)
+  - [힌트 목록](#%ED%9E%8C%ED%8A%B8-%EB%AA%A9%EB%A1%9D)
+- [3.데이터 정의어](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%9D%98%EC%96%B4)
+  - [ALTER DATABASE](#alter-database)
+  - [ALTER DATABASE LINKER](#alter-database-linker)
+  - [ALTER INDEX](#alter-index)
+  - [ALTER JOB](#alter-job)
+  - [ALTER QUEUE](#alter-queue)
+  - [ALTER REPLICATION](#alter-replication)
+  - [ALTER SEQUENCE](#alter-sequence)
+  - [ALTER TABLE](#alter-table)
+  - [ALTER TABLESPACE](#alter-tablespace)
+  - [ALTER TRIGGER](#alter-trigger)
+  - [ALTER USER](#alter-user)
+  - [ALTER VIEW](#alter-view)
+  - [ALTER MATERIALIZED VIEW](#alter-materialized-view)
+  - [COMMENT](#comment)
+  - [CONJOIN TABLE](#conjoin-table)
+  - [CREATE DATABASE](#create-database)
+  - [CREATE DATABASE LINK](#create-database-link)
+  - [CREATE DIRECTORY](#create-directory)
+  - [CREATE INDEX](#create-index)
+  - [CREATE JOB](#create-job)
+  - [CREATE QUEUE](#create-queue)
+  - [CREATE REPLICATION](#create-replication)
+  - [CREATE ROLE](#create-role)
+  - [CREATE SEQUENCE](#create-sequence)
+  - [CREATE SYNONYM](#create-synonym)
+  - [CREATE TABLE](#create-table)
+  - [CREATE DISK TABLESPACE](#create-disk-tablespace)
+  - [CREATE MEMORY TABLESPACE](#create-memory-tablespace)
+  - [CREATE VOLATILE TABLESPACE](#create-volatile-tablespace)
+  - [CREATE TEMPORARY TABLESPACE](#create-temporary-tablespace)
+  - [CREATE TRIGGER](#create-trigger)
+  - [CREATE USER](#create-user)
+  - [CREATE VIEW](#create-view)
+  - [CREATE MATERIALIZED VIEW](#create-materialized-view)
+  - [DISJOIN TABLE](#disjoin-table)
+  - [DROP DATABASE](#drop-database)
+  - [DROP DATABASE LINK](#drop-database-link)
+  - [DROP DIRECTORY](#drop-directory)
+  - [DROP INDEX](#drop-index)
+  - [DROP JOB](#drop-job)
+  - [DROP QUEUE](#drop-queue)
+  - [DROP REPLICATION](#drop-replication)
+  - [DROP ROLE](#drop-role)
+  - [DROP SEQUENCE](#drop-sequence)
+  - [DROP SYNONYM](#drop-synonym)
+  - [DROP TABLE](#drop-table)
+  - [DROP TABLESPACE](#drop-tablespace)
+  - [DROP TRIGGER](#drop-trigger)
+  - [DROP USER](#drop-user)
+  - [DROP VIEW](#drop-view)
+  - [DROP MATERIALIZED VIEW](#drop-materialized-view)
+  - [FLASHBACK TABLE](#flashback-table)
+  - [GRANT](#grant)
+  - [PURGE TABLE](#purge-table)
+  - [RENAME TABLE](#rename-table)
+  - [REVOKE](#revoke)
+  - [TRUNCATE TABLE](#truncate-table)
+- [4.데이터 조작어](#4%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A1%B0%EC%9E%91%EC%96%B4)
+  - [DELETE](#delete)
+  - [INSERT](#insert)
+  - [LOCK TABLE](#lock-table)
+  - [SELECT](#select)
+  - [UPDATE](#update)
+  - [MOVE](#move)
+  - [MERGE](#merge)
+  - [ENQUEUE](#enqueue)
+  - [DEQUEUE](#dequeue)
+- [5.데이터 제어어](#5%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%9C%EC%96%B4%EC%96%B4)
+  - [ALTER REPLICATION](#alter-replication-1)
+  - [ALTER SESSION](#alter-session)
+  - [ALTER SYSTEM](#alter-system)
+  - [AUDIT](#audit)
+  - [COMMIT](#commit)
+  - [DELAUDIT](#delaudit)
+  - [NOAUDIT](#noaudit)
+  - [SAVEPOINT](#savepoint)
+  - [ROLLBACK](#rollback)
+  - [SET TRANSACTION](#set-transaction)
+- [6.집합 연산자](#6%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [UNION](#union)
+  - [UNION ALL](#union-all)
+  - [INTERSECT](#intersect)
+  - [MINUS](#minus)
+  - [연산 순서](#%EC%97%B0%EC%82%B0-%EC%88%9C%EC%84%9C)
+- [7.SQL 함수](#7sql-%ED%95%A8%EC%88%98)
+  - [SQL 함수 소개](#sql-%ED%95%A8%EC%88%98-%EC%86%8C%EA%B0%9C)
+  - [집계 함수](#%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98)
+  - [윈도우(분석) 함수](#%EC%9C%88%EB%8F%84%EC%9A%B0%EB%B6%84%EC%84%9D-%ED%95%A8%EC%88%98)
+  - [숫자 함수](#%EC%88%AB%EC%9E%90-%ED%95%A8%EC%88%98)
+  - [문자 함수](#%EB%AC%B8%EC%9E%90-%ED%95%A8%EC%88%98)
+  - [날짜시간 함수](#%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84-%ED%95%A8%EC%88%98)
+  - [변환 함수](#%EB%B3%80%ED%99%98-%ED%95%A8%EC%88%98)
+  - [암호화 함수](#%EC%95%94%ED%98%B8%ED%99%94-%ED%95%A8%EC%88%98)
+  - [기타 함수](#%EA%B8%B0%ED%83%80-%ED%95%A8%EC%88%98)
+- [8.산술 연산자](#8%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [산술 연산자](#%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [단항 연산자](#%EB%8B%A8%ED%95%AD-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [이항 연산자](#%EC%9D%B4%ED%95%AD-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [연결 연산자](#%EC%97%B0%EA%B2%B0-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [CAST 연산자](#cast-%EC%97%B0%EC%82%B0%EC%9E%90)
+- [9.조건 연산자](#9%EC%A1%B0%EA%B1%B4-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [SQL 조건의 개요](#sql-%EC%A1%B0%EA%B1%B4%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [논리 연산자](#%EB%85%BC%EB%A6%AC-%EC%97%B0%EC%82%B0%EC%9E%90)
+  - [비교조건](#%EB%B9%84%EA%B5%90%EC%A1%B0%EA%B1%B4)
+  - [그 외의 조건](#%EA%B7%B8-%EC%99%B8%EC%9D%98-%EC%A1%B0%EA%B1%B4)
+- [A.부록: 정규 표현식](#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D)
+  - [정규 표현식](#정규-표현식)
+  - [정규 표현식 모드 설정 방법](#정규-표현식-모드-설정-방법)
+  - [Altibase 정규 표현식 모드](#altibase-정규-표현식-모드)
+  - [PCRE2 호환 모드](#pcre2-호환-모드)
+  - [정규 표현식 모드 별 문법 차이점](#정규-표현식-모드-별-문법-차이점)
+  - [정규 표현식 에러 메시지](#정규-표현식-에러-메시지)
 
-## 서문
+<br>
+
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -287,7 +354,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
-## 1.Altibase SQL 소개
+# 1.Altibase SQL 소개
 
 이 장에서는 Altibase SQL의 특징과 구성에 대해서 간략하게 소개하고 있다.
 
@@ -514,7 +581,7 @@ DCL(Data Control Language) 문은 데이터를 제어하는데 사용된다.
 
 
 
-## 2.Altibase SQL 기본
+# 2.Altibase SQL 기본
 
 이 장에서는 Altibase의 SQL을 사용하기 위한 기본적인 사항들을 설명한다.
 
@@ -2325,7 +2392,7 @@ Two-pass sort 조인을 사용해서 명시된 테이블을 조인하도록 지�
 
 ![use_two_pass_sort](media/SQL/use_two_pass_sort.gif)
 
-## 3.데이터 정의어
+# 3.데이터 정의어
 
 이 장에서는 데이터베이스 객체를 생성하는데 사용하는 SQL 문장인 DDL 문장의 문법과
 특징을 사용 예제를 들어서 상세하게 설명한다.
@@ -11808,7 +11875,7 @@ Truncate success.
 
 
 
-## 4.데이터 조작어
+# 4.데이터 조작어
 
 이 장에서는 데이터 조작에 사용되는 DML 구문에 대해서 상세히 설명한다.
 
@@ -15681,7 +15748,7 @@ DEQUEUE MESSAGE, CORRID FROM Q1 WHERE CORRID=237;
 
 
 
-## 5.데이터 제어어
+# 5.데이터 제어어
 
 이장에서는 사용자 세션 제어와 트랜잭션을 제어하는 SQL문에 대해서 설명한다.
 
@@ -16551,7 +16618,7 @@ Command execute success.
 |                                                              | 5          | iSQL\> commit; Commit success.                               |
 | iSQL\> SELECT e_lastname FROM employees WHERE eno = 20; E_LASTNAME ------------------------ Jung 1 row selected. | 6          |                                                              |
 
-## 6.집합 연산자 
+# 6.집합 연산자 
 
 이 장에서는 SQL 질의 실행 결과 집합을 대상으로 연산하는 집합 연산자들에 대해서
 설명한다.
@@ -16762,7 +16829,7 @@ Sandra                Hammond               sales rep        1890
 
 
 7.SQL 함수
---------
+========
 
 ### SQL 함수 소개
 
@@ -24529,7 +24596,7 @@ MONDAY_SIX_MONTHS
 
 
 8.산술 연산자
------------
+===========
 
 이 장에서는 SQL문에 사용되는 산술연산자들에 대해서 자세히 설명한다.
 
@@ -24755,7 +24822,7 @@ PI
 
 
 9.조건 연산자
------------
+===========
 
 이장에서는 SQL문에 사용되는 조건 연산자들에 대해서 자세히 설명한다.
 
@@ -25432,13 +25499,15 @@ No rows selected.
 <a name="부록-정규-표현식"><a/>
 
 A.부록: 정규 표현식
------------------
+=================
 
-이 장에서 Altibase에서 지원하는 정규 표현식에 대해서 설명한다. 이 장에서 사용한 샘플 스키마는 $ALTIBASE_HOME/sample/APRE/schema/schema.sql를 이용하였다. 
+이 장에서 Altibase에서 지원하는 정규 표현식에 대해서 설명한다. 
+
+이 장에서 사용한 샘플 스키마는 $ALTIBASE_HOME/sample/APRE/schema/schema.sql을 이용했다. 
 
 ### 정규 표현식
 
-정규 표현식(regular expression)이란 텍스트 패턴을 기술하기 위한 표기법으로, 하나 이상의 문자열과 메타문자(metacharacter)로 구성된다. 
+정규 표현식(regular expression)이란 텍스트 패턴을 기술하는 표기법으로, 하나 이상의 문자열과 메타 문자(metacharacter)로 구성된다. 
 
 Altibase는 Altibase 정규 표현식 모드와 PCRE2 호환 모드를 제공한다. Altibase 정규 표현식 모드는 POSIX 기본 정규 표현식(Basic Regular Expression, BRE)과 확장 정규 표현식(Extended Regular Expression, ERE)의 문법을 일부 지원하며 PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 
 
@@ -25456,7 +25525,7 @@ Altibase SQL에서 정규 표현식은 아래의 문자 함수나 연산자와 �
 
 ### 정규 표현식 모드 설정 방법
 
-사용자는 Altibase 정규 표현식 모드와 PCRE2 호환 모드, 두 가지 정규 표현식 모드 중 하나를 선택하여 사용해야 한다. Altibase 정규 표현식 모드가 기본으로 설정되어 있으므로 PCRE2 호환 모드를 사용하고 싶다면 다음 구문으로 정규 표현식 모드를 변경해야 한다.
+사용자는 Altibase 정규 표현식 모드와 PCRE2 호환 모드, 두 가지 정규 표현식 모드 중 하나를 선택해서 사용해야 한다. Altibase 정규 표현식 모드가 기본으로 설정되어 있으므로 PCRE2 호환 모드를 사용하고 싶다면 다음 구문으로 정규 표현식 모드를 변경해야 한다.
 
 > ###### 시스템 단위 변경
 
@@ -25476,7 +25545,7 @@ ALTER SESSION SET REGEXP_MODE=1;
 
 > ######  Altibase 서버에 영구적으로 변경
 
-변경한 정규 표현식 모드를 영구적으로 Altibase 서버에 적용하는 방법이다. Altibase 서버 프로퍼티 파일에 REGEXP_MODE=1 을 추가하고 Altibase 서버를 재시작한다.
+변경한 정규 표현식 모드를 영구적으로 Altibase 서버에 적용하는 방법이다. Altibase 서버 프로퍼티 파일에 REGEXP_MODE=1을 추가하고 Altibase 서버를 재시작한다.
 
 ~~~sql
 $ vi $ALTIBASE_HOME/conf/altibase.properties
@@ -25575,13 +25644,13 @@ Altibase 정규 표현식 모드는 아래와 같은 제약 사항이 있다.
 
 Altibase의 정규 표현식 모드 중 PCRE2 호환 모드에 대해 살펴보자.
 
-PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. PCRE2 호환 모드는 Altibase 7.1.0.7.7 부터 지원하며 사용된 PCRE2 라이브러리의 버전은 10.40 이다.
+PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. PCRE2 호환 모드는 Altibase 7.1.0.7.7부터 지원하며 사용된 PCRE2 라이브러리의 버전은 10.40이다.
 
 #### 특징
 
 먼저, PCRE2 호환 모드는 아래와 같은 특징과 제약 사항이 있다.
 
-- Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8 일 때 사용할 수 있다.
+- Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있다.
 - 한글 검색이 가능하다.
 - 역참조, 전방 탐색, 후방 탐색 그리고 조건부 정규 표현식을 지원한다.
 - Altibase 정규 표현식 모드와 PCRE2 호환 모드의 정규 표현식 문법은 일부 차이가 있다. 따라서, PCRE2 호환 모드로 설정하면  Altibase 정규 표현식 모드에서 지원하는 문법을 사용할 수 없거나 같은 정규 표현식 문법을 사용하더라도 질의문의 결과가 달라질 수 있다. 대표적인 차이점은 하단의 [정규 표현식 모드 별 문법 차이점](#정규-표현식-모드-별-문법-차이점)을 참고한다.
@@ -26121,7 +26190,7 @@ Altibase 정규 표현식 모드와 PCRE2 호환 모드의 정규 표현식 문�
 
 ### 정규 표현식 에러 메시지
 
-PCRE2 호환 모드에서 발생하는 에러 중 0x2106C 에러 코드는 아래와 같은 형식으로 에러 메시지가 출력된다. <1%s>는 PCRE2 라이브러리에서 반환한 메시지이며 <0%s>는 Altibase 에서 해당 에러가 발생한 위치를 의미한다. 이 에러 메시지에 대한 원인과 조치 방법은 Error Message Reference의 [15.Regular Expression Error Code](https://github.com/eheejung/ALTI_Documents/blob/master/Manuals/Altibase_trunk/kor/Error%20Message%20Reference.md#15regular-expression-error-code) 장에서 확인할 수 있다.
+PCRE2 호환 모드에서 발생하는 에러 중 0x2106C 에러 코드는 아래와 같은 형식으로 에러 메시지가 출력된다. <1%s>는 PCRE2 라이브러리에서 반환한 메시지이며 <0%s>는 Altibase 에서 해당 에러가 발생한 위치를 의미한다. 이 에러 메시지에 대한 원인과 조치 방법은 Error Message Reference의 [15.Regular Expression Error Code](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Error%20Message%20Reference.md#15regular-expression-error-code) 장에서 확인할 수 있다.
 
 ~~~bash
 ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)

@@ -1,153 +1,221 @@
-**Table of Contents**
-
-- [Stored Procedures Manual](#stored-procedures-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.저장 프로시저](#1%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
-    - [저장 프로시저의 개요](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [저장 프로시저의 구조](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9D%98-%EA%B5%AC%EC%A1%B0)
-    - [저장 프로시저 사용시 주의 사항](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98-%EC%82%AC%ED%95%AD)
-  - [2.저장 프로시저 SQL문](#2%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-sql%EB%AC%B8)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [CREATE PROCEDURE](#create-procedure)
-    - [ALTER PROCEDURE](#alter-procedure)
-    - [DROP PROCEDURE](#drop-procedure)
-    - [EXECUTE](#execute)
-    - [CREATE FUNCTION](#create-function)
-    - [ALTER FUNCTION](#alter-function)
-    - [DROP FUNCTION](#drop-function)
-  - [3.저장 프로시저 블록](#3%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B8%94%EB%A1%9D)
-    - [저장 프로시저 블록](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B8%94%EB%A1%9D)
-    - [지역 변수 선언](#%EC%A7%80%EC%97%AD-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8)
-    - [SELECT INTO](#select-into)
-    - [RETURNING INTO 절](#returning-into-%EC%A0%88)
-    - [할당문](#%ED%95%A0%EB%8B%B9%EB%AC%B8)
-    - [LABEL](#label)
-    - [PRINT](#print)
-    - [RETURN](#return)
-    - [INSERT 확장](#insert-%ED%99%95%EC%9E%A5)
-    - [UPDATE 확장](#update-%ED%99%95%EC%9E%A5)
-  - [4.흐름 제어](#4%ED%9D%90%EB%A6%84-%EC%A0%9C%EC%96%B4)
-    - [개요](#%EA%B0%9C%EC%9A%94-1)
-    - [IF](#if)
-    - [CASE](#case)
-    - [LOOP](#loop)
-    - [WHILE LOOP](#while-loop)
-    - [FOR LOOP](#for-loop)
-    - [EXIT](#exit)
-    - [CONTINUE](#continue)
-    - [GOTO](#goto)
-    - [NULL](#null)
-  - [5.커서](#5%EC%BB%A4%EC%84%9C)
-    - [커서의 개요](#%EC%BB%A4%EC%84%9C%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [CURSOR](#cursor)
-    - [OPEN](#open)
-    - [FETCH](#fetch)
-    - [CLOSE](#close)
-    - [Cursor FOR LOOP](#cursor-for-loop)
-    - [커서 속성](#%EC%BB%A4%EC%84%9C-%EC%86%8D%EC%84%B1)
-  - [6.사용자 정의 타입](#6%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85)
-    - [개요](#%EA%B0%9C%EC%9A%94-2)
-    - [사용자 정의 타입의 정의](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85%EC%9D%98-%EC%A0%95%EC%9D%98)
-    - [Associative Array 관련 함수](#associative-array-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
-    - [RECORD 타입 변수 및 Associative Array변수의 사용](#record-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98-%EB%B0%8F-associative-array%EB%B3%80%EC%88%98%EC%9D%98-%EC%82%AC%EC%9A%A9)
-    - [REF CURSOR](#ref-cursor)
-  - [7.타입 세트](#7%ED%83%80%EC%9E%85-%EC%84%B8%ED%8A%B8)
-    - [개요](#%EA%B0%9C%EC%9A%94-3)
-    - [CREATE TYPESET](#create-typeset)
-    - [DROP TYPESET](#drop-typeset)
-  - [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
-    - [동적 SQL의 개요](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [EXECUTE IMMEDIATE](#execute-immediate)
-    - [OPEN FOR](#open-for)
-  - [9.예외 처리](#9%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
-    - [개요](#%EA%B0%9C%EC%9A%94-4)
-    - [EXCEPTION](#exception)
-    - [RAISE](#raise)
-    - [RAISE_APPLICATION_ERROR](#raise_application_error)
-    - [사용자 정의 예외](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%98%88%EC%99%B8)
-    - [SQLCODE와 SQLERRM](#sqlcode%EC%99%80-sqlerrm)
-    - [Exception Handler](#exception-handler)
-  - [10.프라그마(Pragma)](#10%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88pragma)
-    - [개요](#%EA%B0%9C%EC%9A%94-5)
-    - [자율 트랜잭션 프라그마(Autonomous_Transaction Pragma)](#%EC%9E%90%EC%9C%A8-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88autonomous_transaction-pragma)
-    - [예외 초기화 프라그마(Exception_Init Pragma)](#%EC%98%88%EC%99%B8-%EC%B4%88%EA%B8%B0%ED%99%94-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88exception_init-pragma)
-  - [11.저장 패키지](#11%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [개요](#%EA%B0%9C%EC%9A%94-6)
-    - [CREATE PACKAGE](#create-package)
-    - [CREATE PACKAGE BODY](#create-package-body)
-    - [ALTER PACKAGE](#alter-package)
-    - [DROP PACKAGE](#drop-package)
-    - [EXECUTE](#execute-1)
-  - [12.Altibase 저장 프로시저와 내장 함수](#12altibase-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%99%80-%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98)
-    - [파일 제어](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4)
-    - [TCP 접속 제어](#tcp-%EC%A0%91%EC%86%8D-%EC%A0%9C%EC%96%B4)
-    - [DBMS Stats](#dbms-stats)
-    - [그 외 함수들](#%EA%B7%B8-%EC%99%B8-%ED%95%A8%EC%88%98%EB%93%A4)
-  - [13.Altibase 저장 패키지](#13altibase-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [시스템 정의 저장 패키지](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%A0%95%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [DBMS_APPLICATION_INFO](#dbms_application_info)
-    - [DBMS_ALERT](#dbms_alert)
-    - [DBMS_CONCURRENT_EXEC 패키지](#dbms_concurrent_exec-%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [DBMS_LOCK](#dbms_lock)
-    - [DBMS_METADATA](#dbms_metadata)
-    - [DBMS_OUTPUT](#dbms_output)
-    - [DBMS_RANDOM](#dbms_random)
-    - [DBMS_RECYCLEBIN 패키지](#dbms_recyclebin-%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [DBMS_SQL](#dbms_sql)
-    - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
-    - [DBMS_STATS](#dbms_stats)
-    - [DBMS_STANDARD](#dbms_standard)
-    - [DBMS_UTILITY](#dbms_utility)
-    - [STANDARD](#standard)
-    - [SYS_SPATIAL](#sys_spatial)
-    - [UTL_COPYSWAP](#utl_copyswap)
-    - [UTL_FILE](#utl_file)
-    - [UTL_RAW](#utl_raw)
-    - [UTL_SMTP](#utl_smtp)
-    - [UTL_TCP](#utl_tcp)
-  - [A.부록: 예제](#a%EB%B6%80%EB%A1%9D-%EC%98%88%EC%A0%9C)
-    - [저장 프로시저 예제](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%98%88%EC%A0%9C)
-    - [파일 제어 예제](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4-%EC%98%88%EC%A0%9C)
-    - [UTL_SMTP 예제](#utl_smtp-%EC%98%88%EC%A0%9C)
-    - [SENDMAIL DAEMON 확인 예제](#sendmail-daemon-%ED%99%95%EC%9D%B8-%EC%98%88%EC%A0%9C)
-
-
-
-Altibase® Application Development
-
 Stored Procedures Manual
 ========================
 
-![](media/StoredProcedure/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
+
+Altibase® Application Development
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Stored Procedures Manual
-
-Release 7.1
-
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
-무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
 
+<br>
 
+# 목차
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.저장 프로시저](#1%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
+  - [저장 프로시저의 개요](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [저장 프로시저의 구조](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9D%98-%EA%B5%AC%EC%A1%B0)
+  - [저장 프로시저 사용시 주의 사항](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98-%EC%82%AC%ED%95%AD)
+- [2.저장 프로시저 SQL문](#2%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-sql%EB%AC%B8)
+  - [개요](#%EA%B0%9C%EC%9A%94)
+  - [CREATE PROCEDURE](#create-procedure)
+  - [ALTER PROCEDURE](#alter-procedure)
+  - [DROP PROCEDURE](#drop-procedure)
+  - [EXECUTE](#execute)
+  - [CREATE FUNCTION](#create-function)
+  - [ALTER FUNCTION](#alter-function)
+  - [DROP FUNCTION](#drop-function)
+- [3.저장 프로시저 블록](#3%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B8%94%EB%A1%9D)
+  - [저장 프로시저 블록](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B8%94%EB%A1%9D)
+  - [지역 변수 선언](#%EC%A7%80%EC%97%AD-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8)
+  - [SELECT INTO](#select-into)
+  - [RETURNING INTO 절](#returning-into-%EC%A0%88)
+  - [할당문](#%ED%95%A0%EB%8B%B9%EB%AC%B8)
+  - [LABEL](#label)
+  - [PRINT](#print)
+  - [RETURN](#return)
+  - [INSERT 확장](#insert-%ED%99%95%EC%9E%A5)
+  - [UPDATE 확장](#update-%ED%99%95%EC%9E%A5)
+- [4.흐름 제어](#4%ED%9D%90%EB%A6%84-%EC%A0%9C%EC%96%B4)
+  - [개요](#%EA%B0%9C%EC%9A%94-1)
+  - [IF](#if)
+  - [CASE](#case)
+  - [LOOP](#loop)
+  - [WHILE LOOP](#while-loop)
+  - [FOR LOOP](#for-loop)
+  - [EXIT](#exit)
+  - [CONTINUE](#continue)
+  - [GOTO](#goto)
+  - [NULL](#null)
+- [5.커서](#5%EC%BB%A4%EC%84%9C)
+  - [커서의 개요](#%EC%BB%A4%EC%84%9C%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [CURSOR](#cursor)
+  - [OPEN](#open)
+  - [FETCH](#fetch)
+  - [CLOSE](#close)
+  - [Cursor FOR LOOP](#cursor-for-loop)
+  - [커서 속성](#%EC%BB%A4%EC%84%9C-%EC%86%8D%EC%84%B1)
+- [6.사용자 정의 타입](#6%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85)
+  - [개요](#%EA%B0%9C%EC%9A%94-2)
+  - [사용자 정의 타입의 정의](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85%EC%9D%98-%EC%A0%95%EC%9D%98)
+  - [Associative Array 관련 함수](#associative-array-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
+  - [RECORD 타입 변수 및 Associative Array변수의 사용](#record-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98-%EB%B0%8F-associative-array%EB%B3%80%EC%88%98%EC%9D%98-%EC%82%AC%EC%9A%A9)
+  - [REF CURSOR](#ref-cursor)
+- [7.타입 세트](#7%ED%83%80%EC%9E%85-%EC%84%B8%ED%8A%B8)
+  - [개요](#%EA%B0%9C%EC%9A%94-3)
+  - [CREATE TYPESET](#create-typeset)
+  - [DROP TYPESET](#drop-typeset)
+- [8.동적 SQL](#8%EB%8F%99%EC%A0%81-sql)
+  - [동적 SQL의 개요](#%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [EXECUTE IMMEDIATE](#execute-immediate)
+  - [OPEN FOR](#open-for)
+- [9.예외 처리](#9%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
+  - [개요](#%EA%B0%9C%EC%9A%94-4)
+  - [EXCEPTION](#exception)
+  - [RAISE](#raise)
+  - [RAISE_APPLICATION_ERROR](#raise_application_error)
+  - [사용자 정의 예외](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%98%88%EC%99%B8)
+  - [SQLCODE와 SQLERRM](#sqlcode%EC%99%80-sqlerrm)
+  - [Exception Handler](#exception-handler)
+- [10.프라그마(Pragma)](#10%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88pragma)
+  - [개요](#%EA%B0%9C%EC%9A%94-5)
+  - [자율 트랜잭션 프라그마(Autonomous_Transaction Pragma)](#%EC%9E%90%EC%9C%A8-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88autonomous_transaction-pragma)
+  - [예외 초기화 프라그마(Exception_Init Pragma)](#%EC%98%88%EC%99%B8-%EC%B4%88%EA%B8%B0%ED%99%94-%ED%94%84%EB%9D%BC%EA%B7%B8%EB%A7%88exception_init-pragma)
+- [11.저장 패키지](#11%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [개요](#%EA%B0%9C%EC%9A%94-6)
+  - [CREATE PACKAGE](#create-package)
+  - [CREATE PACKAGE BODY](#create-package-body)
+  - [ALTER PACKAGE](#alter-package)
+  - [DROP PACKAGE](#drop-package)
+  - [EXECUTE](#execute-1)
+- [12.Altibase 저장 프로시저와 내장 함수](#12altibase-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%99%80-%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98)
+  - [파일 제어](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4)
+  - [TCP 접속 제어](#tcp-%EC%A0%91%EC%86%8D-%EC%A0%9C%EC%96%B4)
+  - [DBMS Stats](#dbms-stats)
+  - [그 외 함수들](#%EA%B7%B8-%EC%99%B8-%ED%95%A8%EC%88%98%EB%93%A4)
+- [13.Altibase 저장 패키지](#13altibase-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [시스템 정의 저장 패키지](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%A0%95%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [DBMS_APPLICATION_INFO](#dbms_application_info)
+  - [DBMS_ALERT](#dbms_alert)
+  - [DBMS_CONCURRENT_EXEC 패키지](#dbms_concurrent_exec-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [DBMS_LOCK](#dbms_lock)
+  - [DBMS_METADATA](#dbms_metadata)
+  - [DBMS_OUTPUT](#dbms_output)
+  - [DBMS_RANDOM](#dbms_random)
+  - [DBMS_RECYCLEBIN 패키지](#dbms_recyclebin-%ED%8C%A8%ED%82%A4%EC%A7%80)
+  - [DBMS_SQL](#dbms_sql)
+  - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
+  - [DBMS_STATS](#dbms_stats)
+  - [DBMS_STANDARD](#dbms_standard)
+  - [DBMS_UTILITY](#dbms_utility)
+  - [STANDARD](#standard)
+  - [SYS_SPATIAL](#sys_spatial)
+  - [UTL_COPYSWAP](#utl_copyswap)
+  - [UTL_FILE](#utl_file)
+  - [UTL_RAW](#utl_raw)
+  - [UTL_SMTP](#utl_smtp)
+  - [UTL_TCP](#utl_tcp)
+- [A.부록: 예제](#a%EB%B6%80%EB%A1%9D-%EC%98%88%EC%A0%9C)
+  - [저장 프로시저 예제](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%98%88%EC%A0%9C)
+  - [파일 제어 예제](#%ED%8C%8C%EC%9D%BC-%EC%A0%9C%EC%96%B4-%EC%98%88%EC%A0%9C)
+  - [UTL_SMTP 예제](#utl_smtp-%EC%98%88%EC%A0%9C)
+  - [SENDMAIL DAEMON 확인 예제](#sendmail-daemon-%ED%99%95%EC%9D%B8-%EC%98%88%EC%A0%9C)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -324,7 +392,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 
 1.저장 프로시저
--------------
+=============
 
 ### 저장 프로시저의 개요
 
@@ -497,7 +565,7 @@ INSERT, UPDATE, DELETE문 내에서 호출되는 저장 함수내에서도 트�
 
 
 2.저장 프로시저 SQL문
--------------------
+===================
 
 ### 개요
 
@@ -1741,7 +1809,7 @@ DROP FUNCTION get_dept_name;
 
 
 3.저장 프로시저 블록
-------------------
+==================
 
 저장 프로시저와 저장 함수는 한 개 이상의 블록으로 구성된다. 이 장에서는 블록을
 사용해서 저장 프로시저 내에 절차화된 프로그램을 작성하는 방법을 설명한다.
@@ -3474,7 +3542,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 
 4.흐름 제어
----------
+=========
 
 ### 개요
 
@@ -4642,7 +4710,7 @@ ENO         SALARY
 
 
 5.커서
-----
+====
 
 이 장은 커서를 관리하고 사용하는 방법을 설명한다.
 
@@ -5418,7 +5486,7 @@ ENO         E_FIRSTNAME           E_LASTNAME
 
 
 6.사용자 정의 타입
-----------------
+================
 
 이 장에서는 저장 프로시저와 저장 함수에서 사용할 수 있는 사용자 정의 타입에
 대해서 설명하고 있다.
@@ -6253,7 +6321,7 @@ REF CURSOR를 이용한 저장 프로시저를 생성한다.
 
 
 7.타입 세트
----------
+=========
 
 이 장에서는 타입 세트를 정의하고 사용하는 방법에 대해 설명한다.
 
@@ -6502,7 +6570,7 @@ DROP TYPESET my_typeset;
 
 
 8.동적 SQL
---------
+========
 
 이 장에서는 저장 프로시저와 저장 함수에서 동적 SQL을 사용하는 방법을 설명한다.
 
@@ -6724,7 +6792,7 @@ END;
 
 
 9.예외 처리
----------
+=========
 
 ### 개요
 
@@ -7315,7 +7383,7 @@ Execute success.
 
 
 10.프라그마(Pragma)
-----------------
+================
 
 ### 개요
 
@@ -7626,7 +7694,7 @@ at "SYS.PROC2", line 6]
 
 
 11.저장 패키지
------------
+===========
 
 이 장은 저장 패키지를 생성하고 사용하는 방법을 설명한다.
 
@@ -8212,7 +8280,7 @@ Execute success.
 
 
 12.Altibase 저장 프로시저와 내장 함수
-----------------------------------
+==================================
 
 Altibase는 다양한 종류의 내장된 저장 프로시저와 함수를 제공한다. 저장 프로시저
 내에서의 파일 제어 함수와 TCP 접속 제어 관련 저장 프로시저가 그것이다. 이 장은
@@ -10850,7 +10918,7 @@ SLEEP (seconds IN INTEGER);
 
 
 13.Altibase 저장 패키지
---------------------
+====================
 
 이 장에서는 Altibase가 제공하는 저장 패키지에 대해 설명한다.
 
@@ -15966,7 +16034,7 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 
 
-## A.부록: 예제
+# A.부록: 예제
 
 ### 저장 프로시저 예제
 

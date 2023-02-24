@@ -1,123 +1,198 @@
-- [Precompiler User’s Manual](#precompiler-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.C/C++ 전처리기 소개](#1cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0-%EC%86%8C%EA%B0%9C)
-    - [C/C++ 전처리기](#cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0)
-    - [명령행 옵션](#%EB%AA%85%EB%A0%B9%ED%96%89-%EC%98%B5%EC%85%98)
-    - [내장 SQL문을 이용한 프로그램 작성 순서 및 방법](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%88%9C%EC%84%9C-%EB%B0%8F-%EB%B0%A9%EB%B2%95)
-  - [2.호스트 변수와 지시자 변수](#2%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98)
-    - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
-    - [호스트 변수 분류](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%B6%84%EB%A5%98)
-    - [지시자 변수](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98)
-    - [지시자 변수 분류](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98-%EB%B6%84%EB%A5%98)
-    - [지시자 변수값의 의미](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98%EA%B0%92%EC%9D%98-%EC%9D%98%EB%AF%B8)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [3.호스트 변수 선언부](#3%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EB%B6%80)
-    - [호스트 변수 선언부](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EB%B6%80)
-    - [자료형 정의](#%EC%9E%90%EB%A3%8C%ED%98%95-%EC%A0%95%EC%9D%98)
-    - [함수 인자 선언부](#%ED%95%A8%EC%88%98-%EC%9D%B8%EC%9E%90-%EC%84%A0%EC%96%B8%EB%B6%80)
-  - [4.C Preprocessor](#4c-preprocessor)
-    - [C Preprocessor 개요](#c-preprocessor-%EA%B0%9C%EC%9A%94)
-    - [C Preprocessor 구문](#c-preprocessor-%EA%B5%AC%EB%AC%B8)
-    - [Preprocessor 제약사항](#preprocessor-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
-    - [Preprocessor 예제](#preprocessor-%EC%98%88%EC%A0%9C)
-    - [ALTIBASE_APRE 매크로](#altibase_apre-%EB%A7%A4%ED%81%AC%EB%A1%9C)
-  - [5.호스트 변수 데이터 타입](#5%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [일반 데이터 타입](#%EC%9D%BC%EB%B0%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [확장된 데이터 타입](#%ED%99%95%EC%9E%A5%EB%90%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [칼럼 타입과 호스트 변수 타입](#%EC%B9%BC%EB%9F%BC-%ED%83%80%EC%9E%85%EA%B3%BC-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85)
-  - [6.내장 SQL문](#6%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
-    - [개요](#%EA%B0%9C%EC%9A%94-1)
-    - [연결 관련 SQL문](#%EC%97%B0%EA%B2%B0-%EA%B4%80%EB%A0%A8-sql%EB%AC%B8)
-    - [기본 내장 SQL문](#%EA%B8%B0%EB%B3%B8-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
-    - [기타 내장 SQL문](#%EA%B8%B0%ED%83%80-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
-    - [OPTION문](#option%EB%AC%B8)
-  - [7.실행 시간 에러 처리](#7%EC%8B%A4%ED%96%89-%EC%8B%9C%EA%B0%84-%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC)
-    - [개요](#%EA%B0%9C%EC%9A%94-2)
-    - [sqlca](#sqlca)
-    - [SQLCODE](#sqlcode)
-    - [SQLSTATE](#sqlstate)
-    - [WHENEVER문](#whenever%EB%AC%B8)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-1)
-  - [8.커서 처리 SQL문](#8%EC%BB%A4%EC%84%9C-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-    - [개요](#%EA%B0%9C%EC%9A%94-3)
-    - [커서 관련 내장 SQL문](#%EC%BB%A4%EC%84%9C-%EA%B4%80%EB%A0%A8-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
-    - [동일한 커서 이름 재사용 방법](#%EB%8F%99%EC%9D%BC%ED%95%9C-%EC%BB%A4%EC%84%9C-%EC%9D%B4%EB%A6%84-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-2)
-  - [9.배열 처리 SQL문](#9%EB%B0%B0%EC%97%B4-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-    - [배열 호스트 변수의 개요](#%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [내장 SQL문에서 배열 호스트 변수 사용](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%97%90%EC%84%9C-%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
-    - [sqlca.sqlerrd](#sqlcasqlerrd)
-    - [제한 사항](#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD)
-    - [구조체와 배열](#%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%99%80-%EB%B0%B0%EC%97%B4)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-3)
-  - [10.동적 SQL문](#10%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
-    - [정적 SQL문과 동적 SQL문](#%EC%A0%95%EC%A0%81-sql%EB%AC%B8%EA%B3%BC-%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
-    - [동적 SQL문의 종류](#%EB%8F%99%EC%A0%81-sql%EB%AC%B8%EC%9D%98-%EC%A2%85%EB%A5%98)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-4)
-  - [11.저장 프로시저 처리 SQL문](#11%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-    - [저장 프로시저 처리 SQL문](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-    - [EXECUTE 문에서 배열 호스트 변수 사용](#execute-문에서-배열-호스트-변수-사용)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-5)
-  - [12.다중 연결 프로그램](#12%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [개요](#%EA%B0%9C%EC%9A%94-4)
-    - [다중 연결 프로그램에서 내장 SQL문 사용 방법](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [다중 연결 프로그램에서의 저장 프로시저 처리 SQL문](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-6)
-  - [13.멀티쓰레드 프로그램](#13%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [멀티쓰레드 프로그램](#%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-7)
-  - [14.전처리 오류 코드/메시지](#14%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C%EB%A9%94%EC%8B%9C%EC%A7%80)
-    - [전처리 오류](#%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98)
-  - [A. 부록: LOB데이터와 파일](#a-%EB%B6%80%EB%A1%9D-lob%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80-%ED%8C%8C%EC%9D%BC)
-    - [출력 호스트 변수와 파일](#%EC%B6%9C%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
-    - [입력 호스트 변수와 파일](#%EC%9E%85%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
-  - [B. 부록: Proc\*C에서 APRE로 변환](#b-%EB%B6%80%EB%A1%9D-proc%5Cc%EC%97%90%EC%84%9C-apre%EB%A1%9C-%EB%B3%80%ED%99%98)
-    - [데이터 타입 비교](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B9%84%EA%B5%90)
-    - [내장 함수 비교](#%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98-%EB%B9%84%EA%B5%90)
-    - [데이터베이스 연결/해제](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%97%B0%EA%B2%B0%ED%95%B4%EC%A0%9C)
-    - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-1)
-    - [내장 SQL문](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
-    - [수행 결과 및 상태 코드](#%EC%88%98%ED%96%89-%EA%B2%B0%EA%B3%BC-%EB%B0%8F-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C)
-    - [기타 차이점](#%EA%B8%B0%ED%83%80-%EC%B0%A8%EC%9D%B4%EC%A0%90)
-    - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-8)
-  - [C. 부록: 동적 SQL의 메소드4 사용](#c-%EB%B6%80%EB%A1%9D-%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C4-%EC%82%AC%EC%9A%A9)
-    - [SQLDA구조체의 데이터 타입](#sqlda%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-  - [D. 부록: 샘플 코드](#d-%EB%B6%80%EB%A1%9D-%EC%83%98%ED%94%8C-%EC%BD%94%EB%93%9C)
-    - [예제 프로그램 수행](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%88%98%ED%96%89)
-    - [예제 프로그램의 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
-  - [E. 부록: FAQ](#e-%EB%B6%80%EB%A1%9D-faq)
-    - [Precompiler FAQ](#precompiler-faq)
-
-Altibase® Application Development
-
 Precompiler User’s Manual
 =========================
 
-![](media/Precompiler/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
 
+Altibase® Application Development
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Precompiler User’s Manual
-
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
-무단으로 복제 또는 전용할 수 없습니다.
-
-㈜알티베이스
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.C/C++ 전처리기 소개](#1cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0-%EC%86%8C%EA%B0%9C)
+  - [C/C++ 전처리기](#cc-%EC%A0%84%EC%B2%98%EB%A6%AC%EA%B8%B0)
+  - [명령행 옵션](#%EB%AA%85%EB%A0%B9%ED%96%89-%EC%98%B5%EC%85%98)
+  - [내장 SQL문을 이용한 프로그램 작성 순서 및 방법](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%88%9C%EC%84%9C-%EB%B0%8F-%EB%B0%A9%EB%B2%95)
+- [2.호스트 변수와 지시자 변수](#2%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98)
+  - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
+  - [호스트 변수 분류](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%B6%84%EB%A5%98)
+  - [지시자 변수](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98)
+  - [지시자 변수 분류](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98-%EB%B6%84%EB%A5%98)
+  - [지시자 변수값의 의미](#%EC%A7%80%EC%8B%9C%EC%9E%90-%EB%B3%80%EC%88%98%EA%B0%92%EC%9D%98-%EC%9D%98%EB%AF%B8)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+- [3.호스트 변수 선언부](#3%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EB%B6%80)
+  - [호스트 변수 선언부](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EB%B6%80)
+  - [자료형 정의](#%EC%9E%90%EB%A3%8C%ED%98%95-%EC%A0%95%EC%9D%98)
+  - [함수 인자 선언부](#%ED%95%A8%EC%88%98-%EC%9D%B8%EC%9E%90-%EC%84%A0%EC%96%B8%EB%B6%80)
+- [4.C Preprocessor](#4c-preprocessor)
+  - [C Preprocessor 개요](#c-preprocessor-%EA%B0%9C%EC%9A%94)
+  - [C Preprocessor 구문](#c-preprocessor-%EA%B5%AC%EB%AC%B8)
+  - [Preprocessor 제약사항](#preprocessor-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+  - [Preprocessor 예제](#preprocessor-%EC%98%88%EC%A0%9C)
+  - [ALTIBASE_APRE 매크로](#altibase_apre-%EB%A7%A4%ED%81%AC%EB%A1%9C)
+- [5.호스트 변수 데이터 타입](#5%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [개요](#%EA%B0%9C%EC%9A%94)
+  - [일반 데이터 타입](#%EC%9D%BC%EB%B0%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [확장된 데이터 타입](#%ED%99%95%EC%9E%A5%EB%90%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [칼럼 타입과 호스트 변수 타입](#%EC%B9%BC%EB%9F%BC-%ED%83%80%EC%9E%85%EA%B3%BC-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85)
+- [6.내장 SQL문](#6%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+  - [개요](#%EA%B0%9C%EC%9A%94-1)
+  - [연결 관련 SQL문](#%EC%97%B0%EA%B2%B0-%EA%B4%80%EB%A0%A8-sql%EB%AC%B8)
+  - [기본 내장 SQL문](#%EA%B8%B0%EB%B3%B8-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+  - [기타 내장 SQL문](#%EA%B8%B0%ED%83%80-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+  - [OPTION문](#option%EB%AC%B8)
+- [7.실행 시간 에러 처리](#7%EC%8B%A4%ED%96%89-%EC%8B%9C%EA%B0%84-%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC)
+  - [개요](#%EA%B0%9C%EC%9A%94-2)
+  - [sqlca](#sqlca)
+  - [SQLCODE](#sqlcode)
+  - [SQLSTATE](#sqlstate)
+  - [WHENEVER문](#whenever%EB%AC%B8)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-1)
+- [8.커서 처리 SQL문](#8%EC%BB%A4%EC%84%9C-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+  - [개요](#%EA%B0%9C%EC%9A%94-3)
+  - [커서 관련 내장 SQL문](#%EC%BB%A4%EC%84%9C-%EA%B4%80%EB%A0%A8-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+  - [동일한 커서 이름 재사용 방법](#%EB%8F%99%EC%9D%BC%ED%95%9C-%EC%BB%A4%EC%84%9C-%EC%9D%B4%EB%A6%84-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-2)
+- [9.배열 처리 SQL문](#9%EB%B0%B0%EC%97%B4-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+  - [배열 호스트 변수의 개요](#%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [내장 SQL문에서 배열 호스트 변수 사용](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8%EC%97%90%EC%84%9C-%EB%B0%B0%EC%97%B4-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-%EC%82%AC%EC%9A%A9)
+  - [sqlca.sqlerrd](#sqlcasqlerrd)
+  - [제한 사항](#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD)
+  - [구조체와 배열](#%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%99%80-%EB%B0%B0%EC%97%B4)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-3)
+- [10.동적 SQL문](#10%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
+  - [정적 SQL문과 동적 SQL문](#%EC%A0%95%EC%A0%81-sql%EB%AC%B8%EA%B3%BC-%EB%8F%99%EC%A0%81-sql%EB%AC%B8)
+  - [동적 SQL문의 종류](#%EB%8F%99%EC%A0%81-sql%EB%AC%B8%EC%9D%98-%EC%A2%85%EB%A5%98)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-4)
+- [11.저장 프로시저 처리 SQL문](#11%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+  - [저장 프로시저 처리 SQL문](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+  - [EXECUTE 문에서 배열 호스트 변수 사용](#execute-문에서-배열-호스트-변수-사용)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-5)
+- [12.다중 연결 프로그램](#12%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [개요](#%EA%B0%9C%EC%9A%94-4)
+  - [다중 연결 프로그램에서 내장 SQL문 사용 방법](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C-%EB%82%B4%EC%9E%A5-sql%EB%AC%B8-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+  - [다중 연결 프로그램에서의 저장 프로시저 처리 SQL문](#%EB%8B%A4%EC%A4%91-%EC%97%B0%EA%B2%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%97%90%EC%84%9C%EC%9D%98-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%B2%98%EB%A6%AC-sql%EB%AC%B8)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-6)
+- [13.멀티쓰레드 프로그램](#13%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [멀티쓰레드 프로그램](#%EB%A9%80%ED%8B%B0%EC%93%B0%EB%A0%88%EB%93%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-7)
+- [14.전처리 오류 코드/메시지](#14%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C%EB%A9%94%EC%8B%9C%EC%A7%80)
+  - [전처리 오류](#%EC%A0%84%EC%B2%98%EB%A6%AC-%EC%98%A4%EB%A5%98)
+- [A. 부록: LOB데이터와 파일](#a-%EB%B6%80%EB%A1%9D-lob%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80-%ED%8C%8C%EC%9D%BC)
+  - [출력 호스트 변수와 파일](#%EC%B6%9C%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
+  - [입력 호스트 변수와 파일](#%EC%9E%85%EB%A0%A5-%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98%EC%99%80-%ED%8C%8C%EC%9D%BC)
+- [B. 부록: Proc\*C에서 APRE로 변환](#b-%EB%B6%80%EB%A1%9D-proc%5Cc%EC%97%90%EC%84%9C-apre%EB%A1%9C-%EB%B3%80%ED%99%98)
+  - [데이터 타입 비교](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B9%84%EA%B5%90)
+  - [내장 함수 비교](#%EB%82%B4%EC%9E%A5-%ED%95%A8%EC%88%98-%EB%B9%84%EA%B5%90)
+  - [데이터베이스 연결/해제](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%97%B0%EA%B2%B0%ED%95%B4%EC%A0%9C)
+  - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98-1)
+  - [내장 SQL문](#%EB%82%B4%EC%9E%A5-sql%EB%AC%B8)
+  - [수행 결과 및 상태 코드](#%EC%88%98%ED%96%89-%EA%B2%B0%EA%B3%BC-%EB%B0%8F-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C)
+  - [기타 차이점](#%EA%B8%B0%ED%83%80-%EC%B0%A8%EC%9D%B4%EC%A0%90)
+  - [예제 프로그램](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-8)
+- [C. 부록: 동적 SQL의 메소드4 사용](#c-%EB%B6%80%EB%A1%9D-%EB%8F%99%EC%A0%81-sql%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C4-%EC%82%AC%EC%9A%A9)
+  - [SQLDA구조체의 데이터 타입](#sqlda%EA%B5%AC%EC%A1%B0%EC%B2%B4%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+- [D. 부록: 샘플 코드](#d-%EB%B6%80%EB%A1%9D-%EC%83%98%ED%94%8C-%EC%BD%94%EB%93%9C)
+  - [예제 프로그램 수행](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%88%98%ED%96%89)
+  - [예제 프로그램의 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
+- [E. 부록: FAQ](#e-%EB%B6%80%EB%A1%9D-faq)
+  - [Precompiler FAQ](#precompiler-faq)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -307,7 +382,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.C/C++ 전처리기 소개
--------------------
+===================
 
 ### C/C++ 전처리기
 
@@ -1109,7 +1184,7 @@ $ apre connect1.sc
 ```
 
 2.호스트 변수와 지시자 변수
--------------------------
+=========================
 
 ### 호스트 변수 
 
@@ -1855,7 +1930,7 @@ d_arrival_date2 = NULL
 ```
 
 3.호스트 변수 선언부
-------------------
+==================
 
 ### 호스트 변수 선언부
 
@@ -2070,7 +2145,7 @@ $ ./argument
 ```
 
 4.C Preprocessor
---------------
+==============
 
 ### C Preprocessor 개요
 
@@ -2592,7 +2667,7 @@ cc -I/home/project/include ... test.c
 ```
 
 5.호스트 변수 데이터 타입
------------------------
+=======================
 
 ### 개요
 
@@ -4085,7 +4160,7 @@ APRE_BINARY, APRE_BINARY2
 BLOB 타입(칼럼 타입)을 제외하고는 사용을 추천하지 않는다.
 
 6.내장 SQL문
-----------
+==========
 
 ### 개요
 
@@ -5330,7 +5405,7 @@ EXEC SQL OPTION (THREADS=TRUE);
 ```
 
 7.실행 시간 에러 처리 
---------------------
+====================
 
 ### 개요
 
@@ -5749,7 +5824,7 @@ DNO      DNAME                          DEP_LOCATION       MGR_NO
 4002     BUSINESS DEPT                  LA                 7 
 ```
 
-## 8.커서 처리 SQL문
+# 8.커서 처리 SQL문
 
 ### 개요
 
@@ -6221,7 +6296,7 @@ ENO     DNO      SALARY
 Success close release cursor
 ```
 
-## 9.배열 처리 SQL문
+# 9.배열 처리 SQL문
 
 ### 배열 호스트 변수의 개요
 
@@ -7342,7 +7417,7 @@ Error : [-594092] Returns too many rows
 Success execute procedure
 ```
 
-## 10.동적 SQL문
+# 10.동적 SQL문
 
 ### 정적 SQL문과 동적 SQL문
 
@@ -8260,7 +8335,7 @@ iSQL> select * from DEPARTMENTS
 iSQL> exit
 ```
 
-## 11.저장 프로시저 처리 SQL문
+# 11.저장 프로시저 처리 SQL문
 
 ### 저장 프로시저 처리 SQL문
 
@@ -9089,7 +9164,7 @@ NULL
 4
 ~~~
 
-## 12.다중 연결 프로그램
+# 12.다중 연결 프로그램
 
 ### 개요
 
@@ -9672,7 +9747,7 @@ Success drop procedure
 Success drop procedure 
 ```
 
-## 13.멀티쓰레드 프로그램
+# 13.멀티쓰레드 프로그램
 
 ### 멀티쓰레드 프로그램
 
@@ -9767,7 +9842,7 @@ ORDER_DATE              ENO   GNO
 2000/12/30 00:00:00     12    F111100001 
 ```
 
-## 14.전처리 오류 코드/메시지
+# 14.전처리 오류 코드/메시지
 
 ### 전처리 오류
 
@@ -9932,7 +10007,7 @@ H: 위 경우를 제외한 처리부에서 오류가 발생한 경우
 | 706L      | READ ONLY option does is supported yet.            |
 | 707L      | ALTER COMPACT option is not supported yet.         |
 
-## A. 부록: LOB데이터와 파일
+# A. 부록: LOB데이터와 파일
 
 여기에서는 BLOB, CLOB 타입의 데이터를 입력하거나 출력할 때 파일 시스템을
 사용하는 방법에 대해 설명한다. 이 방법으로 파일내의 데이터를 테이블로
@@ -10043,7 +10118,7 @@ EXEC SQL INSERT INTO T_LOB
 VALUES(:sI1, BLOB_FILE :sI2FName OPTION :sI2FOpt INDICATOR :sI2Ind); 
 ```
 
-## B. 부록: Proc\*C에서 APRE로 변환
+# B. 부록: Proc\*C에서 APRE로 변환
 
 이 부록은 오라클의 pro\*C(C++)로 작성된 응용 프로그램을 Altibase C/C++
 Precompiler 응용 프로그램으로 전환할 때 참조한다.
@@ -11056,7 +11131,7 @@ exit(0);
 }
 ```
 
-## C. 부록: 동적 SQL의 메소드4 사용
+# C. 부록: 동적 SQL의 메소드4 사용
 
 이 부록은 사용자가 프로그램 실행 시에 파라미터 마커의 값에 입력할 수 있는 동적
 SQL의 메소드4를 사용할 시 참조한다.
@@ -11123,7 +11198,7 @@ int       F;     /* 분석된 column 개수 */
 | SQLDA_TYPE_TIME         | 22   | SQL_TIME_STRUCT        |
 | SQLDA_TYPE_TIMESTAMP    | 23   | SQL_TIMESTAMP_STRUCT   |
 
-## D. 부록: 샘플 코드
+# D. 부록: 샘플 코드
 
 이 부록은 본 매뉴얼에서 전반적으로 사용된 예제프로그램이 어디에 있는지 알려준다.
 
@@ -11236,7 +11311,7 @@ $ ./delete
 
 *General Reference-2.The Data Dictionary* 의 *4.샘플 스키마*를 참조하세요.
 
-## E. 부록: FAQ
+# E. 부록: FAQ
 
 ### Precompiler FAQ
 
