@@ -1,60 +1,132 @@
-
-
-
-- [Adapter for Oracle User’s Manual](#adapter-for-oracle-users-manual)
-  - [Preface](#preface)
-  - [1. Introduction](#1-introduction)
-    - [Adapter for Oracle](#adapter-for-oracle)
-  - [2. Installation and Configuration](#2-installation-and-configuration)
-    - [Pre-installation Tasks](#pre-installation-tasks)
-    - [Installation](#installation)
-    - [Post-installation Tasks](#post-installation-tasks)
-    - [Configuration](#configuration)
-    - [Properties](#properties)
-  - [3. Managing Adapter for Oracle](#3-managing-adapter-for-oracle)
-    - [oraAdapter Constraints](#oraadapter-constraints)
-    - [Startup and Shutdown](#startup-and-shutdown)
-    - [Data Types](#data-types)
-    - [Adapter for Oracle Utility](#adapter-for-oracle-utility)
-    - [Command-Line Options](#command-line-options)
-  - [Appendix A: FAQ](#appendix-a-faq)
-    - [FAQ](#faq)
-  - [Appendix B: DDL order when using oraAdapter](#appendix-b-ddl-order-when-using-oraadapter)
-    - [DDL execution order when using oraAdapter](#ddl-execution-order-when-using-oraadapter)
-
-
-
-Altibase® Tool & Utilities
-
 Adapter for Oracle User’s Manual
-================================
+================
 
-![](media/oraAdapter/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Alitbase® Tools & Utilities
 
-
-Altibase Tool & Utilities Adapter for Oracle User’s Manual
-
-Release 7.1
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Tool & Utilities Adapter for JDBC User’s Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
+<br>
+
+# Table Of Contents
+
+- [Preface](#preface)
+- [1. Introduction](#1-introduction)
+  - [Adapter for Oracle](#adapter-for-oracle)
+- [2. Installation and Configuration](#2-installation-and-configuration)
+  - [Pre-installation Tasks](#pre-installation-tasks)
+  - [Installation](#installation)
+  - [Post-installation Tasks](#post-installation-tasks)
+  - [Configuration](#configuration)
+  - [Properties](#properties)
+- [3. Managing Adapter for Oracle](#3-managing-adapter-for-oracle)
+  - [oraAdapter Constraints](#oraadapter-constraints)
+  - [Startup and Shutdown](#startup-and-shutdown)
+  - [Data Types](#data-types)
+  - [Adapter for Oracle Utility](#adapter-for-oracle-utility)
+  - [Command-Line Options](#command-line-options)
+- [Appendix A: FAQ](#appendix-a-faq)
+  - [FAQ](#faq)
+- [Appendix B: DDL order when using oraAdapter](#appendix-b-ddl-order-when-using-oraadapter)
+  - [DDL execution order when using oraAdapter](#ddl-execution-order-when-using-oraadapter)
 
 
 
 Preface
-----
+====
 
 - ### About This Manual
 
@@ -168,7 +240,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction
+# 1. Introduction
 
 This chapter describes the concept of the Adapter for Oracle and how data that has been changed in Altibase is written to an Oracle database.
 
@@ -225,7 +297,7 @@ The Oracle Call Interface (OCI) is a set of C-language APIs that provide an inte
 
 The XLog pool is a pre-allocated memory space for storing XLogs.
 
-## 2. Installation and Configuration
+# 2. Installation and Configuration
 
 This chapter describes how to install and configure the Adapter for Oracle.
 
@@ -731,7 +803,7 @@ Spaces or tabs cannot be used when setting property values. Also, to use charact
 
 
 
-## 3. Managing Adapter for Oracle
+# 3. Managing Adapter for Oracle
 
 This chapter describes how to start up and shut down oraAdapter and how to use the Adapter for Oracle Utility
 
@@ -921,7 +993,19 @@ oaUtility {start [ force ]}
 
 ##### Description
 
-This is used to start oraAdapter as a daemon. The force option starts the oraAdapter without checking for a primary key constraint in the replication target table.
+<pre>
+Altibase Tool & Utilities Adapter for JDBC User’s Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
 #### oaUtility stop
 
@@ -996,7 +1080,7 @@ Altibase Adapter for Oracle version 5.5.1.1.2
 
 
 Appendix A: FAQ
----------
+=========
 
 ### FAQ
 
@@ -1009,7 +1093,7 @@ Once oraAdapter has been started, if any environment variables or properties are
 If oraAdapter fails to write a data item to the Oracle DB, it merely writes a log message and proceeds to the next data item. This log message will be left in a trace log file in the '$ORA_ADAPTER_HOME/trc' directory.
 
 Appendix B: DDL order when using oraAdapter
---------------------------------
+================================
 
 ### DDL execution order when using oraAdapter
 

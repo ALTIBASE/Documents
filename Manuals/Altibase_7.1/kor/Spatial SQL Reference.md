@@ -1,70 +1,140 @@
+# Spatial SQL Reference
 
-
-
-- [Spatial SQL Reference](#spatial-sql-reference)
-    - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.공간 데이터의 개요](#1%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [Spatial의 개념](#spatial%EC%9D%98-%EA%B0%9C%EB%85%90)
-    - [공간 데이터의 특징](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%ED%8A%B9%EC%A7%95)
-    - [공간 데이터 활용 용어](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9-%EC%9A%A9%EC%96%B4)
-  - [2.공간 질의어](#2%EA%B3%B5%EA%B0%84-%EC%A7%88%EC%9D%98%EC%96%B4)
-    - [GEOMETRY 데이터 타입](#geometry-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [GEOMETRY 표현 형식](#geometry-%ED%91%9C%ED%98%84-%ED%98%95%EC%8B%9D)
-    - [데이터 정의어](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%9D%98%EC%96%B4)
-    - [공간 함수](#%EA%B3%B5%EA%B0%84-%ED%95%A8%EC%88%98)
-    - [기본 함수](#%EA%B8%B0%EB%B3%B8-%ED%95%A8%EC%88%98)
-    - [공간 분석 함수](#%EA%B3%B5%EA%B0%84-%EB%B6%84%EC%84%9D-%ED%95%A8%EC%88%98)
-    - [공간 객체 생성 함수](#%EA%B3%B5%EA%B0%84-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%95%A8%EC%88%98)
-    - [Dimensionally Extended Nine Intersection Model(DE－9IM)](#dimensionally-extended-nine-intersection-modelde9im)
-    - [Altibase 공간 관계 연산자](#altibase-%EA%B3%B5%EA%B0%84-%EA%B4%80%EA%B3%84-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [3.응용 프로그램 개발](#3%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C)
-    - [API 사용 방법](#api-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [응용 프로그램 작성 예](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%98%88)
-    - [Spatial API용 데이터 타입과 함수](#spatial-api%EC%9A%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EA%B3%BC-%ED%95%A8%EC%88%98)
-    - [핸들 및 에러 관리 함수](#%ED%95%B8%EB%93%A4-%EB%B0%8F-%EC%97%90%EB%9F%AC-%EA%B4%80%EB%A6%AC-%ED%95%A8%EC%88%98)
-    - [객체 생성 함수](#%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%95%A8%EC%88%98)
-    - [객체 검색 함수](#%EA%B0%9D%EC%B2%B4-%EA%B2%80%EC%83%89-%ED%95%A8%EC%88%98)
-    - [Endian 함수](#endian-%ED%95%A8%EC%88%98)
-  - [4. 공간 데이터 마이그레이션](#4-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
-    - [Altibase 제품간 공간 데이터 마이그레이션](#altibase-%EC%A0%9C%ED%92%88%EA%B0%84-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
-  - [A.부록: Spatial 칼럼의 제약사항](#a%EB%B6%80%EB%A1%9D-spatial-%EC%B9%BC%EB%9F%BC%EC%9D%98-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
-    - [GEOMETRY 칼럼에 대한 제약 사항](#geometry-%EC%B9%BC%EB%9F%BC%EC%97%90-%EB%8C%80%ED%95%9C-%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
-  - [B.부록: 스키마](#b%EB%B6%80%EB%A1%9D-%EC%8A%A4%ED%82%A4%EB%A7%88)
-    - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
-    - [샘플 데이터](#%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%84%B0)
-  - [C.부록: Geometry 참조 테이블](#c%EB%B6%80%EB%A1%9D-geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [Geometry 참조 테이블](#geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [관련 저장 프로시저](#%EA%B4%80%EB%A0%A8-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
-
-
+#### Altibase 7.1
 
 Altibase® Application Development
 
-# Spatial SQL Reference
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/SpatialSQL/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Altibase Development Spatial SQL Reference
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Application Development Spatial SQL Reference
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#%EC%84%9C%EB%AC%B8)
+- [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.공간 데이터의 개요](#1%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [Spatial의 개념](#spatial%EC%9D%98-%EA%B0%9C%EB%85%90)
+  - [공간 데이터의 특징](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%ED%8A%B9%EC%A7%95)
+  - [공간 데이터 활용 용어](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9-%EC%9A%A9%EC%96%B4)
+- [2.공간 질의어](#2%EA%B3%B5%EA%B0%84-%EC%A7%88%EC%9D%98%EC%96%B4)
+  - [GEOMETRY 데이터 타입](#geometry-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [GEOMETRY 표현 형식](#geometry-%ED%91%9C%ED%98%84-%ED%98%95%EC%8B%9D)
+  - [데이터 정의어](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%9D%98%EC%96%B4)
+  - [공간 함수](#%EA%B3%B5%EA%B0%84-%ED%95%A8%EC%88%98)
+  - [기본 함수](#%EA%B8%B0%EB%B3%B8-%ED%95%A8%EC%88%98)
+  - [공간 분석 함수](#%EA%B3%B5%EA%B0%84-%EB%B6%84%EC%84%9D-%ED%95%A8%EC%88%98)
+  - [공간 객체 생성 함수](#%EA%B3%B5%EA%B0%84-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%95%A8%EC%88%98)
+  - [Dimensionally Extended Nine Intersection Model(DE－9IM)](#dimensionally-extended-nine-intersection-modelde9im)
+  - [Altibase 공간 관계 연산자](#altibase-%EA%B3%B5%EA%B0%84-%EA%B4%80%EA%B3%84-%EC%97%B0%EC%82%B0%EC%9E%90)
+- [3.응용 프로그램 개발](#3%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C)
+  - [API 사용 방법](#api-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+  - [응용 프로그램 작성 예](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EC%98%88)
+  - [Spatial API용 데이터 타입과 함수](#spatial-api%EC%9A%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EA%B3%BC-%ED%95%A8%EC%88%98)
+  - [핸들 및 에러 관리 함수](#%ED%95%B8%EB%93%A4-%EB%B0%8F-%EC%97%90%EB%9F%AC-%EA%B4%80%EB%A6%AC-%ED%95%A8%EC%88%98)
+  - [객체 생성 함수](#%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%ED%95%A8%EC%88%98)
+  - [객체 검색 함수](#%EA%B0%9D%EC%B2%B4-%EA%B2%80%EC%83%89-%ED%95%A8%EC%88%98)
+  - [Endian 함수](#endian-%ED%95%A8%EC%88%98)
+- [4. 공간 데이터 마이그레이션](#4-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
+  - [Altibase 제품간 공간 데이터 마이그레이션](#altibase-%EC%A0%9C%ED%92%88%EA%B0%84-%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98)
+- [A.부록: Spatial 칼럼의 제약사항](#a%EB%B6%80%EB%A1%9D-spatial-%EC%B9%BC%EB%9F%BC%EC%9D%98-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+  - [GEOMETRY 칼럼에 대한 제약 사항](#geometry-%EC%B9%BC%EB%9F%BC%EC%97%90-%EB%8C%80%ED%95%9C-%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
+- [B.부록: 스키마](#b%EB%B6%80%EB%A1%9D-%EC%8A%A4%ED%82%A4%EB%A7%88)
+  - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
+  - [샘플 데이터](#%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%84%B0)
+- [C.부록: Geometry 참조 테이블](#c%EB%B6%80%EB%A1%9D-geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [Geometry 참조 테이블](#geometry-%EC%B0%B8%EC%A1%B0-%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [관련 저장 프로시저](#%EA%B4%80%EB%A0%A8-%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
 
-### 서문
+<br>
+
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -226,7 +296,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.공간 데이터의 개요
-------------------
+==================
 
 본 장에서는 Altibase에서 제공하는 공간 데이터에 대한 기본적인 개념과 특징 및
 용어, 그리고 공간 데이터를 처리하는 방법에 대해서 설명한다.
@@ -508,7 +578,7 @@ Altibase에서 제공하는 공간 데이터에 대한 처리는 다음과 같�
     일반적으로 면이라 함은 특별히 지칭하지 않는 한 평면을 말한다.
 
 2.공간 질의어
------------
+===========
 
 본 장에서는 Altibase에서 지원하는 공간 데이터에 대한 데이터 타입, 공간 질의어,
 공간 함수 및 연산자 등에 대하여 설명한다.
@@ -5354,7 +5424,7 @@ F1          F1
 
 
 3.응용 프로그램 개발
-------------------
+==================
 
 본 장에서는 응용 프로그램 개발자가 공간 데이터에 접근하기 위해 사용하는 API 들에
 대해 설명한다.
@@ -7176,7 +7246,7 @@ else
 
 ```
 
-## 4. 공간 데이터 마이그레이션
+# 4. 공간 데이터 마이그레이션
 
 본 장에서는 Altibase 또는 타 벤더  데이터베이스 제품과 공간 데이터 마이그레이션 하는 방법을 설명한다.
 
@@ -7188,7 +7258,7 @@ Altibase 제품간 공간 데이터 마이그레이션을 위해 iLoader와 aexp
 
 WKB 포맷의 공간 데이터는 EWKB 지원 Altibase가 읽고 자동으로 변환한다. 반면, EWKB 포맷 공간 데이터는 WKB 지원 Altibase가 인식하지 못한다. 따라서, EWKB 포맷 데이터를  WKB 지원 Altibase로 데이터 이관 할때 원본 데이터를 WKB 포맷으로 추출하는 옵션을 사용해야 한다. 마이그레이션 작업할 때는 aexport의 aexport.properties 파일에 'ILOADER_GEOM = WKB' 옵션을, 하나의 테이블만 작업할 때는 iLoader에서 '-geom WKB' 옵션을 사용한다. 상세 내용은 iLoader와 aexport 매뉴얼을 참조한다.
 
-## A.부록: Spatial 칼럼의 제약사항
+# A.부록: Spatial 칼럼의 제약사항
 
 이 부록은 Altibase에 Spatial 기능을 확장함에 따라 기존의 DBMS 기능 중 GEOEMTRY
 칼럼에 대한 지원이 제한되는 부분을 기술한다.
@@ -7271,7 +7341,7 @@ Parameter, Local Variable에 GEOMETRY Type을 사용할 수 없다.
 
 Parameter, Return type, Local Variable에는 GEOMETRY Type을 사용할 수 없다.
 
-## B.부록: 스키마
+# B.부록: 스키마
 
 이 부록은 본 매뉴얼에서 사용된 예제의 전반적인 테이블 스키마 및 기본 데이터에
 대한 참조 정보를 나타낸다.
@@ -7396,7 +7466,7 @@ CREATE TABLE TB3(ID INTEGER PRIMARY KEY, OBJ GEOMETRY);
 CREATE INDEX RT_IDX_TB3 ON TB3(OBJ) ;
 ```
 
-## C.부록: Geometry 참조 테이블
+# C.부록: Geometry 참조 테이블
 
 이 부록은 OGC 표준을 만족하는 메타 테이블 SPATIAL_REF_SYS, GEOMETRY_COLUMNS의 사용법, 관련된 제약 사항에 대해 설명한다.
 

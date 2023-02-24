@@ -1,158 +1,231 @@
+# SQL Reference
 
-
-- [SQL Reference](#sql-reference)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to Altibase SQL](#1-introduction-to-altibase-sql)
-    - [Overview of Altibase SQL](#overview-of-altibase-sql)
-    - [Types of SQL Statements](#types-of-sql-statements)
-  - [2. Altibase SQL Basics](#2-altibase-sql-basics)
-    - [Comments](#comments)
-    - [Altibase Objects](#altibase-objects)
-    - [HINT](#hint)
-    - [Hint List](#hint-list)
-  - [3. Data Definition Language](#3-data-definition-language)
-    - [ALTER DATABASE](#alter-database)
-    - [ALTER DATABASE LINKER](#alter-database-linker)
-    - [ALTER INDEX](#alter-index)
-    - [ALTER JOB](#alter-job)
-    - [ALTER QUEUE](#alter-queue)
-    - [ALTER REPLICATION](#alter-replication)
-    - [ALTER SEQUENCE](#alter-sequence)
-    - [ALTER TABLE](#alter-table)
-    - [ALTER TABLESPACE](#alter-tablespace)
-    - [ALTER TRIGGER](#alter-trigger)
-    - [ALTER USER](#alter-user)
-    - [ALTER VIEW](#alter-view)
-    - [ALTER MATERIALIZED VIEW](#alter-materialized-view)
-    - [COMMENT](#comment)
-    - [CONJOIN TABLE](#conjoin-table)
-    - [CREATE DATABASE](#create-database)
-    - [CREATE DATABASE LINK](#create-database-link)
-    - [CREATE DIRECTORY](#create-directory)
-    - [CREATE INDEX](#create-index)
-    - [CREATE JOB](#create-job)
-    - [CREATE QUEUE](#create-queue)
-    - [CREATE REPLICATION](#create-replication)
-    - [CREATE ROLE](#create-role)
-    - [CREATE SEQUENCE](#create-sequence)
-    - [CREATE SYNONYM](#create-synonym)
-    - [CREATE TABLE](#create-table)
-    - [CREATE DISK TABLESPACE](#create-disk-tablespace)
-    - [CREATE MEMORY TABLESPACE](#create-memory-tablespace)
-    - [CREATE VOLATILE TABLESPACE](#create-volatile-tablespace)
-    - [CREATE TEMPORARY TABLESPACE](#create-temporary-tablespace)
-    - [CREATE TRIGGER](#create-trigger)
-    - [CREATE USER](#create-user)
-    - [CREATE VIEW](#create-view)
-    - [CREATE MATERIALIZED VIEW](#create-materialized-view)
-    - [DISJOIN TABLE](#disjoin-table)
-    - [DROP DATABASE](#drop-database)
-    - [DROP DATABASE LINK](#drop-database-link)
-    - [DROP DIRECTORY](#drop-directory)
-    - [DROP INDEX](#drop-index)
-    - [DROP JOB](#drop-job)
-    - [DROP QUEUE](#drop-queue)
-    - [DROP REPLICATION](#drop-replication)
-    - [DROP ROLE](#drop-role)
-    - [DROP SEQUENCE](#drop-sequence)
-    - [DROP SYNONYM](#drop-synonym)
-    - [DROP TABLE](#drop-table)
-    - [DROP TABLESPACE](#drop-tablespace)
-    - [DROP TRIGGER](#drop-trigger)
-    - [DROP USER](#drop-user)
-    - [DROP VIEW](#drop-view)
-    - [DROP MATERIALIZED VIEW](#drop-materialized-view)
-    - [FLASHBACK TABLE](#flashback-table)
-    - [GRANT](#grant)
-    - [PURGE TABLE](#purge-table)
-    - [RENAME TABLE](#rename-table)
-    - [REVOKE](#revoke)
-    - [TRUNCATE TABLE](#truncate-table)
-  - [4. Data Manipulation Language](#4-data-manipulation-language)
-    - [DELETE](#delete)
-    - [INSERT](#insert)
-    - [LOCK TABLE](#lock-table)
-    - [SELECT](#select)
-    - [UPDATE](#update)
-    - [MOVE](#move)
-    - [MERGE](#merge)
-    - [ENQUEUE](#enqueue)
-    - [DEQUEUE](#dequeue)
-  - [5. Data Control Language](#5-data-control-language)
-    - [ALTER REPLICATION](#alter-replication-1)
-    - [ALTER SESSION](#alter-session)
-    - [ALTER SYSTEM](#alter-system)
-    - [AUDIT](#audit)
-    - [COMMIT](#commit)
-    - [DELAUDIT](#delaudit)
-    - [NOAUDIT](#noaudit)
-    - [SAVEPOINT](#savepoint)
-    - [ROLLBACK](#rollback)
-    - [SET TRANSACTION](#set-transaction)
-  - [6. Set Operators](#6-set-operators)
-    - [UNION](#union)
-    - [UNION ALL](#union-all)
-    - [INTERSECT](#intersect)
-    - [MINUS](#minus)
-    - [Order of Operations](#order-of-operations)
-  - [7. SQL Functions](#7-sql-functions)
-    - [Introduction to SQL Functions](#introduction-to-sql-functions)
-    - [Aggregate Functions](#aggregate-functions)
-    - [Window (Analytic) Functions](#window-analytic-functions)
-    - [Numeric Functions](#numeric-functions)
-    - [Character Functions](#character-functions)
-    - [Datatime Funcitons](#datatime-funcitons)
-    - [Conversion Functions](#conversion-functions)
-    - [Encryption Functions](#encryption-functions)
-    - [Other Functions](#other-functions)
-  - [8. Arithmetic Operators](#8-arithmetic-operators)
-    - [Arithmetic Operators](#arithmetic-operators)
-    - [Unary Operator](#unary-operator)
-    - [Binary Opeartors](#binary-opeartors)
-    - [Concatenation Operator](#concatenation-operator)
-    - [CAST Operator](#cast-operator)
-  - [9. SQL Conditions](#9-sql-conditions)
-    - [SQL Conditions Overview](#sql-conditions-overview)
-    - [Logical Condition](#logical-condition)
-    - [Comparision Conditions](#comparision-conditions)
-    - [Other Conditions](#other-conditions)
-  - [Appendix A. Regular Expressions](#appendix-a-regular-expressions)
-    - [Regular Expression Support](#regular-expression-support)
-    - [Syntax Differences between the two Regular Expression Libraries](#syntax-differences-between-the-two-regular-expression-libraries)
-    - [Altering the Regular Expression Library](#altering-the-regular-expression-library)
-
-
+#### Altibase 7.1
 
 Altibase® Application Development
 
-# SQL Reference
-
-![](media/SQL/e5cfb3761673686d093a3b00c062fe7a.png)
-
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development SQL Reference
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+<br>
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+# Table Of Contents
 
-**Altibase Corp**
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to Altibase SQL](#1-introduction-to-altibase-sql)
+  - [Overview of Altibase SQL](#overview-of-altibase-sql)
+  - [Types of SQL Statements](#types-of-sql-statements)
+- [2. Altibase SQL Basics](#2-altibase-sql-basics)
+  - [Comments](#comments)
+  - [Altibase Objects](#altibase-objects)
+  - [HINT](#hint)
+  - [Hint List](#hint-list)
+- [3. Data Definition Language](#3-data-definition-language)
+  - [ALTER DATABASE](#alter-database)
+  - [ALTER DATABASE LINKER](#alter-database-linker)
+  - [ALTER INDEX](#alter-index)
+  - [ALTER JOB](#alter-job)
+  - [ALTER QUEUE](#alter-queue)
+  - [ALTER REPLICATION](#alter-replication)
+  - [ALTER SEQUENCE](#alter-sequence)
+  - [ALTER TABLE](#alter-table)
+  - [ALTER TABLESPACE](#alter-tablespace)
+  - [ALTER TRIGGER](#alter-trigger)
+  - [ALTER USER](#alter-user)
+  - [ALTER VIEW](#alter-view)
+  - [ALTER MATERIALIZED VIEW](#alter-materialized-view)
+  - [COMMENT](#comment)
+  - [CONJOIN TABLE](#conjoin-table)
+  - [CREATE DATABASE](#create-database)
+  - [CREATE DATABASE LINK](#create-database-link)
+  - [CREATE DIRECTORY](#create-directory)
+  - [CREATE INDEX](#create-index)
+  - [CREATE JOB](#create-job)
+  - [CREATE QUEUE](#create-queue)
+  - [CREATE REPLICATION](#create-replication)
+  - [CREATE ROLE](#create-role)
+  - [CREATE SEQUENCE](#create-sequence)
+  - [CREATE SYNONYM](#create-synonym)
+  - [CREATE TABLE](#create-table)
+  - [CREATE DISK TABLESPACE](#create-disk-tablespace)
+  - [CREATE MEMORY TABLESPACE](#create-memory-tablespace)
+  - [CREATE VOLATILE TABLESPACE](#create-volatile-tablespace)
+  - [CREATE TEMPORARY TABLESPACE](#create-temporary-tablespace)
+  - [CREATE TRIGGER](#create-trigger)
+  - [CREATE USER](#create-user)
+  - [CREATE VIEW](#create-view)
+  - [CREATE MATERIALIZED VIEW](#create-materialized-view)
+  - [DISJOIN TABLE](#disjoin-table)
+  - [DROP DATABASE](#drop-database)
+  - [DROP DATABASE LINK](#drop-database-link)
+  - [DROP DIRECTORY](#drop-directory)
+  - [DROP INDEX](#drop-index)
+  - [DROP JOB](#drop-job)
+  - [DROP QUEUE](#drop-queue)
+  - [DROP REPLICATION](#drop-replication)
+  - [DROP ROLE](#drop-role)
+  - [DROP SEQUENCE](#drop-sequence)
+  - [DROP SYNONYM](#drop-synonym)
+  - [DROP TABLE](#drop-table)
+  - [DROP TABLESPACE](#drop-tablespace)
+  - [DROP TRIGGER](#drop-trigger)
+  - [DROP USER](#drop-user)
+  - [DROP VIEW](#drop-view)
+  - [DROP MATERIALIZED VIEW](#drop-materialized-view)
+  - [FLASHBACK TABLE](#flashback-table)
+  - [GRANT](#grant)
+  - [PURGE TABLE](#purge-table)
+  - [RENAME TABLE](#rename-table)
+  - [REVOKE](#revoke)
+  - [TRUNCATE TABLE](#truncate-table)
+- [4. Data Manipulation Language](#4-data-manipulation-language)
+  - [DELETE](#delete)
+  - [INSERT](#insert)
+  - [LOCK TABLE](#lock-table)
+  - [SELECT](#select)
+  - [UPDATE](#update)
+  - [MOVE](#move)
+  - [MERGE](#merge)
+  - [ENQUEUE](#enqueue)
+  - [DEQUEUE](#dequeue)
+- [5. Data Control Language](#5-data-control-language)
+  - [ALTER REPLICATION](#alter-replication-1)
+  - [ALTER SESSION](#alter-session)
+  - [ALTER SYSTEM](#alter-system)
+  - [AUDIT](#audit)
+  - [COMMIT](#commit)
+  - [DELAUDIT](#delaudit)
+  - [NOAUDIT](#noaudit)
+  - [SAVEPOINT](#savepoint)
+  - [ROLLBACK](#rollback)
+  - [SET TRANSACTION](#set-transaction)
+- [6. Set Operators](#6-set-operators)
+  - [UNION](#union)
+  - [UNION ALL](#union-all)
+  - [INTERSECT](#intersect)
+  - [MINUS](#minus)
+  - [Order of Operations](#order-of-operations)
+- [7. SQL Functions](#7-sql-functions)
+  - [Introduction to SQL Functions](#introduction-to-sql-functions)
+  - [Aggregate Functions](#aggregate-functions)
+  - [Window (Analytic) Functions](#window-analytic-functions)
+  - [Numeric Functions](#numeric-functions)
+  - [Character Functions](#character-functions)
+  - [Datatime Funcitons](#datatime-funcitons)
+  - [Conversion Functions](#conversion-functions)
+  - [Encryption Functions](#encryption-functions)
+  - [Other Functions](#other-functions)
+- [8. Arithmetic Operators](#8-arithmetic-operators)
+  - [Arithmetic Operators](#arithmetic-operators)
+  - [Unary Operator](#unary-operator)
+  - [Binary Opeartors](#binary-opeartors)
+  - [Concatenation Operator](#concatenation-operator)
+  - [CAST Operator](#cast-operator)
+- [9. SQL Conditions](#9-sql-conditions)
+  - [SQL Conditions Overview](#sql-conditions-overview)
+  - [Logical Condition](#logical-condition)
+  - [Comparision Conditions](#comparision-conditions)
+  - [Other Conditions](#other-conditions)
+- [Appendix A. Regular Expressions](#appendix-a-regular-expressions)
+  - [Regular Expression Support](#regular-expression-support)
+  - [Syntax Differences between the two Regular Expression Libraries](#syntax-differences-between-the-two-regular-expression-libraries)
+  - [Altering the Regular Expression Library](#altering-the-regular-expression-library)
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 
-
-
-
-## Preface
+# Preface
 
 ### About This Manual
 
@@ -270,7 +343,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to Altibase SQL
+# 1. Introduction to Altibase SQL
 
 This chapter describes the overview, classification, and structure of SQL for using Altibase.
 
@@ -454,7 +527,7 @@ Session control statements and transaction control statements only affect each s
 
 
 
-## 2. Altibase SQL Basics
+# 2. Altibase SQL Basics
 
 This chapter describes the basics for using Altibase's SQL.
 
@@ -2158,7 +2231,7 @@ This hint specifies that a two-pass sort join is to be used.
 
 ![use_two_pass_sort](media/SQL/use_two_pass_sort.gif)
 
-## 3. Data Definition Language
+# 3. Data Definition Language
 
 This chapter describes Data Definition Language (DDL), which are SQL statements used to create database objects.
 
@@ -10480,7 +10553,7 @@ Truncate success.
 
 
 
-## 4. Data Manipulation Language
+# 4. Data Manipulation Language
 
 This chapter explains each of the Data Manipulation Language (DML) statements that are  available in Altibase.
 
@@ -14008,7 +14081,7 @@ DEQUEUE MESSAGE, CORRID FROM Q1 WHERE CORRID=237;
 
 
 
-## 5. Data Control Language
+# 5. Data Control Language
 
 This chapter explains each of the Data Control Language (DCL) statements that are available in Altibase.
 
@@ -14790,7 +14863,7 @@ Command execute success.
 
 
 
-## 6. Set Operators 
+# 6. Set Operators 
 
 This chapter explains the set operators that can be used in SQL statements in Altibase.
 
@@ -14981,7 +15054,7 @@ Sandra                Hammond               sales rep        1890
 
 
 
-## 7. SQL Functions
+# 7. SQL Functions
 
 --------
 
@@ -22167,7 +22240,7 @@ MONDAY_SIX_MONTHS
 
 
 
-## 8. Arithmetic Operators
+# 8. Arithmetic Operators
 
 -----------
 
@@ -22386,7 +22459,7 @@ PI
 
 
 
-## 9. SQL Conditions
+# 9. SQL Conditions
 
 -----------
 
@@ -23058,7 +23131,7 @@ No rows selected.
 
 
 Appendix A. Regular Expressions
------------------
+=================
 
 This section explains the regular expressions supported by Altibase.
 

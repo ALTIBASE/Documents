@@ -1,69 +1,141 @@
+# Replication Manual
 
-
-- [Replication Manual](#replication-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.이중화 개요](#1%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B0%9C%EC%9A%94)
-    - [이중화 소개](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%86%8C%EA%B0%9C)
-  - [2.이중화 관리](#2%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A6%AC)
-    - [이중화 순서](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%9C%EC%84%9C)
-    - [에러 발생과 해결](#%EC%97%90%EB%9F%AC-%EB%B0%9C%EC%83%9D%EA%B3%BC-%ED%95%B4%EA%B2%B0)
-    - [충돌 해결](#%EC%B6%A9%EB%8F%8C-%ED%95%B4%EA%B2%B0)
-    - [Eager 이중화 장애 복구 (Eager Replication Failback)](#eager-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%9E%A5%EC%95%A0-%EB%B3%B5%EA%B5%AC-eager-replication-failback)
-    - [병렬 이중화](#%EB%B3%91%EB%A0%AC-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [이중화 관련 성능 뷰](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A0%A8-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-  - [3.이중화 사용](#3%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AC%EC%9A%A9)
-    - [이중화 제약조건](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
-    - [이중화 생성 (CREATE REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%83%9D%EC%84%B1-create-replication)
-    - [이중화 시작, 종료와 변경 (ALTER REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8B%9C%EC%9E%91-%EC%A2%85%EB%A3%8C%EC%99%80-%EB%B3%80%EA%B2%BD-alter-replication)
-    - [이중화 삭제 (DROP REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AD%EC%A0%9C-drop-replication)
-    - [이중화 대상 테이블에 DDL 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89)
-    - [이중화 대상 테이블에 DDL 복제 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%96%89)
-    - [SQL 반영 모드](#sql-%EB%B0%98%EC%98%81-%EB%AA%A8%EB%93%9C)
-    - [이중화 부가기능](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5)
-    - [다중 IP 네트워크 환경에서의 이중화](#%EB%8B%A4%EC%A4%91-ip-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [이중화 관련 프로퍼티](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [4.Fail-Over](#4fail-over)
-    - [Fail-Over 의 개요](#fail-over-%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [Fail-Over 사용 방법](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [JDBC에서 콜백 작성](#jdbc%EC%97%90%EC%84%9C-%EC%BD%9C%EB%B0%B1-%EC%9E%91%EC%84%B1)
-    - [SQLCLI](#sqlcli)
-    - [Embedded SQL](#embedded-sql)
-    - [PDO에서 콜백 작성](#pdo%EC%97%90%EC%84%9C-%EC%BD%9C%EB%B0%B1-%EC%9E%91%EC%84%B1)
-  - [5.시퀀스 이중화](#5%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [시퀀스 이중화](#%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-  - [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
-    - [Replication FAQ](#replication-faq)
-
-
+#### Trunk
 
 Altibase® Administration
 
-# Replication Manual
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/Replication/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Replication Manual
-
-Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.이중화 개요](#1%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B0%9C%EC%9A%94)
+  - [이중화 소개](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%86%8C%EA%B0%9C)
+- [2.이중화 관리](#2%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A6%AC)
+  - [이중화 순서](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%9C%EC%84%9C)
+  - [에러 발생과 해결](#%EC%97%90%EB%9F%AC-%EB%B0%9C%EC%83%9D%EA%B3%BC-%ED%95%B4%EA%B2%B0)
+  - [충돌 해결](#%EC%B6%A9%EB%8F%8C-%ED%95%B4%EA%B2%B0)
+  - [Eager 이중화 장애 복구 (Eager Replication Failback)](#eager-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%9E%A5%EC%95%A0-%EB%B3%B5%EA%B5%AC-eager-replication-failback)
+  - [병렬 이중화](#%EB%B3%91%EB%A0%AC-%EC%9D%B4%EC%A4%91%ED%99%94)
+  - [이중화 관련 성능 뷰](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A0%A8-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+- [3.이중화 사용](#3%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AC%EC%9A%A9)
+  - [이중화 제약조건](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
+  - [이중화 생성 (CREATE REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%83%9D%EC%84%B1-create-replication)
+  - [이중화 시작, 종료와 변경 (ALTER REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8B%9C%EC%9E%91-%EC%A2%85%EB%A3%8C%EC%99%80-%EB%B3%80%EA%B2%BD-alter-replication)
+  - [이중화 삭제 (DROP REPLICATION)](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%82%AD%EC%A0%9C-drop-replication)
+  - [이중화 대상 테이블에 DDL 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EC%8B%A4%ED%96%89)
+  - [이중화 대상 테이블에 DDL 복제 실행](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%96%89)
+  - [SQL 반영 모드](#sql-%EB%B0%98%EC%98%81-%EB%AA%A8%EB%93%9C)
+  - [이중화 부가기능](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5)
+  - [다중 IP 네트워크 환경에서의 이중화](#%EB%8B%A4%EC%A4%91-ip-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-%EC%9D%B4%EC%A4%91%ED%99%94)
+  - [이중화 관련 프로퍼티](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+- [4.Fail-Over](#4fail-over)
+  - [Fail-Over 의 개요](#fail-over-%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [Fail-Over 사용 방법](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+  - [JDBC에서 콜백 작성](#jdbc%EC%97%90%EC%84%9C-%EC%BD%9C%EB%B0%B1-%EC%9E%91%EC%84%B1)
+  - [SQLCLI](#sqlcli)
+  - [Embedded SQL](#embedded-sql)
+  - [PDO에서 콜백 작성](#pdo%EC%97%90%EC%84%9C-%EC%BD%9C%EB%B0%B1-%EC%9E%91%EC%84%B1)
+- [5.시퀀스 이중화](#5%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
+  - [시퀀스 이중화](#%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
+- [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
+  - [Replication FAQ](#replication-faq)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -194,7 +266,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.이중화 개요
------------
+===========
 
 이 장에서는 이중화와 관련한 용어 및 방식 등 이중화에 대한 기초 지식을 알려준다.
 
@@ -548,7 +620,7 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 > 불가능하고 파티션을 각각 지정해서 제외시킬 수 있다.
 
 2.이중화 관리
------------
+===========
 
 이 장에서는 이중화 구동 순서와 이중화 구동 중 발생 가능한 여러 가지 장애 상황에
 대하여 Altibase 이중화 기능이 어떻게 동작하는지에 대해서 설명한다.
@@ -1088,7 +1160,7 @@ Lazy 모드에서 병렬 이중화하는 방법은 [이중화 부가기능](#sql
 -   V\$REPSYNC
 
 3.이중화 사용
------------
+===========
 
 ### 이중화 제약조건 
 
@@ -2742,8 +2814,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 -   REPLICATION_UPDATE_REPLACE
 -   REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
 
-4.Fail-Over
----------
+# 4.Fail-Over
 
 데이터베이스 시스템을 운영 하는 도중, 장애가 발생하였을 때 이를 극복하고 장애에
 관계없이 서비스를 계속할 수 있도록 Fail-Over 기능을 제공한다. 이 장은
@@ -3969,7 +4040,7 @@ catch (PDOException $ex) {
 ```
 
 5.시퀀스 이중화
--------------
+=============
 
 Altibase는 기본적으로 테이블 객체만 이중화를 지원한다. 따라서 시퀀스 이중화란
 시퀀스 자체의 복제가 아니라 시퀀스 이중화만을 위한 전용 테이블을 생성하여
@@ -4095,7 +4166,7 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 |                                                              | iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1001<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ---------------------- <br/>1002<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1003<br/> 1 row selected. |
 | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ<br/> -------------------<br/> 2001<br/> 1 row selected. | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ <br/>---------------------- <br/>2001<br/> 1 row selected. |
 
-## A.부록: FAQ
+# A.부록: FAQ
 
 ### Replication FAQ
 

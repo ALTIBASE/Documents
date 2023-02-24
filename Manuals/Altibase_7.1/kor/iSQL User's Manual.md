@@ -1,64 +1,134 @@
-- [iSQL User’s Manual](#iSQL-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.iSQL 이용방법](#1iSQL-%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95)
-    - [iSQL의 개요](#iSQL%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [iSQL 설정](#iSQL-%EC%84%A4%EC%A0%95)
-    - [iSQL 커맨드 라인 옵션](#iSQL-%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
-    - [iSQL 명령어](#iSQL-%EB%AA%85%EB%A0%B9%EC%96%B4)
-    - [iSQL 관련 환경변수](#iSQL-%EA%B4%80%EB%A0%A8-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98)
-    - [개인별 iSQL 환경 설정](#%EA%B0%9C%EC%9D%B8%EB%B3%84-iSQL-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-  - [2.iSQL 사용 예](#2iSQL-%EC%82%AC%EC%9A%A9-%EC%98%88)
-    - [로그인](#%EB%A1%9C%EA%B7%B8%EC%9D%B8)
-    - [Altibase의 구동 및 종료](#altibase%EC%9D%98-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
-    - [접속 연결 및 해제](#%EC%A0%91%EC%86%8D-%EC%97%B0%EA%B2%B0-%EB%B0%8F-%ED%95%B4%EC%A0%9C)
-    - [데이터베이스와 객체 정보 조회](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%99%80-%EA%B0%9D%EC%B2%B4-%EC%A0%95%EB%B3%B4-%EC%A1%B0%ED%9A%8C)
-    - [트랜잭션 제어](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%A0%9C%EC%96%B4)
-    - [파일 관리](#%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
-    - [SELECT 결과 포맷팅](#select-%EA%B2%B0%EA%B3%BC-%ED%8F%AC%EB%A7%B7%ED%8C%85)
-    - [출력 옵션](#%EC%B6%9C%EB%A0%A5-%EC%98%B5%EC%85%98)
-    - [iSQL 화면 설정 보기](#iSQL-%ED%99%94%EB%A9%B4-%EC%84%A4%EC%A0%95-%EB%B3%B4%EA%B8%B0)
-    - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
-    - [PREPARE SQL문 수행](#prepare-sql%EB%AC%B8-%EC%88%98%ED%96%89)
-    - [프로시저 생성과 실행 및 삭제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
-    - [함수 생성과 실행 및 삭제](#%ED%95%A8%EC%88%98-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
-    - [사용자 편의 기능](#%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%8E%B8%EC%9D%98-%EA%B8%B0%EB%8A%A5)
-    - [내셔널 캐릭터 사용법](#%EB%82%B4%EC%85%94%EB%84%90-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%82%AC%EC%9A%A9%EB%B2%95)
-
-
-
-Altibase® Tools & Utilities
-
 iSQL User’s Manual
 ==================
 
-![](media/iSQL/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
 
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities iSQL User's Manual
-
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+<br>
 
+# 목차
 
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.iSQL 이용방법](#1iSQL-%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95)
+  - [iSQL의 개요](#iSQL%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [iSQL 설정](#iSQL-%EC%84%A4%EC%A0%95)
+  - [iSQL 커맨드 라인 옵션](#iSQL-%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
+  - [iSQL 명령어](#iSQL-%EB%AA%85%EB%A0%B9%EC%96%B4)
+  - [iSQL 관련 환경변수](#iSQL-%EA%B4%80%EB%A0%A8-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98)
+  - [개인별 iSQL 환경 설정](#%EA%B0%9C%EC%9D%B8%EB%B3%84-iSQL-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+- [2.iSQL 사용 예](#2iSQL-%EC%82%AC%EC%9A%A9-%EC%98%88)
+  - [로그인](#%EB%A1%9C%EA%B7%B8%EC%9D%B8)
+  - [Altibase의 구동 및 종료](#altibase%EC%9D%98-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
+  - [접속 연결 및 해제](#%EC%A0%91%EC%86%8D-%EC%97%B0%EA%B2%B0-%EB%B0%8F-%ED%95%B4%EC%A0%9C)
+  - [데이터베이스와 객체 정보 조회](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%99%80-%EA%B0%9D%EC%B2%B4-%EC%A0%95%EB%B3%B4-%EC%A1%B0%ED%9A%8C)
+  - [트랜잭션 제어](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%A0%9C%EC%96%B4)
+  - [파일 관리](#%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
+  - [SELECT 결과 포맷팅](#select-%EA%B2%B0%EA%B3%BC-%ED%8F%AC%EB%A7%B7%ED%8C%85)
+  - [출력 옵션](#%EC%B6%9C%EB%A0%A5-%EC%98%B5%EC%85%98)
+  - [iSQL 화면 설정 보기](#iSQL-%ED%99%94%EB%A9%B4-%EC%84%A4%EC%A0%95-%EB%B3%B4%EA%B8%B0)
+  - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
+  - [PREPARE SQL문 수행](#prepare-sql%EB%AC%B8-%EC%88%98%ED%96%89)
+  - [프로시저 생성과 실행 및 삭제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
+  - [함수 생성과 실행 및 삭제](#%ED%95%A8%EC%88%98-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
+  - [사용자 편의 기능](#%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%8E%B8%EC%9D%98-%EA%B8%B0%EB%8A%A5)
+  - [내셔널 캐릭터 사용법](#%EB%82%B4%EC%85%94%EB%84%90-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%82%AC%EC%9A%A9%EB%B2%95)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -188,7 +258,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.iSQL 이용방법
--------------
+=============
 
 ### iSQL의 개요
 
@@ -981,7 +1051,7 @@ WARNING: CONNECT command in glogin.sql file ignored
 
 
 2.iSQL 사용 예
-------------
+============
 
 이 장은 iSQL을 이용하여 데이터베이스를 다루는 몇 가지 예를 설명한다.
 

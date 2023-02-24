@@ -1,69 +1,150 @@
-- [Performance Tuning Guide](#performance-tuning-guide)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to Performance Tuning](#1-introduction-to-performance-tuning)
-    - [Introduction to SQL Tuning](#introduction-to-sql-tuning)
-    - [Database Server Tuning](#database-server-tuning)
-    - [SQL Tuning](#sql-tuning)
-  - [2. Altibase Server Tuning](#2-altibase-server-tuning)
-    - [Log Files](#log-files)
-    - [Checkpointing](#checkpointing)
-    - [Buffers](#buffers)
-    - [Service Threads](#service-threads)
-    - [Garbage Collector](#garbage-collector)
-    - [SQL Plan Cache](#sql-plan-cache)
-    - [CPU Usage](#cpu-usage)
-  - [3. The Query Optimizer](#3-the-query-optimizer)
-    - [Query Optimizer Overview](#query-optimizer-overview)
-    - [Query Conversion](#query-conversion)
-    - [Creating Logical Execution Plans](#creating-logical-execution-plans)
-    - [Creating Physical Execution Plans](#creating-physical-execution-plans)
-    - [Optimizer-related Properties](#optimizer-related-properties)
-  - [4. The Explain Plan](#4-the-explain-plan)
-    - [EXPLAIN PLAN Overview](#explain-plan-overview)
-    - [Displaying the Plan Tree](#displaying-the-plan-tree)
-    - [Reading Plan Trees](#reading-plan-trees)
-    - [Using Plan Trees](#using-plan-trees)
-    - [Plan Nodes](#plan-nodes)
-  - [5. The Optimizer and Statistics](#5-the-optimizer-and-statistics)
-    - [Overview of Statistics](#overview-of-statistics)
-    - [Managing Statistics](#managing-statistics)
-    - [Auto Stats](#auto-stats)
-  - [6. SQL Hints](#6-sql-hints)
-    - [Overview of Hints](#overview-of-hints)
-    - [Types of Hints](#types-of-hints)
-  - [7. SQL Plan Cache](#7-sql-plan-cache)
-    - [Overview of the SQL Plan Cache](#overview-of-the-sql-plan-cache)
-    - [Managing the SQL Plan Cache](#managing-the-sql-plan-cache)
-    - [Overview of the Result Cache](#overview-of-the-result-cache)
-
-Altibase® Administration
-
 Performance Tuning Guide
 ========================
 
-![](media/TuningGuide/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
+
+Altibase® Administration
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Performance Tunning Guide
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to Performance Tuning](#1-introduction-to-performance-tuning)
+  - [Introduction to SQL Tuning](#introduction-to-sql-tuning)
+  - [Database Server Tuning](#database-server-tuning)
+  - [SQL Tuning](#sql-tuning)
+- [2. Altibase Server Tuning](#2-altibase-server-tuning)
+  - [Log Files](#log-files)
+  - [Checkpointing](#checkpointing)
+  - [Buffers](#buffers)
+  - [Service Threads](#service-threads)
+  - [Garbage Collector](#garbage-collector)
+  - [SQL Plan Cache](#sql-plan-cache)
+  - [CPU Usage](#cpu-usage)
+- [3. The Query Optimizer](#3-the-query-optimizer)
+  - [Query Optimizer Overview](#query-optimizer-overview)
+  - [Query Conversion](#query-conversion)
+  - [Creating Logical Execution Plans](#creating-logical-execution-plans)
+  - [Creating Physical Execution Plans](#creating-physical-execution-plans)
+  - [Optimizer-related Properties](#optimizer-related-properties)
+- [4. The Explain Plan](#4-the-explain-plan)
+  - [EXPLAIN PLAN Overview](#explain-plan-overview)
+  - [Displaying the Plan Tree](#displaying-the-plan-tree)
+  - [Reading Plan Trees](#reading-plan-trees)
+  - [Using Plan Trees](#using-plan-trees)
+  - [Plan Nodes](#plan-nodes)
+- [5. The Optimizer and Statistics](#5-the-optimizer-and-statistics)
+  - [Overview of Statistics](#overview-of-statistics)
+  - [Managing Statistics](#managing-statistics)
+  - [Auto Stats](#auto-stats)
+- [6. SQL Hints](#6-sql-hints)
+  - [Overview of Hints](#overview-of-hints)
+  - [Types of Hints](#types-of-hints)
+- [7. SQL Plan Cache](#7-sql-plan-cache)
+  - [Overview of the SQL Plan Cache](#overview-of-the-sql-plan-cache)
+  - [Managing the SQL Plan Cache](#managing-the-sql-plan-cache)
+  - [Overview of the Result Cache](#overview-of-the-result-cache)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -186,7 +267,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to Performance Tuning
+# 1. Introduction to Performance Tuning
 
 --------------
 
@@ -658,7 +739,7 @@ When selecting the access method for memory tables, the optimizer selects the in
 
 The optimizer uses various statistical data to calculate costs. For example, the number of records in a table [T(R)], the number of different values in a column [V(R.a)], and the maximum and minimum values in a column are used to calculate the cost of a memory table query. The optimizer requires additional statistical data to calcuate the cost of a disk table query (i.e. the number of disk pages being used by a table [B(R)] and the number of available memory buffer pages [M]). 
 
-## 2. Altibase Server Tuning
+# 2. Altibase Server Tuning
 
 ------------------
 
@@ -853,7 +934,7 @@ The user can check the thread with the highest CPU usage with the following comm
 -   AIX
     procstack altibase_pid
 
-## 3. The Query Optimizer
+# 3. The Query Optimizer
 
 ---------------
 
@@ -2953,7 +3034,7 @@ The following are Altibase properties that affect the optimizer’s actions. For
 
 -   OPTIMIZER_UNNEST_SUBQUERY
 
-## 4. The Explain Plan
+# 4. The Explain Plan
 
 ---------------------
 
@@ -5179,7 +5260,7 @@ The example below shows the use of a STORE node for a Cartesian product. The nod
 
 ![store](media/TuningGuide/store.gif)
 
-## 5. The Optimizer and Statistics
+# 5. The Optimizer and Statistics
 
 ---------------------
 
@@ -5259,7 +5340,7 @@ For the system statistics, it is recommended to collect only once after starting
 
 Because objects and data in the database are constantly changing, users need to update statistics periodically to optimize queries. It is recommended to collect the table statistics monthly if when there are many data changes.
 
-## 6. SQL Hints
+# 6. SQL Hints
 --------
 
 This chapter describes SQL hints taht let the user to change the execution plan of an SQL statement. 
@@ -5586,7 +5667,7 @@ A function of delaying execution is provided. The execution of hierarchy, sortin
 
 -   DELAY: Activation in delaying execution of the execution plan.
 
-## 7. SQL Plan Cache
+# 7. SQL Plan Cache
 --------------
 
 This chapter describes the concepts and features of Altibase's SQL Plan Cache and Result Cache features.

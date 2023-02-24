@@ -1,61 +1,124 @@
+# C/C++ External Procedures Manual
 
-
-
-- [C/C++ External Procedures Manual](#cc-external-procedures-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.C/C++ 외부 프로시저 소개](#1cc-%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%86%8C%EA%B0%9C)
-    - [C/C++ 외부 프로시저란?](#cc-%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EB%9E%80)
-  - [2.외부 프로시저 사용법](#2%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%82%AC%EC%9A%A9%EB%B2%95)
-    - [자료형과 데이터베이스 객체](#%EC%9E%90%EB%A3%8C%ED%98%95%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4)
-    - [기본 사용법](#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
-    - [관련 메타 테이블과 성능 뷰](#%EA%B4%80%EB%A0%A8-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-    - [관련 프로퍼티](#%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [3.외부 프로시저용 SQL문](#3%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9A%A9-sql%EB%AC%B8)
-    - [CREATE LIBRARY statement](#create-library-statement)
-    - [ALTER LIBRARY statement](#alter-library-statement)
-    - [DROP LIBRARY statement](#drop-library-statement)
-    - [CREATE PROCEDURE statement](#create-procedure-statement)
-    - [DROP PROCEDURE statement](#drop-procedure-statement)
-    - [CREATE FUNCTION](#create-function)
-    - [DROP FUNCTION](#drop-function)
-    - [EXECUTE](#execute)
-
-
+#### Altibase 7.1
 
 Altibase® Application Development
 
-# C/C++ External Procedures Manual
-
-![](media/ExternalProcedure/image001.png)
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
 
 
- Altibase Application Development C/C++ External Stored Procedures Manual
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Application Development C/C++ External Stored Procedures Manual
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.C/C++ 외부 프로시저 소개](#1cc-%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%86%8C%EA%B0%9C)
+  - [C/C++ 외부 프로시저란?](#cc-%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EB%9E%80)
+- [2.외부 프로시저 사용법](#2%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%82%AC%EC%9A%A9%EB%B2%95)
+  - [자료형과 데이터베이스 객체](#%EC%9E%90%EB%A3%8C%ED%98%95%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4)
+  - [기본 사용법](#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
+  - [관련 메타 테이블과 성능 뷰](#%EA%B4%80%EB%A0%A8-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+  - [관련 프로퍼티](#%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+- [3.외부 프로시저용 SQL문](#3%EC%99%B8%EB%B6%80-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80%EC%9A%A9-sql%EB%AC%B8)
+  - [CREATE LIBRARY statement](#create-library-statement)
+  - [ALTER LIBRARY statement](#alter-library-statement)
+  - [DROP LIBRARY statement](#drop-library-statement)
+  - [CREATE PROCEDURE statement](#create-procedure-statement)
+  - [DROP PROCEDURE statement](#drop-procedure-statement)
+  - [CREATE FUNCTION](#create-function)
+  - [DROP FUNCTION](#drop-function)
+  - [EXECUTE](#execute)
 
+<br>
 
-
-
-
-## 서문
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -177,7 +240,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 
 
-## 1.C/C++ 외부 프로시저 소개
+# 1.C/C++ 외부 프로시저 소개
 
 이 장에서는 C/C++ 외부 프로시저 및 함수(이하 C/C++ 외부 프로시저 또는 외부 프로시저)를 소개한다. 외부 프로시저가 필요한 경우를 소개하고, Altibase 외부 프로시저의 특징에 대해 살펴본다.
 
@@ -247,7 +310,7 @@ Internal mode는 에이전트 프로세스 없이 Altibase 서버에서 직접 �
 
 
 
-## 2.외부 프로시저 사용법
+# 2.외부 프로시저 사용법
 
 이 장에서는 Altibase에서 외부 프로시저를 사용하는 방법을 설명한다.
 
@@ -664,7 +727,7 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
 
 3.외부 프로시저용 SQL문
----------------------
+=====================
 
 이 장은 Altibase에서 외부 프로시저를 사용하기 위해 지원하는 SQL문을 설명한다.
 

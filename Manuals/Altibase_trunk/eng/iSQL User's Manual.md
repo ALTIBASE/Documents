@@ -1,61 +1,138 @@
-
-
-- [iSQL User’s Manual](#iSQL-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Using iSQL](#1-using-iSQL)
-    - [iSQL Overview](#iSQL-overview)
-    - [Setting up iSQL](#setting-up-iSQL)
-    - [iSQL Command-Line Options](#iSQL-command-line-options)
-    - [iSQL Commands](#iSQL-commands)
-    - [iSQL Environment Variables](#iSQL-environment-variables)
-    - [Personalizing iSQL](#personalizing-iSQL)
-  - [2. Examples of iSQL in Use](#2-examples-of-iSQL-in-use)
-    - [Logging In to iSQL](#logging-in-to-iSQL)
-    - [Starting Up and Shutting Down Altibase](#starting-up-and-shutting-down-altibase)
-    - [Connecting and Disconnecting](#connecting-and-disconnecting)
-    - [Retrieving Information Related to the Database and Database Objects](#retrieving-information-related-to-the-database-and-database-objects)
-    - [Controlling Transactions](#controlling-transactions)
-    - [File Management](#file-management)
-    - [Formatting SELECT Query Results](#formatting-select-query-results)
-    - [Setting Output Options](#setting-output-options)
-    - [Viewing iSQL Display Settings](#viewing-iSQL-display-settings)
-    - [Host Variables](#host-variables)
-    - [Executing Prepared SQL Statements](#executing-prepared-sql-statements)
-    - [Creating, Executing, and Dropping Stored Procedures](#creating-executing-and-dropping-stored-procedures)
-    - [Creating, Executing ,and Dropping Functions](#creating-executing-and-dropping-functions)
-    - [Convenient User Functions](#convenient-user-functions)
-    - [Using National Character Sets](#using-national-character-sets)
-
-
-
-Altibase® Tools & Utilities
-
 iSQL User’s Manual
 ==================
 
-![](media/iSQL/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities iSQL User's Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Altibase Application Development Monitoring API Developer's Guide
+<br>
 
-Copyright ⓒ 2001\~2020 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Using iSQL](#1-using-iSQL)
+  - [iSQL Overview](#iSQL-overview)
+  - [Setting up iSQL](#setting-up-iSQL)
+  - [iSQL Command-Line Options](#iSQL-command-line-options)
+  - [iSQL Commands](#iSQL-commands)
+  - [iSQL Environment Variables](#iSQL-environment-variables)
+  - [Personalizing iSQL](#personalizing-iSQL)
+- [2. Examples of iSQL in Use](#2-examples-of-iSQL-in-use)
+  - [Logging In to iSQL](#logging-in-to-iSQL)
+  - [Starting Up and Shutting Down Altibase](#starting-up-and-shutting-down-altibase)
+  - [Connecting and Disconnecting](#connecting-and-disconnecting)
+  - [Retrieving Information Related to the Database and Database Objects](#retrieving-information-related-to-the-database-and-database-objects)
+  - [Controlling Transactions](#controlling-transactions)
+  - [File Management](#file-management)
+  - [Formatting SELECT Query Results](#formatting-select-query-results)
+  - [Setting Output Options](#setting-output-options)
+  - [Viewing iSQL Display Settings](#viewing-iSQL-display-settings)
+  - [Host Variables](#host-variables)
+  - [Executing Prepared SQL Statements](#executing-prepared-sql-statements)
+  - [Creating, Executing, and Dropping Stored Procedures](#creating-executing-and-dropping-stored-procedures)
+  - [Creating, Executing ,and Dropping Functions](#creating-executing-and-dropping-functions)
+  - [Convenient User Functions](#convenient-user-functions)
+  - [Using National Character Sets](#using-national-character-sets)d
 
 
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -167,7 +244,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 
-## 1. Using iSQL
+# 1. Using iSQL
 
 ### iSQL Overview
 
@@ -966,7 +1043,7 @@ WARNING: CONNECT command in glogin.sql file ignored
 
 
 
-## 2. Examples of iSQL in Use
+# 2. Examples of iSQL in Use
 
 This chapter describes several examples of the use of iSQL to manipulate databases.
 

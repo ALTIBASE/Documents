@@ -1,4 +1,107 @@
+Stored Procedures Manual
+========================
 
+#### Altibase 7.1
+
+Altibase® Application Development
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+<pre>
+Altibase Application Development Stored Procedures Manual
+Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+<br>
+
+# Table Of Contents
 
 - [Stored Procedures Manual](#stored-procedures-manual)
   - [Preface](#preface)
@@ -114,35 +217,8 @@
 
 
 
-Altibase® Application Development
-
-Stored Procedures Manual
-========================
-
-![](media/StoredProcedure/e5cfb3761673686d093a3b00c062fe7a.png)
-
-
-
-Altibase Application Development Stored Procedures Manual
-
-Release 7.1
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-
-
 Preface
-----
+====
 
 ### About This Manual
 
@@ -287,7 +363,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 
-## 1. Introduction to Stored Procedures
+# 1. Introduction to Stored Procedures
 
 ### Overview
 
@@ -413,7 +489,7 @@ For information about the meta tables related to stored procedures, please refer
 
 
 
-## 2. SQL Statements for Managing Stored Procedures
+# 2. SQL Statements for Managing Stored Procedures
 
 
 
@@ -1608,7 +1684,7 @@ The deletion of functions referenced by the constraints or the function-based in
 
 
 
-## 3. Stored Procedure Blocks
+# 3. Stored Procedure Blocks
 
 A stored procedure or function consists of one or more blocks. This chapter describes how to develop a procedural program within a stored procedure using blocks.
 
@@ -3257,7 +3333,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 
 
-## 4. Control Flow Statement
+# 4. Control Flow Statement
 
 ### Overview
 
@@ -4372,7 +4448,7 @@ ENO         SALARY
 
 
 
-## 5. Using Cursors
+# 5. Using Cursors
 
 This chapter describes how to manage and use cursors.
 
@@ -5083,7 +5159,7 @@ ENO         E_FIRSTNAME           E_LASTNAME
 
 
 
-## 6. User-Defined Types
+# 6. User-Defined Types
 
 In this chapter, the user-defined types that can be used with stored procedures and functions will be described.
 
@@ -5857,7 +5933,7 @@ if (SQL_ERROR == SQLExecute(stmt))
 
 ```
 
-## 7. Typesets
+# 7. Typesets
 
 This chapter describes how to define and use typesets.
 
@@ -6089,7 +6165,7 @@ DROP TYPESET my_typeset;
 
 
 
-## 8. Dynamic SQL
+# 8. Dynamic SQL
 
 This chapter describes how to use dynamic SQL in stored procedures and functions.
 
@@ -6270,7 +6346,7 @@ END;
 
 
 
-## 9. Exception Handlers
+# 9. Exception Handlers
 
 ---------
 
@@ -6812,7 +6888,7 @@ Execute success.
 
 
 
-## 10. Pragma
+# 10. Pragma
 
 ### Overview
 
@@ -7102,7 +7178,7 @@ at "SYS.PROC2", line 6]
 
 
 
-## 11. Stored Packages
+# 11. Stored Packages
 
 This chapter describes how to create and use stored packages.
 
@@ -7639,7 +7715,7 @@ Execute success.
 
 
 
-## 12. Altibase Stored Procedures and Built-in Functions
+# 12. Altibase Stored Procedures and Built-in Functions
 
 Altibase provides a variety of built-in stored procedures and functions, including file control functions. This chapter introduces these stored procedures and functions and describes how to use them.
 
@@ -10150,7 +10226,7 @@ There is no exception.
 
 
 
-## 13. Altibase System-defined Stored Packages
+# 13. Altibase System-defined Stored Packages
 
 --------------------
 
@@ -15099,7 +15175,7 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 
 
-## Appendix A. Examples
+# Appendix A. Examples
 
 ### Stored Procedure Examples
 

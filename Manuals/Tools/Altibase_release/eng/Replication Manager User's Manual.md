@@ -1,41 +1,123 @@
-- [Replication Manager User’s Manual](#replication-manager-users-manual)
-  - [Preface](#preface)
-  - [1. Introduction](#1-introduction)
-    - [Overview](#overview)
-    - [System Requirements](#system-requirements)
-    - [Installation and Uninstallation](#installation-and-uninstallation)
-  - [2. Getting Started](#2-getting-started)
-    - [Understanding the User Interface](#understanding-the-user-interface)
-    - [Connecting to Altibase](#connecting-to-altibase)
-    - [Working with Replication](#working-with-replication)
-
-Altibase® Tools & Utilities
-
 Replication Manager User’s Manual
-=================================
+================
 
-![e5cfb3761673686d093a3b00c062fe7a](media/ReplicationManager/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Release 1.3
 
+Alitbase® Tools & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities Replication Manager User’s Manual
-
 Release 1.3
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Customer Service Portal: <http://support.altibase.com/en/>
+<br>
 
-Homepage: [http://www.altibase.com]
+
+# Table Of Contents
+
+- [Preface](#preface)
+- [1. Introduction](#1-introduction)
+  - [Overview](#overview)
+  - [System Requirements](#system-requirements)
+  - [Installation and Uninstallation](#installation-and-uninstallation)
+- [2. How to use Replication Manager](#2-how-to-use-replication-manager)
+  - [Understanding the User Interface](#understanding-the-user-interface)
+  - [Connecting to Altibase](#connecting-to-altibase)
+  - [Working with Replication](#working-with-replication)
+
+<br>
 
 Preface
-----
+====
 
 This manual explains how to use Replication Manager to manage Altibase replication objects.
 
@@ -150,7 +232,9 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction
+<br>
+
+# 1. Introduction
 
 This chapter introduces Replication Manager and explains how to install it. It contains the following sections:
 
@@ -221,7 +305,9 @@ To install it, simply unzip the file in the desired directory.
 
 To unistall it, simply delete the directory in which Replication Manager is installed. 
 
-## 2. Getting Started
+<br>
+
+# 2.How to use Replication Manager
 
 This chapter introduces the graphical user interface of Replication Manager. Then, it covers the steps to be taken to connect Replication Manager to Altibase database and describes the detail usage of Replication Manager. It is organized as follows:
 

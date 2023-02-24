@@ -1,59 +1,129 @@
+# C/C++ External Procedures Manual
 
-
-
-- [C/C++ External Procedures Manual](#cc-external-procedures-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction](#1-introduction)
-    - [What are C/C++ External Procedures?](#what-are-cc-external-procedures)
-  - [2. How to Use External Procedures](#2-how-to-use-external-procedures)
-    - [Data Types and Database Objects](#data-types-and-database-objects)
-    - [Basic Instruction](#basic-instruction)
-    - [Related Meta Tables and Performance Views](#related-meta-tables-and-performance-views)
-    - [Related Properties](#related-properties)
-  - [3. SQL Statements for External Procedures](#3-sql-statements-for-external-procedures)
-    - [CREATE LIBRARY statement](#create-library-statement)
-    - [ALTER LIBRARY statement](#alter-library-statement)
-    - [DROP LIBRARY statement](#drop-library-statement)
-    - [CREATE PROCEDURE statement](#create-procedure-statement)
-    - [DROP PROCEDURE statement](#drop-procedure-statement)
-    - [CREATE FUNCTION](#create-function)
-    - [DROP FUNCTION](#drop-function)
-    - [EXECUTE](#execute)
-
-
+#### Altibase 7.1
 
 Altibase® Application Development
 
-# C/C++ External Procedures Manual
-
-![](media/ExternalProcedure/image001.png)
-
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
 
- Altibase Application Development C/C++ External Stored Procedures Manual
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Application Development C/C++ External Stored Procedures Manual
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+<br>
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+# Table Of Contents
 
-**Altibase Corp**
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction](#1-introduction)
+  - [What are C/C++ External Procedures?](#what-are-cc-external-procedures)
+- [2. How to Use External Procedures](#2-how-to-use-external-procedures)
+  - [Data Types and Database Objects](#data-types-and-database-objects)
+  - [Basic Instruction](#basic-instruction)
+  - [Related Meta Tables and Performance Views](#related-meta-tables-and-performance-views)
+  - [Related Properties](#related-properties)
+- [3. SQL Statements for External Procedures](#3-sql-statements-for-external-procedures)
+  - [CREATE LIBRARY statement](#create-library-statement)
+  - [ALTER LIBRARY statement](#alter-library-statement)
+  - [DROP LIBRARY statement](#drop-library-statement)
+  - [CREATE PROCEDURE statement](#create-procedure-statement)
+  - [DROP PROCEDURE statement](#drop-procedure-statement)
+  - [CREATE FUNCTION](#create-function)
+  - [DROP FUNCTION](#drop-function)
+  - [EXECUTE](#execute)
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 
-
-
-
-## Preface
+# Preface
 
 ### About This Manual
 
@@ -167,7 +237,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 
-## 1. Introduction
+# 1. Introduction
 
 This chapter introduces C/C++ external procedures and functions. In addition, this chapter introdces the needs for external procedures and discusses the features of Altibase external procedures.
 
@@ -230,7 +300,7 @@ Because the Agent Process is subordinate to the service session of the Altibase 
 Internal mode loads a dynamic library directly from the Altibase server without an agent process and executes external procedures.
 
 
-## 2. How to Use External Procedures
+# 2. How to Use External Procedures
 
 This chapter describes how to use external procedures in Altibase.
 
@@ -657,7 +727,7 @@ For more detailed information on each property, please refer to *General Referen
 
 
 
-## 3. SQL Statements for External Procedures
+# 3. SQL Statements for External Procedures
 
 ---------------------
 

@@ -1,46 +1,124 @@
+# Altibase SSL/TLS User's Guide
 
-
-
-- [Altibase SSL/TLS User's Guide](#altibase-ssltls-users-guide)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to Altibase Hadoop Connector](#1-introduction-to-altibase-hadoop-connector)
-    - [What is SSL/TLS?](#what-is-ssltls)
-    - [Secure Communication in Altibase](#secure-communication-in-altibase)
-  - [2. Installing and Starting SSL in Altibase](#2-installing-and-starting-ssl-in-altibase)
-    - [Software Requirements](#software-requirements)
-    - [Configuring the Environment for SSL](#configuring-the-environment-for-ssl)
-  - [3. Managing SSL Connections](#3-managing-ssl-connections)
-    - [Managing SSL Connections](#managing-ssl-connections)
-  - [Appendix A: SSL Sample](#appendix-a-ssl-sample)
-    - [Sample Using SSL Connection in JDBC](#sample-using-ssl-connection-in-jdbc)
-
-
+#### **Trunk**
 
 Altibase® Tools & Utilities
 
-# Altibase SSL/TLS User's Guide
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/SSL/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities Altibase SSL/TLS User's Guide
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to Altibase Hadoop Connector](#1-introduction-to-altibase-hadoop-connector)
+  - [What is SSL/TLS?](#what-is-ssltls)
+  - [Secure Communication in Altibase](#secure-communication-in-altibase)
+- [2. Installing and Starting SSL in Altibase](#2-installing-and-starting-ssl-in-altibase)
+  - [Software Requirements](#software-requirements)
+  - [Configuring the Environment for SSL](#configuring-the-environment-for-ssl)
+- [3. Managing SSL Connections](#3-managing-ssl-connections)
+  - [Managing SSL Connections](#managing-ssl-connections)
+- [Appendix A: SSL Sample](#appendix-a-ssl-sample)
+  - [Sample Using SSL Connection in JDBC](#sample-using-ssl-connection-in-jdbc)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -119,7 +197,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to Altibase SSL/TLS
+# 1. Introduction to Altibase SSL/TLS
 
 This chapter describes the concepts and features of Altibase SSL/TLS.
 
@@ -174,7 +252,7 @@ The following list of features are the SSL characterstics when using Altibase wi
   
 - Altibase provides the JDBC and ODBC interfaces for SSL connection, which is currently supported only in Intel-Linux.
 
-## 2. Installing and Starting SSL in Altibase
+# 2. Installing and Starting SSL in Altibase
 
 This chapter explains how to install SSL and required software.
 
@@ -516,7 +594,7 @@ The following is a table comparing the server SSL properties and ODBC/CLI proper
 
 Write a program to use SSL connection in the client application. You can find a sample program that uses SSL connection in the altibase directory. Please refer to $ALTIBASE_HOME/sample/SQLCLI/SSL.
 
-## 3. Managing SSL Connections
+# 3. Managing SSL Connections
 
 ### Managing SSL Connections
 
@@ -642,7 +720,7 @@ COMM_NAME
 No rows selected.
 ```
 
-## Appendix A: SSL Sample
+# Appendix A: SSL Sample
 
 Altibase provides a sample file in which the server and client use SSL connection.
 

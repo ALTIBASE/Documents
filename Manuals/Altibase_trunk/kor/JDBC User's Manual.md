@@ -1,98 +1,166 @@
-- [JDBC User’s Manual](#jdbc-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.JDBC 시작하기](#1jdbc-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
-    - [JDBC 드라이버 설치](#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%84%A4%EC%B9%98)
-    - [데이터베이스에 연결하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
-    - [연결 정보](#%EC%97%B0%EA%B2%B0-%EC%A0%95%EB%B3%B4)
-    - [Statement와 ResultSet 다루기](#statement%EC%99%80-resultset-%EB%8B%A4%EB%A3%A8%EA%B8%B0)
-    - [JDBC Connection Failover](#jdbc-connection-failover)
-  - [2.기본 기능](#2%EA%B8%B0%EB%B3%B8-%EA%B8%B0%EB%8A%A5)
-    - [IPv6 접속](#ipv6-%EC%A0%91%EC%86%8D)
-    - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-%EB%B0%8F-callablestatement)
-    - [내셔널 캐릭터 셋 사용](#%EB%82%B4%EC%85%94%EB%84%90-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B-%EC%82%AC%EC%9A%A9)
-  - [3.고급 기능](#3%EA%B3%A0%EA%B8%89-%EA%B8%B0%EB%8A%A5)
-    - [자동 생성 키](#%EC%9E%90%EB%8F%99-%EC%83%9D%EC%84%B1-%ED%82%A4)
-    - [타임아웃](#%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83)
-    - [DataSource](#datasource)
-    - [Connection Pool](#connection-pool)
-    - [Multiple ResultSet](#multiple-resultset)
-    - [JDBC와 Failover](#jdbc%EC%99%80-failover)
-    - [JDBC Escapes](#jdbc-escapes)
-    - [ResultSet 사용하기](#resultset-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
-    - [Atomic Batch](#atomic-batch)
-    - [Date, Time, Timestamp](#date-time-timestamp)
-    - [GEOMETRY](#geometry)
-    - [LOB](#lob)
-    - [Autocommit 제어](#autocommit-%EC%A0%9C%EC%96%B4)
-    - [BIT, VARBIT](#bit-varbit)
-    - [JDBC 로깅](#jdbc-%EB%A1%9C%EA%B9%85)
-    - [Hibernate](#hibernate)
-    - [SQL Plan](#sql-plan)
-  - [4.Tips & Recommendation](#4tips--recommendation)
-    - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
-  - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
-    - [SQL States](#sql-states)
-  - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
-      - [java.sql.Connection](#java.sql.connection)
-      - [java.sql.Wrapper](#java.sql.wrapper)
-      - [java.sql.Driver](#java.sql.driver)
-      - [java.sql.Statement](#java.sql.statement)
-      - [java.sql.PreparedStatement](#java.sql.preparedstatement)
-      - [java.sql.CallableStatement](#java.sql.callablestatement)
-      - [java.sql.PooledConnection](#java.sql.pooledconnection)
-      - [java.sql.ResultSet](#java.sql.resultset)
-      - [java.sql.CommonDataSource](#java.sql.commondatasource)
-      - [java.sql.DatabaseMetaData](#java.sql.databasemetadata)
-      - [java.sql.Blob](#java.sql.blob)
-      - [java.sql.Clob](#java.sql.clob)
-      - [java.sql.Types](#java.sql.types)
-      - [java.sql.DriverAction](#javasqldriveraction)
-      - [java.sql.SQLTypes](#java.sql.sqltypes)
-      - [Java 8 Time API](#java-8-time-api)
-  - [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
-    - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
-    - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
-    - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
-
-
-
-
-
-Altibase® Application Development
-
 JDBC User’s Manual
 ==================
 
-![](media/JDBC/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
+
+Altibase® Application Development
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development JDBC User’s Manual
-
-Release 7.2
-
-Copyright ⓒ 2001\~ 2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
 
+<br>
 
+# 목차
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.JDBC 시작하기](#1jdbc-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
+  - [JDBC 드라이버 설치](#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%84%A4%EC%B9%98)
+  - [데이터베이스에 연결하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
+  - [연결 정보](#%EC%97%B0%EA%B2%B0-%EC%A0%95%EB%B3%B4)
+  - [Statement와 ResultSet 다루기](#statement%EC%99%80-resultset-%EB%8B%A4%EB%A3%A8%EA%B8%B0)
+  - [JDBC Connection Failover](#jdbc-connection-failover)
+- [2.기본 기능](#2%EA%B8%B0%EB%B3%B8-%EA%B8%B0%EB%8A%A5)
+  - [IPv6 접속](#ipv6-%EC%A0%91%EC%86%8D)
+  - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-%EB%B0%8F-callablestatement)
+  - [내셔널 캐릭터 셋 사용](#%EB%82%B4%EC%85%94%EB%84%90-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B-%EC%82%AC%EC%9A%A9)
+- [3.고급 기능](#3%EA%B3%A0%EA%B8%89-%EA%B8%B0%EB%8A%A5)
+  - [자동 생성 키](#%EC%9E%90%EB%8F%99-%EC%83%9D%EC%84%B1-%ED%82%A4)
+  - [타임아웃](#%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83)
+  - [DataSource](#datasource)
+  - [Connection Pool](#connection-pool)
+  - [Multiple ResultSet](#multiple-resultset)
+  - [JDBC와 Failover](#jdbc%EC%99%80-failover)
+  - [JDBC Escapes](#jdbc-escapes)
+  - [ResultSet 사용하기](#resultset-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+  - [Atomic Batch](#atomic-batch)
+  - [Date, Time, Timestamp](#date-time-timestamp)
+  - [GEOMETRY](#geometry)
+  - [LOB](#lob)
+  - [Autocommit 제어](#autocommit-%EC%A0%9C%EC%96%B4)
+  - [BIT, VARBIT](#bit-varbit)
+  - [JDBC 로깅](#jdbc-%EB%A1%9C%EA%B9%85)
+  - [Hibernate](#hibernate)
+  - [SQL Plan](#sql-plan)
+- [4.Tips & Recommendation](#4tips--recommendation)
+  - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
+- [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
+  - [SQL States](#sql-states)
+- [6.JDBC 4.2 API References](#6jdbc-42-api-references)
+    - [java.sql.Connection](#java.sql.connection)
+    - [java.sql.Wrapper](#java.sql.wrapper)
+    - [java.sql.Driver](#java.sql.driver)
+    - [java.sql.Statement](#java.sql.statement)
+    - [java.sql.PreparedStatement](#java.sql.preparedstatement)
+    - [java.sql.CallableStatement](#java.sql.callablestatement)
+    - [java.sql.PooledConnection](#java.sql.pooledconnection)
+    - [java.sql.ResultSet](#java.sql.resultset)
+    - [java.sql.CommonDataSource](#java.sql.commondatasource)
+    - [java.sql.DatabaseMetaData](#java.sql.databasemetadata)
+    - [java.sql.Blob](#java.sql.blob)
+    - [java.sql.Clob](#java.sql.clob)
+    - [java.sql.Types](#java.sql.types)
+    - [java.sql.DriverAction](#javasqldriveraction)
+    - [java.sql.SQLTypes](#java.sql.sqltypes)
+    - [Java 8 Time API](#java-8-time-api)
+- [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
+  - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
+  - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
+  - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -235,7 +303,7 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 여러분의 의견에 항상 감사드립니다.
 
 1.JDBC 시작하기
--------------
+=============
 
 이 장에서는 Altibase의 JDBC 드라이버를 이용하는 기본적인 방법을 기술한다.
 
@@ -1093,7 +1161,7 @@ JDBC 애플리케이션에서 Fail-Over 기능을 사용하는 방법은 *Replic
 4장을 참고하기 바란다.
 
 2.기본 기능
----------
+=========
 
 Altibase JDBC 드라이버를 사용해서 데이터베이스의 객체를 다루는 기본 방법은 JDBC
 표준 인터페이스를 사용하는 방법과 다르지 않다.
@@ -1297,7 +1365,7 @@ ResultSet sRS = sStmt.executeQuery( "select * from t1 where c1 like N'%가나%'"
 
 
 3.고급 기능
----------
+=========
 
 이 장에서는 Altibase JDBC 드라이버가 제공하는 보다 향상된 기능들을 소개하고,
 사용법을 설명한다.
@@ -3730,7 +3798,7 @@ PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
 ```
 
 4.Tips & Recommendation
----------------------
+=====================
 
 이 장은 Altibase JDBC 드라이버를 효율적으로 사용하기 위한 방법을 제시한다.
 
@@ -3752,7 +3820,7 @@ PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
     연산에 비해 비교적 비용이 크기 때문이다.
 
 5.에러 메시지
------------
+===========
 
 이 장은 Altibase JDBC 드라이버를 사용하면서 발생할 수 있는 오류의 SQL State를
 기술한다.
@@ -3869,7 +3937,7 @@ SQLSTATE에 반환되는 문자열 값은 클래스를 나타내는 처음 2개�
 |                                       |       | XA recover failed                                                                                        | F03      |
 
 6.JDBC 4.2 API References
------------
+===========
 
 JDBC 4.2 API를 준수하는 Altibase JDBC 드라이버에서 지원하는 기능과 지원하지 않는 기능을 보여주는 표이다.
 
@@ -4109,7 +4177,7 @@ JDBC spec 4.2를 준수하는 알티베이스 JDBC 드라이버는 다음과 같
 | java.time.OffsetDateTime | 미지원                |
 
 A.부록: 데이터 타입 맵핑
-----------------------
+======================
 
 이 부록은 Altibase의 데이터 타입과 JDBC 표준 데이터 타입, Java 데이터 타입간에
 호환 여부를 기술한다.

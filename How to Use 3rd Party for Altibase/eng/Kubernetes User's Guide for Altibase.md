@@ -1,5 +1,11 @@
 # Kubernetes User's Guide for Altibase
 
+<br><br>
+
+
+
+# Table of Contents
+
 - [Introduction](#introduction)
 - [Creating and Using Pod](#creating-and-using-pod)
   - [Creating Altibase Pod](#creating-altibase-pod)
@@ -7,11 +13,13 @@
   - [Using Service](#using-service)
 - [Altibase Replication Using Pod](#altibase-replication-using-pod)
 
-
+<br>
 
 # Introduction
 
 Kubernetes is an open-source container orchestration system that automates software deployment, scaling, and management. A Pod is the smallest execution unit in Kubernetes. This guide provides information on how to create an Altibase Pod using [Altibase container image](https://hub.docker.com/r/altibase/altibase) registered at Docker Hub and use it in the Kubernetes v1.20.4 environment. Please refer to the [Altibase Docker Guide](https://aid.altibase.com/display/arch/3.+Altibase+Docker+Image) for information on how to create Altibase docker image and the [Kubernetes website](https://kubernetes.io) for other Kubernetes features.
+
+<br>
 
 # Creating and Using Pod
 
@@ -337,6 +345,8 @@ $ k exec -it altibase-deploy-Pod2-579498ccdb-zv2mg -- /bin/bash
 ISQL_CONNECTION = TCP, SERVER = 10.98.64.213, PORT_NO = 20300
 iSQL>
 ```
+
+<br>
 
 # Altibase Replication Using Pod
 

@@ -1,57 +1,124 @@
-- [Altibase Heartbeat User's Guide](#altibase-heartbeat-users-guide)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Altibase Heartbeat 소개](#1altibase-heartbeat-%EC%86%8C%EA%B0%9C)
-    - [Altibase Heartbeat 개요](#altibase-heartbeat-%EA%B0%9C%EC%9A%94)
-    - [Altibase Heartbeat의 기본 동작](#altibase-heartbeat%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EB%8F%99%EC%9E%91)
-  - [2.명령어](#2%EB%AA%85%EB%A0%B9%EC%96%B4)
-    - [aheartbeat](#aheartbeat)
-  - [3.Altibase Heartbeat 구성하기](#3altibase-heartbeat-%EA%B5%AC%EC%84%B1%ED%95%98%EA%B8%B0)
-    - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-    - [Altibase Heartbeat 시스템 구성 연습](#altibase-heartbeat-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%84%B1-%EC%97%B0%EC%8A%B5)
-  - [4.Altibase Heartbeat 동작](#4altibase-heartbeat-%EB%8F%99%EC%9E%91)
-    - [aheartbeat의 상태](#aheartbeat%EC%9D%98-%EC%83%81%ED%83%9C)
-    - [장애 판단](#%EC%9E%A5%EC%95%A0-%ED%8C%90%EB%8B%A8)
-    - [0번 aheartbeat의 역할](#0%EB%B2%88-aheartbeat%EC%9D%98-%EC%97%AD%ED%95%A0)
-    - [Failover와 Failback](#failover%EC%99%80-failback)
-    - [로깅](#%EB%A1%9C%EA%B9%85)
+Altibase Heartbeat User's Guide
+================
 
-
+#### Release 7.1
 
 Altibase® Tool & Utilities
 
-Altibase Heartbeat User's Guide
-===============================
-
-![](media/Heartbeat/e5cfb3761673686d093a3b00c062fe7a.png)
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->
+
+<pre>
 Altibase Tool & Utilities Altibase HeartBeat User's Guide
-
 Release 7.1
-
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+<br>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+# 목차
 
-고객서비스포털: <http://support.altibase.com>
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Altibase Heartbeat 소개](#1altibase-heartbeat-%EC%86%8C%EA%B0%9C)
+  - [Altibase Heartbeat 개요](#altibase-heartbeat-%EA%B0%9C%EC%9A%94)
+  - [Altibase Heartbeat의 기본 동작](#altibase-heartbeat%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EB%8F%99%EC%9E%91)
+- [2.명령어](#2%EB%AA%85%EB%A0%B9%EC%96%B4)
+  - [aheartbeat](#aheartbeat)
+- [3.Altibase Heartbeat 구성하기](#3altibase-heartbeat-%EA%B5%AC%EC%84%B1%ED%95%98%EA%B8%B0)
+  - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+  - [Altibase Heartbeat 시스템 구성 연습](#altibase-heartbeat-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%84%B1-%EC%97%B0%EC%8A%B5)
+- [4.Altibase Heartbeat 동작](#4altibase-heartbeat-%EB%8F%99%EC%9E%91)
+  - [aheartbeat의 상태](#aheartbeat%EC%9D%98-%EC%83%81%ED%83%9C)
+  - [장애 판단](#%EC%9E%A5%EC%95%A0-%ED%8C%90%EB%8B%A8)
+  - [0번 aheartbeat의 역할](#0%EB%B2%88-aheartbeat%EC%9D%98-%EC%97%AD%ED%95%A0)
+  - [Failover와 Failback](#failover%EC%99%80-failback)
+  - [로깅](#%EB%A1%9C%EA%B9%85)
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
-
-
-
-
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -173,7 +240,7 @@ Heartbeat 유틸리티에 대해 설명한다.
 
 
 1.Altibase Heartbeat 소개
------------------------
+=======================
 
 이 장은 Altibase Heartbeat의 개요와 기본적인 동작을 설명한다.
 
@@ -246,7 +313,7 @@ aheartbeat 프로세스를 감시해서 노드 장애(그림에서 3번 check) �
     실행.
 
 2.명령어
-------
+======
 
 이 장은 Altibase Heartbeat 명령어에 대해 설명한다.
 
@@ -301,7 +368,7 @@ $ aheartbeat -i
 
 
 3.Altibase Heartbeat 구성하기
----------------------------
+===========================
 
 이 장에서는 Altibase Heartbeat를 설정하는 방법을 설명한다. 또한 Altibase
 Heartbeat를 분산 데이터베이스 환경에서 어떻게 이용할 수 있는지 살펴본다.
@@ -558,7 +625,7 @@ $ aheartbeat -i
 
 
 4.Altibase Heartbeat 동작
------------------------
+=======================
 
 이장은 Altibase Heartbeat의 동작을 상세히 설명한다. Altibase Heartbeat가 장애를
 판단하는 기준이 무엇인지, 장애를 감지한 후의 Failover는 어떻게 이루어지는지
@@ -763,5 +830,4 @@ Altibase Heartbeat는 동작 중에 아래와 같은 정보를 로그 파일에 
 ```
 [YYYY-MM-DD HH:MM:SS T-<threadID>] Log Body
 ```
-
 

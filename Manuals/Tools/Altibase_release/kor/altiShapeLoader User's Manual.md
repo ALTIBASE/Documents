@@ -1,62 +1,138 @@
+altiShapeLoader User's Manual
+================
+
+#### Release 1.0
+
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->
+
+<pre>
+Altibase Tools & Utilities altiShapeLoader User's Manual
+Release 1.0
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
+
+<br>
+
+# 목차
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents**  
-
-- [altiShapeLoader User's Manual](#altishapeloader-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1. altiShapeLoader 소개](#1-altishapeloader-%EC%86%8C%EA%B0%9C)
-    - [altiShapeLoader 버전](#altishapeloader-%EB%B2%84%EC%A0%84)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
-    - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-  - [2. altiShapeLoader 사용하기](#2-altishapeloader-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
-    - [알티베이스 선행조건 - SRID 등록](#%EC%95%8C%ED%8B%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%A0%ED%96%89%EC%A1%B0%EA%B1%B4---srid-%EB%93%B1%EB%A1%9D)
-    - [실행 옵션](#%EC%8B%A4%ED%96%89-%EC%98%B5%EC%85%98)
-    - [필수 옵션](#%ED%95%84%EC%88%98-%EC%98%B5%EC%85%98)
-    - [선택 옵션](#%EC%84%A0%ED%83%9D-%EC%98%B5%EC%85%98)
-    - [성능 옵션](#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)
-    - [특수 옵션](#%ED%8A%B9%EC%88%98-%EC%98%B5%EC%85%98)
-    - [쉐이프 파일 가져오기(Import)](#%EC%89%90%EC%9D%B4%ED%94%84-%ED%8C%8C%EC%9D%BC-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0import)
-    - [쉐이프 파일 내보내기(Export)](#%EC%89%90%EC%9D%B4%ED%94%84-%ED%8C%8C%EC%9D%BC-%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0export)
-    - [SRID 가져오기 및 내보내기](#srid-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%B0%8F-%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0)
-  - [3. 주의사항](#3-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
-    - [쉐이프 파일(Shapefile) 제약점](#%EC%89%90%EC%9D%B4%ED%94%84-%ED%8C%8C%EC%9D%BCshapefile-%EC%A0%9C%EC%95%BD%EC%A0%90)
-    - [GeoTools 제약점](#geotools-%EC%A0%9C%EC%95%BD%EC%A0%90)
-  - [4. 데이터 타입 변환](#4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
-    - [가져오기 데이터 타입 변환](#%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
-    - [내보내기 데이터 타입 변환](#%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1. altiShapeLoader 소개](#1-altishapeloader-%EC%86%8C%EA%B0%9C)
+  - [altiShapeLoader 버전](#altishapeloader-%EB%B2%84%EC%A0%84)
+  - [개요](#%EA%B0%9C%EC%9A%94)
+  - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
+  - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
+- [2. altiShapeLoader 사용하기](#2-altishapeloader-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+  - [알티베이스 선행조건 - SRID 등록](#%EC%95%8C%ED%8B%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%A0%ED%96%89%EC%A1%B0%EA%B1%B4---srid-%EB%93%B1%EB%A1%9D)
+  - [실행 옵션](#%EC%8B%A4%ED%96%89-%EC%98%B5%EC%85%98)
+  - [필수 옵션](#%ED%95%84%EC%88%98-%EC%98%B5%EC%85%98)
+  - [선택 옵션](#%EC%84%A0%ED%83%9D-%EC%98%B5%EC%85%98)
+  - [성능 옵션](#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)
+  - [특수 옵션](#%ED%8A%B9%EC%88%98-%EC%98%B5%EC%85%98)
+  - [쉐이프 파일 가져오기(Import)](#%EC%89%90%EC%9D%B4%ED%94%84-%ED%8C%8C%EC%9D%BC-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0import)
+  - [쉐이프 파일 내보내기(Export)](#%EC%89%90%EC%9D%B4%ED%94%84-%ED%8C%8C%EC%9D%BC-%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0export)
+  - [SRID 가져오기 및 내보내기](#srid-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%B0%8F-%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0)
+- [3. 주의사항](#3-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+  - [쉐이프 파일(Shapefile) 제약점](#%EC%89%90%EC%9D%B4%ED%94%84-%ED%8C%8C%EC%9D%BCshapefile-%EC%A0%9C%EC%95%BD%EC%A0%90)
+  - [GeoTools 제약점](#geotools-%EC%A0%9C%EC%95%BD%EC%A0%90)
+- [4. 데이터 타입 변환](#4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
+  - [가져오기 데이터 타입 변환](#%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
+  - [내보내기 데이터 타입 변환](#%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Altibase® Tools & Utilities
+<br>
 
-altiShapeLoader User's Manual
-==============================
-
-![](media/altiShapeLoader/e5cfb3761673686d093a3b00c062fe7a.png)
-
-Altibase Tools & Utilities altiShapeLoader User's Manual
-
-Release 1.0
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
-08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
-
-## 서문
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -181,7 +257,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 </br>
 
-## 1. altiShapeLoader 소개
+# 1. altiShapeLoader 소개
 
 이 장은 altiShapeLoader 사용을 위한 시스템 요구 사항과 설치 및 환경 설정에 관해 소개한다. 
 
@@ -270,7 +346,7 @@ $ rm -fr altiShapeLoader
 
 </br>
 
-## 2. altiShapeLoader 사용하기
+# 2. altiShapeLoader 사용하기
 
 이 장에서는 altiShapeLoader를 사용하는 방법에 관해 설명한다.
 
@@ -844,7 +920,7 @@ policestation2.shx: ESRI Shapefile version 1000 length 178 type Point
 
 <br />
 
-## 3. 주의사항
+# 3. 주의사항
 
 altiShapeLoader는 자바 기반의 오픈 소스 GeoTools를 기반으로 작성되어 쉐이프 파일 및 GeoTools의 제약 사항을 그대로 따른다. 
 
@@ -868,7 +944,7 @@ GeoTools 제약점은 아래 링크를 참조한다.
 
 <br/>
 
-## 4. 데이터 타입 변환
+# 4. 데이터 타입 변환
 
 Altibase와 쉐이프 파일 간 데이터 타입 변환표이다. 쉐이프 파일에서 데이터 타입 정보는 dBASE 파일 형식인 .dbf 파일이 가지고 있다. 쉐이프 파일 버전에 따라 지원하는 데이터 타입이나 precision이 달라질 수 있으므로 주의해야 한다.
 
@@ -883,14 +959,14 @@ Altibase와 쉐이프 파일 간 데이터 타입 변환표이다. 쉐이프 파
 
 ### 내보내기 데이터 타입 변환
 
-| Data Type | Altibase                                               | dBASE field (precision) | Note                                                |
-|:---------:|:------------------------------------------------------ |:-----------------------:|:--------------------------------------------------- |
-| 숫자형       | SMALLINT, INTEGER, BIGINT                              | NUMBER                  | Altibase 데이터 타입에 따라 적절한 precision을 설정하며 scale은 0이다. |
-| 숫자형       | REAL, NUMBER, NUMERIC, DOUBLE, FLOAT                   | NUMBER                  | Altibase 데이터 타입에 따라 적절한 precision과 scale을 설정한다.     |
-| 문자형       | CHAR, VARCHAR                                          | CHARACTER               | dBASE  문자형 최대값은 255 이다.                             |
-| 문자형       | NCHAR, NVARCHAR                                        | 미지원                     | -                                                   |
-| 날짜형       | DATE                                                   | DATE                    | Altibase 는 TIME을 지원한다.<br />dBASE 는 TIME을 지원하지 않는다. |
-| 이진        | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB | 미지원                     | -                                                   |
+|                          Data Type                           | Altibase                                               | dBASE field (precision) | Note                                                         |
+| :----------------------------------------------------------: | :----------------------------------------------------- | :---------------------: | :----------------------------------------------------------- |
+|                            숫자형                            | SMALLINT, INTEGER, BIGINT                              |         NUMBER          | Altibase 데이터 타입에 따라 적절한 precision을 설정하며 scale은 0이다. |
+|                            숫자형                            | REAL, NUMBER, NUMERIC, DOUBLE, FLOAT                   |         NUMBER          | Altibase 데이터 타입에 따라 적절한 precision과 scale을 설정한다. |
+|                            문자형                            | CHAR, VARCHAR                                          |        CHARACTER        | dBASE  문자형 최대값은 255 이다.                             |
+|                            문자형                            | NCHAR, NVARCHAR                                        |         미지원          | -                                                            |
+| <pre>Altibase Application Development Altibase 3rd Party Connector GuideCopyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br><b>㈜알티베이스</b>08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층전화 : 02-2082-1114팩스 : 02-2082-1099고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre> | DATE                                                   |          DATE           | Altibase 는 TIME을 지원한다.<br />dBASE 는 TIME을 지원하지 않는다. |
+|                             이진                             | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB |         미지원          | -                                                            |
 
 <br/>
 

@@ -1,55 +1,125 @@
-
-
-
-- [Altibase Hadoop Connector User's Manual](#altibase-hadoop-connector-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Altibase 하둡 커넥터 소개](#1altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0-%EC%86%8C%EA%B0%9C)
-    - [배경 지식](#%EB%B0%B0%EA%B2%BD-%EC%A7%80%EC%8B%9D)
-    - [Altibase 하둡 커넥터란?](#altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0%EB%9E%80)
-  - [2.Altibase 하둡 커넥터 설치하기](#2altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
-    - [소프트웨어 요구 사항](#%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
-    - [Altibase 하둡 커넥터 설치](#altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0-%EC%84%A4%EC%B9%98)
-    - [실행 및 테스트](#%EC%8B%A4%ED%96%89-%EB%B0%8F-%ED%85%8C%EC%8A%A4%ED%8A%B8)
-  - [3.기능](#3%EA%B8%B0%EB%8A%A5)
-    - [커맨드 라인 옵션](#%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
-    - [Import](#import)
-    - [Export](#export)
-    - [list-databases](#list-databases)
-    - [list-tables](#list-tables)
-  - [A.부록: 데이터 타입](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [지원되는 데이터 타입](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-
-
-
-Altibase® Tools & Utilities
-
 Altibase Hadoop Connector User's Manual
 =======================================
 
-![](media/HadoopConnector/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
 
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities Altibase Hadoop Connector User's Manual
-
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Altibase 하둡 커넥터 소개](#1altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0-%EC%86%8C%EA%B0%9C)
+  - [배경 지식](#%EB%B0%B0%EA%B2%BD-%EC%A7%80%EC%8B%9D)
+  - [Altibase 하둡 커넥터란?](#altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0%EB%9E%80)
+- [2.Altibase 하둡 커넥터 설치하기](#2altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+  - [소프트웨어 요구 사항](#%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
+  - [Altibase 하둡 커넥터 설치](#altibase-%ED%95%98%EB%91%A1-%EC%BB%A4%EB%84%A5%ED%84%B0-%EC%84%A4%EC%B9%98)
+  - [실행 및 테스트](#%EC%8B%A4%ED%96%89-%EB%B0%8F-%ED%85%8C%EC%8A%A4%ED%8A%B8)
+- [3.기능](#3%EA%B8%B0%EB%8A%A5)
+  - [커맨드 라인 옵션](#%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
+  - [Import](#import)
+  - [Export](#export)
+  - [list-databases](#list-databases)
+  - [list-tables](#list-tables)
+- [A.부록: 데이터 타입](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [지원되는 데이터 타입](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -162,7 +232,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.Altibase 하둡 커넥터 소개
--------------------------
+=========================
 
 이 장은 Altibase 하둡 커넥터가 무엇인지 소개하고 배경 지식을 설명한다.
 
@@ -207,7 +277,7 @@ Altibase 하둡 커넥터는 스쿱 기반으로 동작하며 스쿱이 제공�
 스쿱을 사용한 경험이 있는 사용자들은 수월하게 사용할 수 있을 것이다.
 
 2.Altibase 하둡 커넥터 설치하기
------------------------------
+=============================
 
 이 장은 Altibase 하둡 커넥터의 설치 방법 및 이를 사용하기 위해 필요한
 소프트웨어와 설치 방법도 함께 기술한다.
@@ -306,7 +376,7 @@ JDBC 드라이버를 스쿱 환경에 설치한다.
 ```
 
 3.기능
-----
+====
 
 이 장은 Altibase 하둡 커넥터의 기능을 예제와 함께 설명한다.
 
@@ -596,7 +666,7 @@ Altibase에 존재하는 테이블들을 조회하려면, sqoop 명령어와 함
 --connection-manager  com.altibase.sqoop.manager.AltibaseManager
 ```
 
-## A.부록: 데이터 타입
+# A.부록: 데이터 타입
 
 이 부록은 Altibase 하둡 커넥터가 지원하는 Altibase의 데이터 타입에 대해
 기술한다.

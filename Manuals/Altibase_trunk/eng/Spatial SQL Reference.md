@@ -1,66 +1,144 @@
+# Spatial SQL Reference
 
-
-
-- [Spatial SQL Reference](#spatial-sql-reference)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Overview of Spatial Data](#1-overview-of-spatial-data)
-    - [The Concept of Spatial Data](#the-concept-of-spatial-data)
-    - [The Characteristics of Spatial Data in Altibase](#the-characteristics-of-spatial-data-in-altibase)
-    - [Spatial Data Terminology](#spatial-data-terminology)
-  - [2. Spatial SQL](#2-spatial-sql)
-    - [GEOMETRY Data Type](#geometry-data-type)
-    - [The Format of the GEOMETRY Data Type](#the-format-of-the-geometry-data-type)
-    - [DDL For Geometry](#ddl-for-geometry)
-    - [Spatial Functions in Altibase](#spatial-functions-in-altibase)
-    - [Basic Spatial Functions](#basic-spatial-functions)
-    - [Spatial Analysis Functions](#spatial-analysis-functions)
-    - [Spatial Object Creation Functions](#spatial-object-creation-functions)
-    - [Dimensionally Extended Nine Intersection Model(DE－9IM)](#dimensionally-extended-nine-intersection-modelde9im)
-    - [Spatial Relational Operators in Altibase SQL](#spatial-relational-operators-in-altibase-sql)
-    - [Reserved Words](#reserved-words)
-  - [3. Spatial Application Development](#3-spatial-application-development)
-    - [Using the Spatial API](#using-the-spatial-api)
-    - [Examples of Application Programming](#examples-of-application-programming)
-    - [Data Types and Functions for Use with the Spatial API](#data-types-and-functions-for-use-with-the-spatial-api)
-    - [Handle & Error Management Functions](#handle--error-management-functions)
-    - [Spatial Object Creation Functions](#spatial-object-creation-functions-1)
-    - [Spatial Object Querying Functions](#spatial-object-querying-functions)
-    - [Endian Functions](#endian-functions)
-  - [Appendix A. Limitations on the Use of Spatial Data in Altiabase](#appendix-a-limitations-on-the-use-of-spatial-data-in-altiabase)
-    - [Limitations on GEOMETRY Type Columns](#limitations-on-geometry-type-columns)
-  - [Appendix B. Spatial Schema](#appendix-b-spatial-schema)
-    - [Sample Table Information](#sample-table-information)
-    - [Sample Data](#sample-data)
-  - [Appendix C. Geometry Reference Tables](#appendix-c-geometry-reference-tables)
-    - [Geometry Reference Tables](#geometry-reference-tables)
-    - [Related Stored Procedures](#related-stored-procedures)
-
-
+#### Trunk
 
 Altibase® Application Development
 
-# Spatial SQL Reference
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/SpatialSQL/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Development Spatial SQL Reference
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Overview of Spatial Data](#1-overview-of-spatial-data)
+  - [The Concept of Spatial Data](#the-concept-of-spatial-data)
+  - [The Characteristics of Spatial Data in Altibase](#the-characteristics-of-spatial-data-in-altibase)
+  - [Spatial Data Terminology](#spatial-data-terminology)
+- [2. Spatial SQL](#2-spatial-sql)
+  - [GEOMETRY Data Type](#geometry-data-type)
+  - [The Format of the GEOMETRY Data Type](#the-format-of-the-geometry-data-type)
+  - [DDL For Geometry](#ddl-for-geometry)
+  - [Spatial Functions in Altibase](#spatial-functions-in-altibase)
+  - [Basic Spatial Functions](#basic-spatial-functions)
+  - [Spatial Analysis Functions](#spatial-analysis-functions)
+  - [Spatial Object Creation Functions](#spatial-object-creation-functions)
+  - [Dimensionally Extended Nine Intersection Model(DE－9IM)](#dimensionally-extended-nine-intersection-modelde9im)
+  - [Spatial Relational Operators in Altibase SQL](#spatial-relational-operators-in-altibase-sql)
+  - [Reserved Words](#reserved-words)
+- [3. Spatial Application Development](#3-spatial-application-development)
+  - [Using the Spatial API](#using-the-spatial-api)
+  - [Examples of Application Programming](#examples-of-application-programming)
+  - [Data Types and Functions for Use with the Spatial API](#data-types-and-functions-for-use-with-the-spatial-api)
+  - [Handle & Error Management Functions](#handle--error-management-functions)
+  - [Spatial Object Creation Functions](#spatial-object-creation-functions-1)
+  - [Spatial Object Querying Functions](#spatial-object-querying-functions)
+  - [Endian Functions](#endian-functions)
+- [Appendix A. Limitations on the Use of Spatial Data in Altiabase](#appendix-a-limitations-on-the-use-of-spatial-data-in-altiabase)
+  - [Limitations on GEOMETRY Type Columns](#limitations-on-geometry-type-columns)
+- [Appendix B. Spatial Schema](#appendix-b-spatial-schema)
+  - [Sample Table Information](#sample-table-information)
+  - [Sample Data](#sample-data)
+- [Appendix C. Geometry Reference Tables](#appendix-c-geometry-reference-tables)
+  - [Geometry Reference Tables](#geometry-reference-tables)
+  - [Related Stored Procedures](#related-stored-procedures)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-## Preface
+# Preface
 
 ### About This Manual
 
@@ -189,7 +267,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 
-## 1. Overview of Spatial Data
+# 1. Overview of Spatial Data
 
 ------------------
 
@@ -329,7 +407,7 @@ The method by which spatial data is processed in Altibase has the following char
 -   Surface  
     A surface can be thought of as a trace of the continuous movement of a line, or as a planar form that cannot be described using a single point or line. Surfaces are classified as either planes or curved surfaces depending on whether their profile protrudes from a plane (i.e. a flat surface). Generally, the term “surface” is understood to refer to a planar surface, unless otherwise specified.
 
-## 2. Spatial SQL
+# 2. Spatial SQL
 
 -----------
 
@@ -5002,7 +5080,7 @@ ISVALID
 
 
 
-## 3. Spatial Application Development
+# 3. Spatial Application Development
 
 ------------------
 
@@ -6759,7 +6837,7 @@ else
 
 ```
 
-## Appendix A. Limitations on the Use of Spatial Data in Altiabase
+# Appendix A. Limitations on the Use of Spatial Data in Altiabase
 
 With the expansion of Altibase into the realm of spatial data, inevitably some of Altibase's extensive functionality lacks support for use with spatial data. The current limitations are explained in detail in this Appendix.
 
@@ -6835,7 +6913,7 @@ GEOMETRY type data cannot be used as stored procedure parameters or as local var
 
 GEOMETRY Type cannot be used for parameter, return type, and local variable. 
 
-## Appendix B. Spatial Schema
+# Appendix B. Spatial Schema
 
 This Appendix provides a reference for the table schema and data used in the examples throughout this manual. 
 
@@ -6957,7 +7035,7 @@ CREATE TABLE TB3(ID INTEGER PRIMARY KEY, OBJ GEOMETRY);
 CREATE INDEX RT_IDX_TB3 ON TB3(OBJ) ;
 ```
 
-## Appendix C. Geometry Reference Tables
+# Appendix C. Geometry Reference Tables
 
 This Appendix discusses how to install and use the SPATIAL_REF_SYS and GEOMETRY_COLUMNS meta tables, which satisfy the OGC standard, and additionally outlines the limitations related to their use.
 

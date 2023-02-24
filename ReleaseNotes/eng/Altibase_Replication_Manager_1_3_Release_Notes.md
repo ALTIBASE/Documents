@@ -1,27 +1,128 @@
-- [Replication Manager Release Notes](#replication-manager-release-notes)
-  - [1. Abstract](#1-abstract)
-    - [1.1 System Requirements](#11-system-requirements)
-  - [2. Release Information](#2-release-information)
-    - [2.1 Version](#21-version)
-    - [2.2 New Features](#22-new-features)
-    - [2.3 Bug Fixed](#23-bug-fixed)
-    - [2.4 Properties](#24-properties)
-    - [2.5 Error Messages](#25-error-messages)
-  - [3. Open Source Libraries/Royalty-Free Images](#3-open-source-librariesroyalty-free-images)
-  - [4. Packages](#4-packages)
-  - [5. Downloads](#5-downloads)
-    - [5.1 Packages](#51-packages)
-    - [5.2 Manual](#52-manual)
-    - [5.3 Installation](#53-installation)
-
-
-
 Replication Manager Release Notes
 ===============================
 
-**(April 6, 2022)**
+#### Release 1.3 (April 6, 2022)
 
-## 1. Abstract
+Alitbase® Tools & Utilities
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Release Notes Replication Manager
+Release 1.3
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
+<br>
+
+# Table Of Contents
+
+- [1. Abstract](#1-abstract)
+  - [1.1 System Requirements](#11-system-requirements)
+- [2. Release Information](#2-release-information)
+  - [2.1 Version](#21-version)
+  - [2.2 New Features](#22-new-features)
+  - [2.3 Bug Fixed](#23-bug-fixed)
+  - [2.4 Properties](#24-properties)
+  - [2.5 Error Messages](#25-error-messages)
+- [3. Open Source Libraries/Royalty-Free Images](#3-open-source-librariesroyalty-free-images)
+- [4. Packages](#4-packages)
+- [5. Downloads](#5-downloads)
+  - [5.1 Packages](#51-packages)
+  - [5.2 Manual](#52-manual)
+  - [5.3 Installation](#53-installation)
+
+
+
+<br>
+
+# 1. Abstract
 
 ### 1.1 System Requirements
 
@@ -47,7 +148,9 @@ Replication Manager Release Notes
 
 - Altibase 4.3.9 or higher
 
-## 2. Release Information
+<br>
+
+# 2. Release Information
 
 ### 2.1 Version
 
@@ -74,7 +177,9 @@ Replication Manager is a graphical tool for managing replication on Altibase mor
 
 ### 2.5 Error Messages
 
-## 3. Open Source Libraries/Royalty-Free Images
+<br>
+
+# 3. Open Source Libraries/Royalty-Free Images
 
 Replication Manager is based on the following Open Source Libraries and Royalty-Free Images. 
 
@@ -96,14 +201,18 @@ Replication Manager is based on the following Open Source Libraries and Royalty-
 | www.famfamfam.com         | Homepage: www.famfamfam.com                |
 | fatcow-hosting-icons-2400 | Homepage: http://www.fatcow.com/free-icons |
 
-## 4. Packages
+<br>
+
+# 4. Packages
 
 | OS      | Archive Name                           |
 | ------- | -------------------------------------- |
 | Windows | ReplicationManager-win32.win32.x86.zip |
 | Linux   | ReplicationManager-linux.gtk.x86.zip   |
 
-## 5. Downloads
+<br>
+
+# 5. Downloads
 
 ### 5.1 Packages
 
