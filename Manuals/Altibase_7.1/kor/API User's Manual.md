@@ -3133,7 +3133,7 @@ Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사�
 마이크로소프트의 ADO.NET에 관한 보다 자세한 내용은 마이크로소프트의 .NET 문서(https://learn.microsoft.com/ko-kr/dotnet/)를 참고한다.
 
 #### 요구사항
-- Altibase CLI 라이브러리(예, odbccli_sl.dll)
+- Altibase CLI 라이브러리
   Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET Nuget 패키지에 포함되어 있다.
   - Linux x86-64  : libdotnet_sl.so
   - Windows x64 : dotnet_sl.dll
@@ -3255,7 +3255,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 ###### application name
 
-- 기본값 : .NET Altibase Data Provider (*제품명 정해지면 변경*)
+- 기본값 : .NET Altibase Data Provider
 - 값의 범위 : 임의의 문자열
 - 필수 여부 : 선택
 - 설정 범위 : 세션
@@ -3564,7 +3564,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 ##### 기본 구현
 
-다음은 .NET Core 클래스 중 기본 구현을 그대로 상속받은 API 목록이다. 
+다음은 ADO.NET 클래스 중 기본 구현을 그대로 상속받은 API 목록이다. 
 
 | ADO.NET API 클래스                                         | Altibase ADO.NET 클래스 | 구분   |                               |
 | :----------------------------------------------------------- | :---------------------- | ------ | ----------------------------- |
