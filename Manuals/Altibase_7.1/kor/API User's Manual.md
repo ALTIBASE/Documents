@@ -3561,14 +3561,15 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 다음은 ADO.NET 클래스 중 기본 구현을 그대로 상속받은 API 목록이다. 
 
-| ADO.NET API 클래스                                         | Altibase ADO.NET 클래스 | 구분   |                               |
-| :----------------------------------------------------------- | :---------------------- | ------ | ----------------------------- |
-| Dbproviderfactory                                            | *?*                     | 메서드 | CreateCommandBuilder          |
-| Dbproviderfactory                                            |                         | 메서드 | CreateConnectionStringBuilder |
-| Dbdatareader                                                 | AltibaseDataReader      | 메서드 | GetProviderSpecificFieldType  |
-| Dbdatareader                                                 |                         | 메서드 | GetProviderSpecificValue      |
-| Dbdatareader                                                 |                         | 속성   | VisibleFieldCount             |
-| Dbdataadapter                                                | AltibaseDataAdapter     | 메서드 | GetBatchedRecordsAffected     |
+| ADO.NET API 클래스 | Altibase ADO.NET 클래스 | 구분   |                               |
+| :----------------- | :---------------------- | ------ | ----------------------------- |
+| Dbproviderfactory  | AltibaseFactory         | 메서드 | CreateCommandBuilder          |
+|                    |                         | 메서드 | CreateConnectionStringBuilder |
+| Dbdatareader       | AltibaseDataReader      | 메서드 | GetProviderSpecificFieldType  |
+|                    |                         | 메서드 | GetProviderSpecificValue      |
+|                    |                         | 메서드 | GetProviderSpecificValues     |
+|                    |                         | 속성   | VisibleFieldCount             |
+| Dbdataadapter      | AltibaseDataAdapter     | 메서드 | GetBatchedRecordsAffected     |
 
 ##### 지원 인터페이스의 제약 사항
 
@@ -3596,29 +3597,18 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 |                       |                              | 속성   | CommandType                                                  |                    |
 | DbDataReader          | AltibaseDataReader           | 메서드 | GetData                                                      |                    |
 |                       |                              | 메서드 | GetDbDataReader                                              |                    |
-|                       |                              | 메서드 | GetProviderSpecificFieldType                                 |                    |
-|                       |                              | 메서드 | GetProviderSpecificValue                                     |                    |
-|                       |                              | 메서드 | GetProviderSpecificValues                                    |                    |
 |                       |                              | 속성   | Depth                                                        | 항상 0을 반환한다. |
 |                       |                              | 속성   | HasRows                                                      |                    |
-|                       |                              | 속성   | VisibleFieldCount                                            |                    |
 | DbDataAdapter         | AltibaseDataAdapter          | 메서드 | AddToBatch(IDbCommand command)                               |                    |
 |                       |                              | 메서드 | CrearBatch                                                   |                    |
 |                       |                              | 메서드 | ExecuteBatch                                                 |                    |
 |                       |                              | 메서드 | GetBatchedParameter                                          |                    |
-|                       |                              | 메서드 | GetBatchedRecordsAffected(int commandIdentifier, out int recordsAffected, out Exception error) |                    |
 |                       |                              | 메서드 | InitializeBatching                                           |                    |
 |                       |                              | 메서드 | TerminateBatching                                            |                    |
 | DbDataSourceEnumerator                 |  | 클래스 |  |             |
-| DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator* |                    |
+| DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator |                    |
 | DbParameter           | AltibaseParameter            | 메서드 | ResetDbType                                                  |                    |
 | DbParameterCollection | AltibaseParameterCollection  | 메서드 | AddRange                                                     |                    |
-
- 
-
- 
-
-
 
 ### Altibase ADO.NET 데이터 타입
 
