@@ -1,41 +1,120 @@
-- [Replication Manager User’s Manual](#replication-manager-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-  - [1.Replication Manager 소개](#1replication-manager-%EC%86%8C%EA%B0%9C)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
-    - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-  - [2.사용 방법](#2사용-방법)
-    - [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)
-    - [알티베이스에 연결하기](#%EC%95%8C%ED%8B%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
-    - [Replication Manager 상세 사용법](#replication-manager-%EC%83%81%EC%84%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
+Replication Manager User’s Manual
+================
+
+#### Release 1.3
 
 Alitbase® Tools & Utilities
 
-Replication Manager User’s Manual
-=================================
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
-![e5cfb3761673686d093a3b00c062fe7a](media/ReplicationManager/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->
+
+<pre>
 Altibase Tools & Utilities Replication Manager User’s Manual
-
 Release 1.3
-
-Copyright ⓒ 2001~ 2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
 
-고객서비스포털: <http://support.altibase.com>
+<br>
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+# 목차
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+- [1.Replication Manager 소개](#1replication-manager-%EC%86%8C%EA%B0%9C)
+  - [개요](#%EA%B0%9C%EC%9A%94)
+  - [시스템 요구 사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD)
+  - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
+- [2.사용 방법](#2사용-방법)
+  - [사용자 인터페이스에 대한 이해](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4)
+  - [알티베이스에 연결하기](#%EC%95%8C%ED%8B%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
+  - [Replication Manager 상세 사용법](#replication-manager-%EC%83%81%EC%84%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
+
+<br>
 
 서문
-----
+====
 
 이 매뉴얼은 Alitbase 데이터베이스 관리를 위한 Replication Manager 사용법을 설명한다.
 
@@ -118,7 +197,9 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
-## 1.Replication Manager 소개
+<br>
+
+# 1.Replication Manager 소개
 
 이 장에서는 Replication Manager에 관한 개요와 설치 방법을 설명한다. 이 장은 다음의 절로 구성된다.
 
@@ -191,7 +272,9 @@ Replication Manager는 공식 Altibase 고객서비스포털 http://support.alti
 
 Replication Manager가 설치된 디렉토리를 삭제한다.
 
-## 2.사용 방법
+<br>
+
+# 2.사용 방법
 
 이 장은 Replication Manager의 사용자 인터페이스를 소개한다. 이후 Altibase에 연결하는 법을 설명한 뒤 Replication Manager 상세 사용법에 대해 설명한다. 이 장은 다음과 같이 구성된다.
 

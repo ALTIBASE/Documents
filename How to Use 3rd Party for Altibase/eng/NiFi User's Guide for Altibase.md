@@ -1,13 +1,19 @@
 # NiFi User's Guide for Altibase
 
+<br><br>
+
+
+
+# Table of Contents
+
 - [Introduction](#introduction)
 - [Installing NiFi](#installing-nifi)
 - [Starting and Stopping NiFi](#starting-and-stopping-nifi)
 - [How to Use Altibase in NiFi](#how-to-use-altibase-in-nifi)
 
+<br>
 
-
-## Introduction
+# Introduction
 
 This guide provides information on how to use Altibase in Apache NiFi (hereinafter NiFi ).
 
@@ -31,7 +37,9 @@ Below are the components of NiFi required to deliver the instructions in this do
   - It is a set of shared resources that provide information processor needs based on the requirement.
   - For example, DB connection is used by multiple processors via controller service.
 
-## Installing NiFi
+<br>
+
+# Installing NiFi
 
 ### Precautions for Installing NiFi
 
@@ -60,7 +68,9 @@ Below are the components of NiFi required to deliver the instructions in this do
    nifi.web.http.port=8000
    ```
 
-## Starting and Stopping NiFi 
+<br>
+
+# Starting and Stopping NiFi 
 
 ### Linux
 
@@ -122,7 +132,9 @@ To stop NiFi, press Ctrl+C.
 
 The Web UI can be accessed via this URL in the web browser.
 
-## How to Use Altibase in NiFi
+<br>
+
+# How to Use Altibase in NiFi
 
 1. Copy Altibase JDBC driver in $NIFI_HOME/lib directory.
 

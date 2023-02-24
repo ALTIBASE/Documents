@@ -1,116 +1,195 @@
-
-
-
-- [Altibase C Interface Manual](#altibase-c-interface-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to Altibase C Interface](#1-introduction-to-altibase-c-interface)
-    - [What is the Altibase C Interface?](#what-is-the-altibase-c-interface)
-    - [Using ACI](#using-aci)
-    - [Building Client Applications](#building-client-applications)
-  - [2. Data Type](#2-data-type)
-    - [ACI Data Types](#aci-data-types)
-  - [3.ACI Functions Description](#3aci-functions-description)
-    - [altibase_affected_rows()](#altibase_affected_rows)
-    - [altibase_client_version()](#altibase_client_version)
-    - [altibase_client_verstr()](#altibase_client_verstr)
-    - [altibase_close()](#altibase_close)
-    - [altibase_commit()](#altibase_commit)
-    - [altibase_connect()](#altibase_connect)
-    - [altibase_data_seek()](#altibase_data_seek)
-    - [altibase_errno()](#altibase_errno)
-    - [altibase_error()](#altibase_error)
-    - [altibase_fetch_lengths()](#altibase_fetch_lengths)
-    - [altibase_fetch_row()](#altibase_fetch_row)
-    - [altibase_field()](#altibase_field)
-    - [altibase_field_count()](#altibase_field_count)
-    - [altibase_free_result()](#altibase_free_result)
-    - [altibase_get_charset()](#altibase_get_charset)
-    - [altibase_get_charset_info()](#altibase_get_charset_info)
-    - [altibase_host_info()](#altibase_host_info)
-    - [altibase_init()](#altibase_init)
-    - [altibase_list_fields()](#altibase_list_fields)
-    - [altibase_list_tables()](#altibase_list_tables)
-    - [altibase_next_result()](#altibase_next_result)
-    - [altibase_num_fields()](#altibase_num_fields)
-    - [altibase_num_rows()](#altibase_num_rows)
-    - [altibase_proto_version()](#altibase_proto_version)
-    - [altibase_proto_verstr()](#altibase_proto_verstr)
-    - [altibase_query()](#altibase_query)
-    - [altibase_rollback()](#altibase_rollback)
-    - [altibase_server_version()](#altibase_server_version)
-    - [altibase_server_verstr()](#altibase_server_verstr)
-    - [altibase_set_charset()](#altibase_set_charset)
-    - [altibase_set_autocommit()](#altibase_set_autocommit)
-    - [altibase_set_failover_callback()](#altibase_set_failover_callback)
-    - [altibase_set_option()](#altibase_set_option)
-    - [altibase_sqlstate()](#altibase_sqlstate)
-    - [altibase_store_result()](#altibase_store_result)
-    - [altibase_use_result()](#altibase_use_result)
-  - [4. Prepared Statement Function Descriptions](#4-prepared-statement-function-descriptions)
-    - [altibase_stmt_affected_rows()](#altibase_stmt_affected_rows)
-    - [altibase_stmt_bind_param()](#altibase_stmt_bind_param)
-    - [altibase_stmt_bind_result()](#altibase_stmt_bind_result)
-    - [altibase_stmt_close()](#altibase_stmt_close)
-    - [altibase_stmt_data_seek()](#altibase_stmt_data_seek)
-    - [altibase_stmt_errno()](#altibase_stmt_errno)
-    - [altibase_stmt_error()](#altibase_stmt_error)
-    - [altibase_stmt_execute()](#altibase_stmt_execute)
-    - [altibase_stmt_fetch()](#altibase_stmt_fetch)
-    - [altibase_stmt_fetch_column()](#altibase_stmt_fetch_column)
-    - [altibase_stmt_fetched()](#altibase_stmt_fetched)
-    - [altibase_stmt_field_count()](#altibase_stmt_field_count)
-    - [altibase_stmt_free_result()](#altibase_stmt_free_result)
-    - [altibase_stmt_get_attr()](#altibase_stmt_get_attr)
-    - [altibase_stmt_init()](#altibase_stmt_init)
-    - [altibase_stmt_num_rows()](#altibase_stmt_num_rows)
-    - [altibase_stmt_param_count()](#altibase_stmt_param_count)
-    - [altibase_stmt_prepare()](#altibase_stmt_prepare)
-    - [altibase_stmt_processed()](#altibase_stmt_processed)
-    - [altibase_stmt_reset()](#altibase_stmt_reset)
-    - [altibase_stmt_result_metadata()](#altibase_stmt_result_metadata)
-    - [altibase_stmt_send_long_data()](#altibase_stmt_send_long_data)
-    - [altibase_stmt_set_array_bind()](#altibase_stmt_set_array_bind)
-    - [altibase_stmt_set_array_fetch()](#altibase_stmt_set_array_fetch)
-    - [altibase_stmt_set_attr()](#altibase_stmt_set_attr)
-    - [altibase_stmt_sqlstate()](#altibase_stmt_sqlstate)
-    - [altibase_stmt_status()](#altibase_stmt_status)
-    - [altibase_stmt_store_result()](#altibase_stmt_store_result)
-  - [5. Using Array Binding and Array Fetching](#5-using-array-binding-and-array-fetching)
-    - [Overview](#overview)
-    - [Array Binding](#array-binding)
-    - [Array Fetch](#array-fetch)
-  - [6. Using Failover](#6-using-failover)
-    - [Overview](#overview-1)
-    - [How to Use Failover](#how-to-use-failover)
-
-
-
-Altibase® Application Development
-
 Altibase C Interface Manual
 ===========================
 
-![](media/ACI/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
 
+Altibase® Application Development
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+<pre>
 Altibase Application Development ACI Manual
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to Altibase C Interface](#1-introduction-to-altibase-c-interface)
+  - [What is the Altibase C Interface?](#what-is-the-altibase-c-interface)
+  - [Using ACI](#using-aci)
+  - [Building Client Applications](#building-client-applications)
+- [2. Data Type](#2-data-type)
+  - [ACI Data Types](#aci-data-types)
+- [3.ACI Functions Description](#3aci-functions-description)
+  - [altibase_affected_rows()](#altibase_affected_rows)
+  - [altibase_client_version()](#altibase_client_version)
+  - [altibase_client_verstr()](#altibase_client_verstr)
+  - [altibase_close()](#altibase_close)
+  - [altibase_commit()](#altibase_commit)
+  - [altibase_connect()](#altibase_connect)
+  - [altibase_data_seek()](#altibase_data_seek)
+  - [altibase_errno()](#altibase_errno)
+  - [altibase_error()](#altibase_error)
+  - [altibase_fetch_lengths()](#altibase_fetch_lengths)
+  - [altibase_fetch_row()](#altibase_fetch_row)
+  - [altibase_field()](#altibase_field)
+  - [altibase_field_count()](#altibase_field_count)
+  - [altibase_free_result()](#altibase_free_result)
+  - [altibase_get_charset()](#altibase_get_charset)
+  - [altibase_get_charset_info()](#altibase_get_charset_info)
+  - [altibase_host_info()](#altibase_host_info)
+  - [altibase_init()](#altibase_init)
+  - [altibase_list_fields()](#altibase_list_fields)
+  - [altibase_list_tables()](#altibase_list_tables)
+  - [altibase_next_result()](#altibase_next_result)
+  - [altibase_num_fields()](#altibase_num_fields)
+  - [altibase_num_rows()](#altibase_num_rows)
+  - [altibase_proto_version()](#altibase_proto_version)
+  - [altibase_proto_verstr()](#altibase_proto_verstr)
+  - [altibase_query()](#altibase_query)
+  - [altibase_rollback()](#altibase_rollback)
+  - [altibase_server_version()](#altibase_server_version)
+  - [altibase_server_verstr()](#altibase_server_verstr)
+  - [altibase_set_charset()](#altibase_set_charset)
+  - [altibase_set_autocommit()](#altibase_set_autocommit)
+  - [altibase_set_failover_callback()](#altibase_set_failover_callback)
+  - [altibase_set_option()](#altibase_set_option)
+  - [altibase_sqlstate()](#altibase_sqlstate)
+  - [altibase_store_result()](#altibase_store_result)
+  - [altibase_use_result()](#altibase_use_result)
+- [4. Prepared Statement Function Descriptions](#4-prepared-statement-function-descriptions)
+  - [altibase_stmt_affected_rows()](#altibase_stmt_affected_rows)
+  - [altibase_stmt_bind_param()](#altibase_stmt_bind_param)
+  - [altibase_stmt_bind_result()](#altibase_stmt_bind_result)
+  - [altibase_stmt_close()](#altibase_stmt_close)
+  - [altibase_stmt_data_seek()](#altibase_stmt_data_seek)
+  - [altibase_stmt_errno()](#altibase_stmt_errno)
+  - [altibase_stmt_error()](#altibase_stmt_error)
+  - [altibase_stmt_execute()](#altibase_stmt_execute)
+  - [altibase_stmt_fetch()](#altibase_stmt_fetch)
+  - [altibase_stmt_fetch_column()](#altibase_stmt_fetch_column)
+  - [altibase_stmt_fetched()](#altibase_stmt_fetched)
+  - [altibase_stmt_field_count()](#altibase_stmt_field_count)
+  - [altibase_stmt_free_result()](#altibase_stmt_free_result)
+  - [altibase_stmt_get_attr()](#altibase_stmt_get_attr)
+  - [altibase_stmt_init()](#altibase_stmt_init)
+  - [altibase_stmt_num_rows()](#altibase_stmt_num_rows)
+  - [altibase_stmt_param_count()](#altibase_stmt_param_count)
+  - [altibase_stmt_prepare()](#altibase_stmt_prepare)
+  - [altibase_stmt_processed()](#altibase_stmt_processed)
+  - [altibase_stmt_reset()](#altibase_stmt_reset)
+  - [altibase_stmt_result_metadata()](#altibase_stmt_result_metadata)
+  - [altibase_stmt_send_long_data()](#altibase_stmt_send_long_data)
+  - [altibase_stmt_set_array_bind()](#altibase_stmt_set_array_bind)
+  - [altibase_stmt_set_array_fetch()](#altibase_stmt_set_array_fetch)
+  - [altibase_stmt_set_attr()](#altibase_stmt_set_attr)
+  - [altibase_stmt_sqlstate()](#altibase_stmt_sqlstate)
+  - [altibase_stmt_status()](#altibase_stmt_status)
+  - [altibase_stmt_store_result()](#altibase_stmt_store_result)
+- [5. Using Array Binding and Array Fetching](#5-using-array-binding-and-array-fetching)
+  - [Overview](#overview)
+  - [Array Binding](#array-binding)
+  - [Array Fetch](#array-fetch)
+- [6. Using Failover](#6-using-failover)
+  - [Overview](#overview-1)
+  - [How to Use Failover](#how-to-use-failover)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -233,7 +312,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to Altibase C Interface
+# 1. Introduction to Altibase C Interface
 
 This chapter introduces the Altibase C interface and explains its basic usage.
 
@@ -360,7 +439,7 @@ For GCC, using following option will help compilers to locate the library files:
 -L$ALTIBASE_HOME/lib -lalticapi -lodbccli
 ```
 
-## 2. Data Type
+# 2. Data Type
 
 This chapter describes the data types used with the Altibase C interface.
 
@@ -638,7 +717,7 @@ Looking at the above relationship diagram, it can be seen that ALTIBASE_ROW cann
 Notice that the ALTIBASE_ROW cannot be obtained (indicated by the dashed line). ALTIBASE_ROW can be obtained only through the altibase_query () related function that executes SQL statements directly without binding. Refer to description of each function for details.
 
 3.ACI Functions Description
---------
+========
 
 This chapter describes the specifications of ACI functions used with Altibase handle. For each ACI functions, the following information are described.
 
@@ -2031,7 +2110,7 @@ The user must call altibase_free_result() to free current result set handle and 
 
 Refer to the example in altibase_query().
 
-## 4. Prepared Statement Function Descriptions
+# 4. Prepared Statement Function Descriptions
 
 This chapter describes the functions available for prepared statement processing by using statement handle in great detail.
 
@@ -3246,7 +3325,7 @@ The result set obtained through this function should be freed with altibase_stmt
 
 Refer to the examples in altibase_stmt_bind_result() and altibase_stmt_data_seek().
 
-## 5. Using Array Binding and Array Fetching
+# 5. Using Array Binding and Array Fetching
 
 This chapter describes array binding and array fetching to insert multiple data with one executing statement.
 
@@ -3484,7 +3563,7 @@ do
 } while (fetched == ARRAY_SIZE);
 ```
 
-## 6. Using Failover
+# 6. Using Failover
 
 This chapter describes how to perform Failover-related tasks using the Altibase C interface.
 

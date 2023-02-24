@@ -1,28 +1,103 @@
 dataCompJ User's Manual
-==============================
+================
 
-![](media/dataCompJ/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Release 7.2
 
 Altibase® Tools & Utilities
 
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->
+
+<pre>
+Altibase Tool & Utilities dataCompJ User's Manual
 Release 7.2
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
-무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+<br>
 
 # 목차
 
@@ -45,7 +120,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
     - [일치(SYNC) 기능](#%EC%9D%BC%EC%B9%98sync-%EA%B8%B0%EB%8A%A5)
   - [A. 부록: 이기종간 데이터 타입 호환 테이블](#a-%EB%B6%80%EB%A1%9D-%EC%9D%B4%EA%B8%B0%EC%A2%85%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%ED%98%B8%ED%99%98-%ED%85%8C%EC%9D%B4%EB%B8%94)
 
-
+<br>
 
 서문
 ====
@@ -177,6 +252,8 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
+<br>
+
 1.dataCompJ 소개
 =====================
 
@@ -229,6 +306,8 @@ dataCompJ는 Altibase 및 이기종 데이터베이스들과 함께 사용할 �
 
 dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 다운로드받은 압축 파일을 원하는 위치에 해제하면 dataCompJ 설치가 완료된다. 생성된 디렉토리 안에는 실행파일인 dataCompJCli.sh, JDBC 드라이버를 포함한 JDBC 하위 디렉토리 및 XML 기본 설정 파일이 존재한다.
 dataCompJ를 제거하기 위해서는 dataCompJ가 설치되어 있는 디렉토리를 삭제한다.
+
+<br>
 
 2.dataCompJ 시작하기
 =====================
@@ -299,8 +378,11 @@ INSERT_TO_SLAVE 정책이다. Master 테이블에만 존재하고 Slave 테이�
 
 DELETE_FROM_SLAVE 정책이다. Master 테이블에는 존재하지 않고 Slave 테이블에만 존재하는 레코드를 Slave 테이블에서 삭제(delete)한다.
 
+<br>
+
 3.dataCompJ 사용 방법
 =====================
+
 이 장은 dataCompJ를 원활하게 실행하는 방법과 dataCompJ의 설정 파일 구성, 설정 시 고려할 점들을 설명한다. 이 장은 다음의 절로 구성된다.
 
 - 실행 방법
@@ -489,6 +571,8 @@ table_name_file_path는 테이블 이름들을 나열한 텍스트 파일의 경
     (예제 2) table1 (c1 int, c2 int, c3 varchar(100), primary key (c1, c2))  
     예제 1에서 '제약조건 3'을 만족하는 컬럼은 c3 뿐이다. 단, c3 컬럼의 데이터 타입인 CLOB은 dataCompJ가 지원하지 않기 때문에, '제약 사항 2'를 위반한다. 따라서, table1에 대한 비교는 허용되지 않는다.  
     예제 2에서 '제약 사항 3'을 만족하는 컬럼은 c3 뿐이다. 또한, c3의 데이터 타입이 dataCompJ가 지원하는 varchar 타입이기 때문에 table1에 대한 비교가 가능하다.
+
+<br>
 
 4.dataCompJ 기능
 =====================
@@ -1024,6 +1108,8 @@ MXSO    Slave only                            0
 ------------------------------------------------------
 
 ```
+
+<br>
 
 # A. 부록: 이기종간 데이터 타입 호환 테이블
 

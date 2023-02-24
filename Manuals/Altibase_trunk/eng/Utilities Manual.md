@@ -1,67 +1,142 @@
-
-
-- [Utilities Manual](#utilities-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. aexport](#1-aexport)
-    - [Introducing aexport](#introducing-aexport)
-    - [How to Use aexport](#how-to-use-aexport)
-  - [2. altiComp](#2-alticomp)
-    - [Introducing altiComp](#introducing-alticomp)
-    - [How to Use altiComp](#how-to-use-alticomp)
-    - [Comparison (DIFF) Function](#comparison-diff-function)
-    - [Synchronization (SYNC) Function](#synchronization-sync-function)
-  - [3. Other Utilities](#3-other-utilities)
-    - [altiAudit](#altiaudit)
-    - [altibase](#altibase)
-    - [altiMon](#altimon)
-    - [altierr](#altierr)
-    - [altipasswd](#altipasswd)
-    - [altiProfile](#altiprofile)
-    - [altiwrap](#altiwrap)
-    - [awrite](#awrite)
-    - [checkServer](#checkserver)
-    - [dumpbi](#dumpbi)
-    - [dumpct](#dumpct)
-    - [dumpdb](#dumpdb)
-    - [dumpddf](#dumpddf)
-    - [dumpla](#dumpla)
-    - [dumplf](#dumplf)
-    - [dumptrc](#dumptrc)
-    - [killCheckServer](#killcheckserver)
-    - [server](#server)
-
-
-
-Altibase® Tools & Utilities
-
 Utilities Manual
 ================
 
-![](media/Utilities/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. aexport](#1-aexport)
+  - [Introducing aexport](#introducing-aexport)
+  - [How to Use aexport](#how-to-use-aexport)
+- [2. altiComp](#2-alticomp)
+  - [Introducing altiComp](#introducing-alticomp)
+  - [How to Use altiComp](#how-to-use-alticomp)
+  - [Comparison (DIFF) Function](#comparison-diff-function)
+  - [Synchronization (SYNC) Function](#synchronization-sync-function)
+- [3. Other Utilities](#3-other-utilities)
+  - [altiAudit](#altiaudit)
+  - [altibase](#altibase)
+  - [altiMon](#altimon)
+  - [altierr](#altierr)
+  - [altipasswd](#altipasswd)
+  - [altiProfile](#altiprofile)
+  - [altiwrap](#altiwrap)
+  - [awrite](#awrite)
+  - [checkServer](#checkserver)
+  - [dumpbi](#dumpbi)
+  - [dumpct](#dumpct)
+  - [dumpdb](#dumpdb)
+  - [dumpddf](#dumpddf)
+  - [dumpla](#dumpla)
+  - [dumplf](#dumplf)
+  - [dumptrc](#dumptrc)
+  - [killCheckServer](#killcheckserver)
+  - [server](#server)
 
 
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -172,7 +247,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 
-## 1. aexport
+# 1. aexport
 
 ### Introducing aexport
 
@@ -923,7 +998,7 @@ SSL_VERIFY = ON  # OFF
 
 
 
-## 2. altiComp
+# 2. altiComp
 
 This chapter describes the altiComp utility and its features such as consistency control. 
 
@@ -1581,7 +1656,7 @@ MOSO = SU
      Time:       0.01 sec
 ```
 
-## 3. Other Utilities
+# 3. Other Utilities
 
 ### altiAudit
 

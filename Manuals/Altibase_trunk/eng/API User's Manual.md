@@ -1,35 +1,104 @@
-Application Program Interface User’s Manual
-===========================================
+# Application Program Interface User’s Manual
+
+#### Trunk
 
 Altibase Application Development
 
-Trunk
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-<br/><br/><br/><br/><br/>
 
-<br/><br/><br/><br/><br/>
 
-<br/><br/><br/><br/><br/>
 
-<br/><br/><br/><br/><br/>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: http://support.altibase.com/en/
 
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
-<div align="center">
-    <img src="media/API/e5cfb3761673686d093a3b00c062fe7a.png">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
 
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Application Development Application Program Interface User’s Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
+<br>
 
 # Table Of Contents
 

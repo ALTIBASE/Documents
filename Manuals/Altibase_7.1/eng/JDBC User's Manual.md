@@ -1,91 +1,167 @@
-
-
-- [JDBC User’s Manual](#jdbc-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Starting JDBC](#1-starting-jdbc)
-    - [Installing the JDBC Driver](#installing-the-jdbc-driver)
-    - [Connecting to the Database](#connecting-to-the-database)
-    - [Connection Information](#connection-information)
-    - [Using Statement and ResultSet](#using-statement-and-resultset)
-    - [JDBC Connection Failover](#jdbc-connection-failover)
-  - [2. Basic Functions](#2-basic-functions)
-    - [IPv6 Connectivity](#ipv6-connectivity)
-    - [Statement, PreparedStatement and CallableStatement](#statement-preparedstatement-and-callablestatement)
-    - [Using the National Character Set](#using-the-national-character-set)
-  - [3. Advanced Functions](#3-advanced-functions)
-    - [Auto-generated Keys](#auto-generated-keys)
-    - [Timeout](#timeout)
-    - [DataSource](#datasource)
-    - [Connection Pool](#connection-pool)
-    - [Multiple ResultSet](#multiple-resultset)
-    - [JDBC and Failover](#jdbc-and-failover)
-    - [JDBC Escapes](#jdbc-escapes)
-    - [How to Use ResultSet](#how-to-use-resultset)
-    - [Atomic Batch](#atomic-batch)
-    - [Date, Time, Timestamp](#date-time-timestamp)
-    - [GEOMETRY](#geometry)
-    - [LOB](#lob)
-    - [Controlling Autocommit](#controlling-autocommit)
-    - [BIT, VARBIT](#bit-varbit)
-    - [JDBC Logging](#jdbc-logging)
-    - [Hibernate](#hibernate)
-    - [SQL Plan](#sql-plan)
-  - [4. Tips & Recommendation](#4-tips--recommendation)
-    - [Tips for Better Performance](#tips-for-better-performance)
-  - [5. Error Messages](#5-error-messages)
-    - [SQL States](#sql-states)
-  - [6. JDBC 4.2 API References](#6-jdbc-4.2-api-references)
-    - [java.sql.Connection](#javasqlconnection)
-    - [java.sql.Wrapper](#javasqlwrapper)
-    - [java.sql.Driver](#javasqldriver)
-    - [java.sql.Statement](#javasqlstatement)
-    - [java.sql.PreparedStatement](#javasqlpreparedstatement)
-    - [java.sql.CallableStatement](#javasqlcallablestatement)
-    - [java.sql.PooledConnection](#javasqlpooledconnection)
-    - [java.sql.ResultSet](#javasqlresultset)
-    - [java.sql.CommonDataSource](#javasqlcommondatasource)
-    - [java.sql.DatabaseMetaData](#javasqldatabasemetadata)
-    - [java.sql.Blob](#javasqlblob)
-    - [java.sql.Clob](#javasqlclob)
-    - [java.sql.Types](#javasqltypes)
-    - [java.sql.DriverAction](#javasqldriveraction)
-    - [java.sql.SQLTypes](#javasqlsqltypes)
-    - [Java 8 Time API](#java-8-time-api)
-  - [Appendix A. Data Type Mapping](#appendix-a-data-type-mapping)
-    - [Data Type Mapping](#data-type-mapping)
-    - [Converting Java Data Types to Database Data Types](#converting-java-data-types-to-database-data-types)
-    - [Converting Database Data Types to Java Data Types](#converting-database-data-types-to-java-data-types)
-
-
-
-Altibase® Application Development
-
 JDBC User’s Manual
 ==================
 
-![](media/JDBC/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
+
+Altibase® Application Development
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development JDBC User’s Manual
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Starting JDBC](#1-starting-jdbc)
+  - [Installing the JDBC Driver](#installing-the-jdbc-driver)
+  - [Connecting to the Database](#connecting-to-the-database)
+  - [Connection Information](#connection-information)
+  - [Using Statement and ResultSet](#using-statement-and-resultset)
+  - [JDBC Connection Failover](#jdbc-connection-failover)
+- [2. Basic Functions](#2-basic-functions)
+  - [IPv6 Connectivity](#ipv6-connectivity)
+  - [Statement, PreparedStatement and CallableStatement](#statement-preparedstatement-and-callablestatement)
+  - [Using the National Character Set](#using-the-national-character-set)
+- [3. Advanced Functions](#3-advanced-functions)
+  - [Auto-generated Keys](#auto-generated-keys)
+  - [Timeout](#timeout)
+  - [DataSource](#datasource)
+  - [Connection Pool](#connection-pool)
+  - [Multiple ResultSet](#multiple-resultset)
+  - [JDBC and Failover](#jdbc-and-failover)
+  - [JDBC Escapes](#jdbc-escapes)
+  - [How to Use ResultSet](#how-to-use-resultset)
+  - [Atomic Batch](#atomic-batch)
+  - [Date, Time, Timestamp](#date-time-timestamp)
+  - [GEOMETRY](#geometry)
+  - [LOB](#lob)
+  - [Controlling Autocommit](#controlling-autocommit)
+  - [BIT, VARBIT](#bit-varbit)
+  - [JDBC Logging](#jdbc-logging)
+  - [Hibernate](#hibernate)
+  - [SQL Plan](#sql-plan)
+- [4. Tips & Recommendation](#4-tips--recommendation)
+  - [Tips for Better Performance](#tips-for-better-performance)
+- [5. Error Messages](#5-error-messages)
+  - [SQL States](#sql-states)
+- [6. JDBC 4.2 API References](#6-jdbc-4.2-api-references)
+  - [java.sql.Connection](#javasqlconnection)
+  - [java.sql.Wrapper](#javasqlwrapper)
+  - [java.sql.Driver](#javasqldriver)
+  - [java.sql.Statement](#javasqlstatement)
+  - [java.sql.PreparedStatement](#javasqlpreparedstatement)
+  - [java.sql.CallableStatement](#javasqlcallablestatement)
+  - [java.sql.PooledConnection](#javasqlpooledconnection)
+  - [java.sql.ResultSet](#javasqlresultset)
+  - [java.sql.CommonDataSource](#javasqlcommondatasource)
+  - [java.sql.DatabaseMetaData](#javasqldatabasemetadata)
+  - [java.sql.Blob](#javasqlblob)
+  - [java.sql.Clob](#javasqlclob)
+  - [java.sql.Types](#javasqltypes)
+  - [java.sql.DriverAction](#javasqldriveraction)
+  - [java.sql.SQLTypes](#javasqlsqltypes)
+  - [Java 8 Time API](#java-8-time-api)
+- [Appendix A. Data Type Mapping](#appendix-a-data-type-mapping)
+  - [Data Type Mapping](#data-type-mapping)
+  - [Converting Java Data Types to Database Data Types](#converting-java-data-types-to-database-data-types)
+  - [Converting Database Data Types to Java Data Types](#converting-database-data-types-to-java-data-types)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -199,7 +275,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Starting JDBC
+# 1. Starting JDBC
 
 This chapter describes the basic method of using Altibase's JDBC driver.
 
@@ -1021,7 +1097,7 @@ sStmt.close();
 
 Due to the termination of one server in an environment where multiple Altibase servers are running, network failure or etc., the service of an application implemented with the Altibase JDBC driver can be compromised. In the event of such a failure, the client which connected to the server on which the failure occurred detects the situation and automatically connects to another server and processes the statements that were being executed; this process is called a Fail-Over. For instructions on how to use the Fail-Over feature in JDBC applications, please refer to the Chapter 4  of *Replication Manual.*
 
-## 2. Basic Functions
+# 2. Basic Functions
 
 Database objects can be used with the Altibase JDBC driver in the same manner as using the standard JDBC interface. 
 
@@ -1179,7 +1255,7 @@ ResultSet sRS = sStmt.executeQuery( "select * from t1 where c1 like N'%가나%'"
 
 
 
-## 3. Advanced Functions
+# 3. Advanced Functions
 
 This chapter introduces advanced functions provided by the Altibase JDBC driver and explains how to use them.
 
@@ -3306,7 +3382,7 @@ PROJECT ( COLUMN_COUNT: 1, TUPLE_SIZE: 8, COST: 0.01 )
 
 ---------------------
 
-## 4. Tips & Recommendation
+# 4. Tips & Recommendation
 
 This chapter shows how to use Altibase JDBC driver efficiently.
 
@@ -3318,7 +3394,7 @@ The following tips should be kept in mind to enhance the performance of JDBC app
 -   It is recommended to execute one operation on one Connection object. For example, if a multiple number of Statement objects are created in one Connection object and their operations are executed, this can induce performance loss. 
 -   It is recommended to use the Connection Pool provided by Middleware (WAS) when the Connection object is frequently created and deleted. This is because the cost of connecting and terminating a Connection is relatively higher than other operations. 
 
-## 5. Error Messages
+# 5. Error Messages
 -----------
 
 This chapter lists the SQL States of errors which can occur while using the Altibase JDBC driver.
@@ -3431,7 +3507,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 |                                       |       | XA close failed                                                                                          | F02      |
 |                                       |       | XA recover failed                                                                                        | F03      |
 
-## 6. JDBC 4.2 API References
+# 6. JDBC 4.2 API References
 
 ---
 
@@ -3691,7 +3767,7 @@ Altibase42.jar which supports JDBC 4.2 specification supports JAVA8 Time API by 
 
 
 Appendix A. Data Type Mapping
-----------------------
+======================
 
 This appendix lists the compatibility between Altibase data types and standard JDBC data types/Java data types.
 

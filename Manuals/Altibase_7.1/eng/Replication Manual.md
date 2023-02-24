@@ -1,66 +1,144 @@
+Replication Manual
+================
 
-
-- [Replication Manual](#replication-manual)
-  - [1. Preface](#1-preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Replication Overview](#1-replication-overview)
-    - [Introduction](#introduction)
-  - [2. Managing Replication](#2-managing-replication)
-    - [Replication Procedures](#replication-procedures)
-    - [Troubleshooting](#troubleshooting)
-    - [Conflict Resolution](#conflict-resolution)
-    - [Eager Replication Failback](#eager-replication-failback)
-    - [Parallel Replication](#parallel-replication)
-    - [Performance View related to Replication](#performance-view-related-to-replication)
-  - [3.Deploying Replication](#3deploying-replication)
-    - [Considerations](#considerations)
-    - [CREATE REPLICATION](#create-replication)
-    - [Starting, Stopping and Modifying Replication using “ALTER REPLICATION”](#starting-stopping-and-modifying-replication-using-alter-replication)
-    - [DROP REPLICATION](#drop-replication)
-    - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
-    - [Executing DDL Replication Statements on Replication Target Tables](#executing-ddl-replication-statements-on-replication-target-tables)
-    - [SQL Reflection Mode](#sql-reflection-mode)
-    - [Extra Features](#extra-features)
-    - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
-    - [Replication Related Properties](#replication-related-properties)
-  - [4. Fail-Over](#4-fail-over)
-    - [Fail-Over Overview](#fail-over-overview)
-    - [Callback - JDBC](#callback---jdbc)
-    - [Using Fail-Over](#using-fail-over)
-    - [SQLCLI](#sqlcli)
-    - [Embedded SQL](#embedded-sql)
-    - [PDO - Callback](#pdo---callback)
-  - [5.Sequence Replication](#5sequence-replication)
-  - [Appendix A. FAQ](#appendix-a-faq)
-    - [Replication FAQ](#replication-faq)
-
-
+#### Altibase 7.1
 
 Altibase® Administration
 
-# Replication Manual
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/Replication/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Replication Manual
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+<br>
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+# Table Of Contents
 
-**Altibase Corp**
+- [1. Preface](#1-preface)
+  - [About This Manual](#about-this-manual)
+- [1. Replication Overview](#1-replication-overview)
+  - [Introduction](#introduction)
+- [2. Managing Replication](#2-managing-replication)
+  - [Replication Procedures](#replication-procedures)
+  - [Troubleshooting](#troubleshooting)
+  - [Conflict Resolution](#conflict-resolution)
+  - [Eager Replication Failback](#eager-replication-failback)
+  - [Parallel Replication](#parallel-replication)
+  - [Performance View related to Replication](#performance-view-related-to-replication)
+- [3.Deploying Replication](#3deploying-replication)
+  - [Considerations](#considerations)
+  - [CREATE REPLICATION](#create-replication)
+  - [Starting, Stopping and Modifying Replication using “ALTER REPLICATION”](#starting-stopping-and-modifying-replication-using-alter-replication)
+  - [DROP REPLICATION](#drop-replication)
+  - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
+  - [Executing DDL Replication Statements on Replication Target Tables](#executing-ddl-replication-statements-on-replication-target-tables)
+  - [SQL Reflection Mode](#sql-reflection-mode)
+  - [Extra Features](#extra-features)
+  - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
+  - [Replication Related Properties](#replication-related-properties)
+- [4. Fail-Over](#4-fail-over)
+  - [Fail-Over Overview](#fail-over-overview)
+  - [Callback - JDBC](#callback---jdbc)
+  - [Using Fail-Over](#using-fail-over)
+  - [SQLCLI](#sqlcli)
+  - [Embedded SQL](#embedded-sql)
+  - [PDO - Callback](#pdo---callback)
+- [5.Sequence Replication](#5sequence-replication)
+- [Appendix A. FAQ](#appendix-a-faq)
+  - [Replication FAQ](#replication-faq)
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
 
-Customer Service Portal: [http://support.altibase.com/en/]
 
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-## 1. Preface
-----
-
+# 1. Preface
 ### About This Manual
 
 This manual explains the concepts, components, and basic use of Altibase.
@@ -172,7 +250,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedback and suggestions.
 
-## 1. Replication Overview
+# 1. Replication Overview
 
 -----------
 
@@ -419,7 +497,7 @@ Altibase provides the following additional features. A detaield description of h
 > 
 > When dropping a replication target item from a replication object, the item must be specified exactly as it was added. For example, even if every partition of a partitioned table is added as replication targets, it is impossible to specify a partitioned table and exclude it from being a replication target; however, it is possible to specify each partition separately for exclusion.
 
-## 2. Managing Replication
+# 2. Managing Replication
 
 -----------
 
@@ -828,7 +906,7 @@ The following performance views are provided to monitor replication progress. Fo
 
 -   V\$REPSYNC
 
-## 3.Deploying Replication
+# 3.Deploying Replication
 
 -----------
 
@@ -2069,7 +2147,7 @@ To use replication, the Altibase properties file should be modified to suit the 
 -   REPLICATION_TRANSACTION_POOL_SIZE
 -   REPLICATION_UPDATE_REPLACE
 
-## 4. Fail-Over
+# 4. Fail-Over
 
 ---------
 
@@ -3180,7 +3258,7 @@ catch (PDOException $ex) {
 }
 ```
 
-## 5.Sequence Replication
+# 5.Sequence Replication
 
 -------------
 
@@ -3287,7 +3365,7 @@ The following example verifies the status of replication server when fail-over o
 |                                                              | iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1001<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ---------------------- <br/>1002<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1003<br/> 1 row selected. |
 | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ<br/> -------------------<br/> 2001<br/> 1 row selected. | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ <br/>---------------------- <br/>2001<br/> 1 row selected. |
 
-## Appendix A. FAQ
+# Appendix A. FAQ
 
 ### Replication FAQ
 

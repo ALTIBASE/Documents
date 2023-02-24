@@ -3,26 +3,98 @@ Utilities Manual
 
 #### Altibase 7.1
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+Altibase® Tools & Utilities
 
-Altibase Tools & Utilities Utilities Manual<br/>
-Copyright ⓒ 2001\~2022 Altibase Corp. All Rights Reserved.<br/>
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**<br/>
-08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층<br/>
-전화 : 02-2082-1114<br/>
-팩스 : 02-2082-1099<br/>
-고객서비스포털 : <http://support.altibase.com><br/>
-홈페이지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: [http://www.altibase.com](http://www.altibase.com/)
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
-<div align="center">
-    <img src="media/Utilities/e5cfb3761673686d093a3b00c062fe7a.png">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Tools & Utilities Utilities Manual
+Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
+<br>
 
 # 목차
 
@@ -74,9 +146,7 @@ Copyright ⓒ 2001\~2022 Altibase Corp. All Rights Reserved.<br/>
 
 
 
-
-
-
+<br>
 
 서문
 ====
@@ -2116,9 +2186,9 @@ REPLICATIONS = (
 | AKU_PORT_NO                          | 20300  | Altibase 서버의 서비스 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_REPLICATION_PORT_NO              | 20301  | Altibase 이중화 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_QUERY_TIMEOUT                    |  3600  | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. ALTER REPLICATION 등 aku에서 수행한 SQL의 수행 시간이 이 값을 초과하면 해당 문장은 취소된다. |
-| AKU_FLUSH_AT_START                   |   1    | aku -p start시 FLUSH 명령으로 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 갭을 제거하며, 0이면 제거하지 않고 시작한다. |
-| AKU_FLUSH_TIMEOUT_AT_START           |  300   | FLUSH WAIT 명령의 *wait_time*을 설정한다. AKU_FLUSH_AT_STAT가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
-| AKU_FLUSH_AT_END                     |   1    | 슬레이브 파드에서 aku -p end 명령을 수행할 때 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
+| AKU_QUERY_TIMEOUT                    |   1    | aku -p start시 FLUSH 명령으로 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 갭을 제거하며, 0이면 제거하지 않고 시작한다. |
+| AKU_FLUSH_AT_START                   |  300   | FLUSH WAIT 명령의 *wait_time*을 설정한다. AKU_FLUSH_AT_STAT가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
+| AKU_FLUSH_TIMEOUT_AT_START           |   1    | 슬레이브 파드에서 aku -p end 명령을 수행할 때 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
 | REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>*REPLICATION_NAME_PREFIX*_\[*파드번호*]\[*파드번호*\]  형태로 이중화 객체 이름을 생성한다.<sup>[이중화 객체 이름 생성 규칙](#rep_name_rules)</sup> |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
 | REPLICATIONS/USER_NAME               |  없음  | 이중화 대상 테이블의 소유자 이름.<br />여기에 명시한 데이터베이스 사용자는 `aku -p` 명령을 수행하기 전에 생성해야 한다. |

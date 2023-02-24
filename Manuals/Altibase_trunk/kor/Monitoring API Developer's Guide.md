@@ -1,87 +1,164 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [Monitoring API Developer's Guide](#monitoring-api-developers-guide)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.소개](#1%EC%86%8C%EA%B0%9C)
-    - [Monitoring API란?](#monitoring-api%EB%9E%80)
-    - [애플리케이션 빌드하기](#%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B9%8C%EB%93%9C%ED%95%98%EA%B8%B0)
-  - [2.데이터 타입](#2%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [데이터 구조체](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
-    - [열거형](#%EC%97%B4%EA%B1%B0%ED%98%95)
-    - [주의사항](#%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
-  - [3.함수](#3%ED%95%A8%EC%88%98)
-    - [ABIInitialize](#abiinitialize)
-    - [ABIFinalize](#abifinalize)
-    - [ABISetProperty](#abisetproperty)
-    - [ABICheckConnection](#abicheckconnection)
-    - [ABIGetVSession](#abigetvsession)
-    - [ABIGetVSessionBySID](#abigetvsessionbysid)
-    - [ABIGetVSysstat](#abigetvsysstat)
-    - [ABIGetVSesstat](#abigetvsesstat)
-    - [ABIGetVSesstatBySID](#abigetvsesstatbysid)
-    - [ABIGetStatName](#abigetstatname)
-    - [ABIGetVSystemEvent](#abigetvsystemevent)
-    - [ABIGetVSessionEvent](#abigetvsessionevent)
-    - [ABIGetVSessionEventBySID](#abigetvsessioneventbysid)
-    - [ABIGetEventName](#abigeteventname)
-    - [ABIGetVSessionWait](#abigetvsessionwait)
-    - [ABIGetVSessionWaitBySID](#abigetvsessionwaitbysid)
-    - [ABIGetSqlText](#abigetsqltext)
-    - [ABIGetLockPairBetweenSessions](#abigetlockpairbetweensessions)
-    - [ABIGetDBInfo](#abigetdbinfo)
-    - [ABIGetReadCount](#abigetreadcount)
-    - [ABIGetSessionCount](#abigetsessioncount)
-    - [ABIGetMaxClientCount](#abigetmaxclientcount)
-    - [ABIGetLockWaitSessionCount](#abigetlockwaitsessioncount)
-    - [ABIGetRepGap](#abigetrepgap)
-    - [ABIGetRepSentLogCount](#abigetrepsentlogcount)
-    - [ABIGetErrorMessage](#abigeterrormessage)
-  - [4.예제 프로그램](#4%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [Makefile](#makefile)
-    - [sample_1.c](#sample_1c)
-    - [sample_2.c](#sample_2c)
-    - [sample_3.c](#sample_3c)
-    - [sample_4.c](#sample_4c)
-    - [sample_5.c](#sample_5c)
-    - [sample_6.c](#sample_6c)
-    - [sample_7.c](#sample_7c)
-    - [sample_8.c](#sample_8c)
-    - [sample_9.c](#sample_9c)
-    - [sample_10.c](#sample_10c)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-Altibase® Application Development
-
 Monitoring API Developer's Guide
 ================================
 
-![](media/MonitorAPI/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Application Development
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Monitoring API Developer's Guide
-
-Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
 
-고객서비스포털: <http://support.altibase.com>
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+<br>
+
+# 목차
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.소개](#1%EC%86%8C%EA%B0%9C)
+  - [Monitoring API란?](#monitoring-api%EB%9E%80)
+  - [애플리케이션 빌드하기](#%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B9%8C%EB%93%9C%ED%95%98%EA%B8%B0)
+- [2.데이터 타입](#2%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [데이터 구조체](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
+  - [열거형](#%EC%97%B4%EA%B1%B0%ED%98%95)
+  - [주의사항](#%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+- [3.함수](#3%ED%95%A8%EC%88%98)
+  - [ABIInitialize](#abiinitialize)
+  - [ABIFinalize](#abifinalize)
+  - [ABISetProperty](#abisetproperty)
+  - [ABICheckConnection](#abicheckconnection)
+  - [ABIGetVSession](#abigetvsession)
+  - [ABIGetVSessionBySID](#abigetvsessionbysid)
+  - [ABIGetVSysstat](#abigetvsysstat)
+  - [ABIGetVSesstat](#abigetvsesstat)
+  - [ABIGetVSesstatBySID](#abigetvsesstatbysid)
+  - [ABIGetStatName](#abigetstatname)
+  - [ABIGetVSystemEvent](#abigetvsystemevent)
+  - [ABIGetVSessionEvent](#abigetvsessionevent)
+  - [ABIGetVSessionEventBySID](#abigetvsessioneventbysid)
+  - [ABIGetEventName](#abigeteventname)
+  - [ABIGetVSessionWait](#abigetvsessionwait)
+  - [ABIGetVSessionWaitBySID](#abigetvsessionwaitbysid)
+  - [ABIGetSqlText](#abigetsqltext)
+  - [ABIGetLockPairBetweenSessions](#abigetlockpairbetweensessions)
+  - [ABIGetDBInfo](#abigetdbinfo)
+  - [ABIGetReadCount](#abigetreadcount)
+  - [ABIGetSessionCount](#abigetsessioncount)
+  - [ABIGetMaxClientCount](#abigetmaxclientcount)
+  - [ABIGetLockWaitSessionCount](#abigetlockwaitsessioncount)
+  - [ABIGetRepGap](#abigetrepgap)
+  - [ABIGetRepSentLogCount](#abigetrepsentlogcount)
+  - [ABIGetErrorMessage](#abigeterrormessage)
+- [4.예제 프로그램](#4%EC%98%88%EC%A0%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [Makefile](#makefile)
+  - [sample_1.c](#sample_1c)
+  - [sample_2.c](#sample_2c)
+  - [sample_3.c](#sample_3c)
+  - [sample_4.c](#sample_4c)
+  - [sample_5.c](#sample_5c)
+  - [sample_6.c](#sample_6c)
+  - [sample_7.c](#sample_7c)
+  - [sample_8.c](#sample_8c)
+  - [sample_9.c](#sample_9c)
+  - [sample_10.c](#sample_10c)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -179,7 +256,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.소개
-----
+====
 
 이 장은 Monitoring API가 무엇인지 소개하고 특징을 설명한다.
 
@@ -282,7 +359,7 @@ sample: sample.o
 ```
 
 2.데이터 타입
------------
+===========
 
 이 장은 Monitoring API와 함께 사용되는 데이터 타입에 대해서 설명한다.
 
@@ -583,7 +660,7 @@ for (int i=0; i<sRowCount; i++)
 ```
 
 3.함수
-----
+====
 
 이 장은 Monitoring API 함수들의 명세를 기술한다. 각 함수 별로 다음의 정보가
 제공된다.
@@ -1529,7 +1606,7 @@ if( sErrCode < 0 )
 ```
 
 4.예제 프로그램
--------------
+=============
 
 이 장은 Monitoring API를 사용해서 작성된 C 프로그램 예제를 제공한다.
 

@@ -1,48 +1,125 @@
+# ODBC User\'s Manual
 
-
-
-- [ODBC User\'s Manual](#odbc-user%5Cs-manual)
-  - [Preface](#%EC%84%9C%EB%AC%B8)
-    - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1. Introduction](#1%EA%B0%9C%EC%9A%94)
-    - [Introduction](#%EC%86%8C%EA%B0%9C)
-    - [Data Types](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-    - [ODBC API](#odbc-api)
-  - [2. Installing and configuring the Altibase ODBC Driver](#2%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)
-    - [Installing the Altibase ODBC Driver](#%EC%84%A4%EC%B9%98)
-    - [Configuration](#%EC%84%A4%EC%A0%95)
-  - [3.ODBC Programming](#3odbc-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
-    - [Connection String](#%EC%97%B0%EA%B2%B0-%EB%AC%B8%EC%9E%90%EC%97%B4-connection-string)
-    - [Basic Programming Example](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%98%88%EC%A0%9C)
-    - [Example of Using LOB](#lob-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
-
-
+#### Altibase 7.1
 
 Altibase® Application Development
 
-# ODBC User\'s Manual
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/ODBCDriver/image1.png)
 
 
-Altibase Application Development ODBC User\'s Manual
 
-Release 7.1 (August 29th, 2019)
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners. 
 
-**Altibase Corp**
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Application Development ODBC User's Manual
+Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-Homepage: http://www.altibase.com
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-## Preface
+<br>
 
-------
+
+# Table Of Contents
+
+- [Preface](#%EC%84%9C%EB%AC%B8)
+  - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1. Introduction](#1%EA%B0%9C%EC%9A%94)
+  - [Introduction](#%EC%86%8C%EA%B0%9C)
+  - [Data Types](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+  - [ODBC API](#odbc-api)
+- [2. Installing and configuring the Altibase ODBC Driver](#2%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)
+  - [Installing the Altibase ODBC Driver](#%EC%84%A4%EC%B9%98)
+  - [Configuration](#%EC%84%A4%EC%A0%95)
+- [3.ODBC Programming](#3odbc-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
+  - [Connection String](#%EC%97%B0%EA%B2%B0-%EB%AC%B8%EC%9E%90%EC%97%B4-connection-string)
+  - [Basic Programming Example](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%98%88%EC%A0%9C)
+  - [Example of Using LOB](#lob-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
+
+
+
+# Preface
 
 ### About This Manual
 
@@ -97,7 +174,7 @@ When you need immediate assistance regarding technical issues, please contact Al
 
 Thank you. We appreciate your feedback and suggestions.
 
-## 1. Introduction
+# 1. Introduction
 
 ----
 
@@ -188,7 +265,7 @@ The Altibase ODBC driver conforms to ODBC 3.51 specifications. The following tab
 | SQLTablePrivileges  | Level2 | O              |                |                                       |
 | SQLTables           | Core   | O              |                |                                       |
 
-## 2. Installing and Configuring the Altibase ODBC Driver
+# 2. Installing and Configuring the Altibase ODBC Driver
 
 ------------
 
@@ -258,7 +335,7 @@ When the “Altibase Connection Config” window appears, enter the following.
 
 The user can check whether or not the ODBC driver is successfully connected to the database by clicking “Test Connection”. Once the user clicks “OK”, the user will be able to see the data source added to the DSN tab in the name you have just entered.
 
-## 3. ODBC Programming
+# 3. ODBC Programming
 
 ---------------
 

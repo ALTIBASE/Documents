@@ -1,243 +1,436 @@
-**Table of Contents**  
+General Reference-2.The Data Dictionary
+================
 
-- [General Reference](#general-reference)
-  - [3.데이터 딕셔너리](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
-    - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [SYS_AUDIT\_](#sys_audit_)
-    - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
-    - [SYS_COLUMNS\_](#sys_columns_)
-    - [SYS_COMMENTS\_](#sys_comments_)
-    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables_)
-    - [SYS_CONSTRAINTS\_](#sys_constraints_)
-    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns_)
-    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related_)
-    - [SYS_DATABASE\_](#sys_database_)
-    - [SYS_DATABASE_LINKS\_](#sys_database_links_)
-    - [SYS_DIRECTORIES\_](#sys_directories_)
-    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns_)
-    - [SYS_GRANT_OBJECT\_](#sys_grant_object_)
-    - [SYS_GRANT_SYSTEM\_](#sys_grant_system_)
-    - [SYS_INDEX_COLUMNS\_](#sys_index_columns_)
-    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions_)
-    - [SYS_INDEX_RELATED\_](#sys_index_related_)
-    - [SYS_INDICES\_](#sys_indices_)
-    - [SYS_JOBS\_](#sys_jobs_)
-    - [SYS_LIBRARIES\_](#sys_libraries_)
-    - [SYS_LOBS\_](#sys_lobs_)
-    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views_)
-    - [SYS_PACKAGES\_](#sys_packages_)
-    - [SYS_PACKAGE_PARAS\_](#sys_package_paras_)
-    - [SYS_PACKAGE_PARSE\_](#sys_package_parse_)
-    - [SYS_PACKAGE_RELATED\_](#sys_package_related_)
-    - [SYS_PART_INDICES\_](#sys_part_indices_)
-    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns_)
-    - [SYS_PART_LOBS\_](#sys_part_lobs_)
-    - [SYS_PART_TABLES\_](#sys_part_tables_)
-    - [SYS_PASSWORD_HISTORY\_](#sys_password_history_)
-    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits_)
-    - [SYS_PRIVILEGES\_](#sys_privileges_)
-    - [SYS_PROCEDURES\_](#sys_procedures_)
-    - [SYS_PROC_PARAS\_](#sys_proc_paras_)
-    - [SYS_PROC_PARSE\_](#sys_proc_parse_)
-    - [SYS_PROC_RELATED\_](#sys_proc_related_)
-    - [SYS_RECYCLEBIN\_](#sys_recyclebin_)
-    - [SYS_REPLICATIONS\_](#sys_replications_)
-    - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
-    - [SYS_REPL_ITEMS\_](#sys_repl_items_)
-    - [SYS_REPL_ITEM_REPLACE_HISTORY\_](#sys_repl_item_replace_history_)
-    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
-    - [SYS_REPL_OLD_CHECKS\_](#sys_repl_old_checks_)
-    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
-    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
-    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
-    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
-    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
-    - [SYS_REPL_TABLE_OID_IN_USE\_](#sys_repl_table_oid_in_use_)
-    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
-    - [SYS_SECURITY\_](#sys_security_)
-    - [SYS_SYNONYMS\_](#sys_synonyms_)
-    - [SYS_TABLES\_](#sys_tables_)
-    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions_)
-    - [SYS_TABLE_SIZE\_](#sys_table_size_)
-    - [SYS_TBS_USERS\_](#sys_tbs_users_)
-    - [SYS_TRIGGERS\_](#sys_triggers_)
-    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables_)
-    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings_)
-    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns_)
-    - [SYS_USERS\_](#sys_users_)
-    - [DBA_USERS\_](#dba_users_)
-    - [SYS_USER_ROLES\_](#sys_user_roles_)
-    - [SYS_VIEWS\_](#sys_views_)
-    - [SYS_VIEW_PARSE\_](#sys_view_parse_)
-    - [SYS_VIEW_RELATED\_](#sys_view_related_)
-    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
-    - [SYS_GEOMETRIES_](#sys_geometries_)
-    - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
-    - [USER_SRS_](#user_srs_)
-    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-    - [V\$ACCESS_LIST](#vaccess_list)
-    - [V\$ALLCOLUMN](#vallcolumn)
-    - [V\$ARCHIVE](#varchive)
-    - [V\$BACKUP_INFO](#vbackup_info)
-    - [V\$BUFFPAGEINFO](#vbuffpageinfo)
-    - [V\$BUFFPOOL_STAT](#vbuffpool_stat)
-    - [V\$CATALOG](#vcatalog)
-    - [V\$DATABASE](#vdatabase)
-    - [V\$DATAFILES](#vdatafiles)
-    - [V\$DATATYPE](#vdatatype)
-    - [V\$DBA_2PC_PENDING](#vdba_2pc_pending)
-    - [V\$DBLINK_ALTILINKER_STATUS](#vdblink_altilinker_status)
-    - [V\$DBLINK_DATABASE_LINK_INFO](#vdblink_database_link_info)
-    - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#vdblink_global_transaction_info)
-    - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#vdblink_linker_control_session_info)
-    - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#vdblink_linker_data_session_info)
-    - [V\$DBLINK_LINKER_SESSION_INFO](#vdblink_linker_session_info)
-    - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#vdblink_notifier_transaction_info)
-    - [V\$DBLINK_REMOTE_STATEMENT_INFO](#vdblink_remote_statement_info)
-    - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#vdblink_remote_transaction_info)
-    - [V\$DBMS_STATS](#vdbms_stats)
-    - [V\$DB_FREEPAGELISTS](#vdb_freepagelists)
-    - [V\$DB_PROTOCOL](#vdb_protocol)
-    - [V\$DIRECT_PATH_INSERT](#vdirect_path_insert)
-    - [V\$DISKTBL_INFO](#vdisktbl_info)
-    - [V\$DISK_BTREE_HEADER](#vdisk_btree_header)
-    - [V\$DISK_TEMP_INFO](#vdisk_temp_info)
-    - [V\$DISK_TEMP_STAT](#vdisk_temp_stat)
-    - [V\$DISK_UNDO_USAGE](#vdisk_undo_usage)
-    - [V\$EVENT_NAME](#vevent_name)
-    - [V\$EXTPROC_AGENT](#vextproc_agent)
-    - [V\$FILESTAT](#vfilestat)
-    - [V\$FLUSHER](#vflusher)
-    - [V\$FLUSHINFO](#vflushinfo)
-    - [V\$INDEX](#vindex)
-    - [V\$INSTANCE](#vinstance)
-    - [V\$INTERNAL_SESSION](#vinternal_session)
-    - [V\$LATCH](#vlatch )
-    - [V\$LIBRARY](#vlibrary)
-    - [V\$LFG](#vlfg)
-    - [V\$LOCK](#vlock)
-    - [V\$LOCK_STATEMENT](#vlock_statement)
-    - [V\$LOG](#vlog)
-    - [V\$LOCK_WAIT](#vlock_wait)
-    - [V\$MEMGC](#vmemgc)
-    - [V\$MEMSTAT](#vmemstat)
-    - [V\$MEMTBL_INFO](#vmemtbl_info)
-    - [V\$MEM_BTREE_HEADER](#vmem_btree_header)
-    - [V\$MEM_BTREE_NODEPOOL](#vmem_btree_nodepool)
-    - [V\$MEM_RTREE_HEADER](#vmem_rtree_header)
-    - [V\$MEM_RTREE_NODEPOOL](#vmem_rtree_nodepool)
-    - [V\$MEM_TABLESPACES](#vmem_tablespaces)
-    - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#vmem_tablespace_checkpoint_paths)
-    - [V\$MEM_TABLESPACE_STATUS_DESC](#vmem_tablespace_status_desc)
-    - [V\$MUTEX](#vmutex)
-    - [V\$NLS_PARAMETERS](#vnls_parameters)
-    - [V\$NLS_TERRITORY](#vnls_territory)
-    - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
-    - [V\$PKGTEXT](#vpkgtext)
-    - [V\$PLANTEXT](#vplantext)
-    - [V\$PROCINFO](#vprocinfo)
-    - [V\$PROCTEXT](#vproctext)
-    - [V\$PROPERTY](#vproperty)
-    - [V\$QUEUE_DELETE_OFF](#vqueue_delete_off)
-    - [V\$REPEXEC](#vrepexec)
-    - [V\$REPGAP](#vrepgap)
-    - [V\$REPGAP_PARALLEL](#vrepgap_parallel)
-    - [V\$REPLOGBUFFER](#vreplogbuffer)
-    - [V\$REPOFFLINE_STATUS](#vrepoffline_status)
-    - [V\$REPRECEIVER](#vrepreceiver)
-    - [V\$REPRECEIVER_COLUMN](#vrepreceiver_column)
-    - [V\$REPRECEIVER_PARALLEL](#vrepreceiver_parallel)
-    - [V\$REPRECEIVER_PARALLEL_APPLY](#vrepreceiver_parallel_apply)
-    - [V\$REPRECEIVER_STATISTICS](#vrepreceiver_statistics)
-    - [V\$REPRECEIVER_TRANSTBL](#vrepreceiver_transtbl)
-    - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#vrepreceiver_transtbl_parallel)
-    - [V\$REPRECOVERY](#vreprecovery)
-    - [V\$REPSENDER](#vrepsender)
-    - [V\$REPSENDER_PARALLEL](#vrepsender_parallel)
-    - [V\$REPSENDER_SENT_LOG_COUNT](#vrepsender_sent_log_count)
-    - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#vrepsender_sent_log_count_parallel)
-    - [V\$REPSENDER_STATISTICS](#vrepsender_statistics)
-    - [V\$REPSENDER_TRANSTBL](#vrepsender_transtbl)
-    - [V\$REPSENDER_TRANSTBL_PARALLEL](#vrepsender_transtbl_parallel)
-    - [V\$REPSYNC](#vrepsync)
-    - [V$REPL_REMOTE_META_REPLICATIONS](#vrepl_remote_meta_replications)
-    - [V$REPL_REMOTE_META_ITEMS](#vrepl_remote_meta_items)
-    - [V$REPL_REMOTE_META_COLUMNS](#vrepl_remote_meta_columns)
-    - [V$REPL_REMOTE_META_INDEX_COLUMNS](#vrepl_remote_meta_index_columns)
-    - [V$REPL_REMOTE_META_INDICES](#vrepl_remote_meta_indices)
-    - [V$REPL_REMOTE_META_CHECKS](#vrepl_remote_meta_checks)
-    - [V\$RESERVED_WORDS](#vreserved_words)
-    - [V\$SBUFFER_STAT](#vsbuffer_stat)
-    - [V\$SEGMENT](#vsegment)
-    - [V\$SEQ](#vseq)
-    - [V\$SERVICE_THREAD](#vservice_thread)
-    - [V\$SERVICE_THREAD_MGR](#vservice_thread_mgr)
-    - [V\$SESSION](#vsession)
-    - [V\$SESSION_EVENT](#vsession_event)
-    - [V\$SESSION_WAIT](#vsession_wait)
-    - [V\$SESSION_WAIT_CLASS](#vsession_wait_class)
-    - [V\$SESSIONMGR](#vsessionmgr)
-    - [V\$SESSTAT](#vsesstat)
-    - [V\$SFLUSHER](#vsflusher)
-    - [V\$SFLUSHINFO](#vsflushinfo)
-    - [V\$SNAPSHOT](#vsnapshot)
-    - [V\$SQLTEXT](#vsqltext)
-    - [V\$SQL_PLAN_CACHE](#vsql_plan_cache)
-    - [V\$SQL_PLAN_CACHE_PCO](#vsql_plan_cache_pco)
-    - [V\$SQL_PLAN_CACHE_SQLTEXT](#vsql_plan_cache_sqltext)
-    - [V\$STABLE_MEM_DATAFILES](#vstable_mem_datafiles)
-    - [V\$STATEMENT](#vstatement)
-    - [V\$STATNAME](#vstatname)
-    - [V\$SYSSTAT](#vsysstat)
-    - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
-    - [V\$SYSTEM_EVENT](#vsystem_event)
-    - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
-    - [V\$TABLE](#vtable)
-    - [V\$TABLESPACES](#vtablespaces)
-    - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
-    - [V\$TRACELOG](#vtracelog)
-    - [V\$TRANSACTION](#vtransaction)
-    - [V\$TRANSACTION_MGR](#vtransaction_mgr)
-    - [V\$TSSEGS](#vtssegs)
-    - [V\$TXSEGS](#vtxsegs)
-    - [V\$UDSEGS](#vudsegs)
-    - [V\$UNDO_BUFF_STAT](#vundo_buff_stat)
-    - [V\$USAGE](#vusage)
-    - [V\$VERSION](#vversion)
-    - [V\$VOL_TABLESPACES](#vvol_tablespaces)
-    - [V\$WAIT_CLASS_NAME](#vwait_class_name)
-    - [V\$XID](#vxid)
-  - [4.샘플 스키마](#4%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
-    - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
-    - [E-R 다이어그램과 샘플 데이타](#e-r-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8%EA%B3%BC-%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%83%80)
-
+#### Trunk
 
 Altibase® Administration
 
-# General Reference
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/GeneralReference/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration General Reference
-
-Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
 
-고객서비스포털: <http://support.altibase.com>
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+<br>
 
-## 3.데이터 딕셔너리
+# 목차
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.데이터 딕셔너리](#1%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC)
+  - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [SYS_AUDIT\_](#sys_audit_)
+  - [SYS_AUDIT_OPTS\_](#sys_audit_opts_)
+  - [SYS_COLUMNS\_](#sys_columns_)
+  - [SYS_COMMENTS\_](#sys_comments_)
+  - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables_)
+  - [SYS_CONSTRAINTS\_](#sys_constraints_)
+  - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns_)
+  - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related_)
+  - [SYS_DATABASE\_](#sys_database_)
+  - [SYS_DATABASE_LINKS\_](#sys_database_links_)
+  - [SYS_DIRECTORIES\_](#sys_directories_)
+  - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns_)
+  - [SYS_GRANT_OBJECT\_](#sys_grant_object_)
+  - [SYS_GRANT_SYSTEM\_](#sys_grant_system_)
+  - [SYS_INDEX_COLUMNS\_](#sys_index_columns_)
+  - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions_)
+  - [SYS_INDEX_RELATED\_](#sys_index_related_)
+  - [SYS_INDICES\_](#sys_indices_)
+  - [SYS_JOBS\_](#sys_jobs_)
+  - [SYS_LIBRARIES\_](#sys_libraries_)
+  - [SYS_LOBS\_](#sys_lobs_)
+  - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views_)
+  - [SYS_PACKAGES\_](#sys_packages_)
+  - [SYS_PACKAGE_PARAS\_](#sys_package_paras_)
+  - [SYS_PACKAGE_PARSE\_](#sys_package_parse_)
+  - [SYS_PACKAGE_RELATED\_](#sys_package_related_)
+  - [SYS_PART_INDICES\_](#sys_part_indices_)
+  - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns_)
+  - [SYS_PART_LOBS\_](#sys_part_lobs_)
+  - [SYS_PART_TABLES\_](#sys_part_tables_)
+  - [SYS_PASSWORD_HISTORY\_](#sys_password_history_)
+  - [SYS_PASSWORD_LIMITS\_](#sys_password_limits_)
+  - [SYS_PRIVILEGES\_](#sys_privileges_)
+  - [SYS_PROCEDURES\_](#sys_procedures_)
+  - [SYS_PROC_PARAS\_](#sys_proc_paras_)
+  - [SYS_PROC_PARSE\_](#sys_proc_parse_)
+  - [SYS_PROC_RELATED\_](#sys_proc_related_)
+  - [SYS_RECYCLEBIN\_](#sys_recyclebin_)
+  - [SYS_REPLICATIONS\_](#sys_replications_)
+  - [SYS_REPL_HOSTS\_](#sys_repl_hosts_)
+  - [SYS_REPL_ITEMS\_](#sys_repl_items_)
+  - [SYS_REPL_ITEM_REPLACE_HISTORY\_](#sys_repl_item_replace_history_)
+  - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir_)
+  - [SYS_REPL_OLD_CHECKS\_](#sys_repl_old_checks_)
+  - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
+  - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns_)
+  - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns_)
+  - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices_)
+  - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items_)
+  - [SYS_REPL_TABLE_OID_IN_USE\_](#sys_repl_table_oid_in_use_)
+  - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos_)
+  - [SYS_SECURITY\_](#sys_security_)
+  - [SYS_SYNONYMS\_](#sys_synonyms_)
+  - [SYS_TABLES\_](#sys_tables_)
+  - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions_)
+  - [SYS_TABLE_SIZE\_](#sys_table_size_)
+  - [SYS_TBS_USERS\_](#sys_tbs_users_)
+  - [SYS_TRIGGERS\_](#sys_triggers_)
+  - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables_)
+  - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings_)
+  - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns_)
+  - [SYS_USERS\_](#sys_users_)
+  - [DBA_USERS\_](#dba_users_)
+  - [SYS_USER_ROLES\_](#sys_user_roles_)
+  - [SYS_VIEWS\_](#sys_views_)
+  - [SYS_VIEW_PARSE\_](#sys_view_parse_)
+  - [SYS_VIEW_RELATED\_](#sys_view_related_)
+  - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans_)
+  - [SYS_GEOMETRIES_](#sys_geometries_)
+  - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
+  - [USER_SRS_](#user_srs_)
+  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+  - [V\$ACCESS_LIST](#vaccess_list)
+  - [V\$ALLCOLUMN](#vallcolumn)
+  - [V\$ARCHIVE](#varchive)
+  - [V\$BACKUP_INFO](#vbackup_info)
+  - [V\$BUFFPAGEINFO](#vbuffpageinfo)
+  - [V\$BUFFPOOL_STAT](#vbuffpool_stat)
+  - [V\$CATALOG](#vcatalog)
+  - [V\$DATABASE](#vdatabase)
+  - [V\$DATAFILES](#vdatafiles)
+  - [V\$DATATYPE](#vdatatype)
+  - [V\$DBA_2PC_PENDING](#vdba_2pc_pending)
+  - [V\$DBLINK_ALTILINKER_STATUS](#vdblink_altilinker_status)
+  - [V\$DBLINK_DATABASE_LINK_INFO](#vdblink_database_link_info)
+  - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#vdblink_global_transaction_info)
+  - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#vdblink_linker_control_session_info)
+  - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#vdblink_linker_data_session_info)
+  - [V\$DBLINK_LINKER_SESSION_INFO](#vdblink_linker_session_info)
+  - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#vdblink_notifier_transaction_info)
+  - [V\$DBLINK_REMOTE_STATEMENT_INFO](#vdblink_remote_statement_info)
+  - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#vdblink_remote_transaction_info)
+  - [V\$DBMS_STATS](#vdbms_stats)
+  - [V\$DB_FREEPAGELISTS](#vdb_freepagelists)
+  - [V\$DB_PROTOCOL](#vdb_protocol)
+  - [V\$DIRECT_PATH_INSERT](#vdirect_path_insert)
+  - [V\$DISKTBL_INFO](#vdisktbl_info)
+  - [V\$DISK_BTREE_HEADER](#vdisk_btree_header)
+  - [V\$DISK_TEMP_INFO](#vdisk_temp_info)
+  - [V\$DISK_TEMP_STAT](#vdisk_temp_stat)
+  - [V\$DISK_UNDO_USAGE](#vdisk_undo_usage)
+  - [V\$EVENT_NAME](#vevent_name)
+  - [V\$EXTPROC_AGENT](#vextproc_agent)
+  - [V\$FILESTAT](#vfilestat)
+  - [V\$FLUSHER](#vflusher)
+  - [V\$FLUSHINFO](#vflushinfo)
+  - [V\$INDEX](#vindex)
+  - [V\$INSTANCE](#vinstance)
+  - [V\$INTERNAL_SESSION](#vinternal_session)
+  - [V\$LATCH](#vlatch )
+  - [V\$LIBRARY](#vlibrary)
+  - [V\$LFG](#vlfg)
+  - [V\$LOCK](#vlock)
+  - [V\$LOCK_STATEMENT](#vlock_statement)
+  - [V\$LOG](#vlog)
+  - [V\$LOCK_WAIT](#vlock_wait)
+  - [V\$MEMGC](#vmemgc)
+  - [V\$MEMSTAT](#vmemstat)
+  - [V\$MEMTBL_INFO](#vmemtbl_info)
+  - [V\$MEM_BTREE_HEADER](#vmem_btree_header)
+  - [V\$MEM_BTREE_NODEPOOL](#vmem_btree_nodepool)
+  - [V\$MEM_RTREE_HEADER](#vmem_rtree_header)
+  - [V\$MEM_RTREE_NODEPOOL](#vmem_rtree_nodepool)
+  - [V\$MEM_TABLESPACES](#vmem_tablespaces)
+  - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#vmem_tablespace_checkpoint_paths)
+  - [V\$MEM_TABLESPACE_STATUS_DESC](#vmem_tablespace_status_desc)
+  - [V\$MUTEX](#vmutex)
+  - [V\$NLS_PARAMETERS](#vnls_parameters)
+  - [V\$NLS_TERRITORY](#vnls_territory)
+  - [V\$OBSOLETE_BACKUP_INFO](#vobsolete_backup_info)
+  - [V\$PKGTEXT](#vpkgtext)
+  - [V\$PLANTEXT](#vplantext)
+  - [V\$PROCINFO](#vprocinfo)
+  - [V\$PROCTEXT](#vproctext)
+  - [V\$PROPERTY](#vproperty)
+  - [V\$QUEUE_DELETE_OFF](#vqueue_delete_off)
+  - [V\$REPEXEC](#vrepexec)
+  - [V\$REPGAP](#vrepgap)
+  - [V\$REPGAP_PARALLEL](#vrepgap_parallel)
+  - [V\$REPLOGBUFFER](#vreplogbuffer)
+  - [V\$REPOFFLINE_STATUS](#vrepoffline_status)
+  - [V\$REPRECEIVER](#vrepreceiver)
+  - [V\$REPRECEIVER_COLUMN](#vrepreceiver_column)
+  - [V\$REPRECEIVER_PARALLEL](#vrepreceiver_parallel)
+  - [V\$REPRECEIVER_PARALLEL_APPLY](#vrepreceiver_parallel_apply)
+  - [V\$REPRECEIVER_STATISTICS](#vrepreceiver_statistics)
+  - [V\$REPRECEIVER_TRANSTBL](#vrepreceiver_transtbl)
+  - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#vrepreceiver_transtbl_parallel)
+  - [V\$REPRECOVERY](#vreprecovery)
+  - [V\$REPSENDER](#vrepsender)
+  - [V\$REPSENDER_PARALLEL](#vrepsender_parallel)
+  - [V\$REPSENDER_SENT_LOG_COUNT](#vrepsender_sent_log_count)
+  - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#vrepsender_sent_log_count_parallel)
+  - [V\$REPSENDER_STATISTICS](#vrepsender_statistics)
+  - [V\$REPSENDER_TRANSTBL](#vrepsender_transtbl)
+  - [V\$REPSENDER_TRANSTBL_PARALLEL](#vrepsender_transtbl_parallel)
+  - [V\$REPSYNC](#vrepsync)
+  - [V$REPL_REMOTE_META_REPLICATIONS](#vrepl_remote_meta_replications)
+  - [V$REPL_REMOTE_META_ITEMS](#vrepl_remote_meta_items)
+  - [V$REPL_REMOTE_META_COLUMNS](#vrepl_remote_meta_columns)
+  - [V$REPL_REMOTE_META_INDEX_COLUMNS](#vrepl_remote_meta_index_columns)
+  - [V$REPL_REMOTE_META_INDICES](#vrepl_remote_meta_indices)
+  - [V$REPL_REMOTE_META_CHECKS](#vrepl_remote_meta_checks)
+  - [V\$RESERVED_WORDS](#vreserved_words)
+  - [V\$SBUFFER_STAT](#vsbuffer_stat)
+  - [V\$SEGMENT](#vsegment)
+  - [V\$SEQ](#vseq)
+  - [V\$SERVICE_THREAD](#vservice_thread)
+  - [V\$SERVICE_THREAD_MGR](#vservice_thread_mgr)
+  - [V\$SESSION](#vsession)
+  - [V\$SESSION_EVENT](#vsession_event)
+  - [V\$SESSION_WAIT](#vsession_wait)
+  - [V\$SESSION_WAIT_CLASS](#vsession_wait_class)
+  - [V\$SESSIONMGR](#vsessionmgr)
+  - [V\$SESSTAT](#vsesstat)
+  - [V\$SFLUSHER](#vsflusher)
+  - [V\$SFLUSHINFO](#vsflushinfo)
+  - [V\$SNAPSHOT](#vsnapshot)
+  - [V\$SQLTEXT](#vsqltext)
+  - [V\$SQL_PLAN_CACHE](#vsql_plan_cache)
+  - [V\$SQL_PLAN_CACHE_PCO](#vsql_plan_cache_pco)
+  - [V\$SQL_PLAN_CACHE_SQLTEXT](#vsql_plan_cache_sqltext)
+  - [V\$STABLE_MEM_DATAFILES](#vstable_mem_datafiles)
+  - [V\$STATEMENT](#vstatement)
+  - [V\$STATNAME](#vstatname)
+  - [V\$SYSSTAT](#vsysstat)
+  - [V\$SYSTEM_CONFLICT_PAGE](#vsystem_conflict_page)
+  - [V\$SYSTEM_EVENT](#vsystem_event)
+  - [V\$SYSTEM_WAIT_CLASS](#vsystem_wait_class)
+  - [V\$TABLE](#vtable)
+  - [V\$TABLESPACES](#vtablespaces)
+  - [V\$TIME_ZONE_NAMES](#vtime_zone_names)
+  - [V\$TRACELOG](#vtracelog)
+  - [V\$TRANSACTION](#vtransaction)
+  - [V\$TRANSACTION_MGR](#vtransaction_mgr)
+  - [V\$TSSEGS](#vtssegs)
+  - [V\$TXSEGS](#vtxsegs)
+  - [V\$UDSEGS](#vudsegs)
+  - [V\$UNDO_BUFF_STAT](#vundo_buff_stat)
+  - [V\$USAGE](#vusage)
+  - [V\$VERSION](#vversion)
+  - [V\$VOL_TABLESPACES](#vvol_tablespaces)
+  - [V\$WAIT_CLASS_NAME](#vwait_class_name)
+  - [V\$XID](#vxid)
+- [2.샘플 스키마](#2%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
+  - [예제 테이블 정보](#%EC%98%88%EC%A0%9C-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A0%95%EB%B3%B4)
+  - [E-R 다이어그램과 샘플 데이타](#e-r-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8%EA%B3%BC-%EC%83%98%ED%94%8C-%EB%8D%B0%EC%9D%B4%ED%83%80)
+
+<br>
+
+# 서문
+
+### 이 매뉴얼에 대하여
+
+이 매뉴얼은 Altibase의 기능, 제품 구성요소, 그리고 사용법에 대해 설명한다.
+
+#### 대상 사용자
+
+이 매뉴얼은 다음과 같은 Altibase 사용자를 대상으로 작성되었다.
+
+- 데이터베이스 관리자
+- 성능 관리자
+- 데이터베이스 사용자
+- 응용 프로그램 개발자
+- 기술지원부
+
+다음과 같은 배경 지식을 가지고 이 매뉴얼을 읽는 것이 좋다.
+
+- 컴퓨터, 운영 체제 및 운영 체제 유틸리티 운용에 필요한 기본 지식
+- 관계형 데이터베이스 사용 경험 또는 데이터베이스 개념에 대한 이해
+- 컴퓨터 프로그래밍 경험
+- 데이터베이스 서버 관리, 운영 체제 관리 또는 네트워크 관리 경험
+
+#### 소프트웨어 환경
+
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에
+작성되었다.
+
+#### 이 매뉴얼의 구성
+
+이 매뉴얼은 다음과 같이 구성되어 있다.
+
+- 제 1장 데이터 딕셔너리
+
+  이 장은 Altibase 데이터 딕셔너리에 대해 설명한다. Altibase의 데이터
+  딕셔너리는 데이터베이스 객체 정보를 저장하는 메타 테이블과 시스템 프로세스
+  정보를 저장하는 프로세스 테이블로 나뉘어진다.
+
+- 제 2장 샘플 스키마
+
+  이 장은 샘플로 제공되는 테이블 정보와 ER 다이어그램을 제공한다.
+
+#### 문서화 규칙
+
+이 절에서는 이 매뉴얼에서 사용하는 규칙에 대해 설명한다. 이 규칙을 이해하면 이
+매뉴얼과 설명서 세트의 다른 매뉴얼에서 정보를 쉽게 찾을 수 있다.
+
+여기서 설명하는 규칙은 다음과 같다.
+
+- 구문 다이어그램
+- 샘플 코드 규칙
+
+##### 구문 다이어그램
+
+이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
+설명한다.
+
+
+
+| 구성 요소                                | 의미                                                         |
+| ---------------------------------------- | ------------------------------------------------------------ |
+| ![](media/GeneralReference/image004.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다. |
+| ![](media/GeneralReference/image006.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다. |
+| ![](media/GeneralReference/image008.gif) | 명령문이 이전 라인으로부터 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 시작한다. |
+| ![](media/GeneralReference/image010.gif) | 명령문이 종료한다.                                           |
+| ![](media/GeneralReference/image012.gif) | 필수 항목                                                    |
+| ![](media/GeneralReference/image014.gif) | 선택적 항목                                                  |
+| ![](media/GeneralReference/image016.gif) | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.          |
+| ![](media/GeneralReference/image018.gif) | 선택사항이 있는 선택적 항목.                                 |
+| ![](media/GeneralReference/image020.gif) | 선택적 항목. 여러 항목이 허용된다. 각 반복 앞부분에 콤마가 와야 한다. |
+
+##### 샘플 코드 규칙
+
+코드 예제는 SQL, Stored Procedure, iSQL, 또는 다른 명령 라인 구문들을 예를 들어
+설명한다.
+
+아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
+
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; <br/>ENAME<br/> ------------------------<br/> SWNO<br/> HJNO<br/> HSCHOI<br/> .<br/> .<br/> . <br/>20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*;<br/> CONNECT *userID*/*password*; |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
+
+#### 관련 자료
+
+자세한 정보를 위하여 다음 문서 목록을 참조한다.
+
+- Installation Guide
+- Getting Started Guide
+- Administrator’s Manual
+- Replication Manual
+
+#### Altibase는 여러분의 의견을 환영합니다.
+
+이 매뉴얼에 대한 여러분의 의견을 보내주시기 바랍니다. 사용자의 의견은 다음
+버전의 매뉴얼을 작성하는데 많은 도움이 됩니다. 보내실 때에는 아래 내용과 함께
+고객서비스포털( http://support.altibase.com/kr/ )로 보내주시기 바랍니다.
+
+- 사용 중인 매뉴얼의 이름과 버전
+- 매뉴얼에 대한 의견
+- 사용자의 성함, 주소, 전화번호
+
+이 외에도 Altibase 기술지원 설명서의 오류와 누락된 부분 및 기타 기술적인
+문제들에 대해서 이 주소로 보내주시면 정성껏 처리하겠습니다. 또한, 기술적인
+부분과 관련하여 즉각적인 도움이 필요한 경우에도 고객서비스포털을 통해 서비스를
+요청하시기 바랍니다.
+
+여러분의 의견에 항상 감사드립니다.
+
+# 1.데이터 딕셔너리
 
 Altibase의 데이터 딕셔너리는 데이터베이스 객체 정보를 저장하는 메타 테이블과
 시스템 프로세스 정보를 저장하는 프로세스 테이블로 나뉘어진다. 프로세스 테이블은
@@ -13182,8 +13375,8 @@ XID 객체의 상태가 설정된 이후 경과 시간을 나타낸다.
 
 해당 XID 객체가 현재 참조된 횟수를 나타낸다.
 
-4.샘플 스키마
------------
+2.샘플 스키마
+===========
 
 이 부록은 Altibase 매뉴얼 내의 예제에서 전반적으로 사용된 스키마에 대한 정보를
 제공한다.

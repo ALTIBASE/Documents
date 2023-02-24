@@ -1,10 +1,12 @@
 # Spring Data JPA User's Guide for Altibase
 
-
+<br><br>
 
 
 
 # Table of Contents
+
+- [Instroduction](#Introduction)
 
 - [Create Spring Data JPA Project with Spring Boot](#create-spring-data-jpa-project-with-spring-boot)
 
@@ -16,7 +18,8 @@
 
 - [Check the Connection with Altibase Server](#check-the-connection-with-altibase-server)
 
-  
+
+<br>
 
 # Introduction
 
@@ -32,6 +35,8 @@ This guide is written based on the versions below.
 - Spring Boot 2.7.0
 - Java 17
 - Altibase Server and JDBC Driver Version 7.1.0.7.5 
+
+<br>
 
 # Create Spring Data JPA Project with Spring Boot
 
@@ -52,6 +57,8 @@ Spring Starter Project Dependencies is a set of essential libraries required to 
 When Finish button is clicked, Progress is enabled and relevant libraries are downloaded. After creating the project, the user can see the dependency libraries are added in build information file. The image below shows an example of Maven type's project, pom.xml.
 
 <img src="Images/JPA/pom_xml.png"/>
+
+<br>
 
 # Add Altibase Dialect Class File
 
@@ -125,6 +132,8 @@ jar -cvfm hibernate-core-x.x.x.Final.jar META-INF/MANIFEST.MF .
 
 Copy and paste the created JAR file to the library path from instruction # 2.
 
+<br>
+
 # Altibase JDBC Driver Setting
 
 #### Prepare Altibase JDBC Driver
@@ -136,6 +145,8 @@ Download the Altibase JDBC driver to the path of user's choice. Altibase JDBC dr
 Click Project -> Properties -> Java Build Path -> Libraries -> Add External JARs and add Altibase JDBC driver file.
 
 ![](Images/JPA/java_build_path_window.png)
+
+<br>
 
 # Create Sample Code
 
@@ -213,6 +224,8 @@ public class Account {
     private String password;
 }
 ```
+
+<br>
 
 # Check the Connection with Altibase Server
 

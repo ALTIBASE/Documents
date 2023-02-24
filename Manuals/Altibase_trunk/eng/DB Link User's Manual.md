@@ -1,63 +1,141 @@
-
-
-
-- [Database Link User’s Manual](#database-link-users-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to Database Link](#1-introduction-to-database-link)
-    - [Related Terms](#related-terms)
-    - [Definition of Database Links](#definition-of-database-links)
-    - [Components of Altibase Database Link](#components-of-altibase-database-link)
-  - [2. Supported Objects, SQL Statements, and Data Types](#2-supported-objects-sql-statements-and-data-types)
-    - [Database Link and SQL Statements](#database-link-and-sql-statements)
-    - [Accessible Remote Schema Objects](#accessible-remote-schema-objects)
-    - [Data Types Supported by Database Link](#data-types-supported-by-database-link)
-  - [3. Configuration of Database Link](#3-configuration-of-database-link)
-    - [How DB Link Works](#how-db-link-works)
-    - [Configuration](#configuration)
-  - [4. Database Link-Related SQL Statements](#4-database-link-related-sql-statements)
-    - [CREATE DATABASE LINK](#create-database-link)
-    - [DROP DATABASE LINK](#drop-database-link)
-    - [ALTER DATABASE LINKER](#alter-database-linker)
-    - [ALTER SESSION](#alter-session)
-    - [SELECT](#select)
-    - [REMOTE_EXECUTE_IMMEDIATE](#remote_execute_immediate)
-    - [REMOTE Functions Supportive of Binding](#remote-functions-supportive-of-binding)
-    - [REMOTE functions Supportive of Batch](#remote-functions-supportive-of-batch)
-    - [COMMIT FORCE DATABASE LINK](#commit-force-database-link)
-    - [ROLLBACK FORCE DATABASE LINK](#rollback-force-database-link)
-  - [Appendix A. Properties and Data Dictionary](#appendix-a-properties-and-data-dictionary)
-    - [Data Dictionary related to Database Link](#data-dictionary-related-to-database-link)
-    - [Property Files](#property-files)
-    - [AltiLinker Properties](#altilinker-properties)
-
-
-
-Altibase® Application Development
-
 Database Link User’s Manual
 ===========================
 
-![](media/DBLink/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Application Development
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Database Link User’s Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to Database Link](#1-introduction-to-database-link)
+  - [Related Terms](#related-terms)
+  - [Definition of Database Links](#definition-of-database-links)
+  - [Components of Altibase Database Link](#components-of-altibase-database-link)
+- [2. Supported Objects, SQL Statements, and Data Types](#2-supported-objects-sql-statements-and-data-types)
+  - [Database Link and SQL Statements](#database-link-and-sql-statements)
+  - [Accessible Remote Schema Objects](#accessible-remote-schema-objects)
+  - [Data Types Supported by Database Link](#data-types-supported-by-database-link)
+- [3. Configuration of Database Link](#3-configuration-of-database-link)
+  - [How DB Link Works](#how-db-link-works)
+  - [Configuration](#configuration)
+- [4. Database Link-Related SQL Statements](#4-database-link-related-sql-statements)
+  - [CREATE DATABASE LINK](#create-database-link)
+  - [DROP DATABASE LINK](#drop-database-link)
+  - [ALTER DATABASE LINKER](#alter-database-linker)
+  - [ALTER SESSION](#alter-session)
+  - [SELECT](#select)
+  - [REMOTE_EXECUTE_IMMEDIATE](#remote_execute_immediate)
+  - [REMOTE Functions Supportive of Binding](#remote-functions-supportive-of-binding)
+  - [REMOTE functions Supportive of Batch](#remote-functions-supportive-of-batch)
+  - [COMMIT FORCE DATABASE LINK](#commit-force-database-link)
+  - [ROLLBACK FORCE DATABASE LINK](#rollback-force-database-link)
+- [Appendix A. Properties and Data Dictionary](#appendix-a-properties-and-data-dictionary)
+  - [Data Dictionary related to Database Link](#data-dictionary-related-to-database-link)
+  - [Property Files](#property-files)
+  - [AltiLinker Properties](#altilinker-properties)
 
-**Altibase Corp**
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -178,7 +256,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to Database Link
+# 1. Introduction to Database Link
 
 This chapter explains the concept of database links and the database link components of Altibase.
 
@@ -454,7 +532,7 @@ The following is a brief summary of the role of the AltiLinker process.
 > -   The AltiLinker process only runs on the same server as the local server.
 >
 
-## 2. Supported Objects, SQL Statements, and Data Types
+# 2. Supported Objects, SQL Statements, and Data Types
 
 This chapter gives a description of schema objects in remote databases that are accessible through SQL statements and database links provided by Altibase, and of data types that are available for use with database links.
 
@@ -820,7 +898,7 @@ The following table shows to which JDBC and standard SQL data types Altibase dat
 
 [Table 2-2] Data Types for Database Link
 
-## 3. Configuration of Database Link
+# 3. Configuration of Database Link
 
 This chapter describes the configuration prerequisite to the use of Altibase Database Link. 
 
@@ -920,7 +998,7 @@ If the Altibase server is started up after setting all properties, the AltiLinke
 
 For more detailed information on properties related to database links, please refer to the database link-related properties of *General Reference.*
 
-## 4. Database Link-Related SQL Statements
+# 4. Database Link-Related SQL Statements
 
 This chapter discusses in detail the SQL statements and REMOTE functions provided for controlling database links, and how to use database links.
 
@@ -2107,7 +2185,7 @@ ROLLBACK FORCE DATABASE LINK;
 iSQL> ROLLBACk FORCE DATABASE LINK;
 ```
 
-## Appendix A. Properties and Data Dictionary
+# Appendix A. Properties and Data Dictionary
 
 This appendix describes the various properties and data dictionaries used in connection with the database link.
 

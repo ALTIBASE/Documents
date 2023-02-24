@@ -1,61 +1,137 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [SNMP Agent Guide](#snmp-agent-guide)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.SNMP 개요](#1snmp-%EA%B0%9C%EC%9A%94)
-    - [SNMP란](#snmp%EB%9E%80)
-    - [Altibase SNMP 구조](#altibase-snmp-%EA%B5%AC%EC%A1%B0)
-  - [2.SNMP Agent 설치](#2snmp-agent-%EC%84%A4%EC%B9%98)
-    - [SNMP Agent 설치](#snmp-agent-%EC%84%A4%EC%B9%98)
-    - [Altibase프로퍼티 설정](#altibase%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95)
-    - [패키징한 NET-SNMP로 설치 및 구동](#%ED%8C%A8%ED%82%A4%EC%A7%95%ED%95%9C-net-snmp%EB%A1%9C-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EB%8F%99)
-    - [기설치된 NET-SNMP에 설정](#%EA%B8%B0%EC%84%A4%EC%B9%98%EB%90%9C-net-snmp%EC%97%90-%EC%84%A4%EC%A0%95)
-  - [3.SNMP 사용방법](#3snmp-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
-    - [SNMP 사용 명령어](#snmp-%EC%82%AC%EC%9A%A9-%EB%AA%85%EB%A0%B9%EC%96%B4)
-  - [4.프로퍼티 확인과 변경](#4%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%ED%99%95%EC%9D%B8%EA%B3%BC-%EB%B3%80%EA%B2%BD)
-    - [altiPropertyTable](#altipropertytable)
-  - [5.Altibase 상태](#5altibase-%EC%83%81%ED%83%9C)
-    - [altiStatus](#altistatus)
-  - [6.트랩(Trap)](#6%ED%8A%B8%EB%9E%A9trap)
-    - [altiTrap](#altitrap)
-    - [트랩 코드](#%ED%8A%B8%EB%9E%A9-%EC%BD%94%EB%93%9C)
-  - [A.부록: ALTIBASE-MIB](#a%EB%B6%80%EB%A1%9D-altibase-mib)
-    - [ALTIBASE-MIB.txt](#altibase-mibtxt)
-  - [B.부록: Trouble Shooting](#b%EB%B6%80%EB%A1%9D-trouble-shooting)
-    - [FAQ](#faq)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-Altibase® Administration
-
 SNMP Agent Guide
 ================
 
-![](media/SNMP/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Administration
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration SNMP Agent Guide
-
-Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.SNMP 개요](#1snmp-%EA%B0%9C%EC%9A%94)
+  - [SNMP란](#snmp%EB%9E%80)
+  - [Altibase SNMP 구조](#altibase-snmp-%EA%B5%AC%EC%A1%B0)
+- [2.SNMP Agent 설치](#2snmp-agent-%EC%84%A4%EC%B9%98)
+  - [SNMP Agent 설치](#snmp-agent-%EC%84%A4%EC%B9%98)
+  - [Altibase프로퍼티 설정](#altibase%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95)
+  - [패키징한 NET-SNMP로 설치 및 구동](#%ED%8C%A8%ED%82%A4%EC%A7%95%ED%95%9C-net-snmp%EB%A1%9C-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EB%8F%99)
+  - [기설치된 NET-SNMP에 설정](#%EA%B8%B0%EC%84%A4%EC%B9%98%EB%90%9C-net-snmp%EC%97%90-%EC%84%A4%EC%A0%95)
+- [3.SNMP 사용방법](#3snmp-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95)
+  - [SNMP 사용 명령어](#snmp-%EC%82%AC%EC%9A%A9-%EB%AA%85%EB%A0%B9%EC%96%B4)
+- [4.프로퍼티 확인과 변경](#4%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%ED%99%95%EC%9D%B8%EA%B3%BC-%EB%B3%80%EA%B2%BD)
+  - [altiPropertyTable](#altipropertytable)
+- [5.Altibase 상태](#5altibase-%EC%83%81%ED%83%9C)
+  - [altiStatus](#altistatus)
+- [6.트랩(Trap)](#6%ED%8A%B8%EB%9E%A9trap)
+  - [altiTrap](#altitrap)
+  - [트랩 코드](#%ED%8A%B8%EB%9E%A9-%EC%BD%94%EB%93%9C)
+- [A.부록: ALTIBASE-MIB](#a%EB%B6%80%EB%A1%9D-altibase-mib)
+  - [ALTIBASE-MIB.txt](#altibase-mibtxt)
+- [B.부록: Trouble Shooting](#b%EB%B6%80%EB%A1%9D-trouble-shooting)
+  - [FAQ](#faq)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -198,7 +274,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.SNMP 개요
----------
+=========
 
 이 장에서는 Simple Network Management Protocol(SNMP)의 개요와 ALTIBASE-MIB의
 구성에 대해 설명한다.
@@ -346,7 +422,7 @@ snmpd간에는 Master Agent/Sub Agent간에 통신을 위한 표준 프로토콜
 snmpd와 snmpmanager, snmptrapd간에는 표준 프로토콜인 SNMP를 사용한다.
 
 2.SNMP Agent 설치
----------------
+===============
 
 이 장은 SNMP를 사용하기 위해서 SNMP Agent를 설치하는 방법과 Altibase를 설정하는
 방법을 설명한다.
@@ -773,7 +849,7 @@ Timeout: No Response from localhost:161
 시스템 관리자는 Full access를 하려면 주석을 해제해야 한다.
 
 3.SNMP 사용방법
--------------
+=============
 
 ### SNMP 사용 명령어
 
@@ -804,7 +880,7 @@ SNMP Agent에 특정 OID의 값을 설정하기 위해서 사용된다.
 다른 요청들이 동기적 요청이라면 Trap은 비동기적 사건을 알리기 위해서 사용된다.
 
 4.프로퍼티 확인과 변경
---------------------
+====================
 
 이 장은 altiPropertyTable을 통해서 Altibase의 프로퍼티를 확인하고 변경하는
 방법을 설명한다.
@@ -998,7 +1074,7 @@ ALTIBASE-MIB::altiPropertyAlarmSessionFailureCount.1 = STRING: 2
 ```
 
 5.Altibase 상태
--------------
+=============
 
 이 장은 SNMP를 이용하여 Altibase의 상태를 알아보는 방법을 설명한다.
 
@@ -1197,7 +1273,7 @@ ALTIBASE-MIB::altiStatusSessionCount.2 = STRING: 7
 ```
 
 6.트랩(Trap)
-----------
+==========
 
 이 장에서는 Altibase에 특정한 상황이 발생하였을 때 트랩(Trap)을 이용하여
 관리자에게 전송될 OID를 설명한다.
@@ -1574,7 +1650,7 @@ ALTIBASE-MIB::altiTrapMessage = STRING: [Notify : Session Failure]  Session Fail
 ALTIBASE-MIB::altiTrapMoreInfo = STRING: Please check altibase_boot.log 
 ```
 
-## A.부록: ALTIBASE-MIB
+# A.부록: ALTIBASE-MIB
 
 이 부록에서는 ALTIBASE-MIB.txt 파일을 첨부한다.
 
@@ -1790,7 +1866,7 @@ altiStatusSessionCount OBJECT-TYPE
 END
 ```
 
-## B.부록: Trouble Shooting
+# B.부록: Trouble Shooting
 
 ### FAQ
 

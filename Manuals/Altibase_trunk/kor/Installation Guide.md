@@ -1,61 +1,138 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [Installation Guide](#installation-guide)
-    - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Altibase 패키지 인스톨러](#1altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
-    - [Altibase 홈](#altibase-%ED%99%88)
-    - [APatch 디렉터리](#apatch-%EB%94%94%EB%A0%89%ED%84%B0%EB%A6%AC)
-  - [2.패키지 인스톨러를 이용한 제품 설치](#2%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
-    - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
-    - [Altibase 패키지 인스톨러](#altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
-    - [Altibase 제품 설치](#altibase-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
-    - [Altibase 클라이언트 제품 설치](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
-  - [3.Altibase 제거 및 메타 다운그레이드](#3altibase-%EC%A0%9C%EA%B1%B0-%EB%B0%8F-%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
-    - [Altibase 제품 삭제](#altibase-%EC%A0%9C%ED%92%88-%EC%82%AD%EC%A0%9C)
-    - [메타 다운그레이드(Meta Downgrade)](#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)
-  - [4.패키지 인스톨러를 이용한 제품 패치](#4%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
-    - [패치란?](#%ED%8C%A8%EC%B9%98%EB%9E%80)
-    - [Altibase 서버 제품 패치](#altibase-%EC%84%9C%EB%B2%84-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
-    - [Altibase 클라이언트 제품 패치](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
-  - [A.부록: 설치 전 확인 사항](#a%EB%B6%80%EB%A1%9D-%EC%84%A4%EC%B9%98-%EC%A0%84-%ED%99%95%EC%9D%B8-%EC%82%AC%ED%95%AD)
-    - [사용자 계정의 리소스 한계 값 확인](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95%EC%9D%98-%EB%A6%AC%EC%86%8C%EC%8A%A4-%ED%95%9C%EA%B3%84-%EA%B0%92-%ED%99%95%EC%9D%B8)
-    - [OS별 커널 파라미터 설정](#os%EB%B3%84-%EC%BB%A4%EB%84%90-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EC%84%A4%EC%A0%95)
-    - [THP 설정 확인 및 비활성화 방법](#thp-%EC%84%A4%EC%A0%95-%ED%99%95%EC%9D%B8-%EB%B0%8F-%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94-%EB%B0%A9%EB%B2%95)
-    - [디스크 구성 상태 확인](#%EB%94%94%EC%8A%A4%ED%81%AC-%EA%B5%AC%EC%84%B1-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8)
-    - [OS Patch](#os-patch)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-Altibase® Administration
-
 Installation Guide
 ==================
 
-![](media/Installation/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Administration
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Installation Guide
-
-Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
 
-고객서비스포털: <http://support.altibase.com>
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+<br>
 
-### 서문
+# 목차
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Altibase 패키지 인스톨러](#1altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
+  - [Altibase 홈](#altibase-%ED%99%88)
+  - [APatch 디렉터리](#apatch-%EB%94%94%EB%A0%89%ED%84%B0%EB%A6%AC)
+- [2.패키지 인스톨러를 이용한 제품 설치](#2%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
+  - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+  - [Altibase 패키지 인스톨러](#altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
+  - [Altibase 제품 설치](#altibase-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
+  - [Altibase 클라이언트 제품 설치](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
+- [3.Altibase 제거 및 메타 다운그레이드](#3altibase-%EC%A0%9C%EA%B1%B0-%EB%B0%8F-%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
+  - [Altibase 제품 삭제](#altibase-%EC%A0%9C%ED%92%88-%EC%82%AD%EC%A0%9C)
+  - [메타 다운그레이드(Meta Downgrade)](#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)
+- [4.패키지 인스톨러를 이용한 제품 패치](#4%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
+  - [패치란?](#%ED%8C%A8%EC%B9%98%EB%9E%80)
+  - [Altibase 서버 제품 패치](#altibase-%EC%84%9C%EB%B2%84-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
+  - [Altibase 클라이언트 제품 패치](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
+- [A.부록: 설치 전 확인 사항](#a%EB%B6%80%EB%A1%9D-%EC%84%A4%EC%B9%98-%EC%A0%84-%ED%99%95%EC%9D%B8-%EC%82%AC%ED%95%AD)
+  - [사용자 계정의 리소스 한계 값 확인](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95%EC%9D%98-%EB%A6%AC%EC%86%8C%EC%8A%A4-%ED%95%9C%EA%B3%84-%EA%B0%92-%ED%99%95%EC%9D%B8)
+  - [OS별 커널 파라미터 설정](#os%EB%B3%84-%EC%BB%A4%EB%84%90-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EC%84%A4%EC%A0%95)
+  - [THP 설정 확인 및 비활성화 방법](#thp-%EC%84%A4%EC%A0%95-%ED%99%95%EC%9D%B8-%EB%B0%8F-%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94-%EB%B0%A9%EB%B2%95)
+  - [디스크 구성 상태 확인](#%EB%94%94%EC%8A%A4%ED%81%AC-%EA%B5%AC%EC%84%B1-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8)
+  - [OS Patch](#os-patch)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<br>
+
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -135,7 +212,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.Altibase 패키지 인스톨러
-------------------------
+========================
 
 Altibase 패키지 인스톨러는 자바를 기반으로 한 인스톨러이다. 사용자는 Altibase
 패키지 인스톨러를 이용하여 데이터베이스 서버, 클라이언트 라이브러리와 툴 등의
@@ -291,7 +368,7 @@ uninstall-base
     rollback-p0_0_0_10 디렉터리에 저장된다.
 
 2.패키지 인스톨러를 이용한 제품 설치
-----------------------------------
+==================================
 
 이 장은 다음의 절을 포함한다.
 
@@ -1141,7 +1218,7 @@ export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}
 참고한다.
 
 3.Altibase 제거 및 메타 다운그레이드
-----------------------------------
+==================================
 
 제품 설치 시 함께 설치되는 언인스톨러를 이용해서 Altibase 제품을 삭제하거나 하위
 버전으로 다운그레이드 하는 방법을 설명한다.
@@ -1296,7 +1373,7 @@ Startup Failed....
 > 발생한다.
 
 4.패키지 인스톨러를 이용한 제품 패치
-----------------------------------
+==================================
 
 이 장은 다음의 절을 포함한다.
 
@@ -1501,7 +1578,7 @@ $./altibase-client-7.1.0.0.1-LINUX-X86-64bit-release.run
 
 ![](media/Installation/4fdf2f39646963c5ba906294335d83fe.png)
 
-## A.부록: 설치 전 확인 사항
+# A.부록: 설치 전 확인 사항
 
 ### 사용자 계정의 리소스 한계 값 확인
 
