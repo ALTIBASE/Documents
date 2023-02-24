@@ -126,13 +126,8 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [CheckServer API 사용](#checkserver-api-%EC%82%AC%EC%9A%A9)
   - [CheckServer API 데이터 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
   - [CheckServer API](#checkserver-api)
-- [6..NET Data Provider](6net-data-provider)
-  - [Altibase ADO.NET 소개](#altibase-adonet-소개)
-  - [Altibase ADO.NET 사용](#altibase-adonet-사용)
-  - [Altibase ADO.NET 인터페이스](#altibase-adonet-인터페이스)
-  - [Altibase ADO.NET 데이터 타입](#altibase-adonet-데이터-타입)
-  - [Altibase ADO.NET 예제](#altibase-adonet-예제)
-
+- [6..NET Data Provider](#6net-data-provider)
+  - [Altibase ADO.NET](#altibase-adonet)
 
 <br>
 
@@ -3130,14 +3125,14 @@ Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버
 Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사용할 수 있도록 구현한 것이다. .NET Core 개발자는 ADO.NET을 이용하여 DBMS와 같은 데이터 소스에 접근하여 명령을 수행하고 데이터를 조회하며, 결과를 가공하여 다시 데이터 소스에 반영할 수 있다. 
 
 
-마이크로소프트의 ADO.NET에 관한 보다 자세한 내용은 마이크로소프트의 .NET 문서(https://learn.microsoft.com/ko-kr/dotnet/)를 참고한다.
+마이크로소프트의 ADO.NET에 관한 보다 자세한 내용은 마이크로소프트의 [.NET 문서](https://learn.microsoft.com/ko-kr/dotnet/)를 참고한다.
 
 #### 요구사항
 - Altibase CLI 라이브러리
+  
   Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET Nuget 패키지에 포함되어 있다.
   - Linux x86-64  : libdotnet_sl.so
   - Windows x64 : dotnet_sl.dll
-
 - Altibase 7.1.0.x.x 이상*(태그가 릴리즈되면 수정해야 함)*
 - .NET Core 3.1
 
