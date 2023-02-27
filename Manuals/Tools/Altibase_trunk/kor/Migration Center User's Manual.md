@@ -8320,7 +8320,7 @@ MySQL과 Altibase 간 국가별 문자 집합의 글자 당 바이트 수가 서
 
 `원인`
 
-PostgreSQL에 시퀀스를 사용하는 세션이 있는 상태에서 마이그레이션을 수행하면 이런 현상이 발생할 수 있다. PostgreSQL 시퀀스는 세션 단위로 캐싱되며 세션이 연결될 때마다 'CACHE * INCREMENTAL_BY' 만큼 미리 생성되는 특성이 있다. 예를 들어 START WITH 1, INCREMENT_BY 1, CACHE_VALUE 100인 시퀀스 생성 후 SELECT NEXTVAL('seq_name')을 수행하면 첫 번째 세션에서 1이 출력되지만 두번째 세션에서는 101이 출력된다. 이러한 PostgreSQL의 시퀀스 특성에 따라 사용 중인 시퀀스는 Altibase에 마이그레이션할 때 시작값(START WITH)이 'che_value 횟수* increment_by * 초과 연결된 세션 수'만큼 증가하여 설정된다. 
+PostgreSQL에 시퀀스를 사용하는 세션이 있는 상태에서 마이그레이션을 수행하면 이런 현상이 발생할 수 있다. PostgreSQL 시퀀스는 세션 단위로 캐싱되며 세션이 연결될 때마다 'CACHE * INCREMENTAL_BY' 만큼 미리 생성되는 특성이 있다. 예를 들어 START WITH 1, INCREMENT_BY 1, CACHE_VALUE 100인 시퀀스 생성 후 SELECT NEXTVAL('seq_name')을 수행하면 첫 번째 세션에서 1이 출력되지만 두번째 세션에서는 101이 출력된다. 이러한 PostgreSQL의 시퀀스 특성에 따라 사용 중인 시퀀스는 Altibase에 마이그레이션할 때 시작값(START WITH)이 'CACHE * INCREMENT_BY * (세션 수 - 1) + START_WITH'만큼 증가하여 설정된다. 
 
 `해결 방법`
 
