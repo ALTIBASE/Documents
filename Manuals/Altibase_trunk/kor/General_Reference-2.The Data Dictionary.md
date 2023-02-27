@@ -2426,8 +2426,9 @@ SYS_COLUMNS_
 파티셔닝 메소드를 나타낸다.
 
 - 0: 범위 (RANGE)
-- 1: 해쉬 (HASH)
+- 1: 해시 (HASH)
 - 2: 리스트 (LIST)
+- 3: 해시를 사용한 범위 파티셔닝 (RANGE PARTITIONING USING HASH)
 
 ##### ROW_MOVEMENT
 
