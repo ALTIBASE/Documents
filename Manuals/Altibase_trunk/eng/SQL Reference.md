@@ -6003,7 +6003,7 @@ This clause specifies the user-defined column. It refers to CREATE TABLE stateme
 
 *MAXROWS count*
 
-This is used to set the maximum number of records that can be stored in a queue table. This value can be set within the range from 1 to 4294967295 (or (2^32) -1). When not specified, it defaults to the maximum value of 4294967295. 
+This is used to set the maximum number of records that can be stored in a queue table. This value can be set within the range from 1 to 4294967295 (or (2<sup>32</sup>) -1). When not specified, it defaults to the maximum value of 4294967295. 
 
 #### Considerations
 
@@ -11790,10 +11790,9 @@ In this case, the following combination of groups is returned:
 (a, b, c, d), (a, b), ( )
 ```
 
-
 *CUBE*
 
-CUBE generates groupings of all possible combinations on specified grouping columns. CUBE creates groupings on 2n combinations, where n is the number of grouping columns. For example, if GROUP BY CUBE(a,b,c) is specified, the following (23=8) combinations are returned:
+CUBE generates groupings of all possible combinations on specified grouping columns. CUBE creates groupings on 2<sup>n</sup> combinations, where n is the number of grouping columns. For example, if GROUP BY CUBE(a,b,c) is specified, the following (2<sup>3</sup>=8) combinations are returned:
 
 ```
 (a,b,c), (a,b), (a,c), (b,c), (a), (b), (c), ( )
@@ -20047,7 +20046,7 @@ TO_BIN (n)
 
 TO_BIN converts n into a binary number. n can be a decimal integer or a string consisting of the numeric characters from 0 to 9. 
 
-The range of possible input values is from -2147483647 to 2147483647, that is, from -(231 -1) to (231 -1). When a negative value is entered, all bits are flipped, and 1 is added to the output. 
+The range of possible input values is from -2147483647 to 2147483647, that is, from -(2<sup>31</sup> -1) to (2<sup>31</sup> -1). When a negative value is entered, all bits are flipped, and 1 is added to the output. 
 
 The output is signed. Because leading zeroes are not output, the sign value does not appear for positive numbers.
 
