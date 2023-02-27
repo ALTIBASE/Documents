@@ -2253,6 +2253,7 @@ This indicates the partitioning method.
 - 0: RANGE
 - 1: HASH
 - 2: LIST
+- 3: RANGE PARTITIONING USING HASH
 
 ##### ROW_MOVEMENT
 
