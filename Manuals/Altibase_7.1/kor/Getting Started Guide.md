@@ -1,76 +1,146 @@
-- [Getting Started Guide](#getting-started-guide)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Altibase 설치](#1altibase-%EC%84%A4%EC%B9%98)
-    - [설치 과정](#%EC%84%A4%EC%B9%98-%EA%B3%BC%EC%A0%95)
-    - [고려 사항](#%EA%B3%A0%EB%A0%A4-%EC%82%AC%ED%95%AD)
-  - [2.Altibase 실행과 종료](#2altibase-%EC%8B%A4%ED%96%89%EA%B3%BC-%EC%A2%85%EB%A3%8C)
-    - [Altibase의 실행](#altibase%EC%9D%98-%EC%8B%A4%ED%96%89)
-    - [Altibase의 종료](#altibase%EC%9D%98-%EC%A2%85%EB%A3%8C)
-  - [3.Altibase로 작업하기](#3altibase%EB%A1%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
-    - [지원되는 SQL문](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-sql%EB%AC%B8)
-    - [SQL문 실행 방법](#sql%EB%AC%B8-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
-    - [샘플 스키마](#%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
-  - [4.데이터베이스 객체 및 권한 관리](#4%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC)
-    - [데이터베이스 객체 개요](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
-    - [권한 관리 개요](#%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC-%EA%B0%9C%EC%9A%94)
-  - [5.다국어 지원](#5%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-    - [다국어 지원 개요](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90-%EA%B0%9C%EC%9A%94)
-    - [다국어 지원을 위한 캐릭터셋 분류](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EB%B6%84%EB%A5%98)
-    - [유니코드를 이용한 다국어 지원](#%EC%9C%A0%EB%8B%88%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-    - [다국어 데이터베이스를 위한 환경 설정](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-    - [데이터베이스 캐릭터셋 선택시 고려사항](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EC%84%A0%ED%83%9D%EC%8B%9C-%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD)
-  - [6.데이터베이스 이중화](#6%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-    - [이중화 정의](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%95%EC%9D%98)
-    - [이중화 방법](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B0%A9%EB%B2%95)
-    - [이중화 기능의 사용 방법](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [DDL 수행 시 주의사항](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
-  - [7.Fail-Over](#7fail-over)
-    - [Fail-Over의 개요](#fail-over%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [Fail Over 사용 방법](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [8.백업 및 복구](#8%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
-    - [백업 정책](#%EB%B0%B1%EC%97%85-%EC%A0%95%EC%B1%85)
-    - [복구 정책](#%EB%B3%B5%EA%B5%AC-%EC%A0%95%EC%B1%85)
-  - [9.응용프로그램 작성](#9%EC%9D%91%EC%9A%A9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1)
-    - [응용 프로그램 작성 방법](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EB%B0%A9%EB%B2%95)
-    - [Altibase CLI를 활용한 프로그램](#altibase-cli%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [JDBC를 활용한 프로그램](#jdbc%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-    - [C/C++ Precompiler를 활용한 프로그램](#cc-precompiler%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-
-
-
-Altibase® Administration
-
 Getting Started Guide
 =====================
 
-![](media/GettingStarted/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
+
+Altibase® Administration
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Getting Started Guide
-
 Release 7.1
-
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
-무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: http://www.altibase.com
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+<br>
+
+# 목차
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Altibase 설치](#1altibase-%EC%84%A4%EC%B9%98)
+  - [설치 과정](#%EC%84%A4%EC%B9%98-%EA%B3%BC%EC%A0%95)
+  - [고려 사항](#%EA%B3%A0%EB%A0%A4-%EC%82%AC%ED%95%AD)
+- [2.Altibase 실행과 종료](#2altibase-%EC%8B%A4%ED%96%89%EA%B3%BC-%EC%A2%85%EB%A3%8C)
+  - [Altibase의 실행](#altibase%EC%9D%98-%EC%8B%A4%ED%96%89)
+  - [Altibase의 종료](#altibase%EC%9D%98-%EC%A2%85%EB%A3%8C)
+- [3.Altibase로 작업하기](#3altibase%EB%A1%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
+  - [지원되는 SQL문](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-sql%EB%AC%B8)
+  - [SQL문 실행 방법](#sql%EB%AC%B8-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
+  - [샘플 스키마](#%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
+- [4.데이터베이스 객체 및 권한 관리](#4%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC)
+  - [데이터베이스 객체 개요](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
+  - [권한 관리 개요](#%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC-%EA%B0%9C%EC%9A%94)
+- [5.다국어 지원](#5%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
+  - [다국어 지원 개요](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90-%EA%B0%9C%EC%9A%94)
+  - [다국어 지원을 위한 캐릭터셋 분류](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EB%B6%84%EB%A5%98)
+  - [유니코드를 이용한 다국어 지원](#%EC%9C%A0%EB%8B%88%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
+  - [다국어 데이터베이스를 위한 환경 설정](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+  - [데이터베이스 캐릭터셋 선택시 고려사항](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EC%84%A0%ED%83%9D%EC%8B%9C-%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD)
+- [6.데이터베이스 이중화](#6%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
+  - [이중화 정의](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%95%EC%9D%98)
+  - [이중화 방법](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B0%A9%EB%B2%95)
+  - [이중화 기능의 사용 방법](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+  - [DDL 수행 시 주의사항](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+- [7.Fail-Over](#7fail-over)
+  - [Fail-Over의 개요](#fail-over%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [Fail Over 사용 방법](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+- [8.백업 및 복구](#8%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
+  - [백업 정책](#%EB%B0%B1%EC%97%85-%EC%A0%95%EC%B1%85)
+  - [복구 정책](#%EB%B3%B5%EA%B5%AC-%EC%A0%95%EC%B1%85)
+- [9.응용프로그램 작성](#9%EC%9D%91%EC%9A%A9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1)
+  - [응용 프로그램 작성 방법](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EB%B0%A9%EB%B2%95)
+  - [Altibase CLI를 활용한 프로그램](#altibase-cli%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [JDBC를 활용한 프로그램](#jdbc%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [C/C++ Precompiler를 활용한 프로그램](#cc-precompiler%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -236,7 +306,7 @@ homepage: http://www.altibase.com
 여러분의 의견에 항상 감사드립니다.
 
 1.Altibase 설치
--------------
+=============
 
 이 장은 Altibase 설치 절차를 간략하게 소개한다. Altibase 서버를 완벽하게
 설치하는 방법은 *Installation Guide*를 참고하기 바란다.
@@ -324,7 +394,7 @@ Altibase 고객지원서비스 포털([http://support.altibase.com/](http://supp
 
 
 2.Altibase 실행과 종료
---------------------
+====================
 
 이 장에서는 Altibase 설치 완료 후 데이터베이스 구동 및 종료를 어떻게 하는지에
 대해서 설명한다.
@@ -507,7 +577,7 @@ $
 
 
 3.Altibase로 작업하기
--------------------
+===================
 
 이 장은 다음의 절을 포함한다.
 
@@ -563,7 +633,7 @@ $ALTIBASE_HOME/sample/APRE/schema/schema.sql
 참고하기 바란다.
 
 4.데이터베이스 객체 및 권한 관리
-------------------------------
+==============================
 
 이 장에서는 스키마 객체와 비-스키마 객체를 구분하고 각각에 포함되는 데이터베이스
 객체에 대해 설명한다.
@@ -870,7 +940,7 @@ CREATE USER문으로 사용자 생성 시 시스템에 의해 자동으로 부�
 
 
 5.다국어 지원
------------
+===========
 
 이 장에서는 Altibase가 지원하는 다국어 지원 구조 및 다국어 지원을 위한 환경
 설정과 고려사항 등을 살펴본다.
@@ -1334,7 +1404,7 @@ Create success.
 
 
 6.데이터베이스 이중화
--------------------
+===================
 
 이중화는 Active-Standby 또는 Active-Active 관계로 구성된 데이터베이스간에
 트랜잭션 로그 기반으로 데이터를 서로 복제하는 기능이다.
@@ -1533,7 +1603,7 @@ DDL문이 성공적으로 수행되면, 이중화에 해당 테이블을 다시 
 
 
 7.Fail-Over
----------
+=========
 
 데이터베이스 시스템을 운영 하는 도중, 장애가 발생하였을 때 이를 극복하고 장애에
 관계없이 서비스를 계속할 수 있도록, Altibase는 Fail-Over 기능을 제공한다. 이
@@ -1657,7 +1727,7 @@ Fail-Over가 성공적으로 끝나고 콜백 함수까지 성공적으로 실�
 
 
 8.백업 및 복구
-------------
+============
 
 시스템 정전 또는 디스크, 데이터 파일 손상, 유실 등과 같은 예기치 않은 상황으로
 인해 Altibase에 저장된 데이터가 손실될 수 있다. 이 장은 이를 대비하여 Altibase가
@@ -1720,7 +1790,7 @@ iLoader 유틸리티를 통해 복구하는 방식이다.
 
 
 9.응용프로그램 작성
------------------
+=================
 
 이 장에서는 Altibase를 활용하는 응용 프로그램 작성법에 관하여 간략하게
 설명하도록 한다.
@@ -2493,4 +2563,4 @@ $ <DELETE>
 7 rows deleted
 ```
 
-
+# 

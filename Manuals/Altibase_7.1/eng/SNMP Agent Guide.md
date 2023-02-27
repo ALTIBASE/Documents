@@ -1,58 +1,137 @@
-
-
-
-- [SNMP Agent Guide](#snmp-agent-guide)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to SNMP](#1-introduction-to-snmp)
-    - [What is SNMP?](#what-is-snmp)
-    - [Altibase SNMP Model](#altibase-snmp-model)
-  - [2. Installing the SNMP Agent](#2-installing-the-snmp-agent)
-    - [Installing the SNMP Agent](#installing-the-snmp-agent)
-    - [Setting Altibase Properties](#setting-altibase-properties)
-    - [Installing and Running the Altibase NET-SNMP Package](#installing-and-running-the-altibase-net-snmp-package)
-    - [Configuration for a Previously Installed NET-SNMP](#configuration-for-a-previously-installed-net-snmp)
-  - [3. How to Use SNMP](#3-how-to-use-snmp)
-    - [SNMP Commands](#snmp-commands)
-  - [4. Checking and Changing Properties](#4-checking-and-changing-properties)
-    - [altiPropertyTable](#altipropertytable)
-  - [5. Checking the Altibase Status](#5-checking-the-altibase-status)
-    - [altiStatus](#altistatus)
-  - [6. Traps](#6-traps)
-    - [altiTrap](#altitrap)
-    - [Trade Codes](#trade-codes)
-  - [Appendix A. ALTIBASE-MIB](#appendix-a-altibase-mib)
-    - [ALTIBASE-MIB.txt](#altibase-mibtxt)
-  - [Appendix B. Troubleshooting](#appendix-b-troubleshooting)
-    - [FAQ](#faq)
-
-
-
-Altibase® Administration
-
 SNMP Agent Guide
 ================
 
-![](media/SNMP/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
 
+Altibase® Administration
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration SNMP Agent Guide
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+<br>
 
-**Altibase Corp**
+# Table Of Contents
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to SNMP](#1-introduction-to-snmp)
+  - [What is SNMP?](#what-is-snmp)
+  - [Altibase SNMP Model](#altibase-snmp-model)
+- [2. Installing the SNMP Agent](#2-installing-the-snmp-agent)
+  - [Installing the SNMP Agent](#installing-the-snmp-agent)
+  - [Setting Altibase Properties](#setting-altibase-properties)
+  - [Installing and Running the Altibase NET-SNMP Package](#installing-and-running-the-altibase-net-snmp-package)
+  - [Configuration for a Previously Installed NET-SNMP](#configuration-for-a-previously-installed-net-snmp)
+- [3. How to Use SNMP](#3-how-to-use-snmp)
+  - [SNMP Commands](#snmp-commands)
+- [4. Checking and Changing Properties](#4-checking-and-changing-properties)
+  - [altiPropertyTable](#altipropertytable)
+- [5. Checking the Altibase Status](#5-checking-the-altibase-status)
+  - [altiStatus](#altistatus)
+- [6. Traps](#6-traps)
+  - [altiTrap](#altitrap)
+  - [Trade Codes](#trade-codes)
+- [Appendix A. ALTIBASE-MIB](#appendix-a-altibase-mib)
+  - [ALTIBASE-MIB.txt](#altibase-mibtxt)
+- [Appendix B. Troubleshooting](#appendix-b-troubleshooting)
+  - [FAQ](#faq)
 
-Customer Service Portal: http://support.altibase.com/en/
 
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -169,7 +248,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to SNMP
+# 1. Introduction to SNMP
 
 ---------
 
@@ -279,7 +358,7 @@ Altibase’s own protocol is used between Altibase and altisnmpd. AgentX, the st
 
 The SNMP is used as the standard protocol between snmpd, snmpmanager, and snmptrapd.
 
-## 2. Installing the SNMP Agent
+# 2. Installing the SNMP Agent
 
 ---------------
 
@@ -669,7 +748,7 @@ Timeout: No Response from localhost:161
 
 For the full access, the system administrator must remove the comment. 
 
-## 3. How to Use SNMP
+# 3. How to Use SNMP
 
 -------------
 
@@ -695,7 +774,7 @@ SNMP SET changes the value of a certain OID.
 
 SNMP TRAP notifies that a significant event has occurred. Traps are used to notify asynchronous events.
 
-## 4. Checking and Changing Properties
+# 4. Checking and Changing Properties
 
 --------------------
 
@@ -877,7 +956,7 @@ $ snmpget -v 2c -c private localhost altiPropertyAlarmSessionFailureCount.1
 ALTIBASE-MIB::altiPropertyAlarmSessionFailureCount.1 = STRING: 2
 ```
 
-## 5. Checking the Altibase Status
+# 5. Checking the Altibase Status
 
 -------------
 
@@ -1073,7 +1152,7 @@ ALTIBASE-MIB::altiStatusSessionCount.1 = STRING: 10
 ALTIBASE-MIB::altiStatusSessionCount.2 = STRING: 7 
 ```
 
-## 6. Traps
+# 6. Traps
 
 ----------
 
@@ -1441,7 +1520,7 @@ ALTIBASE-MIB::altiTrapMessage = STRING: [Notify : Session Failure]  Session Fail
 ALTIBASE-MIB::altiTrapMoreInfo = STRING: Please check altibase_boot.log 
 ```
 
-## Appendix A. ALTIBASE-MIB
+# Appendix A. ALTIBASE-MIB
 
 This appendix provides the ALTIBASE-MIB.txt file.
 
@@ -1657,7 +1736,7 @@ altiStatusSessionCount OBJECT-TYPE
 END
 ```
 
-## Appendix B. Troubleshooting 
+# Appendix B. Troubleshooting 
 
 ### FAQ
 

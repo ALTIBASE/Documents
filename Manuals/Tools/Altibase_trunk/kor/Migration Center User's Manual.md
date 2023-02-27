@@ -1,95 +1,175 @@
+Migration Center User's Manual
+================
+
+#### Release 7.11
+
+Altibase® Tools & Utilities
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->
+
+<pre>
+Altibase Tools & Utilities Migration Center User's Manual
+Release 7.11
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
+08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
+
+<br>
+
+# 목차
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Migration Center User's Manual](#migration-center-users-manual)
-  - [서문](#서문)
-    - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
-  - [1.Migration Center 소개](#1migration-center-소개)
-    - [개요](#개요)
-    - [시스템 요구 사항](#시스템-요구-사항)
-    - [설치 및 제거](#설치-및-제거)
-  - [2.Migration Center 시작하기](#2migration-center-시작하기)
-    - [Migration Center 이해하기](#migration-center-이해하기)
-    - [사용자 인터페이스 이해하기](#사용자-인터페이스-이해하기)
-    - [도구](#도구)
-  - [3.GUI 모드 퀵 가이드](#3gui-모드-퀵-가이드)
-    - [단계별 지침](#단계별-지침)
-  - [4.CLI 모드 퀵 가이드](#4cli-모드-퀵-가이드)
-    - [단계별 지침](#단계별-지침-1)
-  - [5.Migration Center 내부](#5migration-center-내부)
-    - [구축 단계](#구축-단계)
-    - [조정 단계](#조정-단계)
-    - [실행 단계](#실행-단계)
-    - [검증 단계](#검증-단계)
-  - [A.부록: 마이그레이션 옵션](#a부록-마이그레이션-옵션)
-    - [DB to DB 마이그레이션 옵션](#db-to-db-마이그레이션-옵션)
-    - [DB to File 마이그레이션 옵션](#db-to-file-마이그레이션-옵션)
-  - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
-    - [Altibase to Altibase](#altibase-to-altibase)
-    - [Altibase to Oracle](#altibase-to-oracle)
-    - [CUBRID to Altibase](#cubrid-to-altibase)
-    - [Informix to Altibase](#informix-to-altibase)
-    - [MySQL to Altibase](#mysql-to-altibase)
-    - [Oracle to Altibase](#oracle-to-altibase)
-    - [SQL Server to Altibase](#sql-server-to-altibase)
-    - [TimesTen to Altibase](#timesten-to-altibase)
-    - [Tibero to Altibase](#tibero-to-altibase)
-    - [PostgreSQL to Altibase](#postgresql-to-altibase)
-  - [C.부록: 데이터 타입 맵핑](#c부록-데이터-타입-맵핑)
-    - [데이터 타입 맵핑 테이블 변경](#데이터-타입-맵핑-테이블-변경)
-    - [기본 데이터 타입 맵핑 테이블](#기본-데이터-타입-맵핑-테이블)
-    - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-컬럼-길이-자동-보정)
-  - [D.부록: 기본값 맵핑](#d부록-기본값-맵핑)
-    - [기본값 맵핑 테이블](#기본값-맵핑-테이블)
-  - [E.부록: PSM 변환기 규칙 목록](#e부록-psm-변환기-규칙-목록)
-    - [뷰 변환 규칙](#뷰-변환-규칙)
-    - [트리거 변환 규칙](#트리거-변환-규칙)
-    - [함수 변환 규칙](#함수-변환-규칙)
-    - [프로시저 변환 규칙](#프로시저-변환-규칙)
-    - [Materialized View 변환 규칙](#materialized-view-변환-규칙)
-    - [패키지 변환 규칙](#패키지-변환-규칙)
-    - [라이브러리 변환 규칙](#라이브러리-변환-규칙)
-    - [DML문 변환 규칙](#dml문-변환-규칙)
-    - [PSM 변환 규칙](#psm-변환-규칙)
-    - [표현 변환 규칙](#표현-변환-규칙)
-  - [F.부록: FAQ](#f부록-faq)
-    - [DBMS 공통](#dbms-공통)
-    - [Oracle](#oracle-1)
-    - [MS-SQL](#ms-sql)
-    - [Altibase](#altibase-1)
-    - [Informix](#informix-1)
-    - [MySQL](#mysql-1)
-    - [TimesTen](#timesten-1)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.Migration Center 소개](#1migration-center-소개)
+  - [개요](#개요)
+  - [시스템 요구 사항](#시스템-요구-사항)
+  - [설치 및 제거](#설치-및-제거)
+- [2.Migration Center 시작하기](#2migration-center-시작하기)
+  - [Migration Center 이해하기](#migration-center-이해하기)
+  - [사용자 인터페이스 이해하기](#사용자-인터페이스-이해하기)
+  - [도구](#도구)
+- [3.GUI 모드 퀵 가이드](#3gui-모드-퀵-가이드)
+  - [단계별 지침](#단계별-지침)
+- [4.CLI 모드 퀵 가이드](#4cli-모드-퀵-가이드)
+  - [단계별 지침](#단계별-지침-1)
+- [5.Migration Center 내부](#5migration-center-내부)
+  - [구축 단계](#구축-단계)
+  - [조정 단계](#조정-단계)
+  - [실행 단계](#실행-단계)
+  - [검증 단계](#검증-단계)
+- [A.부록: 마이그레이션 옵션](#a부록-마이그레이션-옵션)
+  - [DB to DB 마이그레이션 옵션](#db-to-db-마이그레이션-옵션)
+  - [DB to File 마이그레이션 옵션](#db-to-file-마이그레이션-옵션)
+- [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
+  - [Altibase to Altibase](#altibase-to-altibase)
+  - [Altibase to Oracle](#altibase-to-oracle)
+  - [CUBRID to Altibase](#cubrid-to-altibase)
+  - [Informix to Altibase](#informix-to-altibase)
+  - [MySQL to Altibase](#mysql-to-altibase)
+  - [Oracle to Altibase](#oracle-to-altibase)
+  - [SQL Server to Altibase](#sql-server-to-altibase)
+  - [TimesTen to Altibase](#timesten-to-altibase)
+  - [Tibero to Altibase](#tibero-to-altibase)
+  - [PostgreSQL to Altibase](#postgresql-to-altibase)
+- [C.부록: 데이터 타입 맵핑](#c부록-데이터-타입-맵핑)
+  - [데이터 타입 맵핑 테이블 변경](#데이터-타입-맵핑-테이블-변경)
+  - [기본 데이터 타입 맵핑 테이블](#기본-데이터-타입-맵핑-테이블)
+  - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-컬럼-길이-자동-보정)
+- [D.부록: 기본값 맵핑](#d부록-기본값-맵핑)
+  - [기본값 맵핑 테이블](#기본값-맵핑-테이블)
+- [E.부록: PSM 변환기 규칙 목록](#e부록-psm-변환기-규칙-목록)
+  - [뷰 변환 규칙](#뷰-변환-규칙)
+  - [트리거 변환 규칙](#트리거-변환-규칙)
+  - [함수 변환 규칙](#함수-변환-규칙)
+  - [프로시저 변환 규칙](#프로시저-변환-규칙)
+  - [Materialized View 변환 규칙](#materialized-view-변환-규칙)
+  - [패키지 변환 규칙](#패키지-변환-규칙)
+  - [라이브러리 변환 규칙](#라이브러리-변환-규칙)
+  - [DML문 변환 규칙](#dml문-변환-규칙)
+  - [PSM 변환 규칙](#psm-변환-규칙)
+  - [표현 변환 규칙](#표현-변환-규칙)
+- [F.부록: FAQ](#f부록-faq)
+  - [DBMS 공통](#dbms-공통)
+  - [Oracle](#oracle-1)
+  - [MS-SQL](#ms-sql)
+  - [Altibase](#altibase-1)
+  - [Informix](#informix-1)
+  - [MySQL](#mysql-1)
+  - [TimesTen](#timesten-1)
 
-Altibase® Tools & Utilities
+<br/>
 
-Migration Center User's Manual
-==============================
 
-![](media/MigrationCenter/e5cfb3761673686d093a3b00c062fe7a.png)
-
-Altibase Tools & Utilities Migration Center User's Manual
-
-Release 7.11
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이
-무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
-08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -258,8 +338,10 @@ Center를 사용하는 방법을 기술한다.
 
 여러분의 의견에 항상 감사드립니다.
 
+<br/>
+
 1.Migration Center 소개
----------------------
+=====================
 
 이 장은 Migration Center의 특징을 이해하고자 하는 사용자에게 이 도구를 소개하고
 설치하는 방법을 설명한다. 이 장은 다음의 절로 구성된다.
@@ -463,8 +545,10 @@ Center를 사용할 준비가 되었다.
 Migration Center를 제거하려면, Migration Center가 설치되어 있는 디렉토리를
 삭제하기만 하면 된다.
 
+<br/>
+
 2.Migration Center 시작하기
--------------------------
+=========================
 
 이 장은 먼저 사용자들이 Migration Center를 좀 더 능률적이고 효율적으로 실행하는
 데 도움이 되는 기본 개념을 소개한다. 그런 후에, Migration Center를 GUI모드와 CLI
@@ -648,8 +732,10 @@ Altibase 고객서비스포털에 고객 등록 정보와 함께 보내기만 �
 
 이 툴은 메인 메뉴의 Tools -\> Generate Migration Error Report로 실행할 수 있다.
 
+<br/>
+
 3.GUI 모드 퀵 가이드
-------------------
+==================
 
 이 장은 Migration Center를 처음 접하는 사용자들이 GUI 모드 Migration Center를 각
 단계별로 사용할 수 있도록 간략한 지침을 제공한다.
@@ -879,8 +965,10 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 10. 보고서를 확인해서 데이터의 불일치가 해소되었는지 확인한다.
 
+<br/>
+
 4.CLI 모드 퀵 가이드
-------------------
+==================
 
 이 장은 Migration Center를 처음 접하는 사용자들이 CLI 모드 Migration Center를 각
 단계별로 사용할 수 있도록 간략한 지침을 제공한다.
@@ -986,8 +1074,10 @@ CLI 모드에서는 "조정" 단계의 값을 변경할 수 없다. 예를 들�
 diff 명령을 통해 원본과 대상 데이터베이스간 다른 데이터가 발견되었다면
 "filesync" 기능을 사용해 일치시킬 수 있다.
 
+<br/>
+
 5.Migration Center 내부
----------------------
+=====================
 
 이 장은 Migration Center의 주요 단계인 구축, 조정, 실행 및 검증 단계에 대해
 상세히 설명한다. 이 장은 아래의 절을 포함한다:
@@ -1310,7 +1400,9 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 형식으로 저장한다. 이 때 옵션에 상관없이 Summary 정보는 검증 보고서에 항상
 기록된다.
 
-## A.부록: 마이그레이션 옵션
+<br/>
+
+# A.부록: 마이그레이션 옵션
 
 마이그레이션 옵션은 마이그레이션 프로젝트에 영향을 미치며, GUI 모드에서 "Migration Option" 메뉴 아이템을 선택해서 편집 가능하다. 마이그레이션 옵션은 대부분 프로젝트가 생성된 직후에 편집할 수 있다.
 
@@ -1366,7 +1458,9 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 | **Data Files**               |                                                              |
 | File Encoding                | 스크립트와 데이터 파일 출력에 사용될 인코딩 문자 집합을 지정한다. |
 
-## B.부록: 마이그레이션 가능한 데이터베이스 객체
+<br/>
+
+# B.부록: 마이그레이션 가능한 데이터베이스 객체
 
 "구축" 방식에 따라 데이터베이스 객체의 이관 여부 및 유의사항을 설명한다.
 
@@ -1562,7 +1656,9 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 <br/>
 
-## C.부록: 데이터 타입 맵핑
+<br/>
+
+# C.부록: 데이터 타입 맵핑
 
 이기종 데이터베이스 간의 데이터 타입을 맵핑할 때 Migration Center의 기본 정책은 "데이터 손실을 최소화하라"이다. 하지만 데이터가 손실되거나 손상되더라도 사용자가 데이터 타입 맵핑 방식을 직접 정의하는 것을 원할 수도 있다. 이런 요구를 만족시키기 위해 Migration Center는 데이터 타입 맵핑 테이블을 편집하는 방법을
 제공한다.
@@ -2053,7 +2149,9 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 | WIN1257        | 1                        |
 | WIN1258        | 1                        |
 
-## D.부록: 기본값 맵핑
+<br/>
+
+# D.부록: 기본값 맵핑
 
 Altibase의 테이블 컬럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
 
@@ -2377,7 +2475,9 @@ TABLE 문에 지정된다.
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval <br />( c1 VARCHAR(50) DEFAULT current_role,<br/>c2 VARCHAR(50) DEFAULT current_schema,<br/>c3 VARCHAR(50) DEFAULT current_user,<br/>c4 VARCHAR(50) DEFAULT session_user,<br/>c5 VARCHAR(50) DEFAULT user,<br/>c6 INTEGER DEFAULT ceiling(-95.3),<br/>c7 DOUBLE PRECISION DEFAULT random(),<br/>c8 INTEGER DEFAULT bit_length('abc'),<br/>c9 VARCHAR(50) DEFAULT reverse('reverse'),<br/>c10 INTEGER DEFAULT strpos('high', 'ig'),<br/>c11 timestamp with time zone DEFAULT clock_timestamp(),<br/>c12 date DEFAULT current_date,<br/>c13 time with time zone DEFAULT current_time,<br/>c14 timestamp with time zone DEFAULT current_timestamp,<br/>c15 time DEFAULT localtime,<br/>c16 timestamp DEFAULT localtimestamp,<br/>c17 timestamp with time zone DEFAULT now(),<br/>c18 timestamp with time zone DEFAULT transaction_timestamp() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 VARCHAR (50) DEFAULT USER_NAME()<br/>,C2 VARCHAR (50) DEFAULT USER_NAME()<br/>,C3 VARCHAR (50) DEFAULT USER_NAME()<br/>,C4 VARCHAR (50) DEFAULT USER_NAME()<br/>,C5 VARCHAR (50) DEFAULT USER_NAME()<br/>,C6 INTEGER  DEFAULT CEIL('-95.3')<br/>,C7 DOUBLE  DEFAULT (RANDOM(0)/2147483647)<br/>,C8 INTEGER  DEFAULT 8*OCTET_LENGTH('abc')<br/>,C9 VARCHAR (50) DEFAULT REVERSE_STR('reverse')<br/>,C10 INTEGER  DEFAULT INSTR('high', 'ig')<br/>,C11 DATE  DEFAULT SYSDATE<br/>,C12 DATE  DEFAULT SYSDATE<br/>,C13 DATE  DEFAULT SYSDATE<br/>,C14 DATE  DEFAULT SYSDATE<br/>,C15 DATE  DEFAULT SYSDATE<br/>,C16 DATE  DEFAULT SYSDATE<br/>,C17 DATE  DEFAULT SYSDATE<br/>,C18 DATE  DEFAULT SYSDATE ); |
 
-## E.부록: PSM 변환기 규칙 목록
+<br/>
+
+# E.부록: PSM 변환기 규칙 목록
 
 Migration Center는 Oracle 또는 TimesTen 11.2에서 Altibase로 마이그레이션을 할 때, PSM 변환기가 PSM 타입의 데이터베이스 객체를 생성할 수 있는 DDL SQL 문장을 제공한다.
 
@@ -7732,7 +7832,9 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
 ~~~
 
-## F.부록: FAQ
+<br/>
+
+# F.부록: FAQ
 
 ### DBMS 공통
 

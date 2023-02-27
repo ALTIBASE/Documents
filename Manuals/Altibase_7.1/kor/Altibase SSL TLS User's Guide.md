@@ -1,48 +1,119 @@
+# Altibase SSL/TLS User's Guide
 
-
-- [Altibase SSL/TLS User's Guide](#altibase-ssltls-users-guide)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Altibase SSL/TLS 소개](#1altibase-ssltls-%EC%86%8C%EA%B0%9C)
-    - [SSL/TLS란](#ssltls%EB%9E%80)
-    - [Altibase의 통신 보안](#altibase%EC%9D%98-%ED%86%B5%EC%8B%A0-%EB%B3%B4%EC%95%88)
-- [2.SSL 설치 및 시작](#2ssl-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%8B%9C%EC%9E%91)
-    - [소프트웨어 요구사항](#%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
-    - [SSL 사용을 위한 환경 설정](#ssl-%EC%82%AC%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-  - [3.SSL 연결 관리](#3ssl-%EC%97%B0%EA%B2%B0-%EA%B4%80%EB%A6%AC)
-    - [SSL 관리](#ssl-%EA%B4%80%EB%A6%AC)
-  - [A.부록: SSL Sample](#a%EB%B6%80%EB%A1%9D-ssl-sample)
-    - [JDBC를 이용한 SSL 통신 샘플](#jdbc%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-ssl-%ED%86%B5%EC%8B%A0-%EC%83%98%ED%94%8C)
-
-
+#### Altibase 7.1
 
 Altibase® Tools & Utilities
 
-# Altibase SSL/TLS User's Guide
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/SSL/e5cfb3761673686d093a3b00c062fe7a.png)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Tools & Utilities Altibase SSL/TLS User's Guide
-
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Altibase SSL/TLS 소개](#1altibase-ssltls-%EC%86%8C%EA%B0%9C)
+  - [SSL/TLS란](#ssltls%EB%9E%80)
+  - [Altibase의 통신 보안](#altibase%EC%9D%98-%ED%86%B5%EC%8B%A0-%EB%B3%B4%EC%95%88)
+- [2.SSL 설치 및 시작](#2ssl-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%8B%9C%EC%9E%91)
+  - [소프트웨어 요구사항](#%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+  - [SSL 사용을 위한 환경 설정](#ssl-%EC%82%AC%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+- [3.SSL 연결 관리](#3ssl-%EC%97%B0%EA%B2%B0-%EA%B4%80%EB%A6%AC)
+  - [SSL 관리](#ssl-%EA%B4%80%EB%A6%AC)
+- [A.부록: SSL Sample](#a%EB%B6%80%EB%A1%9D-ssl-sample)
+  - [JDBC를 이용한 SSL 통신 샘플](#jdbc%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-ssl-%ED%86%B5%EC%8B%A0-%EC%83%98%ED%94%8C)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -156,8 +227,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
+<br>
+
 1.Altibase SSL/TLS 소개
----------------------
+=====================
 
 이 장은 Altibase SSL/TLS의 개념 및 특징에 대해 설명한다.
 
@@ -256,6 +329,8 @@ SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
 
 - Altibase는 SSL 통신을 위해 JDBC와 ODBC를 통한 인터페이스를 제공하며, 현재는
   인텔 계열의 리눅스에서만 사용할 수 있다.
+
+<br>
 
 2.SSL 설치 및 시작
 ================
@@ -666,8 +741,10 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 Altibase 디렉토리에 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
 \$ALTIBASE_HOME/sample/SQLCLI/SSL 참고한다.
 
+<br>
+
 3.SSL 연결 관리
--------------
+=============
 
 ### SSL 관리
 
@@ -805,7 +882,9 @@ COMM_NAME
 No rows selected.
 ```
 
-## A.부록: SSL Sample
+<br>
+
+# A.부록: SSL Sample
 
 Altibase는 서버와 클라이언트에서 SSL을 사용하기 위하여 샘플 파일을 제공한다.
 

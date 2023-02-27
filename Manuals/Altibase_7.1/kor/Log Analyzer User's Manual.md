@@ -1,100 +1,167 @@
-
-
-- [Log Analyzer User’s Manual](#log-analyzer-users-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Log Analyzer 소개](#1log-analyzer-%EC%86%8C%EA%B0%9C)
-    - [Log Analyzer](#log-analyzer)
-    - [Log Analysis API 사용 방법](#log-analysis-api-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-    - [Log Analysis API 요약](#log-analysis-api-%EC%9A%94%EC%95%BD)
-  - [XLog Sender](#xlog-sender)
-    - [XLog Sender를 위한 SQL구문](#xlog-sender%EB%A5%BC-%EC%9C%84%ED%95%9C-sql%EA%B5%AC%EB%AC%B8)
-    - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-  - [3.XLog 분석](#3xlog-%EB%B6%84%EC%84%9D)
-    - [XLog](#xlog)
-    - [메타 정보](#%EB%A9%94%ED%83%80-%EC%A0%95%EB%B3%B4)
-    - [Altibase 데이터 타입과 저장 구조체](#altibase-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EA%B3%BC-%EC%A0%80%EC%9E%A5-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
-    - [SAVEPOINT](#savepoint)
-  - [Log Analysis API](#log-analysis-api)
-    - [ALA_InitializeAPI](#ala_initializeapi)
-    - [ALA_DestroyAPI](#ala_destroyapi)
-    - [ALA_EnableLogging](#ala_enablelogging)
-    - [ALA_DisableLogging](#ala_disablelogging)
-    - [ALA_CreateXLogCollector](#ala_createxlogcollector)
-    - [ALA_AddAuthInfo](#ala_addauthinfo)
-    - [ALA_RemoveAuthInfo](#ala_removeauthinfo)
-    - [ALA_SetHandshakeTimeout](#ala_sethandshaketimeout)
-    - [ALA_SetReceiveXLogTimeout](#ala_setreceivexlogtimeout)
-    - [ALA_SetXLogPoolSize](#ala_setxlogpoolsize)
-    - [ALA_Handshake](#ala_handshake)
-    - [ALA_ReceiveXLog](#ala_receivexlog)
-    - [ALA_GetXLog](#ala_getxlog)
-    - [ALA_SendACK](#ala_sendack)
-    - [ALA_FreeXLog](#ala_freexlog)
-    - [ALA_DestroyXLogCollector](#ala_destroyxlogcollector)
-    - [ALA_GetXLogCollectorStatus](#ala_getxlogcollectorstatus)
-    - [ALA_GetXLogHeader](#ala_getxlogheader)
-    - [ALA_GetXLogPrimaryKey](#ala_getxlogprimarykey)
-    - [ALA_GetXLogColumn](#ala_getxlogcolumn)
-    - [ALA_GetXLogSavepoint](#ala_getxlogsavepoint)
-    - [ALA_GetXLogLOB](#ala_getxloglob)
-    - [ALA_GetProtocolVersion](#ala_getprotocolversion)
-    - [ALA_GetReplicationInfo](#ala_getreplicationinfo)
-    - [ALA_GetTableInfo](#ala_gettableinfo)
-    - [ALA_GetTableInfoByName](#ala_gettableinfobyname)
-    - [ALA_GetColumnInfo](#ala_getcolumninfo)
-    - [ALA_GetIndexInfo](#ala_getindexinfo)
-    - [ALA_IsHiddenColumn](#ala_ishiddencolumn)
-    - [ALA_GetInternalNumericInfo](#ala_getinternalnumericinfo)
-    - [ALA_GetAltibaseText](#ala_getaltibasetext)
-    - [ALA_GetAltibaseSQL](#ala_getaltibasesql)
-    - [ALA_GetODBCCValue](#ala_getodbccvalue)
-    - [ALA\_ IsNullValue](#ala%5C_-isnullvalue)
-    - [ALA_ClearErrorMgr](#ala_clearerrormgr)
-    - [ALA_GetErrorCode](#ala_geterrorcode)
-    - [ALA_GetErrorLevel](#ala_geterrorlevel)
-    - [ALA_GetErrorMessage](#ala_geterrormessage)
-  - [부록A. Error Code](#%EB%B6%80%EB%A1%9Da-error-code)
-    - [Error Code 정리](#error-code-%EC%A0%95%EB%A6%AC)
-  - [부록B. Sample Code](#%EB%B6%80%EB%A1%9Db-sample-code)
-    - [Sample Code : Replication to DBMS](#sample-code--replication-to-dbms)
-
-
-
-Altibase® Application Development
-
 Log Analyzer User’s Manual
 ==========================
 
-![](media/LogAnalyzer/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
+
+Altibase® Application Development
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Application Development Log Analyzer User’s Manual
-
 Release 7.1
-
-Copyright ⓒ 2001\~2019 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의 없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+<br>
 
+# 목차
 
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Log Analyzer 소개](#1log-analyzer-%EC%86%8C%EA%B0%9C)
+  - [Log Analyzer](#log-analyzer)
+  - [Log Analysis API 사용 방법](#log-analysis-api-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+  - [Log Analysis API 요약](#log-analysis-api-%EC%9A%94%EC%95%BD)
+- [2.XLog Sender](#2xlog-sender)
+  - [XLog Sender를 위한 SQL구문](#xlog-sender%EB%A5%BC-%EC%9C%84%ED%95%9C-sql%EA%B5%AC%EB%AC%B8)
+  - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+- [3.XLog 분석](#3xlog-%EB%B6%84%EC%84%9D)
+  - [XLog](#xlog)
+  - [메타 정보](#%EB%A9%94%ED%83%80-%EC%A0%95%EB%B3%B4)
+  - [Altibase 데이터 타입과 저장 구조체](#altibase-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EA%B3%BC-%EC%A0%80%EC%9E%A5-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
+  - [SAVEPOINT](#savepoint)
+- [4.Log Analysis API](#4log-analysis-api)
+  - [ALA_InitializeAPI](#ala_initializeapi)
+  - [ALA_DestroyAPI](#ala_destroyapi)
+  - [ALA_EnableLogging](#ala_enablelogging)
+  - [ALA_DisableLogging](#ala_disablelogging)
+  - [ALA_CreateXLogCollector](#ala_createxlogcollector)
+  - [ALA_AddAuthInfo](#ala_addauthinfo)
+  - [ALA_RemoveAuthInfo](#ala_removeauthinfo)
+  - [ALA_SetHandshakeTimeout](#ala_sethandshaketimeout)
+  - [ALA_SetReceiveXLogTimeout](#ala_setreceivexlogtimeout)
+  - [ALA_SetXLogPoolSize](#ala_setxlogpoolsize)
+  - [ALA_Handshake](#ala_handshake)
+  - [ALA_ReceiveXLog](#ala_receivexlog)
+  - [ALA_GetXLog](#ala_getxlog)
+  - [ALA_SendACK](#ala_sendack)
+  - [ALA_FreeXLog](#ala_freexlog)
+  - [ALA_DestroyXLogCollector](#ala_destroyxlogcollector)
+  - [ALA_GetXLogCollectorStatus](#ala_getxlogcollectorstatus)
+  - [ALA_GetXLogHeader](#ala_getxlogheader)
+  - [ALA_GetXLogPrimaryKey](#ala_getxlogprimarykey)
+  - [ALA_GetXLogColumn](#ala_getxlogcolumn)
+  - [ALA_GetXLogSavepoint](#ala_getxlogsavepoint)
+  - [ALA_GetXLogLOB](#ala_getxloglob)
+  - [ALA_GetProtocolVersion](#ala_getprotocolversion)
+  - [ALA_GetReplicationInfo](#ala_getreplicationinfo)
+  - [ALA_GetTableInfo](#ala_gettableinfo)
+  - [ALA_GetTableInfoByName](#ala_gettableinfobyname)
+  - [ALA_GetColumnInfo](#ala_getcolumninfo)
+  - [ALA_GetIndexInfo](#ala_getindexinfo)
+  - [ALA_IsHiddenColumn](#ala_ishiddencolumn)
+  - [ALA_GetInternalNumericInfo](#ala_getinternalnumericinfo)
+  - [ALA_GetAltibaseText](#ala_getaltibasetext)
+  - [ALA_GetAltibaseSQL](#ala_getaltibasesql)
+  - [ALA_GetODBCCValue](#ala_getodbccvalue)
+  - [ALA\_ IsNullValue](#ala%5C_-isnullvalue)
+  - [ALA_ClearErrorMgr](#ala_clearerrormgr)
+  - [ALA_GetErrorCode](#ala_geterrorcode)
+  - [ALA_GetErrorLevel](#ala_geterrorlevel)
+  - [ALA_GetErrorMessage](#ala_geterrormessage)
+- [부록A. Error Code](#%EB%B6%80%EB%A1%9Da-error-code)
+  - [Error Code 정리](#error-code-%EC%A0%95%EB%A6%AC)
+- [부록B. Sample Code](#%EB%B6%80%EB%A1%9Db-sample-code)
+  - [Sample Code : Replication to DBMS](#sample-code--replication-to-dbms)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -233,7 +300,7 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 여러분의 의견에 항상 감사드립니다.
 
 1.Log Analyzer 소개
------------------
+=================
 
 이 장에서는 Log Analyzer의 개념과 기본적인 사용 방법을 설명한다.
 
@@ -1034,8 +1101,8 @@ Log Analysis API를 사용 시, 아래의 사항을 주의해야 한다.
 </tbody>
 </table>
 
-XLog Sender
------------
+2.XLog Sender
+===========
 
 Log Analyzer의 구성요소 중에서 XLog Sender의 사용법을 설명한다.
 
@@ -1450,7 +1517,7 @@ XLog Sender의 Transaction Table 정보를 가진다.
 로그 분석 진도에 대한 정보를 가진다.
 
 3.XLog 분석
----------
+=========
 
 이 장은 XLog를 분석하기 위해 필요한 XLog, Meta 정보, Altibase Internal Data Type
 등에 대해 설명한다.
@@ -2296,8 +2363,8 @@ SAVEPOINT는 종류별로 관리되며, savepoint xlog는 애플리케이션 내
 
 
 
-Log Analysis API
-----------------
+4.Log Analysis API
+================
 
 Log Analyzer의 구성요소 중의 하나인 Log Analysis API의 사용법을 설명한다.
 
@@ -5050,7 +5117,7 @@ ALA_GetErrorLevel
 ALA_ClearErrorMgr를 참고한다.
 
 부록A. Error Code
------------------
+=================
 
 ### Error Code 정리
 
@@ -5437,7 +5504,7 @@ ALA_ClearErrorMgr를 참고한다.
 | 0x5203E    | ulnColumn에서 ODBC C로 변환 실패                    | ALA_GetODBCCValue                                            |
 
 부록B. Sample Code
-------------------
+==================
 
 ### Sample Code : Replication to DBMS
 
@@ -5932,5 +5999,4 @@ void printAlaErr(ALA_ErrorMgr * aErrorMgr)
     printf("ALA Error : %d, %s\n", sErrorCode, sErrorMessage);
 }
 ```
-
 

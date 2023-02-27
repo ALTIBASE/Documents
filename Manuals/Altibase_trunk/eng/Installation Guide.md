@@ -1,63 +1,135 @@
-
-
-
-- [Installation Guide](#installation-guide)
-    - [Preface](#%EC%84%9C%EB%AC%B8)
-    - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1. Altibase Package Installer](#1altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
-    - [Altibase Home](#altibase-%ED%99%88)
-    - [APatch Directory](#apatch-%EB%94%94%EB%A0%89%ED%84%B0%EB%A6%AC)
-  - [2. Installing Products with the Altibase Package Installer](#2%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
-    - [System Requirements](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
-    - [Altibase Package Installer](#altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
-    - [Altibase Products Installation](#altibase-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
-    - [Altibase Client Products Installation](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
-  - [3. Altibase Uninstallation and Meta Downgrade](#3altibase-%EC%A0%9C%EA%B1%B0-%EB%B0%8F-%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
-    - [Altibase Uninstallation](#altibase-%EC%A0%9C%ED%92%88-%EC%82%AD%EC%A0%9C)
-    - [Meta Downgrade](#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)
-  - [4. Patching Products with the Altibase Package Installer](#4%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
-    - [About Patches](#%ED%8C%A8%EC%B9%98%EB%9E%80)
-    - [Patching Altibase Server Products](#altibase-%EC%84%9C%EB%B2%84-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
-    - [Patching Altibase Client Products](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
-  - [Appendix A. Installation Prerequisites](#a%EB%B6%80%EB%A1%9D-%EC%84%A4%EC%B9%98-%EC%A0%84-%ED%99%95%EC%9D%B8-%EC%82%AC%ED%95%AD)
-    - [Setting User Resource Limit Values](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95%EC%9D%98-%EB%A6%AC%EC%86%8C%EC%8A%A4-%ED%95%9C%EA%B3%84-%EA%B0%92-%ED%99%95%EC%9D%B8)
-    - [Setting Kernel Parameters for Different Operating Systems](#os%EB%B3%84-%EC%BB%A4%EB%84%90-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EC%84%A4%EC%A0%95)
-    - [Configuration of THP and Verifying Disk Configuration](#thp-%EC%84%A4%EC%A0%95-%ED%99%95%EC%9D%B8-%EB%B0%8F-%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94-%EB%B0%A9%EB%B2%95)
-    - [Checking DISK Configuration](#%EB%94%94%EC%8A%A4%ED%81%AC-%EA%B5%AC%EC%84%B1-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8)
-    - [OS Patch](#os-patch)
-
-
-
-Altibase® Administration
-
 Installation Guide
 ==================
 
-![](media/Installation/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Administration
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Installation Guide
-
-Release 7.1
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.
-
-All trademarks, registered or otherwise, are the property of their respective owners
-
-**Altibase Corp**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
-
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Telephone: +82-2-2082-1114 Fax: +82-2-2082-1099
+<br>
 
-Customer Support: <http://support.altibase.com/en/> 
+# Table Of Contents
 
-Homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [Preface](#%EC%84%9C%EB%AC%B8)
+- [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1. Altibase Package Installer](#1altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
+  - [Altibase Home](#altibase-%ED%99%88)
+  - [APatch Directory](#apatch-%EB%94%94%EB%A0%89%ED%84%B0%EB%A6%AC)
+- [2. Installing Products with the Altibase Package Installer](#2%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
+  - [System Requirements](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+  - [Altibase Package Installer](#altibase-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC)
+  - [Altibase Products Installation](#altibase-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
+  - [Altibase Client Products Installation](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%EC%84%A4%EC%B9%98)
+- [3. Altibase Uninstallation and Meta Downgrade](#3altibase-%EC%A0%9C%EA%B1%B0-%EB%B0%8F-%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
+  - [Altibase Uninstallation](#altibase-%EC%A0%9C%ED%92%88-%EC%82%AD%EC%A0%9C)
+  - [Meta Downgrade](#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)
+- [4. Patching Products with the Altibase Package Installer](#4%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%9D%B8%EC%8A%A4%ED%86%A8%EB%9F%AC%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
+  - [About Patches](#%ED%8C%A8%EC%B9%98%EB%9E%80)
+  - [Patching Altibase Server Products](#altibase-%EC%84%9C%EB%B2%84-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
+  - [Patching Altibase Client Products](#altibase-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%A0%9C%ED%92%88-%ED%8C%A8%EC%B9%98)
+- [Appendix A. Installation Prerequisites](#a%EB%B6%80%EB%A1%9D-%EC%84%A4%EC%B9%98-%EC%A0%84-%ED%99%95%EC%9D%B8-%EC%82%AC%ED%95%AD)
+  - [Setting User Resource Limit Values](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95%EC%9D%98-%EB%A6%AC%EC%86%8C%EC%8A%A4-%ED%95%9C%EA%B3%84-%EA%B0%92-%ED%99%95%EC%9D%B8)
+  - [Setting Kernel Parameters for Different Operating Systems](#os%EB%B3%84-%EC%BB%A4%EB%84%90-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EC%84%A4%EC%A0%95)
+  - [Configuration of THP and Verifying Disk Configuration](#thp-%EC%84%A4%EC%A0%95-%ED%99%95%EC%9D%B8-%EB%B0%8F-%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94-%EB%B0%A9%EB%B2%95)
+  - [Checking DISK Configuration](#%EB%94%94%EC%8A%A4%ED%81%AC-%EA%B5%AC%EC%84%B1-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8)
+  - [OS Patch](#os-patch)
 
-### Preface
+
+
+# Preface
 
 ### About This Manual
 
@@ -124,7 +196,7 @@ When you need immediate assistance regarding technical issues, please contact Al
 
 Thank you. We appreciate your feedback and suggestions.
 
-## 1. About the Altibase Package Installer
+# 1. About the Altibase Package Installer
 ------------------------
 
 This Altibase Package Installer is a Java-based installer that lets users easily install Altibase products such as the database server, client components, tools, and so forth.
@@ -253,7 +325,7 @@ uninstall-base
 -   rollback-p0_0_0_10: the directory that contains backups of the files patched with 7.1.0.0.10.
 -   uninstall-p0_0_0_10: the executable file needed to delete the patch 7.1.0.0.10 and rollback to the previous version. These files are stored in the rollback-p0_0_0_10 directory.
 
-## 2. Installing Products with the Altibase Package Installer
+# 2. Installing Products with the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
@@ -1018,7 +1090,7 @@ export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}
 
 If you have not applied new environment variables to your shell during the above procedure, do it now. For more detailed information, please refer to [*Installing the Altibase Client Product*](#installing-the-altibase-client-product).
 
-## 3. Uninstalling Altibase and Meta Downgrade
+# 3. Uninstalling Altibase and Meta Downgrade
 ----------------------------------
 
 This chapter explains how to uninstall an installed or meta downgrade the installed product.
@@ -1147,7 +1219,7 @@ Run the Patch Uninstaller to remove the patch
 >
 > After performing a server downgrade, the user must delete the patch. If the server is run without deleting the patch, the meta upgrade will occur because the meta version has been modified to the previous version. 
 
-## 4. Patching Products With the Altibase Package Installer
+# 4. Patching Products With the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
@@ -1324,7 +1396,7 @@ This panel shows the patch version applied to the Altibase product that is curre
 
 ![](media/Installation/4fdf2f39646963c5ba906294335d83fe.png)
 
-## Appendix A. Installation Prerequisites
+# Appendix A. Installation Prerequisites
 
 ### Setting User Resource Limit Values
 

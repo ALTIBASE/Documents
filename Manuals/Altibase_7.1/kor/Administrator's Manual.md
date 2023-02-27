@@ -1,128 +1,199 @@
-
-
-- [Administrator’s Manual](#administrators-manual)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.Altibase 소개](#1altibase-%EC%86%8C%EA%B0%9C)
-    - [Hybrid DBMS개념](#hybrid-dbms%EA%B0%9C%EB%85%90)
-    - [Altibase 특징](#altibase-%ED%8A%B9%EC%A7%95)
-    - [Altibase 구조](#altibase-%EA%B5%AC%EC%A1%B0)
-  - [2.Altibase 구성요소](#2altibase-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C)
-    - [Altibase 디렉터리](#altibase-디렉터리)
-    - [실행 바이너리](#%EC%8B%A4%ED%96%89-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC)
-    - [Altibase 라이브러리](#altibase-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
-  - [3.데이터베이스 생성](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
-    - [데이터베이스 생성](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
-  - [4.Altibase 구동 및 종료](#4altibase-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
-    - [Altibase 구동](#altibase-%EA%B5%AC%EB%8F%99)
-    - [Altibase 종료](#altibase-%EC%A2%85%EB%A3%8C)
-  - [5.데이터베이스 객체 및 권한](#5%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C)
-    - [데이터베이스 객체 개요](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
-    - [테이블](#%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [임시 테이블](#%EC%9E%84%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [압축 테이블](#%EC%95%95%EC%B6%95-%ED%85%8C%EC%9D%B4%EB%B8%94)
-    - [큐](#%ED%81%90)
-    - [제약조건](#%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
-    - [인덱스](#%EC%9D%B8%EB%8D%B1%EC%8A%A4)
-    - [뷰](#%EB%B7%B0)
-    - [Materialized View](#materialized-view)
-    - [시퀀스](#%EC%8B%9C%ED%80%80%EC%8A%A4)
-    - [시노님](#%EC%8B%9C%EB%85%B8%EB%8B%98)
-    - [저장 프로시저 및 저장 함수](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B0%8F-%EC%A0%80%EC%9E%A5-%ED%95%A8%EC%88%98)
-    - [트리거](#%ED%8A%B8%EB%A6%AC%EA%B1%B0)
-    - [작업(Job)](#%EC%9E%91%EC%97%85job)
-    - [데이터베이스 사용자](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%82%AC%EC%9A%A9%EC%9E%90)
-    - [권한과 롤](#%EA%B6%8C%ED%95%9C%EA%B3%BC-%EB%A1%A4)
-  - [6.테이블스페이스](#6%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4)
-    - [테이블스페이스 정의 및 구조](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%A0%95%EC%9D%98-%EB%B0%8F-%EA%B5%AC%EC%A1%B0)
-    - [테이블스페이스 분류](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EB%B6%84%EB%A5%98)
-    - [디스크 테이블스페이스](#%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4)
-    - [언두 테이블스페이스](#%EC%96%B8%EB%91%90-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4)
-    - [테이블스페이스 상태](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%83%81%ED%83%9C)
-    - [테이블스페이스 관리](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B4%80%EB%A6%AC)
-    - [테이블스페이스 사용 예제](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
-    - [테이블스페이스 공간 관리](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B3%B5%EA%B0%84-%EA%B4%80%EB%A6%AC)
-  - [7.파티션드 객체](#7%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
-    - [파티셔닝 정의](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EC%A0%95%EC%9D%98)
-    - [파티션드 객체](#%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
-    - [파티션 조건](#%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%A1%B0%EA%B1%B4)
-    - [파티셔닝 방법](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EB%B0%A9%EB%B2%95)
-  - [8.트랜잭션 관리](#8%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B4%80%EB%A6%AC)
-    - [트랜잭션](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
-    - [잠금(Lock)](#%EC%9E%A0%EA%B8%88lock)
-    - [다중 버전 동시성 제어 기법](#%EB%8B%A4%EC%A4%91-%EB%B2%84%EC%A0%84-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4-%EA%B8%B0%EB%B2%95)
-    - [트랜잭션의 영속성](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%EC%98%81%EC%86%8D%EC%84%B1)
-    - [체크포인트](#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8)
-  - [9.버퍼 관리자](#9%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90)
-    - [버퍼 관리자의 구조](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90%EC%9D%98-%EA%B5%AC%EC%A1%B0)
-    - [버퍼 관리](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC)
-    - [버퍼 관련 프로퍼티](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [버퍼 관리자 통계 정보](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90-%ED%86%B5%EA%B3%84-%EC%A0%95%EB%B3%B4)
-  - [10.백업 및 복구](#10%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
-    - [데이터베이스 백업](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B0%B1%EC%97%85)
-    - [데이터베이스 복구](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B3%B5%EA%B5%AC)
-    - [백업 및 복구 사례들](#%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC-%EC%82%AC%EB%A1%80%EB%93%A4)
-  - [11.증분 백업과 복구](#11%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC)
-    - [증분 백업 (Incremental Backup)](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85-incremental-backup)
-    - [증분 백업의 종류](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%9D%98-%EC%A2%85%EB%A5%98)
-    - [증분 백업에 대한 매체 복구](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%97%90-%EB%8C%80%ED%95%9C-%EB%A7%A4%EC%B2%B4-%EB%B3%B5%EA%B5%AC)
-    - [백업 파일 관리](#%EB%B0%B1%EC%97%85-%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
-  - [12.서버/클라이언트 통신](#12%EC%84%9C%EB%B2%84%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%86%B5%EC%8B%A0)
-    - [통신 방법](#%ED%86%B5%EC%8B%A0-%EB%B0%A9%EB%B2%95)
-  - [13.Altibase의 보안](#13altibase%EC%9D%98-%EB%B3%B4%EC%95%88)
-    - [보안의 개요](#%EB%B3%B4%EC%95%88%EC%9D%98-%EA%B0%9C%EC%9A%94)
-    - [보안 기능의 구성](#%EB%B3%B4%EC%95%88-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EA%B5%AC%EC%84%B1)
-    - [보안 모듈 연동 방법](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EC%97%B0%EB%8F%99-%EB%B0%A9%EB%B2%95)
-    - [보안 모듈 구동과 데이터 암호화](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EA%B5%AC%EB%8F%99%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%95%94%ED%98%B8%ED%99%94)
-  - [14.데이터베이스 감사 (Database Auditing)](#14%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%90%EC%82%AC-database-auditing)
-    - [소개](#%EC%86%8C%EA%B0%9C)
-    - [관련 메타 테이블과 프로퍼티](#%EA%B4%80%EB%A0%A8-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [감사 제어 구문](#%EA%B0%90%EC%82%AC-%EC%A0%9C%EC%96%B4-%EA%B5%AC%EB%AC%B8)
-    - [감사 조건 구문](#%EA%B0%90%EC%82%AC-%EC%A1%B0%EA%B1%B4-%EA%B5%AC%EB%AC%B8)
-    - [감사 결과 확인하기](#%EA%B0%90%EC%82%AC-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0)
-  - [15.Altibase 튜닝](#15altibase-%ED%8A%9C%EB%8B%9D)
-    - [로그 파일 그룹](#%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EA%B7%B8%EB%A3%B9)
-    - [그룹 커밋](#%EA%B7%B8%EB%A3%B9-%EC%BB%A4%EB%B0%8B)
-  - [Altibase 진단 모니터링](#altibase-%EC%A7%84%EB%8B%A8-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
-    - [Altibase 모니터링](#altibase-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
-    - [Altibase 문제상황 분석](#altibase-%EB%AC%B8%EC%A0%9C%EC%83%81%ED%99%A9-%EB%B6%84%EC%84%9D)
-  - [A.부록: Trace Log](#a%EB%B6%80%EB%A1%9D-trace-log)
-    - [Trace Log](#trace-log)
-  - [B.부록: Altibase 최대치](#b%EB%B6%80%EB%A1%9D-altibase-%EC%B5%9C%EB%8C%80%EC%B9%98)
-    - [Altibase 객체들의 최대값](#altibase-%EA%B0%9D%EC%B2%B4%EB%93%A4%EC%9D%98-%EC%B5%9C%EB%8C%80%EA%B0%92)
-
-Altibase® Administration
-
 Administrator’s Manual
 ======================
 
-![](media/Admin/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
+
+Altibase® Administration
+
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
-Altibase Administration Administrator’s Manual
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
+Altibase Administration Administrator's Manual
 Release 7.1
-
-Copyright ⓒ 2001\~2018 Altibase Corp. All Rights Reserved.
-
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
-
-**㈜알티베이스**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
-
-전화: 02-2082-1114 팩스: 02-2082-1099
-
-고객서비스포털: <http://support.altibase.com>
-
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+
+<br>
+
+# 목차
+
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.Altibase 소개](#1altibase-%EC%86%8C%EA%B0%9C)
+  - [Hybrid DBMS개념](#hybrid-dbms%EA%B0%9C%EB%85%90)
+  - [Altibase 특징](#altibase-%ED%8A%B9%EC%A7%95)
+  - [Altibase 구조](#altibase-%EA%B5%AC%EC%A1%B0)
+- [2.Altibase 구성요소](#2altibase-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C)
+  - [Altibase 디렉터리](#altibase-디렉터리)
+  - [실행 바이너리](#%EC%8B%A4%ED%96%89-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC)
+  - [Altibase 라이브러리](#altibase-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
+- [3.데이터베이스 생성](#3%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
+  - [데이터베이스 생성](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%83%9D%EC%84%B1)
+- [4.Altibase 구동 및 종료](#4altibase-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
+  - [Altibase 구동](#altibase-%EA%B5%AC%EB%8F%99)
+  - [Altibase 종료](#altibase-%EC%A2%85%EB%A3%8C)
+- [5.데이터베이스 객체 및 권한](#5%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C)
+  - [데이터베이스 객체 개요](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
+  - [테이블](#%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [임시 테이블](#%EC%9E%84%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [압축 테이블](#%EC%95%95%EC%B6%95-%ED%85%8C%EC%9D%B4%EB%B8%94)
+  - [큐](#%ED%81%90)
+  - [제약조건](#%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)
+  - [인덱스](#%EC%9D%B8%EB%8D%B1%EC%8A%A4)
+  - [뷰](#%EB%B7%B0)
+  - [Materialized View](#materialized-view)
+  - [시퀀스](#%EC%8B%9C%ED%80%80%EC%8A%A4)
+  - [시노님](#%EC%8B%9C%EB%85%B8%EB%8B%98)
+  - [저장 프로시저 및 저장 함수](#%EC%A0%80%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EB%B0%8F-%EC%A0%80%EC%9E%A5-%ED%95%A8%EC%88%98)
+  - [트리거](#%ED%8A%B8%EB%A6%AC%EA%B1%B0)
+  - [작업(Job)](#%EC%9E%91%EC%97%85job)
+  - [데이터베이스 사용자](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%82%AC%EC%9A%A9%EC%9E%90)
+  - [권한과 롤](#%EA%B6%8C%ED%95%9C%EA%B3%BC-%EB%A1%A4)
+- [6.테이블스페이스](#6%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4)
+  - [테이블스페이스 정의 및 구조](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%A0%95%EC%9D%98-%EB%B0%8F-%EA%B5%AC%EC%A1%B0)
+  - [테이블스페이스 분류](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EB%B6%84%EB%A5%98)
+  - [디스크 테이블스페이스](#%EB%94%94%EC%8A%A4%ED%81%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4)
+  - [언두 테이블스페이스](#%EC%96%B8%EB%91%90-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4)
+  - [테이블스페이스 상태](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%83%81%ED%83%9C)
+  - [테이블스페이스 관리](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B4%80%EB%A6%AC)
+  - [테이블스페이스 사용 예제](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
+  - [테이블스페이스 공간 관리](#%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B3%B5%EA%B0%84-%EA%B4%80%EB%A6%AC)
+- [7.파티션드 객체](#7%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
+  - [파티셔닝 정의](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EC%A0%95%EC%9D%98)
+  - [파티션드 객체](#%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EA%B0%9D%EC%B2%B4)
+  - [파티션 조건](#%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%A1%B0%EA%B1%B4)
+  - [파티셔닝 방법](#%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D-%EB%B0%A9%EB%B2%95)
+- [8.트랜잭션 관리](#8%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B4%80%EB%A6%AC)
+  - [트랜잭션](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
+  - [잠금(Lock)](#%EC%9E%A0%EA%B8%88lock)
+  - [다중 버전 동시성 제어 기법](#%EB%8B%A4%EC%A4%91-%EB%B2%84%EC%A0%84-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4-%EA%B8%B0%EB%B2%95)
+  - [트랜잭션의 영속성](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%EC%98%81%EC%86%8D%EC%84%B1)
+  - [체크포인트](#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8)
+- [9.버퍼 관리자](#9%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90)
+  - [버퍼 관리자의 구조](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90%EC%9D%98-%EA%B5%AC%EC%A1%B0)
+  - [버퍼 관리](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC)
+  - [버퍼 관련 프로퍼티](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+  - [버퍼 관리자 통계 정보](#%EB%B2%84%ED%8D%BC-%EA%B4%80%EB%A6%AC%EC%9E%90-%ED%86%B5%EA%B3%84-%EC%A0%95%EB%B3%B4)
+- [10.백업 및 복구](#10%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
+  - [데이터베이스 백업](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B0%B1%EC%97%85)
+  - [데이터베이스 복구](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B3%B5%EA%B5%AC)
+  - [백업 및 복구 사례들](#%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC-%EC%82%AC%EB%A1%80%EB%93%A4)
+- [11.증분 백업과 복구](#11%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC)
+  - [증분 백업 (Incremental Backup)](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85-incremental-backup)
+  - [증분 백업의 종류](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%9D%98-%EC%A2%85%EB%A5%98)
+  - [증분 백업에 대한 매체 복구](#%EC%A6%9D%EB%B6%84-%EB%B0%B1%EC%97%85%EC%97%90-%EB%8C%80%ED%95%9C-%EB%A7%A4%EC%B2%B4-%EB%B3%B5%EA%B5%AC)
+  - [백업 파일 관리](#%EB%B0%B1%EC%97%85-%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
+- [12.서버/클라이언트 통신](#12%EC%84%9C%EB%B2%84%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%ED%86%B5%EC%8B%A0)
+  - [통신 방법](#%ED%86%B5%EC%8B%A0-%EB%B0%A9%EB%B2%95)
+- [13.Altibase의 보안](#13altibase%EC%9D%98-%EB%B3%B4%EC%95%88)
+  - [보안의 개요](#%EB%B3%B4%EC%95%88%EC%9D%98-%EA%B0%9C%EC%9A%94)
+  - [보안 기능의 구성](#%EB%B3%B4%EC%95%88-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EA%B5%AC%EC%84%B1)
+  - [보안 모듈 연동 방법](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EC%97%B0%EB%8F%99-%EB%B0%A9%EB%B2%95)
+  - [보안 모듈 구동과 데이터 암호화](#%EB%B3%B4%EC%95%88-%EB%AA%A8%EB%93%88-%EA%B5%AC%EB%8F%99%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%95%94%ED%98%B8%ED%99%94)
+- [14.데이터베이스 감사 (Database Auditing)](#14%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%90%EC%82%AC-database-auditing)
+  - [소개](#%EC%86%8C%EA%B0%9C)
+  - [관련 메타 테이블과 프로퍼티](#%EA%B4%80%EB%A0%A8-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+  - [감사 제어 구문](#%EA%B0%90%EC%82%AC-%EC%A0%9C%EC%96%B4-%EA%B5%AC%EB%AC%B8)
+  - [감사 조건 구문](#%EA%B0%90%EC%82%AC-%EC%A1%B0%EA%B1%B4-%EA%B5%AC%EB%AC%B8)
+  - [감사 결과 확인하기](#%EA%B0%90%EC%82%AC-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0)
+- [15.Altibase 튜닝](#15altibase-%ED%8A%9C%EB%8B%9D)
+  - [로그 파일 그룹](#%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC-%EA%B7%B8%EB%A3%B9)
+  - [그룹 커밋](#%EA%B7%B8%EB%A3%B9-%EC%BB%A4%EB%B0%8B)
+- [16.Altibase 진단 모니터링](#16altibase-%EC%A7%84%EB%8B%A8-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
+  - [Altibase 모니터링](#altibase-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81)
+  - [Altibase 문제상황 분석](#altibase-%EB%AC%B8%EC%A0%9C%EC%83%81%ED%99%A9-%EB%B6%84%EC%84%9D)
+- [A.부록: Trace Log](#a%EB%B6%80%EB%A1%9D-trace-log)
+  - [Trace Log](#trace-log)
+- [B.부록: Altibase 최대치](#b%EB%B6%80%EB%A1%9D-altibase-%EC%B5%9C%EB%8C%80%EC%B9%98)
+  - [Altibase 객체들의 최대값](#altibase-%EA%B0%9D%EC%B2%B4%EB%93%A4%EC%9D%98-%EC%B5%9C%EB%8C%80%EA%B0%92)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -316,8 +387,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
+<br>
+
 1.Altibase 소개
--------------
+=============
 
 이 장에서는 Altibase를 처음 접하는 사용자들을 위해서 Hybrid DBMS의 등장 배경과
 Altibase의 구조 및 특징에 대해서 설명한다.
@@ -881,8 +954,10 @@ Altibase 서버의 환경 설정을 위한 파일이며 Altibase 서버의 운�
 데이터 저장 관리 모듈, 질의 처리 모듈, Altibase 서버 메인 모듈, 그리고 함수
 실행이나 데이터 타입과 관련된 오류 메시지를 수록한 파일이다.
 
+<br>
+
 2.Altibase 구성요소
------------------
+=================
 
 이 장에서는 Altibase의 주요 구성요소에 대해서 설명한다. 사용자는 Altibase 패키지
 설치 후에 실행 바이너리 부문과 프로그래밍 라이브러리 부문 등의 구성요소에 대해서
@@ -1268,8 +1343,10 @@ Altibase의 응용 프로그램을 작성할 때 필요한 구성 요소들로�
 
 이에 대해서는 *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Getting%20Started%20Guide.md)*에서 자세히 설명한다.
 
+<br>
+
 3.데이터베이스 생성
------------------
+=================
 
 Altibase 설치 후에 데이터베이스 관리자는 사용자 데이터 발생량을 예측하여
 데이터베이스를 생성하고 관리해야 한다. 이 장에서는 데이터베이스 생성시에 알고
@@ -1493,8 +1570,10 @@ ALTIBASE_HOME에 설정된 경로를 가리킨다.
 
 프로퍼티에 대한 보다 자세한 내용은 *General Reference*를 참조하기 바란다.
 
+<br>
+
 4.Altibase 구동 및 종료
----------------------
+=====================
 
 데이터베이스를 생성 후 서비스를 제공하기 위해서는 서버를 서비스 단계까지
 구동하여야 한다. 이 장에서는 데이터베이스 구동과 종료 시에 참고할 사항들을
@@ -1692,8 +1771,10 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 $
 ```
 
+<br>
+
 5.데이터베이스 객체 및 권한
--------------------------
+=========================
 
 이장에서는 Altibase 데이터베이스 내의 객체 관리 및 권한 관리 방법에 대해서
 설명한다.
@@ -1868,7 +1949,9 @@ Altibase 서버가 식별할 수 있도록 해야 한다. 이를 위해 Altibase
 
 디렉터리 객체에 대한 자세한 기능은 *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md)*를 참고한다.
 
-저장프로시저 내에서의 파일 제어 방법은 *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Stored%20Procedures%20Manual.md)*을 참고한다.
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
 
 ##### 이중화 (Replication) 
 
@@ -4182,8 +4265,10 @@ REVOKE DELETE ON sys.employees FROM role2;
 
 -   REVOKE
 
+<br>
+
 6.테이블스페이스
---------------
+==============
 
 이 장에서는 관리자가 알아야할 테이블스페이스의 개념, 테이블스페이스 구조와 그
 사용을 위해서 지원되는 기능에 대해서 설명하고, 효율적인 테이블스페이스 관리를
@@ -6920,8 +7005,9 @@ SYSTEM_.SYS_TBS_USERS_
 V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES 
 ```
 
+<br>
 
-## 7.파티션드 객체
+# 7.파티션드 객체
 
 ### 파티셔닝 정의
 
@@ -7785,7 +7871,9 @@ PARTITION BY RANGE_USING_HASH(sales_id)
 
 해시를 사용한 범위 파티션드 객체에 대한 연산은 범위 파티션드 객체와 같다.
 
-## 8.트랜잭션 관리
+<br>
+
+# 8.트랜잭션 관리
 
 사용자 트랜잭션의 동시성을 제어하고 데이터의 일관성을 유지하는 것이
 데이터베이스의 가장 기본적인 기능의 하나다. 이장에서는 Altibase의 트랜잭션 관리
@@ -8514,7 +8602,9 @@ LSN은 로그앵커에 기록된다.
 - DIRECT_IO_ENABLED
 - DATABASE_IO_TYPE
 
-## 9.버퍼 관리자
+<br>
+
+# 9.버퍼 관리자
 
 Altibase 디스크 테이블스페이스의 데이터 객체가 접근 또는 갱신되기 위해서는
 디스크로부터 메모리에 적재되어야 한다. 이렇게 임시로 사용되는 메모리를 버퍼라고
@@ -9044,7 +9134,9 @@ Hit Ratio = (GET_PAGES + FIX_PAGES - READ_PAGES) / (GET_PAGES + FIX_PAGES)
 iSQL> select hit_ratio from V$BUFFPOOL_STAT;
 ```
 
-## 10.백업 및 복구
+<br>
+
+# 10.백업 및 복구
 
 디스크 데이터 파일 손상 또는 유실 등과 같은 예기치 않은 상황으로 인해 Altibase에
 저장된 데이터가 손실될 경우를 대비하여 Altibase에서 제공하는 기능인 백업 및
@@ -10160,7 +10252,9 @@ iSQL(sysdba)> ALTER DATABASE mydb SERVICE;
 iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’; 
 ```
 
-## 11.증분 백업과 복구
+<br>
+
+# 11.증분 백업과 복구
 
 이 장은 Altibase가 제공하는 증분 백업과 증분 백업을 이용한 복구에 대하여
 설명한다.
@@ -10898,7 +10992,9 @@ iSQL(sysdba)> ALTER DATABASE DELETE OBSOLETE BACKUP FILES;
 삭제된다. V\$OBSOLETE_BACKUP_INFO 성능 뷰에서 아무 것도 조회되지 않는다면
 삭제되는 파일이 없을 것이다.
 
-## 12.서버/클라이언트 통신
+<br>
+
+# 12.서버/클라이언트 통신
 
 이 장은 Altibase 데이터베이스 서버와 클라이언트 응용프로그램간의 접속 방법과
 프로토콜을 설명한다.
@@ -11107,7 +11203,9 @@ Altibase는 데이터를 암호화 및 복호화하기 위하여 대칭키 알�
 
 Altibase에 SSL/TLS통신을 설정하고 사용하는 방법은 [*Altibase SSL/TLS User's Guide*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Altibase%20SSL%20TLS%20User's%20Guide.md)를 참조하기 바란다.
 
-## 13.Altibase의 보안 
+<br>
+
+# 13.Altibase의 보안 
 
 이 장에서는 Altibase의 보안을 위해 사용 가능한 방법들과 보안 모듈 사용 방법에
 대해 설명한다.
@@ -11411,7 +11509,9 @@ ALTER TABLE table_name MODIFY (column_name [DECRYPT]);
 ALTER TABLE t1 MODIFY (empID1 DECRYPT); 
 ```
 
-## 14.데이터베이스 감사 (Database Auditing)
+<br>
+
+# 14.데이터베이스 감사 (Database Auditing)
 
 이 장은 Altibase 서버 내에서 실행되고 있는 구문을 실시간으로 추적하고 로그를
 기록하는 감사(Auditing) 기능에 대해 설명한다. 또한 데이터베이스 관리자가 감사를
@@ -12329,7 +12429,9 @@ $ tail /var/log/user.log
 Oct 27 09:22:19 mmj altibase: [AUDIT]SYS,1,127.0.0.1,CLI-64LE,isql,DDL,1,65537,19905,4,2,1,0,0,0,0,0,0,0,0,0,0,0,"create table t1(i int)"
 ```
 
-## 15.Altibase 튜닝
+<br>
+
+# 15.Altibase 튜닝
 
 이 장에서는 서버의 성능 향상을 위해서 Altibase가 제공하는 다음 두 가지 기능에
 대해서 설명한다.
@@ -12599,7 +12701,9 @@ V\$LFG성능 뷰의 그룹 커밋 관련 통계값들은 다음과 같다.
   CPU 사용율을 모니터링하거나 개별 트랜잭션의 응답시간의 평균값을 측정하는
   방법으로 이 프로퍼티 값을 최적의 값으로 설정할 수 있다.
 
-## Altibase 진단 모니터링
+<br>
+
+# 16.Altibase 진단 모니터링
 
 이 장에서는 Altibase 데이터베이스의 운영 상태를 확인하고 분석하는 방법에 대해
 설명한다.
@@ -12955,7 +13059,9 @@ UNIX, IPC, IPCDA)
 록 정보를 V\$LOCK 과 V\$LOCK_WAIT 성능 뷰로 확인하고 특정 세션이 불필요하게 록을
 획득하고 있는 상태로 지속되고 있다면 해당 세션을 강제로 종료하여 해결할 수 있다.
 
-## A.부록: Trace Log
+<br>
+
+# A.부록: Trace Log
 
 ### Trace Log 
 
@@ -12973,7 +13079,9 @@ UNIX, IPC, IPCDA)
 | ----------------------- | ------------------------------------------------------------ |
 | TRCLOG_DETAIL_PREDICATE | EXPLAIN PLAN 을 ON(또는 ONLY)로 설정시, where 절의 predicate 분류 상태도 함께 출력할지를 지정함 |
 
-## B.부록: Altibase 최대치
+<br>
+
+# B.부록: Altibase 최대치
 
 ### Altibase 객체들의 최대값
 

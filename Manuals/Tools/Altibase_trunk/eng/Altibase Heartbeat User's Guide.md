@@ -1,55 +1,131 @@
+Altibase Heartbeat User's Guide
+================
 
-
-
-- [Altibase Heartbeat User's Guide](#altibase-heartbeat-users-guide)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to Altibase Heartbeat](#1-introduction-to-altibase-heartbeat)
-    - [Overview of Altibase Heartbeat](#overview-of-altibase-heartbeat)
-    - [Altibase Heartbeat Procedure](#altibase-heartbeat-procedure)
-  - [2. Commands](#2-commands)
-    - [aheartbeat](#aheartbeat)
-  - [3. Configuring Altibase Heartbeat](#3-configuring-altibase-heartbeat)
-    - [Configuration](#configuration)
-    - [Configuring an Altibase Heartbeat System : A Practice Example](#configuring-an-altibase-heartbeat-system--a-practice-example)
-  - [4. Altibase Heartbeat Process](#4-altibase-heartbeat-process)
-    - [aheartbeat Status](#aheartbeat-status)
-    - [Determing Failure](#determing-failure)
-    - [Role of aheartbeat 0](#role-of-aheartbeat-0)
-    - [Failover and Failback](#failover-and-failback)
-    - [Logging](#logging)
-
-
+#### Release 7.1
 
 Altibase® Tool & Utilities
 
-Altibase Heartbeat User's Guide
-===============================
-
-![](media/Heartbeat/e5cfb3761673686d093a3b00c062fe7a.png)
+<br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->  
+
+<pre>
 Altibase Tool & Utilities Altibase HeartBeat User's Guide
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
+<br>
 
-**Altibase Corp**
+# Table Of Contents
 
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to Altibase Heartbeat](#1-introduction-to-altibase-heartbeat)
+  - [Overview of Altibase Heartbeat](#overview-of-altibase-heartbeat)
+  - [Altibase Heartbeat Procedure](#altibase-heartbeat-procedure)
+- [2. Commands](#2-commands)
+  - [aheartbeat](#aheartbeat)
+- [3. Configuring Altibase Heartbeat](#3-configuring-altibase-heartbeat)
+  - [Configuration](#configuration)
+  - [Configuring an Altibase Heartbeat System : A Practice Example](#configuring-an-altibase-heartbeat-system--a-practice-example)
+- [4. Altibase Heartbeat Process](#4-altibase-heartbeat-process)
+  - [aheartbeat Status](#aheartbeat-status)
+  - [Determing Failure](#determing-failure)
+  - [Role of aheartbeat 0](#role-of-aheartbeat-0)
+  - [Failover and Failback](#failover-and-failback)
+  - [Logging](#logging)
 
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
-
-
+<br>
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -143,7 +219,9 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-## 1. Introduction to Altibase Heartbeat
+<br>
+
+# 1. Introduction to Altibase Heartbeat
 
 This chapter introduces the Altibase Heartbeat and describes its basic procedure.
 
@@ -196,7 +274,9 @@ If the Altibase server on Node A fails, let's look at how aheartbeats will run:
   
 3.  By detecting the termination of Node A’s aheartbeat, Node B’s aheartbeat registers an Altibase server failure on Node A and executes the execution file for remote node Failover. 
 
-## 2. Commands
+<br>
+
+# 2. Commands
 
 This chapter explains Altibase Heartbeat commands.
 
@@ -245,7 +325,9 @@ $ aheartbeat -i
 2      ::2:1               54321     RUN
 ```
 
-## 3. Configuring Altibase Heartbeat
+<br>
+
+# 3. Configuring Altibase Heartbeat
 
 This chapter explains how to configure Altibase Heartbeat, and how to configure a distributed database environment with Altibase Heartbeats.
 
@@ -448,7 +530,9 @@ The startup order of the nodes is irrelevant. Once aheartbeats are running, the 
 $ aheartbeat -i
 ```
 
-## 4. Altibase Heartbeat Process
+<br>
+
+# 4. Altibase Heartbeat Process
 
 This chapter explains the Altibase Heartbeat process in details. On which criteria Altibase Heartbeat determines failure, and once failure is detected, how Failover is performed are examined.
 

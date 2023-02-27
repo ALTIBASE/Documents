@@ -1,148 +1,224 @@
-
-
-- [Stored Procedures Manual](#stored-procedures-manual)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. Introduction to Stored Procedures](#1-introduction-to-stored-procedures)
-    - [Overview](#overview)
-    - [Structure of Stored Procedures](#structure-of-stored-procedures)
-    - [Considerations when using Stored Procedures](#considerations-when-using-stored-procedures)
-  - [2. SQL Statements for Managing Stored Procedures](#2-sql-statements-for-managing-stored-procedures)
-    - [Overview](#overview-1)
-    - [CREATE PROCEDURE](#create-procedure)
-    - [ALTER PROCEDURE](#alter-procedure)
-    - [DROP PROCEDURE](#drop-procedure)
-    - [EXECUTE](#execute)
-    - [CREATE FUNCTION](#create-function)
-    - [ALTER FUNCTION](#alter-function)
-    - [DROP FUNCTION](#drop-function)
-  - [3. Stored Procedure Blocks](#3-stored-procedure-blocks)
-    - [Stored Procedure Block](#stored-procedure-block)
-    - [Declaring Local Variables](#declaring-local-variables)
-    - [SELECT INTO](#select-into)
-    - [RETURNING INTO Clause](#returning-into-clause)
-    - [Assignment Statements](#assignment-statements)
-    - [LABEL](#label)
-    - [PRINT](#print)
-    - [RETURN](#return)
-    - [INSERT Extension](#insert-extension)
-    - [UPDATE Extension](#update-extension)
-  - [4. Control Flow Statement](#4-control-flow-statement)
-    - [Overview](#overview-2)
-    - [IF](#if)
-    - [CASE](#case)
-    - [LOOP](#loop)
-    - [WHILE LOOP](#while-loop)
-    - [FOR LOOP](#for-loop)
-    - [EXIT](#exit)
-    - [CONTINUE](#continue)
-    - [GOTO](#goto)
-    - [NULL](#null)
-  - [5. Using Cursors](#5-using-cursors)
-    - [Overview](#overview-3)
-    - [CURSOR](#cursor)
-    - [OPEN](#open)
-    - [FETCH](#fetch)
-    - [CLOSE](#close)
-    - [Cursor FOR LOOP](#cursor-for-loop)
-    - [Cursor Attributes](#cursor-attributes)
-  - [6. User-Defined Types](#6-user-defined-types)
-    - [Overview](#overview-4)
-    - [Defining a User-Defined Type](#defining-a-user-defined-type)
-    - [Functions for Use with Associative Arrays](#functions-for-use-with-associative-arrays)
-    - [Using RECORD Type Variables and Associative Array Variables](#using-record-type-variables-and-associative-array-variables)
-    - [REF CURSOR](#ref-cursor)
-  - [7. Typesets](#7-typesets)
-    - [Overview](#overview-5)
-    - [CREATE TYPESET](#create-typeset)
-    - [DROP TYPESET](#drop-typeset)
-  - [8. Dynamic SQL](#8-dynamic-sql)
-    - [Overview](#overview-6)
-    - [EXECUTE IMMEDIATE](#execute-immediate)
-    - [OPEN FOR](#open-for)
-  - [9. Exception Handlers](#9-exception-handlers)
-    - [Overview](#overview-7)
-    - [EXCEPTION](#exception)
-    - [RAISE](#raise)
-    - [RAISE_APPLICATION_ERROR](#raise_application_error)
-    - [User-defined Exceptions](#user-defined-exceptions)
-    - [SQLCODE and SQLERRM](#sqlcode-and-sqlerrm)
-    - [Exception Handler](#exception-handler)
-  - [10. Pragma](#10-pragma)
-    - [Overview](#overview-8)
-    - [Autonomous Transaction Pragma](#autonomous-transaction-pragma)
-    - [Exception Initialization Pragma](#exception-initialization-pragma)
-  - [11. Stored Packages](#11-stored-packages)
-    - [Overview](#overview-9)
-    - [CREATE PACKAGE](#create-package)
-    - [CREATE PACKAGE BODY](#create-package-body)
-    - [ALTER PACKAGE](#alter-package)
-    - [DROP PACKAGE](#drop-package)
-    - [EXECUTE](#execute-1)
-  - [12. Altibase Stored Procedures and Built-in Functions](#12-altibase-stored-procedures-and-built-in-functions)
-    - [File Control](#file-control)
-    - [TCP Access Control](#tcp-access-control)
-    - [DBMS Stats](#dbms-stats)
-    - [Miscellaneous Functions](#miscellaneous-functions)
-  - [13. Altibase System-defined Stored Packages](#13-altibase-system-defined-stored-packages)
-    - [System-defined Stored Packages](#system-defined-stored-packages)
-    - [DBMS_APPLICATION_INFO](#dbms_application_info)
-    - [DBMS_ALERT](#dbms_alert)
-    - [DBMS_CONCURRENT_EXEC Package](#dbms_concurrent_exec-package)
-    - [DBMS_LOCK](#dbms_lock)
-    - [DBMS_METADATA](#dbms_metadata)
-    - [DBMS_OUTPUT](#dbms_output)
-    - [DBMS_RANDOM](#dbms_random)
-    - [DBMS_RECYCLEBIN Package](#dbms_recyclebin-package)
-    - [DBMS_SQL](#dbms_sql)
-    - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
-    - [DBMS_STANDARD](#dbms_standard)
-    - [DBMS_STATS](#dbms_stats)
-    - [DBMS_UTILITY](#dbms_utility)
-    - [STANDARD](#standard)
-    - [SYS_SPATIAL](#sys_spatial)
-    - [UTL_COPYSWAP](#utl_copyswap)
-    - [UTL_FILE](#utl_file)
-    - [UTL_RAW](#utl_raw)
-    - [UTL_SMTP](#utl_smtp)
-    - [UTL_TCP](#utl_tcp)
-  - [Appendix A. Examples](#appendix-a-examples)
-    - [Stored Procedure Examples](#stored-procedure-examples)
-    - [File Control Example](#file-control-example)
-    - [UTL_SMTP Example](#utl_smtp-example)
-    - [Checking SENDMAIL DAEMON Example](#checking-sendmail-daemon-example)
-
-
-
-Altibase® Application Development
-
 Stored Procedures Manual
 ========================
 
-![](media/StoredProcedure/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
+
+Altibase® Application Development
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+<pre>
 Altibase Application Development Stored Procedures Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Release 7.1
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Introduction to Stored Procedures](#1-introduction-to-stored-procedures)
+  - [Overview](#overview)
+  - [Structure of Stored Procedures](#structure-of-stored-procedures)
+  - [Considerations when using Stored Procedures](#considerations-when-using-stored-procedures)
+- [2. SQL Statements for Managing Stored Procedures](#2-sql-statements-for-managing-stored-procedures)
+  - [Overview](#overview-1)
+  - [CREATE PROCEDURE](#create-procedure)
+  - [ALTER PROCEDURE](#alter-procedure)
+  - [DROP PROCEDURE](#drop-procedure)
+  - [EXECUTE](#execute)
+  - [CREATE FUNCTION](#create-function)
+  - [ALTER FUNCTION](#alter-function)
+  - [DROP FUNCTION](#drop-function)
+- [3. Stored Procedure Blocks](#3-stored-procedure-blocks)
+  - [Stored Procedure Block](#stored-procedure-block)
+  - [Declaring Local Variables](#declaring-local-variables)
+  - [SELECT INTO](#select-into)
+  - [RETURNING INTO Clause](#returning-into-clause)
+  - [Assignment Statements](#assignment-statements)
+  - [LABEL](#label)
+  - [PRINT](#print)
+  - [RETURN](#return)
+  - [INSERT Extension](#insert-extension)
+  - [UPDATE Extension](#update-extension)
+- [4. Control Flow Statement](#4-control-flow-statement)
+  - [Overview](#overview-2)
+  - [IF](#if)
+  - [CASE](#case)
+  - [LOOP](#loop)
+  - [WHILE LOOP](#while-loop)
+  - [FOR LOOP](#for-loop)
+  - [EXIT](#exit)
+  - [CONTINUE](#continue)
+  - [GOTO](#goto)
+  - [NULL](#null)
+- [5. Using Cursors](#5-using-cursors)
+  - [Overview](#overview-3)
+  - [CURSOR](#cursor)
+  - [OPEN](#open)
+  - [FETCH](#fetch)
+  - [CLOSE](#close)
+  - [Cursor FOR LOOP](#cursor-for-loop)
+  - [Cursor Attributes](#cursor-attributes)
+- [6. User-Defined Types](#6-user-defined-types)
+  - [Overview](#overview-4)
+  - [Defining a User-Defined Type](#defining-a-user-defined-type)
+  - [Functions for Use with Associative Arrays](#functions-for-use-with-associative-arrays)
+  - [Using RECORD Type Variables and Associative Array Variables](#using-record-type-variables-and-associative-array-variables)
+  - [REF CURSOR](#ref-cursor)
+- [7. Typesets](#7-typesets)
+  - [Overview](#overview-5)
+  - [CREATE TYPESET](#create-typeset)
+  - [DROP TYPESET](#drop-typeset)
+- [8. Dynamic SQL](#8-dynamic-sql)
+  - [Overview](#overview-6)
+  - [EXECUTE IMMEDIATE](#execute-immediate)
+  - [OPEN FOR](#open-for)
+- [9. Exception Handlers](#9-exception-handlers)
+  - [Overview](#overview-7)
+  - [EXCEPTION](#exception)
+  - [RAISE](#raise)
+  - [RAISE_APPLICATION_ERROR](#raise_application_error)
+  - [User-defined Exceptions](#user-defined-exceptions)
+  - [SQLCODE and SQLERRM](#sqlcode-and-sqlerrm)
+  - [Exception Handler](#exception-handler)
+- [10. Pragma](#10-pragma)
+  - [Overview](#overview-8)
+  - [Autonomous Transaction Pragma](#autonomous-transaction-pragma)
+  - [Exception Initialization Pragma](#exception-initialization-pragma)
+- [11. Stored Packages](#11-stored-packages)
+  - [Overview](#overview-9)
+  - [CREATE PACKAGE](#create-package)
+  - [CREATE PACKAGE BODY](#create-package-body)
+  - [ALTER PACKAGE](#alter-package)
+  - [DROP PACKAGE](#drop-package)
+  - [EXECUTE](#execute-1)
+- [12. Altibase Stored Procedures and Built-in Functions](#12-altibase-stored-procedures-and-built-in-functions)
+  - [File Control](#file-control)
+  - [TCP Access Control](#tcp-access-control)
+  - [DBMS Stats](#dbms-stats)
+  - [Miscellaneous Functions](#miscellaneous-functions)
+- [13. Altibase System-defined Stored Packages](#13-altibase-system-defined-stored-packages)
+  - [System-defined Stored Packages](#system-defined-stored-packages)
+  - [DBMS_APPLICATION_INFO](#dbms_application_info)
+  - [DBMS_ALERT](#dbms_alert)
+  - [DBMS_CONCURRENT_EXEC Package](#dbms_concurrent_exec-package)
+  - [DBMS_LOCK](#dbms_lock)
+  - [DBMS_METADATA](#dbms_metadata)
+  - [DBMS_OUTPUT](#dbms_output)
+  - [DBMS_RANDOM](#dbms_random)
+  - [DBMS_RECYCLEBIN Package](#dbms_recyclebin-package)
+  - [DBMS_SQL](#dbms_sql)
+  - [DBMS_SQL_PLAN_CACHE](#dbms_sql_plan_cache)
+  - [DBMS_STANDARD](#dbms_standard)
+  - [DBMS_STATS](#dbms_stats)
+  - [DBMS_UTILITY](#dbms_utility)
+  - [STANDARD](#standard)
+  - [SYS_SPATIAL](#sys_spatial)
+  - [UTL_COPYSWAP](#utl_copyswap)
+  - [UTL_FILE](#utl_file)
+  - [UTL_RAW](#utl_raw)
+  - [UTL_SMTP](#utl_smtp)
+  - [UTL_TCP](#utl_tcp)
+- [Appendix A. Examples](#appendix-a-examples)
+  - [Stored Procedure Examples](#stored-procedure-examples)
+  - [File Control Example](#file-control-example)
+  - [UTL_SMTP Example](#utl_smtp-example)
+  - [Checking SENDMAIL DAEMON Example](#checking-sendmail-daemon-example)
 
 
 
 Preface
-----
+====
 
 ### About This Manual
 
@@ -287,7 +363,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 
 
 
-## 1. Introduction to Stored Procedures
+# 1. Introduction to Stored Procedures
 
 ### Overview
 
@@ -413,7 +489,7 @@ For information about the meta tables related to stored procedures, please refer
 
 
 
-## 2. SQL Statements for Managing Stored Procedures
+# 2. SQL Statements for Managing Stored Procedures
 
 
 
@@ -1608,7 +1684,7 @@ The deletion of functions referenced by the constraints or the function-based in
 
 
 
-## 3. Stored Procedure Blocks
+# 3. Stored Procedure Blocks
 
 A stored procedure or function consists of one or more blocks. This chapter describes how to develop a procedural program within a stored procedure using blocks.
 
@@ -3257,7 +3333,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 
 
-## 4. Control Flow Statement
+# 4. Control Flow Statement
 
 ### Overview
 
@@ -4372,7 +4448,7 @@ ENO         SALARY
 
 
 
-## 5. Using Cursors
+# 5. Using Cursors
 
 This chapter describes how to manage and use cursors.
 
@@ -5083,7 +5159,7 @@ ENO         E_FIRSTNAME           E_LASTNAME
 
 
 
-## 6. User-Defined Types
+# 6. User-Defined Types
 
 In this chapter, the user-defined types that can be used with stored procedures and functions will be described.
 
@@ -5857,7 +5933,7 @@ if (SQL_ERROR == SQLExecute(stmt))
 
 ```
 
-## 7. Typesets
+# 7. Typesets
 
 This chapter describes how to define and use typesets.
 
@@ -6089,7 +6165,7 @@ DROP TYPESET my_typeset;
 
 
 
-## 8. Dynamic SQL
+# 8. Dynamic SQL
 
 This chapter describes how to use dynamic SQL in stored procedures and functions.
 
@@ -6270,7 +6346,7 @@ END;
 
 
 
-## 9. Exception Handlers
+# 9. Exception Handlers
 
 ---------
 
@@ -6812,7 +6888,7 @@ Execute success.
 
 
 
-## 10. Pragma
+# 10. Pragma
 
 ### Overview
 
@@ -7102,7 +7178,7 @@ at "SYS.PROC2", line 6]
 
 
 
-## 11. Stored Packages
+# 11. Stored Packages
 
 This chapter describes how to create and use stored packages.
 
@@ -7639,7 +7715,7 @@ Execute success.
 
 
 
-## 12. Altibase Stored Procedures and Built-in Functions
+# 12. Altibase Stored Procedures and Built-in Functions
 
 Altibase provides a variety of built-in stored procedures and functions, including file control functions. This chapter introduces these stored procedures and functions and describes how to use them.
 
@@ -8782,8 +8858,20 @@ CLOSEALL_CONNECT closes all the connection handle connected to the current sessi
 ##### Syntax
 
 ```
-CONNECT_TYPE variable :=
-CLOSEALL_CONNECT();
+<pre>
+Altibase Tools & Utilities Manual
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 ```
 
 ##### Return Value
@@ -10150,7 +10238,7 @@ There is no exception.
 
 
 
-## 13. Altibase System-defined Stored Packages
+# 13. Altibase System-defined Stored Packages
 
 --------------------
 
@@ -15099,7 +15187,7 @@ iSQL> CREATE OR REPLACE PROCEDURE PROC1
 
 
 
-## Appendix A. Examples
+# Appendix A. Examples
 
 ### Stored Procedure Examples
 

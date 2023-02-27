@@ -1,14 +1,20 @@
 # Tableau User's Guide for Altibase
 
+<br/>
 
+<br/>
+
+
+
+# 목차
 
 -   [개요](#Tableau)
 -   [소프트웨어 설치 요구사항](#소프트웨어-설치-요구사항)
 -   [Tableau에서 Altibase 사용을 위한 설정](#Tableau에서-Altibase-사용을-위한-설정)
 
+<br>
 
-
-## 개요
+# 개요
 
 Tableau Desktop에서 Altibase 사용을 위한 JDBC 설정을 설명한다.
 
@@ -18,8 +24,9 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 
 
 
+<br>
 
-## 소프트웨어 설치 요구사항
+# 소프트웨어 설치 요구사항
 
 ### Tableau
 
@@ -36,8 +43,9 @@ Tableau Desktop 은 비즈니스 인텔리전스(BI)에 중점을 둔 데이터 
 - Altibase Server 7.1.0.7.1 이상
 - JDBC API Specification 4.2을 부분 지원하는 Altibase 7.1.0.5.6 이상 JDBC 드라이버 필요
 
+<br>
 
-## Tableau에서 Altibase 사용을 위한 설정
+# Tableau에서 Altibase 사용을 위한 설정
 
 1. Tableau 에 연동할 Altibase 서버를 위한 사전작업을 수행한다.
 

@@ -1,65 +1,136 @@
-
-
-
-- [Installation Guide](#installation-guide)
-    - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-  - [1. About the Altibase Package Installer](#1-about-the-altibase-package-installer)
-    - [Altibase Home](#altibase-home)
-    - [APatch Directory](#apatch-directory)
-  - [2. Installing Products with the Altibase Package Installer](#2-installing-products-with-the-altibase-package-installer)
-    - [System Requirements](#system-requirements)
-    - [Supported Platforms](#supported-platforms)
-    - [Altibase Package Installer](#altibase-package-installer)
-    - [Installing Altibase Products](#installing-altibase-products)
-    - [Installing Altibase Client Products](#installing-altibase-client-products)
-  - [3. Uninstalling Altibase and Meta Downgrade](#3-uninstalling-altibase-and-meta-downgrade)
-    - [Uninstalling Altibase Products](#uninstalling-altibase-products)
-    - [Meta Downgrade](#meta-downgrade)
-  - [4. Patching Products With the Altibase Package Installer](#4-patching-products-with-the-altibase-package-installer)
-    - [About Patches](#about-patches)
-    - [Patching Altibase Ser Products](#patching-altibase-ser-products)
-    - [Patching Altibase Client Products](#patching-altibase-client-products)
-  - [Appendix A. Installation Prerequisites](#appendix-a-installation-prerequisites)
-    - [Setting User Resource Limit Values](#setting-user-resource-limit-values)
-    - [Setting Kernel Parameters for Different Operating Systems (OS)](#setting-kernel-parameters-for-different-operating-systems-os)
-    - [Configuration of THP (Transparent Huge Pages)](#configuration-of-thp-transparent-huge-pages)
-    - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
-    - [Checking Disk Configuration](#checking-disk-configuration)
-    - [OS Patch](#os-patch)
-
-
-
-Altibase® Administration
-
 Installation Guide
 ==================
 
-![](media/Installation/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Altibase 7.1
 
+Altibase® Administration
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Administration Installation Guide
-
 Release 7.1
-
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.
-
-All trademarks, registered or otherwise, are the property of their respective owners
-
-**Altibase Corp**
-
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
-
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+<br>
 
-Telephone: +82-2-2082-1114 Fax: +82-2-2082-1099
+# Table Of Contents
 
-Customer Support: <http://support.altibase.com/en/> 
+- [Preface](#preface)
+- [About This Manual](#about-this-manual)
+- [1. About the Altibase Package Installer](#1-about-the-altibase-package-installer)
+  - [Altibase Home](#altibase-home)
+  - [APatch Directory](#apatch-directory)
+- [2. Installing Products with the Altibase Package Installer](#2-installing-products-with-the-altibase-package-installer)
+  - [System Requirements](#system-requirements)
+  - [Supported Platforms](#supported-platforms)
+  - [Altibase Package Installer](#altibase-package-installer)
+  - [Installing Altibase Products](#installing-altibase-products)
+  - [Installing Altibase Client Products](#installing-altibase-client-products)
+- [3. Uninstalling Altibase and Meta Downgrade](#3-uninstalling-altibase-and-meta-downgrade)
+  - [Uninstalling Altibase Products](#uninstalling-altibase-products)
+  - [Meta Downgrade](#meta-downgrade)
+- [4. Patching Products With the Altibase Package Installer](#4-patching-products-with-the-altibase-package-installer)
+  - [About Patches](#about-patches)
+  - [Patching Altibase Ser Products](#patching-altibase-ser-products)
+  - [Patching Altibase Client Products](#patching-altibase-client-products)
+- [Appendix A. Installation Prerequisites](#appendix-a-installation-prerequisites)
+  - [Setting User Resource Limit Values](#setting-user-resource-limit-values)
+  - [Setting Kernel Parameters for Different Operating Systems (OS)](#setting-kernel-parameters-for-different-operating-systems-os)
+  - [Configuration of THP (Transparent Huge Pages)](#configuration-of-thp-transparent-huge-pages)
+  - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
+  - [Checking Disk Configuration](#checking-disk-configuration)
+  - [OS Patch](#os-patch)
 
-Homepage: [http://www.altibase.com](http://www.altibase.com/)
 
-### Preface
+
+# Preface
 
 ### About This Manual
 
@@ -126,7 +197,7 @@ When you need immediate assistance regarding technical issues, please contact Al
 
 Thank you. We appreciate your feedback and suggestions.
 
-## 1. About the Altibase Package Installer
+# 1. About the Altibase Package Installer
 ------------------------
 
 This Altibase Package Installer is a Java-based installer that lets users easily install Altibase products such as the database server, client components, tools, and so forth.
@@ -255,7 +326,7 @@ uninstall-base
 -   rollback-p0_0_0_10: the directory that contains backups of the files patched with 7.1.0.0.10.
 -   uninstall-p0_0_0_10: the executable file needed to delete the patch 7.1.0.0.10 and rollback to the previous version. These files are stored in the rollback-p0_0_0_10 directory.
 
-## 2. Installing Products with the Altibase Package Installer
+# 2. Installing Products with the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
@@ -1059,7 +1130,7 @@ export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}
 
 If you have not applied new environment variables to your shell during the above procedure, do it now. For more detailed information, please refer to [*Installing the Altibase Client Product*](#installing-the-altibase-client-product).
 
-## 3. Uninstalling Altibase and Meta Downgrade
+# 3. Uninstalling Altibase and Meta Downgrade
 ----------------------------------
 
 This chapter explains how to uninstall an installed or meta downgrade the installed product.
@@ -1188,7 +1259,7 @@ Run the Patch Uninstaller to remove the patch
 >
 > After performing a server downgrade, the user must delete the patch. If the server is run without deleting the patch, the meta upgrade will occur because the meta version has been modified to the previous version. 
 
-## 4. Patching Products With the Altibase Package Installer
+# 4. Patching Products With the Altibase Package Installer
 ----------------------------------
 
 This chapter consists of the following sections:
@@ -1365,7 +1436,7 @@ This panel shows the patch version applied to the Altibase product that is curre
 
 ![](media/Installation/4fdf2f39646963c5ba906294335d83fe.png)
 
-## Appendix A. Installation Prerequisites
+# Appendix A. Installation Prerequisites
 
 ### Setting User Resource Limit Values
 

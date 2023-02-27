@@ -1,53 +1,129 @@
-- [Altibase 3rd Party Connector Guide](#altibase-3rd-party-connector-guide)
-  - [서문](#%EC%84%9C%EB%AC%B8)
-    - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-  - [1.SQuirreL SQL 클라이언트](#1squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8)
-    - [Altibase Plugin for SQuirreL SQL Client 설치](#altibase-plugin-for-squirrel-sql-client-%EC%84%A4%EC%B9%98)
-    - [Altibase Plugin 설치 및 제거](#altibase-plugin-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-    - [Altibase Plugin 특징](#altibase-plugin-%ED%8A%B9%EC%A7%95)
-    - [SQuirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
-    - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
-    - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
-    - [FAQ](#faq)
-  - [2.Hibernate](#2hibernate)
-    - [Hibernate](#hibernate)
-  - [3.OpenLDAP](#3openldap)
-    - [OpenLDAP 소개](#openldap-%EC%86%8C%EA%B0%9C)
-    - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
-    - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-    - [예제](#%EC%98%88%EC%A0%9C)
-  - [4.Oracle GoldenGate](#4oracle-goldengate)
-    - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
-    - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
-    - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
-    - [제약사항](#%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+Altibase 3rd Party Connector Guide
+================
 
 Altibase® Application Development
 
-Altibase 3rd Party Connector Guide
-==================================
+<br><br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
-![](media/3rdPartyConnector/e5cfb3761673686d093a3b00c062fe7a.png)
 
-Altibase Application Development Altibase 3rd Party Connector Guide   
 
-Copyright ⓒ 2001\~ 2019 Altibase Corp. All Rights Reserved.
 
-본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의
-없이 무단으로 복제 또는 전용할 수 없습니다.
 
-**㈜알티베이스**
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. -->
+
+<pre>
+Altibase Application Development Altibase 3rd Party Connector Guide
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
+<b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
+전화 : 02-2082-1114
+팩스 : 02-2082-1099
+고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
+홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
-전화: 02-2082-1114 팩스: 02-2082-1099
+<br>
 
-고객서비스포털: <http://support.altibase.com>
+# 목차
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.SQuirreL SQL 클라이언트](#1squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8)
+  - [Altibase Plugin for SQuirreL SQL Client 설치](#altibase-plugin-for-squirrel-sql-client-%EC%84%A4%EC%B9%98)
+  - [Altibase Plugin 설치 및 제거](#altibase-plugin-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
+  - [Altibase Plugin 특징](#altibase-plugin-%ED%8A%B9%EC%A7%95)
+  - [SQuirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
+  - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
+  - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
+  - [FAQ](#faq)
+- [2.Hibernate](#2hibernate)
+  - [Hibernate](#hibernate)
+- [3.OpenLDAP](#3openldap)
+  - [OpenLDAP 소개](#openldap-%EC%86%8C%EA%B0%9C)
+  - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
+  - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+  - [예제](#%EC%98%88%EC%A0%9C)
+- [4.Oracle GoldenGate](#4oracle-goldengate)
+  - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
+  - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
+  - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
+  - [제약사항](#%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+
+<br>
 
 서문
-----
+====
 
 ### 이 매뉴얼에 대하여
 
@@ -153,8 +229,10 @@ homepage: [http://www.altibase.com](http://www.altibase.com/)
 
 여러분의 의견에 항상 감사드립니다.
 
+<br>
+
 1.SQuirreL SQL 클라이언트
------------------------
+=======================
 
 이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고
 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
@@ -382,8 +460,10 @@ SQuirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭�
 
 ![](media/3rdPartyConnector/squirrel_lob_alias.jpg)
 
+<br>
+
 2.Hibernate
----------
+=========
 
 ### Hibernate
 
@@ -407,8 +487,10 @@ Altibase Github사이트에서 제공한다.
 (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md )을
 참고한다.
 
+<br>
+
 3.OpenLDAP
---------
+========
 
 이 장은 openLDAP과 Altibase를 연동하는 방법을 설명한다.
 
@@ -743,8 +825,10 @@ $ isql -s localhost -u ldap -p ldap -f testdb_data.sql
 
 - testdb_data.sql: objectClass 데이터 입력
 
+<br>
+
 4.Oracle GoldenGate
----------
+=========
 
 ### Oracle GoldenGate 소개
 

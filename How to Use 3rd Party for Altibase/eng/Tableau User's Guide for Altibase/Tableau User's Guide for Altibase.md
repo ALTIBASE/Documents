@@ -1,10 +1,16 @@
 # Tableau User's Guide for Altibase
 
+<br><br>
+
+
+
+# Table of Contents
+
 - [Introduction](#introduction)
 - [Software Requirements](#software-requirements)
 - [How to Use Altibase on Tableau](#how-to-use-altibase-in-tableau)
 
-
+<br>
 
 # Introduction
 
@@ -13,6 +19,8 @@ This guide provides information on how to use Altibase on Tableau Desktop.
 ## What is Tableau?
 
 Tableau is a data visualization tool focusing on business intelligence (BI). It supports Windows and Mac OS. For more details, please refer to the [Tableau website](https://www.tableau.com).
+
+<br>
 
 # Software Requirements
 
@@ -30,6 +38,8 @@ This guide is based on the interoperability test with TableauDesktop-64bit-2021-
 - JDK 1.8 (64bit) or higher
 - Altibase Server 7.1.0.7.1 or higher
 - JDBC driver for Altibase 7.1.0.5.6 or higher which partially supports JDBC API Specification 4.2 is required
+
+<br>
 
 # How to Use Altibase on Tableau
 

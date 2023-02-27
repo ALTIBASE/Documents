@@ -1,57 +1,132 @@
-
-
-- [New Features Guide](#new-features-guide)
-  - [1.New Features of Altibase Version 7.1.0.1.2](#1new-features-of-altibase-version-71012)
-    - [Others](#others)
-  - [2.New Features of Altibase Version 7.1.0.1.1](#2new-features-of-altibase-version-71011)
-    - [Improved Features](#improved-features)
-    - [Others](#others-1)
-  - [3.New Features of Altibase Version 7.1.0.1.0](#3new-features-of-altibase-version-71010)
-    - [Others](#others-2)
-  - [4.New Features of Altibase Version 7.1.0.0.9](#4new-features-of-altibase-version-71009)
-    - [Improved Features](#improved-features-1)
-    - [Others](#others-3)
-  - [5.New Features of Altibase Version 7.1.0.0.7](#5new-features-of-altibase-version-71007)
-    - [Improved Features](#improved-features-2)
-    - [Others](#others-4)
-  - [6.New Features of Altibase Version 7.1.0.0.6](#6new-features-of-altibase-version-71006)
-    - [Improved Features](#improved-features-3)
-  - [7.New Features of Altibase Version 7.1.0.0.5](#7new-features-of-altibase-version-71005)
-    - [Others](#others-5)
-  - [8.New Features of Altibase Version 7.1.0.0.4](#8new-features-of-altibase-version-71004)
-    - [Other](#other)
-  - [9.New Features of Altibase Version 7.1.0.0.0](#9new-features-of-altibase-version-71000)
-    - [Improved Features](#improved-features-4)
-    - [Efficiency](#efficiency)
-    - [High Availability](#high-availability)
-    - [Others](#others-6)
-
-
-
-- Altibase®
-
 New Features Guide
 ==================
 
-![](media/NewFeatures/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Release 7.1
+
+Altibase®
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+<pre>
 Altibase New Features Guide
-
 Release 7.1
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
+10F, Daerung PostTower II,
+306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+<br>
 
-Copyright ⓒ 2001\~2021 Altibase Corp. All Rights Reserved.
+# Table Of Contents
 
-This manual contains proprietary information of Altibase Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited. All trademarks, registered or otherwise, are the property of their respective owners.
-
-**Altibase Corp**
-
-10F, Daerung PostTower II, 306, Digital-ro, Guro-gu, Seoul 08378, Korea Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
-
-Customer Service Portal: http://support.altibase.com/en/
-
-Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
+- [1.New Features of Altibase Version 7.1.0.1.2](#1new-features-of-altibase-version-71012)
+  - [Others](#others)
+- [2.New Features of Altibase Version 7.1.0.1.1](#2new-features-of-altibase-version-71011)
+  - [Improved Features](#improved-features)
+  - [Others](#others-1)
+- [3.New Features of Altibase Version 7.1.0.1.0](#3new-features-of-altibase-version-71010)
+  - [Others](#others-2)
+- [4.New Features of Altibase Version 7.1.0.0.9](#4new-features-of-altibase-version-71009)
+  - [Improved Features](#improved-features-1)
+  - [Others](#others-3)
+- [5.New Features of Altibase Version 7.1.0.0.7](#5new-features-of-altibase-version-71007)
+  - [Improved Features](#improved-features-2)
+  - [Others](#others-4)
+- [6.New Features of Altibase Version 7.1.0.0.6](#6new-features-of-altibase-version-71006)
+  - [Improved Features](#improved-features-3)
+- [7.New Features of Altibase Version 7.1.0.0.5](#7new-features-of-altibase-version-71005)
+  - [Others](#others-5)
+- [8.New Features of Altibase Version 7.1.0.0.4](#8new-features-of-altibase-version-71004)
+  - [Other](#other)
+- [9.New Features of Altibase Version 7.1.0.0.0](#9new-features-of-altibase-version-71000)
+  - [Improved Features](#improved-features-4)
+  - [Efficiency](#efficiency)
+  - [High Availability](#high-availability)
+  - [Others](#others-6)
 
 
 
@@ -59,7 +134,7 @@ Homepage: [[http://www.altibase.com](http://www.altibase.com/)]
 
 
 1.New Features of Altibase Version 7.1.0.1.2
---------------------------------------------
+============================================
 
 This chapter introduces new features available for Altibase version 7.1.0.1.2. 
 
@@ -72,7 +147,7 @@ This chapter introduces new features available for Altibase version 7.1.0.1.2.
 -   AUTO_REMOTE_EXEC
 
 2.New Features of Altibase Version 7.1.0.1.1
---------------------------------------------
+============================================
 
 This chapter introduces new features available for Altibase version 7.1.0.1.1. 
 
@@ -133,7 +208,7 @@ Please refer to the manual below for more information.
 -   LOG_CREATE_METHOD
 
 3.New Features of Altibase Version 7.1.0.1.0
---------------------------------------------
+============================================
 
 ### Others
 
@@ -150,7 +225,7 @@ Please refer to the manual below for more information.
 
 
 4.New Features of Altibase Version 7.1.0.0.9
---------------------------------------------
+============================================
 
 This chapter introduces new features available for Altibase version 7.1.0.0.9. 
 
@@ -202,7 +277,7 @@ When changing the auto-extend size of a tablespace, the size can be changed with
 -   LB_MSGLOG_SIZE
 
 5.New Features of Altibase Version 7.1.0.0.7
---------------------------------------------
+============================================
 
 This chapter introduces new features avaiable for Altibase version 7.1.0.0.7.
 
@@ -255,7 +330,7 @@ Please refer to the manual below for more information.
 -   *General Reference > Chapter 2. Altibase Properties> Performance Properties*
 
 6.New Features of Altibase Version 7.1.0.0.6
---------------------------------------------
+============================================
 
 This chapter introduces new features available for Altibase version 7.1.0.0.6.
 
@@ -276,7 +351,7 @@ Please refer to the manual below for more information.
 -   *oraAdapter \> 3. Usage Instruction \> oraAdapter Constraints*
 
 7.New Features of Altibase Version 7.1.0.0.5
---------------------------------------------
+============================================
 
 This chapter introduces new features available for Altibase version 7.1.0.0.5. 
 
@@ -292,7 +367,7 @@ The default values of these properties below have been changed:
     : 3145728 (Byte) --\>10485760
 
 8.New Features of Altibase Version 7.1.0.0.4
---------------------------------------------
+============================================
 
 This chapter introduces new features available for Altibase version 7.1.0.0.4. 
 
@@ -308,7 +383,7 @@ The following properties have been changed.
     :Read-Only --> Read-Write
 
 9.New Features of Altibase Version 7.1.0.0.0
---------------------------------------------
+============================================
 
 This chapter introduces new features available for Altibase version 7.1.0.0.0. 
 

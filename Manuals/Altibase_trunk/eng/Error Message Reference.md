@@ -1,102 +1,175 @@
-- [Error Message Reference](#error-message-reference)
-  - [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-    - [Audience](#audience)
-    - [Software Environment](#software-environment)
-    - [Organization](#organization)
-    - [Altibase Welcomes Your Opinions](#altibase-welcomes-your-opinions)
-  - [1.ID Error Code](#1id-error-code)
-    - [FATAL](#fatal)
-    - [ABORT](#abort)
-    - [IGNORE](#ignore)
-  - [2.SM Error Code](#2sm-error-code)
-    - [FATAL](#fatal-1)
-    - [ABORT](#abort-1)
-    - [IGNORE](#ignore-1)
-    - [RETRY](#retry)
-  - [3.MT Error Code](#3mt-error-code)
-    - [FATAL](#fatal-2)
-    - [ABORT](#abort-2)
-    - [IGNORE](#ignore-2)
-  - [4.RP Error Code](#4rp-error-code)
-    - [FATAL](#fatal-3)
-    - [ABORT](#abort-3)
-    - [IGNORE](#ignore-3)
-    - [RETRY](#retry-1)
-  - [5.QP Error Code](#5qp-error-code)
-    - [FATAL](#fatal-4)
-    - [ABORT](#abort-4)
-    - [RETRY](#retry-1)
-  - [6.SD Error Code](#6sd-error-code)
-    - [ABORT](#abort-5)
-  - [7.ST Error Code](#7st-error-code)
-    - [FATAL](#fatal-5)
-    - [ABORT](#abort-6)
-    - [IGNORE](#ignore-4)
-  - [8.MM Error Code](#8mm-error-code)
-    - [FATAL](#fatal-6)
-    - [ABORT](#abort-7)
-    - [IGNORE](#ignore-5)
-    - [RETRY](#retry-3)
-  - [9.ODBC Error Code](#9odbc-error-code)
-    - [FATAL](#fatal-7)
-    - [ABORT](#abort-8)
-    - [IGNORE](#ignore-6)
-  - [10.APRE Error Code](#10apre-error-code)
-    - [ABORT](#abort-9)
-  - [11.Utilities Error Code](#11utilities-error-code)
-    - [FATAL](#fatal-8)
-    - [ABORT](#abort-10)
-    - [IGNORE](#ignore-7)
-  - [12.CM Error Code](#12cm-error-code)
-    - [FATAL](#fatal-9)
-    - [ABORT](#abort-11)
-    - [IGNORE](#ignore-8)
-    - [RETRY](#retry-4)
-  - [13.Database Link Error Code](#13database-link-error-code)
-    - [FATAL](#fatal-10)
-    - [ABORT](#abort-12)
-    - [RETRY](#retry-5)
-  - [14.Log Analyzer Error Code](#14log-analyzer-error-code)
-    - [FATAL](#fatal-11)
-    - [ABORT](#abort-13)
-    - [IGNORE](#ignore-9)
-
-
-
-Altibase® Message
-
 Error Message Reference
 =======================
 
-![](media/errorMessage/e5cfb3761673686d093a3b00c062fe7a.png)
+#### Trunk
 
+Altibase® Message
+
+<br><br><br><br><br><br>
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
+
+<br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PDF 변환을 위한 여백입니다. --> 
+
+<pre>
 Altibase Message Error Message Reference
-
-Trunk r.94694
-
-Copyright ⓒ 2001\~ 2023 Altibase Corp. All Rights Reserved.
-
-This manual contains proprietary information of Altibase Corporation; it is
-provided under a license agreement containing restrictions on use and disclosure
-and is also protected by copyright patent and other intellectual property law.
-Reverse engineering of the software is prohibited.
-
-All trademarks, registered or otherwise, are the property of their respective
-owners
-
-**Altibase Corp.**
-
+Trunk
+Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
+software is prohibited.<br>
+All trademarks, registered or otherwise, are the property of their respective owners.<br>
+<b>Altibase Corp</b>
 10F, Daerung PostTower II,
-
 306, Digital-ro, Guro-gu, Seoul 08378, Korea
+Telephone : +82-2-2082-1000 
+Fax       : +82-2-2082-1099
+Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
+Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
-Telephone: +82-2-2082-1000 Fax: 82-2-2082-1099
+<br>
 
-homepage: [http://www.altibase.com](http://www.altibase.com/)
+# Table Of Contents
+
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+  - [Audience](#audience)
+  - [Software Environment](#software-environment)
+  - [Organization](#organization)
+  - [Altibase Welcomes Your Opinions](#altibase-welcomes-your-opinions)
+- [1.ID Error Code](#1id-error-code)
+  - [FATAL](#fatal)
+  - [ABORT](#abort)
+  - [IGNORE](#ignore)
+- [2.SM Error Code](#2sm-error-code)
+  - [FATAL](#fatal-1)
+  - [ABORT](#abort-1)
+  - [IGNORE](#ignore-1)
+  - [RETRY](#retry)
+- [3.MT Error Code](#3mt-error-code)
+  - [FATAL](#fatal-2)
+  - [ABORT](#abort-2)
+  - [IGNORE](#ignore-2)
+- [4.RP Error Code](#4rp-error-code)
+  - [FATAL](#fatal-3)
+  - [ABORT](#abort-3)
+  - [IGNORE](#ignore-3)
+  - [RETRY](#retry-1)
+- [5.QP Error Code](#5qp-error-code)
+  - [FATAL](#fatal-4)
+  - [ABORT](#abort-4)
+  - [RETRY](#retry-1)
+- [6.SD Error Code](#6sd-error-code)
+  - [ABORT](#abort-5)
+- [7.ST Error Code](#7st-error-code)
+  - [FATAL](#fatal-5)
+  - [ABORT](#abort-6)
+  - [IGNORE](#ignore-4)
+- [8.MM Error Code](#8mm-error-code)
+  - [FATAL](#fatal-6)
+  - [ABORT](#abort-7)
+  - [IGNORE](#ignore-5)
+  - [RETRY](#retry-3)
+- [9.ODBC Error Code](#9odbc-error-code)
+  - [FATAL](#fatal-7)
+  - [ABORT](#abort-8)
+  - [IGNORE](#ignore-6)
+- [10.APRE Error Code](#10apre-error-code)
+  - [ABORT](#abort-9)
+- [11.Utilities Error Code](#11utilities-error-code)
+  - [FATAL](#fatal-8)
+  - [ABORT](#abort-10)
+  - [IGNORE](#ignore-7)
+- [12.CM Error Code](#12cm-error-code)
+  - [FATAL](#fatal-9)
+  - [ABORT](#abort-11)
+  - [IGNORE](#ignore-8)
+  - [RETRY](#retry-4)
+- [13.Database Link Error Code](#13database-link-error-code)
+  - [FATAL](#fatal-10)
+  - [ABORT](#abort-12)
+  - [RETRY](#retry-5)
+- [14.Log Analyzer Error Code](#14log-analyzer-error-code)
+  - [FATAL](#fatal-11)
+  - [ABORT](#abort-13)
+  - [IGNORE](#ignore-9)
+
+
 
 Preface
--------
+=======
 
 ### About This Manual
 
@@ -169,7 +242,7 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 Thank you. We always welcome your feedbacks and suggestions.
 
 1.ID Error Code
----------------
+===============
 
 ### FATAL
 
@@ -1623,7 +1696,7 @@ error: [\<0%d\>]**
 
 
 2.SM Error Code
----------------
+===============
 
 ### FATAL
 
@@ -4398,7 +4471,7 @@ been modified**
 **Action:** No action is necessary.
 
 3.MT Error Code
----------------
+===============
 
 ### FATAL
 
@@ -5062,7 +5135,7 @@ Mathematics Module.**
 
 
 4.RP Error Code
----------------
+===============
 
 ### FATAL
 
@@ -8392,7 +8465,7 @@ conflict occurred during timestamp conflict resolution.**
 
 
 5.QP Error Code
----------------
+===============
 
 ### FATAL
 
@@ -15476,7 +15549,7 @@ during execution.**
 **Action:** Recompile the trigger again.
 
 6.SD Error Code
----------------
+===============
 
 ### ABORT
 
@@ -15788,7 +15861,7 @@ Support Center (http://support.altibase.com/en/).
 **Action:** Verify the state of link on the remote node. Execute rollback and try again.
 
 7.ST Error Code
----------------
+===============
 
 ### FATAL
 
@@ -16324,7 +16397,7 @@ object.
 **Action:** Ignore this message.
 
 8.MM Error Code
----------------
+===============
 
 ### FATAL
 
@@ -17567,7 +17640,7 @@ within \<0%d\> day(s).**
 **Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com/en/).
 
 9.ODBC Error Code
------------------
+=================
 
 ### FATAL
 
@@ -18731,7 +18804,7 @@ is executed since the asynchronous prefetch failed.**
 
 
 10.APRE Error Code
-------------------
+==================
 
 ### ABORT
 
@@ -19404,7 +19477,7 @@ supported by psm array.
 
 
 11.Utilities Error Code
------------------------
+=======================
 
 ### FATAL
 
@@ -20777,7 +20850,7 @@ the maximum length is \<0%d\>.**
 
 
 12.CM Error Code
-----------------
+================
 
 ### FATAL
 
@@ -21554,7 +21627,7 @@ operation would be blocked**
 
 
 13.Database Link Error Code
----------------------------
+===========================
 
 ### FATAL
 
@@ -22420,7 +22493,7 @@ because the global transaction has been terminated.**
 
 
 14.Log Analyzer Error Code
---------------------------
+==========================
 
 ### FATAL
 
