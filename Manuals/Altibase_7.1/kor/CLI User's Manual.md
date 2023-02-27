@@ -9696,19 +9696,12 @@ SQLConnect 참고
       <th>S6 Infetch</th>
    </tr>
    <tr>
-      <td rowspan="2">(IH)</td>
-      <td rowspan="2"> (HY010) </td>      
-      <td rowspan="2">(HY010) </td>
-      <td >S => --</td>  
+      <td>(IH)</td>
+      <td> (HY010) </td>      
+      <td>(HY010) </td>
+      <td>S => --</td>  
    </tr>  
-   <tr> 
-      <td> RD || NF || E =>
-(if NP => S1,
-if P => S2)
-</td>
-   </tr>
 </table>
-
 
 **SQLFreeHandle**
 
@@ -9905,17 +9898,11 @@ INFETCH
     	<td>E => S2</td>
     </tr>
      <tr>
-        <td rowspan="2">Fetch</td>
-        <td rowspan="2">(IH)</td>
-        <td rowspan="2">(HY010)</td>
-        <td rowspan="2">(HY010)</td>
+        <td>Fetch</td>
+        <td>(IH)</td>
+        <td>(HY010)</td>
+        <td>(HY010)</td>
         <td>S => S6</td>        
-    </tr>
-    <tr>
-        <td>RD || NF || E =>
-(if NP => S1,
-if P => S2 )
-</td>
     </tr>
     <tr>
         <td rowspan="2">FreeStmt
@@ -9939,6 +9926,7 @@ if P => S2 )
         <td>S0</td>
     </tr>
 </table>
+
 
 Cf )
 
