@@ -2530,12 +2530,6 @@ iSQL> ALTER DATABASE ARCHIVELOG;
 iSQL> ALTER DATABASE mydb META RESETLOGS;
 ```
 
-\<Query\> Initialize the SYS_TBS_DISK_UNDO tablespace.
-
-```
-iSQL> ALTER DATABASE mydb META RESETUNDO;
-```
-
 \<Query\> Back up the SYS_TBS_DISK_DATA tablespace to the /altibase backup directory.
 
 ```
