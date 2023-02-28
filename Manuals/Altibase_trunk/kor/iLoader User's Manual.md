@@ -1003,12 +1003,12 @@ iLoader> in -f t1.form -d t1.dat -array 1000 -direct
 
 iLoader로 OUT 작업을 수행할 때 다음의 옵션들을 사용해 성능을 높일 수 있다.
 
-| 인 자                             | 설 명                                                        |
-| --------------------------------- | ------------------------------------------------------------ |
-| \-array *array_size*              | 한 번에 fetch할 행의 개수를 지정하는 옵션이다.<br />기본값: 1 |
-| \-parallel *count*                | 동시에 작업할 쓰레드의 개수를 지정하는 옵션이다. 지정한 개수만큼 쓰레드가 생성되어 병렬 처리하며 스레드 개수만큼의 데이터 파일이 생성된다. <br />-parallel 옵션을 단독으로 사용하여 다운로드 할 경우, bind와 fetch가 반복적으로 이뤄져 성능 저하를 가져온다. 따라서 -array 옵션을 함께 사용해야 한다.<br />IN의 경우와 달리 서버로의 연결 수는 항상 2개이다.<br />기본값: 1, 최대값: 32 |
-| \-prefetch_rows *n*               | select쿼리 수행 시, 데이터베이스에서 한번에 가져오는 레코드 개수를 지정할 수 있다. 설정 가능한 값의 범위는 0부터 214783647이다. 0은 네트워크 패킷에 담을 수 있는 최대 크기를 의미한다.<br />기본값: 0 |
-| -async prefetch *[on\|off\|auto]* | fetch 성능을 향상하기 위해 비동기 prefetch 기능을 설정할 수 있다. 이 옵션에 설정 가능한 값은 아래와 같다.<br />- off: 비동기 prefetch를 하지 않는다. (기본값)<br />- on: 비동기 prefetch를 한다.<br />- auto: 비동기 prefetch를 위해 auto tuning을 한다. (리눅스만 지원)<br /><br />비동기 prefetch 에 대한 자세한 설명은 CLI User's Manual에서 prefetch 관련 속성 및 환경 변수인 ALTIBASE_PREFETCH_ASYNC, ALTIBASE_PREFETCH_AUTO_TUNING, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO을 참고하기 바란다. |
+| 인 자                              | 설 명                                                        |
+| ---------------------------------- | ------------------------------------------------------------ |
+| \-array *array_size*               | 한 번에 fetch할 행의 개수를 지정하는 옵션이다.<br />기본값: 1 |
+| \-parallel *count*                 | 동시에 작업할 쓰레드의 개수를 지정하는 옵션이다. 지정한 개수만큼 쓰레드가 생성되어 병렬 처리하며 스레드 개수만큼의 데이터 파일이 생성된다. <br />-parallel 옵션을 단독으로 사용하여 다운로드 할 경우, bind와 fetch가 반복적으로 이뤄져 성능 저하를 가져온다. 따라서 -array 옵션을 함께 사용해야 한다.<br />IN의 경우와 달리 서버로의 연결 수는 항상 2개이다.<br />기본값: 1, 최대값: 32 |
+| \-prefetch_rows *n*                | select쿼리 수행 시, 데이터베이스에서 한번에 가져오는 레코드 개수를 지정할 수 있다. 설정 가능한 값의 범위는 0부터 214783647이다. 0은 네트워크 패킷에 담을 수 있는 최대 크기를 의미한다.<br />기본값: 0 |
+| -async\_prefetch *[on\|off\|auto]* | fetch 성능을 향상하기 위해 비동기 prefetch 기능을 설정할 수 있다. 이 옵션에 설정 가능한 값은 아래와 같다.<br />- off: 비동기 prefetch를 하지 않는다. (기본값)<br />- on: 비동기 prefetch를 한다.<br />- auto: 비동기 prefetch를 위해 auto tuning을 한다. (리눅스만 지원)<br /><br />비동기 prefetch 에 대한 자세한 설명은 CLI User's Manual에서 prefetch 관련 속성 및 환경 변수인 ALTIBASE_PREFETCH_ASYNC, ALTIBASE_PREFETCH_AUTO_TUNING, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO을 참고하기 바란다. |
 ##### LOB 컬럼 제약
 
 다운로드 대상 테이블에 LOB 컬럼이 있는 경우, 다음 옵션에 대해서는 사용자가 지정한 값이 무시되고 내부적으로 아래와 같이 설정된다.
