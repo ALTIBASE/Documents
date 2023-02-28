@@ -2399,8 +2399,8 @@ SYS_COLUMNS_
 
 ### SYS_PART_TABLES\_ 
 
-파티션드 테이블을 관리하기 위한 메타 테이블이다. SYS_PART_TABLE에 들어가는
-테이블 정보는 SYS_TABLES에서 IS_PARTITIONED가 ‘T’로 되어 있는 파티션드 테이블에 대한 정보이다.
+파티션드 테이블을 관리하기 위한 메타 테이블이다. SYS_PART_TABLE\_에 들어가는
+테이블 정보는 SYS_TABLES\_에서 IS_PARTITIONED가 ‘T’로 되어 있는 파티션드 테이블에 대한 정보이다.
 
 | Column name         | Type    | Description                                |
 | ------------------- | ------- | ------------------------------------------ |
