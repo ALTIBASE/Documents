@@ -2750,12 +2750,6 @@ iSQL> ALTER DATABASE ARCHIVELOG;
 iSQL> ALTER DATABASE mydb META RESETLOGS;
 ```
 
-\<질의\> SYS_TBS_DISK_UNDO 테이블스페이스를 초기화한다.
-
-```
-iSQL> ALTER DATABASE mydb META RESETUNDO;
-```
-
 \<질의\> SYS_TBS_DISK_DATA 테이블스페이스를 /altibase_backup디렉터리에 백업한다.
 
 ```

@@ -140,7 +140,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - [5.기타 Utilities](#5기타-utilities)
   - [altiAudit](#altiaudit)
   - [altibase](#altibase)
-  - [altiMon](#altimon)
   - [altierr](#altierr)
   - [altipasswd](#altipasswd)
   - [altiProfile](#altiprofile)
@@ -2623,7 +2622,7 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 RESET Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 RESET Success
 ~~~
 
-# 4. altiMon
+# 4.altiMon
 
 ## 개요
 

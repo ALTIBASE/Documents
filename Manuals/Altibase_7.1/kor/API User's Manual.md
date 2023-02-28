@@ -1850,11 +1850,11 @@ Altibase XA 라이브러리는 에러와 추적 정보들을 trace 파일에 기
 #### 추적 파일 이름 및 위치
 
 ```
-altibase_xa\<XA_NAME\>\<date\>.log 
+altibase_xa_[XA_NAME][YYYYMMDD].log 
 ```
 
--   XA_NAME : TM 환경 설정시 open string에 XA_NAME=value로 명시한 값이다. 만약 open string 에 XA_NAME=value 을 명시하지 않았다면 NULL 로 치환된다.
--   date : trace 파일에 저장하는 날짜(YYYYMMDD)
+-   *XA_NAME* : TM 환경 설정시 open string에 XA_NAME=value로 명시한 값이다. 만약 open string 에 XA_NAME=value 을 명시하지 않았다면 NULL 로 치환된다.
+-   *YYYYMMDD* : trace 파일에 저장하는 날짜(YYYYMMDD)
 
 ALTIBASE_HOME 환경변수가 설정되어 있을 경우에는 \$ALTIBASE_HOME/trc에 생성되고, 설정되지 않았다면 현재 디렉터리에 생성된다.
 
