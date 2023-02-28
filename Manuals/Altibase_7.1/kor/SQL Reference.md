@@ -18999,7 +18999,7 @@ LARGEST_INT
 
 
 
-#### ISNUMERIC
+#### ISNUMERIC, IS_NUMERIC
 
 ##### 구문
 
@@ -19011,8 +19011,9 @@ ISNUMERIC (expr)
 
 ##### 설명
 
-입력한 수식이 숫자 데이터 타입으로 유효한지를 판단한다. 입력한 값이 유효하면
-1을, 그렇지 않으면 0을 반환한다.
+입력한 수식이 숫자 데이터 타입으로 유효한지를 판단한다. 입력한 값이 유효하면 1을, 그렇지 않으면 0을 반환한다.
+
+IS_NUMERIC은 ISNUMERIC과 같은 함수이다.
 
 ##### 예제
 
@@ -20010,7 +20011,7 @@ INSTR 함수는 입력 *expr* 문자열에서 *substring*을 찾아서 *substrin
 반환한다. 이 값이 0이거나, *expr*내에서 찾을 수 있는 *substring* 의 개수보다 더
 크면 이 함수는 0을 반환한다. 음수로 설정하면 에러가 발생한다.
 
-POSITION 함수는 INSTR과 같은 함수이다.
+INSTRB, POSITION 함수는 INSTR과 같은 함수이다.
 
 ##### 예제
 
@@ -20561,6 +20562,8 @@ REPLACE2 (expr1 , expr2, [expr3])
 
 TRANSLATE 함수가 각 문자에 대해 하나씩 치환되는 것에 반해 REPLACE2 함수는
 문자열을 제거시킬 뿐만 아니라 한 문자열을 다른 문자열로 대치한다.
+
+REPLACE는 REPLACE2와 같은 함수이다.
 
 ##### 예제
 
@@ -22473,7 +22476,7 @@ TO_HEX(1000)
 
 
 
-#### TO_INTERVAL (NUMTODSINTERVAL)
+#### TO_INTERVAL, NUMTODSINTERVAL
 
 ##### 구문
 
@@ -22485,7 +22488,7 @@ TO_INTERVAL(n, 'interval_unit')
 
 ##### 설명
 
-TO_INTERVAL(NUMTODSINTERVAL) 함수는 n을 interval_unit 단위로 변환해서 반환한다.
+TO_INTERVAL 또는 NUMTODSINTERVAL 함수는 n을 interval_unit 단위로 변환해서 반환한다.
 n은 숫자 타입이나 숫자 타입으로 변환할 수 있는 값을 입력할 수 있으며, SECOND
 단위 기준으로 -9e18 \~ 9e18의 범위 내에서 입력할 수 있다.
 
@@ -22625,7 +22628,7 @@ TO_NCHAR('01110' + 1)
 
 
 
-#### TO_NUMBER
+#### TO_NUMBER, PLUS
 
 ##### 구문
 
@@ -22637,11 +22640,11 @@ TO_NUMBER (char [, number_fmt] )
 
 ##### 설명
 
-TO_NUMBER 함수는 문자열 *char*를 숫자 데이터 타입으로 변환한다. 사용자는 원하는
-숫자 출력 형식을 지정할 수 있다. 숫자 출력 형식에 대한 자세한 설명은 *General
-Reference*를 참고하기 바란다.
+TO_NUMBER 함수는 문자열 *char*를 숫자 데이터 타입으로 변환한다. 사용자는 원하는 숫자 출력 형식을 지정할 수 있다. 숫자 출력 형식에 대한 자세한 설명은 *General Reference* 를 참고하기 바란다.
 
 반환형은 FLOAT이다.
+
+PLUS는 TO_NUMBER와 같은 함수이다.
 
 ##### 예제
 
@@ -23020,7 +23023,7 @@ DESENCRYPT (VARCHAR  expr,
 
 DESDECRYPT 예제를 참조한다.
 
-#### TDESDECRYPT/TRIPLE_DESDECRYPT
+#### TDESDECRYPT, TRIPLE_DESDECRYPT
 
 ##### 구문
 
@@ -23089,7 +23092,7 @@ A4 ALTIBASE Corporation.
 
 
 
-#### TDESENCRYPT/TRIPLE_DESENCRYPT
+#### TDESENCRYPT, TRIPLE_DESENCRYPT
 
 ##### 구문
 
@@ -23282,10 +23285,7 @@ CASE2 (expr1, ret_expr1,
 
 ##### 설명
 
-이 함수는 *expr1*이 참이면 *ret_expr1* 을 반환한다. 만약 *expr1*이 거짓이면
-*expr2*를 계산해서 참이면 *ret_expr2*를 반환한다. 참인 수식이 나올 때까지 이
-과정을 계속한다. 참인 수식이 나오지 않으면, *default* 가 반환된다. 참인 수식이
-없고 *default*도 지정되어 있지 않으면 NULL이 반환된다.
+이 함수는 *expr1*이 참이면 *ret_expr1* 을 반환한다. 만약 *expr1*이 거짓이면 *expr2*를 계산해서 참이면 *ret_expr2*를 반환한다. 참인 수식이 나올 때까지 이 과정을 계속한다. 참인 수식이 나오지 않으면, *default* 가 반환된다. 참인 수식이 없고 *default*도 지정되어 있지 않으면 NULL이 반환된다.
 
 ##### 예제
 
