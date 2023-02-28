@@ -80,6 +80,18 @@ Altibase® Application Development
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- PDF 변환을 위한 여백입니다. --> 
 
 <pre>
@@ -4292,6 +4304,8 @@ EXEC SQL CONNECT <:user> IDENTIFIED BY <:passwd>
 -   \<:*conn_opt1*\>: 데이터베이스 서버와의 연결 방식을 지정
 
     -   DSN: 연결할 데이터베이스 서버의 IP주소
+
+    -   Server: DSN과 같은 의미로, DSN 대신 Server를 사용할 수 있다. 
 
     -   CONNTYPE: 데이터베이스 서버와의 통신 방법
 

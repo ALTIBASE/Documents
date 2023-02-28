@@ -80,6 +80,18 @@ Altibase® Administration
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- PDF 변환을 위한 여백입니다. --> 
 
 <pre>
@@ -2413,8 +2425,9 @@ SYS_COLUMNS_
 파티셔닝 메소드를 나타낸다.
 
 - 0: 범위 (RANGE)
-- 1: 해쉬 (HASH)
+- 1: 해시 (HASH)
 - 2: 리스트 (LIST)
+- 3: 해시를 사용한 범위 파티셔닝 (RANGE PARTITIONING USING HASH)
 
 ##### ROW_MOVEMENT
 
@@ -11656,6 +11669,8 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 | P3                        | BIGINT         | 대기 이벤트 파라미터 3                                       |
 | WAIT_TIME                 | BIGINT         | 대기 시간 (단위: 밀리초)                                     |
 | SECOND_IN_TIME            | BIGINT         | 대기 시간 (단위: 초)                                         |
+| SIMPLE_QUERY              | INTEGER        | SIMPLE QUERY 여부                                            |
+| MATHEMATICS_TEMP_MEMORY   | BIGINT         | 분석 함수에서 사용하는 MATHEMATICS TEMP 메모리 사용량        |
 
 #### 칼럼 정보
 
@@ -11904,6 +11919,18 @@ SQL Plan Cache 에 등록된 [Child PCO](#child-pco) 식별자를 나타낸다.
 ##### SECOND_IN_TIME
 
 대기 시간 (단위: 초)이다.
+
+##### SIMPLE_QUERY
+
+SIMPLE QUERY 수행 상태를 나타내며, 다음과 같은 값을 갖는다.
+
+0: SIMPLE QUERY 아님
+
+1: SIMPLE QUERY
+
+##### MATHEMATICS_TEMP_MEMORY
+
+분석 함수에서 사용하는 MATHEMATICS TEMP 메모리 사용량을 나타낸다.
 
 ### V\$STATNAME
 

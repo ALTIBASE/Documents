@@ -49,8 +49,19 @@ Altibase® Application Development
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1484,12 +1495,11 @@ DIMENSION( GEOMETRY )
 
 어떤 공간 객체를 표현하기 위하여 필요한 최소 차원을 반환한다.
 
-공간 객체가 EMPTY인 경우에는 -1을, 포인트 및 멀티포인트의 경우에는 0을 반환하며,
-라인스트링 및 멀티라인스트링의 경우에는 1을, 폴리곤 및 멀티폴리곤인 경우에는 2를
-반환한다.
+공간 객체가 EMPTY인 경우에는 -1을, 포인트 및 멀티포인트의 경우에는 0을 반환하며, 라인스트링 및 멀티라인스트링의 경우에는 1을, 폴리곤 및 멀티폴리곤인 경우에는 2를 반환한다.
 
-여러 개의 서로 다른 타입의 공간객체를 요소로 갖는 공간객체콜렉션의 경우에는 각
-요소들의 차원 중 가장 큰 차원 수를 반환한다.
+여러 개의 서로 다른 타입의 공간객체를 요소로 갖는 공간객체콜렉션의 경우에는 각 요소들의 차원 중 가장 큰 차원 수를 반환한다.
+
+ST_DIMENSION은 DIMENSION과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1550,6 +1560,8 @@ GEOMETRY 객체의 서브 타입 이름을 반환한다.
 
 - GEOMETRYCOLLECTION
 
+ST_GEOMETRYTYPE은 GEOMETRYTYPE과 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -1585,9 +1597,9 @@ ENVELOPE( GEOMETRY )
 
 ##### 설명
 
-공간 객체에 대한 최소 경계 사각형(Minimum Boundary Rectangle: MBR)을 폴리곤
-형태로 반환한다. 폴리곤은 경계 박스 (MINX, MINY), (MAXX, MINY), (MAXX, MAXY),
-(MINX, MAXY), (MINX, MINY)의 모서리 점에 의해 정의된다.
+공간 객체에 대한 최소 경계 사각형(Minimum Boundary Rectangle: MBR)을 폴리곤 형태로 반환한다. 폴리곤은 경계 박스 (MINX, MINY), (MAXX, MINY), (MAXX, MAXY), (MINX, MAXY), (MINX, MINY)의 모서리 점에 의해 정의된다.
+
+ST_ENVELOPE는 ENVELOPE와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1622,8 +1634,9 @@ ASTEXT( GEOMETRY[,precision] )
 
 공간 객체를 WKT(Well-Known Text) 표현 형태로 반환한다.
 
-Precision을 이용하여 WKT의 최대길이를 제어할 수 있다. 기본값은 256 bytes이며,
-최소 32, 최대 32000까지 사용할 수 있다.
+Precision을 이용하여 WKT의 최대길이를 제어할 수 있다. 기본값은 256 bytes이며, 최소 32, 최대 32000까지 사용할 수 있다.
+
+ST_ASTEXT는 ASTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1671,6 +1684,8 @@ ASBINARY( GEOMETRY )
 ##### 설명
 
 공간 객체를 WKB(Well-Known Binary) 표현 형태로 반환한다.
+
+ST_ASBINARY는 ASBINARY와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1723,6 +1738,8 @@ ASEWKT( GEOMETRY[,precision] )
 공간 객체를 EWKT(Extended Well-Known Text) 표현 형태로 반환한다.
 Precision을 이용하여 WKT의 최대 길이를 제어할 수 있다. 기본값은 256 bytes이며, 최소 32, 최대 32000까지 사용할 수 있다.
 
+ST_ASEWKT는 ASEWKT와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -1754,6 +1771,8 @@ ASEWKB( GEOMETRY )
 
 공간 객체를 EWKB(Extended Well-Known Binary) 표현 형태로 반환한다.
 
+ST_ASEWKB는 ASEWKB와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -1784,6 +1803,8 @@ ISEMPTY( GEOMETRY )
 ##### 설명
 
 공간 객체가 좌표값을 갖지 않는 경우 1을 반환한다. 그렇지 않으면 0을 반환한다.
+
+ST_ISEMPTY는 ISEMPTY와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1820,13 +1841,11 @@ ISSIMPLE( GEOMETRY )
 
 ##### 설명
 
-공간 객체가 교차점이나 접촉점과 같은 예외적인 점들을 갖지 않을 경우 1을
-반환한다. 그렇지 않으면 0을 반환한다.
+공간 객체가 교차점이나 접촉점과 같은 예외적인 점들을 갖지 않을 경우 1을 반환한다. 그렇지 않으면 0을 반환한다.
 
-포인트, 폴리곤 및 멀티폴리곤은 항상 심플하다. 라인스트링은 선분이 서로 교차하지
-않는 경우 심플하다. 멀티포인트는 구성 요소인 두 포인트가 동일한 좌표 값을 갖지
-않는 경우 심플하다. 구성 요소인 모든 라인스트링이 심플하고 멀티라인스트링의
-경계에 있는 점에서만 교차가 발생하는 멀티라인스트링은 심플하다.
+포인트, 폴리곤 및 멀티폴리곤은 항상 심플하다. 라인스트링은 선분이 서로 교차하지 않는 경우 심플하다. 멀티포인트는 구성 요소인 두 포인트가 동일한 좌표 값을 갖지 않는 경우 심플하다. 구성 요소인 모든 라인스트링이 심플하고 멀티라인스트링의 경계에 있는 점에서만 교차가 발생하는 멀티라인스트링은 심플하다.
+
+ST_ISSIMPLE은 ISSIMPLE과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1867,8 +1886,9 @@ ISVALID( GEOMETRY )
 
 공간 객체가 공간객체의 제약조건을 만족하면 1, 아니면 0이 반환된다.
 
-유효하지 않은 객체를 DBMS에 삽입하는 것은 에러가 발생할 수도, 원하지 않는 결과를
-가져올 수도 있으니 주의한다.
+유효하지 않은 객체를 DBMS에 삽입하는 것은 에러가 발생할 수도, 원하지 않는 결과를 가져올 수도 있으니 주의한다.
+
+ST_ISVALID는 ISVALID와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1909,8 +1929,9 @@ ISVALIDHEADER( GEOMETRY )
 
 공간 객체가 공간객체의 제약조건을 만족하면 1, 아니면 0이 반환된다.
 
-유효하지 않은 객체를 DBMS에 삽입하는 것은 에러가 발생할 수도, 원하지 않는 결과를
-가져올 수도 있으니 주의한다.
+유효하지 않은 객체를 DBMS에 삽입하는 것은 에러가 발생할 수도, 원하지 않는 결과를 가져올 수도 있으니 주의한다.
+
+ST_ISVALIDHEADER는 ISVALIDHEADER와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1949,9 +1970,9 @@ BOUNDARY( GEOMETRY )
 
 공간 객체의 경계를 반환한다.
 
-포인트, 멀티포인트, 클로즈드한 라인스트링 또는 클로즈드한 멀티라인스트링이거나
-EMPTY 객체인 경우에는 EMPTY를 반환한다. 하나 이상의 내부링을 가지고 있는
-폴리곤이거나 멀티폴리곤의 경우에는 다중 객체를 반환한다.
+포인트, 멀티포인트, 클로즈드한 라인스트링 또는 클로즈드한 멀티라인스트링이거나 EMPTY 객체인 경우에는 EMPTY를 반환한다. 하나 이상의 내부링을 가지고 있는 폴리곤이거나 멀티폴리곤의 경우에는 다중 객체를 반환한다.
+
+ST_BOUNDARY는 BOUNDARY와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -1990,7 +2011,7 @@ EMPTY
 10 rows selected.
 ```
 
-#### X (COORDX) 
+#### X. COORDX
 
 ##### 구문
 
@@ -2005,6 +2026,8 @@ COORDX( GEOMETRY )
 GEOMETRY object의 subtype이 포인트일 경우 x좌표 값을 반환한다.
 
 GEOMETRY가 포인트가 아닐 경우에는 에러를 출력한다.
+
+ST_X, COORDX는 X와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2030,7 +2053,7 @@ F1          X(F2)
 2 rows selected.
 ```
 
-#### Y (COORDY) 
+#### Y, COORDY
 
 ##### 구문
 
@@ -2045,6 +2068,8 @@ COORDY( GEOMETRY )
 GEOMETRY object의 subtype이 포인트일 경우 y좌표 값을 반환한다.
 
 GEOMETRY가 포인트가 아닐 경우에는 에러를 출력한다.
+
+ST_Y, COORDY는 Y와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2080,16 +2105,15 @@ MINX( GEOMETRY )
 
 ##### 설명
 
-최소경계다각형의 최소 X 좌표값을 반환한다. GEOMETRY객체가 포인트(POINT) 타입인
-경우, 그 포인트의 X 좌표값을 반환한다.
+최소경계다각형의 최소 X 좌표값을 반환한다. GEOMETRY객체가 포인트(POINT) 타입인 경우, 그 포인트의 X 좌표값을 반환한다.
 
-> 참고) MINX, MINY, MAXX, MAXY 함수와 MIN, MAX 함수를 이용하여 질의 결과값의
-> 최소경계다각형의 좌표값을 얻을 수 있다.
->
-> ```
-> SELECT MIN(MINX(F2)), MIN(MINY(F2)), MAX(MAXX(F2)), MAX(MAXY(F2) FROM TB1;
-> ```
->
+참고) MINX, MINY, MAXX, MAXY 함수와 MIN, MAX 함수를 이용하여 질의 결과값의 최소경계다각형의 좌표값을 얻을 수 있다.
+
+~~~
+SELECT MIN(MINX(F2)), MIN(MINY(F2)), MAX(MAXX(F2)), MAX(MAXY(F2) FROM TB1;
+~~~
+
+ST_MINX는 MINX와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2126,8 +2150,9 @@ MINY( GEOMETRY )
 
 ##### 설명
 
-최소경계다각형의 최소 Y좌표값을 반환한다. GEOMETRY 객체가 포인트(POINT) 타입인
-경우, 그 포인트의 Y좌표값을 반환한다.
+최소경계다각형의 최소 Y좌표값을 반환한다. GEOMETRY 객체가 포인트(POINT) 타입인 경우, 그 포인트의 Y좌표값을 반환한다.
+
+ST_MINY는 MINY와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2164,8 +2189,9 @@ MAXX( GEOMETRY )
 
 ##### 설명
 
-최소경계다각형의 최대 X좌표값을 반환한다. GEOMETRY 객체가 포인트(POINT) 타입인
-경우, 그 포인트의 X좌표값을 반환한다.
+최소경계다각형의 최대 X좌표값을 반환한다. GEOMETRY 객체가 포인트(POINT) 타입인 경우, 그 포인트의 X좌표값을 반환한다.
+
+ST_MAXX는 MAXX와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2202,8 +2228,9 @@ MAXY( GEOMETRY )
 
 ##### 설명
 
-최소경계다각형의 최대 Y좌표값을 반환한다. GEOMETRY 객체가 포인트(POINT) 타입인
-경우, 그 포인트의 Y좌표값을 반환한다.
+최소경계다각형의 최대 Y좌표값을 반환한다. GEOMETRY 객체가 포인트(POINT) 타입인 경우, 그 포인트의 Y좌표값을 반환한다.
+
+ST_MAXY는 MAXY와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2244,6 +2271,8 @@ GEOMETRYLENGTH( GEOMETRY )
 
 GEOMETRY가 라인스트링이나 멀티라인스트링이 아닐 경우에는 에러를 출력한다.
 
+ST_LENGTH는 GEOMETRYLENGTH와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -2281,6 +2310,8 @@ STARTPOINT( GEOMETRY )
 라인스트링의 시작점을 반환한다.
 
 GEOMETRY가 라인스트링이 아닐 경우에는 에러를 출력한다.
+
+ST_STARTPOINT는 STARTPOINT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2324,6 +2355,8 @@ ENDPOINT( GEOMETRY )
 라인스트링의 끝점을 반환한다.
 
 GEOMETRY가 라인스트링이 아닐 경우에는 에러를 출력한다.
+
+ST_ENDPOINT는 ENDPOINT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2375,6 +2408,8 @@ StartPoint(geometry) = EndPoint(geometry)
 
 GEOMETRY가 라인스트링이나 멀티라인스트링이 아닐 경우에는 에러를 출력한다.
 
+ST_ISCLOSED는 ISCLOSED와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -2419,6 +2454,8 @@ StartPoint(geometry) = EndPoint(geometry)
 그렇지 않으면 0을 반환한다.
 
 GEOMETRY가 라인스트링이나 멀티라인스트링이 아닐 경우에는 에러를 출력한다.
+
+ST_ISRING은 ISRING과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2497,6 +2534,8 @@ NUMPOINTS( GEOMETRY )
 
 공간 객체를 구성하는 점의 수를 반환한다.
 
+ST_NUMPOINTS는 NUMPOINTS와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -2536,6 +2575,8 @@ POINTN( GEOMETRY, N )
 
 *N*이 1보다 작거나 라인스트링의 점의 수보다 클 경우에는 에러를 출력한다.
 GEOMETRY가 라인스트링이 아닐 경우에는 에러를 출력한다.
+
+ST_POINTN는 POINTN과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2580,6 +2621,8 @@ AREA( GEOMETRY )
 
 GEOMETRY가 폴리곤이나 멀티폴리곤이 아닐 경우에는 에러를 출력한다.
 
+ST_AREA는 AREA와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -2619,6 +2662,8 @@ CENTROID( GEOMETRY )
 결과가 입력된 폴리곤이나 멀티폴리곤의 표면상에 없을 수도 있다.
 
 GEOMETRY가 폴리곤이나 멀티폴리곤이 아닐 경우에는 에러를 출력한다.
+
+ST_CENTROID는 CENTROID와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2667,6 +2712,8 @@ POINTONSURFACE( GEOMETRY )
 
 GEOMETRY가 폴리곤이나 멀티폴리곤이 아닐 경우에는 에러를 출력한다.
 
+ST_POINTONSURFACE는 POINTONSURFACE와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -2710,10 +2757,11 @@ EXTERIORRING( GEOMETRY )
 
 ##### 설명
 
-폴리곤의 외부링을 반환한다. 폴리곤에 내부링이 없을 경우 반환된 값은 폴리곤의
-경계(Boundary)와 동일하다.
+폴리곤의 외부링을 반환한다. 폴리곤에 내부링이 없을 경우 반환된 값은 폴리곤의 경계(Boundary)와 동일하다.
 
 GEOMETRY가 폴리곤이 아닐 경우에는 에러를 출력한다.
+
+ST_EXTERIORRING는 EXTERIORRING과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2756,10 +2804,11 @@ NUMINTERIORRING( GEOMETRY )
 
 ##### 설명
 
-폴리곤을 구성하는 내부 링의 개수를 반환한다. 폴리곤에 내부링이 없을 경우 0을
-반환한다.
+폴리곤을 구성하는 내부 링의 개수를 반환한다. 폴리곤에 내부링이 없을 경우 0을 반환한다.
 
 GEOMETRY가 폴리곤이 아닐 경우에는 에러를 출력한다.
+
+ST_NUMINTERIORRING은 NUMINTERIORRING과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2800,6 +2849,8 @@ INTERIORRINGN( GEOMETRY, N )
 *N*이 1보다 작거나 내부링의 갯수보다 클 경우에는 에러를 출력한다.
 
 GEOMETRY가 폴리곤이 아닐 경우에는 에러를 출력한다.
+
+ST_INTERIORRINGN는 INTERIORRINGN과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2844,6 +2895,8 @@ NUMGEOMETRIES( GEOMETRY )
 
 GEOMETRY가 다중객체나 공간객체콜렉션이 아닐 경우에는 에러를 출력한다.
 
+ST_NUMGEOMETRIES는 NUMGEOMETRIES와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -2867,7 +2920,7 @@ F1          NUMGEOMETRIES(F2)
 1 row selected.
 ```
 
-#### GEOMETRYN 
+#### GEOMETRYN
 
 ##### 구문
 
@@ -2879,8 +2932,9 @@ GEOMETRYN( GEOMETRY, N )
 
 공간객체콜렉션에서 N번째의 공간 객체를 반환한다.
 
-*N*이 1보다 작거나 공간 객체의 갯수보다 클 경우에는 에러를 출력한다. GEOMETRY가
-다중객체나 공간객체콜렉션이 아닐 경우에는 에러를 출력한다.
+*N*이 1보다 작거나 공간 객체의 갯수보다 클 경우에는 에러를 출력한다. GEOMETRY가 다중객체나 공간객체콜렉션이 아닐 경우에는 에러를 출력한다.
+
+ST_GEOMETRYN은 GEOMETRYN과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -2923,6 +2977,8 @@ DISTANCE( GEOMETRY1, GEOMETRY2 )
 
 두 공간 객체상에 존재하는 두 점 사이의 최단 거리를 반환한다.
 
+ST_DISTANCE는 DISTANCE와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -2959,11 +3015,11 @@ BUFFER( GEOMETRY, NUMBER )
 
 ##### 설명
 
-입력한 공간 객체로부터의 거리(*NUMBER* 인자)가 같거나 작은 모든 점들을 포함하는
-공간 객체를 반환한다.
+입력한 공간 객체로부터의 거리(*NUMBER* 인자)가 같거나 작은 모든 점들을 포함하는 공간 객체를 반환한다.
 
-GEOMETRY 입력인자로 GEOMETRYCOLLECTION 객체를 사용할 수 없으며, 거리값(*NUMBER*
-인자)은 0보다 커야 한다.
+GEOMETRY 입력인자로 GEOMETRYCOLLECTION 객체를 사용할 수 없으며, 거리값(*NUMBER* 인자)은 0보다 커야 한다.
+
+ST_BUFFER는 BUFFER와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3008,6 +3064,8 @@ CONVEXHULL( GEOMETRY )
 
 입력 GEOMETRY는 GEOMETRYCOLLECTION 객체를 사용할 수 없다.
 
+ST_CONVEXHULL는 CONVEXHULL과 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -3047,6 +3105,8 @@ INTERSECTION( GEOMETRY1, GEOMETRY2 )
 GEOMETRY1과 GEOMETRY2의 교집합에 해당하는 공간객체를 반환한다.
 
 GEOMETRY1과 GEOMETRY2는 GEOMETRYCOLLECTION 객체를 사용할 수 없다.
+
+ST_INTERSECTION은 INTERSECTION과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3113,8 +3173,10 @@ UNION( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-두 공간 객체의 합집합에 해당하는 공간 객체를 반환한다. GEOMETRY1과 GEOMETRY2는
+두 공간 객체의 합집합에 해당하는 공간 객체를 반환한다. GEOMETRY1과 GEOMETRY2는 
 GEOMETRYCOLLECTION을 사용할 수 없으며, 두 공간 객체는 같은 차원을 가져야 한다.
+
+ST_UNION은 UNION과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3155,8 +3217,9 @@ DIFFERENCE( GEOMETRY1, GEOMETRY2 )
 
 두 공간 객체의 차집합은 GEOMETR2에 포함되지 않는 GEOMETRY1의 일부분을 의미한다.
 
-GEOMETRY1과 GEOMETRY2는 GEOMETRYCOLLECTION을 사용할 수 없으며, 두 공간 객체는
-같은 차원을 가져야 한다.
+GEOMETRY1과 GEOMETRY2는 GEOMETRYCOLLECTION을 사용할 수 없으며, 두 공간 객체는 같은 차원을 가져야 한다.
+
+ST_DIFFERENCE는 DIFFERENCE와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3193,11 +3256,11 @@ SYMDIFFERENCE( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-두 공간 객체의 교집합을 제외한 공간 객체를 반환한다. GEOMETRY2에 포함되지 않는
-GEOMETRY1의 부분과 GEOMETRY1에 포함되지 않는 GEOMETRY2의 부분을 반환한다.
+두 공간 객체의 교집합을 제외한 공간 객체를 반환한다. GEOMETRY2에 포함되지 않는GEOMETRY1의 부분과 GEOMETRY1에 포함되지 않는 GEOMETRY2의 부분을 반환한다.
 
-GEOMETRY1과 GEOMETRY2는 GEOMETRYCOLLECTION을 사용할 수 없으며, 두 공간 객체는
-같은 DIMENSION을 가져야 한다.
+GEOMETRY1과 GEOMETRY2는 GEOMETRYCOLLECTION을 사용할 수 없으며, 두 공간 객체는 같은 DIMENSION을 가져야 한다.
+
+ST_SYMDIFFERENCE는 SYMDIFFERENCE와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3237,6 +3300,8 @@ SRID( GEOMETRY )
 ##### 설명
 
 공간 객체의 SRID를 반환한다.
+
+ST_SRID는 SRID와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3330,6 +3395,8 @@ WKT의 문법이 잘못되었을 경우 에러를 출력한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
 
+ST_GEOMFROMTEXT, ST_GEOMETRYFROMTEXT는 GEOMFROMTEXT와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -3378,6 +3445,8 @@ WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
 
+ST_POINTFROMTEXT는 POINTFROMTEXT와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -3408,7 +3477,7 @@ SRID=100;POINT(1 1)
 1 row selected.
 ```
 
-#### LINEFROMTEXT 
+#### LINEFROMTEXT
 
 ##### 구문
 
@@ -3420,12 +3489,13 @@ LINEFROMTEXT( WKT[, srid] )
 
 WKT(Well-Known Text) 형태로 공간 객체를 입력받아 라인스트링 객체를 생성한다.
 
-라인스트링이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를
-출력한다.
+라인스트링이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
+
+ST_LINEFROMTEXT는 LINEFROMTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3474,6 +3544,8 @@ WKT(Well-Known Text) 형태로 공간 객체와 SRID를 입력 받아 폴리곤 
 WKT의 값이 NULL이거나 SRID의 값이 NULL인 경우에는 NULL을 반환한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
+
+ST_POLYFROMTEXT는 POLYFROMTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3577,12 +3649,13 @@ MPOINTFROMTEXT( WKT[, srid] )
 
 WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 멀티포인트 객체를 생성한다.
 
-멀티포인트가 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를
-출력한다.
+멀티포인트가 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
+
+ST_MPOINTFROMTEXT는 MPOINTFROMTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3627,12 +3700,13 @@ MLINEFROMTEXT( WKT[, srid] )
 
 WKT(Well-Known Text) 형태로 공간 객체를 입력받아 멀티라인스트링 객체를 생성한다.
 
-멀티라인스트링이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를
-출력한다.
+멀티라인스트링이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
+
+ST_MLINEFROMTEXT는 MLINEFROMTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3676,12 +3750,13 @@ MPOLYFROMTEXT( WKT[, srid] )
 
 WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 멀티폴리곤 객체를 생성한다.
 
-멀티폴리곤이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를
-출력한다.
+멀티폴리곤이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
+
+ST_MPOLYFROMTEXT는 MPOLYFROMTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3724,15 +3799,15 @@ GEOMCOLLFROMTEXT( WKT[, srid] )
 
 ##### 설명
 
-WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 공간 객체 콜렉션 객체를
-생성한다.
+WKT(Well-Known Text) 형태로 공간 객체를 입력 받아 공간 객체 콜렉션 객체를 생성한다.
 
-공간 객체 콜렉션이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를
-출력한다.
+공간 객체 콜렉션이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
 객체 생성 시 SRID를 명시한다. 명시하지 않은 경우 객체의 SRID는 0 이다.
+
+ST_GEOMCOLLFROMTEXT는 GEOMCOLLFROMTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3837,6 +3912,8 @@ WKB(Well-Known Binary) 형태로 공간 객체를 입력받아 포인트 객체�
 
 포인트가 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를 출력한다.
 
+ST_POINTFROMWKB는 POINTFROMWKB와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -3855,8 +3932,9 @@ LINEFROMWKB( WKB )
 
 WKB(Well-Known Binary) 형태로 공간 객체를 입력 받아 라인스트링 객체를 생성한다.
 
-라인스트링이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를
-출력한다.
+라인스트링이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를 출력한다.
+
+ST_LINEFROMWKB는 LINEFROMWKB와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3904,6 +3982,8 @@ WKB(Well-Known Binary) 형태로 공간 객체를 입력 받아 폴리곤 객체
 
 폴리곤이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를 출력한다.
 
+ST_POLYFROMWKB는 POLYFROMWKB와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -3922,8 +4002,9 @@ MPOINTFROMWKB( WKB )
 
 WKB(Well-Known Binary) 형태로 공간 객체를 입력 받아 멀티포인트 객체를 생성한다.
 
-멀티포인트가 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를
-출력한다.
+멀티포인트가 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를 출력한다.
+
+ST_MPOINTFROMWKB는 MPOINTFROMWKB와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3965,8 +4046,9 @@ MPOLYFROMWKB( WKB )
 
 WKB(Well-Known Binary) 형태로 공간 객체를 입력 받아 멀티폴리곤 객체를 생성한다.
 
-멀티폴리곤이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를
-출력한다.
+멀티폴리곤이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를 출력한다.
+
+ST_MPOLYFROMWKB는 MPOLYFROMWKB와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -3984,11 +4066,11 @@ GEOMCOLLFROMWKB( WKB )
 
 ##### 설명
 
-WKB(Well-Known Binary) 형태로 공간 객체를 입력 받아 공간객체콜렉션 객체를
-생성한다.
+WKB(Well-Known Binary) 형태로 공간 객체를 입력 받아 공간객체콜렉션 객체를 생성한다.
 
-공간객체콜렉션이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를
-출력한다.
+공간객체콜렉션이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를 출력한다.
+
+ST_GEOMCOLLFROMWKB는 GEOMCOLLFROMWKB와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4006,15 +4088,13 @@ RECTFROMTEXT( WKT )
 
 ##### 설명
 
-WKT(Well-Known Text) 형태로 RECTANGLE 공간 객체를 입력 받아 폴리곤 객체를
-생성한다. RECTANGLE이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우
-에러를 출력한다.
+WKT(Well-Known Text) 형태로 RECTANGLE 공간 객체를 입력 받아 폴리곤 객체를 생성한다. RECTANGLE이 아닌 공간 객체를 표현한 WKT이거나 문법이 잘못된 경우 에러를 출력한다.
 
 WKT의 값이 NULL인 경우에는 NULL을 반환한다.
 
-RECTANGLE은 두 점(좌하단, 우상단)으로 직사각형을 표현한다. RECTANGLE은 폴리곤
-객체로 저장된다. RECTANGLE(x1 y1, x2 y2)은 POLYGON((x1 y1, x2 y1, x2 y2, x1 y2,
-x1 y1))과 동일하다.
+RECTANGLE은 두 점(좌하단, 우상단)으로 직사각형을 표현한다. RECTANGLE은 폴리곤 객체로 저장된다. RECTANGLE(x1 y1, x2 y2)은 POLYGON((x1 y1, x2 y1, x2 y2, x1 y2, x1 y1))과 동일하다.
+
+ST_RECTFROMTEXT는 RECTFROMTEXT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4052,13 +4132,11 @@ RECTFROMWKB( WKB )
 
 ##### 설명
 
-WKB(Well-Known Binary) 형태로 RECTANGLE 공간 객체를 입력 받아 폴리곤 객체를
-생성한다. RECTANGLE이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우
-에러를 출력한다.
+WKB(Well-Known Binary) 형태로 RECTANGLE 공간 객체를 입력 받아 폴리곤 객체를 생성한다. RECTANGLE이 아닌 공간 객체를 표현한 WKB이거나 문법이 잘못된 경우 에러를 출력한다.
 
-RECTANGLE은 두 점(좌하단, 우상단)으로 직사각형을 표현한다. RECTANGLE은 폴리곤
-객체로 저장된다. RECTANGLE(x1 y1, x2 y2)은 POLYGON((x1 y1, x2 y1, x2 y2, x1 y2,
-x1 y1))과 동일하다.
+RECTANGLE은 두 점(좌하단, 우상단)으로 직사각형을 표현한다. RECTANGLE은 폴리곤 객체로 저장된다. RECTANGLE(x1 y1, x2 y2)은 POLYGON((x1 y1, x2 y1, x2 y2, x1 y2, x1 y1))과 동일하다.
+
+ST_RECTFROMWKB는 RECTFROMWKB와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4098,6 +4176,8 @@ EWKT(Extended Well-Known Text) 형태로 공간 객체를 입력 받아 GEOMETRY
 EWKT로 표현 가능한 공간 객체는 모두 입력이 허용된다.
 EWKT의 문법이 잘못된 경우 에러를 출력한다.
 
+ST_GEOMFROMEWKT는 GEOMFROMEWKT와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -4136,6 +4216,8 @@ GEOMFROMEWKB( EWKB )
 ##### 설명
 
 EWKB(Extended Well-Known Binary) 형태로 공간 객체를 입력 받아 GEOMETRY 객체를 생성한다.
+
+ST_GEOMFROMWKB, ST_GEOMFROMEWKB, GEOMFROMWKB는 GEOMFROMEWKB와 같은 함수이다. 
 
 ##### 반환 타입
 
@@ -4353,6 +4435,8 @@ ST_MAKEENVELOPE( X1, Y1, X2, Y2[, SRID=0] )
 입력한 Double 형 변수 4개에 해당하는 LINESTRING( X1 Y1, X2 Y2 )를 ENVELOPE 수행한 결과인 POLYGON( X1 Y1, X2 Y1, X2 Y2, X1 Y2, X1 Y1 )로 반환한다.
 SRID를 입력한 경우 생성된 공간 객체의 SRID로 설정된다. 만약 SRID를 입력하지 않은 경우 생성된 공간객체의 SRID는 0이다.
 
+MAKEENVELOPE는 ST_MAKEENVELOPE와 같은 함수이다.
+
 ##### 반환 타입
 
 ```
@@ -4388,6 +4472,8 @@ ST_REVERSE(GEOMETRY)
 입력한 공간 객체의 포인트를 역순으로 변경한다.
 공간 객체가 EMPTY이면 NULL을 반환한다.
 포인트이면 입력한 공간 객체와 같은 공간 객체를 반환하고 다수의 객체면 객체마다 포인트를 역순으로 변경한다.
+
+REVERSE는 ST_REVERSE와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4746,8 +4832,9 @@ EQUALS( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-두 개의 공간 객체가 위상적으로 서로 같은 경우 TRUE를 반환하며, 그렇지 않으면
-FALSE를 반환한다.
+두 개의 공간 객체가 위상적으로 서로 같은 경우 TRUE를 반환하며, 그렇지 않으면 FALSE를 반환한다.
+
+ST_EQUALS는 EQUALS와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4827,8 +4914,9 @@ DISJOINT( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-두 공간 객체의 교차가 없을 경우 TRUE를 반환하며, 그렇지 않은 경우 FALSE을
-반환한다. 이 연산자는 INTERSECTS가 반환하는 값과 정반대의 값을 반환한다.
+두 공간 객체의 교차가 없을 경우 TRUE를 반환하며, 그렇지 않은 경우 FALSE을 반환한다. 이 연산자는 INTERSECTS가 반환하는 값과 정반대의 값을 반환한다.
+
+ST_DISJOINT는 DISJOINT와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4866,10 +4954,11 @@ INTERSECTS( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-두 개의 공간 객체가 서로 교차를 하면 TRUE를 반환하며, 그렇지 않으면 FALSE를
-반환한다.
+두 개의 공간 객체가 서로 교차를 하면 TRUE를 반환하며, 그렇지 않으면 FALSE를 반환한다.
 
 이 연산자는 DISJOINT가 반환하는 값과 정반대의 값을 반환한다.
+
+ST_INTERSECTS는 INTERSECTS와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4908,8 +4997,9 @@ TOUCHES( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-두 공간 객체가 한 점 이상에서 서로 접촉하면 TRUE를 반환하며, 그렇지 않으면
-FALSE를 반환한다.
+두 공간 객체가 한 점 이상에서 서로 접촉하면 TRUE를 반환하며, 그렇지 않으면 FALSE를 반환한다.
+
+ST_TOUCHES는 TOUCHES와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -4990,10 +5080,11 @@ CROSSES( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-서로 다른 차원을 갖는 두 공간 객체들이 교차하면 TRUE를 반환하고, 그렇지 않으면
-FALSE를 반환한다.
+서로 다른 차원을 갖는 두 공간 객체들이 교차하면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
 
 특별히 라인스트링 간의 교차도 테스트할 수 있다.
+
+ST_CROSSES는 CROSSES와 같은 함수이다. 
 
 ##### 반환 타입
 
@@ -5068,8 +5159,9 @@ WITHIN( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-첫 번째 공간 객체가 두 번째 공간 객체에 완전히 포함되면 TRUE를 반환하고, 그렇지
-않으면 FALSE를 반환한다.
+첫 번째 공간 객체가 두 번째 공간 객체에 완전히 포함되면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+
+ST_WITHIN는 WITHIN과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -5143,8 +5235,9 @@ CONTAINS( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-첫 번째 공간 객체가 두 번째 공간 객체를 완전히 포함하면 TRUE를 반환하고, 그렇지
-않으면 FALSE를 반환한다.
+첫 번째 공간 객체가 두 번째 공간 객체를 완전히 포함하면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+
+ST_CONTAINS는 CONTAINS와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -5209,9 +5302,9 @@ OVERLAPS( GEOMETRY1, GEOMETRY2 )
 
 ##### 설명
 
-두 공간객체가 같은 차원을 가지면서 서로 간에 일부를 포함하고 그 외의 일부는
-포함되지 않는지를 테스트하는 연산자이다. 조건을 만족하면 TRUE를 반환하고, 그렇지
-않으면 FALSE를 반환한다.
+두 공간객체가 같은 차원을 가지면서 서로 간에 일부를 포함하고 그 외의 일부는 포함되지 않는지를 테스트하는 연산자이다. 조건을 만족하면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+
+ST_OVERLAPS는 OVERLAPS와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -5284,8 +5377,9 @@ RELATE( GEOMETRY1, GEOMETRY2 , patterns )
 
 ##### 설명
 
-두 공간 객체가 주어진 패턴 행렬 문자열의 조건을 만족하면 TRUE를 반환하고, 그렇지
-않으면 FALSE를 반환한다.
+두 공간 객체가 주어진 패턴 행렬 문자열의 조건을 만족하면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+
+ST_RELATE는 RELATE와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -5359,8 +5453,9 @@ ISMBRINTERSECTS( GEOMETRY1, GEOMETRY2 );
 
 ##### 설명
 
-두 개의 공간 객체의 최소 경계 사각형(Minimum Boundary Rectangle: MBR)이 서로
-교차를 하면 TRUE를 반환하며, 그렇지 않으면 FALSE를 반환한다.
+두 개의 공간 객체의 최소 경계 사각형(Minimum Boundary Rectangle: MBR)이 서로 교차를 하면 TRUE를 반환하며, 그렇지 않으면 FALSE를 반환한다.
+
+ST_ISMBRINTERSECTS, ISMBBINTERSECTS는 ISMBRINTERSECTS와 같은 함수이다.
 
 ##### 반환 타입
 
@@ -5401,8 +5496,9 @@ ISMBRWITHIN( GEOMETRY1, GEOMETRY2 );
 
 ##### 설명
 
-첫 번째 공간 객체의 최소 경계 사각형(Minimum Boundary Rectangle: MBR)이 두 번째
-공간 객체에 완전히 포함되면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+첫 번째 공간 객체의 최소 경계 사각형(Minimum Boundary Rectangle: MBR)이 두 번째 공간 객체에 완전히 포함되면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+
+ST_ISMBRWITHIN, ISMBBWITHIN은 ISMBRWITHIN과 같은 함수이다.
 
 ##### 반환 타입
 
@@ -5430,8 +5526,9 @@ ISMBRCONTAINS( GEOMETRY1, GEOMETRY2 );
 
 ##### 설명
 
-첫 번째 공간 객체의 최소 경계 사각형(Minimum Boundary Rectangle: MBR)이 두 번째
-공간 객체를 완전히 포함하면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+첫 번째 공간 객체의 최소 경계 사각형(Minimum Boundary Rectangle: MBR)이 두 번째 공간 객체를 완전히 포함하면 TRUE를 반환하고, 그렇지 않으면 FALSE를 반환한다.
+
+ST_ISMBRCONTAINS, ISMBBCONTAINS는 ISMBRCONTAINS와 같은 함수이다.
 
 ##### 반환 타입
 

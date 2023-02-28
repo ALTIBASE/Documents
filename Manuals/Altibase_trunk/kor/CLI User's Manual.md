@@ -49,8 +49,19 @@ Altibase® Application Development
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2977,118 +2988,124 @@ SQL_ERROR
 각 키워드는 다음과 같은 속성을 갖는다.
 
 -   DSN  
-    호스트 IP 또는 호스트 이름. IP 주소는 IPv4 주소 또는 IPv6 주소를 사용할 수
-    있다. IPv6 주소는 “[“과 “]”로 에워싸여야 한다. 예를 들어, localhost 를
-    명시하고자 할 때, 가능한 값은 다음과 같다.  
-    localhost (호스트 이름), 127.0.0.1 (IPv4주소), [::1] (IPv6주소)  
-    IPv6 주소 표기법에 대한 자세한 내용은 *Administrator’s Manual*을 참고하기
-    바란다.
+    
+    호스트 IP 또는 호스트 이름. IP 주소는 IPv4 주소 또는 IPv6 주소를 사용할 수 있다. IPv6 주소는 “[“과 “]”로 에워싸여야 한다. 예를 들어, localhost 를 명시하고자 할 때, 가능한 값은 다음과 같다. 
+    
+    localhost (호스트 이름), 127.0.0.1 (IPv4주소), [::1] (IPv6주소)
+    
+    IPv6 주소 표기법에 대한 자세한 내용은 *Administrator’s Manual*을 참고하기 바란다.
+    
+-   Server
+
+    DSN과 같은 의미로, DSN 대신 Server를 사용할 수 있다.
+
 -   UID  
+    
     사용자 ID
+    
 -   PWD  
+
     사용자 ID의 암호
+
 -   CONNTYPE  
+
     연결 방법 (1 : TCP/IP, 2 : UNIX DOMAIN, 3 : IPC, 6 : SSL, 7 : IPCDA, 8 : IB)
--   PRIVILEGE  
-    이 속성을 SYSDBA로 설정하면 sys 계정이 SYSDBA의 권한으로 Altibase 서버에
-    접속이 가능하다. 연결방법(TCP/IP, UNIX DOMAIN 또는 IPC)에 상관 없이 SYSDBA
-    권한으로 접속이 가능하지만, IPC를 통해 SYSDBA 권한으로 접속한 경우 SHUTDOWN
-    NORMAL 및 SHUTDOWN IMMEDIATE를 수행할 수 없다.
--   PORT_NO  
+
+-   PRIVILEGE
+
+    이 속성을 SYSDBA로 설정하면 sys 계정이 SYSDBA의 권한으로 Altibase 서버에 접속이 가능하다. 연결방법(TCP/IP, UNIX DOMAIN 또는 IPC)에 상관 없이 SYSDBA 권한으로 접속이 가능하지만, IPC를 통해 SYSDBA 권한으로 접속한 경우 SHUTDOWN NORMAL 및 SHUTDOWN IMMEDIATE를 수행할 수 없다.
+
+-   PORT_NO
+    
     연결 포트 번호
+    
 -   ALTERNATESERVERS  
-    -   connection time failover시와 session time failover시에 사용될수 있는 추가 접속서버들을 기록한다. 
+    
+    connection time failover시와 session time failover시에 사용될수 있는 추가 접속서버들을 기록한다. 
+    
     -   예시 : AlternateServers=(192.168.3.54:20300,192.168.3.53:20300)
+    
 -   LOADBALANCE
-    - ON 혹은 OFF 값을 갖을 수 있고, 기본값은 OFF 이다. 이 값이 on 인 경우에, 최초 접속시 접속가능 서버중 랜덤으로 접속시도한다. 그리고, session time failover시에는 접속되어있었던 서버에 먼저 접속 시도, 그 후 기존 접속 서버는 제외하고, 랜덤으로 접속시도 한다.
--   NLS_USE  
+    
+    ON 혹은 OFF 값을 갖을 수 있고, 기본값은 OFF 이다. 이 값이 on 인 경우에, 최초 접속시 접속가능 서버중 랜덤으로 접속시도한다. 그리고, session time failover시에는 접속되어있었던 서버에 먼저 접속 시도, 그 후 기존 접속 서버는 제외하고, 랜덤으로 접속시도 한다.
+    
+-   NLS_USE
+    
     사용언어 지정 (US7ASCII : 영어, KO16KSC5601 : 한국어)
--   NLS_NCHAR_LITERAL_REPLACE  
-    SQL 구문을 매번 분석해 NCHAR 문자 존재 검사  
-    (0: 분석안함, 1: 분석함. 성능이 저하됨)
--   TIMEOUT  
+    
+-   NLS_NCHAR_LITERAL_REPLACE
+
+    SQL 구문을 매번 분석해 NCHAR 문자 존재 검사 (0: 분석안함, 1: 분석함. 성능이 저하됨)
+
+-   TIMEOUT
+
     서버 연결 시도시 기다리는 시간. 기본값은 3초이다.
--   CONNECTION_TIMEOUT  
-    네트워크 불안정 시 select() 또는 poll() 에서 발생할 수 있는 blocking을
-    방지하기 위한 속성이다.
--   DATE_FORMAT  
+
+-   CONNECTION_TIMEOUT
+
+    네트워크 불안정 시 select() 또는 poll() 에서 발생할 수 있는 blocking을 방지하기 위한 속성이다.
+
+-   DATE_FORMAT
+
     날짜 형식. 기본 날짜 형식은 YYYY/MM/DD HH:MI:SS이다.
--   IpcFilePath  
-    유닉스 환경에서 서버와 클라이언트가 IPC로 접속할 때 ALTIBASE_HOME이 서로
-    다른 경우, 유닉스 도메인의 소켓 경로가 일치하지 않아 접속할 수 없다. 이 때
-    ALTIBASE_HOME/trc/cm-ipc 파일을 이용하여 유닉스 도메인 통신이 가능하도록
-    하면, 공유 메모리의 정보를 가져올 수 있다.
--   APP_INFO  
-    접속한 프로그램의 정보를 설정하며, 다음 구문으로 확인할 수 있다.  
-    select CLIENT_APP_INFO from v\$session;
--   AUTOCOMMIT  
+
+-   IpcFilePath
+
+    유닉스 환경에서 서버와 클라이언트가 IPC로 접속할 때 ALTIBASE_HOME이 서로 다른 경우, 유닉스 도메인의 소켓 경로가 일치하지 않아 접속할 수 없다. 이 때 ALTIBASE_HOME/trc/cm-ipc 파일을 이용하여 유닉스 도메인 통신이 가능하도록 하면, 공유 메모리의 정보를 가져올 수 있다.
+
+-   APP_INFO
+
+    접속한 프로그램의 정보를 설정하며, 다음 구문으로 확인할 수 있다.
+
+    `SELECT CLIENT_APP_INFO FRM V$SESSION;`
+
+-   AUTOCOMMIT
+
     AUTOCOMMIT 모드를 지정한다. (ON, OFF)
--   LONGDATACOMPAT  
-    BLOB, CLOB을 ODBC로 접속할 때 ODBC 타입으로 인식할 수 있도록 해준다. (YES,
-    NO)
--   DEFER_PREPARES  
-    SQLPrepare가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수
-    있다. 이 속성이 ON이면, SQLPrepare가 호출이 되더라도 SQLExecute 함수가
-    호출될 때까지 prepare 요청이 서버로 전송되지 않는다. 그러나 이 속성이
-    OFF이면, SQLPrepare가 호출될 때 prepare 요청이 즉시 서버로 전송된다.  
-    이 속성을 생략하면 OFF 모드가 기본적으로 동작한다.  
-    Deferred prepare 기능은 네트워크 흐름을 최소화하여 애플리케이션의 성능을
-    향상시킬 수 있다.
+
+-   LONGDATACOMPAT
+    
+    BLOB, CLOB을 ODBC로 접속할 때 ODBC 타입으로 인식할 수 있도록 해준다. (YES, NO)
+    
+-   DEFER_PREPARES
+
+    SQLPrepare가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수 있다. 이 속성이 ON이면, SQLPrepare가 호출이 되더라도 SQLExecute 함수가 호출될 때까지 prepare 요청이 서버로 전송되지 않는다. 그러나 이 속성이 OFF이면, SQLPrepare가 호출될 때 prepare 요청이 즉시 서버로 전송된다. 이 속성을 생략하면 OFF 모드가 기본적으로 동작한다. Deferred prepare 기능은 네트워크 흐름을 최소화하여 애플리케이션의 성능을 향상 시킬 수 있다.
 
 ```
 InConnectionString :
 DSN=192.168.1.11;UID=SYS;PWD=MANAGER;CONNTYPE=1;NLS_USE=KO16KSC5601;PORT_NO=20202;TIMEOUT=5;CONNECTION_TIMEOUT=10;DATE_FORMAT=DD-MON-YYYY;IPCFILEPATH="…/cm-ipc”
 ```
 
--   SOCK_RCVBUF_BLOCK_RATIO  
-    소켓 수신 버퍼의 크기를 32K 단위로 설정한다. 예를 들어 이 속성값이 2로
-    설정되면 소켓 수신 버퍼의 크기는 64K 로 설정된다. 이 속성의 값이 설정되지
-    않았을 경우, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO 환경 변수를 참조하여 값을
-    설정한다. 기본값은 0이다.  
-    TCP kernel parameter 중 최대 소켓 수신 버퍼 크기가 이 속성값에 의해 설정된
-    소켓 수신 버퍼 크기 미만으로 설정되어 있을 경우, 이 속성 은 OS에 따라
-    무시되거나 에러를 발생시킬 수 있다 (Linux OS 인 경우, 'net.core.rmem_max'
-    TCP kernel parameter에 해당된다).
+-   SOCK_RCVBUF_BLOCK_RATIO
+    
+    소켓 수신 버퍼의 크기를 32K 단위로 설정한다. 예를 들어 이 속성값이 2로 설정되면 소켓 수신 버퍼의 크기는 64K 로 설정된다. 이 속성의 값이 설정되지 않았을 경우, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO 환경 변수를 참조하여 값을 설정한다. 기본값은 0이다.  
+    
+    TCP kernel parameter 중 최대 소켓 수신 버퍼 크기가 이 속성값에 의해 설정된 소켓 수신 버퍼 크기 미만으로 설정되어 있을 경우, 이 속성 은 OS에 따라 무시되거나 에러를 발생시킬 수 있다 (Linux OS 인 경우, 'net.core.rmem_max' TCP kernel parameter에 해당된다).
 
-> #### 주의사항
->
-> -   원격에서 sysdba 권한으로 접속할 수 있으나, DBMS를 구동할 수 없다.
-> -   프로퍼티 REMOTE_SYSDBA_ENABLE에서 원격 접속을 불허한 상태에서 지역 서버의
->     IP로 접속할 때 원격 접속으로 간주해 허용하지 않을 수 있다. 즉 TCP를 이용해
->     sysdba 권한으로 지역 서버에 접속하여도, 지역 서버를 의미하는
->     루프백(127.0.0.1)으로 지정하지 않으면 원격 접속으로 인식해 연결을 허용하지
->     않는다.
->
-> ```
-> $ isql -u sys -p manager -s 192.168.3.91 -port 11515 –sysdba ISQL_CONNECTION = TCP, SERVER = 192.168.3.91, PORT_NO = 11515
-> [ERR-410C8 : remote access as SYSDBA not allowed]
-> ```
->
-> - 연결 스트링에 PORT_NO와 NLS_USE 값을 명시하지 않은 경우 프로퍼티 파일에
->   설정된 값과 동일한 값으로 다음 환경변수를 이용하여 반드시 설정해야 한다.
->   그리고, 내셔널 캐릭터 타입의 상수 문자열을 사용하기 위해
->   ALTIBASE_NLS_NCHAR_LITERAL_REPLACE를 1로 설정하는 경우, 추가적으로 파싱이
->   발생한다.  
->
->   ```
->   export ALTIBASE_PORT_NO=20300  
->   export ALTIBASE_NLS_USE=US7ASCII  
->   export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE=0
->   ```
->
+#### 주의사항
+
+- 원격에서 sysdba 권한으로 접속할 수 있으나, DBMS를 구동할 수 없다.
+
+- 프로퍼티 REMOTE_SYSDBA_ENABLE에서 원격 접속을 불허한 상태에서 지역 서버의 IP로 접속할 때 원격 접속으로 간주해 허용하지 않을 수 있다. 즉 TCP를 이용해 sysdba 권한으로 지역 서버에 접속하여도, 지역 서버를 의미하는 루프백(127.0.0.1)으로 지정하지 않으면 원격 접속으로 인식해 연결을 허용하지 않는다.
+
+  ~~~bash
+  $ isql -u sys -p manager -s 192.168.3.91 -port 11515 –sysdba ISQL_CONNECTION = TCP, SERVER = 192.168.3.91, PORT_NO = 11515
+  [ERR-410C8 : remote access as SYSDBA not allowed]
+  ~~~
+
+- 연결 스트링에 PORT_NO와 NLS_USE 값을 명시하지 않은 경우 프로퍼티 파일에 설정된 값과 동일한 값으로 다음 환경변수를 이용하여 반드시 설정해야 한다. 그리고, 내셔널 캐릭터 타입의 상수 문자열을 사용하기 위해 ALTIBASE_NLS_NCHAR_LITERAL_REPLACE를 1로 설정하는 경우, 추가적으로 파싱이 발생한다.  
+
+  ~~~bash
+  export ALTIBASE_PORT_NO=20300  
+  export ALTIBASE_NLS_USE=US7ASCII  
+  export ALTIBASE_NLS_NCHAR_LITERAL_REPLACE=0
+  ~~~
 
 #### Deferred prepare 주의사항
 
-Deferred prepare 기능을 활성화(ON) 시키면, 애플리케이션 내에서 SQLPrepare()의
-호출은 항상 SQL_SUCCESS가 반환되지만, 실제로 prepare 요청이 서버에서 수행될 때
-오류가 반환될 수도 있다.
+Deferred prepare 기능을 활성화(ON) 시키면, 애플리케이션 내에서 SQLPrepare()의 호출은 항상 SQL_SUCCESS가 반환되지만, 실제로 prepare 요청이 서버에서 수행될 때 오류가 반환될 수도 있다.
 
-DEFER_PREPARES 속성을 ON으로 설정했더라도, SQLPrepare 다음에 호출된 함수가
-prepare 수행의 결과를 필요로 한다면, Altibase CLI 드라이버는 SQLExecute 함수의
-호출까지 기다리지 않고 즉시 prepare 요청을 서버로 전송하여 결과를 받아온다.
-prepare 수행의 결과가 반드시 필요한 함수는 다음과 같다: SQLExecute,
-SQLColAttribute, SQLDescribeCol, SQLDescribeParam, SQLNumParams,
-SQLNumResultCols
+DEFER_PREPARES 속성을 ON으로 설정했더라도, SQLPrepare 다음에 호출된 함수가 prepare 수행의 결과를 필요로 한다면, Altibase CLI 드라이버는 SQLExecute 함수의 호출까지 기다리지 않고 즉시 prepare 요청을 서버로 전송하여 결과를 받아온다. prepare 수행의 결과가 반드시 필요한 함수는 다음과 같다: SQLExecute, SQLColAttribute, SQLDescribeCol, SQLDescribeParam, SQLNumParams, SQLNumResultCols
 
 
 #### 진 단
