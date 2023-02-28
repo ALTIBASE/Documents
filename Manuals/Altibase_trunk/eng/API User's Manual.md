@@ -1806,11 +1806,11 @@ For example, if xa_open fails, you can use the trace information to find out whe
 #### XA Trace File Name and Location
 
 ```
-altibase_xa\<XA_NAME\>\<date\>.log 
+altibase_xa_[XA_NAME][YYYYMMDD].log 
 ```
 
--   XA_NAME : This is the connection name specified in the xa_info character string field XA_NAME=value. If XA_NAME is not specified in the xa_info character string, it will be NULL
--   date : This is the date specified in the trace file (YYYYMMDD).
+-   *XA_NAME* : This is the connection name specified in the xa_info character string field XA_NAME=value. If XA_NAME is not specified in the xa_info character string, it will be NULL
+-   *YYYYMMDD* : This is the date specified in the trace file (YYYYMMDD).
 
 If the $ALTIBASE_HOME environment variable has been set, this trace file will be created in $ALTIBASE_HOME/trc. If the $ALTIBASE_HOME environment variable has not been set, the trace file will be created in the current directory.
 
