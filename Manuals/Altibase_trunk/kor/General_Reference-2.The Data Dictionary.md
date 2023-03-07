@@ -3820,8 +3820,6 @@ SYS_USERS_
 | HIDDEN                     | CHAR(1)      | 숨김 속성을 갖는 테이블인지 여부                             |
 | ACCESS                     | CHAR(1)      | 테이블 접근 모드                                             |
 | PARALLEL_DEGREE            | INTEGER      | 병렬 질의를 처리하는 쓰레드의 개수                           |
-| USABLE                     | CHAR(1)      | 테이블의 사용 여부                                           |
-| SHARD_FLAG                 | INTEGER      | 샤드 환경에서 테이블의 역할 구분                             |
 | CREATED                    | DATE         | 테이블이 생성된 시간                                         |
 | LAST_DDL_TIME              | DATE         | 테이블에 대해 마지막으로 DDL 변경 작업이 일어난 시간         |
 
@@ -3957,20 +3955,6 @@ MAX_TRANS에 설정된 개수까지 증가할 수 있다.
 
 ##### PARALLEL_DEGREE
 파티션드 테이블을 스캔할 때 병렬 질의를 처리하는 쓰레드의 개수를 나타낸다.
-
-##### USABLE
-테이블의 사용여부를 나타낸다. 기본값은 Y(Usable) 이다.
-- Y: Usable
-- N: Unusable
-
-##### SHARD_FLAG
-샤드 환경에서 테이블의 역할 구분을 나타낸다. 기본값은 0(None) 이다.
-- 0: None
-- 1: Meta
-- 2: Back-up
-- 3: Split (Range|List|Hash)
-- 4: Clone
-- 5: Solo
 
 #### 참조 테이블
 
@@ -7506,19 +7490,19 @@ V$LOCK_WAIT.TRANS_ID  V$LOCK_WAIT.WAIT_FOR_TRANS_ID
 
 메모리 공간 회수 즉, 가비지 콜렉션 (memory garbage collection) 정보를 보여준다.
 
-| Column name             | Type         | Description                                                                                                                                                  |
-|-------------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Column name             | Type         | Description                                                  |
+| ----------------------- | ------------ | ------------------------------------------------------------ |
 | GC_NAME                 | VARCHAR(128) | 가비지 콜렉터의 이름 MEM_LOGICAL_AGER: 구버전 인덱스 키 슬롯 해제 쓰레드 MEM_DELTHR: 삭제된 레코드를 해제하고 DROP TABLE 등 지연(pending) 연산을 하는 쓰레드 |
-| CURRSYSTEMVIEWSCN       | VARCHAR(29)  | 현재 시스템 view SCN                                                                                                                                         |
-| MINMEMSCNINTXS          | VARCHAR(29)  | 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN (샤딩환경에서 추가의미는 아래에서 설명)                                                                                        |
-| OLDESTTX                | BIGINT       | 가장 오랜된 트랜잭션 식별자(MINMEMSCNINTXS를 소유한 트랜잭션의 식별자)                                                                                       |
-| SCNOFTAIL               | VARCHAR(29)  | 공간 회수 OID 리스트의 tail의 commit SCN                                                                                                                     |
-| IS_EMPTY_OIDLIST        | BIGINT       | 공간 회수 OID 리스트가 비어 있는지 여부 0: 비어 있음 1: 비어 있지 않음                                                                                       |
-| ADD_OID_CNT             | BIGINT       | 공간 회수 처리를 위하여 OID 추가를 발생시킨 트랜잭션의 개수                                                                                                  |
-| GC_OID_CNT              | BIGINT       | 가비지 콜렉션으로 인해 OID를 회수한 횟수                                                                                                                     |
-| AGING_REQUEST_OID_CNT   | BIGINT       | 공간 회수 처리를 요청한 OID의 개수                                                                                                                           |
-| AGING_PROCESSED_OID_CNT | BIGINT       | 공간 회수 처리된 OID의 개수                                                                                                                                  |
-| THREAD_COUNT            | INTEGER      | 공간 회수 쓰레드의 개수                                                                                                                                      |
+| CURRSYSTEMVIEWSCN       | VARCHAR(29)  | 현재 시스템 view SCN                                         |
+| MINMEMSCNINTXS          | VARCHAR(29)  | 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN             |
+| OLDESTTX                | BIGINT       | 가장 오랜된 트랜잭션 식별자(MINMEMSCNINTXS를 소유한 트랜잭션의 식별자) |
+| SCNOFTAIL               | VARCHAR(29)  | 공간 회수 OID 리스트의 tail의 commit SCN                     |
+| IS_EMPTY_OIDLIST        | BIGINT       | 공간 회수 OID 리스트가 비어 있는지 여부 0: 비어 있음 1: 비어 있지 않음 |
+| ADD_OID_CNT             | BIGINT       | 공간 회수 처리를 위하여 OID 추가를 발생시킨 트랜잭션의 개수  |
+| GC_OID_CNT              | BIGINT       | 가비지 콜렉션으로 인해 OID를 회수한 횟수                     |
+| AGING_REQUEST_OID_CNT   | BIGINT       | 공간 회수 처리를 요청한 OID의 개수                           |
+| AGING_PROCESSED_OID_CNT | BIGINT       | 공간 회수 처리된 OID의 개수                                  |
+| THREAD_COUNT            | INTEGER      | 공간 회수 쓰레드의 개수                                      |
 
 #### 칼럼 정보
 Altibase는 MVCC를 지원하므로 하나의 레코드에 대해 여러 버전이 생길 수 있다. 즉
@@ -7528,8 +7512,6 @@ Altibase는 MVCC를 지원하므로 하나의 레코드에 대해 여러 버전�
 
 ##### MINMEMSCNINTXS
 - stand-alone 환경 : 메모리 관련 트랜잭션의 view SCN 중 가장 작은 SCN, 즉, min(TXs.MinMemViewSCN)
-- sharding 환경 : VERSIONING_MIN_TIME != 0 이면, min(TXs.MinMemViewSCN, sTimeSCN (주1))
-  - (주1) sTimeSCN 은 VERSIONING_MIN_TIME 으로 지정된 시간 전 SCN
 
 ##### AGING_REQUEST_OID_CNT
 한 트랜잭션이 레코드 10건을 지우고 커밋할 경우, 10건의 구버전 레코드가 생기기
@@ -7942,7 +7924,7 @@ BTREE 인덱스에 할당되지 않고 노드 풀에 남아 있는 노드 수를
 
 노드 할당에 따른 시스템 부하를 고려하여 미리 할당받은 노드의 개수를 의미한다.
 
-###V\$MEM_RTREE_NODEPOOL
+### V\$MEM_RTREE_NODEPOOL
 
 메모리 RTREE 인덱스를 위한 노드 풀 정보를 보여준다. 해당 노드 풀은 모든 메모리
 RTREE 인덱스의 노드 할당과 반환을 관리한다.
@@ -8330,7 +8312,6 @@ statement 식별자를 나타낸다.
 | STATUS       | VARCHAR(7)  | 객체의 상태를 나타낸다. INVALID이면 실행 불가능 상태이다. |
 | SESSION_ID   | INTEGER     | 저장 프로시저의 STATUS를 변경한 세션의 ID를 나타낸다. |
 | PROC_TYPE    | VARCHAR(10) | 저장 프로시저의 타입을 나타낸다. |
-| SHARD_SPLIT_METHOD | VARCHAR(7) | shard procedure의 split method |
 
 #### 칼럼 정보
 ##### PROC_OID
@@ -8347,10 +8328,6 @@ statement 식별자를 나타낸다.
 - EXTERNAL C : C/C++ External Procedure
 - INTERNAL C : C/C++ Internal Procedure
 - UNKNOWN : 서버를 구동할 때 저장 프로시저 컴파일에 실패하면 내부 프로시저 타입을 알 수 없어서 UNKNOWN으로 표시한다. 이후 컴파일이 되어 VALID 상태가 되면 정확한 타입이 설정된다.
-##### SHARD_SPLIT_METHOD
-- shard procedure는 'HASH', 'RANGE', 'LIST', 'CLONE', 'SOLO' 중에 하나가 올 수 있습니다.
-- 일반 procedure는 'NONE' 으로 나옵니다.
-
 ###  V\$PROCTEXT
 
 시스템에서 수행되는 저장 프로시저의 문자열 정보를 나타낸다.
@@ -12874,12 +12851,12 @@ SCN을 가진다. 이 항목은 현재 해당 트랜잭션에서 메모리 테�
 Altibase 트랜잭션 관리자의 정보를 보여준다.
 
 | Column name          | Type        | Description                         |
-|----------------------|-------------|-------------------------------------|
+| -------------------- | ----------- | ----------------------------------- |
 | TOTAL_COUNT          | INTEGER     | 트랜잭션 총 개수                    |
 | FREE_LIST_COUNT      | INTEGER     | 프리 리스트 개수                    |
 | BEGIN_ENABLE         | BIGINT      | 새로운 트랜잭션 시작 가능 여부      |
 | ACTIVE_COUNT         | INTEGER     | 작업중인 트랜잭션의 개수            |
-| SYS_MIN_DISK_VIEWSCN | VARCHAR(29) | 트랜잭션 중 가장 작은 디스크 뷰 SCN (샤딩환경에서 추가의미는 아래에서 설명) |
+| SYS_MIN_DISK_VIEWSCN | VARCHAR(29) | 트랜잭션 중 가장 작은 디스크 뷰 SCN |
 
 #### 칼럼 정보
 
@@ -12901,8 +12878,6 @@ Altibase는 시스템 시작시에 프로퍼티에 지정된 개수의 트랜잭
 
 ##### SYS_MIN_DISK_VIEWSCN
 - stand-alone 환경 : 트랜잭션 중에서 가장 작은 디스크 뷰 SCN, 즉, min(TXs.MinDskViewSCN)
-- sharding 환경 : VERSIONING_MIN_TIME != 0 이면, min(TXs.MinMemViewSCN, sTimeSCN (주1))
-  - min(TXs.MinDskViewSCN , sTimeSCN (주1))
 
 ### V\$TSSEGS
 
