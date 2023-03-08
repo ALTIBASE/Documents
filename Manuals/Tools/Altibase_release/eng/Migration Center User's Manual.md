@@ -134,6 +134,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQL Server to Altibase](#sql-server-to-altibase)
   - [TimesTen to Altibase](#timesten-to-altibase)
   - [Tibero to Altibase](#tibero-to-altibase)
+  - [PostgreSQL to Altibase](#postgresql-to-altibase)
 - [Appendix C: Data Type Mapping](#appendix-c-data-type-mapping)
   - [Manipulating Data Type Mapping](#manipulating-data-type-mapping)
   - [Default Data Type Mapping Tables](#default-data-type-mapping-tables)
@@ -1229,6 +1230,26 @@ Objects in the source database that Migration Center does not migrate automatica
 | Trigger                |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
 
 > Note:  MigrationCenter uses the SQL parser for Oracle provided by Third Party to migrate Tibero's Procedure, Function, View, Materialized View, and Trigger objects. Therefore, objects created with Tibero native syntax that is incompatible with Oracle grammar can cause parsing errors during conversion. In this case, the user must manually translate the syntax.
+
+### PostgreSQL to Altibase
+
+The following table describes supported database objects, precautions, and unsupported objects when migrating from PostgreSQL to Altibase.
+
+| Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
+| :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
+| Table                  |             O              |              O              | the comments specified in columns are migrated. <br />Since the maximum number of columns that can be created in a table is 1,600 for PostgreSQL, and 1,024 for Altibase, must be careful when performing migration. |
+| Primary Key Constraint |             O              |              O              |                                                              |
+| Unique Constraint      |             O              |              O              |                                                              |
+| Check Constraint       |             O              |              O              |                                                              |
+| Foreign Key Constraint |             O              |              O              | CASCADE, NO ACTION, and SET NULL options are migrated by using the same options both source and destination databases.<br />When migrating, the RESTRICT option is deleted. This is because the operation of the RESTRICT option is the same as when there is no foreign key option in Altibase.<br />Since the SET DEFAULT option is not supported by Altibase, it is converted to SET NULL during migration. |
+| Index                  |             O              |              O              | Among the various index types of PostgreSQL, only B-tree and R-tree supported by Altibase are subject to migration. |
+| Sequence               |             O              |              X              | The default maximum value of 9223372036854775807 in the PostgreSQL sequence is coerced to the default maximum value of 9223372036854775806 in the Altibase sequence.<br/>If the cache size of the PostgreSQL sequence is 1, Altibase deletes the CACHE clause and creates it with Altibase's default cache size of 20.<br /><br />Sequences explicitly created by the user in 'Build Table' are excluded from the migration target, but sequences that be created for Serial data type of the migration target table column are migrated along with the table. |
+| Function               |             X              |              X              | Migration is not supported. Record the object creation statements collected from PostgreSQL at the Build stage in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| View                   |             X              |              X              | Migration is not supported. Record the object creation statements collected from PostgreSQL at the Build stage in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Materialized View      |             X              |              X              | Migration is not supported. Record the object creation statements collected from PostgreSQL at the Build stage in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Trigger                |             X              |              X              | Migration is not supported. Record the object creation statements collected from PostgreSQL at the Build stage in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+
+> Note: PostgreSQL objects not recorded in the above table(e.g., Exclusion constraints, Types, Enums, etc.) are excluded from the migration target because there are no objects corresponding to Altibase.
 
 <br/>
 
