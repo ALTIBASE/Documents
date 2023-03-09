@@ -727,7 +727,7 @@ aku -p end 수행 동작을 변경합니다. 데이터 불일치가 발생할 �
 
 #### 설명 
 
-SET 절의 서브쿼리에서 multiple update의 대상을 참조하면 ERR-31455 : Failed to work because an internal exception occurred from an OS. 에러가 발생하거나 Altibase 서버가 비정상 종료하는 버그를 수정합니다.  이 버그는 simple view mersing 기능이 활성화되어 있을 때 발생합니다.
+SET 절의 서브쿼리에서 multiple update의 대상을 참조하면 ERR-31455 : Failed to work because an internal exception occurred from an OS. 에러가 발생하거나 Altibase 서버가 비정상 종료하는 버그를 수정합니다.  이 버그는 simple view merging 기능이 활성화되어 있을 때 발생합니다.
 
 
 #### 재현 방법
@@ -1075,6 +1075,86 @@ iSQL에서 desc 명령을 수행하면 ERR-31002 : A single-row subquery has ret
 -   Compile Option
 -   Error Code
 
+### BUG-50076 Altibase 7.1.0.7.3 이후 linux 32bit 에서 빌드 실패 문제를 수정 합니다.
+
+-   **module** : sm
+
+-   **Category** : Compile Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : Altibase 7.1.0.7.3 이후 linux 32bit 에서 컴파일 오류 발생하는 문제를 수정하였습니다. 이 버그의 수정으로 Altibase 7.1.0.7.3 ~7.1.0.8.2 에서 linux 32bit 클라이언트 패키지를 전달할수 없던 문제가 해결되었습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49996 에러메시지에 PCRE2 error: 가 출력되는 문제를 수정합니다.
+
+- **module** : st
+
+- **Category** : Other
+
+- **재현 빈도** : Always
+
+- **설명** : 에러메시지에 PCRE2: 가 출력되는 문제를 수정하고, cause의 내용을 수정합니다.
+
+  (기존)
+
+  SQL> select regexp_like('c', '[');
+
+  [ERR-2106C : PCRE2 error: missing terminating ] for character class (occurred in qsfPCRERegExp::expCompile4Estimate)
+
+  0001 : select REGEXP_LIKE('c', '[')
+
+  (변경)
+
+  SQL> select regexp_like('c', '[');
+
+  [ERR-2106C : error: missing terminating ] for character class (occurred in qsfPCRERegExp::expCompile4Estimate)
+
+  0001 : select REGEXP_LIKE('c', '[')
+
+- **재현 방법**
+
+  -   **재현 절차**
+
+  -   **수행 결과**
+
+  -   **예상 결과**
+
+- **Workaround**
+
+- **변경사항**
+
+  - Performance view
+
+  - Property
+
+  - Compile Option
+
+  - Error Code
+
+    에러메시지가 변경되었습니다.
+
+    (기존) [ERR-2106C : PCRE2 error: missing terminating ]
+
+    (변경) [ERR-2106C : error: missing terminating ]
+
+    
+
 Changes
 =======
 
@@ -1107,6 +1187,8 @@ Replication 프로토콜 버전은 변경되지 않았다.
 ### 프로퍼티
 
 #### 추가된 프로퍼티
+
+* AKU_FLUSH_AT_END
 
 #### 변경된 프로퍼티
 
