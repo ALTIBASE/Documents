@@ -206,7 +206,7 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.2를 사용한다는 가정 하에
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.3를 사용한다는 가정 하에
 작성되었다.
 
 #### 이 매뉴얼의 구성
@@ -328,7 +328,7 @@ Altibase JDBC 드라이버는 패키지를 설치한 후, \$ALTIBASE_HOME/lib �
 
 #### 버전 호환성
 
-Altibase 7.2 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 API를
+Altibase 7.3 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC 4.2 API를
 준수(일부 기능 제외)한다. 또한, JRE 1.8 이상에서 정상적으로 동작한다.
 알티베이스 JDBC에서 지원하는 JDBC 4.2 API는 [JDBC 4.2 API References](#6jdbc-42-api-references)에서 확인할 수 있다.
 
@@ -339,7 +339,7 @@ Altibase 7.2 JDBC 드라이버는 Type 4 pure Java JDBC 드라이버로써, JDBC
 
 ```
 $ java -jar $ALTIBASE_HOME/lib/Altibase.jar
-Altibase 7.2.0.0.0 with CMP 7.1.8 for JDBC 4.2 compiled with JDK 8(sharding included)
+Altibase 7.3.0.0.0 with CMP 7.1.8 for JDBC 4.2 compiled with JDK 8
 ```
 
 
@@ -3755,7 +3755,7 @@ null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 �
 | 값의 범위 | [on \| off ]                                                 |
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
-| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  | 
+| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
 ##### 예제 
 lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다.
 ```

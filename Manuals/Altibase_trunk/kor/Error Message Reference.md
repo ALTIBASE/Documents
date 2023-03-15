@@ -140,9 +140,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [FATAL](#fatal-4)
   - [ABORT](#abort-4)
   - [RETRY](#retry-1)
-- [6.SD Error Code](#6sd-error-code)
-  - [ABORT](#abort-5)
-- [7.ST Error Code](#7st-error-code)
+- [6.ST Error Code](#6st-error-code)
   - [FATAL](#fatal-5)
   - [ABORT](#abort-6)
   - [IGNORE](#ignore-4)
@@ -223,32 +221,19 @@ server.
 This manual has been organized as follows:
 
 -   Chapter1: ID Error Code
-
 -   Chapter2: SM Error Code
-
 -   Chapter3: MT Error Code
-
 -   Chapter4: RP Error Code
-
--   Chapter5: DR Error Code
-
--   Chapter6: QP Error Code
-
--   Chapter7: ST Error Code
-
--   Chapter8: MM Error Code
-
--   Chapter9: ODBC Error Code
-
--   Chapter10: APRE Error Code
-
--   Chapter11 Uilities Error Code
-
--   Chapter12 CM Error Code
-
--   Chapter13 Database Link Error Code
-
--   Chapter14 Log Analyzer Error Code
+-   Chapter5: QP Error Code
+-   Chapter6: ST Error Code
+-   Chapter7: MM Error Code
+-   Chapter8: ODBC Error Code
+-   Chapter9: APRE Error Code
+-   Chapter10: Utilities Error Code
+-   Chapter11: CM Error Code
+-   Chapter12: Database Link Error Code
+-   Chapter13: Log Analyzer Error Code
+-   Chapter14: Regular Expression Error Code
 
 ### Altibase Welcomes Your Opinions
 
@@ -4408,29 +4393,6 @@ server.
 
 **Action:** You must change LOCK_MGR_TYPE to 0 or 2.
 
-**0x111B7 (  70071) smERR_ABORT_Distributed_Aborted A distributed deadlock situation has been detected. ( <0%s> )**
-
-**Cause:** A deadlock victim transaction has been stopped and terminated due to the deadlock resolution scheme.
-
-**Action:** Re-execute the transaction.
-
-**0x111B8 (  70072) smERR_ABORT_StatementTooOld The records required for consistent reading are out of date. ( <0%s> )**
-**Cause:** The records required for consistent reading are out of date.
-
-**Action:** Re-execute the transaction.
-
-**0x111B9 (  70073) smERR_ABORT_INVALID_SCN Invalid SCN(System Commit Number) : <0%lu>.**
-
-**Cause:** Internal error.
-
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
-
-**0x111BB (  70075) smERR_ABORT_INDOUBT_FETCH_TIMEOUT The transaction has exceeded the in-doubt fetch timeout specified by the user due to a prepared transaction. (XID:<0%s>).**
-
-**Cause:** The statement attempts to access a resource locked by a global consistent transaction in a prepare state.
-
-**Action:** Execute commit or abort command to finalize the global consistent transaction.
-
 **0x111BC (  70076) smERR_ABORT_TX_SEGMENT_ENTRY_ALLOC Failed to allocate transaction segment entry. (Entry count:<0%d>)  (TID:<1%d>)**
 
 **Cause:** The number of transaction segments exceeds TRANSACTION_SEGMENT_COUNT
@@ -8109,6 +8071,7 @@ communicating.
 - The receiver has not started, because the replication meta has been changed.
 
 **Action:**
+
 - Restart the replication sender.
 
 **0x611AA ( 397738) rpERR_ABORT_RP_XLOG_FILE_FAILBACK_MASTER_SENDER_INITIALIZE_FAIL Failed to perform a failback, because the replication meta information has been changed.**
@@ -8118,27 +8081,8 @@ communicating.
 - Failed to perform a failback, because the replication meta information has been changed.
 
 **Action:**
+
 - Retry 'ALTER REPLICATION repl_name FAILBACK';
-
-**0x611AB ( 397739) rpERR_ABORT_RPC_FAILOVER_ONLY_SUPPORT_SHARD_SYSTEM Failed to perform a replication failover, because SHARD_ENABLE property is not 1.**
-
-**Cause:**
-
--  ALTER REPLICATION ... FAILOVER statement can be executed when SHARD_ENABLE property is 1.
-
-**Action:**
-
--  Check if SHARD_ENABLE property is 1.
-
-**0x611AC ( 397740) rpERR_ABORT_RPC_FAILOVER_ONLY_SUPPORT_CONSISTENT_MODE Failed to perform a replication failover, because the replication mode is not a consistent mode.**
-
-**Cause:**
-
--  ALTER REPLICATION ... FAILOVER statement can be executed only in consistent mode.
-
-**Action:**
-
--  Check if the replication mode is the consistent mode.
 
 **0x611AD ( 397741) rpERR_ABORT_OFFLINE_OPTION_IS_NOT_SET Offline option is not set.**
 
@@ -8239,16 +8183,6 @@ communicating.
 
 -  After executing DDL on the target DB, Offline Adapter should be executed again.
 
-**0x611B7 ( 397751) rpERR_ABORT_TABLEOID_IN_USE_EXIST ADD TABLE operation has failed because TABLE OID of this table is included in replication gap.**
-
-**Cause:**
-
--  Reused TABLE OID is included in replication gap.
-
-**Action:**
-
--  Resolve the replication gap before operating ADD TABLE query.
-
 **0x611B8 ( 397752) rpERR_ABORT_TX_SEGMENT_ENTRY_ALLOC [Receiver] Transaction updating disk table data failed due to transaction segment allocation failure.**
 
 **Cause:**
@@ -8279,48 +8213,6 @@ communicating.
 **Action:**
 
 -  Remove replication's grouping option.
-
-**0x611BB ( 397755) rpERR_ABORT_RPC_ROLE_NOT_SUPPORT_REPL_PROPAGABLE_LOGGING Unable to change the role of the replication to propagable logging.**
-
-**Cause:**
-
--  The current role cannot be changed to propagable logging.
-
-**Action:**
-
--  Check the the role of the replication sender in the SYS_REPLICATIONS_.
-
-**0x611BC ( 397756) rpERR_ABORT_RPC_ALREADY_PROPAGABLE_LOGGING_SET Propagable Logging already set.**
-
-**Cause:**
-
--  The propagable logging role is already enabled.
-
-**Action:**
-
--  Check the the role of the replication sender in the SYS_REPLICATIONS_.
-
-**0x611BD ( 397757) rpERR_ABORT_RPC_ALREADY_PROPAGABLE_LOGGING_UNSET The propagable logging was already unset.**
-
-**Cause:**
-
--  The propagable logging role is already disabled.
-
-**Action:**
-
--  Check the the role of the replication sender in the SYS_REPLICATIONS_.
-
-**0x611BE ( 397758) rpERR_ABORT_LOCAL_REPLICATION_DIFFERENT_SERVERS The operation failed. Local server and remote server are different.**
-
-**Cause:**
-
--  When using OPTIONS LOCAL, the local server and the remote server must be the same.
-
-**Action:**
-
--  Check the replication options of the replication object.
--  Check the IP and port of the remote server of the replication object.
--  Make sure the local server and remote server are the same.
 
 **0x611BF ( 397759) rpERR_ABORT_ERR_INVALID_METAFILE Invalid sender meta file. (Replication name: <0%s>, File name: <1%s>)**
 
@@ -10643,12 +10535,6 @@ statement.
 
 **Action:** Check that a valid Spatial Reference ID(SRID) is being used.
 
-**0x3149C ( 201884) qpERR_ABORT_QDB_NO_SHARD_TABLE Unable to change the usable state for the none shard table.**
-
-**Cause:** It is possible to change the usable state only for the shard table.
-
-**Action:** Check if the table is a shard table.
-
 **0x314A0 ( 201888) qpERR_ABORT_QDB_BOUND_HIGHER_THAN_LAST_PARTITION Partition bound must higher than that of the last partition**
 
 **Cause:** Partition bound specified in DDL did not collate higher than that of the table's last partition.
@@ -10813,18 +10699,6 @@ sequence with sync table option**
 **Cause:** Unable to alter the sequence with the sync table option.
 
 **Action:** Change the sync table option of the sequence.
-
-**0x31483 ( 201859) qpERR_ABORT_QDS_CANNOT_ALTER_SHARDED_SEQUENCE Scale of sharded sequence cannot be changed.**
-
-**Cause:** Scale of sharded sequence cannot be changed.
-
-**Action:** Check scale of sharded sequence.
-
-**0x314AF ( 201903) qpERR_ABORT_QDS_CANNOT_ALTER_GLOBAL_SEQUENCE Cannot change the type of a global sequence set as a shard object. (Sequence name : <0%s>.<1%s>)**
-
-**Cause:** The type of a sequence can only be changed if it is a non-shard object.
-
-**Action:** Unset the sequence from the shard object then change the type.
 
 **0x3103C ( 200764) qpERR_ABORT_QDR_NOT_EXISTS_USER Undefined user name. The
 user specified as the owner of a table or an object was not found in the
@@ -12287,24 +12161,6 @@ clause is not allowed in the function. \<0%s\>**
 **Cause:** An analytic function cannot be used here.
 
 **Action:** Check all anaytic functions.
-
-**0x3149D ( 201885) qpERR_ABORT_QMV_TABLE_WRITE_DENIED Unable to write to the clone table <0%s>.: <1%s>**
-
-**Cause:** Write operation can be only executed on a clone table when the transaction is executed with the GLOBAL_CONSISTENT_TRANSACTION in a joined shard node.
-
-**Action:** Check the global transaction level and the status of the shard node.
-
-**0x3149E ( 201886) qpERR_ABORT_QMV_BAK_TABLE_WRITE_DENIED Unable to write to backup tables.**
-
-**Cause:** Backup tables cannot be inserted, deleted, or updated.
-
-**Action:** Check the name and type of the table.
-
-**0x314A3 ( 201891) qpERR_ABORT_QMV_CLONE_TABLE_WRITE_DENIED Unable to write to the clone table in PSM when executed locally. [<0%s>]**
-
-**Cause:** A clone table cannot be written in PSM when executed locally.
-
-**Action:** A clone table should be written in PSM when executed globally.
 
 **0x31073 ( 200819) qpERR_ABORT_QMX_SEQ_NOT_DEFINE_IN_SESSION The sequence is
 not defined in this session. \<0%s\>**
@@ -14253,18 +14109,6 @@ NO audit condition exists on \<0%s\>**
 
 **Action:** Retry the statement only with the service phase.
 
-**0x31492 ( 201874) qpERR_ABORT_QDC_CANNOT_CHANGE_AUTOCOMMIT_IN_SHARD_ENV AUTO_COMMIT property cannot be changed to "1" in shard environment.**
-
-**Cause:** AUTO_COMMIT property cannot be changed to "1" in shard environment.
-
-**Action:** Do not attempt to change AUTO_COMMIT property to "1" in shard environment.
-
-**0x31499 ( 201881) qpERR_ABORT_QDC_GCTX_NOT_ALLOW Global Consistent Transaction level is only supported by Altibase sharding.**
-
-**Cause:** Global Consistent Transaction level is only supported by Altibase sharding.
-
-**Action:** Use another Global Transaction level.
-
 **0x31376 ( 201590) qpERR_ABORT_QDM_NOT_SUPPORTED_REFRESH_OPTION Refresh option
 not supported**
 
@@ -14286,12 +14130,6 @@ change access mode of materialized views.**
 materialized view.
 
 **Action:** Do not attempt to change the access mode of a materialized view.
-
-**0x3149B ( 201883) qpERR_ABORT_QDM_USABLE_NOT_SUPPORT_OBJECT Cannot change the usable state of objects other than user tables.**
-
-**Cause:** An attempt was made to change the usable state of an object other than a user table.
-
-**Action:** Do not attempt to change the usable state of an object other than a user table.
 
 **0x311B0 ( 201136) qpERR_ABORT_QDP_SELF_GRANT_OR_REVOKE A user cannot grant or
 revoke privileges to the same user.**
@@ -15284,240 +15122,6 @@ queue.
 
 **Action:** Create queue table in memory tablespace or volatile tablespace.
 
-**0x31477 ( 201847) qpERR_ABORT_QDSD_ALTER_DATABASE_SHARD Only SYS user can execute SHARD DDL.**
-
-**Cause:** Only SYS user can execute SHARD DDL statement.
-
-**Action:** Log in as the SYS user and try again.
-
-**0x31478 ( 201848) qpERR_ABORT_QDSD_INSUFFICIENT_ATTRIBUTE To execute SHARD DDL statement, the property must be set "<0%s>".**
-
-**Cause:** SHARD DDL statement cannot be executed because of insufficient property settings.
-
-**Action:** Change the session property value.
-
-**0x31479 ( 201849) qpERR_ABORT_QDSD_SHARD_META_NOT_CREATED There is no shard meta SYS_SHARD.**
-
-**Cause:** The shard meta is not created.
-
-**Action:** Create shard meta.
-
-**0x3147B ( 201851) qpERR_ABORT_QDSD_INVALID_NODE_NAME The node name is not found. (Node Name : <0%s>).**
-
-**Cause:** Wrong node name is inputted.
-
-**Action:** Check the node name.
-
-**0x3147C ( 201852) qpERR_ABORT_QDSD_ZKC_DEADNODE_EXIST Unable to perform the command, because failed node exists in sharding cluster.**
-
-**Cause:** The command cannot be performed when there are failed node exists.
-
-**Action:** Recover failed node.
-
-**0x3147D ( 201853) qpERR_ABORT_QDSD_ZKC_NOT_MY_TURN Unable to failback, because the node is not the most recently failed node in sharding cluster.**
-
-**Cause:** Only the most recent failed node can be a target for failback.
-
-**Action:** Recover the most recent failed node.
-
-**0x3147E ( 201854) qpERR_ABORT_QDSD_ZKC_CONNECTION_FAIL Failed to connect Zookeeper.**
-
-**Cause:** It is unable to connect to ZooKeeper.
-
-**Action:** Check the network connection with ZooKeeper.
-
-**0x3147F ( 201855) qpERR_ABORT_QDSD_ZKC_NOT_SUPPORT_OS This command can be used only Linux.**
-**Cause:** Zookeeper C client only support Linux.
-**Action:** Check OS and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x31480 ( 201856) qpERR_ABORT_QDSD_INVALID_SHARD_NODE Invalid shard data node was used.**
-
-**Cause:** The host IP and port number for shard data node cannot be found.
-
-**Action:** Verify the host IP and port number for shard data node.
-
-**0x31484 ( 201860) qpERR_ABORT_QDSD_INVALID_LOCAL_NODE_NAME The local node name is not valid.**
-
-**Cause:** The local node name was not inputted.
-
-**Action:** Check the local node name and execute dbms_shard.set_local_node that is shard package procedure to input local node name.
-
-**0x31485 ( 201861) qpERR_ABORT_QDSD_INVALID_KSAFETY The k-safety value of local node is not valid.**
-
-**Cause:** The k-safety value is wrong.
-
-**Action:** Check the k-safety value. The value of k-safety can be 0, 1 or 2.
-
-**0x31486 ( 201862) qpERR_ABORT_QDSD_EXECUTE_REMOTE_SQL_FAILED Failed to execute remote SQL. <0%s>**
-
-**Cause:** Failed to execute remote SQL.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x31487 ( 201863) qpERR_ABORT_QDSD_SYNTAX_ERROR_SHARD_DROP Invalid Syntax : SHARD DROP statement cannot be used with node name. (Node Name : <0%s>).**
-
-**Cause:** Syntax Error. SHARD DROP statement cannot be used with node name.
-
-**Action:** Execute SHARD DROP statement without node name on local node.
-
-**0x31488 ( 201864) qpERR_ABORT_QDSD_TOO_MANY_SOURCE_NODES_FOR_RESHARDING There is more than one source node for resharding.**
-
-**Cause:** There must be one source node for resharding.
-
-**Action:** Check the number of source nodes.
-
-**0x31489 ( 201865) qpERR_ABORT_QDSD_NOT_EXIST_OBJECT_NAME_FOR_RESHARDING Object name for resharding is NULL due to unexpected internal error.**
-
-**Cause:** Object name for resharding is NULL due to unexpected internal error.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x3148A ( 201866) qpERR_ABORT_QDSD_TOO_FEW_NODES_FOR_RESHARDING Insufficient number of nodes for resharding.**
-
-**Cause:** Cannot reshard when the number of nodes is less than 2.
-
-**Action:** Check the number of nodes for resharding.
-
-**0x3148B ( 201867) qpERR_ABORT_QDSD_NOT_SUPPORT_REMOVE_SHARD_TABLE_WITH_DEFAULT_NODE Shard table with default node cannot be removed in shard object.**
-
-**Cause:** Shard table with default node cannot be removed in shard object.
-
-**Action:** Check if the table has default node.
-
-**0x3148C ( 201868) qpERR_ABORT_QDSD_SAME_NODE_NAME Unable to reshard, because source node name and destination node name are the same. <0%s>: <1%s>**
-
-**Cause:** Unable to reshard when source node name and destination node name are same.
-
-**Action:** Check the source node name and destination node name.
-
-**0x3148D ( 201869) qpERR_ABORT_QDSD_TOO_MANY_REPLICA_SETS Unable to reshard, because there are several replica sets for the same SMN.**
-
-**Cause:** The number of replica sets for the same SMN must be one for resharding.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x3148E ( 201870) qpERR_ABORT_QDSD_INVALID_REPLICA_SET_INFO Replica set information is invalid.**
-
-**Cause:** Replica set information is invalid.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x3148F ( 201871) qpERR_ABORT_QDSD_TRANSACTION_COMMIT_ERROR Transaction commit fails due to unexpected internal error.**
-
-**Cause:** Transaction commit fails due to unexpected internal error.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x31490 ( 201872) qpERR_ABORT_QDSD_INVALID_PROPERTY_FOR_SHARDING Invalid property value for sharding. <0%s>**
-
-**Cause:** Invalid property value for sharding.
-
-**Action:** Check the property value.
-
-**0x31491 ( 201873) qpERR_ABORT_QDSD_SHARD_NOT_SAME_CLUSTER_META_DATA_SMN Unable to execute SHARD DDL, because the cluster meta SMN(<0%lu>) is different from the data SMN(<1%lu>).**
-
-**Cause:** Unable to execute SHARD DDL, because the cluster meta SMN is different from the data SMN.
-
-**Action:** Check the node metadata and the cluster meta information.
-
-**0x31493 ( 201875) qpERR_ABORT_QDSD_INVALID_FAILOVER_NODE_NAME Failed to failover, because the target node name is same as local node name. (Node Name : <0%s>).**
-
-**Cause:** Unable to failover when target node name and local node name are same.
-
-**Action:** Check the target node name.
-
-**0x31494 ( 201876) qpERR_ABORT_QDSD_SHARD_KEY_MAX_VALUE_TOO_LONG The shard key value is too long.**
-
-**Cause:** The length of the shard key exceeds 100 characters.
-
-**Action:** Refer to the sharding manual to verify the permissible length of the shard key value.
-
-**0x31495 ( 201877) qpERR_ABORT_QDSD_SHARD_OBJECT_NOT_FOUND The specified shard object [<0%s>.<1%s>] is not found.**
-**Cause:** The table is not found in shard metadata(SYS_SHARD.OBJECTS_).
-**Action:** Check if the table is a shard object or not.
-
-**0x31496 ( 201878) qpERR_ABORT_QDSD_ZKC_ALREADY_CONNECTED The connection to the sharding cluster already exists.**
-
-**Cause:** The node is already connected to the ZooKeeper.
-
-**Action:** Check the node status.
-
-**0x31497 ( 201879) qpERR_ABORT_QDSD_NOT_SUPP_CLONE_RESHRD The clone shard object cannot be the target for resharding.**
-
-**Cause:** The table list includes a clone shard objects, which is not supported in resharding.
-
-**Action:**  Check if the table list includes a clone shard object. Retry after removing the clone shard object from the table list for resharding.
-
-**0x31498 ( 201880) qpERR_ABORT_QDSD_SHARD_NOT_JOIN The shard node has not yet been joined to the sharding cluster.**
-
-**Cause:** Status of the shard node is not joined.
-
-**Action:** Check the shard node status and execute a shard DDL to join.
-
-**0x3149A ( 201882) qpERR_ABORT_QDSD_EXIST_NOT_FAILEDOVER_DEADNODE Failed to run failback because there are failed nodes that has not failed over.**
-
-**Cause:** There are failed nodes that has not failed over.
-
-**Action:** Execute failover SHARD DDL for the failed nodes before failback.
-
-**0x314A4 ( 201892) qpERR_ABORT_QDSD_TOO_MANY_SESSION The shard <0%s> DDL cannot be executed because another session is connected.**
-
-**Cause:** The shard DDL joining the cluster cannot be executed it when there is another session.
-
-**Action:** Close another session and try again.
-
-**0x314A5 ( 201893) qpERR_ABORT_QDSD_SHARD_DDL_TRY_WITH_SHARD_CLI The shard DDL cannot be executed with a shard CLI connection.**
-
-**Cause:** The shard DDL cannot be executed with a shard CLI connection.
-
-**Action:** Connect with ODBC or isql and execute the shard DDL again.
-
-**0x314A6 ( 201894) qpERR_ABORT_QDSD_DROP_FORCE_DETECTED Unable to fail back because one or more failed over nodes were removed by the DROP FORCE operation.**
-
-**Cause:** One or more failed over nodes were removed by the DROP FORCE operation.
-
-**Action:** Use FAILBACK SYNC syntax instead of FAILBACK syntax.
-
-**0x314A7 ( 201895) qpERR_ABORT_QDSD_TARGET_NODE_NOT_FAILED_OVER DROP FORCE cannot be executed because the target node was not failed over.**
-**Cause:** The target node was not failed over.
-**Action:** Fail over the target node before executing DROP FORCE.
-
-**0x314A8 ( 201896) qpERR_ABORT_QDSD_DROPFORCE_NOT_MY_TURN DROP FORCE cannot be executed because the target node is not the node most recently failed over.**
-
-**Cause:**  DROP FORCE can only be executed by the most recently failed over node.
-
-**Action:** Fail over the target node or switch the target node.
-
-**0x314A9 ( 201897) qpERR_ABORT_QDSD_EXIST_NOT_FAILEDOVER_DEADNODE_DROPFORCE The target node has to be failed over to execute DROP FORCE.**
-
-**Cause:** The target node was not failed over.
-
-**Action:** Execute ALTER DATABASE SHARD FAILOVER on the target node.
-
-**0x314AC ( 201900) qpERR_ABORT_QDSD_UNSUPPORT_SHARD_MOVE_WITH_FOREIGN_KEY SHARD MOVE is not supported. : <0%s>**
-
-**Cause:** Out of SHARD MOVE specification with SHARD FOREIGN KEY constraint.
-
-**Action:** Check SHARD MOVE specification with SHARD FOREIGN KEY constraint.
-
-**0x314B0 ( 201904) qpERR_ABORT_QDSD_REORG_NOT_NEED No reorganization required because the sharding cluster system is working normally.**
-
-**Cause:** Current sharding cluster system does not require reorganization. The reorganize command is required after completing failover command for failed shard node.
-
-**Action:** No action is necessary.
-
-**0x314B1 ( 201905) qpERR_ABORT_QDSD_REORG_EXIST_NOT_FAILEDOVER_NODE Can not reorganize because a failed shard node exists without failover. (shard node name : <0%s>)**
-
-**Cause:** The reorganize command cannot be performed if there is a failed shard node that has not performed failover command.
-
-**Action:** Do failover command first for the failed shard node and then reorganize the shard cluster system.
-
-**0x314B2 ( 201906) qpERR_ABORT_QDSD_REORG_EXIST_REFERENCE_OBJECT Can not reorganize because there is a shard object that refers to the failed shard node. (shard node name : <0%s>)**
-
-**Cause:** A failover command was performed for the failed shard node, but the failed shard node remains in SYS_SHARD.RANGES_.
-
-**Action:** Do 'drop force' command first for the failed shard node and then reorganize the shard cluster system.
-
 ### RETRY
 
 **0x331FE ( 209406) qpERR_REBUILD_QMX_TOO_OLD_PLANTREE The plan tree is too
@@ -15555,319 +15159,7 @@ during execution.**
 
 **Action:** Recompile the trigger again.
 
-6.SD Error Code
-===============
-
-### ABORT
-
-**0xE1001 ( 921601) sdERR_ABORT_SDM_SHARD_META_NOT_CREATED There is no shard
-meta \<0%s\>.**
-
-**Cause:** The shard meta has not been created.
-
-**Action:** Create shard meta.
-
-**0xE1002 ( 921602) sdERR_ABORT_SDM_SHARD_NODE_OVERFLOW There is overflow in the
-number of shard data nodes.**
-
-**Cause:** The shard data nodes are exceeded.
-
-**Action:** Refer to the manual to verify the number of permissible shard data
-nodes.
-
-**0xE1003 ( 921603) sdERR_ABORT_SDM_SHARD_NODE_NOT_EXIST The shard data node
-cannot be found.**
-
-**Cause:** The specified shard data node does not exist.
-
-**Action:** Verify if the name of shard data node is correct.
-
-**0xE1004 ( 921604) sdERR_ABORT_SDM_SHARD_TABLE_NOT_EXIST The shard object
-cannot be found.**
-
-**Cause:** The shard object does not exist.
-
-**Action:** Verify if the shard object is correct.
-
-**0xE1005 ( 921605) sdERR_ABORT_SDM_SHARD_KEY_COLUMN_NOT_EXIST The shard key
-\<0%s\>.\<1%s\>.\<2%s\> cannot be found.**
-
-**Cause:** The specified shard key does not exist.
-
-**Action:** Verify if the shard key is correct.
-
-**0xE1006 ( 921606) sdERR_ABORT_SDM_UNSUPPORTED_SHARD_KEY_COLUMN_TYPE The data
-type of shard key \<0%s\>.\<1%s\>.\<2%s\> is not supported.**
-
-**Cause:** The data type is not supported by the shard key.
-
-**Action:** Verify if the data type used in the shard key is correct.
-
-**0xE1007 ( 921607) sdERR_ABORT_SDM_INVALID_RANGE_FUNCTION The split method in
-the shard key does not correspond.**
-
-**Cause:** The split method in the shard key does not correspond.
-
-**Action:** Verify if the split method is correct.
-
-**0xE1008 ( 921608) sdERR_ABORT_SDM_AREADY_EXIST_SHARD_OBJECT The object already
-exists.**
-
-**Cause:** The object is a pre-existing shard object.
-
-**Action:** Verify the object name.
-
-**0xE1009 ( 921609) sdERR_ABORT_SDM_SYSTEM_OBJECT A shard object cannot be
-created with a meta object.**
-
-**Cause:** A shard object cannot be created with a meta object.
-
-**Action:** Verify if the object privilege is correct.
-
-**0xE100A ( 921610) sdERR_ABORT_SDM_CHECK_META_VERSION Confirmation of shard
-version failed.**
-
-**Cause:** The shard version cannot be confirmed.
-
-**Action:** Verify the shard version with the altibase-v command to see if the
-version is correct.
-
-**0xE100B ( 921611) sdERR_ABORT_SDM_MISMATCH_META_VERSION The shard version
-between meta node and data node is mismatched.**
-
-**Cause:** The shard version between meta and data nodes does not correspond.
-
-**Action:** Verify the shard version with the altibase-v command to see if the
-version is correct.
-
-**0xE1065 ( 921701) sdERR_ABORT_SDA_NOT_SUPPORTED_SQLTEXT_FOR_SHARD The
-statement is not supported in Altibase sharding due to the following reason:
-\<0%s\>.**
-
-**Cause:** Altibase sharding does not support the statement.
-
-**Action:** Verify if the statement is correct.
-
-**0xE1066 ( 921702) sdERR_ABORT_SDA_INVALID_SHARD_KEY_CONDITION Invalid shard
-key value expression was used.**
-
-**Cause:** The expression of shard key value is invalid.
-
-**Action:** Verify if the shard key expression is correct.
-
-**0xE1067 ( 921703) sdERR_ABORT_SDA_NOT_EXIST_SHARD_KEY_CONDITION The shard key
-value cannot be found.**
-
-**Cause:** The shard key value does not exist.
-
-**Action:** Verify if the shard key exists.
-
-**0xE10C9 ( 921801) sdERR_ABORT_SDF_INVALID_SHARD_NODE Invalid shard data node
-was used.**
-
-**Cause:** The host IP and port number for shard data node cannot be found.
-
-**Action:** Verify the host IP and port number for shard data node.
-
-**0xE10CA ( 921802) sdERR_ABORT_SDF_AREADY_EXIST_SHARD_NODE The shard data node
-of identical IP and port already exists.**
-
-**Cause:** The shard data node of identical IP and port already exists.
-
-**Action:** Verify the IP and port of the shard data node.
-
-**0xE10CB ( 921803) sdERR_ABORT_SDF_SHARD_USER_NAME_TOO_LONG The object user
-name is too long.**
-
-**Cause:** The user name of a shard object is permitted to contain less than 128
-characters.
-
-**Action:** Verify the length of the object user name.
-
-**0xE10CC ( 921804) sdERR_ABORT_SDF_SHARD_TABLE_NAME_TOO_LONG The object name is
-too long.**
-
-**Cause:** The shard object name is permitted to contain less than 128
-characters.
-
-**Action:** Verify the length of the object name.
-
-**0xE10CD ( 921805) sdERR_ABORT_SDF_SHARD_NODE_NAME_TOO_LONG The name of shard
-data node is too long.**
-
-**Cause:** The name of shard data node is permitted to contain less than 40
-characters.
-
-**Action:** Verify the length of the shard data node name.
-
-**0xE10CE ( 921806) sdERR_ABORT_SDF_SHARD_MAX_VALUE_TOO_LONG The maximum value
-for shard split method is too large.**
-
-**Cause:** The maximum value for shard split method is too large.
-
-**Action:** Refer to the manual to verify permissible range for the shard split
-method.
-
-**0xE10CF ( 921807) sdERR_ABORT_SDF_SHARD_KEYCOLUMN_NAME_TOO_LONG The shard key
-name is too long.**
-
-**Cause:** The shard key name is permitted to contain less than 40 characters.
-
-**Action:** Verify the length of the shard key name.
-
-**0xE10D0 ( 921808) sdERR_ABORT_SDF_INVALID_SHARD_SPLIT_METHOD_NAME The shard
-split method is invalid.**
-
-**Cause:** Invalid shard split method is used.
-
-**Action:** Refer to the manual verify if the shard split method is correct.
-
-**0xE10D1 ( 921809) sdERR_ABORT_SDF_INVALID_SHARD_TABLE The specified object
-cannot be found.**
-
-**Cause:** The specified object does not exist.
-
-**Action:** Retry after verifying the object and user name.
-
-**0xE10D2 ( 921810) sdERR_ABORT_SDF_INVALID_RANGE_VALUE The permissible range of
-shard key \<0%s\> is invalid.**
-
-**Cause:** The permissible range for the shard key is invalid.
-
-**Action:** Refer to the manual to verify the permissible range for the shard
-key.
-
-**0xE112D ( 921901) sdERR_ABORT_SHARD_LIBRARY_ERROR An error occurred in the
-library function call when executing \<1%s\> for shard data node \<0%s\>.**
-
-**Cause:** There is an error in library function call of shard data node.
-
-**Action:** Verify the state of shard data node.
-
-**0xE112E ( 921902) sdERR_ABORT_SHARD_LIBRARY_ERROR_1 The following error occurs
-when \<1%s\> of shard data node \<0%s\> is performed.: \<2%s\>**
-
-**Cause:** An error occurred during the library function call of the shard data
-node.
-
-**Action:** Verify the state of shard data node.
-
-**0xE112F ( 921903) sdERR_ABORT_SHARD_LIBRARY_ERROR_2 The following error occurs
-when \<1%s\> of shard data node \<0%s\> is performed.: \<2%s\>\<3%s\>**
-
-**Cause:** An error occurred during the library function call of the shard data
-node.
-
-**Action:** Verify the state of shard data node.
-
-**0xE1130 ( 921904) sdERR_ABORT_SHARD_LIBRARY_ERROR_3 The following error occurs
-when \<1%s\> of shard data node \<0%s\> is performed.: \<2%s\>\<3%s\>\<4%s\>**
-
-**Cause:** An error occurred during the library function call of the shard data
-node.
-
-**Action:** Verify the state of shard data node.
-
-**0xE1131 ( 921905) sdERR_ABORT_SHARD_LIBRARY_ERROR_4 The following error occurs
-when \<1%s\> of shard data node \<0%s\> is performed.:
-\<2%s\>\<3%s\>\<4%s\>\<5%s\>**
-
-**Cause:** An error occurred during the library function call of the shard data
-node.
-
-**Action:** Verify the state of shard data node.
-
-**0xE1132 ( 921906) sdERR_ABORT_SHARD_LIBRARY_LINK_FAILURE_ERROR The link failed
-when performing \<1%s\> on shard data node \<0%s\>.**
-
-**Cause:** The link on the shard data node failed.
-
-**Action:** Verify the state of link on the shard data node.
-
-**0xE1133 ( 921907) sdERR_ABORT_INIT_SDL_ODBCCLI The library initialization
-failed and the following error occurred: \<0%s\>**
-
-**Cause:** Library initialization failed.
-
-**Action:** Verify the library of shard meta node.
-
-**0xE1134 ( 921908) sdERR_ABORT_EXECUTE_NULL_DBC The connection cannot be found
-when shard data node \<0%s\> is \<1%s\>.**
-
-**Cause:** The connection state of shard data node does not exist.
-
-**Action:** Verify the connection state.
-
-**0xE1135 ( 921909) sdERR_ABORT_EXECUTE_NULL_STMT The statement cannot be found
-when shard data node \<0%s\> is \<1%s\>.**
-
-**Cause:** The statement in the shard data node does not exist.
-
-**Action:** Verify the statement in the shard data node.
-
-**0xE1136 ( 921910) sdERR_ABORT_UNINITIALIZED_LIBRARY Shard data node \<0%s\>
-fails to perform \<1%s\> because the library was not initialized.**
-
-**Cause:** The library of shard meta node was not initialized.
-
-**Action:** Restart the server after verifying the library of shard meta node.
-
-**0xE1137 ( 921911) sdERR_ABORT_DBCLINK_ALLOC \<1%s\> on shard data node \<0%s\>
-failed.**
-
-**Cause:** There is insufficient memory for the shard data node connection.
-
-**Action:** Verify the memory usage.
-
-**0xE1321 ( 922401) sdERR_ABORT_SDI_SHARD_LINKER_NOT_INITIALIZED The meta
-connection cannot be initialized.**
-
-**Cause:** The meta connection was not initialized.
-
-**Action:** Verify the setting of shard meta and data is correct.
-
-**0xE1322 ( 922402) sdERR_ABORT_SDI_INCOMPLETE_RANGE_SET The shard key range of
-\<0%s\>.\<1%s\> is invalid.**
-
-**Cause:** The shard key range is invalid.
-
-**Action:** Verify the key range for shard split method.
-
-**0xE1385 ( 922501) sdERR_ABORT_EXIST_SHARD_TABLE_OUTSIDE_SHARD_VIEW The shard
-table is only available within the shard view.: \<0%s\>**
-
-**Cause:** The shard table is only available within the shard view.
-
-**Action:** Rewrite the shard query.
-
-**0xE1386 ( 922502) sdERR_ABORT_INVALID_SHARD_QUERY The shard query is not
-supported and the following error occurs.: \<0%s\> \<1%s\>**
-
-**Cause:** The shard query is invalid.
-
-**Action:** Rewrite the shard query.
-
-**0xE13E7 ( 922599) sdERR_ABORT_SDC_UNEXPECTED_ERROR Unexpected errors have
-occurred.: \<0%s\>: \<1%s\>**
-
-**Cause:** An unexpected error has occurred.
-
-**Action:** Verify the error number in the trace log file and contact Altibase
-Support Center (http://support.Altibase.com).
-
-**0xE113D ( 921917) sdERR_ABORT_REMOTE_COMMIT_FAILED Failed to commit a remote transaction when performing \<1%s\> on remote node \<0%s\>.: \<2%s\>**
-
-**Cause:** A network problem occurred.
-
-**Action:** Verify the state of link on the remote node. Execute rollback and try again.
-
-**0xE113E ( 921918) sdERR_ABORT_PREPARE_DID_NOT_BEGIN_TX Failed to commit a transaction, because the transaction did not begin.**
-
-**Cause:** The transaction is not begin.
-
-**Action:** Verify the state of link on the remote node. Execute rollback and try again.
-
-7.ST Error Code
+6.ST Error Code
 ===============
 
 ### FATAL
@@ -16403,7 +15695,7 @@ object.
 
 **Action:** Ignore this message.
 
-8.MM Error Code
+7.MM Error Code
 ===============
 
 ### FATAL
@@ -17473,77 +16765,17 @@ found. (SQLTextID = \<0%s\>)**
 
 **Action:** Check whether SQLTextID exists in V\$SQL_PLAN_CACHE_SQLTEXT.
 
-**0x410FD ( 266493) mmERR_ABORT_SHARED_TRANSACTION_STATE_INVALID The state of shared transaction is invalid. (State = \<0%s\>, Action = \<1%s\>)**
-
-**Cause:** This is an internal error related to unexpected state of shared transaction.
-
-**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
-
-**0x410FE ( 266494) mmERR_ABORT_SHARD_ADMIN_MODE_ERROR If SHARD_ADMIN_MODE is activated, only the users SYS and SYSTEM_ can connect to the database.**
-
-**Cause:** When SHARD_ADMIN_MODE is on, only the SYS and SYSTEM_ users can connect to DB.
-
-**Action:** Connect to the database as SYS or SYSTEM_.
-
-**0x410FF ( 266495) mmERR_ABORT_ALTER_SESSION_NOT_ALLOW ALTER SESSION statement is not allowed to execute on a specific session.**
-
-**Cause:**  ALTER SESSION statement is not allowed to execute on a specific session.
-
-**Action:** Check the statement.
-
-**0x41100 ( 266496) mmERR_ABORT_GCTX_NOT_PERMIT The client library version does not support the Global Consistent Transaction level.**
-
-**Cause:** The client library version does not support the Global Consistent Transaction level.
-
-**Action:** Upgrade the client library version which supports the Global Consistent Transaction level.
-
 **0x41101 ( 266497) mmERR_ABORT_GLOBAL_TRANSACTIONS_ARE_OPEN Global transactions are not finished to run.**
 
 **Cause:** Failed to shutdown Server, because there are running global transactions.
 
 **Action:** Terminate the running global transactions, or execute 'SHUTDOWN ABORT'.
 
-**0x41102 ( 266498) mmERR_ABORT_CANNOT_CHANGE_AUTOCOMMIT_IN_SHARD_ENV Unable to change to auto-commit mode in shard environment.**
-
-**Cause:** Unable to change to auto-commit mode in shard environment.
-
-**Action:** Do not attempt to change to auto-commit mode in shard environment.
-
-**0x41103 ( 266499) mmERR_ABORT_CONNECT_ERROR_IN_SHARD_ENV In shard environment, a client set to autocommit cannot connect to the database.**
-
-**Cause:** In shard environment, a client set to autocommit cannot connect to the database.
-
-**Action:** Set to non-autocommit mode.
-
-**0x41106 ( 266502) mmERR_ABORT_NO_SHARD_META_CHANGE_TO_REBUILD No shard meta information changes to perform shard rebuild. (<0%s>)**
-
-**Cause:** There are no more shard meta information changes to perform shard rebuild.
-
-**Action:** Check the shard configuration information.
-
-**0x41107 ( 266503) mmERR_ABORT_COMMIT_ERROR In shard environment, commit failed.**
-
-**Cause:** This is an internal error.
-
-**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
-
-**0x41108 ( 266504) mmERR_ABORT_ROLLBACK_ERROR In shard environment, rollback failed.**
-
-**Cause:** This is an internal error.
-
-**Action:** Please contact Altibase's Support Center (http://support.altibase.com).
-
 **0x41109 ( 266505) mmERR_ABORT_IP_ACL_CONNECT_OVER New connection try exceeds ACL limit: ( IP : <0%s>, ACL: <1%s>, Limit : <2%d>, Connected : <3%d> )**
 
 **Cause:** New connection try aborted because it exceeds access control list (ACL) limit.
 
 **Action:** Change the limit value of the ACCESS_LIST.
-
-**0x4110A ( 266506) mmERR_ABORT_MMC_CANT_LOCK_PSM_IN_AUTOCOMMIT_MODE Unable to execute LOCK PSM statement while the system is in auto-commit mode.**
-
-**Cause:** The system tried to execute a LOCK PSM statement while the system was in auto-commit mode.
-
-**Action:** When the system is in auto-commit mode, Remove the LOCK PSM statement.
 
 **0x4110B ( 266507) mmERR_ABORT_STILL_OPEN_STATEMENT Commit failed. Statements that are still open exist.**
 
@@ -17556,12 +16788,6 @@ found. (SQLTextID = \<0%s\>)**
 **Cause:** memory allocation failed.
 
 **Action:** Verify that enough memory is available.
-
-**0x4110D ( 266509) mmERR_ABORT_GTX_BROKEN Failed to execute the statement due to the termination of global transaction.**
-
-**Cause:** Failed to commit the global transaction.
-
-**Action:** Execute rollback and retry the statement.
 
 **0x4110E ( 266510) mmERR_ABORT_INVALID_DATA_TYPE_FETCH Invalid type of data to fetch [ Column ID = <0%d>, Data Type = <1%d> ]**
 
@@ -17632,21 +16858,7 @@ within \<0%d\> day(s).**
 
 **Action:** Change your password.
 
-### RETRY
-
-**0x43104 ( 274692) mmERR_RETRY_SHARD_INTERNAL_STATEMENT_IS_TOO_OLD The records required for consistent reading are out of date.**
-
-**Cause:** The records required for consistent reading are out of date.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x43105 ( 274693) mmERR_REBUILD_SHARD_INTERNAL_SHARD_META_OUT_OF_DATE Shard meta information of session is out of date.**
-
-**Cause:** Shard meta information has been changed.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-9.ODBC Error Code
+8.ODBC Error Code
 =================
 
 ### FATAL
@@ -18591,111 +17803,6 @@ type(\<0%d\>) for IPCDA.**
 **Cause:** Unsupported C data type in IPCDA was used.
 
 **Action:** Use another connection type.
-
-For Shard
-
-**0x51214 ( 332308) ulERR_ABORT_SHARD_ERROR The \<0%s\> of client-side sharding
-failed due to the following reason: \<1%s\>**
-
-**Cause:** The operation of client-side sharding is invalid.
-
-**Action:** Take an appropriate measure for the error.
-
-**0x51215 ( 332309) ulERR_ABORT_SHARD_CLI_ERROR The \<0%s\> of client-side
-sharding failed.: \<1%s\>**
-
-**Cause:** The operation of shard data node failed.
-
-**Action:** Take an appropriate measure for the error.
-
-**0x51216 ( 332310) ulERR_ABORT_SHARD_NODE_FAILOVER_IS_NOT_AVAILABLE Failover is not available.**
-
-**Cause:** Failed to connect to shard library or coordinates.
-
-**Action:** Check the shard node status or network.
-
-**0x51217 ( 332311) ulERR_ABORT_SHARD_NODE_INVALID_TOUCH This is an invalid
-transaction performing on multiple nodes.(The previous access
-node[\<0%s\>,\<1%s\>:\<2%d\>], the current access
-node[\<3%s\>,\<4%s\>:\<5%d\>])**
-
-**Cause:** Each transaction is performed only on a single shard data node.
-
-**Action:** Complete the transaction being currently executed.
-
-**0x51218 ( 332312) ulERR_ABORT_SHARD_VERSION_MISMATCH Mismatched Shard
-version.**
-
-**Cause:** The shard versions of server and client do not correspond.
-
-**Action:** Use the identical shard and client versions.
-
-**0x51219 ( 332313) ulERR_ABORT_SHARD_DATA_NODE_CONNECTION_FAILURE \<0%s\>**
-
-**Cause:** An error occurred during the data node connection.
-
-**Action:** Take appropriate measures after verifying the data node and error
-number.
-
-**0x5121F ( 332319) ulERR_ABORT_SHARD_META_CHANGED The shard meta information was changed.**
-
-**Cause:** The shard meta information was changed.
-
-**Action:** Re-execute application logic.
-
-**0x51220 ( 332320) ulERR_ABORT_SHARD_INTERNAL_ERROR The shard internal server error (<0%s>).**
-
-**Cause:** Unexepected error.
-
-**Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
-
-**0x51221 ( 332321) ulERR_ABORT_SHARD_UNSUPPORTED_FUNCTION The <0%s> is not supported in shard client library.**
-
-**Cause:** This function is not supported in shard client library.
-
-**Action:** Do not use this function.
-
-**0x51222 ( 332322) ulERR_ABORT_FEATURE_NOT_IMPLEMENTED_IN_SHARD This feature is not implemented.**
-
-**Cause:** An unsupported attribute was used in shard client library.
-
-**Action:** Check the attribute.
-
-**0x51223 ( 332323) ulERR_ABORT_GTX_BROKEN Failed to execute the statement due to the termination of global transaction.**
-
-**Cause:** Failed to commit the global transaction.
-
-**Action:** Execute rollback and retry the statement.
-
-**0x51224 ( 332324) ulERR_ABORT_INVALID_LOCATOR_HANDLE Invalid Locator Handle.**
-
-**Cause:** A locator handle is invalid.
-
-**Action:** Check if the locator is 0.
-
-**0x51225 ( 332325) ulERR_ABORT_SHARD_MULTIPLE_ERRORS Multiple errors occurred on each of shard nodes.**
-
-**Cause:** Multiple errors occurred on each of shard nodes.
-
-**Action:** Check the error messages on each shard node.
-
-**0x51226 ( 332326) ulERR_ABORT_FAILED_TO_PROPAGATE_SHARD_META_NUMBER Failed to propagate shard meta number.**
-
-**Cause:** Failed to propagate shard meta number.
-
-**Action:** Check the shard node status or network.
-
-**0x51227 ( 332327) ulERR_ABORT_FAILED_TO_COMMIT Failed to commit a remote transaction. (ERR-<0%x> [<1%s>] <2%s>)**
-
-**Cause:** A network problem occurred.
-
-**Action:** Verify the state of link on the remote node. Execute rollback and try again.
-
-**0x51228 ( 332328) ulERR_ABORT_FAILOVER_ABORT Shard library Connection failover aborted due to User Connection loss.**
-
-**Cause:** A network problem occurred.
-
-**Action:** Verify the state of link on the remote node. Execute rollback and try again.
 \# IB
 
 **0x5121A ( 332314) ulERR_ABORT_INVALID_ALTIBASE_IB_PORT_NO Connection string
@@ -18810,7 +17917,7 @@ is executed since the asynchronous prefetch failed.**
 
 
 
-10.APRE Error Code
+9.APRE Error Code
 ==================
 
 ### ABORT
@@ -19483,7 +18590,7 @@ supported by psm array.
 
 
 
-11.Utilities Error Code
+10.Utilities Error Code
 =======================
 
 ### FATAL
@@ -20856,7 +19963,7 @@ the maximum length is \<0%d\>.**
 
 
 
-12.CM Error Code
+11.CM Error Code
 ================
 
 ### FATAL
@@ -21435,13 +20542,6 @@ call error.
 
 **Action:** Contact Altibase's Support Center (http://support.altibase.com).
 
-**0x710AF ( 463023) cmERR_ABORT_SHARD_VERSION_MISMATCH Mismatched Shard
-version.**
-
-**Cause:** The shard versions of server and client do not correspond.
-
-**Action:** Use the identical shard and client versions.
-
 **0x710B0 ( 463024) cmERR_ABORT_SYSTEM_CALL_ERROR Failed to invoke the \<0%s\>
 system function.**
 
@@ -21633,7 +20733,7 @@ operation would be blocked**
 
 
 
-13.Database Link Error Code
+12.Database Link Error Code
 ===========================
 
 ### FATAL
@@ -22499,7 +21599,7 @@ because the global transaction has been terminated.**
 
 
 
-14.Log Analyzer Error Code
+13.Log Analyzer Error Code
 ==========================
 
 ### FATAL
@@ -23090,7 +22190,7 @@ data type supported by ODBC.
 
 
 
-# 15.Regular Expression Error Code
+# 14.Regular Expression Error Code
 
 PCRE2 호환 모드(REGEXP_MODE=1)에서 정규 표현식 사용 시 발생할 수 있는 에러 메시지를 정리하였다. 
 
