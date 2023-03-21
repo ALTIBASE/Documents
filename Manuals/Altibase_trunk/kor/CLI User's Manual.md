@@ -6917,7 +6917,7 @@ LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다.
 
 - SQLBindParameter / SQLExecute
 
-  > ⚠️ SQLExecute 함수는 INSERT와 UPDATE 문을 실행할 때 LOB 데이터를 Empty로 초기화한다. 
+  > ⚠️ SQLExecute 함수는 INSERT와 UPDATE 문을 실행할 때 LOB 데이터를 내부 값으로 초기화한다.
 
 #### LOB 데이터 읽고 쓰기
 
@@ -6939,8 +6939,7 @@ LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LO
 
 이 예시는 LOB 칼럼을 가진 테이블에 INSERT, UPDATE 문을 수행할 때 해당한다.
 
-아래 표의 `결과 1`에서 커밋을 수행하면, LOB 타입 칼럼이 있는 레코드는 LOB 타입 칼럼이 Empty 값으로 반영될 수 있다. LOB 타입 칼럼의 값이 Empty 상태로 남기지 않으려면 **반드시 트랜잭션을 롤백해야 한다.** 
-
+아래 표의 개별 작업 1에서 커밋을 수행하면, LOB 타입 칼럼이 있는 레코드는 LOB 타입 칼럼이 초기화된 상태 값이 반영될 수 있다. LOB 타입 칼럼의 값이 초기화된 상태로 남기지 않으려면 **반드시 트랜잭션을 롤백해야 한다.** 
 
 | 개별 작업 순서 | 개별 작업                           | CLI 함수                      | 결과 |
 | :------------: | :---------------------------------- | :---------------------------- | :----: |
@@ -7834,7 +7833,7 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
 }
 
 /* 
-SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 Empty로 초기화한다. 
+SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 내부 값으로 초기화한다. 
 */ 
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
@@ -7900,7 +7899,7 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
 }
 
 /* 
-SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 Empty로 초기화한다.
+SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 내부 값으로 초기화한다.
 */
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
