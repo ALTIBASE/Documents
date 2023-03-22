@@ -6937,7 +6937,8 @@ LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LO
 
 > **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
 
-NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
+1. 자동 커밋 해제 모드에서 LOB 데이터를 읽고 쓰는 CLI 함수 수행 중 예상치 못한 에러가 발생하면, 내부적으로 초기화된 데이타가 남아 있을 수 있어 **반드시 트랜잭션을 롤백해야 한다.** 
+2. NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 ### LOB 데이터 타입
 
