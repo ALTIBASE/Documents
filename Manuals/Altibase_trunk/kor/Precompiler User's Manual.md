@@ -3483,7 +3483,7 @@ INTO :sel_clob :sel_clob_ind
 FROM T_CLOB;
 ```
 
-> 만약 NOT NULL 제약이 있는 CLOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 시도하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생하지만 Empty로 초기화된 데이터가 남아 있으므로 **반드시 트랜잭션을 롤백해야 한다.** 
+> 만약 NOT NULL 제약이 있는 CLOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 시도하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생하지만 Empty로 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 ##### APRE_BLOB
 
@@ -3529,7 +3529,7 @@ INTO :sel_blob :sel_blob_ind
 FROM T_BLOB;
 ```
 
-> 만약 NOT NULL 제약이 있는 BLOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 시도하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생하지만 Empty로 초기화된 데이터가 남아 있으므로 **반드시 트랜잭션을 롤백해야 한다.** 
+> 만약 NOT NULL 제약이 있는 BLOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 시도하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생하지만 Empty로 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 ##### APRE_BINARY
 

@@ -6933,21 +6933,11 @@ LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 �
 
 LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
 
-자동 커밋 모드에서 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 각각 하나의 트랜잭션이기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다. 반면, 자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되며 LOB 위치 입력기를 공유할 수 있다. 따라서 개별 작업의 성공 여부에 따라 트랜잭션을 커밋할 때 SQL 수행 결과가 달라질 수 있음을 주의해야 한다.
+자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되어 LOB 위치 입력기를 공유할 수 있다. 반면, 자동 커밋 모드에서는 각각의 개별 트랜잭션으로 동작하기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다.
 
 > **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
 
-이 예시는 LOB 칼럼을 가진 테이블에 INSERT, UPDATE 문을 수행할 때 해당한다.
-
-개별작업 순서의 결과가 아래 표와 같을 경우, 개별작업2 후에 커밋 하게되면 개별작업1의 결과에 의해 LOB컬럼에 널 또는 Empty로 초기화된 행이 남아 있으므로 반드시 **반드시 트랜잭션을 롤백해야 한다.** 
-
-| 개별 작업 순서 | 개별 작업                           | CLI 함수                      | 결과 |
-| :------------: | :---------------------------------- | :---------------------------- | :----: |
-|       1        | LOB 위치 입력기를 얻어오는 CLI 함수 | SQLBindParameter / SQLExecute |  성공  |
-|       2        | LOB 데이터를 읽고 쓰는 CLI 함수     | SQLPutLob                     |  실패  |
-
-그리고, NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 시도하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생하지만 Empty로 초기화된 데이터가 남아 있게되므로 마찬가지로 **반드시 트랜잭션을 롤백해야 한다.** 
-
+NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 ### LOB 데이터 타입
 
@@ -7836,7 +7826,7 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
 }
 
 /* 
-SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 내부 값으로 초기화한다. 
+SQLExecute 함수를 호출한다.
 */ 
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
@@ -7902,7 +7892,7 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
 }
 
 /* 
-SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 내부 값으로 초기화한다.
+SQLExecute 함수를 호출한다.
 */
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {

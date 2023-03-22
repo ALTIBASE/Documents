@@ -3528,7 +3528,7 @@ while ( sRS.next() ) -> (2)
 따라서, 이러한 로직에서 LOB 데이터를 다룰 때는 먼저 setAutoCommit(false)를
 호출하여 세션의 자동커밋을 해제해야 한다.
 
-> NOT NULL 제약이 있는 LOB 타입 컬럼에 setNull을 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가  발생하지만 Empty로 초기화된 데이터가 남아 있으므로 **반드시 트랜잭션을 롤백해야 한다.** 
+> NOT NULL 제약이 있는 LOB 타입 컬럼에 setNull을 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가  발생하지만 Empty로 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 
 
