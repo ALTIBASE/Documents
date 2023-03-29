@@ -2833,7 +2833,7 @@ config.xml에서 <Altimon ...> 요소는 altiMon 로그 출력 형식, 로그 �
 | \<DateFormat\>                | altiMon 로그의 날짜 형식을 설정한다. 기본값은 yyyy-MM-dd HH:mm:ss 이다. 설정 가능한 날짜 형식은 [자바 SimpleDateFormat 클래스의 날짜 형식](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html)을 참고한다. |
 | \<MaintenancePeriod\>         | altiMon 로그 파일의 보관 기간을 설정한다. 기본값은 3이고 단위는 일(day)이다. |
 | \<Interval\>                  | altiMon의 모니터링 데이터 수집 주기를 설정한다. 기본값은 60이고 단위는 초(second)이다. <br />Metrics.xml 파일의 \<OSMetric\> 또는 \<SQLMetric\> 요소에서 Interval 속성을 설정하지 않으면 이 값이 적용된다. GroupMetrics.xml 파일의 \<GroupMetric\> 요소에서는 이 값의 영향을 받지 않는다. |
-| <CpuSamplingInterval\>        | CPU 사용률(%)을 측정하는 쓰레드의 실행 주기이다. 기본값은 3이고 단위는 초(second)이다.<br />CPU 사용률은 측정 간격의 영향을 받는다. 여러 개의 CPU 모니터링 요소 사용시 상호 시간 간섭현상으로 부정확한 값을 반환할 수 있다. 이를 방지하기 위해, 모니터링 요소와 독립적인 CPU 사용률 측정 쓰레드가 설정된 간격마다 값을 측정하며, 모니터링 요소가 측정된 값을 참조한다.<br />OS CPU와 알티베이스 CPU 사용률 측정 쓰레드가 각기 별도의 쓰레드로 동작하기 때문에, CPU 과부하시 TOTAL_CPU와 PROC_CPU 두가지 값 사이에 시간차가 발생가능하다. |
+| <CpuSamplingInterval\>        | CPU 사용률(%)을 측정하는 쓰레드의 실행 주기이다. 기본값은 3이고 단위는 초(second)이다.<br />CPU 사용률은 측정 간격의 영향을 받는다. 여러 개의 CPU 모니터링 요소 사용시 상호 시간 간섭현상으로 부정확한 값을 반환할 수 있다. 이를 방지하기 위해, 모니터링 요소와 독립적인 CPU 사용률 측정 쓰레드가 설정된 간격마다 값을 측정하며, 모니터링 요소가 측정된 값을 참조한다.<br />OS CPU와 알티베이스 CPU 사용률 측정 쓰레드가 각기 별도의 쓰레드로 동작하기 때문에, CPU 과부하시 TOTAL_CPU와 PROC_CPU 두가지 값 사이에 시간차가 발생가능하다.<br />CpuSamplingInterval 은 Altibase 7.1.0.8.4 이후부터 제공한다. |
 | \<DBConnectionWatchdogCycle\> | Altibase 서버로의 접속 시도 주기를 설정한다. Altibase 서버가 중지되었을 때 altiMon은 이 값에 따라 주기적으로 Altibase 서버에 접속을 시도하므로 Altibase 서버가 시작되면 모니터링을 지속할 수 있다. 기본값은 60이고 단위는 초(second)이다. |
 
 
