@@ -6917,7 +6917,7 @@ LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다.
 
 - SQLBindParameter / SQLExecute
 
-  > ⚠️ SQLExecute 함수는 INSERT와 UPDATE 문을 실행할 때 LOB 데이터를 널로 초기화한다. 
+  > ⚠️ SQLExecute 함수는 INSERT와 UPDATE 문을 실행할 때 LOB 데이터를 초기화하는데, NOT NULL 제약이 없는 경우 널(NULL)로 초기화 한다. 반면, NOT NULL 제약이 있는 경우는 Empty로 초기화한다.
 
 #### LOB 데이터 읽고 쓰기
 
@@ -6933,20 +6933,12 @@ LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 �
 
 LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
 
-자동 커밋 모드에서 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 각각 하나의 트랜잭션이기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다. 반면, 자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되며 LOB 위치 입력기를 공유할 수 있다. 따라서 개별 작업의 성공 여부에 따라 트랜잭션을 커밋할 때 SQL 수행 결과가 달라질 수 있음을 주의해야 한다. 
+자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되어 LOB 위치 입력기를 공유할 수 있다. 반면, 자동 커밋 모드에서는 각각의 개별 트랜잭션으로 동작하기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다.
 
 > **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
 
-이 예시는 LOB 칼럼을 가진 테이블에 INSERT, UPDATE 문을 수행할 때 해당한다.
-
-아래 표의 `결과 1`에서 커밋을 수행하면, LOB 타입 칼럼이 있는 레코드는 LOB 타입 칼럼이 널 값으로 반영될 수 있다. LOB 타입 칼럼의 값이 널 상태로 남기지 않으려면 **반드시 트랜잭션을 롤백해야 한다.** 
-
-LOB 타입 칼럼에 NOT NULL 제약조건이 정의되어 있다면 `결과 2` 상황이 발생할 수 있으며, 이때는 에러가 발생하고 부분 롤백 되므로 CLI에서 LOB 데이터 처리를 할 수 없다.
-
-| 개별 작업 순서 | 개별 작업                           | CLI 함수                      | 결과 1 | 결과 2 |
-| :------------: | :---------------------------------- | :---------------------------- | :----: | :----: |
-|       1        | LOB 위치 입력기를 얻어오는 CLI 함수 | SQLBindParameter / SQLExecute |  성공  |  실패  |
-|       2        | LOB 데이터를 읽고 쓰는 CLI 함수     | SQLPutLob                     |  실패  |   -    |
+1. 자동 커밋 해제 모드에서 LOB 데이터를 읽고 쓰는 CLI 함수 수행 중 예상치 못한 에러가 발생하면, 내부적으로 초기화된 데이타가 남아 있을 수 있어 **반드시 트랜잭션을 롤백해야 한다.** 
+2. NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 ### LOB 데이터 타입
 
@@ -7835,9 +7827,7 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
 }
 
 /* 
-SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 널로 초기화한다. 
-만약 CLOB 칼럼에 NOT NULL 제약조건이 있으면 
-이 단계에서 Unable to insert (or update) NULL into NOT NULL column. 에러가 발생한다. 
+SQLExecute 함수를 호출한다.
 */ 
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
@@ -7903,9 +7893,7 @@ if (SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_CLOB_LOCATOR, SQL_CLOB_LOC
 }
 
 /* 
-SQLExecute 함수는 LOB 위치 입력기가 가리키는 CLOB 칼럼을 널로 초기화한다.
-만약 CLOB 칼럼에 NOT NULL 제약조건이 있으면 
-이 단계에서 Unable to insert (or update) NULL into NOT NULL column. 에러가 발생한다. 
+SQLExecute 함수를 호출한다.
 */
 if (SQLExecute(stmt) != SQL_SUCCESS)
 {
