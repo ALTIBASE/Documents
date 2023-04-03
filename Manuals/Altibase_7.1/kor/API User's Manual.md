@@ -3143,7 +3143,7 @@ Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사�
   Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET Nuget 패키지에 포함되어 있다.
   - Linux x86-64  : libdotnet_sl.so
   - Windows x64 : dotnet_sl.dll
-- Altibase 7.1.0.x.x 이상*(태그가 릴리즈되면 수정해야 함)*
+- Altibase 7.1.0.8.3 이상
 - .NET Core 3.1
 
 #### 지원 OS
@@ -3163,7 +3163,7 @@ Altibase ADO.NET Nuget 패키지에 원하는 OS의 CLI 라이브러리가 포�
 
 #### Altibase ADO.NET 다운로드
 
-[Nuget 사이트](http://nuget.org/)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
+[Nuget 사이트](https://www.nuget.org/packages/Altibase.Data.AltibaseClient)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
 
 
 
@@ -3216,11 +3216,14 @@ IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록�
 
 1️⃣ 새 프로젝트를 생성한다.
 
-![img](http://nok.altibase.com/download/attachments/69933904/image2023-1-30%2014%3A15%3A23.png?version=1&modificationDate=1675055723000&api=v2)
-
+<div align="left">
+    <img src="media/API/adonet1.png">
+</div>
 2️⃣ Nuget 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
 
-
+<div align="left">
+    <img src="media/API/adonet2.png">
+</div>
 
 #### Altibase ADO.NET 사용 선언
 
