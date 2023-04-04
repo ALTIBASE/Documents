@@ -12527,7 +12527,7 @@ UTC 오프셋이 +09:00이다.
 
 ##### MODULE_NAME
 
-Altibase 모듈의 이름을 나타낸다. 현재 Altibase는 SERVER, QP, RP, SM의 모듈로
+Altibase 모듈의 이름을 나타낸다. 현재 Altibase는 SERVER, QP, RP, SM, MM, CM의 모듈로
 구성되며, 각 모듈 별로 메시지 로그를 남길 수 있다.
 
 ##### TRCLEVEL
@@ -12603,7 +12603,7 @@ SERVER 99 SUM 7 Total Sum of Trace Log Values
 
 #### 사용 방법
 
-Altibase는 6개의 모듈 SERVER, SM, QP, RP, RP_CONFLICT, DR에 대하여 메시지 로깅
+Altibase는 7개의 모듈 SERVER, SM, QP, RP, RP_CONFLICT, MM, CM에 대하여 메시지 로깅
 프로퍼티가 존재한다.
 
 -   SERVER_MSGLOG_FLAG: 통신 및 서버 메시지
