@@ -20701,6 +20701,24 @@ non-blocking mode.
 
 **Action**: Check the errno and take an appropriate action. For example, if the errno is EEXIST, check the semaphore status. If there is a semaphore that has the same key value, remove the semaphore or retry with another key value.
 
+**0x710C8 ( 463048) cmERR_ABORT_MALFORMED_PACKET_ERROR Malformed packet. Connection closed.**
+
+**Cause**: The connection has been closed due to a malformed packet.
+
+**Action**: Check the client and packet information from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+
+**0x710C9 ( 463049) cmERR_ABORT_INVALID_PARTIAL_PACKET Invalid partial packet. Connection closed.**
+
+**Cause**: The connection has been closed due to an invalid partial packet.
+
+**Action**: Check the client and packet information from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+
+**0x710CA ( 463050) cmERR_ABORT_INTERNAL_SERVER_ERROR_ARG Internal server error (<0%s>)**
+
+**Cause**: The system encountered an internal server error. This is an internal programming exception.
+
+**Action**: Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+
 ### IGNORE
 
 **0x72000 ( 466944) cmERR_IGNORE_NoError No CM module error**
