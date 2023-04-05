@@ -7573,127 +7573,128 @@ Altibase 프로세스가 사용하는 메모리의 통계 정보를 보여준다
 Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 메모리 모듈을
 포함한다.
 
-| 이름                                   | 설명                                                                                          |
-|----------------------------------------|-----------------------------------------------------------------------------------------------|
-| Altiwrap                               | Altiwrap을 위해 사용되는 메모리                                                               |
-| Async_IO_Manager                       | 비동기 I/O 발생시 사용되는 메모리                                                             |
-| Audit_Manager                          | Audit 관리자용 메모리                                                                         |
-| CatalogCache_Memory                    | 현재 사용되지 않음                                                                            |
+| 이름                                   | 설명                                                         |
+| -------------------------------------- | ------------------------------------------------------------ |
+| Altiwrap                               | Altiwrap을 위해 사용되는 메모리                              |
+| Async_IO_Manager                       | 비동기 I/O 발생시 사용되는 메모리                            |
+| Audit_Manager                          | Audit 관리자용 메모리                                        |
+| CatalogCache_Memory                    | 현재 사용되지 않음                                           |
 | Clock_Manager                          | 클록 (Clock) 관리자를 위한 메모리. 클록 관리자는 시스템 시간을 확인할 때 CPU 클록을 사용한다. |
-| CM_Buffer                              | 통신(TCP, Unix Domain 소켓, IPC, IPCDA)을 위해 사용된 버퍼 메모리                             |
-| CM_DataType                            | 큰 패킷을 송수신하는데 사용되는 메모리                                                        |
-| CM_Interface                           | CM Interface에서 사용되는 메모리                                                              |
-| CM_Multiplexing                        | 통신을 위한 세션 정보 저장을 위해 사용되는 메모리                                             |
-| CM_NetworkInterface                    | 각 통신 노드에 대한 정보를 저장하기 위해 사용되는 메모리                                      |
-| Condition_Variable                     | 다중 쓰레드 제어를 위한 condition variables를 관리하는데 사용되는 메모리                      |
-| DatabaseLink                           | 데이터베이스 링크에 의해 사용되는 메모리                                                      |
-| Disaster_recovery                      | 재해 복구에서 사용되는 메모리                                                                 |
-| Disaster_recovery_Control              | 재해 복구의 역할 관리자가 사용하는 메모리                                                     |
-| Disaster_recovery_Executor             | 재해 복구관련 실행시 사용되는 메모리                                                          |
-| Disaster_recovery_Storage              | 현재 사용되지 않음                                                                            |
-| Dynamic Module Loader                  | 공유 라이브러리 로딩시 사용되는 메모리                                                        |
-| External_Procedure                     | 익스터널 프로시저에서 사용되는 메모리                                                         |
-| External_Procedure_Agent               | 익스터널 프로시저 에이전트에서 사용되는 메모리                                                |
-| Fixed_Table                            | 고정(Fixed) 테이블에서 사용되는 메모리                                                        |
-| GIS_DataType                           | GIS 데이터를 처리하는데 사용되는 메모리                                                       |
-| GIS_Disk_Index                         | GIS 데이터를 위한 디스크 공간 인덱스를 관리하는데 사용되는 메모리                             |
-| GIS_Function                           | 공간 관련 계산에 사용되는 메모리                                                              |
-| GIS_TEMP_MEMORY                        | R-tree 인덱스 생성에 사용되는 메모리                                                          |
-| IDU_MEM_OTHER                          | 기타 용도                                                                                     |
-| Index_Memory                           | 인덱스 정보를 관리하는데 사용되는 메모리                                                      |
-| InMemoryRecovery_Memory                | 현재 사용되지 않음                                                                            |
-| Latch                                  | Latch에서 사용되는 관리자용 메모리                                                            |
-| Legacy_Transaction_Manager             | Legacy 트랜잭션 정보를 관리하기 위해 사용되는 메모리                                          |
-| LOG_Memory                             | 현재 사용되지 않음                                                                            |
-| Main_Module_CDBC_CONDITIONBUF_MEMPOOL  | 현재 사용되지 않음                                                                            |
-| Main_Module_CDBC_CURSORDATA_MEMPOOL    | 현재 사용되지 않음                                                                            |
-| Main_Module_CDBC_MAIN                  | 현재 사용되지 않음                                                                            |
-| Main_Module_CDBC_QP                    | 현재 사용되지 않음                                                                            |
-| Main_Module_CDBC_STATE_MEMPOOL         | 현재 사용되지 않음                                                                            |
-| Main_Module_Channel                    | Altibase 메인 모듈에 의해 사용되는 메모리                                                     |
-| Main_Module_DirectAttach               | 현재 사용되지 않음                                                                            |
-| Main_Module_Distributed                | XA 관리를 위해 사용되는 메모리                                                                |
-| Main_Module_Queue                      | 큐를 위해 사용되는 메모리                                                                     |
-| Main_Module_Thread                     | 쓰레드 관리를 위해 사용되는 메모리                                                            |
-| Main_Module_Utility                    | 현재 사용되지 않음                                                                            |
-| Mathematics                            | 다양한 종류의 수학 연산을 위해 사용되는 메모리                                                |
-| MMAP                                   | mmap 시스템 콜로 할당받아 온 메모리                                                           |
-| Mutex                                  | Mutax 관리자용 메모리                                                                         |
-| OS_Independent                         | 현재 사용되지 않음                                                                            |
-| Process_ThreadInfo                     | 현재 사용되지 않음                                                                            |
-| Profile_Manager                        | 프로파일 관리자에 의해 사용되는 메모리                                                        |
-| Query_Binding                          | 호스트 변수 바인딩에 사용되는 메모리                                                          |
-| Query_Common                           | 기타 다른 목적으로 사용되는 메모리                                                            |
-| Query_Common_Remote_Call               | 현재 사용되지 않음                                                                            |
-| Query_Conversion                       | 현재 사용되지 않음                                                                          |
-| Query_DML                              | DML 구문 실행을 위해 사용되는 메모리                                                          |
-| Query_Execute                          | 쿼리 실행시 사용되는 메모리                                                                   |
-| Query_Execute_Cache                    | Deterministic 함수 결과의 캐시를 위해 사용되는 메모리                                         |
-| Query_Result_Cache                             | Result 결과의 캐시를 위해 사용되는 메모리                          |
-| Query_Meta                             | 서버 동작 중에 사용되는 캐시된 메타 정보 관리를 위해 사용되는 메모리                          |
-| Query_Prepare                          | 실행을 위해 쿼리를 prepare하는데 사용되는 메모리                                              |
-| Query_PSM_Concurrent_Execute           | DBMS_CONCURRENT_EXEC 패키지를 실행하기 위해 사용되는 메모리                                   |
-| Query_PSM_Execute                      | PSM (Persistent Stored Module) 실행을 위해 사용되는 메모리                                    |
-| Query_PSM_Node                         | PSM에서 연관 배열을 위해 사용되는 메모리                                                      |
-| Query_Sequence                         | 시퀀스 관리를 위해 사용되는 메모리                                                            |
-| Query_Transaction                      | 트리거 실행을 위해 사용되는 메모리                                                            |
-| Remote_Call_Client                     | 현재 사용되지 않음                                                                            |
-| Remote_Call_Server                     | 현재 사용되지 않음                                                                            |
-| Replication_Common                     | 현재 사용되지 않음                                                                            |
-| Replication_Control                    | 이중화 관리자에 의해 사용되는 메모리                                                          |
-| Replication_Data                       | XLog 처리에 사용되는 메모리                                                                   |
-| Replication_Executor                   | 현재 사용되지 않음                                                                            |
-| Replication_Met                        | 메타 캐시에 의해 사용되는 메모리                                                              |
-| Replication_Module_Property            | 현재 사용되지 않음                                                                            |
-| Replication_Network                    | 이중화를 위한 통신에 사용되는 메모리                                                          |
-| Replication_Receiver                   | 이중화 수신자에 의해 사용되는 메모리                                                          |
-| Replication_Recovery                   | 이중화를 이용한 복구 수행시 사용되는 메모리                                                   |
-| Replication_Sender                     | 이중화 송신자에 의해 사용되는 메모리                                                          |
-| Replication_Storage                    | XLog를 적용하는데 사용되는 메모리                                                             |
-| Replication_Sync                       | 이중화에서 동기화를 위해 사용되는 메모리                                                      |
-| RESERVED                               | TLSF 메모리 관리자 사용시 할당받았으나 아직 분배하지 않은 영역                                |
-| Socket_Manager                         | 현재 사용되지 않음                                                                            |
-| SQL Plan Cache Control                 | SQL Plan Cache 실행 시 사용되는 메모리                                                        |
-| Storage_DataPort                       | DataPort 실행 시 사용되는 메모리                                                              |
-| Storage_Disk_Buffer                    | 디스크 버퍼 관리자에 의해 사용되는 메모리                                                     |
-| Storage_Disk_Collection                | 디스크 테이블에 대한 Direct-Path INSERT와 LOB 연산에 사용되는 메모리                          |
-| Storage_Disk_Datafile                  | I/O 버퍼와 데이터 파일 노드 생성 같은 데이터 파일 관리 작업에 사용되는 메모리                 |
-| Storage_Disk_Index                     | 디스크 인덱스 관리에 사용되는 메모리                                                          |
-| Storage_Disk_Page                      | 디스크 LOB 세그먼트 descriptor와 디스크 테이블 페이지 리스트 뮤텍스 할당에 사용되는 메모리    |
-| Storage_Disk_Recovery                  | 디스크 데이터베이스의 일관성 보장을 위해 사용되는 메모리                                      |
-| Storage_Disk_SecondaryBuffer           | 보조 디스크 버퍼 관리자에 의해 사용되는 메모리                                                |
-| Storage_Global_Memory_Manager          | 현재 사용되지 않음                                                                            |
-| Storage_Memory_Ager                    | 가비지 콜렉터와 데이터베이스 정제 (refining) 쓰레드가 사용하는 메모리                         |
-| Storage_Memory_Collection              | 메모리 테이블의 레코드 관리를 위해 사용되는 메모리                                            |
-| Storage_Memory_Index                   | 메모리 인덱스 관리를 위해 사용되는 메모리                                                     |
-| Storage_Memory_Interface               | 스토리지 모듈 인터페이스 레벨에서 사용되는 메모리                                             |
-| Storage_Memory_Locking                 | 테이블과 테이블스페이스 잠금에 사용되는 메모리                                                |
-| Storage_Memory_Logical_Ager            | 현재 사용되지 않음                                                                            |
-| Storage_Memory_Manager                 | 메모리 데이터가 실제로 저장되는 메모리                                                        |
-| Storage_Memory_Page                    | 메모리 페이지 관리를 위해 사용되는 메모리                                                     |
-| Storage_Memory_Recovery                | 복구 수행을 위해 사용되는 메모리                                                              |
-| Storage_Memory_Recovery_Archive_Thread | 현재 사용되지 않음                                                                            |
-| Storage_Memory_Recovery_Chkpt_Thread   | 현재 사용되지 않음                                                                            |
-| Storage_Memory_Recovery_LFG_Thread     | 현재 사용되지 않음                                                                            |
-| Storage_Memory_Transaction             | 트랜잭션 정보를 관리하기 위해 사용되는 메모리                                                 |
-| Storage_Memory_Utility                 | 스토리티 관리자 툴이 이용될 때 사용되는 메모리                                                |
-| Storage_Tablespace                     | 테이블스페이스 노드를 관리하고 할당하는데 사용되는 메모리                                     |
-| SYSTEM                                 | malloc 함수를 이용하여 운영체제에서 직접 할당받은 메모리                                      |
-| Tablespace Free Extent Pool            | 테이블스페이스의 free 익스텐트 풀을 관리하기 위해 사용되는 메모리                             |
-| Temp_Memory                            | 임시 공간 할당시 사용되는 메모리                                                              |
-| Thread_Stack                           | 쓰레드가 생성될 때 쓰레드 스택용으로 사용하는 메모리                                          |
-| Timer_Manager                          | 시스템 시간 확인 시 타이머 쓰레드를 사용하는 타이머 관리자를 위한 메모리                      |
-| Transaction_DiskPage_Touched_List      | 트랜잭션에 의해 영향을 받은 디스크 데이터 페이지를 관리하기 위해 사용되는 메모리              |
-| Transaction_OID_List                   | 메모리 데이터베이스의 OID (객체 식별자) 리스트를 만드는 데 사용되는 메모리                    |
-| Transaction_Private_Buffer             | 현재 사용되지 않음                                                                            |
-| Transaction_Segment_Table              | 언두 세그먼트와 TSS (Transaction Status Slots)을 관리하는데 사용되는 메모리                   |
-| Transaction_Table                      | 트랜잭션 객체를 할당하는데 사용되는 메모리                                                    |
-| Transaction_Table_Info                 | 트랜잭션에 의해 변경되는 테이블 정보를 관리하는데 사용되는 메모리                             |
-| Utility_Module                         | 현재 사용되지 않음                                                                            |
-| Volatile_Log_Buffer                    | 휘발성 로그 버퍼 메모리                                                                       |
-| Volatile_Memory_Manager                | 휘발성 메모리 데이터를 저장하는 메모리                                                        |
-| Volatile_Memory_Page                   | 휘발성 메모리 페이지를 관리하는데 사용되는 메모리                                             |
-| WATCHDOG                               | 현재 사용되지 않음                                                                            |
+| CM_Buffer                              | 통신(TCP, Unix Domain 소켓, IPC, IPCDA)을 위해 사용된 버퍼 메모리 |
+| CM_DataType                            | 큰 패킷을 송수신하는데 사용되는 메모리                       |
+| CM_Interface                           | CM Interface에서 사용되는 메모리                             |
+| CM_Multiplexing                        | 통신을 위한 세션 정보 저장을 위해 사용되는 메모리            |
+| CM_NetworkInterface                    | 각 통신 노드에 대한 정보를 저장하기 위해 사용되는 메모리     |
+| Condition_Variable                     | 다중 쓰레드 제어를 위한 condition variables를 관리하는데 사용되는 메모리 |
+| DatabaseLink                           | 데이터베이스 링크에 의해 사용되는 메모리                     |
+| Disaster_recovery                      | 재해 복구에서 사용되는 메모리                                |
+| Disaster_recovery_Control              | 재해 복구의 역할 관리자가 사용하는 메모리                    |
+| Disaster_recovery_Executor             | 재해 복구관련 실행시 사용되는 메모리                         |
+| Disaster_recovery_Storage              | 현재 사용되지 않음                                           |
+| Dynamic Module Loader                  | 공유 라이브러리 로딩시 사용되는 메모리                       |
+| External_Procedure                     | 익스터널 프로시저에서 사용되는 메모리                        |
+| External_Procedure_Agent               | 익스터널 프로시저 에이전트에서 사용되는 메모리               |
+| Fixed_Table                            | 고정(Fixed) 테이블에서 사용되는 메모리                       |
+| GIS_DataType                           | GIS 데이터를 처리하는데 사용되는 메모리                      |
+| GIS_Disk_Index                         | GIS 데이터를 위한 디스크 공간 인덱스를 관리하는데 사용되는 메모리 |
+| GIS_Function                           | 공간 관련 계산에 사용되는 메모리                             |
+| GIS_TEMP_MEMORY                        | R-tree 인덱스 생성에 사용되는 메모리                         |
+| IDU_MEM_OTHER                          | 기타 용도                                                    |
+| Index_Memory                           | 인덱스 정보를 관리하는데 사용되는 메모리                     |
+| InMemoryRecovery_Memory                | 현재 사용되지 않음                                           |
+| Latch                                  | Latch에서 사용되는 관리자용 메모리                           |
+| Legacy_Transaction_Manager             | Legacy 트랜잭션 정보를 관리하기 위해 사용되는 메모리         |
+| LOG_Memory                             | 현재 사용되지 않음                                           |
+| Main_Module_CDBC_CONDITIONBUF_MEMPOOL  | 현재 사용되지 않음                                           |
+| Main_Module_CDBC_CURSORDATA_MEMPOOL    | 현재 사용되지 않음                                           |
+| Main_Module_CDBC_MAIN                  | 현재 사용되지 않음                                           |
+| Main_Module_CDBC_QP                    | 현재 사용되지 않음                                           |
+| Main_Module_CDBC_STATE_MEMPOOL         | 현재 사용되지 않음                                           |
+| Main_Module_Channel                    | Altibase 메인 모듈에 의해 사용되는 메모리                    |
+| Main_Module_DirectAttach               | 현재 사용되지 않음                                           |
+| Main_Module_Distributed                | XA 관리를 위해 사용되는 메모리                               |
+| Main_Module_Queue                      | 큐를 위해 사용되는 메모리                                    |
+| Main_Module_Thread                     | 쓰레드 관리를 위해 사용되는 메모리                           |
+| Main_Module_Utility                    | 현재 사용되지 않음                                           |
+| Mathematics                            | 다양한 종류의 수학 연산을 위해 사용되는 메모리               |
+| MMAP                                   | mmap 시스템 콜로 할당받아 온 메모리                          |
+| Mutex                                  | Mutax 관리자용 메모리                                        |
+| OS_Independent                         | 현재 사용되지 않음                                           |
+| Process_ThreadInfo                     | 현재 사용되지 않음                                           |
+| Profile_Manager                        | 프로파일 관리자에 의해 사용되는 메모리                       |
+| Query_Binding                          | 호스트 변수 바인딩에 사용되는 메모리                         |
+| Query_Common                           | 기타 다른 목적으로 사용되는 메모리                           |
+| Query_Common_Remote_Call               | 현재 사용되지 않음                                           |
+| Query_Conversion                       | 현재 사용되지 않음                                           |
+| Query_DML                              | DML 구문 실행을 위해 사용되는 메모리                         |
+| Query_Execute                          | 쿼리 실행시 사용되는 메모리                                  |
+| Query_Execute_Cache                    | Deterministic 함수 결과의 캐시를 위해 사용되는 메모리        |
+| Query_Result_Cache                     | Result 결과의 캐시를 위해 사용되는 메모리                    |
+| Query_Meta                             | 서버 동작 중에 사용되는 캐시된 메타 정보 관리를 위해 사용되는 메모리 |
+| Query_Prepare                          | 실행을 위해 쿼리를 prepare하는데 사용되는 메모리             |
+| Query_PSM_Concurrent_Execute           | DBMS_CONCURRENT_EXEC 패키지를 실행하기 위해 사용되는 메모리  |
+| Query_PSM_Execute                      | PSM (Persistent Stored Module) 실행을 위해 사용되는 메모리   |
+| Query_PSM_Node                         | PSM에서 연관 배열을 위해 사용되는 메모리                     |
+| Query_PSM_VARRAY                       | PSM에서 VARRAY를 위해 사용되는 메모                          |
+| Query_Sequence                         | 시퀀스 관리를 위해 사용되는 메모리                           |
+| Query_Transaction                      | 트리거 실행을 위해 사용되는 메모리                           |
+| Remote_Call_Client                     | 현재 사용되지 않음                                           |
+| Remote_Call_Server                     | 현재 사용되지 않음                                           |
+| Replication_Common                     | 현재 사용되지 않음                                           |
+| Replication_Control                    | 이중화 관리자에 의해 사용되는 메모리                         |
+| Replication_Data                       | XLog 처리에 사용되는 메모리                                  |
+| Replication_Executor                   | 현재 사용되지 않음                                           |
+| Replication_Met                        | 메타 캐시에 의해 사용되는 메모리                             |
+| Replication_Module_Property            | 현재 사용되지 않음                                           |
+| Replication_Network                    | 이중화를 위한 통신에 사용되는 메모리                         |
+| Replication_Receiver                   | 이중화 수신자에 의해 사용되는 메모리                         |
+| Replication_Recovery                   | 이중화를 이용한 복구 수행시 사용되는 메모리                  |
+| Replication_Sender                     | 이중화 송신자에 의해 사용되는 메모리                         |
+| Replication_Storage                    | XLog를 적용하는데 사용되는 메모리                            |
+| Replication_Sync                       | 이중화에서 동기화를 위해 사용되는 메모리                     |
+| RESERVED                               | TLSF 메모리 관리자 사용시 할당받았으나 아직 분배하지 않은 영역 |
+| Socket_Manager                         | 현재 사용되지 않음                                           |
+| SQL Plan Cache Control                 | SQL Plan Cache 실행 시 사용되는 메모리                       |
+| Storage_DataPort                       | DataPort 실행 시 사용되는 메모리                             |
+| Storage_Disk_Buffer                    | 디스크 버퍼 관리자에 의해 사용되는 메모리                    |
+| Storage_Disk_Collection                | 디스크 테이블에 대한 Direct-Path INSERT와 LOB 연산에 사용되는 메모리 |
+| Storage_Disk_Datafile                  | I/O 버퍼와 데이터 파일 노드 생성 같은 데이터 파일 관리 작업에 사용되는 메모리 |
+| Storage_Disk_Index                     | 디스크 인덱스 관리에 사용되는 메모리                         |
+| Storage_Disk_Page                      | 디스크 LOB 세그먼트 descriptor와 디스크 테이블 페이지 리스트 뮤텍스 할당에 사용되는 메모리 |
+| Storage_Disk_Recovery                  | 디스크 데이터베이스의 일관성 보장을 위해 사용되는 메모리     |
+| Storage_Disk_SecondaryBuffer           | 보조 디스크 버퍼 관리자에 의해 사용되는 메모리               |
+| Storage_Global_Memory_Manager          | 현재 사용되지 않음                                           |
+| Storage_Memory_Ager                    | 가비지 콜렉터와 데이터베이스 정제 (refining) 쓰레드가 사용하는 메모리 |
+| Storage_Memory_Collection              | 메모리 테이블의 레코드 관리를 위해 사용되는 메모리           |
+| Storage_Memory_Index                   | 메모리 인덱스 관리를 위해 사용되는 메모리                    |
+| Storage_Memory_Interface               | 스토리지 모듈 인터페이스 레벨에서 사용되는 메모리            |
+| Storage_Memory_Locking                 | 테이블과 테이블스페이스 잠금에 사용되는 메모리               |
+| Storage_Memory_Logical_Ager            | 현재 사용되지 않음                                           |
+| Storage_Memory_Manager                 | 메모리 데이터가 실제로 저장되는 메모리                       |
+| Storage_Memory_Page                    | 메모리 페이지 관리를 위해 사용되는 메모리                    |
+| Storage_Memory_Recovery                | 복구 수행을 위해 사용되는 메모리                             |
+| Storage_Memory_Recovery_Archive_Thread | 현재 사용되지 않음                                           |
+| Storage_Memory_Recovery_Chkpt_Thread   | 현재 사용되지 않음                                           |
+| Storage_Memory_Recovery_LFG_Thread     | 현재 사용되지 않음                                           |
+| Storage_Memory_Transaction             | 트랜잭션 정보를 관리하기 위해 사용되는 메모리                |
+| Storage_Memory_Utility                 | 스토리티 관리자 툴이 이용될 때 사용되는 메모리               |
+| Storage_Tablespace                     | 테이블스페이스 노드를 관리하고 할당하는데 사용되는 메모리    |
+| SYSTEM                                 | malloc 함수를 이용하여 운영체제에서 직접 할당받은 메모리     |
+| Tablespace Free Extent Pool            | 테이블스페이스의 free 익스텐트 풀을 관리하기 위해 사용되는 메모리 |
+| Temp_Memory                            | 임시 공간 할당시 사용되는 메모리                             |
+| Thread_Stack                           | 쓰레드가 생성될 때 쓰레드 스택용으로 사용하는 메모리         |
+| Timer_Manager                          | 시스템 시간 확인 시 타이머 쓰레드를 사용하는 타이머 관리자를 위한 메모리 |
+| Transaction_DiskPage_Touched_List      | 트랜잭션에 의해 영향을 받은 디스크 데이터 페이지를 관리하기 위해 사용되는 메모리 |
+| Transaction_OID_List                   | 메모리 데이터베이스의 OID (객체 식별자) 리스트를 만드는 데 사용되는 메모리 |
+| Transaction_Private_Buffer             | 현재 사용되지 않음                                           |
+| Transaction_Segment_Table              | 언두 세그먼트와 TSS (Transaction Status Slots)을 관리하는데 사용되는 메모리 |
+| Transaction_Table                      | 트랜잭션 객체를 할당하는데 사용되는 메모리                   |
+| Transaction_Table_Info                 | 트랜잭션에 의해 변경되는 테이블 정보를 관리하는데 사용되는 메모리 |
+| Utility_Module                         | 현재 사용되지 않음                                           |
+| Volatile_Log_Buffer                    | 휘발성 로그 버퍼 메모리                                      |
+| Volatile_Memory_Manager                | 휘발성 메모리 데이터를 저장하는 메모리                       |
+| Volatile_Memory_Page                   | 휘발성 메모리 페이지를 관리하는데 사용되는 메모리            |
+| WATCHDOG                               | 현재 사용되지 않음                                           |
 
 ##### ALLOC_SIZE
 
