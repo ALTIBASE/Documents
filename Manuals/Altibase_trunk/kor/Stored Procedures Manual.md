@@ -162,7 +162,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [사용자 정의 타입의 정의](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85%EC%9D%98-%EC%A0%95%EC%9D%98)
   - [Associative Array 관련 함수](#associative-array-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
   - [VARRAY 관련 함수](#varray-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
-  - [RECORD 타입 변수 및 Associative Array변수의 사용](#record-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98-%EB%B0%8F-associative-array%EB%B3%80%EC%88%98%EC%9D%98-%EC%82%AC%EC%9A%A9)
+  - [저장 프로시저내에서 사용자 정의 타입 변수의 사용](#저장-프로시저내에서-사용자-정의-타입-변수의-사용)
   - [REF CURSOR](#ref-cursor)
 - [7.타입 세트](#7%ED%83%80%EC%9E%85-%EC%84%B8%ED%8A%B8)
   - [개요](#%EA%B0%9C%EC%9A%94-3)
@@ -282,8 +282,8 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     설명한다.
 
 -   제 6장 사용자 정의 타입  
-    이 장은 저장 프로시저 내에서 사용자 정의 타입인 record 및 associative
-    array의 정의 및 사용 방법에 대해 설명한다.
+    이 장은 저장 프로시저 내에서 사용자 정의 타입인 record, associative
+    array, VARRAY의 정의 및 사용 방법에 대해 설명한다.
 
 -   제 7장 타입 세트  
     이 장은 사용자 정의 타입의 집합인 타입 세트의 정의 및 사용 방법에 대해
