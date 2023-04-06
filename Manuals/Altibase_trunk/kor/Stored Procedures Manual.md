@@ -6368,9 +6368,11 @@ James                Stone
 Execute success
 ```
 
-다차원 VARRAY 타입 변수 예제
 
-예제
+
+#### 다차원 VARRAY 타입 변수 예제
+
+##### 예제
 
 고객 이름과 주문 번호를 저장하는 다차원 VARRAY 타입의 변수를 생성한다.
 
