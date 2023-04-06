@@ -7635,7 +7635,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Query_PSM_Concurrent_Execute           | DBMS_CONCURRENT_EXEC 패키지를 실행하기 위해 사용되는 메모리  |
 | Query_PSM_Execute                      | PSM (Persistent Stored Module) 실행을 위해 사용되는 메모리   |
 | Query_PSM_Node                         | PSM에서 연관 배열을 위해 사용되는 메모리                     |
-| Query_PSM_VARRAY                       | PSM에서 VARRAY를 위해 사용되는 메모                          |
+| Query_PSM_VARRAY                       | PSM에서 VARRAY를 위해 사용되는 메모리                        |
 | Query_Sequence                         | 시퀀스 관리를 위해 사용되는 메모리                           |
 | Query_Transaction                      | 트리거 실행을 위해 사용되는 메모리                           |
 | Remote_Call_Client                     | 현재 사용되지 않음                                           |

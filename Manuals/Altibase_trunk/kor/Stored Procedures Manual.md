@@ -161,6 +161,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [개요](#%EA%B0%9C%EC%9A%94-2)
   - [사용자 정의 타입의 정의](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85%EC%9D%98-%EC%A0%95%EC%9D%98)
   - [Associative Array 관련 함수](#associative-array-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
+  - [VARRAY 관련 함수](#varray-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
   - [RECORD 타입 변수 및 Associative Array변수의 사용](#record-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98-%EB%B0%8F-associative-array%EB%B3%80%EC%88%98%EC%9D%98-%EC%82%AC%EC%9A%A9)
   - [REF CURSOR](#ref-cursor)
 - [7.타입 세트](#7%ED%83%80%EC%9E%85-%EC%84%B8%ED%8A%B8)
@@ -2301,7 +2302,7 @@ SELECT 절의 *select_list*와 INTO 절의 상응하는 *variable_name*은 개�
 
 -   array_record_name  
     SELECT 문이 반환하는 레코드들을 저장할 RECORD 타입의 associative array
-    변수 또는 VARRAY 변를 지정한다.
+    변수 또는 VARRAY 변수를 지정한다.
 
 -   array_variable_name  
     SELECT 리스트의 각 칼럼에 대해 배열 변수를 지정한다. 각 배열 변수의 데이터
@@ -2614,7 +2615,7 @@ PSM 변수의 타입은 대응하는 expr의 타입과 호환되어야 한다.
 있다.
 
 -   array_record_name  
-    RECORD 타입의 associative array 변수 또는 VARRAY 변를 지정한다.
+    RECORD 타입의 associative array 변수 또는 VARRAY 변수를 지정한다.
 
 -   array_variable_name  
     expr 리스트의 각 칼럼에 대응하는 배열 변수를 지정한다. 각 배열 변수의 데이터
@@ -5507,7 +5508,7 @@ ENO         E_FIRSTNAME           E_LASTNAME
 ### 개요
 
 사용자 정의 타입인 RECORD 타입, Associative Arrays, VARRAY는 데이터를 논리적 단위로
-구성하여 처리하는 기능을 제공한다. 이들 타입은 저장 프로시저나 함수의 인자 또는 리턴 타입으로 사용될 수 있다. 하지만, 클라이언트로는 해당 타입의 값을 전송할 수 없다. 현재 precompiler(apre)에서 제한적으로 Associative Array와 VARRAY 는 지원한다.)
+구성하여 처리하는 기능을 제공한다. 이들 타입은 저장 프로시저나 함수의 인자 또는 리턴 타입으로 사용될 수 있다. 하지만, 클라이언트로는 해당 타입의 값을 전송할 수 없다. 현재 precompiler(apre)에서 제한적으로 Associative Array와 VARRAY 는 지원한다.
 
 #### RECORD타입
 
@@ -5529,7 +5530,9 @@ Associative Array는 해시 테이블과 유사하다. Associative Array는 키-
 다음의 문법으로 접근할 수 있다.
 
 ```
-variable_name[index] 또는 variable_name(index)
+variable_name[index] 
+또는
+variable_name(index)
 ```
 
 키 (*index*)의 데이터 타입은 INTEGER 또는 VARCHAR이어야 한다. Associative
@@ -5548,7 +5551,9 @@ Associative Array변수의 배열 요소 접근을 위해서는 다음과 같이
 
 #### VARRAY
 
-VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입이다. VARRAY의 키(index)는 INTEGER 타입이며, 타입을 선언할 때 설정한 size 만큼 사용할 수 있다. 키는 1부터 시작하며 최대 2,147,483,647개까지 설정할 수 있다.
+VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입이다.
+
+VARRAY의 키(index)는 INTEGER 타입이며, 타입을 선언할 때 설정한 size 만큼 사용할 수 있다. 키는 1부터 시작하며 최대 2,147,483,647개까지 설정할 수 있다.
 
 각 VARRAY 변수마다 VARRAY_MEMORY_MAXIMUM 프로퍼티로 설정한 메모리 크기 내에서 사용할 수 있다. 프로퍼티에 대한 자세한 정보는 *General Reference*를 참고 한다.
 
@@ -5562,15 +5567,11 @@ variable_name := type_name( );
 variable_name := type_name( 초기값1, 초기값2, ..., 초기값*N* );
 ```
 
-초기화를 한 다음 확장을 통해서 사용할 공간을 확보해야 한다. 확장은 1씩 할 수도 있고, 여러 개를 한 번에 확장할 수 있다.
+초기화를 한 다음 확장을 통해서 사용할 공간을 확보해야 한다. 확장은 1씩 할 수도 있고, 여러 개를 한 번에 확장할 수 있다. 변수를 확장하는 방법은 6장의 "VARRAY 관련 함수" 절의 EXTEND 함수를 참고한다.
 
-변수를 확장하는 방법은 6장의 "Array 관련 함수" 절의 EXTEND 함수를 참고한다.
+VARRAY 변수를 BULK COLLECT절에 사용하는 경우는 초기화 및 확장을 하지 않고 사용할 수 있다. BULK COLLECT 절에서 VARRAY 타입 변수를 사용한 예제는 6장의 "저장 프로시저내에서 사용자 정의 타입 변수의 사용"에서 VARRAY 타입 예제을 참고 한다.
 
-VARRAY 변수를 BULK COLLECT절에 사용하는 경우는 초기화 및 확장을 하지 않고 사용할 수 있다.
-
-VARRAY 변수의 배열 요소 접근 방법은 Associative Array와 동일하다.
-
-VARRAY 변수는 ARRAY 중간의 요소를 삭제할 수 없다. VARRAY 변수는 전체를 삭제하거나, 제일 마지막 요소부터 삭제할 수 있다. 배열 요소의 삭제 방법은 6장의 "Array 관련 함수" 절의 TRIM 함수와 DELETE 함수를 참고한다.
+VARRAY 변수의 배열 요소 접근 방법은 Associative Array와 동일하다. 차이점은 VARRAY 변수는 ARRAY 중간의 요소를 삭제할 수 없다. VARRAY 변수는 전체를 삭제하거나, 제일 마지막 요소부터 삭제할 수 있다. 배열 요소의 삭제 방법은 6장의 "VARRAY 관련 함수" 절의 TRIM 함수와 DELETE 함수를 참고한다.
 
 #### REF CURSOR (커서 변수)
 
@@ -5721,7 +5722,7 @@ TRUE를 그렇지 않으면 FALSE를 반환한다.
 ##### NEXT
 
 NEXT(n)은 n의 다음 index번호를 반환한다. VARCHAR 키를 갖는 배열의 경우, 키
-문자열들을 바이너리 값 기준으로 정렬하여 바로 다음 키 값을 반환한다. 가장 다음
+문자열들을 바이너리 값 기준으로 정렬하여 바로 다음 키 값을 반환한다. 다음
 index가 없으면 NULL을 반환한다.
 
 ##### PRIOR
@@ -5848,11 +5849,11 @@ V1 IDX IS : 38 VALUE IS : 3
 Execute success.
 ```
 
-### Varray 관련 함수
+### VARRAY 관련 함수
 
 #### 구문
 
-![associative_array](media/StoredProcedure/varray_method.jpg)
+![associative_array](media/StoredProcedure/varray_method.gif)
 
 #### 기능
 
@@ -5862,11 +5863,15 @@ VARRAY 변수의 배열 요소 관리를 위한 여러가지 함수를 제공한
 
 VARRAY의 구성 요소의 개수를 반환한다.
 
+##### DELETE
+
+DELETE()는 VARRAY의 모든 구성 요소를 제거하고 제거된 구성 요소의 개수를 반환한다.
+
 ##### LIMIT
 
 VARRAY의 최대 구성 요소의 개수를 반환한다. 최대 구성 요소의 개수는 VARRAY 타입을 정의할 때 지정한 size이다.
 
-#### EXTEND
+##### EXTEND
 
 VARRAY변수를 최대 구성 요소 개수 내에서 확장하고, 확장한 구성 요소의 개수를 반환한다. 최대 구성 요소 개수를 넘으면 오류를 반환한다.
 
@@ -5876,7 +5881,7 @@ EXTEND(n)은 VARRAY 변수를 n 확장한다.
 
 EXTEND(m, n)은 VARRAY 변수를 m확장하면서 n번째 요소를 복제한다.
 
-#### TRIM
+##### TRIM
 
 VARRAY변수의 마지막부터 구성 요소를 제거하고 제거된 구성 요소의 개수를 반환한다.
 
@@ -5886,30 +5891,23 @@ TRIM(n)은 VARRAY 변수의 마지막 n개의 구성 요소를 제거한다.
 
 ##### EXISTS
 
-EXISTS(n) 은 n에 해당하는 구성 요소가 존재하는지 검사해서 존재하면 boolean 값
-TRUE를 그렇지 않으면 FALSE를 반환한다.
+EXISTS(n) 은 n에 해당하는 구성 요소가 존재하는지 검사하여, 존재하면 boolean 값 TRUE를 그렇지 않으면 FALSE를 반환한다.
 
 ##### FIRST
 
-정수 값으로 색인화된 경우, 가장 작은 index번호를 반환한다. 문자열로 색인화된
-경우, 가장 낮은 키 값을 반환한다. 구성 요소가 하나도 없으면 NULL을 반환한다.
+VARRAY 변수의 경우 항상 1을 반환한다. 다만, 구성 요소가 하나도 없으면 NULL을 반환한다.
 
 ##### LAST
 
-정수 값으로 색인화된 경우, 가장 큰 index번호를 반환한다. 문자열로 색인화된 경우,
-가장 높은 키 값을 반환한다. 구성 요소가 하나도 없으면 NULL을 반환한다.
+VARRAY 변수의 경우 가장 큰 index번호를 반환하는데, 이는 구성요소의 개수와 동일하다. 다만, 구성 요소가 하나도 없으면 NULL을 반환한다.
 
 ##### NEXT
 
-NEXT(n)은 n의 다음 index번호를 반환한다. VARCHAR 키를 갖는 배열의 경우, 키
-문자열들을 바이너리 값 기준으로 정렬하여 바로 다음 키 값을 반환한다. 가장 다음
-index가 없으면 NULL을 반환한다.
+NEXT(n)은 n의 다음 index번호를 반환한다. 다음 index가 없으면 NULL을 반환한다.
 
 ##### PRIOR
 
-PRIOR(n)은 n의 이전 index번호를 반환한다. VARCHAR 키를 갖는 배열의 경우, 키
-문자열들을 바이너리 값 기준으로 정렬하여 바로 앞의 키 값을 반환한다. 이전
-index가 없으면 NULL을 반환한다.
+PRIOR(n)은 n의 이전 index번호를 반환한다. 이전 index가 없으면 NULL을 반환한다.
 
 #### 예제
 
