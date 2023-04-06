@@ -15122,6 +15122,12 @@ queue.
 
 **Action:** Create queue table in memory tablespace or volatile tablespace.
 
+**0x314B4 ( 201908) qpERR_ABORT_QSX_VARRAY_INDEX_OVERFLOW_LIMIT VARRAY limit overflow.**
+
+**Cause** : The number of elements in VARRAY exceeds the maximum limit.
+
+**Action** : Check the VARRAY limit and the number of elements in VARRAY.
+
 ### RETRY
 
 **0x331FE ( 209406) qpERR_REBUILD_QMX_TOO_OLD_PLANTREE The plan tree is too

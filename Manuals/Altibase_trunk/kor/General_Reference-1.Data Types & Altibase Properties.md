@@ -4381,8 +4381,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       	<td>PASSWORD_VERIFY_FUNCTION</td>
       </tr>
       <tr>
-          <td rowspan="27">E</td>
-          <td rowspan="27"></td>
+          <td rowspan="28">E</td>
+          <td rowspan="28"></td>
           <td>ACCESS_LIST</td>
           <td rowspan="2"></td>
       </tr>
@@ -4479,6 +4479,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
       <tr>
       	<td>SERIAL_EXECUTE_MODE</td>
           <td>BOTH</td>
+      </tr>
+      <tr>
+      	<td>VARRAY_MEMORY_MAXIMUM</td>
+          <td>SYSTEM</td>
       </tr>
       <tr>
   </table>
@@ -16969,3 +16973,29 @@ PCRE2 호환 모드.
 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리의 정규 표현식 문법을 지원한다.
 
 이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
+
+#### VARRAY_MEMORY_MAXIMUM
+
+##### 데이터 타입
+
+Unsigned Long
+
+##### 기본값
+
+209715200 (200M)
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[1048576, 2<sup>64</sup>-1]
+
+##### 설명
+
+VARRAY 변수 하나 당 사용할 수 있는 메모리의 양을 제한하기 위한 프로퍼티이다. 
+
+VARRAY 변수를 확장할 때 메모리 사용량이 증가할 수 있으며, 확장 도중 메모리 사용량을 초과하면 오류가 발생한다.
+
+Altibase 운영 중 ALTER SYSTEM문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.

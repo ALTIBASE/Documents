@@ -161,7 +161,8 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [개요](#%EA%B0%9C%EC%9A%94-2)
   - [사용자 정의 타입의 정의](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%ED%83%80%EC%9E%85%EC%9D%98-%EC%A0%95%EC%9D%98)
   - [Associative Array 관련 함수](#associative-array-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
-  - [RECORD 타입 변수 및 Associative Array변수의 사용](#record-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98-%EB%B0%8F-associative-array%EB%B3%80%EC%88%98%EC%9D%98-%EC%82%AC%EC%9A%A9)
+  - [VARRAY 관련 함수](#varray-%EA%B4%80%EB%A0%A8-%ED%95%A8%EC%88%98)
+  - [저장 프로시저내에서 사용자 정의 타입 변수의 사용](#저장-프로시저내에서-사용자-정의-타입-변수의-사용)
   - [REF CURSOR](#ref-cursor)
 - [7.타입 세트](#7%ED%83%80%EC%9E%85-%EC%84%B8%ED%8A%B8)
   - [개요](#%EA%B0%9C%EC%9A%94-3)
@@ -281,8 +282,8 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     설명한다.
 
 -   제 6장 사용자 정의 타입  
-    이 장은 저장 프로시저 내에서 사용자 정의 타입인 record 및 associative
-    array의 정의 및 사용 방법에 대해 설명한다.
+    이 장은 저장 프로시저 내에서 사용자 정의 타입인 record, associative
+    array, VARRAY의 정의 및 사용 방법에 대해 설명한다.
 
 -   제 7장 타입 세트  
     이 장은 사용자 정의 타입의 집합인 타입 세트의 정의 및 사용 방법에 대해
@@ -2005,7 +2006,7 @@ max_val CONSTANT integer := 100;
 
 지역 변수의 NOCOPY옵션은 매개 변수의 NOCOPY옵션의 동작과 동일하다. 즉, 변수를
 선언할 때 NOCOPY옵션을 명시하면 값이 변수에 할당될 때 주소만 복사된다.
-NOCOPY옵션은 ASSOCIATIVE ARRAY구조의 하위 배열에 접근할 때 사용된다.
+NOCOPY옵션은 ASSOCIATIVE ARRAY 또는 VARRAY 구조의 하위 배열에 접근할 때 사용된다.
 
 ##### DEFAULT
 
@@ -2301,7 +2302,7 @@ SELECT 절의 *select_list*와 INTO 절의 상응하는 *variable_name*은 개�
 
 -   array_record_name  
     SELECT 문이 반환하는 레코드들을 저장할 RECORD 타입의 associative array
-    변수를 지정한다.
+    변수 또는 VARRAY 변수를 지정한다.
 
 -   array_variable_name  
     SELECT 리스트의 각 칼럼에 대해 배열 변수를 지정한다. 각 배열 변수의 데이터
@@ -2614,7 +2615,7 @@ PSM 변수의 타입은 대응하는 expr의 타입과 호환되어야 한다.
 있다.
 
 -   array_record_name  
-    RECORD 타입의 associative array 변수를 지정한다.
+    RECORD 타입의 associative array 변수 또는 VARRAY 변수를 지정한다.
 
 -   array_variable_name  
     expr 리스트의 각 칼럼에 대응하는 배열 변수를 지정한다. 각 배열 변수의 데이터
@@ -5506,10 +5507,8 @@ ENO         E_FIRSTNAME           E_LASTNAME
 
 ### 개요
 
-사용자 정의 타입인 RECORD 타입 및 Associative Arrays는 데이터를 논리적 단위로
-구성하여 처리하는 기능을 제공한다. 또한 다른 저장 프로시저 또는 함수로부터
-호출되는 저장 프로시저 또는 함수의 인자 또는 리턴 타입으로 사용이 가능하다. 단,
-클라이언트로는 해당 타입의 값을 전송할 수 없다.
+사용자 정의 타입인 RECORD 타입, Associative Arrays, VARRAY는 데이터를 논리적 단위로
+구성하여 처리하는 기능을 제공한다. 이들 타입은 저장 프로시저나 함수의 인자 또는 리턴 타입으로 사용될 수 있다. 하지만, 클라이언트로는 해당 타입의 값을 전송할 수 없다. 현재 precompiler(apre)에서 제한적으로 Associative Array와 VARRAY 는 지원한다.
 
 #### RECORD타입
 
@@ -5531,7 +5530,9 @@ Associative Array는 해시 테이블과 유사하다. Associative Array는 키-
 다음의 문법으로 접근할 수 있다.
 
 ```
-variable_name[index] 또는 variable_name(index)
+variable_name[index] 
+또는
+variable_name(index)
 ```
 
 키 (*index*)의 데이터 타입은 INTEGER 또는 VARCHAR이어야 한다. Associative
@@ -5548,6 +5549,30 @@ Associative Array변수의 배열 요소 접근을 위해서는 다음과 같이
 
 예2) V2( 1 ) := 1;
 
+#### VARRAY
+
+VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입이다.
+
+VARRAY의 키(index)는 INTEGER 타입이며, 타입을 선언할 때 설정한 size 만큼 사용할 수 있다. 키는 1부터 시작하며 최대 2,147,483,647개까지 설정할 수 있다.
+
+각 VARRAY 변수마다 VARRAY_MEMORY_MAXIMUM 프로퍼티로 설정한 메모리 크기 내에서 사용할 수 있다. 프로퍼티에 대한 자세한 정보는 *General Reference*를 참고 한다.
+
+VARRAY의 선언 방법은 6장의 "사용자 정의 타입의 정의" 절을 참고한다.
+
+VARRAY 변수를 사용하려면 생성자를 통해서 초기화를 해야 한다. 아래와 같이 생성자로 변수를 초기화할 수 있다.
+
+```
+variable_name := type_name( ); 
+또는 
+variable_name := type_name( 초기값1, 초기값2, ..., 초기값*N* );
+```
+
+초기화를 한 다음 확장을 통해서 사용할 공간을 확보해야 한다. 확장은 1씩 할 수도 있고, 여러 개를 한 번에 확장할 수 있다. 변수를 확장하는 방법은 6장의 "VARRAY 관련 함수" 절의 EXTEND 함수를 참고한다.
+
+VARRAY 변수를 BULK COLLECT절에 사용하는 경우는 초기화 및 확장을 하지 않고 사용할 수 있다. BULK COLLECT 절에서 VARRAY 타입 변수를 사용한 예제는 6장의 "저장 프로시저내에서 사용자 정의 타입 변수의 사용"에서 VARRAY 타입 예제을 참고 한다.
+
+VARRAY 변수의 배열 요소 접근 방법은 Associative Array와 동일하다. 차이점은 VARRAY 변수는 ARRAY 중간의 요소를 삭제할 수 없다. VARRAY 변수는 전체를 삭제하거나, 제일 마지막 요소부터 삭제할 수 있다. 배열 요소의 삭제 방법은 6장의 "VARRAY 관련 함수" 절의 TRIM 함수와 DELETE 함수를 참고한다.
+
 #### REF CURSOR (커서 변수)
 
 커서 변수는 다중 레코드를 검색하는 동적 SQL문에서 사용할 수 있는 변수이다.
@@ -5556,6 +5581,8 @@ Associative Array변수의 배열 요소 접근을 위해서는 다음과 같이
 
 커서와 다른 점은 커서는 항상 선언시에 명시한 질의문만 참조할 수 있지만, 커서
 변수는 커서 OPEN 시에 다른 질의문을 참조할 수 있다는 점이다.
+
+
 
 ### 사용자 정의 타입의 정의
 
@@ -5580,6 +5607,10 @@ data_type으로 이루어진 RECORD 타입을 정의한다. data_type에는 SQL�
 ##### ref_cursor_type_spec
 
 REF CURSOR 타입을 정의한다.
+
+##### varray_type_spec
+
+data_type으로 이루어진 VARRAY 타입을 정의한다. size에 최대 구성요소의 개수를 설정한다. size는 최대  2,147,483,647개까지 설정할 수 있다.
 
 #### 예제
 
@@ -5633,7 +5664,20 @@ BEGIN
 …
 ```
 
+##### 예제4
 
+사용자 정의 RECORD타입인 employee를 구성 요소로 가지고, 100개의 최대 구성 요소를 갖는 employeelist 라는 이름의 VARRAY를 정의하라.
+
+```
+DECLARE
+TYPE employee IS RECORD( name VARCHAR(20),
+  dept INTEGER,
+  salary NUMBER(8) );
+TYPE employeelist IS VARRAY(100) OF employee;
+…
+BEGIN
+…
+```
 
 ### Associative Array 관련 함수
 
@@ -5678,7 +5722,7 @@ TRUE를 그렇지 않으면 FALSE를 반환한다.
 ##### NEXT
 
 NEXT(n)은 n의 다음 index번호를 반환한다. VARCHAR 키를 갖는 배열의 경우, 키
-문자열들을 바이너리 값 기준으로 정렬하여 바로 다음 키 값을 반환한다. 가장 다음
+문자열들을 바이너리 값 기준으로 정렬하여 바로 다음 키 값을 반환한다. 다음
 index가 없으면 NULL을 반환한다.
 
 ##### PRIOR
@@ -5805,9 +5849,142 @@ V1 IDX IS : 38 VALUE IS : 3
 Execute success.
 ```
 
+### VARRAY 관련 함수
 
+#### 구문
 
-### RECORD 타입 변수 및 Associative Array변수의 사용
+![associative_array](media/StoredProcedure/varray_method.gif)
+
+#### 기능
+
+VARRAY 변수의 배열 요소 관리를 위한 여러가지 함수를 제공한다. 이 함수들은 ()를 생략할 수 없다.
+
+##### COUNT
+
+VARRAY의 구성 요소의 개수를 반환한다.
+
+##### DELETE
+
+DELETE()는 VARRAY의 모든 구성 요소를 제거하고 제거된 구성 요소의 개수를 반환한다.
+
+##### LIMIT
+
+VARRAY의 최대 구성 요소의 개수를 반환한다. 최대 구성 요소의 개수는 VARRAY 타입을 정의할 때 지정한 size이다.
+
+##### EXTEND
+
+VARRAY변수를 최대 구성 요소 개수 내에서 확장하고, 확장한 구성 요소의 개수를 반환한다. 최대 구성 요소 개수를 넘으면 오류를 반환한다.
+
+EXTEND()는 VARRAY 변수를 1 확장한다.
+
+EXTEND(n)은 VARRAY 변수를 n 확장한다.
+
+EXTEND(m, n)은 VARRAY 변수를 m확장하면서 n번째 요소를 복제한다.
+
+##### TRIM
+
+VARRAY변수의 마지막부터 구성 요소를 제거하고 제거된 구성 요소의 개수를 반환한다.
+
+TRIM()은 VARRAY 변수의 마지막 구성 요소를 1개 제거한다.
+
+TRIM(n)은 VARRAY 변수의 마지막 n개의 구성 요소를 제거한다.
+
+##### EXISTS
+
+EXISTS(n) 은 n에 해당하는 구성 요소가 존재하는지 검사하여, 존재하면 boolean 값 TRUE를 그렇지 않으면 FALSE를 반환한다.
+
+##### FIRST
+
+VARRAY 변수의 경우 항상 1을 반환한다. 다만, 구성 요소가 하나도 없으면 NULL을 반환한다.
+
+##### LAST
+
+VARRAY 변수의 경우 가장 큰 index번호를 반환하는데, 이는 구성요소의 개수와 동일하다. 다만, 구성 요소가 하나도 없으면 NULL을 반환한다.
+
+##### NEXT
+
+NEXT(n)은 n의 다음 index번호를 반환한다. 다음 index가 없으면 NULL을 반환한다.
+
+##### PRIOR
+
+PRIOR(n)은 n의 이전 index번호를 반환한다. 이전 index가 없으면 NULL을 반환한다.
+
+#### 예제
+
+##### 예제1
+
+VARRAY 변수 V1의 요소를 삭제
+
+```
+CREATE OR REPLACE PROCEDURE PROC1( ) AS
+    TYPE MY_ARR IS VARRAY(10) OF INTEGER;
+    V1 MY_ARR;
+    V2 INTEGER;
+BEGIN
+    V1 := MY_ARR( );
+    V2 := V1.EXTEND( V1.LIMIT( ) );
+ 
+    FOR I IN 1 .. V1.LIMIT( ) LOOP
+      V1(I) := I;
+    END LOOP;
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+ 
+    V2 := V1.TRIM( );
+    PRINTLN( 'DELETED COUNT IS : '||V2);
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+ 
+    FOR I IN V1.FIRST() .. V1.LAST() LOOP
+      PRINTLN( 'V1(' || I || ') : ' || V1(I) );
+    END LOOP;
+ 
+    V2 := V1.TRIM(3);
+    PRINTLN( 'DELETED COUNT IS : '||V2);
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+ 
+    FOR I IN V1.FIRST() .. V1.LAST() LOOP
+      PRINTLN( 'V1(' || I || ') : ' || V1(I) );
+    END LOOP;
+ 
+    V2 := V1.DELETE( );
+    PRINTLN( 'DELETED COUNT IS : '||V2);
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+END;
+/
+```
+
+실행 결과
+
+TRIM( )은 마지막 1개, TRIM(3)은 마지막 3개, DELETE는 나머지 구성 요소를 제거한다.
+
+```
+EXEC PROC1;
+ 
+V1 COUNT IS : 10
+DELETED COUNT IS : 1
+V1 COUNT IS : 9
+V1(1) : 1
+V1(2) : 2
+V1(3) : 3
+V1(4) : 4
+V1(5) : 5
+V1(6) : 6
+V1(7) : 7
+V1(8) : 8
+V1(9) : 9
+DELETED COUNT IS : 3
+V1 COUNT IS : 6
+V1(1) : 1
+V1(2) : 2
+V1(3) : 3
+V1(4) : 4
+V1(5) : 5
+V1(6) : 6
+DELETED COUNT IS : 6
+V1 COUNT IS : 0
+Execute success.
+```
+
+### 저장 프로시저내에서 사용자 정의 타입 변수의 사용
 
 여기서는 사용자 정의 타입을 저장 프로시저 내에서 사용할 때의 규칙 및 예제를
 다룬다. 사용자 정의 타입을 파라미터 및 리턴값으로 사용하는 부분은 7장 타입
@@ -5828,6 +6005,7 @@ L_VALUE := R_VALUE;
 | RECORD 타입       | %ROWTYPE          | 내부에 정의된 칼럼의 개수만 동일하면 호환된다.               |
 | %ROWTYPE          | RECORD 타입       | 내부에 정의된 칼럼의 개수만 동일하면 호환된다.               |
 | Associative Array | Associative Array | 동일한 타입 (즉, 같은 이름의 타입) 간에만 호환된다.          |
+| VARRAY            | VARRAY            | 동일한 타입 (즉, 같은 이름의 타입) 간에만 호환된다.          |
 
 다음 예제와 같이 사용자 정의 타입은 그 내부 구조가 동일하다 하더라도 할당문은
 실패하게 된다.
@@ -5991,6 +6169,105 @@ William              Blake                sales rep
 Execute success.
 ```
 
+#### VARRAY 타입 예제
+
+##### 예제 1
+
+사원번호가 1에서 20 사이에 속한 사원의 이름을 출력한다.
+
+```
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+AS
+TYPE emp_array_type IS VARRAY(20) OF VARCHAR(20);
+v_emp emp_array_type;
+BEGIN
+  SELECT e_lastname BULK COLLECT INTO v_emp FROM employees WHERE eno BETWEEN 1 AND 20;
+ 
+  FOR I IN v_emp.FIRST() .. v_emp.LAST() LOOP
+    PRINTLN( v_emp[I] );
+  END LOOP;
+END;
+/
+Create success.
+ 
+iSQL> EXEC PROC1;
+Moon
+Davenport
+Kobain
+Foster
+Ghorbani
+Momoi
+Fleischer
+Wang
+Diaz
+Bae
+Liu
+Hammond
+Jones
+Miura
+Davenport
+Chen
+Fubuki
+Huxley
+Marquez
+Blake
+Execute success.
+```
+
+##### 예제 2
+
+사원번호가 1에서 20 사이에 속한 사원의 이름, 급여, 부서를 출력한다.
+
+```
+
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+AS
+TYPE emp_rec_type IS RECORD (
+         first_name VARCHAR(20),
+         last_name VARCHAR(20),
+                emp_job VARCHAR(15),
+         salary NUMBER(8) );
+TYPE emp_array_type IS VARRAY(20) OF emp_rec_type;
+v_emp emp_array_type;
+BEGIN
+ SELECT e_firstname, e_lastname, emp_job, salary BULK COLLECT INTO v_emp
+ FROM employees
+ WHERE eno BETWEEN 1 AND 20;
+  FOR I IN v_emp.FIRST() .. v_emp.LAST() LOOP
+    PRINTLN( v_emp[I].first_name||' '||
+      v_emp[I].last_name||' '||
+      v_emp[I].emp_job||' '||
+      v_emp[I].salary );
+  END LOOP;
+END;
+/
+Create success.
+ 
+ 
+iSQL> EXEC PROC1;
+Chan-seung           Moon                 CEO
+Susan                Davenport            designer 1500
+Ken                  Kobain               engineer 2000
+Aaron                Foster               PL 1800
+Farhad               Ghorbani             PL 2500
+Ryu                  Momoi                programmer 1700
+Gottlieb             Fleischer            manager 500
+Xiong                Wang                 manager
+Curtis               Diaz                 planner 1200
+Elizabeth            Bae                  programmer 4000
+Zhen                 Liu                  webmaster 2750
+Sandra               Hammond              sales rep 1890
+Mitch                Jones                PM 980
+Yuu                  Miura                PM 2003
+Jason                Davenport            webmaster 1000
+Wei-Wei              Chen                 manager 2300
+Takahiro             Fubuki               PM 1400
+John                 Huxley               planner 1900
+Alvar                Marquez              sales rep 1800
+William              Blake                sales rep
+Execute success.
+```
+
 
 
 #### 중첩 RECORD 타입 변수
@@ -6089,6 +6366,63 @@ James                Stone
    order no : 12310004
    order no : 12310009
 Execute success
+```
+
+
+
+#### 다차원 VARRAY 타입 변수 예제
+
+##### 예제
+
+고객 이름과 주문 번호를 저장하는 다차원 VARRAY 타입의 변수를 생성한다.
+
+```
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+AS
+TYPE order_array_type IS VARRAY(5) OF INTEGER;
+TYPE customer_order_rec_type IS RECORD ( first_name VARCHAR(20), last_name VARCHAR(20), orders order_array_type );
+TYPE customer_order_array_type IS VARRAY(5) OF customer_order_rec_type;
+v_cust_order customer_order_array_type;
+v_order_array NOCOPY order_array_type;
+ret INTEGER;
+BEGIN
+  v_cust_order := customer_order_array_type();
+  FOR I IN 1 .. 5 LOOP
+    ret := v_cust_order.extend();
+    v_cust_order[I].orders := order_array_type();
+    v_order_array := v_cust_order[I].orders;
+    SELECT c_firstname, c_lastname INTO v_cust_order[I].first_name, v_cust_order[I].last_name FROM customers WHERE cno = I;
+    SELECT ono BULK COLLECT INTO v_order_array FROM orders WHERE cno = I;
+  END LOOP;
+  FOR i in 1 .. 5 LOOP
+    println ( v_cust_order[I].first_name || ' ' || v_cust_order[I].last_name );
+    v_order_array := v_cust_order[I].orders;
+    FOR J IN v_order_array.FIRST() .. v_order_array.LAST() LOOP
+      PRINTLN ( '   order no : ' || v_order_array[J] );
+    END LOOP;
+  END LOOP;
+END;
+/
+Create success.
+ 
+iSQL> EXEC PROC1;
+Estevan              Sanchez
+   order no : 12300001
+   order no : 12310008
+   order no : 12310012
+Pierre               Martin
+   order no : 12300002
+   order no : 12310006
+Gabriel              Morris
+   order no : 11290007
+   order no : 12300012
+Soo-jung             Park
+   order no : 12300005
+James                Stone
+   order no : 12100277
+   order no : 12310004
+   order no : 12310009
+Execute success.
 ```
 
 
