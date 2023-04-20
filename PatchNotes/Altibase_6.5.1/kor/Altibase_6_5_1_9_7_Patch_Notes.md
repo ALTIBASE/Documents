@@ -211,9 +211,9 @@ Fixed Bugs
 - **Workaround**
 
       데이터베이스를 생성한 후 SHUTDOWN ABORT 명령 수행하고 STARTUP을 수행합니다.
-
+    
       $ is -sysdba
-
+    
       iSQL(sysdba)> STARTUP PROCESS;
       iSQL(sysdba)> CREATE DATABASE MYDB INITSIZE=50M NOARCHIVELOG CHARACTER SET UTF8 NATIONAL CHARACTER SET UTF16;
       iSQL(sysdba)> SHUTDOWN ABORT;
@@ -464,7 +464,7 @@ Fixed Bugs
 
         CONNECT SYS/MANAGER
         CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
-
+      
         CREATE USER USER1 IDENTIFIED BY USER1;
         CONNECT USER1/USER1
         CREATE TABLE T1 (C1 INTEGER, C2 INTEGER);
@@ -486,7 +486,16 @@ Fixed Bugs
 
   -   **예상 결과**
 
-          DESC T1;[ TABLESPACE : SYS_TBS_MEM_DATA ][ ATTRIBUTE ]------------------------------------------------------------------------------NAME                                     TYPE                        IS NULL------------------------------------------------------------------------------C1                                       INTEGER         FIXEDC2                                       INTEGER         FIXEDT1 has no indexT1 has no primary key
+          DESC T1;
+          [ TABLESPACE : SYS_TBS_MEM_DATA ]
+          [ ATTRIBUTE ]
+          ------------------------------------------------------------------------------
+          NAME                                     TYPE                        IS NULL
+          ------------------------------------------------------------------------------
+          C1                                       INTEGER         FIXED
+          C2                                       INTEGER         FIXED
+          T1 has no index
+          T1 has no primary key
 
 -   **Workaround**
 
