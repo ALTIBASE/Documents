@@ -33,7 +33,7 @@
 New Features
 ============
 
-### BUG-50145  aku \-p start가 성공하면 aku\_start\_completed 파일을 생성하는 기능을 추가합니다.
+### BUG-50145  aku -p start가 성공하면 aku_start_completed 파일을 생성하는 기능을 추가합니다.
 
 -   **module** :
 
@@ -180,7 +180,7 @@ Fixed Bugs
         ) ;
         ALTER TABLE T1 ALTER TABLESPACE MEM_TEST_TBS_0 ;
         INSERT INTO T1 VALUES (3, 1, 17);
-
+    
         ALTER TABLE T1 MODIFY (I2 VARCHAR(1));
 
   -   **수행 결과**
@@ -475,9 +475,9 @@ Fixed Bugs
         create sequence seq2 start with 8 cache 3 maxvalue 10 nocycle;
         SELECT seq2.NEXTVAL FROM dual;
         alter sequence seq2 increment by 3;
-
+    
         server restart 수행
-
+    
         SELECT seq2.NEXTVAL FROM dual;
 
   -   **수행 결과**
