@@ -5,7 +5,7 @@
 
 
 - [New Features](#new-features)
-    - [BUG-50145  aku \-p start가 성공하면 aku\_start\_completed 파일을 생성하는 기능을 추가합니다.](#bug-50145-aku-%5C-p-start%EA%B0%80-%EC%84%B1%EA%B3%B5%ED%95%98%EB%A9%B4-aku%5C_start%5C_completed-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50145  aku -p start가 성공하면 aku_start_completed 파일을 생성하는 기능을 추가합니다.](#bug-50145-aku--p-start%EA%B0%80-%EC%84%B1%EA%B3%B5%ED%95%98%EB%A9%B4-aku_start_completed-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-50206  aku -p start시 local address에 접속가능 여부를 확인하기 위한 프로퍼티 AKU_ADDRESS_CHECK_COUNT 를 추가합니다.](#bug-50206-aku--p-start%EC%8B%9C-local-address%EC%97%90-%EC%A0%91%EC%86%8D%EA%B0%80%EB%8A%A5-%EC%97%AC%EB%B6%80%EB%A5%BC-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-aku_address_check_count-%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-50191  altimon에서 CPU 사용률을 측정하기 위해 OS CPU 사용율 측정 쓰레드, 알티베이스 CPU 사용률 측정 쓰레드가 추가되었습니다.](#bug-50191-altimon%EC%97%90%EC%84%9C-cpu-%EC%82%AC%EC%9A%A9%EB%A5%A0%EC%9D%84-%EC%B8%A1%EC%A0%95%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-os-cpu-%EC%82%AC%EC%9A%A9%EC%9C%A8-%EC%B8%A1%EC%A0%95-%EC%93%B0%EB%A0%88%EB%93%9C-%EC%95%8C%ED%8B%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-cpu-%EC%82%AC%EC%9A%A9%EB%A5%A0-%EC%B8%A1%EC%A0%95-%EC%93%B0%EB%A0%88%EB%93%9C%EA%B0%80-%EC%B6%94%EA%B0%80%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
@@ -180,7 +180,7 @@ Fixed Bugs
         ) ;
         ALTER TABLE T1 ALTER TABLESPACE MEM_TEST_TBS_0 ;
         INSERT INTO T1 VALUES (3, 1, 17);
-    
+
         ALTER TABLE T1 MODIFY (I2 VARCHAR(1));
 
   -   **수행 결과**
@@ -475,9 +475,9 @@ Fixed Bugs
         create sequence seq2 start with 8 cache 3 maxvalue 10 nocycle;
         SELECT seq2.NEXTVAL FROM dual;
         alter sequence seq2 increment by 3;
-    
+
         server restart 수행
-    
+
         SELECT seq2.NEXTVAL FROM dual;
 
   -   **수행 결과**
