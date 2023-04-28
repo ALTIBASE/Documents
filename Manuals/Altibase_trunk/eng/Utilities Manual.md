@@ -1951,7 +1951,7 @@ The following categories provide information on the Metrics.xml file which can c
 
 | Tag Name                                                     | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| \<OSMetric Name='PROC_CPU_USER' Activate='true' Interval='30' Logging='true'\> | This tag configures the predefined OS Metric and uses predefined OS Metrics as in the following. TOTAL_CPU_USER TOTAL_CPU_KERNEL PROC_CPU_USER PROC_CPU_KERNEL TOTAL_MEM_FREE TOTAL_MEM_FREE_PERCENTAGE PROC_MEM_USED (=> RSS) PROC_MEM_USED_PERCENTAGE SWAP_FREE SWAP_FREE_PERCENTAGE DISK_FREE DISK_FREE_PERCENTAGE DISK_FREE or DISK_FREE_PERCENTAGE must have the  tag as belows, and the 'Disk Name' should be uniquely named. <br /><OSMetric Name='DISK_FREE' Activate='true'\> <br /><Disk Name='disk1'\>/home\</Disk\> \</OSMetric\> \<OSMetric Name='DISK_FREE' Activate='true'\> \<Disk Name='disk2'\>/home2\</Disk\> \</OSMetric\> |
+| \<OSMetric Name='PROC_CPU_USER' Activate='true' Interval='30' Logging='true'\> | This tag configures the predefined OS Metric and uses predefined OS Metrics as in the following. TOTAL_CPU TOTAL_CPU_USER TOTAL_CPU_KERNEL PROC_CPU PROC_CPU_USER PROC_CPU_KERNEL TOTAL_MEM_FREE TOTAL_MEM_FREE_PERCENTAGE PROC_MEM_USED (=> RSS) PROC_MEM_USED_PERCENTAGE SWAP_FREE SWAP_FREE_PERCENTAGE DISK_FREE DISK_FREE_PERCENTAGE DISK_FREE or DISK_FREE_PERCENTAGE must have the  tag as belows, and the 'Disk Name' should be uniquely named. <br /><OSMetric Name='DISK_FREE' Activate='true'\> <br /><Disk Name='disk1'\>/home\</Disk\> \</OSMetric\> \<OSMetric Name='DISK_FREE' Activate='true'\> \<Disk Name='disk2'\>/home2\</Disk\> \</OSMetric\> |
 | \<SQLMetric Name='MEM_DATABASE_USAGE' Activate='true' Interval='60' Logging='true'\> | This configures the SQL Metric, and it is required to define a Name. <br />Name: Metric name (Required) <br />Activate: Status of operation(Data Collection)<br />The specifiable value is either true or false, and default value is true.<br/>Interval: If the cycle of data collection is not specified, the specified values in the config.xml file is used.<br />Logging: It sets whether or not to log the result of data collection into the log file. The default value is set to true. Set to false if you want to record only the alert info. |
 | \<CommandMetric Name='MEM_VSZ' Activate='true' Interval='60' Logging='true'\> | This tag configures the user-defined OS Metric. The altiMon executes a command or script specified in the tag, and the value output as stdout is used as measured value. |
 | \<Query\>                                                    | This  tag configures a query, and it is necessary in case of SQL Metric. |
@@ -2015,7 +2015,8 @@ The followings are examples of the altiMon configuration files.
 <?xml version="1.0" encoding="UTF-8"?>
  
 <Metrics>
-  <OSMetric Name='PROC_CPU_USER' Activate='true' Interval='60'>
+  <OSMetric Name='TOTAL_CPU' Activate='true' Description='TOTAL_CPU'>
+  <OSMetric Name='PROC_CPU' Activate='true' Interval='60'>
     <Alert Activate='true' ComparisonType='gt'>
         <WarningThreshold Value='80'>
             <ActionScript>cpu_act.sh</ActionScript>
@@ -2054,8 +2055,8 @@ The followings are examples of the altiMon configuration files.
 ```
 <GroupMetrics>
     <GroupMetric Name='group1' Interval='30'>
-        <Target MetricName='TOTAL_CPU_USER'/>
-        <Target MetricName='PROC_CPU_USER'/>
+        <Target MetricName='TOTAL_CPU'/>
+        <Target MetricName='PROC_CPU'/>
         <Target MetricName='LOGFILE_COUNT'>
             <Column Name='LOG_GAP' />
         </Target>
