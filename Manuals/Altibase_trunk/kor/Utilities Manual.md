@@ -2859,10 +2859,11 @@ $ cat Metrics.xml | more
         </Alert>
     </CommandMetric>    
     
-    <!-- OSMetric 요소 --> 
+    <!-- OSMetric 요소 -->
+    <OSMetric Name='TOTAL_CPU' Activate='true' Description='TOTAL_CPU'>
     <OSMetric Name='TOTAL_CPU_USER' Activate='false' Description='TOTAL_CPU_USER'></OSMetric>
     <OSMetric Name='TOTAL_CPU_KERNEL' Activate='false'></OSMetric>    
-    <OSMetric Name='PROC_CPU_USER' Activate='true'>
+    <OSMetric Name='PROC_CPU' Activate='true'>
         <Alert Activate='true' ComparisonType='gt'>
             <WarningThreshold Value='80' >
                 <ActionScript>cpu_act.sh</ActionScript>
@@ -2936,8 +2937,10 @@ Metrics.xml에서 <OSMetric ...> 요소는 PICL 라이브러리에서 미리 정
 
 | Name으로 사용할 수 있는 값 | 설명                                                         |
 | :------------------------- | :----------------------------------------------------------- |
+| TOTAL_CPU                  | OS 전체 CPU 사용률(%)                                        |
 | TOTAL_CPU_USER             | 사용자 모드(user mode)에서 CPU 사용률(%)                     |
 | TOTAL_CPU_KERNEL           | 커널 모드(kernel mode)에서 CPU 사용률(%)                     |
+| PROC_CPU                   | Altibase 프로세스의 CPU 사용률(%)                            |
 | PROC_CPU_USER              | 사용자 모드(user mode)에서 Altibase 프로세스의 CPU 사용률(%) |
 | PROC_CPU_KERNEL            | 커널 모드(kernel mode)에서 Altibase 프로세스의 CPU 사용률(%) |
 | TOTAL_MEM_FREE             | 사용할 수 있는 메인 메모리(RAM)의 크기(KB)                   |
@@ -3002,8 +3005,8 @@ Metrics.xml에 정의한 Command Metric과 OS Metric 그리고 SQL Metric을 사
 
 <GroupMetrics>
     <GroupMetric Name='group1' Interval='40'>
-        <Target MetricName='TOTAL_CPU_USER'/>
-        <Target MetricName='PROC_CPU_USER'/>
+        <Target MetricName='TOTAL_CPU'/>
+        <Target MetricName='PROC_CPU'/>
         <Target MetricName='LOGFILE_COUNT'>
             <Column Name='LOG_GAP' />
         </Target>
