@@ -815,7 +815,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [ on \| off ]                                                |
 | 필수 여부 | No                                                           |
 | 설정 범위 |                                                           |
-| 설명      | AlternateServers에 기술된 서버에 접속을 시도할 때, 부하 분산 방식(LoadBalance)을 사용할 것인지를 지정한다. <br />off 로 설정하면 최초 접속 시도 시에 기본 서버에 접속하고, 접속에 실패하면 AlternateServer로 기술한 서버에 순서대로 접속한다. <br />session time failover 발생 시엔 기존 접속했던 서버에 다시 접속 시도해보고 안되면 순서대로 접속 시도한다. <br />on 으로 설정하면 최초로 접속을 시도할 서버는 기본 서버와 가용 서버중에서 랜덤으로 선택하여 접속한다. <br />session time failover 발생 시엔 기존 접속했던 서버에 다시 접속 시도해보고 안되면 램덤하게 접속 시도한다. |
+| 설명      | AlternateServers에 기술된 서버에 접속 시도할 때의 방식을 지정한다. <br />off 로 설정하면 최초 접속 시에는 기본 서버에 접속 시도하고, 접속에 실패하면 AlternateServer로 지정된 서버에 순서대로 접속을 시도한다. session time failover 발생 시엔 기존 접속했던 서버에 다시 접속 시도해보고 안되면 순서대로 접속 시도한다. <br />on 으로 설정하면 최초로 접속을 시도할 서버는 기본 서버와 AlternateServer 중에서 랜덤으로 선택하여 접속한다. session time failover 발생 시엔 기존 접속했던 서버에 다시 접속 시도해보고 안되면 랜덤하게 접속 시도한다. |
 
 ##### lob_cache_threshold
 
