@@ -1784,7 +1784,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다 |
 |  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
 |  12  | FLOAT              | FLOAT                           |                                                              |
-|  13  | DOUBLE             | DOUBLE                          | TODO: BUG-49993                                              |
+|  13  | DOUBLE             | DOUBLE                          |                                                              |
 |  14  | BIT                | VARBIT                          |                                                              |
 |  15  | DATETIME           | DATE                            | 시각 부분이 0으로 설정된다.                                  |
 |  16  | DATE               | DATE                            |                                                              |
