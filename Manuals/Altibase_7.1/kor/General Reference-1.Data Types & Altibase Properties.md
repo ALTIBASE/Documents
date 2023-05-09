@@ -12292,7 +12292,7 @@ Unsigned Integer
 REPLICATION_LOG_BUFFER_SIZE를 너무 작게 설정하면, 사용하지 않는 것(0)보다 더
 좋지 못한 성능을 낼 수 있다.
 
-#### REPLICATION_MAX_COUNT (단위 : 개수)
+#### REPLICATION_MAX_COUNT (단위 : 개)
 
 ##### 데이터 타입
 
@@ -16523,7 +16523,7 @@ PSM_VARCHAR_DEFAULT_PRECISION 프로퍼티에 설정된 값을 VARCHAR의 크기
 - 저장 함수 생성시 데이터 타입이 VARCHAR인 파라미터 또는 반환 값의 크기를
   명시하지 않을 때
 
-#### QUERY_STACK_SIZE (단위 : 개수)
+#### QUERY_STACK_SIZE (단위 : 개)
 
 ##### 데이터 타입
 
