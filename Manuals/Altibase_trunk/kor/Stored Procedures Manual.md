@@ -1230,28 +1230,15 @@ Execute success.
 
 #### 기능
 
-저장 프로시저 생성 이후에 이 프로시저 내에서 참조하는 테이블, 시퀀스 등의
-데이터베이스 오브젝트 혹은 이 저장 프로시저가 호출하는 다른 저장 프로시저, 저장
-함수 등의 정의가 변경되어서, 현재 이 저장 프로시저의 실행 계획으로는 이를 실행할
-수 없는 경우에 이 저장 프로시저는 무효한 (invalid) 상태라고 한다.
-
-예를 들면 처음 저장 프로시저 생성 시 존재하던 인덱스가 삭제된 경우 이전 실행
-계획은 인덱스를 통해 테이블에 접근하도록 계획되어 있으므로 이전의 실행 계획을
-이용해서 테이블에 접근할 수 없게 된다.
-
-무효한 상태의 프로시저가 호출되면, Altibase 서버는 바로 자동으로 이를 재 컴파일
-한다. 그러나 런타임 시에 컴파일하는 것은 심각한 성능 이슈를 불러올 수 있으므로,
-프로시저가 무효한 상태가 되었을 때 수동으로 컴파일 하는 것이 좋다.
-
-ALTER PROCEDURE 문은 사용자가 명시적으로 저장 프로시저를 컴파일 때 사용된다.
+사용자가 명시적으로 저장 프로시저를 컴파일 할 때 사용된다.
+저장 프로시저가 생성된 이후 해당 프로시저에서 참조하는 테이블, 시퀀스등의 데이터 오브젝트 혹은 호출하는 다른 저장 프로시저, 저장 함수의 정의가 변경되면 이 프로시저는 실행할 수 없는 상태가 되며, 이를 무효한(invalid) 상태라고 한다.
+무효한 상태의 저장 프로시저가 호출되면, Altibase 서버가 자동으로 재컴파일 한다. 그러나 런타임 시에 컴파일하는 것은 심각한 성능 이슈를 야기할 수 있으므로, 프로시저가 무효한 상태가 되면 ALTER PROCEDURE 문을 이용하여 수동으로 컴파일 하는것을 권장한다.
 
 #### 예제
 
-##### 예제 1
-
 ```
 CREATE TABLE t1 (i1 NUMBER, i2 VARCHAR(10), i3 DATE);
-
+Create success.
 CREATE OR REPLACE PROCEDURE proc1
 (p1 IN NUMBER, p2 IN VARCHAR(10), p3 IN DATE)
 AS
@@ -1261,6 +1248,8 @@ BEGIN
   END IF;
 END;
 /
+Create success.
+
 iSQL> EXECUTE proc1 (1, 'seoul', '20-JUN-2002');
 Execute success.
 iSQL> EXECUTE proc1 (-3, 'daegu', '21-APR-2002');
@@ -1270,25 +1259,52 @@ T1.I1       T1.I2       T1.I3
 -----------------------------------------------
 1           seoul       20-JUN-2002
 1 row selected.
-```
+
+iSQL> select PROC_NAME, STATUS from system_.sys_procedures_ where proc_name = 'PROC1' and user_id = user_id();
+PROC_NAME
+------------------------------------------------------------------------------------------------------------------------------------
+STATUS
+--------------
+PROC1
+0
+1 row selected
+
+iSQL> alter table t1 modify column (i3 date default sysdate);
+Alter success.
+
+iSQL> select PROC_NAME, STATUS from system_.sys_procedures_ where proc_name = 'PROC1' and user_id = user_id();
+PROC_NAME
+------------------------------------------------------------------------------------------------------------------------------------
+STATUS
+--------------
+PROC1
+1
+1 row selected.
 
 
+iSQL> alter procedure proc1 compile;
+Alter success.
 
-##### 예제 2
-
-```
-CREATE TABLE t1 (i1 NUMBER, i2 VARCHAR(10), i3 DATE DEFAULT SYSDATE);
-
-ALTER PROCEDURE proc1 COMPILE;
+iSQL> select PROC_NAME, STATUS from system_.sys_procedures_ where proc_name = 'PROC1' and user_id = user_id();
+PROC_NAME
+------------------------------------------------------------------------------------------------------------------------------------
+STATUS
+--------------
+PROC1
+0
+1 row selected.
 
 iSQL> EXECUTE proc1 (2, 'incheon', SYSDATE);
 Execute success.
 iSQL> SELECT * FROM t1;
-T1.I1       T1.I2       T1.I3                
------------------------------------------------
-2           incheon     28-DEC-2010
-1 row selected.
+T1.I1       T1.I2       T1.I3
+-----------------------------------------
+1           seoul       20-JUN-2002
+2           incheon     27-APR-2023
+2 rows selected.
 ```
+
+
 
 
 

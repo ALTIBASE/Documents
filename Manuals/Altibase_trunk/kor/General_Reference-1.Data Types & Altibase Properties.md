@@ -16488,6 +16488,28 @@ Unsigned Integer
 이 프로퍼티는 JOB을 실행하기 위한 큐(Queue)를 서버 구동 시에 얼마나 생성할
 것인지를 지정한다. 이 값이 크면, 동일 시간에 더 많은 JOB을 실행할 수 있다.
 
+#### LISTAGG_PRECISION (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+4000
+
+##### 속성
+
+변경 가, 단일 값
+
+##### 값의 범위
+
+[0, 32000]
+
+##### 설명
+
+LISTAGG 함수가 반환하는 VARCHAR  타입의 크기를 지정한다. Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
 #### MSG_QUEUE_PERMISSION
 
 ##### 데이터 타입
