@@ -178,7 +178,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 - 제 4장 dataCompJ 기능
 
-  이 장은 dataCompJ의 비교(DIFF) 기능과 일치(SYNC) 기능을 보다 자세히 예제와 함께 설명한다.
+  이 장은 dataCompJ의 비교(DIFF) 기능과 일치(SYNC) 기능을 예제와 함께 보다 자세히 설명한다.
 
 - A. 부록: 이기종간 데이터 타입 호환 테이블
 
@@ -201,7 +201,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 | ![image1](media/dataCompJ/image1.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다. |
 | ![image2](media/dataCompJ/image2.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다. |
 | ![image3](media/dataCompJ/image3.gif) | 명령문이 이전 라인으로부터 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 시작한다. |
-| ![image4](media/dataCompJ/image4.gif) | 명령문이 종료한다.                                           |
+| ![image4](media/dataCompJ/image4.gif) | 명령문을 종료한다.                                           |
 | ![](media/dataCompJ/image5.gif)       | 필수 항목                                                    |
 | ![](media/dataCompJ/image6.gif)       | 선택적 항목                                                  |
 | ![](media/dataCompJ/image7.gif)       | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.          |
@@ -219,8 +219,8 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 | [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
 | { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } <br />[ ENABLE \| DISABLE \| COMPILE ] |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; <br />ENAME  <br />----------------------- <br />SWNO  <br />HJNO  <br />HSCHOI  <br />. . . <br />20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; <br />acc NUMBER(11,2);                       |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략을 표시           | SQL\> SELECT ename FROM employee; <br />ENAME  <br />----------------------- <br />SWNO  <br />HJNO  <br />HSCHOI  <br />. . . <br />20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이외의 기호들                             | EXEC :p1 := 1; <br />acc NUMBER(11,2);                       |
 | 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; <br />CONNECT *userID*/*password*; |
 | 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 컬럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
 | 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
@@ -316,7 +316,7 @@ dataCompJ는 Altibase 및 이기종 데이터베이스들과 함께 사용할 �
 
 #### 설치 및 제거
 
-dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 파일 이름으로 zip 또는 tar.gz 파일 형식으로 제공된다. 다운로드받은 압축 파일을 원하는 위치에 해제하면 dataCompJ 설치가 완료된다. 생성된 디렉토리 안에는 실행파일인 dataCompJCli.sh, JDBC 드라이버를 포함한 JDBC 하위 디렉토리 및 XML 기본 설정 파일이 존재한다.
+dataCompJ는 [Altibase 고객 서비스 포털](#http://support.altibase.com)에서 내려받을 수 있다. dataCompJCli라는 이름의 zip 또는 tar.gz 파일 형식으로 제공된다. 다운로드받은 압축 파일을 원하는 위치에 해제하면 dataCompJ 설치가 완료된다. 생성된 디렉토리 안에는 실행파일인 dataCompJCli.sh, JDBC 드라이버를 포함한 JDBC 하위 디렉토리 및 XML 기본 설정 파일이 존재한다.
 dataCompJ를 제거하기 위해서는 dataCompJ가 설치되어 있는 디렉토리를 삭제한다.
 
 <br>
@@ -428,7 +428,7 @@ dataCompJ는 사용자가 설정한 설정 파일을 기반으로 동작하며, 
 
 ##### 구축(Build) 단계
 
-구축 단계는 주어진 설정 파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위해 초기 조사하는 단계이다. 하나의 문제라도 발견되면 이를 리포트 파일(dataCompJ_report.txt)에 출력하며 dataCompJ를 종료한다.
+구축 단계는 주어진 설정 파일을 기반으로 실행(Run) 단계가 수행 가능한지 판단하기 위한 초기 조사 단계이다. 하나의 문제라도 발견되면 이를 리포트 파일(dataCompJ_report.txt)에 출력하며 dataCompJ를 종료한다.
 
 구축 단계는 아래의 순서대로 진행된다.
 
@@ -451,7 +451,7 @@ dataCompJ를 수행하면 텍스트 형식의 리포트 파일 1개, 로그 파�
 비교(DIFF) 기능에 의해 생성되는 출력 파일에 대한 상세한 설명은 '[비교(DIFF) 기능](#비교diff-기능)'을 참고한다.
 
 -   dataCompJ_report.txt: 수행 결과를 정리하여 사용자에게 전달하기 위한 텍스트 형태의 리포트 파일이다.
--   dataCompJ.log: 프로그램 수행 시 발생하는 이벤트를 기록하는 로그 파일이다. 프로그램의 상세 수행 이력을 추적하기 위해 사용하는 파일이다.
+-   dataCompJ.log: 프로그램 수행 시 발생하는 이벤트를 기록하는 로그 파일이다. 프로그램의 상세 수행 이력을 추적하기 위해 사용한다.
 -   dataCompJ_data.log: 실행(Run) 단계에서 생성되는 로그 파일로, 사용자가 설정 파일의 \<TraceInconsistentRecord\>를 true로 설정한 경우 비교(DIFF)/일치(SYNC) 수행 시 처리되는 불일치 레코드의 상세 내용을 기록한다.
     불일치 레코드가 많은 경우 대용량의 파일이 생성되고 프로그램의 처리 성능이 저하되기 때문에, 불일치 레코드 처리 내역에 대한 상세 내용이 필요한 경우에만 사용을 권장한다.
 
@@ -520,7 +520,7 @@ MOSO 불일치 데이터 발견 시 Master 테이블 레코드 기준으로 Slav
 MOSX 불일치 데이터 발견 시 Master 테이블에만 존재하는 레코드를 Slave 테이블에 삽입(Insert)할지 여부이다. False를 선택하면 MOSX 불일치 데이터를 처리하지 않는다.
 
 \<MXSO DELETE_FROM_SLAVE="true"/\>  
-MXSO 불일치 데이터 발견 시 Master 테이블에 존재하지 않는 Slave 테이블의 레코드를 삭제(Insert)할지 여부이다. False를 선택하면 MXSO 불일치 데이터를 처리하지 않는다.
+MXSO 불일치 데이터 발견 시 Master 테이블에 존재하지 않는 Slave 테이블의 레코드를 삭제(Delete)할지 여부이다. False를 선택하면 MXSO 불일치 데이터를 처리하지 않는다.
 
 ###### \<Log\>
 
@@ -734,7 +734,7 @@ MXSO    Slave only                            1
 
 ##### 실행 데이터 파일
 
-비교(DIFF) 기능 선택하였을 때 TablePair 단위로 다음 4개의 CSV 형식의 데이터 파일들이 생성된다.
+비교(DIFF) 기능을 선택하였을 때 TablePair 단위로 다음 4개의 CSV 형식의 데이터 파일들이 생성된다.
 
 -   *SchemaName.TableName*\_MASTER_diff.csv:  
     MOSO 불일치 발생 시 Master 테이블의 해당 레코드 값을 CSV 형태로 저장하는 파일.
@@ -864,7 +864,7 @@ MXSO    Slave only                            0
 ##### DIFF 예제 2
 
 대상 테이블의 특정 컬럼을 사용자가 명시적으로 제외하고(Exclude), 특정 조건을 만족하는 레코드(Where)만을 대상으로 비교(Diff) 수행하는 예제이다.
-dataCompJ.xml에 EX1 테이블에 대해 주요 키가 아닌 컬럼들 중 C4 컬럼을 비교 대상에서 제외하고 C1 컬럼값이 5보다 큰 레코드만 비교 작업을 수행하도록 사용자가 명시적으로 입력한다.
+dataCompJ.xml의 EX1 테이블에 대해 주요 키가 아닌 컬럼들 중 C4 컬럼을 비교 대상에서 제외하고 C1 컬럼값이 5보다 큰 레코드만 비교 작업을 수행하도록 사용자가 명시적으로 입력한다.
 
 ###### dataCompJ.xml
 
@@ -1150,7 +1150,7 @@ dataCompJ가 지원하는 데이터 타입이지만, 비교 대상 테이블의 
 | REAL     | NUMBER         |                                                              |
 | DOUBLE   | NUMBER         |                                                              |
 | FLOAT    | FLOAT          |                                                              |
-| DATE     | DATE TIMESTAMP | - DATE - TIMESTAMP의 경우 소수점의 자릿수가 짧은 쪽을 기준으로 하여 비교한다. 예를 들어 Altibase DATE는 마이크로 초까지 지원하고, Oracle의 TIMESTAMP는 나노 초까지 지원 한다. 이 경우, 레코드의 동일 여부 비교는 나노 초를 기준으로 한다.<br />- DATE-DATE의 경우 Oracle DATE 타입은 YYYY-MM-DD HH:MM:SS까지 지원한다. 따라서, 이 경우 Altibase DATE 타입의 데이터에서 소수점 이하의 초는 무시하고 동일한 YYYY-MM-DD HH:MM:SS 형식으로 비교한다. |
+| DATE     | DATE TIMESTAMP | - DATE-TIMESTAMP의 경우 소수점의 자릿수가 짧은 쪽을 기준으로 하여 비교한다. 예를 들어 Altibase DATE는 마이크로 초까지 지원하고, Oracle의 TIMESTAMP는 나노 초까지 지원 한다. 이 경우, 레코드의 동일 여부 비교는 나노 초를 기준으로 한다.<br />- DATE-DATE의 경우 Oracle DATE 타입은 YYYY-MM-DD HH:MM:SS까지 지원한다. 따라서, 이 경우 Altibase DATE 타입의 데이터에서 소수점 이하의 초는 무시하고 동일한 YYYY-MM-DD HH:MM:SS 형식으로 비교한다. |
 | CHAR     | CHAR           |                                                              |
 | VARCHAR  | VARCHAR2       |                                                              |
 | NCHAR    | NCHAR          |                                                              |

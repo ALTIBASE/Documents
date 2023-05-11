@@ -208,7 +208,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 | ![](media/iSQL/image1.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다. |
 | ![](media/iSQL/image2.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다. |
 | ![](media/iSQL/image3.gif) | 명령문이 이전 라인으로부터 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 시작한다. |
-| ![](media/iSQL/image4.gif) | 명령문이 종료한다.                                           |
+| ![](media/iSQL/image4.gif) | 명령문을 종료한다.                                           |
 | ![](media/iSQL/image5.gif) | 필수 항목                                                    |
 | ![](media/iSQL/image6.gif) | 선택적 항목                                                  |
 | ![](media/iSQL/image7.gif) | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.          |
@@ -217,21 +217,21 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 ##### 샘플 코드 규칙
 
-코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어
+코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예로 들어
 설명한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
-| 규칙         | 의미                                                                                | 예제                                                                                                     |
-|--------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| [ ]          | 선택 항목을 표시                                                                    | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                                                                 |
-| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시                               | { ENABLE \| DISABLE \| COMPILE }                                                                         |
-| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                                           | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                        |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시                           | SQL\> SELECT ename FROM employee; ENAME ----------------------- SWNO HJNO HSCHOI . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                                                   | EXEC :p1 := 1; acc NUMBER(11,2);                                                                         |
-| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치         | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;                                                |
-| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                              |
-| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                              | DESC SYSTEM_.SYS_INDICES_;                                                                               |
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략을 표시           | SQL\> SELECT ename FROM employee; ENAME ----------------------- SWNO HJNO HSCHOI . . . 20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이외의 기호들                             | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;    |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### 관련 자료
 
@@ -285,7 +285,7 @@ iSQL은 Altibase에 접속하여 SQL 문과 부가적인 여러 명령어를 통
 #### iSQL의 주요 기능
 
 -   Altibase의 구동 및 종료 기능  
-    Altibase 서버의 구동 및 종료 등의 데이터 베이스 관리를 하기 위해서 여러 개의
+    Altibase 서버의 구동 및 종료 등의 데이터베이스 관리를 위해 여러 개의
     커맨드라인 명령어를 사용하는 대신에, iSQL 하나의 도구만을 사용하면 된다.
 
 -   데이터베이스 접속 및 해제 기능  
@@ -408,7 +408,7 @@ isql
   IPv6 주소 표기법에 대한 자세한 내용은 Administrator’s Manual을 참고하기 바란다.
 - -PORT *port_no*
   TCP, IPC 또는 IPCDA로 접속할 때 해당 포트 번호를 명시한다. 단 유닉스 환경에서 IPC로 접속시 이 옵션은 명시하지 않아야 한다. 만약 명시하면 경고 메시지가 출력된 후, 서버에 접속한다.
-  TCP로 접속하려면 먼저 클라이언트에서 환경 변수 ‘ISQL_CONNECTION=TCP’를 설정하고, 옵션에 PORT_NO를 입력한다. ISQL_CONNECTION 환경 변수의 값이 IPC가 아니고 –PORT 옵션을 생략한다면, ALTIBASE_PORT_NO와 PORT_NO 프로퍼티를 차례로 참조하고 모두 설정되어 있지 않다면, 포트 번호 입력 프롬프트가 출력된다.
+  TCP로 접속하려면 먼저 클라이언트에서 환경 변수 ‘ISQL_CONNECTION=TCP’를 설정하고, 옵션에 PORT_NO를 입력한다. ISQL_CONNECTION 환경 변수의 값이 IPC가 아니고 –PORT 옵션을 생략한다면 ALTIBASE_PORT_NO와 PORT_NO 프로퍼티를 차례로 참조하고, 모두 설정되어 있지 않다면 포트 번호 입력 프롬프트가 출력된다.
 - -U *user_id*
   데이터베이스에 등록된 사용자 ID를 명시한다.
 - -P *password*
@@ -420,7 +420,7 @@ isql
   옵션을 사용할 수 있다. 서버가 구동되어 있지 않다면, iSQL은 idle 인스턴스로
   접속할 것이며, 그 상태에서 서버를 구동할 수 있다.
 - -KEEP_SYSDBA
-  사용자가 -sysdba 옵션으로 관리자 모드로 접속 시, 서버 구동 후에는 서비스 
+  사용자가 -sysdba 옵션으로 관리자 모드 접속 시, 서버 구동 후에는 서비스 
   세션으로 재접속 된다. -keep_sydba 옵션은 서버 구동 후 서비스 세션으로 
   재접속하지 않고 관리자 모드를 유지하게 한다. 
 - -UNIXDOMAIN-FILEPATH *filepath*  
@@ -434,7 +434,7 @@ isql
   ALTIBASE_HOME이 서로 다르다면 유닉스 도메인의 소켓 경로가 다르게 되어 접속이
   불가능하다. 이 때 ALTIBASE_HOME/trc/cm-ipc 파일을 이용하면, 유닉스 도메인
   통신이 가능해져 공유 메모리의 정보를 가져올 수 있다. 그러나 이 옵션은
-  환경변수 ALTIBASE_IPC_FILEPATH를 설정하였다면, 생략해도 된다.
+  환경변수 ALTIBASE_IPC_FILEPATH를 설정하였다면 생략해도 된다.
 - -IPCDA-FILEPATH *filepath*  
   유닉스 환경에서 서버와 클라이언트가 IPCDA로 접속 (ISQL_CONNECTION=IPCDA)할
   때, ALTIBASE_HOME이 서로 다르다면 유닉스 도메인의 소켓 경로가 다르게 되어
@@ -455,8 +455,8 @@ isql
   예) -O \\" file name\\"
 - -H
   iSQL의 실행 방법을 보여준다.
-- -SILENT s
-  ilent 모드를 켜는 옵션이다. silent 모드를 켜면 Copyright 등의
+- -SILENT
+  silent 모드를 켜는 옵션이다. silent 모드를 켜면 Copyright 등의
   부가적인 설명들을 보여주지 않는다.
 - -NLS_USE 데이터 검색 시, 사용자에게 보여주는 문자 집합(Character Set)이다.
   iSQL을 실행하는 터미널의 encoding을 명시하여 준다.  생략 시 환경변수 ALTIBASE_NLS_USE, altibase.properties를 차례로 참조하며,
@@ -578,7 +578,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>@ file_name;</TD><TD>iSQL 프롬프트 상에서 수행 시 start와 동일한 기능을 갖는다.</TD>
      </TR>
      <TR>
-         <TD>@@ file_name;</TD><TD>스크립트 파일 안에서 사용될 때 호출을 한 스크립트 파일이 위치하는 디렉터리에서 파일을 찾아서 수행한다.</TD>
+         <TD>@@ file_name;</TD><TD>스크립트 파일 안에서 사용될 때 호출한 스크립트 파일이 위치하는 디렉터리에서 파일을 찾아 수행한다.</TD>
      </TR>
      <TR>
          <TD>SQL문 파일 저장</TD><TD>SAVE abc.sql;</TD><TD>현재 iSQL 버퍼에 있는 명령어 중 가장 마지막 명령어가 파일로 저장된다.</TD>
@@ -613,13 +613,13 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SET FEED[BACK] ON;<BR>SET FEED[BACK] OFF;<BR>SET FEED[BACK] n;</TD><TD>쿼리 실행결과 건수의 출력여부를 설정한다.</TD>
      </TR>
      <TR>
-         <TD>SET PAGESIZE 10;</TD> <TD>select 결과 레코드들을 몇 개 단위로 출력할지를 결정하는 명령어로 `0`으로 설정할 경우 결과 레코드 전체를 한꺼번에 출력한다.<BR>기본값: 0</TD>
+         <TD>SET PAGESIZE 10;</TD> <TD>select 결과 레코드들을 몇 개 단위로 출력할지 결정하는 명령어로 `0`으로 설정할 경우 결과 레코드 전체를 한꺼번에 출력한다.<BR>기본값: 0</TD>
      </TR>
      <TR>
          <TD>SET HEADING ON;<BR>SET HEADING OFF;</TD> <TD>select 결과 출력 시 헤더 출력 유무<BR>기본값: ON</TD>
      </TR>
      <TR>
-         <TD>SET COLSIZE N;</TD> <TD>CHAR, VARCHAR 타입 칼럼의 결과를 표시할 자릿수 설정.<BR>COLSIZE가 LINESIZE에 우선하여 적용된다.</TD>
+         <TD>SET COLSIZE N;</TD> <TD>CHAR, VARCHAR 타입 칼럼의 결과를 표시할 자릿수 설정.<BR>COLSIZE가 LINESIZE보다 우선적으로 적용된다.</TD>
      </TR>
      <TR>
          <TD>SET NUM[WIDTH] N;</TD> <TD>NUMERIC, DECIMAL, NUMBER, FLOAT 타입의 SELECT 결과를 표시할 자릿수 설정.<BR>기본값: 11</TD>
@@ -634,7 +634,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SET NUMF[ORMAT] format;</TD><TD>NUMERIC, DECIMAL, NUMBER, FLOAT 타입의 SELECT 결과를 표시할 형식 설정</TD>
      </TR>
      <TR>
-         <TD>SQL문 실행시간</TD><TD>SET TIMING ON;<BR>SET TIMING OFF;</TD><TD>SQL 명령 실행에 걸린 시간 출력유무<BR>기본값: OFF</TD>
+         <TD>SQL문 실행시간</TD><TD>SET TIMING ON;<BR>SET TIMING OFF;</TD><TD>SQL 명령 실행에 걸린 시간 출력 여부 설정.<BR>기본값: OFF</TD>
      </TR>
      <TR>
          <TD>SQL문 실행시간 출력 단위 설정</TD><TD>SET TIMESCALE SEC;<BR>SET TIMESCALE MILSEC;<BR>SET TIMESCALE MICSEC;<BR>SET TIMESCALE NANSEC;</TD><TD>SQL문의 쿼리 수행 시간 단위를 초, 밀리초, 마이크로초, 나노초 등으로 설정한다.</TD>
@@ -649,7 +649,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>파티션 정보 출력의 유무</TD><TD>SET PARTITIONS ON;<BR>SET PARTITIONS OFF;</TD><TD>테이블 구조(DESC)를 볼 때 파티션 정보 포함 출력 여부 설정.<BR>기본값: OFF</TD>
      </TR>
      <TR>
-         <TD>스크립트 실행 결과의 출력 유무</TD><TD>SET TERM ON;<BR>SET TERM OFF;</TD><TD>스크립트 파일 실행의 결과 및 명령어를 화면상에 보여줄지를 결정한다.<BR>기본값: ON</TD>
+         <TD>스크립트 실행 결과의 출력 유무</TD><TD>SET TERM ON;<BR>SET TERM OFF;</TD><TD>스크립트 파일의 실행 결과 및 명령어들의 출력 여부를 결정한다.<BR>기본값: ON</TD>
      </TR>
      <TR>
          <TD>스크립트 명령어 출력 유무</TD><TD>SET ECHO ON;<BR>SET ECHO OFF;</TD><TD>@으로 실행된 스크립트 파일 내의 명령어들의 출력 여부를 설정한다.<BR>기본값 : ON </TD>
@@ -664,7 +664,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>실행 계획 트리 출력</TD><TD>ALTER SESSION SET EXPLAIN PLAN = ON;<BR>ALTER SESSION SET EXPLAIN PLAN = ONLY;<BR>ALTER SESSION SET EXPLAIN PLAN = OFF;</TD><TD>SELECT문에 대한 실행 계획의 출력 여부를 설정한다.<BR>기본값: OFF</TD>
      </TR>
      <TR>
-         <TD>SELECT 결과 출력 방향</TD><TD>SET VERTICAL ON;<BR>SET VERTICAL OFF;</TD><TD>레코드를 조회할 때 이 값을 ON으로 설정하면, SELECT의 결과가 세로로 보여진다.<BR>기본값: OFF</TD>
+         <TD>SELECT 결과 출력 방향</TD><TD>SET VERTICAL ON;<BR>SET VERTICAL OFF;</TD><TD>레코드를 조회할 때 이 값을 ON으로 설정하면, SELECT의 결과가 세로로 출력된다.<BR>기본값: OFF</TD>
      </TR>
      <TR>
          <TD>MULTIERROR 출력 여부</TD><TD>SET MULTIERROR ON;<BR>SET MULTIERROR OFF;</TD><TD>SQL 수행시 이 값을 ON으로 설정하면, 다중에러가 표시될 수 있다.<BR>기본값: OFF 이고 이때는 다중에러가 발생해도 하나의 에러만 표시된다.</TD>
@@ -688,10 +688,10 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SHOW PAGESIZE</TD><TD>현재의 PAGESIZE 값을 보여준다.</TD>
      </TR>
      <TR>
-         <TD>SHOW PLANCOMMIT</TD><TD>AUTOCOMMIT OFF 모드에서 명령어를 수행할 때 자동으로 커밋되는 여부를 보여준다.</TD>
+         <TD>SHOW PLANCOMMIT</TD><TD>AUTOCOMMIT OFF 모드에서 명령어를 수행할 때 자동으로 커밋되는지의 여부를 보여준다.</TD>
      </TR>
      <TR>
-         <TD>SHOW QUERYLOGGING</TD><TD>DML 문이 실행될 때 $ALTIBASE_HOME/trc/isql_query.log에 기록되는지 여부를 보여준다.</TD>
+         <TD>SHOW QUERYLOGGING</TD><TD>DML 문이 실행될 때 $ALTIBASE_HOME/trc/isql_query.log에 기록되는지의 여부를 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW FEEDBACK</TD><TD>현재 설정된 FEEDBACK 값을 보여준다.</TD>
@@ -709,7 +709,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>SHOW TIMING</TD><TD>현재의 TIMING 설정 여부를 보여준다.</TD>
      </TR>
      <TR>
-         <TD>SHOW TIMESCLAE	</TD><TD>현재의 SQL문의 쿼리 수행 시간 단위가 무엇으로 설정되었는지를 보여준다.</TD>
+         <TD>SHOW TIMESCLAE	</TD><TD>현재 SQL문의 쿼리 수행 시간 단위가 무엇으로 설정되었는지를 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW USER</TD><TD>현재 사용자를 보여준다.</TD>
@@ -780,6 +780,8 @@ iSQL 상에서 두 가지 수행 방법에 대한 결과에는 차이가 없으�
 
 
 
+
+
 ### iSQL 관련 환경변수
 
 #### ALTIBASE_HOME
@@ -804,7 +806,7 @@ altibase.properties 파일 내의 프로퍼티 순이며 아무것도 설정되�
 iSQL이 SSL/TLS 통신으로 접속할 서버의 포트 번호이다.
 
 SSL 포트 번호의 우선 순위는 -PORT 옵션, 환경변수, ALTIBASE_SSL_PORT_NO,
-altibase.properties 파일 내의 프로퍼티 순이다. 만약 아무것도 설정되지 않았을
+altibase.properties 파일 내의 프로퍼티 순이며 만약 아무것도 설정되지 않았을
 경우에는 포트 번호 입력 프롬프트가 출력된다.
 
 #### ALTIBASE_NLS_USE
@@ -966,7 +968,7 @@ iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선�
 
 #### ISQL_FILE_PERMISSION
 
-iSQL이 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666 ( user:rw,  group:rw,  other: rw)로 설정된다.
+iSQL이 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 설정하지 않으면 666(user:rw,  group:rw,  other: rw)으로 설정된다.
 
 예) user:rw,  group:--,  other:--로 설정하는 경우, 
 export ISQL_FILE_PERMISSION=600
@@ -993,8 +995,8 @@ iSQL은 또한 glogin.sql 후에 실행되는 login.sql 파일도 지원한다. 
 login.sql이 실행되므로 login.sql에 있는 명령어들로 우선수행 (override) 된다.
 
 하나의 유닉스 계정을 여러 명이 사용할 경우에는 glogin.sql 파일을 개인적인 용도로
-수정하기가 불가능할 수도 있다. 이런 경우 일반 사용자는 SQL 명령어들, 저장
-프로시저, 또는 iSQL 명령어들을 각자의 개인용 작업 디렉터리 내에 login.sql 파일에
+수정하는 것이 불가능할 수도 있다. 이런 경우 일반 사용자는 SQL 명령어들, 저장
+프로시저, 또는 iSQL 명령어들을 각자의 개인용 작업 디렉터리 내의 login.sql 파일에
 첨가할 수 있다. 사용자가 iSQL을 구동할 때, iSQL은 자동적으로 현재 디렉토리에서
 login.sql 파일을 찾고, 그 안에 명령어들을 수행한다.
 
@@ -1085,8 +1087,7 @@ WARNING: CONNECT command in glogin.sql file ignored
 ### 로그인
 
 iSQL 유틸리티를 사용하기 위해서는 먼저 로그인 과정을 거쳐야 하는데, 커맨드 라인
-상에서 직접 연결 정보를 입력하는 방법과 입력 프롬프트 상에서 입력하는 방법이
-있다.
+상에서 직접 연결 정보를 입력하는 방법과 입력 프롬프트 상에서 입력하는 방법이 있다.
 
 ```
 isql -U userID -P password [-SYSDBA]
@@ -1098,7 +1099,7 @@ isql [-SYSDBA]
 있다. 사용자 ID와 패스워드는 대소문자를 구별하지 않는다.
 
 SYS 사용자가 관리자 모드로 iSQL 유틸리티를 사용하기 위해서는 -SYSDBA 옵션을
-사용한다. SYSDBA 옵션으로 원격에서도 접속이 가능하다.
+사용한다. SYSDBA 옵션으로 원격 접속이 가능하다.
 
 사용자 ID에 특수 문자 또는 공백이 포함된 경우 큰따옴표를 사용해야 한다.
 
@@ -1110,7 +1111,7 @@ $ isql -U \"user name\"
 
 #### 제한 사항
 
--   SYSDBA 모드로 접속하는 것은 한 명의 사용자만 허용된다. 2명 이상의 사용자가
+-   한 명의 사용자만 SYSDBA 모드로 접속할 수 있다. 2명 이상의 사용자가
     동시에 SYSDBA 모드로 접속할 수 없다.
 
 -   원격에서 SYSDBA 모드로 접속할 수 있지만, DBMS를 구동할 수는 없다.
@@ -1577,8 +1578,8 @@ Set autocommit on success.
 SET PLANCOMMIT ON/OFF;
 ```
 
-autocommit off (non-autocommit) 모드에서 explain plan이 on (또는 only) 조건일
-때, desc, select \* from tab; 또는 select \* from seq; 등과 같은 명령어를
+autocommit off (non-autocommit) 모드에서 explain plan이 on (또는 only) 조건인
+경우, desc, select \* from tab; 또는 select \* from seq; 등과 같은 명령어를
 수행했을 때 자동으로 commit 할지를 결정하는 기능이다. 기본값은 OFF 이다.
 
 > 참고: 기본값이 OFF 이므로 autocommit off 세션에서 explain plan이 on (또는 only) 조건일 때 Altibase는 위의 명령어(desc, select \* from tab; 또는 select * from seq;)를 자동 commit 하지 않고 오류 메시지를 발생한다.
@@ -1615,7 +1616,7 @@ Spool Stop		-> 더 이상 명령과 그 결과들을 파일에 저장하지 않�
 START file_name[.sql]
 ```
 
-*file_name*[*.sql*]: 수행 될 스크립트 파일, 확장자를 생략하면 iSQL은 기본
+*file_name*[*.sql*]: 수행될 스크립트 파일, 확장자를 생략하면 iSQL은 기본
 스크립트 파일 확장자(.sql)로 간주한다.
 
 iSQL 명령어와 SQL구문들이 저장된 스크립트 파일을 실행하면, 한번에 파일내의
@@ -1683,7 +1684,7 @@ edit, save, load, spool, start
 -   스크립트에는 일반적으로 SQL문, iSQL 명령어, 또는 Stored Procedure 블록 등이
     포함될 수 있다.
 
--   스크립트 내에 exit 또는 quit 명령어는 iSQL을 종료시킨다.
+-   스크립트 내의 exit 또는 quit 명령어는 iSQL을 종료시킨다.
 
 다음은 \$ALTIBASE_HOME 디렉터리에서 a.sql 스크립트 파일을 실행하는 예제로, 이
 파일 내에서 schema.sql 스크립트 파일을 실행한다. 이 예제가 에러 없이 제대로
@@ -1726,7 +1727,7 @@ WHERE EMP_JOB = '&1'
 AND SALARY > &2;
 ```
 
-START 명령어 수행 시에 programmer, 2000을 파라미터로 같이 입력하면&1에
+START 명령어 수행 시에 programmer, 2000을 파라미터로 같이 입력하면 &1에
 programmer, &2에 2000 값이 대체되어 수행된다. 즉 직업이 programmer이고, 월급이
 2000을 초과하는 직원이 조회된다.
 
@@ -1837,7 +1838,7 @@ Save completed.
 
 #### SQL문의 로드
 
-지정한 파일의 첫 번째 명령어를 iSQL버퍼의 마지막 위치에 로드시키는 기능이다.
+지정한 파일의 첫 번째 명령어를 iSQL 버퍼의 마지막 위치에 로드시키는 기능이다.
 
 ```
 iSQL> LOAD book.sql
@@ -1911,8 +1912,7 @@ SELECT sysdate FROM dual;
 **기존 파일 편집**
 
 존재하는 파일을 편집하기 위해서는 iSQL 상에서 ed 실행 시 그 파일 이름을 뒤에
-넣으면 된다. 화면이 초기화 되어 있을 때 빈 줄 표시는 \~(tilde) 문자로
-표시된다.
+넣으면 된다. 화면이 초기화 되어 있을 때 빈 줄은 \~(tilde) 문자로 표시된다.
 
 ```
 iSQL> ed myquery.sql
@@ -2239,7 +2239,7 @@ ID          NAME     ADDRESS  PHONE
 #### SET NUM[WIDTH]
 
 NUMERIC, DECIMAL, NUMBER, FLOAT 타입의 SELECT 결과를 표시할 자리수를 설정한다.
-유효숫자의 개수가 많은 데이터는 이 값을 크게 설정하면 읽기가 쉽다.
+유효숫자의 개수가 많은 데이터는 이 값을 크게 설정하면 읽기 쉽다.
 
 아래는 NUMWIDTH를 30으로 설정한 후 NUMERIC, DECIMAL, NUMBER, FLOAT 칼럼을
 조회하는 예제이다.
@@ -2704,7 +2704,7 @@ Create success.
 elapsed time : 0.00	  -> 결과 끝
 ```
 
-아래는TERM OFF로 설정했더라도, ECHO를 ON 상태로 변경하면 @으로 실행된 스크립트
+아래는 TERM OFF로 설정했더라도, ECHO를 ON 상태로 변경하면 @으로 실행된 스크립트
 내의 명령어를 출력하는 예제이다.
 
 ```
@@ -2844,9 +2844,8 @@ EXPLAIN PLAN = ONLY인 경우 질의 실행 없이 실행 계획만 생성하므
 iSQL에서 SELECT 구문으로 조회할 경우, 결과를 세로로 보여줄 것인가 가로로 보여줄
 것인가를 선택할 수 있다.
 
-조회 결과가 행이 적고, 열이 많을 경우에 적합한 출력이다. 일반적으로 이러한
-경우에 가로로 출력되면 해당하는 열을 맞춰 값을 보기가 어렵다. 하지만 출력 결과의
-방향을 세로로 설정하면 보기가 편리하다.
+조회 결과가 행이 적고 열이 많을 경우 가로로 출력되면 해당하는 열에 맞는 값을
+보기 어렵다. 하지만 조회 결과의 방향을 세로로 설정하면 보기 편리하다.
 
 ```
 iSQL>SET VERTICAL ON;         -> 출력 결과 모드를 세로로 설정한다.
@@ -3051,11 +3050,11 @@ Direct Execution 이란 질의에 대한 구문 분석, 정당성 검사, 최적
 
 Prepared Execution 방법은 prepare를 할 때 질의에 대한 구문 분석, 정당성 검사,
 최적화까지만 수행하여 질의의 실행 계획을 미리 수립한다. 그 후 클라이언트로부터
-실행을 요청받으면, 수행을 하는 것이다. ODBC를 사용한 응용프로그램 작성의 경우
+실행을 요청받으면 수행한다. ODBC를 사용한 응용프로그램 작성의 경우
 Prepared Execution 방법이 일반적으로 사용되며, 호스트 변수 바인딩이 된 SQL문에
 대한 반복적인 수행이 필요한 경우에 속도의 이점을 볼 수 있다.
 
-두 가지 수행 방법의 차이는 iSQL 상에서 변수 사용 여부의 차이가 존재하지만,
+두 가지 수행 방법 사이에는 iSQL 상에서 변수 사용 여부의 차이가 존재하지만,
 속도의 차이는 없다. 단, Prepared Execution 방법으로 수행하는 경우, 출력되는
 그래프 정보와 실행 계획 정보가 다를 수 있다. 그래프 정보는 최적화까지의 중간
 계획을 나타내고, 실행 계획은 변수에 실제 값이 적용된 이후의 계획을 나타내기
