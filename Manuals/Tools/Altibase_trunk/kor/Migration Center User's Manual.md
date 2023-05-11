@@ -281,7 +281,7 @@ Center를 사용하는 방법을 기술한다.
 | ![image1](media/MigrationCenter/image1.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다. |
 | ![image2](media/MigrationCenter/image2.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다. |
 | ![image3](media/MigrationCenter/image3.gif) | 명령문이 이전 라인으로부터 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 시작한다. |
-| ![image4](media/MigrationCenter/image4.gif) | 명령문을 종료한다.                                           |
+| ![image4](media/MigrationCenter/image4.gif) | 명령문이 종료한다.                                           |
 | ![](media/MigrationCenter/image5.gif)       | 필수 항목                                                    |
 | ![](media/MigrationCenter/image6.gif)       | 선택적 항목                                                  |
 | ![](media/MigrationCenter/image7.gif)       | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.          |
