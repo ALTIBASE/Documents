@@ -252,16 +252,16 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
-| 규칙         | 의미                                                                                | 예제                                                                                                      |
-|--------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| [ ]          | 선택 항목을 표시                                                                    | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                                                                  |
-| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시                               | { ENABLE \| DISABLE \| COMPILE }                                                                          |
-| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                                           | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                         |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시                           | SQL\> SELECT ename FROM employee; ENAME ------------------------ SWNO HJNO HSCHOI . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                                                   | EXEC :p1 := 1; acc NUMBER(11,2);                                                                          |
-| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 지정자  | SELECT \* FROM *table_name*; CONNECT userID/password;                                                     |
-| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                               |
-| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                              | DESC SYSTEM_.SYS_INDICES_;                                                                                |
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략을 표시           | SQL\> SELECT ename FROM employee; ENAME ------------------------ SWNO HJNO HSCHOI . . . 20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이외의 기호들                             | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 지정자 | SELECT \* FROM *table_name*; CONNECT userID/password;        |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 ### 관련 자료
 
@@ -2807,7 +2807,7 @@ config.xml에서 <Altimon ...> 요소는 altiMon 로그 출력 형식, 로그 �
 | \<DateFormat\>                | altiMon 로그의 날짜 형식을 설정한다. 기본값은 yyyy-MM-dd HH:mm:ss 이다. 설정 가능한 날짜 형식은 [자바 SimpleDateFormat 클래스의 날짜 형식](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html)을 참고한다. |
 | \<MaintenancePeriod\>         | altiMon 로그 파일의 보관 기간을 설정한다. 기본값은 3이고 단위는 일(day)이다. |
 | \<Interval\>                  | altiMon의 모니터링 데이터 수집 주기를 설정한다. 기본값은 60이고 단위는 초(second)이다. <br />Metrics.xml 파일의 \<OSMetric\> 또는 \<SQLMetric\> 요소에서 Interval 속성을 설정하지 않으면 이 값이 적용된다. GroupMetrics.xml 파일의 \<Groupetric\> 요소에서는 이 값의 영향을 받지 않는다. |
-| <CpuSamplingInterval\>        | CPU 사용률(%)을 측정하는 쓰레드의 실행 주기이다. 기본값은 3이고 단위는 초(second)이다.<br/>Altibase 7.1.0.8.4 이후 부터는 CPU 사용률을 측정하기 위해 OS CPU 사용율 측정 쓰레드, 알티베이스 CPU 사용률 측정 쓰레드가 추가되었다. 각 쓰레드는 CpuSamplingInterval 주기로 CPU 사용률을 측정하며, 모니터링 요소에서는 이 값들을 참조 한다. OS CPU 사용률 측정 쓰레드와 알티베이스 CPU 사용률 측정 쓰레드는 각기 별도의 쓰레드로 동작하기 때문에, CPU 과부하시 두 측정값사이에 시간차가 발생할 수 있다. |
+| <CpuSamplingInterval\>        | CPU 사용률(%)을 측정하는 쓰레드의 실행 주기이다. 기본값은 3이고 단위는 초(second)이다.<br/>Altibase 7.1.0.8.4 이후 부터는 CPU 사용률을 측정하기 위해 OS CPU 사용률 측정 쓰레드, 알티베이스 CPU 사용률 측정 쓰레드가 추가되었다. 각 쓰레드는 CpuSamplingInterval 주기로 CPU 사용률을 측정하며, 모니터링 요소에서는 이 값들을 참조 한다. OS CPU 사용률 측정 쓰레드와 알티베이스 CPU 사용률 측정 쓰레드는 각기 별도의 쓰레드로 동작하기 때문에, CPU 과부하시 두 측정값 사이에 시간차가 발생할 수 있다. |
 | \<DBConnectionWatchdogCycle\> | Altibase 서버로의 접속 시도 주기를 설정한다. Altibase 서버가 중지되었을 때 altiMon은 이 값에 따라 주기적으로 Altibase 서버에 접속을 시도하므로 Altibase 서버가 시작되면 모니터링을 지속할 수 있다. 기본값은 60이고 단위는 초(second)이다. |
 
 
@@ -2958,7 +2958,7 @@ Metrics.xml에서 <OSMetric ...> 요소는 PICL 라이브러리에서 미리 정
 
 > #### Altibase 서버 상태 모니터링(SQLMetric)
 
-Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 수 있게 제공하는 모니터링 요소이다.
+Metrics.xml에서 <SQLMetric ...> 요소는 Altibase 서버 상태를 수집할 수 있도록 제공하는 모니터링 요소이다.
 
 **속성**
 
@@ -2992,7 +2992,7 @@ CommandMetric, OSMetric, SQLMetric 요소에서 공통적으로 사용할 수 �
 |                                                 | Activate         | <Alert …>의 수행 여부를 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true : alert 기능을 사용한다. 하위 요소로 <WarningThreshold …> 또는 <CriticalThreshold …>가 반드시 필요하다. <br />- false : alert 기능을 사용하지 않는다. |
 |                                                 | ComparisonColumn | 이 속성은 ***SQLMetric에서만*** 사용할 수 있다. SQLMetric에서 조회한 컬럼을 입력해야 한다. 컬럼의 값은 <WarningThreshold …> 또는 <CriticalThreshold …>의 Value 속성과 비교 가능한 10진수 숫자여야 한다. |
 |                                                 | ComparisonType   | 모니터링 요소의 출력 값과 <WarningThreshold …> 또는 <CriticalThreshold …>의 Value 속성과 비교할 비교 연산자를 입력한다.<br />- eq : 모니터링 요소의 출력 값과 한계값이 같을 때<br/>- ne : 모니터링 요소의 출력 값이 한계값과 같지 않을 때 <br/>- gt : 모니터링 요소의 출력 값이 한계값보다 클 때<br/>- ge : 모니터링 요소의 출력 값이 한계값보다 크거나 같을 때<br/>- lt : 모니터링 요소의 출력 값이 한계값보다 작을 때<br/>- le : 모니터링 요소의 출력 값이 한계값보다 작거나 같을 때 |
-| <WarningThreshold …> 또는 <CriticalThreshold …> |                  | <Alert …>의 하위 요소로 경보 종류를 선택한다. <WarningThreshold …> 일 때 alert.log의 첫 번째 열은 WARNING이고 <CriticalThreshold …>이면 CRITICAL이다. <br />Activate 속성값이 true이면 반드시 이 요소를 사용해야 한다. |
+| <WarningThreshold …> 또는 <CriticalThreshold …> |                  | <Alert …>의 하위 요소로 경고 종류를 선택한다. <WarningThreshold …> 일 때 alert.log의 첫 번째 열은 WARNING이고 <CriticalThreshold …>이면 CRITICAL이다. <br />Activate 속성값이 true이면 반드시 이 요소를 사용해야 한다. |
 |                                                 | Value            | 모니터링 요소의 한계 값을 10진수 숫자로 설정한다.            |
 | \<ActionScript\>                                |                  | <WarningThreshold …> 또는 <CriticalThreshold …>의 하위 요소로, 모니터링 요소의 출력 값이 사용자가 정의한 한계 조건에 해당할 때 수행할 스크립트 파일 이름을 입력한다. 이 파일은 미리 작성되어 있어야 하며 $ALTIBASE_HOME/altiMon/action_scripts 디렉토리에 위치해야 한다. 스크립트 수행 시 각 모니터링 요소의 Name 속성과 alert 종류, 한계 값, 모니터링 요소의 결과 값이 인자로 전달된다. <br />스크립트 수행 결과는 $ALTIBASE_HOME/altiMon/action_logs/*actionscript_name*.log에 기록된다. action_logs의 파일들은 장애 원인 분석에 꼭 필요한 정보가 될 수 있어서 altiMon이 자동으로 삭제하지 않으므로 ***사용자가 직접 관리***해야 한다. |
 
@@ -3052,7 +3052,7 @@ logs 디렉토리에 생성되는 파일은 아래와 같다.
 
 ##### altimon.log  
 
-altiMon 시작/중지 과정의 로그와 altiMon 수행 중 예외 상황 발생 시 경고 또는 에러 메시지가 기록된다. 
+altiMon 시작/중지 과정의 로그와 altiMon 수행 중 예외 상황 발생 시의 경고 또는 에러 메시지가 기록된다. 
 
 ##### alert.log  
 
@@ -3130,7 +3130,7 @@ $ cat group1.csv
 
 ### logs/archive 디렉토리
 
-logs 디렉토리의 altimon.log, \*.csv 제외한 모든 파일이 archive/YYYY-MM-DD 디렉토리로 매일 백업된다. 이 디렉토리 중에서 config.xml의 altiMon 실행 설정에서 \<MaintenancePeriod\>에서 설정한 기간이 지난 디렉토리는 매일 새벽 1시 50분에 삭제된다.
+logs 디렉토리의 altimon.log, \*.csv를 제외한 모든 파일이 archive/YYYY-MM-DD 디렉토리로 매일 백업된다. 이 디렉토리 중 config.xml의 altiMon 실행 설정에서 \<MaintenancePeriod\>에서 설정한 기간이 지난 디렉토리는 매일 새벽 1시 50분에 삭제된다.
 
 ### logs/csv_backup 디렉토리
 

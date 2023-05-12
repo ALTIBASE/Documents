@@ -174,6 +174,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [Altibase](#altibase-1)
   - [Informix](#informix-1)
   - [MySQL](#mysql-1)
+  - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
 
 <br/>
@@ -254,7 +255,7 @@ Center를 사용하는 방법을 기술한다.
   테이블 컬럼의 기본값을 변환하기 위한 기본값 맵핑 테이블을 제공한다.
 
 - E. 부록: PSM 변환기 규칙 목록  
-  Oracle에서 Altibase로 마이그레이션을 할 때, PSM 변환기가 DDL SQL 문장으로
+  Oracle에서 Altibase로 마이그레이션을 할 때, PSM 변환기가 DDL SQL 문장을
   변환하는 규칙을 설명한다.
 
 - F. 부록: FAQ
@@ -275,21 +276,21 @@ Center를 사용하는 방법을 기술한다.
 이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
 설명한다.
 
-| 구성 요소                                       | 의미                                                  |
-| ------------------------------------------- | --------------------------------------------------- |
-| ![image1](media/MigrationCenter/image1.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다.            |
-| ![image2](media/MigrationCenter/image2.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다.    |
+| 구성 요소                                   | 의미                                                         |
+| ------------------------------------------- | ------------------------------------------------------------ |
+| ![image1](media/MigrationCenter/image1.gif) | 명령문이 시작한다. 완전한 명령문이 아닌 구문 요소는 화살표로 시작한다. |
+| ![image2](media/MigrationCenter/image2.gif) | 명령문이 다음 라인에 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 종료한다. |
 | ![image3](media/MigrationCenter/image3.gif) | 명령문이 이전 라인으로부터 계속된다. 완전한 명령문이 아닌 구문 요소는 이 기호로 시작한다. |
-| ![image4](media/MigrationCenter/image4.gif) | 명령문이 종료한다.                                          |
-| ![](media/MigrationCenter/image5.gif)       | 필수 항목                                               |
-| ![](media/MigrationCenter/image6.gif)       | 선택적 항목                                              |
-| ![](media/MigrationCenter/image7.gif)       | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.                      |
-| ![](media/MigrationCenter/image8.gif)       | 선택사항이 있는 선택적 항목                                     |
-| ![](media/MigrationCenter/image9.gif)       | 선택적 항목. 여러 항목이 허용된다. 각 반복 앞부분에 콤마가 와야 한다.           |
+| ![image4](media/MigrationCenter/image4.gif) | 명령문이 종료한다.                                           |
+| ![](media/MigrationCenter/image5.gif)       | 필수 항목                                                    |
+| ![](media/MigrationCenter/image6.gif)       | 선택적 항목                                                  |
+| ![](media/MigrationCenter/image7.gif)       | 선택사항이 있는 필수 항목. 한 항목만 제공해야 한다.          |
+| ![](media/MigrationCenter/image8.gif)       | 선택사항이 있는 선택적 항목                                  |
+| ![](media/MigrationCenter/image9.gif)       | 선택적 항목. 여러 항목이 허용된다. 각 반복 앞부분에 콤마가 와야 한다. |
 
 ##### 샘플 코드 규칙
 
-코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어
+코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예로 들어
 설명한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
@@ -299,8 +300,8 @@ Center를 사용하는 방법을 기술한다.
 | [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
 | { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| . . .        | 그 이전 인자의 반복 표시. 예제 코드들의 생략을 표시          | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이외의 기호들                             | EXEC :p1 := 1; acc NUMBER(11,2);                             |
 | 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;    |
 | 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 컬럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
 | 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
@@ -369,7 +370,7 @@ Center를 사용하는 방법을 기술한다.
 Migration Center는 데이터베이스 사이에 일반적으로 호환되는 데이터베이스 객체와
 데이터를 직접 또는 간접적으로 복사하는 데이터베이스 마이그레이션(migration)
 도구이다. 대부분의 데이터베이스는 국제 표준을 준수하지만, 어떤 데이터베이스라도
-수동식의 데이터베이스 마이그레이션이 불가피한 경우가 있다. 일반적으로
+수동 데이터베이스 마이그레이션이 불가피한 경우가 있다. 일반적으로
 데이터베이스 마이그레이션 작업을 수동으로 직접 하는 것은 복잡하고 시간이 많이
 소모되며, 사람이 하는 일이기에 실수가 잦을 수 있다. Migration Center는 사용자가
 그래픽 사용자 인터페이스(GUI) 모드에서 몇 번의 마우스 클릭만으로도 데이터베이스
@@ -378,7 +379,7 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
 
 이 도구 사용시 얻을 수 있는 주요 이점은 다음과 같다:
 
-1. 원본 데이터베이스의 데이터베이스 객체들을 대상 데이터베이스(Altibase또는
+1. 원본 데이터베이스의 데이터베이스 객체들을 대상 데이터베이스(Altibase 또는
    Oracle)로 쉽게 마이그레이션 할 수 있다.
 
 2. 최근의 가장 대중적인 DBMS 인터페이스인 JDBC를 사용해서 원본 데이터베이스의
@@ -393,8 +394,8 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
    방법도 제공한다.
 
 5. 서로 다른 종류의 데이터베이스 간에 다른 데이터 타입들의 데이터 타입 맵핑을
-   제공한다. 유연성(flexibility)을 위해 사용자 정의 데이터 타입 맵핑 뿐만
-   아니라 편의를 위해 기본 타입 맵핑도 지원한다.
+   제공한다. 유연성(flexibility)을 위한 사용자 정의 데이터 타입 맵핑 뿐만
+   아니라 편의를 위한 기본 타입 맵핑도 지원한다.
 
 6. 더 나은 사용성을 위한 GUI모드 뿐만 아니라, 만약의 경우를 대비해 명령어
    인터페이스(CLI) 모드도 제공한다.
@@ -545,13 +546,13 @@ Connector/J 파일, Informix JDBC 드라이버 파일, TimesTen의 JDBC 드라�
 ### 설치 및 제거
 
 Migration Center는 공식 Altibase 고객서비스포털
-<http://support.altibase.com>에서 내려 받을 수 있다. Migration Center는 zip 또는
+<http://support.altibase.com>에서 내려받을 수 있다. Migration Center는 zip 또는
 tar.gz 파일 형식으로 제공된다. 이 파일은 실행 파일과 몇 가지 JDBC 드라이버를
 포함하고 있다.
 
 Migration Center 설치는 압축을 풀기만 하면 된다. 결과로 생긴 디렉토리 안에는
-migcenter.bat와 migcenter.sh를 포함해서 projects, lib, conf 및 images 하위
-디렉토리, 및 파일들이 존재한다. 이 폴더를 원하는 위치로 옮긴다. 이제 Migration
+migcenter.bat와 migcenter.sh를 포함해 projects, lib, conf 및 images 하위
+디렉토리 및 파일들이 존재한다. 이 폴더를 원하는 위치로 옮긴다. 이제 Migration
 Center를 사용할 준비가 되었다.
 
 Migration Center를 제거하려면, Migration Center가 설치되어 있는 디렉토리를
@@ -586,11 +587,11 @@ Migration Center를 제거하려면, Migration Center가 설치되어 있는 디
 ##### 프로젝트
 
 Migration Center 프로젝트는 마이그레이션의 모든 면을 기술하는 기본 작업
-단위이다. 이것은 무엇을 마이그레이션할 지, 어디에서 어디로 마이그레이션할 지(즉,
+단위이다. 이것은 무엇을 마이그레이션할지, 어디에서 어디로 마이그레이션할지(즉,
 어떤 종류의 데이터베이스 또는 데이터 파일), 그리고 데이터베이스 객체와 테이블
 데이터를 어떻게 마이그레이션할 지를 포함한다. 마이그레이션 옵션에 관한 상세한
 내용은 이 매뉴얼의 "A. 부록: 마이그레이션 옵션"에서 제공한다. 프로젝트는
-언제든지 오직 한 개만 열 수 있다.
+오직 한 개만 열 수 있다.
 
 #### 기본 개념
 
@@ -618,12 +619,12 @@ Validation)" 의 다섯 단계로 구성된다.
 
 ##### 조정(Reconcile) 단계
 
-"조정" 단계는 현재 상태에 대해 완벽한 마이그레이션 계획을 구성한다. 이
-단계에서는 원본 및 대상 데이터베이스 시스템 간의 데이터 타입 및 테이블 스페이스
-등의 차이를 조정하는 것이 대부분이다. 이 단계에서 사용자는 원본
+"조정" 단계는 현재 상태에 대한 완벽한 마이그레이션 계획을 구성한다. 이
+단계에서는 대부분 원본 및 대상 데이터베이스 시스템 간의 데이터 타입 및 테이블 스페이스
+등의 차이를 조정한다. 이 단계에서 사용자는 원본
 데이터베이스로부터 데이터 추출시에 사용할 SELECT문과 대상 데이터베이스에 실행할
 DDL문을 편집할 수 있다. 예를 들어, 사용자는 원본 데이터베이스의 어떤 테이블이
-대상 데이터베이스의 어떤 테이블스페이스로 복사될지를 명시할 수 있다.
+대상 데이터베이스의 어떤 테이블스페이스로 복사될지 명시할 수 있다.
 
 마이그레이션 옵션에 변경이 가해지면 이 단계가 재수행되는 점을 염두에 두기
 바란다.
@@ -644,16 +645,16 @@ Center는 대상 데이터베이스에 데이터베이스 객체를 생성한다
 
 ##### 검증(Validation) 단계
 
-"검증" 단계는 "실행" 단계에서 이관된 데이터를 원본 데이터베이스와 데이터가
+"검증" 단계는 "실행" 단계에서 이관된 데이터가 원본 데이터베이스의 데이터와
 일치하는지 검사를 수행한다. "구축" 단계를 "Build User"로 수행했다면 Primary
 Key가 있는 모든 테이블을 대상으로 데이터의 일치 여부를 검사한다. "구축" 단계를
-"Build Table"로 수행했다면 마이그레이션한 테이블 중 Primary Key가 있는 테이블을
+"Build Table"로 수행했다면 마이그레이션 한 테이블 중 Primary Key가 있는 테이블을
 대상으로 데이터의 일치 여부를 검사한다.
 
 검증 과정에서 원본과 다른 데이터는 CSV 형식으로 저장된다. 차이가 나는 데이터는
 "FILESYNC" 메뉴 또는 명령으로 대상 데이터베이스에 반영할 수 있다. 또한 "검증"
 단계에서 소요되는 시간을 줄이기 위해, 기본적으로 데이터 샘플링 기능이
-사용된다.만약 샘플링 데이터 대신에 전체 데이터를 검증하고 싶으면 "Migration
+사용된다. 만약 샘플링 데이터 대신에 전체 데이터를 검증하고 싶으면 "Migration
 Options"의 "Data Validation Options" 항목들 중 "Data Sampling"을 "No"로 변경하면
 된다.
 
@@ -666,7 +667,7 @@ Options"의 "Data Validation Options" 항목들 중 "Data Sampling"을 "No"로 �
 #### 그래픽 사용자 인터페이스(GUI) 모드
 
 GUI 모드는 사용자 친화적인 인터페이스로 Migration Center의 기본 인터페이스이다.
-GUI 모드를 사용하면 마이그레이션 전 과정을 직관적으로 수행할 수 있으며, 특히
+GUI 모드를 사용하면 마이그레이션의 전 과정을 직관적으로 수행할 수 있으며, 특히
 "조정" 단계와 옵션 변경에서 섬세한 조작이 가능하다. 클라이언트 컴퓨터에서
 서버까지 자바 스윙 (Java Swing)을 지원하는 플랫폼이면 어느 곳이든 GUI 모드로
 수행가능하다.
@@ -680,7 +681,7 @@ Migration Center GUI는 아래 그림과 같이 네 개의 창으로 이루어�
 ##### 프로젝트 창
 
 프로젝트 창은 프로젝트 중심의 뷰를 제공한다. 프로젝트 창은 열려 있는 프로젝트와
-원본 및 대상 데이터베이스 연결을 보여준다. 한번에 오직 하나의 프로젝트만
+원본 및 대상 데이터베이스 연결을 보여준다. 한 번에 오직 하나의 프로젝트만
 프로젝트 창에 열 수 있다.
 
 ##### 정보 창
@@ -714,13 +715,13 @@ CLI 모드를 사용하는 주된 이유는 빠른 "실행" 단계를 수행하�
 
 CLI 모드로 사용하는 또다른 이유는 GUI 모드가 허용되지 않는 환경에서
 마이그레이션을 수행하기 위한 것이다. 마이그레이션 전 과정을 CLI 모드로
-수행가능하지만, CLI 환경이 지닌 한계로 인한 제약점 또한 가지고 있다. 예를 들어,
+수행 가능하지만, CLI 환경의 한계로 인한 제약점 또한 가지고 있다. 예를 들어,
 CLI 모드에서는 사용자가 임의로 "조정" 단계를 수행할 수 없으며 기본 값으로만
 수행가능하다.
 
 ### 도구
 
-이 절은 Migration Center 에 포함되어 있는 두 가지 유틸리티에 대해 그 사용법을
+이 절은 Migration Center 에 포함되어 있는 두 가지 유틸리티의 사용법을
 소개한다.
 
 #### PSM Converter for File
@@ -794,12 +795,12 @@ Migration Center를 GUI모드로 실행할 수 있다. 유닉스 계열의 운�
 
 2. "Add Database Connection" 대화 상자에서 다음의 입력 필드를 채운다.
    
-   1. DB Product: 데이터베이스 시스템의 이름.
+   1. DB Product: 데이터베이스 시스템의 이름
    
    2. Connection Name: Migration Center 프로젝트에서 사용될 고유한
       데이터베이스 연결 이름
    
-   3. IP: 데이터베이스 서버의 IP 주소.
+   3. IP: 데이터베이스 서버의 IP 주소
    
    4. Port: 데이터베이스 서버의 포트 번호 또는 Altibase 서버의 SSL 포트 번호
    
@@ -807,7 +808,7 @@ Migration Center를 GUI모드로 실행할 수 있다. 유닉스 계열의 운�
    
    6. Password: 사용자 ID의 비밀번호
    
-   7. JDBC Driver: 데이터베이스에 연결하기 위해 사용될 JDBC 드라이버 파일의
+   7. JDBC Driver: 데이터베이스에 연결하기 위해 사용할 JDBC 드라이버 파일의
       경로
    
    8. Encoding: 클라이언트가 사용하는 기본 문자 집합(character set)
@@ -863,7 +864,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 원본 및 대상 데이터베이스로의 연결은 "구축" 단계로 진행하기 위해 필수적이다.
 프로젝트에서 데이터베이스로 연결하려면, "Project" 메뉴 아래의 "Connect" 메뉴
-항목을 선택하거나, 열려진 프로젝트에 오른쪽 마우스 버튼을 클릭해서 "Connect"를
+항목을 선택하거나, 열린 프로젝트에 오른쪽 마우스 버튼을 클릭해서 "Connect"를
 선택한다.
 
 #### 프로젝트 구축
@@ -875,7 +876,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 2. 원본 데이터베이스의 각 테이블의 레코드 개수를 어떤 방식으로 가져올지
    선택하는 대화상자가 나타난다. 원하는 방법을 선택하고 "OK" 버튼을 클릭한다.
-   선택 가능한 옵션과 각 옵션에 대한 설명은 4장의 구축 단계에서 "[내부
+   선택 가능한 옵션과 각 옵션에 대한 설명은 5장의 구축 단계에서 "[내부
    동작](#내부-동작)"을 참고한다.
 
 3. "Build Table"로 시작했을 경우, 이관할 테이블 목록을 구성하는 대화 상자가
@@ -887,15 +888,15 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 5. "Report" 버튼을 누르면, HTML 보고서 파일이 프로젝트 디렉터리에 생성되고
    "Build Report"라는 새로운 대화 상자가 나타난다. 이 대화상자는 HTML 보고서
-   파일로의 링크를 제공한다. 한번 "Report" 버튼을 눌러서 HTML 보고서 파일이
+   파일의 링크를 제공한다. 한번 "Report" 버튼을 눌러서 HTML 보고서 파일이
    생성되면 "Report" 메뉴 아래의 "Build Report" 메뉴 항목이 활성화되므로, 이
    메뉴 항목을 이용해서 언제든지 "Build Report" 대화상자를 열 수 있다.
 
 #### 프로젝트 조정
 
-"조정" 단계는 "Run"이 수행될 방법을 결정하기 때문에, 마이그레이션 과정에서 아주
+"조정" 단계는 "Run"이 수행될 방법을 결정하기 때문에 마이그레이션 과정에서 아주
 중요하며, 양쪽 데이터베이스에 대한 몇 가지 지식을 필요로 한다. 이 절차에 대한
-상세한 내용은 "4장 Migration Center 내부"를 참고하도록 한다. 다음은 간단한
+상세한 내용은 "5장 Migration Center 내부"를 참고하도록 한다. 다음은 간단한
 지침이다:
 
 1. "Migration" 메뉴 아래의 "Reconcile" 메뉴 항목을 선택하거나, 도구 모음에서
@@ -915,7 +916,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
    확인하고, 원한다면 수정한다.
 
 7. 스키마 마이그레이션 과정에서 사용될 DDL SQL문장들이 올바른지 확인하고,
-   그렇지 않다면 수정하라.
+   그렇지 않다면 수정한다.
 
 8. 이 단계에 대해 보고서를 생성하려면 "Report" 버튼을 누른다.
 
@@ -935,7 +936,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 "실행" 단계에서 이관된 데이터가 올바르게 수행되었는지 검사한다.
 
-1. "Migration”메뉴 아래의 "Data Validation" 메뉴 항목을 선택한다.
+1. "Migration” 메뉴 아래의 "Data Validation" 메뉴 항목을 선택한다.
 
 2. 경고 대화 상자에서 "Ok"를 눌러서, 모든 설정이 제대로 되었는지 확인한다. Data
    Validation 대화상자가 나타나고 "검증" 단계가 수행된다.
@@ -945,7 +946,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 4. "Report" 버튼을 누르면 HTML 보고서 파일이 프로젝트 디렉터리에 생성되고,
    "Data Validation Report" 대화상자가 나타난다. 이 대화상자는 HTML 보고서
-   파일로의 링크를 제공한다. 한 번 HTML 보고서 파일이 생성되면, "Report" 메뉴
+   파일의 링크를 제공한다. 한 번 HTML 보고서 파일이 생성되면, "Report" 메뉴
    아래의 "Data Validation Report" 메뉴 항목이 활성화되므로, 이 항목을 이용해서
    언제든지 "Data Validation Report" 대화상자를 열 수 있다.
 
@@ -1013,7 +1014,7 @@ CLI 모드에서 데이터베이스 연결 정보 및 프로젝트를 등록 또
 등록파일(register.xml)을 수정한 뒤 Migration Center에서 등록 작업을 명시적으로
 수행해야 한다. 등록파일에 입력해야 하는 내용은 프로젝트 이름 및 해당
 프로젝트에서 사용될 원본/대상 데이터베이스 연결 정보이며, 여러 개의 프로젝트를
-한번에 등록이 가능하다.
+한 번에 등록할 수 있다.
 
 등록파일은 반드시 Migration Center가 설치된 디렉토리에 위치해야 한다. 자세한
 수정 방법은 register.xml 파일 내부에 기록된 주석과 샘플을 참고한다.
@@ -1048,7 +1049,7 @@ Migration Center에 등록한다. 입력된 프로젝트 이름과 동일한 이
 ```
 
 "구축" 단계를 수행하기 위해서 build 명령과 대상 프로젝트의 경로를 입력한다. 원본
-데이터베이스 테이블들의 레코드 갯수는 기본값인 Approximate Counting Method를
+데이터베이스 테이블들의 레코드 개수는 기본값인 Approximate Counting Method를
 사용하여 정보를 수집한다.
 
 #### 프로젝트 조정
@@ -1129,7 +1130,7 @@ diff 명령을 통해 원본과 대상 데이터베이스간 다른 데이터가
 
 - SQL 데이터 정의어(DDL) 스크립트
 
-  Migration Center의 지원 여부와 상관없이 원본 데이터베이스에서 수집한 데이터베이스 객체 생성 문(DDL)을 저장한 파일로, 프로젝트 폴더에 생성되며 파일의 이름은 SrcDbObj_Create.sql이다. 이 파일은 필요시 사용자가 참고하도록 제공하는 것 일 뿐 Migration Center의 어느 단계에서도 사용되지 않는다. 
+  Migration Center의 지원 여부와 상관없이 원본 데이터베이스에서 수집한 데이터베이스 객체 생성문(DDL)을 저장한 파일로, 프로젝트 폴더에 생성되며 파일의 이름은 SrcDbObj_Create.sql이다. 이 파일은 필요시 사용자가 참고하도록 제공하는 것일 뿐 Migration Center의 어느 단계에서도 사용되지 않는다. 
 
 - BuildReport4Unsupported.html
 
@@ -1166,15 +1167,15 @@ Counting Method" 대화상자가 나타난다. 사용자는 다음 중 한 가�
 - Exact Counting Method: 원본 데이터베이스의 모든 테이블을 대상으로 count
   함수를 수행하여 정확한 테이블의 레코드 개수를 가져온다.
 
-두 가지 방법 중에 "Approximate Counting Method"이 "Exact Counting Method"보다
+두 가지 방법 중에 "Approximate Counting Method"가 "Exact Counting Method"보다
 빠르지만, 보다 정확한 테이블 레코드 개수를 수집하려면 후자를 선택하는 것이 좋다.
 
 하지만 사용자가 이 대화상자에서 어떤 방법을 선택하더라도 데이터베이스 스키마와
 데이터 마이그레이션에는 전혀 영향을 미치지 않는다. 다만 Migration Center GUI
 모드의 실행 단계에서 제공되는 데이터 마이그레이션 진행률의 정확도에만 영향을
 미친다. 이는 데이터 마이그레이션 진행률이 경과된 시간과 함께 (이전된 레코드
-개수/수집된 전체 레코드 개수)의 백분율로 표시되기 때문이다. 사용자는 이 데이터를
-기반으로 마이그레이션에 소요될 전체 시간을 추정해 볼 수 있다.
+개수/수집된 전체 레코드 개수) 백분율로 표시되기 때문이다. 사용자는 이 데이터를
+기반으로 마이그레이션에 소요될 전체 시간을 추정할 수 있다.
 
 구축 단계를 수행하는 방법은 3장에서 "[프로젝트 구축](#프로젝트-구축)" 절을 참고하도록 한다.
 
@@ -1183,15 +1184,15 @@ Counting Method" 대화상자가 나타난다. 사용자는 다음 중 한 가�
 #### 목적
 
 조정 단계는 마이그레이션 계획을 구성하는 단계를 의미한다. Migration Center
-사용자는 각 데이터베이스의 객체를 어떻게 마이그레이션을 할 것인지 계획을 가지고
+사용자는 각 데이터베이스의 객체를 어떻게 마이그레이션 할 것인지 계획을 가지고
 있어야 한다. Migration Center는 모든 데이터베이스 객체를 Altibase로
 마이그레이션할 수 없지만, 마이그레이션에 대한 모든 제어를 허용하여
-마이그레이션을 쉽게 할 수 있도록 해준다.
+쉽게 마이그레이션을 할 수 있도록 해준다.
 
 Altibase는 인-메모리 데이터베이스로서의 고성능과 디스크 기반 데이터베이스로서의
 대용량의 이점을 가지고 있다. 따라서 Altibase의 일반적인 사용 전략은 빈번히
 사용되며 낮은 대기 시간이 요구되는 데이터를 메모리 테이블스페이스에 저장하고,
-나머지 데이터를 디스크 테이블스페이스에 저장하는 것이다.
+나머지 데이터를 디스크 테이블스페이스에 저장한다.
 
 Altibase의 테이블스페이스에 대한 자세한 내용은 각각의 *Administrator's Manual*을
 참고한다.
@@ -1220,7 +1221,7 @@ Altibase의 테이블스페이스에 대한 자세한 내용은 각각의 *Admin
 #### 내부 동작
 
 조정 단계는 매우 중요하고 복잡해질 수 있음에도 불구하고, 그 위저드는 UI처럼
-따라가기에 쉽다. 조정 단계를 시작하는 방법은 3장에서 "[프로젝트조정](#프로젝트-조정)" 절을 참고하기 바란다.
+따라가기에 쉽다. 조정 단계를 시작하는 방법은 3장에서 "[프로젝트 조정](#프로젝트-조정)" 절을 참고하기 바란다.
 
 ##### 조정 위저드 대화 상자
 
@@ -1277,7 +1278,7 @@ run 단계에서 생성에 실패한다. "Use Double-quoted Identifier" 체크 �
 
 "SQL Editing" 단계는 사용자에게 스키마 마이그레이션에 사용될 DDL 문장을 확인하고
 수정하는 기능을 제공한다. 사용자는 원본 DDL문장을 참조하여 Migration Center가
-대상 데이터베이스에 사용할 DDL 문장을 직접 편집하면 된다. 프로시저, 함수, 트리거
+대상 데이터베이스에 사용할 DDL 문장을 직접 편집할 수 있다. 프로시저, 함수, 트리거
 및 뷰 객체를 생성하는 SQL 문장은 모두 PSM 타입으로 표시된다. 사용자는 PSM
 카테고리 내에 있는 체크 박스를 조작하여 편집하고자 하는 객체 타입을 선택할 수
 있다. 체크 박스를 조작해서 선택한 객체들은 Done 또는 To-Do 리스트 창에 표시된다.
@@ -1699,7 +1700,7 @@ Reconcile 메뉴를 선택하면 아래와 같이 Reconcile 창이 뜬다. 사�
 
 **3. Change Mapping Type**
 
-Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창에서 Destination DB Data Type에서 변경할 데이터 타입을 선택한다. 데이터 타입에 따라 필요 시 Precision과 Scale도 입력하고 OK 버튼을 클릭한다. 
+Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창의 Destination DB Data Type에서 변경할 데이터 타입을 선택한다. 데이터 타입에 따라 필요 시 Precision과 Scale을 입력하고 OK 버튼을 클릭한다. 
 
 <div align="left">
     <img src="media/MigrationCenter/datatypemapping-step-3.png">
@@ -1760,7 +1761,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | 18   | VARCHAR          | VARCHAR          |                                                              |
 | 19   | VARCHAR (MAX)    | CLOB             |                                                              |
 | 20   | NVARCHAR         | NVARCHAR         |                                                              |
-| 21   | NVARCHAR (MAX)   | NVARCHAR (10666) | Altibase에는 SQL Server NTEXT 타입과 호환 가능한 데이터 타입이 없다. 최대 크기의 NVARCHAR 타입이 사용된다. 실제 데이터 길이가 최대 NVARCHAR 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
+| 21   | NVARCHAR (MAX)   | NVARCHAR (10666) | Altibase에는 SQL Server NTEXT 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입이 사용된다. 실제 데이터 길이가 최대 NVARCHAR 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
 | 22   | BINARY           | BYTE             |                                                              |
 | 23   | IMAGE            | BLOB             |                                                              |
 | 24   | VARBINARY        | BLOB             |                                                              |
@@ -1781,7 +1782,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  7   | INT (INTEGER)      | INTEGER                         | 주의: Altibase의 INT 타입의 최솟값(-2,147,483,647)은 MySQL INT 타입의 최솟값(-2,147,483,648) 보다 크다. |
 |  8   | INT UNSIGNED       | BIGINT                          |                                                              |
 |  9   | BIGINT             | BIGINT                          | 주의: Altibase의 BIGINT 타입의 최솟값(-9,223,372,036,854,775,807)은 MySQL BIGINT 타입의 최솟값(-9,223,372,036,854,775,808) 보다 크다. |
-|  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다 |
+|  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다. |
 |  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
 |  12  | FLOAT              | FLOAT                           |                                                              |
 |  13  | DOUBLE             | DOUBLE                          |                                                              |
@@ -2168,7 +2169,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 Altibase의 테이블 컬럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
 
 하지만 이기종 데이터베이스들 간의 기본값 정책이 일부 상이하여, Migration
-Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스의 값을 Altibase정책에
+Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스의 값을 Altibase 정책에
 맞춰 변환한다.
 
 이 부록은 Migration Center가 Altibase에 맞춰 원본 데이터베이스의 기본값을
@@ -2176,7 +2177,7 @@ Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스
 
 ### 기본값 맵핑 테이블
 
-Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 데이터베이스 에 원본
+Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 데이터베이스에 원본
 데이터베이스의 테이블과 동일한 테이블을 생성한다. 이를 위해 원본 데이터베이스의
 테이블 속성과 일치하는 테이블 생성 구문을 먼저 만든다. 이 때 Migration Center는
 원본 테이블의 컬럼 기본값과 동일하게 대상 테이블의 컬럼에 기본값을 설정하려
@@ -2192,7 +2193,7 @@ TABLE 문에 지정된다.
 
 - 대다수의 원본 데이터베이스 기본값은 변경 없이 대상 데이터베이스와 호환된다.
   하지만 아래의 경우에는 Migration Center가 원본 데이터베이스의 기본값을 대상
-  데이터베이스 정책에 맞춰 변환한다
+  데이터베이스 정책에 맞춰 변환한다.
 
 - 문자형 데이터 타입의 기본값이 길이가 0인 문자열('')인 경우 : Altibase는
   길이가 0인 문자열을 NULL로 인식하므로, 기본값을 지정하지 않는다.
@@ -2503,7 +2504,7 @@ PSM 변환기에는 DDL SQL 문장을 변환하는 규칙이 있으며, 그 규�
 
 TODO 규칙이 PSM 객체에 적용된다면, 해당 객체는 To-Do 리스트 창에 표시될 것이다. 그렇지 않다면, Done 리스트 창에 표시될 것이다.
 
-각각의 규칙에 "버전 범위" 항목이 기술된 경우, 해당 규칙은 기술된 Altibase버전에만 적용됨을 의미한다. "버전 범위" 항목이 생략된 규칙은 모든 Altibase버전에 적용됨을 의미한다.
+각각의 규칙에 "버전 범위" 항목이 기술된 경우, 해당 규칙은 기술된 Altibase 버전에만 적용됨을 의미한다. "버전 범위" 항목이 생략된 규칙은 모든 Altibase 버전에 적용됨을 의미한다.
 
 복수의 구문을 변환할 때에는 각각의 SQL 구문 마지막에 `'/'`를 표기하여 구분해야 한다.
 
@@ -2795,7 +2796,7 @@ END;
 
 #### RULE-12004
 
-이 규칙은 저장 프로시저 블록에 사용된DECLARE 절에 관한 것으로 Altibase 서버 버전에 따라 다르게 적용된다. 
+이 규칙은 저장 프로시저 블록에 사용된 DECLARE 절에 관한 것으로 Altibase 서버 버전에 따라 다르게 적용된다. 
 
 ###### 타입
 
@@ -3049,7 +3050,7 @@ END;
 
 ###### 설명
 
-Altibase 예약어에 해당하는 지역(Local) 식별자는 변환시 접미사가 추가되었다.
+Altibase 예약어에 해당하는 지역(Local) 식별자에 접미사가 추가되었다.
 
 ###### 원본 SQL 문장
 
@@ -4624,7 +4625,7 @@ SELECT c1, c2 FROM t1 JOIN t2 USING(c1, c2) /* [TODO] RULE-20021 : USING clause 
 
 ###### 설명
 
-NATURAL Outer 조인 절은 수동으로 변환해야 한다.
+NATURAL OUTER 조인 절은 수동으로 변환해야 한다.
 
 ###### 원본 SQL 문장
 
@@ -5827,7 +5828,7 @@ END;
 
 ###### 설명
 
-Altibase 예약어에 해당하는 지역(Local) 식별자는 변환시 접미사가 추가되었다.
+Altibase 예약어에 해당하는 지역(Local) 식별자에 접미사가 추가되었다.
 
 ###### 원본 SQL 문장
 
@@ -6093,7 +6094,7 @@ END;
 
 ###### 설명
 
-DECLARE섹션 내에 PROCEDURE 또는 FUNCTION을 정의하거나 선언할 수 없다.
+DECLARE 섹션 내에 PROCEDURE 또는 FUNCTION을 정의하거나 선언할 수 없다.
 
 ###### 원본 SQL 문장
 
@@ -6209,7 +6210,7 @@ END;
 
 ***Altibase 6.3.1.0.10 이상***
 
-- PRAGMA AUTONOMOUS_TRANSACTION는 유지한다.
+- PRAGMA AUTONOMOUS_TRANSACTION을 유지한다.
 
 ###### 변환된 SQL 문장
 
@@ -6604,7 +6605,7 @@ END;
 
 ###### 설명
 
-FOR .. LOOP 구문에서 범위 값 앞 뒤에 공백이 추가되었다.
+FOR .. LOOP 구문에서 범위 값 앞뒤에 공백이 추가되었다.
 
 ###### 원본 SQL 문장
 
@@ -7390,7 +7391,7 @@ SELECT USER_ID() FROM dual;
 
 ###### 설명
 
-지원하지 않는 함수.
+지원하지 않는 함수이다.
 
 ###### 원본 SQL 문장
 
@@ -7882,7 +7883,7 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
 
   1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
 
-  2. JVM 내 permanent generation space의 최대 크기를 정하는 옵셥 -XX:MaxPermSize의 값을 기존 값보다 크게 설정한다.
+  2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션 -XX:MaxPermSize의 값을 기존 값보다 크게 설정한다.
 
 - `<Metaspace>`
 
@@ -7951,7 +7952,7 @@ KSC5601 한글 데이터는 GB231280으로 표기될 수 없다. 따라서 각�
 
 `원인`
 
-Windows 환경에서 마이그레이션 센터를 실행할 때 발생할 수 있는 오류이다. 연결정보 등록 시 JDBC 드라이버 파일을 선택하던 중, 디렉토리를 변경하면 프로그램이 비정상 종료되는 문제가 나타날 수 있다. JVM과 Windows 운영체제 사이의 커뮤니케이션 문제로 인해 발생하는 Java JVM crash이다. 아래 링크를 통해, 오래된 버전의 JVM에서 발생하는 Java crash 문제를 확인할 수 있다. <http://www.java.com/en/download/help/error_hotspot.xml>
+Windows 환경에서 마이그레이션 센터를 실행할 때 발생할 수 있는 오류이다. 연결정보 등록 시 JDBC 드라이버 파일을 선택하던 중, 디렉토리를 변경하면 프로그램이 비정상 종료되는 문제가 나타날 수 있다. 이는 JVM과 Windows 운영체제 사이의 커뮤니케이션 문제로 인해 발생하는 Java JVM crash이다. 아래 링크를 통해, 오래된 버전의 JVM에서 발생하는 Java crash 문제를 확인할 수 있다. <http://www.java.com/en/download/help/error_hotspot.xml>
 
 `해결 방법`
 
@@ -8023,7 +8024,7 @@ LONG 또는 LONG RAW 컬럼의 데이터 전송은 스트림을 통해 이루어
 
 `원인`
 
-원본 데이터베이스인 오라클의 이관 객체 목록 중, 전역 임시 테이블(global temporary table)이 존재할 경우, 반드시 대상 데이터베이스인 Altibase에 휘발성 테이블스페이스가 존재해야 한다. 오라클의 전역 임시 테이블은 Altibase의 임시 테이블로 이관되며, Altibase의 임시 테이블은 휘발성 테이블스페이스에만 저장 가능하기 때문이다. (매뉴얼 참조: SQL Reference - 3. 데이터 정의어 - CREATE TABLE -설명)
+원본 데이터베이스인 오라클의 이관 객체 목록 중 전역 임시 테이블(global temporary table)이 존재할 경우, 반드시 대상 데이터베이스인 Altibase에 휘발성 테이블스페이스가 존재해야 한다. 오라클의 전역 임시 테이블은 Altibase의 임시 테이블로 이관되며, Altibase의 임시 테이블은 휘발성 테이블스페이스에만 저장 가능하기 때문이다. (매뉴얼 참조: SQL Reference - 3. 데이터 정의어 - CREATE TABLE -설명)
 
 Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접근 가능한 Altibase 테이블스페이스들의 목록을 가져와 데이터베이스 간 테이블스페이스 및 테이블 맵핑을 시도한다. 이 때, 오라클에 존재하는 전역 임시 테이블과 맵핑할 Altibase의 휘발성 테이블스페이스가 없을 경우, 이러한 오류가 발생한다.
 
@@ -8189,7 +8190,7 @@ JRE 10 이하 버전의 JDBC 드라이버에서 javax.xml.bind 모듈을 참조�
 
 `원인`
 
-버전 5.1.5 이하의 Altibase는 globalization을 지원하지 않아 JDBC가 데이터베이스의 문자 집합 을 알 수 없다.
+버전 5.1.5 이하의 Altibase는 globalization을 지원하지 않아 JDBC가 데이터베이스의 문자 집합을 알 수 없다.
 
 `해결 방법`
 
@@ -8221,7 +8222,7 @@ Altibase 사용자에게 해당 테이블스페이스에 대한 접근 권한을
 
 `원인`
 
-해당 버전의 알티베이스 JDBC driver가 BLOB, byte, nibble 데이터타입을 UNKOWN으로 리턴하여 컬럼의 데이터타입을 알 수 없다. 
+해당 버전의 알티베이스 JDBC driver가 BLOB, byte, nibble 데이터타입을 UNKNOWN으로 리턴하여 컬럼의 데이터타입을 알 수 없다. 
 
 `해결 방법`
 
