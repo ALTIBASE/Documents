@@ -6779,9 +6779,11 @@ Create success.
 
 **with_clause::=**
 
-아래 이미지에 WITH 포함하여 옵션 항목임
+replication_host_ip 부분에  WITH 포함하여 옵션 항목임
 
-![image-20230515100855451](C:\Users\ALTIBASE\AppData\Roaming\Typora\typora-user-images\image-20230515100855451.png)
+-> 'replication_host_ip' , replication_host_port_no-------->
+
+​                                                                                      
 
 #### 전제 조건
 
