@@ -6777,6 +6777,12 @@ Create success.
 
 ![replication_item](media/SQL/replication_item.gif)
 
+**with_clause::=**
+
+아래 이미지에 WITH 포함하여 옵션 항목임
+
+![image-20230515100855451](C:\Users\ALTIBASE\AppData\Roaming\Typora\typora-user-images\image-20230515100855451.png)
+
 #### 전제 조건
 
 SYS 사용자만이 이중화 객체를 생성할 수 있다.
@@ -6898,6 +6904,28 @@ REPLICATION_NAME                          ROLE
 ---------------------------------------------------------
 REP2                                      3
 1 row selected.
+```
+
+\<질의\> 원격 서버의 이중화는 지역 서버의 수신 전용으로만 동작하도록 이중화를 생성한다. 
+
+지역 서버의 경우 (IP: 192.168.60)
+
+```
+iSQL> CREATE REPLICATION rep1
+    WITH '192.168.1.12',35524
+    FROM sys.employees TO sys.employees,
+    FROM sys.departments TO sys.departments;
+Create success.
+```
+
+원격 서버의 경우 (IP: 192.168.1.12)
+
+```
+iSQL> CREATE REPLICATION rep1
+    OPTIONS RECEIVE_ONLY
+    FROM sys.employees TO sys.employees,
+    FROM sys.departments TO sys.departments;
+Create success. 
 ```
 
 
