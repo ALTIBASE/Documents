@@ -5,10 +5,10 @@
 
 - [New Features](#new-features)
     - [BUG-49970  altimon에서 사용자 모드와 커널 모드 구분없이 단일 CPU 사용률 표시가 필요합니다.](#bug-49970-altimon%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%EC%9E%90-%EB%AA%A8%EB%93%9C%EC%99%80-%EC%BB%A4%EB%84%90-%EB%AA%A8%EB%93%9C-%EA%B5%AC%EB%B6%84%EC%97%86%EC%9D%B4-%EB%8B%A8%EC%9D%BC-cpu-%EC%82%AC%EC%9A%A9%EB%A5%A0-%ED%91%9C%EC%8B%9C%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-50109  이중화 부가기능으로 RECEIVE\_ONLY 옵션 제공](#bug-50109-%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5%EC%9C%BC%EB%A1%9C-receive%5C_only-%EC%98%B5%EC%85%98-%EC%A0%9C%EA%B3%B5)
+    - [BUG-50109  이중화 부가기능으로 RECEIVE_ONLY 옵션 제공](#bug-50109-%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5%EC%9C%BC%EB%A1%9C-receive_only-%EC%98%B5%EC%85%98-%EC%A0%9C%EA%B3%B5)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-47430  V$RESERVED_WORDS 에서 누락된 예약어를 추가하고, 타입이 잘못된 예약어를 수정합니다.](#bug-47430-vreserved_words-%EC%97%90%EC%84%9C-%EB%88%84%EB%9D%BD%EB%90%9C-%EC%98%88%EC%95%BD%EC%96%B4%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%98%EA%B3%A0-%ED%83%80%EC%9E%85%EC%9D%B4-%EC%9E%98%EB%AA%BB%EB%90%9C-%EC%98%88%EC%95%BD%EC%96%B4%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-47989  ERR-3134F : Invalid use of sequence 에러 메시지를 출력할 때, 에러를 발생시킨 문법도 함께 출력하도록 수정합니다.](#bug-47989-err-3134f--invalid-use-of-sequence-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%A0-%EB%95%8C-%EC%97%90%EB%9F%AC%EB%A5%BC-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A8-%EB%AC%B8%EB%B2%95%EB%8F%84-%ED%95%A8%EA%BB%98-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8F%84%EB%A1%9D-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-47989  ERR\-3134F : Invalid use of sequence 에러 메시지를 출력할 때, 에러를 발생시킨 문법도 함께 출력하도록 수정합니다.](#bug-47989-err%5C-3134f--invalid-use-of-sequence-%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%A0-%EB%95%8C-%EC%97%90%EB%9F%AC%EB%A5%BC-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A8-%EB%AC%B8%EB%B2%95%EB%8F%84-%ED%95%A8%EA%BB%98-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8F%84%EB%A1%9D-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49399  트랜잭션에서 실행하는 구문과 체크포인트 동작의 동시성 제어에 오류가 있어서 수정합니다.](#bug-49399-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%97%90%EC%84%9C-%EC%8B%A4%ED%96%89%ED%95%98%EB%8A%94-%EA%B5%AC%EB%AC%B8%EA%B3%BC-%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EB%8F%99%EC%9E%91%EC%9D%98-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4%EC%97%90-%EC%98%A4%EB%A5%98%EA%B0%80-%EC%9E%88%EC%96%B4%EC%84%9C-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49765  REGEXP_MODE=1로 설정된 환경(PCRE2 호환모드)에서 정규식 함수의 인자로 fixed table의 컬럼을 사용한 경우 ERR-2106B 오류가 발생합니다.](#bug-49765-regexp_mode1%EB%A1%9C-%EC%84%A4%EC%A0%95%EB%90%9C-%ED%99%98%EA%B2%BDpcre2-%ED%98%B8%ED%99%98%EB%AA%A8%EB%93%9C%EC%97%90%EC%84%9C-%EC%A0%95%EA%B7%9C%EC%8B%9D-%ED%95%A8%EC%88%98%EC%9D%98-%EC%9D%B8%EC%9E%90%EB%A1%9C-fixed-table%EC%9D%98-%EC%BB%AC%EB%9F%BC%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B2%BD%EC%9A%B0-err-2106b-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49936  PK(Primary Key)가 있는 파티션드 테이블에 논파티션드 인덱스를 생성한 후 PK를 삭제하면, PK였던 칼럼에 NULL데이터를 입력하면 잘못된 동작을 할 수 있습니다.](#bug-49936-pkprimary-key%EA%B0%80-%EC%9E%88%EB%8A%94-%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90-%EB%85%BC%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%9C-%ED%9B%84-pk%EB%A5%BC-%EC%82%AD%EC%A0%9C%ED%95%98%EB%A9%B4-pk%EC%98%80%EB%8D%98-%EC%B9%BC%EB%9F%BC%EC%97%90-null%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%9E%85%EB%A0%A5%ED%95%98%EB%A9%B4-%EC%9E%98%EB%AA%BB%EB%90%9C-%EB%8F%99%EC%9E%91%EC%9D%84-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
@@ -54,7 +54,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50109  이중화 부가기능으로 RECEIVE\_ONLY 옵션 제공
+### BUG-50109  이중화 부가기능으로 RECEIVE_ONLY 옵션 제공
 
 -   **module** : rp-control
 
@@ -62,7 +62,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **설명** : 이중화 부가기능으로 RECEIVE\_ONLY 옵션이 추가되었습니다. 이 버그에 메타버전이 8.10.1에서 8.11.1로 변경되었습니다. 패치 후 롤백이 필요한 경우 [메타 다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation Guide.md#메타-다운그레이드meta-downgrade)를 수행해야 합니다.
+-   **설명** : 이중화 부가기능으로 RECEIVE\_ONLY 옵션(수신 전용 옵션)이 추가되었습니다. 이 버그에서 메타버전이 8.10.1에서 8.11.1로 변경되었습니다. 패치 후 롤백이 필요한 경우 [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 수행해야 합니다.
 
 -   **재현 방법**
     -   **재현 절차**
@@ -110,7 +110,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-47989  ERR-3134F : Invalid use of sequence 에러 메시지를 출력할 때, 에러를 발생시킨 문법도 함께 출력하도록 수정합니다.
+### BUG-47989  ERR\-3134F : Invalid use of sequence 에러 메시지를 출력할 때, 에러를 발생시킨 문법도 함께 출력하도록 수정합니다.
 
 -   **module** : qp-dml-execute
 
@@ -171,9 +171,12 @@ Fixed Bugs
 
     - Error Code
 
-      - 변경전
+      - 변경전 : [ERR-3134F : Invalid use of sequence]
 
-      - 변경후
+      - 변경후 : [ERR-3134F : Invalid use of sequence
+0001 : insert into T1 values(1) return S1.NEXTVAL into :var
+                                      ^         ^
+]
 
 
 
