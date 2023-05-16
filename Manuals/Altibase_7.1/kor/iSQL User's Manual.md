@@ -958,6 +958,14 @@ iSQL이 생성하는 파일 권한을 설정하는 환경 변수이다. 값을 �
 예) user:rw,  group:--,  other:--로 설정하는 경우, 
 export ISQL_FILE_PERMISSION=600
 
+#### ISQL_SECURE_LOGIN_MSG
+
+보안을 강화하기 위해 iSQL에 잘못된 사용자 아이디 또는 암호로 접속을 시도할때, 상세한 접속 실패 이유를 표시하지 않도록 설정하는 환경변수이다. 이 값을 1로 설정하면, 사용자 아이디 또는 암호가 틀린경우, "Invalid UserID or Password" 의 에러메시지가 출력됩니다.
+
+예) export ISQL_SECURE_LOGIN_MSG=1
+
+이 값을 설정하지 않으면, 기존과 동일하게 명확한 접속 실패 이유가 출력됩니다.
+
 ### 개인별 iSQL 환경 설정
 
 iSQL 사용자들은 특별한 방법으로 iSQL 환경을 설정하고 각 세션에서 그러한 설정을
