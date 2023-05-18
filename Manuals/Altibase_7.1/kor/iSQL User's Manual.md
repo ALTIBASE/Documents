@@ -960,11 +960,19 @@ export ISQL_FILE_PERMISSION=600
 
 #### ISQL_SECURE_LOGIN_MSG
 
-보안을 강화하기 위해 iSQL에 잘못된 사용자 아이디 또는 암호로 접속을 시도할때, 상세한 접속 실패 이유를 표시하지 않도록 설정하는 환경변수이다. 이 값을 1로 설정하면, 사용자 아이디 또는 암호가 틀린경우, "Invalid UserID or Password" 의 에러메시지가 출력됩니다.
+보안을 강화하기 위해 iSQL에 잘못된 사용자 아이디 또는 암호로 접속을 시도할때, 상세한 접속 실패 이유를 표시하지 않도록 설정하는 환경변수이다. 
 
-예) export ISQL_SECURE_LOGIN_MSG=1
+* 1: 1로 설정하면 사용자 아이디 또는 암호가 틀린경우, "Invalid UserID or Password" 의 에러메시지가 출력된다.
 
-이 값을 설정하지 않으면, 기존과 동일하게 명확한 접속 실패 이유가 출력됩니다.
+* 0: 0으로 설정하거나 환경변수를 설정하지 않으면, 기존과 동일하게 명확한 접속 실패 이유가 출력된다.
+
+* 환경 변수 설정의 예
+
+  ```
+  export ISQL_SECURE_LOGIN_MSG=1
+  
+  export ISQL_SECURE_LOGIN_MSG=0
+  ```
 
 ### 개인별 iSQL 환경 설정
 
