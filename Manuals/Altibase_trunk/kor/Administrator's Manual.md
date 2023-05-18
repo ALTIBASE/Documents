@@ -11152,14 +11152,13 @@ Altibase는 데이터를 암호화 및 복호화하기 위하여 대칭키 알�
 
 - Altibase 서버에 대한 보안 접속은 OpenSSL 프로젝트로 개발된 OpenSSL API를
   기반으로 한다. OpenSSL 프로젝트는 범용 암호화 라이브러리를 포함하여 SSL
-  2.0/3.0 과 TLS 1.0 프로토콜을 지원한다.
+  2.0/3.0 과 TLS 1.0, 1.2, 1.3 프로토콜을 지원한다.
 - Altibase는 서버 전용 인증과 상호 인증을 지원한다.
 - Altibase 서버에서 SSL통신을 지원하기 위해서는 기존에 사용하는 TCP 포트
   이외에 별도의 서비스 포트가 필요하다.
 - 서버에서 SSL 통신을 이용하기 위해서는 환경변수로 ALTIBASE_PORT_NO와
   ALTIBASE_SSL_PORT_NO 둘 다 정의되어야 한다.
-- Altibase는 SSL 통신을 위해 JDBC와 ODBC를 지원하며, 현재는 리눅스에서만
-  사용할 수 있다.
+- Altibase는 SSL 통신을 위해 JDBC와 ODBC를 지원한다.
 
 Altibase에 SSL/TLS통신을 설정하고 사용하는 방법은 [*Altibase SSL/TLS User's Guide*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Altibase%20SSL%20TLS%20User's%20Guide.md)를 참조하기 바란다.
 

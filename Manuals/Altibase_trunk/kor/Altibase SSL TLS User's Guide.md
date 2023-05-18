@@ -318,7 +318,7 @@ Altibase는 데이터를 암호화 및 복호화하기 위하여 대칭키 알�
 
 SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
 
-- Altibase 는 OpenSSL 라이브러리에서 지원하는 TLS 1.0 프로토콜을 사용한다.
+- Altibase 는 OpenSSL 라이브러리에서 지원하는 TLS 1.0, 1.2, 1.3 프로토콜을 사용한다.
 
 - Altibase는 서버 전용 인증과 상호 인증을 지원한다.  
 
@@ -332,10 +332,10 @@ SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
   사용하여 서비스한다(예를 들어, HTTPS를 위한 443 port). Altibase는 TCP 접속을
   할 때 비보안에서 보안으로 접속 전환이 허용되지 않기 때문이다.
 
-- 보안 연결을 사용하려면 모든 클라이언트 애플리케이션이 Java 1.5 이상에 포함된
+- 보안 연결을 사용하려면 모든 클라이언트 애플리케이션이 Java 1.8 이상에 포함된
   Java Secure Socket Extension(JSSE) API가 필요하다. JSSE는 데이터 암호화,
   서버 인증, 메시지 무결성과 선택적 클라이언트 인증 뿐만 아니라 SSL2.0, 3.0과
-  TLS 1.0 프로토콜 구현을 제공한다.
+  TLS 1.0, 1.2, 1.3 프로토콜 구현을 제공한다.
 
 - Altibase는 SSL 통신을 위해 JDBC와 ODBC를 통한 인터페이스를 제공하며, 현재는
   인텔 계열의 리눅스에서만 사용할 수 있다.
@@ -352,18 +352,13 @@ SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
 
 #### 서버(Server)
 
--   OpenSSL 툴킷 0.9.4\~1.0.2
+-   OpenSSL 툴킷 3.0.8
 
--   Altibase 6.5.1 이상 (인텔 계열 리눅스만 지원)
+-   Altibase 7.3.0.0.0 이상
 
 OpenSSL 툴킷은 Altibase에서 SSL/TLS 프로토콜을 이용한 SSL 통신을 사용하기 위해
 필요하다. OpenSSL 툴킷은 OpenSSL 프로젝트로 개발되었으며 OpenSSL
-홈페이지( <http://www.openssl.org/source> )에서 다운로드할 수 있다. 단 설치된
-OpenSSL 버전이 허트블리드 버그(Heartbleed Bug)에 감염되지 않았는지 확인하고
-조치해야 한다.
-
-따라서 OpenSSL 툴킷을 사용하기 전에 감염된 여부를 확인해야 한다.
-OPENSSL_NO_HEARTBEATS 옵션을 사용해 재컴파일하면 된다.
+홈페이지( <http://www.openssl.org/source> )에서 다운로드할 수 있다. Altibase 7.3 부터는 OpenSSL 3.0.8 이상을 지원하게 됨에 따라, OpenSSL 1.0.x 버전은 더이상 지원하지 않는다.
 
 #### 클라이언트(Client)
 
@@ -405,7 +400,7 @@ SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실�
 ##### Step 1:OpenSSL 설치 및 라이브러리 확인
 
 SSL이 활성화된 Altibase를 설치하기 전에 OpenSSL 툴킷을 설치하는 것이 좋다. 만약
-OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면,Altibase는 OpenSSL
+OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면, Altibase는 OpenSSL
 라이브러리를 찾을 수 없다는 경고 메세지가 나타난다.
 
 서버에 OpenSSL이 설치되었다는 것을 확인하고, 허트블리드 버그에 감염되지 않았는지
@@ -416,13 +411,13 @@ OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면,Alti
 
 ```
 $ openssl version
-OpenSSL 0.9.7e-fips-rhel5 01 Jul 2008
+OpenSSL 3.0.8 7 Feb 2023 (Library: OpenSSL 3.0.8 7 Feb 2023)
 ```
 
 ##### Step 2: 서버 프로퍼티 설정 
 
 Altibase에서 SSL로 접속하여 사용하려면 다음의 프로퍼티를 설정하여야 한다. SSL
-접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다. 프로퍼티에 대한
+접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.properties에 있다. 프로퍼티에 대한
 자세한 설명은 *General Reference*를 참조한다.
 
 -   SSL_ENABLE  
@@ -444,6 +439,19 @@ Altibase에서 SSL로 접속하여 사용하려면 다음의 프로퍼티를 설
 ```
 $ openssl ciphers
 ```
+
+> 만약 TLS 1.3의 암호 알고리즘을 사용하고 경우에는 SSL_CIPHER_SUITES에 설정한다. 한 개 이상의 암호를 설정할 수 있으며, 콜론(:)으로 구분한다.
+
+* SSL_CIPHERS_SUITES
+
+  : TLS 1.3의 암호 알고리즘 목록을 지정한다. 
+
+* SSL_LOAD_CONFIG
+
+  : OpenSSL Configuration 파일(*파일명 필요*)을 로딩하도록 설정하는 프로퍼티이다. 기본값은 0(Disable)이다. OpenSSL FIPS 모듈을 사용하기 위해서는 이 프로퍼티의 값을 1로 설정해야 한다. 
+
+  * 0: OpenSSL Configuration 파일을 로딩하지 않음
+  * 1: OpenSSL Configuration 파일을 로딩함
 
 ##### Step 3: SSL 클라이언트 인증 설정
 
@@ -621,11 +629,12 @@ Altibase는 SSL을 사용하기 위해 SSL 연결을 위한 JDBC를 제공한다
 
 ###### SSL 연결을 위한 JDBC 프로퍼티
 
-| 이름             | 설명                                                                                                                                                                                                                                                                                                            | 값의 범위        | 기본값                                                                                                                    |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------|
-| ssl_enable       | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 true일 경우 SSL 커넥션을 생성하고, false일 경우 TCP 커넥션을 생성한다.                                                                                                                                                                             | [true \| false ] | false                                                                                                                     |
-| port             | 접속을 시도할 대상 서버의 포트번호를 지정한다. SSL 포트 번호가 적용되는 우선순위는 아래와 같다. ssl_enable이 true일 경우 port 값이 지정되었다면 우선 적용되고, 지정되지 않은 경우 ALTIBASE_SSL_PORT_NO 환경 변수의 값을 따른다. 하지만 ALTIBASE_SSL_PORT_NO의 값도 지정되지 않은 경우, 기본값 20300이 적용된다. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443                                                                          |
-| ciphersuite_list | 사용할 암호 알고리즘 목록이다. 암호명은 콜론(:)으로 구분된다. *SSL_RSA_WITH_RC4_128_MD5:SSL_RSA_WITH_RC4_128_SHA.*  만약 JRE가 이 알고리즘을 지원하지 않는다면, IllegalArgumentException이 나타난다.                                                                                                            | String           | [JRE가 지원하는 모든 cipher suite list]( http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html ) |
+| 이름             | 설명                                                         | 값의 범위        | 기본값                                                       |
+| ---------------- | ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ |
+| ssl_enable       | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 true일 경우 SSL 커넥션을 생성하고, false일 경우 TCP 커넥션을 생성한다. | [true \| false ] | false                                                        |
+| port             | 접속을 시도할 대상 서버의 포트번호를 지정한다. SSL 포트 번호가 적용되는 우선순위는 아래와 같다. ssl_enable이 true일 경우 port 값이 지정되었다면 우선 적용되고, 지정되지 않은 경우 ALTIBASE_SSL_PORT_NO 환경 변수의 값을 따른다. 하지만 ALTIBASE_SSL_PORT_NO의 값도 지정되지 않은 경우, 기본값 20300이 적용된다. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443             |
+| ciphersuite_list | 사용할 암호 알고리즘 목록이다. 암호명은 콜론(:)으로 구분된다. *SSL_RSA_WITH_RC4_128_MD5:SSL_RSA_WITH_RC4_128_SHA.*  만약 JRE가 이 알고리즘을 지원하지 않는다면, IllegalArgumentException이 나타난다. | String           | [JRE가 지원하는 모든 cipher suite list]( http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html ) |
+| ssl_protocols    | 서버에 SSL 통신을 위해 사용할 프로토콜 목록이다. 콤마(,)를 이용하여 여러개의 프로토콜을 지정할 수 있다.</br> 예) "TLSv1.2,TLSv1.3" | String           | [JRE가 지원하는 모든 SSL/TLS protocol](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
 
 ###### 인증을 위한 JDBC 프로퍼티
 
@@ -716,7 +725,7 @@ SSL 통신을 사용하려는 클라이언트 프로그램을 작성하기 전�
 문자열(connection string)로 지정할 수 있다. 사용 방법은 샘플 프로그램을
 참조한다.
 
-SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
+SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.properties에 있다.
 
 | 이름       | 설명                                                                                                                                                                                                                                                                                                                                                                                                                          | 값의 범위    | 기본값  |
 |------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|---------|
@@ -743,7 +752,21 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 | SSL_CIPHER                | X                          | O                                                            |
 | SSL_VERIFY                | X                          | O                                                            |
 
-##### Step 4: 클라이언트 프로그램 작성
+##### Step 4: Altibase 환경 변수 설정
+
+| 이름                     | 설명                                                         | 기본값 |
+| ------------------------ | ------------------------------------------------------------ | ------ |
+| ALTIBASE_SSL_LOAD_CONFIG | OpenSSL configuration 파일을 로딩할 것인지를 지정한다.</br>* 0: 로딩하지 않는다. </br> * 1: 로딩한다. | 0      |
+
+> OpenSSL FIPS 모듈 사용하기
+
+FIPS 140-2 검증은 암호화 모듈의 보안과 신뢰성을 검증하는 프로그램으로, 검증을 통과한 모듈은 미국 연방 정부와 이와 관련된 기관에서 사용될 수 있다. 알티베이스에서 OpenSSL의 FIPS 모듈을 사용하려면 다음의 순서로 설정할 수 있다.
+
+1. OpenSSL configuration 파일에서 FIPS 모듈을 사용하도록 설정한다. (http://www.openssl.org/ 참조)
+2. Altibase의 SSL_LOAD_CONFIG 프로퍼티를 1로 설정한다.
+3. CLI 응용 프로그램도 FIPS 모듈을 사용하도록 하려면 환경 변수 ALTIBASE_SSL_LOAD_CONFIG를 1로 설정한다.
+
+##### Step 5: 클라이언트 프로그램 작성
 
 클라이언트 애플리케이션에서 SSL 통신을 사용하기 위해 프로그램을 작성한다.
 Altibase 디렉토리에 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
