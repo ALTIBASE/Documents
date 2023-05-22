@@ -97,11 +97,11 @@ New Features
   > 주의사항
 
      1) altibase.properties의 ADMIN\_MODE = 1
-  과 REMOTE\_SYSDBA\_ENABLE = 1 을 설정한 후, altibase DB를 구동해야
-  합니다.
+    과 REMOTE\_SYSDBA\_ENABLE = 1 을 설정한 후, altibase DB를 구동해야
+    합니다.
 
-        2) 마스터 노드 장애시 사용자가 판단해서 수동으로 truncate, 다른
-    파드로부터 rep sync 받기를 사용자가 직접 수행해야 합니다. (마스터 파드 이외의 파드에서는 aku 에서 자동으로 truncate 및 rep sync 받기를 수행합니다.)
+           2) 마스터 노드 장애시 사용자가 판단해서 수동으로 truncate, 다른
+        파드로부터 rep sync 받기를 사용자가 직접 수행해야 합니다. (마스터 파드 이외의 파드에서는 aku 에서 자동으로 truncate 및 rep sync 받기를 수행합니다.)
 
   **수동 복구(sync) 후 에는 반드시 마스터 파드에서 등록된 이중화 중 임의의 한 이중화를 시작한 후(아래 예 참조)에 aku -p start를 수행해야 aku가 정상 동작합니다.**
 
@@ -198,7 +198,7 @@ Fixed Bugs
         Create success.
         iSQL> EXEC PROC1(:VAR1, :VAR2);
         [ERR-0109F : Library file for external procedure/function not found : ......./lib/invalid_library_name.so]
-
+    
         iSQL> CREATE OR REPLACE LIBRARY LIB1 AS 'andy_upper.so'; //오류를 제거하여 정상동작하도록 수정
         Create success.
         iSQL> EXEC PROC1(:VAR1, :VAR2);
@@ -210,7 +210,7 @@ Fixed Bugs
           Create success.
           iSQL> EXEC PROC1(:VAR1, :VAR2);
           [ERR-0109F : Library file for external procedure/function not found : ......./lib/invalid_library_name.so]
-
+        
           iSQL> CREATE OR REPLACE LIBRARY LIB1 AS 'andy_upper.so'; //오류를 제거하여 정상동작하도록 수정
           Create success.
           iSQL> EXEC PROC1(:VAR1, :VAR2);
@@ -267,14 +267,14 @@ Fixed Bugs
 
   -   **재현 절차**
 
-          drop table t1;
-          drop table t2;
-          create table t1 (i1 int, i2 int, i3 int, i4 int);
-          create table t2 ( i1 int);
-          insert into t1 values( 1,1,1,3);
-          insert into t1 values( 2,2,2,4);
-          insert into t2 values(1);
-          select i1, max(i4), (select min(i1) from t2 where i1 = t1.i1) as sub from t1 group by rollup(i1);
+          DROP TABLE T1;
+          DROP TABLE T2;
+          CREATE TABLE T1 (I1 INT, I2 INT, I3 INT, I4 INT);
+          CREATE TABLE T2 ( I1 INT);
+          INSERT INTO T1 VALUES( 1,1,1,3);
+          INSERT INTO T1 VALUES( 2,2,2,4);
+          INSERT INTO T2 VALUES(1);
+          SELECT I1, MAX(I4), (SELECT MIN(I1) FROM T2 WHERE I1 = T1.I1) AS SUB FROM T1 GROUP BY ROLLUP(I1);
 
   - **수행 결과**
 
