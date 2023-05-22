@@ -68,53 +68,55 @@ New Features
 
   - DB admin mode 관련 aku 구현 내용
 
-  -   aku -p start 시 altibase DB가 ADMIN\_MODE가 0으로 설정되어
-    있으면 에러 출력 후 종료
-  -   aku -p start 과정에 altibase DB에 admin mode로 접속하여 aku
+    - aku -p start 시 altibase DB가 ADMIN\_MODE가 0으로 설정되어
+      있으면 에러 출력 후 종료
+    - aku -p start 과정에 altibase DB에 admin mode로 접속하여 aku
       작업 수행
-  -   aku -p start 정상 종료시 altibase DB를 ADMIN\_MODE 를 0으로
+    - aku -p start 정상 종료시 altibase DB를 ADMIN\_MODE 를 0으로
       설정 후 종료
 
    - 마스터 파드(pod-0)에서의 aku 처리 및 사용 가이드     
 
-  * aku -p start 수행시
+     * aku -p start 수행시
 
-    마스터 파드인 경우, truncate 수행과 slave로부터 rep
-    sync 받는 로직을 제거합니다.
+       마스터 파드인 경우, truncate 수행과 slave로부터 rep
+       sync 받는 로직을 제거합니다.
 
-  * aku -p end 수행시
 
-    마스터 파드인 경우, 이중화 reset 로직을 제거합니다.
+     * aku -p end 수행시
 
-    이중화 reset을 수행하면, 더 이상 이중화 데이터를 주고받지 못하기 때문에,
-       aku -p end에서 이중화 reset 수행 후 aku -p start 수행시에 기존 테이블을 truncate하고 rep sync 받아 와서 데이터를 동기화하는 과정이 필요했었습니다.
-       그런데, aku -p end시 마스터 파드인 경우 이중화 reset을 하지 않으면,
-       마스터 파드가 계속 이중화를 통해 데이터를 동기화하기 때문에, truncate 및 rep sync가 필요없습니다.
+       마스터 파드인 경우, 이중화 reset 로직을 제거합니다.
 
-  * 마스터 파드가 아닌 일반 slave 파드인 경우, aku -p start와 aku
-    -p end 의 수정 사항이 없어, 이전과 동일하게 동작합니다.
+       이중화 reset을 수행하면, 더 이상 이중화 데이터를 주고받지 못하기 때문에,
+          aku -p end에서 이중화 reset 수행 후 aku -p start 수행시에 기존 테이블을 truncate하고 rep sync 받아 와서 데이터를 동기화하는 과정이 필요했었습니다.
+          그런데, aku -p end시 마스터 파드인 경우 이중화 reset을 하지 않으면,
+          마스터 파드가 계속 이중화를 통해 데이터를 동기화하기 때문에, truncate 및 rep sync가 필요없습니다.
+
+
+     * 마스터 파드가 아닌 일반 slave 파드인 경우, aku -p start와 aku
+       -p end 의 수정 사항이 없어, 이전과 동일하게 동작합니다.
+
 
   > 주의사항
 
-     1) altibase.properties의 ADMIN\_MODE = 1
-    과 REMOTE\_SYSDBA\_ENABLE = 1 을 설정한 후, altibase DB를 구동해야
-    합니다.
+     1. altibase.properties의 ADMIN\_MODE = 1
+        과 REMOTE\_SYSDBA\_ENABLE = 1 을 설정한 후, altibase DB를 구동해야
+          합니다.
 
-           2) 마스터 노드 장애시 사용자가 판단해서 수동으로 truncate, 다른
-        파드로부터 rep sync 받기를 사용자가 직접 수행해야 합니다. (마스터 파드 이외의 파드에서는 aku 에서 자동으로 truncate 및 rep sync 받기를 수행합니다.)
+     2. 마스터 노드 장애시 사용자가 판단해서 수동으로 truncate, 다른 파드로부터 rep sync 받기를 사용자가 직접 수행해야 합니다. (마스터 파드 이외의 파드에서는 aku 에서 자동으로 truncate 및 rep sync 받기를 수행합니다.)
 
-  **수동 복구(sync) 후 에는 반드시 마스터 파드에서 등록된 이중화 중 임의의 한 이중화를 시작한 후(아래 예 참조)에 aku -p start를 수행해야 aku가 정상 동작합니다.**
+        **수동 복구(sync) 후 에는 반드시 마스터 파드에서 등록된 이중화 중 임의의 한 이중화를 시작한 후(아래 예 참조)에 aku -p start를 수행해야 aku가 정상 동작합니다.**
 
-  ```
-  ALTER REPLICATION AKU_REP_01 START;
-  ```
+        ```
+        ALTER REPLICATION AKU_REP_01 START;
+        ```
 
-  위 과정 없이 aku -p start 시 다음 에러로 실패할 수 있습니다.
+        위 과정 없이 aku -p start 시 다음 에러로 실패할 수 있습니다.
 
-  ```
-  [ERROR] The master pod is detected to have failed. Check and
-  perform a manual recovery.
-  ```
+        ```
+        [ERROR] The master pod is detected to have failed. Check and
+        perform a manual recovery.
+        ```
 
 - **재현 방법**
 
@@ -198,7 +200,7 @@ Fixed Bugs
         Create success.
         iSQL> EXEC PROC1(:VAR1, :VAR2);
         [ERR-0109F : Library file for external procedure/function not found : ......./lib/invalid_library_name.so]
-    
+        
         iSQL> CREATE OR REPLACE LIBRARY LIB1 AS 'andy_upper.so'; //오류를 제거하여 정상동작하도록 수정
         Create success.
         iSQL> EXEC PROC1(:VAR1, :VAR2);
@@ -210,7 +212,7 @@ Fixed Bugs
           Create success.
           iSQL> EXEC PROC1(:VAR1, :VAR2);
           [ERR-0109F : Library file for external procedure/function not found : ......./lib/invalid_library_name.so]
-        
+            
           iSQL> CREATE OR REPLACE LIBRARY LIB1 AS 'andy_upper.so'; //오류를 제거하여 정상동작하도록 수정
           Create success.
           iSQL> EXEC PROC1(:VAR1, :VAR2);
