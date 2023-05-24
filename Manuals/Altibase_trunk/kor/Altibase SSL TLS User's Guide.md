@@ -568,7 +568,7 @@ $openssl pkcs12 -export -in client_certificate.pem -inkey client_secretkey_file.
 
 PKCS \#12 파일이 있다면, 아래와 같이 Keystore에 PKCS \#12 파일을 가져온다. <sup>1</sup>
 
-[<sup>1</sup>]  Java 6 이상의 버전에서만 '-importkeystore' 옵션을 사용하여 Keystore에 pem형태의 파일을 가져올 수 있다.
+[<sup>1</sup>]  '-importkeystore' 옵션을 사용하여 Keystore에 pem형태의 파일을 가져올 수 있다.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks -srcstoretype pkcs12
@@ -664,12 +664,7 @@ JDBC에서 SSL을 사용할 때 아래의 사항을 고려해서 사용한다
 ###### KeyStore에 PKCS \#12 가져오기
 
 SSL을 통한 상호 인증을 사용하기 위해서는 우선 클라이언트의 CA 인증서와 개인 키를
-KeyStore로 가져와야 한다. 이 때 지원되는 버전은 JRE1.6이상이다. 자바 6
-이상에서만 importkeystore 옵션을 사용해서 pem 형태의 파일을 keystore로 보낼 수
-있기 때문이다.
-
-그러나 JRE1.6이상에서 PKCS를 한 번만 import한 후에는 JRE1.5를 사용할 수 있다. 즉
-import 과정만 JRE1.6이 필요한것이지 상호인증 기능 자체는 1.5에서도 동작한다.
+KeyStore로 가져와야 한다. keytool로 -importkeystore 옵션을 이용하여 아래와 같이 PKCS #12 를 가져올 수 있다.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
