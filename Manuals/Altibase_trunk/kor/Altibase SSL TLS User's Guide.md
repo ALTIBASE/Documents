@@ -159,7 +159,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.3을 사용한다는 가정 하에
 작성되었다.
 
 #### 이 매뉴얼의 구성
@@ -358,7 +358,7 @@ SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
 
 OpenSSL 툴킷은 Altibase에서 SSL/TLS 프로토콜을 이용한 SSL 통신을 사용하기 위해
 필요하다. OpenSSL 툴킷은 OpenSSL 프로젝트로 개발되었으며 OpenSSL
-홈페이지( <http://www.openssl.org/source> )에서 다운로드할 수 있다. Altibase 7.3 부터는 OpenSSL 3.0.8 이상을 지원하게 됨에 따라, OpenSSL 1.0.x 버전은 더이상 지원하지 않는다.
+홈페이지( <http://www.openssl.org/source> )에서 다운로드할 수 있다. Altibase 7.3 부터는 OpenSSL 3.0.8을 지원하게 됨에 따라, OpenSSL 1.0.x 버전은 더이상 지원하지 않는다.
 
 #### 클라이언트(Client)
 
@@ -368,12 +368,16 @@ ODBC에서 SSL 통신을 사용하기 위해서 반드시 OpenSSL 툴킷이 설�
 
 ##### JDBC
 
-SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실행하기 위해서는JRE 1.6
-이상을 쓸 것을 권장한다. JRE 1.6 이상이 권장되는 이유는 다음과 같다(JRE 1.5도
-사용은 가능하다).
+SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실행하기 위해서는 JAVA 1.8.0_351
+이상을 쓸 것을 권장한다. JAVA 1.8.0_351 이상이 권장되는 이유는 다음과 같다.
 
--   JRE 1.6 이상만 클라이언트 인증서를 keystore로 내보내는 것을 지원한다 (그러나
-    인증서를 보내는 것이 항상 요구되는 것은 아니다).
+- TLS 1.3 암호 알고리즘을 사용하려면, JAVA 1.8.0_351 이상에서 별도의 설정을 하지 않고 사용할 수 있다.
+
+- JAVA 1.8.0_261부터 TLS 1.3을 지원하지만, TLS 1.3을 사용하기 위해서는 아래와 같이 별도의 설정이 필요하다.
+
+  ```
+  % java -Djdk.tls.client.protocols="TLSv1.3"
+  ```
 
 ### SSL 사용을 위한 환경 설정
 
@@ -430,25 +434,21 @@ Altibase에서 SSL로 접속하여 사용하려면 다음의 프로퍼티를 설
     : SSL 로 접속하여 동시에 Altibase에 접속할 수 있는 대기 큐의 최대 크기를
     설정한다. 이 값이 클수록 Altibase에 더 많은 메모리가 필요하다.
 -   SSL_CIPHER_LIST  
-    : 이 값은 서버와 클라이언트가 협의하고 사용할 수 있는 암호 알고리즘의 이름
-    목록이다. 사용자의 보안 정책에 따라 한 개 이상의 암호를 사용할 수 있으며,
-    암호는 콜론 (:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은
-    OpenSSL( http://www.openssl.org/ )에서 확인하거나 아래처럼 명령어를 사용하여
-    확인할 수 있다.
+    : 이 값은 서버와 클라이언트가 협의하고 사용할 수 있는 암호(CIPHER)의 목록이다. 사용자의 보안 정책에 따라 한 개 이상의 암호를 사용할 수 있으며, 암호는 콜론 (:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나 아래처럼 명령어를 사용하여 확인할 수 있다.
 
 ```
 $ openssl ciphers
 ```
 
-> 만약 TLS 1.3의 암호 알고리즘을 사용하고 경우에는 SSL_CIPHER_SUITES에 설정한다. 한 개 이상의 암호를 설정할 수 있으며, 콜론(:)으로 구분한다.
+> 만약 TLS 1.3의 특정 암호를 사용하고자 하는 경우에는 SSL_CIPHER_SUITES에 설정해야 한다. 한 개 이상의 암호를 설정할 수 있으며, 콜론(:)으로 구분한다.
 
 * SSL_CIPHERS_SUITES
 
-  : TLS 1.3의 암호 알고리즘 목록을 지정한다. 
+  : TLS 1.3의 암호 목록을 지정한다. 설정하지 않으면, OpenSSL에서 허용하는 tls 1.3의 암호 목록을 모두 사용함을 의미한다.
 
 * SSL_LOAD_CONFIG
 
-  : OpenSSL Configuration 파일(*파일명 필요*)을 로딩하도록 설정하는 프로퍼티이다. 기본값은 0(Disable)이다. OpenSSL FIPS 모듈을 사용하기 위해서는 이 프로퍼티의 값을 1로 설정해야 한다. 
+  : OpenSSL Configuration 파일(openssl.cnf)을 로딩하도록 설정하는 프로퍼티이다. 기본값은 0(Disable)이다. OpenSSL FIPS 모듈을 사용하기 위해서는 이 프로퍼티의 값을 1로 설정해야 한다. 
 
   * 0: OpenSSL Configuration 파일을 로딩하지 않음
   * 1: OpenSSL Configuration 파일을 로딩함
@@ -504,7 +504,7 @@ ALTIBASE_SSL_PORT_NO 둘 다 정의되어야 한다.
 $server start
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.3.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -561,7 +561,7 @@ $keytool -import -alias alias_name -file server_certificate_file.pem -keystore t
 
 2번과 4번의 경우, 상호 인증 모드를 위하여 우선 CA 인증과 비밀 키가 필요하다.
 인증서와 비밀 키를 가져오기 전에 가지고 있는 인증서와 비밀 키가 PKCS \#12 형식의
-파일에 있는지, 자바 버전이 1.6 이상인지 확인한다.
+파일에 있는지 확인한다.
 
 PKCS \#12 파일이 없다면, 클라이언트의 인증서와 비밀 키를 가진 PKCS \#12 파일을
 생성하기 위해 아래와 같이 pkcs12 옵션을 사용하여 OpenSSL을 실행한다.
@@ -665,7 +665,7 @@ JDBC에서 port 프로퍼티를 설정하지 않았을 때, ALTIBASE_SSL_PORT_NO
 
 JDBC에서 SSL을 사용할 때 아래의 사항을 고려해서 사용한다
 
-###### KeyStore에 PKCS \#12 가져오기(JRE 1.6 이상)
+###### KeyStore에 PKCS \#12 가져오기
 
 SSL을 통한 상호 인증을 사용하기 위해서는 우선 클라이언트의 CA 인증서와 개인 키를
 KeyStore로 가져와야 한다. 이 때 지원되는 버전은 JRE1.6이상이다. 자바 6
@@ -686,9 +686,11 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 -   Step 2: 클라이언트 인증서 준비
 
--   Step 3: SSL을 위한 ODBC 프로퍼티 설정
+-   Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정
 
--   Step 4: 클라이언트 프로그램 작성
+-   Step 4: Altibase 환경 변수 설정
+
+-   Step 5: 클라이언트 프로그램 작성
 
 ##### Step 1: OpenSSL 라이브러리 확인 
 
@@ -752,25 +754,27 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.pro
 | SSL_CIPHER                | X                          | O                                                            |
 | SSL_VERIFY                | X                          | O                                                            |
 
-##### Step 4: Altibase 환경 변수 설정
+##### Step 4: Altibase 환경 변수 설정 (FIPS모듈을 사용할 경우)
+
+FIPS 모듈을 사용하기 위해서는 클라이언트의 환경변수에 ALTIBASE_SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. FIPS모듈을 사용하지 않을 경우, 이 스텝은 건너뛸 수 있다.
 
 | 이름                     | 설명                                                         | 기본값 |
 | ------------------------ | ------------------------------------------------------------ | ------ |
 | ALTIBASE_SSL_LOAD_CONFIG | OpenSSL configuration 파일을 로딩할 것인지를 지정한다.</br>* 0: 로딩하지 않는다. </br> * 1: 로딩한다. | 0      |
-
-> OpenSSL FIPS 모듈 사용하기
-
-FIPS 140-2 검증은 암호화 모듈의 보안과 신뢰성을 검증하는 프로그램으로, 검증을 통과한 모듈은 미국 연방 정부와 이와 관련된 기관에서 사용될 수 있다. 알티베이스에서 OpenSSL의 FIPS 모듈을 사용하려면 다음의 순서로 설정할 수 있다.
-
-1. OpenSSL configuration 파일에서 FIPS 모듈을 사용하도록 설정한다. (http://www.openssl.org/ 참조)
-2. Altibase의 SSL_LOAD_CONFIG 프로퍼티를 1로 설정한다.
-3. CLI 응용 프로그램도 FIPS 모듈을 사용하도록 하려면 환경 변수 ALTIBASE_SSL_LOAD_CONFIG를 1로 설정한다.
 
 ##### Step 5: 클라이언트 프로그램 작성
 
 클라이언트 애플리케이션에서 SSL 통신을 사용하기 위해 프로그램을 작성한다.
 Altibase 디렉토리에 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
 \$ALTIBASE_HOME/sample/SQLCLI/SSL 참고한다.
+
+#### OpenSSL FIPS 모듈 사용하기
+
+FIPS 140 검증은 암호화 모듈의 보안과 신뢰성을 검증하는 프로그램으로, 검증을 통과한 모듈은 미국 연방 정부와 이와 관련된 기관에서 사용될 수 있다. 알티베이스에서 OpenSSL의 FIPS 모듈을 사용하려면 다음의 순서로 설정할 수 있다.
+
+1. OpenSSL configuration 파일에서 FIPS 모듈을 사용하도록 설정한다. (http://www.openssl.org/ 참조)
+2. Altibase 서버의  SSL_LOAD_CONFIG 프로퍼티를 1로 설정한다.
+3. CLI 응용 프로그램도 FIPS 모듈을 사용하도록 하려면 환경 변수 ALTIBASE_SSL_LOAD_CONFIG를 1로 설정한다.
 
 3.SSL 연결 관리
 =============
@@ -888,7 +892,7 @@ SYSDBA 모드로 데이터베이스에 로그인하려면 iSQL에서 iSQL 사용
 $ isql -s localhost -u sys -p manager -sysdba
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.3.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
