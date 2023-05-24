@@ -407,11 +407,7 @@ SSL이 활성화된 Altibase를 설치하기 전에 OpenSSL 툴킷을 설치하�
 OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면, Altibase는 OpenSSL
 라이브러리를 찾을 수 없다는 경고 메세지가 나타난다.
 
-서버에 OpenSSL이 설치되었다는 것을 확인하고, 허트블리드 버그에 감염되지 않았는지
-확인한다. 필요할 경우 OS에서 제공하는 패키지 매니저(e.g., RPM, Red Hat Linux)로
-설치하거나 http://www.openssl.org/source 에서 직접 다운로드받아서 컴파일한다.
-
-설치가 끝나면, 아래와 같이 설치된 OpenSSL 버전을 확인한다.
+서버에 OpenSSL이 설치되어 있는지 확인하고, 아래와 같이 설치된 OpenSSL 버전을 확인한다.
 
 ```
 $ openssl version
@@ -532,8 +528,8 @@ Command executed successfully.
 
 ##### Step 1: 인증서 가져오기
 
-서버의 CA 인증을 위해 인증서를 Trustore에 가져오거나, CA 인증과 암호키를 얻기
-위해 Keystore에 인증서를 가져온다. JSSE는 인증을 위해 Truststore와 Keystore를
+서버의 CA 인증을 위해 인증서를 Truststore에 가져오거나, CA 인증과 암호키를 얻기
+위해 Keystore에 인증서를 가져온다. JSSE(Java Secure Socket Extension)는 인증을 위해 Truststore와 Keystore를
 사용한다.
 
 인증서를 가져오기 위해 수행할 작업은 공개 인증서와 개인인증서의 타입에 따라
@@ -552,7 +548,7 @@ Command executed successfully.
 4.  상호 인증 모드의 공개 인증서  
     : Keysotre에 CA 인증과 비밀키를 포함하고 있는 PKCS \#12 파일을 가져온다.
 
-1번, 2번의 경우처럼 개인 인증서를 사용할 때, 아래와 같이 CA 인증서를 trustore에
+1번, 2번의 경우처럼 개인 인증서를 사용할 때, 아래와 같이 CA 인증서를 truststore에
 가져온다.
 
 ```
@@ -572,7 +568,7 @@ $openssl pkcs12 -export -in client_certificate.pem -inkey client_secretkey_file.
 
 PKCS \#12 파일이 있다면, 아래와 같이 Keystore에 PKCS \#12 파일을 가져온다. <sup>1</sup>
 
-[<sup>1</sup>]  Java 6 이상의 버전에서만 '-importkeysotre' 옵션을 사용하여 Keystore에 pem형태의 파일을 가져올 수 있다.
+[<sup>1</sup>]  Java 6 이상의 버전에서만 '-importkeystore' 옵션을 사용하여 Keystore에 pem형태의 파일을 가져올 수 있다.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks -srcstoretype pkcs12
