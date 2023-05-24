@@ -13596,6 +13596,28 @@ OpenSSL( [http://www.openssl.org](http://www.openssl.org/)/ )에서 확인하거
 $ openssl ciphers
 ```
 
+#### SSL_CIPHER_SUITES
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+없음
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+TLS v 1.3의 특정 암호 알고리즘 후보를 지정하는 프로퍼티이다. 한 개 이상의 후보를 설정할 수 있으며, 콜론(:)으로 구분한다. 이 프로퍼티 설정을 하지 않으면, OpenSSL에서 사용 가능한 TLS 1.3 암호 알고리즘 후보를 모두 사용할 수 있다.
+
 #### SSL_CLIENT_AUTHENTICATION
 
 ##### 데이터 타입
@@ -13673,6 +13695,32 @@ String
 Altibase 서버의 개인 키(private key)가 저장된 파일 경로를 지정한다.
 
 예를 들어 \$ALTIBASE_HOME/cert/server-key.pem으로 지정할 수 있다.
+
+#### SSL_LOAD_CONFIG
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0,1]
+
+##### 설명
+
+OpenSSL Configuration 파일(openssl.cnf)을 로딩하도록 설정하는 프로퍼티이다. 기본값은 0(Disable)이다. OpenSSL FIPS 모듈을 사용하기 위해서는 이 프로퍼티의 값을 1로 설정해야 한다.
+
+0: 로딩하지 않음
+
+1: 로딩
 
 #### SSL_MAX_LISTEN
 
