@@ -159,7 +159,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.3을 사용한다는 가정 하에
 작성되었다.
 
 #### 이 매뉴얼의 구성
@@ -318,7 +318,7 @@ Altibase는 데이터를 암호화 및 복호화하기 위하여 대칭키 알�
 
 SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
 
-- Altibase 는 OpenSSL 라이브러리에서 지원하는 TLS 1.0 프로토콜을 사용한다.
+- Altibase 는 OpenSSL 라이브러리에서 지원하는 TLS 1.0, 1.2, 1.3 프로토콜을 사용한다.
 
 - Altibase는 서버 전용 인증과 상호 인증을 지원한다.  
 
@@ -332,10 +332,10 @@ SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
   사용하여 서비스한다(예를 들어, HTTPS를 위한 443 port). Altibase는 TCP 접속을
   할 때 비보안에서 보안으로 접속 전환이 허용되지 않기 때문이다.
 
-- 보안 연결을 사용하려면 모든 클라이언트 애플리케이션이 Java 1.5 이상에 포함된
+- 보안 연결을 사용하려면 모든 클라이언트 애플리케이션이 Java 1.8 이상에 포함된
   Java Secure Socket Extension(JSSE) API가 필요하다. JSSE는 데이터 암호화,
   서버 인증, 메시지 무결성과 선택적 클라이언트 인증 뿐만 아니라 SSL2.0, 3.0과
-  TLS 1.0 프로토콜 구현을 제공한다.
+  TLS 1.0, 1.2, 1.3 프로토콜 구현을 제공한다.
 
 - Altibase는 SSL 통신을 위해 JDBC와 ODBC를 통한 인터페이스를 제공하며, 현재는
   인텔 계열의 리눅스에서만 사용할 수 있다.
@@ -352,18 +352,13 @@ SSL 통신으로 Altibase를 사용할 때 다음과 같은 특징이 있다.
 
 #### 서버(Server)
 
--   OpenSSL 툴킷 0.9.4\~1.0.2
+-   OpenSSL 툴킷 3.0.8
 
--   Altibase 6.5.1 이상 (인텔 계열 리눅스만 지원)
+-   Altibase 7.3.0.0.0 이상
 
 OpenSSL 툴킷은 Altibase에서 SSL/TLS 프로토콜을 이용한 SSL 통신을 사용하기 위해
 필요하다. OpenSSL 툴킷은 OpenSSL 프로젝트로 개발되었으며 OpenSSL
-홈페이지( <http://www.openssl.org/source> )에서 다운로드할 수 있다. 단 설치된
-OpenSSL 버전이 허트블리드 버그(Heartbleed Bug)에 감염되지 않았는지 확인하고
-조치해야 한다.
-
-따라서 OpenSSL 툴킷을 사용하기 전에 감염된 여부를 확인해야 한다.
-OPENSSL_NO_HEARTBEATS 옵션을 사용해 재컴파일하면 된다.
+홈페이지( <http://www.openssl.org/source> )에서 다운로드할 수 있다. Altibase 7.3 부터는 OpenSSL 3.0.8을 지원하게 됨에 따라, OpenSSL 1.0.x 버전은 더이상 지원하지 않는다.
 
 #### 클라이언트(Client)
 
@@ -373,12 +368,16 @@ ODBC에서 SSL 통신을 사용하기 위해서 반드시 OpenSSL 툴킷이 설�
 
 ##### JDBC
 
-SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실행하기 위해서는JRE 1.6
-이상을 쓸 것을 권장한다. JRE 1.6 이상이 권장되는 이유는 다음과 같다(JRE 1.5도
-사용은 가능하다).
+SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실행하기 위해서는 JAVA 1.8.0_351
+이상을 쓸 것을 권장한다. JAVA 1.8.0_351 이상이 권장되는 이유는 다음과 같다.
 
--   JRE 1.6 이상만 클라이언트 인증서를 keystore로 내보내는 것을 지원한다 (그러나
-    인증서를 보내는 것이 항상 요구되는 것은 아니다).
+- TLS 1.3 암호 알고리즘을 사용하려면, JAVA 1.8.0_351 이상에서 별도의 설정을 하지 않고 사용할 수 있다.
+
+- JAVA 1.8.0_261부터 TLS 1.3을 지원하지만, TLS 1.3을 사용하기 위해서는 아래와 같이 별도의 설정이 필요하다.
+
+  ```
+  % java -Djdk.tls.client.protocols="TLSv1.3"
+  ```
 
 ### SSL 사용을 위한 환경 설정
 
@@ -405,24 +404,20 @@ SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실�
 ##### Step 1:OpenSSL 설치 및 라이브러리 확인
 
 SSL이 활성화된 Altibase를 설치하기 전에 OpenSSL 툴킷을 설치하는 것이 좋다. 만약
-OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면,Altibase는 OpenSSL
+OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면, Altibase는 OpenSSL
 라이브러리를 찾을 수 없다는 경고 메세지가 나타난다.
 
-서버에 OpenSSL이 설치되었다는 것을 확인하고, 허트블리드 버그에 감염되지 않았는지
-확인한다. 필요할 경우 OS에서 제공하는 패키지 매니저(e.g., RPM, Red Hat Linux)로
-설치하거나 http://www.openssl.org/source 에서 직접 다운로드받아서 컴파일한다.
-
-설치가 끝나면, 아래와 같이 설치된 OpenSSL 버전을 확인한다.
+서버에 OpenSSL이 설치되어 있는지 확인하고, 아래와 같이 설치된 OpenSSL 버전을 확인한다.
 
 ```
 $ openssl version
-OpenSSL 0.9.7e-fips-rhel5 01 Jul 2008
+OpenSSL 3.0.8 7 Feb 2023 (Library: OpenSSL 3.0.8 7 Feb 2023)
 ```
 
 ##### Step 2: 서버 프로퍼티 설정 
 
 Altibase에서 SSL로 접속하여 사용하려면 다음의 프로퍼티를 설정하여야 한다. SSL
-접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다. 프로퍼티에 대한
+접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.properties에 있다. 프로퍼티에 대한
 자세한 설명은 *General Reference*를 참조한다.
 
 -   SSL_ENABLE  
@@ -435,15 +430,24 @@ Altibase에서 SSL로 접속하여 사용하려면 다음의 프로퍼티를 설
     : SSL 로 접속하여 동시에 Altibase에 접속할 수 있는 대기 큐의 최대 크기를
     설정한다. 이 값이 클수록 Altibase에 더 많은 메모리가 필요하다.
 -   SSL_CIPHER_LIST  
-    : 이 값은 서버와 클라이언트가 협의하고 사용할 수 있는 암호 알고리즘의 이름
-    목록이다. 사용자의 보안 정책에 따라 한 개 이상의 암호를 사용할 수 있으며,
-    암호는 콜론 (:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은
-    OpenSSL( http://www.openssl.org/ )에서 확인하거나 아래처럼 명령어를 사용하여
-    확인할 수 있다.
+    : 이 값은 서버와 클라이언트가 협의하고 사용할 수 있는 암호(CIPHER)의 목록이다. 사용자의 보안 정책에 따라 한 개 이상의 암호를 사용할 수 있으며, 암호는 콜론 (:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나 아래처럼 명령어를 사용하여 확인할 수 있다.
 
 ```
 $ openssl ciphers
 ```
+
+> 만약 TLS 1.3의 특정 암호를 사용하고자 하는 경우에는 SSL_CIPHER_SUITES에 설정해야 한다. 한 개 이상의 암호를 설정할 수 있으며, 콜론(:)으로 구분한다.
+
+* SSL_CIPHERS_SUITES
+
+  : TLS 1.3의 암호 목록을 지정한다. 설정하지 않으면, OpenSSL에서 허용하는 tls 1.3의 암호 목록을 모두 사용함을 의미한다.
+
+* SSL_LOAD_CONFIG
+
+  : OpenSSL Configuration 파일(openssl.cnf)을 로딩하도록 설정하는 프로퍼티이다. 기본값은 0(Disable)이다. OpenSSL FIPS 모듈을 사용하기 위해서는 이 프로퍼티의 값을 1로 설정해야 한다. 
+
+  * 0: OpenSSL Configuration 파일을 로딩하지 않음
+  * 1: OpenSSL Configuration 파일을 로딩함
 
 ##### Step 3: SSL 클라이언트 인증 설정
 
@@ -496,7 +500,7 @@ ALTIBASE_SSL_PORT_NO 둘 다 정의되어야 한다.
 $server start
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.3.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -524,8 +528,8 @@ Command executed successfully.
 
 ##### Step 1: 인증서 가져오기
 
-서버의 CA 인증을 위해 인증서를 Trustore에 가져오거나, CA 인증과 암호키를 얻기
-위해 Keystore에 인증서를 가져온다. JSSE는 인증을 위해 Truststore와 Keystore를
+서버의 CA 인증을 위해 인증서를 Truststore에 가져오거나, CA 인증과 암호키를 얻기
+위해 Keystore에 인증서를 가져온다. JSSE(Java Secure Socket Extension)는 인증을 위해 Truststore와 Keystore를
 사용한다.
 
 인증서를 가져오기 위해 수행할 작업은 공개 인증서와 개인인증서의 타입에 따라
@@ -544,7 +548,7 @@ Command executed successfully.
 4.  상호 인증 모드의 공개 인증서  
     : Keysotre에 CA 인증과 비밀키를 포함하고 있는 PKCS \#12 파일을 가져온다.
 
-1번, 2번의 경우처럼 개인 인증서를 사용할 때, 아래와 같이 CA 인증서를 trustore에
+1번, 2번의 경우처럼 개인 인증서를 사용할 때, 아래와 같이 CA 인증서를 truststore에
 가져온다.
 
 ```
@@ -553,7 +557,7 @@ $keytool -import -alias alias_name -file server_certificate_file.pem -keystore t
 
 2번과 4번의 경우, 상호 인증 모드를 위하여 우선 CA 인증과 비밀 키가 필요하다.
 인증서와 비밀 키를 가져오기 전에 가지고 있는 인증서와 비밀 키가 PKCS \#12 형식의
-파일에 있는지, 자바 버전이 1.6 이상인지 확인한다.
+파일에 있는지 확인한다.
 
 PKCS \#12 파일이 없다면, 클라이언트의 인증서와 비밀 키를 가진 PKCS \#12 파일을
 생성하기 위해 아래와 같이 pkcs12 옵션을 사용하여 OpenSSL을 실행한다.
@@ -564,7 +568,7 @@ $openssl pkcs12 -export -in client_certificate.pem -inkey client_secretkey_file.
 
 PKCS \#12 파일이 있다면, 아래와 같이 Keystore에 PKCS \#12 파일을 가져온다. <sup>1</sup>
 
-[<sup>1</sup>]  Java 6 이상의 버전에서만 '-importkeysotre' 옵션을 사용하여 Keystore에 pem형태의 파일을 가져올 수 있다.
+[<sup>1</sup>]  '-importkeystore' 옵션을 사용하여 Keystore에 pem형태의 파일을 가져올 수 있다.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks -srcstoretype pkcs12
@@ -621,11 +625,12 @@ Altibase는 SSL을 사용하기 위해 SSL 연결을 위한 JDBC를 제공한다
 
 ###### SSL 연결을 위한 JDBC 프로퍼티
 
-| 이름             | 설명                                                                                                                                                                                                                                                                                                            | 값의 범위        | 기본값                                                                                                                    |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------|
-| ssl_enable       | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 true일 경우 SSL 커넥션을 생성하고, false일 경우 TCP 커넥션을 생성한다.                                                                                                                                                                             | [true \| false ] | false                                                                                                                     |
-| port             | 접속을 시도할 대상 서버의 포트번호를 지정한다. SSL 포트 번호가 적용되는 우선순위는 아래와 같다. ssl_enable이 true일 경우 port 값이 지정되었다면 우선 적용되고, 지정되지 않은 경우 ALTIBASE_SSL_PORT_NO 환경 변수의 값을 따른다. 하지만 ALTIBASE_SSL_PORT_NO의 값도 지정되지 않은 경우, 기본값 20300이 적용된다. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443                                                                          |
-| ciphersuite_list | 사용할 암호 알고리즘 목록이다. 암호명은 콜론(:)으로 구분된다. *SSL_RSA_WITH_RC4_128_MD5:SSL_RSA_WITH_RC4_128_SHA.*  만약 JRE가 이 알고리즘을 지원하지 않는다면, IllegalArgumentException이 나타난다.                                                                                                            | String           | [JRE가 지원하는 모든 cipher suite list]( http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html ) |
+| 이름             | 설명                                                         | 값의 범위        | 기본값                                                       |
+| ---------------- | ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ |
+| ssl_enable       | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 true일 경우 SSL 커넥션을 생성하고, false일 경우 TCP 커넥션을 생성한다. | [true \| false ] | false                                                        |
+| port             | 접속을 시도할 대상 서버의 포트번호를 지정한다. SSL 포트 번호가 적용되는 우선순위는 아래와 같다. ssl_enable이 true일 경우 port 값이 지정되었다면 우선 적용되고, 지정되지 않은 경우 ALTIBASE_SSL_PORT_NO 환경 변수의 값을 따른다. 하지만 ALTIBASE_SSL_PORT_NO의 값도 지정되지 않은 경우, 기본값 20300이 적용된다. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443             |
+| ciphersuite_list | 사용할 암호 알고리즘 목록이다. 암호명은 콜론(:)으로 구분된다. *SSL_RSA_WITH_RC4_128_MD5:SSL_RSA_WITH_RC4_128_SHA.*  만약 JRE가 이 알고리즘을 지원하지 않는다면, IllegalArgumentException이 나타난다. | String           | [JRE가 지원하는 모든 cipher suite list]( http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html ) |
+| ssl_protocols    | 서버에 SSL 통신을 위해 사용할 프로토콜 목록이다. 콤마(,)를 이용하여 여러개의 프로토콜을 지정할 수 있다.</br> 예) "TLSv1.2,TLSv1.3" | String           | [JRE가 지원하는 모든 SSL/TLS protocol](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
 
 ###### 인증을 위한 JDBC 프로퍼티
 
@@ -656,15 +661,10 @@ JDBC에서 port 프로퍼티를 설정하지 않았을 때, ALTIBASE_SSL_PORT_NO
 
 JDBC에서 SSL을 사용할 때 아래의 사항을 고려해서 사용한다
 
-###### KeyStore에 PKCS \#12 가져오기(JRE 1.6 이상)
+###### KeyStore에 PKCS \#12 가져오기
 
 SSL을 통한 상호 인증을 사용하기 위해서는 우선 클라이언트의 CA 인증서와 개인 키를
-KeyStore로 가져와야 한다. 이 때 지원되는 버전은 JRE1.6이상이다. 자바 6
-이상에서만 importkeystore 옵션을 사용해서 pem 형태의 파일을 keystore로 보낼 수
-있기 때문이다.
-
-그러나 JRE1.6이상에서 PKCS를 한 번만 import한 후에는 JRE1.5를 사용할 수 있다. 즉
-import 과정만 JRE1.6이 필요한것이지 상호인증 기능 자체는 1.5에서도 동작한다.
+KeyStore로 가져와야 한다. keytool로 -importkeystore 옵션을 이용하여 아래와 같이 PKCS #12 를 가져올 수 있다.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
@@ -677,9 +677,11 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 -   Step 2: 클라이언트 인증서 준비
 
--   Step 3: SSL을 위한 ODBC 프로퍼티 설정
+-   Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정
 
--   Step 4: 클라이언트 프로그램 작성
+-   Step 4: Altibase 환경 변수 설정
+
+-   Step 5: 클라이언트 프로그램 작성
 
 ##### Step 1: OpenSSL 라이브러리 확인 
 
@@ -716,7 +718,7 @@ SSL 통신을 사용하려는 클라이언트 프로그램을 작성하기 전�
 문자열(connection string)로 지정할 수 있다. 사용 방법은 샘플 프로그램을
 참조한다.
 
-SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
+SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.properties에 있다.
 
 | 이름       | 설명                                                                                                                                                                                                                                                                                                                                                                                                                          | 값의 범위    | 기본값  |
 |------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|---------|
@@ -743,11 +745,27 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 | SSL_CIPHER                | X                          | O                                                            |
 | SSL_VERIFY                | X                          | O                                                            |
 
-##### Step 4: 클라이언트 프로그램 작성
+##### Step 4: Altibase 환경 변수 설정 (FIPS모듈을 사용할 경우)
+
+FIPS 모듈을 사용하기 위해서는 클라이언트의 환경변수에 ALTIBASE_SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. FIPS모듈을 사용하지 않을 경우, 이 스텝은 건너뛸 수 있다.
+
+| 이름                     | 설명                                                         | 기본값 |
+| ------------------------ | ------------------------------------------------------------ | ------ |
+| ALTIBASE_SSL_LOAD_CONFIG | OpenSSL configuration 파일을 로딩할 것인지를 지정한다.</br>* 0: 로딩하지 않는다. </br> * 1: 로딩한다. | 0      |
+
+##### Step 5: 클라이언트 프로그램 작성
 
 클라이언트 애플리케이션에서 SSL 통신을 사용하기 위해 프로그램을 작성한다.
 Altibase 디렉토리에 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
 \$ALTIBASE_HOME/sample/SQLCLI/SSL 참고한다.
+
+#### OpenSSL FIPS 모듈 사용하기
+
+FIPS 140 검증은 암호화 모듈의 보안과 신뢰성을 검증하는 프로그램으로, 검증을 통과한 모듈은 미국 연방 정부와 이와 관련된 기관에서 사용될 수 있다. 알티베이스에서 OpenSSL의 FIPS 모듈을 사용하려면 다음의 순서로 설정할 수 있다.
+
+1. OpenSSL configuration 파일에서 FIPS 모듈을 사용하도록 설정한다. (http://www.openssl.org/ 참조)
+2. Altibase 서버의  SSL_LOAD_CONFIG 프로퍼티를 1로 설정한다.
+3. CLI 응용 프로그램도 FIPS 모듈을 사용하도록 하려면 환경 변수 ALTIBASE_SSL_LOAD_CONFIG를 1로 설정한다.
 
 3.SSL 연결 관리
 =============
@@ -865,7 +883,7 @@ SYSDBA 모드로 데이터베이스에 로그인하려면 iSQL에서 iSQL 사용
 $ isql -s localhost -u sys -p manager -sysdba
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.3.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
