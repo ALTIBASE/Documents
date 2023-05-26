@@ -15599,7 +15599,7 @@ iSQL> MOVE INTO T1 FROM T2(I1, I2, I3);
 
 #### 설명
 
-MERGE 구문은 ON절에 명시한 조건에 해당하는 데이터가 있는 경우에 원하는 값으로 변경하고, 없는 경우에 새로운 데이터를 삽입하는 작업을 수행한다. 예시로 SELECT 구문으로 데이터를 조회해서 데이터가 있는 경우 UPDATE 구문을 수행하고, 없는 경우 INSERT 구문을 수행하는 작업을 하나의 MERGE 구문으로 대체할 수 있다.
+MERGE 구문은 ON절에 명시한 조건에 해당하는 데이터가 있는 경우에 원하는 값으로 변경하고, 없는 경우에 새로운 데이터를 삽입하는 작업을 수행한다. 예시로 SELECT 구문으로 데이터를 조회해서 데이터가 있는 경우 UPDATE, DELETE 구문을 수행하고, 없는 경우 INSERT 구문을 수행하는 작업을 하나의 MERGE 구문으로 대체할 수 있다.
 
 *hints*
 
@@ -15619,7 +15619,9 @@ INTO 절 테이블에 변경하거나 삽입하려는 데이터의 조건을 명
 
 *matched_update_clause*
 
-ON 절의 조건을 만족하는 데이터가 있는 경우에 해당 레코드를 변경하는 UPDATE 구문을 작성한다. 변경할 테이블은 INTO 절에서 명시하였으므로 생략한다.
+ON 절의 조건을 만족하는 데이터가 있는 경우에 해당 레코드를 변경하는 UPDATE 구문을 작성한다. 변경할 테이블은 INTO 절에서 명시하였으므로 생략한다. UPDATE 구문의 작성은 필수이나, DELETE 구문은 선택이다. DELETE 구문은 반드시 UPDATE 구문 이후에 작성해야 한다.
+
+DELETE 구문의 WHERE 조건은 UPDATE SET ... WHERE 조건에서 평가된 원래 값이 아닌 갱신된 값을 평가한다. 
 
 - 제약 사항:
   - ON 조건 절에서 참조되는 칼럼은 갱신이 불가능하다.
@@ -15784,6 +15786,48 @@ EMPNO       LASTNAME
 7           YUN                             
 10          NO ROWS                         
 6 rows selected
+```
+
+<질의> WHEN MATCHED THEN 에서 DELETE 구문의 WHERE절이 UPDATE 구문에 의해 갱신된 결과를 평가하여 수행되는 예제이다.
+
+```
+DROP TABLE TEST_MERGE;
+DROP TABLE TEST_MERGE2;
+
+CREATE TABLE TEST_MERGE (EMPNO INT, LASTNAME CHAR(20));
+INSERT INTO TEST_MERGE VALUES(1, 'KIM');
+INSERT INTO TEST_MERGE VALUES(2, 'LEE');
+INSERT INTO TEST_MERGE VALUES(5, 'PARK');
+INSERT INTO TEST_MERGE VALUES(4, 'CHOI');
+INSERT INTO TEST_MERGE VALUES(7, 'YUN');
+
+CREATE TABLE TEST_MERGE2 AS SELECT * FROM TEST_MERGE;
+
+iSQL> SELECT * FROM TEST_MERGE;
+EMPNO       LASTNAME
+-------------------------------------
+1           KIM
+2           LEE
+5           PARK
+4           CHOI
+7           YUN
+5 rows selected.
+
+MERGE INTO TEST_MERGE OLD_T
+USING TEST_MERGE2 NEW_T
+ON NEW_T.EMPNO = OLD_T.EMPNO AND NEW_T.EMPNO IN ( 2, 4 )
+WHEN MATCHED THEN
+    UPDATE SET LASTNAME = 'MATCHED' WHERE NEW_T.EMPNO IN ( 2, 4 )
+    DELETE WHERE LASTNAME = 'MATCHED';
+2 rows merged.
+
+iSQL> SELECT * FROM TEST_MERGE;
+EMPNO       LASTNAME
+-------------------------------------
+1           KIM
+5           PARK
+7           YUN
+3 rows selected.
 ```
 
 
