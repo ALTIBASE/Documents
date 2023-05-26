@@ -6771,17 +6771,15 @@ Create success.
 
 **option_clause ::=**
 
-![](media/SQL/27820f15feeda94f02d08fdd79b41b36.png)
+![](media/SQL/option_clause.gif)
 
 **replication_item ::=**
 
 ![replication_item](media/SQL/replication_item.gif)
 
-**with_clause::=**
+**using_conntype_clause::=**
 
-replication_host_ip 부분에  WITH 포함하여 옵션 항목임
-
--> 'replication_host_ip' , replication_host_port_no-------->
+![replication_item](media/SQL/replication_using_conntype_clause.gif)
 
 ​                                                                                      
 
@@ -6819,8 +6817,7 @@ XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*�
 
 *option_clause*
 
-이중화 객체의 RECOVERY, OFFLINE, GROUPING, PARALLEL, GAPLESS 옵션을 지정하는
-절이다.
+이중화 객체의 RECOVERY, OFFLINE, GROUPING, PARALLEL, GAPLESS, RECEIVE_ONLY 옵션을 지정하는 절이다.
 
 이 기능은 각각 데이터 복구를 위해 사용되거나, 오프라인 이중화 수행시 사용된다.
 또한 성능을 위하여 이중화 트랜잭션을 그룹화하거나 병렬 적용자 옵션을 지정할 때
@@ -6836,9 +6833,13 @@ XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*�
 원격 서버의 수신 쓰레드가 사용하는 포트번호를 입력한다. 이는 원격 서버
 altibase.properties 파일의 REPLICATION_PORT_NO프로퍼티 값과 일치해야 한다.
 
-*USING conn_type [ib_latency]*
+*using_conntype_clause*
 
-원격 서버와의 통신방법(TCP 또는 InfiniBand)을 설정할 수 있다. 인피니밴드를
+원격 서버와의 통신방법(TCP 또는 InfiniBand)을 설정할 수 있다. 
+
+ USING conn_type [ib_latency]
+
+conn_type에 "TCP" 또는 "InfiniBand"를 설정할 수 있으며, 인피니밴드를
 사용할 경우에만 ib_latency 값을 설정할 수 있다. 인피니밴드를 사용하려면
 IB_ENABLE 프로퍼티 값이 1이어야 한다.
 
@@ -6908,7 +6909,7 @@ REP2                                      3
 1 row selected.
 ```
 
-\<질의\> 원격 서버의 이중화는 지역 서버의 수신 전용으로만 동작하도록 이중화를 생성한다. 
+\<질의\> 원격 서버의 이중화는 지역 서버의 수신 전용(RECEIVE_ONLY)으로만 동작하도록 이중화를 생성한다. 
 
 지역 서버의 경우 (IP: 192.168.60)
 
