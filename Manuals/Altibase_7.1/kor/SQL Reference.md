@@ -3304,15 +3304,19 @@ Alter success.
 
 **alter_sequence ::=**
 
-![](media/SQL/47068a33f6105def77759ac8433a2974.png)
+![](media/SQL/alter_sequence.gif)
 
 **sequence_options ::=**
 
-![](media/SQL/f2a803f06b6aa2c6b5ffb8b2412cb04c.png)
+![](media/SQL/sequence_alter_options.gif)
 
 **sync_table_clause ::=**
 
 ![sync_table_clause](media/SQL/sync_table_clause.gif)
+
+**restart_clause ::=**
+
+![sync_table_clause](media/SQL/restart_sequence_clause.gif)
 
 #### 전제 조건
 
@@ -3341,9 +3345,17 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 
 시퀀스의 최대값을 명시하는데 사용된다.
 
+*NOMAXVALUE*
+
+시퀀스의 최대값을 지정하지 않을때 사용된다.
+
 *MINVALUE*
 
 시퀀스의 최소값을 명시하는데 사용된다.
+
+*NOMINVALUE*
+
+시퀀스의 최소값을 지정하지 않을때 사용된다.
 
 *CYCLE*
 
@@ -3352,6 +3364,10 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 다시 시작된다. 반면 내림차순 시퀀스인 경우는 최대값에 도달한 후 최대값부터 다시
 시작된다.
 
+*NOCYCLE*
+
+시퀀스의 순환을 허용하지 않을때 사용된다.
+
 *CACHE*
 
 시퀀스 값을 더 빠르게 액세스 하기 위하여 명시된 개수 만큼의 시퀀스 값들이
@@ -3359,6 +3375,10 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 요청될 때마다 캐시 된 값이 검색된다. 캐시에서 마지막 시퀀스 값이 사용된 이후
 다음 시퀀스 값 요청시 새로운 시퀀스 값들이 메모리 캐시된다. 이 옵션을 생략할
 경우 기본값은 20이다.
+
+*NOCACHE*
+
+시퀀스를 메모리에 캐시하지 않는 경우 사용된다.
 
 *FLUSH CACHE*
 
@@ -3370,18 +3390,24 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 시퀀스 번호를 복제하기 위한 시퀀스 이중화용 테이블을 생성한다. 시퀀스 이중화
 전용 테이블의 이름은 [sequence 이름]\$seq으로 자동 부여된다.
 
+> 주의사항
+>
+> 시퀀스 이름의 길이가 36바이트 이하여야, 시퀀스 이중화용 테이블을 생성할 수 있다.
+
 *DISABLE SYNC TABLE*
 
 시퀀스를 이중화하기 위해 사용하던 시퀀스 이중화용 테이블을 삭제한다.
 
-#### 주의 사항
+*restart_clause*
 
-존재하는 시퀀스의 정의를 변경할 때, 시퀀스가 이미 생성된 이후 이므로 START WITH
-절은 사용될 수 없다.
+시퀀스를 재시작하기 위한 구문으로 아래 세가지 방법이 있다.
 
-시퀀스 이름의 길이가 36 바이트 이하여야 시퀀스 이중화용 테이블을 생성할 수 있다.
-
-시퀀스에 대한 자세한 설명은 CREATE SEQUENCE 구문의 설명을 참고한다.
+- RESTART
+  - START VALUE를 INCREMENT VALUE가 1 이상이면 MINVALUE로, INCREMENT VALUE가 -1 이하이면 MAXVALUE로 초기화하고, 시퀀스를 재시작한다.
+- RESTART WITH N
+  - START VALUE를 N으로 초기화하고, 시퀀스를 재시작한다.
+- RESTART START WITH N
+  - RESTART WITH N 와 동일하게, START VALUE를 N으로 초기화하고 시퀀스를 재시작한다.
 
 #### 예제
 
@@ -6897,7 +6923,7 @@ Create success.
 
 **sequence_options ::=**
 
-![sequence_options_create](media/SQL/sequence_options_create.gif)
+![sequence_options_create](media/SQL/sequence_create_options.gif)
 
 **sync_table_clause ::=**
 
@@ -6943,6 +6969,10 @@ MINVALUE의 차이보다 작아야 한다.
 값이 0보다 크면 기본값은 9223372036854775806이다. INCREMENT BY의 값이 0보다
 작으면, 기본값은 -1이다.
 
+*NOMAXVALUE*
+
+시퀀스의 최대값을 지정하지 않을때 사용된다.
+
 *MINVALUE*
 
 시퀀스의 최소값을 명시한다. 이는 -9223372036854775806부터
@@ -6950,11 +6980,19 @@ MINVALUE의 차이보다 작아야 한다.
 값이 0보다 크면 기본값은 1이다. INCREMENT BY의 값이 0보다 작으면, 기본값은
 -9223372036854775806이다.
 
+*NOMINVALUE*
+
+시퀀스의 최소값을 지정하지 않을때 사용된다.
+
 *CYCLE*
 
 이는 시퀀스가 최대값 또는 최소값 한계에 도달했을 때 다음 시퀀스 값을 계속
 생성할지 여부를 지정하는 옵션이다. 오름차순 시퀀스의 경우는 시퀀스의 다음 값은
 최소값에서 다시 순환되고, 내림차순 시퀀스의 경우는 최대값부터 다시 순환된다.
+
+*NOCYCLE*
+
+시퀀스의 순환을 허용하지 않을때 사용된다.
 
 *CACHE*
 
@@ -6963,6 +7001,10 @@ MINVALUE의 차이보다 작아야 한다.
 요청할 때마다 캐시된 시퀀스에서 검색된다. 캐시된 마지막 시퀀스 값을 사용한
 이후의 다음 시퀀스 값 요청시에 시퀀스 값들이 메모리에 캐시된다. 이 값을 생략하면
 기본값은 20이다.
+
+*NOCACHE*
+
+시퀀스를 메모리에 캐시하지 않는 경우 사용된다.
 
 *ENABLE \| DISABLE SYNC TABLE*
 

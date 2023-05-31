@@ -3315,6 +3315,10 @@ Alter success.
 
 ![sync_table_clause](media/SQL/sync_table_clause.gif)
 
+**restart_clause ::=**
+
+![sync_table_clause](media/SQL/restart_sequence_clause.gif)
+
 #### 전제 조건
 
 SYS 사용자, 시퀀스가 속한 스키마의 소유자 또는 ALTER ANY SEQUENCE 시스템 권한을
@@ -3334,16 +3338,6 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 
 변경될 시퀀스 이름이다.
 
-*restart clause*
-
-아래 세가지 형태가 가능하다.
-- RESTART
-  - START VALUE를 INCREMENT VALUE가 1 이상이면 MIN VALUE로, INCREMENT VALUE가 -1 이하이면 MAX VALUE로 초기화하고, SEQUENCE 를 재시작한다.
-- RESTART WITH N
-  - START VALUE를 N으로 초기화하고, SEQUENCE 를 재시작한다.
-- RESTART START WITH N
-  - 위에 기술한 RESTART WITH N 와 동일하다.
-
 *INCREMENT BY*
 
 시퀀스 값의 증감분을 명시하는데 사용된다.
@@ -3352,9 +3346,17 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 
 시퀀스의 최대값을 명시하는데 사용된다.
 
+*NOMAXVALUE*
+
+시퀀스의 최대값을 지정하지 않을때 사용된다.
+
 *MINVALUE*
 
 시퀀스의 최소값을 명시하는데 사용된다.
+
+*NOMINVALUE*
+
+시퀀스의 최소값을 지정하지 않을때 사용된다.
 
 *CYCLE*
 
@@ -3363,6 +3365,10 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 다시 시작된다. 반면 내림차순 시퀀스인 경우는 최대값에 도달한 후 최대값부터 다시
 시작된다.
 
+*NOCYCLE*
+
+시퀀스의 순환을 허용하지 않을때 사용된다.
+
 *CACHE*
 
 시퀀스 값을 더 빠르게 액세스 하기 위하여 명시된 개수 만큼의 시퀀스 값들이
@@ -3370,47 +3376,38 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 요청될 때마다 캐시 된 값이 검색된다. 캐시에서 마지막 시퀀스 값이 사용된 이후
 다음 시퀀스 값 요청시 새로운 시퀀스 값들이 메모리 캐시된다.
 
+*NOCACHE*
+
+시퀀스를 메모리에 캐시하지 않는 경우 사용된다.
+
 *FLUSH CACHE*
 
 메모리에 캐시된 시퀀스 값들을 지워버린다. 이 옵션을 사용해서 캐시를 플러시한 후
 시퀀스 값이 요청되면, 새로운 시퀀스 값들이 메모리에 캐시된다.
 
-*LOCAL*
-	
-기존의 시퀀스를 의미한다. GLOBAL, SHARD 옵션과 명시적으로 구분하기 위해 사용할 수 있다.
-GLOBAL, SHARD 옵션과 함께 사용할 수 없다.
-
-*GLOBAL*
-	
-샤딩 환경에서만 지원한다.
-LOCAL, SHARD, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
-
-*SHARD*
-	
-샤딩 환경에서만 지원한다.
-LOCAL, GLOBAL, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
-
 *ENABLE SYNC TABLE*
 
 시퀀스 번호를 복제하기 위한 시퀀스 이중화용 테이블을 생성한다. 시퀀스 이중화
-전용 테이블의 이름은 [sequence 이름]\$seq으로 자동 부여된다.
+전용 테이블의 이름은 [sequence 이름]\$seq으로 자동 부여된다. 
+
+>  주의사항
+>
+> 시퀀스 이름의 길이가 36바이트 이하여야, 시퀀스 이중화용 테이블을 생성할 수 있다.
 
 *DISABLE SYNC TABLE*
 
 시퀀스를 이중화하기 위해 사용하던 시퀀스 이중화용 테이블을 삭제한다.
 
-#### 주의 사항
+*restart_clause*
 
-존재하는 시퀀스의 정의를 변경할 때, 시퀀스가 이미 생성된 이후 이므로 START WITH
-절은 사용될 수 없다.
+시퀀스를 재시작하기 위한 구문으로 아래 세가지 방법이 있다.
 
-시퀀스 이름의 길이가 36 바이트 이하여야 시퀀스 이중화용 테이블을 생성할 수 있다.
-
-시퀀스 이름의 길이가 36 바이트 이하여야 global sequence로 변경할 수 있다.
-
-시퀀스에 대한 자세한 설명은 CREATE SEQUENCE 구문의 설명을 참고한다.
+- RESTART
+  - START VALUE를 INCREMENT VALUE가 1 이상이면 MINVALUE로, INCREMENT VALUE가 -1 이하이면 MAXVALUE로 초기화하고, 시퀀스를 재시작한다.
+- RESTART WITH N
+  - START VALUE를 N으로 초기화하고, 시퀀스를 재시작한다.
+- RESTART START WITH N
+  - RESTART WITH N 와 동일하게, START VALUE를 N으로 초기화하고 시퀀스를 재시작한다.
 
 #### 예제
 
@@ -6998,6 +6995,10 @@ MINVALUE의 차이보다 작아야 한다.
 값이 0보다 크면 기본값은 9223372036854775806이다. INCREMENT BY의 값이 0보다
 작으면, 기본값은 -1이다.
 
+*NOMAXVALUE*
+
+시퀀스의 최대값을 지정하지 않을때 사용된다.
+
 *MINVALUE*
 
 시퀀스의 최소값을 명시한다. 이는 -9223372036854775806부터
@@ -7005,11 +7006,19 @@ MINVALUE의 차이보다 작아야 한다.
 값이 0보다 크면 기본값은 1이다. INCREMENT BY의 값이 0보다 작으면, 기본값은
 -9223372036854775806이다.
 
+*NOMINVALUE*
+
+시퀀스의 최소값을 지정하지 않을때 사용된다.
+
 *CYCLE*
 
 이는 시퀀스가 최대값 또는 최소값 한계에 도달했을 때 다음 시퀀스 값을 계속
 생성할지 여부를 지정하는 옵션이다. 오름차순 시퀀스의 경우는 시퀀스의 다음 값은
 최소값에서 다시 순환되고, 내림차순 시퀀스의 경우는 최대값부터 다시 순환된다.
+
+*NOCYCLE*
+
+시퀀스의 순환을 허용하지 않을때 사용된다.
 
 *CACHE*
 
@@ -7019,25 +7028,9 @@ MINVALUE의 차이보다 작아야 한다.
 이후의 다음 시퀀스 값 요청시에 시퀀스 값들이 메모리에 캐시된다. 이 값을 생략하면
 기본값은 20이다.
 
-*LOCAL*
+*NOCACHE*
 
-기존의 시퀀스를 의미한다. GLOBAL, SHARD 옵션과 명시적으로 구분하기 위해 사용할 수 있다.
-GLOBAL, SHARD 옵션과 함께 사용할 수 없다.
-이 옵션을 생략할 경우 기본값은 LOCAL이다.
-
-*GLOBAL*
-
-샤딩 환경에서만 지원한다.
-LOCAL, SHARD, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이 옵션을 생략할 경우 기본값은 LOCAL이다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
-
-*SHARD*
-
-샤딩 환경에서만 지원한다.
-LOCAL, GLOBAL, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이 옵션을 생략할 경우 기본값은 LOCAL이다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
+시퀀스를 메모리에 캐시하지 않는 경우 사용된다.
 
 *ENABLE \| DISABLE SYNC TABLE*
 
@@ -7055,7 +7048,6 @@ LOCAL, GLOBAL, SYNC TABLE 옵션과 함께 사용할 수 없다.
   *sequence_name.*CURRVAL로 새로 생성된 시퀀스에 접근하려면 먼저
   *sequence_name.*NEXTVAL을 사용해야만 한다.
 - 시퀀스 이름의 길이가 36 바이트 이하여야 시퀀스 이중화용 테이블을 생성할 수 있다.
-- 시퀀스 이름의 길이가 36 바이트 이하여야 global sequence를 생성할 수 있다.
 
 
 #### 예제
