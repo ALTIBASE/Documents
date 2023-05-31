@@ -793,7 +793,15 @@ Altibase는 아래의 타입을 지원한다.
 
 ##### 흐름도
 
-![](media/GeneralReference/242f2c3edb0f197d371a4ec74f665ba8.jpg)
+![](media/GeneralReference/char.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
