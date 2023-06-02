@@ -822,7 +822,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VAR
 
 ##### 흐름도
 
-![](media/GeneralReference/f7552045fb1b327e02cba948bbafeb3f.jpg)
+![](media/GeneralReference/varchar.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -848,7 +856,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VAR
 
 ##### 흐름도
 
-![](media/GeneralReference/479310aaf34bada9e78bf3bb9c18eb8c.jpg)
+![](media/GeneralReference/nchar.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -875,7 +891,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VAR
 
 ##### 흐름도
 
-![](media/GeneralReference/bdc39809efd5cc54b1ee2b06d2dd638b.jpg)
+![](media/GeneralReference/nvarchar.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2427,6 +2451,14 @@ Altibase는 다음의 이진 데이터 타입을 지원한다.
 
 ![](media/GeneralReference/byte1.png)
 
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
+
 ##### 구문
 
 ```
@@ -2469,7 +2501,15 @@ TO_CHAR(I1)  TO_CHAR(I2)
 
 ##### 흐름도
 
-![](media/GeneralReference/varbyte1.png)
+![](media/GeneralReference/varbyte.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2512,7 +2552,15 @@ TO_CHAR(I1)  TO_CHAR(I2)
 
 ##### 흐름도
 
-![](media/GeneralReference/nibble1.png)
+![](media/GeneralReference/nibble.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2542,7 +2590,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/V
 
 ##### 흐름도
 
-![](media/GeneralReference/bit1.png)
+![](media/GeneralReference/bit.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2587,7 +2643,15 @@ iSQL> INSERT INTO T1 VALUES ( BIT'1', BIT'1234' );
 
 ##### 흐름도
 
-![](media/GeneralReference/varbit1.png)
+![](media/GeneralReference/varbit.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
