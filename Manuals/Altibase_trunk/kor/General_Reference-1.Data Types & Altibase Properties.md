@@ -2449,7 +2449,7 @@ Altibase는 다음의 이진 데이터 타입을 지원한다.
 
 ##### 흐름도
 
-![](media/GeneralReference/byte1.png)
+![](media/GeneralReference/byte.gif)
 
 **variable_clause::=**
 
@@ -2710,7 +2710,7 @@ Altibase가 제공하는 LOB은 다음과 같은 특징이 있다.
 
 ##### 데이타 저장 기능
 
-ODBC의 SQLPutLob 함수 또는 JDBC의 setBlob 또는 setClob 메쏘드를 이용하여 CLOB,
+ODBC의 SQLPutLob 함수 또는 JDBC의 setBlob 또는 setClob 메소드를 이용하여 CLOB,
 BLOB 데이타를 저장할 수 있다.
 
 ##### 부분 읽기(Partial Read)
