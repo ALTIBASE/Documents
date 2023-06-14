@@ -3539,7 +3539,7 @@ iSQL> ALTER SEQUENCE seq1 ENABLE SYNC TABLE;
 
 **split_table_partition ::=**
 
-![image64_split_table_partition](media/SQL/image64_split_table_partition.gif)
+![image64_split_table_partition](media/SQL/split_table_partition.gif)
 
 **truncate_table_partition ::=**
 
@@ -3855,15 +3855,6 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 분리된다.
 
 테이블에 LOB 컬럼이 있는 경우 LOB 컬럼에 대한 속성을 따로 정의할 수 있다.
-
-ONLINE 절은 파티션을 분리하는 중에 테이블에 대한 DML 작업을 허용한다.
-
-- ###### ON 절 제약사항
-
-  - 샤드 환경에서 샤드키 테이블만 지원한다.
-    솔로 및 클론 테이블, 그리고 일반 테이블은 지원하지 않는다.
-  - GLOBAL_DDL 프로퍼티가 1일 때 지원한다.
-    전체 노드 대상으로 하나의 트랜잭션으로 처리된다.
 
 *truncate_table_partition*
 

@@ -1,9 +1,5 @@
 # Altibase Trunk Korean manuals
 
-## New Features
-
-- ### [New Features Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/New%20Features%20Guide.md)
-
 ## Admin
 
 - ### [Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Getting%20Started%20Guide.md)
@@ -24,8 +20,6 @@
 - ### [SNMP Agent Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SNMP%20Agent%20Guide.md)
 
 - ### [DB Link User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/DB%20Link%20User's%20Manual.md)
-
-- ### [Altibase Sharding Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Sharding.md)
 
 ## Application Development
 
