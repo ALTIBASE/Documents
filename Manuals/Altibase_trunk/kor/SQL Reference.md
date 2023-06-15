@@ -21687,6 +21687,8 @@ DATEPART (JOIN_DATE, 'QUARTER')
 1 row selected.
 ```
 
+
+
 #### EXTRACT
 
 ##### 구문
