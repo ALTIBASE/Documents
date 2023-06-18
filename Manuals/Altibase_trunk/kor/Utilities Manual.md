@@ -2721,7 +2721,7 @@ PID : 5230
 
 ### altiMon 시작
 
-1️⃣ 최소 요구사항에 맞는 Java를 사용할 수 있게 PATH 환경 변수를 설정한다.
+1️⃣ Java를 사용할 수 있게 PATH 환경 변수를 설정한다.
 
 ```bash
 $ java -version
