@@ -864,10 +864,10 @@ iLoader로 IN 작업을 수행할 때 다음의 옵션들을 사용해 성능을
 | \-array *array_size*                            | 데이터 로딩 (in) 시 속도 증가를 위해서 파일에서 읽은 데이터를 배열로 구성하여 서버로 전송한다. 이렇게 하면 서버와의 통신 횟수를 줄여서 성능 향상을 가져올 수 있다.  <br />그러나 이 값을 너무 크게 할 경우에는 오히려 역효과를 가져올 수도 있다.<br />기본값: 1 |
 | \-commit *commit_unit*                          | 업로드 시에 몇 건 단위로 삽입한 다음 커밋할 것인가를 나타내는 단위 옵션이다. <br />*commit_unit* 0은 NON-AUTOCOMMIT 모드로 동작하며, 모든 데이터를 삽입한 후에 커밋한다. <br />*commit_unit* 1은 AUTOCOMMIT 모드로 동작하여 데이터 삽입 시 건별로 커밋한다.<br />단, array 옵션과 함께 사용할 시에는 *array_size*\* *commit_unit*의 수만큼 삽입 후 커밋한다.<br />기본값: 1000 |
 | \-atomic                                        | Atomic Array INSERT를 수행하도록 설정한다. Atomic Array INSERT는 배열 크기만큼 Insert문을 하나의 구문으로 처리하기 때문에 Array Insert보다 빠른 성능을 발휘한다.<br />이 옵션은 반드시 -array 옵션과 함께 지정해야 한다. |
-| \-direct [log\|nolog] (Direct-Path INSERT 참고) | 디스크 테이블에 업로드 할 때 Direct-Path INSERT 방식을 사용하는 옵션으로써 로깅 여부도 함께 지정할 수 있다. log 또는 nolog를 명시하지 않으면 log 로 동작한다. <br />만약 nolog 방식을 사용할 때에는 반드시 해당 테이블에 대하여 백업을 해야 한다. nolog 모드로 수행중에 실패할 경우 정상적인 복구가 불가능할 수도 있기 때문이다.  <br />이 옵션을 지정하면 -atomic 옵션이 내부적으로 설정된다. -atomic 옵션은 -array 옵션과 함께 지정해야만 동작하므로 -array 옵션을 설정하지 않을 경우에는 array 크기는 최대값 (65535)으로 자동으로 설정된다. |
+| \-direct [log\|nolog] (Direct-Path INSERT 참고) | 디스크 테이블에 업로드 할 때 Direct-Path INSERT 방식을 사용하는 옵션으로써 로깅 여부도 함께 지정할 수 있다. log 또는 nolog를 명시하지 않으면 log 로 동작한다. <br />만약 nolog 방식을 사용할 때에는 반드시 해당 테이블에 대하여 백업을 해야 한다. nolog 모드로 수행중에 실패할 경우 정상적인 복구가 불가능할 수도 있기 때문이다.  <br />이 옵션을 지정하면 -atomic 옵션이 내부적으로 설정된다. -atomic 옵션은 -array 옵션과 함께 지정해야만 동작하므로 -array 옵션을 설정하지 않을 경우에는 array 크기는 최대값 (65535)으로 자동으로 설정된다.<br />이 옵션은 -lightmode 옵션과 함께 사용할 수 없다. |
 | \-parallel *count*                              | 동시에 작업할 쓰레드의 개수를 지정하는 옵션이다. 지정한 개수만큼 쓰레드가 생성되어 병렬 처리한다. <br />이 옵션을 지정하면 iLoader는 *count* + 1 개의 연결을 생성하므로, 접속 유형이 IPC인 경우 IPC_CHANNEL_COUNT 프로퍼티의 값은 연결의 수 이상으로 설정해야 한다.<br />기본값: 1, 최대값: 32 |
 | \-readsize *n*                                  | 파일에서 한 번에 읽어올 수 있는 크기를 지정하는 옵션이다. (단위: bytes)<br />0보다 큰 값을 지정해야 한다.<br />기본값: 1048576 |
-| -nologging                                      | Direct-Path INSERT 방식이 아닌 일반적인 데이터 삽입에서 빠른 삽입을 위해 로그 파일을 기록하지 않는 옵션이다. 로그 파일을 기록하지 않으면 데이터 삽입이 실패할 때 정상적인 복구가 불가능할 수도 있다. 따라서 이러한 상황이 발생하면 대상 테이블을 재생성하는 것을 권장한다. 이 옵션은 이중화 대상 테이블에 사용할 수 없다. 또한, 이 옵션을 써서 iloader를 수행하는 동안 다른 트랜잭션에서 대상 테이블에 UPDATE 및 DELETE를 수행할 수 없다.<br /><br />이 옵션은 -direct log 옵션과 함께 사용할 수 없다. |
+| -lightmode                                      | 데이터 로딩시 빠른 데이터 삽입을 위해 로그파일을 기록하지 않는 옵션이다. 로그파일을 기록하지 않기 때문에, 장애 발생시 정상적인 복구가 불가능할 수 있으며 이러한 경우 대상 테이블을 재 생성하는 것을 권장한다. <br/>-parallel 옵션과 함께 사용할 수 있으며, 여러개의 iloader 인스턴스를 이용하여 데이터를 동시에 삽입하는 것도 가능하다. 하지만, 이 옵션을 사용하여 iloader를 수행하는 동안은 다른 트랜잭션에서 대상 테이블에 Insert, Update, delete 작업을 수행 할 수 없다. 따라서, 이중화 대상 테이블에 사용할 수 없으며, 이 옵션으로 데이터 삽입이 수행중인 테이블에 대해 이중화를 생성 할 수 없다.<br/>이 옵션은 direct-path insert 방식을 지원하지 않기 때문에 - direct 옵션과 함께 사용할 수 없다. |
 
 ##### LOB 컬럼 제약
 
@@ -1629,6 +1629,9 @@ Usage : { in | out | formout | structout | help }
         [-partition]
         [-dry-run]
         [-prefetch_rows]
+        [-async_prefetch off|on|auto]
+        [-geom WKB]
+        [-lightmode]
 iLoader> help help
 Ex) help [ in | out | formout | structout | exit | help ]
 
@@ -1667,7 +1670,10 @@ $ iloader help
                      [-rule csv]
                      [-partition]
                      [-dry-run]
-                     [-prefetch_rows]]
+                     [-prefetch_rows]
+                     [-async_prefetch off|on|auto]
+                     [-geom WKB]
+                     [-lightmode]]
             -h            : This screen
             -s            : Specify server name to connect
             -u            : Specify user name to connect
