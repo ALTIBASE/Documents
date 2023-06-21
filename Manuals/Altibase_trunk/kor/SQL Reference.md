@@ -1553,7 +1553,6 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 </tr>
 </tbody>
 </table>
-
 [표 2-1] 예약어 목록
 
 ### 힌트 구문
@@ -21695,7 +21694,7 @@ DATEPART (JOIN_DATE, 'QUARTER')
 
 ```
 EXTRACT (date, 'date_field_name')
-EXTRACT (date_field_name2 from date)
+EXTRACT (date_field_name2 From date)
 ```
 
 ##### 설명
@@ -21704,7 +21703,7 @@ EXTRACT (date_field_name2 from date)
 
 EXTRACT (date, 'date_field_name') 의 동작은 DATEPART와 동일하다.
 
-그러나 EXTRACT(date_field_name2 from date) 구문은 EXTRACT만 지원하며,  추출할 수 있는 날짜필드는 YEAR, MONTH, DAY, HOUR, MINUTE, SECOND 이다.
+그러나 EXTRACT(date_field_name2 From date) 구문은 EXTRACT만 지원하며,  추출할 수 있는 날짜필드는 YEAR, MONTH, DAY, HOUR, MINUTE, SECOND 이다.
 
 | Date Field Name | 내용                                                         |
 | --------------- | ------------------------------------------------------------ |
