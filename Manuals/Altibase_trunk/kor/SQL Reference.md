@@ -12274,7 +12274,7 @@ V2                   VARCHAR(30)          nikita
 
 **insert ::=**
 
-![](media/SQL/a45155edc3025bff4fdd2260e889e4ab.png)
+![](media/SQL/insert.gif)
 
 
 
@@ -12370,7 +12370,10 @@ DELETE 구문의 returning_clause를 참고하라.
 
 *wait_clause*
 
-wait_clause에 대한 설명은 SELECT문의 FOR UPDATE 절 참조한다.
+레코드를 삽입할 테이블에 unique index가 있는 경우 다른 트랜잭션이 종료될 때까지 대기해야 하데, WAIT 옵션을 이용하면 얼마나 대기할지 설정할 수 있다. 설정할 수 있는 시간 단위는 second(초), millisecond(msec, 1/1000초), microsecond(usec,
+1/1000000초)이며 표기하지 않으면 초 단위가 적용된다.
+
+NOWAIT 옵션을 사용하면 다른 트랜잭션이 종료되지 않은 경우 대기하지 않으므로, 즉시 삽입 실패 메시지를 확인할 수 있다.
 
 #### HINTS 옵션
 
@@ -15900,11 +15903,11 @@ ENQUEUE INTO Q1(message,corrid) VALUES ('This is a message', 237);
 
 **dequeue ::=**
 
-![dequeue_image244](media/SQL/dequeue_image244.gif)
+![dequeue_image244](media/SQL/dequeue.gif)
 
 **fifo_option ::=**
 
-![fifo_image244](media/SQL/fifo_image244.gif)
+![fifo_image244](media/SQL/fifo_option.gif)
 
 #### 설명
 
@@ -15922,7 +15925,9 @@ FIFO 옵션이 설정되어 있거나 아무 옵션도 설정하지 않은 경�
 DEQUEUE 문은 큐가 비어있을 경우에 메시지가 들어올 때까지 대기한다. WAIT절에
 명시한 시간만큼 대기하며, 시간 단위는 second(초), millisecond(msec, 1/1000초),
 microsecond(μsec, 1/1000000초)이며 표기하지 않으면 초 단위가 적용된다. 대기
-시간이 설정되지 않은 경우, DEQUEUE 문은 무한정 대기할 것이다.
+시간이 설정되지 않은 경우, DEQUEUE 문은 무한 대기할 것이다. 
+
+반면, NOWAIT 옵션 기다리지 않는다.
 
 #### 주의사항
 
