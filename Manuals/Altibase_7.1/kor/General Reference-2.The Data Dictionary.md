@@ -11928,6 +11928,18 @@ SQL Plan Cache 에 등록된 [Child PCO](#child-pco) 식별자를 나타낸다.
 
 대기 시간 (단위: 초)이다.
 
+##### SIMPLE_QUERY
+
+SIMPLE QUERY 수행 상태를 나타내며, 다음과 같은 값을 갖는다.
+
+0: SIMPLE QUERY가 아님
+
+1: SIMPLE QUERY
+
+##### MATHEMATICS_TEMP_MEMORY
+
+분석함수에서 사용하는 MATHEMATICS TEMP 메모리 사용량을 나타낸다.
+
 ### V\$STATNAME
 
 이 테이블은 시스템 전체의 통계 정보를 보여주는 V\$SYSSTAT와 각 세션의 통계
