@@ -11615,8 +11615,16 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 
 현재 연결된 세션 별로 가장 최근 실행된 구문 (statement)에 대한 정보를 보여준다.
 
-| Column name               | Type           | Description                                                  |
+|                           |                |                                                              |
 | ------------------------- | -------------- | ------------------------------------------------------------ |
+|                           |                |                                                              |
+|                           |                |                                                              |
+|                           |                |                                                              |
+|                           |                |                                                              |
+|                           |                |                                                              |
+|                           |                |                                                              |
+|                           |                |                                                              |
+|                           |                | Column  name                                                 |
 | ID                        | INTEGER        | 구문 식별자                                                  |
 | PARENT_ID                 | INTEGER        | 부모 구문의 식별자                                           |
 | CURSOR_TYPE               | INTEGER        | 커서의 종류                                                  |
@@ -11638,8 +11646,8 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 | OPTIMIZE_TIME             | BIGINT         | 최적화 소요 시간                                             |
 | EXECUTE_TIME              | BIGINT         | 실행 소요 시간                                               |
 | FETCH_TIME                | BIGINT         | Fetch 소요 시간                                              |
-| SOFT_PREPARE_TIME         | BIGINT         | Prepare 과정중 SQL Plan Cache에서 plan 탐색 시간             |
-| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | Parent PCO 식별자 또는 NO_SQL_CACHE_STMT                     |
+| SOFT_PREPARE_TIME         | BIGINT         | Prepare 과정중 SQL Plan Cache에서  plan 탐색 시간            |
+| SQL_CACHE_TEXT_ID         | VARCHAR(64)    | Parent PCO 식별자 또는  NO_SQL_CACHE_STMT                    |
 | SQL_CACHE_PCO_ID          | INTEGER        | Child PCO 식별자                                             |
 | OPTIMIZER                 | BIGINT         | 최적화 모드                                                  |
 | COST                      | BIGINT         | 최적화 비용                                                  |
@@ -11661,7 +11669,7 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 | FETCH_SUCCESS             | BIGINT         | Fetch 성공 횟수                                              |
 | FETCH_FAILURE             | BIGINT         | Fetch 실패 횟수                                              |
 | PROCESS_ROW               | BIGINT         | 처리된 레코드 개수                                           |
-| MEMORY_TABLE_ACCESS_COUNT | BIGINT         | 검색 대상 메모리 테이블에서 이 구문이 검색하는 레코드의 개수 |
+| MEMORY_TABLE_ACCESS_COUNT | BIGINT         | 검색 대상 메모리 테이블에서 이 구문이 검색하는  레코드의 개수 |
 | SEQNUM                    | INTEGER        | 대기 이벤트 식별자                                           |
 | EVENT                     | VARCHAR(128)   | 대기 이벤트 이름                                             |
 | P1                        | BIGINT         | 대기 이벤트 파라미터 1                                       |
@@ -11669,8 +11677,10 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 | P3                        | BIGINT         | 대기 이벤트 파라미터 3                                       |
 | WAIT_TIME                 | BIGINT         | 대기 시간 (단위: 밀리초)                                     |
 | SECOND_IN_TIME            | BIGINT         | 대기 시간 (단위: 초)                                         |
-|                           |                |                                                              |
-|                           |                |                                                              |
+| SIMPLE_QUERY              | INTEGER        | SIMPLE QUERY 여부                                            |
+| MATHEMATICS_TEMP_MEMORY   | BIGINT         | 분석함수에서 사용하는  MATHEMATICS TEMP 메모리 사용량        |
+
+
 
 #### 칼럼 정보
 
