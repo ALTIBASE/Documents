@@ -11669,8 +11669,6 @@ SQL_TEXT_ID에 해당하는 plan cache 객체의 keep 상태를 나타내며 다
 | P3                        | BIGINT         | 대기 이벤트 파라미터 3                                       |
 | WAIT_TIME                 | BIGINT         | 대기 시간 (단위: 밀리초)                                     |
 | SECOND_IN_TIME            | BIGINT         | 대기 시간 (단위: 초)                                         |
-| SIMPLE_QUERY              | INTEGER        | SIMPLE QUERY 여부                                            |
-| MATHEMATICS_TEMP_MEMORY   | BIGINT         | 분석 함수에서 사용하는 MATHEMATICS TEMP 메모리 사용량        |
 
 #### 칼럼 정보
 
