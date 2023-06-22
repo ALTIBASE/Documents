@@ -21694,7 +21694,7 @@ DATEPART (JOIN_DATE, 'QUARTER')
 
 ```
 EXTRACT (date, 'date_field_name')
-EXTRACT (date_field_name2 From date)
+EXTRACT (date_field_name2 FROM date)
 ```
 
 ##### 설명
@@ -21703,7 +21703,7 @@ EXTRACT (date_field_name2 From date)
 
 EXTRACT (date, 'date_field_name') 의 동작은 DATEPART와 동일하다.
 
-그러나 EXTRACT(date_field_name2 From date) 구문은 EXTRACT만 지원하며,  추출할 수 있는 날짜필드는 YEAR, MONTH, DAY, HOUR, MINUTE, SECOND 이다.
+그러나 EXTRACT(date_field_name2 FROM date) 구문은 EXTRACT만 지원하며,  추출할 수 있는 날짜필드는 YEAR, MONTH, DAY, HOUR, MINUTE, SECOND 이다.
 
 | Date Field Name | 내용                                                         |
 | --------------- | ------------------------------------------------------------ |
@@ -21743,7 +21743,7 @@ EXTRACT(JOIN_DATE,'YEAR')
 2010
 1 row selected.
 
-iSQL> SELECT EXTRACT (YEAR from join_date)
+iSQL> SELECT EXTRACT (YEAR FROM join_date)
 FROM employees
 WHERE eno = 10;
 EXTRACT(JOIN_DATE,'YEAR')
