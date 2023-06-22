@@ -1,4 +1,4 @@
-General Reference-2.The Data Dictionary
+# General Reference-2.The Data Dictionary
 ================
 
 #### Altibase 7.1
