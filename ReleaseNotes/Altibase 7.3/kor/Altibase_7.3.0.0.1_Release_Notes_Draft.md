@@ -2,7 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents** 
 
-- [Altibase 7.3.0.0.1 Release Notes](#altibase-73001-release-notes)
+- [Altibase 7.3.0.0.1 Release Notes(Draft)](#altibase-73001-release-notesdraft)
   - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
     - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
     - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
@@ -39,7 +39,7 @@
 
 
 
-Altibase 7.3.0.0.1 Release Notes
+Altibase 7.3.0.0.1 Release Notes(Draft)
 ===============================
 
 ## 시스템 요구사항
