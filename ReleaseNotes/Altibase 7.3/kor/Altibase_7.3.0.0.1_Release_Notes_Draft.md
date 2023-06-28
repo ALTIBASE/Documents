@@ -196,7 +196,7 @@ Propagation 옵션 사용시 DDL 동기화를 허용하지 않는다.
 
 #### 기능 개선 - 응용 프로그램 개발 인터페이스
 
-##### JDBC API Specification 4.2 부분 지원 (PROJ-2707)
+##### JDBC API Specification 4.2 부분 지원
 
 Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
 
@@ -283,8 +283,6 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 �
   }
   ```
 
-.net provider 인터페이스 지원
-
 </br>
 
 #### 기능 개선 - 내장패키지 및 함수
@@ -303,13 +301,15 @@ DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생�
 
 ###### DBMS_OUTPUT 패키지에 print_enable/print_disable 프로시저 추가
 
-PSM내에서 println 기능을 enable, disable 할수 있는 기능을 제공합니다. 세션단위로 수행됩니다.
+PSM내에서 println 기능을 enable, disable 할수 있는 기능을 제공하며, 세션 단위로 수행된다.
 
 ###### DBMS_LOCK 패키지에 sleep2 프로시저 추가
 
-micro second sleep 을 지원하는 시스템 저장 프로시저 sleep2가 추가되었습니다.
+마이크로초(micro second) sleep 을 지원하는 시스템 저장 프로시저 sleep2가 추가되었다.
 
 ###### SYS_SPATIAL 패키지
+
+SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록, 삭제하는 기능을 제공한다.
 
 ###### UTL_COPYSWAP 패키지 
 
@@ -339,11 +339,11 @@ LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티�
 
 ##### TABLE LOCK 병목구간 개선
 
-테이블 잠금(TABLE LOCK) 관리자 타입을 지정하는 LOCK_MGR_TYPE 프로퍼티를 삭제하고, 새로운 TABLE LOCK 모드(light mutex mode)를 적용하여 테이블 잠금 병목구간을 개선하였다.
+테이블 잠금(TABLE LOCK) 관리자 타입을 지정하는 LOCK_MGR_TYPE 프로퍼티를 삭제하고, 새로운 테이블 잠 모드(light mutex mode)를 적용하여 테이블 잠금 병목구간을 개선하였다.
 
 ##### TABLESPACE MANAGER MUTEX 병목구간 개선
 
-테이블스 페이스 뮤텍스에서 불필요한 잠금(LOCK)을 제거하도록 개선하였다.
+테이블 스페이스 뮤텍스에서 불필요한 잠금(LOCK)을 제거하도록 개선하였다.
 
 ##### 디스크 템프 테이블 성능 개선
 
@@ -360,7 +360,6 @@ LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티�
 - 디스크 DB 변경 트랜잭션 성능 향상을 위해 In-place MVCC 동작 방식 개선
 - INSERT/UPDATE 트랜잭션 처리 시 불필요한 트랜잭션 로그 기록을 제거
 - 트랜잭션 로그파일 압축 시 메모리 할당/해제 병목 개선
-  - 이와 관련한 [영향도](#Altibase-서버-기본-메모리-사용-증가) 확인
 - 커밋 병목 및 가비지 콜렉션 쓰레드 병목 개선
 
   - 트랜잭션 커밋 후 테이블 정보 업데이트 병목 개선
@@ -398,6 +397,10 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [iLoader User's Maunal - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
 
+##### jdbc fetch 성능 개선
+
+JDBC fetch 성능 향상을 위해 ResultSet 객체 사용방식을 개선하였습니다.
+
 ##### 통신 성능 향상 - InfiniBand 지원
 
 통신 성능 향상을 위해 RDMA(Remote Direct Memory Access) 통신 기반인 Infiniband를 지원한다.
@@ -419,13 +422,9 @@ DDL PVO 단계에서의 예외처리 개선으로 안정성을 향상시켰다.
 
 유효하지 않은 패킷(malformed packet) 전송으로인한 서버에서의 비정상 종료 및 비정상 동작이 발생하지 않도록 개선되었다. 프로토콜 처리시 패킷의 유효성을 체크하여 비정상적인 경우, 클라이언트의 접속을 끊고 진단로그를 남기도록 개선되었다.
 
-##### 코드 리팩토링을 통한 안정성 향상
-
-불필요한 예외처리(ASSERT)를 코드 리팩토링을 통해 개성하여,  안정성을 향상시켰다.
-
 ##### 트랜잭션 안정성 개선 - Multiple Rollback Segment
 
-동시에 수행가능한 최대 디스크 트랜잭션의 수를 기존 512개에서 16384로 확장하였습니다.
+동시에 수행가능한 최대 디스크 트랜잭션의 개수를 기존 512개에서 16384로 확장하였다.
 
 ##### 언두(undo) 테이블스페이스 재사용 안정성 향상
 
@@ -542,10 +541,10 @@ ProcName(FuncName) + '_' + ouid
 
 - [reuse_resultset](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#reuse_resultset)
   - ResultSet 객체 재사용 여부를 설정한다.
-  - Altibase 7.3 기본값은 true로 ResultSet 객체를 재사용하지만 Altibase 7.1 기본값은 false로 재사용하지 않는다.
+  - Altibase 7.3 기본값은 true로 ResultSet 객체를 재사용하지만, Altibase 7.1 기본값은 false로 재사용하지 않는다.
 - [lob_null_select](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#lob_null_select)
-  - LOB 컬럼 값이 NULL일 때 getBlob(), getClob()이 LOB 객체를 리턴하는지 여부
-  - Altibase 7.3 기본값은 off로 LOB 객체를 반환하지 않는다. Altibase 7.1 기본값은 on으로 LOB 객체를 반환한다.
+  - LOB 컬럼 값이 NULL일 때 getBlob(), getClob() 수행시 NULL을 반환할 수 있도록 JDBC 연결속성 lob_null_select가 추가되었다.
+  - Altibase 7.3 기본값은 off로 NULL을 반환한다. Altibase 7.1 기본값은 on으로 LOB 객체를 반환한다.
 
 ###### Altibase JDBC 4.2만을 위한 JDBC 연결 속성 추가
 
@@ -574,13 +573,7 @@ Altibase 7.3 JDBC 세션의 CLIENT_TYPE은 NEW_JDBC42이다. Altibase 7.3 JDBC D
 
 </br>
 
-##### Altibase 서버 기본 메모리 사용 증가
-
-트랜잭션 로그파일 압축 시 메모리 할당/해제 병목 개선의 영향으로 Altibase 서버의 기본 메모리 사용이 증가한다.  V$MEMSTAT의 Storage_Memory_Recovery 항목으로 이전 버전과 증가량을 확인할 수 있다. 메모리 증가량은 TRANSACTION_TABLE_SIZE에 영향을 받는다. TRANSACTION_TABLE_SIZE 기본값 1024 경우 약 32MB 증가, 최대값 16384 경우 약 500M 증가한다.
-
-</br>
-
-##### Altibase 이중화 신규 기능 관련 제약사항
+##### 신규 기능 관련 Altibase 이중화 제약사항
 
 ###### Altibase 7.1 과 Altibase 7.3 양방향 이중화 제약 사항
 
@@ -623,10 +616,6 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 - [INDEX_INITRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_initrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
 
   MAX값이 30에서 50으로 변경되었다.
-
-- [LOCK_MGR_TYPE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#lock_mgr_type)
-
-  기본값이 0에서 2로 변경되었다.
 
 - [PSM_CHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_char_default_precision)
 
@@ -703,10 +692,18 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ### 패키지
 
-| OS    | CPU    | 서버/클라이언트     | 패키지 인스톨러 이름                                  |
-| ----- | ------ | ------------------- | ----------------------------------------------------- |
-| LINUX | x86-64 | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run |
-|       |        | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run |
+| OS    | CPU                       | 서버/클라이언트     | 패키지 인스톨러 이름                                        |
+| ----- | ------------------------- | ------------------- | ----------------------------------------------------------- |
+| AIX   | PowerPC                   | Altibase 서버       | altibase- server-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
+|       |                           | Altibase 클라이언트 | altibase- client-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
+| HP-UX | IA64                      | Altibase 서버       | altibase- server-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
+|       |                           | Altibase 클라이언트 | altibase- client-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
+| LINUX | x86-64                    | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run       |
+|       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run       |
+|       | PowerPC                   | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
+|       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
+|       | PowerPCLE (Little Endian) | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
+|       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
 
 </br>
 
@@ -714,12 +711,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 #### Package
 
-http://support.altibase.com
-
 #### Manual
-
-[Altibase 7.3 Manuals](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/README.md)
 
 #### 설치
 
-[Altibase 7.3 Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Installation%20Guide.md)
