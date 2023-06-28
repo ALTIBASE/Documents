@@ -69,10 +69,8 @@ Altibase 7.3.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 | Red Hat Enterprise Linux 7.3 이상                            |       ●       |          ●          | - GNU glibc 2.17 이상 |
 | **HP-UX Itanium (IA-64)**                                    |               |                     |                       |
 | HP-UX 11.31                                                  |       ●       |          ●          |                       |
-| **Microsoft Windows (x64)**                                  |               |                     |                       |
-| Microsoft Windows 2008                                       |       -       |          ●          |                       |
 
-> Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>Microsoft Windows 는 Altibase 클라이언트만 지원한다.<br/>
+> Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>
 > Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.
 >
 > Java 버전: JDK 1.8 이상에서 호환된다.
@@ -383,7 +381,6 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 * 서버 시작 시 POINTER BASE 인덱스 생성 시간 단축 및 메모리 사용량 개선
 * 서버 시작 시 VALUE BASE 인덱스 생성 시간 단축 및 메모리 사용량 개선
-* 디스크 인덱스의 CHANGING CTS 기능 제거
 
 ##### 데이터베이스 구동 성능 개선
 
@@ -458,7 +455,7 @@ DBA와 개발자가 알아야 할 추가, 변경, 제거된 기능을 아래에�
 
 ##### 메타 버전
 
-메타 버전이 변경되었다. Altibase 7.3 이전 버전에서 Altibase 7.3으로 업그레이드 시, 자동으로 메타업그레이드가 수행된다. 하지만, 업그레이드를 롤백하려는 경우는 메타를 재 구성해야 한다.
+메타 메이저 버전(META MAJOR VERSION)이 변경되었으므로, **Altibase 7.3 이전 버전에서 Altibase 7.3으로 업그레이드시 메타를 재구성해야 한다.**
 
 ##### 통신 프로토콜 버전
 
@@ -700,9 +697,9 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 |       |                           | Altibase 클라이언트 | altibase- client-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
 | LINUX | x86-64                    | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run       |
 |       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run       |
-|       | PowerPC                   | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
+| LINUX | PowerPC                   | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
 |       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
-|       | PowerPCLE (Little Endian) | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
+| LINUX | PowerPCLE (Little Endian) | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
 |       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
 
 </br>
