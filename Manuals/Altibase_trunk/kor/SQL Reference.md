@@ -1159,7 +1159,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOCK</p>
 </td>
 <td width="161">
-<p>TO</p>
+<p>TIMESTAMPADD</p>
 </td>
 </tr>
 <tr>
@@ -1170,7 +1170,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOGANCHOR</p>
 </td>
 <td width="161">
-<p>TOP</p>
+<p>TO</p>
 </td>
 </tr>
 <tr>
@@ -1181,7 +1181,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOGGING</p>
 </td>
 <td width="161">
-<p>TRIGGER</p>
+<p>TOP</p>
 </td>
 </tr>
 <tr>
@@ -1192,7 +1192,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOOP</p>
 </td>
 <td width="161">
-<p>TRUE</p>
+<p>TRIGGER</p>
 </td>
 </tr>
 <tr>
@@ -1203,7 +1203,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MAXROWS</p>
 </td>
 <td width="161">
-<p>TRUNCATE</p>
+<p>TRUE</p>
 </td>
 </tr>
 <tr>
@@ -1214,7 +1214,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MAXTRANS</p>
 </td>
 <td width="161">
-<p>TYPE</p>
+<p>TRUNCATE</p>
 </td>
 </tr>
 <tr>
@@ -1225,7 +1225,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MERGE</p>
 </td>
 <td width="161">
-<p>TYPESET</p>
+<p>TYPE</p>
 </td>
 </tr>
 <tr>
@@ -1236,7 +1236,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MINUS</p>
 </td>
 <td width="161">
-<p>UNION</p>
+<p>TYPESET</p>
 </td>
 </tr>
 <tr>
@@ -1247,7 +1247,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MODE</p>
 </td>
 <td width="161">
-<p>UNIQUE</p>
+<p>UNION</p>
 </td>
 </tr>
 <tr>
@@ -1258,7 +1258,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MODIFY</p>
 </td>
 <td width="161">
-<p>UNLOCK</p>
+<p>UNIQUE</p>
 </td>
 </tr>
 <tr>
@@ -1269,7 +1269,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MOVE</p>
 </td>
 <td width="161">
-<p>UNPIVOT</p>
+<p>UNLOCK</p>
 </td>
 </tr>
 <tr>
@@ -1280,7 +1280,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MOVEMENT</p>
 </td>
 <td width="161">
-<p>UNTIL</p>
+<p>UNPIVOT</p>
 </td>
 </tr>
 <tr>
@@ -1291,7 +1291,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NEW</p>
 </td>
 <td width="161">
-<p>UPDATE</p>
+<p>UNTIL</p>
 </td>
 </tr>
 <tr>
@@ -1302,7 +1302,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOAUDIT</p>
 </td>
 <td width="161">
-<p>USING</p>
+<p>UPDATE</p>
 </td>
 </tr>
 <tr>
@@ -1313,7 +1313,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOCOPY</p>
 </td>
 <td width="161">
-<p>VALUES</p>
+<p>USING</p>
 </td>
 </tr>
 <tr>
@@ -1324,7 +1324,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOCYCLE</p>
 </td>
 <td width="161">
-<p>VARIABLE</p>
+<p>VALUES</p>
 </td>
 </tr>
 <tr>
@@ -1335,7 +1335,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOLOGGING</p>
 </td>
 <td width="161">
-<p>VC2COLL</p>
+<p>VARIABLE</p>
 </td>
 </tr>
 <tr>
@@ -1346,7 +1346,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOT</p>
 </td>
 <td width="161">
-<p>VIEW</p>
+<p>VC2COLL</p>
 </td>
 </tr>
 <tr>
@@ -1357,7 +1357,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NULL</p>
 </td>
 <td width="161">
-<p>VOLATILE</p>
+<p>VIEW</p>
 </td>
 </tr>
 <tr>
@@ -1368,7 +1368,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NULLS</p>
 </td>
 <td width="161">
-<p>WAIT</p>
+<p>VOLATILE</p>
 </td>
 </tr>
 <tr>
@@ -1379,7 +1379,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OF</p>
 </td>
 <td width="161">
-<p>WHEN</p>
+<p>WAIT</p>
 </td>
 </tr>
 <tr>
@@ -1390,7 +1390,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OFF</p>
 </td>
 <td width="161">
-<p>WHENEVER</p>
+<p>WHEN</p>
 </td>
 </tr>
 <tr>
@@ -1401,7 +1401,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OFFLINE</p>
 </td>
 <td width="161">
-<p>WHERE</p>
+<p>WHENEVER</p>
 </td>
 </tr>
 <tr>
@@ -1412,7 +1412,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OLD</p>
 </td>
 <td width="161">
-<p>WHILE</p>
+<p>WHERE</p>
 </td>
 </tr>
 <tr>
@@ -1423,7 +1423,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>ON</p>
 </td>
 <td width="161">
-<p>WITH</p>
+<p>WHILE</p>
 </td>
 </tr>
 <tr>
@@ -1434,7 +1434,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>ONLINE</p>
 </td>
 <td width="161">
-<p>WITHIN</p>
+<p>WITH</p>
 </td>
 </tr>
 <tr>
@@ -1445,7 +1445,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OPEN</p>
 </td>
 <td width="161">
-<p>WORK</p>
+<p>WITHIN</p>
 </td>
 </tr>
 <tr>
@@ -1456,7 +1456,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OR</p>
 </td>
 <td width="161">
-<p>WRAPPED</p>
+<p>WORK</p>
 </td>
 </tr>
 <tr>
@@ -1467,7 +1467,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>ORDER</p>
 </td>
 <td width="161">
-<p>WRITE</p>
+<p>WRAPPED</p>
 </td>
 </tr>
 <tr>
@@ -1477,7 +1477,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <td width="189">
 <p>OTHERS</p>
 </td>
-<td width="161">&nbsp;</td>
+<td width="161">WRITE</td>
 </tr>
 <tr>
 <td width="170">
@@ -21644,19 +21644,17 @@ DB_TIMEZONE
 
 
 
-#### EXTRACT, DATEPART
+#### DATEPART
 
 ##### 구문
 
 ```
-EXTRACT (date, date_field_name)
-DATEPART (date, date_field_name)
+DATEPART (date, 'date_field_name')
 ```
 
 ##### 설명
 
-이들 함수는 동일하며, 입력 *date*에서 *date_field_name* 에 해당하는 값만
-반환한다.
+*date*에서 *date_field_name* 에 해당하는 값만 반환한다.
 
 | Date Field Name | 내용                                                                                              |
 |-----------------|---------------------------------------------------------------------------------------------------|
@@ -21685,6 +21683,72 @@ WHERE eno = 10;
 DATEPART (JOIN_DATE, 'QUARTER')
 ----------------------------------
 1
+1 row selected.
+```
+
+
+
+#### EXTRACT
+
+##### 구문
+
+```
+EXTRACT (date, 'date_field_name')
+EXTRACT (date_field_name2 FROM date)
+```
+
+##### 설명
+
+*date*에서 *date_field_name*, *date_field_name2*  에 해당하는 값만 반환한다.
+
+EXTRACT (date, 'date_field_name') 의 동작은 DATEPART와 동일하다.
+
+그러나 EXTRACT(date_field_name2 FROM date) 구문은 EXTRACT만 지원하며,  추출할 수 있는 날짜필드는 YEAR, MONTH, DAY, HOUR, MINUTE, SECOND 이다.
+
+| Date Field Name | 내용                                                         |
+| --------------- | ------------------------------------------------------------ |
+| CENTURY         | 세기 (예를 들어, 2011의 경우 21을 1999의 경우는 20을 반환)   |
+| YEAR            | 년                                                           |
+| QUARTER         | 분기                                                         |
+| MONTH           | 월                                                           |
+| WEEK            | 일년 중 몇 번째 주인지 반환함. (그 해의 첫 번째 토요일과 그 앞의 날은 그 해의 첫 번째 주가 된다.) |
+| WEEKOFMONTH     | 그 달의 몇 번째 주인지 반환함. (그 달의 첫 번째 토요일과 그 앞의 날은 그 달의 첫 번째 주가 된다.) |
+| DAY             | 일                                                           |
+| DAYOFYEAR       | 일년 중 몇 번째 날인지 반환함.                               |
+| DAYOFWEEK       | 주의 몇 번째 날인지 반환함. (일요일 = 1)                     |
+| HOUR            | 시                                                           |
+| MINUTE          | 분                                                           |
+| SECOND          | 초                                                           |
+| MICROSECOND     | 마이크로 초                                                  |
+
+| Date Field Name2 | 내용 |
+| ---------------- | ---- |
+| YEAR             | 년   |
+| MONTH            | 월   |
+| DAY              | 일   |
+| HOUR             | 시   |
+| MINUTE           | 분   |
+| SECOND           | 초   |
+
+##### 예제
+
+\<질의\> 사원번호가 10인 사원이 입사한 년도를 구하라.
+
+```
+iSQL> SELECT EXTRACT (join_date, 'YEAR')
+FROM employees
+WHERE eno = 10;
+EXTRACT(JOIN_DATE,'YEAR')
+----------------------------
+2010
+1 row selected.
+
+iSQL> SELECT EXTRACT (YEAR FROM join_date)
+FROM employees
+WHERE eno = 10;
+EXTRACT(JOIN_DATE,'YEAR')
+----------------------------
+2010
 1 row selected.
 ```
 
