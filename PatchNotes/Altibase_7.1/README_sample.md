@@ -1,6 +1,93 @@
 # Altibase 7.1 Patch Notes - Korean
 
-- #### Altibase 7.1.0.8.8 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_8_8_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_8_8_Patch_Notes.pdf)
+| version                                                      | 보안 | 성능 | 기능 | 비정상 종료 |      |      |
+| ------------------------------------------------------------ | ---- | ---- | ---- | ----------- | ---- | ---- |
+| Altibase 7.1.0.8.7 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_8_7_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_8_7_Patch_Notes.pdf) | o    |      |      |             |      |      |
+| Altibase 7.1.0.8.6 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_8_6_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_8_6_Patch_Notes.pdf) |      | o    |      |             |      |      |
+| Altibase 7.1.0.8.5 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_8_5_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_8_5_Patch_Notes.pdf) | o    |      | o    | o           |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+|                                                              |      |      |      |             |      |      |
+
+
 
 - #### Altibase 7.1.0.8.7 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_8_7_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_8_7_Patch_Notes.pdf)
 
