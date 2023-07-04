@@ -2155,7 +2155,7 @@ aku를 실행하면 aku 설정 파일을 가장 먼저 읽어 Altibase 데이터
 ~~~bash
 # aku.conf.sample
 
-AKU_SYS_PASWWORD            = "manager"
+AKU_SYS_PASSWORD            = "manager"
 AKU_STS_NAME                = "altibase-sts"
 AKU_SVC_NAME                = "altibase-svc"
 AKU_SERVER_COUNT            = 4
@@ -2193,7 +2193,7 @@ REPLICATIONS = (
 | AKU_STS_NAME                         |  없음  | 쿠버네티스 오브젝트 명세에 정의한 스테이트풀셋 이름          |
 | AKU_SVC_NAME                         |  없음  | 쿠버네티스 오브젝트 명세에 정의한 네트워크 서비스를 제공하는 서비스 이름 |
 | AKU_SERVER_COUNT                     |   4    | aku 유틸리티로 동기화할 수 있는 Altibase 서버 최대 수. 쿠버네티스에서 스케일 업할 수 있는 파드 수를 의미하기도 한다.<br />1부터 4까지 설정할 수 있다. |
-| AKU_SYS_PASWWORD                     |  없음  | 데이터베이스 SYS 사용자 패스워드                             |
+| AKU_SYS_PASSWORD                     |  없음  | 데이터베이스 SYS 사용자 패스워드                             |
 | AKU_PORT_NO                          | 20300  | Altibase 서버의 서비스 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_REPLICATION_PORT_NO              | 20301  | Altibase 이중화 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_QUERY_TIMEOUT                    |  3600  | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. ALTER REPLICATION 등 aku에서 수행한 SQL의 수행 시간이 이 값을 초과하면 해당 문장은 취소된다. |
@@ -2747,7 +2747,14 @@ PID : 5230
 
 ### altiMon 시작
 
-1️⃣ JAVA_HOME 환경 변수를 설정한다.
+1️⃣ Java를 사용할 수 있게 PATH 환경 변수를 설정한다.
+
+```bash
+$ java -version
+java version "1.8.0_101"
+Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
+```
 
 2️⃣ altiMon 시작 명령을 수행한다.
 
