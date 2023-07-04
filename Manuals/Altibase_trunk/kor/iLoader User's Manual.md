@@ -217,21 +217,21 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 ##### 샘플 코드 규칙
 
-코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예를 들어
+코드 예제는 SQL, Stored Procedure, iSQL 또는 다른 명령 라인 구문들을 예로 들어
 설명한다.
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
-| 규칙         | 의미                                                                                | 예제                                                                                                         |
-|--------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| [ ]          | 선택 항목을 표시                                                                    | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                                                                     |
-| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시                               | { ENABLE \| DISABLE \| COMPILE }                                                                             |
-| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                                           | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                            |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시                           | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                                                   | EXEC :p1 := 1; acc NUMBER(11,2);                                                                             |
-| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치         | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;                                                    |
-| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                                  |
-| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                              | DESC SYSTEM_.SYS_INDICES_;                                                                                   |
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략을 표시           | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이외의 기호들                             | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;    |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### 관련 자료
 
@@ -314,7 +314,7 @@ Altibase의 iLoader는 다음과 같은 몇 가지의 장점을 갖고 있다.
 
 -   데이터를 한 번에 여러 테이블에 업로드할 수 있다.
 
--   이미 데이터가 입력된 테이블에 다른 데이터를 가하거나 교체할 수 있다.
+-   이미 데이터가 입력된 테이블에 다른 데이터를 추가하거나 교체할 수 있다.
 
 -   자료 입력 및 관리를 체계화할 수 있다.
 
@@ -430,7 +430,7 @@ altibase.properties 파일 내의 프로퍼티 순이다. 만약 아무것도 �
     다를 경우에는 데이터 업로드가 정상적으로 동작하지 않을 수 있다. 반드시
     적절한 값을 설정할 것을 권장한다.
 
-\-NLS_USE 옵션 또는 altibase.properties파일의 프로퍼티를 통해서 지정할 수도 있다.
+\-NLS_USE 옵션 또는 altibase.properties 파일의 프로퍼티를 통해서 지정할 수도 있다.
 
 NLS_USE 설정의 우선순위는 FORM 파일의 DATA_NLS_USE(in 옵션 수행시에만 적용), -NLS_USE 옵션, 환경변수 ALTIBASE_NLS_USE, altibase.properties 내의 프로퍼티 순으로 참조 적용되며, 아무것도 설정되지 않았을 경우에는 기본 캐릭터 셋(US7ASCII)을 사용한다.
 
@@ -526,10 +526,10 @@ Altibase는 다음의 옵션들을 기본적으로 사용해 iLoader를 수행�
 
 | 인 자                                     | 설 명                                                        |
 | ----------------------------------------- | ------------------------------------------------------------ |
-| \-S\|-s *servername*                      | 서버의 호스트 이름 Altibase 서버가 구동되어 있는 컴퓨터 서버의 이름(또는 IP 주소)을 명시한다. 만약 ISQL_CONNECTION 환경 변수가 IPC 또는 UNIX로 되어 있을 때, 이 옵션에 원격 서버를 명시해서 접속을 시도하면, iSQL은 ISQL_CONNECTION의 설정을 무시하고 TCP로 원격 서버에 접속할 것이다. <br />이 때, ISQL_CONNECTION 설정이 무시되었다는 경고 메시지가 출력된다. IPv4 주소 또는 IPv6 주소를 사용할 수 있다. IPv6 주소는 “[“과 “]”로 에워싸여야 한다. <br />예를 들어, localhost 를 명시하고자 할 때, 가능한 값은 다음과 같다. localhost (호스트 이름), 127.0.0.1 (IPv4주소), [::1] (IPv6주소) IPv6 주소 표기법에 대한 자세한 내용은 *Administrator’s Manual*을 참고하기 바란다. |
+| \-S\|-s *servername*                      | 서버의 호스트 이름<br />Altibase 서버가 구동되어 있는 컴퓨터 서버의 이름(또는 IP 주소)을 명시한다. 만약 ISQL_CONNECTION 환경 변수가 IPC 또는 UNIX로 되어 있을 때, 이 옵션에 원격 서버를 명시해서 접속을 시도하면, iSQL은 ISQL_CONNECTION의 설정을 무시하고 TCP로 원격 서버에 접속할 것이다. <br />이 때, ISQL_CONNECTION 설정이 무시되었다는 경고 메시지가 출력된다. IPv4 주소 또는 IPv6 주소를 사용할 수 있다. IPv6 주소는 “[“과 “]”로 에워싸여야 한다. <br />예를 들어, localhost 를 명시하고자 할 때, 가능한 값은 다음과 같다. localhost (호스트 이름), 127.0.0.1 (IPv4주소), [::1] (IPv6주소) IPv6 주소 표기법에 대한 자세한 내용은 *Administrator’s Manual*을 참고하기 바란다. |
 | \-U\|-u *login_id*                        | 사용자 아이디                                                |
 | \-P\|-p *password*                        | 사용자 비밀번호                                              |
-| \-PORT *port_no*                          | TCP 또는 IPC로 접속할 때 해당 포트 번호를 명시한다. 단 유닉스 환경에서 IPC로 접속 시 이 옵션은 명시하지 않아야 한다. 만약 명시하면 경고 메시지가 출력된 후, 서버에 접속한다. <br />TCP로 접속하려면 먼저 클라이언트에서 환경 변수 ‘ISQL_CONNECTION=TCP’를 설정하고, 옵션에 PORT_NO를 입력한다.  <br />ISQL_CONNECTION 환경 변수의 값이 IPC가 아니고 -PORT 옵션을 생략한다면, ALTIBASE_PORT_NO와 PORT_NO 프로퍼티를 차례로 참조하고 모두 설정되어 있지 않다면, 포트 번호 입력 프롬프트가 출력된다. |
+| \-PORT *port_no*                          | TCP 또는 IPC로 접속할 때 해당 포트 번호를 명시한다. 단 유닉스 환경에서 IPC로 접속 시 이 옵션은 명시하지 않아야 한다. 만약 명시하면 경고 메시지가 출력된 후, 서버에 접속한다. <br />TCP로 접속하려면 먼저 클라이언트에서 환경 변수 ‘ISQL_CONNECTION=TCP’를 설정하고, 옵션에 PORT_NO를 입력한다.  <br />ISQL_CONNECTION 환경 변수의 값이 IPC가 아니고 -PORT 옵션을 생략한다면 ALTIBASE_PORT_NO와 PORT_NO 프로퍼티를 차례로 참조하고, 모두 설정되어 있지 않다면 포트 번호 입력 프롬프트가 출력된다. |
 | \-NLS_USE *charset*                       | 데이터 검색 시, 사용자에게 보여주는 문자 집합(Character Set)이다. iSQL을 실행하는 터미널의 encoding을 명시하여 준다. <br />   US7ASCII <br />   KO16KSC5601 <br />   MS949 <br />   BIG5 <br />   GB231280 <br />   MS936 <br />   UTF8 <br />   SHIFTJIS <br />   MS932 <br />   EUCJP <br />생략 시 환경변수 ALTIBASE_NLS_USE, altibase.properties를 차례로 참조하며, 설정되지 않았을 경우에는 기본 문자 집합 (US7ASCII)을 사용한다. |
 | \-prefer_ipv6                             | \-S 옵션으로 호스트 이름을 입력했을 때, 접속할 IP 주소의 버전을 결정하는 옵션이다.  이 옵션을 명시하면, 호스트 이름을 IPv6 주소로 바꾸어 접속한다. 이 옵션을 명시하지 않으면, isql은 IPv4 주소로 접속한다. <br />선호하는 버전의 IP 주소로의 접속이 실패하면, 다른 IP 버전 주소로 접속을 다시 시도한다. 예를 들어, -S 옵션에 “localhost”를 입력하고 이 옵션을 명시하면, isql 은 처음에 IPv6 주소인 [::1]로 접속하고, 이 접속이 실패하면 IPv4 주소인 127.0.0.1로 접속을 다시 시도한다. |
 | \-ssl_ca *CA_file_path*                   | 접속할 알티베이스 서버의 공개키(public key)가 포함된 CA(인증 기관, Certification Authority) 인증서 파일의 위치를 지정한다. |
@@ -538,23 +538,23 @@ Altibase는 다음의 옵션들을 기본적으로 사용해 iLoader를 수행�
 | \-ssl_key *key_file_path*                 | 클라이언트 개인키 파일의 위치를 지정한다.                    |
 | \-ssl_verify                              | 이 옵션을 지정하면 클라이언트가 서버로부터 전달받은 인증서를 검증한다. |
 | \-ssl_cipher *cipher_list*                | SSL 암호화를 위해 사용할 알고리즘의 이름 후보들을 지정한다. General Reference에서 SSL_CIPHER_LIST 프로퍼티를 참고한다. |
-| in \| out \| formout \| structout \| help | 자료 복사의 방향을 지시 (반드시 한가지만 입력) in : 파일에서 데이터베이스 테이블로 복사 out : 데이터베이스 테이블에서 파일로 복사 formout: 테이블의 포맷(format) 파일을 만들 때 사용된다. structout: formout과 비슷한 기능으로 주어진 테이블과 매칭되는 구조체를 파일로 만들 때 사용된다. (클라이언트 프로그램을 작성할 때 사용) help: 도움말 사용법을 보여준다. |
+| in \| out \| formout \| structout \| help | 자료 복사의 방향을 지시한다. (반드시 한가지만 입력)<br />in : 파일에서 데이터베이스 테이블로 복사<br />out : 데이터베이스 테이블에서 파일로 복사<br />formout: 테이블의 포맷(format) 파일을 만들 때 사용된다.<br />structout: formout과 비슷한 기능으로 주어진 테이블과 매칭되는 구조체를 파일로 만들 때 사용된다. (클라이언트 프로그램을 작성할 때 사용)<br />help: 도움말 사용법을 보여준다. |
 | \-T *table_name*                          | 복사할 테이블의 이름, 데이터의 업로드나 다운로드 시에는 FORM 파일에 테이블 이름이 있으므로 이 옵션은 무시된다. |
-| \-d *datafile(datafiles)*                 | 데이터베이스에서 파일로, 또는 파일에서 데이터베이스로 자료를 복사할 때 사용되는 자료 파일의 전체 경로 formout인 경우에는 사용되지 않는다. 입력할 수 있는 파일 수는 최대 32개이며, 업로드 할 때에만 파일들을 연속으로 쓸 수 있다.  -d 옵션에 데이터를 순서대로 입력하여 업로드 할 경우, 순서대로 업로드 된다.  또한 다운로드 할 때 parallel 옵션과 함께 사용하면, 최소한 parallel 옵션에서 지정한 수만큼 파일이 생성된다. |
+| \-d *datafile(datafiles)*                 | 데이터베이스에서 파일로, 또는 파일에서 데이터베이스로 자료를 복사할 때 사용되는 자료 파일의 전체 경로로, formout인 경우에는 사용되지 않는다. 입력할 수 있는 파일 수는 최대 32개이며, 업로드 할 때에만 파일들을 연속으로 쓸 수 있다.  -d 옵션에 데이터를 순서대로 입력하여 업로드 할 경우, 순서대로 업로드 된다.  또한 다운로드 할 때 parallel 옵션과 함께 사용하면, 최소한 parallel 옵션에서 지정한 수만큼 파일이 생성된다. |
 | \-rule csv                                | 데이터 파일의 포맷을 csv 형태로 명시한다.  이 옵션은 –t 또는 -e 옵션과 함께 사용할 수 없다. 사용하면 에러가 발생한다. -t, -r, -e, -rule csv 옵션 중 어느 것도 사용하지 않으면 csv가 기본으로 사용된다. |
 | \-f *formatfile*                          | 이전의 iLoader 호출에 의해 생성된 format 파일의 전체 경로    |
-| \-F *firstrow*                            | 복사 할 첫 번째 행의 번호 (기본 값은 1) 이 옵션은 데이터를 업로드할 때에만 유효하다. |
-| \-L *lastrow*                             | 복사 할 마지막 행의 번호 (기본 값은 마지막 행의 번호) 이 옵션은 데이터 업로드 시에만 유효하다. |
+| \-F *firstrow*                            | 복사 할 첫 번째 행의 번호(기본 값은 1). 이 옵션은 데이터를 업로드할 때에만 유효하다. |
+| \-L *lastrow*                             | 복사 할 마지막 행의 번호(기본 값은 마지막 행의 번호). 이 옵션은 데이터 업로드 시에만 유효하다. |
 | \-t *field_term*                          | 필드 사이의 구분자로, 기본값은 ‘\^’ 이다. %t 는 TAB을 %n은 새로운 줄(newline)을 의미한다. %r은 carriage return을 의미한다. -t, -r, -e 옵션은 각각 다른 값을 가져야 한다. 예) -t \^%t \< 주의 \>  명령행에서 ‘, “, \\, & 등의 문자는 자체적으로 처리하므로 구분자로 사용하지 않는 것이 좋다. 구분자를 명시할 때 (예를 들어 \|) iLoader 프롬프트 상에서는 -t \| 또는 “\|” 로, 일반 명령 프롬프트에서는 -t \|, ‘\|’ 또는 “\|”로 입력할 수 있다. |
-| \-r *row_term*                            | 행 사이의 구분자 (기본 값은 ‘\\n’ 이다.) 세부 입력 방법은 -t option과 같다. |
-| \-e *enclosing*                           | 칼럼 사이의 구분자 세부 입력 방법은 -t option과 같다.        |
+| \-r *row_term*                            | 행 사이의 구분자. (기본 값은 ‘\\n’ 이다.) 세부 입력 방법은 -t option과 같다. |
+| \-e *enclosing*                           | 칼럼 사이의 구분자. 세부 입력 방법은 -t option과 같다.       |
 | \-lob *lob_option_string*                 | LOB 데이터는 최대 4GB의 크기를 가지므로 32-bit OS 에서 2GB 보다 큰 LOB 데이터를 하나의 파일에 저장할 때 문제가 발생할 수 있다. 따라서 이 옵션을 이용해 LOB 타입의 데이터를 다루는 방식을 설정할 수 있다. 이 옵션이 지정되지 않았을 경우 LOB 칼럼도 다른 칼럼과 마찬가지로 처리된다. |
 | \-replication true/false                  | 이중화를 off 하고 데이터를 로딩할 수 있는 옵션이다. (생략할 경우 true가 적용된다.) |
-| \-mode *mode_type*                        | APPEND : 기존의 테이블에 추가하여 삽입(기본값) <br/>REPLACE: DELETE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 TRUNCATE: TRUNCATE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 |
+| \-mode *mode_type*                        | APPEND : 기존의 테이블에 추가하여 삽입(기본값) <br/>REPLACE: DELETE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 <br />TRUNCATE: TRUNCATE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 |
 | \-bad *badfile*                           | 로딩할 때 오류가 발생하여 업로드 되지 못한 행을 저장하며, 지정하지 않으면 저장하지 않는다. 옵션으로 stdout, stderr을 사용(소문자만 지원) 하여 파일을 생성하지 않고 stdout(standard out), stderr(standard error)를 화면으로 출력한다. |
 | \-log *logfile*                           | iloader가 수행하면서 발생하는 전반적인 과정을 기록한다. 시작 시간, 종료 시간, 대상 행 수, 처리 행 수, 오류 행 수, 오류 내역 등이 여기에 기록된다. 지정하지 않으면 저장하지 않는다. 옵션으로 stdout, stderr을 사용(소문자만 지원함) 하여 파일을 생성하지 않고 stdout(standard out), stderr(standard error)를 화면으로 출력한다. |
 | \-split *n*                               | 파일마다 저장할 레코드의 개수를 설정(out 커맨드에서만 적용됨)한다. 명령어 실행 후 n개의 레코드가 저장된 파일들이 datafile.dat0 부터 datafile.dat1, … 의 파일 이름으로 생성된다. |
-| \-errors *count*                          | in 모드로 iloader를 실행할 때 허용 가능한 에러 최대 개수를 지정하는 옵션이다. 이 옵션에서 설정한 에러 개수보다 많은 에러가 발생하면 실행을 멈춘다.  기본값은 50이며, 0으로 설정하면 발생한 에러 수에 무관하게 계속 실행된다. -parallel 옵션과 함께 사용될 경우 병렬로 처리되는 쓰레드 중에 한 개라도 이 옵션에서 설정한 에러 값 이상의 에러가 발생하면 모든 쓰레드가 종료된다. |
+| \-errors *count*                          | in 모드로 iloader를 실행할 때 허용 가능한 에러의 최대 개수를 지정하는 옵션이다. 이 옵션에서 설정한 에러 개수보다 많은 에러가 발생하면 실행을 멈춘다.  기본값은 50이며, 0으로 설정하면 발생한 에러 수에 무관하게 계속 실행된다. -parallel 옵션과 함께 사용될 경우 병렬로 처리되는 쓰레드 중에 한 개라도 이 옵션에서 설정한 에러 값 이상의 에러가 발생하면 모든 쓰레드가 종료된다. |
 | \-partition                               | \-T 옵션에 지정한 테이블이 partitioned 테이블이라면, 그 테이블의 파티션 개수만큼의 FORM 파일이 생성 된다. 각 FORM 파일의 이름은 formfile_name.partition_name이 될 것이다. 만약 지정한 테이블이 partitioned 테이블이 아니면, formfile_name이름으로 한 개의 FORM 파일이 생성 된다. |
 | -extra_col_delimiter                      | 레코드 마지막 컬럼 뒤에 컬럼 구분자와 레코드 구분자가 연달아 위치한 경우, 이를 레코드의 끝으로 인식하기 위한 옵션이다.<br/> <br/>예를 들어, 컬럼 구분자가 '^'이고 레코드 구분자가 '\n'인 데이터 파일이, 아래와 같은 형식이면 -extra_col_delimiter 옵션이 필요하다.<br/>Kim^1077^RD^\n<br/>Lee^1099^CS^\n<br/> <br/>이 옵션은 -rule csv 또는 -t 옵션과 함께 사용할 수 있다. |
 | -geom [WKB]                               | out 모드 수행시, 공간 데이터를 Well-Known Binary (WKB) 포맷으로 out 하기 위한 옵션이다.<br/>Extended Well-Known Binary (EWKB) 포맷으로 지원하는 Altibase의 공간 데이터를, WKB 포맷을 사용하는 하위 버젼으로 이관하기 위해 사용한다.<br/>이 옵션을 사용하지 않으면 Altibase의 공간 객체 지원 포맷을 따른다. |
@@ -609,7 +609,7 @@ ISQL_CONNECTION : TCP
 행으로 처리하게 된다.
 
 아래와 같이 필드 구분자는 ‘-‘, 행 구분자는 ‘\#\#’로 부분집합이 아니더라도, 칼럼
-값에 구분자가 포함될 경우에도 두 번째, 세 번째 ‘-’를 필드 구분자로 잘못 인식하게
+값에 구분자가 포함될 경우 두 번째, 세 번째 ‘-’를 필드 구분자로 잘못 인식하게
 된다.
 
 ```
@@ -673,7 +673,7 @@ long타입의 크기가 4바이트인 플랫폼의 경우 본 옵션을 2GB 이�
 권장한다.
 
 이 옵션은 iLoader 의 자료 복사 방향이 out 일 때만 유효하다. 자료 복사 방향이 in
-일 때 본 항목을 사용하더라도 iLoader 는 이를 무시한다. 자료 복사 방향이 in 일
+일 때 본 항목을 사용한다면 iLoader 는 이를 무시한다. 자료 복사 방향이 in 일
 때는 첫 번째 LOB 데이터 파일의 크기를 lob_file_size로 간주한다.
 
 use_lob_file 옵션 없이 이 옵션을 사용할 경우 use_lob_file=yes 라고 암묵적으로
@@ -807,7 +807,7 @@ LOB 이 들어 있는 칼럼을 다운로드 할 때, 외부의 파일에서 LOB
 가리키는 offset:size 조합으로 데이터 파일에 쓰여진다.
 
 LOB 데이터의 위치를 가리키는 offset:size 조합은 따로 지정하지 않았을 경우 %%에
-의해서 구분되어진다.
+의해서 구분된다.
 
 ```
 Example)
@@ -864,10 +864,10 @@ iLoader로 IN 작업을 수행할 때 다음의 옵션들을 사용해 성능을
 | \-array *array_size*                            | 데이터 로딩 (in) 시 속도 증가를 위해서 파일에서 읽은 데이터를 배열로 구성하여 서버로 전송한다. 이렇게 하면 서버와의 통신 횟수를 줄여서 성능 향상을 가져올 수 있다.  <br />그러나 이 값을 너무 크게 할 경우에는 오히려 역효과를 가져올 수도 있다.<br />기본값: 1 |
 | \-commit *commit_unit*                          | 업로드 시에 몇 건 단위로 삽입한 다음 커밋할 것인가를 나타내는 단위 옵션이다. <br />*commit_unit* 0은 NON-AUTOCOMMIT 모드로 동작하며, 모든 데이터를 삽입한 후에 커밋한다. <br />*commit_unit* 1은 AUTOCOMMIT 모드로 동작하여 데이터 삽입 시 건별로 커밋한다.<br />단, array 옵션과 함께 사용할 시에는 *array_size*\* *commit_unit*의 수만큼 삽입 후 커밋한다.<br />기본값: 1000 |
 | \-atomic                                        | Atomic Array INSERT를 수행하도록 설정한다. Atomic Array INSERT는 배열 크기만큼 Insert문을 하나의 구문으로 처리하기 때문에 Array Insert보다 빠른 성능을 발휘한다.<br />이 옵션은 반드시 -array 옵션과 함께 지정해야 한다. |
-| \-direct [log\|nolog] (Direct-Path INSERT 참고) | 디스크 테이블에 업로드 할 때 Direct-Path INSERT 방식을 사용하는 옵션으로써 로깅 여부도 함께 지정할 수 있다. log 또는 nolog를 명시하지 않으면 log 로 동작한다. <br />만약 nolog 방식을 사용할 때에는 반드시 해당 테이블에 대하여 백업을 해야 한다. nolog 모드로 수행중에 실패할 경우 정상적인 복구가 불가능할 수도 있기 때문이다.  <br />이 옵션을 지정하면 -atomic 옵션이 내부적으로 설정된다. -atomic 옵션은 -array 옵션과 함께 지정해야만 동작하므로 -array 옵션을 설정하지 않을 경우에는 array 크기는 최대값 (65535)으로 자동으로 설정된다. |
+| \-direct [log\|nolog] (Direct-Path INSERT 참고) | 디스크 테이블에 업로드 할 때 Direct-Path INSERT 방식을 사용하는 옵션으로써 로깅 여부도 함께 지정할 수 있다. log 또는 nolog를 명시하지 않으면 log 로 동작한다. <br />만약 nolog 방식을 사용할 때에는 반드시 해당 테이블에 대하여 백업을 해야 한다. nolog 모드로 수행중에 실패할 경우 정상적인 복구가 불가능할 수도 있기 때문이다.  <br />이 옵션을 지정하면 -atomic 옵션이 내부적으로 설정된다. -atomic 옵션은 -array 옵션과 함께 지정해야만 동작하므로 -array 옵션을 설정하지 않을 경우에는 array 크기는 최대값 (65535)으로 자동으로 설정된다.<br />이 옵션은 -lightmode 옵션과 함께 사용할 수 없다. |
 | \-parallel *count*                              | 동시에 작업할 쓰레드의 개수를 지정하는 옵션이다. 지정한 개수만큼 쓰레드가 생성되어 병렬 처리한다. <br />이 옵션을 지정하면 iLoader는 *count* + 1 개의 연결을 생성하므로, 접속 유형이 IPC인 경우 IPC_CHANNEL_COUNT 프로퍼티의 값은 연결의 수 이상으로 설정해야 한다.<br />기본값: 1, 최대값: 32 |
 | \-readsize *n*                                  | 파일에서 한 번에 읽어올 수 있는 크기를 지정하는 옵션이다. (단위: bytes)<br />0보다 큰 값을 지정해야 한다.<br />기본값: 1048576 |
-| -nologging                                      | Direct-Path INSERT 방식이 아닌 일반적인 데이터 삽입에서 빠른 삽입을 위해 로그 파일을 기록하지 않는 옵션이다. 로그 파일을 기록하지 않으면 데이터 삽입이 실패할 때 정상적인 복구가 불가능할 수도 있다. 따라서 이러한 상황이 발생하면 대상 테이블을 재생성하는 것을 권장한다. 이 옵션은 이중화 대상 테이블에 사용할 수 없다. 또한, 이 옵션을 써서 iloader를 수행하는 동안 다른 트랜잭션에서 대상 테이블에 UPDATE 및 DELETE를 수행할 수 없다.<br /><br />이 옵션은 -direct log 옵션과 함께 사용할 수 없다. |
+| -lightmode                                      | 데이터 로딩시 빠른 데이터 삽입을 위해 로그파일을 기록하지 않는 옵션이다. 로그파일을 기록하지 않기 때문에, 장애 발생시 정상적인 복구가 불가능할 수 있으며 이러한 경우 대상 테이블을 재 생성하는 것을 권장한다. <br/>-parallel 옵션과 함께 사용할 수 있으며, 여러개의 iloader 인스턴스를 이용하여 데이터를 동시에 삽입하는 것도 가능하다. 하지만, 이 옵션을 사용하여 iloader를 수행하는 동안은 다른 트랜잭션에서 대상 테이블에 Insert, Update, delete 작업을 수행 할 수 없다. 따라서, 이중화 대상 테이블에 사용할 수 없으며, 이 옵션으로 데이터 삽입이 수행중인 테이블에 대해 이중화를 생성 할 수 없다.<br/>이 옵션은 direct-path insert 방식을 지원하지 않기 때문에 - direct 옵션과 함께 사용할 수 없다. |
 
 ##### LOB 컬럼 제약
 
@@ -1092,7 +1092,7 @@ DATA_NLS_USE는 다운로드 할 데이터의 인코딩 방식을 보여준다. 
 파일을 생성할 때 클라이언트의 캐릭터 셋이 저장된다.
 
 만약 다운로드 할 테이블에 내셔널 캐릭터 타입의 칼럼이 존재할 경우 NCHAR_UTF16이
-생성된다. 데이터를 저장할 때의 인코딩 방식을 나타내며, YES로 설정된 경우
+생성된다. 이는 데이터를 저장할 때의 인코딩 방식을 나타내며, YES로 설정된 경우
 UTF-16BE(Big Endian) 방식으로 인코딩된다. 만약 NO로 설정하면 CHAR 타입의 인코딩
 방식을 따르며, 데이터가 손실될 수 있다. 기본값은 YES이다.
 
@@ -1144,7 +1144,7 @@ $ cat T1.dat
 백업 받아두었던 파일이나 편집한 데이터 파일을 iLoader를 이용하여 데이터베이스에
 업로드한다.
 
-데이터를 업로드를 할 때, 저장된 데이터의 캐릭터 셋을 환경변수 ALTIBASE_NLS_USE로
+데이터를 업로드할 때, 저장된 데이터의 캐릭터 셋을 환경변수 ALTIBASE_NLS_USE로
 설정해야 한다. iLoader는 ALTIBASE_NLS_USE 캐릭터 셋으로 저장된 데이터를
 데이터베이스 캐릭터 셋으로 변환해 저장한다. 데이터베이스 캐릭터 셋과
 ALTIBASE_NLS_USE의 캐릭터 셋이 다른 경우에는 변환이 발생한다. 만약 실제 저장되어
@@ -1230,8 +1230,8 @@ Altibase는 iLoader를 이용하여 데이터를 다운로드 하거나 업로�
 
 -   \-2: 업로드할 때 오류가 1개 이상 발생
 
-0 또는 -1의 결과 값은 데이터를 업로드하거나 다운로드 할 때 성공하거나 실패할
-경우에 나타나는 코드이다. -2는 데이터의 업로드는 성공하였으나, 일부 데이터의
+0 또는 -1의 결과 값은 데이터를 업로드하거나 다운로드 할 때 성공 또는 실패할
+경우 나타나는 코드이다. -2는 데이터의 업로드는 성공하였으나, 일부 데이터의
 업로드 실패가 1개 이상 발생할 경우 나타나는 코드이다.
 
 #### 원격 데이터베이스에 접속해서 iLoder 사용하기 
@@ -1253,7 +1253,7 @@ iloader [-H] [-S server_name] [-U user_id] [-P password]
 -   \-H: iLoader의 실행 방법을 보여준다.
 
 -   \-S server_name : Altibase 서버가 구동되어 있는 컴퓨터 서버의 이름(또는 IP
-    주소)을 명시하여 준다.
+    주소)을 명시한다.
 
 -   \-U user_id: 데이터베이스에 등록된 사용자 ID를 명시한다.
 
@@ -1267,7 +1267,7 @@ iloader [-H] [-S server_name] [-U user_id] [-P password]
 -   \-NST: nst 모드를 켜는 옵션이다. nst 모드를 켜면 elapsed time을 디스플레이
     하지 않는다.
 
--   \-DISPLAYQUERY: 사용자가 FORM 파일에 정의한 조건절과 힌트가 구문을 수행 시에
+-   \-DISPLAYQUERY: 구문 수행 시 사용자가 FORM 파일에 정의한 조건절과 힌트를
     쿼리 형태로 확인할 수 있다.
 
 -   \-NLS_USE: 데이터 다운로드 및 업로드 시 데이터의 캐릭터 셋을 설정한다. 생략
@@ -1492,8 +1492,8 @@ Altibase는 iLoader를 이용하여 데이터를 다운로드 하거나 업로�
 
 -   \-2: 업로드할 때 오류가 1개 이상 발생
 
-0 또는 -1의 결과 값은 데이터를 업로드하거나 다운로드 할 때 성공하거나 실패할
-경우에 나타나는 코드이다. -2는 데이터의 업로드는 성공하였으나, 일부 데이터의
+0 또는 -1의 결과 값은 데이터를 업로드하거나 다운로드 할 때 성공 또는 실패할
+경우 나타나는 코드이다. -2는 데이터의 업로드는 성공하였으나, 일부 데이터의
 업로드 실패가 1개 이상 발생할 경우 나타나는 코드이다.
 
 #### 대화형 모드에서의 원격접속
@@ -1505,9 +1505,9 @@ Altibase는 iLoader를 이용하여 데이터를 다운로드 하거나 업로�
 접속이 성공하면 iLoader 프롬프트가 나타나고, 명령어를 입력하여 원하는 작업을
 대화형으로 수행할 수 있다.
 
-다음은 로컬 서버에서 원격 서버의 port 번호를 이용하여 원격 서버에 접속 후,
+다음은 로컬 서버에서 원격 서버의 port 번호를 이용하여 원격 서버에 접속한 후,
 iLoader 유틸리티를 이용하여 원격 서버에 있는 MANAGER 테이블의 자료를 파일에
-다운로드 후 다시 MANAGER 테이블로 자료를 업로드하는 예이다.
+다운로드한 뒤 다시 MANAGER 테이블로 자료를 업로드하는 예이다.
 
 -   원격 서버 (IP: 192.168.1.10, PORT_NO: 21300)
 
@@ -1550,7 +1550,7 @@ $ iloader -s 192.168.1.10 -u sys -p manager -port 21300
 -------------------------------------------------------
 ISQL_CONNECTION : TCP
 iLoader> 		-> iLoader가 서버와 연결된 상태이며, 여기에서 명령어를 입력하여 원하는 작업을 
-                   대화형으로 수행할 수 있는 모드로 된다.
+                   대화형으로 수행할 수 있는 모드가 된다.
 
 ```
 
@@ -1608,7 +1608,7 @@ MGR_NO   MNAME     ADRESS
 #### 도움말
 
 iLoader가 제공하는 명령에 대한 도움말을 제공한다. HELP 명령은 도움말 전체를 보여
-주고 특정 명령에 대한 도움말은 HELP 명령 다음에 알고자 하는 정보를 입력하면
+주고, 특정 명령에 대한 도움말은 HELP 명령 다음에 알고자 하는 정보를 입력하면
 된다.
 
 ##### 예제
@@ -1629,6 +1629,9 @@ Usage : { in | out | formout | structout | help }
         [-partition]
         [-dry-run]
         [-prefetch_rows]
+        [-async_prefetch off|on|auto]
+        [-geom WKB]
+        [-lightmode]
 iLoader> help help
 Ex) help [ in | out | formout | structout | exit | help ]
 
@@ -1667,7 +1670,10 @@ $ iloader help
                      [-rule csv]
                      [-partition]
                      [-dry-run]
-                     [-prefetch_rows]]
+                     [-prefetch_rows]
+                     [-async_prefetch off|on|auto]
+                     [-geom WKB]
+                     [-lightmode]]
             -h            : This screen
             -s            : Specify server name to connect
             -u            : Specify user name to connect
@@ -1778,7 +1784,7 @@ FORM 파일은 iLoader에게 로드할 테이블과 속성에 대한 정보를 �
 FORM 파일을 수정하여 SEQUENCE를 적용할 수 있다.
 
 FORM 파일 수정 방법은 SEQUENCE 라고 쓴 다음 sequence 이름, 적용될 칼럼 이름,
-nextval 이나 currval 등의 의사 열 순서로 FORM 파일에 맨 앞에 적어준다.
+nextval 이나 currval 등의 의사 열 순서로 FORM 파일에 맨 앞에 적는다.
 
 ```
 SEQUENCE  sequence_name  column_name  [ NEXTVAL | CURRVAL ]
@@ -1971,7 +1977,7 @@ $ cat t1.dat
 3,”2002-01-23 16:17:18:444444”,3
 ```
 
-백업을 받은 파일을 현재의 데이터베이스에 업로드할 때 다음 구문을 이용한다.
+백업 받은 파일을 현재의 데이터베이스에 업로드할 때 다음 구문을 이용한다.
 
 ```
 iLoader> in -f t1.fmt -d t1.dat -mode replace
@@ -2096,7 +2102,7 @@ TO_CHAR(I4,'YYYY/MM/DD HH:MI:SS SSSSSS')
 
 -   FORM 파일내의 DATEFORM 명시
 
-#### 함수 실행기능
+#### 함수 실행 기능
 
 데이터를 업로드 할 때, 특정 칼럼에 함수를 이용하여 넣고자 할 때 사용한다. 데이터
 타입이 DATE, TIMESTAMP, GEOMETRY일 때는 적용되지 않는다. FORM 파일 수정 시 다른
@@ -2122,7 +2128,7 @@ FORM 파일을 수정하여, 테이블의 데이터들을 다운로드 할 때 �
 
 “DOWNLOAD CONDITION” 이라고 쓴 다음 조건절을 큰 따옴표(" ") 안에 지정하며
 FORM파일 맨 마지막에 기술한다. 사용자가 지정한 힌트와 조건절이 제대로 동작하는지
-알아보기 위해서 수행 시에 “-displayquery” 옵션을 사용해서 실행되는 쿼리를 확인할
+알아보기 위해 수행 시에 “-displayquery” 옵션을 사용해서 실행되는 쿼리를 확인할
 수 있다.
 
 ##### 구문
@@ -2208,7 +2214,7 @@ $ cat table1.dat
 
 #### TIMESTAMP 칼럼 입력 기능
 
-iLoader를 이용하여 현재의 Altibase에서 데이터 파일을 다운로드 후, data 파일에
+iLoader를 이용하여 현재의 Altibase에서 데이터 파일을 다운로드한 후, data 파일의
 TIMESTAMP 칼럼에 해당하는 값을 다음과 같은 옵션을 이용하여 FORM 파일을 수정하여
 데이터를 업로드 할 수 있다.
 
@@ -2224,7 +2230,7 @@ TIMESTAMP 칼럼에 해당하는 값을 다음과 같은 옵션을 이용하여 
 
 -   SKIP YYYYMMDD[HHMISS]
 
-다음은 위의 옵션을 이용하여 서버에 있는 테이블의 자료를 파일에 다운로드 후 다시
+다음은 위의 옵션을 이용하여 서버에 있는 테이블의 자료를 파일에 다운로드한 후, 다시
 테이블로 자료를 업로드하는 방법이다.
 
 -   현재의 Altibase 데이터베이스에서 다운로드할 테이블을 FORM 파일로 생성한다.
@@ -2240,7 +2246,7 @@ TIMESTAMP 칼럼에 해당하는 값을 다음과 같은 옵션을 이용하여 
   파일의 TIMESTAMP 칼럼 마지막에 “ADD DEFAULT” 기술 (또는 FORM 파일의 TIMESTAMP
   칼럼 라인 삭제)
 
-- Data 파일에는 없지만 TIMESTAMP 칼럼에 널 값을 입력할 경우: 업로드 할 FORM 파일의
+- Data 파일에는 없지만 TIMESTAMP 칼럼에 NULL 값을 입력할 경우: 업로드 할 FORM 파일의
   TIMESTAMP 칼럼 마지막에 “ADD NULL” 기술
 
 - Data 파일에는 없지만 TIMESTAMP 칼럼에 지정한 값을 입력할 경우: 업로드 할 FORM
@@ -2256,7 +2262,7 @@ TIMESTAMP 칼럼에 해당하는 값을 다음과 같은 옵션을 이용하여 
 
 - Data 파일에 있는 값을 무시하고 현재 시간을 입력할 경우: 업로드 할 FORM 파일의
   TIMESTAMP 칼럼 마지막에 “SKIP DEFAULT” 기술
-- Data 파일에 있는 값을 무시하고 널 값을 입력할 경우: 업로드 할 FORM 파일의
+- Data 파일에 있는 값을 무시하고 NULL 값을 입력할 경우: 업로드 할 FORM 파일의
   TIMESTAMP 칼럼 마지막에 “SKIP NULL” 기술
 
 - Data 파일에 있는 값을 무시하고 지정한 값을 입력할 경우: 업로드 할 FORM 파일의
@@ -2668,7 +2674,7 @@ I1          I2
 ###### 데이터베이스 내에 데이터를 저장할 공간이 부족한 경우
 
 데이터베이스 내에 데이터를 저장할 공간이 부족한 경우에는 데이터베이스나 테이블을
-정리 혹은 compaction후 데이터 공간을 확보한 후 데이터를 중단된 부분부터 다시
+정리 혹은 compaction 하여 데이터 공간을 확보한 후 중단된 부분부터 데이터를 다시
 업로드 한다.
 
 ###### 문자 데이터의 값이 “?”로 저장될 경우
@@ -2945,7 +2951,7 @@ DB에서는 어떤 명령어를 사용할 수 있나요?
 $ iloader formout -s 127.0.0.1 -u sys -p manager -T test -f test.FORM
 ```
 
-갖고 계신 데이터 파일(구분자 “\|”로 되어있는)을 업로드는 하는 방법은 아래와 같이 하면 데이터 파일을 바로 업로드할 수 있습니다. (단 테이블은 미리 만들어져 있어야 합니다.)
+아래와 같이 하면 갖고 계신 데이터 파일(구분자 “\|”로 되어있는)을 바로 업로드할 수 있습니다. (단 테이블은 미리 만들어져 있어야 합니다.)
 
 ```
 $ iloader in -s 127.0.0.1 -u sys -p manager -f test.FORM-d datafile -t '|' 
@@ -2994,7 +3000,7 @@ replace 옵션으로 업로드 할 경우와 truncate 하는 경우와 어떤 �
 **답변**
 
 대량의 데이터일 경우 delete하는 시간도 오래 걸리는 경우가 있기 때문에 truncate를
-권장해 드리는 것이고 truncate하기 이전에 다운로드 받으시고 truncate한 이후 다시
+권장해 드리는 것이고, truncate하기 이전에 다운로드 받으시고 truncate한 이후 다시
 upload를 하시면 됩니다.
 
 delete 명령과 truncate의 시간적 차이로 인한 시간차이가 있을 수 있습니다.
@@ -3009,9 +3015,9 @@ delete 명령과 truncate의 시간적 차이로 인한 시간차이가 있을 �
 
 alter table table_name add column(col_name data_type)으로 가능하지만 데이터
 건수가 많을 경우 add column을 권장하지 않습니다. 시간이 오래 걸리고 많은
-메모리를 사용하게 됩니다. 그럴 경우는 다음과 같은 방법을 권장합니다.
+메모리를 사용하기 때문입니다. 그럴 경우는 다음과 같은 방법을 권장합니다.
 
-1. iLoader로 schema 변경 전 data백업
+1. iLoader로 schema 변경 전 data 백업
 
 2. replication stop
 
@@ -3021,7 +3027,7 @@ alter table table_name add column(col_name data_type)으로 가능하지만 데�
 
 5. create table
 
-6. iLoader로 schema변경 전 백업 받은 파일을 업로드
+6. iLoader로 schema 변경 전 백업 받은 파일을 업로드
 
 7. replication에 add table
 
@@ -3039,7 +3045,7 @@ column의 데이터가 들어가게 되지만 기본값이 없다면 위 작업�
 
 **답변**
 
-오라클 export는2진 형식입니다. export를 이용한 파일은 Altibase로 옮길 수가
+오라클 export는 2진 형식입니다. export를 이용한 파일은 Altibase로 옮길 수가
 없습니다. SQL loader를 이용하여 data를 받는 방법을 사용하셔야 합니다. 오라클의
 2진 형식은 다른 데이터베이스에서 읽을 수 있는 방법이 아니기 때문에 데이터를 옮길
 때에는 SQL loader를 사용하고 있습니다.
@@ -3049,7 +3055,7 @@ column의 데이터가 들어가게 되지만 기본값이 없다면 위 작업�
 GIS 데이터를 iLoader로 업로드 및 다운로드가 가능합니까? 그리고 데이터 파일에는
 어떤 형태로 저장되나요?
 
-**답변**
+**답변**	
 
 GIS 데이터는 데이터베이스에 Geometry 타입의 칼럼으로 저장되며, iLoader는 이
 데이터 타입을 지원합니다.

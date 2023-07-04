@@ -1159,7 +1159,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOCK</p>
 </td>
 <td width="161">
-<p>TO</p>
+<p>TIMESTAMPADD</p>
 </td>
 </tr>
 <tr>
@@ -1170,7 +1170,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOGANCHOR</p>
 </td>
 <td width="161">
-<p>TOP</p>
+<p>TO</p>
 </td>
 </tr>
 <tr>
@@ -1181,7 +1181,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOGGING</p>
 </td>
 <td width="161">
-<p>TRIGGER</p>
+<p>TOP</p>
 </td>
 </tr>
 <tr>
@@ -1192,7 +1192,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>LOOP</p>
 </td>
 <td width="161">
-<p>TRUE</p>
+<p>TRIGGER</p>
 </td>
 </tr>
 <tr>
@@ -1203,7 +1203,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MAXROWS</p>
 </td>
 <td width="161">
-<p>TRUNCATE</p>
+<p>TRUE</p>
 </td>
 </tr>
 <tr>
@@ -1214,7 +1214,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MAXTRANS</p>
 </td>
 <td width="161">
-<p>TYPE</p>
+<p>TRUNCATE</p>
 </td>
 </tr>
 <tr>
@@ -1225,7 +1225,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MERGE</p>
 </td>
 <td width="161">
-<p>TYPESET</p>
+<p>TYPE</p>
 </td>
 </tr>
 <tr>
@@ -1236,7 +1236,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MINUS</p>
 </td>
 <td width="161">
-<p>UNION</p>
+<p>TYPESET</p>
 </td>
 </tr>
 <tr>
@@ -1247,7 +1247,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MODE</p>
 </td>
 <td width="161">
-<p>UNIQUE</p>
+<p>UNION</p>
 </td>
 </tr>
 <tr>
@@ -1258,7 +1258,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MODIFY</p>
 </td>
 <td width="161">
-<p>UNLOCK</p>
+<p>UNIQUE</p>
 </td>
 </tr>
 <tr>
@@ -1269,7 +1269,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MOVE</p>
 </td>
 <td width="161">
-<p>UNPIVOT</p>
+<p>UNLOCK</p>
 </td>
 </tr>
 <tr>
@@ -1280,7 +1280,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>MOVEMENT</p>
 </td>
 <td width="161">
-<p>UNTIL</p>
+<p>UNPIVOT</p>
 </td>
 </tr>
 <tr>
@@ -1291,7 +1291,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NEW</p>
 </td>
 <td width="161">
-<p>UPDATE</p>
+<p>UNTIL</p>
 </td>
 </tr>
 <tr>
@@ -1302,7 +1302,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOAUDIT</p>
 </td>
 <td width="161">
-<p>USING</p>
+<p>UPDATE</p>
 </td>
 </tr>
 <tr>
@@ -1313,7 +1313,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOCOPY</p>
 </td>
 <td width="161">
-<p>VALUES</p>
+<p>USING</p>
 </td>
 </tr>
 <tr>
@@ -1324,7 +1324,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOCYCLE</p>
 </td>
 <td width="161">
-<p>VARIABLE</p>
+<p>VALUES</p>
 </td>
 </tr>
 <tr>
@@ -1335,7 +1335,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOLOGGING</p>
 </td>
 <td width="161">
-<p>VC2COLL</p>
+<p>VARIABLE</p>
 </td>
 </tr>
 <tr>
@@ -1346,7 +1346,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NOT</p>
 </td>
 <td width="161">
-<p>VIEW</p>
+<p>VC2COLL</p>
 </td>
 </tr>
 <tr>
@@ -1357,7 +1357,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NULL</p>
 </td>
 <td width="161">
-<p>VOLATILE</p>
+<p>VIEW</p>
 </td>
 </tr>
 <tr>
@@ -1368,7 +1368,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>NULLS</p>
 </td>
 <td width="161">
-<p>WAIT</p>
+<p>VOLATILE</p>
 </td>
 </tr>
 <tr>
@@ -1379,7 +1379,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OF</p>
 </td>
 <td width="161">
-<p>WHEN</p>
+<p>WAIT</p>
 </td>
 </tr>
 <tr>
@@ -1390,7 +1390,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OFF</p>
 </td>
 <td width="161">
-<p>WHENEVER</p>
+<p>WHEN</p>
 </td>
 </tr>
 <tr>
@@ -1401,7 +1401,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OFFLINE</p>
 </td>
 <td width="161">
-<p>WHERE</p>
+<p>WHENEVER</p>
 </td>
 </tr>
 <tr>
@@ -1412,7 +1412,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OLD</p>
 </td>
 <td width="161">
-<p>WHILE</p>
+<p>WHERE</p>
 </td>
 </tr>
 <tr>
@@ -1423,7 +1423,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>ON</p>
 </td>
 <td width="161">
-<p>WITH</p>
+<p>WHILE</p>
 </td>
 </tr>
 <tr>
@@ -1434,7 +1434,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>ONLINE</p>
 </td>
 <td width="161">
-<p>WITHIN</p>
+<p>WITH</p>
 </td>
 </tr>
 <tr>
@@ -1445,7 +1445,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OPEN</p>
 </td>
 <td width="161">
-<p>WORK</p>
+<p>WITHIN</p>
 </td>
 </tr>
 <tr>
@@ -1456,7 +1456,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>OR</p>
 </td>
 <td width="161">
-<p>WRAPPED</p>
+<p>WORK</p>
 </td>
 </tr>
 <tr>
@@ -1467,7 +1467,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <p>ORDER</p>
 </td>
 <td width="161">
-<p>WRITE</p>
+<p>WRAPPED</p>
 </td>
 </tr>
 <tr>
@@ -1477,7 +1477,7 @@ Altibase는 기본적으로 사용자 암호를 대소문자 구분 없이 대�
 <td width="189">
 <p>OTHERS</p>
 </td>
-<td width="161">&nbsp;</td>
+<td width="161">WRITE</td>
 </tr>
 <tr>
 <td width="170">
@@ -3315,6 +3315,10 @@ Alter success.
 
 ![sync_table_clause](media/SQL/sync_table_clause.gif)
 
+**restart_clause ::=**
+
+![sync_table_clause](media/SQL/restart_sequence_clause.gif)
+
 #### 전제 조건
 
 SYS 사용자, 시퀀스가 속한 스키마의 소유자 또는 ALTER ANY SEQUENCE 시스템 권한을
@@ -3334,16 +3338,6 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 
 변경될 시퀀스 이름이다.
 
-*restart clause*
-
-아래 세가지 형태가 가능하다.
-- RESTART
-  - START VALUE를 INCREMENT VALUE가 1 이상이면 MIN VALUE로, INCREMENT VALUE가 -1 이하이면 MAX VALUE로 초기화하고, SEQUENCE 를 재시작한다.
-- RESTART WITH N
-  - START VALUE를 N으로 초기화하고, SEQUENCE 를 재시작한다.
-- RESTART START WITH N
-  - 위에 기술한 RESTART WITH N 와 동일하다.
-
 *INCREMENT BY*
 
 시퀀스 값의 증감분을 명시하는데 사용된다.
@@ -3352,9 +3346,17 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 
 시퀀스의 최대값을 명시하는데 사용된다.
 
+*NOMAXVALUE*
+
+시퀀스의 최대값을 지정하지 않을때 사용된다.
+
 *MINVALUE*
 
 시퀀스의 최소값을 명시하는데 사용된다.
+
+*NOMINVALUE*
+
+시퀀스의 최소값을 지정하지 않을때 사용된다.
 
 *CYCLE*
 
@@ -3363,6 +3365,10 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 다시 시작된다. 반면 내림차순 시퀀스인 경우는 최대값에 도달한 후 최대값부터 다시
 시작된다.
 
+*NOCYCLE*
+
+시퀀스의 순환을 허용하지 않을때 사용된다.
+
 *CACHE*
 
 시퀀스 값을 더 빠르게 액세스 하기 위하여 명시된 개수 만큼의 시퀀스 값들이
@@ -3370,47 +3376,38 @@ CREATE SEQUENCE 구문으로 시퀀스 생성 후 시퀀스의 정의를 변경�
 요청될 때마다 캐시 된 값이 검색된다. 캐시에서 마지막 시퀀스 값이 사용된 이후
 다음 시퀀스 값 요청시 새로운 시퀀스 값들이 메모리 캐시된다.
 
+*NOCACHE*
+
+시퀀스를 메모리에 캐시하지 않는 경우 사용된다.
+
 *FLUSH CACHE*
 
 메모리에 캐시된 시퀀스 값들을 지워버린다. 이 옵션을 사용해서 캐시를 플러시한 후
 시퀀스 값이 요청되면, 새로운 시퀀스 값들이 메모리에 캐시된다.
 
-*LOCAL*
-	
-기존의 시퀀스를 의미한다. GLOBAL, SHARD 옵션과 명시적으로 구분하기 위해 사용할 수 있다.
-GLOBAL, SHARD 옵션과 함께 사용할 수 없다.
-
-*GLOBAL*
-	
-샤딩 환경에서만 지원한다.
-LOCAL, SHARD, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
-
-*SHARD*
-	
-샤딩 환경에서만 지원한다.
-LOCAL, GLOBAL, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
-
 *ENABLE SYNC TABLE*
 
 시퀀스 번호를 복제하기 위한 시퀀스 이중화용 테이블을 생성한다. 시퀀스 이중화
-전용 테이블의 이름은 [sequence 이름]\$seq으로 자동 부여된다.
+전용 테이블의 이름은 [sequence 이름]\$seq으로 자동 부여된다. 
+
+>  주의사항
+>
+> 시퀀스 이름의 길이가 36바이트 이하여야, 시퀀스 이중화용 테이블을 생성할 수 있다.
 
 *DISABLE SYNC TABLE*
 
 시퀀스를 이중화하기 위해 사용하던 시퀀스 이중화용 테이블을 삭제한다.
 
-#### 주의 사항
+*restart_clause*
 
-존재하는 시퀀스의 정의를 변경할 때, 시퀀스가 이미 생성된 이후 이므로 START WITH
-절은 사용될 수 없다.
+시퀀스를 재시작하기 위한 구문으로 아래 세가지 방법이 있다.
 
-시퀀스 이름의 길이가 36 바이트 이하여야 시퀀스 이중화용 테이블을 생성할 수 있다.
-
-시퀀스 이름의 길이가 36 바이트 이하여야 global sequence로 변경할 수 있다.
-
-시퀀스에 대한 자세한 설명은 CREATE SEQUENCE 구문의 설명을 참고한다.
+- RESTART
+  - START VALUE를 INCREMENT VALUE가 1 이상이면 MINVALUE로, INCREMENT VALUE가 -1 이하이면 MAXVALUE로 초기화하고, 시퀀스를 재시작한다.
+- RESTART WITH N
+  - START VALUE를 N으로 초기화하고, 시퀀스를 재시작한다.
+- RESTART START WITH N
+  - RESTART WITH N 와 동일하게, START VALUE를 N으로 초기화하고 시퀀스를 재시작한다.
 
 #### 예제
 
@@ -3542,7 +3539,7 @@ iSQL> ALTER SEQUENCE seq1 ENABLE SYNC TABLE;
 
 **split_table_partition ::=**
 
-![image64_split_table_partition](media/SQL/image64_split_table_partition.gif)
+![image64_split_table_partition](media/SQL/split_table_partition.gif)
 
 **truncate_table_partition ::=**
 
@@ -3858,15 +3855,6 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 분리된다.
 
 테이블에 LOB 컬럼이 있는 경우 LOB 컬럼에 대한 속성을 따로 정의할 수 있다.
-
-ONLINE 절은 파티션을 분리하는 중에 테이블에 대한 DML 작업을 허용한다.
-
-- ###### ON 절 제약사항
-
-  - 샤드 환경에서 샤드키 테이블만 지원한다.
-    솔로 및 클론 테이블, 그리고 일반 테이블은 지원하지 않는다.
-  - GLOBAL_DDL 프로퍼티가 1일 때 지원한다.
-    전체 노드 대상으로 하나의 트랜잭션으로 처리된다.
 
 *truncate_table_partition*
 
@@ -6771,11 +6759,17 @@ Create success.
 
 **option_clause ::=**
 
-![](media/SQL/27820f15feeda94f02d08fdd79b41b36.png)
+![](media/SQL/option_clause.gif)
 
 **replication_item ::=**
 
 ![replication_item](media/SQL/replication_item.gif)
+
+**using_conntype_clause::=**
+
+![replication_item](media/SQL/replication_using_conntype_clause.gif)
+
+​                                                                                      
 
 #### 전제 조건
 
@@ -6811,8 +6805,7 @@ XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*�
 
 *option_clause*
 
-이중화 객체의 RECOVERY, OFFLINE, GROUPING, PARALLEL, GAPLESS 옵션을 지정하는
-절이다.
+이중화 객체의 RECOVERY, OFFLINE, GROUPING, PARALLEL, GAPLESS, RECEIVE_ONLY 옵션을 지정하는 절이다.
 
 이 기능은 각각 데이터 복구를 위해 사용되거나, 오프라인 이중화 수행시 사용된다.
 또한 성능을 위하여 이중화 트랜잭션을 그룹화하거나 병렬 적용자 옵션을 지정할 때
@@ -6828,9 +6821,13 @@ XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*�
 원격 서버의 수신 쓰레드가 사용하는 포트번호를 입력한다. 이는 원격 서버
 altibase.properties 파일의 REPLICATION_PORT_NO프로퍼티 값과 일치해야 한다.
 
-*USING conn_type [ib_latency]*
+*using_conntype_clause*
 
-원격 서버와의 통신방법(TCP 또는 InfiniBand)을 설정할 수 있다. 인피니밴드를
+원격 서버와의 통신방법(TCP 또는 InfiniBand)을 설정할 수 있다. 
+
+ USING conn_type [ib_latency]
+
+conn_type에 "TCP" 또는 "InfiniBand"를 설정할 수 있으며, 인피니밴드를
 사용할 경우에만 ib_latency 값을 설정할 수 있다. 인피니밴드를 사용하려면
 IB_ENABLE 프로퍼티 값이 1이어야 한다.
 
@@ -6898,6 +6895,28 @@ REPLICATION_NAME                          ROLE
 ---------------------------------------------------------
 REP2                                      3
 1 row selected.
+```
+
+\<질의\> 원격 서버의 이중화는 지역 서버의 수신 전용(RECEIVE_ONLY)으로만 동작하도록 이중화를 생성한다. 
+
+지역 서버의 경우 (IP: 192.168.60)
+
+```
+iSQL> CREATE REPLICATION rep1
+    WITH '192.168.1.12',35524
+    FROM sys.employees TO sys.employees,
+    FROM sys.departments TO sys.departments;
+Create success.
+```
+
+원격 서버의 경우 (IP: 192.168.1.12)
+
+```
+iSQL> CREATE REPLICATION rep1
+    OPTIONS RECEIVE_ONLY
+    FROM sys.employees TO sys.employees,
+    FROM sys.departments TO sys.departments;
+Create success. 
 ```
 
 
@@ -6998,6 +7017,10 @@ MINVALUE의 차이보다 작아야 한다.
 값이 0보다 크면 기본값은 9223372036854775806이다. INCREMENT BY의 값이 0보다
 작으면, 기본값은 -1이다.
 
+*NOMAXVALUE*
+
+시퀀스의 최대값을 지정하지 않을때 사용된다.
+
 *MINVALUE*
 
 시퀀스의 최소값을 명시한다. 이는 -9223372036854775806부터
@@ -7005,11 +7028,19 @@ MINVALUE의 차이보다 작아야 한다.
 값이 0보다 크면 기본값은 1이다. INCREMENT BY의 값이 0보다 작으면, 기본값은
 -9223372036854775806이다.
 
+*NOMINVALUE*
+
+시퀀스의 최소값을 지정하지 않을때 사용된다.
+
 *CYCLE*
 
 이는 시퀀스가 최대값 또는 최소값 한계에 도달했을 때 다음 시퀀스 값을 계속
 생성할지 여부를 지정하는 옵션이다. 오름차순 시퀀스의 경우는 시퀀스의 다음 값은
 최소값에서 다시 순환되고, 내림차순 시퀀스의 경우는 최대값부터 다시 순환된다.
+
+*NOCYCLE*
+
+시퀀스의 순환을 허용하지 않을때 사용된다.
 
 *CACHE*
 
@@ -7019,25 +7050,9 @@ MINVALUE의 차이보다 작아야 한다.
 이후의 다음 시퀀스 값 요청시에 시퀀스 값들이 메모리에 캐시된다. 이 값을 생략하면
 기본값은 20이다.
 
-*LOCAL*
+*NOCACHE*
 
-기존의 시퀀스를 의미한다. GLOBAL, SHARD 옵션과 명시적으로 구분하기 위해 사용할 수 있다.
-GLOBAL, SHARD 옵션과 함께 사용할 수 없다.
-이 옵션을 생략할 경우 기본값은 LOCAL이다.
-
-*GLOBAL*
-
-샤딩 환경에서만 지원한다.
-LOCAL, SHARD, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이 옵션을 생략할 경우 기본값은 LOCAL이다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
-
-*SHARD*
-
-샤딩 환경에서만 지원한다.
-LOCAL, GLOBAL, SYNC TABLE 옵션과 함께 사용할 수 없다.
-이 옵션을 생략할 경우 기본값은 LOCAL이다.
-이에 대한 내용은 Sharding 매뉴얼을 참고한다.
+시퀀스를 메모리에 캐시하지 않는 경우 사용된다.
 
 *ENABLE \| DISABLE SYNC TABLE*
 
@@ -7055,7 +7070,6 @@ LOCAL, GLOBAL, SYNC TABLE 옵션과 함께 사용할 수 없다.
   *sequence_name.*CURRVAL로 새로 생성된 시퀀스에 접근하려면 먼저
   *sequence_name.*NEXTVAL을 사용해야만 한다.
 - 시퀀스 이름의 길이가 36 바이트 이하여야 시퀀스 이중화용 테이블을 생성할 수 있다.
-- 시퀀스 이름의 길이가 36 바이트 이하여야 global sequence를 생성할 수 있다.
 
 
 #### 예제
@@ -12250,7 +12264,7 @@ V2                   VARCHAR(30)          nikita
 
 **insert ::=**
 
-![](media/SQL/a45155edc3025bff4fdd2260e889e4ab.png)
+![](media/SQL/insert.gif)
 
 
 
@@ -12346,7 +12360,10 @@ DELETE 구문의 returning_clause를 참고하라.
 
 *wait_clause*
 
-wait_clause에 대한 설명은 SELECT문의 FOR UPDATE 절 참조한다.
+레코드를 삽입할 테이블에 동일한 키 값으로 아직 커밋되지 않은 레코드가 존재하는 경우 대기해야 하는데, WAIT 옵션을 이용하면 얼마나 대기할지 설정할 수 있다. 설정할 수 있는 시간 단위는 second(초), millisecond(msec, 1/1000초), microsecond(usec,
+1/1000000초)이며 표기하지 않으면 초 단위가 적용된다.
+
+반면, NOWAIT 옵션을 사용하면 대기하지 않으므로, 즉시 삽입 실패 메시지를 확인할 수 있다.
 
 #### HINTS 옵션
 
@@ -15876,11 +15893,11 @@ ENQUEUE INTO Q1(message,corrid) VALUES ('This is a message', 237);
 
 **dequeue ::=**
 
-![dequeue_image244](media/SQL/dequeue_image244.gif)
+![dequeue_image244](media/SQL/dequeue.gif)
 
 **fifo_option ::=**
 
-![fifo_image244](media/SQL/fifo_image244.gif)
+![fifo_image244](media/SQL/fifo_option.gif)
 
 #### 설명
 
@@ -15898,7 +15915,9 @@ FIFO 옵션이 설정되어 있거나 아무 옵션도 설정하지 않은 경�
 DEQUEUE 문은 큐가 비어있을 경우에 메시지가 들어올 때까지 대기한다. WAIT절에
 명시한 시간만큼 대기하며, 시간 단위는 second(초), millisecond(msec, 1/1000초),
 microsecond(μsec, 1/1000000초)이며 표기하지 않으면 초 단위가 적용된다. 대기
-시간이 설정되지 않은 경우, DEQUEUE 문은 무한정 대기할 것이다.
+시간이 설정되지 않은 경우, DEQUEUE 문은 무한 대기할 것이다. 
+
+반면 NOWAIT 옵션은 기다리지 않으므로, 큐가 비어있는 경우 즉시 "No rows selected." 메시지를 출력한다.
 
 #### 주의사항
 
@@ -21621,19 +21640,17 @@ DB_TIMEZONE
 
 
 
-#### EXTRACT, DATEPART
+#### DATEPART
 
 ##### 구문
 
 ```
-EXTRACT (date, date_field_name)
-DATEPART (date, date_field_name)
+DATEPART (date, 'date_field_name')
 ```
 
 ##### 설명
 
-이들 함수는 동일하며, 입력 *date*에서 *date_field_name* 에 해당하는 값만
-반환한다.
+*date*에서 *date_field_name* 에 해당하는 값만 반환한다.
 
 | Date Field Name | 내용                                                                                              |
 |-----------------|---------------------------------------------------------------------------------------------------|
@@ -21662,6 +21679,72 @@ WHERE eno = 10;
 DATEPART (JOIN_DATE, 'QUARTER')
 ----------------------------------
 1
+1 row selected.
+```
+
+
+
+#### EXTRACT
+
+##### 구문
+
+```
+EXTRACT (date, 'date_field_name')
+EXTRACT (date_field_name2 FROM date)
+```
+
+##### 설명
+
+*date*에서 *date_field_name*, *date_field_name2*  에 해당하는 값만 반환한다.
+
+EXTRACT (date, 'date_field_name') 의 동작은 DATEPART와 동일하다.
+
+그러나 EXTRACT(date_field_name2 FROM date) 구문은 EXTRACT만 지원하며,  추출할 수 있는 날짜필드는 YEAR, MONTH, DAY, HOUR, MINUTE, SECOND 이다.
+
+| Date Field Name | 내용                                                         |
+| --------------- | ------------------------------------------------------------ |
+| CENTURY         | 세기 (예를 들어, 2011의 경우 21을 1999의 경우는 20을 반환)   |
+| YEAR            | 년                                                           |
+| QUARTER         | 분기                                                         |
+| MONTH           | 월                                                           |
+| WEEK            | 일년 중 몇 번째 주인지 반환함. (그 해의 첫 번째 토요일과 그 앞의 날은 그 해의 첫 번째 주가 된다.) |
+| WEEKOFMONTH     | 그 달의 몇 번째 주인지 반환함. (그 달의 첫 번째 토요일과 그 앞의 날은 그 달의 첫 번째 주가 된다.) |
+| DAY             | 일                                                           |
+| DAYOFYEAR       | 일년 중 몇 번째 날인지 반환함.                               |
+| DAYOFWEEK       | 주의 몇 번째 날인지 반환함. (일요일 = 1)                     |
+| HOUR            | 시                                                           |
+| MINUTE          | 분                                                           |
+| SECOND          | 초                                                           |
+| MICROSECOND     | 마이크로 초                                                  |
+
+| Date Field Name2 | 내용 |
+| ---------------- | ---- |
+| YEAR             | 년   |
+| MONTH            | 월   |
+| DAY              | 일   |
+| HOUR             | 시   |
+| MINUTE           | 분   |
+| SECOND           | 초   |
+
+##### 예제
+
+\<질의\> 사원번호가 10인 사원이 입사한 년도를 구하라.
+
+```
+iSQL> SELECT EXTRACT (join_date, 'YEAR')
+FROM employees
+WHERE eno = 10;
+EXTRACT(JOIN_DATE,'YEAR')
+----------------------------
+2010
+1 row selected.
+
+iSQL> SELECT EXTRACT (YEAR FROM join_date)
+FROM employees
+WHERE eno = 10;
+EXTRACT(JOIN_DATE,'YEAR')
+----------------------------
+2010
 1 row selected.
 ```
 

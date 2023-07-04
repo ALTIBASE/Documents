@@ -618,6 +618,10 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 -   이중화 트랜잭션 그룹 옵션  
     : 이중화 갭이 발생하였을 때 전송해야 할 복수의 트랜잭션들을 하나의
     트랜잭션처럼 그룹화하여 수신 쓰레드에 로그를 전송하는 기능
+    
+- 이중화 수신 전용 옵션
+
+  : 이중화를 수신 전용 옵션으로 설정하는 기능.
 
 > #### 주의 사항
 >
@@ -1313,11 +1317,12 @@ CREATE [LAZY|EAGER] REPLICATION replication_name
 [FOR ANALYSIS | FOR PROPAGABLE LOGGING | FOR PROPAGATION | FOR ANALYSIS PROPAGATION] 
 [AS MASTER|AS SLAVE] 
 [OPTIONS options_name [option_name ... ] ] 
-WITH { ‘remote_host_ip’ | 'remote_host_name', remote_host_ port_no [USING conn_type [ib_latency]]} 
+[WITH { ‘remote_host_ip’ | 'remote_host_name', remote_host_ port_no [USING conn_type [ib_latency]]}]
 ...
 FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
 [,FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
 ...;
+
 ```
 
 #### 전제 조건
@@ -2089,6 +2094,8 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 
 -   이중화 트랜잭션 그룹 옵션(Replicated Transaction Grouping Option)
 
+-   이중화 수신 전용 옵션(Receive Only Option)
+
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 컬럼 값을 통해서
 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
 
@@ -2391,6 +2398,71 @@ ALTER REPLICATION replication_name SET GROUPING [ENABLE|DISABLE];
 
 -   LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
 
+#### 이중화 수신 전용 옵션(Receive Only Option)
+
+##### 구문
+
+```
+CREATE REPLICATION replication_name OPTIONS RECEIVE_ONLY FROM ...;
+ALTER REPLICATION replication_name SET RECEIVE_ONLY {ON|OFF WITH { ‘remote_host_ip’ | 'remote_host_name', remote_host_port_no [USING conn_type [ib_latency]]}};
+```
+
+##### 설명
+
+이중화를 수신 전용 옵션으로 설정하여 다른 노드로 변경 데이터를 전송하지 않도록 한다. 
+
+수신 전용으로 이중화를 생성하면 로그를 읽지 않으므로 네트워크 장애 등의 이중화 이슈가 발생하여도 시스템에 영향을 주지 않는다.
+
+##### 제약사항
+
+-   복구 옵션(Recovery Option) 을 사용할 수 없다.
+-   이중화 갭 해소 옵션(Replication Gapless Option) 을 사용할 수 없다.
+-   이중화 트랜잭션 그룹 옵션(Replicated Transaction Grouping Option) 을 사용할 수 없다.
+-   메타 로깅 옵션(Meta Logging Option) 을 사용할 수 없다.
+-   DDL 복제를 사용할 수 없다.
+-   Eager 모드에서 사용할 수 없다. 
+-   기본 Replication 이외의 롤(Role)을 가진 이중화에서 사용할 수 없다.
+
+##### 주의사항
+
+* 수신 전용 옵션을 설정하기 위해서는 아래의 사전 작업이 필요하다.
+
+  1. 이중화에 설정된 호스트 정보를 모두 제거 (ALTER REPLICATION ... DROP HOST ALL)
+  2. 이중화의 재시작과 관련된 정보 초기화 (ALTER REPLICATION ... RESET)
+
+  > 수신 전용 옵션을 설정하면, 기존의 이중화 설정 정보는 사라지므로, 추후에 수신 전용 옵션을 해제시에는 이중화 설정 정보를 다시 입력해야 한다.
+
+##### 예제 
+
+이중화 이름을 rep1이라고 가정하여, rep1을 수신 전용 옵션으로 생성하거나, 수신 전용옵션을 사용하도록 변경 및 수신 전용 옵션을 제거하는 예제이다.
+
+-   이중화를 수신 전용 옵션으로 생성한다.
+
+```
+iSQL> CREATE REPLICATION rep1 OPTIONS RECEIVE_ONLY
+FROM sys.employees TO sys.employees,
+FROM sys.departments TO sys.departments;
+Create success.
+```
+
+-   이중화를 수신 전용 옵션을 사용하도록 변경한다.
+
+```
+iSQL> ALTER REPLICATION rep1 DROP HOST ALL;
+Alter success.
+iSQL> ALTER REPLICATION rep1 RESET;
+Alter success.
+iSQL> ALTER REPLICATION rep1 SET RECEIVE_ONLY ON;
+Alter success.
+```
+
+-   이중화 수신 전용 옵션을 제거한다.
+
+```
+iSQL> ALTER REPLICATION rep1 SET RECEIVE_ONLY OFF WITH '192.168.1.12',30300;
+Alter success.
+```
+
 ### 다중 IP 네트워크 환경에서의 이중화 
 
 다중 IP 네트워크 환경에서의 이중화가 지원된다. 즉, 물리적인 두 개 이상의
@@ -2412,7 +2484,7 @@ ALTER REPLICATION replication_name
 ADD HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no [USING conn_type [ib_latency]];
 
 ALTER REPLICATION replication_name
-DROP HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
+DROP HOST { {‘remote_host_ip‘ | ‘remote_host_name‘}, remote_port_no | ALL };
 
 ALTER REPLICATION replication_name
 SET HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
@@ -2447,7 +2519,8 @@ SET HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
 -   ALTER REPLICATION (DROP HOST) :  
     호스트를 제거한다. 이중화 중지 후 호스트를 제거 할 수 있다. 이 구문 수행
     후에, 송신 쓰레드는 맨 처음 IP 주소나 호스트 이름으로 연결을 시도한다.
-
+    -   ALL 키워드를 이용하면 모든 호스트를 제거할 수 있다. 모든 호스트의 제거 후에는 이중화를 시작할 수 없다.
+    
 -   ALTER REPLICATION (SET HOST) :  
     특정 호스트를 현재 호스트로 지정한다. 이중화 중지 후 호스트를 지정 할 수
     있다. 이 구문 수행 후에, 송신 쓰레드는 현재 지정된 호스트의 IP 주소나 호스트 이름으로

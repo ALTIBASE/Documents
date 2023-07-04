@@ -793,7 +793,15 @@ Altibase는 아래의 타입을 지원한다.
 
 ##### 흐름도
 
-![](media/GeneralReference/242f2c3edb0f197d371a4ec74f665ba8.jpg)
+![](media/GeneralReference/char.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -814,7 +822,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VAR
 
 ##### 흐름도
 
-![](media/GeneralReference/f7552045fb1b327e02cba948bbafeb3f.jpg)
+![](media/GeneralReference/varchar.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -840,7 +856,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VAR
 
 ##### 흐름도
 
-![](media/GeneralReference/479310aaf34bada9e78bf3bb9c18eb8c.jpg)
+![](media/GeneralReference/nchar.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -867,7 +891,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 "FIXED/VAR
 
 ##### 흐름도
 
-![](media/GeneralReference/bdc39809efd5cc54b1ee2b06d2dd638b.jpg)
+![](media/GeneralReference/nvarchar.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2417,7 +2449,15 @@ Altibase는 다음의 이진 데이터 타입을 지원한다.
 
 ##### 흐름도
 
-![](media/GeneralReference/byte1.png)
+![](media/GeneralReference/byte.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2461,7 +2501,15 @@ TO_CHAR(I1)  TO_CHAR(I2)
 
 ##### 흐름도
 
-![](media/GeneralReference/varbyte1.png)
+![](media/GeneralReference/varbyte.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2504,7 +2552,15 @@ TO_CHAR(I1)  TO_CHAR(I2)
 
 ##### 흐름도
 
-![](media/GeneralReference/nibble1.png)
+![](media/GeneralReference/nibble.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2534,7 +2590,15 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/V
 
 ##### 흐름도
 
-![](media/GeneralReference/bit1.png)
+![](media/GeneralReference/bit.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2579,7 +2643,15 @@ iSQL> INSERT INTO T1 VALUES ( BIT'1', BIT'1234' );
 
 ##### 흐름도
 
-![](media/GeneralReference/varbit1.png)
+![](media/GeneralReference/varbit.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
 
 ##### 구문
 
@@ -2638,7 +2710,7 @@ Altibase가 제공하는 LOB은 다음과 같은 특징이 있다.
 
 ##### 데이타 저장 기능
 
-ODBC의 SQLPutLob 함수 또는 JDBC의 setBlob 또는 setClob 메쏘드를 이용하여 CLOB,
+ODBC의 SQLPutLob 함수 또는 JDBC의 setBlob 또는 setClob 메소드를 이용하여 CLOB,
 BLOB 데이타를 저장할 수 있다.
 
 ##### 부분 읽기(Partial Read)
@@ -7328,9 +7400,41 @@ Unsigned Integer
 
 ##### 설명
 
-디스크 인덱스를 생성할 때 데이터에서 추출된 키들을 메모리에서 한번에 정렬할 수
-없을 경우, 외부 정렬에 사용될 페이지의 수를 나타낸다. 운영 중 ALTER SYSTEM 문을
-이용해 프로퍼티의 값을 변경할 수 있다.
+하나의 디스크 인덱스를 CREATE INDEX 문으로 생성하거나 ALTER INDEX ~ REBUILD 문으로 재구축할 때, 디스크 인덱스 키정렬에 사용될 페이지 수를 설정한다. 디스크 인덱스 키들의 크기가 DISK_INDEX_BUILD_SORT_AREA_SIZE 보다 클 때 즉, 정해진 메모리 영역에서 모든 디스크 인덱스 키들을 정렬할 수 없을 때 사용된다. 
+
+디스크 I/O 발생으로 디스크 인덱스 생성(또는 재구축) 속도가 느려지면 이 프로퍼티의 값을 조정하여 디스크 인덱스 생성(또는 재구축) 속도를 높일 수 있다. 단, BUFFER_AREA_SIZE의 10% 이하로 설정할 것을 권고한다. BUFFER_AREA_SIZE는 디스크 인덱스 뿐 아니라 디스크 테이블에 접근하는 여러 트랜잭션에서 동시에 접근하는 메모리 영역이기 때문이다. 
+
+이 프로퍼티의 기본값은 BUFFER_AREA_SIZE 기본값의 약 1% 크기이다. 디스크 테이블 크기에 따라 BUFFER_AREA_SIZE를 조정할 때에 디스크 인덱스를 고려하여 이 프로퍼티 값도 적절하게 조정해야 한다. 
+
+이 프로퍼티는 ALTER SYSTEM 문으로 변경할 수 있다.
+
+#### DISK_INDEX_BUILD_SORT_AREA_SIZE (단위 : 바이트)
+
+##### 데이터 타입
+
+Unsigned Long
+
+##### 기본값
+
+물리 코어 수 * 20MB
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[512K, 2<sup>64</sup>-1]
+
+##### 설명
+
+하나의 디스크 인덱스를 CREATE INDEX 문으로 생성하거나 ALTER INDEX ~ REBUILD 문으로 재구축할 때, 디스크 인덱스 키들을 정렬하는 용도로 사용할 최대 메모리 크기를 설정한다. 디스크 인덱스 키들의 크기만큼 메모리가 할당되며 필요한 때에 이 프로퍼티의 설정값만큼 증가한다. 디스크 인덱스를 생성(또는 재구축)하는 동안 할당된 메모리 크기는 V$MEMSTAT의 Storage_Disk_Index에서 확인할 수 있으며 동시에 생성(또는 재구축)하는 디스크 인덱스 수 * DISK_INDEX_BUILD_SORT_AREA_SIZE 만큼 메모리가 할당될 수 있다.
+
+이 메모리는 디스크 인덱스 키들을 정렬하는 과정이 끝나면 바로 해제된다. 단, 디스크 인덱스 키들의 크기가 이 프로퍼티의 값보다 작으면, 다시 말하면 이 프로퍼티에서 정한 메모리 내에서 모든 디스크 인덱스 키들을 정렬하면 디스크 인덱스 생성(또는 재구축)을 완료할 때 메모리가 해제된다. 
+
+디스크 인덱스 생성(또는 재구축) 속도를 향상 해야 할 때 이 프로퍼티를 조정할 수 있다. 권고값은 INDEX_BUILD_THREAD_COUNT * 20MB이다. 
+
+이 프로퍼티는 ALTER SYSTEM 문으로 변경할 수 있다.
 
 #### EXECUTE_STMT_MEMORY_MAXIMUM (단위 : 바이트)
 
@@ -13700,7 +13804,7 @@ Altibase 서버의 개인 키(private key)가 저장된 파일 경로를 지정�
 
 ##### 데이터 타입
 
-String
+Unsigned Integer
 
 ##### 기본값
 
