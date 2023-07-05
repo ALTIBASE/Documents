@@ -517,7 +517,7 @@ $ aexport -s localhost -u sys -p manager
 [ERR-91144 : DBMS_METADATA package does not exist.]
 ```
 
-> DBMS_METADATA 저장 패키지에 대한 자세한 설명과 예제는 *Stored Procedures Manual*의 'Altibase 저장 패키지'를 참조하기 바란다.
+> DBMS_METADATA 패키지에 대한 자세한 설명과 예제는 *Stored Procedures Manual*의 'Altibase 저장 패키지'를 참조하기 바란다.
 
 ### aexport 설정
 
