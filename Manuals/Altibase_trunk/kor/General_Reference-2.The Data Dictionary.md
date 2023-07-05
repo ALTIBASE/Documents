@@ -2832,7 +2832,7 @@ SYS_TABLES_
 | ITEM_COUNT               | INTEGER     | 이중화 대상 테이블 개수                                      |
 | CONFLICT_RESOLUTION      | INTEGER     | 이중화 충돌 해결 방법                                        |
 | REPL_MODE                | INTEGER     | 기본 이중화 모드                                             |
-| ROLE                     | INTEGER     | 송신 쓰레드의 역할                                           |
+| ROLE                     | INTEGER     | 이중화 쓰레드의 역할                                      |
 | OPTIONS                  | INTEGER     | 부가적인 이중화 기능을 위한 플래그                           |
 | INVALID_RECOVERY         | INTEGER     | 이중화 복구 가능 여부                                        |
 | REMOTE_FAULT_DETECT_TIME | DATE        | 원격 서버의 장애 감지 시각                                   |
@@ -2906,14 +2906,14 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 
 ##### ROLE
 
-송신 쓰레드의 역할을 나타낸다.
+이중화 쓰레드의 역할을 나타낸다.
 
-- 0: 이중화
-- 1: Log Analyzer
-- 2: Propagable Logging(이중화 로그 복제)
-- 3: Propagation(복제 로그 전송)
+- 0: 일반 이중화
+- 1: Log Analyzer 전용 이중화 
+- 2: Propagable Logging (전파를 위한 이중화된 트랜잭션 로그에 PK를 남기는 수신자 쓰레드 사용)
+- 3: Propagation(수신자 쓰레드의 트랜잭션 로그를 포함하여 로그를 전송하는 이중화 송신자 쓰레드 사용)
 
-자세한 내용은 Log Analyzer User's Manual을 참고한다.
+Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's Manual을 참고한다.
 
 ##### OPTIONS
 
