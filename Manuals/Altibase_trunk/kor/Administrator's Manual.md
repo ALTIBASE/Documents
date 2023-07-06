@@ -10373,7 +10373,7 @@ backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 > backupInfo 파일이 소실되면 소실된 시점 이전에 생성된 증분 백업 파일은 더 이상
 > 사용이 불가능하다. 이런 경우, backupinfo 파일을 수동으로 삭제하고 다시 증분백업을 수행해야 한다.
 >
-> backupinfo 파일을 삭제하려면 아래의 구문으로, Process 단계에서 sysdba 권한으로 수행할 수 있다. backupinfo 파일을 삭제하면, 기존에 백업된 모든 incremetal backup 파일들을 사용할 수 없으므로, 삭제되지 않은 백업 파일들은 수동으로 삭제해야 한다.
+> backupinfo 파일을 삭제하려면 아래의 구문으로, Process 단계에서 sysdba 권한으로 수행할 수 있다. 
 >
 > ```
 > iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
