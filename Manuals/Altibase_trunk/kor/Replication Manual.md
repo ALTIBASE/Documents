@@ -4250,47 +4250,43 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 |                                                              | iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1001<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ---------------------- <br/>1002<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1003<br/> 1 row selected. |
 | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ<br/> -------------------<br/> 2001<br/> 1 row selected. | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ <br/>---------------------- <br/>2001<br/> 1 row selected. |
 
-# 6. 이중화 롤
+# 6. 이중화 롤(ROLE)
 
-이중화 롤은 이중화에 역할을 부여하여 특별한 기능을 하도록 시스템을 구성하는 데 사용한다. 
-롤을 명시하지 않은 이중화는 기본적으로 Altibase 서버간 1:1 양방향 이중화 롤(0)로 생성된다. 
+이중화 롤은 이중화에 롤(ROLE)을 부여하여 특별한 기능을 하도록 시스템을 구성하는 데 사용한다. 
 
-이중화 롤은 크게 **로그분석기 롤** 과 **전파 롤**의 두 가지 롤을 지정할 수 있으며 각각에 대한 설명은 다음과 같다. 
+이중화 롤의 정보는 SYS_REPLICATIONS_ 메타테이블의 ROLE 칼럼 값을 통해 확인할 수 있다. 롤을 명시하지 않은 이중화는 기본적으로 Altibase 서버간 1:1 양방향 이중화를 의미하며, ROLE 칼럼 값은 0이다. 
 
-### 로그 분석기 롤
+이중화 롤은 크게 **로그 분석기 롤(Log Analyzer)** 과 **전파(Propagation) 롤**의 두 가지 롤을 지정할 수 있으며 각각에 대한 설명은 다음과 같다. 
 
-이중화를 Log Analyzer용으로 생성할 것인지 일반 이중화로 생성할 것인지 결정하며 ANALYSIS 키워드를 사용한다. 
+### 로그 분석기(Log Analyzer) 롤
+
+이중화를 로그 분석기 롤로 생성하려면 FOR ANALYSIS , FOR ANALYSIS PROPAGATION 키워드를 사용한다. 
 
 Log Analyzer용 이중화에 대한 자세한 설명은 *Log Analyzer User’s Manual*을 참고한다.
 
-### 전파 롤 
+### 전파(Propagation) 롤 
 
-이중화를 1:1이 아닌 여러 노드를 거쳐서 전파하는 용도로 사용할 것인지 아닌지 결정한다. 
+이중화를 여러 노드를 거쳐서 전파하는 용도로 생성하려면 FOR PROPAGATION, FOR PROPAGABLELOGGING  키워드를 사용한다. 일반 이중화는 변경사항을 서로 재 전송하지 않기위해서 이중화 수신자가 수행한 트랜잭션은 재전송하지 않도록 로그에 표시한다. 그러나 전파는 이중화 수신자가 수행한 트랜잭션도 다른 노드로 전파할 수 있다. 이때, 전파를 위한 송신자와 수신자를 각각 설정하고 롤을 지정한다.
 
-일반 이중화는 변경사항을 서로 재전송 하지 않기 위해서 이중화 Receiver가 수행한 트랜잭션은 재전송 하지 않도록 로그에 표시한다. 그러나, 전파를 하기 위해서는 이중화 Receiver가 수행한 트랜잭션도 다시 전송해서 다른 노드로 전파해야한다. 
+#### FOR PROPAGATION
 
-이러한 작업을 위해서 전파용 롤을 지정하고 전파를 하기 위한 Sender와 Receiver를 각각 지정할 수 있다. 
+트랜잭션의 변경사항을 전파하기 위한 송신자로 동작하는 이중화 역할을 지정한다. 
+이 롤이 지정된 이중화의 송신자는 이중화 대상 로그 뿐 아니라, 이중화를 통해 복제된 로그도 복제 가능하도록 설정된다. 그러므로, 이중화를 통해 복제된 로그들 중 PK가 있는 로그를 읽어서 전송한다.
 
-전파용도의 이중화는 세부적으로 다시 PROPAGABLE LOGGING과 PROPAGATION으로 나뉜다. 
+#### FOR PROPAGABLE LOGGING
 
-#### PROPAGATION
-
-트랜잭션의 변경사항을 전파하기 위한 Sender로 동작하는 이중화 역할을 지정한다. 
-이 기능이 지정된 replication의 sender는 replication 대상 로그 뿐 아니라, 이중화를 통해 복제된 로그도 복제 가능하도록 설정된다. 그러므로, 이중화를 통해 복제된 로그들 중 PK가 있는 로그를 읽어서 전송한다.
-
-#### PROPAGABLE LOGGING
-
-트랜잭션의 변경사항을 전파하기 위한 Receiver로 동작하는 이중화 역할을 부여한다.
-이 기능이 지정된 이중화 Receiver는 트랜잭션을 수행시에 이중화 된 트랜잭션이라고 하더라도 변경 연산에 PK 로그를 남겨서 향후 PROPAGATION 역할을 갖는 Sender가 읽어서 복제할 수 있록 한다. 
+트랜잭션의 변경사항을 전파하기 위한 수신자로 동작하는 이중화 역할을 부여한다.
+이 롤이 지정된 이중화 수신자는 트랜잭션을 수행시에 이중화 된 트랜잭션이라고 하더라도 변경 연산에 PK 로그를 남겨서, 향후 PROPAGATION 롤을 갖는 수신자가 해당 로그를 읽어서 복제할 수 있도록 한다. 
 
 #### 이중화 전파시 주의 사항
 
-* RECOVERY 부가기능을 사용한 Receiver는 전파 가능한 복제된 로그를 남기므로 함께 사용하지 않는 것을 권고한다. 
-  * PROPAGATION역할로  생성된 Sender는 PROPAGATION 가능한 모든 복제된 로그를 전파하므로 RECOVERY 옵션이 있는 Receiver가 생성한 로그도 전파하므로 시스템 설계가 복잡해 질 수 있다.
-* PROPAGATION 역할로 생성된 Sender는 두 개 이상의 PROPAGABLE LOGGING이 있는 경우 모든 로그를 전파한다. 
+* RECOVERY 옵션과 함께 사용하지 않는 것을 권고한다.
+  * PROPAGATION 롤로  생성된 송신자는 PROPAGATION 가능한 모든 복제된 로그를 전파하므로, RECOVERY 옵션이 있는 수신자가 생성한 로그도 전파하므로 시스템 설계가 복잡해 질 수 있다.
+  
+* PROPAGATION 롤로 생성된 Sender는 두 개 이상의 PROPAGABLE LOGGING이 있는 경우 모든 로그를 전파한다. 
 * 이중화 전파는 단방향으로만 구성해야한다. 
-* 단방향을 기준으로 구성하 않아 Cycle이 생성되는 경우, 로그의 변경사항이 무한정 재적용되는 상황을 만들 수 있으므로 주의해야한다. 
-* PROPAGABLE LOGGING을 사용한 Receiver는 로그를 남길때 PK 등의 추가 정보를 더 남기므로 트랜잭션 성능이 PROPAGABLE LOGGING를 지정하지 않은 Receiver보다 떨어질 수 있다. 
+* 전파의 방향에 Cycle이 생성 경우, 로그의 변경사항이 무한정 재적용되는 상황을 만들 수 있으므로 주의해야한다. 
+* PROPAGABLE LOGGING을 사용한 수신자는 로그를 남길때 PK 등의 추가 정보를 더 남기므로, 트랜잭션 성능이 PROPAGABLE LOGGING를 지정하지 않은 Receiver보다 떨어질 수 있다. 
 
 
 
