@@ -14617,7 +14617,7 @@ Unsigned Integer
 
 ##### 설명
 
-네트워크 관련 에러 메시지가 로그파일에 기록될 때, 어떤 로그파일에 기록할지를 설정하는 프로퍼티이다. 기본은 altibase_boot.log에 기록된다. 이 프로퍼티를 1로 설정하면, altibase_cm.log에 기록된다. 이 프로퍼티는 NETWORK_ERROR_LOG가 1일 때만 유효하게 동작한다. NETWORK_ERROR_LOG를 0으로 설정한 경우는 네트워크 관련 에러메시지가 출력되지 않기 때문이다.
+네트워크 관련 에러 메시지가 로그파일에 기록될 때, 어떤 로그파일에 기록할지를 설정하는 프로퍼티이다. 기본은 altibase_boot.log에 기록되고, 이 프로퍼티를 1로 설정하면 altibase_cm.log에 기록된다. 이 프로퍼티는 NETWORK_ERROR_LOG가 1일 때만 유효하게 동작한다. NETWORK_ERROR_LOG를 0으로 설정한 경우는 네트워크 관련 에러메시지가 출력되지 않기 때문이다.
 
 #### QP_MSGLOG_COUNT
 
