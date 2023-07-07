@@ -12528,8 +12528,7 @@ UTC 오프셋이 +09:00이다.
 
 ##### MODULE_NAME
 
-Altibase 모듈의 이름을 나타낸다. 현재 Altibase는 SERVER, QP, RP, SM, MM, CM의 모듈로
-구성되며, 각 모듈 별로 메시지 로그를 남길 수 있다.
+Altibase 모듈의 이름을 나타낸다. 현재 Altibase는 CM, DK, JOB, LB, MM, QP, RP, RP_CONFLICT, SERVER, SM, SNMP, ST의 모듈 별로 메시지 로그를 남길 수 있다.
 
 ##### TRCLEVEL
 
@@ -12604,20 +12603,21 @@ SERVER 99 SUM 7 Total Sum of Trace Log Values
 
 #### 사용 방법
 
-Altibase는 7개의 모듈 SERVER, SM, QP, RP, RP_CONFLICT, MM, CM에 대하여 메시지 로깅
-프로퍼티가 존재한다.
+Altibase는 12개의 모듈 CM, DK, JOB, LB, MM, QP, RP, RP_CONFLICT, SERVER, SM, SNMP, ST에 대하여 메시지 로깅
+프로퍼티가 존재한다. 
 
--   SERVER_MSGLOG_FLAG: 통신 및 서버 메시지
-
--   SM \_MSGLOG_FLAG: 저장관리자 관련 메시지
-
--   QP_MSGLOG_FLAG: 질의처리기 관련 메시지
-
--   RP_MSGLOG_FLAG: 이중화 관련 메시지
-
--   RP_CONFLICT_MSGLOG_FLAG: 이중화 충돌 관련 메시지
-
+-   CM_MSGLOG_FLAG: 통신 관련 메시지
+-   DK_MSGLOG_FLAG: 데이타베이스 링크 관련 메시지
+-   JOB_MSGLOG_FLAG: 작업 스케줄러(JOB Scheculer) 관련 메시지
 -   LB_MSGLOG_FLAG: 서비스 쓰레드 동작 관련 메시지
+-   MM_MSGLOG_FLAG: 메인 모듈 관련 메시지
+-   QP_MSGLOG_FLAG: 질의처리기 관련 메시지
+-   RP_MSGLOG_FLAG: 이중화 관련 메시지
+-   RP_CONFLICT_MSGLOG_FLAG: 이중화 충돌 관련 메시지
+-   SERVER_MSGLOG_FLAG: 통신 및 서버 메시지
+-   SM_MSGLOG_FLAG: 저장관리자 관련 메시지
+-   SNMP_MSGLOG_FLAG: SNMP 서비스 관련 메시지
+-   ST_MSGLOG_FLAG: 공간 데이터 처리 모듈 관련 메시지
 
 각 프로퍼티는 32개의 비트로 설정할 수 있는데, 각 비트에 대한 메시지 종류 및
 설명은 V\$TRACELOG를 참조한다.
