@@ -1355,6 +1355,7 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
   PROPAGATION을 사용한다. 이 기능을 사용할 때 recovery option과 함께 사용할 수
   없다.
 
+  PROPAGATION을 사용한다.
 - ***as master 또는 as slave***  
   해당 서버가 Master 인지 Slave 인지를 지정한다. 만약 아무것도 지정하지 않으면
   기존의 REPLICATION_INSERT_REPLACE 또는 REPLICATION_UPDATE_REPLACE 프로퍼티를
