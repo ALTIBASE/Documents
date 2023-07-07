@@ -12615,7 +12615,7 @@ Altibase는 12개의 모듈 CM, DK, JOB, LB, MM, QP, RP, RP_CONFLICT, SERVER, SM
 -   RP_MSGLOG_FLAG: 이중화 관련 메시지
 -   RP_CONFLICT_MSGLOG_FLAG: 이중화 충돌 관련 메시지
 -   SERVER_MSGLOG_FLAG: 통신 및 서버 메시지
--   SM\_MSGLOG_FLAG: 저장관리자 관련 메시지
+-   SM_MSGLOG_FLAG: 저장관리자 관련 메시지
 -   SNMP_MSGLOG_FLAG: SNMP 서비스 관련 메시지
 -   ST_MSGLOG_FLAG: 공간 데이터 처리 모듈 관련 메시지
 
