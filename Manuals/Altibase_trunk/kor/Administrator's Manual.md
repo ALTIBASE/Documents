@@ -10361,23 +10361,11 @@ changeTracking 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 
 이 파일은 증분 백업 수행에 대한 정보를 저장한다. 한 번의 증분 백업 수행에 대해
 증분 백업 레벨, 백업 종류, 백업 태그 이름, 백업 시작 일시, 백업 완료 일시, 및
-백업 파일의 위치가 증분 백업 수행 시간 순서대로 backupInfo 파일에 저장된다.
+백업 파일의 위치가 증분 백업 수행 시간 순서대로 backupInfo 파일에 저장된다. backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 
 backupInfo 파일은 매체 복원(Media Restore) 시에 복원해야 할 백업 파일의 순서를
 파악할 수 있는 정보를 제공한다. 만약 backupInfo 파일이 존재하지 않으면, 백업
 파일이 존재하더라도 복구가 불가능하다.
-
-backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
-
-> 주의: backupInfo 파일에는 증분 백업이 수행된 일시 순으로 백업 정보가 저장된다.
-> backupInfo 파일이 소실되면 소실된 시점 이전에 생성된 증분 백업 파일은 더 이상
-> 사용이 불가능하다. 이런 경우, backupinfo 파일을 수동으로 삭제하고 다시 증분백업을 수행해야 한다.
->
-> backupinfo 파일을 삭제하려면 아래의 구문으로, Process 단계에서 sysdba 권한으로 수행할 수 있다. 
->
-> ```
-> iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
-> ```
 
 #### 증분 백업 예제
 
@@ -10956,6 +10944,14 @@ iSQL(sysdba)> ALTER DATABASE DELETE OBSOLETE BACKUP FILES;
 이 구문을 수행하면 V\$OBSOLETE_BACKUP_INFO 성능 뷰에 나타나는 백업 파일들만
 삭제된다. V\$OBSOLETE_BACKUP_INFO 성능 뷰에서 아무 것도 조회되지 않는다면
 삭제되는 파일이 없을 것이다.
+
+backupinfo 파일을 삭제하려면 아래의 구문으로, Process 단계에서 sysdba 권한으로 수행할 수 있다. 
+
+```
+iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
+```
+
+
 
 # 12.서버/클라이언트 통신
 
