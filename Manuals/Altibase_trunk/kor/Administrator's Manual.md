@@ -10367,6 +10367,15 @@ backupInfo 파일은 매체 복원(Media Restore) 시에 복원해야 할 백업
 파악할 수 있는 정보를 제공한다. 만약 backupInfo 파일이 존재하지 않으면, 백업
 파일이 존재하더라도 복구가 불가능하다.
 
+> 주의: backupInfo 파일에는 증분 백업이 수행된 일시 순으로 백업정보가 저장되어 있다. 그런데, backupInfo 파일과 백업 파일의 정보가 일치하지 않는 경우는 사용이 불가능하다. 이런 경우 backupInfo 파일을 삭제하고 다시 증분 백업을 수행해야 한다.
+>
+> backupinfo 파일을 삭제하려면 아래의 구문으로, Process 단계에서 sysdba 권한으로 수행할 수 있다. 
+>
+> ```
+> iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
+> ```
+>
+
 #### 증분 백업 예제
 
 데이터베이스와 테이블스페이스 단위로 레벨 0 증분 백업과 레벨 1 증분 백업을
