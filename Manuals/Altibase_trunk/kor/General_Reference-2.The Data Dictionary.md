@@ -2906,12 +2906,12 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 
 ##### ROLE
 
-이중화 쓰레드의 역할을 나타낸다.
+이중화 쓰레드의 롤(ROLE)을 의미한다.
 
 - 0: 일반 이중화
 - 1: Log Analyzer 전용 이중화 
-- 2: Propagable Logging (전파를 위한 이중화된 트랜잭션 로그에 PK를 남기는 수신자 쓰레드 사용)
-- 3: Propagation(수신자 쓰레드의 트랜잭션 로그를 포함하여 로그를 전송하는 이중화 송신자 쓰레드 사용)
+- 2: Propagable Logging 
+- 3: Propagation
 
 Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's Manual을 참고한다.
 
