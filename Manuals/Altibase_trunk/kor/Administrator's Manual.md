@@ -10954,12 +10954,6 @@ iSQL(sysdba)> ALTER DATABASE DELETE OBSOLETE BACKUP FILES;
 삭제된다. V\$OBSOLETE_BACKUP_INFO 성능 뷰에서 아무 것도 조회되지 않는다면
 삭제되는 파일이 없을 것이다.
 
-backupinfo 파일을 삭제하려면 아래의 구문으로, Process 단계에서 sysdba 권한으로 수행할 수 있다. 
-
-```
-iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
-```
-
 
 
 # 12.서버/클라이언트 통신
