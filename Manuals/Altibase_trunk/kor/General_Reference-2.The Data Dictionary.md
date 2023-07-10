@@ -2908,10 +2908,11 @@ SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한�
 
 이중화 쓰레드의 롤(ROLE)을 의미한다.
 
-- 0: 일반 이중화
-- 1: Log Analyzer 전용 이중화 
-- 2: Propagable Logging 
-- 3: Propagation
+- 0: 일반 이중화 (롤을 지정하지 않은 경우)
+- 1: Log Analyzer 전용 이중화 (FOR ANALYSIS 만 사용한 경우)
+- 2: Propagable Logging (FOR PROPAGABLE LOGGING을 사용한 경우)
+- 3: Propagation (FOR PROPAGATION 을 사용한 경우)
+- 4: Log analyzer 용 이중화에서 Propagation 설정 한 경우(FOR ANALYSIS PROPAGATION을 사용한 경우)
 
 Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's Manual을 참고한다.
 
