@@ -10323,7 +10323,7 @@ iSQL(sysdba)> ALTER DATABASE ENABLE INCREMENTAL CHUNK CHANGE TRACKING;
 ```
 
 이 구문은 오직 SERVICE 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적
-기능을 활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에 변경 추적 파일과 backupInfo
+기능을 활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에 변경 추적 파일과 backupinfo
 파일이 생성된다.
 
 페이지 변경 추적 기능을 비활성화하려면 아래의 구문을 사용하라.
@@ -10333,7 +10333,7 @@ iSQL(sysdba)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 ```
 
 이 구문은 모든 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적 기능을
-비활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에서 변경 추적 파일이 삭제된다.
+비활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에서 변경 추적 파일이 삭제된다. bakcupinfo 파일의 삭제는 [backupinfo 파일의 설명](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#backupinfo-%ED%8C%8C%EC%9D%BC)을 참고한다.
 
 > 주의: 페이지 변경 추적 기능을 활성화하더라도 실제로는 변경된 페이지를 바로
 > 추적하지 않는다. 변경 페이지 추적은 레벨 0 백업이 수행될 때 시작한다.
@@ -10357,24 +10357,29 @@ changeTracking 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 >   수 없다.
 >
 
-##### backupInfo 파일
+##### backupinfo 파일
 
 이 파일은 증분 백업 수행에 대한 정보를 저장한다. 한 번의 증분 백업 수행에 대해
 증분 백업 레벨, 백업 종류, 백업 태그 이름, 백업 시작 일시, 백업 완료 일시, 및
-백업 파일의 위치가 증분 백업 수행 시간 순서대로 backupInfo 파일에 저장된다. backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
+백업 파일의 위치가 증분 백업 수행 시간 순서대로 backupinfo 파일에 저장된다. backupinfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 
-backupInfo 파일은 매체 복원(Media Restore) 시에 복원해야 할 백업 파일의 순서를
-파악할 수 있는 정보를 제공한다. 만약 backupInfo 파일이 존재하지 않으면, 백업
+backupinfo 파일은 매체 복원(Media Restore) 시에 복원해야 할 백업 파일의 순서를
+파악할 수 있는 정보를 제공한다. 만약 backupinfo 파일이 존재하지 않으면, 백업
 파일이 존재하더라도 복구가 불가능하다.
 
-> 주의: backupInfo 파일에는 증분 백업이 수행된 일시 순으로 백업정보가 저장되어 있다. 그런데, backupInfo 파일과 백업 파일의 정보가 일치하지 않는 경우는 사용이 불가능하다. 이런 경우 backupInfo 파일을 삭제하고 다시 증분 백업을 수행해야 한다.
+> 주의:
 >
-> backupinfo 파일을 삭제하려면 아래의 구문으로, Process 단계에서 sysdba 권한으로 수행할 수 있다. 
->
-> ```
-> iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
-> ```
->
+>  backupinfo 파일에는 증분 백업이 수행된 일시 순으로 백업정보가 저장되어 있다. 그런데, backupinfo 파일과 백업 파일의 정보가 일치하지 않는 경우는 사용이 불가능하다. 백업 파일의 일부가 소실되어 증분 백업이 무효화 되거나, 필요 없어진 경우는 아래의 구문으로 backupinfo 파일을 삭제할 수 있다. 
+
+###### backupinfo 파일의 삭제
+
+아래의 구문은 sysdba 권한으로 Process 단계에서 수행할 수 있다.
+
+```
+iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
+```
+
+
 
 #### 증분 백업 예제
 
