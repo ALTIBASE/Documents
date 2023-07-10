@@ -1186,7 +1186,7 @@ AltiLinker와 각 이기종 데이터베이스의 JDBC 드라이버간의 데이
 위에서 3번과 6번 단계에서 Altibase 서버와 AltiLinker 간에는 TCP 통신만을
 지원하며, 데이터 교환은 ADLP 프로토콜을 따른다. 또한 AltiLinker는 JDBC
 인터페이스를 사용하여 원격 서버의 데이터베이스에 접근한다. JDBC 관련 설정은
-시스템 환경과 상황에 따라 다를 수 있는데, 이 장에서는 Java SE 1.5 환경을
+시스템 환경과 상황에 따라 다를 수 있는데, 이 장에서는 Java SE 1.8 환경을
 기준으로 설명한다.
 
 ### 환경 설정
@@ -1207,10 +1207,10 @@ AltiLinker와 각 이기종 데이터베이스의 JDBC 드라이버간의 데이
 
 #### JRE 설치
 
-AltiLinker는 JRE 1.5 버전 이상에서 동작하는 자바 응용 프로그램이므로,
-AltiLinker가 동작할 장비에 1.5 버전 이상의 JRE가 설치되어 있어야 한다.
+AltiLinker는 JRE 1.8 버전 이상에서 동작하는 자바 응용 프로그램이므로,
+AltiLinker가 동작할 장비에 1.8 버전 이상의 JRE가 설치되어 있어야 한다.
 
-AltiLiker가 접속할 원격 데이터베이스의 JDBC 드라이버가 1.5 이상 버전의 JRE에서
+AltiLiker가 접속할 원격 데이터베이스의 JDBC 드라이버가 1.8 이상 버전의 JRE에서
 동작한다면, 해당 JDBC 드라이버와 호환되는 버전의 JRE를 설치해야 한다.
 
 JRE 설치 후에는 JAVA_HOME과 CLASSPATH 등의 환경 변수를 설정해야 한다. 아래는
