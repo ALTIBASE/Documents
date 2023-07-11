@@ -14,10 +14,8 @@
     - [BUG-49600 JDBC 4.0 API의 Connection.createBlob(), createClob()을 지원합니다.](#bug-49600jdbc-40-api%EC%9D%98-connectioncreateblob-createclob%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-49985 GROUP BY GROUPING SETS 절에 빈 그룹(Empty Group)을 사용할 때 메모리 효율성을 개선합니다.](#bug-49985group-by-grouping-sets-%EC%A0%88%EC%97%90-%EB%B9%88-%EA%B7%B8%EB%A3%B9empty-group%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%9A%A8%EC%9C%A8%EC%84%B1%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-48074 윈도우 환경에서 loadbalance가 on일때, 랜덤하게 서버가 선택되지 않습니다.](#bug-48074%EC%9C%88%EB%8F%84%EC%9A%B0-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-loadbalance%EA%B0%80-on%EC%9D%BC%EB%95%8C-%EB%9E%9C%EB%8D%A4%ED%95%98%EA%B2%8C-%EC%84%9C%EB%B2%84%EA%B0%80-%EC%84%A0%ED%83%9D%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-48074 윈도우 환경에서 loadbalance가 on일때 랜덤하게 서버가 선택되지 않습니다.](#bug-48074%EC%9C%88%EB%8F%84%EC%9A%B0-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-loadbalance%EA%B0%80-on%EC%9D%BC%EB%95%8C-%EB%9E%9C%EB%8D%A4%ED%95%98%EA%B2%8C-%EC%84%9C%EB%B2%84%EA%B0%80-%EC%84%A0%ED%83%9D%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-49732 압축 컬럼과 압축 컬럼이 키인 인덱스를 가진 테이블의 테이블스페이스를 변경할 때 Altibase 서버가 비정상 종료합니다.](#bug-49732%EC%95%95%EC%B6%95-%EC%BB%AC%EB%9F%BC%EA%B3%BC-%EC%95%95%EC%B6%95-%EC%BB%AC%EB%9F%BC%EC%9D%B4-%ED%82%A4%EC%9D%B8-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EB%A5%BC-%EA%B0%80%EC%A7%84-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%A0-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-49929 로컬 인덱스를 가진 하이브리드 파티션드 테이블을 CREATE TABLE ... SCHEMA ... 구문으로 복제할 때 Altibase 서버가 비정상 종료합니다.](#bug-49929%EB%A1%9C%EC%BB%AC-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EB%A5%BC-%EA%B0%80%EC%A7%84-%ED%95%98%EC%9D%B4%EB%B8%8C%EB%A6%AC%EB%93%9C-%ED%8C%8C%ED%8B%B0%EC%85%98%EB%93%9C-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%84-create-table--schema--%EA%B5%AC%EB%AC%B8%EC%9C%BC%EB%A1%9C-%EB%B3%B5%EC%A0%9C%ED%95%A0-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
-    - [BUG-49965 Multiple update 문의 대상 테이블이 부질의에 MATERIALIZE 힌트를 사용한 뷰일 때 결과 오류가 발생할 수 있습니다.](#bug-49965multiple-update-%EB%AC%B8%EC%9D%98-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%B4-%EB%B6%80%EC%A7%88%EC%9D%98%EC%97%90-materialize-%ED%9E%8C%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%B7%B0%EC%9D%BC-%EB%95%8C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-50013 Adapter 로그(jdbcAdapter.trc 또는 oraAdapter.trc)에 DML 정보를 출력하는 형식을 설정하는 프로퍼티를 추가합니다.](#bug-50013adapter-%EB%A1%9C%EA%B7%B8jdbcadaptertrc-%EB%98%90%EB%8A%94-oraadaptertrc%EC%97%90-dml-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8A%94-%ED%98%95%EC%8B%9D%EC%9D%84-%EC%84%A4%EC%A0%95%ED%95%98%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-50025 CREATE DATABASE 수행 후 바로 STARTUP SERVICE를 수행하면 Altibase 서버가 비정상 종료하거나 ERR-11110 : The index is inconsistent 에러가 발생합니다.](#bug-50025create-database-%EC%88%98%ED%96%89-%ED%9B%84-%EB%B0%94%EB%A1%9C-startup-service%EB%A5%BC-%EC%88%98%ED%96%89%ED%95%98%EB%A9%B4-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EA%B1%B0%EB%82%98-err-11110--the-index-is-inconsistent-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-50033 adapter를 시작할 때​ ALA 로그 파일을 오픈할 수 없으면 코어 파일이 생성됩니다.](#bug-50033adapter%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%A0-%EB%95%8C%E2%80%8B-ala-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%98%A4%ED%94%88%ED%95%A0-%EC%88%98-%EC%97%86%EC%9C%BC%EB%A9%B4-%EC%BD%94%EC%96%B4-%ED%8C%8C%EC%9D%BC%EC%9D%B4-%EC%83%9D%EC%84%B1%EB%90%A9%EB%8B%88%EB%8B%A4)
@@ -30,9 +28,10 @@
     - [BUG-50090 Statement 객체의 다음 결과가 ResultSet 객체가 아닐 때 getMoreResults()에서 true를 반환합니다.](#bug-50090statement-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EB%8B%A4%EC%9D%8C-%EA%B2%B0%EA%B3%BC%EA%B0%80-resultset-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EC%95%84%EB%8B%90-%EB%95%8C-getmoreresults%EC%97%90%EC%84%9C-true%EB%A5%BC-%EB%B0%98%ED%99%98%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-50094 메모리 테이블의 ADD COLUMN 수행 동작을 변경합니다.](#bug-50094%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-add-column-%EC%88%98%ED%96%89-%EB%8F%99%EC%9E%91%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-50096 DDL 복제 실패 이후 HeartBeat 쓰레드의 비정상적인 동작으로 이중화 송신자가 시작되지 않을 수 있습니다.](#bug-50096ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%8C%A8-%EC%9D%B4%ED%9B%84-heartbeat-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9D%B8-%EB%8F%99%EC%9E%91%EC%9C%BC%EB%A1%9C-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%86%A1%EC%8B%A0%EC%9E%90%EA%B0%80-%EC%8B%9C%EC%9E%91%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%84-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-    - [BUG-50098 delete 또는 Multiple delete 문의 대상 테이블이 부질의에 MATERIALIZE 힌트를 사용한 뷰일 때 결과 오류가 발생할 수 있습니다.](#bug-50098delete-%EB%98%90%EB%8A%94-multiple-delete-%EB%AC%B8%EC%9D%98-%EB%8C%80%EC%83%81-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%B4-%EB%B6%80%EC%A7%88%EC%9D%98%EC%97%90-materialize-%ED%9E%8C%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%B7%B0%EC%9D%BC-%EB%95%8C-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
     - [BUG-50106 iSQL에서 desc 명령을 수행하면 ERR-31002 : A single-row subquery has returned more than one row. 에러가 발생합니다.](#bug-50106isql%EC%97%90%EC%84%9C-desc-%EB%AA%85%EB%A0%B9%EC%9D%84-%EC%88%98%ED%96%89%ED%95%98%EB%A9%B4-err-31002--a-single-row-subquery-has-returned-more-than-one-row-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-50131 조건절 검사 시 Altibase 서버가 비정상 종료하는 현상에 대한 예외처리를 추가합니다.](#bug-50131%EC%A1%B0%EA%B1%B4%EC%A0%88-%EA%B2%80%EC%82%AC-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EB%8A%94-%ED%98%84%EC%83%81%EC%97%90-%EB%8C%80%ED%95%9C-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50076 Altibase 7.1.0.7.3 이후 linux 32bit 에서 빌드 실패 문제를 수정 합니다.](#bug-50076altibase-71073-%EC%9D%B4%ED%9B%84-linux-32bit-%EC%97%90%EC%84%9C-%EB%B9%8C%EB%93%9C-%EC%8B%A4%ED%8C%A8-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EC%88%98%EC%A0%95-%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49996 에러메시지에 PCRE2 error: 가 출력되는 문제를 수정합니다.](#bug-49996%EC%97%90%EB%9F%AC%EB%A9%94%EC%8B%9C%EC%A7%80%EC%97%90-pcre2-error-%EA%B0%80-%EC%B6%9C%EB%A0%A5%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -184,30 +183,29 @@ GROUP BY GROUPING SETS 절에 빈 그룹(Empty Group)을 사용할 때 메모리
 Fixed Bugs
 ==========
 
-### BUG-48074 윈도우 환경에서 loadbalance가 on일때, 랜덤하게 서버가 선택되지 않습니다.
+### BUG-48074 윈도우 환경에서 loadbalance가 on일때 랜덤하게 서버가 선택되지 않습니다. 
 
 #### module
 
-`mm-cli`
+``mm-cli``
 
 #### Category
 
-`Functional Error`
+``Functional Error``
 
-#### 재현 빈도 
+#### 재현 빈도
 
 `Always`
 
-#### 설명 
+#### 설명
 
 윈도우 환경에서 loadbalance가 on일때 Altibase 서버가 랜덤하게 선택되지 않는 버그를 수정합니다.
-
 
 #### 재현 방법
 
 -   **재현 절차**
 
--   **수행 결과**
+-   **수행 결과** 
 
 -   **예상 결과**
 
@@ -270,268 +268,6 @@ Fixed Bugs
 -   Property
 -   Compile Option
 -   Error Code
-
-### BUG-49929 로컬 인덱스를 가진 하이브리드 파티션드 테이블을 CREATE TABLE ... SCHEMA ... 구문으로 복제할 때 Altibase 서버가 비정상 종료합니다.
-
-#### module
-
-
-`sm`
-
-#### Category  
-
-
-`Fatal`
-
-#### 재현 빈도 
-
-
-`Always`
-
-#### 설명  
-
-로컬 인덱스를 가진 하이브리드 파티션드 테이블을 CREATE TABLE ... SCHEMA ... 구문으로 복제할 때 Altibase 서버가 비정상 종료하는 버그를 수정합니다.
-
-
-#### 재현 방법
-
--   **재현 절차**
-
-    ```sql
-    CREATE DISK TABLESPACE DISK_TBS_0 DATAFILE 'DISK_TBS_0' SIZE 32M AUTOEXTEND ON;
-    CREATE MEMORY TABLESPACE MEM_TBS_0 SIZE 32M AUTOEXTEND ON;
-    CREATE TABLE T1 
-    ( I1 INTEGER, 
-      I2 VARCHAR(256), 
-      CONSTRAINT T1CONSTR UNIQUE ( I1 ASC, I2 DESC ) 
-      USING INDEX LOCAL 
-      ( PARTITION T1P1IDX ON P1, 
-        PARTITION T1P2IDX ON P2
-      ) 
-    ) 
-    PARTITION BY HASH (I1) 
-    ( PARTITION P1 TABLESPACE MEM_TBS_0, 
-      PARTITION P2 TABLESPACE DISK_TBS_0
-    ) 
-    ;
-    CREATE TABLE T1_COPY FROM TABLE SCHEMA T1 USING PREFIX P;
-    ```
-
--   **수행 결과**
-
-    ```sql
-    ERR-91015 : Communication failure.
-    ```
-
--   **예상 결과**
-
-    ```sql
-    Create success.
-    ```
-
-#### Workaround
-
-`없음`
-
-#### 변경사항
-
--   Performance view
--   Property
--   Compile Option
--   Error Code
-
-### BUG-49965 Multiple update 문의 대상 테이블이 부질의에 MATERIALIZE 힌트를 사용한 뷰일 때 결과 오류가 발생할 수 있습니다.
-
-#### module
-
-`qp-dml-pvo`
-
-#### Category
-
-`Functional Error`
-
-#### 재현 빈도 
-
-`Always`
-
-#### 설명  
-
-Multiple update 문의 대상 테이블이 부질의에 MATERIALIZE 힌트를 사용한 뷰일 때 결과 오류가 발생하는 버그를 수정합니다.
-
-
-#### 재현 방법
-
--   **재현 절차**
-
-    ```sql
-    DROP VIEW V1;
-    DROP VIEW V2;
-    DROP TABLE T1;
-    CREATE TABLE T1( I1 INTEGER, I2 INTEGER, I3 INTEGER, I4 INTEGER );
-    CREATE VIEW V1 AS SELECT I1, I2 FROM T1;
-    CREATE VIEW V2 AS SELECT /*+ MATERIALIZE */ I1, I2 FROM T1;
-    INSERT INTO T1 SELECT ROWNUM, ROWNUM + 1, ROWNUM, ROWNUM + 1 FROM DUAL CONNECT BY LEVEL <= 20;
-    SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4; 
-    UPDATE V1 INNER JOIN V1 V3 ON V1.I1 = V3.I1 SET V1.I1 = V1.I1 + 1  WHERE V1.I1 = 1 OR V3.I1 = 2;
-    SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    UPDATE V1 INNER JOIN V2 V3 ON V1.I1 = V3.I1 SET V1.I1 = V1.I1 + 1  WHERE V1.I1 = 4 OR V3.I1 = 5;
-    SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    UPDATE V2 INNER JOIN V1 V3 ON V2.I1 = V3.I1 SET V2.I1 = V2.I1 + 1  WHERE V2.I1 = 7 OR V3.I1 = 8;
-    SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    UPDATE V2 INNER JOIN V2 V3 ON V2.I1 = V3.I1 SET V2.I1 = V2.I1 + 1  WHERE V2.I1 = 10 OR V3.I1 = 11;
-    SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    ```
-
--   **수행 결과**
-
-    ```sql
-    iSQL> DROP VIEW V1;
-    Drop success.
-    iSQL> DROP VIEW V2;
-    Drop success.
-    iSQL> DROP TABLE T1;
-    Drop success.
-    iSQL> CREATE TABLE T1( I1 INTEGER, I2 INTEGER, I3 INTEGER, I4 INTEGER );
-    Create success.
-    iSQL> CREATE VIEW V1 AS SELECT I1, I2 FROM T1;
-    Create success.
-    iSQL> CREATE VIEW V2 AS SELECT /*+ MATERIALIZE */ I1, I2 FROM T1;
-    Create success.
-    iSQL> INSERT INTO T1 SELECT ROWNUM, ROWNUM + 1, ROWNUM, ROWNUM + 1 FROM DUAL CONNECT BY LEVEL <= 20;
-    20 rows inserted.
-    iSQL> 
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4; 
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    No rows selected.
-    iSQL> 
-    iSQL> UPDATE V1 INNER JOIN V1 V3 ON V1.I1 = V3.I1 SET V1.I1 = V1.I1 + 1  WHERE V1.I1 = 1 OR V3.I1 = 2;
-    2 rows updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    2 rows selected.
-    iSQL> 
-    iSQL> UPDATE V1 INNER JOIN V2 V3 ON V1.I1 = V3.I1 SET V1.I1 = V1.I1 + 1  WHERE V1.I1 = 4 OR V3.I1 = 5;
-    2 rows updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    5           5           4           5           
-    6           6           5           6           
-    4 rows selected.
-    iSQL>  
-    iSQL> UPDATE V2 INNER JOIN V1 V3 ON V2.I1 = V3.I1 SET V2.I1 = V2.I1 + 1  WHERE V2.I1 = 7 OR V3.I1 = 8;
-    1 row updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    5           5           4           5           
-    8           6           5           6           
-    4 rows selected.
-    iSQL>  
-    iSQL> UPDATE V2 INNER JOIN V2 V3 ON V2.I1 = V3.I1 SET V2.I1 = V2.I1 + 1  WHERE V2.I1 = 10 OR V3.I1 = 11;
-    1 row updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    5           5           4           5           
-    11          6           5           6           
-    4 rows selected.
-    ```
-
--   **예상 결과**
-
-    ```sql
-    iSQL> DROP VIEW V1;
-    Drop success.
-    iSQL> DROP VIEW V2;
-    Drop success.
-    iSQL> DROP TABLE T1;
-    Drop success.
-    iSQL> CREATE TABLE T1( I1 INTEGER, I2 INTEGER, I3 INTEGER, I4 INTEGER );
-    Create success.
-    iSQL> CREATE VIEW V1 AS SELECT I1, I2 FROM T1;
-    Create success.
-    iSQL> CREATE VIEW V2 AS SELECT /*+ MATERIALIZE */ I1, I2 FROM T1;
-    Create success.
-    iSQL> INSERT INTO T1 SELECT ROWNUM, ROWNUM + 1, ROWNUM, ROWNUM + 1 FROM DUAL CONNECT BY LEVEL <= 20;
-    20 rows inserted.
-    iSQL> 
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4; 
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    No rows selected.
-    iSQL> 
-    iSQL> UPDATE V1 INNER JOIN V1 V3 ON V1.I1 = V3.I1 SET V1.I1 = V1.I1 + 1  WHERE V1.I1 = 1 OR V3.I1 = 2;
-    2 rows updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    2 rows selected.
-    iSQL> 
-    iSQL> UPDATE V1 INNER JOIN V2 V3 ON V1.I1 = V3.I1 SET V1.I1 = V1.I1 + 1  WHERE V1.I1 = 4 OR V3.I1 = 5;
-    2 rows updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    5           5           4           5           
-    6           6           5           6           
-    4 rows selected.
-    iSQL>  
-    iSQL> UPDATE V2 INNER JOIN V1 V3 ON V2.I1 = V3.I1 SET V2.I1 = V2.I1 + 1  WHERE V2.I1 = 7 OR V3.I1 = 8;
-    1 row updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    5           5           4           5           
-    6           6           5           6
-    8           8           7           8           
-    9           9           8           9
-    6 rows selected.
-    iSQL>  
-    iSQL> UPDATE V2 INNER JOIN V2 V3 ON V2.I1 = V3.I1 SET V2.I1 = V2.I1 + 1  WHERE V2.I1 = 10 OR V3.I1 = 11;
-    1 row updated.
-    iSQL> SELECT * FROM T1 WHERE I1 <> I3 OR I2 <> I4;
-    T1.I1       T1.I2       T1.I3       T1.I4       
-    -----------------------------------------------------
-    2           2           1           2           
-    3           3           2           3           
-    5           5           4           5           
-    6           6           5           6
-    8           8           7           8           
-    9           9           8           9
-    10          10          9           10           
-    11          11          10          11         
-    8 rows selected.
-    ```
-
-#### Workaround
-
-`없음`
-
-#### 변경사항
-
--   Performance view
--   Property
--   Compile Option
--   Error Code
-
-
 
 ### BUG-50013 Adapter 로그(jdbcAdapter.trc 또는 oraAdapter.trc)에 DML 정보를 출력하는 형식을 설정하는 프로퍼티를 추가합니다.
 
@@ -663,7 +399,8 @@ CREATE DATABASE 수행 후 바로 STARTUP SERVICE를 수행하면 Altibase 서�
 -   **예상 결과**
 
     ```sql
-    iSQL(sysdba)> DROP USER ALTITEST;Drop success.
+    iSQL(sysdba)> DROP USER ALTITEST;
+    Drop success.
     ```
 
 #### Workaround
@@ -960,7 +697,7 @@ aku -p end 수행 동작을 변경합니다. 데이터 불일치가 발생할 �
 
 #### 설명 
 
-SET 절의 서브쿼리에서 multiple update의 대상을 참조하면 ERR-31455 : Failed to work because an internal exception occurred from an OS. 에러가 발생하거나 Altibase 서버가 비정상 종료하는 버그를 수정합니다.  이 버그는 simple view mersing 기능이 활성화되어 있을 때 발생합니다.
+SET 절의 서브쿼리에서 multiple update의 대상을 참조하면 ERR-31455 : Failed to work because an internal exception occurred from an OS. 에러가 발생하거나 Altibase 서버가 비정상 종료하는 버그를 수정합니다.  이 버그는 simple view merging 기능이 활성화되어 있을 때 발생합니다.
 
 
 #### 재현 방법
@@ -1188,183 +925,6 @@ DDL 복제 실패 후 이중화를 종료할 때 HeartBeat 쓰레드가 정상�
 -   Compile Option
 -   Error Code
 
-### BUG-50098 delete 또는 Multiple delete 문의 대상 테이블이 부질의에 MATERIALIZE 힌트를 사용한 뷰일 때 결과 오류가 발생할 수 있습니다.
-
-#### module
-
-`qp-dml-pvo`
-
-#### Category  
-
-`Functional Error`
-
-#### 재현 빈도 
-
-`Always`
-
-#### 설명  
-
-delete 또는 Multiple delete 문의 대상 테이블이 부질의에 MATERIALIZE 힌트를 사용한 뷰일 때 결과 오류가 발생하는 버그를 수정합니다.
-
-
-#### 재현 방법
-
--   **재현 절차**
-
-    ```sql
-    CREATE TABLE T1( I1 INTEGER );
-    CREATE VIEW V1 AS SELECT I1 I1 FROM T1;
-    CREATE VIEW V2 AS SELECT /*+ MATERIALIZE */ I1 I1 FROM T1;
-    
-    TRUNCATE TABLE T1;
-    
-    INSERT INTO T1 VALUES ( 1 );
-    INSERT INTO T1 VALUES ( 2 );
-    DELETE FROM V1 T1 WHERE T1.I1 = ( SELECT * FROM V1 T2 WHERE T2.I1 = 1 );
-    SELECT * FROM T1;
-    
-    TRUNCATE TABLE T1;
-    
-    INSERT INTO T1 VALUES ( 1 );
-    INSERT INTO T1 VALUES ( 2 );
-    DELETE FROM V2 T1 WHERE T1.I1 = ( SELECT * FROM V1 T2 WHERE T2.I1 = 1 );
-    SELECT * FROM T1;
-    
-    TRUNCATE TABLE T1;
-    
-    INSERT INTO T1 VALUES ( 1 );
-    INSERT INTO T1 VALUES ( 2 );
-    DELETE FROM T1 USING V2 T1 INNER JOIN V1 T2 ON T1.I1 = T2.I1 WHERE T2.I1 = 1;
-    SELECT * FROM T1;
-    ```
-
--   **수행 결과**
-
-    ```sql
-    iSQL> CREATE TABLE T1( I1 INTEGER );
-    Create success.
-    iSQL> CREATE VIEW V1 AS SELECT I1 I1 FROM T1;
-    Create success.
-    iSQL> CREATE VIEW V2 AS SELECT /*+ MATERIALIZE */ I1 I1 FROM T1;
-    Create success.
-    iSQL> 
-    iSQL> TRUNCATE TABLE T1;
-    Truncate success.
-    iSQL> 
-    iSQL> INSERT INTO T1 VALUES ( 1 );
-    1 row inserted.
-    iSQL> INSERT INTO T1 VALUES ( 2 );
-    1 row inserted.
-    iSQL> DELETE FROM V1 T1 WHERE T1.I1 = ( SELECT * FROM V1 T2 WHERE T2.I1 = 1 );
-    1 row deleted.
-    iSQL> SELECT * FROM T1;
-    I1          
-    --------------
-    1           
-    1 row selected.
-    iSQL> 
-    iSQL> 
-    iSQL> TRUNCATE TABLE T1;
-    Truncate success.
-    iSQL> 
-    iSQL> INSERT INTO T1 VALUES ( 1 );
-    1 row inserted.
-    iSQL> INSERT INTO T1 VALUES ( 2 );
-    1 row inserted.
-    iSQL> DELETE FROM V2 T1 WHERE T1.I1 = ( SELECT * FROM V1 T2 WHERE T2.I1 = 1 );
-    1 row deleted.
-    iSQL> SELECT * FROM T1;
-    I1          
-    --------------
-    1           
-    1 row selected.
-    iSQL> 
-    iSQL> 
-    iSQL> TRUNCATE TABLE T1;
-    Truncate success.
-    iSQL> 
-    iSQL> INSERT INTO T1 VALUES ( 1 );
-    1 row inserted.
-    iSQL> INSERT INTO T1 VALUES ( 2 );
-    1 row inserted.
-    iSQL> DELETE FROM T1 USING V2 T1 INNER JOIN V1 T2 ON T1.I1 = T2.I1 WHERE T2.I1 = 1;
-    1 row deleted.
-    iSQL> SELECT * FROM T1;
-    I1          
-    --------------
-    1           
-    1 row selected.
-    ```
-
--   **예상 결과**
-
-    ```sql
-    iSQL> CREATE TABLE T1( I1 INTEGER );
-    Create success.
-    iSQL> CREATE VIEW V1 AS SELECT I1 I1 FROM T1;
-    Create success.
-    iSQL> CREATE VIEW V2 AS SELECT /*+ MATERIALIZE */ I1 I1 FROM T1;
-    Create success.
-    iSQL> 
-    iSQL> TRUNCATE TABLE T1;
-    Truncate success.
-    iSQL> 
-    iSQL> INSERT INTO T1 VALUES ( 1 );
-    1 row inserted.
-    iSQL> INSERT INTO T1 VALUES ( 2 );
-    1 row inserted.
-    iSQL> DELETE FROM V1 T1 WHERE T1.I1 = ( SELECT * FROM V1 T2 WHERE T2.I1 = 1 );
-    1 row deleted.
-    iSQL> SELECT * FROM T1;
-    I1          
-    --------------
-    2           
-    1 row selected.
-    iSQL> 
-    iSQL> 
-    iSQL> TRUNCATE TABLE T1;
-    Truncate success.
-    iSQL> 
-    iSQL> INSERT INTO T1 VALUES ( 1 );
-    1 row inserted.
-    iSQL> INSERT INTO T1 VALUES ( 2 );
-    1 row inserted.
-    iSQL> DELETE FROM V2 T1 WHERE T1.I1 = ( SELECT * FROM V1 T2 WHERE T2.I1 = 1 );
-    1 row deleted.
-    iSQL> SELECT * FROM T1;
-    I1          
-    --------------
-    2           
-    1 row selected.
-    iSQL> 
-    iSQL> 
-    iSQL> TRUNCATE TABLE T1;
-    Truncate success.
-    iSQL> 
-    iSQL> INSERT INTO T1 VALUES ( 1 );
-    1 row inserted.
-    iSQL> INSERT INTO T1 VALUES ( 2 );
-    1 row inserted.
-    iSQL> DELETE FROM T1 USING V2 T1 INNER JOIN V1 T2 ON T1.I1 = T2.I1 WHERE T2.I1 = 1;
-    1 row deleted.
-    iSQL> SELECT * FROM T1;
-    I1          
-    --------------
-    2           
-    1 row selected.
-    ```
-
-#### Workaround
-
-`없음`
-
-#### 변경사항
-
--   Performance view
--   Property
--   Compile Option
--   Error Code
-
 ### BUG-50106 iSQL에서 desc 명령을 수행하면 ERR-31002 : A single-row subquery has returned more than one row. 에러가 발생합니다.
 
 #### module
@@ -1485,6 +1045,86 @@ iSQL에서 desc 명령을 수행하면 ERR-31002 : A single-row subquery has ret
 -   Compile Option
 -   Error Code
 
+### BUG-50076 Altibase 7.1.0.7.3 이후 linux 32bit 에서 빌드 실패 문제를 수정 합니다.
+
+-   **module** : sm
+
+-   **Category** : Compile Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : Altibase 7.1.0.7.3 이후 linux 32bit 에서 컴파일 오류 발생하는 문제를 수정하였습니다. 이 버그의 수정으로 Altibase 7.1.0.7.3 ~7.1.0.8.2 에서 linux 32bit 클라이언트 패키지를 전달할수 없던 문제가 해결되었습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-49996 에러메시지에 PCRE2 error: 가 출력되는 문제를 수정합니다.
+
+- **module** : st
+
+- **Category** : Other
+
+- **재현 빈도** : Always
+
+- **설명** : 에러메시지에 PCRE2: 가 출력되는 문제를 수정하고, cause의 내용을 수정합니다.
+
+  (기존)
+
+  SQL> select regexp_like('c', '[');
+
+  [ERR-2106C : PCRE2 error: missing terminating ] for character class (occurred in qsfPCRERegExp::expCompile4Estimate)
+
+  0001 : select REGEXP_LIKE('c', '[')
+
+  (변경)
+
+  SQL> select regexp_like('c', '[');
+
+  [ERR-2106C : error: missing terminating ] for character class (occurred in qsfPCRERegExp::expCompile4Estimate)
+
+  0001 : select REGEXP_LIKE('c', '[')
+
+- **재현 방법**
+
+  -   **재현 절차**
+
+  -   **수행 결과**
+
+  -   **예상 결과**
+
+- **Workaround**
+
+- **변경사항**
+
+  - Performance view
+
+  - Property
+
+  - Compile Option
+
+  - Error Code
+
+    에러메시지가 변경되었습니다.
+
+    (기존) [ERR-2106C : PCRE2 error: missing terminating ]
+
+    (변경) [ERR-2106C : error: missing terminating ]
+
+    
+
 Changes
 =======
 
@@ -1517,6 +1157,8 @@ Replication 프로토콜 버전은 변경되지 않았다.
 ### 프로퍼티
 
 #### 추가된 프로퍼티
+
+* AKU_FLUSH_AT_END
 
 #### 변경된 프로퍼티
 
