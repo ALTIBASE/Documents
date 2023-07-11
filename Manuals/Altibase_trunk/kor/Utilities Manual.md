@@ -2177,9 +2177,9 @@ REPLICATIONS = (
 | AKU_PORT_NO                          | 20300  | Altibase 서버의 서비스 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_REPLICATION_PORT_NO              | 20301  | Altibase 이중화 포트.<br />설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
 | AKU_QUERY_TIMEOUT                    |  3600  | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. ALTER REPLICATION 등 aku에서 수행한 SQL의 수행 시간이 이 값을 초과하면 해당 문장은 취소된다. |
-| AKU_FLUSH_AT_START                   |   1    | aku -p start시 FLUSH 명령으로 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 갭을 제거하며, 0이면 제거하지 않고 시작한다. |
+| AKU_FLUSH_AT_START                   |   1    | aku -p start 명령 수행 시 FLUSH 명령으로 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 갭을 제거하며, 0이면 제거하지 않고 시작한다. |
 | AKU_FLUSH_TIMEOUT_AT_START           |  300   | FLUSH WAIT 명령의 *wait_time*을 설정한다. AKU_FLUSH_AT_STAT가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
-| AKU_FLUSH_AT_END                     |   1    | 슬레이브 파드에서 aku -p end 명령을 수행할 때 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
+| AKU_FLUSH_AT_END                     |   1    | 슬레이브 파드에서 aku -p end 명령을 수행 시 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
 | AKU_ADDRESS_CHECK_COUNT              |   30   | aku -p start가 명령을 수행할 때 이 값의 횟수만큼 local ip 접속을 시도한다. <br />쿠버네티스 서비스에 생성하고 있는 파드의 local dns가 엔드포인트에 등록될 때까지 대기하며 재접속을 시도한다. |
 | REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>*REPLICATION_NAME_PREFIX*_\[*파드번호*]\[*파드번호*\]  형태로 이중화 객체 이름을 생성한다.<sup>[이중화 객체 이름 생성 규칙](#rep_name_rules)</sup> |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
@@ -2386,11 +2386,11 @@ startup probe, publishNotReadyAddresses 에 대한 자세한 내용은 쿠버네
 
 ### 마스터 파드 장애 후 aku -p start 명령 수행 시
 
-마스터 파드 장애시 사용자가 확인하여 데이터 정합성을 맞추어야한다. 마스터 파드의 테이블을 truncate 후 슬레이브 파드에서 이중화 sync를 수행한다.
+마스터 파드 장애 시 사용자가 확인하여 데이터 정합성을 맞추어야한다. 마스터 파드의 테이블을 truncate 후 슬레이브 파드에서 이중화 sync를 수행한다.
 
 데이터 정합성을 맞춘 뒤 aku -p start 명령을 수행해야 하는데, aku 에서 수동 복구를 감지 할 수 없기 때문에 aku에서 관리하는 이중화 중 아무거나 시작한 뒤 aku -p start를 수행한다.
 
-예) ALTER REPLICATION AKU_REP_01 START
+예) ALTER REPLICATION AKU_REP_01 START;
 
 ### aku -p end 명령 수행 시
 
@@ -3653,7 +3653,7 @@ COUNT,AVG,TOTAL,MIN,MAX,SUCCES,FAIL,QUERY
 | Disk Full Scan Count                   | BIGINT       | 디스크 테이블에 대한 Full Scan이 발생한 횟수               |
 | Disk Index Scan Count                  | BIGINT       | 디스크 테이블에 대한 Iindex Scan이 발생한 횟수             |
 | **Disk Access Info**                   |              |                                                            |
-| READ DATA PAGE                         | BIGINT       | 질의 수행시 디스크 페이지에 대한 읽기 연산 횟수            |
+| READ DATA PAGE                         | BIGINT       | 질의 수행 시 디스크 페이지에 대한 읽기 연산 횟수           |
 | WRITE DATA PAGE                        | BIGINT       | 사용하지 않음                                              |
 | GET DATA PAGE                          | BIGINT       | 질의 수행 시 디스크 페이지에 대한 버퍼 접근 횟수           |
 | CREATE DATA PAGE                       | BIGINT       | 질의 수행 시 디스크 페이지 생성 횟수                       |
