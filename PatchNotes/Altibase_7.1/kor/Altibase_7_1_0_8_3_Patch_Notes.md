@@ -9,32 +9,34 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [New Features](#new-features)
-  - [BUG-49600 JDBC 4.0 API의 Connection.createBlob(), createClob()을 지원합니다.](#bug-49600jdbc-40-api%EC%9D%98-connectioncreateblob-createclob%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-49985 GROUP BY GROUPING SETS 절에 빈 그룹(Empty Group)을 사용할 때 메모리 효율성을 개선합니다.](#bug-49985group-by-grouping-sets-%EC%A0%88%EC%97%90-%EB%B9%88-%EA%B7%B8%EB%A3%B9empty-group%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%9A%A8%EC%9C%A8%EC%84%B1%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49600 JDBC 4.0 API의 Connection.createBlob(), createClob()을 지원합니다.](#bug-49600jdbc-40-api%EC%9D%98-connectioncreateblob-createclob%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-49985 GROUP BY GROUPING SETS 절에 빈 그룹(Empty Group)을 사용할 때 메모리 효율성을 개선합니다.](#bug-49985group-by-grouping-sets-%EC%A0%88%EC%97%90-%EB%B9%88-%EA%B7%B8%EB%A3%B9empty-group%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%9A%A8%EC%9C%A8%EC%84%B1%EC%9D%84-%EA%B0%9C%EC%84%A0%ED%95%A9%EB%8B%88%EB%8B%A4)
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-49732 압축 컬럼과 압축 컬럼이 키인 인덱스를 가진 테이블의 테이블스페이스를 변경할 때 Altibase 서버가 비정상 종료합니다.](#bug-49732%EC%95%95%EC%B6%95-%EC%BB%AC%EB%9F%BC%EA%B3%BC-%EC%95%95%EC%B6%95-%EC%BB%AC%EB%9F%BC%EC%9D%B4-%ED%82%A4%EC%9D%B8-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EB%A5%BC-%EA%B0%80%EC%A7%84-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%A0-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50013 Adapter 로그(jdbcAdapter.trc 또는 oraAdapter.trc)에 DML 정보를 출력하는 형식을 설정하는 프로퍼티를 추가합니다.](#bug-50013adapter-%EB%A1%9C%EA%B7%B8jdbcadaptertrc-%EB%98%90%EB%8A%94-oraadaptertrc%EC%97%90-dml-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8A%94-%ED%98%95%EC%8B%9D%EC%9D%84-%EC%84%A4%EC%A0%95%ED%95%98%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50025 CREATE DATABASE 수행 후 바로 STARTUP SERVICE를 수행하면 Altibase 서버가 비정상 종료하거나 ERR-11110 : The index is inconsistent 에러가 발생합니다.](#bug-50025create-database-%EC%88%98%ED%96%89-%ED%9B%84-%EB%B0%94%EB%A1%9C-startup-service%EB%A5%BC-%EC%88%98%ED%96%89%ED%95%98%EB%A9%B4-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EA%B1%B0%EB%82%98-err-11110--the-index-is-inconsistent-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50033 adapter를 시작할 때​ ALA 로그 파일을 오픈할 수 없으면 코어 파일이 생성됩니다.](#bug-50033adapter%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%A0-%EB%95%8C%E2%80%8B-ala-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%98%A4%ED%94%88%ED%95%A0-%EC%88%98-%EC%97%86%EC%9C%BC%EB%A9%B4-%EC%BD%94%EC%96%B4-%ED%8C%8C%EC%9D%BC%EC%9D%B4-%EC%83%9D%EC%84%B1%EB%90%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50057 ROLLUP 함수와 집계 함수 그리고 ORDER BY 절을 함께 사용하면 결과 오류가 발생합니다.](#bug-50057rollup-%ED%95%A8%EC%88%98%EC%99%80-%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98-%EA%B7%B8%EB%A6%AC%EA%B3%A0-order-by-%EC%A0%88%EC%9D%84-%ED%95%A8%EA%BB%98-%EC%82%AC%EC%9A%A9%ED%95%98%EB%A9%B4-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50058 DROP REPLICATION 수행 시 이중화 수신자 쓰레드가 종료되지 않을 수 있는 메모리 참조 오류를 수정합니다.](#bug-50058drop-replication-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%98%EC%8B%A0%EC%9E%90-%EC%93%B0%EB%A0%88%EB%93%9C%EA%B0%80-%EC%A2%85%EB%A3%8C%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%84-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%B0%B8%EC%A1%B0-%EC%98%A4%EB%A5%98%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50059 aku -p end 수행 동작을 변경합니다. 이중화 FLUSH 명령을 수행한 후에 이중화를 중지합니다.](#bug-50059aku--p-end-%EC%88%98%ED%96%89-%EB%8F%99%EC%9E%91%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4-%EC%9D%B4%EC%A4%91%ED%99%94-flush-%EB%AA%85%EB%A0%B9%EC%9D%84-%EC%88%98%ED%96%89%ED%95%9C-%ED%9B%84%EC%97%90-%EC%9D%B4%EC%A4%91%ED%99%94%EB%A5%BC-%EC%A4%91%EC%A7%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50061 updatable view에 집합 연산자를 사용했을 때 예외 처리를 변경합니다.](#bug-50061updatable-view%EC%97%90-%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%96%88%EC%9D%84-%EB%95%8C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50071 SET 절의 서브쿼리에서 multiple update의 대상을 참조하면 ERR-31455 에러가 발생하거나 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-50071set-%EC%A0%88%EC%9D%98-%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC%EC%97%90%EC%84%9C-multiple-update%EC%9D%98-%EB%8C%80%EC%83%81%EC%9D%84-%EC%B0%B8%EC%A1%B0%ED%95%98%EB%A9%B4-err-31455-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EA%B1%B0%EB%82%98-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-  - [BUG-50082 비정상적으로 종료된 슬레이브 파드에서 aku -p start 수행 동작을 변경합니다. 이중화 시작 후 FLUSH 명령을 수행합니다.](#bug-50082%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%A2%85%EB%A3%8C%EB%90%9C-%EC%8A%AC%EB%A0%88%EC%9D%B4%EB%B8%8C-%ED%8C%8C%EB%93%9C%EC%97%90%EC%84%9C-aku--p-start-%EC%88%98%ED%96%89-%EB%8F%99%EC%9E%91%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8B%9C%EC%9E%91-%ED%9B%84-flush-%EB%AA%85%EB%A0%B9%EC%9D%84-%EC%88%98%ED%96%89%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50090 Statement 객체의 다음 결과가 ResultSet 객체가 아닐 때 getMoreResults()에서 true를 반환합니다.](#bug-50090statement-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EB%8B%A4%EC%9D%8C-%EA%B2%B0%EA%B3%BC%EA%B0%80-resultset-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EC%95%84%EB%8B%90-%EB%95%8C-getmoreresults%EC%97%90%EC%84%9C-true%EB%A5%BC-%EB%B0%98%ED%99%98%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50094 메모리 테이블의 ADD COLUMN 수행 동작을 변경합니다.](#bug-50094%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-add-column-%EC%88%98%ED%96%89-%EB%8F%99%EC%9E%91%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50096 DDL 복제 실패 이후 HeartBeat 쓰레드의 비정상적인 동작으로 이중화 송신자가 시작되지 않을 수 있습니다.](#bug-50096ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%8C%A8-%EC%9D%B4%ED%9B%84-heartbeat-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9D%B8-%EB%8F%99%EC%9E%91%EC%9C%BC%EB%A1%9C-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%86%A1%EC%8B%A0%EC%9E%90%EA%B0%80-%EC%8B%9C%EC%9E%91%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%84-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
-  - [BUG-50106 iSQL에서 desc 명령을 수행하면 ERR-31002 : A single-row subquery has returned more than one row. 에러가 발생합니다.](#bug-50106isql%EC%97%90%EC%84%9C-desc-%EB%AA%85%EB%A0%B9%EC%9D%84-%EC%88%98%ED%96%89%ED%95%98%EB%A9%B4-err-31002--a-single-row-subquery-has-returned-more-than-one-row-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50131 조건절 검사 시 Altibase 서버가 비정상 종료하는 현상에 대한 예외처리를 추가합니다.](#bug-50131%EC%A1%B0%EA%B1%B4%EC%A0%88-%EA%B2%80%EC%82%AC-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EB%8A%94-%ED%98%84%EC%83%81%EC%97%90-%EB%8C%80%ED%95%9C-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-  - [BUG-50076 Altibase 7.1.0.7.3 이후 linux 32bit 에서 빌드 실패 문제를 수정 합니다.](#bug-50076-altibase-7.1.0.7.3-이후-linux-32bit-에서-빌드-실패-문제를-수정-합니다.)
-  - [BUG-49996 에러메시지에 PCRE2 error: 가 출력되는 문제를 수정합니다.](#bug-49996-에러메시지에-pcre2-error:-가-출력되는-문제를-수정합니다.)
+    - [BUG-48074 윈도우 환경에서 loadbalance가 on일때 랜덤하게 서버가 선택되지 않습니다.](#bug-48074%EC%9C%88%EB%8F%84%EC%9A%B0-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-loadbalance%EA%B0%80-on%EC%9D%BC%EB%95%8C-%EB%9E%9C%EB%8D%A4%ED%95%98%EA%B2%8C-%EC%84%9C%EB%B2%84%EA%B0%80-%EC%84%A0%ED%83%9D%EB%90%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-49732 압축 컬럼과 압축 컬럼이 키인 인덱스를 가진 테이블의 테이블스페이스를 변경할 때 Altibase 서버가 비정상 종료합니다.](#bug-49732%EC%95%95%EC%B6%95-%EC%BB%AC%EB%9F%BC%EA%B3%BC-%EC%95%95%EC%B6%95-%EC%BB%AC%EB%9F%BC%EC%9D%B4-%ED%82%A4%EC%9D%B8-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EB%A5%BC-%EA%B0%80%EC%A7%84-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%A0-%EB%95%8C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50013 Adapter 로그(jdbcAdapter.trc 또는 oraAdapter.trc)에 DML 정보를 출력하는 형식을 설정하는 프로퍼티를 추가합니다.](#bug-50013adapter-%EB%A1%9C%EA%B7%B8jdbcadaptertrc-%EB%98%90%EB%8A%94-oraadaptertrc%EC%97%90-dml-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8A%94-%ED%98%95%EC%8B%9D%EC%9D%84-%EC%84%A4%EC%A0%95%ED%95%98%EB%8A%94-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50025 CREATE DATABASE 수행 후 바로 STARTUP SERVICE를 수행하면 Altibase 서버가 비정상 종료하거나 ERR-11110 : The index is inconsistent 에러가 발생합니다.](#bug-50025create-database-%EC%88%98%ED%96%89-%ED%9B%84-%EB%B0%94%EB%A1%9C-startup-service%EB%A5%BC-%EC%88%98%ED%96%89%ED%95%98%EB%A9%B4-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EA%B1%B0%EB%82%98-err-11110--the-index-is-inconsistent-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50033 adapter를 시작할 때​ ALA 로그 파일을 오픈할 수 없으면 코어 파일이 생성됩니다.](#bug-50033adapter%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%A0-%EB%95%8C%E2%80%8B-ala-%EB%A1%9C%EA%B7%B8-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%98%A4%ED%94%88%ED%95%A0-%EC%88%98-%EC%97%86%EC%9C%BC%EB%A9%B4-%EC%BD%94%EC%96%B4-%ED%8C%8C%EC%9D%BC%EC%9D%B4-%EC%83%9D%EC%84%B1%EB%90%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50057 ROLLUP 함수와 집계 함수 그리고 ORDER BY 절을 함께 사용하면 결과 오류가 발생합니다.](#bug-50057rollup-%ED%95%A8%EC%88%98%EC%99%80-%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98-%EA%B7%B8%EB%A6%AC%EA%B3%A0-order-by-%EC%A0%88%EC%9D%84-%ED%95%A8%EA%BB%98-%EC%82%AC%EC%9A%A9%ED%95%98%EB%A9%B4-%EA%B2%B0%EA%B3%BC-%EC%98%A4%EB%A5%98%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50058 DROP REPLICATION 수행 시 이중화 수신자 쓰레드가 종료되지 않을 수 있는 메모리 참조 오류를 수정합니다.](#bug-50058drop-replication-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%98%EC%8B%A0%EC%9E%90-%EC%93%B0%EB%A0%88%EB%93%9C%EA%B0%80-%EC%A2%85%EB%A3%8C%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%84-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%B0%B8%EC%A1%B0-%EC%98%A4%EB%A5%98%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50059 aku -p end 수행 동작을 변경합니다. 이중화 FLUSH 명령을 수행한 후에 이중화를 중지합니다.](#bug-50059aku--p-end-%EC%88%98%ED%96%89-%EB%8F%99%EC%9E%91%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4-%EC%9D%B4%EC%A4%91%ED%99%94-flush-%EB%AA%85%EB%A0%B9%EC%9D%84-%EC%88%98%ED%96%89%ED%95%9C-%ED%9B%84%EC%97%90-%EC%9D%B4%EC%A4%91%ED%99%94%EB%A5%BC-%EC%A4%91%EC%A7%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50061 updatable view에 집합 연산자를 사용했을 때 예외 처리를 변경합니다.](#bug-50061updatable-view%EC%97%90-%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%96%88%EC%9D%84-%EB%95%8C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50071 SET 절의 서브쿼리에서 multiple update의 대상을 참조하면 ERR-31455 에러가 발생하거나 Altibase 서버가 비정상 종료할 수 있습니다.](#bug-50071set-%EC%A0%88%EC%9D%98-%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC%EC%97%90%EC%84%9C-multiple-update%EC%9D%98-%EB%8C%80%EC%83%81%EC%9D%84-%EC%B0%B8%EC%A1%B0%ED%95%98%EB%A9%B4-err-31455-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%98%EA%B1%B0%EB%82%98-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%A0-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-50082 비정상적으로 종료된 슬레이브 파드에서 aku -p start 수행 동작을 변경합니다. 이중화 시작 후 FLUSH 명령을 수행합니다.](#bug-50082%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%A2%85%EB%A3%8C%EB%90%9C-%EC%8A%AC%EB%A0%88%EC%9D%B4%EB%B8%8C-%ED%8C%8C%EB%93%9C%EC%97%90%EC%84%9C-aku--p-start-%EC%88%98%ED%96%89-%EB%8F%99%EC%9E%91%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%8B%9C%EC%9E%91-%ED%9B%84-flush-%EB%AA%85%EB%A0%B9%EC%9D%84-%EC%88%98%ED%96%89%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50090 Statement 객체의 다음 결과가 ResultSet 객체가 아닐 때 getMoreResults()에서 true를 반환합니다.](#bug-50090statement-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EB%8B%A4%EC%9D%8C-%EA%B2%B0%EA%B3%BC%EA%B0%80-resultset-%EA%B0%9D%EC%B2%B4%EA%B0%80-%EC%95%84%EB%8B%90-%EB%95%8C-getmoreresults%EC%97%90%EC%84%9C-true%EB%A5%BC-%EB%B0%98%ED%99%98%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50094 메모리 테이블의 ADD COLUMN 수행 동작을 변경합니다.](#bug-50094%EB%A9%94%EB%AA%A8%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94%EC%9D%98-add-column-%EC%88%98%ED%96%89-%EB%8F%99%EC%9E%91%EC%9D%84-%EB%B3%80%EA%B2%BD%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50096 DDL 복제 실패 이후 HeartBeat 쓰레드의 비정상적인 동작으로 이중화 송신자가 시작되지 않을 수 있습니다.](#bug-50096ddl-%EB%B3%B5%EC%A0%9C-%EC%8B%A4%ED%8C%A8-%EC%9D%B4%ED%9B%84-heartbeat-%EC%93%B0%EB%A0%88%EB%93%9C%EC%9D%98-%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9D%B8-%EB%8F%99%EC%9E%91%EC%9C%BC%EB%A1%9C-%EC%9D%B4%EC%A4%91%ED%99%94-%EC%86%A1%EC%8B%A0%EC%9E%90%EA%B0%80-%EC%8B%9C%EC%9E%91%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%84-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
+    - [BUG-50106 iSQL에서 desc 명령을 수행하면 ERR-31002 : A single-row subquery has returned more than one row. 에러가 발생합니다.](#bug-50106isql%EC%97%90%EC%84%9C-desc-%EB%AA%85%EB%A0%B9%EC%9D%84-%EC%88%98%ED%96%89%ED%95%98%EB%A9%B4-err-31002--a-single-row-subquery-has-returned-more-than-one-row-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50131 조건절 검사 시 Altibase 서버가 비정상 종료하는 현상에 대한 예외처리를 추가합니다.](#bug-50131%EC%A1%B0%EA%B1%B4%EC%A0%88-%EA%B2%80%EC%82%AC-%EC%8B%9C-altibase-%EC%84%9C%EB%B2%84%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81-%EC%A2%85%EB%A3%8C%ED%95%98%EB%8A%94-%ED%98%84%EC%83%81%EC%97%90-%EB%8C%80%ED%95%9C-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-50076 Altibase 7.1.0.7.3 이후 linux 32bit 에서 빌드 실패 문제를 수정 합니다.](#bug-50076-altibase-7.1.0.7.3-이후-linux-32bit-에서-빌드-실패-문제를-수정-합니다.)
+    - [BUG-49996 에러메시지에 PCRE2 error: 가 출력되는 문제를 수정합니다.](#bug-49996-에러메시지에-pcre2-error:-가-출력되는-문제를-수정합니다.)
 - [Changes](#changes)
-  - [Version Info](#version-info)
-  - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-  - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+    - [Version Info](#version-info)
+    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -180,6 +182,43 @@ GROUP BY GROUPING SETS 절에 빈 그룹(Empty Group)을 사용할 때 메모리
 
 Fixed Bugs
 ==========
+
+### BUG-48074 윈도우 환경에서 loadbalance가 on일때 랜덤하게 서버가 선택되지 않습니다. 
+
+#### module
+
+``mm-cli``
+
+#### Category
+
+``Functional Error``
+
+#### 재현 빈도
+
+`Always`
+
+#### 설명
+
+윈도우 환경에서 loadbalance가 on일때 Altibase 서버가 랜덤하게 선택되지 않는 버그를 수정합니다.
+
+#### 재현 방법
+
+-   **재현 절차**
+
+-   **수행 결과** 
+
+-   **예상 결과**
+
+#### Workaround
+
+`없음`
+
+#### 변경사항
+
+-   Performance view
+-   Property
+-   Compile Option
+-   Error Code
 
 ### BUG-49732 압축 컬럼과 압축 컬럼이 키인 인덱스를 가진 테이블의 테이블스페이스를 변경할 때 Altibase 서버가 비정상 종료합니다.
 

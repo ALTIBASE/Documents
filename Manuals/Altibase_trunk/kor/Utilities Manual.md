@@ -500,6 +500,25 @@ aexport에 의해 생성된 모든 파일은 텍스트 파일이기 때문에 �
     생성하는 SQL 스크립트를 포함한다. 또한, ALL_OBJECT_CONSTRATINS.sql을
     실행하는 run_is_con.sh 쉘 스크립트 파일이 생성된다.
 
+### 알티베이스 요구사항
+
+DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다. 
+
+aexport는 DBMS_METADATA 패키지에 의존성을 가지기 때문에, aexport를 사용하기 위해서는 해당 패키지를 반드시 알티베이스에 설치해야 한다. DBMS_METADATA 패키지가 설치되지 않은 알티베이스를 대상으로 aexport를 수행하면 다음과 같은 에러가 발생한다.
+
+```bash
+$ aexport -s localhost -u sys -p manager
+-----------------------------------------------------------------
+     Altibase Export Script Utility.
+     Release Version 7.3.0.0.0
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+[ERR-91144 : DBMS_METADATA package does not exist.]
+```
+
+> DBMS_METADATA 패키지에 대한 자세한 설명과 예제는 *Stored Procedures Manual*의 'Altibase 저장 패키지'를 참조하기 바란다.
+
 ### aexport 설정
 
 aexport는 서버에 접속하기 위해서 다음과 같은 정보가 필요하다.
