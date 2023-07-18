@@ -1847,7 +1847,7 @@ The followings explain the detailed behavior of  `aku -p start` command during c
 
   5️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
 
-##### **스케일 업(Scale up)**
+##### **Scale up**
 
 When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and we call the executed aku as "SLAVE AKU".  하나의 파드는 생성과 종료를 반복할 수 있는데, 파드가 처음 생성될 때와 종료 후 다시 생성될 때 aku -p start 동작이 다르다. 
 
@@ -1865,7 +1865,7 @@ When scaling up in a StatefulSet, new Pods are created. The new Pod is called as
 
 1️⃣ Reads aku.conf file.
 
-2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus one. If a replication object with the same name already exists, this step is skipped. For example, if *pod_name*-1 already exists, this step is skipped.
+2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus one. If a replication object with the same name already exists, this step is skipped. For example, if *pod_name*-1 already exists, this step is skipped. (already exists 인 상황 = 정상적으로 종료하고 다시 시작하는 경우를 말함. 이때는 2번 단계가 생략된다는 뜻 )
 
 3️⃣ Attempts to connect to all Pods, which are replication target servers. Only the connection with *pod_name*-0 successes and connection errors occurs on the other Pods(*pod_name*-2, *pod_name*-3) , since they have not been created yet. This is the expected behavior.
 
@@ -1881,13 +1881,13 @@ When scaling up in a StatefulSet, new Pods are created. The new Pod is called as
 
 9️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
 
-##### 비정상적으로 종료된 슬레이브 파드를 다시 시작할 때
+##### Restarting the slave Pod terminated abnormally
 
->  **비정상적으로 종료된 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
+>  **case of restarting the slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 1)** 
 
-비정상적으로 종료된 슬레이브 파드에서 aku -p start 를 수행할 때 aku의 동작을 설명한다.
+The following explanation describes the behavior of aku when executing "aku -p start" on a slave Pod that has terminated abnormally.
 
-비정상적으로 종료된 슬레이브 파드는 aku -p end 명령을 수행하지 않았거나 정상적으로 완료하지 않아 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
+A slave Pod terminated abnormally is the Pod that has not reset the replication information, because it ether did not execute the "aku -p end" command or did not complete it successfully.비정상적으로 종료된 슬레이브 파드는 aku -p end 명령을 수행하지 않았거나 정상적으로 완료하지 않아서 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
 
 <div align="left">
     <img src="media/Utilities/aku_p_start_aku_flush_at_start_1.jpg"></img>
