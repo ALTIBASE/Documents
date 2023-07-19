@@ -1885,27 +1885,25 @@ When scaling up in a StatefulSet, new Pods are created. The new Pod is called as
 
 >  **case of restarting the slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 1)** 
 
-The following explanation describes the behavior of aku when executing "aku -p start" on a slave Pod that has terminated abnormally.
+The following explanation describes the behavior of aku when executing `aku -p start` on a slave Pod that has terminated abnormally.
 
-A slave Pod terminated abnormally is the Pod that has not reset the replication information, because it ether did not execute the "aku -p end" command or did not complete it successfully.비정상적으로 종료된 슬레이브 파드는 aku -p end 명령을 수행하지 않았거나 정상적으로 완료하지 않아서 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
+A slave Pod terminated abnormally is the Pod that has not reset the replication information, because it ether did not execute `aku -p end` command or did not complete it successfully. If the replication information is not reset and remains, the XSN of the replication object has a value other than -1. It may cause data inconsistencies when restarting the slave Pod, therefore, it is necessary to synchronize data. 
 
 <div align="left">
     <img src="media/Utilities/aku_p_start_aku_flush_at_start_1.jpg"></img>
 </div>
 
-1️⃣ aku.conf 파일을 읽는다.
+1️⃣ Reads aku.conf file.
 
-2️⃣ 이중화 대상 서버인 모든 파드에 접속을 시도한다. *pod_name*-0으로의 접속만 성공하고 *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 접속 에러가 발생한다. 이는 정상적인 동작이다.
+2️⃣ Attempts to connect to all Pods, which are replication target servers. Only the connection with *pod_name*-0 successes and connection errors occurs on the other Pods(*pod_name*-2, *pod_name*-3) , since they have not been created yet. This is the expected behavior.
 
-3️⃣ *pod_name*-1에서 *pod_name*-0, *pod_name*-2, *pod_name*-3으로 이중화를 시작하고 ALTER REPLICATION ~ FLUSH ALL을 수행한다. 이 명령은 *pod_name*-1에서 다른 파드로 동기화하지 못한 데이터를 전송한다. *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이 명령이 실패한다. 이는 정상적인 동작이다. 
-
-*pod_name*-2, *pod_name*-3이 생성되고 이중화 할 수 있는 준비가 되면 각 파드에서 aku -p start 수행으로 이중화 시작과 FLUSH ALL이 수행된다.
+3️⃣ Starts the replications from *pod_name*-1 to all Pods( *pod_name*-0, *pod_name*-2, *pod_name*-3) and execute "ALTER REPLICATION ... FLUSH ALL". This is for data synchronization from *pod_name*-1 to other Pods. Since *pod_name*-2 and *pod_name*-3 are not yet created, the command to the Pods fails to execute. This behavior is normal and expected. If *pod_name*-2 and *pod_name*-3 are created and ready for replication, aku makes the replication start and executes "FLUSH ALL" by using `aku -p start` on each Pod.      
 
 4️⃣ *pod_name*-0에서 *pod_name*-1로 이중화를 시작하고 ALTER REPLICATION ~ FLUSH WAIT *wait_time*을 수행한다. *wait_time*은 aku 설정 파일에 설정한 AKU_FLUSH_TIMEOUT_AT_START 프로퍼티의 값에 따른다. 이 명령은 *pod_name*-0에서 *pod_name*-1 으로 동기화하지 못한 데이터를 전송한다. 
 
-5️⃣ *pod_name*-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
+5️⃣ Sets the Altibase server property ADMIN_MODE to 0 on *pod_name*-1 to allow to access for database user. 
 
-6️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+6️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
 
 
 
