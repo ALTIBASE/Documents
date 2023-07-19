@@ -1670,7 +1670,7 @@ The action of creating new pods that are replicas of an existing Pod.
 
 #### Scale down
 
-when Pods are terminated, the replication information of Altibase Server is reset.
+When Pods are terminated, the replication information of Altibase Server is reset.
 
 ### Component
 
@@ -1684,7 +1684,7 @@ aku utility is located in $ALTIBASE_HOME/bin. To execute aku, you need to first 
 
 #### aku.conf
 
-when aku is executed, it first reads aku.conf file(aku configuration file) to obtain information necessary for Altibase data synchronization. Prior to executing aku, you should generate the aku.conf file in the $ALTIBASE_HOME/conf directory, using the provided sample file named aku.conf.sample from the Altibase package.
+aku configuration file. When aku is executed, it first reads aku.conf file to obtain necessary information for Altibase data synchronization. Prior to executing aku, you should generate the aku.conf file in the $ALTIBASE_HOME/conf directory, using the provided sample file named aku.conf.sample from the Altibase package.
 
 The aku.conf.sample file is as follows:
 
@@ -1702,6 +1702,7 @@ AKU_FLUSH_AT_START         = 1
 AKU_FLUSH_TIMEOUT_AT_START = 300
 AKU_FLUSH_AT_END           = 1
 AKU_ADDRESS_CHECK_COUNT    = 30
+AKU_DELAY_START_COMPLETE_TIME = 0
 
 REPLICATIONS = (
     REPLICATION_NAME_PREFIX = "AKU_REP"
@@ -1765,6 +1766,7 @@ To ensure stable usage of the aku utility in a Kubernetes environment, the follo
 | AKU_FLUSH_TIMEOUT_AT_START           |      300      | This property sets the *wait_time* for the FLUSH WAIT command. When AKU_FLUSH_AT_START is 1 and AKU_FLUSH_TIMEOUT_AT_START is 1 or greater, it performs FLUSH WAIT  with the specified *wait_time*. </br>If AKU_FLUSH_AT_START is 1 and AKU_FLUSH_TIMEOUT_AT_START is 0, it performs FLUSH ALL. |
 | AKU_FLUSH_AT_END                     |       1       | This property determines whether replication gaps should be removed or not, during the execution of the "aku -p end" command on the slave pod. The default value is 1 and it means that replication gaps are removed by using FLUSH ALL command.<br />When this value is set to 0, replication gaps will not be removed. |
 | AKU_ADDRESS_CHECK_COUNT              |      30       | The number of attempts to connect to the local IP for checking if the DNS address of the currently created pods is registered in the Kubernetes service (indicating whether communication between internal pods is possible) when running "aku -p start". |
+| AKU_DELAY_START_COMPLETE_TIME        |       0       | This property specifies a waiting time (in seconds) after the replication starts on the slave pod in the `aku -p start` process. <br />This configuration is to set the wait time for performing the operation of changing the Altibase property ADMIN_MODE to 0, after the data synchronization is completed during the scaling up process with `aku -p start`. |
 | REPLICATIONS/REPLICATION_NAME_PREFIX |     none      | Prefix of replication object's name that is created by aku.<br/>e.g.,*REPLICATION_NAME_PREFIX*_\[*pod number*]\[*pod number*\]  <sup>[Naming rule of replication object in aku](#rep_name_rules)</sup> |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |       1       | The number of threads for sending and receiving during  replication sync.<br />It can be set from 1 to 100. |
 | REPLICATIONS/USER_NAME               |     none      | User name of replication target table.<br />REPLICATION USER_NAME must be created before executing the "aku -p" command |
