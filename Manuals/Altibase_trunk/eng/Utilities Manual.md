@@ -1728,19 +1728,19 @@ For details explanations of each properties, refer to **aku-properties**(연결�
 
 ## Setting aku
 
-### Kubernetes Environment Settings and Constraints
+### StetefulSet Settings and Constraints in Kubernetes
 
 To ensure stable usage of the aku utility in a Kubernetes environment, the following conditions must be followed:
 
 * It should be used only in **StatefulSets** among Kubernetes workload controllers.
+* The **Pod management policy should be OrderedReady**. OrderedReady is the default policy for StatefulSets.
+* The maximum number of scalable replicas is **up to 4**.
 
 * The **Altibase server and aku** utility should be executed within the same container.
+*  `aku -p start` command should be performed after the Altibase server has started successfully.
 
-* The **Pod management policy should be OrderedReady**. OrderedReady is the default policy for StatefulSets.
-
-* **Startup Probe** configuration is needed to verify if the aku -p start command has been successfully executed. You can use the presence of the aku_start_completed file in the /tmp directory as an indicator for verification.
+* **Startup Probe** configuration is needed to verify if `aku -p start` command has been successfully executed. You can use the presence of the aku_start_completed file in the /tmp directory as an indicator for verification.
 * Set **publishNotReadyAddress** to true.
-* The maximum number of scalable replicas is **up to 4**.
 
 * It is necessary to set the **terminationGracePeriodSeconds** in Kubernetes to a sufficient value to gracefully complete aku during Pod termination.
 
@@ -1771,6 +1771,29 @@ To ensure stable usage of the aku utility in a Kubernetes environment, the follo
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |       1       | The number of threads for sending and receiving during  replication sync.<br />It can be set from 1 to 100. |
 | REPLICATIONS/USER_NAME               |     none      | User name of replication target table.<br />REPLICATION USER_NAME must be created before executing the "aku -p" command |
 | REPLICATIONS/TABLE_NAME              |     none      | Name of replication target table. Non-partitioned table and partitioned table can also be specified. <br />REPLICATION TABLE_NAME must be created before executing the "aku -p" command |
+
+> <a name="rep_name_rules"> **Naming rule of replication object in aku**</a>
+
+Altibase replication object names that aku creates are generated with the following rule *REPLICATION_NAME_PREFIX*_\[*PodNumber*]\[*PodNumber*\]. The Kubernetes StatefulSet creates Pods sequentially in the order *pod_name*\_0, *pod_name*\_1, ..., *pod_name*\_*N*-1, with each Pod having a unique sequence number. In the Altibase replication object name, the pod number is composed of the sequence numbers of pods that form a replication pair.
+
+For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP", the names of the replication objects created in each pod are as follows.
+
+| Pod Number   | Replication object name | Description                                                  |
+| :----------- | :---------------------- | :----------------------------------------------------------- |
+| *pod_name*-0 | AKU_REP_01              | Replication object name between *pod_name*-0 and *pod_name*-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+|              | AKU_REP_02              | Replication object name between  *pod_name*-0 and *pod_name*-2 |
+|              | AKU_REP_03              | Replication object name between  *pod_name*-0 and *pod_name*-3 |
+| *pod_name*-1 | AKU_REP_01              | Replication object name between  *pod_name*-0 and *pod_name*-1 |
+|              | AKU_REP_12              | Replication object name between  *pod_name*-1 and *pod_name*-2 |
+|              | AKU_REP_13              | Replication object name between  *pod_name*-1 and *pod_name*-3 |
+| *pod_name*-2 | AKU_REP_02              | Replication object name between  *pod_name*-0 and *pod_name*-2 |
+|              | AKU_REP_12              | Replication object name between  *pod_name*-1 and *pod_name*-2 |
+|              | AKU_REP_23              | Replication object name between  *pod_name*-2 and *pod_name*-3 |
+| *pod_name*-3 | AKU_REP_03              | Replication object name between  *pod_name*-0 and *pod_name*-3 |
+|              | AKU_REP_13              | Replication object name between  *pod_name*-1 and *pod_name*-3 |
+|              | AKU_REP_23              | Replication object name between  *pod_name*-2 and *pod_name*-3 |
+
+⚠️ Don't create/drop/modify carelessly the Altibase replication objects created by aku.
 
 ## Execution of aku
 
@@ -1951,19 +1974,18 @@ The command to drop all replication objects from all Pods. It is used when there
 
 <br/>
 
-## 주의사항
+## Cautions
 
-### aku 설정 파일 작성 시
+### aku.conf
 
-aku 설정 파일은 주석을 허용하지 않는다. 프로퍼티 앞에 주석을 추가하면 `Cannot parse aku.conf` 에러가 발생한다.
-
-aku 프로퍼티 중 기본값이 없는 프로퍼티를 aku.conf에 명시하지 않으면 `[ERROR] Property [property_name] should be specified by configuration.` 에러가 발생한다.
+* Don't use comment in aku.conf file. If an comment is added in aku.conf file, it displays `Cannot parse aku.conf` error.
+*  It displays `[ERROR] Property [property_name] should be specified by configuration.` when you accidentally delete an aku property that has a default value of "none" (such as AKU_STS_NAME, AKU_SVC_NAME, etc.) from the aku.conf file, or setting the value to "".
 
 ### aku -p start 명령 수행 시
 
-aku -p start 명령은 Altibase 서버가 정상적으로 시작된 후 수행해야 한다. 
+`aku -p start` command should be performed after the Altibase server has started successfully.
 
-이때 altibase.properties의 ADMIN_MODE = 1 과 REMOTE_SYSDBA_ENABLE = 1 을 설정한 후, Altibase 서버를 기동해야 한다.
+Before Altibase server starts, the Altibase server property ADMIN_MODE and REMOTE_SYSDBA_ENABLE should be set to 1.
 
 하나의 파드에서 aku -p start 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다.
 
@@ -1971,7 +1993,7 @@ aku -p start 명령은 Altibase 서버가 정상적으로 시작된 후 수행�
 
 startup probe, publishNotReadyAddresses 에 대한 자세한 내용은 쿠버네티스 공식 문서 참고한다.
 
-### 마스터 파드 장애 후 aku -p start 명령 수행 시
+### Restarting the master Pod terminated abnormally (마스터 파드 장애 후 aku -p start 명령 수행 시)
 
 마스터 파드 장애 시 사용자가 확인하여 데이터 정합성을 맞추어야한다. 마스터 파드의 테이블을 truncate 후 슬레이브 파드에서 이중화 sync를 수행한다.
 
@@ -1985,9 +2007,11 @@ aku -p end 명령은 Altibase 서버를 중지하기 전에 수행해야 한다.
 
 aku -p end 명령이 정상적으로 완료한 후 파드를 종료해야 한다. 
 
-### aku -p end 명령이 완료되기 전에 파드가 종료되었다면
+### If the pod was terminated abnormally before the aku -p end command completed
 
 이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 해당 파드가 다시 시작할 때 이중화 객체 생성과 이중화 대상 테이블을 TRUNCATE 하는 작업이 생략되고 이전에 생성한 이중화가 자동으로 시작된다. `aku -p end` 명령이 정상적으로 수행될 때의 출력 결과는 [예시 4](#예시-4)를 확인해 보자.
+
+A slave Pod terminated abnormally is the Pod that has not reset the replication information, because it ether did not execute `aku -p end` command or did not complete it successfully. If the replication information is not reset and remains, 
 
 ### aku -p end 명령이 완료되기 전에 파드가 종료된 상태가 장기간 지속된다면
 
@@ -2038,7 +2062,7 @@ No rows selected.
 
 ### 예시 1
 
--i 파라미터를 사용하여 aku를 실행한 결과이다. 아래 결과는 [aku 설정 파일](#aku-설정-파일)의 aku.conf.sample로 구성한 aku.conf에서 수행한 예시이다. Server ID가 0인 것은 스테이트풀셋 컨트롤러에서 처음 생성한 파드를 의미한다.
+This is the result of running `aku -i` and displays the information set in aku.conf. A Server ID of 0 indicates the first Pod created by the StatefulSet.
 
 ~~~bash
 $ aku -i
@@ -2084,7 +2108,7 @@ $ aku -i
 
 ### 예시 2
 
-첫 번째 파드(AKUHOST-0)에서 aku -p start를 수행한 예시이다. 
+This is an output of running  `aku -p start` on the Master Pod (AKUHOST-0). 
 
 ~~~bash
 $ aku -p start
@@ -2130,10 +2154,10 @@ AKUHOST-0.altibase-svc: REPLICAION AKU_REP_02 Start Failure
 AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Start Failure
 ~~~
 
-출력 결과를 살펴보자. 
+Followings are descriptions of the output.
 
 ~~~bash
-# aku.conf를 읽어 이중화 객체를 생성한다. 
+# aku.conf를 읽어 이중화 객체를 생성한다.-> aku.conf파일을 읽고 이중화 객체를 생성 후 시작하는 과정을 display 한다.
 # MASTER AKU는 첫 번째 파드에서 수행한 aku를 의미한다. 
 MASTER AKU Initialize
 
@@ -2157,7 +2181,7 @@ AKUHOST-0.altibase-svc: REPLICAION AKU_REP_01 Start Failure
 
 ### 예시 3
 
-4번째 파드(AKUHOST-3)에서 aku -p start 명령을 수행한 예시이다. Master Pod는 스테이트풀셋에서 생성한 첫 번째 파드를 의미한다. 
+This is an output of `aku -p start` command on the 4th Pod (AKUHOST-3). 
 
 ~~~bash~~~
 $ aku -p start
@@ -2171,9 +2195,7 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 Start Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success	
 ~~~
 
-출력 결과를 살펴보자. 
-
-출력 결과를 살펴보자. 
+출력 결과를 살펴보자.  
 
 ~~~bash
 # aku.conf를 읽어 이중화 객체를 생성한다. 
@@ -2196,7 +2218,7 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success
 
 ### 예시 4
 
-4번째 파드에서 `aku -p end` 명령을 수행할 때의 출력 결과이다. 4번째 파드와 이중화로 연결된 모든 파드에 이중화 중지 및 RESET 명령이 수행된 것을 볼 수 있다. 
+This is an output of `aku -p end` command on the 4th Pod (AKUHOST-3). 4번째 파드와 이중화로 연결된 모든 파드에 이중화 중지 및 RESET 명령이 수행된 것을 볼 수 있다. 
 
 ~~~bash
 $ aku -p end
