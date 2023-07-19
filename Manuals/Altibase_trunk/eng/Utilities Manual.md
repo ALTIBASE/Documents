@@ -1937,13 +1937,13 @@ The command to terminate Pods. It performs to stop Altibase replication and rese
     <img src="media/Utilities/aku_p_end.jpg"></img>
 </div>
 
-1️⃣ 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 이미 삭제된 상태이기 때문에 접속 에러가 발생할 수 있다. 이는 정상적인 동작이다.
+1️⃣ Attempts to connect to all Pods, which are connected with the current Pod. Since pods are terminated sequentially, connection errors can occur when attempting to connect to already deleted pods. This is an expected behavior.
 
-2️⃣ 해당 파드의 이중화 객체에 ALTER REPLICATION *replication_name* FLUSH ALL 명령을 수행하여 변경 로그를 모두 전송한다. aku 설정 파일에 AKU_FLUSH_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
+2️⃣ Sends the replication change logs to the replication objects of current Pod by executing 'ALTER REPLICATION *replication_name* FLUSH ALL'. If the aku property AKU_FLUSH_TIMEOUT_AT_START sets to 0, this step is skipped.
 
-3️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION *replication_name* STOP 수행을 요청한다.
+3️⃣ Requests to perform "ALTER REPLICATION *replication_name* STOP" on all Pods related to current Pod.
 
-4️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION *replication_name* RESET 수행을 요청한다.
+4️⃣ Requests to perform "ALTER REPLICATION *replication_name* RESET" on all Pods related to current Pod.
 
 #### **aku -p clean**
 
