@@ -1726,9 +1726,9 @@ REPLICATIONS = (
 
 For details explanations of each properties, refer to **aku-properties**(연결예정).
 
-## Setting aku
+## Setup to run aku
 
-### StetefulSet Settings and Constraints in Kubernetes
+### Prerequisite
 
 To ensure stable usage of the aku utility in a Kubernetes environment, the following conditions must be followed:
 
@@ -1739,10 +1739,13 @@ To ensure stable usage of the aku utility in a Kubernetes environment, the follo
 * The **Altibase server and aku** utility should be executed within the same container.
 *  `aku -p start` command should be performed after the Altibase server has started successfully.
 
+* After completing `aku -p start` command on a Pod, it should sequentially create the next Pod. This requires configuring the startup probe.
 * **Startup Probe** configuration is needed to verify if `aku -p start` command has been successfully executed. You can use the presence of the aku_start_completed file in the /tmp directory as an indicator for verification.
 * Set **publishNotReadyAddress** to true.
+* `aku -p end` command should be performed before stopping the Altibase server.
+* A Pod should be terminated after `aku -p end` command completes successfully.
 
-* It is necessary to set the **terminationGracePeriodSeconds** in Kubernetes to a sufficient value to gracefully complete aku during Pod termination.
+* It is necessary to set Kubernetes' **terminationGracePeriodSeconds** long enough to allow enough time for aku to successfully complete when Pod terminates.
 
 ### Altibase Environment Variable
 
@@ -1764,19 +1767,19 @@ To ensure stable usage of the aku utility in a Kubernetes environment, the follo
 | AKU_QUERY_TIMEOUT                    |     3600      | It refers to Altibase server property QUERY_TIMEOUT. If the execution time of SQL statements executed by aku exceeds AKU_QUERY_TIMEOUT value, the statement is canceled. |
 | AKU_FLUSH_AT_START                   |       1       | This property determines whether replication gaps should be removed or not, during the execution of the "aku -p start" command. The default value is 1 and it means that replication gaps are removed by using FLUSH command.  </br>When this value is set to 0, replication gaps will not be removed. |
 | AKU_FLUSH_TIMEOUT_AT_START           |      300      | This property sets the *wait_time* for the FLUSH WAIT command. When AKU_FLUSH_AT_START is 1 and AKU_FLUSH_TIMEOUT_AT_START is 1 or greater, it performs FLUSH WAIT  with the specified *wait_time*. </br>If AKU_FLUSH_AT_START is 1 and AKU_FLUSH_TIMEOUT_AT_START is 0, it performs FLUSH ALL. |
-| AKU_FLUSH_AT_END                     |       1       | This property determines whether replication gaps should be removed or not, during the execution of the "aku -p end" command on the slave pod. The default value is 1 and it means that replication gaps are removed by using FLUSH ALL command.<br />When this value is set to 0, replication gaps will not be removed. |
-| AKU_ADDRESS_CHECK_COUNT              |      30       | The number of attempts to connect to the local IP for checking if the DNS address of the currently created pods is registered in the Kubernetes service (indicating whether communication between internal pods is possible) when running "aku -p start". |
-| AKU_DELAY_START_COMPLETE_TIME        |       0       | This property specifies a waiting time (in seconds) after the replication starts on the slave pod in the `aku -p start` process. <br />This configuration is to set the wait time for performing the operation of changing the Altibase property ADMIN_MODE to 0, after the data synchronization is completed during the scaling up process with `aku -p start`. |
-| REPLICATIONS/REPLICATION_NAME_PREFIX |     none      | Prefix of replication object's name that is created by aku.<br/>e.g.,*REPLICATION_NAME_PREFIX*_\[*pod number*]\[*pod number*\]  <sup>[Naming rule of replication object in aku](#rep_name_rules)</sup> |
+| AKU_FLUSH_AT_END                     |       1       | This property determines whether replication gaps should be removed or not, during the execution of the "aku -p end" command on the slave Pod. The default value is 1 and it means that replication gaps are removed by using FLUSH ALL command.<br />When this value is set to 0, replication gaps will not be removed. |
+| AKU_ADDRESS_CHECK_COUNT              |      30       | The number of attempts to connect to the local IP for checking if the DNS address of the currently created Pods is registered in the Kubernetes service (indicating whether communication between internal Pods is possible) when running "aku -p start". |
+| AKU_DELAY_START_COMPLETE_TIME        |       0       | This property specifies a waiting time (in seconds) after the replication starts on the slave Pod in the `aku -p start` process. <br />This configuration is to set the wait time for performing the operation of changing the Altibase property ADMIN_MODE to 0, after the data synchronization is completed during the scaling up process with `aku -p start`. |
+| REPLICATIONS/REPLICATION_NAME_PREFIX |     none      | Prefix of replication object's name that is created by aku.<br/>e.g.,*REPLICATION_NAME_PREFIX*_\[*Pod Number*]\[*Pod Number*\]  <sup>[Naming rule of replication object in aku](#rep_name_rules)</sup> |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |       1       | The number of threads for sending and receiving during  replication sync.<br />It can be set from 1 to 100. |
 | REPLICATIONS/USER_NAME               |     none      | User name of replication target table.<br />REPLICATION USER_NAME must be created before executing the "aku -p" command |
 | REPLICATIONS/TABLE_NAME              |     none      | Name of replication target table. Non-partitioned table and partitioned table can also be specified. <br />REPLICATION TABLE_NAME must be created before executing the "aku -p" command |
 
 > <a name="rep_name_rules"> **Naming rule of replication object in aku**</a>
 
-Altibase replication object names that aku creates are generated with the following rule *REPLICATION_NAME_PREFIX*_\[*PodNumber*]\[*PodNumber*\]. The Kubernetes StatefulSet creates Pods sequentially in the order *pod_name*\_0, *pod_name*\_1, ..., *pod_name*\_*N*-1, with each Pod having a unique sequence number. In the Altibase replication object name, the pod number is composed of the sequence numbers of pods that form a replication pair.
+Altibase replication object names that aku creates are generated with the following rule *REPLICATION_NAME_PREFIX*_\[*Pod Number*]\[*Pod Number*\]. The Kubernetes StatefulSet creates Pods sequentially in the order *Pod_name*\_0, *Pod_name*\_1, ..., *Pod_name*\_*N*-1, with each Pod having a unique sequence number. In the Altibase replication object name, the Pod number is composed of the sequence numbers of Pods that form a replication pair.
 
-For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP", the names of the replication objects created in each pod are as follows.
+For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP", the names of the replication objects created in each Pod are as follows.
 
 | Pod Number   | Replication object name | Description                                                  |
 | :----------- | :---------------------- | :----------------------------------------------------------- |
@@ -1845,7 +1848,7 @@ The followings introduce the action performed during execution of aku.
 
 The command to create Pods. Internally, it performs the creation of Altibase replication objects and synchronizes data.  
 
-When scaling up in a StatefulSet, new pods are created, and it is possible to create a maximum of 4 pods.
+When scaling up in a StatefulSet, new Pods are created, and it is possible to create a maximum of 4 Pods.
 
 ##### Creation of Master Pod (Creation of the first Pod)
 
@@ -1866,9 +1869,9 @@ The followings explain the detailed behavior of  `aku -p start` command during c
 
   2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus one. If a replication object with the same name already exists, this step(the replication creation phase) is skipped.
 
-  3️⃣ Attempts to connect to all Pods, which are replication target servers. However, since other pods are not yet created, an error occurs when attempting to establish a connection. This is the expected behavior.
+  3️⃣ Attempts to connect to all Pods, which are replication target servers. However, since other Pods are not yet created, an error occurs when attempting to establish a connection. This is the expected behavior.
 
-  4️⃣ Starts the replication objects created in step 2️⃣ by using the command "ALTER REPLICATION *replication_name* START". However, since other pods are not yet created, the replication fails to start. Once the other pods are created and ready for replication, the replication will successfully start. This behavior is normal and expected.
+  4️⃣ Starts the replication objects created in step 2️⃣ by using the command "ALTER REPLICATION *replication_name* START". However, since other Pods are not yet created, the replication fails to start. Once the other Pods are created and ready for replication, the replication will successfully start. This behavior is normal and expected.
 
   5️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
 
@@ -1906,9 +1909,9 @@ When scaling up in a StatefulSet, new Pods are created. The new Pod is called as
 
 9️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
 
-##### Restarting the slave Pod terminated abnormally
+##### Restarting the Slave Pod terminated abnormally
 
->  **case of restarting the slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 1)** 
+>  **case of restarting the Slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 1)** 
 
 The following explanation describes the basic behavior of aku when executing `aku -p start` on a slave Pod that has terminated abnormally.
 
@@ -1932,7 +1935,7 @@ A slave Pod terminated abnormally is the Pod that has not reset the replication 
 
 
 
-> **case of restarting the slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 0)** 
+> **case of restarting the Slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 0)** 
 
 The following explanation describes the behavior of aku when executing `aku -p start` on a slave Pod that has terminated abnormally, with the property AKU_FLUSH_AT_START set to 0.
 
@@ -1954,13 +1957,13 @@ The following explanation describes the behavior of aku when executing `aku -p s
 
 #### **aku -p end**
 
-The command to terminate Pods. It performs to stop Altibase replication and reset the replication information.
+The command to terminate Pods. It performs to stop Altibase replication and reset the replication information. 
 
 <div align="left">
     <img src="media/Utilities/aku_p_end.jpg"></img>
 </div>
 
-1️⃣ Attempts to connect to all Pods, which are connected with the current Pod. Since pods are terminated sequentially, connection errors can occur when attempting to connect to already deleted pods. This is an expected behavior.
+1️⃣ Attempts to connect to all Pods, which are connected with the current Pod. Since Pods are terminated sequentially, connection errors can occur when attempting to connect to already deleted Pods. This is an expected behavior.
 
 2️⃣ Sends the replication change logs to the replication objects of current Pod by executing 'ALTER REPLICATION *replication_name* FLUSH ALL'. If the aku property AKU_FLUSH_TIMEOUT_AT_START sets to 0, this step is skipped.
 
@@ -1981,48 +1984,20 @@ The command to drop all replication objects from all Pods. It is used when there
 * Don't use comment in aku.conf file. If an comment is added in aku.conf file, it displays `Cannot parse aku.conf` error.
 *  Don't delete aku properties that has a default value of "none" (such as AKU_STS_NAME, AKU_SVC_NAME, etc.) from the aku.conf file and don't set values of the properties to "". It displays `[ERROR] Property [property_name] should be specified by configuration.`  
 
-### aku -p start 명령 수행 시
+### Storage corruption in Master Pod
 
-`aku -p start` command should be performed after the Altibase server has started successfully.
+Data corruption due to storage corruption in Master Pod is not guaranteed.
 
-Before Altibase server starts, the Altibase server property ADMIN_MODE and REMOTE_SYSDBA_ENABLE should be set to 1.
+### If the situation in which Pod was force terminated before `aku -p end` command completed, continues for a long time
 
-하나의 파드에서 aku -p start 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다.
-
-이를 위해 startup probe를 설정해야하며, aku_start_completed 파일 여부로 확인한다. 또한 publishNotReadyAddresses를 true 로 설정해야한다.
-
-startup probe, publishNotReadyAddresses 에 대한 자세한 내용은 쿠버네티스 공식 문서 참고한다.
-
-### Restarting the master Pod terminated abnormally (마스터 파드 장애 후 aku -p start 명령 수행 시)
-
-마스터 파드 장애 시 사용자가 확인하여 데이터 정합성을 맞추어야한다. 마스터 파드의 테이블을 truncate 후 슬레이브 파드에서 이중화 sync를 수행한다.
-
-데이터 정합성을 맞춘 뒤 aku -p start 명령을 수행해야 하는데, aku 에서 수동 복구를 감지 할 수 없기 때문에 aku에서 관리하는 이중화 중 아무거나 시작한 뒤 aku -p start를 수행한다.
-
-예) ALTER REPLICATION AKU_REP_01 START;
-
-### aku -p end 명령 수행 시
-
-aku -p end 명령은 Altibase 서버를 중지하기 전에 수행해야 한다.
-
-aku -p end 명령이 정상적으로 완료한 후 파드를 종료해야 한다. 
-
-### If the pod was terminated abnormally before the aku -p end command completed
-
-이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 해당 파드가 다시 시작할 때 이중화 객체 생성과 이중화 대상 테이블을 TRUNCATE 하는 작업이 생략되고 이전에 생성한 이중화가 자동으로 시작된다. `aku -p end` 명령이 정상적으로 수행될 때의 출력 결과는 [예시 4](#예시-4)를 확인해 보자.
-
-A slave Pod terminated abnormally is the Pod that has not reset the replication information, because it ether did not execute `aku -p end` command or did not complete it successfully. If the replication information is not reset and remains, 
-
-### aku -p end 명령이 완료되기 전에 파드가 종료된 상태가 장기간 지속된다면
-
-종료된 파드뿐 아니라 다른 파드에도 이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 다른 파드는 종료된 파드로 이중화 하기 위해 이중화에 필요한 온라인 로그 파일을 삭제하지 않는다. 온라인 로그 파일이 쌓이면 디스크 풀 발생으로 Altibase 서버가 정상적으로 운영되지 못할 수 있다. 따라서 이런 상황을 방지하기 위해  `aku -p end` 명령이 완전히 완료되기 전에 파드가 종료된 상태가 장기간 지속되고 있다면 이중화를 중지하고 이중화 초기화 작업을 진행해야 한다. 
+If the situation in which Pod was force terminated before `aku -p end` command completed, continues for a long time, there is a possibility of uninitialized replication information remaining in the terminated Pod and also in other Pods. When this happens, the other Pods do not delete the online log files that are required for replication to the terminated Pod. If the online log file accumulates a lot, it can lead to disk space exhaustion and result in Altibase server not being able to operate normally. To prevent this situation, if you notice that there are long periods of time in which a Pod was terminated before the `aku -p end` command completed, you should stop replication and initialize the replication information. Refer to the commands below. 
 
 ~~~sql
 ALTER REPLICATION replication_name STOP;
 ALTER REPLICATION replication_name RESET;
 ~~~
 
-*pod_name*-0과 *pod_name*-1이 운영 중 *pod_name*-1이 `aku -p end` 명령을 정상적으로 수행되지 못하고 종료되었다고 가정해 보자. *pod_name*-0에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회해 보자. 이중화 객체 AKU_REP_01의 XSN 값이 -1이 아닌 것을 볼 수 있다. 이는 이중화 정보가 초기화되지 않은 것을 의미한다. AKU_REP_01은 *pod_name*-0과 *pod_name*-1의 이중화 객체이다. 
+Suppose *pod_name*-1 failed to complete `aku -p end` and and terminated abnormally while *pod_name*-0 and *pod_name*-1 are both operational. Let's check the XSN of SYSTEM_.SYS_REPLICATIONS_ on *pod_name*-0. You can see that the XSN value of the replication object AKU_REP_01 is not -1. It means that the replication information is not initialized. AKU_REP_01 is the replication object between *pod_name*-0 and *pod_name*-1.
 
 ~~~sql
 iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
@@ -2034,7 +2009,7 @@ AKU_REP_01                      859070110
 No rows selected.
 ~~~
 
-*pod_name*-0에서 AKU_REP_01을 중지하고 이중화 객체를 생성한 시점으로 초기화한다. 
+Execute the statements for stopping and resetting replication of the object(AKU_REP_01) on *pod_name*-0.
 
 ~~~sql
 iSQL> ALTER REPLICATION AKU_REP_01 STOP;
@@ -2044,7 +2019,7 @@ iSQL> ALTER REPLICATION AKU_REP_01 RESET;
 Alter sucess.
 ~~~
 
-다시 *pod_name*-0에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회해 보자. 이중화 객체 AKU_REP_01의 XSN 값이 -1으로 변경되었다.
+And then, let's check the XSN of SYSTEM_.SYS_REPLICATIONS_ on *pod_name*-0. The XSN value of the replication object AKU_REP_01 was changed to -1.
 
 ~~~sql
 iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
@@ -2058,9 +2033,9 @@ No rows selected.
 
 <br/>
 
-## 사용 예
+## Example
 
-### 예시 1
+### aku -i
 
 This is the result of running `aku -i` and displays the information set in aku.conf. A Server ID of 0 indicates the first Pod created by the StatefulSet.
 
@@ -2106,9 +2081,9 @@ $ aku -i
  #########################
 ~~~
 
-### 예시 2
+### aku -p start on a Master Pod
 
-This is an output of running  `aku -p start` on the Master Pod (AKUHOST-0). 
+This is an output of running  `aku -p start` on a Master Pod (AKUHOST-0). 
 
 ~~~bash
 $ aku -p start
@@ -2179,7 +2154,7 @@ MASTER AKU Initialize
 AKUHOST-0.altibase-svc: REPLICAION AKU_REP_01 Start Failure
 ~~~
 
-### 예시 3
+### aku -p start on the 4th Pod
 
 This is an output of `aku -p start` command on the 4th Pod (AKUHOST-3). 
 
@@ -2216,9 +2191,9 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 Start Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success  
 ~~~
 
-### 예시 4
+### aku -p end on the 4th Pod
 
-This is an output of `aku -p end` command on the 4th Pod (AKUHOST-3). 4번째 파드와 이중화로 연결된 모든 파드에 이중화 중지 및 RESET 명령이 수행된 것을 볼 수 있다. 
+This is an output of `aku -p end` command on the 4th Pod (AKUHOST-3). You can see that the commands for stopping and resetting replication have been performed to all replication objects that are connected to 4th Pod.
 
 ~~~bash
 $ aku -p end
