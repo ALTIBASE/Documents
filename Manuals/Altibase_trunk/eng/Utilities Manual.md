@@ -1979,7 +1979,7 @@ The command to drop all replication objects from all Pods. It is used when there
 ### aku.conf
 
 * Don't use comment in aku.conf file. If an comment is added in aku.conf file, it displays `Cannot parse aku.conf` error.
-*  It displays `[ERROR] Property [property_name] should be specified by configuration.` when you accidentally delete an aku property that has a default value of "none" (such as AKU_STS_NAME, AKU_SVC_NAME, etc.) from the aku.conf file, or setting the value to "".
+*  Don't delete aku properties that has a default value of "none" (such as AKU_STS_NAME, AKU_SVC_NAME, etc.) from the aku.conf file and don't set values of the properties to "". It displays `[ERROR] Property [property_name] should be specified by configuration.`  
 
 ### aku -p start 명령 수행 시
 
