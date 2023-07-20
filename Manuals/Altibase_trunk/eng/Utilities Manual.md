@@ -1674,17 +1674,17 @@ When Pods are terminated, the replication information of Altibase Server is rese
 
 ### Component
 
-> ⚠️ The aku utility should be running with a same version in all Pods, and the aku configuration files should have same values. Basically, aku utility and aku configuration file are included in the Alibase container image.
+> ⚠️ aku should be running with a same version in all Pods, and the aku configuration files should have same values. Basically, aku and aku configuration file are included in the Alibase container image.
 >
-> Altibase Server and aku utility should be executed within the same container.
+> Altibase Server and aku should be executed within the same container.
 
 #### aku
 
-aku utility is located in $ALTIBASE_HOME/bin. To execute aku, you need to first set the environment variable ALTIBASE_HOME.
+aku is located in $ALTIBASE_HOME/bin. To execute aku, you need to first set the environment variable $ALTIBASE_HOME.
 
 #### aku.conf
 
-aku configuration file. When aku is executed, it first reads aku.conf file to obtain necessary information for Altibase data synchronization. Prior to executing aku, you should generate the aku.conf file in the $ALTIBASE_HOME/conf directory, using the provided sample file named aku.conf.sample from the Altibase package.
+aku configuration file. When aku is executed, it first reads aku.conf file to obtain necessary information for Altibase data synchronization. Altibase provides aku.conf.sample located in $ALTIBASE_HOME/conf directory. Prior to executing aku, you should generate the aku.conf file in the $ALTIBASE_HOME/conf directory, using the aku.conf.sample.
 
 The aku.conf.sample file is as follows:
 
@@ -1724,13 +1724,13 @@ REPLICATIONS = (
 )
 ```
 
-For details explanations of each properties, refer to **aku-properties**(연결예정).
+For details of each properties, refer to **aku-properties**(연결예정).
 
 ## Setup to run aku
 
 ### Prerequisite
 
-To ensure stable usage of the aku utility in a Kubernetes environment, the following conditions must be followed:
+To ensure stable usage of aku in a Kubernetes environment, the following conditions must be met:
 
 * It should be used only in **StatefulSets** among Kubernetes workload controllers.
 * The **Pod management policy should be OrderedReady**. OrderedReady is the default policy for StatefulSets.
@@ -1739,7 +1739,7 @@ To ensure stable usage of the aku utility in a Kubernetes environment, the follo
 * The **Altibase server and aku** utility should be executed within the same container.
 *  `aku -p start` command should be performed after the Altibase server has started successfully.
 
-* After completing `aku -p start` command on a Pod, it should sequentially create the next Pod. This requires configuring the startup probe.
+* After completing `aku -p start` command on a Pod, it should sequentially create the next Pod. This requires configuring the **Startup Probe**.
 * **Startup Probe** configuration is needed to verify if `aku -p start` command has been successfully executed. You can use the presence of the aku_start_completed file in the /tmp directory as an indicator for verification.
 * Set **publishNotReadyAddress** to true.
 * `aku -p end` command should be performed before stopping the Altibase server.
@@ -1760,7 +1760,7 @@ To ensure stable usage of the aku utility in a Kubernetes environment, the follo
 | :----------------------------------- | :-----------: | :----------------------------------------------------------- |
 | AKU_STS_NAME                         |     none      | The name of the StatefulSet defined in the Kubernetes object specification. |
 | AKU_SVC_NAME                         |     none      | The service name that provides the network service defined in the Kubernetes object specification. |
-| AKU_SERVER_COUNT                     |       4       | The maximum number of Altibase servers that can be synchronized using the aku utility. It also refers to the number of Pods that can be scaled up in Kubernetes. </br>It can be set from 1 to 4. |
+| AKU_SERVER_COUNT                     |       4       | The maximum number of Altibase servers that can be synchronized using aku. It also refers to the number of Pods that can be scaled up in Kubernetes. </br>It can be set from 1 to 4. |
 | AKU_SYS_PASSWORD                     |     none      | Database SYS user password                                   |
 | AKU_PORT_NO                          |     20300     | Altibase Server Port number.<br />It can be set from 1024 to 65535. |
 | AKU_REPLICATION_PORT_NO              |     20301     | Altibase Replication Port number.<br />It can be set from 1024 to 65535. |
@@ -1777,7 +1777,7 @@ To ensure stable usage of the aku utility in a Kubernetes environment, the follo
 
 > <a name="rep_name_rules"> **Naming rule of replication object in aku**</a>
 
-Altibase replication object names that aku creates are generated with the following rule *REPLICATION_NAME_PREFIX*_\[*Pod Number*]\[*Pod Number*\]. The Kubernetes StatefulSet creates Pods sequentially in the order *Pod_name*\_0, *Pod_name*\_1, ..., *Pod_name*\_*N*-1, with each Pod having a unique sequence number. In the Altibase replication object name, the Pod number is composed of the sequence numbers of Pods that form a replication pair.
+Altibase replication object names that aku creates are generated with the following rule *REPLICATION_NAME_PREFIX*_\[*Pod Number*]\[*Pod Number*\]. The StatefulSet creates Pods sequentially in the order *Pod_name*\_0, *Pod_name*\_1, ..., *Pod_name*\_*N*-1, with each Pod having a unique sequence number. In the Altibase replication object name, the Pod number is composed of the sequence numbers of Pods that form a replication pair.
 
 For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP", the names of the replication objects created in each Pod are as follows.
 
@@ -1814,7 +1814,7 @@ Displays the usage of aku utility
 
 #### -v, --version
 
-Displays the version information of aku utility. It is recommended to use the same version of the aku utility as the Altibase server.
+Displays the version information of aku utility. It is recommended to use the same version of aku as Altibase server.
 
 
 #### -i, --info
@@ -1852,13 +1852,11 @@ When scaling up in a StatefulSet, new Pods are created, and it is possible to cr
 
 ##### Creation of Master Pod (Creation of the first Pod)
 
-It's the first Pod created in Kubernetes StatefulSet , specified as *pod_name*-0. The Pod is called as "Master Pod" in aku and we call the executed aku as "MASTER AKU".
+It's the first Pod created in a StatefulSet , specified as *pod_name*-0. The Pod is called as "Master Pod" in aku and the executed aku is called as "MASTER AKU".
 
-Since Altibase replication objects need to be created on all Pods, `aku -p start` command is also executed  when creating *pod_name*-0 in StatefulSet.
+Since Altibase replication objects need to be created on all Pods, `aku -p start` command is also executed  when creating *pod_name*-0 in a StatefulSet.
 
-The followings explain the detailed behavior of  `aku -p start` command during creating *pod_name*-0 in StatefulSet.
-
-
+The followings explain the detailed behavior of  `aku -p start` command during creating *pod_name*-0 in a StatefulSet.
 
 <div align="left">
     <img src="media/Utilities/aku_p_start_master_pod.jpg"></img>
@@ -1877,13 +1875,11 @@ The followings explain the detailed behavior of  `aku -p start` command during c
 
 ##### **Scale up**
 
-When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and we call the executed aku as "SLAVE AKU".  하나의 파드는 생성과 종료를 반복할 수 있는데, 파드가 처음 생성될 때와 종료 후 다시 생성될 때 aku -p start 동작이 다르다. 
+When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and the executed aku is called as "SLAVE AKU".  A Pod can be created and terminated repeatedly. The behavior of `aku -p start` is different when a Pod is first created and when it is recreated after being terminated.
 
-> **슬레이브 파드를 처음 생성하거나 정상적으로 종료하고 다시 시작할 때**
+> **When creating a Slave Pod for the first time, or restart after a normal termination**
 
-처음 생성하거나 정상적으로 종료하고 다시 시작하는 슬레이브 파드에서 aku -p start 를 수행할 때 aku의 동작을 설명한다.
-
-아래는 *pod_name*-1에서 수행한 예이다. 
+Followings explain the detailed behavior of  `aku -p start` command on *pod_name*-1 when the Slave Pod is created for the first time and is restarted normally. 
 
 <div align="left">
     <img src="media/Utilities/aku_p_start_slave_pod.jpg"></img>
@@ -1893,7 +1889,7 @@ When scaling up in a StatefulSet, new Pods are created. The new Pod is called as
 
 1️⃣ Reads aku.conf file.
 
-2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus one. If a replication object with the same name already exists, this step is skipped. For example, if *pod_name*-1 already exists, this step is skipped. (already exists 인 상황 = 정상적으로 종료하고 다시 시작하는 경우를 말함. 이때는 2번 단계가 생략된다는 뜻 )
+2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus one. If a replication object with the same name already exists, this step is skipped. That's when the Slave Pod is restarted after a normal termination. For example, if *pod_name*-1 already exists, this step is skipped.
 
 3️⃣ Attempts to connect to all Pods, which are replication target servers. Only the connection with *pod_name*-0 successes and connection errors occurs on the other Pods(*pod_name*-2, *pod_name*-3) , since they have not been created yet. This is the expected behavior.
 
@@ -2132,11 +2128,11 @@ AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Start Failure
 Followings are descriptions of the output.
 
 ~~~bash
-# aku.conf를 읽어 이중화 객체를 생성한다.-> aku.conf파일을 읽고 이중화 객체를 생성 후 시작하는 과정을 display 한다.
-# MASTER AKU는 첫 번째 파드에서 수행한 aku를 의미한다. 
+# it displays the process of creating and starting replicaion objects, refering to aku.conf file.
+# MASTER AKU means the aku performed on the first Pod. 
 MASTER AKU Initialize
 
-# 다른 파드가 아직 생성되지 않은 상태이므로 첫 번째 파드에서 다른 파드로의 접속이 실패한다.   
+# The connections from the first Pod to the other Pods fail,because the other Pods have not yet been created.   
 [Error][akuDbConnect:344] Failed to execute SQLDriverConnect: AKUHOST-1.altibase.svc
   Diagnostic Record 1
     SQLSTATE     : 08001
@@ -2144,7 +2140,7 @@ MASTER AKU Initialize
     Message len  : 98
     Native error : 0x50032
 
-# 다른 파드가 아직 생성되지 않은 상태이므로 첫 번째 파드에서 다른 파드로의 이중화 시작이 실패한다.   
+# The replications from the first Pod to the other Pods fail,because the other Pods have not yet been created.   
 [Error][akuExecuteQuery:406] [EXECUTE BY :AKUHOST-0.altibase-svc] [SQL:ALTER REPLICATION AKU_REP_01 START] : Failed to execute sql.
   Diagnostic Record 1
     SQLSTATE     : HY000
@@ -2173,7 +2169,7 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success
 출력 결과를 살펴보자.  
 
 ~~~bash
-# aku.conf를 읽어 이중화 객체를 생성한다. 
+# it displays the process of creating and starting replicaion objects, refering to aku.conf file. 
 # SLAVE AKU는 첫 번째 파드가 아닌 파드에서 수행한 aku를 의미한다.
 SLAVE AKU Initialize
 
