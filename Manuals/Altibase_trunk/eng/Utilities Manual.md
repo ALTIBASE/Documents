@@ -1725,7 +1725,7 @@ aku(Altibase Kubernetes Utility) is a utility that helps perform scaling operati
 
 #### Scale up
 
-The action of creating new pods that are replicas of an existing Pod.
+The action of creating new Pods that are replicas of an existing Pod.
 
 #### Scale down
 
@@ -2092,7 +2092,7 @@ No rows selected.
 
 ### aku -i
 
-This is the result of running `aku -i` and displays the information set in aku.conf. A Server ID of 0 indicates the first Pod created by the StatefulSet.
+This is the result of running `aku -i` and displays the information set in aku.conf. A server with Server ID 0 is that of the first Pod created by the StatefulSet.
 
 ~~~bash
 $ aku -i
