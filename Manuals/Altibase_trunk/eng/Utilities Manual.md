@@ -1739,11 +1739,11 @@ When Pods are terminated, the replication information of Altibase Server is rese
 
 #### aku
 
-aku is located in $ALTIBASE_HOME/bin. To execute aku, you need to first set the environment variable $ALTIBASE_HOME.
+aku is located in $ALTIBASE_HOME/bin. To execute aku, you need to set $ALTIBASE_HOME and add $ALTIBASE_HOME/bin to $PATH.
 
 #### aku.conf
 
-aku.conf is an aku configuration file. When aku is executed, it first reads aku.conf file to obtain necessary information for Altibase data synchronization. Altibase provides aku.conf.sample located in $ALTIBASE_HOME/conf directory. Prior to executing aku, you should generate the aku.conf file in the $ALTIBASE_HOME/conf directory, using the aku.conf.sample.
+aku.conf is the configuration file for aku. When executing aku, it reads aku.conf file to obtain the information needed for Altibase data synchronization. Altibase provides aku.conf.sample in $ALTIBASE_HOME/conf directory. Before running aku, generate the aku.conf file in the same directory using aku.conf.sample.
 
 The aku.conf.sample file is as follows:
 
@@ -1806,12 +1806,16 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 
 * Kubernetes's **terminationGracePeriodSeconds** should be set to a large value to allow aku to complete its tasks successfully before Pod is terminated.
 
-### Altibase Environment Variable
+### Altibase Environment Variable and Properties
 
-* ALTIBASE_HOME
-  * Sets the directory in which Altibase server was installed. This must be set to use aku.
-* set ADMIN_MODE to 1.
-* set REMOTE_SYSDBA_ENABLE to 1.
+* Altibase Environment 
+  * $ALTIBASE_HOME
+    * Sets the directory in which Altibase server was installed. This must be set to use aku.
+  
+* Altibase Properties
+  * set ADMIN_MODE to 1.
+  * set REMOTE_SYSDBA_ENABLE to 1.
+
 
 ### aku Properties
 
