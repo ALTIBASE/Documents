@@ -1733,7 +1733,7 @@ When Pods are terminated, the replication information of Altibase Server is rese
 
 ### Component
 
-> ⚠️ aku should be running with a same version in all Pods, and the aku configuration files should have same values. Basically, aku and aku configuration file are included in the Alibase container image.
+> ⚠️ aku should be running with a same version in all Pods, and the aku configuration files should have same values. Basically, aku and aku configuration file are included in the Altibase container image.
 >
 > Altibase Server and aku should be executed within the same container.
 
@@ -1743,7 +1743,7 @@ aku is located in $ALTIBASE_HOME/bin. To execute aku, you need to first set the 
 
 #### aku.conf
 
-aku configuration file. When aku is executed, it first reads aku.conf file to obtain necessary information for Altibase data synchronization. Altibase provides aku.conf.sample located in $ALTIBASE_HOME/conf directory. Prior to executing aku, you should generate the aku.conf file in the $ALTIBASE_HOME/conf directory, using the aku.conf.sample.
+aku.conf is an aku configuration file. When aku is executed, it first reads aku.conf file to obtain necessary information for Altibase data synchronization. Altibase provides aku.conf.sample located in $ALTIBASE_HOME/conf directory. Prior to executing aku, you should generate the aku.conf file in the $ALTIBASE_HOME/conf directory, using the aku.conf.sample.
 
 The aku.conf.sample file is as follows:
 
@@ -1791,20 +1791,20 @@ For details of each properties, refer to [aku-properties](#aku-properies).
 
 To ensure stable usage of aku in a Kubernetes environment, the following conditions must be met:
 
-* It should be used only in **StatefulSets** among Kubernetes workload controllers.
+* It should be used only in **StatefulSets** among Kubernetes workload.
 * The **Pod management policy should be OrderedReady**. OrderedReady is the default policy for StatefulSets.
 * The maximum number of scalable replicas is **up to 4**.
 
 * The **Altibase server and aku** utility should be executed within the same container.
 *  `aku -p start` command should be performed after the Altibase server has started successfully.
 
-* After completing `aku -p start` command on a Pod, it should sequentially create the next Pod. This requires configuring the **Startup Probe**.
+* After completing `aku -p start` command on a Pod, it should sequentially create the next Pod. This requires to configure the **Startup Probe** in Kubernetes.
 * **Startup Probe** configuration is needed to verify if `aku -p start` command has been successfully executed. You can use the presence of the aku_start_completed file in the /tmp directory as an indicator for verification.
 * Set **publishNotReadyAddress** to true.
 * `aku -p end` command should be performed before stopping the Altibase server.
 * A Pod should be terminated after `aku -p end` command completes successfully.
 
-* It is necessary to set Kubernetes' **terminationGracePeriodSeconds** long enough to allow enough time for aku to successfully complete when Pod terminates.
+* Kubernetes's **terminationGracePeriodSeconds** should be set to a large value to allow aku to complete its tasks successfully before Pod is terminated.
 
 ### Altibase Environment Variable
 
@@ -1818,7 +1818,7 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 | Property name                        | Default value | Description                                                  |
 | :----------------------------------- | :-----------: | :----------------------------------------------------------- |
 | AKU_STS_NAME                         |     none      | The name of the StatefulSet defined in the Kubernetes object specification. |
-| AKU_SVC_NAME                         |     none      | The service name that provides the network service defined in the Kubernetes object specification. |
+| AKU_SVC_NAME                         |     none      | The Service name that provides the Network Service defined in the Kubernetes object specification. |
 | AKU_SERVER_COUNT                     |       4       | The maximum number of Altibase servers that can be synchronized using aku. It also refers to the number of Pods that can be scaled up in Kubernetes. </br>It can be set from 1 to 4. |
 | AKU_SYS_PASSWORD                     |     none      | Database SYS user password                                   |
 | AKU_PORT_NO                          |     20300     | Altibase Server Port number.<br />It can be set from 1024 to 65535. |
@@ -1842,7 +1842,7 @@ For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP"
 
 | Pod Number   | Replication object name | Description                                                  |
 | :----------- | :---------------------- | :----------------------------------------------------------- |
-| *pod_name*-0 | AKU_REP_01              | Replication object name between *pod_name*-0 and *pod_name*-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| *pod_name*-0 | AKU_REP_01              | Replication object name between *pod_name*-0 and *pod_name*-1 |
 |              | AKU_REP_02              | Replication object name between  *pod_name*-0 and *pod_name*-2 |
 |              | AKU_REP_03              | Replication object name between  *pod_name*-0 and *pod_name*-3 |
 | *pod_name*-1 | AKU_REP_01              | Replication object name between  *pod_name*-0 and *pod_name*-1 |
@@ -1924,7 +1924,7 @@ The followings explain the detailed behavior of  `aku -p start` command during c
 
   1️⃣ Reads aku.conf file.
 
-  2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus one. If a replication object with the same name already exists, this step(the replication creation phase) is skipped.
+  2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus 1. If a replication object with the same name already exists, this step(the replication creation phase) is skipped.
 
   3️⃣ Attempts to connect to all Pods, which are replication target servers. However, since other Pods are not yet created, an error occurs when attempting to establish a connection. This is the expected behavior.
 
@@ -1948,7 +1948,7 @@ Followings explain the detailed behavior of  `aku -p start` command on *pod_name
 
 1️⃣ Reads aku.conf file.
 
-2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus one. If a replication object with the same name already exists, this step is skipped. That's when the Slave Pod is restarted after a normal termination. For example, if *pod_name*-1 already exists, this step is skipped.
+2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus 1. If a replication object with the same name already exists, this step is skipped. That's when the Slave Pod is restarted after a normal termination. For example, if *pod_name*-1 already exists, this step is skipped.
 
 3️⃣ Attempts to connect to all Pods, which are replication target servers. Only the connection with *pod_name*-0 successes and connection errors occurs on the other Pods(*pod_name*-2, *pod_name*-3) , since they have not been created yet. This is the expected behavior.
 
