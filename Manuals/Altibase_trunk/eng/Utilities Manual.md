@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents** 
 
 - [Utilities Manual](#utilities-manual)
 - [Table Of Contents](#table-of-contents)
@@ -1783,7 +1783,7 @@ REPLICATIONS = (
 )
 ```
 
-For details of each properties, refer to **aku-properties**(연결예정).
+For details of each properties, refer to [aku-properties](#aku-properies).
 
 ## Setup to run aku
 
