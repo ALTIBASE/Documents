@@ -2128,7 +2128,7 @@ AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Start Failure
 Followings are descriptions of the output.
 
 ~~~bash
-# it displays the process of creating and starting replicaion objects, refering to aku.conf file.
+# It displays the process of creating and starting replicaion objects, refering to aku.conf file.
 # MASTER AKU means the aku performed on the first Pod. 
 MASTER AKU Initialize
 
@@ -2169,19 +2169,19 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success
 출력 결과를 살펴보자.  
 
 ~~~bash
-# it displays the process of creating and starting replicaion objects, refering to aku.conf file. 
-# SLAVE AKU는 첫 번째 파드가 아닌 파드에서 수행한 aku를 의미한다.
+# It displays the process of creating and starting replicaion objects, refering to aku.conf file. 
+# SLAVE AKU means the aku performed on another Pod than the first Pod.
 SLAVE AKU Initialize
 
-# Master Pod는 첫 번째 파드(AKUHOST-0)를 말하며 AKUHOST-0의 데이터를 나의 파드로 동기화하였다.
+# The Master Pod is the first pod (AKUHOST-0), and data from AKUHOST-0 was synchronized to my pod.
 Sync Process Master Pod To My Pod
 AKUHOST-0.altibase-svc: REPLICAION AKU_REP_03 Sync Success
 
-# AKUHOST-3 파드가 생성되었으므로 AKUHOST-1, AKUHOST-2에서 AKUHOST-3으로 이중화가 시작되었다.    
+# Now that the AKUHOST-3 pod has been created, replications start from AKUHOST-1, AKUHOST-2 to AKUHOST-3.   
 AKUHOST-1.altibase-svc: REPLICAION AKU_REP_13 Start Success
 AKUHOST-2.altibase-svc: REPLICAION AKU_REP_23 Start Success
 
-# AKUHOST-3 파드와 다른 파드 간 이중화가 시작되었다.
+# Replication among AKUHOST-3 Pods and other Pods has been started.
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_03 Start Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_13 Start Success
 AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success  
