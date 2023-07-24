@@ -1685,9 +1685,9 @@ MOSO = SU
 
 ### Overview
 
-The Altibase Kubernetes Utility (aku) is a utility that helps you perform tasks such as synchronizing data in Altibase with the creation and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. aku supports data replication among Pods and does not support Altibase's data scale-out feature.
+Altibase Kubernetes Utility (AKU) is a utility that helps you perform tasks such as synchronizing data in Altibase with the creation and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. Aku supports data replication among Pods but does not support Altibase's data scale-out feature.
 
-> StatefulSets are one of Kubernetes' workloads for supporting stateful applications like databases, and scaling means creating or terminating pods. A Pod is a resource in Kubernetes that contains containers, and the Altibase server runs on these containers.
+> StatefulSets are one of Kubernetes' workloads for supporting stateful applications like databases, and scaling means creating or terminating pods. A Pod is a resource in Kubernetes that contains containers, and Altibase server runs on these containers.
 
 When scaling up or down on a StatefulSet, you can use aku to create or terminate pods that meet the following conditions. You should add the command in the appropriate location so that aku runs on the Altibase container.
 
@@ -1701,13 +1701,13 @@ You can use aku, if you want to initialize the replication information of Altiba
 
 ### Component
 
-> ⚠️ aku should be running with a same version in all Pods, and the aku configuration files should have same values. Basically, aku and aku configuration file are included in the Altibase container image.
+> ⚠️ Aku should be running with a same version in all Pods, and the aku configuration files should have same values. Basically, aku and aku configuration file are included in the Altibase container image.
 >
 > Altibase Server and aku should be executed within the same container.
 
 #### aku
 
-aku is located in $ALTIBASE_HOME/bin. To execute aku, you need to set $ALTIBASE_HOME and add $ALTIBASE_HOME/bin to $PATH.
+Aku is located in $ALTIBASE_HOME/bin. To execute aku, you need to set $ALTIBASE_HOME and add $ALTIBASE_HOME/bin to $PATH.
 
 #### aku.conf
 
@@ -1763,8 +1763,8 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 * The **Pod management policy should be OrderedReady**. OrderedReady is the default policy for StatefulSets.
 * The maximum number of scalable replicas is **up to 4**.
 
-* The **Altibase server and aku** utility should be executed within the same container.
-* `aku -p start` command should be performed after the Altibase server has started successfully.
+* **Altibase server and aku** should be executed within the same container.
+* `aku -p start` command should be performed after Altibase server has started successfully.
 
 * After completing `aku -p start` command on a Pod, it should sequentially create the next Pod. This requires to configure the **Startup Probe** in Kubernetes.
 * **Startup Probe** configuration is needed to verify if `aku -p start` command has been successfully executed. You can use the presence of the aku_start_completed file in the /tmp directory as an indicator for verification.
@@ -1934,7 +1934,7 @@ Followings explain the detailed behavior of  `aku -p start` command on *pod_name
 
 ##### Restarting the Slave Pod terminated abnormally
 
->  **case of restarting the Slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 1)** 
+>  **Case of restarting the Slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 1)** 
 
 The following explanation describes the basic behavior of aku when executing `aku -p start` on a slave Pod that has terminated abnormally.
 
@@ -1957,7 +1957,7 @@ A slave Pod terminated abnormally is the Pod that has not reset the replication 
 
 
 
-> **case of restarting the Slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 0)** 
+> **Case of restarting the Slave Pod terminated abnormally (Default behavior, AKU_FLUSH_AT_START = 0)** 
 
 The following explanation describes the behavior of aku when executing `aku -p start` on a slave Pod that has terminated abnormally, with the property AKU_FLUSH_AT_START set to 0.
 
