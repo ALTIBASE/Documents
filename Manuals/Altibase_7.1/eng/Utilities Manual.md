@@ -1685,7 +1685,7 @@ MOSO = SU
 
 ### Overview
 
-The Altibase Kubernetes Utility (AKU) is a utility that helps you perform tasks such as synchronizing data in Altibase with the creation and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. 
+The Altibase Kubernetes Utility (aku) is a utility that helps you perform tasks such as synchronizing data in Altibase with the creation and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. aku supports data replication among Pods and does not support Altibase's data scale-out feature.
 
 > StatefulSets are one of Kubernetes' workloads for supporting stateful applications like databases, and scaling means creating or terminating pods. A Pod is a resource in Kubernetes that contains containers, and the Altibase server runs on these containers.
 
