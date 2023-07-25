@@ -1829,7 +1829,7 @@ For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP"
 
 ⚠️ Don't create/drop/modify carelessly the Altibase replication objects created by aku.
 
-## Execution of aku
+## Usage of aku
 
 ### Syntax
 
@@ -1871,13 +1871,13 @@ Displays the following informations defined in aku.conf file.
 
 Specify the action to be performed with aku. *pod_action* options are "start", "end", and "clean".
 
-### action of aku
+### pod_action with aku
 
 The followings introduce the action performed during execution of aku.
 
 #### aku -p start
 
-It creates Altibase replication objects and synchronizes data. You can use the command when creating Pods.
+It creates Altibase replication objects and synchronizes data. You can use the command when creating or restarting Pod.
 
 The following shows the detailed behavior of `aku -p start` command.
 
@@ -1978,7 +1978,7 @@ The following explanation describes the behavior of aku when executing `aku -p s
 
 #### **aku -p end**
 
-The command to terminate Pods. It performs to stop Altibase replication and reset the replication information. 
+The command should be used when terminating Pods. It performs to stop Altibase replication and reset the replication information. 
 
 <div align="left">
     <img src="media/Utilities/aku_p_end.jpg"></img>
@@ -1993,7 +1993,7 @@ The command to terminate Pods. It performs to stop Altibase replication and rese
 
 #### **aku -p clean**
 
-The command to drop all replication objects from all Pods. It is used when there is no longer a need for synchronization among Pods.
+The command is to drop all replication objects from all Pods. It is used when there is no longer a need for synchronization among Pods.
 
 <br/>
 

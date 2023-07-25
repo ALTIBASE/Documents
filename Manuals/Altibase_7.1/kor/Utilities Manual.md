@@ -2270,7 +2270,7 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 
 #### **start**
 
-Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을 수행한다. 파드를 생성할 때 이용한다. start 명령의 상세 동작을 살펴보자.
+Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을 수행한다. 파드를 생성하거나 재 시작할 때 이용한다. start 명령의 상세 동작을 살펴보자.
 
 - ***첫 번째 파드 생성 시***
 
@@ -2304,7 +2304,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   <div align="left">
       <img src="media/Utilities/aku_p_start_slave_pod.jpg"></img>
   </div>
-
+  
   
 
   1️⃣ aku.conf 파일을 읽는다.
@@ -2377,7 +2377,9 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
 #### **end**
 
-Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파드를 종료할 때 이용한다. 
+Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 이 명령은 scale down 하려고 할때에만 수행할 것을 권장한다. 왜냐하면, 파드를 종료할 때 마다 사용하는 경우, 파드가 재시작될때마다 이중화 대상 테이블을 trunk/sync를 수행하므로, 데이터가 많은 경우 오래 걸린다. 반면, 데이터가 작고 truncate/sync 소요시간이 크지 않은 경우에는 파드 종료시에 설정해도 좋다.
+
+파드를 종료할때 aku -p end를 설정하는것을 가이드 하지만, 이것은 파드가 재시작 될때 이중화 테이블의 truncate/sync를 수행하므로 데이터가 
 
 <div align="left">
     <img src="media/Utilities/aku_p_end.jpg"></img>
@@ -2390,6 +2392,8 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 3️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION *replication_name* STOP 수행을 요청한다.
 
 4️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION *replication_name* RESET 수행을 요청한다.
+
+> ⚠️ 파드를 종료할때, `aku -p end` 명령어 실행을 하지 않으면, 파드가 종료되고 재 시작되었을 때 기존 테이블(이중화 대상 테이블)의 truncate/sync 동작이 없이 이중화가 시작됩니다.
 
 #### **clean**
 
