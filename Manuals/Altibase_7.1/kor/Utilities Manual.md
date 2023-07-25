@@ -2270,7 +2270,7 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 
 #### **start**
 
-Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을 수행한다. 파드를 생성하거나 재 시작할 때 이용한다. start 명령의 상세 동작을 살펴보자.
+Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을 수행한다. 파드를 시작할 때 이용한다. start 명령의 상세 동작을 살펴보자.
 
 - ***첫 번째 파드 생성 시***
 
@@ -2293,11 +2293,11 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
 - ***스케일 업(Scale up)***
 
-  스테이트풀셋에서 스케일 업을 하면 파드가 생성된다. aku에서는 슬레이브 파드(Slave Pod)라 하며 여기서 수행한 aku를 'SLAVE AKU'라 부른다. 하나의 파드는 생성과 종료를 반복할 수 있는데, 파드가 처음 생성될 때와 종료 후 다시 생성될 때 aku -p start 동작이 다르다. 
+  스테이트풀셋에서 스케일 업을 하면 파드가 생성된다. aku에서는 슬레이브 파드(Slave Pod)라 하며 여기서 수행한 aku를 'SLAVE AKU'라 부른다. 하나의 파드는 생성과 종료를 반복할 수 있는데, 파드가 처음 생성될 때와 종료 후 다시 시작될 때 aku -p start 동작이 다르다. 
 
   > **슬레이브 파드를 처음 생성하거나 정상적으로 종료하고 다시 시작할 때**
 
-  처음 생성하거나 정상적으로 종료하고 다시 시작하는 슬레이브 파드에서 aku -p start 를 수행할 때 aku의 동작을 설명한다.
+  처음 생성하거나 정상적으로 종료하고 다시 시작하는 슬레이브 파드에서 `aku -p start` 를 수행할 때 aku의 동작을 설명한다.
 
   아래는 *pod_name*-1에서 수행한 예이다. 
 
@@ -2329,9 +2329,9 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   >  **비정상적으로 종료된 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
 
-  비정상적으로 종료된 슬레이브 파드에서 aku -p start 를 수행할 때 aku의 동작을 설명한다.
+  비정상적으로 종료된 슬레이브 파드에서 `aku -p start` 를 수행할 때 aku의 동작을 설명한다.
 
-  비정상적으로 종료된 슬레이브 파드는 aku -p end 명령을 수행하지 않았거나 정상적으로 완료하지 않아 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
+  비정상적으로 종료된 슬레이브 파드는 `aku -p end` 명령을 수행하지 않았거나 정상적으로 완료하지 않아 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
 
   <div align="left">
       <img src="media/Utilities/aku_p_start_aku_flush_at_start_1.jpg"></img>
@@ -2344,7 +2344,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   3️⃣ *pod_name*-1에서 *pod_name*-0, *pod_name*-2, *pod_name*-3으로 이중화를 시작하고 ALTER REPLICATION ~ FLUSH ALL을 수행한다. 이 명령은 *pod_name*-1에서 다른 파드로 동기화하지 못한 데이터를 전송한다. *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이 명령이 실패한다. 이는 정상적인 동작이다. 
 
-  *pod_name*-2, *pod_name*-3이 생성되고 이중화 할 수 있는 준비가 되면 각 파드에서 aku -p start 수행으로 이중화 시작과 FLUSH ALL이 수행된다.
+  *pod_name*-2, *pod_name*-3이 생성되고 이중화 할 수 있는 준비가 되면 각 파드에서 `aku -p start` 수행으로 이중화 시작과 FLUSH ALL이 수행된다.
 
   4️⃣ *pod_name*-0에서 *pod_name*-1로 이중화를 시작하고 ALTER REPLICATION ~ FLUSH WAIT *wait_time*을 수행한다. *wait_time*은 aku 설정 파일에 설정한 AKU_FLUSH_TIMEOUT_AT_START 프로퍼티의 값에 따른다. 이 명령은 *pod_name*-0에서 *pod_name*-1 으로 동기화하지 못한 데이터를 전송한다. 
 
@@ -2369,7 +2369,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   3️⃣ *pod_name*-0에서 *pod_name*-1으로 이중화를 시작한다.
 
-  4️⃣ *pod_name*-1에서 *pod_name*-0, *pod_name*-2, *pod_name*-3 으로 이중화를 시작하고, 모든 파드에 이중화 시작을 요청한다. *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이중화 시작은 실패한다. 이는 정상적인 동작이다. *pod_name*-2, *pod_name*-3이 생성되고 이중화 할 수 있는 준비가 되면 각 파드에서 aku -p start 수행으로 이중화가 시작된다. 
+  4️⃣ *pod_name*-1에서 *pod_name*-0, *pod_name*-2, *pod_name*-3 으로 이중화를 시작하고, 모든 파드에 이중화 시작을 요청한다. *pod_name*-2, *pod_name*-3은 생성되기 전이기 때문에 이중화 시작은 실패한다. 이는 정상적인 동작이다. *pod_name*-2, *pod_name*-3이 생성되고 이중화 할 수 있는 준비가 되면 각 파드에서 `aku -p start` 수행으로 이중화가 시작된다. 
 
   5️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
@@ -2377,9 +2377,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
 #### **end**
 
-Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 이 명령은 scale down 하려고 할때에만 수행할 것을 권장한다. 왜냐하면, 파드를 종료할 때 마다 사용하는 경우, 파드가 재시작될때마다 이중화 대상 테이블을 trunk/sync를 수행하므로, 데이터가 많은 경우 오래 걸린다. 반면, 데이터가 작고 truncate/sync 소요시간이 크지 않은 경우에는 파드 종료시에 설정해도 좋다.
-
-파드를 종료할때 aku -p end를 설정하는것을 가이드 하지만, 이것은 파드가 재시작 될때 이중화 테이블의 truncate/sync를 수행하므로 데이터가 
+Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파드를 종료할 때 이용한다. 
 
 <div align="left">
     <img src="media/Utilities/aku_p_end.jpg"></img>
@@ -2415,7 +2413,7 @@ aku -p start 명령은 Altibase 서버가 정상적으로 시작된 후 수행�
 
 이때 altibase.properties의 ADMIN_MODE = 1 과 REMOTE_SYSDBA_ENABLE = 1 을 설정한 후, Altibase 서버를 기동해야 한다.
 
-하나의 파드에서 aku -p start 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다.
+하나의 파드에서 `aku -p start` 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다.
 
 이를 위해 startup probe를 설정해야하며, aku_start_completed 파일 여부로 확인한다. 또한 publishNotReadyAddresses를 true 로 설정해야한다.
 
@@ -2425,7 +2423,7 @@ startup probe, publishNotReadyAddresses 에 대한 자세한 내용은 쿠버네
 
 마스터 파드 장애 시 사용자가 확인하여 데이터 정합성을 맞추어야한다. 마스터 파드의 테이블을 truncate 후 슬레이브 파드에서 이중화 sync를 수행한다.
 
-데이터 정합성을 맞춘 뒤 aku -p start 명령을 수행해야 하는데, aku 에서 수동 복구를 감지 할 수 없기 때문에 aku에서 관리하는 이중화 중 아무거나 시작한 뒤 aku -p start를 수행한다.
+데이터 정합성을 맞춘 뒤 `aku -p start` 명령을 수행해야 하는데, aku 에서 수동 복구를 감지 할 수 없기 때문에 aku에서 관리하는 이중화 중 아무거나 시작한 뒤 `aku -p start`를 수행한다.
 
 예) ALTER REPLICATION AKU_REP_01 START;
 
