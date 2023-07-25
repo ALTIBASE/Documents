@@ -1685,11 +1685,11 @@ MOSO = SU
 
 ### Overview
 
-Altibase Kubernetes Utility (AKU) is a utility that helps you perform tasks such as synchronizing data in Altibase with the creation and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. Aku supports data replication among Pods but does not support Altibase's data scale-out feature.
+Altibase Kubernetes Utility (AKU) is a utility that helps you perform tasks such as synchronizing data in Altibase with the start and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. Aku supports data replication among Pods but does not support Altibase's data scale-out feature.
 
 > StatefulSets are one of Kubernetes' workloads for supporting stateful applications like databases, and scaling means creating or terminating pods. A Pod is a resource in Kubernetes that contains containers, and Altibase server runs on these containers.
 
-When scaling up or down on a StatefulSet, you can use aku to create or terminate pods that meet the following conditions. You should add the command in the appropriate location so that aku runs on the Altibase container.
+When scaling up or down on a StatefulSet, you can use aku to start or terminate pods that meet the following conditions. You should add the command in the appropriate location so that aku runs on the Altibase container.
 
 #### When scaling up
 
@@ -1877,9 +1877,11 @@ The followings introduce the action performed during execution of aku.
 
 #### aku -p start
 
-It creates Altibase replication objects and synchronizes data. You can use the command when creating or restarting Pod.
+It creates Altibase replication objects and synchronizes data. You can use the command when starting Pod.
 
-The following shows the detailed behavior of `aku -p start` command.
+The following shows the detailed behavior of  `aku -p start` command.
+
+>  ⚠️ `aku -p start` command should be performed after Altibase server has started successfully.
 
 ##### Creation of Master Pod (Creation of the first Pod)
 
@@ -1905,7 +1907,7 @@ The followings explain the detailed behavior of  `aku -p start` command during c
 
 ##### **Scale up**
 
-When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and the executed aku is called as "SLAVE AKU".  A Pod can be created and terminated repeatedly. The behavior of `aku -p start` is a little different when a Pod is first created and when it is recreated after being terminated.
+When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and the executed aku is called as "SLAVE AKU".  A Pod can be created and terminated repeatedly. The behavior of `aku -p start` is a little different when a Pod is first created and when it is restarted after being terminated.
 
 > **When creating a Slave Pod for the first time, or restart after a normal termination**
 
@@ -1990,6 +1992,8 @@ The command should be used when terminating Pods. It performs to stop Altibase r
 3️⃣ Requests to perform "ALTER REPLICATION *replication_name* STOP" on all Pods related to current Pod.
 
 4️⃣ Requests to perform "ALTER REPLICATION *replication_name* RESET" on all Pods related to current Pod.
+
+> ⚠️ `aku -p end` command should be performed before stopping the Altibase server.
 
 #### **aku -p clean**
 
