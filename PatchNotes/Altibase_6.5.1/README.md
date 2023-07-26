@@ -1,6 +1,6 @@
 # Altibase 6.5.1 Patch Notes - Korean
 
-- Altibase 6.5.1.9.8 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.5.1/kor/Altibase_6_5_1_9_8_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.5.1/kor/pdf/Altibase_6_5_1_9_8_Patch_Notes.pdf)
+- #### Altibase 6.5.1.9.8 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.5.1/kor/Altibase_6_5_1_9_8_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.5.1/kor/pdf/Altibase_6_5_1_9_8_Patch_Notes.pdf)
 
 - #### Altibase 6.5.1.9.7 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.5.1/kor/Altibase_6_5_1_9_7_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.5.1/kor/pdf/Altibase_6_5_1_9_7_Patch_Notes.pdf)
 
