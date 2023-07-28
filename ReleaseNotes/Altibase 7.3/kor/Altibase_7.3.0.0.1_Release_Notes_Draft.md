@@ -83,11 +83,11 @@ Altibase 7.3.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 #### AKU(Altibase Kubernetes Utility)의 지원
 
-AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 Scale in/out 상황에 맞게 이중화 구성을 관리하는 알티베이스의 유틸리티이다.
+AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 Scale in/out 상황에 맞게 Altibase 데이터의 이중화 구성을 도와주는 유틸리티이다.
 
 #### AltiShapeLoader 1.0제공
 
-altiShapeLoader는 쉐이프파일(지리정보 시스템 소프트웨어 개발사 ESRI에서 개발한 파일 형식으로 지리정보 시스템(GIS)분야에서의 표준파일)을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다. 
+altiShapeLoader는 쉐이프파일<sup>[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다. 
 
 #### JDBC 4.2 Spec 지원
 
@@ -95,15 +95,9 @@ Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
 
 Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [Altibase 7.3 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
 
-#### 보안강화 - OpensSSL 3.0.8 지원
+#### OpensSSL 3.0.8 지원
 
 보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원한다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다.
-
-#### ADO.NET provider 인터페이스 지원
-
-Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다.
-
-Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사용할 수 있도록 구현한 것이다. .NET Core 개발자는 ADO.NET을 이용하여 DBMS와 같은 데이터 소스에 접근하여 명령을 수행하고 데이터를 조회하며, 결과를 가공하여 다시 데이터 소스에 반영할 수 있다.
 
 #### 기능 개선 - SQL 확장
 
@@ -712,3 +706,12 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 #### 설치
 
+------
+
+<a name="shapefile">[1]</a> 쉐이프 파일(Shapefile) : 지리정보시스템 소프트웨어 개발사 ESRI에서 개발한 파일 형식으로 지리정보시스템(GIS) 분야에서 표준 파일이다. 쉐이프 파일은 아래 3가지 파일들이 필수로 구성되어 있다.
+
+- shp : 벡터 형식으로 점, 선, 도형을 표현한 공간 데이터 정보를 가지고 있다.
+- shx : 인덱스 파일. shp 파일에 담겨있는 도형 정보의 위치를 담고 있다.
+- dbf : shp 파일의 도형 정보에 대한 속성 정보를 담은 dBASE 테이블 파일이다. 
+
+참고 : [Geoprocessing considerations for shapefile output](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/geoprocessing-considerations-for-shapefile-output.htm)
