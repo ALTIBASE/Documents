@@ -396,7 +396,7 @@ spec:
       labels:
         app: altibase-sts
     spec:
-      terminationGracePeriodSeconds: 120
+      terminationGracePeriodSeconds: 60
       containers:
       - name: altibase-sts
         image: altibase/7.1-bare
