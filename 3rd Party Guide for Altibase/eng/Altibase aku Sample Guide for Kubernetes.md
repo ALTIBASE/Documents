@@ -373,7 +373,7 @@ altibase-svc                   ClusterIP   None         <none>        20300/TCP,
 ## Using StatefulSet
 
 - In this example, the StatefulSet creates 4 Pods.
-- Due to the limitations of aku, an Altibase utility, up to 4 pods can be created.
+- Altibase Kubernetes Utility supports up to 4 pods.
 
 ##### Write a StatefulSet yaml file
 
@@ -387,8 +387,6 @@ metadata:
 spec:
   serviceName: altibase-svc
   replicas: 4
-  updateStrategy:
-    type: RollingUpdate
   podManagementPolicy: OrderedReady
   selector:
     matchLabels:
@@ -398,7 +396,7 @@ spec:
       labels:
         app: altibase-sts
     spec:
-      terminationGracePeriodSeconds: 20
+      terminationGracePeriodSeconds: 120
       containers:
       - name: altibase-sts
         image: altibase/7.1-bare
