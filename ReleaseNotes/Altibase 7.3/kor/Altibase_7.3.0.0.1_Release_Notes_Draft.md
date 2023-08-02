@@ -3,34 +3,33 @@
 **Table of Contents** 
 
 - [Altibase 7.3.0.0.1 Release Notes(Draft)](#altibase-73001-release-notesdraft)
-  - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+  - [1. 시스템 요구사항](#1-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
     - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
     - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
-  - [릴리스 정보](#%EB%A6%B4%EB%A6%AC%EC%8A%A4-%EC%A0%95%EB%B3%B4)
-    - [Altibase 7.3 의 새로운 기능](#altibase-73-%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
-      - [AKU(Altibase Kubernetes Utility)의 지원](#akualtibase-kubernetes-utility%EC%9D%98-%EC%A7%80%EC%9B%90)
-      - [AltiShapeLoader 1.0제공](#altishapeloader-10%EC%A0%9C%EA%B3%B5)
-      - [JDBC 4.2 Spec 지원](#jdbc-42-spec-%EC%A7%80%EC%9B%90)
-      - [보안강화 - OpensSSL 3.0.8 지원](#%EB%B3%B4%EC%95%88%EA%B0%95%ED%99%94---opensssl-308-%EC%A7%80%EC%9B%90)
-      - [ADO.NET provider 인터페이스 지원](#adonet-provider-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%A7%80%EC%9B%90)
-      - [기능 개선 - SQL 확장](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---sql-%ED%99%95%EC%9E%A5)
-      - [기능 개선 - Spatial SQL 개선](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---spatial-sql-%EA%B0%9C%EC%84%A0)
-      - [기능 개선 - 이중화 기능 개선](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
-      - [기능 개선 - 응용 프로그램 개발 인터페이스](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-      - [기능 개선 - 내장패키지 및 함수](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EB%82%B4%EC%9E%A5%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%8F-%ED%95%A8%EC%88%98)
-      - [기능 개선 - 유틸리티](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0)
-      - [기능 개선 - JDBC Adapter, oraAdpater](#%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---jdbc-adapter-oraadpater)
-      - [성능 개선](#%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
-      - [고가용성](#%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
-    - [변경 사항](#%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
-      - [데이터베이스 버전](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B2%84%EC%A0%84)
-      - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-      - [기타 변경사항](#%EA%B8%B0%ED%83%80-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
-      - [Altibase 서버 프로퍼티](#altibase-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-      - [메타 테이블](#%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
-      - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
-    - [패키지](#%ED%8C%A8%ED%82%A4%EC%A7%80)
-    - [다운로드](#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
+  - [2. 릴리스 정보](#2-%EB%A6%B4%EB%A6%AC%EC%8A%A4-%EC%A0%95%EB%B3%B4)
+    - [2.1 Altibase 7.3 의 새로운 기능](#21-altibase-73-%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
+      - [2.1.1 AKU(Altibase Kubernetes Utility)의 지원](#211-akualtibase-kubernetes-utility%EC%9D%98-%EC%A7%80%EC%9B%90)
+      - [2.1.2 AltiShapeLoader 1.0제공](#212-altishapeloader-10%EC%A0%9C%EA%B3%B5)
+      - [2.1.3 JDBC 4.2 Spec 지원](#213-jdbc-42-spec-%EC%A7%80%EC%9B%90)
+      - [2.1.4 OpensSSL 3.0.8 지원](#214-opensssl-308-%EC%A7%80%EC%9B%90)
+      - [2.1.5 기능 개선 - SQL 확장](#215-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---sql-%ED%99%95%EC%9E%A5)
+      - [2.1.6 기능 개선 - Spatial SQL 개선](#216-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---spatial-sql-%EA%B0%9C%EC%84%A0)
+      - [2.1.7 기능 개선 - 이중화 기능 개선](#217-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
+      - [2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스](#218-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
+      - [2.1.9 기능 개선 - 내장패키지 및 함수](#219-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EB%82%B4%EC%9E%A5%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%8F-%ED%95%A8%EC%88%98)
+      - [2.1.10 기능 개선 - 유틸리티](#2110-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0)
+      - [2.1.11 기능 개선 - JDBC Adapter, oraAdpater](#2111-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---jdbc-adapter-oraadpater)
+      - [2.1.12 성능 개선](#2112-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
+      - [2.1.13 고가용성](#2113-%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
+    - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
+      - [2.2.1 데이터베이스 버전](#221-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B2%84%EC%A0%84)
+      - [2.2.2 호환성](#222-%ED%98%B8%ED%99%98%EC%84%B1)
+      - [2.2.3 기타 변경사항](#223-%EA%B8%B0%ED%83%80-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
+      - [2.2.4 Altibase 서버 프로퍼티](#224-altibase-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+      - [2.2.5 메타 테이블](#225-%EB%A9%94%ED%83%80-%ED%85%8C%EC%9D%B4%EB%B8%94)
+      - [2.2.6 성능 뷰](#226-%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+    - [2.3 패키지](#23-%ED%8C%A8%ED%82%A4%EC%A7%80)
+    - [2.4 다운로드](#24-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
       - [Package](#package)
       - [Manual](#manual)
       - [설치](#%EC%84%A4%EC%B9%98)
@@ -42,7 +41,7 @@
 Altibase 7.3.0.0.1 Release Notes(Draft)
 ===============================
 
-## 시스템 요구사항
+## 1. 시스템 요구사항
 
 ### 하드웨어 최저 사양
 
@@ -77,33 +76,33 @@ Altibase 7.3.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 <br/><br/>
 
-## 릴리스 정보
+## 2. 릴리스 정보
 
-### Altibase 7.3 의 새로운 기능
+### 2.1 Altibase 7.3 의 새로운 기능
 
-#### AKU(Altibase Kubernetes Utility)의 지원
+#### 2.1.1 AKU(Altibase Kubernetes Utility)의 지원
 
 AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 Scale in/out 상황에 맞게 Altibase 데이터의 이중화 구성을 도와주는 유틸리티이다.
 
-#### AltiShapeLoader 1.0제공
+#### 2.1.2 AltiShapeLoader 1.0제공
 
-altiShapeLoader는 쉐이프파일<sup>[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다. 
+altiShapeLoader는 쉐이프파일<sup id="shapefile1">[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다. 
 
-#### JDBC 4.2 Spec 지원
+#### 2.1.3 JDBC 4.2 Spec 지원
 
 Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
 
 Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [Altibase 7.3 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
 
-#### OpensSSL 3.0.8 지원
+#### 2.1.4 OpensSSL 3.0.8 지원
 
-보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원한다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다.
+보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [Altibase SSL TLS User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md) 를 참고한다. 추가로 FIPS 모듈의 사용을 지원하는데, SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. 자세한 사용방법 [Altibase SSL TLS User's Guide -Step4 FIPS모듈을 사용할 경우](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-altibase-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-fips%EB%AA%A8%EB%93%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0) 를 참고한다.
 
-#### 기능 개선 - SQL 확장
+#### 2.1.5 기능 개선 - SQL 확장
 
 ##### VARRAY TYPE 지원
 
-저장 프로시저 내에서 사용자 정의 타입으로 VARRAY가 추가되었다. VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입으로, 자세한 설명은 [Stored Procedures Manual - varray](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Stored%20Procedures%20Manual.md#varray) 설명을 참고한다.
+저장 프로시저 내에서 사용자 정의 타입으로 VARRAY가 추가되었다. VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입으로, 자세한 설명은 [Stored Procedures Manual - varray](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Stored%20Procedures%20Manual.md#varray) 설명을 참고한다.
 
 ##### 익명 블록(Anonymous Block) 지원
 
@@ -115,15 +114,11 @@ Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버�
 
 ##### multiple update, delete 구문의 지원
 
-multiple update, delete 구문을 지원한다. 자세한 내용은 SQL 매뉴얼- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference.md#delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference.md#update) 을 참고한다.
+multiple update, delete 구문을 지원한다. 자세한 내용은 SQL 매뉴얼- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#update) 을 참고한다.
 
 ##### 한글 검색 가능한 정규 표현식(Regular Expression) 지원
 
-한글 검색 가능한 정규 표현식을 지원하기 위해 PCRE2 호환모드를 제공한다. PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 자세한 내용은 [SQL 매뉴얼-a.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 을 참고한다.
-
-##### 메모리 파티션드 테이블의 Simple query 최적화로 성능개선
-
-기존에는 메모리 테이블에 대해서만 simple query 최적화를 지원하였으나, 메모리 파티션드 테이블의 경우도 지원하게 되었다. 메모리 파티션드 테이블의 simple query 최적화 지원으로 메모리 파티션드 테이블의 DML 성능이 개선되었다.
+한글 검색 가능한 정규 표현식을 지원하기 위해 PCRE2 호환모드를 제공한다. PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 자세한 내용은 [SQL 매뉴얼-a.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 을 참고한다.
 
 ##### fetch across rollback
 
@@ -135,7 +130,7 @@ CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence �
 
 </br>
 
-#### 기능 개선 - Spatial SQL 개선
+#### 2.1.6 기능 개선 - Spatial SQL 개선
 
 ##### SRID(Spatial Reference Identifier) interface 지원
 
@@ -167,11 +162,11 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 * ST_PolygonFromText
 * ST_Transform
 
-#### 기능 개선 - 이중화 기능 개선
+#### 2.1.7 기능 개선 - 이중화 기능 개선
 
 ###### 이중화 대상 테이블에 DDL 복제 기능 추가(PROJ-2677)
 
-이중화를 통하여 DDL 복제(Synchronization)가 가능하게 되었다. 이 기능을 사용하기 위해서는 각노드의 REPLICATION_DDL_SYNC 프로퍼티를 1로 설정해야 한다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/GeneralReference_2.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/GeneralReference_2.md#replication_ddl_enable_level)이 동일하게 설정해야 한다.
+이중화를 통하여 DDL 복제(Synchronization)가 가능하게 되었다. 이 기능을 사용하기 위해서는 각노드의 REPLICATION_DDL_SYNC 프로퍼티를 1로 설정해야 한다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/GeneralReference_2.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/GeneralReference_2.md#replication_ddl_enable_level)이 동일하게 설정해야 한다.
 
 DDL 동기화를 사용하기 위해 다음의 제약 조건을 확인해야 한다.
 
@@ -186,7 +181,7 @@ DDL 동기화를 사용하기 위해 다음의 제약 조건을 확인해야 한
 
 Propagation 옵션 사용시 DDL 동기화를 허용하지 않는다.
 
-#### 기능 개선 - 응용 프로그램 개발 인터페이스
+#### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스
 
 ##### JDBC API Specification 4.2 부분 지원
 
@@ -277,7 +272,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 �
 
 </br>
 
-#### 기능 개선 - 내장패키지 및 함수
+#### 2.1.9 기능 개선 - 내장패키지 및 함수
 
 ###### DBMS_STANDARD 패키지 제공
 
@@ -307,7 +302,7 @@ SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록
 
 UTL_COPYSWAP 패키지는 테이블 스키마 복사, 데이터 복제, 테이블 교환 인터페이스를 제공한다.
 
-#### 기능 개선 - 유틸리티
+#### 2.1.10 기능 개선 - 유틸리티
 
 ##### altimon의 AIX 7, Power Linux LE(Little endian)에서 동작 지원
 
@@ -319,7 +314,7 @@ AIX 7 버전 및 Power Linux LE에서도 altimon을 사용할 수 있다.
 
 </br>
 
-#### 기능 개선 - JDBC Adapter, oraAdpater
+#### 2.1.11 기능 개선 - JDBC Adapter, oraAdpater
 
 ##### LOB데이터 타입 지원
 
@@ -327,11 +322,11 @@ LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티�
 
 </br>
 
-#### 성능 개선
+#### 2.1.12 성능 개선
 
 ##### TABLE LOCK 병목구간 개선
 
-테이블 잠금(TABLE LOCK) 관리자 타입을 지정하는 LOCK_MGR_TYPE 프로퍼티를 삭제하고, 새로운 테이블 잠 모드(light mutex mode)를 적용하여 테이블 잠금 병목구간을 개선하였다.
+테이블 잠금(TABLE LOCK) 관리자 타입을 지정하는 LOCK_MGR_TYPE 프로퍼티를 삭제하고, 새로운 테이블 잠금 모드(light mutex mode)를 적용하여 테이블 잠금 병목구간을 개선하였다.
 
 ##### TABLESPACE MANAGER MUTEX 병목구간 개선
 
@@ -359,18 +354,6 @@ LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티�
   - 디스크 읽기를 유발하는 함수의 병목을 제거
   - Group Commit Log 기능 추가
 
-##### Row Filter 수행 성능 개선 - SERIAL FILTER 적용
-
-Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row filter 수행 성능을 개선하였다. 이 기능을 사용하기 위해 SERIAL_FILTER 힌트 및 SERIAL_EXECUTE_MODE 프로퍼티가 추가되었다. 실행 계획에서 FILTER SERIAL EXECUTE 를 확인할 수 있다.
-
-##### 스칼라 서브쿼리(Scalar Subquery) 성능 개선
-
-스칼라 서브쿼리의 수행방식을 개선하여 수행 성능을 개선하였다.
-
-##### DEQUEUE 병렬 수행시 성능 개선
-
-병렬로 DEQUEUE 수행 시 발생하는 병목을 제거하여 성능을 개선하였다.
-
 ##### 인덱스 성능 개선
 
 * 서버 시작 시 POINTER BASE 인덱스 생성 시간 단축 및 메모리 사용량 개선
@@ -384,9 +367,30 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 메모리 테이블 객체 식별자 추적 단계를 간소화하여 휘발성/비휘발성 메모리 DB 트랜잭션 성능이 향상되었다.
 
+##### 메모리 파티션드 테이블의 Simple query 최적화로 성능개선
+
+기존에는 메모리 테이블에 대해서만 simple query 최적화를 지원하였으나, 메모리 파티션드 테이블의 경우도 지원하게 되었다. 메모리 파티션드 테이블의 simple query 최적화 지원으로 메모리 파티션드 테이블의 DML 성능이 개선되었다.
+
+##### Row Filter 수행 성능 개선 - SERIAL FILTER 적용
+
+Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row filter 수행 성능을 개선하였다. 이 기능을 사용하기 위해 SERIAL_FILTER 힌트 및 SERIAL_EXECUTE_MODE 프로퍼티가 추가되었다. 실행 계획에서 FILTER SERIAL EXECUTE 를 확인할 수 있다.
+
+##### 스칼라 서브쿼리(Scalar Subquery) 성능 개선
+
+스칼라 서브쿼리의 수행방식을 개선하여 수행 성능을 개선하였다.
+
+##### DEQUEUE 병렬 수행시 성능 개선
+
+병렬로 DEQUEUE 수행 시 발생하는 병목을 제거하여 성능을 개선하였다.
+
+##### 이중화 Sender 성능 향상
+
+- 압축 로그에서 이중화에 필요한 로그만 압축 해제하는 기능 추가
+- xLog 압축 알고리즘을 LZO에서 LZ4로 변경
+
 ##### 마이그레이션 성능 개선
 
-대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [iLoader User's Maunal - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
+대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [iLoader User's Maunal - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
 
 ##### jdbc fetch 성능 개선
 
@@ -396,14 +400,9 @@ JDBC fetch 성능 향상을 위해 ResultSet 객체 사용방식을 개선하였
 
 통신 성능 향상을 위해 RDMA(Remote Direct Memory Access) 통신 기반인 Infiniband를 지원한다.
 
-##### 이중화 Sender 성능 향상
-
-- 압축 로그에서 이중화에 필요한 로그만 압축 해제하는 기능 추가
-- xLog 압축 알고리즘을 LZO에서 LZ4로 변경
-
 </br>
 
-#### 고가용성
+#### 2.1.13 고가용성
 
 ##### DDL PVO 안정성 향상
 
@@ -426,11 +425,11 @@ DDL PVO 단계에서의 예외처리 개선으로 안정성을 향상시켰다.
 
 </br>
 
-### 변경 사항
+### 2.2 변경 사항
 
 DBA와 개발자가 알아야 할 추가, 변경, 제거된 기능을 아래에서 설명한다.
 
-#### 데이터베이스 버전
+#### 2.2.1 데이터베이스 버전
 
 데이터베이스 구성 요소 별 버전
 
@@ -439,7 +438,7 @@ DBA와 개발자가 알아야 할 추가, 변경, 제거된 기능을 아래에�
 |   7.1.0.8.8   |           6.5.1            |  8.11.1   |       7.1.7        |        7.4.7         |
 |   7.3.0.0.1   |           7.3.0            |   9.3.1   |       7.1.8        |        7.4.9         |
 
-#### 호환성
+#### 2.2.2 호환성
 
 ##### 데이터베이스 바이너리 버전
 
@@ -476,7 +475,7 @@ Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 �
 
 </br>
 
-#### 기타 변경사항
+#### 2.2.3 기타 변경사항
 
 ##### Altibase JDBC 4.2 관련 변경 사항 및 호환성 이슈
 
@@ -580,7 +579,7 @@ Altibase 이중화 하위 호환성 보장에 따라 Altibase 6.5.1와  Altibase
 
 </br>
 
-#### Altibase 서버 프로퍼티
+#### 2.2.4 Altibase 서버 프로퍼티
 
 Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티들이다. 각 프로퍼티에 대한 자세한 내용은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)를 참고하기 바란다.
 
@@ -644,7 +643,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 
 
-#### 메타 테이블
+#### 2.2.5 메타 테이블
 
 ##### 새로운 메타테이블
 
@@ -670,7 +669,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   STO_ELLIPSOIDS_
 -   STO_PRIMEMS_
 
-#### 성능 뷰
+#### 2.2.6 성능 뷰
 
 아래의 성능 뷰 들이 추가되었다. 각 성능 뷰에 대한 자세한 내용은 [General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md)를 참고하기 바란다.
 
@@ -681,7 +680,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 </br>
 
-### 패키지
+### 2.3 패키지
 
 | OS    | CPU                       | 서버/클라이언트     | 패키지 인스톨러 이름                                        |
 | ----- | ------------------------- | ------------------- | ----------------------------------------------------------- |
@@ -698,7 +697,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 </br>
 
-### 다운로드
+### 2.4 다운로드
 
 #### Package
 
@@ -708,7 +707,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ------
 
-<a name="shapefile">[1]</a> 쉐이프 파일(Shapefile) : 지리정보시스템 소프트웨어 개발사 ESRI에서 개발한 파일 형식으로 지리정보시스템(GIS) 분야에서 표준 파일이다. 쉐이프 파일은 아래 3가지 파일들이 필수로 구성되어 있다.
+<a name="shapefile">[1]</a> 쉐이프 파일(Shapefile) : 지리정보시스템 소프트웨어 개발사 ESRI에서 개발한 파일 형식으로 지리정보시스템(GIS) 분야에서 표준 파일이다. 쉐이프 파일은 아래 3가지 파일들이 필수로 구성되어 있다.  [↩](#shapefile1)
 
 - shp : 벡터 형식으로 점, 선, 도형을 표현한 공간 데이터 정보를 가지고 있다.
 - shx : 인덱스 파일. shp 파일에 담겨있는 도형 정보의 위치를 담고 있다.
