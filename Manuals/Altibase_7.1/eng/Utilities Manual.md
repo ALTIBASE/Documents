@@ -1877,7 +1877,7 @@ The followings introduce the action performed during execution of aku.
 
 #### aku -p start
 
-It creates Altibase replication objects and synchronizes data. You can use the command when starting Pod.
+It creates Altibase replication objects and synchronizes data. You can use the command when starting Pods.
 
 The following shows the detailed behavior of  `aku -p start` command.
 
