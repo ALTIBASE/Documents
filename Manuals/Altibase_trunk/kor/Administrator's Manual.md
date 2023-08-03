@@ -10241,7 +10241,7 @@ Altibase는 증분 백업 또는 전체 백업으로 유실 또는 손상된 데
 
 증분 백업은 레벨 0과 레벨 1로 분류된다. 레벨 0의 증분 백업은 전체 백업과
 유사하나 향후 레벨 1의 증분 백업을 수행하기 위해 반드시 해야한다. 레벨 0 증분
-백업을 하면, 백업 정보가 backupInfo 파일에 기록되어 이를 기준으로 레벨 1 증분
+백업을 하면, 백업 정보가 backupinfo 파일에 기록되어 이를 기준으로 레벨 1 증분
 백업이 가능하다.
 
 - 레벨 0 증분 백업
@@ -10323,7 +10323,7 @@ iSQL(sysdba)> ALTER DATABASE ENABLE INCREMENTAL CHUNK CHANGE TRACKING;
 ```
 
 이 구문은 오직 SERVICE 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적
-기능을 활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에 변경 추적 파일과 backupInfo
+기능을 활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에 변경 추적 파일과 backupinfo
 파일이 생성된다.
 
 페이지 변경 추적 기능을 비활성화하려면 아래의 구문을 사용하라.
@@ -10333,7 +10333,7 @@ iSQL(sysdba)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 ```
 
 이 구문은 모든 구동 단계에서 sysdba 권한으로 수행이 가능하다. 추적 기능을
-비활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에서 변경 추적 파일이 삭제된다.
+비활성화하면, \$ALTIBASE_HOME/dbs 디렉터리에서 변경 추적 파일이 삭제된다. bakcupinfo 파일의 삭제는 [backupinfo 파일의 설명](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#backupinfo-%ED%8C%8C%EC%9D%BC)을 참고한다.
 
 > 주의: 페이지 변경 추적 기능을 활성화하더라도 실제로는 변경된 페이지를 바로
 > 추적하지 않는다. 변경 페이지 추적은 레벨 0 백업이 수행될 때 시작한다.
@@ -10357,22 +10357,29 @@ changeTracking 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 >   수 없다.
 >
 
-##### backupInfo 파일
+##### backupinfo 파일
 
 이 파일은 증분 백업 수행에 대한 정보를 저장한다. 한 번의 증분 백업 수행에 대해
 증분 백업 레벨, 백업 종류, 백업 태그 이름, 백업 시작 일시, 백업 완료 일시, 및
-백업 파일의 위치가 증분 백업 수행 시간 순서대로 backupInfo 파일에 저장된다.
+백업 파일의 위치가 증분 백업 수행 시간 순서대로 backupinfo 파일에 저장된다. backupinfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
 
-backupInfo 파일은 매체 복원(Media Restore) 시에 복원해야 할 백업 파일의 순서를
-파악할 수 있는 정보를 제공한다. 만약 backupInfo 파일이 존재하지 않으면, 백업
+backupinfo 파일은 매체 복원(Media Restore) 시에 복원해야 할 백업 파일의 순서를
+파악할 수 있는 정보를 제공한다. 만약 backupinfo 파일이 존재하지 않으면, 백업
 파일이 존재하더라도 복구가 불가능하다.
 
-backupInfo 파일은 \$ALTIBASE_HOME/dbs 디렉터리에 위치한다.
+> 주의:
+>
+>  backupinfo 파일에는 증분 백업이 수행된 일시 순으로 백업정보가 저장되어 있다. 그런데, backupinfo 파일과 백업 파일의 정보가 일치하지 않는 경우는 사용이 불가능하다. 백업 파일의 일부가 소실되어 증분 백업이 무효화 되거나, 필요 없어진 경우는 아래의 구문으로 backupinfo 파일을 삭제할 수 있다. 
 
-> 주의: backupInfo 파일에는 증분 백업이 수행된 일시 순으로 백업 정보가 저장된다.
-> backupInfo 파일이 소실되면 소실된 시점 이전에 생성된 증분 백업 파일은 더 이상
-> 사용이 불가능하다. 따라서 증분 백업을 수행하면 backupInfo파일도 자동으로
-> 백업된다.
+###### backupinfo 파일의 삭제
+
+아래의 구문은 sysdba 권한으로 Process 단계에서 수행할 수 있다.
+
+```
+iSQL(sysdba)> ALTER DATABASE REMOVE BACKUP INFO FILE;
+```
+
+
 
 #### 증분 백업 예제
 
@@ -10394,7 +10401,7 @@ iSQL(sysdba)> ALTER DATABASE CHANGE BACKUP DIRECTORY '/backup_dir';
 ##### 레벨 0 백업
 
 위에서 설명한 바와 같이 레벨 0 증분 백업은 전체 백업과 동일하다. 단, 레벨 0 증분
-백업을 수행하면 backupInfo 파일에 백업 정보가 기록된다. 또한 증분 백업의 기준
+백업을 수행하면 backupinfo 파일에 백업 정보가 기록된다. 또한 증분 백업의 기준
 파일이 되는 레벨 0 백업 파일을 전체 백업 파일로 대체할 수 없다.
 
 ###### 데이터베이스 단위 증분 백업
@@ -10631,7 +10638,7 @@ changeTracking 파일과 backupinfo 파일의 복원 방법을 살펴본 후, �
 방법을 설명한다.
 
 매체(Media)에 장애가 발생하여 \$ALTIBASE_HOME/dbs 디렉터리에 changeTracking 파일
-또는 backupInfo 파일이 소실되면, 서버를 CONTROL 구동 단계로 시작할 수 없다. 이
+또는 backupinfo 파일이 소실되면, 서버를 CONTROL 구동 단계로 시작할 수 없다. 이
 경우 서버를 PROCESS 구동 단계로 시작하여 changeTracking 파일과 backupinfo 파일에
 대해 다음과 같은 작업을 수행해야 한다.
 
@@ -10643,13 +10650,13 @@ changeTracking 파일과 backupinfo 파일의 복원 방법을 살펴본 후, �
 iSQL(sysdb)> ALTER DATABASE DISABLE INCREMENTAL CHUNK CHANGE TRACKING;
 ```
 
-- backupInfo파일  
-  이 파일은 매체 복원에 반드시 필요하다. backupInfo 파일은 증분 백업을 수행할
+- backupinfo파일  
+  이 파일은 매체 복원에 반드시 필요하다. backupinfo 파일은 증분 백업을 수행할
   때 자동으로 백업된다. 따라서 가장 최근에 수행된 증분 백업 경로에서 copy
-  명령어를 이용하여 backupInfo 파일을 복원하도록 한다.
+  명령어를 이용하여 backupinfo 파일을 복원하도록 한다.
 
 ```
-% cp /backup_dir/BACKUP_TAG/backupInfo $ALTIBASE_HOME/dbs
+% cp /backup_dir/BACKUP_TAG/backupinfo $ALTIBASE_HOME/dbs
 ```
 
 앞의 장에서 설명한 바와 같이 전체 백업에 대해서는 아래 두 가지 "불완전
@@ -10816,14 +10823,14 @@ iSQL(sysdba)> STARTUP SERVICE;
 
 ###### 완전 복원 후 불완전 복구
 
-불완전 복구를 위해서는 과거의 loganchor 파일과 backupInfo 파일이 필요하다.
-loganchor 파일과 backupInfo 파일을 이용해서 과거 시점으로 불완전 복구를
+불완전 복구를 위해서는 과거의 loganchor 파일과 backupinfo 파일이 필요하다.
+loganchor 파일과 backupinfo 파일을 이용해서 과거 시점으로 불완전 복구를
 수행하고, ALTER DATABASE MYDB META RESETLOGS구문으로 로그를 리셋하게 되면, 복구
-전의 최신 backupInfo 파일에는 존재하지만 과거로 복원된 backupInfo 파일에는
+전의 최신 backupinfo 파일에는 존재하지만 과거로 복원된 backupinfo 파일에는
 존재하지 않는 백업 정보에 대응하는 백업 파일들은 더 이상 사용할 수 없게 된다.
 
-아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을
-사용해서 loganchor와 backupInfo를 복원한다.
+아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupinfo 파일을
+사용해서 loganchor와 backupinfo를 복원한다.
 
 ```
 %cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
@@ -10862,8 +10869,8 @@ iSQL(sysdba)> STARTUP SERVICE;
 
 ###### 불완전 복원 후 불완전 복구
 
-아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupInfo 파일을
-사용해서 loganchor와 backupInfo를 복원한다.
+아래와 같이 불완전 복구를 원하는 과거 시점의 loganchor 파일과 backupinfo 파일을
+사용해서 loganchor와 backupinfo를 복원한다.
 
 ```
 %cp /backup_dir/TAG_WEDNESDAY/ loganchor* $ALTIBASE_HOME/logs
@@ -10924,7 +10931,7 @@ iSQL(sysdba)> ALTER DATABASE CHANGE BACKUP DIRECTORY '/backup_dir';
 백업 경로의 디스크 공간이 부족한 경우, 백업 파일들을 다른 디바이스의 경로로
 이동할 수 있다. 아래의 두 가지 이동 방법이 있다.
 
-1. SQL 구문으로 backupInfo 파일 내에서 백업 파일 경로만 변경하고, 기존 백업
+1. SQL 구문으로 backupinfo 파일 내에서 백업 파일 경로만 변경하고, 기존 백업
    파일은 관리자가 복사 명령(cp)을 사용해서 수동으로 이동하는 방법
 
 ```
@@ -10932,7 +10939,7 @@ iSQL(sysdba)> ALTER DATABASE MOVE BACKUP FILE TO '/backup_dir2';
 $ cp ... /backup_dir2
 ```
 
-2. SQL 구문으로 backupInfo 파일 내의 백업 파일 경로 변경과 백업 파일의 이동을
+2. SQL 구문으로 backupinfo 파일 내의 백업 파일 경로 변경과 백업 파일의 이동을
    동시에 수행하는 방법
 
 ```
@@ -10951,6 +10958,8 @@ iSQL(sysdba)> ALTER DATABASE DELETE OBSOLETE BACKUP FILES;
 이 구문을 수행하면 V\$OBSOLETE_BACKUP_INFO 성능 뷰에 나타나는 백업 파일들만
 삭제된다. V\$OBSOLETE_BACKUP_INFO 성능 뷰에서 아무 것도 조회되지 않는다면
 삭제되는 파일이 없을 것이다.
+
+
 
 # 12.서버/클라이언트 통신
 
