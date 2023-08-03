@@ -359,11 +359,11 @@ This section discusses the system requirements for Migration Center and compatib
 
 #### Software Requirements
 
-- Java Development Kit (JDK), or Java Runtime Environment (JRE) 5 or later
+- Java Development Kit (JDK), or Java Runtime Environment (JRE) 8 or later
 
-Migration Center is a pure Java application that uses Swing for GUI mode. It runs regardless of the user’s hardware and operating system, but relies on the JRE. The user is recommended to install Oracle, or IBM Java 5 or later. To run Migration Center in GUI mode, the user’s environment must support Java Swing.
+Migration Center is a pure Java application that uses Swing for GUI mode. It runs regardless of the user’s hardware and operating system, but relies on the JRE. The user is recommended to install Oracle, or IBM Java 8 or later. To run Migration Center in GUI mode, the user’s environment must support Java Swing.
 
-Since Migration Center is bundled with the JRE 7 for the 64-bit Microsoft Windows system, these users do not need to install the JRE. However, other operating system users must configure the JRE and related environment variables appropriately.
+Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Windows system, these users do not need to install the JRE. However, other operating system users must configure the JRE and related environment variables appropriately.
 
 #### Compatible Database Systems
 
@@ -8094,7 +8094,7 @@ It is presumably due to a conflict between the JVM installed on the appliance an
 
 ##### Solution
 
-You should open the executable file migcenter.bat with an editor and change the value of the environment variable JAVA_HOME to the location of the JRE already installed on the machine. The JRE should be changed to Java SE 5.0 or later.
+You should open the executable file migcenter.bat with an editor and change the value of the environment variable JAVA_HOME to the location of the JRE already installed on the machine. The JRE should be changed to Java SE 8.0 or later.
 
 #### The error message 'Unable to insert (or update) NULL into NOT NULL column.' is printed and data migration is failed.
 
