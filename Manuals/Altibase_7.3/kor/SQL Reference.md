@@ -12143,6 +12143,18 @@ multiple delete 제약 사항:
 - dictionary table 을 사용할 수 없다.
 - full outer join 을 사용할 수 없다.
 
+*tbl_ref*
+
+multiple update 를 하기 위한 table 을 명시한다.
+
+*one_table*
+
+한 개의 table이거나 혹은 view 를 명시한다.
+
+*join_table*
+
+table 사이의 join 조건을 명시한다.
+
 #### HINTS 옵션
 
 힌트의 문법과 자세한 설명은 2장의 "힌트 구문"과 "힌트 목록"을 참고하기 바란다.
@@ -15174,7 +15186,7 @@ C1          C2
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
-**multiple_update ::=**
+[**multiple_update ::=**](#multiple_update)
 
 ![multiple_update](media/SQL/multiple_update.gif)
 
@@ -15247,7 +15259,7 @@ DEFAULT키워드를 사용하는 것이다.
 
 DELETE 구문의 returning_clause를 참고하라.
 
-*multiple_update*
+*multiple_update*<b id="multiple_update" > </b>
 
 join 조건을 만족하는 레코드를 찾아 명시한 컬럼들의 값을 변경하는 구문이다.
 
