@@ -12046,11 +12046,23 @@ Truncate success.
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
-**multiple_delete ::=**
+**[multiple_delete ::=](#multiple_delete) **
 
 ![multiple_delete](media/SQL/multiple_delete.gif)
 
-[tbl_ref ::=](#tbl_ref)
+**tbl_ref ::=**
+
+![multiple_update2](media/SQL/tbl_ref.gif)
+
+**one_table ::=**
+
+![multiple_update3](media/SQL/one_table.gif)
+
+**join_table ::=**
+
+![multiple_update4](media/SQL/join_table.gif)
+
+
 
 #### 전제 조건
 
@@ -12121,7 +12133,7 @@ Returning 절의 제약 사항:
 > 참고: PSM 내에서 BULK COLLECT 절을 사용해서 한꺼번에 여러 행을 collection 변수로
 > 반환할 수 있다. 이에 대한 자세한 내용은 *Stored Procedures Manual*을 참고하라.
 
-*multiple_delete*
+*multiple_delete*<b id="multiple_delete" />
 
 join 조건을 만족하는 레코드가 tbl_name에 지정된 테이블에서 삭제하는 구문이다.
 
