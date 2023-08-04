@@ -128,6 +128,8 @@ CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence �
 
 큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다. 구문 사용 방법은 [Altibase 7.3 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)가 추가되었다.
 
+##### Sequence Restart clause 지원
+
 </br>
 
 #### 2.1.6 기능 개선 - Spatial SQL 개선
@@ -367,6 +369,14 @@ LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티�
 
 메모리 테이블 객체 식별자 추적 단계를 간소화하여 휘발성/비휘발성 메모리 DB 트랜잭션 성능이 향상되었다.
 
+##### DEQUEUE 병렬 수행시 성능 개선
+
+병렬로 DEQUEUE 수행 시 발생하는 병목을 제거하여 성능을 개선하였다.
+
+##### Common Subexpression Elimination의 PREPARE 시간 단축
+
+CSE(Common Subexpression Elimination)는 조건절의 중복된 조건식을 찾아 제거하는 최적화 기능이다. CSE 수행 알고리즘을 개선하여 관련 쿼리의 성능을 개선하였다. 
+
 ##### 메모리 파티션드 테이블의 Simple query 최적화로 성능개선
 
 기존에는 메모리 테이블에 대해서만 simple query 최적화를 지원하였으나, 메모리 파티션드 테이블의 경우도 지원하게 되었다. 메모리 파티션드 테이블의 simple query 최적화 지원으로 메모리 파티션드 테이블의 DML 성능이 개선되었다.
@@ -379,9 +389,7 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 스칼라 서브쿼리의 수행방식을 개선하여 수행 성능을 개선하였다.
 
-##### DEQUEUE 병렬 수행시 성능 개선
-
-병렬로 DEQUEUE 수행 시 발생하는 병목을 제거하여 성능을 개선하였다.
+##### PSM에서 for loop절의 성능개선
 
 ##### 이중화 Sender 성능 향상
 
