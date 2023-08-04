@@ -208,75 +208,60 @@ Fixed Bugs
 
 - **설명** : 아래 조건을 모두 만족하는 질의문 수행 시, 비정상 종료하는 문제를 수정하였습니다.
 
-  -   같은 쿼리셋내에 ORDER BY에 사용된 alias가 target절의 row_number 함수의 alias로 사용된 경우
-  -   row_number 함수 OVER절에서 PARTITION BY나 ORDER BY에 사용된 컬럼이 GROUP BY에 사용된 경우
-  -   GROUP BY에 사용된 컬럼을 TRIM 함수의 인자로 사용하고, 이 인자를 해당 TRIM 함수의 alias로 사용한 경우
+  -   over 절의 partition by 나 order by에 사용된 컬럼을 group by에 사용한 경우
+  -   over 절의 partition by 나 order by에 사용된 컬럼을 target 절의 함수의 인자로 사용한 경우
+  -   target 절의 함수의 인자로 사용한 컬럼을 해당함수의 alias로 지정한 경우 (target 절의 함수의 인자와 alias가 동일한 경우)
+  -   target 절의 함수의 alias를 order by에 사용한 경우  
 
 - **재현 방법**
 
   - **재현 절차**
 
     ```sql
-    DROP TABLE MD281;
-
-    CREATE TABLE MD281 ( BID varchar(30)
-    , LSTTRD_DD varchar(30)
-    , EXPMM varchar(30)
-    , EXPWW varchar(30)
-    , SETLMULT double
-    , TRADE_DATE varchar(30)
-    );
-
-    SELECT  CASE BID
-                            WHEN 'WKI' THEN 1
-                            WHEN 'WKM' THEN 2
-                            ELSE 99 END - 1                           AS SEQ_WEEKDAY
-                    ,   ROW_NUMBER() OVER(PARTITION BY BID
-                                ORDER BY LSTTRD_DD ASC)               AS SEQ_WW
-                    ,   TRIM(BID)                           AS BID
-                    ,   TRIM(EXPMM)                                   AS EXPMM
-                    ,   TRIM(EXPWW)                                   AS EXPWW
-                    ,   TRIM(LSTTRD_DD)                               AS LSTTRD_DD
-                    ,   MAX(ROUND(NVL(SETLMULT,0) * 1.))              AS SETLMULT
-                FROM    MD281
-                WHERE   TRADE_DATE = '20230629'
-                GROUP BY BID, LSTTRD_DD, EXPMM, EXPWW
-                ORDER BY SEQ_WEEKDAY, SEQ_WW;
+    DROP TABLE T1;
+    CREATE TABLE T1 ( I1 VARCHAR(30),I2 VARCHAR(30), I3 VARCHAR(30) );
+    CREATE FUNCTION FUNC1( V1 INTEGER )
+       RETURN INTEGER
+       AS
+       BEGIN
+         RETURN V1;
+       END;
+       /
+    
+    SELECT ROW_NUMBER() OVER(PARTITION BY I1 ORDER BY I2 ASC) AS AA
+                ,FUNC1(I1) AS I1
+                ,FUNC1(I2) AS I2
+                FROM T1
+                GROUP BY I1, I2
+                ORDER BY AA;
     ```
-
+    
   - **수행 결과**
-
+  
     ```sql
     [ERR-31455 : Failed to work because an internal exception occurred
      from an OS.[Contact Altibase's Support Center]]
     ```
-
+  
   -   **예상 결과**
 
       ```sql
       No rows selected.
       ```
-
+  
 - **Workaround**
 
+  target 절의 함수의 인자와 alias가 같은 경우를 해소하면(아래와 같이 alias를 다르게 변경하면), 비정상 종료 하지 않습니다.
+  
   ```sql
-  SELECT SEQ_WEEKDAY, SEQ_WW, BID, EXPMM, EXPWW, LSTTRD_DD, SETLMULT FROM (
-  SELECT  CASE BID
-                          WHEN 'WKI' THEN 1
-                          WHEN 'WKM' THEN 2
-                          ELSE 99 END - 1                           AS SEQ_WEEKDAY
-                  ,   ROW_NUMBER() OVER(PARTITION BY BID  ORDER BY LSTTRD_DD ASC)  AS SEQ_WW
-                  ,   TRIM(BID)                           AS BID
-                  ,   TRIM(EXPMM)                                   AS EXPMM
-                  ,   TRIM(EXPWW)                                   AS EXPWW
-                  ,   TRIM(LSTTRD_DD)                               AS LSTTRD_DD
-                  ,   MAX(ROUND(NVL(SETLMULT,0) * 1.))              AS SETLMULT
-              FROM    MD281
-              WHERE   TRADE_DATE = '20230629'
-              GROUP BY BID, LSTTRD_DD, EXPMM, EXPWW
-              ) ORDER BY SEQ_WEEKDAY, SEQ_WW;
+  SELECT ROW_NUMBER() OVER(PARTITION BY I1 ORDER BY I2 ASC) AS AA
+              ,FUNC1(I1) AS I1a
+              ,FUNC1(I2) AS I2b
+              FROM T1
+              GROUP BY I1, I2
+              ORDER BY AA;
   ```
-
+  
 - **변경사항**
 
   -   Performance view
