@@ -114,7 +114,7 @@ Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버�
 
 ##### multiple update, delete 구문의 지원
 
-multiple update, delete 구문을 지원한다. 자세한 내용은 SQL 매뉴얼- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#update) 을 참고한다.
+multiple update, delete 구문을 지원한다. 자세한 내용은 SQL 매뉴얼- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_update) 을 참고한다.
 
 ##### 한글 검색 가능한 정규 표현식(Regular Expression) 지원
 
@@ -122,13 +122,15 @@ multiple update, delete 구문을 지원한다. 자세한 내용은 SQL 매뉴�
 
 ##### fetch across rollback
 
-CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 제공한다.
+CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 지원합니다.
 
 ##### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
 
 큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다. 구문 사용 방법은 [Altibase 7.3 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)가 추가되었다.
 
-##### Sequence Restart clause 지원
+##### Sequence Restart 구문 지원
+
+시퀀스를 재시작시키기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [SQL 매뉴얼-ALTER SEQUENCE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 설명을 참고한다. 
 
 </br>
 
