@@ -151,11 +151,10 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 * ASEWKT
 * ASEWKB
-* SRID
-* SETSRID
 * GEOMFROMEWKT 
 * GEOMFROMEWKB
-* ACSGetGeometrySRID
+* SETSRID
+* SRID
 * ST_Collect
 * ST_IsCollection
 * ST_LinestringFromWKB
@@ -165,6 +164,12 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 * ST_Point
 * ST_PolygonFromText
 * ST_Transform
+
+##### Spatial API용 함수
+
+아래의 Spatial API용 함가 추가되었다.
+
+* ACSGetGeometrySRID
 
 #### 2.1.7 기능 개선 - 이중화 기능 개선
 
@@ -420,7 +425,7 @@ DDL PVO 단계에서의 예외처리 개선으로 안정성을 향상시켰다.
 
 ##### 프로토콜 유효성 검증 개선
 
-유효하지 않은 패킷(malformed packet) 전송으로인한 서버에서의 비정상 종료 및 비정상 동작이 발생하지 않도록 개선되었다. 프로토콜 처리시 패킷의 유효성을 체크하여 비정상적인 경우, 클라이언트의 접속을 끊고 진단로그를 남기도록 개선되었다.
+유효하지 않은 패킷(malformed packet) 전송으로인한 서버에서의 비정상 종료 및 비정상 동작이 발생하지 않도록 개선되었다. 프로토콜 처리시 패킷의 유효성을 체크하여 비정상적인 경우, 클라이언트의 접속을 끊고 진단로그를 남기도록 개선되었다. 이를 위해 CM_MSGLOG_FLAG 의 기본값이 3으로, SERVER_MSGLOG_FLAG의 기본값이 15로 변경되었다.
 
 ##### 트랜잭션 안정성 개선 - Multiple Rollback Segment
 
@@ -595,27 +600,84 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ##### 새로운 프로퍼티
 
--   [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#dblink_global_transaction_level)
--   IB_CONCHKSPIN
--   IB_ENABLE
--   IB_LATENCY
--   IB_LISTENER_DISABLE
--   IB_MAX_LISTEN
--   IB_PORT_NO
+-   DISK_INDEX_BUILD_SORT_AREA_SIZE
+-   [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#dblink_global_transaction_level)
+-   [IB_CONCHKSPIN](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_conchkspin)
+-   [IB_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_enable)
+-   [IB_LATENCY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_latency)
+-   [IB_LISTENER_DISABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_listener_disable)
+-   [IB_MAX_LISTEN](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_max_listen)
+-   [IB_PORT_NO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_port_no)
+-   [INIT_TOTAL_WA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#init_total_wa_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [IPCDA_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_sem_key)
+-   [IPCDA_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_shm_key)
+-   [IPC_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_shm_key)
+-   [IPC_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key)
+-   [JOB_MSGLOG_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_count)
+-   [JOB_MSGLOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_file)
+-   [JOB_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_flag)
+-   [JOB_MSGLOG_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_size%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [LISTAGG_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#listagg_precision-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8) 
+-   [MATHEMATICS_TEMP_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#mathematics_temp_memory_maximum-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [NETWORK_ERROR_LOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#network_error_log_file)
+-   [PSM_MAX_DDL_REFERENCE_DEPTH](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_max_ddl_reference_depth)
+-   [REGEXP_MODE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#regexp_mode)  
+-   [REPLICATION_DDL_SYNC](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync)
+-   [REPLICATION_DDL_SYNC_TIMEOUT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync_timeout--%EB%8B%A8%EC%9C%84--%EC%B4%88-) 
+-   [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [REPLICATION_IB_LATENCY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ib_latency)
+-   [REPLICATION_IB_PORT_NO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ib_port_no)
+-   [REPLICATION_META_ITEM_COUNT_DIFF_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_meta_item_count_diff_enable) 
+-   [REPLICATION_RECEIVER_APPLIER_YIELD_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_receiver_applier_yield_count)
+-   [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)
+-   [SERIAL_EXECUTE_MODE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#serial_execute_mode)
+-   [SERVICE_THREAD_RECV_TIMEOUT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#service_thread_recv_timeout%EB%8B%A8%EC%9C%84--%EC%B4%88)
+-   SSL_CIPHER_SUITES
+-   SSL_LOAD_CONFIG
+-   ST_GEOS_ENABLE         
+-   ST_MSGLOG_COUNT
+-   ST_MSGLOG_FILE
+-   ST_MSGLOG_FLAG
+-   ST_MSGLOG_SIZE
+-   [VARRAY_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#varray_memory_maximum)
 
 ##### 변경된 프로퍼티
+
+- [ARCHIVE_FULL_ACTION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)
+
+  읽기 전용에서 변경 가능으로 속성이 변경되었다. 기본값 변경은 없으나, 설정값 2가 추가되었다.
+
+- [CM_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#cm_msglog_flag)
+
+  기본값이 3으로 변경되었다.
 
 - [EXECUTE_STMT_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#execute_stmt_memory_maximum-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
   기본값이 1073741824에서 2147483648로 변경되었다.
 
-- [INDEX_MAXTRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_maxtrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
+- [HASH_AREA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#hash_area_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
-  기본값과 MAX값이 30에서 50으로 변경되었다.
+  최소값이 512K 에서 3M로 변경되었다.
 
 - [INDEX_INITRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_initrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
 
-  MAX값이 30에서 50으로 변경되었다.
+  최대값이 30에서 50으로 변경되었다.
+
+- [INDEX_MAXTRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_maxtrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
+
+  기본값과 최값이 30에서 50으로 변경되었다.
+
+- [LOB_CACHE_THRESHOLD](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#lob_cache_threshold-%EB%8B%A8%EC%9C%84-bytes)
+
+  최대값이 8192에서 524288로 변경되었다.
+
+- [MEMORY_INDEX_BUILD_RUN_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#memory_index_build_run_size-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
+
+  기본값이 32768에서 131072으로 변경되었다.
+
+- [MM_MSGLOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#mm_msglog_file)
+
+  기본값이 1로 변경되었다.
 
 - [PSM_CHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_char_default_precision)
 
@@ -640,6 +702,22 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 - [PSM_VARCHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_varchar_default_precision)
 
   기본값이 32767에서 32000으로 변경되었다.
+  
+- [REPLICATION_EAGER_PARALLEL_FACTOR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_eager_parallel_factor)
+
+  최소값이 1에서 2로 변경되었다.
+
+- [SERVER_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#server_msglog_flag)
+
+  기본값이 7에서 15로 변경되었다.
+
+- [TOTAL_WA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#total_wa_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
+
+  최소값이 0으로 변경되었다.
+
+- [TRANSACTION_SEGMENT_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#transaction_segment_count-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
+
+  최대값이 512에서 16384로 변경되었다.
 
 ##### 삭제된 프로퍼티
 
@@ -650,6 +728,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   LOCK_MGR_MAX_SLEEP
 -   LOCK_MGR_DETECTDEADLOCK_INTERVAL
 -   TEMP_MAX_PAGE_COUNT
+-   TRANSACTION_START_MODE
 
 
 
@@ -657,27 +736,46 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ##### 새로운 메타테이블
 
-* SYS_REPL_RECEIVER_
-* SYS_REPL_ITEMS_HISTORY_
-* SYS_GEOMETRIES_
-* SYS_GEOMETRY_COLUMNS_
-* USER_SRS_
-* [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
+* [SYS_GEOMETRIES_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_geometries_)
+* [SYS_GEOMETRY_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_geometry_columns_)
+* [SYS_REPL_RECEIVER_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_receiver_)
+* [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
+* [USER_SRS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#user_srs_)
+
+##### 변경된 메타테이블
+
+* [SYS_REPLICATIONS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
+  * REMOTE_LAST_DDL_XSN 컬럼이 추가되었다.
+* [SYS_REPL_HOSTS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
+  * CONN_TYPE 컬럼이 추가되었다.
+  * IB_LATENCY 컬럼이 추가되었다.
+* [SYS_REPL_OLD_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_columns_)
+  * MT_SRID 컬럼이 추가되었다.
+* [SYS_REPL_OLD_ITEMS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_items_)
+  * REMOTE_USER_NAME 컬럼이 추가되었다.
+  * REMOTE_TABLE_NAME 컬럼이 추가되었다.
+  * REMOTE_PARTITION_NAME 컬럼이 추가되었다.
+  * PARTITION_COUNT 컬럼이 추가되었다.
+  * PARTITION_METHOD 컬럼이 추가되었다.
+  * PARTITION_ORDER 컬럼이 추가되었다.
+  * PARTITION_MIN_VALUE 컬럼이 추가되었다.
+  * PARTITION_MAX_VALUE 컬럼이 추가되었다.
+  * INVALID_MAX_SN 컬럼이 추가되었다.
 
 ##### 삭제된 메타테이블
 
 아래의 메타 테이블이 삭제되었다.
 
 -   STO_COLUMNS_
--   STO_USER_COLUMNS_
--   STO_SRS_
--   STO_PROJCS_
--   STO_PROJECTIONS_
--   STO_GEOGCS_
--   STO_GEOCCS_
 -   STO_DATUMS_
 -   STO_ELLIPSOIDS_
+-   STO_GEOCCS_
+-   STO_GEOGCS_
 -   STO_PRIMEMS_
+-   STO_PROJCS_
+-   STO_PROJECTIONS_
+-   STO_SRS_
+-   STO_USER_COLUMNS_
 
 #### 2.2.6 성능 뷰
 
@@ -685,8 +783,21 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ##### 새로운 성능 뷰
 
--   [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
--   [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
+-   [V$LIBRARY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vlibrary)
+-   [V$PROCINFO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vprocinfo)
+-   [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
+-   [V$REPL_REMOTE_META_CHECKS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_checks)
+-   [V$REPL_REMOTE_META_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_columns)
+-   [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
+-   [V$REPL_REMOTE_META_INDICES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_indices)
+-   [V$REPL_REMOTE_META_ITEMS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_indices)
+-   [V$REPL_REMOTE_META_REPLICATIONS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_replications)
+
+##### 삭제된 성능뷰
+
+* V$ST_ANGULAR_UNIT
+* V$ST_AREA_UNIT
+* V$ST_LINEAR_UNIT
 
 </br>
 
@@ -711,9 +822,15 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 #### Package
 
+http://support.altibase.com
+
 #### Manual
 
+https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/README.md
+
 #### 설치
+
+[Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Installation%20Guide.md) 참고
 
 ------
 
