@@ -82,7 +82,7 @@ Altibase 7.3.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 #### 2.1.1 AKU(Altibase Kubernetes Utility)의 지원
 
-AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 Scale in/out 상황에 맞게 Altibase 데이터의 이중화 구성을 도와주는 유틸리티이다.
+AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 스케일링(scaling)할 때 파드(Pod)의 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 작업을 수행할 수 있게 도와주는 유틸리티이다.
 
 #### 2.1.2 AltiShapeLoader 1.0제공
 
@@ -92,17 +92,19 @@ altiShapeLoader는 쉐이프파일<sup id="shapefile1">[[1]](#shapefile)</sup>�
 
 Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
 
-Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [Altibase 7.3 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
+Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [**Altibase 7.3 JDBC User's Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 이 문서의 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
 
 #### 2.1.4 OpensSSL 3.0.8 지원
 
-보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [Altibase SSL TLS User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md) 를 참고한다. 추가로 FIPS 모듈의 사용을 지원하는데, SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. 자세한 사용방법 [Altibase SSL TLS User's Guide -Step4 FIPS모듈을 사용할 경우](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-altibase-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-fips%EB%AA%A8%EB%93%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0) 를 참고한다.
+보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - 서버프로퍼티 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95) 을 참고한다. 
+
+추가로 FIPS 모듈의 사용을 지원하는데, 이 기능을 이용하기 위해서는 SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - Step4 FIPS모듈을 사용할 경우](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-altibase-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-fips%EB%AA%A8%EB%93%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0) 를 참고한다.
 
 #### 2.1.5 기능 개선 - SQL 확장
 
 ##### VARRAY TYPE 지원
 
-저장 프로시저 내에서 사용자 정의 타입으로 VARRAY가 추가되었다. VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입으로, 자세한 설명은 [Stored Procedures Manual - varray](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Stored%20Procedures%20Manual.md#varray) 설명을 참고한다.
+저장 프로시저 내에서 사용자 정의 타입으로 VARRAY가 추가되었다. VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입으로, 자세한 설명은 [**Stored Procedures Manual** - varray](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Stored%20Procedures%20Manual.md#varray) 설명을 참고한다.
 
 ##### 익명 블록(Anonymous Block) 지원
 
@@ -114,23 +116,23 @@ Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버�
 
 ##### multiple update, delete 구문의 지원
 
-multiple update, delete 구문을 지원한다. 자세한 내용은 SQL 매뉴얼- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_update) 을 참고한다.
+multiple update, delete 구문을 지원한다. 자세한 내용은 **SQL Reference Manual**- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_update) 을 참고한다.
 
 ##### 한글 검색 가능한 정규 표현식(Regular Expression) 지원
 
-한글 검색 가능한 정규 표현식을 지원하기 위해 PCRE2 호환모드를 제공한다. PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 자세한 내용은 [SQL 매뉴얼-a.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 을 참고한다.
+한글 검색 가능한 정규 표현식을 지원하기 위해 PCRE2 호환모드를 제공한다. PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 자세한 내용은 [**SQL Reference Manual** - a.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 을 참고한다.
 
 ##### fetch across rollback
 
-CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 지원합니다.
+CURSOR HOLD ON 기능을 이용하여 롤백할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 지원합니다.
 
 ##### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
 
-큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다. 구문 사용 방법은 [Altibase 7.3 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)가 추가되었다.
+큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다. 구문 사용 방법은 [**SQL Reference Manual** - CREATE QUEUE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)가 추가되었다.
 
 ##### Sequence Restart 구문 지원
 
-시퀀스를 재시작시키기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [SQL 매뉴얼-ALTER SEQUENCE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 설명을 참고한다. 
+시퀀스를 재시작시키기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [**SQL Reference Manual** - ALTER SEQUENCE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 을 참고한다. 
 
 </br>
 
@@ -173,22 +175,21 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 #### 2.1.7 기능 개선 - 이중화 기능 개선
 
-###### 이중화 대상 테이블에 DDL 복제 기능 추가(PROJ-2677)
+###### 이중화 대상 테이블에 DDL 복제 기능 추가
 
-이중화를 통하여 DDL 복제(Synchronization)가 가능하게 되었다. 이 기능을 사용하기 위해서는 각노드의 REPLICATION_DDL_SYNC 프로퍼티를 1로 설정해야 한다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/GeneralReference_2.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/GeneralReference_2.md#replication_ddl_enable_level)이 동일하게 설정해야 한다.
+이중화를 통하여 DDL 복제(Synchronization)가 가능하게 되었다. 이 기능을 사용하기 위해서는 각노드의 [REPLICATION_DDL_SYNC](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync) 프로퍼티를 1로 설정해야 한다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_enable_level)이 동일하게 설정해야 한다.
 
-DDL 동기화를 사용하기 위해 다음의 제약 조건을 확인해야 한다.
+DDL 복제를 사용하기 위해 다음의 제약 조건을 확인해야 한다.
 
-- DDL 동기화를 수행할 노드들의 이중화가 동작하고 있어야 한다.
+- DDL 복제를 수행할 노드들의 이중화가 동작하고 있어야 한다.
 
-- DDL 동기화를 수행할 Local 노드와 Remote 노드의 Table 이름이 같아야 한다.
-- DDL 동기화를 수행할 Local 노드와 Remote 노드의 Table 파티션이름이 같아야 한다.
-- DDL 동기화를 수행할 이중화 대상 유저의 이름이 같아야 한다.
-- 한번에 하나의 노드에서만 DDL 동기화를 수행해야 한다.
+- DDL 복제를 수행할 지역 노드와 원격 노드의 테이블 이름이 같아야 한다.
+- DDL 복제를 수행할 지역 노드와 원격 노드의 테이블 파티션이름이 같아야 한다.
+- DDL 복제를 수행할 이중화 대상 사용자의 이름이 같아야 한다.
+- 한번에 하나의 노드에서만 DDL 복제를 수행해야 한다.
 - DDL 동기화를 수행할 각 이중화 노드의 REPLICATION_DDL_ENABLE과 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값이 같아야 한다.
 - Altibase Patch 버전(5자리)이 동일해야한다.
-
-Propagation 옵션 사용시 DDL 동기화를 허용하지 않는다.
+- Propagation 옵션 사용시 DDL 복제를 허용하지 않는다.
 
 #### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스
 
