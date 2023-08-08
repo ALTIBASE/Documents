@@ -1607,7 +1607,34 @@ Set the Connection Pool by editing the  element of the $JEUS_HOME/config/JeusMai
 </resource>
 ```
 
+#### Validating Connections
 
+The Altibase JDBC driver supports a lightweight ping query for connection validation, which is more efficient than a regular query. It can be used in WAS (Web Application Server) with options like poolPingQuery or validationQuery.
+
+The query patterns are as follows, and they can also be used with PreparedStatement:
+
+```java
+/* PING */SELECT 1
+/* ping */select 1
+/*   PING  */SELECT   1
+    /*   PING  */select 1
+    /*   PING  */select 1
+/*   PING  */select 1
+/*   PING  */seLECt 1
+/*   ping  */SELECT   1
+```
+
+> Warning : The following pattens are not allowed.
+>
+> ```java
+> /*+ ping */select 1
+> /*ping  */select 1
+> /* ping */select 1from dual
+> /** PING */SELECT 1
+> //* PING */ SELECT 1
+> ```
+>
+> 
 
 ### Multiple ResultSet
 
