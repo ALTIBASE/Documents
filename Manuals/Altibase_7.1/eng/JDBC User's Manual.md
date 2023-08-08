@@ -1627,6 +1627,7 @@ The query patterns are as follows, and they can also be used with PreparedStatem
 > Warning : The following pattens are not allowed.
 >
 > ```java
+> /* PING */SELECT 1
 > /*+ ping */ select 1
 > /*ping  */ select 1
 > /* ping */ select 1 from dual
