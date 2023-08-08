@@ -1828,23 +1828,23 @@ Altibase JDBC 드라이버는 연결 유효성 검사를 위해, 일반 쿼리�
 * 허용되는 패턴
 
   ```java
-  /* PING */SELECT 1
-  /* ping */select 1
-  /*   PING  */SELECT   1
-      /*   PING  */select 1
-      /*   PING  */select 1
-  /*   PING  */select 1
-  /*   PING  */seLECt 1
-  /*   ping  */SELECT   1
+  /* PING */ SELECT 1
+  /* ping */ select 1
+  /*   PING  */ SELECT   1
+  /*   PING  */ select 1
+  /*   PING  */ select 1
+  /*   PING  */ select 1
+  /*   PING  */ seLECt 1
+  /*   ping  */ SELECT   1
   ```
 
 * 허용되지 않는 패턴
 
   ```java
-  /*+ ping */select 1
-  /*ping  */select 1
-  /* ping */select 1from dual
-  /** PING */SELECT 1
+  /*+ ping */ select 1
+  /*ping  */ select 1
+  /* ping */ select 1 from dual
+  /** PING */ SELECT 1
   //* PING */ SELECT 1
   ```
 
