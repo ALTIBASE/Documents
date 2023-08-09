@@ -189,6 +189,10 @@ DDL 복제를 사용하기 위해 다음의 제약 조건을 확인해야 한다
 - Altibase Patch 버전(5자리)이 동일해야한다.
 - Propagation 옵션 사용시 DDL 복제를 허용하지 않는다.
 
+#####  이중화 수신 전용(RECEIVE_ONLY) 옵션 제공
+
+이중화를 수신 전용 옵션으로 설정하여, 다른 노드로 변경 데이터를 전송하지 않는 기능을 제공한다. 수신 전용으로 이중화를 생성하면, 로그를 읽지 않으므로 네트워크 장애등의 이중화 이슈가 발생하여도 시스템에 영향을 주지 않는다. 자세한 설명은 [**Replication Manual** -  이중화 수신 전용 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication%20Manual.md#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%98%EC%8B%A0-%EC%A0%84%EC%9A%A9-%EC%98%B5%EC%85%98receive-only-option) 을 참고한다. 
+
 #### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스
 
 ##### JDBC 에 추가된 기능
