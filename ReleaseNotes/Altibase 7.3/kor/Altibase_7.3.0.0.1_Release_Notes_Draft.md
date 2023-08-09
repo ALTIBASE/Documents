@@ -88,11 +88,9 @@ AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 스케일링(sc
 
 altiShapeLoader는 쉐이프파일<sup id="shapefile1">[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다. 
 
-#### 2.1.3 JDBC 4.2 Spec 지원
+#### 2.1.3 JDBC 4.2 스펙 지원
 
-Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
-
-Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [**Altibase 7.3 JDBC User's Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 이 문서의 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
+Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 이 문서의 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
 
 #### 2.1.4 OpensSSL 3.0.8 지원
 
@@ -145,7 +143,7 @@ SRID(공간 참조 식별자)는 공간 객체를 구분하기 위해 지정하�
 SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 - EWKT(Extended Well-Known Text) 형식: WKT 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
-- EWKB(Extended Well-Known Binary) 형식: WKB 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다
+- EWKB(Extended Well-Known Binary) 형식: WKB 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
 
 ##### 공간 함수의 추가
 
@@ -175,7 +173,7 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 #### 2.1.7 기능 개선 - 이중화 기능 개선
 
-###### 이중화 대상 테이블에 DDL 복제 기능 추가
+##### 이중화 대상 테이블에 DDL 복제 기능 추가
 
 이중화를 통하여 DDL 복제(Synchronization)가 가능하게 되었다. 이 기능을 사용하기 위해서는 각노드의 [REPLICATION_DDL_SYNC](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync) 프로퍼티를 1로 설정해야 한다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_enable_level)이 동일하게 설정해야 한다.
 
@@ -187,17 +185,13 @@ DDL 복제를 사용하기 위해 다음의 제약 조건을 확인해야 한다
 - DDL 복제를 수행할 지역 노드와 원격 노드의 테이블 파티션이름이 같아야 한다.
 - DDL 복제를 수행할 이중화 대상 사용자의 이름이 같아야 한다.
 - 한번에 하나의 노드에서만 DDL 복제를 수행해야 한다.
-- DDL 동기화를 수행할 각 이중화 노드의 REPLICATION_DDL_ENABLE과 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값이 같아야 한다.
+- DDL 복제를 수행할 각 이중화 노드의 REPLICATION_DDL_ENABLE과 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값이 같아야 한다.
 - Altibase Patch 버전(5자리)이 동일해야한다.
 - Propagation 옵션 사용시 DDL 복제를 허용하지 않는다.
 
 #### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스
 
-##### JDBC API Specification 4.2 부분 지원
-
-Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
-
-Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [Altibase 7.3 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
+##### JDBC 에 추가된 기능
 
 - **Auto-loading of JDBC driver class**
 
@@ -226,7 +220,7 @@ Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.
 
 - **Standard Socket Network Timeout API Support**
 
-  데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인퍼페이스Connection.setNetworkTimeout() 지원
+  데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인터페이스Connection.setNetworkTimeout() 지원
 
 - **Connection Management Enhancements**
 
@@ -244,9 +238,7 @@ Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.
 
   JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
 
-JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 사용할 수 있다.
-
-- Try-with-resources 구문을 통한 자동 JDBC 리소스 해제
+- **Try-with-resources 구문을 통한 자동 JDBC 리소스 해제 **
 
   ```java
   try (Statement stmt = con.createStatement()) {
@@ -259,7 +251,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 �
   }
   ```
 
-- SQLException에 Enhanced for-each loop 사용
+- **SQLException에 Enhanced for-each loop 사용을 지원**
 
   ```java
   catch(SQLException ex) {
@@ -269,56 +261,45 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 �
   }
   ```
 
-- 커넥션풀 등에서 생성되는 proxy객체에서 실체 JDBC 객체 획득
-
-  ```java
-  try (Connection sWrappedCon = dbPool.getConnection()) {
-      if (sWrappedCon.isWrapperFor(AltibaseConnection.class)) {
-          AltibaseConnection connection = sWrappedCon.unwrap(AltibaseConnection.class);
-          ...
-          ...
-  }
-  ```
-
 </br>
 
 #### 2.1.9 기능 개선 - 내장패키지 및 함수
 
-###### DBMS_STANDARD 패키지 제공
+##### DBMS_STANDARD 패키지 제공
 
 DBMS_STANDARD 패키지를 통해서 트리거 이벤트를 확인하는 함수를 제공한다.
 
-###### DBMS_METADATA 패키지 제공
+##### DBMS_METADATA 패키지 제공
 
 DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다. 
 
-###### DBMS_SQL_PLAN_CACHE 패키지 제공
+##### DBMS_SQL_PLAN_CACHE 패키지 제공
 
 특정 실행 계획(Execution Plan)을 SQL Plan Cache에 유지하거나 삭제하는 기능을하는 저장 프로시저를 제공한다.
 
-###### DBMS_OUTPUT 패키지에 print_enable/print_disable 프로시저 추가
+##### DBMS_OUTPUT 패키지에 print_enable/print_disable 프로시저 추가
 
 PSM내에서 println 기능을 enable, disable 할수 있는 기능을 제공하며, 세션 단위로 수행된다.
 
-###### DBMS_LOCK 패키지에 sleep2 프로시저 추가
+##### DBMS_LOCK 패키지에 sleep2 프로시저 추가
 
 마이크로초(micro second) sleep 을 지원하는 시스템 저장 프로시저 sleep2가 추가되었다.
 
-###### SYS_SPATIAL 패키지
+##### SYS_SPATIAL 패키지
 
 SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록, 삭제하는 기능을 제공한다.
 
-###### UTL_COPYSWAP 패키지 
+##### UTL_COPYSWAP 패키지 
 
 UTL_COPYSWAP 패키지는 테이블 스키마 복사, 데이터 복제, 테이블 교환 인터페이스를 제공한다.
 
 #### 2.1.10 기능 개선 - 유틸리티
 
-##### altimon의 AIX 7, Power Linux LE(Little endian)에서 동작 지원
+##### AltiMon의 AIX 7, Power Linux LE(Little endian)에서 동작 지원
 
 AIX 7 버전 및 Power Linux LE에서도 altimon을 사용할 수 있다.
 
-##### altiComp 커밋 카운트 설정 기능 추가
+##### AltiComp 커밋 카운트 설정 기능 추가
 
 커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.3 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Utilities%20Manual.md#count_to_commit) 에서 확인할 수 있다.
 
