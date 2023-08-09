@@ -110,7 +110,7 @@ Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다. 
 
 ##### C/C++ External Procedure의 internal mode 프로시저 지원
 
-Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버에서 직접 동적 라이브러리를 로드하고 외부 프로시저를 직접 호출하는 방식으로 external mode에 비해 빠르게 동작한다.
+Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버에서 직접 동적 라이브러리를 로드하고 외부 프로시저를 직접 호출하는 방식으로 external mode에 비해 빠르게 동작한다. 자세한 설명은 [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/External%20Procedures%20Manual.md) 을 참고한다.
 
 ##### multiple update, delete 구문의 지원
 
@@ -122,7 +122,7 @@ multiple update, delete 구문을 지원한다. 자세한 내용은 **SQL Refere
 
 ##### fetch across rollback
 
-CURSOR HOLD ON 기능을 이용하여 롤백할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 지원합니다.
+CURSOR HOLD ON 기능을 이용하여 롤백할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 지원한다.
 
 ##### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
 
@@ -546,7 +546,7 @@ ProcName(FuncName) + '_' + ouid
 ###### Altibase JDBC 4.2만을 위한 JDBC 연결 속성 추가
 
 - [getprocedures_return_functions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#getprocedures_return_functions)
-  - DatabaseMetaData.getProcedures(), getProcedureColumns()의 결과에 function 결과를 포함할지 설정한다. JDBC API Specification 4.2 표준은 function 정보를 제외하지만 Altibase JDBC 4.2는 클라이언트 하위 호환성을 위해 하위 버전과 같게 유지한다.표준에 따라 function정보를 제외하려면 속성값을 false로 설정한다.
+  - DatabaseMetaData.getProcedures(), getProcedureColumns()의 결과에 function 결과를 포함할지 설정한다. JDBC API Specification 4.2 표준은 function 정보를 제외하지만 Altibase JDBC 4.2는 클라이언트 하위 호환성을 위해 하위 버전과 같게 유지한다. 표준에 따라 function정보를 제외하려면 속성값을 false로 설정한다.
 
 ###### CLIENT_TYPE 변경
 
