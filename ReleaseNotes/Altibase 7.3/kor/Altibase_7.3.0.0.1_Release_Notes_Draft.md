@@ -82,7 +82,7 @@ Altibase 7.3.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 #### 2.1.1 AKU(Altibase Kubernetes Utility)의 지원
 
-AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 스케일링(scaling)할 때 파드(Pod)의 생성 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 작업을 수행할 수 있게 도와주는 유틸리티이다.
+AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 스케일링(scaling)할 때 파드(Pod)의 시작 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 작업을 수행할 수 있게 도와주는 유틸리티이다.
 
 #### 2.1.2 AltiShapeLoader 1.0제공
 
@@ -130,7 +130,7 @@ CURSOR HOLD ON 기능을 이용하여 롤백할 때, Fetch out of sequence 에�
 
 ##### Sequence Restart 구문 지원
 
-시퀀스를 재시작시키기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [**SQL Reference Manual** - ALTER SEQUENCE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 을 참고한다. 
+시퀀스를 초기화하기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [**SQL Reference Manual** - ALTER SEQUENCE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 을 참고한다. 
 
 </br>
 
@@ -193,7 +193,13 @@ DDL 복제를 사용하기 위해 다음의 제약 조건을 확인해야 한다
 
 이중화를 수신 전용 옵션으로 설정하여, 다른 노드로 변경 데이터를 전송하지 않는 기능을 제공한다. 수신 전용으로 이중화를 생성하면, 로그를 읽지 않으므로 네트워크 장애등의 이중화 이슈가 발생하여도 시스템에 영향을 주지 않는다. 자세한 설명은 [**Replication Manual** -  이중화 수신 전용 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication%20Manual.md#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%98%EC%8B%A0-%EC%A0%84%EC%9A%A9-%EC%98%B5%EC%85%98receive-only-option) 을 참고한다. 
 
+
+
 #### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스
+
+##### 인피니밴드(InfiniBand) 지원
+
+통신 성능 향상을 위해 RDMA(Remote Direct Memory Access) 통신 기반인 Infiniband를 지원한다.
 
 ##### JDBC 에 추가된 기능
 
@@ -315,6 +321,10 @@ AIX 7 버전 및 Power Linux LE에서도 altimon을 사용할 수 있다.
 
 LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티가 추가되었다. LOB 데이터 타입 지원 기능을 사용하려면 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티의 값을 1로 변경한 다음, ADAPTER를 재시작 해야 한다.
 
+##### 오프라인 옵션 제공
+
+어뎁터(JDBC Adapter, oraAdapter)를 이용하여 Altibase에서 변경된 데이터를 타켓 데이터베이스에 적용할때, Altibase 서버에서 장애가 발생하는 경우를 대비하기 위한 기능이다. 자세한 설명은 [**Adapter for JDBC User's Manual** - 오프라인 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option) 및 [**Adapter for Oracle User's Manual** - 오프라인 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option) 을 참고한다.
+
 </br>
 
 #### 2.1.12 성능 개선
@@ -396,10 +406,6 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 ##### jdbc fetch 성능 개선
 
 JDBC fetch 성능 향상을 위해 ResultSet 객체 사용방식을 개선하였습니다.
-
-##### 통신 성능 향상 - InfiniBand 지원
-
-통신 성능 향상을 위해 RDMA(Remote Direct Memory Access) 통신 기반인 Infiniband를 지원한다.
 
 </br>
 
