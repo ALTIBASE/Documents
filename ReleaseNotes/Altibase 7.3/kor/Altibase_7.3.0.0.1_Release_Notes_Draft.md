@@ -403,9 +403,9 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [iLoader User's Maunal - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
 
-##### jdbc fetch 성능 개선
+##### JDBC fetch 성능 개선
 
-JDBC fetch 성능 향상을 위해 ResultSet 객체 사용방식을 개선하였습니다.
+JDBC fetch 성능 향상을 위해 ResultSet 객체 사용방식을 개선하였다. 동일한 PreparedStatement 객체에서 여러개의 ResultSet 객체를 생성하는 경우, 첫번재 ResultSet 객체를 재사용한다. ResultSet 객체의 재사용을 하지 않으려면 JDBC 연결 속성 중 reuse_resultset 속성의 값을 false로 변경하면 된다.
 
 </br>
 
@@ -545,7 +545,6 @@ ProcName(FuncName) + '_' + ouid
 ###### 연결 속성 기본값 변경
 
 - [reuse_resultset](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#reuse_resultset)
-  - ResultSet 객체 재사용 여부를 설정한다.
   - Altibase 7.3 기본값은 true로 ResultSet 객체를 재사용하지만, Altibase 7.1 기본값은 false로 재사용하지 않는다.
 - [lob_null_select](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#lob_null_select)
   - LOB 컬럼 값이 NULL일 때 getBlob(), getClob() 수행시 NULL을 반환할 수 있도록 JDBC 연결속성 lob_null_select가 추가되었다.
@@ -600,7 +599,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ##### 새로운 프로퍼티
 
--   DISK_INDEX_BUILD_SORT_AREA_SIZE
+-   [DISK_INDEX_BUILD_SORT_AREA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#disk_index_build_merge_page_count-%EB%8B%A8%EC%9C%84-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%88%98)
 -   [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#dblink_global_transaction_level)
 -   [IB_CONCHKSPIN](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_conchkspin)
 -   [IB_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_enable)
@@ -632,8 +631,8 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)
 -   [SERIAL_EXECUTE_MODE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#serial_execute_mode)
 -   [SERVICE_THREAD_RECV_TIMEOUT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#service_thread_recv_timeout%EB%8B%A8%EC%9C%84--%EC%B4%88)
--   SSL_CIPHER_SUITES
--   SSL_LOAD_CONFIG
+-   [SSL_CIPHER_SUITES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ssl_cipher_suites)
+-   [SSL_LOAD_CONFIG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ssl_load_config)
 -   ST_GEOS_ENABLE         
 -   ST_MSGLOG_COUNT
 -   ST_MSGLOG_FILE
