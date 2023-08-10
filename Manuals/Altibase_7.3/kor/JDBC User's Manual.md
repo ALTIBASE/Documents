@@ -1756,6 +1756,35 @@ Altibase를 위한 설정 옵션은 아래와 같다.
 </resource>
 ```
 
+#### 연결 확인
+
+Altibase JDBC 드라이버는 연결 유효성 검사를 위해, 일반 쿼리보다 가볍게 실행되는 핑(PING) 방식의 쿼리를 지원한다. WAS에서 poolPingQuery 또는 validationQuery 등으로 이용할 수 있다.
+
+쿼리 패턴은 아래와 같으며, PreparedStatment에서도 사용할 수 있다.
+
+* 허용되는 패턴
+
+  ```java
+  /* PING */ SELECT 1
+  /* ping */ select 1
+  /*   PING  */ SELECT   1
+  /*   PING  */ select 1
+  /*   PING  */ select 1
+  /*   PING  */ select 1
+  /*   PING  */ seLECt 1
+  /*   ping  */ SELECT   1
+  ```
+
+* 허용되지 않는 패턴
+
+  ```java
+  /* PING */SELECT 1
+  /*+ ping */ select 1
+  /*ping  */ select 1
+  /* ping */ select 1 from dual
+  /** PING */ SELECT 1
+  //* PING */ SELECT 1
+  ```
 
 
 ### Multiple ResultSet

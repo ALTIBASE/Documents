@@ -1685,11 +1685,11 @@ MOSO = SU
 
 ### Overview
 
-Altibase Kubernetes Utility (AKU) is a utility that helps you perform tasks such as synchronizing data in Altibase with the creation and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. Aku supports data replication among Pods but does not support Altibase's data scale-out feature.
+Altibase Kubernetes Utility (AKU) is a utility that helps you perform tasks such as synchronizing data in Altibase with the start and termination of Pods or resetting synchronization information when scaling in a Statefulset in Kubernetes. Aku supports data replication among Pods but does not support Altibase's data scale-out feature.
 
 > StatefulSets are one of Kubernetes' workloads for supporting stateful applications like databases, and scaling means creating or terminating pods. A Pod is a resource in Kubernetes that contains containers, and Altibase server runs on these containers.
 
-When scaling up or down on a StatefulSet, you can use aku to create or terminate pods that meet the following conditions. You should add the command in the appropriate location so that aku runs on the Altibase container.
+When scaling up or down on a StatefulSet, you can use aku to start or terminate pods that meet the following conditions. You should add the command in the appropriate location so that aku runs on the Altibase container.
 
 #### When scaling up
 
@@ -1829,7 +1829,7 @@ For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP"
 
 ⚠️ Don't create/drop/modify carelessly the Altibase replication objects created by aku.
 
-## Execution of aku
+## Usage of aku
 
 ### Syntax
 
@@ -1871,15 +1871,17 @@ Displays the following informations defined in aku.conf file.
 
 Specify the action to be performed with aku. *pod_action* options are "start", "end", and "clean".
 
-### action of aku
+### pod_action with aku
 
 The followings introduce the action performed during execution of aku.
 
 #### aku -p start
 
-It creates Altibase replication objects and synchronizes data. You can use the command when creating Pods.
+It creates Altibase replication objects and synchronizes data. You can use the command when starting Pods.
 
-The following shows the detailed behavior of `aku -p start` command.
+The following shows the detailed behavior of  `aku -p start` command.
+
+>  ⚠️ `aku -p start` command should be performed after Altibase server has started successfully.
 
 ##### Creation of Master Pod (Creation of the first Pod)
 
@@ -1905,7 +1907,7 @@ The followings explain the detailed behavior of  `aku -p start` command during c
 
 ##### **Scale up**
 
-When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and the executed aku is called as "SLAVE AKU".  A Pod can be created and terminated repeatedly. The behavior of `aku -p start` is a little different when a Pod is first created and when it is recreated after being terminated.
+When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and the executed aku is called as "SLAVE AKU".  A Pod can be created and terminated repeatedly. The behavior of `aku -p start` is a little different when a Pod is first created and when it is restarted after being terminated.
 
 > **When creating a Slave Pod for the first time, or restart after a normal termination**
 
@@ -1978,7 +1980,7 @@ The following explanation describes the behavior of aku when executing `aku -p s
 
 #### **aku -p end**
 
-The command to terminate Pods. It performs to stop Altibase replication and reset the replication information. 
+The command should be used when terminating Pods. It performs to stop Altibase replication and reset the replication information. 
 
 <div align="left">
     <img src="media/Utilities/aku_p_end.jpg"></img>
@@ -1991,9 +1993,11 @@ The command to terminate Pods. It performs to stop Altibase replication and rese
 
 4️⃣ Requests to perform "ALTER REPLICATION *replication_name* RESET" on all Pods related to current Pod.
 
+> ⚠️ `aku -p end` command should be performed before stopping the Altibase server.
+
 #### **aku -p clean**
 
-The command to drop all replication objects from all Pods. It is used when there is no longer a need for synchronization among Pods.
+The command is to drop all replication objects from all Pods. It is used when there is no longer a need for synchronization among Pods.
 
 <br/>
 

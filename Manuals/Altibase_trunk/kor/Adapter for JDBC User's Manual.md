@@ -400,10 +400,10 @@ Oracle 데이터베이스 서버 버전과 일치하는 버전의 JDBC 드라이
 
 #### JRE 설치
 
-jdbcAdapter는 JRE 7 버전 이상에서 동작하는 응용 프로그램이므로, jdbcAdapter가
-운영될 장비에 7 버전 이상의 JRE가 설치되어 있어야 한다.
+jdbcAdapter는 JRE 1.8 버전 이상에서 동작하는 응용 프로그램이므로, jdbcAdapter가
+운영될 장비에 1.8 버전 이상의 JRE가 설치되어 있어야 한다.
 
-jdbcAdapter가 접속할 원격 데이터베이스의 JDBC 드라이버가 7 이상 버전의 JRE에서
+jdbcAdapter가 접속할 원격 데이터베이스의 JDBC 드라이버가 1.8 이상 버전의 JRE에서
 동작한다면, 해당 JDBC 드라이버와 호환되는 버전의 JRE를 설치해야 한다.
 
 JRE 설치 후에는 JAVA_HOME과 CLASSPATH 등의 환경 변수를 설정해야 한다. 아래는
@@ -1145,7 +1145,7 @@ jdbcAdapter [ -v | -version ]
 
 ```
 $./jdbcAdapter -v
-Adapter for JDBC version 7.1.0.0.2
+Adapter for JDBC version 7.3.0.0.0
 ...
 ```
 
