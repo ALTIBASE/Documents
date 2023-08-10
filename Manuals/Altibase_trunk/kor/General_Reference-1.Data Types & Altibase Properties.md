@@ -17198,8 +17198,6 @@ Unsigned Integer
 
 ##### 설명
 
-##### 설명
-
 정규 표현식 모드를 설정하는 프로퍼티로, 설정값의 의미는 아래와 같다.
 
 > **0**
@@ -17214,7 +17212,125 @@ PCRE2 호환 모드.
 
 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리의 정규 표현식 문법을 지원한다.
 
-이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
+이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
+
+#### ST_GEOS_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+GEOS library 사용 여부를 지정한다.
+
+* 0: geos library 사용하지 않는다.
+
+* 1: geos library 3.6.5 ver 사용한다.
+
+#### ST_MSGLOG_FLAG
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+altibase_st.log 파일에 st관련 정보를 기록한다.
+
+* 0: st 정보 기록하지 않는다.
+
+* 1: st 정보를 기록한다. 
+
+#### ST_MSGLOG_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 2^32 -1]
+
+##### 설명
+
+공간연산 메시지 파일의 최대 개수를 지정한다
+
+#### ST_MSGLOG_FILE
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+altibase_st.log
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+공간 연산 처리 시에 발생하는 메시지가 기록되는 파일이다.
+
+#### ST_MSGLOG_SIZE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10 * 1024 * 1024
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup> -1]
+
+##### 설명
+
+공간연산 메시지 파일의 최대 크기를 지정한다.
 
 #### VARRAY_MEMORY_MAXIMUM
 
