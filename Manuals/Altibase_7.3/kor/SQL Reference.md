@@ -12046,11 +12046,23 @@ Truncate success.
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
-**multiple_delete ::=**
+[**multiple_delete ::=**](#multiple_delete) 
 
 ![multiple_delete](media/SQL/multiple_delete.gif)
 
-[tbl_ref ::=](#tbl_ref)
+**tbl_ref ::=**
+
+![multiple_update2](media/SQL/tbl_ref.gif)
+
+**one_table ::=**
+
+![multiple_update3](media/SQL/one_table.gif)
+
+**join_table ::=**
+
+![multiple_update4](media/SQL/join_table.gif)
+
+
 
 #### 전제 조건
 
@@ -12121,7 +12133,7 @@ Returning 절의 제약 사항:
 > 참고: PSM 내에서 BULK COLLECT 절을 사용해서 한꺼번에 여러 행을 collection 변수로
 > 반환할 수 있다. 이에 대한 자세한 내용은 *Stored Procedures Manual*을 참고하라.
 
-*multiple_delete*
+*multiple_delete*<b id="multiple_delete"> </b>
 
 join 조건을 만족하는 레코드가 tbl_name에 지정된 테이블에서 삭제하는 구문이다.
 
@@ -12130,6 +12142,18 @@ multiple delete 제약 사항:
 - limit_clause 와 returning_clause 를 사용할 수 없다.
 - dictionary table 을 사용할 수 없다.
 - full outer join 을 사용할 수 없다.
+
+*tbl_ref*
+
+multiple update 를 하기 위한 table 을 명시한다.
+
+*one_table*
+
+한 개의 table이거나 혹은 view 를 명시한다.
+
+*join_table*
+
+table 사이의 join 조건을 명시한다.
 
 #### HINTS 옵션
 
@@ -15162,7 +15186,7 @@ C1          C2
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
-**multiple_update ::=**
+[**multiple_update ::=**](#multiple_update)
 
 ![multiple_update](media/SQL/multiple_update.gif)
 
@@ -15235,7 +15259,7 @@ DEFAULT키워드를 사용하는 것이다.
 
 DELETE 구문의 returning_clause를 참고하라.
 
-*multiple_update*
+*multiple_update*<b id="multiple_update" > </b>
 
 join 조건을 만족하는 레코드를 찾아 명시한 컬럼들의 값을 변경하는 구문이다.
 

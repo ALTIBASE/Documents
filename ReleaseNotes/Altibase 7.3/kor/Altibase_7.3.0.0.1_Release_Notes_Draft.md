@@ -82,27 +82,27 @@ Altibase 7.3.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 
 #### 2.1.1 AKU(Altibase Kubernetes Utility)의 지원
 
-AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 Scale in/out 상황에 맞게 Altibase 데이터의 이중화 구성을 도와주는 유틸리티이다.
+AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 스케일링(scaling)할 때 파드(Pod)의 시작 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 작업을 수행할 수 있게 도와주는 유틸리티이다.
 
 #### 2.1.2 AltiShapeLoader 1.0제공
 
 altiShapeLoader는 쉐이프파일<sup id="shapefile1">[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다. 
 
-#### 2.1.3 JDBC 4.2 Spec 지원
+#### 2.1.3 JDBC 4.2 스펙 지원
 
-Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
-
-Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [Altibase 7.3 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
+Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 이 문서의 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
 
 #### 2.1.4 OpensSSL 3.0.8 지원
 
-보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [Altibase SSL TLS User's Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md) 를 참고한다. 추가로 FIPS 모듈의 사용을 지원하는데, SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. 자세한 사용방법 [Altibase SSL TLS User's Guide -Step4 FIPS모듈을 사용할 경우](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-altibase-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-fips%EB%AA%A8%EB%93%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0) 를 참고한다.
+보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - 서버프로퍼티 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95) 을 참고한다. 
+
+추가로 FIPS 모듈의 사용을 지원하는데, 이 기능을 이용하기 위해서는 SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - Step4 FIPS모듈을 사용할 경우](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-altibase-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-fips%EB%AA%A8%EB%93%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0) 를 참고한다.
 
 #### 2.1.5 기능 개선 - SQL 확장
 
 ##### VARRAY TYPE 지원
 
-저장 프로시저 내에서 사용자 정의 타입으로 VARRAY가 추가되었다. VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입으로, 자세한 설명은 [Stored Procedures Manual - varray](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Stored%20Procedures%20Manual.md#varray) 설명을 참고한다.
+저장 프로시저 내에서 사용자 정의 타입으로 VARRAY가 추가되었다. VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입으로, 자세한 설명은 [**Stored Procedures Manual** - varray](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Stored%20Procedures%20Manual.md#varray) 설명을 참고한다.
 
 ##### 익명 블록(Anonymous Block) 지원
 
@@ -110,23 +110,27 @@ Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.
 
 ##### C/C++ External Procedure의 internal mode 프로시저 지원
 
-Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버에서 직접 동적 라이브러리를 로드하고 외부 프로시저를 직접 호출하는 방식으로 external mode에 비해 빠르게 동작한다.
+Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버에서 직접 동적 라이브러리를 로드하고 외부 프로시저를 직접 호출하는 방식으로 external mode에 비해 빠르게 동작한다. 자세한 설명은 [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/External%20Procedures%20Manual.md) 을 참고한다.
 
 ##### multiple update, delete 구문의 지원
 
-multiple update, delete 구문을 지원한다. 자세한 내용은 SQL 매뉴얼- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#update) 을 참고한다.
+multiple update, delete 구문을 지원한다. 자세한 내용은 **SQL Reference Manual**- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_update) 을 참고한다.
 
 ##### 한글 검색 가능한 정규 표현식(Regular Expression) 지원
 
-한글 검색 가능한 정규 표현식을 지원하기 위해 PCRE2 호환모드를 제공한다. PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 자세한 내용은 [SQL 매뉴얼-a.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 을 참고한다.
+한글 검색 가능한 정규 표현식을 지원하기 위해 PCRE2 호환모드를 제공한다. PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 자세한 내용은 [**SQL Reference Manual** - a.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 을 참고한다.
 
 ##### fetch across rollback
 
-CURSOR HOLD ON 기능을 이용하여 rollback 할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 제공한다.
+CURSOR HOLD ON 기능을 이용하여 롤백할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 지원한다.
 
 ##### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
 
-큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다. 구문 사용 방법은 [Altibase 7.3 SQL Reference 매뉴얼](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)가 추가되었다.
+큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다. 구문 사용 방법은 [**SQL Reference Manual** - CREATE QUEUE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)가 추가되었다.
+
+##### Sequence Restart 구문 지원
+
+시퀀스를 초기화하기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [**SQL Reference Manual** - ALTER SEQUENCE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 을 참고한다. 
 
 </br>
 
@@ -139,7 +143,7 @@ SRID(공간 참조 식별자)는 공간 객체를 구분하기 위해 지정하�
 SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 - EWKT(Extended Well-Known Text) 형식: WKT 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
-- EWKB(Extended Well-Known Binary) 형식: WKB 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다
+- EWKB(Extended Well-Known Binary) 형식: WKB 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
 
 ##### 공간 함수의 추가
 
@@ -147,11 +151,10 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 * ASEWKT
 * ASEWKB
-* SRID
-* SETSRID
 * GEOMFROMEWKT 
 * GEOMFROMEWKB
-* ACSGetGeometrySRID
+* SETSRID
+* SRID
 * ST_Collect
 * ST_IsCollection
 * ST_LinestringFromWKB
@@ -162,32 +165,43 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 * ST_PolygonFromText
 * ST_Transform
 
+##### Spatial API용 함수
+
+아래의 Spatial API용 함가 추가되었다.
+
+* ACSGetGeometrySRID
+
 #### 2.1.7 기능 개선 - 이중화 기능 개선
 
-###### 이중화 대상 테이블에 DDL 복제 기능 추가(PROJ-2677)
+##### 이중화 대상 테이블에 DDL 복제 기능 추가
 
-이중화를 통하여 DDL 복제(Synchronization)가 가능하게 되었다. 이 기능을 사용하기 위해서는 각노드의 REPLICATION_DDL_SYNC 프로퍼티를 1로 설정해야 한다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/GeneralReference_2.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/GeneralReference_2.md#replication_ddl_enable_level)이 동일하게 설정해야 한다.
+이중화를 통하여 DDL 복제(Synchronization)가 가능하게 되었다. 이 기능을 사용하기 위해서는 각노드의 [REPLICATION_DDL_SYNC](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync) 프로퍼티를 1로 설정해야 한다. 또한, 각 노드의 [REPLICATION_DDL_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_enable) 프로퍼티를 1로 설정하고, [REPLICATION_DDL_ENABLE_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_enable_level)이 동일하게 설정해야 한다.
 
-DDL 동기화를 사용하기 위해 다음의 제약 조건을 확인해야 한다.
+DDL 복제를 사용하기 위해 다음의 제약 조건을 확인해야 한다.
 
-- DDL 동기화를 수행할 노드들의 이중화가 동작하고 있어야 한다.
+- DDL 복제를 수행할 노드들의 이중화가 동작하고 있어야 한다.
 
-- DDL 동기화를 수행할 Local 노드와 Remote 노드의 Table 이름이 같아야 한다.
-- DDL 동기화를 수행할 Local 노드와 Remote 노드의 Table 파티션이름이 같아야 한다.
-- DDL 동기화를 수행할 이중화 대상 유저의 이름이 같아야 한다.
-- 한번에 하나의 노드에서만 DDL 동기화를 수행해야 한다.
-- DDL 동기화를 수행할 각 이중화 노드의 REPLICATION_DDL_ENABLE과 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값이 같아야 한다.
+- DDL 복제를 수행할 지역 노드와 원격 노드의 테이블 이름이 같아야 한다.
+- DDL 복제를 수행할 지역 노드와 원격 노드의 테이블 파티션이름이 같아야 한다.
+- DDL 복제를 수행할 이중화 대상 사용자의 이름이 같아야 한다.
+- 한번에 하나의 노드에서만 DDL 복제를 수행해야 한다.
+- DDL 복제를 수행할 각 이중화 노드의 REPLICATION_DDL_ENABLE과 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값이 같아야 한다.
 - Altibase Patch 버전(5자리)이 동일해야한다.
+- Propagation 옵션 사용시 DDL 복제를 허용하지 않는다.
 
-Propagation 옵션 사용시 DDL 동기화를 허용하지 않는다.
+#####  이중화 수신 전용(RECEIVE_ONLY) 옵션 제공
+
+이중화를 수신 전용 옵션으로 설정하여, 다른 노드로 변경 데이터를 전송하지 않는 기능을 제공한다. 수신 전용으로 이중화를 생성하면, 로그를 읽지 않으므로 네트워크 장애등의 이중화 이슈가 발생하여도 시스템에 영향을 주지 않는다. 자세한 설명은 [**Replication Manual** -  이중화 수신 전용 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication%20Manual.md#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%98%EC%8B%A0-%EC%A0%84%EC%9A%A9-%EC%98%B5%EC%85%98receive-only-option) 을 참고한다. 
+
+
 
 #### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스
 
-##### JDBC API Specification 4.2 부분 지원
+##### 인피니밴드(InfiniBand) 지원
 
-Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다.
+통신 성능 향상을 위해 RDMA(Remote Direct Memory Access) 통신 기반인 Infiniband를 지원한다.
 
-Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [Altibase 7.3 JDBC User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
+##### JDBC 에 추가된 기능
 
 - **Auto-loading of JDBC driver class**
 
@@ -216,7 +230,7 @@ Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.
 
 - **Standard Socket Network Timeout API Support**
 
-  데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인퍼페이스Connection.setNetworkTimeout() 지원
+  데이터베이스 서버로부터 소켓 응답 대기 시간을 설정하는 표준 인터페이스Connection.setNetworkTimeout() 지원
 
 - **Connection Management Enhancements**
 
@@ -234,9 +248,7 @@ Altibase 7.3 JDBC 드라이버는 JRE 1.8 이상에서 동작한다. Altibase 7.
 
   JDBC 4.2 표준 인터페이스 java.sql.SQLType을 구현한 AltibaseJDBCType 지원
 
-JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 사용할 수 있다.
-
-- Try-with-resources 구문을 통한 자동 JDBC 리소스 해제
+- **Try-with-resources 구문을 통한 자동 JDBC 리소스 해제 **
 
   ```java
   try (Statement stmt = con.createStatement()) {
@@ -249,7 +261,7 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 �
   }
   ```
 
-- SQLException에 Enhanced for-each loop 사용
+- **SQLException에 Enhanced for-each loop 사용을 지원**
 
   ```java
   catch(SQLException ex) {
@@ -259,56 +271,45 @@ JDK 레벨에서 향상된 기능들은 Altibase JDBC 7.3 에서도 대부분 �
   }
   ```
 
-- 커넥션풀 등에서 생성되는 proxy객체에서 실체 JDBC 객체 획득
-
-  ```java
-  try (Connection sWrappedCon = dbPool.getConnection()) {
-      if (sWrappedCon.isWrapperFor(AltibaseConnection.class)) {
-          AltibaseConnection connection = sWrappedCon.unwrap(AltibaseConnection.class);
-          ...
-          ...
-  }
-  ```
-
 </br>
 
 #### 2.1.9 기능 개선 - 내장패키지 및 함수
 
-###### DBMS_STANDARD 패키지 제공
+##### DBMS_STANDARD 패키지 제공
 
 DBMS_STANDARD 패키지를 통해서 트리거 이벤트를 확인하는 함수를 제공한다.
 
-###### DBMS_METADATA 패키지 제공
+##### DBMS_METADATA 패키지 제공
 
 DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다. 
 
-###### DBMS_SQL_PLAN_CACHE 패키지 제공
+##### DBMS_SQL_PLAN_CACHE 패키지 제공
 
 특정 실행 계획(Execution Plan)을 SQL Plan Cache에 유지하거나 삭제하는 기능을하는 저장 프로시저를 제공한다.
 
-###### DBMS_OUTPUT 패키지에 print_enable/print_disable 프로시저 추가
+##### DBMS_OUTPUT 패키지에 print_enable/print_disable 프로시저 추가
 
 PSM내에서 println 기능을 enable, disable 할수 있는 기능을 제공하며, 세션 단위로 수행된다.
 
-###### DBMS_LOCK 패키지에 sleep2 프로시저 추가
+##### DBMS_LOCK 패키지에 sleep2 프로시저 추가
 
 마이크로초(micro second) sleep 을 지원하는 시스템 저장 프로시저 sleep2가 추가되었다.
 
-###### SYS_SPATIAL 패키지
+##### SYS_SPATIAL 패키지
 
 SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록, 삭제하는 기능을 제공한다.
 
-###### UTL_COPYSWAP 패키지 
+##### UTL_COPYSWAP 패키지 
 
 UTL_COPYSWAP 패키지는 테이블 스키마 복사, 데이터 복제, 테이블 교환 인터페이스를 제공한다.
 
 #### 2.1.10 기능 개선 - 유틸리티
 
-##### altimon의 AIX 7, Power Linux LE(Little endian)에서 동작 지원
+##### AltiMon의 AIX 7, Power Linux LE(Little endian)에서 동작 지원
 
 AIX 7 버전 및 Power Linux LE에서도 altimon을 사용할 수 있다.
 
-##### altiComp 커밋 카운트 설정 기능 추가
+##### AltiComp 커밋 카운트 설정 기능 추가
 
 커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.3 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Utilities%20Manual.md#count_to_commit) 에서 확인할 수 있다.
 
@@ -319,6 +320,10 @@ AIX 7 버전 및 Power Linux LE에서도 altimon을 사용할 수 있다.
 ##### LOB데이터 타입 지원
 
 LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티가 추가되었다. LOB 데이터 타입 지원 기능을 사용하려면 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티의 값을 1로 변경한 다음, ADAPTER를 재시작 해야 한다.
+
+##### 오프라인 옵션 제공
+
+어뎁터(JDBC Adapter, oraAdapter)를 이용하여 Altibase에서 변경된 데이터를 타켓 데이터베이스에 적용할때, Altibase 서버에서 장애가 발생하는 경우를 대비하기 위한 기능이다. 자세한 설명은 [**Adapter for JDBC User's Manual** - 오프라인 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option) 및 [**Adapter for Oracle User's Manual** - 오프라인 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option) 을 참고한다.
 
 </br>
 
@@ -367,6 +372,14 @@ LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티�
 
 메모리 테이블 객체 식별자 추적 단계를 간소화하여 휘발성/비휘발성 메모리 DB 트랜잭션 성능이 향상되었다.
 
+##### DEQUEUE 병렬 수행시 성능 개선
+
+병렬로 DEQUEUE 수행 시 발생하는 병목을 제거하여 성능을 개선하였다.
+
+##### Common Subexpression Elimination의 PREPARE 시간 단축
+
+CSE(Common Subexpression Elimination)는 조건절의 중복된 조건식을 찾아 제거하는 최적화 기능이다. CSE 수행 알고리즘을 개선하여 관련 쿼리의 성능을 개선하였다. 
+
 ##### 메모리 파티션드 테이블의 Simple query 최적화로 성능개선
 
 기존에는 메모리 테이블에 대해서만 simple query 최적화를 지원하였으나, 메모리 파티션드 테이블의 경우도 지원하게 되었다. 메모리 파티션드 테이블의 simple query 최적화 지원으로 메모리 파티션드 테이블의 DML 성능이 개선되었다.
@@ -379,9 +392,7 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 스칼라 서브쿼리의 수행방식을 개선하여 수행 성능을 개선하였다.
 
-##### DEQUEUE 병렬 수행시 성능 개선
-
-병렬로 DEQUEUE 수행 시 발생하는 병목을 제거하여 성능을 개선하였다.
+##### PSM에서 for loop절의 성능개선
 
 ##### 이중화 Sender 성능 향상
 
@@ -392,13 +403,9 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [iLoader User's Maunal - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
 
-##### jdbc fetch 성능 개선
+##### JDBC fetch 성능 개선
 
-JDBC fetch 성능 향상을 위해 ResultSet 객체 사용방식을 개선하였습니다.
-
-##### 통신 성능 향상 - InfiniBand 지원
-
-통신 성능 향상을 위해 RDMA(Remote Direct Memory Access) 통신 기반인 Infiniband를 지원한다.
+JDBC fetch 성능 향상을 위해 ResultSet 객체 사용방식을 개선하였다. 동일한 PreparedStatement 객체에서 여러개의 ResultSet 객체를 생성하는 경우, 첫번재 ResultSet 객체를 재사용한다. ResultSet 객체의 재사용을 하지 않으려면 JDBC 연결 속성 중 reuse_resultset 속성의 값을 false로 변경하면 된다.
 
 </br>
 
@@ -410,7 +417,7 @@ DDL PVO 단계에서의 예외처리 개선으로 안정성을 향상시켰다.
 
 ##### 프로토콜 유효성 검증 개선
 
-유효하지 않은 패킷(malformed packet) 전송으로인한 서버에서의 비정상 종료 및 비정상 동작이 발생하지 않도록 개선되었다. 프로토콜 처리시 패킷의 유효성을 체크하여 비정상적인 경우, 클라이언트의 접속을 끊고 진단로그를 남기도록 개선되었다.
+유효하지 않은 패킷(malformed packet) 전송으로인한 서버에서의 비정상 종료 및 비정상 동작이 발생하지 않도록 개선되었다. 프로토콜 처리시 패킷의 유효성을 체크하여 비정상적인 경우, 클라이언트의 접속을 끊고 진단로그를 남기도록 개선되었다. 이를 위해 CM_MSGLOG_FLAG 의 기본값이 3으로, SERVER_MSGLOG_FLAG의 기본값이 15로 변경되었다.
 
 ##### 트랜잭션 안정성 개선 - Multiple Rollback Segment
 
@@ -477,6 +484,14 @@ Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 �
 
 #### 2.2.3 기타 변경사항
 
+##### aexport 변경사항
+
+Altibase 7.3 aexport를 구동하기 위해서는 DBMS_METADATA 패키지를 반드시 설치해야 한다. 그렇지 않은 경우, 아래의 에러메시지가 출력된다.
+
+```
+[ERR-91144 : DBMS_METADATA package does not exist.]
+```
+
 ##### Altibase JDBC 4.2 관련 변경 사항 및 호환성 이슈
 
 Altibase JDBC 4.2는 Altibase JDBC 3.0 에 대해 하위 호환성을 보장하지만 일부 인터페이스의 경우 JDBC API Specification 4.2에 따라 동작이 변경되었다.
@@ -530,7 +545,6 @@ ProcName(FuncName) + '_' + ouid
 ###### 연결 속성 기본값 변경
 
 - [reuse_resultset](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#reuse_resultset)
-  - ResultSet 객체 재사용 여부를 설정한다.
   - Altibase 7.3 기본값은 true로 ResultSet 객체를 재사용하지만, Altibase 7.1 기본값은 false로 재사용하지 않는다.
 - [lob_null_select](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#lob_null_select)
   - LOB 컬럼 값이 NULL일 때 getBlob(), getClob() 수행시 NULL을 반환할 수 있도록 JDBC 연결속성 lob_null_select가 추가되었다.
@@ -539,7 +553,7 @@ ProcName(FuncName) + '_' + ouid
 ###### Altibase JDBC 4.2만을 위한 JDBC 연결 속성 추가
 
 - [getprocedures_return_functions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#getprocedures_return_functions)
-  - DatabaseMetaData.getProcedures(), getProcedureColumns()의 결과에 function 결과를 포함할지 설정한다. JDBC API Specification 4.2 표준은 function 정보를 제외하지만 Altibase JDBC 4.2는 클라이언트 하위 호환성을 위해 하위 버전과 같게 유지한다.표준에 따라 function정보를 제외하려면 속성값을 false로 설정한다.
+  - DatabaseMetaData.getProcedures(), getProcedureColumns()의 결과에 function 결과를 포함할지 설정한다. JDBC API Specification 4.2 표준은 function 정보를 제외하지만 Altibase JDBC 4.2는 클라이언트 하위 호환성을 위해 하위 버전과 같게 유지한다. 표준에 따라 function정보를 제외하려면 속성값을 false로 설정한다.
 
 ###### CLIENT_TYPE 변경
 
@@ -585,27 +599,84 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ##### 새로운 프로퍼티
 
--   [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#dblink_global_transaction_level)
--   IB_CONCHKSPIN
--   IB_ENABLE
--   IB_LATENCY
--   IB_LISTENER_DISABLE
--   IB_MAX_LISTEN
--   IB_PORT_NO
+-   [DISK_INDEX_BUILD_SORT_AREA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#disk_index_build_merge_page_count-%EB%8B%A8%EC%9C%84-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%88%98)
+-   [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#dblink_global_transaction_level)
+-   [IB_CONCHKSPIN](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_conchkspin)
+-   [IB_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_enable)
+-   [IB_LATENCY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_latency)
+-   [IB_LISTENER_DISABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_listener_disable)
+-   [IB_MAX_LISTEN](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_max_listen)
+-   [IB_PORT_NO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ib_port_no)
+-   [INIT_TOTAL_WA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#init_total_wa_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [IPCDA_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_sem_key)
+-   [IPCDA_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipcda_shm_key)
+-   [IPC_SHM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_shm_key)
+-   [IPC_SEM_KEY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ipc_sem_key)
+-   [JOB_MSGLOG_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_count)
+-   [JOB_MSGLOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_file)
+-   [JOB_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_flag)
+-   [JOB_MSGLOG_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_size%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [LISTAGG_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#listagg_precision-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8) 
+-   [MATHEMATICS_TEMP_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#mathematics_temp_memory_maximum-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [NETWORK_ERROR_LOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#network_error_log_file)
+-   [PSM_MAX_DDL_REFERENCE_DEPTH](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_max_ddl_reference_depth)
+-   [REGEXP_MODE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#regexp_mode)  
+-   [REPLICATION_DDL_SYNC](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync)
+-   [REPLICATION_DDL_SYNC_TIMEOUT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync_timeout--%EB%8B%A8%EC%9C%84--%EC%B4%88-) 
+-   [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
+-   [REPLICATION_IB_LATENCY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ib_latency)
+-   [REPLICATION_IB_PORT_NO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ib_port_no)
+-   [REPLICATION_META_ITEM_COUNT_DIFF_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_meta_item_count_diff_enable) 
+-   [REPLICATION_RECEIVER_APPLIER_YIELD_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_receiver_applier_yield_count)
+-   [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)
+-   [SERIAL_EXECUTE_MODE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#serial_execute_mode)
+-   [SERVICE_THREAD_RECV_TIMEOUT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#service_thread_recv_timeout%EB%8B%A8%EC%9C%84--%EC%B4%88)
+-   [SSL_CIPHER_SUITES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ssl_cipher_suites)
+-   [SSL_LOAD_CONFIG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#ssl_load_config)
+-   ST_GEOS_ENABLE         
+-   ST_MSGLOG_COUNT
+-   ST_MSGLOG_FILE
+-   ST_MSGLOG_FLAG
+-   ST_MSGLOG_SIZE
+-   [VARRAY_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#varray_memory_maximum)
 
 ##### 변경된 프로퍼티
+
+- [ARCHIVE_FULL_ACTION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)
+
+  읽기 전용에서 변경 가능으로 속성이 변경되었다. 기본값 변경은 없으나, 설정값 2가 추가되었다.
+
+- [CM_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#cm_msglog_flag)
+
+  기본값이 3으로 변경되었다.
 
 - [EXECUTE_STMT_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#execute_stmt_memory_maximum-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
   기본값이 1073741824에서 2147483648로 변경되었다.
 
-- [INDEX_MAXTRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_maxtrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
+- [HASH_AREA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#hash_area_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
-  기본값과 MAX값이 30에서 50으로 변경되었다.
+  최소값이 512K 에서 3M로 변경되었다.
 
 - [INDEX_INITRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_initrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
 
-  MAX값이 30에서 50으로 변경되었다.
+  최대값이 30에서 50으로 변경되었다.
+
+- [INDEX_MAXTRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_maxtrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
+
+  기본값과 최값이 30에서 50으로 변경되었다.
+
+- [LOB_CACHE_THRESHOLD](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#lob_cache_threshold-%EB%8B%A8%EC%9C%84-bytes)
+
+  최대값이 8192에서 524288로 변경되었다.
+
+- [MEMORY_INDEX_BUILD_RUN_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#memory_index_build_run_size-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
+
+  기본값이 32768에서 131072으로 변경되었다.
+
+- [MM_MSGLOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#mm_msglog_file)
+
+  기본값이 1로 변경되었다.
 
 - [PSM_CHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_char_default_precision)
 
@@ -630,6 +701,22 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 - [PSM_VARCHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_varchar_default_precision)
 
   기본값이 32767에서 32000으로 변경되었다.
+  
+- [REPLICATION_EAGER_PARALLEL_FACTOR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_eager_parallel_factor)
+
+  최소값이 1에서 2로 변경되었다.
+
+- [SERVER_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#server_msglog_flag)
+
+  기본값이 7에서 15로 변경되었다.
+
+- [TOTAL_WA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#total_wa_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
+
+  최소값이 0으로 변경되었다.
+
+- [TRANSACTION_SEGMENT_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#transaction_segment_count-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
+
+  최대값이 512에서 16384로 변경되었다.
 
 ##### 삭제된 프로퍼티
 
@@ -640,6 +727,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   LOCK_MGR_MAX_SLEEP
 -   LOCK_MGR_DETECTDEADLOCK_INTERVAL
 -   TEMP_MAX_PAGE_COUNT
+-   TRANSACTION_START_MODE
 
 
 
@@ -647,27 +735,46 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ##### 새로운 메타테이블
 
-* SYS_REPL_RECEIVER_
-* SYS_REPL_ITEMS_HISTORY_
-* SYS_GEOMETRIES_
-* SYS_GEOMETRY_COLUMNS_
-* USER_SRS_
-* [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
+* [SYS_GEOMETRIES_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_geometries_)
+* [SYS_GEOMETRY_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_geometry_columns_)
+* [SYS_REPL_RECEIVER_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_receiver_)
+* [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
+* [USER_SRS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#user_srs_)
+
+##### 변경된 메타테이블
+
+* [SYS_REPLICATIONS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
+  * REMOTE_LAST_DDL_XSN 컬럼이 추가되었다.
+* [SYS_REPL_HOSTS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
+  * CONN_TYPE 컬럼이 추가되었다.
+  * IB_LATENCY 컬럼이 추가되었다.
+* [SYS_REPL_OLD_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_columns_)
+  * MT_SRID 컬럼이 추가되었다.
+* [SYS_REPL_OLD_ITEMS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_items_)
+  * REMOTE_USER_NAME 컬럼이 추가되었다.
+  * REMOTE_TABLE_NAME 컬럼이 추가되었다.
+  * REMOTE_PARTITION_NAME 컬럼이 추가되었다.
+  * PARTITION_COUNT 컬럼이 추가되었다.
+  * PARTITION_METHOD 컬럼이 추가되었다.
+  * PARTITION_ORDER 컬럼이 추가되었다.
+  * PARTITION_MIN_VALUE 컬럼이 추가되었다.
+  * PARTITION_MAX_VALUE 컬럼이 추가되었다.
+  * INVALID_MAX_SN 컬럼이 추가되었다.
 
 ##### 삭제된 메타테이블
 
 아래의 메타 테이블이 삭제되었다.
 
 -   STO_COLUMNS_
--   STO_USER_COLUMNS_
--   STO_SRS_
--   STO_PROJCS_
--   STO_PROJECTIONS_
--   STO_GEOGCS_
--   STO_GEOCCS_
 -   STO_DATUMS_
 -   STO_ELLIPSOIDS_
+-   STO_GEOCCS_
+-   STO_GEOGCS_
 -   STO_PRIMEMS_
+-   STO_PROJCS_
+-   STO_PROJECTIONS_
+-   STO_SRS_
+-   STO_USER_COLUMNS_
 
 #### 2.2.6 성능 뷰
 
@@ -675,8 +782,21 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 ##### 새로운 성능 뷰
 
--   [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
--   [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
+-   [V$LIBRARY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vlibrary)
+-   [V$PROCINFO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vprocinfo)
+-   [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)
+-   [V$REPL_REMOTE_META_CHECKS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_checks)
+-   [V$REPL_REMOTE_META_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_columns)
+-   [V$REPL_REMOTE_META_INDEX_COLUMNS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_index_columns)
+-   [V$REPL_REMOTE_META_INDICES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_indices)
+-   [V$REPL_REMOTE_META_ITEMS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_indices)
+-   [V$REPL_REMOTE_META_REPLICATIONS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_replications)
+
+##### 삭제된 성능뷰
+
+* V$ST_ANGULAR_UNIT
+* V$ST_AREA_UNIT
+* V$ST_LINEAR_UNIT
 
 </br>
 
@@ -701,9 +821,15 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 #### Package
 
+http://support.altibase.com
+
 #### Manual
 
+https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/README.md
+
 #### 설치
+
+[Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Installation%20Guide.md) 참고
 
 ------
 
