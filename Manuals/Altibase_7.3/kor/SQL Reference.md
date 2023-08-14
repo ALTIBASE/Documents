@@ -12052,15 +12052,15 @@ Truncate success.
 
 **tbl_ref ::=**
 
-![multiple_update2](media/SQL/tbl_ref.gif)
+![tbl_ref](media/SQL/tbl_ref.gif)
 
 **one_table ::=**
 
-![multiple_update3](media/SQL/one_table.gif)
+![one_table](media/SQL/one_table.gif)
 
 **join_table ::=**
 
-![multiple_update4](media/SQL/join_table.gif)
+![join_table](media/SQL/join_table.gif)
 
 
 

@@ -11957,7 +11957,19 @@ Truncate success.
 
 ![multiple_delete](media/SQL/multiple_delete.gif)
 
-[tbl_ref ::=](#tbl_ref)
+**tbl_ref ::=**
+
+![tbl_ref](C:/jin_altibase/패치노트_매뉴얼/Documents/Manuals/Altibase_7.3/kor/media/SQL/tbl_ref.gif)
+
+**one_table ::=**
+
+![one_table](C:/jin_altibase/패치노트_매뉴얼/Documents/Manuals/Altibase_7.3/kor/media/SQL/one_table.gif)
+
+**join_table ::=**
+
+![join_table](C:/jin_altibase/패치노트_매뉴얼/Documents/Manuals/Altibase_7.3/kor/media/SQL/join_table.gif)
+
+
 
 #### 전제 조건
 
