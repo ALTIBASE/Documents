@@ -398,7 +398,7 @@ SELECT * FROM SPATIAL_REF_SYS;
 
 SYS_SPATIAL.ADD_SPATIAL_REF_SYS 사용 방법은 Spatial SQL Reference 매뉴얼을 참고한다.
 
-- [Altibase 7.2 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
+- [Altibase 7.3 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
 - [Altibase 7.1 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
 
 ### 실행 옵션
@@ -972,14 +972,14 @@ Altibase와 쉐이프 파일 간 데이터 타입 변환표이다. 쉐이프 파
 
 ### 내보내기 데이터 타입 변환
 
-|                          Data Type                           | Altibase                                               | dBASE field (precision) | Note                                                         |
-| :----------------------------------------------------------: | :----------------------------------------------------- | :---------------------: | :----------------------------------------------------------- |
-|                            숫자형                            | SMALLINT, INTEGER, BIGINT                              |         NUMBER          | Altibase 데이터 타입에 따라 적절한 precision을 설정하며 scale은 0이다. |
-|                            숫자형                            | REAL, NUMBER, NUMERIC, DOUBLE, FLOAT                   |         NUMBER          | Altibase 데이터 타입에 따라 적절한 precision과 scale을 설정한다. |
-|                            문자형                            | CHAR, VARCHAR                                          |        CHARACTER        | dBASE  문자형 최대값은 255 이다.                             |
-|                            문자형                            | NCHAR, NVARCHAR                                        |         미지원          | -                                                            |
-| <pre>Altibase Application Development Altibase 3rd Party Connector GuideCopyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br><b>㈜알티베이스</b>08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층전화 : 02-2082-1114팩스 : 02-2082-1099고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre> | DATE                                                   |          DATE           | Altibase 는 TIME을 지원한다.<br />dBASE 는 TIME을 지원하지 않는다. |
-|                             이진                             | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB |         미지원          | -                                                            |
+| Data Type | Altibase                                               | dBASE field (precision) | Note                                                         |
+| :-------: | :----------------------------------------------------- | :---------------------: | :----------------------------------------------------------- |
+|  숫자형   | SMALLINT, INTEGER, BIGINT                              |         NUMBER          | Altibase 데이터 타입에 따라 적절한 precision을 설정하며 scale은 0이다. |
+|  숫자형   | REAL, NUMBER, NUMERIC, DOUBLE, FLOAT                   |         NUMBER          | Altibase 데이터 타입에 따라 적절한 precision과 scale을 설정한다. |
+|  문자형   | CHAR, VARCHAR                                          |        CHARACTER        | dBASE  문자형 최대값은 255 이다.                             |
+|  문자형   | NCHAR, NVARCHAR                                        |         미지원          | -                                                            |
+|   날짜    | DATE                                                   |          DATE           | Altibase 는 TIME을 지원한다.<br />dBASE 는 TIME을 지원하지 않는다. |
+|   이진    | BINARY, BIT, VARBIT, BYTE, VARBYTE, NIBBLE, CLOB, BLOB |         미지원          | -                                                            |
 
 <br/>
 

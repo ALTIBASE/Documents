@@ -141,6 +141,9 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [PDO에서 콜백 작성](#pdo%EC%97%90%EC%84%9C-%EC%BD%9C%EB%B0%B1-%EC%9E%91%EC%84%B1)
 - [5.시퀀스 이중화](#5%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
   - [시퀀스 이중화](#%EC%8B%9C%ED%80%80%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
+- [6.이중화 롤(ROLE)](#6-이중화-롤role)
+  - [Log Analyzer 롤](#log-analyzer-롤)
+  - [전파(Propagation)](전파propagation)
 - [A.부록: FAQ](#a%EB%B6%80%EB%A1%9D-faq)
   - [Replication FAQ](#replication-faq)
 
@@ -1347,15 +1350,14 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
   설정해야 한다.
 
 - ***FOR ANALYSIS \| FOR ANALYSIS PROPAGATION***  
-  XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*을
+  log analyzer 용 이중화를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*을
   참고한다.
 
 - ***FOR PROPAGABLE LOGGING \| FOR PROPAGATION***  
   이중화 수신자가 전송받은 로그를 복제하기 위해 FOR PROPAGABLE LOGGING을
   사용하여 로그를 기록한 후, 복제된 로그가 다른 원격 서버로 전송하기 위해 FOR
-  PROPAGATION을 사용한다. 이 기능을 사용할 때 recovery option과 함께 사용할 수
-  없다.
-
+  PROPAGATION을 사용한다. 
+  
 - ***as master 또는 as slave***  
   해당 서버가 Master 인지 Slave 인지를 지정한다. 만약 아무것도 지정하지 않으면
   기존의 REPLICATION_INSERT_REPLACE 또는 REPLICATION_UPDATE_REPLACE 프로퍼티를
@@ -4250,6 +4252,42 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 | Fail-Over 발생                                               |                                                              |
 |                                                              | iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1001<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ---------------------- <br/>1002<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1003<br/> 1 row selected. |
 | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ<br/> -------------------<br/> 2001<br/> 1 row selected. | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ <br/>---------------------- <br/>2001<br/> 1 row selected. |
+
+# 6. 이중화 롤(ROLE)
+
+이중화 롤은 이중화에 롤(ROLE)을 부여하여 특별한 기능을 하도록 시스템을 구성하는 데 사용한다. 
+
+이중화 롤의 정보는 SYS_REPLICATIONS_ 메타테이블의 ROLE 칼럼 값을 통해 확인할 수 있다. 롤을 명시하지 않은 이중화는 기본적으로 Altibase 서버간 1:1 양방향 이중화를 의미하며, ROLE 칼럼 값은 0이다. 
+
+이중화 롤은 Log Analyzer 용도의 Log Analyzer 롤과 전파(Propagation) 용도의 Propagation 롤, Propagable Logging 롤이 있다. 이중화 생성시 롤을 지정할 수 있으며, 각각에 대한 설명은 다음과 같다. 
+
+### Log Analyzer 롤
+
+이중화를 Log Analyzer 롤로 생성하려면 ANALYSIS 키워드를 사용하여 생성한다. Log analyzer 롤은 전파(Propagation) 롤과 함께 사용할 수 있다. Log Analyzer용 이중화에 대한 자세한 설명은 *Log Analyzer User’s Manual*을 참고한다.
+
+### 전파(Propagation) 
+
+이중화를 여러 노드를 거쳐서 전파하는 용도로 시스템을 구성하는 것을 말한다. 
+
+일반 이중화는 변경 사항을 서로 재 전송하지 않기 위해서 이중화 수신자가 수행한 트랜잭션은 재 전송하지 않도록 로그에 표시한다. 그러나 전파는 이중화 수신자가 수행한 트랜잭션도 다른 노드로 전파할 수 있다. 이중화 수신자가 전송받은 로그를 복제가능한 로그로 남기기 위해서는 Propagable logging 롤이 필요하다. 복제 가능한 로그를 다른 원격서버로 전송은 Propagation 롤을 가진 이중화에서 송신자가 수행한다. 
+
+#### PROPAGABLE LOGGING 롤
+
+이 롤이 지정된 이중화는 복제가능한 로깅(propagable logging)을 수행하여, 추후 PROPAGATION 롤을 갖는 송신자가 해당 로그를 읽어서 다른 노드로 복제할 수 있도록 한다. 복제가능한 로깅(propagable logging)이란, 이중화 수신자가 수행한 트랜잭션을 다른 노드로 전파할 수 있도록 로깅하는 것을 말한다.
+
+#### PROPAGATION 롤
+
+이 롤이 지정된 이중화의 송신자는 이중화 대상 로그 뿐 아니라, 복제가능한 로깅(propagable logging)에 의해 생성된 로그를 읽어서 다른 노드로 전송하는 역할을 한다.
+
+#### 이중화 전파시 주의 사항
+
+* RECOVERY 옵션과 함께 사용하지 않는 것을 권고한다.
+  * PROPAGATION 롤로  생성된 송신자는 PROPAGATION 가능한 모든 복제된 로그를 전파하므로, RECOVERY 옵션이 있는 수신자가 생성한 로그도 전파하므로 시스템 설계가 복잡해 질 수 있다.
+* 이중화 전파는 단 방향으로만 구성해야한다. 
+* 전파의 방향에 Cycle이 생성되는 경우, 로그의 변경사항이 무한정 재적용되는 상황을 만들 수 있으므로 주의해야한다. 
+* PROPAGABLE LOGGING을 사용한 수신자는 로그를 남길때 PK 등의 추가 정보를 더 남기므로, PROPAGABLE LOGGING를 지정하지 않은 수신자보다 트랜잭션 성능이 떨어질 수 있다. 
+
+
 
 # A.부록: FAQ
 
