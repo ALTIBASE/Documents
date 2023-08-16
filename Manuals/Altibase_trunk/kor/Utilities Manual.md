@@ -2169,6 +2169,7 @@ AKU_FLUSH_TIMEOUT_AT_START = 300
 AKU_FLUSH_AT_END           = 1
 AKU_ADDRESS_CHECK_COUNT    = 30
 AKU_DELAY_START_COMPLETE_TIME = 0
+AKU_REPLICATION_RESET_AT_END = 1
 
 REPLICATIONS = (
     REPLICATION_NAME_PREFIX = "AKU_REP"
@@ -2206,6 +2207,7 @@ REPLICATIONS = (
 | AKU_FLUSH_AT_END                     |   1    | 슬레이브 파드에서 aku -p end 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br />1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
 | AKU_ADDRESS_CHECK_COUNT              |   30   | aku -p start 명령 수행 시 이 값의 횟수만큼 local ip 접속을 시도한다. <br />쿠버네티스 서비스에 생성하고 있는 파드의 local dns가 엔드포인트에 등록될 때까지 대기하며 재접속을 시도한다. |
 | AKU_DELAY_START_COMPLETE_TIME        |   0    | 슬레이브 파드(Slave Pod) 가 생성될 때, aku - p start 성공 후 지정 시간만큼 대기하는 기능이다. <br />이 설정은 aku -p start로 스케일 업하는 과정에서 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하는 작업을 수행하기 전에 대기하는 시간을 설정하는 기능이다. |
+| AKU_REPLICATION_RESET_AT_END         |   1    | 슬레이브 파드(Slave Pod) 에서 aku -p end 명령 수행 시 RESET 명령으로 이중화 객체를 초기화할 것인지 설정한다.<br />1이면 이중화 객체를 초기화하며, 0이면 초기화하지 않고 종료한다. |
 | REPLICATIONS/REPLICATION_NAME_PREFIX |  없음  | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>*REPLICATION_NAME_PREFIX*_\[*파드번호*]\[*파드번호*\]  형태로 이중화 객체 이름을 생성한다.<sup>[이중화 객체 이름 생성 규칙](#rep_name_rules)</sup> |
 | REPLICATIONS/SYNC_PARALLEL_COUNT     |   1    | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br />1부터 100까지 설정할 수 있다. |
 | REPLICATIONS/USER_NAME               |  없음  | 이중화 대상 테이블의 소유자 이름.<br />여기에 명시한 데이터베이스 사용자는 `aku -p` 명령을 수행하기 전에 생성해야 한다. |
@@ -2295,9 +2297,9 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   스테이트풀셋에서 스케일 업을 하면 파드가 생성된다. aku에서는 슬레이브 파드(Slave Pod)라 하며 여기서 수행한 aku를 'SLAVE AKU'라 부른다. 하나의 파드는 생성과 종료를 반복할 수 있는데, 파드가 처음 생성될 때와 종료 후 다시 시작될 때 `aku -p start` 동작이 다르다. 
 
-  > **슬레이브 파드를 처음 생성하거나 정상적으로 종료하고 다시 시작할 때**
+  > **슬레이브 파드를 처음 생성하거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 1으로 설정한 상태에서 정상적으로 종료하고 다시 시작할 때**
 
-  처음 생성하거나 정상적으로 종료하고 다시 시작하는 슬레이브 파드에서 `aku -p start` 를 수행할 때 aku의 동작을 설명한다.
+  처음 생성하거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 1으로 설정한 상태에서 정상적으로 종료하고 다시 시작하는 슬레이브 파드에서 `aku -p start` 를 수행할 때 aku의 동작을 설명한다.
 
   아래는 *pod_name*-1에서 수행한 예이다. 
 
@@ -2326,11 +2328,11 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   
   
   
-  >  **비정상적으로 종료된 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
+  >  **비정상적으로 종료됐거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
   
-  비정상적으로 종료된 슬레이브 파드에서 `aku -p start` 를 수행할 때 aku의 동작을 설명한다.
+  비정상적으로 종료됐거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드에서 `aku -p start` 를 수행할 때 aku의 동작을 설명한다.
   
-  비정상적으로 종료된 슬레이브 파드는 `aku -p end` 명령을 수행하지 않았거나 정상적으로 완료하지 않아 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
+  비정상적으로 종료됐거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드는 `aku -p end` 명령을 수행하지 않았거나 정상적으로 완료하지 않았거나 이중화 정보를 초기화하지 않아 Altibase에 이중화 정보가 남아있는 파드를 말한다. 이때, 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 가지고 있다. 이전의 이중화 정보가 남아있으면 슬레이브 파드를 다시 시작한 후에 데이터 불일치가 발생할 수 있으므로 이전 데이터를 동기화하는 작업이 필요하다.
   
   <div align="left">
       <img src="media/Utilities/aku_p_start_aku_flush_at_start_1.jpg"></img>
@@ -2352,9 +2354,9 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   
   
   
-  > **비정상적으로 종료된 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 0 일 때)** 
+  > **비정상적으로 종료됐거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 0 일 때)** 
   
-  비정상적으로 종료된 슬레이브 파드를 다시 시작할 때 AKU_FLUSH_AT_START 프로퍼티를 0으로 설정했다면 아래와 같이 동작한다.
+  비정상적으로 종료됐거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드를 다시 시작할 때 AKU_FLUSH_AT_START 프로퍼티를 0으로 설정했다면 아래와 같이 동작한다.
   
   <div align="left">
       <img src="media/Utilities/aku_p_start_aku_flush_at_start_0.jpg"></img>
@@ -2385,7 +2387,7 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 
 3️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION *replication_name* STOP 수행을 요청한다.
 
-4️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION *replication_name* RESET 수행을 요청한다.
+4️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION *replication_name* RESET 수행을 요청한다. aku 설정 파일에 AKU_REPLICATION_RESET_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
 
 #### **clean**
 
@@ -2427,20 +2429,20 @@ aku -p end 명령은 Altibase 서버를 중지하기 전에 수행해야 한다.
 
 aku -p end 명령이 정상적으로 완료한 후 파드를 종료해야 한다. 
 
-### aku -p end 명령이 완료되기 전에 파드가 종료되었다면
+### aku -p end 명령이 완료되기 전에 파드가 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 파드를 종료했다면
 
-이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 해당 파드가 다시 시작할 때 이중화 객체 생성과 이중화 대상 테이블을 TRUNCATE 하는 작업이 생략되고 이전에 생성한 이중화가 자동으로 시작된다. `aku -p end` 명령이 정상적으로 수행될 때의 출력 결과는 [예시 4](#예시-4)를 확인해 보자.
+이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 해당 파드가 다시 시작할 때 이중화 객체 생성과 이중화 대상 테이블을 TRUNCATE 하는 작업이 생략되고 이전에 생성한 이중화가 자동으로 시작된다. AKU_REPLICATION_RESET_AT_END 프로퍼티를 1으로 설정하고 `aku -p end` 명령이 정상적으로 수행될 때의 출력 결과는 [예시 4](#예시-4)를 확인해 보자.
 
-### aku -p end 명령이 완료되기 전에 파드가 종료된 상태가 장기간 지속된다면
+### aku -p end 명령이 완료되기 전에 파드가 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 파드를 종료한 상태가 장기간 지속된다면
 
-종료된 파드뿐 아니라 다른 파드에도 이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 다른 파드는 종료된 파드로 이중화 하기 위해 이중화에 필요한 온라인 로그 파일을 삭제하지 않는다. 온라인 로그 파일이 쌓이면 디스크 풀 발생으로 Altibase 서버가 정상적으로 운영되지 못할 수 있다. 따라서 이런 상황을 방지하기 위해  `aku -p end` 명령이 완전히 완료되기 전에 파드가 종료된 상태가 장기간 지속되고 있다면 이중화를 중지하고 이중화 초기화 작업을 진행해야 한다. 
+종료된 파드뿐 아니라 다른 파드에도 이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 다른 파드는 종료된 파드로 이중화 하기 위해 이중화에 필요한 온라인 로그 파일을 삭제하지 않는다. 온라인 로그 파일이 쌓이면 디스크 풀 발생으로 Altibase 서버가 정상적으로 운영되지 못할 수 있다. 따라서 이런 상황을 방지하기 위해  `aku -p end` 명령이 완전히 완료되기 전에 파드가 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 파드를 종료한 상태가 장기간 지속되고 있다면 이중화를 중지하고 이중화 초기화 작업을 진행해야 한다. 
 
 ~~~sql
 ALTER REPLICATION replication_name STOP;
 ALTER REPLICATION replication_name RESET;
 ~~~
 
-*pod_name*-0과 *pod_name*-1이 운영 중 *pod_name*-1이 `aku -p end` 명령을 정상적으로 수행되지 못하고 종료되었다고 가정해 보자. *pod_name*-0에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회해 보자. 이중화 객체 AKU_REP_01의 XSN 값이 -1이 아닌 것을 볼 수 있다. 이는 이중화 정보가 초기화되지 않은 것을 의미한다. AKU_REP_01은 *pod_name*-0과 *pod_name*-1의 이중화 객체이다. 
+*pod_name*-0과 *pod_name*-1이 운영 중 *pod_name*-1이 `aku -p end` 명령을 정상적으로 수행하지 못했거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 파드를 종료했다고 가정해 보자. *pod_name*-0에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회해 보자. 이중화 객체 AKU_REP_01의 XSN 값이 -1이 아닌 것을 볼 수 있다. 이는 이중화 정보가 초기화되지 않은 것을 의미한다. AKU_REP_01은 *pod_name*-0과 *pod_name*-1의 이중화 객체이다. 
 
 ~~~sql
 iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
@@ -2648,7 +2650,7 @@ AKUHOST-3.altibase-svc: REPLICAION AKU_REP_23 Start Success
 
 ### 예시 4
 
-4번째 파드에서 `aku -p end` 명령을 수행할 때의 출력 결과이다. 4번째 파드와 이중화로 연결된 모든 파드에 이중화 중지 및 RESET 명령이 수행된 것을 볼 수 있다. 
+4번째 파드에서 AKU_REPLICATION_RESET_AT_END 프로퍼티를 1으로 설정하고 `aku -p end` 명령을 수행할 때의 출력 결과이다. 4번째 파드와 이중화로 연결된 모든 파드에 이중화 중지 및 RESET 명령이 수행된 것을 볼 수 있다. 
 
 ~~~bash
 $ aku -p end
