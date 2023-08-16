@@ -2121,7 +2121,7 @@ MOSO = SU
 
 ## 개요
 
-aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod)의 시작 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행할 수 있게 도와주는 유틸리티이다. aku는 pod들간의 데이터 이중화를 지원하며, altibase의 데이터 scale-out 기능은 지원하지 않는다.
+aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statefulset)에서 스케일링(scaling)할 때 파드(Pod)의 시작 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 등의 작업을 수행할 수 있게 도와주는 유틸리티이다. 즉, aku는 파드들간의 데이터 이중화를 도와주는 유틸리티로, Altibase의 데이터 스케일아웃(scale-out) 기능은 지원하지 않는다.
 
 > aku는 Altibase 7.1.0.8.1부터 제공한다.
 
