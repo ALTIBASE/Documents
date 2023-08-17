@@ -4173,8 +4173,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>&nbsp;</td>
   </tr>
   <tr>
-  <td rowspan="69">M</td>
-  <td rowspan="69">&nbsp;</td>
+  <td rowspan="73">M</td>
+  <td rowspan="73">&nbsp;</td>
   <td>ALL_MSGLOG_FLUSH</td>
   <td>SYSTEM</td>
   </tr>
@@ -4380,13 +4380,31 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>SM_MSGLOG_RESERVE_SIZE</td>
-  <td rowspan="3">&nbsp;</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>SM_MSGLOG_SIZE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_FILE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_FLAG</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>TRC_MSGLOG_RESERVE_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>TRCLOG_DETAIL_PREDICATE</td>
