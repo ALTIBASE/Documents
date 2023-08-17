@@ -372,8 +372,6 @@ oraAdapter를 설치하고 실행하기 위해서는 다음의 시스템 요구�
 
 현재 아래의 운영체제에서만 oraAdapter를 지원한다.
 
--   AIX 5.3
-
 -   AIX 6.1
 
 -   LINUX
