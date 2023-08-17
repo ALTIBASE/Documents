@@ -4600,7 +4600,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>REGEXP_MODE</td>
-  <td>&nbsp;</td>
+  <td>BOTH</td>
   </tr>
   <tr>
   <td>REMOTE_SYSDBA_ENABLE</td>
