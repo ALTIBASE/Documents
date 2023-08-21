@@ -238,7 +238,6 @@ data:
       echo `date` "${MY_POD_NAME} aku end : finish" >> /ALTIBASE/${MY_POD_NAME}.log
     }
     trap PodTerminate SIGTERM
-    trap PodTerminate TERM
 
     cp /home/altibase/config_map/license ${ALTIBASE_HOME}/conf/license
     cp /home/altibase/config_map/aku.conf ${ALTIBASE_HOME}/conf/aku.conf
