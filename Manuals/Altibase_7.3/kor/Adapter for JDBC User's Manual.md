@@ -374,8 +374,8 @@ jdbcAdapter를 설치하고 실행하기 위해서는 다음의 시스템 요구
 
 #### 데이터베이스 버전
 
--   Altibase : 버전 6.5.1 이상 버전 지원
--   OTHER DB : JDBC v4.2 이하 버전을 지원하는 데이터베이스 중 Altibase와 동일한 DML 구문을 사용하는 데이터 베이스
+-   Altibase : 6.5.1 버전 이상 지원
+-   OTHER DB : JDBC 4.2 버전 이하를 지원하는 데이터베이스 중 Altibase와 동일한 DML 구문을 사용하는 데이터 베이스
 -   OTHER DB로 사용 가능한것이 확인된 데이터 베이스
     -   Altibase
     -   Oracle
@@ -400,9 +400,9 @@ Oracle 데이터베이스 서버 버전과 일치하는 버전의 JDBC 드라이
 
 #### JRE 설치
 
-jdbcAdapter 7.3은 JRE 8 이상 버전에서 동작하는 응용 프로그램이므로, jdbcAdapter가 운영될 장비에 8 이상 버전의 JRE가 설치되어 있어야 한다.
+jdbcAdapter v7.3은 JRE 8 버전 이상에서 동작하는 응용 프로그램이므로, jdbcAdapter가 운영될 장비에 8 버전 이상의 JRE가 설치되어 있어야 한다.
 
-jdbcAdapter가 접속할 원격 데이터베이스의 JDBC 드라이버가 8 이상 버전의 JRE에서
+jdbcAdapter가 접속할 원격 데이터베이스의 JDBC 드라이버가 8 버전 이상의 JRE에서
 동작한다면, 해당 JDBC 드라이버와 호환되는 버전의 JRE를 설치해야 한다.
 
 JRE 설치 후에는 JAVA_HOME과 CLASSPATH 등의 환경 변수를 설정해야 한다. 아래는
