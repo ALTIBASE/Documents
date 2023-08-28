@@ -8101,17 +8101,13 @@ Start... at [\<1%ld\>]**
 
 **Cause:** The replication started up correctly.
 
-**Action:**
-
-- N/A
+**Action:** N/A
 
 **0x62068 ( 401512) rpERR_IGNORE_RP_INIT_SOCK Unable to initialize a socket**
 
-**Cause:** Not enough memory.
+**Cause:** Not enough memory. Unable to connect to a remote server.
 
-- Unable to connect to a remote server.
-
-\# **Action:** Check whether the remote server is running and online.
+**Action:** Check whether the remote server is running and online.
 
 **0x62070 ( 401520) rpERR_IGNORE_RP_PROTOCOL_DIFF Different replication
 protocols**
