@@ -7976,6 +7976,106 @@ communicating.
 
 **Action:** Change the value of REPLICATION_SENDER_IP in the altibase.properties file or ALTIBASE_REPLICATION_SENDER_IP environment variable and try again.
 
+**0x611C2 ( 397762) rpERR_ABORT_CANNOT_BE_EXEC_SENDER Unable to start the replication, when RECEIVE_ONLY option is set.** **Cause:** RECEIVE_ONLY option is set.
+
+**Action:** To start the replication, turn off the RECEIVE_ONLY option or recreate the replication.
+
+**0x611C3 ( 397763) rpERR_ABORT_CANNOT_MODIFY_RECEIVE_ONLY RECEIVE_ONLY option cannot be used since the replication has been started before.** 
+
+**Cause:** Cannot change to the RECEIVE_ONLY option, because the replication has been started before.
+
+**Action:** Reset or recreate the replication and try again.
+
+**0x611C4 ( 397764) rpERR_ABORT_RPC_ALREADY_RECEIVE_ONLY_UNSET RECEIVE_ONLY option is already unset.** 
+
+**Cause:** RECEIVE_ONLY option is already unset.
+
+**Action:** Check if RECEIVE_ONLY option is unset.
+
+**0x611C5 ( 397765) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_EAGER RECEIVE_ONLY option cannot be used with eager mode.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with eager mode.
+
+**Action:** Do not use RECEIVE_ONLY option in eager mode replication.
+
+**0x611C6 ( 397766) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_GROUPING RECEIVE_ONLY option cannot be used with GROUPING option.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with GROUPING option.
+
+**Action:** Do not use RECEIVE_ONLY option with GROUPING option.
+
+**0x611C7 ( 397767) rpERR_ABORT_RPC_ROLE_NOT_SUPPORT_RECEIVE_ONLY RECEIVE_ONLY option cannot be used with the clause for replication role.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with the clause for replication role.
+
+**Action:** Do not use RECEIVE_ONLY option with the clause for replication role.
+
+**0x611C8 ( 397768) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_DDLREPL RECEIVE_ONLY option cannot be used with DDL_REPLICATION.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with DDL_REPLICATION.
+
+**Action:** Do not use RECEIVE_ONLY option with DDL_REPLICATION.
+
+**0x611C9 ( 397769) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_GAPLESS RECEIVE_ONLY option cannot be used with GAPLESS option.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with GAPLESS option.
+
+**Action:** Do not use RECEIVE_ONLY option with GAPLESS option.
+
+**0x611CA ( 397770) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_RECOVERY RECEIVE_ONLY option cannot be used with REOCVERY option.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with REOCVERY option.
+
+**Action:** Do not use RECEIVE_ONLY option with REOCVERY option.
+
+**0x611CB ( 397771) rpERR_ABORT_RPC_ALREADY_RECEIVE_ONLY_SET RECEIVE_ONLY option is already set.** 
+
+**Cause:** RECEIVE_ONLY option is already set.
+
+**Action:** Check if RECEIVE_ONLY option is set.
+
+**0x611CC ( 397772) rpERR_ABORT_CANNOT_CONNECT The host information of replication is invalid.** 
+
+**Cause:** Unable to connect to the remote server due to the invalid host information.
+
+**Action:** Check the host information of replication and retry.
+
+**0x611CD ( 397773) rpERR_ABORT_NOT_EXIST_HOSTS There is no host information in the replication.** 
+
+**Cause:** The host of the replication do not exists. Unable to start the replication because host information of the replication does not exist.
+
+**Action:** Add replication host in the replication and try again.
+
+**0x611CE ( 397774) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_HOSTS RECEIVE_ONLY option cannot be used when host information of the replication exists.** 
+
+**Cause:** RECEIVE_ONLY option cannot be used when host information of the replication exists.
+
+**Action:** Check if host information of the replication exists.
+
+**0x611CF ( 397775) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_MASTER RECEIVE_ONLY option cannot be used on master server.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with master server.
+
+**Action:** Do not use RECEIVE_ONLY option on master server. If you want to use RECEIVE_ONLY option, check the restrictions of it from the Replication Manual.
+
+**0x611D0 ( 397776) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_RECEIVE_ONLY_AND_METALOGGING RECEIVE_ONLY option cannot be used with META_LOGGING option.** 
+
+**Cause:** RECEIVE_ONLY option is not supported with META_LOGGING option.
+
+**Action:** Do not use RECEIVE_ONLY option with META_LOGGING option.
+
+**0x611D1 ( 397777) rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_RECEIVE_ONLY Unable to execute DDL for DDL synchronization, when RECEIVE_ONLY option is set.** 
+
+**Cause:** DDL synchronization does not support when RECEIVE_ONLY option is set.
+
+**Action:** To perform DDL Synchronization, turn off the replication RECEIVE_ONLY option and restart the replication.
+
+**0x611D2 ( 397778) rpERR_ABORT_RP_ABORT_SVP_WITHOUT_STMT [Receiver] smiTrans abort savepoint without statement error in run()** 
+
+**Cause:** The replication receiver failed to abort to the savepoint.
+
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center ([http://support.altibase.com](http://support.altibase.com/)).
+
 ### IGNORE
 
 **0x62024 ( 401444) rpERR_IGNORE_RP_SENDER_HASH_INIT [Sender] Failed to
