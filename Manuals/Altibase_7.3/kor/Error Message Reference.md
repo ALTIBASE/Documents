@@ -4412,6 +4412,18 @@ server.
 
 **Action:** Rebuild this index. Or to rebuild all the indexes, delete INDEX_REBUILD_AT_STARTUP = 0 in altibase.properties and restart the Altibase server.
 
+**0x111BF ( 70079) smERR_ABORT_NOLOGGING_MODE Unable to execute this opertation because the iLoader is inserting data in nologging mode on the target table. (TableOID : <0%lu>)**
+
+**Cause:** Cannot update or delete tables where iloader is inserting data in nologging mode.
+
+**Action:** Try again after the iloader operation.
+
+**0x111C0 ( 70080) smERR_ABORT_smiWrittenLobCursorExist Unable to commit because the LobCursor that was writing is open.**
+
+**Cause:** The LobCursor that was writing is not closed for an unknown reason.
+
+**Action:** Rollback the transaction and check the server environments including disk usage, etc.
+
 ### IGNORE
 
 **0x12007 ( 73735) smERR_IGNORE_SyncFail Failed to invoke the msync() system
