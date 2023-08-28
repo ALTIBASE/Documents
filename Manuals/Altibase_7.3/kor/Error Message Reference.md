@@ -16570,35 +16570,41 @@ found. (SQLTextID = \<0%s\>)**
 
 **Action:** Check whether SQLTextID exists in V\$SQL_PLAN_CACHE_SQLTEXT.
 
-**0x41101 ( 266497) mmERR_ABORT_GLOBAL_TRANSACTIONS_ARE_OPEN Global transactions are not finished to run.**
-
-**Cause:** Failed to shutdown Server, because there are running global transactions.
-
-**Action:** Terminate the running global transactions, or execute 'SHUTDOWN ABORT'.
-
-**0x41109 ( 266505) mmERR_ABORT_IP_ACL_CONNECT_OVER New connection try exceeds ACL limit: ( IP : <0%s>, ACL: <1%s>, Limit : <2%d>, Connected : <3%d> )**
+**0x410FD ( 266493) mmERR_ABORT_IP_ACL_CONNECT_OVER New connection try exceeds ACL limit: ( IP : <0%s>, ACL: <1%s>, Limit : <2%d>, Connected : <3%d> ) **
 
 **Cause:** New connection try aborted because it exceeds access control list (ACL) limit.
 
 **Action:** Change the limit value of the ACCESS_LIST.
 
-**0x4110B ( 266507) mmERR_ABORT_STILL_OPEN_STATEMENT Commit failed. Statements that are still open exist.**
-
-**Cause:** Statements that are still open exist.
-
-**Action:** Contact Altibase's Support Center (http://support.altibase.com).
-
-**0x4110C ( 266508) mmERR_ABORT_MEMORY_ALLOC_FAILED memory allocation error. <0%s>.**
+**0x410FE ( 266494) mmERR_ABORT_MEMORY_ALLOC_FAILED memory allocation error. <0%s>. **
 
 **Cause:** memory allocation failed.
 
 **Action:** Verify that enough memory is available.
 
-**0x4110E ( 266510) mmERR_ABORT_INVALID_DATA_TYPE_FETCH Invalid type of data to fetch [ Column ID = <0%d>, Data Type = <1%d> ]**
+**0x41101 ( 266497) mmERR_ABORT_GLOBAL_TRANSACTIONS_ARE_OPEN Global transactions are not finished to run. **
+
+**Cause:** Failed to shutdown Server, because there are running global transactions.
+
+**Action:** Terminate the running global transactions, or execute 'SHUTDOWN ABORT'. 
+
+**0x4110B ( 266507) mmERR_ABORT_STILL_OPEN_STATEMENT Commit failed. Statements that are still open exist. **
+
+**Cause:** Statements that are still open exist.
+
+**Action:** Contact Altibase's Support Center (http://support.altibase.com).
+
+**0x4110C ( 266508) mmERR_ABORT_INVALID_DATA_TYPE_FETCH Invalid type of data to fetch [ Column ID = <0%d>, Data Type = <1%d> ] **
 
 **Cause:** The data type to be fetch is not valid.
 
 **Action:** Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
+
+**0x4110D ( 266509) mmERR_ABORT_PSM_SVP_RESERVED Already exist Psm Savepoint.**
+
+**Cause:** already exist psm savepoint.
+
+**Action:** commit or rollback psm.
 
 ### IGNORE
 
