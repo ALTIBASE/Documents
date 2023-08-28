@@ -214,7 +214,7 @@ background knowledge:
 
 ### Software Environment
 
-This manual has been prepared assuming that Altibase 7.1 is used as the database
+This manual has been prepared assuming that Altibase 7.3 is used as the database
 server.
 
 ### Organization
@@ -8975,23 +8975,15 @@ allowed as a replication condition value.**
 
 **0x312F4 ( 201460) qpERR_ABORT_QCM_TOO_MANY_REPLICATION_OFFLINE_DIR_PATH Internal server error. Too many offline log dir paths for replication.**
 
-**Cause:**
+**Cause:** Internal server error
 
-- Internal server error
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x312F5 ( 201461) qpERR_ABORT_QCM_NOT_ENOUGH_REPLICATION_OFFLINE_DIR_PATH Internal server error. Too few offline log dir paths for replication.**
 
-**Cause:**
+**Cause:** Internal server error
 
-- Internal server error
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x312F6 ( 201462) qpERR_ABORT_QRC_NOT_EXIST_REPL_OFFLINE_DIR_PATH Replication
 offline log dir not found.**
@@ -9560,23 +9552,15 @@ name is already used by the partitioned table \<0%s\>**
 
 **0x31271 ( 201329) qpERR_ABORT_QDB_DROP_PART_KEY Cannot drop partitioning key**
 
-**Cause:**
+**Cause:** Unable to drop a column that is related to the partitioning key.
 
-- Unable to drop a column that is related to the partitioning key.
-
-**Action:**
-
-- No Action.
+**Action:** No Action.
 
 **0x31272 ( 201330) qpERR_ABORT_QDB_MODIFY_MAXROWS_OF_PARTITION Cannot modify maxrows of the partitioned table**
 
-**Cause:**
+**Cause:** Unable to modify the maxrows value for the partitioned table.
 
-- Unable to modify the maxrows value for the partitioned table.
-
-**Action:**
-
-- No Action.
+**Action:** No Action.
 
 **0x31273 ( 201331) qpERR_ABORT_QDB_CANNOT_MERGE_HASH_PART_TABLE Cannot merge
 hash partitioned table**
@@ -12008,13 +11992,9 @@ not found for \<0%s\>.**
 
 **0x311C6 ( 201158) qpERR_ABORT_QMX_CANNOT_SET_TIMESTAMP Unable to set the TIMESTAMP value.**
 
-**Cause:**
+**Cause:** The system failed to set the TIMESTAMP value.
 
-- The system failed to set the TIMESTAMP value.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x313D6 ( 201686) qpERR_ABORT_QMX_TABLE_PARTITION_ACCESS_DENIED Unable to
 update table or partition \<0%s\>**
@@ -12034,14 +12014,10 @@ can enable or disable TCP.**
 Unable to drop the table because the recycle bin has insufficient \<0%s\>
 storage capacity.**
 
-**Cause:**
-
-- The recycle bin has either insufficient memory, or disk, or memory and disk
+**Cause:** The recycle bin has either insufficient memory, or disk, or memory and disk
 storage capacity.
 
-**Action:**
-
-- Empty the recycle bin or increase RECYCLEBIN_MEM_MAX_SIZE, or
+**Action:** Empty the recycle bin or increase RECYCLEBIN_MEM_MAX_SIZE, or
 RECYCLEBIN_DISK_MAX_SIZE, or both RECYCLEBIN_MEM_MAX_SIZE and
 RECYCLEBIN_DISK_MAX_SIZE.
 
@@ -12665,57 +12641,37 @@ CONNECT_TYPE_OPEN_LIMIT property value.
 **0x31426 ( 201766) qpERR_ABORT_QCU_MEM_POOL_ALLOC_FAILED Failed to allocate a
 memory pool**
 
-**Cause:**
+**Cause:** Failed to allocate a memory pool.
 
-- Failed to allocate a memory pool.
-
-**Action:**
-
-- Verify that there is enough available memory.
+**Action:** Verify that there is enough available memory.
 
 **0x31427 ( 201767) qpERR_ABORT_QCU_HASH_TABLE_ALLOC_FAILED Failed to allocate a
 hash table**
 
-**Cause:**
+**Cause:** Failed to allocate a hash table.
 
-- Failed to allocate a hash table.
-
-**Action:**
-
-- Verify that there is enough available memory.
+**Action:** Verify that there is enough available memory.
 
 **0x31428 ( 201768) qpERR_ABORT_QCU_HASH_TABLE_FIND_FAILED Failed to find a
 record from a hash table**
 
-**Cause:**
+**Cause:** Failed to find a record from a hash table.
 
-- Failed to find a record from a hash table.
-
-**Action:**
-
-- Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x31429 ( 201769) qpERR_ABORT_QCU_HASH_TABLE_ADD_FAILED Failed to add a record
 to a hash table**
 
-**Cause:**
+**Cause:** Failed to add a record to a hash table.
 
-- Failed to add a record to a hash table.
-
-**Action:**
-
-- Contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x3142A ( 201770) qpERR_ABORT_QCU_USER_LOCK_REQUEST_LIMIT_EXCEED The number of
 requested user locks exceeds the maximum limit.**
 
-**Cause:**
+**Cause:** The number of requested user locks exceeds the maximum limit.
 
-- The number of requested user locks exceeds the maximum limit.
-
-**Action:**
-
-- Call the USER_LOCK_RELEASE function or change the USER_LOCK_REQUEST_LIMIT
+**Action:** Call the USER_LOCK_RELEASE function or change the USER_LOCK_REQUEST_LIMIT
 property value.
 
 **0x31126 ( 200998) qpERR_ABORT_QCI_INVALID_BINDING Invalid binding to host
@@ -20582,13 +20538,9 @@ system engineer.
 
 **0xC002D ( 786477) dkERR_FATAL_DK_FAILED A fatal error occurred!! This error is very critical.**
 
-**Cause:**
+**Cause:** Undefined error 
 
-- Undefined error 
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 ### ABORT
 
@@ -20964,13 +20916,9 @@ contact Altibase’s Support Center (http://support.altibase.com).
 **0xC1033 ( 790579) dkERR_ABORT_FUNCTION_NOT_AVAILABLE The function is not
 available**
 
-**Cause:**
+**Cause:** The function doesn't have to be called.
 
-- The function doesn't have to be called.
-
-**Action:**
-
-- Please make sure that the function is valid.
+**Action:** Please make sure that the function is valid.
 
 **0xC1034 ( 790580) dkERR_ABORT_META_IS_DIFFERENT Remote table's meta has
 changed**
@@ -21029,13 +20977,9 @@ transaction.
 
 **0xC103C ( 790588) dkERR_ABORT_DKS_SESSION_NOT_EXIST Session not exist**
 
-**Cause:**
+**Cause:** Tried to connect using a session that does not exist
 
-- Tried to connect using a session that does not exist
-
-**Action:**
-
-- Please check a performance view for session information and close session
+**Action:** Please check a performance view for session information and close session
 
 **0xC103D ( 790589) dkERR_ABORT_DKM_INVALID_COLUMN Unable to find column meta**
 
@@ -21298,23 +21242,15 @@ occurred.**
 
 **0xC1061 ( 790625) dkERR_ABORT_DKN_NOT_ENOUGH_DATA_IN_WRITE_BUFFER An error occurred while sending data over the network.**
 
-**Cause:**
+**Cause:** The data does not adhere to ADLP.
 
-- The data does not adhere to ADLP.
-
-**Action:**
-
--Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0xC1062 ( 790626) dkERR_ABORT_DKN_NOT_ENOUGH_DATA_IN_READ_BUFFER An error occurred while receiving data over the network.**
 
-**Cause:**
+**Cause:** The data does not adhere to ADLP.
 
--The data does not adhere to ADLP.
-
-**Action:**
-
--Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0xC1063 ( 790627) dkERR_ABORT_DKN_SEND_SOCKET_ERROR An error occurred while
 sending data over the network.**
@@ -21366,13 +21302,9 @@ transaction level while global transaction is running.**
 
 **0xC106A ( 790634) dkERR_ABORT_DK_INTERNAL_ERROR Internal error occurs. (<0%s>).**
 
-**Cause:**
+**Cause:** internal error.
 
-- internal error.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0xC106B ( 790635) dkERR_ABORT_DKM_CANNOT_SET_SAVEPOINT It cannot set a
 savepoint to remote server in global transaction level 2.**
@@ -21387,7 +21319,7 @@ the Altilinker process cannot be found [ \<0%s\>: \<1%s\> ].**
 **Cause:** Either java has not been installed or JAVA_HOME has been incorrectly
 configured, otherwise, the system privilege does not exist.
 
-**Action:**
+**Action:** 
 
 - The Java binary with the system privilege is required to execute the
   process.
@@ -21415,14 +21347,10 @@ action.
 **0xC106F ( 790639) dkERR_ABORT_DKM_NOT_EXECUTE_DML Failed to execute a DML
 because the global transaction has been terminated.**
 
-**Cause:**
+**Cause:** After failed to commit in global transaction level 2, do not execute a DML
+statement to a remote server.
 
-- After failed to commit in global transaction level 2, do not execute a DML
-  statement to a remote server.
-
-**Action:**
-
-- Execute rollback and try again.
+**Action:** Execute rollback and try again.
 
 ### **RETRY**
 
@@ -21494,13 +21422,9 @@ exist.**
 
 **0x51013 ( 331795) ulaERR_ABORT_NET_INITIALIZE_CONTEXT Failed to initialize network context [<0%s>]**
 
-**Cause:**
+**Cause:** Internal API error.
 
-- Internal API error.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x51015 ( 331797) ulaERR_ABORT_NET_TIMEOUT Network timeout [\<0%s\>]**
 
@@ -21531,23 +21455,15 @@ protocol [\<0%s\>]**
 
 **0x51019 ( 331801) ulaERR_ABORT_NET_FINALIZE_PROTOCOL Failed to finalize network protocol [<0%s>]**
 
-**Cause:**
+**Cause:** Internal API error.
 
-- Internal API error.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x5101A ( 331802) ulaERR_ABORT_NET_FINALIZE_CONTEXT Failed to finalize network context [<0%s>]**
 
-**Cause:**
+**Cause:** Internal API error.
 
-- Internal API error.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x5101B ( 331803) ulaERR_ABORT_NET_WRITE Network write failure [\<0%s\>,
 \<1%u\>]**
@@ -21573,13 +21489,9 @@ Support Center (http://support.altibase.com).
 
 **0x5101F ( 331807) ulaERR_ABORT_MEM_POOL_FREE Memory free failure in pool**
 
-**Cause:**
+**Cause:** Internal API error.
 
-- Internal API error.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x51020 ( 331808) ulaERR_ABORT_MEM_POOL_INITIALIZE Failed to initialize memory
 pool**
@@ -21590,13 +21502,9 @@ pool**
 
 **0x51021 ( 331809) ulaERR_ABORT_MEM_POOL_DESTROY Failed to destroy memory pool**
 
-**Cause:**
+**Cause:** Internal API error.
 
-- Internal API error.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x51022 ( 331810) ulaERR_ABORT_LINK_SHUTDOWN Failed to shut down link**
 
@@ -21645,23 +21553,15 @@ appropriate action if necessary.
 
 **0x5102B ( 331819) ulaERR_ABORT_LINK_SET Failed to set link for session**
 
-**Cause:**
+**Cause:** cmiSetLinkForSession() failed.
 
-- cmiSetLinkForSession() failed.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x5102C ( 331820) ulaERR_ABORT_SESSION_ADD Failed to add session**
 
-**Cause:**
+**Cause:** cmiAddSession() failed.
 
-- cmiAddSession() failed.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x5103F ( 331839) ulaERR_ABORT_TABLE_NOT_FOUND Table Not Found [\<0%s\>,
 \<1%lu\>]**
@@ -21759,15 +21659,11 @@ Support Center (http://support.altibase.com).
 **0x5104B ( 331851) ulaERR_ABORT_INSUFFICIENT_XLOG_POOL ALA XLog Collector
 cannot receive allocable XLog because the XLog in XLog Pool is all consumed.**
 
-**Cause:**
+**Cause:** There is no XLog that is available for use in the XLog Pool.
 
-- There is no XLog that is available for use in the XLog Pool.
-
-**Action:**
-
-- In order to receive the allocable XLog in ALA Application, restart ALA
-  sender after raising the values of ALA_XLOG_POOL_SIZE. Refer to Adapter for
-  Oracle User’s Manual for more
+**Action:** In order to receive the allocable XLog in ALA Application, restart ALA
+sender after raising the values of ALA_XLOG_POOL_SIZE. Refer to Adapter for
+Oracle User’s Manual for more
 
 ### IGNORE
 
@@ -21933,13 +21829,9 @@ maximum.
 
 **0x52034 ( 335924) ulaERR_IGNORE_API_INITIALIZE Global initialization failed**
 
-**Cause:**
+**Cause:** ALA_InitializeAPI() failed.
 
-- ALA_InitializeAPI() failed.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x52035 ( 335925) ulaERR_IGNORE_API_DESTROY Global termination failed**
 
@@ -21965,13 +21857,9 @@ Support Center (http://support.altibase.com).
 
 **0x52038 ( 335928) ulaERR_IGNORE_CMT_INITIALIZE Failed to initialize CMT**
 
-**Cause:**
+**Cause:** cmtAnyInitialize() failed.
 
-- cmtAnyInitialize() failed.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x52039 ( 335929) ulaERR_IGNORE_CMT_FINALIZE Failed to finalize CMT**
 
@@ -22006,13 +21894,9 @@ Support Center (http://support.altibase.com).
 
 **0x5203D ( 335933) ulaERR_IGNORE_CMT_TO_COLUMN_COPY Failed to copy CMT value to ulnColumn value**
 
-**Cause:**
+**Cause:** ulnDataWritePacketToCache() failed.
 
--  ulnDataWritePacketToCache() failed.
-
-**Action:**
-
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x5203E ( 335934) ulaERR_IGNORE_COLUMN_TO_ODBC_CONVERT Failed to convert
 ulnColumn value to ODBC C value**
