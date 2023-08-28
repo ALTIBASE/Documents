@@ -11621,12 +11621,11 @@ the number of host variables.
 **Action:** Ensure that the number of expressions after the RETURNING keyword
 matches the number of host variables.
 
-**0x3134F ( 201551) qpERR_ABORT_QMV_SEQUENCE_NOT_ALLOWED Invalid use of
-sequence**
+**0x3134F ( 201551) qpERR_ABORT_QMV_SEQUENCE_NOT_ALLOWED Invalid use of sequence. <0%s>**
 
-**Cause:** One or more sequences were referenced in a RETURNING INTO clause.
+**Cause:** One or more sequences were referenced in a RETURNING INTO, LOOP, LIMIT clause.
 
-**Action:** Remove the sequence(s) from the RETURNING INTO clause.
+**Action:** Remove the sequence(s) from the RETURNING INTO, LOOP, LIMIT clause.
 
 **0x31375 ( 201589) qpERR_ABORT_QMV_NO_GRANT_DML_PRIV_OF_MVIEW_TABLE Cannot
 perform INSERT, DELETE, or UPDATE on materialized views**
@@ -12066,11 +12065,11 @@ twice or more.
 **Action:** Execute the COMMIT or ROLLBACK statement, and retry a LOCK TABLE
 statement.
 
-**0x3149F ( 201887) qpERR_ABORT_QMX_TABLE_PARTITION_UNUSABLE Unable to access to the table or the partition <0%s>, which of state is unusable.**
+**0x314B4 ( 201908) qpERR_ABORT_QMX_LOB_AUTOCOMMIT_MODE The connection is in autocommit mode. The operation cannot operate on LOB data in autocommit mode.**
 
-**Cause :** The table or the partition is unusable state.
+**Cause:** An attempt to execute a LOB operation was made while the connection is in autocommit mode.
 
-**Action :** Check if the state of tables or partitions is usable.
+**Action:** Turn off autocommit mode.
 
 **0x311A4 ( 201124) qpERR_ABORT_QMN_HIER_LOOP Loop in hierarchical query
 detected.**
@@ -12718,16 +12717,6 @@ requested user locks exceeds the maximum limit.**
 
 - Call the USER_LOCK_RELEASE function or change the USER_LOCK_REQUEST_LIMIT
 property value.
-
-**0x31476 ( 201846) qpERR_ABORT_QCU_NOT_SUPPORT_SYSTEM_PROPERTY <0%s> property cannot be changed using ALTER SYSTEM statement.**
-
-**Cause:**
-
-- The property can be changed using ALTER SESSION statement, becuase Alter level of the property is SESSION.
-
-**Action:**
-
-- Use ALTER SESSION statement
 
 **0x31126 ( 200998) qpERR_ABORT_QCI_INVALID_BINDING Invalid binding to host
 variables**
@@ -13442,18 +13431,6 @@ name.**
 
 **Action:** Check the host variable name.
 
-**0x31481 ( 201857) qpERR_ABORT_ROLLBACKABLE_DDL_GLOBAL_NOT_ALLOWED_NON_PART_INDEX A rollbackable DDL execution fails, because the table has global non partitioned index ( <0%s> ).**
-
-**Cause:** A rollbackable DDL for the table that has global non partitioned index is not supported.
-
-**Action:** Retry after removing the global non partitioned index.
-
-**0x31482 ( 201858) qpERR_ABORT_ROLLBACKABLE_DDL_GLOBAL_NOT_ALLOWED_DDL_ASYNC A rollbackable DDL execution fails, because the table has DDL replicate option.**
-
-**Cause:** A rollbackable DDL for table that has DDL replicate option is not supported.
-
-**Action:** Retry after removing DDL replicate option on the table.
-
 **0x314B3 ( 201907) qpERR_ABORT_QSV_TOO_HIGH_REFERENCE_DEPTH_ARG1 The number of recursive calls or references depth exceeded <0%d> in the PSM.**
 
 **Cause:** In the process of compiling the PSM, recursive calls or references occurred more than allowed values.
@@ -13868,6 +13845,12 @@ clause.
 
 **Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
+**0x314B5 ( 201909) qpERR_ABORT_QSX_VARRAY_INDEX_OVERFLOW_LIMIT VARRAY limit overflow.**
+
+**Cause:** The number of elements in VARRAY exceeds the maximum limit.
+
+**Action:** Check the VARRAY limit and the number of elements in VARRAY.
+
 **0x3119F ( 201119) qpERR_ABORT_QCC_CANNOT_EXEC_DDL A DDL statement cannot be
 executed. Check the EXEC_DDL_DISABLE property.**
 
@@ -14102,6 +14085,12 @@ revoke an ungranted role. \<0%s\>**
 **Cause:** A role cannot be granted to a grantee that already has that role.
 
 **Action:** Check the grantee's role.
+
+**0x314B6 ( 201910) qpERR_ABORT_QDD_NO_DROP_PUBLIC_ROLE It is forbidden to drop the PUBLIC role.**
+
+**Cause:** You cannot drop the PUBLIC role.
+
+**Action:** Don't try dropping the PUBLIC role.
 
 **0x311BC ( 201148) qpERR_ABORT_QDV_ALIAS_NAME_IS_LEVEL "LEVEL" cannot be used
 as an alias name. \<0%s\>**
@@ -14936,11 +14925,7 @@ queue.
 
 **Action:** Create queue table in memory tablespace or volatile tablespace.
 
-**0x314B4 ( 201908) qpERR_ABORT_QSX_VARRAY_INDEX_OVERFLOW_LIMIT VARRAY limit overflow.**
 
-**Cause** : The number of elements in VARRAY exceeds the maximum limit.
-
-**Action** : Check the VARRAY limit and the number of elements in VARRAY.
 
 ### RETRY
 
