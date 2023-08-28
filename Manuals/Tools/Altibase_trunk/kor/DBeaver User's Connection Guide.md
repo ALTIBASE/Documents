@@ -261,40 +261,75 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 [ 데이터베이스 ] → [ 새 데이터베이스 연결 ]
 
-
+![connect1](media\DBeaver\connect1.png)
 
 #### Altibase 선택
 
 All 또는 SQL에서 Altibase를 선택 후 [ Next > ] 버튼을 클릭한다.
 
-
+![connect2](media\DBeaver\connect2.png)
 
 #### 데이터베이스 접속 정보 입력
 
 Host, Port, Schema, Username, Password 칸에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.
 
+![connect3](media\DBeaver\connect3.png)
+
 #### JDBC 파일
 
 ##### 자동 다운로드
 
+접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 접속이 추가된다.
 
+![auto1](media\DBeaver\auto1.png)
+
+
+
+추가한 접속 정보를 더블 클릭하면 연결을 시도한다. 하지만 JDBC 파일이 없기 때문에 Driver settings 창이 표시되고 JDBC 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
+
+![auto2](media\DBeaver\auto2.png)
+
+Download 를 클릭하여 JDBC 파일을 다운로드한다.
+
+![auto3](media\DBeaver\auto3.png)
+
+다운로드가 완료되면 데이터베이스 연결이 완료된다.
 
 ##### JDBC 파일 제공
 
+데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
 
+![connect4](media\DBeaver\connect4.png)
+
+Libraries 탭의 Add File을 클릭한다.
+
+![connect5](media\DBeaver\connect5.png)
+
+사용할 Altibase JDBC 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
+
+![connect6](media\DBeaver\connect6.png)
+
+Global libraries 에 사용할 JDBC 파일 위치를 추가하고 Apply and Close 를 클릭한다.
+
+![connect7](media\DBeaver\connect7.png)
+
+설정이 완료되었다면 OK 버튼을 클릭하고, 마지막으로 Finish 버튼을 클릭하여 설정을 완료한다.
+
+![connect8](media\DBeaver\connect8.png)
 
 #### 데이터베이스 연결 완료
 
+Database Navigator 탭에서 등록한 데이터베이스 접속 정보 등록 목록을 확인할 수 있다.
+
+필요 시 디폴트로 설정된 mydb 접속 정보 이름을 원하는 이름으로 변경할 수 있다.
+
+![connect10](media\DBeaver\connect10.png)
+
+등록한 접속 정보를 더블 클릭하면 접속을 연결할 수 있다. 연결된 접속은 아이콘에 초록색 체크 표시가 나타난다.
+
+![connect9](media\DBeaver\connect9.png)
 
 
-| 메뉴                                                         | UI                                                           |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ 데이터베이스 ] → [ 새 데이터베이스 연결 ]                  | <img src="media\DBeaver\menu1.png" alt="menu1" style="zoom:150%;" /> |
-| All 또는 SQL에서 Altibase를 선택 후 [ Next > ] 버튼을 클릭한다. | ![menu2](media\DBeaver\menu2.png)                            |
-| Host, Port, Schema, Username, Password 칸에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.<br /><br />[ Connection details (name, type, ... ) ] 을 클릭하여 연결 정보를 변경할 수 있다.<br /><br />[ Driver Settings ] 을 클릭하여 Altibase Driver의 설정 값을 변경할 수 있다. | ![menu3](media\DBeaver\menu3.png)                            |
-| [ Driver Settings ] 을 선택한 화면이다.<br />Libraries 탭의 [ Add File ] 로 사용할 Altibase JDBC 파일을 추가할 수 있다.<br />하단의 Driver class에서 Altibase JDBC 클래스가 목록에 나타난다. | ![menu4](media\DBeaver\menu4.png)                            |
-| [ Connection details (name, type, ... ) ] 을 선택한 화면이다.<br />Connection name 칸을 수정하여 연결 이름을 변경하거나 연결 유형을 설정할 수 있다.<br /><br />모든 설정이 끝났다면 [ Finish ] 버튼을 눌러 접속 정보 등록을 완료한다. | ![menu5](media\DBeaver\menu5.png)                            |
-| Database Navigator 탭에서 등록한 데이터베이스 접속 정보 등록 목록을 확인할 수 있다.<br />등록한 접속 정보를 더블 클릭하면 접속을 연결할 수 있다. 연결된 접속은 아이콘에 초록색 체크 표시가 나타난다. | ![menu6](media\DBeaver\menu6.png)                            |
 
 ### DBeaver 상세 매뉴얼
 
