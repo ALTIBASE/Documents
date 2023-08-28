@@ -1829,9 +1829,9 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  19  | NVARCHAR      | NVARCHAR          |                                                              |
 |  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 컬럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 Informix와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
 |  21  | TEXT          | CLOB              |                                                              |
-|  22  | CLOB          | CLOB              | CLOB 데이터 타입의 최대 크기는 Informix(4GB)가 Altibase(2GB)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
+|  22  | CLOB          | CLOB              |                                                              |
 |  23  | BYTE          | BLOB              |                                                              |
-|  24  | BLOB          | BLOB              | BLOB 데이터 타입의 최대 크기는 Informix(4GB)가 Altibase(2GB)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
+|  24  | BLOB          | BLOB              |                                                              |
 |  25  | INTERVAL      | NUMBER(38)        |                                                              |
 
 #### TimesTen to Altibase
@@ -1888,8 +1888,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  16  | STRING     | VARCHAR           | CUBRID의 VARCHAR 타입과 동일한 데이터 타입으로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
 |  17  | BIT        | BLOB              |                                                              |
 |  18  | VARBIT     | BLOB              |                                                              |
-|  19  | BLOB       | BLOB              | CUBRID의 BLOB 최대 길이는 외부 저장소에서 생성 가능한 파일 크기로 Altibase의 BLOB 타입 최대 크기 2GB와 차이가 있으므로, 데이터 손실이 발생할 수 있다. |
-|  20  | CLOB       | CLOB              | CUBRID의 CLOB 최대 길이는 외부 저장소에서 생성 가능한 파일 크기로 Altibase의 CLOB 타입 최대 크기 2GB와 차이가 있으므로, 데이터 손실이 발생할 수 있다. |
+|  19  | BLOB       | BLOB              |                                                              |
+|  20  | CLOB       | CLOB              |                                                              |
 |  21  | ENUM       | VARCHAR(3200)     | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 열거형 문자열 상수들은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다. |
 |  22  | COLLECTION | VARCHAR(3200)     | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 COLLECTION 타입은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다. |
 
