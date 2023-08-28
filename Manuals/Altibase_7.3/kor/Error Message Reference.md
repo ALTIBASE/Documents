@@ -318,7 +318,7 @@ Altibase Customer Support(*http://support.altibase.com*).
 
 *Action: Please send a bug report to the vendor.
 
-**0x0001C (     28) idERR_FATAL_idc_SOCKET_SHUTDOWN_FAILED Unable to shut down the communication channel** 
+**0x0001C ( 28) idERR_FATAL_idc_SOCKET_SHUTDOWN_FAILED Unable to shut down the communication channel** 
 
 *Cause: Failed to invoke the shutdown() system function.
 
@@ -597,7 +597,7 @@ truncated.**
 
 **Action:** Please verify the error number and make sure that the semaphore group exists.
 
-**0x000B8 (    184) idERR_FATAL_Systhrjoin Failed to invoke the thr_join() system function**
+**0x000B8 ( 184) idERR_FATAL_Systhrjoin Failed to invoke the thr_join() system function**
 
 **Cause:** The system failed to join threads.
 
@@ -610,13 +610,13 @@ been already started.**
 
 **Action:** Check the other system process is alive or started.
 
-**0x000BA (    186) idERR_FATAL_UNDO_THREAD_BY_WATCH_DOG The undo operation of a thread in a dead process is failed.**
+**0x000BA ( 186) idERR_FATAL_UNDO_THREAD_BY_WATCH_DOG The undo operation of a thread in a dead process is failed.**
 
 **Cause:** There is an unexpected error while doing an undo operation of a thread.
 
 **Action:** Please send a bug report to the vendor.
 
-**0x000BB (    187) idERR_FATAL_WATCHDOG_THEAD_ABNORMAL_EXIT The watchdog thread faced an unexpected error.** 
+**0x000BB ( 187) idERR_FATAL_WATCHDOG_THEAD_ABNORMAL_EXIT The watchdog thread faced an unexpected error.** 
 
 **Cause:** There is an unexpected error in the watchdog thread.
 
@@ -631,19 +631,19 @@ Version ID = \<1%s\> ]**
 
 **Action:** Please remove shared memory created by Altibase and restart Altibase.
 
-**0x000BD (    189) idERR_FATAL_UNDO_PROCESS_BY_WATCH_DOG The undo operation for a dead process is failed.** 
+**0x000BD ( 189) idERR_FATAL_UNDO_PROCESS_BY_WATCH_DOG The undo operation for a dead process is failed.** 
 
 **Cause:** There is an unexpected error in the watchdog undo thread for a dead process.
 
 **Action:** Please send a bug report to the vendor.
 
-**0x000BE (    190) idERR_FATAL_ATTACH_SHARED_MEMORY_MGR The attach operation for a shared memory is failed.**
+**0x000BE ( 190) idERR_FATAL_ATTACH_SHARED_MEMORY_MGR The attach operation for a shared memory is failed.**
 
 **Cause:** There is an unexpected error while doing a attach operation of a shared memory.
 
 **Action:** Please send a bug report to the vendor.
 
-**0x000BF (    191) idERR_FATAL_INVALID_SHARED_MEMORY_BLOCK_SIZE The shared memory block size[0%u] is invalid.**
+**0x000BF ( 191) idERR_FATAL_INVALID_SHARED_MEMORY_BLOCK_SIZE The shared memory block size[0%u] is invalid.**
 
 **Cause:** The shared memory block size is invalid.
 
@@ -655,7 +655,7 @@ Version ID = \<1%s\> ]**
 
 **Action:** Check SHM_MAX_SIZE and SHM_CHUNK_SIZE since the number of the max shared memory segments is calculated by SHM_MAX_SIZE / SHM_CHUNK_SIZE.
 
-**0x000C3 (    195) idERR_FATAL_INVALID_ELEMENT_SIZE The number of elements in a chunk of a mempool is invalid.** 
+**0x000C3 ( 195) idERR_FATAL_INVALID_ELEMENT_SIZE The number of elements in a chunk of a mempool is invalid.** 
 
 **Cause:** The number of elements in a chunk of a mempool is 0.
 
@@ -825,13 +825,13 @@ Version ID = \<1%s\> ]**
 
 **Action:** Verify that the semaphore exists.
 
-**0x0102E (   4142) idERR_ABORT_THR_CREATE_FAILED Failed to create a thread object.** 
+**0x0102E ( 4142) idERR_ABORT_THR_CREATE_FAILED Failed to create a thread object.** 
 
 **Cause:** Internal Bug
 
 **Action:** Please send a bug report to the vendor.
 
-**0x01030 (   4144) idERR_ABORT_idc_MARSHAL_FIND_FAIL Unable to find the specified unique marshal id.** 
+**0x01030 ( 4144) idERR_ABORT_idc_MARSHAL_FIND_FAIL Unable to find the specified unique marshal id.** 
 
 **Cause:** Internal Bug
 
@@ -933,7 +933,7 @@ Version ID = \<1%s\> ]**
 
 **Action:** Verify that the file exists and that the operating system has not already opened the maximum possible number of files.
 
-**0x01053 (   4179) idERR_ABORT_SyncError Failed to sync a file for [<0%s>].** 
+**0x01053 ( 4179) idERR_ABORT_SyncError Failed to sync a file for [<0%s>].** 
 
 **Cause:** Failed to invoke the sync() function.
 
@@ -1193,7 +1193,7 @@ error: [\<0%d\>]**
 
 **Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01085 (   4229) idERR_ABORT_GPKI_CypherTextTooLong CypherTextTooLong error**
+**0x01085 ( 4229) idERR_ABORT_GPKI_CypherTextTooLong CypherTextTooLong error**
 
 **Cause:** The cyphertext is too long.
 
@@ -1205,7 +1205,7 @@ error: [\<0%d\>]**
 
 **Action:** Check the error number from the altibase_boot.log file and refer to the GPKI Manual.
 
-**0x01087 (   4231) idERR_ABORT_GPKI_PlainTextTooLong PlainTextTooLong error** 
+**0x01087 ( 4231) idERR_ABORT_GPKI_PlainTextTooLong PlainTextTooLong error** 
 
 **Cause:** The plaintext is too long.
 
@@ -1277,7 +1277,7 @@ error: [\<0%d\>]**
 
 **Action:** Use a complete multibyte character.
 
-**0x01094 (   4244) idERR_ABORT_BUFFER_SIZE_TOO_SMALL buffer too small to hold the converted characters**
+**0x01094 ( 4244) idERR_ABORT_BUFFER_SIZE_TOO_SMALL buffer too small to hold the converted characters**
 
 **Cause:** The buffer is not large enough to hold the value.
 
@@ -1295,7 +1295,7 @@ error: [\<0%d\>]**
 
 **Action:** Verify that the path and filename are correct and that you have read/write permission for the file.
 
-**0x01097 (   4247) idERR_ABORT_FILE_CLOSE Unable to close file** 
+**0x01097 ( 4247) idERR_ABORT_FILE_CLOSE Unable to close file** 
 
 **Cause:** An invalid file handle was specified.
 
@@ -1325,7 +1325,7 @@ error: [\<0%d\>]**
 
 **Action:** Execute the fsck command to troubleshoot and fix any filesystem errors.
 
-**0x0109C (   4252) idERR_ABORT_ART Error generated by Automatic Recovery Test(ART)** 
+**0x0109C ( 4252) idERR_ABORT_ART Error generated by Automatic Recovery Test(ART)** 
 
 **Cause:** Automatic recovery test generated an abort error.
 
@@ -1433,7 +1433,7 @@ error: [\<0%d\>]**
 
 **Action:** Please increase the size of the shared memory property.
 
-**0x010C0 (   4288) idERR_ABORT_REQUEST_PROCESS_FAILURE The process to deal with a request asked by the current process is dead.** 
+**0x010C0 ( 4288) idERR_ABORT_REQUEST_PROCESS_FAILURE The process to deal with a request asked by the current process is dead.** 
 
 **Cause:** The process to deal with a request is dead.
 
@@ -1463,7 +1463,7 @@ error: [\<0%d\>]**
 
 **Action:** Reduce a table count referenced in a transaction (Maximum table count in a transaction is 128 in LOCK_MGR_TYPE=1).
 
-**0x010CE (   4302) idERR_ABORT_IDU_MEMORY_DEALLOCATION Memory deallocation failed.** 
+**0x010CE ( 4302) idERR_ABORT_IDU_MEMORY_DEALLOCATION Memory deallocation failed.** 
 
 **Cause:**  - System call failed.
 
@@ -1499,49 +1499,49 @@ error: [\<0%d\>]**
 
 **Action:** Rewrap the unit.
 
-**0x010D5 (   4309) idERR_ABORT_PERSSYS_CREATE_FAILED Could not create persistent system chunk.** 
+**0x010D5 ( 4309) idERR_ABORT_PERSSYS_CREATE_FAILED Could not create persistent system chunk.** 
 
 **Cause:** System chunk of persistent memory manager could not be created.
 
 **Action:** Cleanup shared memory and try again, or change system chunk key.
 
-**0x010D6 (   4310) idERR_ABORT_PERSSYS_MAP_FAILED Could not map persistent system chunk.** 
+**0x010D6 ( 4310) idERR_ABORT_PERSSYS_MAP_FAILED Could not map persistent system chunk.** 
 
 **Cause:** System chunk of persistent memory manager could not be mapped.
 
 **Action:** Cleanup shared memory and try again, or change system chunk key.
 
-**0x010D7 (   4311) idERR_ABORT_PERS_SHM_FULL Amount of shared memory reached system limit.** 
+**0x010D7 ( 4311) idERR_ABORT_PERS_SHM_FULL Amount of shared memory reached system limit.** 
 
 **Cause:** Amount of shared memory reached system limit.
 
 **Action:** Cleanup shared memory, or modify kernel parameters to increase shared memory limit.
 
-**0x010D8 (   4312) idERR_ABORT_PERS_CLEANUP_FAILED Could not cleanup shared memory chunks.** 
+**0x010D8 ( 4312) idERR_ABORT_PERS_CLEANUP_FAILED Could not cleanup shared memory chunks.** 
 
 **Cause:** Shared memory cleanup failed.
 
 **Action:** Remove persistent system chunk manually.
 
-**0x010D9 (   4313) idERR_ABORT_PERS_ATTACH_FAILED Could not attach shared memory chunk <0%d>(<1%d>,<2%d>) : <3%d>** 
+**0x010D9 ( 4313) idERR_ABORT_PERS_ATTACH_FAILED Could not attach shared memory chunk <0%d>(<1%d>,<2%d>) : <3%d>** 
 
 **Cause:** Shared memory attach data chunk failed.
 
 **Action:** Remove persistent system chunk and try again.
 
-**0x010DA (   4314) idERR_ABORT_PERS_INVALID_CHUNK Chunk <0%d> is invalid.** 
+**0x010DA ( 4314) idERR_ABORT_PERS_INVALID_CHUNK Chunk <0%d> is invalid.** 
 
 **Cause:** Shared memory attach data chunk failed.
 
 **Action:** Remove persistent system chunk and try again.
 
-**0x010DB (   4315) idERR_ABORT_PERS_INVALID_ADDRESS Could not access \[<0%d>][<1%x>], which is not in \[<2%d>][<3%x>]**
+**0x010DB ( 4315) idERR_ABORT_PERS_INVALID_ADDRESS Could not access \[<0%d>][<1%x>], which is not in \[<2%d>][<3%x>]**
 
 **Cause:** Invalid access of memory
 
 **Action:** Remove persistent system chunk and try again.
 
-**0x010DC (   4316) idERR_ABORT_PERSSYS_NOT_MINE System chunk was created by other user.** 
+**0x010DC ( 4316) idERR_ABORT_PERSSYS_NOT_MINE System chunk was created by other user.** 
 
 **Cause:** Other user has created a chunk with SHM_PERS_KEY
 
@@ -4412,14 +4412,6 @@ server.
 
 **Action:** Rebuild this index. Or to rebuild all the indexes, delete INDEX_REBUILD_AT_STARTUP = 0 in altibase.properties and restart the Altibase server.
 
-**0x111BF (  70079) smERR_ABORT_NOLOGGING_MODE Unable to execute this opertation because the iLoader is inserting data in nologging mode on the target table. (TableOID : <0%lu>)**
-
-**Cause:** Cannot update or delete tables where iloader is inserting data in nologging mode.
-
-**Action:** Try again after the iloader operation.
-
-
-
 ### IGNORE
 
 **0x12007 ( 73735) smERR_IGNORE_SyncFail Failed to invoke the msync() system
@@ -5158,13 +5150,9 @@ Support Center (http://support.altibase.com).
 **0x600A2 ( 393378) rpERR_FATAL_ThrCondBroadcast Failed to invoke a system
 function, cond_broadcast(), errno is (\<0%d\>).**
 
-**Cause:**
+**Cause:** The system failed to invoke the cond_broadcast() function.
 
-- The system failed to invoke the cond_broadcast() function.
-
-**Action:**
-
-- Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x600B4 ( 393396) rpERR_FATAL_ThrMutexInit Unable to initialize a mutex.**
 
@@ -5245,11 +5233,9 @@ exceeded the maximum limit.
 
 **0x6100C ( 397324) rpERR_ABORT_RP_RECEIVER_NOT_FOUND The receiver does not exist.**
 
-**Cause:**
--  Internal server error
+**Cause:** Internal server error
 
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x6100D ( 397325) rpERR_ABORT_RP_SENDER_HANDSHAKE [Sender] Failed to handshake
 with the peer server (\<0%s\>)**
@@ -5335,11 +5321,9 @@ and take appropriate action.
 
 **0x61021 ( 397345) rpERR_ABORT_RP_SENDER_ADD_INSERT_SYNC_XLOG [Sender] Failed to add the insert SYNC XLOG**
 
-**Cause:**
--  The replication Sender failed to send data to the corresponding server.
+**Cause:** The replication Sender failed to send data to the corresponding server.
 
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x61022 ( 397346) rpERR_ABORT_RP_SENDER_SLEEP [Sender] Sender Sleep : \<0%d\>
 seconds**
@@ -5398,11 +5382,9 @@ Support Center (http://support.altibase.com).
 
 **0x6102A ( 397354) rpERR_ABORT_BIND Bind failure**
 
-**Cause:**
--  Network error
+**Cause:** Network error
 
-**Action:**
--  Check the network.
+**Action:** Check the network.
 
 **0x6102C ( 397356) rpERR_ABORT_START_RECEIVER [Receiver] Failed to start the
 receiver**
@@ -5524,12 +5506,9 @@ error in recvXLog()**
 
 **0x61048 ( 397384) rpERR_ABORT_RECVXLOG_RUN [Receiver] <0%s> receiver has recvXLog error in run()**
 
-**Cause:**
+**Cause:** Unable to read data from the network connection.
 
--  Unable to read data from the network connection.
-
-**Action:**
--  Check the network connection.
+**Action:** Check the network connection.
 
 **0x6104B ( 397387) rpERR_ABORT_END_THREAD [Receiver] \<0%s\> receiver is ended
 (by thr_exit)**
@@ -5540,20 +5519,15 @@ error in recvXLog()**
 
 **0x6104D ( 397389) rpERR_ABORT_CLOSE_LOG_FILE [Sender] Failed to close log file logfile<0%d>.log**
 
-**Cause:**
+**Cause:** Internal server error
 
--  Internal server error
-
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x6104E ( 397390) rpERR_ABORT_GET_ACK [Sender] Failed to get ACK**
 
-**Cause:**
--  Internal server error
+**Cause:** Internal server error
 
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x6104F ( 397391) rpERR_ABORT_RP_SENDER_INIT [Sender] Failed to initialize**
 
@@ -5565,12 +5539,9 @@ Support Center (http://support.altibase.com).
 
 **0x61050 ( 397392) rpERR_ABORT_OPEN_LOG_FILE [Sender] Failed to open log file logfile<0%d>.log**
 
-**Cause:**
+**Cause:** Internal server error
 
--  Internal server error
-
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x61053 ( 397395) rpERR_ABORT_INVALID_PARAM [Sender] Invalid parameter**
 
@@ -5598,11 +5569,9 @@ transaction, increase the value of replication_receive_timeout on both nodes.
 
 **0x61057 ( 397399) rpERR_ABORT_PROTOCOL_ERROR [Receiver] rp_x_b protocol error in run()**
 
-**Cause:**
--  The receiver thread tried to start a transaction that has already been started.
+**Cause:** The receiver thread tried to start a transaction that has already been started.
 
-**Action:**
--  N/A
+**Action:** N/A
 
 **0x6105A ( 397402) rpERR_ABORT_BEGIN_ERROR_IN_RUN [Receiver] begin error in
 run()**
@@ -5679,7 +5648,7 @@ table.
 **Cause:** A timeout occurred while the replication Sender and Receiver were
 communicating.
 
-\# **Action:** : Set a larger value for the REPLICATION_RECEIVE_TIMEOUT property.
+**Action:** : Set a larger value for the REPLICATION_RECEIVE_TIMEOUT property.
 
 **0x61076 ( 397430) rpERR_ABORT_INVALID_XSN [Sender] Invalid XSN[\<0%ld\>] \>
 Current[\<1%ld\>] occurred**
@@ -5700,19 +5669,16 @@ Support Center (http://support.altibase.com).
 **0x61078 ( 397432) rpERR_ABORT_RP_TRANSACTION_TABLE_IN_INSERT [Receiver]
 replication transaction table error during insert() operation**
 
-**Cause:** The replication Receiver failed to insert data into the transaction
-table.
+**Cause:** The replication Receiver failed to insert data into the transaction table.
 
 **Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
 **0x61079 ( 397433) rpERR_ABORT_RP_FIND_IN_TRANSTABLE_REMOVE [Receiver] find error in transaction table during remove() operation**
 
-**Cause:**
--  Internal server error
+**Cause:** Internal server error
 
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x6107A ( 397434) rpERR_ABORT_NOT_HAVE_HOST Invalid Host [\<0%s\>, \<1%d\>]**
 
@@ -5747,19 +5713,15 @@ isn't available [\<0%u\>]**
 
 **0x61083 ( 397443) rpERR_ABORT_ADD_SESSION [Network] Add Session operation failed**
 
-**Cause:**
--  cmiAddSession() returned an error
+**Cause:** cmiAddSession() returned an error
 
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x61084 ( 397444) rpERR_ABORT_SET_LINK [Network] Set link to session failed**
 
-**Cause:**
--  The session already has another link.
+**Cause:** The session already has another link.
 
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x61085 ( 397445) rpERR_ABORT_FREE_LINK [Network] Free link operation failed**
 
@@ -5879,11 +5841,9 @@ same and take appropriate action.
 
 **0x61093 ( 397459) rpERR_ABORT_NOT_FOUND_LOCATOR [SmExec] Locator [<0%lu>] not found**
 
-**Cause:**
--  A LOB locator was not found.
+**Cause:**A LOB locator was not found.
 
-**Action:**
--  Please send a bug report to the vendor.
+**Action:** Please send a bug report to the vendor.
 
 **0x61094 ( 397460) rpERR_ABORT_RP_SENDER_NOT_FOUND_TABLE The given table isn't
 found in the meta.**
@@ -6751,13 +6711,9 @@ type must be a table. \<0%s\>**
 
 **0x6110E ( 397582) rpERR_ABORT_RPC_NOT_EXIST_USER User not found**
 
-**Cause:**
+**Cause:** The user is not in the meta database.
 
-- The user is not in the meta database.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase's Support
+**Action:** Check the error number from the trace log and contact Altibase's Support
 Center (http://support.altibase.com).
 
 **0x6110F ( 397583) rpERR_ABORT_RPC_NOT_EXISTS_USER User not found : \<0%s\>**
@@ -6768,13 +6724,9 @@ Center (http://support.altibase.com).
 
 **0x61110 ( 397584) rpERR_ABORT_RPC_NOT_EXIST_TABLE Table not found**
 
-**Cause:**
+**Cause:** The table is not in the meta database.
 
-- The table is not in the meta database.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase's Support
+**Action:** Check the error number from the trace log and contact Altibase's Support
 Center (http://support.altibase.com).
 
 **0x61111 ( 397585) rpERR_ABORT_RPC_NOT_EXISTS_TABLE Table not found : \<0%s\>**
@@ -6940,7 +6892,7 @@ module (\<0%s\>).**
 **Cause:** Failed to execute DML on replication metadata due to a database
 error.
 
-\# **Action:** Check the error number from the trace log and contact Altibase’s
+**Action:** Check the error number from the trace log and contact Altibase’s
 Support Center (http://support.altibase.com).
 
 **0x61128 ( 397608) rpERR_ABORT_RPD_TOO_MANY_REPLICATION_OLD_ITEMS Internal
@@ -7587,215 +7539,143 @@ file descriptor.
 **0x6117B ( 397691) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_LOCAL_AND_EAGER It is
 unable to use eager mode when local replication option used.**
 
-**Cause:**
+**Cause:** Eager mode does not support local replication option.
 
-- Eager mode does not support local replication option.
-
-**Action:**
-
-- Change replication mode or remove LOCAL option.
+**Action:** Change replication mode or remove LOCAL option.
 
 **0x6117C ( 397692) rpERR_ABORT_SELF_REPLICATION_TABLE Self-replication has been
 detected due to duplicate table name.
 [\<0%s\>.\<1%s\>.\<2%s\>:\<3%s\>.\<4%s\>.\<5%s\>]**
 
-**Cause:**
+**Cause:** The same name is used in the source and target tables.
 
-- The same name is used in the source and target tables.
-
-**Action:**
-
-- Set a different name for the source and target tables.
+**Action:** Set a different name for the source and target tables.
 
 **0x6117D ( 397693) rpERR_ABORT_SELF_REPLICATION_NAME Self-replication has been
 detected due to duplicate replication name. [\<0%s\>]**
 
-**Cause:**
+**Cause:** Same replication name used for itself and peer replicaiton.
 
-- Same replication name used for itself and peer replicaiton.
-
-**Action:**
-
-- Use different peer replication name from its replication name.
+**Action:** Use different peer replication name from its replication name.
 
 **0x6117E ( 397694) rpERR_ABORT_RP_NOT_SUPPORT_CONVERT_APPLY_DATA_TYPE The
 table(\<0%s\>.\<1%s\>:\<2%s\>.\<3%s\>) containing \<4%s\> does not support sql
 apply feature.**
 
-**Cause:**
+**Cause:** The table containing specific data type does not support sql apply feature.
 
-- The table containing specific data type does not support sql apply feature.
-
-**Action:**
-
-- Please drop specific data type from the table.
+**Action:** Please drop specific data type from the table.
 
 **0x6117F ( 397695) rpERR_ABORT_REPLICATION_DDL_ENABLE_LEVEL Cannot execute this
 DDL on a replicated table when the system property REPLICATION_DDL_ENABLE_LEVEL
 is \<0%u\>.**
 
-**Cause:**
-
-- System property REPLICATION_DDL_ENABLE_LEVEL is not appropriate for this
+**Cause:** System property REPLICATION_DDL_ENABLE_LEVEL is not appropriate for this
 DDL.
 
-**Action:**
-
-- Check the system property REPLICATION_DDL_ENABLE_LEVEL.
+**Action:** Check the system property REPLICATION_DDL_ENABLE_LEVEL.
 
 **0x61180 ( 397696) rpERR_ABORT_RPC_DDL_NOT_SUPPORTED_REPLICATED_TABLE This DDL
 is not supported on replicated table.(Cause : \<0%s\>)**
 
-**Cause:**
+**Cause:** This DDL is not supported on replicated table.
 
-- This DDL is not supported on replicated table.
-
-**Action:**
-
-- Identify the cause and take appropriate action.
+**Action:** Identify the cause and take appropriate action.
 
 **0x61181 ( 397697) rpERR_ABORT_RP_ALREADY_DDL_SYNC Can not perform a DDL
 synchronization because it is currently in progress (Replication name :
 \<0%s\>).**
 
-**Cause:**
+**Cause:** Can not perform a DDL synchronization because it is currently in progress.
 
-- Can not perform a DDL synchronization because it is currently in progress.
-
-**Action:**
-
-- Retry after finishing the DDL synchronization.
+**Action:** Retry after finishing the DDL synchronization.
 
 **0x61182 ( 397698) rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_EAGER Can not execute a
 DDL synchronization on a table using eager mode replication.**
 
-**Cause:**
-
-- Can not execute a DDL synchronization for a table using eager mode
+**Cause:** Can not execute a DDL synchronization for a table using eager mode
 replication.
 
-**Action:**
-
-- Change the replication mode in eager mode replication or remove the table
+**Action:** Change the replication mode in eager mode replication or remove the table
 in eager mode replication.
 
 **0x61183 ( 397699)
 rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GLOBAL_NON_PARTITION_INDEX A DDL
 synchronization is not support on a table with global non-partitioned index.**
 
-**Cause:**
-
-- A DDL synchronization is not support on a table with global non-partitioned
+**Cause:** A DDL synchronization is not support on a table with global non-partitioned
 index.
 
-**Action:**
-
-- Verify that the table with a global non-paritited index.
+**Action:** Verify that the table with a global non-paritited index.
 
 **0x61184 ( 397700) rpERR_ABORT_RP_DDL_SYNC_DISABLE Can not perform the DDL
 synchronization when the value of the REPLICATION_DDL_SYNC property is 0.**
 
-**Cause:**
-
-- Can not perform the DDL synchronization when the value of the
+**Cause:** Can not perform the DDL synchronization when the value of the
 REPLICATION_DDL_SYNC property is 0.
 
-**Action:**
-
-- Verify and change the value of the REPLICATION_DDL_SYNC property is 1.
+**Action:** Verify and change the value of the REPLICATION_DDL_SYNC property is 1.
 
 **0x61185 ( 397701) rpERR_ABORT_RP_DDL_SYNC_ERROR_AFTER_COMMIT_MSG A DDL
 synchronization is failed after sending commit message. The table schema of the
 remote server may have been inconsistent.**
 
-**Cause:**
+**Cause:** A DDL synchronization is failed after sending commit message.
 
-- A DDL synchronization is failed after sending commit message.
-
-**Action:**
-
-- Verify that the replication actually commits
+**Action:** Verify that the replication actually commits
 
 **0x61186 ( 397702) rpERR_ABORT_RP_DDL_SYNC_RECEIVE_ERROR A DDL synchronization
 receives the error message from the remote server (\<0%s\>).**
 
-**Cause:**
+**Cause:** Receive the error message from the remote server.
 
-- Receive the error message from the remote server.
-
-**Action:**
-
-- Perform a DDL synchronization after troubleshooting the remote server.
+**Action:** Perform a DDL synchronization after troubleshooting the remote server.
 
 **0x61187 ( 397703) rpERR_ABORT_RP_SENDER_NOT_RUNNING The sender of replication
 \<0%s\> is not running.**
 
-**Cause:**
+**Cause:** The sender of replication is not running.
 
-- The sender of replication is not running.
-
-**Action:**
-
-- Restart replication or wait for the replication sender to run.
+**Action:** Restart replication or wait for the replication sender to run.
 
 **0x61188 ( 397704) rpERR_ABORT_RP_DDL_SYNC_SQL_LENGTH_ERROR The length of the
 SQL query exceeds the maximum limit (\<0%u\>).**
 
-**Cause:**
+**Cause:** The length of the SQL query exceeds the maximum limit.
 
-- The length of the SQL query exceeds the maximum limit.
-
-**Action:**
-
-- Refer to the Replication Manaual for the maximum possible length allowed
+**Action:** Refer to the Replication Manaual for the maximum possible length allowed
 for the DDL synchronization query.
 
 **0x61189 ( 397705) rpERR_ABORT_PARENT_AND_CHILD_CONNECT_DIFFERENT Failed to
 connected by the parallel senders. The parallel senders get different IP address
 from DNS server.**
 
-**Cause:**
+**Cause:** The parallel senders must be connected by the same IP.
 
-- The parallel senders must be connected by the same IP.
-
-**Action:**
-
-- Verify the DNS server or restart the replication sender. (When you restart
+**Action:** Verify the DNS server or restart the replication sender. (When you restart
 the replication, the parallel senders have been connected by the same IP.)
 
 **0x6118A ( 397706) rpERR_ABORT_RPC_ROLE_NOT_SUPPORT_IB InfiniBand(IB) can not
 be used with 'FOR ANALYSIS' syntax.**
 
-**Cause:**
+**Cause:** InfiniBand(IB) can not be used with 'FOR ANALYSIS' syntax.
 
-- InfiniBand(IB) can not be used with 'FOR ANALYSIS' syntax.
-
-**Action:**
-
-- Check the role of the replication. Do not use the InfiniBand(IB).
+**Action:** Check the role of the replication. Do not use the InfiniBand(IB).
 
 **0x6118B ( 397707) rpERR_ABORT_RPC_NOT_DEFAULT_SRID Only the default SRID can be replicated.**
 
-**Cause:**
+**Cause:** The SRID of the geometry column is not the default.
 
--  The SRID of the geometry column is not the default.
-
-**Action:**
-
--  Check the SRID of the geometry column.
+**Action:** Check the SRID of the geometry column.
 
 **0x6118C ( 397708) rpERR_ABORT_RP_DDL_SYNC_WITH_PROPAGATION The propagation
 option(FOR PROPAGABLE LOGGING/ FOR PROPAGATION) does not support DDL
 synchronization.**
 
-**Cause:**
-
-- The propagation option(FOR PROPAGABLE LOGGING/ FOR PROPAGATION) does not
+**Cause:** The propagation option(FOR PROPAGABLE LOGGING/ FOR PROPAGATION) does not
 support DDL synchronization.
 
-**Action:**
-
-- Remove the propagation option.
+**Action:** Remove the propagation option.
 
 **0x6118D ( 397709) rpERR_ABORT_HBT_DETECT_PEER_SERVER_ERROR The HeartBeat
 thread(HBT) detects peer server or network error.**
@@ -7815,9 +7695,7 @@ thread(HBT) detects peer server or network error.**
 **0x6118E ( 397710) rpERR_ABORT_SEND_TIMEOUT_EXCEED Timeout exceed while the
 replication Sender and Receiver were communicating.**
 
-**Cause:**
-
-- A timeout occurred while the replication Sender and Receiver were
+**Cause:** A timeout occurred while the replication Sender and Receiver were
 communicating.
 
 **Cause:**
@@ -7834,190 +7712,116 @@ communicating.
 
 **0x61190 ( 397712) rpERR_ABORT_PARTITION_COUNT_MISMATCH The partition count of the replicated table does not match [<0%s>(<1%d>):<2%s>(<3%d>)].**
 
-**Cause:**
+**Cause:** Replicated table partition count mismatch.
 
--  Replicated table partition count mismatch.
-
-**Action:** 
-
--  Check the partition count of the replicated table.      
+**Action:** Check the partition count of the replicated table.      
 
 **0x61191 ( 397713) rpERR_ABORT_SYNC_FAILED_BY_BULK_INSERT Replication synchronization failed by replication bulk insert.**
 
-**Cause:**  
+**Cause:** Bulk insert error has been occurred while executing the received record.
 
--  Bulk insert error has been occurred while executing the received record.
-
-**Action:** 
-
--  Check the altibase_rp.log file.
+**Action:** Check the altibase_rp.log file.
 
 **0x61192 ( 397714) rpERR_ABORT_SRID_MISMATCH The geometry SRID of the replicated table's column does not match. [<0%s>(Name:<1%s>, SRID:<2%d>):<3%s>(Name:<4%s>, SRID: <5%d>)].**
 
-**Cause:**  
+**Cause:** Replicated table's column geometry SRID mismatch.
 
--  Replicated table's column geometry SRID mismatch.
-
-**Action:**
-
--  Check the geometry SRID of the replicated table's column.
+**Action:** Check the geometry SRID of the replicated table's column.
 
 
 **0x61193 ( 397715) rpERR_ABORT_NOT_SUPPORT_SRID_REMOTE The geometry SRID of <0%s> table's column is not supported on the remote server;**
 
-**Cause:** 
+**Cause:** The remote server is a version that does not support geometry SRID.
 
--  The remote server is a version that does not support geometry SRID.
-
-**Action:** 
-
--  Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log for more detailed information. And contact Altibase's Support Center (http://support.altibase.com).
 
 **0x61194 ( 397716) rpERR_ABORT_RPC_NOT_SUPPORT_REPL_CONDITIONAL_START_AND_EAGER SYNC CONDITIONAL and START CONDITIONAL clauses are not supported with replication eager mode.**
 
-**Cause:**
+**Cause:** It's unable to execute the statement, becuase SYNC CONDITIONAL and START CONDITIONAL clauses are not supported with replication eager mode.
 
--  It's unable to execute the statement, becuase SYNC CONDITIONAL and START CONDITIONAL clauses are not supported with replication eager mode.
-
-**Action:**
-
--  Check the replication mode.
+**Action:** Check the replication mode.
 
 **0x61195 ( 397717) rpERR_ABORT_DDL_SYNC_WITH_LOCK_UNTIL_NEXT_DDL You cannot execute DDL for the replicated table after performing LOCK.. UNTIL NEXT DDL on REPLICATION_DDL_SYNC enable mode.**
 
-**Cause:**
+**Cause:** You cannot use the property REPLICATION_DDL_SYNC enable and LOCK.. UNTIL NEX DDL statement on the replicated table.
 
--  You cannot use the property REPLICATION_DDL_SYNC enable and LOCK.. UNTIL NEX DDL statement on the replicated table.
-
-**Action:**
-
--  hange the property REPLICATION_DDL_SYNC to 0(disable) or close a transaction.
+**Action:** Change the property REPLICATION_DDL_SYNC to 0(disable) or close a transaction.
 
 **0x61196 ( 397718) rpERR_ABORT_RPD_TOO_LONG_MUTEX_NAME A mutex name is too long. (<0%s>)**
 
-**Cause:**
+**Cause:** The Internal mutex name is over 64 characters.
 
-- The Internal mutex name is over 64 characters.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x61197 ( 397719) rpERR_ABORT_RPD_TOO_LONG_FILE_PATH A xlogfile full-path is too long. (<0%s>)**
 
-**Cause:**
+**Cause:** A xlogfile full-path is over 1024 characters.
 
-- A xlogfile full-path is over 1024 characters.
-
-**Action:**
-
-- Modify XLOGFILE_DIR property to short full-path.
+**Action:** Modify XLOGFILE_DIR property to short full-path.
 
 **0x61198 ( 397720) rpERR_ABORT_RPD_FAILURE_UNLINK_FILE Failed to delete xlogfile. [path=(<0%s>), errcode=<1%d>]**
 
-**Cause:**
+**Cause:** The system failed to remove a file, because the file is busy.
 
-- The system failed to remove a file, because the file is busy.
-
-**Action:**
-
-- Terminate unnecessary processes.
+**Action:** Terminate unnecessary processes.
 
 **0x61199 ( 397721) rpERR_ABORT_RPD_CREATER_THREAD_NOT_ALIVE <0%s> xlogfile creater thread has beed terminated.**
 
-**Cause:**
+**Cause:** The xlogfile creater thread has been terminated.
 
-- The xlogfile creater thread has been terminated.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x6119A ( 397722) rpERR_ABORT_RPD_FLUSHER_THREAD_NOT_ALIVE <0%s> xlogfile flusher thread has been terminated.**
 
-**Cause:**
+**Cause:** The xlogfile flusher thread has been terminated.
 
-- The xlogfile flusher thread has been terminated.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x6119B ( 397723) rpERR_ABORT_RPN_UNABLE_READ_CONTEXT Invalid read context.**
 
-**Cause:**
+**Cause:** Internal error.
 
-- Internal error.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x6119C ( 397724) rpERR_ABORT_RPX_FAIL_WRITE_XLOG_IN_XLOGFILE Failed to write xlog into xlogfile.**
 
-**Cause:**
+**Cause:** Internal error.
 
-- Internal error.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x6119D ( 397725) rpERR_ABORT_RPC_CONSISTENT_MODE_MUST_HAVE_PARALLEL syntax error : PARALLEL APPLIER Option is missing on CREATE CONSISTENT REPLICATION statement.**
 
-**Cause:** 
+**Cause:** Consistent replication should be made with parallel applier option.
 
-- Consistent replication should be made with parallel applier option.
-
-**Action:**
-
-- Check the syntax of CREATE CONSISTENT REPLICATION statement.
+**Action:** Check the syntax of CREATE CONSISTENT REPLICATION statement.
 
 **0x6119E ( 397726) rpERR_ABORT_RPC_NOT_COMPATIBLE_ROLE_OPTION_IN_CONSISTENT_MODE Unable to use the role option in consistent replication.**
 
-**Cause:**
+**Cause:** Cannot create consistent replication with role option, except for parallel applier option.
 
-- Cannot create consistent replication with role option, except for parallel applier option.
-
-**Action:**
-
-- Check the constraint for consistent replication.
+**Action:** Check the constraint for consistent replication.
 
 **0x6119F ( 397727) rpERR_ABORT_RPC_CONSISTENT_DO_NOT_HAVE_ANY_OTHER_OPTIONS Unable to use the option in consistent replication.**
 
-**Cause:**
+**Cause:** Unable to use any option in consistent replication, except for parallel applier option.
 
-- Unable to use any option in consistent replication, except for parallel applier option.
-
-**Action:**
-
-- Check the constraint for consistent replication.
+**Action:** Check the constraint for consistent replication.
 
 **0x611A0 ( 397728) rpERR_ABORT_RPC_FLUSH_XLOGFILE_STATEMENT_CAN_ONLY_RUN_IN_CONSISTENT ALTER REPLICATION ... FLUSH FROM XLOGFILE statement can be executed only in a consistent mode replication.**
 
-**Cause:**
+**Cause:** This statement can be executed only in a consistent mode replication.
 
-- This statement can be executed only in a consistent mode replication.
-
-**Action:**
-
-- Check if the replication mode is consistent or not.
+**Action:** Check if the replication mode is consistent or not.
 
 **0x611A1 ( 397729) rpERR_ABORT_RPC_FAILED_FLUSH_XLOGFILE Failed to flush xlog files.**
 
-**Cause:**
+**Cause:** Internal error.
 
-- Internal error.
-
-**Action:**
-
-- Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
+**Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
 **0x611A2 ( 397730) rpERR_ABORT_RPC_CANNOT_FIND_REMOTE_META Cannot find the replication remote metadata.**
 
-**Cause:**
-
-- Xlogfile recovery receiver must have a replication remote metadata.
+**Cause:** Xlogfile recovery receiver must have a replication remote metadata.
 
 **Action:**
 
@@ -8027,168 +7831,103 @@ communicating.
 
 **0x611A3 ( 397731) rpERR_ABORT_RPC_RECEIVER_IS_WORKING_ON_IT Xlogfile recovery cannot run while another receiver is working on synchronization or recovery.**
 
-**Cause:**
+**Cause:** Another receiver with same replication name is processing on synchronization or recovery.
 
-- Another receiver with same replication name is processing on synchronization or recovery.
-
-**Action:**
-
-- Check whether another receiver with same replication name is processing on synchronization or recovery.
+**Action:** Check whether another receiver with same replication name is processing on synchronization or recovery.
 
 **0x611A4 ( 397732) rpERR_ABORT_RP_CANNOT_FIND_XLOGFILE Unable to find a xlogfile related with the replication name. (<0%s>)**
 
-**Cause:**
+**Cause:** If the replication has been started once in consistent mode, the xlogfile should exist as "xlogfile_repName_fileno". But the file cannot be found.
 
-- If the replication has been started once in consistent mode, the xlogfile should exist as "xlogfile_repName_fileno". But the file cannot be found.
-
-**Action:**
-
-- Check the replication's name and verify that the xlogfile exists in XLOGFILE_DIR.
+**Action:** Check the replication's name and verify that the xlogfile exists in XLOGFILE_DIR.
 
 **0x611A5 ( 397733) rpERR_ABORT_RPC_NOT_SUPPORT_FAILBACK_THIS_MODE Failback is not supported in this replication mode.**
 
-**Cause:**
+**Cause:** Failback is supported only in the consistent mode.
 
--  Failback is supported only in the consistent mode.
-
-**Action:**
-
--  Verify whether the replication mode is the consistent mode.
+**Action:** Verify whether the replication mode is the consistent mode.
 
 **0x611A6 ( 397734) rpERR_ABORT_RPC_NOT_SUPPORT_RETRY_AND_CONSISTENT The retry option is not supported when a replication is running in the consistent mode.**
 
-**Cause:**
+**Cause:** The retry option is not supported in the consistent mode.
 
--  The retry option is not supported in the consistent mode.
-
-**Action:**
-
--  Either remove the retry option or change the replication mode.
+**Action:** Either remove the retry option or change the replication mode.
 
 **0x611A9 ( 397737) rpERR_ABORT_RP_RECEIVER_INITIALIZE_FAIL The receiver(%s) has not started, because the replication meta information has been changed.**
 
-**Cause:**
+**Cause:** The receiver has not started, because the replication meta has been changed.
 
-- The receiver has not started, because the replication meta has been changed.
-
-**Action:**
-
-- Restart the replication sender.
+**Action:** Restart the replication sender.
 
 **0x611AA ( 397738) rpERR_ABORT_RP_XLOG_FILE_FAILBACK_MASTER_SENDER_INITIALIZE_FAIL Failed to perform a failback, because the replication meta information has been changed.**
 
-**Cause:**
+**Cause:** Failed to perform a failback, because the replication meta information has been changed.
 
-- Failed to perform a failback, because the replication meta information has been changed.
-
-**Action:**
-
-- Retry 'ALTER REPLICATION repl_name FAILBACK';
+**Action:** Retry 'ALTER REPLICATION repl_name FAILBACK';
 
 **0x611AD ( 397741) rpERR_ABORT_OFFLINE_OPTION_IS_NOT_SET Offline option is not set.**
 
-**Cause:**
+**Cause:** Replication is created without the offline option.
 
--  Replication is created without the offline option.
-
-**Action:**
-
--  Check the options of the replication.
+**Action:** Check the options of the replication.
 
 **0x611AE ( 397742) rpERR_ABORT_OFFLINE_META_ROLE_NOT_SUPPORT Offline meta is supported only ANALYSIS.**
 
-**Cause:**
+**Cause:** This role does not support offline meta.
 
--  This role does not support offline meta.
-
-**Action:**
-
--  Check the role of the replication.
+**Action:** Check the role of the replication.
 
 **0x611AF ( 397743) rpERR_ABORT_RPC_ROLE_NOT_SUPPORT_REPL_META_LOGGING Meta Logging option is supported only ANALYSIS.**
 
-**Cause:**
+**Cause:** This role does not support the Meta Logging option.
 
--  This role does not support the Meta Logging option.
-
-**Action:**
-
--  Check the options or the role of the replication.
+**Action:** Check the options or the role of the replication.
 
 **0x611B0 ( 397744) rpERR_ABORT_RP_REMOTE_META_EXIST BUILD OFFLINE META is already run.**
 
-**Cause:**
+**Cause:** Remote meta already exists.
 
--  Remote meta already exists.
-
-**Action:**
-
--  run 'ALTER REPLICATION replication_name RESET OFFLINE META;'
+**Action:** run 'ALTER REPLICATION replication_name RESET OFFLINE META;'
 
 **0x611B1 ( 397745) rpERR_ABORT_RP_REMOTE_META_FILE_IS_CORRUPTED Remote meta file is corrupt. (Meta End SN : <0%ld>, Restart SN : <1%ld>)**
 
-**Cause:**
+**Cause:** The 'replication_name_META_NEW.bin' file is corrupt. Restart SN is more than Meta End SN of 'replication_name_META_OLD.bin' file.
 
--  The 'replication_name_META_NEW.bin' file is corrupt. Restart SN is more than Meta End SN of 'replication_name_META_OLD.bin' file.
-
-**Action:**
-
--  Run 'ALTER REPLICATION replication_name BUILD OFFLINE META AT SN(sn)' with a value less than Meta End SN.
+**Action:** Run 'ALTER REPLICATION replication_name BUILD OFFLINE META AT SN(sn)' with a value less than Meta End SN.
 
 **0x611B2 ( 397746) rpERR_ABORT_RP_ERR_REMOTE_META_NOT_BUILD_OFFLINE_META Remote meta is not from building offline meta.**
 
-**Cause:**
+**Cause:** Remote meta is not from building offline meta.
 
--  Remote meta is not from building offline meta.
-
-**Action:**
-
--  Check the role of the replication.
+**Action:** Check the role of the replication.
 
 **0x611B3 ( 397747) rpERR_ABORT_ERR_NO_VALID_METAFILE Invalid sender meta files. (Replication name: <0%s>, File name: <1%s>_META_NEW.bin, <2%s>_META_OLD.bin )**
 
-**Cause:**
+**Cause:** Sender meta files do not exist or are invalid.
 
-- Sender meta files do not exist or are invalid.
-
-**Action:**
-- 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+**Action:** 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
 
 **0x611B4 ( 397748) rpERR_ABORT_ERR_NO_VALID_SNFILE Invalid Restart SN files. (Replication name: <0%s>, File name: <1%s>_SN_NEW.bin, <2%s>_SN_OLD.bin )**
 
-**Cause:**
+**Cause:** Restart SN files do not exist or are invalid.
 
-- Restart SN files do not exist or are invalid.
-
-**Action:**
-
-- 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
+**Action:** 'BUILD OFFLINE META' failed. Verify the altibase_rp.log.
 
 **0x611B5 ( 397749) rpERR_ABORT_FAIL_TO_CREATE_DIRECTORY Failed to create meta directory (Dir Name :<0%s> )**
 
-**Cause:**
+**Cause:** The specified directory could not be created.
 
--  The specified directory could not be created.
-
-**Action:**
-
--  Check the directory path or permission.
+**Action:** Check the directory path or permission.
 
 **0x611B6 ( 397750) rpERR_ABORT_RP_OFFLINE_ALA_SENDER_PROCESS_DDL Offline ALA Sender read DDL log.**
 
-**Cause:**
+**Cause:** Offline ALA Sender read DDL log.
 
--  Offline ALA Sender read DDL log.
-
-**Action:**
-
--  After executing DDL on the target DB, Offline Adapter should be executed again.
+**Action:** After executing DDL on the target DB, Offline Adapter should be executed again.
 
 **0x611B8 ( 397752) rpERR_ABORT_TX_SEGMENT_ENTRY_ALLOC [Receiver] Transaction updating disk table data failed due to transaction segment allocation failure.**
 
-**Cause:**
-
--  The number of transaction segments exceeds TRANSACTION_SEGMENT_COUNT
+**Cause:** The number of transaction segments exceeds TRANSACTION_SEGMENT_COUNT
 
 **Action:**
 
@@ -8197,53 +7936,33 @@ communicating.
 
 **0x611B9 ( 397753) rpERR_ABORT_RP_DDL_SYNC_RETRY_ERROR Retry due to DDL Sync failure**
 
-**Cause:**
+**Cause:** Retry due to DDL Sync failure
 
--  Retry due to DDL Sync failure
-
-**Action:**
-
--  Wait until the success or stop DDL Sync.
+**Action:** Wait until the success or stop DDL Sync.
 
 **0x611BA ( 397754) rpERR_ABORT_RP_DDL_SYNC_NOT_SUPPORT_GROUPING DDL Sync does not support replication's grouping option.**
 
-**Cause:**
+**Cause:** DDL Sync does not support replication's grouping option.
 
--  DDL Sync does not support replication's grouping option.
-
-**Action:**
-
--  Remove replication's grouping option.
+**Action:** Remove replication's grouping option.
 
 **0x611BF ( 397759) rpERR_ABORT_ERR_INVALID_METAFILE Invalid sender meta file. (Replication name: <0%s>, File name: <1%s>)**
 
-**Cause:**
+**Cause:** Sender meta file does not exist or is invalid.
 
-- Sender meta file does not exist or is invalid.
-
-**Action:**
-
-- Verify the altibase_rp.log.
+**Action:** Verify the altibase_rp.log.
 
 **0x611C0 ( 397760) rpERR_ABORT_ERR_INVALID_SNFILE Invalid Restart SN file. (Replication name: <0%s>, File name: <1%s>)**
 
-**Cause:**
+**Cause:** Restart SN file does not exist or is invalid.
 
-- Restart SN file does not exist or is invalid.
-
-**Action:**
-
-- Verify the altibase_rp.log.
+**Action:** Verify the altibase_rp.log.
 
 **0x611C1 ( 397761) rpERR_ABORT_INVALID_REPLICATION_SENDER_IP The value of REPLICATION_SENDER_IP is not valid. (<0%s>)**
 
-**Cause:**
+**Cause:** The value of REPLICATION_SENDER_IP must be an IP address.
 
--  The value of REPLICATION_SENDER_IP must be an IP address.
-
-**Action:**
-
--  Change the value of REPLICATION_SENDER_IP in the altibase.properties file or ALTIBASE_REPLICATION_SENDER_IP environment variable and try again.
+**Action:** Change the value of REPLICATION_SENDER_IP in the altibase.properties file or ALTIBASE_REPLICATION_SENDER_IP environment variable and try again.
 
 ### IGNORE
 
@@ -8344,25 +8063,17 @@ conflict occurred during timestamp conflict resolution.**
 
 **0x621A7 ( 401831) rpERR_IGNORE_RPX_END_OF_XLOGFILES Reach end of xlogfiles**
 
-**Cause:**
+**Cause:** Reached end of xlogfiles when consistent receiver is in the read only mode. (not apply mode)
 
-- Reached end of xlogfiles when consistent receiver is in the read only mode. (not apply mode)
-
-**Action:**
-
-- You can safely ignore this message.
+**Action:** You can safely ignore this message.
 
 ### RETRY
 
 **0x631A8 ( 405928) rpERR_REBUILD_RPD_MISS_MATCH_LOCK_TABLE_AND_META The replication meta information has been changed.**
 
-**Cause:**
+**Cause:** The replication meta information has been changed.
 
-- The replication meta information has been changed.
-
-**Action:**
-
-- You may safely ignore this message.
+**Action:** You may safely ignore this message.
 
 
 
