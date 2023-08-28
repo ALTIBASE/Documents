@@ -8169,12 +8169,6 @@ conflict occurred during timestamp conflict resolution.**
 
 **Action:** This behavior is normal and can be expected from time to time.
 
-**0x621A7 ( 401831) rpERR_IGNORE_RPX_END_OF_XLOGFILES Reach end of xlogfiles**
-
-**Cause:** Reached end of xlogfiles when consistent receiver is in the read only mode. (not apply mode)
-
-**Action:** You can safely ignore this message.
-
 ### RETRY
 
 **0x631A8 ( 405928) rpERR_REBUILD_RPD_MISS_MATCH_LOCK_TABLE_AND_META The replication meta information has been changed.**
