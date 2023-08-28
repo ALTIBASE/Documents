@@ -20530,6 +20530,12 @@ non-blocking mode.
 
 **Action**: Check the error number from the trace log and contact Altibase's Support Center (http://support.altibase.com).
 
+**0x710CB ( 463051) cmERR_ABORT_UNSUPPORTED_OPENSSL_VERSION Unsupported OpenSSL version (<0%s>)**
+
+**Cause:** Unsupported OpenSSL version
+
+**Action:** Check if the OpenSSL version is 3.x.
+
 ### IGNORE
 
 **0x72000 ( 466944) cmERR_IGNORE_NoError No CM module error**
