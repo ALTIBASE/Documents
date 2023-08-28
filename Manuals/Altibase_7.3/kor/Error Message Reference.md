@@ -440,25 +440,25 @@ system function**
 
 **Action:** Check the error number from the trace log and contact Altibase’s Support Center (http://support.altibase.com).
 
-**0x00037 (     55) idERR_FATAL_ThrCondInit Failed to invoke the cond_init() system function**
+**0x00037 ( 55) idERR_FATAL_ThrCondInit Failed to invoke the cond_init() system function**
 
 **Cause:** The system failed to invoke the cond_init() function.
 
 **Action:** Please send a bug report to the vendor.
 
-**0x00038 (     56) idERR_FATAL_ThrCondSignal Failed to invoke the cond_signal() system function**
+**0x00038 ( 56) idERR_FATAL_ThrCondSignal Failed to invoke the cond_signal() system function**
 
 **Cause:** The system failed to invoke the cond_signal() function.
 
 **Action:**  Please send a bug report to the vendor.
 
-**0x00039 (     57) idERR_FATAL_ThrMutexTrylock Failed to invoke the mutex_trylock() system function**
+**0x00039 ( 57) idERR_FATAL_ThrMutexTrylock Failed to invoke the mutex_trylock() system function**
 
 **Cause:** Another thread has already locked the mutex.
 
 **Action:** Please send a bug report to the vendor.
 
-**0x0003A (     58) idERR_FATAL_ThrCondDestroy Failed to invoke the cond_destroy() system function**
+**0x0003A ( 58) idERR_FATAL_ThrCondDestroy Failed to invoke the cond_destroy() system function**
 
 **Cause:** The system failed to remove a condition variable.
 
