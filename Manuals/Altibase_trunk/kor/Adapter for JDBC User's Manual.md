@@ -171,7 +171,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 6.3.1 또는 그 이상의 버전을 사용한다는
+이 매뉴얼은 데이터베이스 서버로 Altibase 6.5.1 또는 그 이상의 버전을 사용한다는
 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
@@ -374,9 +374,9 @@ jdbcAdapter를 설치하고 실행하기 위해서는 다음의 시스템 요구
 
 #### 데이터베이스 버전
 
--   Altibase : 버전 6.3.1 이상 버전 지원
--   OTHER DB : JDBC v3.0 이상을 지원 하는 데이터베이스 중 Altibase와 동일한 DML 구문을 사용하는 데이터 베이스
--   OTHER DB로 사용 가능한것이 확인된 데이터 베이스
+-   Altibase : 버전 6.5.1 이상
+-   OTHER DB : JDBC v4.2 이하를 지원하는 데이터베이스 중 Altibase와 동일한 DML 구문을 사용하는 데이터베이스
+-   OTHER DB로 사용 가능한것이 확인된 데이터베이스
     -   Altibase
     -   Oracle
     -   MariaDB
@@ -400,10 +400,9 @@ Oracle 데이터베이스 서버 버전과 일치하는 버전의 JDBC 드라이
 
 #### JRE 설치
 
-jdbcAdapter는 JRE 1.8 버전 이상에서 동작하는 응용 프로그램이므로, jdbcAdapter가
-운영될 장비에 1.8 버전 이상의 JRE가 설치되어 있어야 한다.
+jdbcAdapter 7.4는 JRE 8 버전 이상에서 동작하는 응용 프로그램이므로, jdbcAdapter가 운영될 장비에 8 버전 이상의 JRE가 설치되어 있어야 한다.
 
-jdbcAdapter가 접속할 원격 데이터베이스의 JDBC 드라이버가 1.8 이상 버전의 JRE에서
+jdbcAdapter가 접속할 원격 데이터베이스의 JDBC 드라이버가 8 버전 이상의 JRE에서
 동작한다면, 해당 JDBC 드라이버와 호환되는 버전의 JRE를 설치해야 한다.
 
 JRE 설치 후에는 JAVA_HOME과 CLASSPATH 등의 환경 변수를 설정해야 한다. 아래는
@@ -442,8 +441,7 @@ jdbcAdapter는 원본 DB의 Altibase 서버 계정이 아닌 다른 사용자 �
    생성하게 된다.
 
 4. jdbcAdapter를 사용하려면 Altibase Log Analyzer (ALA) 프로퍼티 설정을
-   다음처럼 해야 한다. 프로퍼티에 대한 자세한 설명은 이 장의 뒷 부분에 있는
-   “ALA 프로퍼티”절을 참고한다.
+   다음처럼 해야 한다. 프로퍼티에 대한 자세한 설명은 [ALA 프로퍼티](#ala-프로퍼티) 를 참고한다.
 
 -   ALA_SENDER_IP: Altibase가 설치된 장비의 IP 주소이다. Altibase와
     jdbcAdapter가 같은 장비에서 실행되는 것을 가정하여 기본값은 127.0.0.1이다.
@@ -463,8 +461,7 @@ jdbcAdapter는 원본 DB의 Altibase 서버 계정이 아닌 다른 사용자 �
     프로퍼티 값이 1이면 트레이스 로그를 남긴다. 기본값은 1이다.
 
 5. 다음 다이얼로그 박스에서는 Altibase 프로퍼티 설정을 해야 한다. 프로퍼티에
-   대한 자세한 설명은 이 장의 뒷 부분에 있는 “제약조건 확인용 프로퍼티”절을
-   참고한다.
+   대한 자세한 설명은 [제약조건 확인용 프로퍼티](#제약조건-확인용-프로퍼티) 를 참고한다.
 
 -   ALTIBASE_USER: Altibase에 접근할 사용자의 이름이다.
 
@@ -941,7 +938,7 @@ jdbcAdapter를 사용하기 위해서는 여러가지 제약 조건이 있다. �
 #### 허용된 DDL 문
 
 일반적으로 이중화 대상인 테이블은 데이타 정의어(DDL)를 수행할 수 없다. 그러나
-다음의 몇 가지 DDL은 xLog Sender와 상관없이 DDL 수행이 가능하다. 그 외 수행할 수
+다음의 몇 가지 DDL은 XLog Sender와 상관없이 DDL 수행이 가능하다. 그 외 수행할 수
 있는 DDL은 Replication Manual의 '이중화 대상 테이블에 DDL 실행'을 참조하기
 바란다.
 
