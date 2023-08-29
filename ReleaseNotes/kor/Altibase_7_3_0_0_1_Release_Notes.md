@@ -1,8 +1,8 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents** 
 
-- [Altibase 7.3.0.0.1 Release Notes(Draft)](#altibase-73001-release-notesdraft)
+
+- [Altibase 7.3.0.0.1 Release Notes](#altibase-73001-release-notes)
   - [1. 시스템 요구사항](#1-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
     - [하드웨어 최저 사양](#%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4-%EC%B5%9C%EC%A0%80-%EC%82%AC%EC%96%91)
     - [운영 체제 및 플랫폼](#%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C-%EB%B0%8F-%ED%94%8C%EB%9E%AB%ED%8F%BC)
@@ -10,15 +10,15 @@
     - [2.1 Altibase 7.3 의 새로운 기능](#21-altibase-73-%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5)
       - [2.1.1 AKU(Altibase Kubernetes Utility)의 지원](#211-akualtibase-kubernetes-utility%EC%9D%98-%EC%A7%80%EC%9B%90)
       - [2.1.2 AltiShapeLoader 1.0제공](#212-altishapeloader-10%EC%A0%9C%EA%B3%B5)
-      - [2.1.3 JDBC 4.2 Spec 지원](#213-jdbc-42-spec-%EC%A7%80%EC%9B%90)
+      - [2.1.3 JDBC 4.2 스펙 지원](#213-jdbc-42-%EC%8A%A4%ED%8E%99-%EC%A7%80%EC%9B%90)
       - [2.1.4 OpensSSL 3.0.8 지원](#214-opensssl-308-%EC%A7%80%EC%9B%90)
-      - [2.1.5 기능 개선 - SQL 확장](#215-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---sql-%ED%99%95%EC%9E%A5)
-      - [2.1.6 기능 개선 - Spatial SQL 개선](#216-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---spatial-sql-%EA%B0%9C%EC%84%A0)
-      - [2.1.7 기능 개선 - 이중화 기능 개선](#217-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0)
-      - [2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스](#218-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-      - [2.1.9 기능 개선 - 내장패키지 및 함수](#219-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EB%82%B4%EC%9E%A5%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%B0%8F-%ED%95%A8%EC%88%98)
-      - [2.1.10 기능 개선 - 유틸리티](#2110-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---%EC%9C%A0%ED%8B%B8%EB%A6%AC%ED%8B%B0)
-      - [2.1.11 기능 개선 - JDBC Adapter, oraAdpater](#2111-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EC%84%A0---jdbc-adapter-oraadpater)
+      - [2.1.5 기능 개선 - SQL 확장](#215)
+      - [2.1.6 기능 개선 - Spatial SQL 개선](#216)
+      - [2.1.7 기능 개선 - 이중화 기능 개선](#217)
+      - [2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스](#218)
+      - [2.1.9 기능 개선 - 내장패키지 및 함수](#219)
+      - [2.1.10 기능 개선 - 유틸리티](#2110)
+      - [2.1.11 기능 개선 - JDBC Adapter, oraAdpater](#2111)
       - [2.1.12 성능 개선](#2112-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
       - [2.1.13 고가용성](#2113-%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
     - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
@@ -36,10 +36,18 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+</br>
 
+</br>
+
+</br>
 
 Altibase 7.3.0.0.1 Release Notes
 ===============================
+
+**(2023.08)** </br>
+
+
 
 ## 1. 시스템 요구사항
 
@@ -86,7 +94,7 @@ AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 스케일링(sc
 
 #### 2.1.2 AltiShapeLoader 1.0제공
 
-altiShapeLoader는 쉐이프파일<sup id="shapefile1">[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다. 
+altiShapeLoader는 쉐이프파일<sup id="shapefile1">[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다.
 
 #### 2.1.3 JDBC 4.2 스펙 지원
 
@@ -94,11 +102,11 @@ Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다. 
 
 #### 2.1.4 OpensSSL 3.0.8 지원
 
-보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - 서버프로퍼티 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95) 을 참고한다. 
+보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - 서버프로퍼티 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95) 을 참고한다.
 
 추가로 FIPS 모듈의 사용을 지원하는데, 이 기능을 이용하기 위해서는 SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - Step4 FIPS모듈을 사용할 경우](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-altibase-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-fips%EB%AA%A8%EB%93%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0) 를 참고한다.
 
-#### 2.1.5 기능 개선 - SQL 확장
+#### 2.1.5 기능 개선 - SQL 확장<b id="215"></b>
 
 ##### VARRAY TYPE 지원
 
@@ -130,11 +138,11 @@ CURSOR HOLD ON 기능을 이용하여 롤백할 때, Fetch out of sequence 에�
 
 ##### Sequence Restart 구문 지원
 
-시퀀스를 초기화하기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [**SQL Reference Manual** - ALTER SEQUENCE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 을 참고한다. 
+시퀀스를 초기화하기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [**SQL Reference Manual** - ALTER SEQUENCE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 을 참고한다.
 
 </br>
 
-#### 2.1.6 기능 개선 - Spatial SQL 개선
+#### 2.1.6 기능 개선 - Spatial SQL 개선<b id="216"></b>
 
 ##### SRID(Spatial Reference Identifier) interface 지원
 
@@ -151,7 +159,7 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 * ASEWKT
 * ASEWKB
-* GEOMFROMEWKT 
+* GEOMFROMEWKT
 * GEOMFROMEWKB
 * SETSRID
 * SRID
@@ -171,7 +179,7 @@ SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
 
 * ACSGetGeometrySRID
 
-#### 2.1.7 기능 개선 - 이중화 기능 개선
+#### 2.1.7 기능 개선 - 이중화 기능 개선<b id="217"></b>
 
 ##### 이중화 대상 테이블에 DDL 복제 기능 추가
 
@@ -191,11 +199,11 @@ DDL 복제를 사용하기 위해 다음의 제약 조건을 확인해야 한다
 
 #####  이중화 수신 전용(RECEIVE_ONLY) 옵션 제공
 
-이중화를 수신 전용 옵션으로 설정하여, 다른 노드로 변경 데이터를 전송하지 않는 기능을 제공한다. 수신 전용으로 이중화를 생성하면, 로그를 읽지 않으므로 네트워크 장애등의 이중화 이슈가 발생하여도 시스템에 영향을 주지 않는다. 자세한 설명은 [**Replication Manual** -  이중화 수신 전용 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication%20Manual.md#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%98%EC%8B%A0-%EC%A0%84%EC%9A%A9-%EC%98%B5%EC%85%98receive-only-option) 을 참고한다. 
+이중화를 수신 전용 옵션으로 설정하여, 다른 노드로 변경 데이터를 전송하지 않는 기능을 제공한다. 수신 전용으로 이중화를 생성하면, 로그를 읽지 않으므로 네트워크 장애등의 이중화 이슈가 발생하여도 시스템에 영향을 주지 않는다. 자세한 설명은 [**Replication Manual** -  이중화 수신 전용 옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication%20Manual.md#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%88%98%EC%8B%A0-%EC%A0%84%EC%9A%A9-%EC%98%B5%EC%85%98receive-only-option) 을 참고한다.
 
 
 
-#### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스
+#### 2.1.8 기능 개선 - 응용 프로그램 개발 인터페이스<b id="218"></b>
 
 ##### 인피니밴드(InfiniBand) 지원
 
@@ -273,7 +281,7 @@ DDL 복제를 사용하기 위해 다음의 제약 조건을 확인해야 한다
 
 </br>
 
-#### 2.1.9 기능 개선 - 내장패키지 및 함수
+#### 2.1.9 기능 개선 - 내장패키지 및 함수<b id="219"></b>
 
 ##### DBMS_STANDARD 패키지 제공
 
@@ -281,7 +289,7 @@ DBMS_STANDARD 패키지를 통해서 트리거 이벤트를 확인하는 함수�
 
 ##### DBMS_METADATA 패키지 제공
 
-DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다. 
+DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다.
 
 ##### DBMS_SQL_PLAN_CACHE 패키지 제공
 
@@ -299,11 +307,13 @@ PSM내에서 println 기능을 enable, disable 할수 있는 기능을 제공하
 
 SPATIAL_REF_SYS 테이블에 Spatial Reference System 메타 데이터를 등록, 삭제하는 기능을 제공한다.
 
-##### UTL_COPYSWAP 패키지 
+##### UTL_COPYSWAP 패키지
 
 UTL_COPYSWAP 패키지는 테이블 스키마 복사, 데이터 복제, 테이블 교환 인터페이스를 제공한다.
 
-#### 2.1.10 기능 개선 - 유틸리티
+</br>
+
+#### 2.1.10 기능 개선 - 유틸리티<b id="2110"></b>
 
 ##### AltiMon의 AIX 7, Power Linux LE(Little endian)에서 동작 지원
 
@@ -315,7 +325,7 @@ AIX 7 버전 및 Power Linux LE에서도 altimon을 사용할 수 있다.
 
 </br>
 
-#### 2.1.11 기능 개선 - JDBC Adapter, oraAdpater
+#### 2.1.11 기능 개선 - JDBC Adapter, oraAdpater<b id="2111"></b>
 
 ##### LOB데이터 타입 지원
 
@@ -378,7 +388,7 @@ LOB 데이터 타입의 지원을 위해 ADAPTER_LOB_TYPE_SUPPORT 프로퍼티�
 
 ##### Common Subexpression Elimination의 PREPARE 시간 단축
 
-CSE(Common Subexpression Elimination)는 조건절의 중복된 조건식을 찾아 제거하는 최적화 기능이다. CSE 수행 알고리즘을 개선하여 관련 쿼리의 성능을 개선하였다. 
+CSE(Common Subexpression Elimination)는 조건절의 중복된 조건식을 찾아 제거하는 최적화 기능이다. CSE 수행 알고리즘을 개선하여 관련 쿼리의 성능을 개선하였다.
 
 ##### 메모리 파티션드 테이블의 Simple query 최적화로 성능개선
 
@@ -616,17 +626,17 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   [JOB_MSGLOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_file)
 -   [JOB_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_flag)
 -   [JOB_MSGLOG_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#job_msglog_size%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
--   [LISTAGG_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#listagg_precision-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8) 
+-   [LISTAGG_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#listagg_precision-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
 -   [MATHEMATICS_TEMP_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#mathematics_temp_memory_maximum-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
 -   [NETWORK_ERROR_LOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#network_error_log_file)
 -   [PSM_MAX_DDL_REFERENCE_DEPTH](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_max_ddl_reference_depth)
 -   [REGEXP_MODE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#regexp_mode)  
 -   [REPLICATION_DDL_SYNC](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync)
--   [REPLICATION_DDL_SYNC_TIMEOUT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync_timeout--%EB%8B%A8%EC%9C%84--%EC%B4%88-) 
+-   [REPLICATION_DDL_SYNC_TIMEOUT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ddl_sync_timeout--%EB%8B%A8%EC%9C%84--%EC%B4%88-)
 -   [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
 -   [REPLICATION_IB_LATENCY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ib_latency)
 -   [REPLICATION_IB_PORT_NO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_ib_port_no)
--   [REPLICATION_META_ITEM_COUNT_DIFF_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_meta_item_count_diff_enable) 
+-   [REPLICATION_META_ITEM_COUNT_DIFF_ENABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_meta_item_count_diff_enable)
 -   [REPLICATION_RECEIVER_APPLIER_YIELD_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_receiver_applier_yield_count)
 -   [REPLICATION_SENDER_IP](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_sender_ip)
 -   [SERIAL_EXECUTE_MODE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#serial_execute_mode)
@@ -700,7 +710,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 - [PSM_VARCHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_varchar_default_precision)
 
   기본값이 32767에서 32000으로 변경되었다.
-  
+
 - [REPLICATION_EAGER_PARALLEL_FACTOR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_eager_parallel_factor)
 
   최소값이 1에서 2로 변경되었다.
@@ -836,6 +846,6 @@ https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/READM
 
 - shp : 벡터 형식으로 점, 선, 도형을 표현한 공간 데이터 정보를 가지고 있다.
 - shx : 인덱스 파일. shp 파일에 담겨있는 도형 정보의 위치를 담고 있다.
-- dbf : shp 파일의 도형 정보에 대한 속성 정보를 담은 dBASE 테이블 파일이다. 
+- dbf : shp 파일의 도형 정보에 대한 속성 정보를 담은 dBASE 테이블 파일이다.
 
 참고 : [Geoprocessing considerations for shapefile output](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/geoprocessing-considerations-for-shapefile-output.htm)
