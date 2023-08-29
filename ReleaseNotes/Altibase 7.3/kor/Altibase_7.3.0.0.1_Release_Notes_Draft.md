@@ -38,7 +38,7 @@
 
 
 
-Altibase 7.3.0.0.1 Release Notes(Draft)
+Altibase 7.3.0.0.1 Release Notes
 ===============================
 
 ## 1. 시스템 요구사항
@@ -114,7 +114,7 @@ Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버�
 
 ##### multiple update, delete 구문의 지원
 
-multiple update, delete 구문을 지원한다. 자세한 내용은 **SQL Reference Manual**- [multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_update) 을 참고한다.
+multiple update, delete 구문을 지원한다. 자세한 내용은 [**SQL Reference Manual** - multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_update) 을 참고한다.
 
 ##### 한글 검색 가능한 정규 표현식(Regular Expression) 지원
 
@@ -311,7 +311,7 @@ AIX 7 버전 및 Power Linux LE에서도 altimon을 사용할 수 있다.
 
 ##### AltiComp 커밋 카운트 설정 기능 추가
 
-커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [Altibase 7.3 Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Utilities%20Manual.md#count_to_commit) 에서 확인할 수 있다.
+커밋(commit) 카운트를 설정할 수 있는 프로퍼티 COUNT_TO_COMMIT가 추가되었다. 관련 내용은 [**Utilities Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Utilities%20Manual.md#count_to_commit) 에서 확인할 수 있다.
 
 </br>
 
@@ -401,7 +401,7 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 ##### 마이그레이션 성능 개선
 
-대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [iLoader User's Maunal - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
+대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [**iLoader User's Maunal** - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
 
 ##### JDBC fetch 성능 개선
 
@@ -777,7 +777,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 #### 2.2.6 성능 뷰
 
-아래의 성능 뷰 들이 추가되었다. 각 성능 뷰에 대한 자세한 내용은 [General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md)를 참고하기 바란다.
+아래의 성능 뷰 들이 추가되었다. 각 성능 뷰에 대한 자세한 내용은 [**General Reference-2.The Data Dictionary**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General%20Reference-2.The%20Data%20Dictionary.md)를 참고하기 바란다.
 
 ##### 새로운 성능 뷰
 
