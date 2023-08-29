@@ -1,7 +1,7 @@
 Adapter for Oracle User’s Manual
 ================
 
-#### Trunk
+#### Altibase 7.3
 
 Alitbase® Tools & Utilities
 
@@ -86,7 +86,7 @@ Alitbase® Tools & Utilities
 
 <pre>
 Altibase Tool & Utilities Adapter for JDBC User’s Manual
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -98,6 +98,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -861,7 +862,7 @@ If any environment variables or property settings are changed after oraAdapter h
 
 1. Check whether the Altibase REPLICATION_PORT_NO property[^1] has been set to a port number that is available for replication. If it is necessary to change this property setting, Altibase has to be restarted after the new value is given.
   
-   [^1]: REPLICATION_PORT_NO specifies the replication port number of a local server for a replication connection. For more detail about this property, please refer to the [General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_port_no).  
+   [^1]: REPLICATION_PORT_NO specifies the replication port number of a local server for a replication connection. For more detail about this property, please refer to the [General Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_port_no).  
 
 2. Before starting oraAdapter, it is also necessary to configure the XLog Sender so that the Altibase Log Analyzer (ALA) can be used. The XLog Sender is used to send XLogs and Meta information from Altibase. FOR ANALYSIS PROPAGATION is used to send logs from the transactions replicated with PROPAGABLE LOGGING to another server.
    In the following statement, an XLog Sender is created so that the data in table t1, which belongs to the sys user in Altibase, can be replicated to table t2, which belongs to the user scott in the Oracle DB.
@@ -989,23 +990,10 @@ To make oaUtility work properly, the user needs to check the following:
 oaUtility {start [ force ]}
 ```
 
-
-
 ##### Description
 
-<pre>
-Altibase Tool & Utilities Adapter for JDBC User’s Manual
-Trunk
-Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
-This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.<br>
-All trademarks, registered or otherwise, are the property of their respective owners.<br>
-<b>Altibase Corp</b>
-10F, Daerung PostTower II,
-306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone : +82-2-2082-1000 
-Fax       : +82-2-2082-1099
-Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
-Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+This is used to start oraAdapter as a daemon. The force option starts the oraAdapter without checking for a primary key constraint in the replication target table.
+
 
 #### oaUtility stop
 
@@ -1014,8 +1002,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 ```
 oaUtility {stop}
 ```
-
-
 
 ##### Description
 
