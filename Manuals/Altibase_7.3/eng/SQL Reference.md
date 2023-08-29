@@ -1,6 +1,6 @@
 # SQL Reference
 
-#### Trunk
+#### Altibase 7.3
 
 Altibase® Application Development
 
@@ -85,7 +85,7 @@ Altibase® Application Development
 
 <pre>
 Altibase Application Development SQL Reference
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -97,6 +97,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -1826,13 +1827,13 @@ If this hint is specified, the optimizer creates an execution plan that most eff
 
 This hint specifies that the full table scan will be performed for the specified table.
 
-![full scan](Manuals/Altibase_trunk/eng/media/SQL/full scan.gif)
+![full scan](media/SQL/full scan.gif)
 
 #### GROUP BUCKET COUNT
 
 This hint specifies the number of hash buckets for the GROUP-AGGREGATION and AGGREGATION execution nodes. 
 
-![group bucket count](Manuals/Altibase_trunk/eng/media/SQL/group bucket count.gif)
+![group bucket count](media/SQL/group bucket count.gif)
 
 #### GROUP_HASH
 
@@ -18090,20 +18091,7 @@ LTRIM compares each of the characters in *expr1* with each of the characters in 
 
 The default value for *expr2* is a single blank. Therefore, if *expr2* is omitted, blank spaces are trimmed from the left of *expr1.*
 
-##### <pre>
-Altibase Application Development Stored Procedures Manual
-Trunk
-Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
-This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
-software is prohibited.<br>
-All trademarks, registered or otherwise, are the property of their respective owners.<br>
-<b>Altibase Corp</b>
-10F, Daerung PostTower II,
-306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone : +82-2-2082-1000 
-Fax       : +82-2-2082-1099
-Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
-Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+##### Examplet
 
 \<Query\>  Trim all occurrences of the letters “a” and “b” from the beginning of the string “abaAabLEFT TRIM” and output the result.
 

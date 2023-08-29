@@ -1,7 +1,7 @@
 iSQL User’s Manual
 ==================
 
-#### Trunk
+#### Altibase 7.3
 
 Altibase® Tools & Utilities
 
@@ -86,7 +86,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities iSQL User's Manual
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -98,6 +98,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 

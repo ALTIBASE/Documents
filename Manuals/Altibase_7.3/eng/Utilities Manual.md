@@ -1,66 +1,7 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents** 
-
-- [Utilities Manual](#utilities-manual)
-- [Table Of Contents](#table-of-contents)
-- [Preface](#preface)
-    - [About This Manual](#about-this-manual)
-- [1. aexport](#1-aexport)
-    - [Introducing aexport](#introducing-aexport)
-    - [How to Use aexport](#how-to-use-aexport)
-- [2. altiComp](#2-alticomp)
-    - [Introducing altiComp](#introducing-alticomp)
-    - [How to Use altiComp](#how-to-use-alticomp)
-    - [Comparison (DIFF) Function](#comparison-diff-function)
-    - [Synchronization (SYNC) Function](#synchronization-sync-function)
-- [3. aku](#3-aku)
-  - [Introducing aku](#introducing-aku)
-    - [Overview](#overview)
-    - [Component](#component)
-  - [Setup to run aku](#setup-to-run-aku)
-    - [Prerequisite](#prerequisite)
-    - [Altibase Environment Variable](#altibase-environment-variable)
-    - [aku Properties](#aku-properties)
-  - [Execution of aku](#execution-of-aku)
-    - [Syntax](#syntax)
-    - [Parameters](#parameters)
-    - [Execution process of aku](#execution-process-of-aku)
-  - [Cautions](#cautions)
-    - [aku.conf](#akuconf)
-    - [Storage corruption in Master Pod](#storage-corruption-in-master-pod)
-    - [If the situation in which Pod was force terminated before `aku -p end` command completed, continues for a long time](#if-the-situation-in-which-pod-was-force-terminated-before-aku--p-end-command-completed-continues-for-a-long-time)
-  - [Example](#example)
-    - [aku -i](#aku--i)
-    - [aku -p start on a Master Pod](#aku--p-start-on-a-master-pod)
-    - [aku -p start on the 4th Pod](#aku--p-start-on-the-4th-pod)
-    - [aku -p end on the 4th Pod](#aku--p-end-on-the-4th-pod)
-- [4. Other Utilities](#4-other-utilities)
-    - [altiAudit](#altiaudit)
-    - [altibase](#altibase)
-    - [altiMon](#altimon)
-    - [altierr](#altierr)
-    - [altipasswd](#altipasswd)
-    - [altiProfile](#altiprofile)
-    - [altiwrap](#altiwrap)
-    - [awrite](#awrite)
-    - [checkServer](#checkserver)
-    - [dumpbi](#dumpbi)
-    - [dumpct](#dumpct)
-    - [dumpdb](#dumpdb)
-    - [dumpddf](#dumpddf)
-    - [dumpla](#dumpla)
-    - [dumplf](#dumplf)
-    - [dumptrc](#dumptrc)
-    - [killCheckServer](#killcheckserver)
-    - [server](#server)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 Utilities Manual
 ================
 
-#### Trunk
+#### Altibase 7.3
 
 Altibase® Tools & Utilities
 
@@ -145,7 +86,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Manual
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -157,6 +98,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -172,7 +114,13 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [How to Use altiComp](#how-to-use-alticomp)
   - [Comparison (DIFF) Function](#comparison-diff-function)
   - [Synchronization (SYNC) Function](#synchronization-sync-function)
-- [3. Other Utilities](#3-other-utilities)
+- [3. aku](#3-aku)
+  - [Introducing aku](#introducing-aku)
+  - [Setup to run aku](#setup-to-run-aku)
+  - [Execution of aku](#execution-of-aku)
+  - [Cautions](#cautions)
+  - [Example](#example)
+- [4. Other Utilities](#4-other-utilities)
   - [altiAudit](#altiaudit)
   - [altibase](#altibase)
   - [altiMon](#altimon)
