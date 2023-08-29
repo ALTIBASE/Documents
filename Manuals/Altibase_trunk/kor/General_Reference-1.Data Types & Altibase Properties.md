@@ -4172,8 +4172,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>&nbsp;</td>
   </tr>
   <tr>
-  <td rowspan="69">M</td>
-  <td rowspan="69">&nbsp;</td>
+  <td rowspan="73">M</td>
+  <td rowspan="73">&nbsp;</td>
   <td>ALL_MSGLOG_FLUSH</td>
   <td>SYSTEM</td>
   </tr>
@@ -4379,13 +4379,31 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>SM_MSGLOG_RESERVE_SIZE</td>
-  <td rowspan="3">&nbsp;</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>SM_MSGLOG_SIZE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_FILE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_FLAG</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>TRC_MSGLOG_RESERVE_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>TRCLOG_DETAIL_PREDICATE</td>
@@ -14403,6 +14421,96 @@ Unsigned Integer
 서버 오류 메시지가 저장되는 파일을 위해 디스크에 미리 확보해 둘 공간의 크기를
 지정한다.
 
+#### JOB_MSGLOG_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup>-1]
+
+##### 설명
+
+JOB 관련 메시지 파일의 최대 개수를 지정한다.
+
+#### JOB_MSGLOG_FILE
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+altibase_job.log
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+JOB 처리 시에 발생하는 메시지가 기록되는 파일이다.
+
+#### JOB_MSGLOG_FLAG
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+2
+
+##### 속성
+
+변경가능, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup> –1]
+
+##### 설명
+
+JOB 에서 발생하는 경고 메시지나 트레이스 메시지를 JOB_MSGLOG_FILE에 기록할지를 나타내는 플래그 값이다.
+
+0이면 기록하지 않고, 0 보다 큰 값이면 기록한다.
+
+#### JOB_MSGLOG_SIZE(단위 : 바이트)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10 \* 1024 \* 1024
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup>-1]
+
+##### 설명
+
+JOB 관련 메시지 파일의 최대 크기를 지정한다.
+
 #### LB_MSGLOG_COUNT 
 
 ##### 데이터 타입
@@ -14864,96 +14972,6 @@ Altibase에서 수행된 작업과 서버의 상태 정보가 기록되는 파�
 경로를 지정한다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-#### JOB_MSGLOG_COUNT
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-10
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 2<sup>32</sup>-1]
-
-##### 설명
-
-JOB 관련 메시지 파일의 최대 개수를 지정한다.
-
-#### JOB_MSGLOG_FILE
-
-##### 데이터 타입
-
-String
-
-##### 기본값
-
-altibase_job.log
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-없음
-
-##### 설명
-
-JOB 처리 시에 발생하는 메시지가 기록되는 파일이다.
-
-#### JOB_MSGLOG_FLAG
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-2
-
-##### 속성
-
-변경가능, 단일 값
-
-##### 값의 범위
-
-[0, 2<sup>32</sup> –1]
-
-##### 설명
-
-JOB 에서 발생하는 경고 메시지나 트레이스 메시지를 JOB_MSGLOG_FILE에 기록할지를 나타내는 플래그 값이다.
-
-0이면 기록하지 않고, 0 보다 큰 값이면 기록한다.
-
-#### JOB_MSGLOG_SIZE(단위 : 바이트)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-10 \* 1024 \* 1024
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 2<sup>32</sup>-1]
-
-##### 설명
-
-JOB 관련 메시지 파일의 최대 크기를 지정한다.
 
 #### RP_CONFLICT_MSGLOG_COUNT
 
@@ -15486,6 +15504,98 @@ Unsigned Integer
 ##### 설명
 
 저장 관리자 메시지 파일의 최대 크기를 지정한다.
+
+#### ST_MSGLOG_FLAG
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+altibase_st.log 파일에 st관련 정보를 기록한다.
+
+* 0: st 정보 기록하지 않는다.
+
+* 1: st 정보를 기록한다. 
+
+#### ST_MSGLOG_COUNT
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup>-1]
+
+##### 설명
+
+공간연산 메시지 파일의 최대 개수를 지정한다
+
+#### ST_MSGLOG_FILE
+
+##### 데이터 타입
+
+String
+
+##### 기본값
+
+altibase_st.log
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+없음
+
+##### 설명
+
+공간 연산 처리 시에 발생하는 메시지가 기록되는 파일이다.
+
+#### ST_MSGLOG_SIZE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+10 * 1024 * 1024
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 2<sup>32</sup> -1]
+
+##### 설명
+
+공간연산 메시지 파일의 최대 크기를 지정한다.
 
 #### TRC_MSGLOG_RESERVE_SIZE (단위 : 바이트)
 
@@ -17263,8 +17373,6 @@ Unsigned Integer
 
 ##### 설명
 
-##### 설명
-
 정규 표현식 모드를 설정하는 프로퍼티로, 설정값의 의미는 아래와 같다.
 
 > **0**
@@ -17279,7 +17387,7 @@ PCRE2 호환 모드.
 
 펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리의 정규 표현식 문법을 지원한다.
 
-이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
+이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
 
 #### VARRAY_MEMORY_MAXIMUM
 
