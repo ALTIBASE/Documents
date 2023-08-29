@@ -375,9 +375,9 @@ jdbcAdapter를 설치하고 실행하기 위해서는 다음의 시스템 요구
 
 #### 데이터베이스 버전
 
--   Altibase : 버전 6.3.1 이상 버전 지원
--   OTHER DB : JDBC v3.0 이상을 지원 하는 데이터베이스 중 Altibase와 동일한 DML 구문을 사용하는 데이터 베이스
--   OTHER DB로 사용 가능한것이 확인된 데이터 베이스
+-   Altibase : 버전 6.3.1 이상
+-   OTHER DB : JDBC v4.1 이하를 지원 하는 데이터베이스 중 Altibase와 동일한 DML 구문을 사용하는 데이터베이스
+-   OTHER DB로 사용 가능이 확인된 데이터베이스
     -   Altibase
     -   Oracle
     -   MariaDB
