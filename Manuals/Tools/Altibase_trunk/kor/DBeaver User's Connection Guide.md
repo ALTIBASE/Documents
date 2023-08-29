@@ -50,7 +50,6 @@ Altibase® Tools & Utilities
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
@@ -108,17 +107,23 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
+<br>
 
+# 목차
 
+- [서문](#%EC%84%9C%EB%AC%B8)
+- [1. DBeaver for Altibase 소개](#1-dbeaver-for-altibase-%EC%86%8C%EA%B0%9C)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+    - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
+- [2. Altibase 데이터베이스 시스템 연결](#2-altibase-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%97%B0%EA%B2%B0)
 
 <br>
 
 서문
 ====
 
-### 이 매뉴얼에 대하여
-
-이 매뉴얼은 DBeaver로 Altibase 데이터베이스에 연결하는 방법을 기술한다.
+이 매뉴얼은 DBeaver 처음 사용자를 위해 설치 및 Altibase 데이터베이스에 연결하는 방법을 기술한다.
 
 #### 대상 사용자
 
@@ -244,48 +249,77 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 <br/>
 
-# 1. Altibase 데이터베이스 연결
+# 1. DBeaver for Altibase 소개
 
-이 장은 DBeaver를 처음 접하는 사용자들이 Altibase 데이터베이스 연결을 위한 각
-단계별 간략한 지침을 제공한다.
+이 장은 DBeaver를 처음 접하는 사용자을 위해  개요, 시스템 요구사항, 그리고 설치 및 제거 방법에 대해 소개한다. 이 장은 다음의 절로 구성된다.
 
-### 호환 가능한 Altibase 데이터베이스 시스템
+- 개요
+- 시스템 요구사항
+- 설치 및 제거
 
-이 절은 DBeaver와 호환되는 Altibase 데이터베이스 관리 시스템을 열거한다.
+### 개요 
+
+DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터 베이스 툴이다. 80가지 이상의 데이터베이스 시스템에 연결하여 데이터 조작, 데이터 베이스 객체 관리 기능, SQL 편집기, SQL Plan 뷰어, 데이터베이스 연결 세션 모니터링 등의 기능을 제공한다.
+
+Altibase에서 제공하는 DBeaver 패키지는 기존 호환되는 데이터베이스 시스템과 더불어 Altibase에 연결 및 앞서 기술한 다양한 기능들을 제공한다. 
+
+DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki을 참조한다.
+
+### 시스템 요구사항
+
+#### 소프트웨어 요구 사항
+
+##### 지원하는 OS 및 플랫폼
+
+Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우즈용 패키지를 제공한다.
+
+##### 호환 가능한 Altibase 데이터베이스 시스템
+
+DBeaver와 호환되는 Altibase 데이터베이스 관리 시스템을 열거한다. 
 
 - Altibase 7.1.0 이상 버전
 
-### Altibase 데이터베이스 연결 단계
+### 설치 및 제거
 
-#### 새 데이터베이스 연결
+DBeaver는 공식 Altibase 고객서비스포털 <http://support.altibase.com>에서 내려받을 수 있으며 zip 파일 형식으로 제공된다.
+
+설치는 압축을 풀기만 하면 된다. 결과로 생긴 디렉토리 안에는 dbeaver.exe를 포함해 plugins, feature 등 하위 디렉토리 및 파일들이 존재한다. 이 폴더를 원하는 위치로 옮긴다. 이제 DBeaver를 사용할 준비가 되었다. dbeaver.exe를 클릭하면 프로그램이 구동된다.
+
+DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
+
+# 2. Altibase 데이터베이스 시스템 연결
+
+이 장은 DBeaver 설치 후 Altibase에 연결하기 위한 방법을 단계별로 제공한다.
+
+#### 1. 새 데이터베이스 연결
 
 [ 데이터베이스 ] → [ 새 데이터베이스 연결 ]
 
 ![connect1](media\DBeaver\connect1.png)
 
-#### Altibase 선택
+#### 2. Altibase database 선택
 
 All 또는 SQL에서 Altibase를 선택 후 [ Next > ] 버튼을 클릭한다.
 
 ![connect2](media\DBeaver\connect2.png)
 
-#### 데이터베이스 접속 정보 입력
+#### 3. 데이터베이스 접속 정보 입력
 
-Host, Port, Schema, Username, Password 칸에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.
+Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.
 
 ![connect3](media\DBeaver\connect3.png)
 
-#### JDBC 파일
+#### 4. JDBC 파일
 
-##### 자동 다운로드
+접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. ![auto1](media\DBeaver\auto1.png)
 
-접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 접속이 추가된다.
+처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 파일이 없기 때문에 '자동 다운로드' 또는 'JDBC 파일 제공' 수행을 통해 JDBC 파일을 제공해야 접속이 가능하다.
 
-![auto1](media\DBeaver\auto1.png)
+Altibase 연결 정보(mydb)를 더블 클릭하면 연결을 시도한다. 
 
+##### 4.1 자동 다운로드
 
-
-추가한 접속 정보를 더블 클릭하면 연결을 시도한다. 하지만 JDBC 파일이 없기 때문에 Driver settings 창이 표시되고 JDBC 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
+데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는  Altibase JDBC 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
 
 ![auto2](media\DBeaver\auto2.png)
 
@@ -293,11 +327,11 @@ Download 를 클릭하여 JDBC 파일을 다운로드한다.
 
 ![auto3](media\DBeaver\auto3.png)
 
-다운로드가 완료되면 데이터베이스 연결이 완료된다.
+다운로드가 완료되면 데이터베이스 연결이 수행된다.
 
-##### JDBC 파일 제공
+##### 4.2 JDBC 파일 제공
 
-데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
+인터넷에 접속할 수 없는 환경이면, 사용자가 JDBC 파일을 수동으로 제공해야 한다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
 
 ![connect4](media\DBeaver\connect4.png)
 
@@ -317,20 +351,17 @@ Global libraries 에 사용할 JDBC 파일 위치를 추가하고 Apply and Clos
 
 ![connect8](media\DBeaver\connect8.png)
 
-#### 데이터베이스 연결 완료
+#### 5. 데이터베이스 연결 완료
 
-Database Navigator 탭에서 등록한 데이터베이스 접속 정보 등록 목록을 확인할 수 있다.
+Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록을 확인할 수 있다.
 
-필요 시 디폴트로 설정된 mydb 접속 정보 이름을 원하는 이름으로 변경할 수 있다.
-
-![connect10](media\DBeaver\connect10.png)
-
-등록한 접속 정보를 더블 클릭하면 접속을 연결할 수 있다. 연결된 접속은 아이콘에 초록색 체크 표시가 나타난다.
+목록의 데이터베이스 연결 정보를 더블 클릭하면 접속을 시도하며, 성공적으로 연결되면 아이콘에 초록색 체크 표시가 나타난다.
 
 ![connect9](media\DBeaver\connect9.png)
 
+필요시 mydb 데이터베이스 연결 정보 이름을 원하는이름으로 변경할 수 있다.
+
+![connect10](media\DBeaver\connect10.png)
 
 
-### DBeaver 상세 매뉴얼
 
-DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터 베이스 툴이다. 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki을 참조한다.
