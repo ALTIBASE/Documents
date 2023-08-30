@@ -254,7 +254,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 ### 개요 
 
-DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터 베이스 툴이다. 80가지 이상의 데이터베이스 시스템에 연결하여 데이터 조작, 데이터 베이스 객체 관리 기능, SQL 편집기, SQL Plan 뷰어, 데이터베이스 연결 세션 모니터링 등의 기능을 제공한다.
+DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터베이스 툴이다. 80가지 이상의 데이터베이스 시스템에 연결하여 데이터 조작, 데이터베이스 객체 관리 기능, SQL 편집기, SQL Plan 뷰어, 데이터베이스 연결 세션 모니터링 등의 기능을 제공한다.
 
 Altibase에서 제공하는 DBeaver 패키지는 기존 호환되는 데이터베이스 시스템과 더불어 Altibase에 연결 및 앞서 기술한 다양한 기능들을 제공한다. 
 
@@ -330,11 +330,11 @@ Libraries 탭의 Add File을 클릭한다.
 
 ![connect5](media/DBeaver/connect5.png)
 
-사용할 Altibase JDBC 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
+사용할 Altibase JDBC 드라이버 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
 
 ![connect6](media/DBeaver/connect6.png)
 
-Global libraries 에 사용할 JDBC 파일 위치를 추가하고 Apply and Close 를 클릭한다.
+Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 Apply and Close 를 클릭한다.
 
 ![connect7](media/DBeaver/connect7.png)
 
