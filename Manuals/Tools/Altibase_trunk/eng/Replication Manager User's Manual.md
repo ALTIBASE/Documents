@@ -1,7 +1,7 @@
 Replication Manager User’s Manual
 ================
 
-#### Release 1.4
+#### Release 1.5
 
 Alitbase® Tools & Utilities
 
