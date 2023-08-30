@@ -258,7 +258,7 @@ DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터 베이스 �
 
 Altibase에서 제공하는 DBeaver 패키지는 기존 호환되는 데이터베이스 시스템과 더불어 Altibase에 연결 및 앞서 기술한 다양한 기능들을 제공한다. 
 
-DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki을 참조한다.
+DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki 를 참조한다.
 
 ### 시스템 요구사항
 
@@ -300,29 +300,29 @@ Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이
 
 ![connect3](media/DBeaver/connect3.png)
 
-#### 4. JDBC 파일
+#### 4. JDBC 드라이버 파일
 
 접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. ![auto1](media/DBeaver/auto1.png)
 
-처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 파일이 없기 때문에 '자동 다운로드' 또는 'JDBC 파일 제공' 수행을 통해 JDBC 파일을 제공해야 접속이 가능하다.
+처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 드라이버 파일이 없기 때문에, JDBC 드라이버 파일을 등록해야 접속이 가능하다. '4.1 자동 다운로드' 또는 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
 
 Altibase 연결 정보(mydb)를 더블 클릭하면 연결을 시도한다. 
 
 ##### 4.1 자동 다운로드
 
-데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는  Altibase JDBC 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
+데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는  Altibase JDBC 드라이버 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 드라이버 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
 
 ![auto2](media/DBeaver/auto2.png)
 
-Download 를 클릭하여 JDBC 파일을 다운로드한다.
+Download 를 클릭하여 JDBC 드라이버 파일을 다운로드한다.
 
 ![auto3](media/DBeaver/auto3.png)
 
 다운로드가 완료되면 데이터베이스 연결이 수행된다.
 
-##### 4.2 JDBC 파일 제공
+##### 4.2 수동으로 JDBC 드라이버 등록
 
-인터넷에 접속할 수 없는 환경이면, 사용자가 JDBC 파일을 수동으로 제공해야 한다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
+사용자가 JDBC 드라이버를 직접 등록할 수 있다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
 
 ![connect4](media/DBeaver/connect4.png)
 
@@ -350,7 +350,7 @@ Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록�
 
 ![connect9](media/DBeaver/connect9.png)
 
-필요시 mydb 데이터베이스 연결 정보 이름을 원하는이름으로 변경할 수 있다.
+필요시 mydb 데이터베이스 연결 정보 이름을 원하는 이름으로 변경할 수 있다.
 
 ![connect10](media/DBeaver/connect10.png)
 
