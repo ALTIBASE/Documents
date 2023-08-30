@@ -278,9 +278,7 @@ DBeaver와 호환되는 Altibase 서버 버전을 열거한다.
 
 DBeaver는 공식 Altibase 고객서비스포털 <http://support.altibase.com>에서 내려받을 수 있으며 zip 파일 형식으로 제공된다.
 
-설치는 원하는 폴더에 압축을 풀면 완료된다. 결과로 생긴 디렉토리 안에는 dbeaver.exe를 포함해 plugins, feature 등 하위 디렉토리 및 파일들이 존재한다. 
-
-DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
+설치는 원하는 폴더에 압축을 풀면 완료된다. DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
 
 ### Altibase 데이터베이스 시스템 연결
 
@@ -288,23 +286,23 @@ DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭�
 
 [ 데이터베이스 ] → [ 새 데이터베이스 연결 ]
 
-![connect1](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect1.png)
+![connect1](media/DBeaver/connect1.png)
 
 #### 2. Altibase database 선택
 
 All 또는 SQL에서 Altibase를 선택 후 [ Next > ] 버튼을 클릭한다.
 
-![connect2](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect2.png)
+![connect2](media/DBeaver/connect2.png)
 
 #### 3. 데이터베이스 접속 정보 입력
 
 Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.
 
-![connect3](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect3.png)
+![connect3](media/DBeaver/connect3.png)
 
 #### 4. JDBC 파일
 
-접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. ![auto1](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\auto1.png)
+접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. ![auto1](media/DBeaver/auto1.png)
 
 처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 파일이 없기 때문에 '자동 다운로드' 또는 'JDBC 파일 제공' 수행을 통해 JDBC 파일을 제공해야 접속이 가능하다.
 
@@ -314,11 +312,11 @@ Altibase 연결 정보(mydb)를 더블 클릭하면 연결을 시도한다.
 
 데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는  Altibase JDBC 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
 
-![auto2](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\auto2.png)
+![auto2](media/DBeaver/auto2.png)
 
 Download 를 클릭하여 JDBC 파일을 다운로드한다.
 
-![auto3](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\auto3.png)
+![auto3](media/DBeaver/auto3.png)
 
 다운로드가 완료되면 데이터베이스 연결이 수행된다.
 
@@ -326,23 +324,23 @@ Download 를 클릭하여 JDBC 파일을 다운로드한다.
 
 인터넷에 접속할 수 없는 환경이면, 사용자가 JDBC 파일을 수동으로 제공해야 한다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
 
-![connect4](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect4.png)
+![connect4](media/DBeaver/connect4.png)
 
 Libraries 탭의 Add File을 클릭한다.
 
-![connect5](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect5.png)
+![connect5](media/DBeaver/connect5.png)
 
 사용할 Altibase JDBC 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
 
-![connect6](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect6.png)
+![connect6](media/DBeaver/connect6.png)
 
 Global libraries 에 사용할 JDBC 파일 위치를 추가하고 Apply and Close 를 클릭한다.
 
-![connect7](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect7.png)
+![connect7](media/DBeaver/connect7.png)
 
 설정이 완료되었다면 OK 버튼을 클릭하고, 마지막으로 Finish 버튼을 클릭하여 설정을 완료한다.
 
-![connect8](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect8.png)
+![connect8](media/DBeaver/connect8.png)
 
 #### 5. 데이터베이스 연결 완료
 
@@ -350,11 +348,11 @@ Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록�
 
 목록의 데이터베이스 연결 정보를 더블 클릭하면 연결을 시도하며, 성공적으로 연결되면 아이콘에 초록색 체크 표시가 나타난다.
 
-![connect9](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect9.png)
+![connect9](media/DBeaver/connect9.png)
 
 필요시 mydb 데이터베이스 연결 정보 이름을 원하는이름으로 변경할 수 있다.
 
-![connect10](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect10.png)
+![connect10](media/DBeaver/connect10.png)
 
 
 
