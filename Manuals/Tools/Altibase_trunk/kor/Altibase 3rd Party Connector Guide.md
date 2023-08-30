@@ -266,11 +266,11 @@ DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki을 참조한
 
 ##### 지원하는 OS 및 플랫폼
 
-Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우즈용 패키지를 제공한다.
+Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우용 패키지를 제공한다.
 
-##### 호환 가능한 Altibase 데이터베이스 시스템
+##### 호환되는 Altibase 서버 버전
 
-DBeaver와 호환되는 Altibase 데이터베이스 관리 시스템을 열거한다. 
+DBeaver와 호환되는 Altibase 서버 버전을 열거한다.
 
 - Altibase 7.1.0 이상 버전
 
@@ -348,7 +348,7 @@ Global libraries 에 사용할 JDBC 파일 위치를 추가하고 Apply and Clos
 
 Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록을 확인할 수 있다.
 
-목록의 데이터베이스 연결 정보를 더블 클릭하면 접속을 시도하며, 성공적으로 연결되면 아이콘에 초록색 체크 표시가 나타난다.
+목록의 데이터베이스 연결 정보를 더블 클릭하면 연결을 시도하며, 성공적으로 연결되면 아이콘에 초록색 체크 표시가 나타난다.
 
 ![connect9](D:\git\GitHub\ALTIBASE_Documents\Manuals\Tools\Altibase_trunk\kor\media\DBeaver\connect9.png)
 
