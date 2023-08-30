@@ -4849,9 +4849,6 @@ iSQL> SELECT * FROM V$TAB;
 | V\$STABLE_MEM_DATAFILES               | 데이터 파일의 전체 경로 정보                                 |
 | V\$STATEMENT                          | 현재 Altibase에 생성된 모든 세션의 구문 정보                 |
 | V\$STATNAME                           | 시스템 및 세션 상태와 이름 정보                              |
-| V\$ST_ANGULAR_UNIT                    | 향후 확장 예정                                               |
-| V\$ST_AREA_UNIT                       | 향후 확장 예정                                               |
-| V\$ST_LINEAR_UNIT                     | 향후 확장 예정                                               |
 | V\$SYSSTAT                            | 시스템 상태 정보                                             |
 | V\$SYSTEM_CONFLICT_PAGE               | 페이지 타입 별 래치 경합 정보                                |
 | V\$SYSTEM_EVENT                       | 구동부터 현재까지의 대기 이벤트별 누적된 대기 통계 정보      |

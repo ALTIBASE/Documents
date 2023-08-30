@@ -1,6 +1,6 @@
 # General Reference-2.The Data Dictionary
 
-#### Trunk
+#### Altibase 7.3
 
 Altibase® Administration
 
@@ -85,7 +85,7 @@ Altibase® Administration
 
 <pre>
 Altibase Administration General Reference
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -97,6 +97,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -2681,7 +2682,7 @@ This describes the replication conflict resolution method.
 - 1: Act as the Master server
 - 2: Act as the Slave server
 
-Please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md)* for more detailed information about replication conflict resolution methods.
+Please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md)* for more detailed information about replication conflict resolution methods.
 
 ##### REPL_MODE
 
@@ -2692,7 +2693,7 @@ This is the default replication mode, which is set when the replication object i
 
 The default replication mode is used if the ALTER SESSION SET REPLICATION statement is not used to set the replication mode for a session.
 
-For more detailed information about the default replication mode, please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md)*, and for detailed information about the ALTER SESSION SET REPLICATION statement, please refer to the [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md).
+For more detailed information about the default replication mode, please refer to the *[Replication Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md)*, and for detailed information about the ALTER SESSION SET REPLICATION statement, please refer to the [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md).
 
 ##### ROLE
 
@@ -2703,7 +2704,7 @@ This indicates the role of the Sender thread.
 - 2: Propagable Logging (Replication propagable logs)
 - 3: Propagation (Send propagable logs)
 
-For more detailed information, please refer to the *[Log Analyzer User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Log%20Analyzer%20User's%20Manual.md)*.
+For more detailed information, please refer to the *[Log Analyzer User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Log%20Analyzer%20User's%20Manual.md)*.
 
 ##### OPTIONS
 
@@ -4217,7 +4218,7 @@ This meta table is used to manage and specify SRID in the GEOMETRY column. The s
 
 This meta table is used to manage information about SRID and the SRS according to it. The synonym of this meta table is SPATIAL_REF_SYS.
 
-To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/Altibase/Documents/blob/master/Manuals/Altibase_trunk/eng/Spatial%20SQL%20Reference.md).
+To add SRS meta data to SPATIAL_REF_SYS table and to delete from it, ADD_SPATIAL_REF_SYS and DELETE_SPATIAL_REF_SYS procedures in SYS_SPATIAL package should be used. It is recommended to set SRID and AUTH_SRID's value the same when adding the meta data. For more information, please refer to [*Spatial Manual*](https://github.com/Altibase/Documents/blob/master/Manuals/Altibase_7.3/eng/Spatial%20SQL%20Reference.md).
 
 | Column name | Type          | Description                                                  |
 | ----------- | ------------- | ------------------------------------------------------------ |

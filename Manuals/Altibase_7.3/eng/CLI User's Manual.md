@@ -1,6 +1,6 @@
 # CLI User's Manual
 
-#### Trunk
+#### Altibase 7.3
 
 Altibase® Application Development
 
@@ -85,7 +85,7 @@ Altibase® Application Development
 
 <pre>
 Altibase Application Development Altibase CLI User's Manual
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -97,6 +97,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -2244,7 +2245,7 @@ The following table lists the columns of the result sets.
 | SQL_DATA_TYPE     | 14   | SMALLINT (NOT NULL) | SQL data type                                                |
 | SQL_DATETIME_SUB  | 15   | SMALLINT            | Subtype code for the data type. NULL is returned for other data types. |
 | CHAR_OCTET_LENGTH | 16   | INTEGER             | Maximum digits of the character of binary datatype string. For other data types, NULL will be returned. |
-| ORDINAL_POSITION  | 17   | INTEGER (NOT NULL)  | <pre>Altibase Application Development Application Program Interface User’s ManualTrunkCopyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of thesoftware is prohibited.<br>All trademarks, registered or otherwise, are the property of their respective owners.<br><b>Altibase Corp</b>10F, Daerung PostTower II,306, Digital-ro, Guro-gu, Seoul 08378, KoreaTelephone : +82-2-2082-1000 Fax       : +82-2-2082-1099Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre> |
+| ORDINAL_POSITION  | 17   | INTEGER (NOT NULL)  | Column order of the table. The first column number is 1 in the table. |
 | IS_NULLABLE       | 18   | VARCHAR             | NO : When the column does not include NULL:YES : When the column includes NULL: |
 
 #### Diagnosis		

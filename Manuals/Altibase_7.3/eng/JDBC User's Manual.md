@@ -1,7 +1,7 @@
 JDBC User’s Manual
 ==================
 
-#### Trunk
+#### Altibase 7.3
 
 Altibase® Application Development
 
@@ -86,7 +86,7 @@ Altibase® Application Development
 
 <pre>
 Altibase Application Development JDBC User’s Manual
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>

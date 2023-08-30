@@ -1,7 +1,7 @@
 Administrator’s Manual
 ================
 
-#### Trunk
+#### Altibase 7.3
 
 Altibase® Administration
 
@@ -86,7 +86,7 @@ Altibase® Administration
 
 <pre>
 Altibase Administration Administrator’s Manual
-Trunk
+Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -98,6 +98,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -522,7 +523,7 @@ In the main memory database, fuzzy checkpointing stores all changed data pages i
 
 A stored procedure is a database procedure that takes an input argument, an output argument, and an input/output argument and executes multiple SQL statements at once depending on conditions defined in the body.
 
-The stored procedure is functionally classified as either a procedure or a function depending on whether it returns a value or not. Please refer to the [*Stored Procedure User's Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md) for more detailed information.
+The stored procedure is functionally classified as either a procedure or a function depending on whether it returns a value or not. Please refer to the [*Stored Procedure User's Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md) for more detailed information.
 
 #### Deadlock Detection
 
@@ -721,21 +722,21 @@ This section describes the purpose and contents of each of these directories.
 
 #### APatch Directory
 
-This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the *[Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Installation%20Guide.md#apatch-directory).*
+This directory contains information about Altibase installation and patches. It also contains information about the environment Altibase product was built, logs written during the installation and files required to rollback the patches. For more detailed information, please refer to the *[Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Installation%20Guide.md#apatch-directory).*
 
 #### admin Directory
 
-This directory contains the adminview.sql script file, which creates views related to Altibase system information, as well as other script files for creating stored procedures that are used to view information related to tables, stored procedures, and replication objects. For more detailed information, please refer to the *[Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Installation%20Guide.md#apatch-directory).*
+This directory contains the adminview.sql script file, which creates views related to Altibase system information, as well as other script files for creating stored procedures that are used to view information related to tables, stored procedures, and replication objects. For more detailed information, please refer to the *[Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Installation%20Guide.md#apatch-directory).*
 
 #### altiComp Directory
 
 This directory contains sample script files for the altiComp feature which synchronizes mismatching data during replication.
 
-For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#2-alticomp)*.
+For more detailed information about the altiComp utility, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md#2-alticomp)*.
 
 #### altiMon Directory
 
-This directory contains xml configuration files, shell scripts, sql files, log directories required to run altiMon(Altibase Monitoring Daemon). For more information about the subdirectories, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#altimon)*.
+This directory contains xml configuration files, shell scripts, sql files, log directories required to run altiMon(Altibase Monitoring Daemon). For more information about the subdirectories, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md#altimon)*.
 
 #### arch_logs Directory
 
@@ -753,20 +754,20 @@ altiComp, checkServer, dumpbi, dumpct, dumpdb, dumpddf, dumpla, dumplf, iloader,
 isql, killCheckServer, server, apre
 ```
 
-For more detailed information on iloader, isql and apre, please refer to the *[iLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md), [iSQL User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iSQL%20User's%20Manual.md)*, and *[Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Precompiler%20User%E2%80%99s%20Manual.md)*.
+For more detailed information on iloader, isql and apre, please refer to the *[iLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/iLoader%20User's%20Manual.md), [iSQL User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/iSQL%20User's%20Manual.md)*, and *[Precompiler User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Precompiler%20User%E2%80%99s%20Manual.md)*.
 
-For more detailed information about other utilities, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md)*.
+For more detailed information about other utilities, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md)*.
 
 #### conf Directory
 
 This directory contains the following files:
 
 -   altibase_user.env: the file for setting the environment variables necessary for running Altibase
--   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2-altibase-properties)*.
+-   altibase.properties: the configuration file for Altibase. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#2-altibase-properties)*.
 -   license: the Altibase license file
--   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#database-link-properties)*.
--   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#list-of-aexport-properties)*.
--   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#altipasswd)*.
+-   dblink.conf: the configuration file for database link. For more detailed information on the configurable properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#database-link-properties)*.
+-   aexport.properties: the configuration file for aexport. For more detailed information on the configurable properties, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md#list-of-aexport-properties)*.
+-   syspassword: the file password of sys user is stored. For more detailed information on how to use this file, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md#altipasswd)*.
 
 #### dbs Directory
 
@@ -806,33 +807,33 @@ This directory contains an altibase_env.mk file and a README file that contain m
 
 #### lib Directory
 
-This directory contains an application development library for developing client applications and contains the following files. For more detailed information on how to write applications using these library files, please refer to the *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Getting%20Started%20Guide.md)*.
+This directory contains an application development library for developing client applications and contains the following files. For more detailed information on how to write applications using these library files, please refer to the *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Getting%20Started%20Guide.md)*.
 
 ##### Altibase.jar
 
-This is the JDBC driver for accessing Altibase via Java applications. This is a Type 4 driver, and is thus a Pure Java driver. For more detailed information, please refer to the *[JDBC User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/JDBC%20User's%20Manual.md)*.
+This is the JDBC driver for accessing Altibase via Java applications. This is a Type 4 driver, and is thus a Pure Java driver. For more detailed information, please refer to the *[JDBC User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md)*.
 
 ##### libapre.a
 
-This library is needed in order to create embedded SQL programs. For more detailed information on writing embedded SQL programs, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Precompiler%20User's%20Manual.md)*.
+This library is needed in order to create embedded SQL programs. For more detailed information on writing embedded SQL programs, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Precompiler%20User's%20Manual.md)*.
 
 ##### libodbccli.a
 
-This library is used when authoring Altibase CLI applications. For more detailed information, please refer to the *[CLI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/CLI%20User's%20Manual.md)*.
+This library is used when authoring Altibase CLI applications. For more detailed information, please refer to the *[CLI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/CLI%20User's%20Manual.md)*.
 
 ##### libalticapi.a
 
-This library is used when writing Altibase ACI applications. For more detailed information, please refer to the *[ACI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20C%20Interface%20Manual.md)*.
+This library is used when writing Altibase ACI applications. For more detailed information, please refer to the *[ACI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20C%20Interface%20Manual.md)*.
 
 ##### libaltibase_odbc-64bit-ul64.so
 
-This is the Altibase ODBC driver that can be used in Unix-like operating systems. Depending on the installation package and the operating system, the file extension and file name can be different. For more detailed information, please refer to the *[ODBC User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/ODBC%20User's%20Manual.md)*.
+This is the Altibase ODBC driver that can be used in Unix-like operating systems. Depending on the installation package and the operating system, the file extension and file name can be different. For more detailed information, please refer to the *[ODBC User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/ODBC%20User's%20Manual.md)*.
 
 ##### Others
 
--   libaltibaseMonitor.a: the library for the Monitoring API of Altibase. Please refer to the *[Monitoring API Developer’s Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Monitoring%20API%20Developer's%20Guide.md)*.
--   libchksvr.a: the library for the CheckServer API of Altibase. Please refer to the *[API User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/API%20User's%20Manual.md)*.
--   libiloader.a: the library for the Altibase iLoader API. Please refer to the *[API User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/API%20User's%20Manual.md)*.
+-   libaltibaseMonitor.a: the library for the Monitoring API of Altibase. Please refer to the *[Monitoring API Developer’s Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Monitoring%20API%20Developer's%20Guide.md)*.
+-   libchksvr.a: the library for the CheckServer API of Altibase. Please refer to the *[API User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/API%20User's%20Manual.md)*.
+-   libiloader.a: the library for the Altibase iLoader API. Please refer to the *[API User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/API%20User's%20Manual.md)*.
 -   libsesc.a: this is provided for backward compatibility and is identical to libapre.a.
 
 #### logs Directory
@@ -878,7 +879,7 @@ This file contains error messages pertaining to function execution or data types
 
 #### packages Directory
 
-This directory contains system defined stored packages and catproc.sql file which is a script used to create the packages at once. For more information about the system defined stored packages, please refer to the Altibase Stored Packages in *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md#13-altibase-system-defined-stored-packages)*.
+This directory contains system defined stored packages and catproc.sql file which is a script used to create the packages at once. For more information about the system defined stored packages, please refer to the Altibase Stored Packages in *[Stored Procedures Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md#13-altibase-system-defined-stored-packages)*.
 
 #### sample Directory
 
@@ -960,7 +961,7 @@ Execution results of the killCheckServer utility are written to this file.
 
 ### Executable Binaries
 
-For more detailed information on these binary files other than those described here, please refer to the [*Utilities Manual.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md)
+For more detailed information on these binary files other than those described here, please refer to the [*Utilities Manual.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md)
 
 #### aexport
 
@@ -990,7 +991,7 @@ This tool is for changing the password of the sys account.
 
 The altiComp feature compares the tables of two databases, to print information about mis- matching data and synchronize the databases.
 
-For more detailed information, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#2-alticomp)*.
+For more detailed information, please refer to the *[Utilities Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md#2-alticomp)*.
 
 #### checkServer
 
@@ -1007,12 +1008,12 @@ This tool outputs and examines the contents of Altibase log files.
 #### iloader
 
 This tool is for uploading and downloading particular database tables.
-For detailed information on this tool, please refer to the *[iLoader User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md)*.
+For detailed information on this tool, please refer to the *[iLoader User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/iLoader%20User's%20Manual.md)*.
 
 #### isql
 
 This is a tool for interactively executing database queries.
-For more detailed information on this tool, please refer to the *[iSQL User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iSQL%20User's%20Manual.md)*.
+For more detailed information on this tool, please refer to the *[iSQL User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/iSQL%20User's%20Manual.md)*.
 
 #### killCheckServer
 
@@ -1026,7 +1027,7 @@ This is a shell script program that is used to start up, shut down, or restart t
 
 This application is used for precompiling applications written in C/C++ that contain embedded SQL statements.
 
-For more detailed information on this tool, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Precompiler%20User's%20Manual.md)*.
+For more detailed information on this tool, please refer to the *[Precompiler User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Precompiler%20User's%20Manual.md)*.
 
 ### Altibase Libraries
 
@@ -1040,7 +1041,7 @@ The following are the components required when developing application programs u
 
 -   Header files for programming
 
-This is explained in detail in the *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Getting%20Started%20Guide.md)*.
+This is explained in detail in the *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Getting%20Started%20Guide.md)*.
 
 # 3. Creating a Database
 
@@ -1102,7 +1103,7 @@ Altibase maintains a set of 3 log anchor files. These log files are created in t
 
 when the database is created, but it is recommended that the 3 log anchor files be maintained on different file systems. The property for specifying the location of the log anchor files is LOGANCHOR_DIR.
 
-For more detailed information about the Altibase properties, please refer to the  [*General Reference-1.Data Types & Altibase Properties*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)
+For more detailed information about the Altibase properties, please refer to the  [*General Reference-1.Data Types & Altibase Properties*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)
 
 #### **Preparing to Create a Database**
 
@@ -1159,7 +1160,7 @@ Command execute success.
 
 In the Process phase, use the CREATE DATABASE command to create a database as shown below. 
 
-For more detailed information on using the CREATE DATABASE statement, please refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*.
+For more detailed information on using the CREATE DATABASE statement, please refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*.
 
 In the following example, a database is created using the default options:
 
@@ -1511,7 +1512,7 @@ Procedures and functions are distinguished from each other in that a function re
 
 Type sets are database objects that allow to gather and manage user-defined types used in stored procedures and stored functions in one place.
 
-For more detailed information, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md)
+For more detailed information, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md)
 
 **Database Triggers**
 
@@ -1521,19 +1522,19 @@ A trigger is a special kind of stored procedure that is executed by the system w
 
 Database Link unites disparate data sources on interconnected servers to produce a single unified result, even if the data are stored in different kinds of data servers that are physically far apart from one another.
 
-For more detailed information, please refer to the [*DB Link User's Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/DB%20Link%20User's%20Manual.md)
+For more detailed information, please refer to the [*DB Link User's Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/DB%20Link%20User's%20Manual.md)
 
 ##### External Procedures or Functions
 
 External procedures or external function objects are database objects that correspond to user-defined C/C++ functions on a one-to-one basis. User-defined functions are executed through external procedure objects or external function objects. Depending on whether or not they return values differentiates external procedures from external functions.
 
-For more detailed information, please refer to [*External Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/External%20Procedures%20Manual.md)
+For more detailed information, please refer to [*External Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/External%20Procedures%20Manual.md)
 
 ##### Libraries 
 
 External procedures or external function objects are database objects that correspond to us- er-defined C/C++ functions on a one-to-one basis. User-defined functions are executed through external procedure objects or external function objects. Depending on whether or not they return values differentiates external procedures from external functions.
 
-For more detailed information, please refer to [*External Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/External%20Procedures%20Manual.md)
+For more detailed information, please refer to [*External Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/External%20Procedures%20Manual.md)
 
 #### Non-Schema Objects
 
@@ -1543,15 +1544,15 @@ Non-schema objects are objects that are not assigned to any specific schema, but
 
 Stored procedures are able to control files, which allow them to read from and write to text files in the file system managed by the operating system. Thanks to this functionality, the user can perform various kinds of tasks using stored procedures such as leaving messages in files, reporting the results of files or reading data from files for insertion into tables. The directory object is used to manage information about the directories accessed by stored procedures.
 
-For more detailed information about the directory object, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+For more detailed information about the directory object, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
-For more detailed information on how to handle files using stored procedures, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md)
+For more detailed information on how to handle files using stored procedures, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md)
 
 **Replications**
 
 A replication is an object that maintains the consistency of the data in tables on different servers by automatically transferring data from a local server to a remote server.
 
-For more detailed information on how to manage replication, please refer to the [*Replication Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md)
+For more detailed information on how to manage replication, please refer to the [*Replication Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md)
 
 ##### Tablespaces
 
@@ -1587,7 +1588,7 @@ Tables are additionally classified as either system tables, which are internally
 
 System tables, which are also known as the data dictionary, are further classified as either meta tables, in which information about database objects is stored, and process tables, in which information about processes is stored. Process tables are still further classified as either static tables or performance views.
 
-For more detailed information on the data dictionary, please refer to the *[General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General Reference-2.The Data Dictionary.md).*
+For more detailed information on the data dictionary, please refer to the *[General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General Reference-2.The Data Dictionary.md).*
 
 #### Large Memory Tables
 
@@ -1633,7 +1634,7 @@ In Altibase, DDL statements can be executed on tables that are to be replicated,
 
 -   Set the REPLICATION property of the session, which is set using the ALTER SESSION SET REPLICATION statement, to a value other than NONE.
 
-For more detailed information about managing replicated tables, please refer to the [*Replication Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md)
+For more detailed information about managing replicated tables, please refer to the [*Replication Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md)
 
 #### **Creating Tables**
 
@@ -1706,7 +1707,7 @@ ALTER TABLE department
 RENAME COLUMN dno TO dcode;
 ```
 
-For more detailed information about the ALTER TABLE statement, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md#alter-table)
+For more detailed information about the ALTER TABLE statement, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#alter-table)
 
 #### **Dropping Tables**
 
@@ -1766,7 +1767,7 @@ where col1=:t1_col;<br/>
 
 #### **Related SQL Statements**
 
-The following SQL statements are supported for use with tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+The following SQL statements are supported for use with tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
 -   CREATE TABLE
 
@@ -1808,7 +1809,7 @@ Temporary table data is temporary, and it is impossible to recover it from backu
 
 Tables can be created using the CREATE [GLOBAL] TEMPORARY TABLE statement. The ON COMMIT clause specifies the scope of data commitment. 
 
-For more detailed information about this clause, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md#create-table)
+For more detailed information about this clause, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#create-table)
 
 Since a temporary table can only be created in a volatile tablespace, users need to specify a volatile tablespace in the TABLESPACE clause.
 
@@ -1869,7 +1870,7 @@ Like normal tables, temporary table data can be manipulated with the following D
 
 #### **Related SQL Statements**
 
-The following SQL statements are supported for temporary tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+The following SQL statements are supported for temporary tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
 -   CREATE TABLE
 
@@ -1908,7 +1909,7 @@ Regardless of whether the compression table is a memory table or a disk table, t
 
 #### Creating Tables
 
-Like normal tables, compressed tables can be created with the CREATE TABLE statement. However, you need to specify the column to be compressed in the COMPRESS clause. For more detailed information about the COMPRESS clause, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md#table_compression_clause)
+Like normal tables, compressed tables can be created with the CREATE TABLE statement. However, you need to specify the column to be compressed in the COMPRESS clause. For more detailed information about the COMPRESS clause, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#table_compression_clause)
 
 ##### Example
 
@@ -1981,7 +1982,7 @@ Like normal tables, compressed table data can be manipulated with the following 
 
 #### Related SQL Statement
 
-The following SQL statements are supported for compressed tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+The following SQL statements are supported for compressed tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
 -   CREATE TABLE
 
@@ -2068,7 +2069,7 @@ The records in queue tables can be manipulated using the following SQL statement
 
 #### Related SQL Statements
 
-The following SQL statements are provided for use with queue tables. For more detailed information about queues, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+The following SQL statements are provided for use with queue tables. For more detailed information about queues, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
 -   CREATE QUEUE
 
@@ -2167,7 +2168,7 @@ ALTER TABLE book DROP UNIQUE(bno);
 
 #### Related SQL Statements
 
-The following SQL statements are supported for use with constraints. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+The following SQL statements are supported for use with constraints. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
 -   CREATE TABLE
 
@@ -2333,7 +2334,7 @@ A function-based index is an index that is created based on the result values of
 
 #### **Related SQL Statements**
 
-The following SQL statements are supported for use with indexes. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+The following SQL statements are supported for use with indexes. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
 -   CREATE TABLE
 
@@ -2448,7 +2449,7 @@ ENO         E_LASTNAME            SALARY
 
 #### Related SQL Statements
 
-The following SQL statements are supported for use with views. For more detailed information on these statements, please refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*
+The following SQL statements are supported for use with views. For more detailed information on these statements, please refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*
 
 -   CREATE VIEW
 
@@ -2542,7 +2543,7 @@ Altibase only supports SELECT for materialized views.
 
 #### Related SQL Statements
 
-The following SQL statements are provided for the materialized view. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*:
+The following SQL statements are provided for the materialized view. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*:
 
 -   CREATE MATERIALIZED VIEW
 
@@ -2550,7 +2551,7 @@ The following SQL statements are provided for the materialized view. For more de
 
 -   DROP MATERIALIZED VIEW
 
-For the matrialized view, the following SQL statements are provided for table where the actual data is contained, and refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)* for more detailed information.
+For the matrialized view, the following SQL statements are provided for table where the actual data is contained, and refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)* for more detailed information.
 
 -   ALTER TABLE
 
@@ -2656,7 +2657,7 @@ DROP SEQUENCE seq1;
 
 #### Related SQL Statements
 
-The following SQL statements are provided for use with sequences. For more detailed information, please refer to the [*SQL Reference.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
+The following SQL statements are provided for use with sequences. For more detailed information, please refer to the [*SQL Reference.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)
 
 -   CREATE SEQUENCE
 
@@ -2702,7 +2703,7 @@ DROP SYNONYM my_dept;
 
 #### Related SQL Statements
 
-The following SQL statements are provided for use with synonyms. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*.
+The following SQL statements are provided for use with synonyms. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*.
 
 -   CREATE SYNONYM
 
@@ -2714,7 +2715,7 @@ A stored procedure is a set of SQL statements, flow control statements, assignme
 
 Stored procedures and stored functions are different in that stored functions return a value to the caller, while stored procedures do not. Because they are identical in all other respects, explanations of stored procedures can also be understood to apply to stored functions unless otherwise noted. 
 
-This chapter provides simple examples of how to manage stored procedures. For a more detailed explanation of the terminology, concepts, and management of stored procedures and stored functions, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md)
+This chapter provides simple examples of how to manage stored procedures. For a more detailed explanation of the terminology, concepts, and management of stored procedures and stored functions, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md)
 
 #### Categories
 
@@ -2880,7 +2881,7 @@ DROP PROCEDURE proc1;
 
 #### Related SQL Statements
 
-The following SQL statements are supported for use with stored procedures and stored functions. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*
+The following SQL statements are supported for use with stored procedures and stored functions. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*
 
 -   CREATE PROCEDURE
 
@@ -2973,7 +2974,7 @@ DROP TRIGGER del_trigger;
 
 #### Related SQL Statements
 
-The following SQL statements are supported for use with triggers. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*.
+The following SQL statements are supported for use with triggers. For more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*.
 
 -   CREATE TRIGGER
 
@@ -2981,7 +2982,7 @@ The following SQL statements are supported for use with triggers. For more detai
 
 -   DROP TRIGGER
 
-Additionally, because a trigger is a kind of stored procedure, for a detailed description of the trigger body, please refer to the *[Stored Procedures Manual.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md)*
+Additionally, because a trigger is a kind of stored procedure, for a detailed description of the trigger body, please refer to the *[Stored Procedures Manual.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md)*
 
 ### Jobs
 
@@ -3037,11 +3038,11 @@ A JOB can be created using CREATE JOB statement. Here, the stored procedure to b
 
 When a JOB is created, it is in the DISABLE state by default. In order to operate the JOB according to the execution cycle, it must be changed to the ENABLE state.
 
-Please refer to the *[CREATE JOB statement described in SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md#create-job)* for more detailed information.
+Please refer to the *[CREATE JOB statement described in SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#create-job)* for more detailed information.
 
 ##### Constraints
 
--   The value of JOB_SCHEDULER_ENABLE, JOB_THREAD_COUNT property should be set other than 0 before creating JOBs. Please refer to the [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md) for more detailed information on properties.
+-   The value of JOB_SCHEDULER_ENABLE, JOB_THREAD_COUNT property should be set other than 0 before creating JOBs. Please refer to the [*General Reference-1.Data Types & Altibase Properties*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md) for more detailed information on properties.
   
 -   Only one procedure can be registered per JOB.
 
@@ -3067,7 +3068,7 @@ Alter success.
 
 #### Altering Jobs
 
-With the ALTER JOB statement, the definition of the JOB statement can be altered. For more detailed information, please refer to *[ALTER JOB statement described in SQL Reference.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md#alter-job)*
+With the ALTER JOB statement, the definition of the JOB statement can be altered. For more detailed information, please refer to *[ALTER JOB statement described in SQL Reference.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#alter-job)*
 
 ##### Example
 
@@ -3113,7 +3114,7 @@ The previous value can be checked by querying the value of the POWLEVEL column o
 
 #### Related Properties and Meta Tables
 
-The following SQL statements are provided; for more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*. 
+The following SQL statements are provided; for more detailed information, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*. 
 
 * ALTER JOB
 * CREATE JOB
@@ -3127,7 +3128,7 @@ The following properties are related to the job scheduler:
 
 -   JOB_THREAD_QUEUE_SIZE
 
-Information of created jobs can be viewed in the SYS_JOBS_ meta table. For more detailed information on the SYS_JOBS_ meta table, please refer to [*General Reference-2.The Data Dictionary*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-2.The%20Data%20Dictionary.md)
+Information of created jobs can be viewed in the SYS_JOBS_ meta table. For more detailed information on the SYS_JOBS_ meta table, please refer to [*General Reference-2.The Data Dictionary*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-2.The%20Data%20Dictionary.md)
 
 ###  Database Users
 
@@ -4553,7 +4554,7 @@ The DISCARD option is used when Altibase can't be started due to a data error in
 
 #### Tablespace Backup and Recovery
 
-This section provides a simple overview of the concept of online and offline tablespace backup. For more detailed information on backup and recovery in Altibase, please refer to the Backup and Recovery chapter of this manual and the [*Getting Started Guide*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Getting%20Started%20Guide.md)
+This section provides a simple overview of the concept of online and offline tablespace backup. For more detailed information on backup and recovery in Altibase, please refer to the Backup and Recovery chapter of this manual and the [*Getting Started Guide*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Getting%20Started%20Guide.md)
 
 ##### Tablespace Online Backup (HOT Backup)
 
@@ -6300,7 +6301,7 @@ To maintain database integrity, a properly executed transaction must exhibit the
 
 If Autonomous_Transaction Pragma statement is used, PSM object is able to operate from the main transaction independently. Since the autonomous transaction does not share sources, lock, commit, or recovery operations are performed independently. 
 
-For more detailed information, please refer to the Pragma in [*Stored Procedure Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md#10-pragma)
+For more detailed information, please refer to the Pragma in [*Stored Procedure Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md#10-pragma)
 
 #### Transaction Termination
 
@@ -6627,7 +6628,7 @@ In Altibase, durability is managed using the COMMIT_WRITE_WAIT_MODE and LOG_BUFF
 
 LOG_BUFFER_TYPE specifies the type of log buffer that is used when update logs are written to a log file. This property can't be changed while the system is running. 
 
-For more detailed information on these properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General Reference-1.Data Types %26 Altibase Properties.md).*
+For more detailed information on these properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General Reference-1.Data Types %26 Altibase Properties.md).*
 
 **The case where a transaction does not wait until logs have been written to disk and a kernel log buffer is used: (Durability Level 3)**
 
@@ -6723,7 +6724,7 @@ Checkpointing can be triggered by time conditions, log conditions or the user
 
 ##### Periodic Checkpointing
 
-Checkpointing occurs at regular intervals during operations. This interval is determined by CHECKPOINT_INTERVAL_IN_SEC, an Altibase property. Formore detailed information on this property, please refer to [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#checkpoint_interval_in_sec-unit-second)
+Checkpointing occurs at regular intervals during operations. This interval is determined by CHECKPOINT_INTERVAL_IN_SEC, an Altibase property. Formore detailed information on this property, please refer to [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#checkpoint_interval_in_sec-unit-second)
 
 ##### Log Checkpointing
 
@@ -6886,7 +6887,7 @@ The number of buffer frames that can be flushed in one flusher cycle can be spec
 
 Additionally, multiple flushers can be specified using the BUFFER_FLUSHER_CNT property. However, this property cannot be changed while the server is running. Each flusher can be started or paused using the ALTER SYSTEM START/STOP FLUSHER statement.
 
-Please refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)* for more detailed information about SQL.
+Please refer to the *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)* for more detailed information about SQL.
 
 ### Managing Database Buffers
 
@@ -7058,7 +7059,7 @@ In Altibase, the directory in which the double write file is saved is specified 
 
 ### Related Database Properties
 
-To use the buffer manager, the properties in the altibase.properties file must be suitably configured set. The properties related to buffers are listed below. For detailed information about each of these properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General Reference-1.Data Types %26 Altibase Properties.md)*.
+To use the buffer manager, the properties in the altibase.properties file must be suitably configured set. The properties related to buffers are listed below. For detailed information about each of these properties, please refer to the *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General Reference-1.Data Types %26 Altibase Properties.md)*.
 
 - BUFFER_AREA_CHUNK_SIZE
 - BUFFER_AREA_SIZE
@@ -8151,7 +8152,7 @@ The page change tracking feature enhances the performance of incremental backups
 
 The page change tracking feature manages the information of pages which have been changed after a level 0 incremental backup in the page change tracking file as bitmaps. Altibase checks these bitmaps and only backs up changed pages when performing a level 1 incremental backup.
 
-One bit of a bitmap corresponds to one or more pages. A bundle of such pages corresponding to one bit is defined as an incremental chunk. If one page of an incremental chunk is changed, all pages of the incremental chunk are backed up. The size of an incremental chunk can be controlled with the INCREMENTAL_BACKUP_CHUNK_SIZE property. For more detailed information on this property, please refer to [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#incremental_backup_chunk_size)
+One bit of a bitmap corresponds to one or more pages. A bundle of such pages corresponding to one bit is defined as an incremental chunk. If one page of an incremental chunk is changed, all pages of the incremental chunk are backed up. The size of an incremental chunk can be controlled with the INCREMENTAL_BACKUP_CHUNK_SIZE property. For more detailed information on this property, please refer to [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#incremental_backup_chunk_size)
 
 When tracking is enabled, the server uses the page change tracking file to identify the changed files for an incremental backup, instead of tracking all pages of the data files.
 
@@ -8805,13 +8806,13 @@ The following table shows the protocol versions that can be used for communicati
 Support for IPv5 by the components of Altibase has outlined above in the table in the previous "IPv6 Client/Server Connectivity" section.
 
 - Server  
-  To support IPv6, the NET_CONN_IP_STACK property in the altibase.properties file must be set to 1 or 2. For more detailed information about that property, please refer to the [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#net_conn_ip_stack)
+  To support IPv6, the NET_CONN_IP_STACK property in the altibase.properties file must be set to 1 or 2. For more detailed information about that property, please refer to the [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#net_conn_ip_stack)
   
 - Client  
   To connect using IPv6, the DSN attribute must be set to an IPv6 address, or the DSN attribute must be set to a host name and the PREFER_IPV6 attribute must be set to TRUE.  
   For a given host name, Altibase clients attempt to connect to all IP addresses returned by a call to getaddrinfo() until a successful connection is established, or until all addresses have been attempted. If more than one IP address is returned, Altibase clients attempt to establish a connection to each of those IP addresses in an order determined in consideration of the PREFER_IPV6 attribute. If the PREFER_IPV6 attribute is not set, or if it is set to FALSE, an attempt is first made to connect to any IPv4 addresses that were returned. If this attempt fails, the client then attempts to connect to any IPv6 addresses that were returned. If the PREFER_IPV6 attribute is set to TRUE, an attempt is first made to connect to any IPv6 addresses that were returned. If this attempt fails, the client then attempts to connect to any IPv4 addresses that were returned.
   
-  For more detailed information about the PREFER_IPV6 attribute, please refer to *[ODBC Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/ODBC%20User's%20Manual.md)*, [*API User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/API%20User's%20Manual.md), and the manuals for the respective utilities.
+  For more detailed information about the PREFER_IPV6 attribute, please refer to *[ODBC Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/ODBC%20User's%20Manual.md)*, [*API User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/API%20User's%20Manual.md), and the manuals for the respective utilities.
 
 #### Unix Domain Socket
 
@@ -8823,8 +8824,8 @@ For more detailed information, please refer to the ODBC Reference and to the man
 
 This section describes the inter-process communication (IPC) using shared memory provided by Altibase, that is to, how to exchange data between concurrently running processes is delineated as well in this section. When the client and Altibase database server are installed on the same machine, the client application will implement much-advanced performance when using this communication method. IPC using shared memory provides the best performance, however, it uses additional memory. In order to use the IPC method, the following details should be executed first:
 
-- Configure the server property in the altibase.properties file. Refer to the [*General Reference* > *Session Properties*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#session-properties)
-- Specify CONNTYPE attribute in ODBC/CLI application program, and specify ISQL_CONNECTION environment in Altibase utilities, such as iLoader and iSQL. Refer to the *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/CLI%20User's%20Manual.md)*, *[iLoader User's Manual,](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md)* *[iSQL User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iSQL%20User's%20Manual.md)* for in-depth information.
+- Configure the server property in the altibase.properties file. Refer to the [*General Reference* > *Session Properties*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#session-properties)
+- Specify CONNTYPE attribute in ODBC/CLI application program, and specify ISQL_CONNECTION environment in Altibase utilities, such as iLoader and iSQL. Refer to the *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/CLI%20User's%20Manual.md)*, *[iLoader User's Manual,](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/iLoader%20User's%20Manual.md)* *[iSQL User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/iSQL%20User's%20Manual.md)* for in-depth information.
 
 #### IPCDA
 
@@ -8834,11 +8835,11 @@ It should be noted that, as constraints, IPCDA can be only used in Linux, and in
 
 The following configurations should be executed prior to use IPCDA:
 
-- IPCDA related server properties should be specified in altibase.properties file. Please refer to *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General Reference-1.Data Types %26 Altibase Properties.md)* for in-depth information on each property.  
+- IPCDA related server properties should be specified in altibase.properties file. Please refer to *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General Reference-1.Data Types %26 Altibase Properties.md)* for in-depth information on each property.  
   IPCDA_CHANNEL_COUNT  
   IPCDA_FILEPATH  
   IPCDA_DATABLOCK_SIZE
-- Specify CONNTYPE attribute in ODBC/CLI application program. Please refer to the *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/CLI%20User's%20Manual.md)* for more detailed information
+- Specify CONNTYPE attribute in ODBC/CLI application program. Please refer to the *[CLI User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/CLI%20User's%20Manual.md)* for more detailed information
 
 #### SSL/TLS
 
@@ -8852,7 +8853,7 @@ The SSL/TLS feature of Altibase has the following characteristics.
 - In order to use SSL communication with the server, both ALTIBASE_PORT_NO and ALTIBASE_SSL_PORT_NO must be defined as environment variables.
 - Altibase provides the JDBC and ODBC interfaces for SSL connection, which is currently supported only in Linux.
 
-For more detailed information about how to configure and implement SSL/TLS in Altibase, please refer to the *[Altibase SSL/TLS User’s Guide.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20SSL%20TLS%20User's%20Guide.md)* 
+For more detailed information about how to configure and implement SSL/TLS in Altibase, please refer to the *[Altibase SSL/TLS User’s Guide.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20SSL%20TLS%20User's%20Guide.md)* 
 
 # 13. Securing Data 
 
@@ -9161,13 +9162,13 @@ Auditing information collected by the Altibase server is written to a file. The 
 - AUDIT_OUTPUT_METHOD
 - AUDIT_TAG_NAME_IN_SYSLOG
 
-For more detailed information on each property, please refer to *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General Reference-1.Data Types %26 Altibase Properties.md).*
+For more detailed information on each property, please refer to *[General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General Reference-1.Data Types %26 Altibase Properties.md).*
 
 ### Audit Control Statements
 
 The following SQL statements are provided for starting/stopping database auditing, and the management of newly added auditing conditions.
 
-For more detailed information on SQL statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL Reference.md)*.
+For more detailed information on SQL statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL Reference.md)*.
 
 #### Starting Auditing
 
@@ -9284,7 +9285,7 @@ BY ACCESS | SESSION
 WHENEVER [NOT] SUCCESSFUL;
 ```
 
-For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*.
+For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*.
 
 ##### Examples of Enablement
 
@@ -9487,7 +9488,7 @@ ON object_name
 WHENEVER [NOT] SUCCESSFUL;
 ```
 
-For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*.
+For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*.
 
 ##### Examples of Disablement
 
@@ -9568,7 +9569,7 @@ BY ACCESS|SESSION
 WHENEVER [NOT] SUCCESSFUL;
 ```
 
-For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*.
+For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*.
 
 ##### Examples of Enablement
 
@@ -9842,7 +9843,7 @@ BY user_name
 WHENEVER [NOT] SUCCESSFUL;
 ```
 
-For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)*.
+For more detailed information on statements, please refer to *[SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md)*.
 
 ##### Example
 
@@ -9934,7 +9935,7 @@ Altibase can store audit logs in binary files or syslog, depending on the AUDIT_
 
 [Table 14-1] Record Storage Method : Binary versus Syslog
 
-For more detailed information on the altiAudit utility, please refer to the *[Utilities Manual.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md)*
+For more detailed information on the altiAudit utility, please refer to the *[Utilities Manual.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md)*
 
 #### Viewing Binary Audit Logs
 
@@ -10135,7 +10136,7 @@ This chapter explains how to check and analyze the operational status of an Alti
 
 ### Monitoring Database Servers
 
-Meta tables and performance views are used to check the operation status of Altibase database. For more detailed information on meta tables and performance views available in Altibase, please refer to the *[General Reference-2.The Data Dictionary.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General Reference-2.The Data Dictionary.md)*
+Meta tables and performance views are used to check the operation status of Altibase database. For more detailed information on meta tables and performance views available in Altibase, please refer to the *[General Reference-2.The Data Dictionary.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General Reference-2.The Data Dictionary.md)*
 
 The major entities to be monitored are as follows:
 
@@ -10362,7 +10363,7 @@ To view a list of the queries that are currently being processed, connect using 
 
 Determine which of the queries that are currently executing is likely to be causing the problem,  check the execution plan for that query, and tune the query if a problem is found
 
-For a detailed explanation of how to tune queries, please refer to [*Performance Tuning Guide.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Performance%20Tuning%20Guide.md)
+For a detailed explanation of how to tune queries, please refer to [*Performance Tuning Guide.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Performance%20Tuning%20Guide.md)
 
 If the problem does not seem to have been caused by either of the above two reasons, it is likely that the system is waiting to acquire a lock on a resource. Check the information on currently held locks in the V\$LOCK and V​\$LOCK_WAIT performance views to verify whether any unnecessary locks are being continuously held in any sessions. If this is the case, forcibly terminating the session will solve the problem.
 
@@ -10374,7 +10375,7 @@ Thㄷ following properties that can be used to specify various kinds of informat
 
 The default value for this property is 0; to specify that information is to be written to a trace log, set the corresponding property to 1.
 
-The value set in the property file can be overridden using the ALTER SYSTEM statement. For more detailed information about this property, please refer to the [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#trclog_detail_predicate)
+The value set in the property file can be overridden using the ALTER SYSTEM statement. For more detailed information about this property, please refer to the [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#trclog_detail_predicate)
 
 | TRCLOG                  | Description                                                  |
 | ----------------------- | ------------------------------------------------------------ |
