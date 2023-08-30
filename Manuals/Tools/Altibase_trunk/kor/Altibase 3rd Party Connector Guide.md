@@ -272,13 +272,13 @@ Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우
 
 DBeaver와 호환되는 Altibase 서버 버전을 열거한다.
 
-- Altibase 7.1.0 이상 버전
+- Altibase 7.1.0 이상
 
 ### 설치 및 제거
 
 DBeaver는 공식 Altibase 고객서비스포털 <http://support.altibase.com>에서 내려받을 수 있으며 zip 파일 형식으로 제공된다.
 
-설치는 압축을 풀기만 하면 된다. 결과로 생긴 디렉토리 안에는 dbeaver.exe를 포함해 plugins, feature 등 하위 디렉토리 및 파일들이 존재한다. 이 폴더를 원하는 위치로 옮긴다. 이제 DBeaver를 사용할 준비가 되었다. dbeaver.exe를 클릭하면 프로그램이 구동된다.
+설치는 원하는 폴더에 압축을 풀면 완료된다. 결과로 생긴 디렉토리 안에는 dbeaver.exe를 포함해 plugins, feature 등 하위 디렉토리 및 파일들이 존재한다. 
 
 DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
 
