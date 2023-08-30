@@ -49,13 +49,7 @@ Alitbase® Tools & Utilities
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
-<br><br><!-- PDF 변환을 위한 여백입니다. --> 
-
-
-
-
-
-
+<div style="page-break-after: always;"></div><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
 
@@ -104,12 +98,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 팩스 : 02-2082-1099
 고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
-
-
-
-
-
-<br>
+<div style="page-break-after: always;"></div>
 
 # 목차
 
