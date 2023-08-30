@@ -95,7 +95,7 @@ Alitbase® Tools & Utilities
 
 <pre>
 Altibase Release Notes Replication Manager
-Release 1.3
+Release 1.4
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
@@ -104,6 +104,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 팩스 : 02-2082-1099
 고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
 
 
 
@@ -164,7 +165,7 @@ Replication Manager는 Altibase의 이중화 객체를 편리하게 관리하기
 
 ### 2.1 버전
 
-- 1.3
+- 1.4
 
 ### 2.2 새로운 기능
 
