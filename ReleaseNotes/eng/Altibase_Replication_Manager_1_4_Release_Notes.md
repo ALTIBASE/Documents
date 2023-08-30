@@ -214,8 +214,8 @@ Replication Manager is based on the following Open Source Libraries and Royalty-
 
 ### 5.2 Manual
 
-[Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Replication%20Manager%20User's%20Manual.md)
+[Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/eng/Replication%20Manager%20User's%20Manual.md)
 
 ### 5.3 Installation
 
-Please refer to the [Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Replication%20Manager%20User's%20Manual.md)
+Please refer to the [Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/eng/Replication%20Manager%20User's%20Manual.md)

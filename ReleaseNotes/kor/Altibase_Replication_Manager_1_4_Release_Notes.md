@@ -223,8 +223,8 @@ Replication Manager는 아래의 오픈소스 라이브러리와 로열티 프�
 
 ### 5.2 매뉴얼
 
-[Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Replication%20Manager%20User's%20Manual.md)
+[Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Replication%20Manager%20User's%20Manual.md)
 
 ### 5.3 설치
 
-[Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/eng/Replication%20Manager%20User's%20Manual.md)을 참고한다.
+[Replication Manager User's Manual.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Replication%20Manager%20User's%20Manual.md)을 참고한다.
