@@ -163,9 +163,9 @@ Replication Manager is a graphical tool for managing replication on Altibase mor
 
 ### 2.3 Bug Fixed
 
-| PK        | SYNOPSIS                                                   |
-| --------- | ---------------------------------------------------------- |
-| BUG-50573 | Update the JRE packaged in Replication Manager from 6 -> 8 |
+| PK        | SYNOPSIS                                                     |
+| --------- | ------------------------------------------------------------ |
+| BUG-50573 | Update the JRE packaged in Replication Manager from version 6 to version 8 |
 
 ### 2.4 Properties
 
