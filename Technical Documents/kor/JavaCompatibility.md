@@ -7,6 +7,7 @@
 # Table of Contents
 
 - [개요](#개요)
+- [Altibase 7.3](#altibase-73)
 - [Altibase 7.1](#altibase-71)
 - [Altibase 6.5.1](#altibase-651)
 - [Tools](#tools)
@@ -28,6 +29,28 @@
 `●` : 호환성 테스트를 완료한 버전을 의미합니다. 
 
 **`-`** : 호환성 테스트를 진행하지는 않았으며 호환성 여부는 JDK 하위 호환성 정책에 따릅니다. 해당 버전에 대해 Altibase의 호환성 테스트 결과가 필요한 경우 Altibase로 문의하시기 바랍니다. 
+
+<br/>
+
+<br/>
+
+# Altibase 7.3
+
+### Altibase Server Side
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 19 |
+| ------------------------------------------------------------ | :----: | :----: | :----: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
+| **altiMon**                                                  |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
+| **Adapter for JDBC**                                         |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
+| **DB Link**                                                  |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
+
+
+
+### Altibase JDBC 드라이버
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 ~ Java 7 | Java 8 | Java 9 ~ Java 10 | Java 11[^4] | Java 12 | Java 17 ~ 19 |
+| :----------------------------------------------------------- | :----: | :-------------: | :----: | :--------------: | :---------: | :-----: | :----------: |
+| **Altibase.jar**                                             |   x    |        x        |   ●    |        ●         |      ●      |    ●    |      ●       |
 
 <br/>
 
