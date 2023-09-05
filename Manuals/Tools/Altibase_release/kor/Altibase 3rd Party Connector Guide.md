@@ -48,8 +48,21 @@ Altibase® Application Development
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -91,32 +104,38 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 팩스 : 02-2082-1099
 고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
 <br>
 
 # 목차
 
 - [서문](#%EC%84%9C%EB%AC%B8)
   - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1.SQuirreL SQL 클라이언트](#1squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8)
-  - [Altibase Plugin for SQuirreL SQL Client 설치](#altibase-plugin-for-squirrel-sql-client-%EC%84%A4%EC%B9%98)
-  - [Altibase Plugin 설치 및 제거](#altibase-plugin-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-  - [Altibase Plugin 특징](#altibase-plugin-%ED%8A%B9%EC%A7%95)
-  - [SQuirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
-  - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
-  - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
-  - [FAQ](#faq)
-- [2.Hibernate](#2hibernate)
-  - [Hibernate](#hibernate)
-- [3.OpenLDAP](#3openldap)
-  - [OpenLDAP 소개](#openldap-%EC%86%8C%EA%B0%9C)
-  - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
-  - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-  - [예제](#%EC%98%88%EC%A0%9C)
-- [4.Oracle GoldenGate](#4oracle-goldengate)
-  - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
-  - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
-  - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
-  - [제약사항](#%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+- [1.DBeaver](#1dbeaver)
+    - [개요](#%EA%B0%9C%EC%9A%94)
+    - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+    - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
+    - [Altibase 데이터베이스 시스템 연결](#altibase-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%97%B0%EA%B2%B0)
+- [2.SQuirreL SQL 클라이언트](#2squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8)
+    - [Altibase Plugin for SQuirreL SQL Client 설치](#altibase-plugin-for-squirrel-sql-client-%EC%84%A4%EC%B9%98)
+    - [Altibase Plugin 설치 및 제거](#altibase-plugin-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
+    - [Altibase Plugin 특징](#altibase-plugin-%ED%8A%B9%EC%A7%95)
+    - [SQuirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
+    - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
+    - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
+    - [FAQ](#faq)
+- [3.Hibernate](#3hibernate)
+    - [Hibernate](#hibernate)
+- [4.OpenLDAP](#4openldap)
+    - [OpenLDAP 소개](#openldap-%EC%86%8C%EA%B0%9C)
+    - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
+    - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
+    - [예제](#%EC%98%88%EC%A0%9C)
+- [5.Oracle GoldenGate](#5oracle-goldengate)
+    - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
+    - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
+    - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
+    - [제약사항](#%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
 
 <br>
 
@@ -229,7 +248,115 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 <br>
 
-1.SQuirreL SQL 클라이언트
+# 1.DBeaver
+
+이 장은 DBeaver  개요, 시스템 요구사항, 설치 및 제거 방법, 그리고 Altibase 데이터베이스 시스템 연결하는 방법에 대해 소개한다.
+
+### 개요 
+
+DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터베이스 툴이다. 80가지 이상의 데이터베이스 시스템에 연결하여 데이터 조작, 데이터베이스 객체 관리 기능, SQL 편집기, SQL Plan 뷰어, 데이터베이스 연결 세션 모니터링 등의 기능을 제공한다.
+
+Altibase에서 제공하는 DBeaver 패키지는 기존 호환되는 데이터베이스 시스템과 더불어 Altibase에 연결 및 앞서 기술한 다양한 기능들을 제공한다. 
+
+DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki 를 참조한다.
+
+### 시스템 요구사항
+
+#### 소프트웨어 요구 사항
+
+##### 지원하는 OS 및 플랫폼
+
+Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우용 패키지를 제공한다.
+
+##### 호환되는 Altibase 서버 버전
+
+DBeaver와 호환되는 Altibase 서버 버전을 열거한다.
+
+- Altibase 7.1.0 이상
+
+### 설치 및 제거
+
+DBeaver는 공식 Altibase 고객서비스포털 <http://support.altibase.com>에서 내려받을 수 있으며 zip 파일 형식으로 제공된다.
+
+설치는 원하는 폴더에 압축을 풀면 완료된다. DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
+
+### Altibase 데이터베이스 시스템 연결
+
+#### 1. 새 데이터베이스 연결
+
+[ 데이터베이스 ] → [ 새 데이터베이스 연결 ]
+
+![connect1](media/DBeaver/connect1.png)
+
+#### 2. Altibase database 선택
+
+All 또는 SQL에서 Altibase를 선택 후 [ Next > ] 버튼을 클릭한다.
+
+![connect2](media/DBeaver/connect2.png)
+
+#### 3. 데이터베이스 접속 정보 입력
+
+Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.
+
+![connect3](media/DBeaver/connect3.png)
+
+#### 4. JDBC 드라이버 파일
+
+접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. ![auto1](media/DBeaver/auto1.png)
+
+처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 드라이버 파일이 없기 때문에, JDBC 드라이버 파일을 등록해야 접속이 가능하다. '4.1 자동 다운로드' 또는 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
+
+Altibase 연결 정보(mydb)를 더블 클릭하면 연결을 시도한다. 
+
+##### 4.1 자동 다운로드
+
+데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는  Altibase JDBC 드라이버 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 드라이버 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
+
+![auto2](media/DBeaver/auto2.png)
+
+Download 를 클릭하여 JDBC 드라이버 파일을 다운로드한다.
+
+![auto3](media/DBeaver/auto3.png)
+
+다운로드가 완료되면 데이터베이스 연결이 수행된다.
+
+##### 4.2 수동으로 JDBC 드라이버 등록
+
+사용자가 JDBC 드라이버를 직접 등록할 수 있다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
+
+![connect4](media/DBeaver/connect4.png)
+
+Libraries 탭의 Add File을 클릭한다.
+
+![connect5](media/DBeaver/connect5.png)
+
+사용할 Altibase JDBC 드라이버 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
+
+![connect6](media/DBeaver/connect6.png)
+
+Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 Apply and Close 를 클릭한다.
+
+![connect7](media/DBeaver/connect7.png)
+
+설정이 완료되었다면 OK 버튼을 클릭하고, 마지막으로 Finish 버튼을 클릭하여 설정을 완료한다.
+
+![connect8](media/DBeaver/connect8.png)
+
+#### 5. 데이터베이스 연결 완료
+
+Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록을 확인할 수 있다.
+
+목록의 데이터베이스 연결 정보를 더블 클릭하면 연결을 시도하며, 성공적으로 연결되면 아이콘에 초록색 체크 표시가 나타난다.
+
+![connect9](media/DBeaver/connect9.png)
+
+필요시 mydb 데이터베이스 연결 정보 이름을 원하는 이름으로 변경할 수 있다.
+
+![connect10](media/DBeaver/connect10.png)
+
+
+
+2.SQuirreL SQL 클라이언트
 =======================
 
 이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고
@@ -460,7 +587,7 @@ SQuirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭�
 
 <br>
 
-2.Hibernate
+3.Hibernate
 =========
 
 ### Hibernate
@@ -487,7 +614,7 @@ Altibase Github사이트에서 제공한다.
 
 <br>
 
-3.OpenLDAP
+4.OpenLDAP
 ========
 
 이 장은 openLDAP과 Altibase를 연동하는 방법을 설명한다.
@@ -823,10 +950,9 @@ $ isql -s localhost -u ldap -p ldap -f testdb_data.sql
 
 - testdb_data.sql: objectClass 데이터 입력
 
-
 <br>
 
-4.Oracle GoldenGate
+5.Oracle GoldenGate
 =========
 
 ### Oracle GoldenGate 소개

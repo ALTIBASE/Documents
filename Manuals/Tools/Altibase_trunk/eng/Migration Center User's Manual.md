@@ -1417,9 +1417,9 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  19  | NVARCHAR      | NVARCHAR    |                                                              |
 |  20  | LVARCHAR      | VARCHAR     | If Informix's LVARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Informix and Altibase data types. Informix's maximum value for LVARCHAR is 32,767 bytes, larger than Altibase. |
 |  21  | TEXT          | CLOB        |                                                              |
-|  22  | CLOB          | CLOB        | The user should keep in mind that data loss can occur due to the maximum size of CLOB data type at Informix (4GB) being greater than that of Altibase (2GB). |
+|  22  | CLOB          | CLOB        |                                                              |
 |  23  | BYTE          | BLOB        |                                                              |
-|  24  | BLOB          | BLOB        | The user should keep in mind that data loss can occur due to the maximum size of BLOB data type at Informix (4GB) being greater than that of Altibase (2GB). |
+|  24  | BLOB          | BLOB        |                                                              |
 |  25  | INTERVAL      | FLOAT       |                                                              |
 
 #### TimesTen to Altibase
@@ -1476,8 +1476,8 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  16  | STRING     | VARCHAR       | The potential data loss can be occured since the maximum VARCHAR size of CUBRID is greater than that of Altiabse, which is 32,000 bytes with the identical data type. |
 |  17  | BIT        | BLOB          |                                                              |
 |  18  | VARBIT     | BLOB          |                                                              |
-|  19  | BLOB       | BLOB          | The maximum length of BLOB in CUBRID is the file size which can be created in an external storage, and it differs from the maximum size of BLOB type in Altibase, which is 2GB; thus, potential data loss can be occurred. |
-|  20  | CLOB       | CLOB          | The maximum length of CLOB in CUBRID is the file size which can be created in an external storage, and it differs from the maximum size of CLOB type in Altibase, which is 2GB; thus, potential data loss can be occurred. |
+|  19  | BLOB       | BLOB          |                                                              |
+|  20  | CLOB       | CLOB          |                                                              |
 |  21  | ENUM       | VARCHAR(3200) | This is the data which is not supported by Altibase. The constants of enumeration character sting in CUBRID implement migration through arbitrarily converting them into VARCHAR type of Altibase. |
 |  22  | COLLECTION | VARCHAR(3200) | This is the data type that Altibase does not support. The COLLECTION data type of CUBRID is converted as the VARCHAR data type of Altibase and the value of the former is also converted as string for the later during migrating. |
 

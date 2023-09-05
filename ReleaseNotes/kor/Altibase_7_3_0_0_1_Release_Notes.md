@@ -21,6 +21,7 @@
       - [2.1.11 기능 개선 - JDBC Adapter, oraAdpater](#2111)
       - [2.1.12 성능 개선](#2112-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
       - [2.1.13 고가용성](#2113-%EA%B3%A0%EA%B0%80%EC%9A%A9%EC%84%B1)
+      - [2.1.14 DBeaver 패키지 제공](#2114-dbeaver-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
     - [2.2 변경 사항](#22-%EB%B3%80%EA%B2%BD-%EC%82%AC%ED%95%AD)
       - [2.2.1 데이터베이스 버전](#221-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%B2%84%EC%A0%84)
       - [2.2.2 호환성](#222-%ED%98%B8%ED%99%98%EC%84%B1)
@@ -439,6 +440,10 @@ DDL PVO 단계에서의 예외처리 개선으로 안정성을 향상시켰다.
 
 - INDEX_INITTRANS 최대값이 30에서 50으로 변경
 - INDEX_MAXTRANS 기본값과 최대값이 30에서 50으로 변경
+
+#### 2.1.14 DBeaver 패키지 제공
+
+윈도우즈용 DBeaver 패키지를 제공한다. 자세한 내용은 [**Altibase 3rd Party Connector Guide** - 1.DBeaver](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Altibase%203rd%20Party%20Connector%20Guide.md#1dbeaver) 를 참고한다.
 
 </br>
 
