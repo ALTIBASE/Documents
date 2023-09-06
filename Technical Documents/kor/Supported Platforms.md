@@ -52,7 +52,7 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 
 >  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>
 >
->  Microsoft Windows 는 지원하지 않습니다. Windows용 클라이언트가 필요한 경우, Altibase 7.1의 클라이언트를 사용하면 됩니다.
+>  Microsoft Windows 는 지원하지 않습니다. Windows용 클라이언트가 필요한 경우, Altibase 7.1의 클라이언트를 사용할 수 있습니다.
 
 > Altibase 7.3 패치 버전을 명시하지 않은 경우 Altibase 7.3 모든 버전에서 지원함을 의미합니다.
 
