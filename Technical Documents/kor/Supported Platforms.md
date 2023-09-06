@@ -10,6 +10,9 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [개요](#개요)
+- [Altibase 7.3](#altibase-73)
+  - [Altibase 7.3 Server & Client](#altibase-73-server--client)
+  - [Altibase 7.3 Library & Tools](#altibase-73-library--tools)
 - [Altibase 7.1](#altibase-71)
   - [Altibase 7.1 Server & Client](#altibase-71-server--client)
   - [Altibase 7.1 Library & Tools](#altibase-71-library--tools)
@@ -43,7 +46,70 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 
 <br/>
 
+# Altibase 7.3
 
+## Altibase 7.3 Server & Client
+
+>  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>
+>
+>  Microsoft Windows 는 지원하지 않습니다. Windows용 클라이언트가 필요한 경우, Altibase 7.1의 클라이언트를 사용할 수 있습니다.
+
+> Altibase 7.3 패치 버전을 명시하지 않은 경우 Altibase 7.3 모든 버전에서 지원함을 의미합니다.
+
+> **Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
+
+
+| Altibase 7.3                                                 | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항      |
+| :----------------------------------------------------------- | :-----------: | :-----------------: | :----------------------- |
+| **AIX on IBM Power Systems**                                 |               |                     |                          |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                          |
+| AIX 7.1                                                      |       ●       |          ●          |                          |
+| AIX 7.2                                                      |       ●       |          ●          |                          |
+| **HP-UX Itanium (IA-64)**                                    |               |                     |                          |
+| HP-UX 11.31                                                  |       ●       |          ●          |                          |
+| **Linux x86-64**                                             |               |                     |                          |
+| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
+| CentOS 6.8                                                   |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
+| Rocky Linux 8.5                                              |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
+| Ubuntu 12                                                    |       ●       |          ●          | - *GNU glibc 2.17 이상*  |
+| Ubuntu 16                                                    |       ●       |          ●          | -  *GNU glibc 2.23 이상* |
+| Ubuntu 18                                                    |       ●       |          ●          | - *GNU glibc 2.27 이상*  |
+| **Linux on Power**                                           |               |                     |                          |
+| POWER7 Red Hat Enterprise Linux 6.5                          |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
+| **Linux on Power** **(Little Endian)**                       |               |                     |                          |
+| POWER8(LE) Red Hat Enterprise Linux 7.2                      |       ●       |          ●          | *- GNU glibc 2.17 이상*  |
+| **Microsoft Windows (x64)**                                  |               |                     |                          |
+| Microsoft Windows 2008                                       |     **x**     |        **x**        |                          |
+| Microsoft Windows 10                                         |     **x**     |        **x**        |                          |
+
+<br/>
+
+## Altibase 7.3 Library & Tools
+
+| Altibase 7.3                                                 | PDO 드라이버<br/>PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO 드라이버<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | altiMon | Adapter for JDBC | Adapter for Oracle | 소프트웨어 요구사항 |
+| :----------------------------------------------------------- | :-------------------------------------------------------: | :------------------------------------------------: | :-----: | :--------------: | :----------------: | :------------------ |
+| **AIX on IBM Power Systems**                                 |                                                           |                                                    |         |                  |                    |                     |
+| AIX 6.1                                                      |                           **x**                           |                       **x**                        |    ●    |        ●         |         ●          |                     |
+| AIX 7.1<br/>AIX 7.2                                          |                           **x**                           |                       **x**                        |    ●    |        ●         |       **-**        |                     |
+| **HP-UX Itanium (IA-64)**                                    |                                                           |                                                    |         |                  |                    |                     |
+| HP-UX 11.31                                                  |                           **x**                           |                       **x**                        |    ●    |        ●         |       **x**        |                     |
+| **Linux x86-64**                                             |                                                           |                                                    |         |                  |                    |                     |
+| Red Hat Enterprise Linux 6.0                                 |                             ●                             |                         ●                          |    ●    |        ●         |         ●          |                     |
+| Red Hat Enterprise Linux 8.2<br/>Red Hat Enterprise Linux 8.3 |                           **-**                           |                       **-**                        |  **-**  |        ●         |       **-**        |                     |
+| Red Hat Enterprise Linux 8.4                                 |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
+| CentOS 6.8                                                   |                           **-**                           |                       **-**                        |  **-**  |        ●         |       **-**        |                     |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |                           **-**                           |                       **-**                        |  **-**  |        ●         |       **-**        |                     |
+| Rocky Linux 8.5                                              |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
+| Ubuntu 12                                                    |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
+| Ubuntu 16<br/>Ubuntu 18                                      |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
+| **Linux on Power**                                           |                                                           |                                                    |         |                  |                    |                     |
+| POWER7 Red Hat Enterprise Linux 6.5                          |                           **-**                           |                       **-**                        |    ●    |        ●         |       **x**        |                     |
+| **Linux on Power (Little Endian)**                           |                                                           |                                                    |         |                  |                    |                     |
+| POWER8(LE) Red Hat Enterprise Linux 7.2                      |                           **-**                           |                       **-**                        |    ●    |        ●         |       **x**        |                     |
+| **Microsoft Windows (x64)**                                  |                           **x**                           |                       **x**                        |  **x**  |      **x**       |       **x**        |                     |
+
+<br/>
 
 # Altibase 7.1
 
