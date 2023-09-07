@@ -315,8 +315,7 @@ Altibase 이중화 (Replication)는 운영중인 데이터베이스의 로그를
 데이터베이스에 데이터 변경을 재실행함으로써 양쪽 데이터베이스는 같은 데이터를
 유지하게 된다.
 
-또한 Altibase는 이중화로 운영중인 데이터를 모니터링하고 관리할 수 있는 altiComp
-유틸리티를 제공한다. 자세한 설명은 *Utilities Manual의 altiComp*를 참조한다.
+Altibase는 이중화 관리를 위한 GUI 도구로 Replication Manager를 제공하며, 이중화 중에 발생한 데이터 불일치를 확인하고 보정할 수 있는 altiComp 유틸리티도 제공한다. 자세한 설명은 [***Replication Manager User's Manual***](https://github.com/ALTIBASE/Documents/blob/7.3branch/Manuals/Tools/Altibase_release/kor/Replication%20Manager%20User's%20Manual.md) 과 *[**Utilities Manual**의 altiComp](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#2alticomp)*를 참조한다.
 
 #### 이중화 관련 용어
 
