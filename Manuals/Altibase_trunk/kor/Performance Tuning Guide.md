@@ -6202,8 +6202,6 @@ WINDOW SORT ( ITEM_SIZE:  item_size, ITEM_COUNT:  item_count, ACCESS: acc_num, S
 
 WINDOW-SORT 노드는 관계형 모델에서 윈도우 함수를 처리하기 위한 노드이다.
 
-집계, 분석, 순위, 기타 윈도우 함수 수행노드를 나타내며, 데이터의 SORT COUNT 정보를 표시한다.
-
 ```sql
 iSQL> select  i1, i3, count( i3 ) over ( partition by i1 order by i3 ROWS between UNBOUNDED PRECEDING and UNBOUNDED FOLLOWING) as count from t1;
 I1          I3          COUNT
