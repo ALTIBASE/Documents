@@ -4552,7 +4552,7 @@ AVG(i1), SUM(i2)를 처리하기 위하여 사용되었다.
 각 부서내의 각 직위에 대해 지급되는 급여 총액을 출력하라. (여러 열에 GROUP BY
 절을 사용)
 
-```
+```sql
 iSQL> SELECT dno, emp_job, COUNT(emp_job) num_emp, SUM(salary) sum_sal FROM employees GROUP BY dno, emp_job;
 DNO  EMP_JOB    NUM_EMP SUM_SAL 
 -----------------------------------------------
@@ -4564,6 +4564,100 @@ DNO  EMP_JOB    NUM_EMP SUM_SAL
 PROJECT ( COLUMN_COUNT: 4, TUPLE_SIZE: 55, COST: 0.80 )
  GROUP-AGGREGATION ( ITEM_SIZE: 56, GROUP_COUNT: 16, BUCKET_COUNT: 1024, ACCESS: 16, COST: 0.13 )
   SCAN ( TABLE: EMPLOYEES, FULL SCAN, ACCESS: 20, COST: 0.01 )
+------------------------------------------------------------
+```
+
+
+
+#### GROUP-CUBE
+
+##### 출력 형식
+
+```
+GROUP-CUBE ( ACCESS: acc_num, COST:  )
+```
+
+| 항목   | 설명                 |
+| ------ | -------------------- |
+| ACCESS | 레코드에 접근한 횟수 |
+| COST   | 추산 비용            |
+
+##### 설명
+
+CUBE는 GROUP BY절의 확장 형태로 여러개의 그룹을 세트로 지정할 수 있다.
+
+GROUP-CUBE는 CUBE 수행 노드를 나타낸다.
+
+```sql
+iSQL> select i1, i2, count( i3 ) from t1 group by cube(i1,i2);
+I1          I2          COUNT(I3)
+-------------------------------------------------
+                        10
+1           1           1
+1           2           2
+1           3           1
+1           5           1
+1           6           1
+1                       6
+2           6           1
+2           7           1
+2           9           2
+2                       4
+            1           1
+            2           2
+            3           1
+            5           1
+            6           2
+            7           1
+            9           2
+18 rows selected.
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 16, COST: 185.09 )
+ GROUP-CUBE ( ACCESS: 18, COST: 177.17 )
+  SCAN ( TABLE: SYS.T1, FULL SCAN, ACCESS: 10, COST: 116.76 )
+```
+
+
+
+#### GROUP-ROLLUP
+
+##### 출력 형식
+
+```
+GROUP-ROLLUP  ( ACCESS: acc_num, COST: cost )
+```
+
+| 항목   | 설명                 |
+| ------ | -------------------- |
+| ACCESS | 레코드에 접근한 횟수 |
+| COST   | 추산 비용            |
+
+##### 설명
+
+ROLLUP은 GROUP BY절의 확장 형태로 여러개의 그룹을 세트로 지정할 수 있다.
+
+GROUP-ROLLUP은 ROLLUP 수행 노드를 나타낸다.
+
+```sql
+iSQL> select i1, i2, count( i3 ) from t1 group by rollup(i1,i2);
+I1          I2          COUNT(I3)
+-------------------------------------------------
+1           1           1
+1           2           2
+1           3           1
+1           5           1
+1           6           1
+1                       6
+2           6           1
+2           7           1
+2           9           2
+2                       4
+                        10
+11 rows selected.
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 16, COST: 152.90 )
+ GROUP-ROLLUP ( ACCESS: 11, COST: 146.97 )
+  SCAN ( TABLE: SYS.T1, FULL SCAN, ACCESS: 10, COST: 116.76 )
 ------------------------------------------------------------
 ```
 
@@ -6085,6 +6179,54 @@ STORE 노드는 조인에 사용될 수 있다.
 얻을 수 있다.
 
 ![store](media/TuningGuide/store.gif)
+
+
+
+#### WINDOW  SORT
+
+##### 출력 형식
+
+```
+WINDOW SORT ( ITEM_SIZE:  item_size, ITEM_COUNT:  item_count, ACCESS: acc_num, SORT_COUNT: sort_count, COST: cost )
+```
+
+| 항목       | 설명                           |
+| ---------- | ------------------------------ |
+| ITEM_SIZE  | 저장 레코드의 크기             |
+| ITEM_COUNT | 저장에 포함된 레코드의 개수    |
+| ACCESS     | 저장된 레코드에 대한 접근 횟수 |
+| SORT_COUNT | 정렬되는 레코드의 개수         |
+| COST       | 추산 비용                      |
+
+##### 설명
+
+WINDOW-SORT 노드는 관계형 모델에서 윈도우 함수를 처리하기 위한 노드이다.
+
+집계, 분석, 순위, 기타 윈도우 함수 수행노드를 나타내며, 데이터의 SORT COUNT 정보를 표시한다.
+
+```sql
+iSQL> select  i1, i3, count( i3 ) over ( partition by i1 order by i3 ROWS between UNBOUNDED PRECEDING and UNBOUNDED FOLLOWING) as count from t1;
+I1          I3          COUNT
+-------------------------------------------------
+1           1           6
+1           2           6
+1           3           6
+1           4           6
+1           5           6
+1           6           6
+2           7           4
+2           8           4
+2           9           4
+2           10          4
+10 rows selected.
+------------------------------------------------------------
+PROJECT ( COLUMN_COUNT: 3, TUPLE_SIZE: 16, COST: 152.24 )
+ WINDOW SORT ( ITEM_SIZE: 24, ITEM_COUNT: 10, ACCESS: 29, SORT_COUNT: 1, COST: 146.97 )
+  SCAN ( TABLE: SYS.T1, FULL SCAN, ACCESS: 10, COST: 116.76 )
+------------------------------------------------------------
+```
+
+
 
 5.옵티마이저와 통계정보
 =====================
