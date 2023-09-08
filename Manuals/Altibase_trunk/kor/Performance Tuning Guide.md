@@ -4584,9 +4584,9 @@ GROUP-CUBE ( ACCESS: acc_num, COST:  )
 
 ##### 설명
 
-CUBE는 GROUP BY절의 확장 형태로 여러개의 그룹을 세트로 지정할 수 있다.
+GROUP-CUBE 노드는 관계형 모델에서 CUBE 절을 처리하기 위한 노드이다.
 
-GROUP-CUBE는 CUBE 수행 노드를 나타낸다.
+CUBE는 GROUP BY 절과 함께 사용되며, 명시된 그룹화 칼럼들의 가능한 모든 조합으로 그룹화를 수행한다.
 
 ```sql
 iSQL> select i1, i2, count( i3 ) from t1 group by cube(i1,i2);
@@ -4634,9 +4634,9 @@ GROUP-ROLLUP  ( ACCESS: acc_num, COST: cost )
 
 ##### 설명
 
-ROLLUP은 GROUP BY절의 확장 형태로 여러개의 그룹을 세트로 지정할 수 있다.
+GROUP-ROLLUP 노드는 관계형 모델에서 ROLLUP 절을 처리하기 위한 노드이다.
 
-GROUP-ROLLUP은 ROLLUP 수행 노드를 나타낸다.
+ROLLUP은 GROUP BY절의 확장 형태로, GROUP BY절에 의해서 그룹지어진 집합 결과에 대하여 그룹별 집계 정보를 반환하는 기능을 수행한다.
 
 ```sql
 iSQL> select i1, i2, count( i3 ) from t1 group by rollup(i1,i2);
