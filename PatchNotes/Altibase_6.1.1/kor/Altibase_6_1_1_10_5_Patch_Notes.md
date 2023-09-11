@@ -6,8 +6,6 @@
 
 # Table of Contents
 
-- [Altibase 6.1.1.10.5 Patch Notes](#altibase-611105-patch-notes)
-- [Table of Contents](#table-of-contents)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-40266 갱신 트랜잭션이 대기하는 상황이면, altibase_boot.log에 메시지를 출력하도록 개선합니다.](#bug-40266)
   - [BUG-50558 Query rebuild 중에 잘못된 bind data에 접근하여 서버가 비정상 종료할 수 있는 문제를 수정합니다.](#bug-50558)
