@@ -1894,7 +1894,7 @@ The followings explain the detailed behavior of  `aku -p start` command during c
 
 When scaling up in a StatefulSet, new Pods are created. The new Pod is called as "Slave Pod" in aku and the executed aku is called as "SLAVE AKU".  A Pod can be created and terminated repeatedly. The behavior of `aku -p start` is a little different when a Pod is first created and when it is restarted after being terminated.
 
-> **When creating a Slave Pod for the first time, or restart (Default behavior, AKU_REPLICATION_RESET_AT_END =1, )**
+> **When creating a Slave Pod for the first time, or restart (Default behavior, AKU_REPLICATION_RESET_AT_END =1)**
 
 Followings explain the detailed behavior of  `aku -p start` command on *pod_name*-1 when the Slave Pod is created for the first time and is restarted normally. 
 
@@ -1904,7 +1904,7 @@ Followings explain the detailed behavior of  `aku -p start` command on *pod_name
 
 1️⃣ Reads aku.conf file.
 
-2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus 1. For example, if *pod_name*-1 is the restarted Pod, the name already exists, so this step will be skipped. 
+2️⃣ Creates Altibase replication objects, and the number of objects created is equal to AKU_SERVER_COUNT minus 1. For example, if *pod_name*-1 is the restarted Pod, the name already exists, so this step is skipped. 
 
 3️⃣ Attempts to connect to all Pods, which are replication target servers. Only the connection with *pod_name*-0 successes and connection errors occurs on the other Pods(*pod_name*-2, *pod_name*-3) , since they have not been created yet. This is the expected behavior.
 
