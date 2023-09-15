@@ -8970,17 +8970,13 @@ END;
 | short      | SQL_SMALLINT |
 | int        | SQL_INTEGER  |
 | long       | SQL_BIGINT   |
+| long long  | SQL_BIGINT   |
 | float      | SQL_REAL     |
 | double     | SQL_DOUBLE   |
 
 ##### 제한 사항
 
-- long 형은 8바이트만 지원한다.
-
-  long 형의 크기가 4바이트인 아래 OS에서는 long 형을 지원하지 않는다. 
-
-  - 32비트 Linux
-  - Windows 
+- long 형의 경우 Window 에서 4바이트이지만, 다른 OS와 호환성을 고려하여 8바이트 SQL_BIGINT로 처리된다.
 
 - C 데이터형과 SQL 데이터형이 다르면 에러가 발생한다.
 
