@@ -8861,16 +8861,15 @@ END;
 | short      | SQL_SMALLINT |
 | int        | SQL_INTEGER  |
 | long       | SQL_BIGINT   |
+| long long  | SQL_BIGINT   |
 | float      | SQL_REAL     |
 | double     | SQL_DOUBLE   |
 
 ##### 제한 사항
 
-- long 형은 8바이트만 지원한다.
+- 윈도우즈와 32비트 리눅스 환경에서 BIGINT 배열의 인자를 사용하는 저장프로시저의 경우, 응용프로그램에서 배열 호스트 변수의 데이터 타입은 long이 아닌 long long을 사용해야 한다. 왜냐하면, long의 경우 윈도우즈와 32비트 리눅스 환경에서는 4바이트이기 때문이다.
 
-  long 형의 크기가 4바이트인 Windows 클라이언트에서는 long 형을 지원하지 않는다. 
-
-- C 데이터형과 SQL 데이터형이 다르면 에러가 발생한다.
+- C 데이터 타입과 SQL 데이터 타입이 서로 다른 경우, 에러가 발생하거나 잘못된 형변환이 이루어져 원하지 않는 동작이 발생할 수 있습니다.
 
   ~~~c
   CREATE OR REPLACE PACKAGE pkg1
