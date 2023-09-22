@@ -17069,7 +17069,7 @@ SQL 함수는 크게 다음의 표처럼 분류된다.
 | 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE, ROUND, TRUNC |
 | 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, 날짜/시간, 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, UNIX_TO_DATE |
 | 암호화 함수                     | 문자열에 대해 암호화와 복호화를 수행한다. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
-| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HASH, HOST_NAME, INVOKE_USER_ID, INVOKE_USER_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, NVL_EQUAL, NVL_NOT_EQUAL, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
+| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HASH, HOST_NAME, INVOKE_USER_ID, INVOKE_USER_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
 
 ### 집계 함수
 
@@ -25745,7 +25745,7 @@ John
 
 즉, "NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) = *expr3*"과 동치이다.
 
-NVL_EQUAL(*expr1*, *expr2*, *expr3*)은 "NVL(*expr1*, *expr2*) != *expr3*"과 동치이다.
+"NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) != *expr3*"과 동치이다.
 
 아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
 
@@ -25753,7 +25753,7 @@ NVL_EQUAL(*expr1*, *expr2*, *expr3*)은 "NVL(*expr1*, *expr2*) != *expr3*"과 �
 >
 > *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
 >
-> NVL_EQUAL 함수에서 인덱스를 사용하기위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+> NVL_EQUAL 에서 인덱스를 사용하기위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
 
 ##### 예제
 
