@@ -16976,7 +16976,7 @@ SQL 함수는 크게 다음의 표처럼 분류된다.
 | 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE, ROUND, TRUNC |
 | 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, 날짜/시간, 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, UNIX_TO_DATE |
 | 암호화 함수                     | 문자열에 대해 암호화와 복호화를 수행한다. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
-| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
+| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, NVL_EQUAL, NVL_NOT_EQUAL, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
 
 ### 집계 함수
 
@@ -24210,6 +24210,135 @@ Aaron                 Foster                1800        1980
 .
 .
 20 rows selected.
+```
+
+
+
+#### NVL_EQUAL
+
+##### 구문
+
+```
+NVL_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### 설명
+
+*expr1*이 NULL이면, *expr2*와 *expr3*를 비교한다.
+
+*expr1*이 NULL이 아니면, *expr1*과 *expr3*를 비교한다.
+
+즉, "NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) = *expr3*"과 동치이다.
+
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+
+> **주의 사항**
+>
+> *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+>
+> NVL_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+
+##### 예제
+
+아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_EQUAL 경우 인덱스를 이용한다.
+
+```
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL_EQUAL(TO_CHAR(salary), 'Unknown','Unknown');
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL(TO_CHAR(salary), 'Unknown') = 'Unknown';
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+```
+
+
+
+#### NVL_NOT_EQUAL
+
+##### 구문
+
+```
+NVL_NOT_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### 설명
+
+*expr1*이 NULL이면, *expr2*와 *expr3*를 비교한다.
+
+*expr1*이 NULL이 아니면, *expr1*과 *expr3*를 비교한다.
+
+"NVL_NOT_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) != *expr3*"과 동치이다.
+
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_NOT_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+
+> **주의 사항**
+>
+> *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+>
+> NVL_NOT_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+
+##### 예제
+
+아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_NOT_EQUAL 경우 인덱스를 이용한다.
+
+```
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl_not_equal(birth, 'Unknown', 'Unknown');
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
+
+
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl(birth, 'Unknown') != 'Unknown';
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
 ```
 
 
