@@ -16912,6 +16912,73 @@ Unsigned Integer
 1: (rw-r-r 0644) - 소유자는 읽기와 쓰기만 할 수 있으며, 그 외의 사용자는 읽기만
 할 수 있다.
 
+#### PARALLEL_QUERY_QUEUE_SIZE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1024
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[4, 1048576]
+
+##### 설명
+
+병렬 큐(Parallel Queue)가 담을 수 있는 최대 로우(row) 수를 지정한다.
+
+#### PARALLEL_QUERY_THREAD_MAX
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+논리 코어 수
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1024]
+
+##### 설명
+
+병렬 쿼리에서 사용하는 최대 쓰레드 개수를 지정한다.
+
+#### PSM_CASE_SENSITIVE_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+PSM 내에서 RECORD 타입과 ROWTYPE 타입의 컬럼 이름을 참조하거나 LABEL의 이름을 참조할 때, 대소문자를 구별할지 여부를 설정하는 프로퍼티 이다. 0으로 설정한 경우 대소문자를 구별하지 않고 동작하고, 1로 설정한 경우 대소문자를 구별하여 동작한다.
+Altibase 운영 중에 ALTER SYSTEM 구문으로 이 프로퍼티의 값을 변경할 수 있다.
+
 #### PSM_CHAR_DEFAULT_PRECISION
 
 ##### 데이터 타입
@@ -16969,6 +17036,28 @@ PSM(저장 프로시저 및 함수, 트리거) 내에 포함된 "SELECT \~ INTO"
 
 Altibase 운영 중에 ALTER SYSTEM 구문으로 이 프로퍼티의 값을 변경할 수 있다.
 
+#### PSM_MAX_DDL_REFERENCE_DEPTH
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+128
+
+##### 속성
+
+ 변경 가능, 단일 값
+
+##### 값의 범위
+
+[64, 2<sup>32</sup>-1]
+
+##### 설명
+
+PSM을 컴파일할 때 재귀 호출 또는 참조 깊이의 수를 제한합니다. 재귀 호출 또는 참조 깊이의 수가 설정 값을 초과하면 에러가 발생합니다.
+
 #### PSM_NCHAR_UTF16_DEFAULT_PRECISION
 
 ##### 데이터 타입
@@ -16997,28 +17086,6 @@ Altibase 캐릭터 셋(character set)이 UTF16이고 아래와 같은 경우에 
   때
 - 저장 함수 생성시 데이터 타입이 NCHAR인 파라미터 또는 반환 값의 크기를
   명시하지 않을 때
-
-#### PSM_MAX_DDL_REFERENCE_DEPTH
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-128
-
-##### 속성
-
- 변경 가능, 단일 값
-
-##### 값의 범위
-
-[64, 2<sup>32</sup>-1]
-
-##### 설명
-
-PSM을 컴파일할 때 재귀 호출 또는 참조 깊이의 수를 제한합니다. 재귀 호출 또는 참조 깊이의 수가 설정 값을 초과하면 에러가 발생합니다.
 
 #### PSM_NCHAR_UTF8_DEFAULT_PRECISION
 
@@ -17230,6 +17297,42 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### REGEXP_MODE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+정규 표현식 모드를 설정하는 프로퍼티로, 설정값의 의미는 아래와 같다.
+
+> **0**
+
+Altibase 정규 표현식 모드.
+
+POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)을 일부 지원한다.
+
+> **1**
+
+PCRE2 호환 모드.
+
+펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리의 정규 표현식 문법을 지원한다.
+
+이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
+
 #### REMOTE_SYSDBA_ENABLE
 
 ##### 데이터 타입
@@ -17308,86 +17411,6 @@ Unsigned Integer
 크기를 지정한다.
 
 Altibase 운영 중에 ALTER SYSTEM 구문으로 이 프로퍼티의 값을 변경할 수 있다.
-
-#### PARALLEL_QUERY_THREAD_MAX
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-논리 코어 수
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1024]
-
-##### 설명
-
-병렬 쿼리에서 사용하는 최대 쓰레드 개수를 지정한다.
-
-#### PARALLEL_QUERY_QUEUE_SIZE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-1024
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[4, 1048576]
-
-##### 설명
-
-병렬 큐(Parallel Queue)가 담을 수 있는 최대 로우(row) 수를 지정한다.
-
-#### REGEXP_MODE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-정규 표현식 모드를 설정하는 프로퍼티로, 설정값의 의미는 아래와 같다.
-
-> **0**
-
-Altibase 정규 표현식 모드.
-
-POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)을 일부 지원한다.
-
-> **1**
-
-PCRE2 호환 모드.
-
-펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리의 정규 표현식 문법을 지원한다.
-
-이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 매뉴얼을 참고한다. 
 
 #### VARRAY_MEMORY_MAXIMUM
 
