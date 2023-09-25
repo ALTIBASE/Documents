@@ -24380,7 +24380,7 @@ NVL_EQUAL (expr1, expr2, expr3)
 
 > **주의 사항**
 >
-> *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+> *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
 >
 > NVL_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
 
@@ -24434,7 +24434,7 @@ NVL_NOT_EQUAL (expr1, expr2, expr3)
 
 > **주의 사항**
 >
-> *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+> *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
 >
 > NVL_NOT_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
 
@@ -24462,7 +24462,6 @@ Jason                 Davenport             901212
 Wei-Wei               Chen                  780509
 Takahiro              Fubuki                781026
 13 rows selected.
-
 
 
 iSQL> select e_firstname, e_lastname, birth
