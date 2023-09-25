@@ -24358,6 +24358,143 @@ Aaron                 Foster                1800        1980
 
 
 
+#### NVL_EQUAL
+
+##### 구문
+
+```
+NVL_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### 설명
+
+*expr1*이 NULL이면, *expr2*와 *expr3*를 비교한다.
+
+*expr1*이 NULL이 아니면, *expr1*과 *expr3*를 비교한다.
+
+즉, "NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) = *expr3*"과 동치이다.
+
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+
+> **주의 사항**
+>
+> *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+>
+> NVL_EQUAL 에서 인덱스를 사용하기위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+
+##### 예제
+
+아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_EQUAL 경우 인덱스를 이용한다.
+
+```
+iSQL> select e.e_firstname, e_lastname
+     from employees e
+     where NVL_EQUAL(TO_CHAR(e.salary), 'Unknown','Unknown');
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+
+iSQL> select e.e_firstname, e_lastname
+     from employees e
+     where NVL(TO_CHAR(e.salary), 'Unknown') = 'Unknown';
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+```
+
+
+
+#### NVL_NOT_EQUAL
+
+##### 구문
+
+```
+NVL_NOT_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### 설명
+
+*expr1*이 NULL이면, *expr2*와 *expr3*를 비교한다.
+
+*expr1*이 NULL이 아니면, *expr1*과 *expr3*를 비교한다.
+
+"NVL_NOT_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) != *expr3*"과 동치이다.
+
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_NOT_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+
+> **주의 사항**
+>
+> *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+>
+> NVL_NOT_EQUAL 에서 인덱스를 사용하기위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+
+##### 예제
+
+아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_NOT_EQUAL 경우 인덱스를 이용한다.
+
+```
+iSQL> select e.e_firstname, e_lastname
+     from employees e
+     where NVL_NOT_EQUAL(TO_CHAR(e.salary), 'Unknown','Unknown');
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Susan                 Davenport
+Ken                   Kobain
+Aaron                 Foster
+Farhad                Ghorbani
+Ryu                   Momoi
+Gottlieb              Fleischer
+Curtis                Diaz
+Elizabeth             Bae
+Zhen                  Liu
+Sandra                Hammond
+Mitch                 Jones
+Yuu                   Miura
+Jason                 Davenport
+Wei-Wei               Chen
+Takahiro              Fubuki
+John                  Huxley
+Alvar                 Marquez
+17 rows selected.
+
+
+iSQL> select e.e_firstname, e_lastname
+     from employees e
+     where NVL(TO_CHAR(e.salary), 'Unknown') != 'Unknown';
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Susan                 Davenport
+Ken                   Kobain
+Aaron                 Foster
+Farhad                Ghorbani
+Ryu                   Momoi
+Gottlieb              Fleischer
+Curtis                Diaz
+Elizabeth             Bae
+Zhen                  Liu
+Sandra                Hammond
+Mitch                 Jones
+Yuu                   Miura
+Jason                 Davenport
+Wei-Wei               Chen
+Takahiro              Fubuki
+John                  Huxley
+Alvar                 Marquez
+17 rows selected.
+```
+
+
+
 #### RAW_CONCAT
 
 ##### 구문
@@ -25723,62 +25860,6 @@ Mitch
 Takahiro
 John
 7 rows selected.
-```
-
-
-
-#### NVL_EQUAL
-
-##### 구문
-
-```
-[NOT] NVL_EQUAL (expr1, expr2, expr3)
-```
-
-
-
-##### 설명
-
-*expr1*이 NULL이면, *expr2*와 *expr3*를 비교한다.
-
-*expr1*이 NULL이 아니면, *expr1*과 *expr3*를 비교한다.
-
-즉, "NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) = *expr3*"과 동치이다.
-
-"NOT NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) != *expr3*"과 동치이다.
-
-아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
-
-> **주의 사항**
->
-> *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
->
-> NVL_EQUAL 에서 인덱스를 사용하기위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
-
-##### 예제
-
-아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_EQUAL 경우 인덱스를 이용한다.
-
-```
-iSQL> select e.e_firstname, e_lastname
-     from employees e
-     where NVL_EQUAL(TO_CHAR(e.salary), 'Unknown','Unknown');
-E_FIRSTNAME           E_LASTNAME
------------------------------------------------
-Chan-seung            Moon
-Xiong                 Wang
-William               Blake
-3 rows selected.
-
-iSQL> select e.e_firstname, e_lastname
-     from employees e
-     where NVL(TO_CHAR(e.salary), 'Unknown') = 'Unknown';
-E_FIRSTNAME           E_LASTNAME
------------------------------------------------
-Chan-seung            Moon
-Xiong                 Wang
-William               Blake
-3 rows selected.
 ```
 
 
