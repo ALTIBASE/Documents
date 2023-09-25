@@ -24382,16 +24382,16 @@ NVL_EQUAL (expr1, expr2, expr3)
 >
 > *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
 >
-> NVL_EQUAL 에서 인덱스를 사용하기위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+> NVL_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
 
 ##### 예제
 
 아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_EQUAL 경우 인덱스를 이용한다.
 
 ```
-iSQL> select e.e_firstname, e_lastname
-     from employees e
-     where NVL_EQUAL(TO_CHAR(e.salary), 'Unknown','Unknown');
+iSQL> select e_firstname, e_lastname
+     from employees
+     where NVL_EQUAL(TO_CHAR(salary), 'Unknown','Unknown');
 E_FIRSTNAME           E_LASTNAME
 -----------------------------------------------
 Chan-seung            Moon
@@ -24399,9 +24399,9 @@ Xiong                 Wang
 William               Blake
 3 rows selected.
 
-iSQL> select e.e_firstname, e_lastname
-     from employees e
-     where NVL(TO_CHAR(e.salary), 'Unknown') = 'Unknown';
+iSQL> select e_firstname, e_lastname
+     from employees
+     where NVL(TO_CHAR(salary), 'Unknown') = 'Unknown';
 E_FIRSTNAME           E_LASTNAME
 -----------------------------------------------
 Chan-seung            Moon
@@ -24436,61 +24436,54 @@ NVL_NOT_EQUAL (expr1, expr2, expr3)
 >
 > *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
 >
-> NVL_NOT_EQUAL 에서 인덱스를 사용하기위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+> NVL_NOT_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
 
 ##### 예제
 
 아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_NOT_EQUAL 경우 인덱스를 이용한다.
 
 ```
-iSQL> select e.e_firstname, e_lastname
-     from employees e
-     where NVL_NOT_EQUAL(TO_CHAR(e.salary), 'Unknown','Unknown');
-E_FIRSTNAME           E_LASTNAME
------------------------------------------------
-Susan                 Davenport
-Ken                   Kobain
-Aaron                 Foster
-Farhad                Ghorbani
-Ryu                   Momoi
-Gottlieb              Fleischer
-Curtis                Diaz
-Elizabeth             Bae
-Zhen                  Liu
-Sandra                Hammond
-Mitch                 Jones
-Yuu                   Miura
-Jason                 Davenport
-Wei-Wei               Chen
-Takahiro              Fubuki
-John                  Huxley
-Alvar                 Marquez
-17 rows selected.
+iSQL> select e_firstname, e_lastname, birth
+     from employees
+     where nvl_not_equal(birth, 'Unknown', 'Unknown');
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
 
 
-iSQL> select e.e_firstname, e_lastname
-     from employees e
-     where NVL(TO_CHAR(e.salary), 'Unknown') != 'Unknown';
-E_FIRSTNAME           E_LASTNAME
------------------------------------------------
-Susan                 Davenport
-Ken                   Kobain
-Aaron                 Foster
-Farhad                Ghorbani
-Ryu                   Momoi
-Gottlieb              Fleischer
-Curtis                Diaz
-Elizabeth             Bae
-Zhen                  Liu
-Sandra                Hammond
-Mitch                 Jones
-Yuu                   Miura
-Jason                 Davenport
-Wei-Wei               Chen
-Takahiro              Fubuki
-John                  Huxley
-Alvar                 Marquez
-17 rows selected.
+
+iSQL> select e_firstname, e_lastname, birth
+     from employees
+     where nvl(birth, 'Unknown') != 'Unknown';
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
 ```
 
 
