@@ -1308,7 +1308,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  6   | NUMBER        | NUMBER          | NUMBER type columns defined without precision and scale in Oracle are converted to the same NUMBER type columns without precision and scale for Altibase. *Both Oracle and Altibase internally handle NUMBER type columns defined without precision and scale as FLOAT type in the database. |
 |  7   | FLOAT         | FLOAT           |                                                              |
 |  8   | BINARY FLOAT  | FLOAT           |                                                              |
-|  9   | BINARY DOUBLE | VARCHAR(310)    | There is no compatible data type in Altibase for the Oracle binary double type, so the data is stored in character form to prevent loss. |
+|  9   | BINARY DOUBLE | DOUBLE          | Special values such as NaN (Not a Number) and INF (Infinity) are not supported by Altibase. So, these values are not migrated. |
 |  10  | DATE          | DATE            |                                                              |
 |  11  | TIMESTAMP     | DATE            | A small amount of data loss may occur due to the difference in scale. <br/>In Oracle, the scale of a timestamp value is nanoseconds (9 digits), whereas in Altibase, the scale of a timestamp value is microseconds (6 digits) |
 |  12  | RAW           | BLOB            |                                                              |
@@ -1427,7 +1427,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |      | Source        | Destination     | Notice                                                       |
 | :--: | :------------ | :-------------- | :----------------------------------------------------------- |
 |  1   | BINARY        | BLOB            |                                                              |
-|  2   | BINARY_DOUBLE | VARCHAR(310)    |                                                              |
+|  2   | BINARY_DOUBLE | DOUBLE          | Special values such as NaN (Not a Number) and INF (Infinity) are not supported by Altibase. So, these values are not migrated. |
 |  3   | BINARY_FLOAT  | FLOAT           |                                                              |
 |  4   | BLOB          | BLOB            |                                                              |
 |  5   | CHAR          | CHAR            | CHAR type columns defined with character length in TimesTen are automatically converted to CHAR type columns with byte length in Altibase, because in Altibase, CHAR type columns can be defined only with byte length. |
@@ -1516,7 +1516,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMERIC         | NUMBER type columns defined without precision and scale in Tibero are converted to the same NUMBER type columns without precision and scale for Altibase. *Both Tibero and Altibase internally handle NUMBER type columns defined without precision and scale as FLOAT type in the database. |
 |  7   | BINARY FLOAT  | FLOAT           |                                                              |
-|  8   | BINARY DOUBLE | VARCHAR(310)    | There is no compatible data type in Altibase for the Tibero binary double type, so the data is stored in character form to prevent loss. |
+|  8   | BINARY DOUBLE | DOUBLE          | Special values such as NaN (Not a Number) and INF (Infinity) are not supported by Altibase. So, these values are not migrated. |
 |  9   | DATE          | DATE            |                                                              |
 |  10  | TIME          | DATE            |                                                              |
 |  11  | TIMESTAMP     | DATE            | A small amount of data loss may occur due to the difference in scale. In Tibero, the scale of a timestamp value is nanoseconds (9 digits), whereas in Altibase, the scale of a timestamp value is microseconds (6 digits). |
