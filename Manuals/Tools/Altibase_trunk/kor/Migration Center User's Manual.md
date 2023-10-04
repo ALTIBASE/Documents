@@ -1727,7 +1727,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 컬럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 컬럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
 |  7   | FLOAT         | FLOAT             |                                                              |
 |  8   | BINARY FLOAT  | FLOAT             |                                                              |
-|  9   | BINARY DOUBLE | DOUBLE            | Altibase는 특수한 값인 NaN (Not a Number)과 INF (Infinity)를 지원하지 않기 때문에, 이 값들은 마이그레이션 수행 중 손실이 가능하다. |
+|  9   | BINARY DOUBLE | DOUBLE            | Altibase는 특수한 값인 NaN (Not a Number)과 INF (Infinity)를 지원하지 않기 때문에, 이 값들은 마이그레이션 되지 않는다. |
 |  10  | DATE          | DATE              |                                                              |
 |  11  | TIMESTAMP     | DATE              | 스케일의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 오라클에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, Altibase에서는 타임스탬프 값의 스케일이 마이크로초(6자리 수)이다. |
 |  12  | RAW           | BLOB              |                                                              |
@@ -1840,7 +1840,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |      | 원본          | 대상              | 주의 사항                                                    |
 | :--: | :------------ | :---------------- | :----------------------------------------------------------- |
 |  1   | BINARY        | BLOB              |                                                              |
-|  2   | BINARY_DOUBLE | DOUBLE            | Altibase는 특수한 값인 NaN (Not a Number)과 INF (Infinity)를 지원하지 않기 때문에, 이 값들은 마이그레이션 수행 중 손실이 가능하다. |
+|  2   | BINARY_DOUBLE | DOUBLE            | Altibase는 특수한 값인 NaN (Not a Number)과 INF (Infinity)를 지원하지 않기 때문에, 이 값들은 마이그레이션 되지 않는다. |
 |  3   | BINARY_FLOAT  | FLOAT             |                                                              |
 |  4   | BLOB          | BLOB              |                                                              |
 |  5   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 TimesTen에서 문자 길이로 정의된 컬럼의 경우 자동으로 바이트 길이로 변환된다. |
@@ -1929,7 +1929,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 컬럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 컬럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
 |  7   | BINARY FLOAT  | FLOAT           |                                                              |
-|  8   | BINARY DOUBLE | DOUBLE          | Altibase는 특수한 값인 NaN (Not a Number)과 INF (Infinity)를 지원하지 않기 때문에, 이 값들은 마이그레이션 수행 중 손실이 가능하다. |
+|  8   | BINARY DOUBLE | DOUBLE          | Altibase는 특수한 값인 NaN (Not a Number)과 INF (Infinity)를 지원하지 않기 때문에, 이 값들은 마이그레이션 되지 않는다. |
 |  9   | DATE          | DATE            |                                                              |
 |  10  | TIME          | DATE            |                                                              |
 |  11  | TIMESTAMP     | DATE            | Scale의 차이로 인해서 소량의 데이터 손실이 발생할 수 있다. 티베로에서는 타임스탬프 값의 스케일이 나노초(9자리 수)인 반면, , Altibase에서는 타임스탬프 값의 scale이 마이크로초(6자리 수)이다. |
