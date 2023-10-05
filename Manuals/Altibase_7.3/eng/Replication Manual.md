@@ -270,9 +270,11 @@ This chapter covers the following subjects::
 
 #### Concepts
 
-The log replay method is the basis of the Altibase replication functionality. First, a local server transfers transaction logs to a remote server when the logs change. Then the remote server “replays” the received logs to its database (that is, it implements the changes that have been recorded in the logs). Altibase also provides the altiComp utility for monitoring and managing the replication status. 
+The basic concept of Altibase Replication is to transfer the transaction logs from a running database to another database and re-execute those transactions on the other database. First, a local server transfers transaction logs to a remote server when the logs change. Then the remote server “replays” the received logs to its database (that is, it implements the changes that have been recorded in the logs). This ensures that both databases maintain the same data.
 
-For more detailed information, please refer to the *Utilities Manual*.
+Altibase provides the altiComp utility to verify and correct data inconsistencies that may occur during replication. For more detailed information, please refer to the [*Utilities Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Utilities%20Manual.md).
+
+Altibase also provides the Replication Manager for managing replication as a GUI tool. For more detailed information, please refer to the [*Replication Manager User's Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/eng/Replication%20Manager%20User's%20Manual.md).
 
 #### Terminology
 

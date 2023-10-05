@@ -309,12 +309,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 #### 이중화 개념
 
-Altibase 이중화 (Replication)는 운영중인 데이터베이스의 로그를 다른
-데이터베이스로 전송하여 재실행하는 것을 기본 방식으로 취하고 있다. 즉, 지역
-서버(local server)는 데이터베이스의 데이터 변경에 대한 트랜잭션 로그를 원격
-서버로 전송하고, 원격 서버(remote server)는 받은 로그를 기반으로 자신의
-데이터베이스에 데이터 변경을 재실행함으로써 양쪽 데이터베이스는 같은 데이터를
-유지하게 된다.
+Altibase 이중화 (Replication)의 기본 개념은 운영 중인 데이터베이스의 로그를 다른 데이터베이스로 전송하여 재실행하는 것이다. 즉, 지역 서버(local server)는 데이터베이스의 데이터 변경에 대한 트랜잭션 로그를 원격 서버로 전송하고, 원격 서버(remote server)는 받은 로그를 기반으로 자신의 데이터베이스에 데이터 변경을 재실행한다. 이를 통해 양쪽 데이터베이스는 동일한 데이터를 유지하게 된다.
 
 Altibase는 이중화 중에 발생한 데이터 불일치를 확인하고 수정할 수 있도록 altiComp 유틸리티를 제공한다. 자세한 설명은 [***Utilities Manual**의 altiComp*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Utilities%20Manual.md#2alticomp)를 참고한다. 
 
