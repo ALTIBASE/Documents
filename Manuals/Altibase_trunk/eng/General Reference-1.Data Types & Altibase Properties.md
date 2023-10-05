@@ -15028,7 +15028,7 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Only, Single Value
+Read-Write, Single Value
 
 ##### Range
 
@@ -15037,7 +15037,7 @@ Read-Only, Single Value
 ##### Description
 
 This property sets whether to use case sensitivity when referring to column names of RECORD and ROWTYPE types or LABEL names in PSM. If set to 0, the behavior is case insensitive, and if set to 1, the behavior is case sensitive.
-Its value can be changed using the ALTER SYSTEM statement.
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
 #### PSM_CHAR_DEFAULT_PRECISION
 

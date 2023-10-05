@@ -14919,6 +14919,29 @@ This property sets the permission type of a message queue. The value of this pro
 
 1: (rw-r-r 0644) - Only the system owner can read and write, but other users are only allowed to read.
 
+#### PSM_CASE_SENSITIVE_MODE
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+1
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 1]
+
+##### Description
+
+This property sets whether to use case sensitivity when referring to column names of RECORD and ROWTYPE types or LABEL names in PSM. If set to 0, the behavior is case insensitive, and if set to 1, the behavior is case sensitive.
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
+
 #### PSM_CHAR_DEFAULT_PRECISION
 
 ##### Data Type
