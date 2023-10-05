@@ -21691,6 +21691,135 @@ Aaron                 Foster                1800        1980
 
 
 
+#### NVL_EQUAL
+
+##### Syntax
+
+```
+NVL_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### Description
+
+If *expr1* is NULL, compare *expr2* and *expr3*.
+
+If *expr1* is not NULL, compare *expr1* and *expr3*.
+
+"NVL_EQUAL(*expr1*, *expr2*, *expr3*)" is equivalent to "NVL(*expr1*, *expr2*) = *expr3*".
+
+In the example below, the results of both queries are the same, but the difference is that NVL_EQUAL uses the index scan, while the NVL function does not use the index.  
+
+> **Notice**
+>
+> *expr1* can have a data type of DATE, CHAR, and NUMBER, and the data types of *expr1*, *expr2*, and *expr3* must be the same.
+>
+> To use indexes in NVL_EQUAL, *expr1* must be the index column and *expr3* must be a constant.
+
+##### Example
+
+The results of the below queries are the same, but NVL_EQUAL uses indexes.
+
+```
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL_EQUAL(TO_CHAR(salary), 'Unknown','Unknown');
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL(TO_CHAR(salary), 'Unknown') = 'Unknown';
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+```
+
+
+
+#### NVL_NOT_EQUAL
+
+##### Syntax
+
+```
+NVL_NOT_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### Description
+
+If *expr1* is NULL, compare *expr2* and *expr3*.
+
+If *expr1* is not NULL, compare *expr1* and *expr3*.
+
+"NVL_NOT_EQUAL(*expr1*, *expr2*, *expr3*)" is equivalent to "NVL(*expr1*, *expr2*) != *expr3*".
+
+In the example below, the results of both queries are the same, but the difference is that NVL_NOT_EQUAL uses the index scan, while the NVL function does not use the index.  
+
+> **Notice**
+>
+> *expr1* can have a data type of DATE, CHAR, and NUMBER, and the data types of *expr1*, *expr2*, and *expr3* must be the same.
+>
+> To use indexes in NVL_NOT_EQUAL, *expr1* must be the index column and *expr3* must be a constant.
+
+##### Example
+
+The results of the below queries are the same, but NVL_NOT_EQUAL uses indexes.
+
+```
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl_not_equal(birth, 'Unknown', 'Unknown');
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
+
+
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl(birth, 'Unknown') != 'Unknown';
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
+```
+
+
+
 #### RAW_CONCAT
 
 ##### Syntax
