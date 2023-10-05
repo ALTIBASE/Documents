@@ -1299,8 +1299,7 @@ SSL_VERIFY = ON  # OFF
 
 ## altiComp 소개
 
-Altibase AltiComp 유틸리티의 사용 목적은 두 Altibase 간의 이중화 진행 상태를
-모니터링하고 이중화 중에 발생한 데이터 불일치를 해소하는데 있다.
+Altibase altiComp 유틸리티는 두 Altibase 간의 이중화 중에 발생한 데이터 불일치를 해결하기 위해 사용한다.
 
 altiComp은 Altibase 데이터베이스를 또 다른 Altibase 데이터베이스와 테이블 단위로
 비교, 검사하여 불일치 정보를 출력한다. 또한 불일치 데이터가 발생한 경우에는 두
