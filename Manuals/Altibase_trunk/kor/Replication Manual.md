@@ -855,7 +855,7 @@ FROM user_name.table_name TO user_name.table_name;
 -   충돌 해결 정책은 상황별로 사용자의 판단에 따라 결정한다.
 
 -   데이터 불일치를 해결하는 솔루션으로 altiComp 유틸리티를 제공한다. 자세한
-    내용은 *Utilities Manual의 altiComp*를 참조한다.
+    내용은 [***Utilities Manual**의 altiComp*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#2alticomp)를 참고한다.
 
 #### Master-Slave Scheme
 
