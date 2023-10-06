@@ -22249,6 +22249,39 @@ SYS_CONTEXT('USERENV','SID')
 
 
 
+#### SYS_GUID
+
+##### Syntax	
+
+```
+SYS_GUID()
+```
+
+
+
+##### Description
+
+SYS_GUID generates globally unique identifier made up of 16 bytes, converts it to hexadecimal string of 16 characters, and returns the final result. The return type is BYTE type.
+
+##### Example
+
+```
+iSQL> SELECT SYS_GUID() FROM DUAL;
+SYS_GUID()
+------------------------------------
+080027253126D13B69F892D46508FD9D
+1 row selected.
+
+iSQL> SELECT DUMP(SYS_GUID()) FROM DUAL;
+DUMP(SYS_GUID())                                                                                                  
+------------------------------------------------------------------------------------------------------------------------------
+Type=BYTE(UTF8) Length=18: 16,0,8,0,39,37,49,38,209,59,105,248,146,214,101,8,253,157                              
+1 row selected.
+
+```
+
+
+
 #### SYS_GUID_STR
 
 ##### Syntax	
