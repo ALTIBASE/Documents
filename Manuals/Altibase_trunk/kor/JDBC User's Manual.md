@@ -543,65 +543,6 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 세션                                                         |
 | 설명      | 구문의 수행이 완료될 때 트랜잭션이 자동으로 커밋될 지 여부를 지정한다. |
 
-##### defer_prepares
-
-<table>
-<tbody>
-<tr>
-   <th>
-<p>기본값</p>
-</th>
-<td>
-<p>off</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>값의 범위</p>
-</td>
-<td>
-<p>[on | off]</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>필수 여부</p>
-</td>
-<td>
-<p>No</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>설정 범위</p>
-</td>
-<td>
-<p>세션</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>설명</p>
-</td>
-<td>
-<p>prepareStatement()가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수 있다.<br /> 
-이 속성이 ON이면, prepareStatement()가 호출이 되더라도 execute() 메소드가 호출될 때까지 <br /> prepare 요청이 서버로 전송되지 않는다. <br /> 반면에 이 속성이 OFF이면, prepareStatement()가 호출될 때 prepare 요청이 즉시 서버로 전송된다.<br /> 
-또한 예외적으로 defer_prepares 속성이 활성화된 상태이더라도 prepareStatement() 뒤에 다음의 메소드들이 호출되면, prepare 요청이 즉시 서버로 전송된다.</p>
-<ul>
-<li>getMetData</li>
-<li>getParameterMetaData</li>
-<li>setObject(int, Object, int)</li>
-<li>setBigDecimal(int, BigDecimal)</li>
-</ul>
-<p> 제약사항 </p>
-<ul>
-<li>바인드 변수가 없을 때 강제로 setXXX를 이용해 값을 바인드하면 에러가 발생하는 것이 원칙이지만, deferred 옵션을 사용한 경우에는 예외적으로 에러가 발생하지 않는다.</li>
-<li>nchar, nvarchar 타입 컬럼에 값을 바인딩 할 때, deferred 옵션을 사용하는 경우 반드시 setNString() 메서드를 사용해야 한다. deferred 옵션을 사용하지 않을 때는 setString() 메서드도 사용 가능하다.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 
 ##### ciphersuite_list
 
@@ -717,6 +658,69 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
 | 설명      | DDL문 수행 시간의 한계값을 설정한다. <br />수행 시간이 이 시간을 넘어가면 구문의 수행이 취소된다. <br />단위는 초(sec)이다. <br />이 값이 0이면 무한대를 의미한다. |
+
+##### defer_prepares
+
+<table>
+<tbody>
+<tr>
+   <th>
+<p>기본값</p>
+</th>
+<td>
+<p>off</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>값의 범위</p>
+</td>
+<td>
+<p>[on | off]</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>필수 여부</p>
+</td>
+<td>
+<p>No</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>설정 범위</p>
+</td>
+<td>
+<p>세션</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>설명</p>
+</td>
+<td>
+<p>prepareStatement()가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수 있다.<br /> 
+이 속성이 ON이면, prepareStatement()가 호출이 되더라도 execute() 메소드가 호출될 때까지 <br /> prepare 요청이 서버로 전송되지 않는다. <br /> 반면에 이 속성이 OFF이면, prepareStatement()가 호출될 때 prepare 요청이 즉시 서버로 전송된다.<br /> 
+또한 예외적으로 defer_prepares 속성이 활성화된 상태이더라도 prepareStatement() 뒤에 다음의 메소드들이 호출되면, prepare 요청이 즉시 서버로 전송된다.</p>
+<ul>
+<li>getMetData</li>
+<li>getParameterMetaData</li>
+<li>setObject(int, Object, int)</li>
+<li>setBigDecimal(int, BigDecimal)</li>
+</ul>
+<p> 제약사항 </p>
+<ul>
+<li>바인드 변수가 없을 때 강제로 setXXX를 이용해 값을 바인드하면 에러가 발생하는 것이 원칙이지만, deferred 옵션을 사용한 경우에는 예외적으로 에러가 발생하지 않는다.</li>
+<li>nchar, nvarchar 타입 컬럼에 값을 바인딩 할 때, deferred 옵션을 사용하는 경우 반드시 setNString() 메서드를 사용해야 한다. deferred 옵션을 사용하지 않을 때는 setString() 메서드도 사용 가능하다.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+##### ciphersuite_list
 
 ##### description
 
@@ -960,6 +964,34 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
 | 설명      | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. <br />자세한 내용은 SSL/TLS User's Guide를 참조한다. |
+
+##### stmt_cache_enable
+
+| 기본값    | false                                                        |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [true \| false ]                                             |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | Statement Caching 기능을 활성화 또는 비활성화할지 여부를 설정한다. <br />자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
+
+##### stmt_cache_size
+
+| 기본값    | 25                                                           |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | 1 ~ 2,147,483,647                                            |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명1     | Statement Cache의 최대 사이즈를 설정한다.  <br />이 개수를 초과하는 statement가 캐싱을 시도하면 LRU 알고리즘에 따라 가장 오래된 statement가 캐시에서 삭제된다.</br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
+| 설명2     | Statement Cache 기능이 활성화된 경우, 캐시할 수 있는 statement의 최대 개수를 설정한다. </br>캐시된 statement의 갯수가 이 값을 초과하면, LRU 알고리즘에 따라 가장 오래된 statement가 캐시에서 삭제된다.</br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
+
+##### stmt_cache_enable
+
+| 기본값    | false                                                        |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | 1 ~ 2,147,483,647                                            |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | Statement Cache에 저장할 SQL의 최대 길이를 설정한다. <br />SQL 길이가 이 값을 초과하는 경우 캐싱되지 않는다. </br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
 
 ##### time_zone
 
@@ -2489,6 +2521,147 @@ ResultSet 객체의 refreshRow() 메소드를 사용하면, SELECT문을 실행�
 
 TYPE_FORWARD_ONLY일 경우에는 이 메소드를 호출하면 예외가 발생하고,
 TYPE_SCROLL_INSENSITIVE일 경우에는 아무런 동작도 일어나지 않는다.
+
+### Statement Caching
+
+Statement Caching은 동일한 SQL statement를 반복적으로 수행할 때, 해당 statement를 캐싱하여 성능을 개선할 수 있는 기능이다. Statement Caching을 이용하기 위해서는 기존 프로그램의 수정없이 관련 연결 속성만 설정하면 된다. 캐싱의 대상은 PreparedStatement, CallableStatement 객체이며, Statement 객체는 캐싱하지 않는다. Statement Caching은 연결(Connection) 단위로 설정 및 관리된다.
+
+#### 기본 동작
+
+Statement 인터페이스의 close() 메소드 수행시 statement가 캐싱된다. prepareStatement() 또는 prepareCall() 메소드 수행시 Statement Cache 에서 일치하는 statement를 검색하여, 캐시에 있으면 해당 Statement 객체를 반환하고, 없으면 새로운 Statement 객체를 생성하여 반환한다.
+
+캐싱을 위해서는 동일한 statement로 간주되기 위한 조건은 다음과 같다.
+
+* SQL문이 동일할 것
+* PreparedStatement 또는 CallableStatement와 같은 statement type이 동일 할 것
+* 해당 statement가 생성한 ResultSet 객체의 속성(Scrollable, Concurrency, Holdability)이 동일할 것
+
+Statement Caching 기능이 활성화되어있는 경우 Statement 인터페이스의 close() 메소드 수행시, statement가 캐싱되기 때문에 statement는 물리적으로 close 되지 않는다.
+
+물리적으로 close 되는 경우는 아래와 같다.
+
+* Connection 인터페이스의 close() 메소드 수행 시
+
+  해당 connection에서 생성한 모든 statement 객체가 물리적으로 close 된다. 그러나 pooled connection의 경우는 물리적으로 close되지 않는다.
+
+* isPoolable() 메소드값이 false인 statement의 객체를 close 하는 경우
+
+  isPoolable() 메소드값이 false인 경우 캐싱되지 않으므로 그 statement 객체는 물리적으로 close된다.
+
+* stmt_cache_size 설정값을 초과하여 캐싱이 시도되는 경우
+
+  * LRU 알고리즘에 의해 가장 오랫동안 접근되지 않은 statement 객체는 물리적으로 close 된다.
+
+#### 사용법
+
+Statement Caching을 사용하기 위해서는 아래의 연결 속성을 설정해야 한다. 각 연결 속성에 대한 자세한 설명은 [1.JDBC 시작하기 연결 속성 정보](#연결속성정보)를 참고한다.
+
+* stmt_cache_enable
+
+  stmt_cache_enable의 기본값은 false 이므로, Statement Caching 기능을 사용하기 위해서는 아래와 같이 설정해야 한다.
+
+  ```
+  Properties sProps = new Properties();
+  ...
+  sProps.put("stmt_cache_enable", "true");
+  ...
+  ```
+
+* stmt_cache_size
+
+* stmt_cache_sql_limit
+
+만약, Statement Caching 활성화 상태에서 특정 statement의 캐싱을 원하지 않는 경우, Statement 인터페이스의 setPoolable(false) 메소드를 수행해야 한다.
+
+```
+...
+sStmt.setPoolable(false);
+...
+```
+
+#### 코드 예제
+
+```java
+
+import java.util.Properties;
+import java.sql.*;
+public class Sample
+{
+    public static void main(String args[])
+    {
+        Properties        sProps   = new Properties();
+        Connection        sCon     = null;
+        Statement         sStmt    = null;
+        PreparedStatement sPreStmt = null;
+        if ( args.length == 0 )
+        {
+            System.err.println("Usage : java class_name port_no");
+            System.exit(-1);
+        }
+        String sPort     = args[0];
+        String sURL      = "jdbc:Altibase://127.0.0.1:" + sPort + "/mydb";
+        String sUser     = "SYS";
+        String sPassword = "MANAGER";
+        sProps.put("user",     sUser);
+        sProps.put("password", sPassword);
+        sProps.put("stmt_cache_enable", "true");
+        /* Deploy Altibase's JDBC Driver  */
+        try
+        {
+            Class.forName("Altibase.jdbc.driver.AltibaseDriver");
+        }
+        catch ( Exception e )
+        {
+            System.out.println("Can't register Altibase Driver");
+            System.out.println( "ERROR MESSAGE : " + e.getMessage() );
+            System.exit(-1);
+        }
+        /* Initialize environment */
+        try
+        {
+            sCon = DriverManager.getConnection( sURL, sProps );
+            sStmt = sCon.createStatement();
+        }
+        catch ( Exception e )
+        {
+            System.out.println( "ERROR MESSAGE : " + e.getMessage() );
+            e.printStackTrace();
+        }
+        try
+        {
+            sStmt.execute( "DROP TABLE T1" );
+        }
+        catch ( SQLException e )
+        {
+        }
+        try
+        {
+            sStmt.execute( "CREATE TABLE T1 (I1 NUMBER, I2 NUMBER)");
+            for (int i = 0; i < 100; i++)
+            {
+                sPreStmt = sCon.prepareStatement( "INSERT INTO T1 VALUES(1,1)" );
+                sPreStmt.execute();
+                sPreStmt.close();
+            }
+            /* Finalize process */
+            sStmt.close();
+            sCon.close();
+        }
+        catch ( SQLException e )
+        {
+            System.out.println( "ERROR CODE    : " + e.getErrorCode() );
+            System.out.println( "ERROR MESSAGE : " + e.getMessage() );
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### 주의 사항
+
+* Statement Caching 기능이 활성화된 상태에서 데이터베이스 객체에 DDL을 수행하면 execute시에 에러가 발생할 수 있다. 이때, stmt.close()하지 않고 다시 prepare를 수행하면 정상 처리 된다.
+* Statement Caching 기능은 defer_prepares 기능과 함께 사용할 수 없다.
+* Statement Caching 기능을 사용하면 서버와 클라이언트의 메모리 사용량이 증가할 수 있다. 이는 stmt_cache_size와 stmt_cache_sql_limit 속성을 적절히 조절하여 튜닝하는 것을 권장한다. 필요 시 자바 힙(heap) 메모리 크기 설정도 함께 고려한다.
 
 ### Atomic Batch
 
@@ -4026,8 +4199,8 @@ JDBC 4.2 API를 준수하는 Altibase JDBC 드라이버에서 지원하는 기�
 ### java.sql.Statement
 | 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
 |:-----------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
-| setPoolable(boolean poolable)                              | 4.0      |    O     | 알티베이스 JDBC에서 직접 Statement Pool은 지원하지 않고 플래그 설정만 가능   |                                                      |
-| isPoolable()                                               | 4.0      |    O     |                                                                          |                                                      |
+| setPoolable(boolean poolable)                              | 4.0      |    O     | stmt_cache_enable=true인 경우, setPoolable(false)로 설정하면 해당 statement는 캐싱되지 않는다. |                                                      |
+| isPoolable()                                               | 4.0      |    O     | Statement 객체의 isPoolable()의 기본값은 false이고, PreparedStatement, CallableStatement의 기본값은 true 이다. |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
 | isCloseOnCompletion()                                      | 4.1      |    O     |                                                                          |                                                      |
 | executeLargeBatch()                                        | 4.2      |    O     |                                                                          |                                                      |
