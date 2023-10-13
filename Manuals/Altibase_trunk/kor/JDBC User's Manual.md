@@ -981,12 +981,11 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | 1 ~ 2,147,483,647                                            |
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
-| 설명1     | Statement Cache의 최대 사이즈를 설정한다.  <br />이 개수를 초과하는 statement가 캐싱을 시도하면 LRU 알고리즘에 따라 가장 오래된 statement가 캐시에서 삭제된다.</br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
-| 설명2     | Statement Cache 기능이 활성화된 경우, 캐시할 수 있는 statement의 최대 개수를 설정한다. </br>캐시된 statement의 갯수가 이 값을 초과하면, LRU 알고리즘에 따라 가장 오래된 statement가 캐시에서 삭제된다.</br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
+| 설명      | Statement Cache 기능이 활성화된 경우, 캐시할 수 있는 statement의 최대 개수를 설정한다. </br>캐시된 statement의 갯수가 이 값을 초과하면, LRU 알고리즘에 따라 가장 오래된 statement가 캐시에서 삭제된다.</br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
 
-##### stmt_cache_enable
+##### stmt_cache_sql_limit
 
-| 기본값    | false                                                        |
+| 기본값    | 1024                                                         |
 | --------- | :----------------------------------------------------------- |
 | 값의 범위 | 1 ~ 2,147,483,647                                            |
 | 필수 여부 | No                                                           |
@@ -2528,9 +2527,9 @@ Statement Caching은 동일한 SQL statement를 반복적으로 수행할 때, �
 
 #### 기본 동작
 
-Statement 인터페이스의 close() 메소드 수행시 statement가 캐싱된다. prepareStatement() 또는 prepareCall() 메소드 수행시 Statement Cache 에서 일치하는 statement를 검색하여, 캐시에 있으면 해당 Statement 객체를 반환하고, 없으면 새로운 Statement 객체를 생성하여 반환한다.
+Statement 인터페이스의 close() 메소드를 실행하면 statement가 캐싱되고, prepareStatement() 또는 prepareCall() 메소드를 실행할 때 캐시된 statement에서 일치하는 statement를 검색한다. 일치하는 statement가 캐시에 있으면 해당 Statement 객체를 반환하고, 없으면 새로운 Statement 객체를 생성하여 반환한다.
 
-캐싱을 위해서는 동일한 statement로 간주되기 위한 조건은 다음과 같다.
+캐시된 statement와 동일한 statement로 간주되는 조건은 다음과 같다.
 
 * SQL문이 동일할 것
 * PreparedStatement 또는 CallableStatement와 같은 statement type이 동일 할 것
@@ -2554,13 +2553,13 @@ Statement Caching 기능이 활성화되어있는 경우 Statement 인터페이�
 
 #### 사용법
 
-Statement Caching을 사용하기 위해서는 아래의 연결 속성을 설정해야 한다. 각 연결 속성에 대한 자세한 설명은 [1.JDBC 시작하기 연결 속성 정보](#연결속성정보)를 참고한다.
+Statement Caching을 사용하기 위해서는 아래의 연결 속성을 설정해야 한다. 각 연결 속성에 대한 자세한 설명은 [1.JDBC 시작하기 연결 속성 정보](#연결-속성-정보)를 참고한다.
 
 * stmt_cache_enable
 
   stmt_cache_enable의 기본값은 false 이므로, Statement Caching 기능을 사용하기 위해서는 아래와 같이 설정해야 한다.
 
-  ```
+  ```java
   Properties sProps = new Properties();
   ...
   sProps.put("stmt_cache_enable", "true");
@@ -2571,15 +2570,39 @@ Statement Caching을 사용하기 위해서는 아래의 연결 속성을 설정
 
 * stmt_cache_sql_limit
 
-만약, Statement Caching 활성화 상태에서 특정 statement의 캐싱을 원하지 않는 경우, Statement 인터페이스의 setPoolable(false) 메소드를 수행해야 한다.
+만약, Statement Caching 활성화 상태에서 특정 statement를 캐싱하지 않으려면, Statement 인터페이스의 setPoolable(false) 메소드를 수행해야 한다.
 
-```
+```java
 ...
 sStmt.setPoolable(false);
 ...
 ```
 
 #### 코드 예제
+
+아래의 예제와 같이 특정 SQL을 반복적으로 수행해야 할 때, Statement Caching 기능을 활성화하면 캐시된 statement를 재사용함으로써 성능 향상을 기대할 수 있다.
+
+```java
+...
+Properties        sProps   = new Properties();
+Connection        sCon     = getConnection();
+Statement         sStmt    = sCon.createStatement();
+...        
+sProps.put("stmt_cache_enable", "true");
+...
+ for (int i = 0; i < 100; i++)
+ {
+     PreparedStatement sPreStmt = sCon.prepareStatement( "INSERT INTO T1 VALUES(1,1)" );
+     sPreStmt.execute();
+     sPreStmt.close();
+  }
+ /* Finalize process */
+ sStmt.close();
+ sCon.close();
+...
+```
+
+
 
 ```java
 
@@ -4199,7 +4222,7 @@ JDBC 4.2 API를 준수하는 Altibase JDBC 드라이버에서 지원하는 기�
 ### java.sql.Statement
 | 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
 |:-----------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
-| setPoolable(boolean poolable)                              | 4.0      |    O     | stmt_cache_enable=true인 경우, setPoolable(false)로 설정하면 해당 statement는 캐싱되지 않는다. |                                                      |
+| setPoolable(boolean poolable)                              | 4.0      |    O     | stmt_cache_enable=true인 설정에서 statement를 캐싱하지 않도록 하거나, 다시 캐싱하게 하는데 사용한다.<br>setPoolable(false)는 캐싱하지 않도록하고, setPoolable(true)는 캐싱하게 한다.<br>그러나 stmt_cache_enable=false 로 설정되어있는 경우, 매개변수의 값이 true 또는 false와 무관하게 동작하지 않는다. |                                                      |
 | isPoolable()                                               | 4.0      |    O     | Statement 객체의 isPoolable()의 기본값은 false이고, PreparedStatement, CallableStatement의 기본값은 true 이다. |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
 | isCloseOnCompletion()                                      | 4.1      |    O     |                                                                          |                                                      |
