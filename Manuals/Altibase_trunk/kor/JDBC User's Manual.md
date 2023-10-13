@@ -133,6 +133,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [JDBC와 Failover](#jdbc%EC%99%80-failover)
   - [JDBC Escapes](#jdbc-escapes)
   - [ResultSet 사용하기](#resultset-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+  - [Statement Caching](#statement-caching)
   - [Atomic Batch](#atomic-batch)
   - [Date, Time, Timestamp](#date-time-timestamp)
   - [GEOMETRY](#geometry)
@@ -2535,9 +2536,9 @@ Statement 인터페이스의 close() 메소드를 실행하면 statement가 캐�
 * PreparedStatement 또는 CallableStatement와 같은 statement type이 동일 할 것
 * 해당 statement가 생성한 ResultSet 객체의 속성(Scrollable, Concurrency, Holdability)이 동일할 것
 
-Statement Caching 기능이 활성화되어있는 경우 Statement 인터페이스의 close() 메소드 수행시, statement가 캐싱되기 때문에 statement는 물리적으로 close 되지 않는다.
+Statement Caching 기능이 활성화되어있는 경우 Statement 인터페이스의 close() 메소드 수행시, statement가 캐싱되기 때문에 statement는 물리적으로 close 되지 않는다. 
 
-물리적으로 close 되는 경우는 아래와 같다.
+그러나 아래의 경우에는 statement가 물리적으로 close 된다.
 
 * Connection 인터페이스의 close() 메소드 수행 시
 
@@ -2585,7 +2586,7 @@ sStmt.setPoolable(false);
 ```java
 ...
 Properties        sProps   = new Properties();
-Connection        sCon     = getConnection();
+Connection        sCon     = DriverManager.getConnection( sURL, sProps );
 Statement         sStmt    = sCon.createStatement();
 ...        
 sProps.put("stmt_cache_enable", "true");
@@ -2602,87 +2603,9 @@ sProps.put("stmt_cache_enable", "true");
 ...
 ```
 
-
-
-```java
-
-import java.util.Properties;
-import java.sql.*;
-public class Sample
-{
-    public static void main(String args[])
-    {
-        Properties        sProps   = new Properties();
-        Connection        sCon     = null;
-        Statement         sStmt    = null;
-        PreparedStatement sPreStmt = null;
-        if ( args.length == 0 )
-        {
-            System.err.println("Usage : java class_name port_no");
-            System.exit(-1);
-        }
-        String sPort     = args[0];
-        String sURL      = "jdbc:Altibase://127.0.0.1:" + sPort + "/mydb";
-        String sUser     = "SYS";
-        String sPassword = "MANAGER";
-        sProps.put("user",     sUser);
-        sProps.put("password", sPassword);
-        sProps.put("stmt_cache_enable", "true");
-        /* Deploy Altibase's JDBC Driver  */
-        try
-        {
-            Class.forName("Altibase.jdbc.driver.AltibaseDriver");
-        }
-        catch ( Exception e )
-        {
-            System.out.println("Can't register Altibase Driver");
-            System.out.println( "ERROR MESSAGE : " + e.getMessage() );
-            System.exit(-1);
-        }
-        /* Initialize environment */
-        try
-        {
-            sCon = DriverManager.getConnection( sURL, sProps );
-            sStmt = sCon.createStatement();
-        }
-        catch ( Exception e )
-        {
-            System.out.println( "ERROR MESSAGE : " + e.getMessage() );
-            e.printStackTrace();
-        }
-        try
-        {
-            sStmt.execute( "DROP TABLE T1" );
-        }
-        catch ( SQLException e )
-        {
-        }
-        try
-        {
-            sStmt.execute( "CREATE TABLE T1 (I1 NUMBER, I2 NUMBER)");
-            for (int i = 0; i < 100; i++)
-            {
-                sPreStmt = sCon.prepareStatement( "INSERT INTO T1 VALUES(1,1)" );
-                sPreStmt.execute();
-                sPreStmt.close();
-            }
-            /* Finalize process */
-            sStmt.close();
-            sCon.close();
-        }
-        catch ( SQLException e )
-        {
-            System.out.println( "ERROR CODE    : " + e.getErrorCode() );
-            System.out.println( "ERROR MESSAGE : " + e.getMessage() );
-            e.printStackTrace();
-        }
-    }
-}
-```
-
 #### 주의 사항
 
-* Statement Caching 기능이 활성화된 상태에서 데이터베이스 객체에 DDL을 수행하면 execute시에 에러가 발생할 수 있다. 이때, stmt.close()하지 않고 다시 prepare를 수행하면 정상 처리 된다.
+* Statement Caching 기능이 활성화된 상태에서 데이터베이스 객체에 DDL을 수행하면 execute시에 에러가 발생할 수 있다. 이때, stmt.close() 를 호출하지 않고 다시 prepare를 수행하면 정상 처리 된다.
 * Statement Caching 기능은 defer_prepares 기능과 함께 사용할 수 없다.
 * Statement Caching 기능을 사용하면 서버와 클라이언트의 메모리 사용량이 증가할 수 있다. 이는 stmt_cache_size와 stmt_cache_sql_limit 속성을 적절히 조절하여 튜닝하는 것을 권장한다. 필요 시 자바 힙(heap) 메모리 크기 설정도 함께 고려한다.
 
@@ -4222,7 +4145,7 @@ JDBC 4.2 API를 준수하는 Altibase JDBC 드라이버에서 지원하는 기�
 ### java.sql.Statement
 | 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
 |:-----------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
-| setPoolable(boolean poolable)                              | 4.0      |    O     | stmt_cache_enable=true인 설정에서 statement를 캐싱하지 않도록 하거나, 다시 캐싱하게 하는데 사용한다.<br>setPoolable(false)는 캐싱하지 않도록하고, setPoolable(true)는 캐싱하게 한다.<br>그러나 stmt_cache_enable=false 로 설정되어있는 경우, 매개변수의 값이 true 또는 false와 무관하게 동작하지 않는다. |                                                      |
+| setPoolable(boolean poolable)                              | 4.0      |    O     | stmt_cache_enable=true인 설정에서 statement를 캐싱하지 않도록 하거나, 다시 캐싱하게 하는데 사용한다.<br>setPoolable(false)는 캐싱하지 않도록하고, setPoolable(true)는 캐싱하게 한다.<br>그러나 stmt_cache_enable=false 로 설정되어있는 경우, 매개변수의 값에 관계없이 statement를 캐싱하지 않는다. <br>즉, stmt_cache_enable=false 인 설정에서는 setPoolable(true)를 수행해도 statement는 캐싱되지 않는다. |                                                      |
 | isPoolable()                                               | 4.0      |    O     | Statement 객체의 isPoolable()의 기본값은 false이고, PreparedStatement, CallableStatement의 기본값은 true 이다. |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
 | isCloseOnCompletion()                                      | 4.1      |    O     |                                                                          |                                                      |
