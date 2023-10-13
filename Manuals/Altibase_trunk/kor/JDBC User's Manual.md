@@ -2586,10 +2586,11 @@ sStmt.setPoolable(false);
 ```java
 ...
 Properties        sProps   = new Properties();
-Connection        sCon     = DriverManager.getConnection( sURL, sProps );
-Statement         sStmt    = sCon.createStatement();
 ...        
 sProps.put("stmt_cache_enable", "true");
+...
+Connection        sCon     = DriverManager.getConnection( sURL, sProps );
+Statement         sStmt    = sCon.createStatement();
 ...
  for (int i = 0; i < 100; i++)
  {
@@ -2605,7 +2606,7 @@ sProps.put("stmt_cache_enable", "true");
 
 #### 주의 사항
 
-* Statement Caching 기능이 활성화된 상태에서 데이터베이스 객체에 DDL을 수행하면 execute시에 에러가 발생할 수 있다. 이때, stmt.close() 를 호출하지 않고 다시 prepare를 수행하면 정상 처리 된다.
+* Statement Caching 기능이 활성화된 상태에서 데이터베이스 객체에 DDL을 수행하면 execute시에 에러가 발생할 수 있다.
 * Statement Caching 기능은 defer_prepares 기능과 함께 사용할 수 없다.
 * Statement Caching 기능을 사용하면 서버와 클라이언트의 메모리 사용량이 증가할 수 있다. 이는 stmt_cache_size와 stmt_cache_sql_limit 속성을 적절히 조절하여 튜닝하는 것을 권장한다. 필요 시 자바 힙(heap) 메모리 크기 설정도 함께 고려한다.
 
