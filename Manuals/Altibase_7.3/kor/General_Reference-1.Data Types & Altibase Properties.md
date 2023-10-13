@@ -17083,10 +17083,8 @@ Altibase 캐릭터 셋(character set)이 UTF16이고 아래와 같은 경우에 
 크기를 명시하지 않으면 Altibase는 PSM_NCHAR_UTF16_DEFAULT_PRECISION 프로퍼티에
 설정된 값을 NCHAR크기로 결정한다.
 
-- 저장 프로시저 생성시 데이터 타입이 NCHAR인 파라미터의 크기를 명시하지 않을
-  때
-- 저장 함수 생성시 데이터 타입이 NCHAR인 파라미터 또는 반환 값의 크기를
-  명시하지 않을 때
+- 저장 프로시저 생성시 데이터 타입이 NCHAR인 파라미터의 크기를 명시하지 않을 때
+- 저장 함수 생성시 데이터 타입이 NCHAR인 파라미터 또는 반환 값의 크기를 명시하지 않을 때
 
 #### PSM_NCHAR_UTF8_DEFAULT_PRECISION
 
