@@ -2355,7 +2355,7 @@ Statement         sStmt    = sCon.createStatement();
 
 #### Cautions
 
-* When the Statement Caching feature is enabled, performing Data Definition Language (DDL) operations on database objects may lead to errors during execution. In such situations, it is important to be careful.
+* When the Statement Caching feature is enabled, performing DDL(Data Definition Language) operations on database objects may lead to errors during execution. In such situations, it is important to be careful.
 * Statement Caching and the defer_prepares feature cannot be used concurrently. Ensure that they are not enabled together.
 * Be cautious not to duplicate the usage of the Statement Caching feature with statement pooling functionality offered by other libraries, such as DBCP's poolPreparedStatement.
 * Enabling the Statement Caching feature may increase the memory usage on both the server and client sides. It is recommended to tune this by adjusting the stmt_cache_size and stmt_cache_sql_limit properties appropriately. Additionally, consider configuring the Java heap memory size as needed.
