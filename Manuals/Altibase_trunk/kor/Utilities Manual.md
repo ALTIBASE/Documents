@@ -2414,13 +2414,29 @@ aku -p start 명령은 Altibase 서버가 정상적으로 시작된 후 수행�
 
 startup probe, publishNotReadyAddresses 에 대한 자세한 내용은 쿠버네티스 공식 문서 참고한다.
 
-### 3) 마스터 파드 장애 후 aku -p start 명령 수행 시
+### 3) 마스터 파드 장애로 인해 aku -p start 명령이 실패한 경우
 
-마스터 파드 장애 시 사용자가 확인하여 데이터 정합성을 맞추어야한다. 마스터 파드의 테이블을 truncate 후 슬레이브 파드에서 이중화 sync를 수행한다.
+마스터 파드 생성시 aku -p start를 수행 했을 때, 마스터 파드에서 관리하는 이중화의 시작 정보가 없는 상태로 슬레이브 파드가 시작되어 있는 경우 마스터 파드의 장애로 판단한다. 
+
+마스터 파드는 가장 먼저 시작되는 것을 전제한다. 그러나 어떤 사유로(비정상 종료, 혹은 rollout 등) 마스터 파드가 종료 되었다가 재시작 한 경우라면, 마스터 파드에 이중화 시작 정보가 있어야 한다.
+
+마스터 파드 장애인 경우 사용자가 확인하여 데이터 정합성을 맞추어야한다. 마스터 파드의 테이블을 truncate 후 슬레이브 파드에서 이중화 sync를 수행한다.
 
 데이터 정합성을 맞춘 뒤 aku -p start 명령을 수행해야 하는데, aku 에서 수동 복구를 감지 할 수 없기 때문에 aku에서 관리하는 이중화 중 아무거나 시작한 뒤 aku -p start를 수행한다.
 
-예) ALTER REPLICATION AKU_REP_01 START;
+다음은 마스터 파드 장애 발생 시 필요한 작업 예시이다.
+~~~sql
+TRUNCATE TABLE SYS.T1;
+
+[슬레이브 파드에서 수행] ALTER REPLICATION AKU_REP_01 SYNC;
+
+ALTER REPLICATION AKU_REP_01 START;
+~~~
+
+마스터 파드에서 aku를 재시작한다.
+~~~bash
+aku -p start
+~~~
 
 ### 4) aku -p end 명령 수행 시
 
