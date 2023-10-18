@@ -855,7 +855,7 @@ FROM user_name.table_name TO user_name.table_name;
 -   데이터 불일치를 해결하는 솔루션으로 altiComp 유틸리티를 제공한다. 자세한
     내용은 *Utilities Manual의 altiComp*를 참조한다.
 
-#### Master-Slave Scheme
+#### Master/Slave Scheme
 
 ##### 구문
 
@@ -1001,7 +1001,7 @@ Altibase는 테이블 기반 Timestamps-based Scheme을 지원하기 때문에 �
 
 예를 들어, 사용자가 두 서버간의 foo 테이블과 bar 테이블을 아래와 같이 이중화
 한다고 가정하면, foo 테이블의 경우는 REPLICATION_TIMESTAMP_RESOLUTION 프로퍼티의
-값이 1인 경우에 한하여 Timestamps-based Scheme이 사용되고, bar 테이블의 경우는
+값이 1인 경우에 한하여 Timestamp-based Scheme이 사용되고, bar 테이블의 경우는
 기존의 Conflict Resolution Scheme이 사용된다.
 
 ```
@@ -1422,17 +1422,18 @@ Create success.
 
 ### 이중화 시작, 종료와 변경 (ALTER REPLICATION) 
 
+이중화를 시작하는 방법은 START, QUICKSTART, SYNC 의 3가지 방법이 있다. SYNC에 대한 설명은 [이중화 동기화](#이중화-동기화sync)를 참고한다.
+
+변경 가능한 이중화 속성은 아래와 같다.
+
+* 이중화 테이블 및 파티션의 삭제
+* 이중화 테이블 및 파티션의 추가
+* 이중화 정보 리셋
+* PROPAGABLE LOGGING 기능의 활성화 여부
+
 #### 구문
 
 ```
-ALTER REPLICATION replication_name 
-SYNC [PARALLEL parallel_factor] 
-[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
-
-ALTER REPLICATION replication_name 
-SYNC ONLY [PARALLEL parallel_factor] 
-[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
-
 ALTER REPLICATION replication_name START [RETRY];
 
 ALTER REPLICATION replication_name QUICKSTART [RETRY];
@@ -1458,44 +1459,6 @@ SYS 사용자만이 이중화 동작을 변경할 수 있다.
 
 #### 설명
 
--   SYNC  
-    지역 서버에 있는 이중화 대상 테이블의 모든 레코드를 원격 서버로 전송해서
-    동기화 한 후에 현재 로그부터 이중화 (복제)를 시작한다. 
-    
-    동기화 후에 이중화가 시작될 로그를 결정하는 순간에 다른 트랜잭션이 동기화 대상 테이블의 데이터를
-    변경하는 것을 막기 위해서, 이중화 송신 쓰레드는 동기화를 시작하기 전에
-    일시적으로 동기화 테이블에 대한 공유 잠금(S Lock)을 획득한다. 따라서, 다른
-    트랜잭션이 동기화 대상 테이블에 변경을 하고 있을 때 SYNC를 시도하면, 이중화
-    송신 쓰레드는 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간만큼
-    대기하다가 변경 트랜잭션이 끝나는 시점에 동기화를 시작한다. 변경
-    트랜잭션이 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간 내에
-    완료되지 않으면 동기화는 실패한다. 
-    
-    동기화 과정에서 원격 서버에 지역 서버와 같은 프라이머리 키 값을 가지는
-    레코드가 있으면, 동기화가 실패한다. 
-    
-    단, REPLICATION_INSERT_REPLACE 및 REPLICATION_UPDATE_REPLACE 프로퍼티가 1이면서 REPLICATION_SYNC_TUPLE_COUNT이 1이거나, statement 내 레코드가 1건인 경우는 설정되어 있는 충돌 해결 정책에 따라서 충돌이 제거된다.
-    
-    > 주의
-    >
-    > REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 이중화 성능저하가 있을 수 있다.
-    
--   TABLE  
-    SYNC 대상 테이블을 지정한다.
-
--   PARTITION  
-    SYNC 대상 파티션을 지정한다.
-
--   PARALLEL  
-    *parallel_factor*는 생략 가능하며, 생략할 경우 1이 기본으로 사용된다.
-    *parallel_factor*의 최대값은 CPU 개수 \* 2이며, 최대값을 초과해서 설정하여도 시스템의 CPU 개수 \* 2개의 쓰레드가 생성된다. 0 또는 음수값을 설정한 경우엔 오류 메세지가 나타난다.
-    
-    디스크테이블의 경우, SYNC 대상 테이블의 parallel_factor 값을 디스크 테이블의 개수 이상으로 지정하는 것이 성능에 유리하다. 
-
--   SYNC ONLY  
-    지역 서버에 있는 이중화 대상 테이블들의 모든 레코드를 원격 서버로 전송해서
-    동기화한다. (송신 쓰레드는 동작하지 않는다.) 
-    
 -   START  
     가장 최근의 이중화 시점부터 이중화를 시작한다.
 
@@ -1513,10 +1476,7 @@ SYS 사용자만이 이중화 동작을 변경할 수 있다.
     발생하고 실행은 중지된다.
 
 -   STOP  
-    이중화를 중지시킨다. SYNC 작업중에 이중화를 중지하면 이중화할 데이터가 모두 원격
-    서버로 전송되었다는 것을 보장할 수 없다. 만약 SYNC 중에 이중화를 중지한 경우
-    다시 SYNC 하기 위해서는 원격 서버의 이중화 대상 테이블의 모든 레코드를
-    삭제한 후 SYNC를 다시 수행해야 한다.
+    이중화를 중지시킨다.
 
 -   RESET  
     재시작 SN 등의 이중화 정보를 reset한다. 이중화가 중지된 상태에서만 수행할 수
@@ -1611,14 +1571,14 @@ REP1
 1 row selected.
 ```
 
--   이중화 이름을 rep1 이라고 가정하고 이중화를 중지한다.
+-   이중화를 중지한다.
 
 ```
 iSQL> ALTER REPLICATION rep1 STOP;
 Alter success.
 ```
 
--   이중화 이름을 rep1 이라고 가정하고 이중화 대상에서 테이블을 제외시킨다.
+-   이중화 대상에서 테이블을 제외시킨다.
 
 ```
 iSQL> ALTER REPLICATION rep1 STOP;
@@ -1627,7 +1587,7 @@ iSQL> ALTER REPLICATION rep1 DROP TABLE FROM sys.employees TO sys.employees;
 Alter success.
 ```
 
--   이중화 이름을 rep1 이라고 가정하고 이중화 할 테이블을 추가한다.
+-   이중화 할 테이블을 추가한다.
 
 ```
 iSQL> ALTER REPLICATION rep1 STOP;
@@ -1641,7 +1601,7 @@ Alter success.
     싶다면, 다음 쿼리를 실행한다.
 
 ```
-select rep_name, avg(WAIT_NEW_LOG)/1000000 from x$repsender_statistics where wait_new_log > 0 group by rep_name order by rep_name;
+iSQL> SELECT rep_name, avg(WAIT_NEW_LOG)/1000000 FROM x$repsender_statistics WHERE wait_new_log > 0 GROUP BY rep_name ORDER BY rep_name;
 ```
 
 -   TIMER_THREAD_RESOLUTION 프로퍼티의 값이 1000000 마이크로 초로 설정되어 있는
@@ -1649,7 +1609,7 @@ select rep_name, avg(WAIT_NEW_LOG)/1000000 from x$repsender_statistics where wai
     싶다면, 다음 쿼리를 실행한다.
 
 ```
-select rep_name, avg(INSERT_ROW)/1000000 from x$repreceiver_statistics where recv_xlog > 0 group by rep_name order by rep_name;
+iSQL> SELECT rep_name, avg(INSERT_ROW)/1000000 FROM x$repreceiver_statistics WHERE recv_xlog > 0 GROUP BY rep_name ORDER BY rep_name;
 ```
 
 -   이중화 수신자가 받은 로그를 다시 복제하기 위해 Propagable Logging 기능을
@@ -1659,6 +1619,114 @@ select rep_name, avg(INSERT_ROW)/1000000 from x$repreceiver_statistics where rec
 iSQL> ALTER REPLICATION rep1 SET PROPAGABLE LOGGING ENABLE;
 Alter success.
 ```
+
+### 이중화 동기화(SYNC)
+
+동기화(Synchronization)를 위해서는 아래의 설명을 참고한다.
+
+동기화는 지역 서버의 이중화 대상 테이블의 모든 데이터를 원격 서버의 대응하는 테이블의 데이터와 일치시키기 위해 수행하는 작업이다. 동기화 기능을 이용하면, 원격 서버로의 데이터 동기화 완료 후 현재 로그부터 이중화가 시작된다. 만약, 데이터의 동기화만 진행하고 더이상 이중화를 이용하지 않을 경우는 SYNC ONLY를 이용한다.
+
+알티베이스의 동기화 기능은 특정 테이블 또는 파티션을 선택하여 동기화를 수행할 수 있으며, 병렬 동기화도 지원한다.
+
+#### 구문
+
+```
+ALTER REPLICATION replication_name 
+SYNC [PARALLEL parallel_factor] 
+[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
+
+ALTER REPLICATION replication_name 
+SYNC ONLY [PARALLEL parallel_factor] 
+[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
+```
+
+#### 전제 조건
+
+SYS 사용자만이 이중화 객체를 삭제할 수 있다.
+
+#### 설명
+
+- SYNC  
+  지역 서버에 있는 이중화 대상 테이블의 모든 레코드를 원격 서버로 전송해서
+  동기화 한 후에 현재 로그부터 이중화 (복제)를 시작한다. 
+
+- TABLE  
+  SYNC 대상 테이블을 지정한다.
+
+- PARTITION  
+  SYNC 대상 파티션을 지정한다.
+
+- PARALLEL  
+
+  병렬 동기화를 수행하기 위해 사용한다.
+
+  * *parallel_factor*
+
+    *parallel_factor*는 생략 가능하며, 생략할 경우 1이 기본으로 사용된다.
+    *parallel_factor*의 최대값은 CPU 개수 \* 2이며, 최대값을 초과해서 설정하여도 시스템의 CPU 개수 \* 2개의 쓰레드가 생성된다. 0 또는 음수값을 설정한 경우엔 오류 메세지가 나타난다.
+
+    디스크테이블의 경우, *parallel_factor* 값을 디스크 테이블의 개수 이상으로 지정하는 것이 성능에 유리하다. 
+
+- SYNC ONLY  
+  SYNC와 마찬가지로 지역 서버에 있는 이중화 대상 테이블들의 모든 레코드를 원격 서버로 전송해서
+  동기화하지만, 동기화 이후에 이중화를 시작하지 않는 차이가 있다. 즉, SYNC ONLY를 수행한 경우 이중화를 다시 수행하려면 명시적으로 이중화 시작 구문(ALTER REPLICATION ... START)을 수행해야 한다.
+
+#### 예제
+
+* 지역 서버의 데이터를 원격 서버로 전송하여 동기화를 수행하고 이중화를 시작한다.
+
+  ```
+  iSQL> ALTER REPLICATION rep1 SYNC;
+  Alter success.
+  ```
+
+* 특정 테이블 또는 파티션 의 동기화 예제 필요
+
+* 병렬동기화 예제필요
+
+#### 예외상황
+
+-   동기화(SYNC) 작업중 이중화가 중단되는 경우
+
+    동기화(SYNC) 작업중에 이중화를 중지하면 이중화할 데이터가 모두 원격 서버로 전송되었다는 것을 보장할 수 없다. 만약 동기화(SYNC) 중에 이중화를 중지한 경우, 다시 동기화(SYNC) 하기 위해서는 원격 서버의 이중화 대상 테이블의 모든 레코드를 삭제한 후 동기화(SYNC)를 다시 수행해야 한다.
+
+-   REPLICATION_SYNC_LOCK_TIMEOUT
+
+    동기화 후에 이중화가 시작될 로그를 결정하는 순간에 다른 트랜잭션이 동기화 대상 테이블의 데이터를
+    변경하는 것을 막기 위해서, 이중화 송신 쓰레드는 동기화를 시작하기 전에 일시적으로 동기화 테이블에 대한 공유 잠금(S Lock)을 획득한다. 따라서, 다른 트랜잭션이 동기화 대상 테이블에 변경을 하고 있을 때 SYNC를 시도하면, 이중화 송신 쓰레드는 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간만큼
+    대기하다가 변경 트랜잭션이 끝나는 시점에 동기화를 시작한다. 변경 트랜잭션이 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간 내에 완료되지 않으면 동기화는 실패한다. 
+
+-   레코드의 충돌
+
+    동기화 과정에서 원격 서버에 지역 서버의 레코드와 충돌이 발생하는 레코드가 있으면, 동기화가 실패한다. 이 경우 원격 서버의 데이터를 삭제한 후(TRUNCATE 수) 다시 동기화(SYNC)를 수행할 것을 권장한다.
+
+    (1)만약, 원격 서버의 데이터를 삭제하지 않고 동기화를 하려는 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하고 알티베이스의 충돌 해결 방법(#충돌-해결)을 확인하여 원하는 방법을 선택한다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 이중화 성능저하가 있을수 있으므로 주의한다.
+
+    (2)만약, 원격 서버의 데이터를 삭제하지 않을 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하여 동기화를 시도하면, 충돌 해결 정책에 따라 충돌이 해결될 수 있다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 이중화 성능저하가 있을수 있으므로 주의한다.
+
+    > 주의 
+    >
+    > REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하는 경우, 충돌 해결 정책에 따라서 동작한다. 충돌 해결 정책에서 기존의 데이터를 유지하도록 설정한 경우, 충돌이 발생한 레코드가 변경되지 않아 지역 서버의 데이터와 원격 서버의 데이터가 불일치 할 수 있으므로 주의 한다.
+    >
+    > 데이터의 불일치는 altiComp 유틸리티를 이용하여 해결 할 수 있다.
+
+- 충돌 해결 정책에 따른 동작
+
+  동기화의 경우 Insert 충돌만 발생한다.
+
+  - User-Oriented Scheme
+
+    REPLICATION_INSERT_REPLACE 프로퍼티를 1로 설정하여 충돌을 해결 할 수 있다.
+
+    REPLICATION_INSERT_REPLACE 프로퍼티의 기본값은 0으로 현재 설정을 유지하는 경우, 충돌 발생시 오류 메시지가 출력된다.
+
+  - Master/Slave Scheme
+
+    Master/Slave 설정이되어 있는 경우 동기화 수행히 발생한 충돌은 *2.이중화 관리-충돌해결 의 Master/Slave 이중화 처리 방식*을 참고한다.
+
+  - Timestamp-based Scheme
+
+    REPLICATION_TIMESTAMP_RESOLUTION 프로퍼티를 1로 설정한 경우, *2.이중화 관리-충돌해결 의Timestamp-based 이중화 처리 방식*을 참고한다.
 
 ### 이중화 삭제 (DROP REPLICATION) 
 
