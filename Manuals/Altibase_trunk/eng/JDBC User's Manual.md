@@ -484,66 +484,6 @@ This section offers descriptions of the connection attributes available for use 
 | Setting Range | The session                                                  |
 | Description   | Sets whether or not to automatically commit the transaction when the execution of a statement is complete. |
 
-##### defer_prepares
-
-<table>
-<tbody>
-<tr>
-   <th>
-<p>Default Value</p>
-</th>
-<td>
-<p>off</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>Range</p>
-</td>
-<td>
-<p>[on | off]</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>Mandatory</p>
-</td>
-<td>
-<p>No</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>Setting Range</p>
-</td>
-<td>
-<p>The session</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>Description</p>
-</td>
-<td>
-<p>This can specify whether or not to hold the communication with server
-when PrepareStatement is called. If only one connection is shared by
-multiple threads, it will not work properly.</p><br /> 
-If this attribute is set to ON, prepare request is not sent to the server
-until the Execute function is called even if the PrepareStatement is
-called. However, the prepare request is immediately sent to the server if the
-following methods listed below are called after PrepareStatement ().</p>
-<ul>
-<li>getMetData</li>
-<li>getParameterMetaData</li>
-<li>setObject(int, Object, int)</li>
-</ul>
-In addition, the statement pool option should be turned off if the <br /> deferred option is turned on because a conflict may occur when the statement pool of the DBCP is enabled.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-
 ##### ciphersuite_list
 
 | Default Value |Please refer to the list of supported cipher suites for JRE. |
@@ -662,6 +602,65 @@ Chapter 3.</p>
 | Mandotry      | No                                                           |
 | Setting Range | The session                                                  |
 | Description   | Sets the time limit for the execution of DDL statements. Queries which exceed the execution time limit are automatically terminated. <br />The unit is seconds. <br/>The value 0 indicates infinity. |
+
+##### defer_prepares
+
+<table>
+<tbody>
+<tr>
+   <th>
+<p>Default Value</p>
+</th>
+<td>
+<p>off</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Range</p>
+</td>
+<td>
+<p>[on | off]</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Mandatory</p>
+</td>
+<td>
+<p>No</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Setting Range</p>
+</td>
+<td>
+<p>The session</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Description</p>
+</td>
+<td>
+<p>This can specify whether or not to hold the communication with server
+when PrepareStatement is called. If only one connection is shared by
+multiple threads, it will not work properly.</p><br /> 
+If this attribute is set to ON, prepare request is not sent to the server
+until the Execute function is called even if the PrepareStatement is
+called. However, the prepare request is immediately sent to the server if the
+following methods listed below are called after PrepareStatement ().</p>
+<ul>
+<li>getMetData</li>
+<li>getParameterMetaData</li>
+<li>setObject(int, Object, int)</li>
+</ul>
+In addition, the statement pool option should be turned off if the <br /> deferred option is turned on because a conflict may occur when the statement pool of the DBCP is enabled.</p>
+</td>
+</tr>
+</tbody>
+</table>
 
 ##### description
 
@@ -896,6 +895,33 @@ Chapter 3.</p>
 | Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
 | Description   | Specifies whether or not to connect to the database over SSL connection. For more detailed information, please refer to the *Altibase SSL/TLS User’s Guide.* |
+
+##### stmt_cache_enable
+
+| Default Value | false                                                        |
+| ------------- | :----------------------------------------------------------- |
+| Range         | [true \|false ]                                              |
+| Mandatory     | No                                                           |
+| Setting Rage  | The session                                                  |
+| Description   | Configures whether to enable or disable the Statement Caching. <br/>For more detailed information, please refer to the Statement Caching in Chapter 3. Advanced Functions of this manual. |
+
+##### stmt_cache_size
+
+| Default Value | 25                                                           |
+| ------------- | :----------------------------------------------------------- |
+| Range         | [1 - 2147483647]                                             |
+| Mandatory     | No                                                           |
+| Setting Rage  | The session                                                  |
+| Description   | This attribute allows for specifying the maximum number of statements that can be cached when the Statement Cache feature is enabled. <br/>If the number of cached statements exceeds this limit, the oldest statement is removed from the cache by the LRU (Least Recently Used) algorithm.<br/>For more detailed information, please refer to the Statement Caching in Chapter 3. Advanced Functions of this manual. |
+
+##### stmt_cache_sql_limit
+
+| Default Value | 1024                                                         |
+| ------------- | :----------------------------------------------------------- |
+| Range         | [1 - 2147483647]                                             |
+| Mandatory     | No                                                           |
+| Setting Rage  | The session                                                  |
+| Description   | Configures the maximum length of a SQL string to be stored in the Statement Cache. <br/>If the length of a SQL string exceeds this value, it will not be cached. <br />For more detailed information, please refer to the Statement Caching in Chapter 3. Advanced Functions of this manual. |
 
 ##### time_zone
 
@@ -2247,6 +2273,93 @@ This method operates when the ResultSet object is of the following types:
 
 If this method is called for a TYPE_FORWARD_ONLY type, an exception is raised; for a TYPE_SCROLL_INSENSITIVE type, nothing happens.
 
+### Statement Caching
+
+*Statement Caching* is a feature designed to enhance performance by caching and reusing SQL statements when they are frequently executed. This functionality can be enabled without requiring modifications to the existing program. PreparedStatement and CallableStatement objects are the targets of caching, while Statement objects are not cached. Statement Caching is managed and configured at the Connection level.
+
+#### Basic Operation
+
+When executing the close() method of the Statement interface, a statement is cached. Subsequently, upon executing the prepareStatement() or prepareCall() methods, the system searches for an identical statement within the cached statements. If a matching statement is found in the cache, it returns the corresponding Statement object; otherwise, it creates a new Statement object and returns it.
+
+##### Criteria for Identical Statements
+
+The matching criteria for identical statements are as follows:
+
+- *SQL Consistency*: The SQL string must be identical.
+- *Statement Type Matching*: The statement type (e.g., PreparedStatement or CallableStatement) must match.
+- *ResultSet Attributes*: Attributes of ResultSet objects generated by the statement (such as Scrollable, Concurrency, and Holdability) must be consistent.
+
+##### Handling of Cached Statements
+
+When statement caching is enabled, the close() method of the statement interface caches the statement instead of closing it. That is, the statement is not physically closed.
+
+##### Exceptions to Caching
+
+Despite the caching mechanism, there are exceptions where a statement is physically closed:
+
+- *Connection Closure*: When the close() method of the Connection interface is executed, all statement objects created from that connection are physically closed. However, pooled connections are not closed.
+- *isPoolable() is false*: When closing the statement object whose isPoolable() is *false*, the statement is closed.
+- *Cache Size Limit*: If the number of cached statements exceeds the configured limit defined by stmt_cache_size, the  least recently accessed statement object is physically closed by the LRU(Least Recently Used) algorithm.
+
+#### How to Use Statement Caching
+
+To make use of Statement Caching, the following connection properties must be configured.
+
+* stmt_cache_enable
+
+  By default, stmt_cache_enable is set to false, so you should configure it as follows to enable the Statement Caching feature:
+
+  ```java
+  Properties sProps = new Properties();
+  ...
+  sProps.put("stmt_cache_enable", "true");
+  ...
+  ```
+
+* stmt_cache_size
+
+* stmt_cache_sql_limit
+
+If you want to prevent caching of specific statements while Statement Caching is active, the setPoolable(false) method of the Statement interface should be invoked.
+
+```java
+...
+sStmt.setPoolable(false);
+...
+```
+
+#### Example
+
+If specific SQL statements need to be executed repeatedly, you can enable the statement caching feature to reuse cached statements for better performance, as shown in the following example.
+
+```java
+...
+Properties        sProps   = new Properties();
+...        
+sProps.put("stmt_cache_enable", "true");
+...
+Connection        sCon     = DriverManager.getConnection( sURL, sProps );
+Statement         sStmt    = sCon.createStatement();
+...
+ for (int i = 0; i < 100; i++)
+ {
+     PreparedStatement sPreStmt = sCon.prepareStatement( "INSERT INTO T1 VALUES(1,1)" );
+     sPreStmt.execute();
+     sPreStmt.close();
+  }
+ /* Finalize process */
+ sStmt.close();
+ sCon.close();
+...
+```
+
+#### Cautions
+
+* When the Statement Caching feature is enabled, executing DDL operations on database objects can lead to errors, so caution is advised.
+* Statement Caching and the defer_prepares feature cannot be used concurrently. Ensure that they are not enabled together.
+* Be cautious not to duplicate the usage of the Statement Caching feature with statement pooling functionality offered by other libraries, such as DBCP's poolPreparedStatement.
+* Enabling the Statement Caching feature may increase the memory usage on both the server and client sides. It is recommended to tune this by adjusting the stmt_cache_size and stmt_cache_sql_limit properties appropriately. Additionally, consider configuring the Java heap memory size as needed.
+
 ### Atomic Batch
 
 The Altibase JDBC driver not only guarantees the atomicity of batch operations, but also supports fast INSERT operations of bulk data through the Atomic Batch feature. 
@@ -3583,8 +3696,8 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                  | Specification Version | Supported | Details                                                      | Exceptions |
 | ------------------------------- | --------------------- | --------- | ------------------------------------------------------------ | ---------- |
-| setPoolable(boolean  poolable)  | 4.0                   | O         | Altibase JDBC does not support Statement Pool but flag setting is  available |            |
-| isPoolable()                    | 4.0                   | O         |                                                              |            |
+| setPoolable(boolean  poolable)  | 4.0                   | O         | Controls whether or not to cache the statements when stmt_cache_enable is configured to true.<br/>setPoolable(false) is used to prevent caching, while setPoolable(true) is used to allow caching.<br/>When stmt_cache_enable is set to false, statements are not cached, regardless of the parameter value of the setPoolable() function. |            |
+| isPoolable()                    | 4.0                   | O         | The default values are as follows<br/>- Statement: false <br/>- PreparedStatement: true<br/>- CallableStatement: true |            |
 | closeOnCompletion()             | 4.1                   | O         |                                                              |            |
 | isCloseOnCompletion()           | 4.1                   | O         |                                                              |            |
 | executeLargeBatch()             | 4.2                   | O         |                                                              |            |
