@@ -830,8 +830,8 @@ FROM user_name.table_name TO user_name.table_name;
     메시지가 출력된다.  
     존재하는 레코드와 동일한 Key를 가진 데이터를 삽입하려는 경우 발생하는 충돌을
     해결하는 정책을 설정하려면, REPLICATION_INSERT_REPLACE 프로퍼티를 사용하라.  
-    REPLICATION_INSERT_REPLACE=1: 삭제 후 삽입  
-    REPLICATION_INSERT_REPLACE=0: 삭제하지 않거나 삽입하며, 오류 메시지 출력
+    * REPLICATION_INSERT_REPLACE=1: 충돌이 발생한 레코드를 삭제 후 삽입을 수행한다.
+    * REPLICATION_INSERT_REPLACE=0: (기본 동작) 삭제하지 않고 삽입이 실패하여, 충돌 오류 메시지를 출력한다.
 
 -   UPDATE 충돌  
     UPDATE 충돌이 발생하면, UPDATE는 실패하며 altibase_rp.log에 충돌 오류
@@ -871,9 +871,8 @@ FROM user_name.table_name TO user_name.table_name;
 ##### 설명
 
 - 구문에 AS MASTER 또는 AS SLAVE를 지정함으로써 Master 서버 인지 Slave서버
-  인지를 구분한다. 만약 아무것도 지정하지 않으면 REPLICATION_INSERT_REPLACE
-  또는 REPLICATION_UPDATE_REPLACE 프로퍼티를 사용하는 방식과 동일하다.
-
+  인지를 구분한다.
+  
 - 해당 서버가 Master인지 Slave인지에 대한 정보는 SYS_REPLICATIONS\_ 메타
   테이블 내의 CONFLICT_RESOLUTION 컬럼에서 확인할 수 있다.
 
@@ -1668,8 +1667,7 @@ SYS 사용자만이 이중화 객체를 삭제할 수 있다.
     디스크테이블의 경우, *parallel_factor* 값을 디스크 테이블의 개수 이상으로 지정하는 것이 성능에 유리하다. 
 
 - SYNC ONLY  
-  SYNC와 마찬가지로 지역 서버에 있는 이중화 대상 테이블들의 모든 레코드를 원격 서버로 전송해서
-  동기화하지만, 동기화 이후에 이중화를 시작하지 않는 차이가 있다. 즉, SYNC ONLY를 수행한 경우 이중화를 다시 수행하려면 명시적으로 이중화 시작 구문(ALTER REPLICATION ... START)을 수행해야 한다.
+  SYNC와 마찬가지로 지역 서버에 있는 이중화 대상 테이블들의 모든 레코드를 원격 서버로 전송해서 동기화하지만, 동기화 이후에 이중화를 시작하지 않는 차이가 있다. 즉, SYNC ONLY를 수행한 경우 이중화를 다시 수행하려면 명시적으로 이중화 시작 구문(ALTER REPLICATION ... START)을 수행해야 한다.
 
 #### 예제
 
@@ -1724,9 +1722,9 @@ SYS 사용자만이 이중화 객체를 삭제할 수 있다.
 
     - User-Oriented Scheme
 
-      REPLICATION_INSERT_REPLACE 프로퍼티를 1로 설정하여 충돌을 해결 할 수 있다.
+      REPLICATION_INSERT_REPLACE 프로퍼티를 1로 설정하면, 충돌이 발생한 데이터를 삭제한 다음 삽입하여 충돌을 해결한다.
 
-      REPLICATION_INSERT_REPLACE 프로퍼티의 기본값은 0으로 현재 설정을 유지하는 경우, 충돌 발생시 오류 메시지가 출력된다.
+      REPLICATION_INSERT_REPLACE 프로퍼티의 기본값은 0으로 현재 설정을 유지하는 경우, 충돌 발생 시 충돌 오류 메시지가 출력된다.
 
 
     - Master/Slave Scheme
