@@ -1680,9 +1680,19 @@ SYS 사용자만이 이중화 객체를 삭제할 수 있다.
   Alter success.
   ```
 
-* 특정 테이블 또는 파티션 의 동기화 예제 필요
+* 특정 파티션의 동기화를 수행하고 이중화를 시작한다.
 
-* 병렬동기화 예제필요
+  ```
+  iSQL> ALTER REPLICATION rep1 SYNC TABLE sys.t1 PARTITION p1;
+  Alter success.
+  ```
+
+* 4개의 쓰레드를 이용하여 병렬로 동기화를 수행한다.
+
+  ```
+  iSQL> ALTER REPLICATION rep1 SYNC PARALLEL 4;
+  Alter success.
+  ```
 
 #### 예외상황
 
@@ -1692,41 +1702,42 @@ SYS 사용자만이 이중화 객체를 삭제할 수 있다.
 
 -   REPLICATION_SYNC_LOCK_TIMEOUT
 
-    동기화 후에 이중화가 시작될 로그를 결정하는 순간에 다른 트랜잭션이 동기화 대상 테이블의 데이터를
-    변경하는 것을 막기 위해서, 이중화 송신 쓰레드는 동기화를 시작하기 전에 일시적으로 동기화 테이블에 대한 공유 잠금(S Lock)을 획득한다. 따라서, 다른 트랜잭션이 동기화 대상 테이블에 변경을 하고 있을 때 SYNC를 시도하면, 이중화 송신 쓰레드는 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간만큼
-    대기하다가 변경 트랜잭션이 끝나는 시점에 동기화를 시작한다. 변경 트랜잭션이 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간 내에 완료되지 않으면 동기화는 실패한다. 
+    동기화 후에 이중화가 시작될 로그를 결정하는 순간에 다른 트랜잭션이 동기화 대상 테이블의 데이터를 변경하는 것을 막기 위해서, 이중화 송신 쓰레드는 동기화를 시작하기 전에 일시적으로 동기화 테이블에 대한 공유 잠금(S Lock)을 획득한다. 따라서, 다른 트랜잭션이 동기화 대상 테이블에 변경을 하고 있을 때 SYNC를 시도하면, 이중화 송신 쓰레드는 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간만큼 대기하다가 변경 트랜잭션이 끝나는 시점에 동기화를 시작한다. 변경 트랜잭션이 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간 내에 완료되지 않으면 동기화는 실패한다. 
+    
+- 레코드의 충돌
 
--   레코드의 충돌
+  동기화 과정에서 원격 서버에 지역 서버의 레코드와 충돌이 발생하는 레코드가 있으면, 동기화가 실패한다. 
 
-    동기화 과정에서 원격 서버에 지역 서버의 레코드와 충돌이 발생하는 레코드가 있으면, 동기화가 실패한다. 이 경우 원격 서버의 데이터를 삭제한 후(TRUNCATE 수) 다시 동기화(SYNC)를 수행할 것을 권장한다.
+  이 경우 원격 서버의 데이터를 삭제한 후(TRUNCATE 수행), 다시 동기화(SYNC)를 수행할 것을 권장한다.
 
-    (1)만약, 원격 서버의 데이터를 삭제하지 않고 동기화를 하려는 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하고 알티베이스의 충돌 해결 방법(#충돌-해결)을 확인하여 원하는 방법을 선택한다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 이중화 성능저하가 있을수 있으므로 주의한다.
+   만약, 원격 서버의 데이터를 삭제하지 않고 동기화를 하려는 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하고 알티베이스의 [충돌 해결 방법](#충돌-해결-1)을 확인하여 원하는 정책으로 설정하고 동기화를 수행한다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 동기화 성능저하가 있을수 있으므로 주의한다.
 
-    (2)만약, 원격 서버의 데이터를 삭제하지 않을 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하여 동기화를 시도하면, 충돌 해결 정책에 따라 충돌이 해결될 수 있다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 이중화 성능저하가 있을수 있으므로 주의한다.
+  > 주의 
+  >
+  > REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하는 경우, 충돌 해결 정책에 따라서 동작한다. 충돌 해결 정책에서 기존의 데이터를 유지하도록 설정한 경우, 충돌이 발생한 레코드가 변경되지 않아 지역 서버의 데이터와 원격 서버의 데이터가 불일치 할 수 있으므로 주의 한다.
+  >
+  > 데이터의 불일치는 altiComp 유틸리티를 이용하여 해결 할 수 있다.
 
-    > 주의 
-    >
-    > REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하는 경우, 충돌 해결 정책에 따라서 동작한다. 충돌 해결 정책에서 기존의 데이터를 유지하도록 설정한 경우, 충돌이 발생한 레코드가 변경되지 않아 지역 서버의 데이터와 원격 서버의 데이터가 불일치 할 수 있으므로 주의 한다.
-    >
-    > 데이터의 불일치는 altiComp 유틸리티를 이용하여 해결 할 수 있다.
+  - 충돌 해결 정책에 따른 동작
 
-- 충돌 해결 정책에 따른 동작
+    동기화의 경우 Insert 충돌만 발생한다. 자세한 설명은 *2.이중화 관리-충돌 해결* 의 3가지 scheme를 참고한다.
 
-  동기화의 경우 Insert 충돌만 발생한다.
+    - User-Oriented Scheme
 
-  - User-Oriented Scheme
+      REPLICATION_INSERT_REPLACE 프로퍼티를 1로 설정하여 충돌을 해결 할 수 있다.
 
-    REPLICATION_INSERT_REPLACE 프로퍼티를 1로 설정하여 충돌을 해결 할 수 있다.
+      REPLICATION_INSERT_REPLACE 프로퍼티의 기본값은 0으로 현재 설정을 유지하는 경우, 충돌 발생시 오류 메시지가 출력된다.
 
-    REPLICATION_INSERT_REPLACE 프로퍼티의 기본값은 0으로 현재 설정을 유지하는 경우, 충돌 발생시 오류 메시지가 출력된다.
 
-  - Master/Slave Scheme
+    - Master/Slave Scheme
 
-    Master/Slave 설정이되어 있는 경우 동기화 수행히 발생한 충돌은 *2.이중화 관리-충돌해결 의 Master/Slave 이중화 처리 방식*을 참고한다.
+      Master/Slave 설정이되어 있는 경우 동기화 수행히 발생한 충돌은 *2.이중화 관리-충돌해결 의 Master/Slave 이중화 처리 방식*을 참고한다.
 
-  - Timestamp-based Scheme
 
-    REPLICATION_TIMESTAMP_RESOLUTION 프로퍼티를 1로 설정한 경우, *2.이중화 관리-충돌해결 의Timestamp-based 이중화 처리 방식*을 참고한다.
+    - Timestamp-based Scheme
+
+      REPLICATION_TIMESTAMP_RESOLUTION 프로퍼티를 1로 설정한 경우, *2.이중화 관리-충돌해결 의Timestamp-based 이중화 처리 방식*을 참고한다.
+
 
 ### 이중화 삭제 (DROP REPLICATION) 
 
