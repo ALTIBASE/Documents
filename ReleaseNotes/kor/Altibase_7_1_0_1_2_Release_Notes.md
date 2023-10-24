@@ -139,12 +139,12 @@ Altibase 7.1.0.1.2 Release Notes
 
 Altibase 7.1.0.1.2는 아래 표에 나열된 운영체제와 플랫폼 상에서 운영 가능하다.
 
-| OS    | CPU                                         | Version               | Bit (Server) | Bit (Client) |
-| ----- | ------------------------------------------- | --------------------- | ------------ | ------------ |
-| AIX   | PowerPC                                     | 6.1 tl03 and higher   | 64-bit       | 64-bit       |
-| HP-UX | IA64                                        | 11.31 and higher      | 64-bit       | 64-bit       |
-| LINUX | x86-64, PowerPC (GNU glibc 2.12 and higher) | redhat 6.0 and higher | 64-bit       | 64-bit       |
-| LINUX | PowerPC8(LE) (GNU glibc 2.17)               | Redhat 7.2            | 64-bit       | 64-bit       |
+| OS    | CPU                                     | Version               | Bit (Server) | Bit (Client) |
+| ----- | --------------------------------------- | --------------------- | ------------ | ------------ |
+| AIX   | PowerPC                                 | 6.1 tl03 and higher   | 64-bit       | 64-bit       |
+| HP-UX | IA64                                    | 11.31 and higher      | 64-bit       | 64-bit       |
+| LINUX | x86-64, PowerPC (GNU glibc 2.12 ~ 2.33) | redhat 6.0 and higher | 64-bit       | 64-bit       |
+| LINUX | PowerPC8(LE) (GNU glibc 2.17 ~2.33)     | Redhat 7.2            | 64-bit       | 64-bit       |
 
 > Java 버전: Altibase 7.1은 JDK 1.5 이상에서 호환된다.
 >

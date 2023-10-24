@@ -413,11 +413,11 @@ $ uname -a
 Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-| OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
-|-------|------------------------------|-----------------|--------------|--------------|
-| AIX   | PowerPC                      | 6.1 tl03 이상   | 64-bit       | 64-bit,      |
-| HP-UX | IA64                         | 11.31 이상      | 64-bit       | 64-bit,      |
-| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit,      |
+| OS    | CPU                           | Version         | Bit (Server) | Bit (Client) |
+| ----- | ----------------------------- | --------------- | ------------ | ------------ |
+| AIX   | PowerPC                       | 6.1 tl03 이상   | 64-bit       | 64-bit,      |
+| HP-UX | IA64                          | 11.31 이상      | 64-bit       | 64-bit,      |
+| LINUX | x86-64 (GNU glibc 2.12 ~2.33) | redhat 6.0 이상 | 64-bit       | 64-bit,      |
 
 Altibase 7.1 is compatible with JDK 1.5 or higher.
 

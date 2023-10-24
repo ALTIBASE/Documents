@@ -378,12 +378,12 @@ It is recommended to use a dedicated line when using the replication feature.
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                        |
 | **Linux x86-64**                                             |                     |                           |                                        |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
-| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 or later*  <br />        |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*          |
+| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 ~ 2.33*  <br />   |
 | **Linux on Power**                                           |                     |                           |                                        |
-| POWER7 Red Hat Enterprise Linux 6 |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
+| POWER7 Red Hat Enterprise Linux 6 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*           |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 or later*<br />*- Altibase 7.1.0.3.6 or later* |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 ~ 2.33*<br />*- Altibase 7.1.0.3.6 or later* |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                        |
 | Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase client 7.1.0.4.5 or later* |
 
@@ -456,7 +456,7 @@ Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x
 |-------|------------------------------|-----------------|--------------|--------------|
 | AIX   | PowerPC                      | 6.1 tl03 or later   | 64-bit       | 64-bit,      |
 | HP-UX | IA64                         | 11.31 or later      | 64-bit       | 64-bit,      |
-| LINUX | x86-64 (GNU glibc 2.12 or later) | redhat 6.0 or later | 64-bit       | 64-bit,      |
+| LINUX | x86-64 (GNU glibc 2.12 ~ 2.33) | redhat 6.0 or later | 64-bit       | 64-bit,      |
 
 Altibase 7.1 is compatible with JDK 1.5 or later.
 
