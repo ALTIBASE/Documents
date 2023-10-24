@@ -59,29 +59,29 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 > **Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
 
-| Altibase 7.3                                                 | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항      |
-| :----------------------------------------------------------- | :-----------: | :-----------------: | :----------------------- |
-| **AIX on IBM Power Systems**                                 |               |                     |                          |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                          |
-| AIX 7.1                                                      |       ●       |          ●          |                          |
-| AIX 7.2                                                      |       ●       |          ●          |                          |
-| **HP-UX Itanium (IA-64)**                                    |               |                     |                          |
-| HP-UX 11.31                                                  |       ●       |          ●          |                          |
-| **Linux x86-64**                                             |               |                     |                          |
-| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
-| CentOS 6.8                                                   |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
-| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
-| Rocky Linux 8.5                                              |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
-| Ubuntu 12                                                    |       ●       |          ●          | - *GNU glibc 2.17 이상*  |
-| Ubuntu 16                                                    |       ●       |          ●          | -  *GNU glibc 2.23 이상* |
-| Ubuntu 18                                                    |       ●       |          ●          | - *GNU glibc 2.27 이상*  |
-| **Linux on Power**                                           |               |                     |                          |
-| POWER7 Red Hat Enterprise Linux 6.5                          |       ●       |          ●          | *- GNU glibc 2.12 이상*  |
-| **Linux on Power** **(Little Endian)**                       |               |                     |                          |
-| POWER8(LE) Red Hat Enterprise Linux 7.2                      |       ●       |          ●          | *- GNU glibc 2.17 이상*  |
-| **Microsoft Windows (x64)**                                  |               |                     |                          |
-| Microsoft Windows 2008                                       |     **x**     |        **x**        |                          |
-| Microsoft Windows 10                                         |     **x**     |        **x**        |                          |
+| Altibase 7.3                                                 | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항        |
+| :----------------------------------------------------------- | :-----------: | :-----------------: | :------------------------- |
+| **AIX on IBM Power Systems**                                 |               |                     |                            |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                            |
+| AIX 7.1                                                      |       ●       |          ●          |                            |
+| AIX 7.2                                                      |       ●       |          ●          |                            |
+| **HP-UX Itanium (IA-64)**                                    |               |                     |                            |
+| HP-UX 11.31                                                  |       ●       |          ●          |                            |
+| **Linux x86-64**                                             |               |                     |                            |
+| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
+| CentOS 6.8                                                   |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
+| Rocky Linux 8.5                                              |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
+| Ubuntu 12                                                    |       ●       |          ●          | - *GNU glibc 2.17 ~ 2.33*  |
+| Ubuntu 16                                                    |       ●       |          ●          | -  *GNU glibc 2.23 ~ 2.33* |
+| Ubuntu 18                                                    |       ●       |          ●          | - *GNU glibc 2.27 ~ 2.33*  |
+| **Linux on Power**                                           |               |                     |                            |
+| POWER7 Red Hat Enterprise Linux 6.5                          |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
+| **Linux on Power** **(Little Endian)**                       |               |                     |                            |
+| POWER8(LE) Red Hat Enterprise Linux 7.2                      |       ●       |          ●          | *- GNU glibc 2.17 ~ 2.33*  |
+| **Microsoft Windows (x64)**                                  |               |                     |                            |
+| Microsoft Windows 2008                                       |     **x**     |        **x**        |                            |
+| Microsoft Windows 10                                         |     **x**     |        **x**        |                            |
 
 <br/>
 
@@ -122,29 +122,29 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 > **Fedora, openSUSE 등 아래 표에서 포함하지 않은 리눅스 배포판은 공식 지원 대상이 아니므로 호환성을 보장하지 않습니다.**
 
 
-| Altibase 7.1                                                 | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                       |
-| :----------------------------------------------------------- | :-----------: | :-----------------: | :-------------------------------------------------------- |
-| **AIX on IBM Power Systems**                                 |               |                     |                                                           |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                                                           |
-| AIX 7.1                                                      |       ●       |          ●          |                                                           |
-| AIX 7.2                                                      |       ●       |          ●          | *- Altibase 7.1.0.4.7 이상*                               |
-| **HP-UX Itanium (IA-64)**                                    |               |                     |                                                           |
-| HP-UX 11.31                                                  |       ●       |          ●          |                                                           |
-| **Linux x86-64**                                             |               |                     |                                                           |
-| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 이상*                                   |
-| CentOS 6.8                                                   |       ●       |          ●          | *- GNU glibc 2.12 이상*                                   |
-| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 이상*                                   |
-| Rocky Linux 8.5                                              |       ●       |          ●          | *- GNU glibc 2.12 이상*                                   |
-| Ubuntu 12                                                    |       ●       |          ●          | - *GNU glibc 2.17 이상*                                   |
-| Ubuntu 16                                                    |       ●       |          ●          | -  *GNU glibc 2.23 이상*<br />- *Altibase 7.1.0.7.2 이상* |
-| Ubuntu 18                                                    |       ●       |          ●          | - *GNU glibc 2.27 이상*<br />- *Altibase 7.1.0.7.2 이상*  |
-| **Linux on Power**                                           |               |                     |                                                           |
-| POWER7 Red Hat Enterprise Linux 6.5                          |       ●       |          ●          | *- GNU glibc 2.12 이상*                                   |
-| **Linux on Power** **(Little Endian)**                       |               |                     |                                                           |
-| POWER8(LE) Red Hat Enterprise Linux 7.2                      |       ●       |          ●          | *- GNU glibc 2.17 이상*<br />- *Altibase 7.1.0.0.8 이상*  |
-| **Microsoft Windows (x64)**                                  |               |                     |                                                           |
-| Microsoft Windows 2008                                       |     **x**     |          ●          | *- Altibase 클라이언트 7.1.0.4.5 이상*                    |
-| Microsoft Windows 10                                         |     **x**     |          ●          |                                                           |
+| Altibase 7.1                                                 | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                         |
+| :----------------------------------------------------------- | :-----------: | :-----------------: | :---------------------------------------------------------- |
+| **AIX on IBM Power Systems**                                 |               |                     |                                                             |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                                                             |
+| AIX 7.1                                                      |       ●       |          ●          |                                                             |
+| AIX 7.2                                                      |       ●       |          ●          | *- Altibase 7.1.0.4.7 이상*                                 |
+| **HP-UX Itanium (IA-64)**                                    |               |                     |                                                             |
+| HP-UX 11.31                                                  |       ●       |          ●          |                                                             |
+| **Linux x86-64**                                             |               |                     |                                                             |
+| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| CentOS 6.8                                                   |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| Rocky Linux 8.5                                              |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| Ubuntu 12                                                    |       ●       |          ●          | - *GNU glibc 2.17 ~ 2.33*                                   |
+| Ubuntu 16                                                    |       ●       |          ●          | -  *GNU glibc 2.23 ~ 2.33*<br />- *Altibase 7.1.0.7.2 이상* |
+| Ubuntu 18                                                    |       ●       |          ●          | - *GNU glibc 2.27 ~2.33*<br />- *Altibase 7.1.0.7.2 이상*   |
+| **Linux on Power**                                           |               |                     |                                                             |
+| POWER7 Red Hat Enterprise Linux 6.5                          |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| **Linux on Power** **(Little Endian)**                       |               |                     |                                                             |
+| POWER8(LE) Red Hat Enterprise Linux 7.2                      |       ●       |          ●          | *- GNU glibc 2.17 ~ 2.33*<br />- *Altibase 7.1.0.0.8 이상*  |
+| **Microsoft Windows (x64)**                                  |               |                     |                                                             |
+| Microsoft Windows 2008                                       |     **x**     |          ●          | *- Altibase 클라이언트 7.1.0.4.5 이상*                      |
+| Microsoft Windows 10                                         |     **x**     |          ●          |                                                             |
 
 <br/>
 
@@ -192,17 +192,17 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 | **HP-UX Itanium (IA-64)** |                     |                                 |                                 |                     |
 | HP-UX 11.31               | ● | ● | ● |                     |
 |**Linux x86-64**|||||
-|Red Hat Enterprise Linux 6.0<br/>Red Hat Enterprise Linux 7.8<br/>Red Hat Enterprise Linux 8.3|●|●|●|*- GNU glibc 2.12 이상*|
-|CentOS 6.8<br/>CentOS 8.1|●|●|●|*- GNU glibc 2.12 이상*|
-|Oracle Linux 6.5<br/>Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4|●|●|●|*- GNU glibc 2.12 이상*|
-|Rocky Linux 8.5|●|**-**|●|*- GNU glibc 2.12 이상*|
-|Ubuntu 12|●|●|●|*- GNU glibc 2.17이상*|
+|Red Hat Enterprise Linux 6.0<br/>Red Hat Enterprise Linux 7.8<br/>Red Hat Enterprise Linux 8.3|●|●|●|*- GNU glibc 2.12 ~ 2.33*|
+|CentOS 6.8<br/>CentOS 8.1|●|●|●|*- GNU glibc 2.12 ~ 2.33*|
+|Oracle Linux 6.5<br/>Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4|●|●|●|*- GNU glibc 2.12 ~ 2.33*|
+|Rocky Linux 8.5|●|**-**|●|*- GNU glibc 2.12 ~ 2.33*|
+|Ubuntu 12|●|●|●|*- GNU glibc 2.17 ~ 2.33*|
 |**Linux on Power**|||||
-|POWER7 Red Hat Enterprise Linux 6.5|●|-|●|*- glibc 2.12 이상*|
-|POWER8 Red Hat Enterprise Linux 7.1|●|-|●|*- glibc 2.12 이상*|
+|POWER7 Red Hat Enterprise Linux 6.5|●|-|●|*- glibc 2.12 ~ 2.33*|
+|POWER8 Red Hat Enterprise Linux 7.1|●|-|●|*- glibc 2.12 ~ 2.33*|
 |**Linux on Power (Little Endian)**|||●||
-|POWER8(LE) Red Hat Enterprise Linux 7.2|●|-|●|*- glibc 2.17 이상*<br />*- Altibase 6.5.1.4.5 이상*|
-|POWER9(LE) Red Hat Enterprise Linux 7.6|●|-|●|*- glibc 2.17 이상*<br />*- Altibase 6.5.1.7.6 이상*|
+|POWER8(LE) Red Hat Enterprise Linux 7.2|●|-|●|*- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.4.5 이상*|
+|POWER9(LE) Red Hat Enterprise Linux 7.6|●|-|●|*- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.7.6 이상*|
 |**Oracle Solaris (Sparc)**|||||
 |Solaris 10|●|●|●||
 |Solaris 11|●|●|●|*- Altibase 6.5.1.4.2 이상*|
