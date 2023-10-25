@@ -448,32 +448,32 @@ DDL PVO 단계에서의 예외처리 개선으로 안정성을 향상시켰다.
 
 </br>
 
-### 2.2 변경 사항
+### 2.2 Changes
 
-DBA와 개발자가 알아야 할 추가, 변경, 제거된 기능을 아래에서 설명한다.
+The following describes the features that DBAs and developers need to be aware of, which include additions, modifications, and removals.
 
-#### 2.2.1 데이터베이스 버전
+#### 2.2.1 Database Version
 
-데이터베이스 구성 요소 별 버전
+Version by Database Component
 
-| Altibase 버전 | 데이터베이스 바이너리 버전 | 메타 버전 | 통신 프로토콜 버전 | 이중화 프로토콜 버전 |
-| :-----------: | :------------------------: | :-------: | :----------------: | :------------------: |
-|   7.1.0.8.8   |           6.5.1            |  8.11.1   |       7.1.7        |        7.4.7         |
-|   7.3.0.0.1   |           7.3.0            |   9.3.1   |       7.1.8        |        7.4.9         |
+| Altibase server/client Version | Database Binary Version | Meta Version | Communication Protocol Version | Replication Protocol Version |
+| :----------------------------: | :---------------------: | :----------: | :----------------------------: | :--------------------------: |
+|           7.1.0.8.8            |          6.5.1          |    8.11.1    |             7.1.7              |            7.4.7             |
+|           7.3.0.0.1            |          7.3.0          |    9.3.1     |             7.1.8              |            7.4.9             |
 
-#### 2.2.2 호환성
+#### 2.2.2 Compatibility
 
-##### 데이터베이스 바이너리 버전
+##### Database Binary Version
 
-데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그 파일의 호환성을 나타낸다.
+The database binary version indciates the compatibility of the database image file and log file.
 
-로그 파일 로깅 구조 개선으로 데이터베이스 바이너리 버전이 변경되었다. **Altibase 7.3 이전 버전 데이터베이스와 호환되지 않으므로 Altibase 버전 업그레이드 시 마이그레이션 작업이 필요하다.**
+The database binary version has been updated due to enhancements in the logging structure of log files. As a result, Altibase 7.3 and earlier versions are not compatible, requiring migration efforts when upgrading to Altibase 7.3.
 
-##### 메타 버전
+##### Meta Version
 
-메타 메이저 버전(META MAJOR VERSION)이 변경되었으므로, **Altibase 7.3 이전 버전에서 Altibase 7.3으로 업그레이드시 메타를 재구성해야 한다.**
+Given that the major version of Meta has changed, it is necessary to reconfigure the metadata when upgrading from the earlier version to Altibase 7.3.
 
-##### 통신 프로토콜 버전
+##### Communication Protocol Version
 
 Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 클라이언트 하위 호환성을 알 수 있다.
 
@@ -481,7 +481,7 @@ Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 �
 
 > 클라이언트 하위 호환성은 하위 버전 Altibase 라이브러리로 컴파일한 사용자 응용 프로그램(Altibase 클라이언트)이 상위 버전 Altibase 에서 정상 동작하는 것을 보장한다.
 
-##### 이중화 프로토콜 버전
+##### Replication Protocol Version
 
 이중화 프로토콜 버전은 Altibase 이중화 하위 호환성이나 이중화 부가기능 호환 여부를 나타낸다.
 
@@ -609,11 +609,11 @@ Altibase 이중화 하위 호환성 보장에 따라 Altibase 6.5.1와  Altibase
 
 </br>
 
-#### 2.2.4 Altibase 서버 프로퍼티
+#### 2.2.4 Properties
 
 Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티들이다. 각 프로퍼티에 대한 자세한 내용은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)를 참고하기 바란다.
 
-##### 새로운 프로퍼티
+##### New Properties
 
 -   [DISK_INDEX_BUILD_SORT_AREA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#disk_index_build_merge_page_count-%EB%8B%A8%EC%9C%84-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%88%98)
 -   [DBLINK_GLOBAL_TRANSACTION_LEVEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#dblink_global_transaction_level)
@@ -655,7 +655,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   [ST_MSGLOG_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#st_msglog_size)
 -   [VARRAY_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#varray_memory_maximum)
 
-##### 변경된 프로퍼티
+##### Modified Properties
 
 - [ARCHIVE_FULL_ACTION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#archive_full_action)
 
@@ -733,7 +733,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
   최대값이 512에서 16384로 변경되었다.
 
-##### 삭제된 프로퍼티
+##### Removed Properties
 
 -   GLOBAL_TRANSACTION_LEVEL
 -   LOCK_MGR_TYPE
@@ -746,9 +746,9 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 
 
-#### 2.2.5 메타 테이블
+#### 2.2.5 Meta Tables
 
-##### 새로운 메타테이블
+##### New Meta Tables
 
 * [SYS_GEOMETRIES_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_geometries_)
 * [SYS_GEOMETRY_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_geometry_columns_)
@@ -756,7 +756,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 * [SYS_REPL_TABLE_OID_IN_USE_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_table_oid_in_use_)
 * [USER_SRS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#user_srs_)
 
-##### 변경된 메타테이블
+##### Modified Meta Tables
 
 * [SYS_REPLICATIONS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
   * REMOTE_LAST_DDL_XSN 컬럼이 추가되었다.
@@ -776,9 +776,9 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
   * PARTITION_MAX_VALUE 컬럼이 추가되었다.
   * INVALID_MAX_SN 컬럼이 추가되었다.
 
-##### 삭제된 메타테이블
+##### Removed Meta Tables
 
-아래의 메타 테이블이 삭제되었다.
+The following meta tables have been removed.
 
 -   STO_COLUMNS_
 -   STO_DATUMS_
@@ -791,11 +791,13 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   STO_SRS_
 -   STO_USER_COLUMNS_
 
-#### 2.2.6 성능 뷰
+#### 2.2.6 Performance Views
 
-아래의 성능 뷰 들이 추가되었다. 각 성능 뷰에 대한 자세한 내용은 [**General Reference-2.The Data Dictionary**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md)를 참고하기 바란다.
+The following performance views have been added.
 
-##### 새로운 성능 뷰
+For more informaiton on each performance view, please refer to the [**General Reference-2.The Data Dictionary**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md).
+
+##### New Performance Views
 
 -   [V$LIBRARY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vlibrary)
 -   [V$PROCINFO](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vprocinfo)
@@ -807,7 +809,7 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   [V$REPL_REMOTE_META_ITEMS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_indices)
 -   [V$REPL_REMOTE_META_REPLICATIONS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepl_remote_meta_replications)
 
-##### 삭제된 성능뷰
+##### Removed Performance Views
 
 * V$ST_ANGULAR_UNIT
 * V$ST_AREA_UNIT
@@ -815,24 +817,24 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 </br>
 
-### 2.3 패키지
+### 2.3 Packages
 
-| OS    | CPU                       | 서버/클라이언트     | 패키지 인스톨러 이름                                        |
-| ----- | ------------------------- | ------------------- | ----------------------------------------------------------- |
-| AIX   | PowerPC                   | Altibase 서버       | altibase- server-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
-|       |                           | Altibase 클라이언트 | altibase- client-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
-| HP-UX | IA64                      | Altibase 서버       | altibase- server-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
-|       |                           | Altibase 클라이언트 | altibase- client-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
-| LINUX | x86-64                    | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run       |
-|       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run       |
-| LINUX | PowerPC                   | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
-|       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
-| LINUX | PowerPCLE (Little Endian) | Altibase 서버       | altibase-server-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
-|       |                           | Altibase 클라이언트 | altibase-client-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
+| OS    | CPU                       | File Names                                                  |
+| ----- | ------------------------- | ----------------------------------------------------------- |
+| AIX   | PowerPC                   | altibase- server-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
+|       |                           | altibase- client-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
+| HP-UX | IA64                      | altibase- server-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
+|       |                           | altibase- client-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
+| LINUX | x86-64                    | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run       |
+|       |                           | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run       |
+| LINUX | PowerPC                   | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
+|       |                           | altibase-client-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
+| LINUX | PowerPCLE (Little Endian) | altibase-server-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
+|       |                           | altibase-client-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
 
 </br>
 
-### 2.4 다운로드
+### 2.4 Download
 
 #### Package
 
@@ -842,9 +844,9 @@ http://support.altibase.com
 
 https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/README.md
 
-#### 설치
+#### Installation
 
-[Altibase Installation Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Installation%20Guide.md) 참고
+https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Installation%20Guide.md
 
 ------
 
