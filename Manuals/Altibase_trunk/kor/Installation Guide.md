@@ -476,13 +476,32 @@ $ uname -a
 Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-| OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
-|-------|------------------------------|-----------------|--------------|--------------|
-| AIX   | PowerPC                      | 6.1 tl03 이상   | 64-bit       | 64-bit,      |
-| HP-UX | IA64                         | 11.31 이상      | 64-bit       | 64-bit,      |
-| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit,      |
+| OS                             | CPU                            | Version         | Bit (Server) | Bit (Client) |
+| ------------------------------ | ------------------------------ | --------------- | ------------ | ------------ |
+| AIX                            | PowerPC                        | 6.1 tl03 이상   | 64-bit       | 64-bit       |
+| HP-UX                          | IA64                           | 11.31 이상      | 64-bit       | 64-bit       |
+| LINUX                          | x86-64 (GNU glibc 2.12 ~ 2.33) | redhat 6.0 이상 | 64-bit       | 64-bit       |
+| LINUX on Power                 | PowerPC 7                      | redhat 6.5 이상 | 64-bit       | 64-bit       |
+| LINUX on Power (Little Endian) | PowerPC 8 (Little endian)      | redhat 7.2 이상 | 64-bit       | 64-bit       |
+| Windows                        | -                              | 10 이상         | -            | 64-bit       |
 
-Altibase 7.1 은 JDK 1.5이상에서 호환된다.
+|                                                              | Altibase 서버 (64bit) | Altibase 클라이언트 (64bit) | 소프트웨어 요구사항     |
+| ------------------------------------------------------------ | :-------------------: | :-------------------------: | :---------------------- |
+| **AIX on IBM Power Systems**                                 |                       |                             |                         |
+| AIX 6.1                                                      |           ●           |              ●              |                         |
+| **Linux x86-64**                                             |                       |                             |                         |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8 |           ●           |              ●              | - GNU glibc 2.12 ~ 2.33 |
+| **Linux on Power**                                           |                       |                             |                         |
+| Red Hat Enterprise Linux 6.5 이상                            |           ●           |              ●              | - GNU glibc 2.12 ~ 2.33 |
+| **Linux on Power** **(Little Endian)**                       |                       |                             |                         |
+| Red Hat Enterprise Linux 7.3 이상                            |           ●           |              ●              | - GNU glibc 2.17 ~ 2.33 |
+| **HP-UX Itanium (IA-64)**                                    |                       |                             |                         |
+| HP-UX 11.31                                                  |           ●           |              ●              |                         |
+| **Microsoft Windows (x64)**                                  |                       |                             |                         |
+| Microsoft Windows 2008                                       |         **x**         |              ●              |                         |
+| Microsoft Windows 10                                         |         **x**         |              ●              |                         |
+
+Altibase 7.4 은 JDK 1.8이상에서 호환된다.
 
 #### 설치 모드
 
