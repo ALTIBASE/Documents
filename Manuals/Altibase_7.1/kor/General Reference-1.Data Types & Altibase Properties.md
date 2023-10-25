@@ -3881,8 +3881,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td rowspan="55">R</td>
-  <td rowspan="55">&nbsp;</td>
+  <td rowspan="54">R</td>
+  <td rowspan="54">&nbsp;</td>
   <td>REPLICATION_ACK_XLOG_COUNT</td>
   <td>&nbsp;</td>
   </tr>
@@ -3951,10 +3951,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>REPLICATION_GROUPING_TRANSACTION_MAX_COUNT</td>
-  <td>SYSTEM</td>
-  </tr>
-  <tr>
-  <td>REPLICATION_HBT_CONNECT_WAIT_TIME</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
