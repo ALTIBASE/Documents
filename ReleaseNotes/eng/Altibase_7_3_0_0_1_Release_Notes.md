@@ -92,15 +92,17 @@ Altibase 7.3.0.0.1 can be run on the operating systems and platforms listed in t
 
 #### 2.1.1 AKU(Altibase Kubernetes Utility)
 
-AKU(Altibase Kubernetes Utility)는 쿠버네티스 환경에서 스케일링(scaling)할 때 파드(Pod)의 시작 및 종료에 따라 Altibase의 데이터를 동기화하거나 동기화 정보를 초기화하는 작업을 수행할 수 있게 도와주는 유틸리티이다.
+AKU(Altibase Kubernetes Utility) is a utility that helps with synchronizing data or resetting synchronization information when Pods start and terminate in a Statefulset in Kubernetes.
 
 #### 2.1.2 AltiShapeLoader 1.0
 
-altiShapeLoader는 쉐이프파일<sup id="shapefile1">[[1]](#shapefile)</sup>을 가져오기 내보내기를 수행하는 도구로 자바 기반의 오픈소스 GeoTools를 기반으로 개발되었다.
+altiShapeLoader  is developed for importing and exporting shapefiles<sup id="shapefile1">[[1]](#shapefile)</sup> and is based on the GeoTools, which is a Java-based open source framework.
 
 #### 2.1.3 Partial Support for JDBC 4.2
 
-Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 이 문서의 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
+In Altibase 7.3, partial support for JDBC API Specification 4.2 is provided. For more detailed information, regarding the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references).
+
+Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 이 문서의 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
 
 #### 2.1.4 OpensSSL 3.0.8 Support
 
