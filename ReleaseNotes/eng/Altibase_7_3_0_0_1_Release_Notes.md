@@ -65,18 +65,18 @@ Altibase 7.3.0.0.1 Release Notes
 Altibase 7.3.0.0.1 can be run on the operating systems and platforms listed in the table below.
 
 
-|                                                              | Altibase Server | Altibase Client | Software requirements       |
-| ------------------------------------------------------------ | :-------------: | :-------------: | :-------------------------- |
-| **AIX on IBM Power Systems**                                 |                 |                 |                             |
-| AIX 6.1                                                      |        ●        |        ●        |                             |
-| **Linux x86-64**                                             |                 |                 |                             |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8 |        ●        |        ●        | - GNU glibc 2.12 and higher |
-| **Linux on Power**                                           |                 |                 |                             |
-| Red Hat Enterprise Linux 6.5 and higher                      |        ●        |        ●        | - GNU glibc 2.12 and higher |
-| **Linux on Power** **(Little Endian)**                       |                 |                 |                             |
-| Red Hat Enterprise Linux 7.3 and higher                      |        ●        |        ●        | - GNU glibc 2.17 and higher |
-| **HP-UX Itanium (IA-64)**                                    |                 |                 |                             |
-| HP-UX 11.31                                                  |        ●        |        ●        |                             |
+|                                                              | Altibase Server | Altibase Client | Software requirements   |
+| ------------------------------------------------------------ | :-------------: | :-------------: | :---------------------- |
+| **AIX on IBM Power Systems**                                 |                 |                 |                         |
+| AIX 6.1                                                      |        ●        |        ●        |                         |
+| **Linux x86-64**                                             |                 |                 |                         |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8 |        ●        |        ●        | - GNU glibc 2.12 ~ 2.33 |
+| **Linux on Power**                                           |                 |                 |                         |
+| Red Hat Enterprise Linux 6.5 and higher                      |        ●        |        ●        | - GNU glibc 2.12 ~ 2.33 |
+| **Linux on Power** **(Little Endian)**                       |                 |                 |                         |
+| Red Hat Enterprise Linux 7.3 and higher                      |        ●        |        ●        | - GNU glibc 2.17 ~ 2.33 |
+| **HP-UX Itanium (IA-64)**                                    |                 |                 |                         |
+| HP-UX 11.31                                                  |        ●        |        ●        |                         |
 
 > Altibase 7.3 server and client both support 64-bit only.
 >
@@ -100,11 +100,11 @@ altiShapeLoader  is developed for importing and exporting shapefiles<sup id="sha
 
 #### 2.1.3 Partial Support for JDBC 4.2
 
-In Altibase 7.3, partial support for JDBC API Specification 4.2 is provided. For more detailed information, regarding the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references).
-
-Altibase 7.3 에서 JDBC API Specification 4.2를 부분적으로 지원한다. Altibase 7.3 JDBC 드라이버에서 지원하는 JDBC 4.2 API는 [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6jdbc-42-api-references) 에서 확인할 수 있다. 변경 사항 및 호환성 이슈는 이 문서의 [Altibase JDBC 7.3 변경 사항 및 호환성 이슈](#altibase-jdbc-42-관련-변경-사항-및-호환성-이슈)에서 확인할 수 있다.
+In Altibase 7.3, partial support for JDBC API Specification 4.2 is provided. For more detailed information about the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references). Additionally, for information on the changes and compatibility issues, please consult [Changes and Compatibility Issues with Altibase 7.3 JDBC Driver]() Section in this manual.
 
 #### 2.1.4 OpensSSL 3.0.8 Support
+
+To enhance security, Altibase supports the latest version of OpenSSL 3.0.8, and no longer provide support for OpenSSL versions 1.0.x. Altibase now extends its protocol support to include TLS 1.3, in addition to TLS 1.0 and 1.2. If users want to specify particular cipher algorithms for TLS
 
 보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - 서버프로퍼티 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95) 을 참고한다.
 
@@ -510,7 +510,7 @@ Altibase 7.3 aexport를 구동하기 위해서는 DBMS_METADATA 패키지를 반
 [ERR-91144 : DBMS_METADATA package does not exist.]
 ```
 
-##### Altibase JDBC 4.2 관련 변경 사항 및 호환성 이슈
+##### Changes and Compatibility Issues with Altibase 7.3 JDBC Driver
 
 Altibase JDBC 4.2는 Altibase JDBC 3.0 에 대해 하위 호환성을 보장하지만 일부 인터페이스의 경우 JDBC API Specification 4.2에 따라 동작이 변경되었다.
 
@@ -595,19 +595,17 @@ Altibase 7.3 JDBC 세션의 CLIENT_TYPE은 NEW_JDBC42이다. Altibase 7.3 JDBC D
 
 </br>
 
-##### 신규 기능 관련 Altibase 이중화 제약사항
+##### Replication Restrictions
 
-###### Altibase 7.1 과 Altibase 7.3 양방향 이중화 제약 사항
+###### Replication Restrictions between Altibase 7.1 and Altibase 7.3
 
-Altibase 7.1과 Altibase 7.3는 DDL 복제와 오프라인 이중화가 불가하다.
+Because the replication protocol version has been changed, DDL synchronization are not supported between Altibase 7.1 and Altibase 7.3.
 
-DDL 복제는 이중화 프로토콜 버전(replication protocol version) 세 자리가 모두 일치해야 하는 기능으로, 하위 호환성을 보장하지 않는다.
+Because the database binary version has been changed, offline replication are not supported between Altibase 7.1 and Altibase 7.3.
 
-오프라인 이중화는 바이너리 데이터베이스 버전(binary db version)  세 자리가 모두 일치해야 하는 이중화 부가 기능으로 하위 호환성을 보장하지 않는다.
+###### Replication Restrictions between Altibase 6.5.1 and Altibase 7.3
 
-###### Altibase 6.5.1 과 Altibase 7.3 양방향 이중화 제약 사항
-
-Altibase 이중화 하위 호환성 보장에 따라 Altibase 6.5.1와  Altibase 7.3 간 단방향 및 양방향 LAZY 모드 이중화는 가능하다. 단, 이중화 대상 테이블에 공간 데이터 타입 컬럼이 있는 경우 Altibase 7.3 에서 Altibase 6.5.1 로 이중화하는 경우 SRID 값을 가진 데이터를 Altibase 6.5.1 로 동기화할 수 없다.
+Replication from Altibase 7.3 to Altibase 6.5.1 may fail when the target table contains data with SRID values.
 
 </br>
 
