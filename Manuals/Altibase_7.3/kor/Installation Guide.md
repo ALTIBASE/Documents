@@ -291,8 +291,8 @@ Altibase 패키지 인스톨러 디렉터리의 이름이 APatch이고, 이는 A
 예)
 
 ```
-PRODUCT_SIGNATURE=server-7.3.0-64-release
-PATCH_VERSION=0_0_0_0
+PRODUCT_SIGNATURE=server-7.3.0.0.1-64-release
+PATCH_VERSION=0_0_0_0_0
 
 =======  OS INFO  =======
 Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux
@@ -302,9 +302,9 @@ Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x
 gcc version 4.6.3 (GCC)
 glibc 2.12
 =======  JAVA INFO  =======
-java version "1.5.0_22"
-Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_22-b03)
-Java HotSpot(TM) 64-Bit Server VM (build 1.5.0_22-b03, mixed mode)
+java version "1.8.0_241"
+Java(TM) SE Runtime Environment (build 1.8.0_241-b07)
+Java HotSpot(TM) 64-Bit Server VM (build 25.241-b07, mixed mode)
 ```
 
 #### pkg_patch_x_x_x_x.txt 파일
@@ -327,7 +327,7 @@ $ls
 pkg_patch_0_0_0_0.txt  pkg_patch_0_0_0_10.txt
 
 $cat pkg_patch_0_0_0_10.txt
-Repository: /altidev4/tags/altibase_7_1_0_0_10_tag/
+Repository: /altidev4/tags/altibase_7_3_0_0_10_tag/
 Revision: xxxxx
 Last Changed Rev: xxxxx
 ```
@@ -485,23 +485,7 @@ Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x
 | LINUX on Power (Little Endian) | PowerPC 8 (Little endian)      | redhat 7.2 이상 | 64-bit       | 64-bit       |
 | Windows                        | -                              | 10 이상         | -            | 64-bit       |
 
-|                                                              | Altibase 서버 (64bit) | Altibase 클라이언트 (64bit) | 소프트웨어 요구사항     |
-| ------------------------------------------------------------ | :-------------------: | :-------------------------: | :---------------------- |
-| **AIX on IBM Power Systems**                                 |                       |                             |                         |
-| AIX 6.1                                                      |           ●           |              ●              |                         |
-| **Linux x86-64**                                             |                       |                             |                         |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/>Red Hat Enterprise Linux 8 |           ●           |              ●              | - GNU glibc 2.12 ~ 2.33 |
-| **Linux on Power**                                           |                       |                             |                         |
-| Red Hat Enterprise Linux 6.5 이상                            |           ●           |              ●              | - GNU glibc 2.12 ~ 2.33 |
-| **Linux on Power** **(Little Endian)**                       |                       |                             |                         |
-| Red Hat Enterprise Linux 7.3 이상                            |           ●           |              ●              | - GNU glibc 2.17 ~ 2.33 |
-| **HP-UX Itanium (IA-64)**                                    |                       |                             |                         |
-| HP-UX 11.31                                                  |           ●           |              ●              |                         |
-| **Microsoft Windows (x64)**                                  |                       |                             |                         |
-| Microsoft Windows 2008                                       |         **x**         |              ●              |                         |
-| Microsoft Windows 10                                         |         **x**         |              ●              |                         |
-
-Altibase 7.3 은 JDK 1.5이상에서 호환된다.
+Altibase 7.3 은 JDK 1.8이상에서 호환된다.
 
 #### 설치 모드
 
