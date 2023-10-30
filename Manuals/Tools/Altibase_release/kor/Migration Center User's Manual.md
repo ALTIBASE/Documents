@@ -8370,15 +8370,15 @@ Native library를 사용하는 TimesTen type 2 JDBC driver를 로딩한 상태�
 
 ### Tibero
 
-#### 데이터베이스 연결 등록 및 수정 화면에서, "Test" 버튼 클릭 시 'Specified schema object was not found at: SELECT value FROM V$VERSION WHERE NAME = 'PRODUCT_MAJOR' OR NAME = 'TB_MAJOR' Please review your settings and correct any errors.'오류 메시지가 발생한다.
+#### 데이터베이스 연결 등록 및 수정 화면에서, "Test" 버튼 클릭 시 'Specified schema object was not found at: SELECT value FROM V$VERSION WHERE NAME = 'PRODUCT_MAJOR' OR NAME = 'TB_MAJOR' Please review your settings and correct any errors.' 오류 메시지가 발생한다.
 
 `원인`
 
-마이그레이션 접속 시 DB 버전 확인을 위한 메타 정보 수집 단계에서 접속에 사용된 DB 사용자 계정이 메타 정보 조회를 위한 충분한 권한이 없어 출력되는 메시지이다.
+마이그레이션 센터 접속에 사용된 DB 사용자 계정이 DB 버전 확인을 위한 메타 정보 조회 권한이 없어 발생하는 오류이다.
 
 `해결 방법`
 
-마이그레이션 접속 시 메타 정보 조회를 위해 사용자 계정에 필요한 권한을 부여해준다.
+DB 사용자 계정에 메타 정보 조회 권한을 부여해 준다.
 
 - Tibero 4 버전 이하
 
