@@ -106,17 +106,13 @@ In Altibase 7.3, partial support for JDBC API Specification 4.2 is provided. For
 
 To enhance security, Altibase supports the latest version of OpenSSL 3.0.8, and no longer provide support for OpenSSL versions 1.0.x. Altibase now extends its protocol support to include TLS 1.3, in addition to TLS 1.0 and 1.2. If users want to specify particular cipher algorithms for TLS 1.3, please set them in the server property, SSL_CIPHER_SUITES. For more detailed information, please refer to [**Altibase SSL TLS User's Guide** - server properties to connect over ssl](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-set-server-properties-to-connect-over-ssl).
 
-Additionally, to enable the use of the FIPS module, you must set the SSL_LOAD_CONFIG property to 1.
-
-보안강화를 위해 OpenSSL의 최신버전 3.0.8 을 적용하여 지원하며, OpenSSL 1.0.x 버전은 더 이상 지원하지 않는다. 지원하는 프로토콜은 TLS 1.0, 1.2에 추가로 TLS 1.3을 지원한다. 만약 TLS 1.3의 특정 암호 알고리즘(CIPHER)을 사용하고자 하는 경우에는 Altibase 서버 프로퍼티 SSL_CIPHER_SUITES에 설정해야 한다. TLS 1.0, TLS 1.2의 경우는 기존 과 동일하게 SSL_CIPHER_LIST에 설정한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - 서버프로퍼티 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%84%A4%EC%A0%95) 을 참고한다.
-
-추가로 FIPS 모듈의 사용을 지원하는데, 이 기능을 이용하기 위해서는 SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. 자세한 내용은 [**Altibase SSL TLS User's Guide** - Step4 FIPS모듈을 사용할 경우](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-altibase-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-fips%EB%AA%A8%EB%93%88%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0) 를 참고한다.
+Additionally, Altibase supports the FIPS(Federal Information Processing Standards) module. To use the FIPS module with SSL, you must set the SSL_LOAD_CONFIG property to 1. Refer to [Altibase SSL TLS User's Guide - Step4. FIPS module with SSL]()
 
 #### 2.1.5 Funtionality Improvement - SQL Extension<b id="215"></b>
 
 ##### VARRAY TYPE
 
-저장 프로시저 내에서 사용자 정의 타입으로 VARRAY가 추가되었다. VARRAY 타입은 동일한 데이터 타입의 연속된 데이터를 저장할 수 있는 ARRAY 형식의 사용자 정의 데이터 타입으로, 자세한 설명은 [**Stored Procedures Manual** - varray](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Stored%20Procedures%20Manual.md#varray) 설명을 참고한다.
+Within stored procedures, the VARRAY type is now supported as a new user-defined type. The VARRAY type is capable of storing a sequence of data with the same data type. For more details, please refer to [Stored Procedures Manual - VARRAY]().
 
 ##### Anonymous Block 
 
