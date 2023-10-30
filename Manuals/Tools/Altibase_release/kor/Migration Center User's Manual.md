@@ -8374,24 +8374,26 @@ Native library를 사용하는 TimesTen type 2 JDBC driver를 로딩한 상태�
 
 `원인`
 
-마이그레이션 센터 접속에 사용된 DB 사용자 계정이 DB 버전 확인을 위한 메타 정보 조회 권한이 없어 발생하는 오류이다.
+마이그레이션 센터 접속에 사용된 DB 사용자 계정이 DB 버전 확인을 위한 DICTIONARY 조회 권한이 없어 발생하는 오류이다.
 
 `해결 방법`
 
-DB 사용자 계정에 메타 정보 조회 권한을 부여해 준다.
+DB 사용자 계정에 DICTIONARY 조회 권한을 부여해 준다.
 
 - Tibero 4 버전 이하
 
+  버전 4는 DICTIONARY에 대한 시스템 특권이 없다. SELECT ANY TABLE은 임의의 스키마에 속한 객체들을 조회할 수 있는 권한이다.
+
   ~~~sql
-  GRANT SELECT ANY TABLE TO TEST_USER1;
+  GRANT SELECT ANY TABLE TO USER_NAME;
   ~~~
 
 - Tibero 5 버전 이상
 
-  SELECT ANY DICTIONARY 시스템 특권은 Tibero 5 버전부터 추가되었다. SELECT ANY TABLE은 임의의 스키마에 속한 객체들을 조회할 수 있는 권한이고, SELECT ANY DICTIONARY는 DICTIONARY와 SYS, SYSCAT, SYSGIS 소유의 객체들을 조회할 수 있는 권한이다.
+  버전 5부터 SELECT ANY DICTIONARY 시스템 특권이 추가되었다. SELECT ANY DICTIONARY는 SYS, SYSCAT, SYSGIS 소유의 객체(DICTIONARY)를 조회할 수 있는 권한이다.
 
   ~~~sql
-  GRANT SELECT ANY DICTIONARY TO TEST_USER1;
+  GRANT SELECT ANY DICTIONARY TO USER_NAME;
   ~~~
 
 `참고`
