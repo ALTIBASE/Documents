@@ -8385,7 +8385,7 @@ DB 사용자 계정에 DICTIONARY 조회 권한을 부여해 준다.
   버전 4는 DICTIONARY에 대한 시스템 특권이 없다. SELECT ANY TABLE은 임의의 스키마에 속한 객체들을 조회할 수 있는 권한이다.
 
   ~~~sql
-  GRANT SELECT ANY TABLE TO USER_NAME;
+  GRANT SELECT ANY TABLE TO user_name;
   ~~~
 
 - Tibero 5 버전 이상
@@ -8393,7 +8393,7 @@ DB 사용자 계정에 DICTIONARY 조회 권한을 부여해 준다.
   버전 5부터 SELECT ANY DICTIONARY 시스템 특권이 추가되었다. SELECT ANY DICTIONARY는 SYS, SYSCAT, SYSGIS 소유의 객체(DICTIONARY)를 조회할 수 있는 권한이다.
 
   ~~~sql
-  GRANT SELECT ANY DICTIONARY TO USER_NAME;
+  GRANT SELECT ANY DICTIONARY TO user_name;
   ~~~
 
 `참고`
