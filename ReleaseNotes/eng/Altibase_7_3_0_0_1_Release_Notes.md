@@ -116,46 +116,46 @@ Within stored procedures, the VARRAY type is now supported as a new user-defined
 
 ##### Anonymous Block 
 
-프로시저의 헤더 없이 바디블럭으로 구성된 저장 프로시저로 DECLARE ... BEGIN... END;의 구조로 선언한다. 익명 블록은 PSM 객체를 생성하거나 데이터베이스에 저장하지 않고, RETURN 절의 값을 반환하지 않는 특징이 있다. 저장 프로시저와 달리 INPUT, OUTPUT, INOUTPUT 용도의 바인드 변수를 사용할 수 있다.
+An anonymous block is a form of a stored procedure composed of a body block without a header, declared with a structure like DECLARE...BEGIN...END;. Anonymous blocks do not create PSM (Persistent Stored Module) objects, are not stored in the database, and do not return a value in the RETURN clause. Unlike stored procedures, anonymous blocks allow the use of INPUT, OUTPUT, and INOUT bind variables.
 
 ##### Internal Mode in C/C++ External Procedure
 
-Internal mode 프로시저는 에이전트 프로세스 없이 Altibase 서버에서 직접 동적 라이브러리를 로드하고 외부 프로시저를 직접 호출하는 방식으로 external mode에 비해 빠르게 동작한다. 자세한 설명은 [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/External%20Procedures%20Manual.md) 을 참고한다.
+In Internal mode within External Procedures, it directly loads dynamic libraries and invokes external procedures from Altibase Server without the need for an agent process, resulting in improved efficiency compared to external mode. For more details, refer to [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/External%20Procedures%20Manual.md).
 
-##### Multiple Update, Delete
+##### Multiple Delete, Update
 
-multiple update, delete 구문을 지원한다. 자세한 내용은 [**SQL Reference Manual** - multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#multiple_update) 을 참고한다.
+Provides support for multiple delete, multiple update statements. Refer to [**SQL Reference Manual** - multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_update) 을 참고한다.
 
-##### 한글 검색 가능한 정규 표현식(Regular Expression) 지원
+##### Regular Expression for Korean searching
 
-한글 검색 가능한 정규 표현식을 지원하기 위해 PCRE2 호환모드를 제공한다. PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 자세한 내용은 [**SQL Reference Manual** - a.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D) 을 참고한다.
+Provides PCRE2 compatibility mode for support Regular Expressions used in Korean searching. Refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md).
 
-##### fetch across rollback
+##### Fetch Across Rollback
 
-CURSOR HOLD ON 기능을 이용하여 롤백할 때, Fetch out of sequence 에러가 발생하는 문제를 해결하기 위하여 fetch across rollback 기능을 지원한다.
+To address the 'Fetch out of sequence' error issue, we now provide the 'fetch across rollback' feature.
 
-##### CREATE QUEUE 및 ALTER QUEUE 구문에 DELETE 절 추가
+##### Improved Queue Functionality with Delete Statement Control
 
-큐(QUEUE) 테이블에 DELETE 문 허용 여부를 설정하는 DELETE 절이 추가되었다. 구문 사용 방법은 [**SQL Reference Manual** - CREATE QUEUE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#create-queue) 을 참고한다. 관련하여 성능 뷰 [V$QUEUE_DELETE_OFF](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#vqueue_delete_off)가 추가되었다.
+Queue functionality has been enhanced to allow the use of DELETE statements. Additionally, new 'DELETE ON' and 'DELETE OFF' clauses have been introduced to control the execution of DELETE statements within queues. Refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) and V$QUEUE_DELETE_OFF performance view for more information.
 
-##### Sequence Restart 구문 지원
+##### Sequence Restart Statement
 
-시퀀스를 초기화하기 위해서 ALTER SEQUENCE 문에서 RESTART 절을 지원한다. 자세한 설명은 [**SQL Reference Manual** - ALTER SEQUENCE 구문](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL%20Reference.md#alter-sequence) 을 참고한다.
+Supports the restart_clause with ALTER SEQUENCE statement. Refer to [**SQL Reference Manual** - restart_clause](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#restart_clause).
 
 </br>
 
-#### 2.1.6 기능 개선 - Spatial SQL 개선<b id="216"></b>
+#### 2.1.6 Funtionality Improvement - Spatial SQL<b id="216"></b>
 
-##### SRID(Spatial Reference Identifier) interface 지원
+##### SRID(Spatial Reference Identifier) interface
 
-SRID(공간 참조 식별자)는 공간 객체를 구분하기 위해 지정하는 식별자로, 4바이트 범위 내 정수를 사용하며 GEOMETRY 칼럼에 적용할 수 있다. 테이블을 생성할 때 SRID를 지정할 수 있으며, ALTER TABLE 구문을 이용하여 SRID를 지정할 수 있다.
+SRID (Spatial Reference Identifier) is an identifier used to distinguish spatial objects, represented by a 4-byte integer, and can be applied to GEOMETRY columns. You can specify the SRID when creating a table and also alter the SRID using the ALTER TABLE statement.
 
-SRID의 지원으로 GEOMETRY 데이터타입 표현방법이 추가되었다.
+The support for SRID introduces new ways to represent GEOMETRY data types:
 
-- EWKT(Extended Well-Known Text) 형식: WKT 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
-- EWKB(Extended Well-Known Binary) 형식: WKB 형식에 공간 객체를 표현하는 SRID(Spatial Reference Identifier) 정보가 추가된 것이다.
+- Extended Well-Known Text (EWKT) format: It includes SRID (Spatial Reference Identifier) information in the WKT format to represent spatial objects.
+- Extended Well-Known Binary (EWKB) format: It includes SRID (Spatial Reference Identifier) information in the WKB format to represent spatial objects.
 
-##### 공간 함수의 추가
+##### New Spatial Functions
 
 아래의 공간함수가 추가되었다.
 
