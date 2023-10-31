@@ -169,13 +169,14 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [표현 변환 규칙](#표현-변환-규칙)
 - [F.부록: FAQ](#f부록-faq)
   - [DBMS 공통](#dbms-공통)
-  - [Oracle](#oracle-1)
+  - [Oracle](#oracle-2)
   - [MS-SQL](#ms-sql)
-  - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
-  - [MySQL](#mysql-1)
-  - [PostgreSQL](#postgresql-1)
-  - [TimesTen](#timesten-1)
+  - [Altibase](#altibase-2)
+  - [Informix](#informix-2)
+  - [MySQL](#mysql-2)
+  - [PostgreSQL](#postgresql-2)
+  - [TimesTen](#timesten-2)
+  - [Tibero](#Tibero-2)
 
 <br/>
 
@@ -8368,3 +8369,39 @@ Native library를 사용하는 TimesTen type 2 JDBC driver를 로딩한 상태�
 `해결 방법`
 
 마이그레이션 센터를 완전히 종료 후 재시작하여 데이터베이스 연결 등록을 하거나 연결 정보를 수정한다.
+
+<br/>
+
+### Tibero
+
+#### 데이터베이스 연결 등록 및 수정 화면에서, "Test" 버튼 클릭 시 'Specified schema object was not found at: SELECT value FROM V$VERSION WHERE NAME = 'PRODUCT_MAJOR' OR NAME = 'TB_MAJOR' Please review your settings and correct any errors.' 오류 메시지가 발생한다.
+
+`원인`
+
+마이그레이션 센터 접속에 사용된 DB 사용자 계정이 DB 버전 확인을 위한 DICTIONARY 조회 권한이 없어서 발생하는 오류이다.
+
+`해결 방법`
+
+DB 사용자 계정에 DICTIONARY 조회 권한을 부여한다.
+
+- Tibero 4 버전 이하
+
+  버전 4는 DICTIONARY에 대한 시스템 권한이 없으므로, SELECT ANY TABLE 권한을 부여한다. SELECT ANY TABLE은 임의의 스키마에 속한 객체들을 조회할 수 있는 권한이다.
+
+  ~~~sql
+  GRANT SELECT ANY TABLE TO user_name;
+  ~~~
+
+- Tibero 5 버전 이상
+
+  SELECT ANY DICTIONARY 권한을 부여한다. SELECT ANY DICTIONARY는 SYS, SYSCAT, SYSGIS 소유의 객체(DICTIONARY)를 조회할 수 있는 권한이다.
+
+  ~~~sql
+  GRANT SELECT ANY DICTIONARY TO user_name;
+  ~~~
+
+`참고`
+
+- [https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf](https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf)
+- [https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20220224-000002/tibero_admin/chapter_security.html#sect_so_privilege](https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20220224-000002/tibero_admin/chapter_security.html#sect_so_privilege)
+
