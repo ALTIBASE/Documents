@@ -1577,7 +1577,7 @@ iSQL> ALTER REPLICATION rep1 STOP;
 Alter success.
 ```
 
--   이중화 대상에서 테이블을 제외시킨다.
+-   이중화 대상에서 sys.employees 테이블을 제외시킨다.
 
 ```
 iSQL> ALTER REPLICATION rep1 STOP;
@@ -1586,7 +1586,7 @@ iSQL> ALTER REPLICATION rep1 DROP TABLE FROM sys.employees TO sys.employees;
 Alter success.
 ```
 
--   이중화 할 테이블을 추가한다.
+-   이중화 대상에 sys.employees 테이블을 추가한다.
 
 ```
 iSQL> ALTER REPLICATION rep1 STOP;
