@@ -155,9 +155,9 @@ The support for SRID introduces new ways to represent GEOMETRY data types:
 - Extended Well-Known Text (EWKT) format: It includes SRID (Spatial Reference Identifier) information in the WKT format to represent spatial objects.
 - Extended Well-Known Binary (EWKB) format: It includes SRID (Spatial Reference Identifier) information in the WKB format to represent spatial objects.
 
-##### New Spatial Functions
+##### Spatial Functions
 
-아래의 공간함수가 추가되었다.
+New functions have been introduced as follows.
 
 * ASEWKT
 * ASEWKB
@@ -175,13 +175,13 @@ The support for SRID introduces new ways to represent GEOMETRY data types:
 * ST_PolygonFromText
 * ST_Transform
 
-##### Spatial API용 함수
+##### Spatial object Creation Functions
 
-아래의 Spatial API용 함가 추가되었다.
+New functions have been introduced as follows.
 
 * ACSGetGeometrySRID
 
-#### 2.1.7 기능 개선 - 이중화 기능 개선<b id="217"></b>
+#### 2.1.7 Funtionality Improvement - Replication<b id="217"></b>
 
 ##### 이중화 대상 테이블에 DDL 복제 기능 추가
 
@@ -742,8 +742,6 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 -   TEMP_MAX_PAGE_COUNT
 -   TRANSACTION_START_MODE
 
-
-
 #### 2.2.5 Meta Tables
 
 ##### New Meta Tables
@@ -757,22 +755,37 @@ Altibase 7.3.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 ##### Modified Meta Tables
 
 * [SYS_REPLICATIONS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
-  * REMOTE_LAST_DDL_XSN 컬럼이 추가되었다.
+  
+  New columns have been introduced below.
+  
+  * REMOTE_LAST_DDL_XSN
+  
 * [SYS_REPL_HOSTS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
-  * CONN_TYPE 컬럼이 추가되었다.
-  * IB_LATENCY 컬럼이 추가되었다.
+  
+  New columns have been introduced below.
+  
+  * CONN_TYPE
+  * IB_LATENCY
+  
 * [SYS_REPL_OLD_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_columns_)
-  * MT_SRID 컬럼이 추가되었다.
+  
+  New columns have been introduced below.
+  
+  * MT_SRID
+  
 * [SYS_REPL_OLD_ITEMS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_items_)
-  * REMOTE_USER_NAME 컬럼이 추가되었다.
-  * REMOTE_TABLE_NAME 컬럼이 추가되었다.
-  * REMOTE_PARTITION_NAME 컬럼이 추가되었다.
-  * PARTITION_COUNT 컬럼이 추가되었다.
-  * PARTITION_METHOD 컬럼이 추가되었다.
-  * PARTITION_ORDER 컬럼이 추가되었다.
-  * PARTITION_MIN_VALUE 컬럼이 추가되었다.
-  * PARTITION_MAX_VALUE 컬럼이 추가되었다.
-  * INVALID_MAX_SN 컬럼이 추가되었다.
+  
+  New columns have been introduced below.
+  
+  * REMOTE_USER_NAME 
+  * REMOTE_TABLE_NAME
+  * REMOTE_PARTITION_NAME
+  * PARTITION_COUNT
+  * PARTITION_METHOD
+  * PARTITION_ORDER
+  * PARTITION_MIN_VALUE
+  * PARTITION_MAX_VALUE
+  * INVALID_MAX_SN
 
 ##### Removed Meta Tables
 
@@ -848,10 +861,10 @@ https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Insta
 
 ------
 
-<a name="shapefile">[1]</a> 쉐이프 파일(Shapefile) : 지리정보시스템 소프트웨어 개발사 ESRI에서 개발한 파일 형식으로 지리정보시스템(GIS) 분야에서 표준 파일이다. 쉐이프 파일은 아래 3가지 파일들이 필수로 구성되어 있다.  [↩](#shapefile1)
+<a name="shapefile">[1]</a> Shapefile: A file format developed by ESRI, a software developer specializing in Geographic Information Systems (GIS). In the GIS field, the Shapefile is considered a standard file format and consists of the following three essential files.  [↩](#shapefile1)
 
-- shp : 벡터 형식으로 점, 선, 도형을 표현한 공간 데이터 정보를 가지고 있다.
-- shx : 인덱스 파일. shp 파일에 담겨있는 도형 정보의 위치를 담고 있다.
-- dbf : shp 파일의 도형 정보에 대한 속성 정보를 담은 dBASE 테이블 파일이다.
+- shp : contains spatial data information representing points, lines, and shapes in a vector format.
+- shx : Index file, which contains the location of the shape information stored in the shp file.
+- dbf : dBASE table file containing attribute information about the shape information in the shp file.
 
-참고 : [Geoprocessing considerations for shapefile output](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/geoprocessing-considerations-for-shapefile-output.htm)
+References : [Geoprocessing considerations for shapefile output](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/geoprocessing-considerations-for-shapefile-output.htm)
