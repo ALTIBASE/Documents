@@ -2416,7 +2416,7 @@ startup probe, publishNotReadyAddresses 에 대한 자세한 내용은 쿠버네
 
 ### 3) 마스터 파드에서 aku -p start 명령이 실패한 경우
 
- 2개 이상의 파드 구성에서 마스터 파드의 이중화 정보만 초기화 된 경우, `aku -p start` 를 수행하면 아래의 오류 메시지를 확인하게 된다. 이 메시지는 마스터 파드에서 관리하는 이중화의 시작 정보가 없는 상태에서 슬레이브 파드가 시작되어 있는 경우, 마스터 파드의 장애(failure)로 판단하여 출력한다.<sup>[마스터 파드의 장애](#master_pod_failure)</sup>
+ 2개 이상의 파드 구성에서 마스터 파드의 이중화 정보만 초기화된 경우, `aku -p start` 를 수행하면 아래와 같은 오류 메시지가 출력된다. 이 메시지는 마스터 파드에서 관리하는 이중화의 시작 정보가 없는 상황에서 슬레이브 파드가 시작되어 있는 경우, 마스터 파드의 장애(failure)로 판단하여 출력된다.<sup>[마스터 파드의 장애](#master_pod_failure)</sup>
 
 ```
 [ERROR] The master pod is detected to have failed. Check and perform a manual recovery.
