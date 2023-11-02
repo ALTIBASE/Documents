@@ -476,13 +476,16 @@ $ uname -a
 Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-| OS    | CPU                          | Version         | Bit (Server) | Bit (Client) |
-|-------|------------------------------|-----------------|--------------|--------------|
-| AIX   | PowerPC                      | 6.1 tl03 이상   | 64-bit       | 64-bit,      |
-| HP-UX | IA64                         | 11.31 이상      | 64-bit       | 64-bit,      |
-| LINUX | x86-64 (GNU glibc 2.12 이상) | redhat 6.0 이상 | 64-bit       | 64-bit,      |
+| OS                             | CPU                            | Version         | Bit (Server) | Bit (Client) |
+| ------------------------------ | ------------------------------ | --------------- | ------------ | ------------ |
+| AIX                            | PowerPC                        | 6.1 tl03 이상   | 64-bit       | 64-bit       |
+| HP-UX                          | IA64                           | 11.31 이상      | 64-bit       | 64-bit       |
+| LINUX                          | x86-64 (GNU glibc 2.12 ~ 2.33) | redhat 6.0 이상 | 64-bit       | 64-bit       |
+| LINUX on Power                 | PowerPC 7                      | redhat 6.5 이상 | 64-bit       | 64-bit       |
+| LINUX on Power (Little Endian) | PowerPC 8 (Little endian)      | redhat 7.2 이상 | 64-bit       | 64-bit       |
+| Windows                        | -                              | 10 이상         | -            | 64-bit       |
 
-Altibase 7.1 은 JDK 1.5이상에서 호환된다.
+Altibase 7.4 은 JDK 1.8이상에서 호환된다.
 
 #### 설치 모드
 

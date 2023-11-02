@@ -77,6 +77,9 @@ Altibase 7.3.0.0.1 는 아래 표에 나열된 운영체제와 플랫폼 상에�
 | Red Hat Enterprise Linux 7.3 이상                            |       ●       |          ●          | - GNU glibc 2.17 ~ 2.33 |
 | **HP-UX Itanium (IA-64)**                                    |               |                     |                         |
 | HP-UX 11.31                                                  |       ●       |          ●          |                         |
+| **Microsoft Windows (x64)**                                  |               |                     |                         |
+| Microsoft Windows 2008                                       |     **x**     |          ●          |                         |
+| Microsoft Windows 10                                         |     **x**     |          ●          |                         |
 
 > Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>
 > Red Hat Enterprise Linux 6, 7, 8 마이너 버전에 대해 호환성을 보장한다.

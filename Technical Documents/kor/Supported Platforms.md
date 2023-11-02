@@ -80,8 +80,8 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 | **Linux on Power** **(Little Endian)**                       |               |                     |                            |
 | POWER8(LE) Red Hat Enterprise Linux 7.2                      |       ●       |          ●          | *- GNU glibc 2.17 ~ 2.33*  |
 | **Microsoft Windows (x64)**                                  |               |                     |                            |
-| Microsoft Windows 2008                                       |     **x**     |        **x**        |                            |
-| Microsoft Windows 10                                         |     **x**     |        **x**        |                            |
+| Microsoft Windows 2008                                       |     **x**     |          ●          |                            |
+| Microsoft Windows 10                                         |     **x**     |          ●          |                            |
 
 <br/>
 
