@@ -382,7 +382,7 @@ Find the JavaVersionChecker line in the squirrel-sql.bat or squirrel-sql.sh file
 
 `$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
 
-If you use Java version 8 or later, SQuirreL SQL client version 3.8.1 or 3.9.0 is required.
+If you use Java version 9 or later, SQuirreL SQL client version 3.8.1 or 3.9.0 is required.
 
 Please refer to https://sourceforge.net/p/squirrel-sql/bugs/1347/
 

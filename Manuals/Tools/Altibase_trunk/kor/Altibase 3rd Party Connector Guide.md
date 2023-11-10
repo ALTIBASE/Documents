@@ -549,7 +549,7 @@ squirrel-sql.bat 또는 squirrel-sql.sh 파일에서 JavaVersionChecker 라인�
 
 `$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
 
-다만 Java 8 버전 이상을 사용할 경우 SQuirreL SQL 클라이언트 3.8.1 또는 3.9.0 버전을 설치해야 한다.
+다만 Java 9 버전 이상을 사용할 경우 SQuirreL SQL 클라이언트 3.8.1 또는 3.9.0 버전을 설치해야 한다.
 
 참조: https://sourceforge.net/p/squirrel-sql/bugs/1347/
 
