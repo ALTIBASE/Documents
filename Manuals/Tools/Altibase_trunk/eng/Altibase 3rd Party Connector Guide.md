@@ -231,9 +231,10 @@ Altibase Plugin is not an official plugin for SQuirreL SQL Client, so users must
 
 This is the list of the software and system requirements to install and run the Altibase plugin and the database management system.
 
-| Software Requirements      | SQuirreL SQL Client 3.7.1 or 3.8.0 |
-| -------------------------- | ---------------------------------- |
-| Compatible Database System | Altibase 6.5.1 or later            |
+| Software Requirements      | SQuirreL SQL Client 3.7.1 or 3.8.0 | SQuirreL SQL Client 3.8.1 or 3.9.0 |
+| -------------------------- | ---------------------------------- | ---------------------------------- |
+| Compatible Database System | Altibase 6.5.1 or later            | Altibase 6.5.1 or later            |
+| Compatible Java            | Java 1.8.0                         | Java 1.8.0 or later                |
 
 ### Installing and Removing Altibase Plugin
 
@@ -380,6 +381,8 @@ This error occurs because the SQuirreL SQL client does not recognize the latest 
 Find the JavaVersionChecker line in the squirrel-sql.bat or squirrel-sql.sh file and add the version to use. For example, when using OpenJDK 18 version, add '18' at the end of the JavaVersionChecker line and save it, then run the SQuirreL SQL client.
 
 `$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
+
+If you use Java version 8 or later, SQuirreL SQL client version 3.8.1 or 3.9.0 is required.
 
 Please refer to https://sourceforge.net/p/squirrel-sql/bugs/1347/
 
