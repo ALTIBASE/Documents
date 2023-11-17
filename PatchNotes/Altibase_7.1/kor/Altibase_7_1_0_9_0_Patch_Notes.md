@@ -14,10 +14,9 @@
     - [BUG-50365 하이브리드 파티션드 테이블에서 컬럼 제약을 체크하는 로직에 서버가 비정상 종료할 수 있는 버그가 있어서 수정합니다.](#bug-50365)
     - [BUG-50427 RANGE PARTITION 에 대한 ORDER BY 에 대해 preserved order 지원](#bug-50427)
     - [BUG-50435 다중 서브 쿼리의 최적화 과정 중 뷰 머지(view merge) 단계에서 예상치 못한 오류가 발생합니다.](#bug-50435)
-    - [BUG-50442 Partitioned table의 simple fast execution시 비정상 종료](#bug-50442)
+    - [BUG-50442 파티션드 테이블 simple fast execution시 비정상 종료](#bug-50442)
     - [BUG-50480 jdbcAdapter의 JDBC\_CONNECTION\_URL 이 잘못 되어 있을때 jdbcAdapter가 비정상 종료합니다.](#bug-50480)
     - [BUG-50489 HP 장비에서 offline Adapter 테스트 시 altibase가 비정상 종료합니다.](#bug-50489)
-    - [BUG-50500 hp 장비에서 jdbcAdapter Lob 관련 테스트 진행중 비정상 종료가 발생합니다.](#bug-50500)
     - [BUG-50509 CPU가 1개인 장비에서 Eager Replication 시작이 실패합니다.](#bug-50509)
     - [BUG-50517 AltibasePreparedStatement.setDate(int, Date, Calendar) 호출시 기존의 Calendar 값이 변경됩니다.](#bug-50517)
     - [BUG-50530 비활성화(disable)된 인덱스에 대한 DDL 수행시, 서버가 비정상 종료할 수 있습니다.](#bug-50530)
@@ -422,7 +421,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50442<a name=bug-50442></a> Partitioned table의 simple fast execution시 비정상 종료
+### BUG-50442<a name=bug-50442></a> 파티션드 테이블의 simple fast execution시 비정상 종료
 
 -   **module** : qp
 
@@ -494,57 +493,19 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50489<a name=bug-50489></a> HP 장비에서 offline Adapter 테스트 시 altibase가 비정상 종료합니다.
+### BUG-50489<a name=bug-50489></a> HP 장비에서 offline Adapter 테스트 중 서버가 비정상 종료하는 문제를 수정합니다.
 
 -   **module** : rp
-
 -   **Category** : Fatal
-
 -   **재현 빈도** : Always
-
--   **설명** : meta file을 open 시도후 파일이 없어 실패 하였는데도
-    close를 시도하여 문제가 비정상 종료가 발생하였습니다.
-
-    meta file을 open 시도 후 실패 하였을때는 close를 하지 않도록 조건
-    추가 하여 수정하였습니다.
-
+-   **설명** : 메타 파일을 open 시도할 때 파일이 없는 경우 실패하는데, 내부적으로 파일 close를 수행하려고 시도하여 서버가 비정상 종료하는 문제가 있었습니다. 메타 파일을 open하지 못한 경우에는 close를 수행하지 않도록 수정합니다.
 -   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
+-   **재현 절차**
+    
+-   **수행 결과**
+    
+-   **예상 결과**
 -   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-50500<a name=bug-50500></a> hp 장비에서 jdbcAdapter Lob 관련 테스트 진행중 비정상 종료가 발생합니다.
-
--   **module** : rp-jdbcAdapter
-
--   **Category** : Fatal
-
--   **재현 빈도** : Always
-
--   **설명** :
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
 -   **변경사항**
 
     -   Performance view
@@ -711,7 +672,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : Query validate과정에서 query stack을 초과해서 사용하는 r경우 서버 비정상 종료하는 문제를 수정합니다.
+-   **설명** : Query validate과정에서 query stack을 초과해서 사용하는 경우 서버 비정상 종료하는 문제를 수정합니다.
 
 -   **재현 방법**
 
