@@ -13,6 +13,7 @@
     - [BUG-49699 Offline Adapter 수행  로그에 SPLIT, MERGE, DROP PARTITION의 DDL이 포함되어 있는 경우, BUILD OFFLINE META 명령이 실패합니다.](#bug-49699)
     - [BUG-50365 하이브리드 파티션드 테이블에서 컬럼 제약을 체크하는 로직에 서버가 비정상 종료할 수 있는 버그가 있어서 수정합니다.](#bug-50365)
     - [BUG-50427 RANGE PARTITION 에 대한 ORDER BY 에 대해 preserved order 지원](#bug-50427)
+    - [BUG-50435 다중 서브 쿼리의 최적화 과정 중 뷰 머지(view merge) 단계에서 예상치 못한 오류가 발생합니다.](#bug-50435)
     - [BUG-50442 Partitioned table의 simple fast execution시 비정상 종료](#bug-50442)
     - [BUG-50480 jdbcAdapter의 JDBC\_CONNECTION\_URL 이 잘못 되어 있을때 jdbcAdapter가 비정상 종료합니다.](#bug-50480)
     - [BUG-50489 HP 장비에서 offline Adapter 테스트 시 altibase가 비정상 종료합니다.](#bug-50489)
