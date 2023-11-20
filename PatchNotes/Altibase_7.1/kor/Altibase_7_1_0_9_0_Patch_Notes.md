@@ -1096,7 +1096,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50615<a name=bug-50615</a> WHERE 절에 여러 개의 서브쿼리와 OR 조건을 사용한 경우, SubQuery Unnest 동작에서 결과 오류가 발생할 수 있습니다.
+### BUG-50615<a name=bug-50615></a> WHERE 절에 여러 개의 서브쿼리와 OR 조건을 사용한 경우, SubQuery Unnest 동작에서 결과 오류가 발생할 수 있습니다.
 
 -   **module** : qp
 
