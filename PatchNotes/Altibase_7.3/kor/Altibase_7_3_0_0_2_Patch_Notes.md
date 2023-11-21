@@ -125,10 +125,10 @@ New Features
 
     -   Performance view
     -   Property
-        -   추가
-        -   PSM_CASE_SENSITIVE_MODE - 기본값 : 0
-                -   값의 범위 : [0,1]
-                -   설명: PSM 내부의 %ROWTYPE 및 RECORD 타입의 column 이름, LABEL 이름 등을 참조할 때 대소문자를 구분할지 여부를 설정하는 프로퍼티. 0으로 설정하면 대소문자를 구분하지 않고, 1로 설정하면 대소문자를 구분합니다.
+        -   PSM_CASE_SENSITIVE_MODE 추가
+            -   기본값 : 0
+            -   값의 범위 : [0,1]
+            -   설명: PSM 내부의 %ROWTYPE 및 RECORD 타입의 column 이름, LABEL 이름 등을 참조할 때 대소문자를 구분할지 여부를 설정하는 프로퍼티. 0으로 설정하면 대소문자를 구분하지 않고, 1로 설정하면 대소문자를 구분합니다.
         
     -   Compile Option
 -   Error Code
@@ -267,10 +267,10 @@ Fixed Bugs
     
     -   Error Code
         
-        - 오프라인 이중화에서 이중화 테이블 이름과 사용자 이름이 메타파일의 정보와 다를때 발생하는 에러메시지가 추가되었습니다.
+        - 오프라인 이중화에서 이중화 테이블 이름과 사용자 이름이 메타 파일의 정보와 다를 때 발생하는 에러메시지가 추가되었습니다.
         
            ```c
-           ERR-611D3 The table name and user name for offline replication do not match the meta file.(table name: <0%s>, user name: <1%s>) 
+           ERR-611D3 : The table name and user name for offline replication do not match the meta file.(table name: <0%s>, user name: <1%s>) 
            
            *Cause: The offline replication meta information configuration fails due to a mismatch between the table name and user name compared to the information in the meta file. 
            
@@ -509,7 +509,7 @@ Fixed Bugs
         
         *Action: - Check the count of replication partition.
                  - To drop the last replication partition, drop the replication first.
-                 - To drop the partition without dropping the replication object, add              another replication partition first and then try again.
+                 - To drop the partition without dropping the replication object, add another replication partition first and then try again.
         ```
 
 ### BUG-50581<a name=bug-50581></a> TIMESTAMPADD 함수를 소문자로 사용하는 경우 [ERR-31129 : Procedure or function not found] 오류가 발생합니다.
