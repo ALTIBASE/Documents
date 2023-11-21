@@ -169,7 +169,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **설명** : JDBC 4.2 API를 부분 지원하는 Altibase42.jar 드라이버를 Maven Central Repository에 업로드하는 기능이 추가되었습니다. 이제 Maven Central Repository에서 'altibase-jdbc'를 검색하여 7.3.0.0.2 버전의 JDBC 드라이버를 이용할 수 있습니다.
+-   **설명** : JDBC 4.2 API를 부분 지원하는 Altibase42.jar 드라이버를 Maven Central Repository에 업로드하는 기능이 추가되었습니다. 이제 [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc)에서 'altibase-jdbc'를 검색하여 7.3.0.0.2 버전의 JDBC 드라이버를 이용할 수 있습니다.
     
 -   **재현 방법**
 
