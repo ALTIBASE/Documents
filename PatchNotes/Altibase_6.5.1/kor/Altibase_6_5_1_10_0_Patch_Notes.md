@@ -470,7 +470,7 @@ Fixed Bugs
         (
             REV                 integer not null,
             REVTYPE             smallint,
-            tm_id integer not null,
+            tm_id				integer not null,
             map_KEY             integer not null,
             map_id              integer not null
         );
