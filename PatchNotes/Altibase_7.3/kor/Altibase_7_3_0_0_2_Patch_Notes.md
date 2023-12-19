@@ -1044,7 +1044,7 @@ Changes
 
 | altibase version | database binary version | meta version | cm protocol version | replication protocol version |
 | ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
-| 7.3.0.0.2        | 6.5.1                   | 8.11.1       | 7.1.7               | 7.4.7                        |
+| 7.3.0.0.2        | 7.3.0                   | 9.3.1        | 7.1.8               | 7.4.9                        |
 
 > Altibase 7.3 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/Altibase_7_3_Version_Histories.md) 에서 확인할 수 있다.
 
