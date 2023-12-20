@@ -16,7 +16,6 @@
   - [BUG-50663 LobCursorList 관리 함수의 동시성 문제를 수정합니다.](#bug-50663)
   - [BUG-50670 OpenSSL을 이용하는 환경에서 오류 메시지 출력 부분에 발견된 오류를 수정합니다.](#bug-50670)
   - [BUG-50686 V$TIME_ZONE_NAMES에서 America/Porto_Velho 타임존의 UTC_OFFSET 값이 올바르지 않습니다.](#bug-50686)
-  - [BUG-50689 refine DB할때 예외처리가 잘못되어 있습니다.](#bug-50689)
   - [BUG-50697  JDBC 에서 PreparedStatement를 이용하여 ping 쿼리 사용시 메모리 누수가 발생합니다.](#bug-50697)
   - [BUG-50700 하이브리드 파티션드 테이블에서 컬럼 제약을 체크하는 로직에서 잘못된 row offset 정보로 인해 잘못된(invalid) 메모리 접근의 오류가 발생할 수 있습니다.](#bug-50700)
 - [Changes](#changes)
@@ -50,7 +49,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50682<a name=bug-50682></a> Windows client에서 OpenSSL 지원
+### BUG-50682<a name=bug-50682></a> Windows 용 클라이언트에서 OpenSSL 지원
 
 -   **module** : mm
 
@@ -58,7 +57,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **설명** : Windows client에서 OpenSSL을 사용할 수 있도록 기능이 개선되었습니다. 지원하는 OpenSSL의 버전은 3.1.3 이상입니다.
+-   **설명** : Windows 용 클라이언트에서 OpenSSL을 사용할 수 있도록 기능이 개선되었습니다. 지원하는 OpenSSL의 버전은 3.1.3 이상입니다.
 
 -   **재현 방법**
     -   **재현 절차**
@@ -392,32 +391,6 @@ Fixed Bugs
     America/Porto_Velho                       -04:00
     ```
 
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-50689<a name=bug-50689></a> refine DB할때 예외처리가 잘못되어 있습니다.
-
--   **module** : sm
-
--   **Category** : Fatal
-
--   **재현 빈도** : Unknown
-
--   **설명** : Refine DB를 수행할 때의 예외처리를 올바르게 수정합니다.
-
--   **재현 방법**
-    -   **재현 절차**
-    
-    -   **수행 결과**
-    
-    -   **예상 결과**
-    
 -   **Workaround**
 
 -   **변경사항**
