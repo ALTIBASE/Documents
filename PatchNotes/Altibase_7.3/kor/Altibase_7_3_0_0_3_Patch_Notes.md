@@ -37,14 +37,19 @@ New Features
 -   **설명** : 로그 파일 준비 쓰레드(Log File Prepare Thread)의 병목현상을 개선한 버그로, LOG_FILE_SIZE 의 기본값이 10MB에서 100MB로 변경되었습니다. 이로 인해 7.3.0.0.2에서 LOG_FILE_SIZE를 10M으로 설정한 경우, 7.3.0.0.3으로 패치시 DB를 재구성해야 합니다.
 -   **재현 방법**
 -   **재현 절차**
-    
 -   **수행 결과**
-    
 -   **예상 결과**
 -   **Workaround**
 -   **변경사항**
 
     -   Performance view
+        -   LOG_CREATE_METHOD 의 기본값 변경
+            -   변경 전 : 0
+            -   변경 후: 리눅스 환경의 경우 기본값 1, 리눅스 외 환경에서는 기본값 0
+            -   설명: 리눅스 환경에서 LOG_CREATE_METHOD를 1로 설정하면, 로그파일을 생성할 때 fallocate() 시스템콜을 사용하도록 설정한다.
+        -   LOG_FILE_SIZE 의 기본값 변경
+            -   변경 전 : 10M
+            -   변경 후: 100M
     -   Property
     -   Compile Option
     -   Error Code
