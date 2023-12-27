@@ -353,7 +353,7 @@ SYS_SPATIAL.ADD_SPATIAL_REF_SYS procedure is used to register the SRID .prj file
 
 Please refer to Spatial SQL Reference for more information on how to use SYS_SPATIAL.ADD_SPATIAL_REF_SYS.
 
-- [Altibase 7.2 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/eng/Spatial SQL Reference.md#add_spatial_ref_sys)
+- [Altibase 7.3 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Spatial SQL Reference.md#add_spatial_ref_sys)
 - [Altibase 7.1 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Spatial SQL Reference.md#add_spatial_ref_sys)
 
 ### Execution Options
