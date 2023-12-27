@@ -3,7 +3,7 @@ altiShapeLoader User's Manual
 
 #### Release 1.0
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
