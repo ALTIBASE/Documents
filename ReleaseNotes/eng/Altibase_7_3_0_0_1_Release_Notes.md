@@ -80,7 +80,7 @@ Altibase 7.3.0.0.1 can be run on the operating systems and platforms listed in t
 
 > Altibase 7.3 server and client both support 64-bit only.
 >
-> Altibase 7.3 is compatible with minor versions of Red Hat Enterprise Linux 6, 7 and 8.
+> Altibase 7.3 is compatible with minor versions of Red Hat Enterprise Linux 6, 7, and 8.
 >
 > Altibase 7.3 is compatible with JDK 1.8 and higher.
 
@@ -104,7 +104,7 @@ Altibase 7.3 provides partial support for JDBC API Specification 4.2. For more d
 
 #### 2.1.4 OpensSSL 3.0.8 Support
 
-To enhance security, Altibase 7.3 supports the latest version of OpenSSL 3.0.8, and no longer provide support for OpenSSL versions 1.0.x. Altibase now extends its protocol support to include TLS 1.3, in addition to TLS 1.0 and 1.2. If users want to specify particular cipher algorithms for TLS 1.3, please set them in the server property, SSL_CIPHER_SUITES. For more detailed information, please refer to [**Altibase SSL TLS User's Guide** - server properties to connect over ssl](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-set-server-properties-to-connect-over-ssl).
+To enhance security, Altibase 7.3 supports the latest version of OpenSSL 3.0.8, and no longer provides support for OpenSSL versions 1.0.x. Altibase now extends its protocol support to include TLS 1.3, in addition to TLS 1.0 and 1.2. If users want to specify particular cipher algorithms for TLS 1.3, please set them in the server property, SSL_CIPHER_SUITES. For more detailed information, please refer to [**Altibase SSL TLS User's Guide** - server properties to connect over ssl](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-set-server-properties-to-connect-over-ssl).
 
 Additionally, Altibase supports the FIPS(Federal Information Processing Standards) module. To use the FIPS module with SSL, you must set the SSL_LOAD_CONFIG property to 1. Refer to [Altibase SSL TLS User's Guide - Step4. FIPS module with SSL]().
 
@@ -126,9 +126,9 @@ In Internal mode within External Procedures, it directly loads dynamic libraries
 
 ##### Multiple Delete, Update
 
-Provides support for multiple delete, multiple update statements. Refer to [**SQL Reference Manual** - multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_update).
+Provides support for multiple delete and multiple update statements. Refer to [**SQL Reference Manual** - multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_update).
 
-##### Regular Expression for Korean searching
+##### Regular Expression for Korean Searching
 
 To support searching a regular expression in Korean,  Altibase provides PCRE2 compatibility mode. The PCRE2 compatibility mode supports the regular expression syntax of the PCRE2 library. Please refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) for more information.
 
@@ -179,7 +179,7 @@ New functions have been introduced as follows.
 
 ##### Spatial Object Creation Functions
 
-New function has been introduced as follows.
+A new function has been introduced as follows.
 
 * ACSGetGeometrySRID
 
@@ -316,7 +316,7 @@ Supports altimon on AIX 7 and Power Linux LE(Little endian).
 
 ##### Added the AltiComp Commit Count Configuration Feature
 
-New property, COUNT_TO_COMMIT has been added to enable the configuration of commit counts. Refer to  Utilities Manual.
+The new property, COUNT_TO_COMMIT has been added to enable the configuration of commit counts. Refer to  Utilities Manual.
 
 </br>
 
@@ -324,11 +324,11 @@ New property, COUNT_TO_COMMIT has been added to enable the configuration of comm
 
 ##### Support for LOB Data Types
 
-A new property, ADAPTER_LOB_TYPE_SUPPORT, has been introduced to enable LOB data type support. To enable Lob data type support feature, set the value of ADAPTER_LOB_TYPE_SUPPORT property to 1 and then restart the adapter.
+A new property, ADAPTER_LOB_TYPE_SUPPORT, has been introduced to enable LOB data type support. To enable LOB data type support feature, set the value of ADAPTER_LOB_TYPE_SUPPORT property to 1 and then restart the adapter.
 
 ##### Offline Option
 
-Offline option is a feature used with adapters (JDBC Adapter, oraAdapter) to handle the event of a failure in the Altibase server when applying changes from Altibase to the target database.Refer to [**Adapter for JDBC User's Manual** - Offline Option](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Adapter%20for%20JDBC%20User's%20Manual.md) or [**Adapter for Oracle User's Manual** - Offline Option](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Adapter%20for%20Oracle%20User's%20Manual.md).
+Offline option is a feature used with adapters (JDBC Adapter, oraAdapter) to handle the event of a failure in the Altibase server when applying changes from Altibase to the target database. Refer to [**Adapter for JDBC User's Manual** - Offline Option](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Adapter%20for%20JDBC%20User's%20Manual.md) or [**Adapter for Oracle User's Manual** - Offline Option](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Adapter%20for%20Oracle%20User's%20Manual.md).
 
 </br>
 
@@ -340,7 +340,7 @@ The LOCK_MGR_TYPE property, previously used for specifying the TABLE LOCK manage
 
 ##### Improvement Tablespace Manager Mutex Bottlenecks
 
-Improvement the TABLESPACE MANAGER MUTEX by removing unnecessary LOCK.
+Improvement of the TABLESPACE MANAGER MUTEX by removing unnecessary LOCK.
 
 ##### Improved Disk Temporary Table Performance
 
@@ -385,11 +385,11 @@ CSE (Common Subexpression Elimination) is an optimization feature that identifie
 
 ##### Simple Query Optimization on Memory Partitioned Tables
 
-Previously, simple query optimization was only supported for memory tables. But now it extendes support to memory partitioned tables and enhanced DML performance of memory partitioned tables.
+Previously, simple query optimization was only supported for memory tables. But now it extends support to memory partitioned tables and enhanced DML performance of memory partitioned tables.
 
 ##### SERIAL FILTER EXEUTE
 
-Improved the performance of performing row filters by serializing the Filter operator and optimizing the function call structure. The SERIAL_FILTER hint and SERIAL_EXECUTE_MODE properties have been added to enable this feature. You can see FILTER SERIAL EXECUTE in the execution plan. Serial Filter Enable can be confirmed by checking for 'FILTER SERIAL EXECUTE' in execution plan.
+Improved the performance of performing row filters by serializing the Filter operator and optimizing the function call structure. The SERIAL_FILTER hint and SERIAL_EXECUTE_MODE properties have been added to enable this feature. You can see FILTER SERIAL EXECUTE in the execution plan. Serial Filter Enable can be confirmed by checking for 'FILTER SERIAL EXECUTE' in the execution plan.
 
 ##### Performance Enhancement for Scalar Subqueries
 
@@ -408,7 +408,7 @@ Improved performance of data insertion for large data migrations. A new option, 
 
 ##### JDBC Fetch Performance
 
-To enhance JDBC fetch performance, ResultSet object are now reused. When multiple ResultSet objects are created from the same PreparedStatement object, the first ResultSet object is reused. If you do not want to reuse ResultSet objects, you can change the value of the reuse_resultset property in the JDBC connection properties to false.
+To enhance JDBC fetch performance, ResultSet objects are now reused. When multiple ResultSet objects are created from the same PreparedStatement object, the first ResultSet object is reused. If you do not want to reuse ResultSet objects, you can change the value of the reuse_resultset property in the JDBC connection properties to false.
 
 </br>
 
@@ -428,7 +428,7 @@ The maximum number of concurrent transactions for disk table that can be execute
 
 ##### Improved Undo Tablespace Reusability
 
-To enhance the stability of Undo tablespace reuse, unnecessary associations between the undo tablespace and disk indexes have been removed, thereby eliminating potential bug-related risks. Additionally default and maximum values of related properties have been changed to improve disk page space efficiency.
+To enhance the stability of Undo tablespace reuse, unnecessary associations between the undo tablespace and disk indexes have been removed, thereby eliminating potential bug-related risks. Additionally, the default and maximum values of related properties have been changed to improve disk page space efficiency.
 
 - INDEX_INITTRANS maximum value has been increased from 30 to 50.
 - Default and maximum values for INDEX_MAXTRANS have been changed from 30 to 50.
@@ -550,7 +550,7 @@ ProcName(FuncName) + '_' + ouid
 - [lob_null_select](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#lob_null_select)
   - When a LOB column's value is NULL, the JDBC connection property 'lob_null_select' has been introduced to control the behavior of getBlob() and getClob() functions. 
   - In Altibase 7.3, the default value is 'off', which means getBlob() and getClob() functions return 'NULL'.
-  - In Altibase 7.1, the default value is 'on', which means thease functions return LOB objects.
+  - In Altibase 7.1, the default value is 'on', which means these functions return LOB objects.
 
 - [getprocedures_return_functions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#getprocedures_return_functions)
   - Configuration for including function information in the results of DatabaseMetaData.getProcedures() and getProcedureColumns() is provided. While the JDBC API Specification 4.2 standard excludes function information, Altibase 7.3 JDBC Driver includes it for client backward compatibility. To exclude function information in accordance with the JDBC 4.2 standard, set this property value to false.
@@ -581,9 +581,9 @@ The CLIENT_TYPE of an Altibase 7.3 JDBC session is NEW_JDBC42.
 
 ###### Replication Restrictions Between Altibase 7.1 and Altibase 7.3
 
-Because the replication protocol version has been changed, DDL synchronization are not supported between Altibase 7.1 and Altibase 7.3.
+Because the replication protocol version has been changed, DDL synchronization is not supported between Altibase 7.1 and Altibase 7.3.
 
-Because the database binary version has been changed, offline replication are not supported between Altibase 7.1 and Altibase 7.3.
+Because the database binary version has been changed, offline replication is not supported between Altibase 7.1 and Altibase 7.3.
 
 ###### Replication Restrictions Between Altibase 6.5.1 and Altibase 7.3
 
@@ -740,7 +740,7 @@ The following properties have been added, changed, or deleted in Altibase 7.3.0.
 
 * [SYS_REPLICATIONS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
   
-  New column has been introduced below.
+  A new column has been introduced below.
   
   * REMOTE_LAST_DDL_XSN
   
@@ -753,7 +753,7 @@ The following properties have been added, changed, or deleted in Altibase 7.3.0.
   
 * [SYS_REPL_OLD_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_columns_)
   
-  New column has been introduced below.
+  A new column has been introduced below.
   
   * MT_SRID
   
