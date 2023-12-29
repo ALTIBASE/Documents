@@ -6,22 +6,21 @@
   - [1. System Requirements](#1-system-requirements)
     - [Minimum Hardware Requirements](#minimum-hardware-requirements)
     - [Operating Systems and Platforms](#operating-systems-and-platforms)
-  - [2. Release Nots](#2-release-nots)
+  - [2. Release Notes](#2-release-notes)
     - [2.1 New Features](#21-new-features)
       - [2.1.1 AKU(Altibase Kubernetes Utility)](#211-akualtibase-kubernetes-utility)
       - [2.1.2 AltiShapeLoader 1.0](#212-altishapeloader-10)
       - [2.1.3 Partial Support for JDBC 4.2](#213-partial-support-for-jdbc-42)
       - [2.1.4 OpensSSL 3.0.8 Support](#214-opensssl-308-support)
-      - [2.1.5 Funtionality Improvement - SQL Extension<b id="215"></b>](#215)
-      - [2.1.6 Funtionality Improvement - Spatial SQL<b id="216"></b>](#216)
-      - [2.1.7 Funtionality Improvement - Replication<b id="217"></b>](#217)
-      - [2.1.8 Application Development Interface Extension and Improvements<b id="218"></b>](#218)
-      - [2.1.9 Functionality Improvement - Stored Procedures<b id="219"></b>](#219)
-      - [2.1.10 Functional Improvement - Utilities<b id="2110"></b>](#2110)
-      - [2.1.11 JDBC Adapter, oraAdpater Improvements<b id="2111"></b>](#2111)
+      - [2.1.5 Functionality Improvement - SQL Extension<b id="215"></b>](#215-functionality-improvement---sql-extensionb-id215b)
+      - [2.1.6 Functionality Improvement - Spatial SQL<b id="216"></b>](#216-functionality-improvement---spatial-sqlb-id216b)
+      - [2.1.7 Functionality Improvement - Replication<b id="217"></b>](#217-functionality-improvement---replicationb-id217b)
+      - [2.1.8  Functionality Improvement - Application Development Interface <b id="218"></b>](#218--functionality-improvement---application-development-interface-b-id218b)
+      - [2.1.9 Functionality Improvement - Stored Procedures<b id="219"></b>](#219-functionality-improvement---stored-proceduresb-id219b)
+      - [2.1.10 Functionality Improvement - Utilities<b id="2110"></b>](#2110-functionality-improvement---utilitiesb-id2110b)
+      - [2.1.11 Functionality Improvement - JDBC Adapter, oraAdpater<b id="2111"></b>](#2111-functionality-improvement---jdbc-adapter-oraadpaterb-id2111b)
       - [2.1.12 Performance Improvement](#2112-performance-improvement)
       - [2.1.13 High Availability](#2113-high-availability)
-      - [Improved Undo Tablespace Reusability](#improved-undo-tablespace-reusability)
       - [2.1.14 DBeaver Package](#2114-dbeaver-package)
     - [2.2 Changes](#22-changes)
       - [2.2.1 Database Version](#221-database-version)
@@ -83,11 +82,11 @@ Altibase 7.3.0.0.1 can be run on the operating systems and platforms listed in t
 >
 > Altibase 7.3 is compatible with minor versions of Red Hat Enterprise Linux 6, 7 and 8.
 >
-> Java 버전: Altibase 7.3 is compatiable with JDK 1.8 and higher.
+> Altibase 7.3 is compatible with JDK 1.8 and higher.
 
 <br/><br/>
 
-## 2. Release Nots
+## 2. Release Notes
 
 ### 2.1 New Features
 
@@ -111,7 +110,7 @@ Additionally, Altibase supports the FIPS(Federal Information Processing Standard
 
 </br>
 
-#### 2.1.5 Funtionality Improvement - SQL Extension<b id="215"></b>
+#### 2.1.5 Functionality Improvement - SQL Extension<b id="215"></b>
 
 ##### VARRAY TYPE
 
@@ -147,7 +146,7 @@ Supports the restart_clause with ALTER SEQUENCE statement. Refer to [**SQL Refer
 
 </br>
 
-#### 2.1.6 Funtionality Improvement - Spatial SQL<b id="216"></b>
+#### 2.1.6 Functionality Improvement - Spatial SQL<b id="216"></b>
 
 ##### SRID(Spatial Reference Identifier) interface
 
@@ -180,13 +179,13 @@ New functions have been introduced as follows.
 
 ##### Spatial object Creation Functions
 
-New functions have been introduced as follows.
+New function has been introduced as follows.
 
 * ACSGetGeometrySRID
 
-#### 2.1.7 Funtionality Improvement - Replication<b id="217"></b>
+#### 2.1.7 Functionality Improvement - Replication<b id="217"></b>
 
-##### DDM Synchronization
+##### DDL Synchronization
 
 DDL Synchronization is now possible through replication. To use this feature, you must set the REPLICATION_DDL_SYNC property to 1 on each node. Also, the REPLICATION_DDL_ENABLE property of each node must be set to 1 and the REPLICATION_DDL_ENABLE_LEVEL property must be set to the same.
 
@@ -196,7 +195,7 @@ To use DDL Synchronization, the following constraints must be verified:
 - The table names on both local and remote nodes for DDL Synchronization must match.
 - The table partition names on both local and remote nodes for DDL Synchronization must match.
 - The username for replication target users must be the same for DDL Synchronization.
-- Only one node at a time can perform DDL Synchronization.
+- Only one node can perform DDL Synchronization at a time.
 - The values of the REPLICATION_DDL_ENABLE and REPLICATION_DDL_ENABLE_LEVEL properties must be identical for each node.
 - The Altibase Server version (5 digits) must be the same.
 - DDL Synchronization is not permitted when using the Propagation option.
@@ -205,7 +204,7 @@ To use DDL Synchronization, the following constraints must be verified:
 
 A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of transaction logs for changing data to other nodes. Creating a replication with the RECEIVE_ONLY option means it does not read transaction logs, ensuring that it does not affect the other node, even in the case of issues such as network failures. 
 
-#### 2.1.8 Application Development Interface Extension and Improvements<b id="218"></b>
+#### 2.1.8  Functionality Improvement - Application Development Interface <b id="218"></b>
 
 ##### InfiniBand Support
 
@@ -240,19 +239,19 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
 - **Standard Socket Network Timeout API Support**
 
-  Support for the standard interface Connection.setNetworkTimeout() to set the socket response wait time from the database server.
+  Supports for the standard interface Connection.setNetworkTimeout() to set the socket response wait time from the database server.
 
 - **Connection Management Enhancements**
 
-  Support for Connection.isValid() to perform validation on Connection objects without a Validation Query
+  Supports for Connection.isValid() to perform validation on Connection objects without a Validation Query
 
 - **Large Update Counts Support**
 
-  Support for executeLargeUpdate() and executeLargeBatch() for updating large numbers of records
+  Supports for executeLargeUpdate() and executeLargeBatch() for updating large numbers of records
 
 - **Set Client Information Support**
 
-  Support for configuring client application attributes (name) using Connection.setClientInfo()
+  Supports for configuring client application attributes (name) using Connection.setClientInfo()
 
 - **java.sql.SQLType interface Support**
 
@@ -289,13 +288,13 @@ Offers a function for checking trigger events.
 
 ##### DBMS_METADATA package
 
-A function for export object creation DDL statements and GRANT statements from database dictionary.
+Offers functions for export object creation DDL statements and GRANT statements from database dictionary.
 
 ##### DBMS_SQL_PLAN_CACHE package
 
 Provides a stored procedure that functions to keep or delete a specific Execution Plan in the SQL Plan Cache.
 
-##### print_enable/print_disable procedure in DBMS_OUTPUT pakcage
+##### print_enable/print_disable procedure in DBMS_OUTPUT package
 
 Added the 'print_enable' and 'print_disable' procedures to enable or disable the 'println' function within PSM. These procedures are executed on a per-session basis.
 
@@ -309,7 +308,7 @@ Provides the function to register and delete Spatial Reference System metadata i
 
 </br>
 
-#### 2.1.10 Functional Improvement - Utilities<b id="2110"></b>
+#### 2.1.10 Functionality Improvement - Utilities<b id="2110"></b>
 
 ##### Added Platforms for altimon: AIX 7 and Power Linux LE(Little endian)
 
@@ -321,7 +320,7 @@ New property, COUNT_TO_COMMIT has been added to enable the configuration of comm
 
 </br>
 
-#### 2.1.11 JDBC Adapter, oraAdpater Improvements<b id="2111"></b>
+#### 2.1.11 Functionality Improvement - JDBC Adapter, oraAdpater<b id="2111"></b>
 
 ##### Support for LOB Data Types
 
@@ -427,7 +426,7 @@ Imporved to prevent abnormal server termination and behavior caused by the trans
 
 The maximum number of concurrent transactions for disk table that can be executed simultaneously has been expanded from the previous 512 to 16,384
 
-#### Improved Undo Tablespace Reusability
+##### Improved Undo Tablespace Reusability
 
 To enhance the stability of Undo tablespace reuse, unnecessary associations between the undo tablespace and disk indexes have been removed, thereby eliminating potential bug-related risks. Additionally default and maximum values of related properties have been changed to improve disk page space efficiency.
 
@@ -594,7 +593,7 @@ Replication from Altibase 7.3 to Altibase 6.5.1 may fail when the target table c
 
 #### 2.2.4 Properties
 
-The following properties have been added, changed, and deleted in Altibase 7.3.0.01. For more information on each property, please refer to the *General Reference*.
+The following properties have been added, changed, or deleted in Altibase 7.3.0.0.1. For more information on each property, please refer to the *General Reference*.
 
 ##### New Properties
 
@@ -741,7 +740,7 @@ The following properties have been added, changed, and deleted in Altibase 7.3.0
 
 * [SYS_REPLICATIONS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
   
-  New columns have been introduced below.
+  New columns has been introduced below.
   
   * REMOTE_LAST_DDL_XSN
   
@@ -754,7 +753,7 @@ The following properties have been added, changed, and deleted in Altibase 7.3.0
   
 * [SYS_REPL_OLD_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_columns_)
   
-  New columns have been introduced below.
+  New columns has been introduced below.
   
   * MT_SRID
   
@@ -791,7 +790,7 @@ The following meta tables have been removed.
 
 The following performance views have been added.
 
-For more informaiton on each performance view, please refer to the [**General Reference-2.The Data Dictionary**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md).
+For more information on each performance view, please refer to the [**General Reference-2.The Data Dictionary**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md).
 
 ##### New Performance Views
 
