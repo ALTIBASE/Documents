@@ -100,7 +100,7 @@ altiShapeLoader is developed for importing and exporting shapefiles<sup id="shap
 
 #### 2.1.3 Partial Support for JDBC 4.2
 
-Altibase 7.3 provides partial support for JDBC API Specification 4.2. For more detailed information about the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references). Additionally, for information on the changes and compatibility issues, please consult [Changes and Compatibility Issues with Altibase 7.3 JDBC Driver]() section in this manual.
+Altibase 7.3 provides partial support for JDBC API Specification 4.2. For more detailed information about the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references). Additionally, for information on the changes and compatibility issues, please refer to [Changes and Compatibility Issues with Altibase 7.3 JDBC Driver]() section in this manual.
 
 #### 2.1.4 OpensSSL 3.0.8 Support
 
@@ -130,15 +130,15 @@ Provides support for multiple delete, multiple update statements. Refer to [**SQ
 
 ##### Regular Expression for Korean searching
 
-Provides PCRE2 compatibility mode for support Regular Expressions used in Korean searching. Refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md).
+To support searching a regular expression in Korean,  Altibase provides PCRE2 compatibility mode. The PCRE2 compatibility mode supports the regular expression syntax of the PCRE2 library. Please refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) for more information.
 
 ##### Fetch Across Rollback
 
-To address the 'Fetch out of sequence' error issue, we now provide the 'fetch across rollback' feature.
+To address the issue of 'Fetch out of sequence' error occurring during rollback using CURSOR HOLD ON, now Altibase provides the 'fetch across rollback' feature.
 
-##### Improved Queue Functionality with Delete Statement Control
+##### Improved Queue Functionality With Delete Statement Control
 
-Queue functionality has been enhanced to allow the use of DELETE statements. Additionally, new 'DELETE ON' and 'DELETE OFF' clauses have been introduced to control the execution of DELETE statements within queues. Refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) and V$QUEUE_DELETE_OFF performance view for more information.
+Queue functionality has been enhanced to allow the use of DELETE statements. Additionally, new 'DELETE ON' and 'DELETE OFF' clauses have been introduced to control the execution of DELETE statements within queues. Refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) for more information. Plus, Altibase provides V$QUEUE_DELETE_OFF performance view.
 
 ##### Sequence Restart Statement
 
@@ -148,11 +148,11 @@ Supports the restart_clause with ALTER SEQUENCE statement. Refer to [**SQL Refer
 
 #### 2.1.6 Functionality Improvement - Spatial SQL<b id="216"></b>
 
-##### SRID(Spatial Reference Identifier) interface
+##### SRID(Spatial Reference Identifier) Interface
 
 SRID (Spatial Reference Identifier) is an identifier used to distinguish spatial objects, represented by a 4-byte integer, and can be applied to GEOMETRY columns. You can specify the SRID when creating a table and also alter the SRID using the ALTER TABLE statement.
 
-The support for SRID introduces new ways to represent GEOMETRY data types:
+New ways to represent GEOMETRY data types:
 
 - Extended Well-Known Text (EWKT) format: It includes SRID (Spatial Reference Identifier) information in the WKT format to represent spatial objects.
 - Extended Well-Known Binary (EWKB) format: It includes SRID (Spatial Reference Identifier) information in the WKB format to represent spatial objects.
@@ -177,7 +177,7 @@ New functions have been introduced as follows.
 * ST_PolygonFromText
 * ST_Transform
 
-##### Spatial object Creation Functions
+##### Spatial Object Creation Functions
 
 New function has been introduced as follows.
 
@@ -200,9 +200,9 @@ To use DDL Synchronization, the following constraints must be verified:
 - The Altibase Server version (5 digits) must be the same.
 - DDL Synchronization is not permitted when using the Propagation option.
 
-#####  RECEIVE_ONLY option
+#####  RECEIVE_ONLY Option
 
-A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of transaction logs for changing data to other nodes. Creating a replication with the RECEIVE_ONLY option means it does not read transaction logs, ensuring that it does not affect the other node, even in the case of issues such as network failures. 
+A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of transaction logs for changing data to other nodes. When creating replication with the RECEIVE_ONLY option, transaction logs do not affect other nodes because they are not read. Therefore, any replication issues such as network failures do not affect the system.
 
 #### 2.1.8  Functionality Improvement - Application Development Interface <b id="218"></b>
 
@@ -210,11 +210,11 @@ A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of t
 
 Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) communication for high-speed data communication.
 
-##### New JDBC Driver
+##### New Features on JDBC Driver
 
-- **Auto-loading of JDBC driver class**
+- **Auto-Loading of JDBC Driver Class**
 
-  Automatic driver loading using the META-INF/services/java.sql.Driver file , eliminating the need for explicit Class.forName() class loading.
+  Automatic driver loading using the META-INF/services/java.sql.Driver file without loading of the Class.forName() class explicitly.
 
 - **Wrapper Pattern Support**
 
@@ -253,9 +253,9 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
   Supports for configuring client application attributes (name) using Connection.setClientInfo()
 
-- **java.sql.SQLType interface Support**
+- **java.sql.SQLType Interface Support**
 
-- **Automatic JDBC resource release using the Try-with-resources statement**
+- **Automatic JDBC Resource Release Using the Try-With-Resources Statement**
 
   ```java
   try (Statement stmt = con.createStatement()) {
@@ -268,7 +268,7 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
   }
   ```
 
-- **Support for using an enhanced for-each loop with SQLException**
+- **Support for Using an Enhanced For-Each Loop With SQLException**
 
   ```java
   catch(SQLException ex) {
@@ -282,27 +282,27 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
 #### 2.1.9 Functionality Improvement - Stored Procedures<b id="219"></b>
 
-##### DBMS_STANDARD package
+##### DBMS_STANDARD Package
 
 Offers a function for checking trigger events.
 
-##### DBMS_METADATA package
+##### DBMS_METADATA Package
 
 Offers functions for export object creation DDL statements and GRANT statements from database dictionary.
 
-##### DBMS_SQL_PLAN_CACHE package
+##### DBMS_SQL_PLAN_CACHE Package
 
 Provides a stored procedure that functions to keep or delete a specific Execution Plan in the SQL Plan Cache.
 
-##### print_enable/print_disable procedure in DBMS_OUTPUT package
+##### print_enable/print_disable Procedure in DBMS_OUTPUT Package
 
 Added the 'print_enable' and 'print_disable' procedures to enable or disable the 'println' function within PSM. These procedures are executed on a per-session basis.
 
-##### sleep2 procedure in the DBMS_LOCK package
+##### sleep2 Procedure in the DBMS_LOCK Package
 
 Added system stored procedure 'sleep2' to support microsecond sleep.
 
-##### SYS_SPATIAL package
+##### SYS_SPATIAL Package
 
 Provides the function to register and delete Spatial Reference System metadata in the SPATIAL_REF_SYS table.
 
@@ -310,7 +310,7 @@ Provides the function to register and delete Spatial Reference System metadata i
 
 #### 2.1.10 Functionality Improvement - Utilities<b id="2110"></b>
 
-##### Added Platforms for altimon: AIX 7 and Power Linux LE(Little endian)
+##### Added Platforms for Altimon: AIX 7 and Power Linux LE(Little Endian)
 
 Supports altimon on AIX 7 and Power Linux LE(Little endian).
 
@@ -406,7 +406,7 @@ Optimized the execution of scalar subqueries to improve their performance.
 
 Improved performance of data insertion for large data migrations. A new option, -lightmod, has been introduced of iloader. Refer to [**iLoader User's Maunal**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md).
 
-##### JDBC fetch Performance
+##### JDBC Fetch Performance
 
 To enhance JDBC fetch performance, ResultSet object are now reused. When multiple ResultSet objects are created from the same PreparedStatement object, the first ResultSet object is reused. If you do not want to reuse ResultSet objects, you can change the value of the reuse_resultset property in the JDBC connection properties to false.
 
@@ -462,7 +462,7 @@ The database binary version has been updated due to enhancements in the logging 
 
 ##### Meta Version
 
-Given that the major version of Meta has changed, it is necessary to reconfigure the metadata when upgrading from the earlier version to Altibase 7.3.
+Given that the major version of Meta has changed, **it is necessary to reconfigure the metadata when upgrading from the earlier version to Altibase 7.3**.
 
 ##### Communication Protocol Version
 
@@ -492,7 +492,7 @@ To run Altibase 7.3 aexport, you must install the DBMS_METADATA package. Otherwi
 [ERR-91144 : DBMS_METADATA package does not exist.]
 ```
 
-##### Changes and Compatibility Issues with Altibase 7.3 JDBC Driver
+##### Changes and Compatibility Issues With Altibase 7.3 JDBC Driver
 
 The Altibase 7.3 JDBC driver guarantees backward compatibility, but for some interfaces, the behavior has changed according to JDBC API Specification 4.2.
 
@@ -579,13 +579,13 @@ The CLIENT_TYPE of an Altibase 7.3 JDBC session is NEW_JDBC42.
 
 ##### Replication Restrictions
 
-###### Replication Restrictions between Altibase 7.1 and Altibase 7.3
+###### Replication Restrictions Between Altibase 7.1 and Altibase 7.3
 
 Because the replication protocol version has been changed, DDL synchronization are not supported between Altibase 7.1 and Altibase 7.3.
 
 Because the database binary version has been changed, offline replication are not supported between Altibase 7.1 and Altibase 7.3.
 
-###### Replication Restrictions between Altibase 6.5.1 and Altibase 7.3
+###### Replication Restrictions Between Altibase 6.5.1 and Altibase 7.3
 
 Replication from Altibase 7.3 to Altibase 6.5.1 may fail when the target table contains data with SRID values.
 
@@ -645,75 +645,75 @@ The following properties have been added, changed, or deleted in Altibase 7.3.0.
 
 - [CM_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#cm_msglog_flag)
 
-  Default value changed to 3.
+  The default value has been changed to 3.
 
 - [EXECUTE_STMT_MEMORY_MAXIMUM](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#execute_stmt_memory_maximum-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
-  Default value changed from 1073741824 to 2147483648.
+  The default value has been changed from 1073741824 to 2147483648.
 
 - [HASH_AREA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#hash_area_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
-  Minimum changed from 512K to 3M.
+  The minimum value has been changed from 512K to 3M.
 
 - [INDEX_INITRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_initrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
 
-  The maximum value was changed from 30 to 50.
+  The maximum value has been changed from 30 to 50.
 
 - [INDEX_MAXTRANS](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#index_maxtrans-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
 
-  The default and maximum values were changed from 30 to 50.
+  The default and maximum values have been changed from 30 to 50.
 
 - [LOB_CACHE_THRESHOLD](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#lob_cache_threshold-%EB%8B%A8%EC%9C%84-bytes)
 
-  The maximum value was changed from 8192 to 524288.
+  The maximum value has been changed from 8192 to 524288.
 
 - [MEMORY_INDEX_BUILD_RUN_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#memory_index_build_run_size-%EB%8B%A8%EC%9C%84--%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
-  Default value changed from 32768 to 131072.
+  The default value has been changed from 32768 to 131072.
 
 - [MM_MSGLOG_FILE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#mm_msglog_file)
 
-  The default value was changed to 1.
+  The default value has been changed to 1.
 
 - [PSM_CHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_char_default_precision)
 
-  The default value was changed from 32767 to 32000.
+  The default value has been changed from 32767 to 32000.
 
 - [PSM_NCHAR_UTF16_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nchar_utf16_default_precision)
 
-  Default value changed from 16383 to 16000.
+  The default value has been changed from 16383 to 16000.
 
 - [PSM_NCHAR_UTF8_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nchar_utf8_default_precision)
 
-  The default value was changed from 10921 to 10666.
+  The default value has been changed from 10921 to 10666.
 
 - [PSM_NVARCHAR_UTF16_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nvarchar_utf16_default_precision)
 
-  Default value changed from 16383 to 16000.
+  The default value has been changed from 16383 to 16000.
 
 - [PSM_NVARCHAR_UTF8_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_nvarchar_utf8_default_precision)
 
-  The default value was changed from 10921 to 10666.
+  The default value has been changed from 10921 to 10666.
 
 - [PSM_VARCHAR_DEFAULT_PRECISION](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#psm_varchar_default_precision)
 
-  The default value was changed from 32767 to 32000.
+  The default value has been changed from 32767 to 32000.
 
 - [REPLICATION_EAGER_PARALLEL_FACTOR](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_eager_parallel_factor)
 
-  The minimum value was changed from 1 to 2.
+  The minimum value has been changed from 1 to 2.
 
 - [SERVER_MSGLOG_FLAG](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#server_msglog_flag)
 
-  Default value changed from 7 to 15.
+  The default value has been changed from 7 to 15.
 
 - [TOTAL_WA_SIZE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#total_wa_size-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)
 
-  The minimum value was changed to 0.
+  The minimum value has been changed to 0.
 
 - [TRANSACTION_SEGMENT_COUNT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#transaction_segment_count-%EB%8B%A8%EC%9C%84--%EA%B0%9C%EC%88%98)
 
-  The maximum value was changed from 512 to 16384.
+  The maximum value has been changed from 512 to 16384.
 
 ##### Removed Properties
 
@@ -740,7 +740,7 @@ The following properties have been added, changed, or deleted in Altibase 7.3.0.
 
 * [SYS_REPLICATIONS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_hosts_)
   
-  New columns has been introduced below.
+  New column has been introduced below.
   
   * REMOTE_LAST_DDL_XSN
   
@@ -753,7 +753,7 @@ The following properties have been added, changed, or deleted in Altibase 7.3.0.
   
 * [SYS_REPL_OLD_COLUMNS_](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General_Reference-2.The%20Data%20Dictionary.md#sys_repl_old_columns_)
   
-  New columns has been introduced below.
+  New column has been introduced below.
   
   * MT_SRID
   
