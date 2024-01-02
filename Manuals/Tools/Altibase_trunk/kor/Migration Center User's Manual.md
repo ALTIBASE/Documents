@@ -722,7 +722,7 @@ CLI 모드에서는 사용자가 임의로 "조정" 단계를 수행할 수 없�
 
 ### 도구
 
-이 절은 Migration Center 에 포함되어 있는 두 가지 유틸리티의 사용법을
+이 절은 Migration Center 에 포함되어 있는 세 가지 도구의 사용법을
 소개한다.
 
 #### PSM Converter for File
@@ -744,7 +744,23 @@ Generate Migration Error Report는 Migration Center에서 발생하는 문제를
 문제 추적 정보를 수집하여 zip 파일을 생성한다. 사용자는 이 zip 파일을 첨부하여
 Altibase 고객서비스포털에 고객 등록 정보와 함께 보내기만 하면 된다.
 
-이 툴은 메인 메뉴의 Tools -\> Generate Migration Error Report로 실행할 수 있다.
+메인 메뉴의 Tools -\> Generate Migration Error Report로 실행할 수 있다.
+
+#### TableCondition.properties
+
+실행 단계에서 원본 DB쪽 테이블 데이터 중 특정 조건에 맞는 데이터만 마이그레이션하기 위해 
+제공되는 파일이다. 이 파일에 기입되지 않은 테이블은 대상 테이블의 전체 데이터를 대상으로 한다.
+
+Reconcile 완료 단계에서 자동 생성되며, 내용은 "원본 DB 테이블 이름"=WHERE 절 쌍으로 이루어져 있다.
+실행 단계에서 데이터 마이그레이션 수행시 원본 DB쪽 테이블의 데이터를 가져오는 SELECT문에, 
+입력된 WHERE 절이 추가되어 수행된다. 실행 단계 완료 후 대상 DB쪽 테이블에 마이그레이션된 
+데이터 갯수를 확인하는 구문에서도 WHERE 절이 동일하게 적용되며, "RunReport4Summary.html" 
+파일에 그 갯수가 기록된다.
+
+파일 수정은 Reconcile 단계 중 "'Select Editing"에서 "Where Condition" 컬럼에 입력하거나, Reconcile 
+완료 후 사용자가 직접 파일을 편집할 수 있다. WHERE절은 반드시 한줄에 기입해야 하며, 원본 DB와 
+대상 DB간 SQL 구문 차이가 있는 경우 \[DEST\] 섹션에 대상 DB 테이블용 WHERE 절을 별도로 기입하는 
+등의 제약점이 있다. 상세 파일 편집 방법은 TableCondition.properties 파일 상단의 안내를 참조한다.
 
 <br/>
 
@@ -1268,6 +1284,9 @@ Mapping" 메뉴 항목을 사용해서 변경할 수 있다.
 등의 편집이 가능하며, 편집한 SELECT문을 바로 확인할 수 있다. 수정한 것을
 취소하고 싶다면 Restore 버튼을 누르면 된다.
 
+SELECT문이 수정된 테이블은 WHERE 절과 한 쌍으로 TableCondition.properties 파일에 
+기록된다. 이 파일은 Reconcile의 마지막 단계에서 자동 생성되며, 사용자가 편집 가능하다.
+
 ##### "Unacceptable Name" 단계
 
 "Unacceptable Name" 단계는 대상 데이터베이스의 인용 부호 없는 객체 이름 규칙에 
@@ -1346,27 +1365,30 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 실행](#프로젝트-실행)" 또는 "[CLI 모드로 실행, 검증 단계
 수행](#executing_runStep_inCLImode)" 절을 참고한다.
 
-내부적으로, 이 과정은 데이터베이스 객체 종속성을 피하기 위해 PreSchema 단계,
-테이블 및 데이터 단계, PostSchema 단계의 세 단계로 구성된다. 예를 들어, 인덱스
-객체는 테이블 및 데이터 단계가 완료된 후 PostSchema 단계에서 마이그레이션 된다.
-왜냐하면, 보통 인덱스가 없는 상태에서 데이터를 삽입하는 것이 인덱스가 있는
-경우보다 더 빠르기 때문이다. 각 단계별 상세 동작은 다음과 같다:
+내부적으로, 이 과정은 데이터베이스 객체 종속성을 피하기 위해 초기화 단계, 
+PreSchema 단계,테이블 및 데이터 단계, PostSchema 단계의 네 단계로 구성된다. 
+예를 들어, 인덱스객체는 테이블 및 데이터 단계가 완료된 후 PostSchema 단계에서
+마이그레이션 된다. 왜냐하면, 보통 인덱스가 없는 상태에서 데이터를 삽입하는 것이 
+인덱스가 있는 경우보다 더 빠르기 때문이다. 각 단계별 상세 동작은 다음과 같다:
 
-1. PreSchema: sequence 객체 마이그레이션
+1. 초기화 단계: TableCondition.properties 파일에 기록된 WHERE 절의 유효성 
+    검사를 원본 DB를 대상으로 수행한다.
 
-2. Table & Data: 테이블 객체 및 데이터 마이그레이션
+2. PreSchema: sequence 객체 마이그레이션
 
-3. PostSchema:
-   
+3. Table & Data: 테이블 객체 및 데이터 마이그레이션
+
+4. PostSchema:
+
    1. Queue: 큐 객체 마이그레이션
-   
+
    2. Constraints: 유니크, 프라이머리 키, 외래 키, 및 check 제약 조건 등의
       제약 조건 마이그레이션
-   
+
    3. Index: 인덱스 객체 마이그레이션
-   
+
    4. Synonym: PRIVATE 시노님 객체 마이그레이션
-   
+
    5. Procedures, Functions, Materialized Views, Views, Typesets 및 Triggers:
       DBMS 및 버전에 따라 상이함
 
