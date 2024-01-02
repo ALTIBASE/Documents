@@ -8,17 +8,17 @@
     - [Operating Systems and Platforms](#operating-systems-and-platforms)
   - [2. Release Notes](#2-release-notes)
     - [2.1 New Features](#21-new-features)
-      - [2.1.1 AKU(Altibase Kubernetes Utility)](#211-akualtibase-kubernetes-utility)
+      - [2.1.1 AKU](#211-aku)
       - [2.1.2 AltiShapeLoader 1.0](#212-altishapeloader-10)
       - [2.1.3 Partial Support for JDBC 4.2](#213-partial-support-for-jdbc-42)
-      - [2.1.4 OpensSSL 3.0.8 Support](#214-opensssl-308-support)
-      - [2.1.5 Functionality Improvement - SQL Extension<b id="215"></b>](#215-functionality-improvement---sql-extensionb-id215b)
-      - [2.1.6 Functionality Improvement - Spatial SQL<b id="216"></b>](#216-functionality-improvement---spatial-sqlb-id216b)
-      - [2.1.7 Functionality Improvement - Replication<b id="217"></b>](#217-functionality-improvement---replicationb-id217b)
-      - [2.1.8  Functionality Improvement - Application Development Interface <b id="218"></b>](#218--functionality-improvement---application-development-interface-b-id218b)
-      - [2.1.9 Functionality Improvement - Stored Procedures<b id="219"></b>](#219-functionality-improvement---stored-proceduresb-id219b)
-      - [2.1.10 Functionality Improvement - Utilities<b id="2110"></b>](#2110-functionality-improvement---utilitiesb-id2110b)
-      - [2.1.11 Functionality Improvement - JDBC Adapter, oraAdpater<b id="2111"></b>](#2111-functionality-improvement---jdbc-adapter-oraadpaterb-id2111b)
+      - [2.1.4 OpenSSL 3.0.8 Support](#214-openssl-308-support)
+      - [2.1.5 Functionality Improvement - SQL Extension](#215-functionality-improvement---sql-extension)
+      - [2.1.6 Functionality Improvement - Spatial SQL](#216-functionality-improvement---spatial-sql)
+      - [2.1.7 Functionality Improvement - Replication](#217-functionality-improvement---replication)
+      - [2.1.8  Functionality Improvement - Application Development Interface](#218--functionality-improvement---application-development-interface)
+      - [2.1.9 Functionality Improvement - Stored Procedures](#219-functionality-improvement---stored-procedures)
+      - [2.1.10 Functionality Improvement - Utilities](#2110-functionality-improvement---utilities)
+      - [2.1.11 Functionality Improvement - JDBC Adapter, oraAdpater](#2111-functionality-improvement---jdbc-adapter-oraadpater)
       - [2.1.12 Performance Improvement](#2112-performance-improvement)
       - [2.1.13 High Availability](#2113-high-availability)
       - [2.1.14 DBeaver Package](#2114-dbeaver-package)
@@ -187,7 +187,7 @@ A new function has been introduced as follows.
 
 ##### DDL Synchronization
 
-DDL Synchronization is now possible through replication. To use this feature, users must set the REPLICATION_DDL_SYNC property to 1 on each node. Also, the REPLICATION_DDL_ENABLE property of each node must be set to 1 and the REPLICATION_DDL_ENABLE_LEVEL property must be set to the same.
+DDL Synchronization is now possible through replication. To use this feature, users must set the REPLICATION_DDL_SYNC and REPLICATION_DDL_ENABLE properties on each node to 1. Also, the REPLICATION_DDL_ENABLE_LEVEL property of each node must be set the same.
 
 To use DDL Synchronization, the following constraints must be verified:
 
@@ -294,13 +294,13 @@ Offers functions for export object creation DDL statements and GRANT statements 
 
 Provides a stored procedure that functions to keep or delete a specific Execution Plan in the SQL Plan Cache.
 
-##### print_enable/print_disable Procedure in DBMS_OUTPUT Package
+##### Add print_enable/print_disable Procedures in DBMS_OUTPUT Package
 
-Added the 'print_enable' and 'print_disable' procedures to enable or disable the 'println' function within PSM. These procedures are executed on a per-session basis.
+DBMS_OUTPUT package now includes print_enable/print_disable procedures which offer the functionality to enable or disable the 'println' function within the PSM. These procedures are executed on a per-session basis.
 
-##### sleep2 Procedure in the DBMS_LOCK Package
+##### Add sleep2 Procedure in the DBMS_LOCK Package
 
-Added system stored procedure 'sleep2' to support microsecond sleep.
+DBMS_LOCK package now includes the sleep2 procedure to support microsecond sleep.
 
 ##### SYS_SPATIAL Package
 
@@ -466,7 +466,7 @@ Given that the major version of Meta has changed, **it is necessary to reconfigu
 
 ##### Communication Protocol Version
 
-The patch version of the communication protocol version has been changed. The same major and minor versions ensure client backward compatibility.
+The patch version of the communication protocol version has been changed. Altibase 7.3 ensures client backward compatibility only if the versions of major and minor are identical.
 
 > Client backward compatibility ensures that user applications developed using an older version of the Altibase library work well when connected to a newer version of Altibase.
 
