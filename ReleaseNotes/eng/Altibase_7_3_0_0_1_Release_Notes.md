@@ -138,11 +138,11 @@ To address the issue of 'Fetch out of sequence' error occurring during rollback 
 
 ##### Improved Queue Functionality With Delete Statement Control
 
-Queue functionality has been enhanced to allow the use of DELETE statements. Additionally, new 'DELETE ON' and 'DELETE OFF' clauses have been introduced to control the execution of DELETE statements within queues. Refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) for more information. Plus, Altibase provides V$QUEUE_DELETE_OFF performance view.
+Queue functionality has been enhanced to allow the use of DELETE statements. Additionally, new 'DELETE ON' and 'DELETE OFF' clauses have been introduced to control the execution of DELETE statements within queues. Refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) for more information. Plus, Altibase 7.3 provides V$QUEUE_DELETE_OFF performance view.
 
 ##### Sequence Restart Statement
 
-Supports the restart_clause with ALTER SEQUENCE statement. Refer to [**SQL Reference Manual** - restart_clause](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#restart_clause).
+Altibase 7.3 supports the restart_clause with ALTER SEQUENCE statement. Refer to [**SQL Reference Manual** - restart_clause](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#restart_clause).
 
 </br>
 
@@ -208,7 +208,7 @@ A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of t
 
 ##### InfiniBand Support
 
-Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) communication for high-speed data communication.
+Altibase 7.3 supports Infiniband, which is based on Remote Direct Memory Access (RDMA) communication for high-speed data communication.
 
 ##### New Features on JDBC Driver
 
@@ -218,7 +218,7 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
 - **Wrapper Pattern Support**
 
-  Supports the JDBC 4.0 standard interface for obtaining references to implementation objects from proxies. This allows obtaining JDBC objects from proxy objects created in the Connection Pool, etc.
+  Altibase 7.3 supports the JDBC 4.0 standard interface for obtaining references to implementation objects from proxies. This allows obtaining JDBC objects from proxy objects created in the Connection Pool, etc.
 
   ```java
   try (Connection sWrappedCon = dbPool.getConnection()) {
@@ -231,29 +231,31 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
 - **National Character Set Support**
 
-  Supports for the standard multilingual processing interface in the JDBC 4.0 specification.
+  Altibase 7.3 supports the standard multilingual processing interface in the JDBC 4.0 specification.
 
 - **Aborting Connections**
 
-  Supports for the Connection.abort() interface for asynchronously terminating the physical connection to the database.
+  Altibase 7.3 supports the Connection.abort() interface for asynchronously terminating the physical connection to the database.
 
 - **Standard Socket Network Timeout API Support**
 
-  Supports for the standard interface Connection.setNetworkTimeout() to set the socket response wait time from the database server.
+  Altibase 7.3 supports the standard interface Connection.setNetworkTimeout() to set the socket response wait time from the database server.
 
 - **Connection Management Enhancements**
 
-  Supports for Connection.isValid() to perform validation on Connection objects without a Validation Query
+  Altibase 7.3 supports Connection.isValid() to perform validation on Connection objects without a Validation Query
 
 - **Large Update Counts Support**
 
-  Supports for executeLargeUpdate() and executeLargeBatch() for updating large numbers of records
+  Altibase 7.3 supports executeLargeUpdate() and executeLargeBatch() for updating large numbers of records
 
 - **Set Client Information Support**
 
-  Supports for configuring client application attributes (name) using Connection.setClientInfo()
+  Altibase 7.3 supports configuring client application attributes (name) using Connection.setClientInfo()
 
 - **java.sql.SQLType Interface Support**
+
+  Altibase 7.3 supports AltibaseJDBCType, which implements the JDBC 4.2 standard interface java.sql.SQLType. 
 
 - **Automatic JDBC Resource Release Using the Try-With-Resources Statement**
 
@@ -284,15 +286,15 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
 ##### DBMS_STANDARD Package
 
-Offers a function for checking trigger events.
+DBMS_STANDARD package offers a function for checking trigger events.
 
 ##### DBMS_METADATA Package
 
-Offers functions for export object creation DDL statements and GRANT statements from the database dictionary.
+DBMS_METADATA package offers functions to export object creation DDL statements and GRANT statements from the database dictionary.
 
 ##### DBMS_SQL_PLAN_CACHE Package
 
-Provides a stored procedure that functions to keep or delete a specific Execution Plan in the SQL Plan Cache.
+DBMS_SQL_PLAN_CACHE package provides a stored procedure that functions to keep or delete a specific Execution Plan in the SQL Plan Cache.
 
 ##### Add print_enable/print_disable Procedures in DBMS_OUTPUT Package
 
@@ -304,7 +306,7 @@ DBMS_LOCK package now includes the sleep2 procedure to support microsecond sleep
 
 ##### SYS_SPATIAL Package
 
-Provides the function to register and delete Spatial Reference System metadata in the SPATIAL_REF_SYS table.
+SYS_SPATIAL package provides the function to register and delete Spatial Reference System metadata in the SPATIAL_REF_SYS table.
 
 </br>
 
@@ -338,50 +340,50 @@ Offline option is a feature used with adapters (JDBC Adapter, oraAdapter) to han
 
 The LOCK_MGR_TYPE property, previously used for specifying the TABLE LOCK manager type, has been removed. In its place, a new TABLE LOCK mode called 'light mutex mode' has been introduced to enhance performance and address TABLE LOCK bottlenecks.
 
-##### Improvement Tablespace Manager Mutex Bottlenecks
+##### Improvement in Tablespace Manager Mutex Bottlenecks
 
-Improvement of the TABLESPACE MANAGER MUTEX by removing unnecessary LOCK.
+Altibase 7.3 features an improved TABLESPACE MANAGER MUTEX, achieved by eliminating unnecessary locks.
 
 ##### Improved Disk Temporary Table Performance
 
-Improved the performance of SQLs that use disk temporary tables, resulting in enhanced performance and reduced memory usage.
+Altibase 7.3 improves the performance of SQLs using disk temporary tables, resulting in reduced memory usage.
 
 ##### Enhanced Transaction Log Recording Performance
 
-Changed the log compression algorithm to the faster LZ4, improving transaction log recording performance.
+In Altibase 7.3, the log compression algorithm has been changed to the LZ4 for faster compression speed.
 
 ##### OLTP Scalability
 
-- Enhanced Transaction Performance on Linux x86-64 with 24+ CPU Cores
-- Improved Logging Structure for Memory Database Deletion (DELETE) Transactions
-- Enhanced In-Place MVCC Operation for Disk Database Alterations
-- Elimination of Unnecessary Transaction Logging during INSERT/UPDATE Transactions
-- Improved Memory Allocation/Deallocation Bottlenecks during Transaction Log File Compression
-- Enhanced Commit and Garbage Collection Thread Bottlenecks
-- Improved Transaction Performance on Memory Databases
+- Enhanced transaction performance on Linux x86-64 with 24+ CPU cores
+- Improved logging structure for memory database deletion (DELETE) transactions
+- Enhanced In-Place MVCC operation for disk database alterations
+- Elimination of unnecessary transaction logging during INSERT/UPDATE transactions
+- Improved memory allocation/deallocation bottlenecks during transaction log file compression
+- Enhanced commit and garbage collection thread bottlenecks
+- Improved transaction performance on memory databases
   - Eliminated bottlenecks in functions that trigger disk reads
   - Group Commit Log
 
 ##### Index Performance Improvement
 
-* Reduced the time and memory usage for POINTER BASE index creation during server startup.
-* Reduced the time and memory usage for VALUE BASE index creation during server startup.
+* Reduced time and memory usage for POINTER BASE index creation during server startup.
+* Reduced time and memory usage for VALUE BASE index creation during server startup.
 
 ##### Database Startup
 
-Improved the management of threads used for index building during server startup.
+Improved management of threads used for index building during server startup.
 
-##### Improve Transaction Performance for Volatile and Non-Volatile Memory Table
+##### Improvement in Transaction Performance for Volatile and Non-Volatile Memory Table
 
 Improved volatile/non-volatile memory table transaction performance by simplifying the memory table object identifier tracking steps.
 
 ##### DEQUEUE in Parallel
 
-eliminated bottlenecks that occur during parallel DEQUEUE operations.
+Eliminated bottlenecks that occur during parallel DEQUEUE operations.
 
 ##### Reduction in Prepare Time for CSE
 
-Common Subexpression Elimination(CSE) is an optimization feature that identifies and removes redundant conditional expressions in query conditions. Improved the CSE execution algorithm and enhance the performance of related queries.
+Common Subexpression Elimination(CSE) is an optimization feature that identifies and removes redundant conditional expressions in query conditions. In Altibase 7.3, the CSE execution algorithm and performance of related queries have been improved.
 
 ##### Simple Query Optimization on Memory Partitioned Tables
 
@@ -389,26 +391,26 @@ Previously, simple query optimization was only supported for memory tables. But 
 
 ##### SERIAL FILTER EXECUTE
 
-Improved the performance of performing row filters by serializing the Filter operator and optimizing the function call structure. The SERIAL_FILTER hint and SERIAL_EXECUTE_MODE properties have been added to enable this feature. Users can see FILTER SERIAL EXECUTE in the execution plan. Serial Filter Enable can be confirmed by checking for 'FILTER SERIAL EXECUTE' in the execution plan.
+The performance of performing row filters has been improved by serializing the Filter operator and optimizing the function call structure. The SERIAL_FILTER hint and SERIAL_EXECUTE_MODE properties have been added to enable this feature. Users can see FILTER SERIAL EXECUTE in the execution plan. Through this value, users can confirm Serial Filter Enable.
 
 ##### Performance Enhancement for Scalar Subqueries
 
-Optimized the execution of scalar subqueries to improve their performance.
+Altibase 7.3 supports improved optimization of the execution of scalar subqueries. 
 
 ##### Performance Enhancement in the FOR Loop Clause of PSM
 
 ##### Performance Enhancement in Replication Sender
 
-- Added functionality to decompress only the logs required for replication in compressed logs.
-- Changed the xLog compression algorithm from LZO to LZ4.
+- The functionality to decompress only logs required for replication in compressed logs has been added.
+- The xLog compression algorithm has been changed from LZO to LZ4.
 
 ##### Performance Enhancement for Migration
 
-Improved performance of data insertion for large data migrations. A new option, -lightmode, has been introduced of iloader. Refer to [**iLoader User's Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md).
+The performance of data insertion for large data migrations has been improved. A new option, -lightmode, has been introduced of iloader. Refer to [**iLoader User's Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md).
 
 ##### JDBC Fetch Performance
 
-To enhance JDBC fetch performance, ResultSet objects are now reused. When multiple ResultSet objects are created from the same PreparedStatement object, the first ResultSet object is reused. If users do not want to reuse ResultSet objects, the users can change the value of the reuse_resultset property in the JDBC connection properties to false.
+To enhance JDBC fetch performance, ResultSet objects are now reused. When multiple ResultSet objects are created from the same PreparedStatement object, the first ResultSet object is reused. Users can set the reuse_resultset property of the JDBC connection attribute to false when they do not want to reuse ResultSet objects.
 
 </br>
 
@@ -416,11 +418,11 @@ To enhance JDBC fetch performance, ResultSet objects are now reused. When multip
 
 ##### Enhanced DDL PVO Stability
 
-Improved reliability by strengthening exception handling in the DDL PVO phase.
+Altibase 7.3 offers improved reliability by strengthening exception handling in the DDL PVO phase.
 
 ##### Improved Protocol Validation
 
-Improved to prevent abnormal server termination and behavior caused by the transmission of invalid packets (malformed packets). Packet validity is now checked during protocol processing, and in cases of abnormalities, the client's connection is terminated, and diagnostic logs are generated. To enable this feature, the default value of CM_MSGLOG_FLAG has been set to 3, and the default value of SERVER_MSGLOG_FLAG has been changed to 15.
+Altibase 7.3 has been Improved to prevent abnormal server termination and behavior caused by the transmission of invalid packets(malformed packets). Packet validity is now checked during protocol processing, and in cases of abnormalities, the client's connection is terminated, and diagnostic logs are generated. To enable this feature, the default value of CM_MSGLOG_FLAG has been set to 3, and the default value of SERVER_MSGLOG_FLAG has been changed to 15.
 
 ##### Enhanced Transaction Stability - Multiple Rollback Segment
 
@@ -435,7 +437,7 @@ To enhance the stability of Undo tablespace reuse, unnecessary associations betw
 
 #### 2.1.14 DBeaver Package
 
-Provide a package for DBeaver on Windows.
+Altibase 7.3 provides a package for DBeaver on Windows.
 
 </br>
 
