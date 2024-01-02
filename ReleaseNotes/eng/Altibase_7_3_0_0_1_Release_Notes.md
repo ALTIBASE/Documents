@@ -126,7 +126,7 @@ The internal mode procedure operates faster compared to the external mode by dir
 
 ##### Multiple Delete, Update
 
-Provides support for multiple delete and multiple update statements. Refer to [**SQL Reference Manual** - multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_delete) , [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_update).
+Provides support for multiple delete and multiple update statements. Refer to [**SQL Reference Manual** - multiple_delete](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_delete), [multiple_update](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#multiple_update).
 
 ##### Regular Expression for Korean Searching
 
@@ -342,7 +342,7 @@ The LOCK_MGR_TYPE property, previously used for specifying the TABLE LOCK manage
 
 ##### Improvement in Tablespace Manager Mutex Bottlenecks
 
-Altibase 7.3 features an improved TABLESPACE MANAGER MUTEX, achieved by eliminating unnecessary locks.
+Altibase 7.3 features an improved TABLESPACE MANAGER MUTEX, achieved by eliminating unnecessary LOCKs.
 
 ##### Improved Disk Temporary Table Performance
 
@@ -449,7 +449,7 @@ The following describes the features that DBAs and developers need to be aware o
 
 Version by Database Component
 
-| Altibase server/client Version | Database Binary Version | Meta Version | Communication Protocol Version | Replication Protocol Version |
+| Altibase Server/Client Version | Database Binary Version | Meta Version | Communication Protocol Version | Replication Protocol Version |
 | :----------------------------: | :---------------------: | :----------: | :----------------------------: | :--------------------------: |
 |           7.1.0.8.8            |          6.5.1          |    8.11.1    |             7.1.7              |            7.4.7             |
 |           7.3.0.0.1            |          7.3.0          |    9.3.1     |             7.1.8              |            7.4.9             |
@@ -460,7 +460,7 @@ Version by Database Component
 
 The database binary version indicates the compatibility between database image files and log files.
 
-The updated database binary version of Altibase 7.3 is not compatible with the lower version anymore because the logging structure of log files has changed. Therefore, if users want to upgrade the existing Altibase version to Altibase 7.3, migration tasks are required.
+The updated database binary version of Altibase 7.3 is not compatible with the lower version anymore because the logging structure of log files has changed. Therefore, **if users want to upgrade the existing Altibase version to Altibase 7.3, migration tasks are required.**
 
 ##### Meta Version
 
@@ -820,10 +820,10 @@ For more information on each performance view, please refer to the [**General Re
 
 | OS    | CPU                       | Server/Client   | File Names                                                  |
 | ----- | ------------------------- | --------------- | ----------------------------------------------------------- |
-| AIX   | PowerPC                   | Altibase Server | altibase- server-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
-|       |                           | Altibase Client | altibase- client-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
-| HP-UX | IA64                      | Altibase Server | altibase- server-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
-|       |                           | Altibase Client | altibase- client-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
+| AIX   | PowerPC                   | Altibase Server | altibase-server-7.3.0.0.1-AIX-POWERPC-64bit-release.run     |
+|       |                           | Altibase Client | altibase-client-7.3.0.0.1-AIX-POWERPC-64bit-release.run     |
+| HP-UX | IA64                      | Altibase Server | altibase-server-7.3.0.0.1-HPUX-IA64-64bit-release.run       |
+|       |                           | Altibase Client | altibase-client-7.3.0.0.1-HPUX-IA64-64bit-release.run       |
 | LINUX | x86-64                    | Altibase Server | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run       |
 |       |                           | Altibase Client | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run       |
 | LINUX | PowerPC                   | Altibase Server | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
