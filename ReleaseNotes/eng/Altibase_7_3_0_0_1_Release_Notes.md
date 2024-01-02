@@ -90,27 +90,27 @@ Altibase 7.3.0.0.1 can be run on the operating systems and platforms listed in t
 
 ### 2.1 New Features
 
-#### 2.1.1 AKU(Altibase Kubernetes Utility)
+#### 2.1.1 AKU
 
-AKU(Altibase Kubernetes Utility) is a utility that helps with synchronizing data or resetting synchronization information when Pods start and terminate in a Statefulset in Kubernetes.
+Altibase Kubernetes Utility(AKU) is a utility that helps with synchronizing data or resetting synchronization information when Pods start or terminate in a Statefulset in Kubernetes.
 
 #### 2.1.2 AltiShapeLoader 1.0
 
-altiShapeLoader is developed for importing and exporting shapefiles<sup id="shapefile1">[[1]](#shapefile)</sup> and is based on the GeoTools, which is a Java-based open source framework.
+altiShapeLoader is a tool used to import and export shapefile<sup id="shapefile1">[[1]](#shapefile)</sup>,  which is programmed based on GeoTools, an open-source library based on Java.
 
 #### 2.1.3 Partial Support for JDBC 4.2
 
 Altibase 7.3 provides partial support for JDBC API Specification 4.2. For more detailed information about the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references). Additionally, for information on the changes and compatibility issues, please refer to [Changes and Compatibility Issues with Altibase 7.3 JDBC Driver]() section in this manual.
 
-#### 2.1.4 OpensSSL 3.0.8 Support
+#### 2.1.4 OpenSSL 3.0.8 Support
 
 To enhance security, Altibase 7.3 supports the latest version of OpenSSL 3.0.8, and no longer provides support for OpenSSL versions 1.0.x. Altibase now extends its protocol support to include TLS 1.3, in addition to TLS 1.0 and 1.2. If users want to specify particular cipher algorithms for TLS 1.3, please set them in the server property, SSL_CIPHER_SUITES. For more detailed information, please refer to [**Altibase SSL TLS User's Guide** - server properties to connect over ssl](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-set-server-properties-to-connect-over-ssl).
 
-Additionally, Altibase supports the FIPS(Federal Information Processing Standards) module. To use the FIPS module with SSL, you must set the SSL_LOAD_CONFIG property to 1. Refer to [Altibase SSL TLS User's Guide - Step4. FIPS module with SSL]().
+Additionally, Altibase supports the Federal Information Processing Standards(FIPS) module. To use the FIPS module with SSL, users must set the SSL_LOAD_CONFIG property to 1. Refer to [Altibase SSL TLS User's Guide - Step4. FIPS module with SSL]().
 
 </br>
 
-#### 2.1.5 Functionality Improvement - SQL Extension<b id="215"></b>
+#### 2.1.5 Functionality Improvement - SQL Extension
 
 ##### VARRAY TYPE
 
@@ -118,11 +118,11 @@ Within stored procedures, the VARRAY type is now supported as a new user-defined
 
 ##### Anonymous Block 
 
-An anonymous block is a form of a stored procedure composed of a body block without a header, declared with a structure like DECLARE...BEGIN...END;. Anonymous blocks do not create PSM (Persistent Stored Module) objects, are not stored in the database, and do not return a value in the RETURN clause. Unlike stored procedures, anonymous blocks allow the use of INPUT, OUTPUT, and INOUT bind variables.
+An anonymous block is a form of a stored procedure composed of a body block without a header, declared with a structure like DECLARE...BEGIN...END;. Anonymous blocks do not create Persistent Stored Module(PSM) objects, are not stored in the database, and do not return a value in the RETURN clause. Unlike stored procedures, anonymous blocks allow the use of INPUT, OUTPUT, and INOUT bind variables.
 
 ##### Internal Mode in C/C++ External Procedure
 
-In Internal mode within External Procedures, it directly loads dynamic libraries and invokes external procedures from Altibase Server without the need for an agent process, resulting in improved efficiency compared to external mode. For more details, refer to [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/External%20Procedures%20Manual.md).
+In Internal mode within External Procedures, it directly loads dynamic libraries and invokes external procedures from the Altibase Server without the need for an agent process, resulting in improved efficiency compared to external mode. For more details, refer to [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/External%20Procedures%20Manual.md).
 
 ##### Multiple Delete, Update
 
@@ -146,16 +146,16 @@ Supports the restart_clause with ALTER SEQUENCE statement. Refer to [**SQL Refer
 
 </br>
 
-#### 2.1.6 Functionality Improvement - Spatial SQL<b id="216"></b>
+#### 2.1.6 Functionality Improvement - Spatial SQL
 
-##### SRID(Spatial Reference Identifier) Interface
+##### SRID Interface
 
-SRID (Spatial Reference Identifier) is an identifier used to distinguish spatial objects, represented by a 4-byte integer, and can be applied to GEOMETRY columns. You can specify the SRID when creating a table and also alter the SRID using the ALTER TABLE statement.
+A Spatial Reference Identifier(SRID) is an identifier used to distinguish spatial objects, represented by an integer within a 4-byte range, and can be applied to GEOMETRY columns. Users can specify the SRID when creating a table and also alter the SRID using the ALTER TABLE statement.
 
 New ways to represent GEOMETRY data types:
 
-- Extended Well-Known Text (EWKT) format: It includes SRID (Spatial Reference Identifier) information in the WKT format to represent spatial objects.
-- Extended Well-Known Binary (EWKB) format: It includes SRID (Spatial Reference Identifier) information in the WKB format to represent spatial objects.
+- Extended Well-Known Text (EWKT) format: It includes SRID information in the WKT format to represent spatial objects.
+- Extended Well-Known Binary (EWKB) format: It includes SRID information in the WKB format to represent spatial objects.
 
 ##### Spatial Functions
 
@@ -183,11 +183,11 @@ A new function has been introduced as follows.
 
 * ACSGetGeometrySRID
 
-#### 2.1.7 Functionality Improvement - Replication<b id="217"></b>
+#### 2.1.7 Functionality Improvement - Replication
 
 ##### DDL Synchronization
 
-DDL Synchronization is now possible through replication. To use this feature, you must set the REPLICATION_DDL_SYNC property to 1 on each node. Also, the REPLICATION_DDL_ENABLE property of each node must be set to 1 and the REPLICATION_DDL_ENABLE_LEVEL property must be set to the same.
+DDL Synchronization is now possible through replication. To use this feature, users must set the REPLICATION_DDL_SYNC property to 1 on each node. Also, the REPLICATION_DDL_ENABLE property of each node must be set to 1 and the REPLICATION_DDL_ENABLE_LEVEL property must be set to the same.
 
 To use DDL Synchronization, the following constraints must be verified:
 
@@ -197,14 +197,14 @@ To use DDL Synchronization, the following constraints must be verified:
 - The username for replication target users must be the same for DDL Synchronization.
 - Only one node can perform DDL Synchronization at a time.
 - The values of the REPLICATION_DDL_ENABLE and REPLICATION_DDL_ENABLE_LEVEL properties must be identical for each node.
-- The Altibase Server version (5 digits) must be the same.
+- The Altibase Server version(5 digits) must be the same.
 - DDL Synchronization is not permitted when using the Propagation option.
 
 #####  RECEIVE_ONLY Option
 
 A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of transaction logs for changing data to other nodes. When creating replication with the RECEIVE_ONLY option, transaction logs do not affect other nodes because they are not read. Therefore, any replication issues such as network failures do not affect the system.
 
-#### 2.1.8  Functionality Improvement - Application Development Interface <b id="218"></b>
+#### 2.1.8  Functionality Improvement - Application Development Interface
 
 ##### InfiniBand Support
 
@@ -218,7 +218,7 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
 - **Wrapper Pattern Support**
 
-  Supports the JDBC 4.0 standard interface for obtaining references to implementation objects from proxies. This allows obtaining JDBC objects from proxy objects created in Connection Pool.
+  Supports the JDBC 4.0 standard interface for obtaining references to implementation objects from proxies. This allows obtaining JDBC objects from proxy objects created in the Connection Pool, etc.
 
   ```java
   try (Connection sWrappedCon = dbPool.getConnection()) {
@@ -280,7 +280,7 @@ Supports Infiniband, which is based on Remote Direct Memory Access (RDMA) commun
 
 </br>
 
-#### 2.1.9 Functionality Improvement - Stored Procedures<b id="219"></b>
+#### 2.1.9 Functionality Improvement - Stored Procedures
 
 ##### DBMS_STANDARD Package
 
@@ -288,7 +288,7 @@ Offers a function for checking trigger events.
 
 ##### DBMS_METADATA Package
 
-Offers functions for export object creation DDL statements and GRANT statements from database dictionary.
+Offers functions for export object creation DDL statements and GRANT statements from the database dictionary.
 
 ##### DBMS_SQL_PLAN_CACHE Package
 
@@ -308,11 +308,11 @@ Provides the function to register and delete Spatial Reference System metadata i
 
 </br>
 
-#### 2.1.10 Functionality Improvement - Utilities<b id="2110"></b>
+#### 2.1.10 Functionality Improvement - Utilities
 
 ##### Added Platforms for Altimon: AIX 7 and Power Linux LE(Little Endian)
 
-Supports altimon on AIX 7 and Power Linux LE(Little endian).
+Supports altimon on AIX 7 and Power Linux LE(Little Endian).
 
 ##### Added the AltiComp Commit Count Configuration Feature
 
@@ -320,7 +320,7 @@ The new property, COUNT_TO_COMMIT has been added to enable the configuration of 
 
 </br>
 
-#### 2.1.11 Functionality Improvement - JDBC Adapter, oraAdpater<b id="2111"></b>
+#### 2.1.11 Functionality Improvement - JDBC Adapter, oraAdpater
 
 ##### Support for LOB Data Types
 
@@ -379,17 +379,17 @@ Improved volatile/non-volatile memory table transaction performance by simplifyi
 
 eliminated bottlenecks that occur during parallel DEQUEUE operations.
 
-##### Reduction in Prepare Time for Common Subexpression Elimination
+##### Reduction in Prepare Time for CSE
 
-CSE (Common Subexpression Elimination) is an optimization feature that identifies and removes redundant conditional expressions in query conditions. Improved the CSE execution algorithm and enhance the performance of related queries.
+Common Subexpression Elimination(CSE) is an optimization feature that identifies and removes redundant conditional expressions in query conditions. Improved the CSE execution algorithm and enhance the performance of related queries.
 
 ##### Simple Query Optimization on Memory Partitioned Tables
 
 Previously, simple query optimization was only supported for memory tables. But now it extends support to memory partitioned tables and enhanced DML performance of memory partitioned tables.
 
-##### SERIAL FILTER EXEUTE
+##### SERIAL FILTER EXECUTE
 
-Improved the performance of performing row filters by serializing the Filter operator and optimizing the function call structure. The SERIAL_FILTER hint and SERIAL_EXECUTE_MODE properties have been added to enable this feature. You can see FILTER SERIAL EXECUTE in the execution plan. Serial Filter Enable can be confirmed by checking for 'FILTER SERIAL EXECUTE' in the execution plan.
+Improved the performance of performing row filters by serializing the Filter operator and optimizing the function call structure. The SERIAL_FILTER hint and SERIAL_EXECUTE_MODE properties have been added to enable this feature. Users can see FILTER SERIAL EXECUTE in the execution plan. Serial Filter Enable can be confirmed by checking for 'FILTER SERIAL EXECUTE' in the execution plan.
 
 ##### Performance Enhancement for Scalar Subqueries
 
@@ -404,11 +404,11 @@ Optimized the execution of scalar subqueries to improve their performance.
 
 ##### Performance Enhancement for Migration
 
-Improved performance of data insertion for large data migrations. A new option, -lightmod, has been introduced of iloader. Refer to [**iLoader User's Maunal**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md).
+Improved performance of data insertion for large data migrations. A new option, -lightmode, has been introduced of iloader. Refer to [**iLoader User's Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/iLoader%20User's%20Manual.md).
 
 ##### JDBC Fetch Performance
 
-To enhance JDBC fetch performance, ResultSet objects are now reused. When multiple ResultSet objects are created from the same PreparedStatement object, the first ResultSet object is reused. If you do not want to reuse ResultSet objects, you can change the value of the reuse_resultset property in the JDBC connection properties to false.
+To enhance JDBC fetch performance, ResultSet objects are now reused. When multiple ResultSet objects are created from the same PreparedStatement object, the first ResultSet object is reused. If users do not want to reuse ResultSet objects, the users can change the value of the reuse_resultset property in the JDBC connection properties to false.
 
 </br>
 
@@ -420,11 +420,11 @@ Improved reliability by strengthening exception handling in the DDL PVO phase.
 
 ##### Improved Protocol Validation
 
-Imporved to prevent abnormal server termination and behavior caused by the transmission of invalid packets (malformed packets). Packet validity is now checked during protocol processing, and in cases of abnormalities, the client's connection is terminated, and diagnostic logs are generated. To enable this feature, the default value of CM_MSGLOG_FLAG has been set to 3, and the default value of SERVER_MSGLOG_FLAG has been changed to 15.
+Improved to prevent abnormal server termination and behavior caused by the transmission of invalid packets (malformed packets). Packet validity is now checked during protocol processing, and in cases of abnormalities, the client's connection is terminated, and diagnostic logs are generated. To enable this feature, the default value of CM_MSGLOG_FLAG has been set to 3, and the default value of SERVER_MSGLOG_FLAG has been changed to 15.
 
 ##### Enhanced Transaction Stability - Multiple Rollback Segment
 
-The maximum number of concurrent transactions for disk table that can be executed simultaneously has been expanded from the previous 512 to 16,384
+The maximum number of concurrent transactions for the disk table that can be executed simultaneously has been expanded from the previous 512 to 16,384
 
 ##### Improved Undo Tablespace Reusability
 
@@ -456,7 +456,7 @@ Version by Database Component
 
 ##### Database Binary Version
 
-The database binary version indciates the compatibility of the database image file and log file.
+The database binary version indicates the compatibility of the database image file and log file.
 
 The database binary version has been updated due to enhancements in the logging structure of log files. As a result, Altibase 7.3 and earlier versions are not compatible, requiring migration efforts when upgrading to Altibase 7.3.
 
@@ -468,17 +468,17 @@ Given that the major version of Meta has changed, **it is necessary to reconfigu
 
 The patch version of the communication protocol version has been changed. The same major and minor versions ensure client backward compatibility.
 
-> Client backward compatibility ensures that user applications developed using a older version of the Altibase library work well when connected to a newer version of Altibase.
+> Client backward compatibility ensures that user applications developed using an older version of the Altibase library work well when connected to a newer version of Altibase.
 
 ##### Replication Protocol Version
 
-Major and minor version of replication protocol version has not been changed, but the patch version has been updated. Thus, LAZY mode replication is compatible between older and newer versions, but EAGER mode replication and other additional features that require the same replication protocol version are not compatible. 
+The major and minor versions of the replication protocol version have not been changed, but the patch version has been updated. Thus, LAZY mode replication is compatible between older and newer versions, but EAGER mode replication and other additional features that require the same replication protocol version are not compatible. 
 
 > ###### Altibase Replication Backward Compatibility
 >
 > Only LAZY mode replication guarantees backward compatibility.
 >
-> While EAGER mode replication, DDL synchronization and Offline Replication do not ensure backward compatibility since they require the same replication protocol version.
+> While EAGER mode replication DDL synchronization and Offline Replication do not ensure backward compatibility since they require the same replication protocol version.
 
 </br>
 
@@ -486,7 +486,7 @@ Major and minor version of replication protocol version has not been changed, bu
 
 ##### aexport
 
-To run Altibase 7.3 aexport, you must install the DBMS_METADATA package. Otherwise, the following error message will be displayed.
+To run Altibase 7.3 aexport, users must install the DBMS_METADATA package. Otherwise, the following error message will be displayed.
 
 ```
 [ERR-91144 : DBMS_METADATA package does not exist.]
@@ -553,7 +553,7 @@ ProcName(FuncName) + '_' + ouid
   - In Altibase 7.1, the default value is 'on', which means these functions return LOB objects.
 
 - [getprocedures_return_functions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#getprocedures_return_functions)
-  - Configuration for including function information in the results of DatabaseMetaData.getProcedures() and getProcedureColumns() is provided. While the JDBC API Specification 4.2 standard excludes function information, Altibase 7.3 JDBC Driver includes it for client backward compatibility. To exclude function information in accordance with the JDBC 4.2 standard, set this property value to false.
+  - Configuration for including function information in the results of DatabaseMetaData.getProcedures() and getProcedureColumns() is provided. While the JDBC API Specification 4.2 standard excludes function information, Altibase 7.3 JDBC Driver includes it for client backward compatibility. To exclude function information under the JDBC 4.2 standard, set this property value to false.
 
 ###### CLIENT_TYPE
 
