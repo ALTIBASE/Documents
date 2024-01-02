@@ -122,7 +122,7 @@ An anonymous block is a form of a stored procedure composed of a body block with
 
 ##### Internal Mode in C/C++ External Procedure
 
-In Internal mode within External Procedures, it directly loads dynamic libraries and invokes external procedures from the Altibase Server without the need for an agent process, resulting in improved efficiency compared to external mode. For more details, refer to [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/External%20Procedures%20Manual.md).
+The internal mode procedure operates faster compared to the external mode by directly loading dynamic libraries and invoking external procedures from the Altibase server without agent processes, resulting in improved efficiency. For more details, refer to [**External Procedures Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/External%20Procedures%20Manual.md).
 
 ##### Multiple Delete, Update
 
@@ -194,7 +194,7 @@ To use DDL Synchronization, the following constraints must be verified:
 - Replication must be operational on the nodes where DDL Synchronization is performed.
 - The table names on both local and remote nodes for DDL Synchronization must match.
 - The table partition names on both local and remote nodes for DDL Synchronization must match.
-- The username for replication target users must be the same for DDL Synchronization.
+- The owner names of tables on both local and remote nodes for DDL Synchronization must match.
 - Only one node can perform DDL Synchronization at a time.
 - The values of the REPLICATION_DDL_ENABLE and REPLICATION_DDL_ENABLE_LEVEL properties must be identical for each node.
 - The Altibase Server version(5 digits) must be the same.
@@ -270,7 +270,7 @@ Altibase 7.3 supports Infiniband, which is based on Remote Direct Memory Access 
   }
   ```
 
-- **Support for Using an Enhanced For-Each Loop With SQLException**
+- **Enhanced For-Each Loop With SQLException**
 
   ```java
   catch(SQLException ex) {
@@ -296,11 +296,11 @@ DBMS_METADATA package offers functions to export object creation DDL statements 
 
 DBMS_SQL_PLAN_CACHE package provides a stored procedure that functions to keep or delete a specific Execution Plan in the SQL Plan Cache.
 
-##### Add print_enable/print_disable Procedures in DBMS_OUTPUT Package
+##### Add print_enable/print_disable Procedures to DBMS_OUTPUT Package
 
 DBMS_OUTPUT package now includes print_enable/print_disable procedures which offer the functionality to enable or disable the 'println' function within the PSM. These procedures are executed on a per-session basis.
 
-##### Add sleep2 Procedure in the DBMS_LOCK Package
+##### Add sleep2 Procedure to the DBMS_LOCK Package
 
 DBMS_LOCK package now includes the sleep2 procedure to support microsecond sleep.
 
@@ -314,11 +314,11 @@ SYS_SPATIAL package provides the function to register and delete Spatial Referen
 
 ##### Added Platforms for Altimon: AIX 7 and Power Linux LE(Little Endian)
 
-Supports altimon on AIX 7 and Power Linux LE(Little Endian).
+Now Altimon is available on AIX 7 and Power Linux LE(Little Endian).
 
-##### Added the AltiComp Commit Count Configuration Feature
+##### Added AltiComp Commit Count Configuration Feature
 
-The new property, COUNT_TO_COMMIT has been added to enable the configuration of commit counts. Refer to  Utilities Manual.
+The new property, COUNT_TO_COMMIT has been added to enable the configuration of commit counts. Refer to Utilities Manual.
 
 </br>
 
@@ -458,9 +458,9 @@ Version by Database Component
 
 ##### Database Binary Version
 
-The database binary version indicates the compatibility of the database image file and log file.
+The database binary version indicates the compatibility between database image files and log files.
 
-The database binary version has been updated due to enhancements in the logging structure of log files. As a result, Altibase 7.3 and earlier versions are not compatible, requiring migration efforts when upgrading to Altibase 7.3.
+The updated database binary version of Altibase 7.3 is not compatible with the lower version anymore because the logging structure of log files has changed. Therefore, if users want to upgrade the existing Altibase version to Altibase 7.3, migration tasks are required.
 
 ##### Meta Version
 
@@ -474,7 +474,9 @@ The patch version of the communication protocol version has been changed. Altiba
 
 ##### Replication Protocol Version
 
-The major and minor versions of the replication protocol version have not been changed, but the patch version has been updated. Thus, LAZY mode replication is compatible between older and newer versions, but EAGER mode replication and other additional features that require the same replication protocol version are not compatible. 
+The replication protocol version indicates the compatibility of replication for both backward compatibility and compatibility with additional replication features.
+
+Altibase replication in LAZY mode ensures the Altibase replication backward compatibility because there is no change in major and minor versions of the replication protocol. However, it does not ensure compatibility with replication additional features including EAGER mode replication, because the patch version has been changed.
 
 > ###### Altibase Replication Backward Compatibility
 >
@@ -816,18 +818,18 @@ For more information on each performance view, please refer to the [**General Re
 
 ### 2.3 Packages
 
-| OS    | CPU                       | File Names                                                  |
-| ----- | ------------------------- | ----------------------------------------------------------- |
-| AIX   | PowerPC                   | altibase- server-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
-|       |                           | altibase- client-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
-| HP-UX | IA64                      | altibase- server-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
-|       |                           | altibase- client-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
-| LINUX | x86-64                    | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run       |
-|       |                           | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run       |
-| LINUX | PowerPC                   | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
-|       |                           | altibase-client-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
-| LINUX | PowerPCLE (Little Endian) | altibase-server-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
-|       |                           | altibase-client-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
+| OS    | CPU                       | Server/Client   | File Names                                                  |
+| ----- | ------------------------- | --------------- | ----------------------------------------------------------- |
+| AIX   | PowerPC                   | Altibase Server | altibase- server-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
+|       |                           | Altibase Client | altibase- client-7.3.0.0.1-AIX-POWERPC-64bit-release.run    |
+| HP-UX | IA64                      | Altibase Server | altibase- server-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
+|       |                           | Altibase Client | altibase- client-7.3.0.0.1-HPUX-IA64-64bit-release.run      |
+| LINUX | x86-64                    | Altibase Server | altibase-server-7.3.0.0.1-LINUX-X86-64bit-release.run       |
+|       |                           | Altibase Client | altibase-client-7.3.0.0.1-LINUX-X86-64bit-release.run       |
+| LINUX | PowerPC                   | Altibase Server | altibase-server-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
+|       |                           | Altibase Client | altibase-client-7.3.0.0.1-LINUX-POWERPC-64bit-release.run   |
+| LINUX | PowerPCLE (Little Endian) | Altibase Server | altibase-server-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
+|       |                           | Altibase Client | altibase-client-7.3.0.0.1-LINUX-POWERPCLE-64bit-release.run |
 
 </br>
 
