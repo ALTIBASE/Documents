@@ -5039,7 +5039,7 @@ Unsigned long
 
 ##### Default Value
 
-10 \* 1024 \* 1024
+100 \* 1024 \* 1024
 
 ##### Attributes
 
@@ -5047,7 +5047,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[1024 \* 1024, 2<sup>64</sup>-1]
+[64 \* 1024, 2<sup>32</sup>-1]
 
 ##### Description
 
@@ -7424,7 +7424,8 @@ Unsigned Integer
 
 ##### Default Value
 
-0
+* 0 (on HP-UX or AIX Environment)
+* 1 (on Linux Environment)
 
 ##### Attributes
 
@@ -7436,11 +7437,11 @@ Read-Only, Single Value
 
 ##### Description
 
-This property selects the system call used to creat the log file. Optionally, the value written to the awrite utility can be used to help improve performance. For more detailed information about the awrite utility, please refer to the *Utilities Manual*.
+This property selects the system call used to create the log file.
 
 0 : write() system call
 
-1: fallocate() system call ; Only available for supported operating systems
+1: fallocate() system call (Only available on Linux)
 
 #### LOW_FLUSH_PCT (Unit: percentage)
 
