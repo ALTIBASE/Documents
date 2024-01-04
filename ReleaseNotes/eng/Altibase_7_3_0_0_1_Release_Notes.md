@@ -474,9 +474,9 @@ The patch version of the communication protocol version has been changed. Altiba
 
 ##### Replication Protocol Version
 
-The replication protocol version indicates the compatibility of replication for both backward compatibility and compatibility with additional replication features.
+The replication protocol version indicates the compatibility of replication.
 
-Altibase replication in LAZY mode ensures the Altibase replication backward compatibility because there is no change in major and minor versions of the replication protocol. However, it does not ensure compatibility with replication additional features including EAGER mode replication, because the patch version has been changed.
+Altibase 7.3 guarantees replication backward compatibility in LAZY mode because there are no changes in the major and minor versions of the replication protocol. However, it does not guarantee compatibility with replication additional features including EAGER mode, because the patch version of the replication protocol has been changed.
 
 > ###### Altibase Replication Backward Compatibility
 >
