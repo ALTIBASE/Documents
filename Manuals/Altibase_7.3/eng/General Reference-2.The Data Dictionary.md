@@ -1,3 +1,224 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [General Reference-2.The Data Dictionary](#general-reference-2the-data-dictionary)
+- [Table Of Contents](#table-of-contents)
+- [Preface](#preface)
+    - [About This Manual](#about-this-manual)
+- [1. The Data Dictionary](#1-the-data-dictionary)
+    - [Meta Tables](#meta-tables)
+    - [SYS_AUDIT\_](#sys_audit%5C_)
+    - [SYS_AUDIT_OPTS\_](#sys_audit_opts%5C_)
+    - [SYS_COLUMNS\_](#sys_columns%5C_)
+    - [SYS_COMMENTS\_](#sys_comments%5C_)
+    - [SYS_COMPRESSION_TABLES\_](#sys_compression_tables%5C_)
+    - [SYS_CONSTRAINTS\_](#sys_constraints%5C_)
+    - [SYS_CONSTRAINT_COLUMNS\_](#sys_constraint_columns%5C_)
+    - [SYS_CONSTRAINT_RELATED\_](#sys_constraint_related%5C_)
+    - [SYS_DATABASE\_](#sys_database%5C_)
+    - [SYS_DATABASE_LINKS\_](#sys_database_links%5C_)
+    - [SYS_DIRECTORIES\_](#sys_directories%5C_)
+    - [SYS_ENCRYPTED_COLUMNS\_](#sys_encrypted_columns%5C_)
+    - [SYS_GRANT_OBJECT\_](#sys_grant_object%5C_)
+    - [SYS_GRANT_SYSTEM\_](#sys_grant_system%5C_)
+    - [SYS_INDEX_COLUMNS\_](#sys_index_columns%5C_)
+    - [SYS_INDEX_PARTITIONS\_](#sys_index_partitions%5C_)
+    - [SYS_INDEX_RELATED\_](#sys_index_related%5C_)
+    - [SYS_INDICES\_](#sys_indices%5C_)
+    - [SYS_JOBS\_](#sys_jobs%5C_)
+    - [SYS_LIBRARIES\_](#sys_libraries%5C_)
+    - [SYS_LOBS\_](#sys_lobs%5C_)
+    - [SYS_MATERIALIZED_VIEWS\_](#sys_materialized_views%5C_)
+    - [SYS_PACKAGES\_](#sys_packages%5C_)
+    - [SYS_PACKAGE_PARAS\_](#sys_package_paras%5C_)
+    - [SYS_PACKAGE_PARSE\_](#sys_package_parse%5C_)
+    - [SYS_PACKAGE_RELATED\_](#sys_package_related%5C_)
+    - [SYS_PART_INDICES\_](#sys_part_indices%5C_)
+    - [SYS_PART_KEY_COLUMNS\_](#sys_part_key_columns%5C_)
+    - [SYS_PART_LOBS\_](#sys_part_lobs%5C_)
+    - [SYS_PART_TABLES\_](#sys_part_tables%5C_)
+    - [SYS_PASSWORD_HISTORY\_](#sys_password_history%5C_)
+    - [SYS_PASSWORD_LIMITS\_](#sys_password_limits%5C_)
+    - [SYS_PRIVILEGES\_](#sys_privileges%5C_)
+    - [SYS_PROCEDURES\_](#sys_procedures%5C_)
+    - [SYS_PROC_PARAS\_](#sys_proc_paras%5C_)
+    - [SYS_PROC_PARSE\_](#sys_proc_parse%5C_)
+    - [SYS_PROC_RELATED\_](#sys_proc_related%5C_)
+    - [SYS_RECYCLEBIN\_](#sys_recyclebin%5C_)
+    - [SYS_REPLICATIONS\_](#sys_replications%5C_)
+    - [SYS_REPL_RECEIVER_](#sys_repl_receiver_)
+    - [SYS_REPL_HOSTS\_](#sys_repl_hosts%5C_)
+    - [SYS_REPL_ITEMS\_](#sys_repl_items%5C_)
+    - [SYS_REPL_OFFLINE_DIR\_](#sys_repl_offline_dir%5C_)
+    - [SYS_REPL_OLD_CHECKS_](#sys_repl_old_checks_)
+    - [SYS_REPL_OLD_CHECK_COLUMNS_](#sys_repl_old_check_columns_)
+    - [SYS_REPL_OLD_COLUMNS\_](#sys_repl_old_columns%5C_)
+    - [SYS_REPL_OLD_INDEX_COLUMNS\_](#sys_repl_old_index_columns%5C_)
+    - [SYS_REPL_OLD_INDICES\_](#sys_repl_old_indices%5C_)
+    - [SYS_REPL_OLD_ITEMS\_](#sys_repl_old_items%5C_)
+    - [SYS_REPL_TABLE_OID_IN_USE_](#sys_repl_table_oid_in_use_)
+    - [SYS_REPL_RECOVERY_INFOS\_](#sys_repl_recovery_infos%5C_)
+    - [SYS_SECURITY\_](#sys_security%5C_)
+    - [SYS_SYNONYMS\_](#sys_synonyms%5C_)
+    - [SYS_TABLES\_](#sys_tables%5C_)
+    - [SYS_TABLE_PARTITIONS\_](#sys_table_partitions%5C_)
+    - [SYS_TABLE_SIZE\_](#sys_table_size%5C_)
+    - [SYS_TBS_USERS\_](#sys_tbs_users%5C_)
+    - [SYS_TRIGGERS\_](#sys_triggers%5C_)
+    - [SYS_TRIGGER_DML_TABLES\_](#sys_trigger_dml_tables%5C_)
+    - [SYS_TRIGGER_STRINGS\_](#sys_trigger_strings%5C_)
+    - [SYS_TRIGGER_UPDATE_COLUMNS\_](#sys_trigger_update_columns%5C_)
+    - [SYS_USERS\_](#sys_users%5C_)
+    - [DBA_USERS\_](#dba_users%5C_)
+    - [SYS_USER_ROLES\_](#sys_user_roles%5C_)
+    - [SYS_VIEWS\_](#sys_views%5C_)
+    - [SYS_VIEW_PARSE\_](#sys_view_parse%5C_)
+    - [SYS_VIEW_RELATED\_](#sys_view_related%5C_)
+    - [SYS_XA_HEURISTIC_TRANS\_](#sys_xa_heuristic_trans%5C_)
+    - [SYS_GEOMETRIES_](#sys_geometries_)
+    - [SYS_GEOMETRY_COLUMNS_](#sys_geometry_columns_)
+    - [USER_SRS_](#user_srs_)
+    - [Performance Views](#performance-views)
+    - [V\$ACCESS_LIST](#v%5Caccess_list)
+    - [V\$ALLCOLUMN](#v%5Callcolumn)
+    - [V\$ARCHIVE](#v%5Carchive)
+    - [V\$BACKUP_INFO](#v%5Cbackup_info)
+    - [V\$BUFFPAGEINFO](#v%5Cbuffpageinfo)
+    - [V\$BUFFPOOL_STAT](#v%5Cbuffpool_stat)
+    - [V\$CATALOG](#v%5Ccatalog)
+    - [V\$DATABASE](#v%5Cdatabase)
+    - [V\$DATAFILES](#v%5Cdatafiles)
+    - [V\$DATATYPE](#v%5Cdatatype)
+    - [V\$DBA_2PC_PENDING](#v%5Cdba_2pc_pending)
+    - [V\$DBLINK_ALTILINKER_STATUS](#v%5Cdblink_altilinker_status)
+    - [V\$DBLINK_DATABASE_LINK_INFO](#v%5Cdblink_database_link_info)
+    - [V\$DBLINK_GLOBAL_TRANSACTION_INFO](#v%5Cdblink_global_transaction_info)
+    - [V\$DBLINK_LINKER_CONTROL_SESSION_INFO](#v%5Cdblink_linker_control_session_info)
+    - [V\$DBLINK_LINKER_DATA_SESSION_INFO](#v%5Cdblink_linker_data_session_info)
+    - [V\$DBLINK_LINKER_SESSION_INFO](#v%5Cdblink_linker_session_info)
+    - [V\$DBLINK_NOTIFIER_TRANSACTION_INFO](#v%5Cdblink_notifier_transaction_info)
+    - [V\$DBLINK_REMOTE_STATEMENT_INFO](#v%5Cdblink_remote_statement_info)
+    - [V\$DBLINK_REMOTE_TRANSACTION_INFO](#v%5Cdblink_remote_transaction_info)
+    - [V\$DBMS_STATS](#v%5Cdbms_stats)
+    - [V\$DB_FREEPAGELISTS](#v%5Cdb_freepagelists)
+    - [V\$DB_PROTOCOL](#v%5Cdb_protocol)
+    - [V\$DIRECT_PATH_INSERT](#v%5Cdirect_path_insert)
+    - [V\$DISKTBL_INFO](#v%5Cdisktbl_info)
+    - [V\$DISK_BTREE_HEADER](#v%5Cdisk_btree_header)
+    - [V\$DISK_TEMP_INFO](#v%5Cdisk_temp_info)
+    - [V\$DISK_TEMP_STAT](#v%5Cdisk_temp_stat)
+    - [V\$DISK_UNDO_USAGE](#v%5Cdisk_undo_usage)
+    - [V\$EVENT_NAME](#v%5Cevent_name)
+    - [V\$EXTPROC_AGENT](#v%5Cextproc_agent)
+    - [V\$FILESTAT](#v%5Cfilestat)
+    - [V\$FLUSHER](#v%5Cflusher)
+    - [V\$FLUSHINFO](#v%5Cflushinfo)
+    - [V\$INDEX](#v%5Cindex)
+    - [V\$INSTANCE](#v%5Cinstance)
+    - [V\$INTERNAL_SESSION](#v%5Cinternal_session)
+    - [V\$LATCH](#v%5Clatch)
+    - [V\$LIBRARY](#v%5Clibrary)
+    - [V\$LFG](#v%5Clfg)
+    - [V\$LOCK](#v%5Clock)
+    - [V\$LOCK_STATEMENT](#v%5Clock_statement)
+    - [V\$LOG](#v%5Clog)
+    - [V\$LOCK_WAIT](#v%5Clock_wait)
+    - [V\$MEMGC](#v%5Cmemgc)
+    - [V\$MEMSTAT](#v%5Cmemstat)
+    - [V\$MEMTBL_INFO](#v%5Cmemtbl_info)
+    - [V\$MEM_BTREE_HEADER](#v%5Cmem_btree_header)
+    - [V\$MEM_BTREE_NODEPOOL](#v%5Cmem_btree_nodepool)
+    - [V\$MEM_RTREE_HEADER](#v%5Cmem_rtree_header)
+    - [V\$MEM_RTREE_NODEPOOL](#v%5Cmem_rtree_nodepool)
+    - [V\$MEM_TABLESPACES](#v%5Cmem_tablespaces)
+    - [V\$MEM_TABLESPACE_CHECKPOINT_PATHS](#v%5Cmem_tablespace_checkpoint_paths)
+    - [V\$MEM_TABLESPACE_STATUS_DESC](#v%5Cmem_tablespace_status_desc)
+    - [V\$MUTEX](#v%5Cmutex)
+    - [V\$NLS_PARAMETERS](#v%5Cnls_parameters)
+    - [V\$NLS_TERRITORY](#v%5Cnls_territory)
+    - [V\$OBSOLETE_BACKUP_INFO](#v%5Cobsolete_backup_info)
+    - [V\$PKGTEXT](#v%5Cpkgtext)
+    - [V\$PLANTEXT](#v%5Cplantext)
+    - [V\$PROCTEXT](#v%5Cproctext)
+    - [V\$PROCINFO](#v%5Cprocinfo)
+    - [V\$PROPERTY](#v%5Cproperty)
+    - [V$QUEUE_DELETE_OFF](#vqueue_delete_off)
+    - [V\$REPEXEC](#v%5Crepexec)
+    - [V\$REPGAP](#v%5Crepgap)
+    - [V\$REPGAP_PARALLEL](#v%5Crepgap_parallel)
+    - [V\$REPLOGBUFFER](#v%5Creplogbuffer)
+    - [V\$REPOFFLINE_STATUS](#v%5Crepoffline_status)
+    - [V\$REPRECEIVER](#v%5Crepreceiver)
+    - [V\$REPRECEIVER_COLUMN](#v%5Crepreceiver_column)
+    - [V\$REPRECEIVER_PARALLEL](#v%5Crepreceiver_parallel)
+    - [V\$REPRECEIVER_PARALLEL_APPLY](#v%5Crepreceiver_parallel_apply)
+    - [V\$REPRECEIVER_STATISTICS](#v%5Crepreceiver_statistics)
+    - [V\$REPRECEIVER_TRANSTBL](#v%5Crepreceiver_transtbl)
+    - [V\$REPRECEIVER_TRANSTBL_PARALLEL](#v%5Crepreceiver_transtbl_parallel)
+    - [V\$REPRECOVERY](#v%5Creprecovery)
+    - [V\$REPSENDER](#v%5Crepsender)
+    - [V\$REPSENDER_PARALLEL](#v%5Crepsender_parallel)
+    - [V\$REPSENDER_SENT_LOG_COUNT](#v%5Crepsender_sent_log_count)
+    - [V\$REPSENDER_SENT_LOG_COUNT_PARALLEL](#v%5Crepsender_sent_log_count_parallel)
+    - [V\$REPSENDER_STATISTICS](#v%5Crepsender_statistics)
+    - [V\$REPSENDER_TRANSTBL](#v%5Crepsender_transtbl)
+    - [V\$REPSENDER_TRANSTBL_PARALLEL](#v%5Crepsender_transtbl_parallel)
+    - [V\$REPSYNC](#v%5Crepsync)
+    - [V$REPL_REMOTE_META_REPLICATIONS](#vrepl_remote_meta_replications)
+    - [V$REPL_REMOTE_META_ITEMS](#vrepl_remote_meta_items)
+    - [V$REPL_REMOTE_META_COLUMNS](#vrepl_remote_meta_columns)
+    - [V$REPL_REMOTE_META_INDEX_COLUMNS](#vrepl_remote_meta_index_columns)
+    - [V$REPL_REMOTE_META_INDICES](#vrepl_remote_meta_indices)
+    - [V$REPL_REMOTE_META_CHECKS](#vrepl_remote_meta_checks)
+    - [V\$RESERVED_WORDS](#v%5Creserved_words)
+    - [V\$SBUFFER_STAT](#v%5Csbuffer_stat)
+    - [V\$SEGMENT](#v%5Csegment)
+    - [V\$SEQ](#v%5Cseq)
+    - [V\$SERVICE_THREAD](#v%5Cservice_thread)
+    - [V\$SERVICE_THREAD_MGR](#v%5Cservice_thread_mgr)
+    - [V\$SESSION](#v%5Csession)
+    - [V\$SESSION_EVENT](#v%5Csession_event)
+    - [V\$SESSION_WAIT](#v%5Csession_wait)
+    - [V\$SESSION_WAIT_CLASS](#v%5Csession_wait_class)
+    - [V\$SESSIONMGR](#v%5Csessionmgr)
+    - [V\$SESSTAT](#v%5Csesstat)
+    - [V\$SFLUSHER](#v%5Csflusher)
+    - [V\$SFLUSHINFO](#v%5Csflushinfo)
+    - [V\$SNAPSHOT](#v%5Csnapshot)
+    - [V\$SQLTEXT](#v%5Csqltext)
+    - [V\$SQL_PLAN_CACHE](#v%5Csql_plan_cache)
+    - [V\$SQL_PLAN_CACHE_PCO](#v%5Csql_plan_cache_pco)
+    - [V\$SQL_PLAN_CACHE_SQLTEXT](#v%5Csql_plan_cache_sqltext)
+    - [V\$STABLE_MEM_DATAFILES](#v%5Cstable_mem_datafiles)
+    - [V\$STATEMENT](#v%5Cstatement)
+    - [V\$STATNAME](#v%5Cstatname)
+    - [V\$SYSSTAT](#v%5Csysstat)
+    - [V\$SYSTEM_CONFLICT_PAGE](#v%5Csystem_conflict_page)
+    - [V\$SYSTEM_EVENT](#v%5Csystem_event)
+    - [V\$SYSTEM_WAIT_CLASS](#v%5Csystem_wait_class)
+    - [V\$SYS_LICENSE_](#v%5Csys_license_)
+    - [V\$TABLE](#v%5Ctable)
+    - [V\$TABLESPACES](#v%5Ctablespaces)
+    - [V\$TIME_ZONE_NAMES](#v%5Ctime_zone_names)
+    - [V\$TRACELOG](#v%5Ctracelog)
+    - [V\$TRANSACTION](#v%5Ctransaction)
+    - [V\$TRANSACTION_MGR](#v%5Ctransaction_mgr)
+    - [V\$TSSEGS](#v%5Ctssegs)
+    - [V\$TXSEGS](#v%5Ctxsegs)
+    - [V\$UDSEGS](#v%5Cudsegs)
+    - [V\$UNDO_BUFF_STAT](#v%5Cundo_buff_stat)
+    - [V\$USAGE](#v%5Cusage)
+    - [V\$VERSION](#v%5Cversion)
+    - [V\$VOL_TABLESPACES](#v%5Cvol_tablespaces)
+    - [V\$WAIT_CLASS_NAME](#v%5Cwait_class_name)
+    - [V\$XID](#v%5Cxid)
+- [2. Sample Schema](#2-sample-schema)
+    - [Information about the Sample Schema](#information-about-the-sample-schema)
+    - [E-R Entity-Relationship (ER) Diagram and Sample Data](#e-r-entity-relationship-er-diagram-and-sample-data)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # General Reference-2.The Data Dictionary
 
 #### Altibase 7.3
@@ -2623,25 +2844,29 @@ This is the table name generated by the system when it is moved to the recycle b
 
 This meta table contains information related to replication.
 
-| Column name              | Type        | Description                                                  |
-| ------------------------ | ----------- | ------------------------------------------------------------ |
-| LAST_USED_HOST_NO        | INTEGER     | The most recently used remote server                         |
-| HOST_COUNT               | INTEGER     | The number of remote servers                                 |
-| IS_STARTED               | INTEGER     | Whether replication is active                                |
-| XSN                      | BIGINT      | The Restart SN (Sequence Number), i.e. the SN from which the Sender will resume transmission of XLogs<sup>13</sup> |
-| ITEM_COUNT               | INTEGER     | The number of replication target tables                      |
-| CONFLICT_RESOLUTION      | INTEGER     | The replication conflict resolution method                   |
-| REPL_MODE                | INTEGER     | The default replication mode                                 |
-| ROLE                     | INTEGER     | The role of the sender thread                                |
-| OPTIONS                  | INTEGER     | A flag for additional replication features                   |
-| INVALID_RECOVERY         | INTEGER     | Whether replication recovery is possible                     |
-| REMOTE_FAULT_DETECT_TIME | DATE        | The time at which a fault was detected on a remote server    |
-| GIVE_UP_TIME             | DATE        | The time at which replication was most recently abandoned    |
-| REPLICATION_NAME         | VARCHAR(40) | The name of the replication object                           |
-| GIVE_UP_XSN              | BIGINT      | The XSN at which replication was most recently abandoned     |
-| PARALLEL_APPLIER_COUNT   | INTEGER     | The number of appliers                                       |
-| REMOTE_XSN               | BIGINT      | The most recently processed SN on the remote server.         |
-| APPLIER_INIT_BUFFER_SIZE | BIGINT      | Initial size of applier buffer                               |
+| Column name                  | Type        | Description                                                  |
+| ---------------------------- | ----------- | ------------------------------------------------------------ |
+| LAST_USED_HOST_NO            | INTEGER     | The most recently used remote server                         |
+| HOST_COUNT                   | INTEGER     | The number of remote servers                                 |
+| IS_STARTED                   | INTEGER     | Whether replication is active                                |
+| XSN                          | BIGINT      | The Restart SN (Sequence Number), i.e. the SN from which the Sender will resume transmission of XLogs<sup>13</sup> |
+| ITEM_COUNT                   | INTEGER     | The number of replication target tables                      |
+| CONFLICT_RESOLUTION          | INTEGER     | The replication conflict resolution method                   |
+| REPL_MODE                    | INTEGER     | The default replication mode                                 |
+| ROLE                         | INTEGER     | The role of the sender thread                                |
+| OPTIONS                      | INTEGER     | A flag for additional replication features                   |
+| INVALID_RECOVERY             | INTEGER     | Whether replication recovery is possible                     |
+| REMOTE_FAULT_DETECT_TIME     | DATE        | The time at which a fault was detected on a remote server    |
+| GIVE_UP_TIME                 | DATE        | The time at which replication was most recently abandoned    |
+| REPLICATION_NAME             | VARCHAR(40) | The name of the replication object                           |
+| GIVE_UP_XSN                  | BIGINT      | The XSN at which replication was most recently abandoned     |
+| PARALLEL_APPLIER_COUNT       | INTEGER     | The number of appliers                                       |
+| REMOTE_XSN                   | BIGINT      | The most recently processed SN on the remote server.         |
+| APPLIER_INIT_BUFFER_SIZE     | BIGINT      | Initial size of applier buffer                               |
+| PEER_REPLICATION_NAME        | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
+| REMOTE_LAST_DDL_XSN          | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
+| CURRENT_READ_XLOGFILE_NO     | INTEGER     | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file number와 offset |
+| CURRENT_READ_XLOGFILE_OFFSET | INTEGER     | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file 내에서의 offset |
 
 [<sup>13</sup>] SN: The identification number of the log record
 
@@ -2754,6 +2979,14 @@ This property specifies the initial buffer size of the parallel applier when rep
 
 If the number of parallel applier queues is less than the value of the property REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE, then the number of parallel applier queues is set to the value specified in the property REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE.
 
+##### PEER_REPLICATION_NAME
+
+로컬 이중화 옵션을 사용했을 때 원격 이중화의 이름이다.
+
+##### REMOTE_LAST_DDL_XSN
+
+원격 서버에서 가장 최근에 처리한 DDL의 SN 이다.
+
 #### Example
 
 \<Example\> The following is an example of returning values when using the replication gapless option and parallel applier option together on a created replication rep1.
@@ -2768,6 +3001,31 @@ OPTIONS
 --------------
 12           
 1 row selected.
+```
+
+### SYS_REPL_RECEIVER_
+
+원격 서버의 SN 정보를 기록하고 있는 메타 테이블이다.
+
+| Column name      | Type        | Description                         |
+| ---------------- | ----------- | ----------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | 이중화 이름                         |
+| REMOTE_XSN       | BIGINT      | 원격 서버에서 가장 최근에 처리한 SN |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+
+##### REMOTE_XSN
+
+원격 서버에서 가장 최근에 처리한 SN 이다. Sender 재시작 시 해당 REMOTE_XSN보다 SN이 작은 로그는 보내지 않고 Skip한다.
+
+#### 참조 테이블
+
+```
+SYS_REPLICATIONS_
 ```
 
 ### SYS_REPL_HOSTS\_ 
@@ -3030,6 +3288,7 @@ This meta table is for storing information about columns that are currently repl
 | MT_SCALE             | INTEGER       | The number of digits to the right of the decimal point       |
 | MT_ENCRYPT_PRECISION | INTEGER       | The number of digits in an encrypted column                  |
 | MT_POLICY_NAME       | VARCHAR(16)   | The name of the policy used for an encrypted column          |
+| MT_SRID              | INTEGER       | GEOMETRY 칼럼에 적용된 SRID                                  |
 | SM_ID                | INTEGER       | The column identifier                                        |
 | SM_FLAG              | INTEGER       | An internal flag                                             |
 | SM_OFFSET            | INTEGER       | The internal offset                                          |
@@ -3081,6 +3340,10 @@ For an encrypted numeric type column, this is the number of digits in the column
 ##### MT_POLICY_NAME
 
 For an encrypted column, this is the name of the policy used for the column. 
+
+##### MT_SRID
+
+GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
 
 ##### SM_ID
 
@@ -3234,14 +3497,28 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 This meta table contains information about tables currently being replicated by the replication Sender thread. 
 
-| Column name          | Type         | Description                             |
-| -------------------- | ------------ | --------------------------------------- |
-| REPLICATION_NAME     | VARCHAR(40)  | The partition name                      |
-| TABLE_OID            | BIGINT       | The table object identifier             |
-| USER_NAME            | VARCHAR(128) | The user name                           |
-| TABLE_NAME           | VARCHAR(128) | The table name                          |
-| PARTITION_NAME       | VARCHAR(128) | The name of the replication             |
-| PRIMARY_KEY_INDEX_ID | INTEGER      | The index identifier of the primary key |
+| Column name           | Type          | Description                                    |
+| --------------------- | ------------- | ---------------------------------------------- |
+| REPLICATION_NAME      | VARCHAR(40)   | The partition name                             |
+| TABLE_OID             | BIGINT        | The table object identifier                    |
+| USER_NAME             | VARCHAR(128)  | The user name                                  |
+| TABLE_NAME            | VARCHAR(128)  | The table name                                 |
+| PARTITION_NAME        | VARCHAR(128)  | The name of the replication                    |
+| PRIMARY_KEY_INDEX_ID  | INTEGER       | The index identifier of the primary key        |
+| REMOTE_USER_NAME      | VARCHAR(128)  | 원격 서버의 대상 테이블 소유자 이름            |
+| REMOTE_TABLE_NAME     | VARCHAR(128)  | 원격 서버의 대상 테이블 이름                   |
+| REMOTE_PARTITION_NAME | VARCHAR(128)  | 원격 서버의 파티션 이름                        |
+| PARTITION_ORDER       | INTEGER       | 파티션 순서(해쉬 파티션일 경우 필요)           |
+| PARTITION_MIN_VALUE   | VARCHAR(4000) | 파티션의 최소 기준값 (해쉬 파티션의 경우 NULL) |
+| PARTITION_MAX_VALUE   | VARCHAR(4000) | 파티션의 최대 기준값 (해쉬 파티션의 경우 NULL) |
+| INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN                         |
+| TABLE_ID              | INTEGER       | 테이블 식별자                                  |
+| TABLE_PARTITION_TYPE  | INTEGER       | 테이블 파티션 타입                             |
+| IS_PARTITION          | CHAR(1)       | 파티션 여부 Y/N                                |
+| REPLICATION_UNIT      | CHAR(1)       | 이중화 단위                                    |
+| TBS_TYPE              | INTEGER       | 테이블스페이스 유형                            |
+| PARTITION_METHOD      | INTEGER       | 파티션 방법                                    |
+| PARTITION_COUNT       | INTEGER       | 파티션 테이블의 총 개수                        |
 
 #### Column Information
 
@@ -3269,12 +3546,78 @@ This is the name of the partition containing the table being replicated on the l
 
 This is the identifier of a primary key index. 
 
+##### REMOTE_USER_NAME
+
+원격 서버의 이중화 대상 테이블인 소유자의 이름이다.
+
+##### REMOTE_TABLE_NAME
+
+원격 서버의 이중화 대상 테이블의 이름이다.
+
+##### REMOTE_PARTITION_NAME
+
+원격 서버의 이중화 대상 테이블이 속해 있는 파티션의 이름이다.
+
+##### PARTITION_ORDER
+
+파티션들 중에서 이 파티션의 순서를 나타낸다. 해쉬 (HASH) 파티션인 경우에 필요하다.
+
+##### PARTITION_MIN_VALUE
+
+파티션의 최소 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는 널(NULL)이다.
+
+##### PARTITION_MAX_VALUE
+
+파티션의 최대 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는 널(NULL)이다.
+
+##### INVALID_MAX_SN
+
+이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에 기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
+
+##### TABLE_ID
+
+SYS_TABLES_ 의 TABLE_ID 를 참고한다.
+
+##### TABLE_PARTITION_TYPE
+
+- 0: PARTITIONED TABLE
+- 1: TABLE PARTITION
+- 100: NONE PARTITIONED TABLE
+
+##### IS_PARTITION
+
+- Y: 파티션드 테이블
+- N: 그외
+
+##### REPLICATION_UNIT
+
+- T: 이중화 대상 아이템이 테이블임을 나타낸다.
+- P: 이중화 대상 아이템이 파티션임을 나타낸다.
+
+##### TBS_TYPE
+
+V$TABLESPACES 의 TYPE 컬럼을 참고한다.
+
+##### PARTITION_METHOD
+
+- 0: RANGE
+- 1: HASH
+- 2: LIST
+- 3: RANGE_USING_HASH
+- 100: NONE
+
+##### PARTITION_COUNT
+
+지역 서버의 이중화 대사 테이블이 속해 있는 파티션드 테이블을 구성하는 파티션 테이블의 총 개수
+
 #### Reference Tables
 
 ```
+SYS_TABLES_
 SYS_REPL_OLD_COLUMNS_
 SYS_REPL_OLD_INDICES_
 SYS_REPL_OLD_INDEX_COLUMNS_
+V$TABLESPACES
 ```
 
 ### SYS_REPL_TABLE_OID_IN_USE_
@@ -4364,9 +4707,6 @@ Performance views are identified by the prefix V$. The following table lists all
 | V\$STABLE_MEM_DATAFILES               | Information about the paths of data file(s)                  |
 | V\$STATEMENT                          | Information about statements for all current Altibase sessions |
 | V\$STATNAME                           | Information about the name and status of the system and sessions |
-| V\$ST_ANGULAR_UNIT                    | Reserved for future use                                      |
-| V\$ST_AREA_UNIT                       | Reserved for future use                                      |
-| V\$ST_LINEAR_UNIT                     | Reserved for future use                                      |
 | V\$SYSSTAT                            | Information about the status of the system                   |
 | V\$SYSTEM_CONFLICT_PAGE               | Information about latch contention according to page type    |
 | V\$SYSTEM_EVENT                       | Cumulative statistical information about waits from startup to the current time, classified according to wait event |
@@ -7603,6 +7943,30 @@ This view displays information about stored procedures being used by the system.
 
 ##### PROC_OID
 
+This is an OID, which is a unique object identifier for a stored procedure. 
+
+##### PIECE
+
+The complete text for a stored procedure is divided into text fragments 64 bytes long and then saved. PIECE shows the serial numbers for these 64-byte fragments, starting from 0.
+
+##### TEXT
+
+This shows the contents of the 64-byte text fragment that is part of the stored procedure text. 
+
+### V\$PROCINFO
+
+| Column name  | Type        | Description                      |
+|--------------|-------------|----------------------------------|
+| PROC_OID     | BIGINT      | The object identifier of the stored procedure        |
+| MODIFY_COUNT | INTEGER     | The number of times a stored procedure was recreated or recompiled |
+| STATUS       | VARCHAR(7)  | The status of the object. If INVALID, it is not executable |
+| SESSION_ID   | INTEGER     | The ID of the session that changed the STATUS of the stored procedure |
+| PROC_TYPE    | VARCHAR(10) | The type of stored procedure |
+
+#### Column Information
+
+##### PROC_OID
+
 The identifier of a stored procedure or stored function, which is the same as a PROC_OID value in the SYS_PROCEDURES_ meta table.
 
 ##### MODIFY_COUNT
@@ -7628,30 +7992,6 @@ The type of stored procedure. The possible values are:
 - INTERNAL C : C/C++ Internal Procedure
 
 - UNKNOWN : If the compilation of the stored procedure fails when starting the server, the internal procedure type is not known, so it is marked UNKNOWN. Subsequently, when compiled and in VALID status, the correct type is set.
-
-### V\$PROCINFO
-
-| Column name  | Type        | Description                      |
-|--------------|-------------|----------------------------------|
-| PROC_OID     | BIGINT      | The object identifier of the stored procedure        |
-| MODIFY_COUNT | INTEGER     | The number of times a stored procedure was recreated or recompiled |
-| STATUS       | VARCHAR(7)  | The status of the object. If INVALID, it is not executable |
-| SESSION_ID   | INTEGER     | The ID of the session that changed the STATUS of the stored procedure |
-| PROC_TYPE    | VARCHAR(10) | The type of stored procedure |
-
-#### Column Information
-
-##### PROC_OID
-
-This is an OID, which is a unique object identifier for a stored procedure. 
-
-##### PIECE
-
-The complete text for a stored procedure is divided into text fragments 64 bytes long and then saved. PIECE shows the serial numbers for these 64-byte fragments, starting from 0.
-
-##### TEXT
-
-This shows the contents of the 64-byte text fragment that is part of the stored procedure text. 
 
 ### V\$PROPERTY
 
@@ -7698,6 +8038,20 @@ This is the maximum value that the property can have.
 ##### VALUE1 \~ 8
 
 The actual values set for the property.
+
+### V$QUEUE_DELETE_OFF
+
+DELETE 문을 허용하지 않는 큐 테이블의 객체 식별자(OID) 정보를 가지고 있다. CREATE QUEUE 또는 ALTER QUEUE에서 DELETE OFF 절을 사용한 큐 테이블은 DELETE 문을 허용하지 않는다.
+
+| Column name | Type   | Description        |
+| ----------- | ------ | ------------------ |
+| TABLE_OID   | BIGINT | 테이블 객체 식별자 |
+
+#### 칼럼 정보
+
+##### TABLE_OID
+
+테이블 객체 식별자로, SYS_TABLES_메타 테이블에서 하나의 TABLE_OID와 일대일로 대응된다.
 
 ### V\$REPEXEC
 
@@ -8818,6 +9172,356 @@ This is the name of the partition that is the target for synchronization.
 When data in replication target tables on the local server are synchronized with those on the remote server, the data are synchronized in batches of records, the size of which is specified in the REPLICATION_SYNC_TUPLE_COUNT property of Altibase. 
 
 While synchronization is underway, this is the number of records that have been synchronized. A value of -1 indicates that synchronization is complete. 
+
+### V$REPL_REMOTE_META_REPLICATIONS
+
+수신자가 가지고 있는 송신자의 SYS_REPLICATIONS_ 메타 테이블의 정보를 보여준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+
+| Column name              | Type        | Description                                           |
+| ------------------------ | ----------- | ----------------------------------------------------- |
+| REPLICATION_NAME         | VARCHAR(40) | 이중화 이름                                           |
+| XSN                      | BIGINT      | 송신자가 XLog 전송을 재개할 재시작 SN(Seqence Number) |
+| ITEM_COUNT               | INTEGER     | 이중화 대상 테이블 개수                               |
+| CONFLICT_RESOLUTION      | INTEGER     | 이중화 충돌 해결 방법                                 |
+| REPL_MODE                | INTEGER     | 기본 이중화 모드                                      |
+| ROLE                     | INTEGER     | 이중화 쓰레드의 역할                                  |
+| OPTIONS                  | INTEGER     | 부가적인 이중화 기능을 위한 플래그                    |
+| REMOTE_FAULT_DETECT_TIME | DATE        | 원격 서버의 장애 감지 시각                            |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 이중화 이름으로, 이중화 생성 시 사용자가 명시한다.
+
+##### XSN
+
+원격 서버의 이중화가 시작될 때, 송신 쓰레드에서 로그 전송을 시작해야 할 SN을 나타낸다.
+
+##### ITEM_COUNT
+
+원격 서버의 이중화 대상 테이블의 개수이다. 해당 이중화에 대해 원격 서버의 SYS_REPL_ITEMS_ 메타 테이블에 이 수만큼 레코드들이 존재한다.
+
+##### CONFLICT_RESOLUTION
+
+원격 서버의 이중화 충돌 해결 방법을 기록한다.
+
+- 0: 기본 값
+- 1: Master Server로 동작
+- 2: Slave Server로 동작
+
+이중화 충돌 해결 방법에 대한 자세한 설명은 *Replication Manual*을 참조한다.
+
+##### REPL_MODE
+
+원격 서버의 이중화 생성시에 지정한 기본 이중화 모드이다.
+
+- 0: LAZY MODE (기본 값)
+- 2: EAGER MODE
+
+기본 이중화 모드는 ALTER SESSION SET REPLICATION 구문으로 세션의 이중화 모드를 설정하지 않았을 때 사용된다.
+
+기본 이중화 모드에 관한 자세한 내용은 *Replication Manual*을 참조하며, ALTER SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한다.
+
+##### ROLE
+
+이중화 쓰레드의 롤(ROLE)을 의미한다.
+
+- 0: 일반 이중화 (롤을 지정하지 않은 경우)
+- 1: Log Analyzer 전용 이중화 (FOR ANALYSIS 만 사용한 경우)
+- 2: Propagable Logging (FOR PROPAGABLE LOGGING을 사용한 경우)
+- 3: Propagation (FOR PROPAGATION 을 사용한 경우)
+- 4: Log analyzer 용 이중화에서 Propagation 설정 한 경우(FOR ANALYSIS PROPAGATION을 사용한 경우)
+
+Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's Manual을 참고한다.
+
+##### OPTIONS
+
+원격 서버의 이중화 부가 기능을 나타내는 플래그이다. 이중화 옵션의 종류는 아래와 같으며, 각 옵션을 설정시 이진수로 제어되며, 십진수로 변환되어 표시된다. 두 개 이상의 옵션을 사용할 경우 각각의 옵션에 해당하는 이진수 합이 십진수로 반환된다.
+
+- 0(000000): 이중화 옵션을 사용하지 않음
+- 1(000001): 복구 옵션 사용
+- 2(000010): 오프라인 옵션 사용
+- 4(000100): 이중화 갭 해소 옵션 사용
+- 8(001000): 병렬 적용자 옵션 사용
+- 16(010000):이중화 트랜잭션 그룹 옵션 사용
+- 32(100000):로컬 이중화 옵션 사용
+
+##### REMOTE_FAULT_DETECT_TIME
+
+원격 서버의 이중화 동작 중에 원격 서버의 장애를 감지한 시점을 기록한다.
+
+### V$REPL_REMOTE_META_ITEMS
+
+수신자가 가지고 있는 송신자의 SYS_REPL_ITEMS_ 메타 테이블 정보를 보여준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+
+| Column name           | Type         | Description                         |
+| --------------------- | ------------ | ----------------------------------- |
+| REPLICATION_NAME      | VARCHAR(40)  | 이중화 이름                         |
+| TABLE_OID             | BIGINT       | 테이블 객체 식별자                  |
+| LOCAL_USER_NAME       | VARCHAR(128) | 지역 서버의 대상 테이블 소유자 이름 |
+| LOCAL_TABLE_NAME      | VARCHAR(128) | 지역 서버의 대상 테이블 이름        |
+| LOCAL_PARTITION_NAME  | VARCHAR(128) | 지역 서버의 파티션 이름             |
+| REMOTE_USER_NAME      | VARCHAR(128) | 원격 서버의 대상 테이블 소유자 이름 |
+| REMOTE_TABLE_NAME     | VARCHAR(128) | 원격 서버의 대상 테이블 이름        |
+| REMOTE_PARTITION_NAME | VARCHAR(128) | 원격 서버의 파티션 이름             |
+| INVALID_MAX_SN        | BIGINT       | 건너 뛸 로그의 최대 SN              |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 대상 테이블 또는 파티션의 식별자로, 원격 서버의 SYS_TABLES_ 메타 테이블의 한 TABLE_OID 값 또는 SYS_TABLES_PARTITIONS_의 한 PARTITION_OID 값과 동일하다.
+
+##### LOCAL_USER_NAME
+
+원격 서버의 이중화 대상 테이블 소유자의 사용자 이름으로, 원격 서버의 SYS_USERS_ 메타 테이블의 한 USER_NAME 값과 동일하다.
+
+##### LOCAL_TABLE_NAME
+
+원격 서버의 이중화 대상 테이블의 이름으로, 원격 서버의 SYS_TABLES_ 메타 테이블의 한 TABLE_NAME 값과 동일하다.
+
+##### LOCAL_PARTITION_NAME
+
+원격 서버의 이중화 대상 파티션의 이름이다.
+
+##### REMOTE_USER_NAME
+
+지역 서버의 이중화 대상 테이블 소유자의 사용자 이름으로, 지역 서버의 SYS_USERS_ 메타 테이블의 한 USER_NAME 값과 동일하다.
+
+##### REMOTE_TABLE_NAME
+
+지역 서버의 이중화 대상 테이블의 이름으로, 지역 서버의 SYS_TABLES_ 메타 테이블의 한 TABLE_NAME 값과 동일하다.
+
+##### REMOTE_PARTITION_NAME
+
+지역 서버의 이중화 대상 파티션의 이름이다.
+
+##### INVALID_MAX_SN
+
+원격 서버의 이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에 기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
+
+### V$REPL_REMOTE_META_COLUMNS
+
+수신자가 가지고 있는 송신자의 SYS_REPL_OLD_COLUMNS_ 메타 테이블 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+
+| Column name          | Type         | Description                      |
+| -------------------- | ------------ | -------------------------------- |
+| REPLICATION_NAME     | VARCHAR(40)  | 이중화 이름                      |
+| TABLE_OID            | BIGINT       | 테이블 객체 식별자               |
+| COLUMN_NAME          | VARCHAR(128) | 칼럼 이름                        |
+| MT_DATATYPE_ID       | INTEGER      | 데이터 타입 식별자               |
+| MT_LANGUAGE_ID       | INTEGER      | 언어 식별자                      |
+| MT_FLAG              | INTEGER      | 내부 플래그                      |
+| MT_PRECISION         | INTEGER      | 정밀도                           |
+| MT_SCALE             | INTEGER      | 소수 자릿수                      |
+| MT_ENCRYPT_PRECISION | INTEGER      | 암호화 칼럼 정밀도               |
+| MT_POLICY_NAME       | VARCHAR(16)  | 암호화 칼럼에 사용된 정책의 이름 |
+| MT_SRID              | INTEGER      | GEOMETRY 칼럼에 적용된 SRID      |
+| SM_ID                | INTEGER      | 칼럼 식별자                      |
+| SM_FLAG              | INTEGER      | 내부 플래그                      |
+| SM_OFFSET            | INTEGER      | 내부 오프셋                      |
+| SM_SIZE              | INTEGER      | 내부 크기                        |
+| QP_FLAG              | INTEGER      | 내부 플래그                      |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름이다. 메타 테이블의 한 REPLICATION_NAME값과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 사용중인 이중화 대상 테이블의 식별자이다. SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### COLUMN_NAME
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 칼럼의 이름이다.
+
+##### MT_DATATYPE_ID
+
+데이터 타입 식별자로, 내부 값이다.
+
+##### MT_LANGUAGE_ID
+
+언어 식별자로, 내부 값이다.
+
+##### MT_FLAG
+
+Altibase 서버가 사용하는 내부 플래그이다.
+
+##### MT_PRECISION
+
+숫자 타입의 경우, 칼럼의 정밀도 (숫자 자리수)를 나타낸다. 타입의 경우, 문자형 데이터 타입의 길이를 나타낸다.
+
+##### MT_SCALE
+
+숫자 타입의 경우, 칼럼의 소수점 이하 자릿수를 나타낸다.
+
+##### MT_ENCRYPT_PRECISION
+
+암호화된 칼럼의 정밀도 (크기)를 나타낸다.
+
+##### MT_POLICY_NAME
+
+암호화된 칼럼의 경우, 칼럼에 적용된 보안 정책의 이름을 나타낸다.
+
+##### MT_SRID
+
+GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
+
+##### SM_ID
+
+칼럼 식별자이다. 0부터 시작한다.
+
+##### SM_FLAG
+
+Altibase 서버가 사용하는 내부 플래그이다.
+
+##### SM_OFFSET
+
+Altibase 서버가 사용하는 내부 오프셋이다.
+
+##### SM_SIZE
+
+Altibase 서버가 사용하는 내부 크기이다.
+
+##### QP_FLAG
+
+Altibase 서버가 내부적으로 사용하는 플래그이다.
+
+### V$REPL_REMOTE_META_INDEX_COLUMNS
+
+수신자가 가지고 있는 송신자의 SYS_REPL_OLD_INDEX_COLUMNS_ 메타 테이블 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+
+| Column name      | Type        | Description        |
+| ---------------- | ----------- | ------------------ |
+| REPLICATION_NAME | VARCHAR(40) | 이중화 이름        |
+| TABLE_OID        | BIGINT      | 테이블 객체 식별자 |
+| INDEX_ID         | INTEGER     | 인덱스 식별자      |
+| KEY_COLUMN_ID    | INTEGER     | 칼럼 식별자        |
+| KEY_COLUMN_FLAG  | INTEGER     | 내부 플래그        |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 테이블의 식별자이다. 원격 서버의 SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### INDEX_ID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 식별자이다.
+
+##### KEY_COLUMN_ID
+
+인덱스를 구성하는 칼럼의 식별자이다.
+
+##### KEY_COLUMN_FLAG
+
+인덱스를 구성하는 칼럼의 내부 플래그이다.
+
+### V$REPL_REMOTE_META_INDICES
+
+수신자가 가지고 있는 송신자의 SYS_REPL_OLD_INDICES_ 메타 테이블의 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+
+| Column name      | Type         | Description               |
+| ---------------- | ------------ | ------------------------- |
+| REPLICATION_NAME | VARCHAR(40)  | 이중화 이름               |
+| TABLE_OID        | BIGINT       | 테이블 객체 식별자        |
+| INDEX_ID         | INTEGER      | 인덱스 식별자             |
+| INDEX_NAME       | VARCHAR(128) | 인덱스 이름               |
+| TYPE_ID          | INTEGER      | 인덱스 타입 식별자        |
+| IS_UNIQUE        | CHAR(1)      | 글로벌 유니크 인덱스 여부 |
+| IS_RANGE         | CHAR(1)      | 범위 검색 가능 여부       |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름으로, 원격 서버의 SYS_REPLICATIONS_ 메타 테이블의 한 REPLICATION_NAME과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 테이블의 식별자이다. 원격 서버의 SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### INDEX_ID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 인덱스의 식별자이다.
+
+##### INDEX_NAME
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 이름이다.
+
+##### TYPE_ID
+
+인덱스 유형 식별자로, 내부 값이다.
+
+##### IS_UNIQUE
+
+글로벌 유니크 인덱스인지 여부를 나타낸다. 'Y'는 글로벌 유니크를 나타내고, 'N'은 글로벌 유니크가 아님을 나타낸다.
+
+##### IS_RANGE
+
+범위 검색 가능 여부를 나타낸다. 'Y'는 범위 검색이 가능한 인덱스이고, 'N'은 범위 검색이 불가능한 인덱스임을 나타낸다.
+
+### V$REPL_REMOTE_META_CHECKS
+
+수신자가 가지고 있는 송신자의 이중화 테이블의 제약 조건에 관한 정보를 보여 준다.
+
+수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+
+| Column name      | Type          | Description                  |
+| ---------------- | ------------- | ---------------------------- |
+| REPLICATION_NAME | VARCHAR(40)   | 이중화 이름                  |
+| TABLE_OID        | BIGINT        | 테이블 객체 식별자           |
+| CONSTRAINT_ID    | INTEGER       | 제약조건 식별자              |
+| CONSTRAINT_NAME  | VARCHAR(128)  | 제약조건 이름                |
+| COLUMN_CNT       | INTEGER       | 제약조건에 관련된 칼럼 개수  |
+| CHECK_CONDITION  | VARCHAR(4000) | CHECK 제약조건의 조건 문자열 |
+
+#### 칼럼 정보
+
+##### REPLICATION_NAME
+
+원격 서버의 사용자가 명시한 이중화 이름으로, 원격 서버의 SYS_REPLICATIONS_ 메타 테이블의 한 REPLICATION_NAME과 동일하다.
+
+##### TABLE_OID
+
+원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 테이블의 식별자이다. 원격 서버의 SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+
+##### CONSTRAINT_ID
+
+제약 조건 식별자로 시스템 시퀀스에 의해 자동으로 부여된다.
+
+##### CONSTRAINT_NAME
+
+제약 조건의 이름을 나타낸다.
+
+##### COLUMN_CNT
+
+제약 조건에 관련된 칼럼들의 개수를 나타낸다. 예를 들어 UNIQUE (i1, i2, i3) 과 같은 제약 조건을 생성하였다면 이 값은 3일 것이다.
+
+##### CHECK_CONDITION
+
+사용자가 CHECK 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을 나타낸다.
 
 ### V\$RESERVED_WORDS
 
