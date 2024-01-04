@@ -281,7 +281,7 @@ It is recommended to use Java 1.8.0_351 or later to conveniently implement the c
 
 - It is possible to use the TLS 1.3 cipher algorithms without a specific setting in Java 1.8.0_351 or later.
 
-- Since  Java 1.8.0_261 it supports TLS 1.3. However, the following setting is required to user TLS 1.3.
+- Since  Java 1.8.0_261 it supports TLS 1.3. However, the following setting is required to use TLS 1.3.
 
   ```java
     % java -Djdk.tls.client.protocols="TLSv1.3"
