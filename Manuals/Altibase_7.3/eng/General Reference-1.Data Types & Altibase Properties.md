@@ -7003,45 +7003,45 @@ Read-Write, Single Value
 
 ##### Description
 
-하나의 디스크 인덱스를 CREATE INDEX 문으로 생성하거나 ALTER INDEX ~ REBUILD 문으로 재구축할 때, 디스크 인덱스 키정렬에 사용될 페이지 수를 설정한다. 디스크 인덱스 키들의 크기가 DISK_INDEX_BUILD_SORT_AREA_SIZE 보다 클 때 즉, 정해진 메모리 영역에서 모든 디스크 인덱스 키들을 정렬할 수 없을 때 사용된다.
+When creating a single disk index using the CREATE INDEX statement or rebuilding it with the ALTER INDEX ~ REBUILD statement, this property determines the number of pages used for disk index key sorting. It is utilized when the size of disk index keys is larger than DISK_INDEX_BUILD_SORT_AREA_SIZE, indeed, when it is impossible to sort all disk index keys within the designated memory space.
 
-디스크 I/O 발생으로 디스크 인덱스 생성(또는 재구축) 속도가 느려지면 이 프로퍼티의 값을 조정하여 디스크 인덱스 생성(또는 재구축) 속도를 높일 수 있다. 단, BUFFER_AREA_SIZE의 10% 이하로 설정할 것을 권고한다. BUFFER_AREA_SIZE는 디스크 인덱스 뿐 아니라 디스크 테이블에 접근하는 여러 트랜잭션에서 동시에 접근하는 메모리 영역이기 때문이다.
+If the disk I/O causes slower disk index creation (or rebuilding), adjusting the value of this property can potentially increase the speed of disk index creation (or rebuilding). However, it's recommended to set it below 10% of BUFFER_AREA_SIZE. This suggestion is because multiple transactions accessing not only disk indexes but also disk tables access BUFFER_AREA_SIZE memory area simultaneously.
 
-이 프로퍼티의 기본값은 BUFFER_AREA_SIZE 기본값의 약 1% 크기이다. 디스크 테이블 크기에 따라 BUFFER_AREA_SIZE를 조정할 때에 디스크 인덱스를 고려하여 이 프로퍼티 값도 적절하게 조정해야 한다.
-
-이 프로퍼티는 ALTER SYSTEM 문으로 변경할 수 있다.
-
-When a disk index is created, if the keys extracted from data cannot all be sorted in memory at the same time, this property specifies the number of pages to be used for external sorting. 
+The default value of this property is approximately 1% size of the default value of BUFFER_AREA_SIZE. Adjust this property value appropriately considering the disk index when adjusting BUFFER_AREA_SIZE based on the disk table size.
 
 This property can be changed using the ALTER SYSTEM statement during system operation.
 
-#### DISK_INDEX_BUILD_SORT_AREA_SIZE (단위 : 바이트)
+#### DISK_INDEX_BUILD_SORT_AREA_SIZE (Unit : byte)
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Long
 
-##### 기본값
+##### Default Value
 
 10MB
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
-[512K, 264-1]
+[512K, 2<sup>64</sup>-1]
 
-##### 설명
+##### Description
 
-하나의 디스크 인덱스를 CREATE INDEX 문으로 생성하거나 ALTER INDEX ~ REBUILD 문으로 재구축할 때, 디스크 인덱스 키들을 정렬하는 용도로 사용할 최대 메모리 크기를 설정한다. 디스크 인덱스 키들의 크기만큼 메모리가 할당되며 필요한 때에 이 프로퍼티의 설정값만큼 증가한다. 디스크 인덱스를 생성(또는 재구축)하는 동안 할당된 메모리 크기는 V$MEMSTAT의 Storage_Disk_Index에서 확인할 수 있으며 동시에 생성(또는 재구축)하는 디스크 인덱스 수 * DISK_INDEX_BUILD_SORT_AREA_SIZE 만큼 메모리가 할당될 수 있다.
+When creating a single disk index using the CREATE INDEX statement or rebuilding it with the ALTER INDEX ~ REBUILD statement, this property determines the maximum memory size used for disk index key sorting. Memory is allocated as much as the size of disk index keys and increases by the amount specified in this value when necessary. 
 
-이 메모리는 디스크 인덱스 키들을 정렬하는 과정이 끝나면 바로 해제된다. 단, 디스크 인덱스 키들의 크기가 이 프로퍼티의 값보다 작으면, 다시 말하면 이 프로퍼티에서 정한 메모리 내에서 모든 디스크 인덱스 키들을 정렬하면 디스크 인덱스 생성(또는 재구축)을 완료할 때 메모리가 해제된다.
+디스크 인덱스를 생성(또는 재구축)하는 동안 할당된 메모리 크기는 V$MEMSTAT의 Storage_Disk_Index에서 확인할 수 있으며 동시에 생성(또는 재구축)하는 디스크 인덱스 수 * DISK_INDEX_BUILD_SORT_AREA_SIZE 만큼 메모리가 할당될 수 있다.
 
-디스크 인덱스 생성(또는 재구축) 속도를 향상 해야 할 때 이 프로퍼티를 조정할 수 있다. 권고값은 INDEX_BUILD_THREAD_COUNT * 20MB이다.
+Users can find the size of allocated memory size during disk index creation or rebuilding in Storage_Disk_Index of  V$MEMSTAT. 
 
-이 프로퍼티는 ALTER SYSTEM 문으로 변경할 수 있다.
+This memory is released immediately after the completion of sorting disk index keys. However, if the size of disk index keys is smaller than the value set in this property, which means all disk index keys are sorted within the memory specified in this property during disk index creation(or rebuilding), the memory is released when all processes are done.
+
+Users can adjust this property when they need to improve the disk index creation(or rebuilding) speed. The recommended value is INDEX_BUILD_THREAD_COUNT * 20MB.
+
+This property can be changed using the ALTER SYSTEM statement.
 
 #### EXECUTE_STMT_MEMORY_MAXIMUM (Unit: byte)
 
@@ -9011,11 +9011,13 @@ Read-Write, Single Value
 
 ##### Description
 
-언두 테이블스페이스에서 관리하는 트랜잭션 세그먼트의 개수를 나타낸다. 트랜잭션 세그먼트에는 TSS 세그먼트와 언두 세그먼트가 있으며 기본값 256은 TSS 세그먼트 256개, 언두 세그먼트 256개를 의미한다. 트랜잭션 세그먼트는 Altibase 서버 구동 시 생성된다. 트랜잭션 수행 중 트랜잭션 세그먼트가 부족한 경우 altibase_boot.log 에 "TRANSACTION_SEGMENT_COUNT is full" 로그를 남기고 사용 가능한 트랜잭션 세그먼트를 할당받을 때까지 트랜잭션은 대기한다.
+This property specifies the number of transaction segments managed by undo tablespace. There are two transaction segments, TSS segment and undo segment. The default value of 256 refers to 256 TSS segments and 256 Undo segments.
 
-Altibase 분산 데이터베이스 시스템에서 이 프로퍼티 값을 이전 값보다 작게 설정하기를 원하면 분산 트랜잭션을 모두 종료한 후 Altibase 서버를 중지해야 한다. 정리되지 않은 분산 트랜잭션이 있을 때 현재 값보다 작게 설정하고 Altibase 서버를 재시작한 경우 기존 언두 테이블스페이스의 공간에 접근할 수 없어 Altibase 서버 구동이 실패한다.
+Transaction segments are created when the Altibase server starts up. If there is an insufficiency of transaction segments during transaction processing, the system logs "TRANSACTION_SEGMENT_COUNT is full" in the altibase_boot.log file. Then, transactions wait until they are allocated available transaction segments.
 
-This property specifies the number of transaction segments (Undo segments and TTS segments) created when the server is started. 
+정리되지 않은 분산 트랜잭션이 있을 때 현재 값보다 작게 설정하고 Altibase 서버를 재시작한 경우 기존 언두 테이블스페이스의 공간에 접근할 수 없어 Altibase 서버 구동이 실패한다.
+
+If users want to set this property smaller than before in Altibase distributed database system, users should quit all distributed transactions and stop Altibase server. If an active distributed transaction remains and, Altibase server startup fails when users try restarting the server as it cannot access the space in the existing undo tablespace.
 
 This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
@@ -9252,55 +9254,59 @@ If the server starts, a socket file is created under $ALTIBASE_HOME/trc/cm-ipc d
 
 #### IPC_SEM_KEY
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 4294967294]
 
-##### 설명
+##### Description
 
-IPC 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+This property sets semaphore keys for IPC channel creation to the user-defined value. 
 
-기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC_SEM_KEY 값을 기준으로 IPC_SEM_KEY부터 IPC_SEM_KEY + (IPC_CHANNEL_COUNT + 1)만큼의 연속된 세마포어 키를 사용하여 IPC 채널을 생성한다. +1은 SYS 사용자가 관리자 모드(sysdba)로 접속하기 위해 예약된 IPC 채널이다. 예를 들어 IPC_SEM_KEY 값이 10000이고 IPC_CHANNEL_COUNT 값이 1000이면 세마포어 키로 10000부터 11000까지 사용한다.
+The default value is 0. Altibase generates semaphore keys based on the process identifier(PID) of the Altibase server process automatically. 
 
-IPC 채널은 Altibase 서버 구동 시 생성되는데, 세마포어 키가 사용 중이거나 다른 이유로 세마포어를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다.
+When setting this property to any other numbers, it creates IPC channels using a range of contiguous semaphore keys, starting from IPC_SEM_KEY up to IPC_SEM_KEY + (IPC_CHANNEL_COUNT + 1). The additional +1 is reserved for the IPC channel used by the SYS user to connect in administrator mode (sysdba). For instance, if IPC_SEM_KEY is set to 10000 and IPC_CHANNEL_COUNT is set to 1000, the semaphore keys range from 10000 to 11000.
+
+IPC channels are generated while Altibase server starts up. If the semaphore key is in use or unable to create a semaphore due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
 
 #### IPC_SHM_KEY
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 4294967294]
 
-##### 설명
+##### Description
 
-IPC 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+This property sets shared memory keys for IPC channel creation to the user-defined value. 
 
-기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPC_SHM_KEY 값을 공유 메모리 키로 사용한다.
+The default value is 0. Altibase generates shared memory keys based on the process identifier(PID) of the Altibase server process automatically. 
 
-IPC 채널은 Altibase 서버 구동 시 생성되는데, 공유 메모리 키가 사용 중이거나 다른 이유로 공유 메모리를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다.
+When setting this property to any other numbers, the IPC_SHM_KEY value is used for the shared memory key.
+
+IPC channels are generated while Altibase server starts up. If the shared memory key is in use or unable to create shared memory due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
 
 #### IPCDA_CHANNEL_COUNT
 
@@ -9362,7 +9368,7 @@ String
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -9376,55 +9382,59 @@ If the server starts, a socket file is created under $ALTIBASE_HOME/trc/cm-ipcda
 
 #### IPCDA_SEM_KEY
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 4294967294]
 
-##### 설명
+##### Description
 
-IPCDA 채널을 생성하는 데 필요한 세마포어 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+This property sets semaphore keys for IPCDA channel creation to the user-defined value. 
 
-기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 세마포어 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA_SEM_KEY 값을 기준으로 IPCDA_SEM_KEY부터 IPCDA_SEM_KEY + IPC_CHANNEL_COUNT만큼의 연속된 세마포어 키를 사용하여 IPCDA 채널을 생성한다. 예를 들어 IPCDA_SEM_KEY 값이 10000이고 IPC_CHANNEL_COUNT 값이 1000이면 세마포어 키로 10000부터 10999까지 사용한다.
+The default value is 0. Altibase generates semaphore keys based on the process identifier(PID) of the Altibase server process automatically. 
 
-IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 세마포어 키가 사용 중이거나 다른 이유로 세마포어를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다.
+When setting this property to any other numbers, it creates IPC channels using a range of contiguous semaphore keys, starting from IPCDA_SEM_KEY up to IPCDA_SEM_KEY + IPC_CHANNEL_COUNT. For instance, if IPCDA_SEM_KEY is set to 10000 and IPC_CHANNEL_COUNT is set to 1000, the semaphore keys range from 10000 to 10999.
+
+IPCDA channels are generated while Altibase server starts up. If the semaphore key is in use or unable to create a semaphore due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
 
 #### IPCDA_SHM_KEY
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 4294967294]
 
-##### 설명
+##### Description
 
-IPCDA 채널을 생성하는 데 필요한 공유 메모리 키(key)를 사용자가 정의한 값으로 설정하는 프로퍼티이다.
+This property sets shared memory keys for IPCDA channel creation to the user-defined value. 
 
-기본값은 0으로 Altibase 서버 프로세스의 프로세스 식별자(PID)를 기준으로 공유 메모리 키를 자동으로 생성한다. 0이 아닌 값을 설정하면 IPCDA_SHM_KEY 값을 기준으로 연속된 키 2개를 공유 메모리 키로 사용한다. 예를 들어 IPCDA_SHM_KEY=10000이면 10000, 10001을 공유 메모리 키 값으로 사용한다.
+The default value is 0. Altibase generates shared memory keys based on the process identifier(PID) of the Altibase server process automatically. 
 
-IPCDA 채널은 Altibase 서버 구동 시 생성되는데, 공유 메모리 키가 사용 중이거나 다른 이유로 공유 메모리를 생성하지 못하면 Altibase 서버 구동은 실패한다. 이 경우 Altibase 서버 트레이스 로그 altibase_boot.log에서 시스템 에러(errno)를 확인하고 그에 따른 적절한 처리를 해야 한다.
+When setting this property to any other numbers, two contiguous numbers from IPCDA_SHM_KEY are used for the shared memory keys. For example, if IPCDA_SHM_KEY is 10000, the shared memory keys will be 10000 and 10001.
+
+IPCDA channels are generated while Altibase server starts up. If the shared memory key is in use or unable to create shared memory due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
 
 #### MAX_LISTEN
 
@@ -9719,7 +9729,7 @@ Unsigned Integer
 
 ##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
 ##### Range
 
@@ -10165,27 +10175,27 @@ This property is set to prevent abnormal increases in database memory consumptio
 
 This property can be changed using the ALTER SYSTEM or ALTER SESSION statement while Altibase is running.
 
-#### SERVICE_THREAD_RECV_TIMEOUT(단위 : 초)
+#### SERVICE_THREAD_RECV_TIMEOUT(Unit : second)
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default
 
 60
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 3600]
 
-##### 설명
+##### Description
 
-클라이언트로부터 비정상적인 패킷 (malformed packet)이 수신된 경우 서비스 쓰레드의 무한대기를 방지하기 위해 설정한다. 이 프로퍼티에 설정한 시간동안 클라이언트로부터 완성된 패킷이 수신되지 않으면, 타임아웃이 발생하고 서버는 접속을 끊는다. 이 프로퍼티의 값을 0으로 설정하면, 서비스 쓰레드는 완성된 패킷을 수신할 때까지 무한대기 한다. 반면 이 값을 너무 작게 설정하면, 네트워크가 느린 환경에서는 접속이 끊어질수 있다. 지원하는 통신 방식은 TCP, Unix domain, SSL, Infiniband 이다.
+This property is configured to prevent service threads from indefinite waiting in case of receiving malformed packets from clients. If a completed packet is not received from the client within the time set by this property, a timeout occurs, leading the server to terminate the connection. Setting the value of this property to 0 causes service threads to wait indefinitely until a completed packet is received. Conversely, setting it too low might lead to connection termination in slower network environments. Supported communication methods include TCP, Unix domain, SSL, and Infiniband.
 
 #### SHUTDOWN_IMMEDIATE_TIMEOUT
 
@@ -10381,7 +10391,7 @@ Unsigned Integer
 
 ##### Attributes
 
-변경 가능, Single Value
+Read-Write, Single Value
 
 ##### Range
 
@@ -10395,7 +10405,7 @@ If this parameter is set to 0, the archivelog thread will output an error messag
 
 If this parameter is set to 1, the archivelog thread waits until enough disk space can be secured to perform the archive log file backup. Because the archive log files have not been backed up, care must be taken to prevent the log files from being deleted if checkpointing takes place during this waiting period.
 
-2 : 디스크 공간 부족을 포함한 백업 실패 상황이 발생하는 경우 트레이스 로그(altibase_sm.log)에 에러 메시지를 출력하고 다음 로그 파일의 백업을 시도한다. 로그 파일마다 차례로 이 과정을 거치므로 로그 파일 백업 실패 현상이 발생한 시점부터 백업 실패 상황이 해소될 때까지 아카이브 로그 파일 경로에 백업하지 못한 로그 파일이 있을 수 있다. 이때 체크포인트가 발생하면 백업이 실패한 로그 파일도 불필요한 로그 파일로 판단하고 삭제하기 때문에 데이터베이스 복구가 불가능할 수 있으므로 2로 설정하고 운영할 경우 주의가 필요하다.
+If this parameter is set to 2, the archivelog thread will write an error message in the trace log file(altibase_sm.log) and attempt to back up the next log files in case of backup failure.  Every log file takes this step in a row, so there may be log files that have not been backed up in the archivelog file path from when the log file backup failure occurs until the backup failure is resolved. At this time, if a checkpoint occurs, it may not be possible to recover the database because even the failed backup log file is judged to be an unnecessary log file and deleted. Therefore, users should take care of this when setting this property to 2.
 
 #### ARCHIVE_MULTIPLEX_COUNT
 
@@ -10437,7 +10447,7 @@ String
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -10589,7 +10599,7 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -11748,27 +11758,27 @@ The value of this property can be altered using the ALTER SYSTEM statement while
 
 #### REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 20000
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232-1]
+[0, 2<sup>32</sup>-1]
 
-##### 설명
+##### Description
 
-Applier 가 다른 Applier 의 Transaction 반영 대기시 시스템 함수인 yield 를 이용하여 대기 하는 횟수.
+This property specifies the number of times an Applier waits for the reflection of another Applier's transaction using the system function "yield".
 
-yield 함수를 사용시 CPU 사용을 하기 때문에 이 횟수 이상 호출 이후에는 CPU 자원을 사용안하는 timed_wait 함수를 호출 한다.
+When using the yield function, CPU usage occurs. Therefore, after exceeding this specified count, the timed_wait function is called, which doesn’t consume CPU resources.
 
 #### REPLICATION_RECOVERY_MAX_LOGFILE
 
@@ -11904,30 +11914,31 @@ The REPLICATION_SENDER_ENCRYPT_XLOG property sets whether or not to encrypt XLog
 
 #### REPLICATION_SENDER_IP
 
-##### 데이터 타입
+##### Data Type
 
 String
 
-##### 기본값
+##### Default Value
 
 ANY
 
-##### 속성
+##### Attributes
 
-읽기 전용, 다중 값
+Read-Only, Multiple Values
 
-##### 값의 범위
+##### Range
 
-없음
+None
 
-##### 설명
+##### Description
 
-이중화 송신자의 IP 주소를 설정하는 프로퍼티이다. 값으로 ANY나 IP 주소를 입력할 수 있다.
+This property stores the IP address of the replication sender. Users can set this value to 'ANY' or a specific IP address. 
 
-기본값 ANY는 이중화 객체를 생성하는 지역 서버의 모든 IP 주소가 이중화 통신에 사용될 수 있으며 OS에서 할당한 IP 주소가 송신자 IP 주소로 사용된다. IP 주소를 값으로 설정하면 원격 서버(수신자)와 통신할 때 설정한 IP 주소만 사용된다. REPLICATION_SENDER_IP = *value*를 추가하여 여러 개의 IP 주소를 설정할 수 있으며 순서대로 송신자 IP 주소로 사용된다. IP 주소는 IPv4, IPv6, IPv6 확장 주소 형태로 입력할 수 있다.
+If the value is set to ANY, the default value, users can use every IP address of the local server which creates replication objects for replication communication. In this case, the IP address allocated by OS is used for the sender IP address. If the value is set to a specific IP address, users can only use that IP address when the local server communicates with a remote server(receiver). Users can set several IP addresses by adding REPLICATION_SENDER_IP = *value*. These values are used in a row. IPv4, IPv6, and IPv6 extension address formats are supported.
+
+##### Example
 
 ```
-설정 예시
 REPLICATION_SENDER_IP = 10.0.0.1
 REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
 ```
@@ -12283,27 +12294,29 @@ This property can be changed using the ALTER SYSTEM statement while Altibase is 
 
 #### REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 1]
 
-##### 설명
+##### Description
 
 Lazy 모드로 이중화 수행 과정에서 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을 수행하여 Active 서버와 Standby 서버의 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에 이중화를 START 할 수 있는 프로퍼티이다. 이 값을 1로 설정하면 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에도 이중화를 START 할 수 있다.
 
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+If this property is set to 1, users can START replication even if the number of replication table partitions meta items of the Active server and Standby server are different when LAZY mode replication is operating. During this process, SPLIT PARTITION, MERGE PARTITION, and DROP PARTITION are performed.
+
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
 ### Network and Security Properties
 
@@ -12781,25 +12794,25 @@ $ openssl ciphers
 
 #### SSL_CIPHER_SUITES
 
-##### 데이터 타입
+##### Data Type
 
 String
 
-##### 기본값
+##### Default Value
 
-없음
+None
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-없음
+None
 
-##### 설명
+##### Description
 
-TLS v 1.3의 특정 암호 알고리즘 후보를 지정하는 프로퍼티이다. 한 개 이상의 후보를 설정할 수 있으며, 콜론(:)으로 구분한다. 이 프로퍼티 설정을 하지 않으면, OpenSSL에서 사용 가능한 TLS 1.3 암호 알고리즘 후보를 모두 사용할 수 있다.
+This property sets specific cipher algorithm candidates for TLS v1.3. Users can set one or more candidates. The candidates are separated by a colon (:). If this property is not configured, OpenSSL allows the use of all available TLS 1.3 cipher algorithm candidates.
 
 #### SSL_CLIENT_AUTHENTICATION
 
@@ -12879,29 +12892,29 @@ An example of this value could be $ALTIBASE_HOME/cert/server- key.pem.
 
 #### SSL_LOAD_CONFIG
 
-##### 데이터 타입
+##### Data Type
 
-Unsigned Integer
+String
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
 [0,1]
 
-##### 설명
+##### Description
 
-OpenSSL Configuration 파일(openssl.cnf)을 로딩하도록 설정하는 프로퍼티이다. 기본값은 0(Disable)이다. OpenSSL FIPS 모듈을 사용하기 위해서는 이 프로퍼티의 값을 1로 설정해야 한다.
+This property configures loading the OpenSSL configuration file (openssl.cnf). The default value is 0 (Disable). To use the OpenSSL FIPS module, this property should be set to 1.
 
-0: 로딩하지 않음
+0: Do not load the file
 
-1: 로딩
+1: Load the file
 
 #### SSL_MAX_LISTEN
 
@@ -13025,93 +13038,93 @@ This property specifies whether or not information about message files and log f
 
 #### CM_MSGLOG_COUNT
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 10
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232-1]
+[0, 2<sup>32</sup>-1]
 
-##### 설명
+##### Description
 
-통신(CM) 모듈을 위한 메시지 파일의 최대 개수를 지정한다.
+This property specifies the maximum number of message log files for communication(CM) module.
 
 #### CM_MSGLOG_FILE
 
-##### 데이터 타입
+##### Data Type
 
 String
 
-##### 기본값
+##### Default Value
 
 altibase_cm.log
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-없음
+None
 
-##### 설명
+##### Description
 
-통신(CM) 모듈 처리 시에 발생하는 메시지가 기록되는 파일이다.
+This file stores messages generated during the communication(CM) module processing.
 
-#### CM_MSGLOG_SIZE(단위 : 바이트)
+#### CM_MSGLOG_SIZE(Unit: byte)
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 10 * 1024 * 1024
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 232-1]
 
-##### 설명
+##### Description
 
-통신(CM) 모듈의 메시지 파일의 최대 크기를 지정한다.
+This property sets the maximum size of the communication(CM) module message file.
 
 #### CM_MSGLOG_FLAG
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 3
 
-##### 속성
+##### Attributes
 
-변경가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232-1]
+[0, 2<sup>32</sup>-1]
 
-##### 설명
+##### Description
 
-통신 (CM) 모듈에서 발생하는 경고 메시지나 트레이스 메시지를 CM_MSGLOG_FILE에 기록 할지 여부를 나타내는 플래그 값이다.
+This is a flag value indicating whether warning or trace messages generated by the communication (CM) module will be recorded in the CM_MSGLOG_FILE.
 
-0이면 기록하지 않고, 0 보다 큰값이면 기록한다.
+If this value is 0, the messages are not recorded. If this value is larger than 0, the messages are recorded.
 
 #### DK_MSGLOG_COUNT
 
@@ -13381,115 +13394,93 @@ This property specifies the amount of space to be reserved in advance for the fi
 
 #### JOB_MSGLOG_COUNT
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 10
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232-1]
+[0, 2<sup>32</sup>-1]
 
-##### 설명
+##### Description
 
-JOB 관련 메시지 파일의 최대 개수를 지정한다.
+This property specifies the maximum number of JOB-related message log files.
 
 #### JOB_MSGLOG_FILE
 
-##### 데이터 타입
+##### Data Type
 
 String
 
-##### 기본값
+##### Default Value
 
 altibase_job.log
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-없음
+None
 
-##### 설명
+##### Description
 
-JOB 처리 시에 발생하는 메시지가 기록되는 파일이다.
+This file stores messages generated during JOB processing.
 
 #### JOB_MSGLOG_FLAG
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 2
 
-##### 속성
+##### Attributes
 
-변경가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232 –1]
+[0, 2<sup>32</sup> –1]
 
-##### 설명
+##### Description
 
-JOB 에서 발생하는 경고 메시지나 트레이스 메시지를 JOB_MSGLOG_FILE에 기록할지를 나타내는 플래그 값이다.
+This is a flag value indicating whether warning or trace messages generated by JOB will be recorded in the JOB_MSGLOG_FILE.
 
-0이면 기록하지 않고, 0 보다 큰 값이면 기록한다.
+If this value is 0, the messages are not recorded. If this value is larger than 0, the messages are recorded.
 
-#### JOB_MSGLOG_SIZE(단위 : 바이트)
+#### JOB_MSGLOG_SIZE(Unit : byte)
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 10 * 1024 * 1024
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232-1]
+[0, 2<sup>32</sup>-1]
 
-##### 설명
+##### Description
 
-JOB 관련 메시지 파일의 최대 크기를 지정한다.
-
-#### LB_MSGLOG_COUNT
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-10
-
-##### 속성
-
-읽기 전용, 단일 값
-
-##### 값의 범위
-
-[0, 232-1]
-
-##### 설명
-
-서비스 쓰레드 관련 메시지 파일의 최대 개수를 설정한다.
+This property sets the maximum size of the JOB-related message file.
 
 #### LB_MSGLOG_COUNT 
 
@@ -13725,25 +13716,25 @@ In an unstable network environment, in which error messages are frequently outpu
 
 #### NETWORK_ERROR_LOG_FILE
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 1]
 
-##### 설명
+##### Description
 
-네트워크 관련 에러 메시지가 로그파일에 기록될 때, 어떤 로그파일에 기록할지를 설정하는 프로퍼티이다. 기본은 altibase_boot.log에 기록되고, 이 프로퍼티를 1로 설정하면 altibase_cm.log에 기록된다. 이 프로퍼티는 NETWORK_ERROR_LOG가 1일 때만 유효하게 동작한다. NETWORK_ERROR_LOG를 0으로 설정한 경우는 네트워크 관련 에러메시지가 출력되지 않기 때문이다.
+This property determines which log file will record network-related error messages. By default value 0, these errors are logged in altibase_boot.log. Setting this property to 1 will record them in altibase_cm.log. However, this property only operates effectively when NETWORK_ERROR_LOG is set to. If NETWORK_ERROR_LOG is set to 0, network-related error messages will not be output.
 
 #### QP_MSGLOG_COUNT
 
@@ -14443,94 +14434,98 @@ This property specifies the maximum size, in bytes, of the Storage Manager messa
 
 #### ST_MSGLOG_FLAG
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 1]
 
-##### 설명
+##### Description
 
-altibase_st.log 파일에 st관련 정보를 기록한다.
+This is a flag value indicating whether spatial topological(ST) information will be recorded in the altibase_st.log file.
+
+If this value is 0, the messages are not recorded. If this value is larger than 0, the messages are recorded.
+
+altibase_st.log 파일에 st 정보를 기록한다.
 
 - 0: st 정보 기록하지 않는다.
 - 1: st 정보를 기록한다.
 
 #### ST_MSGLOG_COUNT
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 10
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232-1]
+[0, 2<sup>32</sup>-1]
 
-##### 설명
+##### Description
 
-공간연산 메시지 파일의 최대 개수를 지정한다
+This property specifies the maximum number of message log files for spatial topological(ST) message files.
 
 #### ST_MSGLOG_FILE
 
-##### 데이터 타입
+##### Data Type
 
 String
 
-##### 기본값
+##### Default Value
 
 altibase_st.log
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-없음
+None
 
-##### 설명
+##### Description
 
-공간 연산 처리 시에 발생하는 메시지가 기록되는 파일이다.
+This file stores messages generated during the spatial topological(ST) processing.
 
 #### ST_MSGLOG_SIZE
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 10 * 1024 * 1024
 
-##### 속성
+##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
-##### 값의 범위
+##### Range
 
-[0, 232 -1]
+[0, 2<sup>32</sup> -1]
 
-##### 설명
+##### Description
 
-공간연산 메시지 파일의 최대 크기를 지정한다.
+This property sets the maximum size of the spatial topological(ST) message file.
 
 #### TRC_MSGLOG_RESERVE_SIZE (Unit : byte)
 
@@ -14968,7 +14963,7 @@ String
 
 ##### Attributes
 
-Read-Write, Multiple Value
+Read-Write, Multiple Values
 
 ##### Range
 
@@ -15114,7 +15109,7 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -15417,7 +15412,7 @@ ACCESS_LIST = permit, 192.168.3.17, 255.255.255.255, 5
 
 
 
-**ACCESS_LIST_FILE**
+#### ACCESS_LIST_FILE
 
 ##### Data Type
 
@@ -15704,27 +15699,29 @@ Read-Only, Single Value
 
 This property specifies the number of queues to be created at server startup for a JOB to run. If the value of this property is large, a larger number of jobs can run in a given amount of time.
 
-#### LISTAGG_PRECISION (단위: 바이트)
+#### LISTAGG_PRECISION (Unit: byte)
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 4000
 
-##### 속성
+##### Attributes
 
-변경 가, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
 [1, 32000]
 
-##### 설명
+##### Description
 
-LISTAGG 함수가 반환하는 VARCHAR 타입의 크기를 지정한다. Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+This property specifies the size of the VARCHAR type that the LISTAGG function returns.
+
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
 #### MSG_QUEUE_PERMISSION
 
@@ -15849,25 +15846,25 @@ Altibase determines the values specified in the PSM_NCHAR_UTF16_DEFAULT_PRECISIO
 
 #### PSM_MAX_DDL_REFERENCE_DEPTH
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 128
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
-[64, 232-1]
+[64, 2<sup>32</sup>-1]
 
-##### 설명
+##### Description
 
-PSM을 컴파일할 때 재귀 호출 또는 참조 깊이의 수를 제한합니다. 재귀 호출 또는 참조 깊이의 수가 설정 값을 초과하면 에러가 발생합니다.
+This property limits the number of recursion calls or reference depths when compiling PSM. If the number of recursion calls or reference depths exceeds the set value, an error occurs.
 
 #### PSM_NCHAR_UTF8_DEFAULT_PRECISION
 
@@ -16137,63 +16134,63 @@ This mode can be used when the Altibase server character set is US7ASCII or UTF-
 
 #### REGEXP_MODE
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Integer
 
-##### 기본값
+##### Default Value
 
 0
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
 [0, 1]
 
-##### 설명
+##### Description
 
-정규 표현식 모드를 설정하는 프로퍼티로, 설정값의 의미는 아래와 같다.
+This property configures the regular expression mode, and the meanings of its settings are as follows:
 
 > **0**
 
-Altibase 정규 표현식 모드.
+Altibase regular expression mode.
 
-POSIX Basic Regular Expression (BRE)과 Extended Regular Expression(ERE)을 일부 지원한다.
+It partially supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE).
 
 > **1**
 
-PCRE2 호환 모드.
+PCRE2 compatibility mode.
 
-펄 호환 정규 표현식 (Perl Compatible Regular Expressions, PCRE2) 라이브러리의 정규 표현식 문법을 지원한다.
+It supports the regular expression syntax of the Perl Compatible Regular Expressions (PCRE2) library.
 
-이 모드는 Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있으며 Altibase 정규 표현식 모드와 문법 차이가 있다. 관련 설명은 [SQL Reference-A.부록: 정규 표현식](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL Reference.md#a부록-정규-표현식) 매뉴얼을 참고한다.
+This mode is available when the Altibase server character set is US7ASCII or UTF-8. It differs in syntax from the Altibase regular expression mode. For more information, please refer to [SQL Reference-A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#appendix-a-regular-expressions).
 
 #### VARRAY_MEMORY_MAXIMUM
 
-##### 데이터 타입
+##### Data Type
 
 Unsigned Long
 
-##### 기본값
+##### Default Value
 
 209715200 (200M)
 
-##### 속성
+##### Attributes
 
-변경 가능, 단일 값
+Read-Write, Single Value
 
-##### 값의 범위
+##### Range
 
-[1048576, 264-1]
+[1048576, 2<sup>64</sup>-1]
 
-##### 설명
+##### Description
 
-VARRAY 변수 하나 당 사용할 수 있는 메모리의 양을 제한하기 위한 프로퍼티이다.
+This property limits the amount of memory available for each VARRAY variable.
 
-VARRAY 변수를 확장할 때 메모리 사용량이 증가할 수 있으며, 확장 도중 메모리 사용량을 초과하면 오류가 발생한다.
+When expanding VARRAY variables, memory usage can increase. If the memory usage exceeds the limit during expansion, an error occurs.
 
-Altibase 운영 중 ALTER SYSTEM문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
