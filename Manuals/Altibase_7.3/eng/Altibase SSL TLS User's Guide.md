@@ -279,7 +279,7 @@ The OpenSSL toolkit has to be installed in order to use the SSL communication wi
 
 It is recommended to use Java 1.8.0_351 or later to conveniently implement the client Java application through the SSL.  Java 1.8.0_351 or later is recommended for the following reasons:
 
-- It is possible to use the TLS 1.3 cipher algorithms without a specific setting in Java 1.8.0_351 or later.
+- TLS 1.3 cipher algorithms can be used without a specific setting in Java 1.8.0_351 or later.
 
 - Since  Java 1.8.0_261 it supports TLS 1.3. However, the following setting is required to use TLS 1.3.
 
