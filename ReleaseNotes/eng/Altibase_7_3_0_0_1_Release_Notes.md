@@ -585,9 +585,7 @@ The CLIENT_TYPE of an Altibase 7.3 JDBC session is NEW_JDBC42.
 
 ###### Replication Restrictions Between Altibase 7.1 and Altibase 7.3
 
-Because the replication protocol version has been changed, DDL synchronization is not supported between Altibase 7.1 and Altibase 7.3.
-
-Because the database binary version has been changed, offline replication is not supported between Altibase 7.1 and Altibase 7.3.
+DDL synchronization and Offline Replication are not supported between Altibase 7.1 and Altibase 7.3 when the running replication mode is EAGER.
 
 ###### Replication Restrictions Between Altibase 6.5.1 and Altibase 7.3
 
