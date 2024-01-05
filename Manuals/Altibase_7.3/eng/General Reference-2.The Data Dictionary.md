@@ -2640,12 +2640,12 @@ This meta table contains information related to replication.
 | REPLICATION_NAME             | VARCHAR(40) | The name of the replication object                           |
 | GIVE_UP_XSN                  | BIGINT      | The XSN at which replication was most recently abandoned     |
 | PARALLEL_APPLIER_COUNT       | INTEGER     | The number of appliers                                       |
-| REMOTE_XSN                   | BIGINT      | The most recently processed SN on the remote server.         |
+| REMOTE_XSN                   | BIGINT      | The most recently processed SN on the remote server          |
 | APPLIER_INIT_BUFFER_SIZE     | BIGINT      | Initial size of applier buffer                               |
-| PEER_REPLICATION_NAME        | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
-| REMOTE_LAST_DDL_XSN          | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
-| CURRENT_READ_XLOGFILE_NO     | INTEGER     | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file number와 offset |
-| CURRENT_READ_XLOGFILE_OFFSET | INTEGER     | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file 내에서의 offset |
+| PEER_REPLICATION_NAME        | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름<br />Local replicated remote replication name |
+| REMOTE_LAST_DDL_XSN          | BIGINT      | The most recently processed DDL statement's SN on the remote server |
+| CURRENT_READ_XLOGFILE_NO     | INTEGER     | The last file number and offset that consistent replication's receiver reads on xlogfile |
+| CURRENT_READ_XLOGFILE_OFFSET | INTEGER     | The offset in the last file that consistent replication's receiver reads on xlogfile |
 
 [<sup>13</sup>] SN: The identification number of the log record
 
@@ -2719,7 +2719,8 @@ This flag indicates whether to use the recovery and offline options, which are e
 - 2(00010): Use the offline option 
 - 4(00100): Use the gapless option 
 - 8(01000): Use the parallel applier option 
-- 16(10000): Use the replication transaction grouping option
+- 16(010000): Use the replication transaction grouping option
+- 32(100000): Use the local replication option
 
 ##### INVALID_RECOVERY
 
@@ -2760,11 +2761,11 @@ If the number of parallel applier queues is less than the value of the property 
 
 ##### PEER_REPLICATION_NAME
 
-로컬 이중화 옵션을 사용했을 때 원격 이중화의 이름이다.
+This is a remote replication name when using the local replication option.
 
 ##### REMOTE_LAST_DDL_XSN
 
-원격 서버에서 가장 최근에 처리한 DDL의 SN 이다.
+This is the most recently processed DDL statement's SN on the remote server
 
 #### Example
 
@@ -2784,24 +2785,24 @@ OPTIONS
 
 ### SYS_REPL_RECEIVER_
 
-원격 서버의 SN 정보를 기록하고 있는 메타 테이블이다.
+This meta table records the SN information of the remote server.
 
-| Column name      | Type        | Description                         |
-| ---------------- | ----------- | ----------------------------------- |
-| REPLICATION_NAME | VARCHAR(40) | 이중화 이름                         |
-| REMOTE_XSN       | BIGINT      | 원격 서버에서 가장 최근에 처리한 SN |
+| Column name      | Type        | Description                                         |
+| ---------------- | ----------- | --------------------------------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | Replication name                                    |
+| REMOTE_XSN       | BIGINT      | The most recently processed SN on the remote server |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+This is the name of the replication object, which is defined by the user, and corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table
 
 ##### REMOTE_XSN
 
-원격 서버에서 가장 최근에 처리한 SN 이다. Sender 재시작 시 해당 REMOTE_XSN보다 SN이 작은 로그는 보내지 않고 Skip한다.
+This is the most recently processed SN on the remote server. When the Sender is restarted, the log with the SN smaller than the corresponding REMOTE_XSN is not sent but skipped.
 
-#### 참조 테이블
+#### Reference Tables
 
 ```
 SYS_REPLICATIONS_
@@ -2882,7 +2883,7 @@ One replication object can pertain to more than one table, and SYS_REPL_ITEMS_ h
 
 ##### REPLICATION_NAME
 
-This is the name of the replication object, which is defined by the user, and corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table
+This is the name of the replication object, which is defined by the user, and corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
 
 ##### TABLE_OID
 
@@ -3067,7 +3068,7 @@ This meta table is for storing information about columns that are currently repl
 | MT_SCALE             | INTEGER       | The number of digits to the right of the decimal point       |
 | MT_ENCRYPT_PRECISION | INTEGER       | The number of digits in an encrypted column                  |
 | MT_POLICY_NAME       | VARCHAR(16)   | The name of the policy used for an encrypted column          |
-| MT_SRID              | INTEGER       | GEOMETRY 칼럼에 적용된 SRID                                  |
+| MT_SRID              | INTEGER       | SRID applied to the GEOMETRY column                          |
 | SM_ID                | INTEGER       | The column identifier                                        |
 | SM_FLAG              | INTEGER       | An internal flag                                             |
 | SM_OFFSET            | INTEGER       | The internal offset                                          |
@@ -3122,7 +3123,7 @@ For an encrypted column, this is the name of the policy used for the column.
 
 ##### MT_SRID
 
-GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
+For a GEOMETRY column, this is the SRID applied to the column.
 
 ##### SM_ID
 
@@ -3276,28 +3277,28 @@ SYS_REPL_OLD_INDEX_COLUMNS_
 
 This meta table contains information about tables currently being replicated by the replication Sender thread. 
 
-| Column name           | Type          | Description                                    |
-| --------------------- | ------------- | ---------------------------------------------- |
-| REPLICATION_NAME      | VARCHAR(40)   | The partition name                             |
-| TABLE_OID             | BIGINT        | The table object identifier                    |
-| USER_NAME             | VARCHAR(128)  | The user name                                  |
-| TABLE_NAME            | VARCHAR(128)  | The table name                                 |
-| PARTITION_NAME        | VARCHAR(128)  | The name of the replication                    |
-| PRIMARY_KEY_INDEX_ID  | INTEGER       | The index identifier of the primary key        |
-| REMOTE_USER_NAME      | VARCHAR(128)  | 원격 서버의 대상 테이블 소유자 이름            |
-| REMOTE_TABLE_NAME     | VARCHAR(128)  | 원격 서버의 대상 테이블 이름                   |
-| REMOTE_PARTITION_NAME | VARCHAR(128)  | 원격 서버의 파티션 이름                        |
-| PARTITION_ORDER       | INTEGER       | 파티션 순서(해쉬 파티션일 경우 필요)           |
-| PARTITION_MIN_VALUE   | VARCHAR(4000) | 파티션의 최소 기준값 (해쉬 파티션의 경우 NULL) |
-| PARTITION_MAX_VALUE   | VARCHAR(4000) | 파티션의 최대 기준값 (해쉬 파티션의 경우 NULL) |
-| INVALID_MAX_SN        | BIGINT        | 건너 뛸 로그의 최대 SN                         |
-| TABLE_ID              | INTEGER       | 테이블 식별자                                  |
-| TABLE_PARTITION_TYPE  | INTEGER       | 테이블 파티션 타입                             |
-| IS_PARTITION          | CHAR(1)       | 파티션 여부 Y/N                                |
-| REPLICATION_UNIT      | CHAR(1)       | 이중화 단위                                    |
-| TBS_TYPE              | INTEGER       | 테이블스페이스 유형                            |
-| PARTITION_METHOD      | INTEGER       | 파티션 방법                                    |
-| PARTITION_COUNT       | INTEGER       | 파티션 테이블의 총 개수                        |
+| Column name           | Type          | Description                                                  |
+| --------------------- | ------------- | ------------------------------------------------------------ |
+| REPLICATION_NAME      | VARCHAR(40)   | The partition name                                           |
+| TABLE_OID             | BIGINT        | The table object identifier                                  |
+| USER_NAME             | VARCHAR(128)  | The user name                                                |
+| TABLE_NAME            | VARCHAR(128)  | The table name                                               |
+| PARTITION_NAME        | VARCHAR(128)  | The name of the replication                                  |
+| PRIMARY_KEY_INDEX_ID  | INTEGER       | The index identifier of the primary key                      |
+| REMOTE_USER_NAME      | VARCHAR(128)  | The name of a user owning a target table on the remote server |
+| REMOTE_TABLE_NAME     | VARCHAR(128)  | The name of a target table on the remote server              |
+| REMOTE_PARTITION_NAME | VARCHAR(128)  | The name of a partition on the remote server                 |
+| PARTITION_ORDER       | INTEGER       | The position of the partition (required for hash partitions) |
+| PARTITION_MIN_VALUE   | VARCHAR(4000) | The minimum reference value for a partition (NULL in the case of a hash partition) |
+| PARTITION_MAX_VALUE   | VARCHAR(4000) | The maximum reference value for a partition (NULL in the case of a hash partition) |
+| INVALID_MAX_SN        | BIGINT        | The highest log SN to skip                                   |
+| TABLE_ID              | INTEGER       | The table identifier                                         |
+| TABLE_PARTITION_TYPE  | INTEGER       | The type of table partition                                  |
+| IS_PARTITION          | CHAR(1)       | Indicates whether the table is partitioned                   |
+| REPLICATION_UNIT      | CHAR(1)       | The replication unit                                         |
+| TBS_TYPE              | INTEGER       | The type of tablespace                                       |
+| PARTITION_METHOD      | INTEGER       | The partitioning method                                      |
+| PARTITION_COUNT       | INTEGER       | Total number of partitioned table                            |
 
 #### Column Information
 
@@ -3327,35 +3328,35 @@ This is the identifier of a primary key index.
 
 ##### REMOTE_USER_NAME
 
-원격 서버의 이중화 대상 테이블인 소유자의 이름이다.
+This is the user name of the owner of the replication target table in the remote system.
 
 ##### REMOTE_TABLE_NAME
 
-원격 서버의 이중화 대상 테이블의 이름이다.
+This is the name of the replication target table in the remote system.
 
 ##### REMOTE_PARTITION_NAME
 
-원격 서버의 이중화 대상 테이블이 속해 있는 파티션의 이름이다.
+This is the name of the replication target partition on the remote server.
 
 ##### PARTITION_ORDER
 
-파티션들 중에서 이 파티션의 순서를 나타낸다. 해쉬 (HASH) 파티션인 경우에 필요하다.
+This is the position of the partition among the partitions. It is required for hash partitions.
 
 ##### PARTITION_MIN_VALUE
 
-파티션의 최소 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는 널(NULL)이다.
+This is a string that gives the minimum reference value for a partition. It is NULL for hash partitions.
 
 ##### PARTITION_MAX_VALUE
 
-파티션의 최대 기준값을 문자열로 보여준다. 해쉬 (HASH) 파티션인 경우에는 널(NULL)이다.
+This is a string that gives the maximum reference value for a partition. It is NULL for hash partitions.
 
 ##### INVALID_MAX_SN
 
-이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에 기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
+If DDL statements or Sync operations are executed on replication target tables, the most recently recorded SN is saved here. Table logs up to this SN are skipped when the table is replicated. 
 
 ##### TABLE_ID
 
-SYS_TABLES_ 의 TABLE_ID 를 참고한다.
+Refer to TABLE_ID on the SYS_TABLES_.
 
 ##### TABLE_PARTITION_TYPE
 
@@ -3365,24 +3366,28 @@ SYS_TABLES_ 의 TABLE_ID 를 참고한다.
 
 ##### IS_PARTITION
 
-- Y: 파티션드 테이블
-- N: 그외
+- Y: Partitioned table
+- N: Others
 
 ##### REPLICATION_UNIT
 
-- T: 이중화 대상 아이템이 테이블임을 나타낸다.
-- P: 이중화 대상 아이템이 파티션임을 나타낸다.
+This is the unit of the replication target item. One of the following two values is indicated in this column.
+
+- T: The replication target item is a table.
+- P: The replication target item is a partition.
 
 ##### TBS_TYPE
 
-V$TABLESPACES 의 TYPE 컬럼을 참고한다.
+Refer to TYPE column on the V$TABLESPACES.
 
 ##### PARTITION_METHOD
+
+This indicates the partitioning method.
 
 - 0: RANGE
 - 1: HASH
 - 2: LIST
-- 3: RANGE_USING_HASH
+- 3: RANGE PARTITIONING USING HASH
 - 100: NONE
 
 ##### PARTITION_COUNT
@@ -7820,17 +7825,17 @@ The actual values set for the property.
 
 ### V$QUEUE_DELETE_OFF
 
-DELETE 문을 허용하지 않는 큐 테이블의 객체 식별자(OID) 정보를 가지고 있다. CREATE QUEUE 또는 ALTER QUEUE에서 DELETE OFF 절을 사용한 큐 테이블은 DELETE 문을 허용하지 않는다.
+This view stores object identifier(OID) information of a queue table which does not allow DELETE statements. A queue table using the DELETE OFF clause in the CREATE QUEUE or ALTER QUEUE statements does not allow DELETE statements. 
 
-| Column name | Type   | Description        |
-| ----------- | ------ | ------------------ |
-| TABLE_OID   | BIGINT | 테이블 객체 식별자 |
+| Column name | Type   | Description                 |
+| ----------- | ------ | --------------------------- |
+| TABLE_OID   | BIGINT | The table object identifier |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### TABLE_OID
 
-테이블 객체 식별자로, SYS_TABLES_메타 테이블에서 하나의 TABLE_OID와 일대일로 대응된다.
+This is the table object identifier. It corresponds one-to-one with a TABLE_OID in the SYS_TABLES meta table.
 
 ### V\$REPEXEC
 
@@ -8954,123 +8959,129 @@ While synchronization is underway, this is the number of records that have been 
 
 ### V$REPL_REMOTE_META_REPLICATIONS
 
-수신자가 가지고 있는 송신자의 SYS_REPLICATIONS_ 메타 테이블의 정보를 보여준다.
+This view displays the sender's SYS_REPLICATIONS meta table information that the receiver holds.
 
-수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+Users can access this view on the server where the receiver thread is running.
 
-| Column name              | Type        | Description                                           |
-| ------------------------ | ----------- | ----------------------------------------------------- |
-| REPLICATION_NAME         | VARCHAR(40) | 이중화 이름                                           |
-| XSN                      | BIGINT      | 송신자가 XLog 전송을 재개할 재시작 SN(Seqence Number) |
-| ITEM_COUNT               | INTEGER     | 이중화 대상 테이블 개수                               |
-| CONFLICT_RESOLUTION      | INTEGER     | 이중화 충돌 해결 방법                                 |
-| REPL_MODE                | INTEGER     | 기본 이중화 모드                                      |
-| ROLE                     | INTEGER     | 이중화 쓰레드의 역할                                  |
-| OPTIONS                  | INTEGER     | 부가적인 이중화 기능을 위한 플래그                    |
-| REMOTE_FAULT_DETECT_TIME | DATE        | 원격 서버의 장애 감지 시각                            |
+| Column name              | Type        | Description                                                  |
+| ------------------------ | ----------- | ------------------------------------------------------------ |
+| REPLICATION_NAME         | VARCHAR(40) | The replication name                                         |
+| XSN                      | BIGINT      | The Restart SN (Sequence Number), i.e. the SN from which the Sender will resume transmission of XLogs13 |
+| ITEM_COUNT               | INTEGER     | The number of replication target tables                      |
+| CONFLICT_RESOLUTION      | INTEGER     | The replication conflict resolution method                   |
+| REPL_MODE                | INTEGER     | The default replication mode                                 |
+| ROLE                     | INTEGER     | The role of replication thread                               |
+| OPTIONS                  | INTEGER     | The flag for the additional replication features             |
+| REMOTE_FAULT_DETECT_TIME | DATE        | The time at which a fault was detected on a remote server    |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### REPLICATION_NAME
 
-원격 서버의 이중화 이름으로, 이중화 생성 시 사용자가 명시한다.
+This is the name of replication on the remote server. Users define this when they create replication.
 
 ##### XSN
 
-원격 서버의 이중화가 시작될 때, 송신 쓰레드에서 로그 전송을 시작해야 할 SN을 나타낸다.
+This indicates the SN from which the Sender thread must begin sending logs when replication is started.
 
 ##### ITEM_COUNT
 
-원격 서버의 이중화 대상 테이블의 개수이다. 해당 이중화에 대해 원격 서버의 SYS_REPL_ITEMS_ 메타 테이블에 이 수만큼 레코드들이 존재한다.
+This is the number of replication target tables. This number corresponds to the number of records in the SYS_REPL_ITEMS_ meta table for this replication object, with one record corresponding to each of these tables.
 
 ##### CONFLICT_RESOLUTION
 
-원격 서버의 이중화 충돌 해결 방법을 기록한다.
+This describes the replication conflict resolution method.
 
-- 0: 기본 값
-- 1: Master Server로 동작
-- 2: Slave Server로 동작
+- 0: Default
+- 1: Act as the Master server
+- 2: Act as the Slave server
 
-이중화 충돌 해결 방법에 대한 자세한 설명은 *Replication Manual*을 참조한다.
+Please refer to the [*Replication Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md)  for more detailed information about replication conflict resolution methods.
 
 ##### REPL_MODE
 
-원격 서버의 이중화 생성시에 지정한 기본 이중화 모드이다.
+This is the default replication mode, which is set when the replication object is created.
 
-- 0: LAZY MODE (기본 값)
+- 0: LAZY MODE (default value)
 - 2: EAGER MODE
 
-기본 이중화 모드는 ALTER SESSION SET REPLICATION 구문으로 세션의 이중화 모드를 설정하지 않았을 때 사용된다.
+The default replication mode is used if the ALTER SESSION SET REPLICATION statement is not used to set the replication mode for a session.
 
-기본 이중화 모드에 관한 자세한 내용은 *Replication Manual*을 참조하며, ALTER SESSION SET REPLICATION 구문에 관한 내용은 *SQL Reference*을 참조한다.
+For more detailed information about the default replication mode, please refer to the [*Replication Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md). For detailed information about the ALTER SESSION SET REPLICATION statement, please refer to the [*SQL Reference*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md).
 
 ##### ROLE
 
-이중화 쓰레드의 롤(ROLE)을 의미한다.
+This indicates the role of the replication thread.
 
-- 0: 일반 이중화 (롤을 지정하지 않은 경우)
-- 1: Log Analyzer 전용 이중화 (FOR ANALYSIS 만 사용한 경우)
-- 2: Propagable Logging (FOR PROPAGABLE LOGGING을 사용한 경우)
-- 3: Propagation (FOR PROPAGATION 을 사용한 경우)
-- 4: Log analyzer 용 이중화에서 Propagation 설정 한 경우(FOR ANALYSIS PROPAGATION을 사용한 경우)
+- 0: Normal replication (Any roles are not specified)
+- 1: Dedicated replication for Log Analyzer (Only use FOR ANALYSIS)
+- 2: Propagable Logging (Use FOR PROPAGABLE LOGGING)
+- 3: Propagation (Use FOR PROPAGATION)
+- 4: Set Propagation on Log Analyzer replication(Use FOR ANALYSIS PROPAGATION)
 
-Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's Manual을 참고한다.
+For more information about dedicated replication for Log Analyzer, please refer to [*Log Analyzer User's Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Log%20Analyzer%20User's%20Manual.md).
 
 ##### OPTIONS
 
-원격 서버의 이중화 부가 기능을 나타내는 플래그이다. 이중화 옵션의 종류는 아래와 같으며, 각 옵션을 설정시 이진수로 제어되며, 십진수로 변환되어 표시된다. 두 개 이상의 옵션을 사용할 경우 각각의 옵션에 해당하는 이진수 합이 십진수로 반환된다.
+This flag indicates whether to use the recovery and offline options, which are extra replication features. The replication option types are as in the following. Each option is controlled by binary number and expressed as a decimal number. If more than two options are used, the sum of the binary numbers of each option is returned as decimal numbers.
 
-- 0(000000): 이중화 옵션을 사용하지 않음
-- 1(000001): 복구 옵션 사용
-- 2(000010): 오프라인 옵션 사용
-- 4(000100): 이중화 갭 해소 옵션 사용
-- 8(001000): 병렬 적용자 옵션 사용
-- 16(010000):이중화 트랜잭션 그룹 옵션 사용
-- 32(100000):로컬 이중화 옵션 사용
+- 0(000000): Do not use any replication options
+- 1(000001): Use the recovery option
+- 2(000010): Use the offline option
+- 4(000100): Use the replication gapless option
+- 8(001000): Use the parallel receiver applier option
+- 16(010000): Use the replication transaction grouping option
+- 32(100000): Use the local replication option
 
 ##### REMOTE_FAULT_DETECT_TIME
 
-원격 서버의 이중화 동작 중에 원격 서버의 장애를 감지한 시점을 기록한다.
+This is the time at which a fault was detected on a remote server while replication was running.
 
 ### V$REPL_REMOTE_META_ITEMS
 
-수신자가 가지고 있는 송신자의 SYS_REPL_ITEMS_ 메타 테이블 정보를 보여준다.
+It displays the information from the SYS_REPL_ITEMS_ metadata table associated with the sender that the receiver holds.
 
-수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+Users can access this view on the server where the receiver thread is running.
 
-| Column name           | Type         | Description                         |
-| --------------------- | ------------ | ----------------------------------- |
-| REPLICATION_NAME      | VARCHAR(40)  | 이중화 이름                         |
-| TABLE_OID             | BIGINT       | 테이블 객체 식별자                  |
-| LOCAL_USER_NAME       | VARCHAR(128) | 지역 서버의 대상 테이블 소유자 이름 |
-| LOCAL_TABLE_NAME      | VARCHAR(128) | 지역 서버의 대상 테이블 이름        |
-| LOCAL_PARTITION_NAME  | VARCHAR(128) | 지역 서버의 파티션 이름             |
-| REMOTE_USER_NAME      | VARCHAR(128) | 원격 서버의 대상 테이블 소유자 이름 |
-| REMOTE_TABLE_NAME     | VARCHAR(128) | 원격 서버의 대상 테이블 이름        |
-| REMOTE_PARTITION_NAME | VARCHAR(128) | 원격 서버의 파티션 이름             |
-| INVALID_MAX_SN        | BIGINT       | 건너 뛸 로그의 최대 SN              |
+| Column name           | Type         | Description                                                  |
+| --------------------- | ------------ | ------------------------------------------------------------ |
+| REPLICATION_NAME      | VARCHAR(40)  | The replication name                                         |
+| TABLE_OID             | BIGINT       | The table object identifier                                  |
+| LOCAL_USER_NAME       | VARCHAR(128) | The name of a user owning a target table on the local server |
+| LOCAL_TABLE_NAME      | VARCHAR(128) | The name of a target table on the local server               |
+| LOCAL_PARTITION_NAME  | VARCHAR(128) | The name of a partition on the local server                  |
+| REMOTE_USER_NAME      | VARCHAR(128) | The user name of the target table's owner on the remote server. |
+| REMOTE_TABLE_NAME     | VARCHAR(128) | The name of a target table on the remote server              |
+| REMOTE_PARTITION_NAME | VARCHAR(128) | The name of a partition on the remote server                 |
+| INVALID_MAX_SN        | BIGINT       | The highest log SN to skip                                   |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### REPLICATION_NAME
 
-사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+This is the name of the replication object, which is defined by the user, and corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
 
 ##### TABLE_OID
 
-원격 서버의 이중화 대상 테이블 또는 파티션의 식별자로, 원격 서버의 SYS_TABLES_ 메타 테이블의 한 TABLE_OID 값 또는 SYS_TABLES_PARTITIONS_의 한 PARTITION_OID 값과 동일하다.
+This is the identifier of the replication target table or partition on the remote server, and corresponds to a TABLE_OID value in the SYS_TABLES_ meta table or a PARTITION_OID value in the SYS_TABLES_PARTITIONS meta table.
 
 ##### LOCAL_USER_NAME
 
 원격 서버의 이중화 대상 테이블 소유자의 사용자 이름으로, 원격 서버의 SYS_USERS_ 메타 테이블의 한 USER_NAME 값과 동일하다.
 
+This is the user name of the owner of the replication target table in the local system, and corresponds to a USER_NAME in the SYS_USERS_ meta table.
+
 ##### LOCAL_TABLE_NAME
 
 원격 서버의 이중화 대상 테이블의 이름으로, 원격 서버의 SYS_TABLES_ 메타 테이블의 한 TABLE_NAME 값과 동일하다.
 
+This is the name of the replication target table in the local system, and corresponds to a TABLE_NAME in the SYS_TABLES_ meta table.
+
 ##### LOCAL_PARTITION_NAME
 
 원격 서버의 이중화 대상 파티션의 이름이다.
+
+This is the name of the replication target partition on the local server.
 
 ##### REMOTE_USER_NAME
 
@@ -9086,221 +9097,221 @@ Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's 
 
 ##### INVALID_MAX_SN
 
-원격 서버의 이중화 대상 테이블에 DDL구문 또는 동기화 작업이 수행되는 시점에서 가장 최근에 기록된 SN이 저장된다. 해당 SN까지의 테이블 로그를 이중화에서 건너뛴다.
+If DDL statements or Sync operations are executed on replication target tables, the most recently recorded SN is saved here. Table logs up to this SN are skipped when the table is replicated. 
 
 ### V$REPL_REMOTE_META_COLUMNS
 
-수신자가 가지고 있는 송신자의 SYS_REPL_OLD_COLUMNS_ 메타 테이블 정보를 보여 준다.
+It displays the information from the SYS_REPL_OLD_COLUMNS_ meta data table associated with the sender that the receiver holds.
 
-수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+Users can access this view on the server where the receiver thread is running.
 
-| Column name          | Type         | Description                      |
-| -------------------- | ------------ | -------------------------------- |
-| REPLICATION_NAME     | VARCHAR(40)  | 이중화 이름                      |
-| TABLE_OID            | BIGINT       | 테이블 객체 식별자               |
-| COLUMN_NAME          | VARCHAR(128) | 칼럼 이름                        |
-| MT_DATATYPE_ID       | INTEGER      | 데이터 타입 식별자               |
-| MT_LANGUAGE_ID       | INTEGER      | 언어 식별자                      |
-| MT_FLAG              | INTEGER      | 내부 플래그                      |
-| MT_PRECISION         | INTEGER      | 정밀도                           |
-| MT_SCALE             | INTEGER      | 소수 자릿수                      |
-| MT_ENCRYPT_PRECISION | INTEGER      | 암호화 칼럼 정밀도               |
-| MT_POLICY_NAME       | VARCHAR(16)  | 암호화 칼럼에 사용된 정책의 이름 |
-| MT_SRID              | INTEGER      | GEOMETRY 칼럼에 적용된 SRID      |
-| SM_ID                | INTEGER      | 칼럼 식별자                      |
-| SM_FLAG              | INTEGER      | 내부 플래그                      |
-| SM_OFFSET            | INTEGER      | 내부 오프셋                      |
-| SM_SIZE              | INTEGER      | 내부 크기                        |
-| QP_FLAG              | INTEGER      | 내부 플래그                      |
+| Column name          | Type         | Description                                            |
+| -------------------- | ------------ | ------------------------------------------------------ |
+| REPLICATION_NAME     | VARCHAR(40)  | The replication name                                   |
+| TABLE_OID            | BIGINT       | The table object identifier                            |
+| COLUMN_NAME          | VARCHAR(128) | The column name                                        |
+| MT_DATATYPE_ID       | INTEGER      | The data type identifier                               |
+| MT_LANGUAGE_ID       | INTEGER      | The language identifier                                |
+| MT_FLAG              | INTEGER      | An internal flag                                       |
+| MT_PRECISION         | INTEGER      | The number of digits                                   |
+| MT_SCALE             | INTEGER      | The number of digits to the right of the decimal point |
+| MT_ENCRYPT_PRECISION | INTEGER      | The number of digits in an encrypted column            |
+| MT_POLICY_NAME       | VARCHAR(16)  | The name of the policy used for an encrypted column    |
+| MT_SRID              | INTEGER      | The SRID applied to GEOMETRY column                    |
+| SM_ID                | INTEGER      | The column identifier                                  |
+| SM_FLAG              | INTEGER      | An internal flag                                       |
+| SM_OFFSET            | INTEGER      | The internal offset                                    |
+| SM_SIZE              | INTEGER      | The internal size                                      |
+| QP_FLAG              | INTEGER      | The internal flag                                      |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### REPLICATION_NAME
 
-원격 서버의 사용자가 명시한 이중화 이름이다. 메타 테이블의 한 REPLICATION_NAME값과 동일하다.
+This is the replication name, which is specified by the user. It corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table.
 
 ##### TABLE_OID
 
-원격 서버의 이중화 송신 쓰레드가 현재 사용중인 이중화 대상 테이블의 식별자이다. SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+This is the identifier for a replication target table currently being used by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
 
 ##### COLUMN_NAME
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 칼럼의 이름이다.
+This is the name of a column currently being replicated by the replication Sender thread.
 
 ##### MT_DATATYPE_ID
 
-데이터 타입 식별자로, 내부 값이다.
+This is the data type identifier, and is an internal value.
 
 ##### MT_LANGUAGE_ID
 
-언어 식별자로, 내부 값이다.
+This is the language identifier, and is an internal value.
 
 ##### MT_FLAG
 
-Altibase 서버가 사용하는 내부 플래그이다.
+This is an internal flag used by Altibase server.
 
 ##### MT_PRECISION
 
-숫자 타입의 경우, 칼럼의 정밀도 (숫자 자리수)를 나타낸다. 타입의 경우, 문자형 데이터 타입의 길이를 나타낸다.
+For a numeric type column, this is the number of digits in the column. For a character type column, this is the length of character data types in the column.
 
 ##### MT_SCALE
 
-숫자 타입의 경우, 칼럼의 소수점 이하 자릿수를 나타낸다.
+For a numeric type column, this is the number of digits to the right of the decimal point in the column.
 
 ##### MT_ENCRYPT_PRECISION
 
-암호화된 칼럼의 정밀도 (크기)를 나타낸다.
+For an encrypted numeric type column, this is the number of digits in the column.
 
 ##### MT_POLICY_NAME
 
-암호화된 칼럼의 경우, 칼럼에 적용된 보안 정책의 이름을 나타낸다.
+For an encrypted column, this is the name of the policy used for the column.
 
 ##### MT_SRID
 
-GEOMETRY 칼럼의 경우, 칼럼에 적용된 SRID를 나타낸다.
+For a GEOMETRY column, this is SRID applied to the column.
 
 ##### SM_ID
 
-칼럼 식별자이다. 0부터 시작한다.
+This is the column identifier. Column identifiers start with 0.
 
 ##### SM_FLAG
 
-Altibase 서버가 사용하는 내부 플래그이다.
+This is a flag internally used by Altibase.
 
 ##### SM_OFFSET
 
-Altibase 서버가 사용하는 내부 오프셋이다.
+This is an offset value internally used by Altibase.
 
 ##### SM_SIZE
 
-Altibase 서버가 사용하는 내부 크기이다.
+This is a size value internally used by Altibase server.
 
 ##### QP_FLAG
 
-Altibase 서버가 내부적으로 사용하는 플래그이다.
+This is the flag used internally by the Altibase server.
 
 ### V$REPL_REMOTE_META_INDEX_COLUMNS
 
-수신자가 가지고 있는 송신자의 SYS_REPL_OLD_INDEX_COLUMNS_ 메타 테이블 정보를 보여 준다.
+It displays the information from the SYS_REPL_OLD_INDEX_COLUMNS_ meta data table associated with the sender that the receiver holds.
 
-수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+Users can access this view on the server where the receiver thread is running.
 
-| Column name      | Type        | Description        |
-| ---------------- | ----------- | ------------------ |
-| REPLICATION_NAME | VARCHAR(40) | 이중화 이름        |
-| TABLE_OID        | BIGINT      | 테이블 객체 식별자 |
-| INDEX_ID         | INTEGER     | 인덱스 식별자      |
-| KEY_COLUMN_ID    | INTEGER     | 칼럼 식별자        |
-| KEY_COLUMN_FLAG  | INTEGER     | 내부 플래그        |
+| Column name      | Type        | Description                 |
+| ---------------- | ----------- | --------------------------- |
+| REPLICATION_NAME | VARCHAR(40) | The replication name        |
+| TABLE_OID        | BIGINT      | The table object identifier |
+| INDEX_ID         | INTEGER     | The index identifier        |
+| KEY_COLUMN_ID    | INTEGER     | The column identifier       |
+| KEY_COLUMN_FLAG  | INTEGER     | An internal flag            |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### REPLICATION_NAME
 
-원격 서버의 사용자가 명시한 이중화 이름으로 SYS_REPLICATIONS_ 메타 테이블에서도 확인할 수 있다.
+This value corresponds to a REPLICATION_NAME in the SYS_REPLICATIONS_ meta table, and is the user-defined replication name.
 
 ##### TABLE_OID
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 테이블의 식별자이다. 원격 서버의 SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may not correspond to any TABLE_OID value in SYS_TABLES_.
 
 ##### INDEX_ID
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 식별자이다.
+This is the identifier of an index currently being replicated by the replication Sender thread.
 
 ##### KEY_COLUMN_ID
 
-인덱스를 구성하는 칼럼의 식별자이다.
+This is the identifier of the column on which the index is based.
 
 ##### KEY_COLUMN_FLAG
 
-인덱스를 구성하는 칼럼의 내부 플래그이다.
+This is an internal flag for the column on which the index is based.
 
 ### V$REPL_REMOTE_META_INDICES
 
-수신자가 가지고 있는 송신자의 SYS_REPL_OLD_INDICES_ 메타 테이블의 정보를 보여 준다.
+It displays the information from the SYS_REPL_OLD_INDICES_ meta data table associated with the sender that the receiver holds.
 
-수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+Users can access this view on the server where the receiver thread is running.
 
-| Column name      | Type         | Description               |
-| ---------------- | ------------ | ------------------------- |
-| REPLICATION_NAME | VARCHAR(40)  | 이중화 이름               |
-| TABLE_OID        | BIGINT       | 테이블 객체 식별자        |
-| INDEX_ID         | INTEGER      | 인덱스 식별자             |
-| INDEX_NAME       | VARCHAR(128) | 인덱스 이름               |
-| TYPE_ID          | INTEGER      | 인덱스 타입 식별자        |
-| IS_UNIQUE        | CHAR(1)      | 글로벌 유니크 인덱스 여부 |
-| IS_RANGE         | CHAR(1)      | 범위 검색 가능 여부       |
+| Column name      | Type         | Description                                                  |
+| ---------------- | ------------ | ------------------------------------------------------------ |
+| REPLICATION_NAME | VARCHAR(40)  | The replication name                                         |
+| TABLE_OID        | BIGINT       | The table object identifier                                  |
+| INDEX_ID         | INTEGER      | The index identifier                                         |
+| INDEX_NAME       | VARCHAR(128) | The index name                                               |
+| TYPE_ID          | INTEGER      | The index type identifier                                    |
+| IS_UNIQUE        | CHAR(1)      | Indicates whether or not the index is globally unique        |
+| IS_RANGE         | CHAR(1)      | Indicates whether or not range scanning is possible using the index |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### REPLICATION_NAME
 
-원격 서버의 사용자가 명시한 이중화 이름으로, 원격 서버의 SYS_REPLICATIONS_ 메타 테이블의 한 REPLICATION_NAME과 동일하다.
+This is the user-defined replication name. Its value corresponds to a REPLICATION_NAME value in the SYS_REPLICATIONS_ meta table.
 
 ##### TABLE_OID
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 테이블의 식별자이다. 원격 서버의 SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
 
 ##### INDEX_ID
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제중인 이중화 대상 인덱스의 식별자이다.
+This is the identifier of an index currently being replicated by the replication Sender thread.
 
 ##### INDEX_NAME
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 인덱스의 이름이다.
+This is the name of an index currently being replicated by the replication Sender thread.
 
 ##### TYPE_ID
 
-인덱스 유형 식별자로, 내부 값이다.
+This is an index type identifier, and is an internal value.
 
 ##### IS_UNIQUE
 
-글로벌 유니크 인덱스인지 여부를 나타낸다. 'Y'는 글로벌 유니크를 나타내고, 'N'은 글로벌 유니크가 아님을 나타낸다.
+This indicates whether or not the index is globally unique. 'Y' signifies that the index is globally unique, and 'N' signifies that it is not globally unique.
 
 ##### IS_RANGE
 
-범위 검색 가능 여부를 나타낸다. 'Y'는 범위 검색이 가능한 인덱스이고, 'N'은 범위 검색이 불가능한 인덱스임을 나타낸다.
+This indicates whether or not the index is locally unique. 'Y' signifies that it is locally unique, and 'N' means that it is not locally unique.
 
 ### V$REPL_REMOTE_META_CHECKS
 
-수신자가 가지고 있는 송신자의 이중화 테이블의 제약 조건에 관한 정보를 보여 준다.
+This view displays the information about the replication table constraint of the sender that the receiver holds.
 
-수신 쓰레드가 수행 중인 서버에서 조회할 수 있다.
+Users can access this view on the server where the receiver thread is running.
 
-| Column name      | Type          | Description                  |
-| ---------------- | ------------- | ---------------------------- |
-| REPLICATION_NAME | VARCHAR(40)   | 이중화 이름                  |
-| TABLE_OID        | BIGINT        | 테이블 객체 식별자           |
-| CONSTRAINT_ID    | INTEGER       | 제약조건 식별자              |
-| CONSTRAINT_NAME  | VARCHAR(128)  | 제약조건 이름                |
-| COLUMN_CNT       | INTEGER       | 제약조건에 관련된 칼럼 개수  |
-| CHECK_CONDITION  | VARCHAR(4000) | CHECK 제약조건의 조건 문자열 |
+| Column name      | Type          | Description                                                  |
+| ---------------- | ------------- | ------------------------------------------------------------ |
+| REPLICATION_NAME | VARCHAR(40)   | The replication name                                         |
+| TABLE_OID        | BIGINT        | The table object identifier                                  |
+| CONSTRAINT_ID    | INTEGER       | The constraint identifier                                    |
+| CONSTRAINT_NAME  | VARCHAR(128)  | The name of the constraint                                   |
+| COLUMN_CNT       | INTEGER       | The number of columns that are associated with the constraint |
+| CHECK_CONDITION  | VARCHAR(4000) | The character string condition of the CHECK constraint       |
 
-#### 칼럼 정보
+#### Column Information
 
 ##### REPLICATION_NAME
 
-원격 서버의 사용자가 명시한 이중화 이름으로, 원격 서버의 SYS_REPLICATIONS_ 메타 테이블의 한 REPLICATION_NAME과 동일하다.
+This is the user-defined replication name. Its value corresponds to a REPLICATION_NAME value in the SYS_REPLICATIONS_ meta table.
 
 ##### TABLE_OID
 
-원격 서버의 이중화 송신 쓰레드가 현재 복제 중인 이중화 대상 테이블의 식별자이다. 원격 서버의 SYS_TABLES_ 메타 테이블의 어떤 TABLE_OID 값과도 일치하지 않을 수 있다.
+This is the identifier of a table currently being replicated by the replication Sender thread. Its value may be different from that of TABLE_OID in the SYS_TABLES_ meta table.
 
 ##### CONSTRAINT_ID
 
-제약 조건 식별자로 시스템 시퀀스에 의해 자동으로 부여된다.
+This is a constraint identifier. It is automatically assigned by the system sequence.
 
 ##### CONSTRAINT_NAME
 
-제약 조건의 이름을 나타낸다.
+This is the name of the constraint.
 
 ##### COLUMN_CNT
 
-제약 조건에 관련된 칼럼들의 개수를 나타낸다. 예를 들어 UNIQUE (i1, i2, i3) 과 같은 제약 조건을 생성하였다면 이 값은 3일 것이다.
+This is the number of columns associated with the constraint. For example, for a constraint such as UNIQUE (i1, i2, i3), this value would be 3.
 
 ##### CHECK_CONDITION
 
-사용자가 CHECK 제약조건을 지정할 때 정의한 무결성 규칙(Integrity Rule)을 나타낸다.
+This displays the Integrity Rule defined by the user at CHECK constraint specification.
 
 ### V\$RESERVED_WORDS
 
