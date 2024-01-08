@@ -141,24 +141,28 @@ This manual has been prepared for the following users of Altibase:
 - Application developers
 - Technical Supporters
 
-It is recommended for those reading this manual possess the following background knowledge:
+It is recommended that those reading this manual possess the following background knowledge:
 
-- Basic knowledge in the use of computers, operating systems, and operating system utilities
-- Experience in using relational database and an understanding of database concepts
+- Basic knowledge of the use of computers, operating systems, and operating system utilities
+- Experience in using relational databases and an understanding of database concepts
 - Computer programming experience
 - Experience in database server management, operating system management, or network administration
-- Knowledge related to the storage, management and processing of data in distributed environments
+- Knowledge related to the storage, management, and processing of data in distributed environments
 
 #### Organization
 
 This manual is organized as follows:
 
-- Chapter 1:  SQuirreL SQL Client  
+- 제 1장 DBeaver
+
+  이 장에서는 DBeaver으 개요와 설치 및 삭제 방법, 그리고 Altibase 데이터베이스 시스템과 DBeaver를 연결하는 방법을 설명한다.
+
+- Chapter 2:  SQuirreL SQL Client  
   This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
-- Chapter 2: Hibernate
+- Chapter 3: Hibernate
 
-- Chapter 3: OpenLDAP  
+- Chapter 4: OpenLDAP  
   This chapter describes how to integrate openLDAP and Altibase.
 
 #### Documentation Conventions
@@ -200,9 +204,9 @@ For more detailed information, please refer to the following documents.
 
 - Error Message Reference
 
-#### Altibase Welcomes Your Comments and Feedbacks
+#### Altibase Welcomes Your Comments and Feedback
 
-Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there is any corrections or classifications that you would find useful.
+Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there are any corrections or classifications that you would find useful.
 
 Include the following information:
 
@@ -212,12 +216,119 @@ Include the following information:
 
 If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
-Thank you. We always welcome your feedbacks and suggestions.
+Thank you. We always welcome your feedback and suggestions.
 
 <br>
 
-1.SQuirreL SQL Client
-=======================
+# 1.DBeaver
+
+이 장은 DBeaver 개요, 시스템 요구사항, 설치 및 제거 방법, 그리고 Altibase 데이터베이스 시스템 연결하는 방법에 대해 소개한다.
+
+### 개요
+
+DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터베이스 툴이다. 80가지 이상의 데이터베이스 시스템에 연결하여 데이터 조작, 데이터베이스 객체 관리 기능, SQL 편집기, SQL Plan 뷰어, 데이터베이스 연결 세션 모니터링 등의 기능을 제공한다.
+
+Altibase에서 제공하는 DBeaver 패키지는 기존 호환되는 데이터베이스 시스템과 더불어 Altibase에 연결 및 앞서 기술한 다양한 기능들을 제공한다.
+
+DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki 를 참조한다.
+
+### 시스템 요구사항
+
+#### 소프트웨어 요구 사항
+
+##### 지원하는 OS 및 플랫폼
+
+Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우용 패키지를 제공한다.
+
+##### 호환되는 Altibase 서버 버전
+
+DBeaver와 호환되는 Altibase 서버 버전을 열거한다.
+
+- Altibase 7.1.0 이상
+
+### 설치 및 제거
+
+DBeaver는 공식 Altibase 고객서비스포털 [http://support.altibase.com](http://support.altibase.com/)에서 내려받을 수 있으며 zip 파일 형식으로 제공된다.
+
+설치는 원하는 폴더에 압축을 풀면 완료된다. DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
+
+### Altibase 데이터베이스 시스템 연결
+
+#### 1. 새 데이터베이스 연결
+
+[ 데이터베이스 ] → [ 새 데이터베이스 연결 ]
+
+[![connect1](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect1.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect1.png)
+
+#### 2. Altibase database 선택
+
+All 또는 SQL에서 Altibase를 선택 후 [ Next > ] 버튼을 클릭한다.
+
+[![connect2](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect2.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect2.png)
+
+#### 3. 데이터베이스 접속 정보 입력
+
+Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.
+
+[![connect3](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect3.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect3.png)
+
+#### 4. JDBC 드라이버 파일
+
+접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. [![auto1](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto1.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto1.png)
+
+처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 드라이버 파일이 없기 때문에, JDBC 드라이버 파일을 등록해야 접속이 가능하다. '4.1 자동 다운로드' 또는 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
+
+Altibase 연결 정보(mydb)를 더블 클릭하면 연결을 시도한다.
+
+##### 4.1 자동 다운로드
+
+데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는 Altibase JDBC 드라이버 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 드라이버 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
+
+[![auto2](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto2.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto2.png)
+
+Download 를 클릭하여 JDBC 드라이버 파일을 다운로드한다.
+
+[![auto3](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)
+
+다운로드가 완료되면 데이터베이스 연결이 수행된다.
+
+##### 4.2 수동으로 JDBC 드라이버 등록
+
+사용자가 JDBC 드라이버를 직접 등록할 수 있다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
+
+[![connect4](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect4.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect4.png)
+
+Libraries 탭의 Add File을 클릭한다.
+
+[![connect5](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect5.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect5.png)
+
+사용할 Altibase JDBC 드라이버 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
+
+[![connect6](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect6.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect6.png)
+
+Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 Apply and Close 를 클릭한다.
+
+[![connect7](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect7.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect7.png)
+
+설정이 완료되었다면 OK 버튼을 클릭하고, 마지막으로 Finish 버튼을 클릭하여 설정을 완료한다.
+
+[![connect8](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect8.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect8.png)
+
+#### 5. 데이터베이스 연결 완료
+
+Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록을 확인할 수 있다.
+
+목록의 데이터베이스 연결 정보를 더블 클릭하면 연결을 시도하며, 성공적으로 연결되면 아이콘에 초록색 체크 표시가 나타난다.
+
+[![connect9](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect9.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect9.png)
+
+필요시 mydb 데이터베이스 연결 정보 이름을 원하는 이름으로 변경할 수 있다.
+
+[![connect10](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect10.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect10.png)
+
+
+
+# 2.SQuirreL SQL Client
 
 This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
@@ -421,8 +532,7 @@ The following setting is required to display LOB data in the SQL tab or the Obje
 
 <br>
 
-2.Hibernate
-=========
+# 3.Hibernate
 
 ### Hibernate
 
@@ -438,8 +548,7 @@ Please refer to [AltibaseDialect Porting Method](https://github.com/ALTIBASE/hib
 
 <br>
 
-3.OpenLDAP
-========
+# 4.OpenLDAP
 
 This chapter describes how to integrate openLDAP with Altibase.
 
