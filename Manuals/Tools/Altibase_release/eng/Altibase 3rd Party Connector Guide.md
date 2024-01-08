@@ -153,9 +153,9 @@ It is recommended that those reading this manual possess the following backgroun
 
 This manual is organized as follows:
 
-- 제 1장 DBeaver
+- Chapter 1: DBeaver
 
-  이 장에서는 DBeaver으 개요와 설치 및 삭제 방법, 그리고 Altibase 데이터베이스 시스템과 DBeaver를 연결하는 방법을 설명한다.
+  This chapter describes the overview of DBeaver, how to install and uninstall the DBeaver, and how to connect it with the Altibase database system.
 
 - Chapter 2:  SQuirreL SQL Client  
   This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
@@ -222,109 +222,115 @@ Thank you. We always welcome your feedback and suggestions.
 
 # 1.DBeaver
 
-이 장은 DBeaver 개요, 시스템 요구사항, 설치 및 제거 방법, 그리고 Altibase 데이터베이스 시스템 연결하는 방법에 대해 소개한다.
+This chapter introduces the DBeaver overview, system requirements, installation and uninstallation methods, and how to connect to the Altibase database system.
 
-### 개요
+### Overview
 
-DBeaver Community는 DBeaver 사에서 제공하는 무료 데이터베이스 툴이다. 80가지 이상의 데이터베이스 시스템에 연결하여 데이터 조작, 데이터베이스 객체 관리 기능, SQL 편집기, SQL Plan 뷰어, 데이터베이스 연결 세션 모니터링 등의 기능을 제공한다.
+DBeaver Community is a free database tool provided by DBeaver Corp. It enables connection to over 80 different database systems, offering functionalities such as data manipulation, database object management, SQL editor, SQL Plan viewer, session monitoring for database connections, etc.
 
-Altibase에서 제공하는 DBeaver 패키지는 기존 호환되는 데이터베이스 시스템과 더불어 Altibase에 연결 및 앞서 기술한 다양한 기능들을 제공한다.
+The DBeaver package provided by Altibase provides the connection to Altibase and the diverse range of functionalities mentioned earlier, in addition to other compatible database systems.
 
-DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki 를 참조한다.
+For detailed information on DBeaver, refer to https://github.com/dbeaver/dbeaver/wiki.
 
-### 시스템 요구사항
+### System Requirements
 
-#### 소프트웨어 요구 사항
+#### Software Requirements
 
-##### 지원하는 OS 및 플랫폼
+##### OS / Platforms
 
-Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우용 패키지를 제공한다.
+Altibase provides the DBeaver package for Windows.
 
-##### 호환되는 Altibase 서버 버전
+##### Altibase Server Version
 
-DBeaver와 호환되는 Altibase 서버 버전을 열거한다.
+Altibase server version compatible with the DBeaver is as follows:
 
-- Altibase 7.1.0 이상
+- Altibase 7.1.0 and higher
 
-### 설치 및 제거
+### Installing and Removing DBeaver
 
-DBeaver는 공식 Altibase 고객서비스포털 [http://support.altibase.com](http://support.altibase.com/)에서 내려받을 수 있으며 zip 파일 형식으로 제공된다.
+Users can download the DBeaver installation file from the Download → Product → Tool on the [Altibase's Support Portal]((http://support.altibase.com/)). The file format is zip.
 
-설치는 원하는 폴더에 압축을 풀면 완료된다. DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
+To install, simply extract the compressed file into the desired folder. To remove DBeaver, delete the directory where DBeaver is installed.
 
-### Altibase 데이터베이스 시스템 연결
+### Altibase Database System Connection
 
-#### 1. 새 데이터베이스 연결
+#### 1. Connect to New Database
 
-[ 데이터베이스 ] → [ 새 데이터베이스 연결 ]
+Clink [ Database ] → [ New Database Connection ]
 
-[![connect1](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect1.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect1.png)
+[![connect1_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect1_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect1_eng.png)
 
-#### 2. Altibase database 선택
+#### 2. Select Altibase Database
 
-All 또는 SQL에서 Altibase를 선택 후 [ Next > ] 버튼을 클릭한다.
+Select Altibase in ALL or SQL tab, and click the [ Next > ].
 
-[![connect2](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect2.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect2.png)
+[![connect2_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect2_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect2_eng.png)
 
-#### 3. 데이터베이스 접속 정보 입력
+#### 3. Set the Database Connection Information
 
-Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이터베이스 접속 정보를 입력한다.
+Configure database connection settings. Host IP address, Port Number, Database/Schema, Username, and Password information of the database user willing to connect are required. Click the [ Finish ] after configuration. 
 
-[![connect3](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect3.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect3.png)
+[![connect3_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect3_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect3_eng.png)
 
-#### 4. JDBC 드라이버 파일
+#### 4. JDBC Driver Files
 
-접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. [![auto1](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto1.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto1.png)
+Now users can find the database set above as follows:
 
-처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 드라이버 파일이 없기 때문에, JDBC 드라이버 파일을 등록해야 접속이 가능하다. '4.1 자동 다운로드' 또는 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
+ [![auto1_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto1_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto1_eng.png)
 
-Altibase 연결 정보(mydb)를 더블 클릭하면 연결을 시도한다.
+Double click Altibase connection information(mydb) to connect. 
 
-##### 4.1 자동 다운로드
+Because DBeaver does not have Altibase JDBC driver files, users should register Altibase JDBC driver files to access the database. Please refer to '4.1 Automatic Download' or '4.2 Register JDBC Driver Manually'.
 
-데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는 Altibase JDBC 드라이버 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 드라이버 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
+##### 4.1 Automatic Download
 
-[![auto2](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto2.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto2.png)
+If the network is available, DBeaver automatically downloads the Altibase JDBC driver file. A Driver settings window will appear to ask whether users want to proceed with the automatic download of the JDBC driver files.
 
-Download 를 클릭하여 JDBC 드라이버 파일을 다운로드한다.
+[![auto2_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto2_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto2_eng.png)
 
-[![auto3](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)
+Click [ Download ] to download JDBC driver files.
 
-다운로드가 완료되면 데이터베이스 연결이 수행된다.
+[![auto3_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)
 
-##### 4.2 수동으로 JDBC 드라이버 등록
+The database connection is processed after downloading.
 
-사용자가 JDBC 드라이버를 직접 등록할 수 있다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
+##### 4.2 Register JDBC Driver Manually
 
-[![connect4](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect4.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect4.png)
+Users can manually register JDBC drivers. To do this, click on the [ Driver Settings ] located at the bottom of the Altibase connection settings window.
 
-Libraries 탭의 Add File을 클릭한다.
+[![connect4_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect4_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect4_eng.png)
 
-[![connect5](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect5.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect5.png)
+Click [ Add File ] on the Libraries tab.
 
-사용할 Altibase JDBC 드라이버 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
+[![connect5_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect5_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect5_eng.png)
 
-[![connect6](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect6.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect6.png)
+Select the Altibase JDBC driver files.
 
-Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 Apply and Close 를 클릭한다.
+Click [ Classpath ].
 
-[![connect7](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect7.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect7.png)
+[![connect6_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect6_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect6_eng.png)
 
-설정이 완료되었다면 OK 버튼을 클릭하고, 마지막으로 Finish 버튼을 클릭하여 설정을 완료한다.
+Add the location of the JDBC driver file to be used in Global libraries and click [ Apply and Close ].
 
-[![connect8](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect8.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect8.png)
+[![connect7_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect7_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect7_eng.png)
 
-#### 5. 데이터베이스 연결 완료
+After all settings, click [ OK ] .
 
-Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록을 확인할 수 있다.
+Click [ Finish ] to complete the configuration.
 
-목록의 데이터베이스 연결 정보를 더블 클릭하면 연결을 시도하며, 성공적으로 연결되면 아이콘에 초록색 체크 표시가 나타난다.
+[![connect8_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect8_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect8_eng.png)
 
-[![connect9](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect9.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect9.png)
+#### 5. Finish Database Connection
 
-필요시 mydb 데이터베이스 연결 정보 이름을 원하는 이름으로 변경할 수 있다.
+Users can review the list of registered database connection information in the Database Navigator tab.
 
-[![connect10](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect10.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/connect10.png)
+Double-clicking on the database connection information in the list attempts to establish a connection.  A green check mark next to the icon signifies a successful connection has been established.
+
+[![connect9_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect9_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect9_eng.png)
+
+If needed, users can rename the database connection information to the desired name.
+
+[![connect10_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect10_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect10_eng.png)
 
 
 
@@ -422,7 +428,7 @@ This chapter describes how to install SQuirreL SQL Client.
 
 1. Double-click "squirrel-sql.bat" in the directory where SQuirreL SQL Client is installed to run the program. 
 
-2. Click Driver -> New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows -> View Drivers to activate it. 
+2. Click Driver → New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows → View Drivers to activate it. 
 
 3. Enter the following in the Driver section of the Add Driver window.
    
@@ -443,7 +449,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Database Connection Information Registration
 
-1. Click Aliases -> New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows -> View Aliases to activate it. 
+1. Click Aliases → New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows → View Aliases to activate it. 
 
 2. Enter the information below:
    
@@ -463,7 +469,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Using Database
 
-1. Click Aliases -> Connect in the main menu to open the connection window.
+1. Click Aliases → Connect in the main menu to open the connection window.
 
 ![](media/3rdPartyConnector/3843e6b7c58b308e9dd87c8530ef0ac0.jpg)
 
@@ -508,12 +514,12 @@ In the SQuirreL SQL client, LOB data can be retrieved in the SQL tab or the Obje
 The following setting is required to display LOB data in the SQL tab or the Objects tab.
 
 1. Change the Data Type Controls setting.<br>
-   In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
+   In 'File → Global Preferences → Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
 
 ![](media/3rdPartyConnector/squirrel_lob_view.jpg)
 
 2. Change the autocommit mode to false in the session properties.<br>
-   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File -> New Session Properties -> SQL tab.
+   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File → New Session Properties → SQL tab.
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
 
@@ -524,7 +530,7 @@ The following setting is required to display LOB data in the SQL tab or the Obje
    - Altibase 7.2.0.0.2 or higher
 
 2. Add getcolumns_return_jdbctype=true to the JDBC connection properties.<br>
-   It can be changed in Drivers -> Add Driver to designate a new driver, or Aliases -> Modify the selected Alias to add or change existing connection information.
+   It can be changed in Drivers → Add Driver to designate a new driver, or Aliases → Modify the selected Alias to add or change existing connection information.
 
 ![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
 
