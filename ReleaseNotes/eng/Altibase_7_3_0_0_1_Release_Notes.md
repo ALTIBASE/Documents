@@ -130,7 +130,7 @@ Provides support for multiple delete and multiple update statements. Refer to [*
 
 ##### Regular Expression for Korean Searching
 
-To support searching a regular expression in Korean,  Altibase provides PCRE2 compatibility mode. The PCRE2 compatibility mode supports the regular expression syntax of the PCRE2 library. Please refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) for more information.
+To support searching Korean strings with regular expressions,  Altibase provides PCRE2 compatibility mode. The PCRE2 compatibility mode supports the regular expression syntax of the PCRE2 library. Please refer to [**SQL Reference Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md) for more information.
 
 ##### Fetch Across Rollback
 
