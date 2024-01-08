@@ -202,7 +202,7 @@ To use DDL Synchronization, the following constraints must be verified:
 
 #####  RECEIVE_ONLY Option
 
-A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of transaction logs for changing data to other nodes. When creating replication with the RECEIVE_ONLY option, transaction logs do not affect other nodes because they are not read. Therefore, any replication issues such as network failures do not affect the system.
+A new option, RECEIVE_ONLY, has been introduced to prevent the transmission of transaction logs for changing data to other nodes. If users create a replication with the RECEIVE_ONLY option on the remote server, the local server does not read the transaction logs of the remote server. Therefore, any replication issues such as network failures do not affect the local server system.
 
 #### 2.1.8  Functionality Improvement - Application Development Interface
 
