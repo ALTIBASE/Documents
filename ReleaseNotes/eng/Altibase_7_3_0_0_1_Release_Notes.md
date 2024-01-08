@@ -482,7 +482,7 @@ Altibase 7.3 guarantees replication backward compatibility in LAZY mode because 
 >
 > Only LAZY mode replication guarantees backward compatibility.
 >
-> While EAGER mode replication, DDL synchronization and Offline Replication do not ensure backward compatibility since they require the same replication protocol version.
+> EAGER mode replication, DDL synchronization and Offline Replication do not guarantee backward compatibility since they require the same replication protocol version.
 
 </br>
 
