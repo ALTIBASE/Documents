@@ -2,7 +2,7 @@
 
 ## Altibase
 
-- ### Altibase 7.3.0.0.1 Release Notes [(korean)](https://github.com/ALTIBASE/Documents/blob/master/ReleaseNotes/kor/Altibase_7_3_0_0_1_Release_Notes.md) [(pdf)](https://github.com/ALTIBASE/Documents/blob/master/ReleaseNotes/kor/pdf/Altibase_7_3_0_0_1_Release_Notes.pdf)
+- ### Altibase 7.3.0.0.1 Release Notes [(korean)](https://github.com/ALTIBASE/Documents/blob/master/ReleaseNotes/kor/Altibase_7_3_0_0_1_Release_Notes.md) [(pdf)](https://github.com/ALTIBASE/Documents/blob/master/ReleaseNotes/kor/pdf/Altibase_7_3_0_0_1_Release_Notes.pdf)[(english)](https://github.com/ALTIBASE/Documents/blob/master/ReleaseNotes/eng/Altibase_7_3_0_0_1_Release_Notes.md)[(pdf_english)](https://github.com/ALTIBASE/Documents/blob/master/ReleaseNotes/eng/pdf/Altibase_7_3_0_0_1_Release_Notes.pdf)
 
 <br/>
 
