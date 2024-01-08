@@ -722,7 +722,8 @@ CLI 모드에서는 사용자가 임의로 "조정" 단계를 수행할 수 없�
 
 ### 도구
 
-이 절은 Migration Center 에 포함되어 있는 두 가지 도구의 사용법을 소개한다.
+이 절은 Migration Center 에 포함되어 있는 두 가지 유틸리티의 사용법을
+소개한다.
 
 #### PSM Converter for File
 
@@ -745,7 +746,7 @@ Altibase 고객서비스포털에 고객 등록 정보와 함께 보내기만 �
 
 이 툴은 메인 메뉴의 Tools -\> Generate Migration Error Report로 실행할 수 있다.
 
-
+<br/>
 
 3.GUI 모드 퀵 가이드
 ==================
@@ -862,8 +863,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 #### 원본 및 대상 데이터베이스로 연결
 
-원본 및 대상 데이터베이스로의 연결은 "구축" 단계로 진행하기 위해 필수적이다. 
-
+원본 및 대상 데이터베이스로의 연결은 "구축" 단계로 진행하기 위해 필수적이다.
 프로젝트에서 데이터베이스로 연결하려면, "Project" 메뉴 아래의 "Connect" 메뉴
 항목을 선택하거나, 열린 프로젝트에 오른쪽 마우스 버튼을 클릭해서 "Connect"를
 선택한다.
@@ -915,8 +915,6 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 6. 원본 데이터베이스의 각 테이블에서 데이터 추출시에 사용할 SELECT문을
    확인하고, 원한다면 수정한다.
-
-    > 원본 데이터베이스에서 데이터를 추출할 때, 특정 조건에 맞는 데이터만 선택적으로 추출하여 마이그레이션 할 수 있다. 자세한 내용은 [5.Migration Center 내부 - "Select Editing 단계"](#"Select Editing" 단계) 절을 참조한다.
 
 7. 스키마 마이그레이션 과정에서 사용될 DDL SQL문장들이 올바른지 확인하고,
    그렇지 않다면 수정한다.
@@ -1065,8 +1063,6 @@ Migration Center에 등록한다. 입력된 프로젝트 이름과 동일한 이
 CLI 모드에서는 "조정" 단계의 값을 변경할 수 없다. 예를 들어, 원본 데이터베이스
 테이블들을 대상 데이터베이스의 특정 테이블스페이스에 임의로 할당할 수 없고, 대상
 데이터베이스의 기본 테이블스페이스에만 할당된다.
-
-> 원본 데이터베이스에서 데이터를 추출할 때, 특정 조건에 맞는 데이터만 선택적으로 추출하여 마이그레이션 할 수 있다. 자세한 내용은 [5.Migration Center 내부 - "Select Editing 단계"](#"Select Editing" 단계) 절을 참조한다.
 
 #### 프로젝트 실행
 
@@ -1272,36 +1268,6 @@ Mapping" 메뉴 항목을 사용해서 변경할 수 있다.
 등의 편집이 가능하며, 편집한 SELECT문을 바로 확인할 수 있다. 수정한 것을
 취소하고 싶다면 Restore 버튼을 누르면 된다.
 
-SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCondition.properties 파일에 
-기록된다. 이 파일은 Reconcile의 마지막 단계에서 자동 생성되며, 사용자가 편집 가능하다.
-
-###### Tablecondition.properties
-
-실행 단계에서 원본 데이터베이스 테이블에서 특정한 데이터를 선택적으로 마이그레이션할 수 있도록 "TableCondition.properties" 파일을 제공한다. 사용자는 이 파일에 데이터를 식별하여 마이그레이션하는 데 필요한 조건들을 입력할 수 있다. 파일에 포함되지 않은 테이블은 원본 테이블에서 대상 테이블로 전체 데이터를 마이그레이션한다.
-
-이 파일은 "원본 데이터베이스 테이블 이름"=WHERE 절 형식의 쌍으로 구성되어 있고 Reconcile 단계를 완료하면 자동으로 생성된다. 이 파일에 입력된 WHERE절은 원본 테이블에서 데이터를 검색하는 SELECT문에 추가된다. 또한, 실행 단계 이후 대상 테이블에서 마이그레이션 된 데이터 개수를 확인할 때도 동일한 WHERE 절을 사용한다. 마이그레이션 된 데이터의 개수는 RunReport4Summary.html 파일에서 확인할 수 있다.
-
-조건은 Reconcile 단계 중 "Select Editing"에서 수정하거나, Reconcile 단계 완료 후 사용자가 직접 편집할 수 있다. 이 때 다음과 같은 제약사항이 있다.
-
-- WHERE절은 반드시 한 줄에 기입해야 한다.
-
-- 원본과 대상 데이터베이스 간에 SQL 구문 차이가 있는 경우 [DEST] 섹션에 대상 데이터베이스 테이블에 적용될 WHERE 절을 별도로 기입해야 한다.
-
-  - 예시
-
-    ```
-    DATE_TEST=WHERE C2 > DATE'2023-12-02'
-    OTHER_TABLE=WHERE C1 > 1 AND C2 = 'Altibase'
-    ...
-    [DEST]
-    DATE_TEST=WHERE C2 > TO_DATE('2023-12-02', 'YYYY-MM-DD');
-    ```
-
-    
-
-
-보다 상세한 파일 편집 방법과 제약점은 파일 상단에서 제공하는 안내를 참조한다.
-
 ##### "Unacceptable Name" 단계
 
 "Unacceptable Name" 단계는 대상 데이터베이스의 인용 부호 없는 객체 이름 규칙에 
@@ -1380,30 +1346,27 @@ PL/SQL 변환기가 PSM 타입 객체 DDL 문장을 Altibase에 호환되는 형
 실행](#프로젝트-실행)" 또는 "[CLI 모드로 실행, 검증 단계
 수행](#executing_runStep_inCLImode)" 절을 참고한다.
 
-내부적으로, 이 과정은 데이터베이스 객체 종속성을 피하기 위해 초기화 단계, 
-PreSchema 단계, 테이블 및 데이터 단계, PostSchema 단계의 네 단계로 구성된다. 
-예를 들어, 인덱스 객체는 테이블 및 데이터 단계가 완료된 후 PostSchema 단계에서
-마이그레이션 된다. 왜냐하면, 보통 인덱스가 없는 상태에서 데이터를 삽입하는 것이 
-인덱스가 있는 경우보다 더 빠르기 때문이다. 각 단계별 상세 동작은 다음과 같다:
+내부적으로, 이 과정은 데이터베이스 객체 종속성을 피하기 위해 PreSchema 단계,
+테이블 및 데이터 단계, PostSchema 단계의 세 단계로 구성된다. 예를 들어, 인덱스
+객체는 테이블 및 데이터 단계가 완료된 후 PostSchema 단계에서 마이그레이션 된다.
+왜냐하면, 보통 인덱스가 없는 상태에서 데이터를 삽입하는 것이 인덱스가 있는
+경우보다 더 빠르기 때문이다. 각 단계별 상세 동작은 다음과 같다:
 
-1. 초기화 단계: TableCondition.properties 파일에 기록된 WHERE 절의 유효성 
-       검사를 원본 DB를 대상으로 수행한다.
+1. PreSchema: sequence 객체 마이그레이션
 
-2. PreSchema: sequence 객체 마이그레이션
+2. Table & Data: 테이블 객체 및 데이터 마이그레이션
 
-3. Table & Data: 테이블 객체 및 데이터 마이그레이션
-
-4. PostSchema:
-
+3. PostSchema:
+   
    1. Queue: 큐 객체 마이그레이션
-
+   
    2. Constraints: 유니크, 프라이머리 키, 외래 키, 및 check 제약 조건 등의
       제약 조건 마이그레이션
-
+   
    3. Index: 인덱스 객체 마이그레이션
-
+   
    4. Synonym: PRIVATE 시노님 객체 마이그레이션
-
+   
    5. Procedures, Functions, Materialized Views, Views, Typesets 및 Triggers:
       DBMS 및 버전에 따라 상이함
 
