@@ -536,7 +536,9 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 -   Step 3:  Set ODBC/CLI Properties for SSL
 
--   Step 4: Write a Client Program
+-   Step 4: Set Altibase Environment Variables
+
+-   Step 5: Write a Client Program
 
 ##### Step 1: Verify the OpenSSL Library
 
@@ -590,7 +592,11 @@ The following is a table comparing the server SSL properties and ODBC/CLI proper
 | SSL_CIPHER                | X                           | O                                                            |
 | SSL_VERIFY                | X                           | O                                                            |
 
-##### Step 4: Write a Client Program
+##### Step 4: Set Altibase Environment Variables (FIPS module with SSL)
+
+To use the FIPS module, set the ALTIBASE_SSL_LOAD_CONFIG environment variable to 1 in the client's environment. If users do not intend to use the FIPS module, users may skip this step.
+
+##### Step 5: Write a Client Program
 
 Write a program to use SSL connection in the client application. You can find a sample program that uses SSL connection in the altibase directory. Please refer to $ALTIBASE_HOME/sample/SQLCLI/SSL.
 
