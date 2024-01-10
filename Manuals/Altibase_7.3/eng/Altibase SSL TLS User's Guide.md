@@ -250,7 +250,7 @@ The following list of features are the SSL characteristics when using Altibase w
 
 - An additional network port such as port 443 for HTTPS (other than the one that was used) is required to use SSL connections within Altibase. This is because Altibase does not allow a connection switch from non-secure to secure in TCP connections.
   
-- To use a secure connection, all client applications need to be implemented with Java Secure Socket Extension (JSSE) API, which is integrated into Java 1.8 or above. JSSE provides a framework and implementation for a Java version of SSL 2.0, 3.0, and TLS 1.0, 1.2, and 1.3 protocols as well as data encryption, server authentication, message integrity, and optional client authentication. 
+- To establish a secure connection, client applications need to be implemented with Java Secure Socket Extension (JSSE) API, which is integrated into Java 1.8 or later. JSSE provides a framework and implementation for a Java version of SSL 2.0, 3.0, and TLS 1.0, 1.2, and 1.3 protocols as well as data encryption, server authentication, message integrity, and optional client authentication. 
   
 - Altibase provides the JDBC and ODBC interfaces for SSL connection, which is currently supported only in Intel-Linux.
 
