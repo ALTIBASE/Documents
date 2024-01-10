@@ -700,8 +700,6 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
 - V$LIBRARY
 
-  현재 데이터베이스에서 직접 로드한 동적 라이브러리에 대한 정보를 아래의 성능 뷰에서 확인할 수 있다.
-
   This view shows information on the dynamic libraries that have been loaded directly within the database.
 
 - V$PROCINFO
