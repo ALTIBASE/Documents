@@ -298,7 +298,7 @@ When the stored procedure that registered an external procedure is invoked in th
 
 Because the Agent Process is subordinate to the service session of the Altibase server, n number of Agent Processes are created when external procedures are invoked in n number of client sessions. Also, the Agent Process created by a session also terminates when the session does.
 
-Internal mode는 에이전트 프로세스 없이 Altibase 서버에서 직접 동적 라이브러리를 로드하고 외부 프로시저를 실행한다.
+In the internal mode, external procedures are executed without an agent process by directly loading dynamic libraries within Altibase server.
 
 
 
@@ -702,13 +702,19 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
   현재 데이터베이스에서 직접 로드한 동적 라이브러리에 대한 정보를 아래의 성능 뷰에서 확인할 수 있다.
 
+  This view shows information on the dynamic libraries that have been loaded directly within the database.
+
 - V$PROCINFO
 
-  각 메타 테이블과 성능 뷰에 대한 상세한 설명은 *General Reference*를 참고하도록 한다.
+  This view shows the current external procedure mode of the database.
+
+
+
+For more detailed information on each meta table and performance view, please refer to *General Reference.*
 
 ### Related Properties
 
-The following are properties related to agent operations for external procedures. 에이전트 프로세스를 생성하지 않는 internal mode는 영향을 받지 않는다.
+The following are properties related to agent operations for external procedures. Internal mode, which does not create agent processes, is not affected. 
 
 -   EXTPROC_AGENT_CONNECT_TIMEOUT
 
@@ -839,7 +845,7 @@ When the external procedure is being executed, the value is passed to the proced
 
 ##### call_spec
 
-This specifies the names of user-defined functions, library objects and parameters. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once.
+This specifies the names of user-defined functions, library objects and parameters. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once. If INTERNAL is specified, it operates in the internal mode in which the server directly loads and executes the dynamic library without connecting with the agent process. If EXTERNAL is specified or omitted, it operates in external mode to connect with the agent process.
 
 ##### fun_name
 
