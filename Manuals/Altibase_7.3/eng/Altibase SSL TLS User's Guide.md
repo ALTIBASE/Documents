@@ -256,7 +256,7 @@ The following list of features are the SSL characteristics when using Altibase w
 
 # 2. Installing and Starting SSL in Altibase
 
-This chapter explains how to install SSL and the required software.
+This chapter provides instructions for installing SSL and the necessary software.
 
 ### Software Requirements
 
