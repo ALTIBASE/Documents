@@ -8846,11 +8846,11 @@ Altibase implements the SSL/TLS protocol, which uses a systematic key algorithm 
 
 The SSL/TLS feature of Altibase has the following characteristics.
 
-- Secure access to the Altibase server is based on the OpenSSL API developed by the OpenSSL project. The OpenSSL project supports the SSL 2.0 / 3.0 and TLS 1.0 protocols, including a general cryptographic library. 
+- Secure access to the Altibase server is based on the OpenSSL API developed by the OpenSSL project. The OpenSSL project supports the SSL 2.0 / 3.0 and TLS 1.0, 1.2, and 1.3 protocols, including a general cryptographic library. 
 - Altibase supports server-only authentication and mutual authentication.
 - In order to support SSL communication in the Altibase server, a separate service port is required in addition to the existing TCP port. 
 - In order to use SSL communication with the server, both ALTIBASE_PORT_NO and ALTIBASE_SSL_PORT_NO must be defined as environment variables.
-- Altibase provides the JDBC and ODBC interfaces for SSL connection, which is currently supported only in Linux.
+- Altibase provides the JDBC and ODBC interfaces for SSL connection.
 
 For more detailed information about how to configure and implement SSL/TLS in Altibase, please refer to the *[Altibase SSL/TLS User’s Guide.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20SSL%20TLS%20User's%20Guide.md)* 
 

@@ -12425,6 +12425,28 @@ A list of cipher algorithms available for the server and client to use and negot
 $ openssl ciphers
 ```
 
+#### SSL_CIPHER_SUITES
+
+##### Data Type
+
+String
+
+##### Default Value
+
+None
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+None
+
+##### Description
+
+This property sets specific cipher algorithm candidates for TLS v1.3. Users can set one or more candidates. The candidates are separated by a colon (:). If this property is not configured, OpenSSL allows the use of all available TLS 1.3 cipher algorithm candidates.
+
 #### SSL_CLIENT_AUTHENTICATION
 
 ##### Data Type
@@ -12500,6 +12522,32 @@ None
 Sets the server private (secret) key path. 
 
 An example of this value could be $ALTIBASE_HOME/cert/server- key.pem.
+
+#### SSL_LOAD_CONFIG
+
+##### Data Type
+
+String
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0,1]
+
+##### Description
+
+This property configures loading the OpenSSL configuration file (openssl.cnf). The default value is 0 (Disable). To use the OpenSSL FIPS module, this property should be set to 1.
+
+0: Do not load the file
+
+1: Load the file
 
 #### SSL_MAX_LISTEN
 
