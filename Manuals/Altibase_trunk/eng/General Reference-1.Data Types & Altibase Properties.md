@@ -12445,7 +12445,7 @@ None
 
 ##### Description
 
-This property sets specific cipher algorithm candidates for TLS v1.3. Users can set one or more candidates. The candidates are separated by a colon (:). If this property is not configured, OpenSSL allows the use of all available TLS 1.3 cipher algorithm candidates.
+This property allows users to set one or more specific cipher algorithm candidates for TLS v1.3, separated by a colon (:). If not configured, OpenSSL allows the use of all available TLS 1.3 cipher algorithm candidates.
 
 #### SSL_CLIENT_AUTHENTICATION
 

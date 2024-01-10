@@ -317,7 +317,7 @@ OpenSSL 3.0.8 7 Feb 2023 (Library: OpenSSL 3.0.8 7 Feb 2023)
 
 ##### Step 2: Set Server Properties to Connect over SSL
 
-The following are properties that you need to set to connect over SSL within Altibase. These properties are located in the $ALTIBASE_HOME/conf/altibase.properties file. For more detailed information about these properties, please refer to the *General Reference*.
+To connect over SSL within Altibase, you need to set the following properties located in the $ALTIBASE_HOME/conf/altibase.properties file. For more detailed information, please refer to the *General Reference*.
 
 -   SSL_ENABLE  
     : Switches the SSL feature on or off within Altibase. To enable, set the value to 1. 
@@ -333,7 +333,7 @@ $ openssl ciphers
 ```
 
 - SSL_CIPHERS_SUITES  
-  : This property sets the list of the ciphers of TLS 1.3. If users do not set this value, it indicates that all cipher lists allowed by OpenSSL are used. 
+  : This property defines the list of TLS 1.3 ciphers. If left unset, all cipher lists allowed by OpenSSL are used.
 
 - SSL_LOAD_CONFIG
 

@@ -248,13 +248,14 @@ The following list of features are the SSL characterstics when using Altibase wi
 
 - An additional network port such as port 443 for HTTPS (other than the one that was used) is required to use SSL connections within Altibase. This is because Altibase does not allow a connection switch from non-secure to secure in TCP connections.
   
-- To use a secure connection, all client applications need to be implemented with Java Secure Socket Extension (JSSE) API, which is integrated into Java 1.8 or above. JSSE provides a framework and implementation for a Java version of SSL 2.0, 3.0, and TLS 1.0, 1.2, and 1.3 protocols as well as data encryption, server authentication, message integrity, and optional client authentication.
+- To establish a secure connection, client applications need to be implemented with Java Secure Socket Extension (JSSE) API, which is integrated into Java 1.8 or later. JSSE provides a framework and implementation for a Java version of SSL 2.0, 3.0, and TLS 1.0, 1.2, and 1.3 protocols as well as data encryption, server authentication, message integrity, and optional client authentication.
   
 - Altibase provides the JDBC and ODBC interfaces for SSL connection, which is currently supported only in Intel-Linux.
+  
 
 # 2. Installing and Starting SSL in Altibase
 
-This chapter explains how to install SSL and the required software.
+This chapter provides instructions for installing SSL and the necessary software.
 
 ### Software Requirements
 
@@ -268,7 +269,7 @@ This section describes the requirements for using SSL communication on the serve
 
   
 
-The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. With support for OpenSSL 3.0.8, Altibase no longer supports OpenSSL 1.0.x. since Altibase 7.3.
+To use SSL/TLS in Altibase, the OpenSSL toolkit is required. This toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. Altibase 7.3 no longer supports OpenSSL 1.0.x, but supports OpenSSL 3.0.8.
 
 #### Client
 
@@ -278,9 +279,9 @@ The OpenSSL toolkit has to be installed in order to use the SSL communication wi
 
 ##### JDBC
 
-It is recommended to use Java 1.8.0_351 or later to conveniently implement the client Java application through the SSL.  Java 1.8.0_351 or later is recommended for the following reasons:
+To conveniently implement the client Java application through SSL, it is recommended to use Java 1.8.0_351 or later. This version is preferred for the following reasons:
 
-- TLS 1.3 cipher algorithms can be used without a specific setting in Java 1.8.0_351 or later.
+- In Java 1.8.0_351 or later, TLS 1.3 cipher algorithms can be used without any specific setting.
 
 - Since  Java 1.8.0_261 it supports TLS 1.3. However, the following setting is required to use TLS 1.3.
 
@@ -318,7 +319,7 @@ OpenSSL 3.0.8 7 Feb 2023 (Library: OpenSSL 3.0.8 7 Feb 2023)
 
 ##### Step 2: Set Server Properties to Connect over SSL
 
-The following are properties that you need to set to connect over SSL within Altibase. These properties are located in the $ALTIBASE_HOME/conf/altibase.properties file. For more detailed information about these properties, please refer to the *General Reference*.
+To connect over SSL within Altibase, you need to set the following properties located in the $ALTIBASE_HOME/conf/altibase.properties file. For more detailed information, please refer to the *General Reference*.
 
 -   SSL_ENABLE  
     : Switches the SSL feature on or off within Altibase. To enable, set the value to 1. 
@@ -334,11 +335,11 @@ $ openssl ciphers
 ```
 
 - SSL_CIPHERS_SUITES  
-  : This property sets the list of the ciphers of TLS 1.3. If users do not set this value, it indicates that all cipher lists allowed by OpenSSL are used. 
+  This property defines the list of TLS 1.3 ciphers. If left unset, all cipher lists allowed by OpenSSL are used.
 
 - SSL_LOAD_CONFIG
 
-  : This property sets to load the OpenSSL configuration file(openssl.cnf). The default value is 0 (Disable). To use the OpenSSL FIPS module, the value of this property must be set to 1.
+  : Set this property to load the OpenSSL configuration file(openssl.cnf). The default value is 0, which disables this feature. To use the OpenSSL FIPS module, set the value of this property to 1.
 
   * 0: Do not load OpenSSL configuration file 
   * 1: Load OpenSSL configuration file
