@@ -308,7 +308,7 @@ This section discusses how to configure the environment for Altibase SSL.
 ##### Step 1: Confirm the Installation of OpenSSL and its Library
 It is recommended to install the OpenSSL toolkit before installing SSL-enabled Altibase. Otherwise, if an Altibase function is used and the OpenSSL is not installed, Altibase reports that it is unable to find the OpenSSL library.
 
-Verify that OpenSSL is installed on the server and check the installed version of OpenSSL as shown below.
+Check if that OpenSSL is installed on the server and verify that the version is as shown below.
 
 ```
 $ openssl version
