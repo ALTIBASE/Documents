@@ -337,7 +337,7 @@ $ openssl ciphers
 
 - SSL_LOAD_CONFIG
 
-  : This property sets to load the OpenSSL configuration file(openssl.cnf). The default value is 0 (Disable). To use the OpenSSL FIPS module, the value of this property must be set to 1.
+  : Set this property to load the OpenSSL configuration file(openssl.cnf). The default value is 0, which disables this feature. To use the OpenSSL FIPS module, set the value of this property to 1.
 
   * 0: Do not load OpenSSL configuration file 
   * 1: Load OpenSSL configuration file
