@@ -267,7 +267,7 @@ This section describes the requirements for using SSL communication on the serve
 -   OpenSSL toolkit 3.0.8
 -   Altibase version 7.3.0.0.0 or later
 
-The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. With support for OpenSSL 3.0.8, Altibase no longer supports OpenSSL 1.0.x. since Altibase 7.3.
+To use SSL/TLS in Altibase, the OpenSSL toolkit is required. This toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. Altibase 7.3 no longer supports OpenSSL 1.0.x, but supports OpenSSL 3.0.8.
 
 #### Client
 
