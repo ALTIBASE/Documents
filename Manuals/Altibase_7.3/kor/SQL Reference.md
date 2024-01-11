@@ -12152,7 +12152,7 @@ multiple delete 제약 사항:
 
 *tbl_ref*
 
-multiple update 를 하기 위한 table 을 명시한다.
+multiple_delete를 하기 위한 table 을 명시한다.
 
 *one_table*
 

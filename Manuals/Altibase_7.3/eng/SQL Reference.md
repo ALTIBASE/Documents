@@ -3051,9 +3051,9 @@ Alter success.
 
 ![sync_table_clause](media/SQL/sync_table_clause.gif)
 
-*restart_clause ::=**
+**restart_clause ::=**
 
-[![sync_table_clause](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.3/kor/media/SQL/restart_sequence_clause.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/media/SQL/restart_sequence_clause.gif)
+![restart_clause](media/SQL/restart_sequence_clause.gif)
 
 #### Prerequisites 
 
@@ -3113,14 +3113,16 @@ For detailed more information about sequences, please refer to the description o
 
 *restart_clause*
 
-시퀀스를 재시작하기 위한 구문으로 아래 세가지 방법이 있다.
+There are three statement to restart the sequence
 
 - RESTART
-  - START VALUE를 INCREMENT VALUE가 1 이상이면 MINVALUE로, INCREMENT VALUE가 -1 이하이면 MAXVALUE로 초기화하고, 시퀀스를 재시작한다.
+  - This statement initialize START VALUE to specific value by INCREMENT VALUE, and restarts the sequence.
+    - If INCREMENT VALUE is equal to or greater than 1, START VALUE is set to MINVALUE.
+    - If INCREMENT VALUE is equal to or less than -1, START VALUE is set to MAXVALUE.
 - RESTART WITH N
-  - START VALUE를 N으로 초기화하고, 시퀀스를 재시작한다.
+  - This statement initializes START VALUE to N, and restarts the sequence.
 - RESTART START WITH N
-  - RESTART WITH N 와 동일하게, START VALUE를 N으로 초기화하고 시퀀스를 재시작한다.
+  - Like RESTART WITH N, this statement initializes START VALUE to N, and restarts the sequence.
 
 #### Examples
 
@@ -6017,7 +6019,7 @@ This is used to set the maximum number of records that can be stored in a queue 
 
 *DELETE [ON|OFF]*
 
-큐 테이블에 DELETE 문 허용 여부를 결정하는 절이다. ON은 큐 테이블에 DELTE 문을 허용한다. OFF는 큐 테이블에 DELETE 문을 허용하지 않는다. 이 경우 DELETE 문을 허용한 경우보다 DEQUEUE 병렬 수행 성능이 향상된다. DELETE 절을 생략하면 DELETE ON으로 큐 테이블을 생성한다. DELETE 문을 허용하지 않는 큐 테이블은 V$QUEUE_DELETE_OFF에서 확인할 수 있다.
+This determines if DELETE statement can be applied to the queue table or not. ON allows the DELETE statement on the queue table. OFF does not allow the DELETE statement on the queue table. In this case, when DELETE is not allowed, the DEQUEUE parallel performance improves. If the DELETE clause is omitted, the queue table is created with DELETE ON. Users can find queue tables that do not allow the DELETE statement in V$QUEUE_DELETE_OFF.
 
 #### Considerations
 
@@ -6056,7 +6058,7 @@ abc         1           99.999
 1 row selected.
 ```
 
-<질의> 메시지의 길이가 최대 40이고, DELETE 문을 허용하지 않는 Q3이라는 이름의 큐 테이블을 생성하라.
+<Query\> Create a queue named Q3 that does not allow the DELETE statement, with a maximum message length is 40 bytes.
 
 
 ```
@@ -10581,15 +10583,15 @@ This chapter explains each of the Data Manipulation Language (DML) statements th
 
 **tbl_ref ::=**
 
-![tbl_ref](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Altibase_7.3/kor/media/SQL/tbl_ref.gif)
+![tbl_ref](media/SQL/tbl_ref.gif)
 
 **one_table ::=**
 
-![one_table](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Altibase_7.3/kor/media/SQL/one_table.gif)
+![one_table](media/SQL/one_table.gif)
 
 **join_table ::=**
 
-![join_table](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Altibase_7.3/kor/media/SQL/join_table.gif)
+![join_table](media/SQL/join_table.gif)
 
 #### Prerequisites
 
@@ -10651,25 +10653,29 @@ Limitations of the returning clause:
 
 *multiple_delete*
 
-The following example deletes records that meet the join condition from the table specified in tbl_name.
+This deletes records that meet the join condition from the table specified in tbl_name.
 
 Limitations of the multiple delete clause:
 
 - limit_clause and returning_clause cannot be used.
 - dictionary table cannot be used.
-- full outer join canno be used.
+- full outer join cannot be used.
 
 *tbl_ref*
+
+This specifies the table to be applied to multiple_delete.
 
 multiple update 를 하기 위한 table 을 명시한다.
 
 *one_table*
 
-한 개의 table이거나 혹은 view 를 명시한다.
+This indicates that multiple_delete applies to one table or view.
+
+ 한 개의 table이거나 혹은 view 를 명시한다.
 
 *join_table*
 
-table 사이의 join 조건을 명시한다.
+This specifies the join conditions between tables.
 
 #### HINTS Options
 
@@ -11470,14 +11476,21 @@ The following example shows how Altibase manages data concurrency, integrity, an
 
 ![subquery](media/SQL/subquery.gif)
 
-[limit_clause ::=](#limit_clause)
+[**limit_clause ::=**](#limit_clause)
+
+![limit_clause](media/SQL/limit_clause.gif)
 
 **select_clause ::=**
 
 ![](media/SQL/77d1a3feb68a0257346ff3590901be12.png)
 
-[hierarchical_query_clause ::=](#hierarchical_query_clause), [group_by_clause
-::=](#group_by_clause)
+[**hierarchical_query_clause ::=**](#hierarchical_query_clause)
+
+![hierarchical_query_clause](media/SQL/hierarchical_query_clause.gif)
+
+[**group_by_clause::=**](#group_by_clause)
+
+![group_by_clause](media/SQL/group_by_clause.gif)
 
 **select_list ::=**
 
@@ -11489,7 +11502,9 @@ The following example shows how Altibase manages data concurrency, integrity, an
 
 ![](media/SQL/e71b7bc2eebb6dec22a57132da33f80c.png)
 
-[joined_table ::=](#joined_table)
+[**joined_table ::=**](#joined_table)
+
+![joined_table](media/SQL/joined_table.gif)
 
 <a name="single_table"><a/>
 
@@ -11623,7 +11638,7 @@ If a SELECT statement contains a GROUP BY clause, then only constants, aggregate
 
 If the SELECT list is composed of expressions or constants that do not include columns, the FROM clause can be omitted.
 
-SThe specification of only the asterisk symbol(*) in the SELECT list represents every column of every table and view in the FROM clause. What the asterisk symbol represents does not change, even if it is specified with a column or expression.
+The specification of only the asterisk symbol(*) in the SELECT list represents every column of every table and view in the FROM clause. What the asterisk symbol represents does not change, even if it is specified with a column or expression.
 
 *FROM Clause*
 
@@ -13448,7 +13463,9 @@ C1          C2
 
 ![update_image229](media/SQL/update_image229.gif)
 
-[returning_clause ::=](#returning_clause)
+[**returning_clause ::=**](#returning_clause)
+
+![returning_clause](media/SQL/returning_clause.gif)
 
 **set_clause_list ::=**
 
@@ -13464,21 +13481,21 @@ C1          C2
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
 
-[**multiple_update ::=**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL Reference.md#multiple_update)
+[**multiple_update ::=**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL Reference.md#multiple_update)
 
-[![multiple_update](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.3/kor/media/SQL/multiple_update.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/media/SQL/multiple_update.gif)
+![multiple_update](media/SQL/multiple_update.gif)
 
 **tbl_ref ::=**
 
-[![multiple_update2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.3/kor/media/SQL/tbl_ref.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/media/SQL/tbl_ref.gif)
+![tbl_ref](media/SQL/tbl_ref.gif)
 
 **one_table ::=**
 
-[![multiple_update3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.3/kor/media/SQL/one_table.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/media/SQL/one_table.gif)
+![one_table](media/SQL/one_table.gif)
 
 **join_table ::=**
 
-[![multiple_update4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.3/kor/media/SQL/join_table.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/media/SQL/join_table.gif)
+![join_table](media/SQL/join_table.gif)
 
 #### Prerequisites
 
@@ -13529,25 +13546,25 @@ Please refer to the returning_clause of the DELETE statement.
 
 *multiple_update*
 
-join 조건을 만족하는 레코드를 찾아 명시한 컬럼들의 값을 변경하는 구문이다.
+This finds records that meet the join conditions and updates that specified columns.
 
-multiple update 제약 사항:
+Limitations of the multiple update clause:
 
-- limit_clause 와 returning_clause 를 사용할 수 없다.
-- dictionary table 을 사용할 수 없다.
-- full outer join 을 사용할 수 없다.
+- limit_clause and returning_clause cannot be used.
+- dictionary table cannot be used.
+- full outer join cannot be used.
 
 *tbl_ref*
 
-multiple update 를 하기 위한 table 을 명시한다.
+This specifies tables to be applied to multiple_update.
 
 *one_table*
 
-한 개의 table이거나 혹은 view 를 명시한다.
+This indicates that multiple_update applies to one table or view.
 
 *join_table*
 
-table 사이의 join 조건을 명시한다.
+This specifies the join conditions between tables.
 
 #### HINTS Options
 
@@ -23362,29 +23379,29 @@ Appendix A. Regular Expressions
 
 This section explains the regular expressions supported by Altibase.
 
-이 장에서 사용한 샘플 스키마는 $ALTIBASE_HOME/sample/APRE/schema/schema.sql을 이용했다.
+All examples in this section are based on the sample schema $ALTIBASE_HOME/sample/APRE/schema/schema.sql.
 
 ### Regular Expression
 
-Regular expressions are a syntax convention for writing text patterns and consist of one or more character strings and metacharacters. Altibase partly supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE). PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다.
+Regular expressions are a syntax convention for writing text patterns and consist of one or more character strings and metacharacters. Altibase partly supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE). PCRE2 compatibility mode supports the regular expression syntax fo the  PCRE2 library.
 
-정규 표현식 문법이나 기능은 구현체마다 세부 구현이 다르다. DBMS 벤더마다 도입한 정규 표현식 라이브러리나 정규 표현식 라이브러리 버전이 각각 달라서 Altibase에서 지원하는 정규 표현식 문법과 기능이 타 DBMS와 차이가 있을 수 있다.
+Regular expression syntax and functionality may vary in detail by DBMS. Different DBMS use different regular expression libraries or versions, leading to potential differences in the supported syntax and features between Altibase and other DBMS.
 
-Altibase SQL에서 정규 표현식은 아래의 문자 함수나 연산자와 함께 사용할 수 있다.
+In Altibase SQL, regular expressions can be used in conjunction with the following string functions or operators:
 
 - REGEXP_COUNT
 - REGEXP_REPLACE
 - REGEXP_INSTR
 - REGEXP_SUBSTR
-- REGEXP_LIKE 조건 연산자
+- REGEXP_LIKE Condition Operator
 
-### 정규 표현식 모드 설정 방법
+### How to Set the Regular Expression Mode
 
-사용자는 Altibase 정규 표현식 모드와 PCRE2 호환 모드, 두 가지 정규 표현식 모드 중 하나를 선택해서 사용해야 한다. Altibase 정규 표현식 모드가 기본으로 설정되어 있으므로 PCRE2 호환 모드를 사용하고 싶다면 다음 구문으로 정규 표현식 모드를 변경해야 한다.
+Users can choose one option between Altibase regular expression mode and PCRE2 compatibility mode. The default setting is Altibase regular expression mode. Thus, users who want to use PCRE2 compatibility mode should change the regular expression mode with the statements below:
 
-> ###### 시스템 단위 변경
+> ###### Change at the System Level
 
-Altibase 서버가 구동된 상태에서 시스템 프로퍼티를 변경하는 구문으로 정규 표현식 모드를 변경하는 방법이다. 변경한 설정을 적용하려면 세션을 재접속해야 한다.
+The following statement changes the system property while the Altibase server is running. To apply the modified settings, reconnect the session.
 
 ```
 ALTER SYSTEM SET REGEXP_MODE=1;
@@ -23392,9 +23409,9 @@ ALTER SYSTEM SET REGEXP_MODE=1;
 
 
 
-> ###### 세션 단위 변경
+> ###### Change at the Session Level
 
-Altibase 서버가 구동된 상태에서 세션의 속성을 변경하는 구문으로 정규 표현식 모드를 변경하는 방법이다.
+The following statement changes the session property while the Altibase server is running. 
 
 ```
 ALTER SESSION SET REGEXP_MODE=1;
@@ -23402,22 +23419,22 @@ ALTER SESSION SET REGEXP_MODE=1;
 
 
 
-> ###### Altibase 서버에 영구적으로 변경
+> ###### Change the Regular Expression Mode on the Altibase Server Permanently
 
-변경한 정규 표현식 모드를 영구적으로 Altibase 서버에 적용하는 방법이다. Altibase 서버 프로퍼티 파일에 REGEXP_MODE=1을 추가하고 Altibase 서버를 재시작한다.
+The following statement applies the changed regular expression mode permanently on the Altibase server. This statement adds "REGEXP_MODE=1" in the Altibase server property file and restarts the server. 
 
 ```
 $ vi $ALTIBASE_HOME/conf/altibase.properties
 REGEXP_MODE=1
 ```
 
-### Altibase 정규 표현식 모드
+### Altibase Regular Expression Mode
 
-Altibase의 정규 표현식 모드 중 Altibase 정규 표현식 모드에 대해 살펴보자.
+This section explains the Altibase regular expression mode.
 
-#### 특징
+#### Features
 
-Altibase 정규 표현식 모드는 Altibase의 기본 설정 모드이다. POSIX 기본 정규 표현식과 확장 정규 표현식의 문법을 일부 지원하며 최소한의 정규 표현식 문법을 지원한다.
+The Altibase regular expression mode is the default setting for Altibase. It partially supports the syntax of POSIX basic regular expressions and extended regular expressions, and minimal regular expression syntax.
 
 Regular expressions supported by Altibase have the following limitations and features.
 
@@ -23427,13 +23444,13 @@ Regular expressions supported by Altibase have the following limitations and fea
 -   Conditional regular expressions (e.g., condition)B|C) are unsupported. 
 -   The escape character is supported.
 
-#### 정규 표현식 문법
+#### Regular Expression Syntax
 
-다음은 Altibase 정규 표현식 모드의 정규 표현식 문법에 대한 설명이다.
+This section describes the regular expression syntax of Altibase regular expression mode.
 
-##### 문자 클래스
+##### Character Class
 
-문자 클래스는 자주 사용하는 문자 집합들을 정의한 것이다. 문자 클래스는 이스케이프 스퀀스로 표현하거나 대괄호로 둘러싸인 POSIX 표기법을 사용할 수도 있다.
+Character Class defines the set of characters frequently used. Users can represent this class in an escape sequence or POSIX standard enclosed in square brackets.
 
 The following table describes character classes.
 
@@ -23464,222 +23481,109 @@ The following table describes character classes.
 
 The following table describes metacharacters that can be used for regular expressions in Altibase, and their meanings.
 
-<table>
-<tbody>
-<tr>
-<th>
-<p>Metacharacter</p>
-</th>
-<th>
-<p>Description</p>
-</th>
-</tr>
-<tr>
-<td>
-<p>.</p>
-</td>
-<td>
-<p>Matches a single character, other than the newline. The punctuation character(.) of a regular expression enclosed in square brackets matches the literal
-dot. For example, a.c matches “abc”, but [a.c] matches only “a”, “.”, or “c”. </p>
-</td>
-</tr>
-<tr>
-<td>
-<p>\</p>
-</td>
-<td>
-<p>뒤에 오는 메타 문자를 보통 문자로 취급한다</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>[]</p>
-</td>
-<td>
-<p>A character class expression. Matches a single character enclosed in square
-brackets. For example, [abc] matches “a”, “b”, or “c”; [a-z] matches any alphabetic character in lowercase, from “a” to “z”. The format can also be
-mixed: both [a-cx-z] and [abcx-z] match “a”, “b”, “c”, “x”, “y”, or “z”.
-If the right square bracket (]) is the initial character to follow a circumflex (^),
-it can be included in the expression enclosed in square brackets: []abc].</p>
-<p>] If the circumflex (^) is the initial character enclosed in square brackets ([]), it
-matches any character other than those enclosed in the square brackets ([]). For
-example, [^abc]d matches “ed”, “fd”, but not “ad”, “bd” and “cd”. [^a-z]
-matches any character that does not start with an alphabetic character in lowercase.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>^</p>
-</td>
-<td>
-<p>Matches the beginning character of a string.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>$</p>
-</td>
-<td>
-<p>Matches the last character of a string or the preceding character of the last
-newline of a string.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>*</p>
-</td>
-<td>
-<p>Matches the preceding element for 0 or more times. For example, ab*c matches "ac", "abc", "abbbc", etc.; [xyz]* matches "", "x", "y", "z", "zx", "zyx",
-"xyzzy", etc.; (ab)* matches "", "ab", "abab", "ababab", etc.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>+</p>
-</td>
-<td>
-<p>Matches the preceding character for 1 or more times.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>?</p>
-</td>
-<td>
-<p>Matches the preceding character for 0 or 1 time.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>{m,n}</p>
-</td>
-<td>
-<p>Matches the preceding element for a minimum of m, and a maximum of n
-times. For example a{3,5} matches "aaa", "aaaa", and "aaaaa".</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>{m}</p>
-</td>
-<td>
-<p>Matches the preceding element for m times.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>{m,}</p>
-</td>
-<td>
-<p>Matches the preceding element for m or more times.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>|</p>
-</td>
-<td>
-<p>Matches a single expression among multiple expressions.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>()</p>
-</td>
-<td>
-<p>Matches a subexpression. Multiple expressions can be grouped as a single
-complex regular expression.</p>
-</td>
-</tr>
-</tbody>
-</table>
+| Metacharacter | Action                                                       |
+| ------------- | ------------------------------------------------------------ |
+| .             | Match a single character, except the newline. The punctuation character(.) of a regular expression enclosed in square brackets matches the literal dot. <br/>For example, a.c matches “abc”, but [a.c] matches only “a”, “.”, or “c”. |
+| \             | Use the literal meaning of the following metacharacter.      |
+| []            | A character class expression. <br/>Match a single character enclosed in square brackets. <br/>For example, [abc] matches “a”, “b”, or “c”; [a-z] matches any alphabetic character in lowercase, from “a” to “z”. <br/>The format can also be mixed; both [a-cx-z] and [abcx-z] match “a”, “b”, “c”, “x”, “y”, or “z”.<br/>If the right square bracket (]) is the initial character to follow a circumflex (^), it can be included in the expression enclosed in square brackets; []abc].<br/>If the circumflex (^) is the initial character enclosed in square brackets ([]), it matches any character except those enclosed in the square brackets ([]). <br/>For example, [ ^abc ]d matches “ed”, “fd”, but not “ad”, “bd” and “cd”. [ ^a-z ] matches any character that does not start with an alphabetic character in lowercase. |
+| ^             | Match the beginning character of a string.                   |
+| $             | Match the last character of a string or the preceding character of the last newline of a string |
+| *             | Match the preceding element for zero, one, or more times. <br/>For example, ab\*c matches "ac", "abc", "abbbc", etc. <br/>[xyz]* matches "", "x", "y", "z", "zx", "zyx", "xyzzy", etc.<br/>(ab)* matches "", "ab", "abab", "ababab", etc. |
+| +             | Match the preceding character for 1 or more times.           |
+| ?             | Match the preceding character for 0 or 1 time.               |
+| {m,n}         | Matches the preceding element for a minimum of m, and a maximum of n times. <br/>For example, a{3,5} matches "aaa", "aaaa", and "aaaaa". |
+| {m}           | Match the preceding element for m times.                     |
+| {m,}          | Match the preceding element for m or more times.             |
+| \|            | Match a single expression among multiple expressions.        |
+| ()            | Match a subexpression. Multiple expressions can be grouped as a single complex regular expression. |
 
-##### 공백 문자
 
-다음은 정규 표현식에서 탭이나 줄바꿈과 같은 눈에 보이지 않는 문자를 검색할 때 사용하는 이스케이프 시퀀스(escape sequence)이다.
+##### Escape Sequence
 
-| 이스케이프 시퀀스 | 의미                         |
-| ----------------- | ---------------------------- |
-| \t                | 탭(tab)                      |
-| \n                | 줄바꿈(line feed)            |
-| \r                | 캐리지 리턴(carriage return) |
-| \f                | 다음 페이지(form feed)       |
+Users can search for invisible characters such as tab or line feed using an escape sequence.
+
+| Escape Sequence | Description     |
+| --------------- | --------------- |
+| \t              | tab             |
+| \n              | line feed       |
+| \r              | carriage return |
+| \f              | form feed       |
 
 
 
-### PCRE2 호환 모드
+### PCRE2 Compatibility Mode
 
-Altibase의 정규 표현식 모드 중 PCRE2 호환 모드에 대해 살펴보자.
+This section describes the PCRE2 compatibility mode.
 
-PCRE2 호환 모드는 PCRE2 라이브러리의 정규 표현식 문법을 지원한다. 사용된 PCRE2 라이브러리의 버전은 10.40이다.
+PCRE2 compatibility mode supports the regular expression syntax of the PCRE2 library, which version is 10.40.
 
-#### 특징
+#### Features
 
-먼저, PCRE2 호환 모드는 아래와 같은 특징과 제약 사항이 있다.
+PCRE2 Compatibility mode has the features and constraints as below.
 
-- Altibase 서버 캐릭터셋이 US7ASCII 또는 UTF-8일 때 사용할 수 있다.
-- 한글 검색이 가능하다.
-- 역참조, 전방 탐색, 후방 탐색 그리고 조건부 정규 표현식을 지원한다.
-- Altibase 정규 표현식 모드와 PCRE2 호환 모드의 정규 표현식 문법은 일부 차이가 있다. 따라서, PCRE2 호환 모드로 설정하면 Altibase 정규 표현식 모드에서 지원하는 문법을 사용할 수 없거나 같은 정규 표현식 문법을 사용하더라도 질의문의 결과가 달라질 수 있다. 대표적인 차이점은 하단의 [정규 표현식 모드 별 문법 차이점](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL Reference.md#정규-표현식-모드-별-문법-차이점)을 참고한다.
+- Altibase server character-set should be set to US7ASCII or UTF-8.
+- Korean searching is available.
+- Backreference, positive lookahead, negative lookahead, and conditional regular expressions are available.
+- The regular expression syntax differs between Altibase regular expression mode and PCRE2 compatibility mode. Therefore, when setting it to PCRE2 compatibility mode, certain syntax supported in Altibase regular expression mode may not be available, or even when using the same regular expression syntax, query results may be different. For notable differences, please refer to the [Syntax Differences between Regular Expression Modes](#Syntax-Differences-between-Regular-Expression-Modes)
 
-#### 정규 표현식 문법
+#### Regular Expression Syntax
 
-PCR2E 호환 모드에서 사용할 수 있는 대표적인 정규 표현식 문법에 대해 알아보자. 본 매뉴얼에서 다루지 않은 PCRE2 라이브러리의 정규 표현식 문법은 [PCRE2 패턴 매뉴얼 페이지](https://www.pcre.org/current/doc/html/pcre2pattern.html)를 참고하기 바란다.
+This section describes the notable regular expression syntax for PCRE2 compatibility mode. For regular expression syntax not covered in this manual, please refer to the [PCRE2 Pattern Manual](https://www.pcre.org/current/doc/html/pcre2pattern.html).
 
-##### 메타 문자
+##### Metacharacters
 
-메타 문자는 정규 표현식에서 사용하는 특별한 의미를 가지는 기호이다. PCRE2 호환 모드에서 메타 문자는 대괄호 안을 제외한 어느 곳에서나 인식되는 메타 문자와 대괄호 안에서 사용되는 메타 문자가 있다.
+Each metacharacter has its own meaning when it is used in regular expression. Some metacharacters change their meaning depending on whether they are used inside or outside square brackets.
 
-> ###### 대괄호 밖에서의 메타 문자
+> ###### Metacharacters outside square brackets
 
-| 메타 문자 | 의미                                    |
-| --------- | --------------------------------------- |
-| \         | 여러 용도로 사용되는 이스케이프 문자    |
-| ^         | 문자열(또는 여러 줄 모드에서 줄)의 시작 |
-| $         | 문자열(또는 여러 줄 모드에서 줄)의 끝   |
-| .         | 줄바꿈 문자를 제외한 모든 문자와 일치   |
-| [         | 문자 클래스 정의 시작                   |
-| \|        | 여러 식 중 하나를 선택                  |
-| (         | 그룹 또는 제어 동사 시작                |
-| )         | 그룹 또는 제어 동사 끝                  |
-| *         | 0회 이상 일치하는 문자                  |
-| +         | 1회 이상 일치하는 문자                  |
-| ?         | 0 또는 1회 일치하는 문자                |
-| {         | 최소/최대값                             |
+| Metacharacter | Action                                                       |
+| ------------- | ------------------------------------------------------------ |
+| \             | Escape character for various purposes.                       |
+| ^             | The beginning character of a string or a line in multi-line mode. |
+| $             | The end character of a string or a line in multi-line mode.  |
+| .             | Match any single character, except a newline character.      |
+| [             | Begin of character class definition.                         |
+| \|            | Select one expression among several expressions.             |
+| (             | Start grouping or control verbs.                             |
+| )             | End grouping or control verbs.                               |
+| *             | Match zero, one, or many of the preceding expression.        |
+| +             | Match one, or many of the preceding expression.              |
+| ?             | Match zero or one of the preceding expression.               |
+| {             | Minimum/maximum value                                        |
 
-> ###### 대괄호 안에서의 메타 문자
+> ###### Metacharacters inside square brackets
 
-| 메타 문자 | 의미                                                    |
-| --------- | ------------------------------------------------------- |
-| \         | 뒤의 문자를 일반 문자로 인식                            |
-| ^         | ^ 바로 뒤 문자나 범위 또는 집합 안의 문자나 범위를 제외 |
-| -         | 문자 범위                                               |
-| [         | 문자 클래스 시작                                        |
-| ]         | 문자 클래스의 종료                                      |
+| Metacharacter | Action                                                       |
+| ------------- | ------------------------------------------------------------ |
+| \             | Use the literal meaning of the following metacharacter.      |
+| ^             | Exclude a character, range, characters or range in a set following ^ immediately. |
+| -             | Character range.                                             |
+| [             | Begin of character class.                                    |
+| ]             | End of character class.                                      |
 
-##### 출력할 수 없는 문자
+##### Escape Sequence
 
-다음은 출력할 수 없는 문자를 의미하는 이스케이프 시퀀스를 정리한 표이다.
+The following table describes escape sequences, specifically unprintable.
 
-| 이스케이프 시퀀스 | 의미                                                         |
-| ----------------- | ------------------------------------------------------------ |
-| \a                | 경고음 문자                                                  |
-| \c*x*             | control-*x* 문자. *x*는 출력 가능한 아스키 문자가 올 수 있다. |
-| \e                | ESC 문자(escape). 아스키 코드의 27번째 문자(hex 1B)          |
-| \f                | 다음 페이지(form feed). 아스키 코드의 12번째 문자(hex 0C)    |
-| \n                | 줄바꿈 문자(line feed). 아스키 코드의 10번째 문자(hex 0A)    |
-| \r                | 캐리지 리턴(carriage return). 아스키 코드의 13번째 문자(hex 0D) |
-| \t                | 탭(tab). 아스키 코드의 9번째 문자(hex 09)                    |
-| \0*dd*            | 아스키 코드의 8진수 코드 *dd*에 해당하는 문자. 예를 들어 \061은 숫자 1을 의미한다. |
-| \*ddd*            | 아스키 코드의 8진수 코드 *ddd*에 해당하는 문자 또는 역참조를 의미한다. |
-| \o{*ddd..*}       | 아스키 코드의 8진수 코드 *ddd...* 에 해당하는 문자           |
-| \x*hh*            | 아스키 코드의 16진수 코드 *hh*에 해당하는 문자. 예를 들어 \x31은 숫자 1을 의미한다. |
-| \x{*hhh..*}       | 아스키 코드의 16진수 코드 *hhh...* 에 해당하는 문자          |
-| \N{U+*hhh..*}     | 유니코드 16진수 코드 *hhh..* 값에 해당하는 문자              |
+| Escape Sequence | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| \a              | Alert character.                                             |
+| \c*x*           | control-*x* Character. *x* is a printable ASCII character.   |
+| \e              | ESC(escape). The 27th character in ASCII code(hex 1B)        |
+| \f              | Form feed. The 12th character in ASCII code(hex 0C)          |
+| \n              | Line feed. The 10th character in ASCII code(hex 0A)          |
+| \r              | Carriage return. The 13th character in ASCII code(hex 0D)    |
+| \t              | Tab. The 9th character in ASCII code(hex 09)                 |
+| \0*dd*          | The character corresponding to the octal code *dd* in ASCII. For example, \061 means the number '1'. |
+| \*ddd*          | The character or backreference corresponding to the octal code *ddd* in ASCII. |
+| \o{*ddd..*}     | The character corresponding to the octal code *ddd...* in ASCII. |
+| \x*hh*          | The character corresponding to the hexadecimal code *hh* in ASCII. For example, \x31 means the number '1'. |
+| \x{*hhh..*}     | The character corresponding to the hexadecimal code *hhh...* in ASCII. |
+| \N{U+*hhh..*}   | The character corresponding to the hexadecimal code *hhh...* in Unicode. |
 
-**예제**
+**Example**
 
-<질의> 이스케이프 시퀀스를 사용하여 아스키 코드 16진수 31에 해당하는 숫자 1을 포함하는 문자열을 검색한다.
+<Query\> Using escape sequence, search for strings that include 1 corresponding to the hexadecimal code 31 in ASCII.
 
 ```
 iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, '\x31');
@@ -23698,31 +23602,31 @@ AU-100
 
 
 
-##### 일반 문자 유형
+##### General Character Type
 
-다음은 자주 사용하는 일반 문자 집합들을 의미하는 이스케이프 시퀀스를 정리한 표이다.
+The following table describes escape sequences that indicate frequently used general character set.
 
-| 이스케이프 시퀀스 | 의미                                         |
-| ----------------- | -------------------------------------------- |
-| \d                | 10진수 숫자                                  |
-| \D                | 10진수 숫자가 아닌 문자                      |
-| \h                | 수평 공백 문자, 예를 들어 스페이스와 탭 문자 |
-| \H                | 수평 공백 문자가 아닌 문자                   |
-| \N                | 줄바꿈 문자가 아닌 문자                      |
-| \p{*xx*}          | *xx* 속성을 가진 유니코드 문자               |
-| \P{*xx*}          | *xx* 속성이 없는 유니코드 문자               |
-| \R                | 줄바꿈 문자                                  |
-| \s                | 공백 문자                                    |
-| \S                | 공백 문자가 아닌 문자                        |
-| \v                | 수직 공백 문자, 예를 들어 줄바꿈 문자        |
-| \V                | 수직 공백 문자가 아닌 문자                   |
-| \w                | 단어(word) 문자                              |
-| \W                | 단어(word) 문자가 아닌 문자                  |
-| \X                | 유니코드 확장 문자소 클러스터                |
+| Escape Squence | Description                                            |
+| -------------- | ------------------------------------------------------ |
+| \d             | decimal number.                                        |
+| \D             | Any character not decimal number.                      |
+| \h             | Horizontal whitespace character(i.e. space(" "), tab). |
+| \H             | Any character not horizontal whitespace character.     |
+| \N             | Any character not newline character.                   |
+| \p{*xx*}       | Unicode character which has *xx* property .            |
+| \P{*xx*}       | Unicode character which does not have *xx* property.   |
+| \R             | Newline character.                                     |
+| \s             | Whitespace character.                                  |
+| \S             | Any character not whitespace character                 |
+| \v             | Vertical whitespace character(i.e. newline).           |
+| \V             | Any character not vertical whitespace character.       |
+| \w             | Word character.                                        |
+| \W             | Any character not word character.                      |
+| \X             | Unicode extended grapheme cluster.                     |
 
-> ###### 유니코드 문자 속성
+> ###### Unicode Character Property
 
-\p{*xx*}와 \P{*xx*}에서 사용 가능한 유니코드에서 일반 범주로 분류된 문자 속성을 나타내는 표이다. *xx*로 표시되는 속성은 대소문자를 구분하며 중괄호("{}")는 선택 사항으로 아래의 두 예제는 같은 속성을 의미한다.
+The following table describes the character properties categorized as general, which can be used in \p{*xx*} and \P{*xx*}. The properties represented by *xx* are case-sensitive, and curly braces("{}") are optional. The following two examples denote the same property.
 
 ```
 \p{L}
@@ -23731,61 +23635,61 @@ AU-100
 
 
 
-| 속성 | 의미                                                         |
-| ---- | ------------------------------------------------------------ |
-| C    | 기타(Other). C로 시작하는 속성을 모두 포함한다.              |
-| Cc   | 제어(Control)                                                |
-| Cf   | 형식(Format)                                                 |
-| Cn   | 미할당(Unassigned)                                           |
-| Co   | 내부 용도(Private use)                                       |
-|      |                                                              |
-| L    | 문자(Letter). L로 시작하는 속성을 모두 포함한다.             |
-| Ll   | 영문자 소문자(Lower case letter)                             |
-| Lm   | 수정자(Modifier letter)                                      |
-| Lo   | 기타 문자(Other letter)                                      |
-| Lt   | 첫 글자가 영문자 대문자인 문자(Title case letter)            |
-| Lu   | 영문자 대문자(Upper case letter)                             |
-| L&   | 영문자 소문자, 대문자 또는 첫 글자가 대문자인 문자(Ll, Lu, or Lt) |
-|      |                                                              |
-| M    | 표시(Mark). M으로 시작하는 속성을 모두 포함한다.             |
-| Mc   | 띄어쓰기 표시(Spacing mark)                                  |
-| Me   | 둘러싸는 표시(Enclosing mark)                                |
-| Mn   | 비공백 표시(Non-spacing mark)                                |
-|      |                                                              |
-| N    | 숫자(Number). N으로 시작하는 속성을 모두 포함한다.           |
-| Nd   | 10진수(Decimal number)                                       |
-| Nl   | 문자로 표현하는 숫자(Letter number)                          |
-| No   | 기타 숫자(Other number)                                      |
-|      |                                                              |
-| P    | 문장 부호, 구두법(Punctuation). P로 시작하는 속성을 모두 포함한다. |
-| Pc   | 연결 문장 부호(Connector punctuation)                        |
-| Pd   | 대시 또는 하이픈 문장 부호(Dash punctuation)                 |
-| Pe   | 종결 문장 부호. 닫힌, 엄격한 구두법(Close punctuation)       |
-| Pf   | 종결 문장 부호(Final punctuation)                            |
-| Pi   | 시작 문장 부호(Initial punctuation)                          |
-| Po   | 기타 구두(Other punctuation)                                 |
-| Ps   | 시작 문장 부호. 열린 구두법(Open punctuation)                |
-|      |                                                              |
-| S    | 기호(Symbol). S로 시작하는 속성을 모두 포함한다.             |
-| Sc   | 화폐 기호(Currency symbol)                                   |
-| Sk   | 수정자 기호(Modifier symbol)                                 |
-| Sm   | 수학 기호(Mathematical symbol)                               |
-| So   | 기타 기호(Other symbol)                                      |
-|      |                                                              |
-| Z    | 구분자(Separator). Z로 시작하는 속성을 모두 포함한다.        |
-| Zl   | 행 구분자(Line separator)                                    |
-| Zp   | 단락 구분자(Paragraph separator)                             |
-| Zs   | 공백 구분자(Space separator)                                 |
-|      |                                                              |
-| Xan  | 알파벳과 숫자. L 속성과 N 속성을 모두 포함한다. Alphanumeric: union of properties L and N |
-| Xps  | POSIX 공백 문자: Z 속성 또는 탭, 줄바꿈 문자, 수직 탭, 다음 페이지, 캐리지 리턴 POSIX space: property Z or tab, NL, VT, FF, CR |
-| Xsp  | Perl 공백 문자: Z 속성 또는 탭, 줄바꿈 문자, 수직 탭, 다음 페이지, 캐리지 리턴 Perl space: property Z or tab, NL, VT, FF, CR |
-| Xuc  | 유니버설 문자 이름 Univerally-named character: one that can be represented by a Universal Character Name) |
-| Xwd  | Perl 단어: 속성 Xan 또는 밑줄 Perl word: property Xan or underscore |
+| Property | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| C        | Other: This includes all properties starting with C.         |
+| Cc       | Control                                                      |
+| Cf       | Format                                                       |
+| Cn       | Unassigned                                                   |
+| Co       | Private use                                                  |
+|          |                                                              |
+| L        | Letter: This includes all properties starting with L.        |
+| Ll       | Lower case letter                                            |
+| Lm       | Modifier letter                                              |
+| Lo       | Other letter                                                 |
+| Lt       | Title case letter                                            |
+| Lu       | Upper case letter                                            |
+| L&       | Lower case letter, upper case letter, or title case letter(Ll, Lu, or Lt) |
+|          |                                                              |
+| M        | Mark: This includes all properties starting with M.          |
+| Mc       | Spacing mark                                                 |
+| Me       | Enclosing mark                                               |
+| Mn       | Non-spacing mark                                             |
+|          |                                                              |
+| N        | Number: This includes all properties starting with N.        |
+| Nd       | Decimal number                                               |
+| Nl       | Letter number                                                |
+| No       | Other number                                                 |
+|          |                                                              |
+| P        | Punctuation: This includes all properties starting with P.   |
+| Pc       | Connector punctuation                                        |
+| Pd       | Dash punctuation                                             |
+| Pe       | Close punctuation                                            |
+| Pf       | Final punctuation                                            |
+| Pi       | Initial punctuation                                          |
+| Po       | Other punctuation                                            |
+| Ps       | Open punctuation                                             |
+|          |                                                              |
+| S        | Symbol: This includes all properties starting with S.        |
+| Sc       | Currency symbol                                              |
+| Sk       | Modifier symbol                                              |
+| Sm       | Mathematical symbol                                          |
+| So       | Other symbol                                                 |
+|          |                                                              |
+| Z        | Separator: This includes all properties starting with Z.     |
+| Zl       | Line separator                                               |
+| Zp       | Paragraph separator                                          |
+| Zs       | Space separator                                              |
+|          |                                                              |
+| Xan      | Alphanumeric: the union of properties L and N                |
+| Xps      | POSIX space: property Z or tab, NL, VT, FF, CR               |
+| Xsp      | Perl space: property Z or tab, NL, VT, FF, CR                |
+| Xuc      | Universally-named character: one that can be represented by a Universal Character Name |
+| Xwd      | Perl word: property Xan or underscore                        |
 
-**예제**
+**Example**
 
-<질의> 이스케이프 시퀀스 \p를 사용하여 EMPLOYEES 테이블의 EMP_JOB 컬럼에서 영문자 소문자와 일치하는 유니코드 문자가 포함된 데이터를 조회한다.
+<Query\> Using escape sequence '\p', search for EMP_JOB column data which includes the lowercase Unicode characters from the EMPLOYEES table.
 
 ```
 iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '\p{Ll}');
@@ -23799,9 +23703,9 @@ planner
 
 
 
-> ###### 유니코드 스크립트 이름
+> ###### Unicode Script Name
 
-\p{*xx*}와 \P{*xx*}의 *xx* 속성에 다음과 같이 유니코드 스크립트 이름을 사용할 수도 있다.
+Unicode script name is available to be used as the property of \p{*xx*} and \P{*xx*} as below.
 
 ```
 \p{Greek}
@@ -23810,7 +23714,7 @@ planner
 
 
 
-지원하는 스크립트 목록은 아래와 같다.
+This is a list of supported scripts:
 
 ```
 Adlam, Ahom, Anatolian_Hieroglyphs, Arabic, Armenian, Avestan, Balinese, Bamum, Bassa_Vah, Batak, Bengali, Bhaiksuki, Bopomofo, Brahmi, Braille, Buginese, Buhid, Canadian_Aboriginal, Carian, Caucasian_Albanian, Chakma, Cham, Cherokee, Chorasmian, Common, Coptic, Cuneiform, Cypriot, Cypro_Minoan, Cyrillic, Deseret, Devanagari, Dives_Akuru, Dogra, Duployan, Egyptian_Hieroglyphs, Elbasan, Elymaic, Ethiopic, Georgian, Glagolitic, Gothic, Grantha, Greek, Gujarati, Gunjala_Gondi, Gurmukhi, Han, Hangul, Hanifi_Rohingya, Hanunoo, Hatran, Hebrew, Hiragana, Imperial_Aramaic, Inherited, Inscriptional_Pahlavi, Inscriptional_Parthian, Javanese, Kaithi, Kannada, Katakana, Kayah_Li, Kharoshthi, Khitan_Small_Script, Khmer, Khojki, Khudawadi, Lao, Latin, Lepcha, Limbu, Linear_A, Linear_B, Lisu, Lycian, Lydian, Mahajani, Makasar, Malayalam, Mandaic, Manichaean, Marchen, Masaram_Gondi, Medefaidrin, Meetei_Mayek, Mende_Kikakui, Meroitic_Cursive, Meroitic_Hieroglyphs, Miao, Modi, Mongolian, Mro, Multani, Myanmar, Nabataean, Nandinagari, New_Tai_Lue, Newa, Nko, Nushu, Nyakeng_Puachue_Hmong, Ogham, Ol_Chiki, Old_Hungarian, Old_Italic, Old_North_Arabian, Old_Permic, Old_Persian, Old_Sogdian, Old_South_Arabian, Old_Turkic, Old_Uyghur, Oriya, Osage, Osmanya, Pahawh_Hmong, Palmyrene, Pau_Cin_Hau, Phags_Pa, Phoenician, Psalter_Pahlavi, Rejang, Runic, Samaritan, Saurashtra, Sharada, Shavian, Siddham, SignWriting, Sinhala, Sogdian, Sora_Sompeng, Soyombo, Sundanese, Syloti_Nagri, Syriac, Tagalog, Tagbanwa, Tai_Le, Tai_Tham, Tai_Viet, Takri, Tamil, Tangsa, Tangut, Telugu, Thaana, Thai, Tibetan, Tifinagh, Tirhuta, Toto, Ugaritic, Vai, Vithkuqi, Wancho, Warang_Citi, Yezidi, Yi, Zanabazar_Square
@@ -23818,36 +23722,38 @@ Adlam, Ahom, Anatolian_Hieroglyphs, Arabic, Armenian, Avestan, Balinese, Bamum, 
 
 
 
-> ###### 유니코드 확장 문자소 클러스터
+> ###### Unicode Extended Grapheme Cluster
 
-\X 이스케이프 시퀀스는 유니코드 확장 문자소 클러스터(Unicode extended grapheme cluster)를 의미한다. 자소 집합(grapheme cluster)은 사람이 읽을 수 있는 단일 문자를 말하며 하나의 자소 집합은 여러 개의 코드 포인트(code points)로 이루어진다.
+\X escape sequence indicates Unicode extended grapheme cluster. 'Grapheme cluster' is a single character, readable for humans. One grapheme cluster is comprised of several code points.
 
-확장 문자소 클러스터로 구성된 유니코드 캐릭터들과 매치된다. 확장 문자소에 대한 자세한 정보는 [유니코드 공식 문서 UAX #29: Unicode Text Segmentation](http://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries)를 참고하기 바란다. 확장 문자소 매칭에 대한 자세한 정보는 [PCRE2 패턴 매뉴얼 페이지](https://www.pcre.org/current/doc/html/pcre2pattern.html)를 참고하기 바란다.
+확장 문자소 클러스터로 구성된 유니코드 캐릭터들과 매치된다. 
 
-##### POSIX 문자 클래스
+For detailed information on extended grapheme clusters, refer to the [Unicode Official Document UAX #29: Unicode Text Segmentation](http://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries). For detailed information on extended grapheme cluster matching, refer to the [PCRE2 Pattern Manual Page](https://www.pcre.org/current/doc/html/pcre2pattern.html).
 
-문자 클래스는 자주 사용하는 문자 집합들을 정의한 것이다. 문자 클래스는 [일반 문자 유형](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL Reference.md#일반-문자-유형)처럼 이스케이프 시퀀스로 표현하거나 아래 표와 같이 대괄호로 둘러싸인 POSIX 표기법을 사용할 수도 있다. POSIX 문자 클래스는 "[:" 와 ":]"로 둘러싸여 있다. 바깥쪽 대괄호는 문자 집합을 정의하는 것이고 안쪽 대괄호는 POSIX 문자 클래스 문법 자체를 의미한다.
+##### POSIX Character Class
 
-| POSIX 문자 클래스 | 의미                                                         |
-| ----------------- | ------------------------------------------------------------ |
-| [[:alnum:]]       | 알파벳과 숫자                                                |
-| [[:alpha:]]       | 알파벳 문자                                                  |
-| [[:ascii:]]       | 아스키 코드에서 0번부터 127번까지의 문자                     |
-| [[:blank:]]       | 스페이스나 탭                                                |
-| [[:cntrl:]]       | 아스키 코드에서 127번 문자와 31번 이하의 문자                |
-| [[:digit:]]       | 숫자                                                         |
-| [[:graph:]]       | 아스키 코드에서 출력할 수 있는 문자 32 ~ 126 중, 공백 문자(32)를 제외한 문자 |
-| [[:lower:]]       | 알파벳 소문자                                                |
-| [[:print:]]       | 아스키 코드에서 출력할 수 있는 문자 32 ~ 126                 |
-| [[:punct:]]       | 아스키 코드에서 출력할 수 있는 문자 32 ~ 126 중, 공백 문자, 숫자, 알파벳을 제외한 문자 |
-| [[:space:]]       | 출력되지 않는 공백 문자(space, carriage return, newline, vertical tab, form feed) 등 |
-| [[:upper:]]       | 알파벳 대문자                                                |
-| [[:word:]]        | 알파벳, 숫자, _                                              |
-| [[:xdigit:]]      | 16진수 숫자, 0-9, a-f, A-F                                   |
+Character class defines the set of characters frequently used. Users can represent this class in an escape sequence like [general character type](#General-Charater-Type), or POSIX standard enclosed in square brackets. POSIX character class is enclosed "[:" and ":]". Outer square brackets define the character set, and inner square brackets indicate POSIX character class syntax.
 
-**예제**
+| POSIX Character Cleass | Description                                                  |
+| ---------------------- | ------------------------------------------------------------ |
+| [[:alnum:]]            | Alphabet and number                                          |
+| [[:alpha:]]            | Alphabet characters                                          |
+| [[:ascii:]]            | Characters corresponding to 0 to 127 ASCII code              |
+| [[:blank:]]            | Space or tab                                                 |
+| [[:cntrl:]]            | Characters corresponding to 127, 31, and less than 31 ASCII code |
+| [[:digit:]]            | Numbers                                                      |
+| [[:graph:]]            | 32 to 126 ASCII code, which is printable, except whitespace character(32 ASCII code) |
+| [[:lower:]]            | Lowercase alphabet                                           |
+| [[:print:]]            | 32 to 126 ASCII code, which is printable                     |
+| [[:punct:]]            | 32 to 126 ASCII code, which is printable, except whitespace, number, and alphabet |
+| [[:space:]]            | Unprintable whitespace character(i.e. space, carriage return, newline, vertical tab, form feed) |
+| [[:upper:]]            | Uppercase alphabet                                           |
+| [[:word:]]             | Alphabet, number, _                                          |
+| [[:xdigit:]]           | hexadecimal numbers, 0-9, a-f, A-F                           |
 
-<질의> POSIX 문자 클래스를 사용하여 EMPLOYEES 테이블의 EMP_JOB 컬럼에서 영문자 대문자가 포함된 데이터를 조회하라.
+**Example**
+
+<Query\> Using the POSIX character class, search for EMP_JOB column data which includes uppercase letters from the EMPLOYEES table. 
 
 ```
 iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '[[:upper:]]');
@@ -23864,22 +23770,22 @@ PM
 
 
 
-##### 간단한 어설션
+##### Simple Assertions
 
-어설션(assertions)은 어떤 문자 또는 문자열의 앞과 뒤를 확인하는 것을 의미한다. [메타 문자](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/SQL Reference.md#메타-문자-1)에서 소개한 "^"와 "$"는 어설션의 하나이며 '앵커'라고 부르기도 한다.
+Assertion is checking the forward and backward of a certain character or strings. "^" and "$", introduced in [Metacharacters](#Metacharacters), are examples of assertions. This is also called "anchor".
 
-| 이스케이프 시퀀스 | 설명                                                         |
-| ----------------- | ------------------------------------------------------------ |
-| \A                | 문자열의 시작 위치                                           |
-| \b                | 단어 경계. 단어의 시작이나 마지막 위치                       |
-| \B                | 단어 경계가 없을 때 일치                                     |
-| \G                | 문자열에서 첫 번째 일치 위치                                 |
-| \z                | 문자열의 마지막 위치                                         |
-| \Z                | 문자열의 마지막 위치 또는 문자열의 마지막 문자인 줄바꿈 문자 바로 전 위치 |
+| Escape Sequence | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| \A              | The beginning of string                                      |
+| \b              | The boundary of a word. The beginning or end of word.        |
+| \B              | Match when the boundary of a word is nonexistent             |
+| \G              | Match at the first matching position in the string           |
+| \z              | The end of string                                            |
+| \Z              | The end of string or right before of the newline character at the end of the string |
 
-**예제**
+**Example**
 
-<질의> CUSTOMERS 테이블에서 Street 단어가 포함된 주소(ADDRESS)와 고객 번호(CNO)를 조회하라.
+<Query\> Search for CNO and ADDRESS, which includes the word 'Street', from the CUSTOMERS table.
 
 ```
 iSQL> SELECT CNO, ADDRESS FROM CUSTOMERS WHERE REGEXP_COUNT(ADDRESS, '\bStreet\b') > 0;
@@ -23896,7 +23802,7 @@ CNO                  ADDRESS
 
 
 
-<질의> EMPLOYEES 테이블에서 er 문자로 끝나는 직업을 가진 직원 번호(EMP_JOB)와 직업 이름(EMO)을 조회하라.
+<Query\> Search for ENO and EMP_JOB ending with 'er' from the EMPLOYEES table. 
 
 ```
 iSQL> SELECT ENO, EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, 'er\Z');
@@ -23918,24 +23824,24 @@ ENO         EMP_JOB
 
 
 
-##### 그룹화 구문
+##### Group
 
-"("와 ")"는 그룹을 표현하는 메타 문자이다. 괄호 안에 여러 표현식을 하나로 묶어 그룹화한 영역을 캡쳐 그룹(capture group)이라고 한다.
+"(" and ")" are metacharacter representing group. Capture group refers to an area where multiple expressions inside parentheses are grouped together.
 
-| 문법          | 설명                                                         |
+| Syntax        | Description                                                  |
 | ------------- | ------------------------------------------------------------ |
-| (...)         | 괄호 안에서 지정한 문자열을 검색 capture group               |
-| (?<name>...)  | 캡쳐 그룹의 이름을 지정하는 펄 문법이다. named capture group (Perl) |
-| (?'name'...)  | 캡쳐 그룹의 이름을 지정하는 펄 문법이다. named capture group (Perl) |
-| (?P<name>...) | 캡쳐 그룹의 이름을 지정하는 파이썬 문법이다. named capture group (Python) |
-| (?:...)       | 비캡쳐 그룹 non-capture group                                |
-| (?\|...)      | 비캡쳐 그룹 non-capture group; reset group numbers for capture groups in each alternative |
-| (?>...)       | 역참조 기능을 없앤 비캡쳐 그룹 atomic non-capture group      |
-| (*atomic:...) | 역참조 기능을 없앤 비캡쳐 그룹 atomic non-capture group      |
+| (...)         | Capture group to search for specified strings in parentheses |
+| (?<name>...)  | Name capture group (Perl)                                    |
+| (?'name'...)  | Name capture group (Perl)                                    |
+| (?P<name>...) | Name capture group (Python)                                  |
+| (?:...)       | Non-capture group                                            |
+| (?\|...)      | Non-capture group; reset group numbers for capture groups in each alternative |
+| (?>...)       | Atomic non-capture group                                     |
+| (*atomic:...) | Atomic non-capture group                                     |
 
-**예제**
+**Example**
 
-<질의> GOODS 테이블에서 상품 이름(GNAME)이 TM-T, TM-U, M-T, M-U가 포함된 상품을 조회하라.
+<Query\> Search for GNAME which includes TM-T, TM-U, M-T, M-U from the GOODS table.
 
 ```
 iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, '(TM|M)-(T|U)') ;
@@ -23963,22 +23869,22 @@ M-U290
 
 
 
-##### 탐색 구문
+##### Lookaround
 
-찾고자 하는 문자열의 앞 또는 뒤에 지정한 문자열이 있는지 확인한다.
+This statement checks if the specified string exists before or after the string that users are willing to search.
 
 | 문법                                                        | 설명                                                         |
 | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| (?=...) (*pla:...) (*positive_lookahead:...)                | 긍정형 전방 탐색(Positive lookaheads) 찾고자 하는 문자열 바로 오른쪽에 `...` 에 해당하는 문자열이 있는 문자열을 검색한다. |
-| (?!...) (*nla:...) (*negative_lookahead:...)                | 부정형 전방 탐색(Negative lookaheads) 찾고자 하는 문자열 바로 오른쪽에 `...` 에 해당하는 문자열이 없는 문자열을 검색한다. |
-| (?<=...) (*plb:...) (*positive_lookbehind:...)              | 긍정형 후방 탐색(Positive lookbehinds) 찾고자 하는 문자열 바로 왼쪽에 `...` 에 해당하는 문자열이 있는 문자열을 검색한다. |
-| (?<!...) (*nlb:...) (*negative_lookbehind:...)              | 부정형 후방 탐색(Negative lookbehinds) 찾고자 하는 문자열 바로 왼쪽에 `...` 에 해당하는 문자열이 없는 문자열을 검색한다. |
-| (?*...) (*napla:...) (*non_atomic_positive_lookahead:...)   | 비원자성 긍정형 전방 탐색(Non-atomic positive lookaheads) 역참조가 가능한 긍정형 전방 탐색 |
-| (?<*...) (*naplb:...) (*non_atomic_positive_lookbehind:...) | 비원자성 긍정형 후방 탐색(Non-atomic positive lookaheads) 역참조가 가능한 긍정형 후방 탐색 |
+| (?=...) (*pla:...) (*positive_lookahead:...)                | Positive lookaheads: Search for the string that corresponds to the  `...` immediately to the right of the desired string |
+| (?!...) (*nla:...) (*negative_lookahead:...)                | Negative lookaheads: Search for the string that does not have a corresponding string for the  `...` immediately to the right of the desired string. |
+| (?<=...) (*plb:...) (*positive_lookbehind:...)              | Positive lookbehinds: Search for the string that corresponds to the  `...` immediately to the left of the desired string |
+| (?<!...) (*nlb:...) (*negative_lookbehind:...)              | Negative lookbehinds:  Search for the string that does not have a corresponding string for the  `...` immediately to the left of the desired string |
+| (?*...) (*napla:...) (*non_atomic_positive_lookahead:...)   | Non-atomic positive lookaheads: Positive lookadheads that backreference is available |
+| (?<*...) (*naplb:...) (*non_atomic_positive_lookbehind:...) | Non-atomic positive lookaheads: Positive lookbehinds that backreference is available |
 
-**예제**
+**Example**
 
-<질의> 긍정형 전방 탐색을 사용하여 EMPLOYEES 테이블의 EMP_JOB 컬럼에서 sales 바로 오른쪽에 rep가 있는 데이터를 조회하라.
+<Query\> Using the positive lookaheads, search for EMP_JOB column data which 'rep' is to the right of 'sales' from the EMPLOYEES table. 
 
 ```
 iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, 'sales (?=rep)');
@@ -24000,7 +23906,7 @@ sales rep
 
 
 
-<질의> 부정형 전방탐색을 사용하여 GOODS 테이블의 GNAME 컬럼에서 TM- 문자열 오른쪽에 U가 나오지 않는 데이터를 조회하라.
+<Query\> Using the negative lookaheads, search for GNAME column data that 'U' is not to the right of 'TM-' from the GOODS table.
 
 ```
 iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, 'TM-(?!U)');
@@ -24022,32 +23928,32 @@ TM-L60
 
 
 
-##### 수량자
+##### Quantifiers
 
-찾고자 하는 문자가 몇 번 반복하는 지 지정하여 검색한다.
+Quantifiers specify how many times the desired character repeats in the search.
 
-| 문법   | 설명                                                         |
+| Syntax | Action                                                       |
 | ------ | ------------------------------------------------------------ |
-| ?      | 앞의 문자가 0번 또는 1번 나오는 문자를 찾는다. 욕심 많은(greedy) 수량자 방식으로 검색한다. |
-| ?+     | 앞의 문자가 0번 또는 1번 나오는 문자를 찾는다. 독점적인(possessive) 수량자 방식으로 검색한다. |
-| ??     | 앞의 문자가 0번 또는 1번 나오는 문자를 찾는다. 게으른(lazy) 수량자 방식으로 검색한다. |
-| *      | 앞의 문자가 0 번 이상 등장하는 문자를 찾는다. 욕심 많은 수량자 방식으로 검색한다. |
-| *+     | 앞의 문자가 0 번 이상 등장하는 문자를 찾는다. 독점적인 수량자 방식으로 검색한다. |
-| *?     | 앞의 문자가 0 번 이상 등장하는 문자를 찾는다. 게으른 수량자 방식으로 검색한다. |
-| +      | 앞의 문자가 1회 이상 나오는 문자를 찾는다. 욕심 많은 수량자 방식으로 검색한다. |
-| ++     | 앞의 문자가 1회 이상 나오는 문자를 찾는다. 독점적인 수량자 방식으로 검색한다. |
-| +?     | 앞의 문자가 1회 이상 나오는 문자를 찾는다. 게으른 수량자 방식으로 검색한다. |
-| {n}    | 앞의 문자가 n회 나오는 문자를 찾는다.                        |
-| {n,m}  | 앞의 문자가 최소 n번, 최대 m회 반복되는 문자를 찾는다. 욕심 많은 수량자 방식으로 검색한다. |
-| {n,m}+ | 앞의 문자가 최소 n번, 최대 m회 반복되는 문자를 찾는다. 독점적인 수량자 방식으로 검색한다. |
-| {n,m}? | 앞의 문자가 최소 n번, 최대 m회 반복되는 문자를 찾는다. 게으른 수량자 방식으로 검색한다. |
-| {n,}   | 앞의 문자가 n회 이상 나오는 문자를 찾는다. 욕심 많은 수량자 방식으로 검색한다. |
-| {n,}+  | 앞의 문자가 n회 이상 나오는 문자를 찾는다. 독점적인 수량자 방식으로 검색한다. |
-| {n,}?  | 앞의 문자가 n회 이상 나오는 문자를 찾는다. 게으른 수량자 방식으로 검색한다. |
+| ?      | Search for a character whose preceding character occurs 0 or 1 times. Greedy quantifier. |
+| ?+     | Search for a character whose preceding character occurs 0 or 1 times. Possessive quantifier. |
+| ??     | Search for a character whose preceding character occurs 0 or 1 times. Lazy quantifier. |
+| *      | Search for a character whose preceding character occurs 0 or more times. Greedy quantifier. |
+| *+     | Search for a character whose preceding character occurs 0 or more times. Possessive quantifier. |
+| *?     | Search for a character whose preceding character occurs 0 or more times. Lazy quantifier. |
+| +      | Search for a character whose preceding character occurs 1 or more times. Greedy quantifier. |
+| ++     | Search for a character whose preceding character occurs 1 or more times. Possessive quantifier. |
+| +?     | Search for a character whose preceding character occurs 1 or more times. Lazy quantifier. |
+| {n}    | Search for a character whose preceding character occurs n times. |
+| {n,m}  | Search for a character whose preceding character is repeated at least n times and at most m times. Greedy quantifier. |
+| {n,m}+ | Search for a character whose preceding character is repeated at least n times and at most m times. Possessive quantifier. |
+| {n,m}? | Search for a character whose preceding character is repeated at least n times and at most m times. Lazy quantifier. |
+| {n,}   | Search for a character whose preceding character occurs n or more times. Greedy quantifier. |
+| {n,}+  | Search for a character whose preceding character occurs n or more times. Possessive quantifier. |
+| {n,}?  | Search for a character whose preceding character occurs n or more times. Lazy quantifier. |
 
-**예제**
+**Example**
 
-<질의> CUSTOMERS 테이블에서 고객 주소에서 숫자 뒤에 th가 1번 나오는 주소(ADDRESS)와 고객 번호(CNO)를 조회하라.
+<Query\> Search for CNO and ADDRESS, which 'th' occurs one time after numbers in customer address, from the CUSTOMERS table.
 
 ```
 iSQL> SELECT CNO, ADDRESS FROM CUSTOMERS WHERE REGEXP_LIKE(ADDRESS, '[0-9]th{1}');
@@ -24061,36 +23967,36 @@ CNO                  ADDRESS
 
 
 
-##### 역참조
+##### Backreference
 
-참조해둔 패턴을 숫자 또는 이름으로 다시 사용하는 것을 의미한다.
+Backreference is to reuse a previously referenced pattern using either a number or a name.
 
-| 문법      | 설명                                                       |
-| --------- | ---------------------------------------------------------- |
-| \n        | 번호를 사용하여 참조 (정규식에 따라 순번이 모호할 수 있음) |
-| \gn       | 번호를 사용하여 참조                                       |
-| \g{n}     | 번호를 사용하여 참조                                       |
-| \g+n      | 번호를 사용한 상대 참조 (PCRE2 확장 문법)                  |
-| \g-n      | 번호를 사용한 상대 참조                                    |
-| \g{+n}    | 번호를 사용한 상대 참조 (PCRE2 확장 문법)                  |
-| \g{-n}    | 번호를 사용한 상대 참조                                    |
-| \k<name>  | 이름을 사용하여 참조 (Perl 문법)                           |
-| \k'name'  | 이름을 사용하여 참조 (Perl 문법)                           |
-| \g{name}  | 이름을 사용하여 참조 (Perl 문법)                           |
-| \k{name}  | 이름을 사용하여 참조 (.NET 문법)                           |
-| (?P=name) | 이름을 사용하여 참조 (Python 문법)                         |
+| Syntax    | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| \n        | Referencing using a number (The sequence order can be ambiguous according to the regular expression) |
+| \gn       | Referencing using a number                                   |
+| \g{n}     | Referencing using a number                                   |
+| \g+n      | Relative referencing using a number (PCRE2 extended syntax)  |
+| \g-n      | Relative referencing using a number                          |
+| \g{+n}    | Relative referencing using a number (PCRE2 extended syntax)  |
+| \g{-n}    | Relative referencing using a number                          |
+| \k<name>  | Referencing using a name (Perl syntax)                       |
+| \k'name'  | Referencing using a name (Perl syntax)                       |
+| \g{name}  | Referencing using a name (Perl syntax)                       |
+| \k{name}  | Referencing using a name (.NET syntax)                       |
+| (?P=name) | Referencing using a name (Python syntax)                     |
 
-##### 조건부 일치
+##### Conditional Matching
 
-"|"로 구분된 문자 중 하나를 하나를 선택하여 검색한다.
+The following statement in the table searches for one of the characters separated by "|".
 
-| 문법             | 설명                          |
-| ---------------- | ----------------------------- |
-| expr\|expr\|expr | 여러 식 중에 하나를 선택한다. |
+| Syntax           | Description                          |
+| ---------------- | ------------------------------------ |
+| expr\|expr\|expr | Select one among several expressions |
 
-**예제**
+**Example**
 
-<질의> EMPLOYEES 테이블에서 016이나 018로 시작하는 전화번호(EMP_TEL)와 직원 번호(ENO)를 조회하라.
+<Query\> Search for ENO and EML_TEL which starts with 016 or 018 from EMPLOYEES table.
 
 ```
 ISQL> SELECT ENO, EMP_TEL FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_TEL, '^016|018');
@@ -24108,26 +24014,26 @@ ENO         EMP_TEL
 
 
 
-##### 정규표현식의 옵션
+##### Options for Regular Expression
 
-"(?"와 ")" 사이에 묶인 문자로, 정규표현식에서 특별한 지시를 내리는 기호이다.
+These are characters enclosed between "(?"and ")". These provide special instructions in regular expressions.
 
-| 옵션    | 설명                                                         |
+| Option  | Description                                                  |
 | ------- | ------------------------------------------------------------ |
-| (?i)    | 대소문자 무시                                                |
-| (?J)    | 같은 이름을 가지는 그룹 허용                                 |
-| (?m)    | 다중 행에서 검색                                             |
-| (?n)    | 자동 캡쳐를 사용하지 않음                                    |
-| (?s)    | 단일 행에서 검색                                             |
-| (?U)    | 비탐욕적(게으른) 방법으로 검색                               |
-| (?x)    | 공백 문자를 무시한다. 문자 클래스 안의 공백 문자는 예외이다. |
-| (?xx)   | 공백 문자를 무시한다. 문자 클래스 안의 공백 문자도 무시한다. |
-| (?-...) | 설정된 옵션(들) 해제                                         |
-| (?^)    | imnsx 옵션 해제                                              |
+| (?i)    | Ignore case sensitivity                                      |
+| (?J)    | Allow groups with the same name                              |
+| (?m)    | Search in multi-line mode                                    |
+| (?n)    | Disable automatic capturing                                  |
+| (?s)    | Search in single-line mode                                   |
+| (?U)    | Search non-greedy(Lazy) mode                                 |
+| (?x)    | Ignore whitespace. Whitespace characters within character classes are an exception. |
+| (?xx)   | Ignore whitespace, including whitespace characters within character classes. |
+| (?-...) | Unset the specified option(s)                                |
+| (?^)    | Unset i/m/n/s/x option(s)                                    |
 
-**예제**
+**Example**
 
-<질의> EMPLOYEES 테이블에서 대소문자 구분없이 m이 포함된 성(E_LASTNAME)을 검색하라.
+<Query\> Search for E_LASTNAME which includes m without case sensitivity from the EMPLOYEES table.
 
 ```
 iSQL> SELECT E_LASTNAME FROM EMPLOYEES WHERE REGEXP_LIKE(E_LASTNAME, '(?i)m');
@@ -24144,17 +24050,17 @@ iSQL>
 
 
 
-##### 주석
+##### Comment
 
-정규표현식에서 사용하는 주석이다. "(?#"는 주석의 시작을 의미하며 닫는 괄호(")")는 주석의 끝을 의미한다.
+This is the comment using in the regular expression. It starts with "(?#" and ends with")".
 
 | 문법     | 설명 |
 | -------- | ---- |
 | (?#....) | 주석 |
 
-**예제**
+**Example**
 
-<질의>
+<Query\> Search for EMP_JOB which includes 'mas' or 'man' without case sensitivity, with the comment 'test', from the EMPLOYEES table.
 
 ```
 iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '(?i)M(?#test)A(s|n)');
@@ -24169,20 +24075,24 @@ manager
 
 
 
-### 정규 표현식 모드 별 문법 차이점
+### Syntax Differences between Regular Expression Modes
 
-Altibase 정규 표현식 모드와 PCRE2 호환 모드의 정규 표현식 문법 차이를 나타내는 대표적인 예이다.
+These are representative examples of differences in regular expression syntax between Altibase regular expression mode and PCRE2 compatibility mode.
 
-| 정규 표현식 문법  | Altibase 정규 표현식 모드                                    | PCRE2 호환 모드                                              | 차이                                                         |
-| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| POSIX 문자 클래스 | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');` | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:punct:]]+');` | POSIX 문자 클래스 표현식이 다르다.                           |
-| 이스케이프 스퀀스 | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');` | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:lower:]]+');` | PCRE2 호환 모드에서는 `\l`문법을 지원하지 않는다. [[:lower:]]로 대체할 수 있다. |
-| POSIX 동등 클래스 | [=A=]                                                        | -                                                            | 지원하지 않는다.                                             |
-|                   | [A-[.CH.]]                                                   | -                                                            | 지원하지 않는다.                                             |
+| Regular Expression Syntax | Altibase Regular Expression Mode                             | PCRE2 Compatibility Mode                                     | Difference                                                   |
+| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| POSIX Character Class     | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');` | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:punct:]]+');` | POSIX character class expressions are different.             |
+| Escape Sequence           | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');` | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:lower:]]+');` | PCRE2 compatibility mode does not support  `\l`. Instead, it supports [[:lower:]]. |
+| POSIX Equivalence Class   | [=A=]                                                        | -                                                            | Not supported                                                |
+|                           | [A-[.CH.]]                                                   | -                                                            | Not supported                                                |
 
-### 정규 표현식 에러 메시지
+### Regular Expression Error Message
 
-PCRE2 호환 모드에서 발생하는 에러 중 0x2106C 에러 코드는 아래와 같은 형식으로 에러 메시지가 출력된다. <1%s>는 PCRE2 라이브러리에서 반환한 메시지이며 <0%s>는 Altibase 에서 해당 에러가 발생한 위치를 의미한다. 이 에러 메시지에 대한 원인과 조치 방법은 Error Message Reference의 [15.Regular Expression Error Code](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Error Message Reference.md#15regular-expression-error-code) 장에서 확인할 수 있다.
+The error code 0x2106C occurring in PCRE2 compatibility mode is presented in the following format in the error message. <1%s> represents the message returned by the PCRE2 library, and <0%s> indicates the location where the error occurred in Altibase.
+
+The cause and solution for this error message can be found in the [15.Regular Expression Error Code]() section of the Error Message Reference.
+
+ 이 에러 메시지에 대한 원인과 조치 방법은 Error Message Reference의 [15.Regular Expression Error Code](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Error Message Reference.md#15regular-expression-error-code) 장에서 확인할 수 있다.
 
 ```
 ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)
