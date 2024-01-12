@@ -690,17 +690,21 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
 ### Related Meta Tables and Performance Views
 
-- SYS_LIBRARIES\_
+Related meta table
 
-  This view shows information on external library objects that have been created and are currently existent in the database.
+- SYS_LIBRARIES_
 
-- V\$EXTPROC_AGENT
+  This is the meta table that contains information about external library objects.
 
-  This view shows information on Agent Processes that have been created for the execution of external procedures and are currently existent.
+Related performance views
+
+- V$EXTPROC_AGENT
+
+  This view shows information about the Agent Process created for the execution of external procedures
 
 - V$LIBRARY
 
-  This view shows information on the dynamic libraries that have been loaded directly within the database.
+  This view shows information on the dynamic libraries loaded directly within the database.
 
 - V$PROCINFO
 
@@ -833,7 +837,7 @@ This specifies the name of the external procedure object.
 
 ##### argument_list
 
-The argument can be omitted; on specification, the name, data type and input/output of the argument must be defined. Valid input/output types must be one of the following; on omission, IN is the default value.
+The argument can be omitted; on specification, the name, data type, and input/output of the argument must be defined. Valid input/output types must be one of the following; on omission, IN is the default value.
 
 -   IN: The input argument which receives an input value when a procedure is called. 
 -   OUT: The argument which returns the output value after executing the procedure. 
@@ -843,9 +847,11 @@ When the external procedure is being executed, the value is passed to the proced
 
 ##### call_spec
 
-This specifies the names of user-defined functions, library objects and parameters. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once. If INTERNAL is specified, it operates in the internal mode in which the server directly loads and executes the dynamic library without connecting with the agent process. If EXTERNAL is specified or omitted, it operates in external mode to connect with the agent process.
+This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users omit this clause, it operates in an external mode.
 
-##### fun_name
+> The order of specifying names for user-defined functions and the library objects is arbitrary, but each should be specified only once.
+
+##### func_name
 
 This specifies the name of the user-defined function corresponding to the external procedure.
 
@@ -950,6 +956,8 @@ DROP PROCEDURE proc1;
 
 ![](media/ExternalProcedure/callSpec.gif)
 
+
+
 **parameter_list ::=**
 
 ![](media/ExternalProcedure/image048.gif)
@@ -962,7 +970,7 @@ DROP PROCEDURE proc1;
 
 This creates a new external function or changes a previously existing external function into a new external function.
 
-##### func_name
+##### function_name
 
 This specifies the name of the external function object.
 
@@ -972,9 +980,11 @@ Please refer to the section of the CREATE PROCEDURE statement.
 
 ##### call_spec
 
-This specifies the names of user-defined functions, library objects and parameters. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once. If INTERNAL is specified, it operates in the internal mode in which the server directly loads and executes the dynamic library without connecting with the agent process. If EXTERNAL is specified or omitted, it operates in external mode to connect with the agent process.
+This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users omit this clause, it operates in an external mode.
 
-##### fun_name
+> The order of specifying names for user-defined functions and the library objects is arbitrary, but each should be specified only once.
+
+##### func_name
 
 This specifies the name of the user-defined function corresponding to the given external procedure. 
 
