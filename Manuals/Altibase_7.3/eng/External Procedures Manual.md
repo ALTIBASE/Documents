@@ -847,7 +847,7 @@ When the external procedure is being executed, the value is passed to the proced
 
 ##### call_spec
 
-This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users omit this clause, it operates in an external mode.
+This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users do not specify EXTERNAL or INTERNAL in this clause, it operates in an external mode.
 
 > The order of specifying names for user-defined functions and the library objects is arbitrary, but each should be specified only once.
 
@@ -980,7 +980,7 @@ Please refer to the section of the CREATE PROCEDURE statement.
 
 ##### call_spec
 
-This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users omit this clause, it operates in an external mode.
+This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users do not specify EXTERNAL or INTERNAL in this clause, it operates in an external mode.
 
 > The order of specifying names for user-defined functions and the library objects is arbitrary, but each should be specified only once.
 
