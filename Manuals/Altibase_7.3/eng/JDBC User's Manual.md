@@ -3539,8 +3539,8 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                                          | Specification Version | **Supported** | Details                                                      | Exceptions                                                   |
 | :------------------------------------------------------ | --------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| createBlob()                                            | 4.0                   | X             | Does not support creating LOB object in Connection phase     | SQLFeatureNotSupported error occurred                        |
-| createClob()                                            | 4.0                   | X             | Does not support creating LOB object in Connection phase     | SQLFeatureNotSupported error occurred                        |
+| createBlob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase     |                                                              |
+| createClob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase     |                                                              |
 | createNClob()                                           | 4.0                   | X             | Does not support multinational language for CLOB object      | SQLFeatureNotSupported error occurred                        |
 | createSQLXML()                                          | 4.0                   | X             | Does not support SQLXML type                                 | SQLFeatureNotSupported error occurred                        |
 | isValid(int  timeout)                                   | 4.0                   | O             |                                                              |                                                              |
@@ -3554,7 +3554,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | getSchema()                                             | 4.1                   | X             | Does not support schema                                      | Returns null instead of occurring an error                   |
 | abort(Executor  executor)                               | 4.1                   | O             |                                                              |                                                              |
 | setNetworkTimeout(Executor  executor, int milliseconds) | 4.1                   | O             | Executor can return NULL since SO_TIMEOUT socket option of TCP/IP connection is used internally |                                                              |
-| getNetworkTimeout()                                     | 4.1                   | O             | Synchronised with response_timeout property of JDBC and returns the property value of it |                                                              |
+| getNetworkTimeout()                                     | 4.1                   | O             | Synchronized with response_timeout property of JDBC and returns the property value of it |                                                              |
 
 ### java.sql.Wrapper
 
@@ -3639,10 +3639,10 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | getNString(int  parameterIndex)                              | 4.0                   | O         |                             |                                        |
 | getNString(String  parameterName)                            | 4.0                   | O         |                             |                                        |
 | setNString(String  parameterName, String value)              | 4.0                   | O         |                             |                                        |
-| getNCharacterStream(int  parameterIndex)                     | 4.0                   | X         | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| getNCharacterStream(String  parameterName)                   | 4.0                   | X         | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNCharacterStream(String  parameterName, Reader reader)    | 4.0                   | X         | Does not support NClob type | SQLFeatureNotSupported  error occurred |
-| setNCharacterStream(String  parameterName, Reader value, long length | 4.0                   | X         | Does not support NClob type | SQLFeatureNotSupported  error occurred |
+| getNCharacterStream(int  parameterIndex)                     | 4.0                   | X         | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| getNCharacterStream(String  parameterName)                   | 4.0                   | X         | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNCharacterStream(String  parameterName, Reader reader)    | 4.0                   | X         | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
+| setNCharacterStream(String  parameterName, Reader value, long length | 4.0                   | X         | Does not support NCLOB type | SQLFeatureNotSupported  error occurred |
 | getCharacterStream(int  parameterIndex)                      | 4.0                   | O         |                             |                                        |
 | getCharacterStream(String  parameterName)                    | 4.0                   | O         |                             |                                        |
 | setAsciiStream(String  parameterName, InputStream x)         | 4.0                   | O         |                             |                                        |
