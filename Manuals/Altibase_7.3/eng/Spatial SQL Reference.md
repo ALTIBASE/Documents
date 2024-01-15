@@ -3322,7 +3322,7 @@ This function accepts a spatial object in WKT (Well-known Text) format as input 
 
  This function returns NULL if the value of the WKT argument is NULL.
 
-Users can set SRID during the creation of this object. Without any specific setting, the SRID of the created object is 0.
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.```
 
 ##### Return Type
 
