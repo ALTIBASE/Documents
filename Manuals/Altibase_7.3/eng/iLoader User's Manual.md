@@ -408,7 +408,9 @@ iloader [-h]
         [-partition]
         [-dry-run]
         [-prefetch_rows]
-        [-async_prefetch off|on|auto]]
+        [-async_prefetch off|on|auto]
+        [-geom WKB]]
+        [-nologging]
 ```
 
 
@@ -459,6 +461,8 @@ iLoader is run with the following options. Where applicable, default values are 
 | \-split *n*                               | Specifies the number of records to copy to each file (only meaningful when used with the -out option). After the command is executed, multiple backup files, each storing a number of records equal to n and having the names datefile.dat0, datafile.dat1, etc... will have been created. |
 | \-errors *count*                          | This specifies the maximum number of allowable errors when iLoader is executed with the -in option. If the number of errors exceeds the number specified here, execution terminates. If this option is omitted, the default is 50. If this value is set to 0, execution continues regardless of the number of errors. The number of errors occurring during the uploading operation may exceed the number specified here. When this option is used in conjunction with the -parallel option, if the number of errors exceeds the specified value for one of multiple threads executing in parallel, all threads are terminated. |
 | \-partition                               | If the table specified using the -T option is a partitioned table, a number of FORM files equal to the number of partitions in the table will be generated. The name of each FORM file will have this structure: [formfile_name.partition_name]. If the specified table is not a partitioned table, one FORM file, named formfile_name, will be generated. |
+| -extra_col_delimiter                      | This is used to recognize the end of a record when column and record delimiters are consecutively positioned after the last column in a record. <br>For example, if a data file has a column delimiter '^' and a record delimiter '\n', and it has the following format, the -extra_col_delimiter option is required:<br> Kim^1077^RD^\n<br> Lee^1099^CS^\n<br>This can be used in conjunction with the -rule csv or -t option. |
+| -geom [WKB]                               | During the execution of the out mode, this option is used to output spatial data in Well-Known Binary (WKB) format.<br> It is utilized to migrate spatial data in Altibase, which supports the Extended Well-Known Binary (EWKB) format, to a lower version that uses the WKB format. If this option is not used, it follows Altibase's spatial object support format. |
 
 -   If the -S, -U and -P command-line options are omitted, the user will be prompted to enter the values of these options manually at the time of execution.
 
@@ -1376,6 +1380,9 @@ Usage : { in | out | formout | structout | help }
         [-partition]
         [-dry-run]
         [-prefetch_rows]
+        [-async_prefetch off|on|auto]
+        [-geom WKB]
+        [-lightmode]
 iLoader> help help
 Ex) help [ in | out | formout | structout | exit | help ]
 
@@ -1414,7 +1421,10 @@ $ iloader help
                      [-rule csv]
                      [-partition]
                      [-dry-run]
-                     [-prefetch_rows]]
+                     [-prefetch_rows]
+                     [-async_prefetch off|on|auto]
+                     [-geom WKB]
+                     [-lightmode]]
             -h            : This screen
             -s            : Specify server name to connect
             -u            : Specify user name to connect

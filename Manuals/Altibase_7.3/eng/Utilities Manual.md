@@ -693,102 +693,133 @@ When Altibase is installed, the \$ALTIBASE_HOME/conf directory does not actually
     OPERATION = IN/OUT  
     If this property is set to OUT, scripts for exporting all schemas and data will be created. When the data export script, which consists of iLoader commands, is executed, form files (.fmt) and data files (.dat) will be created.  
     If this property is set to IN, the schema creation script and the data loading script, which were created by previously executing aexport with this property set to OUT, will be executed, the schema will be created in the destination database, and the data will be loaded into the destination database. The schema creation script and the data loading script can be executed manually at a shell prompt without executing aexport.
+    
 -   EXECUTE  
     This property determines whether to automatically execute the scripts that were created.  
     EXECUTE = ON/OFF  
     If it is set to ON, the scripts that are appropriate for the current operation (set using the OPERATION property) will be executed automatically. The file names of these scripts are set using the ILOADER_OUT, ILOADER_IN, ISQL, ISQL_CON, ISQL_INDEX, ISQL_FOREIGN_KEY, ISQL_ALT_TBL, and ISQL_REPL properties.  
     If it is set to OFF, the scripts will be created, but not executed.
+    
 -   INVALID_SCRIPT  
     This property determines whether to group all of the object creation scripts for invalid objects in a single script file.  
     INVALID_SCRIPT = ON/OFF  
     If this property is set to OFF, a SQL script file will be generated for each of the invalid objects in the database; that is, they will be treated just like the valid database objects.
+    
 -   TWO_PHASE_SCRIPT  
     This property determines whether to group all of the object creation scripts in two script files.  
     TWO_PHASE_SCRIPT = ON/OFF  
     If this property is set to ON, aexport will create only two SQL script files and two shell script files: ALL_OBJECT.sql, ALL_OBJECT_CONSTRAINS.sql, ALL_OBJECT.sql, run_is.sh, run_is_con.sh  
     If this property is set to OFF, aexport will generate different SQL script files for each of the objects in a database.
+    
 -   CRT_TBS_USER_MODE  
     CRT_TBS_USER_MODE = ON/OFF (Default: OFF)  
     This property determines whether or not to extract a statement for creating tablespace in user mode.  
     If this property is set to ON, the SQL statement creating tablespace related to the user in the user mode is extracted. The user related tablespaces are default tablespace, default temporary tablespace, and the tablespace specified whether or not to available to be accessed.
+    
 -   INDEX  
     INDEX = ON/OFF  
     This property determines whether or not to create the indexes when creating the rest of the schema in the destination database. If it is desired to create the indexes after the data have been located into the destination database, set this property to ON. It is used when the TWO_PHASE_SCRIPT property is set to OFF.
+    
 -   USER_PASSWORD  
     USER_PASSWORD = *password*  
     This property is used to set the password when the users exported from the source database are created in the destination database. (Because aexport does not know the passwords of users exported from the source database, the passwords must be manually set.) If this property is not set, a prompt for setting each user's password will appear.
+    
 -   VIEW_FORCE  
     VIEW_FORCE = ON/OFF  
     If this property is set to ON, views will be forcibly created, even if the underlying tables or other objects don't exist.
+    
 -   DROP  
     This property determines whether to include DROP statements in created scripts.  
     DROP = ON/OFF  
     If this property is set to ON, and if the destination database already contains objects corresponding to those that are to be created, the existing objects will be dropped. Because this option specifies that existing objects are to be dropped, it should be used with caution.  
     Note) If aexport is executed in Object Mode, DROP statements are not generated, regardless of the setting of this property.
+    
 -   ILOADER_OUT  
     ILOADER_OUT = *run_il_out.sh*  
     This property determines the name of the shell script file that is created to export (download) the data from the source database. It is used when the OPERATION property is set to OUT.
+    
 -   ILOADER_IN  
     ILOADER_IN = *run_il_in.sh*  
     This property determines the name of the shell script file that will be used to import (upload) the data into the destination database.
+    
 -   ISQL  
     ISQL = *run_is.sh*  
     This property determines the name of the script file that will be used to create the database schema in the destination database.
+    
 -   ISQL_CON  
     ISQL\_ CON = *run_is_con.sh*  
     This property determines the name of the shell script file that is used to execute the SQL script files for creating indexes, foreign keys, triggers and replication objects. It is used when the TWO_PHASE_SCRIPT property is set to ON.
+    
 -   ISQL_INDEX  
     ISQL_INDEX = *run_is_index.sh*  
     This property determines the name of the shell script that will be used to create indexes in the destination database. If no value is specified for this property in the aexport.properties file, this shell script file will not be generated.
+    
 -   ISQL_FOREIGN_KEY  
     ISQL\_ FOREIGN_KEY = *run_is_fk.sh*  
     This property determines the name of the shell script file that is used to execute the SQL script files for creating foreign keys. If no value is specified for this property in the aexport.properties file, this shell script file will not be generated.
+    
 -   ISQL_REPL  
     ISQL_REPL = *run_is_repl.sh*  
     This property determines the name of the shell script that will be used to create replication objects in the destination database. If no value is specified for this property in the aexport.properties file, this shell script file will not be generated.
+    
 -   COLLECT_DBMS_STATS  
     This property determines whether to display the statistics for tables, columns and indexes of specified user.  
     COLLECT_DBMS_STATS = ON/OFF  
     The default value is OFF and no statistical information is exported. When this property's value is ON, statistics information is exported.
+    
 -   ISQL_REFERSH_MVIEW  
     ISQL_REFERSH_MVIEW = *run_is_refresh_mview.sh*  
     This property determines the name of the shell script that will be used to execute the SQL script files for refreshing the materialized view in the destination database. If no value is specified for this property in the aexport.properties file, this shell script file will not be generated.
+    
 -   ISQL_ALT_TBL  
     ISQL_ALT_TBL = *run_is_alt_tbl.sh*  
     This property sets the name of the shell script file executing the SQL script which switches the data access mode for the tables and partitions of the target database. On omission, aexport does not generate this shell script file.
+    
 -   ILOADER_FIELD_TERM  
     ILOADER_FIELD_TERM = *field_term*  
     This property is used to set the field delimiters that are used when the data in tables are saved as text. If this property is not set, the default delimiter between values is the comma (“,”), no block delimiters are used for numeric values, and double quotation marks (“ “ “) are used as block delimiters around strings.  
     Note) The pound (i.e. hash or number sign) character “#” cannot be specified as a delimiter, because it is used to denote comments in the properties file (The remainder of the line after the “#” will be ignored).
+    
 -   ILOADER_ROW_TERM  
     ILOADER\_ ROW \_TERM = *row_term*  
     This property sets the record delimiter to use wwhen texting table data. If not set, the default is <LF\>.  
     Note) The pound (i.e. hash or number sign) character “#” cannot be specified as the record delimiter, because it is used to denote comments in the properties file (The remainder of the line after the “#” will be ignored).
+    
 -   ILOADER_PARTITION  
     This property determines whether or not to create SQL scripts and shell scripts for creating partitions.  
     ILOADER\_ PARTITION = ON/OFF  
     If this property is set to ON, shell scripts for exporting data from partitions, for creating partitioned tables and all of their partitions, and for importing data into each partition are generated. In other words, enabling this property makes it possible to import data from table partitions in the source database into corresponding partitions in partitioned tables in the destination database.  If this property is set to OFF, whether tables in the source database are partitioned is ignored, and the shell script that is generated creates non-partitioned tables in the destination database and imports data from all partitions of partitioned tables in the source database into corresponding non-partitioned tables in the destination database.  
         For more detailed infomraiton, please refer to the *iLoader User's Manual.*  
+    
 -   ILOADER_ERRORS  
     ILOADER_ERRORS = *count* (Default: 50)  
     This property specifies the number of allowable maximum errors when uploading data with iLoader. The default value of this property is set to 50, and the upload is continuously executed regardless of the number of incurring errors if the default value is set to 0.
+    
 -   ILOADER_ARRAY  
     ILOADER_ARRAY = *count* (Default: 1)  
     This property specifies the number of rows to be processed at once when downloading or uploading data with iLoader.
+    
 -   ILOADER**\_**COMMIT  
     ILOADER**\_**COMMIT = *count* (Default: 1000)  
     This property specifies the unit(number) to commit when uploading the data with iLoader. The value of -commit option can be specified as well.
+    
 -   ILOADER_PARALLEL  
     ILOADER_PARALLEL = *count* (Default: 1)  
     This property specifies the number of threads which will be executed with parallel processing when uploading or downloading with iLoader.
+    
 -   ILOADER_ASYNC_PREFETCH  
     ILOADER_ASYNC_PREFETCH = OFF\|ON\|AUTO (Default: OFF)  
     This property sets asynchronous prefect behavior when downloading data to iLoader. For more information, please refer to the '-async_prefetch' option in the *iLoader User's Manual.*
+    
 -   SSL_ENABLE  
     This property specifies whether to connect to the target database using the SSL protocol.  
     SSL_ENABLE = ON/OFF  
     If this property is set to ON, SSL-related options are enabled for iSQL and iLoader commands in the shell scripts (run_is.sh and run_il_in.sh) to be executed on the target database.  
     SSL-related options can be enabled with the SSL_CA, SSL_CAPATH, SSL_CERT, SSL_KEY, SSL_CIPHER, SSL_VERIFY properties. For further information about these properties, please refer to Parameters.
+    
+- ILOADER_GEOM
+
+  This property specifies the processing of spatial data in Well-Known Binary (WKB) format when downloading spatial data with WKB iLoader. The '-geom WKB' option is added to the run_il_out.sh file.
 
 
 
