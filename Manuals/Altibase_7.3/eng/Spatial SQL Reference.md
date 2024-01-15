@@ -3071,7 +3071,7 @@ If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY 
 
 This function returns NULL if the value of the WKT argument is NULL.
 
-Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.```
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
