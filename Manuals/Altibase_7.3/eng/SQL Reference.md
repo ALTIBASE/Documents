@@ -24054,9 +24054,9 @@ iSQL>
 
 This is the comment using in the regular expression. It starts with "(?#" and ends with")".
 
-| 문법     | 설명 |
-| -------- | ---- |
-| (?#....) | 주석 |
+| Syntax   | Description |
+| -------- | ----------- |
+| (?#....) | Comment     |
 
 **Example**
 
