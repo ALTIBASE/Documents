@@ -63,18 +63,19 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 | :----------------------------------------------------------- | :-----------: | :-----------------: | :------------------------- |
 | **AIX on IBM Power Systems**                                 |               |                     |                            |
 | AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                            |
-| AIX 7.1                                                      |       ●       |          ●          |                            |
-| AIX 7.2                                                      |       ●       |          ●          |                            |
+| AIX 7.1                                                      |     **-**     |        **-**        |                            |
+| AIX 7.2                                                      |     **-**     |        **-**        |                            |
 | **HP-UX Itanium (IA-64)**                                    |               |                     |                            |
 | HP-UX 11.31                                                  |       ●       |          ●          |                            |
 | **Linux x86-64**                                             |               |                     |                            |
-| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
-| CentOS 6.8                                                   |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
-| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
-| Rocky Linux 8.5                                              |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
-| Ubuntu 12                                                    |       ●       |          ●          | - *GNU glibc 2.17 ~ 2.33*  |
-| Ubuntu 16                                                    |       ●       |          ●          | -  *GNU glibc 2.23 ~ 2.33* |
-| Ubuntu 18                                                    |       ●       |          ●          | - *GNU glibc 2.27 ~ 2.33*  |
+| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 7.5 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
+| Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |     **-**     |        **-**        | *- GNU glibc 2.12 ~ 2.33*  |
+| CentOS 6.8<br />CentOS 7.5                                   |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |     **-**     |        **-**        | *- GNU glibc 2.12 ~ 2.33*  |
+| Rocky Linux 8.5                                              |     **-**     |        **-**        | *- GNU glibc 2.12 ~ 2.33*  |
+| Ubuntu 12                                                    |     **-**     |        **-**        | - *GNU glibc 2.17 ~ 2.33*  |
+| Ubuntu 16                                                    |     **-**     |        **-**        | -  *GNU glibc 2.23 ~ 2.33* |
+| Ubuntu 18                                                    |     **-**     |        **-**        | - *GNU glibc 2.27 ~ 2.33*  |
 | **Linux on Power**                                           |               |                     |                            |
 | POWER7 Red Hat Enterprise Linux 6.5                          |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
 | **Linux on Power** **(Little Endian)**                       |               |                     |                            |
@@ -91,18 +92,18 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 | :----------------------------------------------------------- | :-------------------------------------------------------: | :------------------------------------------------: | :-----: | :--------------: | :----------------: | :------------------ |
 | **AIX on IBM Power Systems**                                 |                                                           |                                                    |         |                  |                    |                     |
 | AIX 6.1                                                      |                           **x**                           |                       **x**                        |    ●    |        ●         |         ●          |                     |
-| AIX 7.1<br/>AIX 7.2                                          |                           **x**                           |                       **x**                        |    ●    |        ●         |       **-**        |                     |
+| AIX 7.1<br/>AIX 7.2                                          |                           **x**                           |                       **x**                        |  **-**  |      **-**       |       **-**        |                     |
 | **HP-UX Itanium (IA-64)**                                    |                                                           |                                                    |         |                  |                    |                     |
 | HP-UX 11.31                                                  |                           **x**                           |                       **x**                        |    ●    |        ●         |       **x**        |                     |
 | **Linux x86-64**                                             |                                                           |                                                    |         |                  |                    |                     |
 | Red Hat Enterprise Linux 6.0                                 |                             ●                             |                         ●                          |    ●    |        ●         |         ●          |                     |
-| Red Hat Enterprise Linux 8.2<br/>Red Hat Enterprise Linux 8.3 |                           **-**                           |                       **-**                        |  **-**  |        ●         |       **-**        |                     |
-| Red Hat Enterprise Linux 8.4                                 |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
+| Red Hat Enterprise Linux 8.2<br/>Red Hat Enterprise Linux 8.3 |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
+| Red Hat Enterprise Linux 8.4                                 |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
 | CentOS 6.8                                                   |                           **-**                           |                       **-**                        |  **-**  |        ●         |       **-**        |                     |
-| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |                           **-**                           |                       **-**                        |  **-**  |        ●         |       **-**        |                     |
-| Rocky Linux 8.5                                              |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
-| Ubuntu 12                                                    |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
-| Ubuntu 16<br/>Ubuntu 18                                      |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
+| Rocky Linux 8.5                                              |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
+| Ubuntu 12                                                    |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
+| Ubuntu 16<br/>Ubuntu 18                                      |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
 | **Linux on Power**                                           |                                                           |                                                    |         |                  |                    |                     |
 | POWER7 Red Hat Enterprise Linux 6.5                          |                           **-**                           |                       **-**                        |    ●    |        ●         |       **x**        |                     |
 | **Linux on Power (Little Endian)**                           |                                                           |                                                    |         |                  |                    |                     |

@@ -141,6 +141,8 @@ It is recommended for those reading this manual possess the following background
 -   Computer programming experience
 -   Experience in database server management, operating system management, or network administration
 
+
+
 #### Organization
 
 This manual is organized as follows:
@@ -237,9 +239,9 @@ When a network connection over SSL is initiated, Altibase and its client perform
 
 #### SSL Characteristics in Altibase 
 
-The following list of features are the SSL characterstics when using Altibase with SSL communcation: 
+The following list of features are the SSL characteristics when using Altibase with SSL communication: 
 
-- Altibase uses the TLS 1.0 protocol supported by the OpenSSL library.
+- Altibase uses the TLS 1.0, 1.2, and 1.3 protocols supported by the OpenSSL library.
 
 - Altibase supports server-only authentication and mutual authentication. 
 
@@ -248,13 +250,13 @@ The following list of features are the SSL characterstics when using Altibase wi
 
 - An additional network port such as port 443 for HTTPS (other than the one that was used) is required to use SSL connections within Altibase. This is because Altibase does not allow a connection switch from non-secure to secure in TCP connections.
   
-- To use a secure connection, all client applications need to be implemented with Java Secure Socket Extension (JSSE) API, which is integrated into Java 1.5 or above. JSSE provides a framework and implementation for a Java version of SSL 2.0, 3.0, and TLS 1.0 protocols as well as data encryption, server authentication, message integrity and optional client authentication. 
+- To establish a secure connection, client applications need to be implemented with Java Secure Socket Extension (JSSE) API, which is integrated into Java 1.8 or later. JSSE provides a framework and implementation for a Java version of SSL 2.0, 3.0, and TLS 1.0, 1.2, and 1.3 protocols as well as data encryption, server authentication, message integrity, and optional client authentication. 
   
 - Altibase provides the JDBC and ODBC interfaces for SSL connection, which is currently supported only in Intel-Linux.
 
 # 2. Installing and Starting SSL in Altibase
 
-This chapter explains how to install SSL and required software.
+This chapter provides instructions for installing SSL and the necessary software.
 
 ### Software Requirements
 
@@ -262,12 +264,10 @@ This section describes the requirements for using SSL communication on the serve
 
 #### Server
 
--   OpenSSL toolkit 0.9.4~1.0.2 
--   Altibase version 6.5.1 or later (only supports Intel-Linux)
+-   OpenSSL toolkit 3.0.8
+-   Altibase version 7.3.0.0.0 or later
 
-The OpenSSL toolkit is a prerequisite for using SSL/TLS in Altibase. The OpenSSL toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. The user should verify that the installed OpenSSL version is not vulnerable to the Heartbleed bug.
-
-The user can use the OPENSSL_NO_HEARTBEATS option to check whether or not it is infected. 
+To use SSL/TLS in Altibase, the OpenSSL toolkit is required. This toolkit was developed by the OpenSSL Project and can be downloaded from http://www.openssl.org/source. Altibase 7.3 no longer supports OpenSSL 1.0.x, but supports OpenSSL 3.0.8.
 
 #### Client
 
@@ -277,9 +277,15 @@ The OpenSSL toolkit has to be installed in order to use the SSL communication wi
 
 ##### JDBC
 
-It is recommended using Java Runtime Environment 1.6 (JRE1.6) or later to conveniently implement the client Java application through the SSL. JRE 1.6 or later((JRE 1.5 are also available for use) is recommended for the following reason:
+To conveniently implement the client Java application through SSL, it is recommended to use Java 1.8.0_351 or later. This version is preferred for the following reasons:
 
--   Only JRE 1.6 or later supports importing the client’s certificate into the keystore (Note that importing the certificate is not always required.).
+- In Java 1.8.0_351 or later, TLS 1.3 cipher algorithms can be used without any specific setting.
+
+- Since  Java 1.8.0_261 it supports TLS 1.3. However, the following setting is required to use TLS 1.3.
+
+  ```java
+    % java -Djdk.tls.client.protocols="TLSv1.3"
+  ```
 
 ### Configuring the Environment for SSL
 
@@ -289,7 +295,7 @@ This section discusses how to configure the environment for Altibase SSL.
 
 -   Configure the Environment for SSL
 
--   Configrue SSL for ODBC
+-   Configure SSL for ODBC
 
 #### Configure SSL on the Server
 
@@ -300,20 +306,18 @@ This section discusses how to configure the environment for Altibase SSL.
 -   Step 5: Start the Server
 
 ##### Step 1: Confirm the Installation of OpenSSL and its Library
-It is recommnded to install the OpenSSl toolkit before installing SSL-enabled Altibase. Otherwise, if an Altibase function is used and OpenSSL is not installed, Altibase reports that it is unable to find the OpenSSL library.
+It is recommended to install the OpenSSL toolkit before installing SSL-enabled Altibase. Otherwise, if an Altibase function is used and the OpenSSL is not installed, Altibase reports that it is unable to find the OpenSSL library.
 
-Verify that OpenSSL is installed on the server and that it is not infected with the Heartbleed bug. If necessary, install it with the package manager provided by the operating system (e.g., RPM, Red Hat Linux) or download it from http://www.openssl.org/source and compile it manually. 
-
-After installation, check the installed version of OpenSSL as shown below.
+Check if that OpenSSL is installed on the server and verify that the version is as shown below.
 
 ```
 $ openssl version
-OpenSSL 0.9.7e-fips-rhel5 01 Jul 2008
+OpenSSL 3.0.8 7 Feb 2023 (Library: OpenSSL 3.0.8 7 Feb 2023)
 ```
 
 ##### Step 2: Set Server Properties to Connect over SSL
 
-The following are properties that you need to set to connect over SSL within Altibase. These properties are located in the $ALTIBASE_HOME/conf file. For more detailed information about these properties, please refer to the *General Reference*.
+To connect over SSL within Altibase, you need to set the following properties located in the $ALTIBASE_HOME/conf/altibase.properties file. For more detailed information, please refer to the *General Reference*.
 
 -   SSL_ENABLE  
     : Switches the SSL feature on or off within Altibase. To enable, set the value to 1. 
@@ -327,6 +331,16 @@ The following are properties that you need to set to connect over SSL within Alt
 ```
 $ openssl ciphers
 ```
+
+- SSL_CIPHERS_SUITES  
+  : This property defines the list of TLS 1.3 ciphers. If left unset, all cipher lists allowed by OpenSSL are used.
+
+- SSL_LOAD_CONFIG
+
+  : Set this property to load the OpenSSL configuration file(openssl.cnf). The default value is 0, which disables this feature. To use the OpenSSL FIPS module, set the value of this property to 1.
+
+  * 0: Do not load OpenSSL configuration file 
+  * 1: Load OpenSSL configuration file
 
 ##### Step 3: Specify SSL Client Authentication
 
@@ -371,7 +385,7 @@ If SSL_ENABLE is set to 1, the SSL listen port is displayed as follows. This mea
 $server start
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.3.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -421,7 +435,7 @@ When using private certificates (1 or 2 above), import the server's CA certifica
 $keytool -import -alias alias_name -file server_certificate_file.pem -keystore truststore -storepass password
 ```
 
-For 2 or 4, prior to importing its certificate and secret key, ensure that the PKCS #12 formatted file, containing its own certificate and secret key, is ready and that the Java version is 1.6 or above. 
+For 2 or 4, prior to importing its certificate and secret key, ensure that the PKCS #12 formatted file, containing its own certificate and secret key, is ready.
 
 If the PKCS #12 file is not ready, execute OpenSSL with the pkcs12 option to generate the PKCS #12 file which contains the client's certificate and secret key as follows.
 
@@ -431,7 +445,7 @@ $openssl pkcs12 -export -in client_certificate.pem -inkey client_secretkey_file.
 
 Import the prepared PKCS #12 file into the keystore with the following options. <sup>1</sup>
 
-[<sup>1</sup>] You can only import .pem files into keystore with the '-importkeystore' option in Java 6 or later.
+[<sup>1</sup>] You can only import .pem files into keystore with the '-importkeystore' option.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks -srcstoretype pkcs12
@@ -485,11 +499,12 @@ Altibase provides JDBC for SSL connection to use SSL within the database. JDBC p
 
 ###### JDBC Properties for SSL Connections
 
-| Name             | Description                                                  | Range            | Default Value                                    |
-| ---------------- | ------------------------------------------------------------ | ---------------- | ------------------------------------------------ |
-| ssl_enable       | Specifies whether or not to connect to the database over SSL connection. An SSL connection is created if this value is true; a TCP connection is created if this value is false. | [true \| false ] | false                                            |
-| port             | Specifies the SSL port number on the target server. The priority for an SSL port number is: 1) if ssn_enable is true and a value has been specified, this value is applied first. 2) if ssn_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssn_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443 |
-| ciphersuite_list | This is a list of available ciphers. Each name is separated by a colon (e.g., SSL_RSA_WITH_RC4_128_MD5:SSL _RSA_WITH_RC4_128_SHA). If JRE does not support the named algorithm, an IllegalArgumentException with the "Unsupported ciphersuite" message is thrown. | String           | All cipher suite lists supported by JRE          |
+| Name             | Description                                                  | Range            | Default Value                                                |
+| ---------------- | ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ |
+| ssl_enable       | Specifies whether or not to connect to the database over SSL connection. An SSL connection is created if this value is true; a TCP connection is created if this value is false. | [true \| false ] | false                                                        |
+| port             | Specifies the SSL port number on the target server. The priority for an SSL port number is: 1) if ssn_enable is true and a value has been specified, this value is applied first. 2) if ssn_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssn_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443             |
+| ciphersuite_list | This is a list of available ciphers. Each name is separated by a colon (e.g., SSL_RSA_WITH_RC4_128_MD5:SSL _RSA_WITH_RC4_128_SHA). If JRE does not support the named algorithm, an IllegalArgumentException with the "Unsupported ciphersuite" message is thrown. | String           | [All cipher suite lists supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
+| ssl_protocols    | This is a list of protocols used for SSL communication on the server. Users can set several protocols using commas(e.g., TLSv1.2,TLSv1.3). | String           | [All SSL/TLS protocols supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html)) |
 
 ###### JDBC Properties for Authentication
 
@@ -517,11 +532,9 @@ If the port property has not been set for JDBC, the value specified for ALTIBASE
 
 Please consider the following when using SSL for JDBC.
 
-###### Importing the PKCS #12 File into the Keystore (Available for JRE 1.6. or later)
+###### Importing the PKCS #12 File into the Keystore
 
-To use mutual authentication over SSL, you must first import the client's CA certificate and private key into the KeyStore. At this time, the supported version is JRE1.6 or higher. This is because, in Java 6 or higher, you can use the importkeystore option to send a pem file to the keystore.
-
-However, after importing PKCS only once in JRE1.6 or later, JRE1.5 can be used. In other words, only the import process requires JRE1.6, and the mutual authentication function itself also works in 1.5.
+To use mutual authentication over SSL, you must first import the client's CA certificate and private key into the KeyStore. Users can import PKCS #12 using the -importkeystore option of keytool as shown below.
 
 ```
 $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
@@ -536,7 +549,7 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 -   Step 3:  Set ODBC/CLI Properties for SSL
 
--   Step 4: Set Altibase Environment Variables
+-   Step 4: Set the Altibase Environment Variables
 
 -   Step 5: Write a Client Program
 
@@ -565,7 +578,7 @@ Prepare the client’s certificate and secret key in a pem format file for mutua
 
 You need to set SSL properties appropriately, before writing a client program using SSL. The client can specify the following properties as a connection string when connecting to the server. Refer to the sample program for usage.
 
-SSL connection properties are located in $ALTIBASE_HOME/conf. 
+SSL connection properties are located in $ALTIBASE_HOME/conf/altibase.properties. 
 
 | Name       | Description                                                  | Range        | Default Value |
 | ---------- | ------------------------------------------------------------ | ------------ | ------------- |
@@ -592,13 +605,35 @@ The following is a table comparing the server SSL properties and ODBC/CLI proper
 | SSL_CIPHER                | X                           | O                                                            |
 | SSL_VERIFY                | X                           | O                                                            |
 
-##### Step 4: Set Altibase Environment Variables (FIPS module with SSL)
 
-To use the FIPS module, set the ALTIBASE_SSL_LOAD_CONFIG environment variable to 1 in the client's environment. If users do not intend to use the FIPS module, users may skip this step.
+
+##### Step 4: Set the Altibase Environment Variables(in case of using FIPS module)
+
+To use FIPS module, users have to set the ALTIBASE_SSL_LOAD_CONFIG property in client environment variables to 1. Users who do not use FIPS module is able to skip this step.
+
+| Name                     | Description                                                  | Default Value |
+| ------------------------ | ------------------------------------------------------------ | ------------- |
+| ALTIBASE_SSL_LOAD_CONFIG | Specifies whether to load the OpenSSL configuration file.</br>* 0: Do not load the file</br> * 1: Load the file | 0             |
+
+
 
 ##### Step 5: Write a Client Program
 
 Write a program to use SSL connection in the client application. You can find a sample program that uses SSL connection in the altibase directory. Please refer to $ALTIBASE_HOME/sample/SQLCLI/SSL.
+
+
+
+#### How to Use OpenSSL FIPS Module
+
+FIPS 140 is a program that verifies the security and reliability of encryption modules, and modules that have passed verification can be used by the U.S. federal government and related agencies. To use OpenSSL's FIPS module in Altibase, users can set it up in the following order.
+
+1. Enable the FIPS module in the OpenSSL configuration file (see http://www.openssl.org/ )
+2. Set the SSL_LOAD_CONFIG property of the Altibase server to 1.
+3. Set the environment variable ALTIBASE_SSL_LOAD_CONFIG to 1 to allow the CLI application to use the FIPS module also.
+
+
+
+
 
 # 3. Managing SSL Connections
 
@@ -703,7 +738,7 @@ SYSDBA is a special privilege for the SYS user to perform administrative jobs. L
 $ isql -s localhost -u sys -p manager -sysdba
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.0.1
+     Release Version 7.3.0.0.1
      Copyright 2000, Altibase Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
