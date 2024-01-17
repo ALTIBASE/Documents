@@ -6892,15 +6892,23 @@ else
 
 # 4. Spatial Data Migration
 
-This section describes how to migrate spatial data between Atibase products or other vendor database products.
+This section describes how to migrate spatial data between Altibase products or other vendor database products.
 
 ### Spatial Data Migration Between Altibase Products
 
-For the migration of spatial data between Altibase products, iLoader and aexport can be utilized. Both utilities support spatial data types.
+Altibase Meta version 8.8.1 introduced a change in the spatial data storage format from WKB to EWKB. This alteration divides the scenarios for spatial data migration among Altibase products into four categories.
 
-One important consideration is the storage format for spatial data in Altibase. Based on the metadata version of the SYSTEM_.SYS_DATABASE_ table, versions below 8.8.1 support the WKB format, while versions 8.8.1 and above support the EWKB format. During migration, the extracted spatial data format follows the format of the Altibase where the spatial data is stored. Consequently, versions below 8.8.1 generate WKB format spatial data files, and versions 8.8.1 and above create EWKB format data files.
+For products with a meta version below 8.8.1, which cannot recognize EWKB format spatial data, **there may be a need to export EWKB format data into WKB format** in certain situations. Altibase provides functionality for exporting data in WKB format using the ILOADER_GEOM property in aexport and the '-geom WKB' option in iLoader. For detailed information on this feature, please refer to the respective manuals for aexport and iLoader.
 
-Spatial data in WKB format is automatically recognized and converted by Altibase supporting EWKB. However, Altibase supporting WKB cannot recognize spatial data in EWKB format. Therefore, when transferring EWKB format data to an Altibase supporting WKB, the option to extract the original data in WKB format must be used. During migration tasks, use the 'ILOADER_GEOM = WKB' option in the aexport.properties file for aexport, and for a single table operation, use the '-geom WKB' option in iLoader. For detailed information, please refer to the iLoader and aexport manuals.
+| Scenario                               | Data Migration Process Change                                |
+| -------------------------------------- | ------------------------------------------------------------ |
+| All meta versions are below 8.8.1      | None                                                         |
+| All meta versions are 8.8.1 or above   | None                                                         |
+| Meta version 8.8.1 below → 8.8.1 above | None (WKB format spatial data is automatically converted to EWKB format.) |
+| Meta version 8.8.1 above → 8.8.1 below | Add the property statement ILOADER_GEOM = WKB to the aexport.properties file and then proceed as usual.<br/>If users want to migrate only specific tables, use the '-geom WKB' option in iLoader. |
+
+> [!TIP]
+> Users can check the Altibase Meta version using the 'altibase -v' command.
 
 # Appendix A. Limitations on the Use of Spatial Data in Altibase
 
