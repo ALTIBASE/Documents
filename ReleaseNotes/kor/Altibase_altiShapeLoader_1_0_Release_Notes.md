@@ -188,9 +188,9 @@ altiShapeLoader는 아래의 오픈소스 라이브러리에 기반한다. 라�
 
 # 4. 패키지
 
-| Archive Name                                       |
-| -------------------------------------------------- |
-| altiShapeLoader-1.0.zip altiShapeLoader-1.0.tar.gz |
+| Archive Name                                             |
+| -------------------------------------------------------- |
+| altiShapeLoader-1.0.zip <br/> altiShapeLoader-1.0.tar.gz |
 
 <br>
 
@@ -202,8 +202,9 @@ http://support.altibase.com/kr/product
 
 ### 5.2 매뉴얼
 
-[altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/altiShapeLoader%20User's%20Manual.md)
+[altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/altiShapeLoader%20User's%20Manual.md)
 
 ### 5.3 설치
 
-altiShapeLoader User's Manual을 참고한다.
+[altiShapeLoader User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/altiShapeLoader%20User's%20Manual.md) 을 참고한다.
+
