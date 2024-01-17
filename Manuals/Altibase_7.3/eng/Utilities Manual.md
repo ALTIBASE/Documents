@@ -122,7 +122,7 @@ Table of Contents
 - [3. aku](#3-aku)
   - [Introducing aku](#introducing-aku)
   - [Setup to run aku](#setup-to-run-aku)
-  - [Usage of aku](#usage-of-aku)
+  - [Execution of aku](#execution-of-aku)
   - [Cautions](#cautions)
   - [Example](#example)
 - [4. Other Utilities](#4-other-utilities)
@@ -1841,7 +1841,7 @@ For example, when AKU_SERVER_COUNT is 4 and REPLICATION_NAME_PREFIX is "AKU_REP"
 
 ⚠️ Don't create/drop/modify carelessly the Altibase replication objects created by aku.
 
-## Usage of aku
+## Execution of aku
 
 ### Syntax
 
