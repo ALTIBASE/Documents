@@ -285,7 +285,7 @@ To connect the Altibase database, Altibase JDBC driver file is required. If the 
 
 Double click the Altibase connection information(mydb) on the Database Navigator tab. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. Select a Altibase JDBC driver file and click [ Download ].
 
-![auto2_eng](media/3rdPartyConnector/dbeaver_jdbc1.png)
+![](media/3rdPartyConnector/dbeaver_jdbcdownload.png)
 
 The database connection is processed after downloading. This only needs to be done the first connection.
 
