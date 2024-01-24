@@ -267,23 +267,23 @@ Clink [ Database ] → [ New Database Connection ]![connect1_eng](media/DBeaver/
 
 Select Altibase in ALL or SQL tab, and click the [ Next > ].![connect2_eng](media/DBeaver/connect2_eng.png)
 
-#### 3. Set the Database Connection Information
+#### 3. Set the Altibase Connection Information
 
-Configure database connection settings. Host IP address, Port Number, Database/Schema, Username, and Password information of the database user willing to connect are required. Click the [ Finish ] after configuration.
+Configure Altibase connection settings. Host IP address, Port Number, Database/Schema, Username, and Password are required. Click the [ Finish ] after configuration.
 
- ![connect3_eng](media/DBeaver/connect3_eng.png)
+![connect3_eng](media/DBeaver/connect3_eng.png)
 
-#### 4. Download JDBC Driver Files
-
-Now users can find the database set above as follows:
+Now users can find the Altibase database set above as follows:
 
  ![auto1_eng](media/DBeaver/auto1_eng.png)
 
-To connect the database, JDBC Driver file is required. Double click the Altibase connection information(mydb) on the Database Navigator. Then the Driver settings window pops up to download Altibase JDBC Driver files. To register JDBC Driver files Manually, please refer to '4.2 Register JDBC Driver Manually'.
+#### 4. Download JDBC Driver Files
+
+To connect the Altibase database, Altibase JDBC driver file is required. Double click the Altibase connection information(mydb) on the Database Navigator. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. If user want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
 
 ##### 4.1 Download JDBC Driver Files
 
-Select a JDBC Driver file and click [Download].
+Select a Altibase JDBC driver file and click [ Download ].
 
 ![auto2_eng](media/3rdPartyConnector/dbeaver_jdbc1.png)
 
@@ -291,7 +291,7 @@ The database connection is processed after downloading. This only needs to be do
 
 ##### 4.2 Register JDBC Driver Manually
 
-Users can manually register JDBC driver files. To do this, click on the [ Driver Settings ] located at the bottom of the Altibase connection settings window.
+Users can manually register Altibase JDBC driver files. To do this, click on the [ Driver Settings ] located at the bottom of the 'Connect to a database' window.
 
 ![connect4_eng](media/DBeaver/connect4_eng.png)
 
@@ -299,7 +299,7 @@ Click [ Add File ] on the Libraries tab.
 
 ![connect5_eng](media/DBeaver/connect5_eng.png)
 
-Select the Altibase JDBC driver files.
+Select the Altibase JDBC driver file.
 
 Click [ Classpath ].
 
@@ -315,7 +315,7 @@ Click [ Finish ] to complete the configuration.
 
 ![connect8_eng](media/DBeaver/connect8_eng.png)
 
-#### 5. Finish Database Connection
+#### 5. Complete Database Connection
 
 Users can review the list of registered database connection information in the Database Navigator tab.
 
