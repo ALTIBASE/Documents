@@ -273,21 +273,21 @@ Configure Altibase connection settings. Host IP address, Port Number, Database/S
 
 ![connect3_eng](media/DBeaver/connect3_eng.png)
 
-Now users can find the Altibase database set above as follows:
+Now users can find the Altibase database set above on the Database Navigator tab as follows:
 
  ![auto1_eng](media/DBeaver/auto1_eng.png)
 
 #### 4. Download JDBC Driver Files
 
-To connect the Altibase database, Altibase JDBC driver file is required. Double click the Altibase connection information(mydb) on the Database Navigator. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. If user want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
+To connect the Altibase database, Altibase JDBC driver file is required. If the Internet is available, please refer to  '4.1 Download JDBC Driver Files'.  If the Internet is unavailable or users want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
 
 ##### 4.1 Download JDBC Driver Files
 
-Select a Altibase JDBC driver file and click [ Download ].
+Double click the Altibase connection information(mydb) on the Database Navigator tab. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. Select a Altibase JDBC driver file and click [ Download ].
 
 ![auto2_eng](media/3rdPartyConnector/dbeaver_jdbc1.png)
 
-The database connection is processed after downloading. This only needs to be done the first time.
+The database connection is processed after downloading. This only needs to be done the first connection.
 
 ##### 4.2 Register JDBC Driver Manually
 
@@ -317,7 +317,7 @@ Click [ Finish ] to complete the configuration.
 
 #### 5. Complete Database Connection
 
-Users can review the list of registered database connection information in the Database Navigator tab.
+Users can review the list of registered database connection information on the Database Navigator tab.
 
 Double-clicking on the database connection information in the list attempts to establish a connection.  A green check mark next to the icon signifies a successful connection has been established.
 

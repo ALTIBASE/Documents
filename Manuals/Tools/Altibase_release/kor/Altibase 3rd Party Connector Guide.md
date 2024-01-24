@@ -300,17 +300,17 @@ Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이
 
 ![connect3](media/DBeaver/connect3.png)
 
-#### 4. JDBC 드라이버 파일 다운로드
-
 데이터베이스 접속 정보 입력을 마치고 [Finish] 를 클릭하면, Database 목록에 입력한 데이터베이스 연결 정보(mydb)가 추가된다. 
 
 ![auto1](media/DBeaver/auto1.png)
 
-처음 Altibase 연결 정보를 등록한 경우, JDBC 드라이버 파일을 다운로드해야 접속이 가능하다. Altibase 연결 정보(mydb)를 더블 클릭하면, Altibase의 JDBC 드라이버 파일을 다운로드 할 수 있는 Driver settings 창이 열린다. JDBC 드라이버 파일을 수동으로 등록하는 방법은 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
+#### 4. JDBC 드라이버 파일 다운로드
+
+처음 Altibase 연결 정보를 등록한 경우, Altibase JDBC 드라이버 파일이 있어야 연결이 가능하다. 인터넷에 접속 가능한 환경인 경우, '4.1 JDBC 드라이버 다운로드'를 참고한다. 인터넷 접속이 불가능한 환경이거나 수동으로 JDBC 드라이버를 등록하려는 경우는 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
 
 ##### 4.1 JDBC 드라이버 다운로드
 
-다운로드하려는 JDBC 드라이버를 선택한 다음, [Download]를 클릭한다.
+Database Navigator 에 추가된 Altibase 연결 정보(mydb)를 더블 클릭하면, Altibase의 JDBC 드라이버 파일을 다운로드 할 수 있는 Driver settings 창이 열린다. 다운로드하려는 JDBC 드라이버를 선택한 다음, [Download]를 클릭한다.
 
 ![](media/3rdPartyConnector/dbeaver_jdbc1.png)
 
