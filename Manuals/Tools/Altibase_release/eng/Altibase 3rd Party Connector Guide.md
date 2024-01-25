@@ -279,7 +279,7 @@ Now users can find the Altibase database set above on the Database Navigator tab
 
 #### 4. Download JDBC Driver Files
 
-To connect the Altibase database, Altibase JDBC driver file is required. If the Internet is available, please refer to  '4.1 Download JDBC Driver Files'.  If the Internet is unavailable or users want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
+To connect the Altibase database, Altibase JDBC driver file is required. If users can access the internet, please refer to  '4.1 Download JDBC Driver Files'.  If users can not access the internet or want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
 
 ##### 4.1 Download JDBC Driver Files
 
