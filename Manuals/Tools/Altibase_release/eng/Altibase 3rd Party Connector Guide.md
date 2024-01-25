@@ -255,7 +255,7 @@ Altibase server versions compatible with the DBeaver are as follows:
 
 ### Installing and Uninstalling DBeaver
 
-User can download the DBeaver installation file from https://dbeaver.io/download/. For detailed information about installation and uninstallation, refer to https://github.com/dbeaver/dbeaver/wiki/Installation.
+Users can download the DBeaver installation file from https://dbeaver.io/download/. For detailed information about installation and uninstallation, refer to https://github.com/dbeaver/dbeaver/wiki/Installation.
 
 ### Altibase Database System Connection
 
