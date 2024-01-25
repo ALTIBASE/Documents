@@ -261,7 +261,7 @@ Users can download the DBeaver installation file from https://dbeaver.io/downloa
 
 #### 1. Connect to New Database
 
-Clink [ Database ] → [ New Database Connection ]![connect1_eng](media/DBeaver/connect1_eng.png)
+Click [ Database ] → [ New Database Connection ]![connect1_eng](media/DBeaver/connect1_eng.png)
 
 #### 2. Select Altibase Database
 
