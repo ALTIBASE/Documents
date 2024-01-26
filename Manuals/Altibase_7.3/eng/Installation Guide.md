@@ -298,7 +298,7 @@ All operations during the most recent installation are written to this file.
 
 #### Backup Directory
 
-When installing a new patch, the Altibase Package Installer creates backups of the patched files to which the patch is applied and stored it in the $ALTIBASE_HOME/APatch directory. Within this directory, these are seperated backup directories generated for each patch. These backup files are used to roll back the patch in the future.
+When installing a new patch, the Altibase Package Installer creates backups of the patched files to which the patch is applied and stored it in the $ALTIBASE_HOME/APatch directory. Within this directory, these are separated backup directories generated for each patch. These backup files are used to roll back the patch in the future.
 
 In addition, executable files that are used to uninstall or rollback patches are installed in the $ALTIBASE_HOME/APatch directory when a product is installed or patched.
 
@@ -404,7 +404,7 @@ Ex) Altibase Client Package Installer
 altibase-client-7.3.0.0.0-LINUX-X86-64bit-release.run
 ```
 
-The Altibase Server Package and Client Package are distributed in seperate packages. However, the Altibase Server Package includes the Client Package.
+The Altibase Server Package and Client Package are distributed in separate packages. However, the Altibase Server Package includes the Client Package.
 
 The Altibase Package Installer is provided for the following operating systems. Before installing, check the OS related information with the following command and select the appropriate package installer.
 
@@ -504,7 +504,7 @@ $ xhost +
 
 #### Start the Altibase Package Installer
 
-To run the Altibase Package Installerm a suer needs to download the Package Installer and then change file permissions, using chmod.
+To run the Altibase Package Installer, a user needs to download the Package Installer and then change file permissions, using chmod.
 
 ```
 $ chmod +x altibase-server-7.3.0.0.0-LINUX-X86-64bit-release.run
