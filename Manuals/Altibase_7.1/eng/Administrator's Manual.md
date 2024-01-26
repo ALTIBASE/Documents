@@ -10136,7 +10136,7 @@ This chapter explains how to check and analyze the operational status of an Alti
 
 ### Monitoring Database Servers
 
-Meta tables and performance views are used to check the operation status of Altibase database. For more detailed information on meta tables and performance views available in Altibase, please refer to the *[General Reference-2.The Data Dictionary.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General Reference-2.The Data Dictionary.md)*
+Meta tables and performance views are used to check the operation status of Altibase database. For more detailed information on meta tables and performance views available in Altibase, please refer to the [*General Reference-2.The Data Dictionary.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-2.The%20Data%20Dictionary.md)
 
 The major entities to be monitored are as follows:
 
