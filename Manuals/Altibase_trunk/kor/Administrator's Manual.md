@@ -12672,7 +12672,7 @@ V\$LFG성능 뷰의 그룹 커밋 관련 통계값들은 다음과 같다.
 ### Altibase 모니터링
 
 Altibase 데이터베이스의 운영 상태를 확인하기 위해서 메타 테이블과 성능 뷰를
-이용할 수 있다. 메타 테이블과 성능 뷰에 대한 자세한 설명은 [*General Reference-2.The Data Dictionary*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General%20Reference-2.The%20Data%20Dictionary.md)를 참고한다.
+이용할 수 있다. 메타 테이블과 성능 뷰에 대한 자세한 설명은 [*General Reference-2.The Data Dictionary*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The%20Data%20Dictionary.md)를 참고한다.
 
 모니터링 해야할 주된 개체는 다음과 같다.
 
