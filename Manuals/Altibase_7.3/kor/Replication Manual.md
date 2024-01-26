@@ -1780,6 +1780,76 @@ iSQL> DROP REPLICATION rep1;
 
 ### 이중화 대상 테이블에 DDL 실행
 
+#### 이중화 대상 테이블에 허용되는 DDL 구문 (새로 작성한 부분)
+
+Altibase에서 이중화 대상 테이블에 대하여 지원하는 DDL은 다음과 같다. 3가지 부류로 소개한다.
+
+* ##### REPLICATION_DDL_ENABLE_LEVEL 설정 없이 사용할 수 있는 DDL
+
+  * 컬럼의 기본 값을 설정하거나 삭제하는 DDL
+  * 테이블에 설정된 constraint의 이름 변경
+  * 인덱스의 aging
+  * 테이블의 compact
+
+  ```sql
+  ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );
+  ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );
+  ALTER TABLE table_name RENAME CONSTRAINT contraint_name TO constraint_name;
+  ALTER INDEX index_name AGING;
+  ALTER TABLE table_name COMPACT;
+  ```
+
+* ##### REPLICATION_DDL_ENABLE_LEVEL =0으로 설정한 경우, 사용할 수 있는 DDL
+
+  ```sql
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
+  ALTER TABLE table_name DROP COLUMN column_name;
+  ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;   // 이거 중복 아닌가요??
+  ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT; // 이거 중복 아닌가요??
+  ALTER TABLE table_name ALTER TABLESPACE tablespace_name;
+  ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
+  ALTER TABLE table_name TRUNCATE PARTITION partition_name;
+  ALTER TABLE table_name REPLACE table_name;  // 현재 sql reference 매뉴얼에 없어요
+  ALTER TABLE table_name REPLACE table_name PARTITION partition_name ; // 현재 sql reference 매뉴얼에 없어요.
+  TRUNCATE TABLE table_name;
+  CREATE INDEX index_name ON table_name ( column_name );
+  DROP INDEX index_name;
+  ```
+
+* ##### REPLICATION_DDL_ENABLE_LEVEL = 1로 설정한 경우, 사용할 수 있는 DDL
+
+  * 테이블에 칼럼 추가
+  * 테이블에 특정 칼럼의 NOT NULL 속성 또는 NULL 속성 변경
+  * 테이블에 특정 칼럼의 DATA_TYPE 변경.
+  * 파티션의 SPLIT/MERGE/DROP
+
+  ```sql
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
+  ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
+  ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
+  ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
+  ALTER TABLE table_name MODIFY COLUMN ( column_name NULL ); // alter column 과 modify column 차이가 있나요??
+  ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL ); // alter column 과 modify column 차이가 있나요??
+  ALTER TABLE table_name SPLIT PARTITION partition_name ( condition ) INTO ( PARTITION partition_name PARTITION partition_name );
+  ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
+  ALTER TABLE table_name DROP PARTITION partiton_name; 
+  ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능 ) // 이거 level 0과 중복 아닌가요??
+  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
+  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name ) LOCAL;
+  ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
+  ALTER TABLE table_name DROP CONSTRAINT constraint_name; 
+   ( Unique, Local Unique가 있는 것도 삭제 가능 )
+  CREATE UNIQUE INDEX index_name ON table_name ( column_name );
+  CREATE INDEX index_name ON table_name ( expression );
+  DROP INDEX index_name; ( unique, function-base 인덱스가 있는 것도 삭제 가능 )
+  ```
+
+  
+
+
+
 #### 구문
 
 Altibase가 이중화 대상인 테이블에 대하여 지원하는 DDL은 다음과 같다.
@@ -2124,6 +2194,161 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
 iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
 iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 ```
+
+
+
+### 이중화 대상 테이블에 DDL 복제 실행 (새로 작성한 부분)
+
+(1안)Altibase의 이중화 환경에서 DDL의 수행은 하나의 노드에서 수행하면, 다른 노드로 DDL 복제(DDL Sync)가 될 수 있다. 이를 위해서는 아래의 사전 작업과 프로퍼티 설정이 필요하다. 자세한 절차는 아래에서 설명한다.
+
+(2안)Altibase의 이중화는 DDL 복제 기능을 제공한다. DDL 복제 기능을 이용하면, 하나의 노드에서만 DDL을 수행하여도 다른노드에 DDL이 자동으로 수행된다. 이를 위해서는 아래의 사전 작업과 프로퍼티 설정이 필요하다. 자세한 절차는 아래에서 설명한다.
+
+#### 사용방법
+
+##### 사용자 환경에서의 사전 작업
+
+DDL 구문의 수행은 모든 노드에서 수행할 수 있지만, DDL 복제를 위해서는 하나의 노드에서 수행할 것을 권장한다. 이때 운영 중인 서비스들은 DDL을 수행할 서버에서 수행되도록 조치가 필요하다. 즉, 원격 서버에서 서비스가 없도록 사전 작업이 필요하다.
+
+> **주의**
+>
+> 운영 중인 서비스 중 데이터를 갱신(I/D/U)하는 서비스들은 DDL을 수행하는 서버에서만 수행되도록 조치해야 한다. 그렇지 않을 경우, 데이터 불일치가 발생할 수 있다.
+>
+> 그리고, 원격 서버의 이중화 GAP을 처리하기 위해 원격노드에서 아래의 구문을 수행하는 것을 권장한다.
+>
+> ```sql
+> ALTER REPLICATION Rep1 FLUSH;
+> ALTER REPLICATION Rep2 FLUSH;
+> ```
+>
+> DDL 복제가 진행되는 동안, DDL을 수행하는 테이블의 갱신은 일시적으로 제한 될 수 있다. 이런 경우, DDL 수행이 완료된 후에 재 시도하면 정상적으로 완료된다.
+>
+> 예를 들어 테이블 T1에 DDL 복제가 진행되는 동안에 insert into t1 values...와 같은 DML 구문을 실행하면, [ERR-313D6 : Unable to update table or partition T1] 의 에러를 확인할 수 있다.
+
+##### 사전 프로퍼티 설정 - 지역서버
+
+DDL을 수행하기 위한 프로퍼티 설정은 SYS 사용자 또는 ALTER SYSTEM 권한을 가진 사용자만 수행할 수 있다. DDL을 수행할 서버(지역서버로 명칭한다.)에서 아래의 프로퍼티 설정 구문을 수행한다.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
+
+--DDL을 수행할 TABLE의 사용자(Table Owner)로 접속
+ALTER SESSION SET REPLICATION_DDL_SYNC=1;
+ALTER SESSION SET REPLICATION=DEFAULT;
+```
+
+##### 사전 프로퍼티 설정 - 원격서버
+
+DDL 복제가 (자동으로) 실행될 서버(를 원격서버로 명칭한다)에는 아래의 프로퍼티 설정 구문을 수행한다.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
+ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
+```
+
+##### DDL 구문 수행
+
+허용하는 DDL 구문은 **"이중화 대상 테이블에 허용되는 DDL 구문"**를 참고 한다.
+
+DDL 구문을 수행하기 전에 지역서버에서 이중화 GAP을 해소하기 위해 아래의 구문을 수행후 DDL을 수행하는것을 권장한다.
+
+```sql
+ALTER REPLICATION Rep1 FLUSH;
+ALTER REPLICATION Rep2 FLUSH;
+```
+
+###### 허용하지 않는 DDL 종류
+
+* 프라이머리 키를 삭제할 수 없다.
+* 외래키를 추가할 수 없다.
+* 압축컬럼을 추가/삭제할 수 없다.
+* 압축컬럼이 포함된 테이블에 대한 TRUNCATE 는 수행할 수 없다.
+
+##### 사후 프로퍼티 원복
+
+DDL 구문 수행이 완료되고, 더 이상 수행할 DDL 구문이 없는 경우는 위에서 변경했던 프로퍼티 설정을 원복해야 한다. 또한, 지역 서버에서는 서비스가 계속 운영 중이었으므로, 이중화 GAP이 존재할 수 있다. 이를 해결하기 위해서 FLUSH를 수행해야 한다.
+
+* 지역 서버
+
+  ```sql
+  ALTER REPLICATION Rep1 FLUSH;
+  ALTER REPLICATION Rep2 FLUSH;
+  
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
+  ALTER SESSION SET REPLICATION_DDL_SYNC=0;
+  ALTER SESSION SET REPLICATION=NONE; //이거 필요한지 확인필요!
+  ```
+
+* 원격 서버
+
+  원격 서버에서는 전송할 ISU가 없으므로 FLUSH를 하지 않아도 된다 (이말은 뺄께요~)
+
+  ```sql
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
+  ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=0;
+  ALTER SYSTEM SET REPLICATION_DDL_SYNC=0;
+  ```
+
+#### DDL 복제를 할 수 없는 이중화 환경
+
+* DDL 복제를 수행하는 지역 서버, 원격 서버의 이중화 프로토콜 버전이 서로 다른 경우
+
+  * 이중화 프로토콜 버전이 완전히 같아야 한다.
+
+* DDL 복제를 수행하는 지역 서버, 원격 서버의 이중화가 모두 시작되어 있지 않은경우, 예를들면,,
+
+  * 만약 4개의 이중화 환경에서 1개의 원격 서버의 이중화가 stop된 상황이라면? DDL 복제 실패 에러가 발생하나?
+  * 아니면, stop된 이중화 노드를 제외한 나머지 노드에서 수행되나? 그렇다면 원격 서버의 이중화가 모두 stop된 경우는?
+
+* 이중화 복구 옵션(RECOVERY)이 지정된 테이블에는 DDL 복제를 실행할 수 없다.
+
+* Propagaion 옵션 사용시 DDL 복제를 실행할 수 없다.
+
+* Receive only는?
+
+* master/slave는?
+
+* (참고) 아래의 구문으로 이중화를 생성하는데, DDL 복제가 안되는 것 한번더 확인 필요!
+
+  ```
+  [FOR ANALYSIS | FOR PROPAGABLE LOGGING | FOR PROPAGATION | FOR ANALYSIS PROPAGATION] 
+  [AS MASTER|AS SLAVE] 
+  [OPTIONS options_name [option_name ... ] ] 
+  
+  참고로options에는 
+  -Recovery , 
+  -offline, 
+  -gapless , 
+  -prallel applier, 
+  -replicated transaction grouping , 
+  -receive only option 이 있다.
+  ```
+
+* Eager 모드 이중화에서는 DDL 복제를 실행할 수 없다.
+
+  * 에러가 발생하나? 어떤 에러?
+
+* 이중화 대상 테이블이 글로벌 논파티션드 인덱스가 있는 파티션드 테이블인 경우, DDL 복제를 실행할 수 없다.
+
+  * 에러가 발생하나? 어떤에러?
+
+#### DDL 복제 중 주의 사항
+
+* 하나의 이중화 객체에 여러개의 테이블이 정의된 경우, 각 테이블에 대한 DDL 구문의 실행은 동시에 수행할 수 없다. 
+
+  >  예를 들어, rep1 객체에 t1, t2의 테이블을 이중화 하도록 정의된 경우, session 1에서 t1에 대한 DDL을 수행하고 session2에서 t2에 대한 DDL을 동시에 수행할 수 없다. 순차적으로 수행하는 경우는 정상적으로 동작한다.
+
+* ERR- Can not perform a DDL synchronization because it is currently in progress
+
+  DDL Sync 실패 메시지 나오는 경우 설명 필요, 어떻게 조치하면 된다.까지
+
+* DDL 복제를 위해서는 하나의 노드에서 수행할 것을 권장하는데, 원격 서버에서 DDL을 수행한 경우. 에러? 
+
+  * 만약 에러가 발생하지 않고 데이터 불일치? 불일치가 매번 일어나는것은 아는것 같은데요... 만약 전혀 관련없는 DDL을 수행하는 경우는 수행가능하지 않나요?? 
 
 ### SQL 반영 모드
 
