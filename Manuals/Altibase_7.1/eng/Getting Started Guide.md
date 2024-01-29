@@ -128,7 +128,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Introduction to Replication](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%95%EC%9D%98)
   - [How Databases are Replicated In Altibase](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B0%A9%EB%B2%95)
   - [How to Replicate a Database](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [Executing DLL Statements in a Replication Environment](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+  - [Executing DDL Statements in a Replication Environment](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
 - [7. Fail-Over](#7fail-over)
   - [About Fail-Over](#fail-over%EC%9D%98-%EA%B0%9C%EC%9A%94)
   - [How to Use Fail-Over](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
@@ -181,6 +181,7 @@ This manual is organized as follows:
 -   Chapter 1: Installing Altibase
 
 -   Chapter 2: Startup and Shutdown Altibase 
+    
     This chapter describes the process of execution and the termination of Altibase server by the database administrator.
     
 -   Chapter 3: Working with Altibase
@@ -412,7 +413,7 @@ TRANSITION TO PHASE : SERVICE
 Command execute success.
 ```
 
-Alternatively, the user can run the server using the server scrip command. For more detailed information on the server script, please refer to the *Utilities Manual.*
+Alternatively, the user can run the server using the server script command. For more detailed information on the server script, please refer to the *Utilities Manual.*
 
 ```
 $ server start
@@ -449,7 +450,7 @@ Command execute success.
 
 ### Shutdown Altibase
 
-The Altibase server can be shutdown using the server script command, or by using iSQL commend 'shutdown' after accessing the sysdba administrator mode or using a shell script named "server stop".
+The Altibase server can be shutdown using the server script command, or by using iSQL command 'shutdown' after accessing the sysdba administrator mode or using a shell script named "server stop".
 
 Shutdown, a command to shut down a server has three options with each's own way of shutting down the server.
 
@@ -537,7 +538,7 @@ $
 
 -------------------
 
-This chapter cotains the following sections:
+This chapter contains the following sections:
 
 -   Supported SQL Statements
 
@@ -706,7 +707,7 @@ More detailed information on this can be found in the *C/C++ External Procedures
 
 ##### Library
 
-The dynamic library file containing user-fined containing user-defined C/C++ functions to be used with external procedures must be identifiable by the Altibase server. For this purpose, Altibase provides the library object which is a database object that corresponds to the dynamic library file on a one-to-one basis.
+The dynamic library file containing user-defined C/C++ functions to be used with external procedures must be identifiable by the Altibase server. For this purpose, Altibase provides the library object which is a database object that corresponds to the dynamic library file on a one-to-one basis.
 
 More detailed information on this can be found in the C/C++ External Procedures Manual.
 
@@ -969,7 +970,7 @@ Therefore, Unicode is a code that can be useful when it is desired to store lang
 
 Unicode encoding is a method of mapping Unicode to bytes for storage on a computer.
 
-Altibase usees an encoding scheme such as UTF-8 or UTF-16 to represent a code scheme or character set.
+Altibase uses an encoding scheme such as UTF-8 or UTF-16 to represent a code scheme or character set.
 
 #### Storing Unicode Characters
 
@@ -1122,7 +1123,7 @@ Create success.
 
 ###### **Making Environment Settings on the Client**
 
-To use KSC5601 on the client, set the environment varaible as follows:
+To use KSC5601 on the client, set the environment variable as follows:
 
 ```
 % export ALTIBASE_NLS_USE=KSC5601
@@ -1285,7 +1286,7 @@ ALTER REPLICATION replication_name QUICKSTART [RETRY];
 
 
 
-##### Stopping Replicaiton
+##### Stopping Replication
 
 Replication is stopped in this way:
 
@@ -1297,7 +1298,7 @@ ALTER REPLICATION replication_name STOP;
 
 ##### Resetting Replication
 
-This is how replication information is reset. Replication must be stopepd before this is done: 
+This is how replication information is reset. Replication must be stopped before this is done: 
 
 ```
 ALTER REPLICATION replication_name RESET;
@@ -1307,7 +1308,7 @@ ALTER REPLICATION replication_name RESET;
 
 ##### Dropping Replication Tables
 
-This is how tables are dropped (deregistered) from a replication object. Replication must be stopped beofre this is done:
+This is how tables are dropped (deregistered) from a replication object. Replication must be stopped before this is done:
 
 ```
 ALTER REPLICATION replication_name STOP;
@@ -1333,7 +1334,7 @@ ALTER REPLICATION replication_name ADD TABLE
 
 ##### Dropping a Replication Object
 
-This is how a replication object is dropped. If replication has been started, it must first be stopped before the replicaiton object can be dropped:
+This is how a replication object is dropped. If replication has been started, it must first be stopped before the replication object can be dropped:
 
 ```
 ALTER REPLICATION replication_name STOP;
@@ -1342,9 +1343,9 @@ DROP REPLICATION replication_name;
 
 
 
-### Executing DDL Statements in a Replicaiton Environment
+### Executing DDL Statements in a Replication Environment
 
-If the REPLICATION_DDL_ENABLE property is set to 1 on a replicaiton server, the following DDL  statements can be executed: 
+If the REPLICATION_DDL_ENABLE property is set to 1 on a replication server, the following DDL  statements can be executed: 
 
 -   ALTER TABLE *table_name* ADD COLUMN;
 
@@ -1550,7 +1551,7 @@ For more detailed information, please refer to the *Altibase CLI User’s Manual
 
 #### Header Files and Libraries
 
-To develop a program using the Altibase CLI, you need the header files and library files in the "include" and "lib" subdirectories of the Altibase installation home directory, are needed:
+To develop a program using the Altibase CLI, you need the header files and library files in the "include" and "lib" subdirectories of the Altibase installation home directory as follows:
 
 ```
 $ALTIBASE_HOME/include/sqlcli.h
