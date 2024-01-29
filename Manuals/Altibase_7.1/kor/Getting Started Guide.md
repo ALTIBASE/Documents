@@ -107,47 +107,50 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
 
 
-<br>
+<br><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 # 목차
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1.Altibase 설치](#1altibase-%EC%84%A4%EC%B9%98)
-  - [설치 과정](#%EC%84%A4%EC%B9%98-%EA%B3%BC%EC%A0%95)
-  - [고려 사항](#%EA%B3%A0%EB%A0%A4-%EC%82%AC%ED%95%AD)
-- [2.Altibase 실행과 종료](#2altibase-%EC%8B%A4%ED%96%89%EA%B3%BC-%EC%A2%85%EB%A3%8C)
-  - [Altibase의 실행](#altibase%EC%9D%98-%EC%8B%A4%ED%96%89)
-  - [Altibase의 종료](#altibase%EC%9D%98-%EC%A2%85%EB%A3%8C)
-- [3.Altibase로 작업하기](#3altibase%EB%A1%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
-  - [지원되는 SQL문](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-sql%EB%AC%B8)
-  - [SQL문 실행 방법](#sql%EB%AC%B8-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
-  - [샘플 스키마](#%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
-- [4.데이터베이스 객체 및 권한 관리](#4%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC)
-  - [데이터베이스 객체 개요](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
-  - [권한 관리 개요](#%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC-%EA%B0%9C%EC%9A%94)
-- [5.다국어 지원](#5%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-  - [다국어 지원 개요](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90-%EA%B0%9C%EC%9A%94)
-  - [다국어 지원을 위한 캐릭터셋 분류](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EB%B6%84%EB%A5%98)
-  - [유니코드를 이용한 다국어 지원](#%EC%9C%A0%EB%8B%88%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-  - [다국어 데이터베이스를 위한 환경 설정](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-  - [데이터베이스 캐릭터셋 선택시 고려사항](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EC%84%A0%ED%83%9D%EC%8B%9C-%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD)
-- [6.데이터베이스 이중화](#6%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-  - [이중화 정의](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%95%EC%9D%98)
-  - [이중화 방법](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B0%A9%EB%B2%95)
-  - [이중화 기능의 사용 방법](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [DDL 수행 시 주의사항](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.Altibase 설치](#1.altibase-설치)
+  - [설치 과정](#설치-과정)
+  - [고려 사항](#고려-사항)
+- [2.Altibase 실행과 종료](#2.altibase-실행과-종료)
+  - [Altibase의 실행](#altibase의-실행)
+  - [Altibase의 종료](#altibase의-종료)
+- [3.Altibase로 작업하기](#3.Altibase로-작업하기)
+  - [지원되는 SQL문](#지원되는-SQL문)
+  - [SQL문 실행 방법](#sql문-실행-방법)
+  - [샘플 스키마](#샘플-스키마)
+- [4.데이터베이스 객체 및 권한 관리](#4.데이터베이스-객체-및-권한-관리)
+  - [데이터베이스 객체 개요](#데이터베이스-객체-개요)
+  - [권한 관리 개요](#권한-관리-개요)
+- [5.다국어 지원](#5.다국어-지원)
+  - [다국어 지원 개요](#다국어-지원-개요)
+  - [다국어 지원을 위한 캐릭터셋 분류](#다국어-지원을-위한-캐릭터셋-분류)
+  - [유니코드를 이용한 다국어 지원](#유니코드를-이용한-다국어-지원)
+  - [다국어 데이터베이스를 위한 환경 설정](#다국어-데이터베이스를-위한-환경-설정)
+  - [데이터베이스 캐릭터셋 선택시 고려사항](#데이터베이스-캐릭터셋-선택시-고려사항)
+- [6.데이터베이스 이중화](#6.데이터베이스-이중화)
+  - [이중화 정의](#이중화-정의)
+  - [이중화 방법](#이중화-방법)
+  - [이중화 기능의 사용 방법](#%이중화-기능의-사용-방법)
+  - [DDL 수행 시 주의사항](#ddl-수행-시-주의사항)
 - [7.Fail-Over](#7fail-over)
-  - [Fail-Over의 개요](#fail-over%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [Fail Over 사용 방법](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-- [8.백업 및 복구](#8%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
-  - [백업 정책](#%EB%B0%B1%EC%97%85-%EC%A0%95%EC%B1%85)
-  - [복구 정책](#%EB%B3%B5%EA%B5%AC-%EC%A0%95%EC%B1%85)
-- [9.응용프로그램 작성](#9%EC%9D%91%EC%9A%A9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1)
-  - [응용 프로그램 작성 방법](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EB%B0%A9%EB%B2%95)
-  - [Altibase CLI를 활용한 프로그램](#altibase-cli%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [JDBC를 활용한 프로그램](#jdbc%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [C/C++ Precompiler를 활용한 프로그램](#cc-precompiler%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+  - [Fail-Over의 개요](#fail-over의-개요)
+  - [Fail Over 사용 방법](#fail-over-사용-방법)
+- [8.백업 및 복구](#8백업-및-복구)
+  - [백업 정책](#백업-정책)
+  - [복구 정책](#복구-정책)
+- [9.응용프로그램 작성](#9응용프로그램-작성)
+  - [응용 프로그램 작성 방법](#응용-프로그램-작성-방법)
+  - [Altibase CLI를 활용한 프로그램](#altibase-cli를-활용한-프로그램)
+  - [JDBC를 활용한 프로그램](#jdbc를-활용한-프로그램)
+  - [C/C++ Precompiler를 활용한 프로그램](#cc-precompiler를-활용한-프로그램)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 <br>
 
@@ -700,7 +703,7 @@ Table)이라고 한다. 대용량 테이블의 경우 파티션드 테이블을 
 파티션드 인덱스에 대한 자세한 내용은 *Administrator's Manual* "7장 파티션드
 객체"를 참조한다.
 
-##### 임시 테이블 (Temporary Table) 
+##### 임시 테이블(Temporary Table) 
 
 하나의 세션 또는 트랜잭션이 유지되는 동안에 데이터를 일시적으로 보관하기 위해
 임시 테이블을 사용할 수 있다. 임시 테이블을 이용하면 복잡한 질의를 사용할 때
@@ -773,15 +776,15 @@ Altibase는 유일키를 생성하기 위한 키 생성자로 시퀀스를 제�
 이에 대한 보다 자세한 내용은 *Administrator's Manual* "5장 데이터베이스 객체 및
 권한"의 "시퀀스" 절에서 자세히 설명한다.
 
-##### 시노님 (Synonym) 
+##### 시노님(Synonym) 
 
-테이블, 시퀀스, 뷰, 저장 프로시저 및 저장 함수에 대한 별칭 (alias)을 부여하여
+테이블, 시퀀스, 뷰, 저장 프로시저 및 저장 함수에 대한 별칭(alias)을 부여하여
 객체 사용에 대한 투명성을 보장할 수 있는 시노님을 제공한다.
 
 이에 대한 보다 자세한 내용은 *Administrator's Manual* "5장 데이터베이스 객체 및
 권한"의 "시노님" 절에서 자세히 설명한다.
 
-##### 저장 프로시저 및 저장 함수 (Stored Procedure or Function)
+##### 저장 프로시저 및 저장 함수(Stored Procedure or Function)
 
 저장 프로시저(Stored Prodedure)란 SQL문들과 흐름 제어문, 할당문, 오류 처리 루틴
 등을 이용해 전체 업무 절차를 프로그래밍하여 하나의 모듈로 만든 후 데이터베이스에
@@ -819,7 +822,7 @@ Manual*에서 자세히 설명한다.
 
 이에 대해서는 *Database Link User's Manual*에 더 자세히 기술되어 있다.
 
-##### 외부 프로시저 및 외부 함수 (External Procedure or Function) 
+##### 외부 프로시저 및 외부 함수(External Procedure or Function) 
 
 외부 프로시저 또는 외부 함수 객체는 사용자 정의 C/C++ 함수와 일대일로 대응하는
 데이터베이스 객체이다. 사용자 정의 함수의 실행은 외부 프로시저 또는 외부 함수
@@ -828,7 +831,7 @@ Manual*에서 자세히 설명한다.
 
 자세한 내용은 *C/C++ External Procedures Manual*을 참고하도록 한다.
 
-##### 라이브러리 (Library) 
+##### 라이브러리(Library) 
 
 외부 프로시저와 연결된 사용자 정의 C/C++ 함수를 포함하는 동적 라이브러리 파일을
 Altibase 서버가 식별할 수 있도록 해야 한다. 이를 위해 Altibase는 동적 라이브러리
@@ -841,7 +844,7 @@ Altibase 서버가 식별할 수 있도록 해야 한다. 이를 위해 Altibase
 특정 스키마에 소속되지 않고 전체 데이터베이스 수준에서 관리되는 객체를 비스키마
 객체라고 한다. Altibase는 다음과 같은 비스키마 객체를 제공한다.
 
-##### 디렉터리 (Directory) 
+##### 디렉터리(Directory) 
 
 저장프로시저의 파일 제어 기능은 운영 체제의 텍스트 파일에 대한 읽기 및 쓰기
 기능을 제공한다. 이 기능을 이용하여 사용자는 저장프로시저 실행에 대한 별도의
@@ -888,7 +891,7 @@ Altibase는 데이터베이스 객체가 디스크에 상주하는 디스크 테
 사용자 권한에 대해서는 *Administrator's Manual* "5장 데이터베이스 객체 및
 권한"의 "권한" 절에서 자세히 설명한다.
 
-##### 작업 (Job) 
+##### 작업(Job) 
 
 작업(Job)은 저장 프로시저에 실행 일정을 더한 것이다. JOB 객체를 생성할 때 실행할
 저장 프로시저와 실행 시각, 실행 반복 간격 등의 일정을 설정할 수 있다. 생성된
@@ -914,13 +917,13 @@ Altibase는 시스템 권한, 객체 권한 및 롤(role)을 지원한다.
 시스템 권한은 일반적으로 DBA가 관리를 하며, 데이터베이스에 특정한 작업을
 수행하거나 모든 스키마에 있는 객체들을 관리할 수 있는 권한이다.
 
-##### 객체 권한 (Object Privilege) 
+##### 객체 권한(Object Privilege) 
 
 객체 권한은 객체의 소유자가 관리를 하며, 객체에 접근하고 조작할 수 있는
 권한이다. Altibase가 지원하는 전체 권한의 목록은 *Administrator's Manual*의 권한
 관리를 참조하고, 관련된 자세한 설명은 *SQL Reference*을 참조한다.
 
-##### 롤 (Role) 
+##### 롤(Role) 
 
 롤은 권한들의 묶음이다. 여러 개의 권한을 사용자들에게 부여할 때 롤을 사용하는
 것이 용이하다. 롤에 대한 자세한 설명과 제약에 대해서는 *SQL Reference*를
@@ -1660,7 +1663,7 @@ replicator) 기능을 이용한 데이터베이스 복제 방법을 제공한다
 있으므로 Fail-Over 콜백(Callback) 함수를 이용하여 정합성을 꼭 확인할 것을
 권장한다. Fail-Over 콜백에 대해서는 다음 절에서 자세히 설명한다.
 
-Altibase의Fail-Over설정은 응용프로그램에 Fail-Over속성을 등록함으로써
+Altibase의 Fail-Over 설정은 응용프로그램에 Fail-Over속성을 등록함으로써
 이루어지며, Fail-Over 콜백 함수를 사용하여 Fail-Over를 수행하기 전에
 데이터베이스의 정합성을 확인할 수 있다.
 

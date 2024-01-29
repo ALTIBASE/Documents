@@ -98,48 +98,52 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
-
 <br>
 
-# Table Of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Preface](#%EC%84%9C%EB%AC%B8)
-  - [About This Manual](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1. Installing Altibase](#1altibase-%EC%84%A4%EC%B9%98)
-  - [The Installation Process](#%EC%84%A4%EC%B9%98-%EA%B3%BC%EC%A0%95)
-  - [Special Consideration](#%EA%B3%A0%EB%A0%A4-%EC%82%AC%ED%95%AD)
-- [2. Startup and Shutdown Altibase](#2altibase-%EC%8B%A4%ED%96%89%EA%B3%BC-%EC%A2%85%EB%A3%8C)
-  - [Starting Up Altibase](#altibase%EC%9D%98-%EC%8B%A4%ED%96%89)
-  - [Shutting Down Altibase](#altibase%EC%9D%98-%EC%A2%85%EB%A3%8C)
-- [3. Working with Altibase](#3altibase%EB%A1%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
-  - [Supported SQL Statement](#%EC%A7%80%EC%9B%90%EB%90%98%EB%8A%94-sql%EB%AC%B8)
-  - [How to Execute SQL Statements](#sql%EB%AC%B8-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
-  - [Sample Schema](#%EC%83%98%ED%94%8C-%EC%8A%A4%ED%82%A4%EB%A7%88)
-- [4. DB Objects and Privileges](#4%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC)
-  - [Database Objects: An Overview](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EA%B0%9C%EC%9A%94)
-  - [Privileges: An Overview](#%EA%B6%8C%ED%95%9C-%EA%B4%80%EB%A6%AC-%EA%B0%9C%EC%9A%94)
-- [5. Multilingual Features](#5%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-  - [Multilingual Support Overview](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90-%EA%B0%9C%EC%9A%94)
-  - [Character Set Classification for Multilingual Support](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EB%B6%84%EB%A5%98)
-  - [Using Unicode in a Multilingual Database](#%EC%9C%A0%EB%8B%88%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EC%A7%80%EC%9B%90)
-  - [Environment Settings for a Multilingual Database](#%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-  - [Considerations when Choosing a Database Character set](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%85%8B-%EC%84%A0%ED%83%9D%EC%8B%9C-%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD)
-- [6. Database Replication](#6%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B4%EC%A4%91%ED%99%94)
-  - [Introduction to Replication](#%EC%9D%B4%EC%A4%91%ED%99%94-%EC%A0%95%EC%9D%98)
-  - [How Databases are Replicated In Altibase](#%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B0%A9%EB%B2%95)
-  - [How to Replicate a Database](#%EC%9D%B4%EC%A4%91%ED%99%94-%EA%B8%B0%EB%8A%A5%EC%9D%98-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [Executing DLL Statements in a Replication Environment](#ddl-%EC%88%98%ED%96%89-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
-- [7. Fail-Over](#7fail-over)
-  - [About Fail-Over](#fail-over%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [How to Use Fail-Over](#fail-over-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-- [8. Backup and Recovery](#8%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC)
-  - [Backup Policy](#%EB%B0%B1%EC%97%85-%EC%A0%95%EC%B1%85)
-  - [Recovery Policy](#%EB%B3%B5%EA%B5%AC-%EC%A0%95%EC%B1%85)
-- [9. Developing Altibase Application](#9%EC%9D%91%EC%9A%A9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1)
-  - [Writing Client Application Programs](#%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%91%EC%84%B1-%EB%B0%A9%EB%B2%95)
-  - [Applications Using Altibase CLI](#altibase-cli%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [Applications Using JDBC](#jdbc%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
-  - [Applications Written Using the C/C++ Precompiler](#cc-precompiler%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8)
+# Table of Contents
+
+- [Preface](#preface)
+  - [About This Manual](#about-this-manual)
+- [1. Altibase Installation](#1-altibase-installation)
+  - [Installation Process](#installation-process)
+  - [Considerations When Installing Altibase](#considerations-when-installing-altibase)
+- [2. Startup and Shutdown Altibase](#2-startup-and-shutdown-altibase)
+  - [Startup Altibase](#startup-altibase)
+  - [Shutdown Altibase](#shutdown-altibase)
+- [3. Working with Altibase](#3-working-with-altibase)
+  - [Supported SQL Statements](#supported-sql-statements)
+  - [How to Execute SQL Statements.](#how-to-execute-sql-statements)
+  - [Sample Schema](#sample-schema)
+- [4. DB Objects and Privileges](#4-db-objects-and-privileges)
+  - [Database Objects: Overview](#database-objects-overview)
+  - [Privileges](#privileges)
+- [5. Multilingual Features](#5-multilingual-features)
+  - [Multilingual Support Overview](#multilingual-support-overview)
+  - [Character Set Classification for Multilingual Support.](#character-set-classification-for-multilingual-support)
+  - [Using Unicode in a Multilingual Database](#using-unicode-in-a-multilingual-database)
+  - [Setting Environment for a Multilingual Database](#setting-environment-for-a-multilingual-database)
+  - [Consideration When Choosing a Database Character Set](#consideration-when-choosing-a-database-character-set)
+- [6. Database Replication](#6-database-replication)
+  - [Introduction to Replication](#introduction-to-replication)
+  - [How Databases Are Replicated In Altibase](#how-databases-are-replicated-in-altibase)
+  - [How to Replicate a Database](#how-to-replicate-a-database)
+  - [Executing DDL Statements in a Replication Environment](#executing-ddl-statements-in-a-replication-environment)
+- [7. Fail-Over](#7-fail-over)
+  - [About Fail-Over](#about-fail-over)
+  - [How to Use Fail-Over](#how-to-use-fail-over)
+- [8. Backup and Recovery](#8-backup-and-recovery)
+  - [Altibase Backup Policy](#altibase-backup-policy)
+  - [Altibase Recovery policy](#altibase-recovery-policy)
+- [9. Developing Altibase Applications](#9-developing-altibase-applications)
+  - [Writing Client Application Programs](#writing-client-application-programs)
+  - [Applications Using Altibase CLI](#applications-using-altibase-cli)
+  - [Applications Using JDBC](#applications-using-jdbc)
+  - [Applications Written Using the C/C++ Precompiler](#applications-written-using-the-cc-precompiler)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -181,6 +185,7 @@ This manual is organized as follows:
 -   Chapter 1: Installing Altibase
 
 -   Chapter 2: Startup and Shutdown Altibase 
+    
     This chapter describes the process of execution and the termination of Altibase server by the database administrator.
     
 -   Chapter 3: Working with Altibase
@@ -412,7 +417,7 @@ TRANSITION TO PHASE : SERVICE
 Command execute success.
 ```
 
-Alternatively, the user can run the server using the server scrip command. For more detailed information on the server script, please refer to the *Utilities Manual.*
+Alternatively, the user can run the server using the server script command. For more detailed information on the server script, please refer to the *Utilities Manual.*
 
 ```
 $ server start
@@ -449,7 +454,7 @@ Command execute success.
 
 ### Shutdown Altibase
 
-The Altibase server can be shutdown using the server script command, or by using iSQL commend 'shutdown' after accessing the sysdba administrator mode or using a shell script named "server stop".
+The Altibase server can be shutdown using the server script command, or by using iSQL command 'shutdown' after accessing the sysdba administrator mode or using a shell script named "server stop".
 
 Shutdown, a command to shut down a server has three options with each's own way of shutting down the server.
 
@@ -537,7 +542,7 @@ $
 
 -------------------
 
-This chapter cotains the following sections:
+This chapter contains the following sections:
 
 -   Supported SQL Statements
 
@@ -706,7 +711,7 @@ More detailed information on this can be found in the *C/C++ External Procedures
 
 ##### Library
 
-The dynamic library file containing user-fined containing user-defined C/C++ functions to be used with external procedures must be identifiable by the Altibase server. For this purpose, Altibase provides the library object which is a database object that corresponds to the dynamic library file on a one-to-one basis.
+The dynamic library file containing user-defined C/C++ functions to be used with external procedures must be identifiable by the Altibase server. For this purpose, Altibase provides the library object which is a database object that corresponds to the dynamic library file on a one-to-one basis.
 
 More detailed information on this can be found in the *C/C++ External Procedures Manual*.
 
@@ -969,7 +974,7 @@ Therefore, Unicode is a code that can be useful when it is desired to store lang
 
 Unicode encoding is a method of mapping Unicode to bytes for storage on a computer.
 
-Altibase usees an encoding scheme such as UTF-8 or UTF-16 to represent a code scheme or character set.
+Altibase uses an encoding scheme such as UTF-8 or UTF-16 to represent a code scheme or character set.
 
 #### Storing Unicode Characters
 
@@ -1122,7 +1127,7 @@ Create success.
 
 ###### **Making Environment Settings on the Client**
 
-To use KSC5601 on the client, set the environment varaible as follows:
+To use KSC5601 on the client, set the environment variable as follows:
 
 ```
 % export ALTIBASE_NLS_USE=KSC5601
@@ -1285,7 +1290,7 @@ ALTER REPLICATION replication_name QUICKSTART [RETRY];
 
 
 
-##### Stopping Replicaiton
+##### Stopping Replication
 
 Replication is stopped in this way:
 
@@ -1297,7 +1302,7 @@ ALTER REPLICATION replication_name STOP;
 
 ##### Resetting Replication
 
-This is how replication information is reset. Replication must be stopepd before this is done: 
+This is how replication information is reset. Replication must be stopped before this is done: 
 
 ```
 ALTER REPLICATION replication_name RESET;
@@ -1307,7 +1312,7 @@ ALTER REPLICATION replication_name RESET;
 
 ##### Dropping Replication Tables
 
-This is how tables are dropped (deregistered) from a replication object. Replication must be stopped beofre this is done:
+This is how tables are dropped (deregistered) from a replication object. Replication must be stopped before this is done:
 
 ```
 ALTER REPLICATION replication_name STOP;
@@ -1333,7 +1338,7 @@ ALTER REPLICATION replication_name ADD TABLE
 
 ##### Dropping a Replication Object
 
-This is how a replication object is dropped. If replication has been started, it must first be stopped before the replicaiton object can be dropped:
+This is how a replication object is dropped. If replication has been started, it must first be stopped before the replication object can be dropped:
 
 ```
 ALTER REPLICATION replication_name STOP;
@@ -1342,9 +1347,9 @@ DROP REPLICATION replication_name;
 
 
 
-### Executing DDL Statements in a Replicaiton Environment
+### Executing DDL Statements in a Replication Environment
 
-If the REPLICATION_DDL_ENABLE property is set to 1 on a replicaiton server, the following DDL  statements can be executed: 
+If the REPLICATION_DDL_ENABLE property is set to 1 on a replication server, the following DDL  statements can be executed: 
 
 -   ALTER TABLE *table_name* ADD COLUMN;
 
@@ -1550,7 +1555,7 @@ For more detailed information, please refer to the *Altibase CLI User’s Manual
 
 #### Header Files and Libraries
 
-To develop a program using the Altibase CLI, you need the header files and library files in the "include" and "lib" subdirectories of the Altibase installation home directory, are needed:
+To develop a program using the Altibase CLI, you need the header files and library files in the "include" and "lib" subdirectories of the Altibase installation home directory as follows:
 
 ```
 $ALTIBASE_HOME/include/sqlcli.h
