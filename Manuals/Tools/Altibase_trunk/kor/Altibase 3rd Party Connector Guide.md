@@ -408,7 +408,45 @@ DBeaver는 시스템 객체를 보여주지 않는 것이 기본값이다. SYSTE
 
 ![sysschema3](media/DBeaver/sysschema3.png)
 
+####  객체에 대해 정확하지 않은 DDL이 출력됩니다.
 
+다음은 큐 객체 Q1을 생성하는 구문 예제이다.
+
+   ```
+   CREATE QUEUE q1(40) MAXROWS 100000;
+   ```
+
+위 구문을 수행하고 DBeaver에서 Q1 객체의 DDL을 조회하면 아래와 같이 비정상적으로 출력되는 경우가 있다.
+
+![ddl1](media/DBeaver/ddl1.png)
+
+정확한 알티베이스 객체의 DDL을 조회하기 위해서는 반드시 SYS 계정으로 DBMS_METADATA 패키지를 설치해야 한다.
+
+SYS 계정으로 알티베이스에 접속하여 아래 구문을 수행한다.
+
+```
+$ cd $ALTIBASE_HOME
+$ is -f ./packages/dbms_metadata.sql
+$ is -f ./packages/dbms_metadata.plb
+```
+
+설치 후, DBeaver에서 대상 알티베이스 연결을 재접속하면 Q1 객체의 정확한 DDL을 조회할 수 있다.
+
+![ddl2](media/DBeaver/ddl2.png)
+
+#### 쿼리 실행 계획을 어디서 확인해야 하나요?
+
+데이터베이스의 SQL script 창을 열고 쿼리를 입력 후 Explain Execution Plan 아이콘을 클릭하여 쿼리 실행 계획을 확인할 수 있다.
+
+연결된 데이터베이스의 [ SQL 편집기 ] → [ 새 SQL 편집기 ] 
+
+![excplan1](media/DBeaver/excplan1.png)
+
+SQL Script 창에 쿼리를 입력 후 "Explain Execution Plan" 아이콘을 클릭하여 쿼리 실행 계획을 확인할 수 있다.
+
+![excplan2](media/DBeaver/excplan2.png)
+
+쿼리 실행 계획의 기본 옵션 값은 Explain Plan Only이다.
 
 #### 쿼리 실행 계획을 EXPLAIN_PLAN = ON으로 수행하고 싶습니다.
 
@@ -439,8 +477,6 @@ Explain plan 설정 값을 변경하는 방법은 다음과 같다.
    Altibase settings → Datasource settings → Explain Plan 설정 값을 선택한다.
 
    ![explain5](media/DBeaver/explain5.png)
-
-
 
 #### 서버 출력(PSM PRINTLN 출력) 내용을 보고 싶습니다.
 
