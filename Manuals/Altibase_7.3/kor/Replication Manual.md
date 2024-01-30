@@ -1978,12 +1978,15 @@ DDL을 수행할 서버를 지역서버로, DDL 복제가 자동으로 수행되
 >
 > DDL 복제를 실행할 때 데이터를 갱신(I/D/U)하는 서비스가 DDL을 수행하는 서버 이외에 다른 서버에서 수행되는 경우, 데이터 불일치가 발생할 수 있다.
 
-* 원격서버의 이중화 갭을 제거하기 위해 아래의 구문을 수행한다.
+* 원격서버의 이중화 갭 제거
 
-```sql
-ALTER REPLICATION Replication_object_name1 FLUSH;
-ALTER REPLICATION Replication_object_name2 FLUSH;
-```
+  DDL구문을 수행할 테이블과 관련된 모든 이중화에 대해서 FLUSH를 수행한다.
+
+  ```sql
+  ALTER REPLICATION Replication_name1 FLUSH;
+  ALTER REPLICATION Replication_name2 FLUSH;
+  ALTER REPLICATION Replication_name... FLUSH;
+  ```
 
 ##### 사전 프로퍼티 설정 - 지역서버
 
@@ -2012,11 +2015,11 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
 
 ##### DDL 구문 수행
 
-DDL 구문을 수행하기 전에 **지역서버**에서 이중화 갭을 제거하기 위해 아래의 구문을 수행후 DDL을 수행한다. 이 때, Replication_object_name1, Replication_object_name2는 DDL 구문 수행과 관련된 모든 이중화 객체를 말한다.
+DDL 구문을 수행하기 전에 **지역서버**에서 이중화 갭을 제거하기 위해 아래의 구문을 수행후 DDL을 수행한다. 이 때, Replication_name1, Replication_name2는 DDL 구문 수행테이블과 관련된 모든 이중화 객체를 말한다.
 
 ```sql
-ALTER REPLICATION Replication_object_name1 FLUSH;
-ALTER REPLICATION Replication_object_name2 FLUSH;
+ALTER REPLICATION Replication_name1 FLUSH;
+ALTER REPLICATION Replication_name2 FLUSH;
 ```
 
 ###### 허용하는 DDL 종류
@@ -2044,8 +2047,8 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
   * DDL 처리와 관련된 이중화 갭 제거를 위해, 아래와 같이 FLUSH 구문을 수행한다.
 
   ```sql
-  ALTER REPLICATION Replication_object_name1 FLUSH;
-  ALTER REPLICATION Replication_object_name2 FLUSH;
+  ALTER REPLICATION Replication_name1 FLUSH;
+  ALTER REPLICATION Replication_name2 FLUSH;
   ```
 
   * FLUSH 구문 수행이 완료되면, 아래와 같이 프로퍼티 설정을 원복한다.
@@ -2062,7 +2065,6 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
   ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
   ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
   ALTER SYSTEM SET REPLICATION_DDL_SYNC=0;
-  --REPLICATION_DDL_ENABLE_LEVEL가 0인경우, 아래 프로퍼티 설정은 생략해도 된다.
   ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=0;
   ```
 
@@ -2078,6 +2080,7 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
   iSQL> ALTER REPLICATION rep1 FLUSH;
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
   
   (Local SYS User)
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
@@ -2098,6 +2101,7 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
   (Remote SYS User)
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   ```
 
 2. 삼중화 환경에서 삼중화 대상 테이블이 t1이고 t1에 컬럼이 c1인 경우, t1에 대한 DDL 복제 실행을 위해서는 아래의 예제를 참고 한다. (지역서버와 원격서버1과의 이중화, 지역서버와 원격서버 2와의 이중화, 원격서버1과 원격서버2와의 이중화를 각각 rep1, rep2, rep3으로 가정한다.)
