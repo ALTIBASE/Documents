@@ -2003,7 +2003,7 @@ ALTER SESSION SET REPLICATION=DEFAULT;
 
 ##### 사전 프로퍼티 설정 - 원격서버
 
-DDL 복제가 (자동으로) 실행될 서버(원격서버)에는 아래의 프로퍼티 설정 구문을 수행한다. 
+DDL 복제가 (자동으로) 실행될 서버(원격서버)에는 아래의 프로퍼티 설정 구문을 수행한다. 만약, REPLICATION_DDL_ENABLE_LEVEL을 1로 설정했다면, REPLICATION_SQL_APPLY_ENABLE 은 반드시 1로 설정해야 한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
@@ -2080,7 +2080,6 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
   iSQL> ALTER REPLICATION rep1 FLUSH;
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
   
   (Local SYS User)
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
@@ -2101,7 +2100,6 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
   (Remote SYS User)
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
   iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   ```
 
 2. 삼중화 환경에서 삼중화 대상 테이블이 t1이고 t1에 컬럼이 c1인 경우, t1에 대한 DDL 복제 실행을 위해서는 아래의 예제를 참고 한다. (지역서버와 원격서버1과의 이중화, 지역서버와 원격서버 2와의 이중화, 원격서버1과 원격서버2와의 이중화를 각각 rep1, rep2, rep3으로 가정한다.)
