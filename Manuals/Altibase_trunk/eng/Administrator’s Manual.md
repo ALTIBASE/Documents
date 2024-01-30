@@ -142,7 +142,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Managing Tablespaces](#managing-tablespaces)
   - [Examples of Tablespace Use](#examples-of-tablespace-use)
   - [Managing Space in Tablespaces](#managing-space-in-tablespaces)
-- [7. Paritioned Objects](#7-paritioned-objects)
+- [7. Partitioned Objects](#7-Partitioned-objects)
   - [What is Partitioning?](#what-is-partitioning)
   - [Partitioned Objects](#partitioned-objects)
   - [Partitioned Conditions](#partitioned-conditions)
@@ -233,7 +233,7 @@ This manual has been organized as follows:
     This chapter describes the types of tablespaces and logging system that are representative components of a database, and how to create a database.
     
 -   Chapter 4: Altibase Startup and Shutdown
-    Tihs chapter describes how to startup and shutdown Altibase, and explains what to do internally during Altibase multi-state startup.
+    This chapter describes how to startup and shutdown Altibase, and explains what to do internally during Altibase multi-state startup.
     
 -   Chapter 5: Database Objects and Privileges  
     This chapter describes Altibase objects and privileges such as constraints, indexes, sequences, replication, tables, and users. This chapter also describes the privileges of the system and schema object levels.
@@ -798,7 +798,7 @@ The header file that defines Unicode.
 
 ##### ulpLibInterface.h
 
-This file contains information on the structure of error-handling SQL statements for use when developing applications using the C/C++ Precompiler .
+This file contains information on the structure of error-handling SQL statements for use when developing applications using the C/C++ Precompiler.
 
 #### install Directory
 
@@ -842,7 +842,7 @@ The location and name of this directory must be specified in the altibase.proper
 
 #### msg Directory
 
-This directory contains the following error message files. Although two message files exist in character sets US7ASCII and KO16KSC5601 for each module, the error messages inside the file are only provided in english.
+This directory contains the following error message files. Although two message files exist in character sets US7ASCII and KO16KSC5601 for each module, the error messages inside the file are only provided in English.
 
 ##### E_SM_US7ASCII.msb
 
@@ -1153,7 +1153,7 @@ Command execute success.
 
 5. Phase 5: The Service Phase
 
-   In this final phase, the database is ready to pㄱovide the service to the user.
+   In this final phase, the database is ready to provide the service to the user.
 
 #### **Creating a Database**
 
@@ -1225,7 +1225,7 @@ Please fully understand the Altibase properties related to database initializati
 | USER_DATA_FILE_NEXT_SIZE    | The amount by which a data file in user tablespace is automatically increased. | 1M      |
 | US- ER_DATA_TBS_EXTENT_SIZE | The size of a single extent in user tablespace.              | 256K    |
 | USER_TEMP_FILE_INIT_SIZE    | The initial size of user temporary tablespace when the CREATE DATABASE statement is executed. | 100M    |
-| USER_TEMP_FILE_MAX_SIZE     | The maximum size of a data file in user tem- porary tablespace. | 2G      |
+| USER_TEMP_FILE_MAX_SIZE     | The maximum size of a data file in user temporary tablespace. | 2G      |
 | USER_TEMP_FILE_NEXT_SIZE    | The amount by which a temporary data file is increased in size when user temporary tablespace is extended automatically. | 1M      |
 | US- ER_TEMP_TBS_EXTENT_SIZE | The size of an extent in user temporary tablespace.          | 256K    |
 
@@ -1316,9 +1316,9 @@ The database performs the following tasks in each phase:
 | Phase       | Tasks                                                        |
 | ----------- | ------------------------------------------------------------ |
 | PRE-PROCESS | The initial phase. The server prepares to advance to the PROCESS phase. |
-| PROCESS     | In this phase, the CREATE DATABASE and DROP DATABASE statements can be executed, a limited number of performance views can be used to ob- tain information, and property values can be changed. The server prepares to advance to the CONTROL phase. |
-| CONTROL     | Media Recovery can be performed in this phase. The server prepares to ad- vance to the META phase. If incomplete recovery is performed during the CONTROL phase, online logs must be reset when proceeding to the META phase. |
-| META        | Meta data (the dictionary table) can be upgraded in this phase. For infor- mation about incomplete recovery, please refer to the section on [Complete vs.](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892) [Incomplete Recovery ](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892)in Chapter 10. The server prepares to advance to the SERVICE phase. |
+| PROCESS     | In this phase, the CREATE DATABASE and DROP DATABASE statements can be executed, a limited number of performance views can be used to obtain information, and property values can be changed. The server prepares to advance to the CONTROL phase. |
+| CONTROL     | Media Recovery can be performed in this phase. The server prepares to advance to the META phase. If incomplete recovery is performed during the CONTROL phase, online logs must be reset when proceeding to the META phase. |
+| META        | Meta data (the dictionary table) can be upgraded in this phase. For information about incomplete recovery, please refer to the section on [Complete vs.](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892) [Incomplete Recovery ](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892)in Chapter 10. The server prepares to advance to the SERVICE phase. |
 | SERVICE     | The SERVICE phase is the normal operational state of Altibase. Users other than the SYS user can establish connections to Altibase in this phase.SHUTDOWN NORMAL/IMMEDIATE/ABORT can all be executed. |
 
 
@@ -1441,7 +1441,7 @@ This is described in detail in the "Tables" section below.
 
 ##### Partitioned Tables
 
-When a table data are divided into pieces(each pice is called a partition) and stored them in different table spaces, this table is called a partitioned table. For large tables, partitioned tables can make data management much easier.
+When a table data are divided into pieces(each piece is called a partition) and stored them in different table spaces, this table is called a partitioned table. For large tables, partitioned tables can make data management much easier.
 
 More detailed information about partitioned tables, please refer to "Chapter 7: Partitioned Objects".
 
@@ -1513,7 +1513,7 @@ Type sets are database objects that allow to gather and manage user-defined type
 
 For more detailed information, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md)
 
-**Database Triggers**
+##### Database Triggers
 
 A trigger is a special kind of stored procedure that is executed by the system when data are inserted into a table, deleted from a table, or updated, so that a particular task can be automatically executed. Along with constraints, user-defined triggers can help maintain the consistency of the data stored in tables.
 
@@ -3890,7 +3890,7 @@ In the row body, pairs comprising the length of a column and the value stored in
 
 In order to conserve space, if the value of the column is NULL, only the length of the column, which is 0, is saved. No column value is saved. Additionally, for columns that contain NULL values and are located at the end of the row, neither the column value nor the length is saved.
 
-Columns are saved in the order in which they are specified in the CREATE TABLE statement. Therefore, when executing the CREATE TABLE statement, locating columns that are expectedto contain NULL values at the end of the row frequently is good practice, because it can reduce the amount of space required to store rows.
+Columns are saved in the order in which they are specified in the CREATE TABLE statement. Therefore, when executing the CREATE TABLE statement, locating columns that are expected to contain NULL values at the end of the row frequently is good practice, because it can reduce the amount of space required to store rows.
 
 #### Row Chaining and Migration
 
@@ -4737,7 +4737,7 @@ iSQL(sysdba)> startup process
 iSQL(sysdba)> startup control 
 ```
 
-In the control phase, the V＄TABLESPACES performance view, which pertains to all tablespaces, can be queried. The V$MEM_TABLESPACES performance view, which displays the attributes that are unique to memory tablespaces, can only be viewed in or after the meta phase. In the control phase, it is thus necessary to view memory tablespaces using V＄TABLESPACES.
+In the control phase, the V$TABLESPACES performance view, which pertains to all tablespaces, can be queried. The V$MEM_TABLESPACES performance view, which displays the attributes that are unique to memory tablespaces, can only be viewed in or after the meta phase. In the control phase, it is thus necessary to view memory tablespaces using V$TABLESPACES.
 
 The V$MEM_TABLESPACE_CHECKPOINT_PATHS performance view can be used to view the checkpoint paths belonging to the USER_MEM_TBS tablespace, which was created earlier. 
 
@@ -5358,7 +5358,7 @@ In this schema, column C1 and column C2 are fixed-length columns, whereas column
 Total Length of One Record] = 34 + (1+32) + (3+1024) + (0) = 1094 Bytes  
 
 
-:If the last column is null and has no data, the last colum will not be saved and reflected in size.
+:If the last column is null and has no data, the last column will not be saved and reflected in size.
 
 ##### Estimating the Size of an Index
 
@@ -5851,7 +5851,7 @@ This section describes partition conditions and default partitions
 A partition condition refers to the criteria for partitioning. These criteria must comply with the following condition: 
 
 ```
-partition_conditioni ∩ partition_conditioni+1 = ∮…………rule2
+partition_condition i ∩ partition_condition i+1 = ∮…………rule2
 ```
 
 The above rule means that there must not be any intersection between partition conditions for a partitioned table. If partition conditions intersect, it may not be clear in which partition a record is to be inserted. Therefore, if this rule is not satisfied when a partitioned object is created, the attempt to create the partitioned object will fail. 
@@ -5992,7 +5992,7 @@ The process of adding a partition to a range-partitioned object is the same as t
 
 Similarly, deleting a partition is the same as deleting partition conditions. Therefore, to delete a partition, use DROP PARTITION. When a partition is deleted, the deleted partition conditions become included in the partition conditions of a neighboring partition. Additionally, DROP PARTITION is distinguished from MERGE PARTITION based on whether or not records are deleted. 
 
-A partition can be renamed using RENAME PARTITION. To delete records from a partition, use TRUNCATE PARTITION; this deleteㄴ all records stored in the partition. 
+A partition can be renamed using RENAME PARTITION. To delete records from a partition, use TRUNCATE PARTITION; this deletes all records stored in the partition. 
 
 ###### SPLIT PARTITION
 
@@ -6293,7 +6293,7 @@ To maintain database integrity, a properly executed transaction must exhibit the
 
 - Atomicity - Either all of the statements that constitute a transaction are completely executed, or none of them are. That is, the transaction cannot be partially successful.
 - Consistency - The execution of a transaction must not break the integrity of the database.
-- Isolation: when multiple transaction are executed at the same time,  no transaction should be afffected by the results of other transactions.
+- Isolation: when multiple transaction are executed at the same time,  no transaction should be affected by the results of other transactions.
 - Durability: Once a transaction has been committed, the resultant changes are not lost under any circumstances, such as system failure. 
 
 #### Autonomous_Transaction
@@ -6336,7 +6336,7 @@ When a transaction is committed in Altibase, the following tasks are performed:
 
 #### Rollback
 
-If there is a fatal error in themiddle of a transaction and cannot proceed any further, all SQL statements executed by the transaction must be undone, and the database must be returned to the state that existed before execution of the transaction. This is referred to as “rolling back” a transaction.
+If there is a fatal error in the middle of a transaction and cannot proceed any further, all SQL statements executed by the transaction must be undone, and the database must be returned to the state that existed before execution of the transaction. This is referred to as “rolling back” a transaction.
 
 Rollback of a transaction is implemented by performing a compensation operation on each log recorded during the transaction.
 
@@ -6723,7 +6723,7 @@ Checkpointing can be triggered by time conditions, log conditions or the user
 
 ##### Periodic Checkpointing
 
-Checkpointing occurs at regular intervals during operations. This interval is determined by CHECKPOINT_INTERVAL_IN_SEC, an Altibase property. Formore detailed information on this property, please refer to [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#checkpoint_interval_in_sec-unit-second)
+Checkpointing occurs at regular intervals during operations. This interval is determined by CHECKPOINT_INTERVAL_IN_SEC, an Altibase property. For more detailed information on this property, please refer to [*General Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#checkpoint_interval_in_sec-unit-second)
 
 ##### Log Checkpointing
 
@@ -6944,7 +6944,7 @@ The standby mode determines whether to wait or to return an error immediately wh
 | Wait        | If another transaction has already acquired a lock and access in the requested mode cannot be granted, wait until the lock is released after the other transaction finishes its task. |
 | No-Wait     | If another transaction has already acquired a lock and the access in the requested mode cannot be granted, return an error without waiting for the other transaction to finish its task. |
 
-[Table 9‑4] Standy Modes
+[Table 9‑4] Standby Modes
 
 #### Page Request Procedure
 
@@ -7176,7 +7176,7 @@ SYS_TBS_MEM_DIC, the memory tablespace that contains system catalog data, can be
 
 The following table describes the various backup modes of Altibase: 
 
-| Backup Type                          | Backup Method                                                | Backup Object                                                | Restoration Method                                           | Possbile while Online? |
+| Backup Type                          | Backup Method                                                | Backup Object                                                | Restoration Method                                           | Possible while Online? |
 | ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------- |
 | Backup using the iLoader utility     | Use the iLoader “out” command                                | User-defined tables                                          | Use the iLoader “in” command.                                | O                      |
 | Online backup of entire database     | Use the SQL statement: ALTER DATABASE BACKUP DATABASE TO backup_dir; | All data files and log anchor files in all tablespaces in the system | 1> Use the UNIX “cp” command 2> ALTER DATABASE RECOVER DATABASE; | O                      |
@@ -7765,7 +7765,7 @@ USER_DISK_TBS01.dbf USER_DISK_TBS02.dbf
 
 After checking which archive log files are required to perform complete recovery, these files are copied to the archive directory.
 
-Copy the backups of the files for the USER_DISK_TBS tablespace, which are in the backup_dir directory, to the /disk2 filesystem.
+Copy the backups of the files for the USER_DISK_TBS tablespace, which are in the backup_dir directory, to the /disk2 file system.
 
 ```
 $ cp /backup_dir/*.dbf /disk2/dbs;
@@ -8728,7 +8728,7 @@ For more information about IPv6, please refer to the Internet Protocol Version 6
 
 ##### IPv6 Address Notation
 
-IPv6 addresses are denoted by eight groups of 16-bit hexadecimal quartets, seprated by colons (:).
+IPv6 addresses are denoted by eight groups of 16-bit hexadecimal quartets, separated by colons (:).
 
 The following is an example of a valid IPv6 address:
 
@@ -8876,7 +8876,7 @@ Access control tasks are roughly categorized into two areas: determining what is
 
 Like encryption, access control also applies to columns in tables. Every user wishing to access a protected column must first have been granted access rights for the corresponding object. 
 
-Which items are protected, which users have the right to access protected data, and all encryption tasks are logged for ing purposes
+Which items are protected, which users have the right to access protected data, and all encryption tasks are logged for auditing purposes
 
 The security-related features provided with Altibase are as follows:
 
@@ -8910,7 +8910,7 @@ The roles played by an external security module are as follows:
 - Managing settings for encrypted columns, including the encryption algorithm and encryption/decryption permissions 
 - Encrypting and decrypting data 
 - Managing access control settings, including access to specific IPs and access by specific users 
-- ing, including encryption/decryption logging and access control logging
+- Auditing, including encryption/decryption logging and access control logging
 
 ### Integrating a Security Module
 
@@ -9177,7 +9177,7 @@ The following statement starts the auditing function:
 ALTER SYSTEM START AUDIT;
 ```
 
-When auditing starts, the values of the SYS_AUDIIT_ meta table are altered as follows:
+When auditing starts, the values of the SYS_AUDIT_ meta table are altered as follows:
 
 ```
 iSQL> ALTER SYSTEM START AUDIT;
@@ -10035,7 +10035,7 @@ After a database is created, examining the contents of the log file directory wi
 
 ### Group Commit
 
-This section describes the Altibase Group Commit feature, which is provided to improve transaciton processing performance. 
+This section describes the Altibase Group Commit feature, which is provided to improve transaction processing performance. 
 
 #### The Group Commit Concept
 
@@ -10241,7 +10241,7 @@ Restart failures may be caused by any of the following:
 
 If the Altibase server is actually processing a query but the response time is very slow, it is easy for a user to conclude that the server has become nonresponsive erroneously.
 
-In the case of a slow response when requesting a query, the cause is most likely either bacause an entire table is being scanned, or because memory swapping is taking place due to insufficient memory. In this case, check the system information managed by the operating system and the information about the session in which the query was executed to determine whether the query is actually being processed. If swapping occurs due to the excessive CPU usage or insufficient memory, it is likely that the query is being processed.
+In the case of a slow response when requesting a query, the cause is most likely either because an entire table is being scanned, or because memory swapping is taking place due to insufficient memory. In this case, check the system information managed by the operating system and the information about the session in which the query was executed to determine whether the query is actually being processed. If swapping occurs due to the excessive CPU usage or insufficient memory, it is likely that the query is being processed.
 
 A more detailed description will be provided below in the section entitled “Diagnosing Problems related to Application and Query Execution“.
 
@@ -10370,7 +10370,7 @@ If the problem does not seem to have been caused by either of the above two reas
 
 ### Using Application Trace Logs
 
-Thㄷ following properties that can be used to specify various kinds of information of SQL statements, error message types, and execution times of SQL statements in the Altibase server in the altibase_boot.log file.
+The following properties that can be used to specify various kinds of information of SQL statements, error message types, and execution times of SQL statements in the Altibase server in the altibase_boot.log file.
 
 The default value for this property is 0; to specify that information is to be written to a trace log, set the corresponding property to 1.
 
