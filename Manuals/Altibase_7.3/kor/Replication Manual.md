@@ -2070,7 +2070,7 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
 
 #### 예제
 
-1. 이중화 대상 테이블이 t1이라고 가정하고, REPLICATION_DDL_ENABLE_LEVEL이 0인 환경에서 이중화 대상 테이블에 대하여 DDL 복제 실행은 아래와 같이 사용한다.
+1. 이중화 대상 테이블을 t1이라고 가정하고, REPLICATION_DDL_ENABLE_LEVEL이 0인 환경에서 이중화 대상 테이블에 대하여 DDL 복제 실행은 아래와 같이 사용한다.
 
 - TRUNCATE TABLE을 실행한다. 
 
