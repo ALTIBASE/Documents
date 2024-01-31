@@ -2031,7 +2031,7 @@ ALTER REPLICATION Replication_name2 FLUSH;
 * 프라이머리 키를 삭제할 수 없다.
 * 외래키를 추가할 수 없다.
 * 압축컬럼을 추가/삭제할 수 없다.
-* 압축컬럼이 포함된 테이블에 대한 TRUNCATE 는 수행할 수 없다.
+* 압축컬럼이 포함된 테이블에 대한 TRUNCATE는 수행할 수 없다.
 
 >  **주의**
 >
