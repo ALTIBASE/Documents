@@ -312,7 +312,7 @@ Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이
 
 Database Navigator 에 추가된 Altibase 연결 정보(mydb)를 더블 클릭하면, Altibase의 JDBC 드라이버 파일을 다운로드 할 수 있는 Driver settings 창이 열린다. 다운로드하려는 JDBC 드라이버를 선택한 다음, [Download]를 클릭한다.
 
-![](media/3rdPartyConnector/dbeaver_jdbcdownload.png)
+![](media/DBeaver/dbeaver_jdbcdownload.png)
 
 다운로드가 완료되면 데이터베이스 연결이 수행된다. 이 작업은 최초 한번만 수행하면 된다.
 
@@ -335,8 +335,6 @@ Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 [
 ![connect7](media/DBeaver/connect7.png)
 
 설정이 완료되었다면 [OK] 버튼을 클릭하고, 마지막으로 [Finish] 버튼을 클릭하여 설정을 완료한다.
-
-![connect8](media/DBeaver/connect8.png)
 
 #### 5. 데이터베이스 연결 완료
 
