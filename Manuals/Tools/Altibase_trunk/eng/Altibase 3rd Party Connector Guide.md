@@ -52,7 +52,6 @@ Altibase® Application Development
 </div>
 
 
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
@@ -98,15 +97,21 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
-
-
 <br>
 
-# Table Of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-- [1.SQuirreL SQL Client](#1squirrel-sql-client)
+- [1.DBeaver](#1dbeaver)
+  - [Overview](#overview)
+  - [System Requirements](#system-requirements)
+  - [Installing and Uninstalling DBeaver](#installing-and-uninstalling-dbeaver)
+  - [Altibase Database System Connection](#altibase-database-system-connection)
+- [2.SQuirreL SQL Client](#2squirrel-sql-client)
   - [Installing Altibase Plugin for SQuirreL SQL Client](#installing-altibase-plugin-for-squirrel-sql-client)
   - [Installing and Removing Altibase Plugin](#installing-and-removing-altibase-plugin)
   - [Features of Altibase Plugin](#features-of-altibase-plugin)
@@ -114,17 +119,15 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Altibase JDBC Driver Registration](#altibase-jdbc-driver-registration)
   - [Integration with Altibase](#integration-with-altibase)
   - [FAQ](#faq)
-- [2.Hibernate](#2hibernate)
+- [3.Hibernate](#3hibernate)
   - [Hibernate](#hibernate)
-- [3.OpenLDAP](#3openldap)
+- [4.OpenLDAP](#4openldap)
   - [Introduction to OpenLDAP](#introduction-to-openldap)
   - [Meta Data Configuration](#meta-data-configuration)
   - [Configuration](#configuration)
   - [Examples](#examples)
 
-
-
-<br>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Preface
 ====
@@ -143,24 +146,28 @@ This manual has been prepared for the following users of Altibase:
 - Application developers
 - Technical Supporters
 
-It is recommended for those reading this manual possess the following background knowledge:
+It is recommended that those reading this manual possess the following background knowledge:
 
-- Basic knowledge in the use of computers, operating systems, and operating system utilities
-- Experience in using relational database and an understanding of database concepts
+- Basic knowledge of the use of computers, operating systems, and operating system utilities
+- Experience in using relational databases and an understanding of database concepts
 - Computer programming experience
 - Experience in database server management, operating system management, or network administration
-- Knowledge related to the storage, management and processing of data in distributed environments
+- Knowledge related to the storage, management, and processing of data in distributed environments
 
 #### Organization
 
 This manual is organized as follows:
 
-- Chapter 1:  SQuirreL SQL Client  
+- Chapter 1: DBeaver
+
+  This chapter describes the overview of DBeaver, how to install and uninstall the DBeaver, and how to connect it with the Altibase database system.
+
+- Chapter 2:  SQuirreL SQL Client  
   This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
-- Chapter 2: Hibernate
+- Chapter 3: Hibernate
 
-- Chapter 3: OpenLDAP  
+- Chapter 4: OpenLDAP  
   This chapter describes how to integrate openLDAP and Altibase.
 
 #### Documentation Conventions
@@ -202,9 +209,9 @@ For more detailed information, please refer to the following documents.
 
 - Error Message Reference
 
-#### Altibase Welcomes Your Comments and Feedbacks
+#### Altibase Welcomes Your Comments and Feedback
 
-Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there is any corrections or classifications that you would find useful.
+Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there are any corrections or classifications that you would find useful.
 
 Include the following information:
 
@@ -214,12 +221,111 @@ Include the following information:
 
 If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
-Thank you. We always welcome your feedbacks and suggestions.
+Thank you. We always welcome your feedback and suggestions.
 
 <br>
 
-1.SQuirreL SQL Client
-=======================
+# 1.DBeaver
+
+This chapter introduces the DBeaver overview, system requirements, installation and uninstallation methods, and how to connect to the Altibase database system.
+
+### Overview
+
+DBeaver Community is a free database tool provided by DBeaver Corp. It enables connection to over 80 different database systems, offering functionalities such as data manipulation, database object management, SQL editor, SQL Plan viewer, session monitoring for database connections, etc.
+
+The DBeaver package provided by Altibase provides the connection to Altibase and the diverse range of functionalities mentioned earlier, in addition to other compatible database systems.
+
+For detailed information on DBeaver, refer to https://github.com/dbeaver/dbeaver/wiki.
+
+### System Requirements
+
+#### Software Requirements
+
+##### DBeaver Version
+
+DBeaver versions compatible with Altibase Server are as follows:
+
+* DBeaver 23.3.3 and higher
+
+##### Altibase Server Version
+
+Altibase server versions compatible with the DBeaver are as follows:
+
+- Altibase 7.1.0 and higher
+
+### Installing and Uninstalling DBeaver
+
+Users can download the DBeaver installation file from https://dbeaver.io/download/. For detailed information about installation and uninstallation, refer to https://github.com/dbeaver/dbeaver/wiki/Installation.
+
+### Altibase Database System Connection
+
+#### 1. Connect to New Database
+
+Click [ Database ] → [ New Database Connection ]![connect1_eng](media/DBeaver/connect1_eng.png)
+
+#### 2. Select Altibase Database
+
+Select Altibase in ALL or SQL tab, and click the [ Next > ].![connect2_eng](media/DBeaver/connect2_eng.png)
+
+#### 3. Set the Altibase Connection Information
+
+Configure Altibase connection settings. Host IP address, Port Number, Database/Schema, Username, and Password are required. Click the [ Finish ] after configuration.
+
+![connect3_eng](media/DBeaver/connect3_eng.png)
+
+Now users can find the Altibase database set above on the Database Navigator tab as follows:
+
+ ![auto1_eng](media/DBeaver/auto1_eng.png)
+
+#### 4. Download JDBC Driver Files
+
+To connect the Altibase database, Altibase JDBC driver file is required. If users can access the internet, please refer to  '4.1 Download JDBC Driver Files'.  If users can not access the internet or want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
+
+##### 4.1 Download JDBC Driver Files
+
+Double click the Altibase connection information(mydb) on the Database Navigator tab. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. Select a Altibase JDBC driver file and click [ Download ].
+
+![](media/DBeaver/dbeaver_jdbcdownload.png)
+
+The database connection is processed after downloading. This only needs to be done the first connection.
+
+##### 4.2 Register JDBC Driver Manually
+
+Users can manually register Altibase JDBC driver files. To do this, click on the [ Driver Settings ] located at the bottom of the 'Connect to a database' window.
+
+![connect4_eng](media/DBeaver/connect4_eng.png)
+
+Click [ Add File ] on the Libraries tab.
+
+![connect5_eng](media/DBeaver/connect5_eng.png)
+
+Select the Altibase JDBC driver file.
+
+Click [ Classpath ].
+
+![connect6_eng](media/DBeaver/connect6_eng.png)
+
+Add the location of the JDBC driver file to be used in Global libraries and click [ Apply and Close ].
+
+![connect7_eng](media/DBeaver/connect7_eng.png)
+
+After all settings, click [ OK ] .
+
+Click [ Finish ] to complete the configuration.
+
+#### 5. Complete Database Connection
+
+Users can review the list of registered database connection information on the Database Navigator tab.
+
+Double-clicking on the database connection information in the list attempts to establish a connection.  A green check mark next to the icon signifies a successful connection has been established.
+
+![connect9_eng](media/DBeaver/connect9_eng.png)
+
+If needed, users can rename the database connection information to the desired name.
+
+![connect10_eng](media/DBeaver/connect10_eng.png)
+
+# 2.SQuirreL SQL Client
 
 This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
@@ -313,7 +419,7 @@ This chapter describes how to install SQuirreL SQL Client.
 
 1. Double-click "squirrel-sql.bat" in the directory where SQuirreL SQL Client is installed to run the program. 
 
-2. Click Driver -> New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows -> View Drivers to activate it. 
+2. Click Driver → New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows → View Drivers to activate it. 
 
 3. Enter the following in the Driver section of the Add Driver window.
    
@@ -334,7 +440,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Database Connection Information Registration
 
-1. Click Aliases -> New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows -> View Aliases to activate it. 
+1. Click Aliases → New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows → View Aliases to activate it. 
 
 2. Enter the information below:
    
@@ -354,7 +460,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Using Database
 
-1. Click Aliases -> Connect in the main menu to open the connection window.
+1. Click Aliases → Connect in the main menu to open the connection window.
 
 ![](media/3rdPartyConnector/3843e6b7c58b308e9dd87c8530ef0ac0.jpg)
 
@@ -399,12 +505,12 @@ In the SQuirreL SQL client, LOB data can be retrieved in the SQL tab or the Obje
 The following setting is required to display LOB data in the SQL tab or the Objects tab.
 
 1. Change the Data Type Controls setting.<br>
-   In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
+   In 'File → Global Preferences → Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
 
 ![](media/3rdPartyConnector/squirrel_lob_view.jpg)
 
 2. Change the autocommit mode to false in the session properties.<br>
-   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File -> New Session Properties -> SQL tab.
+   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File → New Session Properties → SQL tab.
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
 
@@ -415,7 +521,7 @@ The following setting is required to display LOB data in the SQL tab or the Obje
    - Altibase 7.2.0.0.2 or higher
 
 2. Add getcolumns_return_jdbctype=true to the JDBC connection properties.<br>
-   It can be changed in Drivers -> Add Driver to designate a new driver, or Aliases -> Modify the selected Alias to add or change existing connection information.
+   It can be changed in Drivers → Add Driver to designate a new driver, or Aliases → Modify the selected Alias to add or change existing connection information.
 
 ![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
 
@@ -423,8 +529,7 @@ The following setting is required to display LOB data in the SQL tab or the Obje
 
 <br>
 
-2.Hibernate
-=========
+# 3.Hibernate
 
 ### Hibernate
 
@@ -440,8 +545,7 @@ Please refer to [AltibaseDialect Porting Method](https://github.com/ALTIBASE/hib
 
 <br>
 
-3.OpenLDAP
-========
+# 4.OpenLDAP
 
 This chapter describes how to integrate openLDAP with Altibase.
 
