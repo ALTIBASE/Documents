@@ -2003,7 +2003,7 @@ ALTER SESSION SET REPLICATION=DEFAULT;
 
 ##### 사전 프로퍼티 설정 - 원격서버
 
-DDL 복제가 (자동으로) 실행될 서버(원격서버)에는 아래의 프로퍼티 설정 구문을 수행한다. 만약, REPLICATION_DDL_ENABLE_LEVEL을 1로 설정했다면, REPLICATION_SQL_APPLY_ENABLE 은 반드시 1로 설정해야 한다.
+DDL 복제가 실행될 서버(원격서버)에서 아래의 프로퍼티 설정 구문을 수행한다. 만약, REPLICATION_DDL_ENABLE_LEVEL을 1로 설정했다면, REPLICATION_SQL_APPLY_ENABLE도 반드시 1로 설정해야 한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
