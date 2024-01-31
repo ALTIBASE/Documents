@@ -1782,7 +1782,7 @@ iSQL> DROP REPLICATION rep1;
 
 #### 허용되는 DDL 구문
 
-Altibase에서 이중화 대상 테이블에 대하여 지원하는 DDL은 다음과 같다. 3가지 부류로 소개한다.
+Altibase에서는 이중화 대상 테이블에 대하여 다음의 세가지 종류의 DDL을 지원한다.
 
 * ##### REPLICATION_DDL_ENABLE, REPLICATION_DDL_ENABLE_LEVEL 설정 없이 사용할 수 있는 DDL
 
