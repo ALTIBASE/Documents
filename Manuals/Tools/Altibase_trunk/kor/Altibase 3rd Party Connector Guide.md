@@ -312,7 +312,7 @@ Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이
 
 다운로드하려는 JDBC 드라이버를 선택한 다음, [Download]를 클릭한다.
 
-![](media/3rdPartyConnector/dbeaver_jdbc1.png)
+![](media/DBeaver/dbeaver_jdbcdownload.png)
 
 다운로드가 완료되면 데이터베이스 연결이 수행된다. 이 작업은 최초 한번만 수행하면 된다.
 
