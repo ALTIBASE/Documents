@@ -334,7 +334,7 @@ Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 [
 
 ![connect7](media/DBeaver/connect7.png)
 
-설정이 완료되었다면 [OK] 버튼을 클릭하고, 마지막으로 [ Finish ] 버튼을 클릭하여 설정을 완료한다.
+설정이 완료되었다면 [OK] 버튼을 클릭하고, 마지막으로 [Finish] 버튼을 클릭하여 설정을 완료한다.
 
 ![connect8](media/DBeaver/connect8.png)
 
