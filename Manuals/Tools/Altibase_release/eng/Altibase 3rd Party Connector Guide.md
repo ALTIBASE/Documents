@@ -285,7 +285,7 @@ To connect the Altibase database, Altibase JDBC driver file is required. If user
 
 Double click the Altibase connection information(mydb) on the Database Navigator tab. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. Select a Altibase JDBC driver file and click [ Download ].
 
-![](media/3rdPartyConnector/dbeaver_jdbcdownload.png)
+![](media/DBeaver/dbeaver_jdbcdownload.png)
 
 The database connection is processed after downloading. This only needs to be done the first connection.
 
@@ -313,21 +313,17 @@ After all settings, click [ OK ] .
 
 Click [ Finish ] to complete the configuration.
 
-![connect8_eng](media/DBeaver/connect8_eng.png)
-
 #### 5. Complete Database Connection
 
 Users can review the list of registered database connection information on the Database Navigator tab.
 
 Double-clicking on the database connection information in the list attempts to establish a connection.  A green check mark next to the icon signifies a successful connection has been established.
 
-[![connect9_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect9_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect9_eng.png)
+![connect9_eng](media/DBeaver/connect9_eng.png)
 
 If needed, users can rename the database connection information to the desired name.
 
-[![connect10_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect10_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect10_eng.png)
-
-
+![connect10_eng](media/DBeaver/connect10_eng.png)
 
 # 2.SQuirreL SQL Client
 
