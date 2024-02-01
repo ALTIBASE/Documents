@@ -2015,7 +2015,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
 
 ##### DDL 구문 수행
 
-DDL 구문을 수행하기 전에 **지역서버**에서 이중화 갭을 제거하기 위해 아래의 구문을 수행후 DDL을 수행한다. 이 때, Replication_name1, Replication_name2는 DDL 구문 수행테이블과 관련된 모든 이중화 객체를 말한다.
+DDL 구문을 수행하기 전에 **지역서버**에서 이중화 갭을 제거하기 위해서는 아래의 구문을 수행후 DDL을 수행해야 한다. 이 때, Replication_name1, Replication_name2는 DDL 구문 수행테이블과 관련된 모든 이중화 객체를 말한다.
 
 ```sql
 ALTER REPLICATION Replication_name1 FLUSH;
