@@ -1436,13 +1436,7 @@ Constraints by supported DDL statement are as follows:
 
   LOCK TABLE is executed on a target table.
 
-  
-
-  이중화 대상 테이블은 지역 서버와 원격 서버간의 이중화 격차를 확인해야 한다. 
-
-  리뷰: 기존에 있던 매뉴얼은 첫 문장을 The replication target should identify the replication gap between the local and remote servers. 로 작문했습니다.  그런데 우선 확인하는 주체가 이중화 대상이 아니고, 내용적으로는 이중화 대상 테이블의 이중화 갭이 있는지 확인해야 하는 걸로 이해했습니다. "지역 서버와 원격 서버 간 DDL문을 수행하려는 이중화 대상 테이블에 이중화 갭이 없어야 한다". 라는 의미를 강조하려면 The replication gap between the local and remote servers on the replication target tables that users want to execute DDL statements must be zero. 로 쓸 수 있을 것 같습니다.
-
-  To resolve the replication gap, the FLUSH ALL option of replication should be executed before executing a DDL statement.
+  Users must resolve the replication gap between the local and remote servers on the replication target table before executing the DDL statements. To resolve the replication gap, the FLUSH ALL option of replication should be executed.
 
   MERGE target partition should exist in all the replication target objects. 
 
