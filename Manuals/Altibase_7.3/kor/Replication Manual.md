@@ -1990,7 +1990,7 @@ DDL을 수행할 서버를 지역서버로, DDL 복제가 자동으로 수행되
 
 ##### 사전 프로퍼티 설정 - 지역서버
 
-DDL을 수행하기 위한 프로퍼티 설정은 SYS 사용자만 수행할 수 있다. DDL을 수행할 서버(지역서버)에서 아래의 프로퍼티 설정 구문을 수행한다. REPLICATION_DDL_ENABLE_LEVEL의 설정은 **"허용되는 DDL 구문"**를 참고 하여 설정한다.
+DDL을 수행하기 위한 프로퍼티 설정은 SYS 사용자만 가능하다. DDL을 수행할 서버(지역서버)에서 아래의 프로퍼티 설정 구문을 수행한다. REPLICATION_DDL_ENABLE_LEVEL의 설정은 **"허용되는 DDL 구문"**를 참고 하여 설정한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
