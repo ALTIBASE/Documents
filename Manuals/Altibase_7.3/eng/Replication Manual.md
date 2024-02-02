@@ -1500,13 +1500,13 @@ ALTER REPLICATION Replication_name... FLUSH;
 
 ##### Prerequisites on the Local Server
 
-Only the SYS user can set the properties for DDL statement execution. SYS user should run the following property configuration statements on the local server that executes DDL statements. About the REPLICATION_DDL_ENABLE_LEVEL property, please refer to **["Allowed DDL statements"](#allowed-ddl-statements-2)** for the more specific configuration.
+Only the SYS user can set the properties for DDL statement execution. SYS user should run the following property configuration statements on the local server that executes DDL statements. About the REPLICATION_DDL_ENABLE_LEVEL property, please refer to **["Allowed DDL statements"](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md#allowed-ddl-statements-1)** for a more specific configuration.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
 
-// Connect as the user(Table Owner) of the table for executing DDL statement, or execute is as SYS user.
+// Execute the following statements as SYS user or Table Owner.
 ALTER SESSION SET REPLICATION_DDL_SYNC=1;
 ALTER SESSION SET REPLICATION=DEFAULT;
 ```
