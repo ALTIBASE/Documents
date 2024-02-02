@@ -1794,7 +1794,6 @@ Altibase에서는 이중화 대상 테이블에 대하여 다음의 세가지 �
 * ##### REPLICATION_DDL_ENABLE_LEVEL = 0으로 설정한 경우, 사용할 수 있는 DDL
 
   * NOT NULL, NULL, Unique, function-base index가 있는 컬럼은 추가/삭제할 수 없다.
-  * Unique, Local Unique가 있는 Constraint는 삭제할 수 없다.
   * Unique, function-base 인덱스는 삭제할 수 없다.
 
   ```sql
