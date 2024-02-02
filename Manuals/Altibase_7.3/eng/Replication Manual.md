@@ -120,7 +120,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Starting, Stopping and Modifying Replication using “ALTER REPLICATION”](#starting-stopping-and-modifying-replication-using-alter-replication)
   - [DROP REPLICATION](#drop-replication)
   - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
-  - [Executing DDL Replication Statements on Replication Target Tables](#executing-ddl-replication-statements-on-replication-target-tables)
+  - [Executing DDL Synchronization on Replication Target Tables](#executing-ddl-synchronization-on-replication-target-tables)
   - [SQL Reflection Mode](#sql-reflection-mode)
   - [Extra Features](#extra-features)
   - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
@@ -265,7 +265,7 @@ This chapter covers the following subjects::
 -   Replication Function in Altibase
 -   Choosing Replication Targers
 -   Replication mode
--   Replicaiton and Data Definition Language (DDL)
+-   Replication and Data Definition Language (DDL)
 -   Data Recovery Using Replication
 
 #### Concepts
@@ -478,7 +478,7 @@ When replication DDL, DML except SELECT cannot be performed while synchronizing 
 Altibase provides the following additional features. A detaield description of how to use the add-ons and limitations is given in the section on Extra Features.
 
 -   Recovery Option  
-    : If experiencing abnormal server termination during the replicaiton, data recovery option is available for preventing data inconsistency between servers by replications.
+    : If experiencing abnormal server termination during the replication, data recovery option is available for preventing data inconsistency between servers by replications.
     
 -   Offline Option  
     : If an error occurred in the active server with the Active-Standy replication environment, this function allows applying untransffered logs to the Standy Server with the offline option.
@@ -1321,12 +1321,10 @@ Altibase supports three types of DDL statements for replication target tables.
 
 - ##### DDL statements without REPLICATION_DDL_ENABLE/REPLICATION_DDL_ENABLE_LEVEL settings.
 
-  ```
+  ```sql
   ALTER INDEX index_name AGING;
   ALTER TABLE table_name COMPACT;
   ```
-
-  
 
 - ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 0
 
@@ -1334,7 +1332,7 @@ Altibase supports three types of DDL statements for replication target tables.
   - A unique/function-based index cannot be deleted.
   
 
-  ```
+  ```sql
   ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE ); 
   // Columns including NOT NULL,NULL,Unique or function-based index cannot be added
   ALTER TABLE table_name DROP COLUMN column_name; 
@@ -1352,11 +1350,9 @@ Altibase supports three types of DDL statements for replication target tables.
   DROP INDEX index_name; //Unique or function-based index cannot be deleted.
   ```
   
-  
-  
 - ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 1
 
-  ```
+  ```sql
   ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
   ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
   ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
@@ -1381,78 +1377,43 @@ Altibase supports three types of DDL statements for replication target tables.
   DROP INDEX index_name; //Unique or function-base index can be deleted
   ```
 
-  
 
 #### Description
 
-Altibase supports DDL statement execution on the replication target tables. Users should set some properties before the execution as follows:
+Altibase supports the execution of DDL statements on replication target tables. However, the following property settings must be set
 
-- Set REPLICATION_DDL_ENABLE to 1
+-   The REPLICATION_DDL_ENABLE property must be set to 1.
+-   The REPLICATION_DDL_ENABLE_LEVEL to the desired level.
+-   ALTER SESSION SET REPLICATION as DEFAULT.
+-   The target table should be locked by the LOCK TABLE...UNTIL NEXT DDL statement in order to execute SPLIT PARTITION, MERGE PARTITION, and DROP PARTITION on a replication target table. Moreover, the data should be checked to identify since there would be a replication gap between the local and remote server.
 
-- Set REPLICATION_DDL_ENABLE_LEVEL to the desired level.
-
-- Set replication mode to DEFAULT.
-
-  ```
-  ALTER SESSION SET REPLICATION = DEFAULT
-  ```
-
-- To execute SPLIT PARTITION, MERGE PARTITION or DROP PARTITION on replication target tables, set the REPLICATION_META_ITEM_COUNT_DIFF_ENABLE on the remote server to 1. 
-
-  The target tables should be locked using a below statement:
-
-  ```
-  LOCK TABLE table_name IN EXCLUSIVE MODE UNTIL NEXT DDL
-  ```
-
-  Additionally, it is necessary to check for data differences between the local and remote servers, as replication gaps of partitions may occur.
-
-If users hope to SPLIT, MERGE, or DROP on partitions of replication target tables, users should create or drop partitions with identical names. The newly created/deleted partitions are automatically added as replication target partitions/dropped. 
-
-
+If the SPLIT, MERGE, or DROP is executed on a replication target partition, the identical replication partition is automatically removed or added to the local or remote server.
 
 #### Restrictions
 
-DDL statements cannot be executed on tables for which the replication recovery option has been specified. 
+DDL statements cannot be executed on tables for which the replication recovery option has been specified. To execute DDL statements in such a case, drop the tables from the replication object and execute the DDL statements. Furthermore, DDL statements cannot be executed while replication is running in EAGER mode. To execute DDL statements in such a case, stop replication, execute the DDL statements, and start replication again. 
 
-Furthermore, DDL statements cannot be executed while replication is running in EAGER mode. To execute DDL statements in such a case, stop replication, execute the DDL statements, and start replication again.
+The restrictions that govern the use of particular DDL statements are as follows:
 
-Constraints by supported DDL statement are as follows: 
+-   ALTER TABLE table_name ADD COLUMN  
+    -A unique index cannot be added.  
+    -A compressed column cannot be added.
+-   ALTER TABLE table_name DROP COLUMN  
+    -A primary key cannot be dropped.  
+    -A compressed column cannot be dropped.
+-   ALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
+    -Replication cannot be executed during the operation.  
+    -LOCK TABLE is executed on a target table.  
+    -The replication target should identify the replication gap between the local and remote server. In order to relieve the replication gap, the FLUSH ALL option of replication should be executed before executing a DDL statement.  
+    -MERGE target partition should exists in all the replication target objects. There should be more than two partitions or tables in the replication object in order for DROP PARTITION to be executed.
+-   TRUNCATE TABLE 
+    -This is supported only for tables without compressed columns.
 
-- ALTER TABLE table_name ADD COLUMN
+#### Example
 
-  A foreign key cannot be added.
-  A compressed column cannot be added.
+Supposing that the name of a replication target table is *t1*, DDL statements can be executed on the replication target table as follows
 
-- ALTER TABLE table_name DROP COLUMN
-
-  A primary key cannot be dropped.
-
-  A compressed column cannot be dropped
-
-- ALTER TABLE table_name [SPLIT | MERGE | DROP] PARTITION...
-
-  Replication cannot be executed during the operation.
-
-  LOCK TABLE is executed on a target table.
-
-  Users must resolve the replication gap between the local and remote servers on the replication target table before executing the DDL statements. To resolve the replication gap, the FLUSH ALL option of replication should be executed.
-
-  MERGE target partition should exist in all the replication target objects. 
-
-  There should be more than two partitions or tables in the replication object for the DROP PARTITION
-
-  If the execution order deviates from the one provided in the manual, data inconsistency may occur.
-
-- TRUNCATE TABLE
-
-  This is supported only for tables that do not have compressed columns.
-
-#### Examples
-
-Suppose that the table *t1* is the replication target. DDL statements can be executed on the *t1* as follows:
-
-- Execute the TRUNCATE TABLE statement
+-   Execute the TRUNCATE TABLE statement
 
 ```
 (SYS User)
@@ -1468,46 +1429,33 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
 Alter success.
 ```
 
-
-
-- Execute SPLIT TABLE to create partitions *P3* and *P4* by splitting partition *P2* of table *t1*.
+(SPLIT TABLE) Create a table T1 by splitting partition P3 and P4 in partition P2. 
 
 ```
-(Local SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-(Remote SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 1;
-(Local SYS User)
-iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-iSQL> AUTOCOMMIT OFF;
-iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
+iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
 iSQL> ALTER REPLICATION REP1 FLUSH ALL;
 iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );
-(Remote SYS User)
-iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-iSQL> AUTOCOMMIT OFF;
-iSQL> LOCK TABLE T1 IN EXCLUSIVE MODE UNTIL NEXT DDL;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 );
-(Local SYS User)
-iSQL> ALTER REPLICATION REP1 START;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-(Local SYS User)
-iSQL> AUTOCOMMIT ON;
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-(Remote SYS User)
-iSQL> AUTOCOMMIT ON;
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;
+iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
+       INTO (PARTITION P3, PARTITION P4 ); 
 ```
 
+(MERGE TABLE) Create a table T1 by merging partition 2 and 3 in partition P2 and P3.
 
+```
+iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER REPLICATION REP1 FLUSH ALL;
+iSQL> ALTER REPLICATION REP1 STOP;
+iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
+```
+
+(DROP TABLE). Drop the partition P1.
+
+```
+iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
+iSQL> ALTER REPLICATION REP1 FLUSH ALL;
+iSQL> ALTER REPLICATION REP1 STOP;
+iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
+```
 
 ### Executing DDL Synchronization on Replication Target Tables
 
@@ -1518,10 +1466,10 @@ Altibase supports the DDL synchronization feature. DDL synchronization means rep
 The following conditions must be satisfied for DDL synchronization.
 
 1. To replicate DDL statements, the replication protocol versions of local and remote servers should be identical.
-2. To replicate DDL statements, replication of local and remote servers should be started. 
+2. To replicate DDL statements, replication of local and remote servers should be started in advance. 
 3. The name of the DDL statements replication target table(partition), and user name must be the same on both local and remote servers.
 4. The DDL statements replication target table must be part of the LAZY mode replication.
-5. When the DDL statements replication target is a partitioned table, DDL synchronization cannot be executed if the table has a Global Non Partitioned index.
+5. When the DDL statements replication target is a partitioned table, DDL synchronization cannot be executed if the table has a Global Non-Partitioned index.
 6. When using the propagation option, DDL synchronization is not allowed.
 7. For the table with a replication recovery option, DDL synchronization is not allowed.
 
@@ -1544,18 +1492,17 @@ This section describes how to use DDL synchronization. DDL statement is executed
 
   Users can remove the replication gap with statements below:
 
+```sql
+ALTER REPLICATION Replication_name1 FLUSH;
+ALTER REPLICATION Replication_name2 FLUSH;
+ALTER REPLICATION Replication_name... FLUSH;
 ```
-ALTER REPLICATION Replication_object_name1 FLUSH;
-ALTER REPLICATION Replication_object_name2 FLUSH;
-```
-
-
 
 ##### Prerequisites on the Local Server
 
 Only the SYS user can set the properties for DDL statement execution. SYS user should run the following property configuration statements on the server that executes DDL statements(local server). About the REPLICATION_DDL_ENABLE_LEVEL property, please refer to **["Allowed DDL statements"](#allowed-ddl-statements-2)** for the more specific configuration.
 
-```
+```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
 
@@ -1568,13 +1515,13 @@ ALTER SESSION SET REPLICATION=DEFAULT;
 
 ##### Prerequisites on the Remote Server
 
-For the remote server where DDL replication will be (automatically) executed, perform the following property configuration statements.
+For the remote server where DDL replication will be (automatically) executed, perform the following property configuration statements. If REPLICATION_DDL_ENABLE_LEVEL is set to 1, REPLICATION_SQL_APPLY_ENABLE must also be set to 1. 
 
-```
+```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
 ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
---The below statement can be omitted if REPLICATION_DDL_ENABLE_LEVEL is 0.
+// The below statement can be omitted if REPLICATION_DDL_ENABLE_LEVEL is 0.
 ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
 ```
 
@@ -1582,11 +1529,12 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
 
 ##### Execute DDL statements
 
-To remove the replication gap on the local server, run the following statements before the execution of DDL statements. *Replication_object_name1* and *Replication_object_name2* refer to all replication objects related to DDL statement execution.
+To remove the replication gap on the **local server**, run the following statements before the execution of DDL statements. *Replication_name1* and *Replication_name2* refer to all replication objects related to DDL statement execution.
 
-```
-ALTER REPLICATION Replication_object_name1 FLUSH;
-ALTER REPLICATION Replication_object_name2 FLUSH;
+```sql
+ALTER REPLICATION Replication_name1 FLUSH;
+ALTER REPLICATION Replication_name2 FLUSH;
+ALTER REPLICATION Replication_name... FLUSH;
 ```
 
 
@@ -1606,11 +1554,11 @@ Please refer to [**"Allowed DDL Statements"**](#allowed-ddl-statements-2).
 >
 > - During the progress of DDL replication, updates to the table undergoing DDL statements might be temporarily restricted. In such cases, try the update again after the completion of DDL statements replication, then the process will succeed.
 >
->   - For example, if users try to a DML statement such as 'INSERT INTO t1 VALUES ...' while the DDL replication is running on table *t1*, the system shows the error message as below:
+> - For example, if users try to a DML statement such as 'INSERT INTO t1 VALUES ...' while the DDL replication is running on table *t1*, the system shows the error message as below:
 >
->     [ERR-313D6 : Unable to update table or partition T1].
+>   [ERR-313D6 : Unable to update table or partition T1].
 
-##### Post-Action(Property Restoration)
+##### Post-Action(Properties Restoration)
 
 When the execution of DDL statements is completed, and there are no more DDL statements to be executed, users need to restore the previously changed property configurations. At this point, there might be replication gaps related to DDL processing on the local server. To address this, it is essential to perform a FLUSH operation.
 
@@ -1618,24 +1566,23 @@ When the execution of DDL statements is completed, and there are no more DDL sta
 
   - To remove the replication gap related to DDL processing, run FLUSH as follows:
 
-  ```
-  ALTER REPLICATION Replication_object_name1 FLUSH;
-  ALTER REPLICATION Replication_object_name2 FLUSH;
+  ```sql
+  ALTER REPLICATION Replication_name1 FLUSH;
+  ALTER REPLICATION Replication_name2 FLUSH;
+  ALTER REPLICATION Replication_name... FLUSH;
   ```
 
   - After FLUSH operations, restore the property configurations as follows:
 
-  ```
+  ```sql
   ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
   ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
   ALTER SESSION SET REPLICATION_DDL_SYNC=0;
   ```
 
-  
-
 - Remote server
 
-  ```
+  ```sql
   ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
   ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
   ALTER SYSTEM SET REPLICATION_DDL_SYNC=0;
@@ -1651,7 +1598,7 @@ When the execution of DDL statements is completed, and there are no more DDL sta
 
 - Run TRUNCATE TABLE
 
-  ```
+  ```sql
   // Change the prerequisite properties
   (Remote SYS User)
   iSQL> ALTER REPLICATION rep1 FLUSH;
@@ -1685,7 +1632,7 @@ When the execution of DDL statements is completed, and there are no more DDL sta
 
 - Run ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL )
 
-  ```
+  ```sql
   // Change the prerequisite properties
   (Remote1 SYS User)
   iSQL> ALTER REPLICATION Rep1 FLUSH;
