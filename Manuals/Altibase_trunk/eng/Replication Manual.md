@@ -1539,7 +1539,7 @@ ALTER REPLICATION Replication_name... FLUSH;
 
 ###### Allowed DDL statements
 
-Please refer to [**"Allowed DDL Statements"**](#allowed-ddl-statements-2).
+Please refer to **["Allowed DDL statements"](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md#allowed-ddl-statements-1)**.
 
 ###### Disallowed DDL Statements
 
