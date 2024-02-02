@@ -1500,7 +1500,7 @@ ALTER REPLICATION Replication_name... FLUSH;
 
 ##### Prerequisites on the Local Server
 
-Only the SYS user can set the properties for DDL statement execution. SYS user should run the following property configuration statements on the server that executes DDL statements(local server). About the REPLICATION_DDL_ENABLE_LEVEL property, please refer to **["Allowed DDL statements"](#allowed-ddl-statements-2)** for the more specific configuration.
+Only the SYS user can set the properties for DDL statement execution. SYS user should run the following property configuration statements on the local server that executes DDL statements. About the REPLICATION_DDL_ENABLE_LEVEL property, please refer to **["Allowed DDL statements"](#allowed-ddl-statements-2)** for the more specific configuration.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
