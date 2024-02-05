@@ -546,7 +546,7 @@ DATE 타입을 마이크로 초까지 볼 수 있도록 설정을 변경하는 �
 
 #### CHAR 타입 수정 시 "Invalid data type length" 에러 메시지가 표시됩니다.
 
-DBeaver Data Editor는 데이터 수정 시 기본으로 INSERT 구문을 수행한다. Data Editor로 데이터를 수정한 후 저장 하기 전에 수정된 데이터가 컬럼 크기를 초과하지 않는지 확인해야 한다.
+DBeaver Data Editor는 데이터 수정 시 기본으로 INSERT 구문을 수행한다. Data Editor로 데이터를 수정한 후 저장 하기 전에 수정된 데이터가 칼럼 크기를 초과하지 않는지 확인해야 한다.
 
 ![chartype1](media/DBeaver/chartype1.png)
 
