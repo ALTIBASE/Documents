@@ -109,9 +109,8 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 - [1.DBeaver](#1dbeaver)
   - [Overview](#overview)
   - [System Requirements](#system-requirements)
-  - [Installing and Removing DBeaver](#installing-and-removing-dbeaver)
+  - [Installing and Uninstalling DBeaver](#installing-and-uninstalling-dbeaver)
   - [Altibase Database System Connection](#altibase-database-system-connection)
-  - [FAQ](#faq)
 - [2.SQuirreL SQL Client](#2squirrel-sql-client)
   - [Installing Altibase Plugin for SQuirreL SQL Client](#installing-altibase-plugin-for-squirrel-sql-client)
   - [Installing and Removing Altibase Plugin](#installing-and-removing-altibase-plugin)
@@ -162,9 +161,9 @@ It is recommended for those reading this manual possess the following background
 This manual is organized as follows:
 
 - Chapter 1: DBeaver
-  
+
   This chapter describes the overview of DBeaver, how to install and uninstall the DBeaver, and how to connect it with the Altibase database system.
-  
+
 - Chapter 2:  SQuirreL SQL Client  
   This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
@@ -244,101 +243,89 @@ For detailed information on DBeaver, refer to https://github.com/dbeaver/dbeaver
 
 #### Software Requirements
 
-##### OS / Platforms
+##### DBeaver Version
 
-Altibase provides the DBeaver package for Windows.
+DBeaver versions compatible with Altibase Server are as follows:
+
+* DBeaver 23.3.3 and higher
 
 ##### Altibase Server Version
 
-Altibase server version compatible with the DBeaver is as follows:
+Altibase server versions compatible with the DBeaver are as follows:
 
 - Altibase 7.1.0 and higher
 
-### Installing and Removing DBeaver
+### Installing and Uninstalling DBeaver
 
-Users can download the DBeaver installation file from the Download → Product → Tool on the [Altibase's Support Portal]((http://support.altibase.com/)). The file format is zip.
-
-To install, simply extract the compressed file into the desired folder. To remove DBeaver, delete the directory where DBeaver is installed.
+Users can download the DBeaver installation file from https://dbeaver.io/download/. For detailed information about installation and uninstallation, refer to https://github.com/dbeaver/dbeaver/wiki/Installation.
 
 ### Altibase Database System Connection
 
 #### 1. Connect to New Database
 
-Clink [ Database ] → [ New Database Connection ]
-
-[![connect1_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect1_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect1_eng.png)
+Click [ Database ] → [ New Database Connection ]![connect1_eng](media/DBeaver/connect1_eng.png)
 
 #### 2. Select Altibase Database
 
-Select Altibase in ALL or SQL tab, and click the [ Next > ].
+Select Altibase in ALL or SQL tab, and click the [ Next > ].![connect2_eng](media/DBeaver/connect2_eng.png)
 
-[![connect2_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect2_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect2_eng.png)
+#### 3. Set the Altibase Connection Information
 
-#### 3. Set the Database Connection Information
+Configure Altibase connection settings. Host IP address, Port Number, Database/Schema, Username, and Password are required. Click the [ Finish ] after configuration.
 
-Configure database connection settings. Host IP address, Port Number, Database/Schema, Username, and Password information of the database user willing to connect are required. Click the [ Finish ] after configuration. 
+![connect3_eng](media/DBeaver/connect3_eng.png)
 
-[![connect3_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect3_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect3_eng.png)
+Now users can find the Altibase database set above on the Database Navigator tab as follows:
 
-#### 4. JDBC Driver Files
+ ![auto1_eng](media/DBeaver/auto1_eng.png)
 
-Now users can find the database set above as follows:
+#### 4. Download JDBC Driver Files
 
- [![auto1_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto1_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto1_eng.png)
+To connect the Altibase database, Altibase JDBC driver file is required. If users can access the internet, please refer to  '4.1 Download JDBC Driver Files'.  If users can not access the internet or want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
 
-Double click Altibase connection information(mydb) to connect. 
+##### 4.1 Download JDBC Driver Files
 
-Because DBeaver does not have Altibase JDBC driver files, users should register Altibase JDBC driver files to access the database. Please refer to '4.1 Automatic Download' or '4.2 Register JDBC Driver Manually'.
+Double click the Altibase connection information(mydb) on the Database Navigator tab. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. Select a Altibase JDBC driver file and click [ Download ].
 
-##### 4.1 Automatic Download
+![](media/DBeaver/dbeaver_jdbcdownload.png)
 
-If the network is available, DBeaver automatically downloads the Altibase JDBC driver file. A Driver settings window will appear to ask whether users want to proceed with the automatic download of the JDBC driver files.
-
-[![auto2_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto2_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/auto2_eng.png)
-
-Click [ Download ] to download JDBC driver files.
-
-[![auto3_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/kor/media/DBeaver/auto3.png)
-
-The database connection is processed after downloading.
+The database connection is processed after downloading. This only needs to be done the first connection.
 
 ##### 4.2 Register JDBC Driver Manually
 
-Users can manually register JDBC drivers. To do this, click on the [ Driver Settings ] located at the bottom of the Altibase connection settings window.
+Users can manually register Altibase JDBC driver files. To do this, click on the [ Driver Settings ] located at the bottom of the 'Connect to a database' window.
 
-[![connect4_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect4_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect4_eng.png)
+![connect4_eng](media/DBeaver/connect4_eng.png)
 
 Click [ Add File ] on the Libraries tab.
 
-[![connect5_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect5_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect5_eng.png)
+![connect5_eng](media/DBeaver/connect5_eng.png)
 
-Select the Altibase JDBC driver files.
+Select the Altibase JDBC driver file.
 
 Click [ Classpath ].
 
-[![connect6_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect6_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect6_eng.png)
+![connect6_eng](media/DBeaver/connect6_eng.png)
 
 Add the location of the JDBC driver file to be used in Global libraries and click [ Apply and Close ].
 
-[![connect7_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect7_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect7_eng.png)
+![connect7_eng](media/DBeaver/connect7_eng.png)
 
 After all settings, click [ OK ] .
 
 Click [ Finish ] to complete the configuration.
 
-[![connect8_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect8_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect8_eng.png)
+#### 5. Complete Database Connection
 
-#### 5. Finish Database Connection
-
-Users can review the list of registered database connection information in the Database Navigator tab.
+Users can review the list of registered database connection information on the Database Navigator tab.
 
 Double-clicking on the database connection information in the list attempts to establish a connection.  A green check mark next to the icon signifies a successful connection has been established.
 
-[![connect9_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect9_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect9_eng.png)
+![connect9_eng](media/DBeaver/connect9_eng.png)
 
 If needed, users can rename the database connection information to the desired name.
 
-[![connect10_eng](https://github.com/ALTIBASE/Documents/raw/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect10_eng.png)](https://github.com/ALTIBASE/Documents/blob/BUG-50620/Manuals/Tools/Altibase_release/eng/media/DBeaver/connect10_eng.png)
+![connect10_eng](media/DBeaver/connect10_eng.png)
 
 ### FAQ
 
