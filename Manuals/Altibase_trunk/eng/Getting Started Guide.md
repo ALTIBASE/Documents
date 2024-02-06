@@ -264,11 +264,11 @@ Please refer to the following documents for more detailed information:
 
 -   Precompiler User’s Manual
 
--   Altibase ODBC User's Manual
+-   ODBC User's Manual
 
--   Altibase CLI User's Manual
+-   CLI User's Manual
 
--   Application Program Interface User’s Manual
+-   API User’s Manual
 
 -   SQL Reference
 
@@ -1545,13 +1545,13 @@ Altibase CLI, JDBC, ODBC, the C/C++ precompiler.
 
 This chapter will briefly introduce the process of authoring client applications for use with Altibase.
 
-For more detailed information about writing client applications, please refer to the *Altibase CLI User’ Manual*, the *ODBC User’ Manual*, the *Precompiler User’s Manual*, and the *API User’s Manual*.
+For more detailed information about writing client applications, please refer to the *CLI User’s Manual*, the *ODBC User’s Manual*, the *Precompiler User’s Manual*, and the *API User’s Manual*.
 
 ### Applications Using Altibase CLI
 
 This section explains how to write client applications using Altibase CLI. Altibase CLI is an API
 that can be used in an environment where Altibase is operated in the client-server structure.
-For more detailed information, please refer to the *Altibase CLI User’s Manual*.
+For more detailed information, please refer to the *CLI User’s Manual*.
 
 #### Header Files and Libraries
 
