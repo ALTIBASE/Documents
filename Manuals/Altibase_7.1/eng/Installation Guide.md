@@ -118,7 +118,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Meta Downgrade](#meta-downgrade)
 - [4. Patching Products With the Altibase Package Installer](#4-patching-products-with-the-altibase-package-installer)
   - [About Patches](#about-patches)
-  - [Patching Altibase Ser Products](#patching-altibase-ser-products)
+  - [Patching Altibase Server Products](#patching-altibase-server-products)
   - [Patching Altibase Client Products](#patching-altibase-client-products)
 - [Appendix A. Installation Prerequisites](#appendix-a-installation-prerequisites)
   - [Setting User Resource Limit Values](#setting-user-resource-limit-values)
@@ -579,7 +579,7 @@ Kernel parameters should be manually set before proceeding to the next step. To 
 
 ![](media/Installation/fc2a996b31a60f8bf22b1e67d667c030.png)
 
-To ensure that Altibase runs properly, you should configure your system environment first. To do so, you must modify kernel parameter values using root privileges before installing Altibase. Kernel parameter values may be modified after installation; however, they must be set before running Altibase. The following is an example of showing the recommended values of system kernel parameters for each OS. For more detailed information on OS-specific kernel parameters, please refer to *[Installation Prerequisites*](#installation-prerequisites).
+To ensure that Altibase runs properly, you should configure your system environment first. To do so, you must modify kernel parameter values using root privileges before installing Altibase. Kernel parameter values may be modified after installation; however, they must be set before running Altibase. The following is an example of showing the recommended values of system kernel parameters for each OS. For more detailed information on OS-specific kernel parameters, please refer to [*Installation Prerequisites*](#appendix-a-installation-prerequisites).
 
 Ex) HPUX
 
@@ -1306,7 +1306,7 @@ Table 4-2 Full Package vs. Patch Package
 | Installing the Altibase Client Product       | O            | O             |
 | Finishing Installation                       | O            | O             |
 
-### Patching Altibase Ser Products
+### Patching Altibase Server Products
 
 The following sections describe how to apply patches for Altibase Server Products.
 
