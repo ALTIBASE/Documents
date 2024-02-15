@@ -72,7 +72,7 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 | Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |     **-**     |        **-**        | *- GNU glibc 2.12 ~ 2.33*  |
 | CentOS 6.8<br />CentOS 7.5                                   |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
 | Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |     **-**     |        **-**        | *- GNU glibc 2.12 ~ 2.33*  |
-| Rocky Linux 8.5                                              |     **-**     |        **-**        | *- GNU glibc 2.12 ~ 2.33*  |
+| Rocky Linux 8.6                                              |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
 | Ubuntu 12                                                    |     **-**     |        **-**        | - *GNU glibc 2.17 ~ 2.33*  |
 | Ubuntu 16                                                    |     **-**     |        **-**        | -  *GNU glibc 2.23 ~ 2.33* |
 | Ubuntu 18                                                    |     **-**     |        **-**        | - *GNU glibc 2.27 ~ 2.33*  |
@@ -101,7 +101,7 @@ Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky 
 | Red Hat Enterprise Linux 8.4                                 |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
 | CentOS 6.8                                                   |                           **-**                           |                       **-**                        |  **-**  |        ●         |       **-**        |                     |
 | Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
-| Rocky Linux 8.5                                              |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
+| Rocky Linux 8.6                                              |                           **-**                           |                       **-**                        |    ●    |        ●         |       **-**        |                     |
 | Ubuntu 12                                                    |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
 | Ubuntu 16<br/>Ubuntu 18                                      |                           **-**                           |                       **-**                        |  **-**  |      **-**       |       **-**        |                     |
 | **Linux on Power**                                           |                                                           |                                                    |         |                  |                    |                     |
