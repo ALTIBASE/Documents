@@ -110,41 +110,56 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 # 목차
 
 - [서문](#서문)
+  
   - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.이중화 개요](#1이중화-개요)
+
   - [이중화 소개](#이중화-소개)
+
 - [2.이중화 관리](#2이중화-관리)
+
   - [이중화 순서](#이중화-순서)
   - [에러 발생과 해결](#에러-발생과-해결)
   - [충돌 해결](#충돌-해결)
   - [Eager 이중화 장애 복구 (Eager Replication Failback)](#eager-이중화-장애-복구-eager-replication-failback)
   - [병렬 이중화](#병렬-이중화)
   - [이중화 관련 성능 뷰](#이중화-관련-성능-뷰)
+
 - [3.이중화 사용](#3이중화-사용)
+
   - [이중화 제약조건](#이중화-제약조건)
   - [이중화 생성 (CREATE REPLICATION)](#이중화-생성-create-replication)
   - [이중화 시작, 종료와 변경 (ALTER REPLICATION)](#이중화-시작-종료와-변경-alter-replication)
   - [이중화 동기화(SYNC)](#이중화-동기화sync)
+
   - [이중화 삭제 (DROP REPLICATION)](#이중화-삭제-drop-replication)
   - [이중화 대상 테이블에 DDL 실행](#이중화-대상-테이블에-ddl-실행)
-  - [이중화 대상 테이블에 DDL 복제 실행](#이중화-대상-테이블에-DDL-복제-실행)
+  - [이중화 대상 테이블에 DDL 복제 실행](#이중화-대상-테이블에-ddl-복제-실행)
   - [SQL 반영 모드](#sql-반영-모드)
   - [이중화 부가기능](#이중화-부가기능)
   - [다중 IP 네트워크 환경에서의 이중화](#다중-IP-네트워크-환경에서의-이중화)
   - [이중화 관련 프로퍼티](#이중화-관련-프로퍼티)
+
 - [4.Fail-Over](#4fail-over)
+
   - [Fail-Over 의 개요](#fail-over-의-개요)
   - [Fail-Over 사용 방법](#fail-over-사용-방법)
   - [JDBC에서 콜백 작성](#jdbc에서-콜백-작성)
   - [SQLCLI](#sqlcli)
   - [Embedded SQL](#embedded-sql)
   - [PDO에서 콜백 작성](#pdo에서-콜백-작성)
+
 - [5.시퀀스 이중화](#5시퀀스-이중화)
+
   - [시퀀스 이중화](#시퀀스-이중화)
+
 - [6.이중화 롤(ROLE)](#6-이중화-롤role)
+
   - [Log Analyzer 롤](#log-analyzer-롤)
   - [전파(Propagation)](전파propagation)
+
 - [A.부록: FAQ](#a부록-faq)
+
   - [Replication FAQ](#replication-faq)
 
 <br>
@@ -379,7 +394,7 @@ Altibase는 이중화 중에 발생한 데이터 불일치를 확인하고 수�
 -   **지역 커밋 XSN (Local Commit XSN):**  
     송신자가 가장 최근에 읽어 온 커밋된 로그 레코드의 식별 번호이다. 이 식별
     번호에 대응하는 트랜잭션이 원격 서버에도 커밋되었음을 보장하지는 않는다. 이
-    값은 V\$REPSENDER 성능 뷰의 COMMIT_XSN 컬럼을 조회해서 구할 수 있다.
+    값은 V\$REPSENDER 성능 뷰의 COMMIT_XSN 칼럼을 조회해서 구할 수 있다.
 
 -   **재시작 SN (Restart Sequence Number):**  
     이중화로 전송이 완료되지 않은 XLog에 해당하는 트랜잭션들의 시작 SN 중 가장
@@ -431,10 +446,10 @@ Altibase는 이중화 중에 발생한 데이터 불일치를 확인하고 수�
 -   **이중화 쌍 (Replication Pair):**  
     두 개의 다른 노드에 존재하는 서로 대응하는 이중화 객체들의 쌍을 일컫는다.
 
--   **이중화 대상 컬럼 (Replication Target Column):**  
-    지역 서버와 원격 서버상의 서로 대응하는 이중화 대상 테이블의 컬럼으로,
+-   **이중화 대상 칼럼 (Replication Target Column):**  
+    지역 서버와 원격 서버상의 서로 대응하는 이중화 대상 테이블의 칼럼으로,
     이것을 명시적으로 지정할 수는 없다. 대신에 이중화 대상 테이블을
-    지정함으로써, 이중화 대상 컬럼들이 결정된다.
+    지정함으로써, 이중화 대상 칼럼들이 결정된다.
 
 -   **이중화 대상 테이블 (Replication Target Table):**  
     서로 대응하는 이중화 노드간에 복제되는 테이블로, CREATE REPLICATION 또는
@@ -522,9 +537,9 @@ Altibase는 이중화 대상을 선정하는 기준으로 객체의 ‘이름’
 이중화를 생성할 때에는 이중화 대상이 되는 테이블 이름과 그 소유자 이름을 직접
 지정해야 한다. 파티션드 테이블의 특정 파티션만 복제하려면, 파티션 이름과
 파티션이 속한 테이블 이름 및 그 소유자 이름을 직접 지정해야 한다. 또한 이중화를
-수행시 지역 서버와 원격 서버에서 이름이 같은 컬럼만 복제된다.
+수행시 지역 서버와 원격 서버에서 이름이 같은 칼럼만 복제된다.
 
-이중화 대상 컬럼은 V\$REPRECEIVER_COLUMN 성능 뷰를 통해 확인이 가능하다.
+이중화 대상 칼럼은 V\$REPRECEIVER_COLUMN 성능 뷰를 통해 확인이 가능하다.
 
 #### 이중화 모드 
 
@@ -590,9 +605,9 @@ Eager 모드로 이중화를 사용하기 전에 'Eager 모드 이중화 제약�
 
 #### 이중화와 DDL(Data Definition Language) 복제
 
-Altibase 이중화는 복제 대상이 되는 테이블의 컬럼 이름을 기준으로 복제를 수행하므로 테이블 스키마가 다른 테이블에 대해서도 복제가 가능하다. 이러한 이유로 테이블이 이중화 대상인 경우에도 스키마를 변경하는 일부 DDL을 수행할 수 있도록 허용한다. 
+Altibase 이중화는 복제 대상이 되는 테이블의 칼럼 이름을 기준으로 복제를 수행하므로 테이블 스키마가 다른 테이블에 대해서도 복제가 가능하다. 이러한 이유로 테이블이 이중화 대상인 경우에도 스키마를 변경하는 일부 DDL을 수행할 수 있도록 허용한다. 
 
-DDL을 수행하여 테이블 스키마가 달라진 경우에는 두 노드에 동일한 이름으로 존재하는 컬럼의 데이터만 복제되며, 다른 이름 혹은 한쪽에만 존재하는 컬럼은 복제되지 않는다.
+DDL을 수행하여 테이블 스키마가 달라진 경우에는 두 노드에 동일한 이름으로 존재하는 칼럼의 데이터만 복제되며, 다른 이름 혹은 한쪽에만 존재하는 칼럼은 복제되지 않는다.
 
 테이블 스키마가 다른 상태에서 복제가 이뤄지는 경우에는 성능저하가 발생할 수 있으므로 DDL을 수행하여 테이블 스키마가 달라진 경우 양쪽 노드에서 동일한 스키마를 갖도록 동일한 DDL을 수행해 주는 것이 복제 성능에 유리하다.
 
@@ -629,7 +644,7 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 
 > #### 주의 사항
 >
-> 알티베이스에서 이중화할 수 있는 객체는 테이블 또는 파티션이며, 양쪽 서버에서
+> Altibase에서 이중화할 수 있는 객체는 테이블 또는 파티션이며, 양쪽 서버에서
 > 대응하는 이중화 대상 아이템은 서로 종류가 동일해야 한다. 즉 테이블은 테이블로,
 > 파티션은 파티션으로 이중화할 수 있지만, 서로 교차되는 이중화는 지원하지 않는다.
 >
@@ -752,13 +767,13 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 
 ##### INSERT 충돌
 
--   복제 트랜잭션이 프라이머리 키 컬럼에 이미 존재하는 값으로 INSERT를 시도할 때
+-   복제 트랜잭션이 프라이머리 키 칼럼에 이미 존재하는 값으로 INSERT를 시도할 때
 
 -   복제 트랜잭션이 INSERT하려고 하는 테이블이 이미 다른 지역 트랜잭션에 의해
     잠금 상태일 때, 복제 트랜잭션은 잠금을 획득하기 위해 기다려야 하는데, lock
     timeout때문에 INSERT 충돌이 발생할 수 있다.
 
--   복제 트랜잭션이 유일 키 제약 조건을 가지는 컬럼에 이미 존재하는 값으로
+-   복제 트랜잭션이 유일 키 제약 조건을 가지는 칼럼에 이미 존재하는 값으로
     INSERT하려고 할 때
 
 ##### UPDATE 충돌
@@ -803,7 +818,7 @@ Altibase는 충돌 해결 정책에 따라서 아래의 동작을 수행한다.
 
 -   문제 추적을 위해 충돌에 대한 정보 기록한다.
 
-단, LOB 컬럼은 충돌 해결 대상에서 제외된다. LOB 컬럼은 이전 이미지를 로깅하지
+단, LOB 칼럼은 충돌 해결 대상에서 제외된다. LOB 칼럼은 이전 이미지를 로깅하지
 않으며, 프라이머리 키와 유니크 키를 지정할 수 없어 충돌 감지를 할 수 없기
 때문이다.
 
@@ -876,7 +891,7 @@ FROM user_name.table_name TO user_name.table_name;
   인지를 구분한다.
   
 - 해당 서버가 Master인지 Slave인지에 대한 정보는 SYS_REPLICATIONS\_ 메타
-  테이블 내의 CONFLICT_RESOLUTION 컬럼에서 확인할 수 있다.
+  테이블 내의 CONFLICT_RESOLUTION 칼럼에서 확인할 수 있다.
 
 - 0: Master/Slave를 지정하지 않은 경우
 
@@ -960,7 +975,7 @@ Create success.
 ```
 
 해당 서버가 Master인지 Slave인지에 대한 정보는 SYS_REPLICATIONS\_ 메타 테이블
-내의 CONFLICT_RESOLUTION 컬럼 값으로 확인할 수 있다. (0: 지정하지 않은 경우, 1:
+내의 CONFLICT_RESOLUTION 칼럼 값으로 확인할 수 있다. (0: 지정하지 않은 경우, 1:
 Master, 2: Slave)
 
 ```
@@ -991,12 +1006,12 @@ Active-Active 이중화 환경에서 양 서버의 데이터를 일관되게 유
 
 Timestamp-based Scheme을 사용하기 위해서는 다음과 같은 제약 조건을 가진다.
 
--   테이블에 TIMESTAMP 컬럼이 포함되어 있어야 한다.
+-   테이블에 TIMESTAMP 칼럼이 포함되어 있어야 한다.
 
 -   REPLICATION_TIMESTAMP_RESOLUTION 프로퍼티의 값이 1이어야 한다.
 
 Altibase는 테이블 기반 Timestamps-based Scheme을 지원하기 때문에 이중화 대상
-테이블에 TIMESTAMP타입의 컬럼이 포함되어 있어도 REPLICATION_TIMESTAMP_RESOLUTION
+테이블에 TIMESTAMP타입의 칼럼이 포함되어 있어도 REPLICATION_TIMESTAMP_RESOLUTION
 프로퍼티를 0으로 설정하면 기존의 Conflict Resolution Scheme을 그대로 사용할 수
 있다.
 
@@ -1037,7 +1052,7 @@ Scheme을 지원한다.
 
 > ##### 주의 사항
 >
-> -   테이블에 TIMESTAMP 컬럼 추가시 한 레코드 당 8바이트의 저장 공간이 추가적으로
+> -   테이블에 TIMESTAMP 칼럼 추가시 한 레코드 당 8바이트의 저장 공간이 추가적으로
 >     필요하다.
 >
 > -   이중화 되는 양 서버의 시간이 서로 같지 않는 경우, 데이터 불일치가 발생할 수
@@ -1075,7 +1090,7 @@ Eager 모드의 이중화 환경에서 한 쪽 서버(서버 A)에 커밋 로그
 동기화(Incremental Sync)라고 하며, 복구 과정은 아래와 같다.
 
 서버 A가 다시 온라인 상태가 되면, 양 쪽 서버의 SYS_REPLICATIONS\_ 메타 테이블의
-REMOTE_FAULT_DETECT_TIME 컬럼 값(상대 편 노드의 장애를 감지한 시점)으로
+REMOTE_FAULT_DETECT_TIME 칼럼 값(상대 편 노드의 장애를 감지한 시점)으로
 판단하여, 각각 master 또는 slave가 된다. 즉, 더 늦은 시점의 값을 가진 서버가
 master가 된다. 이 경우에는 서버 B가 master가 될 것이다. master와 slave가
 결정되면, slave(서버 A)의 이중화 송신자는 재시작 SN부터 자신의 트랜잭션 로그를
@@ -1202,7 +1217,7 @@ Lazy 모드에서 병렬 이중화하는 방법은 [이중화 부가기능](#sql
 
 -   복제할 테이블의 프라이머리 키에 대한 수정이 없어야 한다.
 
--   양쪽 서버의 복제할 테이블은 컬럼 타입, NOT NULL, Check 제약조건, 유니크
+-   양쪽 서버의 복제할 테이블은 칼럼 타입, NOT NULL, Check 제약조건, 유니크
     인덱스, function-based 인덱스가 동일하지 않고,
     REPLICATION_SQL_APPLY_ENABLE가 1로 설정되어 있으면 SQL 반영 모드로 동작하여
     성능이 저하될 수 있다.
@@ -1216,12 +1231,12 @@ Lazy 모드에서 병렬 이중화하는 방법은 [이중화 부가기능](#sql
     셋이 동일하게 설정되어야 한다. 현재 사용중인 캐릭터 셋은 V\$NLS_PARAMETERS의
     NLS_CHARACTERSET과 NLS_NCHAR_CHARACTERSET으로 확인이 가능하다.
 
-#### 이중화 대상 컬럼의 제약조건
+#### 이중화 대상 칼럼의 제약조건
 
--   복제 트랜잭션에서 INSERT할 때, 이중화 대상이 아닌 컬럼에는 널(NULL) 값을
+-   복제 트랜잭션에서 INSERT할 때, 이중화 대상이 아닌 칼럼에는 널(NULL) 값을
     입력한다.
 
--   이중화 대상 컬럼과 이중화 대상이 아닌 컬럼의 유니크 인덱스, Function-based
+-   이중화 대상 칼럼과 이중화 대상이 아닌 칼럼의 유니크 인덱스, Function-based
     인덱스를 구성하면 SQL 반영 모드로 동작한다.
 
 #### Eager 모드 이중화 제약조건
@@ -1289,7 +1304,7 @@ Eager 모드를 사용하기 위해 다음의 제약 조건을 따른다.
 
 #### 허용된 DDL 문
 
-일반적으로 이중화 대상인 테이블은 데이타 정의어(DDL)를 수행할 수 없다. 그러나
+일반적으로 이중화 대상인 테이블은 데이터 정의어(DDL)를 수행할 수 없다. 그러나
 다음의 몇 가지 DDL은 이중화와 상관없이 DDL 수행이 가능하다.
 
 -   ALTER INDEX REBUILD PARTITION
@@ -1623,9 +1638,9 @@ Alter success.
 
 ### 이중화 동기화(SYNC)
 
-동기화는 지역 서버의 이중화 대상 테이블의 모든 데이터를 원격 서버의 대응하는 테이블의 데이터와 일치시키기 위해 수행하는 작업이다. 알티베이스의 동기화 기능을 이용하면, 원격 서버로의 데이터 동기화 완료 후 현재 로그부터 이중화가 시작된다. 만약, 데이터의 동기화만 진행하고 더이상 이중화를 이용하지 않을 경우는 SYNC ONLY를 이용한다.
+동기화는 지역 서버의 이중화 대상 테이블의 모든 데이터를 원격 서버의 대응하는 테이블의 데이터와 일치시키기 위해 수행하는 작업이다. Altibase의 동기화 기능을 이용하면, 원격 서버로의 데이터 동기화 완료 후 현재 로그부터 이중화가 시작된다. 만약, 데이터의 동기화만 진행하고 더이상 이중화를 이용하지 않을 경우는 SYNC ONLY를 이용한다.
 
-알티베이스의 동기화 기능은 특정 테이블 또는 파티션을 선택하여 동기화를 수행할 수 있으며, 병렬 동기화도 지원한다.
+Altibase의 동기화 기능은 특정 테이블 또는 파티션을 선택하여 동기화를 수행할 수 있으며, 병렬 동기화도 지원한다.
 
 #### 구문
 
@@ -1708,7 +1723,7 @@ SYS 사용자만이 이중화 객체를 동기화 할 수 있다.
 
   이 경우 원격 서버의 데이터를 삭제한 후(TRUNCATE 수행), 다시 동기화(SYNC)를 수행할 것을 권장한다.
 
-   만약, 원격 서버의 데이터를 삭제하지 않고 동기화를 하려는 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하고 알티베이스의 [충돌 해결 방법](#충돌-해결-1)을 확인하여 원하는 정책으로 설정하고 동기화를 수행한다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 동기화 성능저하가 있을수 있으므로 주의한다.
+   만약, 원격 서버의 데이터를 삭제하지 않고 동기화를 하려는 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하고 Altibase의 [충돌 해결 방법](#충돌-해결-1)을 확인하여 원하는 정책으로 설정하고 동기화를 수행한다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 동기화 성능저하가 있을수 있으므로 주의한다.
 
   > 주의 
   >
@@ -1780,64 +1795,81 @@ iSQL> DROP REPLICATION rep1;
 
 ### 이중화 대상 테이블에 DDL 실행
 
-#### 허용되는 DDL 구문
+#### 구문
 
-Altibase에서는 이중화 대상 테이블에 대하여 다음의 세가지 종류의 DDL을 지원한다.
+Altibase가 이중화 대상인 테이블에 대하여 지원하는 DDL은 다음과 같다.
+REPLICATION_DDL_ENABLE_LEVEL 프로퍼티 값에 따라 지원하는 DDL 문이 다르다.
 
-* ##### REPLICATION_DDL_ENABLE, REPLICATION_DDL_ENABLE_LEVEL 설정 없이 사용할 수 있는 DDL
+다음은 REPLICATION_DDL_ENABLE_LEVEL의 값이 0일 때 지원하는 DDL 문이다.
 
-  ```sql
-  ALTER INDEX index_name AGING;
-  ALTER TABLE table_name COMPACT;
-  ```
+```
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
 
-* ##### REPLICATION_DDL_ENABLE_LEVEL = 0으로 설정한 경우, 사용할 수 있는 DDL
+ALTER TABLE table_name DROP COLUMN column_name;
 
-  * NOT NULL, NULL, Unique, function-base index가 있는 컬럼은 추가/삭제할 수 없다.
-  * Unique, function-base 인덱스는 삭제할 수 없다.
+ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;
 
-  ```sql
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE ); //NOT NULL, NULL, Unique, function-base index가 있는 컬럼은 추가할 수 없다.
-  ALTER TABLE table_name DROP COLUMN column_name; // NOT NULL, NULL, Unique, function-base index가 있는 컬럼은 삭제할 수 없다.
-  ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;
-  ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
-  
-  ALTER TABLE table_name ALTER TABLESPACE tablespace_name;
-  ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
-  ALTER TABLE table_name TRUNCATE PARTITION partition_name;
-  
-  TRUNCATE TABLE table_name;
-  
-  CREATE INDEX index_name ON table_name ( column_name );
-  DROP INDEX index_name; // Unique, function-base index는 삭제할 수 없다.
-  ```
+ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
 
-* ##### REPLICATION_DDL_ENABLE_LEVEL = 1로 설정한 경우, 사용할 수 있는 DDL
+ALTER TABLE table_name ALTER TABLESPACE;
 
-  ```sql
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
-  ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
-  ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
-  ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
-  ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
-  ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
-  ALTER TABLE table_name DROP COLUMN column_name; // NOT NULL, NULL, Unique, function-base index가 있는 컬럼도 삭제 가능
-  
-  ALTER TABLE table_name SPLIT PARTITION partition_name ( condition ) INTO ( PARTITION partition_name PARTITION partition_name );
-  ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
-  ALTER TABLE table_name DROP PARTITION partiton_name; 
-  
-  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
-  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name ) LOCAL;
-  ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
-  ALTER TABLE table_name DROP CONSTRAINT constraint_name;  // Unique, Local Unique가 있는 것도 삭제 가능 
-  
-  CREATE UNIQUE INDEX index_name ON table_name ( column_name );
-  CREATE INDEX index_name ON table_name ( expression );
-  DROP INDEX index_name; // unique, function-base 인덱스가 있는 것도 삭제 가능
-  ```
+ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
+
+ALTER TABLE table_name TRUNCATE PARTITION partition_name;
+
+ALTER TABLE table_name REPLACE table_name;
+
+ALTER TABLE table_name REPLACE table_name PARTITION partition_name ;
+
+TRUNCATE TABLE table_name;
+
+CREATE INDEX index_name ON table_name ( column_name );
+
+DROP INDEX index_name;
+```
+
+REPLICATION_DDL_ENABLE_LEVEL의 값이 1일 때 지원하는 DDL 문은 아래와 같다.
+
+```
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
+
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
+
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
+
+ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
+
+ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
+
+ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
+
+ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
+
+ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
+
+ALTER TABLE table_name SPLIT PARTITION partition_name ( condition ) INTO ( PARTITION partition_name PARTITION partition_name );
+
+ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
+
+ALTER TABLE table_name DROP PARTITION partiton_name; 
+
+ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index가 있는 칼럼도 삭제 가능 ) 
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
+
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name ) LOCAL;
+
+ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
+
+ALTER TABLE table_name DROP CONSTRAINT constraint_name; 
+ ( Unique, Local Unique가 있는 것도 삭제 가능 )
+
+CREATE UNIQUE INDEX index_name ON table_name ( column_name );
+
+CREATE INDEX index_name ON table_name ( expression );
+
+DROP INDEX index_name; ( unique, function-base 인덱스가 있는 것도 삭제 가능 )
+```
 
 #### 설명
 
@@ -1846,7 +1878,8 @@ Altibase는 이중화 대상인 테이블에 대하여 DDL 문 실행이 가능�
 
 -   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
 -   REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 LEVEL에 맞게 설정한다.
--   ALTER SESSION SET REPLICATION을 DEFAULT로 설정한다.
+-   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를
+    NONE 이외의 값으로 설정한다.
 -   이중화 대상인 테이블에 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을 수행하려면, 
     원격 서버에 REPLICATION_META_ITEM_COUNT_DIFF_ENABLE 프로퍼티를 1로 설정한다.   
     대상 테이블을 LOCK TABLE...IN EXCLUSIVE MODE UNTIL NEXT DDL 구문으로 잠금 설정해야 한다. 
@@ -1868,10 +1901,10 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
 
 -   ALTER TABLE table_name ADD COLUMN  
     외래 키를 추가할 수 없다.  
-    압축 컬럼을 추가할 수 없다.
+    압축 칼럼을 추가할 수 없다.
 -   ALTER TABLE table_name DROP COLUMN  
     프라이머리 키를 삭제할 수 없다.  
-    압축 컬럼을 삭제할 수 없다.
+    압축 칼럼을 삭제할 수 없다.
 -   ALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
     이중화가 구동 중에 수행할 수 없다.  
     해당 테이블을 잠금 설정(LOCK TABLE)한다.  
@@ -1884,7 +1917,7 @@ DDL문을 수행한 후 이중화를 다시 시작해야 한다.
     매뉴얼의 처리 순서와 다르게 처리할 경우 데이터 불일치가 발생할 수 있다.
     
 -   TRUNCATE TABLE  
-    압축 컬럼을 가지지 않는 테이블에 한해서 지원된다.
+    압축 칼럼을 가지지 않는 테이블에 한해서 지원된다.
 
 #### 예제
 
@@ -1945,219 +1978,167 @@ iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
 iSQL> ALTER SYSTEM SET REPLICATION_META_ITEM_COUNT_DIFF_ENABLE= 0;
 ```
 
-
-
 ### 이중화 대상 테이블에 DDL 복제 실행
 
-Altibase의 이중화는 DDL 복제 기능을 제공한다. DDL 복제 기능을 이용하면, 하나의 노드에서만 DDL을 수행하여도 다른노드에 DDL이 자동으로 수행된다. 이를 위해서는 아래의 사전 작업과 프로퍼티 설정이 필요하다. 자세한 절차는 아래에서 설명한다.
+Altibase가 이중화 대상인 테이블에 대하여 지원하는 DDL을 이중화 원격 서버로 복제할 수 있다.
 
-#### DDL 복제의 제약사항
+설정된 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티에 따라 지원하는 모든 DDL 구문들이 원격 서버로 복제를 지원하며,  다음은 REPLICATION_DDL_ENABLE_LEVEL의 값에 상관없이 복제를 지원하는 DDL 문이다.
 
-DDL 복제를 하기위해서는 아래의 조건이 맞아야 수행할 수 있다.
+```
+ALTER INDEX index_name AGING;
 
-1. DDL 복제를 위해서는 지역서버, 원격서버의 이중화 프로토콜 버전이 완전히 같아야 한다.
-2. DDL 복제를 위해서는 지역서버, 원격서버의 이중화가 모두 시작되어 있어야 한다.
-3. DDL 복제를 수행하는 테이블(파티션)명과 유저명이 이중화 지역서버, 원격서버 모두 동일해야 한다.
-4. DDL 복제를 수행하는 테이블은 LAZY 모드 이중화에 포함된 테이블이어야 한다.
-5. DDL 복제를 수행하는 테이블이 파티션드 테이블인 경우, 글로벌 논파티션드 인덱스가 있으면 DDL 복제를 실행할 수 없다.
-6. Propagation 롤이 지정된 이중화에 포함된 테이블에는 DDL 복제를 실행할 수 없다.
-7. 이중화 복구 옵션(RECOVERY)이 지정된 테이블에는 DDL 복제를 실행할 수 없다.
+ALTER TABLE table_name COMPACT;
 
-#### 사용방법
+ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );
 
-DDL을 수행할 서버를 지역서버로, DDL 복제가 자동으로 수행되는 서버를 원격서버로 명칭하고 사용방법을 소개한다.
-
-##### 사용자 환경에서의 사전 작업
-
-* 운영중인 서비스 옮기기
-
-  **운영 중인 서비스 중 데이터를 갱신(I/D/U)하는 서비스들은 DDL을 수행할 서버(지역서버)에서 수행되도록 사전 조치를 해야한다.** 그렇지 않을 경우, 데이터 불일치가 발생할 수 있다. 
-
-> **주의**
->
-> DDL 복제를 실행할 때 데이터를 갱신(I/D/U)하는 서비스가 DDL을 수행하는 서버 이외에 다른 서버에서 수행되는 경우, 데이터 불일치가 발생할 수 있다.
-
-* 원격서버의 이중화 갭 제거
-
-  DDL구문을 수행할 테이블과 관련된 모든 이중화에 대해서 FLUSH를 수행한다.
-
-  ```sql
-  ALTER REPLICATION Replication_name1 FLUSH;
-  ALTER REPLICATION Replication_name2 FLUSH;
-  ALTER REPLICATION Replication_name... FLUSH;
-  ```
-
-##### 사전 프로퍼티 설정 - 지역서버
-
-DDL을 수행하기 위한 프로퍼티 설정은 SYS 사용자만 가능하다. DDL을 수행할 서버(지역서버)에서 아래의 프로퍼티 설정 구문을 수행한다. REPLICATION_DDL_ENABLE_LEVEL의 설정은 **"허용되는 DDL 구문"**를 참고 하여 설정한다.
-
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
-
---DDL을 수행할 TABLE의 사용자(Table Owner)로 접속하거나 SYS로 수행한다.
-ALTER SESSION SET REPLICATION_DDL_SYNC=1;
-ALTER SESSION SET REPLICATION=DEFAULT;
+ALTER TABLE table_name RENAME CONSTRAINT contraint_name TO constraint_name;
+  
+ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );  
 ```
 
-##### 사전 프로퍼티 설정 - 원격서버
+#### 설명
 
-DDL 복제가 실행될 서버(원격서버)에서 아래의 프로퍼티 설정 구문을 수행한다. 만약, REPLICATION_DDL_ENABLE_LEVEL을 1로 설정했다면, REPLICATION_SQL_APPLY_ENABLE도 반드시 1로 설정해야 한다.
+Altibase는 이중화 대상인 테이블에 대하여 DDL 복제가 가능하다. 그러나 DDL 복제를 하기 위해서는 우선 프로퍼티를 다음과 같이 설정해야 한다.
 
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
-ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
---REPLICATION_DDL_ENABLE_LEVEL가 0인경우, 아래 프로퍼티 설정은 생략해도 된다.
-ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
-```
+-   REPLICATION_DDL_ENABLE 프로퍼티를 1로 설정한다.
+-   DDL 을 수행하는 이중화 지역 서버와 DDL 을 전송받는 이중화 원격 서버의 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 값을 동일하게 설정한다.
+-   ALTER SESSION SET REPLICATION으로 설정할 수 있는 REPLICATION 세션 프로퍼티를 NONE 이외의 값으로 설정한다.
+-   DDL 을 수행하는 이중화 지역 서버 Session 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+-   DDL 을 전송받는 이중화 원격 서버 System 의 REPLICATION_DDL_SYNC 프로퍼티 값을 1로 설정한다.
+-   삼중화 이상인 구조에서는 DDL을 전송받는 이중화 원격 서버 System 의 REPLICATION_SQL_APPLY_ENABLE 프로퍼티 값을 1로 설정한다.
 
-##### DDL 구문 수행
 
-DDL 구문을 수행하기 전에 **지역서버**에서 이중화 갭을 제거하기 위해서는 아래의 구문을 수행후 DDL을 수행해야 한다. 이 때, Replication_name1, Replication_name2는 DDL 구문 수행테이블과 관련된 모든 이중화 객체를 말한다.
+#### 제약사항
 
-```sql
-ALTER REPLICATION Replication_name1 FLUSH;
-ALTER REPLICATION Replication_name2 FLUSH;
-```
+모든 DDL 복제에 대해 제약사항은 다음과 같다.
 
-###### 허용하는 DDL 종류
+- **이중화 프로토콜 버전(replication protocol version) 세 자리(Major, Minor, Patch)가 모두 같아야 한다.**
 
-허용하는 DDL 구문은 [**"이중화 대상 테이블에 허용되는 DDL 구문"**](#허용되는-DDL-구문)를 참고 한다.
+  이중화 프로토콜 버전은 2가지 방법으로 확인할 수 있다. 
 
-###### 허용하지 않는 DDL 종류
+  1. SELECT REPL_PROTOCOL_VERSION FROM V$VERSION;
+  2. altibase -v
 
-* 프라이머리 키를 삭제할 수 없다.
-* 외래키를 추가할 수 없다.
-* 압축컬럼을 추가/삭제할 수 없다.
-* 압축컬럼이 포함된 테이블에 대한 TRUNCATE는 수행할 수 없다.
+- 이중화 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다. 
 
->  **주의**
->
-> * DDL 복제가 진행되는 동안, DDL을 수행하는 테이블의 갱신은 일시적으로 제한 될 수 있다. 이런 경우, DDL 수행이 완료된 후에 재 시도하면 정상적으로 완료된다.
->   * 예를 들어 테이블 T1에 DDL 복제가 진행되는 동안에 INSERT INTO t1 VALUES...와 같은 DML 구문을 실행하면, [ERR-313D6 : Unable to update table or partition T1] 의 에러를 확인할 수 있다.
+- 이중화가 EAGER모드로 실행중일 때도 DDL 복제를 실행할 수 없다. 
 
-##### 사후 프로퍼티 원복
+- DDL 복제를 수행하는 테이블(파티션)명과 유저명이 이중화 지역서버, 원격서버 모두 동일해야 한다.
 
-DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경우 위에서 변경했던 프로퍼티 설정을 원복해야 한다. 이 때, 지역서버에서는 DDL 처리와 관련된 이중화 갭이 존재할 수 있다. 이를 해결하기 위해서는 반드시 FLUSH를 수행해야 한다. 
+- DDL 복제를 수행하는 이중화 지역, 원격 서버 모두 이중화가 시작되어 있어야 한다.
 
-* 지역 서버
+- Propagation 옵션 사용 시 DDL 복제를 허용하지 않는다.
 
-  * DDL 처리와 관련된 이중화 갭 제거를 위해, 아래와 같이 FLUSH 구문을 수행한다.
+- Partitioned Table 이중화시 Global Non Partitioned Index 가 있을 경우 DDL 복제를 실행할 수 없다.
 
-  ```sql
-  ALTER REPLICATION Replication_name1 FLUSH;
-  ALTER REPLICATION Replication_name2 FLUSH;
-  ```
+- 하나의 이중화로 동시에 두개 이상의 DDL 복제는 할 수 없다.
 
-  * FLUSH 구문 수행이 완료되면, 아래와 같이 프로퍼티 설정을 원복한다.
+- 서로 다른 노드에서 하나의 노드로 동일한 테이블에 대해 DDL 복제는 할 수 없다.
 
-  ```sql
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
-  ALTER SESSION SET REPLICATION_DDL_SYNC=0;
-  ```
+- DDL 복제를 수행하는 이중화에 포함된 테이블에 다른 DDL 복제를 수행할 수 없다.
 
-* 원격 서버
+-   삼중화 이상인 구조에서는 DDL을 전송받는 이중화 원격 서버들간에 갭이 없어야 하며, 
+    갭이 있을 경우 데이터 불일치가 발생할 수 있다.
 
-  ```sql
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
-  ALTER SYSTEM SET REPLICATION_DDL_SYNC=0;
-  ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=0;
-  ```
+지원하는 DDL에 따라 제약사항이 다음과 같다.
+
+-   ALTER TABLE table_name ADD COLUMN  
+    외래 키를 추가할 수 없다.  
+    압축 칼럼을 추가할 수 없다.
+
+-   ALTER TABLE table_name DROP COLUMN  
+    프라이머리 키를 삭제할 수 없다.  
+    압축 칼럼을 삭제할 수 없다.
+
+-   TRUNCATE TABLE  
+    압축 칼럼을 가지지 않는 테이블에 한해서 지원된다.
 
 #### 예제
 
-1. 이중화 대상 테이블을 t1이라고 가정하고, REPLICATION_DDL_ENABLE_LEVEL이 0인 환경에서 이중화 대상 테이블에 대하여 DDL 복제 실행은 아래와 같이 사용한다.
+이중화 대상 테이블이 t1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 복제 실행을 아래와 같이 사용한다.
 
-- TRUNCATE TABLE을 실행한다. 
+-   TRUNCATE TABLE을 실행한다.
 
-  ```sql
-  --사전 프로퍼티 설정
-  (Remote SYS User)
-  iSQL> ALTER REPLICATION rep1 FLUSH;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-  
-  (Local SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER REPLICATION rep1 FLUSH;
-  
-  --DDL 구문 수행
-  (Local Table Owner)
-  iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-  iSQL> TRUNCATE TABLE t1;
-  
-  --사후 프로퍼티 설정
-  (Local SYS User)
-  iSQL> ALTER REPLICATION rep1 FLUSH;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
-  
-  (Remote SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-  ```
+```
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+Alter success.
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+Alter success.
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+Alter success.
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+Alter success.
+(Remote Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+Alter success.
+(Local Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+Alter success.
+iSQL> TRUNCATE TABLE t1;
+Truncate success.
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+Alter success.
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+Alter success.
+(Remote SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+Alter success.
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+Alter success.
+```
 
-2. 삼중화 환경에서 삼중화 대상 테이블이 t1이고 t1의 컬럼이 c1인 경우, t1에 대한 DDL 복제 실행은 아래의 예제를 참고 한다. (지역서버와 원격서버1과의 이중화, 지역서버와 원격서버 2와의 이중화, 원격서버1과 원격서버2와의 이중화를 각각 rep1, rep2, rep3으로 가정한다.)
+삼중화 대상 테이블이 t1이고 t1에 칼럼이 c1이라고 가정하고, 이중화 대상 테이블에 대하여 DDL 복제 실행을 아래와 같이 사용한다.
 
-- ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL ) 을 실행한다.
+-   ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL ) 을 실행한다.
 
-  ```sql
-  --사전 프로퍼티 설정
-  (Remote1 SYS User)
-  iSQL> ALTER REPLICATION Rep1 FLUSH;
-  iSQL> ALTER REPLICATION Rep3 FLUSH;
-  (Remote2 SYS User)
-  iSQL> ALTER REPLICATION Rep2 FLUSH;
-  iSQL> ALTER REPLICATION Rep3 FLUSH;
-  
-  (Local SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-  (Remote1 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
-  (Remote2 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
-  
-  (local SYS User)
-  iSQL> ALTER REPLICATION Rep1 FLUSH;
-  iSQL> ALTER REPLICATION Rep2 FLUSH;
-  
-  --DDL 구문 수행
-  (Local Table Owner)
-  iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-  iSQL> ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );
-  
-  --사후 프로퍼티 설정
-  (local SYS User)
-  iSQL> ALTER REPLICATION Rep1 FLUSH;
-  iSQL> ALTER REPLICATION Rep2 FLUSH;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-  
-  (Remote1 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
-  
-  (Remote2 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
-  ```
+```
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+(Remote1 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+(Remote2 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+(Remote1 Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+(Remote2 Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+(Local Table Owner)
+iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+iSQL> ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );
+(Remote1 Table Owner)
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+iSQL> SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+(Remote2 Table Owner)
+iSQL> ALTER REPLICATION REP_Remote1_Remote2 FLUSH ALL;
+iSQL> SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+(Local SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+(Remote1 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+(Remote2 SYS User)
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+```
 
 ### SQL 반영 모드
 
@@ -2167,8 +2148,8 @@ SQL로 변환하여 반영할 수 있다. SQL 모드로 원격 서버에 반영�
 
 -   REPLICATION_SQL_APPLY_ENABLE : 1
 
--   컬럼 정보  
-    데이타 타입이 다를 경우  
+-   칼럼 정보  
+    데이터 타입이 다를 경우  
     size, precision, scale이 다를 경우
 
 -   제약 조건  
@@ -2176,8 +2157,8 @@ SQL로 변환하여 반영할 수 있다. SQL 모드로 원격 서버에 반영�
     not null 제약 조건이 다를 경우
 
 -   인덱스  
-    유니크 인덱스나 Function-based 인덱스가 이중화 대상 컬럼과 이중화 대상이
-    아닌 컬럼으로 구성되어 있을 경우  
+    유니크 인덱스나 Function-based 인덱스가 이중화 대상 칼럼과 이중화 대상이
+    아닌 칼럼으로 구성되어 있을 경우  
     유니크 인덱스의 구성 정보가 다를 경우  
     Function-based 인덱스의 구성 정보가 다를 경우
 
@@ -2209,7 +2190,7 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 
 -   이중화 수신 전용 옵션(Receive Only Option)
 
-이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 컬럼 값을 통해서
+이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 칼럼 값을 통해서
 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
 
 #### 복구 옵션(Recovery Option)
@@ -4249,7 +4230,7 @@ Altibase는 기본적으로 테이블 객체만 이중화를 지원한다. 따�
 
 #### 시퀀스 이중화 개요 
 
-알티베이스의 시퀀스 이중화란 Fail-Over가 발생하는 상황에도 원격 서버와 지역
+Altibase의 시퀀스 이중화란 Fail-Over가 발생하는 상황에도 원격 서버와 지역
 서버가 동일한 시퀀스를 사용할 수 있는 기능이다. 따라서 애플리케이션에서 동일한
 시퀀스 및 동일한 프로그램 소스를 사용할 수 있다.
 
@@ -4257,7 +4238,7 @@ Altibase는 기본적으로 테이블 객체만 이중화를 지원한다. 따�
 않도록 해야한다. 캐시 크기의 시퀀스를 메모리에 저장하여 사용하며, 저장된
 시퀀스를 전부 사용하면 다시 캐시 크기의 시퀀스를 메모리에 저장한다.
 
-알티베이스 이중화는 테이블만 지원하므로 시퀀스 이중화를 위한 테이블을 내부적으로
+Altibase 이중화는 테이블만 지원하므로 시퀀스 이중화를 위한 테이블을 내부적으로
 생성한다.
 
 #### 사용 조건
@@ -4443,7 +4424,7 @@ ALTER SESSION SET REPLICATION 구문을 이용해서 REPLICATION 세션 프로�
 
 ##### **답변**
 
-V\$REPGAP 퍼포먼스 뷰의 REP_GAP컬럼 값으로 Replication Gap을 확인하실 수
+V\$REPGAP 퍼포먼스 뷰의 REP_GAP칼럼 값으로 Replication Gap을 확인하실 수
 있습니다. 그외의 다양한 리플리케이션 실행 정보도 퍼포먼스 뷰로 확인하실 수
 있습니다.
 
@@ -4458,7 +4439,7 @@ aligning을 고려하여, sender와 receiver의 엔디안(endian)이나 비트 �
 서버간의 이중화가 가능하도록 하였습니다.
 
 따라서 XLog 송/수신시 sender는 자신이 보내고자 하는 데이터를 송신 버퍼에
-추가하고, receiver는 sender가 보낸 순서대로 수신 버퍼에서 데이타를 받아서
+추가하고, receiver는 sender가 보낸 순서대로 수신 버퍼에서 데이터를 받아서
 처리합니다.
 
 그러나 이기종간의 이중화를 사용할 때, 바이트 오더링(byte ordering)이 다르면 변환
