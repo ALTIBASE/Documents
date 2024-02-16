@@ -8489,25 +8489,25 @@ DELETE 문을 허용하지 않는 큐 테이블의 객체 식별자(OID) 정보�
 
 ##### START_FLAG
 
-지역서버의 이중화 구동시에 명시한 구동 옵션이다.
+지역서버의 이중화 구동시에 명시한 시작 옵션이다.
 
--   NORMAL: 0
+-   0: NORMAL
 
--   QUICK: 1
+-   1: QUICK
 
--   SYNC: 2
+-   2: SYNC
 
--   SYNC_ONLY: 3
+-   3: SYNC_ONLY
 
--   SYNC RUN: 4
+-   4: SYNC RUN
 
--   SYNC END: 5
+-   5: SYNC END
 
--   RECOVERY from Replication: 6
+-   6: RECOVERY from Replication
 
--   OFFLINE: 7
+-   7: OFFLINE
 
--   PARALLEL: 8
+-   8: PARALLEL
 
 ##### REP_LAST_SN
 
@@ -8519,7 +8519,7 @@ DELETE 문을 허용하지 않는 큐 테이블의 객체 식별자(OID) 정보�
 
 ##### REP_GAP
 
-이중화 갭의 로그파일 사이즈를 프로퍼티 [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/GeneralReference_2.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)에 설정된 단위로 보여준다. 프로퍼티 REPLICATION_GAP_UNIT을 통해 단위를 수정 할 수있으며, 기본값은 메가바이트이다. 즉, REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이며, 나머지가 생기면 올림한다.
+이중화 갭의 로그파일 사이즈를 프로퍼티 [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_gap_unit-%EB%8B%A8%EC%9C%84-%EB%B0%94%EC%9D%B4%ED%8A%B8)에 설정된 단위로 보여준다. 프로퍼티 REPLICATION_GAP_UNIT을 통해 단위를 수정 할 수있으며, 기본값은 메가바이트이다. 즉, REP_GAP_SIZE의 값을 프로퍼티 REPLICATION_GAP_UNIT으로 나눈 값이며, 나머지가 생기면 올림한다.
 
 ##### REP_GAP_SIZE
 
@@ -8798,14 +8798,14 @@ SQL 반영 모드로 동작하는 테이블의 개수이다.
 
 이중화 수신자의 이중화 대상 칼럼 정보를 보여준다.
 
-| Column name    | Type         | Description                |
-|----------------|--------------|----------------------------|
-| REP_NAME       | VARCHAR(40)  | 이중화 이름                |
-| USER_NAME      | VARCHAR(128) | 사용자 이름                |
-| TABLE_NAME     | VARCHAR(128) | 테이블 이름                |
-| PARTITION_NAME | VARCHAR(128) | 파티션 이름                |
-| COLUMN_NAME    | VARCHAR(128) | 칼럼 이름                  |
-| APPLY_MODE     | INTEGER      | 0: Binary 모드 1: SQL 모드 |
+| Column name    | Type         | Description                     |
+| -------------- | ------------ | ------------------------------- |
+| REP_NAME       | VARCHAR(40)  | 이중화 이름                     |
+| USER_NAME      | VARCHAR(128) | 사용자 이름                     |
+| TABLE_NAME     | VARCHAR(128) | 테이블 이름                     |
+| PARTITION_NAME | VARCHAR(128) | 파티션 이름                     |
+| COLUMN_NAME    | VARCHAR(128) | 칼럼 이름                       |
+| APPLY_MODE     | INTEGER      | 0: Binary 모드 <br> 1: SQL 모드 |
 
 #### 칼럼 정보
 
@@ -9141,17 +9141,17 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 이중화를 이용한 복구 정보를 보여준다.
 
-| Column name          | Type        | Description                                                                     |
-|----------------------|-------------|---------------------------------------------------------------------------------|
-| REP_NAME             | VARCHAR(40) | 이중화 객체 이름                                                                |
+| Column name          | Type        | Description                                                  |
+| -------------------- | ----------- | ------------------------------------------------------------ |
+| REP_NAME             | VARCHAR(40) | 이중화 객체 이름                                             |
 | STATUS               | INTEGER     | 복구에 대한 현재 상태 1: 복구 정보 생성 중 2: 복구 요청 대기 중 3: 복구 진행 중 |
-| START_XSN            | BIGINT      | 복구를 위한 전송시작 SN                                                         |
-| XSN                  | BIGINT      | 복구를 위해 현재 전송중인 로그 SN                                               |
-| END_XSN              | BIGINT      | 복구를 위한 마지막 전송 SN                                                      |
-| RECOVERY_SENDER_IP   | VARCHAR(64) | 지역 서버의 복구를 위한 송신자 IP 주소                                          |
-| PEER_IP              | VARCHAR(64) | 원격 서버의 복구를 위한 수신자 IP 주소                                          |
-| RECOVERY_SENDER_PORT | INTEGER     | 지역서버의 복구를 위한 송신자 포트 번호                                         |
-| PEER_PORT            | INTEGER     | 원격서버의 복구를 위한 수신자 포트 번호                                         |
+| START_XSN            | BIGINT      | 복구를 위한 전송시작 SN                                      |
+| XSN                  | BIGINT      | 복구를 위해 현재 전송중인 로그 SN                            |
+| END_XSN              | BIGINT      | 복구를 위한 마지막 전송 SN                                   |
+| RECOVERY_SENDER_IP   | VARCHAR(64) | 지역 서버의 복구를 위한 송신자 IP 주소                       |
+| PEER_IP              | VARCHAR(64) | 원격 서버의 복구를 위한 수신자 IP 주소                       |
+| RECOVERY_SENDER_PORT | INTEGER     | 지역서버의 복구를 위한 송신자 포트 번호                      |
+| PEER_PORT            | INTEGER     | 원격서버의 복구를 위한 수신자 포트 번호                      |
 
 #### 칼럼 정보
 
@@ -9225,32 +9225,54 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 지역서버에 생성된 이중화 객체의 이름이다.
 
-##### START_FLAG
+##### START_FLAG 
 
-지역서버의 이중화 구동시에 명시한 구동 옵션이다. 다음 값들을 가질 수 있다.
+지역서버의 이중화 구동시에 명시한 시작 옵션이다. 다음 값들을 가질 수 있다. (REPGAP의 START_FLAG와 동일한 내용?)
 
--   : 0
+- 0: NORMAL
 
--   QUICK: 1
+  이 값은 액티브 서버쪽의 송신 쓰레드가 트랜잭션 로그를 분석하여 XLog로 변환한 후, 대기 서버로 XLog를 전송하는 것을 의미한다.
 
--   SYNC: 2
+  -> 시작옵션을 지정하지 않은 경우에 해당한다.
 
--   SYNC_ONLY: 3
+- 1: QUICK
 
--   SYNC RUN : 4
+  이중화를 QUICKSTART 옵션으로 시작하면 이 값이 보여질 수 있는데, 이는 전송 시작 위치가 변경중임을 나타내며, 송신 쓰레드는 예전 로그를 무시하고 가장 최근 로그부터 전송을 시작할 것이다. 시작 위치 변경 후에는, QUICK에서 NORMAL로 바뀔 것이다.
 
--   SYNC END : 5
+  -> 이중화 시작시 QUICKSTART 옵션을 명시한 경우에 해당한다.
 
--   RECOVERY from Replication : 6
+- 2: SYNC
 
--   OFFLINE: 7
+  이 값은 SYNC 옵션으로 이중화를 시작할 때 보여진다. 동기화가 완료된 후, NORMAL (LAZY 모드) 또는 PARALLEL (EAGER 모드)로 바뀌어 보여진다.
 
--   PARALLEL: 8
+- 3: SYNC_ONLY
+
+  지역 서버의 이중화 대상 테이블의 모든 데이터를 원격 서버의 대응하는 테이블의 데이터와 일치시키기 위해 수행하는 작업. 데이터의 동기화만 진행하고 더이상 이중화를 수행하지 않는다.
+
+-   4: SYNC RUN
+
+- 5: SYNC END
+
+  현재 SYNC RUN 과 SYNC END 는 사용되지 않는다.
+
+- 6: RECOVERY from Replication
+
+  이 값은 송신 쓰레드가 다른 서버에서 손상된 데이터를 복원하기 위해 실행중임을 나타낸다.
+
+- 7: OFFLINE
+
+  이 값은 액티브 서버가 오프라인이고 대기 서버에 로그를 적용할 때, 송신 쓰레드가 액티브 서버의 로그를 읽기 위해 실행중임을 나타낸다.
+
+- 8: PARALLEL
+
+  이 값은 이중화 대상 테이블과 관련된 XLog를 여러 송신 쓰레드가 병렬로 송신중임을 나타낸다. 이 값은 PARALLEL 옵션과 함께 EAGER 모드로 이중화를 시작할 때 보여질 수 있다. SYNC 또는 SYNC ONLY 옵션과 함께 이중화를 시작할 때 지정할 수 있는 PARALLEL 옵션과는 다르다.
 
 ##### NET_ERROR_FLAG
 
-네트워크 오류 발생 여부를 나타낸다. 디폴트는 0이며, 1은 오류가 발생했음을
-나타낸다.
+네트워크 오류 발생 여부를 나타낸다. 
+
+* 0 : 오류가 발생하지 않았음을 의미한다.
+* 1 : 네트워크 오류가 발생했음을 의미한다.
 
 ##### XSN
 
@@ -9263,27 +9285,63 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 ##### STATUS
 
-지역서버의 이중화 송신 쓰레드의 현재 상태를 나타낸다.
+지역서버의 이중화 송신 쓰레드의 현재 상태를 나타내며, 송신 쓰레드가 현재 하고 있는 작업을 식별하기 위한 값으로 사용된다. 
 
--   0: STOP
+- 0: STOP
 
--   1: RUN
+  이중화 송신 쓰레드가 정지 중인 상태를 말한다.
 
--   2: RETRY
+- 1: RUN
 
--   3: FAILBACK NORMAL
+  이중화 송신 쓰레드가 정상 동작 중인 상태를 말한다.
 
--   4: FAILBACK MASTER
+- 2: RETRY
 
--   5: FAILBACK SLAVE
+  원격 서버와의 연결에 장애가 발생하여 재시도를 하고 있는 상태를 말한다.
 
--   6: SYNC
+- 3: FAILBACK NORMAL
 
--   7: FAILBACK EAGER
+  증분 동기화를 완료 하거나 건너뛴 후, Eager 모드 이중화가 정상적으로 시작되기 전에, 장애 시간 동안 서버 B에서 서버 A로 전송하지 못했던 트랜잭션 로그에 대한 데이터를 동기화한다. 장애로 인해 전송하지 못했던 로그를 전송할 때에는, 이중화가 Lazy 모드로 전환하여 동작하며, 로그를 모두 전송하여 이중화 갭이 없어지면, 다시 Eager 모드로 전환하여 이중화가 시작된다.
 
--   8: FAILBACK FLUSH
+  -> 장애가 발생하여, 장애 복구(failback)에 의해 데이터를 동기화 하는 단계? 매뉴얼에 따르면 normal sync 에 해당.??
 
--   9: IDLE
+  -> Eager 모드 이중화의 장애 복구(failback) 중 일반 동기화(Normal Sync)가 진행되고 있는 상태.
+
+- 4: FAILBACK MASTER
+
+  증분 동기화 시, 두 서버 중  SYS_REPLICATIONS_ 메타 테이블의 REMOTE_FAULT_DETECT_TIME 컬럼 값이 더 늦은 서버가 MASTER 서버가 된다. 이 때 나타나는 값이다. MASTER의 이중화 송신자는 SLAVE가 요청한 데이터를 전송해주는 역할을 한다.
+
+  -> 증분동기화 중이면서 master 인 상태를 말한다. 이 경우 이중화 송신 쓰레드는 SLAVE가 요청한 데이터를 전송하는 작업을 수행한다.
+
+- 5: FAILBACK SLAVE
+
+  증분 동기화 시, 두 서버 중  SYS_REPLICATIONS_ 메타 테이블의 REMOTE_FAULT_DETECT_TIME 컬럼 값이 더 빠른 서버가 SLAVE 서버가 된다. 이 때 나타나는 값이다. SLAVE의 이중화 송신자는 재시작 SN부터 자신의 트랜잭션 로그를 분석하여 MASTER 와 다를 수 있는 데이터를 결정하고, MASTER 로부터 해당 데이터를 가져와서 동기화를 수행한다.
+
+  -> 증분 동기화 중이면서 slave 인 상태를 말한다. 이 경우 이중화 송신 쓰레드는 재시작 SN부터 자신의 트랜잭션 로그를 비교하여 MASTER 와 다를 수 있는 데이터를 결정하고, MASTER 로부터 해당 데이터를 가져와서 동기화를 수행한다.
+
+- 6: SYNC
+
+  지역 서버에 있는 이중화 대상 테이블의 모든 레코드를 원격 서버로 전송해서 동기화 한 후에 현재 로그부터 이중화를 진행한다.
+
+  -> 이중화 sync 를 말함??
+
+  -> 이중화 동기화(sync) 중인 상태를 말한다.
+
+- 7: FAILBACK EAGER
+
+  FAILBACK 과정 중 생긴 이중화 갭을 없애기 위해 EAGER 모드로 이중화를 수행하는 상태.
+
+  ->매뉴얼에 없던데,, 추가설명 필요
+
+- 8: FAILBACK FLUSH
+
+  송신 쓰레드가 FAILBACK 과정의 마지막을 처리하는 상태.  
+
+  -> 매뉴얼에 없던데..
+
+- 9: IDLE
+
+  송신 쓰레드가 FAILBACK을 마치고 SLEEP하는 상태.
 
 ##### SENDER_IP
 
@@ -9328,21 +9386,21 @@ EAGER이다. 이중화 모드에 대한 자세한 설명은 *Replication Manual*
 
 병렬 동작중인 이중화 송신 쓰레드들의 정보를 보여준다.
 
-| Column name    | Type        | Description                                                          |
-|----------------|-------------|----------------------------------------------------------------------|
-| REP_NAME       | VARCHAR(40) | 이중화 객체의 이름                                                   |
-| CURRENT_TYPE   | VARCHAR(9)  | 시작 옵션                                                            |
-| NET_ERROR_FLAG | BIGINT      | 에러 상태 플래그                                                     |
-| XSN            | BIGINT      | 전송중인 로그 레코드의 SN                                            |
-| COMMIT_XSN     | BIGINT      | Commit 로그 레코드의 SN                                              |
-| STATUS         | VARCHAR(15) | 현재 상태                                                            |
-| SENDER_IP      | VARCHAR(64) | 송신자 IP 주소                                                       |
-| PEER_IP        | VARCHAR(64) | 원격 서버의 IP 주소                                                  |
-| SENDER_PORT    | INTEGER     | 송신 포트 번호                                                       |
-| PEER_PORT      | INTEGER     | 원격 서버의 포트 번호                                                |
-| READ_LOG_COUNT | BIGINT      | 읽은 로그의 개수                                                     |
-| SEND_LOG_COUNT | BIGINT      | 읽어서 송신한 로그의 수                                              |
-| REPL_MODE      | VARCHAR(7)  | 사용자가 지정한 이중화 모드                                          |
+| Column name    | Type        | Description                                                  |
+| -------------- | ----------- | ------------------------------------------------------------ |
+| REP_NAME       | VARCHAR(40) | 이중화 객체의 이름                                           |
+| CURRENT_TYPE   | VARCHAR(9)  | 시작 옵션                                                    |
+| NET_ERROR_FLAG | BIGINT      | 네트워크 오류 상태 플래그                                    |
+| XSN            | BIGINT      | 전송중인 로그 레코드의 SN                                    |
+| COMMIT_XSN     | BIGINT      | Commit 로그 레코드의 SN                                      |
+| STATUS         | VARCHAR(15) | 현재 상태                                                    |
+| SENDER_IP      | VARCHAR(64) | 송신자 IP 주소                                               |
+| PEER_IP        | VARCHAR(64) | 원격 서버의 IP 주소                                          |
+| SENDER_PORT    | INTEGER     | 송신 포트 번호                                               |
+| PEER_PORT      | INTEGER     | 원격 서버의 포트 번호                                        |
+| READ_LOG_COUNT | BIGINT      | 읽은 로그의 개수                                             |
+| SEND_LOG_COUNT | BIGINT      | 읽어서 송신한 로그의 수                                      |
+| REPL_MODE      | VARCHAR(7)  | 사용자가 지정한 이중화 모드                                  |
 | PARALLEL_ID    | INTEGER     | 같은 이중화 이름을 가지는 여러 이중화 송신 쓰레드들 중 하나의 식별자 |
 
 #### 칼럼 정보
@@ -9353,7 +9411,7 @@ EAGER이다. 이중화 모드에 대한 자세한 설명은 *Replication Manual*
 
 ##### CURRENT_TYPE
 
-V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바란다.
+[V$REPGAP_PARALLEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepgap_parallel) 성능 뷰의 CURRENT_TYPE 칼럼의 설명을 참조한다.
 
 ##### NET_ERROR_FLAG
 
@@ -9371,7 +9429,7 @@ V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바�
 
 ##### STATUS
 
-지역서버의 이중화 송신 쓰레드의 현재 상태를 나타낸다.
+지역서버의 이중화 송신 쓰레드의 현재 상태를 나타낸다. 자세한 설명은 [V$REPSENDER](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The%20Data%20Dictionary.md#status-16) 성능 뷰의 STATUS 칼럼의 설명을 참고한다.
 
 -   0: STOP
 
@@ -9581,7 +9639,7 @@ XLog를 수신 쓰레드에 전송하는 데 걸린 시간의 누적 값이다.
 
 ##### START_FLAG
 
-V\$REPSENDER 성능 뷰의 START_FLAG 칼럼의 설명을 참고한다.
+[V$REPSENDER](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepgap) 성능 뷰의 START_FLAG 칼럼의 설명을 참고한다.
 
 ##### LOCAL_TID
 
@@ -9613,7 +9671,7 @@ V\$REPSENDER 성능 뷰의 START_FLAG 칼럼의 설명을 참고한다.
 
 ##### CURRENT_TYPE
 
-V\$REPGAP_PARALLEL 성능 뷰의 CURRENT_TYPE 칼럼 설명을 참조하기 바란다.
+[V$REPGAP_PARALLEL](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The%20Data%20Dictionary.md#vrepgap_parallel) 성능 뷰의 CURRENT_TYPE 칼럼의 설명을 참조한다.
 
 ##### LOCAL_TID
 

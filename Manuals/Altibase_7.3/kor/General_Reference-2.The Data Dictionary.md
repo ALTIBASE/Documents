@@ -9230,23 +9230,39 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 지역서버의 이중화 구동시에 명시한 구동 옵션이다. 다음 값들을 가질 수 있다.
 
--   : 0
+- NORMAL: 0
 
--   QUICK: 1
+  이 값은 액티브 서버쪽의 송신 쓰레드가 트랜잭션 로그를 분석하여 XLog로 변환한 후, 대기 서버로 XLog를 전송하는 것을 의미한다.
 
--   SYNC: 2
+- QUICK: 1
 
--   SYNC_ONLY: 3
+  이중화를 QUICKSTART 옵션으로 시작하면 이 값이 보여질 수 있는데, 이는 전송 시작 위치가 변경중임을 나타내며, 송신 쓰레드는 예전 로그를 무시하고 가장 최근 로그부터 전송을 시작할 것이다. 시작 위치 변경 후에는, QUICK에서 NORMAL로 바뀔 것이다.
+
+- SYNC: 2
+
+  이 값은 SYNC 옵션으로 이중화를 시작할 때 보여진다. 동기화가 완료된 후, NORMAL (LAZY 모드) 또는 PARALLEL (EAGER 모드)로 바뀌어 보여진다.
+
+- SYNC_ONLY: 3
+
+  지역 서버의 이중화 대상 테이블의 모든 데이터를 원격 서버의 대응하는 테이블의 데이터와 일치시키기 위해 수행하는 작업. 데이터의 동기화만 진행하고 더이상 이중화를 수행하지 않는다.
 
 -   SYNC RUN : 4
 
--   SYNC END : 5
+- SYNC END : 5
 
--   RECOVERY from Replication : 6
+  현재 SYNC RUN 과 SYNC END 는 사용되지 않는다.
 
--   OFFLINE: 7
+- RECOVERY from Replication : 6
 
--   PARALLEL: 8
+  이 값은 송신 쓰레드가 다른 서버에서 손상된 데이터를 복원하기 위해 실행중임을 나타낸다.
+
+- OFFLINE: 7
+
+  이 값은 액티브 서버가 오프라인이고 대기 서버에 로그를 적용할 때, 송신 쓰레드가 액티브 서버의 로그를 읽기 위해 실행중임을 나타낸다.
+
+- PARALLEL: 8
+
+  이 값은 이중화 대상 테이블과 관련된 XLog를 여러 송신 쓰레드가 병렬로 송신중임을 나타낸다. 이 값은 PARALLEL 옵션과 함께 EAGER 모드로 이중화를 시작할 때 보여질 수 있다. SYNC 또는 SYNC ONLY 옵션과 함께 이중화를 시작할 때 지정할 수 있는 PARALLEL 옵션과는 다르다.
 
 ##### NET_ERROR_FLAG
 
@@ -9266,25 +9282,45 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 지역서버의 이중화 송신 쓰레드의 현재 상태를 나타낸다.
 
--   0: STOP
+- 0: STOP
 
--   1: RUN
+  이중화 송신 쓰레드가 정지 중인 단계.
 
--   2: RETRY
+- 1: RUN
 
--   3: FAILBACK NORMAL
+  이중화 송신 쓰레드가 정상 동작 중인 단계.
 
--   4: FAILBACK MASTER
+- 2: RETRY
 
--   5: FAILBACK SLAVE
+  원격 서버와의 연결에 장애가 발생하여 재시도를 하는 단계.
 
--   6: SYNC
+- 3: FAILBACK NORMAL
 
--   7: FAILBACK EAGER
+  증분 동기화를 완료 하거나 건너뛴 후, Eager 모드 이중화가 정상적으로 시작되기 전에, 장애 시간 동안 서버 B에서 서버 A로 전송하지 못했던 트랜잭션 로그에 대한 데이터를 동기화한다. 장애로 인해 전송하지 못했던 로그를 전송할 때에는, 이중화가 Lazy 모드로 전환하여 동작하며, 로그를 모두 전송하여 이중화 갭이 없어지면, 다시 Eager 모드로 전환하여 이중화가 시작된다.
 
--   8: FAILBACK FLUSH
+- 4: FAILBACK MASTER
 
--   9: IDLE
+  증분 동기화 시, 두 서버 중  SYS_REPLICATIONS_ 메타 테이블의 REMOTE_FAULT_DETECT_TIME 컬럼 값이 더 늦은 서버가 MASTER 서버가 된다. 이 때 나타나는 값이다. MASTER의 이중화 송신자는 SLAVE가 요청한 데이터를 전송해주는 역할을 한다.
+
+- 5: FAILBACK SLAVE
+
+  증분 동기화 시, 두 서버 중  SYS_REPLICATIONS_ 메타 테이블의 REMOTE_FAULT_DETECT_TIME 컬럼 값이 더 빠른 서버가 SLAVE 서버가 된다. 이 때 나타나는 값이다. SLAVE의 이중화 송신자는 재시작 SN부터 자신의 트랜잭션 로그를 분석하여 MASTER 와 다를 수 있는 데이터를 결정하고, MASTER 로부터 해당 데이터를 가져와서 동기화를 수행한다.
+
+- 6: SYNC
+
+  지역 서버에 있는 이중화 대상 테이블의 모든 레코드를 원격 서버로 전송해서 동기화 한 후에 현재 로그부터 이중화를 진행한다.
+
+- 7: FAILBACK EAGER
+
+  FAILBACK 과정 중 생긴 이중화 갭을 없애기 위해 EAGER 모드로 이중화를 수행하는 단계.
+
+- 8: FAILBACK FLUSH
+
+  송신 쓰레드가 FAILBACK 과정의 마지막을 처리하는 단계. 
+
+- 9: IDLE
+
+  송신 쓰레드가 FAILBACK을 마치고 SLEEP하는 단계.
 
 ##### SENDER_IP
 
