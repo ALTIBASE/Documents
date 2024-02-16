@@ -211,13 +211,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------ | ------------------------------------------------------------ |
 | ![image1](media/GettingStarted/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | ![](media/Admin/image006.gif)              | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| ![](media/Admin/image008.gif)              | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| ![](media/Admin/image008.gif)              | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | ![](media/Admin/image010.gif)              | Indicates the end of a statement.                            |
 | ![](media/Admin/image012.gif)              | Indicates a manatory element.                                |
 | ![](media/Admin/image014.gif)              | Indicates an optional element.                               |
 | ![](media/Admin/image016.gif)              | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | ![](media/Admin/image018.gif)              | Indicates an optional element comprised of options.          |
-| ![](media/Admin/image020.gif)              | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| ![](media/Admin/image020.gif)              | Indicates an optional element in which multiple elements may be specified. A comma must precede all but the first element. |
 
 ##### Sample Code Conventions
 
@@ -737,7 +737,7 @@ The optimizer creates an execution plan that minimizes CPU usage when querying m
 
 When selecting the access method for memory tables, the optimizer selects the index to minimize the number of records to be read. For disk tables, however, the optimizer selects the access method that minimizes disk I/O. This is because an index scan generally guarantees better performance than a full table scan for memory tables. This is not necessarily so for disk tables. Depending on the data distribution, a full table scan can result in lesser disk I/O than an index scan. 
 
-The optimizer uses various statistical data to calculate costs. For example, the number of records in a table [T(R)], the number of different values in a column [V(R.a)], and the maximum and minimum values in a column are used to calculate the cost of a memory table query. The optimizer requires additional statistical data to calcuate the cost of a disk table query (i.e. the number of disk pages being used by a table [B(R)] and the number of available memory buffer pages [M]). 
+The optimizer uses various statistical data to calculate costs. For example, the number of records in a table [T(R)], the number of different values in a column [V(R.a)], and the maximum and minimum values in a column are used to calculate the cost of a memory table query. The optimizer requires additional statistical data to calculate the cost of a disk table query (i.e. the number of disk pages being used by a table [B(R)] and the number of available memory buffer pages [M]). 
 
 # 2. Altibase Server Tuning
 
@@ -1111,7 +1111,7 @@ CREATE VIEW V1(a1, a2) AS SELECT i1, i2 FROM T1 WHERE i2 > 20;
 SELECT * FROM V1 WHERE a1 = 1;
 ```
 
-If the optimizer concludes that a prediate pushdown will deliver the most efficient execution plan while optimizing the above query, it determines that the predicate in the WHERE clause is to be processed internally within the view as shown below. The following query expresses this concept.
+If the optimizer concludes that a predicate pushdown will deliver the most efficient execution plan while optimizing the above query, it determines that the predicate in the WHERE clause is to be processed internally within the view as shown below. The following query expresses this concept.
 
 ```
 SELECT * FROM ( SELECT i1, i2 FROM T1  WHERE i2 > 20 AND i1 =1 ) V1;
@@ -1720,7 +1720,7 @@ The comparison operator type and index availability are shown below:
 </tr>
 <tr>
 <td style="width: 127px;">
-<p>IS NOT NUL</p>
+<p>IS NOT NULL</p>
 </td>
 <td style="width: 148px;">
 <p>O</p>
@@ -1917,6 +1917,7 @@ The comparison operator type and index availability are shown below:
 </tbody>
 </table>
 <p>&nbsp;</p>
+
 [Table 3-1] Use of Comparison Operators with Indexes
 
 Comparison operator types for the GEOMETRY data type are listed below. An index defined on a GEOMETRY column can only be used if an R-Tree index exists. 
@@ -2245,7 +2246,7 @@ After choosing the access method for each table, the optimizer processes joins. 
 
 #### Determining the Join Order 
 
-The join order and process method exert the greatest influence on the performance of complicated queries. Thus, determining whether the join order and join processing method are suitable and subsequently revising themgreatly helps to improve query performance. 
+The join order and process method exert the greatest influence on the performance of complicated queries. Thus, determining whether the join order and join processing method are suitable and subsequently revising them greatly helps to improve query performance. 
 
 The optimizer takes the following steps to process joins:
 
@@ -2586,7 +2587,7 @@ The anti outer nested loop join is only used to process full outer joins. This m
 ```
 Index on T1(i1), Index on T2(i1)
 
-SELELCT * FROM T1 FULL OUTER JOIN T2 ON T1.i1 = T2.i1;
+SELECT * FROM T1 FULL OUTER JOIN T2 ON T1.i1 = T2.i1;
 ```
 
 The inverse index nested loop join is only used to process semi-joins and is likely to be used in cases where the outer table has an index and the inner table does not. Its use is more advantageous when the outer table has a relatively larger number of records than the inner table. If the inner table has an index, however, the index nested loop join is likely to be selected over other methods.
@@ -3252,7 +3253,7 @@ The following information can be obtained from plan trees.
 
 The performance of an optimized SQL statement can be verified as below.
 
--   Execute a new SQL statement and compare the results with the execution results of the prevoius SQL statement. 
+-   Execute a new SQL statement and compare the results with the execution results of the previous SQL statement. 
 -   Create a new plan tree and compare it with the previous plan tree. 
 -   Double-check the accuracy of object properties (e.g. tables and indexes). 
 
@@ -4538,7 +4539,7 @@ PARALLE-SCAN-COORDINATOR( TABLE: table_name, ACCESS: acc_num )
 | TABLE  | The name of the table being accessed      |
 | ACCESS | The number of times a record was accessed |
 
-[Table 4-14] Information on PARALLEL-SCAN-COORDINATIOR Nodes
+[Table 4-14] Information on PARALLEL-SCAN-COORDINATOR Nodes
 
 ##### Description
 
@@ -4602,11 +4603,11 @@ PARTITION-COORDINATOR( TABLE: table_name, PARALLEL, PARTITION: partition_acc_cnt
 | --------- | ------------------------------------------------------------ |
 | TABLE     | The name of the table to be accessed                         |
 | PARALLEL  | Whether or not to execute parallel queries. Only output in parallel query |
-| PARTITION | The number of partiions to be accessed                       |
+| PARTITION | The number of partitions to be accessed                      |
 | ACCESS    | The number of times that records were accessed               |
 | COST      | The estimated cost                                           |
 
-[Table 4-15] Information of the PARTITION-COORDINATIOR Node
+[Table 4-15] Information of the PARTITION-COORDINATOR Node
 
 ##### Description
 
@@ -5299,7 +5300,7 @@ Well-built statistics play an important role when the optimizer determines the m
 
 ### Managing Statistics
 
-Altibase can gather statistics both manually andor automatically.
+Altibase can gather statistics both manually and automatically.
 
 #### Stats Collection
 
@@ -5330,20 +5331,20 @@ For more detailed information about each stored procedure, please refer to DBMS 
 
 ### Auto Stats
 
-#### Inquirying Statistical Information
+#### Inquiring Statistical Information
 
 The collected statistics are stored in the V$DMBS_STATS performance view. For more information on \V$DBMS_STATS performance view, refer to the *General Reference*.
 
 #### Restrictions
 
-For the system statistics, it is recommended to collect only once after starting the Altibase server with a certain amout of load (repeating FULL SCAN and INDEX SCAN). Otherwise, some statistical values may not be measured correctly.
+For the system statistics, it is recommended to collect only once after starting the Altibase server with a certain amount of load (repeating FULL SCAN and INDEX SCAN). Otherwise, some statistical values may not be measured correctly.
 
 Because objects and data in the database are constantly changing, users need to update statistics periodically to optimize queries. It is recommended to collect the table statistics monthly if when there are many data changes.
 
 # 6. SQL Hints
 --------
 
-This chapter describes SQL hints taht let the user to change the execution plan of an SQL statement. 
+This chapter describes SQL hints that let the user to change the execution plan of an SQL statement. 
 
 ### Overview of Hints
 
@@ -5483,11 +5484,11 @@ Given the following query:
 
 #### Intermediate Result Storage Medium
 
-These hints are used to specify the storage medium in which to store temporary tables taht contain intermediate results.
+These hints are used to specify the storage medium in which to store temporary tables that contain intermediate results.
 
 -   TEMP_TBS_MEMORY: Specifies that memory temporary tables are used to store all intermediate results generated while processing the query.
     
--   TEMP_TBS_DISK: Specifies that disk temporary tables are used to store all intermediate resutls generated while processing the query.
+-   TEMP_TBS_DISK: Specifies that disk temporary tables are used to store all intermediate results generated while processing the query.
 
 TEMP_TBS_MEMORY is used to maximize performance in the case where the intermediate result set is small, whereas TEMP_TBS_DISK is used when the intermediate result set is large to save resources, despite the decrease in performance.
 
@@ -5663,7 +5664,7 @@ This is a hint used for preventing errors occurring in the four fundamental arit
 
 A function of delaying execution is provided. The execution of hierarchy, sorting, windowing, grouping, set, and distinction based upon the execution plan graphs is available regardless of a property of queries. Such a function can be applied only to the top query set.
 
--   NO DELAY: Deactivation in delaying execution of the the execution plans.
+-   NO DELAY: Deactivation in delaying execution of the execution plans.
 
 -   DELAY: Activation in delaying execution of the execution plan.
 
@@ -5691,7 +5692,7 @@ Altibase has cache areas that are shared by all sessions. These cache areas comp
     Whenever new stored procedure execution plans are created, they are stored in the stored procedure cache so that they can be shared.
     
 -   Meta Cache  
-    Meta data (information about database obiects) is stored in the meta cache so that it can be accessed quickly.
+    Meta data (information about database objects) is stored in the meta cache so that it can be accessed quickly.
 
 #### Advantages of the SQL Plan Cache
 
@@ -5707,7 +5708,7 @@ The use of the Altibase SQL Plan Cache confers the following advantages:
 
 ### Managing the SQL Plan Cache
 
-Altibase uses a plan-sharing-oriented check-in method. The SQL plan cache has a replacement policywhich considers not only which plans were most recently referred to, but also the frequency with which plans are referred to. Thus, it is necessary to modify the property according to its purpose of use..
+Altibase uses a plan-sharing-oriented check-in method. The SQL plan cache has a replacement policy which considers not only which plans were most recently referred to, but also the frequency with which plans are referred to. Thus, it is necessary to modify the property according to its purpose of use..
 
 #### SQL Plan Cache Policies 
 
@@ -5729,7 +5730,7 @@ The following statement is a control statement which uses the ALTER SYSTEM state
 -   ALTER SYSTEM RESET SQL_PLAN_CACHE;  
     Deletes unused execution plans from the SQL Plan Cache and initializes statistics.
 
-For more detailed infromation about each SQL statement, please refer to the *SQL Reference.*
+For more detailed information about each SQL statement, please refer to the *SQL Reference.*
 
 #### Statements that Use the SQL Plan Cache
 
@@ -5850,7 +5851,7 @@ The execution plan(execution plan, plan tree) of intermediate result should be s
 
 ![](media/TuningGuide/dec471996d8b05882e9527beab632fd9.png)
 
-###### **Excution Plan with Result Cache enabled**
+###### **Execution Plan with Result Cache enabled**
 
 | Execution Plan    | Contents                 |
 | ----------------- | ------------------------ |
