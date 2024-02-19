@@ -50,7 +50,6 @@ Altibase® Administration
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
@@ -304,7 +303,7 @@ NCHAR and NVARCHAR are Unicode character types. The available maximum length of 
         <th>Precision</th>
         <th>Scale</th>
         <th>Size (bytes)</th>
-        <th>Remakrs</th>
+        <th>Remarks</th>
     </tr>
     <tr>
         <td>NUMERIC</td>
@@ -404,6 +403,7 @@ NCHAR and NVARCHAR are Unicode character types. The available maximum length of 
 </table>
 
 
+
 ###### Example 1
 
 Fixed-Point Numbers Size Calculation: 
@@ -492,7 +492,7 @@ length = M if the input value is stored in a fixed area
     </table>
 
 
-**Geomerty Data Type**
+**Geometry Data Type**
 
 | Type     | Length       | Size (byte) |
 | -------- | ------------ | ----------- |
@@ -560,7 +560,7 @@ I1
 Therefore, implicit data type conversion follows the rules below:
 
 - When comparing numeric or character data types or arithmetic operations, the character data types are converted to numeric data types.
-- When comparing the date data type with the character data type, the character data type is converted to the date data type and the comparison opertion is performed.
+- When comparing the date data type with the character data type, the character data type is converted to the date data type and the comparison operation is performed.
 - Operation that cannot convert data types are invalidated.
 - The argument used in the function is converted to the data type of the argument defined in the function.
 - If a character data type or numeric data type that uses decimal precisions to a floating-point data type that uses binary precision is converted
@@ -691,9 +691,9 @@ The following data types can be specified as VARIABLE: CHAR, VARCHAR, NCHAR, NVA
 
 #### IN ROW Clause
 
-This clause pertains only to column data that are to be stored in a variable area. If the FIXED and IN ROW clause are both specified when a table is created, the IN ROW clause is ignored. When data are entered into a VARIABLE column, if the length of the data is less than or equal to the value specified using the IN ROW clause, the data will be stored in the fixed area, whereas if the data length is greated than the value specified using the IN ROW clause, the data will be sotred in the variable area.
+This clause pertains only to column data that are to be stored in a variable area. If the FIXED and IN ROW clause are both specified when a table is created, the IN ROW clause is ignored. When data are entered into a VARIABLE column, if the length of the data is less than or equal to the value specified using the IN ROW clause, the data will be stored in the fixed area, whereas if the data length is greater than the value specified using the IN ROW clause, the data will be stored in the variable area.
 
-Here, "data length" does not mean the length of the input data, but the length of the data to be sotred in memory or on disk, which will be somewhat larger. For example, when a column is defined as "VARCHAR(400) in row 200", data will be inserted into the fixed area if the length of the data that is input is smaller than or equal to 198, because 2 additional bytes are required when storing the data.
+Here, "data length" does not mean the length of the input data, but the length of the data to be stored in memory or on disk, which will be somewhat larger. For example, when a column is defined as "VARCHAR(400) in row 200", data will be inserted into the fixed area if the length of the data that is input is smaller than or equal to 198, because 2 additional bytes are required when storing the data.
 
 The default size of lob data stored in the fixed area can be specified using the MEMORY_LOB_COLUMN_IN_ROW_SIZE property for memory tables and the DISK_LOB_COLUMN_IN_ROW_SIZE for disk tables. Additionally, the default size for columns containing other types of data with the VARIABLE option can be specified using the MEMORY_VARIABLE_COLUMN_IN_ROW_SIZE property. 
 
@@ -724,7 +724,7 @@ CHAR [(size)] [ FIXED | VARIABLE [IN ROW size] ]
 
 ##### Description
 
-Tihs is a character data type that has a fixed length equal to the specified size. If an input value is shorter than the specified size, the remaining area is filled with blank spaces.
+This is a character data type that has a fixed length equal to the specified size. If an input value is shorter than the specified size, the remaining area is filled with blank spaces.
 
 The default size of CHAR column is 1byte, and its maximum length is 32000 bytes.
 
@@ -1003,7 +1003,7 @@ Commas can be used multiple times.
 
 ###### Restriction
 
-A comman cannot be placed at the end of a number, to the right of a decimal point, or at the very beginning of a number.
+A comma cannot be placed at the end of a number, to the right of a decimal point, or at the very beginning of a number.
 
 ###### Example
 
@@ -1460,7 +1460,7 @@ The range of dates that can be stored depends on the system. Typically, the date
 
 The date value can be displayed in various formats using a date format string.
 
-#### The Datetime Formal Model
+#### The Datetime Format Model
 
 The date data type is managed as numerical data d it is internally managed by the database. However, it can be displayed with character strings with the conversion function TO_CHAR or TO_DATE. The user should specify a character string of the date data type in accordance with a report format when using conversion functions.
 
@@ -2007,7 +2007,7 @@ TO_CHAR ( '28-DEC-1980', 'WW' )
 
 This date type indicates the week of the year regardless of day of the week. The first week begins with the 1st of January distinguished by a 7-days unit (1st to 53th week). 
 
-This element cannot be used within the TO_DATE funcion.
+This element cannot be used within the TO_DATE function.
 
 ###### Example
 
@@ -2239,11 +2239,11 @@ Represents a year according to the ISO 8601 standard. The start of the week is M
 
 IYYYY returns the ISO standard year. 
 
-IYY returns the last three difigts of the ISO standard year. 
+IYY returns the last three digits of the ISO standard year. 
 
 IY returns the last two digits of the ISO standard year. 
 
-I returns the last 1 digit of the ISO startdard year.
+I returns the last 1 digit of the ISO standard year.
 
 This cannot be used with thee TO_DATE function.
 
@@ -2460,7 +2460,7 @@ The LOB data type is divided into the Binary Large Object (BLOB) type, which is 
 
 The LOB data type provided with Altibase has the following features:
 
-- Data Sotrage Functions
+- Data Storage Functions
 - Partial Read
 - Disk LOB Partitioning
 
@@ -2502,7 +2502,7 @@ BLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### Description
 
-BLOB is a binary data type that can vary in length up to 4GB-1byte and is intedned for use in storing large amounts of binary data.
+BLOB is a binary data type that can vary in length up to 4GB-1byte and is intended for use in storing large amounts of binary data.
 
 For more detailed information about the FIXED and VARIABLE clauses, please refer to the "FIXED/VARIABLE OPTIONS" and "IN ROW Clauses" sections above.
 
@@ -2545,7 +2545,7 @@ The only geometry data type that is defined and supported for use with SQL in Al
 - MultiLineString
 - MultiPoint
 
-For more detailed information information about the geometry datatype, please refer to the *Spatial SQL Refernce*.
+For more detailed information about the geometry datatype, please refer to the *Spatial SQL Refernce*.
 
 # 2. Altibase Properties
 
@@ -4315,7 +4315,7 @@ Read-Write, Single Value
 
 ##### Range
 
-[8192, 2<sup>64</sup>-1]
+[8 * 1024 * 10, 2<sup>64</sup>-1]
 
 ##### Description
 
@@ -4492,7 +4492,7 @@ Unsigned Integer
 
 Read-Write, Single Value
 
-##### Rnage
+##### Range
 
 [128, 12800]
 
@@ -4798,7 +4798,7 @@ Read-Only, Single Value
 
 ##### Description
 
-Ths property sets the default column size, in bytes, when LOB type data are stored directly in disk tables. When data are entered into a LOB data type column, if the data length is smaller or the same as the value specified here, they are saved in table segment, whereas if the data are larger than this value, they are saved in a LOB segment. This property pertains only to disk tables, and has no effect on how memory tables are managed.
+This property sets the default column size, in bytes, when LOB type data are stored directly in disk tables. When data are entered into a LOB data type column, if the data length is smaller or the same as the value specified here, they are saved in table segment, whereas if the data are larger than this value, they are saved in a LOB segment. This property pertains only to disk tables, and has no effect on how memory tables are managed.
 
 For more detailed information about LOB type data, please refer to Chapter1: Data Types.
 
@@ -5251,7 +5251,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property sets the default column size, in bytes, when the variable type data are stored directly in memory tables. When data are entered into the variable type column, if the data length is smaller or the same as the value specified here, they are saved in a fixed amount of area, whereas if the data are arger than this value, they are saved in a variable area. This property pertains only to memory tables, and has no effect on how disk tables are managed. 
+This property sets the default column size, in bytes, when the variable type data are stored directly in memory tables. When data are entered into the variable type column, if the data length is smaller or the same as the value specified here, they are saved in a fixed amount of area, whereas if the data are larger than this value, they are saved in a variable area. This property pertains only to memory tables, and has no effect on how disk tables are managed. 
 
 For more detailed information about the IN ROW clause, please refer to Chapter1: Data Types.
 
@@ -6205,7 +6205,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This specifies the initial size, in bytes, of a data file when a user-defined temporary data file is created or added to a user temporary tablespace. If no initial size is specified, the default value specifed here is used.
+This specifies the initial size, in bytes, of a data file when a user-defined temporary data file is created or added to a user temporary tablespace. If no initial size is specified, the default value specified here is used.
 
 #### USER_TEMP_FILE_MAX_SIZE (Unit: byte)
 
@@ -6980,7 +6980,7 @@ Read-Write, Single Value
 
 This property indicates the number of redo pages that the server reads when performing recovery after being restarted. 
 
-When the flusher performs checkpoint flushing while the system is running, if the number of dirty pages remaining in the buffer is greater than the value saved in this property, the oldest dirty pages, equal in number to the difference therebetween, are written to disk. 
+When the flusher performs checkpoint flushing while the system is running, if the number of dirty pages remaining in the buffer is greater than the value saved in this property, the oldest dirty pages, equal in number to the difference there between, are written to disk. 
 
 This value is important in determining the recovery time when the server is restarted. Because the number of pages to be flushed increases as this value is decreased, the recovery time when the server is restarted can be reduced.
 
@@ -7435,7 +7435,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property selects the system call used to creat the log file. Optionally, the value written to the awrite utility can be used to help improve performance. For more detailed information about the awrite utility, please refer to the *Utilities Manual*.
+This property selects the system call used to create the log file. Optionally, the value written to the awrite utility can be used to help improve performance. For more detailed information about the awrite utility, please refer to the *Utilities Manual*.
 
 0 : write() system call
 
@@ -7718,7 +7718,7 @@ The number of collectable pages range from 1 to 10 as described below. If it is 
 
 This property can be changed by using the ALTER SESSION and SYSTEM statements while the system is running.
 
-| Value            | Pages        | Collection Status for gathering statistics (ON/OFf) |
+| Value            | Pages        | Collection Status for gathering statistics (ON/OFF) |
 | ---------------- | ------------ | --------------------------------------------------- |
 | 0(Default value) | 0            | OFF                                                 |
 | 1                | 32           | ON                                                  |
@@ -8345,7 +8345,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property inidicates the number of hash table buckets in a SQL plan cache.
+This property indicates the number of hash table buckets in a SQL plan cache.
 
 #### SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO (Unit: percentage)
 
@@ -8367,7 +8367,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property inidicates the percentage of a hot area in an LRU list in a SQL plan cache. A HOT area in an LRU list is a separate portion of an LRU list in a SQL plan cache in which plans that are referred to frequently are saved. 
+This property indicates the percentage of a hot area in an LRU list in a SQL plan cache. A HOT area in an LRU list is a separate portion of an LRU list in a SQL plan cache in which plans that are referred to frequently are saved. 
 
 This property can be changed using the ALTER SYSTEM statement while the system is running.
 
@@ -9541,7 +9541,7 @@ Read-Write, Single Value
 
 ##### Range
 
-The vlue that exists in the V\$TIME_ZONE_NAMES performance view.
+The value that exists in the V\$TIME_ZONE_NAMES performance view.
 
 ##### Description
 
@@ -9669,7 +9669,7 @@ Read-Write, Single Value
 
 ##### Default Value
 
-The USER_LOCK_REQUEST_LIMIT sets number of times the user lock that one session can request. The value of this property can be modified through the ALTER SYSTEM statement during the operation of Altibase..
+The USER_LOCK_REQUEST_LIMIT sets number of times the user lock that one session can request. The value of this property can be modified through the ALTER SYSTEM statement during the operation of Altibase.
 
 #### USER_LOCK_REQUEST_TIMEOUT (Unit: second)
 
@@ -10499,7 +10499,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies thresholds usable in disk after the snapshot settings (BEGING SNAPSHOT).
+This property specifies thresholds usable in disk after the snapshot settings (BEGIN SNAPSHOT).
 
 It verifies what percentage of the SYS_UNDO_FILE_MAX_SIZE property has been used by the disk undo tablespace up to now, and if it exceeds specified threshold, the snapshot is automatically stopped.
 
@@ -10783,9 +10783,9 @@ Read-Write, Single Value
 
 This property indicates whether DDL is replicated during replication.
 
-0 : Do not allow DDL replication during replication. When executing DDL, it is executed only in the replicaiton local server.
+0 : Do not allow DDL replication during replication. When executing DDL, it is executed only in the replication local server.
 
-1 : Allow DDL replication during replication. When executing DDL, DDL is replicated to the replicaiton remote server.
+1 : Allow DDL replication during replication. When executing DDL, DDL is replicated to the replication remote server.
 
 This property can be changed using the ALTER SYSTEM or ALTER SESSION statement while Altibase is running.
 
@@ -10809,7 +10809,7 @@ Read-Write, Single Value
 
 ##### Description
 
-If the execution time of DDL copy exceeds the number of seconds set in this property, the execution of that statement is canceled for both the replicaiton local and remote servers.
+If the execution time of DDL copy exceeds the number of seconds set in this property, the execution of that statement is canceled for both the replication local and remote servers.
 
 Timeout value is measured based on the replication local server that performs DDL replication.
 
@@ -12757,7 +12757,7 @@ Read-Only, Single Value
 
 ##### Description
 
-THis property specifies the maximum size of the message file of the connect process in the database link.
+This property specifies the maximum size of the message file of the connect process in the database link.
 
 #### DUMP_MSGLOG_COUNT
 
@@ -13255,7 +13255,7 @@ Read-Only, Single value
 
 ##### Description
 
-This property specifies the amount of space to be reseroved on disk to store the message file of the query processor.
+This property specifies the amount of space to be reserved on disk to store the message file of the query processor.
 
 #### QP_MSGLOG_SIZE (Unit: byte)
 
@@ -13477,7 +13477,7 @@ Read-Only, Single value
 
 ##### Description
 
-This property specifies the amount of space to be reserved on disk for storing the trace log file for a replication collison.
+This property specifies the amount of space to be reserved on disk for storing the trace log file for a replication collision.
 
 #### RP_CONFLICT_MSGLOG_SIZE (Unit: bytes)
 
@@ -13589,7 +13589,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the amount of space to be reserved on the disk for storage of the replicaiton message file.
+This property specifies the amount of space to be reserved on the disk for storage of the replication message file.
 
 #### RP_MSGLOG_SIZE (Unit: byte)
 
@@ -13883,7 +13883,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property specifies the size in advance to secure the space of the trace log file on the disk where warning messsages, etc., gneerated when starting the server can be recorded.
+This property specifies the size in advance to secure the space of the trace log file on the disk where warning messages, etc., generated when starting the server can be recorded.
 
 #### TRCLOG_DETAIL_PREDICATE
 
@@ -14175,7 +14175,7 @@ This property specifies the execution level of the global transaction. When this
 
 * 2:Two-Phase Commit (2PC) Level. 
 
-  At this level, the 2PC protocol is supported to ensure ttransaction consistency of database systems that participating in one global transaction. If a global transaction begines, this property cannot be changed until the end of the transaction.
+  At this level, the 2PC protocol is supported to ensure transaction consistency of database systems that participating in one global transaction. If a global transaction begins, this property cannot be changed until the end of the transaction.
 
 #### DBLINK_RECOVERY_MAX_LOGFILE
 
@@ -14475,7 +14475,7 @@ None
 
 ##### Description
 
-This is a socket file's path created for Altibase server to connect with the external procedure agent. If the external procedure uses, the session creates a socket file with socket_sessionID when creating an external procedure agent. The socket file is automatically deleted when the session is colsed normally. And, be careful not to delete this file.
+This is a socket file's path created for Altibase server to connect with the external procedure agent. If the external procedure uses, the session creates a socket file with socket_sessionID when creating an external procedure agent. The socket file is automatically deleted when the session is closed normally. And, be careful not to delete this file.
 
 ### Account Security Properties
 
@@ -15328,7 +15328,7 @@ Read-Write, Single Value
 
 This property repeatedly executes recursive queries for specified number of times(level). 
 
-The value of this property can be modified through ALTHER SESSION statement during the Altibase operation.
+The value of this property can be modified through ALTER SESSION statement during the Altibase operation.
 
 #### REMOTE_SYSDBA_ENABLE
 
