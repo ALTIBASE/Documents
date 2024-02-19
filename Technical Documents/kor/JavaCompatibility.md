@@ -38,7 +38,7 @@
 
 ### Altibase Server Side
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 19 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 21 |
 | ------------------------------------------------------------ | :----: | :----: | :----: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
 | **altiMon**                                                  |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
 | **Adapter for JDBC**                                         |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
@@ -48,7 +48,7 @@
 
 ### Altibase JDBC 드라이버
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 ~ Java 7 | Java 8 | Java 9 ~ Java 10 | Java 11 | Java 12 | Java 17 ~ 19 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 ~ Java 7 | Java 8 | Java 9 ~ Java 10 | Java 11 | Java 12 | Java 17 ~ 21 |
 | :----------------------------------------------------------- | :----: | :-------------: | :----: | :--------------: | :-----: | :-----: | :----------: |
 | **Altibase.jar**                                             |   x    |        x        |   ●    |        ●         |    ●    |    ●    |      ●       |
 
