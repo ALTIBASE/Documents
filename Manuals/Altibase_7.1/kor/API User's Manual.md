@@ -136,7 +136,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [CheckServer API 사용](#checkserver-api-%EC%82%AC%EC%9A%A9)
   - [CheckServer API 데이터 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
   - [CheckServer API](#checkserver-api)
-- [6..NET Data Provider](#6net-data-provider)
+- [6.NET Data Provider](#6net-data-provider)
   - [Altibase ADO.NET](#altibase-adonet)
 
 <br>
@@ -3122,7 +3122,7 @@ altibase_check_server의 예제를 참고한다.
 
 <br/>
 
-# 6..NET Data Provider
+# 6.NET Data Provider
 
 ## Altibase ADO.NET
 
@@ -3205,7 +3205,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
 3️⃣ 프로젝트를 빌드한다.
 
 ~~~
-[user@ /] donet build demo.csproj
+[user@ /] dotnet build demo.csproj
 ~~~
 
 
