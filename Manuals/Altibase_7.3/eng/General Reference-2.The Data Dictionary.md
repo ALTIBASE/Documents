@@ -11040,7 +11040,7 @@ This view displays information related to message logging, for use in leaving re
 
 ##### MODULE_NAME
 
-This is the name of an Altibase module. At present, Altibase consists of the SERVER, QP, RP and SM modules, each of which can perform message logging.
+This is the name of an Altibase module. At present, Altibase consists of the CM, DK, JOB, LB, MM, QP, RP, RP_CONFLICT, SERVER, SM, SNMP, and ST modules, each of which can perform message logging.
 
 ##### TRCLEVEL
 
@@ -11112,19 +11112,20 @@ SERVER 99 SUM 7 Total Sum of Trace Log Values
 
 #### Usage
 
-Altibase provides 6 messages logging properties such as the SERVER, SM, QP, RP, RP_CONFLICT, DR as follows.
+Altibase provides 12 messages logging properties such as the SERVER, SM, QP, RP, RP_CONFLICT, DR as follows.
 
--   SERVER_MSGLOG_FLAG: Communication and server messages
-
--   SM \_MSGLOG_FLAG: Storage manager-related messages
-
--   QP_MSGLOG_FLAG:: Query processor-related messages
-
--   RP_MSGLOG_FLAG: Replication-related messages
-
--   RP_CONFLICT_MSGLOG_FLAG: Replication conflict-related message
-
+-   CM_MSGLOG_FLAG: Communication-related messages
+-   DK_MSGLOG_FLAG: Database Link-related messages
+-   JOB_MSGLOG_FLAG: JOB Scheduler-related messages
 -   LB_MSGLOG_FLAG: Service thread action-related messages
+-   MM_MSGLOG_FLAG: Main module-related messages
+-   QP_MSGLOG_FLAG:: Query processor-related messages
+-   RP_MSGLOG_FLAG: Replication-related messages
+-   RP_CONFLICT_MSGLOG_FLAG: Replication conflict-related message
+-   SERVER_MSGLOG_FLAG: Communication and server messages
+-   SM \_MSGLOG_FLAG: Storage manager-related messages
+-   SNMP_MSGLOG_FLAG: SNMP service-related messages
+-   ST_MSGLOG_FLAG: Spatial data process module-related messages
 
 Each property can be set to 32bits. Refer to V$TRACELOG for more information on each message type and details.
 
