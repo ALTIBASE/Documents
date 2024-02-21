@@ -336,7 +336,7 @@ It is recommended for those reading this manual possess the following background
 This manual has been organized as follows:
 
 - Chapter 1. The Data Dictionary  
-  This chapter describes the specification of the Altibase data dictionary. The data dictionary of Altibase consists of meta tables, in which information about objects is stored, and the process tables, in which information about processes is stroed.
+  This chapter describes the specification of the Altibase data dictionary. The data dictionary of Altibase consists of meta tables, in which information about objects is stored, and the process tables, in which information about processes is stored.
 - Chapter 2. Sample Schema  
   This chapter describes the example table information, ER diagram, and sample data.
 
@@ -1444,7 +1444,7 @@ This is the meta table for managing index partitions.
 | PARTITION_MIN_VALUE  | VARCHAR(4000) | Reserved for future use                                      |
 | PARTITION_MAX_VALUE  | VARCHAR(4000) | Reserved for future use                                      |
 | TBS_ID               | INTEGER       | The tablespace identifier                                    |
-| CREATED              | DATE          | The date and time at which the index parition is created     |
+| CREATED              | DATE          | The date and time at which the index partition is created     |
 | LAST_DDL_TIME        | DATE          | The time at which the index partition was most recently changed using a DDL statement |
 
 #### Column Information
@@ -1498,7 +1498,7 @@ This meta table contains information about the stored functions on which the fun
 | RELATED_USER_ID   | INTEGER      | The identifier of the owner of the stored function referenced by the index |
 | RELATED_PROC_NAME | VARCHAR(128) | ) The name of the stored function referenced by the index    |
 
-#### Column Infomation
+#### Column Information
 
 ##### USER_ID
 
@@ -1662,11 +1662,11 @@ This indicates how many times a registered procedure has been executed since a J
 
 ##### ERROR_CODE
 
-This indicates the error code displaed if a procedure failed when the las JOB was executed. If succeeds, it is NULL.
+This indicates the error code displayed if a procedure failed when the last JOB was executed. If succeeds, it is NULL.
 
 ##### IS_ENABLE
 
-This indicates the possiblity of job execution in the job scheduler.
+This indicates the possibility of job execution in the job scheduler.
 
 - T: Executable
 - F: Not executable
@@ -1798,7 +1798,7 @@ This is the identifier for the view automatically created for the maintenance of
 
 ##### REFRESH_TYPE
 
-This is the value taht indicates the refresh time of the materialized view.
+This is the value that indicates the refresh time of the materialized view.
 
 - C: COMPLETE
 - F: FAST
@@ -1819,7 +1819,7 @@ This is the date and time that the materialized view is created.
 
 This is the date and time that the last alterations to the materialized view were made.
 
-##### LAST_REFERESH_TIME
+##### LAST_REFRESH_TIME
 
 This is the date and time that the materialized view was refreshed lastly.
 
@@ -2912,7 +2912,7 @@ This is the user-defined replication name. It corresponds to a REPLICATION_NAME 
 
 ##### LFG_ID
 
-This is the identifier for the LFG which defalut value is ‘0’.
+This is the identifier for the LFG which default value is ‘0’.
 
 ##### PATH
 
@@ -3571,7 +3571,7 @@ This is a meta table for the management of table partitions.
 | PARTITION_ACCESS           | CHAR(1)       | The data access mode for the partition                       |
 | REPLICATION_COUNT          | INTEGER       | The number of replication objects related to this partition  |
 | REPLICATION_RECOVERY_COUNT | INTEGER       | The number of replication objects which have enabled the recovery option for this partition |
-| CREATED                    | DATE          | The date and time at which the parition is created           |
+| CREATED                    | DATE          | The date and time at which the partition is created           |
 | LAST_DDL_TIME              | DATE          | The time at which the partition was most recently changed using a DDL statement |
 
 #### Column Information
@@ -3963,9 +3963,9 @@ This is a meta table which records the information of database user and it can o
 | PASSWORD_LIMIT_FLAG      | CHAR(1)      | Indicates whether password management policy is used. T: Enable password management policy F: Disable password management policy |
 | FAILED_LOGIN_ATTEMPTS    | INTEGER      | The maximum number of failed login attempts                  |
 | FAILED_LOGIN_COUNT       | INTEGER      | The login failed count                                       |
-| PASSWORD_LOCK_TIME       | INTEGER      | The amount of time taht must elapse after an account is locked once and then released again |
+| PASSWORD_LOCK_TIME       | INTEGER      | The amount of time that must elapse after an account is locked once and then released again |
 | PASSWORD_EXPIRY_DATE     | DATE         | The password expiration date                                 |
-| PASSWORD_LIFE_TIME       | INTEGER      | The passwrod expiration time                                 |
+| PASSWORD_LIFE_TIME       | INTEGER      | The password expiration time                                 |
 | PASSWORD_GRACE_TIME      | INTEGER      | The grace time after password expiration                     |
 | PASSWORD_REUSE_DATE      | DATE         | The date when the same password will be reused               |
 | PASSWORD_REUSE_TIME      | INTEGER      | Not used                                                     |
@@ -4196,7 +4196,7 @@ This is a meta table that contains information about tables that have GEOMETRY c
 
 ### SYS_GEOMETRY_COLUMNS_
 
-This meta table is used to manage and specify SRID in the GEOMETRY column. The synonym of this meta tble is GEOMETRY_COLUMNS_.
+This meta table is used to manage and specify SRID in the GEOMETRY column. The synonym of this meta table is GEOMETRY_COLUMNS_.
 
 | Column name       | Type         | Description                                      |
 | ----------------- | ------------ | ------------------------------------------------ |
@@ -4352,7 +4352,7 @@ Performance views are identified by the prefix V$. The following table lists all
 | V\$SQLTEXT                            | Information about the text of all SQL statements executed in the system |
 | V\$SQL_PLAN_CACHE                     | Information about the current status and statistical information about the SQL Plan Cache |
 | V\$SQL_PLAN_CACHE_PCO                 | Information about Plan Cache objects registered in the SQL Plan Cache |
-| V\$SQL_PLAN_CACHE_SQLTEXT             | Information about SQL statements registered in the SQL Plan Cach |
+| V\$SQL_PLAN_CACHE_SQLTEXT             | Information about SQL statements registered in the SQL Plan Cache |
 | V\$STABLE_MEM_DATAFILES               | Information about the paths of data file(s)                  |
 | V\$STATEMENT                          | Information about statements for all current Altibase sessions |
 | V\$STATNAME                           | Information about the name and status of the system and sessions |
@@ -4472,7 +4472,7 @@ This indicates the archive log mode of the database.
 
 ### V\$BACKUP_INFO
 
-This view displays information about all incremenetal backups performed until now.
+This view displays information about all incremental backups performed until now.
 
 | Column name                    | Type      | Description                       |
 | ------------------------------ | --------- | --------------------------------- |
@@ -5322,7 +5322,7 @@ Displays the current state of the global transaction.
 
 - 0(NONE): No transaction exists.
 - 1(BEGIN): The global transaction has started.
-- 2(PREPARE_READY): The global tranaction has started, however, no remote transaction under execution exists.
+- 2(PREPARE_READY): The global transaction has started, however, no remote transaction under execution exists.
 - 3(PREPARE_REQUEST): The AltiLinker process has been requested to PREPARE at the Simple Transaction Commit level.
 - 4(PREPARE_WAIT): The global transaction is waiting for all remote transactions to complete PREPARE at the Simple Transaction Commit level.
 - 5(PREPARED): All remote transactions have completed PREPARE.
@@ -5407,7 +5407,7 @@ Indicates whether the linker session is a Linker Control Session or a Linker Dat
 
 ### V\$DBLINK_NOTIFIER_TRANSACTION_INFO
 
-This view displays information on hte distributed transaction AltiLinker is processing.
+This view displays information on the distributed transaction AltiLinker is processing.
 
 | Column name           | Type        | Description                                                  |
 | --------------------- | ----------- | ------------------------------------------------------------ |
@@ -5456,7 +5456,7 @@ This view displays information about information of the query occurred in the re
 
 ##### REMOTE_TRANSACTION_ID
 
-This is the identifier of the transaction which occurred on the remote server. This identifier is not the transaction identifier which was actually created on the remote server, but is an identifier autonomously granted by AltiLinker while executing a transaction through a remote server. Since this identifier is created for managemenet purposes, the value is of little significance.
+This is the identifier of the transaction which occurred on the remote server. This identifier is not the transaction identifier which was actually created on the remote server, but is an identifier autonomously granted by AltiLinker while executing a transaction through a remote server. Since this identifier is created for menagement purposes, the value is of little significance.
 
 ##### STATEMENT_ID
 
@@ -6104,7 +6104,7 @@ This is the process ID of the Agent Process.
 
 ##### SOCK_FILE
 
-This is the path of a socket used for communicaiton between processes.
+This is the path of a socket used for communication between processes.
 
 ##### CREATED
 
@@ -6274,7 +6274,7 @@ In order to save pages to disk, their contents are saved in an internal buffer (
 
 ##### REPLACE_FLUSH_JOBS
 
-This is the cumulative number of replacement flush opeartions performed.
+This is the cumulative number of replacement flush operations performed.
 
 ##### REPLACE_FLUSH_PAGES
 
@@ -6523,7 +6523,7 @@ Indicates whether or not the session is in AUTOCOMMIT mode.
 
 ##### REPLICATION_MODE
 
-The replicaiton mode.
+The replication mode.
 
 - 0: DEFAULT
 - 16: NONE
@@ -6537,8 +6537,8 @@ The transaction mode.
 
 ##### COMMIT_WRITE_WAIT_MODE
 
-- 0: when commiting, do not wait for the log to be written to disk
-- 1: when commiting, wait for the log to be written to disk
+- 0: when  committing, do not wait for the log to be written to disk
+- 1: when  committing, wait for the log to be written to disk
 
 ##### OPTIMIZER_MODE
 
@@ -7362,7 +7362,7 @@ This is the number of free pages in the tablespace.
 
 This indicates how the tablespace is loaded into memory. It can have the following values: 
 
-| Loading Metho           | Value | Description                                                  |
+|  Loading Method           | Value | Description                                                  |
 | ----------------------- | ----- | ------------------------------------------------------------ |
 | RESTORE_TYPE_DYNAMIC    | 0     | The tablespace is loaded into dynamic memory.                |
 | RESTORE_TYPE_SHM_CREATE | 1     | The shared memory is created and the tablespace is loaded into shared memory. |
@@ -7726,7 +7726,7 @@ This shows the difference between the most recently created log record and the l
 | START_FLAG   | BIGINT      | Startup options                                              |
 | REP_LAST_SN  | BIGINT      | The sequence number of the last log record                   |
 | REP_SN       | BIGINT      | The sequence number of the log record currently being sent   |
-| REP_GAP      | BIGINT      | The actual size of the log file corresponding to the replication gap<br />(Unit: Unit set in property [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/GeneralReference_2_7.1_Eng.md#replication_gap_unit-unit-byte)) |
+| REP_GAP      | BIGINT      | The actual size of the log file corresponding to the replication gap<br />(Unit: Unit set in property [REPLICATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_gap_unit-unit-byte) |
 | REP_GAP_SIZE | BIGINT      | The actual size of the log file corresponding to the replication gap<br />(bytes) |
 | READ_LFG_ID  | INTEGER     | The log file group currently being read (Not used, 0)        |
 | READ_FILE_NO | INTEGER     | The log file number currently being read                     |
@@ -7794,7 +7794,7 @@ This view shows the difference between the most recently created log record and 
 | CURRENT_TYPE | VARCHAR(9)  | The type of the replication Sender thread                    |
 | REP_LAST_SN  | BIGINT      | The last log file number                                     |
 | REP_SN       | BIGINT      | The sequence number of the log record currently being sent   |
-| REP_GAP      | BIGINT      | The actual size of the log file corresponding to the replication gap<br />(Unit: unit set in property [REPLCIATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/GeneralReference_2_7.1_Eng.md#replication_gap_unit-unit-byte)) |
+| REP_GAP      | BIGINT      | The actual size of the log file corresponding to the replication gap<br />(Unit: unit set in property [REPLCIATION_GAP_UNIT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#replication_gap_unit-unit-byte) |
 | REP_GAP_SIZE | BIGINT      | The actual size of the log file corresponding to the replication gap<br />(bytes) |
 | READ_LFG_ID  | INTEGER     | The identifier of the log file group currently being read    |
 | READ_FILE_NO | INTEGER     | The log file number currently being read                     |
@@ -7989,7 +7989,7 @@ This is the number of DELETE log records that were successfully applied to the l
 
 This number is not dependent on whether statements are committed or rolled back. In other words, if a statement is rolled back, this number is not decreased.
 
-##### PARALLE_ID
+##### PARALLEL_ID
 
 Always displays 0. 
 
@@ -7997,7 +7997,7 @@ In eager mode, this is the same Receiver as the replication Receiver whose PARAL
 
 ##### SQL_APPLY_TABLE_COUNT
 
-This is the number of tables running in SQL refleciton mode.
+This is the number of tables running in SQL reflection mode.
 
 ##### APPLIER_INIT_BUFFER_USAGE
 
@@ -8011,7 +8011,7 @@ This view shows information about columns that are replication targets used by t
 | -------------- | ------------ | --------------------------- |
 | REP_NAME       | VARCHAR(40)  | The name of the replication |
 | USER_NAME      | VARCHAR(128) | The user name               |
-| TABLE_NAME     | VARCHAR(128) | The table nam               |
+| TABLE_NAME     | VARCHAR(128) | The table name               |
 | PARTITION_NAME | VARCHAR(128) | The name of the partition   |
 | COLUMN_NAME    | VARCHAR(128) | The column name             |
 | APPLY_MODE     | INTEGER      | 0: Binary mode 1: SQL mode  |
@@ -8484,7 +8484,7 @@ This is the number of log records that have been read and sent by the Sender thr
 
 #### REPL_MODE
 
-This indicates the replication mode set by the user. The type of replicaiton mode is LAZY or EAGER.
+This indicates the replication mode set by the user. The type of replication mode is LAZY or EAGER.
 
 For more detailed information about the replication mode, please refer to the *Replication Manual.*
 
@@ -8492,7 +8492,7 @@ For more detailed information about the replication mode, please refer to the *R
 
 This represents the replication mode in operation and may be different from REPL_MODE.
 
-When the replication mdoe is set to EAGER, if there is a replication gap due to a failure, replication will be operate in LAZY mode.
+When the replication mode is set to EAGER, if there is a replication gap due to a failure, replication will be operate in LAZY mode.
 
 Otherwise, it is the same as the value of REPL_MODE.
 
@@ -9184,7 +9184,7 @@ The V$SESSION represents information on a client session created in Altibase.
 | CLIENT_INFO                        | VARCHAR(128) | The information of accessed client application               |
 | MODULE                             | VARCHAR(128) | The name of a module in a procedure which is currently being executed. |
 | ACTION                             | VARCHAR(128) | The action status of a procedure currently being executed.   |
-| REPLICATION_DDL_SYNC               | INTEGER      | Wheter to replicate DDL during replication                   |
+| REPLICATION_DDL_SYNC               | INTEGER      | Whether to replicate DDL during replication                  |
 | REPLICATION_DDL_TIMELIMIT          | BIGINT       | See below                                                    |
 | MESSAGE_CALLBACK                   | VARCHAR(7)   | The client message callback registration status              |
 
@@ -9373,7 +9373,9 @@ This indicates the optimization mode that has been set for the session.
 
 -   1:  the optimization mode is rule-based 
 
--   0:  the optimization mode is cost-baseCURRENT_STMT_ID
+-   0:  the optimization mode is cost-base
+
+##### CURRENT_STMT_ID
 
 This indicates the identifier of the statement currently being executed.
 
@@ -9465,11 +9467,11 @@ The value of the MAX_STATEMENTS_PER_SESSION is the default value.
 
 ##### SSL_CERTIFICATE_SUBJECT
 
-This is not displayed if client authentication has been ommitted (i.e. if the value of the SSL_CLIENT_AUTHENTICATION property is 0). 
+This is not displayed if client authentication has been omitted (i.e. if the value of the SSL_CLIENT_AUTHENTICATION property is 0). 
 
 ##### SSL_CERTIFICATE_ISSUER
 
-This is not displayed if client authentication has been ommitted (i.e. if the value of the SSL_CLIENT_AUTHENTICATION property is 0). 
+This is not displayed if client authentication has been omitted (i.e. if the value of the SSL_CLIENT_AUTHENTICATION property is 0). 
 
 ##### CLIENT_INFO
 
@@ -9487,18 +9489,18 @@ This is information on the action status of a procedure currently being executed
 
 This indicates whether to allow DDL replication.
 
-- 0: DDL replication is not supported during replicaiton
-- 1: DDL replicaiton is supported during replication.
+- 0: DDL replication is not supported during replication
+- 1: DDL replication is supported during replication.
 
 ##### REPLICATION_DDL_TIMEOUT
 
 This indicates DDL replication execution timeout value through replication of the current session.
 
-The excess value is measured based on the local server performing DDL replicaiton.
+The excess value is measured based on the local server performing DDL replication.
 
 ##### MESSAGE_CALLBACK
 
-This indicates the message callback registration status of the conncted client.
+This indicates the message callback registration status of the connected client.
 
 Depending on the message callback registration status, the server decides whether to send the message.
 
@@ -9969,7 +9971,7 @@ SCN indicates the SCN value specified when BEGIN SNAPSHOT settings were configur
 
 ##### BEGIN_TIME
 
-The time when BEGING SNAPSHOT statement is executed is expressed with UNIX_TIME by BEGIN_TIME.
+The time when BEGIN SNAPSHOT statement is executed is expressed with UNIX_TIME by BEGIN_TIME.
 
 ##### BEGIN_MEM_USAGE
 
@@ -9977,7 +9979,7 @@ The memory usage when BEGIN SNAPSHOT statement is implemented through the percen
 
 ##### BEGIN_DISK_UNDO_USAGE
 
-The percentage of disk undo tablespace is displayed when the BEGING SNAPSHOT statement is executed.
+The percentage of disk undo tablespace is displayed when the BEGIN SNAPSHOT statement is executed.
 
 ##### CURRENT_TIME
 
@@ -10033,7 +10035,7 @@ This view shows the current status of the SQL Plan Cache along with some related
 | CURRENT_CACHE_OBJ_COUNT  | INTEGER | The number of PCO currently registered in the SQL Plan Cache |
 | CACHE_HIT_COUNT          | BIGINT  | The usage count of PCO registered in SQL Plan Cache          |
 | CACHE_MISS_COUNT         | BIGINT  | The number of times PCO was not found while searching for plans in the SQL Plan Cache |
-| CACHE_IN_FAIL_COUNT      | BIGINT  | The number of failures due to cache maxmium size constraint when inserting new PCO into SQL Plan Cache |
+| CACHE_IN_FAIL_COUNT      | BIGINT  | The number of failures due to cache maximum size constraint when inserting new PCO into SQL Plan Cache |
 | CACHE_OUT_COUNT          | BIGINT  | The number of PCO removed from the SQL Plan Cache            |
 | CACHE_INSERTED_COUNT     | BIGINT  | The number of PCO added to the SQL Plan Cache                |
 | NONE_CACHE_SQL_TRY_COUNT | BIGINT  | The number of attempts by non-cached statements such as DDL and DCL |
@@ -10070,7 +10072,7 @@ This is the number of attempts to refer to PCOs that do not exist in the SQL Pla
 
 ##### CACHE_IN_FAIL_COUNT
 
-This is the number of times that a PCO could not be inserted into the cache due to the maximum memory size restriction of the cache, although an attempt was made to delete or remove PCOs infrequently refererred from the cache.
+This is the number of times that a PCO could not be inserted into the cache due to the maximum memory size restriction of the cache, although an attempt was made to delete or remove PCOs infrequently referred from the cache.
 
 ##### CACHE_OUT_COUNT
 
@@ -10088,7 +10090,7 @@ This is the number of attempts to execute statements that do not affect the plan
 
 This view displays information about PCOs registered in the SQL Plan Cache. 
 
-PCO is an object that contains information about SQL statement, execution plan and plan environment. It inhances query efficiency by sharing the execution plan between the sessions when executing the statement. There are two types of PCO, which are Parent PCO and Child PCO.
+PCO is an object that contains information about SQL statement, execution plan and plan environment. It enhances query efficiency by sharing the execution plan between the sessions when executing the statement. There are two types of PCO, which are Parent PCO and Child PCO.
 
 ##### Parent PCO
 
@@ -10127,7 +10129,7 @@ This displays the reason why PCO was created and can have the following values:
 
 -   CREATE_BY_CACHE_MISS  
     SQL Plan Cache was missing the required PCO.
--   CREATE_BY_PLAN_INVALIATION  
+-   CREATE_BY_PLAN_INVALIDATION  
     PCO was found in the SQL Plan Cache during PREPARE stage, but was not valid.
 -   CREATE_BY_PLAN_TOO_OLD  
     The change width of statistical information about objects to which the plan refers has exceeded the limit, or a DDL statement was executed
@@ -10344,7 +10346,7 @@ This is the state of the current statement. It can have the following values:
 
 -   EXECUTED: EXECUTE of the statement has ended.
 
--   UNKNOWN: Unkown state
+-   UNKNOWN: Unknown state
 
 ##### FETCH_STATE
 
@@ -10689,7 +10691,7 @@ This is the name of the statistic, which is shown in one of the above performanc
 | 128  | elapsed time: receiver(s) sending ACK                        | This is the cumulative amount of time that Receiver Thread(s) have spent sending ACK to Sender Thread(s). |
 | 129  | elapsed time: receiver(s) trim LOB(s)                        | This is the accumulative time for the Receiver Threads to finish LOB trim. |
 | 130  | elapsed time: task schedule                                  | This is the total amount of accumulative time with task scheduling. (Unit: microsecond ) |
-| 131  | max time: task schedule                                      | tThis is the maximum time for waiting with the task scheduling. The longest waiting time is only written.(단위: microsecond) |
+| 131  | max time: task schedule                                      | This is the maximum time for waiting with the task scheduling. The longest waiting time is only written.(단위: microsecond) |
 
 [<sup>15</sup>] elapsed time unit : microsecond
 
@@ -11104,11 +11106,11 @@ SERVER 99 SUM 7 Total Sum of Trace Log Values
 
 #### Usage
 
-Altibase provides 6 messages logging properties such as the SERVER, SM, QP, RP, RP_CONFILICT, DR as follows.
+Altibase provides 6 messages logging properties such as the SERVER, SM, QP, RP, RP_CONFLICT, DR as follows.
 
 -   SERVER_MSGLOG_FLAG: Communication and server messages
 
--   SM \_MSGLOG_FLAG: Storage manager-related messages
+-   SM_MSGLOG_FLAG: Storage manager-related messages
 
 -   QP_MSGLOG_FLAG:: Query processor-related messages
 
@@ -11131,7 +11133,7 @@ alter system set server_msglog_flag=0
 -   To enable the output of server logging messages related to the 1st, 2nd and 5th bits (1+2+5):
 
 ```
-alter system set server_msglog_lfag=8
+alter system set server_msglog_flag=8
 ```
 
 -   To disable the output of all replication logging messages except conflict-related messages:
@@ -11657,11 +11659,11 @@ TYPE                                     CHAR(1)
 TARGET_ID                                BIGINT
 META_SPACE                               BIGINT
 USED_SPACE                               BIGINT
-AGABLE_SPACE                             BIGINT
+AGEABLE_SPACE                             BIGINT
 FREE_SPACE                               BIGINT
  
 iSQL> select * from v$usage limit 10;
-V$USAGE.TYPE  V$USAGE.TARGET_ID    V$USAGE.META_SPACE   V$USAGE.USED_SPACE   V$USAGE.AGABLE_SPACE V$USAGE.FREE_SPACE
+V$USAGE.TYPE  V$USAGE.TARGET_ID    V$USAGE.META_SPACE   V$USAGE.USED_SPACE   V$USAGE.AGEABLE_SPACE V$USAGE.FREE_SPACE
 ------------------------------------------------------------------------------------------------------------------------------
 T  65568                128                  12672                0                    19968
 I  5                    0                    528                  0                    1520
@@ -11938,7 +11940,7 @@ Primary Keys: Order Number & Order Date (ono, order_date)
 | gno          | CHAR(10)  | Product No.           | NOT NULL, INDEX ASC                                          |
 | qty          | INTEGER   | Order Quantity        | NULL allowed, DEFAULT 1                                      |
 | arrival_date | DATE      | Expected Arrival Date | NULL allowed                                                 |
-| processing   | CHAR(1)   | Order Status          | NUL allowed L, O: ORDER, R: PREPARE, D: DELIVERY, C: COMPLETE, DEFALT ‘O’ |
+| processing   | CHAR(1)   | Order Status          | NULL allowed, O: ORDER, R: PREPARE, D: DELIVERY, C: COMPLETE, DEFAULT 'O' |
 
 ##### goods Table
 
