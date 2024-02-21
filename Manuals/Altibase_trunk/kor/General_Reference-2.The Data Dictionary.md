@@ -11700,7 +11700,7 @@ Altibase는 12개의 모듈 CM, DK, JOB, LB, MM, QP, RP, RP_CONFLICT, SERVER, SM
 
 -   CM_MSGLOG_FLAG: 통신 관련 메시지
 -   DK_MSGLOG_FLAG: 데이터베이스 링크 관련 메시지
--   JOB_MSGLOG_FLAG: 작업 스케줄러(JOB Scheculer) 관련 메시지
+-   JOB_MSGLOG_FLAG: 작업 스케줄러(JOB Scheduler) 관련 메시지
 -   LB_MSGLOG_FLAG: 서비스 쓰레드 동작 관련 메시지
 -   MM_MSGLOG_FLAG: 메인 모듈 관련 메시지
 -   QP_MSGLOG_FLAG: 질의처리기 관련 메시지

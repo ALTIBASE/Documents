@@ -11735,7 +11735,7 @@ SERVER 99 SUM 7 Total Sum of Trace Log Values
 
 #### 사용 방법
 
-Altibase는 6개의 모듈 SERVER, SM, QP, RP, RP_CONFLICT, DR, MM, CM에 대하여 메시지 로깅 프로퍼티가 존재한다.
+Altibase는 8개의 모듈 SERVER, SM, QP, RP, RP_CONFLICT, DR, MM, CM에 대하여 메시지 로깅 프로퍼티가 존재한다.
 
 -   SERVER_MSGLOG_FLAG: 통신 및 서버 메시지
 
