@@ -30,41 +30,19 @@
 
 Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정보를 안내하는 페이지입니다. 
 
-Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky Linux 테스트 결과는 서로 공유됩니다. 예를 들어, Red Hat Enterprise Linux 8.4에서 호환성 테스트를 통과했다면 Red Hat Enterprise Linux 8.4, Oracle Linux 8.4, Rocky Linux 8.4 모두 호환성을 보장합니다.
-
-Linux x86-64 플랫폼에서 Red Hat Enterprise Linux/CentOS/Oracle Linux/Rocky Linux는 마이너 버전 상관없이 메이저 버전이 동일하면 호환성 보장합니다. 아래 표에서 명시되지 않은 특정 마이너 버전에 대해 Altibase의 호환성 테스트 결과가 필요하다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의하시기 바랍니다.
-
-이 페이지의 표에서 사용한 기호의 의미는 다음과 같습니다. 
-
-**`x`** : 지원하지 않는 버전을 의미합니다.
-
-**`●`** : 호환성 테스트를 완료한 버전을 의미합니다. 
-
-**`○`** : 지원 대상이나 호환성 테스트를 진행한 적 없음을 의미합니다. 해당 버전에 대해 Altibase의 호환성 테스트 결과가 필요하다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의하시기 바랍니다.
-
-
-
---내용이 헷갈려서 nok 문서 참고하여 수정해봤습니다--
-
-
-
-Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정보를 안내하는 페이지입니다. 
-
 이 페이지의 표에서 사용한 기호의 의미는 다음과 같습니다. 
 
 **`x`** : Altibase가 지원하지 않음
 
 **`●`** : 호환성 테스트를 통과함 
 
-**`○`** : Altibase가 지원하지만 호환성 테스트를 진행한 적 없음
+**`○`** : 호환성을 보장하지만 테스트를 진행한 적 없음
 
 > [!NOTE]
 >
 > **Red Hat Enterprise Linux, CentOS, Oracle Linux 그리고 Rocky Linux의 호환성은 동일합니다.** 예를 들어, Red Hat Enterprise Linux 8.4에서 호환성 테스트를 통과했다면 나머지 세 OS의 8.4 버전 또한 호환성을 보장합니다. 
 >
 > 또한, Linux x86-64 플랫폼을 사용 중이라면 메이저 버전이 동일할 경우 **마이너 버전과 상관 없이** 위 네 OS의 호환성 또한 보장합니다. 아래 표에서 명시되지 않은 특정 마이너 버전에 대해 Altibase의 호환성 테스트 결과가 필요하다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의하시기 바랍니다.
-
-<br/>
 
 <br/>
 
@@ -91,9 +69,9 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 | HP-UX 11.31                                                  |       ●       |          ●          |                            |
 | **Linux x86-64**                                             |               |                     |                            |
 | Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 7.5 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
-| Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*  |
+| Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4<br />Red Hat Enterprise Linux 8.6 |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*  |
 | CentOS 6.8<br />CentOS 7.5                                   |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
-| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*  |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4<br/>Oracle Linux 8.6 |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*  |
 | Rocky Linux 8.6                                              |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
 | Ubuntu 12                                                    |     **○**     |        **○**        | - *GNU glibc 2.17 ~ 2.33*  |
 | Ubuntu 16                                                    |     **○**     |        **○**        | -  *GNU glibc 2.23 ~ 2.33* |
@@ -120,9 +98,9 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 | **Linux x86-64**                                             |                                                           |                                                    |         |                  |                    |                     |
 | Red Hat Enterprise Linux 6.0                                 |                             ●                             |                         ●                          |    ●    |        ●         |         ●          |                     |
 | Red Hat Enterprise Linux 8.2<br/>Red Hat Enterprise Linux 8.3 |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                     |
-| Red Hat Enterprise Linux 8.4                                 |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                     |
+| Red Hat Enterprise Linux 8.4<br/>Red Hat Enterprise Linux 8.6 |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                     |
 | CentOS 6.8                                                   |                           **○**                           |                       **○**                        |  **○**  |        ●         |       **○**        |                     |
-| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                     |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4<br/>Oracle Linux 8.6 |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                     |
 | Rocky Linux 8.6                                              |                           **○**                           |                       **○**                        |    ●    |        ●         |       **○**        |                     |
 | Ubuntu 12                                                    |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                     |
 | Ubuntu 16<br/>Ubuntu 18                                      |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                     |
@@ -154,9 +132,11 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 | **HP-UX Itanium (IA-64)**                                    |               |                     |                                                             |
 | HP-UX 11.31                                                  |       ●       |          ●          |                                                             |
 | **Linux x86-64**                                             |               |                     |                                                             |
-| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4<br />Red Hat Enterprise Linux 8.8 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| Red Hat Enterprise Linux 8.8                                 |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*                                   |
 | CentOS 6.8                                                   |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
-| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4<br/>Oracle Linux 8.6(UEK)<br/>Oracle Linux 8.8 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4<br/>Oracle Linux 8.6(UEK) |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
+| Oracle Linux 8.8                                             |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*                                   |
 | Rocky Linux 8.5<br/>Rocky Linux 8.8                          |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                   |
 | Ubuntu 12                                                    |       ●       |          ●          | - *GNU glibc 2.17 ~ 2.33*                                   |
 | Ubuntu 16                                                    |       ●       |          ●          | -  *GNU glibc 2.23 ~ 2.33*<br />- *Altibase 7.1.0.7.2 이상* |
@@ -184,9 +164,11 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 | Red Hat Enterprise Linux 6.0                                 |                             ●                             |                         ●                          |    ●    |        ●         |         ●          |                                                              |
 | Red Hat Enterprise Linux 8.2<br/>Red Hat Enterprise Linux 8.3 |                           **○**                           |                       **○**                        |  **○**  |        ●         |       **○**        |                                                              |
 | Red Hat Enterprise Linux 8.4                                 |                           **○**                           |                       **○**                        |    ●    |        ●         |       **○**        |                                                              |
+| Red Hat Enterprise Linux 8.8                                 |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                                                              |
 | CentOS 6.8                                                   |                           **○**                           |                       **○**                        |  **○**  |        ●         |       **○**        |                                                              |
 | Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4<br/>Oracle Linux 8.6(UEK) |                           **○**                           |                       **○**                        |  **○**  |        ●         |       **○**        |                                                              |
-| Rocky Linux 8.5                                              |                           **○**                           |                       **○**                        |    ●    |        ●         |       **○**        |                                                              |
+| Oracle Linux 8.8                                             |                           **○**                           |                       **○**                        |  **○**  |      **○**       |       **○**        |                                                              |
+| Rocky Linux 8.5<br/>Rocky Linux 8.8                          |                           **○**                           |                       **○**                        |    ●    |        ●         |       **○**        |                                                              |
 | Ubuntu 12                                                    |                           **○**                           |                       **○**                        |    ●    |        ●         |       **○**        |                                                              |
 | Ubuntu 16<br/>Ubuntu 18                                      |                           **○**                           |                       **○**                        |    ●    |        ●         |       **○**        | - *altiMon : Altibase 7.1.0.7.2 이상*                        |
 | **Linux on Power**                                           |                                                           |                                                    |         |                  |                    |                                                              |
