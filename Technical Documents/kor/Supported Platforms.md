@@ -42,7 +42,7 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 >
 > **Red Hat Enterprise Linux, CentOS, Oracle Linux 그리고 Rocky Linux의 호환성은 동일합니다.** 예를 들어, Red Hat Enterprise Linux 8.4에서 호환성 테스트를 통과했다면 나머지 세 OS의 8.4 버전 또한 호환성을 보장합니다. 
 >
-> 또한, Linux x86-64 플랫폼을 사용 중이라면 메이저 버전이 동일할 경우 **마이너 버전과 상관 없이** 위 네 OS의 호환성 또한 보장합니다. 아래 표에서 명시되지 않은 특정 마이너 버전에 대해 Altibase의 호환성 테스트 결과가 필요하다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의하시기 바랍니다.
+> 또한, Linux x86-64 플랫폼에서 Red Hat Enterprise Linux, CentOS, Oracle Linux, Rocky Linux는 메이저 버전이 같은 경우, 마이너 버전은 상관없이 호환성을 보장합니다. 아래 표에서 명시되지 않은 특정 마이너 버전에 대해 Altibase의 호환성 테스트 결과가 필요하다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의하시기 바랍니다.
 
 <br/>
 
