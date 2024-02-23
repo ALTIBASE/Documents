@@ -211,8 +211,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     이 장은 Altibase Fail-Over 기능과 그 사용 방법에 대해 설명한다.
 
 -   A. 부록 FAQ  
-    이 장은 Altibase 이중화 구동 관련, 프로퍼티 관련 등 사용자들이 자주하는
-    질문을 모은 것이다.
+    이 장은 Altibase 이중화 구동 관련, 프로퍼티 관련 등 사용자들이 자주하는 질문을 모은 것이다.
 
 #### 문서화 규칙
 
