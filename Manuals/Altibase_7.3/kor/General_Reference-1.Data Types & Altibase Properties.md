@@ -1710,7 +1710,7 @@ SUN
 
 ###### 설명
 
-FF다음의 1 \~ 6까지의 숫자를 이용하여 마이크로 초의 자리 수를 나타낸다. (0 \~ 999999). FF 형식은 FF6과 같은 같은 결과를 반환한다.
+FF다음의 1 \~ 6까지의 숫자를 이용하여 마이크로초의 자리 수를 나타낸다. (0 \~ 999999). FF 형식은 FF6과 같은 같은 결과를 반환한다.
 
 TO_DATE 함수에서 사용할 수 없다.
 
@@ -1984,7 +1984,7 @@ TO_DATE('1980-12-28 12345', 'YYYY-MM-DD
 
 ###### 설명
 
-날짜 데이터 타입의 값의 마이크로 초를 표시한다.(0 \~ 999999)
+날짜 데이터 타입의 값의 마이크로초를 표시한다.(0 \~ 999999)
 
 ###### 예제
 
@@ -2006,7 +2006,7 @@ TO_CHAR ( TO_DATE('1980-12-28 123456', '
 
 ###### 설명
 
-초 + 마이크로 초를 나타낸다. 앞의 2개의 숫자는 초를 나타내고, 나머지 6개의 숫자가 마이크로 초를 나타낸다. (0 \~ 59999999)
+초 + 마이크로초를 나타낸다. 앞의 2개의 숫자는 초를 나타내고, 나머지 6개의 숫자가 마이크로초를 나타낸다. (0 \~ 59999999)
 
 ###### 예제
 
@@ -4661,7 +4661,7 @@ Unsigned Integer
 
 Prepare 리스트의 개수를 명시한다. 이 개수가 많을수록 트랜잭션 간의 Prepare 리스트 관련 락(LOCK) 경합이 줄어든다.
 
-#### BULKIO_PAGE_COUNT_FOR_DIRECT_PATH_INSERT (단위 : 개수)
+#### BULKIO_PAGE_COUNT_FOR_DIRECT_PATH_INSERT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -4685,7 +4685,7 @@ Direct-Path INSERT 방식으로 데이터를 입력할 때 한 번에 몇 개의
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### COMPRESSION_RESOURCE_GC_SECOND (단위 : 초)
+#### COMPRESSION_RESOURCE_GC_SECOND (단위: 초)
 
 ##### 데이터 타입
 
@@ -4779,7 +4779,7 @@ String
 
 디스크 데이터베이스 파일을 저장할 디렉토리 경로를 지정한다. 디스크 기능을 사용하지 않더라도 반드시 지정해야 한다. 이 경로의 기본값은 \$ALTIBASE_HOME/dbs이다.
 
-#### DEFAULT_MEM_DB_FILE_SIZE (단위 : 바이트)
+#### DEFAULT_MEM_DB_FILE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -4849,7 +4849,7 @@ Unsigned Integer
 
 기본 세그먼트의 초기 익스텐트(extent) 개수를 명시한다.
 
-#### DEFAULT_SEGMENT_STORAGE_MAXEXTENTS (단위 : 개수)
+#### DEFAULT_SEGMENT_STORAGE_MAXEXTENTS (단위: 개수)
 
 ##### 데이터 타입
 
@@ -4871,7 +4871,7 @@ Unsigned Integer
 
 기본 세그먼트의 최대 익스텐트 개수를 명시한다.
 
-#### DEFAULT_SEGMENT_STORAGE_MINEXTENTS (단위 : 개수)
+#### DEFAULT_SEGMENT_STORAGE_MINEXTENTS (단위: 개수)
 
 ##### 데이터 타입
 
@@ -4893,7 +4893,7 @@ Unsigned Integer
 
 기본 세그먼트의 최소한의 익스텐트 개수를 명시한다.
 
-#### DEFAULT_SEGMENT_STORAGE_NEXTEXTENTS (단위 : 개수)
+#### DEFAULT_SEGMENT_STORAGE_NEXTEXTENTS (단위: 개수)
 
 ##### 데이터 타입
 
@@ -4915,7 +4915,7 @@ Unsigned Integer
 
 기본 세그먼트의 확장할 수 있는 익스텐트 개수를 명시한다.
 
-#### DIRECT_PATH_BUFFER_PAGE_COUNT (단위 : 개수)
+#### DIRECT_PATH_BUFFER_PAGE_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -4939,7 +4939,7 @@ Direct=Path INSERT 버퍼의 페이지 개수를 나타낸다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### DISK_INDEX_UNBALANCED_SPLIT_RATE (단위 : 백분율)
+#### DISK_INDEX_UNBALANCED_SPLIT_RATE (단위: 백분율)
 
 ##### 데이터 타입
 
@@ -4963,7 +4963,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### DISK_LOB_COLUMN_IN_ROW_SIZE (단위 : 바이트)
+#### DISK_LOB_COLUMN_IN_ROW_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -4987,7 +4987,7 @@ Unsigned Long
 
 in row 크기나 LOB 타입에 대한 자세한 사항은 1장의 데이터 타입 부분을 참조한다.
 
-#### DISK_MAX_DB_SIZE (단위 : 바이트)
+#### DISK_MAX_DB_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -5151,7 +5151,7 @@ Unsigned Integer
 
 2: 배열로 캐시하고, 64개로 고정된다.
 
-#### LOCK_NODE_CACHE_COUNT (단위 : 개수)
+#### LOCK_NODE_CACHE_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -5294,7 +5294,7 @@ String
 
 최소 1개, 최대 8개 경로 지정이 가능하다. 여러 개의 경로가 지정될 경우, 데이터베이스 파일은 각 경로에 분산되어 저장된다. 이 프로퍼티로 지정되는 모든 경로는 실제 존재하는 경로여야 한다. 경로의 기본 개수는 2개, 각 경로의 기본값은 \$ALTIBASE_HOME/dbs로 동일하게 지정되어 있다.
 
-#### MEM_MAX_DB_SIZE (단위 : 바이트)
+#### MEM_MAX_DB_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -5320,7 +5320,7 @@ Unsigned Long
 
 MEM_MAX_DB_SIZE를 초과해서 데이터베이스 크기가 확장될 경우 그 트랜잭션은 오류 처리되며, 이후 수행되는 SELECT 문을 제외한 모든 SQL 문은 오류 처리된다.
 
-#### MEMORY_INDEX_BUILD_RUN_SIZE (단위 : 바이트)
+#### MEMORY_INDEX_BUILD_RUN_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -5344,7 +5344,7 @@ Unsigned Long
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### MEMORY_INDEX_BUILD_VALUE_LENGTH_THRESHOLD (단위 : 바이트)
+#### MEMORY_INDEX_BUILD_VALUE_LENGTH_THRESHOLD (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -5370,7 +5370,7 @@ Unsigned Long
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### MEMORY_INDEX_UNBALANCED_SPLIT_RATE (단위 : 백분율)
+#### MEMORY_INDEX_UNBALANCED_SPLIT_RATE (단위: 백분율)
 
 ##### 데이터 타입
 
@@ -5394,7 +5394,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### MEMORY_LOB_COLUMN_IN_ROW_SIZE (단위 : 바이트)
+#### MEMORY_LOB_COLUMN_IN_ROW_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -5442,7 +5442,7 @@ Unsigned Long
 
 in row 절에 대한 자세한 사항은 1장의 데이터 타입 부분을 참조한다.
 
-#### MEM_SIZE_CLASS_COUNT (단위 : 개수)
+#### MEM_SIZE_CLASS_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -5464,7 +5464,7 @@ Unsigned Integer
 
 메모리 페이지의 빈 공간(free space)을 몇 개의 클래스로 구분한 것인지를 나타낸다.
 
-#### MIN_COMPRESSION_RESOURCE_COUNT (단위 : 개수)
+#### MIN_COMPRESSION_RESOURCE_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -5486,7 +5486,7 @@ unsigned integer
 
 로그 관리자가 로그를 압축하기 위해 사용하는 버퍼 청크(buffer chunk)의 최소한의 개수를 나타낸다 (한 개의 압축 버퍼 청크는 약 16KB이다).
 
-#### MIN_LOG_RECORD_SIZE_FOR_COMPRESS (단위 : 바이트)
+#### MIN_LOG_RECORD_SIZE_FOR_COMPRESS (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -5630,7 +5630,7 @@ Unsigned Integer
 
 디스크 테이블 생성시 CREATE TABLE 구문에서 PCTUSED 값이 지정되지 않은 경우 기본값으로 사용된다.
 
-#### QP_MEMORY_CHUNK_SIZE (단위 : 바이트)
+#### QP_MEMORY_CHUNK_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -6184,7 +6184,7 @@ Unsigned long
 
 [<sup>4</sup>] 시스템 디스크 언두 테이블스페이스 (System disk undo tablespace): 데이터베이스 생성 시 기본적으로 생성되며 언두(undo) 정보를 저장하기 위해 유일하게 사용되는 특수한 테이블스페이스이다. 사용자는 디스크 언두 테이블스페이스 내에 테이블이나 인덱스 등을 생성할 수 없다. 데이터베이스 내에 오직 하나만 존재하며, 사용자가 생성하거나 삭제할 수 없다.
 
-#### TABLE_BACKUP_FILE_BUFFER_SIZE (단위 : 바이트)
+#### TABLE_BACKUP_FILE_BUFFER_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -6456,7 +6456,7 @@ Unsigned long
 
 사용자 임시 테이블스페이스(User temporary tablespace) 생성 시 익스텐트의 크기를 명시한다. 최소 2개 페이지(16kB = 2\*8kB) 이상의 크기를 가져야 한다.
 
-#### VOLATILE_MAX_DB_SIZE (단위 : 바이트)
+#### VOLATILE_MAX_DB_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -6482,7 +6482,7 @@ Unsigned long
 
 ### 성능 관련 프로퍼티
 
-#### AGER_WAIT_MAXIMUM (단위: 마이크로 초)
+#### AGER_WAIT_MAXIMUM (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -6504,7 +6504,7 @@ Unsigned Integer
 
 가비지 콜렉터(garbage collector, 혹은 Ager) 관련 쓰레드들이 가비지 콜렉터 sleep 시, 시스템 호출인 sleep의 과도한 사용으로 인하여 (특히, HP 시스템) 발생하는 서버의 성능 저하를 막기 위한 것이다. 이 값들을 이용하여 서버 운영 중에 가비지 콜렉터 sleep time을 적절히 조절할 수 있도록 한다.
 
-#### AGER_WAIT_MINIMUM (단위: 마이크로 초)
+#### AGER_WAIT_MINIMUM (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -6548,7 +6548,7 @@ Unsigned Integer
 
 이 프로퍼티는 버퍼 교체 대상 검색이 실패한 후 플러셔가 플러시 작업을 할 것을 기다리는 시간을 명시한다. 이 시간을 대기하여도 교체 대상 버퍼를 찾지 못하면, V\$BUFFPOOL_STAT 성능 뷰의 VICTIM_SEARCH_WARP의 값이 증가한다.
 
-#### BUFFER_VICTIM_SEARCH_PCT(단위 : 백분율)
+#### BUFFER_VICTIM_SEARCH_PCT(단위: 백분율)
 
 ##### 데이터 타입
 
@@ -6594,7 +6594,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### CHECKPOINT_BULK_WRITE_PAGE_COUNT (단위 : 개수)
+#### CHECKPOINT_BULK_WRITE_PAGE_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -6618,7 +6618,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### CHECKPOINT_BULK_WRITE_SLEEP_SEC (단위 : 초)
+#### CHECKPOINT_BULK_WRITE_SLEEP_SEC (단위: 초)
 
 ##### 데이터 타입
 
@@ -6642,7 +6642,7 @@ CHECKPOINT_BULK_WRITE_PAGE_COUNT의 값이 0이 아닐 때 더티 페이지들�
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### CHECKPOINT_BULK_WRITE_SLEEP_USEC (단위 : 마이크로초)
+#### CHECKPOINT_BULK_WRITE_SLEEP_USEC (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -6662,7 +6662,7 @@ Unsigned Integer
 
 ##### 설명
 
-CHECKPOINT_BULK_WRITE_PAGE_COUNT의 값이 0이 아닐 때 더티 페이지들을 디스크로 저장 후 대기하는 시간(마이크로 초)을 나타낸다.
+CHECKPOINT_BULK_WRITE_PAGE_COUNT의 값이 0이 아닐 때 더티 페이지들을 디스크로 저장 후 대기하는 시간(마이크로초)을 나타낸다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
@@ -6806,7 +6806,7 @@ Unsigned Integer
 
 Direct I/O는 디스크 I/O가 발생하는 동안 CPU 점유율을 줄인다는 장점이 있다. Buffered I/O는 read-ahead, asynchronous write 기법을 사용하므로 디스크 I/O 요구가 있을 때마다 실제로 디스크에 접근하지 않을 수도 있으므로 응용 프로그램 수준에서 볼 때 디스크 I/O가 훨씬 빠르다는 장점이 있다.
 
-#### DATAFILE_WRITE_UNIT_SIZE (단위 : 개수)
+#### DATAFILE_WRITE_UNIT_SIZE (단위: 개수)
 
 ##### 데이터 타입
 
@@ -7050,7 +7050,7 @@ Unsigned Integer
 
 1 : enable (직접 입출력함)
 
-#### DISK_INDEX_BUILD_MERGE_PAGE_COUNT (단위: 페이지 수) 
+#### DISK_INDEX_BUILD_MERGE_PAGE_COUNT (단위: 페이지 개수) 
 
 ##### 데이터 타입
 
@@ -7078,7 +7078,7 @@ Unsigned Integer
 
 이 프로퍼티는 ALTER SYSTEM 문으로 변경할 수 있다.
 
-#### DISK_INDEX_BUILD_SORT_AREA_SIZE (단위 : 바이트)
+#### DISK_INDEX_BUILD_SORT_AREA_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -7106,7 +7106,7 @@ Unsigned Long
 
 이 프로퍼티는 ALTER SYSTEM 문으로 변경할 수 있다.
 
-#### EXECUTE_STMT_MEMORY_MAXIMUM (단위 : 바이트)
+#### EXECUTE_STMT_MEMORY_MAXIMUM (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -7414,7 +7414,7 @@ Unsigned Integer
 
 주석으로 처리할 경우 기본값으로 시스템의 물리 코어 수(N) 만큼 병렬 작업 쓰레드가 생성된다.
 
-#### INDEX_INITRANS (단위 : 개수)
+#### INDEX_INITRANS (단위: 개수)
 
 ##### 데이터 타입
 
@@ -7436,7 +7436,7 @@ Unsigned Integer
 
 인덱스 페이지에 유지될 TTS(Touched Transaction Slots)의 초기 개수를 나타낸다.
 
-#### INDEX_MAXTRANS (단위 : 개수)
+#### INDEX_MAXTRANS (단위: 개수)
 
 ##### 데이터 타입
 
@@ -7458,7 +7458,7 @@ Unsigned Integer
 
 인덱스 페이지에 유지될 수 있는 TTS(Touched Transaction Slots)의 최대 개수를 나타낸다.
 
-#### LFG_GROUP_COMMIT_INTERVAL_USEC (단위: 마이크로 초)
+#### LFG_GROUP_COMMIT_INTERVAL_USEC (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -7484,7 +7484,7 @@ Unsigned Integer
 
 이를 통해, 여러 트랜잭션이 동시 다발적으로 커밋하면서 요청하는 디스크 I/O가 한꺼번에 수행된다.
 
-#### LFG_GROUP_COMMIT_RETRY_USEC (단위: 마이크로 초)
+#### LFG_GROUP_COMMIT_RETRY_USEC (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -7558,7 +7558,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### LOCK_ESCALATION_MEMORY_SIZE(단위 : 바이트)
+#### LOCK_ESCALATION_MEMORY_SIZE(단위: 바이트)
 
 ##### 데이터 타입
 
@@ -7639,7 +7639,7 @@ Unsigned Integer
 
 * 1: fallocate() 시스템 콜(Linux에서만 사용 가능함)
 
-#### LOW_FLUSH_PCT(단위 : 백분율)
+#### LOW_FLUSH_PCT(단위: 백분율)
 
 ##### 데이터 타입
 
@@ -7661,7 +7661,7 @@ Unsigned Integer
 
 플러시 리스트의 길이가 전체 버퍼 크기에서 명시된 값 이상이 되면 교체 플러시를 수행한다. 이 때 해당 플러시 리스트의 모든 갱신 버퍼들은 플러시한다.
 
-#### LOW_PREPARE_PCT (단위 : 백분율)
+#### LOW_PREPARE_PCT (단위: 백분율)
 
 ##### 데이터 타입
 
@@ -7683,7 +7683,7 @@ Unsigned Integer
 
 플러셔가 대기에서 깨어났을 때 Prepare 리스트의 길이가 전체 버퍼에서 명시한 값 이하가 되면 교체 플러시를 수행한다. 이 때 해당 플러시 리스트의 모든 갱신 버퍼들은 플러시한다.
 
-#### MATHEMATICS_TEMP_MEMORY_MAXIMUM (단위 : 바이트)
+#### MATHEMATICS_TEMP_MEMORY_MAXIMUM (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -7783,7 +7783,7 @@ MEM_INDEX_KEY_REDISTRIBUTION프로퍼티가 0이면 이 프로퍼티는 동작�
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### MULTIPLEXING_CHECK_INTERVAL(단위 : 마이크로 초)
+#### MULTIPLEXING_CHECK_INTERVAL(단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -8238,7 +8238,7 @@ Altibase 서버가 병렬 질의를 처리할 때, PARALLEL-QUEUE(PRLQ) 노드�
 
 Altibase 운영 중 ALTER SYSTEM문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### PREPARE_STMT_MEMORY_MAXIMUM(단위 : 바이트)
+#### PREPARE_STMT_MEMORY_MAXIMUM(단위: 바이트)
 
 ##### 데이터 타입
 
@@ -8540,7 +8540,7 @@ Unsigned Integer
 
 SQL 플랜 캐시에서 해쉬 테이블의 버킷 개수를 나타낸다.
 
-#### SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO(단위 : 백분율)
+#### SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO(단위: 백분율)
 
 ##### 데이터 타입
 
@@ -9043,7 +9043,7 @@ Unsigned Integer
 
 이 값이 기본값 3으로 명시되면, 특정 버퍼의 마지막 접근 이후 3초 이내의 접근에 대해서는 접근 횟수를 갱신하지 않는다.
 
-#### TRANSACTION_SEGMENT_COUNT (단위 : 개수)
+#### TRANSACTION_SEGMENT_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -9067,7 +9067,7 @@ Unsigned Integer
 
 Altibase 분산 데이터베이스 시스템에서 이 프로퍼티 값을 이전 값보다 작게 설정하기를 원하면 분산 트랜잭션을 모두 종료한 후 Altibase 서버를 중지해야 한다. 정리되지 않은 분산 트랜잭션이 있을 때 현재 값보다 작게 설정하고 Altibase 서버를 재시작한 경우 기존 언두 테이블스페이스의 공간에 접근할 수 없어 Altibase 서버 구동이 실패한다.
 
-#### TRX_UPDATE_MAX_LOGSIZE (단위 : 바이트)
+#### TRX_UPDATE_MAX_LOGSIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -9231,7 +9231,7 @@ DBMS_CONCURRENT_EXEC 패키지에서 요청한 프로시저가 정상적으로 �
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### DEFAULT_THREAD_STACK_SIZE(단위 : 바이트)
+#### DEFAULT_THREAD_STACK_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -9375,7 +9375,7 @@ Unsigned Integer
 
 IPCDA를 이용한 클라이언트와 서버간 통신 채널의 최대 개수를 지정한다. 채널 개수에 비례하여 공유 메모리와 세마포어를 할당받기 때문에 서버에 동시에 연결할 수 있는 최대 IPCDA 연결 개수를 설정하는 것이 중요하다. IPCDA의 채널 개수는 CPU 코어 개수의 1/2 값이 최적화된 값이다.
 
-#### IPCDA_DATABLOCK_SIZE (단위: 킬로 바이트)
+#### IPCDA_DATABLOCK_SIZE (단위: 킬로바이트)
 
 ##### 데이터 타입
 
@@ -9895,7 +9895,7 @@ Unsigned Integer
 
 1: 사용
 
-#### USER_LOCK_POOL_INIT_SIZE(단위 : 개수)
+#### USER_LOCK_POOL_INIT_SIZE(단위: 개수)
 
 ##### 데이터 타입
 
@@ -9919,7 +9919,7 @@ Unsigned Integer
 
 이 프로퍼티의 값을 초과하여 사용자 잠금의 개수를 사용할 수 있으나, 성능 저하가 발생할 수 있다. 또한 한 번 생성된 사용자 잠금을 해제하여도 제거되는 것은 아니므로, 해제된 사용자 잠금을 재사용하는 것이 효과적이다.
 
-#### USER_LOCK_REQUEST_CHECK_INTERVAL(단위 : 마이크로 초)
+#### USER_LOCK_REQUEST_CHECK_INTERVAL(단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -9943,7 +9943,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### USER_LOCK_REQUEST_LIMIT(단위 : 개수)
+#### USER_LOCK_REQUEST_LIMIT(단위: 개수)
 
 ##### 데이터 타입
 
@@ -9967,7 +9967,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### USER_LOCK_REQUEST_TIMEOUT(단위 : 초)
+#### USER_LOCK_REQUEST_TIMEOUT(단위: 초)
 
 ##### 데이터 타입
 
@@ -10047,7 +10047,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### DDL_LOCK_TIMEOUT (단위 : 초)
+#### DDL_LOCK_TIMEOUT (단위: 초)
 
 ##### 데이터 타입
 
@@ -10073,7 +10073,7 @@ DDL 문을 수행할 때 해당 테이블에 이미 다른 트랜잭션에 의�
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### DDL_TIMEOUT(단위 : 초)
+#### DDL_TIMEOUT(단위: 초)
 
 ##### 데이터 타입
 
@@ -10099,7 +10099,7 @@ DDL 문의 실행 시간이 이 프로퍼티에 설정한 시간(초)을 초과�
 
 > Note: Altibase 버전 5.5.1 까지는, DDL구문의 실행 시간도 UTRANS_TIMEOUT 과 QUERY_TIMEOUT 프로퍼티의 영향을 받았다. DML과 DCL구문의 실행시간은 여전히 UTRANS_TIMEOUT 과 QUERY_TIMEOUT 프로퍼티의 영향을 받는다.
 
-#### FETCH_TIMEOUT(단위 : 초)
+#### FETCH_TIMEOUT(단위: 초)
 
 ##### 데이터 타입
 
@@ -10123,7 +10123,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### IDLE_TIMEOUT (단위 : 초)
+#### IDLE_TIMEOUT (단위: 초)
 
 ##### 데이터 타입
 
@@ -10149,7 +10149,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### LOGIN_TIMEOUT(단위 : 초)
+#### LOGIN_TIMEOUT(단위: 초)
 
 ##### 데이터 타입
 
@@ -10171,7 +10171,7 @@ Unsigned Integer
 
 Altibase의 포트로 접속이 이루어진 후 인증 절차가 완료될 때까지 허용된 시간이다. 이 시간 안에 인증이 이루어지지 않으면 서버는 접속을 끊는다.
 
-#### MULTIPLEXING_POLL_TIMEOUT(단위 : 마이크로 초)
+#### MULTIPLEXING_POLL_TIMEOUT(단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -10193,7 +10193,7 @@ Unsigned Integer
 
 멀티플렉싱을 하는 서비스 쓰레드가 세션을 감지하는 주기를 나타낸다.
 
-#### QUERY_TIMEOUT (단위 : 초)
+#### QUERY_TIMEOUT (단위: 초)
 
 ##### 데이터 타입
 
@@ -10217,7 +10217,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### SERVICE_THREAD_RECV_TIMEOUT(단위 : 초)
+#### SERVICE_THREAD_RECV_TIMEOUT(단위: 초)
 
 ##### 데이터 타입
 
@@ -10264,7 +10264,7 @@ IMMEDIATE 옵션으로 Altibase 서버를 종료할 때, 끝나지 않은 트랜
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### UTRANS_TIMEOUT (단위 : 초)
+#### UTRANS_TIMEOUT (단위: 초)
 
 ##### 데이터 타입
 
@@ -10368,7 +10368,7 @@ Unsigned Integer
 | 1 (Repeatable Read) | 한 트랜잭션 수행 동안 동일 레코드를 여러 번 반복해서 읽는 경우 항상 동일한 레코드의 내용을 검색하게 됨을 보장한다. 한번 읽을 때 읽은 행(row)에 잠금(lock)이 걸린다. 그래서 다시 읽을 때 이전에 보였던 행이 안 보이는 경우는 없으나, 그 사이에 새로 삽입된 행은 보일 수 있다. |
 | 2 (No Phantom)      | 여러 번 반복해서 읽어도 모두 동일한 결과가 보이는 것을 보장한다. |
 
-#### TRANSACTION_TABLE_SIZE(단위 : 트랜잭션 개수)
+#### TRANSACTION_TABLE_SIZE(단위: 트랜잭션 개수)
 
 ##### 데이터 타입
 
@@ -10576,7 +10576,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### CHECKPOINT_INTERVAL_IN_SEC(단위 : 초)
+#### CHECKPOINT_INTERVAL_IN_SEC(단위: 초)
 
 ##### 데이터 타입
 
@@ -10780,7 +10780,7 @@ Unsigned Integer
 
 로그 생성시 해당 로그파일에 충분한 공간이 없으면 새로운 로그 파일을 생성하며, 이 경우 트랜잭션의 응답 시간은 늦어지게 된다. 이처럼 로그파일 생성으로 인해 트랜잭션의 수행이 늦어지는 것을 막기 위해 Altibase는 여분의 로그파일을 미리 생성해 둔다. 이 여분의 로그파일의 개수를 지정하는 것이 이 프로퍼티이다.
 
-#### SNAPSHOT_MEM_THRESHOLD(단위: 백분율)
+#### SNAPSHOT_MEM_THRESHOLD (단위: 백분율)
 
 ##### 데이터 타입
 
@@ -10804,7 +10804,7 @@ Unsigned Integer
 
 현재 사용되는 메모리의 크기는 프로퍼티 MEM_MAX_DB_SIZE의 몇 퍼센트를 사용하고 있는지 확인하고, 설정한 임계치를 초과하면 스냅샷(shapshot)은 자동으로 중지된다.
 
-#### SNAPSHOT_DISK_UNDO_THRESHOLD(단위: 백분율)
+#### SNAPSHOT_DISK_UNDO_THRESHOLD (단위: 백분율)
 
 ##### 데이터 타입
 
@@ -11064,7 +11064,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문 또는 ALTER SESSION 문을 이용하여 이 프로퍼티 값을 변경할 수 있다.
 
-#### REPLICATION_DDL_SYNC_TIMEOUT ( 단위 : 초 )
+#### REPLICATION_DDL_SYNC_TIMEOUT (단위: 초)
 
 ##### 데이터 타입
 
@@ -11202,7 +11202,7 @@ REP_GAP의 값은 REP_GAP_SIZE의 값을 이 프로퍼티로 나눈 결괏값이
 
 
 
-#### REPLICATION_GAPLESS_ALLOW_TIME (단위: 마이크로 초)
+#### REPLICATION_GAPLESS_ALLOW_TIME (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -11230,7 +11230,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_GAPLESS_MAX_WAIT_TIME (단위: 마이크로 초)
+#### REPLICATION_GAPLESS_MAX_WAIT_TIME (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -11256,7 +11256,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE (단위 : 개)
+#### REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE (단위: 개수)
 
 ##### 데이터 타입
 
@@ -11280,7 +11280,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_GROUPING_TRANSACTION_MAX_COUNT (단위 : 개)
+#### REPLICATION_GROUPING_TRANSACTION_MAX_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -11330,7 +11330,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_HBT_DETECT_TIME(단위 : 초)
+#### REPLICATION_HBT_DETECT_TIME(단위: 초)
 
 ##### 데이터 타입
 
@@ -11474,7 +11474,7 @@ Unsigned Integer
 
 명시된 시간 내에 잠금을 획득하지 못하는 경우 해당 작업은 철회된다.
 
-#### REPLICATION_LOG_BUFFER_SIZE (단위 : MB)
+#### REPLICATION_LOG_BUFFER_SIZE (단위: 메가바이트)
 
 ##### 데이터 타입
 
@@ -11504,7 +11504,7 @@ Unsigned Integer
 
 REPLICATION_LOG_BUFFER_SIZE를 너무 작게 설정하면, 사용하지 않는 것(0)보다 더 좋지 못한 성능을 낼 수 있다.
 
-#### REPLICATION_MAX_COUNT (단위 : 개)
+#### REPLICATION_MAX_COUNT (단위: 개수)
 
 ##### 데이터 타입
 
@@ -11578,7 +11578,7 @@ Unsigned Integer
 
 0으로 설정한 경우에는 이 기능을 적용하지 않는다. 참고로 체크포인트를 수행할 때 로그파일을 지우기 때문에, CHECKPOINT_INTERVAL_IN_SEC와 CHECKPOINT_IN_LOG의 값을 함께 고려해야 한다.
 
-#### REPLICATION_POOL_ELEMENT_COUNT(단위 : 개)
+#### REPLICATION_POOL_ELEMENT_COUNT(단위: 개수)
 
 ##### 데이터 타입
 
@@ -11602,7 +11602,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_POOL_ELEMENT_SIZE(단위 : 바이트)
+#### REPLICATION_POOL_ELEMENT_SIZE(단위: 바이트)
 
 ##### 데이터 타입
 
@@ -11670,7 +11670,7 @@ Unsigned Integer
 
 각각의 로그 파일 그룹에 대해서 미리 읽을 로그 파일의 수를 나타낸다. 로그 파일을 미리 읽어 둠으로써 송신 쓰레드가 파일에서 로그 레코드를 읽는 시간을 줄인다.
 
-#### REPLICATION_RECEIVE_TIMEOUT(단위 : 초)
+#### REPLICATION_RECEIVE_TIMEOUT(단위: 초)
 
 ##### 데이터 타입
 
@@ -11808,7 +11808,7 @@ Unsigned Integer
 
 체크포인트를 수행할 때 로그 파일을 지우기 때문에, CHECKPOINT_INTERVAL_IN_SEC와 CHECKPOINT_IN_LOG의 값을 함께 고려해야 한다.
 
-#### REPLICATION_RECOVERY_MAX_TIME (단위 : 초)
+#### REPLICATION_RECOVERY_MAX_TIME (단위: 초)
 
 ##### 데이터 타입
 
@@ -11971,7 +11971,7 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_SENDER_SLEEP_TIME (단위: 마이크로 초)
+#### REPLICATION_SENDER_SLEEP_TIME (단위: 마이크로초)
 
 ##### 데이터 타입
 
@@ -12647,7 +12647,7 @@ Unsigned Integer
 
 Altibase와 altisnmpd(Altibase sub agent)간에 트랩을 보내기 위해 통신을 하는 UDP 포트이다.
 
-#### SNMP_RECV_TIMEOUT (단위 : 밀리세크초)
+#### SNMP_RECV_TIMEOUT (단위: 밀리초)
 
 ##### 데이터 타입
 
@@ -12671,7 +12671,7 @@ Unsigned Integer
 
 Altibase와 altisnmpd(Altibase sub agent)간에 통신을 할 때 이 프로퍼티에 설정한 값만큼 대기한다.
 
-#### SNMP_SEND_TIMEOUT (단위 : 밀리세크초)
+#### SNMP_SEND_TIMEOUT (단위: 밀리초)
 
 ##### 데이터 타입
 
@@ -13075,7 +13075,7 @@ altibase_cm.log
 
 통신(CM) 모듈 처리 시에 발생하는 메시지가 기록되는 파일이다.
 
-#### CM_MSGLOG_SIZE(단위 : 바이트)
+#### CM_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13189,7 +13189,7 @@ Unsigned Integer
 
 0이면 기록하지 않고, 0보다 큰값이면 기록한다.
 
-#### DK_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### DK_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13277,7 +13277,7 @@ altibase_dump.log
 
 서버 오류에 대한 디버깅 정보가 기록되는 메시지 파일명을 지정한다.
 
-#### DUMP_MSGLOG_SIZE (단위 : 바이트)
+#### DUMP_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13299,7 +13299,7 @@ Unsigned Integer
 
 디버깅 정보가 기록되는 메시지 파일의 최대 크기를 지정한다.
 
-#### DUMP_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### DUMP_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13365,7 +13365,7 @@ altibase_error.log
 
 서버에서 발생하는 오류 메시지를 기록할 파일명을 지정한다. Altibase 서버 비정상 종료시 프로세스의 콜 스택도 이 파일에 기록된다.
 
-#### ERROR_MSGLOG_SIZE (단위 : 바이트)
+#### ERROR_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13387,7 +13387,7 @@ Unsigned Integer
 
 서버 오류 메시지가 저장되는 파일의 최대 크기를 지정한다.
 
-#### ERROR_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### ERROR_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13477,7 +13477,7 @@ JOB 에서 발생하는 경고 메시지나 트레이스 메시지를 JOB_MSGLOG
 
 0이면 기록하지 않고, 0 보다 큰 값이면 기록한다.
 
-#### JOB_MSGLOG_SIZE(단위 : 바이트)
+#### JOB_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13663,7 +13663,7 @@ Unsigned Integer
 
 0이면 기록하지 않고, 0 보다 큰값이면 기록한다.
 
-#### MM_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### MM_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13685,7 +13685,7 @@ Unsigned Integer
 
 메인 모듈을 위한 메시지 파일을 저장하기 위해 디스크에 미리 확보해 둘 공간의 크기를 지정한다.
 
-#### MM_MSGLOG_SIZE(단위 : 바이트)
+#### MM_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13843,7 +13843,7 @@ Unsigned Integer
 
 0이면 기록하지 않고, 0 보다 큰값이면 기록한다.
 
-#### QP_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### QP_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -13865,7 +13865,7 @@ Unsigned Integer
 
 질의 처리기의 메시지 파일을 저장하기 위해 디스크에 미리 확보해 둘 공간의 크기를 지정한다.
 
-#### QP_MSGLOG_SIZE(단위 : 바이트)
+#### QP_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14065,7 +14065,7 @@ Unsigned Integer
 
 6: 충돌 메시지와 충돌을 유발한 SQL문을 모두 기록
 
-#### RP_CONFLICT_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### RP_CONFLICT_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14087,7 +14087,7 @@ Unsigned Integer
 
 이중화 충돌에 대한 트레이스 로그 파일의 저장을 위해 디스크에 미리 확보해 둘 공간의 크기를 지정한다.
 
-#### RP_CONFLICT_MSGLOG_SIZE(단위 : 바이트)
+#### RP_CONFLICT_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14177,7 +14177,7 @@ Unsigned Integer
 
 0이면 기록하지 않고, 0보다 큰 값이면 기록한다.
 
-#### RP_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### RP_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14199,7 +14199,7 @@ Unsigned Integer
 
 이중화 메시지 파일의 저장을 위해 디스크에 미리 확보해 둘 공간의 크기를 지정한다.
 
-#### RP_MSGLOG_SIZE (단위 : 바이트)
+#### RP_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14315,7 +14315,7 @@ Unsigned Integer
 
 0이면 기록하지 않고, 0 보다 큰 값이면 기록한다.
 
-#### SERVER_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### SERVER_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14337,7 +14337,7 @@ Unsigned Integer
 
 서버 메시지 파일의 저장을 위해 디스크에 미리 확보해 둘 공간의 크기를 지정한다.
 
-#### SERVER_MSGLOG_SIZE(단위 : 바이트)
+#### SERVER_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14425,7 +14425,7 @@ Unsigned Integer
 
 저장 관리자(Storage Manager)모듈에서 발생하는 경고 메시지나 트레이스 메시지를 SM_MSGLOG_FILE에 기록 할지 여부를 나타내는 플래그 값이다. 0이면 기록하지 않고, 0보다 큰값이면 기록한다.
 
-#### SM_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### SM_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14447,7 +14447,7 @@ Unsigned Integer
 
 저장 관리자의 메시지 파일을 저장하기 위해 디스크에 미리 확보해 둘 공간의 크기를 지정한다.
 
-#### SM_MSGLOG_SIZE(단위 : 바이트)
+#### SM_MSGLOG_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14561,7 +14561,7 @@ Unsigned Integer
 
 공간연산 메시지 파일의 최대 크기를 지정한다.
 
-#### TRC_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### TRC_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14681,7 +14681,7 @@ Unsigned Integer
 
 3: XA 관련 모든 메시지 로그를 기록함
 
-#### XA_MSGLOG_RESERVE_SIZE (단위 : 바이트)
+#### XA_MSGLOG_RESERVE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -14727,7 +14727,7 @@ Unsigned Integer
 
 ### 데이터베이스 링크 관련 프로퍼티 
 
-#### DBLINK_ALTILINKER_CONNECT_TIMEOUT(단위: 초)
+#### DBLINK_ALTILINKER_CONNECT_TIMEOUT (단위: 초)
 
 ##### 데이터 타입
 
@@ -14917,7 +14917,7 @@ DBLINKE_GLOBAL_TRANSACTION_LEVEL을 0으로 설정한 경우에만 이 프로퍼
 
 1: autocommit-on
 
-#### DBLINK_REMOTE_TABLE_BUFFER_SIZE (단위 : MB)
+#### DBLINK_REMOTE_TABLE_BUFFER_SIZE (단위: 메가바이트)
 
 ##### 데이터 타입
 
@@ -16070,7 +16070,7 @@ Unsigned Integer
 - 저장 프로시저 생성시 데이터 타입이 VARCHAR인 파라미터의 크기를 명시하지 않을 때
 - 저장 함수 생성시 데이터 타입이 VARCHAR인 파라미터 또는 반환 값의 크기를 명시하지 않을 때
 
-#### QUERY_STACK_SIZE (단위 : 개)
+#### QUERY_STACK_SIZE (단위: 개수)
 
 ##### 데이터 타입
 
