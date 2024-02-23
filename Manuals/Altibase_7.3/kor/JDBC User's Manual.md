@@ -3817,7 +3817,7 @@ null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 �
 | 설정 범위 | 세션                                                           |
 | 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 리턴하는지 여부<br>- off: null을 반환한다.(기본값) <br>- on: LOB 객체를 반환한다. |
 ##### 예제 
-lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다.
+lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다. 
 ```java
 Blob sBlob = sRs.getBlob();
 if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
