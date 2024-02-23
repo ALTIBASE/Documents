@@ -3731,10 +3731,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td>REPLICATION_HBT_CONNECT_WAIT_TIME</td>
-  <td>SYSTEM</td>
-  </tr>
-  <tr>
   <td>REPLICATION_HBT_DETECT_HIGHWATER_MARK</td>
   <td>SYSTEM</td>
   </tr>
