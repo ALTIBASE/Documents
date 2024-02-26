@@ -153,33 +153,6 @@ maven을 이용하여 애플리케이션을 빌드하고 수행하면, 콘솔에
 ... 이하 생략
 ```
 
-만약 Altibase 서버에 접속이 실패할 경우, 아래의 로그를 확인할 수 있다.
-
-```java
-...
-2024-02-23T16:37:14.839+09:00  INFO 73180 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-02-23T16:37:17.966+09:00 ERROR 73180 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
-
-java.sql.SQLException: Communication link failure: Connection refused: no further information
-	at Altibase.jdbc.driver.ex.Error.throwCommunicationErrorException(Error.java:278) ~[altibase-jdbc-7.3.0.0.2.jar:na]
-	at Altibase.jdbc.driver.cm.CmTcpSocket.open(CmTcpSocket.java:53) ~[altibase-jdbc-7.3.0.0.2.jar:na]
-	at Altibase.jdbc.driver.cm.CmChannel.open(CmChannel.java:535) ~[altibase-jdbc-7.3.0.0.2.jar:na]
-	at Altibase.jdbc.driver.cm.CmChannel.open(CmChannel.java:456) ~[altibase-jdbc-7.3.0.0.2.jar:na]
-	at Altibase.jdbc.driver.AltibaseConnection.<init>(AltibaseConnection.java:132) ~[altibase-jdbc-7.3.0.0.2.jar:na]
-	at Altibase.jdbc.driver.AltibaseDriver.createConnection(AltibaseDriver.java:70) ~[altibase-jdbc-7.3.0.0.2.jar:na]
-	at Altibase.jdbc.driver.AltibaseDriver.connect(AltibaseDriver.java:65) ~[altibase-jdbc-7.3.0.0.2.jar:na]
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-5.0.1.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359) ~[HikariCP-5.0.1.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-5.0.1.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470) ~[HikariCP-5.0.1.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-5.0.1.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100) ~[HikariCP-5.0.1.jar:na]
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-5.0.1.jar:na]
-... 이하 생략
-```
-
-
-
 # 예제
 
 간단한 예제로 com.example.AltitestJPA 패키지 아래에 테스트용 Book.java 엔티티 클래스를 생성한 다음, 애플리케이션을 구동하여 테이블이 자동으로 생성되는지 확인해본다.
