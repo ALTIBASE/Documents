@@ -134,7 +134,7 @@ public class AltitestJpaApplication {
 
 ## 5. Altibase 서버 연결 확인
 
-maven을 이용하여 어플리케이션을 빌드하고 수행하면, 콘솔에 아래와 같이 "Added connection Altibase.jdbc.driver.AltibaseConnection" 를 확인하여  Altibase 서버와 연결되었음을 알 수 있다.
+maven을 이용하여 애플리케이션을 빌드하고 수행하면, 콘솔에 아래와 같이 "Added connection Altibase.jdbc.driver.AltibaseConnection" 를 확인하여  Altibase 서버와 연결되었음을 알 수 있다.
 
 ```java
 ... 
