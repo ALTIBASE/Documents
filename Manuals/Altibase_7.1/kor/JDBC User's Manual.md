@@ -3870,7 +3870,7 @@ Altibase 7.1.0.9.0부터  [Maven Central Repository](https://mvnrepository.com/a
 
 #### Lob 관련 속성
 Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
-null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase JDBC에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것을 권장한다.
+null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase 7.1 JDBC에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것을 권장한다.
 
 ##### lob_null_select
 | 기본값    | on                                                           |

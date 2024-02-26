@@ -30,7 +30,7 @@ Hibernate 6.4가 포함된 Spring Data JPA와 Altibase 서버를 스프링 부�
 
 # 스프링 부트를 이용한 Altibase 연동
 
-Hibernate 6.4 부터 AltibaseDialect가 hibernate-community-dialect에 포함되기 때문에, 스프링부트 3.2.2 이상을 이용하면 간단하게 pom.xml에 의존성만 추가하면 Altibase 서버와 연동할 수 있다.
+Hibernate 6.4 부터 AltibaseDialect가 hibernate-community-dialect에 포함되기 때문에, 스프링부트 3.2.2 이상을 이용하면 pom.xml에 의존성을 추가하는 것만으로 Altibase 서버와 연동할 수 있다.
 
 ## 1. Spring initializr를 통한 스프링 부트 프로젝트 생성
 
@@ -103,11 +103,20 @@ spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 
 #### Altibase JDBC 드라이버 연결 속성
 
-Altibase 7.1 JDBC 드라이버를 이용하는 경우, 아래와 같이 연결 속성을 추가해야 한다. Altibase 7.3 JDBC 드라이버는 이 작업을 수행하지 않아도 된다.
+Altibase 7.1 JDBC 드라이버를 이용하는 경우, 아래와 같이 연결 속성 설정을 추가해야 한다. Altibase 7.3 JDBC 드라이버는 이 작업을 수행하지 않아도 된다.
 
 ```java
 jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=false
 ```
+
+> [!CAUTION]
+>
+> **lob_null_select=false**
+>
+> Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
+> null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase 7.1 에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 JDBC 연결 속성을 반드시 off로 설정해야 한다.
+>
+> Altibase 7.3 부터 lob_null_select 연결 속성의 기본값이 off이기 때문에, 연결 속성 설정을 추가하지 않아도 된다.
 
 ## 4. 애플리케이션 코드 작성 
 
