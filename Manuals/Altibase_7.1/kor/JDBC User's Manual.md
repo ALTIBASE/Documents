@@ -3840,8 +3840,7 @@ Hibernate 6.4 부터는 AltibaseDialect가 Hibernate ORM 패키지에 포함되�
 
 ##### Hibernate 6.4 이전
 
-Hibernate 6.4 이전 버전에서는 AltibaseDialect가 없으므로, AltibaseDialect.class 를 직접 지정해야 한다. 이를 위해서는  Altibase 에서 제공하는 AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
+Hibernate 6.4 이전 버전에서는 AltibaseDialect가 없으므로, AltibaseDialect.class 를 직접 지정해야 한다. 이를 위해서는  Altibase 에서 제공하는 AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 [AltibaseDialect 포팅 방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
 #### Maven 의존성(Dependency) 설정
 
@@ -3871,7 +3870,7 @@ Altibase 7.1.0.9.0부터  [Maven Central Repository](https://mvnrepository.com/a
 
 #### Lob 관련 속성
 Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
-null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase JDBC에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 리턴되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것을 권장한다.
+null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase JDBC에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것을 권장한다.
 
 ##### lob_null_select
 | 기본값    | on                                                           |
@@ -3879,7 +3878,7 @@ null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase
 | 값의 범위 | [on \| off ]                                                 |
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
-| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 리턴하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
+| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
 ##### 예제
 lob_null_select 값이 off 인 경우 다음과 같이 getBlob(), getClob()을 한 후 null 처리를 해줘야 한다.
 ```java

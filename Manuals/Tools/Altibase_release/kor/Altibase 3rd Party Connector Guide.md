@@ -124,14 +124,12 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
     - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
     - [FAQ](#faq)
-- [3.Hibernate](#3hibernate)
-    - [Hibernate](#hibernate)
-- [4.OpenLDAP](#4openldap)
+- [3.OpenLDAP](#3openldap)
     - [OpenLDAP 소개](#openldap-%EC%86%8C%EA%B0%9C)
     - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
     - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
     - [예제](#%EC%98%88%EC%A0%9C)
-- [5.Oracle GoldenGate](#5oracle-goldengate)
+- [4.Oracle GoldenGate](#4oracle-goldengate)
     - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
     - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
     - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
@@ -584,34 +582,7 @@ SQuirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭�
 
 <br>
 
-3.Hibernate
-=========
-
-### Hibernate
-
-Altibase는 비표준SQL을 제공하며, Hibernate는 이러한 기능을 수행할 수 있도록
-Dialect 클래스를 지원한다.
-
-Hibernate에서 Altibase를 연동하려면 Altibase의 JDBC Driver를 설정하고,
-Hibernate의 configuration에 AltibaseDialect.class를 지정해야 한다.
-
-#### AltibaseDialect
-
-Hibernate가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class를 포함하지
-않기 때문에 AltibaseDialect.java파일 (필요에 따라
-[AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)포함)을
-컴파일하고 Hibernate가 제공하는 파일에 포팅해야 사용할 수 있다.
-AltibaseDialect.java파일과
-[AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)파일은
-Altibase Github사이트에서 제공한다.
-
-상세한 사용 방법은 [AltibaseDialect 포팅방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md)
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md )을
-참고한다.
-
-<br>
-
-4.OpenLDAP
+3.OpenLDAP
 ========
 
 이 장은 openLDAP과 Altibase를 연동하는 방법을 설명한다.
@@ -949,7 +920,7 @@ $ isql -s localhost -u ldap -p ldap -f testdb_data.sql
 
 <br>
 
-5.Oracle GoldenGate
+4.Oracle GoldenGate
 =========
 
 ### Oracle GoldenGate 소개
