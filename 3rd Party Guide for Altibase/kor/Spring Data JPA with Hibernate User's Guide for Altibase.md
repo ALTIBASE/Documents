@@ -36,7 +36,7 @@ Hibernate 6.4가 포함된 Spring Data JPA와 스프링 부트(Spring Boot)를 �
 
 ## 1. Spring initializr를 통한 스프링 부트 프로젝트 생성
 
-https://start.spring.io/ 에 접속한 다음, 아래와 같이 입력 후 Generate 선택하여 프로젝트를 생성한다. Dependencies 에서 "ADD DEPENDENCIES..."를 클릭하여 "Spring Web", "Spring Data JPA" 를 추가한다. 예제 코드의 작성 편의를 위해 "Lombok"도 추가한다.
+https://start.spring.io/ 에 접속한 다음, 아래와 같이 입력 후 Generate를 선택하여 프로젝트를 생성한다. Dependencies 에서 "ADD DEPENDENCIES..."를 클릭하여 "Spring Web", "Spring Data JPA" 를 추가한다. 예제 코드의 작성 편의를 위해 "Lombok"도 추가한다.
 
 <img src="Images/JPA/spring_initializr.png"/>
 
