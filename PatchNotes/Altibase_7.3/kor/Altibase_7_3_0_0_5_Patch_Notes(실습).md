@@ -3,11 +3,10 @@ Altibase 7.3.0.0.5 Patch Notes
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [New Features](#new-features)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-50767 alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경시 값이 변경 되지 않습니다.](#bug-50767)
-    - [BUG-50778 column info Protocol 처리시 column count 함수 예외처리 추가](#bug-50778)
-    - [BUG-50783 procedure 실행중에 Table에 DDL 발생시 Invalid use of host variables error 발생](#bug-50783)
+    - [BUG-50767 alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경 시 값이 변경되지 않습니다.](#bug-50767)
+    - [BUG-50778 column info Protocol 처리 시 column count 함수 예외 처리 추가](#bug-50778)
+    - [BUG-50783 procedure 실행 중 Table에 DDL 발생 시 Invalid use of host variables error 발생](#bug-50783)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -16,13 +15,10 @@ Altibase 7.3.0.0.5 Patch Notes
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-New Features
-============
-
 Fixed Bugs
 ==========
 
-### BUG-50767<a name=bug-50767></a> alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경시 값이 변경 되지 않습니다.
+### BUG-50767<a name=bug-50767></a> alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경 시 값이 변경되지 않습니다.
 
 -   **module** : rp
 
@@ -30,7 +26,33 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경할 때 값이 변경 되지 않는 문제를 수정하였습니다.
+-   **설명** : alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경할 때 값이 변경되지 않는 문제를 수정하였습니다.
+    
+-   **재현 방법**
+    -   **재현 절차**
+    
+    -   **수행 결과**
+    
+    -   **예상 결과**
+    
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-50778<a name=bug-50778></a> column info Protocol 처리 시 column count 함수 예외 처리 추가
+
+-   **module** : qp
+
+-   **Category** : Fatal
+
+-   **재현 빈도** : Rare
+
+-   **설명** : column info Protocol 처리 시 column count 함수 예외 처리를 추가하였습니다.
     
 -   **재현 방법**
 
@@ -49,35 +71,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50778<a name=bug-50778></a> column info Protocol 처리시 column count 함수 예외처리 추가
-
--   **module** : qp
-
--   **Category** : Fatal
-
--   **재현 빈도** : Rare
-
--   **설명** : column info Protocol 처리시 column count 함수 예외처리
-    추가
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-50783<a name=bug-50783></a> procedure 실행중에 Table에 DDL 발생시 Invalid use of host variables error 발생
+### BUG-50783<a name=bug-50783></a> procedure 실행 중 Table에 DDL 발생 시 Invalid use of host variables error 발생
 
 -   **module** : qp
 
@@ -85,7 +79,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : procedure 실행중에 Table에  DDL 발생시  Invalid use of host variables error가 발생하는 것을 수정하였습니다.
+-   **설명** : procedure 실행 중 Table에  DDL 발생 시  Invalid use of host variables error가 발생하는 것을 수정하였습니다.
     
 - **재현 방법**
 
@@ -145,13 +139,9 @@ Changes
 
 | altibase version | database binary version | meta version | cm protocol version | replication protocol version |
 | ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
-| 7.1.0.1.8        | 6.5.1                   | 8.7.1        | 7.1.6               | 7.4.4                        |
+| 7.3.0.0.5        | 7.3.0                   | 9.3.1        | 7.1.8               | 7.4.9                        |
 
 > Altibase 7.3 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/Altibase_7_3_Version_Histories.md) 에서 확인할 수 있다.
-
-> Altibase 7.1 패치 버전별 히스토리는
-> [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md)
-> 에서 확인할 수 있다. < 이게 원래 생성된거
 
 ### 호환성
 
@@ -159,9 +149,7 @@ Changes
 
 데이터베이스 바이너리 버전은 변경되지 않았다.
 
-> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의
-> 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는
-> 데이터베이스를 재구성해야 한다.
+> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는 데이터베이스를 재구성해야 한다.
 
 #### Meta Version
 
