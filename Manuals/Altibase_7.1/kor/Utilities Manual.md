@@ -113,12 +113,12 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - [서문](#서문)
   - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.aexport](#1aexport)
-  - [aexport소개](#aexport소개)
-  - [aexport사용방법](#aexport사용방법)
+  - [aexport 소개](#aexport-소개)
+  - [aexport 사용 방법](#aexport-사용-방법)
 - [2.altiComp](#2alticomp)
   - [altiComp 소개](#alticomp-소개)
   - [altiComp 사용 방법](#alticomp-사용-방법)
-  - [비교(DIFF)기능](#비교diff기능)
+  - [비교(DIFF) 기능](#비교diff-기능)
   - [일치(SYNC) 기능](#일치sync-기능)
 - [3.aku](#3aku)
   - [개요](#개요-1)
@@ -192,27 +192,28 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에
-작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
--   제 1장 aexport  
-    이 장은 Altibase 데이터베이스 간 자동화된 데이터 마이그레이션(migration)을
-    지원하기 위한 도구인 aexport에 대해서 설명한다.
+- 제 1장 aexport  
+  이 장은 Altibase 데이터베이스 간 자동화된 데이터 마이그레이션(migration)을 지원하기 위한 도구인 aexport에 대해서 설명한다.
 
--   제 2장 altiComp  
-    이 장은 altiComp 유틸리티의 기능을 소개하고, 불일치하는 데이터를 비교하고
-    일치시키는 기능 등을 설명한다.
+- 제 2장 altiComp  
+  이 장은 altiComp 유틸리티의 기능을 소개하고, 불일치하는 데이터를 비교하고 일치시키는 기능 등을 설명한다.
 
--   제 3장 dataCompJ  
-    Altibase 데이터베이스에서 이기종 데이터베이스로 데이터를 복제할 때 데이터의
-    정합성 확인과 불일치 해소 기능을 제공하는 dataCompJ를 설명한다.
+- 제 3장 aku
 
--   제 4장 기타 Utilities  
-    이 장은 aexport, altiComp, dataCompJ 등을 제외한 나머지 유틸리티에 대해서 설명한다.
+  이 장은 쿠버네티스를 이용한 파드 간 데이터 이중화를 지원하기 위한 도구인 aku에 대해서 설명한다.
+
+- 제 4장 altiMon
+
+  이 장은 Altibase의 서버와 Altibase 서버가 구동 된 운영체제의 자원 상태를 수집하는 모니터링 유틸리티인 altiMon에 대해서 설명한다. 
+
+- 제 5장 기타 Utilities  
+  이 장은 aexport, altiComp, aku, altiMon을 제외한 나머지 유틸리티에 대해서 설명한다.
 
 #### 문서화 규칙
 
@@ -298,7 +299,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 1.aexport
 =======
 
-## aexport소개
+## aexport 소개
 
 ### 개요
 
@@ -622,7 +623,7 @@ aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값�
 예) user:rw,  group:--,  other:--로 설정하는 경우, 
 export AEXPORT_FILE_PERMISSION=600 
 
-## aexport사용방법
+## aexport 사용 방법
 
 ### 구문
 
@@ -1664,7 +1665,7 @@ Slave의 접속하는 사용자의 스키마 이름과 대상 테이블의 스�
 
 
 
-## 비교(DIFF)기능
+## 비교(DIFF) 기능
 
 Master DB와 Slave DB 간의 이중화 작업에서 발생할 수 있는 불일치 레코드를
 식별하여 실행 결과 파일로 생성하는 기능을 가진다.
