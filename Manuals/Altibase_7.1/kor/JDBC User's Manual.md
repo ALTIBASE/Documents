@@ -3879,24 +3879,6 @@ null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
 | 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
-##### 예제
-lob_null_select 값이 off 인 경우 다음과 같이 getBlob(), getClob()을 한 후 null 처리를 해줘야 한다.
-```java
-Blob sBlob = sRs.getBlob();
-if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sBlob.length();  
-   System.out.println("blob length===>" + sLength);
-}
-...
-Clob sClob = sRs.getClob();
-if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sClob.length();  
-   System.out.println("clob length===>" + sLength);
-}
-```
-
 ### SQL Plan
 
 SQL 실행 계획을 문자열로 가져오는 기능을 비표준 API로 제공한다. 실행 계획은 Altibase가 명령문을 실행하기 위해 수행하는 작업의 순서를 나타낸다. Option에는 ON, OFF, 또는 ONLY가 올 수 있으며 기본 설정값은 OFF이다.
