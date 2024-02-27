@@ -93,13 +93,9 @@ spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 
 > [!NOTE]
 >
-> **Connection.createNClob SQLFeatureNotSupportedException** 
+> **spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true** 
 >
-> Hibernate가 구동될 때 Connection.createNClob()을 호출하여 NClob 타입을 지원하는지 확인하는 과정에서 java.sql.SQLFeatureNotSupportedException 에러가 발생할 수 있다. Altibase 는 NClob 타입을 지원하지 않기 때문에 발생하며, 이 에러 메시지는 무시해도 된다. 해당 에러메시지를 제거하려면 application.properties에 다음의 설정을 추가하면 된다.
->
-> ```
-> spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-> ```
+> 이 설정은 Hibernate가 구동될 때 Connection.createNClob()을 호출하여 NClob 타입을 지원하는지 확인하는 과정에서 발생하는 java.sql.SQLFeatureNotSupportedException 에러를 무시하도록 한다. Altibase 는 NClob 타입을 지원하지 않기 때문에 해당 에러가 발생하며, 이 에러는 무시해도 된다.
 
 #### Altibase JDBC 드라이버 연결 속성
 
