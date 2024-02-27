@@ -4,37 +4,77 @@ Altibase 7.3.0.0.5 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Fixed Bugs](#fixed-bugs)
+    - [BUG-50130 패키지 인스톨러 설치시, 저장 패키지 생성 구문에서 오류가 발생합니다.](#bug-50130)
     - [BUG-50767 alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경 시 값이 변경되지 않습니다.](#bug-50767)
+    - [BUG-50768 인덱스의 DISABLE 상태를 V\$에 출력합니다.](#bug-50768)
     - [BUG-50778 column info Protocol 처리 시 column count 함수 예외 처리 추가](#bug-50778)
     - [BUG-50783 procedure 실행 중 Table에 DDL 발생 시 Invalid use of host variables error 발생](#bug-50783)
+
 - [Changes](#changes)
     - [Version Info](#version-info)
-    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+    - [호환성](#호환성)
+    - [프로퍼티](#프로퍼티)
+    - [성능 뷰](#성능-뷰)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Fixed Bugs
 ==========
 
+### BUG-50130<a name=bug-50130></a> 패키지 인스톨러 설치시, 저장 패키지 생성 구문에서 오류가 발생합니다.
+
+- **module** : qp
+- **Category** : Functional Error
+- **재현 빈도** : Always
+- **설명** : 저장 패키지 생성 구문에 불필요한 파일이 포함되어 있어서, 주석처리하고 수행되지 않도록 수정합니다.
+- **재현 방법**
+  - **재현 절차**
+  - **수행 결과**
+  - **예상 결과**
+- **Workaround**
+- **변경사항**
+  - Performance view
+  - Property
+  - Compile Option
+  - Error Code
+
 ### BUG-50767<a name=bug-50767></a> alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경 시 값이 변경되지 않습니다.
 
 -   **module** : rp
-
 -   **Category** : Functional Error
-
 -   **재현 빈도** : Always
-
 -   **설명** : alter system set으로 REPLICATION\_ACK\_XLOG\_COUNT 값을 변경할 때 값이 변경되지 않는 문제를 수정하였습니다.
-    
 -   **재현 방법**
     -   **재현 절차**
     
     -   **수행 결과**
     
     -   **예상 결과**
-    
+-   **Workaround**
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-50768<a name=bug-50768></a> 인덱스의 DISABLE 상태를 V\$에 출력합니다.
+
+-   **module** : sm
+
+-   **Category** : Enhancement
+
+-   **재현 빈도** : Always
+
+-   **설명** : 인덱스의 DISABLE 상태를 V$MEM_BTREE_HEADER, V$VOL_BTREE_HEADER, V$DISK_BTREE_HEADER에 출력합니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
 -   **Workaround**
 
 -   **변경사항**
