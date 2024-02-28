@@ -827,6 +827,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 세션                                                         |
 | 설명      | 클라이언트에 캐시할 수 있는 LOB 데이터의 최대 크기를 설정한다. |
 
+##### lob_null_select
+
+| 기본값    | on                                                           |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | [on \| off ]                                                 |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
+
 ##### login_timeout
 
 | 기본값    |                                                              |
@@ -3804,8 +3813,8 @@ Altibase 7.3.0.0.2부터  [Maven Central Repository](https://mvnrepository.com/a
 </dependency>
 ```
 
-#### Lob 관련 속성
-Altibase 7.1에서는 Lob 컬럼 값이 null인 경우, ResultSet.getBlob(), ResultSet.getClob() 수행시 Lob객체를 반환하기 때문에 **lob_null_select** 연결 속성의 값을 "off"로 변경해야 했다. 그러나 Altibase 7.3 부터는 **lob_null_select** 연결 속성의 기본값이 off로 변경됨에 따라, 더이상 연결 속성을 변경하지 않아도 된다.
+#### Lob 관련 연결 속성
+Altibase 7.1에서는 Lob 컬럼 값이 null인 경우, ResultSet.getBlob(), ResultSet.getClob() 수행시 Lob객체를 반환하기 때문에 [**lob_null_select**](#lob_null_select) 연결 속성의 값을 "off"로 변경해야 했다. 그러나 Altibase 7.3 부터는 **lob_null_select** 연결 속성의 기본값이 off로 변경됨에 따라, 더이상 연결 속성을 변경하지 않아도 된다.
 
 ### SQL Plan
 

@@ -886,6 +886,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 세션                                                         |
 | 설명      | 클라이언트에 캐시할 수 있는 LOB 데이터의 최대 크기를 설정한다. |
 
+##### lob_null_select
+
+| 기본값    | on                                                           |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | [on \| off ]                                                 |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
+
 ##### login_timeout
 
 | 기본값    |                                                              |
@@ -3868,17 +3877,14 @@ Altibase 7.1.0.9.0부터  [Maven Central Repository](https://mvnrepository.com/a
 </dependency>
 ```
 
-#### Lob 관련 속성
+#### Lob 관련 연결 속성
 Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
-null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase 7.1 JDBC에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것을 권장한다.
+null을 리턴할 것을 가정하고 기능이 동작하는 반면, Altibase 7.1 JDBC에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환된다. 따라서, Hibernate에서 Lob 관련 기능을 사용하려면 [**lob_null_select**](#lob_null_select) 연결 속성의 값을 off로 설정해야 한다.
 
-##### lob_null_select
-| 기본값    | on                                                           |
-|----------|---------------------------------------------------------------|
-| 값의 범위 | [on \| off ]                                                 |
-| 필수 여부 | No                                                            |
-| 설정 범위 | 세션                                                           |
-| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
+```java
+jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off
+```
+
 ### SQL Plan
 
 SQL 실행 계획을 문자열로 가져오는 기능을 비표준 API로 제공한다. 실행 계획은 Altibase가 명령문을 실행하기 위해 수행하는 작업의 순서를 나타낸다. Option에는 ON, OFF, 또는 ONLY가 올 수 있으며 기본 설정값은 OFF이다.
