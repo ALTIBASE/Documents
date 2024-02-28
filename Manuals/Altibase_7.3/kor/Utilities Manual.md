@@ -334,7 +334,7 @@ aexport는 데이터베이스의 어떤 부분을 추출하는지에 따라서 �
 
 aexport 실행 모드와 각 모드 별로 생성되는 SQL 스크립트 파일은 아래의 절에서 설명한다.
 
-##### 전체DB 모드
+##### 전체 DB 모드
 
 이 모드는 전체 데이터베이스를 추출한다. SYS 사용자만이 이 모드로 aexport를 실행할 수 있다.
 
@@ -445,11 +445,11 @@ aexport에 의해 생성된 모든 파일은 텍스트 파일이기 때문에 �
     
 -   TWO_PHASE_SCRIPT = ON 일 때, ALL_OBJECT.sql 파일과 ALL_OBJECT_CONSTRAINS.sql 파일이 생성된다. ALL_OBJECT.sql 파일은 모든 객체를 생성하는 SQL 스크립트를, ALL_OBJECT_CONSTRAINS.sql 파일은 모든 인덱스, 외래키, 트리거와 이중화 객체를 생성하는 SQL 스크립트를 포함한다. 또한, ALL_OBJECT_CONSTRATINS.sql을 실행하는 run_is_con.sh 쉘 스크립트 파일이 생성된다.
 
-### 알티베이스 요구사항
+### Altibase 요구사항
 
 DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다. 
 
-aexport는 DBMS_METADATA 패키지에 의존성을 가지기 때문에, aexport를 사용하기 위해서는 해당 패키지를 반드시 알티베이스에 설치해야 한다. DBMS_METADATA 패키지가 설치되지 않은 알티베이스를 대상으로 aexport를 수행하면 다음과 같은 에러가 발생한다.
+aexport는 DBMS_METADATA 패키지에 의존성을 가지기 때문에, aexport를 사용하기 위해서는 해당 패키지를 반드시 Altibase에 설치해야 한다. DBMS_METADATA 패키지가 설치되지 않은 Altibase를 대상으로 aexport를 수행하면 다음과 같은 에러가 발생한다.
 
 ```bash
 $ aexport -s localhost -u sys -p manager
@@ -567,24 +567,24 @@ aexport가 생성하는 파일 권한을 설정하는 환경 변수이다. 값�
 
 ### 파라미터
 
-| 파라미터                           | 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| \-h                                | 도움말을 출력한다.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| \-s                                | 데이터를 다운로드할 서버의 호스트 명 또는 IP 주소를 설정한다. 생략시 호스트 명 입력 프롬프트가 출력된다. IP 주소의 경우, IPv4 주소 또는 IPv6 주소를 사용할 수 있다. IPv6 주소는 “[“과 “]”로 에워싸야 한다. 예를 들어, localhost 를 명시하고자 할 때, 가능한 값은 다음과 같다. localhost (호스트 이름), 127.0.0.1 (IPv4주소), [::1] (IPv6주소) Altibase에서 IPv6 주소를 사용하는 방법에 대해서는 *Administrator’s Manual*을 참고하기 바란다.                                    |
-| \-u                                | 접속할 Altibase의 사용자명을 설정한다. 생략 시 사용자명 입력 프롬프트가 출력된다. 전체 DB 모드로 실행하려면, 이 옵션에 SYS 사용자를 지정해야 한다. 사용자 이름에 소문자, 특수 문자 또는 공백이 포함된 경우 큰 따옴표를 사용해야 한다. -u \\"user name\\"                                                                                                                                                                                                                       |
-| \-p                                | 접속할 Altibase 사용자의 패스워드를 설정한다. 생략시 패스워드 입력 프롬프트가 출력된다.                                                                                                                                                                                                                                                                                                                                                                                        |
-| \-port                             | 접속할 Altibase의 포트번호를 설정한다. 생략 시 환경 변수 ALTIBASE_PORT_NO, altibase.properties를 차례로 참조하며 설정되어 있지 않은 경우에는 포트 번호 입력 프롬프트가 출력된다.                                                                                                                                                                                                                                                                                               |
-| \-object                           | 추출할 객체를 소유자 이름과 함께 명시한다. 추출할 객체 이름에 소문자, 특수 문자 또는 공백이 포함된 경우 큰 따옴표를 사용해야 한다. -object \\"user name\\".\\"table name\\"                                                                                                                                                                                                                                                                                                    |
-| \-tserver                          | 추출한 데이터를 업로드할 대상 서버를 지정한다. 이 정보는 aexport가 생성하는 쉘 스크립트 파일 안에 사용된다. -s 옵션과 마찬가지로 호스트 이름, IPv4 주소 또는 IPv6 주소 모두 가능하다.                                                                                                                                                                                                                                                                                          |
-| \-tport                            | 접속할 대상 서버의 포트번호를 설정한다. 이 정보는 aexport가 생성하는 쉘 스크립트 파일 안에 사용된다.                                                                                                                                                                                                                                                                                                                                                                           |
-| \-nls_use                          | 데이터베이스에 데이터 저장 또는 데이터 추출 시에 사용되는 클라이언트 캐릭터 셋을 지정한다 (US7ASCII, KO16KSC5601, MS949, BIG5, GB231280, MS936, UTF8, SHIFTJIS, MS932, EUCJP). 생략 시 환경 변수 ALTIBASE_NLS_USE, altibase.properties를 차례로 참조하며, 설정되지 않았을 경우에는 데이터베이스 캐릭터 셋을 사용한다.                                                                                                                                                          |
+| 파라미터                           | 설명                                                         |
+| ---------------------------------- | ------------------------------------------------------------ |
+| \-h                                | 도움말을 출력한다.                                           |
+| \-s                                | 데이터를 다운로드할 서버의 호스트 명 또는 IP 주소를 설정한다. 생략시 호스트 명 입력 프롬프트가 출력된다. IP 주소의 경우, IPv4 주소 또는 IPv6 주소를 사용할 수 있다. IPv6 주소는 “[“과 “]”로 에워싸야 한다. 예를 들어, localhost 를 명시하고자 할 때, 가능한 값은 다음과 같다. localhost (호스트 이름), 127.0.0.1 (IPv4주소), [::1] (IPv6주소) Altibase에서 IPv6 주소를 사용하는 방법에 대해서는 *Administrator’s Manual*을 참고하기 바란다. |
+| \-u                                | 접속할 Altibase의 사용자명을 설정한다. 생략 시 사용자명 입력 프롬프트가 출력된다. 전체 DB 모드로 실행하려면, 이 옵션에 SYS 사용자를 지정해야 한다. 사용자 이름에 소문자, 특수 문자 또는 공백이 포함된 경우 큰 따옴표를 사용해야 한다. -u \\"user name\\" |
+| \-p                                | 접속할 Altibase 사용자의 패스워드를 설정한다. 생략시 패스워드 입력 프롬프트가 출력된다. |
+| \-port                             | 접속할 Altibase의 포트번호를 설정한다. 생략 시 환경 변수 ALTIBASE_PORT_NO, altibase.properties를 차례로 참조하며 설정되어 있지 않은 경우에는 포트 번호 입력 프롬프트가 출력된다. |
+| \-object                           | 추출할 객체를 소유자 이름과 함께 명시한다. 추출할 객체 이름에 소문자, 특수 문자 또는 공백이 포함된 경우 큰 따옴표를 사용해야 한다. -object \\"user name\\".\\"table name\\" |
+| \-tserver                          | 추출한 데이터를 업로드할 대상 서버를 지정한다. 이 정보는 aexport가 생성하는 쉘 스크립트 파일 안에 사용된다. -s 옵션과 마찬가지로 호스트 이름, IPv4 주소 또는 IPv6 주소 모두 가능하다. |
+| \-tport                            | 접속할 대상 서버의 포트번호를 설정한다. 이 정보는 aexport가 생성하는 쉘 스크립트 파일 안에 사용된다. |
+| \-nls_use                          | 데이터베이스에 데이터 저장 또는 데이터 추출 시에 사용되는 클라이언트 캐릭터 셋을 지정한다 (US7ASCII, KO16KSC5601, MS949, BIG5, GB231280, MS936, UTF8, SHIFTJIS, MS932, EUCJP). 생략 시 환경 변수 ALTIBASE_NLS_USE, altibase.properties를 차례로 참조하며, 설정되지 않았을 경우에는 데이터베이스 캐릭터 셋을 사용한다. |
 | \-prefer_ipv6                      | \-s 옵션으로 호스트 이름을 입력했을 때, 접속할 IP 주소의 버전을 결정하는 옵션이다. 이 옵션을 명시하면, 호스트 이름을 IPv6 주소로 바꾸어 접속한다. 이 옵션을 명시하지 않으면, isql은 IPv4 주소로 접속한다. 선호하는 버전의 IP 주소로의 접속이 실패하면, 다른 IP 버전 주소로 접속을 다시 시도한다. 예를 들어, -S 옵션에 “localhost”를 입력하고 이 옵션을 명시하면, isql 은 처음에 IPv6 주소인 [::1]로 접속하고, 이 접속이 실패하면 IPv4 주소인 127.0.0.1로 접속을 다시 시도한다. |
-| \-ssl_ca *CA_file_path*            | 접속할 알티베이스 서버의 공개키(public key)가 포함된 CA(인증 기관, Certification Authority) 인증서 파일의 위치를 지정한다.                                                                                                                                                                                                                                                                                                                                                     |
-| \-ssl_capath *CA_dir_path*         | 접속할 알티베이스 서버의 공개키가 포함된 CA 인증서 파일이 저장되어 있는 디렉토리를 지정한다.                                                                                                                                                                                                                                                                                                                                                                                   |
-| \-ssl_cert *certificate_file_path* | 클라이언트 인증서 파일의 위치를 지정한다.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| \-ssl_key *key_file_path*          | 클라이언트 개인키 파일의 위치를 지정한다.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| \-ssl_verify                       | 이 옵션을 지정하면 클라이언트가 서버로부터 전달받은 인증서를 검증한다.                                                                                                                                                                                                                                                                                                                                                                                                         |
-| \-ssl_cipher *cipher_list*         | SSL 암호화를 위해 사용할 알고리즘의 이름 후보들을 지정한다. General Reference에서 SSL_CIPHER_LIST 프로퍼티를 참고한다.                                                                                                                                                                                                                                                                                                                                                         |
+| \-ssl_ca *CA_file_path*            | 접속할 Altibase 서버의 공개키(public key)가 포함된 CA(인증 기관, Certification Authority) 인증서 파일의 위치를 지정한다. |
+| \-ssl_capath *CA_dir_path*         | 접속할 Altibase 서버의 공개키가 포함된 CA 인증서 파일이 저장되어 있는 디렉토리를 지정한다. |
+| \-ssl_cert *certificate_file_path* | 클라이언트 인증서 파일의 위치를 지정한다.                    |
+| \-ssl_key *key_file_path*          | 클라이언트 개인키 파일의 위치를 지정한다.                    |
+| \-ssl_verify                       | 이 옵션을 지정하면 클라이언트가 서버로부터 전달받은 인증서를 검증한다. |
+| \-ssl_cipher *cipher_list*         | SSL 암호화를 위해 사용할 알고리즘의 이름 후보들을 지정한다. General Reference에서 SSL_CIPHER_LIST 프로퍼티를 참고한다. |
 
 > SSL 접속에 대한 자세한 설명과 예제는 *iSQL User's Manual*의 '접속 연결 및 해제'를 참조하기 바란다.
 
@@ -1323,7 +1323,7 @@ DIFF는 Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주�
 
 1. ###### LOG_EQ_MOSO
 
-   PK를 포함한 모든 컬럼의 값이 일치하는 레코드 (EQ_MOSO)를 실행 결과 파일에 기록할지 결정하는 프로퍼티이다. 
+   PK를 포함한 모든 칼럼의 값이 일치하는 레코드 (EQ_MOSO)를 실행 결과 파일에 기록할지 결정하는 프로퍼티이다. 
    
    프로퍼티를 지정하지 않으면 "OFF"로 동작한다.
    
@@ -1331,7 +1331,7 @@ DIFF는 Master DB의 지정 테이블과 Slave DB의 지정 테이블간에 주�
    
 2. ###### LOG_DF_MOSO
 
-   PK는 동일하지만 나머지 컬럼값 중 하나라도 일치하는 않는 레코드 (DF_MOSO)를 실행 결과 파일에 기록할지 결정하는 프로퍼티이다. 
+   PK는 동일하지만 나머지 칼럼값 중 하나라도 일치하는 않는 레코드 (DF_MOSO)를 실행 결과 파일에 기록할지 결정하는 프로퍼티이다. 
    
    프로퍼티를 지정하지 않으면 "ON"으로 동작한다.
    
@@ -1449,11 +1449,11 @@ DF[m,n]-> COL_N (Vn_M, Vn_S):PK->{ PCOL_V }
 
 -   n : Slave Server의 레코드 순서
 
--   COL_N : 비교결과 다른 값을 가지는 첫 컬럼 이름
+-   COL_N : 비교결과 다른 값을 가지는 첫 칼럼 이름
 
--   Vn_M : Master Server의 해당 컬럼의 값
+-   Vn_M : Master Server의 해당 칼럼의 값
 
--   Vn_S : Slave Server의 해당 컬럼의 값
+-   Vn_S : Slave Server의 해당 칼럼의 값
 
 단, 데이터 타입이 LOB인 칼럼이 있는 레코드의 경우 해당 칼럼의 값이 기록되지 않는다.
 
@@ -2531,7 +2531,7 @@ config.xml에서 <Altimon ...> 요소는 altiMon 로그 출력 형식, 로그 �
 | \<DateFormat\>                | altiMon 로그의 날짜 형식을 설정한다. 기본값은 yyyy-MM-dd HH:mm:ss 이다. 설정 가능한 날짜 형식은 [자바 SimpleDateFormat 클래스의 날짜 형식](http://docs.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html)을 참고한다. |
 | \<MaintenancePeriod\>         | altiMon 로그 파일의 보관 기간을 설정한다. 기본값은 3이고 단위는 일(day)이다. |
 | \<Interval\>                  | altiMon의 모니터링 데이터 수집 주기를 설정한다. 기본값은 60이고 단위는 초(second)이다. <br />Metrics.xml 파일의 \<OSMetric\> 또는 \<SQLMetric\> 요소에서 Interval 속성을 설정하지 않으면 이 값이 적용된다. GroupMetrics.xml 파일의 \<Groupetric\> 요소에서는 이 값의 영향을 받지 않는다. |
-| <CpuSamplingInterval\>        | CPU 사용률(%)을 측정하는 쓰레드의 실행 주기이다. 기본값은 3이고 단위는 초(second)이다.<br/>Altibase 7.1.0.8.4 이후 부터는 CPU 사용률을 측정하기 위해 OS CPU 사용률 측정 쓰레드, 알티베이스 CPU 사용률 측정 쓰레드가 추가되었다. 각 쓰레드는 CpuSamplingInterval 주기로 CPU 사용률을 측정하며, 모니터링 요소에서는 이 값들을 참조 한다. OS CPU 사용률 측정 쓰레드와 알티베이스 CPU 사용률 측정 쓰레드는 각기 별도의 쓰레드로 동작하기 때문에, CPU 과부하시 두 측정값 사이에 시간차가 발생할 수 있다. |
+| <CpuSamplingInterval\>        | CPU 사용률(%)을 측정하는 쓰레드의 실행 주기이다. 기본값은 3이고 단위는 초(second)이다.<br/>Altibase 7.1.0.8.4 이후 부터는 CPU 사용률을 측정하기 위해 OS CPU 사용률 측정 쓰레드, Altibase CPU 사용률 측정 쓰레드가 추가되었다. 각 쓰레드는 CpuSamplingInterval 주기로 CPU 사용률을 측정하며, 모니터링 요소에서는 이 값들을 참조 한다. OS CPU 사용률 측정 쓰레드와 Altibase CPU 사용률 측정 쓰레드는 각기 별도의 쓰레드로 동작하기 때문에, CPU 과부하시 두 측정값 사이에 시간차가 발생할 수 있다. |
 | \<DBConnectionWatchdogCycle\> | Altibase 서버로의 접속 시도 주기를 설정한다. Altibase 서버가 중지되었을 때 altiMon은 이 값에 따라 주기적으로 Altibase 서버에 접속을 시도하므로 Altibase 서버가 시작되면 모니터링을 지속할 수 있다. 기본값은 60이고 단위는 초(second)이다. |
 
 
@@ -2714,7 +2714,7 @@ CommandMetric, OSMetric, SQLMetric 요소에서 공통적으로 사용할 수 �
 | :---------------------------------------------- | :--------------- | :----------------------------------------------------------- |
 | <Alert …>                                       |                  | 이 요소는 선택 항목으로, 모니터링 요소의 출력 값이 사용자가 정의한 한계 설정을 만족할 때 별도의 로그 $ALTIBASE_HOME/altiMon/logs/alert.log에 기록하는 기능이다. |
 |                                                 | Activate         | <Alert …>의 수행 여부를 설정한다. true 또는 false 값을 가지며 기본값은 true이다.<br />- true : alert 기능을 사용한다. 하위 요소로 <WarningThreshold …> 또는 <CriticalThreshold …>가 반드시 필요하다. <br />- false : alert 기능을 사용하지 않는다. |
-|                                                 | ComparisonColumn | 이 속성은 ***SQLMetric에서만*** 사용할 수 있다. SQLMetric에서 조회한 컬럼을 입력해야 한다. 컬럼의 값은 <WarningThreshold …> 또는 <CriticalThreshold …>의 Value 속성과 비교 가능한 10진수 숫자여야 한다. |
+|                                                 | ComparisonColumn | 이 속성은 ***SQLMetric에서만*** 사용할 수 있다. SQLMetric에서 조회한 칼럼을 입력해야 한다. 칼럼의 값은 <WarningThreshold …> 또는 <CriticalThreshold …>의 Value 속성과 비교 가능한 10진수 숫자여야 한다. |
 |                                                 | ComparisonType   | 모니터링 요소의 출력 값과 <WarningThreshold …> 또는 <CriticalThreshold …>의 Value 속성과 비교할 비교 연산자를 입력한다.<br />- eq : 모니터링 요소의 출력 값과 한계값이 같을 때<br/>- ne : 모니터링 요소의 출력 값이 한계값과 같지 않을 때 <br/>- gt : 모니터링 요소의 출력 값이 한계값보다 클 때<br/>- ge : 모니터링 요소의 출력 값이 한계값보다 크거나 같을 때<br/>- lt : 모니터링 요소의 출력 값이 한계값보다 작을 때<br/>- le : 모니터링 요소의 출력 값이 한계값보다 작거나 같을 때 |
 | <WarningThreshold …> 또는 <CriticalThreshold …> |                  | <Alert …>의 하위 요소로 경고 종류를 선택한다. <WarningThreshold …> 일 때 alert.log의 첫 번째 열은 WARNING이고 <CriticalThreshold …>이면 CRITICAL이다. <br />Activate 속성값이 true이면 반드시 이 요소를 사용해야 한다. |
 |                                                 | Value            | 모니터링 요소의 한계 값을 10진수 숫자로 설정한다.            |
@@ -2762,7 +2762,7 @@ GroupMetric 요소 아래에 \<Target MetricName\>, \<Column Name\> 요소가 �
 | 태그 이름             | 설명                                                         |
 | :-------------------- | :----------------------------------------------------------- |
 | \<Target MetricName\> | Group Metric에 포함할 모니터링 요소들을 지정한다. <br /><br />MetricName 속성에 Metrics.xml에서 정의한 Command Metric과 OSMetric 그리고 SQLMetric의 이름을 입력한다. OSMetric의 DISK_FREE와 DISK_FREE_PERCENTAGE를 입력할 때 'OSMetric Name'.'Disk Name'형식으로 입력해야 한다. 예) <Target MetricName='DISK_FREE.disk1'\> |
-| \<Column Name\>       | SQL Metric의 결과 중 일부 컬럼만 Group Metric에 포함하고 싶을 때 사용한다. 이 태그를 사용하지 않으면 SQL Metric에서 조회한 모든 컬럼이 Group Metric에 포함된다.<br /><br />Name 속성에 컬럼 이름을 입력한다. 컬럼 이름에 alias를 지정한 경우 alias를 입력한다. |
+| \<Column Name\>       | SQL Metric의 결과 중 일부 칼럼만 Group Metric에 포함하고 싶을 때 사용한다. 이 태그를 사용하지 않으면 SQL Metric에서 조회한 모든 칼럼이 Group Metric에 포함된다.<br /><br />Name 속성에 칼럼 이름을 입력한다. 칼럼 이름에 alias를 지정한 경우 alias를 입력한다. |
 
 <br/>
 
