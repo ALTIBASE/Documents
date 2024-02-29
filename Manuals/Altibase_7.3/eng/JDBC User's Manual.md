@@ -101,7 +101,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 <br>
 
-# Table Of Contents
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
@@ -132,6 +132,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [BIT, VARBIT](#bit-varbit)
   - [JDBC Logging](#jdbc-logging)
   - [Hibernate](#hibernate)
+  - [SQL Plan](#sql-plan)
 - [4. Tips & Recommendation](#4-tips--recommendation)
   - [Tips for Better Performance](#tips-for-better-performance)
 - [5. Error Messages](#5-error-messages)
@@ -761,6 +762,15 @@ Chapter 3.</p>
 | Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
 | Description   | Sets the maximum size of the LOB data to be cached on the client. |
+
+##### lob_null_select
+
+| Default value  | off                                                          |
+| -------------- | ------------------------------------------------------------ |
+| Range of value | [on \| off ]                                                 |
+| Requirement    | No                                                           |
+| Setting range  | Session                                                      |
+| Description    | Whether ResultSet.getBlob(), ResultSet.getClob() returns an object when the lob column value is null<br/>off: Return null <br/>on: Return LOB object |
 
 ##### login_timeout
 
@@ -3340,41 +3350,46 @@ Altibase.jdbc.driver.logging.MultipleFileHandler.formatter = java.util.logging.X
 Altibase provides nonstandard SQL while Hibernate facilitates such provision of Altibase as supporting Dialect class. In order to interlock Altibase, the Altibase JDBC Driver should be configured and AltibaseDialect.class should be specified as well into configuration under Hibernate.
 
 #### AltibaseDialect
-Since the library that Hibernate officially provides does not include AltibaseDialect.class, AltibaseDialect.java file(include AltibaseLimitHandler.java as occasion arises) should be compiled and ported to a file Hibernate provides so that it can be available for use. 
 
-The AltibaseDialect.java file and the AltibaseLimitHandler.java file are Available from the Altibase Github site. For detailed instructions on how to port AltibaseDialect, refer to (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md).
+##### Official Support Starting From Hibernate 6.4
 
-#### Lob related properties
-When the Lob column value is null, Hibernate uses ResultSet.getBlob(), ResultSet.getClob() according to the JDBC specification, assuming to return null, and the function works. However, since the Lob-related object is returned even if the value is null, the interface can be controlled with the following JDBC connection properties.
+Starting from Hibernate 6.4, AltibaseDialect is included in the Hibernate ORM package. Now, to use AltibaseDialect, users just need to add Maven dependencies configuration.
 
-##### lob_null_select
-| Default Value    | off                                                           |
-|----------|---------------------------------------------------------------|
-| Range | [on \| off ]                                                 |
-| Requirement | No                                                            |
-| Setting range | Session                                                           |
-| Description     | Whether ResultSet.getBlob() or ResultSet.getClob() returns an object when the lob column value is null  | 
-##### Example 
-Since the default value of lob_null_select is off, you need to do null processing after getBlob() and getClob() as follows.
+##### Before Hibernate 6.4
 
+In versions of Hibernate before 6.4, as AltibaseDialect is not included, it is necessary to directly specify AltibaseDialect.class. To achieve this, users need to compile the AltibaseDialect.java file provided by Altibase (including AltibaseLimitHandler.java if necessary) and port it to the files provided by Hibernate. The AltibaseDialect.java file and the AltibaseLimitHandler.java file are Available from the Altibase Github site. For detailed instructions on how to port AltibaseDialect, please refer to [ALTIBASE_DIALECT_PORTING](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md).
+
+#### Maven Dependencies Configuration
+
+##### Add AltibaseDialect Dependency
+
+Starting from Hibernate 6.4, the AltibaseDialect has been added to hibernate-community-dialect. Add the dependency as follows:
+
+```xml
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-community-dialects</artifactId>
+    <version>6.4.1.Final</version>
+</dependency>
 ```
-Blob sBlob = sRs.getBlob();
-if (sBlob != null) // If sBlob is null, NullpointerException may occur.
-{
-   long sLength = sBlob.length();  
-   System.out.println("blob length===>" + sLength);
-}
-...
-Clob sClob = sRs.getClob();
-if (sClob != null) // If sClob is null, NullpointerException may occur.
-{
-   long sLength = sClob.length();  
-   System.out.println("clob length===>" + sLength);
-}
+
+##### Add Altibase JDBC Driver Dependency
+
+From patch version Altibase 7.3.0.0.2, users can download the Altibase JDBC driver from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows:
+
+```xml
+<dependency>
+    <groupId>com.altibase</groupId>
+    <artifactId>altibase-jdbc</artifactId>
+    <version>7.3.0.0.2</version>
+</dependency>
 ```
+
+#### Lob Related Properties
+In Altibase 7.1, ResultSet.getBlob() and ResultSet.getClob() return lob object when the lob column value is null. Because of this, it was necessary to set the [**lob_null_select**](#lob_null_select) property to "off" explicitly. However, Altibase 7.3 and above versions users are allowed to skip this step because the default value of the property has been changed to "off".
 
 ### SQL Plan
-Provides the funciton to import the SQL execution plan as a string as a non-standard API. The SQL plan represents the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLy, and the default setting is OFF.
+Provides the function to import the SQL execution plan as a string as a non-standard API. The SQL plan represents the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLy, and the default setting is OFF.
 
 #### How to use
 

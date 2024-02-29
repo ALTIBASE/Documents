@@ -119,9 +119,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Altibase JDBC Driver Registration](#altibase-jdbc-driver-registration)
   - [Integration with Altibase](#integration-with-altibase)
   - [FAQ](#faq)
-- [3.Hibernate](#3hibernate)
-  - [Hibernate](#hibernate)
-- [4.OpenLDAP](#4openldap)
+- [3.OpenLDAP](#3openldap)
   - [Introduction to OpenLDAP](#introduction-to-openldap)
   - [Meta Data Configuration](#meta-data-configuration)
   - [Configuration](#configuration)
@@ -529,23 +527,7 @@ The following setting is required to display LOB data in the SQL tab or the Obje
 
 <br>
 
-# 3.Hibernate
-
-### Hibernate
-
-Altibase provides non-standard SQL, and Hibernate supports the dialect class to perform this function.
-
-To integrate Altibase in Hibernate, configure Altibase JDBC Driver, and AltibaseDialect.class must be specified in Hibernate's configuration.
-
-#### AltibaseDialect
-
-Because the library provided by Hibernate does not include AltibaseDialect.class, users must compile the [AltibaseDialect.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java) file (including [AltibaseLimitHandler.Java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)  as needed) and port it to the file provided by Hibernate to use it. 
-
-Please refer to [AltibaseDialect Porting Method](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) for detailed information.
-
-<br>
-
-# 4.OpenLDAP
+# 3.OpenLDAP
 
 This chapter describes how to integrate openLDAP with Altibase.
 

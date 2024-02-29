@@ -100,7 +100,7 @@ Customer Service Portal : <a href='http://support.altibase.com/en/'>http://suppo
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 <br>
 
-# Table Of Contents
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
@@ -761,6 +761,14 @@ Chapter 3.</p>
 | Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
 | Description   | Sets the maximum size of the LOB data to be cached on the client. |
+
+##### lob_null_select
+| Default value  | on                                                           |
+| -------------- | ------------------------------------------------------------ |
+| Range of value | [on \| off ]                                                 |
+| Requirement    | No                                                           |
+| Setting range  | Session                                                      |
+| Description    | Whether ResultSet.getBlob(), ResultSet.getClob() returns an object when the lob column value is null<br/>off: Return null <br/>on: Return LOB object |
 
 ##### login_timeout
 
@@ -3340,37 +3348,46 @@ Altibase.jdbc.driver.logging.MultipleFileHandler.formatter = java.util.logging.X
 Altibase provides nonstandard SQL while Hibernate facilitates such provision of Altibase as supporting Dialect class. In order to interlock Altibase, the Altibase JDBC Driver should be configured and AltibaseDialect.class should be specified as well into configuration under Hibernate.
 
 #### AltibaseDialect
-Since the library that Hibernate officially provides does not include AltibaseDialect.class, AltibaseDialect.java file(include AltibaseLimitHandler.java as occasion arises) should be compiled and ported to a file Hibernate provides so that it can be available for use. 
 
-The AltibaseDialect.java file and the AltibaseLimitHandler.java file are Available from the Altibase Github site. For detailed instructions on how to port AltibaseDialect, refer to (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md).
+##### Official Support Starting From Hibernate 6.4
+
+Starting from Hibernate 6.4, AltibaseDialect is included in the Hibernate ORM package. Now, to use AltibaseDialect, users just need to add Maven dependencies configuration.
+
+##### Before Hibernate 6.4
+
+In versions of Hibernate before 6.4, as AltibaseDialect is not included, it is necessary to directly specify AltibaseDialect.class. To achieve this, users need to compile the AltibaseDialect.java file provided by Altibase (including AltibaseLimitHandler.java if necessary) and port it to the files provided by Hibernate. The AltibaseDialect.java file and the AltibaseLimitHandler.java file are Available from the Altibase Github site. For detailed instructions on how to port AltibaseDialect, please refer to [ALTIBASE_DIALECT_PORTING](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md).
+
+#### Maven Dependencies Configuration
+
+##### Add AltibaseDialect Dependency
+
+Starting from Hibernate 6.4, the AltibaseDialect has been added to hibernate-community-dialect. Add the dependency as follows:
+
+```xml
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-community-dialects</artifactId>
+    <version>6.4.1.Final</version>
+</dependency>
+```
+
+##### Add Altibase JDBC Driver Dependency
+
+From patch version Altibase 7.1.0.9.0, users can download the Altibase JDBC driver from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows:
+
+```xml
+<dependency>
+    <groupId>com.altibase</groupId>
+    <artifactId>altibase-jdbc</artifactId>
+    <version>7.1.0.9.2</version>
+</dependency>
+```
 
 #### Lob Related Properties
-When the Lob column value is null, Hibernate assumes that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, it is recommended to set the following JDBC connection property to OFF in order to use Lob-related functions in Hibernate because the object related to the interface is returned even if the value is null.
+When the Lob column value is null, Hibernate operates based on the assumption that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, in Altibase 7.1, if the lob column value is null, a Lob object is returned. Therefore it is required to set the [**lob_null_select**](#lob_null_select) property to 'off' explicitly to use Lob-related functions in the Hibernate.
 
-##### lob_null_select
-| Default value    | on                                                           |
-|----------|---------------------------------------------------------------|
-| Range of value | [on \| off ]                                                 |
-| Requirement | No                                                            |
-| Setting range | Session                                                         |
-| Description     | Whether ResultSet.getBlob(), ResultSet.getClob() returns an object when the lob column value is null  | 
-
-##### Example
-When the lob_null_select value is off, getBlob(), getClob() must be done and null processing should be done as follows.
-```
-Blob sBlob = sRs.getBlob();
-if (sBlob != null) // NullpointerException may occur when sBlob is null.
-{
-   long sLength = sBlob.length();  
-   System.out.println("blob length===>" + sLength);
-}
-...
-Clob sClob = sRs.getClob();
-if (sClob != null) // If sClob is null, NullpointerException may occur.
-{
-   long sLength = sClob.length();  
-   System.out.println("clob length===>" + sLength);
-}
+```java
+jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off
 ```
 
 ### SQL Plan
