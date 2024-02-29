@@ -40,7 +40,7 @@ Visit [https://start.spring.io/](#https://start.spring.io/), then enter the foll
 
 ### Add AltibaseDialect Dependency
 
-Starting from Hibernate 6.4, the AltibaseDialect has been added to hibernate-community-dialect. Therefore, add a dependency on "hibernate-community-dialect" with a version of 6.4 or above. (If users are using Hibernate version under 6.4, users need to manually compile and add the AltibaseDialect.)
+Starting from Hibernate 6.4, the AltibaseDialect has been added to hibernate-community-dialect. Therefore, add a dependency on "hibernate-community-dialect" with a version of 6.4 or above. (If users are using Hibernate version under 6.4, they will need to manually compile and add the AltibaseDialect.)
 
 ```xml
 <dependency>
