@@ -4625,4 +4625,4 @@ $ server stopRoleManager
 
 ### 참고사항
 
-*Administrator’s Manual*, *SQL Reference, Disaster Recovery Manage* 를 참고하기 바란다.
+*Administrator’s Manual*, *SQL Reference* 를 참고하기 바란다.
