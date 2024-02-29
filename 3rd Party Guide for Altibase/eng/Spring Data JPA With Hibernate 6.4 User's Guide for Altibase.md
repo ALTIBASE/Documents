@@ -16,7 +16,7 @@
 
 # Overview
 
-This manual explains how to integrate Spring Data JPA with Hibernate 6.4 and an Altibase server using Spring Boot.
+This guide explains how to integrate Spring Data JPA with Hibernate 6.4 and an Altibase server using Spring Boot.
 
 The document is based on the following versions:
 
