@@ -216,7 +216,7 @@ This section describes the conventions used in this manual. Understanding these 
 
 There are two sets of conventions:
 
--   Syntax diagram convetions
+-   Syntax diagram conventions
 -   Sample code conventions
 
 ##### Syntax Diagram Conventions
@@ -227,13 +227,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [![image1](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | [![image2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | [![image4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif) | Indicates the end of a statement.                            |
-| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a manatory element.                                |
+| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a mandatory element.                               |
 | [![image6](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif) | Indicates an optional element.                               |
 | [![image7](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | [![image8](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
-| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comma must precede all but the first element. |
 
 ##### Sample Code Conventions
 
@@ -552,7 +552,7 @@ In addition, the statement pool option should be turned off if the <br /> deferr
 | Range | Random string                                                                                                           |
 | Mandatory | No                                                                                                                                    |
 | Setting Range | N/A                                                                                                                                   |
-| Description | This is a list of available ciphers for communiation through SSL.            |
+| Description | This is a list of available ciphers for communication through SSL. |
 
 ##### clientside_auto_commit
 
@@ -659,8 +659,8 @@ Chapter 3.</p>
 
 | Default Value | 0                                                            |
 | ------------- | :----------------------------------------------------------- |
-| Range         | Range A numerical value within the Unsigned Integer range    |
-| Mandotry      | No                                                           |
+| Range         | A numerical value within the Unsigned Integer range          |
+| Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
 | Description   | Sets the time limit for the execution of DDL statements. Queries which exceed the execution time limit are automatically terminated. <br />The unit is seconds. <br/>The value 0 indicates infinity. |
 
@@ -698,7 +698,7 @@ Chapter 3.</p>
 | Range         | [0 - 2147483647]                                             |
 | Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
-| Description   | Sets the FetchSize of the current session. This indicates the number of rows to be retrieved per FETCH from the server. If this value is 0, the JDBC driver fetches the maximum size of datathat can be contained in one network packet from the server. |
+| Description   | Sets the FetchSize of the current session. This indicates the number of rows to be retrieved per FETCH from the server. If this value is 0, the JDBC driver fetches the maximum size of data that can be contained in one network packet from the server. |
 
 ##### fetch_timeout
 
@@ -713,9 +713,9 @@ Chapter 3.</p>
 
 | Default Value | 0                                                            |
 | ------------- | :----------------------------------------------------------- |
-| Range         | A numberical value within the Unsigned Integer range         |
-| Range         | No                                                           |
-| Mandatory     | The session                                                  |
+| Range         | A numerical value within the Unsigned Integer range          |
+| Mandatory     | No                                                           |
+| Setting Range | The session                                                  |
 | Description   | Sets the time limit during which the Connection stays connected without performing any operations. The connection is automatically released when the time is up. <br />The unit is seconds. The value 0 indicates infinity. |
 
 ##### isolation_level
@@ -765,12 +765,12 @@ Chapter 3.</p>
 
 ##### lob_null_select
 
-| Default value  | off                                                          |
-| -------------- | ------------------------------------------------------------ |
-| Range of value | [on \| off ]                                                 |
-| Requirement    | No                                                           |
-| Setting range  | Session                                                      |
-| Description    | Whether ResultSet.getBlob(), ResultSet.getClob() returns an object when the lob column value is null<br/>off: Return null <br/>on: Return LOB object |
+| Default value | off                                                          |
+| ------------- | ------------------------------------------------------------ |
+| Range         | [on \| off ]                                                 |
+| Mandatory     | No                                                           |
+| Setting range | Session                                                      |
+| Description   | Whether ResultSet.getBlob(), ResultSet.getClob() returns an object when the lob column value is null.<br/>off: Return null <br/>on: Return LOB object |
 
 ##### login_timeout
 
@@ -869,7 +869,7 @@ Chapter 3.</p>
 | Range         | [true \| false]                                              |
 | Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
-| Description   | Specifies whether to reuse the ResultSet object when multiple ResultSet objects were created by executeQuery() method on the same PreparedStatement object. When it is set to true, it reuses the ResultSet object. When close() method is used on the first newly created ResultSet object, the resourse is released and an error occurs when another ResultSet object is used.  To prevent this, the next ResultSet object has to be created after the resource of the first ResultSet object is released. When it is set to false, ResultSet object will not be reused. |
+| Description   | Specifies whether to reuse the ResultSet object when multiple ResultSet objects were created by executeQuery() method on the same PreparedStatement object. When it is set to true, it reuses the ResultSet object. When close() method is used on the first newly created ResultSet object, the resource is released and an error occurs when another ResultSet object is used.  To prevent this, the next ResultSet object has to be created after the resource of the first ResultSet object is released. When it is set to false, ResultSet object will not be reused. |
 
 ##### sessionfailover
 
@@ -893,7 +893,7 @@ Chapter 3.</p>
 
 | Default Value | 0                                                            |
 | ------------- | :----------------------------------------------------------- |
-| Rnage         | [ 0 - 216 ]                                                  |
+| Range         | [ 0 - 216 ]                                                  |
 | Mandatory     | No                                                           |
 | Setting Range |                                                              |
 | Definition    | Sets the size of the socket receive buffer in 32K increments. <br />If the value of this property is set to 2, the socket receive buffer is 64K in size. <br />If the value of this attribute is not set, refer to ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO environment variable to set the value. <br />If the maximum socket receive buffer size among the TCP kernel parameters is set to less than the socket receive buffer size set by this property value, this property may be ignored or an error may be generated depending on the OS. (In case of Linux OS, it corresponds to 'net.core.rmem_max' TCP kernel parameter) |
@@ -995,7 +995,7 @@ Chapter 3.</p>
 | Range         | [true \| false ]                                             |
 | Mandatory     | No                                                           |
 | Setting Range | N/A                                                          |
-| Description   | Specifies whether to process in binary type or BLOB type when PreparedStatement.setBytes() is executed by executeBatch() for the BLOB type columns. If the value is set to true, it is processed in BLOB type. In case BLOB data exceed 65,534 bytes which is the maximum size binary data can process, this value has to be set to true because unless java.lang.ClassCastException error occurs. When it is set to false, it is processed in binary type. |
+| Description   | Specifies whether to process in binary type or BLOB type when PreparedStatement.setBytes() is executed by executeBatch() for the BLOB type columns. If the value is set to true, it is processed in BLOB type. In case BLOB data exceed 65,534 bytes which is the maximum size binary data can process, this value has to be set to true unless java.lang.ClassCastException error occurs. When it is set to false, it is processed in binary type. |
 
 ### Using Statement and ResultSet
 
@@ -3207,7 +3207,7 @@ This section offers information on managing BIT,VARBIT type data in JDBC applica
 
 BIT, VARBIT type data can be manipulated by using Java BitSet class in ALTIBASE HDB JDBC application. 
 
-When using IN parameter of PreparedStatement, either the Types.BIT type should be specified or the value can be specififed with BitSet or a character string when not specifying the type.
+When using IN parameter of PreparedStatement, either the Types.BIT type should be specified or the value can be specified with BitSet or a character string when not specifying the type.
 
 #### Notes
 
@@ -3280,7 +3280,7 @@ Setting java.util.logging can be executed in $JRE_HOME/lib/logging.properties or
 java -Djava.util.logging.config.file=$ALTIBASE_HOME/sample/JDBC/Logging/logging.properties -DALTIBASE_JDBC_TRACE=true ...
 ```
 
-Altibase provide a logging.properties sample file in a directory of $ALTIBASE_HOME/sample/JDBC/Logging, and by using or referencing it the user can directly create a configuring file and use it Djava.util.logging.config.file property.
+Altibase provides a logging.properties sample file in a directory of $ALTIBASE_HOME/sample/JDBC/Logging, and by using or referencing it the user can directly create a configuring file and use it Djava.util.logging.config.file property.
 
 ##### Logger Types
 
@@ -3389,7 +3389,7 @@ From patch version Altibase 7.3.0.0.2, users can download the Altibase JDBC driv
 In Altibase 7.1, ResultSet.getBlob() and ResultSet.getClob() return lob object when the lob column value is null. Because of this, it was necessary to set the [**lob_null_select**](#lob_null_select) property to "off" explicitly. However, Altibase 7.3 and above versions users are allowed to skip this step because the default value of the property has been changed to "off".
 
 ### SQL Plan
-Provides the function to import the SQL execution plan as a string as a non-standard API. The SQL plan represents the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLy, and the default setting is OFF.
+Provides the function to import the SQL execution plan as a string as a non-standard API. The SQL plan represents the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLY, and the default setting is OFF.
 
 #### How to use
 
@@ -3399,9 +3399,9 @@ To get the SQL plan, before execution the SQL statement, the user must call the 
 
 |                 Attribute                 | Attribute Value |                             Description                             |
 | :----------------------------------: | :----: | :----------------------------------------------------------: |
-| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | After executing the SELECT statement, the Plan Tree informaiton is not displayed, onlt the result record is displayed |
+| AltibaseConnection.EXPLAIN_PLAN_OFF  |   0    | After executing the SELECT statement, the Plan Tree information is not displayed, only the result record is displayed |
 |  AltibaseConnection.EXPLAIN_PLAN_ON  |   1    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. In the plan tree, the number of records accessed, the amount of memory occupied by tuples, and the cost are displayed |
-| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. When EXPLAN PLAN = ONLY, only the execution plan is generated without query execution, so items whose value is determined after actual execution, such as the ACCESS item, are displayed as question marks (“??”) |
+| AltibaseConnection.EXPLAIN_PLAN_ONLY |   2    | After executing the SELECT statement, it shows the information of the Plan Tree along with the result record. When EXPLAIN PLAN = ONLY, only the execution plan is generated without query execution, so items whose value is determined after actual execution, such as the ACCESS item, are displayed as question marks (“??”) |
 
 #### Code Example
 
@@ -3429,7 +3429,7 @@ This chapter shows how to use Altibase JDBC driver efficiently.
 
 The following tips should be kept in mind to enhance the performance of JDBC applications.
 
--   It is recommended to use the Stream or Writer object when using LOB data in JDBC applications. If the size of the LOB data to be used is equal to or smaller than 8192 bytes, the Lob_Cache_Threshhold connection attribute must be set to an appropriate value. 
+-   It is recommended to use the Stream or Writer object when using LOB data in JDBC applications. If the size of the LOB data to be used is equal to or smaller than 8192 bytes, the Lob_Cache_Threshold connection attribute must be set to an appropriate value. 
 -   It is recommended to execute one operation on one Connection object. For example, if a multiple number of Statement objects are created in one Connection object and their operations are executed, this can induce performance loss. 
 -   It is recommended to use the Connection Pool provided by Middleware (WAS) when the Connection object is frequently created and deleted. This is because the cost of connecting and terminating a Connection is relatively higher than other operations. 
 
@@ -3444,107 +3444,107 @@ The string value returned to SQLSTATE is composed of the first 2 characters whic
 
 The following table lists the types of SQLSTATE which can occur in the Altibase JDBC driver and its meanings briefly.
 
-| Condition                             | Class | Subcondition                                                                                             | Subclass |
-|---------------------------------------|-------|----------------------------------------------------------------------------------------------------------|----------|
-| connection exception                  | 08    |                                                                                                          |          |
-|                                       |       | Communication link failure                                                                               | S01      |
-|                                       |       | Invalid packet header version                                                                            | P01      |
-|                                       |       | Fail-Over completed                                                                                      | F01      |
-|                                       |       | Invalid format for alternate servers                                                                     | F02      |
-|                                       |       | Invalid packet next header type                                                                          | P02      |
-|                                       |       | Invalid packet sequence number                                                                           | P03      |
-|                                       |       | Invalid packet serial number                                                                             | P04      |
-|                                       |       | Invalid packet module ID                                                                                 | P05      |
-|                                       |       | Invalid packet module version                                                                            | P06      |
-|                                       |       | Invalid operation protocol                                                                               | P07      |
-|                                       |       | Invalid property id: %s                                                                                  | P08      |
-|                                       |       | Invalid connection URL                                                                                   | U01      |
-|                                       |       | Unknown host                                                                                             | H01      |
-|                                       |       | There are no available data source configurations                                                        | D01      |
-|                                       |       | connection failure                                                                                       | 006      |
-|                                       |       | SQL-client unable to establish SQL-connection                                                            | 001      |
-|                                       |       | Unsupported Algorithm                                                                                    | K01      |
-|                                       |       | Could not create keystore instance                                                                       | K02      |
-|                                       |       | Could not load keystore                                                                                  | K03      |
-|                                       |       | Invalid kestore url                                                                                      | K04      |
-|                                       |       | Could not open keystore file                                                                             | K05      |
-|                                       |       | Key management exception occurred                                                                        | K06      |
-|                                       |       | Could not retreive key from keystore                                                                     | K07      |
-|                                       |       | Default algorithm definition invalid                                                                     | K08      |
+| Condition                             | Class | Subcondition                                                 | Subclass |
+| ------------------------------------- | ----- | ------------------------------------------------------------ | -------- |
+| connection exception                  | 08    |                                                              |          |
+|                                       |       | Communication link failure                                   | S01      |
+|                                       |       | Invalid packet header version                                | P01      |
+|                                       |       | Fail-Over completed                                          | F01      |
+|                                       |       | Invalid format for alternate servers                         | F02      |
+|                                       |       | Invalid packet next header type                              | P02      |
+|                                       |       | Invalid packet sequence number                               | P03      |
+|                                       |       | Invalid packet serial number                                 | P04      |
+|                                       |       | Invalid packet module ID                                     | P05      |
+|                                       |       | Invalid packet module version                                | P06      |
+|                                       |       | Invalid operation protocol                                   | P07      |
+|                                       |       | Invalid property id: %s                                      | P08      |
+|                                       |       | Invalid connection URL                                       | U01      |
+|                                       |       | Unknown host                                                 | H01      |
+|                                       |       | There are no available data source configurations            | D01      |
+|                                       |       | connection failure                                           | 006      |
+|                                       |       | SQL-client unable to establish SQL-connection                | 001      |
+|                                       |       | Unsupported Algorithm                                        | K01      |
+|                                       |       | Could not create keystore instance                           | K02      |
+|                                       |       | Could not load keystore                                      | K03      |
+|                                       |       | Invalid kestore url                                          | K04      |
+|                                       |       | Could not open keystore file                                 | K05      |
+|                                       |       | Key management exception occurred                            | K06      |
+|                                       |       | Could not retreive key from keystore                         | K07      |
+|                                       |       | Default algorithm definition invalid                         | K08      |
 |                                       |       | Mandatory properties that are supported for the client version are not supported for the server version. | M01      |
-| dynamic SQL error                     | 07    | This statement returns result set(s)                                                                     | R01      |
-|                                       |       | Invalid query string                                                                                     | Q01      |
-|                                       |       | Statement has not been executed yet                                                                      | S01      |
-| no data                               | 02    |                                                                                                          |          |
-|                                       |       | The sql statement does not produce a result set                                                          | 001      |
-| warning                               | 01    |                                                                                                          |          |
-|                                       |       | cursor operation conflict                                                                                | 001      |
-|                                       |       | Invalid connection string attribute                                                                      | S00      |
-|                                       |       | Batch update exception occurred: %s                                                                      | B00      |
-|                                       |       | There are no batch jobs                                                                                  | B01      |
-|                                       |       | There are existing some batch jobs                                                                       | B02      |
-|                                       |       | The query cannot be executed while batch jobs are executing                                              | B03      |
-|                                       |       | Binding cannot be permitted during executing batch jobs                                                  | B04      |
-|                                       |       | Fetch operation cannot be executed during batch update                                                   | B05      |
-|                                       |       | There are too many added batch jobs                                                                      | B31      |
-|                                       |       | Statement has already been closed                                                                        | C01      |
-|                                       |       | The result set has already been closed                                                                   | C02      |
-|                                       |       | The stream has already been closed                                                                       | C03      |
-|                                       |       | additional result sets returned                                                                          | 00D      |
-|                                       |       | This result set doesn't retain data                                                                      | R01      |
-|                                       |       | Attempt to return too many rows in only one fetch operation                                              | R02      |
-|                                       |       | Option value changed                                                                                     | S02      |
-|                                       |       | Invalid value for bitset                                                                                 | V01      |
-| feature not supported                 | 0A    |                                                                                                          | 000      |
-|                                       |       | Cannot change the name of the database                                                                   | C01      |
-|                                       |       | The read only mode in transaction cannot be supported                                                    | C02      |
-|                                       |       | Not supported operation on forward only mode                                                             | T01      |
-|                                       |       | Not supported operation on read only mode                                                                | T02      |
-|                                       |       | violate the JDBC specification                                                                           | V01      |
-| syntax error or access rule violation | 42    | Invalid type conversion                                                                                  | 001      |
-|                                       |       | Column not found                                                                                         | S22      |
-| JDBC internal error                   | JI    |                                                                                                          | 000      |
-|                                       |       | Overflow occured on dynamic array which is defined by JDBC                                               | D01      |
-|                                       |       | Underflow occured on dynamic array which is defined by JDBC                                              | D02      |
-|                                       |       | This result set was created by JDBC driver's internal statement                                          | D03      |
-|                                       |       | Connection thread is interrupted                                                                         | D04      |
-|                                       |       | Remaining data exceeds the max size of the primitive type                                                | D05      |
-|                                       |       | Packet Operation has been twisted                                                                        | P01      |
-|                                       |       | Invalid method invocation                                                                                | I01      |
-| cardinality violation                 | 21    | Insert value list does not match column list                                                             | S01      |
-| data exception                        | 22    |                                                                                                          | 000      |
-|                                       |       | null value not allowed                                                                                   | 004      |
-|                                       |       | invalid parameter value                                                                                  | 023      |
-|                                       |       | Insufficient number of parameters                                                                        | P01      |
-|                                       |       | IN type parameter needed                                                                                 | P02      |
-|                                       |       | OUT type parameter needed                                                                                | P03      |
-|                                       |       | There is no column which needs to bind parameter.                                                        | P04      |
-|                                       |       | Statement ID mismatch                                                                                    | V01      |
-|                                       |       | Error occured from InputStream                                                                           | S01      |
-|                                       |       | The length between actual lob data and written lob data into the communication buffer is different.      | L01      |
-| invalid transaction state             | 25    |                                                                                                          |          |
-|                                       |       | branch transaction already active                                                                        | 002      |
-| savepoint exception                   | 3B    |                                                                                                          |          |
-|                                       |       | Cannot set savepoint at auto-commit mode                                                                 | S01      |
-|                                       |       | Invalid savepoint name                                                                                   | V01      |
-|                                       |       | Invalid savepoint                                                                                        | V02      |
-|                                       |       | Not supported operation on named savepoint                                                               | N01      |
-|                                       |       | Not supported operation on un-named savepoint                                                            | N02      |
-| invalid schema name                   | 3F    |                                                                                                          | 000      |
-|                                       |       | Explain Plan Error                                                                                       | EP       |
-|                                       |       | EXPLAIN PLAN is set to OFF                                                                               | S01      |
-| General Error                         | HY    |                                                                                                          |          |
-|                                       |       | There are too many allocated statements                                                                  | 000      |
-|                                       |       | Associated statement is not prepared                                                                     | 007      |
-|                                       |       | Attribute cannot be set now                                                                              | 011      |
-|                                       |       | Invalid string or buffer length                                                                          | 090      |
-|                                       |       | Invalid cursor position                                                                                  | 109      |
-|                                       |       | Empty ResultSet                                                                                          | R01      |
-|                                       |       | Timeout expired                                                                                          | T00      |
-| XA error                              | XA    |                                                                                                          |          |
-|                                       |       | XA open failed                                                                                           | F01      |
-|                                       |       | XA close failed                                                                                          | F02      |
-|                                       |       | XA recover failed                                                                                        | F03      |
+| dynamic SQL error                     | 07    | This statement returns result set(s)                         | R01      |
+|                                       |       | Invalid query string                                         | Q01      |
+|                                       |       | Statement has not been executed yet                          | S01      |
+| no data                               | 02    |                                                              |          |
+|                                       |       | The sql statement does not produce a result set              | 001      |
+| warning                               | 01    |                                                              |          |
+|                                       |       | cursor operation conflict                                    | 001      |
+|                                       |       | Invalid connection string attribute                          | S00      |
+|                                       |       | Batch update exception occurred: %s                          | B00      |
+|                                       |       | There are no batch jobs                                      | B01      |
+|                                       |       | There are existing some batch jobs                           | B02      |
+|                                       |       | The query cannot be executed while batch jobs are executing  | B03      |
+|                                       |       | Binding cannot be permitted during executing batch jobs      | B04      |
+|                                       |       | Fetch operation cannot be executed during batch update       | B05      |
+|                                       |       | There are too many added batch jobs                          | B31      |
+|                                       |       | Statement has already been closed                            | C01      |
+|                                       |       | The result set has already been closed                       | C02      |
+|                                       |       | The stream has already been closed                           | C03      |
+|                                       |       | additional result sets returned                              | 00D      |
+|                                       |       | This result set doesn't retain data                          | R01      |
+|                                       |       | Attempt to return too many rows in only one fetch operation  | R02      |
+|                                       |       | Option value changed                                         | S02      |
+|                                       |       | Invalid value for bitset                                     | V01      |
+| feature not supported                 | 0A    |                                                              | 000      |
+|                                       |       | Cannot change the name of the database                       | C01      |
+|                                       |       | The read only mode in transaction cannot be supported        | C02      |
+|                                       |       | Not supported operation on forward only mode                 | T01      |
+|                                       |       | Not supported operation on read only mode                    | T02      |
+|                                       |       | violate the JDBC specification                               | V01      |
+| syntax error or access rule violation | 42    | Invalid type conversion                                      | 001      |
+|                                       |       | Column not found                                             | S22      |
+| JDBC internal error                   | JI    |                                                              | 000      |
+|                                       |       | Overflow occured on dynamic array which is defined by JDBC   | D01      |
+|                                       |       | Underflow occured on dynamic array which is defined by JDBC  | D02      |
+|                                       |       | This result set was created by JDBC driver's internal statement | D03      |
+|                                       |       | Connection thread is interrupted                             | D04      |
+|                                       |       | Remaining data exceeds the max size of the primitive type    | D05      |
+|                                       |       | Packet Operation has been twisted                            | P01      |
+|                                       |       | Invalid method invocation                                    | I01      |
+| cardinality violation                 | 21    | Insert value list does not match column list                 | S01      |
+| data exception                        | 22    |                                                              | 000      |
+|                                       |       | null value not allowed                                       | 004      |
+|                                       |       | invalid parameter value                                      | 023      |
+|                                       |       | Insufficient number of parameters                            | P01      |
+|                                       |       | IN type parameter needed                                     | P02      |
+|                                       |       | OUT type parameter needed                                    | P03      |
+|                                       |       | There is no column which needs to bind parameter.            | P04      |
+|                                       |       | Statement ID mismatch                                        | V01      |
+|                                       |       | Error occurred from InputStream                              | S01      |
+|                                       |       | The length between actual lob data and written lob data into the communication buffer is different. | L01      |
+| invalid transaction state             | 25    |                                                              |          |
+|                                       |       | branch transaction already active                            | 002      |
+| savepoint exception                   | 3B    |                                                              |          |
+|                                       |       | Cannot set savepoint at auto-commit mode                     | S01      |
+|                                       |       | Invalid savepoint name                                       | V01      |
+|                                       |       | Invalid savepoint                                            | V02      |
+|                                       |       | Not supported operation on named savepoint                   | N01      |
+|                                       |       | Not supported operation on un-named savepoint                | N02      |
+| invalid schema name                   | 3F    |                                                              | 000      |
+|                                       |       | Explain Plan Error                                           | EP       |
+|                                       |       | EXPLAIN PLAN is set to OFF                                   | S01      |
+| General Error                         | HY    |                                                              |          |
+|                                       |       | There are too many allocated statements                      | 000      |
+|                                       |       | Associated statement is not prepared                         | 007      |
+|                                       |       | Attribute cannot be set now                                  | 011      |
+|                                       |       | Invalid string or buffer length                              | 090      |
+|                                       |       | Invalid cursor position                                      | 109      |
+|                                       |       | Empty ResultSet                                              | R01      |
+|                                       |       | Timeout expired                                              | T00      |
+| XA error                              | XA    |                                                              |          |
+|                                       |       | XA open failed                                               | F01      |
+|                                       |       | XA close failed                                              | F02      |
+|                                       |       | XA recover failed                                            | F03      |
 
 # 6. JDBC 4.2 API References
 
@@ -3569,7 +3569,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 | getSchema()                                             | 4.1                   | X             | Does not support schema                                      | Returns null instead of occurring an error                   |
 | abort(Executor  executor)                               | 4.1                   | O             |                                                              |                                                              |
 | setNetworkTimeout(Executor  executor, int milliseconds) | 4.1                   | O             | Executor can return NULL since SO_TIMEOUT socket option of TCP/IP connection is used internally |                                                              |
-| getNetworkTimeout()                                     | 4.1                   | O             | Synchronised with response_timeout property of JDBC and returns the property value of it |                                                              |
+| getNetworkTimeout()                                     | 4.1                   | O             | Synchronized with response_timeout property of JDBC and returns the property value of it |                                                              |
 
 ### java.sql.Wrapper
 
@@ -3598,7 +3598,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                  | Specification Version | Supported | Details                                                      | Exceptions |
 | ------------------------------- | --------------------- | --------- | ------------------------------------------------------------ | ---------- |
-| setPoolable(boolean  poolable)  | 4.0                   | O         | Altibase JDBC does not support Statement Pool but flag setting is  available |            |
+| setPoolable(boolean  poolable)  | 4.0                   | O         | Altibase JDBC does not support Statement Pool but flag setting is available |            |
 | isPoolable()                    | 4.0                   | O         |                                                              |            |
 | closeOnCompletion()             | 4.1                   | O         |                                                              |            |
 | isCloseOnCompletion()           | 4.1                   | O         |                                                              |            |
