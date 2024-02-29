@@ -108,7 +108,7 @@ jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off
 > **lob_null_select=off**
 >
 > Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
-> null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase 7.1 에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 JDBC 연결 속성을 반드시 off로 설정해야 한다.
+> null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 Altibase 7.1 에서는 lob 컬럼 값이 null 인 경우 Lob 객체가 반환되기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면  lob_null_select 연결 속성을 반드시 off로 설정해야 한다.
 >
 > Altibase 7.3 부터 lob_null_select 연결 속성의 기본값이 off이기 때문에, 연결 속성 설정을 추가하지 않아도 된다.
 
