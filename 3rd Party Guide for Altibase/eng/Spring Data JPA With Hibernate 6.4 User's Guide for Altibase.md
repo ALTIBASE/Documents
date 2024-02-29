@@ -95,9 +95,9 @@ spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 >
 > This configuration is to suppress the java.sql.SQLFeatureNotSupportedException error that may occur when Hibernate calls Connection.createNClob() to check if the NClob type is supported or not. Altibase does not support the NClob type, which leads to the occurrence of this error. However, it can be safely ignored.
 
-#### Altibase JDBC Driver Connection Configuration
+#### Altibase JDBC Driver Connection Attribute Configuration
 
-If users use the Altibase 7.1 JDBC driver, users need to add the connection attributes configuration as follows. The Altibase 7.3 JDBC driver users can skip this step.
+If users use the Altibase 7.1 JDBC driver, users need to add the connection attribute configuration as follows. The Altibase 7.3 JDBC driver users can skip this step.
 
 ```java
 jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off
