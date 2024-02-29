@@ -52,7 +52,7 @@ Starting from Hibernate 6.4, the AltibaseDialect has been added to hibernate-com
 
 ### Add Altibase JDBC Driver Dependency
 
-From patch version Altibase 7.1.0.9.0 for Altibase 7.1 and Altibase 7.3.0.0.2 for Altibase 7.3, users can download the Altibase JDBC driver from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows: 
+From patch version Altibase 7.1.0.9.0 for Altibase 7.1 and Altibase 7.3.0.0.2 for Altibase 7.3, the Altibase JDBC driver can be downloaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows: 
 
 * Add Altibase JDBC driver dependency for Altibase 7.3
 
@@ -93,11 +93,11 @@ spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 >
 > **spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true** 
 >
-> This configuration is designed to ignore the java.sql.SQLFeatureNotSupportedException error that may occur during the Hibernate runtime to check if the NClob type is supported or not, through the invocation of Connection.createNClob(). Altibase does not support the NClob type, which leads to the occurrence of this error. However, it can be safely ignored.
+> This configuration is to suppress the java.sql.SQLFeatureNotSupportedException error that may occur when Hibernate calls Connection.createNClob() to check if the NClob type is supported or not. Altibase does not support the NClob type, which leads to the occurrence of this error. However, it can be safely ignored.
 
 #### Altibase JDBC Driver Connection Configuration
 
-If users use the Altibase 7.1 JDBC driver, users need to add the connection property configuration as follows. The Altibase 7.3 JDBC driver users can skip this step.
+If users use the Altibase 7.1 JDBC driver, users need to add the connection attributes configuration as follows. The Altibase 7.3 JDBC driver users can skip this step.
 
 ```java
 jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off
@@ -107,9 +107,9 @@ jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off
 >
 > **lob_null_select=off**
 >
-> When the Lob column value is null, Hibernate operates based on the assumption that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, in Altibase 7.1, if the lob column value is null, a Lob object is returned. Therefore it is required to set the JDBC connection property to 'off' explicitly to use Lob-related functions in the Hibernate.
+> When the Lob column value is null, Hibernate operates based on the assumption that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, in Altibase 7.1, if the lob column value is null, a Lob object is returned. Therefore it is required to set the 'lob_null_select' connection attribute to 'off' explicitly to use Lob-related functions in the Hibernate.
 >
-> Starting from Altibase 7.3, the default value of the lob_null_select connection property is off, so there is no need to modify or add connection property settings.
+> Starting from Altibase 7.3, the default value of the 'lob_null_select' is off, so there is no need to modify or add connection attribute settings.
 
 ## 4. Write the Application Code 
 

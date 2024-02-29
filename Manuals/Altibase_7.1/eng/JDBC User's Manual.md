@@ -3372,7 +3372,7 @@ Starting from Hibernate 6.4, the AltibaseDialect has been added to hibernate-com
 
 ##### Add Altibase JDBC Driver Dependency
 
-From patch version Altibase 7.1.0.9.0, users can download the Altibase JDBC driver from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows:
+From patch version Altibase 7.1.0.9.0, the Altibase JDBC driver can be downloaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows:
 
 ```xml
 <dependency>
@@ -3382,8 +3382,8 @@ From patch version Altibase 7.1.0.9.0, users can download the Altibase JDBC driv
 </dependency>
 ```
 
-#### Lob Related Properties
-When the Lob column value is null, Hibernate operates based on the assumption that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, in Altibase 7.1, if the lob column value is null, a Lob object is returned. Therefore it is required to set the [**lob_null_select**](#lob_null_select) property to 'off' explicitly to use Lob-related functions in the Hibernate.
+#### Lob Related Connection Attribute
+When the Lob column value is null, Hibernate operates based on the assumption that ResultSet.getBlob() and ResultSet.getClob() will return null according to the JDBC specification. However, in Altibase 7.1, if the lob column value is null, a Lob object is returned. Therefore it is required to set the [**'lob_null_select'**](#lob_null_select) connection attribute to "off" explicitly to use Lob-related functions in the Hibernate.
 
 ```java
 jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off

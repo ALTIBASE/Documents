@@ -3487,7 +3487,7 @@ Starting from Hibernate 6.4, the AltibaseDialect has been added to hibernate-com
 
 ##### Add Altibase JDBC Driver Dependency
 
-From patch version Altibase 7.3.0.0.2, users can download the Altibase JDBC driver from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows:
+From patch version Altibase 7.3.0.0.2, the Altibase JDBC driver can be downloaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc). Add to Altibase JDBC driver dependency as follows:
 
 ```xml
 <dependency>
@@ -3497,9 +3497,9 @@ From patch version Altibase 7.3.0.0.2, users can download the Altibase JDBC driv
 </dependency>
 ```
 
-#### Lob Related Properties
+#### Lob Related Connection Attribute
 
-In Altibase 7.1, ResultSet.getBlob() and ResultSet.getClob() return lob object when the lob column value is null. Because of this, it was necessary to set the [**lob_null_select**](#lob_null_select) property to "off" explicitly. However, Altibase 7.3 and above versions users are allowed to skip this step because the default value of the property has been changed to "off".
+In Altibase 7.1, ResultSet.getBlob() and ResultSet.getClob() return lob object when the lob column value is null. Because of this, it was necessary to set the [**lob_null_select'**](#lob_null_select) connection attribute to "off" explicitly. However, Altibase 7.3 and above versions users are allowed to skip this step because the default value of this has been changed to "off".
 
 ### SQL Plan
 Provides the function to import the SQL execution plan as a string as a non-standard API. The SQL plan represents the sequence of actions Altibase performs to execute the statements. Option can be ON, OFF, or ONLY, and the default setting is OFF.
