@@ -3498,7 +3498,7 @@ This switches the data access mode for the partition to Read-Only, Read/Write or
 
 This is used to add a new column to the table.
 
-*partition lob storage_clause*
+*partition_lob_storage_clause*
 
 When a LOB column is added to a partitioned table, this clause is used to set the tablespace in which each of the LOB column partitions is stored. 
 

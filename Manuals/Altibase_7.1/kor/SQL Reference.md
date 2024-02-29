@@ -3858,7 +3858,7 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 
 테이블에 새로운 칼럼을 추가한다.
 
-*partition lob storage_clause*
+*partition_lob_storage_clause*
 
 파티션드 테이블에 LOB 칼럼을 추가할 경우 이 절을 사용해서 LOB 칼럼 파티션을 어떤
 테이블스페이스에 저장할 것인지 지정할 수 있다.
