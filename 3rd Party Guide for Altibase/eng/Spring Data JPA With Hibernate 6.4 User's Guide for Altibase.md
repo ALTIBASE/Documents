@@ -97,7 +97,7 @@ spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 
 #### Altibase JDBC Driver Connection Attribute Configuration
 
-If users use the Altibase 7.1 JDBC driver, users need to add the connection attribute configuration as follows. The Altibase 7.3 JDBC driver users can skip this step.
+If users are using the Altibase 7.1 JDBC driver, they need to add the connection attribute configuration as follows. The Altibase 7.3 JDBC driver users can skip this step.
 
 ```java
 jdbc:Altibase://127.0.0.1:20300/mydb?lob_null_select=off
