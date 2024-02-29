@@ -201,17 +201,22 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
--   제 1장 aexport  
-    이 장은 Altibase 데이터베이스 간 자동화된 데이터 마이그레이션(migration)을 지원하기 위한 도구인 aexport에 대해서 설명한다.
-    
--   제 2장 altiComp  
-    이 장은 altiComp 유틸리티의 기능을 소개하고, 불일치하는 데이터를 비교하고 일치시키는 기능 등을 설명한다.
-    
--   제 3장 dataCompJ  
-    Altibase 데이터베이스에서 이기종 데이터베이스로 데이터를 복제할 때 데이터의 정합성 확인과 불일치 해소 기능을 제공하는 dataCompJ를 설명한다.
-    
--   제 4장 기타 Utilities  
-    이 장은 aexport, altiComp, dataCompJ 등을 제외한 나머지 유틸리티에 대해서 설명한다.
+- 제 1장 aexport  
+  이 장은 Altibase 데이터베이스 간 자동화된 데이터 마이그레이션(migration)을 지원하기 위한 도구인 aexport에 대해서 설명한다.
+
+- 제 2장 altiComp  
+  이 장은 altiComp 유틸리티의 기능을 소개하고, 불일치하는 데이터를 비교하고 일치시키는 기능 등을 설명한다.
+
+- 제 3장 aku
+
+  이 장은 쿠버네티스를 이용한 파드 간 데이터 이중화를 지원하기 위한 도구인 aku에 대해서 설명한다.
+
+- 제 4장 altiMon
+
+  이 장은 Altibase의 서버와 Altibase 서버가 구동 된 운영체제의 자원 상태를 수집하는 모니터링 유틸리티인 altiMon에 대해서 설명한다. 
+
+- 제 5장 기타 Utilities  
+  이 장은 aexport, altiComp, aku, altiMon을 제외한 나머지 유틸리티에 대해서 설명한다.
 
 ### 문서화 규칙
 
@@ -225,8 +230,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 ### 구문 다이어그램
 
-이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
-설명한다.
+이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을 설명한다.
 
 | 구성 요소                       | 의미                                                         |
 | ------------------------------- | ------------------------------------------------------------ |
@@ -4598,8 +4602,6 @@ server 스크립트가 제공하는 기능은 다음과 같다.
 
 Altibase 관리를 위한 SQL 구문에 대한 자세한 내용은 *SQL Reference*를 참조한다.
 
-역할 관리자에 대한 자세한 내용은 Disaster Recovery Manual을 참조한다.
-
 ### 사용예
 
 사용 방법은 다음과 같다.
@@ -4619,4 +4621,4 @@ $ server stopRoleManager
 
 ### 참고사항
 
-*Administrator’s Manual*, *SQL Reference, Disaster Recovery Manage* 를 참고하기 바란다.
+*Administrator’s Manual*, *SQL Reference*를 참고하기 바란다.

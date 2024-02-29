@@ -1448,8 +1448,6 @@ MOSO = EQ, Count :          1
 DF[m,n]-> COL_N (Vn_M, Vn_S):PK->{ PCOL_V }
 ```
 
-
-
 -   DF : 불일치 원인 (MOSX, MOSO, MXSO)
 
 -   m : Master Server의 레코드 순서
@@ -4603,8 +4601,6 @@ server 스크립트가 제공하는 기능은 다음과 같다.
 -   역할 관리자 종료
 
 Altibase 관리를 위한 SQL 구문에 대한 자세한 내용은 *SQL Reference*를 참조한다.
-
-역할 관리자에 대한 자세한 내용은 Disaster Recovery Manual을 참조한다.
 
 ### 사용예
 
