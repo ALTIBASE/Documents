@@ -2097,7 +2097,7 @@ If this hint is specified, the optimizer creates a rule-based execution plan.
 
 #### SET BUCKET COUNT
 
-It is a hint to specify the number of hash buckets for SET-INTERECT and SET-DIFFERENCE execution nodes.
+It is a hint to specify the number of hash buckets for SET-INTERSECT and SET-DIFFERENCE execution nodes.
 
 ![set_bucket_count](media/SQL/set_bucket_count.gif)
 

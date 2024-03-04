@@ -1516,7 +1516,7 @@ For example, an index would be created on the Gender (SEX) column of the table E
 
 If there are as many male employees as female employees, a full scan would be faster than an index scan. However, if there are many more male employees than female employees, an index scan would be faster than a full scan. If a column has only two different values, the query optimizer assumes that half of the rows contain each value and uses the cost-based approach to perform a full scan. 
 
-Comparing the number of accesses in the queries below, the numbers of accesses are 20 and 4, respectively. 
+Comparing the numbers of accesses in the queries below, the numbers of accesses are 20 and 4, respectively. 
 
 <Query\> Select the employee numbers, names, and jobs of all female employees (use a full scan). 
 
@@ -2099,7 +2099,7 @@ If this hint is specified, the optimizer creates a rule-based execution plan.
 
 #### SET BUCKET COUNT
 
-It is a hint to specify the number of hash buckets for SET-INTERECT and SET-DIFFERENCE execution nodes.
+It is a hint to specify the number of hash buckets for SET-INTERSECT and SET-DIFFERENCE execution nodes.
 
 ![set_bucket_count](media/SQL/set_bucket_count.gif)
 

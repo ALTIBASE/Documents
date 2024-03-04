@@ -343,7 +343,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - Replication Manual
 - Precompiler User’s Manual
 - CLI User’s Manual
-- Application Program Interface User’s Manual
+- API User’s Manual
 - iSQL User’s Manual
 - Utilities Manual
 - Error Message Reference
@@ -2267,7 +2267,7 @@ FROM절에 나열된 순서대로 조인하도록 지시하는 힌트이다.
 
 #### SET BUCKET COUNT
 
-SET-INTERECT와 SET-DIFFERENCE 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
+SET-INTERSECT와 SET-DIFFERENCE 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
 ![set_bucket_count](media/SQL/set_bucket_count.gif)
 
