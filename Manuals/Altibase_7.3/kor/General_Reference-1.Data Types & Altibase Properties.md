@@ -11716,11 +11716,11 @@ Unsigned Integer
 
 이중화 수신자가 적용자(Applier)에게 XLog를 할당할 때 어떤 모드로 적용자에게 분배할 것인지를 선택하는 프로퍼티이다.
 
-0: XLog Count Mode
+0: Transaction Count Mode
 
-1: Transaction Count Mode
+1: XLog Count Mode
 
-이 값이 0이면 수신자는 XLog 개수가 가장 적게 할당된 적용자에게 XLog를 할당한다. 1인 경우에는 할당된 트랜잭션이 가장 적은 적용자에게 XLog를 할당한다.
+이 값이 0이면 수신자는 할당된 트랜잭션이 가장 적은 적용자에게 XLog를 할당한다. 1인 경우에는 XLog 개수가 가장 적게 할당된 적용자에게 XLog를 할당한다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
