@@ -1,54 +1,60 @@
 # Altibase 7.1.0.9.2 Patch Notes
 
+
+
+
+
+# Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-50703 Row Referencing 절을 사용하는 트리거에서 사용하지 않는 컬럼을 내부적으로 복사하지 않도록 개선합니다.](#bug-50703)
+    - [BUG-50703 Improve that the trigger which includes the Row Referencing clause does not copy unused columns internally.](#bug-50703)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-50527 NVL\_EQUAL, NVL\_NOT\_EQUAL 의 인자로 인덱스 컬럼에 대한 연산식을 적용할 경우 서버가 비정상 종료합니다.](#bug-50527)
-    - [BUG-50542 하이브리드 파티션드 테이블이면서 GEOMETRY 컬럼 또는 LOB 컬럼이 포함되고 update trigger로 설정 된 경우, multiple update 구문 수행 시 비정상 종료 발생 합니다.](#bug-50542)
-    - [BUG-50660 REFERENCING NEW ROW절을 사용하는 트리거가 참조하 테이블의 테이블 스페이스를 변경 후 트리거 동작시, 서버가 비정상 종료하는 경우가 있어서 수정합니다.](#bug-50660)
-    - [BUG-50686 V\$TIME\_ZONE\_NAMES에서 America/Porto\_Velho 타임존의 UTC\_OFFSET 값이 올바르지 않습니다.](#bug-50686)
-    - [BUG-50697 JDBC 에서 PreparedStatement를 이용하여 ping 쿼리 사용시 메모리 누수가 발생합니다.](#bug-50697)
-    - [BUG-50700 하이브리드 파티션드 테이블에서 컬럼 제약을 체크하는 로직에서 잘못된 row offset 정보로 인해 잘못된(invalid) 메모리 접근의 오류가 발생할 수 있습니다.](#bug-50700)
+    - [BUG-50527 The Altibase server is terminated abnormally when applying operational expression on index columns as parameters of NVL\_EQUAL or NVL\_NOT\_EQUAL function.](#bug-50527) 
+    - [BUG-50542 The Altibase server is terminated abnormally when multiple update statement is executed on the table, which is a hybrid partitioned table, contains GEOMETRY or LOB columns, and invokes an update trigger event.](#bug-50542)
+    - [BUG-50660 The Altibase server is terminated abnormally when a trigger using the REFERENCING NEW ROW clause is executed after changing the tablespace of the referenced table.](#bug-50660)
+    - [BUG-50686 The UTC_OFFSET value for America/Porto_Velho timezone in V\$TIME\_ZONE\_NAMES is incorrect.](#bug-50686)
+    - [BUG-50697 A memory leak occurs when using a ping query with PreparedStatement in JDBC.](#bug-50697)
+    - [BUG-50700 Invalid memory access error may occur during checking column constraints in a hybrid partitioned table because of incorrect row offset information.](#bug-50700)
   - [Changes](#changes)
     - [Version Info](#version-info)
-    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+    - [Compatibility](#Compatibility)
+    - [Altibase Server Properties](#Altibase-Server-Properties)
+    - [Performance Views](#Performance-Views)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # New Features
 
-### BUG-50703<a name=bug-50703 ></a> Row Referencing 절을 사용하는 트리거에서 사용하지 않는 컬럼을 내부적으로 복사하지 않도록 개선합니다.
+### BUG-50703<a name=bug-50703 ></a> Improve that the trigger which includes the Row Referencing clause does not copy unused columns internally.
 
 - **module** : qp-psm-trigger-execute
 
 - **Category** : Enhancement
 
-- **재현 빈도** : Always
+- **Reproducibility** : Always
 
-- **설명** : Row Referencing 절을 사용하는 트리거가 실행될 때, 내부적으로 참조 레코드를 특정 변수에 복사하여 처리하는데, 이 과정에서 불필요한 컬럼도 복사 되었습니다. 이제는 실제로 사용되는 컬럼만 복사하도록 개선되었습니다. 
+- **Description** : Previously, when a trigger with the Row Referencing clause was executed, it internally copied the referenced records to specific variables. During this process, unnecessary columns were also copied. However, it has been improved to copy only the columns that are actually used.
 
-  이 패치의 적용으로 Referencing 절을 사용하는 트리거에서 LOB 컬럼을 사용하지 않는 경우, [ERR-21031 : Unable to convert the data type.] 오류가 발생하는 문제가 해결되었습니다.
+  With this update, Altibase fixed the issue where a trigger using the Referencing clause would result in an  [ERR-21031: Unable to convert the data type.] error when the trigger does not use the LOB column.
 
-  또한, 트리거의 동작을 유발하는 DML의 실행 성능이 개선되었습니다.
+  Additionally, the performance of the DML operation that activates the trigger has been improved.
 
-  > 주의: 이번 패치에서는 아래의 문제는 해결되지 않습니다.
+  > Notice: This patch does not address the following issues.
   >
-  > * 100MB이상의 LOB 데이터가 있는 테이블에 Row Referencing 절을 사용하는 트리거에서 실제로 LOB 컬럼을 참조하는 경우, [ERR-21031 : Unable to convert the data type.] 오류가 발생할 수 있습니다.
+  > * In triggers using Row Referencing clauses on tables with LOB data exceeding 100MB, an [ERR-21031 : Unable to convert the data type.] error may occur when referencing the LOB columns.
 
-- **재현 방법**
+- **How to reproduce this bug**
 
-  -   **재현 절차**
-  -   **수행 결과**
-  -   **예상 결과**
+  -   **Reproduction conditions**
+  -   **Actual Results**
+  -   **Expected Results**
 
 - **Workaround**
 
-- **변경사항**
+- **Changes**
 
   -   Performance view
   -   Property
@@ -58,49 +64,47 @@
 Fixed Bugs
 ==========
 
-### BUG-50527<a name=bug-50527 ></a> NVL\_EQUAL, NVL\_NOT\_EQUAL 의 인자로 인덱스 컬럼에 대한 연산식을 적용할 경우 서버가 비정상 종료합니다.
+### BUG-50527<a name=bug-50527 ></a> The Altibase server is terminated abnormally when applying operational expression on index columns as parameters of NVL\_EQUAL or NVL\_NOT\_EQUAL function.
 
 -   **module** : mt
 
 -   **Category** : Fatal
 
--   **재현 빈도** : Always
+-   **Reproducibility** : Always
 
--   **설명** : NVL_EQUAL(), NVL_NOT_EQUAL() 함수의 인자로 인덱스 컬럼에 대한 연산식을 적용하는 경우, 서버가 비정상 종료하는 문제를 수정하였습니다.
+-   **Description** : The issue causing abnormal server termination when applying operational expression on index columns as parameters of the NVL_EQUAL() and NVL_NOT_EQUAL() functions has been resolved in this patch.
 
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
+-   **How to reproduce this bug**
+    -   **Reproduction conditions**
+    
+    -   **Actual Results**
+    
+    -   **Expected Results**
+    
 -   **Workaround**
 
--   **변경사항**
-
+-   **Changes**
     -   Performance view
     -   Property
     -   Compile Option
     -   Error Code
 
-### BUG-50542<a name=bug-50542 ></a> 하이브리드 파티션드 테이블이면서 GEOMETRY 컬럼 또는 LOB 컬럼이 포함되고 update trigger로 설정 된 경우, multiple update 구문 수행 시 비정상 종료 발생 합니다.
+### BUG-50542<a name=bug-50542 ></a> The Altibase server is terminated abnormally when multiple update statement is executed on the table, which is a hybrid partitioned table, contains GEOMETRY or LOB columns and invokes an update trigger event.
 
 -   **module** : sm
 
 -   **Category** : Fatal
 
--   **재현 빈도** : Always
+-   **Reproducibility** : Always
 
--   **설명** : 아래의 경우를 모두 만족하는 특정한 상황에서 mltiple update 구문 수행시 발생하는 비정상 종료 문제를 수정하였습니다.
+-   **Description** : The issue causing abnormal termination during the execution of multiple update statements under specific conditions has been addressed.
     
-    - 하이브리드 파티션드 테이블이면서 GEOMETRY 컬럼 또는 LOB 컬럼이 포함되어 있는경우
-    - update trigger event가 설정되어 있는 경우
+    - The table is a hybrid partitioned table and contains a GEOMETRY or LOB column.
+    - An update trigger event is configured.
     
-- **재현 방법**
+- **How to reproduce this bug**
 
-  - **재현 절차**
+  - **Reproduction conditions**
 
     ```sql
     DROP TABLE T1;
@@ -128,13 +132,13 @@ Fixed Bugs
     UPDATE T1 LEFT OUTER JOIN T2 ON T1.I1 = T2.I1 SET T1.I1 = T1.I1 + 5, T2.I1 = T2.I1 + 10;
     ```
 
-  - **수행 결과**
+  - **Actual Results**
 
     ```sql
     [ERR-91015 : Communication failure.]
     ```
 
-  -   **예상 결과**
+  -   **Expected Results**
 
       ```sql
       [ERR-1105F : No more than one update cursor can be used on a table.at "SYS.AFTER_UPDATE", line 8]
@@ -142,70 +146,68 @@ Fixed Bugs
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
     -   Compile Option
     -   Error Code
 
-### BUG-50660<a name=bug-50660 ></a> REFERENCING NEW ROW절을 사용하는 트리거가 참조하 테이블의 테이블 스페이스를 변경 후 트리거 동작시, 서버가 비정상 종료하는 경우가 있어서 수정합니다.
+### BUG-50660<a name=bug-50660 ></a> The Altibase server is terminated abnormally when a trigger using the REFERENCING NEW ROW clause is executed after changing the tablespace of the referenced table.
 
 -   **module** : qp-ddl-dcl-execute
 
 -   **Category** : Fatal
 
--   **재현 빈도** : Always
+-   **Reproducibility** : Always
 
--   **설명** : 트리거가 동작할때, 아래의 조건을 모두 만족하는 경우 비정상 종료하는 문제를 수정하였습니다.
+-   **Description** : The issue causing abnormal termination when a trigger, using the REFERENCING NEW ROW clause, is executed under the following conditions has been resolved:
 
-    1. REFERENCING NEW ROW절을 사용하는 트리거가  참조하는 테이블이 있고,
-    2. 이 테이블의 테이블 스페이스를 아래와 같이 변경한 후
+    1. The trigger with the REFERENCING NEW ROW clause references a table.
+    2. The table's tablespace is altered according to the following conditions:
 
-    * 메모리 테이블 스페이스라면, 디스크 테이블 스페이스로 변경 
+    * If it was a memory tablespace, change it to a disk tablespace.
 
-    * 디스크 테이블 스페이스라면, 메모리 테이블 스페이스로 변경
+    * If it was a disk tablespace, change it to a memory tablespace.
     
-    3. 트리거가 동작하면서 trigger_event에 정의된 DML을 수행
+    3. The trigger executes and DML statements defined in trigger_event are performed.
     
--   **재현 방법**
+-   **How to reproduce this bug**
 
-    -   **재현 절차**
+    -   **Reproduction conditions**
 
-    -   **수행 결과**
+    -   **Actual Results**
 
-    -   **예상 결과**
+    -   **Expected Results**
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
     -   Compile Option
     -   Error Code
 
-### BUG-50686<a name=bug-50686 ></a> V\$TIME\_ZONE\_NAMES에서 America/Porto\_Velho 타임존의 UTC\_OFFSET 값이 올바르지 않습니다.
+### BUG-50686<a name=bug-50686 ></a> The UTC_OFFSET value for America/Porto_Velho timezone in V\$TIME\_ZONE\_NAMES is incorrect.
 
 -   **module** : mt
 
 -   **Category** : Functional Error
 
--   **재현 빈도** : Always
+-   **Reproducibility** : Always
 
--   **설명** : V\$TIME\_ZONE\_NAMES에서 America/Porto\_Velho 타임존의
-    UTC\_OFFSET 값이 잘못된 값인 "04:00"으로 표시되고 있어서, 올바른
-    값인 "-04:00" 로 수정합니다.
+-   **Description** : The UTC_OFFSET value for the America/Porto_Velho timezone in V$TIME_ZONE_NAMES is incorrectly displayed. This will be corrected to show the accurate value of "-04:00".
+    
+- **How to reproduce this bug**
 
-- **재현 방법**
-
-  - **재현 절차**
+  - **Reproduction conditions**
 
     ```sql
     select * from v$time_zone_names where name='America/Porto_Velho';
     ```
 
-  - **수행 결과**
+  - **Actual Results**
 
     ```sql
     NAME                                      UTC_OFFSET
@@ -213,7 +215,7 @@ Fixed Bugs
     America/Porto_Velho                       04:00
     ```
 
-  -   **예상 결과**
+  -   **Expected Results**
 
       ```sql
       NAME                                      UTC_OFFSET
@@ -223,26 +225,26 @@ Fixed Bugs
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
     -   Compile Option
     -   Error Code
 
-### BUG-50697<a name=bug-50697 ></a> JDBC 에서 PreparedStatement를 이용하여 ping 쿼리 사용시 메모리 누수가 발생합니다.
+### BUG-50697<a name=bug-50697 ></a> A memory leak occurs when using a ping query with PreparedStatement in JDBC.
 
 -   **module** : mm-jdbc
 
 -   **Category** : Functional Error
 
--   **재현 빈도** : Always
+-   **Reproducibility** : Always
 
--   **설명** : JDBC 에서 PreparedStatement를 이용하여 ping 쿼리 사용시 메모리 누수가 발생하는 문제를 수정하였습니다. 이 버그를 적용하려면 JDBC 드라이버를 패치해야 합니다.
+-   **Description** : Altibase has fixed a memory leak issue when useing a ping query with PreparedStatement in JDBC. Users need to patch JDBC Driver to apply this fix.
     
-- **재현 방법**
+- **How to reproduce this bug**
 
-  - **재현 절차**
+  - **Reproduction conditions**
 
     ```java
     Connection sConn = getConnection("20300");
@@ -259,48 +261,46 @@ Fixed Bugs
     sConn.close();
     ```
 
-  -   **수행 결과**
+  -   **Actual Results**
 
-          메모리 사용량이 계속 증가함
+          Memory Usage is consistently increasing.
 
-  -   **예상 결과**
+  -   **Expected Results**
 
-          메모리 사용량이 계속 증가하지 않음
+          Memory usage is not consistently increasing.
 
 -   **Workaround**
 
-        ping 쿼리 대신 select 1 from dual 사용
+        Using 'select 1 from dual' instead of a ping query
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
     -   Compile Option
     -   Error Code
 
-### BUG-50700<a name=bug-50700 ></a> 하이브리드 파티션드 테이블에서 컬럼 제약을 체크하는 로직에서 잘못된 row offset 정보로 인해 잘못된(invalid) 메모리 접근의 오류가 발생할 수 있습니다.
+### BUG-50700<a name=bug-50700 ></a> Invalid memory access error may occur during checking column constraints in a hybrid partitioned table because of incorrect row offset information.
 
 -   **module** : qp
 
 -   **Category** : Memory Error
 
--   **재현 빈도** : Always
+-   **Reproducibility** : Always
 
--   **설명** : 하이브리드 파티션드 테이블에서 컬럼 제약을 체크하는
-    로직에서 잘못된 row offset 정보로 인한 잘못된(invalid) 메모리 접근의
-    오류가 발생하지 않도록 수정합니다.
+-   **Description** : Altibase has fixed the issue of invalid memory access due to incorrect row offset information in the logic that checks column constraints in a hybrid partitioned table.
+    
+-   **How to reproduce this bug**
 
--   **재현 방법**
+    -   **Reproduction conditions**
 
-    -   **재현 절차**
+    -   **Actual Results**
 
-    -   **수행 결과**
-
-    -   **예상 결과**
+    -   **Expected Results**
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -316,46 +316,42 @@ Changes
 | ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
 | 7.1.0.9.2        | 6.5.1                   | 8.11.1       | 7.1.7               | 7.4.7                        |
 
- > Altibase 7.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+ > You can check the module version change history in [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md).
 
-### 호환성
+### Compatibility
 
 #### Database binary version
 
-데이터베이스 바이너리 버전은 변경되지 않았다.
+The database binary version has not changed.
 
-> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의
-> 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는
-> 데이터베이스를 재구성해야 한다.
+> The database binary version indicates the compatibility of database image files and log files. If this version needs to be patched to a different version, the database must be reorganized.
 
 #### Meta Version
 
-메타 버전은 변경되지 않았다.
+The meta version has not changed.
 
-> 패치를 롤백하려는 경우,
-> [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를
-> 참고한다.
+> If you want to roll back the patch after patching to a version with a changed meta version, see [Meta Downgrade](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Installation Guide.md#meta-downgrade).
 
 #### CM protocol Version
 
-통신 프로토콜 버전은 변경되지 않았다.
+The cm protocol version has not changed.
 
 #### Replication protocol Version
 
-Replication 프로토콜 버전은 변경되지 않았다.
+The replication protocol version has not changed.
 
-### 프로퍼티
+### Altibase Server Properties
 
-#### 추가된 프로퍼티
+#### Added Properties
 
-#### 변경된 프로퍼티
+#### Changed Properties
 
-#### 삭제된 프로퍼티
+#### Deleted Properties
 
-### 성능 뷰
+### Performance Views
 
-#### 추가된 성능 뷰
+#### Added Performance Views
 
-#### 변경된 성능 뷰
+#### Changed Performance Views
 
-#### 삭제된 성능 뷰
+#### Deleted Performance Views
