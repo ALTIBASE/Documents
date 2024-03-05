@@ -156,7 +156,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - [6.이중화 롤(ROLE)](#6-이중화-롤role)
 
   - [Log Analyzer 롤](#log-analyzer-롤)
-  - [전파(Propagation)](전파propagation)
+  - [전파(Propagation)](#전파propagation)
 
 - [A.부록: FAQ](#a부록-faq)
 
