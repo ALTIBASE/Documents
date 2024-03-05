@@ -11447,7 +11447,7 @@ The REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property sets the mode in which the
 
 If the REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property is set to 0, XLogs are assigned to the applier with the least number of transactions.
 
-If the REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property is set to 1,  XLogs are assigned to the applier with the least amount of XLogs.
+If the REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property is set to 1, XLogs are assigned to the applier with the least amount of XLogs.
 
 The value of this property can be altered using the ALTER SYSTEM statement while Altibase is running. 
 
